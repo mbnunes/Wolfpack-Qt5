@@ -1,6 +1,8 @@
 
 import magic.spellbook
 from wolfpack.utilities import *
+from combat import properties
+from wolfpack.consts import *
 
 TARGET_CHAR = 1
 TARGET_ITEM = 2
@@ -78,111 +80,141 @@ def hasSpell(char, spell):
 #
 def statmodifier_dispel(char, args, source, dispelargs):
 	stat = args[0]
-	(amount1, amount2, amount3) = args[1:]
-
-	if stat == 0 or stat == 3:
-		char.strength2 -= amount1
-		if char.strength - amount1 > 0:
-			char.strength -= amount1
+	amount = args[1]
+	
+	if stat == 0:
+		char.strength2 -= amount
+		if char.strength - amount > 0:
+			char.strength -= amount
 		else:
 			char.strength = 1
 		char.hitpoints = min(char.hitpoints, char.maxhitpoints)
-	if stat == 1 or stat == 3:
-		char.dexterity2 -= amount2
-		if char.dexterity - amount2 > 0:
-			char.dexterity -= amount2
+
+	elif stat == 1:
+		char.dexterity2 -= amount
+		if char.dexterity - amount > 0:
+			char.dexterity -= amount
 		else:
 			char.dexterity = 1
 		char.stamina = min(char.stamina, char.maxstamina)
-	if stat == 2 or stat == 3:
-		char.intelligence2 -= amount3
-		char.intelligence -= amount3
+
+	elif stat == 2:
+		char.intelligence2 -= amount
+		if char.intelligence - amount > 0:
+			char.intelligence -= amount
+		else:
+			char.intelligence = 1
 		char.mana = min(char.mana, char.maxmana)
 
 	# If we're not dispelling it silently, update 
 	# health and stats
 	if not "silent" in dispelargs:
-		if stat == 0 or stat == 3:
+		if stat == 0:
 			char.updatehealth()
 		char.updatestats()
-
-	return
 
 #
 # A stat enhancing spell has expired
 #
 def statmodifier_expire(char, args):
 	stat = args[0]
-	(amount1, amount2, amount3) = args[1:]
+	amount = args[1]
 	
-	if stat == 0 or stat == 3:
-		char.strength2 -= amount1
-		if char.strength - amount1 > 0:
-			char.strength -= amount1
+	if stat == 0:
+		char.strength2 -= amount
+		if char.strength - amount > 0:
+			char.strength -= amount
 		else:
 			char.strength = 1
 		char.hitpoints = min(char.hitpoints, char.maxhitpoints)
 		char.updatehealth()
-	if stat == 1 or stat == 3:
-		char.dexterity2 -= amount2
-		if char.dexterity - amount2 > 0:
-			char.dexterity -= amount2
+
+	elif stat == 1:
+		char.dexterity2 -= amount
+		if char.dexterity - amount > 0:
+			char.dexterity -= amount
 		else:
 			char.dexterity = 1
-		char.stamina = min(char.stamina, char.maxstamina)		
-	if stat == 2 or stat == 3:
-		char.intelligence2 -= amount3
-		char.intelligence -= amount3
+		char.stamina = min(char.stamina, char.maxstamina)
+
+	elif stat == 2:
+		char.intelligence2 -= amount
+		if char.intelligence - amount > 0:
+			char.intelligence -= amount
+		else:
+			char.intelligence = 1
 		char.mana = min(char.mana, char.maxmana)
 
 	char.updatestats()
-	return
 
 #
 # Apply a stat modifying spell
 #
 def statmodifier(char, target, stat, curse):
-	duration = min(15, int(char.skill[MAGERY] * 0.12)) * 1000
-	amount = min(5, 1 + int(char.skill[MAGERY] * 0.01))
+	# Calculate the amount
+	char.checkskill(EVALUATINGINTEL, 0, 1200)
+	if curse:
+		target.checkskill(MAGICRESISTANCE, 0, 1200)
+
+	if curse:
+		percent = 8 + (char.skill[EVALUATINGINTEL] - target.skill[MAGICRESISTANCE]) / 100.0
+	else:
+		percent = 1 + char.skill[EVALUATINGINTEL] / 100.0
+		
+	percent = max(0, percent / 100)
+	
+	# Calculate the duration
+	duration = (char.skill[EVALUATINGINTEL] / 50 + 1) * 6000
+
+	amount1 = int((target.strength - target.strength2) * percent)
+	amount2 = int((target.dexterity - target.dexterity2) * percent)
+	amount3 = int((target.intelligence - target.intelligence2) * percent)
 	
 	# Reverse if it's a curse
 	if curse:
-		amount *= -1
-	
-	# Dispel any old stat modifiers on this character
-	# And readd a new one (remove the old ones silently)
-	char.dispel(char, 0, "magic_statmodifier", ["silent"])
-
-	amount1 = amount
-	amount2 = amount
-	amount3 = amount
+		amount1 *= -1	
+		amount2 *= -1	
+		amount3 *= -1	
 
 	if stat == 0 or stat == 3:
+		target.dispel(char, 0, "magic_statmodifier_0", ["silent"])
+
 		# Adjust amount
-		if target.strength + amount < 1:
+		if target.strength + amount1 < 1:
 			amount1 = -(target.strength - 1)
-		target.strength2 += amount	
-		target.strength += amount
+		target.strength2 += amount1
+		target.strength += amount1
 		target.hitpoints = min(target.hitpoints, target.maxhitpoints)
-		target.updatehealth()		
+		target.updatehealth()
+		
+		target.addtimer(duration, "magic.utilities.statmodifier_expire", [0, amount1], \
+			1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
+		
 	if stat == 1 or stat == 3:
-		if target.dexterity + amount < 1:
+		target.dispel(char, 0, "magic_statmodifier_1", ["silent"])
+
+		if target.dexterity + amount2 < 1:
 			amount2 = -(target.dexterity - 1)
-		target.dexterity2 += amount
-		target.dexterity += amount
+		target.dexterity2 += amount2
+		target.dexterity += amount2
 		target.stamina = min(target.stamina, target.maxstamina)
+		
+		target.addtimer(duration, "magic.utilities.statmodifier_expire", [1, amount2], \
+			1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
+		
 	if stat == 2 or stat == 3:
-		if target.intelligence + amount < 1:
+		target.dispel(char, 0, "magic_statmodifier_2", ["silent"])
+
+		if target.intelligence + amount3 < 1:
 			amount3 = -(target.intelligence - 1)
-		target.intelligence2 += amount
-		target.intelligence += amount
+		target.intelligence2 += amount3
+		target.intelligence += amount3
 		target.mana = min(target.mana, target.maxmana)
 
-	target.updatestats()
+		target.addtimer(duration, "magic.utilities.statmodifier_expire", [2, amount3], \
+			1, 1, "magic_statmodifier_2", "magic.utilities.statmodifier_dispel")
 
-	# Save the values in a tempeffect to remove them later
-	target.addtimer(duration, "magic.utilities.statmodifier_expire", [stat, amount1, amount2, amount3], \
-		1, 1, "magic_statmodifier", "magic.utilities.statmodifier_dispel")
+	target.updatestats()
 
 #
 # When a fieldeffect spell expires.
@@ -192,3 +224,45 @@ def field_expire(object, args):
 		item = wolfpack.finditem(serial)
 		if item:
 			item.delete()
+
+#
+# Helper function for distributing the damage among the energytypes
+#
+def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0):
+	if not target:
+		raise RuntimeError, "Invalid arguments for Spell.energydamage."
+	
+	if amount == 0 or physical + fire + cold + poison + energy == 0:
+		raise RuntimeError, "Invalid arguments for Spell.energydamage."
+
+	damage = 0
+
+	if physical > 0:
+		physical = amount * (physical / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_PHYSICAL) / 100.0
+		damage += max(0, physical - (physical * resistance))
+		
+	if fire > 0:
+		fire = amount * (fire / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_FIRE) / 100.0
+		damage += max(0, fire - (fire * resistance))
+		
+	if cold > 0:
+		cold = amount * (cold / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_COLD) / 100.0
+		damage += max(0, cold - (cold * resistance))
+		
+	if poison > 0:
+		poison = amount * (poison / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_POISON) / 100.0
+		damage += max(0, poison - (poison * resistance))
+		
+	if energy > 0:
+		energy = amount * (energy / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_ENERGY) / 100.0
+		damage += max(0, energy - (energy * resistance))
+		
+	damage = max(1, damage)
+	target.damage(DAMAGE_MAGICAL, damage, source)
+
+

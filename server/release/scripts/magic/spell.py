@@ -3,6 +3,8 @@ import magic
 from wolfpack.consts import *
 from magic.utilities import *
 import wolfpack.console
+import random
+from combat import properties
 
 # Recursive Function for counting reagents
 def countReagents( item, items ):
@@ -52,12 +54,16 @@ class Spell:
 		return 1
 	
 	def register( self, id ):
-		self.spellid = id
+		self.spellid = id		
 		magic.registerspell( self.spellid, self )
 	
 	def __init__( self, circle ):
 		# Set Mana
+		self.range = 12
+		self.skill = MAGERY
+		self.damageskill = EVALUATINGINTEL
 		self.circle = circle
+		self.reflectable = 0
 		mana_table = [ 4, 6, 9, 11, 14, 20, 40, 50 ]
 		self.mana = mana_table[ self.circle - 1 ]
 
@@ -71,7 +77,7 @@ class Spell:
 		if mode == MODE_BOOK:
 			# Check for Mana
 			if char.mana < self.mana:
-				char.socket.sysmessage(502625)
+				char.message(502625)
 				return 0
 
 			# Check for Reagents	
@@ -80,7 +86,7 @@ class Spell:
 	
 				for item in items.keys():
 					if items[item] > 0:
-						char.socket.sysmessage(502630)
+						char.message(502630)
 						return 0
 	
 		return 1
@@ -105,7 +111,7 @@ class Spell:
 		minskill = max(0, int((1000 / 7) * self.circle - 200))
 		maxskill = min(1200, int((1000 / 7) * self.circle + 200))
 		
-		if not char.checkskill(MAGERY, minskill, maxskill):
+		if not char.checkskill(self.skill, minskill, maxskill):
 			char.message(502632)
 			fizzle(char)			
 			return 0
@@ -115,21 +121,60 @@ class Spell:
 	# Not implemented yet
 	def checkreflect( self, char, mode, targettype, target ):
 		return 0
+	
+	#
+	# mindamage is the minimum damage
+	# randoffset is the damage gained trough randomness
+	# fraction Is the divider for the damage skill.
+	#  Assume a floating point number for the skill here.
+	#
+	def scaledamage(self, char, target, mindamage, randombonus, fraction):
+		scale = 1.0 + char.skill[INSCRIPTION] * 0.0001
 		
-	def scaledamage( self, char, target, damage ):
-		if self.checkresist( char, target ):
-			if target.socket:
-				target.socket.sysmessage( 501783 )
-			damage *= 0.75	
-	
-		if not target.socket:
-			damage *= 2
-	
-		return damage
+		if char.player:
+			scale += char.intelligence * 0.001
+			scale += properties.fromchar(char, SPELLDAMAGEBONUS) / 100.0
+			
+		basedamage = mindamage + int(char.skill[self.damageskill] / (fraction * 10.0))
+		damage = random.randint(basedamage, basedamage + randombonus)
 		
-	def checkresist( self, char, target ):
-		return 0
-	
+		return scale * damage
+
+	#
+	# Calculate the chance the given target has to resist
+	# this spell.
+	#	
+	def resistchance(self, char, target):
+		basechance = target.skill[MAGICRESISTANCE] / 50.0
+		evalchance = target.skill[MAGICRESISTANCE] / 10.0 - (((char.skill[self.skill] - 200) / 50.0) + self.circle * 5.0)
+		if basechance > evalchance:
+			return basechance / 2.0
+		else:
+			return evalchance / 2.0
+
+	#
+	# Check if the target is successful in resisting this spell
+	# cast by char.
+	#
+	def checkresist(self, char, target):
+		chance = self.resistchance(char, target)
+		chance /= 100.0
+		
+		# No chance to resist
+		if chance <= 0.0:
+			return 0
+			
+		if chance >= 1.0:
+			return 1
+			
+		maxskill = self.circle * 100
+		maxskill += (1 + ((self.circle - 1) / 6)) * 250
+
+		if target.skill[MAGICRESISTANCE] < maxskill:
+			target.checkskill(MAGICRESISTANCE, 0, 1200)
+			
+		return chance >= random.random()
+
 	def cast( self, char, mode ):
 		if char.socket:	
 			char.socket.settag( 'cast_target', 1 )
@@ -152,18 +197,26 @@ class CharEffectSpell ( Spell ):
 
 	def target(self, char, mode, targettype, target):
 		if not self.consumerequirements(char, mode):
-			return	
-	
-		if not self.affectchar(char, mode, target):
 			return
 
-		char.turnto(target)
-		
-		if self.checkreflect(char, mode, targettype, target):
-			target = char
-	
-		self.effect( char, target )
+		if not self.affectchar(char, mode, target):
+			return 
 
+		char.turnto(target)
+
+		if self.reflectable and self.checkreflect(char, mode, targettype, target):
+			target = char
+			
+		# Check notoriety??
+		if self.harmful:		
+			pass
+
+		self.effect(char, target)
+
+#
+# A damage spell. It can be delayed but doesnt need
+# to be.
+#
 class DelayedDamageSpell( CharEffectSpell ):
 	def __init__( self, circle ):
 		CharEffectSpell.__init__( self, circle )
@@ -183,10 +236,13 @@ class DelayedDamageSpell( CharEffectSpell ):
 	
 		# The damage will be dealt in one second
 		if not self.delay:
-			self.damage( char, target )
+			self.damage(char, target)
 		else:
 			target.addtimer( 1000, 'magic.spell.damage_callback', [ self.spellid, char.serial ], 0, 0 )
 
+#
+# Callback for delayed damage spells
+#
 def damage_callback( target, args ):
 	spell = magic.spells[ args[0] ]
 	char = wolfpack.findchar( args[1] )
@@ -194,6 +250,6 @@ def damage_callback( target, args ):
 	# Something went out of scope
 	if not char or not spell:
 		wolfpack.console.log( LOG_WARNING, "Either Caster or Spell went out of scope in damage_callback.\n" )
-		return	
+		return
 
-	spell.damage( char, target )
+	spell.damage(char, target)

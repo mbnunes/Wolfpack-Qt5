@@ -211,6 +211,9 @@ def onUse(char, item):
 		char.socket.clilocmessage(501746)
 
 	return 1
+	
+def onTelekinesis(char, item):
+	return onUse(char, item)
 
 #
 # Show a special tooltip

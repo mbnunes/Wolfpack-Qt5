@@ -1,6 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import *
+from magic.utilities import energydamage
 
 #
 # Attach a tag to the character to note that he entered a firefield.
@@ -15,8 +16,8 @@ def onCollide(char, item):
 			source = wolfpack.findchar(int(item.gettag('source')))
 
 		char.settag('in_firefield', 1)
-		char.damage(DAMAGE_MAGICAL, 5, source)
-		char.addtimer(750, 'magic.firefield.expire', [])
+		energydamage(char, source, 2, fire=100)
+		char.addtimer(350, 'magic.firefield.expire', [])
 	return 0
 
 #
@@ -31,8 +32,9 @@ def expire(char, arguments):
 			if item.hastag('source'):
 				source = wolfpack.findchar(int(item.gettag('source')))
 		
-			char.damage(DAMAGE_MAGICAL, 5, source)
-			char.addtimer(750, 'magic.firefield.expire', [])
+			energydamage(char, source, 2, fire=100)
+			char.addtimer(350, 'magic.firefield.expire', [])
+			char.soundeffect(0x208)
 			return
 
 	char.deltag('in_firefield')

@@ -299,12 +299,12 @@ def autoclose( item, args ):
 			item.soundeffect( door[5] )
 
 
-def onUse( char, item ):
+def onUse(char, item, norange=0):
 	# Using doors doesnt count against the object-delay
 	char.objectdelay = 0
 
 	# In Range?
-	if not char.gm and not char.canreach( item, 2 ):
+	if not norange and not char.gm and not char.canreach(item, 2):
 		char.message( "You cannot reach the handle from here." )
 		return 1
 		
@@ -315,4 +315,7 @@ def onUse( char, item ):
 		if not item.hastag('opened') and not doubledoor.hastag('opened'):
 			opendoor( char, doubledoor )
 	return opendoor( char, item )
+
+def onTelekinesis(char, item):
+	return onUse(char, item, 1)
 

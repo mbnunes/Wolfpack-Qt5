@@ -26,4 +26,3 @@ class BladeSpirits ( Spell ):
     
 def onLoad():
   BladeSpirits().register( 33 )
-  

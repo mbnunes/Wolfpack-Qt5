@@ -43,6 +43,7 @@ PROPERTIES = {
 	SPEEDBONUS: ['aos_boni_speed', 0, 1],
 	HITBONUS: ['aos_boni_hit_chance', 0, 1],
 	DEFENSEBONUS: ['aos_defense_chance', 0, 1],
+	SPELLDAMAGEBONUS: ['spelldamagebonus', 0, 1],
 
 	# Regular Combat Properties
 	MINDAMAGE: ['mindamage', 1, 0],
@@ -169,6 +170,26 @@ def fromchar(char, property):
 	if resistance:
 		if value < minvalue:
 			value = minvalue
+			
+		# Reactive Armor
+		if char.propertyflags & 0x10000:
+			if property == RESISTANCE_PHYSICAL:
+				value += 15 + char.skill[INSCRIPTION] / 200
+			else:
+				value = max(0, value - 5)
+		
+		# Protection		
+		if char.propertyflags & 0x20000:
+			if property == RESISTANCE_PHYSICAL:
+				value = max(0, value - (15 - char.skill[INSCRIPTION] / 200))
+				
+		# Magic Reflect
+		if char.propertyflags & 0x40000:
+			if property == RESISTANCE_PHYSICAL:
+				value = max(0, value - (25 - char.skill[INSCRIPTION] / 200))
+			else:
+				value += 10
+				
 		if value > 70:
 			value = 70
 

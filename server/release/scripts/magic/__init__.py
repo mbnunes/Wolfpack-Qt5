@@ -10,6 +10,7 @@
 from wolfpack.consts import *
 from magic.utilities import *
 from magic.spell import *
+from wolfpack import console
 
 import wolfpack
 
@@ -56,7 +57,7 @@ def castSpell( char, spell, mode = 0, args = [] ):
 
 	# We are already casting a spell
 	if 'magic' in eventlist or ( socket and socket.hastag( 'cast_target' ) ):
-		char.socket.message(502642)
+		char.socket.clilocmessage(502642)
 		return
 
 	# If we are using a spellbook to cast, check if we do have
@@ -106,30 +107,34 @@ def target_timeout(char):
 # Target Response
 def target_response( char, args, target ):
 	# No more npc saftey from here
-	char.socket.deltag( 'cast_target' )
+	char.socket.deltag('cast_target')
 	
 	spell = spells[args[0]]
 	mode = args[1]
 	
 	# Char Targets
 	if target.char and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_CHAR):
-		if target.char.invulnerable:
+		if target.char.invulnerable and spell.harmful:
 			if char.socket:
 				char.socket.clilocmessage(1061621)
+			return
+		if target.char.dead and not spell.affectdead:
+			if char.socket:
+				char.socket.clilocmessage(501857)
 			return
 		if not char.cansee(target.char):
 			if char.socket:
 				char.socket.clilocmessage(500237)
 			return
-		if char.distanceto(target.char) > 12:
+		if char.distanceto(target.char) > spell.range:
 			if char.socket:
 				char.socket.clilocmessage(500446)
 			return
-		if not char.canreach(target.char, 12):
+		if not char.canreach(target.char, spell.range):
 			if char.socket:
 				char.socket.clilocmessage(500237)
 			return
-	
+
 		spell.target(char, mode, TARGET_CHAR, target.char)
 		
 	# Item Target
@@ -139,11 +144,11 @@ def target_response( char, args, target ):
 			if char.socket:
 				char.socket.clilocmessage(500237)
 			return
-		if char.distanceto(target.item) > 12:
+		if char.distanceto(target.item) > spell.range:
 			if char.socket:
 				char.socket.clilocmessage(500446)
 			return
-		if not char.canreach(target.item, 12):
+		if not char.canreach(target.item, spell.range):
 			if char.socket:
 				char.socket.clilocmessage(500237)
 			return	
@@ -154,18 +159,22 @@ def target_response( char, args, target ):
 	elif (target.item or target.char or target.pos) and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_GROUND):
 		pos = target.pos
 		if target.item:
-			pos = target.item.pos
+			item = target.item.getoutmostitem()
+			if not item.container:
+				pos = item.pos
+			else:
+				pos = item.container.pos
 		elif target.char:
 			pos = target.char.pos
 			
 		# See if the target is accesible
-		if char.distanceto(pos) > 12:
+		if char.distanceto(pos) > spell.range:
 			if char.socket:
-				char.socket.sysmessage(500446)
+				char.socket.clilocmessage(500446)
 			return
-		if not char.canreach(pos, 12):
+		if not char.canreach(pos, spell.range):
 			if char.socket:
-				char.socket.sysmessage(500237)
+				char.socket.clilocmessage(500237)
 			return
 
 		spell.target(char, mode, TARGET_GROUND, pos)
@@ -178,8 +187,13 @@ def onCastSpell(char, spell):
 
 # These Events happen for characters	who are casting a spell right now
 def onDamage(char, type, amount, source):
+	# You cannot be disturbed while using protection
+	if char.propertyflags & 0x20000:
+		return amount
+		
 	char.socket.clilocmessage(500641)
-	fizzle( char )
+	fizzle(char)
+	return amount
 
 def onWalk( char, direction, sequence ):	
 	running = direction & 0x80

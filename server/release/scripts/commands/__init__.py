@@ -15,6 +15,7 @@ def updateplayer(socket, command, arguments):
 
 def uotime(socket, command, arguments):
 	socket.sysmessage('Current Time: %02u:%02u' % (time.hour(), time.minute()))
+	socket.sysmessage('Elapsed Minutes: %u. Elapsed Days: %u.' % (time.minutes(), time.days()))
 	socket.sysmessage('Current Lightlevel: %u' % (time.currentlightlevel()))
 
 def onLoad():
