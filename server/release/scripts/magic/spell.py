@@ -352,7 +352,7 @@ class Spell:
 			if not char.npc and len(self.reagents) > 0:
 				lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
 
-				if lowerreagentcost == 0 or lowerreagentcost > random.randint(0, 99):
+				if lowerreagentcost == 0 or lowerreagentcost < random.randint(0, 99):
 					consumeReagents(char.getbackpack(), self.reagents.copy())
 
 		# Reduced Skill, Reduced Mana, No Reagents
