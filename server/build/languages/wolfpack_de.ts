@@ -236,11 +236,328 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Total Users Online: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Pirate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the guard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Architect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Armorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Baker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Banker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Hairstylist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Blacksmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bowyer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the butcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Carpenter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cobbler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Fisherman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Fisherlady</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Healer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Herbalist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Innkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Jeweler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Leatherworker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Mage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Provisioner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Shipwright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Spinner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Stablemaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tailor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tavernkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tinker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Veterinarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaponsmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the piper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Spider</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Necromancer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Dragon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Succubus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Sprite Queen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alchemist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Healer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ranger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merchant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warrior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beggar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blacksmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bowyer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carpenter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cartographer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chef</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scholar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fisherman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detective</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sheperd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rogue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pickpocket</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Assassin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tailor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animal Tamer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tinker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veterinarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swordsman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Armsman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fencer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrestler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lumberjack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stoic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Necromancer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paladin</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AbstractAI</name>
     <message>
         <source>You can&apos;t have pets attack in town!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sorry, not implemented yet :(</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -264,134 +581,99 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>This item cannot be equipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Gegenstand kann nicht getragen werden.</translation>
     </message>
     <message>
         <source>You cannot wear female armor.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst keine Frauenrüstungen anziehen.</translation>
     </message>
     <message>
         <source>You can&apos;t wear another item there!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst an dieser Stelle nicht noch einen Gegenstand tragen!</translation>
     </message>
     <message>
         <source>You can&apos;t hold another item while wearing a twohanded item!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du brauchst bereits beide Hände um einen Gegenstand zu halten!</translation>
     </message>
     <message>
         <source>The character does not seem to want the item.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Gegenüber scheint diesen Gegenstand nicht zu wollen.</translation>
     </message>
     <message>
         <source>You cannot put houses in containers</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst keine Häuser in Behälter tun</translation>
     </message>
     <message>
         <source>You fail to put that into %1&apos;s pack</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Versuch etwas in den Rucksack von %1 zu stecken schlägt fehl</translation>
     </message>
     <message>
         <source>You cannot put that into the belongings of another player</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst das nicht in den Besitz anderer Spieler geben</translation>
     </message>
     <message>
         <source>*cough* Thank thee!</source>
-        <translation type="unfinished"></translation>
+        <translation>*hust* Danke euch!</translation>
     </message>
     <message>
         <source>*You see %1 eating %2*</source>
-        <translation type="unfinished"></translation>
+        <translation>*Du siehst wie %1 %2 isst*</translation>
     </message>
     <message>
         <source>Sorry, but i can only use gold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entschuldigt, aber ich kann nur Gold gebrauchen.</translation>
     </message>
     <message>
         <source>Thank you %1 for the %2 gold!</source>
-        <translation type="unfinished"></translation>
+        <translation>Danke %1 für die %2 Goldmünzen!</translation>
     </message>
     <message>
         <source>You have gained some karma!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast etwas an Karma gewonnen!</translation>
     </message>
     <message>
         <source>I can only accept deeds with value!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ich akzeptiere nur Urkunden von Wert!</translation>
     </message>
     <message>
         <source>Here you have your %1 gold, %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier habt ihr eure %1 Goldmünzen, %2</translation>
     </message>
 </context>
 <context>
     <name>Human_Guard_Called_Fight</name>
     <message>
         <source>Thou shalt regret thine actions, swine!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du sollst deine Taten bereuen, Schuft!</translation>
     </message>
     <message>
         <source>Death to all Evil!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tot allem Bösen!</translation>
     </message>
 </context>
 <context>
     <name>Human_Guard_Fight</name>
     <message>
         <source>Thou shalt regret thine actions, swine!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du sollst deine Taten bereuen, Schuft!</translation>
     </message>
     <message>
         <source>Death to all Evil!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tot allem Bösen!</translation>
     </message>
 </context>
 <context>
     <name>Human_Stablemaster</name>
     <message>
-        <source>STABLEMASTER</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> STABLE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Which pet do you want me to stable?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> RELEASE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Here&apos;s your pet back!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I cannot stable that!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This does not belong to you!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>petitem: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Say release to get your pet back!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>Human_Vendor</name>
+    <name>ScriptAI</name>
     <message>
-        <source> BUY</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> SELL</source>
+        <source>Action tag in ai definition must contain attributes for pre-,postcondition and execute at least
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -399,26 +681,83 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>Trade::Trade</name>
     <message>
         <source>You can&apos;t reach the vendor</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst den Verkäufer nicht erreichen</translation>
     </message>
     <message>
         <source>Invalid item bought.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du versuchst einen ungültigen Gegenstand zu kaufen.</translation>
     </message>
     <message>
         <source>The total of thy purchase is %1 gold, which has been withdrawn from your bank account.  My thanks for the patronage.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Summe Eurer Einkäufe beträgt %1 Goldmünzen, die von eurem Konto abgehoben wurden.  Vielen Dank für Euren Einkauf.</translation>
     </message>
     <message>
         <source>The total of thy purchase is %1 gold.  My thanks for the patronage.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Summe Eurer Einkäufe beträgt %1 Goldmünzen.  Vielen Dank für Euren Einkauf.</translation>
     </message>
     <message>
         <source>Invalid item sold.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihr versucht einen ungültigen Gegenstand zu verkaufen.</translation>
     </message>
     <message>
         <source>Thank you %1, here are your %2 gold</source>
+        <translation>Vielen dank %1, hier sind eure %1 Goldmünzen</translation>
+    </message>
+</context>
+<context>
+    <name>Vendor Female Titles</name>
+    <message>
+        <source>the Alchemist</source>
+        <translation>die Alchemistin</translation>
+    </message>
+</context>
+<context>
+    <name>Vendor Male Titles</name>
+    <message>
+        <source>the Alchemist</source>
+        <translation>der Alchemist</translation>
+    </message>
+</context>
+<context>
+    <name>cAccounts</name>
+    <message>
+        <source>Unknown Account Database Driver &apos;%1&apos;, check your wolfpack.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accounts database didn&apos;t exist! Creating one
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Created default admin account: Login = admin, Password = admin
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while saving Accounts: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error while saving Accounts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hashed account password for &apos;%1&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Account &apos;%1&apos; has an unhashed password.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while loading Accounts: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error while loading Accounts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -426,27 +765,32 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>cBaseChar</name>
     <message>
         <source>Your pet is in battle right now!</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Haustier befindet sich noch im Kampf!</translation>
     </message>
     <message>
         <source>You have killed %1 innocent people.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast %1 unschuldige Leute getötet.</translation>
     </message>
     <message>
         <source>I comitted suicide.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ich habe Selbstmord begangen.</translation>
     </message>
     <message>
         <source>I was killed by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ich wurde von %1 getötet.</translation>
     </message>
     <message>
         <source>I was killed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ich wurde getötet.</translation>
     </message>
     <message>
         <source>*You see %1 attacking you.*</source>
         <translation>*Du siehst wie %1 dich angreift*</translation>
+    </message>
+    <message>
+        <source>Trying to put item 0x%1 on layer %2 which is already occupied.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -548,6 +892,14 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Better do not try that!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cMulti</name>
+    <message>
+        <source>Unable to create unscripted item: %1
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -744,11 +1096,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source><byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source><byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -823,6 +1175,67 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Reloading %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>definitions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>contextmenus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>spawnregions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>territories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>maps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sectormaps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tiledata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>multis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>world</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>network</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cServerThread</name>
+    <message>
+        <source>
+The server has been shut down. You can close this window now.
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1139,10 +1552,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unexpected button input</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You can only change your own profile</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1160,7 +1569,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>You must wait to perform another action.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst ein wenig warten bevor du etwas anderes tun kannst.</translation>
     </message>
     <message>
         <source>That is a secured chest!</source>
@@ -1172,35 +1581,39 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>You cannot use items equipped by other players.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst keine Gegenstände benutzen die andere Spieler gerade tragen.</translation>
     </message>
     <message>
         <source>You can&apos;t see this.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst das nicht sehen.</translation>
     </message>
     <message>
         <source>You have to unlock it before taking a look.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst es aufschließen bevor du hineinsehen kannst.</translation>
     </message>
     <message>
         <source>You must stand nearer to snoop!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst näher dranstehen um hineinschauen zu können!</translation>
     </message>
     <message>
         <source>You can&apos;t open this container.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst diesen Behälter nicht öffnen.</translation>
     </message>
     <message>
         <source>You have been resurrected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du wurdest wiederbelebt.</translation>
     </message>
     <message>
         <source>You are already living!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du lebst bereits!</translation>
     </message>
     <message>
         <source>You can&apos;t think of a way to use that item.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast keine Ahnung wie du das benutzen könntest.</translation>
+    </message>
+    <message>
+        <source>Unexpected button input.</source>
+        <translation>Unerwartete Gump Antwort.</translation>
     </message>
 </context>
 <context>
@@ -1226,23 +1639,23 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Worldsave Initialized</source>
-        <translation type="unfinished">Worldsave gestartet</translation>
+        <translation>Worldsave gestartet</translation>
     </message>
     <message>
         <source>WORLDSAVE IN PROGRESS</source>
-        <translation type="unfinished">WORLDSAVE LÄUFT</translation>
+        <translation>WORLDSAVE LÄUFT</translation>
     </message>
     <message>
         <source>Saving %1 items.</source>
-        <translation type="unfinished">Speichere %1 Gegenstände.</translation>
+        <translation>Speichere %1 Gegenstände.</translation>
     </message>
     <message>
         <source>Saving %1 characters.</source>
-        <translation type="unfinished">Speichere %1 Charaktere.</translation>
+        <translation>Speichere %1 Charaktere.</translation>
     </message>
     <message>
         <source>Worldsave Completed In %1ms</source>
-        <translation type="unfinished">Worldsave nach %1 ms abgeschlossen</translation>
+        <translation>Worldsave nach %1 ms abgeschlossen</translation>
     </message>
 </context>
 </TS>

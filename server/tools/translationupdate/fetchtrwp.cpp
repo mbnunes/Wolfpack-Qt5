@@ -82,10 +82,18 @@ private:
 	QString accum;
 };
 
-bool DefinitionHandler::startElement( const QString& /* namespaceURI */, const QString& /* localName */, const QString& qName, const QXmlAttributes& /* atts */ )
+bool DefinitionHandler::startElement( const QString& /* namespaceURI */, const QString& /* localName */, const QString& qName, const QXmlAttributes& atts )
 {
 	if ( qName == QString( "title" ) )
 	{
+		QString value = atts.value("context");
+
+		if (!value.isEmpty()) {
+			context = value;
+		} else {
+			context = "@default";
+		}
+
 		flush();
 	}
 	accum.truncate( 0 );

@@ -1234,6 +1234,15 @@ void cBaseChar::processNode( const cElement* Tag )
 			pBackpack->applyDefinition( Tag );
 	}
 
+#if !defined(QT_NO_TRANSLATION)
+	else if ( TagName == "title" )
+	{
+		QString context = Tag->getAttribute("context", "@default");
+		Value = qApp->translate(context, Value);
+		setTitle(Value);
+	}
+#endif
+
 	//<stat type="str">100</stats>
 	else if ( TagName == "stat" )
 	{
