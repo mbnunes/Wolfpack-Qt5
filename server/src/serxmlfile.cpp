@@ -29,7 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "serXmlFile.h"
+#include "serxmlfile.h"
 #include "platform.h"
 
 //using namespace std;
