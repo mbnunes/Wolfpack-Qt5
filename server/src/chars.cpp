@@ -2830,16 +2830,22 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 		{
 			if( node.nodeName() == "item" )
 			{
-				P_ITEM pItem = Items->MemItemFree();
-				pItem->Init( true );
-				cItemsManager::getInstance()->registerItem( pItem );
+				P_ITEM pItem = NULL;
+				QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+				if( DefSection && !DefSection->isNull() )
+				{
+					// books wont work without this
+					pItem = Items->createScriptItem( node.attribute("id") );
+				}
+				else
+				{
+					pItem = Items->MemItemFree();
+					pItem->Init( true );
+					cItemsManager::getInstance()->registerItem( pItem );
+				}
 
 				if( pItem )
 				{
-					QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
-					if( DefSection && !DefSection->isNull() )
-						pItem->applyDefinition( *DefSection );
-
 					pItem->applyDefinition( node );
 
 					if( pItem->id() <= 1 )
@@ -2857,16 +2863,22 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 			}
 			else if( node.nodeName() == "bankitem" )
 			{
-				P_ITEM pItem = Items->MemItemFree();
-				pItem->Init( true );
-				cItemsManager::getInstance()->registerItem( pItem );
+				P_ITEM pItem = NULL;
+				QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+				if( DefSection && !DefSection->isNull() )
+				{
+					// books wont work without this
+					pItem = Items->createScriptItem( node.attribute("id") );
+				}
+				else
+				{
+					pItem = Items->MemItemFree();
+					pItem->Init( true );
+					cItemsManager::getInstance()->registerItem( pItem );
+				}
 
 				if( pItem )
 				{
-					QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
-					if( DefSection && !DefSection->isNull() )
-						pItem->applyDefinition( *DefSection );
-
 					pItem->applyDefinition( node );
 
 					if( pItem->id() <= 1 )
@@ -2884,16 +2896,22 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 			}
 			else if( node.nodeName() == "equipment" )
 			{
-				P_ITEM pItem = Items->MemItemFree();
-				pItem->Init( true );
-				cItemsManager::getInstance()->registerItem( pItem );
+				P_ITEM pItem = NULL;
+				QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+				if( DefSection && !DefSection->isNull() )
+				{
+					// books wont work without this
+					pItem = Items->createScriptItem( node.attribute("id") );
+				}
+				else
+				{
+					pItem = Items->MemItemFree();
+					pItem->Init( true );
+					cItemsManager::getInstance()->registerItem( pItem );
+				}
 
 				if( pItem )
 				{
-					QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
-					if( DefSection && !DefSection->isNull() )
-						pItem->applyDefinition( *DefSection );
-
 					pItem->applyDefinition( node );
 
 					if( pItem->id() <= 1 )
