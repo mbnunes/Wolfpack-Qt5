@@ -15,54 +15,56 @@ def onLoad():
 	wolfpack.registerglobal( EVENT_SHOWTOOLTIP, "tooltip" )
 
 def onShowTooltip( sender, target, tooltip ):  
+  if target.isitem():
+    name = target.getname()
 
-	if target.isitem():
-		name = target.getname()
-            
-		if isarmor ( target ):
-			armor( target, tooltip )
-	
-		elif ishat( target ):
-			hat( target, tooltip )
-	
-		elif isshield( target ):
-			shield( target, tooltip )
-	         
-		elif isweapon( target ):
-			weapon( target, tooltip )
-	                 
-		else:
-			if target.name == '#' or target.name == '':
-				if target.amount > 1:
-					tooltip.add( 1050045, " \t#" + str( 0xF9060 + target.id ) + "\t`s: " + str( target.amount ) )
-				else:			
-					tooltip.add( 0xF9060 + target.id, '' )
-				
-			else:
-				if target.amount > 1:
-					tooltip.add( 1050045, " \t" + name + "\t: " + str( target.amount ) )
-				else:
-					tooltip.add( 1050045, " \t" + name + "\t " )
-	
-			modifiers( target, tooltip )
+    if isarmor ( target ):
+    	armor( target, tooltip )
+    
+    elif ishat( target ):
+    	hat( target, tooltip )
+    
+    elif isshield( target ):
+    	shield( target, tooltip )
+           
+    elif isweapon( target ):
+    	weapon( target, tooltip )
+                   
+    else:
+      if target.name == '#' or target.name == '':
+      	if target.amount > 1:
+      		tooltip.add( 1050045, " \t#" + str( 0xF9060 + target.id ) + "\t`s: " + str( target.amount ) )
+      	else:			
+      		tooltip.add( 0xF9060 + target.id, '' )
+      	
+      else:
+      	if target.amount > 1:
+      		tooltip.add( 1050045, " \t" + name + "\t: " + str( target.amount ) )
+      	else:
+      		tooltip.add( 1050045, " \t" + name + "\t " )
 
-			# If the character is a gm and the targetted item has a lock, display the lock id
-			if sender.gm and 'lock' in target.events:
-				lock = 'None'
+      if target.visible == 0 and sender.gm:
+          tooltip.add(3000507, "")
+      
+      modifiers( target, tooltip )
+      
+      # If the character is a gm and the targetted item has a lock, display the lock id
+      if sender.gm and 'lock' in target.events:
+      	lock = 'None'
         
-				if target.hastag('lock'):
-					lock = str(target.gettag('lock'))
+      	if target.hastag('lock'):
+      		lock = str(target.gettag('lock'))
         
-				tooltip.add(1050045, " \t" + "Lock: " + lock + "\t ")
-		
-			if isspellbook( target ):
-				tooltip.add( 1042886, str( target.spellscount() ) )
-	else:
-		name = target.name
-		tooltip.add( 1050045, " \t" + name + "\t " )
+      	tooltip.add(1050045, " \t" + "Lock: " + lock + "\t ")
+      
+      if isspellbook( target ):
+      	tooltip.add( 1042886, str( target.spellscount() ) )
+  else:
+    name = target.name
+    tooltip.add( 1050045, " \t" + name + "\t " )
 
-	tooltip.send( sender )
-	return 1
+  tooltip.send( sender )
+  return 1
 
 def armor( target, tooltip ):
 	name = target.getname()
