@@ -50,30 +50,24 @@ void cBook::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
-		QString tmpString = (char*)0;
-		archive.read( "book.title", tmpString );
-		tags.set( "title", tmpString );
-		archive.read( "book.author", tmpString );
-		tags.set( "author", tmpString );
+		archive.read( "book.title", title_ );
+		archive.read( "book.author", author_ );
 		UI32 i;
-		QStringList content_ = tags.get( "content" ).toStringList();
 		for( i = 0; i < content_.size(); i++ )
 		{
 			QString currPage = (char*)0;
 			archive.read( (char*)QString("book.content.page%1").arg(i).latin1(), currPage );
 			content_[i] = currPage;
 		}
-		tags.set( "content", content_ );
 		archive.read( "book.readonly", readonly_ );
 		archive.read( "book.predefined", predefined_ );
 		archive.read( "book.section", section_ );
 	}
 	else
 	{
-		archive.write( "book.title", (char*)tags.get( "title" ).toString().latin1() );
-		archive.write( "book.author", (char*)tags.get( "author" ).toString().latin1() );
+		archive.write( "book.title", title_ );
+		archive.write( "book.author", author_ );
 		UI32 i;
-		QStringList content_ = tags.get( "content" ).toStringList();
 		for( i = 0; i < content_.size(); i++ )
 		{
 			archive.write( (char*)QString("book.content.page%1").arg(i).latin1(), content_[i] );
@@ -115,7 +109,6 @@ void cBook::processNode( const QDomElement &Tag )
 	//	</content>
 	else if( TagName == "content" )
 	{
-		QStringList content_ = QStringList();
 		QDomNode childNode = Tag.firstChild();
 		while( !childNode.isNull() )
 		{
@@ -123,16 +116,21 @@ void cBook::processNode( const QDomElement &Tag )
 			{
 				QDomElement childTag = childNode.toElement();
 				Value = this->getNodeValue( childTag );
-				if( Tag.attributes().contains("no") )
+				if( childTag.attributes().contains("no") )
 				{
-					content_[ Tag.attribute( "no" ).toShort() - 1 ] = Value;
+					UINT32 n = childTag.attribute( "no" ).toShort();
+
+					// fill it up with blanks
+					while( content_.size() < n )
+						content_.push_back( "" );
+
+					content_[ n - 1 ] = Value;
 				}
 				else
 					content_.push_back( Value );
 			}
 			childNode = childNode.nextSibling();
 		}
-		tags.set( "content", content_ );
 		predefined_ = true;
 	}
 
@@ -181,7 +179,7 @@ void cBook::refresh( void )
 				//	</content>
 				else if( TagName == "content" )
 				{
-					QStringList content_ = QStringList();
+					QStringList content = QStringList();
 					QDomNode chchildNode = Tag.firstChild();
 					while( !chchildNode.isNull() )
 					{
@@ -189,16 +187,22 @@ void cBook::refresh( void )
 						{
 							QDomElement chchildTag = chchildNode.toElement();
 							Value = this->getNodeValue( chchildTag );
-							if( Tag.attributes().contains("no") )
+							if( chchildTag.attributes().contains("no") )
 							{
-								content_[ Tag.attribute( "no" ).toShort() - 1 ] = Value;
+								UINT32 n = chchildTag.attribute( "no" ).toShort();
+
+								// fill it up with blanks
+								while( content.size() < n )
+									content.push_back( "" );
+
+								content[ n - 1 ] = Value;
 							}
 							else
-								content_.push_back( Value );
+								content.push_back( Value );
 						}
 						chchildNode = chchildNode.nextSibling();
 					}
-					tags.set( "content", content_ );
+					this->content_ = content;
 				}
 			}
 			childNode = childNode.nextSibling();
@@ -211,15 +215,14 @@ void cBook::open( cUOSocket* socket )
 	if( this->predefined_ )
 		this->refresh();
 
-	QStringList content_ = tags.get( "content" ).toStringList();
 	cUOTxBookTitle openBook;
 	openBook.setSerial( this->serial );
 	openBook.setWriteable( !this->readonly_ );
 	if( !this->readonly_ )
 		openBook.setFlag( 1 );
 	openBook.setPages( content_.size() );
-	openBook.setTitle( tags.get( "title" ).toString() );
-	openBook.setAuthor( tags.get( "author" ).toString() );
+	openBook.setTitle( title_ );
+	openBook.setAuthor( author_ );
 
 	socket->send( &openBook );
 
@@ -239,7 +242,7 @@ void cBook::open( cUOSocket* socket )
 				size += (*it).length()+1; //null terminated lines!
 				it++;
 			}
-			lines[i] = tmpLines;
+			lines.push_back( tmpLines );
 		}
 
 		cUOTxBookPage readBook( size );
@@ -247,10 +250,16 @@ void cBook::open( cUOSocket* socket )
 		readBook.setSerial( this->serial );
 		readBook.setPages( content_.count() );
 
-		for( i = 0; i < content_.count(); i++ )
+		std::vector< QStringList >::iterator it = lines.begin();
+		i = 0;
+		while( it != lines.end() )
 		{
-			readBook.setPage( i+1, lines[i].size(), lines[i] );
+			readBook.setPage( i+1, (*it).size(), (*it) );
+			i++;
+			it++;
 		}
+
+		socket->send( &readBook );
 	}
 }
 
@@ -260,7 +269,6 @@ void cBook::readPage( cUOSocket *socket, UINT32 page )
 		this->refresh();
 
 	UINT32 size = 13;
-	QStringList content_ = tags.get( "content" ).toStringList();
 	QStringList lines = QStringList::split( "\n", content_[page-1] );
 	QStringList::const_iterator it = lines.begin();
 	while( it != lines.end() )
