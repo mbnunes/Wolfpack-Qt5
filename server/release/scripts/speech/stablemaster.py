@@ -111,14 +111,14 @@ idshrink = {
 	}
 
 def onSpeech( listener, speaker, text, keywords ):
-	if not char.socket:
-		return 0
+	if not speaker.socket:
+		return False
 
 	# Check if our name is in the beginning of the string
-	if not text.lower().startswith( "vendor" ) or not text.lower().startswith( listener.name.lower() ):
-		return 0
+	if not text.lower().startswith( "vendor" ) and not text.lower().startswith( listener.name.lower() ):
+		return False
 
-	speaker.char.socket.sysmessage("May I help thee?")
+	listener.say("May I help thee?")
 	gump = cGump( 0, 0, 0, 50, 50 )
 	gump.addBackground( 0x24a4, 425, 400 )
 
@@ -154,7 +154,7 @@ def onSpeech( listener, speaker, text, keywords ):
 	gump.setArgs( [ listener.serial ] )
 	gump.send( speaker )
 
-	return 1
+	return True
 
 
 def addStablePage( char, gump, page, id ):
@@ -244,7 +244,7 @@ def getStableTilePic( id ):
 	if stables.has_key( id ):
 		return stables[ id ]
 	else:
-		return 0
+		return False
 
 
 

@@ -154,7 +154,7 @@ def copy_response(char, args, target):
 		# 25% chance of destroying the blank key
 		if random.randint(1,4) == 1:
 			char.socket.clilocmessage(501678)
-			key.remove()
+			key.delete()
 
 def onUse(char, key):
 	# Does this key open a lock?
