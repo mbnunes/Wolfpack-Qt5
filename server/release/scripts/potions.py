@@ -227,7 +227,6 @@ def potionregion( args ):
 		target = damageregion.first
 		while target:
 			if checkLoS( target, potion, outradius ):
-				target.effect(0x36BD, 20, 10)
 				potiondamage(char, target, potion, bonus)
 				target = damageregion.next
 			else:
@@ -271,7 +270,6 @@ def potionregion( args ):
 		target = damageregion.first
 		while target:
 			if checkLoS( char, target, outradius ):
-				target.effect(0x36BD, 20, 10)
 				potiondamage(char, target, potion, bonus)
 				target = damageregion.next
 			else:
@@ -334,9 +332,11 @@ def potiondamage( char, target, potion, dmgbonus ):
 	damage += bonus
 	if not potion.container:
 		if char.distanceto(potion) > 1:
-			damage = damage / char.distanceto(potion)
-	else:
-		damage = damage / char.distanceto(char)
+			damage = (damage / char.distanceto(potion))
+	# Flamestrike effect
+	if damage >= (target.maxhitpoints / 2):
+		target.effect(0x3709, 10, 30)
+	target.effect(0x36BD, 20, 10)
 	energydamage(target, char, damage, fire=100)
 	return
 
