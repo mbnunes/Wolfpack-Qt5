@@ -8,389 +8,205 @@
 from wolfpack.consts import *
 from wolfpack.utilities import *
 import wolfpack
+from system.craftmenu import *
 import skills
+from wolfpack import console
+from math import floor,ceil
 
-# mana used when we create a scroll
-mana_coast = [ 4, 6, 9, 11, 14, 20, 40, 50 ]
-# inscription skill needed to create a scroll
-ins_skill =	[ 0, 0, 35, 178, 321, 464, 607, 750 ]
-# reagents name:id
-reagents =	{ 'ginseng':0xf85, 'bloodmoss':0xf7b, 'mandrake':0xf86, 'blackperl':0xff7a, 'spidersilk':0xf8d, 'sulfurash':0xf8c, 'garlic':0xf84, 'nightshade':0xf88 }
-# inscription skill needed to create a runebook
-INS_RUNEBOOK = 450
-INS_EXCEPTIONAL = 750
+# reagents itemdef:cliloc_id
+reagents = { 'f7a':0, 'f7b':1, 'f84':2, 'f85':3, 'f86':4, 'f88':5, 'f8c':6, 'f8d':7 }
 
-# skill is used via the blue button on skill gump
-# this will copy a book
-def inscription( char, skill ):
+def checktool(char, item, wearout=0):
+	if not item:
+		return 0
+	if item.getoutmostchar() != char:
+		char.socket.clilocmessage(500364)
+		return 0
+	# use this for a Siege-style shard
+	#if not item.hastag('remaining_uses'):
+	#	char.socket.clilocmessage(1044038)
+	#	item.delete()
+	#	return 0
+	#if wearout:
+	#	uses = int(item.gettag('remaining_uses'))
+	#	if uses < 1:
+	#		char.socket.clilocmessage(1044038)
+	#		item.delete()
+	#		return 0
+	#	else:
+	#		item.settag('remaining_uses', uses - 1)
+	return 1
+
+# skill is used via the blue button on skill gump - copy a book
+def inscription(char, skill):
 	if skill != INSCRIPTION:
 		return 0
-	char.socket.sysmessage( "copying a book is not implemented yet" )
+	char.socket.sysmessage("copying a book is not implemented yet")
 	return 1
 
 # skill is used via a scribe's pen
-def onUse( char, item ):
-	if item.getoutmostchar() != char:
-		return 1
+def onUse(char, item):
+	#if not checktool(char, item):
+	#	return 1
 	# send makemenu
-	char.sendmakemenu( "CRAFTMENU_INSCRIPTION" )
+	menu = findmenu('INSCRIPTION')
+	if menu:
+		menu.send(char, [item.serial])
 	return 1
 
-def clumsy( char ):
-	return make_scroll( char, 0 )
-
-def createfood( char ):
-	return make_scroll( char, 1 )
-
-def feeblemind( char ):
-	return make_scroll( char, 2 )
-
-def heal( char ):
-	return make_scroll( char, 3 )
-
-def magicarrow( char ):
-	return make_scroll( char, 4 )
-
-def nightsight( char ):
-	return make_scroll( char, 5 )
-
-def reactivearmor( char ):
-	return make_scroll( char, 6 )
-
-def weaken( char ):
-	return make_scroll( char, 7 )
-
-def agility( char ):
-	return make_scroll( char, 8 )
-
-def cunning( char ):
-	return make_scroll( char, 9 )
-
-def cure( char ):
-	return make_scroll( char, 10 )
-
-def harm( char ):
-	return make_scroll( char, 11 )
-
-def magictrap( char ):
-	return make_scroll( char, 12 )
-
-def magicuntrap( char ):
-	return make_scroll( char, 13 )
-
-def prortection( char ):
-	return make_scroll( char, 14 )
-
-def strength( char ):
-	return make_scroll( char, 15 )
-
-def bless( char ):
-	return make_scroll( char, 16 )
-
-def fireball( char ):
-	return make_scroll( char, 17 )
-
-def magiclock( char ):
-	return make_scroll( char, 18 )
-
-def poison( char ):
-	return make_scroll( char, 19 )
-
-def telekinesis( char ):
-	return make_scroll( char, 20 )
-
-def teleport( char ):
-	return make_scroll( char, 21 )
-
-def unlock( char ):
-	return make_scroll( char, 22 )
-
-def wallofstone( char ):
-	return make_scroll( char, 23 )
-
-def archcure( char ):
-	return make_scroll( char, 24 )
-
-def archprotection( char ):
-	return make_scroll( char, 25 )
-
-def curse( char ):
-	return make_scroll( char, 26 )
-
-def firefield( char ):
-	return make_scroll( char, 27 )
-
-def greaterheal( char ):
-	return make_scroll( char, 28 )
-
-def lightning( char ):
-	return make_scroll( char, 29 )
-
-def manadrain( char ):
-	return make_scroll( char, 30 )
-
-def recall( char ):
-	return make_scroll( char, 31 )
-
-def bladespirits( char ):
-	return make_scroll( char, 32 )
-
-def dispelfield( char ):
-	return make_scroll( char, 33 )
-
-def incognito( char ):
-	return make_scroll( char, 34 )
-
-def magicreflection( char ):
-	return make_scroll( char, 35 )
-
-def mindblast( char ):
-	return make_scroll( char, 36 )
-
-def paralyze( char ):
-	return make_scroll( char, 37 )
-
-def poisonfield( char ):
-	return make_scroll( char, 38 )
-
-def summoncreature( char ):
-	return make_scroll( char, 39 )
-
-def dispel( char ):
-	return make_scroll( char, 40 )
-
-def energybolt( char ):
-	return make_scroll( char, 41 )
-
-def explosion( char ):
-	return make_scroll( char, 42 )
-
-def invisibility( char ):
-	return make_scroll( char, 43 )
-
-def mark( char ):
-	return make_scroll( char, 44 )
-
-def masscurse( char ):
-	return make_scroll( char, 45 )
-
-def paralyzefield( char ):
-	return make_scroll( char, 46 )
-
-def reveal( char ):
-	return make_scroll( char, 47 )
-
-def chainlightning( char ):
-	return make_scroll( char, 48 )
-
-def energyfield( char ):
-	return make_scroll( char, 49 )
-
-def flamestrike( char ):
-	return make_scroll( char, 50 )
-
-def gatetravel( char ):
-	return make_scroll( char, 51 )
-
-def manavampire( char ):
-	return make_scroll( char, 52 )
-
-def massdispel( char ):
-	return make_scroll( char, 53 )
-
-def meteoswarm( char ):
-	return make_scroll( char, 54 )
-
-def polymorph( char ):
-	return make_scroll( char, 55 )
-
-def earthquake( char ):
-	return make_scroll( char, 56 )
-
-def energyvortex( char ):
-	return make_scroll( char, 57 )
-
-def resurrection( char ):
-	return make_scroll( char, 58 )
-
-def airelemental( char ):
-	return make_scroll( char, 59 )
-
-def summondaemon( char ):
-	return make_scroll( char, 60 )
-
-def earthelemental( char ):
-	return make_scroll( char, 61 )
-
-def fireelemental( char ):
-	return make_scroll( char, 62 )
-
-def waterelemental( char ):
-	return make_scroll( char, 63 )
-
-def make_scroll( char, num ):
-	if not char:
-		return 0
-	if not 0 <= num < 64:
+class InscriptionMenu(CraftMenu):
+	def __init__(self, id, parent, titleid=0, title=''):
+		CraftMenu.__init__(self, id, parent, titleid, title)
+		self.allowmark = 1
+		self.allowrepair = 0
+		self.gumptype = 0xce123456
+	
+def loadMenu( id, parent = None ):
+	definition = wolfpack.getdefinition(WPDT_MENU, id)
+	if not definition:
+		if parent:
+			console.log(LOG_ERROR, "Unknown submenu %s in menu %s.\n" % (id, parent.id))
+		else:
+			console.log(LOG_ERROR, "Unknown menu: %s.\n" % id)
+		return
+	# use 'clilocid' title for OSI style
+	# or use 'title' for custom craft menu
+	title = ''
+	titleid = 0
+	if definition.hasattribute('title'):
+		title = definition.getattribute('title')
+	elif definition.hasattribute('clilocid'):
+		titleid = int(definition.getattribute('clilocid', '0'))
+	menu = InscriptionMenu(id, parent, titleid, title)
+	for i in range(0, definition.childcount):
+		child = definition.getchild(i)
+		if child.name == 'menu':
+			loadMenu(child.getattribute('id'), menu)
+		elif child.name == 'action':
+			actionclilocid = 0
+			actionname = ''
+			if child.hasattribute('clilocid'):
+				actionclilocid = int(child.getattribute('clilocid'))
+			elif child.hasattribute('title'):
+				actionname = child.getattribute('title')
+			else:
+				console.log(LOG_ERROR, "Action without title or cliloc id in menu %s.\n" % id)
+				pass
+			itemdef = child.getattribute('itemid')
+			item2 = wolfpack.getdefinition(WPDT_ITEM, itemdef)
+			if item2:
+				itemchild = item2.findchild('id')
+				if itemchild:
+					itemid = int(itemchild.value)
+			action = InsItemAction(menu, itemid, itemdef, actionclilocid, actionname)
+			for j in range(0, child.childcount):
+				subchild = child.getchild(j)
+				if subchild.name == 'mana':
+					action.mana = int(subchild.getattribute('amount', '0'))
+				elif subchild.name == 'spell':
+					action.spell = int(subchild.getattribute('id', '0'))
+				elif subchild.name == 'scroll':
+					ids = subchild.getattribute('id').split(';')
+					amount = int(subchild.getattribute('amount', '1'))
+					action.materials.append([ids, amount, 'scroll'])
+				elif subchild.name == 'reagents':
+					ids = subchild.getattribute('id').split(';')
+					amount = int(subchild.getattribute('amount', '1'))
+					name = subchild.getattribute('name')
+					action.materials.append([ids, amount, name])
+				elif subchild.name in skillnamesids:
+					skill = skillnamesids[subchild.name]
+					minimum = int(subchild.getattribute('min', '0'))
+					maximum = int(subchild.getattribute('max', '1200'))
+					action.skills[skill] = [minimum, maximum]
+
+#	menu.sort()
+
+class InsItemAction(CraftItemAction):
+	def __init__(self, parent, itemid, definition, titleid=0, title=''):
+		CraftItemAction.__init__(self, parent, itemid, definition, titleid, title)
+		self.markable = 1
+		self.mana = 0
+		self.spell = 0
+
+	# FIXME : exceptional / success chance
+	def getexceptionalchance(self, player, args):
 		return 0
 
-	# check if we have a spellbook which containing the spell
-	backpack = char.getbackpack()
-	if not backpack:
-		return 0
-	contents = backpack.content
-	found = 0
-	for item in contents:
-		if item.id == 0xefa:
-			book = item
-			found = 1
-			break
-	if not found:
-		return 0
-	if not book.hasspell( num ):
+	def getsuccesschance(self, player, args):
 		return 0
 
-	# check if we have a empty scroll
-	snum1 = char.countresource( 0xe34 )
-	snum2 = char.countresource( 0xef3 )
-	if snum1 and snum2:
-		return 0
+	def checkmaterial(self, player, args, silent=0):
+		backpack = player.getbackpack()
+		for material in self.materials:
+			(baseids, amount) = material[:2]
+			count = backpack.countitems(baseids)
+			if count < amount:
+				# empty scroll
+				if 'ef3' in baseids or 'e34' in baseids:
+					msg_id = 1044378 - 1044361
+				elif reagents.haskey(baseids[0]):
+					msg_id = reagents[baseids[0]]
+				player.socket.clilocmessage(1044361 + msg_id)
+				# recall rune
+				#elif '1f14' in baseids or '1f15' in baseids or '1f16' in baseids or '1f17' in baseids:
+				return 0
+		return 1
 
-	# skill info : for name and reagents
-	spell_info = wolfpack.spell( num )
-	if not spell_info:
-		return 0
-
-	# check if we have enough reagents
-	regs = 1
-	for reg in reagents.keys():
-		if spell_info[ reg ] > char.countresource( reagents[ reg ] ):
-			regs = 0
-			break
-	if not regs:
-		return 0
-
-	circle = num / 8
-	mana = mana_coast[ circle ]
-	skill = ins_skill[ circle ]
-	# not enough mana or skill
-	if char.mana < mana or char.skill[ INSCRIPTION ] < skill:
-		return 0
-
-	# effects : will be added
-
-	# useup regs and scroll
-	for reg in reagents.keys():
-		if spell_info[ reg ]:
-			char.useresource( spell_info[ reg ], reagents[ reg ] )
-	if snum1:
-		char.useresource( 1, 0xe34 )
-	else:
-		char.useresource( 1, 0xef3 )
-
-	# checkskill
-	success = char.checkskill( INSCRIPTION, ins_skill[ circle ], ins_skill[ circle + 1 ] )
-	if not success:
-		return 0
-
-	# useup mana and make a scroll
-	char.mana -= mana
-	scroll = wolfpack.additem( spell_info[ "scroll" ] )
-	if not scroll:
-		return 0
-	scroll.name = "%s scroll" % spell_info[ "name" ]
-	backpack.additem( scroll )
-	scroll.update()
-	return 1
-
-def runebook( char ):
-	if not char:
-		return 0
-
-	# check if we have enough skill ( 45.0 )
-	if char.skill[ MAGERY ] < INS_RUNEBOOK:
-		return 0
-
-	# check if we have enough empty scrolls ( 8 )
-	snum1 = char.countresource( 0xe34 )
-	snum2 = char.countresource( 0xef3 )
-	if snum1 + snum2 < 8:
-		return 0
-
-	# check if we have enough rune ( 1 )
-	rnum = [ 0 ] * 4
-	rnum[ 0 ] = char.countresource( 0x1f14 )
-	rnum[ 1 ] = char.countresource( 0x1f15 )
-	rnum[ 2 ] = char.countresource( 0x1f16 )
-	rnum[ 3 ] = char.countresource( 0x1f17 )
-	rune_num = rnum[ 0 ] + rnum[ 1 ] + rnum[ 2 ] + rnum[ 3 ]
-	if not rune_num:
-		return 0
-
-	# check if we have enough recall scroll ( 1 )
-	if not char.countresource( 0x1f4c ):
-		return 0
-
-	# check if we have enough gate travel scroll ( 1 )
-	if not char.countresource( 0x1f60 ):
-		return 0
-
-	# checkskill
-	sucess = char.checkskill( INSCRIPTION, INS_RUNEBOOK, 1000 )
-	if not success:
-		return 0
-
-	# now, we create runebook
-	book = wolfpack.additem( "22c5" )
-	if not book:
-		return 0
-
-	# useup 8 scrolls
-	if snum1 >= 8:
-		char.useresource( 8, 0xe34 )
-	elif snum1 and snum1 < 8:
-		char.useresource( snum1, 0xe34 )
-		char.useresource( 8 - snum1, 0xef3 )
-	else:
-		char.useresource( 8, 0xef3 )
-
-	# useup 1 recall rune
-	for i in range( 0, 4 ):
-		if rnum[ i ]:
-			char.useresource( 1, 0x1f14 + i )
-			break
-
-	# useup 1 recall scroll and 1 gate travel scroll
-	char.useresource( 1, 0x1f4c )
-	char.useresource( 1, 0x1f60 )
-
-	# max charge
-	chance = char.skill[ INSCRIPTION ] - INS_RUNEBOOK
-	max = 5 + chance / 100
-	chance2 = whrandom.randint( 0, 100 )
-	max_charge = 5
-	# 10% max
-	if chance2 < 10:
-		max_charge = max
-	# 60% max - 1
-	elif chance2 < 70:
-		max_charge = max - 1
-	# 30% max - 2
-	else:
-		max_charge = max - 2
-	if max_charge < 5:
-		max_charge = 5
-	book.settag( 'maxcharges', max_charge )
-
-	# exceptional : 15% at 75.0 - 65% at 100.0
-	if char.skill[ INSCRIPTION ] >= INS_EXCEPTIONAL:
-		ex_chance = 15 + ( char.skill[ INSCRIPTION ] - INS_EXCEPTIONAL ) / 5
-		if whrandom.randint( 0, 100 ) < ex_chance:
-			book.settag( 'exceptional', 1 )
-
-	backpack.additem( book )
-	book.update()
-	return 1
+	def make(self, player, args, nodelay=0):
+		if not checktool(player, wolfpack.finditem(args[0]), 0):
+			return 0
+		# spell scrolls
+		# FIXME : spell no. is not correct
+		if self.titleid > 1027980 and self.titleid < 1028045:
+			if self.titleid == 1027981:
+				self.spell = 6
+			elif self.titleid > 1027988:
+				self.spell = self.titleid - 1027981
+			else:
+				self.spell = self.titleid - 1027982
+			if not hasSpell(player, self.spell):
+				self.noticeid = 0
+				self.noticestr = "You don't have that spell in your spellbook."
+				self.parent.send(player, args)
+				player.socket.sysmessage(self.noticestr)
+				return 0
+			if player.mana < self.mana:
+				player.socket.clilocmessage(1044380)
+				self.noticeid = 1044380
+				self.noticestr = ''
+				self.parent.send(player, args)
+				return 0
+			if player.socket.hastag('craftmenu_crafting'):
+				player.socket.clilocmessage(500119)
+				self.noticeid = 500119
+				self.noticestr = ''
+				self.parent.send(player, args)
+				return 0
+			if not self.checkmaterial(player, args):
+				self.parent.send(player, args)
+				return 0
+			player.mana = player.mana - self.mana
+			self.consumematerial(player, args, 0)
+			success = self.checkskills( player, args, 1)
+			if success:
+				item = wolfpack.additem(self.definition)
+				if not item:
+					console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % (self.parent.subactions.index(self), self.parent.id))
+				else:
+					item.decay = 1
+					item.magic = 1
+					if not tobackpack(item, player):
+						item.update()
+			self.parent.send(player, args)
+			return success
+		# runebook / bulk order deed
+		else:
+			self.noticeid = 0
+			self.noticestr = 'Not implemented yet'
+			self.parent.send(player, args)
+			return 0
 
 def onLoad():
+	loadMenu( 'INSCRIPTION' )
 	skills.register( INSCRIPTION, inscription )
