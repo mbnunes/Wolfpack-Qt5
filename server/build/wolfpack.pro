@@ -1,14 +1,16 @@
-#
-# Wolfpack qmake project
-#
-#
-#
+#################################################################
+#   )      (\_     # Wolfpack 13.0.0 Build Script               #
+#  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
+#   )).-" {{ ;"`   # Revised by: Wolfpack Development Team      #
+#  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
+#################################################################
 
 PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE       	+= app
 CONFIG        	+= qt console thread exceptions rtti
 INCLUDEPATH	+= lib/Python/include
+OPTIONS		+= mysql
 
 unix {
 
@@ -16,25 +18,46 @@ unix {
 	# Lets try to figure some paths
 
 	# MySQL includes first
-	exists(/usr/include/mysql/mysql.h) {
-		message("MySQL files found, support enabled")
-		INCLUDEPATH += /usr/include/mysql
-		DEFINES += MYSQL_DRIVER
-		LIBS += -lmysqlclient
-	} exists(/usr/local/lib/mysql/include/mysql/mysql.h) {
-		message("MySQL files found, support enabled")
-		INCLUDEPATH += /usr/local/lib/mysql/include/mysql
-		DEFINES += MYSQL_DRIVER
-		LIBS += -lmysqlclient
+	contains( OPTIONS, mysql ) {
+		message("MySQL support specified, trying to locate required files")
+		exists(/usr/include/mysql/mysql.h) {
+			MYSQL_INCLUDE = /usr/include/mysql
+		} exists(/usr/local/lib/mysql/include/mysql/mysql.h) {
+			message("MySQL files found, support enabled")
+			INCLUDEPATH += /usr/local/lib/mysql/include/mysql
+			DEFINES += MYSQL_DRIVER
+			LIBS += -lmysqlclient
+		}
+
+		!isEmpty(MYSQL_INCLUDE)	{
+			message("MySQL include path........: ($$MYSQL_INCLUDE)")
+			INCLUDEPATH += $$MYSQL_INCLUDE
+			DEFINES += MYSQL_DRIVER
+			
+			exists(/usr/lib/mysql/mysqlclient*) {
+				MYSQL_LIB = /usr/lib/mysql
+			} exists (/usr/local/lib/mysql/lib/mysql/mysqlclient*) {
+				MYSQL_LIB = /usr/local/lib/mysql/lib/mysql
+			} exists (/usr/local/lib/mysqlclient*) {
+				MYSQL_LIB = /usr/local/lib
+			}
+			
+			!isEmpty(MYSQL_LIB) {
+				message("MySQL library path.........: ($$MYSQL_LIB)")
+				LIBS += -L$$MYSQL_LIB 
+			}
+			LIBS += -lmysqlclient
+		}
 	}
 	
 	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite lib/Python/Include network
-	LIBS  += -L. -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.3 -lutil
+	LIBS  += -L. -L/usr/local/lib -Llib/Python -ldl -lpython2.3 -lutil
+	
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 	
 	# Optional compile modes	
-	release:debug:error(You cant have release and debug at the same time!)
+	# release:debug:error(You cant have release and debug at the same time!)
 	
 	release {
 		CONFIG += warn_off
@@ -57,6 +80,7 @@ unix {
 
 RC_FILE = res.rc
 OBJECTS_DIR = obj
+MOC_DIR = obj
 
 win32:DEFINES  += WIN32 
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
@@ -284,3 +308,7 @@ unix:SOURCES  += srvparams_unix.cpp \
 win32:SOURCES += srvparams_win.cpp \ 
 		 console_win.cpp
 
+DISTFILES     += AUTHORS.txt \
+		 COPYING.txt \
+		 LICENSE.GPL   
+		 
