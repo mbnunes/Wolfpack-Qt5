@@ -287,29 +287,77 @@ void cUOPacket::setUnicodeString( uint pos, QString& data, uint maxlen )
 	}
 }
 
+/*!
+  Writes an ascii (Latin-1) string \a data to the raw data buffer starting at position \a pos
+  and with field size \a maxlen. If the actual string \a data is longer than \a maxlen
+  it will be truncated.
+*/
 void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
 {
 	qstrncpy( rawPacket.data() + pos, data, maxlen );
 }
 
+/*!
+  This is a method added for convinience. It permits read/write access to a single byte
+  inside the packet.
+*/
 char& cUOPacket::operator[] ( unsigned int index )
 {
 	return rawPacket.at( index );
 }
 
+/*!
+  Performs a deep copy of \a p.
+*/
 cUOPacket& cUOPacket::operator=( cUOPacket& p )
 {
 	assign(p);
 	return *this;
 }
 
-// Leave as last method, please
+/*!
+  This is a debug method. It will dump a numerical hexa and ascii representation of the packet
+  as well as a right table of offsets into \a s.
+  For example:
+  \code
+  cUOPacket p;
+  ...
+  p.print(&cout);
+  \endcode
+  Will produce an output similar to this:
+  \verbatim
+	[ packet: 9b ; length: 258 ]
+	0000: 9b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0060: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0070: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0090: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	00a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	00b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	00c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	00d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	00e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	00f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
+	0100: 00 00 -- -- -- -- -- -- -- -- -- -- -- -- -- -- : ..
+  \endverbatim
+*/
 void cUOPacket::print( ostream* s )
 {
 	if ( s )
 		(*s) << dump( rawPacket ).latin1() << endl;
 }
 
+
+/*!
+  This is a debug method. It will dump a numerical hexa and ascii representation of the packet
+  at \a data as well as a right table of offsets and return that as a QString.
+  This method behaves just like \sa print.
+*/
 QString cUOPacket::dump( const QByteArray &data )
 {
 	Q_INT32 length = data.count();

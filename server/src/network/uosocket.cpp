@@ -55,6 +55,13 @@
 
 using namespace std;
 
+cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
+		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
+		_account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) 
+{
+}
+
+
 // Send a packet to our ioHandle
 void cUOSocket::send( cUOPacket *packet )
 {
