@@ -369,7 +369,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	}
 
 	// Check Hair
-	if( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) )
+	if( packet->hairStyle() && ( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) ) )
 	{
 		clConsole.send( QString( "%1 is trying to create a char with wrong hair %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
 		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
@@ -379,7 +379,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	}
 
 	// Check Beard
-	if( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) )
+	if( packet->beardStyle() && ( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) ) )
 	{
 		clConsole.send( QString( "%1 is trying to create a char with wrong beard %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
 		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
@@ -402,7 +402,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
 	if( packet->startTown() > startLocations.size() )
 	{
-		clConsole.send( QString( "%1 is trying to create a char with wrong start location: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->startTown ) );
+		clConsole.send( QString( "%1 is trying to create a char with wrong start location: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->startTown() ) );
 		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
 		send( &denyLogin );
 		sysMessage( "Invalid start location" );
@@ -443,17 +443,21 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->moveTo( startLocations[ packet->startTown() ].pos );
 	pChar->dir = 4;
 
-	pChar->setId( ( packet->gender() == 1 ) ? 0x191 : 0x190 )
+	pChar->setId( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
 	pChar->xid = pChar->id();
 
 	pChar->st = packet->strength();
 	pChar->hp = pChar->st;
 
-	pChar->dx = packet->dexterity();
+	pChar->setDex( packet->dexterity() );
 	pChar->stm = pChar->effDex();
 
 	pChar->in = packet->intelligence();
 	pChar->mn = pChar->in;
+
+	pChar->setBaseSkill( packet->skillId1(), packet->skillValue1() );
+	pChar->setBaseSkill( packet->skillId2(), packet->skillValue2() );
+	pChar->setBaseSkill( packet->skillId3(), packet->skillValue3() );
 
 	// Create the char equipment (JUST the basics !!)
 	P_ITEM pItem = new cItem;
@@ -464,6 +468,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setLayer( 0x05 );
 	pItem->setColor( packet->shirtColor() );
 	pItem->setContSerial( pChar->serial );
+	pItem->dye = 1;
+	pItem->priv |= 0x02;
 
 	pItem = new cItem;
 	pItem->Init();
@@ -473,8 +479,46 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setLayer( 0x04 );
 	pItem->setColor( packet->pantsColor() );
 	pItem->setContSerial( pChar->serial );
+	pItem->dye = 1;
+	pItem->priv |= 0x02;
 
 	// Hair & Beard
+	if( packet->hairStyle() )
+	{
+		pItem = new cItem;
+		pItem->Init();
+
+		pItem->dye = 1;
+		pItem->priv |= 0x02;
+		pItem->setId( packet->hairStyle() );
+		pItem->setLayer( 11 );
+		pItem->setColor( packet->hairColor() );
+		pItem->setContSerial( pChar->serial );
+	}
+
+	if( packet->beardStyle() )
+	{
+		pItem = new cItem;
+		pItem->Init();
+
+		pItem->setId( packet->beardStyle() );
+		pItem->priv |= 0x02;
+		pItem->setLayer( 16 );
+		pItem->setColor( packet->beardColor() );
+		pItem->setContSerial( pChar->serial );
+	}
+
+	// Backpack + Bankbox autocreate
+	pItem = pChar->getBankBox();
+	pItem = pChar->getBackpack();
+	
+	player_ = pChar;
+
+	giveNewbieItems();
+}
+
+void cUOSocket::giveNewbieItems( void ) 
+{
 }
 
 void cUOSocket::sysMessage( const QString &message, Q_UINT16 color )

@@ -56,16 +56,17 @@ class cUOSocket
 private:
 	QSocketDevice *_socket;
 	Q_UINT32 _rxBytes, _txBytes, _uniqueId;
-	void *player;
 	Q_INT32 _account; // Our account-id > should be a pointer
+	P_CHAR _player;
 	eSocketState _state;
 	Q_UINT8 lastPacket;
 
 	bool authenticate( const QString &username, const QString &password );
+	void giveNewbieItems( void );
 
 public:
 	cUOSocket( QSocketDevice *sDevice ): 
-		lastPacket( 0xFF ), _state( SS_LOGGINGIN ), _account(-1), player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
+		lastPacket( 0xFF ), _state( SS_LOGGINGIN ), _account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
 	virtual ~cUOSocket( void ) { delete _socket; }
 
 	QSocketDevice *socket( void ) { return _socket; }
@@ -73,6 +74,8 @@ public:
 
 	eSocketState state( void ) { return _state; }
 	void setState( eSocketState data ) { _state = data; }
+
+	P_CHAR player( void ) { return _player; }
 
 	Q_UINT32 rxBytes( void ) { return _rxBytes; }
 	Q_UINT32 txBytes( void ) { return _txBytes; }
