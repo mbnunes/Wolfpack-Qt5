@@ -242,8 +242,8 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 		currchar[s]->emote( tr("*%s starts grinding some %s in the mortar.*").arg(currchar[s]->name).arg(regname) ); // LB, the 1 stops stupid alchemy spam
 		delequan(currchar[s],regid,regamount);
 	}
-	else
-		sysmessage(s, tr("You do not have enough reagents for that potion."));
+//	else
+//		sysmessage(s, tr("You do not have enough reagents for that potion."));
 	
 	return success;
 }

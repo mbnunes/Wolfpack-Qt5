@@ -105,65 +105,65 @@ void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 //////////////////////////////////////////////////////////////////////////////
 bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 {
-  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
-  int   nPostSerial = INVALID_SERIAL;
-  
-  if (pc_nIndex == NULL) return false;
-
-  // Check that we have a reward amount greater than zero
-  if( nRewardAmount > 0 )
-  {
-    // Check that this murderer doesn't already have a bounty on them
-    if( pc_nIndex->questBountyReward() > 0 )
-    {
-      // This murderer already has a bounty on them because they 
-      // have a reward amount on their head, so delete old bounty
-      // and add the new (updated) one
-      nRewardAmount += pc_nIndex->questBountyReward();
-      BountyDelete( nMurdererSerial );
-    }
-
-    // Attempt to post the message first
-    pc_nIndex->setQuestBountyReward(nRewardAmount);
-    nPostSerial = MsgBoardPostQuest( nMurdererSerial, BOUNTYQUEST );
-
-    // If we received a valid serial number then the post was successfull
-    if( nPostSerial > 0 )
-    {
-      pc_nIndex->setQuestBountyPostSerial(nPostSerial);
-      return true;
-    }
-  }
-
-  // Failed to post bounty
-  sprintf((char*)temp, "BountyCreate():  FAILED to place a bounty of %i on %s (PostSerial=%x)\n",
-          nRewardAmount,
-          pc_nIndex->name.latin1(),
-          nPostSerial );
-  LogWarning((char*)temp);
-
-  // Post must have failed
+//  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
+//  int   nPostSerial = INVALID_SERIAL;
+//  
+//  if (pc_nIndex == NULL) return false;
+//
+//  // Check that we have a reward amount greater than zero
+//  if( nRewardAmount > 0 )
+//  {
+//    // Check that this murderer doesn't already have a bounty on them
+//    if( pc_nIndex->questBountyReward() > 0 )
+//    {
+//      // This murderer already has a bounty on them because they 
+//      // have a reward amount on their head, so delete old bounty
+//      // and add the new (updated) one
+//      nRewardAmount += pc_nIndex->questBountyReward();
+//      BountyDelete( nMurdererSerial );
+//    }
+//
+//    // Attempt to post the message first
+//    pc_nIndex->setQuestBountyReward(nRewardAmount);
+//    nPostSerial = MsgBoardPostQuest( nMurdererSerial, BOUNTYQUEST );
+//
+//    // If we received a valid serial number then the post was successfull
+//    if( nPostSerial > 0 )
+//    {
+//      pc_nIndex->setQuestBountyPostSerial(nPostSerial);
+//      return true;
+//    }
+//  }
+//
+//  // Failed to post bounty
+//  sprintf((char*)temp, "BountyCreate():  FAILED to place a bounty of %i on %s (PostSerial=%x)\n",
+//          nRewardAmount,
+//          pc_nIndex->name.latin1(),
+//          nPostSerial );
+//  LogWarning((char*)temp);
+//
+//  // Post must have failed
   return false;
 
 } // BountyCreate()
 
 bool cBounty::BountyDelete( int nMurdererSerial )
 {
-  bool  bReturn = true;
-  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
+//  bool  bReturn = true;
+//  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
+//
+//  if ( pc_nIndex == NULL ) return false;
+//
+//
+//  // Find and mark the post associated with this bounty as deleted
+//  // so that the bulletin board maintenance routine can clean it up
+//  bReturn = MsgBoardRemoveGlobalPostBySerial( pc_nIndex->questBountyPostSerial() );
+//
+//  // Reset all bounty values for this character
+//  pc_nIndex->setQuestBountyReward(0);
+//  pc_nIndex->setQuestBountyPostSerial( INVALID_SERIAL );
 
-  if ( pc_nIndex == NULL ) return false;
-
-
-  // Find and mark the post associated with this bounty as deleted
-  // so that the bulletin board maintenance routine can clean it up
-  bReturn = MsgBoardRemoveGlobalPostBySerial( pc_nIndex->questBountyPostSerial() );
-
-  // Reset all bounty values for this character
-  pc_nIndex->setQuestBountyReward(0);
-  pc_nIndex->setQuestBountyPostSerial( INVALID_SERIAL );
-
-  return bReturn;
+  return false;
 
 } // BountyDelete()
 

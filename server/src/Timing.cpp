@@ -511,12 +511,12 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			// too long without every having its quest accepted by a player so we have to remove
 			// its posting from the message board before icing the NPC
 			// Only need to remove the post if the NPC does not have a follow target set
-			if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg() == INVALID_SERIAL) )
-			{
-				MsgBoardQuestEscortRemovePost( pc );
-				MsgBoardQuestEscortDelete( pc );
-				return;
-			}
+//			if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg() == INVALID_SERIAL) )
+//			{
+//				MsgBoardQuestEscortRemovePost( pc );
+//				MsgBoardQuestEscortDelete( pc );
+//				return;
+//			}
 			// Dupois - End
 
 			pc->soundEffect( 0x01FE );
@@ -619,7 +619,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 		if ((pc->poisoned()))
 		{
 			pc->setPoisoned(0);
-			impowncreate(calcSocketFromChar(pc), pc, 1); // updating to blue stats-bar ...
+			pc->update();
 		}
 	}
 

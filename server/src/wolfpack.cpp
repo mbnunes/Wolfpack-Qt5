@@ -77,6 +77,7 @@
 #include "boats.h"
 #include "weight.h"
 #include "onlinestatus.h"
+#include "multiscache.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -1261,6 +1262,9 @@ int main( int argc, char *argv[] )
 		CIAO_IF_ERROR;
 	}
 
+	// Try to load the multi data
+	MultisCache->load();
+
 	cAllTerritories::getInstance()->load();
 
 	CIAO_IF_ERROR;
@@ -2007,259 +2011,6 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 void addgold(UOXSOCKET s, int totgold)
 {
 	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,1,1);
-}
-
-void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
-{
-	int x;
-	signed short tempshort;
-		
-	if ( pc_p == NULL ) return;
-	UOXSOCKET s = calcSocketFromChar(pc_p);
-	P_CHAR pc_currchar = currchar[s];
-
-	//blackwinds fix for potion delay
-	// disabled for now, because both objectdelay AND skilldelay are set, so you can't do anything (Duke)
-	// delay should only be for another healing potion, but a good solution will need the new timers :(
-#if 0
-    if((pc_p->skilldelay<=uiCurrentTime) || pc_p->isGM())
-	{
-       if (pc_p->skill[ALCHEMY]==1000)
-		   pc_p->skilldelay=uiCurrentTime + (MY_CLOCKS_PER_SEC*9);
-	   else
-          pc_p->skilldelay=uiCurrentTime + (MY_CLOCKS_PER_SEC*14);
-#endif
-
-	switch(pi->morey())
-	{
-	case 1: // Agility Potion
-		pc_p->effect( 0x373a, 10, 15 );
-		switch(pi->morez())
-		{
-		case 1:
-			tempeffect(currchar[s], pc_p, 6, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
-			sysmessage(s, "You feel more agile!");
-			break;
-		case 2:
-			tempeffect( currchar[s], pc_p, 6, 10+RandomNum(1,20), 0, 0, 120);
-			sysmessage(s, "You feel much more agile!");
-			break;
-		default:
-			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
-			return;
-		}
-		
-		pc_p->soundEffect( 0x01E7 );
-		
-		if( pc_p->socket() )
-			pc_p->socket()->updateStamina();
-
-		break;
-
-	case 2: // Cure Potion
-		if (pc_p->poisoned()<1)
-			sysmessage(s,"The potion had no effect.");
-		else
-		{
-			switch(pi->morez())
-			{
-			case 1:
-				x=RandomNum(1,100);
-				if (pc_p->poisoned()==1 && x<81) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==2 && x<41) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==3 && x<21) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==4 && x< 6) pc_p->setPoisoned(0);
-				break;
-			case 2:
-				x=RandomNum(1,100);
-				if (pc_p->poisoned()==1) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==2 && x<81) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==3 && x<41) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==4 && x<21) pc_p->setPoisoned(0);
-				break;
-			case 3:
-				x=RandomNum(1,100);
-				if (pc_p->poisoned()==1) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==2) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==3 && x<81) pc_p->setPoisoned(0);
-				else if (pc_p->poisoned()==4 && x<61) pc_p->setPoisoned(0);
-				break;
-			default:
-				clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
-				return;
-			}
-			if (pc_p->poisoned()) 
-				sysmessage(s,"The potion was not able to cure this poison."); 
-			else
-			{
-				pc_p->effect( 0x373A, 10, 15);
-				pc_p->soundEffect( 0x01E0 ); //cure sound
-				if( pc_p->socket() )
-					pc_p->socket()->sysMessage( tr( "The poison was cured." ) );
-				
-			}
-		}
-
-		pc_p->resend( false );
-		break;
-
-	case 3: // Explosion Potion
-		if (pc_currchar->inGuardedArea()) // Ripper 11-14-99
-		{
-			sysmessage(s," You cant use that in town!");
-			return;
-		}
-		addid1[s] = static_cast<unsigned char>(pi->serial >> 24);
-		addid2[s] = static_cast<unsigned char>(pi->serial >> 16);
-		addid3[s] = static_cast<unsigned char>(pi->serial >> 8);
-		addid4[s] = static_cast<unsigned char>(pi->serial % 256);
-		sysmessage(s, "Now would be a good time to throw it!");
-		tempeffect(currchar[s], currchar[s], 16, 0, 1, 3);
-		tempeffect(currchar[s], currchar[s], 16, 0, 2, 2);
-		tempeffect(currchar[s], currchar[s], 16, 0, 3, 1);
-		tempeffect2(currchar[s], pi, 17, 0, 4, 0);
-//		target(s,0,1,0,207,"*throw*");
-		return; // lb bugfix, break is wronh here because it would delete bottle
-
-	case 4: // Heal Potion
-		switch(pi->morez())
-		{
-		case 1:
-//			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st());
-			tempshort = pc_p->hp();
-			pc_p->setHp( QMIN(static_cast<signed short>(tempshort+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st()) );
-			sysmessage(s, tr("You feel better!"));
-			break;
-		case 2:
-//			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st());
-			tempshort = pc_p->hp();
-			pc_p->setHp( QMIN(static_cast<signed short>(tempshort+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st()) );
-			sysmessage(s, tr("You feel more healty!"));
-			break;
-		case 3:
-//			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st());
-			tempshort = pc_p->hp();
-			pc_p->setHp( QMIN(static_cast<signed short>(tempshort+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st()) );
-			sysmessage(s, tr("You feel much more healty!"));
-			break;
-		default:
-			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
-			return;
-		}
-
-		pc_p->updateHealth();
-		pc_p->effect( 0x376A, 0x09, 0x06 ); // Sparkle effect
-		pc_p->soundEffect( 0x01F2 ); //Healing Sound
-		break;
-	case 5: // Night Sight Potion
-		pc_p->effect( 0x376A, 0x09, 0x06 );
-		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
-		pc_p->soundEffect( 0x01E3 );
-		break;
-	case 6: // Poison Potion
-		if(pc_p->poisoned() < pi->morez()) pc_p->setPoisoned(pi->morez());
-		if(pi->morez()>4) pi->setMoreZ(4);
-		
-		pc_p->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
-		pc_p->resend( false );
-		pc_p->soundEffect( 0x0246); //poison sound
-		sysmessage(s, tr( "You poisoned yourself!" )); //message
-		break;
-	case 7: // Refresh Potion
-		switch(pi->morez())
-		{
-		case 1:
-//			pc_p->stm=QMIN(pc_p->stm+20+RandomNum(1,10), (int)pc_p->effDex());
-			tempshort = pc_p->stm();
-			pc_p->setStm( QMIN(tempshort+20+RandomNum(1,10), (int)pc_p->effDex()) );
-			sysmessage(s, tr("You feel more energetic!"));
-			break;
-		case 2:
-//			pc_p->stm=QMIN(pc_p->stm+40+RandomNum(1,30), (int)pc_p->effDex());
-			tempshort = pc_p->stm();
-			pc_p->setStm( QMIN(tempshort+40+RandomNum(1,30), (int)pc_p->effDex()) );
-			sysmessage(s, tr("You feel much more energetic!"));
-			break;
-		default:
-			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
-			return;
-		}
-		
-		pc_p->updateHealth();
-		pc_p->effect( 0x376A, 0x09, 0x06 ); // Sparkle effect
-		pc_p->soundEffect( 0x01F2 ); //Healing Sound
-		break;
-	case 8: // Strength Potion
-		pc_p->effect( 0x373a, 10, 15 );
-		switch(pi->morez())
-		{
-		case 1:
-			tempeffect(currchar[s], pc_p, 8, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
-			sysmessage(s, tr("You feel more strong!"));
-			break;
-		case 2:
-			tempeffect(currchar[s], pc_p, 8, 10+RandomNum(1,20), 0, 0, 120);
-			sysmessage(s, tr("You feel much more strong!"));
-			break;
-		default:
-			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
-			return;
-		}
-		pc_p->soundEffect( 0x01EE );
-		break;
-
-	case 9: // Mana Potion
-		switch(pi->morez())
-		{
-		case 1:
-		
-//			pc_p->mn=QMIN(pc_p->mn+10+pi->morex/100, (unsigned)pc_p->in);
-			tempshort = pc_p->mn();
-			pc_p->setMn( QMIN(tempshort+10+pi->morex()/100, (unsigned)pc_p->in()) );
-		
-			break;
-		case 2:
-		
-//			pc_p->mn=QMIN(pc_p->mn+20+pi->morex/50, (unsigned)pc_p->in);
-			tempshort = pc_p->mn();
-			pc_p->setMn( QMIN(tempshort+20+pi->morex()/50, (unsigned)pc_p->in()) );
-		
-			break;
-		default:
-			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
-			return;
-		}
-		if ( pc_p->socket() )
-			pc_p->socket()->updateMana( pc_p );
-		pc_p->effect( 0x376A, 0x09, 0x06 ); // Sparkle effect
-		pc_p->soundEffect( 0x01E7 ); // Agility sound
-		break;
-
-	default:
-		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
-		return;
-	}
-
-	pc_p->soundEffect( 0x30 );
-	pc_p->action( 0x22 );
-
-	// empty bottle after drinking
-//	pi->setContSerial( -1 );
-	if( pi->morey() != 3 )
-	{
-		SERIAL kser = pi->serial;
-		pi->Init( 0 );
-		pi->SetSerial( kser );
-		pi->setId( 0x0F0E );
-		pi->moveTo( pc_p->pos );
-		pi->priv |= 0x01;
-	}
-	else
-	{
-		Items->DeleItem( pi );
-	}
-	
-	pi->update();
 }
 
 int calcValue(P_ITEM pi, int value)
@@ -3820,6 +3571,7 @@ void StartClasses(void)
 	DefManager		= NULL;
 	SrvParams		= NULL;
 	NewMagic		= NULL;
+	MultisCache		= NULL;
 	persistentBroker = 0;
 
 	// Classes nulled now, lets get them set up :)
@@ -3831,7 +3583,7 @@ void StartClasses(void)
 	Weight			= new cWeight;
 	Targ			= new cTargets;
 	Magic			= new cMagic;
-
+	MultisCache		= new cMultisCache( SrvParams->mulPath() );
 	//Weather = new cWeather;
 	// Sky's AI Stuff
 	DragonAI		= new cCharStuff::cDragonAI;

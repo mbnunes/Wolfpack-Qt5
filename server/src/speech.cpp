@@ -405,57 +405,57 @@ bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QStr
 
 bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QString& comm )
 {
-	// not close enough / not an escortee
-	if (pPlayer->dist(pEscortee) > 1 || pEscortee->questType() != ESCORTQUEST )
-		return false;
-
-	bool onRoute = false;
-	
-	if( comm.contains( "I WILL TAKE THEE" ) )
-	{
-		if ( pEscortee->ftarg() == INVALID_SERIAL )
-		{
-			pEscortee->setFtarg( pPlayer->serial );		// Set the NPC to follow the PC
-			pEscortee->setNpcWander( 1 );			// Set the NPC to wander freely
-			pEscortee->setNpcAIType( 0 );           // Set AI to 0
-			
-			// Set the expire time if nobody excepts the quest
-			pEscortee->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) ) );
-			
-			// Send out the rant about accepting the escort
-			pEscortee->talk( tr( "Lead on! Payment shall be made when we arrive at %1." ).arg( pEscortee->questDestRegion() ) ),
-			
-			MsgBoardQuestEscortRemovePost( pEscortee );	// Remove post from message board
-			return true;
-		}
-		else
-		{
-			// If the current NPC already has an ftarg then respond to query for quest
-			onRoute = true;
-		}
-	}
-		
-	// DESTINATION
-	// If this is a request to find out where a NPC wants to go and the PC is within range of the NPC and the NPC is waiting for an ESCORT
-	if( ( comm.contains( "DESTINATION" ) ) || onRoute )
-	{
-		// Send out the rant about accepting the escort
-		if ( pEscortee->ftarg() == pPlayer->serial )
-			pEscortee->talk( tr( "Lead on to %1. I shall pay thee when we arrive." ).arg( pEscortee->questDestRegion() ) );
-		
-		// If nobody has been accepted for the quest yet
-		else if( pEscortee->ftarg() == INVALID_SERIAL )  
-			pEscortee->talk( tr( "I am seeking an escort to %1. Wilt thou take me there?" ).arg( pEscortee->questDestRegion() ) );
-
-		// The must be enroute
-		else 
-		{
-			// Send out a message saying we are already being escorted
-			pPlayer = FindCharBySerial( pEscortee->ftarg() );
-			pEscortee->talk( tr( "I being escorted to %1 by %2." ).arg( pEscortee->questDestRegion() ).arg( pPlayer->name.latin1() ) );
-		}
-		return true;
-	}
+//	// not close enough / not an escortee
+//	if (pPlayer->dist(pEscortee) > 1 || pEscortee->questType() != ESCORTQUEST )
+//		return false;
+//
+//	bool onRoute = false;
+//	
+//	if( comm.contains( "I WILL TAKE THEE" ) )
+//	{
+//		if ( pEscortee->ftarg() == INVALID_SERIAL )
+//		{
+//			pEscortee->setFtarg( pPlayer->serial );		// Set the NPC to follow the PC
+//			pEscortee->setNpcWander( 1 );			// Set the NPC to wander freely
+//			pEscortee->setNpcAIType( 0 );           // Set AI to 0
+//			
+//			// Set the expire time if nobody excepts the quest
+//			pEscortee->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) ) );
+//			
+//			// Send out the rant about accepting the escort
+//			pEscortee->talk( tr( "Lead on! Payment shall be made when we arrive at %1." ).arg( pEscortee->questDestRegion() ) ),
+//			
+//			MsgBoardQuestEscortRemovePost( pEscortee );	// Remove post from message board
+//			return true;
+//		}
+//		else
+//		{
+//			// If the current NPC already has an ftarg then respond to query for quest
+//			onRoute = true;
+//		}
+//	}
+//		
+//	// DESTINATION
+//	// If this is a request to find out where a NPC wants to go and the PC is within range of the NPC and the NPC is waiting for an ESCORT
+//	if( ( comm.contains( "DESTINATION" ) ) || onRoute )
+//	{
+//		// Send out the rant about accepting the escort
+//		if ( pEscortee->ftarg() == pPlayer->serial )
+//			pEscortee->talk( tr( "Lead on to %1. I shall pay thee when we arrive." ).arg( pEscortee->questDestRegion() ) );
+//		
+//		// If nobody has been accepted for the quest yet
+//		else if( pEscortee->ftarg() == INVALID_SERIAL )  
+//			pEscortee->talk( tr( "I am seeking an escort to %1. Wilt thou take me there?" ).arg( pEscortee->questDestRegion() ) );
+//
+//		// The must be enroute
+//		else 
+//		{
+//			// Send out a message saying we are already being escorted
+//			pPlayer = FindCharBySerial( pEscortee->ftarg() );
+//			pEscortee->talk( tr( "I being escorted to %1 by %2." ).arg( pEscortee->questDestRegion() ).arg( pPlayer->name.latin1() ) );
+//		}
+//		return true;
+//	}
 	return false;
 }
 

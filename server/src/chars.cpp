@@ -506,7 +506,6 @@ void cChar::Init(bool ser)
 	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
 	this->setPolymorph(false);//polymorph - AntiChrist
 	this->setIncognito(false);//incognito - AntiChrist
-    this->setPostType(LOCALPOST);
     this->setQuestDestRegion(0);
     this->setQuestOrigRegion(0);
     this->setQuestBountyReward(0);

@@ -67,7 +67,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		{
 			amt = pi->amount();  //-Frazurbluu- changed to reflect current OSI 
 			//soundeffect(s,0x02,0x48);
-			sysmessage(s, tr("You cut some cloth into bandages, and put it in your backpack") );
+//			sysmessage(s, tr("You cut some cloth into bandages, and put it in your backpack") );
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,amt,"#",0,0x0E,0x21,col1,1,1);
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-

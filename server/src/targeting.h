@@ -75,8 +75,6 @@ private:
 	void VisibleTarget(int s);
 	void DvatTarget(int s);
 	void LoadCannon(int s);
-//	void SetInvulFlag(int s);
-	void SquelchTarg(int s);
 	void NpcTarget(int s);
 	void NpcTarget2(int s);
 	void NpcRectTarget(int s);
@@ -94,11 +92,8 @@ private:
 	void FollowTarget(int s);
 	void TransferTarget(int s);
 	void BuyShopTarget(int s);
-	void permHideTarget(int s);
-	void unHideTarget(int s);
 	void SetSpeechTarget(int s);
 	void SetPoisonTarget(int s);
-	void SetPoisonedTarget(int s);
 	void CanTrainTarget(int s);
 	void SetSpaDelayTarget(int s);
 	void NewXTarget(int s);

@@ -233,27 +233,27 @@ void cMagic::unload( void )
 // Checks for sufficient Mana/Stamina/Health
 bool cMagic::checkStats( P_CHAR caster, cSpell *spell )
 {
-	if( caster->isGM() )
-		return true;
-
-	if( ( caster->mn() < spell->mana() ) && !( caster->priv2() & 0x10 ) )
-	{
-		sysmessage( calcSocketFromChar( caster ), "You have insufficient mana to cast that spell.");
-		return false;
-	}
-
-	if( caster->stm() < spell->stamina() )
-	{
-		sysmessage( calcSocketFromChar( caster ), "You have insufficient stamina to cast that spell.");
-		return false;
-	}
-
-	if( caster->hp() < spell->health() )
-	{
-		sysmessage( calcSocketFromChar( caster ), "You have insufficient health to cast that spell.");
-		return false;
-	}
-
+//	if( caster->isGM() )
+//		return true;
+//
+//	if( ( caster->mn() < spell->mana() ) && !( caster->priv2() & 0x10 ) )
+//	{
+//		sysmessage( calcSocketFromChar( caster ), "You have insufficient mana to cast that spell.");
+//		return false;
+//	}
+//
+//	if( caster->stm() < spell->stamina() )
+//	{
+//		sysmessage( calcSocketFromChar( caster ), "You have insufficient stamina to cast that spell.");
+//		return false;
+//	}
+//
+//	if( caster->hp() < spell->health() )
+//	{
+//		sysmessage( calcSocketFromChar( caster ), "You have insufficient health to cast that spell.");
+//		return false;
+//	}
+//
 	return true;
 }
 
@@ -525,39 +525,39 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 //
 bool cMagic::checkReagents( P_CHAR caster, cSpell *spell )
 {
-		QStringList missing;
-
-		// Check for every reagent
-		if( spell->reqAsh() && ( getamount( caster, 0x0F8C ) < spell->reqAsh() ) )
-			missing.push_back( "Sa" );
-	
-		if( spell->reqDrake() && ( getamount( caster, 0xF86 ) < spell->reqDrake() ) )
-			missing.push_back( "Mr" );
-
-		if( spell->reqGarlic() && ( getamount( caster, 0xF84 ) < spell->reqGarlic() ) )
-			missing.push_back( "Ga" );
-
-		if( spell->reqGinseng() && ( getamount( caster, 0xF85 ) < spell->reqGinseng() ) )
-			missing.push_back( "Gi" );
-
-		if( spell->reqMoss() && ( getamount( caster, 0xF7B ) < spell->reqMoss() ) )
-			missing.push_back( "Bm" );
-
-		if( spell->reqPearl() && ( getamount( caster, 0xF7A ) < spell->reqPearl() ) )
-			missing.push_back( "Bp" );
-		
-		if( spell->reqShade() && ( getamount( caster, 0xF88 ) < spell->reqShade() ) )
-			missing.push_back( "Ns" );
-
-		if( spell->reqSilk() && ( getamount( caster, 0xF8D ) < spell->reqSilk() ) )
-			missing.push_back( "Ss" );
-
-		if( missing.count() > 0 )
-		{
-			sysmessage( calcSocketFromChar( caster ), QString( "You don't have enough reagents to cast that spell [%1]" ).arg( missing.join( "," ) ) );
-			return false;
-		}
-		else		
+//		QStringList missing;
+//
+//		// Check for every reagent
+//		if( spell->reqAsh() && ( getamount( caster, 0x0F8C ) < spell->reqAsh() ) )
+//			missing.push_back( "Sa" );
+//	
+//		if( spell->reqDrake() && ( getamount( caster, 0xF86 ) < spell->reqDrake() ) )
+//			missing.push_back( "Mr" );
+//
+//		if( spell->reqGarlic() && ( getamount( caster, 0xF84 ) < spell->reqGarlic() ) )
+//			missing.push_back( "Ga" );
+//
+//		if( spell->reqGinseng() && ( getamount( caster, 0xF85 ) < spell->reqGinseng() ) )
+//			missing.push_back( "Gi" );
+//
+//		if( spell->reqMoss() && ( getamount( caster, 0xF7B ) < spell->reqMoss() ) )
+//			missing.push_back( "Bm" );
+//
+//		if( spell->reqPearl() && ( getamount( caster, 0xF7A ) < spell->reqPearl() ) )
+//			missing.push_back( "Bp" );
+//		
+//		if( spell->reqShade() && ( getamount( caster, 0xF88 ) < spell->reqShade() ) )
+//			missing.push_back( "Ns" );
+//
+//		if( spell->reqSilk() && ( getamount( caster, 0xF8D ) < spell->reqSilk() ) )
+//			missing.push_back( "Ss" );
+//
+//		if( missing.count() > 0 )
+//		{
+//			sysmessage( calcSocketFromChar( caster ), QString( "You don't have enough reagents to cast that spell [%1]" ).arg( missing.join( "," ) ) );
+//			return false;
+//		}
+//		else		
 			return true;
 }
 

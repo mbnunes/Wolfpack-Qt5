@@ -161,7 +161,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		{
 			tradeWindow->setMoreZ(0);
 			outmostCont->setMoreZ(0);
-			sendtradestatus( tradeWindow, outmostCont );
+//			sendtradestatus( tradeWindow, outmostCont );
 		}
 	}
 
@@ -746,7 +746,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		{
 			tradeWindow->setMoreZ(0);
 			pCont->setMoreZ(0);
-			sendtradestatus( tradeWindow, pCont );
+//			sendtradestatus( tradeWindow, pCont );
 		}
 	}
 	

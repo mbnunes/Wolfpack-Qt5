@@ -437,28 +437,28 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 17: 
 			break; // Zippy Player Vendors.
 		case 18: // Ripper.. Escort speech.
-		if (!pc_i->war() && pc_i->questType() == ESCORTQUEST)
-		{
-			RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); !ri.atEnd(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
-				{
-				    d = pc->dist( pc_i );
-					if (d > 10)
-					    continue;
-					if( ( pc->isNpc() ) && ( !online( pc ) ) )
-						    continue;
-				    if (pc->dead())
-					    continue;
-
-					pc_i->talk( tr("I am waiting for my escort to %1, Will you take me?").arg( pc_i->questDestRegion() ), -1 , 0 );
-				    pc_i->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*30);
-				    return;
-				}
-			}
-		}
+//		if (!pc_i->war() && pc_i->questType() == ESCORTQUEST)
+//		{
+//			RegionIterator4Chars ri(pc_i->pos);
+//			for (ri.Begin(); !ri.atEnd(); ri++)
+//			{
+//				P_CHAR pc = ri.GetData();
+//				if (pc != NULL)
+//				{
+//				    d = pc->dist( pc_i );
+//					if (d > 10)
+//					    continue;
+//					if( ( pc->isNpc() ) && ( !online( pc ) ) )
+//						    continue;
+//				    if (pc->dead())
+//					    continue;
+//
+//					pc_i->talk( tr("I am waiting for my escort to %1, Will you take me?").arg( pc_i->questDestRegion() ), -1 , 0 );
+//				    pc_i->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*30);
+//				    return;
+//				}
+//			}
+//		}
 		break;
 		case 19:
 			break; // real estate broker...Ripper

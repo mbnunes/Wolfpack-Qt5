@@ -480,7 +480,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		pc_currchar->setObjectDelay( 0 );
 		if (pi->moreb1())
 			Magic->MagicTrap(pc_currchar, pi);
-		sysmessage(s, "This item is locked.");
+		socket->sysMessage( tr("This item is locked.") );
 		return;// case 8/64 (locked container)
 
 	// Spellbook
@@ -640,37 +640,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		}// switch
 		//soundeffect(s, 0x01, 0xEC);
 		return;// case 18 (crystal ball?)
-		case 19: // potions
-			usepotion(socket->player(), pi);
-			return; // case 19 (potions)					
-			
-		case 181: // Fireworks wands
-			int wx, wy, wi;
-			if (pi->morex() <= 0)
-			{
-				socket->sysMessage(tr("That is out of charges."));
-				return;
-			}
-			pi->setMoreX((tempuint=pi->morex())--);
-			//pi->morex--;
-			sprintf((char*)temp, "Your wand now has %i charges left", pi->morex());
-			socket->sysMessage((char*) temp);
-			
-			for (wi = 0; wi <(rand()%4 + 1); wi++)
-			{
-				wx = (pc_currchar->pos.x +(rand()%11 - 5));
-				wy = (pc_currchar->pos.y +(rand()%11 - 5));
-				movingeffect3(pc_currchar, (unsigned short)(wx), (unsigned short)(wy), pc_currchar->pos.z + 10, (unsigned char)(0x36), (unsigned char)(0xE4), 17, 0, rand()%2);
-				switch (RandomNum(0, 4))
-				{
-				case 0:	staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x3A, 0x09, 0, 0);	break;
-				case 1:	staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x4A, 0x09, 0, 0);	break;
-				case 2:	staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x5A, 0x09, 0, 0);	break;
-				case 3:	staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x6A, 0x09, 0, 0);	break;
-				case 4: staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x7A, 0x09, 0, 0);	break;
-				}
-			}
-			return;
 			
 		case 100:  // type 100?  this ain't in the docs...
 			{
@@ -905,13 +874,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						if (pi->morex() <= 0)
 						{
-							sysmessage(s,  "That is out of charges.");
+							socket->sysMessage( tr("That is out of charges.") );
 							return;
 						}
 						pi->setMoreX((tempuint=pi->morex())--);
 						//pi->morex--;
-						sprintf((char*)temp, "Your wand now has %i charges left", pi->morex());
-						socket->sysMessage((char*) temp);
+						socket->sysMessage( tr("Your wand now has %1 charges left").arg( pi->morex()) );
 //						target(s, 0, 1, 0, 75, "What do you wish to identify?");
 					}
 					else
