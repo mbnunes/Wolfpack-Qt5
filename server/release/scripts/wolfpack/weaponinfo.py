@@ -598,7 +598,7 @@ WEAPONINFO = {
 		MAXDAMAGE: 18,
 		SPEED: 28,
 		REQSTR: 95,
-		SWING: [ 0xc ]
+		SWING: [ 0xc ],
 		HITSOUND: [0x233, 0x232],
 		MISSSOUND: [ 0x23a, 0x239 ]
 	},
