@@ -2960,9 +2960,9 @@ int main(int argc, char *argv[])
 
 #ifndef __unix__
 	clearscreen(); // Moved by Magiu s(CHE (1)
-	sprintf(idname, "%s %s %s [WIN32] compiled by %s\nProgrammed by: %s", wp_version.productstring.c_str() ,  wp_version.betareleasestring.c_str(), wp_version.verstring.c_str() , wp_version.compiledbystring.c_str() , wp_version.codersstring.c_str() );
+	sprintf(idname, "%s %s %s [WIN32] compiled by %s\nCurrent developers: %s", wp_version.productstring.c_str() ,  wp_version.betareleasestring.c_str(), wp_version.verstring.c_str() , wp_version.compiledbystring.c_str() , wp_version.codersstring.c_str() );
 #else
-	sprintf(idname, "%s %s %s [LINUX] compiled by %s\nProgrammed by: %s", wp_version.productstring.c_str() ,  wp_version.betareleasestring.c_str(), wp_version.verstring.c_str() , wp_version.compiledbystring.c_str(), wp_version.codersstring.c_str() );
+	sprintf(idname, "%s %s %s [LINUX] compiled by %s\nCurrent developers: %s", wp_version.productstring.c_str() ,  wp_version.betareleasestring.c_str(), wp_version.verstring.c_str() , wp_version.compiledbystring.c_str(), wp_version.codersstring.c_str() );
 #endif
 	clConsole.send(idname);
 	clConsole.send("\n");

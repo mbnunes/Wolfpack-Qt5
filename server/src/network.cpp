@@ -651,9 +651,9 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	/// you can change 0x37 to your liking, but not to 0
 	/////////////////////////////////////////////////////////////////////
 
-	sysmessage(s, 0x37, "Welcome to %s !",serv[0].sServer.c_str()); 
+	sysmessage(s, 0x37, "Welcome to %s !", serv[0].sServer.c_str()); 
 	sysmessage(s, 0x37, "Running on %s %s %s ", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() ); 
-	sysmessage(s, 0x37, "Programmed by: %s",wp_version.codersstring.c_str() );
+	sysmessage(s, 0x37, "Current developers: %s",wp_version.codersstring.c_str() );
 
 	pc_currchar->region=255;
 	checkregion(pc_currchar);
@@ -1289,7 +1289,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x83:// Character Delete
-								
 					chardel(s);
 					break;
 

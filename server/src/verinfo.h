@@ -129,29 +129,17 @@ struct wp_version_info
 {
     public:
 
-	//##ModelId=3C5D92AF033C
-	   unsigned int   vernumber;
-	//##ModelId=3C5D92AF0351
+	   unsigned int    vernumber;
 	   wpversion_32bit verstruct;
-
-	//##ModelId=3C5D92AF0383
 	   string verstring; 
-	//##ModelId=3C5D92AF0397
 	   string productstring;
-	//##ModelId=3C5D92AF03B5
 	   string betareleasestring;
-	//##ModelId=3C5D92AF03D3
 	   string clientsupportedstring;
-	//##ModelId=3C5D92B00009
 	   string timezonestring;
-	//##ModelId=3C5D92B00027
 	   string compiledbystring;
-	//##ModelId=3C5D92B00045
 	   string codersstring;
-	//##ModelId=3C5D92B00063
 	   string emailstring;
 
-	//##ModelId=3C5D92B00080
 	   wp_version_info()
 	   {
 		   /////////////////////////////////////
@@ -160,8 +148,8 @@ struct wp_version_info
 		   verstruct.sub_version    = 6;
 		   verstruct.subsub_version = 63; // no subsub
 
-		   verstruct.flags    = WPV_BETA ;
-		   verstruct.derivate = WOLF ;
+		   verstruct.flags    = WPV_BETA;
+		   verstruct.derivate = WOLF;
 		  
            vernumber = to_32bitver(verstruct);		   
 		  
@@ -183,21 +171,18 @@ struct wp_version_info
 		   timezonestring = "GMT+1";   // your timezone
 
 		   #ifdef __unix__
-             compiledbystring = "punt" ;  // person that compiled linux version
-             codersstring = "Duke, Ripper, Correa, punt, Lord Binary" ;
+             compiledbystring = "Wolfpack" ;	// person that compiled linux version
            #else
-             compiledbystring = "Ripper" ; // person that cpompiled windows version
-             codersstring = "Skyfire, Ripper, Correa, punt" ;
+             compiledbystring = "Wolfpack" ;	// person that compiled windows version
            #endif
+           codersstring = "Correa, punt, Ripper"; // Keep in alphabetic order.
 
-           emailstring = " ";		  
+           emailstring = "http://www.wpdev.org/";		  
 	   }
 
-	//##ModelId=3C5D92B0008A
 	   virtual ~wp_version_info() { ; }
 
 	   private:
-	//##ModelId=3C5D92B0008C
        unsigned int to_32bitver(wpversion_32bit data)
 	   {
 	       unsigned int result, r1,r2,r3,r4,r5;	
@@ -211,7 +196,6 @@ struct wp_version_info
 	   }
 
 
-	//##ModelId=3C5D92B00103
        wpversion_32bit from_32bitver( unsigned long int indata)
 	   {
 	       wpversion_32bit wpv32;

@@ -1383,6 +1383,8 @@ void command_shutdown(UOXSOCKET s)
 		}
 		else endmessage(0);
 	}
+	else
+		sysmessage(s, "Syntax: shutdown [seconds]");
 	return;
 }
 
