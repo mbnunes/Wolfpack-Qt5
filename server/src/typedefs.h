@@ -143,7 +143,26 @@ enum enWanderTypes
 	enNumberOfWanderTypes
 };
 
+enum eDamageType
+{
+	DAMAGE_PHYSICAL = 0,
+	DAMAGE_MAGICAL = 1,
+	DAMAGE_GODLY = 2,
+	DAMAGE_HUNGER = 3
+};
+
 enum enServerState { STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN };
+
+// Log Levels
+enum eLogLevel
+{
+	LOG_MESSAGE = 0,
+	LOG_ERROR,
+	LOG_WARNING,
+	LOG_NOTICE,
+	LOG_TRACE,
+	LOG_DEBUG
+};
 
 #endif
 

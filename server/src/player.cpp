@@ -33,7 +33,7 @@
 #include "dbdriver.h"
 #include "globals.h"
 #include "chars.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "network.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
@@ -182,7 +182,7 @@ static void playerRegisterAfterLoading( P_PLAYER pc )
 /*	else
 	{
 		pc->setBodyID(0x0190);
-		clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
+		Console::instance()->send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
 	}*/
 }
 
@@ -1003,7 +1003,7 @@ bool cPlayer::canPickUp( cItem* pi )
 {
 	if( !pi )
 	{
-		clConsole.log( LOG_ERROR, "cChar::canPickUp() - bad parm" );
+		Console::instance()->log( LOG_ERROR, "cChar::canPickUp() - bad parm" );
 		return false;
 	}
 

@@ -34,7 +34,7 @@
 #include "prototypes.h"
 #include "basics.h"
 #include "inlines.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "commands.h"
 #include "encryption.h"
 #include "basedef.h"
@@ -191,9 +191,9 @@ public:
 				++i;
 			}
 
-			clConsole.ProgressFail();
-			clConsole.log( LOG_WARNING, QString( "Unknown element: %1 [File: %1, Line: %2]\n" ).arg( element->name() ).arg( filename ).arg( locator->lineNumber() ) );
-			clConsole.PrepareProgress( "Parsing Definitions" );
+			Console::instance()->ProgressFail();
+			Console::instance()->log( LOG_WARNING, QString( "Unknown element: %1 [File: %1, Line: %2]\n" ).arg( element->name() ).arg( filename ).arg( locator->lineNumber() ) );
+			Console::instance()->PrepareProgress( "Parsing Definitions" );
 			
 			delete element;
 		}
@@ -221,11 +221,11 @@ bool WPDefManager::ImportSections( const QString& FileName )
 
     if ( !File.open( IO_ReadOnly ) )
 	{
-		clConsole.ProgressFail();
+		Console::instance()->ProgressFail();
 	
-		clConsole.send( "Unable to open " );
-		clConsole.send( FileName );
-		clConsole.send( "!\n" );
+		Console::instance()->send( "Unable to open " );
+		Console::instance()->send( FileName );
+		Console::instance()->send( "!\n" );
 		return false;
 	}
 
@@ -279,7 +279,7 @@ void WPDefManager::reload( void )
 // Load the Definitions
 void WPDefManager::load( void )
 {
-	clConsole.PrepareProgress( "Loading Definitions" );
+	Console::instance()->PrepareProgress( "Loading Definitions" );
 	
 	ImportSections( "definitions.xml" );
 
@@ -290,7 +290,7 @@ void WPDefManager::load( void )
 		++i;
 	}
 
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 
 	cCommands::instance()->loadACLs();
 	BaseDefManager::instance()->load();

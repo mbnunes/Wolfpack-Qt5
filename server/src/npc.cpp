@@ -1417,11 +1417,11 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 	}
 
 	/* debug...
-	clConsole.send( QString( "Pathfinding: %1 iterations\n" ).arg( iterations ) );
+	Console::instance()->send( QString( "Pathfinding: %1 iterations\n" ).arg( iterations ) );
 	std::deque< Coord_cl >::const_iterator it = path_.begin();
 	while( it != path_.end() )
 	{
-		clConsole.send( QString( "%1,%2\n" ).arg( (*it).x ).arg( (*it).y ) );
+		Console::instance()->send( QString( "%1,%2\n" ).arg( (*it).x ).arg( (*it).y ) );
 		++it;
 	}
 	*/

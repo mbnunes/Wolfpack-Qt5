@@ -20,9 +20,9 @@
 #define __PROGRESS_H__
 
 //#include <iostream>
-#include "wpconsole.h"
+#include "console.h"
 
-extern WPConsole_cl clConsole;
+extern cConsole clConsole;
 
 class progress_display
 {
@@ -38,8 +38,8 @@ public:
 		_count = _next_tic_count = _tic = 0;
 		_expected_count = expected_count;
 
-		clConsole.send("\n0%   10   20   30   40   50   60   70   80   90   100%\n");
-		clConsole.send("|----|----|----|----|----|----|----|----|----|----|\n");
+		Console::instance()->send("\n0%   10   20   30   40   50   60   70   80   90   100%\n");
+		Console::instance()->send("|----|----|----|----|----|----|----|----|----|----|\n");
 		if ( !_expected_count ) 
 		_expected_count = 1;  // prevent divide by zero
 	} // restart
@@ -69,15 +69,15 @@ private:
 		unsigned int tics_needed = 	static_cast<unsigned int>( (static_cast<double>(_count)/_expected_count)*50.0 );
 		do 
 		{ 
-			clConsole.send("*");
+			Console::instance()->send("*");
 		} 
 		while ( ++_tic < tics_needed );
 		_next_tic_count = static_cast<unsigned long>((_tic/50.0)*_expected_count);
 		if ( _count == _expected_count ) {
 			if ( _tic < 51 ) 
-				clConsole.send("*\n");
+				Console::instance()->send("*\n");
 			else if( _tic == 51 )
-				clConsole.send("\n");
+				Console::instance()->send("\n");
 		}
 	} // display_tic
 };

@@ -36,7 +36,7 @@
 #include "network.h"
 #include "srvparams.h"
 #include "globals.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "inlines.h"
 #include "network/asyncnetio.h"
 #include "network/uosocket.h"

@@ -51,17 +51,12 @@
 class QDateTime;
 class cScriptManager;
 class WPDefManager;
-class WPConsole_cl;
-//Wolfpack Includes
 
 #include "structs.h"
 
 // Global Variables
 
 extern enServerState serverState;
-
-//	Instantiate our console object
-extern WPConsole_cl clConsole;
 
 extern unsigned int uiCurrentTime;
 extern unsigned int raindroptime;

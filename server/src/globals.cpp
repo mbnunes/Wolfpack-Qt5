@@ -37,7 +37,7 @@
 #include "wpdefmanager.h"
 #include "wptargetrequests.h"
 #include "typedefs.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "srvparams.h"
 #include "skills.h"
 #include "maps.h"
@@ -55,7 +55,7 @@ using namespace std;
 enServerState serverState;
 
 //	Instantiate our console object
-WPConsole_cl clConsole;
+cConsole clConsole;
 
 time_t	oldtime, newtime;
 

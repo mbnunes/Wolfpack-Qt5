@@ -76,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"..\Wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
+# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"..\Wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -135,6 +135,10 @@ SOURCE=.\combat.cpp
 # Begin Source File
 
 SOURCE=.\commands.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\console.cpp
 # End Source File
 # Begin Source File
 
@@ -290,10 +294,6 @@ SOURCE=.\srvparams_win.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\storage.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\targetactions.cpp
 # End Source File
 # Begin Source File
@@ -347,10 +347,6 @@ SOURCE=.\wolfpack.cpp
 # Begin Source File
 
 SOURCE=.\world.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\wpconsole.cpp
 # End Source File
 # Begin Source File
 
@@ -452,6 +448,10 @@ InputName=commands
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\console.h
 # End Source File
 # Begin Source File
 
@@ -1003,10 +1003,6 @@ SOURCE=.\wolfpack.h
 # Begin Source File
 
 SOURCE=.\world.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\wpconsole.h
 # End Source File
 # Begin Source File
 

@@ -31,7 +31,7 @@
 //Wolfpack Includes
 
 #include "tilecache.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "globals.h"
 #include "exceptions.h"
 

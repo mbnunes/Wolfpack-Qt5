@@ -53,7 +53,7 @@
 #include "ai.h"
 #include "world.h"
 #include "inlines.h"
-#include "wpconsole.h"
+#include "console.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -585,7 +585,7 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 
 	if( !pMulti )
 	{
-		clConsole.send( tr( "Player %1 [0x%2] has bad multi serial [0x%1]" ).arg( pPlayer->name() ).arg( pPlayer->serial(), 8, 16 ).arg( pPlayer->multis() ) );
+		Console::instance()->send( tr( "Player %1 [0x%2] has bad multi serial [0x%1]" ).arg( pPlayer->name() ).arg( pPlayer->serial(), 8, 16 ).arg( pPlayer->multis() ) );
 		pPlayer->setMultis( INVALID_SERIAL );
 		return;
 	}

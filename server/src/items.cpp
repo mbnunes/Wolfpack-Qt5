@@ -59,7 +59,7 @@
 #include "srvparams.h"
 #include "globals.h"
 #include "inlines.h"
-#include "wpconsole.h"
+#include "console.h"
 
 // System Includes
 #include <math.h>
@@ -713,7 +713,7 @@ void cItem::respawn( unsigned int currenttime )
 
 				if( !pSpawned )
 				{
-					clConsole.send( tr( "Unable to spawn unscripted item: %1" ).arg( pItem->carve() ) );
+					Console::instance()->send( tr( "Unable to spawn unscripted item: %1" ).arg( pItem->carve() ) );
 					break;
 				}
 
@@ -853,7 +853,7 @@ P_ITEM cItem::createFromScript( const QString& Section )
 	
 	if( !DefSection ) // section not found 
 	{
-		clConsole.log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( Section ) );
+		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( Section ) );
 		return NULL;
 	}
 
@@ -1970,7 +1970,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 
 	if( pItem == this )
 	{
-		clConsole.log( LOG_WARNING, QString( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );
+		Console::instance()->log( LOG_WARNING, QString( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );
 		return;
 	}
 

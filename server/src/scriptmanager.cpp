@@ -33,7 +33,7 @@
 #include "wpdefmanager.h"
 #include "basechar.h"
 #include "globals.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "world.h"
 #include "items.h"
 #include "pythonscript.h"
@@ -99,7 +99,7 @@ void cScriptManager::reload( void )
 	// After reloading all scripts we *need* to recreate all script-pointers 
 	// assigned to scripted items and characters
 	// because all of them got invalidated while relaoding
-	clConsole.PrepareProgress( "Recreating assigned Script-pointers" );
+	Console::instance()->PrepareProgress( "Recreating assigned Script-pointers" );
 
 	cItemIterator iter_items;
 	
@@ -111,7 +111,7 @@ void cScriptManager::reload( void )
 	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->recreateEvents();
 
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 	serverState = RUNNING;
 }
 
@@ -133,7 +133,7 @@ void cScriptManager::unload( void )
 
 void cScriptManager::load()
 {
-	clConsole.PrepareProgress( "Loading Script Manager" );
+	Console::instance()->PrepareProgress( "Loading Script Manager" );
 
 	// Load the XML Script
 	UI32 ScriptsLoaded = 0;
@@ -152,8 +152,8 @@ void cScriptManager::load()
 		++ScriptsLoaded;
 	}
 
-	clConsole.ProgressDone();
-	clConsole.send( QString("%1 Script(s) loaded\n").arg(ScriptsLoaded) );
+	Console::instance()->ProgressDone();
+	Console::instance()->send( QString("%1 Script(s) loaded\n").arg(ScriptsLoaded) );
 }
 
 void cScriptManager::addCommandHook( const QString &command, cPythonScript *script )

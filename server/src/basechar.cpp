@@ -35,7 +35,7 @@
 #include "world.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "maps.h"
 #include "chars.h"
 #include "sectors.h"
@@ -336,7 +336,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 			{
 				pc->setSkin( 0xF000 );
 				pc->setOrgSkin( 0xF000 );
-				clConsole.send(QString("char/player: %1 : [%2] correted problematic skin hue\n").arg(pc->name()).arg( pc->serial(), 16 ) );
+				Console::instance()->send(QString("char/player: %1 : [%2] correted problematic skin hue\n").arg(pc->name()).arg( pc->serial(), 16 ) );
 			}
 		}
 	} 

@@ -31,7 +31,7 @@
 // Wolfpack Includes
 #include "pfactory.h"
 #include "world.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "globals.h"
 #include "srvparams.h"
 #include "dbdriver.h"
@@ -180,7 +180,7 @@ static void quickdelete( P_ITEM pi ) throw()
 
 void cWorld::load()
 {
-	clConsole.send( "Loading World...\n" );
+	Console::instance()->send( "Loading World...\n" );
 
 	persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
 
@@ -208,7 +208,7 @@ void cWorld::load()
 		if ( count == 0 )
 			continue; // Move on...
 
-		clConsole.send( "\n"+tr("Loading ") + QString::number( count ) + tr(" objects of type ") + type );
+		Console::instance()->send( "\n"+tr("Loading ") + QString::number( count ) + tr(" objects of type ") + type );
 
 		res = persistentBroker->query( UObjectFactory::instance()->findSqlQuery( type ) );
 
@@ -237,7 +237,7 @@ void cWorld::load()
 		res.free();
 		persistentBroker->driver()->setActiveConnection();
 
-		//clConsole.send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
+		//Console::instance()->send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
 	}
 
 	// Load Pages
@@ -250,7 +250,7 @@ void cWorld::load()
 	
 	if ( archive->size() )
 	{
-		clConsole.send( QString( "Loading %1 Temp. Effects...\n" ).arg( archive->size() ) );
+		Console::instance()->send( QString( "Loading %1 Temp. Effects...\n" ).arg( archive->size() ) );
 		progress_display progress( archive->size() );
 		
 		for ( i = 0; i < archive->size(); ++progress, ++i)
@@ -267,7 +267,7 @@ void cWorld::load()
 			
 			else
 			{
-				clConsole.log( LOG_ERROR, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
+				Console::instance()->log( LOG_ERROR, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
 				continue; // Skip the class, not a good habit but at the moment the user couldn't really debug the error
 			}
 			
@@ -279,7 +279,7 @@ void cWorld::load()
 	archive->close();
 	delete archive;
 
-	clConsole.PrepareProgress( tr("Postprocessing") );
+	Console::instance()->PrepareProgress( tr("Postprocessing") );
 
 	P_ITEM pi;	
 	QPtrList< cItem > deleteItems;
@@ -375,7 +375,7 @@ void cWorld::load()
 			}
 			else
 			{
-				clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pNPC->serial(), 16 ).arg( owner, 16 ) );
+				Console::instance()->send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pNPC->serial(), 16 ).arg( owner, 16 ) );
 				pNPC->setOwner( NULL );
 			}
 		}
@@ -393,7 +393,7 @@ void cWorld::load()
 			}
 			else
 			{
-				clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
+				Console::instance()->send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
 				pChar->setGuarding( NULL );
 			}
 		}
@@ -415,33 +415,33 @@ void cWorld::load()
 		pChar->flagUnchanged(); // We've just loaded, nothing changes
 	}
 
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 
-	clConsole.PrepareProgress( "Deleting lost items" );
+	Console::instance()->PrepareProgress( "Deleting lost items" );
 
 	// Do we have to delete items?
 	for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
 		quickdelete( pItem );
 
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 
 	if( deleteItems.count() > 0 )
 	{
-		clConsole.send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
+		Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
 		deleteItems.clear();
 	}
 
 	persistentBroker->disconnect();
 
-	clConsole.send("World Loading ");
-	clConsole.ChangeColor( WPC_GREEN );
-	clConsole.send( "Completed\n" );
-	clConsole.ChangeColor( WPC_NORMAL );
+	Console::instance()->send("World Loading ");
+	Console::instance()->ChangeColor( WPC_GREEN );
+	Console::instance()->send( "Completed\n" );
+	Console::instance()->ChangeColor( WPC_NORMAL );
 }
 
 void cWorld::save()
 {
-	clConsole.send( "Saving World..." );
+	Console::instance()->send( "Saving World..." );
 
 	try
 	{
@@ -449,7 +449,7 @@ void cWorld::save()
 	}
 	catch( QString &e )
 	{
-		clConsole.log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
 		return;
 	}
 
@@ -479,11 +479,11 @@ void cWorld::save()
 	{
 		//persistentBroker->executeQuery( "ROLLBACK;" );
 
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( " Failed" );
-		clConsole.ChangeColor( WPC_NORMAL );
+		Console::instance()->ChangeColor( WPC_RED );
+		Console::instance()->send( " Failed" );
+		Console::instance()->ChangeColor( WPC_NORMAL );
 
-		clConsole.log( LOG_ERROR, "Saving failed: " + e );
+		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
 		return;
 	}
 
@@ -500,13 +500,13 @@ void cWorld::save()
 
 	uiCurrentTime = getNormalizedTime();
 	
-	clConsole.ChangeColor( WPC_GREEN );
-	clConsole.send( " Done" );
-	clConsole.ChangeColor( WPC_NORMAL );
+	Console::instance()->ChangeColor( WPC_GREEN );
+	Console::instance()->send( " Done" );
+	Console::instance()->ChangeColor( WPC_NORMAL );
 
 	persistentBroker->disconnect();
 
-	clConsole.send( QString( " [%1ms]\n" ).arg( getNormalizedTime() - startTime ) );
+	Console::instance()->send( QString( " [%1ms]\n" ).arg( getNormalizedTime() - startTime ) );
 
 }
 
@@ -514,7 +514,7 @@ void cWorld::registerObject( cUObject *object )
 {
 	if( !object )
 	{
-		clConsole.log( LOG_ERROR, "Couldn't register a NULL object in the world." );
+		Console::instance()->log( LOG_ERROR, "Couldn't register a NULL object in the world." );
 		return;
 	}
 
@@ -525,7 +525,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 {
 	if( !object )
 	{
-		clConsole.log( LOG_ERROR, "Trying to register a null object in the World." );
+		Console::instance()->log( LOG_ERROR, "Trying to register a null object in the World." );
 		return;
 	}
 
@@ -536,7 +536,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( it != p->items.end() )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register an item with the Serial 0x%1 which is already in use." ).arg( serial, 16 ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register an item with the Serial 0x%1 which is already in use." ).arg( serial, 16 ) );
 			return;
 		}
 
@@ -545,7 +545,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( !pItem )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register an object with an item serial (0x%1) which is no item." ).arg( serial, 16 ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with an item serial (0x%1) which is no item." ).arg( serial, 16 ) );
 			return;
 		}
 
@@ -561,7 +561,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( it != p->chars.end() )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%1 which is already in use." ).arg( QString::number( serial, 16 ) ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%1 which is already in use." ).arg( QString::number( serial, 16 ) ) );
 			return;
 		}
 
@@ -570,7 +570,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( !pChar )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register an object with a character serial (0x%1) which is no character." ).arg( QString::number( serial, 16 ) ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with a character serial (0x%1) which is no character." ).arg( QString::number( serial, 16 ) ) );
 			return;
 		}
 
@@ -582,7 +582,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 	}
 	else
 	{
-		clConsole.log( LOG_ERROR, QString( "Tried to register an object with an invalid Serial (0x%1) in the World." ).arg( QString::number( serial, 16 ) ) );
+		Console::instance()->log( LOG_ERROR, QString( "Tried to register an object with an invalid Serial (0x%1) in the World." ).arg( QString::number( serial, 16 ) ) );
 		return;
 	}
 }
@@ -591,7 +591,7 @@ void cWorld::unregisterObject( cUObject *object )
 {
 	if( !object )
 	{
-		clConsole.log( LOG_ERROR, "Trying to unregister a null object from the world." );
+		Console::instance()->log( LOG_ERROR, "Trying to unregister a null object from the world." );
 		return;
 	}
 
@@ -606,7 +606,7 @@ void cWorld::unregisterObject( SERIAL serial )
 
 		if( it == p->items.end() )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to unregister a non-existing item with the serial 0x%1." ).arg( serial, 0, 16 ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to unregister a non-existing item with the serial 0x%1." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -622,7 +622,7 @@ void cWorld::unregisterObject( SERIAL serial )
 
 		if( it == p->chars.end() )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to unregister a non-existing character with the serial 0x%1." ).arg( serial, 0, 16 ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to unregister a non-existing character with the serial 0x%1." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -634,7 +634,7 @@ void cWorld::unregisterObject( SERIAL serial )
 	}
 	else
 	{
-		clConsole.log( LOG_ERROR, QString( "Trying to unregister an object with an invalid serial (0x%08x)." ).arg( serial ) );
+		Console::instance()->log( LOG_ERROR, QString( "Trying to unregister an object with an invalid serial (0x%08x)." ).arg( serial ) );
 		return;
 	}
 }
@@ -685,7 +685,7 @@ void cWorld::deleteObject( cUObject *object )
 {
 	if( !object )
 	{
-		clConsole.log( LOG_ERROR, "Tried to delete a null object from the worldsave." );
+		Console::instance()->log( LOG_ERROR, "Tried to delete a null object from the worldsave." );
 		return;
 	}
 

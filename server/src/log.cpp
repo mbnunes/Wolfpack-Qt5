@@ -35,7 +35,7 @@
 #include "globals.h"
 #include "srvparams.h"
 #include "network/uosocket.h"
-#include "wpconsole.h"
+#include "console.h"
 
 // QT Includes
 #include <qdatetime.h>
@@ -68,7 +68,7 @@ bool cLog::checkLogFile()
 		QDir d;
 		if ( !d.exists(path) )
 		{
-			clConsole.send( QString("Warning: log path (%1) doesn't exist, creating\n").arg(path) );
+			Console::instance()->send( QString("Warning: log path (%1) doesn't exist, creating\n").arg(path) );
 			QDir d;
 			d.mkdir( path );
 		}
@@ -80,7 +80,7 @@ bool cLog::checkLogFile()
 
 		if( !logfile.open( IO_WriteOnly | IO_Append | IO_Translate ) )
 		{
-			clConsole.send( QString( "Couldn't open logfile '%1'\n" ).arg( path ) );
+			Console::instance()->send( QString( "Couldn't open logfile '%1'\n" ).arg( path ) );
 			return false;
 		}
 	}
@@ -156,33 +156,33 @@ void cLog::print( eLogLevel loglevel, cUOSocket *sock, const QString &string, bo
 	{
 		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
 
-		clConsole.ChangeColor( WPC_WHITE );
-		clConsole.send( prelude );
-		clConsole.ChangeColor( WPC_NORMAL );
+		Console::instance()->ChangeColor( WPC_WHITE );
+		Console::instance()->send( prelude );
+		Console::instance()->ChangeColor( WPC_NORMAL );
 
 		if( sock )
-			clConsole.send( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
+			Console::instance()->send( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
 	}
 
 	// LogLevel
 	switch( loglevel )
 	{
 	case LOG_ERROR:
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "ERROR: " );
-		clConsole.ChangeColor( WPC_NORMAL );
+		Console::instance()->ChangeColor( WPC_RED );
+		Console::instance()->send( "ERROR: " );
+		Console::instance()->ChangeColor( WPC_NORMAL );
 		break;
 
 	case LOG_WARNING:
-		clConsole.ChangeColor( WPC_YELLOW );
-		clConsole.send( "WARNING: " );
-		clConsole.ChangeColor( WPC_NORMAL );
+		Console::instance()->ChangeColor( WPC_YELLOW );
+		Console::instance()->send( "WARNING: " );
+		Console::instance()->ChangeColor( WPC_NORMAL );
 		break;
 
 	default:
 		if( !prelude.isEmpty() )
-			clConsole.send( " " );
+			Console::instance()->send( " " );
 	}
 
-	clConsole.send( string );
+	Console::instance()->send( string );
 }

@@ -38,7 +38,7 @@
 
 #include "encryption.h"
 #include "wpdefmanager.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "globals.h"
 #include "prototypes.h"
 #include "log.h"

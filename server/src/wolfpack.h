@@ -50,7 +50,7 @@
 #include "items.h"
 #include "basics.h"
 #include "network.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "world.h"
 
 

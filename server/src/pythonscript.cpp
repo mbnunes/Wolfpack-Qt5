@@ -40,7 +40,7 @@
 #include "globals.h"
 #include "maps.h"
 #include "network.h"
-#include "wpconsole.h"
+#include "console.h"
 
 // Library Includes
 #include <qfile.h>
@@ -139,13 +139,13 @@ bool cPythonScript::load( const cElement *element )
 
 	if( !codeModule )
 	{
-		clConsole.ProgressFail();
+		Console::instance()->ProgressFail();
 
 		if( PyErr_Occurred() )
 			PyErr_Print();
 
-		clConsole.send( QString( "\nError while compiling module [" + moduleName + "]\n" ) );
-		clConsole.PrepareProgress( "Continuing loading" );
+		Console::instance()->send( QString( "\nError while compiling module [" + moduleName + "]\n" ) );
+		Console::instance()->PrepareProgress( "Continuing loading" );
 		return false;
 	}
 

@@ -54,8 +54,6 @@ class cCustomTags;
 #include "../wptargetrequests.h"
 #include "../customtags.h"
 
-enum eLogLevel;
-
 struct stTargetItem
 {
 	UINT16 id;

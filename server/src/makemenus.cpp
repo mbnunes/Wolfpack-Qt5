@@ -40,7 +40,7 @@
 #include "basedef.h"
 #include "basics.h"
 #include "network.h"
-#include "wpconsole.h"
+#include "console.h"
 
 // System Includes
 #include <math.h>
@@ -2066,7 +2066,7 @@ void cAllMakeMenus::callMakeMenu( cUOSocket* socket, const QString& section )
 		socket->send( pGump );
 	}
 	else
-		clConsole.send( tr("WARNING: Missing %1 menu definition!").arg(section) );
+		Console::instance()->send( tr("WARNING: Missing %1 menu definition!").arg(section) );
 }
 
 

@@ -33,7 +33,7 @@
 #include "persistentobject.h"
 
 #include "dbdriver.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "globals.h"
 #include "log.h"
 
@@ -170,10 +170,10 @@ bool PersistentBroker::executeQuery( const QString& query )
 	if( !result )
 	{
 		qWarning( query );
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "ERROR" );
-		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ":" + connection->error() + "\n" );
+		Console::instance()->ChangeColor( WPC_RED );
+		Console::instance()->send( "ERROR" );
+		Console::instance()->ChangeColor( WPC_NORMAL );
+		Console::instance()->send( ":" + connection->error() + "\n" );
 	}
 	return result;
 }

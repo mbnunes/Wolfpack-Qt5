@@ -300,7 +300,7 @@ void cUOSocket::recieve()
 	case 0xD4:
 		handleUpdateBook( dynamic_cast< cUORxBookInfo* >( packet ) ); break;
 	default:
-		packet->print( &cout );
+		Console::instance()->send( packet->dump( packet->uncompressed() ) );
 		break;
 	}
 	

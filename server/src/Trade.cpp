@@ -43,7 +43,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "world.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "network.h"
 #include "items.h"
 #include "network/uorxpackets.h"
@@ -221,7 +221,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
 
 	if( pChar->takeGold( totalValue, true ) < totalValue )
-		clConsole.send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial(), 8, 16 ).arg( pVendor->serial(), 8, 16 ) );
+		Console::instance()->send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial(), 8, 16 ).arg( pVendor->serial(), 8, 16 ) );
 }
 
 void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )

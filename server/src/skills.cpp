@@ -51,7 +51,7 @@
 #include "territories.h"
 #include "makemenus.h"
 #include "npc.h"
-#include "wpconsole.h"
+#include "console.h"
 
 // System Includes
 #include <math.h>
@@ -785,7 +785,7 @@ void cSkills::load()
 	
 	if( !stat )
 	{
-		clConsole.log( LOG_ERROR, "Couldn't find strength advancement table." );		
+		Console::instance()->log( LOG_ERROR, "Couldn't find strength advancement table." );		
 	}
 	else
 	{
@@ -810,7 +810,7 @@ void cSkills::load()
 	
 	if( !stat )
 	{
-		clConsole.log( LOG_ERROR, "Couldn't find dexterity advancement table." );
+		Console::instance()->log( LOG_ERROR, "Couldn't find dexterity advancement table." );
 	}
 	else
 	{
@@ -835,7 +835,7 @@ void cSkills::load()
 	
 	if( !stat )
 	{
-		clConsole.log( LOG_ERROR, "Couldn't find intelligence advancement table." );		
+		Console::instance()->log( LOG_ERROR, "Couldn't find intelligence advancement table." );		
 	}
 	else
 	{
@@ -898,7 +898,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 	// Skill not found
 	if( skill >= skills.size() )
 	{
-		clConsole.log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
 		return skillTitle;
 	}
 
@@ -917,7 +917,7 @@ const QString &cSkills::getSkillName( UINT16 skill ) const
 {
 	if( skill >= skills.size() )
 	{
-		clConsole.log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
 		return QString::null;
 	}
 
@@ -941,7 +941,7 @@ const QString &cSkills::getSkillDef( UINT16 skill ) const
 {
 	if( skill >= skills.size() )
 	{
-		clConsole.log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
 		return QString::null;
 	}
 	

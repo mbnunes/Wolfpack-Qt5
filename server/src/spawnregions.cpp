@@ -49,7 +49,7 @@ II. make sure to hold the map up to date !
 #include "npc.h"
 #include "world.h"
 #include "basics.h"
-#include "wpconsole.h"
+#include "console.h"
 //#include "wolfpack.h" // needed for objects Npcs and Items
 
 using namespace std;
@@ -228,7 +228,7 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 		i++;
 	}
 
-	clConsole.log( LOG_WARNING, QString( "A problem has occured in spawnregion %1. Couldn't find valid spot." ).arg( this->name_ ) );
+	Console::instance()->log( LOG_WARNING, QString( "A problem has occured in spawnregion %1. Couldn't find valid spot." ).arg( this->name_ ) );
 	return false;
 }
 	
@@ -395,7 +395,7 @@ void cAllSpawnRegions::load( void )
 		this->insert( make_pair(*it, toinsert_) );
 		if ( toinsert_->cBaseRegion::rectangles().empty() )
 		{
-			clConsole.log( LOG_WARNING, QString( "Top level spawnregion %1 lacks rectangle tag, ignoring region." ).arg( toinsert_->name() ) );
+			Console::instance()->log( LOG_WARNING, QString( "Top level spawnregion %1 lacks rectangle tag, ignoring region." ).arg( toinsert_->name() ) );
 			delete toinsert_;
 		}
 		else

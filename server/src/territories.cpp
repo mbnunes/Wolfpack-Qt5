@@ -37,7 +37,7 @@
 #include "srvparams.h"
 #include "network.h"
 #include "basics.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "exceptions.h"
 #include "basechar.h"
 #include "player.h"
@@ -280,7 +280,7 @@ void cAllTerritories::load( void )
 
 		if ( territory->rectangles().empty() )
 		{
-			clConsole.send( tr("Warning: Top level region %1 lacks rectangle tag, ignoring region").arg(territory->name()) );
+			Console::instance()->send( tr("Warning: Top level region %1 lacks rectangle tag, ignoring region").arg(territory->name()) );
 			delete territory;
 		}
 		else

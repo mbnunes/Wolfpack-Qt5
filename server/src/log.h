@@ -37,17 +37,7 @@
 
 // Wolfpack Includes
 #include "singleton.h"
-
-// Log Levels
-enum eLogLevel
-{
-	LOG_MESSAGE = 0,
-	LOG_ERROR,
-	LOG_WARNING,
-	LOG_NOTICE,
-	LOG_TRACE,
-	LOG_DEBUG
-};
+#include "typedefs.h"
 
 class cUOSocket;
 

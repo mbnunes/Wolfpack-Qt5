@@ -66,6 +66,7 @@ HEADERS         = \
 		  coord.h \
 		  combat.h \
 		  commands.h \
+		  console.h \
 		  dbl_single_click.h \
 		  dbdriver.h \
 		  definable.h \
@@ -113,7 +114,6 @@ HEADERS         = \
 		  utilsys.h \
 		  verinfo.h \
 		  wolfpack.h \
-		  wpconsole.h \
 		  tilecache.h \
 		  walking.h \
 		  world.h \

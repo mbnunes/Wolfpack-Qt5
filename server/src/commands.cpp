@@ -43,7 +43,7 @@
 #include "territories.h"
 #include "tilecache.h"
 #include "chars.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "wpdefmanager.h"
 #include "scriptmanager.h"
 #include "pagesystem.h"
@@ -128,9 +128,9 @@ void cCommands::loadACLs( void )
 	
 	if( ScriptSections.isEmpty() )
 	{
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( tr("WARNING: No ACLs for players, counselors, gms and admins defined!\n") );
-		clConsole.ChangeColor( WPC_NORMAL );
+		Console::instance()->ChangeColor( WPC_RED );
+		Console::instance()->send( tr("WARNING: No ACLs for players, counselors, gms and admins defined!\n") );
+		Console::instance()->ChangeColor( WPC_NORMAL );
 		return;
 	}
 
@@ -868,13 +868,13 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	}
 	if( subCommand == "python" )
 	{
-		clConsole.send( "Reloading python scripts\n" );
+		Console::instance()->send( "Reloading python scripts\n" );
 		ScriptManager->reload();
 		ContextMenus::instance()->reload();
 	}
 	if( subCommand == "scripts" )
 	{
-		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
+		Console::instance()->send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 		SrvParams->reload(); // Reload wolfpack.xml
 
@@ -905,7 +905,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	}
 	if( subCommand == "all" )
 	{		
-		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
+		Console::instance()->send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 		SrvParams->reload(); // Reload wolfpack.xml
 

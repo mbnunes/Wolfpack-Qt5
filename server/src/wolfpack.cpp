@@ -69,7 +69,7 @@
 #include "ai.h"
 #include "sectors.h"
 #include "basedef.h"
-#include "wpconsole.h"
+#include "console.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -81,13 +81,6 @@
 #include <qmutex.h>
 #include <qthread.h>
 #include <fstream>
-
-
-#if defined(Q_OS_UNIX)
-#	include <signal.h>
-#else
-#	include <conio.h>
-#endif
 
 #include "python/utilities.h"
 
@@ -149,7 +142,7 @@ void signal_handler(int signal)
 
 void reloadScripts()
 {
-	clConsole.send( "Reloading scripts...\n" );
+	Console::instance()->send( "Reloading scripts...\n" );
 
 	SrvParams->reload(); // Reload wolfpack.xml
 	
@@ -175,136 +168,6 @@ void reloadScripts()
 	}
 
 	cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
-}
-
-
-QMutex commandMutex;
-QStringList commandQueue;
-
-class cConsoleThread: public QThread
-{
-	QWaitCondition waitCondition;
-public:
-	~cConsoleThread() throw() {
-		cancel();
-		wait(); // wait for it to stop
-	}
-
-	void cancel()
-	{
-		waitCondition.wakeAll();
-	}
-
-protected:
-	virtual void run() throw()
-	{
-		#if !defined(__unix__)
-		// Check for a new key constantly and put it into the command-queue
-		char key = 0;
-
-		try
-		{
-			while( keeprun )
-			{
-				if ( kbhit() )
-				{
-					key = getch();
-	
-					if( key != 0 )
-					{
-						QMutexLocker lock( &commandMutex ); // Exception safe
-						commandQueue.push_back( QString( "%1" ).arg( key ) );
-					}
-				}
-				waitCondition.wait(10);
-			}			
-		}
-		catch( ... )
-		{
-//			commandMutex.release();
-		}
-		#endif
-	}
-};
-
-// This function is used to interpret a command
-// sent by the console.
-void interpretCommand( const QString &command )
-{
-	cUOSocket *mSock;
-	int i;
-	char c = command.latin1()[0];
-	c = toupper(c);
-
-	if( c == 'S' )
-	{
-		secure = !secure;
-
-		if( !secure )
-			clConsole.send("WOLFPACK: Secure mode disabled. Press ? for a commands list.\n");
-		else
-			clConsole.send("WOLFPACK: Secure mode re-enabled.\n");
-
-		return;
-	}
-
-	// Allow Help in Secure Mode
-	if( secure && c != '?' )
-	{
-		clConsole.send( "WOLFPACK: Secure mode prevents keyboard commands! Press 'S' to disable.\n" );
-		return;
-	}
-
-	switch( c )
-	{
-	case 'Q':
-		clConsole.send("WOLFPACK: Immediate Shutdown initialized!\n");
-		keeprun=0;
-		break;
-
-	case '#':
-		World::instance()->save();				
-		SrvParams->flush();
-		break;
-
-	case 'W':
-		clConsole.send( "Current Users in the World:\n" );
-
-		mSock = cNetwork::instance()->first();
-		i = 0;
-		
-		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		{
-			if( mSock->player() )
-				clConsole.send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
-		}
-
-		clConsole.send( tr("Total Users Online: %1\n").arg(cNetwork::instance()->count()) );
-		break;
-	case 'A': //reload the accounts file
-		Accounts::instance()->reload();
-		break;
-	case 'R':
-		reloadScripts();
-		break;
-	case '?':
-		clConsole.send("Console commands:\n");
-		clConsole.send("	Q: Shutdown the server.\n");
-		clConsole.send("	# - Save world\n" );
-		clConsole.send("	W - Display logged in characters\n" );
-		clConsole.send("	A - Reload accounts\n" );
-		clConsole.send("	R - Reload scripts\n" );
-		clConsole.send("	S - Toggle Secure mode " );
-		if( secure )
-			clConsole.send( "[enabled]\n" );
-		else
-			clConsole.send( "[disabled]\n" );
-		clConsole.send( "	? - Commands list (this)\n" );
-		clConsole.send( "End of commands list.\n" );
-		break;
-	default:
-		break;
-	}
 }
 
 static void parseParameter( const QString &param )
@@ -362,7 +225,7 @@ static void parseParameter( const QString &param )
 			exit(0);
 		}
 		else
-			clConsole.error( QString("The specified python script [%1] doesn't exist.").arg(param) );
+			Console::instance()->error( QString("The specified python script [%1] doesn't exist.").arg(param) );
 
 	}
 }
@@ -460,20 +323,22 @@ int main( int argc, char *argv[] )
 
 	serverState = STARTUP;
 	// Print a seperator somehow
-	/*clConsole.send( QString::number( sizeof( cUObject ) ) );
+	/*Console::instance()->send( QString::number( sizeof( cUObject ) ) );
 	return 0;*/
 
-	clConsole.send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
+	Console::instance()->start(); // Startup Console
 
-	clConsole.send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
-	clConsole.send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");
-	clConsole.send( "Wolfpack Homepage: http://www.wpdev.org/\n");
-	clConsole.send( "By using this software you agree to the license accompanying this release.\n");
-	clConsole.send( "Compiled on " __DATE__ " " __TIME__ "\n" );
-	clConsole.send( "\n" );
+	Console::instance()->send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
+
+	Console::instance()->send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
+	Console::instance()->send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");
+	Console::instance()->send( "Wolfpack Homepage: http://www.wpdev.org/\n");
+	Console::instance()->send( "By using this software you agree to the license accompanying this release.\n");
+	Console::instance()->send( "Compiled on " __DATE__ " " __TIME__ "\n" );
+	Console::instance()->send( "\n" );
 	
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
-	clConsole.setConsoleTitle( consoleTitle );
+	Console::instance()->setConsoleTitle( consoleTitle );
 
 	// Startup normal Classes
 	try
@@ -483,7 +348,7 @@ int main( int argc, char *argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_ERROR, "Couldn't start up classes.\n" );
+		Console::instance()->log( LOG_ERROR, "Couldn't start up classes.\n" );
 		exit( -1 );
 	}
 
@@ -499,7 +364,7 @@ int main( int argc, char *argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_ERROR, "Couldn't load translator.\n" );
+		Console::instance()->log( LOG_ERROR, "Couldn't load translator.\n" );
 		exit( -1 );
 	}
 
@@ -510,7 +375,7 @@ int main( int argc, char *argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_ERROR, "Couldn't start up python.\n" );
+		Console::instance()->log( LOG_ERROR, "Couldn't start up python.\n" );
 		exit( -1 );
 	}
 
@@ -521,42 +386,42 @@ int main( int argc, char *argv[] )
 
 	// Load data
 	DefManager->load();
-	clConsole.send( "\n" );
+	Console::instance()->send( "\n" );
 
 	// Scriptmanager can't be in the try{} block because it sometimes throws firstchance exceptions
 	// we don't like
 	ScriptManager->load();
-	clConsole.send( "\n" );
+	Console::instance()->send( "\n" );
 
 	// Try to load several data files
 	try
 	{
-		clConsole.send( "Loading skills...\n" );
+		Console::instance()->send( "Loading skills...\n" );
 		Skills->load();
 
-		clConsole.send( "Loading accounts...\n" );
+		Console::instance()->send( "Loading accounts...\n" );
 		Accounts::instance()->load();
 
-		clConsole.send( "Loading ip blocking rules...\n" );
+		Console::instance()->send( "Loading ip blocking rules...\n" );
 		cNetwork::instance()->load();
 
-		clConsole.send( "Loading regions...\n" );
+		Console::instance()->send( "Loading regions...\n" );
 		AllTerritories::instance()->load();
 
-		clConsole.send( "Loading spawn regions...\n" );
+		Console::instance()->send( "Loading spawn regions...\n" );
 		SpawnRegions::instance()->load();
 
-		clConsole.send( "Loading resources...\n" );
+		Console::instance()->send( "Loading resources...\n" );
 		Resources::instance()->load();
 
-		clConsole.send( "Loading makemenus...\n" );
+		Console::instance()->send( "Loading makemenus...\n" );
 		MakeMenus::instance()->load();
 
-		clConsole.send( "Loading contextmenus...\n" );
+		Console::instance()->send( "Loading contextmenus...\n" );
 		ContextMenus::instance()->reload();
 
 		// Load some MUL Data
-		clConsole.send( "Loading muls...\n" );
+		Console::instance()->send( "Loading muls...\n" );
 		TileCache::instance()->load( SrvParams->mulPath() );
 		MultiCache::instance()->load( SrvParams->mulPath() );
 		
@@ -571,16 +436,16 @@ int main( int argc, char *argv[] )
 		MapObjects::instance()->addMap( 2, 2304, 1600 );
 		MapObjects::instance()->addMap( 3, 2560, 2048 );
 
-		clConsole.send( "\n" );
+		Console::instance()->send( "\n" );
 	}
 	catch( wpException &exception )
 	{
-		clConsole.log( LOG_ERROR, exception.error() );
+		Console::instance()->log( LOG_ERROR, exception.error() );
 		exit( -1 );
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_ERROR, "Unknown error while loading data files.\n" );
+		Console::instance()->log( LOG_ERROR, "Unknown error while loading data files.\n" );
 		exit( -1 );
 	}
 
@@ -595,7 +460,7 @@ int main( int argc, char *argv[] )
 	// Try to open our driver
 	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 	{		
-		clConsole.log( LOG_ERROR, QString("Error trying to open %1 database driver, check your wolfpack.xml").arg(SrvParams->databaseDriver()) );
+		Console::instance()->log( LOG_ERROR, QString("Error trying to open %1 database driver, check your wolfpack.xml").arg(SrvParams->databaseDriver()) );
 		exit( -1 );
 	}
 
@@ -630,18 +495,18 @@ int main( int argc, char *argv[] )
 	}
 	catch( QString &error )
 	{
-		clConsole.log( LOG_ERROR, error );
+		Console::instance()->log( LOG_ERROR, error );
 		exit( -1 );
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_ERROR, "An unknown error occured while loading the world.\n" );
+		Console::instance()->log( LOG_ERROR, "An unknown error occured while loading the world.\n" );
 		exit( -1 );
 	}
 
-	clConsole.PrepareProgress( "Initializing Multis" );
+	Console::instance()->PrepareProgress( "Initializing Multis" );
 	InitMultis();
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 
 	starttime = uiCurrentTime;
 	endtime = 0;
@@ -653,31 +518,27 @@ int main( int argc, char *argv[] )
 	CIAO_IF_ERROR;
 
     // print allowed clients	
-	clConsole.send( "Allowed clients: " );
+	Console::instance()->send( "Allowed clients: " );
 
 	if( SrvParams->clientsAllowed().contains( "ALL" ) )
-		clConsole.send( "All\n\n" );
+		Console::instance()->send( "All\n\n" );
 	else
-		clConsole.send( SrvParams->clientsAllowed().join( ", " ) + "\n\n" );
+		Console::instance()->send( SrvParams->clientsAllowed().join( ", " ) + "\n\n" );
 
-	clConsole.PrepareProgress( "Starting up Network" );
+	Console::instance()->PrepareProgress( "Starting up Network" );
 	cNetwork::startup();
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 	CIAO_IF_ERROR;
 
 	if( SrvParams->enableLogin() )
-        clConsole.send( QString( "LoginServer running on port %1\n" ).arg( SrvParams->loginPort() ) );
+        Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( SrvParams->loginPort() ) );
 
 	if( SrvParams->enableGame() )
-        clConsole.send( QString( "GameServer running on port %1\n" ).arg( SrvParams->gamePort() ) );
+        Console::instance()->send( QString( "GameServer running on port %1\n" ).arg( SrvParams->gamePort() ) );
 
 	PyThreadState *_save;
 
 	ScriptManager->onServerStart();
-
-	// Start the Console Input thread
-	cConsoleThread consoleThread;
-	consoleThread.start();
 
 	serverState = RUNNING;
 
@@ -702,20 +563,7 @@ int main( int argc, char *argv[] )
 		// Python threading - end
 		PyEval_RestoreThread( _save );
 
-		// It's more likely that we have a new key-press now
-		// Checking every 25 loops should be enough.
-		#if !defined( __unix__ )
-		if( loopTimeCount % 25 == 0 )
-		{
-			QMutexLocker lock(&commandMutex);
-			if( commandQueue.count() > 0 )
-			{				
-				// Interpret Command
-				interpretCommand( commandQueue[0] );
-				commandQueue.erase( commandQueue.begin() );
-			}
-		}
-		#endif
+		Console::instance()->poll();
 
 		if( loopTimeCount >= 1000 )
 		{
@@ -743,7 +591,7 @@ int main( int argc, char *argv[] )
 			P_PLAYER player = mSock->player();
 			if ( player && !player->isGM() && player->clientIdleTime() && player->clientIdleTime() < uiCurrentTime )
 			{
-				clConsole.send( tr("Player %1 disconnected due to inactivity !\n").arg( player->name() ) );
+				Console::instance()->send( tr("Player %1 disconnected due to inactivity !\n").arg( player->name() ) );
 				cUOTxMessageWarning packet;
 				packet.setReason( cUOTxMessageWarning::Idle );
 				mSock->send( &packet );
@@ -793,15 +641,13 @@ int main( int argc, char *argv[] )
 
 	serverState = SHUTDOWN;
 
-	consoleThread.cancel();
-
 	ScriptManager->onServerStop();
 
 	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
 
-	clConsole.PrepareProgress( tr( "Shutting down network" ) );
+	Console::instance()->PrepareProgress( tr( "Shutting down network" ) );
 	cNetwork::shutdown();
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 
 	SrvParams->flush(); // Save config options
 
@@ -811,6 +657,8 @@ int main( int argc, char *argv[] )
 	// Stop Python Interpreter.
 	ScriptManager->unload();
 	stopPython();
+
+	Console::instance()->stop(); // Stop the Console
 
 	return 0;
 }

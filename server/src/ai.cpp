@@ -40,7 +40,7 @@
 #include "walking.h"
 #include "itemid.h"
 #include "items.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "world.h"
 
 // library includes
@@ -182,7 +182,7 @@ void ScriptAI::processNode( const cElement *Tag )
 			m_actions.append( action );
 		}
 		else
-			clConsole.send( "Action tag in ai definition must contain attributes for pre-,postcondition and execute at least\n" );
+			Console::instance()->send( "Action tag in ai definition must contain attributes for pre-,postcondition and execute at least\n" );
 	}
 	else if( TagName == "onspeech" )
 	{

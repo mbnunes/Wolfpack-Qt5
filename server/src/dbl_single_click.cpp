@@ -401,7 +401,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 //					return;
 //				}
 //				else 
-//					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
+//					Console::instance()->send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
 				return;
 				// End of guild stuff
 

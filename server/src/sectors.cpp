@@ -5,7 +5,7 @@
 // Wolfpack Includes
 #include "sectors.h"
 #include "uobject.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "globals.h"
 #include "exceptions.h"
 #include "world.h"
@@ -70,7 +70,7 @@ bool cSectorMap::init( unsigned int width, unsigned int height )
 {
 	if( width == 0 || height == 0 )
 	{
-		clConsole.log( LOG_ERROR, QString( "Invalid Sectormap boundaries (Width: %1, Height: %2)." ).arg( width ).arg( height ) );
+		Console::instance()->log( LOG_ERROR, QString( "Invalid Sectormap boundaries (Width: %1, Height: %2)." ).arg( width ).arg( height ) );
 		return false;
 	}
 
@@ -486,7 +486,7 @@ cItemSectorIterator *cSectorMaps::findItems( unsigned char map, unsigned int x, 
 
 	if( it == itemmaps.end() )
 	{
-		clConsole.log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
 		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
@@ -499,7 +499,7 @@ cCharSectorIterator *cSectorMaps::findChars( unsigned char map, unsigned int x, 
 
 	if( it == charmaps.end() )
 	{
-		clConsole.log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
@@ -512,7 +512,7 @@ cItemSectorIterator *cSectorMaps::findItems( unsigned char map, unsigned int x1,
 
 	if( it == itemmaps.end() )
 	{
-		clConsole.log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findItems)" ).arg( map ) );
 		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
@@ -525,7 +525,7 @@ cCharSectorIterator *cSectorMaps::findChars( unsigned char map, unsigned int x1,
 
 	if( it == charmaps.end() )
 	{
-		clConsole.log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findChars)" ).arg( map ) );
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 

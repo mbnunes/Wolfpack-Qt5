@@ -45,7 +45,7 @@
 #include "persistentbroker.h"
 #include "world.h"
 #include "globals.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "log.h"
 #include "player.h"
 #include "inlines.h"
@@ -689,7 +689,7 @@ bool cBoat::move( void )
 		dy -= shift_;
 		break;
 	default:
-		clConsole.log( LOG_WARNING, QString( "cBoat::Move: invalid boatdirection caught (boatdir: %1, serial: %2), corrected to north boatdir!" ).arg( this->boatdir ).arg( this->serial() ) );
+		Console::instance()->log( LOG_WARNING, QString( "cBoat::Move: invalid boatdirection caught (boatdir: %1, serial: %2), corrected to north boatdir!" ).arg( this->boatdir ).arg( this->serial() ) );
 		this->boatdir = 0;
 		dy -= moves_;
 		break;

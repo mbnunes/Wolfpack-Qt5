@@ -33,7 +33,7 @@
 #include "../globals.h"
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
-#include "../wpconsole.h"
+#include "../console.h"
 #include "../TmpEff.h"
 #include "../sectors.h"
 #include "../territories.h"
@@ -133,7 +133,7 @@ static PyObject* wpConsole_send( PyObject* self, PyObject* args )
 	if( pyMessage == Py_None )
 		return PyFalse;
 
-	clConsole.send( PyString_AS_STRING( pyMessage ) );
+	Console::instance()->send( PyString_AS_STRING( pyMessage ) );
 
 	return PyTrue;
 }
@@ -152,7 +152,7 @@ static PyObject* wpConsole_progress( PyObject* self, PyObject* args )
 	if( pyMessage == NULL )
 		return PyFalse;
 
-	clConsole.PrepareProgress( PyString_AS_STRING( pyMessage ) );
+	Console::instance()->PrepareProgress( PyString_AS_STRING( pyMessage ) );
 
 	return PyInt_FromLong( 1 );
 }
@@ -164,7 +164,7 @@ static PyObject* wpConsole_progressDone( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	clConsole.ProgressDone();
+	Console::instance()->ProgressDone();
 	return PyInt_FromLong( 1 );
 }
 
@@ -175,7 +175,7 @@ static PyObject* wpConsole_progressFail( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	clConsole.ProgressFail();
+	Console::instance()->ProgressFail();
 	return PyInt_FromLong( 1 );
 }
 
@@ -186,7 +186,7 @@ static PyObject* wpConsole_progressSkip( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	clConsole.ProgressSkip();
+	Console::instance()->ProgressSkip();
 	return PyInt_FromLong( 1 );
 }
 
@@ -197,7 +197,7 @@ static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 {	
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	QStringList linebuffer = clConsole.linebuffer();
+	QStringList linebuffer = Console::instance()->linebuffer();
 	PyObject *list = PyList_New( linebuffer.count() );
 
 	for( uint i = 0; i < linebuffer.count(); ++i )
@@ -209,24 +209,13 @@ static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 	return list;
 }
 
-extern QStringList commandQueue;
-extern QMutex commandMutex;
 static PyObject* wpConsole_reloadScripts( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	// Temporary implementation while thread comunication is not done
-	QMutexLocker lock(&commandMutex);
 
-	if ( !secure )
-		commandQueue.push_back( "R" );
-	else
-	{
-		commandQueue.push_back("S");
-		commandQueue.push_back("R");
-		commandQueue.push_back("S");
-	}
-	
+	reloadScripts();
+
 	return PyInt_FromLong( 1 );
 }
 

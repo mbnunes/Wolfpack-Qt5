@@ -42,7 +42,7 @@
 #include "skills.h"
 #include "srvparams.h"
 #include "basics.h"
-#include "wpconsole.h"
+#include "console.h"
 #include "world.h"
 
 #include "basechar.h"
@@ -774,9 +774,9 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		else
 		{
 			if( vein > 0 )
-				clConsole.send( tr("ERROR: Wrong vein-amount definition in resource def. %1 (item %2)!").arg(section_).arg(vein) );
+				Console::instance()->send( tr("ERROR: Wrong vein-amount definition in resource def. %1 (item %2)!").arg(section_).arg(vein) );
 			else
-				clConsole.send( tr("ERROR: Wrong amount definition in resource def. %1!").arg(section_) );
+				Console::instance()->send( tr("ERROR: Wrong amount definition in resource def. %1!").arg(section_) );
 			return;
 		}
 	}
@@ -1358,7 +1358,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else
 	{
-		clConsole.send( tr("ERROR: Resource definition %1 not found!").arg( resourcename_ ) );
+		Console::instance()->send( tr("ERROR: Resource definition %1 not found!").arg( resourcename_ ) );
 		return true;
 	}
 }
@@ -1450,7 +1450,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else
 	{
-		clConsole.send( tr("ERROR: Resource definition %1 not found!").arg( resourcename_ ) );
+		Console::instance()->send( tr("ERROR: Resource definition %1 not found!").arg( resourcename_ ) );
 		return true;
 	}
 }

@@ -30,7 +30,7 @@
 
 #include "engine.h"
 
-#include "../wpconsole.h"
+#include "../console.h"
 #include "../globals.h"
 
 // Library includes
@@ -61,7 +61,7 @@ void stopPython( void )
 void startPython( int argc, char* argv[], bool silent )
 {
 	if( !silent )
-		clConsole.PrepareProgress( "Starting Python interpreter" );
+		Console::instance()->PrepareProgress( "Starting Python interpreter" );
 
 	Py_SetProgramName( argv[ 0 ] );
 
@@ -81,8 +81,8 @@ void startPython( int argc, char* argv[], bool silent )
     if ( !File.open( IO_ReadOnly ) )
 	{
 		if( !silent )
-			clConsole.ProgressSkip();
-		clConsole.send( "Unable to open python.xml!\n" );
+			Console::instance()->ProgressSkip();
+		Console::instance()->send( "Unable to open python.xml!\n" );
 		return;
 	}
 
@@ -90,8 +90,8 @@ void startPython( int argc, char* argv[], bool silent )
         File.close();
         
 		if( !silent )
-			clConsole.ProgressSkip();
-		clConsole.send( "Unable to parse python.xml" );
+			Console::instance()->ProgressSkip();
+		Console::instance()->send( "Unable to parse python.xml" );
 
 		return;
 	}
@@ -120,7 +120,7 @@ void startPython( int argc, char* argv[], bool silent )
 	PyObject *m = PyImport_ImportModule( "site" );
 	if( m == NULL )
 	{
-		clConsole.ProgressFail();
+		Console::instance()->ProgressFail();
 		if( PyErr_Occurred() )
 			PyErr_Print();
 		return;
@@ -138,13 +138,13 @@ void startPython( int argc, char* argv[], bool silent )
 	catch( ... )
 	{
 		if( !silent )
-			clConsole.ProgressFail();
-		clConsole.send( "Failed to initialize the python extension modules\n" );
+			Console::instance()->ProgressFail();
+		Console::instance()->send( "Failed to initialize the python extension modules\n" );
 		return;
 	}
 
 	if( !silent )
-		clConsole.ProgressDone();
+		Console::instance()->ProgressDone();
 }
 
 /*!	
