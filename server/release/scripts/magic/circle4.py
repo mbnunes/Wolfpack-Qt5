@@ -4,6 +4,7 @@ from magic.utilities import *
 import random
 import wolfpack
 from wolfpack.utilities import tobackpack
+from system import poison
 
 class Curse (CharEffectSpell):
 	def __init__(self):
@@ -54,8 +55,16 @@ class Lightning (DelayedDamageSpell):
 		target.lightning()
 		target.soundeffect(0x29)
 		
-		damage = self.scaledamage(char, target, 6, 3, 5.0)
-		energydamage(char, target, damage, energy=100)
+		damage = self.scaledamage(char, target, 22, 1, 4)
+		energydamage(target, char, damage, energy=100)
+
+def manadrain_restore(char, arguments):
+	if not char.dead:
+		char.mana = min(char.maxmana, arguments[0])
+		char.propertyflags &= ~ 0x100000
+		char.updatemana()
+		char.effect(0x3779, 10, 25)
+		char.soundeffect(0x28e)		
 
 class ManaDrain (DelayedDamageSpell):
 	def __init__(self):
@@ -63,17 +72,34 @@ class ManaDrain (DelayedDamageSpell):
 		self.reagents = {REAGENT_SULFURASH: 1, REAGENT_MANDRAKE: 1}
 		self.mantra = 'Ort Rel'
 		self.delay = None
+		self.reflectable = 1
 
 	def damage(self, char, target):
-		target.effect(0x3779, 10, 25)
-		target.soundeffect(0x28e)
-	
-		if self.checkresist(char, target):
-			target.message(501783)
-		else:
-			target.mana -= random.randint(1, target.mana)
-			target.updatemana()
+		char.checkskill(self.damageskill, 0, 1200)
+
+		# See if we can gain skill
+		maxskill = self.circle * 100
+		maxskill += (1 + ((self.circle - 1) / 6)) * 250
+
+		if target.skill[MAGICRESISTANCE] < maxskill:
+			target.checkskill(MAGICRESISTANCE, 0, 1200)
+
+		# If the target is already under effect of the spell, do nothing.
+		if target.propertyflags & 0x100000:
+			amount = 0
+		else:			
+			amount = min(target.mana, int(40 + (char.skill[self.damageskill] - target.skill[MAGICRESISTANCE]) / 10))
+
+		target.effect(0x3789, 10, 25)
+		target.soundeffect(0x1F8)
 		
+		# Drain and establish an effect to restore the drain
+		if amount > 0:
+			target.mana -= amount
+			target.updatemana()
+			target.propertyflags |= 0x100000
+			target.addtimer(6000, "magic.circle4.manadrain_restore", [amount], 1)
+
 class Recall (Spell):
 	def __init__(self):
 		Spell.__init__(self, 4)
@@ -81,6 +107,20 @@ class Recall (Spell):
 		self.mantra = 'Kal Ort Por'
 		self.validtarget = TARGET_ITEM
 		
+	def cast(self, char, mode):
+		if not char.gm:
+			if char.iscriminal():
+				if char.socket:
+					char.socket.clilocmessage(1005561)
+				return
+
+			if char.attacktarget:
+				if char.socket:
+					char.socket.clilocmessage(1005564)
+				return
+
+		return Spell.cast(self, char, mode)
+
 	def target(self, char, mode, targettype, target):	
 		char.turnto(target)
 		
@@ -106,9 +146,14 @@ class Recall (Spell):
 			
 		location = target.gettag('location')
 		location = location.split(",")
-		location = wolfpack.coord(location[0], location[1], location[2], location[3])
+		location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
 
 		region = wolfpack.region(location.x, location.y, location.map)
+		
+		if not location.validspawnspot():
+			char.message(501942)
+			fizzle(char)
+			return
 		
 		if region.norecallin:
 			char.message(1019004)
@@ -173,12 +218,112 @@ class FireField(Spell):
 			newitem.update()
 			serials.append(newitem.serial)
 			
+			# Affect chars who are occupying the field cells
+			chars = wolfpack.chars(newitem.pos.x, newitem.pos.y, newitem.pos.map)
+			for affected in chars:
+				if affected.pos.z >= newitem.pos.z - 10 and affected.pos.z <= newitem.pos.z + 10:
+					newitem.callevent(EVENT_COLLIDE, (affected, newitem))			
+			
 		duration = int((4 + char.skill[ MAGERY ] * 0.05) * 1000)
 		wolfpack.addtimer(duration, "magic.utilities.field_expire", serials, 1)
 
+class ArchCure (Spell):
+	def __init__(self):
+		Spell.__init__(self, 4)
+		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_MANDRAKE: 1}
+		self.mantra = 'Vas An Nox'
+		self.validtarget = TARGET_GROUND
+
+	def target(self, char, mode, targettype, target):	
+		if not self.consumerequirements(char, mode):
+			return
+
+		char.turnto(target)		
+		char.soundeffect(0x299)
+		cured = 0
+		
+		# Enumerate chars				
+		chars = wolfpack.chars(target.x, target.y, char.pos.map, 3)
+		for target in chars:
+			target.effect(0x373a, 10, 15)
+			target.soundeffect(0x1e0)		
+		
+			if target.poison != -1:				
+				chance = (10000 + int(char.skill[MAGERY] * 7.5) - ((target.poison + 1) * 1750)) / 10000.0
+				if chance >= random.random():
+					poison.cure(target)
+					cured += 1
+					if target.socket:
+						target.socket.clilocmessage(1010059)
+
+		if cured > 0:
+			if char.socket:
+				char.socket.clilocmessage(1010058)
+				
+class ArchProtection (Spell):
+	def __init__(self):
+		Spell.__init__(self, 4)
+		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_MANDRAKE: 1, REAGENT_SULFURASH: 1}
+		self.mantra = 'Vas Uus Sanct'
+		self.validtarget = TARGET_GROUND
+
+	def target(self, char, mode, targettype, target):	
+		if not self.consumerequirements(char, mode):
+			return
+
+		char.turnto(target)		
+		char.soundeffect(0x299)
+		cured = 0
+		
+		if char.player:
+			party = char.party
+			guild = char.guild
+		else:
+			party = None
+			guild = None
+
+		# Enumerate chars
+		chars = wolfpack.chars(target.x, target.y, char.pos.map, 3)
+		for target in chars:
+			if not target.player:
+				continue
+		
+			if target == char or (guild and target.guild == guild) or (party and target.party == party):
+				# Toggle Protection
+				if target.propertyflags & 0x20000:
+					target.propertyflags &= ~ 0x20000
+					target.effect(0x375a, 9, 20)
+					target.soundeffect(0x1ed)
+		
+					try:
+						if target.hastag('protection_skill'):
+							skill = int(target.gettag('protection_skill'))					
+							if target.skill[MAGICRESISTANCE] + skill > target.skillcap[MAGICRESISTANCE]:
+								target.skill[MAGICRESISTANCE] = target.skillcap[MAGICRESISTANCE]
+							else:
+								target.skill[MAGICRESISTANCE] += skill
+					except:
+						pass
+					target.deltag('protection_skill')
+				else:
+					target.propertyflags |= 0x20000
+					target.effect(0x375a, 9, 20)
+					target.soundeffect(0x1e9)
+					
+					# Remove Magic Resistance Skill
+					amount = 35 - int(target.skill[INSCRIPTION] / 200)
+					if target.skill[MAGICRESISTANCE] - amount < 0:
+						amount = target.skill[MAGICRESISTANCE]
+						
+					target.settag('protection_skill', amount)
+					target.skill[MAGICRESISTANCE] -= amount
+		
+				if target.socket:
+					target.socket.resendstatus()
+
 def onLoad():
-	#ArchCure().register(25)
-	#ArchProtection().register(26)
+	ArchCure().register(25)
+	ArchProtection().register(26)
 	Curse().register(27)
 	FireField().register(28)
 	GreaterHeal().register(29)

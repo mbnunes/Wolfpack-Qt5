@@ -30,7 +30,7 @@ class Fireball (DelayedDamageSpell):
 		self.reflectable = 1
 		
 	def damage(self, char, target):
-		damage = self.scaledamage(char, target, 6, 3, 5.5)
+		damage = self.scaledamage(char, target, 19, 1, 5)
 		energydamage(target, char, damage, fire=100)
 
 class WallOfStone(Spell):
@@ -42,11 +42,7 @@ class WallOfStone(Spell):
 		
 	def target(self, char, mode, targettype, target):	
 		char.turnto(target)
-		
-		if not char.cansee(target):
-			char.message(500237)
-			return
-			
+
 		if not self.consumerequirements(char, mode):
 			return
 		

@@ -24,6 +24,7 @@ def invul(socket, command, arguments):
 	else:
 		socket.player.invulnerable = not socket.player.invulnerable
 	socket.sysmessage("'invul' is now '%u'" % socket.player.invulnerable)	
+	socket.player.resendtooltip()
 	
 def onLoad():
 	wolfpack.registercommand('invul', invul)

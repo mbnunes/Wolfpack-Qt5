@@ -83,10 +83,21 @@ class Heal (CharEffectSpell):
 		CharEffectSpell.__init__(self, 1)
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_SPIDERSILK: 1}
 		self.mantra = 'In Mani'
-		
+
+	def affectchar(self, char, mode, target):
+		if target.poison != -1:
+			if target == char:
+				char.message(1005000)
+			else:
+				char.message(1010398)
+			return 0
+		return 1
+
 	def effect(self, char, target):
 		# 10% of Magery + 1-5
-		amount = int(0.01 * char.skill[MAGERY]) + random.randint(1, 5)
+		#amount = int(0.01 * char.skill[MAGERY]) + random.randint(1, 5)
+		amount = int(char.skill[MAGERY] / 100) + random.randint(1, 3)
+		
 		target.hitpoints = min(target.maxhitpoints, target.hitpoints + amount)
 		target.updatehealth()
 				
@@ -146,7 +157,7 @@ class MagicArrow (DelayedDamageSpell):
 		self.delay = 0
 		
 	def damage(self, char, target):
-		damage = self.scaledamage(char, target, 3, 1, 10.0)
+		damage = self.scaledamage(char, target, 10, 1, 4)
 		energydamage(target, char, damage, fire=100)
 
 class ReactiveArmor(Spell):

@@ -53,7 +53,7 @@ class Harm (DelayedDamageSpell):
 		
 	def damage(self, char, target):
 		distance = target.distanceto(char)
-		damage = self.scaledamage(char, target, 6, 3, 6.5)
+		damage = self.scaledamage(char, target, 17, 1, 5)
 
 		if distance > 2:
 			damage = max(1, damage * 0.25)
@@ -173,12 +173,17 @@ class Cure (CharEffectSpell):
 		
 	def effect(self, char, target):
 		if target.poison != -1:
-			poison.cure(target)
-			if char != target and char.socket:
-				char.socket.clilocmessage(1010058)
-				
-			if target.socket:
-				target.socket.clilocmessage(1010059)
+			chance = (10000 + int(char.skill[MAGERY] * 7.5) - ((target.poison + 1) * 1750)) / 10000.0
+			
+			if chance >= random.random():
+				poison.cure(target)
+				if char != target and char.socket:
+					char.socket.clilocmessage(1010058)		
+				if target.socket:
+					target.socket.clilocmessage(1010059)
+			else:
+				if char.socket:
+					char.socket.clilocmessage(1010060)
 		
 		target.effect(0x373a, 10, 15)
 		target.soundeffect(0x1e0)

@@ -39,16 +39,6 @@ def consumeReagents( item, items ):
 
 # Basic Spell Class
 class Spell:
-	mana = 0
-	reagents = {}
-	validtarget = TARGET_IGNORE
-	spellid = None
-	circle = None	
-	mantra = None
-	harmful = 0
-	affectdead = 0
-	resistable = 0
-
 	# We affect another character
 	def affectchar(self, char, mode, target):
 		return 1
@@ -59,6 +49,14 @@ class Spell:
 	
 	def __init__( self, circle ):
 		# Set Mana
+		self.mana = 0
+		self.reagents = {}
+		self.validtarget = TARGET_IGNORE
+		self.spellid = None
+		self.mantra = None
+		self.harmful = 0
+		self.affectdead = 0
+		self.resistable = 0
 		self.range = 12
 		self.skill = MAGERY
 		self.damageskill = EVALUATINGINTEL
@@ -123,22 +121,22 @@ class Spell:
 		return 0
 	
 	#
-	# mindamage is the minimum damage
-	# randoffset is the damage gained trough randomness
-	# fraction Is the divider for the damage skill.
-	#  Assume a floating point number for the skill here.
+	# bonus Fixed bonus to the throw.
+	# dice The number of dices to roll.
+	# sides How many sides has each dice.	
 	#
-	def scaledamage(self, char, target, mindamage, randombonus, fraction):
-		scale = 1.0 + char.skill[INSCRIPTION] * 0.0001
+	def scaledamage(self, char, target, bonus, dice, sides):
+		damage = rolldice(dice, sides, bonus) * 100.0
 		
-		if char.player:
-			scale += char.intelligence * 0.001
-			scale += properties.fromchar(char, SPELLDAMAGEBONUS) / 100.0
-			
-		basedamage = mindamage + int(char.skill[self.damageskill] / (fraction * 10.0))
-		damage = random.randint(basedamage, basedamage + randombonus)
+		bonus = char.skill[INSCRIPTION] / 100.0
+		bonus += char.intelligence / 10.0
+		bonus += properties.fromchar(char, SPELLDAMAGEBONUS)
+		damage *= 1.0 + bonus / 100.0
 		
-		return scale * damage
+		char.checkskill(self.damageskill, 0, 1200)
+		damage *= (30 + (9 * char.skill[self.damageskill]) / 100.0) / 100.0
+
+		return max(1, int(damage / 100.0))
 
 	#
 	# Calculate the chance the given target has to resist
@@ -186,6 +184,12 @@ class Spell:
 	def target( self, char, mode, targettype, target ):
 		raise Exception, "Spell without target method: " + str( self.__class__.__name__ )
 		
+	#
+	# Call this if you harm another character directly
+	#
+	def harmchar(self, char, victim):
+		pass
+		
 class CharEffectSpell ( Spell ):
 	def __init__( self, circle ):
 		Spell.__init__( self, circle )
@@ -206,10 +210,9 @@ class CharEffectSpell ( Spell ):
 
 		if self.reflectable and self.checkreflect(char, mode, targettype, target):
 			target = char
-			
-		# Check notoriety??
-		if self.harmful:		
-			pass
+
+		if self.harmful:
+			self.harmchar(char, target)
 
 		self.effect(char, target)
 

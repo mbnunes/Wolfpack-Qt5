@@ -79,9 +79,15 @@ def rename_callback( char, args, response ):
 	item.name = response.text[1]
 
 def onShowTooltip(viewer, object, tooltip):
-  if object.hastag('charges'):
-    charges = object.gettag('charges')
-    tooltip.add(1060584, str(charges))
+	marked = 0
+	if object.hastag('marked'):
+		marked = int(object.gettag('marked'))
+	tooltip.reset()		
+
+	if marked:
+		tooltip.add(1042971, "a recall rune for %s" % object.name)
+	else:
+		tooltip.add(1042971, "an unmarked recall rune")
 
 def onSingleClick( item, char ):
 	# We are not a rune
@@ -106,4 +112,3 @@ def onSingleClick( item, char ):
 # Identify the item as a rune
 def onCreate( item, definition ):
 	item.settag( 'marked', 0 )
-	item.settag( 'charges', 0 )

@@ -138,15 +138,10 @@ def target_response( char, args, target ):
 		spell.target(char, mode, TARGET_CHAR, target.char)
 		
 	# Item Target
-	elif target.item and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_ITEM ):
-	
+	elif target.item and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_ITEM ):	
 		if not char.cansee(target.item):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return
-		if char.distanceto(target.item) > spell.range:
-			if char.socket:
-				char.socket.clilocmessage(500446)
 			return
 		if not char.canreach(target.item, spell.range):
 			if char.socket:

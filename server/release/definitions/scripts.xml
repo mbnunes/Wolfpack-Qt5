@@ -102,7 +102,8 @@
 	<script>magic.circle7</script>
 	<script>magic.circle8</script>
 	<script>magic.firefield</script>
-	<script>magic.reactivearmor</script>
+	<script>magic.poisonfield</script>
+	<script>magic.paralyzefield</script>
 	<script>magic.trap</script>
 
 	<!-- Multis -->

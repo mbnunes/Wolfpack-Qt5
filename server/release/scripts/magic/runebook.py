@@ -8,7 +8,7 @@
 from wolfpack.gumps import cGump
 import wolfpack
 from magic.rune import isrune
-from wolfpack.utilities import fizzle
+from magic.utilities import fizzle
 import whrandom
 
 def onUse( char, item ):

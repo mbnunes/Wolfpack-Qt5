@@ -56,6 +56,9 @@ def stroke(char, arguments):
 	# See if we should add another timer
 	strokes += 1
 	if strokes == poison[6]:
+		if char.poison != -1:
+			char.poison = -1
+			char.updateflags()	
 		if char.socket:
 			char.socket.clilocmessage(502136)
 		return
@@ -80,7 +83,7 @@ def poison(char, level):
 		return
 
 	# Level is smaller than old poison
-	if level < char.poison:
+	if level <= char.poison:
 		return
 
 	# Delete current poison
