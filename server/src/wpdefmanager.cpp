@@ -370,8 +370,10 @@ QStringList	WPDefManager::getList( QString ListSection )
 			{
 				QDomElement childTag = childNode.toElement();
 				int mult = childTag.attribute( "mult" ).toInt();
+				if( mult <= 0 )
+					mult = 1;
 				int i = 0;
-				while( i <= mult )
+				while( i < mult )
 				{
 					list.push_back( childTag.nodeName() );
 					i++;
