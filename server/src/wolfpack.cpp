@@ -3109,10 +3109,10 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 			for (r=0;r<now;r++)
 			{
-				if (!currchar[r] && !currchar[r]->free
+				if ((!currchar[r] && perm[r]) && !currchar[r]->free
 					&& !currchar[r]->isGM()
 					&& currchar[r]->clientidletime<uiCurrentTime
-					&& perm[r]
+					
 					)
 				{
 					clConsole.send("Player %s disconnected due to inactivity !\n", currchar[r]->name.c_str());
