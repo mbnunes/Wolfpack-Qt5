@@ -158,7 +158,6 @@ SOURCES         = \
 		ai.cpp \
 		ai_animals.cpp \
 		ai_monsters.cpp \
-		ai_vendors.cpp \
 		basechar.cpp \
 		basedef.cpp \
 		basics.cpp \
