@@ -675,6 +675,56 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 }
 
 /*
+	Recursive processing function to get neccesary information about multis.
+*/
+static void processMulti( QMap<QCString, QString> &item, const cElement *node )
+{
+	// If there is an inherit tag, inherit a parent item definition.
+	QString inherit = node->getAttribute( "inherit" );
+	if ( inherit != QString::null )
+	{
+		const cElement *parent = Definitions::instance()->getDefinition( WPDT_MULTI, inherit );
+		if ( parent ) {
+			processMulti( item, parent );
+		}
+	}
+
+	int count = node->childCount();
+	int i;
+	for ( i = 0; i < count; ++i ) {
+		const cElement *child = node->getChild( i );
+
+		// Inherit properties from another item definition
+		if ( child->name() == "inherit" )
+		{
+			const cElement *parent = 0;
+
+			if ( child->hasAttribute("id") )
+			{
+				parent = Definitions::instance()->getDefinition( WPDT_MULTI, child->getAttribute( "id" ) );
+			}
+			else
+			{
+				parent = Definitions::instance()->getDefinition( WPDT_MULTI, child->text() );
+			}
+
+			if ( parent )
+			{
+				processMulti( item, parent );
+			}
+		}
+		else if ( child->name() == "id" )
+		{
+			item[ "dispid" ] = child->value();
+		}
+		else if ( child->name() == "name" )
+		{
+			item[ "name" ] = child->text();
+		}
+	}
+}
+
+/*
 	Recursive processing function to get neccesary information about items.
 */
 static void processItem( QMap<QCString, QString> &item, const cElement *node )
@@ -927,6 +977,13 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			artid int NOT NULL,\
 			layer int NOT NULL,\
 			color int NOT NULL\
+		);" );
+
+		driver.exec( "CREATE TABLE multis (\
+			id INTEGER PRIMARY KEY,\
+			name varchar(255) NULL,\
+			addid varchar(255) NULL,\
+			multiid int NOT NULL\
 		);" );
 
 		unsigned int lastcategory = 0;
@@ -1197,6 +1254,30 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 				.arg( categoriesIt.data() )
 				.arg( name.replace( "'", "''" ) )
 				.arg( parent );
+			driver.exec( sql );
+		}
+
+		sections = Definitions::instance()->getSections( WPDT_MULTI );
+		for ( sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt )
+		{
+			const cElement *element = Definitions::instance()->getDefinition( WPDT_MULTI, *sectionIt );
+
+			item.clear();
+			item.insert( "name", QString::null );
+			item.insert( "dispid", "0" );
+
+			processMulti( item, element );
+
+			if (item["name"].isNull() || item["dispid"].toInt() < 0x4000) {
+				continue;
+			}
+
+			// Insert the item into the table.
+			QString section = *sectionIt;
+			QString sql = QString( "INSERT INTO multis VALUES(NULL,'%1','%2',%3);" )
+				.arg( item[ "name" ].replace( "'", "''" ) )
+				.arg( section.replace( "'", "''" ) )
+				.arg( item[ "dispid" ].toInt() );
 			driver.exec( sql );
 		}
 

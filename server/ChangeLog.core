@@ -11,6 +11,8 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Added the "email" property for accounts to the python interface.
 	- .exportdefinitions now exports data about NPCS and their equipment to the
 	  categories.db database.
+	- .exportdefinitions now exports data about multis to the
+	  categories.db database.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes
