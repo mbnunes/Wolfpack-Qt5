@@ -438,3 +438,16 @@ bool WPPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
 
 	PyEvalMethod( "onPickup" )
 }
+
+bool WPPythonScript::onCommand( cUOSocket *socket, const QString &name, const QString &args )
+{
+	PyHasMethod( "onCommand" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetSocketObject( socket ) );
+	PyTuple_SetItem( tuple, 1, PyString_FromString( name.latin1() ) );
+	PyTuple_SetItem( tuple, 2, PyString_FromString( args.latin1() ) );
+
+	PyEvalMethod( "onCommand" )
+}

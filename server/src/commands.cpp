@@ -45,6 +45,7 @@
 #include "worldmain.h"
 #include "wpconsole.h"
 #include "wpdefmanager.h"
+#include "wpscriptmanager.h"
 #include "pagesystem.h"
 #include "makemenus.h"
 #include "mapobjects.h"
@@ -59,8 +60,6 @@
 // Main Command processing function
 void cCommands::process( cUOSocket *socket, const QString &command )
 {
-	// TODO: Insert processing instructions for script-defined commands here
-
 	if( !socket->player() )
 		return;
 
@@ -93,6 +92,19 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 	// Just in case we have been called directly
 	if( !socket || !socket->player() )
 		return;
+
+	// Check for custom commands
+	WPDefaultScript *script = ScriptManager->getCommandHook( command );
+
+	if( script )
+	{
+		QString argString = arguments.join( " " );
+		if( argString.isNull() )
+			argString = "";
+
+		script->onCommand( socket, command, argString );
+		return;
+	}	
 
 	for( UINT32 index = 0; commands[index].command; ++index )
 		if( command == commands[index].name )

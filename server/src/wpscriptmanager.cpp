@@ -128,6 +128,8 @@ void WPScriptManager::unload( void )
 	}
 
 	Scripts.clear();
+	globalhooks.clear();
+	commandhooks.clear();
 }
 
 void WPScriptManager::load( void )
@@ -166,4 +168,39 @@ void WPScriptManager::load( void )
 
 	clConsole.ProgressDone();
 	clConsole.send( QString("%1 Script(s) loaded successfully\n").arg(ScriptsLoaded) );
+}
+
+void WPScriptManager::addCommandHook( const QString &command, WPDefaultScript *script )
+{
+	commandhooks[ command.upper() ] = script;
+}
+
+void WPScriptManager::addGlobalHook( UINT32 object, UINT32 event, WPDefaultScript *script )
+{
+	// Find first
+	QValueVector< WPDefaultScript* > &vec = globalhooks[ object ][ event ];
+	QValueVector< WPDefaultScript* >::const_iterator it = vec.begin();
+
+	for( ; it != vec.end(); ++it )
+	{
+		if( *it == script )
+			return;
+	}	
+
+	globalhooks[ object ][ event ].push_back( script );
+}
+
+WPDefaultScript *WPScriptManager::getCommandHook( const QString &command )
+{
+	QMap< QString, WPDefaultScript* >::const_iterator it( commandhooks.find( command ) );
+
+	if( it == commandhooks.end() )
+		return 0;
+
+	return *it;
+}
+
+const QValueVector< WPDefaultScript* > WPScriptManager::getGlobalHooks( UINT32 object, UINT32 event )
+{
+	return globalhooks[ object ][ event ];  
 }

@@ -63,6 +63,7 @@
 #include "itemsmgr.h"
 #include "msgboard.h"
 #include "makemenus.h"
+#include "wpscriptmanager.h"
 
 // Qt Includes
 #include <qstringlist.h>
@@ -1160,6 +1161,15 @@ bool cChar::onPickup( P_ITEM pItem )
 		if( scriptChain[ i ]->onPickup( this, pItem ) )
 			return true;
 
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_PICKUP );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onPickup( this, pItem ) )
+			return true;
+
 	return false;
 }
 
@@ -1172,6 +1182,15 @@ bool cChar::onSingleClick( P_CHAR Viewer )
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onSingleClick( (P_CHAR)this, (P_CHAR)Viewer ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SINGLECLICK );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onSingleClick( (P_CHAR)this, (P_CHAR)Viewer ) )
 			return true;
 
 	return false;
@@ -1227,6 +1246,14 @@ bool cChar::onLogin( void )
 		if( scriptChain[ i ]->onLogin( this ) )
 			return true;
 
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_LOGIN );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		(*it)->onLogin( this );
+
 	return false;
 }
 
@@ -1238,6 +1265,14 @@ bool cChar::onLogout( void )
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onLogout( this ) )
 			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_LOGOUT );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		(*it)->onLogout( this );
 
 	return false;
 }
@@ -1251,6 +1286,15 @@ bool cChar::onHelp( void )
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onHelp( this ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_HELP );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onHelp( this ) )
 			return true;
 
 	return false;
@@ -1267,6 +1311,15 @@ bool cChar::onChat( void )
 		if( scriptChain[ i ]->onChat( this ) )
 			return true;
 
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_HELP );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onChat( this ) )
+			return true;
+
 	return false;
 }
 
@@ -1279,6 +1332,15 @@ bool cChar::onSkillUse( UI08 Skill )
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onSkillUse( this, Skill ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_HELP );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onSkillUse( this, Skill ) )
 			return true;
 
 	return false;

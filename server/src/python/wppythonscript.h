@@ -81,6 +81,8 @@ public:
 	bool onDropOnGround( P_ITEM pItem, const Coord_cl &pos );
 	bool onPickup( P_CHAR pChar, P_ITEM pItem );
 
+	bool onCommand( cUOSocket *socket, const QString &name, const QString &args );
+
 	// Magic System (This should be reduced eventually. It's a bit much)
 	// But as soon as the flag-system is introduced for python-script 
 	// It shouldn't be that much.

@@ -449,7 +449,7 @@ PyObject *wpItems( PyObject* self, PyObject* args )
 		if( pItem->pos().map != pos.map )
 			continue;
 
-		if( exact && pItem->pos().x != pos.x && pItem->pos().y != pos.y )
+		if( exact && ( pItem->pos().x != pos.x && pItem->pos().y != pos.y ) )
 			continue;
 
 		PyList_Append( list, PyGetItemObject( pItem ) );
@@ -582,6 +582,58 @@ PyObject *wpList( PyObject* self, PyObject* args )
 	return pylist;
 }
 
+/*!
+	Registers a global script hook.
+*/
+PyObject *wpRegisterGlobal( PyObject* self, PyObject* args )
+{
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgStr( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	UINT32 object = getArgInt( 0 );
+	UINT32 event = getArgInt( 1 );
+	QString scriptName = getArgStr( 2 );
+
+	WPDefaultScript *script = ScriptManager->find( scriptName );
+
+	if( script == 0 )
+	{
+		PyErr_SetString( PyExc_RuntimeError, "Unknown script." );
+		return 0;
+	}
+
+	ScriptManager->addGlobalHook( object, event, script );
+	return PyTrue;
+}
+
+/*!
+	Registers a global command hook.
+*/
+PyObject *wpRegisterCommand( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	QString command = getArgStr( 0 );
+	QString scriptName = getArgStr( 1 );
+
+	WPDefaultScript *script = ScriptManager->find( scriptName );
+
+	if( script == 0 )
+	{
+		PyErr_SetString( PyExc_RuntimeError, "Unknown script." );
+		return 0;
+	}
+
+	ScriptManager->addCommandHook( command, script );
+	return PyTrue;
+}
 
 PyObject *wpSocketsFirst( PyObject* self, PyObject* args )
 {
@@ -622,19 +674,21 @@ static PyMethodDef wpSockets[] =
 */
 static PyMethodDef wpGlobal[] = 
 {
-    { "additem",		wpAdditem,		METH_VARARGS, "Adds an item with the specified script-section" },
-	{ "addnpc",			wpAddnpc,		METH_VARARGS, "Adds a npc with the specified script-section" },
-	{ "finditem",		wpFinditem,		METH_VARARGS, "Tries to find an item based on it's serial" },
-	{ "findchar",		wpFindchar,		METH_VARARGS, "Tries to find a char based on it's serial" },
-	{ "addtimer",		wpAddtimer,		METH_VARARGS, "Adds a timed effect" },
-	{ "region",			wpRegion,		METH_VARARGS, "Gets the region at a specific position" },
-	{ "currenttime",	wpCurrenttime,	METH_VARARGS, "Time in ms since server-start" },
-	{ "statics",		wpStatics,		METH_VARARGS, "Returns a list of static-item at a given position" },
-	{ "map",			wpMap,			METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
-	{ "items",			wpItems,		METH_VARARGS, "Returns a list of items in a specific sector." },
-	{ "tiledata",		wpTiledata,		METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
-	{ "spell",			wpSpell,		METH_VARARGS, "Returns information about a certain spell." },
-	{ "list",			wpList,			METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
+    { "additem",			wpAdditem,			METH_VARARGS, "Adds an item with the specified script-section" },
+	{ "addnpc",				wpAddnpc,			METH_VARARGS, "Adds a npc with the specified script-section" },
+	{ "finditem",			wpFinditem,			METH_VARARGS, "Tries to find an item based on it's serial" },
+	{ "findchar",			wpFindchar,			METH_VARARGS, "Tries to find a char based on it's serial" },
+	{ "addtimer",			wpAddtimer,			METH_VARARGS, "Adds a timed effect" },
+	{ "region",				wpRegion,			METH_VARARGS, "Gets the region at a specific position" },
+	{ "currenttime",		wpCurrenttime,		METH_VARARGS, "Time in ms since server-start" },
+	{ "statics",			wpStatics,			METH_VARARGS, "Returns a list of static-item at a given position" },
+	{ "map",				wpMap,				METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
+	{ "items",				wpItems,			METH_VARARGS, "Returns a list of items in a specific sector." },
+	{ "tiledata",			wpTiledata,			METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
+	{ "spell",				wpSpell,			METH_VARARGS, "Returns information about a certain spell." },
+	{ "list",				wpList,				METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
+	{ "registerglobal",		wpRegisterGlobal,	METH_VARARGS, "Registers a global script hook." },
+	{ "registercommand",	wpRegisterCommand,	METH_VARARGS, "Registers a global command hook." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

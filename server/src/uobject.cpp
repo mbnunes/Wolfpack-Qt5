@@ -295,6 +295,33 @@ bool cUObject::onUse( cUObject *Target )
 			return true;
 	}
 
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_USE );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+	{
+		if( !this->isChar() )
+			(*it)->onUse( (P_CHAR)Target, (P_ITEM)this );
+		else
+			(*it)->onUse( (P_CHAR)this, (P_ITEM)Target );
+	}
+
+	if( isChar() )
+	{
+		hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_USE );
+		for( it = hooks.begin(); it != hooks.end(); ++it )
+				(*it)->onUse( (P_CHAR)this, (P_ITEM)Target );
+	}
+	
+	if( isItem() )
+	{
+		hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_USE );
+		for( it = hooks.begin(); it != hooks.end(); ++it )
+			(*it)->onUse( (P_CHAR)Target, (P_ITEM)this );
+	}
+
 	return false;
 }
 
@@ -315,6 +342,28 @@ bool cUObject::onCreate( const QString &definition )
 
 		if( Handeled )
 			return true;
+	}
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_CREATE );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		(*it)->onCreate( this, definition );
+
+	if( isChar() )
+	{
+		hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CREATE );
+		for( it = hooks.begin(); it != hooks.end(); ++it )
+			(*it)->onCreate( this, definition );
+	}
+	
+	if( isItem() )
+	{
+		hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_CREATE );
+		for( it = hooks.begin(); it != hooks.end(); ++it )
+			(*it)->onCreate( this, definition );
 	}
 
 	return false;
@@ -340,6 +389,44 @@ bool cUObject::onCollide( cUObject* Obstacle )
 			else // Character, Character
 				if( scriptChain[ i ]->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle ) )
 					return true;
+	}
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_COLLIDE );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+	{
+		// Items cannot collide with items
+		if( !isChar() ) // Item, so obstacle has to be character
+			(*it)->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
+		else
+		{
+			if( Obstacle->isItem() )
+				(*it)->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle );
+			else
+				(*it)->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle );
+		}
+	}
+
+	if( isChar() )
+	{
+		hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_COLLIDE );
+		for( it = hooks.begin(); it != hooks.end(); ++it )
+		{
+			if( Obstacle->isItem() )
+				(*it)->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle );
+			else
+				(*it)->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle );
+		}
+	}
+	
+	if( isItem() )
+	{
+		hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_COLLIDE );
+		for( it = hooks.begin(); it != hooks.end(); ++it )
+			(*it)->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
 	}
 
 	return false;

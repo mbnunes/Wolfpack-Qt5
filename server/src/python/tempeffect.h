@@ -169,6 +169,7 @@ public:
 				{
 					INT32 data;
 					archive.read( QString( "pv%1" ).arg( i ), data );
+					PyObject *obj = PyInt_FromLong( data );
 					PyTuple_SetItem( args, i, PyInt_FromLong( data ) );
 				}
 				// Read a string
@@ -176,11 +177,12 @@ public:
 				{
 					QString data;
 					archive.read( QString( "pv%1" ).arg( i ), data );
-					PyTuple_SetItem( args, i, PyString_FromString( data.latin1() ) );
+					PyObject *obj = PyString_FromString( data.latin1() );
+					PyTuple_SetItem( args, i, obj );
 				}
-				else
-					PyTuple_SetItem( args, i, PyFalse );
 			}		
+
+			tuple_incref( args );
 		}
 		else if( archive.isWritting() )
 		{
