@@ -55,6 +55,9 @@ class cTempEffects;
 #include "typedefs.h"
 #include "iserialization.h"
 
+// Library includes
+#include "Python.h"
+
 class cTempEffect : public cSerializable
 {
 protected:
@@ -140,17 +143,19 @@ public:
 	void Expire();
 };
 
-// Thats on the to-do
-class cScriptEffect : public cTempEffect
+class cPythonEffect : public cTempEffect
 {
 protected:
-	std::string scriptname;
-	std::string functionname;
+	QString functionName;
+	PyObject *args;
 public:
-	cScriptEffect() { objectid = "ScriptEff"; }
-	virtual ~cScriptEffect() {;}
-	void Expire();
-	virtual void Serialize(ISerialization &archive);
+	void setFunctionName( const QString &data ) { functionName = data; }
+	void setArgs( PyObject *data ) { args = data; Py_INCREF( data ); }
+
+	cPythonEffect() { objectid = "PythonEffect"; }
+	virtual ~cPythonEffect() {;}
+	virtual void Expire();
+	virtual void Serialize( ISerialization &archive );
 };
 
 class cTmpEffFibHeap

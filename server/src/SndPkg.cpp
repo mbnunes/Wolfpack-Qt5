@@ -269,7 +269,7 @@ void weather(int s, char bolt) // Send new weather to player
 void sysbroadcast( const char *txt ) // System broadcast in bold text
 {
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-		socket->sysMessage( txt, 0x84d, 1 );
+		socket->sysMessage( txt, 0x84d, 0 );
 }
 
 void sysmessage(UOXSOCKET s, const QString& txt)

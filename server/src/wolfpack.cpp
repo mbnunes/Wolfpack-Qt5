@@ -68,11 +68,11 @@
 #include "tilecache.h"
 #include "accounts.h"
 
-// new-style includes
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
-#include "wppythonscript.h"
 #include "wptargetrequests.h"
+#include "Python.h"
+#include "python/engine.h"
 
 // Library Includes
 #include "qapplication.h"

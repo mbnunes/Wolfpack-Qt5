@@ -33,7 +33,9 @@
 #include "wpscriptmanager.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
-#include "wppythonscript.h"
+
+#include "python/wppythonscript.h"
+#include "python/engine.h"
 
 // Library Includes
 #include "qstring.h"
@@ -83,7 +85,6 @@ void WPScriptManager::reload( void )
 {
 	// First unload, then reload
 	unload();
-	reloadPython();
 	load();
 
 	// After reloading all scripts we *need* to recreate all script-pointers 

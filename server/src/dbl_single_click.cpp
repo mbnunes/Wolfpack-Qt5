@@ -1443,19 +1443,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					else 
 						socket->sysMessage(tr("you fail to create the sextant."));
 					return;
-				case 0x1070:
-				case 0x1074: // training dummies
-					if( pc_currchar->inRange( pi, 1 ) )
-						Skills->TDummy(s);
-					else 
-						socket->sysMessage( tr( "You need to be closer to use that." ) );
-					return;
-				case 0x1071:
-				case 0x1073:
-				case 0x1075:
-				case 0x1077:// swinging training dummy
-					sysmessage(s, "You must wait for it to stop swinging !");
-					return;
 				case 0x1EBC: // tinker's tools
 					target(s, 0, 1, 0, 180, "Select material to use.");
 					return;

@@ -299,8 +299,8 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		if( objectID == "TmpEff" )
 			pTE = new cTmpEff;
 
-		else if( objectID == "ScriptEff" )
-			pTE = new cScriptEffect;
+		else if( objectID == "PythonEffect" )
+			pTE = new cPythonEffect;
 
 		else		
 			continue; // an error occured..

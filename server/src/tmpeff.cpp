@@ -522,24 +522,93 @@ void cTmpEff::Serialize(ISerialization &archive)
 	cTempEffect::Serialize(archive);
 }
 
-void cScriptEffect::Expire()
+void cPythonEffect::Expire()
 {
-	;// here ya go darkstorm :P
+	// Get everything before the last dot
+	if( functionName.contains( "." ) )
+	{
+		// Find the last dot
+		INT32 position = functionName.findRev( "." );
+		QString sModule = functionName.left( position );
+		QString sFunction = functionName.right( functionName.length() - (position+1) );
+
+		PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+		if( pModule )
+		{
+			PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+			if( pFunc && PyCallable_Check( pFunc ) )
+			{
+				PyEval_CallObject( pFunc, args );
+				
+				if( PyErr_Occurred() )
+					PyErr_Print();
+			}
+		}
+	}
+
+	Py_DECREF( args );
 }
 
-void cScriptEffect::Serialize(ISerialization &archive)
+void cPythonEffect::Serialize( ISerialization &archive )
 {
 	if( archive.isReading() )
 	{
-		archive.read( "scriptname",		this->scriptname );
-		archive.read( "functionname",	this->functionname );
+		archive.read( "functionname",	functionName );
+
+		UINT32 pCount;
+		QString type;
+		archive.read( "pcount", pCount );
+		args = PyTuple_New( pCount );
+
+		for( UINT32 i = 0; i < pCount; ++i )
+		{
+			archive.read( QString( "pt%1" ).arg( i ), type );
+
+			// Read an integer
+			if( type == "i" )
+			{
+				INT32 data;
+				archive.read( QString( "pv%1" ).arg( i ), data );
+				PyTuple_SetItem( args, i, PyInt_FromLong( data ) );
+			}
+			// Read a string
+			else if( type == "s" )
+			{
+				QString data;
+				archive.read( QString( "pv%1" ).arg( i ), data );
+				PyTuple_SetItem( args, i, PyString_FromString( data.latin1() ) );
+			}
+			else
+				PyTuple_SetItem( args, i, Py_None );
+		}		
 	}
 	else if( archive.isWritting() )
 	{
-		archive.write( "scriptname",	this->scriptname );
-		archive.write( "functionname",	this->functionname );
+		archive.write( "functionname",	functionName );
+
+		archive.write( "pcount", PyTuple_Size( args ) );
+
+		// Serialize the py object
+		for( UINT32 i = 0; i < PyTuple_Size( args ); ++i )
+		{
+			if( PyInt_Check( PyTuple_GetItem( args, i ) ) )
+			{
+				archive.write( QString( "pt%1" ).arg( i ), QString( "i" ) );
+				archive.write( QString( "pv%1" ).arg( i ), PyInt_AsLong( PyTuple_GetItem( args, i ) ) );
+			}
+			else if( PyString_Check( PyTuple_GetItem( args, i ) ) )
+			{
+				archive.write( QString( "pt%1" ).arg( i ), QString( "s" ) );
+				archive.write( QString( "pv%1" ).arg( i ), PyString_AsString( PyTuple_GetItem( args, i ) ) );
+			}
+			// Something we can't save -> Py_None on load
+			else
+				archive.write( QString( "pt%1" ).arg( i ), QString( "n" ) );
+		}
 	}
-	cTempEffect::Serialize(archive);
+
+	cTempEffect::Serialize( archive );
 }
 
 /*

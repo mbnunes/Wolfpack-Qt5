@@ -1570,8 +1570,11 @@ void cItem::processNode( const QDomElement& Tag )
 		this->setColor( Value.toUShort() );
 
 	// <events>a,b,c</events>
-	//else if( TagName == "color" )
-	//	this->color = Value.toUShort( NULL, 16 );
+	else if( TagName == "events" )
+	{
+		eventList_ = QStringList::split( ",", Value );
+		recreateEvents();
+	}
 
 	// <attack min="1" max="2"/>
 	else if( TagName == "attack" )

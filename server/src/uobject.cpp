@@ -109,7 +109,7 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.read("pos.plane", pos.plane);
 		archive.read("events", events );
 		eventList_ = QStringList::split( ",", events );
-		recreateEvents(); 
+		recreateEvents();
 
 		QString objectID;
 		archive.readObjectID( objectID );
