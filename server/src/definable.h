@@ -45,6 +45,8 @@ public:
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;
 	QString getNodeValue( const QDomElement &Tag );
+
+	void processModifierNode( const QDomElement &Tag ) {};
 };
 
 #endif

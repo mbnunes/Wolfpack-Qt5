@@ -1572,6 +1572,7 @@ void cItem::processNode( const QDomElement& Tag )
 	// we do this as we're going to modify the element
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
+	QStringList defineSections = DefManager->getSections( WPDT_DEFINE );
 
 	// <name>my Item</name>
 	if( TagName == "name" )
@@ -1836,8 +1837,116 @@ void cItem::processNode( const QDomElement& Tag )
 			applyDefinition( *DefSection );
 	}
 
+	else if( defineSections.contains( TagName ) )
+	{
+		QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
+		if( !DefSection->isNull() )
+		{
+			QDomNode chNode = Tag.firstChild();
+			while( !chNode.isNull() )
+			{
+				if( chNode.isElement() )
+					processModifierNode( chNode.toElement() );
+				chNode = chNode.nextSibling();
+			}
+		}
+	}
+
 	else
 		cUObject::processNode( Tag );
+}
+
+void cItem::processModifierNode( const QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value = getNodeValue( Tag );
+
+	// <name>magic %1</name>
+	if( TagName == "name" )
+		name_ = Value.arg( name_ );
+
+	// <identified>%1 of Hardening</identified>
+	else if( TagName == "identified" )
+		name2_ = Value.arg( name2_ );
+
+	// <color>-10</color>
+	else if( TagName == "color" )
+		color_ += Value.toShort();
+
+	// <attack min="-1" max="+2"/>
+	else if( TagName == "attack" )
+	{
+		if( Tag.attributes().contains( "min" ) )
+			setLodamage( lodamage() + Tag.attribute( "min" ).toInt() );
+
+		if( Tag.attributes().contains( "max" ) )
+			setHidamage( hidamage() + Tag.attribute( "max" ).toInt() );
+
+		// Better...
+		if( lodamage() > hidamage() )
+			setHidamage( lodamage() );
+	}
+
+	// <defense>+10</defense>
+	else if( TagName == "defense" )
+		def += Value.toInt();
+
+	// <weight>-10</weight>
+	else if( TagName == "weight" )
+		setWeight( weight() + (INT32)( Value.toFloat() * 10 ) );
+
+	// <value>+20</value>
+	else if( TagName == "value" )
+		value += Value.toInt();
+
+	// <durability>-10</durabilty>
+	else if( TagName == "durability" )
+	{
+		setMaxhp( maxhp() + Value.toLong() );
+		setHp( maxhp() );
+	}
+
+	// <speed>-10</speed>
+	else if( TagName == "speed" )
+		setSpeed( speed() + Value.toLong() );
+
+	// <requires type="xx">2</requires>
+	else if( TagName == "requires" )
+	{
+		if( !Tag.attributes().contains( "type" ) )
+			return;
+
+		QString Type = Tag.attribute( "type" );
+			
+		if( Type == "str" )
+			this->st += Value.toLong();
+		else if( Type == "dex" )
+			this->dx += Value.toLong();
+		else if( Type == "int" )
+			this->in += Value.toLong();
+	}
+
+	// <modifier type="xx">2</modifier>
+	else if( TagName == "modifier" )
+	{
+		if( !Tag.attributes().contains( "type" ) )
+			return;
+
+		QString Type = Tag.attribute( "type" );
+			
+		if( Type == "str" )
+			this->st2 += Value.toLong();
+		else if( Type == "dex" )
+			this->dx2 += Value.toLong();
+		else if( Type == "int" )
+			this->in2 += Value.toLong();
+	}
+
+	// <id>+3</id>
+	else if( TagName == "id" )
+	{
+		this->setId( id() + Value.toShort() );
+	}
 }
 
 void cItem::processContainerNode( const QDomElement &Tag )

@@ -75,6 +75,7 @@ protected:
 	UI08 moreb4_;
 
 	void	processNode( const QDomElement &Tag );
+	void	processModifierNode( const QDomElement &Tag );
 public:
 	void	processContainerNode( const QDomElement &Tag );
 	virtual void update( cUOSocket *mSock = NULL );

@@ -298,6 +298,10 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &SkillChecks;
 		break;
 
+	case WPDT_DEFINE:
+		ListPointer = &Defines;
+		break;
+
 	default:
 		return 0;
 	};
@@ -388,6 +392,10 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	case WPDT_SKILLCHECK:
 		ListPointer = &SkillChecks;
+		break;
+
+	case WPDT_DEFINE:
+		ListPointer = &Defines;
 		break;
 
 	default:
