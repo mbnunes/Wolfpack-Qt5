@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /GR /GX /O2 /Oy- /Ob0 /I "lib\Python\include" /I "lib\ZThread\include" /I "lib\wrl\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /YX /FD /c
+# ADD CPP /nologo /MT /GR /GX /O2 /Oy- /Ob0 /I "lib\Python\PC" /I "lib\Python\include" /I "lib\ZThread\include" /I "lib\wrl\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /YX /FD /c
 # SUBTRACT CPP /Fr
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -67,7 +67,7 @@ LINK32=xilink6.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /Gm /GR /GX /ZI /Od /I "lib/Python/include" /I "lib\ZThread\include" /I "lib\wrl\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /Gm /GR /GX /ZI /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\ZThread\include" /I "lib\wrl\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -384,15 +384,15 @@ SOURCE=.\wpconsole.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\WPDefManager.cpp
+SOURCE=.\wpdefmanager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\WPPythonScript.cpp
+SOURCE=.\wppythonscript.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\WPScriptManager.cpp
+SOURCE=.\wpscriptmanager.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -704,19 +704,19 @@ SOURCE=.\wpconsole.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\WPDefaultScript.h
+SOURCE=.\wpdefaultscript.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\WPDefManager.h
+SOURCE=.\wpdefmanager.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\WPPythonScript.h
+SOURCE=.\wppythonscript.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\WPScriptManager.h
+SOURCE=.\wpscriptmanager.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
