@@ -193,7 +193,7 @@ def response( char, args, target ):
 	elif target.item.id in ids_bolts:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
-		item_new.amount = 50
+		item_new.amount = target.item.amount * 50
 		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
