@@ -284,6 +284,30 @@ void cSkills::Meditation( cUOSocket* socket )
 
 void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 {
+	P_CHAR owner = container->getOutmostChar();
+
+	if (!owner)
+		return; // Snooping into something thats not equipped?!
+
+	PyObject *args = Py_BuildValue("(NNN)", owner->getPyObject(), container->getPyObject(), player->getPyObject());
+
+	// Event prüfen
+	if (player->canHandleEvent(EVENT_SNOOPING)) {
+		if (player->callEventHandler(EVENT_SNOOPING, args)) {
+			Py_DECREF(args);
+			return;
+		}
+	}
+
+	if (owner->canHandleEvent(EVENT_SNOOPING)) {
+		if (owner->callEventHandler(EVENT_SNOOPING, args)) {
+			Py_DECREF(args);
+			return;
+		}
+	}
+
+	Py_DECREF(args);
+
 	cUOSocket* socket = player->socket();
 
 	if ( !socket )

@@ -579,6 +579,27 @@ It is triggered for every character that could be attacked by the NPC.
 */
 "onDoDamage",
 
+/*
+\event onSnooping
+\param owner The owner of the container that is trying to be looked into.
+\param item The item that is being snooped into.
+\param player The player trying to snoop into the container.
+\return True if you want to handle this skill use.
+\condition Triggered for the player trying to snoop first, then for the owner of the
+container that is being snooped into.
+*/
+"onSnooping",
+
+/*
+\event onRemoteUse
+\param player The player who used the item.
+\param item The item that was used.
+\return Return True if the item may be used, False otherwise.
+\condition Triggered when a player tries to use an item that is within the belongings of another character.
+\notes This even is called for the using player, then for the current owner of the item.
+*/
+"onRemoteUse",
+
 0
 };
 

@@ -9,6 +9,11 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Corpses now decay in multis too.
 	- Implemented a walktest command for testing walking.
 	- Fixed several other walking bugs.
+	- Implemented onRemoteUse for checking if an object that is in the belonging
+	  of another char may be used. First called for the using char, then for the
+	  owner of the object.
+	- Implemented onSnooping that is called for the owner and for the player trying to
+	  open a container.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

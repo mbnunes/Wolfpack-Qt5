@@ -316,6 +316,7 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 	\param itemid The item id of the object to consume.
 	\param color Defaults to 0.
 	The color of the object to consume
+	\return How many items have not been deleted.
 */
 static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 {
@@ -680,7 +681,7 @@ static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 		return false;
 
 	QString name = self->pItem->getName( true );
-	return PyString_FromString( name.latin1() );
+	return QString2Python( name );
 }
 
 /*!

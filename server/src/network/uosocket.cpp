@@ -3128,21 +3128,43 @@ bool cUOSocket::useItem( P_ITEM item )
 			_player->setObjectDelay( Config::instance()->objectDelay() * MY_CLOCKS_PER_SEC + Server::instance()->time() );
 	}
 
-	// Cant use stuff that isn't in your pack.
-	if ( item->container() && item->container()->isItem() && item->type() != 1 && !item->isInWorld() )
+	// Dead ppl can only use ankhs
+	if ( _player->isDead() && item->type() != 16 )
 	{
-		P_CHAR pc_p = item->getOutmostChar();
-		if ( pc_p && _player != pc_p )
+		sysMessage( tr( "Your ghostly hand passes trough the object." ) );
+		return false;
+	}
+
+	// Cant use stuff that isn't in your pack.
+	P_CHAR pOutmostChar = item->getOutmostChar();
+
+	// It's not a container and not on use, assume it has a special behaviour that is not activated
+	// using snooping
+	if (pOutmostChar && pOutmostChar != _player && item->type() != 1) {
+		bool allowed = false;
+
+		PyObject *args = Py_BuildValue("(NN)", _player->getPyObject(), item->getPyObject());
+
+		if (_player->callEventHandler(EVENT_REMOTEUSE, args)) {
+			allowed = true;
+		}
+
+		if (!allowed && pOutmostChar->callEvent(EVENT_REMOTEUSE, args)) {
+			allowed = true;
+		}
+
+		Py_DECREF(args);
+
+		if (!allowed)
 			return false;
 	}
-	else if ( item->container() && item->container()->isChar() && item->type() != 1 && !item->isInWorld() )
-	{
-		// in a character.
-		P_CHAR pc_p = dynamic_cast<P_CHAR>( item->container() );
-		if ( pc_p != NULL )
-			if ( pc_p != _player && item->layer() != 15 && item->type() != 1 )
-				return false;
-	}
+
+	// Call both events here
+	if ( _player->onUse( item ) )
+		return true;
+
+	if ( item->onUse( _player ) )
+		return true;
 
 	// Criminal for looting an innocent corpse & unhidden if not owner...
 	if ( item->corpse() )
@@ -3181,13 +3203,6 @@ bool cUOSocket::useItem( P_ITEM item )
 		}
 	}
 
-	// Dead ppl can only use ankhs
-	if ( _player->isDead() && item->type() != 16 )
-	{
-		sysMessage( tr( "Your ghostly hand passes trough the object." ) );
-		return false;
-	}
-
 	// You can only use equipment on your own char
 	if ( !_player->isGM() && item->container() && item->container()->isChar() && item->container() != _player )
 	{
@@ -3197,13 +3212,6 @@ bool cUOSocket::useItem( P_ITEM item )
 			return false;
 		}
 	}
-
-	// Call both events here
-	if ( _player->onUse( item ) )
-		return true;
-
-	if ( item->onUse( _player ) )
-		return true;
 
 	// Check item behaviour by it's tpye
 	switch ( item->type() )
