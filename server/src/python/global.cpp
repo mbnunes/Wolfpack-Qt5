@@ -380,13 +380,11 @@ static PyObject* wpAddnpc( PyObject* self, PyObject* args )
 static PyObject* wpFinditem( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
-	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
 
-	SERIAL serial = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	SERIAL serial = INVALID_SERIAL;
+	if ( !PyArg_ParseTuple( args, "i:wolfpack.finditem", &serial ) )
+		return 0;
+
 	return PyGetItemObject( FindItemBySerial( serial ) );
 }
 
@@ -397,18 +395,15 @@ static PyObject* wpFinditem( PyObject* self, PyObject* args )
 static PyObject* wpFindchar( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
+	SERIAL serial = INVALID_SERIAL;
+	if ( !PyArg_ParseTuple( args, "i:wolfpack.finditem", &serial ) )
+		return 0;
 
-	SERIAL serial = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 	return PyGetCharObject( FindCharBySerial( serial ) );
 }
 
-/*
- * Creates a multi object based on the passed pos
+/*!
+	Creates a multi object based on the passed pos
  */
 static PyObject* wpFindmulti( PyObject* self, PyObject* args )
 {
@@ -431,7 +426,6 @@ static PyObject* wpFindmulti( PyObject* self, PyObject* args )
 		pMulti = cMulti::findMulti( getArgCoord( 0 ) );
 
 	return PyGetMultiObject( pMulti );
-
 }
 
 /*!
@@ -472,13 +466,11 @@ static PyObject* wpRegion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	// Three arguments
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
+	int x = 0, y = 0, map = 0;
+	if ( !PyArg_ParseTuple( args, "iii:wolfpack.region", &x, &y, &map ) )
 		return 0;
-	}
 
-	return PyGetRegionObject( AllTerritories::instance()->region( getArgInt( 0 ), getArgInt( 1 ), getArgInt(2) ) );
+	return PyGetRegionObject( AllTerritories::instance()->region( x, y, map ) );
 }
 
 /*!
@@ -586,18 +578,11 @@ static PyObject *wpItems( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	// Minimum is x, y, map
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
+	uint x = 0, y = 0, map = 0, range = 1;
+	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.items", &x, &y, &map, &range ) )
 		return 0;
-	}
 	
-	UINT32 range = 1;
-
-	if( checkArgInt( 3 ) && getArgInt( 3 ) > 1 )
-		range = getArgInt( 3 );
-	
-	Coord_cl pos( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) );
+	Coord_cl pos( x, y, 0, map );
 	RegionIterator4Items iter( pos, range );
 
 	PyObject *list = PyList_New( 0 );
@@ -619,18 +604,11 @@ static PyObject *wpChars( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	// Minimum is x, y, map
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
+	uint x = 0, y = 0, map = 0, range = 1;
+	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.chars", &x, &y, &map, &range ) )
 		return 0;
-	}
 	
-	UINT32 range = 1;
-	
-	if( checkArgInt( 3 ) && getArgInt( 3 ) > 1 )
-		range = getArgInt( 3 );
-	
-	Coord_cl pos( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) );
+	Coord_cl pos( x, y, 0, map );
 	RegionIterator4Chars iter( pos, range );
 
 	PyObject *list = PyList_New( 0 );
