@@ -99,7 +99,7 @@ cItem::cItem( cItem &src )
 	this->hidamage_=src.hidamage_;
 	this->racehate_ = src.racehate_;
 	this->smelt=src.smelt;
-	this->hp=src.hp;
+	this->hp = src.hp;
 	this->maxhp=src.maxhp;
 	this->st=src.st;
 	this->st2=src.st2;
@@ -1947,7 +1947,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QDomElement *Section )
 		QString Value;
 		
 		// The node value is either the text or it's determined by it's subnodes
-		if( Tag.hasChildNodes() && TagName != "contains" )
+		if( Tag.hasChildNodes() && TagName != "content" )
 			for( j = 0; j < Tag.childNodes().count(); j++ )
 			{
 				if( Tag.childNodes().item( j ).isText() )
@@ -2186,7 +2186,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QDomElement *Section )
 			Item->setId( Value.toUShort( NULL, 16 ) );
 
 		// <contains><item id="a" />...<item id="z" /></contains> (sereg)
-		else if( TagName == "contains" && Item->type() == 1 && Tag.hasChildNodes() )
+		else if( TagName == "contains" && Tag.hasChildNodes() )
 			processItemContainerNode( Item, Tag ); 
 	}
 }
@@ -2239,8 +2239,15 @@ void cAllItems::processScriptItemNode( P_ITEM madeItem, QDomElement &Node )
 
 			madeItem->setColor( Value.toInt() );
 		}
-		else if( currChild.nodeName() == "inherit" && currChild.attributes().contains("id") )
-			this->applyItemSection( madeItem, currChild.attributeNode("id").nodeValue() ); 
+		else if( currChild.nodeName() == "inherit" )
+		{
+			// Either a list -item or an id
+			if( !currChild.attribute( "list" ).isNull() )
+				applyItemSection( madeItem, currChild.attribute( "list" ) );
+			else if( !currChild.attribute( "id" ).isNull() )
+				applyItemSection( madeItem, currChild.attribute( "id" ) );
+			
+		}
 	}
 }
 
@@ -2249,25 +2256,24 @@ void cAllItems::processItemContainerNode( P_ITEM contItem, QDomElement &Node )
 	//item container can be scripted like this:
 	/*
 	<contains>
-		<item id="item1" />
-		<item id="item2"><amount><random ... /></amount><color><colorlist><random...></colorlist></color></item>
+		<item><inherit list="myList" /></item>
+		<item><inherit id="myItem1" /><amount><random ... /></amount><color><colorlist><random...></colorlist></color></item>
 		...
 	</contains>
 	*/
 	for( UI16 j = 0; j < Node.childNodes().count(); j++ )
 		if( Node.childNodes().item( j ).toElement().nodeName() == "item" )
 		{
-			P_ITEM nItem;
-			if(	Node.childNodes().item( j ).toElement().attributes().contains("id") )
-			{
-				QString ItemID = Node.childNodes().item( j ).toElement().attributeNode("id").nodeValue();
-				nItem = this->createScriptItem( ItemID );
-				if( nItem == NULL )
-					continue;
-				nItem->setContSerial( contItem->serial );
-			}
-			if( Node.childNodes().item( j ).toElement().hasChildNodes() )
-				processScriptItemNode(nItem, Node.childNodes().item( j ).toElement());
+			P_ITEM nItem = MemItemFree();
+	
+			if( nItem == NULL )
+				continue;
+
+			nItem->Init( true );
+			cItemsManager::getInstance()->registerItem( nItem );
+
+			applyItemSection( nItem, &Node.childNodes().item( j ).toElement() );	
+			nItem->setContSerial( contItem->serial );
 		}
 }
 
