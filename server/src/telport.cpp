@@ -136,6 +136,8 @@ int validtelepos(int s)
 	return z;
 }
 
+#pragma note("whole telport.cpp should be done with python, commented out")
+/*
 void advancementobjects(P_CHAR pc_s, int x, int allways)
 {
 	char sect[512];
@@ -329,7 +331,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 					{
 						x=str2num(script2);
 						pos=ftell(scpfile);
-						closescript();	/* lord binary */
+						closescript();	// lord binary 
 						P_ITEM retitem = Targ->AddMenuTarget(-1, 0, x);
 						openscript("advance.scp");
 						fseek(scpfile, pos, SEEK_SET);
@@ -381,7 +383,8 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 	}
 	else sysmessage(calcSocketFromChar(pc_s),"You have already used an advancement object with this character.");
 }
-
+*/
+/*
 void monstergate(P_CHAR pc_s, int x)
 {
 	int tmp, z, lovalue, hivalue;
@@ -396,46 +399,45 @@ void monstergate(P_CHAR pc_s, int x)
 	QDomElement* npcSect = DefManager->getSection( WPDT_NPC, QString("%1").arg(x) );
 	if( !npcSect->isNull() )
 	{
-         AllItemsIterator iterItem;   
-         for(iterItem.Begin(); !iterItem.atEnd(); iterItem++)   
-         {   
-                 P_ITEM pi = iterItem.GetData();   
-                 if (pc_s->Wears(pi) &&   
-                         pi->layer()!=0x15 && pi->layer()!=0x1D &&   
-                         pi->layer()!=0x10 && pi->layer()!=0x0B && (!pi->free))   
-                 {   
-                         if (pBackpack == NULL)   
-                         {   
-                                 pBackpack = Packitem(pc_s);   
+		AllItemsIterator iterItem;   
+        for(iterItem.Begin(); !iterItem.atEnd(); iterItem++)   
+        {   
+			P_ITEM pi = iterItem.GetData();   
+			if (pc_s->Wears(pi) &&   
+				pi->layer()!=0x15 && pi->layer()!=0x1D &&   
+				pi->layer()!=0x10 && pi->layer()!=0x0B && (!pi->free))   
+				{   
+				if (pBackpack == NULL)   
+				{   
+					pBackpack = Packitem(pc_s);   
+				}   
+				if (pBackpack == NULL)   
+				{   
+					pBackpack = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",0,0x0E,0x75,0,0,0);   
+                    if (pBackpack == NULL)   
+						return;   
+                    pc_s->packitem = pBackpack->serial;   
     
-                         }   
-                         if (pBackpack == NULL)   
-                         {   
-                                 pBackpack = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",0,0x0E,0x75,0,0,0);   
-                                 if (pBackpack == NULL)   
-                                         return;   
-                                 pc_s->packitem = pBackpack->serial;   
+                    pBackpack->setContSerial(pc_s->serial);   
+                    pBackpack->setLayer(0x15);   
+                    pBackpack->setType( 1 );   
+                    pBackpack->dye=1;   
+					pRetitem = pBackpack;   
+                }   
+                pi->pos.x = RandomNum(50, 130);   
+                pi->pos.y = RandomNum(50, 130);   
+                pi->pos.z=9;   
+                pi->setContSerial(pBackpack->serial);   
+                pi->setLayer(0x00);   
     
-                                 pBackpack->setContSerial(pc_s->serial);   
-                                 pBackpack->setLayer(0x15);   
-                                 pBackpack->setType( 1 );   
-                                 pBackpack->dye=1;   
-                                 pRetitem = pBackpack;   
-                         }   
-                         pi->pos.x = RandomNum(50, 130);   
-                         pi->pos.y = RandomNum(50, 130);   
-                         pi->pos.z=9;   
-                         pi->setContSerial(pBackpack->serial);   
-                         pi->setLayer(0x00);   
-    
-                         SndRemoveitem(pi->serial);   
-                         RefreshItem(pi);//AntiChrist   
-                 }   
-                 else if (pc_s->Wears(pi) &&   
-                         (pi->layer() == 0x0B || pi->layer() == 0x10))   
-                 {   
-                         Items->DeleItem(pi);   
-                 }   
+				SndRemoveitem(pi->serial);   
+				RefreshItem(pi);//AntiChrist   
+			}   
+			else if (pc_s->Wears(pi) &&   
+				(pi->layer() == 0x0B || pi->layer() == 0x10))   
+			{   
+				Items->DeleItem(pi);   
+			}   
         } 
 
 		pc_s->applyDefinition( *npcSect );
@@ -452,7 +454,7 @@ void monstergate(P_CHAR pc_s, int x)
 	staticeffect(pc_s, 0x37, 0x3A, 0, 15);
 	soundeffect2(pc_s, 0x01E9);
 }
-
+*/
 // new function 
 ////////////////////////////////// 
 // This will be just a body type switching 
@@ -462,6 +464,7 @@ void monstergate(P_CHAR pc_s, int x)
 // Gate has to be of type 84. 
 // 
 // 
+/*
 void polycolorgate(P_CHAR pc_s, int x) 
 { 
 	int tmp; 
@@ -505,11 +508,12 @@ void polycolorgate(P_CHAR pc_s, int x)
 	staticeffect(pc_s, 0x37, 0x3A, 0, 15); 
 	soundeffect2(pc_s, 0x01E9); 
 } 
+*/
 // 
 // 
 // Aldur 
 ////////////////////////////////// 
-
+/*
 void objTeleporters(P_CHAR pc_s)
 {
 	if (pc_s == NULL) return;
@@ -603,4 +607,4 @@ void objTeleporters(P_CHAR pc_s)
 		}
 	}
 }
-
+*/

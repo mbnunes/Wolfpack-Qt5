@@ -79,10 +79,6 @@ void charstartup(int s);
 void checkdumpdata(unsigned int currenttime); // This dumps data for Ridcully's UOXBot 0.02 (jluebbe@hannover.aball.de)
 void killall(int s, int percent, char* sysmsg);
 
-// functions in necro.cpp
-int SpawnRandomMonster(int nCharID, char* cScript, char* cList, char* cNpcID);
-int SpawnRandomItem(int nCharID,int nInPack, char* cScript, char* cList, char* cItemID);
-
 // functions in fishing.cpp
 int SpawnFishingMonster(int nCharID, char* cScript, char* cList, char* cNpcID);
 int SpawnFishingItem(int nCharID,int nInPack, char* cScript, char* cList, char* cItemID);
@@ -97,7 +93,7 @@ void cleanup(int s);
 void titletarget(int s);
 int ishuman(P_CHAR pc);
 void npcact(int s);
-void objTeleporters(P_CHAR pc_s);
+//void objTeleporters(P_CHAR pc_s);
 void SkillVars();
 void StartClasses();
 void LoadCustomScripts();
@@ -226,7 +222,7 @@ void readscript ();
 void loadcustomtitle();
 void loadskills();
 
-void advancementobjects(P_CHAR pc_s, int x, int always);
+//void advancementobjects(P_CHAR pc_s, int x, int always);
 void itemsfx(UOXSOCKET s, short item);
 void bgsound(P_CHAR pc);
 void splitline();

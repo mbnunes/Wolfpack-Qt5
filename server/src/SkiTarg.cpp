@@ -44,6 +44,7 @@
 #include "classes.h"
 #include "mapstuff.h"
 #include "network.h"
+#include "wpdefmanager.h"
 
 #undef DBGFILE
 #define DBGFILE "skiTarg.cpp"
@@ -688,9 +689,13 @@ void cSkills::Mine(int s)
 		}
 		else if(pc->skill(MINING)>=850 && !(rand()%18))
 		{
-			//Skills->CheckSkill(player,MINING,850,1000);
-			SpawnRandomItem(s,1,"necro.scp","ITEMLIST","999"); 
-			sysmessage(s, tr("You place a gem in your pack.") );
+#pragma note("new xml format: convert ITEMLIST 999 to <list> with id COMMON_GEMS...!")
+			QString listSect = DefManager->getRandomListEntry( "COMMON_GEMS" );
+			if( !listSect.isEmpty() )
+			{
+				Items->createScriptItem( listSect );
+				sysmessage(s, tr("You place a gem in your pack.") );
+			}
 		}
 		else
 		{
@@ -839,8 +844,10 @@ void cSkills::TreeTarget(int s)
 
 void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 {
-	int	nAmount, nFame, nItemID;
+	int	nAmount, nFame;
 	char iID=0;
+	QString listSect;
+	P_ITEM ci = NULL;
 	
 	P_CHAR pc = currchar[s];
 
@@ -867,23 +874,40 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 	switch(nRandnum)
 	{
 	case 2:
-		SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1000"); // Low level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+#pragma note("new xml format: convert UNDEADLIST 1000 to <list> with id COMMON_UNDEAD_LOWLVL...!")
+		listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_LOWLVL" );
+		if( !listSect.isEmpty() )
+		{
+			Npcs->createScriptNpc( s, NULL, listSect );
+			sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+		}	
 		break;
 	case 4:
-		nItemID=SpawnRandomItem(s,1,"necro.scp","ITEMLIST","1001"); // Armor and shields - Random
-		if((nItemID>=7026)&&(nItemID<=7035))
-			sysmessage(s, tr("You unearthed an old shield and placed it in your pack") );
-		else
-			sysmessage(s, tr("You have found an old piece armor and placed it in your pack.") );
+#pragma note("new xml format: convert ITEMLIST 1001 to <list> with id COMMON_ARMOR_AND_SHIELDS...!")
+		listSect = DefManager->getRandomListEntry( "COMMON_ARMOR_AND_SHIELDS" );
+		if( !listSect.isEmpty() )
+		{
+			ci = Items->createScriptItem( listSect );
+			if( ci != NULL )
+			{
+				if((ci->id()>=7026)&&(ci->id()<=7035))
+					sysmessage(s, tr("You unearthed an old shield and placed it in your pack") );
+				else
+					sysmessage(s, tr("You have found an old piece armor and placed it in your pack.") );
+			}
+		}
 		break;
 	case 5:
 		//Random treasure between gems and gold
 		nRandnum=rand()%2;
 		if(nRandnum)
 		{ // randomly create a gem and place in backpack
-			SpawnRandomItem(s,1,"necro.scp","ITEMLIST","999");
-			sysmessage(s, tr("You place a gem in your pack.") );
+			QString listSect = DefManager->getRandomListEntry( "COMMON_GEMS" );
+			if( !listSect.isEmpty() )
+			{
+				Items->createScriptItem( listSect );
+				sysmessage(s, tr("You place a gem in your pack.") );
+			}
 		}
 		else
 		{ // Create between 1 and 15 goldpieces and place directly in backpack
@@ -897,29 +921,48 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		}
 		break;
 	case 6:
+#pragma note("new xml format: convert UNDEADLIST 1001 to <list> with id COMMON_UNDEAD_MEDLVL...!")
 		if(nFame<500)
-			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1000"); // Low level Undead - Random
+			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_LOWLVL" );
 		else
-			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1001"); // Med level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_MEDLVL" );
+		if( !listSect.isEmpty() )
+		{
+			Npcs->createScriptNpc( s, NULL, listSect );
+			sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+		}	
 		break;
 	case 8:
-		SpawnRandomItem(s,1,"necro.scp","ITEMLIST","1000");
-		sysmessage(s, tr("You unearthed a old weapon and placed it in your pack.") );
+#pragma note("new xml format: convert ITEMLIST 1000 to <list> with id COMMON_WEAPONS...!")
+		listSect = DefManager->getRandomListEntry( "COMMON_WEAPONS" );
+		if( !listSect.isEmpty() )
+		{
+			Items->createScriptItem( listSect );
+			sysmessage(s, tr("You unearthed a old weapon and placed it in your pack.") );
+		}
 		break;
 	case 10:
+#pragma note("new xml format: convert UNDEADLIST 1002 to <list> with id COMMON_UNDEAD_HILVL...!")
 		if(nFame<1000)
-			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1001"); // Med level Undead - Random
+			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_MEDLVL" );
 		else
-			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1002"); // High level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_HILVL" );
+		if( !listSect.isEmpty() )
+		{
+			Npcs->createScriptNpc( s, NULL, listSect );
+			sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+		}	
 		break;
 	case 12:
 		if(nFame>1000)
-			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1002"); // High level Undead - Random
+			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_HILVL" );
 		else
-			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1001"); // Med level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_MEDLVL" );
+		if( !listSect.isEmpty() )
+		{
+			Npcs->createScriptNpc( s, NULL, listSect );
+			sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
+		}	
 		break;
 	default:
 		nRandnum=rand()%2;
