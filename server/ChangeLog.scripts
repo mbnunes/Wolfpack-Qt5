@@ -9,6 +9,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Added several small testing items.
 		- Fixed blue moongate definitions.
 		- Pet commands are now processed by all NPCs to allow GM control.
+		- Corrected shopkeeper inventory of the tailor vendor.
 	* Python Script Changes:
 		- Added a script for database structure updates (system/dbupdate.py).
 		- Added an event for database updates (onUpdateDatabase).

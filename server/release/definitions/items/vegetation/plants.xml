@@ -819,16 +819,10 @@
 		<category>Vegetation\Plants\Flax\Flax 3</category>
 	</item>
 
-	<item id="1a9c">
-		<id>0x1A9C</id>
-		<nodecay />
-		<category>Vegetation\Plants\Flax\Flax 4</category>
-	</item>
-
 	<item id="1a9d">
 		<id>0x1A9D</id>
 		<nodecay />
-		<category>Vegetation\Plants\Flax\Flax 5</category>
+		<category>Vegetation\Plants\Flax\Flax 4</category>
 	</item>
 
 	<!-- Hops -->
