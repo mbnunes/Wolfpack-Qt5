@@ -248,8 +248,7 @@ SERIAL cAccount::GetInWorld( int acctnum )
 	if ((iter_acctman = acctman.find(acctnum)) != acctman.end())
 	{
 		acctman_st dummy = iter_acctman->second;
-		P_CHAR pc = FindCharBySerial(dummy.character);
-		return pc->serial;
+		return dummy.character;
 	} else 
 		return INVALID_SERIAL;
 }

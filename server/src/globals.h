@@ -148,8 +148,6 @@ extern UI32 MapRecordSize;
 extern UI32 MultiIndexRecordSize;
 extern UI32 StaticRecordSize;
 
-extern unsigned int charcount;
-extern unsigned int charcount2;
 extern int cmem ;
 
 extern int global_lis;

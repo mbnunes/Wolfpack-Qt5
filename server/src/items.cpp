@@ -163,12 +163,12 @@ long cItem::ReduceAmount(const short amt)
 
 void cItem::SetContSerial(long contser)
 {
-	if (contserial != INVALID_SERIAL)
+	if (this->contserial != INVALID_SERIAL)
 		contsp.remove(this->contserial, this->serial);
 
 	this->contserial = contser;
 
-	if (contserial != INVALID_SERIAL)
+	if (this->contserial != INVALID_SERIAL)
 		contsp.insert(this->contserial, this->serial);
 }
 

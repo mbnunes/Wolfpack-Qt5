@@ -206,8 +206,6 @@ int gRespawnItem=0; //Last item that was checked for respawn Tauriel 3/7/99
 int locationcount;
 unsigned int logoutcount;//Instalog
 
-unsigned int charcount;
-unsigned int charcount2;
 //unsigned int cmem;
 int cmem ;
 char *cline;

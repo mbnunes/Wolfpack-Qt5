@@ -69,8 +69,6 @@ void cChar::Init(bool ser)
 {
 	unsigned int i;
 
-	if (this->serial==charcount) charcount++;
-
 	if (ser)
 	{
 		this->setSerial(cCharsManager::getCharsManager().getUnusedSerial());

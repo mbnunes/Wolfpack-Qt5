@@ -5409,8 +5409,6 @@ void SetGlobalVars()
 	error=0;
 	now=0;
 	secure=1;
-	charcount=0;
-	charcount2=1;
 	wtype=0;
 	cmemover=0;
 	cmemcheck=-1;
@@ -5505,8 +5503,6 @@ void InitServerSettings()
 	if (SrvParms->usespecialbank==1) clConsole.send("Activated!\n");//AntiChrist - Special Bank
 	else clConsole.send("Disabled!\n");//AntiChrist - Special Bank
 
-
-	clConsole.send(" -Total Items: %i\n -Total Characters %i\n",itemcount,charcount);
 
 	// Dupois - Added Dec 20, 1999
 	clConsole.send( " -Escort Quest System " );
