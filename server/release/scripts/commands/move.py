@@ -9,13 +9,27 @@
 	MAP is the new map number.
 """
 
+"""
+	\command smove
+	\description Moves your character relative to your current position.
+	\usage - <code>move [x]</code>
+	- <code>move [x],[y]</code>
+	- <code>move [x],[y],[z]</code>
+	- <code>move [x],[y],[z],[map]</code>
+	X, Y and Z are the offsets the character should be moved by.
+	MAP is the new map number.
+"""
+
 import wolfpack
 
 def onLoad():
 	wolfpack.registercommand( "move", commandMove )
+	wolfpack.registercommand( "smove", commandMove )
 	return
 
 def commandMove( socket, cmd, args ):
+	moveself = cmd.upper() == 'SMOVE'
+	
 	char = socket.player
 	args = args.strip()
 	if len(args) == 0:
@@ -57,12 +71,26 @@ def commandMove( socket, cmd, args ):
 				ymod = 0
 				zmod = 0
 				newmap = None
-			if newmap != None:
-				socket.sysmessage( "Please select a target to move %i,%i,%i,%i" % ( xmod, ymod, zmod, newmap ) )
-			else:
-				socket.sysmessage( "Please select a target to move %i,%i,%i" % ( xmod, ymod, zmod ) )
-			socket.attachtarget( "commands.move.response", [ int(xmod), int(ymod), int(zmod), newmap ] )
-			return True
+				
+			if moveself:			
+				pos = char.pos
+				if newmap != None:
+					newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
+				else:
+					newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
+				char.removefromview()
+				char.moveto( newposition )
+				char.update()
+				if char.socket:
+					char.socket.resendworld()
+				return True
+			else:				
+				if newmap != None:
+					socket.sysmessage( "Please select a target to move %i,%i,%i,%i" % ( xmod, ymod, zmod, newmap ) )
+				else:
+					socket.sysmessage( "Please select a target to move %i,%i,%i" % ( xmod, ymod, zmod ) )
+				socket.attachtarget( "commands.move.response", [ int(xmod), int(ymod), int(zmod), newmap ] )
+				return True
 		else:
 			socket.sysmessage( "Moves an object relative to its current position." )
 			socket.sysmessage( "Usage: move [x]" )
