@@ -15,6 +15,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fixed bug #0000323. (World time not being loaded with binary saves)
 	- Fixed bug #0000335. (Riding liches + toads)
 	- Fixed bug #0000340. (Showing unicode properties crashes the server)
+	- Allowed global teleporter tags.
+	- Static tile color can now be retrieved via wolfpack.statics()
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

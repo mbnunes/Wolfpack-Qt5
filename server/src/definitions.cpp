@@ -88,6 +88,7 @@ stCategory categories[] =
 { "resource", WPDT_RESOURCE },
 { "contextmenu", WPDT_CONTEXTMENU },
 { "ai", WPDT_AI },
+{ "teleporter", WPDT_TELEPORTER },
 { 0, WPDT_COUNT },
 };
 

@@ -56,6 +56,7 @@ struct staticrecord
 	Q_UINT8 xoff;
 	Q_UINT8 yoff;
 	Q_INT8 zoff;
+	Q_UINT16 color;
 };
 #pragma pack()
 

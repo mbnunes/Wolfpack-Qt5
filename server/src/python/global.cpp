@@ -589,6 +589,7 @@ static PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 	\return A list of dictionaries. Each dictionary included in the list has the
 	following keys:
 	- <code>id</code> The art tile id of the static item as an integer value.
+	- <code>color</code> The color of the tile.
 	- <code>x</code> The absolute x component of the coordinate of the static tile. (Not relative to the
 	upper left block corner).
 	- <code>y</code> The absolute y component of the coordinate of the static tile. (Not relative to the
@@ -623,6 +624,7 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 		PyDict_SetItemString( dict, "x", PyInt_FromLong( ( xBlock * 8 ) + iter->xoff ) );
 		PyDict_SetItemString( dict, "y", PyInt_FromLong( ( yBlock * 8 ) + iter->yoff ) );
 		PyDict_SetItemString( dict, "z", PyInt_FromLong( iter->zoff ) );
+		PyDict_SetItemString( dict, "color", PyInt_FromLong( iter->color ) );
 
 		PyList_Append( list, dict );
 	}

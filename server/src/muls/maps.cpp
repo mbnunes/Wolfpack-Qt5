@@ -730,8 +730,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 				staticStream >> r.xoff;
 				staticStream >> r.yoff;
 				staticStream >> r.zoff;
-				Q_UINT16 unknown;
-				staticStream >> unknown;
+				staticStream >> r.color;
 				if ( exact )
 				{
 					if ( r.xoff == remainX && r.yoff == remainY )

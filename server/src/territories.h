@@ -247,6 +247,13 @@ private:
 	QValueList<teleporters_st> teleporters;
 public:
 	std::map<UI32, good_st> tradesystem_;
+
+	inline void addTeleporter(const Coord_cl &from, const Coord_cl &to) {
+		teleporters_st t;
+		t.source = from;
+		t.destination = to;
+		teleporters.append(t);
+	}
 };
 
 class cTerritories : public cComponent

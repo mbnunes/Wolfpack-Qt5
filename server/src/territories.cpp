@@ -312,7 +312,7 @@ void cTerritories::load()
 {
 	// Make sure that there is one top level region for each map
 	// Insert it at the beginning (last overrides first).
-	for ( unsigned char i = 0; i <= 3; ++i )
+	for ( unsigned char i = 0; i <= 4; ++i )
 	{
 		if ( Maps::instance()->hasMap( i ) )
 		{
@@ -353,6 +353,46 @@ void cTerritories::load()
 			topregions[map].append( territory );
 		}
 		++it;
+	}
+
+	// Get the toplevel teleporters and insert them
+	const QValueVector<cElement*> &teleporters = Definitions::instance()->getDefinitions(WPDT_TELEPORTER);
+	QValueVector<cElement*>::const_iterator tit;
+	for (tit = teleporters.begin(); tit != teleporters.end(); ++tit) {
+		cElement *element = *tit;
+
+		// Source + Destination
+		QString source = element->getAttribute("source");
+		QString destination = element->getAttribute("destination");
+
+		if (source.isEmpty() || destination.isEmpty()) {
+			continue; // Skip broken teleporters
+		}
+
+		// Convert into coordinates
+		Coord_cl clSource, clDestination;		
+		if (!parseCoordinates(source, clSource) || !parseCoordinates(destination, clDestination)) {
+			continue; // Skip broken coordinates
+		}
+
+		// Search the region for the source spot
+		cTerritory *rSource = region(clSource);		
+		if (rSource) {
+			rSource->addTeleporter(clSource, clDestination); // Add the teleportation spot
+		} else {
+			Console::instance()->log(LOG_WARNING, tr("Couldn't find source region for teleporter at %1.").arg(source));
+		}
+
+		// Add another teleportation spot at the destination coordinate if this is a two-way teleporter
+		QString bothways = element->getAttribute("bothways", "false");
+		if (bothways == "true" || bothways == "1" || bothways == "on") {
+			cTerritory *rDestination = region(clDestination);
+			if (rDestination) {
+				rDestination->addTeleporter(clDestination, clSource); // Add the teleportation spot
+			} else {
+				Console::instance()->log(LOG_WARNING, tr("Couldn't find destination region for two-way teleporter at %1.").arg(destination));
+			}
+		}
 	}
 
 	cComponent::load();
