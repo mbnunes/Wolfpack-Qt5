@@ -44,6 +44,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fix for skills.xml and NPCs: magicresist is now magicresistance.
   - Fixed weaponsmith not buying weapons.
  * Python Script Changes:
+  - Improved/fixed goitem and gouid command in relation to containers (sending content).
+  - Added an follow button to who menu.
   - Added a follow command.
   - Tinkers can now choose a second material.
   - Swingspeed is now limited to 1 swing per second.
@@ -74,7 +76,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added Leather Dyes.
   - Added Rune and Special Dyes.
   - Added a bankself command.
-  - Rewrite the inscription menu.
+  - Rewrote the inscription menu.
   - Finished a conversion of the plant system from RunUO.
   - Implemented correct logging of changes on the info gump.
   - Fixed bug #0000382 (pets stayed after released) 
