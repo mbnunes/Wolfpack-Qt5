@@ -238,14 +238,13 @@ cTimers::cTimers()
 void cTimers::check()
 {
 	cTimer* tEffect = NULL;
-	if ( !teffects.empty() )
-		tEffect = *teffects.begin();
 
-	if ( !tEffect )
-		return;
-
-	while ( tEffect && tEffect->expiretime <= Server::instance()->time() )
+	while ( !teffects.empty() )
 	{
+		tEffect = *teffects.begin();
+	 	if ( !tEffect || tEffect->expiretime > Server::instance()->time() )
+			break;
+
 		if ( isCharSerial( tEffect->getDest() ) )
 		{
 			P_CHAR pChar = dynamic_cast<P_CHAR>( FindCharBySerial( tEffect->getDest() ) );
@@ -256,14 +255,10 @@ void cTimers::check()
 		}
 
 		tEffect->Expire();
-		std::pop_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
-		teffects.pop_back();
-		delete tEffect;
 
-		if ( !teffects.empty() )
-			tEffect = *teffects.begin();
-		else
-			break;
+		erase( tEffect );
+
+		delete tEffect;
 	}
 }
 
