@@ -34,6 +34,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_rich;lootpack_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Undead\Ethereal Warrior</category>
+		<hitsound>757,758</hitsound>
 		
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="100" />

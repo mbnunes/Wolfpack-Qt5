@@ -18,7 +18,7 @@
 		<str><random min="901" max="1000"/></str>
 		<dex><random min="126" max="140"/></dex>
 		<int><random min="1001" max="1200"/></int>
-		<maxhitpoints><random min="39000" max="39000"/></maxhitpoints>
+		<maxhitpoints>30000</maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="1202" max="1600"/></magicresistance>
 		<tactics><random min="902" max="1100"/></tactics>

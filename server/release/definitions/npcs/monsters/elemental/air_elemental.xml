@@ -11,6 +11,7 @@
 	<!-- an air elemental -->
 	<npc id="air_elemental" inherit="monster_base">
 		<id>13</id>
+		<skin>0x4001</skin>
 		<name>air elemental</name>
 		<!-- Attributes -->
 		<inherit id="KARMA_L3" />
