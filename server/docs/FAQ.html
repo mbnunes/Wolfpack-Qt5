@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Wolfpack 13.0.0 F.A.Q.</title>
+		<base href="./" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style type="text/css">
+		<!--
+		body {
+			background-color: #ffffff;
+			font-family: "Trebuchet MS", Arial, Helvetica;
+			font-size: 12px;
+			font-style: normal;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			color: #000000;
+			text-align: left;
+			margin-left: 0px;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			text-decoration: none;
+		}
+		a:link, a:visited {
+			color: #0000FF;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		a:active {
+			text-decoration: none;
+		}
+		img {
+			border: 0px;
+			border-color: none;
+		}
+		div {
+			text-decoration: none;
+			font-style: none;
+			font-weight: normal;
+		}
+		div.header {
+			width: 100%;
+			background-color: #004b2c;
+			height: 87px;
+			text-align: left;
+		}
+		div.header2 {
+			background-color: #999999;
+			width: 100%;
+			height: 3px;
+			text-align: left;
+		}
+		div.navbar {
+			width: 783px;
+			text-align: left;
+			height: 60px;
+		}
+		table.navigation {
+			border: none;
+			margin: 0px;
+			padding: 0px;
+			text-align: left;
+			width: 783px;
+			height: 60px;
+			vertical-align: top;
+		}
+		td.navigation1, td.navigation2, td.navigation3 {
+			color: #000000;
+			text-align: left;
+			vertical-align: top;
+		}
+		td.navigation1 {
+			height: 20px;
+			width: 783px;
+			vertical-align: top;
+		}
+		td.navigation2 {
+			height: 19px;
+			width: 634px;
+		}
+		td.navigation3 {
+			height: 19px;
+			width: 149px;
+			text-align: center;
+		}
+		div.toc, div.faq {
+			text-align: left;
+			margin-left: 1em;
+			font-size: 16px;
+			font-weight: bold;
+		}
+		div.faq {
+			margin-bottom: 3em;
+		}
+		hr {
+			border-color: #e3f3a8;
+			border-style: thin inset;
+			width: 750px;
+			margin-left: 1em;
+			margin-top: 0.75em;
+			margin-bottom: 0.75em;
+			float: left;
+		}
+		ul.toc {
+			list-style-type: decimal-leading-zero;
+			font-weight: normal;
+		}
+		ul.faq {
+			font-weight: normal;
+			list-style-type: decimal-leading-zero;
+		}
+		a.question {
+			text-decoration: underline;
+			color: #002F1B;
+			font-weight: bold;
+		}
+		div.answer {
+			margin-left: 1em;
+			margin-bottom: 1em;
+			margin-top: 0.5em;
+			color: #000000;
+			text-decoration: normal;
+		}
+		div.bash {
+			margin-left: 1em;
+			margin-bottom: 0.25em;
+			margin-top: 0.25em;
+			font-size: 10pt;
+			font-family: Fixed, Arial;
+		}
+		-->
+		</style>
+	</head>
+	<body>
+		<div class="header"><img src="top_logo.jpg" style="width:586px;height:87px;" alt="" /></div>
+		<div class="header2"><img src="spacer.gif" style="width:1px;height:3px;" alt="" /></div>
+		<br />
+		<!-- QUESTIONS -->
+		<div class="toc">
+			<span style="font-size:18px;font-style:italic;color:#002F1B;">Wolfpack 13.x.x</span><br />
+			Frequently Asked Questions<br />
+			<br />
+			Table of Contents
+			<ul class="toc">
+				<li><a href="#01">What is new in Wolfpack 13.x.x?</a></li>
+				<li><a href="#02">What platforms are supported?</a></li>
+				<li><a href="#03">What are the system hardware requirements?</a></li>
+				<li><a href="#04">What needs to be installed to use Wolfpack?</a></li>
+				<li><a href="#05">How do I compile Wolfpack under Windows?</a></li>
+				<li><a href="#06">How do I compile Wolfpack under Linux?</a></li>
+				<li><a href="#07">How do I compile Wolfpack under BSD?</a></li>
+				<li><a href="#08">Can I use the world files for previous Wolfpack versions?</a></li>
+				<li><a href="#09">Where can I find documentation?</a></li>
+				<li><a href="#10">Help! I get unicode errors with my python scripts!</a></li>
+				<li><a href="#11">I found a bug! What can I do?</a></li>
+				<li><a href="#12">I wrote some scripts that were missing! What can I do with it?</a></li>
+				<li><a href="#13">Where can I find the latest CVS Snapshots?</a></li>
+			</ul>
+		</div>
+		<br /><hr /><br />
+		<!-- ANSWERS -->
+		<div class="faq">
+			<br />
+			Answers<br />
+			<ul class="faq">
+				<!-- Answer 01 -->
+				<li><a name="01" class="question">What is new in Wolfpack 13.x.x?</a>
+					<div class="answer">
+						There are many new things in Wolfpack 13.x.x<br />
+						A small list of what's new:<br />
+						<ul>
+							<li>A new database world save format, <a href="http://www.sqlite.org/">SQLite</a> and <a href="http://www.mysql.org/">MySQL</a>.</li>
+							<li>A new scripting engine powered by <a href="http://www.python.org/">Python 2.3</a>.</li>
+							<li>A new XML data storage to replace the old SCP system.</li>
+							<li>Latest client support for versions such as Age of Shadows.</li>
+							<li>Client Encryption Support</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Answer 02 -->
+				<li><a name="02" class="question">What platforms are supported?</a>
+					<div class="answer">
+						Confirmed supported platforms include:<br />
+						<ul>
+							<li>Windows</li>
+							<li>Linux</li>
+							<li>BSD</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Answer 03 -->
+				<li><a name="03" class="question">What are the system hardware requirements?</a>
+					<div class="answer">
+						While this remains currently untested, here are some recommendations.<br />
+						<br />
+						Minimum:<br />
+						<ul>
+							<li>128 MB of RAM.</li>
+							<li>A processor of at least 400mhz.</li>
+							<li>At least 250 MB of free hard drive space.</li>
+						</ul>
+						<br />
+						Recommended:<br />
+						<ul>
+							<li>256 MB of RAM or greater.</li>
+							<li>A processor of at least 800mhz.</li>
+							<li>At least 500 MB of free hard drive space.</li>
+						</ul>
+						<br />
+						Naturally, the better your hardware the better your server's performance will be.
+					</div>
+				</li>
+				<!-- Answer 04 -->
+				<li><a name="04" class="question">What needs to be installed to use Wolfpack?</a>
+					<div class="answer">
+						There are two things you should install and run Wolfpack 13.x.x.<br />
+						<br />
+						For Windows:<br />
+						<ul>
+							<li><a href="http://python.org/2.3.4/">The Latest Python-2.3 Release</a>.</li>
+						</ul>
+						<br />
+						For Linux/BSD:<br />
+						<ul>
+							<li><a href="http://www.trolltech.com/download/qt/x11.html">The Latest QT-3.3 Release</a>.</li>
+							<li><a href="http://python.org/2.3.4/">The Latest Python-2.3 Release</a>.</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Answer 05 -->
+				<li><a name="05" class="question">How do I compile Wolfpack under Windows?</a>
+					<div class="answer">
+					</div>
+				</li>
+				<!-- Answer 06 -->
+				<li><a name="06" class="question">How do I compile Wolfpack under Linux?</a>
+					<div class="answer">
+						First you need the latest QT-3.3.x release for your linux distribution.<br />
+						You will also need the dev package for this version of QT.<br />
+						Note: Most distributions use libqt3-mt and libqt3-mt-dev for package names.<br />
+						<br />
+						Distribution Notes<br /><br />
+						Debian:<br />
+						<ul>
+							<li>Recommended that you use Debian Unstable for latest packages.</li>
+							<li>QT3 Packages: libqt3c102-mt libqt3-mt-dev libqt3-headers qt3-dev-tools</li>
+							<li>Python Packages: python2.3 python2.3-dev</li>
+							<li>Recommended Packages: python2.3-mysqldb python2.3-sqlite python2.3-xml libsqlite0 libsqlite0-dev sqlite sqlite-doc</li>
+							<li>MySQL Packages: libmysqlclient-dev libmysqlclient12 mysql-client mysql-common mysql-server</li>
+						</ul>
+						<br /><br />
+						Compiling Instructions:<br />
+						<div class="bash">
+							tar xvfj wolfpack.tar.bz2 -C ./<br />
+							cd wolfpack_source_dir/<br />
+							chmod +x configure<br />
+							./configure --help<br />
+							# Please read the options and use those that apply to you.<br />
+							# Running configure should auto detect most options. <br />
+							./configure --enable-debug --enable-mysql<br />
+							# At this point you can edit Makefile and add optional CFLAGS<br />
+							# I personally add -march=athlon -03<br />
+							make<br />
+							# Grab a snack while it compiles.
+						</div>
+						<br /><br />
+						<span style="font-weight:bold;">Python Warning</span><br />
+						Python-2.3 on many distributions comes compiled using UCS4 for Unicode. Wolfpack currently requires
+						that Python-2.3 be compiled with UCS2 for Unicode. If this is the case, you will need to download and
+						manually compile Python-2.3 and add the --enable-unicode=ucs2 --enable-shared to the ./configure arguments. After this you can install this Python-2.3 to your /usr/local/ directory or anywhere else.
+						Please be sure to put this new python path in the Wolfpack configure arguments!<br />
+						<br /><br />
+						Python Fix / Compiling Instructions:<br />
+						<div class="bash">
+							# Compiling/Installing Python-2.3.x
+							tar xvjf Python-2.3.4.tar.bz2 -C ./<br />
+							cd python_source_dir/<br />
+							# Please note the --enable-shared and --enable-unicode=ucs2<br />
+							./configure --prefix=/usr/local --enable-unicode=ucs2 --enable-shared<br />
+							make<br />
+							su root<br />
+							make install<br />
+							exit<br />
+							<br />
+							# Compiling Wolfpack 13.x.x
+							tar xvfj wolfpack.tar.bz2 -C ./<br />
+							cd wolfpack_source_dir/<br />
+							chmod +x configure<br />
+							./configure --help<br />
+							# Please read the options and use those that apply to you.<br />
+							# Running configure should auto detect most options. <br />
+							./configure --enable-debug --enable-mysql<br />
+							# At this point you can edit Makefile and add optional CFLAGS<br />
+							# I personally add -march=athlon -03<br />
+							make<br />
+							# Grab a snack while it compiles.
+						</div>
+					</div>
+				</li>
+				<!-- Answer 07 -->
+				<li><a name="07" class="question">How do I compile Wolfpack under BSD?</a>
+					<div class="answer">
+						Compiling Instructions:<br />
+						<div class="bash">
+							tar xvfj wolfpack.tar.bz2 -C ./<br />
+							cd wolfpack_source_dir/<br />
+							chmod +x configure<br />
+							./configure --help<br />
+							# Please read the options and use those that apply to you.<br />
+							# Running configure should auto detect most options. <br />
+							./configure --enable-debug --enable-mysql<br />
+							# At this point you can edit Makefile and add optional CFLAGS<br />
+							# I, Dreoth, personally add -march=athlon -03<br />
+							make<br />
+							# Grab a snack while it compiles.
+						</div>
+						<br /><br />
+					</div>
+				</li>
+				<!-- Answer 08 -->
+				<li><a name="08" class="question">Can I use the world files for previous Wolfpack versions?</a>
+					<div class="answer">
+						The simple answer for this is <span style="font-weight:bold;">no</span>.<br />
+						<ul>
+						<li>Wolfpack 13.x.x no longer uses or supports the old WSC save system. This has been replaced with
+						a database save system.</li>
+						<li>Wolfpack 13.x.x will use spawn scripts for filling in NPCs and there are commands available
+						for adding missing world objects.</li>
+						</ul>
+						<br />
+						However, if you do wish to try and use it there is an
+						<a href="http://www.wpdev.org/docs/command.php?name=IMPORT">import</a>
+						command which supports WSC/TXT/Sphere save formats. Please note this will NOT import NPCs!<br />
+						It is recommended that you look into using the
+						<a href="http://www.wpdev.org/docs/command.php?name=DECORATION">decoration</a>
+						command as an alternative to using import.
+					</div>
+				</li>
+				<!-- Answer 09 -->
+				<li><a name="09" class="question">Where can I find documentation?</a>
+					<div class="answer">
+						You can find Wolfpack documentation at: <a href="http://www.wpdev.org/docs/">http://www.wpdev.org/docs/</a><br />
+						You can find Python documentation at: <a href="http://python.org/doc/2.3.4/">http://python.org/doc/2.3.4/</a>
+					</div>
+				</li>
+				<!-- Answer 10 -->
+				<li><a name="10" class="question">Help! I get unicode errors with my python scripts!</a>
+					<div class="answer">
+						This problem is mostly common with Linux/BSD. Python-2.3 on many distributions comes compiled
+						using UCS4 for Unicode. Wolfpack currently requires that Python-2.3 be compiled with UCS2 for
+						Unicode. If this is the case, you will need to download and manually compile Python-2.3 and add the
+						`--enable-unicode=ucs2 --enable-shared` to the ./configure arguments. After this you can install this
+						Python-2.3 to your /usr/local/ directory or anywhere else. Please be sure to put this new python path
+						in the Wolfpack configure arguments!<br />
+						<br />
+						For information reguarding compiling, please check out:<br />
+						<ul>
+							<li><a href="#06">Linux Compile Guide</a></li>
+							<li><a href="#07">BSD Compile Guide</a></li>
+						</ul>
+					</div>
+				</li>
+				<!-- Answer 11 -->
+				<li><a  name="11" class="question">I found a bug! What can I do?</a>
+					<div class="answer">
+						Before anything, we recommend that you check the bug tracker to see if it has already been reported.<br />
+						If you find a new bug there are a few things you can do:<br />
+						<ul>
+							<li>You can report the bug at: <a href="http://bugs.wpdev.org/">http://bugs.wpdev.org/</a></li>
+							<li>You can contact a developer by Email/IRC/IM</li>
+							<li>You can check the sourceforge mailing lists.</li>
+						</ul>
+					</div>
+				</li>
+				<!-- Answer 12 -->
+				<li><a  name="12" class="question">I wrote some scripts that were missing! What can I do with it?</a>
+					<div class="answer">
+					First of all, we are trying to conform to an OSI like world. So please check that your creation(s) are along
+					those requirements.<br />
+					If so, then there are a few things you can do:<br />
+						<ul>
+							<li>You can contact a developer by Email/IRC/IM</li>
+							<li>You can check the sourceforge mailing lists.</li>
+						</ul>
+						<br />
+						We try our best to give credit where it is due. If we receive contributions from non developers we
+						will generally include comments about the author. :)
+					</div>
+				</li>
+				<!-- Answer 13 -->
+				<li><a  name="13" class="question">Where can I find the latest CVS Snapshots?</a>
+					<div class="answer">
+						You can find the latest CVS snapshots at:
+						<a href="http://wpdev.sourceforge.net/snapshots/">http://wpdev.sourceforge.net/snapshots/</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
