@@ -222,6 +222,9 @@ def checkPython(options):
 
 # Entry point
 def main():
+	# Options for qmake
+	DEFINES = ""
+	CONFIG = ""
 
 	# Setup command line parser
 	parser = OptionParser(version="%prog 0.1")
@@ -236,7 +239,9 @@ def main():
 	(options, args) = parser.parse_args()
 
 	checkPython(options)
-	checkMySQL(options)
+	if options.enable_mysql:
+		CONFIG += "mysql "
+		checkMySQL(options)
 	checkQt()
 
 	# Create config.pri
@@ -271,12 +276,11 @@ def main():
 	config.write("MySQL_INCDIR = %s\n" % mysql_incpath )
 	config.write("MySQL_LIBDIR = %s\n" % MySQL_LIBDIR )
 
-	# Build MySQL Libs and Includes
+	# Build SQLite Libs and Includes
+	CONFIG += "sqlite "
 	config.write("SQLite_INCDIR = sqlite\n" )
 	config.write("SQLite_LIBDIR = -lsqlite\n" )
 
-	DEFINES = ""
-	CONFIG = ""
 	# if --debug
 	if options.enable_debug:
 		DEFINES += "_DEBUG "

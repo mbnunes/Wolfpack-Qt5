@@ -23,39 +23,43 @@ unix {
 	# Checking in /usr first, then /usr/local
 	# This will use custom installs over package installs.
 
-	# MySQL Checks
-	isEmpty( MySQL_INCDIR ) {
-		message( "Warning: MySQL_INCDIR was not defined!" )
-		exists( /usr/local/include/mysql/mysql.h ) {
-			message( "MySQL included found in: /usr/local/include/mysql" )
-			MySQL_INCDIR = /usr/local/include/mysql
-		}
-		else:exists( /usr/include/mysql/mysql.h ) {
-			message( "MySQL included found in: /usr/include/mysql" )
-			MySQL_INCDIR = /usr/include/mysql
-		}
-	}
-	isEmpty( MySQL_LIBDIR ) {
-		message( "Warning: MySQL_LIBDIR was not defined!" )
-		exists( /usr/local/lib/mysql/libmysqlclient.so ) {
-			message( "Found libmysqlclient.so in: /usr/local/lib/mysql" )
-			MySQL_LIBDIR = -L/usr/local/lib/mysql -lmysqlclient
-		}
-		else:exists( /usr/lib/mysql/libmysqlclient.so ) {
-			message( "Found libmysqlclient.so in: /usr/lib/mysql" )
-			MySQL_LIBDIR = -L/usr/lib/mysql -lmysqlclient
-		}
 
+	# MySQL Checks
+	mysql {
+		isEmpty( MySQL_INCDIR ) {
+			message( "Warning: MySQL_INCDIR was not defined!" )
+			exists( /usr/local/include/mysql/mysql.h ) {
+				message( "MySQL included found in: /usr/local/include/mysql" )
+				MySQL_INCDIR = /usr/local/include/mysql
+			}
+			else:exists( /usr/include/mysql/mysql.h ) {
+				message( "MySQL included found in: /usr/include/mysql" )
+				MySQL_INCDIR = /usr/include/mysql
+			}
+		}
+		isEmpty( MySQL_LIBDIR ) {
+			message( "Warning: MySQL_LIBDIR was not defined!" )
+			exists( /usr/local/lib/mysql/libmysqlclient.so ) {
+				message( "Found libmysqlclient.so in: /usr/local/lib/mysql" )
+				MySQL_LIBDIR = -L/usr/local/lib/mysql -lmysqlclient
+			}
+			else:exists( /usr/lib/mysql/libmysqlclient.so ) {
+				message( "Found libmysqlclient.so in: /usr/lib/mysql" )
+				MySQL_LIBDIR = -L/usr/lib/mysql -lmysqlclient
+			}
+		}
 	}
 
 	# SQLite Checks
-	isEmpty( SQLite_INCDIR ) {
-		message( "Warning: SQLite_INCDIR was not defined!" )
-		SQLite_INCDIR = sqlite
-	}
-	isEmpty( SQLite_LIBDIR ) {
-		message( "Warning: SQLite_LIBDIR was not defined!" )
-		SQLite_LIBDIR = -Lsqlite
+	sqlite {
+		isEmpty( SQLite_INCDIR ) {
+			message( "Warning: SQLite_INCDIR was not defined!" )
+			SQLite_INCDIR = sqlite
+		}
+		isEmpty( SQLite_LIBDIR ) {
+			message( "Warning: SQLite_LIBDIR was not defined!" )
+			SQLite_LIBDIR = -Lsqlite
+		}
 	}
 
 	# Python includes. Run configure script to initialize it.
