@@ -42,7 +42,7 @@ def teleport( char, args, target ):
 	utilities.smokepuff(char, target)
 	
 	if args[0]:
-		socket.sysmessage( 'Select your teleport destination.' )
-		socket.attachtarget( "commands.tele.teleport", [multi] )		
+		char.socket.sysmessage( 'Select your teleport destination.' )
+		char.socket.attachtarget( "commands.tele.teleport", [multi] )
 	
 	return True
