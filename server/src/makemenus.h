@@ -320,7 +320,7 @@ public:
 	// Setters
 	void		setName( const QString& data )		{ name_ = data; }
 	void		setModel( UINT16 data )		{ model_ = data; }
-	void		appendSection( cMakeSection* pms )	{ makesections_.append( pms ); }
+	void		appendSection( cMakeSection* pms )	{ makesections_.push_back( pms ); }
 
 	SectionContainer	makesections()	const { return makesections_; }
 
