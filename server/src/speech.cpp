@@ -945,6 +945,54 @@ bool VendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 	return false;
 }
 
+// Handles house commands from friends of the house. - Crackerjack 8/12/99
+void house_speech(int s, string& msg)	// msg must already be capitalized
+{
+	P_CHAR pc_currchar = currchar[s];
+	
+	if ( pc_currchar->multis == INVALID_SERIAL )
+		return; // Not inside a multi
+
+	P_ITEM pMulti = FindItemBySerial(pc_currchar->multis);
+		
+	if ( pMulti && IsHouse(pMulti->id()) )
+	{
+		cHouse* pHouse = dynamic_cast<cHouse*>(pMulti);
+		if ( !(pc_currchar->Owns(pHouse) || pHouse->isFriend(pc_currchar)))
+			return; // Not (Friend or Owner)
+	}
+	else
+		return;	
+
+	if(msg.find("I BAN THEE")!=string::npos) 
+	{ // house ban
+		addid1[s] = pMulti->serial>>24;
+		addid2[s] = pMulti->serial>>16;
+		addid3[s] = pMulti->serial>>8;
+		addid4[s] = pMulti->serial%256;
+		target(s, 0, 1, 0, 229, "Select person to ban from house.");
+	}
+	else if(msg.find("REMOVE THYSELF")!=string::npos) 
+	{ // kick out of house
+		addid1[s] = pMulti->serial>>24;
+		addid2[s] = pMulti->serial>>16;
+		addid3[s] = pMulti->serial>>8;
+		addid4[s] = pMulti->serial%256;
+		target(s, 0, 1, 0, 228, "Select person to eject from house.");
+	}
+	else if (msg.find("I WISH TO LOCK THIS DOWN")!=string::npos) 
+	{ // lock down code AB/LB
+         target(s, 0, 1, 0, 232, "Select item to lock down");
+	}
+	else if (msg.find("I WISH TO RELEASE THIS")!=string::npos) 
+	{ // lock down code AB/LB
+          target(s, 0, 1, 0, 233, "Select item to release");
+	}
+	else if (msg.find("I WISH TO SECURE THIS")!=string::npos) 
+	{ // lock down code AB/LB
+		target(s, 0, 1, 0, 234, "Select item to secure"); 
+	}
+}
 
 /////////////////
 // name:	response

@@ -89,4 +89,6 @@ bool IsStuddedArmour(short id);
 bool IsLeatherArmour(short id);
 bool IsMetalArmour	(short id);
 
+bool IsHouse		(unsigned short id);
+
 #endif

@@ -43,6 +43,33 @@
 // Forward Class declaration
 class ISerialization;
 
+class cHouseItem : public cItem
+{
+public:
+	cHouseItem() {;}
+	virtual ~cHouseItem() {;}
+	virtual void Serialize( ISerialization &archive )
+	{
+		if( archive.isReading() )
+		{
+			archive.read( "locked", locked_ );
+		}
+		else
+		{
+			archive.write( "locked", locked_ );
+		}
+		cItem::Serialize( archive );
+	}
+	virtual std::string objectID() { return string("HOUSE_ITEM"); }
+
+	bool	isLocked( void ) { return locked_; }
+
+protected:
+	virtual void processNode( const QDomElement &Tag );
+
+	bool	locked_;
+};
+
 class cHouse : public cItem
 {
 protected:
@@ -55,18 +82,51 @@ public:
 	cHouse() {}
 	virtual ~cHouse() {}
 	virtual void Serialize( ISerialization &archive );
-	virtual QString objectID() const;
-	
+
+	virtual void processNode( const QDomElement &Tag );
+
+	virtual std::string objectID();
+
 	bool isBanned(P_CHAR pc);
 	void addBan(P_CHAR pc);
 	void removeBan(P_CHAR pc);
 	bool isFriend(P_CHAR pc);
 	void addFriend(P_CHAR pc);
 	void removeFriend(P_CHAR pc);
-};
 
-void BuildHouse(UOXSOCKET s, int i);
-void RemoveKeys(SERIAL serial);
-int check_house_decay();
+	bool onValidPlace( void );
+	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
+	void removeKeys( void );
+	void remove( void );
+
+	P_ITEM toDeed( UOXSOCKET s );
+
+
+	QString	deedSection( void ) { return deedsection_; }
+	void	setDeedSection( QString data ) { deedsection_ = data; }
+	bool	itemsdecay( void ) { return itemsdecay_; }
+
+protected:
+	QString deedsection_;
+	int lockdownamount_;
+	int secureamount_;
+	bool nokey_, itemsdecay_;
+	
+	struct posxy_st
+	{
+		int x;
+		int y;
+	};
+
+	struct posxyz_st
+	{
+		int x;
+		int y;
+		int z;
+	};
+
+	posxy_st	space_;
+	posxyz_st	charpos_;
+};
 
 #endif // __HOUSE_H__

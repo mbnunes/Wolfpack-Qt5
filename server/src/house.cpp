@@ -40,8 +40,9 @@
 #include "debug.h"
 #include "utilsys.h"
 #include "network.h"
-#include "scriptc.h"
 
+#include "customtags.h"
+#include "territories.h"
 
 // System Include Files
 #include <algorithm>
@@ -52,32 +53,51 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "house.cpp"
 
-void HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt)
+void cHouseItem::processNode( const QDomElement &Tag )
 {
-	unsigned char multitarcrs[27]="\x99\x01\x40\x01\x02\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x02\x00\x00\x00\x00\x00\x00";
+	QString TagName = Tag.nodeName();
+	QString Value = this->getNodeValue( Tag );
+	P_CHAR pOwner = FindCharBySerial( this->GetOwnSerial() );
 
-	targetok[s]=1; 
-	multitarcrs[2]=a1;
-	multitarcrs[3]=a2;
-	multitarcrs[4]=a3;
-	multitarcrs[5]=a4;
-	multitarcrs[18]=b1;
-	multitarcrs[19]=b2;
-	sysmessage(s, txt);
-	Xsend(s, multitarcrs, 26);
+	// <pack />
+	if( TagName == "pack" )
+	{
+		P_ITEM pBackpack = Packitem( pOwner );
+		if( pBackpack != NULL )
+			this->setContSerial( pBackpack->serial );
+	}
+
+	// <lock />
+#pragma note( "Replace with customtags! see house.h" )
+	else if( TagName == "lock" )
+		this->locked_ = true;
+
+	// <position x="1" y="5" z="20" />
+	else if( TagName == "position" )
+	{
+		this->pos.x = this->pos.x + Tag.attribute( "x" ).toUShort();
+		this->pos.y = this->pos.y + Tag.attribute( "y" ).toUShort();
+		this->pos.z = this->pos.z + Tag.attribute( "z" ).toUShort();
+	}
+
+	else
+		cItem::processNode( Tag );
 }
 
-bool CheckBuildSite(const Coord_cl& pos, int sx, int sy)
+bool cHouse::onValidPlace()
 {
+    cTerritory* Region = cAllTerritories::getInstance()->region( pos.x, pos.y );
+	if( Region != NULL && Region->isGuarded() && SrvParams->houseInTown() == 0 )
+		return false;
+
 	signed int checkz;
-	//char statc;
 	int checkx;
 	int checky;
-	checkx=pos.x-abs(sx/2);
-	for (;checkx<(pos.x+abs(sx/2));checkx++)
+	checkx=pos.x-abs(space_.x/2);
+	for (;checkx<(pos.x+abs(space_.x/2));checkx++)
 	{
-		checky=pos.y-(sy/2);
-		for (;checky<(pos.y+(sy/2));checky++)
+		checky=pos.y-(space_.y/2);
+		for (;checky<(pos.y+(space_.y/2));checky++)
 		{
 			checkz=Map->MapElevation( Coord_cl( checkx,checky, pos.z, pos.map));
 			if ((checkz<(pos.z-7)) || (checkz>(pos.z+7)))
@@ -89,497 +109,194 @@ bool CheckBuildSite(const Coord_cl& pos, int sx, int sy)
 	return true;
 }
 
-
-//o---------------------------------------------------------------------------o
-//|   Function    -  void buildhouse(int s, int i)
-//|   Date        -  UnKnown - Rewrite Date 1/24/99
-//|   Programmer  -  UnKnown - Rewrite by Zippy (onlynow@earthlink.net)
-//|   Lots of client crash fixes by LB, 25-dec 1999
-//o---------------------------------------------------------------------------o
-//|   Purpose     -  Triggered by double clicking a deed-> the deed's moreX is read
-//|                  for the house section in house.scp. Extra items can be added
-//|                  using HOUSE ITEM, (this includes all doors!) and locked "LOCK"
-//|                  Space around the house with SPACEX/Y and CHAR offset CHARX/Y/Z
-//o---------------------------------------------------------------------------o
-void BuildHouse(UOXSOCKET s, int i)
+void cHouse::processNode( const QDomElement &Tag )
 {
-	int x,y,loopexit=0;//where they click, and the house/key items
-	P_ITEM pKey = NULL;
-	signed char z;
-	int sx=0,sy=0;                                  //space around the house needed
-	
-	//int hitem[100],icount=0;//extra "house items" (up to 100)
-	vector<int> houseItems;
-	char sect[512];                         //file reading
-	unsigned short id;                                   //house ID
-	char itemsdecay = 0;            // set to 1 to make stuff decay in houses
-	static int looptimes=0;         //for targeting
-	long int pos;                                   //for files...
-	int cx=0,cy=0,cz=8;             //where the char is moved to when they place the house (Inside, on the steps.. etc...)(Offset)
-	bool boat = false;//Boats
-	int hdeed=0;//deed id #		
-	bool norealmulti = false, nokey = false, othername = false;
-	int lockamount=0, secureamount=0;
-	char name[512];
-	P_CHAR pc_currchar = currchar[s];
+	QString TagName = Tag.nodeName();
+	QString Value = this->getNodeValue( Tag );
 
-	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return; // do nothing if user cancels, avoids CRASH!
-	
-	if (i)
+	// <id>16572</id>
+	if( TagName == "id" )
+		this->setId( Value.toUShort() );
+
+	// <space x="3" y="3" />
+	else if( TagName == "space" )
 	{
-		openscript("house.scp");
-		sprintf(sect, "HOUSE %d", i);//and BTW, .find() adds SECTION on there for you....
-		if (!(i_scripts[house_script]->find(sect)))
+		space_.x = Tag.attribute( "x" ).toInt();
+		space_.y = Tag.attribute( "y" ).toInt();
+	}
+
+	// <movechar x="0" y="0" z="8" />
+	else if( TagName == "movechar" )
+	{
+		charpos_.x = Tag.attribute( "x" ).toInt();
+		charpos_.y = Tag.attribute( "y" ).toInt();
+		charpos_.z = Tag.attribute( "z" ).toInt();
+	}
+
+	// <itemsdecay />
+	else if( TagName == "itemsdecay" )
+		this->itemsdecay_ = true;
+
+	// <houseitem>
+	//     <inherit id="houseitem_a" />
+	// </houseitem>
+	else if( TagName == "houseitem" )
+	{
+		cHouseItem* phi = new cHouseItem;
+		if( phi != NULL )
 		{
-			closescript();
-			return;
-		}
-		do
-		{
-			read2();
-			if (script1[0]!='}')
-			{
-				if (!(strcmp((char*)script1,"ID")))
-				{
-					id = static_cast<unsigned short>(hex2num(script2));
-				}
-				else if (!(strcmp((char*)script1,"SPACEX")))
-				{
-					sx=str2num(script2)+1;
-				}
-				else if (!(strcmp((char*)script1,"SPACEY")))
-				{
-					sy=str2num(script2)+1;
-				}
-				else if (!(strcmp((char*)script1,"CHARX")))
-				{
-					cx=str2num(script2);
-				}
-				else if (!(strcmp((char*)script1,"CHARY")))
-				{
-					cy=str2num(script2);
-				}
-				else if (!(strcmp((char*)script1,"CHARZ")))
-				{
-					cz=str2num(script2);
-				}
-				else if( !(strcmp((char*)script1, "ITEMSDECAY" )))
-				{
-					itemsdecay = str2num( script2 );
-				}
-				else if (!(strcmp((char*)script1,"HOUSE_ITEM")))
-				{
-					houseItems.push_back(str2num(script2));
-				}
-				else if (!(strcmp((char*)script1, "HOUSE_DEED")))
-				{
-					hdeed=str2num(script2);
-				}							
-				else if (!(strcmp((char*)script1, "BOAT"))) boat = true;//Boats
-				else if (!(strcmp((char*)script1, "NOREALMULTI"))) norealmulti = true;
-				else if (!(strcmp((char*)script1, "NOKEY"))) nokey = true;
-				else if (!(strcmp((char*)script1, "NAME"))) 
-				{ 
-					strcpy((char*)name,(char*)script2);
-					othername = true;
-				}
-				else if(!(strcmp((char*)script1, "LOCKDOWNAMOUNT")))
-				{
-					lockamount=str2num(script2);
-				}
-				else if(!(strcmp((char*)script1, "SECUREAMOUNT")))
-				{
-					secureamount=str2num(script2);
-				}
-			}
-		}
-		while ( (strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );
-		closescript();
-		
-		if (!id)
-		{
-			clConsole.send("ERROR: Bad house script # %i!\n",i);
-			return;
+			cItemsManager::getInstance()->registerItem( phi );
+			phi->SetOwnSerial( this->ownserial );
+			phi->SetMultiSerial( this->serial );
+			phi->applyDefinition( Tag );
+
+			if (phi->isInWorld()) 
+				mapRegions->Add(phi);  //add to mapRegions
 		}
 	}
-	
-	if(!looptimes)
+
+	// <housedeed>deedsection</housedeed> (any item section)
+	else if( TagName == "housedeed" )
+		this->deedsection_ = Value;
+
+	// <nokey />
+	else if( TagName == "nokey" )
+		nokey_ = true;
+
+	// <name>balbalab</name>
+	else if( TagName == "name" )
+		this->setName( Value );
+
+	// <lockdownamount>3</lockdownamount>
+	else if( TagName == "lockdownamount" )
+		this->lockdownamount_ = Value.toInt();
+
+	// <secureamount>5</secureamount>
+	else if( TagName == "secureamount" )
+		this->secureamount_ = Value.toInt();
+}
+
+void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
+{
+	P_CHAR pc_currchar = FindCharBySerial( senderserial );
+	UOXSOCKET s = calcSocketFromChar( pc_currchar );
+
+	this->applyDefinition( Tag );
+	this->MoveTo( posx, posy, posz );
+	if( !this->onValidPlace() )
 	{
-		if (i)
-		{
-			
-			addid1[s]=0x40;addid2[s]=100;//Used in addtarget
-			if (norealmulti) 
-				target(s, 0, 1, 0, 245, "Select a place for your structure: "); 
-			else
-				HomeTarget(s, 0, 1, 0, 0, (id>>8)-0x40, static_cast<unsigned char>(id&0x00FF), "Select location for building.");
-			
-		}
-		else
-		{
-			HomeTarget(s, 0, 1, 0, 0, addid1[s]-0x40, addid2[s], "Select location for building.");
-		}
-		looptimes++;//for when we come back after they target something
+		sysmessage(s,"Can not build a house at that location!");
+		cItemsManager::getInstance()->unregisterItem( this );
+		cItemsManager::getInstance()->deleteItem( this );
 		return;
 	}
-	if(looptimes)
-	{
-		looptimes=0;
-		if(!pc_currchar->isGM() && SrvParams->houseInTown()==0)
-		{
-		    if (pc_currchar->inGuardedArea() && ishouse(id) ) // popy
-			{
-			    sysmessage(s," You cannot build houses in town!");
-			    return;
-			}
-		}
-		
-		x=(buffer[s][11]<<8)+buffer[s][12];//where they targeted
-		y=(buffer[s][13]<<8)+buffer[s][14];
-		z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]);
-		
-		
-		if ( (( x<200 && y <200 ) || ( x>6200 || y >4200 ))  )			
-		{
-			sysmessage(s, "You cannot build your structure there!");
-			return;
-		}
-		
-		if (ishouse(id)) // strict checking only for houses ! LB
-		{
-			if(!CheckBuildSite(Coord_cl(x,y,z,pc_currchar->pos.map),sx,sy))
-			{
-				sysmessage(s,"Can not build a house at that location (CBS)!");
-				return;
-			}
-		}
-		
-		//Boats ->
-		if(!boat) 
-			sprintf((char*)temp,"%s's house", pc_currchar->name.c_str());//This will make the little deed item you see when you have showhs on say the person's name, thought it might be helpful for GMs.
-		else 
-			strcpy((char*)temp, "a mast");
-		if(norealmulti) 
-			strcpy((char*)temp, name);
-		//--^
-		
-		if (othername) 
-			strcpy((char*)temp, name);
-		
-		P_ITEM pMulti = NULL;
-		if (!boat)
-		{
-			pMulti = dynamic_cast<P_ITEM>( new cHouse );
-			pMulti->Init();
-			pMulti->setId(id);
-			pMulti->setName( QString( "%1's house" ).arg( pc_currchar->name.c_str() ) );
-			Items->GetScriptItemSetting(pMulti);
-			//pMulti->setId(id);
-			RefreshItem( pMulti );
-		}
-		else
-			pMulti = Items->SpawnItem(pc_currchar, 1,(char*)temp,0,id,0,0);
-			
-		if (!pMulti) return;		
-		pMulti->MoveTo(x,y,z);
-		pMulti->priv = 0;
-		pMulti->more4 = itemsdecay; // set to 1 to make items in houses decay
-		pMulti->morex = hdeed; // crackerjack 8/9/99 - for converting back *into* deeds
-		pMulti->SetOwnSerial(pc_currchar->serial);
-		
-		if (houseItems.empty() && !boat)
-		{
-			teleport(pc_currchar);
-			cRegion::RegionIterator4Items rii(pMulti->pos);
-			for(rii.Begin(); !rii.atEnd(); rii++)
-			{
-				P_ITEM sii = rii.GetData();
-				senditem(s, sii);
-			}
-			return;//If there's no extra items, we don't really need a key, or anything else do we? ;-)
-		}
-		
-		if(boat) //Boats
-		{
-			if(!Boats->Build(s, pMulti, static_cast<char>(id&0x00FF)))
-			{
-				Items->DeleItem(pMulti);
-				return;
-			} 
-		}
-		
-		if (i)//Boats->.. Moved from up there ^
-		{
-			P_ITEM pDeed = FindItemBySerial(pc_currchar->fx1);
-			Items->DeleItem(pDeed); // this will del the deed no matter where it is
-		}
+	this->SetOwnSerial( senderserial );
+	this->priv = 0;
+	this->setName( QString( "%1's house" ).arg( pc_currchar->name.c_str() ) );
+	RefreshItem( this );
 
-		pc_currchar->fx1=INVALID_SERIAL; //reset fx1 so it does not interfere
-		// bugfix LB ... was too early reseted 
+	P_ITEM pDeed = FindItemBySerial( deedserial );
+	if( pDeed != NULL )
+		Items->DeleItem( pDeed );
+
+	if( !this->nokey_ )
+	{
+		P_ITEM pKey = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 1,1);
 		
-		//Key...
-		
-/*		House[houseSize]->OwnerSerial=pc_currchar->serial;
-		House[houseSize]->OwnerAccount=pc_currchar->account;
-		House[houseSize]->LockAmount=lockamount;
-		House[houseSize]->SecureAmount=secureamount;
-*/	
-		unsigned char id2 = static_cast<unsigned char>(id&0x00FF);
-		if (id2>=112&&id2<=115) pKey = Items->SpawnItem(s, pc_currchar, 1, "a tent key", 0, 0x10, 0x10,0, 1,1);//iron key for tents
-		else if(id2<=0x18) pKey = Items->SpawnItem(s, pc_currchar, 1, "a ship key",0,0x10,0x13,0,1,1);//Boats -Rusty Iron Key
-		else pKey = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 1,1);//gold key for everything else;
-		
-		pKey->more1 = static_cast<unsigned char>((pMulti->serial&0xFF000000)>>24);
-		pKey->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
-		pKey->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
-		pKey->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
+		pKey->tags.set( "house_serial", this->serial );
 		pKey->setType( 7 );
-		pKey->priv=2; // Newbify key..Ripper
+		pKey->priv=2;
         
 		P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0,1,1);
 		P_ITEM bankbox = pc_currchar->GetBankBox();
-		pKey2->more1 = static_cast<unsigned char>((pMulti->serial&0xFF000000)>>24);
-		pKey2->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
-		pKey2->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
-		pKey2->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
+		pKey2->tags.set( "house_serial", this->serial );
 		pKey2->setType( 7 );
 		pKey2->priv=2;
 		bankbox->AddItem(pKey2);
-		
-		if(nokey) 
-		{
-			Items->DeleItem(pKey); // No key for .. nokey items
-			Items->DeleItem(pKey2);
-		}
-		
-		P_ITEM pHouseItem = NULL;
-		unsigned int k;
-		for (k=0; k < houseItems.size(); ++k)//Loop through the HOUSE_ITEMs
-		{
-			openscript("house.scp");
-			sprintf(sect,"HOUSE ITEM %i", houseItems[k]);
-			if (!i_scripts[house_script]->find(sect))
-			{
-				closescript();
-			}
-			else
-			{
-				loopexit=0;
-				do 
-				{
-					read2();
-					if (script1[0]!='}')
-					{
-						if (!(strcmp((char*)script1,"ITEM")))
-						{
-							pos=ftell(scpfile);// To prevent accidental exit of loop.
-							closescript();
-							pHouseItem = Items->createScriptItem(s, script2,0);//This opens the item script... so we gotta keep track of where we are with the other script.
-							openscript("house.scp");
-							fseek(scpfile, pos, SEEK_SET);
-							strcpy((char*)script1, "ITEM");
-							pHouseItem->setGMMovable();//Non-Movebale by default
-							pHouseItem->priv=0;//since even things in houses decay, no-decay by default
-							pHouseItem->pos.x=x;
-							pHouseItem->pos.y=y;
-							pHouseItem->pos.z=z;
-							pHouseItem->SetOwnSerial(pc_currchar->serial);
-						}
-						else if (!(strcmp((char*)script1,"DECAY")))
-						{
-							pHouseItem->priv |= 0x01;
-						}
-						else if (!(strcmp((char*)script1,"NODECAY")))
-						{
-							pHouseItem->priv = 0;
-						}
-						else if (!(strcmp((char*)script1,"PACK")))//put the item in the Builder's Backpack
-						{
-							P_ITEM pBackpack = Packitem(pc_currchar);
-							pBackpack->AddItem(pHouseItem);
-						}
-						else if (!(strcmp((char*)script1,"MOVEABLE")))
-						{
-							pHouseItem->setAllMovable();
-						}
-						else if (!(strcmp((char*)script1,"LOCK")))//lock it with the house key
-						{
-							pHouseItem->more1 = static_cast<unsigned char>((pMulti->serial&0xFF000000)>>24);
-							pHouseItem->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
-							pHouseItem->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
-							pHouseItem->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
-						}
-						else if (!(strcmp((char*)script1,"X")))//offset + or - from the center of the house:
-						{
-							pHouseItem->pos.x=x+str2num(script2);
-						}
-						else if (!(strcmp((char*)script1,"Y")))
-						{ 
-							pHouseItem->pos.y=y+str2num(script2);
-						}
-						else if (!(strcmp((char*)script1,"Z")))
-						{
-							pHouseItem->pos.z=z+str2num(script2);
-						}
-					}
-				}
-				while ( (strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );
-				
-				if (pHouseItem->isInWorld()) 
-					mapRegions->Add(pHouseItem);  //add to mapRegions
-				closescript();
-			}
-		}
-		cRegion::RegionIterator4Items ri(pMulti->pos);
-		for(ri.Begin(); !ri.atEnd(); ri++)
-		{
-			P_ITEM si = ri.GetData();
-			sendinrange(si);
-		}
-		
-		if (!norealmulti)
-		{
-			pc_currchar->pos.x=x+cx; //move char inside house
-			pc_currchar->pos.y=y+cy;
-			pc_currchar->dispz = pc_currchar->pos.z = z+cz;
-			teleport((pc_currchar));
-		}
 	}
-}
 
-bool ishouse(unsigned short id)
-{
-	if (id < 0x4000) return false;
-	register unsigned short id2 = id&0x00FF;
-	if ( id2 >= 0x64 && id2 <= 0x7f ) 
-		return true;
-
-	switch(id2)
+	cRegion::RegionIterator4Items ri(this->pos);
+	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
-		case 0x87:
-		case 0x8c:
-		case 0x8d:
-		case 0x96:
-		case 0x98:
-		case 0x9a:
-		case 0x9c:
-		case 0x9e:
-		case 0xa0:
-		case 0xa2:
-		case 0xbb8:
-		case 0x1388: return true;
-	}  
-	return false;
+		P_ITEM si = ri.GetData();
+		sendinrange(si);
+	}
+		
+	pc_currchar->MoveTo( pc_currchar->pos.x + charpos_.x, pc_currchar->pos.y + charpos_.y, pc_currchar->pos.z + charpos_.z );
 }
 
-void RemoveKeys(SERIAL serial) // Crackerjack 8/11/99
+void cHouse::removeKeys( void )
 {
-	if (serial == INVALID_SERIAL)
-		return;
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
+	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
 	{
 		P_ITEM pi = iter_items.GetData();
-		if (pi->type() == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
-		{
-			Items->DeleItem(pi);
-		}
+		if( pi->type() == 7 && pi->tags.get( "house" ).isValid() && pi->tags.get( "house" ).toUInt() == this->serial )
+			Items->DeleItem( pi );
 	}
-	return;
 }
 
-// removes houses - without regions. slow but necassairy for house decay
-// LB 19-September 2000
-void RemoveHouse(P_ITEM pHouse)
+void cHouse::remove( void )
 {
-	cRegion::RegionIterator4Chars ri(pHouse->pos);
+	this->removeKeys();
+
+	cRegion::RegionIterator4Chars ri(this->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
-		if(pc->npcaitype() == 17 && pc->multis == pHouse->serial)
+		if(pc->npcaitype() == 17 && pc->multis == this->serial)
 			Npcs->DeleteChar(pc);
 	}
-	cRegion::RegionIterator4Items rii(pHouse->pos);
+	cRegion::RegionIterator4Items rii(this->pos);
 	for(rii.Begin(); !rii.atEnd(); ri++)
 	{
 		P_ITEM pi = rii.GetData();
-		if(pi->multis == pHouse->serial && pi->type() != 202)
+		if(pi->multis == this->serial && pi->type() != 202)
 			Items->DeleItem(pi);
 	}
-	RemoveKeys(pHouse->serial);
 }
 
-
-// turn a house into a deed if possible. - crackerjack 8/9/99
-// s = socket of player
-// i = house item # in items[]
-// morex on the house item must be set to deed item # in items.scp.
-
-void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
+#pragma note( "check char stuff BEFORE and AFTER this method is called!" )
+P_ITEM cHouse::toDeed( UOXSOCKET s )
 {
-	int x1, y1, x2, y2;
-	if( pHouse == NULL ) return;
-	P_CHAR pc = currchar[s];
-	int a,checkgrid,increment,StartGrid,getcell,ab;		
-	if(pc->Owns(pHouse) || pc->isGM())
+	//sprintf((char*)temp, "Demolishing %s", pHouse->name().ascii() );
+	//sysmessage( s, (char*)temp );
+	//...
+	//pc->pos.z = pc->dispz = Map->MapElevation(pc->pos);
+	//teleport(pc);
+
+	P_CHAR pc_currchar = currchar[ s ];
+
+	cRegion::RegionIterator4Chars ri(this->pos);
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
-		Map->MultiArea(pHouse, &x1,&y1,&x2,&y2);
-		
-		P_ITEM pDeed = Items->SpawnItemBackpack2(s, QString("%1").arg(pHouse->morex), 0);        // need to make before delete
-		if( pDeed == NULL ) return;
-		sprintf((char*)temp, "Demolishing %s", pHouse->name().ascii() );
-		sysmessage( s, (char*)temp );
-		sprintf((char*)temp, "Converted into a %s.", pDeed->name().ascii() );
-		sysmessage(s, (char*)temp); 
-		// door/sign delete
-		StartGrid=mapRegions->StartGrid(pHouse->pos);
-		getcell=mapRegions->GetCell(pHouse->pos);
-		increment=0;
-		ab=0;
-		for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
-		{       
-			for (a=0;a<3;a++)
-			{                                       
-				cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-				cRegion::rawIterator it = vecEntries.begin();
-				for (; it != vecEntries.end(); ++it )
-				{
-					P_CHAR mapchar = FindCharBySerial(*it);
-					P_ITEM mapitem = FindItemBySerial(*it);
-					if (mapchar != NULL)
-					{
-						if( mapchar->pos.x >= x1 && mapchar->pos.y >= y1 && mapchar->pos.x <= x2 && mapchar->pos.y <= y2 )
-						{
-							if( mapchar->npcaitype() == 17 ) // player vendor in right place
-							{
-								sprintf( (char*)temp, "A vendor deed for %s", mapchar->name.c_str() );
-								P_ITEM pPvDeed = Items->SpawnItem(pc, 1, (char*)temp, 0, 0x14F0, 0, 1);
-								pPvDeed->setType( 217 );
-								pPvDeed->value = 2000;
-								RefreshItem( pPvDeed );
-								sysmessage(s, "Packed up vendor %s.", mapchar->name.c_str());
-								Npcs->DeleteChar( mapchar );
-							}
-						}
-					}
-					else if( mapitem != NULL )
-					{
-						if( mapitem->pos.x >= x1 && mapitem->pos.y >= y1 && mapitem->pos.x <= x2 && mapitem->pos.y <= y2 )
-						{
-							Items->DeleItem(mapitem);
-						}
-					}
-				} 
-			}
+		P_CHAR pc = ri.GetData();
+		if(pc->npcaitype() == 17 && pc->multis == this->serial)
+		{
+			P_ITEM pPvDeed = Items->SpawnItem(pc_currchar, 1, (char*)QString("A vendor deed for %1").arg( pc->name.c_str() ).latin1(), 0, 0x14F0, 0, true);
+			pPvDeed->setType( 217 );
+			pPvDeed->value = 2000;
+			RefreshItem( pPvDeed );
+			sysmessage(s, QString("Packed up vendor %1.").arg(pc->name.c_str()) );
 		}
-		Items->DeleItem(pHouse);
-		killkeys( pHouse->serial );
-		sysmessage(s, "All house items and keys removed.");
-		
-		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos);
-		teleport(pc);
-		return;
 	}
+
+	this->removeKeys();
+	this->remove();
+
+	
+	if( this->deedsection_.isNull() || this->deedsection_.isEmpty() )
+		return NULL;
+	P_ITEM pDeed = Items->createScriptItem( this->deedsection_ );
+	if( pDeed == NULL ) 
+		return NULL;
+	else
+	{
+		pDeed->setContSerial( pc_currchar->packitem );
+		RefreshItem( pDeed );
+	}
+
+	return pDeed;
 }
 
 bool cHouse::isBanned(P_CHAR pc)
@@ -616,101 +333,20 @@ void cHouse::removeFriend(P_CHAR pc)
 	friends.erase(it);
 }
 
-// Handles house commands from friends of the house. - Crackerjack 8/12/99
-void house_speech(int s, string& msg)	// msg must already be capitalized
-{
-	P_CHAR pc_currchar = currchar[s];
-	
-	if ( pc_currchar->multis == INVALID_SERIAL )
-		return; // Not inside a multi
-
-	P_ITEM pMulti = FindItemBySerial(pc_currchar->multis);
-		
-	if ( pMulti && ishouse(pMulti->id()) )
-	{
-		cHouse* pHouse = dynamic_cast<cHouse*>(pMulti);
-		if ( !(pc_currchar->Owns(pHouse) || pHouse->isFriend(pc_currchar)))
-			return; // Not (Friend or Owner)
-	}
-	else
-		return;	
-
-	if(msg.find("I BAN THEE")!=string::npos) 
-	{ // house ban
-		addid1[s] = pMulti->serial>>24;
-		addid2[s] = pMulti->serial>>16;
-		addid3[s] = pMulti->serial>>8;
-		addid4[s] = pMulti->serial%256;
-		target(s, 0, 1, 0, 229, "Select person to ban from house.");
-	}
-	else if(msg.find("REMOVE THYSELF")!=string::npos) 
-	{ // kick out of house
-		addid1[s] = pMulti->serial>>24;
-		addid2[s] = pMulti->serial>>16;
-		addid3[s] = pMulti->serial>>8;
-		addid4[s] = pMulti->serial%256;
-		target(s, 0, 1, 0, 228, "Select person to eject from house.");
-	}
-	else if (msg.find("I WISH TO LOCK THIS DOWN")!=string::npos) 
-	{ // lock down code AB/LB
-         target(s, 0, 1, 0, 232, "Select item to lock down");
-	}
-	else if (msg.find("I WISH TO RELEASE THIS")!=string::npos) 
-	{ // lock down code AB/LB
-          target(s, 0, 1, 0, 233, "Select item to release");
-	}
-	else if (msg.find("I WISH TO SECURE THIS")!=string::npos) 
-	{ // lock down code AB/LB
-		target(s, 0, 1, 0, 234, "Select item to secure"); 
-	}
-}
-
-int check_house_decay()
-{
-	int houses=0;   
-	int decayed_houses=0;
-	unsigned long int timediff;
-	unsigned long int ct=getNormalizedTime();
-	
-	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++) 
-	{   
-		P_ITEM pi = iter_items.GetData(); // there shouldnt be an error here !		 
-		if (!pi->free && ishouse(pi->id()))
-		{
-			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
-			{          
-				decayed_houses++;
-				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name().ascii(), SrvParams->housedecay_secs());
-				LogMessage((char*)temp);
-				RemoveHouse(pi);
-			}
-			else // house ok -> update unused-time-attribute
-			{
-				timediff=(ct-pi->timeused_last)/MY_CLOCKS_PER_SEC;
-				pi->time_unused+=timediff; // might be over limit now, but it will be cought next check anyway
-				
-				pi->timeused_last=ct;	// if we don't do that and housedecay is checked every 11 minutes,
-				// it would add 11,22,33,... minutes. So now timeused_last should in fact
-				// be called timeCHECKED_last. but as there is a new timer system coming up
-				// that will make things like this much easier, I'm too lazy now to rename
-				// it (Duke, 16.2.2001)
-			}
-			
-			houses++;
-			
-		}
-		
-	}
-	
-	//delete Watch;
-	return decayed_houses;
-}
-
 void cHouse::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
+		archive.read( "deed.id", deedsection_ );
+		archive.read( "lockdownamt", lockdownamount_ );
+		archive.read( "secureamt", secureamount_ );
+		archive.read( "nokey", nokey_ );
+		archive.read( "space.x", space_.x );
+		archive.read( "space.y", space_.y );
+		archive.read( "charpos.x", charpos_.x );
+		archive.read( "charpos.y", charpos_.y );
+		archive.read( "charpos.z", charpos_.z );
+
 		unsigned int amount = 0;
 		register unsigned int i;
 		SERIAL readData;
@@ -729,6 +365,16 @@ void cHouse::Serialize(ISerialization &archive)
 	}
 	else if ( archive.isWritting())
 	{
+		archive.write( "deed.id", deedsection_ );
+		archive.write( "lockdownamt", lockdownamount_ );
+		archive.write( "secureamt", secureamount_ );
+		archive.write( "nokey", nokey_ );
+		archive.write( "space.x", space_.x );
+		archive.write( "space.y", space_.y );
+		archive.write( "charpos.x", charpos_.x );
+		archive.write( "charpos.y", charpos_.y );
+		archive.write( "charpos.z", charpos_.z );
+
 		register unsigned int i;
 		archive.write("banamount", bans.size());
 		for ( i = 0; i < bans.size(); ++i )
@@ -740,25 +386,8 @@ void cHouse::Serialize(ISerialization &archive)
 	cItem::Serialize(archive); // Call base class method too.
 }
 
-inline QString cHouse::objectID() const
+std::string cHouse::objectID()
 {
 	return "HOUSE";
 }
 
-// This function is horrible.
-void killkeys( SERIAL serial )
-{
-	if (serial == INVALID_SERIAL)
-		return;
-	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
-	{
-		P_ITEM pi = iter_items.GetData();
-		if (pi->type() == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
-		{
-			--iter_items;
-			Items->DeleItem(pi);
-		}
-	}
-	return;
-}

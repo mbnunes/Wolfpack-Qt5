@@ -332,3 +332,29 @@ bool IsMetalArmour(short id)
 	return ( IsPlateArmour(id) || IsChainArmour(id) || IsRingArmour(id) );
 }
 
+bool IsHouse(unsigned short id)
+{
+	if (id < 0x4000) return false;
+	register unsigned short id2 = id&0x00FF;
+	if ( id2 >= 0x64 && id2 <= 0x7f ) 
+		return true;
+
+	switch(id2)
+	{
+		case 0x87:
+		case 0x8c:
+		case 0x8d:
+		case 0x96:
+		case 0x98:
+		case 0x9a:
+		case 0x9c:
+		case 0x9e:
+		case 0xa0:
+		case 0xa2:
+		case 0xbb8:
+		case 0x1388: return true;
+	}  
+	return false;
+}
+
+

@@ -54,4 +54,16 @@ public:
 	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
 };
 
+class cBuildMultiTarget: public cTargetRequest
+{
+protected:
+	QString multisection_;
+	SERIAL	deedserial_;
+	SERIAL	senderserial_;
+public:
+	cBuildMultiTarget( const QString &multisection, const SERIAL &senderserial, const SERIAL &deedserial ) { multisection_ = multisection; senderserial_ = senderserial; deedserial_ = deedserial; };
+
+	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
+};
+
 #endif

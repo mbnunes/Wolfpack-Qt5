@@ -32,6 +32,9 @@
 #include "targetrequests.h"
 #include "mapstuff.h"
 #include "regions.h"
+#include "wpdefmanager.h"
+#include "items.h"
+#include "itemsmgr.h"
 
 void cSetPrivLvlTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 {
@@ -74,6 +77,27 @@ void cAddNpcTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 		mapRegions->Add(pc); // add it to da regions ...
 		pc->isNpc();
 		updatechar(pc);
+	}
+};
+
+void cBuildMultiTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
+{
+	if( targetInfo.TxLoc == -1 || targetInfo.TyLoc == -1 || targetInfo.TzLoc == -1 )
+		return;
+	
+	QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );
+	if( DefSection->isNull() )
+		return;
+
+	if( DefSection->attribute( "type" ) == "house" )
+	{
+		cHouse* pHouse = new cHouse;
+		cItemsManager::getInstance()->registerItem( pHouse );
+		
+		pHouse->build( *DefSection, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc, senderserial_, deedserial_ );
+	}
+	else if( DefSection->attribute( "type" ) == "boat" )
+	{
 	}
 };
 

@@ -40,7 +40,8 @@
 #include "classes.h"
 #include "network.h"
 #include "gumps.h"
-#include "wptargetrequests.h"
+#include "targetrequests.h"
+#include "wpdefmanager.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
@@ -835,7 +836,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				P_ITEM pi_multi = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
 				if (pi_multi != NULL && iteminrange(s, pi_multi, 18))
 				{	
-					if (!ishouse(pi_multi->id()))
+					if (!IsHouse(pi_multi->id()))
 						return; // LB
 					const P_ITEM pi_p = Packitem(pc_currchar);
 					if (pi_p != NULL)
@@ -1029,16 +1030,25 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					addid2[s] = static_cast<unsigned char>(pi->color()%256);
 					target(s, 0, 1, 0, 32, "Select the clothing to use this on.");
 					return;// dye vat
-				case 0x14F0:// houses
+				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
-					{  // experimental house code
-						pc_currchar->fx1 = pi->serial; // for deleting it later
-						addid3[s] = pi->morex;
-						// addx2[s]=pi->serial;
-						BuildHouse(s, pi->morex);
-						// target(s,0,1,0,207,"Select Location for house.");
+					{  
+						QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, pi->tags.get( "multisection" ).toString() );
+						if( !DefSection->isNull() )
+						{
+							UI32 houseid = 0;
+							QDomNode childNode = DefSection->firstChild();
+							while( !childNode.isNull() && houseid == 0 )
+							{
+								if( childNode.isElement() && childNode.nodeName() == "id" )
+									houseid = childNode.toElement().text().toUInt();
+								childNode = childNode.nextSibling();
+							}
+							if( houseid != 0 )
+								attachPlaceRequest( s, new cBuildMultiTarget( pi->tags.get( "multisection" ).toString() , currchar[s]->serial, pi->serial ), houseid );
+						}
 					}
-					return;// house deeds
+					return;// deeds
 				case 0x100A:
 				case 0x100B:// archery butte
 					Skills->AButte(s, pi);

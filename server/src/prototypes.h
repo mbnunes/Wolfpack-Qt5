@@ -43,8 +43,6 @@ void endScrn() ;
 void updatehtml();
 void offlinehtml();
 
-bool ishouse(unsigned short);
-
 //Boats --Fucntions in Boats.cpp
 void sendinrange(P_ITEM pi);
 int dist(int,int,int);
@@ -195,13 +193,6 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
 
 void usehairdye(int s, P_ITEM piDye);
-void buildhouse(int s, int i);
-//void buildhouse(int s, int i,char d_id1,char d_id2,char d_id3, char d_id4);
-void deedhouse(UOXSOCKET s, P_ITEM pHouse); //crackerjack 8/9/99
-void killkeys(SERIAL serial); // crackerjack 8/11/99
-// house list functions - cj 8/12/99
-int add_hlist(int c, int h, int t);
-int del_hlist(int c, int h);
 //
 void house_speech(int s, string& talk);
 void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);

@@ -1227,7 +1227,7 @@ int CheckValidPlace(int s)
 	P_ITEM pi_multi = findmulti(pc_currchar->pos); 
 	if (pi_multi == NULL) 
 		return 0;
-	if (!ishouse(pi_multi->id())) 
+	if (!IsHouse(pi_multi->id())) 
 		return 0;
 	
 	if(pc_currchar->packitem != INVALID_SERIAL)

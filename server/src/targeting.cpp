@@ -41,7 +41,7 @@
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
-#include "wptargetrequests.h"
+#include "targetrequests.h"
 #include "mapstuff.h"
 #include "classes.h"
 #include "gumps.h"
@@ -239,7 +239,20 @@ static void AddTarget(int s, PKGx6C *pp)
 		case 124:
 		case 126:
 		case 140:
-			BuildHouse(s,addid3[s]);//If its a valid house, send it to buildhouse!
+			QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, QString("%1").arg(addid3[s]) );
+			if( !DefSection->isNull() )
+			{
+				UI32 houseid = 0;
+				QDomNode childNode = DefSection->firstChild();
+				while( !childNode.isNull() && houseid == 0 )
+				{
+					if( childNode.isElement() && childNode.nodeName() == "id" )
+						houseid = childNode.toElement().text().toUInt();
+					childNode = childNode.nextSibling();
+				}
+				if( houseid != 0 )
+					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, NULL ), houseid );
+			}
 			return; // Morrolan, here we WANT fall-thru, don't mess with this switch
 		}
 	}
@@ -3271,7 +3284,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	
 	pHouse->SetOwnSerial(o_serial);
 	
-	RemoveKeys(pHouse->serial);
+	dynamic_cast< cHouse* >(pHouse)->removeKeys();
 	
 	os=-1;
 	for(i=0;i<now && os==-1;i++)
@@ -4334,8 +4347,24 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		//taken from 6904t2(5/10/99) - AntiChrist
 		case 240: Targ->SetMurderCount( s ); break; // Abaddon 13 Sept 1999
 
-		case 245: BuildHouse(s,addid3[s]);	 break;
-
+		case 245: 
+		{
+			QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, QString("%1").arg(addid3[s]) );
+			if( !DefSection->isNull() )
+			{
+				UI32 houseid = 0;
+				QDomNode childNode = DefSection->firstChild();
+				while( !childNode.isNull() && houseid == 0 )
+				{
+					if( childNode.isElement() && childNode.nodeName() == "id" )
+						houseid = childNode.toElement().text().toUInt();
+					childNode = childNode.nextSibling();
+				}
+				if( houseid != 0 )
+					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, NULL ), houseid );
+			}
+		}
+			break;
 		case 247: Targ->ShowSkillTarget(s);break; //showskill target
 		case 248: Targ->MenuPrivTarg(s);break; // menupriv target
 		case 249: Targ->UnglowTaget(s);break; // unglow
