@@ -220,9 +220,11 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 	int vr=VISRANGE;
 	if (pi == NULL) // blackwind Crash fix
 		return 0;
+	
+	// Large building ( stupid check )
+	if( pi->id() >= 0x407C && pi->id() <= 0x407F )
+		vr = BUILDRANGE;
 
-	if (pi->id1==0x40 &&(pi->id2>=0x7C && pi->id2<=0x7F))	// a large house ??
-		vr=BUILDRANGE;
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,vr);
 }
 
@@ -1129,7 +1131,7 @@ void deathstuff(P_CHAR pc_player)
 		if ((pi_j->contserial== pc_player->serial) && (pi_j->layer!=0x0B) && (pi_j->layer!=0x10))
 		{//Let's check all items, except HAIRS and BEARD
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
-			if( pi_j->id1 == 0x1B && ( pi_j->id2 == 0xC3 || pi_j->id2 == 0xC4 ) )
+			if( pi_j->id() == 0x1BC3 || pi_j->id() == 0x1BC4 )
 			{
 				soundeffect2(pc_player, 0x01FE);
 				staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
@@ -1149,7 +1151,7 @@ void deathstuff(P_CHAR pc_player)
 						pi_k->SetContSerial(pi_c->serial);
 						pi_k->SetRandPosInCont(pi_c);
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
-						if( pi_k->id1 == 0x1B && ( pi_k->id2 == 0xC3 || pi_k->id2 == 0xC4 ) )
+						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
 						{
 							soundeffect2(pc_player, 0x01FE);
 							staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
@@ -1534,7 +1536,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 		x = pi->id();
 		if (x==(db+0))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			pi->pos.x--;
 			pi->pos.y++;
 			RefreshItem(pi);
@@ -1543,7 +1545,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+1))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			pi->pos.x++;
 			pi->pos.y--;
 			RefreshItem(pi);//AntiChrist
@@ -1552,7 +1554,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			pi->dooropen=0;
 		} else if (x==(db+2))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y++;
 			RefreshItem(pi);//AntiChrist
@@ -1561,7 +1563,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+3))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y--;
 			RefreshItem(pi);//AntiChrist
@@ -1570,7 +1572,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			pi->dooropen=0;
 		} else if (x==(db+4))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			pi->pos.x--;
 			RefreshItem(pi);//AntiChrist
 			changed=1;
@@ -1578,7 +1580,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+5))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			pi->pos.x++;
 			RefreshItem(pi);//AntiChrist
 			changed=1;
@@ -1586,7 +1588,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			pi->dooropen=0;
 		} else if (x==(db+6))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y--;
 			RefreshItem(pi);//AntiChrist
@@ -1595,7 +1597,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+7))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y++;
 			RefreshItem(pi);//AntiChrist
@@ -1604,7 +1606,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			pi->dooropen=0;
 		} else if (x==(db+8))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y++;
 			RefreshItem(pi);//AntiChrist
@@ -1613,7 +1615,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+9))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y--;
 			RefreshItem(pi);//AntiChrist
@@ -1622,7 +1624,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			pi->dooropen=0;
 		} else if (x==(db+10))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y--;
 			RefreshItem(pi);//AntiChrist
@@ -1631,7 +1633,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+11))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y++;
 			RefreshItem(pi);//AntiChrist
@@ -1641,21 +1643,21 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 		}
 		else if (x==(db+12))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			RefreshItem(pi);//AntiChrist
 			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+13))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			RefreshItem(pi);//AntiChrist
 			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		} else if (x==(db+14))
 		{
-			pi->id2++;
+			pi->setId( pi->id() + 1 );
 			pi->pos.y--;
 			RefreshItem(pi);//AntiChrist
 			changed=1;
@@ -1663,7 +1665,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			tempeffect2(0, pi, 13, 0, 0, 0);
 		} else if (x==(db+15))
 		{
-			pi->id2--;
+			pi->setId( pi->id() - 1 );
 			pi->pos.y++;
 			RefreshItem(pi);//AntiChrist
 			changed=1;

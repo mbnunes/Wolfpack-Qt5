@@ -380,7 +380,7 @@ signed char cMapStuff::DynamicElevation(const Coord_cl& pos)
 				// the itemp[] the multi was based on has its own elevation
 				z += mapitem->pos.z + 1;
 			}
-			if ((mapitem->pos.x==pos.x)&&(mapitem->pos.y==pos.y)&&(mapitem->id1<0x40))
+			if ( ( mapitem->pos.x == pos.x ) && ( mapitem->pos.y == pos.y ) && ( !mapitem->isMulti() ) )
 			{
 				signed char ztemp = mapitem->pos.z+TileHeight(mapitem->id());
 				if ((ztemp <= pos.z + MaxZstep) && (ztemp > z))

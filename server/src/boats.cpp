@@ -268,20 +268,21 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 
 void cBoat::OpenPlank(P_ITEM pi_p)//Open, or close the plank (called from keytarget() )
 {
-	switch(pi_p->id2)
+
+	switch( pi_p->id() )
 	{
 		//Open plank->
-		case (unsigned char)0xE9: pi_p->id2=(unsigned char)0x84; break;
-		case (unsigned char)0xB1: pi_p->id2=(unsigned char)0xD5; break;
-		case (unsigned char)0xB2: pi_p->id2=(unsigned char)0xD4; break;
-		case (unsigned char)0x8A: pi_p->id2=(unsigned char)0x89; break;
-		case (unsigned char)0x85: pi_p->id2=(unsigned char)0x84; break;
+		case 0x3EE9: pi_p->setId( 0x3E84 ); break;
+		case 0x3EB1: pi_p->setId( 0x3ED5 ); break;
+		case 0x3EB2: pi_p->setId( 0x3ED4 ); break;
+		case 0x3E8A: pi_p->setId( 0x3E89 ); break;
+		case 0x3E85: pi_p->setId( 0x3E84 ); break;
 		//Close Plank->
-		case (unsigned char)0x84: pi_p->id2=(unsigned char)0xE9; break;
-		case (unsigned char)0xD5: pi_p->id2=(unsigned char)0xB1; break;
-		case (unsigned char)0xD4: pi_p->id2=(unsigned char)0xB2; break;
-		case (unsigned char)0x89: pi_p->id2=(unsigned char)0x8A; break;
-		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %x '%s' [%x %x]\n",pi_p->serial,pi_p->name.c_str(),pi_p->id1,pi_p->id2); LogWarning( (char*)temp ); break; }
+		case 0x3E84: pi_p->setId( 0x3EE9 ); break;
+		case 0x3ED5: pi_p->setId( 0x3EB1 ); break;
+		case 0x3ED4: pi_p->setId( 0x3EB2 ); break;
+		case 0x3E89: pi_p->setId( 0x3E8A ); break;
+		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %x '%s' [%x]\n",pi_p->serial,pi_p->name.c_str(),pi_p->id() ); LogWarning( (char*)temp ); break; }
 	}
 }
 
@@ -776,7 +777,8 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 {
 	if (pBoat == NULL) return; 
 	
-	int id2 = pBoat->id2 ,olddir = pBoat->dir;
+	UI16 id = pBoat->id();
+	UI08 olddir = pBoat->dir;
 	unsigned short int Send[MAXCLIENT];
 	SERIAL serial;
 	int a,dir, d=0;
@@ -808,20 +810,20 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	if(turn)//Right
 	{
 		pBoat->dir+=2;
-		id2++;
+		id++;
 	} else {//Left
 		pBoat->dir-=2;
-		id2--;
+		id--;
 	}
-	if(pBoat->dir>7) pBoat->dir-=4;//Make sure we dont have any DIR errors
+	if( pBoat->dir > 7 ) pBoat->dir -= 4;//Make sure we dont have any DIR errors
 	//if(pBoat->dir<0) pBoat->dir+=4;
-	if(id2<pBoat->more1) id2+=4;//make sure we don't have any id errors either
-	if(id2>pBoat->more2) id2-=4;//Now you know what the min/max id is for :-)
+	if( id & 0x00FF < pBoat->more1) id = 4;//make sure we don't have any id errors either
+	if( id & 0x00FF > pBoat->more2) id = 4;//Now you know what the min/max id is for :-)
 	
-	pBoat->id2=id2;//set the id
+	pBoat->setId( id );//set the id
 	
-	if(pBoat->id2==pBoat->more1) pBoat->dir=0;//extra DIR error checking
-	if(pBoat->id2==pBoat->more2) pBoat->dir=6;
+	if( pBoat->id()&0x00FF == pBoat->more1 ) pBoat->dir=0;//extra DIR error checking
+	if( pBoat->id()&0x00FF == pBoat->more2 ) pBoat->dir=6;
 	
 	
 	if( Block( pBoat, 0, 0, pBoat->dir ) )
@@ -834,15 +836,12 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 		}
 		return;
 	}
-	pBoat->id2=id2;//set the id
+	pBoat->setId( id );//set the id
 	
-	if(pBoat->id2==pBoat->more1) pBoat->dir=0;//extra DIR error checking
-	if(pBoat->id2==pBoat->more2) pBoat->dir=6;    
-	
-	
-	
-	
-    serial=pBoat->serial; // lb !!!
+	if( pBoat->id()&0x00FF == pBoat->more1 ) pBoat->dir=0;//extra DIR error checking
+	if( pBoat->id()&0x00FF == pBoat->more2 ) pBoat->dir=6;    
+		
+    serial = pBoat->serial; // lb !!!
 
 	unsigned int ci;	
 	vector<SERIAL> vecEntries = imultisp.getData(serial);
@@ -858,6 +857,7 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	for (ci = 0; ci < vecEntries.size(); ci++)
 	{
 		P_CHAR pc = FindCharBySerial(vecEntries[ci]);
+
 		if (pc != NULL)
 			TurnStuff(pBoat, pc, turn);
 	}
@@ -868,16 +868,16 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	//set it's Z to 0,0 inside the boat
 	
 	pi_p1->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_p1->pos.z);
-	pi_p1->id2 = cShipItems[dir][PORT_P_C];//change the ID
+	pi_p1->setId( pi_p1->id()&0xFF00 + cShipItems[dir][PORT_P_C] );
 	
 	pi_p2->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_p2->pos.z);
-	pi_p2->id2=cShipItems[dir][STAR_P_C];
+	pi_p2->setId( pi_p2->id()&0xFF00 + cShipItems[dir][STAR_P_C] );
 	
 	pTiller->MoveTo(pBoat->pos.x,pBoat->pos.y, pTiller->pos.z);
-	pTiller->id2=cShipItems[dir][TILLERID];
+	pTiller->setId( pTiller->id()&0xFF00 + cShipItems[dir][TILLERID] );
 	
 	pi_hold->MoveTo(pBoat->pos.x,pBoat->pos.y, pi_hold->pos.z);
-	pi_hold->id2=cShipItems[dir][HOLDID];
+	pi_hold->setId( pi_hold->id()&0xFF00 + cShipItems[dir][HOLDID] );
 	
 	switch(pBoat->more1)//Now set what size boat it is and move the specail items
 	{

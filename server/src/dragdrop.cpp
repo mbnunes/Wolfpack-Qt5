@@ -118,7 +118,8 @@ static void item_bounce3(const P_ITEM pi)
 static void item_bounce4(const UOXSOCKET s, const P_ITEM pi)
 {
 	item_bounce3(pi);
-	if (pi->id1>=0x40)
+	
+	if( pi->isMulti() )
 		senditem(s, pi);
 }
 
@@ -127,7 +128,7 @@ static void item_bounce5(const UOXSOCKET s, const P_ITEM pi)
 	item_bounce3(pi);
 	if(pi->isInWorld())
 	{
-		if (pi->id1>=0x40)
+		if ( pi->id() >= 0x4000 )
 			senditem(s, pi);
 	}
 	else
@@ -411,7 +412,9 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		return;
 	}
 
-	if (pi->id1>=0x40) return; // LB, client crashfix if multi-objects are moved to PD
+	// LB, client crashfix if multi-objects are moved to PD
+	if( pi->isMulti() )
+		return;
 
 	if (pc_k == pc_currchar || pc_currchar->isGM())
 	{
@@ -429,9 +432,9 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 				return;
 			}
 			
-			if (pc_currchar->id1==0x01 && pc_currchar->id2==0x90) // Ripper...so males cant wear female armor
-			if (pi->id1==0x1c && ( pi->id2==0x00 || pi->id2==0x02 || pi->id2==0x04 ||
-                pi->id2==0x06 || pi->id2==0x08 || pi->id2==0x0a || pi->id2==0x0c))
+			if( pc_currchar->id() == 0x0190 ) // Ripper...so males cant wear female armor
+			if( pi->id() == 0x1c00 || pi->id() == 0x1c02 || pi->id() == 0x1c04 ||
+                pi->id() == 0x1c06 || pi->id() == 0x1c08 || pi->id() == 0x1c0a || pi->id() == 0x1c0c )
 			{
 				sysmessage(s,"You cant wear female armor!");
 				Sndbounce5(s);
@@ -830,11 +833,12 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	UOXSOCKET s = ps->GetSocket();
 	P_CHAR pc_currchar = ps->getPlayer();
 	
-	if (pi->id1>=0x40) // crashfix , prevents putting multi-objects ni your backback
+	// crashfix , prevents putting multi-objects ni your backback
+	if( pi->isMulti() )
 	{
-		sysmessage(s,"Hey, putting houses in your pack crashes your back and client !");
-		pi->moveTo(pc_currchar->pos);
-		RefreshItem(pi);//AntiChrist
+		sysmessage( s, "Cannot put houses in your backpack!" );
+		pi->moveTo( pc_currchar->pos );
+		RefreshItem( pi ); //AntiChrist
 		return true;
 	}
 	
@@ -1024,7 +1028,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 	pi->flags.isBeeingDragged = false;
 	
 	//Ripper...so order/chaos shields disappear when on ground.
-	if( pi->id1 == 0x1B && ( pi->id2 == 0xC3 || pi->id2 == 0xC4 ) )
+	if( pi->id() == 0x1BC3 || pi->id() == 0x1BC4 )
 	{
 		soundeffect2(pc_currchar, 0x01FE);
 		staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06);
@@ -1107,11 +1111,12 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	if (pItem == NULL || pCont == NULL) return; //LB
 	pItem->flags.isBeeingDragged = false;
 
-	if (pItem->id1>=0x40)
+	if( pItem->isMulti() )
 	{
 	   abort = true; // LB crashfix that prevents moving multi objcts in BP's
-       sysmessage(s, "Hey, putting houses in your pack crashes your back and client!");
+       sysmessage(s, "You cannot put houses in your backpack" );
 	}
+
 	P_CHAR pc_j = GetPackOwner(pCont);
 	if (pc_j != NULL)
 	{
@@ -1122,9 +1127,9 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		}
 	}
 
-	if(abort)
+	if( abort )
 	{//AntiChrist to preview item disappearing
-		item_bounce6(ps,pItem);
+		item_bounce6( ps, pItem );
 		return;
 	}
 
@@ -1183,7 +1188,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		{
 			ps->ResetDragging();
 			item_bounce3(pItem);
-			if (pCont->id1>=0x40)
+			if( pCont->isMulti() )
 				senditem(s, pCont);
 		}
 		return;
@@ -1207,7 +1212,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				ps->ResetDragging();
 				item_bounce3(pItem);
 			}
-			if (pCont->id1>=0x40)
+			if( pCont->isMulti() )
 				senditem(s, pCont);
 			return;
 		}

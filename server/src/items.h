@@ -43,16 +43,21 @@ class ISerialization;
 
 class cItem : public cUObject
 {
+protected:
+	UI16 id_;
+
 public:
+	// Getters
+	UI16	id() const { return id_; };
+
+	// Setters
+	void	setId( UI16 nValue ) { id_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual string objectID();
-	
-	unsigned char id1; // Item visuals as stored in the client
-	unsigned char id2;
 	unsigned short color; // Hue
 	unsigned short amount; // Amount of items in pile
 	unsigned short amount2; //Used to track things like number of yards left in a roll of cloth
@@ -170,8 +175,8 @@ public:
 	void SetSerial(long ser);
 	
 	void SetContSerial(long contser);
-	bool isInWorld()			{return (contserial == INVALID_SERIAL);}
-	bool isMulti()				{return (id1>=0x40);	}
+	bool isInWorld()			{ return (contserial == INVALID_SERIAL); }
+	bool isMulti()				{ return ( id_ >= 0x4000 ); }
 	
 	void setOwnSerialOnly(long ownser);
 	void SetOwnSerial(long ownser);
@@ -180,9 +185,7 @@ public:
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	
-	void setId(unsigned short id);
 	void setColor(unsigned short color);
-	inline unsigned short id()	const		{return (unsigned short)((id1<<8)+id2);}
 	
 //	inline unsigned short color()		{return (unsigned short)((color1<<8)+color2);}
 	void MoveTo(int newx, int newy, signed char newz);

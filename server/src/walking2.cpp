@@ -825,7 +825,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 		P_ITEM mapitem = ri.GetData();
 		if (mapitem != NULL)
 		{
-			if (mapitem->id1<0x40)
+			if( !mapitem->isMulti() )
 			{
 				if ((mapitem->pos.x == position.x) && (mapitem->pos.y == position.y))
 				{
@@ -1244,7 +1244,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 					if (!amTurning)
 					{
 						// is the item a building on the BUILDRANGE?
-						if ((mapitem->id1==0x40)&&(mapitem->id2>=0x7C)&&(mapitem->id2<=0x7E))
+						if( ( mapitem->id() == 0x407C ) || ( mapitem->id() == 0x407D ) || ( mapitem->id() == 0x407E ) )
 						{
 							if ((abs(newx-mapitem->pos.x)==BUILDRANGE)||(abs(newy-mapitem->pos.y)==BUILDRANGE))
 							{
@@ -1283,8 +1283,10 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 					if( mapitem->onCollide( pc ) )
 						continue;
 
+					UI16 tileID = mapitem->id();
+
 					// split out the x,y,z check so we can use else ifs for faster item id checking
-					if ((mapitem->id1==0x39 && (mapitem->id2==0x96 || mapitem->id2==0x8C)))
+					if( ( tileID == 0x3996 ) || ( tileID == 0x398C ) )
 					{//Fire Field
 // Thyme 2000.09.15
 // At the request of Abaddon
@@ -1304,7 +1306,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						}
 					}
 					
-					if ((mapitem->id1==0x39 && (mapitem->id2==0x15 || mapitem->id2==0x20)))
+					else if( ( tileID == 0x3915 ) || ( tileID == 0x3920 ) )
 					{//Poison field
 						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						{
@@ -1316,7 +1318,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						}
 					}
 					
-					else if ((mapitem->id1==0x39 && (mapitem->id2==0x79 || mapitem->id2==0x67)))
+					else if( ( tileID == 0x3979 ) || ( tileID == 0x3967 ) )
 					{//Para Field
 						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						{
@@ -1327,7 +1329,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 							soundeffect2(pc, 0x0204);
 						}
 					}
-					else if (mapitem->id1<0x40)
+					else if( !mapitem->isMulti() )
 					{
 						// look for item triggers, this was moved from CrazyXYBlockStuff()
 						if ((mapitem->pos.x== newx) && (mapitem->pos.y == newy))
@@ -2251,9 +2253,9 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
             {
                 // bugfix found by JustMichael, moved by crackerjack
                 // 8/2/99 makes code run faster too - one less loop :)
-                if (mapitem->id()==0x3946 || mapitem->id()==0x3956) return 0;
-                if (mapitem->id1<=2 || (mapitem->id()>=0x0300 && mapitem->id()<=0x03E2)) return 0;
-                if (mapitem->id()>0x0854 && mapitem->id()<0x0866) return 0;
+                if ( mapitem->id() == 0x3946 || mapitem->id() == 0x3956 ) return 0;
+                if ( mapitem->id() < 0x0200 || ( mapitem->id() >= 0x0300 && mapitem->id() <= 0x03E2 ) ) return 0;
+                if ( mapitem->id() > 0x0854 && mapitem->id() < 0x0866 ) return 0;
 
                 if (mapitem->type==12)
                 {

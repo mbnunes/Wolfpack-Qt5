@@ -428,12 +428,6 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 	return rest;
 }
 
-void cItem::setId(unsigned short id)
-{
-	id1=id>>8;
-	id2=id&0x00FF;
-}
-
 void cItem::setColor(unsigned short _color)
 {
 	color = _color;

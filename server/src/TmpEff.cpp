@@ -75,8 +75,7 @@ static void reverseIncognito(P_CHAR pc)
 				{
 					//stores old hair values
 					pHair->color = static_cast<unsigned short>(pHair->moreb1 << 8) + pHair->moreb2;
-					pHair->id1=pHair->moreb3;
-					pHair->id2=pHair->moreb4;
+					pHair->setId( static_cast<UI16>( pHair->moreb3 << 8 ) + pHair->moreb4 );
 					pHair->incognito=false;
 				}
 			}
@@ -91,8 +90,7 @@ static void reverseIncognito(P_CHAR pc)
 				{
 					//restores old beard values
 					pBeard->color = static_cast<unsigned short>(pBeard->moreb1<<8) + pBeard->moreb2;
-					pBeard->id1=pBeard->moreb3;
-					pBeard->id2=pBeard->moreb4;
+					pBeard->setId( static_cast<UI16>( pBeard->moreb3 << 8 ) + pBeard->moreb4 );
 					pBeard->incognito=false;
 				}
 			}
@@ -829,23 +827,23 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 					//stores old hair values...
 					pHair->moreb1 = static_cast<unsigned char>(pHair->color>>8);
 					pHair->moreb2 = static_cast<unsigned char>(pHair->color%256);
-					pHair->moreb3=pHair->id1;
-					pHair->moreb4=pHair->id2;
+					pHair->moreb3 = ((pHair->id()&0xFF00) >> 8);
+					pHair->moreb4 = pHair->id()&0x00FF;
 
 					//and change them with random ones
-					switch(rand()%10)
+					switch( rand() % 10 )
 					{
-						case 0: pHair->id2='\x3B'; break;
-						case 1: pHair->id2='\x3C'; break;
-						case 2:	pHair->id2='\x3D'; break;
-						case 3:	pHair->id2='\x44'; break;
-						case 4:	pHair->id2='\x45'; break;
-						case 5:	pHair->id2='\x46'; break;
-						case 6:	pHair->id2='\x47'; break;
-						case 7:	pHair->id2='\x48'; break;
-						case 8:	pHair->id2='\x49'; break;
-						case 9:	pHair->id2='\x4A'; break;
-						default: pHair->id2='\x4A'; break;
+						case 0: pHair->setId( 0x203B ); break;
+						case 1: pHair->setId( 0x203C ); break;
+						case 2:	pHair->setId( 0x203D ); break;
+						case 3:	pHair->setId( 0x2044 ); break;
+						case 4:	pHair->setId( 0x2045 ); break;
+						case 5:	pHair->setId( 0x2046 ); break;
+						case 6:	pHair->setId( 0x2047 ); break;
+						case 7:	pHair->setId( 0x2048 ); break;
+						case 8:	pHair->setId( 0x2049 ); break;
+						case 9:	pHair->setId( 0x204A ); break;
+						default: pHair->setId( 0x204A ); break;
 					}
 
 					//random color
@@ -878,14 +876,14 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 					//changes them with random ones
 					switch(rand()%7)
 					{
-						case 0: pBeard->id2='\x3E'; break;
-						case 1: pBeard->id2='\x3F'; break;
-						case 2:	pBeard->id2='\x40'; break;
-						case 3:	pBeard->id2='\x41'; break;
-						case 4:	pBeard->id2='\x4B'; break;
-						case 5:	pBeard->id2='\x4C'; break;
-						case 6:	pBeard->id2='\x4D'; break;
-						default:pBeard->id2='\x4D'; break;
+						case 0: pBeard->setId( 0x203E ); break;
+						case 1: pBeard->setId( 0x203F ); break;
+						case 2:	pBeard->setId( 0x2040 ); break;
+						case 3:	pBeard->setId( 0x2041 ); break;
+						case 4:	pBeard->setId( 0x204B ); break;
+						case 5:	pBeard->setId( 0x204C ); break;
+						case 6:	pBeard->setId( 0x204D ); break;
+						default:pBeard->setId( 0x204D ); break;
 					}
 
 					//random color

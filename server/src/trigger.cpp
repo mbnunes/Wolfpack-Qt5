@@ -1265,7 +1265,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 									if (pi != NULL)
 									{
-										sprintf(sect, "x%x%x", pi->id1, pi->id2);
+										sprintf(sect, "x%x", pi->id() );
 										if (strstr((char*)script2, sect))
 										{
 											pi_needitem = pi;
@@ -1558,7 +1558,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								{// if it's close enought
 									if (iteminrange(ts, mapitem, p))
 									{
-										sprintf(sect, "x%x%x", mapitem->id1, mapitem->id2);
+										sprintf(sect, "x%x", mapitem->id());
 										if (strstr((char*)comm[0], sect))
 										{// if it's the item we want
 											pi_c = mapitem;// we found it :D
@@ -1875,8 +1875,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								cline = &script2[0];
 								splitline();
 								pi_itemnum = FindItemBySerial(pc_ts->envokeitem);
-								pi_itemnum->id1 = hexnumber(0);
-								pi_itemnum->id2 = hexnumber(1);		
+								pi_itemnum->setId( static_cast< UI16 >( hexnumber( 0 ) << 8 ) + hexnumber( 1 ) );
 								RefreshItem(pi_itemnum);// AntiChrist
 							}
 						}
@@ -1899,8 +1898,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								cline = &script2[0];
 								splitline();
 								pi_itemnum = pi;
-								pi->id1 = hexnumber(0);
-								pi->id2 = hexnumber(1);				
+								pi->setId( static_cast<unsigned short>(hexnumber(0) << 8) + hexnumber(1) );
 								RefreshItem(pi_itemnum);// AntiChrist
 								
 							}
@@ -2000,7 +1998,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 									if (pi != NULL)
 									{
-										sprintf(sect, "x%x%x", pi->id1, pi->id2);
+										sprintf(sect, "x%x", pi->id() );
 										if (strstr((char*)script2, sect))
 										{
 											pi_needitem = pi;
@@ -2820,7 +2818,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							for (i = 0; i < vecContainer.size(); i++)
 							{
 								P_ITEM pi = FindItemBySerial(vecContainer[i]);
-								sprintf(sect, "x%x%x", pi->id1, pi->id2);
+								sprintf(sect, "x%x", pi->id() );
 								if (strstr((char*)script2, sect))
 								{
 									pi_needitem = pi;
@@ -3098,7 +3096,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 									for (i = 0; i < vecContainer.size(); i++)
 									{
 										P_ITEM pi = FindItemBySerial(vecContainer[i]);
-										sprintf(sect, "x%x%x", pi->id1, pi->id2);
+										sprintf(sect, "x%x", pi->id() );
 										if (strstr((char*)script2, sect))
 										{
 											pi_needitem = pi;

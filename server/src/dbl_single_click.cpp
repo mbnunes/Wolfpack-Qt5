@@ -291,7 +291,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// check this on trigger in the event that the .trigger property is not set on the item
 		// trigger code.  Check to see if item is envokable by id
 		
-		else if (Trig->checkenvoke(pi->id1, pi->id2))
+		else if (Trig->checkenvoke( ((pi->id()&0xFF00) >> 8), (pi->id()&0x00FF) ))
 		{
 			pc_currchar->envokeitem = pi->serial;
 			pc_currchar->envokeid = pi->id();
@@ -324,7 +324,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		{
 			if (iteminrange(s, pi, 3))
 			{
-				if (pi->id2 == 0x84 || pi->id2 == 0xD5 || pi->id2 == 0xD4 || pi->id2 == 0x89)
+				if (pi->id() == 0x3E84 || pi->id() == 0x3ED5 || pi->id() == 0x3ED4 || pi->id() == 0x3E89)
 					Boats->PlankStuff(s, pi);
 				else 
 					sysmessage(s, "That is locked.");

@@ -401,8 +401,8 @@ void cTargets::IDtarget(int s)
 		P_ITEM pi = FindItemBySerial(serial);
 		if (pi == NULL)
 			return;
-		pi->id1=addx[s];
-		pi->id2=addy[s];
+
+		pi->setId( ( addx[s] << 8 ) + addy[s]  );
 		RefreshItem(pi);
 		return;
 	}

@@ -1586,7 +1586,7 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 			if( ( pci->layer == 0x01 || pci->layer == 0x02 ) && ( pci->contserial == serial ) )
  			{
  				// in first hand, or second hand
- 				if( pci->id1 == type1 && pci->id2 == type2 )
+ 				if( ( pci->id() >> 8 ) == type1 && ( pci->id()&0x00FF ) == type2 )
 				{
  					Items->DeleItem( pci );
  					foundMatch = true;

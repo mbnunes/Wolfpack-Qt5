@@ -56,10 +56,11 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 
 	P_CHAR pc_currchar = currchar[s];
 
-	if (pc_currchar->unicode)
+	// )"!(§$&="(/§&(/)"&% What shoudl THAT be ????? - darkstorm
+	/*if (pc_currchar->unicode())
 		cCommands::cmd_offset = 1;
 	else
-		cCommands::cmd_offset = 1;
+		cCommands::cmd_offset = 1;*/
 
 	cCommands::command_line = speech;
 	cCommands::params = cCommands::command_line.split(" ");

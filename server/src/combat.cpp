@@ -1104,7 +1104,7 @@ void cCombat::CombatOnHorse(P_CHAR pc)
 	P_ITEM pHorseItem=pc->GetItemOnLayer(0x19);	
 
 	int base;
-	switch(pHorseItem->id2)
+	switch( pHorseItem->id()&0x00FF )
 	{
 	    case 0xab: // llamas
 		case 0xa6:

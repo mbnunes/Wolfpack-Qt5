@@ -2460,19 +2460,19 @@ void command_setmenupriv(UOXSOCKET s)
 
 void command_delid( UOXSOCKET s )
 {
-	if (tnum != 3)
+	if (tnum != 2)
 	{
-		sysmessage( s, tr("Syntax Error. Usage: /delid <id1> <id2>") );
+		sysmessage( s, tr("Syntax Error. Usage: /delid <id>") );
 		return;
 	}
 	
-	unsigned char id1 = static_cast<unsigned char>(hexnumber( 1 ));
-	unsigned char id2 = static_cast<unsigned char>(hexnumber( 2 ));
+	UI16 id = ( static_cast<unsigned char>(hexnumber( 1 )) << 8 ) + static_cast<unsigned char>(hexnumber( 2 ));
+	
 	AllItemsIterator iterItems;
 	for( iterItems.Begin(); !iterItems.atEnd(); iterItems++ )
 	{
 		P_ITEM pi = iterItems.GetData();
-		if( pi->id1 == id1 && pi->id2 == id2 )
+		if( pi->id() == id )
 		{
 			iterItems--;
 			Items->DeleItem( pi );

@@ -446,126 +446,105 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 
 	// Lil' rewrite, LB 10'th Okt 2000
 
-	switch(pCont->id1)
+	switch( pCont->id() )
 	{
-		case 0x0E:
-			switch (pCont->id2)
-			{
-				case 0x75:					// Backpack
-				case 0x79: bpopen[6]=0x3C;	// Box/Pouch
-							break;
+		case 0x0E75:					// Backpack
+		case 0x0E79: bpopen[6] = 0x3C;	// Box/Pouch
+					break;
 
-				case 0x76: bpopen[6]=0x3D;	// Leather Bag
-							break;
+		case 0x0E76: bpopen[6] = 0x3D;	// Leather Bag
+					break;
 
-				case 0x77:					// Barrel
-				case 0x7A:					// Square Basket
-				case 0x7F: bpopen[6]=0x3E;	// Keg
-							break;
+		case 0x0E77:					// Barrel
+		case 0x0E7A:					// Square Basket
+		case 0x0E7F: bpopen[6] = 0x3E;	// Keg
+					break;
 
-				case 0x7C: bpopen[6]=0x4A;	// Silver Chest
-							break;
+		case 0x0E7C: bpopen[6] = 0x4A;	// Silver Chest
+					break;
 
-				case 0x7D: bpopen[6]=0x43;	// Wooden Box
-							break;
+		case 0x0E7D: bpopen[6] = 0x43;	// Wooden Box
+					break;
 
+		case 0x0E3D:					// Large Wooden Crate
+		case 0x0E3C:					// Large Wooden Crate
+		case 0x0E3F:					// Small Wooden Crate
+		case 0x0E3E:					// Small Wooden Crate
+		case 0x0E7E: bpopen[6] = 0x44;	// Wooden Crate
+					break;
 
-				case 0x3D:					// Large Wooden Crate
-				case 0x3C:					// Large Wooden Crate
-				case 0x3F:					// Small Wooden Crate
-				case 0x3E:					// Small Wooden Crate
-				case 0x7E: bpopen[6]=0x44;	// Wooden Crate
-							break;
+		case 0x0E80: bpopen[6] = 0x4B;	// Brass Box
+					break;
 
-				case 0x80: bpopen[6]=0x4B;	// Brass Box
-							break;
+		case 0x0E40:					// Metal & Gold Chest
+		case 0x0E41: bpopen[6] = 0x42;	// Metal & Gold Chest
+					break;
 
-				case 0x40:					// Metal & Gold Chest
-				case 0x41: bpopen[6]=0x42;	// Metal & Gold Chest
-							break;
+		case 0x0E43:					// Wooden & Gold chest
+		case 0x0E42: bpopen[6] = 0x49; // Wooden & Gold Chest
+					break;
 
+		case 0x0990: bpopen[6]=0x41; // Round Basket
+					break;
 
-				case 0x43:					// Wooden & Gold chest
-				case 0x42: bpopen[6]=0x49; // Wooden & Gold Chest
-							break;
+		case 0x09B2: bpopen[6]=0x3C; // Backpack 2
+					break;
 
-			}
-			break;
+		case 0x09AA: bpopen[6]=0x43; // Wooden Box
+					break;
 
-		case 0x09:
-			switch (pCont->id2)
-			{
-				case 0x90: bpopen[6]=0x41; // Round Basket
-							break;
+		case 0x09A8: bpopen[6]=0x40; // Metal Box
+					break;
 
-				case 0xB2: bpopen[6]=0x3C; // Backpack 2
-							break;
+		case 0x09AB: bpopen[6]=0x4A; // Metal/Silver Chest
+					break;
 
-				case 0xAA: bpopen[6]=0x43; // Wooden Box
-							break;
+		case 0x09A9: bpopen[6]=0x44; // Small Wooden Crate
+					break;
+			
+		case 0x2006: bpopen[6]=0x09; // Coffin
+					break;
 
-				case 0xA8: bpopen[6]=0x40; // Metal Box
-							break;
+		case 0x0A97:					// Bookcase
+		case 0x0A98:					// Bookcase
+		case 0x0A99:					// Bookcase
+		case 0x0A9a:					// Bookcase
+		case 0x0A9b:					// Bookcase
+		case 0x0A9c:					// Bookcase
+		case 0x0A9d:					// Bookcase
+		case 0x0A9e: bpopen[6]=0x4d; // Bookcase
+					break;
 
-				case 0xAB: bpopen[6]=0x4A; // Metal/Silver Chest
-							break;
+		case 0x0A4d:					// Fancy Armoire
+		case 0x0A51:					// Fancy Armoire
+		case 0x0A4c:					// Fancy Armoire
+		case 0x0A50: bpopen[6]=0x4e; // Fancy Armoire
+					break;
 
-				case 0xA9: bpopen[6]=0x44; // Small Wooden Crate
-							break;
-			}
-			break;
+		case 0x0A4f:					// Wooden Armoire
+		case 0x0A53:					// Wooden Armoire
+		case 0x0A4e:					// Wooden Armoire
+		case 0x0A52: bpopen[6]=0x4f; // Wooden Armoire
+					break;
 
-		case 0x20:
-			if (pCont->id2=='\x06') bpopen[6]=0x09; // Coffin
-			break;
+		case 0x0A30:					// chest of drawers (fancy)
+		case 0x0A38: bpopen[6]=0x48; // chest of drawers (fancy)
+					break;
 
-		case 0x0A:
-			switch (pCont->id2)
-			{
-				case 0x97:					// Bookcase
-				case 0x98:					// Bookcase
-				case 0x99:					// Bookcase
-				case 0x9a:					// Bookcase
-				case 0x9b:					// Bookcase
-				case 0x9c:					// Bookcase
-				case 0x9d:					// Bookcase
-				case 0x9e:	bpopen[6]=0x4d; // Bookcase
-							break;
-
-				case 0x4d:					// Fancy Armoire
-				case 0x51:					// Fancy Armoire
-				case 0x4c:					// Fancy Armoire
-				case 0x50:	bpopen[6]=0x4e; // Fancy Armoire
-							break;
-
-				case 0x4f:					// Wooden Armoire
-				case 0x53:					// Wooden Armoire
-				case 0x4e:					// Wooden Armoire
-				case 0x52:	bpopen[6]=0x4f; // Wooden Armoire
-							break;
-
-				case 0x30:					// chest of drawers (fancy)
-				case 0x38:	bpopen[6]=0x48; // chest of drawers (fancy)
-							break;
-
-				case 0x2c:					// chest of drawers (wood)
-				case 0x34:					// chest of drawers (wood)
-				case 0x3c:					// Dresser
-				case 0x3d:					// Dresser
-				case 0x44:					// Dresser
-				case 0x35:	bpopen[6]=0x51; // Dresser
-							break;
-				case 0xb2:	if (pCont->morex==1) bpopen[6]=0x4a;
-							break;
-
-			}
-			break;
-
-		case 0x3e:
-			 bpopen[6]=0x4C;
-			 break;
+		case 0x0A2c:					// chest of drawers (wood)
+		case 0x0A34:					// chest of drawers (wood)
+		case 0x0A3c:					// Dresser
+		case 0x0A3d:					// Dresser
+		case 0x0A44:					// Dresser
+		case 0x0A35: bpopen[6]=0x51; // Dresser
+					break;
+		case 0x0Ab2: if (pCont->morex==1) bpopen[6]=0x4a;
+					break;
 
 		default:
+			if( ((pCont->id()&0xFF00) >> 8) == 0x3E )
+				bpopen[6]=0x4C;
+
 			break;
 
 	}
@@ -854,7 +833,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 		}
 		if (pack)
 		{
-			if (pi->id1<0x40) // LB client crashfix, dont show multis in BP
+			if( !pi->isMulti() ) // LB client crashfix, dont show multis in BP
 								// we should better move it out of pack, but thats
 								// only a first bannaid
 			{

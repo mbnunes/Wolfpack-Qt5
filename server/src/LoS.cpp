@@ -389,7 +389,7 @@ the line of sight.
 			for (i = 0; i < loscache.size(); i++)
 			{
 				P_ITEM pi = loscache[i];
-				if (pi->id1<0x40)
+				if( !pi->isMulti() )
 				{ // Dynamic items
 					if ( (pi->pos.x==xcheck) && (pi->pos.y==ycheck) && (zcheck >= pi->pos.z) && (pi->visible==0)) // Seek file only when necessary
 					{
