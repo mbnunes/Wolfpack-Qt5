@@ -10,11 +10,10 @@
 
 	<!-- Ophidian Warrior -->
 	<npc id="ophidian_warrior" inherit="monster_base">
-		<name>an ophidian warrior</name>
-		<id>0x56</id>
+		<name>ophidian warrior</name>
+		<id>86</id>
 		<karma>-4500</karma>
 		<fame>4500</fame>
-		<gold><random min="100" max="140"/></gold>
 		<!-- Stats -->
 		<str><random min="150" max="320"/></str>
 		<dex><random min="94" max="190"/></dex>
@@ -24,8 +23,8 @@
 		<swordsmanship><random min="601" max="850"/></swordsmanship>
 		<tactics><random min="751" max="900"/></tactics>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="11" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>11</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />
@@ -33,7 +32,7 @@
 		<tag name="res_physical" value="35,40" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
-		<desc>It is believed that the Ophidians are a magically created race. Theyare thought to be part snake and part human. This merging has createda race filled with loathing and inner turmoil. It is believed thatthey were aware of how they were created and by whom. This secret isguarded very closely by the Ophidians and is the cause of their warwith the Terrathans. The Terrathans believe the secret of Ophidianorigin will help them determine their own. The Ophidians hold thatthere is no relation.</desc>
+		<desc>It is believed that the Ophidians are a magically created race. Theyare thought to be part snake and part human. This merging has created a race filled with loathing and inner turmoil. It is believed that they were aware of how they were created and by whom. This secret is guarded very closely by the Ophidians and is the cause of their war with the Terrathans. The Terrathans believe the secret of Ophidian origin will help them determine their own. The Ophidians hold thatthere is no relation.</desc>
 		<carve>carve_ophidian_warrior_medium</carve>
 		<category>Monsters\Ophidians\Ophidian Warrior</category>
 	</npc>

@@ -10,11 +10,10 @@
 
 	<!-- an orc captain -->
 	<npc id="orc_captain" inherit="monster_base">
-		<name>an orc captain</name>
-		<id>0x7</id>
+		<name>orc captain</name>
+		<id>7</id>
 		<karma>-2500</karma>
 		<fame>2500</fame>
-		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
 		<str><random min="111" max="145"/></str>
 		<dex><random min="101" max="135"/></dex>
@@ -24,8 +23,8 @@
 		<swordsmanship><random min="701" max="950"/></swordsmanship>
 		<tactics><random min="851" max="1000"/></tactics>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="15" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>15</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />

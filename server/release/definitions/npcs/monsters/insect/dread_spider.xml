@@ -10,8 +10,8 @@
 
 	<!-- dread spider -->
 	<npc id="dread_spider" inherit="monster_base">
-		<name>a dread spider</name>
-		<id>0xb</id>
+		<name>dread spider</name>
+		<id>11</id>
 		<karma>-5000</karma>
 		<fame>5000</fame>
 		<!-- Stats -->
@@ -25,8 +25,8 @@
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="17" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>17</maxdamage>
 		<tag name="dmg_poison" value="80" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="20,30" type="int" />

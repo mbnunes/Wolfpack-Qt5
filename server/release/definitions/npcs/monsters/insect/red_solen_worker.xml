@@ -10,8 +10,8 @@
 
 	<!-- red solen worker -->
 	<npc id="red_solen_worker" inherit="monster_base">
-		<name>a red solen worker</name>
-		<id>0x30d</id>
+		<name>red solen worker</name>
+		<id>781</id>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics>650</tactics>
 		<magicresistance>600</magicresistance>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="7" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>7</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />

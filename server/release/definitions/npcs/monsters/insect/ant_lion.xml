@@ -10,8 +10,8 @@
 
 	<!-- an ant lion -->
 	<npc id="ant_lion" inherit="monster_base">
-		<name>an ant lion</name>
-		<id>0x313</id>
+		<name>ant lion</name>
+		<id>787</id>
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics>900</tactics>
 		<wrestling>900</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="21"  type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>21</maxdamage>
 		<tag name="dmg_poison" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="30,40" type="int" />

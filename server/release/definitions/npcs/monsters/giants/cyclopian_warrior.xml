@@ -10,11 +10,10 @@
 
 	<!-- a cyclops -->
 	<npc id="cyclops" inherit="monster_base">
-		<name>a cyclopian warrior</name>
-		<id>0x4b</id>
+		<name>cyclopian warrior</name>
+		<id>75</id>
 		<karma>-4500</karma>
 		<fame>4500</fame>
-		<gold><random min="250" max="350"/></gold>
 		<!-- Stats -->
 		<str><random min="336" max="385"/></str>
 		<dex><random min="96" max="115"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="801" max="1000"/></tactics>
 		<wrestling><random min="801" max="900"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="23" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>23</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />

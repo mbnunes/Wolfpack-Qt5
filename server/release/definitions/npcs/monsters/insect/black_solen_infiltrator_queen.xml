@@ -10,8 +10,8 @@
 
 	<!-- black solen infiltrator queen -->
 	<npc id="black_solen_infiltrator_queen" inherit="monster_base">
-		<name>a black solen infiltrator</name>
-		<id>0x327</id>
+		<name>black solen infiltrator</name>
+		<id>807</id>
 		<karma>-6500</karma>
 		<fame>6500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics>900</tactics>
 		<wrestling>900</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" type="int" />
-		<tag name="maxdamage" value="15" type="int" />
+		<mindamage>10</mindamage>
+		<maxdamage>15</maxdamage>
 		<tag name="dmg_poison" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

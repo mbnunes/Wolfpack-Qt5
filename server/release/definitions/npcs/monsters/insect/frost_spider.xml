@@ -10,8 +10,8 @@
 
 	<!-- frost spider -->
 	<npc id="frost_spider" inherit="monster_base">
-		<name>a frost spider</name>
-		<id>0x14</id>
+		<name>frost spider</name>
+		<id>20</id>
 		<karma>-775</karma>
 		<fame>775</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="501" max="650"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="6" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
+		<mindamage>6</mindamage>
+		<maxdamage>16</maxdamage>
 		<tag name="dmg_fire" value="80" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />

@@ -10,11 +10,10 @@
 
 	<!-- Ophidian Enforcer -->
 	<npc id="ophidian_enforcer" inherit="monster_base">
-		<name>an ophidian enforcer</name>
-		<id>0x56</id>
+		<name>ophidian enforcer</name>
+		<id>86</id>
 		<karma>-4500</karma>
 		<fame>4500</fame>
-		<gold><random min="100" max="140"/></gold>
 		<!-- Stats -->
 		<str><random min="150" max="320"/></str>
 		<dex><random min="94" max="190"/></dex>
@@ -24,8 +23,8 @@
 		<swordsmanship><random min="601" max="850"/></swordsmanship>
 		<tactics><random min="751" max="900"/></tactics>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="10" type="int" />
+		<mindamage>4</mindamage>
+		<maxdamage>10</maxdamage>
 		<tag name="dmg_poison" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

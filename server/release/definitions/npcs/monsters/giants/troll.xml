@@ -10,11 +10,10 @@
 
 	<!-- a troll -->
 	<npc id="troll" inherit="monster_base">
-		<name>a troll</name>
-		<id>0x35</id>
+		<name>troll</name>
+		<id>53</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
-		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
 		<str><random min="176" max="205"/></str>
 		<dex><random min="46" max="65"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="501" max="700"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="8" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
+		<mindamage>8</mindamage>
+		<maxdamage>14</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="5,15" type="int" />
@@ -38,13 +37,13 @@
 		<category>Monsters\Giants\Troll</category>
 	</npc>
 
-	<npc id="troll2" inherit="troll">
-	  <id>0x36</id>
+	<npc id="troll_2" inherit="troll">
+	  <id>54</id>
 	  <category>Monsters\Giants\Troll (Unarmed)</category>
 	</npc>
 
-	<npc id="troll3" inherit="troll">
-	  <id>0x37</id>
+	<npc id="troll_3" inherit="troll">
+	  <id>55</id>
 	  <category>Monsters\Giants\Troll (With Mace)</category>
 	</npc>
 </definitions>

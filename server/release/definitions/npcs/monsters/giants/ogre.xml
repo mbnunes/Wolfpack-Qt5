@@ -10,11 +10,10 @@
 
 	<!-- an ogre -->
 	<npc id="ogre" inherit="monster_base">
-		<name>an ogre</name>
-		<id>0x1</id>
+		<name>ogre</name>
+		<id>1</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
-		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
 		<str><random min="166" max="195"/></str>
 		<dex><random min="46" max="65"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="601" max="700"/></tactics>
 		<wrestling><random min="701" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" type="int" />
-		<tag name="maxdamage" value="11" type="int" />
+		<mindamage>9</mindamage>
+		<maxdamage>11</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="25" type="int" />

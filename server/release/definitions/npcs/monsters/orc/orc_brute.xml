@@ -10,8 +10,8 @@
 
 	<!-- orc brute -->
 	<npc id="orc_brute" inherit="monster_base">
-		<name>an orc brute</name>
-		<id>0xbd</id>
+		<name>orc brute</name>
+		<id>189</id>
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<!-- Stats -->
@@ -24,8 +24,8 @@
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="20" type="int" />
-		<tag name="maxdamage" value="25" type="int" />
+		<mindamage>20</mindamage>
+		<maxdamage>25</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />
@@ -33,7 +33,7 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
-		<desc>Orc Brutes are much larger and stronger than any of the other orctypes, and have almost as little respect for their smaller kin as theydo for humans. Orc brutes are a fearsome foe, as they deal massiveblows, and have no qualms about lobbing smaller orc relatives at youin battle.</desc>
+		<desc>Orc Brutes are much larger and stronger than any of the other orc types, and have almost as little respect for their smaller kin as they do for humans. Orc brutes are a fearsome foe, as they deal massive blows, and have no qualms about lobbing smaller orc relatives at you in battle.</desc>
 		<category>Monsters\Orcs\Orc Brute</category>
 	</npc>
 

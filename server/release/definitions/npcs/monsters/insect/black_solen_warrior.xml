@@ -10,8 +10,8 @@
 
 	<!-- black solen queen -->
 	<npc id="black_solen_warrior" inherit="monster_base">
-		<name>a black solen warrior</name>
-		<id>0x326</id>
+		<name>black solen warrior</name>
+		<id>806</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics>800</tactics>
 		<wrestling>800</wrestling>
 		<!-- Damage -->
-		<tag name="5" value="5" type="int" />
-		<tag name="15" value="15" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>15</maxdamage>
 		<tag name="dmg_poison" value="20" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,25" type="int" />

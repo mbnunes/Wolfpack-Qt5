@@ -10,8 +10,8 @@
 
 	<!-- orc bomber -->
 	<npc id="orc_bomber" inherit="monster_base">
-		<name>an orc bomber</name>
-		<id>0xb6</id>
+		<name>orc bomber</name>
+		<id>182</id>
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<!-- Stats -->
@@ -24,8 +24,8 @@
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="18" type="int" />
+		<mindamage>1</mindamage>
+		<maxdamage>18</maxdamage>
 		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
@@ -34,7 +34,7 @@
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="15,20" type="int" />
 		<!-- Misc. -->
-		<desc>These industrious orcs have mastered the fine art of tinkering, andhave shown themselves to be both clever and aggressive. Watchcarefully when near an orc bomber, for they give little warning beforehurling powerful explosives into the midst of unwary adventurers.</desc>
+		<desc>These industrious orcs have mastered the fine art of tinkering, and have shown themselves to be both clever and aggressive. Watch carefully when near an orc bomber, for they give little warning before hurling powerful explosives into the midst of unwary adventurers.</desc>
 		<category>Monsters\Orcs\Orc Bomber</category>
 	</npc>
 

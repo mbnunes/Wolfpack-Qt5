@@ -10,8 +10,8 @@
 
 	<!-- black solen infiltrator warrior -->
 	<npc id="black_solen_infiltrator_warrior" inherit="monster_base">
-		<name>a black solen infiltrator</name>
-		<id>0x326</id>
+		<name>black solen infiltrator</name>
+		<id>806</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics>800</tactics>
 		<wrestling>800</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="11" type="int" />
-		<tag name="maxdamage" value="33" type="int" />
+		<mindamage>11</mindamage>
+		<maxdamage>33</maxdamage>
 		<tag name="dmg_poison" value="20" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,25" type="int" />

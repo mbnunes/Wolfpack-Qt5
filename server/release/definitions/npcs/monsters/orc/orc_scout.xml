@@ -10,8 +10,8 @@
 
 	<!-- orc scount -->
 	<npc id="orc_scout" inherit="monster_base">
-		<name>an orc scout</name>
-		<id>0xb5</id>
+		<name>orc scout</name>
+		<id>181</id>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Stats -->
@@ -25,8 +25,8 @@
 		<fencing><random min="501" max="700"/></fencing>
 		<healing><random min="601" max="900"/></healing>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="7" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>7</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="25,30" type="int" />
@@ -34,7 +34,7 @@
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="15,20" type="int" />
 		<!-- Misc. -->
-		<desc>Orc scouts are clever in battle. They can not only hide from theirfoes, when they feel their life is in danger, but they can detecthidden foes as well. The orc scout uses the common scout weapon of anorc bow, and their arrows cause large damage to those they hunt.</desc>
+		<desc>Orc scouts are clever in battle. They can not only hide from their foes, when they feel their life is in danger, but they can detect hidden foes as well. The orc scout uses the common scout weapon of an orc bow, and their arrows cause large damage to those they hunt.</desc>
 		<category>Monsters\Orcs\Orc Scout</category>
 	</npc>
 

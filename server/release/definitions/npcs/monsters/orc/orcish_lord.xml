@@ -10,8 +10,8 @@
 
 	<!-- orcish lord -->
 	<npc id="orcish_lord" inherit="monster_base">
-		<name>an orcish lord</name>
-		<id>0x8a</id>
+		<name>orcish lord</name>
+		<id>138</id>
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<!-- Stats -->
@@ -24,8 +24,8 @@
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
+		<mindamage>4</mindamage>
+		<maxdamage>14</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
@@ -33,7 +33,7 @@
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
-		<desc>As Marshall to the orc horde, these leaders are vicious killers whocrave only battle. They hurl their armies and their very selves atanything that approaches. Skulls of the orcish lord are prime trophiesfor veteran warriors, probably because they are so hard won.</desc>
+		<desc>As Marshall to the orc horde, these leaders are vicious killers who crave only battle. They hurl their armies and their very selves at anything that approaches. Skulls of the orcish lord are prime trophies for veteran warriors, probably because they are so hard won.</desc>
 		<category>Monsters\Orcs\Orcish Lord</category>
 	</npc>
 

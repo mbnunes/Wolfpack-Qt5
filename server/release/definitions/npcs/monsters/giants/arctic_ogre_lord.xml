@@ -10,11 +10,10 @@
 
 	<!-- an arctic ogre lord -->
 	<npc id="arctic_ogre_lord" inherit="monster_base">
-		<name>an arctic ogre lord</name>
-		<id>0x87</id>
+		<name>arctic ogre lord</name>
+		<id>135</id>
 		<karma>-15000</karma>
 		<fame>15000</fame>
-		<gold><random min="450" max="600"/></gold>
 		<!-- Stats -->
 		<str><random min="767" max="945"/></str>
 		<dex><random min="66" max="75"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="20" type="int" />
-		<tag name="maxdamage" value="25" type="int" />
+		<mindamage>20</mindamage>
+		<maxdamage>25</maxdamage>
 		<tag name="dmg_cold" value="70" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="60,70" type="int" />

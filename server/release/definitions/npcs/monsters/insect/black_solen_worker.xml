@@ -10,8 +10,8 @@
 
 	<!-- black solen worker -->
 	<npc id="black_solen_worker" inherit="monster_base">
-		<name>a black solen worker</name>
-		<id>0x325</id>
+		<name>black solen worker</name>
+		<id>805</id>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics>650</tactics>
 		<wrestling>600</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="7" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>7</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />

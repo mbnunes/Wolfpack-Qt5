@@ -10,8 +10,8 @@
 
 	<!-- orc chopper -->
 	<npc id="orc_chopper" inherit="monster_base">
-		<name>an orc chopper</name>
-		<id>0x8b</id>
+		<name>orc chopper</name>
+		<id>139</id>
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<!-- Stats -->
@@ -24,8 +24,8 @@
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="13" type="int" />
+		<mindamage>4</mindamage>
+		<maxdamage>13</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="25,30" type="int" />

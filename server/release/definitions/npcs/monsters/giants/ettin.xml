@@ -11,10 +11,9 @@
 	<!-- an ettin -->
 	<npc id="ettin" inherit="monster_base">
 		<name>an ettin</name>
-		<id>0x2</id>
+		<id>2</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
-		<gold><random min="100" max="150"/></gold>
 		<!-- Stats -->
 		<str><random min="136" max="165"/></str>
 		<dex><random min="56" max="75"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="501" max="600"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="17" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>17</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_energy" value="15,25" type="int" />
@@ -38,7 +37,7 @@
 		<category>Monsters\Giants\Ettin</category>
 	</npc>
 
-  <npc id="ettin2" inherit="ettin">
+  <npc id="ettin_2" inherit="ettin">
     <id>18</id>
     <category>Monsters\Giants\Ettin (With Axe)</category>
   </npc>

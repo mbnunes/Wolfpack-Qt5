@@ -10,11 +10,10 @@
 
 	<!-- a titan-->
 	<npc id="titan" inherit="monster_base">
-		<name>a titan</name>
-		<id>0x4c</id>
+		<name>titan</name>
+		<id>76</id>
 		<karma>-11500</karma>
 		<fame>11500</fame>
-		<gold><random min="300" max="450"/></gold>
 		<!-- Stats -->
 		<str><random min="556" max="585"/></str>
 		<dex><random min="126" max="145"/></dex>
@@ -26,8 +25,8 @@
 		<tactics><random min="601" max="800"/></tactics>
 		<wrestling><random min="401" max="500"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="13" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
+		<mindamage>13</mindamage>
+		<maxdamage>16</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
