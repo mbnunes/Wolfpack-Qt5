@@ -638,6 +638,8 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	drawchar.setHighlight(pChar->notoriety(pChar));
 	send(&drawchar);
 
+	pChar->sendTooltip(this);
+
 	// Send us our player and send the rest to us as well.
 	pChar->moveTo(pChar->pos());
 	pChar->resend(false);
