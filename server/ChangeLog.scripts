@@ -49,8 +49,14 @@ Wolfpack 12.9.8 Beta (CVS)
 			This overrides the core region change messages.
 		- Updates to the food script.
 		- Checks on export to not export spawnregion items.
+		- New script: system.hunger
+			This allows players to suffer from hunger once again.
+		- Potion Kegs now work.
 	* Misc. Changes:
-		- New Feature: Farm animals will eat spawned crops!
+		- New Features:
+			Farm animals will eat spawned crops!
+			Potion Kegs now work.
+			Player Hunger now works again.
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
 		- Spawn regions are incomplete.
@@ -60,6 +66,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Reloading python too many times can crash the server.
 		- There are still some memory leaks.
 		- Healers do not resurrect.
+		- Large gumps can potentially crash remote clients.
 
 Wolfpack 12.9.7 Beta
 	* Core Changes:
