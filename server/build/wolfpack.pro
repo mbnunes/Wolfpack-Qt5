@@ -24,7 +24,7 @@ win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
 
 unix:INCLUDEPATH += lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
 unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
-unix:TMAKE_CXXFLAGS = -funsigned-char
+unix:TMAKE_CXXFLAGS = -funsigned-char -w
 
 HEADERS         = \
 		  SndPkg.h \
@@ -62,7 +62,6 @@ HEADERS         = \
 		  makemenus.h \
 		  multis.h \
 		  msgboard.h \
-		  netsys.h \
 		  network.h \
                   pfactory.h \
 		  platform.h \
@@ -151,7 +150,6 @@ SOURCES         = \
 		  multiscache.cpp \
 		  msgboard.cpp \
 		  necro.cpp \
-		  netsys.cpp \
 		  network.cpp \
 		  npcs.cpp \
 		  p_ai.cpp \
