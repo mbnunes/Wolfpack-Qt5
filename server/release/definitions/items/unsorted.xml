@@ -11,177 +11,223 @@
 <definitions>
 
 	<!-- Third Dawn Weapons -->
+
+	<!-- daemon sword -->
 	<item id="2554">
 		<id>0x2554</id>
 	</item>
 
+	<!-- ettin hammer -->
 	<item id="2555">
 		<id>0x2555</id>
 	</item>
 
+	<!-- liche's staff -->
 	<item id="2556">
 		<id>0x2556</id>
 	</item>
 
+	<!-- lizardman's mace -->
 	<item id="2557">
 		<id>0x2557</id>
 	</item>
 
+	<!-- lizardman's spea -->
 	<item id="2558">
 		<id>0x2558</id>
 	</item>
 
+	<!-- ogre's club -->
 	<item id="2559">
 		<id>0x2559</id>
 	</item>
 
+	<!-- ophidian staff -->
 	<item id="255a">
 		<id>0x255a</id>
 	</item>
 
+	<!-- ophidian bardich -->
 	<item id="255b">
 		<id>0x255b</id>
 	</item>
 
+	<!-- orc club -->
 	<item id="255c">
 		<id>0x255c</id>
 	</item>
 
+	<!-- ratman axe -->
 	<item id="255d">
 		<id>0x255d</id>
 	</item>
 
+	<!-- ratman sword -->
 	<item id="255e">
 		<id>0x255e</id>
 	</item>
 
+	<!-- skeleton axe -->
 	<item id="255f">
 		<id>0x255f</id>
 	</item>
 
+	<!-- skeleton scimita -->
 	<item id="2560">
 		<id>0x2560</id>
 	</item>
 
+	<!-- terathan staff -->
 	<item id="2561">
 		<id>0x2561</id>
 	</item>
 
+	<!-- terathan spear -->
 	<item id="2562">
 		<id>0x2562</id>
 	</item>
 
+	<!-- terathan mace -->
 	<item id="2563">
 		<id>0x2563</id>
 	</item>
 
+	<!-- troll axe -->
 	<item id="2564">
 		<id>0x2564</id>
 	</item>
 
+	<!-- troll maul -->
 	<item id="2565">
 		<id>0x2565</id>
 	</item>
 
+	<!-- frost troll club -->
 	<item id="2566">
 		<id>0x2566</id>
 	</item>
 
+	<!-- orc lord battleaxe -->
 	<item id="2567">
 		<id>0x2567</id>
 	</item>
 
+	<!-- orc mage staff -->
 	<item id="2568">
 		<id>0x2568</id>
 	</item>
 
+	<!-- bone mage staff -->
 	<item id="2569">
 		<id>0x2569</id>
 	</item>
 
+	<!-- magic staff -->
 	<item id="256b">
 		<id>0x256b</id>
 	</item>
 
+	<!-- magic staff -->
 	<item id="256c">
 		<id>0x256c</id>
 	</item>
 
+	<!-- magic staff -->
 	<item id="256d">
 		<id>0x256d</id>
 	</item>
 
+	<!-- magic staff -->
 	<item id="256e">
 		<id>0x256e</id>
 	</item>
 
+        <!-- smyth hammer -->
 	<item id="256f">
 		<id>0x256f</id>
 	</item>
 
+	<!-- hatchet -->
 	<item id="2570">
 		<id>0x2570</id>
 	</item>
 
+	<!-- horseman's bow -->
 	<item id="2571">
 		<id>0x2571</id>
 	</item>
 
+	<!-- javelin -->
 	<item id="2572">
 		<id>0x2572</id>
 	</item>
 
+	<!-- magic sword -->
 	<item id="2573">
 		<id>0x2573</id>
 	</item>
 
+	<!-- magic sword -->
 	<item id="2574">
 		<id>0x2574</id>
 	</item>
 
+	<!-- magic sword -->
 	<item id="2575">
 		<id>0x2575</id>
 	</item>
 
+	<!-- magic sword -->
 	<item id="2576">
 		<id>0x2576</id>
 	</item>
 
+	<!-- naginata -->
 	<item id="2577">
 		<id>0x2577</id>
 	</item>
 
+	<!-- no-dachi -->
 	<item id="2578">
 		<id>0x2578</id>
 	</item>
 
+	<!-- pick -->
 	<item id="2579">
 		<id>0x2579</id>
 	</item>
 
+	<!-- spear -->
 	<item id="257a">
 		<id>0x257a</id>
 	</item>
 
+	<!-- spear -->
 	<item id="257b">
 		<id>0x257b</id>
 	</item>
 
+	<!-- sword -->
 	<item id="257c">
 		<id>0x257c</id>
 	</item>
 
+	<!-- longsword -->
 	<item id="257d">
 		<id>0x257d</id>
 	</item>
 
+	<!-- shortsword -->
 	<item id="257e">
 		<id>0x257e</id>
 	</item>
 
+	<!-- war mace -->
 	<item id="257f">
 		<id>0x257f</id>
 	</item>
+
+
 
 	<!-- Third Dawn Clothes & Armor -->
 	<item id="25e4">
