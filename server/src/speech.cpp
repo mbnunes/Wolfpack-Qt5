@@ -422,7 +422,7 @@ bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pBanker, const QSt
 /*	if( pBanker->npcaitype() != 8 )
 		return false;*/
 
-	if ( pBanker->ai()->name() != "Banker")
+	if ( !pBanker->ai() || pBanker->ai()->name() != "Banker")
 		return false;
 
 	if( pPlayer->dist(pBanker) > 6 )
