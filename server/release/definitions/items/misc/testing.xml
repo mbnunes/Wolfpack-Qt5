@@ -1,0 +1,77 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: DarkStorm
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
+	Items used for testing the servers behaviour.
+	These can be used for convenience too.
+-->
+<definitions>
+	<!-- Reagent Bag -->
+	<item id="reagentbag" inherit="e76">
+	  <name>Reagent Bag</name>
+	  <color>0x8AB</color>
+	  <newbie />
+	  <content>
+	    <item id="f7a"><amount>5000</amount></item>
+	    <item id="f7b"><amount>5000</amount></item>
+	    <item id="f84"><amount>5000</amount></item>
+	    <item id="f85"><amount>5000</amount></item>
+	    <item id="f86"><amount>5000</amount></item>
+	    <item id="f88"><amount>5000</amount></item>
+	    <item id="f8c"><amount>5000</amount></item>
+	    <item id="f8d"><amount>5000</amount></item>
+	  </content>
+	  <category>GM Items\Reagent Bag (5000)</category>
+	</item>
+	
+	<!-- Alchemy Kit -->
+	<item id="alchemykit" inherit="e76">
+	  <name>Alchemy Bag</name>
+	  <color>0x21</color>
+	  <newbie />
+	  <content>
+	  	<!-- Mortar a. Pestle w. 1000 remaining uses. -->
+	  	<item id="e9b">
+	  		<tag name="remaining_uses" type="int" value="1000" />
+	  	</item>
+	  	<item id="f0e"><amount>1000</amount></item> <!-- 1000 Empty Bottles -->
+			<item id="reagentbag" />
+	  </content>
+	  <category>GM Items\Alchemy Kit</category>
+	</item>
+	
+	<!-- Potion Bag -->
+	<item id="potionbag" inherit="e76">
+		<name>Potion Bag</name>
+		<category>GM Items\Potion Bag (500)</category>
+		<color>0x594</color>
+		<newbie />
+		<content>
+			<item id="potion_nightsight"><amount>500</amount></item>
+			<item id="potion_lesserheal"><amount>500</amount></item>
+			<item id="potion_heal"><amount>500</amount></item>
+			<item id="potion_greaterheal"><amount>500</amount></item>
+			<item id="potion_lessercure"><amount>500</amount></item>
+			<item id="potion_cure"><amount>500</amount></item>
+			<item id="potion_greatercure"><amount>500</amount></item>
+			<item id="potion_agility"><amount>500</amount></item>
+			<item id="potion_greateragility"><amount>500</amount></item>
+			<item id="potion_strength"><amount>500</amount></item>
+			<item id="potion_greaterstrength"><amount>500</amount></item>
+			<item id="potion_lesserexplosion"><amount>500</amount></item>
+			<item id="potion_explosion"><amount>500</amount></item>
+			<item id="potion_greaterexplosion"><amount>500</amount></item>
+			<item id="potion_lesserpoison"><amount>500</amount></item>
+			<item id="potion_poison"><amount>500</amount></item>
+			<item id="potion_greaterpoison"><amount>500</amount></item>
+			<item id="potion_deadlypoison"><amount>500</amount></item>
+			<item id="potion_refresh"><amount>500</amount></item>
+			<item id="potion_totalrefresh"><amount>500</amount></item>
+		</content>
+	</item>
+</definitions>

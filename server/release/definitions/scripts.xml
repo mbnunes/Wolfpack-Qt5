@@ -70,6 +70,7 @@
 
 	<!-- Commands -->
 	<script>commands</script>
+	<script>commands.eval</script>
 	<script>commands.edit</script>
 	<script>commands.disconnect</script>
 	<script>commands.skillinfo</script>
@@ -186,5 +187,7 @@
 	<script>skills.spiritspeak</script>
 	<script>skills.itemid</script>
 	<script>skills.tasteid</script>
-
+	
+	<!-- Testing Scripts -->
+	<script>testing.multibag</script>
 </definitions>
