@@ -886,6 +886,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				socket->sysMessage(tr("To cash this, you need to drop it on a banker."));
 				return;
 			}
+
 		// 1001: Sword Weapons (Swordsmanship)
 		case 1001:
 
@@ -909,10 +910,47 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 		// 1008: Shields
 		case 1008:
+			break;
+
+		/* Skill related types */
+		// 1100: Blacksmithing Tools
+		case 1100:
+			Skills->Blacksmithing( socket );
+			return;
+
+		// 1101: Anvil
+		case 1101:
+			if( !pc_currchar->inRange( pi, 3 ) )
+				socket->sysMessage( tr( "Must be closer to use this!" ) );
+			else
+				socket->sysMessage( "Select item to be repaired." );
+				// TODO: Reimplement repairing items.
+			return;
+
+		// 1102: Forge
+		case 1102:
+			socket->sysMessage( "Where do you want to smelt the ore?" );
+			socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
+			return;
+
+		// 1103: Carpentry Tools
+		case 1103:
+			Skills->Carpentry( socket );
+			return;
+
+		// 1104: Mining Tools
+		case 1104:
+			if( !pi->wearOut() )
+			{
+				socket->sysMessage( tr("Where do you want to dig?") );
+				socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );
+			}
+			return;
 
 		default:						
-			break; // case (itype!) 
-		}// switch (itype)
+			break;
+		}
+
 		// END Check items by type
 		
 		// Begin checking objects by ID
@@ -920,29 +958,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		{
 			switch (pi->id())
 			{	
-				case 0x0FAF:
-				case 0x0FB0: // Anvils
-					if( !pc_currchar->inRange( pi, 3 ) )
-					{
-						socket->sysMessage(tr("Must be closer to use this!"));
-						return;
-					}
-//					target(s, 0, 1, 0, 236, "Select item to be repaired.");
-					return;
-				case 0x0FB1: // small forge
-				case 0x1982: // partial lg forge
-				case 0x197A: // partial lg forge
-				case 0x197E: // partial lg forge
-				case 0x1986: // partial lg forge
-				case 0x198A: // partial lg forge
-				case 0x198E: // partial lg forge
-					if( !pc_currchar->inRange( pi, 3 ) )
-					{
-						socket->sysMessage(tr("Must be closer to use this!"));
-						return;
-					}
-//					target(s, 0, 1, 0, 237, "What item would you like to Smelt?");
-					return; // Ripper..Smelting items.
 				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
 					{  
@@ -991,45 +1006,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					else 
 						pc_currchar->soundEffect( 0x004D );
 					return;
-					
-				case 0x102A:// Hammer
-				case 0x102B:
-				case 0x0FBB:// tongs
-				case 0x0FBC:
-				case 0x13E3:// smith's hammers
-				case 0x13E4:
-				case 0x0FB4:// sledge hammers
-				case 0x0FB5:
-					Skills->Blacksmithing( socket );
-					return; // Smithy
-					
-				case 0x1026:// Chisels
-				case 0x1027:
-				case 0x1028:// Dove Tail Saw
-				case 0x1029:
-				case 0x102C:// Moulding Planes
-				case 0x102D:
-				case 0x102E:// Nails
-				case 0x102F:
-				case 0x1030:// Jointing plane
-				case 0x1031:
-				case 0x1032:// Smoothing plane
-				case 0x1033:
-				case 0x1034:// Saw
-				case 0x1035:
-					Skills->Carpentry( socket );
-					return; // carpentry
-					
-				case 0x0E85:// pickaxes
-				case 0x0E86:
-				case 0x0F39:// shovels
-				case 0x0F3A:
-					if( !pi->wearOut() )
-					{
-						socket->sysMessage( tr("Where do you want to dig?") );
-						socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );
-					}
-					return; // mining
+
 				case 0x0E24: // empty vial
 					{
 					P_ITEM pBackpack = pc_currchar->getBackpack();
@@ -1090,13 +1067,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x0F9D: // sewing kit for tailoring
 //					target(s, 0, 1, 0, 167, "Select material to use.");
-					return;
-				case 0x19B7:
-				case 0x19B9:
-				case 0x19BA:
-				case 0x19B8: // smelt ore
-					socket->sysMessage( "Where do you want to smelt the ore?" );
-					socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
 					return;
 				case 0x0EC4:// skinning knife 1 - antichrist
 				case 0x0EC5:// skinning knife 2

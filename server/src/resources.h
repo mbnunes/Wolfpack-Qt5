@@ -147,11 +147,13 @@ typedef SingletonHolder<cAllResources> Resources;
 class cFindResource : public cTargetRequest
 {
 public:
-	cFindResource( QString resname ) : resourcename_( resname ) {}
+	cFindResource( QString resname ) : resourcename_( resname ), tool_( INVALID_SERIAL ) {}
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 
+	void setTool( SERIAL data ) { tool_ = data; }
 private:
 	QString resourcename_;
+	SERIAL tool_;
 };
 
 class cConvertResource : public cTargetRequest

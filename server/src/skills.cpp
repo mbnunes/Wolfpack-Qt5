@@ -1912,7 +1912,9 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		return;
 	}
 
-	pChar->unhide(); // Unhide if we're stealthing or hiding too!
+	if( id != STEALTH )
+		pChar->unhide(); // Don't unhide if we're trying to stealth
+
 	pChar->disturbMed(); // Disturb meditation if we're using a skill
 
 	if( pChar->casting() )
