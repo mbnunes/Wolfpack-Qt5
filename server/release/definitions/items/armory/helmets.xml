@@ -8,51 +8,51 @@
 -->
 <definitions>
 	<!-- bascinet helmet -->
-	<item id="140d">
+	<item id="140c">
 		<name>bascinet</name>
 		<decay />
 		<nodye />
 		<defense>2.4</defense>
 		<durability>108</durability>
-		<id>0x140D</id>
+		<id>0x140c</id>
 		<requires type='str'>10</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5</weight>
 		<value>127</value>
-		<category>Armor\Non Magical\Helmets\Bascinet</category>
+		<category>Armor\Helmets\Bascinet</category>
 	</item>
 
 	<!-- nose helmet -->
-	<item id="140f">
+	<item id="140e">
 		<name>nose helmet</name>
 		<decay />
 		<nodye />
 		<defense>4.1</defense>
 		<durability>52</durability>
-		<id>0x140F</id>
+		<id>0x140e</id>
 		<requires type='str'>40</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5</weight>
 		<value>145</value>
-		<category>Armor\Non Magical\Helmets\Nose Helm</category>
+		<category>Armor\Helmets\Nose Helm</category>
 	</item>
 
 	<!-- normal helmet -->
-	<item id="140b">
+	<item id="140a">
 		<name>helmet</name>
 		<decay />
 		<nodye />
 		<defense>4.1</defense>
 		<durability>52</durability>
-		<id>0x140B</id>
+		<id>0x140A</id>
 		<requires type='str'>40</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5</weight>
 		<value>116</value>
-		<category>Armor\Non Magical\Helmets\Normal Helm</category>
+		<category>Armor\Helmets\Normal Helm</category>
 	</item>
 
 	<!-- close helmet -->
@@ -68,7 +68,7 @@
 		<smelt>12</smelt>
 		<weight>5</weight>
 		<value>145</value>
-		<category>Armor\Non Magical\Helmets\Close Helm</category>
+		<category>Armor\Helmets\Close Helm</category>
 	</item>
 </definitions>
 
