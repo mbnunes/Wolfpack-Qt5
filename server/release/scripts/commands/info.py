@@ -635,7 +635,7 @@ def charinfo_response( player, args, choice ):
 				if ( textentries[ key ] ) == 'Null' or ( textentries[ key ] ) == 'None':
 					char.owner = 'None'
 				else:
-					char.owner = int( hex2dec( textentries[ key ] ) )
+					char.owner = int( textentries[ key ] )
 		elif key == 39:
 			if not char.npc:
 				char.visrange = int( textentries[ key ] )
