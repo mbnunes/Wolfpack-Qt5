@@ -1691,7 +1691,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			return;
 		}
 		
-		if(pp->id1==0x01 && (pp->id2==0x90 || pp->id2==0x91)) //Used on human
+		if(pp->isHuman()) //Used on human
 		{
 			if (!CheckSkill(DEREF_P_CHAR(ph),HEALING,0,1000))
 			{
@@ -2321,7 +2321,7 @@ void cSkills::AnimalLoreTarget(int s)
 		sysmessage(s, "Little is known of these robed gods.");
 		return;
 	}
-	if ((pc->id1 == 0x01) &&((pc->id2 == 0x90) ||(pc->id2 == 0x91))) // Used on human
+	if (pc->isHuman()) // Used on human
 	{
 		sysmessage(s, "The human race should use dvorak!");
 		return;
