@@ -101,6 +101,19 @@ skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'macefighting', 'fencing', 'wrestling', 'lumberjacking', 'mining', 'meditation',
 	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
 
+skillnamesids = { 'alchemy' : ALCHEMY, 'anatomy' : ANATOMY, 'animallore' : ANIMALLORE, 'itemid' : ITEMID, 'armslore' : ARMSLORE, 'parrying' : PARRYING,
+	'begging' : BEGGING, 'blacksmithing' : BLACKSMITHING, 'bowcraft' : BOWCRAFT, 'peacemaking' : PEACEMAKING, 'camping' : CAMPING, 'carpentry' : CARPENTRY,
+	'cartography' : CARTOGRAPHY, 'cooking' : COOKING, 'detectinghidden' : DETECTINGHIDDEN, 'enticement' : ENTICEMENT, 'evaluatingintel' : EVALUATINGINTEL,
+	'healing' : HEALING, 'fishing' : FISHING, 'forensics' : FORENSICS, 'herding' : HERDING, 'hiding' : HIDING, 'provocation' : PROVOCATION,
+	'inscription' : INSCRIPTION, 'lockpicking' : LOCKPICKING, 'magery' : MAGERY, 'magicresistance' : MAGICRESISTANCE, 'tactics' : TACTICS, 'snooping' : SNOOPING,
+	'musicianship' : MUSICIANSHIP, 'poisoning' : POISONING, 'archery' : ARCHERY, 'spiritspeak' : SPIRITSPEAK, 'stealing' : STEALING, 'tailoring' : TAILORING,
+	'taming' : TAMING, 'tasteid' : TASTEID, 'tinkering' : TINKERING, 'tracking' : TRACKING, 'veterinary' : VETERINARY, 'swordsmanship' : SWORDSMANSHIP,
+	'macefighting' : MACEFIGHTING, 'fencing' : FENCING, 'wrestling' : WRESTLING, 'lumberjacking' : LUMBERJACKING, 'mining' : MINING, 'meditation' : MEDITATION,
+	'stealth' : STEALTH, 'removetraps' : REMOVETRAPS, 'necromancy' : NECROMANCY, 'focus' : FOCUS, 'chivalry' : CHIVALRY }
+
+
+statnames = [ 'str', 'int', 'dex' ]
+
 #Stats
 MANA = 0
 STAMINA = 1
