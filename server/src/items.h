@@ -60,11 +60,20 @@ protected:
 	QCString bindmenu_;
 	unsigned char lightsource_;
 	unsigned int decaydelay_;
-
+	unsigned int flags_;
+	
 	// Misc Properties
 	bool loaded;
 	void load();
 	void reset();
+
+	inline void setWaterSource(bool data) {
+		if (data) {
+			flags_ |= 0x01;
+		} else {
+			flags_ &= ~ 0x01;
+		}
+	}
 public:
 	cItemBaseDef( const QCString& id );
 	~cItemBaseDef();
@@ -116,6 +125,11 @@ public:
 	{
 		load();
 		return lightsource_;
+	}
+
+	inline bool isWaterSource() {
+		load();
+		return (flags_ & 0x01) != 0;
 	}
 };
 
@@ -284,6 +298,10 @@ public:
 	}
 
 	// Basedef Properties
+	inline bool isWaterSource() {
+		return basedef_ ? basedef_->isWaterSource() : false;
+	}
+	
 	inline float weight()
 	{
 		return basedef_ ? basedef_->weight() : 0.0f;

@@ -84,6 +84,7 @@ void cItemBaseDef::reset()
 	buyprice_ = 0;
 	type_ = 0;
 	lightsource_ = 0;
+	flags_ = 0;
 }
 
 void cItemBaseDef::processNode( const cElement* node )
@@ -115,6 +116,10 @@ void cItemBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "decaydelay" )
 	{
 		decaydelay_ = node->value().toUInt();
+	}
+	else if ( node->name() == "watersource" )
+	{
+		setWaterSource( node->value().toUInt() != 0 );
 	}
 }
 
@@ -2054,6 +2059,14 @@ PyObject* cItem::getProperty(const QString& name) {
 	PY_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
 	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
 	PY_PROPERTY( "movable", magic_ )
+	/*
+		\rproperty item.watersource This property indicates that this type of item is a source of
+		water. If there is a "quantity" tag for the item, it should be used, otherwise the source
+		is indepletable.
+
+		This property is inherited from the base id of this item.
+	*/
+	PY_PROPERTY( "watersource", isWaterSource() )
 	
 	return cUObject::getProperty( name );
 }
