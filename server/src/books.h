@@ -52,9 +52,9 @@ public:
 		this->predefined_ = false;
 		this->readonly_ = false;
 
-		this->title_ = (char*)0;
-		this->author_ = (char*)0;
-		this->content_ = QStringList();
+		this->setTitle( (char*)0 );
+		this->setAuthor( (char*)0 );
+		this->setContent( QStringList() );
 
 		this->section_ = (char*)0;
 	}
@@ -69,9 +69,9 @@ public:
 	virtual void	processNode( const QDomElement &Tag );
 
 	// setters/getters
-	QString		title( void )			{ return title_; }
-	QString		author( void )			{ return author_; }
-	QStringList	content( void )			{ return content_; }
+	QString		title( void )			{ return this->tags.get( "title" ).toString(); }
+	QString		author( void )			{ return this->tags.get( "author" ).toString(); }
+	QStringList	content( void )			{ return this->tags.get( "content" ).toStringList(); }
 
 	bool		predefined( void )		{ return predefined_; }
 	bool		readonly( void )		{ return readonly_; }
@@ -81,24 +81,24 @@ public:
 
 	bool		setAuthor( QString data )
 	{
-		if( this->readonly_ )
-			this->author_ = data;
+		if( !this->readonly_ )
+			this->tags.set( "author", data );
 
 		return this->readonly_ && !this->predefined_;
 	}
 
 	bool		setTitle( QString data )
 	{
-		if( this->readonly_ )
-			this->title_ = data;
+		if( !this->readonly_ )
+			this->tags.set( "title", data );
 
 		return this->readonly_ && !this->predefined_;
 	}
 
 	bool		setContent( QStringList data )
 	{
-		if( this->readonly_ )
-			this->content_ = data;
+		if( !this->readonly_ )
+			this->tags.set( "content", data );
 
 		return this->readonly_ && !this->predefined_;
 	}
@@ -121,10 +121,6 @@ public:
 	void		refresh( void );
 
 private:
-	QString		title_;
-	QString		author_;
-	QStringList	content_;
-
 	bool		predefined_;
 	bool		readonly_;
 
