@@ -389,7 +389,7 @@ PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	if( checkArgInt( 0 ) )
+	if( !checkArgInt( 0 ) )
 	{
 		PyErr_BadArgument();
 		return 0;
@@ -1397,6 +1397,9 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 	else pGetInt( "id", id() )
 	else pGetInt( "xid", xid() )
+
+	else pGetInt( "skin", skin() )
+	else pGetInt( "xskin", xskin() )
     
 	else pGetInt( "dir", dir() )
 	else pGetInt( "tamed", tamed() ? 1 : 0 )
