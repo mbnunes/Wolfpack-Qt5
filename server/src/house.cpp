@@ -224,7 +224,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	this->SetOwnSerial( senderserial );
 	this->priv = 0;
 	this->setName( QString( "%1's house" ).arg( pc_currchar->name.c_str() ) );
-	RefreshItem( this );
+	this->update();
 
 	P_ITEM pDeed = FindItemBySerial( deedserial );
 	if( pDeed != NULL )

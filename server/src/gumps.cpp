@@ -564,9 +564,9 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 140, tr( "Title:" ), 0x834 );
 		addInputField( 250, 140, 150, 16,  2, QString( "%1" ).arg( pChar->title() ), 0x834 );
 		addText( 50, 160, tr( "Body:" ), 0x834 );
-		addInputField( 250, 160, 150, 16,  3, QString( "%1" ).arg( pChar->id() ), 0x834 );
+		addInputField( 250, 160, 150, 16,  3, QString( "0x%1" ).arg( QString::number( pChar->id(), 16 ) ), 0x834 );
 		addText( 50, 180, tr( "Skin:" ), 0x834 );
-		addInputField( 250, 180, 150, 16,  4, QString( "%1" ).arg( pChar->skin() ), 0x834 );
+		addInputField( 250, 180, 150, 16,  4, QString( "0x%1" ).arg( QString::number( pChar->skin(), 16 ) ), 0x834 );
 		addText( 50, 200, tr( "Strength:" ), 0x834 );
 		addInputField( 250, 200, 150, 16,  5, QString( "%1" ).arg( pChar->st ), 0x834 );
 		addText( 50, 220, tr( "Dexterity:" ), 0x834 );
@@ -595,7 +595,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addResizeGump( 245, 220, 0xBB8, 165, 20 );
 		addResizeGump( 245, 240, 0xBB8, 165, 20 );
 		addResizeGump( 245, 260, 0xBB8, 165, 20 );
-		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+//		addResizeGump( 245, 280, 0xBB8, 165, 20 );
 		addResizeGump( 245, 300, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Spawnregion:" ), 0x834 );
@@ -612,10 +612,10 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addInputField( 250, 220, 150, 16, 16, QString( "%1" ).arg( pChar->def ), 0x834 );
 		addText( 50, 240, tr( "Dead:" ), 0x834 );
 		addInputField( 250, 240, 150, 16, 17, QString( "%1" ).arg( pChar->dead ), 0x834 );
-		addText( 50, 260, tr( "Carve:" ), 0x834 );
-		addInputField( 250, 260, 150, 16, 18, QString( "%1" ).arg( pChar->carve() ), 0x834 );
-		addText( 50, 280, tr( "Loot:" ), 0x834 );
-		addInputField( 250, 280, 150, 16, 19, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
+		addText( 50, 260, tr( "Position:" ), 0x834 );
+		addInputField( 250, 260, 150, 16, 18, QString("%1,%2,%3 map %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), 0x834 );
+		addText( 50, 280, tr( "Serial:" ), 0x834 );
+		addText( 250, 280, QString( "%1" ).arg( pChar->serial ), 0x834 );
 		addText( 50, 300, tr( "Hunger:" ), 0x834 );
 		addInputField( 250, 300, 150, 16, 20, QString( "%1" ).arg( pChar->hunger() ), 0x834 );
 
@@ -672,13 +672,19 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addResizeGump( 245, 120, 0xBB8, 165, 20 );
 		addResizeGump( 245, 140, 0xBB8, 165, 20 );
 		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Speech color:" ), 0x834 );
-		addInputField( 250, 120, 150, 16, 31, QString( "%1" ).arg( pChar->saycolor ), 0x834 );
+		addInputField( 250, 120, 150, 16, 31, QString( "0x%1" ).arg( QString::number( pChar->saycolor, 16 ) ), 0x834 );
 		addText( 50, 140, tr( "Emote color:" ), 0x834 );
-		addInputField( 250, 140, 150, 16, 32, QString( "%1" ).arg( pChar->emotecolor ), 0x834 );
+		addInputField( 250, 140, 150, 16, 32, QString( "0x%1" ).arg( QString::number( pChar->emotecolor, 16 ) ), 0x834 );
 		addText( 50, 160, tr( "Speech:" ), 0x834 );
 		addInputField( 250, 160, 150, 16, 33, QString( "%1" ).arg( pChar->speech ), 0x834 );
+		addText( 50, 180, tr( "Carve:" ), 0x834 );
+		addInputField( 250, 260, 150, 16, 34, QString( "%1" ).arg( pChar->carve() ), 0x834 );
+		addText( 50, 200, tr( "Loot:" ), 0x834 );
+		addInputField( 250, 280, 150, 16, 35, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -750,10 +756,32 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->dead = ( it->second == "true" || hex2dec( it->second ).toUInt() > 0 );
 				break;
 			case 18:
-				char_->setCarve( it->second );
-				break;
-			case 19:
-				char_->setLootList( it->second );
+				{
+					UINT16 x,y;
+					INT8 z;
+
+					QStringList sects = QStringList::split( " ", it->second );
+					if( sects.count() > 0 )
+					{
+						QStringList coords = QStringList::split( ",", sects[0] );
+						if( coords.count() >= 1 )
+							char_->pos.x = coords[0].toUShort();
+						if( coords.count() >= 2 )
+							char_->pos.y = coords[1].toUShort();
+						if( coords.count() >= 3 )
+							char_->pos.z = coords[2].toShort();
+
+						if( sects.count() >= 3 )
+						{
+							char_->pos.map = sects[2].toUShort();
+						}
+					}
+					char_->removeFromView( false );
+					char_->moveTo( char_->pos );
+					char_->resend( false );
+					socket->resendPlayer();
+					socket->resendWorld();
+				}
 				break;
 			case 20:
 				char_->setHunger( hex2dec( it->second ).toInt() );
@@ -797,6 +825,12 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			case 33:
 				char_->speech = hex2dec( it->second ).toUShort();
 				break;
+			case 34:
+				char_->setCarve( it->second );
+				break;
+			case 35:
+				char_->setLootList( it->second );
+				break;
 			}
 			it++;
 		}
@@ -818,7 +852,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 	if( item_ )
 	{
 		UINT32 page_ = 0;
-		UINT32 pages = 4;
+		UINT32 pages = 5;
 
 		startPage();
 		addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
@@ -843,7 +877,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addResizeGump( 245, 120, 0xBB8, 165, 20 );
 		addResizeGump( 245, 140, 0xBB8, 165, 20 );
 		addResizeGump( 245, 160, 0xBB8, 165, 20 );
-		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+//		addResizeGump( 245, 180, 0xBB8, 165, 20 ); serial is readonly
 		addResizeGump( 245, 200, 0xBB8, 165, 20 );
 		addResizeGump( 245, 220, 0xBB8, 165, 20 );
 		addResizeGump( 245, 240, 0xBB8, 165, 20 );
@@ -856,13 +890,13 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 140, tr( "Name (identified):" ), 0x834 );
 		addInputField( 250, 140, 150, 16,  2, QString( "%1" ).arg( pItem->name2() ), 0x834 );
 		addText( 50, 160, tr( "ID:" ), 0x834 );
-		addInputField( 250, 160, 150, 16,  3, QString( "%1" ).arg( pItem->id() ), 0x834 );
-		addText( 50, 180, tr( "Creator:" ), 0x834 );
-		addInputField( 250, 180, 150, 16,  4, QString( "%1" ).arg( pItem->creator.c_str() ), 0x834 );
-		addText( 50, 200, tr( "Made with skill no.:" ), 0x834 );
-		addInputField( 250, 200, 150, 16,  5, QString( "%1" ).arg( pItem->madewith ), 0x834 );
+		addInputField( 250, 160, 150, 16,  3, QString( "0x%1" ).arg( QString::number( pItem->id(), 16 ) ), 0x834 );
+		addText( 50, 180, tr( "Serial:" ), 0x834 );
+		addText( 250, 180, QString( "%1" ).arg( pItem->serial ), 0x834 );
+		addText( 50, 200, tr( "Position:" ), 0x834 );
+		addInputField( 250, 200, 150, 16,  5, QString("%1,%2,%3 map %4").arg( pItem->pos.x ).arg( pItem->pos.y ).arg( pItem->pos.z ).arg( pItem->pos.map ), 0x834 );
 		addText( 50, 220, tr( "Color:" ), 0x834 );
-		addInputField( 250, 220, 150, 16,  6, QString( "%1" ).arg( pItem->color() ), 0x834 );
+		addInputField( 250, 220, 150, 16,  6, QString( "0x%1" ).arg( QString::number( pItem->color(), 16 ) ), 0x834 );
 		addText( 50, 240, tr( "Amount:" ), 0x834 );
 		addInputField( 250, 240, 150, 16,  7, QString( "%1" ).arg( pItem->amount() ), 0x834 );
 		addText( 50, 260, tr( "Weight:" ), 0x834 );
@@ -963,11 +997,61 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 
 		addResizeGump( 245, 120, 0xBB8, 165, 20 );
 		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+		addResizeGump( 245, 220, 0xBB8, 165, 20 );
+		addResizeGump( 245, 240, 0xBB8, 165, 20 );
+		addResizeGump( 245, 260, 0xBB8, 165, 20 );
+		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+		addResizeGump( 245, 300, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Disabled:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 31, QString( "%1" ).arg( pItem->disabled ), 0x834 );
 		addText( 50, 140, tr( "Time unused:" ), 0x834 );
 		addInputField( 250, 140, 150, 16, 32, QString( "%1" ).arg( pItem->time_unused ), 0x834 );
+		addText( 50, 160, tr( "Creator:" ), 0x834 );
+		addInputField( 250, 160, 150, 16, 33, QString( "%1" ).arg( pItem->creator.c_str() ), 0x834 );
+		addText( 50, 180, tr( "Made with skill no.:" ), 0x834 );
+		addInputField( 250, 180, 150, 16, 34, QString( "%1" ).arg( pItem->madewith ), 0x834 );
+		addText( 50, 200, tr( "Morex:" ), 0x834 );
+		addInputField( 250, 200, 150, 16, 35, QString( "%1" ).arg( pItem->morex ), 0x834 );
+		addText( 50, 220, tr( "Morey:" ), 0x834 );
+		addInputField( 250, 220, 150, 16, 36, QString( "%1" ).arg( pItem->morey ), 0x834 );
+		addText( 50, 240, tr( "Morez:" ), 0x834 );
+		addInputField( 250, 240, 150, 16, 37, QString( "%1" ).arg( pItem->morez ), 0x834 );
+		addText( 50, 260, tr( "More1:" ), 0x834 );
+		addInputField( 250, 260, 150, 16, 38, QString( "%1" ).arg( pItem->more1 ), 0x834 );
+		addText( 50, 280, tr( "More2:" ), 0x834 );
+		addInputField( 250, 280, 150, 16, 39, QString( "%1" ).arg( pItem->more2 ), 0x834 );
+		addText( 50, 300, tr( "More3:" ), 0x834 );
+		addInputField( 250, 300, 150, 16, 40, QString( "%1" ).arg( pItem->more3 ), 0x834 );
+
+		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// prev page
+		addPageButton( 270, 340, 0x0FC, 0x0FC, page_-1 );
+		// next page
+		addPageButton( 290, 340, 0x0FA, 0x0FA, page_+1 );
+
+		page_++;
+		startPage( page_ );
+
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+
+		addText( 50, 120, tr( "More4:" ), 0x834 );
+		addInputField( 250, 120, 150, 16, 41, QString( "%1" ).arg( pItem->more4 ), 0x834 );
+		addText( 50, 140, tr( "Moreb1:" ), 0x834 );
+		addInputField( 250, 140, 150, 16, 42, QString( "%1" ).arg( pItem->moreb1() ), 0x834 );
+		addText( 50, 160, tr( "Moreb2:" ), 0x834 );
+		addInputField( 250, 160, 150, 16, 43, QString( "%1" ).arg( pItem->moreb2() ), 0x834 );
+		addText( 50, 180, tr( "Moreb3:" ), 0x834 );
+		addInputField( 250, 180, 150, 16, 44, QString( "%1" ).arg( pItem->moreb3() ), 0x834 );
+		addText( 50, 200, tr( "Moreb4:" ), 0x834 );
+		addInputField( 250, 200, 150, 16, 45, QString( "%1" ).arg( pItem->moreb4() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -996,12 +1080,32 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			case 3:
 				item_->setId( hex2dec( it->second ).toUShort() );
 				break;
-			case 4:
-				if( it->second.length() > 0 )
-					item_->creator = it->second.latin1();
+			case 4: // serial is readonly
 				break;
 			case 5:
-				item_->madewith = hex2dec( it->second ).toInt();
+				{
+					UINT16 x,y;
+					INT8 z;
+
+					QStringList sects = QStringList::split( " ", it->second );
+					if( sects.count() > 0 )
+					{
+						QStringList coords = QStringList::split( ",", sects[0] );
+						if( coords.count() >= 1 )
+							item_->pos.x = coords[0].toUShort();
+						if( coords.count() >= 2 )
+							item_->pos.y = coords[1].toUShort();
+						if( coords.count() >= 3 )
+							item_->pos.z = coords[2].toShort();
+
+						if( sects.count() >= 3 )
+						{
+							item_->pos.map = sects[2].toUShort();
+						}
+					}
+					item_->moveTo( item_->pos );
+					item_->update();
+				}
 				break;
 			case 6:
 				item_->setColor( hex2dec( it->second ).toUShort() );
@@ -1089,6 +1193,46 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 32:
 				item_->time_unused = hex2dec( it->second ).toUInt();
+				break;
+			case 33:
+				if( it->second.length() > 0 )
+					item_->creator = it->second.latin1();
+				break;
+			case 34:
+				item_->madewith = hex2dec( it->second ).toInt();
+				break;
+			case 35:
+				item_->morex = hex2dec( it->second ).toUInt();
+				break;
+			case 36:
+				item_->morey = hex2dec( it->second ).toUInt();
+				break;
+			case 37:
+				item_->morez = hex2dec( it->second ).toUInt();
+				break;
+			case 38:
+				item_->more1 = hex2dec( it->second ).toUShort();
+				break;
+			case 39:
+				item_->more2 = hex2dec( it->second ).toUShort();
+				break;
+			case 40:
+				item_->more3 = hex2dec( it->second ).toUShort();
+				break;
+			case 41:
+				item_->more4 = hex2dec( it->second ).toUShort();
+				break;
+			case 42:
+				item_->setMoreb1( hex2dec( it->second ).toUShort() );
+				break;
+			case 43:
+				item_->setMoreb2( hex2dec( it->second ).toUShort() );
+				break;
+			case 44:
+				item_->setMoreb3( hex2dec( it->second ).toUShort() );
+				break;
+			case 45:
+				item_->setMoreb4( hex2dec( it->second ).toUShort() );
 				break;
 			}
 			it++;
