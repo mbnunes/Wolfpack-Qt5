@@ -23,6 +23,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fix for Detecting Hidden
   - Fixed bug #0000380 (potionkeg was not usable with nightsight potion)
   - Fixed an issue with nuke <baseid> not working if the baseid had two characters.
+  - Improved goname command (you can not only go the first char; e.g. use the command twice to go to
+    the second char with the same name etc.)
+  - Added a goitem <name> command (same function as goname, but for items)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
