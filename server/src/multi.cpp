@@ -9,7 +9,11 @@
 #include "sectors.h"
 
 void cMulti::remove() {
-	// Remove from Multi Grid
+	cUObject *object;
+	for (object = objects.first(); object; object = objects.next()) {
+		object->setMulti(0);
+	}
+	objects.clear();
 
 	cItem::remove();
 }
