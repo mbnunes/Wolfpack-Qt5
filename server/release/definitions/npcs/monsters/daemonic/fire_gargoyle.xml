@@ -38,8 +38,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Misc -->
-		<!-- Missing: Jewel, Level 1 Map -->
-		<lootpacks>lootpack_rich</lootpacks>
+		<!-- Missing: Level 1 Map -->
+		<lootpacks>lootpack_rich;gems</lootpacks>
 		<category>Monsters\Daemonic\Fire Gargoyle</category>
 		
 		<intproperty name="carve_meat" value="1" />

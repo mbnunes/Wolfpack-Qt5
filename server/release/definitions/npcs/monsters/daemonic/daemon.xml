@@ -39,9 +39,9 @@
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Misc -->
 		<desc>No purer manifestation of primal evil exists than the hideous daemon, a denizen of the dark and infernal planes brought to these shores bythe most vile wizardries. Only the greatest of heroes have ever vanquished a daemon in single combat, and even a group of valiant warriors must be mighty indeed to survive an encounter with such a fiend.</desc>
-		<!-- Missing: 1-7 scroll, level 4 map, medium necro scroll -->
+		<!-- Missing: level 4 map, medium necro scroll -->
 		<controlslots>5</controlslots>
-		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
+		<lootpacks>lootpack_rich;lootpack_average;scroll_medium;scroll_medium</lootpacks>
 		<carve>carve_demon</carve>
 		<category>Monsters\Daemonic\Daemon (Random)</category>
 		
