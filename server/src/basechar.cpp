@@ -3303,14 +3303,9 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 				return;
 			}
 
-			cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SWING );
-
-			if ( global )
-			{
-				PyObject* args = Py_BuildValue( "O&O&i", PyGetCharObject, this, PyGetCharObject, attackTarget_, time );
-				global->callEvent( EVENT_SWING, args );
-				Py_DECREF( args );
-			}
+			PyObject* args = Py_BuildValue( "O&O&i", PyGetCharObject, this, PyGetCharObject, attackTarget_, time );
+			callEventHandler(EVENT_SWING, args);
+			Py_DECREF( args );
 		}
 	}
 }
