@@ -54,12 +54,16 @@ def fizzle(char):
 
 	if char.socket:
 		char.socket.deltag('cast_target')
-
-	char.effect(0x3735, 1, 30)
-	char.soundeffect(0x5c)
+		
+		# Only play the fizzle effect for players
+		char.effect(0x3735, 1, 30)
+		char.soundeffect(0x5c)
 
 # Check whether the spellbook's of a char have that specific spell
 def hasSpell(char, spell):
+	if char.npc:
+		return True
+	
 	book = char.itemonlayer(1)
 
 	if magic.spellbook.hasspell(book, spell):
@@ -227,3 +231,11 @@ def field_expire(object, args):
 		item = wolfpack.finditem(serial)
 		if item:
 			item.delete()
+
+#
+# Say a NPC debug message.
+#
+def npc_debug(char, message):
+	#char.say(message)
+	pass
+

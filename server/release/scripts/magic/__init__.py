@@ -41,6 +41,8 @@ def castSpell( char, spell, mode = 0, args = [], target = None, item = None ):
 		if socket:
 			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d.\n" % spell)
 			socket.sysmessage('ERROR: Unknown Spell')
+		else:
+			npc_debug(char, "Trying to cast unknown spell: %d." % spell)
 		return
 
 	# Deny casting if spell delay hasn't yet expired
@@ -50,7 +52,7 @@ def castSpell( char, spell, mode = 0, args = [], target = None, item = None ):
 			socket.clilocmessage(502644)
 			return False
 		else:
-			socket.deltag('spell_delay')	
+			socket.deltag('spell_delay')
 
 	spells[spell].precast(char, mode, args, target, item)
 	return True
@@ -69,8 +71,8 @@ def target_timeout(char):
 
 # Target Response
 def target_response( char, args, target ):
-	# No more npc saftey from here
-	char.socket.deltag('cast_target')
+	if char.socket:
+		char.socket.deltag('cast_target')
 
 	spell = args[0]
 	mode = args[1]
@@ -160,8 +162,8 @@ def target_response( char, args, target ):
 	else:
 		char.socket.clilocmessage(501857)
 
-def onCastSpell(char, spell):
-	castSpell(char, spell)
+def onCastSpell(char, spell, mode = 0, args = [], target = None, item = None):
+	castSpell(char, spell, mode, args, target, item)
 
 # These Events happen for characters	who are casting a spell right now
 def onDamage(char, type, amount, source):

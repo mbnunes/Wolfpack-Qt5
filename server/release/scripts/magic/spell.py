@@ -110,6 +110,9 @@ class Spell:
 	# Say the mantra
 	#
 	def saymantra(self, char, mode):
+		if char.npc and char.bodytype != BODY_HUMAN:
+			return
+		
 		if self.mantra and mode in [MODE_BOOK, MODE_SCROLL]:
 			char.say(self.mantra)
 
@@ -129,18 +132,27 @@ class Spell:
 
 		# We are frozen
 		if char.frozen:
-			char.socket.clilocmessage(502643)
+			if socket:
+				socket.clilocmessage(502643)
+			else:
+				npc_debug(char, 'Trying to cast while being frozen.')
 			return 0
 
 		# We are already casting a spell
 		if char.hasscript('magic') or (socket and socket.hastag('cast_target')):
-			char.socket.clilocmessage(502642)
+			if socket:
+				socket.clilocmessage(502642)
+			else:
+				npc_debug(char, 'Trying to cast spell while already casting a spell.')
 			return 0
 
 		# If we are using a spellbook to cast, check if we do have
 		# the spell in our spellbook (0-based index)
 		if not self.inherent and mode == MODE_BOOK and not hasSpell(char, self.spellid - 1):
-			char.message("You don't know the spell you want to cast.")
+			if socket:
+				char.message("You don't know the spell you want to cast.")
+			else:
+				npc_debug(char, 'Trying to cast spell %s unknown to the npc.' % self.__class__.__name__)
 			return 0
 
 		if not self.checkrequirements(char, mode, args, target, item):
@@ -276,7 +288,7 @@ class Spell:
 				return 0
 
 			# Check for Reagents
-			if len(self.reagents) > 0:
+			if not char.npc and len(self.reagents) > 0:
 				items = countReagents(char.getbackpack(), self.reagents.copy())
 
 				for item in items.keys():
@@ -337,7 +349,7 @@ class Spell:
 				char.updatemana()
 
 			# Consume Reagents
-			if len(self.reagents) > 0:
+			if not char.npc and len(self.reagents) > 0:
 				lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
 				
 				if lowerreagentcost == 0 or lowerreagentcost > random.randint(0, 99):								
@@ -378,11 +390,12 @@ class Spell:
 	def scaledamage(self, char, target, bonus, dice, sides):
 		damage = rolldice(dice, sides, bonus) * 100.0
 
-		bonus = char.skill[INSCRIPTION] / 100.0
+		bonus = char.skill[INSCRIPTION] / 100.0	
 		bonus += char.intelligence / 10.0
 		bonus += properties.fromchar(char, SPELLDAMAGEBONUS)
-		damage *= 1.0 + bonus / 100.0
 
+		damage *= 1.0 + bonus / 100.0
+		
 		char.checkskill(self.damageskill, 0, 1200)
 		damage *= (30 + (9 * char.skill[self.damageskill]) / 100.0) / 100.0
 
@@ -429,7 +442,7 @@ class Spell:
 				char.socket.settag('cast_target', 1)
 				if item:
 					item = item.serial
-				char.socket.attachtarget('magic.target_response', [ self, mode, args, item ], 'magic.target_cancel', 'magic.target_timeout', 8000) # Don't forget the timeout later on
+				char.socket.attachtarget('magic.target_response', [ self, mode, args, item ], 'magic.target_cancel', 'magic.target_timeout', 30000) # Don't forget the timeout later on
 			else:
 				# Callback to the NPC AI ??
 				wolfpack.console.log(LOG_ERROR, "A NPC is trying to cast a spell.")
