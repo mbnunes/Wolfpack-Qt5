@@ -162,7 +162,8 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			serial=whomenudata[i];
 		    serhash=serial%HASHMAX;
 		    c = calcCharFromSer( serial ); // find selected char ...
-		    if (c==-1) 
+			P_CHAR pc_c = MAKE_CHAR_REF(c);
+		    if (pc_c == NULL)
 			{
 			  sysmessage(s,"selected character not found");
 			  return;
@@ -172,14 +173,14 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			case 200://gochar 
 				doGmMoveEff(s); 	// have a flamestrike at origin and at player destination point 	//Aldur
 				
-				pc_currchar->MoveTo(chars[c].pos.x,chars[c].pos.y,chars[c].pos.z); 
+				pc_currchar->MoveTo(pc_c->pos.x,pc_c->pos.y,pc_c->pos.z); 
 				teleport(currchar[s]); 
 				
 				doGmMoveEff(s); 
 				break;
 			case 201://xtele
 				//Targ->XTeleport(s, 3);
-				chars[c].MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+				pc_c->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 				teleport(c);
 				
 				break;
@@ -191,11 +192,11 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				}
 				else
 				{
-					Targ->JailTarget (s,chars[c].serial);
+					Targ->JailTarget (s,pc_c->serial);
 					break;
 				}						 
 			case 203://release				 
-				Targ->ReleaseTarget(s,chars[c].serial);
+				Targ->ReleaseTarget(s,pc_c->serial);
 				break;
 			case 204:
 				if(c==currchar[s])
