@@ -2,9 +2,8 @@
 import wolfpack
 from wolfpack.utilities import *
 from wolfpack.consts import *
-from wolfpack.properties import itemcheck, fromitem, fromchar
+from wolfpack import properties
 from combat.utilities import weaponskill
-from combat import armorinfo, weaponinfo
 from math import ceil
 
 #
@@ -27,7 +26,7 @@ def modifiers(object, tooltip):
 		if object.hastag(tag):
 			tooltip.add(cliloc, str(object.gettag(tag)))
 
-	reflectphysical = fromitem(object, REFLECTPHYSICAL)
+	reflectphysical = properties.fromitem(object, REFLECTPHYSICAL)
 	
 	if reflectphysical:
 		tooltip.add(1060442, str(reflectphysical))
@@ -43,33 +42,33 @@ def modifiers(object, tooltip):
 # These are shown to the user in form of tooltips.
 #
 def onShowTooltip(viewer, object, tooltip):
-	armor = itemcheck(object, ITEM_ARMOR)
-	weapon = itemcheck(object, ITEM_WEAPON)
-	shield = itemcheck(object, ITEM_SHIELD)
+	armor = properties.itemcheck(object, ITEM_ARMOR)
+	weapon = properties.itemcheck(object, ITEM_WEAPON)
+	shield = properties.itemcheck(object, ITEM_SHIELD)
 
 	if (armor or weapon or shield) and object.amount == 1:
 		# Reinsert the name if we need an ore prefix
-		prefix1 = None
-		if object.hastag('resname'):		
+		prefix1 = None		
+		if object.hastag('resname'):
 			resname = str(object.gettag('resname'))
-			if armor and armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-				resinfo = armorinfo.ARMOR_RESNAME_BONI[resname]
+			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
-					prefix1 = resinfo[MATERIALPREFIX]				
-			if weapon and weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
-				resinfo = weaponinfo.WEAPON_RESNAME_BONI[resname]
+					prefix1 = resinfo[MATERIALPREFIX]
+			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
+				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
 		
 		prefix2 = None
 		if object.hastag('resname2'):
 			resname2 = str(object.gettag('resname2'))
-			if armor and armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
-				resinfo = armorinfo.ARMOR_RESNAME_BONI[resname2]
+			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
+				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
-			if weapon and weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
-				resinfo = weaponinfo.WEAPON_RESNAME_BONI[resname2]
+			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
+				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
 
@@ -128,19 +127,19 @@ def onShowTooltip(viewer, object, tooltip):
 				tooltip.add(1061169, str(weaponrange))
 
 		# Max-Mindamage
-		mindamage = fromitem(object, MINDAMAGE)
-		maxdamage = fromitem(object, MAXDAMAGE)
+		mindamage = properties.fromitem(object, MINDAMAGE)
+		maxdamage = properties.fromitem(object, MAXDAMAGE)
 		tooltip.add(1061168, "%u\t%u" % (mindamage, maxdamage))		
 
 		# Speed
-		speed = fromitem(object, SPEED)
+		speed = properties.fromitem(object, SPEED)
 		tooltip.add(1061167, str(speed))
 
 		# Physical Damage Distribution		
-		fire = fromitem(object, DAMAGE_FIRE)
-		cold = fromitem(object, DAMAGE_COLD)
-		poison = fromitem(object, DAMAGE_POISON)
-		energy = fromitem(object, DAMAGE_ENERGY)
+		fire = properties.fromitem(object, DAMAGE_FIRE)
+		cold = properties.fromitem(object, DAMAGE_COLD)
+		poison = properties.fromitem(object, DAMAGE_POISON)
+		energy = properties.fromitem(object, DAMAGE_ENERGY)
 		physical = 100 - (fire + cold + poison + energy)
 
 		if physical:
@@ -158,11 +157,11 @@ def onShowTooltip(viewer, object, tooltip):
 		if energy:
 			tooltip.add(1060407, str(energy))
 
-	fire = fromitem(object, RESISTANCE_FIRE)
-	cold = fromitem(object, RESISTANCE_COLD)
-	poison = fromitem(object, RESISTANCE_POISON)
-	energy = fromitem(object, RESISTANCE_ENERGY)
-	physical = fromitem(object, RESISTANCE_PHYSICAL)
+	fire = properties.fromitem(object, RESISTANCE_FIRE)
+	cold = properties.fromitem(object, RESISTANCE_COLD)
+	poison = properties.fromitem(object, RESISTANCE_POISON)
+	energy = properties.fromitem(object, RESISTANCE_ENERGY)
+	physical = properties.fromitem(object, RESISTANCE_PHYSICAL)
 
 	if physical:
 		tooltip.add(1060448, str(physical))
@@ -181,12 +180,12 @@ def onShowTooltip(viewer, object, tooltip):
 
 	modifiers(object, tooltip)
 	
-	lower = fromitem(object, LOWERREQS)
+	lower = properties.fromitem(object, LOWERREQS)
 	if lower:
 		tooltip.add(1060435, str(lower))
 	lower /= 100.0
 
-	req_str = fromitem(object, REQSTR)
+	req_str = properties.fromitem(object, REQSTR)
 	if lower:
 		req_str = int(ceil(req_str) * (1.0 - lower))
 	if req_str:
@@ -196,17 +195,17 @@ def onShowTooltip(viewer, object, tooltip):
 # Check for certain equipment requirements
 #
 def onWearItem(player, wearer, item, layer):
-	lower = fromitem(item, LOWERREQS) / 100.0
+	lower = properties.fromitem(item, LOWERREQS) / 100.0
 
-	req_str = fromitem(item, REQSTR)
+	req_str = properties.fromitem(item, REQSTR)
 	if lower:
 		req_str = int(ceil(req_str) * (1.0 - lower))
 		
-	req_dex = fromitem(item, REQDEX)
+	req_dex = properties.fromitem(item, REQDEX)
 	if lower:
 		req_dex = int(ceil(req_dex) * (1.0 - lower))
 		
-	req_int = fromitem(item, REQINT)
+	req_int = properties.fromitem(item, REQINT)
 	if lower:
 		req_int = int(ceil(req_int) * (1.0 - lower))
 
@@ -233,9 +232,9 @@ def onWearItem(player, wearer, item, layer):
 
 	# Reject equipping an item with durability 1 or less
 	# if it's an armor, shield or weapon
-	armor = itemcheck(item, ITEM_ARMOR)
-	weapon = itemcheck(item, ITEM_WEAPON)
-	shield = itemcheck(item, ITEM_SHIELD)
+	armor = properties.itemcheck(item, ITEM_ARMOR)
+	weapon = properties.itemcheck(item, ITEM_WEAPON)
+	shield = properties.itemcheck(item, ITEM_SHIELD)
 
 	if (armor or weapon or shield) and item.health < 1:
 		player.socket.sysmessage('You need to repair this before using it again.')

@@ -528,10 +528,10 @@ def consumeresources(container, baseid, amount):
 """
 def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0, noreflect=0, damagetype=DAMAGE_MAGICAL):
 	if not target:
-		raise RuntimeError, "Invalid arguments for Spell.energydamage."
+		raise RuntimeError, "Invalid arguments for energydamage."
 	
 	if amount == 0 or physical + fire + cold + poison + energy == 0:
-		raise RuntimeError, "Invalid arguments for Spell.energydamage."
+		raise RuntimeError, "Invalid arguments for energydamage."
 
 	damage = 0
 
@@ -544,9 +544,11 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 			reflectphysical = properties.fromchar(target, REFLECTPHYSICAL)
 			reflect = reflectphysical / 100.0 * damage
 			
-			if reflect:
-				source.say('*damage damage damage*')
-	
+			if reflect > 0:				
+				energydamage(source, target, reflect, physical=100, noreflect=1)
+				#target.effect(0x22c6, 10, 16)
+				target.movingeffect(0x22c6, source, 0, 0, 14)
+
 	if fire > 0:
 		fire = amount * (fire / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_FIRE) / 100.0
