@@ -1014,7 +1014,7 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 		cBufferedReader reader("PLAYEREXPORT", World::instance()->getDatabaseVersion());
 		reader.open(filename);
 		socket->sysMessage(tr("Loading %1 objects from %2.").arg(reader.objectCount()).arg(filename));
-		
+
 		unsigned char type;
 		const QMap<unsigned char, QCString> &typemap = reader.typemap();
 		QPtrList<PersistentObject> objects;
@@ -1148,14 +1148,14 @@ public:
 
         Coord to(target->x(), target->y(), target->z(), socket->player()->pos().map);
 		QValueVector<unsigned char> path = Pathfinding::instance()->find(socket->player(), socket->player()->pos(), to);
-        
+
 		socket->sysMessage(QString("Found path with %1 nodes.").arg(path.size()));
 		QStringList dirs;
 
 		Coord coord = socket->player()->pos();
 
 		// Show RecallRunes where the stupid thing is
-		for (int i = 0; i < path.size(); ++i) {
+		for (unsigned int i = 0; i < path.size(); ++i) {
 			unsigned char dir = path[i];
 			dirs.append(QString::number(path[i]));
 

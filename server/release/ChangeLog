@@ -27,6 +27,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added wolfpack.exportdefinitions() to the python api.
   - Added export definitions to the file menu of the windows gui.
   - Fixed another major memory leak in definitions reloading.
+  - Removed redundant skill tag use:
+    Replaced with <skill id="skillname">value</skill>
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
@@ -38,6 +40,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Support for client 4.0.8.
   - Added Samurai Empire craftables to the tailoring menu.
   - Added watersource tags (bug #0000399)
+  - Converted NPC skill tags to <skill id="skillname">value</skill>
+  - Fix for skills.xml and NPCs: magicresist is now magicresistance.
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material.

@@ -838,7 +838,7 @@ bool cBaseChar::resurrect( cUObject* source )
 		{
 			if ((*it)->serial() != hairSerial && (*it)->serial() != beardSerial) {
 				backpack->addItem( *it, false );
-				( *it )->update();	
+				( *it )->update();
 			}
 		}
 
@@ -1434,12 +1434,15 @@ void cBaseChar::processNode( const cElement* Tag )
 	}
 	else
 	{
+		/* This should be replaced by the <skill id="name">0</skill> tags */
+		/*
 		Q_INT16 skillId = Skills::instance()->findSkillByDef( TagName );
-
 		if ( skillId == -1 )
 			cUObject::processNode( Tag );
 		else
 			setSkillValue( skillId, Value.toInt() );
+		*/
+		cUObject::processNode( Tag );
 	}
 }
 
