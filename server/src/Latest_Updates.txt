@@ -23,3 +23,4 @@ namely Wolfpack refusing to start on (some) W95 machines (LB)
 18) Fixed: disabled msg "Spawning an item that is not truly pileable". Using default from .mul (Duke)
 19) Fixed: some places in trigger.cpp that caused "Script Manager ERROR" (Duke)
 20) Fixed: A log error for carving. (Ripper)
+21) Fixed: Compile error on gcc 2.91 series compiliers

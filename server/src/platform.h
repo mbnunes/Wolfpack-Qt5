@@ -85,6 +85,9 @@ enum enByteOrder{ littleEndian, bigEndian };
 #if __GNUC__ > 2 
 #undef OBSOLETESTREAM
 #else
+#ifdef __GNUC_MINOR__ < 95
+#define in_addr_t UI32
+#endif
 #define OLDGCC
 #define stringstream strstream
 #define sstream strstream
