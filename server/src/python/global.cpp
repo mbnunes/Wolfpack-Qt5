@@ -1286,7 +1286,7 @@ static PyObject *wpAccountsAcls( PyObject* self, PyObject* args )
 	while( it != Commands::instance()->aclend() )
 	{
 		QString name = it.key();
-		if( !name )
+		if( !name.isEmpty() )
 			PyList_Append( list, PyString_FromString( name ) );
 		++it;
 	}

@@ -456,7 +456,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			{
 				mChar->removeFromView( false );
 				mChar->moveTo( pChar->pos() );
-				mChar->resend( false );
+				mChar->resend( true );
 				socket->resendPlayer();
 				socket->resendWorld();
 			}
@@ -471,7 +471,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			{
 				pChar->removeFromView( false );
 				pChar->moveTo( mChar->pos() );
-				pChar->resend( false );
+				pChar->resend( true );
 				socket_->resendPlayer();
 				socket_->resendWorld();
 			}
