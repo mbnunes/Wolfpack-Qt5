@@ -133,3 +133,6 @@ def isclosing():
 	
 def spell( id ):
 	return _wolfpack.spell( id )
+
+def multi( id ):
+	return _wolfpack.multi( id )
