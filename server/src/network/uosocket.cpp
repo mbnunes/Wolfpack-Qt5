@@ -1151,8 +1151,10 @@ void cUOSocket::resendPlayer( bool quick )
 		cUOTxChangeMap changeMap; 
 		changeMap.setMap( _player->pos().map );
 		send( &changeMap );
+		cUOTxDrawChar drawChar;
+		drawChar.fromChar( _player );
+		send( &drawChar );
 	}
-
 	cUOTxDrawPlayer drawPlayer;
 	drawPlayer.fromChar( _player );
 	send( &drawPlayer );
