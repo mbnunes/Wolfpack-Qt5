@@ -140,7 +140,11 @@ void signal_handler(int signal)
 	case SIGHUP:
                 SrvParams->reload();
                 cNetwork::instance()->reload();
-                DefManager->reload();
+
+				QStringList oldAISections = DefManager->getSections( WPDT_AI );
+				DefManager->reload(); //Reload Definitions
+				AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
+
 				Accounts::instance()->reload();
                 SpawnRegions::instance()->reload();
                 AllTerritories::instance()->reload();
@@ -481,7 +485,11 @@ void reloadScripts()
 	clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 	SrvParams->reload(); // Reload wolfpack.xml
+	
+	QStringList oldAISections = DefManager->getSections( WPDT_AI );
 	DefManager->reload(); //Reload Definitions
+	AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
+
 	Accounts::instance()->reload();
 	SpawnRegions::instance()->reload();
 	AllTerritories::instance()->reload();
@@ -949,6 +957,14 @@ int main( int argc, char *argv[] )
 	Human_Stablemaster::registerInFactory();
 	Animal_Wild::registerInFactory();
 	Animal_Domestic::registerInFactory();
+	// Script NPC AI types
+	QStringList aiSections = DefManager->getSections( WPDT_AI );
+	QStringList::const_iterator aiit = aiSections.begin();
+	while( aiit != aiSections.end() )
+	{
+		ScriptAI::registerInFactory( *aiit );
+		++aiit;
+	}
 
 	try
 	{

@@ -38,10 +38,64 @@
 #include "walking.h"
 #include "itemid.h"
 #include "world.h"
+#include "python/utilities.h"
 
 // library includes
 #include <math.h>
 #include <vector>
+
+void AIFactory::checkScriptAI( const QStringList &oldSections, const QStringList &newSections )
+{
+	QStringList::const_iterator aiit = oldSections.begin();
+	while( aiit != oldSections.end() )
+	{
+		// We must reset all existing and scripted AI objects, so changes can take effect.
+		if( !newSections.contains( *aiit ) )
+		{
+			cCharIterator iter;
+			for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
+			{
+				P_NPC pNPC = dynamic_cast< P_NPC >(pChar);
+				if( pNPC )
+				{
+					ScriptAI* ai = dynamic_cast< ScriptAI* >(pNPC->ai());
+					if( ai && ai->name() == (*aiit) )
+					{
+						pNPC->setAI( *aiit );
+					}
+				}
+			}
+		}
+		else
+		{
+			cCharIterator iter;
+			for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
+			{
+				P_NPC pNPC = dynamic_cast< P_NPC >(pChar);
+				if( pNPC )
+				{
+					ScriptAI* ai = dynamic_cast< ScriptAI* >(pNPC->ai());
+					if( ai && ai->name() == (*aiit) )
+					{
+						delete ai;
+						pNPC->setAI( NULL );
+					}
+				}
+			}
+			unregisterType( *aiit );
+		}
+		++aiit;
+	}
+	aiit = newSections.begin();
+	while( aiit != newSections.end() )
+	{
+		if( !oldSections.contains( *aiit ) )
+		{
+			ScriptAI::registerInFactory( *aiit );
+		}
+		++aiit;
+	}
+}
 
 struct stActionNode
 {
@@ -94,7 +148,198 @@ void AbstractAI::check()
 		float rnd = RandomNum( 0, 1000 ) / 1000.0f;
 		if( m_currentAction->postCondition() >= rnd )
 			m_currentAction = NULL;
+	}
+}
 
+static AbstractAI* productCreator_SCP()
+{
+	return new ScriptAI( NULL );
+}
+
+void ScriptAI::registerInFactory( const QString &name )
+{
+	AIFactory::instance()->registerType(name, productCreator_SCP);
+}
+
+void ScriptAI::processNode( const cElement *Tag )
+{
+	QString TagName = Tag->name();
+	// <action precondition="scriptfunction" postcondition="scriptfunction" execute="scriptfunction" onspeech="scriptfunction" />
+	if( TagName == "action" )
+	{
+		if( Tag->hasAttribute( "precondition" ) &&
+			Tag->hasAttribute( "postcondition" ) &&
+			Tag->hasAttribute( "execute" ) )
+		{
+			ScriptAction* action = new ScriptAction( m_npc, this );
+			action->setPreCondFunction( Tag->getAttribute( "precondition" ) );
+			action->setPostCondFunction( Tag->getAttribute( "postcondition" ) );
+			action->setExecuteFunction( Tag->getAttribute( "execute" ) );
+
+			m_actions.append( action );
+		}
+		else
+			clConsole.send( "Action tag in ai definition must contain attributes for pre-,postcondition and execute at least\n" );
+	}
+	else if( TagName == "onspeech" )
+	{
+		setOnSpeechFunction( Tag->getValue() );
+	}
+}
+
+void ScriptAI::init( P_NPC npc )
+{
+	const cElement* node = DefManager->getDefinition( WPDT_AI, m_name );
+	if( node )
+		applyDefinition( node );
+	AbstractAI::init( npc );
+}
+
+void ScriptAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
+{
+	if( !onspeech.isNull() )
+	{
+		// Try to call the python function
+		// Get everything before the last dot
+		if( onspeech.contains( "." ) )
+		{
+			// Find the last dot
+			INT32 position = onspeech.findRev( "." );
+			QString sModule = onspeech.left( position );
+			QString sFunction = onspeech.right( onspeech.length() - (position+1) );
+
+			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+			if( pModule )
+			{
+				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				if( pFunc && PyCallable_Check( pFunc ) )
+				{
+					// Create our Argument list
+					PyObject *p_args = PyTuple_New( 3 );
+					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+					PyTuple_SetItem( p_args, 1, PyGetCharObject( pTalker ) );
+					PyTuple_SetItem( p_args, 2, PyString_FromString( comm.latin1() ) );
+
+					PyEval_CallObject( pFunc, p_args );
+
+					if( PyErr_Occurred() )
+						PyErr_Print();
+				}
+			}
+		}
+	}
+}
+
+float ScriptAction::preCondition()
+{
+	if( !precond.isNull() )
+	{
+		// Try to call the python function
+		// Get everything before the last dot
+		if( precond.contains( "." ) )
+		{
+			// Find the last dot
+			INT32 position = precond.findRev( "." );
+			QString sModule = precond.left( position );
+			QString sFunction = precond.right( precond.length() - (position+1) );
+
+			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+			if( pModule )
+			{
+				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				if( pFunc && PyCallable_Check( pFunc ) )
+				{
+					// Create our Argument list
+					PyObject *p_args = PyTuple_New( 3 );
+					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+
+					PyObject *returnValue = PyObject_CallObject( pFunc, p_args ); 
+
+					PyReportError(); 
+					
+					if( returnValue == NULL || !PyFloat_Check( returnValue ) ) 
+						return 0.0f;
+					else
+						return PyFloat_AsDouble( returnValue );
+				}
+			}
+		}
+	}
+	return 0.0f;
+}
+
+float ScriptAction::postCondition()
+{
+	if( !postcond.isNull() )
+	{
+		// Try to call the python function
+		// Get everything before the last dot
+		if( postcond.contains( "." ) )
+		{
+			// Find the last dot
+			INT32 position = postcond.findRev( "." );
+			QString sModule = postcond.left( position );
+			QString sFunction = postcond.right( postcond.length() - (position+1) );
+
+			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+			if( pModule )
+			{
+				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				if( pFunc && PyCallable_Check( pFunc ) )
+				{
+					// Create our Argument list
+					PyObject *p_args = PyTuple_New( 3 );
+					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+
+					PyObject *returnValue = PyObject_CallObject( pFunc, p_args ); 
+
+					PyReportError(); 
+					
+					if( returnValue == NULL || !PyFloat_Check( returnValue ) ) 
+						return 1.0f;
+					else
+						return PyFloat_AsDouble( returnValue );
+				}
+			}
+		}
+	}
+	return 1.0f;
+}
+
+void ScriptAction::execute()
+{
+	if( !exec.isNull() )
+	{
+		// Try to call the python function
+		// Get everything before the last dot
+		if( exec.contains( "." ) )
+		{
+			// Find the last dot
+			INT32 position = exec.findRev( "." );
+			QString sModule = exec.left( position );
+			QString sFunction = exec.right( exec.length() - (position+1) );
+
+			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+			if( pModule )
+			{
+				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				if( pFunc && PyCallable_Check( pFunc ) )
+				{
+					// Create our Argument list
+					PyObject *p_args = PyTuple_New( 3 );
+					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+
+					PyEval_CallObject( pFunc, p_args );
+
+					if( PyErr_Occurred() )
+						PyErr_Print();
+				}
+			}
+		}
 	}
 }
 
@@ -261,7 +506,7 @@ void Action_Wander::moveTo( const Coord_cl &pos )
 
 void Action_Wander::movePath( const Coord_cl &pos )
 {
-	if( ( !waitForPathCalculation && !m_npc->hasPath() ) || pos != m_npc->pathDestination() )
+	if( ( waitForPathCalculation <= 0 && !m_npc->hasPath() ) || pos != m_npc->pathDestination() )
 	{
 		UINT8 range = 1;
 		if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
@@ -270,7 +515,7 @@ void Action_Wander::movePath( const Coord_cl &pos )
 		m_npc->findPath( pos, range == 1 ? 1.5f : (float)range );
 		// dont return here!
 	}
-	else
+	else if( !m_npc->hasPath() )
 	{
 		waitForPathCalculation--;
 		moveTo( pos );
@@ -295,6 +540,37 @@ void Action_Wander::movePath( const Coord_cl &pos )
 	}
 }
 
+void Action_Flee::execute()
+{
+	if( !m_npc->hasPath() )
+	{
+		Coord_cl newPos = m_npc->pos();
+		Coord_cl fleePos = pFleeFrom->pos();
+
+		// find a valid spot in a circle of flee_radius fields to move to
+		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
+		if( newPos != fleePos )
+		{
+			int v1 = newPos.x - fleePos.x;
+			int v2 = newPos.y - fleePos.y;
+			float v_norm = sqrt( v1 * v1 + v2 * v2 );
+			newPos.x = newPos.x + (INT16)floor( rnddist * v1 / v_norm );
+			newPos.y = newPos.y + (INT16)floor( rnddist * v2 / v_norm );
+		}
+		else
+		{
+			float rndphi = (float)RandomNum( 0, 100 ) / 100.0f * 2 * 3.14;
+			newPos.x = newPos.x + (INT16)floor( sin( rndphi ) * rnddist );
+			newPos.y = newPos.y + (INT16)floor( cos( rndphi) * rnddist );
+		}
+
+		// we use pathfinding for fleeing
+		movePath( newPos );
+	}
+	else
+		movePath( m_npc->pathDestination() );
+}
+
 float Action_FleeAttacker::preCondition()
 {
 	/*
@@ -315,6 +591,7 @@ float Action_FleeAttacker::preCondition()
 	if( m_npc->hitpoints() < m_npc->criticalHealth() )
 		return 0.0f;
 
+	pFleeFrom = pAttacker;
 	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
 						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
 	return healthmod;
@@ -340,25 +617,6 @@ float Action_FleeAttacker::postCondition()
 	float healthmod = (float)(m_npc->hitpoints() - m_npc->criticalHealth()) /
 						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
 	return healthmod;
-}
-
-void Action_FleeAttacker::execute()
-{
-	if( !m_npc->hasPath() )
-	{
-		Coord_cl newPos = m_npc->pos();
-		// find a valid spot in a circle of flee_radius fields to move to
-		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
-		// now get a point on this circle around the npc
-		float rndphi = (float)RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
-		newPos.x = newPos.x + (INT16)floor( cos( rndphi ) * rnddist );
-		newPos.y = newPos.y + (INT16)floor( sin( rndphi ) * rnddist );
-
-		// we use pathfinding for fleeing
-		movePath( newPos );
-	}
-	else
-		movePath( m_npc->pathDestination() );
 }
 
 float Action_Defend::preCondition()

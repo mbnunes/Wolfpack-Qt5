@@ -61,86 +61,7 @@ void Animal_Domestic::registerInFactory()
 
 void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 {
-	//TODO: speech handling here
-}
-
-float Animal_Wild_Flee::preCondition()
-{
-	/*
-	 * Fleeing from an approaching player has the following preconditions:
-	 * - There is a player within flight range.
-	 * - There is no character attacking us.
-	 *
-	 */
-
-	if( m_npc->attackerSerial() != INVALID_SERIAL )
-		return 0.0f;
-
-	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
-	for(ri.Begin(); !ri.atEnd(); ri++)
-	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
-		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
-			return 1.0f;
-	}
-
-	return 0.0f;
-}
-
-float Animal_Wild_Flee::postCondition()
-{
-	/*
-	 * Fleeing from an approaching player has the following postconditions:
-	 * - There is no character in flight range.
-	 * - There is an character attacking us.
-	 *
-	 */
-
-	if( m_npc->attackerSerial() != INVALID_SERIAL )
-		return 1.0f;
-
-	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
-	for(ri.Begin(); !ri.atEnd(); ri++)
-	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
-		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
-			return 0.0f;
-	}
-	return 1.0f;
-}
-
-void Animal_Wild_Flee::execute()
-{
-	if( !m_npc->hasPath() )
-	{
-		Coord_cl newPos = m_npc->pos();
-		// find a valid spot in a circle of flee_radius fields to move to
-		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
-		// now get a point on this circle around the npc
-		float rndphi = (float)RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
-		newPos.x = newPos.x + (INT16)floor( cos( rndphi ) * rnddist );
-		newPos.y = newPos.y + (INT16)floor( sin( rndphi ) * rnddist );
-
-		// we use pathfinding for fleeing
-		movePath( newPos );
-	}
-	else
-		movePath( m_npc->pathDestination() );
-}
-
-/*
-#include "world.h"
-#include "network/uosocket.h"
-#include "inlines.h"
-#include "debug.h"
-#include "TmpEff.h"
-#include "srvparams.h"
-#include "chars.h"
-
-#define WILD_ANIMALS_FLEE_TIME_ON_TAME	30
-
-void PetCommand( P_PLAYER pPlayer, P_NPC pPet, const QString& comm )
-{
+/*	//TODO: speech handling here
 	if( pPet->owner() != pPlayer && !pPlayer->isGM() )
 		return;
 
@@ -236,169 +157,55 @@ void PetCommand( P_PLAYER pPlayer, P_NPC pPet, const QString& comm )
 			pPet->soundEffect( 0x01FE );
 			cCharStuff::DeleteChar( pPet );
 		}
-	}
+	}*/
 }
 
-static cNPC_AI* productCreator_AW()
+float Animal_Wild_Flee::preCondition()
 {
-	return new Animal_Wild();
-}
+	/*
+	 * Fleeing from an approaching player has the following preconditions:
+	 * - There is a player within flight range.
+	 * - There is no character attacking us.
+	 *
+	 */
 
-void Animal_Wild::registerInFactory()
-{
-	AIFactory::instance()->registerType("Animal_Wild", productCreator_AW);
+	if( m_npc->attackerSerial() != INVALID_SERIAL )
+		return 0.0f;
 
-	// register its states
-	Animal_Wild_Wander::registerInFactory();
-	Animal_Wild_Combat::registerInFactory();
-	Animal_Wild_Flee::registerInFactory();
-}
-
-Animal_Wild::Animal_Wild()
-{ 
-	currentState = new Animal_Wild_Wander( this, m_npc );
-}
-
-Animal_Wild::Animal_Wild( P_NPC currnpc )
-{ 
-	setNPC( currnpc ); 
-	currentState = new Animal_Wild_Wander( this, m_npc );
-}
-
-void Animal_Wild::eventHandler()
-{
-	currentState->nextState = currentState;
-	if( !m_npc->isDead() )
+	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
+	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
-		P_CHAR pVictim = World::instance()->findChar( m_npc->combatTarget() );
-		if( !pVictim  || pVictim->isDead() )
-			currentState->won();
-		else if( !pVictim->inRange( m_npc, VISRANGE ) )
-			currentState->combatCancelled();
-
-		if( m_npc->hitpoints() < (float)m_npc->criticalHealth() * 0.01f * m_npc->maxHitpoints() )
-			currentState->hitpointsCritical();
-		else
-			currentState->hitpointsRestored();
-
-		P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( m_npc, VISRANGE ) )
-			currentState->attacked();
-
-		updateState();
-		currentState->execute();
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
+		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
+		{
+			pFleeFrom = pPlayer;
+			return 1.0f;
+		}
 	}
+
+	return 0.0f;
 }
 
-static AbstractState* productCreator_AW_Wander()
+float Animal_Wild_Flee::postCondition()
 {
-	return new Animal_Wild_Wander();
-}
+	/*
+	 * Fleeing from an approaching player has the following postconditions:
+	 * - There is no character in flight range.
+	 * - There is an character attacking us.
+	 *
+	 */
 
-void Animal_Wild_Wander::registerInFactory()
-{
-	StateFactory::instance()->registerType("Animal_Wild_Wander", productCreator_AW_Wander);
-}
+	if( m_npc->attackerSerial() != INVALID_SERIAL )
+		return 1.0f;
 
-void Animal_Wild_Wander::attacked()
-{
-	reattack();
-	nextState = new Animal_Wild_Combat( m_interface, npc );
-}
-
-void Animal_Wild_Wander::speechInput( P_PLAYER pTalker, const QString &message )
-{
-	if( !pTalker->socket() )
-		return;
-
-	if( npc->isTamed() && npc->owner() == pTalker && npc->inRange( pTalker, 4 ) && ( message.contains( npc->name() ) || message.contains( tr("ALL") ) ) )
+	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
+	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
-#pragma note("TODO: tamed animals speech handling here")
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
+		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
+			return 0.0f;
 	}
+	return 1.0f;
 }
 
-void Animal_Wild_Wander::tameAttempt()
-{
-	TempEffects::instance()->insert( new cFleeReset( npc, WILD_ANIMALS_FLEE_TIME_ON_TAME ) ); 
-	nextState = new Animal_Wild_Flee( m_interface, npc, true );
-}
-
-void Animal_Wild_Wander::execute()
-{
-	AbstractState_Wander::execute();
-}
-
-static AbstractState* productCreator_AW_Combat()
-{
-	return new Animal_Wild_Combat();
-}
-
-void Animal_Wild_Combat::registerInFactory()
-{
-	StateFactory::instance()->registerType("Animal_Wild_Combat", productCreator_AW_Combat);
-}
-
-void Animal_Wild_Combat::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Animal_Wild_Wander( m_interface, npc );
-}
-
-void Animal_Wild_Combat::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Animal_Wild_Wander( m_interface, npc );
-}
-
-void Animal_Wild_Combat::hitpointsCritical()
-{
-	nextState = new Animal_Wild_Flee( m_interface, npc );
-}
-
-static AbstractState* productCreator_AW_Flee()
-{
-	return new Animal_Wild_Flee();
-}
-
-void Animal_Wild_Flee::registerInFactory()
-{
-	StateFactory::instance()->registerType("Animal_Wild_Flee", productCreator_AW_Flee);
-}
-
-void Animal_Wild_Flee::won()
-{
-	if( !m_fleeingDueTame )
-	{
-		npc->setAttackerSerial( INVALID_SERIAL );
-		npc->setCombatTarget( INVALID_SERIAL );
-		nextState = new Animal_Wild_Wander( m_interface, npc );
-	}
-}
-
-void Animal_Wild_Flee::combatCancelled()
-{
-	if( !m_fleeingDueTame )
-	{
-		npc->setAttackerSerial( INVALID_SERIAL );
-		npc->setCombatTarget( INVALID_SERIAL );
-		nextState = new Animal_Wild_Wander( m_interface, npc );
-	}
-}
-
-void Animal_Wild_Flee::hitpointsRestored()
-{
-	if( !m_fleeingDueTame )
-	{
-		nextState = new Animal_Wild_Combat( m_interface, npc );
-	}
-}
-
-void Animal_Wild_Flee::ceaseFlee()
-{
-	nextState = new Animal_Wild_Wander( m_interface, npc );
-}
-
-*/
 

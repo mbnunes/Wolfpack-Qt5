@@ -915,7 +915,11 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 		SrvParams->reload(); // Reload wolfpack.xml
+
+		QStringList oldAISections = DefManager->getSections( WPDT_AI );
 		DefManager->reload(); //Reload Definitions
+		AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
+
 		Accounts::instance()->reload();
 		SpawnRegions::instance()->reload();
 		AllTerritories::instance()->reload();
@@ -942,7 +946,11 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 		SrvParams->reload(); // Reload wolfpack.xml
+
+		QStringList oldAISections = DefManager->getSections( WPDT_AI );
 		DefManager->reload(); //Reload Definitions
+		AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
+
 		Accounts::instance()->reload();
 		SpawnRegions::instance()->reload();
 		AllTerritories::instance()->reload();

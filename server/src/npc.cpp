@@ -1460,10 +1460,15 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 void cNPC::setAI( const QString &data )
 {
 	QString tmp = QStringList::split( ",", data )[0];
-	AbstractAI* ai = AIFactory::instance()->createObject( data );
+	AbstractAI* ai = AIFactory::instance()->createObject( tmp );
 	if( !ai )
 		return;
 
+	ScriptAI* sai = dynamic_cast< ScriptAI* >( ai );
+	if( sai )
+	{
+		sai->setName( tmp );
+	}
 	ai->init( this );
 
 	if( ai_ )

@@ -38,9 +38,12 @@
 
 // wolfpack includes
 #include "factory.h"
+#include "definable.h"
 
 // library includes
 #include "qptrlist.h"
+#include "qstring.h"
+#include "qstringlist.h"
 
 // forward declarations
 class Coord_cl;
@@ -52,6 +55,7 @@ protected:
 	AbstractAction() : m_npc( NULL ),m_ai( NULL ) {}
 public:
 	AbstractAction( P_NPC npc, AbstractAI* ai ) : m_npc( npc ), m_ai( ai ) {}
+	~AbstractAction() {}
 
 	// executes the action
 	virtual void	execute() = 0;
@@ -128,14 +132,16 @@ public:
 		static AIFactory factory;
 		return &factory;
 	}
+
+	void checkScriptAI( const QStringList &oldSections, const QStringList &newSections );
 };
 
 class Action_Wander : public AbstractAction
 {
 protected:
-	Action_Wander() : AbstractAction() {}
+	Action_Wander() : AbstractAction(), waitForPathCalculation( 0 ) {}
 public:
-	Action_Wander( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	Action_Wander( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ), waitForPathCalculation( 0 ) {}
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
@@ -146,13 +152,23 @@ protected:
 	int waitForPathCalculation;
 };
 
-class Action_FleeAttacker : public Action_Wander
+class Action_Flee : public Action_Wander
 {
 protected:
-	Action_FleeAttacker() : Action_Wander() {}
+	Action_Flee() : Action_Wander(), pFleeFrom( NULL ) {}
 public:
-	Action_FleeAttacker( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ) {}
+	Action_Flee( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ), pFleeFrom( NULL ) {}
 	virtual void execute();
+protected:
+	P_CHAR pFleeFrom;
+};
+
+class Action_FleeAttacker : public Action_Flee
+{
+protected:
+	Action_FleeAttacker() : Action_Flee() {}
+public:
+	Action_FleeAttacker( P_NPC npc, AbstractAI* ai ) : Action_Flee( npc, ai ) {}
 	virtual float preCondition();
 	virtual float postCondition();
 };
@@ -295,13 +311,12 @@ public:
 	void handleTargetInput( P_PLAYER player, cUORxTarget* target );
 };
 
-class Animal_Wild_Flee : public Action_Wander
+class Animal_Wild_Flee : public Action_Flee
 {
 protected:
-	Animal_Wild_Flee() : Action_Wander() {}
+	Animal_Wild_Flee() : Action_Flee() {}
 public:
-	Animal_Wild_Flee( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ) {}
-	virtual void execute();
+	Animal_Wild_Flee( P_NPC npc, AbstractAI* ai ) : Action_Flee( npc, ai ) {}
 	virtual float preCondition();
 	virtual float postCondition();
 };
@@ -348,6 +363,51 @@ public:
 
 	static void registerInFactory();
 	virtual QString name() { return "Animal_Domestic"; }
+};
+
+class ScriptAction : public AbstractAction
+{
+protected:
+	ScriptAction() : AbstractAction(), exec( (char*)0 ),
+		precond( (char*)0 ), postcond( (char*)0 ) {}
+public:
+	ScriptAction( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ), exec( (char*)0 ),
+		precond( (char*)0 ), postcond( (char*)0 ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+
+	void setExecuteFunction( const QString &data ) { exec = data; }
+	void setPreCondFunction( const QString &data ) { precond = data; }
+	void setPostCondFunction( const QString &data ) { postcond = data; }
+
+protected:
+	QString exec;
+	QString precond;
+	QString postcond;
+};
+
+class ScriptAI : public AbstractAI, public cDefinable
+{
+protected:
+	ScriptAI() : AbstractAI(), onspeech( (char*)0 ) {}
+
+	virtual void processNode( const cElement *Tag );
+
+public:
+	ScriptAI( P_NPC npc ) : AbstractAI( npc ), onspeech( (char*)0 ) {}
+
+	static void registerInFactory( const QString &name );
+	virtual QString name() { return m_name; }
+	void setName( const QString &d ) { m_name = d; }
+	virtual void	init( P_NPC npc );
+
+	virtual void onSpeechInput( P_PLAYER pTalker, const QString &comm );
+	void setOnSpeechFunction( const QString &data ) { onspeech = data; }
+
+protected:
+	QString m_name;
+	QString onspeech;
 };
 
 

@@ -77,6 +77,7 @@ stCategory categories[] =
 	{ "define",			WPDT_DEFINE },
 	{ "resource",		WPDT_RESOURCE },
 	{ "contextmenu",	WPDT_CONTEXTMENU },
+	{ "ai",				WPDT_AI },
 	{ 0,				WPDT_COUNT },
 };
 
