@@ -337,6 +337,8 @@ bool lineOfSightNew(Coord_cl origin, Coord_cl target) {
 
 	QValueList<Coord_cl> pointList = getPointList(origin, target);
 
+	bool result = true;
+
 	QValueList<Coord_cl>::const_iterator it;
 	for (it = pointList.begin(); it != pointList.end(); ++it) {
 		Coord_cl point = *it;
@@ -346,13 +348,14 @@ bool lineOfSightNew(Coord_cl origin, Coord_cl target) {
 
 		// Play an effect for the tile
 		if (blocked) {
+			result = false;
 			point.effect(0x181D, 10, 50, 0x21);
 		} else {
 			point.effect(0x181D, 10, 50, 0x44);
 		}
 	}
 
-	return true;
+	return result;
 }
 
 Coord_cl Coord_cl::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );
