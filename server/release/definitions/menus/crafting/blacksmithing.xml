@@ -24,19 +24,19 @@
   <!-- Ringmail Armor -->
   <menu id="BLACKSMITHING_RINGMAIL" name="Ringmail">
     <smith definition="13eb" name="Ringmail Gloves">
-      <blacksmithing min="120" max="620" />
+      <blacksmithing min="120" max="520" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="13f0" name="Ringmail Leggings">
-      <blacksmithing min="194" max="694" />
+      <blacksmithing min="194" max="694" penalty="300" />
       <ingots amount="16" />
     </smith>
     <smith definition="13ee" name="Ringmail Sleeves">
-      <blacksmithing min="169" max="669" />
+      <blacksmithing min="169" max="669" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="13ec" name="Ringmail Tunic">
-      <blacksmithing min="219" max="719" />
+      <blacksmithing min="219" max="719" penalty="300" />
       <ingots amount="18" />
     </smith>
   </menu>
@@ -44,15 +44,15 @@
   <!-- Chainmail Armor -->
   <menu id="BLACKSMITHING_CHAINMAIL" name="Chainmail">
     <smith definition="13bb" name="Chainmail Coif">
-      <blacksmithing min="145" max="645" />
+      <blacksmithing min="145" max="645" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="13be" name="Chainmail Leggings">
-      <blacksmithing min="367" max="867" />
+      <blacksmithing min="367" max="867" penalty="300" />
       <ingots amount="18" />
     </smith>
     <smith definition="13bf" name="Chainmail Tunic">
-      <blacksmithing min="391" max="891" />
+      <blacksmithing min="391" max="891" penalty="300" />
       <ingots amount="20" />
     </smith>
   </menu>
@@ -60,27 +60,27 @@
   <!-- Platemail -->
   <menu id="BLACKSMITHING_PLATEMAIL" name="Platemail">
      <smith definition="1410" name="Platemail Arms">
-      <blacksmithing min="663" max="1160" />
+      <blacksmithing min="663" max="1160" penalty="290" />
       <ingots amount="18" />
     </smith>
     <smith definition="1414" name="Platemail Gloves">
-      <blacksmithing min="589" max="1089" />
+      <blacksmithing min="589" max="1089" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="1413" name="Platemail Gorget">
-      <blacksmithing min="564" max="1064" />
+      <blacksmithing min="564" max="1064" penalty="200" />
       <ingots amount="10" />
     </smith>
     <smith definition="1411" name="Platemail Legs">
-      <blacksmithing min="688" max="1188" />
+      <blacksmithing min="688" max="1188" penalty="138" />
       <ingots amount="20" />
     </smith>
     <smith definition="1415" name="Platemail Chest">
-      <blacksmithing min="750" max="1250" />
+      <blacksmithing min="750" max="1250" penalty="200" />
       <ingots amount="25" />
     </smith>
     <smith definition="1c04" name="Platemail Chest Female">
-      <blacksmithing min="441" max="941" />
+      <blacksmithing min="441" max="941" penalty="264" />
       <ingots amount="20" />
     </smith>
   </menu>
@@ -88,23 +88,23 @@
   <!-- Helmets -->
   <menu id="BLACKSMITHING_HELMETS" name="Helmets">
     <smith definition="140d" name="Bascinet">
-      <blacksmithing min="83" max="583" />
+      <blacksmithing min="83" max="583" penalty="300" />
       <ingots amount="15" />
     </smith>
     <smith definition="1409" name="Close Helmet">
-      <blacksmithing min="379" max="879" />
+      <blacksmithing min="379" max="879" penalty="300" />
       <ingots amount="15" />
     </smith>
     <smith definition="140b" name="Helmet">
-      <blacksmithing min="379" max="879" />
+      <blacksmithing min="379" max="879" penalty="300" />
       <ingots amount="15" />
     </smith>
     <smith definition="140f" name="Nose Helmet">
-      <blacksmithing min="379" max="879" />
+      <blacksmithing min="379" max="879" penalty="300" />
       <ingots amount="15" />
     </smith>
     <smith definition="1412" name="Plate Helmet">
-      <blacksmithing min="626" max="1126" />
+      <blacksmithing min="626" max="1126" penalty="300" />
       <ingots amount="15" />
     </smith>
   </menu>
@@ -112,76 +112,79 @@
   <!-- Shields -->
   <menu id="BLACKSMITHING_SHIELDS" name="Shields">
     <smith definition="1b73" name="Buckler">
-      <!-- <blacksmithing min="-250" max="250" /> -->
-      <blacksmithing min="0" max="250" />
+      <blacksmithing min="-50" max="495" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="1b72" name="Bronze Shield">
-      <!-- <blacksmithing min="-152" max="348" /> -->
-      <blacksmithing min="0" max="348" />
+      <blacksmithing min="-50" max="495" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="1b76" name="Heater Shield">
-      <blacksmithing min="243" max="743" />
+      <blacksmithing min="243" max="743" penalty="300" />
       <ingots amount="18" />
     </smith>
     <smith definition="1b7b" name="Metal Shield">
-      <!-- <blacksmithing min="-102" max="398" /> -->
-      <blacksmithing min="0" max="398" />
+      <blacksmithing min="-50" max="495" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="1b74" name="Metal Kite Shield">
-      <blacksmithing min="46" max="546" />
+      <blacksmithing min="46" max="546" penalty="300" />
       <ingots amount="16" />
     </smith>
     <smith definition="1b78" name="Wooden Kite Shield">
-      <!-- <blacksmithing min="-152" max="348" /> -->
-      <blacksmithing min="0" max="348" />
+      <blacksmithing min="-50" max="495" penalty="300" />
       <ingots amount="8" />
+    </smith>
+    <smith definition="1bc3" name="Chaos Shield">
+      <blacksmithing min="850" max="1350" penalty="220" />
+      <ingots amount="25" />
+    </smith>
+    <smith definition="1bc4" name="Order Shield">
+      <blacksmithing min="850" max="1350" penalty="220" />
+      <ingots amount="25" />
     </smith>
   </menu>
 
   <!-- Bladed Weapons -->
   <menu id="BLACKSMITHING_BLADED" name="Blades">
     <smith definition="26c5" name="Bone Harvester">
-      <blacksmithing min="330" max="830" />
+      <blacksmithing min="330" max="930" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="f5e" name="Broadsword">
-      <blacksmithing min="354" max="854" />
+      <blacksmithing min="354" max="954" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="26cb" name="Crescent Blade">
-      <blacksmithing min="450" max="950" />
+      <blacksmithing min="450" max="1050" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="1441" name="Cutlass">
-      <blacksmithing min="243" max="743" />
+      <blacksmithing min="243" max="843" penalty="300" />
       <ingots amount="8" />
     </smith>
     <smith definition="f51" name="Dagger">
-      <!-- <blacksmithing min="-4" max="496" /> -->
-      <blacksmithing min="0" max="496" />
+      <blacksmithing min="-4" max="296" penalty="150" />
       <ingots amount="3" />
     </smith>
     <smith definition="13ff" name="Katana">
-      <blacksmithing min="441" max="941" />
+      <blacksmithing min="441" max="1041" penalty="300" />
       <ingots amount="8" />
     </smith>
     <smith definition="1401" name="Kryss">
-      <blacksmithing min="367" max="867" />
+      <blacksmithing min="367" max="967" penalty="300" />
       <ingots amount="8" />
     </smith>
     <smith definition="f61" name="Longsword">
-      <blacksmithing min="280" max="780" />
+      <blacksmithing min="280" max="880" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="13b6" name="Scimitar">
-      <blacksmithing min="317" max="817" />
+      <blacksmithing min="317" max="917" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="13b9" name="Viking Sword">
-      <blacksmithing min="243" max="743" />
+      <blacksmithing min="243" max="843" penalty="300" />
       <ingots amount="14" />
     </smith>
   </menu>
@@ -189,31 +192,31 @@
   <!-- Axe Weapons -->
   <menu id="BLACKSMITHING_AXES" name="Axes">
     <smith definition="f49" name="Axe">
-      <blacksmithing min="342" max="842" />
+      <blacksmithing min="342" max="942" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="f47" name="Battle Axe">
-      <blacksmithing min="305" max="805" />
+      <blacksmithing min="305" max="905" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="f4b" name="Double Axe">
-      <blacksmithing min="293" max="793" />
+      <blacksmithing min="293" max="893" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="f45" name="Executioners Axe">
-      <blacksmithing min="342" max="842" />
+      <blacksmithing min="342" max="942" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="13fb" name="Large Battle Axe">
-      <blacksmithing min="280" max="780" />
+      <blacksmithing min="280" max="880" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="1443" name="Two Handed Axe">
-      <blacksmithing min="330" max="830" />
+      <blacksmithing min="330" max="930" penalty="300" />
       <ingots amount="16" />
     </smith>
     <smith definition="13b0" name="War Axe">
-      <blacksmithing min="391" max="891" />
+      <blacksmithing min="391" max="991" penalty="300" />
       <ingots amount="16" />
     </smith>
   </menu>
@@ -221,82 +224,71 @@
   <!-- Polearms -->
   <menu id="BLACKSMITHING_POLEARMS" name="Polearms">
     <smith definition="f4d" name="Bardiche">
-      <blacksmithing min="317" max="817" />
+      <blacksmithing min="317" max="917" penalty="300" />
       <ingots amount="18" />
     </smith>
     <smith definition="26c7" name="Bladed Staff">
-      <blacksmithing min="400" max="900" />
+      <blacksmithing min="400" max="1000" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="26c9" name="Double Bladed Staff">
-      <blacksmithing min="450" max="950" />
+      <blacksmithing min="450" max="1050" penalty="300" />
       <ingots amount="16" />
     </smith>
     <smith definition="143f" name="Halberd">
-      <blacksmithing min="391" max="891" />
+      <blacksmithing min="391" max="1091" penalty="300" />
       <ingots amount="20" />
     </smith>
     <smith definition="26ca" name="Lance">
-      <blacksmithing min="480" max="980" />
+      <blacksmithing min="480" max="1080" penalty="300" />
       <ingots amount="20" />
     </smith>
     <smith definition="26be" name="Pike">
-      <blacksmithing min="470" max="970" />
+      <blacksmithing min="470" max="1070" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="1403" name="Short Spear">
-      <blacksmithing min="453" max="953" />
+      <blacksmithing min="453" max="1053" penalty="300" />
       <ingots amount="6" />
     </smith>
     <smith definition="26c4" name="Scythe">
-      <blacksmithing min="390" max="890" />
+      <blacksmithing min="390" max="990" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="f62" name="Spear">
-      <blacksmithing min="490" max="990" />
+      <blacksmithing min="490" max="1090" penalty="300" />
       <ingots amount="12" />
     </smith>
     <smith definition="1405" name="War Fork">
-      <blacksmithing min="429" max="929" />
+      <blacksmithing min="429" max="1029" penalty="300" />
       <ingots amount="12" />
     </smith>
   </menu>
 
-			AddCraft( typeof( HammerPick ), 1011084, 1025181, 34.2, 84.2, typeof( IronIngot ), 1044036, 16, 1044037 );
-			AddCraft( typeof( Mace ), 1011084, 1023932, 14.5, 64.5, typeof( IronIngot ), 1044036, 6, 1044037 );
-			AddCraft( typeof( Maul ), 1011084, 1025179, 19.4, 69.4, typeof( IronIngot ), 1044036, 10, 1044037 );
-
-			if ( Core.AOS )
-				AddCraft( typeof( Scepter ), 1011084, 1029916, 21.4, 71.4, typeof( IronIngot ), 1044036, 10, 1044037 );
-
-			AddCraft( typeof( WarMace ), 1011084, 1025127, 28.0, 78.0, typeof( IronIngot ), 1044036, 14, 1044037 );
-			AddCraft( typeof( WarHammer ), 1011084, 1025177, 34.2, 84.2, typeof( IronIngot ), 1044036, 16, 1044037 );
-
-
   <!-- Bashing Weapons -->
   <menu id="BLACKSMITHING_BASHING" name="Bashing">
     <smith definition="143d" name="Hammer Pick">
-      <blacksmithing min="342" max="842" />
+      <blacksmithing min="342" max="942" penalty="300" />
       <ingots amount="16" />
     </smith>
     <smith definition="f5c" name="Mace">
-      <blacksmithing min="145" max="645" />
+      <blacksmithing min="145" max="745" penalty="300" />
       <ingots amount="6" />
     </smith>
     <smith definition="143b" name="Maul">
-      <blacksmithing min="194" max="694" />
+      <blacksmithing min="194" max="794" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="26c6" name="Scepter">
-      <blacksmithing min="214" max="714" />
+      <blacksmithing min="214" max="814" penalty="300" />
       <ingots amount="10" />
     </smith>
     <smith definition="1407" name="War Mace">
-      <blacksmithing min="280" max="780" />
+      <blacksmithing min="280" max="880" penalty="300" />
       <ingots amount="14" />
     </smith>
     <smith definition="1439" name="War Hammer">
-      <blacksmithing min="342" max="842" />
+      <blacksmithing min="342" max="942" penalty="300" />
       <ingots amount="16" />
     </smith>
   </menu>
@@ -304,23 +296,23 @@
   <!-- Dragon Scale Armor -->
   <menu id="BLACKSMITHING_SCALEARMOR" name="Dragon Scale Armor">
     <smith definition="2643" name="Dragon Gloves">
-      <blacksmithing min="689" max="1189" />
+      <blacksmithing min="689" max="1289" penalty="276" />
       <scales amount="16" />
     </smith>
     <smith definition="2645" name="Dragon Helm">
-      <blacksmithing min="726" max="1226" />
+      <blacksmithing min="726" max="1326" penalty="254" />
       <scales amount="20" />
     </smith>
     <smith definition="2647" name="Dragon Leggings">
-      <blacksmithing min="788" max="1288" />
+      <blacksmithing min="788" max="1388" penalty="250" />
       <scales amount="28" />
     </smith>
     <smith definition="2657" name="Dragon Sleeves">
-      <blacksmithing min="763" max="1263" />
+      <blacksmithing min="763" max="1363" penalty="232" />
       <scales amount="24" />
     </smith>
     <smith definition="2641" name="Dragon Breastplate">
-      <blacksmithing min="850" max="1350" />
+      <blacksmithing min="850" max="1450" penalty="225" />
       <scales amount="36" />
     </smith>
   </menu>

@@ -42,7 +42,7 @@ SCALES = [
   ['Blue Scales', 0, 0, ['blue_scales'], 0x8B0, 'blue_scales'],
 ]
 
-# This table defines all special properties for items crafted 
+# This table defines all special properties for items crafted
 # using a given resource. It's based on the resname tag.
 ARMOR_PROPERTIES = {
   # Durability Bonus (% of current val), Lower Requirements (% of current val)
@@ -96,7 +96,7 @@ def checktool(char, item, wearout = 0):
     char.socket.clilocmessage(1044038)
     item.delete()
     return 0
-  
+
   # See if we have another tool equipped
   equipped = char.itemonlayer(LAYER_RIGHTHAND)
   if equipped and equipped != item:
@@ -111,7 +111,7 @@ def checktool(char, item, wearout = 0):
       return 0
     else:
       item.settag('remaining_uses', uses - 1)
-  
+
   return 1
 
 #
@@ -149,15 +149,32 @@ class SmithItemAction(CraftItemAction):
 
     minskill = self.skills[BLACKSMITHING][0]
     maxskill = self.skills[BLACKSMITHING][1]
-    chance = ( (player.skill[BLACKSMITHING] - minskill) / (maxskill - minskill) ) / 10.0
+    penalty = self.skills[BLACKSMITHING][2]
 
+    if not penalty:
+      penalty = 250
+
+    minskill += penalty
+    maxskill += penalty
+
+    chance = ( player.skill[BLACKSMITHING] - minskill ) / 10
+
+    # chance = 0 - 100
+    if chance > 100:
+      chance = 100
+    elif chance < 0:
+      chance = chance * -1
+
+    #chance = chance
+    # chance range 0.00 - 1.00
+    chance = chance * .01
     return chance
 
   #
   # Apply resname and color to the item.
   #
   def applyproperties(self, player, arguments, item, exceptional):
-    # See if special ingots were used in the creation of 
+    # See if special ingots were used in the creation of
     # this item. All items crafted by blacksmiths gain the
     # color!
     if self.submaterial1 > 0:
@@ -246,7 +263,7 @@ class SmithItemAction(CraftItemAction):
     player.soundeffect(0x2a)
 
 #
-# A blacksmith menu. The most notable difference is the 
+# A blacksmith menu. The most notable difference is the
 # button for selecting another ore.
 #
 class BlacksmithingMenu(MakeMenu):
@@ -281,7 +298,7 @@ class BlacksmithingMenu(MakeMenu):
     if target.item.container != player.getbackpack():
       player.socket.clilocmessage(1044275)
       return
-    
+
     item = target.item
     weapon = itemcheck(item, ITEM_WEAPON)
     shield = itemcheck(item, ITEM_SHIELD)
@@ -346,7 +363,7 @@ class BlacksmithingMenu(MakeMenu):
 
     if not checktool(player, tool):
       return
-    
+
     if tool == target.item:
       player.socket.clilocmessage(1044271)
       return
@@ -356,7 +373,7 @@ class BlacksmithingMenu(MakeMenu):
     weapon = itemcheck(item, ITEM_WEAPON)
     shield = itemcheck(item, ITEM_SHIELD)
     armor = itemcheck(item, ITEM_ARMOR)
-    
+
     # See if it's in our ore list.
     if weapon or shield or armor:
       if item.container != player.getbackpack():
@@ -387,14 +404,14 @@ class BlacksmithingMenu(MakeMenu):
             ingots.amount = amount
             if not tobackpack(ingots, player):
               ingots.update()
-					
+
             player.soundeffect(0x2a)
             player.soundeffect(0x240)
 
             player.socket.clilocmessage(1044270)
             self.send(player, arguments)
             return
-      
+
     player.socket.clilocmessage(1044272)
     self.send(player, arguments)
 
@@ -464,10 +481,10 @@ def loadMenu(id, parent = None):
     # Submenu
     if child.name == 'menu':
       if not child.hasattribute('id'):
-        console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)    
+        console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)
       else:
-        loadMenu(child.getattribute('id'), menu)      
-    
+        loadMenu(child.getattribute('id'), menu)
+
     # Craft an item
     elif child.name == 'smith':
       if not child.hasattribute('definition') or not child.hasattribute('name'):
@@ -483,20 +500,20 @@ def loadMenu(id, parent = None):
             if item:
               itemchild = item.findchild('id')
               if itemchild:
-                itemid = itemchild.value              
+                itemid = itemchild.value
           else:
             itemid = hex2dec(child.getattribute('itemid', '0'))
           action = SmithItemAction(menu, name, int(itemid), itemdef)
         except:
           console.log(LOG_ERROR, "Smith action with invalid item id in menu %s.\n" % menu.id)
-        
-        # Process subitems        
+
+        # Process subitems
         for j in range(0, child.childcount):
           subchild = child.getchild(j)
-         
+
           # How much of the primary resource should be consumed
           if subchild.name == 'ingots':
-            action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))            
+            action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
 
           # How much of the secondary resource should be consumed
           elif subchild.name == 'scales':
@@ -507,7 +524,7 @@ def loadMenu(id, parent = None):
             if not subchild.hasattribute('id'):
               console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
               break
-            else:              
+            else:
               try:
                 ids = subchild.getattribute('id').split(';')
                 for i in range(0, len(ids)):
@@ -530,13 +547,19 @@ def loadMenu(id, parent = None):
               minimum = hex2dec(subchild.getattribute('min', '0'))
             except:
               console.log(LOG_ERROR, "%s element with invalid min value in menu %s.\n" % (subchild.name, menu.id))
-  
+
             try:
               maximum = hex2dec(subchild.getattribute('max', '1200'))
             except:
               console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
-            action.skills[skill] = [minimum, maximum]
-  
+
+            try:
+              penalty = hex2dec(subchild.getattribute('penalty','0'))
+            except:
+              console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
+
+            action.skills[skill] = [minimum, maximum, penalty]
+
   # Sort the menu. This is important for the makehistory to make.
   menu.sort()
 
