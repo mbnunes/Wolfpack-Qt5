@@ -66,8 +66,6 @@ int cCombat::GetBowType(int c)
 void cCombat::ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi)//S=Socket c=Char # Target i=Item //Itemid
 {
 	if(!pi) return;
-//	P_ITEM pi=MAKE_ITEMREF_LR(ii);
-	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	unsigned short int spellnum=((pi->morex*8)-8)+pi->morey;
 	unsigned short int tempmana=pc_currchar->mn;//Save their mana so we can give it back.

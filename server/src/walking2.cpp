@@ -804,79 +804,70 @@ void cMovement::GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xyc
 
 void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
-	unsigned int StartGrid=mapRegions->StartGrid(x, y);
-	unsigned int getcell=mapRegions->GetCell(x, y);
-	unsigned int increment=0, checkgrid, a;
-	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+	Coord_cl position(x, y, 0);
+	cRegion::RegionIterator4Items ri(position);
+	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
-		for (a=0;a<3;a++)
+		P_ITEM mapitem = ri.GetData();
+		if (mapitem != NULL)
 		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			if (mapitem->id1<0x40)
 			{
-				ITEM mapitem = calcItemFromSer(vecEntries[k]);
-				if (mapitem != -1 && mapitem<1000000)
+				if ((mapitem->pos.x == x) && (mapitem->pos.y == y))
 				{
-					if (items[mapitem].id1<0x40)
+					tile_st tile;
+					Map->SeekTile(mapitem->id(), &tile);
+					xyblock[xycount].type=1;
+					xyblock[xycount].basez=mapitem->pos.z;
+					xyblock[xycount].id=mapitem->id();
+					xyblock[xycount].flag1=tile.flag1;
+					xyblock[xycount].flag2=tile.flag2;
+					xyblock[xycount].flag3=tile.flag3;
+					xyblock[xycount].flag4=tile.flag4;
+					xyblock[xycount].height=tile.height;
+					xyblock[xycount].weight=tile.weight;
+					xycount++;
+				}
+			}
+			else if (
+				(abs(mapitem->pos.x- x)<=BUILDRANGE)&&
+				(abs(mapitem->pos.y- y)<=BUILDRANGE)
+				)
+			{
+				UOXFile *mfile = NULL;
+				SI32 length = 0;		// should be SI32, not long
+				Map->SeekMulti(mapitem->id()-0x4000, &mfile, &length);
+				length=length/MultiRecordSize;
+				if (length == -1 || length>=17000000)//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
+					//              if (length == -1)
+				{
+					printf("walking() - Bad length in multi file. Avoiding stall.\n");
+					length = 0;
+				}
+				for (int j=0;j<length;j++)
+				{
+					st_multi multi;
+					mfile->get_st_multi(&multi);
+					if (multi.visible && (mapitem->pos.x+multi.x == x) && (mapitem->pos.y+multi.y == y))
 					{
-						if ((items[mapitem].pos.x == x) && (items[mapitem].pos.y == y))
-						{
-							tile_st tile;
-							Map->SeekTile((items[mapitem].id1<<8)+items[mapitem].id2, &tile);
-							xyblock[xycount].type=1;
-							xyblock[xycount].basez=items[mapitem].pos.z;
-							xyblock[xycount].id=(items[mapitem].id1<<8)+items[mapitem].id2;
-							xyblock[xycount].flag1=tile.flag1;
-							xyblock[xycount].flag2=tile.flag2;
-							xyblock[xycount].flag3=tile.flag3;
-							xyblock[xycount].flag4=tile.flag4;
-							xyblock[xycount].height=tile.height;
-							xyblock[xycount].weight=tile.weight;
-							xycount++;
-						}
-					}
-					else if (
-							(abs(items[mapitem].pos.x- x)<=BUILDRANGE)&&
-							(abs(items[mapitem].pos.y- y)<=BUILDRANGE)
-							)
-					{
-						UOXFile *mfile = NULL;
-						SI32 length = 0;		// should be SI32, not long
-						Map->SeekMulti(((items[mapitem].id1<<8)+items[mapitem].id2)-0x4000, &mfile, &length);
-						length=length/MultiRecordSize;
-						if (length == -1 || length>=17000000)//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
-							//              if (length == -1)
-						{
-							printf("walking() - Bad length in multi file. Avoiding stall.\n");
-							length = 0;
-						}
-						for (int j=0;j<length;j++)
-						{
-							st_multi multi;
-							mfile->get_st_multi(&multi);
-							if (multi.visible && (items[mapitem].pos.x+multi.x == x) && (items[mapitem].pos.y+multi.y == y))
-							{
-								tile_st tile;
-								Map->SeekTile(multi.tile, &tile);
-								xyblock[xycount].type=2;
-								xyblock[xycount].basez = multi.z + items[mapitem].pos.z;
-								xyblock[xycount].id=multi.tile;
-								xyblock[xycount].flag1=tile.flag1;
-								xyblock[xycount].flag2=tile.flag2;
-								xyblock[xycount].flag3=tile.flag3;
-								xyblock[xycount].flag4=tile.flag4;
-								xyblock[xycount].height=tile.height;
-								xyblock[xycount].weight=255;
-								xycount++;
-							}
-						}
+						tile_st tile;
+						Map->SeekTile(multi.tile, &tile);
+						xyblock[xycount].type=2;
+						xyblock[xycount].basez = multi.z + mapitem->pos.z;
+						xyblock[xycount].id=multi.tile;
+						xyblock[xycount].flag1=tile.flag1;
+						xyblock[xycount].flag2=tile.flag2;
+						xyblock[xycount].flag3=tile.flag3;
+						xyblock[xycount].flag4=tile.flag4;
+						xyblock[xycount].height=tile.height;
+						xyblock[xycount].weight=255;
+						xycount++;
 					}
 				}
 			}
-		} //- end of itemcount for loop
+		}
 	}
-
-}
+} //- end of itemcount for loop
 
 // checkout everything we might need to take into account and fill it into the xyblock array
 void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount)

@@ -578,27 +578,27 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
 	CHARACTER cc=ps->GetCurrChar();
-	int t=calcCharFromSer(pp->Tserial);
+	P_CHAR pc_target = FindCharBySerial(pp->Tserial);
 
-	if(chars[t].hunger<6 && pi->type==14)//AntiChrist new hunger code for npcs
+	if(pc_target->hunger<6 && pi->type==14)//AntiChrist new hunger code for npcs
 	{
 		soundeffect2(cc, 0x00, 0x3A+(rand()%3));	//0x3A - 0x3C three different sounds
 
-		if((pi->poisoned)&&(chars[t].poisoned<pi->poisoned)) 
+		if((pi->poisoned)&&(pc_target->poisoned<pi->poisoned)) 
 		{
-			soundeffect2(t, 0x02, 0x46); //poison sound - SpaceDog
-			chars[t].poisoned=pi->poisoned;
-			chars[t].poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/chars[t].poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			chars[t].poisonwearofftime=chars[t].poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
-			impowncreate(s,t,1); //Lb, sends the green bar ! 
+			soundeffect2(DEREF_P_CHAR(pc_target), 0x02, 0x46); //poison sound - SpaceDog
+			pc_target->poisoned=pi->poisoned;
+			pc_target->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_target->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+			pc_target->poisonwearofftime=pc_target->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
+			impowncreate(s,DEREF_P_CHAR(pc_target),1); //Lb, sends the green bar ! 
 		}
 		
 		if(pi->name[0]=='#') pi->getName(temp2);
-		sprintf((char*)temp,"* You see %s eating %s *",chars[t].name,temp2);
-		chars[t].emotecolor1=0x00;
-		chars[t].emotecolor2=0x26;
-		npcemoteall(t,(char*)temp,1);
-		chars[t].hunger++;
+		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name,temp2);
+		pc_target->emotecolor1=0x00;
+		pc_target->emotecolor2=0x26;
+		npcemoteall(DEREF_P_CHAR(pc_target),(char*)temp,1);
+		pc_target->hunger++;
 	} else
 	{
 		sysmessage(s,"It doesn't appear to want the item");
@@ -997,7 +997,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	   abort=true; // LB crashfix that prevents moving multi objcts in BP's
        sysmessage(s,"Hey, putting houses in your pack crashes your back and client!");
 	}
-	j=GetPackOwner(nCont);
+	j=GetPackOwner(DEREF_P_ITEM(pCont));
 	if (j>-1)
 	if (chars[j].npcaitype==17 && chars[j].isNpc() && !pc_currchar->Owns(&chars[j]))
 	{
@@ -1024,7 +1024,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			{
 				items[z].morez=0;
 				pCont->morez=0;
-				sendtradestatus(z, nCont);
+				sendtradestatus(z, DEREF_P_ITEM(pCont));
 			}
 	}
 	
@@ -1068,7 +1068,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			ps->ResetDragging();
 			item_bounce3(pItem);
 			if (pCont->id1>=0x40)
-				senditem(s, nCont);
+				senditem(s, DEREF_P_ITEM(pCont));
 		}
 		return;
 	}
@@ -1092,7 +1092,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				item_bounce3(pItem);
 			}
 			if (pCont->id1>=0x40)
-				senditem(s, nCont);
+				senditem(s, DEREF_P_ITEM(pCont));
 			return;
 		}
 		z=packitem(cc);
@@ -1137,7 +1137,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	if (!(pCont->pileable && pItem->pileable && pCont->id()==pItem->id()
 		|| (pCont->type!=1 && pCont->type!=9)))
 	{
-		j=GetPackOwner(nCont);
+		j=GetPackOwner(DEREF_P_ITEM(pCont));
 		if (j>-1) // bugkilling, LB, was j=!-1, arghh, C !!!
 		{
 			if (chars[j].npcaitype==17 && chars[j].isNpc() && pc_currchar->Owns(&chars[j]))
@@ -1180,7 +1180,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				if ((pCont->amount+pItem->amount) > 65535)
 				{
 					pItem->amount -= (65535-pCont->amount);
-					Commands->DupeItem(s, nCont, pItem->amount);
+					Commands->DupeItem(s, DEREF_P_ITEM(pCont), pItem->amount);
 					pCont->amount = 65535;
 					Items->DeleItem(nItem);
 				}
@@ -1191,7 +1191,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 					Items->DeleItem(nItem);
 				}
 				SndRemoveitem(pItem->serial);
-				RefreshItem(nCont);//AntiChrist
+				RefreshItem(DEREF_P_ITEM(pCont));//AntiChrist
 			}
 			else
 			{
@@ -1204,17 +1204,17 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				mapRegions->Add(pItem); //add this item to a map cell
 				
 				SndRemoveitem(pItem->serial);
-				RefreshItem(nCont);//AntiChrist
+				RefreshItem(DEREF_P_ITEM(pCont));//AntiChrist
 			}
 			
 			// - Spell Book
 	
 			if (pCont->type==9)
-				Magic->SpellBook(s,nCont); // LB, bugfix for showing(!) the wrong spell (clumsy) when a new spell is put into opened spellbook
+				Magic->SpellBook(s,DEREF_P_ITEM(pCont)); // LB, bugfix for showing(!) the wrong spell (clumsy) when a new spell is put into opened spellbook
 
 			if (pItem->glow>0) // LB's glowing items stuff
 			{
-				int p=GetPackOwner(nCont); 
+				int p=GetPackOwner(DEREF_P_ITEM(pCont)); 
 				pc_currchar->removeHalo(pItem); // if gm put glowing object in another pack, handle glowsp correctly !
 				//removefromptr(&glowsp[pc_currchar->serial%HASHMAX],nItem);
 				if (p!=-1) 

@@ -319,11 +319,11 @@ void advancementobjects(int s, int x, int allways)
 						vector<SERIAL> vecContainer = contsp.getData(serial);
 						for (ci=0;ci<vecContainer.size();ci++)
 						{
-							i=calcItemFromSer(vecContainer[ci]);
-							if (i!=-1)
-								if ((items[i].layer==0x15) && (items[i].contserial==serial))
+							P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+							if (pi != NULL)
+								if ((pi->layer==0x15) && (pi->contserial==serial))
 								{
-									Items->DeleItem(i);
+									Items->DeleItem(pi);
 									break;
 								}
 						}

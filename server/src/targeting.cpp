@@ -297,8 +297,7 @@ static void TeleTarget(int s, PKGx6C *pp)
 	int y=pp->TyLoc; 
 	signed char z=pp->TzLoc; 
 	Coord_cl clTemp3(x,y,z) ;
-	if ((line_of_sight( s, chars[cc].pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)|| 
-		(chars[cc].isGM()))) 
+	if ((chars[cc].isGM()) || (line_of_sight( s, chars[cc].pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) 
 	{ 
 		doGmMoveEff(s); 
 		

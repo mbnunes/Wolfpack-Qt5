@@ -357,14 +357,14 @@ void sysmessage(UOXSOCKET s, short color, char *txt, ...) // System message (In 
 void itemmessage(UOXSOCKET s, char *txt, int serial, short color) 
 {// The message when an item is clicked (new interface, Duke)
 
-	ITEM i = calcItemFromSer(serial);
+	P_ITEM pi = FindItemBySerial(serial);
 
-	if ( i == -1 )
+	if ( pi == NULL )
 		return;
 
-	if ((items[i].type == 1 && color == 0x0000)||
-		(items[i].type == 9 && color == 0x0000)||
-		(items[i].id()==0x1BF2 && color == 0x0000))
+	if ((pi->type == 1 && color == 0x0000)||
+		(pi->type == 9 && color == 0x0000)||
+		(pi->id()==0x1BF2 && color == 0x0000))
 		color = 0x03B2;
 
 	int tl=44+strlen(txt)+1;
@@ -2957,33 +2957,33 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 		P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
 		j=DEREF_P_ITEM(pi_j);
 		if (j!=-1)
-			if ((items[j].contserial==serial) &&
-				(m2[7]!=255) && (items[j].amount!=0) ) // 255 items max per shop container
+			if ((pi_j->contserial==serial) &&
+				(m2[7]!=255) && (pi_j->amount!=0) ) // 255 items max per shop container
 			{
 				if (m2t>6000 || m1t>6000) break;
 
-				LongToCharPtr(items[j].serial,m1+m1t+0);//Item serial number
-				ShortToCharPtr(items[j].id(),m1+m1t+4);
+				LongToCharPtr(pi_j->serial,m1+m1t+0);//Item serial number
+				ShortToCharPtr(pi_j->id(),m1+m1t+4);
 				m1[m1t+6]=0;			//Always zero
-				m1[m1t+7]=items[j].amount>>8;//Amount for sale
-				m1[m1t+8]=items[j].amount%256;//Amount for sale
-				m1[m1t+9]=j>>8;//items[j].x/256; //Item x position
-				m1[m1t+10]=j%256;//items[j].x%256;//Item x position
-				m1[m1t+11]=j>>8;//items[j].y/256;//Item y position
-				m1[m1t+12]=j%256;//items[j].y%256;//Item y position
+				m1[m1t+7]=pi_j->amount>>8;//Amount for sale
+				m1[m1t+8]=pi_j->amount%256;//Amount for sale
+				m1[m1t+9]=j>>8;//pi_j->x/256; //Item x position
+				m1[m1t+10]=j%256;//pi_j->x%256;//Item x position
+				m1[m1t+11]=j>>8;//pi_j->y/256;//Item y position
+				m1[m1t+12]=j%256;//pi_j->y%256;//Item y position
 				LongToCharPtr(pi->serial,m1+m1t+13); //Container serial number
-				m1[m1t+17]=items[j].color1;//Item color
-				m1[m1t+18]=items[j].color2;//Item color
+				m1[m1t+17]=pi_j->color1;//Item color
+				m1[m1t+18]=pi_j->color2;//Item color
 				m1[4]++; // Increase item count.
 				m1t=m1t+19;
-				value=items[j].value;
+				value=pi_j->value;
 				value=calcValue(j, value);
 				if (SrvParms->trade_system==1) value=calcGoodValue(c,j,value,0); // by Magius(CHE)
 				m2[m2t+0]=value>>24;// Item value/price
 				m2[m2t+1]=value>>16;//Item value/price
 				m2[m2t+2]=value>>8; // Item value/price
 				m2[m2t+3]=value%256; // Item value/price
-				m2[m2t+4]=items[j].getName(itemname); // Item name length
+				m2[m2t+4]=pi_j->getName(itemname); // Item name length
 
 				for(k=0;k<m2[m2t+4];k++)
 				{
@@ -3012,7 +3012,7 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 int sellstuff(int s, int i)
 {
 	char itemname[256];
-	int p=-1, j, q, m1t, pack, z, value;
+	int p=-1, m1t, pack, z, value;
 	int serial,serhash,ci,serial1,serhash1,ci1;
 	unsigned char m1[2048];
 	unsigned char m2[2];
@@ -3061,40 +3061,40 @@ int sellstuff(int s, int i)
 	vecContainer = contsp.getData(serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		q = calcItemFromSer(vecContainer[ci]);
-		if (q!=-1)
+		P_ITEM pi_q = FindItemBySerial(vecContainer[ci]);
+		if (pi_q != NULL)
 		{
-			if ((items[q].contserial==serial))
+			if ((pi_q->contserial==serial))
 			{
 				serial1=items[pack].serial;
 				serhash1=serial1%HASHMAX;
 				vector<SERIAL> vecContainer2 = contsp.getData(serial1);
 				for ( ci1 = 0; ci1 < vecContainer2.size(); ci1++)
 				{
-					j = calcItemFromSer(vecContainer2[ci1]);
-					if (j!=-1) // LB crashfix
+					P_ITEM pi_j = FindItemBySerial(vecContainer2[ci1]);
+					if (pi_j != NULL) // LB crashfix
 					{
-						sprintf(ciname,"'%s'",items[j].name); // Added by Magius(CHE)
-						sprintf(cinam2,"'%s'",items[q].name); // Added by Magius(CHE)
+						sprintf(ciname,"'%s'",pi_j->name); // Added by Magius(CHE)
+						sprintf(cinam2,"'%s'",pi_q->name); // Added by Magius(CHE)
 						strupr(ciname); // Added by Magius(CHE)
 						strupr(cinam2); // Added by Magius(CHE)
 
-						if (items[j].contserial==serial1 &&
-							items[j].id()==items[q].id()  &&
-							items[j].type==items[q].type && (m1[8]<60) &&
+						if (pi_j->contserial==serial1 &&
+							pi_j->id()==pi_q->id()  &&
+							pi_j->type==pi_q->type && (m1[8]<60) &&
 							((SrvParms->sellbyname==0)||(SrvParms->sellbyname==1 && (!strcmp(ciname,cinam2))))) // If the names are the same! --- Magius(CHE)
 						{
-							LongToCharPtr(items[j].serial,m1+m1t+0);
-							ShortToCharPtr(items[j].id(),m1+m1t+4);
-							ShortToCharPtr(items[j].color(),m1+m1t+6);
-							ShortToCharPtr(items[j].amount,m1+m1t+8);
-							value=items[q].value;
-							value=calcValue(j, value);
-							if (SrvParms->trade_system==1) value=calcGoodValue(i,j,value,1); // by Magius(CHE)
+							LongToCharPtr(pi_j->serial,m1+m1t+0);
+							ShortToCharPtr(pi_j->id(),m1+m1t+4);
+							ShortToCharPtr(pi_j->color(),m1+m1t+6);
+							ShortToCharPtr(pi_j->amount,m1+m1t+8);
+							value=pi_q->value;
+							value=calcValue(DEREF_P_ITEM(pi_j), value);
+							if (SrvParms->trade_system==1) value=calcGoodValue(i,DEREF_P_ITEM(pi_j),value,1); // by Magius(CHE)
 							m1[m1t+10]=value>>8;
 							m1[m1t+11]=value%256;
 							m1[m1t+12]=0;// Unknown... 2nd length byte for string?
-							m1[m1t+13]=items[j].getName(itemname);
+							m1[m1t+13]=pi_j->getName(itemname);
 							m1t=m1t+14;
 							for(z=0;z<m1[m1t-1];z++)
 							{

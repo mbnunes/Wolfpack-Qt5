@@ -2834,19 +2834,19 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		return;
 	}
 
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcItemFromSer(serial);
-	if (i==-1) return;
-	if (items[i].isInWorld()) return;
-	unsigned char col1 = items[i].color1;
-	unsigned char col2 = items[i].color2;
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_ITEM pi_target = FindItemBySerial(serial);
+	if (pi_target == NULL) return;
+	if (pi_target->isInWorld()) return;
+	unsigned char col1 = pi_target->color1;
+	unsigned char col2 = pi_target->color2;
 //	int c=itemmake[s].needs/2;
-	int c=1+items[i].weight/100;	// number of ingots you get depends on the weight (Duke)
-	int sm= items[i].smelt;
+	int c=1+pi_target->weight/100;	// number of ingots you get depends on the weight (Duke)
+	int sm= pi_target->smelt;
 
-	if (i>=0 && items[i].magic!=4)
+	if (pi_target->magic!=4)
 	{
-	   if(items[i].rank!=30)
+	   if(pi_target->rank!=30)
 	   {
 		  sysmessage(s,"You cant smelt that item!");
 		  return;
@@ -2856,7 +2856,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	      sysmessage(s," Must be closer to the forge.");
 		  return;
 	   }
-	   if (items[i].contserial!=pi_pack->serial)
+	   if (pi_target->contserial!=pi_pack->serial)
 	   {
 		  sysmessage(s,"The item must be in your backpack");
 		  return;
@@ -2867,7 +2867,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		  {
 			  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
 			  sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			  Items->DeleItem(i);
+			  Items->DeleItem(pi_target);
 			  return;
 		  }
 	   }
@@ -2880,52 +2880,52 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 			      case 1:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 		          case 2:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"silver ingot",1,0x1B,0xF2,0x00,0x00,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 3:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"golden ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 4:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"agapite ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 5:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"shadow ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 6:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"mythril ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 7:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"bronze ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 8:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"verite ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 9:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"merkite ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  case 10:
 					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"copper ingot",1,0x1B,0xF2,col1,col2,1,1);
 			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(i);
+			          Items->DeleItem(pi_target);
 			          break;
 				  default:
 					  break;
