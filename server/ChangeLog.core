@@ -17,6 +17,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed bug #0000253. (Invalid drop sound for items dropped to ground)
 	- Fixed bug #0000309. (Console in web administration caused endless loop)
 	- Completely rewrote line of sight.
+	- Fixed a crashbug related to trying to remove basescripts from objects.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.

@@ -391,8 +391,19 @@ void cUObject::removeScript( const QCString& name )
 		return;
 	}
 
-	if ( !hasScript( name ) )
-	{
+	bool found = false;
+	if (scriptChain) {
+		unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
+
+		for ( unsigned int i = 1; i <= count; ++i )
+		{
+			if ( scriptChain[i]->name() == name )
+				found = true;
+				break;
+		}
+	}
+
+	if (!found) {
 		return;
 	}
 
@@ -432,10 +443,10 @@ void cUObject::removeScript( const QCString& name )
 
 	changed_ = true;
 
-	if ( event && event->canHandleEvent( EVENT_ATTACH ) )
+	if ( event && event->canHandleEvent( EVENT_DETACH ) )
 	{
 		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
-		event->callEvent( EVENT_ATTACH, args );
+		event->callEvent( EVENT_DETACH, args );
 		Py_DECREF( args );
 	}
 }
