@@ -8,6 +8,7 @@
 		<basescript>plants.bowl</basescript>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
+		<movable />
 	</item>
 	
 	<!-- A plant -->
@@ -16,6 +17,7 @@
 		<id>0x1602</id>
 		<category>Plant Growing\Plant</category>
 		<scriptlist>plants.plant</scriptlist> <!-- This HAS TO BE DYNAMIC! onAttach/onDetach require that -->
+		<movable />
 	</item>
 	
 	<!-- A seed -->
@@ -26,6 +28,7 @@
 		<weight>1.0</weight>
 		<id>0xdcf</id>
 		<tag name="showtype" value="1" type="int" />
+		<movable />
 	</item>
 
 	<!-- Green Thorns -->
@@ -36,6 +39,7 @@
 		<color>0x42</color>
 		<category>Plant Growing\Green Thorns</category>
 		<basescript>plants.greenthorns</basescript>
+		<movable />
 	</item>
 
 	<!-- Orange Petals -->
@@ -46,6 +50,7 @@
 		<color>0x2b</color>
 		<category>Plant Growing\Orange Petals</category>
 		<basescript>plants.orangepetals</basescript>
+		<movable />
 	</item>
 
 	<!-- Red Leaves -->
@@ -56,5 +61,6 @@
 		<color>0x21</color>
 		<category>Plant Growing\Red Leaves</category>
 		<basescript>plants.redleaves</basescript>
+		<movable />
 	</item>
 </definitions>
