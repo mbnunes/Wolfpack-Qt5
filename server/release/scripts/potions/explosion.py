@@ -28,7 +28,7 @@ def potion( cserial, iserial, clicked=False, counter=4, bonus=0 ):
 	# Triggered
 	if clicked:
 		if counter > 0:
-			item.addtimer( 1000, "potions.explosion.potioncountdown", [cserial, counter, bonus] )
+			item.addtimer( 1000, potioncountdown, [cserial, counter, bonus] )
 		else:
 			item.soundeffect( 0x307 ) # Boom!
 			item.effect( explosions[randint( 0, 2 )], 20, 10 )
@@ -181,9 +181,9 @@ def chainpotiontimer( cserial, iserial, bserial, outradius ):
 	bomb.settag( 'exploding', cserial )
 
 	if isPotionkeg( bomb ) and int( bomb.gettag( 'kegfill' ) ) >= 1:
-		bomb.addtimer( randint( 1000, 2250 ), "potions.explosion.potioncountdown", [ char.serial, 10, int( bomb.gettag( 'kegfill' ) ) ] )
+		bomb.addtimer( randint( 1000, 2250 ), potioncountdown, [ char.serial, 10, int( bomb.gettag( 'kegfill' ) ) ] )
 	else:
-		bomb.addtimer( randint( 1000, 2250 ), "potions.explosion.potioncountdown", [ char.serial, 0, bomb.amount ] )
+		bomb.addtimer( randint( 1000, 2250 ), potioncountdown, [ char.serial, 0, bomb.amount ] )
 	return True
 
 # Explosion Potion Function
