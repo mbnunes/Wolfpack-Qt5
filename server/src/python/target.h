@@ -127,6 +127,7 @@ public:
 			if( pModule )
 			{
 				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+
 				if( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
@@ -135,12 +136,15 @@ public:
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos().map ) );
 
-					PyEval_CallObject( pFunc, p_args );
-
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					PyObject *result = PyEval_CallObject( pFunc, p_args );
+					Py_XDECREF( result );
+					reportPythonError( sModule );
 				}
+
+				Py_XDECREF( pFunc );
 			}
+
+			Py_XDECREF( pModule );
 		}
 
 		Py_DECREF( args );
@@ -161,18 +165,22 @@ public:
 			if( pModule )
 			{
 				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+
 				if( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
 					PyObject *args = PyTuple_New( 1 );
 					PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
 
-					PyEval_CallObject( pFunc, args );
-
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					PyObject *result = PyEval_CallObject( pFunc, args );
+					Py_XDECREF( result );
+					reportPythonError( sModule );					
 				}
+
+				Py_XDECREF( pFunc );
 			}
+
+			Py_XDECREF( pModule );
 		}
 
 		Py_DECREF( args );
@@ -192,18 +200,23 @@ public:
 			if( pModule )
 			{
 				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+
 				if( pFunc && PyCallable_Check( pFunc ) )
 				{
 					// Create our Argument list
 					PyObject *args = PyTuple_New( 1 );
 					PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
 
-					PyEval_CallObject( pFunc, args );
+					PyObject *result = PyEval_CallObject( pFunc, args );
+					Py_XDECREF( result );
 
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					reportPythonError( sModule );
 				}
+
+				Py_XDECREF( pFunc );
 			}
+
+			Py_XDECREF( pModule );
 		}
 
 		Py_DECREF( args );

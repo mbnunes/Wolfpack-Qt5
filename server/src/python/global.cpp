@@ -131,6 +131,24 @@ static QStringList getFlagNames( const tile_st &tile )
 }
 
 /*!
+	Log a string
+*/
+static PyObject* wpConsole_log( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	char loglevel;
+	char *text;
+
+	if( !PyArg_ParseTuple( args, "bs:wolfpack.console.log( loglevel, text )", &loglevel, &text ) )
+		return 0;
+
+	Console::instance()->log( (eLogLevel)loglevel, text );
+
+	return PyTrue;
+}
+
+/*!
 	Sends a string to the wolfpack console.
 */
 static PyObject* wpConsole_send( PyObject* self, PyObject* args )
@@ -243,6 +261,7 @@ static PyMethodDef wpConsole[] =
 	{ "progressSkip",	wpConsole_progressSkip,		METH_NOARGS,	"Prints a [skip] block" },
 	{ "getbuffer",		wpConsole_getbuffer,		METH_NOARGS,	"Gets the linebuffer of the console" },
 	{ "reloadScripts",	wpConsole_reloadScripts,	METH_NOARGS,	"Reloads Scripts and Definitions"	},
+	{ "log",			wpConsole_log,				METH_VARARGS,	NULL },
     { NULL, NULL, 0, NULL } // Terminator
 };
 
