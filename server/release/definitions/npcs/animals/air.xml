@@ -8,21 +8,20 @@
                 <category>Animals\Air\Chicken</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
-                <karma><random min="5" max="10" /></karma>
-                <fame><random min="5" max="10" /></fame>
-                <defense><random min="1" max="2" /></defense>
+                <karma><random min="0" max="624" /></karma>
+                <fame><random min="0" max="1249" /></fame>
+                <defense>2</defense>
                 <lodamage>1</lodamage>
                 <hidamage>3</hidamage>
                 <!-- Stats -->
-                <str><random min="1" max="2" /></str>
-                <dex><random min="15" max="20" /></dex>
-                <int><random min="5" max="6" /></int>
+                <str><random min="10" max="10" /></str>
+                <dex><random min="15" max="15" /></dex>
+                <int><random min="10" max="10" /></int>
                 <!-- Skills -->
-                <wrestling><random min="475" max="525" /></wrestling>
-                <tactics><random min="475" max="525" /></tactics>
-                <parrying><random min="175" max="225" /></parrying>
-                <magicresistance><random min="375" max="425" /></magicresistance>
-                <totame>90</totame>
+                <wrestling><random min="55" max="55" /></wrestling>
+                <tactics><random min="50" max="50" /></tactics>
+                <magicresistance><random min="40" max="40" /></magicresistance>
+                <totame>0</totame>
                 <food>3</food>
                 <carve>carve_chicken</carve>
         </npc>
@@ -34,21 +33,20 @@
                 <category>Animals\Air\Bird</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
-                <karma><random min="5" max="10" /></karma>
-                <fame><random min="5" max="10" /></fame>
-                <defense><random min="1" max="2" /></defense>
+                <karma><random min="0" max="624" /></karma>
+                <fame><random min="0" max="1249" /></fame>
+                <defense><random min="0" max="6" /></defense>
                 <lodamage>1</lodamage>
                 <hidamage>3</hidamage>
                 <!-- Stats -->
-                <str><random min="2" max="6" /></str>
-                <dex><random min="15" max="20" /></dex>
-                <int><random min="5" max="6" /></int>
+                <str><random min="10" max="10" /></str>
+                <dex><random min="25" max="35" /></dex>
+                <int><random min="10" max="10" /></int>
                 <!-- Skills -->
-                <wrestling><random min="375" max="425" /></wrestling>
-                <tactics><random min="375" max="325" /></tactics>
-                <parrying><random min="175" max="225" /></parrying>
-                <magicresistance><random min="375" max="425" /></magicresistance>
-                <totame>100</totame>
+                <wrestling><random min="42" max="64" /></wrestling>
+                <tactics><random min="40" max="60" /></tactics>
+                <magicresistance><random min="40" max="50" /></magicresistance>
+                <totame>0</totame>
                 <food>3</food>
                 <carve>carve_bird</carve>
         </npc>
@@ -60,19 +58,18 @@
                 <category>Animals\Air\Eagle</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
-                <karma>0</karma>
-                <fame>>0</fame>
-                <defense>11</defense>
-                <lodamage>4</lodamage>
-                <hidamage>10</hidamage>
+                <karma><random min="0" max="624"></karma>
+                <fame><random min="0" max="1249"></fame>
+                <defense>22</defense>
+                <lodamage>2</lodamage>
+                <hidamage>6</hidamage>
                 <!-- Stats -->
-                <str><random min="45" max="50" /></str>
-                <dex><random min="15" max="20" /></dex>
-                <int><random min="20" max="25" /></int>
+                <str><random min="32" max="46" /></str>
+                <dex><random min="36" max="60" /></dex>
+                <int><random min="10" max="10" /></int>
                 <!-- Skills -->
                 <wrestling>300</wrestling>
                 <tactics>370</tactics>
-                <parrying>400</parrying>
                 <magicresistance>300</magicresistance>
                 <totame>171</totame>
              	<food>3</food>

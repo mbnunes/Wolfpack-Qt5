@@ -2,9 +2,393 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: White Wolf                     |
-|   )).-' {{ ;'`   | Revised by:                                |
+|   )).-' {{ ;'`   | Revised by: Viper                          |
 |  ( (  ;._ \\ ctr | Last Modification:                         |
 =================================================================
 -->
 <definitions>
+	<!-- an acid elemental -->
+	<npc id="acid_elemental">
+		<name>an acid elemental</name>
+		<id>0x09E</id>
+		<category>Monsters\Elementals\Acid Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-12000"/></karma>
+		<fame><random min="10000" max="12000"/></fame>
+		<defense><random min="50" max="50"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>22</hidamage>
+		<!-- Stats -->
+		<str><random min="327" max="355"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="271" max="295"/></int>
+		<!-- Skills -->
+		<wrestling><random min="732" max="909"/></wrestling>
+		<tactics><random min="801" max="900"/></tactics>
+		<magicresistance><random min="602" max="750"/></magicresistance>
+		<anatomy><random min="325" max="579"/></anatomy>
+		<magery><random min="745" max="872" /></magery>
+		</npc>
+
+	<!-- an air elemental -->
+	<npc id="air_elemental">
+		<name>an air elemental</name>
+		<id>0x00d</id>
+		<category>Monsters\Elementals\Air Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="40" max="40"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="126" max="152"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="166" max="185"/></int>
+		<!-- Skills -->
+		<wrestling><random min="669" max="820"/></wrestling>
+		<tactics><random min="625" max="788"/></tactics>
+		<magicresistance><random min="638" max="748"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="671" max="784" /></magery>
+		</npc>
+
+	<!-- a blood elemental -->
+	<npc id="blood_elemental">
+		<name>a blood elemental</name>
+		<id>0x09f</id>
+		<category>Monsters\Elementals\Blood Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="1500"/></fame>
+		<defense><random min="60" max="60"/></defense>
+		<lodamage>20</lodamage>
+		<hidamage>40</hidamage>
+		<!-- Stats -->
+		<str><random min="527" max="615"/></str>
+		<dex><random min="67" max="85"/></dex>
+		<int><random min="226" max="344"/></int>
+		<!-- Skills -->
+		<wrestling><random min="822" max="994"/></wrestling>
+		<tactics><random min="805" max="994"/></tactics>
+		<magicresistance><random min="804" max="947"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="875" max="994" /></magery>
+		<evaluatingintel><random min="580" max="804" /></evaluatingintel>
+		<meditation><random min="221" max="617" /></meditation>
+		</npc>
+
+	<!-- an earth elemental -->
+	<npc id="earth_elemental">
+		<name>an earth elemental</name>
+		<id>0x00e</id>
+		<category>Monsters\Elementals\Earth Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="131" max="152"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="73" max="92"/></int>
+		<!-- Skills -->
+		<wrestling><random min="657" max="929"/></wrestling>
+		<tactics><random min="655" max="916"/></tactics>
+		<magicresistance><random min="529" max="870"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a fire elemental -->
+	<npc id="fire_elemental">
+		<name>a fire elemental</name>
+		<id>0x00f</id>
+		<category>Monsters\Elementals\Fire Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="40" max="40"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="129" max="151"/></str>
+		<dex><random min="168" max="185"/></dex>
+		<int><random min="101" max="119"/></int>
+		<!-- Skills -->
+		<wrestling><random min="758" max="990"/></wrestling>
+		<tactics><random min="809" max="953"/></tactics>
+		<magicresistance><random min="797" max="948"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="670" max="774" /></magery>
+		</npc>
+
+	<!-- an ice elemental -->
+	<npc id="ice_elemental">
+		<name>an ice elemental</name>
+		<id>0x0A1</id>
+		<category>Monsters\Elementals\Ice Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="40" max="40"/></defense>
+		<lodamage>5</lodamage>
+		<hidamage>20</hidamage>
+		<!-- Stats -->
+		<str><random min="158" max="184"/></str>
+		<dex><random min="99" max="115"/></dex>
+		<int><random min="172" max="192"/></int>
+		<!-- Skills -->
+		<wrestling><random min="764" max="973"/></wrestling>
+		<tactics><random min="762" max="982"/></tactics>
+		<magicresistance><random min="338" max="783"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="318" max="477" /></magery>
+		</npc>
+
+	<!-- a poison elemental -->
+	<npc id="poison_elemental">
+		<name>a poison elemental</name>
+		<id>0x0A2</id>
+		<category>Monsters\Elementals\Poison Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-15000"/></karma>
+		<fame><random min="10000" max="15000"/></fame>
+		<defense><random min="70" max="70"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Stats -->
+		<str><random min="430" max="515"/></str>
+		<dex><random min="166" max="184"/></dex>
+		<int><random min="362" max="431"/></int>
+		<!-- Skills -->
+		<wrestling><random min="741" max="895"/></wrestling>
+		<tactics><random min="803" max="994"/></tactics>
+		<magicresistance><random min="924" max="1134"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<poisoning><random min="903" max="1000" /></poisoning>
+		<magery><random min="836" max="945" /></magery>
+		<meditation><random min="870" max="1122" /></meditation>
+		</npc>
+
+	<!-- a snow elemental -->
+	<npc id="snow_elemental">
+		<name>a snow elemental</name>
+		<id>0x0A3</id>
+		<category>Monsters\Elementals\Snow Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="50" max="50"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="327" max="353"/></str>
+		<dex><random min="167" max="182"/></dex>
+		<int><random min="72" max="91"/></int>
+		<!-- Skills -->
+		<wrestling><random min="820" max="978"/></wrestling>
+		<tactics><random min="933" max="965"/></tactics>
+		<magicresistance><random min="528" max="634"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a water elemental -->
+	<npc id="water_elemental">
+		<name>a water elemental</name>
+		<id>0x010</id>
+		<category>Monsters\Elementals\Air Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="40" max="40"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="126" max="154"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="102" max="124"/></int>
+		<!-- Skills -->
+		<wrestling><random min="551" max="691"/></wrestling>
+		<tactics><random min="508" max="677"/></tactics>
+		<magicresistance><random min="1016" max="1148"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="663" max="786" /></magery>
+		</npc>
+
+	<!-- an agapite elemental -->
+	<npc id="agapite_elemental">
+		<name>an agapite elemental</name>
+		<id>0x06B</id>
+		<category>Monsters\Elementals\Agapite Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>12</lodamage>
+		<hidamage>27</hidamage>
+		<!-- Stats -->
+		<str><random min="239" max="239"/></str>
+		<dex><random min="142" max="142"/></dex>
+		<int><random min="82" max="82"/></int>
+		<!-- Skills -->
+		<wrestling><random min="838" max="838"/></wrestling>
+		<tactics><random min="614" max="614"/></tactics>
+		<magicresistance><random min="585" max="585"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a bronze elemental -->
+	<npc id="bronze_elemental">
+		<name>a bronze elemental</name>
+		<id>0x06C</id>
+		<category>Monsters\Elementals\Bronze Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Stats -->
+		<str><random min="235" max="251"/></str>
+		<dex><random min="129" max="139"/></dex>
+		<int><random min="76" max="90"/></int>
+		<!-- Skills -->
+		<wrestling><random min="670" max="769"/></wrestling>
+		<tactics><random min="745" max="936"/></tactics>
+		<magicresistance><random min="528" max="854"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a copper elemental -->
+	<npc id="copper_elemental">
+		<name>a copper elemental</name>
+		<id>0x06D</id>
+		<category>Monsters\Elementals\Copper Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Stats -->
+		<str><random min="240" max="243"/></str>
+		<dex><random min="127" max="141"/></dex>
+		<int><random min="74" max="83"/></int>
+		<!-- Skills -->
+		<wrestling><random min="849" max="953"/></wrestling>
+		<tactics><random min="770" max="984"/></tactics>
+		<magicresistance><random min="819" max="840"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a dull copper elemental -->
+	<npc id="dull_copper_elemental">
+		<name>a dull copper elemental</name>
+		<id>0x06E</id>
+		<category>Monsters\Elementals\Dull Copper Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Stats -->
+		<str><random min="232" max="254"/></str>
+		<dex><random min="126" max="143"/></dex>
+		<int><random min="71" max="91"/></int>
+		<!-- Skills -->
+		<wrestling><random min="661" max="980"/></wrestling>
+		<tactics><random min="623" max="988"/></tactics>
+		<magicresistance><random min="518" max="988"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a golden elemental -->
+	<npc id="golden_elemental">
+		<name>a golden elemental</name>
+		<id>0x0A6</id>
+		<category>Monsters\Elementals\Golden Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="68" max="68"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Stats -->
+		<str><random min="237" max="252"/></str>
+		<dex><random min="131" max="144"/></dex>
+		<int><random min="72" max="92"/></int>
+		<!-- Skills -->
+		<wrestling><random min="775" max="877"/></wrestling>
+		<tactics><random min="806" max="987"/></tactics>
+		<magicresistance><random min="624" max="937"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a shadow iron elemental -->
+	<npc id="shadow_iron_elemental">
+		<name>an air elemental</name>
+		<id>0x06F</id>
+		<category>Monsters\Elementals\Shadow Iron Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Stats -->
+		<str><random min="237" max="239"/></str>
+		<dex><random min="133" max="144"/></dex>
+		<int><random min="82" max="83"/></int>
+		<!-- Skills -->
+		<wrestling><random min="737" max="780"/></wrestling>
+		<tactics><random min="711" max="862"/></tactics>
+		<magicresistance><random min="691" max="740"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a valorite elemental -->
+	<npc id="valorite_elemental">
+		<name>a valorite elemental</name>
+		<id>0x070</id>
+		<category>Monsters\Elementals\Valorite Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="68" max="68"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Stats -->
+		<str><random min="240" max="240"/></str>
+		<dex><random min="142" max="142"/></dex>
+		<int><random min="90" max="90"/></int>
+		<!-- Skills -->
+		<wrestling><random min="896" max="896"/></wrestling>
+		<tactics><random min="854" max="854"/></tactics>
+		<magicresistance><random min="798" max="798"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
+
+	<!-- a verite elemental -->
+	<npc id="verite_elemental">
+		<name>a verite elemental</name>
+		<id>0x00d</id>
+		<category>Monsters\Elementals\Verite Elemental </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="34" max="34"/></defense>
+		<lodamage>12</lodamage>
+		<hidamage>27</hidamage>
+		<!-- Stats -->
+		<str><random min="242" max="248"/></str>
+		<dex><random min="126" max="140"/></dex>
+		<int><random min="85" max="92"/></int>
+		<!-- Skills -->
+		<wrestling><random min="700" max="721"/></wrestling>
+		<tactics><random min="793" max="949"/></tactics>
+		<magicresistance><random min="553" max="569"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		</npc>
 </definitions>

@@ -146,47 +146,6 @@
 		<category>Monsters\Undead\Skeleton (with Scimitar)</category>
 	</npc>
 
-	<!-- a zombie weak-->
-	<npc id="zombie_weak">
-		<name>zombie</name>
-		<id>0x002</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="15" max="15"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="39" max="57"/>
-		</str>
-		<dex>
-			<random min="28" max="40"/>
-		</dex>
-		<int>
-			<random min="22" max="32"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="334" max="442"/>
-		</wrestling>
-		<tactics>
-			<random min="317" max="424"/>
-		</tactics>
-		<magicresistance>
-			<random min="198" max="318"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
 	<!-- a zombie medium-->
 	<npc id="zombie_medium">
 		<name>zombie</name>
@@ -201,8 +160,8 @@
 		<defense>
 			<random min="18" max="18"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>4</lodamage>
+		<hidamage>8</hidamage>
 		<!-- Stats -->
 		<str>
 			<random min="47" max="68"/>
@@ -228,100 +187,6 @@
 		</anatomy>
 		<!-- Priv -->
 	</npc>
-	<!-- a zombie hard-->
-	<npc id="zombie_hard">
-		<name>zombie</name>
-		<id>0x002</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="20" max="20"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="54" max="78"/>
-		</str>
-		<dex>
-			<random min="39" max="55"/>
-		</dex>
-		<int>
-			<random min="29" max="43"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="451" max="599"/>
-		</wrestling>
-		<tactics>
-			<random min="430" max="573"/>
-		</tactics>
-		<magicresistance>
-			<random min="267" max="431"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
-	<!-- a lich weak-->
-	<npc id="lich_weak">
-		<name>lich</name>
-		<id>0x018</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="42" max="42"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="200" max="300"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="145" max="170"/>
-		</str>
-		<dex>
-			<random min="107" max="127"/>
-		</dex>
-		<int>
-			<random min="237" max="259"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="85" max="85"/>
-		</wrestling>
-		<tactics>
-			<random min="596" max="763"/>
-		</tactics>
-		<magicresistance>
-			<random min="681" max="848"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="633" max="704"/>
-		</magery>
-		<evaluatingint>
-			<random min="850" max="850"/>
-		</evaluatingint>
-		<meditation>
-			<random min="704" max="807"/>
-		</meditation>
-		<!-- Priv -->
-	</npc>
 	<!-- a lich medium-->
 	<npc id="lich_medium">
 		<name>lich</name>
@@ -336,8 +201,8 @@
 		<defense>
 			<random min="50" max="50"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>10</lodamage>
+		<hidamage>15</hidamage>
 		<gold>
 			<random min="200" max="300"/>
 		</gold>
@@ -375,115 +240,10 @@
 		</meditation>
 		<!-- Priv -->
 	</npc>
-	<!-- a lich hard-->
-	<npc id="lich_hard">
-		<name>lich</name>
-		<id>0x018</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="57" max="57"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="200" max="300"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="196" max="230"/>
-		</str>
-		<dex>
-			<random min="144" max="172"/>
-		</dex>
-		<int>
-			<random min="320" max="350"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="115" max="115"/>
-		</wrestling>
-		<tactics>
-			<random min="807" max="1032"/>
-		</tactics>
-		<magicresistance>
-			<random min="922" max="1147"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="856" max="953"/>
-		</magery>
-		<evaluatingint>
-			<random min="1150" max="1150"/>
-		</evaluatingint>
-		<meditation>
-			<random min="953" max="1092"/>
-		</meditation>
-		<!-- Priv -->
-	</npc>
-	<!-- a shade weak-->
-	<npc id="shade_weak">
-		<name>shade</name>
-		<id>0x01a</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="23" max="23"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="64" max="85"/>
-		</str>
-		<dex>
-			<random min="64" max="79"/>
-		</dex>
-		<int>
-			<random min="31" max="50"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="432" max="496"/>
-		</wrestling>
-		<tactics>
-			<random min="388" max="504"/>
-		</tactics>
-		<magicresistance>
-			<random min="469" max="573"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="498" max="606"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<!-- Priv -->
-	</npc>
+
 	<!-- a shade medium-->
 	<npc id="shade_medium">
-		<name>shade</name>
+		<name><randomlist ="NAMES_SHADE" /></name>
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -495,8 +255,8 @@
 		<defense>
 			<random min="28" max="28"/>
 		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>4</lodamage>
+		<hidamage>8</hidamage>
 		<gold>
 			<random min="50" max="150"/>
 		</gold>
@@ -525,59 +285,6 @@
 		</anatomy>
 		<magery>
 			<random min="586" max="713"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<!-- Priv -->
-	</npc>
-	<!-- a shade hard-->
-	<npc id="shade_hard">
-		<name>shade</name>
-		<id>0x01a</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="32" max="32"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="87" max="115"/>
-		</str>
-		<dex>
-			<random min="87" max="108"/>
-		</dex>
-		<int>
-			<random min="42" max="67"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="585" max="671"/>
-		</wrestling>
-		<tactics>
-			<random min="525" max="683"/>
-		</tactics>
-		<magicresistance>
-			<random min="634" max="776"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="673" max="819"/>
 		</magery>
 		<evaluatingint>
 			<random min="0" max="0"/>

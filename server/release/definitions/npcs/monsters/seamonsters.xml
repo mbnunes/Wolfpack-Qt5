@@ -7,4 +7,49 @@
 =================================================================
 -->
 <definitions>
+	<!-- a kraken -->
+	<npc id="kraken">
+		<name>a kraken</name>
+		<id>0x008</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-5000" max="-9999"/>
+		</karma>
+		<fame>
+			<random min="5000" max="9999"/>
+		</fame>
+		<defense>
+			<random min="50" max="50"/>
+		</defense>
+		<lodamage>15</lodamage>
+		<hidamage>25</hidamage>
+		<gold>
+			<random min="300" max="600"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="766" max="772"/>
+		</str>
+		<dex>
+			<random min="244" max="244"/>
+		</dex>
+		<int>
+			<random min="31" max="36"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="548" max="562"/>
+		</wrestling>
+		<tactics>
+			<random min="495" max="558"/>
+		</tactics>
+		<magicresistance>
+			<random min="152" max="185"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<!-- Priv -->
+	</npc>
+
 </definitions>
