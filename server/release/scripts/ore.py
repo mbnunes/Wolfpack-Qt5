@@ -257,9 +257,11 @@ def dosmelt(char, args):
 
 	success = 0
 	reqskill = mining.ORES[resname][mining.REQSKILL]
-	chance = max(0, char.skill[MINING] - mining.ORES[resname][mining.MINSKILL]) / 1000.0
+	minskill = reqskill - 250
+	maxskill = reqskill + 250
+	#chance = max(0, char.skill[MINING] - mining.ORES[resname][mining.MINSKILL]) / 1000.0
 
-	if not char.skill[MINING] >= reqskill:
+	if char.skill[MINING] < reqskill:
 		char.socket.clilocmessage(501986, '', GRAY) # You have no idea how to smelt this strange ore!
 		return False
 
@@ -270,7 +272,7 @@ def dosmelt(char, args):
 			char.socket.clilocmessage( 501987, '', GRAY )
 			return False
 	
-		if not skills.checkskill(char, MINING, chance):
+		if not char.checkskill(MINING, minskill, maxskill):
 			success = 0
 		else:
 			if ore.baseid == DEF_ORES[3]:
