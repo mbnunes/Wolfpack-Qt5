@@ -64,6 +64,8 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 
 float Animal_Wild_Flee::preCondition()
 {
+	return 0.0f;
+
 	/*
 	 * Fleeing from an approaching player has the following preconditions:
 	 * - There is a player within flight range.

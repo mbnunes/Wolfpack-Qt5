@@ -958,13 +958,11 @@ static PyObject* wpItem_hasscript( wpItem* self, PyObject* args )
 
 	if ( self->pItem->hasScript( script ) )
 	{
-		Py_INCREF( Py_True );
-		return Py_True;
+		Py_RETURN_TRUE;
 	}
 	else
 	{
-		Py_INCREF( Py_False );
-		return Py_False;
+		Py_RETURN_FALSE;
 	}
 }
 

@@ -130,6 +130,7 @@ bool cPythonTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 				// Create our Argument list
 				PyObject* p_args = PyTuple_New( 3 );
 				PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
+				Py_INCREF(args);
 				PyTuple_SetItem( p_args, 1, args );
 				PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos().map ) );
 

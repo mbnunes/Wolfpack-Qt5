@@ -678,6 +678,9 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 	if ( !d->socket->isValid() || !d->socket->isWritable() )
 		return;
 
+	// Before we continue, we should guarantee no one writes packets to the buffer.
+	QMutexLocker lock( &d->wmutex );
+
 	// Encrypt new packets
 	QByteArray *p = d->wba.first();
 	while (p) {
@@ -691,8 +694,6 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 	d->wba.clear();
 	d->wba.setAutoDelete(TRUE);
 	
-	// Before we continue, we should guarantee no one writes packets to the buffer.
-	QMutexLocker lock( &d->wmutex );
 	while ( !osBufferFull && d->wsize > 0 )
 	{
 		QByteArray* a = d->ewba.first();

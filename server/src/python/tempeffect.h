@@ -120,8 +120,10 @@ public:
 						PyTuple_SetItem( p_args, 0, Py_None );
 					}
 
+					Py_INCREF(args); // PyTuple_SetItem steals a reference
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
+					Py_INCREF(disp_args);
 					PyTuple_SetItem( p_args, 3, disp_args );
 
 					PyObject* result = PyEval_CallObject( pFunc, p_args );
@@ -162,9 +164,12 @@ public:
 						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
 					else if ( isCharSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
-					else
-						PyTuple_SetItem( p_args, 0, PyFalse() );
+					else {
+						Py_INCREF(Py_None);
+						PyTuple_SetItem( p_args, 0, Py_None );
+					}
 
+					Py_INCREF(args);
 					PyTuple_SetItem( p_args, 1, args );
 
 					PyObject* result = PyEval_CallObject( pFunc, p_args );

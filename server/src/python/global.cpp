@@ -1601,13 +1601,11 @@ static PyObject* wpHasEvent( PyObject* /*self*/, PyObject* args )
 
 	if ( result )
 	{
-		Py_INCREF( Py_True );
-		return Py_True;
+		Py_RETURN_TRUE;
 	}
 	else
 	{
-		Py_INCREF( Py_False );
-		return Py_False;
+		Py_RETURN_FALSE;
 	}
 }
 
@@ -1677,13 +1675,11 @@ static PyObject* wpHasNamedEvent( PyObject* /*self*/, PyObject* args )
 
 	if ( result )
 	{
-		Py_INCREF( Py_True );
-		return Py_True;
+		Py_RETURN_TRUE;
 	}
 	else
 	{
-		Py_INCREF( Py_False );
-		return Py_False;
+		Py_RETURN_FALSE;
 	}
 }
 

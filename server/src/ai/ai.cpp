@@ -295,7 +295,9 @@ float ScriptAction::preCondition()
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+					Py_INCREF(Py_None); // SetItem steals a reference
 					PyTuple_SetItem( p_args, 1, Py_None );
+					Py_INCREF(Py_None); // SetItem steals a reference
 					PyTuple_SetItem( p_args, 2, Py_None );
 
 					PyObject* returnValue = PyObject_CallObject( pFunc, p_args );
@@ -348,7 +350,9 @@ float ScriptAction::postCondition()
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+					Py_INCREF(Py_None);
 					PyTuple_SetItem( p_args, 1, Py_None );
+					Py_INCREF(Py_None);
 					PyTuple_SetItem( p_args, 2, Py_None );
 
 					PyObject* returnValue = PyObject_CallObject( pFunc, p_args );
@@ -401,7 +405,9 @@ void ScriptAction::execute()
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+					Py_INCREF(Py_None);
 					PyTuple_SetItem( p_args, 1, Py_None );
+					Py_INCREF(Py_None);
 					PyTuple_SetItem( p_args, 2, Py_None );
 
 					Py_XDECREF( PyEval_CallObject( pFunc, p_args ) );

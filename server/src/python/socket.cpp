@@ -662,13 +662,11 @@ static PyObject* wpSocket_useitem( wpSocket* self, PyObject* args )
 
 	if ( self->pSock->useItem( item ) )
 	{
-		Py_INCREF( Py_True );
-		return Py_True;
+		Py_RETURN_TRUE;
 	}
 	else
 	{
-		Py_INCREF( Py_False );
-		return Py_False;
+		Py_RETURN_FALSE;
 	}
 }
 
