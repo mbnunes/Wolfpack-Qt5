@@ -31,7 +31,20 @@
 		<tag name="carpentry_type" value="bulletin_board" />
 		<category>Misc\Deeds\Carpentry\Bulletin Board Deed</category>
 	</item>
-
+	
+	<item id="dresser_e_deed" inherit="blank_deed">
+		<name>Dresser East Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="dresser_e" />
+		<category>Misc\Deeds\Carpentry\Dresser East Deed</category>
+	</item>
+	
+	<item id="dresser_s_deed" inherit="blank_deed">
+		<name>Dresser South Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="dresser_s" />
+		<category>Misc\Deeds\Carpentry\Dresser South Deed</category>
+	</item>
 
 	<!-- small bed deeds -->
 	<item id="small_bed_s_deed" inherit="blank_deed">
