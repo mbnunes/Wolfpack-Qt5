@@ -119,10 +119,6 @@ SOURCE=.\cache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\cFile.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File
@@ -488,10 +484,6 @@ SOURCE=.\gumps.h
 # Begin Source File
 
 SOURCE=.\hCache.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\hFile.h
 # End Source File
 # Begin Source File
 

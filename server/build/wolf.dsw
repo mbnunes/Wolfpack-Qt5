@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "ZTHREAD_1_5_4_static"=.\ZThread\ZTHREAD_1_5_4_static.dsp - Package Owner=<4>
+Project: "ZTHREAD_2_0_1_static"=.\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -23,9 +23,6 @@ Package=<5>
 
 Package=<4>
 {{{
-    Begin Project Dependency
-    Project_Dep_Name ZTHREAD_1_5_4_static
-    End Project Dependency
 }}}
 
 ###############################################################################

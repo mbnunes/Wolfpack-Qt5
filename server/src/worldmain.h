@@ -61,7 +61,7 @@ class CWorldMain ;
 
 
 #include <zthread/Thread.h>
-#include <zthread/CheckedMutex.h>
+#include <zthread/FastMutex.h>
 
 class CWorldMain  
 {
@@ -90,7 +90,7 @@ private:
 	class cItemsSaver : public ZThread::Thread
 	{
 	private:
-		ZThread::CheckedMutex waitMutex;		
+		ZThread::FastMutex waitMutex;		
 	public:
 		virtual ~cItemsSaver() throw() {}
 		virtual void run() throw();

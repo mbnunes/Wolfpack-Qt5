@@ -291,7 +291,6 @@ cTargets		*Targ;
 cNetworkStuff	*Network;
 cMagic			*Magic;
 cBooks          *Books;
-//cFile			*File;			- Currently Unused.
 cAccount		*Accounts;
 cAllTmpEff		*AllTmpEff;
 cMovement		*Movement;
