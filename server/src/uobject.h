@@ -122,6 +122,9 @@ public:
 	void moveTo( const Coord_cl& );
 	QString bindmenu() const { return bindmenu_; }
 	void setBindmenu( const QString& d ) { bindmenu_ = d; }
+
+	bool isItem() { return isItemSerial( serial ); }
+	bool isChar() { return isCharSerial( serial ); }
 };
 
 
