@@ -226,7 +226,6 @@ def checkPython(options):
 	sys.stdout.write( "Checking CPU byte order... %s\n" % sys.byteorder )
 	if sys.byteorder != 'little':
 		sys.stdout.write(red("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work\n" )
-		sys.exit();
 
 	sys.stdout.write( "Searching for Python library... " )
 
