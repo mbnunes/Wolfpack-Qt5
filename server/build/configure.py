@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.3
+#!/usr/bin/env python
 #################################################################
 #   )      (\_     # Wolfpack 13.0.0 Build Script               #
 #  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
@@ -13,7 +13,12 @@ import fnmatch
 import dircache
 import string
 import distutils.sysconfig
-from optparse import OptionParser
+try:
+    from optparse import OptionParser
+except:
+    sys.path.append( './tools/scripts' )
+    from optparse import OptionParser
+    
 
 # These are the variables we are trying to figure out
 py_libpath = ""
@@ -226,11 +231,11 @@ def checkPython( options, lookForHeaders, lookForLib ):
 		PYTHONLIBSEARCHPATH = [ options.py_libpath ]
 
 	sys.stdout.write( "Checking Python version... " )
-	if sys.hexversion >= 0x020300F0:
+	if sys.hexversion >= 0x020200F0:
 		sys.stdout.write(green("ok\n"))
 	else:
 		sys.stdout.write( red("failed") + "\n" )
-		sys.stdout.write( bold("Wolfpack requires Python version greater than 2.3.0 ") )
+		sys.stdout.write( bold("Wolfpack requires Python version greater than 2.2.0 ") )
 		sys.exit();
 
 
