@@ -72,7 +72,8 @@ private:
 	QPtrList< cUOSocket > uoSockets;
 	QPtrList< cUOSocket > loginSockets;
 	cAsyncNetIO *netIo_;
-	cListener *listener_;
+	cListener *loginServer_;
+	cListener *gameServer_;
 
 	// junk
 	UOXSOCKET getuoSocketsIndex( const cUOSocket* );

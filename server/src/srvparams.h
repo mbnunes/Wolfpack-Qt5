@@ -97,7 +97,10 @@ protected:
 	float checkTammedTime_;
 	unsigned int decayTime_;
 	int niceLevel_;
-	unsigned short port_;
+	unsigned short loginPort_;
+	bool enableLogin_;
+	unsigned short gamePort_;
+	bool enableGame_;
 	float goldWeight_;
 	unsigned int playercorpsedecaymultiplier_;
 	bool lootdecayswithcorpse_;
@@ -272,7 +275,6 @@ public:
 	float checkTammedTime() const;
 	int niceLevel() const;
 	unsigned int decayTime() const;
-	unsigned short port() const;
 	float goldWeight() const;
 	unsigned int playercorpsedecaymultiplier() const;
 	bool lootdecayswithcorpse() const;
@@ -335,6 +337,8 @@ public:
 	int AccountBlockTime() const;
 	int resetAttemptCount() const;
 	QString accountsArchiver() const;
+
+
 
 	// Persistency Module
 	QString databaseHost() const;
@@ -413,6 +417,12 @@ public:
 	void setWorldFixedLevel( unsigned char );
 	void setWorldDarkLevel( unsigned char );
 	void setDungeonLightLevel( unsigned char );
+
+	// Network
+	unsigned short loginPort() const;
+	unsigned short gamePort() const;
+	bool enableLogin() const;
+	bool enableGame() const;
 
 private:
 	void setDefaultStartLocation();
@@ -577,11 +587,6 @@ inline int cSrvParams::niceLevel() const
 inline unsigned int cSrvParams::decayTime() const
 {
 	return decayTime_;
-}
-
-inline unsigned short cSrvParams::port() const
-{
-	return port_;
 }
 
 inline float cSrvParams::goldWeight() const
@@ -1122,6 +1127,26 @@ inline QString cSrvParams::databasePassword() const
 inline bool cSrvParams::showSkillTitles() const
 {
 	return showSkillTitles_; 
+}
+
+inline bool cSrvParams::enableLogin() const
+{
+	return enableLogin_; 
+}
+
+inline bool cSrvParams::enableGame() const
+{
+	return enableGame_; 
+}
+
+inline unsigned short cSrvParams::gamePort() const
+{
+	return gamePort_;
+}
+
+inline unsigned short cSrvParams::loginPort() const
+{
+	return loginPort_;
 }
 
 #endif //__SRVPARAMS_H___

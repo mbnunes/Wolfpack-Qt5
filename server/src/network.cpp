@@ -57,37 +57,71 @@ cNetwork *cNetwork::instance_;
 cNetwork::cNetwork( void )
 {
 	loginSockets.setAutoDelete( true );
-	uoSockets.setAutoDelete( true );
-	listener_ = new cListener( SrvParams->port() );
-	netIo_ = new cAsyncNetIO;
+	uoSockets.setAutoDelete( true );	
 
-	listener_->start();
+	if( SrvParams->enableLogin() )
+	{
+		loginServer_ = new cListener( SrvParams->loginPort() );
+		loginServer_->start();
+	}
+	else
+		loginServer_ = 0;
+
+	if( SrvParams->enableGame() )
+	{
+		gameServer_ = new cListener( SrvParams->gamePort() );
+		gameServer_->start();
+	}
+	else
+		gameServer_ = 0;
+
+	netIo_ = new cAsyncNetIO;
 	netIo_->start();
 }
 
 cNetwork::~cNetwork( void )
 {
+	if( loginServer_ )
+	{
+		loginServer_->cancel();
+		loginServer_->join();
+		delete loginServer_;
+	}
+
+	if( gameServer_ )
+	{
+		gameServer_->cancel();
+		gameServer_->join();
+		delete gameServer_;
+	}
+
 	netIo_->cancel();
-	listener_->cancel();
-
 	netIo_->join();
-	listener_->join(); // Wait for them to stop
-
 	delete netIo_;
-	delete listener_;
 }
 
 void cNetwork::poll( void )
 {
-	// Check for new Connections
-	if ( listener_->haveNewConnection() )
+	// Check for new Connections (LoginServer)
+	if( loginServer_ && loginServer_->haveNewConnection() )
 	{
-		QSocketDevice *socket = listener_->getNewConnection(); 
-		netIo_->registerSocket( socket );
+		QSocketDevice *socket = loginServer_->getNewConnection(); 
+		netIo_->registerSocket( socket, true );
 		loginSockets.append( new cUOSocket(socket) );
 
 		// Notify the admin
-		clConsole.send( QString( "[%1] Client connected\n" ).arg( socket->peerAddress().toString() ) );
+		clConsole.send( QString( "[%1] Client connected (LoginServer)\n" ).arg( socket->peerAddress().toString() ) );
+	}
+
+	// Check for new Connections (GameServer)
+	if( gameServer_ && gameServer_->haveNewConnection() )
+	{
+		QSocketDevice *socket = gameServer_->getNewConnection(); 
+		netIo_->registerSocket( socket, false );
+		loginSockets.append( new cUOSocket(socket) );
+
+		// Notify the admin
+		clConsole.send( QString( "[%1] Client connected (GameServer)\n" ).arg( socket->peerAddress().toString() ) );
 	}
 
 	// fast return
@@ -101,7 +135,7 @@ void cNetwork::poll( void )
 		// Check for disconnected sockets
 		if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() || uoSocket->socket()->isInactive() || !uoSocket->socket()->isOpen() )
 		{
-			clConsole.send( tr( "[%1] Client disconnected\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );			
+			clConsole.send( tr( "[%1] Client disconnected\n" ).arg( uoSocket->ip() ) );			
 			uoSocket->disconnect();
 			netIo_->unregisterSocket( uoSocket->socket() );			
 			uoSockets.remove( uoSocket );
@@ -119,7 +153,7 @@ void cNetwork::poll( void )
 	{
 		if( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isOpen() )
 		{
-			clConsole.send( tr( "[%1] Client disconnected\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );
+			clConsole.send( tr( "[%1] Client disconnected\n" ).arg( uoSocket->ip() ) );
 			netIo_->unregisterSocket( uoSocket->socket() );
 			loginSockets.remove();
 			continue;

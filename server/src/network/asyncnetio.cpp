@@ -129,6 +129,7 @@ public:
 	bool consumeWriteBuf( Q_ULONG nbytes );
 	bool consumeReadBuf( Q_ULONG nbytes, char *sink );
 
+	bool login; // false = GameServer Protocol, true = LoginServer Protocol
 	UINT32 seed;
 	cClientEncryption *encryption;
 };
@@ -347,12 +348,15 @@ bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
 */
 
 /*!
-  Registers a \a socket for asyncronous services
+  Registers a \a socket for asyncronous services.
+  \a login determines whether the connection has been established to
+  the login server or not.
 */
-bool cAsyncNetIO::registerSocket( QSocketDevice* socket )
+bool cAsyncNetIO::registerSocket( QSocketDevice* socket, bool login )
 {
 	mapsMutex.acquire();
 	cAsyncNetIOPrivate* d = new cAsyncNetIOPrivate;
+	d->login = login;
 	d->socket = socket;
 	buffers.insert( socket, d );
 	mapsMutex.release();
@@ -414,6 +418,15 @@ void cAsyncNetIO::run() throw()
 						d->skippedUOHeader = true;
 	
 						d->seed = ( ( temp[0] & 0xFF ) << 24 ) | ( ( temp[1] & 0xFF ) << 16 ) | ( ( temp[2] & 0xFF ) << 8 ) | ( ( temp[3] & 0xFF ) );
+
+						// Only 0xFFFFFFFF seed allowed for !d->login
+						if( !d->login && d->seed != 0xFFFFFFFF )
+						{
+							d->writeBlock( "\x82\x04", 2 );
+							flushWriteBuffer( d );
+							d->socket->close();
+							continue;
+						}
 					}
 				}
 				else if( nread == 0 )
@@ -441,8 +454,8 @@ void cAsyncNetIO::run() throw()
 					// for encrypted data if we didn't receive all we need
 					if( !d->encryption )
 					{
-						// Gameserver Encryption Detection
-						if( d->seed == 0xFFFFFFFF && d->rsize >= 65 )
+						// Gameserver Encryption
+						if( !d->login && d->rsize >= 65 )
 						{
 							// The 0x91 packet is 65 byte
 							nread = d->rsize;
@@ -471,7 +484,7 @@ void cAsyncNetIO::run() throw()
 							}							
 						}
 						// LoginServer Encryption
-						else if( d->seed != 0xFFFFFFFF && d->rsize >= 62 )
+						else if( d->login && d->rsize >= 62 )
 						{
 							// The 0x80 packet is 62 byte, but we want to have everything
 							nread = d->rsize;

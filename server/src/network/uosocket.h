@@ -77,6 +77,7 @@ private:
 	cTargetRequest *targetRequest;
 	QString _lang,_version;
 	cCustomTags tags_;
+	QString _ip; // IP used to connect 
 
 	QMap< SERIAL, cGump* > gumps;
 
@@ -257,7 +258,7 @@ inline QString cUOSocket::lang( void ) const
 
 inline QString cUOSocket::ip( void ) const
 {
-	return _socket->peerAddress().toString();
+	return _ip;
 }
 
 inline P_CHAR cUOSocket::player( void ) const

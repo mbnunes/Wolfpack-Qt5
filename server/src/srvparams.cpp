@@ -172,7 +172,6 @@ void cSrvParams::readData()
 	saveSpawns_				= getBool("General",	"Save Spawned Regions", true, true);
 	stablingFee_			= getDouble("General",	"StablingFee",		0.25, true);
 	announceWorldSaves_		= getBool("General",	"Announce WorldSaves", true, true);
-	port_                   = getNumber("General",    "Port", 2593, true);
 	goldWeight_             = getDouble("General",    "Gold Weight", 0.001000, true);
 	playercorpsedecaymultiplier_ = getNumber("General", "Player Corpse Decay Multiplier", 1, true);
 	lootdecayswithcorpse_   = getBool("General",    "Loot Decays With Corpse", true, true);
@@ -219,6 +218,12 @@ void cSrvParams::readData()
 	defaultpriv1_			= getNumber("General", "DefaultPrivileage1", 0, true);
 	defaultpriv2_			= getNumber("General", "DefaultPrivileage2", 0, true);
 	mulPath_				= getString("General", "MulPath", "./", true);
+
+	// Network
+	loginPort_				= getNumber( "Network",		"Loginserver Port", 2593, true );
+	gamePort_               = getNumber( "Network",		"Gameserver Port", 2594, true );
+	enableLogin_			= getBool( "Network",		"Enable Loginserver", true, true );
+	enableGame_				= getBool( "Network",		"Enable Gameserver", true, true );
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );

@@ -54,7 +54,7 @@ public:
 	
 	~cAsyncNetIO() throw() {}	
 
-	bool registerSocket(QSocketDevice*);
+	bool registerSocket(QSocketDevice*, bool loginSocket);
 	bool unregisterSocket(QSocketDevice*);
 	Q_ULONG	bytesAvailable(QSocketDevice*) const;
 
