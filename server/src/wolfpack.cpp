@@ -5235,7 +5235,6 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 {
 
 	//First, let's see their karma.
-
 	if (pc->karma <= -200)
 	{
 		pc->setMurderer();

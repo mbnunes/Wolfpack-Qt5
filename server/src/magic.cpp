@@ -344,7 +344,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	{
 	case 0x0000:	// summon monster
  		soundeffect( s, 0x02, 0x15 );
- 		pc_monster = Npcs->AddRandomNPC( s, "10000", -1 );
+ 		pc_monster = Npcs->AddNPC( s, NULL, Npcs->getRandomNPC("10000"));
  		if( pc_monster == NULL )
  		{
  			sysmessage( s, "Contact your shard op to setup the summon list!" );

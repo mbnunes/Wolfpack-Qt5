@@ -42,7 +42,6 @@
 #include "typedefs.h"
 #include "structs.h"
 #include "defines.h"
-#include "SrvParms.h"
 #include "uobject.h"
 
 #undef  DBGFILE
@@ -410,7 +409,7 @@ public:
 	void DeleteChar(P_CHAR pc_k);
 	P_CHAR MemCharFree();
 	P_ITEM AddRandomLoot(P_ITEM pBackpack, char * lootlist);
-	P_CHAR AddRandomNPC(int s, char *npclist, int spawnpoint);
+	int getRandomNPC(char *npclist);
 	P_CHAR AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
 	void Split(P_CHAR pc_k);
 	void CheckAI(unsigned int currenttime, P_CHAR pc_i);

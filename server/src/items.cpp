@@ -1481,7 +1481,7 @@ char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 //taken from 6904t2(5/10/99) - AntiChrist
 void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi) 
 {
-	int serial, ci, preservebody;
+	int serial, preservebody;
 	if ( pi == NULL )
 		return;
 	P_ITEM pi_multi = NULL;
@@ -1593,7 +1593,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 {
-	int  j, k,m,serial,ci, c;
+	int  k,m,serial,ci, c;
 	//char ilist[66]="101010100010100101010100001101010000110101010101011010";
 	if (pi == NULL)
 		return;

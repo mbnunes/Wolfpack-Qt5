@@ -1154,7 +1154,7 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 
 void cNetworkStuff::GetMsg(int s) // Receive message from client 
 {
-	int count, j, book,serial,length, dyn_length,loopexit=0, fb;
+	int count, j, serial, length, dyn_length, loopexit=0, fb;
 	unsigned char nonuni[512];
 	unsigned char packet;
 	int  myoffset,  myj, mysize, subcommand, subsubcommand ;
@@ -1490,6 +1490,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 									}
 							}
 						}
+						int book;
 						if (pj != NULL)
 						{
 							book=buffer[s][4]-0x30;

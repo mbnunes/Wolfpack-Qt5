@@ -161,7 +161,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			if (pc_p != pc_currchar)
 				return;
 	}
-	else if (isCharSerial(pi->contserial) && pi->type!=-1 && !pi->isInWorld())
+	else if (isCharSerial(pi->contserial) && pi->type != 1 && !pi->isInWorld())
 	{// in a character.
 		P_CHAR pc_p = FindCharBySerial(pi->contserial);
 		if (pc_p != NULL)

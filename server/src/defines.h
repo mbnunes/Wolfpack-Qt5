@@ -265,23 +265,11 @@ void Writeslot(LPSTR lpszMessage);
 ///////////////////////  End Defines
 
 
-//#define HASHMAX 149111 // lord binary, hashmax must be a prime for maximum performce (see Knuth, Sedgewick et al).
-// 149111 is far too high for small systems :( keep in mind how much additional memory will be allocated
-// for each number: nearly 1k! So with 149111 we have 140 MB of memory for the hashtable (Duke, 17.9.01)
-//#define HASHMAX 4973 // lord binary, hashmax must be a prime for maximum performce (see Knuth, Sedgewick et al).
-
-// Comment about HASHMAX:
-// The size of the hash array is very important. In order to get good performance, you should 
-// use a suitably large prime number. Suitable means equal to or larger than the maximum expected 
-// number of items/chars. 
-
-
-
-
-
 // DasRaetsels' stuff down, don't touch ;)
 
 #define DEFAULTWEBPAGE "http://wpdev.sf.net/"  //this URL doesn't exist, changed to wpdev.sf.net ;)
+
+#define MAXTRACKINGTARGETS 20   // maximum number of trackable targets
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL -1

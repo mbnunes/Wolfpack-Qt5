@@ -179,7 +179,7 @@ void cFishing::FishTarget(P_CLIENT ps)
 
 	if(!(cx<=6 && cy<=6))
 	{
-		ps->SysMsg("You are too far away to reach that");
+		sysmessage(s, "You are too far away to reach that");
 		return;
 	}
 	// end exploit fix
@@ -205,7 +205,7 @@ void cFishing::FishTarget(P_CLIENT ps)
 		Fish(pPlayer);
 	}
 	else
-		ps->SysMsg("You need to be closer to the water to fish!");
+		sysmessage(s, "You need to be closer to the water to fish!");
 }
 
 

@@ -611,8 +611,8 @@ mstring mstring::cleanup(mstring clInput)
 	// First thing is get rid of trailing/leading blanks
 	clInput = trim(clInput);
 	
-	SI32 siStart = 0;
-	SI32 siStop;
+	string::size_type siStart = 0;
+	string::size_type siStop;
 	
 	while ((siStart = clInput.find_first_of(MYWHITESPACE, siStart))!= string::npos)
 	{

@@ -211,7 +211,6 @@ bool	networkinit()
 		break;
 	}
 #endif
-printf("Checking unix init\n") ;
 #if defined(_POSIX) && !defined(__linux__)
 // On BSD machines, a broken pipe generates a SIGPIPE signal.  On 
 // linux we can trap that with the MSG_NOSIGNAL. But BSD doesn't have that,

@@ -746,11 +746,13 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	{
 		if (strlen(menuarray1[line])==0)
 			break;
+		else
 		{
 			gump3[0]=strlen(menuarray1[line])>>8;
 			gump3[1]=strlen(menuarray1[line])%256;
 			Xsend(s, gump3, 2);
 			gump3[0]=0;
+			unsigned int i;
 			for (i=0;i<strlen(menuarray1[line]);i++)
 			{
 				gump3[1]=menuarray1[line][i];

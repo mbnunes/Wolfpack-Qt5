@@ -351,6 +351,10 @@ SOURCE=.\trigger.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\uobject.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\utilsys.cpp
 # End Source File
 # Begin Source File
@@ -640,6 +644,10 @@ SOURCE=.\trigger.h
 # Begin Source File
 
 SOURCE=.\typedefs.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\uobject.h
 # End Source File
 # Begin Source File
 

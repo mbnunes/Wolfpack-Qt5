@@ -40,7 +40,7 @@ void loadclientsallowed(void);
 void saveserverscript(void);
 #define SrvParms (&server_data)	// in preparation of making sever_data a class.Use SrvParms->xxx instead of server_dat.xxx (Duke)
 
-#define MAXTRACKINGTARGETS 20   // maximum number of trackable targets
+
 #define STABLOCKCACHESIZE 1000
 #define NPCSPEED .3	// was .2  5 steps every second
 

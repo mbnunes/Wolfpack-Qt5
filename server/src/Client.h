@@ -40,6 +40,11 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
+#include "typedefs.h"
+
+// Forward Class declaration
+class cChar;
+
 class cClient  
 {
 protected:
@@ -53,7 +58,6 @@ public:
 	bool IsDragging();
 	void SetDragging();
 	void ResetDragging();
-	void SysMsg(char* text);
 };
 
 typedef cClient* P_CLIENT;

@@ -33,9 +33,9 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "wolfpack.h"
+#include "globals.h"
 #include "Client.h"
-#include "SndPkg.h"
+//#include "SndPkg.h"
 #include "debug.h"
 
 #undef  DBGFILE
@@ -44,7 +44,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-cClient::cClient(int so)
+cClient::cClient(UOXSOCKET so)
 {
 	if (so < 0 || so > MAXCLIENT)
 	{
@@ -56,11 +56,10 @@ cClient::cClient(int so)
 		socket=so;
 }
 
-cClient::~cClient(){;}
+cClient::~cClient(){}
 
 UOXSOCKET	cClient::GetSocket()	{return socket;}
 P_CHAR		cClient::getPlayer()	{return currchar[socket];}
 bool		cClient::IsDragging()	{return (DRAGGED[socket]>0);}
 void		cClient::SetDragging()	{DRAGGED[socket]=1;}
 void		cClient::ResetDragging(){DRAGGED[socket]=0;}
-void		cClient::SysMsg(char* text)	{sysmessage(socket,text);}

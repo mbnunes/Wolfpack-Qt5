@@ -313,7 +313,7 @@ P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
 }
 
 /*** s: socket ***/
-P_CHAR cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
+int cCharStuff::getRandomNPC(char * npclist)
 {
 	//This function gets the random npc number from the list and recalls
 	//addrespawnnpc passing the new number
@@ -324,7 +324,7 @@ P_CHAR cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
 
 	Script *pScpBase=i_scripts[npc_script];
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
-	if (!pScp) return NULL;
+	if (!pScp) return 0;
 
 	unsigned long loopexit=0;
 	do
@@ -344,16 +344,7 @@ P_CHAR cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
 		i=rand()%(i);
 		k=uiTempList[i];
 	}
-	if(k!=0)
-	{
-		if (spawnpoint==-1)
-		{
-			addmitem[s]=k;
-			return Targ->NpcMenuTarget(s);
-			//return -1;
-		}
-	}
-	return NULL;
+	return k;
 }
 
 //o---------------------------------------------------------------------------o
@@ -398,7 +389,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 	if (x1 > 0 && y1 > 0)
  		postype = 3;	// take position from parms
-	else if ( s > -1 && pi_i == NULL)
+	else if ( s != -1 && pi_i == NULL)
 		postype = 2;	// take position from socket's buffer
 	else if ( s == -1 && pi_i != NULL)
 		postype = 1;	// take position from items[i]
@@ -429,18 +420,19 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 		{
 			if (!(strcmp("NPCLIST", (char*)script1)))
 			{
-				pScp->Close();
-				return Npcs->AddRandomNPC(s,(char*)script2,1);
+				npcNum = Npcs->getRandomNPC((char*)script2);
+				sprintf(sect, "NPC %i", npcNum);
+				break;
 			}
 		}
 	} while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
 
 	pScp->Close();
-	
+
 	//
 	// Now lets spawn him/her
 	//
-	P_CHAR pc_c = Npcs->MemCharFree ();
+	P_CHAR pc_c = Npcs->MemCharFree();
 	if ( pc_c == NULL )
 		return NULL;
 	pc_c->Init();
@@ -450,7 +442,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 	pc_c->npc=1;
 	pc_c->att=1;
 	pc_c->def=1;
-	pc_c->spawnserial=-1;
+	pc_c->spawnserial = INVALID_SERIAL;
 	
 	pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp)

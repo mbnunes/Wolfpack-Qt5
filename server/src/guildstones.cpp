@@ -1231,7 +1231,6 @@ void cGuilds::SetType(int guildnumber, int type)
 {
 	int j;
 	int member;
-	int holding;
 
 	if (guildnumber<0 || guildnumber >=MAXGUILDS) return;
 
@@ -1606,7 +1605,7 @@ int cGuilds::CheckValidPlace(int x,int y)
 
 int cGuilds::CheckValidPlace(int s)
 {
-	int los;
+	int los = 0;
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi_multi = findmulti(pc_currchar->pos); 
 	if (pi_multi == NULL) 
