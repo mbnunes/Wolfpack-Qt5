@@ -37,6 +37,9 @@
 #include "targetrequests.h"
 #include "network/uosocket.h"
 
+// System Includes
+#include <functional>
+
 // Main Command processing function
 void cCommands::process( cUOSocket *socket, const QString &command )
 {
@@ -46,7 +49,6 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 		return;
 
 	P_CHAR pChar = socket->player();
-	QString pLevel = pChar->privlvl();
 	QStringList pArgs = QStringList::split( " ", command, true );
 	
 	// No Command? No Processing
@@ -59,7 +61,7 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 	pArgs.erase( pArgs.begin() );
 
 	// Check if the priviledges are ok
-	if( !containsCmd( pLevel, pCommand ) )
+	if( !pChar->account()->authorized("command", pCommand ))
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.lower() ) );
 		return;
@@ -86,30 +88,9 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 	socket->sysMessage( "Unknown Command" );
 }
 
-// adds a command (string) into the stringlist of the privlvl if it's not in yet
-void cCommands::addCmdToPrivLvl( QString privlvl, QString command )
+void cCommands::loadACLs( void )
 {
-	if( !privlvl_commands[ privlvl ].commands.contains( command ) )
-		privlvl_commands[ privlvl ].commands.push_back( command );
-}
-
-// rmvs a command (sting) from the stringlist of the privlvl
-void cCommands::rmvCmdFromPrivLvl( QString privlvl, QString command )
-{
-	if( privlvl_commands[ privlvl ].commands.contains( command ) )
-		privlvl_commands[ privlvl ].commands.remove( command );
-}
-
-// explains itself :)
-bool cCommands::containsCmd( QString privlvl, QString command )
-{
-	return ( ( privlvl_commands[ privlvl ].commands.contains( command ) && privlvl_commands[ privlvl ].implicit ) ||
-		   ( !privlvl_commands[ privlvl ].commands.contains( command ) && !privlvl_commands[ privlvl ].implicit ) );
-}
-
-void cCommands::loadPrivLvlCmds( void )
-{
-	clConsole.PrepareProgress( "Loading PrivLvl Command Lists." );
+	clConsole.PrepareProgress( "Loading Access Control Lists." );
 
 	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
 	
@@ -121,23 +102,45 @@ void cCommands::loadPrivLvlCmds( void )
 		clConsole.ChangeColor( WPC_NORMAL );
 		return;
 	}
-	
+	QString groupName;
 	for(QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
 		QDomElement *Tag = DefManager->getSection( WPDT_PRIVLEVEL, *it );
-
-		if( Tag->isNull() || !Tag->attributes().contains( "id" ) )
+		QMap<QString, stACLcommand> group;
+		if( Tag->isNull() )
 			continue;
-		
-		QString privlvl = Tag->attribute( "id" );
-		privlvl_commands[privlvl].implicit = !( Tag->attributes().contains( "type" ) && Tag->attribute( "type" ) == "explicit" );
-
-		QDomNode childNode = Tag->firstChild();
-		while( !childNode.isNull() )
+		QString ACLname = Tag->attribute("id");
+		if ( ACLname == QString::null )
 		{
-			this->addCmdToPrivLvl( privlvl, childNode.nodeName().upper() );
-			childNode = childNode.nextSibling();
+			clConsole.ChangeColor( WPC_RED );
+			clConsole.send( QString("WARNING: Tag %1 lacks \"id\" attribute").arg(Tag->tagName()) );
+			clConsole.ChangeColor( WPC_NORMAL );
+			continue;
 		}
+		QDomElement n = Tag->firstChild().toElement();
+		QMap<QString, QMap<QString, stACLcommand> > acl;
+		while (!n.isNull())
+		{
+			if ( Tag->tagName() == "group" )
+			{
+				groupName = Tag->attribute("name", QString::null);
+				n = n.firstChild().toElement();
+			} 
+			else if ( Tag->tagName() == "action" )
+			{
+				stACLcommand action;
+				action.name = Tag->attribute("name", "any");
+				action.permit = Tag->attribute("permit", "false") == "true" ? true : false;
+				group.insert( action.name, action );
+			}
+			n = n.nextSibling().toElement();
+			if ( n.isNull() && n.parentNode() != *Tag )
+			{
+				n = n.parentNode().nextSibling().toElement();
+				acl.insert( groupName, group );
+			}
+		}
+		ACLs.insert( ACLname, acl );		
 	}
 	clConsole.ProgressDone();
 }
@@ -516,3 +519,4 @@ stCommand cCommands::commands[] =
 	{ "SET", commandSet },
 	{ NULL, NULL }
 };
+

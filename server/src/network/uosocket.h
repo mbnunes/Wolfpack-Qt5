@@ -74,12 +74,7 @@ public:
 	void setWalkSequence( Q_UINT8 data );
 
 	cUOSocket( QSocketDevice *sDevice );
-
-	virtual ~cUOSocket( void ) 
-	{ 
-		delete _socket; 
-		if( targetRequest ) delete targetRequest; 	
-	}
+	virtual ~cUOSocket( void );
 
 	QSocketDevice *socket( void ) const;
 	void setSocket( QSocketDevice *data );

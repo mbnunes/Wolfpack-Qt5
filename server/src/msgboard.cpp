@@ -645,7 +645,7 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region_%s.bbi", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
+			sprintf( (char*)temp, "region_%s.bbi", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region.latin1() );
 		}
 		else
 		{
@@ -1018,7 +1018,7 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region_%s.bbp", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
+			sprintf( (char*)temp, "region_%s.bbp", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region.latin1());
 		}
 		else
 		{
@@ -2281,7 +2281,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	// If they have no money, well, oops!
 	if ( servicePay == 0 )
 	{
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()) );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()).latin1() );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
@@ -2290,7 +2290,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
 		goldsfx( k, servicePay );
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()) );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()).latin1() );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	

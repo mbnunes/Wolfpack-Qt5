@@ -45,6 +45,8 @@
 #include "qvaluevector.h"
 #include "qmap.h"
 
+// Wolfpack includes
+#include "commands.h"
 
 // Forward Class declarations
 
@@ -56,7 +58,7 @@ class AccountRecord : public cSerializable
 private:
 	QString login_;
 	QString password_;
-	QStringList groups_;
+	cACL acl_;
 	QValueVector<cChar*> characters_;
 	QDateTime lastLogin;
 	QDateTime blockUntil;
@@ -89,7 +91,8 @@ public:
 	{
 		blocked_ = true;
 	}
-
+	void setACL( cACL );
+		
 	void Serialize( ISerialization& );
 	QString	objectID( void ) const;
 };
@@ -144,6 +147,11 @@ inline QValueVector<cChar*> AccountRecord::caracterList() const
 inline QString AccountRecord::objectID( void ) const
 {
 	return "ACCOUNT";
+}
+
+inline void AccountRecord::setACL( cACL d )
+{
+	acl_ = d;
 }
 
 #endif // __ACCOUNTS_H__

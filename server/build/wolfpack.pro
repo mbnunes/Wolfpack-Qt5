@@ -43,9 +43,9 @@ HEADERS         = client.h \
 		  chars.h \
                   charsmgr.h \
 		  classes.h \
-		  cmdtable.h \
 		  coord.h \
 		  combat.h \
+		  commands.h \
 		  cweather.h \
 		  dbl_single_click.h \
 		  debug.h \
@@ -124,7 +124,6 @@ SOURCES         = client.cpp \
 		  cache.cpp \
                   chars.cpp \
                   charsmgr.cpp \
-		  cmdtable.cpp \
 		  combat.cpp \
 		  commands.cpp \
 		  coord.cpp \

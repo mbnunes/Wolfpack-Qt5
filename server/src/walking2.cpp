@@ -1524,3 +1524,5 @@ Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 
 	return newCoords;
 }
+
+

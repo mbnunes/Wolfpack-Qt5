@@ -1994,7 +1994,7 @@ void checkkey ()
 				DefManager->reload(); //Reload Definitions
 				cAllSpawnRegions::getInstance()->reload();
 				cAllTerritories::getInstance()->reload();
-				cCommands::instance()->loadPrivLvlCmds();
+				cCommands::instance()->loadACLs();
 
 				ScriptManager->reload(); // Reload Scripts
 
@@ -2059,7 +2059,7 @@ void start_glow(void)	// better to make an extra function cauze in loaditem it c
 
 
 #if defined(__unix__)
-	bool bDeamon = true ;
+	bool bDeamon = false; //true ;
 #else
 	bool bDeamon = false ;
 #endif
@@ -2229,7 +2229,7 @@ int main( int argc, char *argv[] )
 	clConsole.send("\nLoading vital scripts:\n");
 	
 	read_in_teleport();
-	cCommands::instance()->loadPrivLvlCmds();
+	cCommands::instance()->loadACLs();
 	CIAO_IF_ERROR;
 
 	serverstarttime = getNormalizedTime();

@@ -64,6 +64,11 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 {
 }
 
+cUOSocket::~cUOSocket(void)
+{
+	delete _socket;
+	delete targetRequest;
+}
 
 // Send a packet to our ioHandle
 void cUOSocket::send( cUOPacket *packet )
@@ -446,15 +451,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	
 	pChar->setPriv( SrvParams->defaultpriv1() );
 	pChar->priv2 = SrvParams->defaultpriv2();
-
-	if( Accounts->count() == 1 ) // first account is Admin.
-	{
-		pChar->setPriv( 0xE7 );
-		pChar->setPrivLvl("admin");
-		pChar->setMenupriv( -1 );
-	}
-	else
-		pChar->setPrivLvl( "player" );
 
 	pChar->name = packet->name().latin1();
 	

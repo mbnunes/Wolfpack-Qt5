@@ -32,11 +32,9 @@
 #define __COMMANDS_H__
 
 // Library Includes
-#include <map>
+#include "qmap.h"
 #include "qstring.h"
 #include "qstringlist.h"
-
-using namespace std;
 
 class cUOSocket;
 
@@ -46,18 +44,20 @@ struct stCommand
 	void (*command)( cUOSocket*, const QString&, QStringList& );	
 };
 
-struct stPrivEntry
+struct stACLcommand
 {
-	QStringList commands;
-	bool		implicit;
+	QString		name;
+	bool		permit;
 	
-	stPrivEntry() { implicit = true; };
+	stACLcommand() { permit = true; };
 };
+
+typedef QMap<QString, QMap<QString, QMap< QString, stACLcommand > > >::iterator cACL;
 
 class cCommands
 {
 private:
-	map< QString, stPrivEntry > privlvl_commands;
+	QMap<QString, QMap<QString, QMap< QString, stACLcommand > > > ACLs;
 	static stCommand commands[];
 public:
 	// Command processing system
@@ -71,10 +71,20 @@ public:
 	}
 
 	// Privlevel System
-	void addCmdToPrivLvl( QString privlvl, QString command );
-	void rmvCmdFromPrivLvl( QString privlvl, QString command );
-	bool containsCmd( QString privlvl, QString command );
-	void loadPrivLvlCmds( void );
+	void loadACLs( void );
+	cACL getACL( const QString& );
+	bool isValidACL( cACL& );
 };
+
+inline bool cCommands::isValidACL( cACL& acl )
+{
+	return ( ACLs.end() != acl );
+}
+
+inline cACL cCommands::getACL( const QString& key )
+{
+	return ACLs.find( key );
+}
+
 
 #endif

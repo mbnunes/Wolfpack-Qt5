@@ -330,3 +330,5 @@ void cAllTerritories::check( P_CHAR pc )
 
 // Singleton
 cAllTerritories cAllTerritories::instance;
+
+

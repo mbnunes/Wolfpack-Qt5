@@ -40,6 +40,7 @@
 
 AccountRecord::AccountRecord()
 {
+	acl_ = cCommands::instance()->getACL("");
 }
 
 void AccountRecord::Serialize( ISerialization& archive )
@@ -49,15 +50,9 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.read("login", login_);
 		archive.read("password", password_);
 		archive.read("blocked", blocked_);
-		uint i,j;
-		archive.read("groups_size", i);
-		for ( j = 0; j < i; --j )
-		{
-			QString line;
-			archive.read(QString("line%1").arg(j).latin1(), line);
-			groups_.append(line);
-		}
 		QString temp;
+		archive.read("acl", temp);
+		acl_ = cCommands::instance()->getACL(temp);
 		archive.read("lastlogin", temp);
 		lastLogin.fromString(temp, Qt::ISODate);
 	}
@@ -66,13 +61,13 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.write("login", login_);
 		archive.write("password", password_);
 		archive.write("blocked", blocked_);
-		uint i;
-		for ( i = 0; i < groups_.size(); ++i)
-		{
-			archive.write(QString("line%1").arg(i).latin1(), groups_[i]);
-		}
+		if ( cCommands::instance()->isValidACL(acl_) && !acl_.key().isNull() )
+			archive.write("acl", acl_.key());
+		else
+			archive.write("acl", "");
 		archive.write("lastlogin", lastLogin.toString(Qt::ISODate));
 	}
+	cSerializable::Serialize( archive );
 }
 
 bool AccountRecord::isBlocked() const
@@ -104,9 +99,31 @@ bool AccountRecord::removeCharacter( cChar* d )
 	return false;
 }
 
-bool AccountRecord::authorized( const QString& action, const QString& value ) const
+bool AccountRecord::authorized( const QString& group, const QString& value ) const
 {
-	return true;
+	QMap<QString, QMap<QString, stACLcommand> >::const_iterator it = acl_.data().find(group);
+	if ( it != acl_.data().end() )
+	{
+		QMap<QString, stACLcommand>::const_iterator it2 = it.data().find( value );
+		if ( it2 != it.data().end() )
+		{
+			return it2.data().permit;
+		}
+		else
+		{
+			it2 = it.data().find("any");
+			if ( it2 != it.data().end() )
+			{
+				return it2.data().permit;
+			}
+			else
+				false; // any not found, then it's deny.
+		}
+	}
+	
+	// for now, group "any" not implemented.
+	
+	return false;
 }
 
 // ===== cAccounts ===== //
@@ -164,6 +181,7 @@ void cAccounts::save()
 {
 	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
 	archive->prepareWritting("accounts");
+	// Now save accounts
 	iterator it = accounts.begin();
 	for (; it != accounts.end(); ++it )
 	{
@@ -180,11 +198,16 @@ void cAccounts::load()
 	{
 		QString objectID;
 		archive->readObjectID( objectID );
-		if ( objectID != "ACCOUNT" )
-			qFatal("Invalid object ID parsing accounts file");
-		AccountRecord* d = new AccountRecord;
-		archive->readObject( d );
-		accounts.insert( d->login(), d );
+		if ( objectID == "ACCOUNT" )
+		{
+			AccountRecord* d = new AccountRecord;
+			archive->readObject( d );
+			accounts.insert( d->login(), d );
+		}
+		else
+		{
+			qFatal("Error parsing account records");
+		}
 	}
 	archive->close();
 }
@@ -201,6 +224,13 @@ AccountRecord* cAccounts::createAccount( const QString& login, const QString& pa
 	d->login_ = login;
 	d->password_ = password;
 	accounts.insert(d->login(), d);
+	if ( accounts.count() == 1 ) // first account, it must be admin!
+	{
+		d->setACL( cCommands::instance()->getACL("admin") );
+	}
+	else
+		d->setACL( cCommands::instance()->getACL("player") );
+	save(); //make sure to save it.
 	return d;
 }
 
@@ -225,7 +255,7 @@ void AccountRecord::remove()
 
 void cAccounts::remove( AccountRecord *record )
 {
-	if( accounts.contains( record->login() )
+	if( accounts.contains( record->login() ) )
 		accounts.remove( record->login() );
 	delete record;
 }
