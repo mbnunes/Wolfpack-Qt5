@@ -116,6 +116,77 @@ static PyMethodDef wpConsole[] =
     { NULL, NULL, 0, NULL } // Terminator
 };
 
+/*!
+	Gets the seconds of the current uo time
+*/
+PyObject* wpTime_second( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uoTime.time().second() );
+}
+
+/*!
+	Gets the minutes of the current uo time
+*/
+PyObject* wpTime_minute( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uoTime.time().minute() );
+}
+
+/*!
+	Gets the hours of the current uo time
+*/
+PyObject* wpTime_hour( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uoTime.time().hour() );
+}
+
+/*!
+	Gets the current day
+*/
+PyObject* wpTime_day( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uoTime.date().day() );
+}
+
+/*!
+	Gets the current month
+*/
+PyObject* wpTime_month( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uoTime.date().month() );
+}
+
+/*!
+	Gets the current year
+*/
+PyObject* wpTime_year( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uoTime.date().year() );
+}
+
+/*!
+	Gets a timestamp of the current uo time
+*/
+PyObject* wpTime_timestamp( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uoTime.time().elapsed() );
+}
+
+/*!
+	Methods for handling UO Time from within python
+*/
+static PyMethodDef wpTime[] = 
+{
+	{ "second",		wpTime_second,		METH_VARARGS, "Returns the current time-seconds" },
+	{ "minute",		wpTime_minute,		METH_VARARGS, "Returns the current time-minutes" },
+	{ "hour",			wpTime_hour,		METH_VARARGS, "Returns the current time-hour" },
+	{ "day",			wpTime_day,			METH_VARARGS, "Returns the current date-day" },
+	{ "month",			wpTime_month,		METH_VARARGS, "Returns the current date-month" },
+	{ "year",			wpTime_year,		METH_VARARGS, "Returns the current date-year" },
+	{ "timestamp",		wpTime_timestamp,	METH_VARARGS, "Returns the current timestamp" },
+    { NULL, NULL, 0, NULL } // Terminator
+};
+
 ////////////////////////////////////////////////////////////////////////////
 // GLOBALS
 // Global methods found in wolfpack.
@@ -320,6 +391,9 @@ void init_wolfpack_globals()
 
 	PyObject *mConsole = Py_InitModule( "console", wpConsole );
     PyObject_SetAttrString( wpNamespace, "console", mConsole );
+
+	PyObject *mTime = Py_InitModule( "time", wpTime );
+    PyObject_SetAttrString( wpNamespace, "time", mTime );
 }
 
 /*

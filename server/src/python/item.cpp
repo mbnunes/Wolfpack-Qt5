@@ -33,6 +33,7 @@
 #include "item.h"
 #include "pycoord.h"
 #include "char.h"
+#include "content.h"
 #include "../items.h"
 #include "../tilecache.h"
 #include "../prototypes.h"
@@ -447,6 +448,14 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else if( !strcmp( "pos", name ) )
 		return PyGetCoordObject( self->pItem->pos );
 
+	// What we contain
+	else if( !strcmp( "content", name ) )
+	{
+		wpContent *content = PyObject_New( wpContent, &wpContentType );
+		content->contserial = self->pItem->serial;
+		return (PyObject*)content;
+	}
+
 	// What we're contained in
 	else if( !strcmp( "container", name ) )
 	{
@@ -503,6 +512,10 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else getIntProperty( "gatetime", pItem->gatetime )
 	else getIntProperty( "gatenumber", pItem->gatenumber )
 	else getIntProperty( "decaytime", pItem->decaytime )
+	
+	else if( !strcmp( name, "decay" ) )
+		return PyInt_FromLong( (self->pItem->priv&0x01) ? 1 : 0 );
+
 	// ownserial
 	else getIntProperty( "visible", pItem->visible )
 	// spanserial
@@ -585,6 +598,18 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 
 	else if( !strcmp( name, "moreb4" ) )
 		self->pItem->setMoreb1( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "decay" ) )
+		if( PyObject_IsTrue( value ) )
+		{
+			self->pItem->priv |= 0x01;
+			self->pItem->startDecay();
+		}
+		else
+		{
+			self->pItem->priv &= 0xFE;
+			self->pItem->decaytime = 0;
+		}
 
 	// CONTAINER!!
 	else setIntProperty( "more1", pItem->more1 )

@@ -35,6 +35,7 @@
 #include "commands.h"
 #include "gumps.h"
 #include "mapstuff.h"
+#include "wpscriptmanager.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
 #include "srvparams.h"
@@ -407,6 +408,19 @@ public:
 				pItem->setColor( hex2dec( value ).toULong() );
 			else if( pChar )
 				pChar->setSkin( hex2dec( value ).toULong() );
+		}
+
+		// Events
+		else if( key == "events" ) 
+		{
+			pObject->clearEvents();
+			QStringList events = QStringList::split( ",", value );
+			for( INT32 i = 0; i < events.count(); ++i )
+			{
+				WPDefaultScript *script = ScriptManager->find( events[i] );
+				if( script )
+					pObject->addEvent( script );
+			}
 		}
 
 		// Object id

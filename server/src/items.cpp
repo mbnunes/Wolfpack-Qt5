@@ -196,6 +196,9 @@ inline QString cItem::objectID() const
 
 void cItem::startDecay()			
 {
+	if( contserial != INVALID_SERIAL )
+		return;
+
 	this->decaytime = SrvParams->decayTime()*MY_CLOCKS_PER_SEC+uiCurrentTime;
 }
 

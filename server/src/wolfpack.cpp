@@ -2222,59 +2222,6 @@ void doworldlight(void)
 		SrvParams->worldCurrentLevel() = c;
 }
 
-void telltime( UOXSOCKET s )
-{
-	char tstring[60];
-	char tstring2[60];
-	int lhour;
-	lhour=uoTime.time().hour();
-	
-	if ((uoTime.time().minute() >= 0)&&(uoTime.time().minute()<=14)) strcpy(tstring,"It is");
-	else if ((uoTime.time().minute()>=15)&&(uoTime.time().minute()<=30)) strcpy(tstring,"It is a quarter past");
-	else if ((uoTime.time().minute()>=30)&&(uoTime.time().minute()<=45)) strcpy(tstring,"It is half past");
-	else
-	{
-		strcpy(tstring,"It is a quarter till");
-		lhour++;
-		if (lhour==0) lhour=12;
-	}
-	switch( lhour )
-	{
-	case 1: sprintf( tstring2, "%s one o'clock", tstring );		break;
-	case 2: sprintf( tstring2, "%s two o'clock", tstring );		break;
-	case 3: sprintf( tstring2, "%s three o'clock", tstring );	break;
-	case 4: sprintf( tstring2, "%s four o'clock", tstring );	break;
-	case 5: sprintf( tstring2, "%s five o'clock", tstring );	break;
-	case 6: sprintf( tstring2, "%s six o'clock", tstring );		break;
-	case 7: sprintf( tstring2, "%s seven o'clock", tstring );	break;
-	case 8: sprintf( tstring2, "%s eight o'clock", tstring );	break;
-	case 9: sprintf( tstring2, "%s nine o'clock", tstring );	break;
-	case 10: sprintf( tstring2, "%s ten o'clock", tstring );	break;
-	case 11: sprintf( tstring2, "%s eleven o'clock", tstring );	break;
-	case 12:
-		if( uoTime.time().hour() < 12 )
-			sprintf( tstring2, "%s midnight.", tstring );
-		else
-			sprintf( tstring2, "%s noon.", tstring );
-		break;
-	}
-	
-	if (lhour==12) strcpy(tstring, tstring2);
-	else if ( uoTime.time().hour() < 12 )
-	{
-		if ((lhour>=1)&&(lhour<6)) sprintf(tstring,"%s in the afternoon.",tstring2);
-		else if ((lhour>=6)&&(lhour<9)) sprintf(tstring,"%s in the evening.",tstring2);
-		else sprintf(tstring,"%s at night.",tstring2);
-	}
-	else
-	{
-		if ((lhour>=1)&&(lhour<5)) sprintf(tstring,"%s at night.",tstring2);
-		else sprintf(tstring,"%s in the morning.",tstring2);
-	}
-	
-	sysmessage(s, tstring);
-}
-
 int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b
 {
 	int dir,xdif,ydif;

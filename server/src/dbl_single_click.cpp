@@ -1252,31 +1252,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						socket->sysMessage(tr("You failed to use this statue."));
 					}
 					return;
-				case 0x1230:
-				case 0x1246: // guillotines?
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
-					{
-						pi->setId(0x1245);
-						pi->setType( 45 );				
-						pi->update();// AntiChrist
-					}
-					else
-					{
-						socket->sysMessage(tr("You failed to use this."));
-					}  
-					return;
-				case 0x1245: // Guillotine stop animation
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
-					{
-						pi->setId(0x1230);
-						pi->setType( 45 );					
-						pi->update();// AntiChrist
-					}
-					else
-					{
-						socket->sysMessage(tr("You failed to use this."));
-					}
-					return;
 				case 0x1039:  // closed flour sack
 							  /*
 							  if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
@@ -1310,11 +1285,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x0DBF:
 				case 0x0DC0:// fishing
 					target(s, 0, 1, 0, 45, "Fish where?");
-					return;
-				case 0x104B:
-				case 0x104C:
-				case 0x1086: // Clock and bracelet
-					telltime(s);
 					return;
 				case 0x0E9B: // Mortar for Alchemy
 					if (pi->type() == 17)

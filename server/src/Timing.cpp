@@ -359,7 +359,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 	{
 		pc->setTrackingTarg( INVALID_SERIAL );
 		pc->setTrackingTimer( 0 );
-	}		
+	}
 
 	if( SrvParams->hungerRate() > 1 && ( pc->hungertime() <= currenttime  ) )
 	{

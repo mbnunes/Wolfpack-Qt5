@@ -30,6 +30,7 @@
 //========================================================================================
 
 #include "utilities.h"
+#include "item.h"
 #include "char.h"
 #include "../network/uosocket.h"
 
@@ -103,16 +104,86 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Sends speech of a given object to the socket
+*/
+PyObject* wpSocket_sendspeech( wpSocket* self, PyObject* args )
+{
+	// Needed/Allowed arugments:
+	// First Argument: Source
+	// Second Argument: Speech
+	// optional:
+	// Third Argument: Color
+	// Fourth Argument: SpeechType
+	if( !self->pSock || PyTuple_Size( args ) < 2 || !checkArgStr( 1 ) ) 
+		return PyFalse;
+
+	cUObject *object = NULL;
+	QString speech( PyString_AsString( PyTuple_GetItem( args, 1 ) ) );
+	UINT16 color = 0x3b2;
+	UINT16 font = 3;
+	UINT8 type = 0;
+	cUOTxUnicodeSpeech::eSpeechType eType;
+
+	object = getWpItem( PyTuple_GetItem( args, 0 ) );
+
+	if( !object )
+		object = getWpChar( PyTuple_GetItem( args, 0 ) );
+
+	if( !object )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
+
+	if( PyTuple_Size( args ) > 3 && PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
+		font = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
+
+	if( PyTuple_Size( args ) > 4 && PyInt_Check( PyTuple_GetItem( args, 4 ) ) )
+		type = PyInt_AsLong( PyTuple_GetItem( args, 4 ) );
+
+	switch( type )
+	{
+	case 1:
+		eType = cUOTxUnicodeSpeech::Broadcast;
+		break;
+	case 2:
+		eType = cUOTxUnicodeSpeech::Emote;
+		break;
+	case 6:
+		eType = cUOTxUnicodeSpeech::System;
+		break;
+	case 8:
+		eType = cUOTxUnicodeSpeech::Whisper;
+		break;
+	case 9:
+		eType = cUOTxUnicodeSpeech::Yell;
+		break;
+	case 0:
+	default:
+		eType = cUOTxUnicodeSpeech::Regular;
+		break;
+	};
+
+	self->pSock->showSpeech( object, speech, color, font, eType );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
-    { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char" },
+    { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
+	{ "sendspeech",			(getattrofunc)wpSocket_sendspeech, METH_VARARGS, "Sends raw speech to the socket." },
     { NULL, NULL, 0, NULL }
 };
 
 // Getters & Setters
 PyObject *wpSocket_getAttr( wpSocket *self, char *name )
 {
-	return Py_FindMethod( wpSocketMethods, (PyObject*)self, name );
+	if( !strcmp( name, "player" ) )
+		return PyGetCharObject( self->pSock->player() );
+	else
+		return Py_FindMethod( wpSocketMethods, (PyObject*)self, name );
 }
 
 int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value )

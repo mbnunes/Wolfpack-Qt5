@@ -35,6 +35,7 @@
 #include "socket.h"
 #include "pycoord.h"
 #include "skills.h"
+#include "content.h"
 #include "../chars.h"
 #include "../prototypes.h"
 #include "../junk.h"
@@ -504,6 +505,13 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else getIntProperty( "hidamage", pChar->hidamage )
 	else getIntProperty( "lodamage", pChar->lodamage )
 	else getIntProperty( "objectdelay", pChar->objectdelay )
+
+	else if( !strcmp( "equipment", name ) )
+	{
+		wpContent *content = PyObject_New( wpContent, &wpContentType );
+		content->contserial = self->pChar->serial;
+		return (PyObject*)content;
+	}
 
 	else if( !strcmp( "baseskill", name ) )
 	{

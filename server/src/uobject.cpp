@@ -133,6 +133,15 @@ void cUObject::Serialize(ISerialization &archive)
 	cSerializable::Serialize( archive );
 }
 
+/*!
+	Clears the script-chain
+*/
+void cUObject::clearEvents()
+{
+	scriptChain.clear();
+	eventList_.clear();
+}
+
 // Method for setting a list of WPDefaultScripts
 void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 {
