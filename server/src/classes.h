@@ -107,8 +107,6 @@ public:
 	void BowCraft(int s);
 	void Carpentry(int s);
 	void Smith(int s);
-	void MakeMenuTarget(int s, int x, int skill);
-	void MakeMenu(int s, int m, int skill);
 	void Mine(int s);
 	void GraveDig(int s);
 	void SmeltOre(int s);
@@ -145,9 +143,6 @@ public:
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_CHAR, P_ITEM);
-
-	// Added by Darkstorm
-	bool MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool Notify );
 };
 
 class cWeight

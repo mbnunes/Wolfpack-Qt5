@@ -34,6 +34,7 @@
 #include "junk.h"
 #include "srvparams.h"
 #include "pfactory.h"
+#include "network/uosocket.h"
 
 
 // ===== AccountRecord Methods ===== //
@@ -175,6 +176,17 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 			{
 				it.data()->block(SrvParams->AccountBlockTime());
 			}
+			return 0;
+		}
+
+		bool inUse = false;
+		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock && !inUse; mSock = cNetwork::instance()->next())
+			if( mSock->account() == it.data() )
+				inUse = true;
+
+		if( inUse )
+		{
+			*error = AlreadyInUse;
 			return 0;
 		}
 	}

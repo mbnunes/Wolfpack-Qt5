@@ -3219,7 +3219,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			break;
 			//////////// (56) POLYMORPH /////////////////
 		case 56:
-			PolymorphMenu( s, POLYMORPHMENUOFFSET ); // Antichrist's Polymorph
+//			PolymorphMenu( s, POLYMORPHMENUOFFSET ); // Antichrist's Polymorph
 			break;
 			//////////// (57) EARTHQUAKE ///////////////
 		case 57:

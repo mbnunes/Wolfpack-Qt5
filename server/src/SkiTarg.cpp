@@ -1781,6 +1781,7 @@ void cSkills::LockPick(int s)
 
 void cSkills::Tinkering(int s)
 {
+	/*
 	P_CHAR pc_currchar = currchar[s];
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && !pi->isLockedDown()) // Ripper
@@ -1816,6 +1817,7 @@ void cSkills::Tinkering(int s)
 		}
 	}
 	sysmessage(s, tr("You cannot use that material for tinkering.") );
+	*/
 }
 
 //////////////////////////////////

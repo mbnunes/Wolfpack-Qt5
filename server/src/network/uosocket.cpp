@@ -516,22 +516,17 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 		case cAccounts::Wipped:
 		case cAccounts::Banned:
 			denyPacket.setReason( DL_BLOCKED ); break;
+		case cAccounts::AlreadyInUse:
+			denyPacket.setReason( DL_INUSE ); break;
 		};
 
 		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->peerAddress().toString() ) );
 		send( &denyPacket );
 	}
 
-	bool inUse = false;
-	for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock && !inUse; mSock = cNetwork::instance()->next())
-		if( mSock->account() == authRet )
-			inUse = true;
+	_account = authRet;
 
-
-	if( !inUse )
-		_account = authRet;
-
-	return ( error == cAccounts::NoError && !inUse );
+	return ( error == cAccounts::NoError );
 }
 
 // Processes a create character request

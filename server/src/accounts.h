@@ -106,7 +106,7 @@ private:
 	typedef QMap<QString, AccountRecord*>::const_iterator const_iterator;
 
 public:
-	enum enErrorCode {LoginNotFound, BadPassword, Banned, Wipped, NoError};
+	enum enErrorCode {LoginNotFound, BadPassword, Banned, Wipped, AlreadyInUse, NoError};
 
 public:
 	~cAccounts();

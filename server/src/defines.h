@@ -223,9 +223,6 @@ extern long int oldtime, newtime;
 #define DOORTYPES 17
 #define WEIGHT_PER_STR 4
 #define MAXGATES 100
-#define POLYMORPHMENUOFFSET 8196 // polymorph spell menu offset - AntiChrist (9/99)
-#define MAKEMENUOFFSET 2048
-#define TRACKINGMENUOFFSET 4096 // menu offset
 
 #define NORTH 1
 #define NORTHEAST 2
