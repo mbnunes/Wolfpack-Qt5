@@ -9,6 +9,7 @@ Wolfpack 12.9.9 Beta (CVS)
 
 Wolfpack 12.9.8 Beta (4. August, 2004)
 	* Core Changes:
+		- Cleanups and general fixes.
 		- Gump Responses are now passed on as Unicode rather than in the
 			local codepage.
 		- Floating point tags are now saved correctly.
@@ -25,11 +26,15 @@ Wolfpack 12.9.8 Beta (4. August, 2004)
 		- Added Py_RETURN_NONE/TRUE/FALSE as in Python 2.4
 		- Added status on MySQL/SQLite modules.
 		- New Python getProperty method.
-		- Fixed a possible bug with the Python interface ( possibly source of crashing bugs )
+		- Fixed a possible bug with the Python interface 
+			( Possibly source of crashing bugs )
 		- Property item.magic is now item.movable
-		- (Configurable) Speedhack Countermeasure (See Anti Speed Hack settings in the General group)
+		- (Configurable) Speedhack Countermeasure 
+			(See Anti Speed Hack settings in the General group)
 		- Added some additional checking to wolfpack.pro
-		- Began binary save feature (Incomplete)
+		- Began binary save feature. (Incomplete)
+		- Fixes for mul and diff files.
+			Haven should now work.
 	* Definition Changes:
 		- Fixed Sheep definitions
 		- Regions are split up facet/type/name.xml
@@ -42,6 +47,7 @@ Wolfpack 12.9.8 Beta (4. August, 2004)
 		- Added trashcan
 		- Inscription Added
 		- Controlslot values added to many NPCs related to taming.
+		- More NPCs were added and updated.
 	* Python Script Changes:
 		- New Function: wolfpack.findobject(serial)
 		- New Function: wolfpack.charbase(baseid)
@@ -50,47 +56,56 @@ Wolfpack 12.9.8 Beta (4. August, 2004)
 		- New function: wolfpack.accounts.count()
 		- New function: wolfpack.utilities.booleantoggle( boolean )
 		- New property: socket.address
-		- Changed property: item.magic -> item.movable
+		- Moved property: item.magic -> item.movable
 		- Moved wolfpack.servertime() / wolfpack.currenttime() to
 			wolfpack.time.servertime() / wolfpack.currenttime()
 		- New commands: taginfo, addevent, removeevent, account,
 			resurrect, password, tele, invis, kill, fix, resend,
 			allskills, remove, move, who
-		- Cleanups to help reduce memory consumption.
-		- Fixed carving
-		- Fixed sheering of sheeps and wool regrowing
-		- Rudimentarily Implemented Map Plotting
 		- New script: trashcan
+			This is a trashcan script, the item must be a container to work.
 		- New script: system.regionchange
 			This overrides the core region change messages.
 		- New script: system.hunger
 			This allows players to suffer from hunger once again.
-		- Updates to the food script.
+		- New Script: system.players
+			This has basic onLogin() onLogout() hooks for players.
+		- New script: wolfpack.locales
+			This will be an index with messages in many languages for easy
+			configuration for the server's non-cliloc messages.
+		- Script Fixes:
+			Eating food no longer animates a character if on a mount.
+			Carving was fixed.
+			Potion Kegs now work.
+			Door fixes for blocking check speed.
+		- Cleanups to help reduce memory consumption.
+		- NPC Related: Fixed sheering of sheeps and wool regrowing,
+			Healers will now resurrect through the context menu.
+		- Rudimentarily Implemented Map Plotting
 		- Export command updates.
 			Checks for doors and corpses.
 			Does not save spawnregion items.
-		- Potion Kegs now work.
-		- Door improvements.
-			Speed in which blocks are checked improved.
-			Manual closing block checks.
-		- Timer fixes for database scripts.
+		- Timer fixes for database scripts. (Still Buggy)
 		- Fixed recalling to areas outside of a region.
 		- Fixed renaming runes
 		- Made runebooks function again.
 			Gate/Recall still not functional, charges work however.
-		- Fixed a bug with melting ore.
+		- Fixed a bug with smelting ore.
 		- Skill Fixes:
 			Provocation - Thanks to Kid_Sk8
 			Inscription - Thanks to khpae
 		- Decoration Saving
-		- Magic fixes: Fire, Poison, Energy and Paralyze fields should work better.
+		- Magic fixes: 
+			Fire, Poison, Energy and Paralyze fields should work better.
 			Mass dispell can now wipe out these fields.
+			Fixes for controlslots with summon spells.
 		- Scrolls are now usable and actually cast the spell.
 			For scrolls the following rules are in effect:
 			50% decreased mana usage.
-			The effective circle for measuring the skill requirement is lowered by two
+			The effective circle for measuring the skill requirement 
+				is lowered by two.
 			when casting from a scroll.
-		- Fixes for controlslots with summon spells.
+		- Fixed a timing issue with onCreate() and items.
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
@@ -107,12 +122,11 @@ Wolfpack 12.9.8 Beta (4. August, 2004)
 			We welcome donated OSI-like region scripts!
 		- Teleport Scripts are incomplete.
 			We welcome donated OSI-like teleport scripts!
-		- Possible that a few monsters are missing.
+		- Possible that a few monsters are missing and/or incomplete.
 		- Reloading Python too many times can crash the server.
 		- There are still some memory leaks.
-		- Healers do not resurrect.
 		- Large gumps can potentially crash remote clients.
-		- Multis are not currently supported.
+		- Multis (Houses) are not currently supported.
 
 Wolfpack 12.9.7 Beta (4. July 2004)
 	* Core Changes:
@@ -123,8 +137,10 @@ Wolfpack 12.9.7 Beta (4. July 2004)
 			- NPC baseids are now saved.
 			- Spawnregions save spawned NPCs.
 			- Multi tables removed, being redone.
-			- Item.type and other properties are no longer saved, uses base definitions.
-			- Removed the `spawnregion` field from the `items`,`npcs` database tables.
+			- Item.type and other properties are no longer saved, 
+				uses base definitions.
+			- Removed the `spawnregion` field from the `items`,`npcs` 
+				database tables.
 		* Code Changes:
 			- Major cleanups and structure changes, much cleaner and more sane.
 			- Numerous compile warning cleanups.
@@ -133,27 +149,33 @@ Wolfpack 12.9.7 Beta (4. July 2004)
 			- Support for the new All Names macro. (CTRL + SHIFT).
 	* Definition Changes:
 		* Item Updates:
-			- Colored platemail baseid mapping. This was overlooked and should fix armor bugs.
+			- Colored platemail baseid mapping. This was overlooked and 
+				should fix armor bugs.
 			- Added the new artwork/items from client 4.0.3a.
 		* NPC Updates:
 			- Several AoS NPCs added. Most NPCs should be added now.
-			- Some NPCs such as orcs and lizardmen can now pull their id and skin from a list.
+			- Some NPCs such as orcs and lizardmen can now pull their id 
+				and skin from a list.
 			- Lootlist improvements.
 			- Stat adjustments. ( UO Stratics Data )
 			- Fame/Karma adjustments. ( UO Stratics Data )
-			- Basic loot list implimentation, most monsters should drop some gold/gems.
+			- Basic loot list implimentation, most monsters should drop 
+				some gold/gems.
 		* Region/Spawn Region Updates:
 			- Template structure added for regions.
 			- Template structure added for spawn regions.
 			- Updated town spawns for felucca and trammel towns.
 		* Misc. Updates:
-			- Organized scripts.xml to be easier to read/check for missing scripts.
+			- Organized scripts.xml to be easier to read/check 
+				for missing scripts.
 	* Python Script Changes:
 		* Commands:
-			- import/export now saves/imports the baseid and map values with WSC and TXT.
+			- import/export now saves/imports the baseid and map 
+				values with WSC and TXT.
 			- info updated, supports NPC properties a bit better.
 			- freeze command added, toggles the frozen value.
-			- dye updated to modify character skins. 'dye 0x0 will replace the skin with char.orgskin.
+			- dye updated to modify character skins. 'dye 0x0 will replace 
+				the skin with char.orgskin.
 		* Loot System:
 			- Index for loot lists in system.loot and system.lootlists.
 		* Magic:
@@ -163,7 +185,8 @@ Wolfpack 12.9.7 Beta (4. July 2004)
 			- Inscription Skill Updated
 		* System:
 			- SQLite database optimization added.
-			- Script system.debugging created to set different debugging options.
+			- Script system.debugging created to set different 
+				debugging options.
 			- Support for the Open Door Macro
 	* Misc. Changes:
 		- FAQ.html included in the documentaiton.
@@ -196,7 +219,8 @@ Wolfpack 12.9.6 Beta (18. May 2004)
 		- Travel fixes.
 		- Add fixes.
 	* Definitions cleanup
-		- Reorganized the definitions to be cleaner and easier to manage with updates.
+		- Reorganized the definitions to be cleaner and easier to 
+			manage with updates.
 		- Note: ./definitions.xml moved to ./definitions/index.xml
 	* Item Improvements and Fixes
 		- Various price fixes.
@@ -224,8 +248,9 @@ Wolfpack 12.9.6 Beta (18. May 2004)
 		- Line of Sight fixes.
 	* Known bugs:
 		- Necromancy/Paladin spells do not function, still in the works.
-		- Non-functioning skills: Snooping, Inscription, Cartography, Animal Lore,
-			Arms Lore, Enticement.
+		- Non-functioning skills: 
+			Snooping, Inscription, Cartography, 
+			Animal Lore, Arms Lore, Enticement.
 		- Reload (python) memory leak.
 		- Line of Sight blocks even if it shouldn't.
 		- The "Open Door" macro doesn't work.
