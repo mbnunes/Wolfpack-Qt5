@@ -198,7 +198,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		if ((pc->regen <= currenttime) || (overflow))
 		{
 			unsigned int interval = SrvParms->hitpointrate*MY_CLOCKS_PER_SEC;
-			if (pc->hp < pc->st && pc->hunger>3 || SrvParms->hungerrate == 0)
+			if (pc->hp < pc->st && pc->hunger>3 || SrvParams->hungerRate() == 0)
 			{
 				for (c = 0; c < pc->st + 1; c++)
 				{
@@ -462,7 +462,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		}
 	}
 
-	if (SrvParms->hungerrate>1 && (pc->hungertime<=currenttime || overflow))
+	if (SrvParams->hungerRate() > 1 && (pc->hungertime<=currenttime || overflow))
 	{
 		if (!pc->isGMorCounselor() && pc->hunger) pc->hunger--; //Morrolan GMs and Counselors don't get hungry
 
@@ -479,15 +479,15 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				sysmessage(s,"You must eat very soon or you will die!");
 			break;
 		}
-		pc->hungertime = currenttime+(SrvParms->hungerrate*MY_CLOCKS_PER_SEC); // Bookmark
+		pc->hungertime = currenttime+(SrvParams->hungerRate() * MY_CLOCKS_PER_SEC); // Bookmark
 	}
-	if (((hungerdamagetimer<=currenttime)||(overflow))&&(SrvParms->hungerdamage>0)) // Damage them if they are very hungry
+	if (((hungerdamagetimer<=currenttime)||(overflow))&&(SrvParams->hungerDamage()>0)) // Damage them if they are very hungry
 	{
-		hungerdamagetimer=currenttime+(SrvParms->hungerdamagerate*MY_CLOCKS_PER_SEC); /** set new hungertime **/
+		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
 		if (pc->hp > 0 && pc->hunger<2 && !pc->isGMorCounselor() && !pc->dead)
 		{
 			sysmessage(s,"You are starving !");
-			pc->hp -= SrvParms->hungerdamage;
+			pc->hp -= SrvParams->hungerDamage();
 			updatestats(pc, 0);
 			if(pc->hp<=0)
 			{
@@ -765,7 +765,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	}
 
 	//hunger code for npcs
-	if (SrvParms->hungerrate>1 && (pc->hungertime<=currenttime || overflow))
+	if (SrvParams->hungerRate()>1 && (pc->hungertime<=currenttime || overflow))
 	{
 		t[0] = '\0';
 
@@ -809,7 +809,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				npcemoteall(pc,t,1);
 			}
 		}//if tamed
-		pc->hungertime=currenttime+(SrvParms->hungerrate*MY_CLOCKS_PER_SEC); // Bookmark
+		pc->hungertime=currenttime+(SrvParams->hungerRate()*MY_CLOCKS_PER_SEC); // Bookmark
 	}//if hungerrate>1
 }
 

@@ -28,8 +28,10 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
 	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
 	bandageDelay_			= getNumber("Game Speed", "BandageDelay", 6, true);
-	maxStealthSteps_		= getNumber("Game Speed",  "Max Stealth Steps", 10, true);
+	maxStealthSteps_		= getNumber("Game Speed", "Max Stealth Steps", 10, true);
 	runningStamSteps_		= getNumber("Game Speed", "Running Stamina Steps", 15, true);
+	hungerRate_				= getNumber("Game Speed", "Hunger Rate", 6000, true);
+	hungerDamageRate_		= getNumber("Game Speed", "Hunger Damage Rate", 10, true);
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -60,6 +62,11 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	pvpLog_		            = getBool("General",	"PvP Log", false, true);
 	gmLog_		            = getBool("General",	"GM Log", false, true);
 	backupSaveRatio_		= getNumber("General",  "Backup Save Ratio", 1, true);
+	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
+
+	// Combat
+	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );
+	
 
 	flush(); // if any key created, save it.
 }

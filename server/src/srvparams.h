@@ -76,6 +76,13 @@ protected:
 	signed int maxStealthSteps_;
 	unsigned int runningStamSteps_;
 	int backupSaveRatio_;
+	unsigned int hungerRate_;
+	unsigned int hungerDamageRate_;
+	unsigned char hungerDamage_;
+
+	// Combat
+	bool combatHitMessage_;
+
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
 	std::vector<ServerList_st>& serverList(); // read-only
@@ -128,6 +135,12 @@ public:
 	signed int maxStealthSteps() const;
 	unsigned int runningStamSteps() const;
 	int backupSaveRatio() const;
+	unsigned int hungerRate() const;
+	unsigned int hungerDamageRate() const;
+	unsigned char hungerDamage() const;
+
+	// Combat
+	bool combatHitMessage() const;
 
 private:
 	void setDefaultStartLocation();
@@ -366,6 +379,26 @@ inline unsigned int cSrvParams::runningStamSteps() const
 inline int cSrvParams::backupSaveRatio() const
 {
 	return backupSaveRatio_;
+}
+
+inline unsigned int cSrvParams::hungerRate() const
+{
+	return hungerRate_;
+}
+
+inline unsigned int cSrvParams::hungerDamageRate() const
+{
+	return hungerDamageRate_;
+}
+
+inline unsigned char cSrvParams::hungerDamage() const
+{
+	return hungerDamage_;
+}
+
+inline bool cSrvParams::combatHitMessage() const
+{
+	return combatHitMessage_;
 }
 
 #endif __SRVPARAMS_H___

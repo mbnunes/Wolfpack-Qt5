@@ -115,7 +115,7 @@ void loadchar(int x) // Load a character from WSC
 		return;
 	pc->Init(false);
 
-	pc->hungertime=uiCurrentTime+(SrvParms->hungerrate*MY_CLOCKS_PER_SEC/2);	// avoid loss of one hungerpoint for each restart (Duke, 6.6.2001)
+	pc->hungertime = uiCurrentTime + ( SrvParams->hungerRate() * MY_CLOCKS_PER_SEC / 2 );	// avoid loss of one hungerpoint for each restart (Duke, 6.6.2001)
 
 	do
 	{

@@ -5393,7 +5393,6 @@ void SetGlobalVars()
 	
 	
     //server_data.invisibiliytimer = INVISTIMER ;
-    server_data.hungerrate = HUNGERRATE ;
     //server_data.skilldelay = SKILLDELAY ;
     server_data.hitpointrate = REGENRATE1 ;
     server_data.staminarate = REGENRATE2 ;

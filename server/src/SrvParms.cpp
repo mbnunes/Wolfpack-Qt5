@@ -92,15 +92,11 @@ void loadserverdefaults(void)
 
 	// Should we check character age for delete?
 	server_data.packetsendstyle=PSS_UOX3;
-	server_data.hungerrate=HUNGERRATE;
-	server_data.hungerdamagerate=10;			// every 10 seconds
 	server_data.snoopdelay=7;
-	server_data.hungerdamage=2;
 	server_data.hitpointrate=REGENRATE1;
 	server_data.staminarate=REGENRATE2;
 	server_data.manarate=REGENRATE3;
 	server_data.minecheck=2;
-	server_data.combathitmessage=1;
 	server_data.attackstamina=-2;				// AntiChrist - attacker looses stamina when hits
 	server_data.monsters_vs_animals=0;			// By default monsters won't attack animals;
 	server_data.animals_attack_chance=15;		// a 15% chance
@@ -213,8 +209,7 @@ void loadcombat() // By Magius(CHE)
 	do
 	{
 		readw2();
-		if(!(strcmp((char*)script1,"COMBAT_HIT_MESSAGE"))) server_data.combathitmessage=str2num(script2);
-		else if(!(strcmp((char*)script1,"MAX_ABSORBTION"))) server_data.maxabsorbtion=str2num(script2); //MAgius(CHE)
+		if(!(strcmp((char*)script1,"MAX_ABSORBTION"))) server_data.maxabsorbtion=str2num(script2); //MAgius(CHE)
 		else if(!(strcmp((char*)script1,"MAX_NON_HUMAN_ABSORBTION"))) server_data.maxnohabsorbtion=str2num(script2); //MAgius(CHE) (2)
 		else if(!(strcmp((char*)script1,"NPC_DAMAGE_RATE"))) server_data.npcdamage=str2num(script2); //MAgius(CHE) (3)
 		else if(!(strcmp((char*)script1,"MONSTERS_VS_ANIMALS"))) server_data.monsters_vs_animals=str2num(script2);
@@ -238,19 +233,6 @@ void loadregenerate() // by Magius(CHE)
 		else if(!(strcmp((char*)script1,"STAMINA_REGENRATE"))) server_data.staminarate=str2num(script2);
 		else if(!(strcmp((char*)script1,"MANA_REGENRATE"))) server_data.manarate=str2num(script2);
 		else if(!(strcmp((char*)script1,"ARMOR_AFFECT_MANA_REGEN"))) server_data.armoraffectmana=str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-void loadhunger() // by Magius(CHE)
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"HUNGERRATE"))) server_data.hungerrate=str2num(script2);
-		else if(!(strcmp((char*)script1,"HUNGER_DAMAGE"))) server_data.hungerdamage=str2num(script2);
-		else if(!(strcmp((char*)script1,"HUNGER_DAMAGE_RATE"))) server_data.hungerdamagerate=str2num(script2);
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
@@ -511,7 +493,6 @@ void loadserverscript(char *fn) // Load a server script
 			else if(!(strcmp((char*)script2, "SPIRITSPEAK"))) loadspiritspeak();
 			else if(!(strcmp((char*)script2, "TIME_LIGHT"))) loadtime_light();
 			// added by Magius(CHE)
-			else if(!(strcmp((char*)script2, "HUNGER"))) loadhunger();
 			else if(!(strcmp((char*)script2, "COMBAT"))) loadcombat();
 			else if(!(strcmp((char*)script2, "VENDOR"))) loadvendor();
 			else if(!(strcmp((char*)script2, "REGENERATE"))) loadregenerate();
@@ -634,7 +615,6 @@ void saveserverscript(void)
 	
 	fprintf(file, "SECTION COMBAT\n");
 	fprintf(file, "{\n");
-	fprintf(file, "COMBAT_HIT_MESSAGE %i\n",server_data.combathitmessage);
 	fprintf(file, "MAX_ABSORBTION %i\n",server_data.maxabsorbtion);
 	fprintf(file, "MAX_NON_HUMAN_ABSORBTION %i\n",server_data.maxnohabsorbtion);
 	fprintf(file, "MONSTERS_VS_ANIMALS %i\n",server_data.monsters_vs_animals); 
@@ -663,13 +643,6 @@ void saveserverscript(void)
 	fprintf(file, "STAMINA_REGENRATE %i\n",server_data.staminarate);
 	fprintf(file, "MANA_REGENRATE %i\n",server_data.manarate);
 	fprintf(file, "ARMOR_AFFECT_MANA_REGEN %i\n",server_data.armoraffectmana);
-	fprintf(file, "}\n\n");
-
-	fprintf(file, "SECTION HUNGER\n");
-	fprintf(file, "{\n");
-	fprintf(file, "HUNGERRATE %i\n",server_data.hungerrate);
-	fprintf(file, "HUNGER_DAMAGE %i\n",server_data.hungerdamage);
-	fprintf(file, "HUNGER_DAMAGE_RATE %i\n",server_data.hungerdamagerate);
 	fprintf(file, "}\n\n");
 
 	fprintf(file, "SECTION RESOURCE\n");

@@ -301,7 +301,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			// Armor destruction and sped up by hitting with maces should go in here somewhere 
 			// According to lacation of body hit Id imagine -Frazurbluu- **NEEDS ADDED**
 			x=rand()%100;// determine area of body hit
-			if (SrvParms->combathitmessage!=1)
+			if (!SrvParams->combatHitMessage())
 			{
 				if (x<=44) x=1; // body
 				else if (x<=58) x=2; // arms
@@ -310,7 +310,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				else if (x<=93) x=5; // neck
 				else x=6; // hands
 			}
-			if (SrvParms->combathitmessage==1)
+			else
 			{
 				temp[0] = '\0';
 				hitin = rand()%2;
@@ -322,15 +322,15 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					case 1:
 						//later take into account dir facing attacker during battle
 						if (damage < 10) strcpy(temp, "hits you in your Chest!");
-						if (damage >=10) strcpy(temp, "lands a terrible blow to your Chest!");
+						else if (damage >=10) strcpy(temp, "lands a terrible blow to your Chest!");
 						break;
 					case 2:
 						if (damage < 10) strcpy(temp, "lands a blow to your Stomach!");
-						if (damage >=10) strcpy(temp, "knocks the wind out of you!");
+						else if (damage >=10) strcpy(temp, "knocks the wind out of you!");
 						break;
 					default:
 						if (damage < 10) strcpy(temp, "hits you in your Ribs!");
-						if (damage >=10) strcpy(temp, "broken your Rib?!");
+						else if (damage >=10) strcpy(temp, "broken your Rib?!");
 					}
 				}
 				else if (x<=58)
@@ -353,15 +353,15 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					{
 					case 1:
 						if (damage < 10) strcpy(temp, "hits you you straight in the Face!");
-						if (damage >=10) strcpy(temp, "lands a stunning blow to your Head!");
+						else if (damage >=10) strcpy(temp, "lands a stunning blow to your Head!");
 						break;
 					case 2:
 						if (damage < 10) strcpy(temp, "hits you to your Head!"); //kolours - (09/19/98)
-						if (damage >=10) strcpy(temp, "smashed a blow across your Face!");
+						else if (damage >=10) strcpy(temp, "smashed a blow across your Face!");
 						break;
 					default:
 						if (damage < 10) strcpy(temp, "hits you you square in the Jaw!");
-						if (damage >=10) strcpy(temp, "lands a terrible hit to your Temple!");
+						else if (damage >=10) strcpy(temp, "lands a terrible hit to your Temple!");
 					}
 				}
 				else if (x<=86) 

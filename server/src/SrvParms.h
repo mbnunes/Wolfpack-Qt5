@@ -64,13 +64,11 @@ struct server_st
 	unsigned int packetsendstyle; // LB .. defines the way packets are send
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
-	unsigned int hungerrate;
 	unsigned int snoopdelay;
 	unsigned int hitpointrate;
 	unsigned int staminarate;
 	unsigned int manarate;
 	unsigned int minecheck;
-	unsigned int combathitmessage;
 	unsigned int monsters_vs_animals;
 	unsigned int animals_attack_chance;
 	unsigned int animals_guarded;
@@ -88,8 +86,6 @@ struct server_st
 	unsigned int skilllevel; // Magius(CHE)
 	unsigned int trade_system; // Magius(CHE)
 	unsigned int rank_system; // Magius(CHE)
-	unsigned char hungerdamage;
-	unsigned int hungerdamagerate;
 	char armoraffectmana; // Should armor slow mana regen ?
 	unsigned short int quittime;//Instalog
 	int html;//HTML
