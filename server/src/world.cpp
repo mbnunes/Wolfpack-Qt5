@@ -44,7 +44,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
-#include "sqlite/sqlite.h"
+#include <sqlite.h>
 
 // Postprocessing stuff, can be deleted later on
 #include "maps.h"

@@ -41,7 +41,7 @@
 #include <qstring.h>
 #include <qptrlist.h>
 #include <stdlib.h>
-#include "sqlite/sqlite.h"
+#include <sqlite.h>
 
 #ifdef MYSQL_DRIVER
 # ifdef _MSC_VER

@@ -13,7 +13,7 @@ INCLUDEPATH	+= lib/Python/include
 unix {
 
 # Common unix settings
-	INCLUDEPATH += /usr/local/include/stlport lib/Python /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include network
+	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include network
 	LIBS  += -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil
 	
 # Optional compile modes	
