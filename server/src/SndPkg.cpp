@@ -722,12 +722,14 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 	}
 }
 
-void sendbpitem(UOXSOCKET s, ITEM ii) // Update single item in backpack
+void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 {
 	int x,c;
 
 	unsigned char display3[2]="\x25";
-	const P_ITEM pi=MAKE_ITEMREF_LR(ii);	// on error return
+	if (pi == NULL)
+		return;
+
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 	bpitem[0]=pi->ser1;
@@ -836,13 +838,6 @@ void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop
 	}
 }
 
-
-void senditem(UOXSOCKET s, ITEM ii) // Send items (on ground) (old interface)
-{
-	const P_ITEM pi=MAKE_ITEMREF_LR(ii);	// on error return
-	senditem( s,  pi);
-}
-
 void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 {
 	int j,pack,serial;
@@ -876,7 +871,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 								// we should better move it out of pack, but thats
 								// only a first bannaid
 			{
-				sendbpitem(s,DEREF_P_ITEM(pi));
+				sendbpitem(s, pi);
 				return;
 			}
 		}
@@ -1488,15 +1483,14 @@ void teleport(int s) // Teleports character to its current set coordinates
 					P_ITEM mapitem = FindItemBySerial(vecEntries[w]);
 					if (mapchar != NULL)
 					{
-						i = DEREF_P_CHAR(mapchar);
-						if ((chars[i].isNpc()||online(i)||pc->isGM())&&(s!=i)&&(inrange1p(s, i)))
+						if ((mapchar->isNpc()||online(DEREF_P_CHAR(mapchar))||pc->isGM())&&(s!=DEREF_P_CHAR(mapchar))&&(inrange1p(s, DEREF_P_CHAR(mapchar))))
 						{
-							impowncreate(k, i, 1);
+							impowncreate(k, DEREF_P_CHAR(mapchar), 1);
 						}
 					} else if (mapitem != NULL) {
-						if(iteminrange(k, DEREF_P_ITEM(mapitem),Races[pc->race]->VisRange))
+						if(iteminrange(k, mapitem,Races[pc->race]->VisRange))
 						{
-							senditem(k, DEREF_P_ITEM(mapitem));
+							senditem(k, mapitem);
 						}
 					}
 				}
@@ -2002,12 +1996,11 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 		}
 }
 
-void itemtalk(int s, int item, char *txt) // Item "speech"
+void itemtalk(int s, P_ITEM pi, char *txt) // Item "speech"
 {
 	int tl;
-	const P_ITEM pi=MAKE_ITEMREF_LR(item);	// on error return
 
-	if (s<=-1) return;
+	if (s<=-1 || pi == NULL) return;
 
 	tl=44+strlen(txt)+1;
 	talk[1]=tl>>8;
@@ -2798,13 +2791,14 @@ void updateskill(int s, int skillnum) // updated for client 1.26.2b by LB
 	Xsend(s, update, 11);
 }
 
-void deathaction(int s, int x) // Character does a certain action
+void deathaction(int s, P_ITEM pi_x) // Character does a certain action
 {
 	int i;
 	unsigned char deathact[14]="\xAF\x01\x02\x03\x04\x01\x02\x00\x05\x00\x00\x00\x00";
 	P_CHAR pc = MAKE_CHARREF_LR(s);
 
-	P_ITEM pi_x = MAKE_ITEM_REF(x);
+	if (pi_x == NULL)
+		return;
 
 	deathact[1]=pc->ser1;
 	deathact[2]=pc->ser2;

@@ -427,7 +427,7 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 		P_ITEM toCheck = iter_item.GetData();
 		if(toCheck->spawnregion == r && !toCheck->free)
 		{			
-			Items->DeleItem(DEREF_P_ITEM(toCheck));
+			Items->DeleItem(toCheck);
             killed++;
 		}
 	}

@@ -610,7 +610,7 @@ void cRespawn::Continue()
 			}
 			if (k==0)
 			{
-				Items->AddRespawnItem(i, pi->morex, 0);
+				Items->AddRespawnItem(pi, pi->morex, 0);
 				currentSpawnItem++;
 				return;			// take a break
 			}

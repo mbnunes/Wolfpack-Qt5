@@ -330,7 +330,7 @@ void cChar::Init(bool ser)
 	this->npcWander=0; // NPC Wander Mode
 	this->oldnpcWander=0; // Used for fleeing npcs
 	this->ftarg=-1; // NPC Follow Target
-	this->fx1=-1; //NPC Wander Point 1 x
+	this->fx1=-1; //NPC Wander Point 1 x or Deed's Serial
 	this->fx2=-1; //NPC Wander Point 2 x
 	this->fy1=-1; //NPC Wander Point 1 y
 	this->fy2=-1; //NPC Wander Point 2 y

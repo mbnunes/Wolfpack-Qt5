@@ -1445,6 +1445,7 @@ static void decay1(P_ITEM pi, int i)
 {
 	long serial;
 	int ci;
+	P_ITEM pItem = MAKE_ITEM_REF(i);
 	if (pi->corpse==1)
 	{
 		serial=pi->serial;
@@ -1477,7 +1478,7 @@ static void decay1(P_ITEM pi, int i)
 			P_ITEM pi_multi = findmulti( pi->pos );
 			if( pi_multi == NULL )
 			{
-				Items->DeleItem(i);
+				Items->DeleItem(pItem);
 			}
 		}
 	}

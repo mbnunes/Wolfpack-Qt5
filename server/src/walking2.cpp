@@ -1214,7 +1214,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						{
 							if ((abs(newx-mapitem->pos.x)==BUILDRANGE)||(abs(newy-mapitem->pos.y)==BUILDRANGE))
 							{
-								senditem(socket, DEREF_P_ITEM(mapitem));
+								senditem(socket, mapitem);
 							}
 						}
 						// otherwise if the item has just now become visible, inform the client about it

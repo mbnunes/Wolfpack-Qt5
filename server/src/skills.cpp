@@ -1965,7 +1965,7 @@ void TellScroll( char *menu_name, int s, long snum )
 		if (pb->type==9 && (pb->contserial==pBackpack->serial ||
 			(pb->layer==1 && pc_currchar->Wears(pb))))
 		{
-			if (!Magic->CheckBook( cir, spl-1, DEREF_P_ITEM(pb)))
+			if (!Magic->CheckBook( cir, spl-1, pb))
 			{
 				sysmessage(s,"You don't have this spell in your spell book!");
 				return;
@@ -2784,7 +2784,7 @@ bool cSkills::DelEmptyMap(int cc)	// Delete an empty map from the player's backp
 		{
 			if (cand->type == 300)	// Is it the right type
 			{
-				Items->DeleItem(DEREF_P_ITEM(cand));	// Delete it
+				Items->DeleItem(cand);	// Delete it
 				return true;		// Go on with cartography
 			}
 		}
@@ -2898,7 +2898,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 			nmap->moreb4 = lry%256;
 			nmap->morex = x;		// Store the treasure's location
 			nmap->morey = y;
-			Items->DeleItem(DEREF_P_ITEM(tmap));	// Delete the tattered map
+			Items->DeleItem(tmap);	// Delete the tattered map
 		}
 		else
 			sysmessage(s, "You fail to decipher the map");		// Nope :P

@@ -1445,12 +1445,11 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					} 
 					else if ((buffer[s][3]=='\x27')||(buffer[s][3]=='\x56'))  // Spell
 					{
-						j = -1;
+						P_ITEM pj = NULL;
 						P_ITEM pBackpack = Packitem(pc_currchar);
 						if (pBackpack != NULL) //lb
 						{
-							serial=pBackpack->serial;
-							serhash=serial%HASHMAX;
+							serial = pBackpack->serial;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
 							unsigned int i;
 							for (i = 0; i < vecContainer.size(); i++)
@@ -1459,27 +1458,27 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								if (ci != NULL) //lb
 									if ((ci->contserial==serial) && (ci->type==9))
 									{
-										j = DEREF_P_ITEM(ci);
+										pj = ci;
 										break;
 									}
 							}
 						}
-						if (j == -1)
+						if (pj == NULL)
 						{
 							serial = pc_currchar->serial;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
 							unsigned int i;
-							for (i=0;i<vecContainer.size();i++)
+							for (i = 0; i < vecContainer.size(); i++)
 							{
 								P_ITEM ci = FindItemBySerial(vecContainer[i]);
 								if ( ci != NULL ) //lb
 									if ((ci->contserial==serial) && (ci->layer==1)) 
 									{
-										j = DEREF_P_ITEM(ci);
+										pj = ci;
 									}
 							}
 						}
-						if (j != -1)
+						if (pj != NULL)
 						{
 							book=buffer[s][4]-0x30;
 							if (buffer[s][5]>0x20) 
@@ -1487,7 +1486,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								book=(book*10)+(buffer[s][5]-0x30);
 							}
 						}
-						if (j!=-1 && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, j)) 
+						if (pj != NULL && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, pj)) 
 							if (pc_currchar->priv2&2) // REAL cant cast while frozen bugfix, lord binary
 							{
 								if (pc_currchar->casting)
@@ -1506,7 +1505,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					} else if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x58'))  // Door macro
 					{
 						// search for closest door and open it ...			
-							
 						break;
 					}
 					break; // Lord Binary !!!!

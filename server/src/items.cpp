@@ -688,16 +688,11 @@ void cItem::Init(char mkser)
 
 // -- delete an item (Actually just mark it is free)
 void cAllItems::DeleItem(P_ITEM pi)
-{
-	DeleItem(DEREF_P_ITEM(pi));
-}
-
-// -- delete an item (Actually just mark it is free)
-void cAllItems::DeleItem(int i)
 {		
 	int j;
 
-	const P_ITEM pi = MAKE_ITEMREF_LR(i);
+	if ( pi == NULL )
+		return;
 
 	if (pi->free==0)
 	{
@@ -739,7 +734,7 @@ void cAllItems::DeleItem(int i)
         // if a new book gets deleted also delete the corresponding bok file
 
 		// - remove from pointer arrays
-		removefromptr(&itemsp[pi->serial%HASHMAX], i);
+		removefromptr(&itemsp[pi->serial%HASHMAX], DEREF_P_ITEM(pi));
 		pi->free=1;
 		pi->pos.x=20+(xcounter++);
 		pi->pos.y=50+(ycounter);
@@ -758,7 +753,7 @@ void cAllItems::DeleItem(int i)
 		if (imemcheck<500)
 		{
 			imemcheck++;
-			freeitemmem[imemcheck]=i;
+			freeitemmem[imemcheck]=DEREF_P_ITEM(pi);
 		}
 		else imemover=1;
 	}
@@ -1640,8 +1635,7 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 						P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
                         if (pi_j != NULL) //lb
 						{
-						   if ((pi_j->contserial==pi->serial)/* &&
-						    	(items[j].layer!=0x0B)&&(items[j].layer!=0x10)*/)
+						   if (pi_j->contserial==pi->serial)// && (items[j].layer!=0x0B)&&(items[j].layer!=0x10))
 						   {
 							pi_j->SetContSerial(-1);
 							pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
@@ -1717,7 +1711,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 					}
 					if ((pi->gatetime<=currenttime ||(overflow)) && pi->morex!=0)
 					{
-						Items->AddRespawnItem(DEREF_P_ITEM(pi),pi->morex, 0);
+						Items->AddRespawnItem(pi, pi->morex, 0);
 						pi->gatetime=0;
 					}
 				}
@@ -1778,11 +1772,11 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 						if(pi->type==63) pi->type=64; //Lock the container 
 						//numtostr(pi->morex,m); //ilist); //LB, makes chest spawners using random Itemlist items instead of a single type, LB							
 						if(pi->morex)
-							Items->AddRespawnItem(DEREF_P_ITEM(pi),pi->morex,1);//If the item contains an item list then it will randomly choose one from the list, JM
+							Items->AddRespawnItem(pi, pi->morex, 1);//If the item contains an item list then it will randomly choose one from the list, JM
 						else
 						{
 							ci=Items->CreateRandomItem("70"); //default itemlist);
-							Items->AddRespawnItem(DEREF_P_ITEM(pi),ci, 1);
+							Items->AddRespawnItem(pi,ci, 1);
 						}
 						pi->gatetime=0;	
 					}
@@ -1792,20 +1786,23 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 	}//for 
 }
 
-void cAllItems::AddRespawnItem(int s, int x, int y)
+void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 {
+	if (pItem == NULL)
+		return;
+
 	P_ITEM pi = CreateScriptItem(-1, x, 1); // lb, bugfix
 	if (pi == NULL) return;
 	
 	if(y<=0)
 	{
-		pi->MoveTo(items[s].pos.x,items[s].pos.y,items[s].pos.z); //add spawned item to map cell if not in a container
+		pi->MoveTo(pItem->pos.x, pItem->pos.y, pItem->pos.z); //add spawned item to map cell if not in a container
 	}
 	else
 	{
-		pi->SetContSerial(items[s].serial); //set item in pointer array
+		pi->SetContSerial(pItem->serial); //set item in pointer array
 	}
-	pi->SetSpawnSerial(items[s].serial);
+	pi->SetSpawnSerial(pItem->serial);
 
 
 	//** Lb bugfix for spawning in wrong pack positions **//

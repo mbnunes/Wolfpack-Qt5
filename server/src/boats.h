@@ -86,7 +86,7 @@ class cBoat
 		void OpenPlank(P_ITEM);
 		void PlankStuff(UOXSOCKET, P_ITEM);
 		bool Build(int, int, char);
-		void Move(int, int, int);
+		void Move(int, int, P_ITEM pBoat);
 		void Turn(int, int);
 };
 #endif

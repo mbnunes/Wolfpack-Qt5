@@ -1288,7 +1288,7 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 		{
 			P_ITEM pi=MAKE_ITEMREF_LR(i);
 			if (!(pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2) && pi->isInWorld() && pi->wipe==0)
-				Items->DeleItem(i);
+				Items->DeleItem(pi);
 		}
 	}
 	else
@@ -1297,7 +1297,7 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 		{
 			P_ITEM pi=MAKE_ITEMREF_LR(i);
 			if (pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2 && pi->isInWorld() && pi->wipe==0)
-				Items->DeleItem(i);
+				Items->DeleItem(pi);
 		}
 	}
 }
@@ -1642,7 +1642,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 			pj->startDecay();
 			RefreshItem(pj);
 		}
-		Items->DeleItem(i);	//and then delete the corpse
+		Items->DeleItem(pi3);	//and then delete the corpse
 	}
 }
 
@@ -1655,7 +1655,7 @@ static void CorpseTarget(const P_CLIENT pC)
 	P_ITEM pi = FindItemBySerial(serial);
 	if(pi != NULL)
 	{
-		if(iteminrange(s,DEREF_P_ITEM(pi),1))
+		if(iteminrange(s, pi, 1))
 		{
 			npcshape[0]=DEREF_P_ITEM(pi);
 			action(s,0x20);
@@ -3481,7 +3481,7 @@ void cTargets::LoadCannon(int s)
 			(pi->more3==addid3[s])&&(pi->more4==addid4[s]))||
 			(addid1[s]==(unsigned char)'\xFF'))
 		{
-			if ((pi->morez==0)&&(iteminrange(s,DEREF_P_ITEM(pi),2)))
+			if ((pi->morez==0)&&(iteminrange(s, pi, 2)))
 			{
 				if(pi->morez==0)
 				pi->type=15;

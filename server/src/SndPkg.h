@@ -78,9 +78,8 @@ void itemmessage(UOXSOCKET s, char *txt, int serial, short color=0x0000);
 void wearIt(const UOXSOCKET s, const P_ITEM pi);
 void backpack(UOXSOCKET s, SERIAL serial); // Send Backpack (with items);
 void backpack2(int s, int a1, int a2, int a3, int a4); // Send corpse stuff
-void sendbpitem(UOXSOCKET s, ITEM i); // Update single item in backpack
+void sendbpitem(UOXSOCKET s, P_ITEM pi); // Update single item in backpack
 void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop);
-void senditem(UOXSOCKET s, ITEM i); // Send items (on ground) OLD interface
 void senditem(UOXSOCKET s, P_ITEM pi); // Send items (on ground);
 void senditem_lsd(UOXSOCKET s, ITEM i,char color1, char color2, int x, int y, signed char z);
 void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2);
@@ -98,7 +97,7 @@ void tips(int s, int i); // Tip of the day window
 void deny(UOXSOCKET k, CHARACTER s, int sequence);
 void weblaunch(int s, char *txt); // Direct client to a web page
 void broadcast(int s); // GM Broadcast (Done if a GM yells something);
-void itemtalk(int s, int item, char *txt); // Item "speech"
+void itemtalk(int s, P_ITEM pi, char *txt); // Item "speech"
 void npctalk(int s, cChar* pNpc, char *txt,char antispam); // NPC speech
 void npctalk(int s, int npc, char *txt,char antispam); // NPC speech
 void npctalkall(cChar* pNpc, char *txt,char antispam); // NPC speech to all in range.
@@ -125,7 +124,7 @@ void itemeffectUO3D(P_ITEM pi, stat_st *sta);
 
 void dolight(int s, char level);
 void updateskill(int s, int skillnum); // updated for client 1.26.2b by LB
-void deathaction(int s, int x); // Character does a certain action
+void deathaction(int s, P_ITEM pi_x); // Character does a certain action
 void deathmenu(int s); // Character sees death menu
 void impowncreate(int s, int i, int z); //socket, player to send
 void sendshopinfo(int s, int c, P_ITEM pi);

@@ -57,7 +57,7 @@ void cGuilds::StonePlacement(int s)
 	//unsigned int k; // lb, msvc++ 5.0 didnt like the guild(int x,inty) ...
 	char stonename[60];
 	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
-	P_ITEM pDeed=MAKE_ITEMREF_LR(pc->fx1);
+	P_ITEM pDeed = FindItemBySerial(pc->fx1);
 	P_ITEM pStone=NULL;
 
 	if (CheckValidPlace(s)!=1)
@@ -136,7 +136,7 @@ void cGuilds::StonePlacement(int s)
 			pStone->priv = 0;		
 			RefreshItem(pStone);//AntiChrist
 			Items->DeleItem(pDeed);
-			pc->fx1 = 0;
+			pc->fx1 = INVALID_SERIAL;
 			guilds[guildnumber].stone = pStone->serial;
 		}
 		else
@@ -150,14 +150,14 @@ void cGuilds::StonePlacement(int s)
 // Ofcourse checks for membership before opening any gump ;)
 void cGuilds::Menu(int s, int page)
 {
-	int total,i,stone,guildmaster,counter,guild,recruit,war,member;
+	int total,i, guildmaster,counter,guild,recruit,war,member;
 	int lentext;
 	int gumpnum;
 	char guildfealty[60],guildt[16],toggle[6];
 	static char mygump[MAXMEMRECWAR][257];
 
 	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
-	stone=pc->fx1;
+	P_ITEM stone = FindItemBySerial(pc->fx1);
 
 	int guildnumber=Guilds->SearchByStone(s);
 
@@ -167,10 +167,10 @@ void cGuilds::Menu(int s, int page)
 		return;
 	}
 
-	if ((guilds[guildnumber].stone!=items[stone].serial)&&
+	if ((guilds[guildnumber].stone!=stone->serial)&&
 		(!(pc->isGM())))
 	{
-		itemmessage(s,"You are not a member of this guild. Ask an existing guildmember to invite you into this guild.",items[stone].serial);
+		itemmessage(s,"You are not a member of this guild. Ask an existing guildmember to invite you into this guild.", stone->serial);
 		return;
 	}
 
@@ -1325,7 +1325,7 @@ int cGuilds::SearchByStone(int s)
 	int guildnumber;
 	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], -1);
 
-	int stone=items[pc->fx1].serial;
+	SERIAL stone = pc->fx1;
 
 	if (pc->isGM())
 	{

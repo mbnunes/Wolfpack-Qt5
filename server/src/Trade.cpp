@@ -427,9 +427,9 @@ int tradestart(int s, int i)
 	pi_ps->layer=0;
 	pi_ps->type=1;
 	pi_ps->dye=0;
-	sendbpitem(s, DEREF_P_ITEM(pi_ps));
+	sendbpitem(s, pi_ps);
 	if (s2 != INVALID_UOXSOCKET) 
-		sendbpitem(s2, DEREF_P_ITEM(pi_ps));
+		sendbpitem(s2, pi_ps);
 
 	P_ITEM pi_pi = Items->SpawnItem(s2,i,1,"#",0,0x1E,0x5E,0,0,0,0);
 	if (pi_pi == NULL) 
@@ -439,9 +439,9 @@ int tradestart(int s, int i)
 	pi_pi->layer=0;
 	pi_pi->type=1;
 	pi_pi->dye=0;
-	sendbpitem(s, DEREF_P_ITEM(pi_pi));
+	sendbpitem(s, pi_pi);
 	if (s2 != INVALID_UOXSOCKET) 
-		sendbpitem(s2, DEREF_P_ITEM(pi_pi));
+		sendbpitem(s2, pi_pi);
 
 	pi_pi->moreb1 = pi_ps->ser1;
 	pi_pi->moreb2 = pi_ps->ser2;
@@ -587,7 +587,7 @@ void dotrade(int cont1_1, int cont2_1)
 					glowsp.insert(p1->serial, pi->serial);
 				if (s1!=-1)
 					RefreshItem(pi);//AntiChrist
-				if (s2!=-1) sendbpitem(s2, DEREF_P_ITEM(pi));
+				if (s2!=-1) sendbpitem(s2, pi);
 					RefreshItem(pi);//AntiChrist
 			}
 	}
@@ -607,7 +607,7 @@ void dotrade(int cont1_1, int cont2_1)
 					glowsp.insert(chars[currchar[s1]].serial, pi->serial);
 				if (s2 != INVALID_UOXSOCKET)
 					RefreshItem(pi);//AntiChrist
-				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, DEREF_P_ITEM(pi));
+				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, pi);
 					RefreshItem(pi);//AntiChrist
 			}
 	}

@@ -1134,7 +1134,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			ps->ResetDragging();
 			item_bounce3(pItem);
 			if (pCont->id1>=0x40)
-				senditem(s, DEREF_P_ITEM(pCont));
+				senditem(s, pCont);
 		}
 		return;
 	}
@@ -1158,7 +1158,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				item_bounce3(pItem);
 			}
 			if (pCont->id1>=0x40)
-				senditem(s, DEREF_P_ITEM(pCont));
+				senditem(s, pCont);
 			return;
 		}
 		z=packitem(DEREF_P_CHAR(pc_currchar));

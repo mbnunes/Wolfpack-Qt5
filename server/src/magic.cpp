@@ -529,11 +529,11 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 // History:	Unknown
 // Purpose:	Check if the spell is memorized into the spellbook.
 //
-int cMagic::CheckBook(int circle, int spell, int i)
+bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 {
 	bool raflag = false;
 
-	int spellnum=spell+(circle-1)*8;
+	int spellnum = spell+(circle-1)*8;
 	// Fix for OSI stupidity. :)
 	if (spellnum==6) raflag = true;
 	if (spellnum>=0 && spellnum<6) spellnum++;
@@ -541,16 +541,16 @@ int cMagic::CheckBook(int circle, int spell, int i)
 
 	int ci=0, loopexit=0;
 	P_ITEM pj;
-	vector<SERIAL> vecContainer = contsp.getData(items[i].serial);
+	vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pj = FindItemBySerial(vecContainer[ci]);
 		if((pj->id()==(0x1F2D+spellnum) || pj->id()==0x1F6D))
 		{
-			return 1;
+			return false;
 		}
 	}
-	return 0;
+	return true;
 }
 
 int cMagic::SpellsInBook(ITEM i)

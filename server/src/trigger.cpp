@@ -483,7 +483,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 										if (pi->amount>1)
 											pi->amount--;
 										else // -Frazurbluu- may need check here for new trigger if can be done while equipped
-											Items->DeleItem(ti);
+											Items->DeleItem(MAKE_ITEM_REF(ti));
 									}
 								}
 							}
@@ -559,7 +559,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 										if (pi_evti->amount>1)
 											pi_evti->amount--;
 										else 
-											Items->DeleItem(DEREF_P_ITEM(pi_evti));
+											Items->DeleItem(pi_evti);
 									}
 								}
 							}
@@ -615,7 +615,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 										if (pi_evti->amount>1)
 											pi_evti->amount--;
 										else 
-											Items->DeleItem(DEREF_P_ITEM(pi_evti));
+											Items->DeleItem(pi_evti);
 									}
 								}
 							}
@@ -1093,7 +1093,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 											if (pi->amount>1)
 												pi->amount--;
 											else 
-												Items->DeleItem(ti);
+												Items->DeleItem(MAKE_ITEM_REF(ti));
 										}
 									}
 								}
@@ -1576,65 +1576,28 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						{
 							cline = &script2[0];
 							splitline();
-							// comm[0] contains the id of the out-items!
 							int p = makenumber(1);
 							
-							// int tmp=hex2num(comm[0]);
-							// int id1=tmp>>8;
-							// int id2=tmp%256;
-							c=-1;
+							P_ITEM pi_c = NULL;
 							
-							// clConsole.send("OUTRANGE: SEARCHING FOR %x %x MAX DISTANCE %i\n",id1,id2,p);
-							
-							// x1=pc_ts->pos.x;
-							// y1=pc_ts->pos.y;
-							// printf("Magius(CHE): OUTRANGE called!\n This operation maybe cause some lag. It is in TEST-MODE!\n");
-							// this FOR cicle maybe cause same lag, if someone know another method to work, plz change this!
-							/* for (j = 0; j < itemcount; j++)
-							{
-							sprintf(sect, "x%x%x", items[j].id1, items[j].id2);
-							if (strstr(comm[0], sect))
-							{
-								if (items[j].contserial!=-1)
-								{
-								// sprintf(sect,"You need to put the item out of your backpack before working.");
-								// sysmessage(ts,sect);
-								}
-								else 
-								{
-									x2 = items[j].x;
-									y2 = items[j].y;
-									dx = abs(x1 - x2);
-									dy = abs(y1 - y2);
-									if ((dx <= p) &&(dy <= p))
-										c = j;
-									}
-								}
-							}
-							*/
-							// AntiChrist
-							int	StartGrid = mapRegions->StartGrid(pc_ts->pos.x, pc_ts->pos.y);
-							
-							unsigned long loopexit = 0;
-							unsigned int increment = 0;
 							cRegion::RegionIterator4Items ri(pc_ts->pos);
 							for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 							{
 								P_ITEM mapitem = ri.GetData();
 								if (mapitem != NULL)
 								{// if it's close enought
-									if (iteminrange(ts, DEREF_P_ITEM(mapitem), p))
+									if (iteminrange(ts, mapitem, p))
 									{
 										sprintf(sect, "x%x%x", mapitem->id1, mapitem->id2);
 										if (strstr((char*)comm[0], sect))
 										{// if it's the item we want
-											c = DEREF_P_ITEM(mapitem);// we found it :D
+											pi_c = mapitem;// we found it :D
 										}
 									}
 								}
 							}
 							
-							if (c==-1)
+							if (pi_c == NULL)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);
@@ -1819,7 +1782,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								}
 								else 
 								{
-									Items->DeleItem(ti);
+									Items->DeleItem(MAKE_ITEM_REF(ti));
 								}
 							}
 						}
@@ -2302,7 +2265,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 										if (pi_evti->amount>1)
 											pi_evti->amount--;
 										else 
-											Items->DeleItem(DEREF_P_ITEM(pi_evti));
+											Items->DeleItem(pi_evti);
 									}
 								}
 							}
@@ -2379,7 +2342,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 										if (pi_evti->amount>1)
 											pi_evti->amount--;
 										else 
-											Items->DeleItem(DEREF_P_ITEM(pi_evti));
+											Items->DeleItem(pi_evti);
 									}
 								}
 							}

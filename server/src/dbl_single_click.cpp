@@ -730,13 +730,13 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			case 202:
 				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
 				{
-					pc_currchar->fx1 = DEREF_P_ITEM(pi);
+					pc_currchar->fx1 = pi->serial;
 					Guilds->StonePlacement(s);
 					return;
 				}
 				else if (pi->id() == 0x0ED5)	// Check for Guildstone + Guild Type
 				{
-					pc_currchar->fx1 = DEREF_P_ITEM(pi);
+					pc_currchar->fx1 = pi->serial;
 					Guilds->Menu(s, 1);
 					return;
 				}
@@ -769,7 +769,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				} // added by ripper, bugfixed by LB
 				int m;
 				P_ITEM pi_multi = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
-				if (pi_multi != NULL && iteminrange(s, DEREF_P_ITEM(pi_multi), 18))
+				if (pi_multi != NULL && iteminrange(s, pi_multi, 18))
 				{	
 					if (!ishouse(pi_multi))
 						return; // LB
@@ -976,7 +976,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if ((pi->type != 103) &&(pi->type != 202))
 					{  // experimental house code
 						pc_currchar->making = DEREF_P_ITEM(pi);
-						pc_currchar->fx1 = DEREF_P_ITEM(pi); // for deleting it later
+						pc_currchar->fx1 = pi->serial; // for deleting it later
 						addid3[s] = pi->morex;
 						// addx2[s]=pi->serial;
 						HouseManager->AddHome(s, pi->morex);

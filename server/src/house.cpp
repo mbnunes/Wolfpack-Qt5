@@ -246,7 +246,7 @@ void cHouseManager::AddHome(int s, int i)
 			for(rii.Begin();rii.GetData() != rii.End(); rii++)
 			{
 				P_ITEM sii = rii.GetData();
-				senditem(s, DEREF_P_ITEM(sii));
+				senditem(s, sii);
 			}
 			return;//If there's no extra items, we don't really need a key, or anything else do we? ;-)
 		}
@@ -261,9 +261,12 @@ void cHouseManager::AddHome(int s, int i)
 		}
 		
 		if (i)//Boats->.. Moved from up there ^
-			Items->DeleItem(pc_currchar->fx1); // this will del the deed no matter where it is
-		
-		pc_currchar->fx1=-1; //reset fx1 so it does not interfere
+		{
+			P_ITEM pDeed = FindItemBySerial(pc_currchar->fx1);
+			Items->DeleItem(pDeed); // this will del the deed no matter where it is
+		}
+
+		pc_currchar->fx1=INVALID_SERIAL; //reset fx1 so it does not interfere
 		// bugfix LB ... was too early reseted 
 		
 		//Key...
@@ -474,7 +477,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 					{
 						if( mapitem->pos.x >= x1 && mapitem->pos.y >= y1 && mapitem->pos.x <= x2 && mapitem->pos.y <= y2 )
 						{
-							Items->DeleItem(DEREF_P_ITEM(mapitem));
+							Items->DeleItem(mapitem);
 						}
 					}
 				} 
@@ -509,7 +512,7 @@ void cHouseManager::RemoveHouse(int h)
 		P_ITEM pi = rii.GetData();
 		if(GetHouseNum(pi))
 			if(pi->type != 202)
-				Items->DeleItem(DEREF_P_ITEM(pi));
+				Items->DeleItem(pi);
 	}
 	House.erase(House.begin() + h);
 	RemoveKeys(House[h]->serial);
@@ -617,7 +620,7 @@ void cHouseManager::RemoveKeys(int serial) // Crackerjack 8/11/99
 		P_ITEM pi = iter_items.GetData();
 		if (pi->type == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
 		{
-			Items->DeleItem(DEREF_P_ITEM(pi));
+			Items->DeleItem(pi);
 		}
 	}
 	return;

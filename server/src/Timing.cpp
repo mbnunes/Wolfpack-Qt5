@@ -1050,7 +1050,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								if(mapitem->gatetime<=currenttime) // LB !!!
 								{
 									for (k=0;k<2;k++) 
-										Items->DeleItem(DEREF_P_ITEM(mapitem)); // bugfix for items disappearing
+										Items->DeleItem(mapitem); // bugfix for items disappearing
 								}
 							}
 							Items->DecayItem(currenttime, DEREF_P_ITEM(mapitem));
@@ -1068,12 +1068,12 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								(mapitem->gatetime<=currenttime||overflow))
 							{
 								if (mapitem->type2==1) 
-									Boats->Move(i, mapitem->dir, DEREF_P_ITEM(mapitem));
+									Boats->Move(i, mapitem->dir, mapitem);
 								else 
 								{
 									int dir = mapitem->dir+4;
 									if (dir>7) dir-=8; // LB, BUGKILLING !!!
-									Boats->Move(i, dir, DEREF_P_ITEM(mapitem));
+									Boats->Move(i, dir, mapitem);
 								}
 								mapitem->gatetime=(unsigned int)(currenttime + (double)(SrvParms->boatspeed*MY_CLOCKS_PER_SEC));
 							}	

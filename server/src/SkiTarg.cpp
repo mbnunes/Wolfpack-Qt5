@@ -970,7 +970,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		if (pi->amount==1)
 		{
 			sysmessage(s,"Your hand slips and the last of your materials are destroyed.");
-			Items->DeleItem(smi);
+			Items->DeleItem(pi);
 		}
 		else
 		{
@@ -995,7 +995,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		sysmessage(s,"You have smelted your ore");
 		sprintf(tmp,"You place some %c%s ingots in your pack.",tolower(*orename), orename+1);
 		sysmessage(s,tmp);
-		Items->DeleItem(smi);
+		Items->DeleItem(pi);
 	}
 }
 
@@ -2198,7 +2198,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 void cSkills::BeggingTarget(int s)
 {
-	int ci,j,gold,x,y,realgold;
+	int ci,gold,x,y,realgold;
 	char abort;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
@@ -2258,7 +2258,7 @@ void cSkills::BeggingTarget(int s)
 					for (ci = 0; ci < vecContainer.size(); ci++)
 					{
 						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
-						j = DEREF_P_ITEM(pi_j);
+//						j = DEREF_P_ITEM(pi_j);
 						if (pi_j != NULL)
 						{
 							if (pi_j->id()==0x0EED )
@@ -2535,7 +2535,8 @@ void cSkills::LockPick(int s)
 							}
 							else
 							{
-							    Items->DeleItem(addmitem[s]);
+								P_ITEM pi = MAKE_ITEM_REF(addmitem[s]);
+							    Items->DeleItem(pi);
 							}
 						} else
 						{

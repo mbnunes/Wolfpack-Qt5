@@ -80,10 +80,11 @@ unsigned char cShipItems[4][6]=
 
 void sendinrange(ITEM i)//Send this item to all online people in range
 {//(Decided this was better than writting 1000 for loops to send an item.
+	P_ITEM pi = MAKE_ITEM_REF(i);
 	for(int a=0;a<now;a++)
 	{
-		if(perm[a] && iteminrange(a,i,VISRANGE))
-			senditem(a,i);
+		if(perm[a] && iteminrange(a, pi, VISRANGE))
+			senditem(a, pi);
 	}
 }
 
@@ -610,12 +611,11 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 	return false;
 }
 
-void cBoat::Move(UOXSOCKET s, int dir, ITEM boat)
+void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 {//Move the boat and all it's items 1 square
 	int tx=0,ty=0;
 	int a, serial;
      
-	P_ITEM pBoat = MAKE_ITEM_REF(boat);
 	if (pBoat == NULL)
 		return;
 
@@ -680,14 +680,14 @@ void cBoat::Move(UOXSOCKET s, int dir, ITEM boat)
 	if((pBoat->pos.x+tx<=200 || pBoat->pos.x+tx>=6000) && (pBoat->pos.y+ty<=200 || pBoat->pos.y+ty>=4900)) //bugfix LB
 	{
 		pBoat->type2=0;
-		itemtalk(s,DEREF_P_ITEM(pTiller),"Arr, Sir, we've hit rough waters!");
+		itemtalk(s, pTiller, "Arr, Sir, we've hit rough waters!");
 		Xsend(s,restart,2);
 		return;
 	}
 	if(Block(DEREF_P_ITEM(pBoat),tx,ty,dir))
 	{
 		pBoat->type2=0;
-		itemtalk(s, DEREF_P_ITEM(pTiller), "Arr, somethings in the way!");
+		itemtalk(s, pTiller, "Arr, somethings in the way!");
 		Xsend(s,restart,2);
 		return;
 	}
@@ -787,7 +787,7 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 
 	for (a = 0; a < now; a++)
 	{
-		if (iteminrange(a,b,BUILDRANGE) && perm[a])
+		if (iteminrange(a, pBoat, BUILDRANGE) && perm[a])
 		{
 			Send[d]=a;
 			Xsend(a,wppause,2);
@@ -832,8 +832,8 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
                 pBoat->dir = olddir;
                 for( a = 0; a < d; a++ )
                 {
-                        Xsend( Send[a], restart, 2 );
-                        itemtalk( Send[a], DEREF_P_ITEM(pTiller), "Arr, something's in the way!" );
+					Xsend( Send[a], restart, 2 );
+                    itemtalk( Send[a], pTiller, "Arr, something's in the way!" );
                 }
                 return;
         }
@@ -947,16 +947,16 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 	if(strstr(msg,"FORWARD") || strstr(msg,"UNFURL SAIL"))
 	{
 		boat->type2=1;//Moving
-		Move(s,dir, DEREF_P_ITEM(boat));
-		itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
+		Move(s,dir, boat);
+		itemtalk(s, tiller, "Aye, sir.");
 		return 1;
 	} else if(strstr(msg,"BACKWARD"))
 	{
 		boat->type2=2;//Moving backward
 		if(dir >= 4) dir-=4; 
 		else dir+=4;
-		Move(s,dir, DEREF_P_ITEM(boat));		
-		itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
+		Move(s,dir, boat);		
+		itemtalk(s, tiller, "Aye, sir.");
 		return 1;
 	}  else if(strstr(msg,"ONE") || strstr(msg,"DRIFT"))
 	{
@@ -964,21 +964,21 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 		{
 			dir-=2;
 			if(dir<0) dir+=8;			
-			Move(s, dir, DEREF_P_ITEM(boat));
-			itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
+			Move(s, dir, boat);
+			itemtalk(s, tiller, "Aye, sir.");
 			return 1;
 
 		} else if(strstr(msg,"RIGHT"))
 		{
 			dir+=2;
 			if(dir>=8) dir-=8; 			
-			Move(s,dir,DEREF_P_ITEM(boat));
+			Move(s,dir,boat);
 		
-			itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
+			itemtalk(s, tiller, "Aye, sir.");
 			return 1;
 		}
 	} 
-	else if(strstr(msg,"STOP") || strstr(msg,"FURL SAIL")) { boat->type2=0; itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir."); }//Moving is type2 1 and 2, so stop is 0 :-)
+	else if(strstr(msg,"STOP") || strstr(msg,"FURL SAIL")) { boat->type2=0; itemtalk(s, tiller, "Aye, sir."); }//Moving is type2 1 and 2, so stop is 0 :-)
 	else if((strstr(msg,"TURN") && (strstr(msg,"AROUND") || strstr(msg,"LEFT") || strstr(msg,"RIGHT")))
 		|| strstr(msg,"PORT") || strstr(msg,"STARBOARD") || strstr(msg,"COME ABOUT"))
 	{
@@ -1023,11 +1023,11 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			if (!Block(DEREF_P_ITEM(boat),tx,ty,dir))
 			{
 			  Turn(DEREF_P_ITEM(boat),1);
-			  itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
+			  itemtalk(s, tiller, "Aye, sir.");
 			  return 1;
 			} else { 
 				boat->type2 = 0;
-			    itemtalk(s, DEREF_P_ITEM(tiller), "Arr,somethings in the way"); 
+			    itemtalk(s, tiller, "Arr,somethings in the way"); 
 				return 1;
 			}
 		}
@@ -1072,12 +1072,12 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			if (!Block(DEREF_P_ITEM(boat),tx,ty,dir))
 			{
 			  Turn(DEREF_P_ITEM(boat),0);			
-			  itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
+			  itemtalk(s, tiller, "Aye, sir.");
 			  return 1;
 			} else 
 			{ 
 				boat->type2 = 0;
-				itemtalk(s, DEREF_P_ITEM(tiller), "Arr,somethings in the way"); 
+				itemtalk(s, tiller, "Arr,somethings in the way"); 
 				return 1;
 			}
 		}
@@ -1085,7 +1085,7 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 		{
 			Turn(DEREF_P_ITEM(boat), 1);
 			Turn(DEREF_P_ITEM(boat), 1);
-			itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
+			itemtalk(s, tiller, "Aye, sir.");
 			return 1;
 		}
 	}

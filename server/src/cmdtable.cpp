@@ -2428,11 +2428,13 @@ void command_cleanup(UOXSOCKET s)
 	char temp[100];
 	
 	sysmessage(s,"Cleaning corpses and closing gates...");
-	for(unsigned int i = 0; i < itemcount; i++)
+	AllItemsIterator iterItems;
+	for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
 	{
-		if((items[i].corpse==1)||(items[i].type==51)||(items[i].type==52))
+		P_ITEM pi = iterItems.GetData();
+		if((pi->corpse == 1) || (pi->type == 51) || (pi->type == 52))
 		{
-			Items->DeleItem(i);
+			Items->DeleItem(pi);
 			corpses++;
 		}
 	}
@@ -2475,10 +2477,12 @@ void command_delid( UOXSOCKET s )
 	
 	unsigned char id1 = static_cast<unsigned char>(hexnumber( 1 ));
 	unsigned char id2 = static_cast<unsigned char>(hexnumber( 2 ));
-	for( unsigned int i = 0; i < itemcount; i++ )
+	AllItemsIterator iterItems;
+	for( iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++ )
 	{
-		if( items[i].id1 == id1 && items[i].id2 == id2 )
-			Items->DeleItem( i );
+		P_ITEM pi = iterItems.GetData();
+		if( pi->id1 == id1 && pi->id2 == id2 )
+			Items->DeleItem( pi );
 	}
 }
 

@@ -199,12 +199,6 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,vr);
 }
 
-unsigned char iteminrange (UOXSOCKET s, ITEM i, int distance)
-{
-	const P_ITEM pi=MAKE_ITEMREF_LRV(i,0);	// on error return
-	return iteminrange(s,pi,distance);
-}
-
 bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],false);
@@ -1258,7 +1252,7 @@ void deathstuff(int i)
 		pi_c->layer=0x16;
 		pi_c->def=1;
 	}
-	if (SrvParms->showdeathanim) deathaction(DEREF_P_CHAR(pc_player), DEREF_P_ITEM(pi_c));
+	if (SrvParms->showdeathanim) deathaction(DEREF_P_CHAR(pc_player), pi_c);
 	if (pc_player->account!=-1) // LB
 	{
 		
@@ -5416,8 +5410,8 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 	{//yeah, it's on ground!
 		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
 		{
-			if(perm[a] && iteminrange(a,DEREF_P_ITEM(pi),VISRANGE))
-				senditem(a,DEREF_P_ITEM(pi));
+			if(perm[a] && iteminrange(a,  pi, VISRANGE))
+				senditem(a, pi);
 		}
 		return;
 	}
@@ -5444,7 +5438,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 		for(aa=0;aa<now;aa++)//send this item to all the sockets in range
 		{
 			if(perm[aa])
-				sendbpitem(aa, DEREF_P_ITEM(pi));//NOTE: there's already the inrange check
+				sendbpitem(aa, pi);//NOTE: there's already the inrange check
 								 //in the sendbpitem() function, so it's unuseful
 								 //to do a double check!!
 		}

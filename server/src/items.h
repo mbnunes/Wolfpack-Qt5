@@ -228,7 +228,6 @@ public:
 	void SetPos(ITEM nItem, short x,short y, signed char z);
 	P_ITEM  MemItemFree();
 	void DeleItem(P_ITEM pi);
-	void DeleItem(int i);
 	char isFieldSpellItem(int i);
 	P_ITEM CreateFromScript(UOXSOCKET s, int itemnum);
 	P_ITEM  CreateScriptItem(int s, int itemnum, int nSpawned);
@@ -248,7 +247,7 @@ public:
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
 	void DecayItem(unsigned int currenttime, int i);
 	void RespawnItem(unsigned int Currenttime, int i);
-	void AddRespawnItem(int s, int x, int y);
+	void AddRespawnItem(P_ITEM pItem, int x, int y);
 	void CheckEquipment(P_CHAR pc_p); //AntiChrist
 	void CheckMemoryRequest();
 	bool AllocateMemory(int NumberOfItems);

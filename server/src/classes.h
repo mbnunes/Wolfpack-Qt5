@@ -298,7 +298,7 @@ public:
 	void ParalyzeSpell(int attacker, int defender, bool usenama = true);
 	void ExplosionSpell(int attacker, int defender, bool usemana = true);
 	void FlameStrikeSpellItem(int attacker, int defender);
-	int CheckBook(int circle, int spell, int i);
+	bool CheckBook(int circle, int spell, P_ITEM pi);
 	char CheckReagents(int s, reag_st reagents);
 
 
