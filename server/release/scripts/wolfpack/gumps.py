@@ -34,12 +34,14 @@ class cGump:
 			socket = char
 
 		# Dump the gump data
-		#file = open( 'dump.txt', 'w' )
-		#file.write( "--------\nLayout:\n" )
-		#file.writelines( self.layout )
-		#file.write( "--------\nText:\n" )
-		#file.writelines( self.texts )
-		#file.close()
+		file = open( 'dump.txt', 'w' )
+		file.write( "--------\nLayout:\n" )
+		for line in self.layout:
+			file.write( line + "\n" )
+		file.write( "--------\nText:\n" )
+		for line in self.texts:
+			file.write( line + "\n" )
+		file.close()
 
 		if not socket:
 			raise TypeError( "You passed an invalid socket." )
@@ -52,13 +54,17 @@ class cGump:
 
 	def addRawText( self, data ):
 		# Find the text
-		for i in range( 0, len( self.texts ) -1 ):
-			if self.texts[i] == data:
-				return i
-
-		# Insert the text
-		self.texts.append( data )
-		return len( self.texts ) - 1
+		if data in self.texts:
+			i = 0
+			for text in self.texts:
+				if text == data:
+					return i
+				else:
+					i += 1
+		else:
+			# Insert the text
+			self.texts.append( data )
+			return len( self.texts ) - 1
 
 	# Sets the Callback function which is going to be called whenever the user
 	# clicks something on the gump
