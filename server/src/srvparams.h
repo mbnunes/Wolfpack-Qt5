@@ -86,9 +86,21 @@ protected:
 	unsigned int tamedDisappear_;
 	unsigned int houseInTown_;
 	unsigned int shopRestock_;
+	unsigned int badNpcsRed_;
+	unsigned int slotAmount_;
 
 	// Combat
 	bool combatHitMessage_;
+	unsigned int maxAbsorbtion_;
+	unsigned int maxnohabsorbtion_;
+	unsigned int monsters_vs_animals_;
+	unsigned int animals_attack_chance_;
+	unsigned int animals_guarded_;
+	unsigned int npcdamage_;
+	unsigned int npc_base_fleeat_;
+	unsigned int npc_base_reattackat_;
+	int attackstamina_;
+	unsigned char attack_distance_;
 
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
@@ -152,9 +164,21 @@ public:
 	unsigned int tamedDisappear() const;
 	unsigned int houseInTown() const;
 	unsigned int shopRestock() const;
+	unsigned int badNpcsRed() const;
+	unsigned int slotAmount() const;
 
 	// Combat
 	bool combatHitMessage() const;
+	unsigned int maxAbsorbtion() const;
+	unsigned int maxnohabsorbtion() const;
+	unsigned int monsters_vs_animals() const;
+	unsigned int animals_attack_chance() const;
+	unsigned int animals_guarded() const;
+	unsigned int npcdamage() const;
+	unsigned int npc_base_fleeat() const;
+	unsigned int npc_base_reattackat() const;
+	int attackstamina() const;
+	unsigned char attack_distance() const;
 
 private:
 	void setDefaultStartLocation();
@@ -448,6 +472,66 @@ inline unsigned int cSrvParams::houseInTown() const
 inline unsigned int cSrvParams::shopRestock() const
 {
 	return shopRestock_;
+}
+
+inline unsigned int cSrvParams::badNpcsRed() const
+{
+	return badNpcsRed_;
+}
+
+inline unsigned int cSrvParams::slotAmount() const
+{
+	return slotAmount_;
+}
+
+inline unsigned int cSrvParams::maxAbsorbtion() const
+{
+	return maxAbsorbtion_;
+}
+
+inline unsigned int cSrvParams::maxnohabsorbtion() const
+{
+	return maxnohabsorbtion_;
+}
+
+inline unsigned int cSrvParams::monsters_vs_animals() const
+{
+	return monsters_vs_animals_;
+}
+
+inline unsigned int cSrvParams::animals_attack_chance() const
+{
+	return animals_attack_chance_;
+}
+
+inline unsigned int cSrvParams::animals_guarded() const
+{
+	return animals_guarded_;
+}
+
+inline unsigned int cSrvParams::npcdamage() const
+{
+	return npcdamage_;
+}
+
+inline unsigned int cSrvParams::npc_base_fleeat() const
+{
+	return npc_base_fleeat_;
+}
+
+inline int cSrvParams::attackstamina() const
+{
+	return attackstamina_;
+}
+
+inline unsigned int cSrvParams::npc_base_reattackat() const
+{
+	return npc_base_reattackat_;
+}
+
+inline unsigned char cSrvParams::attack_distance() const
+{
+	return attack_distance_;
 }
 
 #endif __SRVPARAMS_H___

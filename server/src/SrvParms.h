@@ -68,15 +68,7 @@ struct server_st
 	unsigned int staminarate;
 	unsigned int manarate;
 	unsigned int minecheck;
-	unsigned int monsters_vs_animals;
-	unsigned int animals_attack_chance;
-	unsigned int animals_guarded;
-	unsigned int npc_base_fleeat;
-	unsigned int npc_base_reattackat;
 	char archivepath[256];
-	unsigned int maxabsorbtion; // Magius(CHE) --- Maximum Armour of the single pieces of armour (for player)!
-	unsigned int maxnohabsorbtion; // Magius(CHE) --- Maximum Armour of the total armour (for NPC)!
-	unsigned int npcdamage; // Magius(CHE) --- DAmage divided by this number if the attacked is an NPC!
 	unsigned int sellbyname; // Magius(CHE)
 	unsigned int sellmaxitem; // Magius(CHE)
 	unsigned int skilllevel; // Magius(CHE)
@@ -84,20 +76,16 @@ struct server_st
 	unsigned int rank_system; // Magius(CHE)
 	char armoraffectmana; // Should armor slow mana regen ?
 	unsigned short int quittime;//Instalog
-	int attackstamina;	// AntiChrist (6) - for ATTACKSTAMINA
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
 	int usespecialbank; //special bank - AntiChrist
 	short CheckBank; // Vendors check bank for gold- Ripper
 	unsigned int VendorGreet; // shop keepers greet - Ripper
-	unsigned int BadNpcsRed; // bad npcs red=1 or grey=0 - Ripper
-	unsigned int slotamount; // gold amount for slots Ripper
 	char errors_to_console; // LB
 	unsigned long int housedecay_secs;
 	unsigned int ra_port;
 	bool EnableRA;
 	unsigned char showCVCS; // Show client verification stuff at login ? (blackwind) 
 	unsigned int default_jail_time; // Default jail time (86400) 
-	unsigned char attack_distance; // Attack distance bugfix (blackwind) 
 	char msgboardpath[256];   // Dupois - Added April 4, 1999 for msgboard.cpp - path to store BB* files (ie C:\POSTS\)
 	int  msgpostaccess;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to post messages (0=GM only, 1 = everyone)
 	int  msgpostremove;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to remove post messages (0=GM only, 1 = everyone)

@@ -1811,7 +1811,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					sysmessage(s,"He seems unaffected by your spell!");
 					return;
 				}
-				if( chardist( pc_defender, pc_currchar ) > SrvParms->attack_distance )
+				if( chardist( pc_defender, pc_currchar ) > SrvParams->attack_distance() )
 				{
 					sysmessage( s, "You can't cast on someone that far away!" );
 					return;

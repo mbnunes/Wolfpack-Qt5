@@ -1975,11 +1975,11 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 		talk[12]=0;
 		talk[13]=pc_currchar->fonttype;
 
-		if (pc_npc->npcaitype==2 && server_data.BadNpcsRed == 0) //bad npcs speech (red)..Ripper
+		if (pc_npc->npcaitype==2 && SrvParams->badNpcsRed() == 0) //bad npcs speech (red)..Ripper
 		{
 			pc_npc->saycolor = 0x03B2;
 		}
-		else if (pc_npc->npcaitype==2 && server_data.BadNpcsRed == 1)
+		else if (pc_npc->npcaitype==2 && SrvParams->badNpcsRed() == 1)
 		{
 			pc_npc->saycolor = 0x0026;
 		}

@@ -5521,7 +5521,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 		(pc->npcaitype == 3) ||  // bad healer
 		(pc->npcaitype == 50)))   // EV & BS
 	{
-		if (server_data.BadNpcsRed == 0)
+		if (SrvParams->badNpcsRed()== 0)
 		{
 			pc->setCriminal();
 		}
@@ -5555,7 +5555,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					pc->setInnocent();
 					return;
 				}
-				if (server_data.animals_guarded == 1 && pc->npcaitype == 0 && !pc->tamed)
+				if (SrvParams->animals_guarded() == 1 && pc->npcaitype == 0 && !pc->tamed)
 				{
 					if (pc->inGuardedArea())	// in a guarded region, with guarded animals, animals == blue
 						pc->setInnocent();

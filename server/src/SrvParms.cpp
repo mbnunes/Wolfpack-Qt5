@@ -96,17 +96,8 @@ void loadserverdefaults(void)
 	server_data.staminarate=REGENRATE2;
 	server_data.manarate=REGENRATE3;
 	server_data.minecheck=2;
-	server_data.attackstamina=-2;				// AntiChrist - attacker looses stamina when hits
-	server_data.monsters_vs_animals=0;			// By default monsters won't attack animals;
-	server_data.animals_attack_chance=15;		// a 15% chance
-	server_data.animals_guarded=0;				// By default players can attack animals without summoning guards
-	server_data.npc_base_fleeat=20;             // 20% hp
-	server_data.npc_base_reattackat=40;
-	server_data.maxabsorbtion=20;				// 20 Arm (single armour piece) -- Magius(CHE)
-	server_data.maxnohabsorbtion=100;			// 100 Arm (total armour) -- Magius(CHE)
 	server_data.sellbyname=1;		// Values= 0(Disabled) or 1(Enabled) - The NPC Vendors buy from you if your item has the same name of his item! --- Magius(CHE)
 	server_data.sellmaxitem=5;		// Set maximum amount of items that one player can sell at one time (5 is standard OSI) --- Magius(CHE)
-	server_data.npcdamage=2;
 	server_data.rank_system=1;		// Rank system to make various type of a single intem based on the creator's skill! - Magius(CHE)
 	server_data.errors_to_console=0;
 
@@ -137,8 +128,6 @@ void loadserverdefaults(void)
 
 	server_data.showCVCS = 1; // blackwind 
 	server_data.default_jail_time=86400; // 
-	server_data.attack_distance=13; // 
-	server_data.slotamount=5; // Ripper
 
 
 	cwmWorldState->SetLoopSaveAmt(-1);
@@ -187,27 +176,6 @@ void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
 		else if(!(strcmp((char*)script1,"CACHE_MUL"))) Map->Cache = atoi((char*)script2);	
 	}
 	while (  (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-
-void loadcombat() // By Magius(CHE)
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"MAX_ABSORBTION"))) server_data.maxabsorbtion=str2num(script2); //MAgius(CHE)
-		else if(!(strcmp((char*)script1,"MAX_NON_HUMAN_ABSORBTION"))) server_data.maxnohabsorbtion=str2num(script2); //MAgius(CHE) (2)
-		else if(!(strcmp((char*)script1,"NPC_DAMAGE_RATE"))) server_data.npcdamage=str2num(script2); //MAgius(CHE) (3)
-		else if(!(strcmp((char*)script1,"MONSTERS_VS_ANIMALS"))) server_data.monsters_vs_animals=str2num(script2);
-		else if(!(strcmp((char*)script1,"ANIMALS_ATTACK_CHANCE"))) server_data.animals_attack_chance=str2num(script2);
-		else if(!(strcmp((char*)script1,"ANIMALS_GUARDED"))) server_data.animals_guarded=str2num(script2);
-		else if(!(strcmp((char*)script1,"NPC_BASE_FLEEAT"))) server_data.npc_base_fleeat=str2num(script2);
-		else if(!(strcmp((char*)script1,"NPC_BASE_REATTACKAT"))) server_data.npc_base_reattackat=str2num(script2);
-		else if(!(strcmp((char*)script1,"ATTACKSTAMINA"))) server_data.attackstamina=str2num(script2); // antichrist (6) - for ATTACKSTAMINA
-		else if(!(strcmp((char*)script1,"ATTACK_DISTANCE"))) server_data.attack_distance=str2num(script2); // blackwind 
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
 
 void loadregenerate() // by Magius(CHE)
@@ -336,8 +304,6 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"HOUSEDECAY_SECS"))) server_data.housedecay_secs=str2num( script2 ); // LB
 		else if(!(strcmp((char*)script1,"SHOW_CVCS_INFO_AT_LOGIN"))) server_data.showCVCS=str2num(script2); //blackwind 
 		else if(!(strcmp((char*)script1,"DEFAULT_JAIL_TIME"))) server_data.default_jail_time=str2num(script2);// blackwind 
-		else if(!(strcmp((char*)script1,"BADNPCSRED"))) server_data.BadNpcsRed=str2num(script2); //Ripper
-		else if(!(strcmp((char*)script1,"SLOTAMOUNT"))) server_data.slotamount=str2num(script2); //Ripper
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
@@ -464,7 +430,6 @@ void loadserverscript(char *fn) // Load a server script
 			else if(!(strcmp((char*)script2, "SPIRITSPEAK"))) loadspiritspeak();
 			else if(!(strcmp((char*)script2, "TIME_LIGHT"))) loadtime_light();
 			// added by Magius(CHE)
-			else if(!(strcmp((char*)script2, "COMBAT"))) loadcombat();
 			else if(!(strcmp((char*)script2, "VENDOR"))) loadvendor();
 			else if(!(strcmp((char*)script2, "REGENERATE"))) loadregenerate();
 			else if(!(strcmp((char*)script2, "REMOTE_ADMIN"))) loadremote_admin();
@@ -527,8 +492,6 @@ void saveserverscript(void)
 	fprintf(file, "HOUSEDECAY_SECS %i\n",server_data.housedecay_secs);
 	fprintf(file, "SHOW_CVCS_INFO_AT_LOGIN %i\n",server_data.showCVCS); // blackwind 
 	fprintf(file, "DEFAULT_JAIL_TIME %i\n",server_data.default_jail_time);
-	fprintf(file, "BADNPCSRED %i\n",server_data.BadNpcsRed); // Ripper
-	fprintf(file, "SLOTAMOUNT %i\n",server_data.slotamount); // Ripper
 
 	
 	fprintf(file, "}\n\n");
@@ -547,20 +510,6 @@ void saveserverscript(void)
 	fprintf(file, "{\n");
 	fprintf(file, "CHECK_SPAWNREGIONS %i\n",speed.srtime);
 	fprintf(file, "CACHE_MUL %i\n",Map->Cache);
-	fprintf(file, "}\n\n");
-	
-	fprintf(file, "SECTION COMBAT\n");
-	fprintf(file, "{\n");
-	fprintf(file, "MAX_ABSORBTION %i\n",server_data.maxabsorbtion);
-	fprintf(file, "MAX_NON_HUMAN_ABSORBTION %i\n",server_data.maxnohabsorbtion);
-	fprintf(file, "MONSTERS_VS_ANIMALS %i\n",server_data.monsters_vs_animals); 
-	fprintf(file, "ANIMALS_ATTACK_CHANCE %i\n",server_data.animals_attack_chance); 
-	fprintf(file, "ANIMALS_GUARDED %i\n",server_data.animals_guarded); 
-	fprintf(file, "NPC_DAMAGE_RATE %i\n",server_data.npcdamage);
-	fprintf(file, "NPC_BASE_FLEEAT %i\n",server_data.npc_base_fleeat);
-	fprintf(file, "NPC_BASE_REATTACKAT %i\n",server_data.npc_base_reattackat);
-	fprintf(file, "ATTACKSTAMINA %i\n",server_data.attackstamina);	// antichrist (6)
-	fprintf(file, "ATTACK_DISTANCE %i\n",server_data.attack_distance); // blackwind 
 	fprintf(file, "}\n\n");
 
 	fprintf(file, "SECTION VENDOR\n");

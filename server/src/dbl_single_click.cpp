@@ -90,12 +90,12 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 		sysmessage(s,"ghosts cant do that!");
 		return;
 	}
-	if(pc_currchar->CountGold() < server_data.slotamount)	// check his gold to see if has enough.
+	if(pc_currchar->CountGold() < SrvParams->slotAmount())	// check his gold to see if has enough.
 	{
 		sysmessage(s,"you dont have enough gold to play!");
 		return;
 	}
-	delequan(pc_currchar, 0x0EED, server_data.slotamount, NULL);	// lets delete the coins played.
+	delequan(pc_currchar, 0x0EED, SrvParams->slotAmount(), NULL);	// lets delete the coins played.
 	int spin=RandomNum( 0,100);	// now lets spin to win :)
 	switch(spin)
 	{
@@ -1489,7 +1489,7 @@ void singleclick(UOXSOCKET s)
 
 	if (pi->type == 187) // Ripper...used for slotmachine.
 	{
-		sprintf((char*)temp, "[%i gold Slot]", server_data.slotamount);
+		sprintf((char*)temp, "[%i gold Slot]", SrvParams->slotAmount());
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 	

@@ -404,21 +404,19 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			maxabs = 20; //
 			           // there are monsters with DEF >20, this makes them undefeatable
 			maxnohabs=100;
-			if (SrvParms->maxabsorbtion>0) maxabs = SrvParms->maxabsorbtion;
-			else {
-				clConsole.send("SERVER.SCP:ComabatHit() Error in MAX_ABSORBTION. Reset to Deafult (20).\n");
-				SrvParms->maxabsorbtion=maxabs;
+			if (SrvParams->maxAbsorbtion() > 0)
+			{
+				maxabs = SrvParams->maxAbsorbtion();
 			}
-			if (SrvParms->maxnohabsorbtion>0) maxnohabs=SrvParms->maxnohabsorbtion;
-			else {
-				clConsole.send("SERVER.SCP:ComabatHit() Error in MAX_NON_HUMAN_ABSORBTION. Reset to Deafult (100).\n");
-				SrvParms->maxnohabsorbtion=maxnohabs;
-			}
+			if (SrvParams->maxnohabsorbtion() > 0)
+			{
+				maxnohabs = SrvParams->maxnohabsorbtion();
+			}		
 			if (!ishuman(pc_deffender)) maxabs=maxnohabs;
 			tmpj=(int) (damage*x)/maxabs; // Absorbtion by Magius(CHE)
 			damage -= tmpj;
 			if (damage<0) damage=0;
-			if (pc_deffender->isPlayer()) damage /= SrvParms->npcdamage; // Rate damage against other players
+			if (pc_deffender->isPlayer()) damage /= SrvParams->npcdamage(); // Rate damage against other players
 			// End Armour Absorbtion by Magius(CHE) (See alse reactive armour spell damage)
 
 			if (pc_attacker->isPlayer())//Zippy
@@ -448,7 +446,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					int damage1;
 					damage1=(int)( damage*(pc_deffender->skill[MAGERY]/2000.0));
 					pc_deffender->hp -= damage-damage1;
-					if (pc_deffender->isNpc()) damage1 = damage1 * SrvParms->npcdamage; // by Magius(CHE)
+					if (pc_deffender->isNpc()) damage1 = damage1 * SrvParams->npcdamage(); // by Magius(CHE)
 					pc_attacker->hp -= damage1;  // Remove damage from attacker
 					staticeffect(pc_deffender, 0x37, 0x4A, 0, 15);//RA effect - AntiChrist (9/99)
 					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())))// Stamina Loss -Fraz-
@@ -540,7 +538,7 @@ static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int 
 	{
 		int spattacks = numbitsset( pc_attacker->spattack );
 
-		if (!pc_defender->dead && chardist(pc_attacker, pc_defender) < server_data.attack_distance && spattacks > 0 )
+		if (!pc_defender->dead && chardist(pc_attacker, pc_defender) < SrvParams->attack_distance() && spattacks > 0 )
 		{
 			if (los)
 			{																	
@@ -764,7 +762,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 		
 		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(pc_defender) && !pc_defender->dead) ) // ripper		
 		{
-			if (chardist( pc_attacker, pc_defender ) > SrvParms->attack_distance)
+			if (chardist( pc_attacker, pc_defender ) > SrvParams->attack_distance())
 			{
 				if (pc_attacker->npcaitype==4 && pc_attacker->inGuardedArea()) // changed from 0x40 to 4, LB
 				{
@@ -826,15 +824,15 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 					if (x)
 					{
 						// - Do stamina maths - AntiChrist (6) -
-						if(abs(SrvParms->attackstamina)>0 && !pc_attacker->isGM())
+						if(abs(SrvParams->attackstamina())>0 && !pc_attacker->isGM())
 						{
-							if((SrvParms->attackstamina<0)&&(pc_attacker->stm<abs(SrvParms->attackstamina)))
+							if((SrvParams->attackstamina()<0)&&(pc_attacker->stm<abs(SrvParams->attackstamina())))
 							{
 								sysmessage(s1, tr("You are too tired to attack."));
 								SetWeaponTimeout(pc_attacker, pWeapon);
 								return;
 							}
-							pc_attacker->stm += SrvParms->attackstamina;
+							pc_attacker->stm += SrvParams->attackstamina();
 							if (pc_attacker->stm>pc_attacker->effDex()) pc_attacker->stm=pc_attacker->effDex();
 							if (pc_attacker->stm<0) pc_attacker->stm=0;
 							updatestats((pc_attacker),2); //LB, crashfix, was currchar[a]

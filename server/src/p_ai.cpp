@@ -33,6 +33,7 @@
 #include "SndPkg.h"
 #include "debug.h"
 #include "regions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"
@@ -146,15 +147,15 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						chance = RandomNum(1, 100);
 						if (pc == pc_i || !onl)
 							continue;
-						if (d>SrvParms->attack_distance)
+						if (d>SrvParams->attack_distance())
 							continue;
 						if (onl &&(pc->isInvul() || pc->isHidden() || pc->dead || (Races.CheckRelation(pc_i,pc)==1)))
 							continue;
 						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1 || (Races.CheckRelation(pc_i,pc)==1)))
 							continue;
-						if (server_data.monsters_vs_animals == 0 &&(pc->title.size() <= 0 && !pc->isHuman()))
+						if (SrvParams->monsters_vs_animals() == 0 &&(pc->title.size() <= 0 && !pc->isHuman()))
 							continue;
-						if (server_data.monsters_vs_animals == 1 && chance > server_data.animals_attack_chance)
+						if (SrvParams->monsters_vs_animals() == 1 && chance > SrvParams->animals_attack_chance())
 							continue;
 						if (pc_i->baseskill[MAGERY]>400)
 						{
@@ -234,7 +235,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				        if (!(pc->npcaitype==2 || pc->isMurderer()))
 					       continue;
 				        d = pc_i->dist(pc);
-				        if (d > SrvParms->attack_distance || pc->isInvul() || pc->dead)
+				        if (d > SrvParams->attack_distance() || pc->isInvul() || pc->dead)
 					       continue;
 				        if ( closest > d)
 						{

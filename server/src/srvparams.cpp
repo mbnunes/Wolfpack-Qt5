@@ -70,9 +70,21 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 1, true);
 	houseInTown_            = getNumber("General",  "House In Town", 0, true);
 	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
+	badNpcsRed_             = getNumber("General",  "Bad Npcs Red", 1, true);
+	slotAmount_             = getNumber("General",  "Slot Amount", 5, true);
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );
+	maxAbsorbtion_		    = getNumber("Combat", "Max Absorbtion", 20, true );
+	maxnohabsorbtion_		= getNumber("Combat", "Max Non Human Absorbtion", 100, true );
+	monsters_vs_animals_	= getNumber("Combat", "Monsters vs Animals", 0, true );
+	animals_attack_chance_	= getNumber("Combat", "Animals Attack Chance", 15, true );
+	animals_guarded_	    = getNumber("Combat", "Animals Guarded", 0, true );
+	npcdamage_	            = getNumber("Combat", "Npc Damage", 2, true );
+	npc_base_fleeat_	    = getNumber("Combat", "Npc Base Flee At", 20, true );
+	npc_base_reattackat_	= getNumber("Combat", "Npc Base Reattack At", 40, true );
+	attackstamina_	        = getNumber("Combat", "Attack Stamina", -2, true );
+	attack_distance_	    = getNumber("Combat", "Attack Distance", 13, true );
 	
 
 	flush(); // if any key created, save it.
