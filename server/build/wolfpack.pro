@@ -24,11 +24,14 @@ unix {
 	INCLUDEPATH += $$MYSQL_INC
 
 	# Python includes. Run configure script to initialize it.
+	LIBS  += $$PYTHON_LIB
 	INCLUDEPATH += $$PYTHON_INC
 
-	INCLUDEPATH += /usr/local/include/stlport sqlite network
-	LIBS  += -L/usr/local/lib -L/usr/lib -ldl -lpython2.3 -lutil
-	LIBS  += -L$$PYTHON_LIB
+	LIBS += $$STLPORT_LIB
+	INCLUDEPATH += $$STLPORT_INC
+
+	LIBS  += -L/usr/local/lib -L/usr/lib -ldl -lutil
+	INCLUDEPATH += sqlite network
 
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
@@ -74,6 +77,7 @@ HEADERS         = \
 			combat.h \
 			commands.h \
 			console.h \
+			getopts.h \
 			dbl_single_click.h \
 			dbdriver.h \
 			definable.h \
@@ -132,6 +136,7 @@ SOURCES         = \
 		combat.cpp \
 		commands.cpp \
 		console.cpp \
+		getopts.cpp \
 		contextmenu.cpp \
 		coord.cpp \
 		corpse.cpp \
@@ -281,10 +286,12 @@ TRANSLATIONS    = \
 		languages/wolfpack_ge.ts
 
 unix:SOURCES  += unix/srvparams_unix.cpp \
-		 unix/console_unix.cpp
+		 unix/console_unix.cpp \
+		 unix/getopts_unix.cpp
 
 win32:SOURCES += win/srvparams_win.cpp \
-		 win/console_win.cpp
+		 win/console_win.cpp \
+		 win/getopts_win.cpp
 
 DISTFILES     += AUTHORS.txt \
 		 COPYING.txt \
