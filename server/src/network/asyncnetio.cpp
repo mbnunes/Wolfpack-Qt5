@@ -271,6 +271,12 @@ int cAsyncNetIOPrivate::ungetch( int ch )
 */
 bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
 {
+	if ( nbytes > wsize )
+	{
+		wsize = 0;
+		return false;
+	}
+	
 	if ( nbytes <= 0 || nbytes > wsize )
 		return false;
 	wsize -= nbytes;
@@ -685,15 +691,16 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 	d->wba.clear();
 	d->wba.setAutoDelete(TRUE);
 	
-	if (d->ewba.count() == 0) {
-		return;
-	}
-
 	// Before we continue, we should guarantee no one writes packets to the buffer.
 	QMutexLocker lock( &d->wmutex );
 	while ( !osBufferFull && d->wsize > 0 )
 	{
 		QByteArray* a = d->ewba.first();
+		
+		if (!a) {
+			break;
+		}
+		
 		int nwritten;
 		int i = 0;
 		if ( ( int ) a->size() - d->windex < 1460 )
