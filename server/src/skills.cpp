@@ -200,10 +200,9 @@ public:
 	cMMTsmith(short badsnd=0x002A) : cMMT(badsnd) {}
 	virtual void deletematerial(SOCK s, int amount)
 	{
-		int p=packitem(currchar[s]);
-		if (p==-1) return;
-//		int ser=items[p].serial;
-		P_ITEM pPack=&items[p];
+		P_ITEM pPack= packitem(currchar[s]);
+		if (pPack == NULL)
+			return;
 		amount=(amount>0 ? amount : 1);
 		switch(ingottype)
 		{
@@ -268,8 +267,6 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 	}
 //	END OF: By Polygon
 
-	if(pc_currchar->making==999) {}
-	else
 	if(!Skills->CheckSkill(cc,skill, itemmake[s].minskill, itemmake[s].maxskill) && !pc_currchar->isGM()) //GM cannot fail! - AntiChrist
 	{
 		// Magius(CHE) §
@@ -398,10 +395,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			}
 		}
 
-		if(pc_currchar->making==999)
-			pc_currchar->making=DEREF_P_ITEM(pi); // store item #
-		else
-			pc_currchar->making=0;
+		pc_currchar->making=0;
 		if (skill==MINING) soundeffect(s,0x00,0x54); // Added by Magius(CHE)
 		if (skill==BLACKSMITHING) soundeffect(s,0x00,0x2a);
 		if (skill==CARPENTRY) soundeffect(s,0x02,0x3d);
@@ -818,15 +812,13 @@ void cSkills::PlayInstrumentPoor(int s, P_ITEM pi)
 
 int cSkills::GetInstrument(int s)
 {
-	int x=packitem(currchar[s]);
-	if (x==-1) return -1; //LB
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
-	int ci=0,loopexit=0;
-	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(items[x].serial);
+	unsigned int ci;
+	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if ( IsInstrument(pi->id()) )
 		{
 			return DEREF_P_ITEM(pi);
@@ -913,12 +905,11 @@ void cSkills::DoPotion(int s, int type, int sub, int mortar)
 // Purpose:	does the appropriate skillcheck for the potion, creates it
 //			in the mortar on success and tries to put it into a bottle
 //
-void cSkills::CreatePotion(int s, char type, char sub, int mortar)
+void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 {
 	int success=0;
 
 	P_CHAR pc = MAKE_CHARREF_LR(s)
-	P_ITEM pi_mortar = MAKE_ITEM_REF(mortar);
 
 	switch((10*type)+sub)
 	{
@@ -1947,10 +1938,7 @@ void TellScroll( char *menu_name, int s, long snum )
 
 	if(snum<=0) return;				// bad spell selction
 
-	i = pc_currchar->making;	// lets re-grab the item they clicked on
-	pc_currchar->making=0;	// clear it out now that we are done with it.
-	
-	P_ITEM pi = MAKE_ITEM_REF(i);
+	P_ITEM pi = FindItemBySerial(pc_currchar->lastTarget);
 
 	cir=(int)((snum-800)/10);		// snum holds the circle/spell as used in inscribe.gmp
 	spl=(((snum-800)-(cir*10))+1);	// i.e. 800 + 1-based circle*10 + zero-based spell
@@ -2087,11 +2075,11 @@ int cSkills::Inscribe(int s,long snum)
 		(pi->att>0 || pi->def>0 || pi->hidamage>0)))	// its something else
 	{
 		sysmessage(s,"You could not possibly engrave on that!");
-		chars[currchar[s]].making=0;
+		chars[currchar[s]].lastTarget = INVALID_SERIAL;
 	}
 	else
 	{
-		chars[currchar[s]].making = DEREF_P_ITEM(pi);		//we gotta remember what they clicked on!
+		chars[currchar[s]].lastTarget = pi->serial;		//we gotta remember what they clicked on!
 
 		/* select spell gump menu system here, must return control to WOLFPACK so we dont
 		freeze the game. when returning to this routine, use snum to determine where to go

@@ -150,7 +150,6 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 	int damage; // removed from unsigne by Magius(CHE)
 	signed int x;
 	// Magius(CHE) - For armour absorbtion system
-	char /*t[512],*/debabs[512]; 
 	int maxabs, maxnohabs, tmpj;
 
 
@@ -165,14 +164,12 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			sysmessage(s1,"Your weapon has been destroyed");
 			if ((pWeapon->trigon==1) && (pWeapon->layer>0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				triggerwitem(s1, DEREF_P_ITEM(pWeapon), 1); // trigger is fired when item destroyed
+				triggerwitem(s1, pWeapon, 1); // trigger is fired when item destroyed
 			}				
 			Items->DeleItem(pWeapon);
 		}
 	}
 
-	*debabs='\0'; 
-//	*t='\0';
 	// End here - Magius(CHE) - For armour absorbtion system
 
 
@@ -285,7 +282,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 						sysmessage(s2,"Your shield has been destroyed");
 						if ((pShield->trigon==1) && (pShield->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 						{
-							triggerwitem(s2, DEREF_P_ITEM(pShield), 1); // trigger is fired when item destroyed
+							triggerwitem(s2, pShield, 1); // trigger is fired when item destroyed
 						}	
 						Items->DeleItem(pShield);
 					}
@@ -1062,7 +1059,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				//-Frazurbluu-  need to have tactics bonus removed also
 				if ((pj->trigon==1) && (pj->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 				{
-					triggerwitem(k, DEREF_P_ITEM(pj), 1); // trigger is fired when item destroyed
+					triggerwitem(k, pj, 1); // trigger is fired when item destroyed
 				}
 				sysmessage(k,(char*)temp);
 				Items->DeleItem(pj);		 

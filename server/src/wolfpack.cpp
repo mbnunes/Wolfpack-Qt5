@@ -681,47 +681,38 @@ char *complete_title(CHARACTER p) // generates the ENTIRE title plus criminal st
 
 void gcollect () // Remove items which were in deleted containers
 {
-	int removed, rtotal=0;
-	int idelete;
+	int removed = 0, rtotal = 0;
+	bool bdelete;
 	LogMessage("Performing Garbage Collection...");
-
-	rtotal=0;
-	unsigned long loopexit=0;
-	do
+	
+	AllItemsIterator iter_items;
+	for (iter_items.Begin(); iter_items.GetData() != NULL; iter_items++)
 	{
-		removed=0;
-		AllItemsIterator iter_items;
-		for (iter_items.Begin(); iter_items.GetData() != NULL; iter_items++)
+		const P_ITEM pi = iter_items.GetData();
+		if (pi->free || pi->isInWorld()) 
+			continue;
+		bdelete = true;
+		// find the container if theres one.
+		if (isCharSerial(pi->contserial))
 		{
-			const P_ITEM pi = iter_items.GetData();	// on error return
-			if (pi->free || pi->isInWorld()) 
-				continue;
-			idelete = 1;
-			// find the container if theres one.
-			P_CHAR pc_j = FindCharBySerial(pi->contserial);
-			if (pc_j != NULL)
-			{
-				if (!pc_j->free) 
-					idelete = 0;
-			}
-			if (idelete)
-			{
-				P_ITEM pi_j=FindItemBySerial(pi->contserial);
-				if (pi_j!=NULL)
-				{
-					if (!pi_j->free) idelete = 0;
-				}
-			}
-
-			if (idelete)
-			{
-				Items->DeleItem( pi );
-				removed++;
-			}
+			P_CHAR pc = FindCharBySerial(pi->contserial);
+			if (pc != NULL)
+				bdelete = false;
 		}
-		rtotal += removed;
-	} while ( removed > 0 && ( ++loopexit < MAXLOOPS ) );
-
+		else
+		{
+			P_ITEM pContainer = GetOutmostCont(pi);
+			if (pi != NULL)
+				bdelete = false;
+		}
+		if (bdelete)
+		{
+			Items->DeleItem( pi );
+			removed++;
+		}
+	}
+	rtotal += removed;
+	
 	sprintf((char*)temp, " gc: Removed %i items", rtotal);
 	if (rtotal > 0) LogMessage((char*)temp);
 }
@@ -885,12 +876,12 @@ int hexnumber(int countx) // Converts hex string comm[count] to int
 }
 
 
-int packitem(int p) // Find packitem (old interface)
+P_ITEM packitem(int p) // Find packitem (old interface)
 {
-	if(p<=-1) return -1;
-	P_CHAR pc=MAKE_CHARREF_LRV(p,-1);
+	if(p<=-1) return NULL;
+	P_CHAR pc=MAKE_CHARREF_LRV(p,NULL);
 	P_ITEM pi=Packitem(pc);
-	return pi==NULL ? -1 : DEREF_P_ITEM(pi);
+	return pi;
 }
 
 void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
@@ -1164,7 +1155,7 @@ void deathstuff(int i)
 		pc_player->removeItemBonus(pi_j);
 		if ((pi_j->trigon==1) && (pi_j->layer >0) && (pi_j->layer!=15) && (pi_j->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
-			triggerwitem(z, DEREF_P_ITEM(pi_j), 1); // trigger is fired when item destroyed
+			triggerwitem(z, pi_j, 1); // trigger is fired when item destroyed
 		}
 		if ((pi_j->contserial== pc_player->serial) && (pi_j->layer!=0x0B) && (pi_j->layer!=0x10))
 		{//Let's check all items, except HAIRS and BEARD
@@ -1394,13 +1385,14 @@ void usehairdye(UOXSOCKET s, ITEM x)	// x is the hair dye bottle object number
 	Items->DeleItem(piDye);	//Now delete the hair dye bottle!
 }
 
-void explodeitem(int s, unsigned int nItem)
+void explodeitem(int s, P_ITEM pi)
 {
 	unsigned int dmg=0,len=0,c;
 	unsigned int dx,dy,dz;
 	int cc=currchar[s];
 
-	const P_ITEM pi=MAKE_ITEMREF_LR(nItem);	// on error return
+	if (pi == NULL)
+		return;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 	// - send the effect (visual and sound)
@@ -1564,11 +1556,11 @@ static void doorsfx(P_ITEM pi, int x, int y)
 } // doorsfx() END
 
 
-void dooruse(UOXSOCKET s, ITEM item)
+void dooruse(UOXSOCKET s, P_ITEM pi)
 {
 	int i, db, x;//, z;
 	char changed=0;
-	const P_ITEM pi=MAKE_ITEMREF_LR(item);	// on error return
+	if (pi == NULL) return;
 
 	if ((iteminrange(s,pi,2)==0)&& s>-1) {sysmessage(s, "You cannot reach the handle from here");return;}
 	for (i=0;i<DOORTYPES;i++)
@@ -2995,12 +2987,12 @@ int main(int argc, char *argv[])
 	for(pi=aii.First(); (pi=aii.Next())!=aii.End(); )
 	{
 		// 1. this relies on the container the item is in
-		StoreItemRandomValue(DEREF_P_ITEM(pi),-1);
+		StoreItemRandomValue(pi, -1);
 
 		// 2. needs the char to be loaded
 		if (pi->dx2 && isCharSerial(pi->contserial))	// effect on dex ? like plate eg.
 		{
-			P_CHAR pc=FindCharBySerial(pi->contserial);
+			P_CHAR pc = FindCharBySerial(pi->contserial);
 			if (pc)
 				pc->chgDex(pi->dx2);
 		}
@@ -3982,7 +3974,7 @@ void donewithcall(int s, int type)
 
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec)
 {
-	if ( rec<0		// too many recursions
+	if ( rec<0								// too many recursions
 		|| !pItem							// bad parm
 		|| isCharSerial(pItem->contserial)	// a character
 		|| pItem->isInWorld() )				// in the world
@@ -4391,11 +4383,12 @@ int calcGoodValue(int npcnum2, P_ITEM pi, int value,int goodtype)
 	return value;
 }
 
-void StoreItemRandomValue(int i,int tmpreg)
+void StoreItemRandomValue(P_ITEM pi,int tmpreg)
 { // Function Created by Magius(CHE) for trade System
 	int max=0,min=0;
 
-	const P_ITEM pi=MAKE_ITEMREF_LR(i);	// on error return
+	if (pi == NULL)
+		return;
 	if (pi->good<0) return;
 	if (tmpreg<0)
 	{

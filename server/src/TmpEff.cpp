@@ -334,7 +334,7 @@ void cTmpEff::Expire()
 		pc_s = FindCharBySerial(getSour());
 		P_ITEM pMortar = FindItemBySerial(getDest());
 		if(pMortar != NULL) //AntiChrist - to prevent crashes
-			Skills->CreatePotion(DEREF_P_CHAR(pc_s), more1, more2, DEREF_P_ITEM(pMortar));
+			Skills->CreatePotion(DEREF_P_CHAR(pc_s), more1, more2, pMortar);
 		}
 		break;
 	case 11:
@@ -360,7 +360,7 @@ void cTmpEff::Expire()
 				if (pDoor->dooropen==0)
 					break;
 				pDoor->dooropen=0;
-				dooruse(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_ITEM(pDoor));
+				dooruse(calcSocketFromChar(DEREF_P_CHAR(pc_s)), pDoor);
 			}
 			break;
 		}
@@ -393,7 +393,7 @@ void cTmpEff::Expire()
 		break;
 	case 17: //Explosion potion explosion	Tauriel			
 		pc_s = FindCharBySerial(getSour());
-		explodeitem(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_ITEM(FindItemBySerial(getDest()))); //explode this item
+		explodeitem(calcSocketFromChar(DEREF_P_CHAR(pc_s)), FindItemBySerial(getDest())); //explode this item
 		break;
 	case 18: //Polymorph spell by AntiChrist 9/99
 		if(pc_s->polymorph)//let's ensure it's under polymorph effect!

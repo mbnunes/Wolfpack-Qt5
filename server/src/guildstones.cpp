@@ -1607,11 +1607,9 @@ int cGuilds::CheckValidPlace(int s)
 	if (!ishouse(pi_multi)) 
 		return 0;
 	
-	p=packitem(currchar[s]);
-	if(p>-1)
+	if(pc_currchar->packitem != INVALID_SERIAL)
 	{
-		los = 0;
-		vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
 		for (int j = 0; j < vecContainer.size(); j++)
 		{
 			P_ITEM pi = FindItemBySerial(vecContainer[j]);

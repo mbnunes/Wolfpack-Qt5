@@ -102,7 +102,7 @@ void do_lsd(UOXSOCKET s)
 						 {
 							icnt++;
 							if (icnt%10==0 || icnt<10) 
-								senditem_lsd(s, DEREF_P_ITEM(pi),c1,c2,xx,yy,zz); // attempt to cut packet-bombing by this thing
+								senditem_lsd(s, pi, c1, c2, xx, yy, zz); // attempt to cut packet-bombing by this thing
 						 }
 	
 					}// end of if item
@@ -161,7 +161,7 @@ void restockNPC(unsigned int currenttime, int i)
 							}
 							// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
 							if (SrvParms->trade_system==1)
-								StoreItemRandomValue(DEREF_P_ITEM(pic), calcRegionFromXY(chars[i].pos.x,chars[i].pos.y));// Magius(CHE) (2)
+								StoreItemRandomValue(pic, calcRegionFromXY(chars[i].pos.x,chars[i].pos.y));// Magius(CHE) (2)
 						}
 					}// for b
 				}
@@ -1044,7 +1044,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 						}
 						else if (mapitem != NULL && (checkitemstime<=currenttime||(overflow))) // moroallan !!! -1 is important !!!
 						{//BugFix
-							Items->RespawnItem(currenttime, DEREF_P_ITEM(mapitem));
+							Items->RespawnItem(currenttime, mapitem);
 							if(mapitem->type == 51 || mapitem->type == 52) // LB !!!!
 							{
 								if(mapitem->gatetime<=currenttime) // LB !!!
@@ -1059,7 +1059,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								if (itemdist(currchar[i], mapitem)<=mapitem->morey)
 								{
 									if (RandomNum(1,100)<=mapitem->morez)
-										soundeffect4(DEREF_P_ITEM(mapitem),i, mapitem->morex>>8, mapitem->morex%256);
+										soundeffect4(mapitem,i, mapitem->morex>>8, mapitem->morex%256);
 								}
 							}
 						} else if (mapitem != NULL) {//Boats

@@ -214,6 +214,7 @@ public:
 	unsigned long objectdelay;
 	int combathitmessage;
 	int making; // skill number of skill using to make item, 0 if not making anything.
+	SERIAL lastTarget;
 	char blocked;
 	char dir2;
 	unsigned long spiritspeaktimer; // Timer used for duration of spirit speak

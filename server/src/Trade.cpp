@@ -153,13 +153,13 @@ void buyaction(int s)
 					{
 						if (pi->pileable)
 						{
-							Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), amount[i]);
+							Commands->DupeItem(s, buyit[i], amount[i]);
 						}
 						else
 						{
 							for (j=0;j<amount[i];j++)
 							{
-								Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), 1);
+								Commands->DupeItem(s, buyit[i], 1);
 							}
 						}
 						pi->amount-=amount[i];
@@ -172,13 +172,13 @@ void buyaction(int s)
 						case 0x1A:
 							if (pi->pileable)
 							{
-								Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), amount[i]);
+								Commands->DupeItem(s, buyit[i], amount[i]);
 							}
 							else
 							{
 								for (j=0;j<amount[i];j++)
 								{
-									Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), 1);
+									Commands->DupeItem(s, buyit[i], 1);
 								}
 							}
 							pi->amount=pi->amount-amount[i];
@@ -194,7 +194,7 @@ void buyaction(int s)
 							{
 								for (j=0;j<amount[i]-1;j++)
 								{
-									Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), 1);
+									Commands->DupeItem(s, buyit[i], 1);
 								}
 								pi->SetContSerial(pi_pack->serial);
 								pi->amount = 1;
@@ -268,7 +268,7 @@ void restock(int s)
 			}
 		}
 		// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
-		if (SrvParms->trade_system==1) StoreItemRandomValue(DEREF_P_ITEM(pi),-1);// Magius(CHE) (2)
+		if (SrvParms->trade_system==1) StoreItemRandomValue(pi,-1);// Magius(CHE) (2)
 	}
 }
 
@@ -286,7 +286,11 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
  
 void sellaction(int s)
 {
-	int n, npa=0, npb=0, npc=0, i, amt, value=0, totgold=0;
+	int n, i, amt, value=0, totgold=0;
+
+	P_ITEM pRestock = NULL;
+	P_ITEM pNoRestock = NULL;
+	P_ITEM pSellCont = NULL;
 
 	if (buffer[s][8]!=0)
 	{
@@ -299,9 +303,9 @@ void sellaction(int s)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
-			if (pi->layer==0x1A) npa=DEREF_P_ITEM(pi);		// Buy Restock container
-			else if (pi->layer==0x1B) npb=DEREF_P_ITEM(pi);	// Buy no restock container
-			else if (pi->layer==0x1C) npc=DEREF_P_ITEM(pi);	// Sell container
+			if (pi->layer==0x1A) pRestock = pi;				// Buy Restock container
+			else if (pi->layer==0x1B) pNoRestock = pi;		// Buy no restock container
+			else if (pi->layer==0x1C) pSellCont = pi;		// Sell container
 		}
 
 		// Pre Calculate Total Amount of selling items to STOPS if the items if greater than SELLMAXITEM - Magius(CHE)
@@ -335,21 +339,21 @@ void sellaction(int s)
 			}
 
 			// Search the buy restock Container
-			int join=-1;
-			ci=0,loopexit=0;
+			P_ITEM join = NULL;
+			ci=0;
 			P_ITEM pi;
-			vector<SERIAL> vecContainer = contsp.getData(items[npa].serial);
+			vector<SERIAL> vecContainer = contsp.getData(pRestock->serial);
 			for ( ci = 0; ci < vecContainer.size(); ci++)
 			{
 				pi = FindItemBySerial(vecContainer[ci]);
 				if (items_match(pi,pSell))
-					join=DEREF_P_ITEM(pi);
+					join = pi;
 			}
 
 			// Search the sell Container to determine the price
-			ci=0,loopexit=0;
+			ci=0;
 			vecContainer.clear();
-			vecContainer = contsp.getData(items[npc].serial);
+			vecContainer = contsp.getData(pSellCont->serial);
 			for ( ci = 0; ci < vecContainer.size(); ci++)
 			{
 				pi = FindItemBySerial(vecContainer[ci]);
@@ -364,18 +368,18 @@ void sellaction(int s)
 			}
 			totgold+=(amt*value);	// add to the bill
 
-			if (join!=-1)	// The item goes to the container with restockable items
+			if (join != NULL)	// The item goes to the container with restockable items
 			{
-				items[join].amount+=amt;
-				items[join].restock-=amt;
+				join->amount+=amt;
+				join->restock-=amt;
 				pSell->ReduceAmount(amt);
 			}
 			else
 			{
-				pSell->SetContSerial(items[npb].serial);
+				pSell->SetContSerial(pNoRestock->serial);
 				SndRemoveitem(pSell->serial);
 				if (pSell->amount!=amt)
-					Commands->DupeItem(s, DEREF_P_ITEM(pSell), pSell->amount-amt);
+					Commands->DupeItem(s, pSell, pSell->amount-amt);
 			}
 		}
 		addgold(s, totgold);
@@ -528,10 +532,10 @@ void trademsg(int s)
 		if (cont2 != NULL) // lb crashfix
 		{
 			cont1->morez=buffer[s][11];
-			sendtradestatus(DEREF_P_ITEM(cont1), DEREF_P_ITEM(cont2));
+			sendtradestatus(cont1, cont2);
 			if (cont1->morez && cont2->morez)
 			{
-				dotrade(DEREF_P_ITEM(cont1), DEREF_P_ITEM(cont2));
+				dotrade(cont1, cont2);
 				endtrade(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
 			}
 		}
@@ -544,14 +548,10 @@ void trademsg(int s)
 	}
 }
 
-void dotrade(int cont1_1, int cont2_1)
+void dotrade(P_ITEM cont1, P_ITEM cont2)
 {
 	int i;
 	int serial,serhash,ci;
-
-	P_ITEM cont1 = MAKE_ITEM_REF(cont1_1);
-	P_ITEM cont2 = MAKE_ITEM_REF(cont2_1);
-
 
 	P_CHAR p1 = FindCharBySerial(cont1->contserial);
 	if(p1 == NULL) return;

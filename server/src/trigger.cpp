@@ -154,8 +154,9 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 
 // This routine processes both Static and Dynamic items
 // ts: socket
-void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
+void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 {
+
 	char sect[512], buff[512], effect[29], fmsg[512];
 	char cmsg[512]; // completed trigger message
 	char clr1;
@@ -192,10 +193,6 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 	if (ts < 0)
 		return; // §Magius crash fix
 	
-	P_ITEM pi = NULL;	// on error return
-	if (ti!=-1)
-		pi= MAKE_ITEMREF_LR(ti);
-
 	P_CHAR pc_ts = MAKE_CHARREF_LR(currchar[ts]);
 
 	if (ttype == 1)
@@ -203,7 +200,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 		if (pc_ts->targtrig)
 			trig = pc_ts->targtrig;
 		else
-			if (ti>-1)
+			if (pi != NULL)
 				trig = pi->trigger;
 			pc_ts->targtrig = 0;
 			openscript("triggers.scp");
@@ -228,7 +225,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 	}
 	
 	// Get Temporany Name of the Item (Magius(CHE))
-	if (ti>-1) // crashfix LB
+	if (pi != NULL) // crashfix LB
 	{
 		if (pi->name[0] != '#')
 			strcpy(tempname, pi->name);
@@ -344,7 +341,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						clr1 = hexnumber(0);
 						clr2 = hexnumber(1);
 						j = makenumber(2);
-						if (ti>-1)
+						if (pi != NULL)
 						{// AntiChrist
 							if (clr1 != pi->color1 || clr2 != pi->color2)
 							{
@@ -362,14 +359,14 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							{
 								pc_ts->targtrig = j;
 								closescript();
-								triggerwitem(ts, ti, 1);
+								triggerwitem(ts, pi, 1);
 								return;
 							}
 						}
 					}
 					else if (!(strcmp("CALCUSES", (char*)script1)))  // Calculate an items uses
 					{
-						if (ti>-1)
+						if (pi != NULL)
 						{
 							if (pi->tuses)
 							{
@@ -413,7 +410,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							// Magius(CHE) §
 							pc_ts->targtrig = j;
 							closescript();
-							triggerwitem(ts, ti, 1);
+							triggerwitem(ts, pi, 1);
 							return;
 						}
 					}
@@ -440,7 +437,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						int p = makenumber(1);
 						if (p <= 0)
 							p = 100;
-						if (ti>-1)
+						if (pi != NULL)
 						{
 							c = pi->hp;
 							if (pi->maxhp>0)
@@ -483,7 +480,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 										if (pi->amount>1)
 											pi->amount--;
 										else // -Frazurbluu- may need check here for new trigger if can be done while equipped
-											Items->DeleItem(MAKE_ITEM_REF(ti));
+											Items->DeleItem(pi);
 									}
 								}
 							}
@@ -496,7 +493,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 					}
 					else if (!(strcmp("DISABLE", (char*)script1)))  // Disable Item for n seconds
 					{
-						if (ti>-1)
+						if (pi!=NULL)
 						{
 							pi->disabled = (uiCurrentTime +(MY_CLOCKS_PER_SEC*str2num(script2)));
 							strcpy(pi->disabledmsg, dismsg); // Added by Magius(CHE) §
@@ -841,12 +838,11 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							{
 								effect[i] = 0;
 							}
-							if (ti>-1)
+							if (pi!=NULL)
 							{
-								j = packitem(currchar[ts]);
-								if (j>-1)
+								if (pc_ts->packitem != INVALID_SERIAL)
 								{
-									if (pi->contserial == items[j].serial)
+									if (pi->contserial == pc_ts->packitem)
 									{
 										closescript();
 										return;
@@ -919,7 +915,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							handle_IADD(ts, ttype, coloring, memcolor1, memcolor2, "triggers.scp");
 						else if (!(strcmp("IFOWNER", (char*)script1)))  // If item is owned by triggerer
 						{
-							if (ti>-1)
+							if (pi!=NULL)
 							{
 								if (!pc_ts->Owns(pi))
 								{
@@ -1002,7 +998,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								// clConsole.send("IFREQ %s  -> Jumping to trigger %i\n",comm[0],j);
 								pc_ts->targtrig = j;
 								closescript();
-								triggerwitem(ts, ti, 1);
+								triggerwitem(ts, pi, 1);
 								return;
 							}
 						}
@@ -1057,7 +1053,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							int p = makenumber(1);
 							if (p <= 0)
 								p = 100;
-							if (ti>-1)
+							if (pi!=NULL)
 							{
 								if (pi->maxhp>0)
 								{
@@ -1093,7 +1089,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 											if (pi->amount>1)
 												pi->amount--;
 											else 
-												Items->DeleItem(MAKE_ITEM_REF(ti));
+												Items->DeleItem(pi);
 										}
 									}
 								}
@@ -1160,7 +1156,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								closescript();
 								return;
 							}
-							P_ITEM p = MAKE_ITEM_REF(ti);
+							P_ITEM p = pi;
 							if (!strcmp((char*)script2, "REQ"))
 								p = pi_evti;
 							if (!strcmp((char*)script2, "NEED"))
@@ -1189,7 +1185,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								pi_itemnum->type = str2num(script2);
 							else
 							{
-								if (ti>-1)
+								if (pi!=NULL)
 									pi->type = str2num(script2);
 							}
 						}
@@ -1201,7 +1197,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							unsigned int uiNpcNum = makenumber(0);
 //							unsigned int uiTimer = makenumber(1);
 							
-							if (ti>-1)
+							if (pi!=NULL)
 							{
 								if (pi->contserial == items[pc_ts->packitem].serial)
 								{
@@ -1227,7 +1223,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							}
 							pos = ftell(scpfile);
 							closescript();
-							Npcs->AddRespawnNPC(ti, uiNpcNum, 1);
+							Npcs->AddRespawnNPC(DEREF_P_ITEM(pi), uiNpcNum, 1);
 							// Npcs->AddRespawnNPC(ts,str2num(script2),1);
 							npcnum = triggerx;
 							
@@ -1250,9 +1246,9 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("NEWBIEITEM", (char*)script1)))  // Set item newbie
 						{
-							if (ti>-1)
+							if (pi!=NULL)
 							{
-								items[ti].priv = items[ti].priv | 0x02;
+								pi->priv |= 0x02;
 							}
 						}
 						else if (!(strcmp("NEWOWNER", (char*)script1)))  // Set ownership of item
@@ -1346,7 +1342,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							{
 								pc_ts->targtrig = j;
 								closescript();
-								triggerwitem(ts, ti, 1);
+								triggerwitem(ts, pi, 1);
 								return;
 							}
 						}
@@ -1611,7 +1607,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							}
 						}
 						else if (!strcmp("OPENGUMP", (char*)script1))
-							Gumps->Menu(ts, str2num(script2), -1);
+							Gumps->Menu(ts, str2num(script2), NULL);
 						
 						break;
 					case 'P':
@@ -1696,7 +1692,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							{
 								pc_ts->targtrig = j;
 								closescript();
-								triggerwitem(ts, ti, 1);
+								triggerwitem(ts, pi, 1);
 								return;
 							}
 						}
@@ -1704,15 +1700,13 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						{
 							x1 = pc_ts->pos.x;
 							y1 = pc_ts->pos.y;
-							if (ti>-1)
+							if (pi != NULL)
 							{
 								x2 = pi->pos.x;
 								y2 = pi->pos.y;
 								z2 = pi->pos.z;
-								int p = currchar[ts];
-								r = packitem(currchar[ts]);
-								if (r!=-1) // lb
-									if (pi->contserial != items[r].serial)
+								if (pc_ts->packitem != INVALID_SERIAL) // lb
+									if (pi->contserial != pc_ts->packitem)
 									{
 										dx = abs(x1 - x2);
 										dy = abs(y1 - y2);
@@ -1774,7 +1768,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("REMOVE", (char*)script1)))  // Remove item after triggered
 						{
-							if (ti>-1)
+							if (pi!=NULL)
 							{
 								if (pi->amount>1)
 								{
@@ -1782,13 +1776,13 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								}
 								else 
 								{
-									Items->DeleItem(MAKE_ITEM_REF(ti));
+									Items->DeleItem(pi);
 								}
 							}
 						}
 						else if (!(strcmp("RNDUSES", (char*)script1)))  // Randomly set an items uses
 						{
-							if (ti>-1)
+							if (pi!=NULL)
 							{
 								if (!pi->tuses)
 								{
@@ -1857,7 +1851,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("SETUSES", (char*)script1)))  // Set an items uses
 						{
-							if (ti>-1)
+							if (pi!=NULL)
 							{
 								pi->tuses = str2num(script2);
 							}
@@ -1919,16 +1913,16 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("SETTRG", (char*)script1)))  // Set items trigger to new trigger
 						{
-							if (ti>-1)
+							if (pi!=NULL)
 								pi->trigger = str2num(script2);
 						}
 						else if (!(strcmp("SETID", (char*)script1)))  // Set items id to new id
 						{
-							if (ti>-1)
+							if (pi!=NULL)
 							{
 								cline = &script2[0];
 								splitline();
-								pi_itemnum = MAKE_ITEM_REF(ti);
+								pi_itemnum = pi;
 								pi->id1 = hexnumber(0);
 								pi->id2 = hexnumber(1);				
 								RefreshItem(pi_itemnum);// AntiChrist
@@ -2021,13 +2015,9 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 					case 'U':
 						if (!(strcmp("USEUP", (char*)script1)))  // The item here is required and will be removed
 						{
-							int p = packitem(currchar[ts]);
-							if (p==-1)
-								p = 0;
-							
 							if (pi_needitem == NULL)
 							{
-								vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+								vector<SERIAL> vecContainer = contsp.getData(pc_ts->packitem);
 								for (ci = 0; ci < vecContainer.size(); ci++)
 								{
 									P_ITEM pi = FindItemBySerial(vecContainer[ci]);
@@ -2860,14 +2850,14 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							{
 								pc_ts->targtrig = j;
 								closescript();
-								triggerwitem(ts, ti, 1);
+								//triggerwitem(ts, ti, 1);
+#pragma note("second parm is a item not a char... [DISABLED]")
 								return;
 							}
 						}
 						else if (!(strcmp("NEED", (char*)script1)))  // The item here is required and will be removed
 						{
-							p = packitem(DEREF_P_CHAR(pc_ts));
-							vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+							vector<SERIAL> vecContainer = contsp.getData(pc_ts->packitem);
 							unsigned int i;
 							for (i = 0; i < vecContainer.size(); i++)
 							{
@@ -2945,7 +2935,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						break;
 					case 'O':
 						if (!strcmp("OPENGUMP", (char*)script1))
-							Gumps->Menu(ts, str2num(script2), -1);
+							Gumps->Menu(ts, str2num(script2), NULL);
 						break;
 						
 					case 'P':
@@ -2988,7 +2978,8 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							{
 								pc_ts->targtrig = j;
 								closescript();
-								triggerwitem(ts, ti, 1);
+								//triggerwitem(ts, ti, 1);
+#pragma note("second param is a item, not a char... [DISABLED]")
 								return;
 							}
 						}

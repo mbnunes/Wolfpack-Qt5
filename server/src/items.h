@@ -175,7 +175,7 @@ public:
 	
 	void setContSerialOnly(long contser);
 	void SetContSerial(long contser);
-	bool isInWorld()			{return (contserial==-1);}
+	bool isInWorld()			{return (contserial == INVALID_SERIAL);}
 	bool isMulti()				{return (id1>=0x40);	}
 	
 	void setOwnSerialOnly(long ownser);
@@ -246,7 +246,7 @@ public:
 	P_ITEM SpawnItemBank(CHARACTER ch, int nItem);
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
 	void DecayItem(unsigned int currenttime, P_ITEM pi);
-	void RespawnItem(unsigned int Currenttime, int i);
+	void RespawnItem(unsigned int Currenttime, P_ITEM pi);
 	void AddRespawnItem(P_ITEM pItem, int x, int y);
 	void CheckEquipment(P_CHAR pc_p); //AntiChrist
 	void CheckMemoryRequest();

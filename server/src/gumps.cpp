@@ -50,7 +50,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
     // if ((button)==0 || (button==1)) clConsole.send("gump-menu, type# %i closed\n",type); // lord bin
 	if(button>10000) {
 		i=button-10000;
-		Menu(s, i,-1);
+		Menu(s, i, NULL);
 		return;
 	}
 
@@ -132,9 +132,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			  return;
 			}
 			serial=whomenudata[i];
-		    serhash=serial%HASHMAX;
-		    c = calcCharFromSer( serial ); // find selected char ...
-			P_CHAR pc_c = MAKE_CHAR_REF(c);
+		    P_CHAR pc_c = FindCharBySerial( serial ); // find selected char ...
 		    if (pc_c == NULL)
 			{
 			  sysmessage(s,"selected character not found");
@@ -152,11 +150,11 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				break;
 			case 201://xtele
 				pc_c->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-				teleport(c);
+				teleport(DEREF_P_CHAR(pc_c));
 				
 				break;
 			case 202://jail char
-				if(currchar[s]==c)
+				if(currchar[s]==DEREF_P_CHAR(pc_c))
 				{
 					sysmessage(s,"You cannot jail yourself!");					 
 					break;
@@ -171,20 +169,20 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				Targ->ReleaseTarget(s,pc_c->serial);
 				break;
 			case 204:
-				if(c==currchar[s])
+				if(DEREF_P_CHAR(pc_c)==currchar[s])
 				{
 					sysmessage(s,"You cannot kick yourself");
 					break; // lb
 				}
 				else
 				{
-					if (!online(c)) 
+					if (!online(DEREF_P_CHAR(pc_c))) 
 					{ 
 						sysmessage(s,"you cant kick an offline player");
 						break;
 					}
 					sysmessage(s, "Kicking player");				
-					Network->Disconnect(calcSocketFromChar(c));
+					Network->Disconnect(calcSocketFromChar(DEREF_P_CHAR(pc_c)));
 					break;
 				}
 			default:
@@ -404,7 +402,7 @@ void cGump::Input(int s)
 }
 
 
-void cGump::Menu(UOXSOCKET s, int m, ITEM it)
+void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
 {
 	char sect[512];
 	unsigned long loopexit=0;
@@ -507,13 +505,12 @@ void cGump::Menu(UOXSOCKET s, int m, ITEM it)
         // 1) get house item#  
 
 		
-		if (it!=-1) // should be !=-1 for house's gumps (only!), but to be on safe side, lets check it.
+		if (it != NULL) // should be !=-1 for house's gumps (only!), but to be on safe side, lets check it.
 		{
-		    is=items[it].serial;
-       	    pj = FindItemBySerial( is );
+       	    pj = it;
 		    if(pj != NULL) 
 			{
-			   is=calcserial(pj->more1, pj->more2, pj->more3, pj->more4);
+			   is = calcserial(pj->more1, pj->more2, pj->more3, pj->more4);
 			   pj = FindItemBySerial( is );			  
 			}
 

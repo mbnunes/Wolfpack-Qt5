@@ -106,7 +106,7 @@ public:
 	void SetTriggerType(int s);
 	void SetTriggerWord(int s);
 	void SetNPCTrigger(int s);
-	void DupeItem(int s, int i, int amount);
+	void DupeItem(int s, P_ITEM pi_target, int amount);
 	void Possess(int s);
 	int cmd_offset;
 };
@@ -156,7 +156,7 @@ public:
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	void TasteIDTarget(int s);
 	int TrackingDirection(int s, int i);
-	void CreatePotion(CHARACTER s, char type, char sub, int mortar);
+	void CreatePotion(CHARACTER s, char type, char sub, P_ITEM pi_mortar);
 	char AdvanceSkill(CHARACTER s, int sk, char skillused);
 	void AdvanceStats(CHARACTER s, int sk);
 	void TinkerAxel(int s);
@@ -245,8 +245,8 @@ public:
 	void PoisonDamage(CHARACTER p, int poison);
 	void CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timecheck);
 	int InitSpells( void );
-	void SpellBook(UOXSOCKET s, ITEM si);
-	int  SpellsInBook(ITEM i);
+	void SpellBook(UOXSOCKET s, P_ITEM pi);
+	int  SpellsInBook(P_ITEM pi);
 	char GateCollision(int s);
 	bool newSelectSpell2Cast( int s, int num );
 	bool requireTarget( unsigned char num );

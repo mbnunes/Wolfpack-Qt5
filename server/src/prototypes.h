@@ -46,7 +46,7 @@ void offlinehtml();
 bool ishouse(int id1, int id2);
 
 //Boats --Fucntions in Boats.cpp
-void sendinrange(int);
+void sendinrange(P_ITEM pi);
 int dist(int,int,int);
 unsigned int dist(Coord_cl&, Coord_cl&); // Distance between position a and b
 P_ITEM findmulti(Coord_cl);
@@ -68,7 +68,7 @@ void npcwalk(CHARACTER i, int j, int type);
 //void walking2(CHARACTER s);
 void all_items(int s);
 void savelog(const char *msg, char *logfile);
-void explodeitem(int s, unsigned int nItem);
+void explodeitem(int s, P_ITEM pi);
 void monstergate(int s, int x);
 //void npcMovement2(unsigned int, int);//Lag fix -- Zippy
 //void npcMovement(unsigned int);
@@ -95,7 +95,7 @@ int SpawnFishingItem(int nCharID,int nInPack, char* cScript, char* cList, char* 
 int check_house_decay();
 bool ishouse(P_ITEM);
 void cleanup(int s);
-int packitem(int p);
+P_ITEM packitem(int p);
 void titletarget(int s);
 int ishuman(int p);
 void npcact(int s);
@@ -166,7 +166,7 @@ char *title3(P_CHAR pc);
 char *complete_title(CHARACTER p);
 void buyaction(int s);
 void restock(int s);
-void dooruse(int s, int item);
+void dooruse(int s, P_ITEM pi);
 void readFullLine ();
 
 void who(int s);
@@ -176,12 +176,12 @@ void sellaction(int s);
 void addgold(int s, int totgold);
 int calcValue(P_ITEM pi, int value);
 int calcGoodValue(int npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
-void StoreItemRandomValue(int i,int tmpreg); // by Magius(CHE) (2) for trade system
+void StoreItemRandomValue(P_ITEM pi,int tmpreg); // by Magius(CHE) (2) for trade system
 
 int tradestart(int s, int i);
 void clearalltrades();
 void trademsg(int s);
-void dotrade(int cont1, int cont2);
+void dotrade(P_ITEM cont1, P_ITEM cont2);
 void dosocketmidi(int s);
 void wipe(int s);
 
@@ -261,7 +261,7 @@ void ArchiveID(char archiveid[MAXARCHID]);
 // End - Dupois
 
 //Trigger routines
-void triggerwitem(UOXSOCKET ts, int ti, int ttype);  // trigger.cpp
+void triggerwitem(UOXSOCKET ts, P_ITEM pi, int ttype);  // trigger.cpp
 void triggernpc(UOXSOCKET ts,int ti, int ttype);  // trigger.cpp --- Changed by Magius(CHE) §
 int checkenvoke(char eid1, char eid2);  //trigger.scp
 

@@ -233,7 +233,6 @@ void cHouseManager::AddHome(int s, int i)
 		
 		P_ITEM pMulti = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1,(char*)temp,0,(id1<<8)+id2,0,0);
 		if (!pMulti) return;		
-		pc_currchar->making=0;
 		pMulti->MoveTo(x,y,z);
 		pMulti->priv=0;
 		pMulti->more4 = itemsdecay; // set to 1 to make items in houses decay
@@ -357,10 +356,8 @@ void cHouseManager::AddHome(int s, int i)
 						}
 						else if (!(strcmp((char*)script1,"PACK")))//put the item in the Builder's Backpack
 						{
-							pHouseItem->SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
-							pHouseItem->pos.x=rand()%90+31;
-							pHouseItem->pos.y=rand()%90+31;
-							pHouseItem->pos.z=9;
+							P_ITEM pBackpack = Packitem(pc_currchar);
+							pBackpack->AddItem(pHouseItem);
 						}
 						else if (!(strcmp((char*)script1,"MOVEABLE")))
 						{
@@ -398,7 +395,7 @@ void cHouseManager::AddHome(int s, int i)
 		for(ri.Begin();ri.GetData() != ri.End(); ri++)
 		{
 			P_ITEM si = ri.GetData();
-			sendinrange(DEREF_P_ITEM(si));
+			sendinrange(si);
 		}
 		
 		if (!(norealmulti))
@@ -422,10 +419,9 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 	int loopexit=0;
 	int x1, y1, x2, y2;
 	unsigned char ser1, ser2, ser3, ser4;
-	int playerCont;
 	if( pHouse == NULL ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
-	playerCont = packitem( DEREF_P_CHAR(pc) );
+	P_ITEM playerCont = Packitem( pc );
 	int a,checkgrid,increment,StartGrid,getcell,ab;		
 	if(pc->Owns(pHouse) || pc->isGM())
 	{

@@ -1508,7 +1508,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 					else if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x43'))  // Open spell book
 					{
-						Magic->SpellBook(s, -1);
+						P_ITEM pi = FindItemBySerPtr(buffer[s]+1);
+						Magic->SpellBook(s, pi);
 						break;
 					} else if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x58'))  // Door macro
 					{

@@ -233,7 +233,7 @@ int im_choice( int player, int menu_code, int option )
 	{
 		/* User right-clicked, cancelling the menu. Right? */
 	
-		 chars[currchar[player]].making=0;
+		 chars[currchar[player]].lastTarget = INVALID_SERIAL;
 	     return 0; /** Lord binary **/
 	}
 

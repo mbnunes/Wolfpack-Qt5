@@ -709,7 +709,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 
 		for (j=0;j<now;j++)
 		{
-			if (perm[j]) 
+			if (perm[j] && iteminrange(j, pi, VISRANGE)) 
 				Xsend(j, removeitem, 5);
 		}
 
@@ -733,7 +733,15 @@ void cAllItems::DeleItem(P_ITEM pi)
 		if (pi->type==11 && (pi->morex==666 || pi->morey==999)) Books->delete_bokfile(pi); 
         // if a new book gets deleted also delete the corresponding bok file
 
-		// - remove from pointer arrays
+		// Also delete all items inside if it's a container.
+		vector<SERIAL> vecContainer = contsp.getData(pi->serial);
+		unsigned int i;
+		for (i = 0; i < vecContainer.size(); i++)
+		{
+			P_ITEM pContent = FindItemBySerial(vecContainer[i]);
+			if (pContent != NULL)
+				DeleItem(pContent);
+		}
 		removefromptr(&itemsp[pi->serial%HASHMAX], DEREF_P_ITEM(pi));
 		pi->free=1;
 		pi->pos.x=20+(xcounter++);
@@ -1313,7 +1321,6 @@ P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable
 	
 	//clConsole.send("Adding Harditems settings in items.cpp:spawnitem\n");
 	GetScriptItemSetting(pi); // Added by Magius(CHE) (2)
-	pc_ch->making = DEREF_P_ITEM(pi);
 	RefreshItem(pi);
 	return pi;
 }
@@ -1668,11 +1675,12 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 //NEW RESPAWNITEM FUNCTION STARTS HERE -- AntiChrist merging codes -- (24/6/99)
 
-void cAllItems::RespawnItem(unsigned int currenttime, int i)
+void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 {
 	int  j, k,m,serial,ci, c;
 	//char ilist[66]="101010100010100101010100001101010000110101010101011010";
-	P_ITEM pi=MAKE_ITEMREF_LR(i);
+	if (pi == NULL)
+		return;
 	if (pi->free) return;
 
 	for(c=0;c<pi->amount;c++)
@@ -1846,7 +1854,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			pc_p->removeItemBonus(pi);
 			if ((pi->trigon==1) && (pi->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				triggerwitem(DEREF_P_CHAR(pc_p), DEREF_P_ITEM(pi), 1); // trigger is fired when unequipped? sorry this needs checked
+				triggerwitem(DEREF_P_CHAR(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
 			}
 						
 			pi->SetContSerial(-1);

@@ -76,7 +76,7 @@ class cBoat
 {
 	private:
 		void LeaveBoat(int, P_ITEM);		
-		bool Block(int, short int, short int,int);
+		bool Block(P_ITEM, short int, short int,int);
 		void TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir);
 		void TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir);
 
@@ -87,7 +87,7 @@ class cBoat
 		void PlankStuff(UOXSOCKET, P_ITEM);
 		bool Build(int, int, char);
 		void Move(int, int, P_ITEM pBoat);
-		void Turn(int, int);
+		void Turn(P_ITEM pBoat, int);
 };
 #endif
 

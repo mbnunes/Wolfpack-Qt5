@@ -251,7 +251,6 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 {
 	P_ITEM pItem = NULL;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[nSocket]);
-	int p=packitem(DEREF_P_CHAR(pc_currchar));
 
 	if( id>=0x1B11 && id<=0x1B1C ) // Make bone powder.
 	{

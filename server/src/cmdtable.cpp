@@ -1723,7 +1723,7 @@ void command_gumpmenu(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		Gumps->Menu(s, makenumber(1),-1);
+		Gumps->Menu(s, makenumber(1), NULL);
 	}
 	return;
 	

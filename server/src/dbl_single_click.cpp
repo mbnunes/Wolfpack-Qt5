@@ -226,22 +226,22 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	// SWEET, since I have the inBACKPACK working I should make a trigger function detailing object location for firing -Fraz-
 	else if ((IsSpellScroll(pi->id())) && (pi->magic != 4))
 	{
-		k = packitem(DEREF_P_CHAR(pc_currchar));
-		const P_ITEM pi_k = MAKE_ITEMREF_LR(k);	// on error return
-		if (pi_k != NULL)
-			if ((pi->contserial == pi_k->serial))
-			{
-				currentSpellType[s] = 1;							// a scroll spell, so cut mana req
-				short spn = Magic->SpellNumFromScrollID(pi->id());	// avoid reactive armor glitch
-				if (Magic->newSelectSpell2Cast(s, spn))				// check cast !
-					pi->ReduceAmount(1);							// remove scroll if successful
-				// return;  -Fraz- removong return here, and moving up should also allow for triggers on the scrolls
-				// after they are used-- effect --cursed scrolls ect..
-			}
-			else
-			{
-				sysmessage(s, "The scroll must be in your backpack to envoke its magic.");
-			}
+		const P_ITEM pi_k = Packitem(pc_currchar);
+		if ( pi_k == NULL)
+			return;
+		if ((pi->contserial == pi_k->serial))
+		{
+			currentSpellType[s] = 1;							// a scroll spell, so cut mana req
+			short spn = Magic->SpellNumFromScrollID(pi->id());	// avoid reactive armor glitch
+			if (Magic->newSelectSpell2Cast(s, spn))				// check cast !
+				pi->ReduceAmount(1);							// remove scroll if successful
+			// return;  -Fraz- removong return here, and moving up should also allow for triggers on the scrolls
+			// after they are used-- effect --cursed scrolls ect..
+		}
+		else
+		{
+			sysmessage(s, "The scroll must be in your backpack to envoke its magic.");
+		}
 		return;
 	}
 	// Begin checking objects that we force an object delay for (std objects)
@@ -255,7 +255,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			{
 				if (pi->disabled <= uiCurrentTime) // changed by Magius(CHE) §
 				{
-					triggerwitem(s, DEREF_P_ITEM(pi), 1); // if players uses trigger
+					triggerwitem(s, pi, 1); // if players uses trigger
 					return;
 				} 
 				else 
@@ -442,16 +442,14 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		return;// case 8/64 (locked container)
 	case 9: // spellbook
 		pc_currchar->objectdelay = 0;
-		k = packitem(currchar[s]);
-		if (k != -1)
-			if ((pi->contserial == items[k].serial) || pc_currchar->Wears(pi) &&(pi->layer == 1))
-			{
-				Magic->SpellBook(s, DEREF_P_ITEM(pi));
-			}
-			else
-			{
-				sysmessage(s, "If you wish to open a spellbook, it must be equipped or in your main backpack.");
-			}
+		if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer == 1))
+		{
+			Magic->SpellBook(s, pi);
+		}
+		else
+		{
+			sysmessage(s, "If you wish to open a spellbook, it must be equipped or in your main backpack.");
+		}
 			return;// spellbook
 	case 10: // map?
 		map1[1] = pi->ser1;
@@ -498,7 +496,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		
 	case 12: // door(unlocked)
 		pc_currchar->objectdelay = 0;
-		dooruse(s, DEREF_P_ITEM(pi));
+		dooruse(s, pi);
 		return; // doors
 	case 13: // locked door
 		{
@@ -516,7 +514,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						{
 							sysmessage(s, "You quickly unlock, use, and then relock the door.");
 							pc_currchar->objectdelay = 0;
-							dooruse(s, DEREF_P_ITEM(pi));
+							dooruse(s, pi);
 							return;
 						}// if
 				}// for
@@ -570,10 +568,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		}// else
 		return; // case 14 (food)
 	case 15: // -Fraz- Modified and tuned up, Wands must now be equipped or in pack
-		k = packitem(currchar[s]);
-		if (k != -1)
 		{
-			if ((pi->contserial == items[k].serial) || pc_currchar->Wears(pi) &&(pi->layer == 1))
+			if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer == 1))
 			{
 				if (pi->morez != 0)
 				{
@@ -668,31 +664,34 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			return;// rename deed! -- eagle 1/29/00
 			
 		case 100:  // type 100?  this ain't in the docs... - Morrolan
-			for (j = 0; j < itemcount; j++)
 			{
-				P_ITEM pj = &items[j];
-				if (((pj->moreb1 == pi->morex) &&(pj->moreb2 == pi->morey) &&(pj->moreb3 == pi->morez))
-					||((pj->morex == pi->morex) &&(pj->morey == pi->morey) &&(pj->morez == pi->morez))
-					&&((j != DEREF_P_ITEM(pi)) &&(pi->morex != 0) &&(pi->morey != 0) &&(pi->morez != 0)))
-				{ 
-					if ((pj->morex == 0) &&(pj->morey == 0) &&(pj->morez == 0))
+				AllItemsIterator it;
+				for (it.Begin(); it.GetData() != it.End(); it++)
+				{
+					P_ITEM pj = it.GetData();
+					if (((pj->moreb1 == pi->morex) &&(pj->moreb2 == pi->morey) &&(pj->moreb3 == pi->morez))
+						||((pj->morex == pi->morex) &&(pj->morey == pi->morey) &&(pj->morez == pi->morez))
+						&&((pj != pi) &&(pi->morex != 0) &&(pi->morey != 0) &&(pi->morez != 0)))
 					{ 
-						pj->morex = pj->moreb1;
-						pj->morey = pj->moreb2;
-						pj->morez = pj->moreb3;
-						pj->visible = 0;								
-						RefreshItem(pj);// AntiChrist
-					} 
-					else 
-					{
-						pj->moreb1 = pj->morex;
-						pj->moreb2 = pj->morey;
-						pj->moreb3 = pj->morez;
-						pj->morex = 0;
-						pj->morey = 0;
-						pj->morez = 0;
-						pj->visible = 2;							
-						RefreshItem(pj);// AntiChrist
+						if ((pj->morex == 0) &&(pj->morey == 0) &&(pj->morez == 0))
+						{ 
+							pj->morex = pj->moreb1;
+							pj->morey = pj->moreb2;
+							pj->morez = pj->moreb3;
+							pj->visible = 0;								
+							RefreshItem(pj);// AntiChrist
+						} 
+						else 
+						{
+							pj->moreb1 = pj->morex;
+							pj->moreb2 = pj->morey;
+							pj->moreb3 = pj->morez;
+							pj->morex = 0;
+							pj->morey = 0;
+							pj->morez = 0;
+							pj->visible = 2;							
+							RefreshItem(pj);// AntiChrist
+						}
 					}
 				}
 			}
@@ -759,7 +758,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				addid2[s] = pi->ser2;
 				addid3[s] = pi->ser3;
 				addid4[s] = pi->ser4;
-				Gumps->Menu(s, pi->morex, DEREF_P_ITEM(pi));						
+				Gumps->Menu(s, pi->morex, pi);						
 				return;
 		case 217:			// PlayerVendors deed
 			{	
@@ -976,7 +975,6 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x14F0:// houses
 					if ((pi->type != 103) &&(pi->type != 202))
 					{  // experimental house code
-						pc_currchar->making = DEREF_P_ITEM(pi);
 						pc_currchar->fx1 = pi->serial; // for deleting it later
 						addid3[s] = pi->morex;
 						// addx2[s]=pi->serial;
@@ -1482,7 +1480,7 @@ void singleclick(UOXSOCKET s)
 
 	if (pi->type == 9)
 	{
-		int spellcount=Magic->SpellsInBook(DEREF_P_ITEM(pi));
+		int spellcount=Magic->SpellsInBook(pi);
 		sprintf((char*)temp, "%i spells", spellcount);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
@@ -1648,10 +1646,9 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		{//if packhorse or packlhama added by JustMichael 8/31/99
 			if (pc_currchar->Owns(target))
 			{
-				y=packitem(DEREF_P_CHAR(target));
-				if (y!=-1)
+				if (target->packitem != INVALID_SERIAL)
 				{
-					backpack(s,items[y].serial);
+					backpack(s, target->packitem);
 				}
 				else
 				{
@@ -1675,8 +1672,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		if (target->npcaitype==17)//PlayerVendors
 		{
 			npctalk(s,DEREF_P_CHAR(target),"Take a look at my goods.",0);
-			y=packitem(DEREF_P_CHAR(target));
-			if (y!=-1) backpack(s, items[y].serial); // rippers bugfix for vendor bags not opening !!!
+			if (target->packitem != INVALID_SERIAL) backpack(s, target->packitem); // rippers bugfix for vendor bags not opening !!!
 			return;
 		}
 		if (pc_currchar->serial==target->serial)

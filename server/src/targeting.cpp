@@ -191,7 +191,7 @@ void cTargets::triggertarget(int s)
 		P_ITEM pi = FindItemBySerial(serial);
 		if(pi != NULL)
 		{
-			triggerwitem(s,DEREF_P_ITEM(pi),1);
+			triggerwitem(s, pi,1);
 		}
 	}
 }
@@ -701,7 +701,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 		{
 			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				triggerwitem(c, DEREF_P_ITEM(pi), 1); // trigger is fired
+				triggerwitem(c, pi, 1); // trigger is fired
 			}
 			pi->pos.x=(rand()%80)+50;
 			pi->pos.y=(rand()%80)+50;
@@ -3509,7 +3509,7 @@ void cTargets::DupeTarget(int s)
 		{
 			for (int j=0;j<addid1[s];j++)
 			{
-				Commands->DupeItem(s, DEREF_P_ITEM(pi), 1); // lb bugfix
+				Commands->DupeItem(s, pi, 1); // lb bugfix
 				sysmessage(s,"DupeItem done.");//AntiChrist
 			}
 		}
@@ -3610,7 +3610,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 				if ( pi != NULL )
 				{
-					triggerwitem(s,DEREF_P_ITEM(pi),0);
+					triggerwitem(s, pi, 0);
 					pc_currchar->envokeid1=0x00;
 					pc_currchar->envokeid2=0x00;
 					return;
@@ -3625,7 +3625,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 					return;
 				}
 				// End Addons by Magius(CHE) §
-				triggerwitem(s,-1,0);
+				triggerwitem(s, NULL, 0);
 				pc_currchar->envokeid1=0x00;
 				pc_currchar->envokeid2=0x00;
 				return;

@@ -659,7 +659,8 @@ void cSkills::Mine(int s)
 		if(resource.miningtrigger>0)
 		{
 			pc->targtrig=resource.miningtrigger;
-			triggerwitem(s,addx[s],1);
+//			triggerwitem(s, addx[s], 1);
+			// Currently Disabled.
 			return;
 		} else
 		{//normal mining skill
@@ -811,7 +812,8 @@ void cSkills::TreeTarget(int s)
 		if(resource.logtrigger>0)
 		{
 			//pc->targtrig=resource.logtrigger;
-			triggerwitem(s,addx[s],0);	// routing to wtrigrs instead of triggers.scp Duke, 5.11.2000
+//			triggerwitem(s,addx[s],0);	// routing to wtrigrs instead of triggers.scp Duke, 5.11.2000
+			// Disabled
 			return;
 		} else
 		{//normal mining skill

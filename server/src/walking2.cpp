@@ -1191,14 +1191,14 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 								{
 									if (!mapitem->disabled)
 									{
-										triggerwitem(socket,DEREF_P_ITEM(mapitem),1);  //When player steps on a trigger
+										triggerwitem(socket, mapitem, 1);  //When player steps on a trigger
 									}
 									else // see if disabled trigger can be re-enabled
 									{
 										if( ( mapitem->disabled != 0 ) && ( ( mapitem->disabled <= uiCurrentTime ) || (overflow)))
 										{
 											mapitem->disabled = 0;	// re-enable it
-											triggerwitem( socket, DEREF_P_ITEM(mapitem), 1 );
+											triggerwitem( socket, mapitem, 1 );
 										}
 									}
 								}
@@ -2160,7 +2160,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, CHARACTER 
                     if (pc_s->isNpc() && (strlen(pc_s->title) > 0 || pc_s->npcaitype != 0))
                     {                            
                         // clConsole.send("doors!!!\n");
-                        dooruse(-1, DEREF_P_ITEM(mapitem));
+                        dooruse(-1, mapitem);
                         
                     }                                   
                     pc_s->blocked=0;

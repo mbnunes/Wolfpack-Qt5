@@ -961,10 +961,9 @@ void cCommands::MakePlace(int s, int i) // Decode a teleport location number int
 }
 
 
-void cCommands::DupeItem(int s, int i, int amount)
+void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 {
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
-	P_ITEM pi_target = MAKE_ITEM_REF(i);
 	if (pi_target->corpse) 
 		return;
 	P_ITEM pPack = Packitem(pc_currchar);

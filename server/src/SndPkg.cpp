@@ -156,9 +156,10 @@ void soundeffect3(P_ITEM pi, short sound)
 		}
 }
 
-void soundeffect4(int p, UOXSOCKET s, unsigned char a, unsigned char b)
+void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b)
 {
-	const PC_ITEM pi=MAKE_ITEMREF_LR(p);	// on error return
+	if (pi == NULL)
+		return;
 	sfx[2]=a;
 	sfx[3]=b;
 	sfx[6]=pi->pos.x>>8;
@@ -976,10 +977,11 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 
 // sends item in differnt color and position than it actually is
 // used for LSd potions now, LB 5'th nov 1999
-void senditem_lsd(UOXSOCKET s, ITEM i,char color1, char color2, int x, int y, signed char z)
+void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y, signed char z)
 {
 	unsigned char itmput[20]="\x1A\x00\x13\x40\x01\x02\x03\x20\x42\x00\x32\x06\x06\x06\x4A\x0A\x00\x00\x00";
-	const P_ITEM pi=MAKE_ITEMREF_LR(i);	// on error return
+	if (pi == NULL)
+		return;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 	if ( pi->visible>=1 && !(pc_currchar->isGM()) ) return; // workaround for missing gm-check client side for visibity since client 1.26.2
@@ -3148,13 +3150,13 @@ void playmidi(int s, char num1, char num2)
 	Xsend(s, msg, 3);
 }
 
-void sendtradestatus(int cont1, int cont2)
+void sendtradestatus(P_ITEM cont1, P_ITEM cont2)
 {
 	unsigned char msg[30];
 	int p1, p2, s1, s2;
 
-	p1=calcCharFromSer(items[cont1].contserial);
-	p2=calcCharFromSer(items[cont2].contserial);
+	p1=calcCharFromSer(cont1->contserial);
+	p2=calcCharFromSer(cont2->contserial);
 	s1=calcSocketFromChar(p1);
 	s2=calcSocketFromChar(p2);
 
@@ -3164,21 +3166,21 @@ void sendtradestatus(int cont1, int cont2)
 	msg[1]=0x00;//Size
 	msg[2]=0x11;//Size
 	msg[3]=0x02;//State
-	LongToCharPtr(items[cont1].serial,msg+4);
+	LongToCharPtr(cont1->serial,msg+4);
 	msg[8]=0;
 	msg[9]=0;
 	msg[10]=0;
-	msg[11]=items[cont1].morez%256;
+	msg[11]=cont1->morez%256;
 	msg[12]=0;
 	msg[13]=0;
 	msg[14]=0;
-	msg[15]=items[cont2].morez%256;
+	msg[15]=cont2->morez%256;
 	msg[16]=0; // No name in this message
 	Xsend(s1, msg, 17);
 
-	LongToCharPtr(items[cont2].serial,msg+4);
-	msg[11]=items[cont2].morez%256;
-	msg[15]=items[cont1].morez%256;
+	LongToCharPtr(cont2->serial,msg+4);
+	msg[11]=cont2->morez%256;
+	msg[15]=cont1->morez%256;
 	Xsend(s2, msg, 17);
 }
 

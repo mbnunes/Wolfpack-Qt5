@@ -67,7 +67,7 @@ void soundeffect(int s, unsigned char a, unsigned char b); // Play sound effect 
 void soundeffect2(PC_CHAR pc, short sound);
 void soundeffect2(CHARACTER p, unsigned char a, unsigned char b);
 void soundeffect3(P_ITEM pi, short sound);
-void soundeffect4(int p, UOXSOCKET s, unsigned char a, unsigned char b);
+void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b);
 void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b);
 void action(int s, int x); // Character does a certain action
 void npcaction(int npc, int x); // NPC character does a certain action
@@ -81,7 +81,7 @@ void backpack2(int s, int a1, int a2, int a3, int a4); // Send corpse stuff
 void sendbpitem(UOXSOCKET s, P_ITEM pi); // Update single item in backpack
 void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop);
 void senditem(UOXSOCKET s, P_ITEM pi); // Send items (on ground);
-void senditem_lsd(UOXSOCKET s, ITEM i,char color1, char color2, int x, int y, signed char z);
+void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y, signed char z);
 void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2);
 void chardel (UOXSOCKET s); // Deletion of character
 void textflags (int s, int i, char *name);
@@ -130,7 +130,7 @@ void impowncreate(int s, int i, int z); //socket, player to send
 void sendshopinfo(int s, int c, P_ITEM pi);
 int sellstuff(int s, int i);
 void playmidi(int s, char num1, char num2);
-void sendtradestatus(int cont1, int cont2);
+void sendtradestatus(P_ITEM cont1, P_ITEM cont2);
 void endtrade(int b1, int b2, int b3, int b4);
 void tellmessage(int i, int s, char *txt);
 void PlayDeathSound( CHARACTER i );

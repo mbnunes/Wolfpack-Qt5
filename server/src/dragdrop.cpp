@@ -65,11 +65,11 @@ typedef struct _PKGx08
 
 // moved here from cWeight by Duke, 12.5.2001 (not sure what this is good for ...:((
 // if the item is equipped or in primary backpack return true
-static bool CheckWhereItem( int pack, P_ITEM pi, int s)
+static bool CheckWhereItem( P_ITEM pack, P_ITEM pi, int s)
 {
-	if (pi && pack!=-1 && s!=-1) //LB
+	if (pi && pack && s!=-1) //LB
 	{
-		if (!( pi->contserial==items[pack].serial ||
+		if (!( pi->contserial==pack->serial ||
 			chars[currchar[s]].Wears(pi)))
 			
 			return 1;
@@ -81,7 +81,7 @@ static bool CheckWhereItem( int pack, P_ITEM pi, int s)
 
 void UpdateStatusWindow(UOXSOCKET s, P_ITEM pi)
 {
-	int packnum=packitem(currchar[s]);
+	P_ITEM packnum = packitem(currchar[s]);
 	if (CheckWhereItem(packnum, pi, s))
 		statwindow(s,currchar[s]);
 }
@@ -197,7 +197,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 							{
 								pi_z->morez = 0;
 								px->morez = 0;
-								sendtradestatus(DEREF_P_ITEM(pi_z), DEREF_P_ITEM(px));
+								sendtradestatus(pi_z, px);
 							}
 					}
 					// Blackwinds Looting is crime implementation
@@ -255,7 +255,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 		}
 		if ((px->trigon==1) && (px->layer != 0) && (px->layer != 15) && (px->layer < 19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
-			triggerwitem(s, DEREF_P_ITEM(pi), 1); // trigger is fired
+			triggerwitem(s, pi, 1); // trigger is fired
 		}	
 	}
 	if (pi != NULL)
@@ -312,9 +312,9 @@ void get_item(P_CLIENT ps) // Client grabs an item
 					
 					if (pi->id() == 0x0EED) // gold coin
 					{
-						int packnum = packitem(currchar[s]);
-						if (packnum!=-1) // lb
-							if (pi->contserial == items[packnum].serial)
+						P_ITEM packnum = packitem(currchar[s]);
+						if (packnum != NULL) // lb
+							if (pi->contserial == packnum->serial)
 								update = 1;
 					}
 					
@@ -537,7 +537,7 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		pc_currchar->in = (pc_currchar->in + pi->in2);
 		if (pi->trigtype==2) // -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
-			triggerwitem(s, DEREF_P_ITEM(pi), 1); // trigger is fired
+			triggerwitem(s, pi, 1); // trigger is fired
 		}	
 		// AntiChrist -- for poisoned items
 		if (showlayer)	clConsole.send("Item equipped on layer %i.\n",pi->layer);
@@ -812,15 +812,15 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		pc_currchar->glowHalo(pi);
 	}
 	
-	int pack=packitem(DEREF_P_CHAR(pc_currchar)); // LB ...
-	if (pack==-1) // if player has no pack, put it at its feet
+	P_ITEM pack = Packitem(pc_currchar); // LB ...
+	if (pack == NULL) // if player has no pack, put it at its feet
 	{ 
 		pi->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		RefreshItem(pi);//AntiChrist
 	}
 	else
 	{
-		items[pack].AddItem(pi); // player has a pack, put it in there
+		pack->AddItem(pi); // player has a pack, put it in there
 		
 		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));//AntiChrist bugfixes
 		statwindow(s,DEREF_P_CHAR(pc_currchar));
@@ -914,18 +914,18 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			{
 				// Drop the item in the players pack instead
 				// Get the pack
-				int pack = packitem(DEREF_P_CHAR(pTC));
-				if (pack != -1)	// Valid pack?
+				P_ITEM pack = Packitem(pTC);
+				if (pack != NULL)	// Valid pack?
 				{
-					items[pack].AddItem(pi);	// Add it
+					pack->AddItem(pi);	// Add it
 					Weight->NewCalc(DEREF_P_CHAR(pTC));
 				}
 				else	// No pack, give it back to the GM
 				{
-					pack = packitem(DEREF_P_CHAR(pc_currchar));
-					if (pack != -1)	// Valid pack?
+					pack = Packitem(pc_currchar);
+					if (pack != NULL)	// Valid pack?
 					{
-						items[pack].AddItem(pi);	// Add it
+						pack->AddItem(pi);	// Add it
 						Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
 					}
 					else	// Even GM has no pack?
@@ -1035,7 +1035,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 
 void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 {
-	int j, z, serial, serhash;
+	int j, serial;
 	bool abort=false;
 	UOXSOCKET s=ps->GetSocket();
 	CHARACTER cc=ps->GetCurrChar();
@@ -1090,7 +1090,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			{
 				pi_z->morez=0;
 				pCont->morez=0;
-				sendtradestatus(DEREF_P_ITEM(pi_z), DEREF_P_ITEM(pCont));
+				sendtradestatus(pi_z, pCont);
 			}
 	}
 	
@@ -1161,11 +1161,11 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				senditem(s, pCont);
 			return;
 		}
-		z=packitem(DEREF_P_CHAR(pc_currchar));
-		if (z!=-1) // lb
+		P_ITEM pBackpack = Packitem(pc_currchar);
+		if (pBackpack != NULL) // lb
 		{
 			if (!pc_currchar->Wears(pCont) &&
-				(!(pCont->contserial==items[z].serial)) && (!(pc_currchar->canSnoop())))
+				(!(pCont->contserial==pBackpack->serial)) && (!(pc_currchar->canSnoop())))
 			{
 				sysmessage(s, "You cannot place spells in other peoples spellbooks.");
 				item_bounce6(ps,pItem);
@@ -1246,7 +1246,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				if ((pCont->amount+pItem->amount) > 65535)
 				{
 					pItem->amount -= (65535-pCont->amount);
-					Commands->DupeItem(s, DEREF_P_ITEM(pCont), pItem->amount);
+					Commands->DupeItem(s, pCont, pItem->amount);
 					pCont->amount = 65535;
 					Items->DeleItem(pItem);
 				}
@@ -1276,7 +1276,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			// - Spell Book
 	
 			if (pCont->type==9)
-				Magic->SpellBook(s,DEREF_P_ITEM(pCont)); // LB, bugfix for showing(!) the wrong spell (clumsy) when a new spell is put into opened spellbook
+				Magic->SpellBook(s, pCont); // LB, bugfix for showing(!) the wrong spell (clumsy) when a new spell is put into opened spellbook
 
 			if (pItem->glow>0) // LB's glowing items stuff
 			{

@@ -78,9 +78,8 @@ unsigned char cShipItems[4][6]=
 //============================================================================================
 
 
-void sendinrange(ITEM i)//Send this item to all online people in range
+void sendinrange(P_ITEM pi)//Send this item to all online people in range
 {//(Decided this was better than writting 1000 for loops to send an item.
-	P_ITEM pi = MAKE_ITEM_REF(i);
 	for(int a=0;a<now;a++)
 	{
 		if(perm[a] && iteminrange(a, pi, VISRANGE))
@@ -442,7 +441,7 @@ bool cBoat::Build(UOXSOCKET s, ITEM b, char id2)//Build a boat! (Do stuff NESSIC
 	
 	//their x pos is set by BuildHouse(), so just fix their Z...
 	pc_cs->pos.z = pc_cs->dispz = pBoat->pos.z+3;//Char Z, try and keep it right.
-    pc_cs->SetMultiSerial(DEREF_P_ITEM(pBoat));
+    pc_cs->SetMultiSerial(pBoat->serial);
 	return true;
 }
 
@@ -478,7 +477,7 @@ P_ITEM cBoat::GetBoat(P_CHAR pcc_cs)//get the closest boat to the player and che
 // it doesnt check against dynamics yet, especially against other ships.
 // hopefully coming soon
 
-bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to see if the boat is blocked in front of, behind, or next to it (Depending on direction)
+bool cBoat::Block(P_ITEM pBoat, short int xmove, short int ymove, int dir)//Check to see if the boat is blocked in front of, behind, or next to it (Depending on direction)
 // PARAM WARNING: xmove and ymove is unreferenced
 {
 	int ser, sz, zt, loopexit=0;
@@ -490,11 +489,11 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 	land_st land;
 	tile_st tile;
 
-    ser = calcserial(items[b].moreb1,items[b].moreb2,items[b].moreb3,items[b].moreb4);
+    ser = calcserial(pBoat->moreb1, pBoat->moreb2, pBoat->moreb3, pBoat->moreb4);
 	P_ITEM t	= FindItemBySerial( ser );
-	P_ITEM p1	= FindItemBySerial( items[b].morex );
-	P_ITEM p2	= FindItemBySerial( items[b].morey );
-	P_ITEM h	= FindItemBySerial( items[b].morez );
+	P_ITEM p1	= FindItemBySerial( pBoat->morex );
+	P_ITEM p2	= FindItemBySerial( pBoat->morey );
+	P_ITEM h	= FindItemBySerial( pBoat->morez );
 
 	switch(dir)
 	{
@@ -527,7 +526,7 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 		break;
 	}
 	//small = 10x5, med = 11x5 large = 12x5
-	switch(items[b].more1)//Now set what size boat it is and move the specail items
+	switch(pBoat->more1)//Now set what size boat it is and move the specail items
 	{
 	case 0x00:
 	case 0x04:
@@ -573,7 +572,7 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 			y++;
 		}
 
-		sz = Map->StaticTop(x,y, items[b].pos.z);
+		sz = Map->StaticTop(x,y, pBoat->pos.z);
 
 		if (sz==illegal_z) 
 			typ=0; //0: map-tile 
@@ -684,7 +683,7 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 		Xsend(s,restart,2);
 		return;
 	}
-	if(Block(DEREF_P_ITEM(pBoat),tx,ty,dir))
+	if(Block(pBoat,tx,ty,dir))
 	{
 		pBoat->type2=0;
 		itemtalk(s, pTiller, "Arr, somethings in the way!");
@@ -708,7 +707,7 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 		if(pi != NULL)
 		{
 			pi->MoveTo(pi->pos.x+=tx, pi->pos.y+=ty, pi->pos.z);
-			sendinrange(DEREF_P_ITEM(pi));
+			sendinrange(pi);
 		}
 	}
 
@@ -771,20 +770,19 @@ void cBoat::TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir)//Turn an item that was o
 	}
 	
 	mapRegions->Add(pi);
-	sendinrange(DEREF_P_ITEM(pi));
+	sendinrange(pi);
 }
 
-void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/items on the boat to turnboatstuff()
+void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the people/items on the boat to turnboatstuff()
 {
-	P_ITEM pBoat = MAKE_ITEM_REF(b);
 	if (pBoat == NULL) return; 
-
+	
 	int id2 = pBoat->id2 ,olddir = pBoat->dir;
 	unsigned short int Send[MAXCLIENT];
 	SERIAL serial;
 	int a,dir, d=0;
-
-
+	
+	
 	for (a = 0; a < now; a++)
 	{
 		if (iteminrange(a, pBoat, BUILDRANGE) && perm[a])
@@ -795,7 +793,7 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 		} 
 		
 	}
-
+	
 	//Of course we need the boat items!
 	serial = calcserial(pBoat->moreb1,pBoat->moreb2,pBoat->moreb3,pBoat->moreb4);
 	if(serial == INVALID_SERIAL) return;
@@ -807,7 +805,7 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 	if(pi_p2 == NULL) return;
 	P_ITEM pi_hold = FindItemBySerial( pBoat->morez );
 	if(pi_hold == NULL) return;
-
+	
 	if(turn)//Right
 	{
 		pBoat->dir+=2;
@@ -822,31 +820,31 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 	if(id2>pBoat->more2) id2-=4;//Now you know what the min/max id is for :-)
 	
 	pBoat->id2=id2;//set the id
-
+	
 	if(pBoat->id2==pBoat->more1) pBoat->dir=0;//extra DIR error checking
 	if(pBoat->id2==pBoat->more2) pBoat->dir=6;
-
-
-	if( Block( b, 0, 0, pBoat->dir ) )
-        {
-                pBoat->dir = olddir;
-                for( a = 0; a < d; a++ )
-                {
-					Xsend( Send[a], restart, 2 );
-                    itemtalk( Send[a], pTiller, "Arr, something's in the way!" );
-                }
-                return;
-        }
-        pBoat->id2=id2;//set the id
- 
-        if(pBoat->id2==pBoat->more1) pBoat->dir=0;//extra DIR error checking
-        if(pBoat->id2==pBoat->more2) pBoat->dir=6;    
 	
-	    
-		
-		    
+	
+	if( Block( pBoat, 0, 0, pBoat->dir ) )
+	{
+		pBoat->dir = olddir;
+		for( a = 0; a < d; a++ )
+		{
+			Xsend( Send[a], restart, 2 );
+			itemtalk( Send[a], pTiller, "Arr, something's in the way!" );
+		}
+		return;
+	}
+	pBoat->id2=id2;//set the id
+	
+	if(pBoat->id2==pBoat->more1) pBoat->dir=0;//extra DIR error checking
+	if(pBoat->id2==pBoat->more2) pBoat->dir=6;    
+	
+	
+	
+	
     serial=pBoat->serial; // lb !!!
-
+	
 	vector<SERIAL> vecEntries = imultisp.getData(serial);
     for (a = 0; a < vecEntries.size(); a++)
 	{
@@ -854,7 +852,7 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 		if (pi != NULL)
 			TurnStuff(pBoat, pi, turn);
 	}
-
+	
 	vecEntries.clear();
 	vecEntries = cmultisp.getData(serial);
 	for (a = 0; a < vecEntries.size(); a++)
@@ -866,9 +864,9 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 	
 	//Set the DIR for use in the Offsets/IDs array
 	dir = (pBoat->dir&0x0F)/2;
-
+	
 	//set it's Z to 0,0 inside the boat
-
+	
 	pi_p1->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_p1->pos.z);
 	pi_p1->id2=cShipItems[dir][PORT_P_C];//change the ID
 	
@@ -880,7 +878,7 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 	
 	pi_hold->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_hold->pos.z);
 	pi_hold->id2=cShipItems[dir][HOLDID];
-
+	
 	switch(pBoat->more1)//Now set what size boat it is and move the specail items
 	{
 	case 0x00:
@@ -896,7 +894,7 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 		pi_p2->MoveTo(pi_p2->pos.x + iMediumShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iMediumShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
 		pTiller->MoveTo(pTiller->pos.x + iMediumShipOffsets[dir][TILLER][X], pTiller->pos.y + iMediumShipOffsets[dir][TILLER][Y], pTiller->pos.z);
 		pi_hold->MoveTo(pi_hold->pos.x + iMediumShipOffsets[dir][HOLD][X], pi_hold->pos.y + iMediumShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
-
+		
 		break;
 	case 0x10:
 	case 0x14:
@@ -904,19 +902,19 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
         pi_p2->MoveTo(pi_p2->pos.x + iLargeShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iLargeShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
 		pTiller->MoveTo(pTiller->pos.x + iLargeShipOffsets[dir][TILLER][X], pTiller->pos.y + iLargeShipOffsets[dir][TILLER][Y], pTiller->pos.z);
 		pi_hold->MoveTo(pi_hold->pos.x + iLargeShipOffsets[dir][HOLD][X], pi_hold->pos.y + iLargeShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
-
+		
 		break;
-
+		
 	default: { sprintf((char*)temp,"Turnboatstuff() more1 error! more1 = %c not found!\n",pBoat->more1); 
-		       LogWarning((char*)temp);
+		LogWarning((char*)temp);
 			 }  
 	}
-
-	sendinrange(DEREF_P_ITEM(pi_p1));
-	sendinrange(DEREF_P_ITEM(pi_p2));
-	sendinrange(DEREF_P_ITEM(pi_hold));
-	sendinrange(DEREF_P_ITEM(pTiller));
-
+	
+	sendinrange(pi_p1);
+	sendinrange(pi_p2);
+	sendinrange(pi_hold);
+	sendinrange(pTiller);
+	
 	for (a=0;a<d;a++) 
 	{ 
 		Xsend(Send[a],restart,2);
@@ -1020,9 +1018,9 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			}
 
 
-			if (!Block(DEREF_P_ITEM(boat),tx,ty,dir))
+			if (!Block(boat,tx,ty,dir))
 			{
-			  Turn(DEREF_P_ITEM(boat),1);
+			  Turn(boat,1);
 			  itemtalk(s, tiller, "Aye, sir.");
 			  return 1;
 			} else { 
@@ -1069,9 +1067,9 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			}
 
 
-			if (!Block(DEREF_P_ITEM(boat),tx,ty,dir))
+			if (!Block(boat,tx,ty,dir))
 			{
-			  Turn(DEREF_P_ITEM(boat),0);			
+			  Turn(boat,0);			
 			  itemtalk(s, tiller, "Aye, sir.");
 			  return 1;
 			} else 
@@ -1083,8 +1081,8 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 		}
 		else if(strstr(msg,"COME ABOUT") || strstr(msg,"AROUND"))
 		{
-			Turn(DEREF_P_ITEM(boat), 1);
-			Turn(DEREF_P_ITEM(boat), 1);
+			Turn(boat, 1);
+			Turn(boat, 1);
 			itemtalk(s, tiller, "Aye, sir.");
 			return 1;
 		}

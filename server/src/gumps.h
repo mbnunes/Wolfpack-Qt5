@@ -39,7 +39,7 @@ class cGump
 public:
 	void Button(int s, int button, SERIAL serial, char type);
 	void Input(int s);
-	void Menu(UOXSOCKET s, int m, ITEM i);
+	void Menu(UOXSOCKET s, int m, P_ITEM it);
 	void Open(int s, int i, int num, int num2);
 };
 

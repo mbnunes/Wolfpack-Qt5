@@ -115,23 +115,18 @@ int cMagic::InitSpells(void)
 // Purpose:	Sends the spellbook item (with all the
 //			memorized spells) to player when doubleclicked.
 
-void cMagic::SpellBook(UOXSOCKET s,ITEM si)
+void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 {
-	P_ITEM pi;
-
-	if (si==-1) // item number send by client?
-		pi=FindItemBySerPtr(buffer[s]+1);
-	else 
-		pi=MAKE_ITEMREF_LR(si);
-
+	if (pi == NULL)
+		return;
+	
 	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
-	int x=packitem(cc);
-	if (!pi && x!=-1)
+	if (!pi && pc_currchar->packitem != INVALID_SERIAL)
 	{
 		int ci=0, loopexit=0;
 		P_ITEM pj;
-		vector<SERIAL> vecContainer = contsp.getData(items[x].serial);
+		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
@@ -163,7 +158,7 @@ void cMagic::SpellBook(UOXSOCKET s,ITEM si)
 	// reason: just have a look at the loop above ...
 
 	if (!pi ||	// no book at all
-		(x!=-1 && pi->contserial!=items[x].serial &&	// not in primary pack
+		(pc_currchar->packitem != INVALID_SERIAL && pi->contserial != pc_currchar->packitem &&	// not in primary pack
 				!pc_currchar->Wears(pi)))		// not equipped
 	{
 		sysmessage(s, "In order to open spellbook, it must be equipped in your hand or in the first layer of your backpack.");
@@ -553,14 +548,14 @@ bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 	return true;
 }
 
-int cMagic::SpellsInBook(ITEM i)
+int cMagic::SpellsInBook(P_ITEM pi)
 {
-	int ci = 0, loopexit = 0;
+	int ci = 0;
 	int spellcount = 0;
 	P_ITEM pj;
-	if (i < 0)
+	if (pi == NULL)
 		return -1;
-	vector<SERIAL> vecContainer = contsp.getData(items[i].serial);
+	vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pj = FindItemBySerial(vecContainer[ci]);
