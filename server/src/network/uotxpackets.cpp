@@ -38,18 +38,18 @@ void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT
 	// Offset: 4
 	setShort( 4, getShort( 4 ) + 1 );
 
-	Q_INT32 offset = rawPacket.count();
-	rawPacket.resize( rawPacket.count() + 40 ); // 40 byte per server
-	setShort( 1, rawPacket.count() );
+	Q_INT32 offset = count();
+	resize( count() + 40 ); // 40 byte per server
+	setShort( 1, count() );
 	setShort( offset, serverIndex );
 
 	if( serverName.length() > 31 ) 
 		serverName = serverName.left( 31 );
 
-	strcpy( &rawPacket.data()[ offset + 2 ], serverName.latin1() );
+	setAsciiString( offset + 2, serverName.latin1(), serverName.length() );
 
-	rawPacket[ offset + 34 ] = serverFull;
-	rawPacket[ offset + 35 ] = serverTimeZone;
+	(*this)[ offset + 34 ] = serverFull;
+	(*this)[ offset + 35 ] = serverTimeZone;
 	setInt( offset + 36, serverIp );
 }
 
@@ -73,29 +73,29 @@ void cUOTxCharTownList::addTown( Q_UINT8 index, const QString &name, const QStri
 
 void cUOTxCharTownList::compile( void )
 {
-	rawPacket.resize( 309 + ( towns.size() * 63 ) );
-	rawPacket[ 0 ] = (Q_UINT8)0xA9;
+	resize( 309 + ( towns.size() * 63 ) );
+	(*this)[ 0 ] = (Q_UINT8)0xA9;
 
-	rawPacket[ 3 ] = characters.size(); // Char Count
+	(*this)[ 3 ] = characters.size(); // Char Count
 
 	for( Q_UINT8 c = 0; c < 5; ++c )
 		if( c < characters.size() )
 		{
-			strcpy( &rawPacket.data()[ 4 + ( c * 60 ) ], characters[ c ].latin1() );
-			rawPacket[ 4 + ( c * 60 ) + 30 ] = 0x00; // No Password (!)
+			setAsciiString( 4 + ( c * 60 ), characters[ c ].latin1(), 30 );
+			(*this)[ 4 + ( c * 60 ) + 30 ] = 0x00; // No Password (!)
 		}
 		else
-			rawPacket[ 4 + ( c * 60 ) ] = 0x00; // "Pad-out" the char
+			(*this)[ 4 + ( c * 60 ) ] = 0x00; // "Pad-out" the char
 
 	// Town Count
 	Q_INT32 offset = 304;
-	rawPacket[ offset++ ] = towns.size();
+	(*this)[ offset++ ] = towns.size();
 
 	for( Q_UINT8 t = 0; t < towns.size(); ++t )
 	{
-		rawPacket[ offset ] = towns[ t ].index;
-		strcpy( &rawPacket.data()[ offset + 1 ], towns[ t ].town.latin1() );
-		strcpy( &rawPacket.data()[ offset + 32 ], towns[ t ].area.latin1() );
+		(*this)[ offset ] = towns[ t ].index;
+		setAsciiString( offset + 1, towns[ t ].town.latin1(), 30 );
+		setAsciiString( offset + 32, towns[ t ].area.latin1(), 30 );
 		offset += 63;
 	}
 
@@ -105,59 +105,61 @@ void cUOTxCharTownList::compile( void )
 		setInt( offset, flags );
 
 	// New Packet Size
-	setShort( 1, rawPacket.count() );
+	setShort( 1, count() );
 }
 
 void cUOTxUpdateCharList::setCharacter( Q_UINT8 index, QString name )
 {
 	Q_INT32 offset = 4 + ( index * 60 );
-	rawPacket[ 3 ]++;
+	++(*this)[ 3 ];
 
-	if( name.length() > 29 )
-		name = name.left( 29 );
+//	if( name.length() > 29 )
+//		name = name.left( 29 );
 
-	strcpy( &rawPacket.data()[offset], name.latin1() );
+	setAsciiString(offset, name.latin1(), 30 );
 }
 
 void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status )
 {
 	// Overwrite the last 2 bytes (terminator) and readd them later
-	Q_INT32 offset = rawPacket.count() - 2;
-	rawPacket.resize( rawPacket.count() + 7 );
-	setShort( 1, rawPacket.count() );
+	Q_INT32 offset = count() - 2;
+	resize( count() + 7 );
+	setShort( 1, count() );
 
 	setShort( offset, skillId );
 	setShort( offset+2, skill );
 	setShort( offset+4, realSkill );
-	rawPacket[ offset+6 ] = status;
+	(*this)[ offset+6 ] = status;
 	setShort( offset+7, 0 ); // Terminator
 }
 
 void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
 {
 	// Overwrite the last 4 bytes (terminator) and readd them later
-	Q_INT32 offset = rawPacket.count() - 5;
-	rawPacket.resize( rawPacket.count() + 9 );
-	setShort( 1, rawPacket.count() );
+	Q_INT32 offset = count() - 5;
+	resize( count() + 9 );
+	setShort( 1, count() );
 
 	setInt( offset, serial );
 	setShort( offset+4, model|0x8000 );
-	rawPacket[offset+6] = layer;
+	(*this)[offset+6] = layer;
 	setShort( offset+7, color );
 	setInt( offset+9, 0 ); // Terminator
 }
 
 void cUOTxUnicodeSpeech::setText( const QString &data )
 {
-	rawPacket.resize( 50 + (data.length()*2) );
-	setShort( 1, rawPacket.count() );
+	resize( 50 + (data.length()*2) );
+	setShort( 1, count() );
 
 	Q_INT32 offset = 48; // Pad right by one - remeber to copy one byte less
-	rawPacket[ offset ] = 0x00;
-	memcpy( &rawPacket.data()[ offset + 1 ], data.unicode(), (data.length()*2)-1 );
+	(*this)[ offset ] = 0x00;
+	QString tmpData = data; // get around the const
+	setUnicodeString( offset + 1, tmpData, (tmpData.length()*2)-1 );
+	//memcpy( &rawPacket.data()[ offset + 1 ], data.unicode(), (data.length()*2)-1 );
 
 	// Add the new Terminator
-	setShort( rawPacket.count() - 2, 0 );
+	setShort( count() - 2, 0 );
 }
 
 // Sets all data automatically
@@ -182,20 +184,20 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 
 void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags, Q_UINT16 color ) 
 { 
-	Q_UINT32 size = rawPacket.count(); 
+	Q_UINT32 size = count(); 
 	
-	rawPacket[ 11 ]++; 
+	++(*this)[ 11 ]; 
 	
 	
 	if ( flags & Popcolor ) 
 	{ 
-		rawPacket.resize( size + 8 ); 
+		resize( size + 8 ); 
 		setShort( size+5, color ); 
 		setShort( 1, size + 7 ); 
 	} 
 	else 
 	{ 
-		rawPacket.resize( size + 6 ); 
+		resize( size + 6 ); 
 		setShort( 1, size + 5 ); 
 	} 
 	
@@ -330,7 +332,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 void cUOTxTipWindow::setMessage( QString m )
 {
 	ushort length = m.length();
-	rawPacket.resize( length + 10 );
+	resize( length + 10 );
 	setShort(1, length + 10 );
 	setShort(8, length );
 	setAsciiString(10, m.latin1(), length);
@@ -392,13 +394,13 @@ void cUOTxBookPage::setPage( UINT16 page, UINT16 numLines, const QStringList &li
 
 void cUOTxCorpseEquipment::addItem( UINT8 layer, UINT32 serial )
 {
-	INT32 offset = rawPacket.count()-1;
-	rawPacket.resize( rawPacket.size() + 5 );
-	setShort( 1, rawPacket.size() );
+	INT32 offset = count()-1;
+	resize( size() + 5 );
+	setShort( 1, size() );
 
-	rawPacket[ offset ] = layer;
+	(*this)[ offset ] = layer;
 	setInt( offset+1, serial );
-	rawPacket[ offset + 5 ] = 0;
+	(*this)[ offset + 5 ] = 0;
 }
 
 void cUOTxItemContent::addItem( P_ITEM pItem )
@@ -411,14 +413,14 @@ void cUOTxItemContent::addItem( P_ITEM pItem )
 
 void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container )
 {
-	INT32 offset = rawPacket.size();
-	rawPacket.resize( rawPacket.size() + 19 );
+	INT32 offset = size();
+	resize( size() + 19 );
 	setShort( 3, getShort( 3 ) + 1 );
-	setShort( 1, rawPacket.size() );
+	setShort( 1, size() );
 
 	setInt( offset, serial );	
 	setShort( offset+4, id );
-	rawPacket[ offset+6] = 0;
+	(*this)[ offset+6] = 0;
 	setShort( offset+7, amount );
 	setShort( offset+9, x );
 	setShort( offset+11, y );
@@ -428,16 +430,16 @@ void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x
 
 void cUOTxVendorBuy::addItem( UINT32 price, const QString &description )
 {
-	INT32 offset = rawPacket.size();
-	rawPacket.resize( rawPacket.size() + 5 + description.length() + 1 ); // Null terminate it for gods-sake
-	setShort( 1, rawPacket.size() );
+	INT32 offset = size();
+	resize( size() + 5 + description.length() + 1 ); // Null terminate it for gods-sake
+	setShort( 1, size() );
 	
 	// Add the item itself
 	setInt( offset, price );
-	rawPacket[ offset+4 ] = description.length() + 1;
-	memcpy( rawPacket.data() + offset + 5, description.latin1(), description.length() + 1 );
+	(*this)[ offset+4 ] = description.length() + 1;
+	setAsciiString( offset + 5, description.latin1(), description.length() + 1 );
 	
-	rawPacket[7]++; // Increase item count
+	++(*this)[7]; // Increase item count
 }
 
 void cUOTxGumpDialog::setContent( QString layout, QStringList text )
@@ -464,10 +466,10 @@ void cUOTxGumpDialog::setContent( QString layout, QStringList text )
 
 void cUOTxTrade::setName( const QString &name )
 {
-	rawPacket[16] = 1;
-	rawPacket.resize( rawPacket.size() + name.length() + 1 );
-	setShort( 1, rawPacket.size() );
-
-	strcpy( &rawPacket.data()[17], name.latin1() );
+	(*this)[16] = 1;
+	resize( size() + name.length() + 1 );
+	setShort( 1, size() );
+	setAsciiString( 17, name.latin1(), name.length() );
+	//strcpy( &rawPacket.data()[17], name.latin1() );
 }
 

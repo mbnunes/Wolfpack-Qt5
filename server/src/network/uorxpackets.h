@@ -47,8 +47,8 @@ class cUORxAction: public cUOPacket
 {
 public:
 	cUORxAction( const QByteArray &data ): cUOPacket( data ) {}
-	UINT8 type() { return rawPacket[3]; }
-	QString action() { return &rawPacket.data()[4]; }
+	UINT8 type()		{ return (*this)[3]; }
+	QString action()	{ return this->getAsciiString(4, getShort(1) - 3 ); }
 };
 
 // 0x34: Query
@@ -63,9 +63,9 @@ public:
 
 	cUORxQuery( const QByteArray &data ): cUOPacket( data ) {}
 
-	UINT32 pattern( void ) { return getInt( 1 ); }
-	eType type( void ) { return ( rawPacket[5] == 0x05 ) ? Skills : Stats; }
-	UINT32 serial( void ) { return getInt( 6 ); }
+	UINT32 pattern( void )		{ return getInt( 1 ); }
+	eType type( void )			{ return ( (*this)[5] == 0x05 ) ? Skills : Stats; }
+	UINT32 serial( void )		{ return getInt( 6 ); }
 };
 
 // 0x00: Create Char
@@ -73,30 +73,30 @@ class cUORxCreateChar: public cUOPacket
 {
 public:
 	cUORxCreateChar( const QByteArray &data ): cUOPacket( data ) {}
-	UINT32 pattern1( void )		{ return getInt( 1 ); }
-	UINT32 pattern2( void )		{ return getInt( 5 ); }
-	UINT8 pattern3( void )		{ return rawPacket[ 9 ]; }
-	QString name( void )			{ return &rawPacket.data()[10]; }
-	QString password( void )		{ return &rawPacket.data()[40]; }
-	UINT8 gender( void )			{ return rawPacket[70]; } // 0 = male, 1 = female
-	UINT8 strength( void )		{ return rawPacket[71]; }
-	UINT8 dexterity( void )		{ return rawPacket[72]; }
-	UINT8 intelligence( void )	{ return rawPacket[73]; }
-	UINT8 skillId1( void )		{ return rawPacket[74]; }
-	UINT8 skillValue1( void )		{ return rawPacket[75]; }
-	UINT8 skillId2( void )		{ return rawPacket[76]; }
-	UINT8 skillValue2( void )		{ return rawPacket[77]; }
-	UINT8 skillId3( void )		{ return rawPacket[78]; }
-	UINT8 skillValue3( void )		{ return rawPacket[79]; }
-	INT16 skinColor( void )		{ return getShort( 80 ); }
-	INT16 hairStyle( void )		{ return getShort( 82 ); }
-	INT16 hairColor( void )		{ return getShort( 84 ); }
+	UINT32 pattern1( void )			{ return getInt( 1 ); }
+	UINT32 pattern2( void )			{ return getInt( 5 ); }
+	UINT8 pattern3( void )			{ return (*this)[ 9 ]; }
+	QString name( void )			{ return this->getAsciiString(10, 31); }
+	QString password( void )		{ return this->getAsciiString(40, 31); }
+	UINT8 gender( void )			{ return (*this)[70]; } // 0 = male, 1 = female
+	UINT8 strength( void )			{ return (*this)[71]; }
+	UINT8 dexterity( void )			{ return (*this)[72]; }
+	UINT8 intelligence( void )		{ return (*this)[73]; }
+	UINT8 skillId1( void )			{ return (*this)[74]; }
+	UINT8 skillValue1( void )		{ return (*this)[75]; }
+	UINT8 skillId2( void )			{ return (*this)[76]; }
+	UINT8 skillValue2( void )		{ return (*this)[77]; }
+	UINT8 skillId3( void )			{ return (*this)[78]; }
+	UINT8 skillValue3( void )		{ return (*this)[79]; }
+	INT16 skinColor( void )			{ return getShort( 80 ); }
+	INT16 hairStyle( void )			{ return getShort( 82 ); }
+	INT16 hairColor( void )			{ return getShort( 84 ); }
 	INT16 beardStyle( void )		{ return getShort( 86 ); }
 	INT16 beardColor( void )		{ return getShort( 88 ); }
 	// Here is an unkown byte (!)
-	UINT8 startTown( void )			{ return rawPacket[91]; }
-	UINT16 unknown1( void )		{ return getShort( 92 ); }
-	UINT16 slot( void )			{ return getShort( 94 ); }
+	UINT8 startTown( void )			{ return (*this)[91]; }
+	UINT16 unknown1( void )			{ return getShort( 92 ); }
+	UINT16 slot( void )				{ return getShort( 94 ); }
 	UINT32 ip( void )				{ return getInt( 96 ); }
 	INT16 shirtColor( void )		{ return getShort( 100 ); }
 	INT16 pantsColor( void )		{ return getShort( 102 ); }
@@ -107,7 +107,7 @@ class cUORxUpdateRange: public cUOPacket
 {
 public:
 	cUORxUpdateRange( const QByteArray &data ): cUOPacket( data ) {}
-	UINT8 range( void ) { return rawPacket[1]; }
+	UINT8 range( void ) { return (*this)[1]; }
 };
 
 // 0x01: NotifyDisconnect
@@ -123,8 +123,8 @@ class cUORxLoginRequest: public cUOPacket
 {
 public:
 	cUORxLoginRequest( const QByteArray &data ): cUOPacket( data ) {}
-	QString username( void ) { return &rawPacket.data()[1]; }
-	QString password( void ) { return &rawPacket.data()[31]; }
+	QString username( void ) { return this->getAsciiString(1, 30); }
+	QString password( void ) { return this->getAsciiString(31,30); }
 };
 
 // 0xA4: Hardware Info
@@ -132,16 +132,16 @@ class cUORxHardwareInfo: public cUOPacket
 {
 public:
 	cUORxHardwareInfo( const QByteArray &data ): cUOPacket( data ) {}
-	UINT8 processorType( void ) { return rawPacket[ 0x01 ]; }
-	UINT16 processorSpeed( void ) { return getShort( 0x02 ); }
-	UINT8 processorCount( void ) { return rawPacket[ 0x04 ]; }
+	UINT8 processorType( void )		{ return (*this)[ 0x01 ]; }
+	UINT16 processorSpeed( void )	{ return getShort( 0x02 ); }
+	UINT8 processorCount( void )	{ return (*this)[ 0x04 ]; }
 	// QString directory -- unicode ? -- > 20 bytes useless trash
 	// Video Card descritor: -- unicode ? -- > 20 bytes useless trash
 	// ??? > another 20 byte trash field
 	// ??? > ANOTHER 20 byte trash field
-	UINT16 memoryInMb( void ) { return getShort( 0x85 ); }
+	UINT16 memoryInMb( void )		{ return getShort( 0x85 ); }
 	UINT16 largestPartitionInMb( void ) { return getShort( 0x87 ); }
-	INT32 timezoneBias( void ) { return getInt( 0x8C ); }
+	INT32 timezoneBias( void )		{ return getInt( 0x8C ); }
 };
 
 // 0xA0: Select Shard
@@ -158,8 +158,8 @@ class cUORxServerAttach: public cUOPacket
 public:
 	cUORxServerAttach( const QByteArray &data ): cUOPacket( data ) {}
 	UINT32 authId( void ) { return getInt( 1 ); }
-	QString username( void ) { return &rawPacket.data()[5]; }
-	QString password( void ) { return &rawPacket.data()[35]; }
+	QString username( void ) { return this->getAsciiString(5, 30); }
+	QString password( void ) { return this->getAsciiString(35,30); }
 };
 
 // 0x73 Ping
@@ -175,7 +175,7 @@ class cUORxDeleteCharacter: public cUOPacket
 public:
 	cUORxDeleteCharacter( const QByteArray &data ): cUOPacket( data ) {}
 
-	QString password( void ) { return &rawPacket.data()[1]; }
+	QString password( void ) { return this->getAsciiString(1, 30); }
 	UINT32 index( void ) { return getInt( 31 ); }
 	UINT32 ip( void ) { return getInt( 35 ); }
 };
@@ -186,10 +186,10 @@ class cUORxPlayCharacter: public cUOPacket
 public:
 	cUORxPlayCharacter( const QByteArray &data ): cUOPacket( data ) {}
 
-	QString character( void ) { return &rawPacket.data()[5]; }
-	QString password( void ) { return &rawPacket.data()[35]; }
-	UINT32 slot( void ) { return getInt( 65 ); }
-	UINT32 ip( void ) { return getInt( 69 ); }
+	QString character( void )	{ return this->getAsciiString(5, 30); }
+	QString password( void )	{ return this->getAsciiString(35, 30); }
+	UINT32 slot( void )			{ return getInt( 65 ); }
+	UINT32 ip( void )			{ return getInt( 69 ); }
 };
 
 // 0x05 Request Use
@@ -222,7 +222,7 @@ public:
 		Ghost
 	};
 
-	eChoice choice( void ) { return ( rawPacket[1] == 0x01 ) ? Resurrect : Ghost; }
+	eChoice choice( void ) { return ( (*this)[1] == 0x01 ) ? Resurrect : Ghost; }
 };
 
 // 0xBF Multi Purpose Packet -> Split up into other packets later
@@ -262,7 +262,7 @@ class cUORxSetLanguage: public cUOPacket
 {
 public:
 	cUORxSetLanguage( const QByteArray &data ): cUOPacket( data ) {}
-	QString language( void ) { return &rawPacket.data()[5]; }
+	QString language( void ) { return this->getAsciiString(5, 3); }
 };
 
 // 0xBD Set Version
@@ -270,7 +270,7 @@ class cUORxSetVersion: public cUOPacket
 {
 public:
 	cUORxSetVersion( const QByteArray &data ): cUOPacket( data ) {}
-	QString version( void ) { return &rawPacket.data()[3]; }
+	QString version( void ) { return this->getAsciiString(3, getShort(1) - 3); }
 };
 
 // 0x02 Walk Request.
@@ -288,11 +288,11 @@ class cUORxSpeechRequest: public cUOPacket
 {
 public:
 	cUORxSpeechRequest( const QByteArray& data ) : cUOPacket( data ) {}
-	UINT8 type()		{ return (*this)[3]; }
-	UINT16 color()		{ return getShort( 4 ); }
-	UINT16 font()		{ return getShort( 6 ); }
-	UINT16 keywordCount() { return getShort( 12 ) >> 4; }
-	QString language()	{ return &rawPacket.data()[12]; }
+	UINT8 type()			{ return (*this)[3]; }
+	UINT16 color()			{ return getShort( 4 ); }
+	UINT16 font()			{ return getShort( 6 ); }
+	UINT16 keywordCount()	{ return getShort( 12 ) >> 4; }
+	QString language()		{ return this->getAsciiString(12, 4); }
 	QString message();
 };
 
@@ -320,10 +320,10 @@ class cUORxUpdateBook: public cUOPacket
 {
 public:
 	cUORxUpdateBook( const QByteArray &data ): cUOPacket( data ) {}
-	UINT32 serial() { return getInt( 1 ); }
-	UINT32 unknown() { return getInt( 5 ); }
-	QString title() { return &rawPacket.data()[9]; }
-	QString author() { return &rawPacket.data()[69]; }
+	UINT32 serial()		{ return getInt( 1 ); }
+	UINT32 unknown()	{ return getInt( 5 ); }
+	QString title()		{ return this->getAsciiString(9, 60); }
+	QString author()	{ return this->getAsciiString(69, 30); }
 };
 
 // 0x75 Rename Character
@@ -332,7 +332,7 @@ class cUORxRename: public cUOPacket
 public:
 	cUORxRename( const QByteArray &data ): cUOPacket( data ) {}
 	UINT32 serial() { return getInt( 1 ); }
-	QString name() { return &rawPacket.data()[5]; }
+	QString name()	{ return this->getAsciiString(5, 30); }
 };
 
 // 0x72 Change Warmode
@@ -340,7 +340,7 @@ class cUORxChangeWarmode: public cUOPacket
 {
 public:
 	cUORxChangeWarmode( const QByteArray &data ): cUOPacket( data ) {}
-	bool warmode() { return ( rawPacket[1] == 0 ) ? false : true; }
+	bool warmode() { return ( (*this)[1] == 0 ) ? false : true; }
 };
 
 // 0x6C Target
@@ -348,15 +348,15 @@ class cUORxTarget: public cUOPacket
 {
 public:
 	cUORxTarget( const QByteArray &data ): cUOPacket( data ) {}
-	UINT8 type() { return rawPacket[1]; }
-	UINT32 targetSerial() { return getInt( 2 ); }
-	UINT8 cursorType() { return rawPacket[6]; }
-	UINT32 serial() { return getInt( 7 ); }
-	UINT16 x() { return getShort( 11 ); }
-	UINT16 y() { return getShort( 13 ); }
-	UINT8 unknown() { return rawPacket[15]; }
-	INT8 z() { return rawPacket[16]; }
-	UINT16 model() { return getShort( 17 ); }
+	UINT8 type()			{ return (*this)[1]; }
+	UINT32 targetSerial()	{ return getInt( 2 ); }
+	UINT8 cursorType()		{ return (*this)[6]; }
+	UINT32 serial()			{ return getInt( 7 ); }
+	UINT16 x()				{ return getShort( 11 ); }
+	UINT16 y()				{ return getShort( 13 ); }
+	UINT8 unknown()			{ return (*this)[15]; }
+	INT8 z()				{ return (*this)[16]; }
+	UINT16 model()			{ return getShort( 17 ); }
 };
 
 // 0x22 ResyncWalk
@@ -364,7 +364,7 @@ class cUORxResyncWalk: public cUOPacket
 {
 public:
 	cUORxResyncWalk( const QByteArray &data ): cUOPacket( data ) {}
-	UINT8 sequence() { return rawPacket[1]; }
+	UINT8 sequence()		{ return (*this)[1]; }
 };
 
 // 0x07 Drag Items
@@ -372,8 +372,8 @@ class cUORxDragItem: public cUOPacket
 {
 public:
 	cUORxDragItem( const QByteArray &data ): cUOPacket( data ) {}
-	UINT16 amount() { return getShort( 5 ); }
-	UINT32 serial() { return getInt( 1 ); }
+	UINT16 amount()			{ return getShort( 5 ); }
+	UINT32 serial()			{ return getInt( 1 ); }
 };
 
 // 0x08 Drop Items
@@ -382,10 +382,10 @@ class cUORxDropItem: public cUOPacket
 public:
 	cUORxDropItem( const QByteArray &data ): cUOPacket( data ) {}
 	UINT32 serial() { return getInt( 1 ); }
-	UINT16 x() { return getShort( 5 ); }
-	UINT16 y() { return getShort( 7 ); }
-	INT8 z() { return rawPacket[9]; }
-	UINT32 cont() { return getInt( 10 ); }
+	UINT16 x()		{ return getShort( 5 ); }
+	UINT16 y()		{ return getShort( 7 ); }
+	INT8 z()		{ return (*this)[9]; }
+	UINT32 cont()	{ return getInt( 10 ); }
 };
 
 // 0x13 Wear Item
@@ -393,8 +393,8 @@ class cUORxWearItem: public cUOPacket
 {
 public:
 	cUORxWearItem( const QByteArray &data ): cUOPacket( data ) {}
-	UINT32 serial() { return getInt( 1 ); }
-	UINT8 layer() { return rawPacket[5]; }
+	UINT32 serial()	{ return getInt( 1 ); }
+	UINT8 layer()	{ return (*this)[5]; }
 	UINT32 wearer() { return getInt( 6 ); }
 };
 
@@ -403,9 +403,9 @@ class cUORxBookPage: public cUOPacket
 {
 public:
 	cUORxBookPage( const QByteArray &data ): cUOPacket( data ) {}
-	UINT16 size() { return getShort( 1 ); }
-	UINT32 serial() { return getInt( 3 ); }
-	UINT16 page() { return getShort( 9 ); }
+	UINT16 size()		{ return getShort( 1 ); }
+	UINT32 serial()		{ return getInt( 3 ); }
+	UINT16 page()		{ return getShort( 9 ); }
 	UINT16 numOfLines() { return getShort( 11 ); }
 
 	QStringList lines();
@@ -416,9 +416,9 @@ class cUORxGumpResponse : public cUOPacket
 {
 public:
 	cUORxGumpResponse( const QByteArray &data ): cUOPacket( data ) {}
-	UINT16 size() { return getShort( 1 ); }
-	UINT32 serial() { return getInt( 3 ); }
-	UINT32 type() { return getInt( 7 ); }
+	UINT16 size()		{ return getShort( 1 ); }
+	UINT32 serial()		{ return getInt( 3 ); }
+	UINT32 type()		{ return getInt( 7 ); }
 	gumpChoice_st choice();
 };
 
@@ -428,10 +428,10 @@ class cUORxBuy: public cUOPacket
 public:
 	cUORxBuy( const QByteArray &data ): cUOPacket( data ) {}
 	UINT32 serial() { return getInt( 3 ); }
-	UINT16 itemCount() { return ( ( rawPacket.size() - 8 ) / 7 ); }
-	UINT8 iLayer( UINT16 item ) { return rawPacket[ 8 + ( item * 7 ) ]; }
-	UINT32 iSerial( UINT16 item ) { return getInt( 9 + ( item * 7 ) ); }
-	UINT16 iAmount( UINT16 item ) { return getShort( 13 + ( item * 7 ) ); }
+	UINT16 itemCount() { return ( ( size() - 8 ) / 7 ); }
+	UINT8 iLayer( UINT16 item )		{ return (*this)[ 8 + ( item * 7 ) ]; }
+	UINT32 iSerial( UINT16 item )	{ return getInt( 9 + ( item * 7 ) ); }
+	UINT16 iAmount( UINT16 item )	{ return getShort( 13 + ( item * 7 ) ); }
 };
 
 // 0x95 Dye
@@ -456,8 +456,8 @@ class cUORxSkillLock : public cUOPacket
 {
 public:
 	cUORxSkillLock( const QByteArray &data ): cUOPacket( data ) {}
-	UINT16 skill() { return getShort( 3 ); }
-	UINT8 lock()   { return rawPacket[ 5 ]; }
+	UINT16 skill()		{ return getShort( 3 ); }
+	UINT8 lock()		{ return (*this)[ 5 ]; }
 };
 
 #endif

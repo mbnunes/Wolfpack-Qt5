@@ -109,6 +109,43 @@ void cUOPacket::assign( cUOPacket& p)
 		compressedBuffer = p.compressedBuffer.copy();
 }
 
+/*!
+  \internal
+  Performs an internal buffer resize.
+*/
+void cUOPacket::resize( uint newSize )
+{
+	rawPacket.resize( newSize );
+}
+
+/*!
+  Returns the packet size. This method doesn't reflect the size of this packet
+  type, but rather how many bytes this instance in particular uses. No 
+  consistency checks are made or enforced here.
+*/
+uint cUOPacket::size() const
+{
+	return rawPacket.size();
+}
+
+uint cUOPacket::count() const
+{
+	return rawPacket.count();
+}
+
+/*!
+  Inserts into \a pos the raw data suplied by \a data parameter
+  If the packet's size is not enought to hold the position + data.size(),
+  more memory will be allocated automatically.
+*/
+void cUOPacket::setRawData( uint pos, const char* data, uint dataSize )
+{
+	haveCompressed = false;
+	if ( size() < pos + dataSize )
+		resize( pos + dataSize );
+	memcpy( &rawPacket.data()[pos], data, dataSize );
+}
+
 // Compresses the packet
 // Author: Beosil
 static unsigned int bitTable[257][2] =
@@ -259,6 +296,35 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
 		result.append(ch);
 	}
 	return result;
+}
+
+/*!
+  Reads an ASCII string from the raw data buffer starting at position \a pos
+  and with size no longer than \a fieldLength. If the actual string in buffer
+  is longer than the supplied \a fieldLength, it will be truncated.
+  \a fieldLength can be 0, in which case, no size check is performed the string
+  is read until a \0 is found.
+*/
+QString cUOPacket::getAsciiString( uint pos, uint fieldLength )
+{
+	if ( rawPacket.size() < fieldLength + pos )
+	{
+		qWarning(QString("Warning: cUOPacket::getAsciiString() called with params out of bounds"));
+		return QString(); //#better return empty ?
+	}
+	if ( fieldLength )
+	{
+		char* buffer = new char[fieldLength+1];
+		qstrncpy(buffer, rawPacket.data() + pos, fieldLength);
+		buffer[fieldLength] = 0; // truncate if larger
+		QString result(buffer);
+		delete[] buffer;
+		return result;
+	}
+	else
+	{
+		return rawPacket.data() + pos; // go until an \0 is found.
+	}
 }
 
 /*!

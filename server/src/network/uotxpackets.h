@@ -59,7 +59,7 @@ class cUOTxDenyLogin: public cUOPacket
 {
 public:
 	cUOTxDenyLogin(): cUOPacket( 0x82, 2 ) {}
-	void setReason( eDenyLogin data ) { rawPacket[1] = data; }
+	void setReason( eDenyLogin data ) { (*this)[1] = data; }
 };
 
 // 0x81: Accept Login ( Sends Serverlist )
@@ -69,7 +69,7 @@ class cUOTxAcceptLogin: public cUOPacket
 public:
 	cUOTxAcceptLogin(): cUOPacket( 3 )
 	{
-		rawPacket[0] = (Q_UINT8)0x81;
+		(*this)[0] = (Q_UINT8)0x81;
 	}
 };
 
@@ -79,8 +79,8 @@ class cUOTxShardList: public cUOPacket
 public:
 	cUOTxShardList(): cUOPacket( 6 )
 	{
-		rawPacket[0] = (Q_UINT8)0xA8;
-		rawPacket[3] = (Q_UINT8)0x64;
+		(*this)[0] = (Q_UINT8)0xA8;
+		(*this)[3] = (Q_UINT8)0x64;
 		setShort( 1, 6 ); // Packet Size
 	}
 
@@ -93,7 +93,7 @@ class cUOTxRelayServer: public cUOPacket
 {
 public:
 	cUOTxRelayServer(): cUOPacket( 11 ) {
-		rawPacket[ 0 ] = (Q_UINT8)0x8C;
+		(*this)[ 0 ] = (Q_UINT8)0x8C;
 	}
 
 	virtual void setServerIp( Q_UINT32 data ) { setInt( 1, data ); }
@@ -144,10 +144,10 @@ class cUOTxCharChangeResult: public cUOPacket
 {
 public:
 	cUOTxCharChangeResult(): cUOPacket( 2 ) {
-		rawPacket[ 0 ] = (Q_UINT8)0x85;
+		(*this)[ 0 ] = (Q_UINT8)0x85;
 	}
 
-	void setResult( eCharChangeResult data ) { rawPacket[ 1 ] = data; }
+	void setResult( eCharChangeResult data ) { (*this)[ 1 ] = data; }
 };
 
 // 0x86 UpdateCharList
@@ -155,7 +155,7 @@ class cUOTxUpdateCharList: public cUOPacket
 {
 public:
 	cUOTxUpdateCharList(): cUOPacket( 304 ) {
-		rawPacket[ 0 ] = (Q_UINT8)0x86;
+		(*this)[ 0 ] = (Q_UINT8)0x86;
 		setShort( 1, 304 );
 	}
 
@@ -169,19 +169,19 @@ public:
 	cUOTxConfirmLogin(): cUOPacket( 0x1B, 37 ) {}
 
 	// This is just here for convenience !! These values are basically unused
-	void setSerial( Q_UINT32 serial ) { setInt( 1, serial ); }
-	void setUnknown1( Q_UINT32 data ) { setInt( 5, data ); }
-	void setBody( Q_UINT16 data ) { setShort( 9, data ); }
-	void setX( Q_UINT16 data ) { setShort( 11, data ); }
-	void setY( Q_UINT16 data ) { setShort( 13, data ); }
-	void setZ( Q_INT16 data ) { setShort( 15, data ); }
-	void setDirection( Q_UINT8 data ) { rawPacket[ 17 ] = data; }
-	void setUnknown2( Q_UINT16 data ) { setShort( 18, data ); }
-	void setUnknown3( Q_UINT32 data ) { setInt( 20, data ); }
-	void setUnknown4( Q_UINT32 data ) { setInt( 24, data ); }
-	void setFlags( Q_UINT8 data ) { rawPacket[ 28 ] = data; }
-	void setHighlight( Q_UINT8 data ) { rawPacket[ 29 ] = data; }
-	void setUnknown5( char data[7] ) { memcpy( &rawPacket.data()[30], data, 7 ); }
+	void setSerial( Q_UINT32 serial )	{ setInt( 1, serial ); }
+	void setUnknown1( Q_UINT32 data )	{ setInt( 5, data ); }
+	void setBody( Q_UINT16 data )		{ setShort( 9, data ); }
+	void setX( Q_UINT16 data )			{ setShort( 11, data ); }
+	void setY( Q_UINT16 data )			{ setShort( 13, data ); }
+	void setZ( Q_INT16 data )			{ setShort( 15, data ); }
+	void setDirection( Q_UINT8 data )	{ (*this)[ 17 ] = data; }
+	void setUnknown2( Q_UINT16 data )	{ setShort( 18, data ); }
+	void setUnknown3( Q_UINT32 data )	{ setInt( 20, data ); }
+	void setUnknown4( Q_UINT32 data )	{ setInt( 24, data ); }
+	void setFlags( Q_UINT8 data )		{ (*this)[ 28 ] = data; }
+	void setHighlight( Q_UINT8 data )	{ (*this)[ 29 ] = data; }
+	void setUnknown5( char data[7] )	{ this->setRawData( 30, (char*)data, 7 ); }
 	void fromChar( P_CHAR pChar );
 };
 
@@ -197,7 +197,7 @@ public:
 		setShort( 3, 0x08 ); // Subcommand
 	}
 
-	void setMap( Q_UINT8 data ) { rawPacket[5] = data; }
+	void setMap( Q_UINT8 data ) { (*this)[5] = data; }
 };
 
 enum eSeasonType
@@ -215,10 +215,10 @@ class cUOTxChangeSeason: public cUOPacket
 public:
 	cUOTxChangeSeason(): cUOPacket( 0xBC, 3 )
 	{
-		rawPacket[ 1 ] = 1;
+		(*this)[ 1 ] = 1;
 	}
 
-	void setSeason( eSeasonType data ) { rawPacket[ 2 ] = data; }
+	void setSeason( eSeasonType data ) { (*this)[ 2 ] = data; }
 };
 
 enum eWeatherType
@@ -241,12 +241,12 @@ public:
 	};
 
 	cUOTxWeather(): cUOPacket( 0x65, 4 ) {
-		rawPacket[ 1 ] = static_cast<uchar>(0xFF);
+		(*this)[ 1 ] = static_cast<uchar>(0xFF);
 	}
 
-	void setType( eWeatherType data )	{ rawPacket[ 1 ] = data; }
-	void setAmount( Q_UINT8 data )		{ rawPacket[ 2 ] = data; }
-	void setTemperature( Q_UINT8 data ) { rawPacket[ 3 ] = data; }
+	void setType( eWeatherType data )	{ (*this)[ 1 ] = data; }
+	void setAmount( Q_UINT8 data )		{ (*this)[ 2 ] = data; }
+	void setTemperature( Q_UINT8 data ) { (*this)[ 3 ] = data; }
 };
 
 // 0x55 StartGame
@@ -262,7 +262,7 @@ class cUOTxQuestPointer: public cUOPacket
 public:
 	cUOTxQuestPointer(): cUOPacket( 0xBA, 6 ) {}
 
-	void setActive( bool data )		{ rawPacket[ 1 ] = data ? 1 : 0; }
+	void setActive( bool data )		{ (*this)[ 1 ] = data ? 1 : 0; }
 	void setX( Q_UINT16 data )		{ setShort( 2, data ); }
 	void setY( Q_UINT16 data )		{ setShort( 4, data ); }
 };
@@ -273,8 +273,8 @@ class cUOTxClientFeatures: public cUOPacket
 public:
 	cUOTxClientFeatures(): cUOPacket( 0xB9, 3 ) {}
 
-	void setLbr( bool enable ) { enable ? rawPacket[ 2 ] |= 0x02 : rawPacket[ 2 ] &= 0xFD; }
-	void setT2a( bool enable ) { enable ? rawPacket[ 2 ] |= 0x01 : rawPacket[ 2 ] &= 0xFE; }
+	void setLbr( bool enable ) { enable ? (*this)[ 2 ] |= 0x02 : (*this)[ 2 ] &= 0xFD; }
+	void setT2a( bool enable ) { enable ? (*this)[ 2 ] |= 0x01 : (*this)[ 2 ] &= 0xFE; }
 };
 
 // 0x24 Draw Container
@@ -283,8 +283,8 @@ class cUOTxDrawContainer: public cUOPacket
 public:
         cUOTxDrawContainer(): cUOPacket( 0x24, 7 ) {}
                                 
-        void setSerial( Q_UINT32 serial ) { setInt( 1, serial ); }
-        void setGump( Q_UINT16 gump ) { setShort( 5, gump ); }
+        void setSerial( Q_UINT32 serial )	{ setInt( 1, serial ); }
+        void setGump( Q_UINT16 gump )		{ setShort( 5, gump ); }
 };
                                            
 // 0x25 AddContainerItem
@@ -293,14 +293,14 @@ class cUOTxAddContainerItem: public cUOPacket
 public:
 	cUOTxAddContainerItem(): cUOPacket( 0x25, 20 ) {}
 	
-	void setSerial( Q_UINT32 serial ) { setInt( 1, serial ); }
-	void setModel( Q_UINT16 model ) { setShort( 5, model ); }
-	void setUnknown1( Q_UINT8 data ) { rawPacket[ 7 ] = data; }
-	void setAmount( Q_UINT16 amount ) { setShort( 8, amount ); }
-	void setX( Q_UINT16 data ) { setShort( 10, data ); }
-	void setY( Q_UINT16 data ) { setShort( 12, data ); }
-	void setContainer( Q_UINT32 data ) { setInt( 14, data ); }
-	void setColor( Q_UINT16 data ) { setShort( 18, data ); }
+	void setSerial( Q_UINT32 serial )	{ setInt( 1, serial ); }
+	void setModel( Q_UINT16 model )		{ setShort( 5, model ); }
+	void setUnknown1( Q_UINT8 data )	{ (*this)[ 7 ] = data; }
+	void setAmount( Q_UINT16 amount )	{ setShort( 8, amount ); }
+	void setX( Q_UINT16 data )			{ setShort( 10, data ); }
+	void setY( Q_UINT16 data )			{ setShort( 12, data ); }
+	void setContainer( Q_UINT32 data )	{ setInt( 14, data ); }
+	void setColor( Q_UINT16 data )		{ setShort( 18, data ); }
 	void fromItem( P_ITEM pItem );
 };
 
@@ -318,7 +318,7 @@ public:
 
 	cUOTxRejectDrag(): cUOPacket( 0x27, 2 ) {}
 	
-	void setRejectType( eRejectType type ) { rawPacket[1] = type; }
+	void setRejectType( eRejectType type ) { (*this)[1] = type; }
 };
 
 // 0x28 ClearSquare
@@ -344,12 +344,12 @@ class cUOTxCharEquipment: public cUOPacket
 public: 
 	cUOTxCharEquipment(): cUOPacket( 0x2E, 15 ) {}
 		
-	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
-	void setModel( Q_UINT16 model ) { setShort( 5, model ); }
-	void setUnknown1( Q_UINT8 data ) { rawPacket[ 7 ] = data; }
-	void setLayer( Q_UINT8 layer ) { rawPacket[ 8 ] = layer; }
-	void setWearer( Q_UINT32 serial ) { setInt( 9, serial ); }
-	void setColor( Q_UINT16 data ) { setShort( 13, data ); }
+	void setSerial( Q_UINT32 data )		{ setInt( 1, data ); }
+	void setModel( Q_UINT16 model )		{ setShort( 5, model ); }
+	void setUnknown1( Q_UINT8 data )	{ (*this)[ 7 ] = data; }
+	void setLayer( Q_UINT8 layer )		{ (*this)[ 8 ] = layer; }
+	void setWearer( Q_UINT32 serial )	{ setInt( 9, serial ); }
+	void setColor( Q_UINT16 data )		{ setShort( 13, data ); }
 	void fromItem( P_ITEM pItem );
 };
 
@@ -359,9 +359,9 @@ class cUOTxShowBattle: public cUOPacket
 public:
 	cUOTxShowBattle(): cUOPacket( 0x2F, 10 ) {}
 
-	void setUnknown1( Q_UINT8 data ) { rawPacket[1] = data; }
-	void setAttacker( Q_UINT32 data ) { setInt( 2, data ); }
-	void setVictim( Q_UINT32 data ) { setInt( 6, data ); }
+	void setUnknown1( Q_UINT8 data )	{ (*this)[1] = data; }
+	void setAttacker( Q_UINT32 data )	{ setInt( 2, data ); }
+	void setVictim( Q_UINT32 data )		{ setInt( 6, data ); }
 };
 
 // 0x33 Pause
@@ -369,8 +369,8 @@ class cUOTxPause: public cUOPacket
 {
 public:
 	cUOTxPause(): cUOPacket( 0x33, 2 ) {}
-	void pause( void ) { rawPacket[1] = 1; }
-	void resume( void ) { rawPacket[1] = 0; }
+	void pause( void )	{ (*this)[1] = 1; }
+	void resume( void ) { (*this)[1] = 0; }
 };
 
 // 0x3A UpdateSkill (one skill)
@@ -380,7 +380,7 @@ public:
 	cUOTxUpdateSkill(): cUOPacket( 0x3A, 11 ) 
 	{ 
 		setShort( 1, 11 );
-		rawPacket[3] = 0xFF;
+		(*this)[3] = 0xFF;
 	}
 
 	enum eStatus
@@ -390,10 +390,10 @@ public:
 		Locked = 2
 	};
 
-	void setId( UINT16 data ) { setShort( 4, data ); }
-	void setValue( UINT16 data ) { setShort( 6, data ) ; }
-	void setRealValue( UINT16 data ) { setShort( 8, data ); }
-	void setStatus( eStatus data ) { rawPacket[10] = data; }
+	void setId( UINT16 data )			{ setShort( 4, data ); }
+	void setValue( UINT16 data )		{ setShort( 6, data ) ; }
+	void setRealValue( UINT16 data )	{ setShort( 8, data ); }
+	void setStatus( eStatus data )		{ (*this)[10] = data; }
 };
 
 // 0x3A SendSkills( multiple skills )
@@ -421,17 +421,17 @@ class cUOTxDrawPlayer: public cUOPacket
 public:
 	cUOTxDrawPlayer(): cUOPacket( 0x20, 19 ) {}
 
-	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
-	void setBody( Q_UINT16 data ) { setShort( 5, data ); }
-	void setUnknown1( Q_UINT8 data ) { rawPacket[ 7 ] = data; }
-	void setSkin( Q_UINT16 data ) { setShort( 8, data ); }
-	void setFlag( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
-	UINT8 flag() { return rawPacket[ 10 ]; }
-	void setX( Q_UINT16 x ) { setShort( 11, x ); }
-	void setY( Q_UINT16 y ) { setShort( 13, y ); }
-	void setUnknown2( Q_UINT16 data ) { setShort( 15, data ); }
-	void setDirection( Q_UINT8 data ) { rawPacket[ 17 ] = data; }
-	void setZ( Q_INT8 data ) { rawPacket[ 18 ] = data; }
+	void setSerial( Q_UINT32 data )		{ setInt( 1, data );	}
+	void setBody( Q_UINT16 data )		{ setShort( 5, data );	}
+	void setUnknown1( Q_UINT8 data )	{ (*this)[ 7 ] = data;	}
+	void setSkin( Q_UINT16 data )		{ setShort( 8, data );	}
+	void setFlag( Q_UINT8 data )		{ (*this)[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
+	UINT8 flag()						{ return (*this)[ 10 ]; }
+	void setX( Q_UINT16 x )				{ setShort( 11, x );	}
+	void setY( Q_UINT16 y )				{ setShort( 13, y );	}
+	void setUnknown2( Q_UINT16 data )	{ setShort( 15, data ); }
+	void setDirection( Q_UINT8 data )	{ (*this)[ 17 ] = data; }
+	void setZ( Q_INT8 data )			{ (*this)[ 18 ] = data; }
 
 	void fromChar( P_CHAR pChar );
 };
@@ -443,14 +443,14 @@ public:
 	cUOTxUpdatePlayer(): cUOPacket( 0x77, 17 ) {}
 
 	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
-	void setBody( Q_UINT16 data ) { setShort( 5, data ); }
-	void setX( Q_UINT16 data ) { setShort( 7, data ); }
-	void setY( Q_UINT16 data ) { setShort( 9, data ); }
-	void setZ( Q_INT8 data ) { (*this)[11] = data; }
+	void setBody( Q_UINT16 data )	{ setShort( 5, data ); }
+	void setX( Q_UINT16 data )		{ setShort( 7, data ); }
+	void setY( Q_UINT16 data )		{ setShort( 9, data ); }
+	void setZ( Q_INT8 data )		{ (*this)[11] = data; }
 	void setDirection( Q_UINT8 data ) { (*this)[12] = data; }
-	void setHue( Q_UINT16 data ) { setShort( 13, data ); }
-	void setFlag( Q_UINT8 data ) { (*this)[15] = data; }
-	UINT8 flag() { return (*this)[15]; }
+	void setHue( Q_UINT16 data )	{ setShort( 13, data ); }
+	void setFlag( Q_UINT8 data )	{ (*this)[15] = data; }
+	UINT8 flag()					{ return (*this)[15]; }
 	void setHighlight( Q_UINT8 data ) { (*this)[16] = data; }
 
 	void fromChar( P_CHAR pChar );
@@ -466,15 +466,15 @@ public:
 	}
 	
 	void setSerial( Q_UINT32 data ) { setInt( 3, data ); }
-	void setModel( Q_UINT16 data ) { setShort( 7, data ); }
-	void setX( Q_UINT16 data ) { setShort( 9, data ); }
-	void setY( Q_UINT16 data ) { setShort( 11, data ); }	
-	void setZ( Q_INT8 data ) { rawPacket[13] = data;  }
-	void setDirection( Q_UINT8 data ) { rawPacket[14] = data; }
-	void setColor( Q_UINT16 data ) { setShort( 15, data ); }
-    void setFlag( Q_UINT8 data ) { rawPacket[17] = data; }
-	UINT8 flag() { return rawPacket[17]; }
-	void setHighlight( Q_UINT8 data ) { rawPacket[18] = data; }
+	void setModel( Q_UINT16 data )	{ setShort( 7, data ); }
+	void setX( Q_UINT16 data )		{ setShort( 9, data ); }
+	void setY( Q_UINT16 data )		{ setShort( 11, data ); }	
+	void setZ( Q_INT8 data )		{ (*this)[13] = data;  }
+	void setDirection( Q_UINT8 data ) { (*this)[14] = data; }
+	void setColor( Q_UINT16 data )	{ setShort( 15, data ); }
+    void setFlag( Q_UINT8 data )	{ (*this)[17] = data; }
+	UINT8 flag()					{ return (*this)[17]; }
+	void setHighlight( Q_UINT8 data ) { (*this)[18] = data; }
 	void fromChar( P_CHAR pChar );
 	
 	// The last 4 bytes are the terminator
@@ -485,8 +485,8 @@ public:
 class cUOTxOptions: public cUOPacket
 {
 public:
-	cUOTxOptions(): cUOPacket( 0x69, 5 ) { setShort( 1, 5 ); }
-	void setOption( Q_UINT8 data ) { rawPacket[3] = data; }
+	cUOTxOptions(): cUOPacket( 0x69, 5 )	{ setShort( 1, 5 ); }
+	void setOption( Q_UINT8 data )			{ (*this)[3] = data; }
 };
 
 // 0x5b GameTime
@@ -495,9 +495,9 @@ class cUOTxGameTime: public cUOPacket
 public:
 	cUOTxGameTime(): cUOPacket( 0x5b, 4 ) {}
 	void setTime( Q_UINT8 hour, Q_UINT8 minute, Q_UINT8 second ) {
-		rawPacket[1] = hour;
-		rawPacket[2] = minute;
-		rawPacket[3] = second;
+		(*this)[1] = hour;
+		(*this)[2] = minute;
+		(*this)[3] = second;
 	}
 };
 
@@ -517,13 +517,13 @@ public:
 		Yell = 0x09
 	};
 
-	void setSource( SERIAL data ) { setInt( 3, data ); }
-	void setModel( Q_UINT16 data ) { setShort( 7, data ); }
-	void setType( eSpeechType data ) { rawPacket[ 9 ] = data; }
-	void setColor( Q_UINT16 data ) { setShort( 10, data ); }
-	void setFont( Q_UINT16 font ) { setShort( 12, font ); }
-	void setLanguage( const QString &data ) { memcpy( &rawPacket.data()[14], data.latin1(), MIN( data.length()+1, 4 ) ); }
-	void setName( const QString &data ) { memcpy( &rawPacket.data()[18], data.latin1(), MIN( data.length()+1, 30 ) ); }
+	void setSource( SERIAL data )	{ setInt( 3, data ); }
+	void setModel( Q_UINT16 data )	{ setShort( 7, data ); }
+	void setType( eSpeechType data ) { (*this)[ 9 ] = data; }
+	void setColor( Q_UINT16 data )	{ setShort( 10, data ); }
+	void setFont( Q_UINT16 font )	{ setShort( 12, font ); }
+	void setLanguage( const QString &data ) { this->setAsciiString(14, data.latin1(), 4 ); }
+	void setName( const QString &data )		{ this->setAsciiString(18, data.latin1(), 30 ); }
 	void setText( const QString &data );
 };
 
@@ -537,42 +537,42 @@ public:
 	{ 
 		if( extended )
 		{
-			rawPacket.resize( 0x46 );
+			resize( 0x46 );
 			setShort( 1, 0x46 );
-			rawPacket[42] = 0x03;
+			(*this)[42] = 0x03;
 		}
 		else if( mode )
 		{
-			rawPacket.resize( 0x42 );
+			resize( 0x42 );
 			setShort( 1, 0x42 );
-			rawPacket[42] = 0x01;
+			(*this)[42] = 0x01;
 		}
 		else
 		{
-			rawPacket[42] = 0x00;
+			(*this)[42] = 0x00;
 		}
 	}
 
-	void setAllowRename( bool mode ) { rawPacket[41] = mode ? 0x01 : 0x00; }
-	void setSerial( SERIAL serial ) { setInt( 3, serial ); }
+	void setAllowRename( bool mode )	{ (*this)[41] = mode ? 0x01 : 0x00; }
+	void setSerial( SERIAL serial )		{ setInt( 3, serial ); }
 	void setName( const QString &name ) { setAsciiString( 7, name, MIN( name.length()+1, 30 ) ); }
-	void setHp( Q_UINT16 data ) { setShort( 37, data ); }
-	void setMaxHp( Q_UINT16 data ) { setShort( 39, data ); }
-	void setSex( bool male ) { rawPacket[43] = male ? 0 : 1; }
-	void setStrength( Q_UINT16 data ) { setShort( 44, data ); }
-	void setDexterity( Q_UINT16 data ) { setShort( 46, data ); }
+	void setHp( Q_UINT16 data )			{ setShort( 37, data ); }
+	void setMaxHp( Q_UINT16 data )		{ setShort( 39, data ); }
+	void setSex( bool male )			{ (*this)[43] = male ? 0 : 1; }
+	void setStrength( Q_UINT16 data )	{ setShort( 44, data ); }
+	void setDexterity( Q_UINT16 data )	{ setShort( 46, data ); }
 	void setIntelligence( Q_UINT16 data ) { setShort( 48, data ); }
-	void setStamina( Q_UINT16 data ) { setShort( 50, data ); }
+	void setStamina( Q_UINT16 data )	{ setShort( 50, data ); }
 	void setMaxStamina( Q_UINT16 data ) { setShort( 52, data ); }
-	void setMana( Q_UINT16 data ) { setShort( 54, data ); }
-	void setMaxMana( Q_UINT16 data ) { setShort( 56, data ); }
-	void setGold( Q_UINT32 data ) { setInt( 58, data ); }
-	void setArmor( Q_UINT16 data ) { setShort( 62, data ); }
-	void setWeight( Q_UINT16 data ) { setShort( 64, data ); }
+	void setMana( Q_UINT16 data )		{ setShort( 54, data ); }
+	void setMaxMana( Q_UINT16 data )	{ setShort( 56, data ); }
+	void setGold( Q_UINT32 data )		{ setInt( 58, data ); }
+	void setArmor( Q_UINT16 data )		{ setShort( 62, data ); }
+	void setWeight( Q_UINT16 data )		{ setShort( 64, data ); }
 	// extended for newer clients
-	void setStatCap( Q_UINT16 data ) { setShort( 66, data ); }
-	void setPets( Q_UINT8 data ) { rawPacket[ 68 ] = data; }
-	void setMaxPets( Q_UINT8 data ) { rawPacket[ 69 ] = data; }
+	void setStatCap( Q_UINT16 data )	{ setShort( 66, data ); }
+	void setPets( Q_UINT8 data )		{ (*this)[ 68 ] = data; }
+	void setMaxPets( Q_UINT8 data )		{ (*this)[ 69 ] = data; }
 };
 
 // 0xBF Subcommand: 0x14
@@ -638,10 +638,10 @@ class cUOTxOpenPaperdoll: public cUOPacket
 {
 public:
 	cUOTxOpenPaperdoll(): cUOPacket( 0x88, 66 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setName( const QString &name ) { memcpy( &rawPacket.data()[5], name.latin1(), MIN( 60, name.length()+1 ) ); }
-	void setFlag( UINT8 flag ) { (*this)[65] = flag; }
-	UINT8 flag() { return (*this)[65]; }
+	void setSerial( UINT32 data )		{ setInt( 1, data ); }
+	void setName( const QString &name ) { this->setAsciiString(5, name.latin1(), 60 ); }
+	void setFlag( UINT8 flag )			{ (*this)[65] = flag; }
+	UINT8 flag()						{ return (*this)[65]; }
 	void fromChar( P_CHAR pChar );
 };
 
@@ -651,10 +651,10 @@ class cUOTxBookTitle: public cUOPacket
 public:
 	cUOTxBookTitle(): cUOPacket( 0x93, 99 ) {}
 
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setWriteable( bool data ) { rawPacket[5] = data ? 1 : 0; }
-	void setFlag( UINT8 data ) { rawPacket[6] = data; }
-	void setPages( UINT16 data ) { setShort( 7, data ); }
+	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setWriteable( bool data )	{ (*this)[5] = data ? 1 : 0; }
+	void setFlag( UINT8 data )		{ (*this)[6] = data; }
+	void setPages( UINT16 data )	{ setShort( 7, data ); }
 	void setTitle( const QString &title ) { setAsciiString( 9, title.latin1(), 60 ); }
 	void setAuthor( const QString &author ) { setAsciiString( 69, author.latin1(), 30 ); }
 };
@@ -669,9 +669,9 @@ public:
 		currPageOffset = 0;
 	}
 
-	void setBlockSize( UINT16 data ) { setShort( 1, data ); }
-	void setSerial( UINT32 data ) { setInt( 3, data ); }
-	void setPages( UINT16 data ) { setShort( 7, data ); }
+	void setBlockSize( UINT16 data )	{ setShort( 1, data ); }
+	void setSerial( UINT32 data )		{ setInt( 3, data ); }
+	void setPages( UINT16 data )		{ setShort( 7, data ); }
 
 	void setPage( UINT16 page, UINT16 numLines, const QStringList &lines );
 protected:
@@ -698,20 +698,20 @@ public:
 class cUOTxSendItem: public cUOPacket
 {
 public:
-	cUOTxSendItem(): cUOPacket( 0x1A, 20 ) { setShort( 1, 20 ); }
-	void setSerial( UINT32 data ) { setInt( 3, data | 0x80000000 ); }
-	void setId( UINT16 data ) { setShort( 7, data ); }
-	void setAmount( UINT16 data ) { setShort( 9, data ); }
+	cUOTxSendItem(): cUOPacket( 0x1A, 20 )	{ setShort( 1, 20 ); }
+	void setSerial( UINT32 data )			{ setInt( 3, data | 0x80000000 ); }
+	void setId( UINT16 data )				{ setShort( 7, data ); }
+	void setAmount( UINT16 data )			{ setShort( 9, data ); }
 	void setCoord( const Coord_cl &coord )
 	{
 		setShort( 11, coord.x | 0x8000 );
 		setShort( 13, coord.y | 0xC000 );
-		rawPacket[16] = coord.z;
+		(*this)[16] = coord.z;
 	}
-	void setDirection( UINT8 data ) { rawPacket[15] = data; }
-	void setColor( UINT16 data ) { setShort( 17, data ); }
-	void setFlags( UINT8 data ) { rawPacket[19] = data; }
-	UINT8 flags() { return rawPacket[19]; }
+	void setDirection( UINT8 data )			{ (*this)[15] = data; }
+	void setColor( UINT16 data )			{ setShort( 17, data ); }
+	void setFlags( UINT8 data )				{ (*this)[19] = data; }
+	UINT8 flags()							{ return (*this)[19]; }
 };
 
 // 0x6C Target
@@ -719,26 +719,26 @@ class cUOTxTarget: public cUOPacket
 {
 public:
 	cUOTxTarget(): cUOPacket( 0x6c, 19 ) {}
-	void setAllowGround( bool data ) { rawPacket[1] = data ? 1 : 0; }
-	void setTargSerial( UINT32 data ) { setInt( 2, data ); }
+	void setAllowGround( bool data )		{ (*this)[1] = data ? 1 : 0; }
+	void setTargSerial( UINT32 data )		{ setInt( 2, data ); }
 };
 
 // 0x99 Place
 class cUOTxPlace: public cUOPacket
 {
 public:
-	cUOTxPlace(): cUOPacket( 0x99, 26 ) { rawPacket[1] = 0x01; }
-	void setTargSerial( UINT32 data ) { setInt( 2, data ); }
-	void setModelID( UINT16 data ) { setShort( 18, data ); }
+	cUOTxPlace(): cUOPacket( 0x99, 26 )		{ (*this)[1] = 0x01; }
+	void setTargSerial( UINT32 data )		{ setInt( 2, data ); }
+	void setModelID( UINT16 data )			{ setShort( 18, data ); }
 };
 
 // 0x54 SoundEffect
 class cUOTxSoundEffect: public cUOPacket
 {
 public:
-	cUOTxSoundEffect(): cUOPacket( 0x54, 12 ) { rawPacket[1] = 1; }
-	void setSound( UINT16 data ) { setShort( 2, data ); }
-	void setUnknown( UINT16 data ) { setShort( 4, data ); }
+	cUOTxSoundEffect(): cUOPacket( 0x54, 12 )	{ (*this)[1] = 1; }
+	void setSound( UINT16 data )				{ setShort( 2, data ); }
+	void setUnknown( UINT16 data )				{ setShort( 4, data ); }
 	void setCoord( const Coord_cl &coord ) 
 	{
 		setShort( 6, coord.x );
@@ -772,8 +772,8 @@ enum eBounceReason
 class cUOTxBounceItem: public cUOPacket
 {
 public:
-	cUOTxBounceItem(): cUOPacket( 0x27, 2 ) { rawPacket[1] = BR_NO_REASON; } // better safe than sorry
-	void setReason( eBounceReason reason ) { rawPacket[1] = reason; }
+	cUOTxBounceItem(): cUOPacket( 0x27, 2 ) { (*this)[1] = BR_NO_REASON; } // better safe than sorry
+	void setReason( eBounceReason reason )	{ (*this)[1] = reason; }
 };
 
 // 0xA1 Update Health
@@ -781,9 +781,9 @@ class cUOTxUpdateHealth: public cUOPacket
 {
 public:
 	cUOTxUpdateHealth(): cUOPacket( 0xA1, 9 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setMaximum( UINT16 data ) { setShort( 5, data ); }
-	void setCurrent( UINT16 data ) { setShort( 7, data ); }
+	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setMaximum( UINT16 data )	{ setShort( 5, data ); }
+	void setCurrent( UINT16 data )	{ setShort( 7, data ); }
 };
 
 // 0xA2 Update Mana
@@ -791,9 +791,9 @@ class cUOTxUpdateMana: public cUOPacket
 {
 public:
 	cUOTxUpdateMana(): cUOPacket( 0xA2, 9 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setMaximum( UINT16 data ) { setShort( 5, data ); }
-	void setCurrent( UINT16 data ) { setShort( 7, data ); }
+	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setMaximum( UINT16 data )	{ setShort( 5, data ); }
+	void setCurrent( UINT16 data )	{ setShort( 7, data ); }
 };
 
 // 0xA3 Update Stamina
@@ -801,9 +801,9 @@ class cUOTxUpdateStamina: public cUOPacket
 {
 public:
 	cUOTxUpdateStamina(): cUOPacket( 0xA3, 9 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setMaximum( UINT16 data ) { setShort( 5, data ); }
-	void setCurrent( UINT16 data ) { setShort( 7, data ); }
+	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setMaximum( UINT16 data )	{ setShort( 5, data ); }
+	void setCurrent( UINT16 data )	{ setShort( 7, data ); }
 };
 
 // 0xAA AttackResponse
@@ -811,15 +811,15 @@ class cUOTxAttackResponse: public cUOPacket
 {
 public:
 	cUOTxAttackResponse(): cUOPacket( 0xAA, 5 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setSerial( UINT32 data )	{ setInt( 1, data ); }
 };
 
 // 0x72 Warmode
 class cUOTxWarmode: public cUOPacket
 {
 public:
-	cUOTxWarmode(): cUOPacket( 0x72, 5 ) { rawPacket[3] = 0x33; }
-	void setStatus( UINT8 data ) { rawPacket[1] = data; }
+	cUOTxWarmode(): cUOPacket( 0x72, 5 )	{ (*this)[3] = 0x33; }
+	void setStatus( UINT8 data )			{ (*this)[1] = data; }
 };
 
 // 0x6E Action
@@ -827,14 +827,14 @@ class cUOTxAction: public cUOPacket
 {
 public:
 	cUOTxAction(): cUOPacket( 0x6E, 14 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setAction( UINT16 data ) { setShort( 5, data ); }
-	void setUnknown1( UINT8 data ) { rawPacket[7] = data; }
-	void setDirection( UINT8 data ) { rawPacket[8] = data; }
-	void setRepeat( UINT16 data ) { setShort( 9, data ); }
-	void setBackwards( UINT8 data ) { rawPacket[11] = data; }
-	void setRepeatFlag( UINT8 data ) { rawPacket[12] = data; }
-	void setSpeed( UINT8 data ) { rawPacket[13] = data; }
+	void setSerial( UINT32 data )			{ setInt( 1, data ); }
+	void setAction( UINT16 data )			{ setShort( 5, data ); }
+	void setUnknown1( UINT8 data )			{ (*this)[7] = data; }
+	void setDirection( UINT8 data )			{ (*this)[8] = data; }
+	void setRepeat( UINT16 data )			{ setShort( 9, data ); }
+	void setBackwards( UINT8 data )			{ (*this)[11] = data; }
+	void setRepeatFlag( UINT8 data )		{ (*this)[12] = data; }
+	void setSpeed( UINT8 data )				{ (*this)[13] = data; }
 };
 
 // 0xAF DeathAction
@@ -842,17 +842,17 @@ class cUOTxDeathAction: public cUOPacket
 {
 public:
 	cUOTxDeathAction(): cUOPacket( 0xAF, 13 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setCorpse( UINT32 data ) { setInt( 5, data ); }
-	void setUnknown1( UINT32 data ) { setInt( 9, data ); }
+	void setSerial( UINT32 data )		{ setInt( 1, data ); }
+	void setCorpse( UINT32 data )		{ setInt( 5, data ); }
+	void setUnknown1( UINT32 data )		{ setInt( 9, data ); }
 };
 
 // 0x3B ClearBuy
 class cUOTxClearBuy: public cUOPacket
 {
 public:
-	cUOTxClearBuy(): cUOPacket( 0x3B, 8 ) { setShort( 1, 8 ); }
-	void setSerial( UINT32 data ) { setInt( 3, data ); }
+	cUOTxClearBuy(): cUOPacket( 0x3B, 8 )	{ setShort( 1, 8 ); }
+	void setSerial( UINT32 data )			{ setInt( 3, data ); }
 };
 
 // 0xBA QuestArrow
@@ -860,7 +860,7 @@ class cUOTxQuestArrow: public cUOPacket
 {
 public:
 	cUOTxQuestArrow(): cUOPacket( 0xBA, 6 ) {}
-	void setActive( UINT8 status ) { rawPacket[1] = status; }
+	void setActive( UINT8 status )			{ (*this)[1] = status; }
 	void setPos( const Coord_cl &pos ) 
 	{
 		setShort( 2, pos.x );
@@ -874,7 +874,7 @@ class cUOTxCorpseEquipment: public cUOPacket
 public:
 	cUOTxCorpseEquipment(): cUOPacket( 0x89, 8 ) { setShort( 1, 8 ); }
 
-	void setSerial( UINT32 data ) { setInt( 3, data ); }
+	void setSerial( UINT32 data )			{ setInt( 3, data ); }
 	void addItem( UINT8 layer, UINT32 serial );
 };
 
@@ -923,8 +923,8 @@ class cUOTxDyeTub: public cUOPacket
 {
 public:
 	cUOTxDyeTub(): cUOPacket( 0x95, 9 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
-	void setModel( UINT16 data ) { setShort( 7, data ); }
+	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setModel( UINT16 data )	{ setShort( 7, data ); }
 };
 
 // 0x70 OldEffect
@@ -940,25 +940,25 @@ public:
 	};
 
 	cUOTxOldEffect(): cUOPacket( 0x70, 28 ) {}
-	void setType( UINT8 data ) { rawPacket[1] = data; }
-	void setSource( SERIAL data ) { setInt( 2, data ); }
-	void setTarget( SERIAL data ) { setInt( 6, data ); }
-	void setId( UINT16 data ) { setShort( 10, data ); }
+	void setType( UINT8 data )		{ (*this)[1] = data; }
+	void setSource( SERIAL data )	{ setInt( 2, data ); }
+	void setTarget( SERIAL data )	{ setInt( 6, data ); }
+	void setId( UINT16 data )		{ setShort( 10, data ); }
 	void setSource( const Coord_cl &pos ) {
 		setShort( 12, pos.x );
 		setShort( 14, pos.y );
-		rawPacket[16] = pos.z;
+		(*this)[16] = pos.z;
 	}
 	void setTarget( const Coord_cl &pos ) {
 		setShort( 17, pos.x );
 		setShort( 19, pos.y );
-		rawPacket[21] = pos.z;
+		(*this)[21] = pos.z;
 	}
-	void setSpeed( UINT8 data ) { rawPacket[22] = data; }
-	void setDuration( UINT8 data ) { rawPacket[23] = data; }
-	void setUnknown( UINT16 data ) { setShort( 24, data ); }
-	void setFixedDirection( bool data ) { rawPacket[26] = data ? 1 : 0; }
-	void setExplodes( bool data ) { rawPacket[27] = data ? 1 : 0; }
+	void setSpeed( UINT8 data )		{ (*this)[22] = data; }
+	void setDuration( UINT8 data )	{ (*this)[23] = data; }
+	void setUnknown( UINT16 data )	{ setShort( 24, data ); }
+	void setFixedDirection( bool data ) { (*this)[26] = data ? 1 : 0; }
+	void setExplodes( bool data )	{ (*this)[27] = data ? 1 : 0; }
 };
 
 // 0xC0 Graphical Effect
@@ -974,26 +974,26 @@ public:
 	};
 
 	cUOTxEffect(): cUOPacket( 0xC0, 36 ) {}
-	void setType( UINT8 data ) { rawPacket[1] = data; }
-	void setSource( SERIAL data ) { setInt( 2, data ); }
-	void setTarget( SERIAL data ) { setInt( 6, data ); }
-	void setId( UINT16 data ) { setShort( 10, data ); }
+	void setType( UINT8 data )		{ (*this)[1] = data; }
+	void setSource( SERIAL data )	{ setInt( 2, data ); }
+	void setTarget( SERIAL data )	{ setInt( 6, data ); }
+	void setId( UINT16 data )		{ setShort( 10, data ); }
 	void setSource( const Coord_cl &pos ) {
 		setShort( 12, pos.x );
 		setShort( 14, pos.y );
-		rawPacket[16] = pos.z;
+		(*this)[16] = pos.z;
 	}
 	void setTarget( const Coord_cl &pos ) {
 		setShort( 17, pos.x );
 		setShort( 19, pos.y );
-		rawPacket[21] = pos.z;
+		(*this)[21] = pos.z;
 	}
-	void setSpeed( UINT8 data ) { rawPacket[22] = data; }
-	void setDuration( UINT8 data ) { rawPacket[23] = data; }
-	void setUnknown( UINT16 data ) { setShort( 24, data ); }
-	void setFixedDirection( bool data ) { rawPacket[26] = data ? 1 : 0; }
-	void setExplodes( bool data ) { rawPacket[27] = data ? 1 : 0; }
-	void setHue( UINT32 data ) { setInt( 28, data ); }
+	void setSpeed( UINT8 data )		{ (*this)[22] = data; }
+	void setDuration( UINT8 data )	{ (*this)[23] = data; }
+	void setUnknown( UINT16 data )	{ setShort( 24, data ); }
+	void setFixedDirection( bool data ) { (*this)[26] = data ? 1 : 0; }
+	void setExplodes( bool data )	{ (*this)[27] = data ? 1 : 0; }
+	void setHue( UINT32 data )		{ setInt( 28, data ); }
 	void setRendermode( UINT32 data ) { setInt( 32, data ); }
 };
 
@@ -1012,10 +1012,10 @@ class cUOTxTrade: public cUOPacket
 public:
 	cUOTxTrade(): cUOPacket( 0x6f, 17 ) { setShort( 1, 17 ); }
 	void setName( const QString &name );
-	void setPartner( SERIAL data ) { setInt( 4, data ); }
-	void setBox1( SERIAL data ) { setInt( 8, data ); }
-	void setBox2( SERIAL data ) { setInt( 12, data ); }
-	void setAction( UINT8 data ) { rawPacket[3] = data; }
+	void setPartner( SERIAL data )	{ setInt( 4, data ); }
+	void setBox1( SERIAL data )		{ setInt( 8, data ); }
+	void setBox2( SERIAL data )		{ setInt( 12, data ); }
+	void setAction( UINT8 data )	{ (*this)[3] = data; }
 };
 
 /* 0x1C Ascii Talk
@@ -1044,20 +1044,21 @@ public:
 
 	enum { LowerLeft = 6, OnObject = 7, PacketLen = 48 };
 
-	void setSerial ( SERIAL data ) { setInt( 3, data ); }
-	void setBody ( Q_UINT16 data ) { setShort( 7, data ); }
-	void setType ( Q_UINT8 data ) { setShort( 9, data ); }
-	void setHue ( Q_UINT16 data ) { setShort(10, data ); }
-	void setFont ( Q_UINT16 data ) { setShort(12, data ); }
+	void setSerial ( SERIAL data )	{ setInt( 3, data ); }
+	void setBody ( Q_UINT16 data )	{ setShort( 7, data ); }
+	void setType ( Q_UINT8 data )	{ setShort( 9, data ); }
+	void setHue ( Q_UINT16 data )	{ setShort(10, data ); }
+	void setFont ( Q_UINT16 data )	{ setShort(12, data ); }
 	void setMsgNum ( Q_UINT32 data ) { setInt(14, data ); }
-	void setName ( const QString &data ) { memcpy( &rawPacket.data()[18], data.latin1(), MIN( data.length()+1, 30 ) ); }
+	void setName ( const QString &data ) { this->setAsciiString(18, data.latin1(), 30 ); }
 	void setParams ( const QString &data )
 	{
 		if ( data.length() > 0 )
 		{
-			rawPacket.resize(PacketLen+data.length()*2+2);
-			memcpy( &rawPacket.data()[PacketLen], data.unicode(), data.length()*2 );
-			setShort( 1, PacketLen+data.length()*2 );
+			resize( PacketLen + data.length()*2+2 );
+			QString tmpData = data; // go around the const stuff.
+			this->setUnicodeString( PacketLen, tmpData, data.length()*2 );
+			setShort ( 1, PacketLen+data.length()*2 );
 			setShort ( PacketLen+data.length()*2, 0 );
 		}
 	}

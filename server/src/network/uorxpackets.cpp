@@ -111,7 +111,7 @@ QString cUORxSpeechRequest::message()
 		if( skipCount % 8 > 0 )
 			skipBytes++;
 
-		return &rawPacket.data()[ 12 + skipBytes ];
+		return getAsciiString(12 + skipBytes, getShort(1) - 12);
 	}
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );
@@ -131,7 +131,7 @@ QStringList cUORxBookPage::lines()
 	UINT16 currLine = 0;
 	while( currLine < numOfLines() )
 	{
-		QString line = QString( &rawPacket.data()[i] );
+		QString line = QString( getAsciiString(i) );
 		i += (line.length()+1);
 		lines_.push_back( line );
 		currLine++; // next line!

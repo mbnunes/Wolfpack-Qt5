@@ -39,14 +39,21 @@
 
 using namespace std;
 
+// Forward declaration
+class cUORxMultiPurpose;
+
 class cUOPacket
 {
-protected:
+private:
 	QByteArray compressedBuffer;
 	QByteArray rawPacket;
+
+protected:
 	bool haveCompressed;
 	void compress();
 	void assign( cUOPacket& );
+	void resize( uint );
+	void setRawData( uint, const char*, uint );
 
 public:
 	cUOPacket( QByteArray );
@@ -54,21 +61,30 @@ public:
 	cUOPacket( cUOPacket& );
 	cUOPacket( Q_UINT8, Q_UINT32 );
 	virtual ~cUOPacket() {}
+	uint	size() const;
+	uint    count() const;
 
 	virtual QByteArray compressed();
 	virtual QByteArray uncompressed() { return rawPacket; }
-	char& operator []( uint );
-	cUOPacket& operator=( cUOPacket& p );
-	int   getInt( uint );
-	short getShort( uint);
+	int		getInt( uint );
+	short	getShort( uint);
+	QString getAsciiString( uint, uint = 0 );
 	QString getUnicodeString( uint, uint );
-	void  setInt( uint, uint );
-	void  setShort( uint, ushort );
-	void  setUnicodeString( uint, QString&, uint );
-	void  setAsciiString( uint, const char*, uint );
-	static QString dump( const QByteArray& );
+	void	setInt( uint, uint );
+	void	setShort( uint, ushort );
+	void	setUnicodeString( uint, QString&, uint );
+	void	setAsciiString( uint, const char*, uint );
+	static	QString dump( const QByteArray& );
 
 	virtual void print( ostream* );
+
+	// Operators
+	char& operator []( uint );
+	cUOPacket& operator=( cUOPacket& p );
+
+
+	// Temporary
+	friend cUORxMultiPurpose;
 };
 
 #endif // __UOPACKET_H__
