@@ -11,26 +11,26 @@
     <!-- Consumables -->
     <fletch definition="de1" name="Kindling">
       <bowcraft min="0" max="0" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="1" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards & Logs" />
       <nomark />
     </fletch>
     <fletch definition="1bd4" name="Shaft">
       <bowcraft min="0" max="400" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="1" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards & Logs" />
       <stackable />
       <nomark />
     </fletch>
     <fletch definition="f3f" name="Arrows">
       <bowcraft min="0" max="400" />
-      <material id="1bd4" amount="1" /> <!-- Shaft -->
-      <material id="1bd1" amount="1" /> <!-- Feather -->
+      <material id="1bd4" amount="1" name="Shaft" /> <!-- Shaft -->
+      <material id="1bd1" amount="1" name="Feather" /> <!-- Feather -->
       <stackable />
       <nomark />
     </fletch>
     <fletch definition="1bfb" name="Crossbow Bolts">
       <bowcraft min="0" max="400" />
-      <material id="1bd4" amount="1" /> <!-- Shaft -->
-      <material id="1bd1" amount="1" /> <!-- Feather -->
+      <material id="1bd4" amount="1" name="Shaft" /> <!-- Shaft -->
+      <material id="1bd1" amount="1" name="Feather" /> <!-- Feather -->
       <stackable />
       <nomark />
     </fletch>
@@ -38,23 +38,23 @@
     <!-- Weapon -->
     <fletch definition="13b1" name="Bow">
       <bowcraft min="300" max="700" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="7" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards & Logs" />
     </fletch>
     <fletch definition="f4f" name="Crossbow">
       <bowcraft min="600" max="1000" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="7" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards & Logs" />
     </fletch>
     <fletch definition="13fd" name="Heavy Crossbow">
       <bowcraft min="800" max="1200" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="10" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards & Logs" />
     </fletch>
     <fletch definition="26c2" name="Composite Bow">
       <bowcraft min="700" max="1100" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="10" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards & Logs" />
     </fletch>
     <fletch definition="26cd" name="Repeating Crossbow">
       <bowcraft min="900" max="1300" penalty="55" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="10" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards & Logs" />
     </fletch>
   </menu>
 </definitions>
