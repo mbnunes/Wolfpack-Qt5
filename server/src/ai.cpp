@@ -71,7 +71,6 @@ void AbstractAI::check()
 		for( action = m_actions.first(); action; action = m_actions.next() )
 		{
 			actions.push_back( stActionNode( action->preCondition(), action ) );
-			clConsole.send( QString("%1\n").arg( action->preCondition() ) );
 		}
 		std::sort( actions.begin(), actions.end(), ActionNodeComparePredicate() );
 
@@ -93,7 +92,6 @@ void AbstractAI::check()
 		// We must check the postcondition now and set the current action to NULL
 		// if the action is finished (when it returns >= 1.0f)!
 		float rnd = RandomNum( 0, 1000 ) / 1000.0f;
-		clConsole.send(QString("post:%1, rnd:%2").arg(m_currentAction->postCondition()).arg(rnd));
 		if( m_currentAction->postCondition() >= rnd )
 			m_currentAction = NULL;
 

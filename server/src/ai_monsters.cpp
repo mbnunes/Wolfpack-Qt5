@@ -201,7 +201,7 @@ float Monster_Aggr_MoveToTarget::preCondition()
 	if( m_npc->inRange( pAI->currentVictim(), range ) )
 		return 0.0f;
 
-	float healthmod = (float)m_npc->hitpoints() / (float)m_npc->criticalHealth();
+	float healthmod = (float)m_npc->hitpoints() / ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints());
 	return healthmod;
 }
 
@@ -226,7 +226,7 @@ float Monster_Aggr_MoveToTarget::postCondition()
 		return 1.0f;
 
 	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
-						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
+						(float)(m_npc->maxHitpoints() - ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints()));
 	return healthmod;
 }
 
@@ -265,7 +265,7 @@ float Monster_Aggr_Fight::preCondition()
 	if( !m_npc->inRange( pAI->currentVictim(), range ) )
 		return 0.0f;
 
-	float healthmod = (float)m_npc->hitpoints() / (float)m_npc->criticalHealth();
+	float healthmod = (float)m_npc->hitpoints() / ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints());
 	return healthmod;
 }
 
@@ -291,7 +291,7 @@ float Monster_Aggr_Fight::postCondition()
 		return 1.0f;
 
 	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
-						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
+						(float)(m_npc->maxHitpoints() - ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints()));
 	return healthmod;
 }
 

@@ -945,9 +945,9 @@ int main( int argc, char *argv[] )
 	// NPC AI types
 	Monster_Aggressive_L0::registerInFactory();
 	Monster_Aggressive_L1::registerInFactory();
-/*	Human_Vendor::registerInFactory();
+	Human_Vendor::registerInFactory();
 	Human_Stablemaster::registerInFactory();
-	//Animal_Wild::registerInFactory();*/
+	//Animal_Wild::registerInFactory();
 
 	try
 	{
