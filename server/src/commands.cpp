@@ -45,6 +45,7 @@
 #include "contextmenu.h"
 #include "pythonscript.h"
 #include "network/network.h"
+#include "dbdriver.h"
 
 // System Includes
 #include <functional>
@@ -674,6 +675,207 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 }
 
 /*
+	Recursive processing function to get neccesary information about items.
+*/
+static void processItem(QMap<QCString, QString> &item, const cElement *node) {
+	// If there is an inherit tag, inherit a parent item definition.
+	QString inherit = node->getAttribute("inherit");
+	if (inherit != QString::null) {
+		const cElement *parent = Definitions::instance()->getDefinition(WPDT_ITEM, inherit);
+		if (parent) {
+			processItem(item, parent);
+		}
+	}
+
+	int count = node->childCount();
+	int i;
+	for (i = 0; i < count; ++i) {
+		const cElement *child = node->getChild(i);
+		
+		// Inherit properties from another item definition
+		if (child->name() == "inherit") {
+			const cElement *parent = 0;
+
+			if (child->hasAttribute("id")) {
+				parent = Definitions::instance()->getDefinition(WPDT_ITEM, child->getAttribute("id"));
+			} else {
+				parent = Definitions::instance()->getDefinition(WPDT_ITEM, child->text());
+			}
+			 
+			if (parent) {
+				processItem(item, parent);
+			}
+		} else if (child->name() == "id") {
+            item["dispid"] = child->value();
+		} else if (child->name() == "name") {
+			item["name"] = child->text();
+		} else if (child->name() == "color") {
+			item["color"] = child->value();
+		} else if (child->name() == "category") {
+			item["categoryname"] = child->text();
+		}
+	}
+}
+
+static void ensureCategory(QMap<QString, unsigned int> &categories, unsigned int &lastcategory, QString category) {
+	int pos = category.findRev('\\');
+	if (pos != -1) {
+		QString parentCategory = category.left(pos);
+		ensureCategory(categories, lastcategory, parentCategory);
+	}
+
+	if (!categories.contains(category)) {
+		categories.insert(category, ++lastcategory);
+	}
+}
+
+/*
+	\command exportdefinitions
+	\description Export the definitions used by the WPGM utility.
+	\notes This command will export the definitions used by the WPGM utility to 
+	a file called categories.db in your wolfpack directory.
+*/
+void commandExportDefinitions( cUOSocket *socket, const QString &command, const QStringList &args) throw() {
+	if (QFile::exists("categories.db") && !QFile::remove("categories.db")) {
+		socket->sysMessage("Unable to remove existing categories.db.");
+		return;
+	}
+
+	cSQLiteDriver driver;
+	driver.setDatabaseName("categories.db");
+	
+	if (!driver.open()) {
+		socket->sysMessage("Unable to open categories.db in your wolfpack directory.");
+		return;
+	}
+
+	try {
+		// Create Tables
+		driver.exec("CREATE TABLE items (\
+			id INTEGER PRIMARY KEY,\
+			name varchar(255) NULL,\
+			parent int NOT NULL,\
+			artid int,\
+			color int,\
+			addid varchar(255)\
+		);");
+
+		driver.exec("CREATE TABLE categories (\
+			id INTEGER PRIMARY KEY,\
+			name varchar(255) NULL,\
+			parent int NOT NULL,\
+			type int\
+		);");
+
+		driver.exec("CREATE TABLE locationcategories (\
+			id INTEGER PRIMARY KEY,\
+			name varchar(255) NULL,\
+			parent int NOT NULL,\
+			type int\
+		);");
+
+		driver.exec("CREATE TABLE locations (\
+			id INTEGER PRIMARY KEY,\
+			name varchar(255) NULL,\
+			parent INT NOT NULL,\
+			posx INT NOT NULL,\
+			posy INT NOT NULL,\
+			posz INT NOT NULL,\
+			posmap INT NOT NULL,\
+			location varchar(255)\
+		);");
+
+		unsigned int lastcategory = 0;
+		QMap<QString, unsigned int> categories;
+		QMap<QString, unsigned int>::iterator categoriesIt;
+
+		QStringList sections = Definitions::instance()->getSections(WPDT_ITEM);
+		QStringList::const_iterator sectionIt;
+		QMap<QCString, QString> item;
+
+		for (sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt) {
+			const cElement *element = Definitions::instance()->getDefinition(WPDT_ITEM, *sectionIt);
+
+			item.clear();
+			item.insert("name", QString::null);
+			item.insert("color", "0");
+			item.insert("dispid", "0");
+			item.insert("category", "0");
+			item.insert("categoryname", QString::null);
+
+			processItem(item, element);
+
+			QString category = item["categoryname"];
+
+			if (category.isNull()) {
+				continue;
+			}
+
+			// Strip out the portion after the last \ 
+			int pos = category.findRev('\\');
+			if (pos != -1) {
+				category = category.left(pos);
+			}
+
+			// Create an id for the category
+			if (!categories.contains(category)) {
+				ensureCategory(categories, lastcategory, category);
+				item["category"] = QString::number(lastcategory);
+			} else {
+				item["category"] = QString::number(categories[category]);
+			}
+
+			// See if there has been a custom name definition
+			if (item["name"].isNull()) {
+				QString categoryname = item["categoryname"];
+				if (pos != -1) {
+					item["name"] = categoryname.right(categoryname.length() - (pos + 1));
+				} else {
+					item["name"] = categoryname;
+				}
+			}
+
+			// Insert the item into the table.
+			QString section = *sectionIt;
+			QString sql = QString("INSERT INTO items VALUES(NULL,'%1',%2,%3,%4,'%5');")
+				.arg(item["name"].replace("'", "''"))
+				.arg(item["category"])
+				.arg(item["dispid"])
+				.arg(item["color"])
+				.arg(section.replace("'", "''"));
+			driver.exec(sql);
+		}
+
+		// Ensure that all categories are in the list
+		for (categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt) {
+			unsigned int parent = 0;
+			int pos = categoriesIt.key().findRev('\\');
+			if (pos != -1) {
+				QString parentName = categoriesIt.key().left(pos);
+				if (categories.contains(parentName)) {
+					parent = categories[parentName];
+				}
+			}
+
+			QString name = categoriesIt.key();
+			name = name.right(name.length() - (pos + 1));
+
+			QString sql = QString("INSERT INTO categories VALUES(%1,'%2',%3,0);")
+				.arg(categoriesIt.data())
+				.arg(name.replace("'", "''"))
+				.arg(parent);
+			driver.exec(sql);
+		}
+	} catch(const QString &e) {
+		socket->sysMessage(e);
+	} catch(const wpException &e) {
+		socket->sysMessage(e.error());
+	}
+
+	driver.close();
+}
+
+/*
 	\command doorgen
 	\description Generate doors in passage ways.
 	\notes This command is not guranteed to work correctly. Please see if
@@ -914,6 +1116,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 stCommand cCommands::commands[] =
 {
 { "ALLMOVE", commandAllMove },
+{ "EXPORTDEFINITIONS", commandExportDefinitions },
 { "ALLSHOW", commandAllShow },
 { "BROADCAST", commandBroadcast },
 { "DOORGEN", commandDoorGenerator },
