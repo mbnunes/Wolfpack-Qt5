@@ -60,7 +60,7 @@ public:
 		}
 		cItem::Serialize( archive );
 	}
-	virtual std::string objectID() { return string("HOUSE_ITEM"); }
+	virtual QString objectID() const { return "HOUSE_ITEM"; }
 
 	bool	isLocked( void ) { return locked_; }
 
@@ -85,7 +85,7 @@ public:
 
 	virtual void processNode( const QDomElement &Tag );
 
-	virtual std::string objectID();
+	virtual QString objectID() const;
 
 	bool isBanned(P_CHAR pc);
 	void addBan(P_CHAR pc);

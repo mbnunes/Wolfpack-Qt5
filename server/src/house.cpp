@@ -386,7 +386,7 @@ void cHouse::Serialize(ISerialization &archive)
 	cItem::Serialize(archive); // Call base class method too.
 }
 
-std::string cHouse::objectID()
+QString cHouse::objectID() const
 {
 	return "HOUSE";
 }
