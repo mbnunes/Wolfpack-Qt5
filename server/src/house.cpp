@@ -370,7 +370,7 @@ void cHouse::sendCH( cUOSocket* socket )
 	cUOTxSendItem deed;
 
 	deed.setSerial( serial() );
-	deed.setId( 0x01 );
+	deed.setId( id() );
 	deed.setAmount( 1 );
 	deed.setCoord( pos() );
 

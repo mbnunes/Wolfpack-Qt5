@@ -137,14 +137,15 @@ def gump1callback( char, args, target ):
 #CH placement warning gump callback
 def gump2callback( char, args, target ):
    button = target.button
-   if button == 1: foundation( char, args[1], args[0][0], args[0][1] )
+   if button == 1: foundation( char, args[1], args[0][0], args[0][1], args[0][2] )
 
 def response( char, args, target ):
    gump2( char, "multideed.gump2callback", args, target )
    return 1
 
-def foundation( char, target, width, height ):
+def foundation( char, target, width, height, multiid ):
    multi = wolfpack.multi( CUSTOMHOUSE )
+   multi.id = multiid + 0x4000
    multi.decay = FALSE
    multi.moveto( target.pos )
 
