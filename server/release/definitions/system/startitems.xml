@@ -9,28 +9,28 @@
 <definitions>
 	<!--  default, will be called ONCE from within the code -->
 	<startitems id="default">
-		<!--Gold --><gold>1000</gold>
-		<!--Dagger --><item id="f51"></item>
-		<!--Candle --><item id="a0f"></item>
-		<!--Book --><item id="ff1"></item>
-		<!--Shoes --><equipment id="170f"></equipment>
+		<item id="eed"><amount>1000</amount></item><!--Gold -->
+		<item id="f51"></item><!--Dagger -->
+		<item id="a0f"></item><!--Candle -->
+		<item id="ff1"></item><!--Book -->
+		<equipment id="170f"></equipment><!--Shoes -->
 	</startitems>
 
 	<!--  Alchemy -->
 	<startitems id="alchemy">
-		<!--Robe --><equipment id="1f03"></equipment>
-		<!--Mortar & pestle --><item id="e9b"></item>
-		<!--Bottle --><item id="f0e"><amount>4</amount></item>
-		<!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
-		<!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
-		<!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
-		<!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
+		<equipment id="1f03"></equipment><!--Robe -->
+		<item id="e9b"></item><!--Mortar & pestle -->
+		<item id="f0e"><amount>4</amount></item><!--Bottle -->
+		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
+		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
+		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
+		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
 	</startitems>
 
 	<!--  Anatomy -->
 	<startitems id="anatomy">
-		<!--Robe --><equipment id="1f03"></equipment>
-		<!--Bandages --><item id="e21"><amount>3</amount></item>
+		<equipment id="1f03"></equipment><!--Robe -->
+		<item id="e21"><amount>3</amount></item><!--Bandages -->
 	</startitems>
 
 	<!--  Animallore -->
