@@ -42,6 +42,7 @@ print_usage()
 	where options are:
 	        --enable-mysql    Enable MySQL support.
 	        --enable-debug    Enable debugging.
+	        --static          Static linking.
 	EOF
 	exit 1;
 }
@@ -63,6 +64,7 @@ do
 	case "$ITEM" in
 		debug)	DEBUG="$YES_NO";;
 		mysql)	MYSQL="$YES_NO";;
+		static)	STATIC="$YES_NO";;
 		*)
 			echo "Unknown option \"$1\"!";
 			print_usage;
@@ -72,12 +74,17 @@ do
 	shift;
 done;
 
+if [ "$STATIC" = "y" ];
+then
+	QMAKE_LFLAGS="-static";
+fi;
+
 if [ "$DEBUG" = "y" ];
 then
 	echo "Debug: Yes";
 	DEFINES="_DEBUG";
 	QMAKE_CXXFLAGS="-g";
-	QMAKE_CFLAGS="-g";
+	CONFIG="warn_on";
 fi;
 
 if [ "$MYSQL" = "y" ];
@@ -152,7 +159,7 @@ fi;
 # </python>
 
 PASSED_VARIABLES="";
-for i in MYSQL_INC MYSQL_LIB PYTHON_INC PYTHON_LIB DEFINES QMAKE_CFLAGS QMAKE_CXXFLAGS;
+for i in MYSQL_INC MYSQL_LIB PYTHON_INC PYTHON_LIB DEFINES QMAKE_CXXFLAGS QMAKE_LFLAGS CONFIG;
 do
 	PASSED_VARIABLES="$PASSED_VARIABLES $i+='$(eval "echo \$$i")'";
 done;

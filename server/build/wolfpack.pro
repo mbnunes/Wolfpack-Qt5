@@ -29,12 +29,11 @@ unix {
 	INCLUDEPATH += /usr/local/include/stlport sqlite network
 	LIBS  += -L/usr/local/lib -L/usr/lib -ldl -lpython2.3 -lutil
 	LIBS  += -L$$PYTHON_LIB
+
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 
-	# Optional compile modes
-	# release:debug:error(You cant have release and debug at the same time!)
-
+	# TODO: rewrite and put into ./configure
 	release {
 		CONFIG += warn_off
 		linux {
@@ -43,15 +42,8 @@ unix {
 
 		}
 	}
-	debug {
-		CONFIG += warn_on
-		linux {
-			QMAKE_CXXFLAGS += -g
-		}
-	}
-	static {
-		QMAKE_LFLAGS += -static
-	}
+
+	CFLAGS = $$CXXFLAGS
 }
 
 RC_FILE = res.rc
