@@ -172,7 +172,7 @@ void cGuildStone::registerInFactory()
 
 void cGuildStone::load( char **result, UINT16 &offset )
 {
-	cItem::load( result, offset );
+/*	cItem::load( result, offset );
 	
 	guildName = result[offset++];
 	abbreviation = result[offset++];
@@ -215,7 +215,7 @@ void cGuildStone::load( char **result, UINT16 &offset )
 	while( driver.fetchrow() )
 		recruit.push_back( driver.getInt( 0 ) );
 
-	driver.free();
+	driver.free();*/
 }
 
 void cGuildStone::save()

@@ -110,27 +110,28 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 
 	cDBDriver driver;
 
-	if( !driver.connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
-		throw driver.error();
-
 	QStringList types = UObjectFactory::instance()->objectTypes();
 
 	for( INT32 j = 0; j < types.count(); ++j )
 	{
 		QString type = types[j];
+		
+		cDBResult res = driver.query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
 
 		// Find out how many objects of this type are available		
-		if( !driver.query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) ) )
+		if( !res.isValid() )
 			throw driver.error();			
 
-		driver.fetchrow();
-		UINT32 count = driver.getInt( 0 );
-		driver.free();
+		res.fetchrow();
+		UINT32 count = res.getInt( 0 );
+		res.free();
 
 		clConsole.send( "Loading " + QString::number( count ) + " objects of type " + type + "\n" );
 
+		res = driver.query( UObjectFactory::instance()->findSqlQuery( type ) );
+
 		// Error Checking		
-		if( !driver.query( UObjectFactory::instance()->findSqlQuery( type ) ) )
+		if( !res.isValid() )
 			throw driver.error();
 
 		UINT32 sTime = getNormalizedTime();
@@ -140,9 +141,9 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		progress_display progress( count );
 
 		// Fetch row-by-row
-		while( driver.fetchrow() )
+		while( res.fetchrow() )
 		{
-			char **row = driver.data();
+			char **row = res.data();
 
 			// do something with data
 			object = UObjectFactory::instance()->createObject( type );
@@ -152,12 +153,10 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 			++progress;
 		}
 
-		driver.free();
+		res.free();
 
 		clConsole.send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
 	}
-
-	driver.disconnect();
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);
@@ -191,6 +190,8 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 	archive->close();
 
 	delete archive;
+
+	driver.garbageCollect();
 }
 
 //o---------------------------------------------------------------------------o
@@ -226,10 +227,6 @@ void CWorldMain::savenewworld(QString module)
 	SrvParams->flush();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
-	cDBDriver driver;
-	if( !driver.connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
-		throw driver.error();
-
 	try
 	{
 		AllItemsIterator iterItems;
@@ -254,8 +251,6 @@ void CWorldMain::savenewworld(QString module)
 		clConsole.ChangeColor( WPC_NORMAL );
 		clConsole.send( ": Unhandled Exception\n" );
 	}
-
-	driver.disconnect();
 
 	ISerialization *archive = cPluginFactory::serializationArchiver( module );
 	archive->prepareWritting( "effects" );
@@ -282,6 +277,9 @@ void CWorldMain::savenewworld(QString module)
 	isSaving = false;
 
 	uiCurrentTime = getNormalizedTime();
+
+	cDBDriver driver;
+	driver.garbageCollect();
 }
 
 int CWorldMain::announce()

@@ -32,6 +32,8 @@
 #include "persistentobject.h"
 
 #include "dbdriver.h"
+#include "wpconsole.h"
+#include "globals.h"
 
 // Qt Includes
 #include <qstring.h>
@@ -48,7 +50,7 @@ PersistentBroker::~PersistentBroker()
 
 bool PersistentBroker::openDriver( const QString& driver )
 {
-	connection = new cDBDriver();//QSqlDatabase::addDatabase( driver );
+	connection = new cDBDriver();
 	if ( !connection )
 		return false;
 	return true;
@@ -58,12 +60,16 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 {
 	if (!connection)
 		return false;
-	if ( !connection->connect(host, db, username, password) ) 
-	{
-		qWarning("Failed to open database: " + connection->error() );
-//		qWarning( connection->lastError().databaseText() );
-		return false;
-	}
+
+	clConsole.PrepareProgress( "Starting up database connection" );
+
+	// This does nothing but a little test-connection
+	connection->setDBName( db );
+	connection->setUsername( username );
+	connection->setPassword( password );
+	connection->setHost( host );
+
+	clConsole.ProgressDone();
 	return true;
 }
 
@@ -101,12 +107,12 @@ bool PersistentBroker::executeQuery( const QString& query )
 {
 	qWarning( query );
 	bool result = connection->execute(query);
-	if ( !result )
+	if( !result )
 	{
-//		qWarning(QString("Error executing query: \"%1\"").arg(query));
-//		QSqlError e = connection->lastError();
-//		qWarning(QString("Database text: \"%1\"").arg(e.databaseText()));
-//		qWarning(QString("Driver text: \"%1\"").arg(e.driverText()));
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( "ERROR" );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( ":" + connection->error() );
 	}
 	return result;
 }
@@ -116,3 +122,10 @@ cDBDriver* PersistentBroker::driver() const
 	return connection;
 }
 
+cDBResult PersistentBroker::query( const QString& query )
+{
+	if( !connection )
+		return cDBResult( 0, 0 );
+
+	return connection->query( query );
+}

@@ -37,6 +37,7 @@
 
 class PersistentObject;
 class cDBDriver;
+class cDBResult;
 
 class PersistentBroker
 {
@@ -48,6 +49,7 @@ public:
 	bool openDriver( const QString& driver );
 	bool connect( const QString& host, const QString& db, const QString& username, const QString& password );
 	bool executeQuery( const QString& query );
+	cDBResult query( const QString& query );
 
 	bool saveObject( PersistentObject* );
 	bool deleteObject( PersistentObject* );

@@ -70,15 +70,16 @@ void cCorpse::load( char **result, UINT16 &offset )
 	QString sql = "SELECT corpses_equipment.layer,corpses_equipment.item FROM corpses_equipment WHERE serial = '" + QString::number( serial ) + "'";
 	
 	cDBDriver driver;
+	cDBResult res = driver.query( sql );
 
-	if( !driver.query( sql ) )
+	if( !res.isValid() )
 		throw driver.error();
 
 	// Fetch row-by-row
-	while( driver.fetchrow() )
-		equipment_.insert( make_pair( driver.getInt( 0 ), driver.getInt( 1 ) ) );
+	while( res.fetchrow() )
+		equipment_.insert( make_pair( res.getInt( 0 ), res.getInt( 1 ) ) );
 
-	driver.free();
+	res.free();
 }
 
 void cCorpse::save()

@@ -1393,6 +1393,22 @@ int main( int argc, char *argv[] )
 
 	serverstarttime = getNormalizedTime();
 
+	// Try to open our driver
+	if( !persistentBroker->openDriver( "mysql" ) )
+	{
+		cNetwork::instance()->shutdown();
+		DeleteClasses();
+		exit(-1);
+	}
+
+	// Establish the connection to our database (persistent!)
+	if( !persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
+	{
+		cNetwork::instance()->shutdown();
+		DeleteClasses();
+		exit(-1);
+	}
+
 	// Registers our Built-in types into factory.
 	cChar::registerInFactory();
 	cItem::registerInFactory();
@@ -1413,7 +1429,11 @@ int main( int argc, char *argv[] )
 		clConsole.send( "\nERROR" );
 		clConsole.ChangeColor( WPC_NORMAL );
 		clConsole.send( ": " + error + "\n" );
-		return 1;
+		clConsole.send( "Press any key to continue..." );
+		cNetwork::instance()->shutdown();
+		DeleteClasses();
+		getch();
+		exit(-1);		
 	}
 	catch( ... )
 	{
@@ -1421,7 +1441,11 @@ int main( int argc, char *argv[] )
 		clConsole.send( "\nERROR" );
 		clConsole.ChangeColor( WPC_NORMAL );
 		clConsole.send( ": Unhandeled Exception caught!\n" );
-		return 1;
+		clConsole.send( "Press any key to continue..." );
+		cNetwork::instance()->shutdown();
+		DeleteClasses();
+		getch();
+		exit(-1);
 	}
 
 	clConsole.PrepareProgress( "Postprocessing" );
@@ -1512,6 +1536,10 @@ int main( int argc, char *argv[] )
 
 		if( pChar )
 		{
+			// Set Skills (non-real)
+			for( UINT8 i = 0; i < TRUESKILLS; ++i )
+				Skills->updateSkillLevel( pChar, i );
+
 			if( isItemSerial( pChar->multis ) )
 			{
 				cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis ) );

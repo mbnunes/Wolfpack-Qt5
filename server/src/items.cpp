@@ -551,6 +551,7 @@ static void itemRegisterAfterLoading( P_ITEM pi );
 
 bool cItem::del()
 {
+	persistentBroker->executeQuery( QString( "DELETE FROM items WHERE `serial` = '%1'" ).arg( serial ) );
 	return cUObject::del();
 }
 
@@ -2464,7 +2465,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		return;
 
 	if( !noRemove )
-		removeFromCont( handleWeight );
+		pItem->removeFromCont( handleWeight );
 
 	content_.push_back( pItem );
 	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile

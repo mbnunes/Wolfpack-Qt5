@@ -59,7 +59,7 @@ void cMulti::buildSqlString( QStringList &fields, QStringList &tables, QStringLi
 
 void cMulti::load( char **result, UINT16 &offset )
 {
-	cItem::load( result, offset );
+/*	cItem::load( result, offset );
 	
 	coowner_ = atoi( result[offset++] );
 	deedsection_ = result[offset++];
@@ -99,7 +99,7 @@ void cMulti::load( char **result, UINT16 &offset )
 			addFriend( pChar );
 	}
 
-	driver.free();
+	driver.free();*/
 }
 
 void cMulti::save()

@@ -38,32 +38,88 @@
 #endif
 
 #include <qstring.h>
+#include <qptrlist.h>
 #include <mysql.h>
 #include <stdlib.h>
 
-static MYSQL *mysql = 0;
+QPtrList< MYSQL > connections; // A connection pool
+
+// Closes unused connections
+void cDBDriver::garbageCollect()
+{
+	while( connections.count() > 1 )
+	{
+		connections.last();
+		connections.remove();
+	}
+}
+
+// Checks if there is a free connection available
+// If yes, remove it from the pool
+// Otherwise connect
+st_mysql *cDBDriver::getConnection()
+{
+	// Connection available
+	if( connections.count() >= 1 )
+	{
+		MYSQL *mysql = connections.first();
+		connections.remove();
+		return mysql;
+	}
+
+	MYSQL *mysql = mysql_init( 0 );
+	
+	if( !mysql_real_connect( mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, NULL, 0 ) )
+		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( mysql ) );
+
+	return mysql;
+}
+
+void cDBDriver::putConnection( st_mysql *data )
+{
+	// Put a connection back to the pool
+	connections.append( data );
+}
+
+cDBDriver::~cDBDriver()
+{
+}
 
 // Executes a query
-bool cDBDriver::query( const QString &query )
+cDBResult cDBDriver::query( const QString &query )
 {
-	if( mysql_query( mysql, query.latin1() ) )
-		return false;
+	MYSQL *mysql = getConnection();
 
-	result = mysql_use_result( mysql );
-	return true;
+	if( !mysql )
+		throw QString( "Not connected to mysql server. Unable to execute query." );
+
+	if( mysql_query( mysql, query.latin1() ) )
+	{
+		putConnection( mysql );
+		return cDBResult(); // Return invalid result
+	}
+	
+	MYSQL_RES *result = mysql_use_result( mysql );
+	return cDBResult( result, mysql );
 }
 
 // Just execute some SQL code, no result!
 bool cDBDriver::execute( const QString &query )
 {
-	qWarning( "SQL: " + query );
+	MYSQL *mysql = getConnection();
 
-	return !mysql_query( mysql, query.latin1() );
+	if( !mysql )
+		throw QString( "Not connected to mysql server. Unable to execute query." );
+
+	bool ok = !mysql_query( mysql, query.latin1() );
+	putConnection( mysql );
+	return ok;
 }
 
 // Returns an error (if there is one)
 QString cDBDriver::error()
 {
+	MYSQL *mysql = getConnection();
 	char *error = mysql_error( mysql );
 
 	if( error != 0 )
@@ -77,58 +133,56 @@ QString cDBDriver::error()
 }
 
 // Fetchs a new row, returns false if there is no new row
-bool cDBDriver::fetchrow()
+bool cDBResult::fetchrow()
 {
-	row = mysql_fetch_row( result );
-	return ( row != 0 );
+	if( !_result )
+		return false;
+
+	_row = mysql_fetch_row( _result );
+	return ( _row != 0 );
 }
 
 // Call this to free the query
-void cDBDriver::free()
+void cDBResult::free()
 {
-	mysql_free_result( result );
+	mysql_free_result( _result );
+	_result = 0;
+	_row = 0;
+
+	if( _connection )
+	{
+		cDBDriver driver;
+		driver.putConnection( _connection );
+		_connection = 0;
+	}
 }
 
 // Get the data for the current row
-char** cDBDriver::data()
+char** cDBResult::data()
 {
-	return row;
+	return _row;
 }
 
 // Get an integer with a specific offset
-INT32 cDBDriver::getInt( UINT32 offset )
+INT32 cDBResult::getInt( UINT32 offset )
 {
-	if( !row )
-		throw QString( "Trying to access non-selected row!" );
+	if( !_row )
+		throw QString( "Trying to access a non valid result!" );
 
-	return atoi( row[offset] );
+	return atoi( _row[offset] );
 }
 
 // Get a string with a specific offset
-QString cDBDriver::getString( UINT32 offset )
+QString cDBResult::getString( UINT32 offset )
 {
-	return row[offset];
+	if( !_row )
+		throw QString( "Trying to access a non valid result!" );
+
+	return _row[offset];
 }
 
-bool cDBDriver::connect( const QString &host, const QString &database, const QString &username, const QString &password )
-{
-	// If we are already connected, try to disconnect
-	if( mysql != 0 )
-		disconnect();
-
-	mysql = mysql_init( 0 );
-
-	// This should be enabled/disabled via some SrvParam option ?!
-	//mysql_options(mysql,MYSQL_OPT_COMPRESS,0);
-	
-	return mysql_real_connect( mysql, host.latin1(), username.latin1(), password.latin1(), database.latin1(), 0, NULL, 0 );
-}
-
-void cDBDriver::disconnect()
-{
-	if( mysql )
-	{
-		mysql_close( mysql );
-		mysql = 0;
-	}	
-}
+// Static Member Declarations...
+QString cDBDriver::_host;
+QString cDBDriver::_dbname;
+QString cDBDriver::_username;
+QString cDBDriver::_password;

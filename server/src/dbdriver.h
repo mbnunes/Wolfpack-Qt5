@@ -37,25 +37,58 @@ struct st_mysql_res;
 
 #include <qstring.h>
 
+class cDBResult;
+
 class cDBDriver
 {
+	friend cDBResult;
 private:
-	st_mysql_res *result;
-	char **row;
+	st_mysql *getConnection();
+	void putConnection( st_mysql* );
+	
+	static QString _host, _dbname, _username, _password;
 public:
-	cDBDriver(): result( 0 ), row( 0 ) {}
-	virtual ~cDBDriver() {}
+	cDBDriver() {}
+	virtual ~cDBDriver();
 
-	bool connect( const QString &host, const QString &database, const QString &username, const QString &password );
-	void disconnect();
-	bool execute( const QString &query ); // Just execute some SQL code, no return!
-	bool query( const QString &query ); // Executes a query
-	QString error(); // Returns an error (if there is one)
-	bool fetchrow(); // Fetchs a new row, returns false if there is no new row
+	bool execute( const QString &query ); // Just execute some SQL code, no return!	
+	cDBResult query( const QString &query ); // Executes a query
+	QString error(); // Returns an error (if there is one), uses the current connection
+		
+	// We are using a multiple connection model
+	// So we may have to clean up a connection when
+	// it's no longer used
+	void garbageCollect();
+
+	// Setters + Getters
+	void setUsername( const QString &data ) { _username = data; }
+	void setPassword( const QString &data ) { _password = data; }
+	void setHost( const QString &data ) { _host = data; }
+	void setDBName( const QString &data ) { _dbname = data; }
+	QString host() const { return _host; }
+	QString dbname() const { return _dbname; }
+	QString username() const { return _username; }
+	QString password() const { return _password; }
+};
+
+class cDBResult
+{
+private:
+	char **_row;
+	st_mysql_res *_result;
+	st_mysql *_connection; // Connection occupied by this query
+public:
+	cDBResult(): _row( 0 ), _result( 0 ), _connection( 0 ) {} // Standard Constructor
+	cDBResult( st_mysql_res *result, st_mysql *connection ): _row( 0 ), _result( result ), _connection( connection ) {}; // MySQL Constructor
+	virtual ~cDBResult() {}
+
 	void free(); // Call this to free the query
 	char** data(); // Get the data for the current row
+	bool fetchrow(); // Fetchs a new row, returns false if there is no new row
 	INT32 getInt( UINT32 offset ); // Get an integer with a specific offset
 	QString getString( UINT32 offset ); // Get a string with a specific offset
+
+	bool isValid() { return ( _result != 0 ); }
 };
 
 #undef MYSQL_RES

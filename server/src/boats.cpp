@@ -1282,13 +1282,18 @@ void cBoat::load( char **result, UINT16 &offset )
 	// Load the other tables
 	QString sql = "SELECT boats_itemids.a,boats_itemids.b,boats_itemids.id FROM boats_itemids WHERE serial = '" + QString::number( serial ) + "'";
 	cDBDriver driver;
-	if( !driver.query( sql ) )
+	cDBResult res = driver.query( sql );
+
+	if( !res.isValid() )
+	{
+		res.free();
 		throw driver.error();
+	}
 
 	// Fetch row-by-row
-	while( driver.fetchrow() )
+	while( res.fetchrow() )
 	{
-		char** row = driver.data();
+		char** row = res.data();
 
 		// row[0] -> a
 		// row[1] -> b
@@ -1298,18 +1303,19 @@ void cBoat::load( char **result, UINT16 &offset )
 		itemids[a][b] = atoi( row[2] );
 	}
 
-	driver.free();
+	res.free();
 
 	sql = "SELECT boats_itemoffsets.a,boats_itemoffsets.b,boats_itemoffsets.c,boats_itemoffsets.offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial ) + "'";
+	res = driver.query( sql );
 
 	// Error Checking		
-	if( !driver.query( sql ) )
+	if( !res.isValid() )
 		throw driver.error();
 
 	// Fetch row-by-row
-	while( driver.fetchrow() )
+	while( res.fetchrow() )
 	{
-		char** row = driver.data();
+		char** row = res.data();
 
 		// row[0] -> a
 		// row[1] -> b
@@ -1321,7 +1327,7 @@ void cBoat::load( char **result, UINT16 &offset )
 		itemoffsets[a][b][c] = atoi( row[3] );
 	}
 
-	driver.free();
+	res.free();
 }
 
 void cBoat::save()

@@ -796,33 +796,33 @@ void cChar::load( char **result, UINT16 &offset )
 	SetSpawnSerial( spawnserial_ );
 
 	// Query the Skills for this character
-	/*QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial ) + "'";
+	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial ) + "'";
 
-	cDBDriver query;
-	if( !query.query( sql ) )
-		throw query.error().latin1();
+	cDBDriver driver;
+	cDBResult res = driver.query( sql );
+	if( !res.isValid() )
+		throw driver.error();
 
 	// Fetch row-by-row
-	while( query.fetchrow() )
+	while( res.fetchrow() )
 	{
 		// row[0] = skill
 		// row[1] = value
 		// row[2] = locktype
 		// row[3] = cap (unused!)
-		UINT16 i = query.getInt( 0 );
-		baseSkill_[i] = query.getInt( 1 );
-		lockSkill_[i] = query.getInt( 2 );
+		UINT16 i = res.getInt( 0 );
+		baseSkill_[i] = res.getInt( 1 );
+		lockSkill_[i] = res.getInt( 2 );
 	}
 
-	query.free();*/
+	res.free();
 
 	characterRegisterAfterLoading( this );
 }
 
 void cChar::save()
 {
-	// characters fields
-	initSave; // Once per function only !
+	initSave;
 
 	setTable( "characters" );
 
@@ -938,32 +938,10 @@ void cChar::save()
 
 bool cChar::del()
 {
-	// Not decided how to do that yet
+	persistentBroker->executeQuery( QString( "DELETE FROM characters WHERE `serial`= '%1'" ).arg( serial ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM skills WHERE `serial`= '%1'" ).arg( serial ) );
 	return cUObject::del();
 }
-
-/*bool cChar::del( const QString& s )
-{
-	QSqlCursor cursor("characters");
-	cursor.select(QString("serial='%1'").arg(serial));
-	while ( cursor.next() )
-	{
-		cursor.primeDelete();
-		if ( cursor.del() > 1 )
-		{
-			qWarning("More than one record was deleted in table Characters when only 1 was expected, delete criteria was:");
-			qWarning(cursor.filter());
-		}
-	}
-	cursor.setName("Skills");
-	cursor.select(QString("serial='%1'").arg(serial));
-	while ( cursor.next() )
-	{
-		cursor.primeDelete();
-		cursor.del();
-	}
-	return cUObject::del( s );
-}*/
 
 //========== WRAPPER EVENTS
 
