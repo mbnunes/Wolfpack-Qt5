@@ -25,6 +25,7 @@
 		<meditation><random min="851" max="950"/></meditation>
 		<magicresistance><random min="801" max="1000"/></magicresistance>
 		<tactics><random min="701" max="900"/></tactics>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
 		<mindamage>50</mindamage>
 		<maxdamage>55</maxdamage>

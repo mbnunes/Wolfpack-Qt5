@@ -28,6 +28,7 @@
 		<magicresistance>2500</magicresistance>
 		<tactics>1000</tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
 		<mindamage>21</mindamage>
 		<maxdamage>26</maxdamage>

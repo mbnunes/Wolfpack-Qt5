@@ -12,33 +12,29 @@
 	<npc id="patchwork_skeleton" inherit="monster_base">
 		<name>patchwork skeleton</name>
 		<id>309</id>
-		<karma></karma>
-		<fame></fame>
+		<karma>-200</karma>
+		<fame>900</fame>
 		<!-- Stats -->
-		<str><random min="" max=""/></str>
-		<dex><random min="" max=""/></dex>
-		<int><random min="" max=""/></int>
-		<maxhitpoints><random min="" max=""/></maxhitpoints>
+		<str><random min="96" max="120"/></str>
+		<dex><random min="71" max="95"/></dex>
+		<int><random min="16" max="40"/></int>
+		<maxhitpoints><random min="58" max="72"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="" max=""/></magicresistance>
-		<tactics><random min="" max=""/></tactics>
-		<wrestling><random min="" max=""/></wrestling>
+		<magicresistance><random min="701" max="950"/></magicresistance>
+		<tactics><random min="551" max="800"/></tactics>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
-		<mindamage></mindamage>
-		<maxdamage></maxdamage>
+		<mindamage>31</mindamage>
+		<maxdamage>41</maxdamage>
 		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
+		<tag name="dmg_cold" value="15" type="int" />
 		<!-- Resist Properties -->
-		<tag name="res_physical" value="35,45" type="int" />
-		<tag name="res_fire" value="20,30" type="int" />
-		<tag name="res_cold" value="50,60" type="int" />
-		<tag name="res_poison" value="20,30" type="int" />
-		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_physical" value="55,65" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->

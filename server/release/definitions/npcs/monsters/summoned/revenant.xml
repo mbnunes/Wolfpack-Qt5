@@ -12,7 +12,7 @@
 	<!-- Revenant, Summoned Only? -->
 	<npc id="summoned_revenant">
 		<name>revenant</name>
-		<id>400</id>
+		<id>748</id>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Stats -->

@@ -24,7 +24,8 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<magicresistance><random min="551" max="700"/></magicresistance>
 		<magery><random min="551" max="700"/></magery>
-		<evaluatingint><random min="551" max="700"/></evaluatingint>
+		<evaluatingintel><random min="551" max="700"/></evaluatingintel>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>18</maxdamage>

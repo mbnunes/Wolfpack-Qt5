@@ -12,33 +12,33 @@
 	<npc id="devourer_of_souls" inherit="monster_base">
 		<name>devourer of souls</name>
 		<id>303</id>
-		<karma></karma>
-		<fame></fame>
+		<karma>-19000</karma>
+		<fame>19500</fame>
 		<!-- Stats -->
-		<maxhitpoints><random min="" max=""/></maxhitpoints>
-		<str><random min="" max=""/></str>
-		<dex><random min="" max=""/></dex>
-		<int><random min="" max=""/></int>
+		<str><random min="801" max="950"/></str>
+		<dex><random min="126" max="175"/></dex>
+		<int><random min="201" max="250"/></int>
+		<maxhitpoints>650</maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="" max=""/></magicresistance>
-		<tactics><random min="" max=""/></tactics>
-		<wrestling><random min="" max=""/></wrestling>
+		<magicresistance><random min="901" max="105"/></magicresistance>
+		<tactics><random min="751" max="850"/></tactics>
+		<wrestling><random min="801" max="1000"/></wrestling>
+		<anatomy>0</anatomy>
+		<magery><random min="901" max="1000"/></magery>
+		<meditation><random min="901" max="1000"/></meditation>
+		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
 		<!-- Damage -->
-		<mindamage></mindamage>
-		<maxdamage></maxdamage>
+		<mindamage>89</mindamage>
+		<maxdamage>114</maxdamage>
 		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
+		<tag name="dmg_cold" value="20" type="int" />
+		<tag name="dmg_energy" value="20" type="int" />
 		<!-- Resist Properties -->
-		<tag name="res_physical" value="35,45" type="int" />
-		<tag name="res_fire" value="20,30" type="int" />
-		<tag name="res_cold" value="50,60" type="int" />
-		<tag name="res_poison" value="20,30" type="int" />
-		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_fire" value="25,35" type="int" />
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
