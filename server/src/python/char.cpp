@@ -45,6 +45,7 @@
 #include "../walking.h"
 #include "../commands.h"
 #include "../wpscriptmanager.h"
+#include "../makemenus.h"
 
 /*!
 	Struct for WP Python Chars
@@ -678,6 +679,27 @@ PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 	QString key = getArgStr( 0 );
 	self->pChar->tags().remove( key );
 
+	return PyTrue;
+}
+
+/*!
+ * Sends MakeMenu defined as xml file to this character
+ */
+PyObject* wpChar_sendmakemenu( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+	if( !self->pChar->socket() )
+		return PyFalse;
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	QString menuName = getArgStr( 0 );
+	MakeMenus::instance()->callMakeMenu( self->pChar->socket(), menuName );
+	
 	return PyTrue;
 }
 
@@ -1443,6 +1465,9 @@ static PyMethodDef wpCharMethods[] =
 	{ "settag",			(getattrofunc)wpChar_settag, METH_VARARGS, "Sets a tag assigned to a specific char." },
 	{ "hastag",			(getattrofunc)wpChar_hastag, METH_VARARGS, "Checks if a certain char has the specified tag." },
 	{ "deltag",			(getattrofunc)wpChar_deltag, METH_VARARGS, "Deletes the specified tag." },
+
+	// Crafting Menu
+	{ "sendmakemenu",		(getattrofunc)wpChar_sendmakemenu, METH_VARARGS, "Sends MakeMenu to this character." },
 
 	// Reputation System
 	{ "iscriminal",		(getattrofunc)wpChar_iscriminal, METH_VARARGS, "Is this character criminal.." },
