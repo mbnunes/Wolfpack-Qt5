@@ -631,6 +631,7 @@ template.close()
 
 text = text.replace('{GENERATED}', generated)
 text = text.replace('{VERSION}', version)
+text = text.replace('{SHORTVERSION}', str(getVersionNumber()))
 text = text.replace('{COMMANDS}', str(len(commands)))
 text = text.replace('{OBJECTS}', str(len(objects)))
 text = text.replace('{EVENTS}', str(len(events)))
