@@ -828,7 +828,7 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
