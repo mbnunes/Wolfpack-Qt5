@@ -638,11 +638,12 @@ void cRespawn::Continue()
 		}
 	}
 	unsigned int i;
-	for( i = 1; i < spawnregion.size(); i++) //New -- Zippy region spawner
+	for( i=currentSpawnRegion;i<spawnregion.size();i++) //New -- Zippy region spawner
 	{
-		while (doregionspawn(i));	// spawn up to the max.
+		doregionspawn(i);
+		currentSpawnRegion++;
+		return;			// take a break after each region 
 	}
-
 	sysbroadcast("Respawn now complete.");
 	respawning = false;	// if we get here, the respawning has finished
 }

@@ -1876,7 +1876,6 @@ void command_respawn(UOXSOCKET s)
 	sysbroadcast("World is now respawning, expect some lag!");
 	LogMessage((char*)temp);
 	Respawn->Start();
-	Respawn->Continue();
 	return;
 }
 
