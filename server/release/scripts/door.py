@@ -1,5 +1,6 @@
 
 import wolfpack
+from wolfpack.utilities import *
 
 # Sound constants for opening and closing a door
 SOUND_OPENWOOD = 0x00EA
@@ -229,7 +230,12 @@ def opendoor( char, item ):
 			else:
 				opencount = int( item.gettag( 'opencount' ) ) + 1
 				
-			item.settag( 'opencount', opencount )
+			item.settag( 'opencount', str(opencount) )
+			
+			if not item.hastag('opened'):
+				item.settag( 'opened', 'true' )
+			else:
+				item.deltag( 'opened' )
 			
 			# Add an autoclose tempeffect			
 			item.addtimer( CLOSEDOOR_DELAY, "door.autoclose", [ opencount ], 1 )
@@ -258,7 +264,7 @@ def opendoor( char, item ):
 			return 1
 
 	return 0
-	
+
 def autoclose( item, args ):
 	if not item or not item.hastag( 'opencount' ):
 		return
@@ -271,6 +277,9 @@ def autoclose( item, args ):
 		return
 
 	item.deltag( 'opencount' )
+	
+	if item.hastag( 'opened' ):
+		item.deltag( 'opened' )
 		
 	# Find the door definition for this item	
 	for door in doors:
@@ -284,14 +293,21 @@ def autoclose( item, args ):
 			
 			# Soundeffect (close)			
 			item.soundeffect( door[5] )
-	
+
+
 def onUse( char, item ):
 	# Using doors doesnt count against the object-delay
 	char.objectdelay = 0
 
+	if item.hastag('link') and not item.gettag('opened'):
+		doubledoor = wolfpack.finditem( hex2dec(item.gettag('link')) )
+		if not doubledoor.gettag('opened'):
+			opendoor( char, doubledoor )
+	
 	# In Range?
 	if not char.gm and not char.canreach( item, 2 ):
 		char.message( "You cannot reach the handle from here." )
 		return 1
 		
 	return opendoor( char, item )
+
