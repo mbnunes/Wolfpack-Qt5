@@ -118,7 +118,6 @@ void cCharBaseDef::reset()
 {
 	cBaseDef::reset();
 	basesound_ = 0;
-	soundmode_ = 0;
 	figurine_ = 0;
 	minDamage_ = 0;
 	maxDamage_ = 0;
@@ -127,6 +126,12 @@ void cCharBaseDef::reset()
 	criticalHealth_ = 0;
 	wanderSpeed_ = 400;
 	actionSpeed_ = 200;
+	// Initialize the overrides to not override...
+	attackSound_.clear();
+	idleSound_.clear();
+	hitSound_.clear();
+	gethitSound_.clear();
+	deathSound_.clear();
 }
 
 void cCharBaseDef::processNode( const cElement* node )
@@ -135,9 +140,45 @@ void cCharBaseDef::processNode( const cElement* node )
 	{
 		basesound_ = node->value().toInt();
 	}
-	else if ( node->name() == "soundmode" )
+	else if ( node->name() == "attacksound" )
 	{
-		soundmode_ = node->value().toInt();
+		QStringList parts = QStringList::split(",", node->text());
+		for (int i = 0; i < parts.size(); ++i) {
+			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
+			attackSound_.append(value);
+		}		
+	}
+	else if ( node->name() == "idlesound" )
+	{
+		QStringList parts = QStringList::split(",", node->text());
+		for (int i = 0; i < parts.size(); ++i) {
+			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
+			idleSound_.append(value);
+		}
+	}
+	else if ( node->name() == "hitsound" )
+	{
+		QStringList parts = QStringList::split(",", node->text());
+		for (int i = 0; i < parts.size(); ++i) {
+			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
+			hitSound_.append(value);
+		}		
+	}
+	else if ( node->name() == "gethitsound" )
+	{
+		QStringList parts = QStringList::split(",", node->text());
+		for (int i = 0; i < parts.size(); ++i) {
+			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
+			gethitSound_.append(value);
+		}		
+	}
+	else if ( node->name() == "deathsound" )
+	{
+		QStringList parts = QStringList::split(",", node->text());
+		for (int i = 0; i < parts.size(); ++i) {
+			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
+			deathSound_.append(value);
+		}		
 	}
 	else if ( node->name() == "figurine" )
 	{
@@ -241,6 +282,15 @@ void cCharBaseDefs::loadBodyInfo() {
 	// Null the existing one
 	memset(bodyinfo, 0, sizeof(bodyinfo));
 
+	// Manually initialize the sounds to -1...
+	for(int i = 0; i < 0x400; ++i) {
+		bodyinfo[i].attackSound = -1;
+		bodyinfo[i].deathSound = -1;
+		bodyinfo[i].gethitSound = -1;
+		bodyinfo[i].hitSound = -1;
+		bodyinfo[i].idleSound = -1;
+	}
+
 	QString filename = Config::instance()->getString("General", "Bodyinfo File", "definitions/system/bodyinfo.xml", true);
 	QFile file(filename);
 
@@ -293,6 +343,62 @@ void cCharBaseDefs::loadBodyInfo() {
 					bodyinfo.figurine = 0;
 				}
 
+				// Load the override sounds
+				QString attacksound = hex2dec(element.attribute("attacksound"));
+				if (!attacksound.isNull()) {
+					bodyinfo.attackSound = attacksound.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, tr("Invalid attacksound in bodyinfo file: %1.\n").arg(attacksound));
+						continue;
+					}
+				} else {
+					bodyinfo.attackSound = -1;
+				}
+
+				QString idlesound = hex2dec(element.attribute("idlesound"));
+				if (!idlesound.isNull()) {
+					bodyinfo.idleSound = idlesound.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, tr("Invalid idlesound in bodyinfo file: %1.\n").arg(idlesound));
+						continue;
+					}
+				} else {
+					bodyinfo.idleSound = -1;
+				}
+
+				QString hitsound = hex2dec(element.attribute("hitsound"));
+				if (!hitsound.isNull()) {
+					bodyinfo.hitSound = hitsound.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, tr("Invalid hitsound in bodyinfo file: %1.\n").arg(hitsound));
+						continue;
+					}
+				} else {
+					bodyinfo.hitSound = -1;
+				}
+
+				QString gethitsound = hex2dec(element.attribute("gethitsound"));
+				if (!gethitsound.isNull()) {
+					bodyinfo.gethitSound = gethitsound.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, tr("Invalid gethitsound in bodyinfo file: %1.\n").arg(gethitsound));
+						continue;
+					}
+				} else {
+					bodyinfo.gethitSound = -1;
+				}
+
+				QString deathsound = hex2dec(element.attribute("deathsound"));
+				if (!deathsound.isNull()) {
+					bodyinfo.deathSound = deathsound.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, tr("Invalid deathsound in bodyinfo file: %1.\n").arg(deathsound));
+						continue;
+					}
+				} else {
+					bodyinfo.deathSound = -1;
+				}
+
 				// Load the mount item for mounting
 				QString mountid = hex2dec(element.attribute("mountid"));
 				if (!mountid.isNull()) {
@@ -303,18 +409,6 @@ void cCharBaseDefs::loadBodyInfo() {
 					}
 				} else {
 					bodyinfo.mountid = 0;
-				}
-
-				// Soundmode for skipping non existing sounds
-				QString soundmode = hex2dec(element.attribute("soundmode"));
-				if (!soundmode.isNull()) {
-					bodyinfo.soundmode = soundmode.toUShort(&ok);
-					if (!ok) {
-						Console::instance()->log(LOG_WARNING, tr("Invalid soundmode in bodyinfo file: %1.\n").arg(soundmode));
-						continue;
-					}
-				} else {
-					bodyinfo.soundmode = 0;
 				}
 
 				// Flags for this creature (noblink, canfly, nocorpse)

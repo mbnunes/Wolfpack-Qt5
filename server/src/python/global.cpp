@@ -1743,7 +1743,6 @@ static PyObject* wpSetOption( PyObject* /*self*/, PyObject* args )
 	This is a numeric value.
 	\return A dictionary with the following keys:<code>
 	- basesound
-	- soundmode
 	- flags
 	- figurine
 	- type
@@ -1768,7 +1767,6 @@ static PyObject* wpBodyInfo( PyObject* /*self*/, PyObject* args )
 	PyDict_SetItemString( dict, "figurine", PyInt_FromLong( info.figurine ) );
 	PyDict_SetItemString( dict, "mountid", PyInt_FromLong( info.mountid ) );
 	PyDict_SetItemString( dict, "flags", PyInt_FromLong( info.flags ) );
-	PyDict_SetItemString( dict, "soundmode", PyInt_FromLong( info.soundmode ) );
 	PyDict_SetItemString( dict, "type", PyInt_FromLong( info.type ) );
 	return dict;
 }

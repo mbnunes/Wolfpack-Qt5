@@ -51,6 +51,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fix for items on very high z values interfering with walking.
 	- Fix bug #302 ( Char should face mount's direction after mouting )
 	- Moved the mount item information from the core to the bodyinfo file.
+	- Overhauled the body sound system. Now allows for every sound to be overriden individually in the bodyinfo or
+	  in the base definition.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

@@ -749,41 +749,6 @@ void cBaseChar::setBeardStyle( Q_UINT16 d )
 	pBeard->update();
 }
 
-void cBaseChar::playDeathSound()
-{
-	if ( orgBody_ == 0x0191 )
-	{
-		switch ( RandomNum( 0, 3 ) )
-		{
-		case 0:
-			soundEffect( 0x0150 );	break;// Female Death
-		case 1:
-			soundEffect( 0x0151 );	break;// Female Death
-		case 2:
-			soundEffect( 0x0152 );	break;// Female Death
-		case 3:
-			soundEffect( 0x0153 );	break;// Female Death
-		}
-	}
-	else if ( orgBody_ == 0x0190 )
-	{
-		switch ( RandomNum( 0, 3 ) )
-		{
-		case 0:
-			soundEffect( 0x015A );	break;// Male Death
-		case 1:
-			soundEffect( 0x015B );	break;// Male Death
-		case 2:
-			soundEffect( 0x015C );	break;// Male Death
-		case 3:
-			soundEffect( 0x015D );	break;// Male Death
-		}
-	}
-	else
-	{
-		bark( Bark_Death );
-	}
-}
 
 // This should check soon if we are standing above our
 // corpse and if so, merge with our corpse instead of
@@ -2095,18 +2060,6 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	*/
 	PY_PROPERTY( "basesound", basesound() )
 
-	/* \rproperty char.soundmode Which sounds are available for this creature. See basesound for the offset.
-	Possible values:
-	<code>0: normal, 5 sounds (attack-started, idle, attack, defence, dying)
-	1: birds .. only one "bird-shape" and zillions of sounds ...
-	2: only 3 sounds -> (attack,defence,dying)
-	3: only 4 sounds ->	(attack-started,attack,defense,dying)
-	4: only 1 sound</code>
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "soundmode", soundmode() )
-
 	/*
 	\rproperty char.canfly Indicates whether the creature can fly.
 
@@ -2432,56 +2385,25 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 void cBaseChar::bark( enBark type )
 {
-	if ( body() == 0x190 || body() == 0x192 )
-	{
-		if ( type == Bark_GetHit )
-		{
-			unsigned short sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
-
-			if ( sound > 0 )
-				soundEffect( sound );
-			else
-				soundEffect( 0x156 );
-
-			return;
-		}
-	}
-	else if ( body() == 0x191 || body() == 0x193 )
-	{
-		unsigned short sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
-		if ( sound > 0 )
-			soundEffect( sound );
-		else
-			soundEffect( 0x14b );
-	}
-
-	if ( !basesound() )	// Nothing known about this creature
-		return;
-
-	switch ( soundmode() )
-	{
-		// Only Attack, Hit and Death sounds available (Falltrough!)
-	case 2:
-		if ( type == Bark_GetHit )
-			return;
-
-		// Only Attack, Hit, GetHit and Death
-	case 3:
-		if ( type == Bark_Idle )
-			return;
-
-		break;
-
-		// Only the first sound is available
-	case 4:
-		if ( type != Bark_Attacking )
-			return;
-
-	default:
-		break;
-	}
-
-	soundEffect( basesound() + ( unsigned char ) type );
+	switch (type) {
+		case Bark_Attacking:
+			playAttackSound();
+			break;
+		case Bark_Idle:
+			playIdleSound();
+			break;
+		case Bark_Hit:
+			playHitSound();
+			break;
+		case Bark_GetHit:
+			playGetHitSound();
+			break;
+		case Bark_Death:
+			playDeathSound();
+			break;
+		default:
+			break;
+	};
 }
 
 void cBaseChar::goldSound( unsigned short amount, bool hearall )
@@ -3592,4 +3514,107 @@ bool cBaseChar::hasScript( const QCString& name )
 	}
 
 	return cUObject::hasScript(name);
+}
+
+void cBaseChar::playAttackSound() {
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+	int sound = -1;
+
+	if (basedef_ && basedef_->attackSound().size() != 0) {
+		sound = basedef_->attackSound()[RandomNum(0, basedef_->attackSound().size() - 1)];
+	} else if (basedef_ && basedef_->basesound() != 0) {
+		sound = basedef_->basesound();
+	} else if (bodyinfo.attackSound != -1) {
+		sound = bodyinfo.attackSound;
+	} else if (bodyinfo.basesound != 0) {
+		sound = bodyinfo.basesound;
+	}
+
+	if (sound >= 0) {
+		soundEffect((unsigned short)sound);
+	}
+}
+
+void cBaseChar::playIdleSound() {
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+	int sound = -1;
+
+	if (basedef_ && basedef_->idleSound().size() != 0) {
+		sound = basedef_->idleSound()[RandomNum(0, basedef_->idleSound().size() - 1)];
+	} else if (basedef_ && basedef_->basesound() != 0) {
+		sound = basedef_->basesound() + 1;
+	} else if (bodyinfo.idleSound != -1) {
+		sound = bodyinfo.idleSound;
+	} else if (bodyinfo.basesound != 0) {
+		sound = bodyinfo.basesound + 1;
+	}
+
+	if (sound >= 0) {
+		soundEffect((unsigned short)sound);
+	}
+}
+
+void cBaseChar::playHitSound() {
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+	int sound = -1;
+
+	if (basedef_ && basedef_->hitSound().size() != 0) {
+		sound = basedef_->hitSound()[RandomNum(0, basedef_->hitSound().size() - 1)];
+	} else if (basedef_ && basedef_->basesound() != 0) {
+		sound = basedef_->basesound() + 2;
+	} else if (bodyinfo.hitSound != -1) {
+		sound = bodyinfo.hitSound;
+	} else if (bodyinfo.basesound != 0) {
+		sound = bodyinfo.basesound + 2;
+	}
+
+	if (sound >= 0) {
+		soundEffect((unsigned short)sound);
+	}
+}
+
+void cBaseChar::playGetHitSound() {
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+	int sound = -1;
+
+	if (basedef_ && basedef_->gethitSound().size() != 0) {
+		sound = basedef_->gethitSound()[RandomNum(0, basedef_->gethitSound().size() - 1)];
+	} else if (basedef_ && basedef_->basesound() != 0) {
+		sound = basedef_->basesound() + 3;
+	} else if (bodyinfo.gethitSound != -1) {
+		sound = bodyinfo.gethitSound;
+	} else if (bodyinfo.basesound != 0) {
+		sound = bodyinfo.basesound + 3;
+	}
+
+	if (sound >= 0) {
+		soundEffect((unsigned short)sound);
+	}
+}
+
+void cBaseChar::playDeathSound() {
+	if (isHuman()) {
+		if (isFemale()) {
+			soundEffect( 0x150 + RandomNum(0, 3) );
+		} else {
+			soundEffect( 0x15A + RandomNum(0, 3) );
+		}
+	} else {
+		stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+		int sound = -1;
+
+		if (basedef_ && basedef_->deathSound().size() != 0) {
+			sound = basedef_->deathSound()[RandomNum(0, basedef_->deathSound().size() - 1)];
+		} else if (basedef_ && basedef_->basesound() != 0) {
+			sound = basedef_->basesound() + 4;
+		} else if (bodyinfo.deathSound != -1) {
+			sound = bodyinfo.deathSound;
+		} else if (bodyinfo.basesound != 0) {
+			sound = bodyinfo.basesound + 4;
+		}
+
+		if (sound >= 0) {
+			soundEffect((unsigned short)sound);
+		}
+	}
 }

@@ -127,7 +127,6 @@ class cCharBaseDef : public cBaseDef
 protected:
 	// Sounds
 	unsigned short basesound_;
-	unsigned char soundmode_;
 	unsigned char type_;
 	unsigned short figurine_;
 	unsigned short minDamage_;
@@ -139,6 +138,13 @@ protected:
 	unsigned char criticalHealth_;
 	unsigned int actionSpeed_; // ms between moves
 	unsigned int wanderSpeed_; // ms between moves
+
+	// Override the override... ;)
+	QValueVector<unsigned short> attackSound_;
+	QValueVector<unsigned short> idleSound_;
+	QValueVector<unsigned short> hitSound_;
+	QValueVector<unsigned short> gethitSound_;
+	QValueVector<unsigned short> deathSound_;
 
 	// Misc Properties
 	void load();
@@ -153,6 +159,31 @@ public:
 	{
 		load();
 		return controlSlots_;
+	}
+
+	inline const QValueVector<unsigned short> &attackSound() {
+		load();
+		return attackSound_;
+	}
+
+	inline const QValueVector<unsigned short> &idleSound() {
+		load();
+		return idleSound_;
+	}
+
+	inline const QValueVector<unsigned short> &hitSound() {
+		load();
+		return hitSound_;
+	}
+
+	inline const QValueVector<unsigned short> &gethitSound() {
+		load();
+		return gethitSound_;
+	}
+
+	inline const QValueVector<unsigned short> &deathSound() {
+		load();
+		return deathSound_;
 	}
 
 	inline unsigned int wanderSpeed()
@@ -177,12 +208,6 @@ public:
 	{
 		load();
 		return basesound_;
-	}
-
-	inline unsigned char soundmode()
-	{
-		load();
-		return soundmode_;
 	}
 
 	inline unsigned short figurine()
@@ -236,9 +261,15 @@ struct stBodyInfo {
 	unsigned short basesound;
 	unsigned short figurine;
 	unsigned char flags;
-	unsigned char soundmode;
 	unsigned char type;
 	unsigned short mountid;
+
+	// These sounds override the basesound + soundtype if neccesary
+	int attackSound;
+	int idleSound;
+	int hitSound;
+	int gethitSound;
+	int deathSound;
 };
 
 class cCharBaseDefs

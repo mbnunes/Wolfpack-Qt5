@@ -485,7 +485,11 @@ bool cPlayer::mount( P_NPC pMount )
 		pMountItem->setId( mountId );
 		pMountItem->setColor( pMount->skin() );
 
-		this->setDirection( pMount->direction() );
+		if (direction() != pMount->direction()) {
+			setDirection( pMount->direction() );
+			update();
+		}
+
 		this->addItem( cBaseChar::Mount, pMountItem );
 		pMountItem->setTag( "pet", cVariant( pMount->serial() ) );
 		pMountItem->update();

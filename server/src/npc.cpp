@@ -1467,7 +1467,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord_cl& pos )
 	// Now we call onCreate
 	cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( pChar, section );
 	Timers::instance()->insert( onCreateCall );
-	pChar->resend( false );
+	pChar->resend(true);
 	return pChar;
 }
 

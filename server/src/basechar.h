@@ -278,7 +278,6 @@ public:
 	void setHairStyle( ushort d );
 	void setBeardColor( ushort d );
 	void setBeardStyle( ushort d );
-	void playDeathSound();
 	double getHitpointRate();
 	double getStaminaRate();
 	double getManaRate();
@@ -288,6 +287,7 @@ public:
 	virtual void turnTo( const Coord_cl& pos );
 	void wear( P_ITEM );
 	bool isHuman() const;
+	bool isFemale() const;
 	bool isMurderer() const;
 	bool isCriminal() const;
 	virtual bool isInnocent();
@@ -551,6 +551,13 @@ public:
 		return fights_;
 	}
 
+	// Get the body specific sounds
+	void playAttackSound();
+	void playIdleSound();
+	void playHitSound();
+	void playGetHitSound();
+	void playDeathSound();
+
 	// Base Definition Getters
 	inline unsigned short basesound()
 	{
@@ -573,15 +580,6 @@ public:
 	inline unsigned char bodytype()
 	{
 		return CharBaseDefs::instance()->getBodyInfo(body()).type;
-	}
-
-	inline unsigned char soundmode()
-	{
-		unsigned char result = basedef_ ? basedef_->soundmode() : 0;
-		if (!result) {
-			result = CharBaseDefs::instance()->getBodyInfo(body()).soundmode;
-		}
-		return result;
 	}
 
 	inline unsigned int wanderSpeed() 
@@ -1571,9 +1569,22 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 	return content_;
 }
 
+inline bool cBaseChar::isFemale() const
+{
+	return ( body_ == 0x191 || body_ == 0x193 );
+}
+
 inline bool cBaseChar::isHuman() const
 {
-	return ( body_ == 0x190 || body_ == 0x191 );
+	if ( body_ >= 0x190 && body_ <= 0x193 ) {
+		return true; // Human female, Human male + ghosts
+	}
+
+	if ( body_ == 0x3df || body_ == 0x3db || body_ == 0x3e2) {
+		return true; // Blackthorne, GM, Dupree
+	}
+
+	return false;
 }
 
 inline bool cBaseChar::isSameAs( P_CHAR pc ) const
