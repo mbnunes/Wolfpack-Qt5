@@ -464,13 +464,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 //		target(s, 0, 1, 0, 2, "Select teleport target.");
 		return;// case 6
 	case 7: // key
-		addid1[s] = pi->more1();
-		addid2[s] = pi->more2();
-		addid3[s] = pi->more3();
-		addid4[s] = pi->more4();
+//		addid1[s] = pi->more1();
+//		addid2[s] = pi->more2();
+//		addid3[s] = pi->more3();
+//		addid4[s] = pi->more4();
 		
-		if (pi->more1() == 255)
-			addid1[s] = 255;
+//		if (pi->more1() == 255)
+//			addid1[s] = 255;
 		
 //		target(s, 0, 1, 0, 11, "Select item to use the key on.");
 		return;// case 7 (keys)
@@ -1026,7 +1026,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if (pBackpack != NULL)
 						if (pi->container() == pBackpack)
 						{
-							addmitem[s] = pi->serial; // save the vials number, LB
+//							addmitem[s] = pi->serial; // save the vials number, LB
 //							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
 						}
 						else 
@@ -1178,10 +1178,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x105C:
 				case 0x1053:
 				case 0x1054: // tinker axle
-					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+//					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+//					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+//					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+//					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 //					target(s, 0, 1, 0, 183, "Select part to combine that with.");
 					return;
 				case 0x1051:
@@ -1190,10 +1190,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1056:
 				case 0x105D:
 				case 0x105E:
-					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+//					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+//					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+//					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+//					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 					// itemmake[s].materialid1=pi->id1;
 					// itemmake[s].materialid2=pi->id2;
 //					target(s, 0, 1, 0, 184, "Select part to combine it with.");
@@ -1202,10 +1202,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1050:
 				case 0x104D:
 				case 0x104E:// tinker clock
-					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+//					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+//					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+//					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+//					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 //					target(s, 0, 1, 0, 185, "Select part to combine with");
 					return;
 				case 0x1059:

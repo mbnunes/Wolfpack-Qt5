@@ -1008,7 +1008,6 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 static int CheckThreeSkills(int s, int low, int high)
 {
 	int part=0;
-	currentSpellType[s]=0;		// needed for MAGERY check
 	part += currchar[s]->checkSkill( INSCRIPTION,  low, high);
 	part += currchar[s]->checkSkill( MAGERY,		low, high);
 	part += currchar[s]->checkSkill( TINKERING,	low, high);

@@ -93,60 +93,6 @@ public:
 	static cTinkerCombine* factory(short combinetype);
 	virtual void DoIt(int s)
 	{
-		P_ITEM piClick = FindItemBySerial( calcserial(addid1[s], addid2[s], addid3[s], addid4[s]) );
-		if( piClick == NULL )
-		{
-			//sysmessage( s, "Original part no longer exists" );
-			return;
-		}
-		
-		const P_ITEM piTarg=FindItemBySerPtr(buffer[s]+7);
-		if (piTarg==NULL || piTarg->isLockedDown())
-		{
-			//sysmessage(s, tr("You can't combine these."));
-			return;
-		}
-		
-		// make sure both items are in the player's backpack
-		P_ITEM pPack = currchar[s]->getBackpack();
-		if (pPack==NULL) return;
-		if ( piTarg->container() != pPack
-			|| piClick->container() != pPack )
-		{
-			//sysmessage(s,tr("You can't use material outside your backpack") );
-			return;
-		}
-		
-		// make sure the parts are of correct IDs AND they are different
-		checkPartID( piClick->id() );
-		checkPartID( piTarg->id() );
-		if (!decide())
-			return;//sysmessage(s, tr("You can't combine these.") );
-		else
-		{
-			P_CHAR pc_currchar = currchar[s];
-
-			if (pc_currchar->skill(TINKERING)<minskill)
-			{
-				//sysmessage(s, tr("You aren't skilled enough to even try that!") );
-				return;
-			}
-			if( !pc_currchar->checkSkill( TINKERING, minskill, 1000 ) )
-			{
-				failmsg(s);
-				P_ITEM piLoser= rand()%2 ? piTarg : piClick;
-				piLoser->ReduceAmount(1);
-				playbad(s);
-			}
-			else
-			{
-				//sysmessage(s, tr("You combined the parts") );
-				piClick->ReduceAmount(1);
-				piTarg->ReduceAmount(1);		// delete both parts 
-				createIt(s);						// spawn the item
-				playgood(s);
-			}
-		}
 	}
 };
 

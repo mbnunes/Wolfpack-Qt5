@@ -85,7 +85,6 @@ time_t	oldtime, newtime;
 
 unsigned int polyduration=90;
 
-int gatecount=0;
 //Time variables
 QDateTime uoTime;
 int secondsperuominute=5; //Number of seconds for a WOLFPACK minute.
@@ -116,8 +115,6 @@ int xycount;
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-unsigned char w_anim[3]={0x1d,0x95,0}; // flying blood instead of lightnings, LB in a real bad mood
-
 unsigned int raindroptime;
 
 //unsigned int cmem;
@@ -143,9 +140,6 @@ int loopTimeCount = 1000;
 
 unsigned long int serverstarttime;
 
-int triggerx;
-int triggery;
-signed char triggerz;
 // Script files that need to be cached
 // Crackerjack Jul 31/99
 
@@ -190,22 +184,17 @@ cCharStuff::cBankerAI	*BankerAI;
  unsigned char addid1[MAXCLIENT];
  unsigned char addid2[MAXCLIENT];
  unsigned char addid3[MAXCLIENT];
- unsigned char addid4[MAXCLIENT];
  int addx[MAXCLIENT];
  int addy[MAXCLIENT];
  int addx2[MAXCLIENT];
  int addy2[MAXCLIENT];
  signed char addz[MAXCLIENT];
- int addmitem[MAXCLIENT];
  char xtext[MAXCLIENT][31];
  unsigned char perm[MAXCLIENT];
- std::string SocketStrings[MAXCLIENT];
 
  int clickx[MAXCLIENT];
  int clicky[MAXCLIENT];
- int currentSpellType[MAXCLIENT]; // 0=spellcast, 1=scrollcast, 2=wand cast
  unsigned char targetok[MAXCLIENT];
- unsigned char clientDimension[MAXCLIENT];
 
 /////////////////////////////////////////////
 ///             hasmax                   ///
