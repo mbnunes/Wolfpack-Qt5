@@ -155,7 +155,7 @@ public:
 		fields.push_back( QString( "%1='%2'" ).arg( name ).arg( QString::number( value ) ) ); \
 	else \
 	{ \
-		fields.push_back( name ); \
+		/* fields.push_back( name ); */ \
 		values.push_back( QString::number( value ) ); \
 	}
 
@@ -164,7 +164,7 @@ public:
 		fields.push_back( QString( "%1='%2'" ).arg( name ).arg( persistentBroker->quoteString( value ) ) ); \
 	else \
 	{ \
-		fields.push_back( name ); \
+		/* fields.push_back( name ); */ \
 		values.push_back( "'" + ( value.isNull() ? QString( "" ) : persistentBroker->quoteString( value ) ) + "'" ); \
 	}
 
@@ -177,7 +177,7 @@ public:
 	} \
 	else \
 	{ \
-		persistentBroker->executeQuery( QString( "INSERT INTO %1 (%2) VALUES(%3)" ).arg( table ).arg( fields.join( "," ) ).arg( values.join( "," ) ) ); \
+		persistentBroker->executeQuery( QString( "INSERT INTO %1 VALUES(%3)" ).arg( table )/*.arg( fields.join( "," ) )*/.arg( values.join( "," ) ) ); \
 	}
 
 #endif // __PERSISTENTBROKER_H__

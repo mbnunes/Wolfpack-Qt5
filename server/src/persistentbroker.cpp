@@ -91,7 +91,12 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 
 	// Disable fsynch for sqlite
 	if( sqlite )
+	{
 		connection->exec( "PRAGMA synchronous = OFF;" );
+		connection->exec( "PRAGMA default_synchronous = OFF;" );
+		connection->exec( "PRAGMA full_column_names = OFF;" );
+		connection->exec( "PRAGMA show_datatypes = OFF;" );
+	}
 
 	return true;
 }
@@ -105,8 +110,8 @@ void PersistentBroker::disconnect()
 bool PersistentBroker::saveObject( PersistentObject* object )
 {
 	// Start Transaction
-	if( sqlite )
-		connection->exec( "BEGIN TRANSACTION;" );
+	/*if( sqlite )
+		connection->exec( "BEGIN TRANSACTION;" );*/
 
 	try
 	{
@@ -115,14 +120,14 @@ bool PersistentBroker::saveObject( PersistentObject* object )
 	catch( ... )
 	{
 		// Rollback
-		if( sqlite )
-			connection->exec( "ROLLBACK TRANSACTION;" );
+		/*if( sqlite )
+			connection->exec( "ROLLBACK TRANSACTION;" );*/
 		throw;
 	}
 
 	// Commit
-	if( sqlite )
-		connection->exec( "COMMIT TRANSACTION;" );
+	/*if( sqlite )
+		connection->exec( "COMMIT TRANSACTION;" );*/
 
 	return true;
 }

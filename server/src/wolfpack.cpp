@@ -558,17 +558,6 @@ int main( int argc, char *argv[] )
 	SetVersion(wp_version.verstring.c_str());
 #endif
 */
-	clConsole.send( "PAUSE" );
-	Sleep( 10000 );
-
-	for( unsigned int x = 0; x < 100000; ++x )
-	{
-		cItem *pItem = new cItem;		
-	}
-
-	clConsole.send( "PAUSE" );
-	Sleep( 10000 );
-
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 
@@ -815,7 +804,7 @@ int main( int argc, char *argv[] )
 	consoleThread.start();
 
 	serverState = RUNNING;
-	
+
 	QWaitCondition niceLevel;
 	// This is our main loop
 	while( keeprun )

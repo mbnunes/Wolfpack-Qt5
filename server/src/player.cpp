@@ -128,8 +128,16 @@ void cPlayer::save()
 		setTable( "players" );
 		
 		addField( "serial", serial() );
+
 		if( account_ )
+		{
 			addStrField( "account", account_->login() );
+		}
+		else
+		{
+			addStrField( "account", QString::null );
+		}
+
 		addField( "additionalflags", additionalFlags_ );
 		addField( "visualrange", visualRange_ );
 		addStrField( "profile", profile_ );

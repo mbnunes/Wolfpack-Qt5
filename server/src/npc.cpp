@@ -172,6 +172,10 @@ void cNPC::save()
 		{
 			addStrField( "ai", ai_->name() );
 		}
+		else
+		{
+			addStrField( "ai", QString::null );
+		}
 		addField( "wandertype", (UINT8)wanderType() );
 		addField( "wanderx1", wanderX1() );
 		addField( "wanderx2", wanderX2() );

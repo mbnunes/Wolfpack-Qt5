@@ -64,7 +64,7 @@
 #include <list>
 
 // UNCOMMENT THIS IF YOU WANT TO USE A HASHMAP 
-//#define WP_USE_HASH_MAP
+#define WP_USE_HASH_MAP
 
 // Important compile switch
 #if defined(WP_USE_HASH_MAP)
@@ -466,6 +466,8 @@ void cWorld::save()
 	
 	p->purgePendingObjects();
 
+	persistentBroker->executeQuery( "BEGIN;" );
+
 	try
 	{
 		cItemIterator iItems;
@@ -478,6 +480,8 @@ void cWorld::save()
 	}
 	catch( QString &e )
 	{
+		persistentBroker->executeQuery( "ROLLBACK;" );
+
 		clConsole.ChangeColor( WPC_RED );
 		clConsole.send( " Failed" );
 		clConsole.ChangeColor( WPC_NORMAL );
@@ -485,6 +489,8 @@ void cWorld::save()
 		clConsole.log( LOG_ERROR, "Saving failed: " + e );
 		return;
 	}
+
+	persistentBroker->executeQuery( "COMMIT;" );
 
 	ISerialization *archive = cPluginFactory::serializationArchiver( "xml" );
 	archive->prepareWritting( "effects" );
