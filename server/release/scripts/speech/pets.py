@@ -242,7 +242,7 @@ def kill_target( char, args, target ):
 	if args[0] == "single":
 		pet = wolfpack.findchar( args[1] )
 		if pet:
-			pet.attack( target.char )
+			pet.fight( target.char )
 
 	elif args[0] == "all":
 		# Let all followers in sight attack the target
