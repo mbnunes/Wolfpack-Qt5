@@ -38,6 +38,7 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Fixed a bug related to serverlists duplication on configuration reload.
 	- Documentation fixes for item.addtimer.
 	- Item Base Definitions are now reloaded correctly.
+	- Fixed bug #0000267 (Max. falling height is now infinite).
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

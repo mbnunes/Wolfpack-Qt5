@@ -316,6 +316,10 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 				pos.z = itemTop;
 				found = true;
 				break;
+			} else if ( itemTop < pos.z ) {
+				pos.z = itemTop;
+				found = true;
+				break;
 			}
 		}
 	}
