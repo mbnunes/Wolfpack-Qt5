@@ -7,10 +7,10 @@
 	- <code>go x,y,z</code>
 	- <code>go x,y,z,map</code>
 	- <code>go location</code>
-	
-	If you don't specify any of the parameters a menu with all categorized locations 
-	will be shown. If you specify the id of a location, you will be transported to the 
-	locations position. If you specify a coordinate, you will be transported there.	
+
+	If you don't specify any of the parameters a menu with all categorized locations
+	will be shown. If you specify the id of a location, you will be transported to the
+	locations position. If you specify a coordinate, you will be transported there.
 """
 
 """
@@ -21,8 +21,8 @@
 	- <code>send x,y,z</code>
 	- <code>send x,y,z,map</code>
 	- <code>send location</code>
-	
-	If you don't specify any of the parameters, you will be able to select the location 
+
+	If you don't specify any of the parameters, you will be able to select the location
 	the object should be sent via a target cursor. Otherwise the selected object will be sent
 	to the given location or coordinates. See the <command id="GO">GO</command> command for details.
 """
@@ -41,14 +41,14 @@ def sendresponse2(player, arguments, target):
 		pos = target.char.pos
 	else:
 		pos = target.pos
-	
-	if arguments[0] >= 0x40000000:	
+
+	if arguments[0] >= 0x40000000:
 		object = wolfpack.finditem(arguments[0])
 	else:
 		object = wolfpack.findchar(arguments[0])
-		
+
 	if not object:
-		return	
+		return
 	object.removefromview()
 	object.moveto(pos)
 	object.update()
@@ -64,11 +64,11 @@ def sendresponse(player, arguments, target):
 			player.socket.sysmessage("You've burnt your fingers!")
 			return
 
-		object = target.char		
+		object = target.char
 	else:
 		player.socket.sysmessage('You need to target a character or an item.')
 		return
-		
+
 	# Maybe we need to choose a location
 	if len(arguments) == 0:
 		player.socket.sysmessage('Where do you want to send the targetted object?')
@@ -99,15 +99,15 @@ def sendresponse(player, arguments, target):
 		# If we reach this point it was no valid coordinate
 		# See if we can get a def
 		location = wolfpack.getdefinition(WPDT_LOCATION, arguments[0])
-		
+
 		if location:
-			(x,y,z,map) = location.text.split(',')		
+			(x,y,z,map) = location.text.split(',')
 			pos = wolfpack.coord(int(x), int(y), int(z), int(map))
 			object.removefromview()
 			object.moveto(pos)
 			object.update()
 		else:
-			player.socket.sysmessage('Usage: send <x, y, z, map>|<location>')		
+			player.socket.sysmessage('Usage: send <x, y, z, map>|<location>')
 
 #
 # Send an object to a given location
@@ -117,7 +117,7 @@ def send(socket, command, arguments):
 		socket.sysmessage("Please choose the object you want to send to '%s'." % arguments)
 		socket.attachtarget('commands.go.sendresponse', [arguments])
 	else:
-		socket.sysmessage("Please choose the object you want to teleport.")	
+		socket.sysmessage("Please choose the object you want to teleport.")
 		socket.attachtarget('commands.go.sendresponse', [])
 
 #
@@ -150,7 +150,7 @@ def go(socket, command, arguments):
 			player.removefromview()
 			player.moveto(pos)
 			player.update()
-			player.socket.resendworld()			
+			player.socket.resendworld()
 			return
 		except:
 			pass
@@ -160,7 +160,7 @@ def go(socket, command, arguments):
 	location = wolfpack.getdefinition(WPDT_LOCATION, arguments)
 
 	if location:
-		(x,y,z,map) = location.text.split(',')		
+		(x,y,z,map) = location.text.split(',')
 		pos = wolfpack.coord(int(x), int(y), int(z), int(map))
 		player.removefromview()
 		player.moveto(pos)
@@ -182,7 +182,7 @@ class GoAction(MakeAction):
 
 	#
 	# Teleport the user to the position of this
-	# makemenu action. We don't add it to the 
+	# makemenu action. We don't add it to the
 	# "make last" action because it makes no sense.
 	#
 	def make(self, player, arguments):
@@ -197,7 +197,7 @@ class GoAction(MakeAction):
 #
 def generateGoMenu():
 	locations = wolfpack.getdefinitions(WPDT_LOCATION)
-	
+
 	gomenu = MakeMenu('GOMENU', None, 'Go Menu')
 	submenus = {}
 
@@ -208,12 +208,12 @@ def generateGoMenu():
 		description = categories[len(categories)-1] # Name of the action
 		categories = categories[:len(categories)-1]
 
-		# Iterate trough the categories and see if they're all there		
+		# Iterate trough the categories and see if they're all there
 		category = ''
 		if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
 			for subcategory in categories:
 				if not submenus.has_key(category + subcategory + '\\'):
-					# Category is our parent category 
+					# Category is our parent category
 					parent = None
 					if len(category) == 0:
 						parent = gomenu
@@ -237,7 +237,7 @@ def generateGoMenu():
 			GoAction(gomenu, description, pos)
 		else:
 			GoAction(submenus['\\'.join(categories) + '\\'], description, pos)
-	
+
 	gomenu.sort()
 	for menu in submenus.values():
 		menu.sort()

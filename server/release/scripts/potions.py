@@ -2,7 +2,7 @@ import wolfpack
 from random import randint
 from wolfpack.time import *
 from wolfpack.consts import *
-from wolfpack.utilities import *
+from wolfpack.utilities import hex2dec, throwobject
 
 HEAL_POT_DELAY = 10000 # 10 Seconds
 AGILITY_TIME = 120000  # 2 minutes
@@ -51,24 +51,32 @@ def onUse( char, item ):
 
 	return OK
 
+def targetexplosionpotion(char, args, target):
+	throwobject( char, args[0], target, 1 )
+	return OK
+
+def potionexplosion(args):
+	return OK
+
 # Check what kind of potion we use, drink or throw
 def potioncheck( char, item, potiontype ):
 	socket = char.socket
-	
+
 	# Lets get the type of potion
 	if not potiontype:
 		return OOPS
-	
+
 	# Do we throw this thing?
 	if potions[ potiontype ][ POT_TARGET ] == TRUE:
 		# Explosion Potion
 		if potiontype == 'lesser_explosion' or potiontype == 'explosion' or potiontype == 'greater_explosion':
 			socket.sysmessage( 'Please select a target...', RED )
-		
+			socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
+
 		# Not Known
 		else:
 			socket.sysmessage( 'What am I throwing!?', RED )
-	
+
 	# We just drink this potion...
 	else:
 		# Heal Potions
@@ -83,12 +91,12 @@ def potioncheck( char, item, potiontype ):
 					char.socket.clilocmessage(1049547)
 				else:
 					healPotion(char, item, potiontype)
-		
+
 		# Cure Potions
 		elif potiontype == 'lesser_cure' or potiontype == 'cure' or potiontype == 'greater_cure':
 			if canUsePotion(char, item):
 				socket.sysmessage('Drinking a cure potion.')
-		
+
 		# Agility Potions
 		elif potiontype == 'agility' or potiontype == 'greater_agility':
 			if canUsePotion(char, item):
@@ -97,7 +105,7 @@ def potioncheck( char, item, potiontype ):
 				else:
 					# You are already under a similar effect.
 					char.socket.clilocmessage(502173)
-		
+
 		# Strength Potions
 		elif potiontype == 'strength' or potiontype == 'greater_strength':
 			if canUsePotion( char, item ):
@@ -106,7 +114,7 @@ def potioncheck( char, item, potiontype ):
 				else:
 					# You are already under a similar effect.
 					char.socket.clilocmessage( 502173, '', GRAY )
-		
+
 		# Poison Potions
 		elif potiontype == 'lesser_poison' or potiontype == 'poison' or potiontype == 'greater_poison' or potiontype == 'deadly_poison':
 			if canUsePotion( char, item ):
@@ -135,7 +143,7 @@ def canUsePotion( char, item ):
 
 	if firsthand and not secondhand and not firsthand.twohanded:
 		return OK
-	
+
 	if not firsthand and secondhand and not secondhand.twohanded:
 		return OK
 
@@ -149,7 +157,7 @@ def drinkAnim( char ):
 
 # Consume the potion
 def consumePotion( char, potion, givebottle ):
-	
+
 	if potion.amount == 1:
 		potion.delete()
 	else:
@@ -167,12 +175,12 @@ def nightsightPotion( char, potion ):
 
 # 10 Second Delay
 def checkHealTimer( char ):
-	
+
 	if not char.hastag( "heal_timer" ):
 		char.settag( "heal_timer", wolfpack.time.servertime() + HEAL_POT_DELAY )
 		return OK
 
-	# Compare 
+	# Compare
 	elapsed = int( char.gettag( "heal_timer" ) )
 	if elapsed > wolfpack.time.servertime():
 		char.socket.clilocmessage( 500235, '', GRAY ) # You must wait 10 seconds before using another healing potion.
@@ -210,7 +218,7 @@ def healPotion( char, potion, healtype ):
 
 	drinkAnim( char )
 	consumePotion( char, potion, potions[ healtype ][ POT_RETURN_BOTTLE ] )
-	
+
 	return OK
 
 # Dexterity Effect Timer
@@ -218,7 +226,7 @@ def effectdextimer( time, args ):
 	char = args[0]
 	effecttype = args[1]
 	bonus = args[2]
-	
+
 	if effecttype == 'agility' or effecttype == 'greater_agility':
 		if not char.hastag( 'agility_effect' ):
 			return OOPS
@@ -234,7 +242,7 @@ def effectstrtimer( time, args ):
 	char = args[0]
 	effecttype = args[1]
 	bonus = args[2]
-	
+
 	if effecttype == 'strength' or effecttype == 'greater_strength':
 		if not char.hastag( 'strength_effect' ):
 			return OOPS
@@ -270,14 +278,14 @@ def agilityPotion( char, potion, agilitytype ):
 	# Agility
 	if agilitytype == 'agility':
 		bonus = 10
-	
+
 	# Greater Agility
 	elif agilitytype == 'greater_agility':
 		bonus = 20
-	
+
 	else:
 		return OOPS
-		
+
 	char.dexterity = char.dexterity + bonus
 	char.maxstamina = char.maxstamina + bonus
 	wolfpack.addtimer( AGILITY_TIME, "potions.effectdextimer", [ char, agilitytype, bonus ], 1 )
@@ -289,7 +297,7 @@ def agilityPotion( char, potion, agilitytype ):
 	char.effect( 0x375a, 10, 15 )
 	char.soundeffect( SOUND_AGILITY_UP )
 	consumePotion( char, potion, potions[ agilitytype ][ POT_RETURN_BOTTLE ] )
-	
+
 	return OK
 
 # Strength Potion
@@ -302,14 +310,14 @@ def strengthPotion( char, potion, strengthtype ):
 	# Agility
 	if strengthtype == 'strength':
 		bonus = 10
-	
+
 	# Greater Agility
 	elif strengthtype == 'greater_strength':
 		bonus = 20
-	
+
 	else:
 		return OOPS
-		
+
 	char.strength = char.strength + bonus
 	char.maxhitpoints = char.maxhitpoints + bonus
 	wolfpack.addtimer( STRENGTH_TIME, "potions.effectstrtimer", [ char, strengthtype, bonus ], 1 )
@@ -321,14 +329,14 @@ def strengthPotion( char, potion, strengthtype ):
 	char.effect( 0x375a, 10, 15 )
 	char.soundeffect( SOUND_STRENGTH_UP )
 	consumePotion( char, potion, potions[ strengthtype ][ POT_RETURN_BOTTLE ] )
-	
+
 	return OK
 
 # Poison Potions
 def poisonPotion( char, potion, poisontype ):
 	char.socket.sysmessage( "You shouldn't drink that..." )
 	return OK
-	
+
 # INVIS POTION
 # ID: 0x7A9A3 (0)
 # Your skin becomes extremely sensitive to light, changing to mirror the colors of things around you.

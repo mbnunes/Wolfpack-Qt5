@@ -595,3 +595,34 @@ def createlockandkey( container ):
 				events[:0] = ['lock']
 				container.events = events
 	return
+
+"""
+	\function wolfpack.utilities.throwobject
+	\param char
+	\param object
+	\param target
+	\param sendobject
+	\param speed
+	\param fixeddir
+	\param explodes
+	\param hue
+	\param rendermode
+	\return none
+	\description Animates a character's throwing of an object at a given target.
+"""
+def throwobject( char, object, target, sendobject=0, speed=10, fixeddir=0, explodes=0, hue=0, rendermode=0 ):
+	char.turnto(target.pos)
+	char.action(0x9)
+	char.movingeffect(object.id, target.pos, fixeddir, explodes, speed, hue, rendermode)
+	# This will make the object leave the character's pack and land at the target location.
+	if sendobject > 0:
+		char.say('Woooooooooo!')
+		if target.char:
+			object.moveto(target.char.pos)
+		elif target.item and target.item.type != 1 and (not target.item.container):
+			object.moveto( target.item.pos )
+		else:
+			object.moveto( target.pos )
+		object.update()
+	return
+
