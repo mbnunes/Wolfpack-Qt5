@@ -219,7 +219,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 
 	LongToCharPtr(pc_k->serial, &removeitem[1]);
 
-	if (pc_k->spawnregion>0 && pc_k->spawnregion<255)
+	if (pc_k->spawnregion>0 && pc_k->spawnregion<1024)
 	{
 		spawnregion[pc_k->spawnregion].current--;
 	}
