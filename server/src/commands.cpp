@@ -749,6 +749,8 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 		return;
 	}
 
+	Console::instance()->log(LOG_MESSAGE, QString("Exporting definitions to %1.\n").arg("categories.db"));
+
 	try {
 		// Create Tables
 		driver.exec("CREATE TABLE items (\
@@ -866,6 +868,75 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 				.arg(parent);
 			driver.exec(sql);
 		}
+
+		categories.clear();
+		lastcategory = 0;
+		
+		sections = Definitions::instance()->getSections(WPDT_LOCATION);
+		for (sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt) {
+			const cElement *element = Definitions::instance()->getDefinition(WPDT_LOCATION, *sectionIt);
+
+			QString category = element->getAttribute("category");
+			if (category.isNull()) {
+				continue;
+			}
+			
+            int pos = category.findRev('\\');
+
+			if (pos == -1) {
+				continue;
+			}
+
+			QString name = category.right(category.length() - (pos + 1));
+			category = category.left(pos);
+
+			// Create an id for the category
+			unsigned int categoryId;
+			if (!categories.contains(category)) {
+				ensureCategory(categories, lastcategory, category);
+				categoryId = lastcategory;
+			} else {
+				categoryId = categories[category];
+			}
+
+			Coord_cl coord;
+			parseCoordinates(element->text(), coord);
+			QString id = *sectionIt;
+            
+            QString sql = QString("INSERT INTO locations VALUES(NULL,'%1',%2,%3,%4,%5,%6,'%7');")
+				.arg(name.replace("'", "''"))
+				.arg(categoryId)
+				.arg(coord.x)
+				.arg(coord.y)
+				.arg(coord.z)
+				.arg(coord.map)
+				.arg(id.replace("'", "''"));
+				
+			driver.exec(sql);
+		}
+
+		// Ensure that all categories are in the list
+		for (categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt) {
+			unsigned int parent = 0;
+			int pos = categoriesIt.key().findRev('\\');
+			if (pos != -1) {
+				QString parentName = categoriesIt.key().left(pos);
+				if (categories.contains(parentName)) {
+					parent = categories[parentName];
+				}
+			}
+
+			QString name = categoriesIt.key();
+			name = name.right(name.length() - (pos + 1));
+
+			QString sql = QString("INSERT INTO locationcategories VALUES(%1,'%2',%3,0);")
+				.arg(categoriesIt.data())
+				.arg(name.replace("'", "''"))
+				.arg(parent);
+			driver.exec(sql);
+		}
+
+		socket->sysMessage("Finished exporting definitions to categories.db.");
 	} catch(const QString &e) {
 		socket->sysMessage(e);
 	} catch(const wpException &e) {

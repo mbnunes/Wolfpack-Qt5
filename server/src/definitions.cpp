@@ -718,6 +718,10 @@ QString cElement::value() const
 	return hex2dec( Value );
 }
 
+/*
+	\object element
+	\description This object type represents an element in the definitions.
+*/
 struct wpElement
 {
 	PyObject_HEAD;
@@ -739,6 +743,13 @@ wpDealloc,
 0,
 };
 
+/*
+	\method element.hasattribute
+	\param name The name of the attribute
+	\return True or False.
+	\description This method checks if the element has an attribute with the
+	given name and returns True if so, False otherwise.
+*/
 static PyObject* wpElement_hasattribute( wpElement* self, PyObject* args )
 {
 	char* name;
@@ -753,6 +764,14 @@ static PyObject* wpElement_hasattribute( wpElement* self, PyObject* args )
 	Py_RETURN_FALSE;
 }
 
+/*
+	\method element.getattribute
+	\param name The name of the attribute.
+	\param default The return value if the attribute doesn't exist. Defaults to an empty string.
+	\return A unicode string containing the value of the attribute or the default value if the
+	attribute doesn't exist.
+	\description This method retrieves the string value of an attribute.
+*/
 static PyObject* wpElement_getattribute( wpElement* self, PyObject* args )
 {
 	char* name;
@@ -773,16 +792,16 @@ static PyObject* wpElement_getattribute( wpElement* self, PyObject* args )
 
 	QString result = self->element->getAttribute( name, defvalue );
 
-	if ( result == QString::null )
-	{
-		return PyUnicode_FromUnicode( ( Py_UNICODE * ) L"", 0 );
-	}
-	else
-	{
-		return PyUnicode_FromUnicode( ( Py_UNICODE * ) result.ucs2(), result.length() );
-	}
+	return QString2Python(result);
 }
 
+/*
+	\method element.findchild
+	\param name The name of the child element.
+	\return An <object id="element">element</object> object for the child or None.
+	\description This method tries to find a child element with the given name. If 
+	none could be found, None is returned. Otherwise the child element is returned.
+*/
 static PyObject* wpElement_findchild( wpElement* self, PyObject* args )
 {
 	char* name;
@@ -804,6 +823,13 @@ static PyObject* wpElement_findchild( wpElement* self, PyObject* args )
 	}
 }
 
+/*
+	\method element.getchild
+	\param index The index of the child element.
+	\return An <object id="element">element</object> object for the child or None.
+	\description This method returns a child element at the given index or None if
+	the index exceeds the number of child elements - 1.
+*/
 static PyObject* wpElement_getchild( wpElement* self, PyObject* args )
 {
 	unsigned int pos;
@@ -834,10 +860,15 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 {
 	cElement* element = self->element;
 
+	// \rproperty element.name A string containing the name of the element.
 	if ( !strcmp( name, "name" ) )
 	{
 		return PyString_FromString( element->name().data() );
 	}
+	/*
+		\rproperty element.parent An <object id="element">element</object> object for the parent of this element. 
+		If there is no parent this property is None.
+	*/
 	else if ( !strcmp( name, "parent" ) )
 	{
 		if ( element->parent() )
@@ -850,32 +881,25 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 			Py_RETURN_NONE;
 		}
 	}
-	else if ( !strcmp( name, "value" ) )
-	{
-		QString value = element->value();
-
-		if ( value == QString::null )
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) L"", 0 );
-		}
-		else
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
-		}
+	/*
+		\rproperty element.value The parsed value of this node.
+		This converts hexadecimal numbers to decimal numers and
+		computes random values. The result still is a unicode string.
+	*/
+	else if ( !strcmp( name, "value" ) ) {		
+		return QString2Python(element->value());
 	}
+	/*
+		\rproperty element.text This is the text enclosed by this element.
+	*/
 	else if ( !strcmp( name, "text" ) )
 	{
-		QString value = element->text();
-
-		if ( value == QString::null )
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) L"", 0 );
-		}
-		else
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
-		}
+		return QString2Python(element->text());
 	}
+	/*
+		\rproperty element.childcount This is the number of children this
+		element has.
+	*/
 	else if ( !strcmp( name, "childcount" ) )
 	{
 		return PyInt_FromLong( self->element->childCount() );

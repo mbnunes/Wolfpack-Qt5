@@ -53,8 +53,6 @@ QString hex2dec( const QString& value );
 float RandomFloatNum( float nLowNum, float nHighNum );
 unsigned int getNormalizedTime();
 
-
-
 template <class T>
 struct destroy_obj : std::unary_function<T, void>
 {

@@ -29,7 +29,7 @@
 #include "basics.h"
 #include "coord.h"
 #include "exceptions.h"
-#include "uobject.h"
+#include "persistentobject.h"
 
 // Library Includes
 #include <qstring.h>
