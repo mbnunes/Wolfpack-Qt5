@@ -12,15 +12,15 @@
 		<item>Lord Of The Abyss</item>
 		<item>Slayer</item>
 		<item>The Collector Of Souls</item>
-		<item>a balron</item>
-		<item>an ancient daemon</item>
-		<item>an elder daemon</item>
+		<item>balron</item>
+		<item>ancient daemon</item>
+		<item>elder daemon</item>
 	</list>
 
 	<list id="NAMES_DAEMON">
-		<item>a beastly daemon</item>
-		<item>a cacodaemon</item>
-		<item>a daemon</item>
+		<item>beastly daemon</item>
+		<item>cacodaemon</item>
+		<item>daemon</item>
 		<item>Aamon</item>
 		<item>Agalierept</item>
 		<item>Agares</item>

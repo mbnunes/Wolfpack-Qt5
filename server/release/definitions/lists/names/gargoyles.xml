@@ -9,15 +9,15 @@
 <definitions>
 
 	<list id="NAMES_GARGOYLE">
-		<item>a blistering gargoyle</item>
-		<item>a burning gargoyle</item>
-		<item>a fiery gargoyle</item>
-		<item>a flaming gargoyle</item>
-		<item>a scalding gargoyle</item>
-		<item>a scorching gargoyle</item>
-		<item>a searing gargoyle</item>
-		<item>a smoldering gargoyle</item>
-		<item>a sweltering gargoyle</item>
+		<item>blistering gargoyle</item>
+		<item>burning gargoyle</item>
+		<item>fiery gargoyle</item>
+		<item>flaming gargoyle</item>
+		<item>scalding gargoyle</item>
+		<item>scorching gargoyle</item>
+		<item>searing gargoyle</item>
+		<item>smoldering gargoyle</item>
+		<item>sweltering gargoyle</item>
 	</list>
 
 </definitions>

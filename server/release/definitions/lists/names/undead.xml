@@ -9,11 +9,11 @@
 <definitions>
 
 	<list id="NAMES_SHADE">
-		<item>a shade</item>
-		<item>a spectre</item>
-		<item>a bogle</item>
-		<item>a ghoul</item>
-		<item>a wraith</item>
+		<item>shade</item>
+		<item>spectre</item>
+		<item>bogle</item>
+		<item>ghoul</item>
+		<item>wraith</item>
 	</list>
 
 </definitions>

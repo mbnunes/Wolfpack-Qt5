@@ -9,27 +9,27 @@
 <definitions>
 
 	<list id="NAMES_BIRDS">
-		<item>a chickadee</item>
-		<item>a crossbill</item>
-		<item>a cuckoo</item>
-		<item>a finch</item>
-		<item>a hawk</item>
-		<item>a kingfisher</item>
-		<item>a lapwing</item>
-		<item>a nightingale</item>
-		<item>a nuthatch</item>
-		<item>a plover</item>
-		<item>a skylark</item>
-		<item>a sparrow</item>
-		<item>a starling</item>
-		<item>a swallow</item>
-		<item>a swift</item>
-		<item>a tern</item>
-		<item>a thrush</item>
-		<item>a towhee</item>
-		<item>a warbler</item>
-		<item>a woodpecker</item>
-		<item>a wren</item>
+		<item>chickadee</item>
+		<item>crossbill</item>
+		<item>cuckoo</item>
+		<item>finch</item>
+		<item>hawk</item>
+		<item>kingfisher</item>
+		<item>lapwing</item>
+		<item>nightingale</item>
+		<item>nuthatch</item>
+		<item>plover</item>
+		<item>skylark</item>
+		<item>sparrow</item>
+		<item>starling</item>
+		<item>swallow</item>
+		<item>swift</item>
+		<item>tern</item>
+		<item>thrush</item>
+		<item>towhee</item>
+		<item>warbler</item>
+		<item>woodpecker</item>
+		<item>wren</item>
 	</list>
 
 </definitions>
