@@ -2143,10 +2143,10 @@ static PyObject* wpChar_vendorsell( wpChar* self, PyObject* args )
 }
 
 /*
-	\method char.aiengine
+	\method char.aiengine	
 	\description Get the ai engine associated with this NPC.
 	This only works for NPCs and returns None otherwise
-	\return The Ai object used by this npc.
+	\return The <object id="ai">ai</object> object used by this npc.
 */
 static PyObject* wpChar_aiengine( wpChar* self, PyObject* args )
 {
