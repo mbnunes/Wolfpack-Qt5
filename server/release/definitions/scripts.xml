@@ -5,7 +5,6 @@
 	other scripts or eventlists).
 -->
 <definitions>
-	<!-- NPC -->
 	<script>npc.healer</script>
 
 	<script>training_dummy</script>
@@ -45,6 +44,7 @@
 	<script>wolfpack.commands.wipe</script>
 	<script>wolfpack.commands.skill</script>
 	<script>wolfpack.commands.stat</script>
+	<script>wolfpack.commands.travel</script>
 
 	<!-- Magic -->
 	<script>spellbook</script>

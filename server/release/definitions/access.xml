@@ -11,6 +11,9 @@
 	<acl id="player">
 		<group name="command">
 			<action name="WHERE" permit="true" />
+			<action name="TRAVEL" permit="true" />
+			<action name="STAT" permit="true" />
+			<action name="SKILL" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
