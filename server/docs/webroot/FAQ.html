@@ -18,6 +18,7 @@
 			Frequently Asked Questions<br />
 			<br />
 			Table of Contents<br />
+			<!-- Begin Table of Contents -->
 			<ul class="toc">
 				<li><a href="./FAQ.html#01">What is new in Wolfpack 13.x.x?</a></li>
 				<li><a href="./FAQ.html#02">What platforms are supported?</a></li>
@@ -44,7 +45,20 @@
 				<li><a href="./FAQ.html#18">When will _______ bug or problem be fixed?</a></li>
 				<li><a href="./FAQ.html#19">Why is _______ feature is not working the same as on Sphere?</a></li>
 				<li><a href="./FAQ.html#20">I'm using the CVS scripts with a release binary, why do I get errors?</a></li>
+				<li><a href="./FAQ.html#21">Why does nothing (vendors, npcs, items) spawn?</a></li>
+				<li><a href="./FAQ.html#22">How do I add/edit/remove accounts?</a></li>
+				<li><a href="./FAQ.html#23">How do I manage my definition (*.xml) files?</a></li>
+				<li><a href="./FAQ.html#24">How do I manage my script (*.py) files?</a></li>
+				<!--
+				<li><a href="./FAQ.html#25"></a></li>
+				<li><a href="./FAQ.html#26"></a></li>
+				<li><a href="./FAQ.html#27"></a></li>
+				<li><a href="./FAQ.html#28"></a></li>
+				<li><a href="./FAQ.html#29"></a></li>
+				<li><a href="./FAQ.html#30"></a></li>
+				-->
 			</ul>
+			<!-- End Table of Contents -->
 		</div>
 		<br /><hr /><br />
 		<!-- ANSWERS -->
@@ -271,7 +285,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 11 -->
-				<li><a  name="11" class="question">I found a bug! What can I do?</a><br />
+				<li><a name="11" class="question">I found a bug! What can I do?</a><br />
 					<div class="answer">
 						Before anything, we recommend that you check the bug tracker to see if it has already been reported.<br />
 						If you find a new bug there are a few things you can do:<br />
@@ -284,7 +298,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 12 -->
-				<li><a  name="12" class="question">I wrote some scripts that were missing! What can I do with it?</a><br />
+				<li><a name="12" class="question">I wrote some scripts that were missing! What can I do with it?</a><br />
 					<div class="answer">
 					First of all, we are trying to conform to an OSI like world. So please check that your creation(s) are along
 					those requirements.<br />
@@ -300,7 +314,7 @@
 				</li>
 				<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				<!-- Answer 13 -->
-				<li><a  name="13" class="question">Where can I find the latest CVS Snapshots?</a><br />
+				<li><a name="13" class="question">Where can I find the latest CVS Snapshots?</a><br />
 					<div class="answer">
 						You can find the latest CVS snapshots at:
 						<a href="http://wpdev.sourceforge.net/snapshots/">http://wpdev.sourceforge.net/snapshots/</a>
@@ -308,7 +322,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 14 -->
-				<li><a  name="14" class="question">How do I connect to Wolfpack?</a><br />
+				<li><a name="14" class="question">How do I connect to Wolfpack?</a><br />
 					<div class="answer">
 						The easiest way is to make sure your server settings and client settings are correctly configured.<br />
 						Please check your login.cfg in your Ultima Online installation directory so that it resembles this.<br />
@@ -343,7 +357,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 15 -->
-				<li><a  name="15" class="question">Help! I can't login?!</a><br />
+				<li><a name="15" class="question">Help! I can't login?!</a><br />
 					<div class="answer">
 						First of all, please check out "<a href="./FAQ.html#14">How do I connect to Wolfpack?</a>" to see if that
 						resolves your problem.<br /><br />
@@ -357,7 +371,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 16 -->
-				<li><a  name="16" class="question">What ports should I have open?</a><br />
+				<li><a name="16" class="question">What ports should I have open?</a><br />
 					<div class="answer">
 						By default, Wolfpack uses TCP ports 2592 and 2593.<br />
 						Optionally you can enable TCP port 2594 which is for the remote admin page.<br />
@@ -365,7 +379,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 17 -->
-				<li><a  name="17" class="question">How can I route to my server behind a router?</a><br />
+				<li><a name="17" class="question">How can I route to my server behind a router?</a><br />
 					<div class="answer">
 						Please Note the following:
 						<div class="bash">
@@ -392,7 +406,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 18 -->
-				<li><a  name="18" class="question">When will _______ bug or problem be fixed?</a><br />
+				<li><a name="18" class="question">When will _______ bug or problem be fixed?</a><br />
 					<div class="answer">
 						The simple answer to this is, when they get fixed.<br /><br />
 						You should also check the bug tracker to see if your problem is reported before asking.<br /><br />
@@ -405,7 +419,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 19 -->
-				<li><a  name="19" class="question">Why is _______ feature is not working the same as on Sphere?</a><br />
+				<li><a name="19" class="question">Why is _______ feature is not working the same as on Sphere?</a><br />
 					<div class="answer">
 						Wolfpack is <span style="font-weight:bold;">NOT</span> Sphere.<br /><br />
 						Wolfpack's scripts are designed to function similar to how an official UO shard would function.<br /><br />
@@ -415,7 +429,7 @@
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 20 -->
-				<li><a  name="20" class="question">I'm using the CVS scripts with a release binary, why do I get errors?</a><br />
+				<li><a name="20" class="question">I'm using the CVS scripts with a release binary, why do I get errors?</a><br />
 					<div class="answer">
 						This is a common problem we see. People need to understand that CVS scripts are meant to be
 						used with a CVS binary. Using the bleeding edge scripts with a standard Wolfpack release will
@@ -426,6 +440,122 @@
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
+				<!-- Answer 21 -->
+				<li><a name="21" class="question">Why does nothing (vendors, npcs, items) spawn?</a><br />
+					<div class="answer">
+						By default, spawn scripts are not enabled with the Wolfpack Beta releases.
+						Spawn scripts are incomplete right now, with the exception of most vendors.<br />
+						However, if you wish to enable them look in:<br />
+						./definitions/spawnregions/facet_name/index.xml for a list of enabled scripts.<br />
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<!-- Answer 22 -->
+				<li><a name="22" class="question">How do I add/edit/remove accounts?</a><br />
+					<div class="answer">
+						By default, Wolfpack will create a default account with the following properties:<br />
+						Username: admin<br />
+						Password: admin<br />
+						<br />
+						Using this, there are two ways to modify accounts.<br />
+						The first, and easiest would be to use the Web Admin control panel.<br />
+						To access Web Admin type in http://127.0.0.1:2594/ into your browser of choice.<br />
+						<br />
+						Substitue 127.0.0.1 for your shard's IP if it is not on your current system.
+						The rest should be obvious.<br />
+						<br />
+						The second method would be to login with your UO client, and use the
+						<a href="http://doc.wpdev.org/command_account.html">account command</a> to modify accounts.
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<!-- Answer 23 -->
+				<li><a name="23" class="question">How do I manage my definition (*.xml) files?</a><br />
+					<div class="answer">
+						The definition files, or all the *.xml files you receive with the xmlscripts package are controlled through a tree style system.<br />
+						<br />
+						The base of the tree is:<br />
+						-&#062; ./definitions/index.xml<br />
+						<br />
+						From this file, you will find a list of included files, and in every sub folder
+						there should be another index.xml file that contains the files within that folder.<br />
+						<br />
+						Example:<br />
+						-&#062; ./definitions/index.xml<br />
+						&#160;&#160;-&#062; ./definitions/spawnregions/index.xml<br />
+						&#160;&#160;&#160;&#160;-&#062; ./definitions/spawnregions/trammel/index.xml<br />
+						&#160;&#160;&#160;&#160;&#160;&#160;-&#062; ./definitions/spawnregions/trammel/vendors.xml<br />
+						<br />
+						You can also define the master index file in wolfpack.xml, as well as add custom ones.<br />
+						<br />
+						Example in wolfpack.xml:<br />
+						<div class="bash">
+							&#160;&#160;&#060;group name="General"&#062;<br />
+								&#160;&#160;&#160;&#160;&#060;option key="Definitions" value="definitions/index.xml;custom/definitions/index.xml" /&#062;<br />
+							&#160;&#160;&#060;/group&#062;<br />
+						</div>
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<!-- Answer 24 -->
+				<li><a name="24" class="question">How do I manage my script (*.py) files?</a><br />
+					<div class="answer">
+						Script files are based off the
+						<a href="http://www.python.org/doc/">Python language</a>.<br />
+						So before tampering with them you may want to understand what you are doing.<br />
+						Also, please read the <a href="http://doc.wpdev.org/">Wolfpack Documentation</a> on script events.<br />
+						<br />
+						However, to manage them, the default active script index is found in:<br />
+						-&#062; ./definitions/index.xml<br />
+						&#160;&#160;-&#062; ./definitions/scripts.xml<br />
+						<br />
+						However, all scripts are contained in the ./scripts/ folder.<br />
+						<br />
+						There is a setting in wolfpack.xml where you can add python search paths. This is for importing scripts.
+						<br />
+						Example in wolfpack.xml:<br />
+						<div class="bash">
+							&#160;&#160;&#060;group name="General"&#062;<br />
+								&#160;&#160;&#160;&#160;&#060;option key="Python Searchpath" value="./scripts;./custom;." /&#062;<br />
+							&#160;&#160;&#060;/group&#062;<br />
+						</div>
+						<br />
+						Again, things are in a tree style form for organization.
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<!--
+				<li><a name="25" class="question"></a><br />
+					<div class="answer">
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<li><a name="26" class="question"></a><br />
+					<div class="answer">
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<li><a name="27" class="question"></a><br />
+					<div class="answer">
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<li><a name="28" class="question"></a><br />
+					<div class="answer">
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<li><a name="29" class="question"></a><br />
+					<div class="answer">
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				<li><a name="30" class="question"></a><br />
+					<div class="answer">
+					</div>
+					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
+				</li>
+				-->
 			</ul>
 			<a href="index.html" style="font-size:9pt;">Return To Overview</a>
 		</div>
