@@ -48,6 +48,7 @@
 		<type>1</type>
 		<category>Equipment\Containers\Belt Pouch (N/S)</category>
 		<weight>1.0</weight>
+		<dye />
 	</item>
 
 	<item id="990">
@@ -86,6 +87,7 @@
 		<category>Equipment\Containers\Bag</category>
 		<weight>2.0</weight>
 		<buyprice>6</buyprice>
+		<dye />
 	</item>
 
 	<!-- Pouch -->
@@ -95,6 +97,7 @@
 		<category>Equipment\Containers\Pouch</category>
 		<weight>1.0</weight>
 		<buyprice>6</buyprice>
+		<dye />
 	</item>
 
 	<!-- Backpack -->
@@ -104,11 +107,12 @@
 		<category>Equipment\Containers\Backpack</category>
 		<weight>3.0</weight>
 		<buyprice>15</buyprice>
+		<dye />
 	</item>
 
 	<item id="9b2" inherit="e75">
 		<id>0x9b2</id>
-		<category>Equipment\Containers\Backpack (N/S)</category>		
+		<category>Equipment\Containers\Backpack (N/S)</category>
 	</item>
 
 	<!-- Wooden Box -->
