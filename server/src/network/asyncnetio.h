@@ -40,7 +40,6 @@
 class QSocketDevice;
 class cAsyncNetIOPrivate;
 class cUOPacket;
-class cUOSocket;
 
 class cAsyncNetIO : public ZThread::Thread
 {
@@ -53,7 +52,7 @@ class cAsyncNetIO : public ZThread::Thread
 
 public:
 
-	cUOSocket *registerSocket(QSocketDevice*);
+	bool registerSocket(QSocketDevice*);
 	bool unregisterSocket(QSocketDevice*);
     Q_ULONG	bytesAvailable(QSocketDevice*) const;
 

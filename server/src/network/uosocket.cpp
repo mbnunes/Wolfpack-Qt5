@@ -57,4 +57,5 @@ void cUOSocket::recieve()
 		return;
 
 	packet->print( &cout );
+	delete packet;
 }

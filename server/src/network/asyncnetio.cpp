@@ -32,16 +32,11 @@
 
 #include "asyncnetio.h"
 #include "uopacket.h"
-#include "uosocket.h"
 
 // Library Includes
 #include "qsocketdevice.h"
 #include "qptrlist.h"
 #include "qmap.h"
-
-#ifndef min
-#define min(a,b)            (((a) < (b)) ? (a) : (b))
-#endif
 
 // TEMPORARY
 #include <iostream>
@@ -108,7 +103,7 @@ public:
     Q_ULONG			rsize, wsize;		// read/write total buf size
     Q_ULONG			rindex, windex;		// read/write index
 	FastMutex		wmutex;				// write mutex
-	cUOSocket	*uoSocket;
+	bool			skipedUOHeader;		// Skip crypt key junk
 
 	LockedQueue<cUOPacket*, FastMutex>* packets; // Complete UOPackets
 
@@ -122,7 +117,7 @@ public:
 };
 
 cAsyncNetIOPrivate::cAsyncNetIOPrivate() 
-	: socket(0), rsize(0), wsize(0), rindex(0), windex(0), uoSocket(0)
+	: socket(0), rsize(0), wsize(0), rindex(0), windex(0), skipedUOHeader(false)
 {
     rba.setAutoDelete( TRUE );
     wba.setAutoDelete( TRUE );
@@ -269,15 +264,14 @@ bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
 // cAsyncNetIO
 // =========================================================================================
 
-cUOSocket *cAsyncNetIO::registerSocket( QSocketDevice* socket )
+bool cAsyncNetIO::registerSocket( QSocketDevice* socket )
 {
 	mapsMutex.acquire();
 	cAsyncNetIOPrivate* d = new cAsyncNetIOPrivate;
 	d->socket = socket;
-	d->uoSocket = new cUOSocket( socket );
 	buffers.insert( socket, d );
 	mapsMutex.release();
-	return d->uoSocket;
+	return true;
 }
 
 bool cAsyncNetIO::unregisterSocket( QSocketDevice* socket )
@@ -309,20 +303,14 @@ void cAsyncNetIO::run() throw()
 				d->rba.append(a);
 				d->rsize += nread;
 			}
-			// Now let's try to build some packets.
-			// -- only if we already had the firts 4 bytes
-			if( d->uoSocket->rxBytes() < 4 ) 
+			if( d->skipedUOHeader )
 			{
-				Q_UINT32 consumeSize = min( d->rsize, 4 );
-				d->consumeReadBuf( consumeSize, NULL );
-				d->uoSocket->setRxBytes( d->uoSocket->rxBytes() + consumeSize );
-				cout << "Skipped " << consumeSize << " bytes\n";
-			}
-			
-			if( d->uoSocket->rxBytes() >= 4 )
-			{
-				cout << "Trying to build packet\n";
 				buildUOPackets( d );
+			}
+			else if ( d->rsize >= 4 )
+			{
+				char temp[4];
+				d->consumeReadBuf( 4, temp );
 			}
 
 			// Write all data in the buffer.

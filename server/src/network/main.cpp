@@ -66,7 +66,8 @@ int main( int argc, char** argv )
 			if ( listener->haveNewConnection() )
 			{
 				QSocketDevice *socket = listener->getNewConnection(); 
-				uoSockets.push_back( netio->registerSocket( socket ) );
+				netio->registerSocket( socket );
+				uoSockets.push_back( new cUOSocket(socket) );
 				cout << QString( "Socket connected [%1]\n" ).arg( socket->peerAddress().toString() ).latin1();
 			}
 
@@ -82,6 +83,10 @@ int main( int argc, char** argv )
 					cout << QString( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ).latin1();
 					netio->unregisterSocket( uoSocket->socket() );
 					uoSockets.erase( uoIterator );
+				}
+				else
+				{
+					uoSocket->recieve();
 				}
 			}
 
