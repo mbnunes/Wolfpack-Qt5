@@ -46,6 +46,11 @@ public:
 
 	virtual void load( char **, UINT16& );
 	virtual void save();
+	virtual QString objectID() const
+	{
+        return QString(className());
+	}
+
 };
 
 

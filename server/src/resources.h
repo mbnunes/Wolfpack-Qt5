@@ -127,8 +127,6 @@ public:
 	cResourceItem( const QString& resource, UINT32 amount, UINT32 vein );
 	cResourceItem() {} // Used for Loading
 
-	virtual QString objectID( void ) const { return "cResourceItem"; }
-	
 	static void registerInFactory();
 	
 	// Getters

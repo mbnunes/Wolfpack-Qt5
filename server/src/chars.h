@@ -284,7 +284,6 @@ protected:
 public:
 	cChar();
 	cChar( const P_CHAR );
-	virtual QString objectID() const;
 	static void registerInFactory();
 	void load( char **, UINT16& );
 	void save();

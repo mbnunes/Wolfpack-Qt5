@@ -77,7 +77,6 @@ public:
 public:
 	cGuildStone() {}
 	virtual ~cGuildStone() {}
-	virtual QString objectID() const;
 
 	// DB Serialization
 	static void registerInFactory();
@@ -103,11 +102,6 @@ public:
 	void SetType(enGuildType type);
 	void Broadcast(char *text);
 };
-
-inline QString cGuildStone::objectID() const
-{
-	return "cGuildStone";
-}
 
 int CheckValidPlace(UOXSOCKET s);
 void GuildResign(UOXSOCKET s);

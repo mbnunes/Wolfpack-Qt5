@@ -80,8 +80,6 @@ public:
 	void save();
 	bool del();
 
-	virtual QString objectID( void ) const { return "cBoat"; }
-
 	void handlePlankClick( cUOSocket* socket, P_ITEM pplank );
 	void switchPlankState( P_ITEM pplank );
 

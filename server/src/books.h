@@ -44,14 +44,12 @@ class QStringList;
 
 class cBook : public cItem
 {
+	Q_OBJECT
 private:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
 public:
 	cBook();
-
-	// abstract cSerializable
-	virtual QString objectID( void ) const { return "cBook"; }
 
 	// abstract cDefinable
 	virtual void	processNode( const QDomElement &Tag );

@@ -352,11 +352,6 @@ bool cHouse::del()
 	return cMulti::del();
 }
 
-QString cHouse::objectID() const
-{
-	return "cHouse";
-}
-
 static cUObject* productCreator()
 {
 	return new cHouse;

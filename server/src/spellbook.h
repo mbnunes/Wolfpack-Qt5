@@ -70,9 +70,6 @@ public:
 	void setSpells1( UINT32 data );
 	void setSpells2( UINT32 data );
 
-	// abstract cSerializable
-	virtual QString objectID( void ) const { return "cSpellBook"; }
-
 	// DB Serialization
 	static void registerInFactory();
 	void load( char **, UINT16& );

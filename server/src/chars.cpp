@@ -55,7 +55,6 @@
 #include "skills.h"
 #include "wpdefmanager.h"
 #include "guildstones.h"
-//#include "network/asyncnetio.h"
 #include "walking.h"
 #include "persistentbroker.h"
 #include "territories.h"
@@ -89,7 +88,6 @@ void cChar::registerInFactory()
 }
 
 bool cChar::Wears(P_ITEM pi)			{	return (this == pi->container());	}
-QString cChar::objectID() const			{	return "cChar";						}
 bool  cChar::isGM() const				{return  priv&0x01 || account_ == 0 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) );} 
 bool  cChar::isCounselor() const		{return (priv&0x80 || ( account() && ( account()->acl() == "counselor") ) );} 
 bool  cChar::isGMorCounselor() const	{return (priv&0x81 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) ) );} 

@@ -57,9 +57,9 @@
 
 cListener::cListener( Q_UINT16 port )
 {
-	listenningSocket.setBlocking( false ); // or else it would take a while to join()
 	listenningSocket.bind( static_cast<Q_UINT32>(0), port );
 	listenningSocket.listen( 20 );
+	listenningSocket.setBlocking( false ); // or else it would take a while to join()
 }
 
 cListener::~cListener() throw()

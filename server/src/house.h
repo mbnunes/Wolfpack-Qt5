@@ -61,7 +61,6 @@ public:
 		charpos_.x = charpos_.y = charpos_.z = 0;
 	}
 	virtual ~cHouse() {}
-	virtual QString objectID() const;
 
 	bool onValidPlace( void );
 	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );

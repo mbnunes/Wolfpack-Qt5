@@ -108,9 +108,11 @@ struct stError
 	return 0; \
 	}
 
-class cUObject : public virtual PersistentObject, public virtual cDefinable
+class cUObject : public PersistentObject, public cDefinable
 {
 	Q_OBJECT
+	Q_PROPERTY( QString bindmenu READ bindmenu WRITE setBindmenu )
+	Q_PROPERTY( QString name READ name WRITE setName )
 // Data Members
 private:
 	QString bindmenu_;
@@ -160,7 +162,7 @@ public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
-	virtual QString objectID() const = 0;
+//	virtual QString objectID() const = 0;
 	void moveTo( const Coord_cl& );
 	unsigned int dist(cUObject* d) const;
 	QString bindmenu() const	{ return bindmenu_; }
@@ -176,7 +178,7 @@ public:
 	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
 	void setMultis( const SERIAL d )		{ multis_ = d; changed_ = true;		}
 	void setTags( const cCustomTags& d )	{ tags_ = d; changed_ = true;		}
-	virtual void setSerial( const SERIAL d ) { serial_ = d; changed_ = true;	}
+	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
 
 	bool isItem() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
 	bool isChar() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }

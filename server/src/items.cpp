@@ -251,13 +251,13 @@ long cItem::ReduceAmount(const short amt)
 	return rest;
 }
 
-void cItem::setOwnSerialOnly(long ownser)
+void cItem::setOwnSerialOnly(int ownser)
 {
 	changed_ = true;
 	ownserial_ = ownser;
 }
 
-void cItem::SetOwnSerial(long ownser)
+void cItem::SetOwnSerial(int ownser)
 {
 	changed_ = true;
 	setOwnSerialOnly(ownser);
@@ -283,7 +283,7 @@ void cItem::SetMultiSerial(long mulser)
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
 {
-	cUObject::moveTo( Coord_cl(newx, newy, newz, pos().z, pos().map ) );
+	moveTo( Coord_cl(newx, newy, newz, pos().z, pos().map ) );
 }
 
 // author: LB purpose: returns the type of pack
