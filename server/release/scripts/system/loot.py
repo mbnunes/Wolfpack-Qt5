@@ -516,10 +516,25 @@ def createpack(char, killer, corpse, pack):
 						itemid = str( packitem )
 					
 					if itemid == 'RANDOM_MAGIC_ITEM':
+						# Select the item-id
+						value = random.random()
+						
+						# 10% Jewelry
+						if value > 0.90:
+							item = wolfpack.additem(random.choice(DEF_JEWELRY))
+						# 10% Shield
+						elif value > 0.80:
+							item = wolfpack.additem(random.choice(DEF_SHIELDS))
+						# 40% Armor
+						elif value > 0.40:
+							item = wolfpack.additem(random.choice(DEF_ARMOR))
+						# 40% Weapon
+						else:
+							item = wolfpack.additem(random.choice(DEF_ALLWEAPONS))
+						
 						maxproperties = item[ PACK_MAXPROPERTIES ]
 						minintensity = item[ PACK_MININTENSITY ]
 						maxintensity = item[ PACK_MAXINTENSITY ]						
-						item = wolfpack.additem(random.choice(RANDOM_MAGIC_ITEMS))
 						properties.applyRandom(item, maxproperties, minintensity, maxintensity, luckChance)
 					else:
 						item = wolfpack.additem(itemid)
