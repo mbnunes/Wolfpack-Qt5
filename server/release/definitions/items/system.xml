@@ -32,4 +32,15 @@
 		<events>spawngem</events>
 	</item>
 
+	<!-- Trash Can -->
+	<item id="trashcan">
+		<id>0xe77</id>
+		<name>trashcan</name>
+		<events>trashcan</events>
+		<color>0x430</color>
+		<nodecay />
+		<movable>2</movable>
+		<type>1</type>
+	</item>
+
 </definitions>

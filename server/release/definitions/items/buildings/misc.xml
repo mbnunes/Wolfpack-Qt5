@@ -71,6 +71,12 @@
 		<category>Buildings\Docks\Pier 6</category>
 	</item>
 
+	<item id="3af">
+		<id>0x3af</id>
+		<nodecay />
+		<category>Buildings\Docks\Pier 7</category>
+	</item>
+
 	<item id="14f7">
 		<id>0x14f7</id>
 		<nodecay />
