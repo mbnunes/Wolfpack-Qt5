@@ -78,8 +78,8 @@ HEADERS		= CharWrap.h \
 		  wip.h \
 		  wolfpack.h \
 		  worldmain.h \
-		  wpconsole.h
-
+		  wpconsole.h \
+		  tilecache.h
 SOURCES		= CharWrap.cpp \
 		  Client.cpp \
 		  ItemWrap.cpp \
@@ -148,5 +148,6 @@ SOURCES		= CharWrap.cpp \
 		  wip.cpp \
 		  wolfpack.cpp \
 		  worldmain.cpp \
-		  wpconsole.cpp
+		  wpconsole.cpp \
+		  tilecache.cpp
 INTERFACES	= 
