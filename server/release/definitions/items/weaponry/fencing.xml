@@ -7,38 +7,43 @@
 =================================================================
 -->
 <definitions>
+	<item id="fencing_base">
+		<events>weapons_blades</events>
+		<type>1005</type>
+		<durability><random min="50" max="75" /></durability>
+	</item>
+
 	<!-- Cleaver -->
 	<item id="ec2">
+		<inherit id="fencing_base" />
 		<id>0x0ec2</id>
-		<type>1005</type>
 		<category>Weapons\Fencing\Cleaver (W/E)</category>
 	</item>
 
 	<item id="ec3">
+		<inherit id="ec2" />
 		<id>0x0ec3</id>
-		<type>1005</type>
 		<category>Weapons\Fencing\Cleaver (N/S)</category>
 	</item>
 
 	<!-- Skinning Knive -->
 	<item id="ec4">
 		<id>0x0ec4</id>
-		<type>1005</type>
+		<inherit id="fencing_base" />
 		<category>Weapons\Fencing\Skinning Knive (N/S)</category>
 	</item>
 
 	<item id="ec5">
+		<inherit id="ec4" />
 		<id>0x0ec5</id>
-		<type>1005</type>
 		<category>Weapons\Fencing\Skinning Knive (W/E)</category>
 	</item>
 
 	<!-- Dagger -->
 	<item id="f51">
 		<id>0x0f51</id>
-		<type>1005</type>
+		<inherit id="fencing_base" />
 		<category>Weapons\Fencing\Dagger (N/S)</category>
-		<events>dagger</events>
 	</item>
 
 	<item id="f52">
@@ -50,7 +55,7 @@
 	<!-- Butcher Knife -->
 	<item id="13f6">
 		<id>0x13f6</id>
-		<type>1005</type>
+		<inherit id="fencing_base" />
 		<category>Weapons\Fencing\Butcher Knife (N/S)</category>
 	</item>
 
@@ -63,7 +68,7 @@
 	<!-- Kryss -->
 	<item id="1400">
 		<id>0x1400</id>
-		<type>1005</type>
+		<inherit id="fencing_base" />
 		<category>Weapons\Fencing\Kryss (W/E)</category>
 	</item>
 

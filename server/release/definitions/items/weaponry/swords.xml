@@ -7,9 +7,15 @@
 =================================================================
 -->
 <definitions>
-	<item id="f5e">
-		<id>0x0f5e</id>
+	<item id="swords_base">
+		<durability><random min="50" max="75" /></durability>
 		<type>1001</type>
+		<events>weapons_blades</events>
+	</item>
+
+	<item id="f5e">
+		<inherit id="swords_base" />
+		<id>0x0f5e</id>
 		<category>Weapons\Swords\Broadsword (N/S)</category>
 	</item>
 
@@ -21,7 +27,7 @@
 
 	<item id="f60">
 		<id>0x0f60</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Longsword 1 (W/E)</category>
 	</item>
 
@@ -33,7 +39,7 @@
 
 	<item id="f62">
 		<id>0x0f62</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Spear (N/S)</category>
 	</item>
 
@@ -45,7 +51,7 @@
 
 	<item id="13b5">
 		<id>0x13b5</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Scimitar (W/E)</category>
 	</item>
 
@@ -57,7 +63,7 @@
 
 	<item id="13b7">
 		<id>0x13b7</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Longsword 2 (W/E)</category>
 	</item>
 
@@ -69,7 +75,7 @@
 
 	<item id="13b9">
 		<id>0x13b9</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
 	</item>
 
@@ -82,7 +88,7 @@
 	<!-- Pitchfork -->
 	<item id="e87">
 		<id>0x0e87</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Pitchfork (W/E)</category>
 	</item>
 
@@ -95,7 +101,7 @@
 	<!-- Katana -->
 	<item id="13fe">
 		<id>0x13fe</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Katana (W/E)</category>
 	</item>
 
@@ -108,7 +114,7 @@
 	<!-- Short Spear -->
 	<item id="1402">
 		<id>0x1402</id>
-		<type>1001</type>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\Short Spear (W/E)</category>
 	</item>
 
@@ -120,8 +126,8 @@
 
 	<!-- War Fork -->
 	<item id="1404">
-		<type>1001</type>
 		<id>0x1404</id>
+		<inherit id="swords_base" />
 		<category>Weapons\Swords\War Fork (W/E)</category>
 	</item>
 
@@ -133,8 +139,8 @@
 
 	<!-- Halberd -->
 	<item id="143e">
-		<type>1001</type>
 		<id>0x143e</id>
+		<events>weapons_bladed</events>
 		<category>Weapons\Swords\Halberd (W/E)</category>
 	</item>
 
@@ -147,7 +153,7 @@
 	<!-- Cutlass -->
 	<item id="1440">
 		<id>0x1440</id>
-		<type>1001</type>
+		<events>weapons_bladed</events>
 		<category>Weapons\Swords\Cutlass (W/E)</category>
 	</item>
 
@@ -160,7 +166,7 @@
 	<!-- Bardiche -->
 	<item id="f4d">
 		<id>0x0f4d</id>
-		<type>1001</type>
+		<events>weapons_bladed</events>
 		<category>Weapons\Swords\Bardiche (N/S)</category>
 	</item>
 

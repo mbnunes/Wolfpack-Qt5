@@ -7,6 +7,13 @@
 # Constants used in Python scripts                              #
 #===============================================================#
 
+# Lumberjacking Settings
+LUMBERJACKING_MIN_LOGS = 10
+LUMBERJACKING_MAX_LOGS = 15
+LUMBERJACKING_MIN_SKILL = 0
+LUMBERJACKING_MAX_SKILL = 600
+LUMBERJACKING_REFILLTIME = 60 * 5 # 5 Minutes Refresh time for trees
+
 # Skill Constants
 ALCHEMY = 0
 ANATOMY = 1
