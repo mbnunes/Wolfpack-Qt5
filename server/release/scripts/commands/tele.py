@@ -15,14 +15,17 @@ from wolfpack import utilities
 
 def onLoad():
 	wolfpack.registercommand( "tele", commandTele )
-	wolfpack.registercommand( "telem", commandTele )
+	wolfpack.registercommand( "telem", commandTeleM )
 	return
 
-def commandTele( socket, cmd, args ):
-	multi = cmd == 'telem'
-	
+def commandTeleM( socket, cmd, args ):
 	socket.sysmessage( 'Select your teleport destination.' )
-	socket.attachtarget( "commands.tele.teleport", [multi] )
+	socket.attachtarget( "commands.tele.teleport", [True] )
+	return True
+
+def commandTele( socket, cmd, args ):
+	socket.sysmessage( 'Select your teleport destination.' )
+	socket.attachtarget( "commands.tele.teleport", [False] )
 	return True
 
 def teleport( char, args, target ):
