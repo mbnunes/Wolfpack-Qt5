@@ -208,7 +208,8 @@ class cGump:
 	def add( self, line ):
 		self.layout.append( line )
 
-
+	def dummyCallback( player, args, choice ):
+		pass
 
 class WarningGump:
 
