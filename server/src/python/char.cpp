@@ -48,6 +48,7 @@
 #include "../skills.h"
 #include "../combat.h"
 #include "../srvparams.h"
+#include "../walking.h"
 
 /*!
 	Struct for WP Python Chars
@@ -1056,6 +1057,9 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 {
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
 	// Three arguments
 	if( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
@@ -1096,6 +1100,27 @@ PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	return PyFalse;
 }
 
+/*!
+	Checks if we can stand at a certain point.
+*/
+PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	// Four Arguments: x,y,z,map
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	if( !mayWalk( self->pChar, Coord_cl( getArgInt( 0 ), getArgInt( 1 ), getArgInt( 2 ), getArgInt( 3 ) ) ) )
+		return PyFalse;
+	else
+		return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -1118,6 +1143,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Shows an emote above the character." },
 	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
 	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
+	{ "maywalk",		(getattrofunc)wpChar_maywalk, METH_VARARGS, "Checks if this character may walk to a specific cell." },
 	
 	{ "addtimer",		(getattrofunc)wpChar_addtimer, METH_VARARGS, "Adds a timer to this character." },
 	{ "dispel",			(getattrofunc)wpChar_dispel, METH_VARARGS, "Dispels this character (with special options)." },

@@ -36,4 +36,17 @@
 		<id>0x1f17</id>
 		<category>Equipment\Magic Tools\Recall Rune (4)</category>
 	</item>
+
+	<!-- Red Moongate -->
+	<item id="dda">
+		<id>0x0dda</id>
+		<category>Misc\Moongates\Red Moongate</category>
+	</item>
+
+	<!-- Blue Moongate -->
+	<item id="f6c">
+		<id>0x0f6c</id>
+		<category>Misc\Moongates\Blue Moongate</category>
+	</item>
+
 </definitions>

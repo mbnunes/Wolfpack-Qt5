@@ -1,14 +1,19 @@
 <definitions>
 	<script id="training_dummy" type="python" module="training_dummy" />
 	<script id="pickpocket_dip" type="python" module="pickpocket_dip" />
-	<script id="archery_butte" type="python" module="archery_butte" />
-	<script id="wall_clock" type="python" module="wall_clock" />
-	<script id="slotmachine" type="python" module="slotmachine" />
-	<script id="kindling" type="python" module="kindling" />
-	
+	<script id="archery_butte" 	type="python" module="archery_butte" />
+	<script id="wall_clock" 	type="python" module="wall_clock" />
+	<script id="slotmachine" 	type="python" module="slotmachine" />
+	<script id="kindling" 		type="python" module="kindling" />
+
+	<!-- Magic Tools -->
+	<script id="recall_rune" type="python" module="recall_rune" />
+
 	<!-- Spell Scripts -->
 	<script id="spell_clumsy" type="python" module="spells.clumsy" />
 	<script id="spell_createfood" type="python" module="spells.createfood" />
+	<script id="spell_recall" type="python" module="spells.recall" />
+	<script id="spell_mark" type="python" module="spells.mark" />
 
 	<!-- moongate -->
 	<script id="moongate" type="python" module="moongate" />

@@ -150,4 +150,16 @@
 		<dir>2</dir>
 	</item>
 
+	<!-- Dyes -->
+	<item id="fa9">
+		<id>0xfa9</id>
+		<type>405</type>
+	</item>
+
+	<!-- Dye Tub -->
+	<item id="fab">
+		<id>0xfab</id>
+		<type>406</type>
+	</item>
+
 </definitions>

@@ -38,6 +38,7 @@
 #include "../mapobjects.h"
 #include "../territories.h"
 #include "../maps.h"
+#include "../tilecache.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -417,6 +418,42 @@ PyObject *wpMap( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns the tiledata information for a item id.
+*/
+PyObject *wpTiledata( PyObject* self, PyObject* args )
+{
+	if( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	tile_st tile = TileCache::instance()->getTile( getArgInt( 0 ) );
+
+	PyObject *dict = PyDict_New();
+	PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
+	PyDict_SetItemString( dict, "height", PyInt_FromLong( tile.height ) );
+	PyDict_SetItemString( dict, "weight", PyInt_FromLong( tile.weight ) );
+	PyDict_SetItemString( dict, "layer", PyInt_FromLong( tile.layer ) );
+	PyDict_SetItemString( dict, "animation", PyInt_FromLong( tile.animation ) );
+	PyDict_SetItemString( dict, "quantity", PyInt_FromLong( tile.quantity ) );
+	PyDict_SetItemString( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
+	PyDict_SetItemString( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
+	PyDict_SetItemString( dict, "unknown3", PyInt_FromLong( tile.unknown3 ) );
+	PyDict_SetItemString( dict, "unknown4", PyInt_FromLong( tile.unknown4 ) );
+	PyDict_SetItemString( dict, "unknown5", PyInt_FromLong( tile.unknown5 ) );
+	PyDict_SetItemString( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
+	PyDict_SetItemString( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
+	PyDict_SetItemString( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
+	PyDict_SetItemString( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
+	PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
+	PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
+	PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
+	
+	return dict;
+}
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
@@ -432,7 +469,8 @@ static PyMethodDef wpGlobal[] =
 	{ "statics",		wpStatics,		METH_VARARGS, "Returns a list of static-item at a given position" },
 	{ "map",			wpMap,			METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
 	{ "items",			wpItems,		METH_VARARGS, "Returns a list of items in a specific sector." },
-    { NULL, NULL, 0, NULL } // Terminator
+	{ "tiledata",		wpTiledata,		METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
+	{ NULL, NULL, 0, NULL } // Terminator
 };
 
 /*!

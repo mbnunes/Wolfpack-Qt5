@@ -51,6 +51,8 @@ struct unitile_st
 }/* PACK*/;
 #include "end_pack.h"
 
+bool mayWalk( P_CHAR pChar, Coord_cl &pos );
+
 class cMovement
 {
 private:

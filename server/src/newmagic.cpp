@@ -385,6 +385,20 @@ bool cNewMagic::checkMana( P_CHAR pMage, UINT8 spell )
 	return enoughMana;
 }
 
+#define useReagent( name, itemid ) if( name > 0 && pItem->id() == itemid ) \
+		{\
+			if( name >= pItem->amount() ) \
+			{ \
+				name -= pItem->amount(); \
+				Items->DeleItem( pItem ); \
+			} \
+			else if( name < pItem->amount() ) \
+			{ \
+				pItem->ReduceAmount( name ); \
+				name = 0; \
+			} \
+		}\
+
 /*!
 	This function uses the reagents for the specified 
 	spell. It displays a message with the missing 
@@ -393,7 +407,69 @@ bool cNewMagic::checkMana( P_CHAR pMage, UINT8 spell )
 */
 bool cNewMagic::useReagents( P_CHAR pMage, UINT8 spell )
 {
-	return true;
+	// Check for each reagent.
+	// So we dont need to loop trough all items over and over again we'll use ONE loop (will be a bit less clean)
+	P_ITEM pPack = pMage->getBackpack();
+
+	stNewSpell *sInfo = findSpell( spell );
+	UINT8 ginseng = sInfo->reagents.ginseng;
+	UINT8 bloodmoss = sInfo->reagents.bloodmoss;
+	UINT8 mandrake = sInfo->reagents.mandrake;
+	UINT8 blackpearl = sInfo->reagents.blackpearl;
+	UINT8 spidersilk = sInfo->reagents.spidersilk;
+	UINT8 garlic = sInfo->reagents.garlic;
+	UINT8 nightshade = sInfo->reagents.nightshade;
+	UINT8 sulfurash = sInfo->reagents.sulfurash;
+
+	QPtrList< cItem > content = pPack->getContainment();
+
+	for( P_ITEM pItem = content.first(); pItem; pItem = content.next() )
+	{
+		if( blackpearl + bloodmoss + garlic + ginseng + mandrake + nightshade + sulfurash + spidersilk == 0 )
+			break;
+
+		useReagent( blackpearl, 0xF7A )
+		else useReagent( bloodmoss, 0xF7B )
+		else useReagent( garlic, 0xF84 )
+		else useReagent( ginseng, 0xF85 )
+		else useReagent( mandrake, 0xF86 )
+		else useReagent( nightshade, 0xF88 )
+		else useReagent( sulfurash, 0xF8C )
+		else useReagent( spidersilk, 0xF8D )
+	}
+
+	QStringList missing;
+
+	if( ginseng > 0 )
+		missing.append( tr( "Ginseng" ) );
+	if( bloodmoss > 0 )
+		missing.append( tr( "Bloodmoss" ) );
+	if( mandrake > 0 )
+		missing.append( tr( "Mandrake" ) );
+	if( blackpearl > 0 )
+		missing.append( tr( "Black Pearls" ) );
+	if( spidersilk > 0 )
+		missing.append( tr( "Spider's Silk" ) );
+	if( garlic > 0 )
+		missing.append( tr( "Garlic" ) );
+	if( nightshade > 0 )
+		missing.append( tr( "Nightshade" ) );
+	if( sulfurash > 0 )
+		missing.append( tr( "Sulfurous Ash" ) );
+
+	bool enoughReagents = true;
+
+	if( missing.count() > 0 )
+	{
+		if( pMage->socket() )
+		{
+			pMage->message( tr( "You don't have enough reagents." ) );
+			pMage->socket()->sysMessage( tr( "You lack the following reagents: %1" ).arg( missing.join( ", ") ) );
+		}
+		enoughReagents = false;
+	}
+
+	return enoughReagents;
 }
 
 #define checkReagent( name, itemid )		if( name > 0 && pItem->id() == itemid ) \
@@ -466,7 +542,7 @@ bool cNewMagic::checkReagents( P_CHAR pMage, UINT8 spell )
 	{
 		if( pMage->socket() )
 		{
-			pMage->message( tr( "You dont have enough reagents" ) );
+			pMage->message( tr( "You don't have enough reagents." ) );
 			pMage->socket()->sysMessage( tr( "You lack the following reagents: %1" ).arg( missing.join( ", ") ) );
 		}
 		enoughReagents = false;

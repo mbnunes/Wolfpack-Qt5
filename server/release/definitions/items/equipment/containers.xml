@@ -14,14 +14,48 @@
 		<weight>0</weight>
 	</item>
 
-	<!-- Backpack -->
-	<item id="e75">
-		<id>0xE75</id>
-	</item>
-
 	<!-- Bottle -->
 	<item id="f0e">
 		<id>0xf0e</id>
 	</item>
 
+	<!-- Bag -->
+	<item id="e76">
+		<id>0xe76</id>
+		<type>1</type>
+		<category>Equipment\Containers\Bag</category>
+		<weight>2.0</weight>
+	</item>
+
+	<!-- Backpack -->
+	<item id="e75">
+		<id>0xe75</id>
+		<type>1</type>
+		<category>Equipment\Containers\Backpack</category>
+		<weight>3.0</weight>
+	</item>
+
+	<!-- Pouch -->
+	<item id="e79">
+		<id>0xe79</id>
+		<type>1</type>
+		<category>Equipment\Containers\Pouch</category>
+		<weight>1.0</weight>
+	</item>
+
+	<!-- Wooden Box -->
+	<item id="e7d">
+		<id>0xe7d</id>
+		<type>1</type>
+		<category>Equipment\Containers\Wooden Box</category>
+		<weight>4.0</weight>
+	</item>
+
+	<!-- Strong Box -->
+	<item id="e80">
+		<id>0xe80</id>
+		<type>1</type>
+		<category>Equipment\Containers\Strong Box</category>
+		<weight>10.0</weight>
+	</item>
 </definitions>

@@ -639,7 +639,7 @@ bool cChar::canPickUp(cItem* pi)
 		return false;
 	}
 
-	if (this->priv2_&1)	// allmove
+	if( account_ && account_->isAllMove() )
 		return true;
 
 	if ( (pi->isOwnerMovable() || pi->isLockedDown()) && !this->Owns(pi) )	// owner movable or locked down ?

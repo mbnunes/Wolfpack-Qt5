@@ -16,7 +16,7 @@
 	</npc>
 	<!-- a headless weak-->
 	<npc id="headless_weak">
-		<name>a headless</name>
+		<name>headless</name>
 		<id>0x01f</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -60,7 +60,7 @@
 	</npc>
 	<!-- a headless medium-->
 	<npc id="headless_medium">
-		<name>a headless</name>
+		<name>headless</name>
 		<id>0x01f</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -104,7 +104,7 @@
 	</npc>
 	<!-- a headless hard-->
 	<npc id="headless_hard">
-		<name>a headless</name>
+		<name>headless</name>
 		<id>0x01f</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -148,7 +148,7 @@
 	</npc>
 	<!-- a skeleton weak-->
 	<npc id="skeleton_weak">
-		<name>a skeleton</name>
+		<name>skeleton</name>
 		<id>0x032</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -192,7 +192,7 @@
 	</npc>
 	<!-- a skeleton medium-->
 	<npc id="skeleton_medium">
-		<name>a skeleton</name>
+		<name>skeleton</name>
 		<id>0x032</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -236,7 +236,7 @@
 	</npc>
 	<!-- a skeleton hard-->
 	<npc id="skeleton_hard">
-		<name>a skeleton</name>
+		<name>skeleton</name>
 		<id>0x032</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -280,7 +280,7 @@
 	</npc>
 	<!-- a skeleton (with axe) weak-->
 	<npc id="skeleton_with_axe_weak">
-		<name>a skeleton (with axe)</name>
+		<name>skeleton</name>
 		<id>0x038</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -324,7 +324,7 @@
 	</npc>
 	<!-- a skeleton (with axe) medium-->
 	<npc id="skeleton_with_axe_medium">
-		<name>a skeleton (with axe)</name>
+		<name>skeleton</name>
 		<id>0x038</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -368,7 +368,7 @@
 	</npc>
 	<!-- a skeleton (with axe) hard-->
 	<npc id="skeleton_with_axe_hard">
-		<name>a skeleton (with axe)</name>
+		<name>skeleton</name>
 		<id>0x038</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -412,7 +412,7 @@
 	</npc>
 	<!-- a skeleton (with schimitar) weak-->
 	<npc id="skeleton_with_schimitar_weak">
-		<name>a skeleton (with schimitar)</name>
+		<name>skeleton</name>
 		<id>0x039</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -447,7 +447,7 @@
 	</npc>
 	<!-- a skeleton (with schimitar) medium-->
 	<npc id="skeleton_with_schimitar_medium">
-		<name>a skeleton (with schimitar)</name>
+		<name>skeleton</name>
 		<id>0x039</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -482,7 +482,7 @@
 	</npc>
 	<!-- a skeleton (with schimitar) hard-->
 	<npc id="skeleton_with_schimitar_hard">
-		<name>a skeleton (with schimitar)</name>
+		<name>skeleton</name>
 		<id>0x039</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -517,7 +517,7 @@
 	</npc>
 	<!-- a zombie weak-->
 	<npc id="zombie_weak">
-		<name>a zombie</name>
+		<name>zombie</name>
 		<id>0x002</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -558,7 +558,7 @@
 	</npc>
 	<!-- a zombie medium-->
 	<npc id="zombie_medium">
-		<name>a zombie</name>
+		<name>zombie</name>
 		<id>0x002</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -599,7 +599,7 @@
 	</npc>
 	<!-- a zombie hard-->
 	<npc id="zombie_hard">
-		<name>a zombie</name>
+		<name>zombie</name>
 		<id>0x002</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -640,7 +640,7 @@
 	</npc>
 	<!-- a lich weak-->
 	<npc id="lich_weak">
-		<name>a lich</name>
+		<name>lich</name>
 		<id>0x018</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -693,7 +693,7 @@
 	</npc>
 	<!-- a lich medium-->
 	<npc id="lich_medium">
-		<name>a lich</name>
+		<name>lich</name>
 		<id>0x018</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -746,7 +746,7 @@
 	</npc>
 	<!-- a lich hard-->
 	<npc id="lich_hard">
-		<name>a lich</name>
+		<name>lich</name>
 		<id>0x018</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -799,7 +799,7 @@
 	</npc>
 	<!-- a shade weak-->
 	<npc id="shade_weak">
-		<name>a shade</name>
+		<name>shade</name>
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -852,7 +852,7 @@
 	</npc>
 	<!-- a shade medium-->
 	<npc id="shade_medium">
-		<name>a shade</name>
+		<name>shade</name>
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
@@ -905,7 +905,7 @@
 	</npc>
 	<!-- a shade hard-->
 	<npc id="shade_hard">
-		<name>a shade</name>
+		<name>shade</name>
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
