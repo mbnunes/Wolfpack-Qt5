@@ -20,6 +20,7 @@ def onUse( char, potionkeg ):
 	if not potionkeg.hastag( 'kegfill' ):
 		kegfill = 0
 		potionkeg.settag( 'kegfill', kegfill )
+		potionkeg.resendtooltip()
 	else:
 		kegfill = int( potionkeg.gettag( 'kegfill' ) )
 		if kegfill < 0: # Safeguard against negative fills
@@ -60,6 +61,7 @@ def onUse( char, potionkeg ):
 				potionkeg.deltag( 'potiontype' )
 				potionkeg.update()
 				socket.clilocmessage( 502245 ) # The keg is now empty
+			potionkeg.resendtooltip()
 			return True
 		else:
 			socket.clilocmessage( 500315 )
@@ -74,33 +76,40 @@ def onUse( char, potionkeg ):
 		potionkeg.update()
 		return True
 
+# Returns the cliloc id for the fill message
+def getfillid(kegfill):
+	if kegfill == 100:
+		return 502258 # The keg is completely full.
+	elif kegfill <= 99 and kegfill >= 96:
+		return 502257 # The liquid is almost to the top of the keg.
+	elif kegfill <= 95 and kegfill >= 80:
+		return 502256 # The keg is very full.
+	elif kegfill <= 79 and kegfill >= 70:
+		return 502255 # The keg is about three quarters full.
+	elif kegfill <= 69 and kegfill >= 54:
+		return 502253 # The keg is more than half full.
+	elif kegfill <= 53 and kegfill >= 47:
+		return 502254 # The keg is approximately half full.
+	elif kegfill <= 46 and kegfill >= 40:
+		return 502252 # The keg is almost half full.
+	elif kegfill <= 39 and kegfill >= 30:
+		return 502251 # The keg is about one third full.
+	elif kegfill <= 29 and kegfill >= 20:
+		return 502250 # The keg is about one quarter full.
+	elif kegfill <= 19 and kegfill >= 5:
+		return 502249 # The keg is not very full.
+	elif kegfill <= 4 and kegfill >= 1:
+		return 502248 # The keg is nearly empty.
+	else:
+		return 0
+		#return 502259 # The keg is damaged.
+
 # Potion Filling Messages
 def kegfillmessage( char, kegfill ):
 	socket = char.socket
-	if kegfill == 100:
-		socket.clilocmessage( 502258 ) # The keg is completely full.
-	elif kegfill <= 99 and kegfill >= 96:
-		socket.clilocmessage( 502257 ) # The liquid is almost to the top of the keg.
-	elif kegfill <= 95 and kegfill >= 80:
-		socket.clilocmessage( 502256 ) # The keg is very full.
-	elif kegfill <= 79 and kegfill >= 70:
-		socket.clilocmessage( 502255 ) # The keg is about three quarters full.
-	elif kegfill <= 69 and kegfill >= 54:
-		socket.clilocmessage( 502253 ) # The keg is more than half full.
-	elif kegfill <= 53 and kegfill >= 47:
-		socket.clilocmessage( 502254 ) # The keg is approximately half full.
-	elif kegfill <= 46 and kegfill >= 40:
-		socket.clilocmessage( 502252 ) # The keg is almost half full.
-	elif kegfill <= 39 and kegfill >= 30:
-		socket.clilocmessage( 502251 ) # The keg is about one third full.
-	elif kegfill <= 29 and kegfill >= 20:
-		socket.clilocmessage( 502250 ) # The keg is about one quarter full.
-	elif kegfill <= 19 and kegfill >= 5:
-		socket.clilocmessage( 502249 ) # The keg is not very full.
-	elif kegfill <= 4 and kegfill >= 1:
-		socket.clilocmessage( 502248 ) # The keg is nearly empty.
-	else:
-		socket.clilocmessage( 502259 ) # The keg is damaged.
+	clilocid = getfillid(kegfill)
+	if clilocid != 0:
+		socket.clilocmessage(clilocid)
 	return True
 
 def onDropOnItem( keg, potion ):
@@ -131,10 +140,10 @@ def onDropOnItem( keg, potion ):
 			socket.sysmessage( tr( "Only potions may be added to a potion keg!" ) )
 			return True
 
-
 		if not keg.hastag( 'kegfill' ):
 			kegfill = 0
 			keg.settag( 'kegfill', kegfill )
+			keg.resendtooltip()
 		else:
 			kegfill = int( keg.gettag( 'kegfill' ) )
 			if kegfill < 0: # Safeguard against negative fills
@@ -153,6 +162,7 @@ def onDropOnItem( keg, potion ):
 						char.soundeffect( 0x240 )
 						consumePotion( char, potion )
 						keg.update()
+						keg.resendtooltip()
 						kegfillmessage( char, kegfill )
 						socket.clilocmessage( 502239 )
 						return True
@@ -173,6 +183,7 @@ def onDropOnItem( keg, potion ):
 					char.soundeffect( 0x240 )
 					consumePotion( char, potion )
 					keg.update()
+					keg.resendtooltip()
 				return True
 	return True
 
@@ -186,3 +197,16 @@ def isPotion( potion ):
 		return potion.hasscript('potions') and potion.getintproperty('potiontype') in POTIONS
 	else:
 		return False
+
+def onShowTooltip(viewer, potionkeg, tooltip):
+	if not potionkeg.hastag( 'kegfill' ):
+		kegfill = 0
+		potionkeg.settag( 'kegfill', kegfill )
+	else:
+		kegfill = int( potionkeg.gettag( 'kegfill' ) )
+		if kegfill < 0: # Safeguard against negative fills
+			kegfill = 0
+
+	clilocid = getfillid(kegfill)
+	if clilocid != 0:
+		tooltip.add(clilocid, "")

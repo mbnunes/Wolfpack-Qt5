@@ -734,3 +734,13 @@ def smokepuff(char, position):
 	# Only do it once
 	if position == char.pos:
 		char.soundeffect(0x1fe)
+
+"""
+	\function wolfpack.utilities.countitems
+	\param baseids A list of baseids.
+	\return An integer value.
+	\description This function counts all items directly within the container matching the given baseid.
+	Please note that this function does not search containers recursively.
+"""
+def countitems(baseids):
+	pass

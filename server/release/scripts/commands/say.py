@@ -11,18 +11,16 @@ import wolfpack
 
 def say( socket, command, arguments ):
 	if len(arguments) == 0:
-		socket.sysmessage( "Usage '.say <blabla>'" )
+		socket.sysmessage( "Usage '.say <text>'" )
 		return True
-	socket.sysmessage( "What should say that?" )
+	socket.sysmessage( "" )
 	socket.attachtarget( "commands.say.saytarget", [ arguments ] )
 
 def saytarget( char, args, target ):
 	if target.char:
-		if target.char.socket:
-			target.char.say( "%s" % unicode(args[0]) )
-			return True
-	if target.item:
-		char.socket.showspeech( target.item, "%s" % unicode(args[0]) )
+		target.char.say( unicode(args[0]) )
+	elif target.item:
+		target.item.say( unicode(args[0]) )
 	else:
 		char.socket.sysmessage( "That's not a valid object." )
 
