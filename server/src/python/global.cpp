@@ -1322,7 +1322,7 @@ static PyObject* wpNewguild( PyObject* /*self*/, PyObject* /*args*/ )
 }
 
 /*
-	\function wolfpack.newnpc
+	\function wolfpack.newplayer
 	\param createserial Defaults to true. This boolean value will indicate whether a serial
 	will be assigned to the player. If you plan to reset the serial of the player anyway, you
 	can set this parameter to false.
@@ -1450,7 +1450,7 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 /*
 	\function wolfpack.queuecode
 	\param function A python code object.
-	\param arguments A tuple.	
+	\param arguments A tuple.
 	\description This function queues a python code object to be executed in the main thread.
 	This funciton is useful if you want to access wolfpack internals from within another
 	python thread. Use this function to queue code that should be executed synchronized with the
