@@ -1338,7 +1338,7 @@ void cChar::processNode( const QDomElement &Tag )
 	{
 		if( !this->getBackpack() )
 		{
-			P_ITEM pBackpack = Items->SpawnItem( -1, this, 1, "Backpack", 0, 0x0E,0x75,0,0,0);
+			P_ITEM pBackpack = Items->SpawnItem( this, 1, "Backpack", 0, 0x0E75,0,0);
 			if( pBackpack == NULL )
 			{
 				cCharStuff::DeleteChar( this );

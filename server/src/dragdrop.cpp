@@ -954,7 +954,7 @@ void cDragItems::dropOnGuard( cUOSocket* socket, P_ITEM pItem, P_CHAR pGuard )
 		return;
 	}
 
-	addgold( toOldSocket(socket), pVictim->questBountyReward() );
+	addgold( socket, pVictim->questBountyReward() );
 	//goldsfx( client->socket(), pVictim->questBountyReward() );
 	Bounty->BountyDelete( pVictim->serial );
 	

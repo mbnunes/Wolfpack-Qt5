@@ -43,8 +43,6 @@
 #if defined(__unix__)
 #include <termios.h>
 #endif
-
-//#include "netsys.h"			// Needed by fd_set
 // Third Party
 
 
@@ -57,10 +55,7 @@ class WPConsole_cl;
 //Wolfpack Includes
 
 #include "structs.h"
-//#include "verinfo.h"
 #include "storage.h"
-//#include "wpscriptmanager.h"
-//#include "wpdefmanager.h"
 
 // Global Variables
 //	Instantiate our console object
@@ -119,25 +114,8 @@ extern unsigned long initialservermill ;
 /////////////////////////////////////////////
 // maximum too cause maxclient = maximum +1
 
-extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
-extern signed char addid5[MAXCLIENT];
 extern P_CHAR currchar[MAXCLIENT];
-extern make_st itemmake[MAXCLIENT];
-extern int tempint[MAXCLIENT];
-//extern unsigned char addid1[MAXCLIENT];
-//extern unsigned char addid2[MAXCLIENT];
-//extern unsigned char addid3[MAXCLIENT];
-extern int addx[MAXCLIENT];
-extern int addy[MAXCLIENT];
-extern int addx2[MAXCLIENT];
-extern int addy2[MAXCLIENT];
-extern signed char addz[MAXCLIENT];
-extern unsigned char perm[MAXCLIENT];
 
-//extern int spattackValue[MAXCLIENT];
-extern int clickx[MAXCLIENT];
-extern int clicky[MAXCLIENT];
-extern unsigned char targetok[MAXCLIENT];
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
@@ -151,9 +129,6 @@ extern std::list<SERIAL> guilds;
 ///   and the rest                        /
 ///////////////////////////////////////////
 
-extern int gatex[MAXGATES][2],gatey[MAXGATES][2];
-extern signed char gatez[MAXGATES][2];
-//extern unitile_st xyblock[XYMAX];
 extern skill_st skill[SKILLS+1];
 extern unsigned short int doorbase[DOORTYPES];
 extern char skillname[SKILLS+1][20];
@@ -174,7 +149,6 @@ extern jail_st jails[11];
 ///////////// global string vars /////////
 /////////////////////////////////////////
 
-extern char gettokenstr[256];
 extern char temp[1024];
 
 #ifdef __unix__

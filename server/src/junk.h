@@ -33,31 +33,11 @@
 #define __JUNK_H__
 
 #include "targeting.h"
-/*
-struct statcap_st
-{
-	int statmax; //250 stat points (100 str, 100 int, 50 dex?)
-	int skillmax; //900 BASE skill points
-	long int skilldecay; //12000 seconds
-	int numsktrk; //track the last numsktrk (10) skills SUCCESSFULLY used
-}; // Morrolan - stat/skill cap
-*/
 
 #include "items.h"
 #include "chars.h"
-//#include "classes.h"
-//#include "guildstones.h"
-//#include "network.h"
-//#include "TmpEff.h"
-//#include "walking2.h"
-//#include "mapstuff.h"
-
-//#include "books.h"
-//#include "speech.h"
-//#include "trigger.h"
 #include "Trade.h"
 #include "bounty.h"
-//#include "regions.h"
 
 #undef  DBGFILE
 #define DBGFILE "junk.h"
@@ -82,21 +62,19 @@ class cAccounts;
 class cMultisCache;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
-extern cSrvParams		*SrvParams;
-extern CWorldMain		*cwmWorldState;
-extern cAllItems		*Items;
-extern Maps				*Map;
-extern cSkills			*Skills;
-extern cFishing			*Fishing;
-extern cWeight			*Weight;
-extern cTargets			*Targ;
-extern cMagic			*Magic;
-extern cSpeech	        *Speech;
-extern cTrade	        *Trade;
-extern cBounty          *Bounty;
-extern cMultisCache		*MultisCache;
-
-// Skys AI 
+extern cSrvParams				*SrvParams;
+extern CWorldMain				*cwmWorldState;
+extern cAllItems				*Items;
+extern Maps						*Map;
+extern cSkills					*Skills;
+extern cFishing					*Fishing;
+extern cWeight					*Weight;
+extern cTargets					*Targ;
+extern cMagic					*Magic;
+extern cSpeech					*Speech;
+extern cTrade					*Trade;
+extern cBounty					*Bounty;
+extern cMultisCache				*MultisCache;
 extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;
 // END
@@ -105,12 +83,7 @@ extern cCharStuff::cBankerAI	*BankerAI;
 
 extern int escortRegions;
 
-void srequest(int s);
-
 bool inrange1p (PC_CHAR pca, P_CHAR pcb);
-bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance);
-void vialtarget(int nSocket);
-void MakeNecroReg(int nSocket,P_ITEM pMat, short id);
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
 unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
@@ -119,9 +92,7 @@ unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char m
 
 void setcharflag(P_CHAR pc);
 P_ITEM FindItemBySerial(int serial);
-P_ITEM FindItemBySerPtr(unsigned char *p);
 P_CHAR FindCharBySerial(int serial);
-P_CHAR FindCharBySerPtr(unsigned char *p);
 
 /////////////////////////////////// Remove Me before release!!!! ///////////////////////////
 #include "network.h"
@@ -130,12 +101,6 @@ P_CHAR FindCharBySerPtr(unsigned char *p);
 inline UOXSOCKET toOldSocket(const cUOSocket* s)
 {
 	return cNetwork::instance()->getuoSocketsIndex(s);
-}
-
-inline cUOSocket* fromOldSocket(UOXSOCKET s)
-{
-//	extern P_CHAR currchar [MAXCLIENT];
-	return currchar[s]->socket();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

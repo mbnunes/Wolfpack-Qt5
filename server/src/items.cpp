@@ -749,59 +749,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 	}
 }
 
-////////////////
-//o---------------------------------------------------------------------------o
-//| Function:   SpawnItem (2 interfaces)
-//| Programmer: unknown, revamped by Duke,24.04.2000
-//o---------------------------------------------------------------------------o
-//| Purpose:    Will create an item based on item ID1 and ID2. If nPack is 1 it will
-//|             put the item in nSocket's pack (auto-stacking). If nSend is 1 it will
-//|             senditem() to all online characters. If you want to make specific changes
-//|             to the item before sending the information pass nSend as 0.
-//| Remarks:    I took the idea (to overload) from the 'official' source. So thanks to fur!
-//o---------------------------------------------------------------------------o
-        /*
-        ** OK, here's the scoop, in a few key places we were calling add item when there was
-        ** flat out no way to get a socket, say if a region spawner made an item, there is no
-        ** associated socket.  This was causing the socket to be -1, and it was indexing into
-        ** curchar[-1] and blowing up.  So I made a new version that takes a socket and a
-        ** a character (the following function) if you want to call that one with socket = -1
-        ** thats fine, because you have to pass the character in as well.  If you call this
-        ** function (which was the original) you are not allowed to pass in -1 for the socket
-        ** because it will crash. I've put the assert() in its place, so at least when it does
-        ** crash you'll know why. If this assert() ever happens to you, it means you need to
-        ** fix the CALLER of this function to pass the character in and call the other function
-        ** instead. Taking the assert() out won't help, its just liable to crash on currchar[-1]
-        ** anyways.  - fur
-        */
-        // what fur said about the assert only partially applies to this version. Duke
-       
-P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
-					int nAmount, const char* cName, int nStackable,
-					unsigned char cItemId1, unsigned char cItemId2,
-					unsigned short cColorId,
-					int nPack, int nSend)
-{
-	if (nSocket < 0)
-	{
-		clConsole.send("ERROR: SpawnItem called with bad socket\n");
-		return NULL;
-	}
-	else
-	{
-		return SpawnItem(nSocket, currchar[nSocket], nAmount, cName, nStackable, cItemId1, cItemId2, cColorId, nPack, nSend);
-	}
-}
-
-P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
-					int nAmount, const char* cName, int nStackable,
-					unsigned char cItemId1, unsigned char cItemId2,
-					unsigned short cColorId,
-					int nPack, int nSend)
-{
-	return SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), cColorId, nPack);
-}
-
 P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
 {
 	if (pc_ch == NULL) 

@@ -663,7 +663,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, const string& comm)
 	if (pc_currchar->CountBankGold() >= value)
 	{
 		int goldcount = value;
-		addgold(c, goldcount);
+//		addgold(c, goldcount);
 		//goldsfx(c, goldcount);
 		DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
 		pBanker->talk( tr("%1 here is your withdraw of %2.").arg(pc_currchar->name.latin1()).arg(goldcount), -1, 0 );

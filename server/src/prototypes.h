@@ -80,7 +80,7 @@ QString title3(P_CHAR pc);
 void dooruse( cUOSocket*, P_ITEM );
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 void sellaction(int s);
-void addgold(UOXSOCKET s, int totgold);
+void addgold(cUOSocket* s, int totgold);
 int calcValue(P_ITEM pi, int value);
 int calcGoodValue(P_CHAR npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
 void StoreItemRandomValue(P_ITEM pi,QString tmpreg); // by Magius(CHE) (2) for trade system

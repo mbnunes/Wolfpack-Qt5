@@ -1057,7 +1057,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1BD4:
 				case 0x1BD5:
 				case 0x1BD6:	// make shafts
-					itemmake[s].Mat1id = pi->id();
+//					itemmake[s].Mat1id = pi->id();
 //					target(s, 0, 1, 0, 172, "What would you like to use this with?"); 
 					return;
 				case 0x0E73: // cannon ball
@@ -1164,7 +1164,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_currchar->action( 0xD );
 						pc_currchar->soundEffect( 0x13E );
 
-						P_ITEM p_cotton = Items->SpawnItem(-1, pc_currchar, 1, "#", 1, 0x0D, 0xF9, 0, 1, 1);
+						P_ITEM p_cotton = Items->SpawnItem(pc_currchar, 1, "#", 1, 0x0DF9, 0, 1);
 						if ( !p_cotton )
 							return;
 						
@@ -1213,7 +1213,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if( pc_currchar->checkSkill( TINKERING, 500, 1000))
 					{
 						socket->sysMessage(tr("You create the sextant."));
-						P_ITEM pi_sextant = Items->SpawnItem(s, pc_currchar, 1, "a sextant", 0, 0x10, 0x57, 0, 1, 1);
+						P_ITEM pi_sextant = Items->SpawnItem(pc_currchar, 1, "a sextant", 0, 0x1057, 0, 1);
 						if (pi_sextant != NULL)
 							pi_sextant->priv |= 0x01;
 						pi->ReduceAmount(1);

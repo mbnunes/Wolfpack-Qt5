@@ -172,11 +172,3 @@ P_CHAR FindCharBySerial(int serial)
 		return iterChars->second;
 }
 
-P_CHAR FindCharBySerPtr(unsigned char *p)
-{
-	int serial = LongFromCharPtr(p);
-	if (serial == INVALID_SERIAL) return NULL;
-	return FindCharBySerial(serial);
-}
-
-

@@ -411,16 +411,16 @@ public:
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);
 	char isFieldSpellItem(P_ITEM pi);
-	P_ITEM  SpawnItem(UOXSOCKET nSocket,
-				int nAmount, const char* cName, int nStackable,
-				unsigned char cItemId1, unsigned char cItemId2,
-				unsigned short cColorId, 
-				int nPack, int nSend);
-    P_ITEM  SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
-				int nAmount, const char* cName, int nStackable,
-				unsigned char cItemId1, unsigned char cItemId2,
-				unsigned short cColorId,
-				int nPack, int nSend);
+//	P_ITEM  SpawnItem(UOXSOCKET nSocket,
+//				int nAmount, const char* cName, int nStackable,
+//				unsigned char cItemId1, unsigned char cItemId2,
+//				unsigned short cColorId, 
+//				int nPack, int nSend);
+//    P_ITEM  SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
+//				int nAmount, const char* cName, int nStackable,
+//				unsigned char cItemId1, unsigned char cItemId2,
+//				unsigned short cColorId,
+//				int nPack, int nSend);
 	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, const char* cName, bool pileable, short id, short color, bool bPack);
 	P_ITEM SpawnItemBank(P_CHAR pc_ch, QString nItem);
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging);

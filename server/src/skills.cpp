@@ -426,7 +426,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 		return;
 	}
 	
-	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(pc), pc, 1,"#",0, id1, id2,0,1,0);
+	P_ITEM pi_potion = 0;//Items->SpawnItem(pc, 1,"#",0, id1, id2,0,1,0);
 	if (pi_potion == NULL) 
 		return;
 	

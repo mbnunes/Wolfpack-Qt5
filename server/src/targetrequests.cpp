@@ -684,7 +684,7 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 				return true;
 			}
 			pc->talk( tr("I feel sorry for thee... here have a gold coin ."), -1, 0 );
-			addgold(toOldSocket(socket), realgold);
+			addgold(socket, realgold);
 			socket->sysMessage( tr("Some gold is placed in your pack.") );
 		}
 	}

@@ -1988,9 +1988,9 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 	}
 }
 
-void addgold(UOXSOCKET s, int totgold)
+void addgold(cUOSocket* socket, int totgold)
 {
-	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,1,1);
+	Items->SpawnItem(socket->player(), totgold,"#",true,0x0EED,0,1);
 }
 
 int calcValue(P_ITEM pi, int value)

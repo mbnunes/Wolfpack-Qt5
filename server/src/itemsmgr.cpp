@@ -144,11 +144,3 @@ P_ITEM FindItemBySerial(int serial)
 	else 
 		return iterItems->second;
 }
-
-P_ITEM FindItemBySerPtr(unsigned char *p)
-{
-	int serial = LongFromCharPtr(p);
-	if(serial == INVALID_SERIAL) return NULL;
-	return FindItemBySerial(serial);
-}
-

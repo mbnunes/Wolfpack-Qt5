@@ -176,25 +176,7 @@ cCharStuff::cBankerAI	*BankerAI;
 /////////////////////////////////////////////
 // maximum too cause maxclient = maximum +1
 
- char unsigned buffer[MAXCLIENT][MAXBUFFER_REAL];
- signed char addid5[MAXCLIENT];
  P_CHAR currchar[MAXCLIENT];
- make_st itemmake[MAXCLIENT];
- int tempint[MAXCLIENT];
- unsigned char addid1[MAXCLIENT];
- unsigned char addid2[MAXCLIENT];
- unsigned char addid3[MAXCLIENT];
- int addx[MAXCLIENT];
- int addy[MAXCLIENT];
- int addx2[MAXCLIENT];
- int addy2[MAXCLIENT];
- signed char addz[MAXCLIENT];
- char xtext[MAXCLIENT][31];
- unsigned char perm[MAXCLIENT];
-
- int clickx[MAXCLIENT];
- int clicky[MAXCLIENT];
- unsigned char targetok[MAXCLIENT];
 
 /////////////////////////////////////////////
 ///             hasmax                   ///
@@ -215,8 +197,6 @@ list<SERIAL> guilds;
 ///////////////////////////////////////////
 
  skill_st skill[SKILLS+1];
- int gatex[MAXGATES][2],gatey[MAXGATES][2];
- signed char gatez[MAXGATES][2];
  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
  title_st title[ALLSKILLS+1];
 
