@@ -346,9 +346,10 @@ def callback( char, args, target ):
 		if charges > 0:
 			char.say( "Kal Ort Por", 5 )
 			char.addtimer( 2000, "magic.runebook.recall0", [ item.serial, target ] )
-		else:		
-			# Fall back to the Recall Spell
-			char.addtimer( 0, "magic.runebook.recall1", [item.serial, target] )
+		elif hasSpell(char, 32):
+			char.addtimer( 0, "magic.runebook.recall1", [item.serial, target] ) # Fall back to the Recall Spell
+		else:
+			char.socket.clilocmessage(502412) # No charges left
 
 	# Drop Rune
 	elif( button > 200 and button < 217 ):
@@ -400,6 +401,7 @@ def recall0( char, args ):
 	(charges, maxcharges) = getCharges(runebook)
 	
 	if charges <= 0:
+		char.socket.clilocmessage(502412)
 		return # No charges left
 		
 	runebook.settag('charges', charges - 1) # Reduce runebook charges
