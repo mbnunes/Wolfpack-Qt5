@@ -602,7 +602,37 @@ void cDragItems::dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar )
 		return;
 	}
 
-	// No handling was possible
+	// For our hirelings we have a special function
+	if( pChar->Owns( pOtherChar ) )
+	{
+		dropOnPet( client, pItem, pOtherChar );
+		return;
+	}
+
+	// Dropping based on AI Type
+	switch( pOtherChar->npcaitype() )
+	{
+	case 4:
+		dropOnGuard( client, pItem, pOtherChar );
+		break;
+	case 5:
+		dropOnBeggar( client, pItem, pOtherChar );
+		break;
+	/*case 8:
+		dropOnBanker( client, pItem, pOtherChar );
+		break;*/
+	/*case 19:
+		dropOnBroker( client, pItem, pOtherChar );
+		break;*/
+	};
+
+	// Try to train - works for any NPC
+	if( pOtherChar->cantrain() )
+		if( pChar->trainer() == pOtherChar->serial )
+			dropOnTrainer( client, pItem, pOtherChar );
+		else
+			pOtherChar->talk( "You need to tell me what you want to learn first" );
+
 	bounceItem( client, pItem );
 	return;
 }
@@ -918,78 +948,127 @@ void cDragItems::dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet )
 	Items->DeleItem( pItem );
 }
 
-/*
-static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
+void cDragItems::dropOnGuard( P_CLIENT client, P_ITEM pItem, P_CHAR pGuard )
 {
-	UOXSOCKET s=ps->GetSocket();
-	P_CHAR pc_currchar = ps->getPlayer();
-	P_CHAR target = FindCharBySerial(pp->Tserial);
-	// Search for the key word "the head of"
-	if( strstr( pi->name().ascii(), "the head of" ) )
+	// Only heads for bountys are accepted
+	if( !pItem->name().contains( "the head of" ) || !pItem->owner())
 	{
-		// This is a head of someone, see if the owner has a bounty on them
-		P_CHAR pCharIdx = FindCharBySerial( pi->ownserial );
-		
-		if( pCharIdx->questBountyReward() > 0 )
+		pGuard->talk( "Bring that to a merchant if you want to sell it!" );
+		client->sysMessage( "I do not want that, citizen!" );
+		bounceItem( client, pItem );
+		return;
+	}
+
+	P_CHAR pVictim = pItem->owner();
+
+	if( pVictim->questBountyReward() <= 0 )
+	{
+		pGuard->talk( "You can not claim a prize for innocent citizens!. You are lucky I don't strike you down where you stand!" );
+		bounceItem( client, pItem );
+		return;
+	}
+
+	if( pVictim == client->player() )
+	{
+		pGuard->talk( "You can not claim that prize scoundrel. You are lucky I don't strike you down where you stand!" );
+		Items->DeleItem( pItem ); // The guard wont give the head back...
+		return;
+	}
+
+	addgold( client->socket(), pVictim->questBountyReward() );
+	goldsfx( client->socket(), pVictim->questBountyReward() );
+	Bounty->BountyDelete( pVictim->serial );
+	
+	// Thank them for their work
+	pGuard->talk( QString( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name.c_str() ).arg( pVictim->questBountyReward() ) );
+
+	client->player()->karma += 100;
+}
+
+void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
+{
+	if( ( pBeggar->hunger() < 6 ) && pItem->type() == 14 )
+	{
+		pBeggar->talk( "*cough* Thank thee!" );
+		pBeggar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
+
+		// If you want to poison a pet... Why not
+		if( pItem->poisoned && pBeggar->poisoned() < pItem->poisoned )
 		{
-			// Give the person the bounty assuming that they are not the
-			// same person as the reward is for
-			if( pc_currchar->serial != pCharIdx->serial )
-			{
-				// give them the gold for bringing the villan to justice
-				addgold( s, pCharIdx->questBountyReward() );
-				goldsfx( s, pCharIdx->questBountyReward() );
-				
-				// Now thank them for their hard work
-				sprintf((char*) temp, "Excellent work! You have brought us the head of %s. Here is your reward of %d gold coins.",
-					pCharIdx->name.c_str(),
-					pCharIdx->questBountyReward() );
-				npctalk( s, target, (char*)temp, 0);
-				
-				// Delete the Bounty from the bulletin board
-				Bounty->BountyDelete( pCharIdx->serial );
-				
-				// Adjust their karma and back to what it was before the beheading!
-				pc_currchar->karma  += 100;
-			}
-			else
-				npctalk(s, target, "You can not claim that prize scoundrel. You are lucky I don't strike you down where you stand!",0);
+			pBeggar->soundEffect( 0x246 );
+			pBeggar->setPoisoned( pItem->poisoned );
 			
-			// Delete the item
-			Items->DeleItem(pi);
-			return true;
+			// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+			pBeggar->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pBeggar->poisoned() ) ) );
+			
+			//wear off starts after poison takes effect - AntiChrist
+			pBeggar->setPoisonwearofftime( pBeggar->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
+			
+			// Refresh the health-bar of our target
+			impowncreate( client->socket(), pBeggar, 1 );
 		}
-	}
-	return false;
-}
 
-static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
-{
-	UOXSOCKET s=ps->GetSocket();
-	P_CHAR pc_currchar = ps->getPlayer();
-	P_CHAR target = FindCharBySerial(pp->Tserial);
-	if(pi->id()!=0x0EED)
-	{
-		sprintf((char*)temp,"Sorry %s i can only use gold",pc_currchar->name.c_str());
-		npctalk(s,target,(char*)temp,0);
-		return false;
+
+		// *You see Snowwhite eating some poisoned apples*
+		// Color: 0x0026
+		QString emote = QString( "*You see %1 eating %2*" ).arg( pBeggar->name.c_str() ).arg( pItem->getName() );
+		pBeggar->emote( emote );
+
+		// We try to feed it more than it needs
+		if( pBeggar->hunger() + pItem->amount() > 6 )
+		{
+			client->player()->karma += ( 6 - pBeggar->hunger() ) * 10;
+
+			pItem->setAmount( pItem->amount() - ( 6 - pBeggar->hunger() ) );
+			pBeggar->setHunger( 6 );
+
+			// Pack the rest into his backpack
+			bounceItem( client, pItem );
+			return;
+		}
+
+		pBeggar->setHunger( pBeggar->hunger() + pItem->amount() );
+		client->player()->karma += pItem->amount() * 10;
+
+		Items->DeleItem( pItem );
+		return;
 	}
-	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name.c_str(), pi->amount());
-	npctalk(s,target,(char*)temp,0);
-	if( pi->amount() <= 100 )
+
+	// No Food? Then it has to be Gold
+	if( pItem->id() != 0xEED )
 	{
-		pc_currchar->karma += 10;
-		sysmessage(s,"You have gain a little karma!");
+		pBeggar->talk( "Sorry, but i can only use gold." );
+		bounceItem( client, pItem );
+		return;
 	}
+
+	pBeggar->talk( QString( "Thank you %1 for the %2 gold!" ).arg( client->player()->name.c_str() ).arg( pItem->amount() ) );
+	client->sysMessage( "You have gained some karma!" );
+	
+	if( pItem->amount() <= 100 )
+		client->player()->karma += 10;
 	else
-	{
-		pc_currchar->karma += 50;
-		sysmessage(s,"You have gain some karma!");
-	}
-		Items->DeleItem(pi);
-	    return true;
+		client->player()->karma += 50;
+	
+	Items->DeleItem( pItem );
 }
 
+void cDragItems::dropOnBanker( P_CLIENT client, P_ITEM pItem, P_CHAR pBanker )
+{
+	bounceItem( client, pItem );
+}
+
+void cDragItems::dropOnBroker( P_CLIENT client, P_ITEM pItem, P_CHAR pBroker )
+{
+	bounceItem( client, pItem );
+}
+
+void cDragItems::dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer )
+{
+	bounceItem( client, pItem );
+}
+
+/*
 static bool DeedDroppedOnBroker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
@@ -1112,120 +1191,17 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	return true;
 }
 
-static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
+//This crazy training stuff done by Anthracks (fred1117@tiac.net)
+if(pc_currchar->trainer() != pTC->serial)
 {
-	UOXSOCKET s = ps->GetSocket();
-	P_CHAR pc_currchar = ps->getPlayer();
-	P_CHAR pTC = FindCharBySerial(pp->Tserial);	// the targeted character
-	if (!pTC) return true;
-
-	if (pTC != pc_currchar)
-	{
-		if (pTC->isNpc())
-		{
-			if(!pTC->isHuman())						
-			{
-				ItemDroppedOnPet( ps, pp, pi);
-			}
-			else	// Item dropped on a Human character
-			{
-				// Item dropped on a Guard (possible bounty quest)
-				if( ( pTC->isNpc() ) && ( pTC->npcaitype() == 4 ) )
-				{
-					if (!ItemDroppedOnGuard( ps, pp, pi) )
-					{
-						bounceItem( ps, pi );
-					}
-					return true;
-				}
-				if ( pTC->npcaitype() == 5 )
-				{
-					if (!ItemDroppedOnBeggar( ps, pp, pi))
-					{
-						bounceItem( ps, pi );
-					}
-					return true;
-				}
-				if ( pTC->npcaitype() == 19 )
-				{
-					if (!DeedDroppedOnBroker( ps, pp, pi))
-					{
-						bounceItem( ps, pi );
-					}
-					return true;
-				}
-				if ( pTC->npcaitype() == 8 )
-				{
-					if (!ItemDroppedOnBanker( ps, pp, pi))
-					{
-						bounceItem( ps, pi );
-					}
-					return true;
-				}
-				
-				//This crazy training stuff done by Anthracks (fred1117@tiac.net)
-				if(pc_currchar->trainer() != pTC->serial)
-				{
-					npctalk(s, pTC, "Thank thee kindly, but I have done nothing to warrant a gift.",0);
-					bounceItem( ps, pi );
-					return true;
-				}
-				else // The player is training from this NPC
-				{
-					ItemDroppedOnTrainer( ps, pp, pi);
-					return true;
-				}
-			}//if human or not
-		}
-		else // dropped on another player
-		{
-			// By Polygon: Avoid starting the trade if GM drops item on logged off char (crash fix)
-			if ((pc_currchar->isGM()) && !online(pTC))
-			{
-				// Drop the item in the players pack instead
-				// Get the pack
-				P_ITEM pack = Packitem(pTC);
-				if (pack != NULL)	// Valid pack?
-				{
-					pack->AddItem(pi);	// Add it
-					Weight->NewCalc(pTC);
-				}
-				else	// No pack, give it back to the GM
-				{
-					pack = Packitem(pc_currchar);
-					if (pack != NULL)	// Valid pack?
-					{
-						pack->AddItem(pi);	// Add it
-						Weight->NewCalc(pc_currchar);
-					}
-					else	// Even GM has no pack?
-					{
-						// Drop it to it's feet
-						pi->moveTo(pc_currchar->pos);
-						RefreshItem(pi);
-					}
-				}
-			}
-			else
-			{
-				P_ITEM j=Trade->tradestart(s, pTC); //trade-stuff
-				if(j==NULL)
-				{
-					cout << "Bad trade start ptr " << endl;
-					return true;
-				}
-				pi->setContSerial(j->serial);
-				pi->pos.x = 30;
-				pi->pos.y = 30;
-				pi->pos.z = 9;
-				SndRemoveitem(pi->serial);
-				RefreshItem(pi);
-			}
-		}
-	}
-	else // dumping stuff to his own backpack !
-	{
-		ItemDroppedOnSelf( ps, pp, pi);
-	}
+	npctalk(s, pTC, "Thank thee kindly, but I have done nothing to warrant a gift.",0);
+	bounceItem( ps, pi );
 	return true;
-}*/
+}
+else // The player is training from this NPC
+{
+	ItemDroppedOnTrainer( ps, pp, pi);
+	return true;
+}
+*/
+

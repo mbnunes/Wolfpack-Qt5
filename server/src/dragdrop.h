@@ -52,6 +52,11 @@ public:
 
 	// Drop-on-char subfunctions
 	void	dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet );
+	void	dropOnGuard( P_CLIENT client, P_ITEM pItem, P_CHAR pGuard );
+	void	dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar );
+	void	dropOnBanker( P_CLIENT client, P_ITEM pItem, P_CHAR pBanker );
+	void	dropOnBroker( P_CLIENT client, P_ITEM pItem, P_CHAR pBroker );
+	void	dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer );
 
 	void	bounceItem( P_CLIENT client, P_ITEM pi, bool denyMove = false );
 

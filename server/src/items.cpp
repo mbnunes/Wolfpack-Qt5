@@ -53,6 +53,16 @@
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 
+P_CHAR cItem::owner( void )
+{
+	return FindCharBySerial( ownserial ); 
+}
+
+void cItem::setOwner( P_CHAR nOwner )
+{
+	ownserial = ( nOwner == NULL ) ? INVALID_SERIAL : nOwner->serial;
+}
+
 // Is the Item pileable?
 bool cItem::isPileable()
 {

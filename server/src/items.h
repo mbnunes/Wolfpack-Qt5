@@ -104,6 +104,7 @@ public:
 	UI08			moreb3()		const { return moreb3_; }
 	UI08			moreb4()		const { return moreb4_; }
 	bool			corpse()		const { return priv&0x40; }		// Is the item a corpse
+	P_CHAR			owner();
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -135,6 +136,7 @@ public:
 	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; };
 	void	setMoreb4( UI08 nValue ) { moreb4_ = nValue; };
 	void	setCorpse( bool nValue ) { ( nValue ) ? priv &= 0x40 : priv |= 0xBF; }
+	void	setOwner( P_CHAR nOwner );
 
 	cItem() {;};
 	cItem( cItem& src); // Copy constructor
