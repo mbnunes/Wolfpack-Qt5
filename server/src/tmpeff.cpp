@@ -1363,15 +1363,18 @@ void			cTmpEffFibHeap::deleteMin()		// O( lg N )
 						cTempEffect* tempright = NULL;
 						if( coll->left == it )
 						{
-							templeft = it->left;
-							tempright = coll->right;
+							if( coll->right != it )
+							{
+								templeft = it->left;
+								tempright = coll->right;
 
-							templeft->right = coll;
-							tempright->left = it;
-							it->left = coll;
-							it->right = tempright;
-							coll->left = templeft;
-							coll->right = it;
+								templeft->right = coll;
+								tempright->left = it;
+								it->left = coll;
+								it->right = tempright;
+								coll->left = templeft;
+								coll->right = it;
+							}
 						}
 						else if( coll->right == it )
 						{

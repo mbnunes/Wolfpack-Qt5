@@ -1311,7 +1311,6 @@ void updates(UOXSOCKET s) // Update Window
 {
 	UI32 y;
 
-#pragma note("new xml format: convert section MOTD to <text> with id MOTD")
 	QString motdText = DefManager->getText( "MOTD" );
 	y = motdText.length() + 10;
 	
@@ -1332,8 +1331,6 @@ void tips(cUOSocket* socket, int tip) // Tip of the day window
 	if( tip == 0 ) 
 		tip = 1; 
 
-#pragma note("new xml format: convert section TIPS to <list> with id TIPS")
-#pragma note("new xml format: convert section TIP to <text> linked in TIPS-list")
 	QStringList tipList = DefManager->getList( "TIPS" );
 	if( tipList.size() == 0 )
 		return;

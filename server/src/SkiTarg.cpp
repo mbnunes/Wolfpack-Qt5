@@ -692,7 +692,6 @@ void cSkills::Mine(int s)
 		}
 		else if(pc->skill(MINING)>=850 && !(rand()%18))
 		{
-#pragma note("new xml format: convert ITEMLIST 999 to <list> with id COMMON_GEMS...!")
 			QString listSect = DefManager->getRandomListEntry( "COMMON_GEMS" );
 			if( !listSect.isEmpty() )
 			{
@@ -877,7 +876,6 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 	switch(nRandnum)
 	{
 	case 2:
-#pragma note("new xml format: convert UNDEADLIST 1000 to <list> with id COMMON_UNDEAD_LOWLVL...!")
 		listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_LOWLVL" );
 		if( !listSect.isEmpty() )
 		{
@@ -886,7 +884,6 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		}	
 		break;
 	case 4:
-#pragma note("new xml format: convert ITEMLIST 1001 to <list> with id COMMON_ARMOR_AND_SHIELDS...!")
 		listSect = DefManager->getRandomListEntry( "COMMON_ARMOR_AND_SHIELDS" );
 		if( !listSect.isEmpty() )
 		{
@@ -924,7 +921,6 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		}
 		break;
 	case 6:
-#pragma note("new xml format: convert UNDEADLIST 1001 to <list> with id COMMON_UNDEAD_MEDLVL...!")
 		if(nFame<500)
 			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_LOWLVL" );
 		else
@@ -936,7 +932,6 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		}	
 		break;
 	case 8:
-#pragma note("new xml format: convert ITEMLIST 1000 to <list> with id COMMON_WEAPONS...!")
 		listSect = DefManager->getRandomListEntry( "COMMON_WEAPONS" );
 		if( !listSect.isEmpty() )
 		{
@@ -945,7 +940,6 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		}
 		break;
 	case 10:
-#pragma note("new xml format: convert UNDEADLIST 1002 to <list> with id COMMON_UNDEAD_HILVL...!")
 		if(nFame<1000)
 			listSect = DefManager->getRandomListEntry( "COMMON_UNDEAD_MEDLVL" );
 		else
