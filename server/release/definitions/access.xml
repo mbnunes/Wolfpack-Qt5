@@ -9,7 +9,9 @@
 <definitions>
 	<!-- Default Player privs -->
 	<acl id="player">
-		<group name="command"></group>
+		<group name="command">
+			<action name="WHERE" permit="true" />
+		</group>
 		<group name="multi"></group>
 	</acl>
 	
