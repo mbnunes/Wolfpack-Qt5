@@ -260,6 +260,29 @@ void cUOSocket::recieve()
 		}
 	}
 
+	// This is always checked before anything else
+	if (packetId == 0x02 && Config::instance()->antiSpeedHack()) {
+		if (_player && !_player->isGM()) {			
+			// There are two different delays for mounted and unmounted players
+			unsigned int delay;
+			if (!_player->atLayer(cBaseChar::Mount)) {
+				delay = Config::instance()->antiSpeedHackDelay();
+			} else {
+				delay = Config::instance()->antiSpeedHackDelayMounted();
+			}
+
+			// If the last movement of our player was not X ms in the past, 
+			// requeue the walk request until we can fullfil it.
+			//unsigned int time = getNormalizedTime();
+			unsigned int time = Server::instance()->time();
+			if (_player->lastMovement() + delay > time) {
+				//sysMessage(QString("Delayed Walk Request, Last WalkRequest was %1 ms ago.").arg(time - _player->lastMovement()));
+				Network::instance()->netIo()->pushfrontPacket(_socket, packet);
+				return;
+			}
+		}
+	}
+
 	if ( handlers[packetId] )
 	{
 		PyObject* args = Py_BuildValue( "(NN)", PyGetSocketObject( this ), CreatePyPacket( packet ) );

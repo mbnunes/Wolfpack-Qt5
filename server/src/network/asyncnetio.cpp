@@ -748,6 +748,18 @@ cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 		return 0;
 }
 
+/*
+	Requeues a packet to the front of the queue for a socket.
+*/
+void cAsyncNetIO::pushfrontPacket( QSocketDevice *socket, cUOPacket *packet ) {
+	iterator it = buffers.find(socket);
+
+	if (it != buffers.end()) {
+		QMutexLocker lock(&(it.data()->packetsMutex));
+		it.data()->packets.push_front(packet);
+	}
+}
+
 /*!
   Queues \a packet for sending to \a socket. UO Huffman compression will
   be applied if \a compress is true.

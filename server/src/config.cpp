@@ -164,6 +164,9 @@ void cConfig::readData()
 	logMask_ = getNumber( "General", "Logging Mask", LOG_ALL, true );
 	overwriteDefinitions_ = getBool( "General", "Overwrite Definitions", false, true );
 	dontStackSpawnedObjects_ = getBool("General", "Don't Stack Spawned Objects", true, true);
+	antiSpeedHack_ = getBool("General", "Anti Speed Hack", true, true);
+	antiSpeedHackDelay_ = getNumber("General", "Anti Speed Hack Delay", 175, true);
+	antiSpeedHackDelayMounted_ = getNumber("General", "Anti Speed Hack Delay Mounted", 75, true);
 
 	saveInterval_ = getNumber( "General", "Save Interval", 900, true );
 	mulPath_ = QDir::convertSeparators( getString( "General", "MulPath", "./muls/", true ) );

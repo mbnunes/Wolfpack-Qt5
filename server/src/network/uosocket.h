@@ -74,6 +74,8 @@ public:
 	};
 
 private:
+	QValueVector<cUORxWalkRequest> packetQueue;
+
 	QSocketDevice* _socket;
 	unsigned int _rxBytes, _txBytes, _uniqueId, _lastActivity;
 	cAccount* _account;

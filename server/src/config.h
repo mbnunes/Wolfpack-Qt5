@@ -74,6 +74,9 @@ protected:
 
 	// loaded data
 	bool overwriteDefinitions_;
+	bool antiSpeedHack_;
+	unsigned int antiSpeedHackDelay_;
+	unsigned int antiSpeedHackDelayMounted_;
 	bool hashAccountPasswords_;
 	bool convertUnhashedPasswords_;
 	bool allowUnencryptedClients_;
@@ -206,6 +209,15 @@ public:
 	unsigned int animalWildFleeRange() const;
 	float checkFollowTime() const;
 	float checkTamedTime() const;
+	bool antiSpeedHack() const {
+		return antiSpeedHack_;
+	}
+	unsigned int antiSpeedHackDelay() const {
+		return antiSpeedHackDelay_;
+	}
+	unsigned int antiSpeedHackDelayMounted() const {
+		return antiSpeedHackDelayMounted_;
+	}
 	int niceLevel() const;
 	unsigned int itemDecayTime() const;
 	unsigned int corpseDecayTime() const;
