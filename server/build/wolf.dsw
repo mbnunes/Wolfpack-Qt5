@@ -13,23 +13,6 @@ Package=<4>
 {{{
 }}}
 
-###############################################################################
-
-Project: "_socket"=.\lib\Python\PCbuild\_socket.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name pythoncore
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "pythoncore"=.\lib\Python\PCbuild\pythoncore.dsp - Package Owner=<4>
 
 Package=<5>
@@ -55,9 +38,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name ZTHREAD_2_0_5_static
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name _socket
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name pythoncore
