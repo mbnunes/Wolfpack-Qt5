@@ -7,46 +7,42 @@
 =================================================================
 -->
 <definitions>
-	<!-- Hammer -->
-	<item id="102a">
-		<id>0x102A</id>
-		<durability>20</durability>
-	</item>
-	<!-- Hammer -->
-	<item id="102b">
-		<id>0x102B</id>
-		<durability>20</durability>
-	</item>
 	<!-- Tongs -->
 	<item id="fbb">
 		<id>0x0FBB</id>
 		<durability>20</durability>
 	</item>
-	<!-- Tomgs -->
+	
+	<!-- Tongs -->
 	<item id="fbc">
 		<id>0x0FBC</id>
 		<durability>20</durability>
 	</item>
+	
 	<!-- Smithy Hammer -->
 	<item id="13e4">
 		<id>0x13e4</id>
 		<durability>20</durability>
 	</item>
+	
 	<!-- Smithy Hammer -->
 	<item id="13e3">
 		<id>0x13e3</id>
 		<durability>20</durability>
 	</item>
+	
 	<!-- Sledge Hammer -->
 	<item id="fb4">
 		<id>0x0FB4</id>
 		<durability>20</durability>
 	</item>
+	
 	<!-- Sledge Hammer -->
 	<item id="fb5">
 		<id>0x0FB5</id>
 		<durability>20</durability>
 	</item>
+	
 	<!-- Anvil -->
 	<item id="faf">
 		<id>0x0FAF</id>
@@ -59,7 +55,7 @@
 		<nodecay />
 	</item>
 	
-       <!-- Ingot -->
+	<!-- Ingot -->
 	<item id="1bf2">
 		<id>0x1bf2</id>
 		<decay />

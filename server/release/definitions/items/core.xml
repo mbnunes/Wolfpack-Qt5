@@ -155,19 +155,6 @@
 		<speed>45</speed>
 		<weight>3.0</weight>
 	</item>
-	
-	<!-- Hatchet -->
-	<item id="f43">
-		<id>0x0f43</id>
-		<itemhand>2</itemhand>
-		<attack min="2" max="17" />
-		<durability>50</durability>
-		<decay />
-		<value>35</value>
-		<requires type="str">15</requires>
-		<speed>15</speed>
-		<weight>3.0</weight>
-	</item>
 
 	<!-- Sheperd Crook -->
 	<item id="e81">
@@ -182,20 +169,7 @@
 		<weight>2.0</weight>
 	</item>
 
-	<!-- Gnarled Staff -->
-	<item id="13f9">
-		<id>0x13f9</id>
-		<itemhand>2</itemhand>
-		<attack min="2" max="8" />
-		<durability>10</durability>
-		<decay />
-		<layer>2</layer>
-		<value>10</value>
-		<speed>30</speed>
-		<weight>2.0</weight>
-	</item>
-
-        <!-- Wooden Shield -->
+    <!-- Wooden Shield -->
 	<item id="1b7a">
 		<id>0x1b7a</id>
 		<itemhand>3</itemhand>
@@ -222,60 +196,11 @@
 		<id>0xeed</id>
 	</item>
 
-	<!-- Resurrection Robe -->
-	<item id="1f03">
-		<id>0x1f03</id>
-		<durability>1</durability>
-	</item>
-
-	<!-- Robe -->
-	<item id="1f03">
-		<id>0x1f03</id>
-		<durability>1</durability>
-		<color><random list="COLORS_MISC" /></color>
-		<layer>22</layer>
-		<decay/>
-		<value>35</value>
-	</item>
-
 	<!-- Bandages -->
 	<item id="e21">
 		<id>0xe21</id>
 		<decay/>
 		<value>6</value>
-	</item>
-
-	<!-- Fancy Shirt -->
-	<item id="1efd">
-		<id>0x1efd</id>
-		<color><random list="COLORS_MISC" /></color>
-	</item>
-
-	<!-- Boots -->
-	<item id="170b">
-		<id>0x170b</id>
-	</item>
-
-	<!-- Shoes -->
-	<item id="170f">
-		<id>0x170f</id>
-	</item>
-
-	<!-- Thigh Boots -->
-	<item id="1711">
-		<id>0x1711</id>
-	</item>
-
-	<!-- Short Pants -->
-	<item id="152e">
-		<id>0x152e</id>
-		<color><random list="COLORS_MISC" /></color>
-	</item>
-
-	<!-- Long Pants -->
-	<item id="1539">
-		<id>0x1539</id>
-		<color><random list="COLORS_MISC" /></color>
 	</item>
 
 	<!-- Backpack -->
