@@ -108,6 +108,9 @@ void WPPythonScript::load( const QDomElement &Data )
 		PyObject_CallObject( method, NULL ); 
 		PyReportError();
 	}
+
+	handleSpeech_ = PyObject_HasAttr( codeModule, PyString_FromString( "onSpeech" ) );
+	catchAllSpeech_ = false;
 }
 
 //========================== OVERRIDDEN DEFAULT EVENTS
@@ -214,33 +217,6 @@ bool WPPythonScript::onTalk( P_CHAR Character, char speechType, UI16 speechColor
 	
 	PyEvalMethod( "onTalk" )
 }
-
-
-bool WPPythonScript::onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text )
-{
-	PyHasMethod( "onTalkToNPC" )
-
-	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Talker ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 2, PyString_FromString( Text.ascii() ) );
-
-	PyEvalMethod( "onTalkToNPC" )
-}
-
-bool WPPythonScript::onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text )
-{
-	PyHasMethod( "onTalkToItem" )
-
-	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Talker ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( Item ) );
-	PyTuple_SetItem( tuple, 2, PyString_FromString( Text.ascii() ) );
-
-	PyEvalMethod( "onTalkToItem" )
-	PyReportError();
-}
-
 
 bool WPPythonScript::onWarModeToggle( P_CHAR Character, bool War )
 {
@@ -395,4 +371,27 @@ bool WPPythonScript::onCreate( cUObject *object, const QString &definition )
 	PyTuple_SetItem( tuple, 1, PyString_FromString( definition.latin1() ) );
 	
 	PyEvalMethod( "onCreate" )
+}
+
+bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords )
+{
+	PyHasMethod( "onSpeech" )
+
+	PyObject *tuple = PyTuple_New( 4 ); // Create our args for the python function
+	if( isItemSerial( listener->serial ) )
+		PyTuple_SetItem( tuple, 0, PyGetItemObject( (P_ITEM)listener ) );
+	else 
+		PyTuple_SetItem( tuple, 0, PyGetCharObject( (P_CHAR)listener ) );
+	PyTuple_SetItem( tuple, 1, PyGetCharObject( talker ) );
+	PyTuple_SetItem( tuple, 2, PyString_FromString( text.latin1() ) );
+	
+	// Convert the keywords into a list
+	PyObject *list = PyList_New( keywords.size() );
+	for( std::vector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
+		PyList_Append( list, PyInt_FromLong( *iter ) );
+
+
+	PyTuple_SetItem( tuple, 3, list );
+
+	PyEvalMethod( "onSpeech" )
 }

@@ -326,9 +326,7 @@ public:
 
 	// Public event wrappers added by darkstorm
 	virtual bool onSingleClick( P_CHAR Viewer );
-	virtual bool onTalkToItem( P_CHAR Talker, const QString &Text );
 	
-
 	QPtrList< cItem > getContainment() const;
 
 	P_ITEM getOutmostItem();

@@ -290,7 +290,7 @@ public:
 	// This saves bandwith and CPU time !
 	void setAnimated( bool data ) { animated = data; }
 	void update( bool excludeself = false ); // This is called when flags/name have been changed
-	void resend( bool clean = true ); // this is called when the char is being created or anything like that
+	void resend( bool clean = true, bool excludeself = false ); // this is called when the char is being created or anything like that
 	void makeShop( void );
 	void updateHealth( void );
 	void restock(); // Restocks this Vendor
@@ -743,7 +743,6 @@ public:
 	virtual bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
 
 	virtual bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
-	virtual bool onTalkToNPC( P_CHAR Talker, const QString &Text ); // Someone talks to the NPC
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
 	virtual bool onLogin( void ); // The character enters the world
 	virtual bool onLogout( void ); // The character enters the world

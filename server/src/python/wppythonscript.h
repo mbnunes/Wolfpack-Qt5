@@ -64,8 +64,6 @@ public:
 
 	// if this events returns true (handeled) then we should not display the text
 	bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang );
-	bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text );
-	bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text );
 	bool onWarModeToggle( P_CHAR Character, bool War );
 	bool onLogin( P_CHAR pChar );
 	bool onLogout( P_CHAR pChar );
@@ -75,7 +73,9 @@ public:
 
 	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
 	bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
-	
+
+	bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords );
+
 	// Magic System (This should be reduced eventually. It's a bit much)
 	// But as soon as the flag-system is introduced for python-script 
 	// It shouldn't be that much.

@@ -38,6 +38,9 @@
 // Library Includes
 #include "qstring.h"
 #include "qdom.h"
+#include "qregexp.h"
+
+#include <vector>
 
 class cUObject;
 class Coord_cl;
@@ -45,15 +48,31 @@ class cUORxTarget;
 
 class WPDefaultScript  
 {
-private:
+protected:
 	QString Name; // Important!
+	bool handleSpeech_;
+	bool catchAllSpeech_;
+
+	std::vector< UINT16 > speechKeywords_;
+	std::vector< QString > speechWords_;
+	std::vector< QRegExp > speechRegexp_;
 public:
+	void addKeyword( UINT16 data ) { speechKeywords_.push_back( data ); }
+	void addWord( const QString &data ) { speechWords_.push_back( data ); }
+	void addRegexp( const QRegExp &data ) { speechRegexp_.push_back( data ); }
+	
+	bool handleSpeech() const { return handleSpeech_; }
+	bool catchAllSpeech() const { return catchAllSpeech_; }
+	void setHandleSpeech( bool data ) { handleSpeech_ = data; }
+	void setCatchAllSpeech( bool data ) { catchAllSpeech_ = data; }
+	bool canHandleSpeech( const QString &text, std::vector< UINT16 > keywords );
+
 	// Scripting Type (i.e. Python or "Default")
 	virtual const QString Type( void ) {
 		return "default";
 	}
 
-	WPDefaultScript() {}
+	WPDefaultScript(): catchAllSpeech_( false ), handleSpeech_( false ) {}
 	virtual ~WPDefaultScript() {}
 
 	// Methods for loading, unloading and reloading the scripts
@@ -84,14 +103,15 @@ public:
 	virtual bool onLogin( P_CHAR pChar ) { return false; }
 	virtual bool onLogout( P_CHAR pChar ) { return false; }
 	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ) { return false; }
-	virtual bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text ) { return false; }
-	virtual bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text ) { return false; }
 	virtual bool onWarModeToggle( P_CHAR Character, bool War ) { return false; }
 	virtual bool onHelp( P_CHAR Character ) { return false; }
 	virtual bool onChat( P_CHAR Character ) { return false; }
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { return false; }
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
+
+	// Speech Event
+	virtual bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords ) { return false; }
 
 	// Magic System
 	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }

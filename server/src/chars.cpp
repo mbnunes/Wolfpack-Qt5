@@ -989,20 +989,6 @@ bool cChar::onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QS
 	return false;
 }
 
-// Someone talks to the NPC, this is only triggered for the npc
-bool cChar::onTalkToNPC( P_CHAR Talker, const QString &Text )
-{
-	if( scriptChain.empty() )
-		return false;
- 
-	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onTalkToNPC( (P_CHAR)this, Talker, Text ) )
-			return true;
-
-	return false;
-}
-
 // The character switches warmode
 bool cChar::onWarModeToggle( bool War )
 {
@@ -1834,9 +1820,9 @@ void cChar::update( bool excludeself )
 }
 
 // Resend the char to all sockets in range
-void cChar::resend( bool clean )
+void cChar::resend( bool clean, bool excludeself )
 {
-	if( socket_ )
+	if( socket_ && !excludeself )
 		socket_->resendPlayer();
 
 	// We are stabled and therefore we arent visible to others

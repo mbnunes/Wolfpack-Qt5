@@ -40,6 +40,8 @@
 #include "../territories.h"
 #include "../maps.h"
 #include "../tilecache.h"
+#include "../wpscriptmanager.h"
+#include "../wpdefaultscript.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -520,6 +522,115 @@ static PyMethodDef wpGlobal[] =
 };
 
 /*!
+	Adds a speech keyword to a wolfpack script object.
+*/
+PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+
+	if( !script )
+	{
+		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
+		return PyFalse;
+	}
+	
+	script->addKeyword( getArgInt( 1 ) );
+
+	return PyTrue;
+}
+
+/*!
+	Adds a speech trigger-word to a wolfpack script object.
+*/
+PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+
+	if( !script )
+	{
+		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
+		return PyFalse;
+	}
+	
+	script->addWord( getArgStr( 1 ) );
+
+	return PyTrue;
+}
+
+/*!
+	Adds a speech regular expression to a wolfpack script object.
+*/
+PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+
+	if( !script )
+	{
+		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
+		return PyFalse;
+	}
+	
+	script->addRegexp( QRegExp( getArgStr( 1 ) ) );
+
+	return PyTrue;
+}
+
+/*!
+	Specifies if a speech script should fetch all speech events and not just one case.
+*/
+PyObject *wpSpeechSetCatchAll( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+
+	if( !script )
+	{
+		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
+		return PyFalse;
+	}
+	
+	script->setCatchAllSpeech( getArgInt( 1 ) != 0 );
+
+	return PyTrue;
+}
+
+/*!
+	wolfpack.speech
+	speech related functions
+*/
+static PyMethodDef wpSpeech[] = 
+{
+    { "addKeyword",		wpSpeechAddKeyword, METH_VARARGS, "Adds a keyword to a specific speech script." },
+	{ "addWord",		wpSpeechAddWord,	METH_VARARGS, "Adds a triggerword to a specific speech script." },
+	{ "addRegexp",		wpSpeechAddRegexp, METH_VARARGS, "Adds a regular expression to a specific speech script." },
+	{ "setCatchAll",	wpSpeechSetCatchAll, METH_VARARGS, "Specifies if a speech script should fetch all speech events and not just one case." },
+	{ NULL, NULL, 0, NULL } // Terminator
+};
+
+/*!
 	This initializes the wolfpack.console extension
 */
 void init_wolfpack_globals()
@@ -528,6 +639,9 @@ void init_wolfpack_globals()
 
 	PyObject *mConsole = Py_InitModule( "_wolfpack.console", wpConsole );
     PyObject_SetAttrString( wpNamespace, "console", mConsole );
+
+	PyObject *mSpeech = Py_InitModule( "_wolfpack.speech", wpSpeech );
+    PyObject_SetAttrString( wpNamespace, "speech", mSpeech );
 
 	PyObject *mTime = Py_InitModule( "_wolfpack.time", wpTime );
     PyObject_SetAttrString( wpNamespace, "time", mTime );

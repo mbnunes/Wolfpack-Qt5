@@ -190,6 +190,7 @@ SOURCES         = \
 		  packlen.cpp \
 		  wpdefmanager.cpp \
 		  wpscriptmanager.cpp \
+		  wpdefaultscript.cpp \
 		  wptargetrequests.cpp \
 		  newmagic.cpp \
 		  spellbook.cpp

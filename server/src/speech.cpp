@@ -926,9 +926,6 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 		// at least they should be on the screen
 		if( pPlayer->dist( pNpc ) > 16 )
 			continue;
-		
-		if ( pNpc->onTalkToNPC( pPlayer, comm ) )
-			return true;
 
 		if( StableSpeech( socket, pPlayer, pNpc, comm ) )
 			return true;
