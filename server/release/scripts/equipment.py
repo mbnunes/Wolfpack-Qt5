@@ -102,7 +102,10 @@ def onShowTooltip(viewer, object, tooltip):
 		
 		durabilitybonus = properties.fromitem(object, DURABILITYBONUS)
 		if durabilitybonus:
-			tooltip.add(1060410, str(durabilitybonus))		
+			if durabilitybonus > 0:
+				tooltip.add(1060410, '+' + str(durabilitybonus))
+			else:
+				tooltip.add(1060410, str(durabilitybonus))
 	
 	# Weapon specific properties
 	if weapon:
