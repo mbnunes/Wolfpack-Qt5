@@ -909,10 +909,10 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("gmmoveeff",		gmMoveEff);
 		archive.write("guildtype",		GuildType);
 		archive.write("guildtraitor",	GuildTraitor);
-		archive.write("dispz",			dispz);
+		archive.write("dispz",			dispz_);
 		archive.write("cell",			cell);
 		archive.write("dir",			dir);
-		archive.write("race",			race);
+		archive.write("race",			race_);
 		//AntiChrist - incognito and polymorph spell special stuff - 12/99
 		if(incognito() || polymorph())
 		{//if under incognito spell, don't save BODY but the original XBODY
@@ -941,9 +941,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("time_unused",	time_unused_);
 		
 		archive.write("allmove",		priv2);
-		archive.write("font",			fonttype);
-		archive.write("say",			saycolor);
-		archive.write("emote",			emotecolor);
+		archive.write("font",			fonttype_);
+		archive.write("say",			saycolor_);
+		archive.write("emote",			emotecolor_);
 		archive.write("strength",		st_);
 		archive.write("strength2",		st2_);
 		archive.write("dexterity",		dx);

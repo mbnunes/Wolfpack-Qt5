@@ -530,12 +530,12 @@ public:
 class cUOTxSendStats: public cUOPacket
 {
 public:
-	cUOTxSendStats(): cUOPacket( 0x11, 66 ) { setShort( 1, 0x42 ); }
+	cUOTxSendStats(): cUOPacket( 0x11, 70 ) { setShort( 1, 0x42 ); }
 
-	void setFullMode( bool mode ) { rawPacket[42] = mode ? 0x01 : 0x00; }
+	void setFullMode( bool mode, bool extended = false ) { rawPacket[42] = mode ? 0x01 : 0x00; setShort( 1, extended ? 0x46 : 0x42 ); }
 	void setAllowRename( bool mode ) { rawPacket[41] = mode ? 0xFF : 0x00; }
 	void setSerial( SERIAL serial ) { setInt( 3, serial ); }
-	void setName( const QString &name ) { memcpy( &rawPacket.data()[7], name.latin1(), MIN( name.length()+1, 30 ) ); }
+	void setName( const QString &name ) { setAsciiString( 7, name, MIN( name.length()+1, 30 ) ); }
 	void setHp( Q_UINT16 data ) { setShort( 37, data ); }
 	void setMaxHp( Q_UINT16 data ) { setShort( 39, data ); }
 	void setSex( bool male ) { rawPacket[43] = male ? 0 : 1; }
@@ -549,6 +549,10 @@ public:
 	void setGold( Q_UINT32 data ) { setInt( 58, data ); }
 	void setArmor( Q_UINT16 data ) { setShort( 62, data ); }
 	void setWeight( Q_UINT16 data ) { setShort( 64, data ); }
+	// extended for newer clients
+	void setStatCap( Q_UINT16 data ) { setShort( 66, data ); }
+	void setPets( Q_UINT8 data ) { rawPacket[ 68 ] = data; }
+	void setMaxPets( Q_UINT8 data ) { rawPacket[ 69 ] = data; }
 };
 
 // 0xBF Subcommand: 0x14

@@ -133,7 +133,7 @@ public:
 	{
 		std::string temp;
 
-		if( data.latin1() == NULL )
+		if( data.isNull() )
 			temp = "";
 		else
 			temp = data.latin1();

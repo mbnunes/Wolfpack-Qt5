@@ -378,7 +378,6 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 	else
 	{
 		sendCharList();
-		_account->setInUse( true );
 	}
 }
 
@@ -453,6 +452,15 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 		return;
 	}
 
+	if( _account->inUse() )
+	{
+		cUOTxDenyLogin denyLogin;
+		denyLogin.setReason( DL_INUSE );
+		send( &denyLogin );
+		return;
+	}
+
+	_account->setInUse( true );
 	playChar( characters.at(packet->slot()) );
 }
 
@@ -508,10 +516,11 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 	clConsole.send( QString( "Trying to log in as %1 using password %2 [%3]\n" ).arg( username ).arg( password ).arg( _socket->peerAddress().toString() ) );
 
 	cAccounts::enErrorCode error = cAccounts::NoError;
+
 	AccountRecord* authRet = Accounts->authenticate( username, password, &error );
 
 	// Reject login
-	if( error != cAccounts::NoError )
+	if( !_account && error != cAccounts::NoError )
 	{
 		cUOTxDenyLogin denyPacket;
 
@@ -1783,7 +1792,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setName( pChar->name.c_str() );
 	sendStats.setSerial( pChar->serial );
 		
-	sendStats.setFullMode( pChar == _player );
+	sendStats.setFullMode( pChar == _player, _version.left(2) == "3." );
 
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
