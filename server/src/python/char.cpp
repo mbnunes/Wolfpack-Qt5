@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -557,17 +557,37 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args )
 
 	if( !checkArgStr( 0 ) )
 	{
-		PyErr_BadArgument();
-		return 0;
-	}
+		P_NPC npc = dynamic_cast<P_NPC>( self->pChar);
 
-	INT16 color = -1;
+		if ( !npc )
+			return PyFalse;
+
+		if( !checkArgInt( 0 ) )
+		{
+			PyErr_BadArgument();
+			return 0;
+		}
+
+		ushort color = -1;
+		uint cliloc = getArgInt( 0 );
 	
-	if( checkArgInt( 1 ) )
-		color = getArgInt( 1 );
+		if( checkArgInt( 1 ) )
+			color = getArgInt( 1 );
+	
+		npc->talk( cliloc, 0, color );
+		return PyTrue;
+	}
+	else
+	{
+		INT16 color = -1;
+		
+		if( checkArgInt( 1 ) )
+			color = getArgInt( 1 );
 
-	self->pChar->talk( getArgStr( 0 ), color );
-	return PyTrue;
+		self->pChar->talk( getArgStr( 0 ), color );
+		return PyTrue;
+	}
+	return PyFalse;
 }
 
 /*!
@@ -1338,6 +1358,18 @@ static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 }
 
 /*!
+	Are we dead.
+*/
+static PyObject* wpChar_isdead( wpChar* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	if( !self->pChar || self->pChar->free )
+		return PyTrue;
+
+	return self->pChar->isDead() ? PyTrue : PyFalse;
+}
+
+/*!
 	Let's this character attack someone else.
 */
 static PyObject* wpChar_attack( wpChar* self, PyObject* args )
@@ -1685,6 +1717,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, NULL },
 	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
 	{ "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
+	{ "isdead",			(getattrofunc)wpChar_isdead,			METH_VARARGS, "Checks if the character is alive or not."},
 	
 	// Mostly NPC functions
 	{ "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },

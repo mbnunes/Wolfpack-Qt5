@@ -71,6 +71,7 @@
 #include <qhostaddress.h>
 
 #include <qvaluelist.h>
+#include <functional>
 
 using namespace std;
 
@@ -106,9 +107,6 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 	// Creation of a new socket counts as activity
 	_lastActivity = getNormalizedTime();
 }
-
-#include <functional>
-
 
 /*!
   Destructs the cUOSocket instance.
@@ -1051,26 +1049,36 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 { 
 	P_CHAR pChar;
 	P_ITEM pItem;
-	const cConMenu *menu;
 
-	Q_UINT16 Tag = packet->EntryTag();
-	
-	
+	if ( contextMenu_.isEmpty() )
+		return;
+
+	Q_UINT16 Tag = packet->entryTag();
+	cContextMenu* menu = 0;
+	bool found = false;
+	for ( menu = contextMenu_.first(); menu; menu = contextMenu_.next() )
+	{
+		if ( Tag >= menu->count() )
+			Tag -= menu->count();
+		else
+		{
+			found = true;
+			break;
+		}
+	}
+
+	if ( !found )
+		return;
+
 	pItem = FindItemBySerial( packet->serial() );
 	if ( pItem )
 	{
-		menu = ContextMenus::instance()->getMenu( pItem->bindmenu(), this->player()->account()->acl() );
-		if ( !menu ) 
-			return;
 		menu->onContextEntry( this->player(), pItem, Tag );
 	} 
 	else 
 	{
 		pChar = FindCharBySerial( packet->serial() );
 		if( !pChar )
-			return;
-		menu = ContextMenus::instance()->getMenu( pChar->bindmenu(), this->player()->account()->acl() );
-		if ( !menu ) 
 			return;
 		menu->onContextEntry( this->player(), pChar, Tag );
 	}
@@ -1142,34 +1150,44 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	if( clicked->bindmenu().isEmpty() )
 		return;
 	
-	if( !ContextMenus::instance()->menuExists( clicked->bindmenu() ) ) 
+/*	if( !ContextMenus::instance()->menuExists( clicked->bindmenu() ) ) 
 	{
 		clicked->setBindmenu(QString::null);
 		return;
 	}
-	
-	QString acl = this->account()->acl(); 
-	QString bindmenu = clicked->bindmenu();
-	
-	cUOTxContextMenu menu; 
-	menu.setSerial ( packet->serial() ); 
-	
-	const cConMenuOptions *tOptions = ContextMenus::instance()->getMenuOptions( bindmenu, acl );
-	
-	if ( !tOptions )
-		return;
-	
-	Q_UINT16 Tag, IntlocID, MsgID;
-	
-	for (int i = 0; i < tOptions->getOptions().size(); i++) 
+*/	
+	cUOTxContextMenu menuPacket; 
+	menuPacket.setSerial ( packet->serial() ); 
+
+	QStringList bindMenus = QStringList::split(",", clicked->bindmenu());
+	QStringList::const_iterator menuIt = bindMenus.begin();
+
+	contextMenu_.clear();
+	unsigned int i = 0;
+	for ( ; menuIt != bindMenus.end(); ++menuIt )
 	{
-		Tag = tOptions->getOptions()[i].getTag();
-		IntlocID = tOptions->getOptions()[i].getIntlocID();
-		MsgID = tOptions->getOptions()[i].getMsgID();
-		
-		menu.addEntry ( Tag, IntlocID, MsgID ); 
+		cContextMenu* menu = ContextMenus::instance()->getMenu( *menuIt );
+	
+		if ( !menu )
+			continue;
+
+		contextMenu_.append( menu );
+		uint entryCount = 0;
+		cContextMenu::const_iterator it = menu->begin();
+		for ( ; it != menu->end(); ++it, ++entryCount )
+		{
+			if ( (*it)->checkVisible() )
+				if ( !menu->onCheckVisible( this->player(), clicked, entryCount ) )
+					continue;
+			bool enabled = true;
+			if ( (*it)->checkEnabled() )
+				if ( !menu->onCheckEnabled( this->player(), clicked, entryCount ) )
+					enabled = false;
+			menuPacket.addEntry( i++, (*it)->cliloc(), enabled ? (*it)->flags() : (*it)->flags() | 0x0001, (*it)->color() ); 
+		}
 	}
-	send( &menu ); 
+	if ( i ) // Won't send empty menus
+		send( &menuPacket ); 
 } 
 
 /*!
@@ -2392,9 +2410,7 @@ void cUOSocket::handleSell( cUORxSell* packet )
 }
 
 /*
-thanks to codex, see 
-http://www.wpdev.org/modules.php?op=modload&name=phpBB2&file=viewtopic&t=1117&sid=44a576c488c79ba923295eae549bed42
-for more information
+thanks to codex
 */
 void cUOSocket::clilocMessage( const UINT32 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object )
 {

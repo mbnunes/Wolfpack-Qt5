@@ -6,51 +6,48 @@
 ==============================================================-->
 
 <definitions>
+	<contextmenu id="train_menu">
+		<events>trainmenu</events>
+		<option tag="1"  msgid="6000" checkvisible="true" checkenabled="true" />
+		<option tag="2"  msgid="6001" checkvisible="true" checkenabled="true" />
+		<option tag="3"  msgid="6002" checkvisible="true" checkenabled="true" />
+		<option tag="4"  msgid="6003" checkvisible="true" checkenabled="true" />
+		<option tag="5"  msgid="6004" checkvisible="true" checkenabled="true" />
+		<option tag="6"  msgid="6005" checkvisible="true" checkenabled="true" />
+		<option tag="7"  msgid="6006" checkvisible="true" checkenabled="true" />
+		<option tag="8"  msgid="6007" checkvisible="true" checkenabled="true" />
+		<option tag="9"  msgid="6008" checkvisible="true" checkenabled="true" />
+		<option tag="10" msgid="6009" checkvisible="true" checkenabled="true" />
+		<option tag="11" msgid="6010" checkvisible="true" checkenabled="true" />
+		<option tag="12" msgid="6011" checkvisible="true" checkenabled="true" />
+		<option tag="13" msgid="6012" checkvisible="true" checkenabled="true" />
+		<option tag="14" msgid="6013" checkvisible="true" checkenabled="true" />
+		<option tag="15" msgid="6014" checkvisible="true" checkenabled="true" />
+		<option tag="16" msgid="6015" checkvisible="true" checkenabled="true" />
+		<option tag="17" msgid="6016" checkvisible="true" checkenabled="true" />
+		<option tag="18" msgid="6017" checkvisible="true" checkenabled="true" />
+		<option tag="19" msgid="6018" checkvisible="true" checkenabled="true" />
+		<option tag="20" msgid="6019" checkvisible="true" checkenabled="true" />
+		<option tag="21" msgid="6020" checkvisible="true" checkenabled="true" />
+		<option tag="22" msgid="6021" checkvisible="true" checkenabled="true" />
+		<option tag="23" msgid="6022" checkvisible="true" checkenabled="true" />
+		<option tag="24" msgid="6023" checkvisible="true" checkenabled="true" />
+		<option tag="25" msgid="6024" checkvisible="true" checkenabled="true" />
+		<option tag="26" msgid="6025" checkvisible="true" checkenabled="true" />
+	</contextmenu>
+
 	<contextmenu id="banker_menu">
 	    <events>bankermenu</events>
-	    <access acl="admin">
-		<option tag="1" intlocid="6" msgid="105"/>
-		<option tag="2" intlocid="6" msgid="124"/>
-	    </access>
-	    <access acl="player">
-		<option tag="1" intlocid="6" msgid="105"/>
-		<option tag="2" intlocid="6" msgid="124"/>
-	    </access>
-	    <access acl="counselor">
-		<option tag="1" intlocid="6" msgid="105"/>
-		<option tag="2" intlocid="6" msgid="124"/>
-	    </access>
+		<option tag="1" msgid="6105"/>
+		<option tag="2" msgid="6124"/>
 	</contextmenu>
 
 	<contextmenu id="healer_menu">
-	    <events>npc.healer</events>
-	    <access acl="admin">
-		<option tag="1" intlocid="0" msgid="489"/>
-	    </access>
-	    <access acl="player">
-		<option tag="1" intlocid="0" msgid="489"/>
-	    </access>
-	    <access acl="counselor">
-		<option tag="1" intlocid="0" msgid="489"/>
-	    </access>
+		<option tag="1" msgid="0489"/>
 	</contextmenu>
 
 	<contextmenu id="ITEM_MENU">
 		<events>daggermenu</events>
-		<access acl="admin">
-			<option tag="1" intlocid="6" msgid="121" />
-			<option tag="2" intlocid="6" msgid="125" />
-			<option tag="3" intlocid="0" msgid="176" />
-			<option tag="4" intlocid="0" msgid="484" />
-
-		</access>
-		<access acl="player">
-			<option tag="5" intlocid="6" msgid="121" />
-		</access>
-		<access acl="counselor">
-			<option tag="6" intlocid="6" msgid="121" />
-			<option tag="7" intlocid="6" msgid="125" />
-			<option tag="8" intlocid="0" msgid="176" />
-		</access>
+		<option tag="5" msgid="5121" />
 	</contextmenu>
 </definitions>

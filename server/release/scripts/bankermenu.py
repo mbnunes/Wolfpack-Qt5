@@ -1,5 +1,18 @@
+#################################################################
+#   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  # Created by: codex                          #
+#   )).-' {{ ;'`   # Revised by: Correa                         #
+#  ( (  ;._ \\ ctr # Last Modification: check for dead/criminal #
+#################################################################
+
+
 def onContextEntry( char, target, tag  ):
     if( tag == 1 ):
+        if ( char.isdead() ):
+            return 1
+        if ( char.iscriminal() ):
+            target.say( 500378 ) # Thou art a criminal and cannot access thy bank box.
+            return 1
 	bank = char.getbankbox()
 	if bank:
 	    target.say( "Here is your bank box, %s." % char.name,5 )

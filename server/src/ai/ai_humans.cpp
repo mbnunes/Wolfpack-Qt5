@@ -46,7 +46,7 @@
 
 static AbstractAI* productCreator_HV()
 {
-	return new Human_Vendor( NULL );
+	return new Human_Vendor(0);
 }
 
 void Human_Vendor::registerInFactory()

@@ -187,7 +187,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	{
 		if ( pChar->CountGold() < totalValue )
 		{
-			pVendor->talk( 500192, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+			pVendor->talk( 500192, 0, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
 			return;
 		}
 	}
@@ -195,7 +195,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	{
 		if ( pChar->CountBankGold() < totalValue )
 		{
-			pVendor->talk( 500191, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thy bank account lacks these funds.
+			pVendor->talk( 500191, 0, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thy bank account lacks these funds.
 			return;
 		}
 		fromBank = true;
@@ -204,7 +204,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	if ( !items.size() )
 	{
 		socket->send( &clearBuy );
-		pVendor->talk( 500190, 0xFFFF, pChar->socket() ); // Thou hast bought nothing!
+		pVendor->talk( 500190, 0, 0xFFFF, pChar->socket() ); // Thou hast bought nothing!
 		return;
 	}
 

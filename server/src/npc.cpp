@@ -352,11 +352,11 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 	}
 }
 
-void cNPC::talk( const UINT32 MsgID, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
+void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
 {
 	if ( socket )
 	{
-		socket->clilocMessage( MsgID, 0, color, 3, this );
+		socket->clilocMessage( MsgID, params, color, 3, this );
 	}
 	else
 	{

@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -37,61 +37,121 @@
 #include "scriptmanager.h"
 #include "player.h"
 
-cConMenu::cConMenu( const cElement *Tag )
-{
-	applyDefinition( Tag );
-	recreateEvents();
-}
-
-void cConSingleOption::setOption( const cElement *Tag )
-{
-	this->tag_ = Tag->getAttribute( "tag" ).toUShort();
-	this->intlocid_ = Tag->getAttribute( "intlocid" ).toUShort();
-	this->msgid_ = Tag->getAttribute( "msgid" ).toUShort();
-}
-
-void cConMenuOptions::addOption( const cElement *Tag )
-{
-	cConSingleOption SingleOption;
-	SingleOption.setOption( Tag );
-	this->options_.push_back( SingleOption );
-}
-
-void cConMenuOptions::processNode( const cElement *Tag )
+/*!
+	Builds a context menu out of the definition scripts
+*/
+void cContextMenu::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
 	
-	if( TagName == "option" ) 
-		addOption ( Tag );
+	if( TagName == "events" )
+	{
+		scripts_ = Tag->getValue();
+	}
+	else if ( TagName == "option" )
+	{
+		bool ok;
+		ushort msgid = Tag->getAttribute("msgid").toUShort();
+		ushort tag   = Tag->getAttribute("tag").toUShort();
+		ushort color = Tag->getAttribute("color").toUShort(&ok);
+		if ( !ok )
+			color = 0x7FE0; // Default
+		bool checkenabled = Tag->getAttribute("checkenabled", "false").lower() == "true";
+		bool checkvisible = Tag->getAttribute("checkvisible", "false").lower() == "true";
+		entries_.push_back( new cContextMenuEntry( msgid, tag, color, checkvisible, checkenabled ) );
+	}
 }
 
-void cConMenu::processNode( const cElement *Tag )
+/*!
+	Deletes all menu entries, should only be called from the Context Menu manager
+*/
+void cContextMenu::disposeEntries()
 {
-	QString TagName = Tag->name();
-	cConMenuOptions tOptions;
-	
-	tOptions.applyDefinition( Tag );
-	
-	if( TagName == "access" && Tag->hasAttribute( "acl" ) )
-	{
-		tOptions.processNode( Tag );
-		options_.insert( Tag->getAttribute( "acl" ), tOptions );
-		tOptions.deleteAll();
-	}
-	else if( TagName == "events" )
-	{
-		eventList_ = QStringList::split( ",", Tag->getValue() );
-		recreateEvents();
-	}
-
+	const_iterator it ( entries_.begin() );
+	for ( ; it != entries_.end(); ++it )
+		delete *it;
 }
 
-void cConMenu::recreateEvents( void )
+/*!
+	Handles response from client invoking all the scripts binded to this menu's
+	given \a entry.
+*/
+void cContextMenu::onContextEntry( cPlayer* from, cUObject* target, ushort entry )
 {
-	scriptChain.clear();
+	if ( scriptChain_.isEmpty() || entries_.size() <= entry )
+		return;
+	
+	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
+	for ( cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next() )
+	{
+		script->callEventHandler( EVENT_CONTEXTENTRY, args );
+	}
+}
+
+/*!
+	Calls script handler to check whether the given entry of the menu
+	should be sent or not to the client
+*/
+bool cContextMenu::onCheckVisible( cPlayer* from, cUObject* target, ushort entry )
+{
+	if ( scriptChain_.isEmpty() || entries_.size() <= entry )
+		return true;
+
+	bool returnValue = true;
+	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
+	for ( cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next() )
+	{
+		PyObject* obj = script->callEvent( "onContextMenuCheckVisible", args );
+		if ( obj )
+		{
+			if ( !PyObject_IsTrue( obj ) )
+				returnValue = false;
+			Py_XDECREF( obj );
+		}
+
+		if ( !returnValue )
+			return false;
+	}
+	return true;
+}
+
+/*!
+	Calls script handler to check whether the given entry of the menu
+	should be flagged as enabled or not to the client
+*/
+bool cContextMenu::onCheckEnabled( cPlayer* from, cUObject* target, ushort entry )
+{
+	if ( scriptChain_.isEmpty() || entries_.size() <= entry )
+		return true;
+
+	bool returnValue = true;
+	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
+	for ( cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next() )
+	{
+		PyObject* obj = script->callEvent( "onContextMenuCheckEnabled", args );
+		if ( obj )
+		{
+			if ( !PyObject_IsTrue( obj ) )
+				returnValue = false;
+			Py_XDECREF( obj );
+		}
+
+		if ( !returnValue )
+			return false;
+	}
+	return true;
+}
+
+/*!
+	Reloads associated Python scripts
+*/
+void cContextMenu::recreateEvents()
+{
+	scriptChain_.clear();
 	// Walk the eventList and recreate 
-	QStringList::const_iterator myIter( eventList_.begin() );
-	for( ; myIter != eventList_.end(); ++myIter )
+	QStringList eventList = QStringList::split(",", scripts_);
+	QStringList::const_iterator myIter( eventList.begin() );
+	for( ; myIter != eventList.end(); ++myIter )
 	{
 		cPythonScript *myScript = ScriptManager::instance()->find( (*myIter).latin1() );
 
@@ -99,80 +159,66 @@ void cConMenu::recreateEvents( void )
 		if( myScript == NULL )
 			continue;
 
-		scriptChain.push_back( myScript );
+		scriptChain_.append( myScript );
 	}
 }
 
-bool cConMenu::onContextEntry( cPlayer *Caller, cUObject *Target, Q_UINT16 Tag ) const
-{
-	// If we dont have any events assigned just skip processing
-	if( scriptChain.empty() )
-		return false;
-
-	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, Caller, PyGetObjectObject, Target, Tag );
-
-	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-	{
-		if ( scriptChain[ i ]->callEventHandler( EVENT_CONTEXTENTRY, args ) )
-			return true;
-	}
-
-	return false;
-}
-
-const cConMenuOptions* cConMenu::getOptionsByAcl( const QString& acl ) const
-{
-	QMap< QString, cConMenuOptions >::const_iterator it = options_.find( acl );
-	if( it != options_.end() )
-		return &it.data();
-	
-	return 0;
-}
-
-void cAllConMenus::load( void )
+/*!
+	Loads and pre-builds all context menus
+*/
+void cAllContextMenus::load( void )
 {
 	QStringList sections = DefManager->getSections( WPDT_CONTEXTMENU );
 	QStringList::const_iterator it = sections.begin();
-	while( it != sections.end() )
+	for ( ; it != sections.end(); ++it )
 	{
 		const cElement* section = DefManager->getDefinition( WPDT_CONTEXTMENU, (*it) );
 
 		if( section )
 		{
-			menus_.insert( (*it), cConMenu( section ) );
+			cContextMenu* menu = new cContextMenu;
+			menu->applyDefinition( section );
+			menu->recreateEvents();
+			menus_.insert( (*it), menu );
 		}
-		++it;
 	}
 	
 }
 
-bool cAllConMenus::menuExists( const QString& bindmenu ) const
+/*!
+	Checks if a given menu exists or not, indexed by name
+*/
+bool cAllContextMenus::menuExists( const QString& bindmenu ) const
 {
-	QMap< QString, cConMenu >::const_iterator it( menus_.find( bindmenu ) );
+	const_iterator it( menus_.find( bindmenu ) );
 	return it != menus_.end();
 }
 
-const cConMenuOptions* cAllConMenus::getMenuOptions( const QString& bindmenu, const QString& acl ) const
+/*!
+	Retrieves the menu
+*/
+cContextMenu* cAllContextMenus::getMenu( const QString& bindmenu ) const
 {
-	QMap< QString, cConMenu >::const_iterator it = menus_.find( bindmenu );
-	if ( it != menus_.end() ) 	
-		return it.data().getOptionsByAcl( acl );
-	return 0;
-}
-
-const cConMenu* cAllConMenus::getMenu( const QString& bindmenu, const QString& acl ) const
-{
-	Q_UNUSED(acl);
-	QMap< QString, cConMenu >::const_iterator it( menus_.find( bindmenu ) );
+	const_iterator it( menus_.find( bindmenu ) );
 	if ( it != menus_.end() )
-		return &it.data();
-
+	{
+		return it.data(); // returns a copy of the menu
+	}
 	return 0;
 }
 
-void cAllConMenus::reload( void )
+void cAllContextMenus::unload()
 {
-	menus_.clear();
+	const_iterator it( menus_.begin() );
+	for ( ; it != menus_.end(); ++it )
+	{
+		it.data()->disposeEntries();
+		delete it.data();
+	}
+}
+
+void cAllContextMenus::reload( void )
+{
+	unload();
 	load();
 }

@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -46,69 +45,79 @@ class cUObject;
 class cPythonScript;
 class cElement;
 
-class cConSingleOption
+class cContextMenuEntry
 {
+	ushort cliloc_;
+	ushort flags_;
+	ushort color_;
+	ushort scriptTag_;
+	bool checkvisible_;
+	bool checkenabled_;
+
 public:
 	
-	void		setOption( const cElement *Tag );
-	Q_UINT16	getTag( void ) { return tag_; }
-	Q_UINT16	getIntlocID(void) { return intlocid_; }
-	Q_UINT16	getMsgID(void) { return msgid_; }
 	
-private:
-	Q_UINT16	tag_;
-	Q_UINT16	intlocid_;
-	Q_UINT16	msgid_;
+	cContextMenuEntry( ushort cliloc, ushort scriptTag, ushort color = 0, bool checkvisible = false, bool checkenabled = false ) : 
+	cliloc_( cliloc ), scriptTag_(scriptTag), flags_ ( 0 ), color_(0), checkvisible_(checkvisible_), checkenabled_(checkenabled)
+	{
+		flags_ |= ( color_ & 0xFFFF ) ? 32 : 0;
+	}
+	
+	bool isEnabled() const	{ return !(flags_ & 0x0001); }
+	bool setEnabled( bool enable )
+	{
+		flags_ = enable ? flags_ & ~0x0001 : flags_ | 0x0001;
+	}
+
+	ushort color() const {	return color_; }
+	ushort flags() const {	return flags_; }
+	ushort scriptTag() const { return scriptTag_; }
+	ushort cliloc() const { return cliloc_;	}
+	bool   checkVisible() const { return checkvisible_;	}
+	bool   checkEnabled() const { return checkenabled_;	}
 };
 
-class cConMenuOptions : public cDefinable
+class cContextMenu : public cDefinable
 {
 public:
-	typedef QValueVector< cConSingleOption > vSingleOption;
-	
+	typedef QValueVector< cContextMenuEntry* > Entries;
+	typedef Entries::const_iterator const_iterator;
+	typedef Entries::iterator iterator;
+
+	const_iterator	begin() const	{ return entries_.begin(); }
+	const_iterator  end()   const	{ return entries_.end();   }
+
+	uint			count() const   { return entries_.count(); }
 	void			processNode( const cElement *Tag );
-	vSingleOption	getOptions( void ) const { return options_; }
-	void			addOption( const cElement *Tag );
-	void			deleteAll( void ) {	options_.clear();	}
-	
-private: 
-	vSingleOption	options_;
-	
-};
-
-class cConMenu : public cDefinable
-{
-public:
-							cConMenu() {};
-							cConMenu( const cElement *Tag );
-	void					processNode( const cElement *Tag );
-	const cConMenuOptions*	getOptionsByAcl( const QString& acl ) const;
-    void					recreateEvents( void );
-	
-	bool					onContextEntry( cPlayer *Caller, cUObject *Target, Q_UINT16 Tag ) const;
+	void			onContextEntry( cPlayer* from, cUObject* target, ushort entry );
+	bool			onCheckVisible( cPlayer* from, cUObject* target, ushort entry );
+	bool			onCheckEnabled( cPlayer* from, cUObject* target, ushort entry );
+	void			recreateEvents();
+	void			disposeEntries();
 
 private:
-	QMap< QString, cConMenuOptions >	options_;
-	QStringList							eventList_;
-	std::vector<cPythonScript*>			scriptChain;
+	Entries	entries_;
+	QPtrList<cPythonScript> scriptChain_;
+	QString scripts_;
 };
 
-class cAllConMenus
+class cAllContextMenus
 {
 public:
-	~cAllConMenus()	{ menus_.clear(); }
 
-	bool	menuExists( const QString& bindmenu ) const;
-	void	load( void );
-	void	reload( void );
-	const cConMenuOptions* getMenuOptions( const QString& bindmenu, const QString& acl ) const;
-	const cConMenu*		   getMenu( const QString& bindmenu, const QString& acl ) const;
-	
+	bool			menuExists( const QString& bindmenu ) const;
+	void			load();
+	void			unload();
+	void			reload();
+
+	cContextMenu*	getMenu( const QString& ) const;
 private:
-	QMap< QString, cConMenu >	menus_;
+	typedef QMap< QString, cContextMenu* > Menus;
+	typedef Menus::const_iterator const_iterator;
+	Menus menus_;
 };
 
-typedef SingletonHolder<cAllConMenus> ContextMenus;
+typedef SingletonHolder<cAllContextMenus> ContextMenus;
 
 #endif // __CONTEXTMENU_H__
 

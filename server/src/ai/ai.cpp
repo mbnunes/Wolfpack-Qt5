@@ -47,10 +47,14 @@
 #include <math.h>
 #include <vector>
 
+/*****************************************************************************
+  cAIFactory member functions
+ *****************************************************************************/
+
 void cAIFactory::checkScriptAI( const QStringList &oldSections, const QStringList &newSections )
 {
 	QStringList::const_iterator aiit = oldSections.begin();
-	while( aiit != oldSections.end() )
+	for( ; aiit != oldSections.end(); ++aiit )
 	{
 		// We must reset all existing and scripted AI objects, so changes can take effect.
 		if( !newSections.contains( *aiit ) )
@@ -87,7 +91,6 @@ void cAIFactory::checkScriptAI( const QStringList &oldSections, const QStringLis
 			}
 			unregisterType( *aiit );
 		}
-		++aiit;
 	}
 	aiit = newSections.begin();
 	while( aiit != newSections.end() )
@@ -99,6 +102,10 @@ void cAIFactory::checkScriptAI( const QStringList &oldSections, const QStringLis
 		++aiit;
 	}
 }
+
+/*****************************************************************************
+  cAbstractAI member functions
+ *****************************************************************************/
 
 struct stActionNode
 {
@@ -158,6 +165,10 @@ static AbstractAI* productCreator_SCP()
 {
 	return new ScriptAI( NULL );
 }
+
+/*****************************************************************************
+  cScriptAI member functions
+ *****************************************************************************/
 
 void ScriptAI::registerInFactory( const QString &name )
 {

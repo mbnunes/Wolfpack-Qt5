@@ -613,8 +613,8 @@ public:
 	enum { Poplocked = 0x01, Poparrow = 0x02, Popcolor = 0x20 }; 
 	
 	void setSerial ( Q_UINT32 data ) { setInt( 7, data ); } 
-	void setEntNum ( Q_UINT8 data ) { setShort ( 11, data ); } 
-	void addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags=Popcolor, Q_UINT16 color=0x7FE0 );
+	void setEntNum ( Q_UINT8 data ) { (*this)[11] = data; } 
+	void addEntry ( Q_UINT16 RetVal, Q_UINT16 msgID, Q_UINT16 flags=Popcolor, Q_UINT16 color=0x7FE0 );
 
 };
 // 0xBF sub 0x18 Enable map diffs

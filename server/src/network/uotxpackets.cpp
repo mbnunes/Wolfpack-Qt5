@@ -220,7 +220,7 @@ void cUOTxMapDiffs::addEntry( UINT32 mappatches, UINT32 staticpatches )
 	setInt( 5, num + 1 );	
 }
 
-void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags, Q_UINT16 color ) 
+void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 msgID, Q_UINT16 flags, Q_UINT16 color ) 
 { 
 	Q_UINT32 size = count(); 
 	
@@ -235,12 +235,12 @@ void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 Tex
 	} 
 	else 
 	{ 
-		resize( size + 4 ); 
-		setShort( 1, size + 4 ); 
+		resize( size + 6 ); 
+		setShort( 1, size + 6 ); 
 	} 
 	
 	setShort( size, RetVal ); 
-	setShort( size+2, FileID*1000+TextID ); 
+	setShort( size+2, msgID ); 
 	setShort( size+4, flags ); 
 	
 } 

@@ -46,6 +46,7 @@ class cTargetRequest;
 class cGump;
 class cUObject;
 class cCustomTags;
+class cContextMenu;
 
 
 // Too many Forward Declarations
@@ -79,7 +80,7 @@ private:
 	cCustomTags tags_;
 	QString _ip; // IP used to connect 
 	QBitArray *tooltipscache_;
-
+	QPtrList<cContextMenu> contextMenu_;
 	QMap< SERIAL, cGump* > gumps;
 
 	bool authenticate( const QString &username, const QString &password );

@@ -311,7 +311,7 @@ public:
 	cUORxContextMenuSelection( const QByteArray &data ): cUORxMultiPurpose( data ) {} 
 	
 	Q_UINT32 serial( void ) const { return getInt( 5 ); } 
-	Q_UINT16 EntryTag( void ) const { return getShort( 9 ); } 
+	Q_UINT16 entryTag( void ) const { return getShort( 9 ); } 
 }; 
 
 // 0xBF 0x0B Set Client Language
