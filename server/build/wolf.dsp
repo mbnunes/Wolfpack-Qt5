@@ -755,5 +755,73 @@ SOURCE=.\icon2.ico
 SOURCE=.\res.rc
 # End Source File
 # End Group
+# Begin Group "Network"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\network\asyncnetio.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\asyncnetio.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\listener.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\listener.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uopacket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uopacket.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uopacketmanager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uopacketmanager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uorxpackets.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uorxpackets.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uosocket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uosocket.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uosocketmanager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uosocketmanager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uotxpackets.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\uotxpackets.h
+# End Source File
+# End Group
 # End Target
 # End Project

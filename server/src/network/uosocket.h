@@ -44,16 +44,11 @@ class cUOPacket;
 #include "uorxpackets.h"
 #include "../typedefs.h"
 
-enum eSocketState
-{
-	SS_CONNECTING = 0,
-	SS_LOGGINGIN,
-	SS_LOGGEDIN,
-	SS_INGAME
-};
 
 class cUOSocket
 {
+public:
+		enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
 private:
 	QSocketDevice *_socket;
 	Q_UINT32 _rxBytes, _txBytes, _uniqueId;
@@ -66,8 +61,9 @@ private:
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
+
 	cUOSocket( QSocketDevice *sDevice ): 
-		lastPacket( 0xFF ), _state( SS_LOGGINGIN ), _account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
+		lastPacket( 0xFF ), _state( LoggingIn ), _account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
 	virtual ~cUOSocket( void ) { delete _socket; }
 
 	QSocketDevice *socket( void ) { return _socket; }

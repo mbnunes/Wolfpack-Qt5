@@ -70,8 +70,6 @@ struct ip_block_st
 class cNetwork
 {
 public:
-	cNetwork();
-	virtual ~cNetwork();
 
 	void disconnect( UOXSOCKET s );
 	void xSend(UOXSOCKET s, const void *point, int length, int test);
@@ -91,9 +89,17 @@ public:
 	cAsyncNetIO *netIo() { return netIo_; }
 
 private:
+	cNetwork();
+	~cNetwork();
+
+	//typedef gamesocketsIterator QPtrListIterator;
+	//typedef loginsocketsIterator QPtrListIterator;
+
 	static cNetwork *instance_;
+	
 	std::vector<ip_block_st> hosts_deny;
-	std::vector< cUOSocket* > uoSockets;
+	QPtrList< cUOSocket > uoSockets;
+	QPtrList< cUOSocket > loginSockets;
 	cAsyncNetIO *netIo_;
 	cListener *listener_;
 };

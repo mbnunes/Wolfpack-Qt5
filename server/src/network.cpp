@@ -96,39 +96,54 @@ void cNetwork::poll( void )
 	{
 		QSocketDevice *socket = listener_->getNewConnection(); 
 		netIo_->registerSocket( socket );
-		uoSockets.push_back( new cUOSocket(socket) );
+		loginSockets.append( new cUOSocket(socket) );
 
 		// Notify the admin
-		clConsole.send( QString( "Socket connected [%1]\n" ).arg( socket->address().toString() ) );
+		clConsole.send( tr( "Socket connected [%1]\n" ).arg( socket->address().toString() ) );
 	}
 
 	// fast return
-	if( uoSockets.size() < 1 )
+	if( uoSockets.isEmpty() && loginSockets.isEmpty() )
 		return;
 
 	// Check for new Packets
-	vector< cUOSocket* >::iterator uoIterator;
-
-	for( uoIterator = uoSockets.begin(); uoIterator != uoSockets.end(); ++uoIterator )
+	cUOSocket* uoSocket = 0;
+	for ( uoSocket = uoSockets.first(); uoSocket; uoSocket = uoSockets.next())
 	{
-		cUOSocket *uoSocket = (*uoIterator);
-
 		// Check for disconnected sockets
-		if( !uoSocket->socket()->isValid() )
+		if ( uoSocket->socket()->error() != QSocketDevice::NoError )
 		{
-			clConsole.send( QString( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->address().toString() ) );
+			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->address().toString() ) );
 			netIo_->unregisterSocket( uoSocket->socket() );
-			uoSockets.erase( uoIterator );
+			uoSockets.remove();
 		}
 		else
 			uoSocket->recieve();
-	}	
+	}
+
+	for ( uoSocket = loginSockets.first(); uoSocket; uoSocket = loginSockets.next())
+	{
+		if ( uoSocket->socket()->error() != QSocketDevice::NoError )
+		{
+			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->address().toString() ) );
+			netIo_->unregisterSocket( uoSocket->socket() );
+			loginSockets.remove();
+			continue;
+		}
+		else
+			uoSocket->recieve();
+
+		if ( uoSocket->state() == cUOSocket::InGame )
+		{
+			uoSockets.append( loginSockets.take() );
+		}
+	}
 }
 
 // Code for wrapping old Stuff
 void cNetwork::xSend( int s, const void *point, int length, int test) // Buffering send function
 {
-	cUOSocket *socket = uoSockets[ s ];
+	cUOSocket *socket = uoSockets.at(s);
 	
 	if( !socket )
 		return;

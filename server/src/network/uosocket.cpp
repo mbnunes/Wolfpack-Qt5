@@ -60,7 +60,7 @@ void cUOSocket::send( cUOPacket *packet )
 	if( !_socket->isOpen() )
 		return;
 
-	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != SS_LOGGINGIN ) );
+	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
 }
 
 // Tries to recieve and process a packet
@@ -94,7 +94,7 @@ void cUOSocket::recieve()
 
 	// Switch to encrypted mode if one of the advanced packets is recieved
 	if( packetId == 0x91 )
-		_state = SS_LOGGEDIN;
+		_state = LoggedIn;
 
 	// Relay it to the handler functions
 	switch( packetId )
@@ -299,6 +299,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// We're now playing this char:
 	_player = pChar;
+	_state  = InGame;
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
