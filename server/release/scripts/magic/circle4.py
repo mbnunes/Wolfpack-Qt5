@@ -178,13 +178,10 @@ class FireField(Spell):
 		self.validtarget = TARGET_GROUND
 		self.harmful = 1
 		self.resistable = 1
+		self.range = 10
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
-
-		if not char.canreach(target, 10):
-			char.message(500237)
-			return
 
 		if not self.consumerequirements(char, mode, args, target, item):
 			return

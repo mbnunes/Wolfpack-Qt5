@@ -128,7 +128,7 @@ def targetexplosionpotion(char, args, target):
 			return 0
 		if char.distanceto(target.char) > check:
 			return 0
-		if not char.canreach(target.char, check):
+		if not char.canreach(target, check):
 			return 0
 		pos = target.char.pos
 	elif target.item:
@@ -136,7 +136,7 @@ def targetexplosionpotion(char, args, target):
 			return 0
 		if char.distanceto(target.item) > check:
 			return 0
-		if not char.canreach(target.item, check):
+		if not char.canreach(target, check):
 			return 0
 		item = target.item.getoutmostitem()
 		if item.container:
@@ -144,7 +144,7 @@ def targetexplosionpotion(char, args, target):
 		else:
 			pos = item.pos
 	else:
-		if not char.canreach(target.pos, check):
+		if not char.canreach(target, check):
 			return 0
 		pos = target.pos
 

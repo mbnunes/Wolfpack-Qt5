@@ -17,7 +17,7 @@ def response(player, args, target):
     #elif not player.cansee(target.pos, 1) or not target.pos.validspawnspot():
     #  player.socket.clilocmessage(500312)
     else:
-      if not player.canreach(target.pos, 3):
+      if not player.canreach(target, 3):
         player.socket.clilocmessage(500312)
       elif not target.pos.validspawnspot():
         player.socket.clilocmessage(502749)

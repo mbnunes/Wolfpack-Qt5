@@ -228,28 +228,29 @@ def getdamage(char):
 	if char.npc:
 		# If the npc has mindamage and maxdamage tags, they
 		# override all other settings
-
-		mindamage = char.getintproperty( 'mindamage', 1 )
-		if char.hastag('mindamage'):
-			mindamage = int(char.gettag('mindamage'))
-
-		maxdamage = char.getintproperty( 'maxdamage', 3 )
-		if char.hastag('maxdamage'):
-			maxdamage = int(char.gettag('maxdamage'))
-
-		return (mindamage, maxdamage)
+		mindamage = char.mindamage
+		maxdamage = char.maxdamage
+		
+		try:
+			if char.hastag('mindamage'):
+				mindamage = int(char.gettag('mindamage'))
+			
+			if char.hastag('maxdamage'):
+				maxdamage = int(char.gettag('maxdamage'))
+		except:
+			pass
 
 		# Special treatment for fists.
 		if not weapon:
 			# Use the basedef values.
-			if char.maxdamage != 0:
-				return (char.mindamage, char.maxdamage)
-
-			mindamage = char.strength / 28
-			maxdamage = mindamage + 7
+			if maxdamage == 0:
+				mindamage = char.strength / 28
+				maxdamage = mindamage + 7
 		else:
 			mindamage = fromitem(weapon, MINDAMAGE)
 			maxdamage = fromitem(weapon, MAXDAMAGE)
+			
+		return (mindamage, maxdamage)
 	else:
 		if not weapon and char.maxdamage != 0:
 			return (char.mindamage, char.maxdamage)

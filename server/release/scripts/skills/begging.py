@@ -54,7 +54,7 @@ def response( char, args, target ):
 	# check if this npc is a 'human' ?
 
 	# You are too far away...
-	if not char.canreach( npc.pos, BEGGING_RANGE ):
+	if not char.canreach( npc, BEGGING_RANGE ):
 		# male npc
 		if not npc.gender:
 			char.socket.clilocmessage( 500401, "", 0x3b2, 3 )

@@ -240,8 +240,6 @@ bool Coord_cl::lineOfSight(const Coord_cl &target, bool debug) const {
 
 	QValueList<Coord_cl> pointList = getPointList(*this, target);
 
-	bool result = true;
-
 	int lastX = -1, lastY = -1;
 	QValueList<stBlockingItem> blockingItems;
 
@@ -262,14 +260,14 @@ bool Coord_cl::lineOfSight(const Coord_cl &target, bool debug) const {
 
 		// Play an effect for the tile
 		if (blocked) {
-			result = false;
 			point.effect(0x181D, 10, 50, 0x21);
+			return false;
 		} else {
 			point.effect(0x181D, 10, 50, 0x44);
 		}
 	}
 
-	return result;
+	return true;
 }
 
 Coord_cl Coord_cl::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );

@@ -195,7 +195,8 @@ def newlostarget(char, arguments, target):
 	srcpos = char.pos
 	srcpos.z += 15
 	
-	srcpos.lineofsightnew(targpos)
+	result = srcpos.lineofsightnew(targpos)
+	char.socket.sysmessage('RESULT: ' + str(result))
 
 def newlos(socket, command, arguments):
 	socket.attachtarget('commands.newlostarget', [])
