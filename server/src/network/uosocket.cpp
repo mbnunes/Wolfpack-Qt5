@@ -662,6 +662,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter* packet )
 
 	if ( pChar )
 	{
+		log(tr("Deleting character %1 (0x%2).\n").arg(pChar->orgName()).arg(pChar->serial(), 0, 16));
 		pChar->remove();
 	}
 
