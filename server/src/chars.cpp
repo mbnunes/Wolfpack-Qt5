@@ -1021,13 +1021,13 @@ bool cChar::onWalk( UI08 Direction, UI08 Sequence )
 }
 
 // The character says something
-bool cChar::onTalk( QString Text )
+bool cChar::onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang )
 {
 	if( scriptChain.empty() )
 		return false;
  
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onTalk( (P_CHAR)this, Text ) )
+		if( scriptChain[ i ]->onTalk( (P_CHAR)this, speechType, speechColor, speechFont, Text, Lang ) )
 			return true;
 
 	return false;

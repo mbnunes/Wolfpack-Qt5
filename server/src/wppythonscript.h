@@ -62,7 +62,7 @@ public:
 	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence );
 
 	// if this events returns true (handeled) then we should not display the text
-	virtual bool onTalk( P_CHAR Character, QString Text );
+	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang );
 
 	virtual bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text );
 	virtual bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text );

@@ -45,8 +45,9 @@
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
-bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
+
 //bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
+bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	int i;
 
@@ -149,10 +150,6 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	return false;
 }
-
-
-
-
 
 bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
@@ -973,13 +970,19 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		pc = ri.GetData();
+
 		if (pc->isPlayer())		// only npcs will respond automagically, players still have to do that themselves ;)
 			continue;
+
 		if (pPlayer->dist(pc) > 16)	// at least they should be on the screen
 			continue;
+
 		if (pPlayer->isSameAs(pc))	// not talking to ourselves
 			continue;
 		
+		if ( pc->onTalkToNPC( pPlayer, comm.c_str() ) )
+			return 1;
+
 		if (StableSpeech(pc, comm, pPlayer, s))
 			return 1;
 		
@@ -1104,8 +1107,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	for ( a=0; a < tl-48; a++) clConsole.send("%02i ",unicodetext[a]);
 	clConsole.send("\n");*/
 
-
-
+	// Call the scripted-test (special commands etc.)
 
 	//// Very important: do not use buffer[s][] anymore in this function !!!!
 	//// unicode text that gets send is in unicodetext, nonunicode text for normal string processing in non uni code

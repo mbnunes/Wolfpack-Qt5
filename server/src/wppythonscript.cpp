@@ -189,13 +189,17 @@ bool WPPythonScript::onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence )
 }
 
 // if this events returns true (handeled) then we should not display the text
-bool WPPythonScript::onTalk( P_CHAR Character, QString Text )
+bool WPPythonScript::onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang )
 {
 	PyHasMethod( "onTalk" )
 
-	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
+	PyObject *tuple = PyTuple_New( 6 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyString_FromString( Text.ascii() ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( speechType ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( speechColor ) );
+	PyTuple_SetItem( tuple, 3, PyInt_FromLong( speechFont ) );
+	PyTuple_SetItem( tuple, 4, PyString_FromString( Text.ascii() ) );
+	PyTuple_SetItem( tuple, 5, PyString_FromString( Lang.ascii() ) );
 	
 	PyEvalMethod( "onTalk" )
 }

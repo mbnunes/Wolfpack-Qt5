@@ -356,7 +356,8 @@ public:
 	// Wrapper events! - darkstorm
 	bool onShowCharName( P_CHAR Viewer ); // Shows the name of a character to someone else
 	bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
-	bool onTalk( QString Text ); // The character says something
+
+	bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
 	bool onTalkToNPC( P_CHAR Talker, const QString &Text ); // Someone talks to the NPC
 	bool onWarModeToggle( bool War ); // The character switches warmode
 	bool onEnterWorld( void ); // The character enters the world
