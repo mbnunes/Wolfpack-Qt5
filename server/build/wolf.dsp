@@ -38,11 +38,11 @@ RSC=rc.exe
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "Release"
-# PROP Intermediate_Dir "Release"
+# PROP Intermediate_Dir "Release\Intermediate"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "..\src\sqlite" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(QTDIR)\include" /I "..\src\sqlite" /I "..\build" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409
@@ -81,7 +81,7 @@ LINK32=link.exe
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Desc=MoveIt
-PostBuild_Cmds=copy debug\wolfpack.exe d:\wolfpack\wolfpackEXE\WolfpackDebug\WolfpackCurrent\wolfpack.exe
+PostBuild_Cmds=copy debug\wolfpack.exe d:\Wolfpack\WolfpackEXE\debug\current\wolfpack.exe
 # End Special Build Tool
 
 !ENDIF 
