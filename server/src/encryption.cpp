@@ -184,14 +184,29 @@ cKeyManager::cKeyManager()
         
 		if( elements.size() < 3 )
 		{
-			clConsole.log( LOG_ERROR, QString( "Invalid encryption key line: %1" ).arg( *it ) );
+			clConsole.log( LOG_WARNING, QString( "Invalid encryption key line: %1" ).arg( *it ) );
 			continue;
 		}
 
         stLoginKey key;
 
-		key.key1 = hex2dec( elements[1].stripWhiteSpace() ).toUInt();
-		key.key2 = hex2dec( elements[2].stripWhiteSpace() ).toUInt();
+		bool ok;
+
+		key.key1 = hex2dec( elements[1].stripWhiteSpace() ).toUInt( &ok );
+
+		if( !ok )
+		{
+			clConsole.log( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[1].stripWhiteSpace() ) );
+			continue;
+		}
+
+		key.key2 = hex2dec( elements[2].stripWhiteSpace() ).toUInt( &ok );
+
+		if( !ok )
+		{
+			clConsole.log( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[2].stripWhiteSpace() ) );
+			continue;
+		}
 		
 		keys.push_back( key );
 	}
