@@ -694,13 +694,21 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	
 	if (pi->id() == 0x14F0 && pi->type == 1000)
 	{
-		 const P_ITEM pi_n = Items->SpawnItem(s, pc_currchar, value, "#", 1, 0x0E, 0xED, 0, 0, 0);
-	     if(pi_n == NULL) return false;
-		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name.c_str(), value);
-		 npctalk(s,target,(char*)temp,0);
-		 bankbox->AddItem(pi_n);
-	     statwindow(s, pc_currchar);
-		 return true;
+		while ( pi->value > 65000)
+		{
+			const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, 65000, "#", 1, 0x0E, 0xED, 0, 0, 0);
+		    if(pi_gold == NULL) return false;
+			bankbox->AddItem(pi_gold);
+			pi->value -= 65000;
+		}
+		const P_ITEM pi_gold = Items->SpawnItem(s, pc_currchar, pi->value, "#", 1, 0x0E, 0xED, 0, 0, 0);
+	    if(pi_gold == NULL) return false;
+		bankbox->AddItem( pi_gold );
+		Items->DeleItem( pi ); // Check is consumed.
+		sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name.c_str(), value);
+		npctalk(s,target,(char*)temp,0);
+	    statwindow(s, pc_currchar);
+		return true;
 	}
     else if (pi->id() == 0x0EED)
 	{
