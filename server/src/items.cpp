@@ -2367,11 +2367,12 @@ void cItem::sendTooltip( cUOSocket* mSock )
 	unsigned short id = this->id();
 
 	// Mostly Signs (not movable but still have tooltips shown)
-	if(	( id >= 0xba3 && id <= 0xc0e ) ||
-		( id >= 0x1297 && id <= 0x129e ) ||
-		( id >= 0x3e4a && id <= 0x3e55 ) ||
-		( id >= 0xed4 && id <= 0xede ) ||
-		( id >= 0x1165 && id <= 0x1184 )
+	if(	( id >= 0xba3 && id <= 0xc0e ) ||	// House Signs
+		( id >= 0x1297 && id <= 0x129e ) ||	// Road Signs
+		( id >= 0x3e4a && id <= 0x3e55 ) ||	// Tillermen
+		( id >= 0xed4 && id <= 0xede ) ||	// Graves and Guildstones
+		( id >= 0x1165 && id <= 0x1184 ) ||	// More Gravestones
+		!name_.isNull()						// Non Default Name
 		)
 	{
 		cUObject::sendTooltip( mSock );
