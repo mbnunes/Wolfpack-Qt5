@@ -141,7 +141,6 @@ public:
 	void load( void );
 	void unload( void );
 
-	bool ImportSections( const QString& FileName );
 	const cElement* getDefinition( eDefCategory Type, const QString& id ) const;
 	const QValueVector<cElement*>& getDefinitions( eDefCategory Type ) const;
 

@@ -30,6 +30,7 @@
 #include <qfile.h>
 #include <qptrstack.h>
 #include <qregexp.h>
+#include <qvaluestack.h>
 #include <qstringlist.h>
 #include <qvaluevector.h>
 
@@ -104,85 +105,147 @@ class cXmlHandler : public QXmlDefaultHandler
 {
 private:
 	cDefManagerPrivate* impl;
-	QPtrStack<cElement> stack;
-	QString filename;
-	QXmlLocator* locator;
+	// Element level within the current file
+	QValueStack<int> levels;
+	// Holds all read elements.
+	QPtrStack<cElement> elements;
+	// Files stack (each <include> pushes a file)
+	QValueStack<QString> filenames;
+	// Locators associated to each document
+	QPtrStack<QXmlLocator> locators;
 
 public:
-	cXmlHandler( cDefManagerPrivate* impl, const QString& filename )
+	cXmlHandler( cDefManagerPrivate* impl )
 	{
 		this->impl = impl;
-		this->filename = filename;
-	};
+	}
 	
-	virtual ~cXmlHandler() {
-		while ( stack.count() > 1 )
-			stack.pop(); // The parent node should take care of deleting the children
+	virtual ~cXmlHandler()
+	{
+		while( !elements.isEmpty() )
+		{
+			cElement *parent;
+			while( elements.current() != NULL )
+			{
+				parent = elements.pop();
+			}
 
-		if ( stack.count() == 1 )
-			delete stack.pop();
+			delete parent;
+			while( elements.current() == NULL )
+				elements.pop();
+		}
+	}
+
+	void load( const QString &filename )
+	{
+		QFile file( filename );
+
+		if( !file.open( IO_ReadOnly ) )
+		{
+			Console::instance()->send( tr("Unable to open %1!\n").arg( filename ) );
+			return;
+		}
+
+		filenames.push( filename );
+
+		QXmlInputSource input( &file );
+		QXmlSimpleReader reader;
+		reader.setFeature( "http://trolltech.com/xml/features/report-whitespace-only-CharData", false );
+
+		reader.setContentHandler( this );
+		reader.setErrorHandler( this );
+		reader.parse( &input, false );
+
+		filenames.pop();
 	}
 
 	void setDocumentLocator( QXmlLocator* locator )
 	{
-		this->locator = locator;
+		locators.push( locator );
+	}
+
+	bool startDocument()
+	{
+		levels.push( 0 );
+		return true;
 	}
 
 	bool endDocument()
 	{
-		while ( stack.count() > 1 )
-			stack.pop(); // The parent node should take care of deleting the children
-
-		if ( stack.count() == 1 )
-			delete stack.pop();
-
+		levels.pop();
+		locators.pop();
 		return true;
 	}
 
 	bool startElement( const QString& /*namespaceURI*/, const QString& localName, const QString& qName, const QXmlAttributes& atts )
 	{
-		// Some Parent Elements have special meanings
-		if ( stack.isEmpty() )
-		{
-			if ( qName == "definitions" )
-				return true;
+		levels.top()++;
 
-			// Include another file
-			if ( qName == "include" )
+		// Ignore document root
+		if( levels.top() == 1 )
+		{
+			if( levels.isEmpty() )
 			{
-				QString value = atts.value( "file" );
-				impl->imports.push_back( value );
-				return true;
+				// Top level
+				elements.push( NULL );
 			}
+			else
+			{
+				// Within an include
+				elements.push( elements.current() );
+			}
+			return true;
+		}
+
+		if( qName == "acl" )
+		{
+			int i = 0;
+		}
+
+		// Include another file
+		if( qName == "include" )
+		{
+			QString value = atts.value( "file" );
+			load( value );
+
+			elements.push( elements.current() );
+			return true;
 		}
 
 		cElement* element = new cElement;
 		element->setName( localName.latin1() );
 		element->copyAttributes( atts );
 
-		// Child Element ?
-		if ( stack.count() > 0 )
+		// Child Element?
+		if( elements.current() != NULL )
 		{
-			cElement* parent = stack.current(); // Pop the potential parent
+			cElement* parent = elements.current(); // Pop the potential parent
 			parent->addChild( element ); // Add the child to it's parent
 			element->setParent( parent );
 		}
 
-		stack.push( element ); // Push our element (there may be children)
+		elements.push( element ); // Push our element (there may be children)
+
 		return true;
 	}
 
 	bool endElement( const QString& /*namespaceURI*/, const QString& /*localName*/, const QString& /*qName*/ )
 	{
-		if ( stack.isEmpty() )
+		cElement* element = elements.pop();
+		if( --( levels.top() ) == 0 )
 		{
+			// Ignore root
 			return true;
 		}
 
-		cElement* element = stack.pop();
+		if( element == elements.current() )
+		{
+			// Ignore include
+			return true;
+		}
 
 		// Did we complete a parent node?
-		if ( stack.isEmpty() )
+		if( elements.current() == NULL )
 		{
 			// Find a category node
 			unsigned int i = 0;
@@ -199,7 +262,8 @@ public:
 					{
 						if ( impl->unique[categories[i].key].contains( tagId ) && !Config::instance()->overwriteDefinitions() )
 						{
-							Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" ).arg( element->name() ).arg( tagId ).arg( filename ).arg( locator->lineNumber() ) );
+							Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" )
+								.arg( element->name() ).arg( tagId ).arg( filenames.top() ).arg( locators.current()->lineNumber() ) );
 							delete element;
 						}
 						else
@@ -217,7 +281,8 @@ public:
 				++i;
 			}
 
-			Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" ).arg( element->name() ).arg( filename ).arg( locator->lineNumber() ) );
+			Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" )
+				.arg( element->name() ).arg( filenames.top() ).arg( locators.current()->lineNumber() ) );
 			delete element;
 		}
 
@@ -226,11 +291,11 @@ public:
 
 	bool characters( const QString& ch )
 	{
-		if ( !stack.isEmpty() )
+		if( !elements.isEmpty() )
 		{
-			cElement* element = stack.pop();
-			element->setText( element->text() + ch );
-			stack.push( element );
+			cElement *element = elements.current();
+			if( element )
+				element->setText( element->text() + ch );
 		}
 
 		return true;
@@ -239,44 +304,23 @@ public:
 	// error handling
 	bool warning( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_WARNING, tr( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+		Console::instance()->log( LOG_WARNING, tr( "%1\n[File: %2, Line: %3, Column: %4" )
+			.arg( exception.message(), filenames.top() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool error( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" )
+			.arg( exception.message(), filenames.top() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool fatalError( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" ).arg( exception.message(), filename ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" )
+			.arg( exception.message(), filenames.top() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 };
-
-// Recursive Function for Importing Script Sections
-bool cDefinitions::ImportSections( const QString& FileName )
-{
-	QFile File( FileName );
-
-	if ( !File.open( IO_ReadOnly ) )
-	{
-		Console::instance()->send( tr("Unable to open %1!\n").arg(FileName) );
-		return false;
-	}
-
-	QXmlInputSource input( &File );
-	QXmlSimpleReader reader;
-	reader.setFeature( "http://trolltech.com/xml/features/report-whitespace-only-CharData", false );
-
-	cXmlHandler handler( impl, FileName );
-	reader.setContentHandler( &handler );
-	reader.setErrorHandler( &handler );
-	reader.parse( &input, false );
-
-	File.close();
-	return true;
-}
 
 void cDefinitions::unload()
 {
@@ -325,13 +369,12 @@ void cDefinitions::reload( void )
 // Load the Definitions
 void cDefinitions::load( void )
 {
-	unsigned int i = 0;
 	impl->imports = QStringList::split( ";", Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true ) );
 
-	while ( i < impl->imports.size() )
+	for( unsigned int i = 0; i < impl->imports.size(); ++i )
 	{
-		ImportSections( impl->imports[i] );
-		++i;
+		cXmlHandler handler( impl );
+		handler.load( impl->imports[i] );
 	}
 
 	// create a list cache, because reading all the lists on the fly
