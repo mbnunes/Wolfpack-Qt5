@@ -1739,11 +1739,11 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	{
 		if ( gender() )
 		{
-			tooltip.addLine( 1050045, tr( " \tLady %1\t%2" ).arg( name_ ).arg( affix ) );
+			tooltip.addLine( 1050045, tr( "Lady \t%1\t%2" ).arg( name_ ).arg( affix ) );
 		}
 		else
 		{
-			tooltip.addLine( 1050045, tr( " \tLord %1\t%2" ).arg( name_ ).arg( affix ) );
+			tooltip.addLine( 1050045, tr( "Lord \t%1\t%2" ).arg( name_ ).arg( affix ) );
 		}
 	}
 	else

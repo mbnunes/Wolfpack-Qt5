@@ -2283,6 +2283,8 @@ public:
 	{
 		setShort( 1, 19 );
 		setShort( 3, 1 );
+		setUnknown2(0);
+		setUnknown3(0);
 	}
 
 	void setUnknown1( unsigned short data )
