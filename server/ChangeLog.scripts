@@ -13,6 +13,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Added speech.monster.
 		- Fixed a chance calculation bug with bowcraft.
 		- Updated equipment.py and related scripts for equipment property changes.
+		- Fixed bug #0000269. Hunger script adjustments.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
