@@ -3290,9 +3290,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi2->setLayer( pi1->layer() );
 	if( pi2->layer() == 0 ) // if not equipped -> coords of the light-object = coords of the
 	{
-		pi2->pos.x=pi1->pos.x;
-		pi2->pos.y=pi1->pos.y;
-		pi2->pos.z=pi1->pos.z;
+		pi2->moveTo( pi1->pos );
 	} 
 	else // if equipped -> place lightsource at player ( height= approx hand level )
 	{

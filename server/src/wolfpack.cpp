@@ -925,9 +925,7 @@ void explodeitem(int s, P_ITEM pi)
 	// - send the effect (visual and sound)
 	if (!pi->isInWorld()) //bugfix LB
 	{
-		pi->pos.x=pc_currchar->pos.x;
-		pi->pos.y=pc_currchar->pos.y;
-		pi->pos.z=pc_currchar->pos.z;
+		pi->moveTo( pc_currchar->pos );
 		pc_currchar->action( 0x15 );
 		pc_currchar->soundEffect( 0x0207 );
 	}

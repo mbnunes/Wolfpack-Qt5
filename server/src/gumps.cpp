@@ -460,26 +460,27 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 					UINT16 x,y;
 					INT8 z;
 
+					Coord_cl npos( char_->pos );
 					QStringList sects = QStringList::split( " ", it->second );
 					if( sects.count() > 0 )
 					{
 						QStringList coords = QStringList::split( ",", sects[0] );
 						if( coords.count() >= 1 )
-							char_->pos.x = coords[0].toUShort();
+							npos.x = coords[0].toUShort();
 						if( coords.count() >= 2 )
-							char_->pos.y = coords[1].toUShort();
+							npos.y = coords[1].toUShort();
 						if( coords.count() >= 3 )
-							char_->pos.z = coords[2].toShort();
+							npos.z = coords[2].toShort();
 						if( coords.count() >= 4 )
-							char_->pos.map = coords[3].toUShort();
+							npos.map = coords[3].toUShort();
 
 						if( sects.count() >= 3 && sects[1] == "map" && coords.count() < 4 )
 						{
-							char_->pos.map = sects[2].toUShort();
+							npos.map = sects[2].toUShort();
 						}
 					}
 					char_->removeFromView( false );
-					char_->moveTo( char_->pos );
+					char_->moveTo( npos );
 					char_->resend( false );
 					socket->resendPlayer();
 					socket->resendWorld();
@@ -786,25 +787,26 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 					UINT16 x,y;
 					INT8 z;
 
+					Coord_cl npos( item_->pos );
 					QStringList sects = QStringList::split( " ", it->second );
 					if( sects.count() > 0 )
 					{
 						QStringList coords = QStringList::split( ",", sects[0] );
 						if( coords.count() >= 1 )
-							item_->pos.x = coords[0].toUShort();
+							npos.x = coords[0].toUShort();
 						if( coords.count() >= 2 )
-							item_->pos.y = coords[1].toUShort();
+							npos.y = coords[1].toUShort();
 						if( coords.count() >= 3 )
-							item_->pos.z = coords[2].toShort();
+							npos.z = coords[2].toShort();
 						if( coords.count() >= 4 )
-							item_->pos.map = coords[3].toUShort();
+							npos.map = coords[3].toUShort();
 
 						if( sects.count() >= 3 && sects[1] == "map" && coords.count() < 4 )
 						{
-							item_->pos.map = sects[2].toUShort();
+							npos.map = sects[2].toUShort();
 						}
 					}
-					item_->moveTo( item_->pos );
+					item_->moveTo( npos );
 					item_->update();
 				}
 				break;

@@ -53,6 +53,7 @@
 #define DBGFILE "skiTarg.cpp"
 #include "debug.h"
 
+/*
 void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 {
 	int	nAmount, nFame;
@@ -199,6 +200,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		}
 	}
 }
+*/
 
 void cSkills::Wheel(int s, int mat)//Spinning wheel
 {

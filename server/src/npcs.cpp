@@ -276,15 +276,15 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	case 2: // take position from Socket
 		if (s!=-1)
 		{
+			/*
 			nChar->pos.x=(buffer[s][11]<<8)+buffer[s][12];
 			nChar->pos.y=(buffer[s][13]<<8)+buffer[s][14];
 			nChar->pos.z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]);
+			*/
 		}
 		break;
 	case 3: // take position from Parms
-		nChar->pos.x=posx;
-		nChar->pos.y=posy;
-		nChar->pos.z=posz;
+		nChar->MoveTo( posx, posy, posz );
 		break;
 	} // no default coz we tested on entry to function
    

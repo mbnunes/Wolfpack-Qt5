@@ -150,7 +150,7 @@ bool WPPythonScript::onShowCharName( P_CHAR Character, P_CHAR Viewer )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
 	
-	PyEvalMethod( "onShowItemName" )
+	PyEvalMethod( "onShowCharName" )
 }
 
 bool WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )

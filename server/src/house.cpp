@@ -72,7 +72,7 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 
 	nItem->SetOwnSerial( this->ownserial );
 	addItem( nItem );
-	nItem->pos = this->pos;
+	Coord_cl npos = this->pos;
 
 	QDomNode childNode = Tag.firstChild();
 	while( !childNode.isNull() )
@@ -104,16 +104,16 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 			// <position x="1" y="5" z="20" />
 			else if( TagName == "position" )
 			{
-				nItem->pos.x = nItem->pos.x + childTag.attribute( "x" ).toShort();
-				nItem->pos.y = nItem->pos.y + childTag.attribute( "y" ).toShort();
-				nItem->pos.z = nItem->pos.z + childTag.attribute( "z" ).toShort();
+				npos.x = npos.x + childTag.attribute( "x" ).toShort();
+				npos.y = npos.y + childTag.attribute( "y" ).toShort();
+				npos.z = npos.z + childTag.attribute( "z" ).toShort();
 			}
 		}
 		
 		childNode = childNode.nextSibling();
 	}
 
-	nItem->MoveTo( nItem->pos.x, nItem->pos.y, nItem->pos.z );
+	nItem->moveTo( npos );
 	nItem->update();
 }
 

@@ -3980,9 +3980,7 @@ void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, s
 
     // create a dummy item for the effect on old location
     it = Items->SpawnItem(pc, 1, "bugalert, plz let the devteam know", 0, 0x1, 0x00, 0);					
-    it->pos.x=x;
-	it->pos.y=y;
-	it->pos.z=z;					
+	it->MoveTo( x, y, z );
 	it->update();
 	itemParticles(spellNum, it );
 	// this is rather tricky, deleitem can't be applied there

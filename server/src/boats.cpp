@@ -125,9 +125,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	}
 
 	this->setId( multiids_[0] );
-	this->pos.x = posx;
-	this->pos.y = posy;
-	this->pos.z = posz;
+	this->MoveTo( posx, posy, posz );
 
 	for( int i = 0; i < 4; ++i )
 	{
@@ -145,9 +143,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		siproblem = 1;
 	else
 	{
-		pTiller->pos.x = this->pos.x + itemoffsets[0][ TILLER ][X];
-		pTiller->pos.y = this->pos.y + itemoffsets[0][ TILLER ][Y];
-		pTiller->pos.z = this->pos.z;
+		pTiller->MoveTo( this->pos.x + itemoffsets[0][ TILLER ][X], this->pos.y + itemoffsets[0][ TILLER ][Y], this->pos.z );
 		pTiller->priv = 0;
 		pTiller->setType( 117 );
 		pTiller->tags.set( "tiller", 1 );
@@ -163,9 +159,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	{
 		pPlankR->setType( 117 );
 		pPlankR->setType2( 2 );
-		pPlankR->pos.x = this->pos.x + itemoffsets[0][ PORT_PLANK ][X];
-		pPlankR->pos.y = this->pos.y + itemoffsets[0][ PORT_PLANK ][Y];
-		pPlankR->pos.z = this->pos.z;
+		pPlankR->MoveTo( this->pos.x + itemoffsets[0][ PORT_PLANK ][X], this->pos.y + itemoffsets[0][ PORT_PLANK ][Y], this->pos.z );
 		pPlankR->priv=0;//Nodecay
 		pPlankR->tags.set( "boatserial", this->serial );
 		this->itemserials[ PORT_PLANK ] = pPlankR->serial;
@@ -178,9 +172,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	{
 		pPlankL->setType( 117 );//Boat type
 		pPlankL->setType2( 3 );//Plank sub type
-		pPlankL->pos.x = this->pos.x + itemoffsets[0][ STARB_PLANK ][X];
-		pPlankL->pos.y = this->pos.y + itemoffsets[0][ STARB_PLANK ][Y];
-		pPlankL->pos.z = this->pos.z;
+		pPlankL->MoveTo( this->pos.x + itemoffsets[0][ STARB_PLANK ][X], this->pos.y + itemoffsets[0][ STARB_PLANK ][Y], this->pos.z );
 		pPlankL->priv=0;
 		pPlankL->tags.set( "boatserial", this->serial );
 		this->itemserials[ STARB_PLANK ] = pPlankL->serial;
@@ -192,9 +184,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	else
 	{
 		pHold->setType( 1 );//Conatiner
-		pHold->pos.x = this->pos.x + itemoffsets[0][ HOLD ][X];
-		pHold->pos.y = this->pos.y + itemoffsets[0][ HOLD ][Y];
-		pHold->pos.z = this->pos.z;
+		pHold->MoveTo( this->pos.x + itemoffsets[0][ HOLD ][X], this->pos.y + itemoffsets[0][ HOLD ][Y], this->pos.z );
 		pHold->priv=0;
 		pHold->tags.set( "boatserial", this->serial );
 		this->itemserials[ HOLD ] = pHold->serial;
@@ -221,12 +211,6 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	createKeys( pc_currchar, tr("boat key") );
 
 	this->autosail_ = 0;	// khpae : not moving 0, 1-8 : moving boatdirection+1
-
-	cMapObjects::getInstance()->add(pTiller);//Make sure everything is in da regions!
-	cMapObjects::getInstance()->add(pPlankL);
-	cMapObjects::getInstance()->add(pPlankR);
-	cMapObjects::getInstance()->add(pHold);
-	cMapObjects::getInstance()->add(this);
 
 	pTiller->update();
 	pPlankL->update();

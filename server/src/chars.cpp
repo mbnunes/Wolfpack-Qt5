@@ -538,9 +538,7 @@ void cChar::glowHalo(P_ITEM pi)
 		if(pHalo->layer()==0 && pi->isInWorld()) // unequipped -> light source coords = item coords
 		{
 			pHalo->dir=29;
-			pHalo->pos.x=pi->pos.x;
-			pHalo->pos.y=pi->pos.y;
-			pHalo->pos.z=pi->pos.z;
+			pHalo->moveTo( pi->pos );
 		} else if (pHalo->layer() == 0 && !pi->isInWorld()) // euqipped -> light source coords = players coords
 		{
 			pHalo->pos.x=this->pos.x;
