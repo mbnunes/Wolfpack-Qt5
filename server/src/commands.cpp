@@ -319,7 +319,7 @@ void cCommands::NextCall(int s, int type)
 {
 	// Type is the same as it is in showgmqueue()
 	
-	int i, j, serial;
+	int i, serial;
 	int x = 0;
 	
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
@@ -335,8 +335,8 @@ void cCommands::NextCall(int s, int type)
 			if (gmpages[i].handled == 0)
 			{
 				serial = gmpages[i].serial;
-				j = calcCharFromSer(serial);
-				if (j!=-1)
+				P_CHAR pc_player = FindCharBySerial(serial);
+				if (pc_player != NULL)
 				{
 					sysmessage(s, "");
 					sprintf((char*)temp, "Transporting to next call: %s", gmpages[i].name.c_str());
@@ -348,9 +348,9 @@ void cCommands::NextCall(int s, int type)
 					sprintf((char*)temp, "Paged at %s.", gmpages[i].timeofcall);
 					sysmessage(s, (char*)temp);
 					gmpages[i].handled = 1;
-					pc_currchar->MoveTo(chars[j].pos.x, chars[j].pos.y, chars[j].pos.z);
+					pc_currchar->MoveTo(pc_player->pos.x, pc_player->pos.y, pc_player->pos.z);
 					pc_currchar->callnum = i;
-					teleport(currchar[s]);
+					teleport(DEREF_P_CHAR(pc_currchar));
 					x++;
 				}// if
 				if (x > 0)
@@ -368,8 +368,8 @@ void cCommands::NextCall(int s, int type)
 			if (counspages[i].handled == 0)
 			{
 				serial = counspages[i].serial;
-				j = calcCharFromSer(serial);
-				if (j!=-1)
+				P_CHAR pc_player = FindCharBySerial(serial);
+				if (pc_player != NULL)
 				{
 					sysmessage(s, "");
 					sprintf((char*)temp, "Transporting to next call: %s", counspages[i].name.c_str());
@@ -381,9 +381,9 @@ void cCommands::NextCall(int s, int type)
 					sprintf((char*)temp, "Paged at %s.", counspages[i].timeofcall);
 					sysmessage(s, (char*)temp);
 					gmpages[i].handled = 1;
-					pc_currchar->MoveTo(chars[j].pos.x, chars[j].pos.y, chars[j].pos.z);
+					pc_currchar->MoveTo(pc_player->pos.x, pc_player->pos.y, pc_player->pos.z);
 					pc_currchar->callnum = i;
-					teleport(currchar[s]);
+					teleport(DEREF_P_CHAR(pc_currchar));
 					x++;
 					break;
 				}// if

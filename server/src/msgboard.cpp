@@ -2685,30 +2685,30 @@ void MsgBoardMaintenance( void )
 								
 								//for ( int z=0; z<charcount; z++ )
 								//or... we can use hastables and do it 100x faster --Zippy
-								long z = calcCharFromSer( calcserial(msg[13],msg[14],msg[15],msg[16]) );
-								if (z!=-1)
+								P_CHAR pc_z = FindCharBySerial( calcserial(msg[13],msg[14],msg[15],msg[16]) );
+								if (pc_z != NULL)
 								{
-									if ( (chars[z].ser1     == msg[13]) &&
-										(chars[z].ser2     == msg[14]) &&
-										(chars[z].ser3     == msg[15]) &&
-										(chars[z].ser4     == msg[16]) &&
-										(chars[z].npc      == 1      ) &&
-										(chars[z].questType > 0      )    )
+									if ( (pc_z->ser1    == msg[13]) &&
+										(pc_z->ser2     == msg[14]) &&
+										(pc_z->ser3     == msg[15]) &&
+										(pc_z->ser4     == msg[16]) &&
+										(pc_z->npc      == 1      ) &&
+										(pc_z->questType > 0      )    )
 									{
 										// Now lets reset all of the escort timers after the server has reloaded the WSC file
 										// If this is an Escor Quest NPC 
-										if ( (chars[z].questType==ESCORTQUEST) )
+										if ( (pc_z->questType==ESCORTQUEST) )
 										{
 											// And it doesn't have a player escorting it yet
-											if ( chars[z].ftarg==-1 )
+											if ( pc_z->ftarg==-1 )
 											{
 												// Lets reset the summontimer to the escortinit
-												chars[z].summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortinitexpire ) );
+												pc_z->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortinitexpire ) );
 											}
 											else // It must have an escort in progress so set the escortactiveexpire timer
 											{
 												// Lets reset the summontimers to the escortactive value
-												chars[z].summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortactiveexpire ) );
+												pc_z->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortactiveexpire ) );
 											}
 											
 											// Found a matching NPC for this posted quest so flag the post for compression
@@ -2727,26 +2727,26 @@ void MsgBoardMaintenance( void )
 								
 								//for ( int z=0; z<charcount; z++ )
 								//or... we can use hastables and do it 100x faster --Zippy
-								long z = calcCharFromSer( calcserial(msg[13],msg[14],msg[15],msg[16]) );
-								if (z!=-1)
+								P_CHAR pc_z = FindCharBySerial( calcserial(msg[13],msg[14],msg[15],msg[16]) );
+								if (pc_z != NULL)
 								{
-									if ( (chars[z].serial             == postObjectSN) &&
-										   (chars[z].npc                == 0           ) &&
-										   (chars[z].questBountyReward  >  0           ) )
+									if ( (pc_z->serial             == postObjectSN) &&
+										   (pc_z->npc                == 0           ) &&
+										   (pc_z->questBountyReward  >  0           ) )
 									{
-                    // Check that if this is a BOUNTYQUEST that should be removed first!
-                    if( ( postAge>=SrvParms->bountysexpire ) && ( SrvParms->bountysexpire!=0 ) )
-                    {                    
-                      // Reset the Player so they have no bounty on them
-                      chars[z].questBountyReward     = 0;
-                      chars[z].questBountyPostSerial = 0;
-                    }
-                    else
-                    {
-                      // Found a matching PC for this posted quest and the post 
-                      // has not expired so flag the post for compression
-										  foundMatch = 1;
-                    }
+				                    // Check that if this is a BOUNTYQUEST that should be removed first!
+									    if( ( postAge>=SrvParms->bountysexpire ) && ( SrvParms->bountysexpire!=0 ) )
+					                    {                    
+										  // Reset the Player so they have no bounty on them
+											pc_z->questBountyReward     = 0;
+											pc_z->questBountyPostSerial = 0;
+					                    }
+										else
+					                    {
+											// Found a matching PC for this posted quest and the post 
+											// has not expired so flag the post for compression
+											foundMatch = 1;
+										}
 
 										break;
 									}
@@ -2754,7 +2754,7 @@ void MsgBoardMaintenance( void )
 							}
 							break;
 
-            default:
+						default:
 							{
 								clConsole.send("\tUnhandled QuestType found during maintenance\n");
 							}
@@ -2813,23 +2813,23 @@ void MsgBoardMaintenance( void )
 									msg2[9]  = newPostSN/65536;
 									msg2[10] = newPostSN/256;
 									msg2[11] = newPostSN%256;
-									
-                  // If this is a BOUNTYQUEST, then make sure you update the
-                  // PC that references this bounty with the new BountyPostSerial#
-                  if( msg[6] == BOUNTYQUEST )
-                  {
-        						int postObjectSN  = (msg[13]*16777216) + (msg[14]*65536) + (msg[15]*256) + msg[16];
-							      long z = calcCharFromSer( calcserial(msg[13],msg[14],msg[15],msg[16]) );
-							      if (z!=-1)
-							      {
-								      if ( (chars[z].serial             == postObjectSN) &&
-										       (chars[z].npc                == 0           ) &&
-										       (chars[z].questBountyReward  >  0           ) )
-								      {
-                        chars[z].questBountyPostSerial = newPostSN;
-                      }
-                    }
-                  }
+											
+									// If this is a BOUNTYQUEST, then make sure you update the
+									// PC that references this bounty with the new BountyPostSerial#
+									if( msg[6] == BOUNTYQUEST )
+									{				
+        								int postObjectSN  = (msg[13]*16777216) + (msg[14]*65536) + (msg[15]*256) + msg[16];
+										P_CHAR pc_z = FindCharBySerial( calcserial(msg[13],msg[14],msg[15],msg[16]) );
+										if (pc_z != NULL)
+										{
+											if ( (pc_z->serial           == postObjectSN) &&
+										       (pc_z->npc                == 0           ) &&
+										       (pc_z->questBountyReward  >  0           ) )
+											{
+												pc_z->questBountyPostSerial = newPostSN;
+											}
+										}
+									}
 
 									// Write out the entire message
 									if ( fwrite( msg2, sizeof(char), (sizeOfBBP+12), pBBPNew ) != (sizeOfBBP+12) )
@@ -2857,7 +2857,7 @@ void MsgBoardMaintenance( void )
 									break;
 								}
 						}
-					}
+				}
     }
 	
     // Finished iterating through the BBI & BBP file so set the new max message SN in the BBI file

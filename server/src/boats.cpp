@@ -295,7 +295,6 @@ void cBoat::LeaveBoat(UOXSOCKET s, ITEM p)//Get off a boat (dbl clicked an open 
 							{
 								if( pBoat->serial != INVALID_SERIAL ) 
 									cmultisp.remove(pBoat->serial, pc_b->serial);
-//									removefromptr(&cmultisp[items[boat].serial%HASHMAX], b);
 								pc_b->multis=-1;
 							}
 							
@@ -306,8 +305,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, ITEM p)//Get off a boat (dbl clicked an open 
 				}
 				
                 if( pBoat->serial != INVALID_SERIAL ) 
-					cmultisp.remove(pBoat->serial, chars[currchar[s]].serial);
-//					removefromptr(&cmultisp[items[boat].serial%HASHMAX], currchar[s]);
+					cmultisp.remove(pBoat->serial, pc_cs->serial);
 				pc_cs->multis=-1;
 				
 				if (typ) 

@@ -205,9 +205,8 @@ void cTmpEff::Off(P_CHAR pc)
 
 void cTmpEff::Reverse()
 {
-	int s = calcCharFromSer(getDest());
+	P_CHAR pc_s = FindCharBySerial(getDest());
 
-	P_CHAR pc_s = MAKE_CHARREF_LR(s);
 	switch(num)
 	{
 	case 1:	pc_s->priv2 &= 0xFD;	break;
@@ -234,7 +233,7 @@ void cTmpEff::Reverse()
 			pc_s->id1=pc_s->xid1;
 			pc_s->id2=pc_s->xid2;
 			pc_s->polymorph=false;
-			teleport(s);
+			teleport(DEREF_P_CHAR(pc_s));
 		}
 		break;
 	case 19: //Incognito spell by AntiChrist
@@ -254,7 +253,7 @@ void cTmpEff::Reverse()
 		return;
 	}//switch
 	
-	Items->CheckEquipment(s); //AntiChrist - checks equipments for stats requirements
+	Items->CheckEquipment(DEREF_P_CHAR(pc_s)); //AntiChrist - checks equipments for stats requirements
 }
 
 void cTmpEff::Expire()
@@ -557,8 +556,8 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		break;
 	case 2:	// night sight
 		pc_dest->fixedlight=worldbrightlevel;
-		dolight(calcSocketFromChar(dest), worldbrightlevel);
-		Magic->afterParticles(6, dest); // shows particles for UO:3D clients, like On OSI servers
+		dolight(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), worldbrightlevel);
+		Magic->afterParticles(6, DEREF_P_CHAR(pc_dest)); // shows particles for UO:3D clients, like On OSI servers
 
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 30.12.2000)
 			pTE->setExpiretime_s(dur);
@@ -573,7 +572,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->effDex();
 		pc_dest->chgDex(-1 * more1);
 		pc_dest->stm=min(pc_dest->stm, (int)pc_dest->effDex());
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -584,7 +583,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->in;
 		pc_dest->in-=more1;
 		pc_dest->mn=min(pc_dest->mn, pc_dest->in);
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -595,7 +594,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->st;
 		pc_dest->st-=more1;
 		pc_dest->hp=min(pc_dest->hp, pc_dest->st);
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -605,7 +604,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		if (pc_dest->effDex()+more1>250)
 			more1=250-pc_dest->effDex();
 		pc_dest->chgDex(more1);
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
 			pTE->setExpiretime_s(dur);
 		else
@@ -618,7 +617,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		if (pc_dest->in+more1>255)
 			more1=pc_dest->in-255;
 		pc_dest->in+=more1;
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -628,7 +627,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		if (pc_dest->st+more1>255)
 			more1=pc_dest->st-255;
 		pc_dest->st+=more1;
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
 			pTE->setExpiretime_s(dur);
 		else			// else use caster's skill
@@ -657,7 +656,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		pc_dest->st+=more1;
 		pc_dest->chgDex(more2);
 		pc_dest->in+=more3;
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
@@ -674,7 +673,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		pc_dest->st-=more1;
 		pc_dest->chgDex(-1 * more2);
 		pc_dest->in-=more3;
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
@@ -697,7 +696,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		int c1,b,k;
 		//Grey flag when polymorphed - AntiChrist (9/99)
 		pc_dest->crimflag=(polyduration*MY_CLOCKS_PER_SEC)+uiCurrentTime;
-		if(pc_dest->onhorse) k=unmounthorse(dest);
+		if(pc_dest->onhorse) k=unmounthorse(DEREF_P_CHAR(pc_dest));
 		k=(more1<<8)+more2;
 
 		pc_dest->xid1=pc_dest->id1;//let's backup previous id
@@ -732,10 +731,9 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			pc_dest->id1=pc_dest->xid1;
 			pc_dest->id2=pc_dest->xid2;
 			pc_dest->polymorph=false;
-			teleport(dest);
+			teleport(DEREF_P_CHAR(pc_dest));
 		}
 		int j,i,ci;
-		i=dest;
 
 		//first: let's search for beard and hair serial
 		//(we could use alredy saved serials...but it's better
@@ -762,7 +760,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		pc_dest->xid2=pc_dest->id2;
 		pc_dest->id1=0x01;
 		//if we already have a beard..can't turn to female
-		if(chars[i].beardserial>-1)
+		if(pc_dest->beardserial>-1)
 		{//if character has a beard...only male
 			pc_dest->id2='\x90';//male
 		} else
@@ -788,8 +786,8 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		// ------ NAME -----
 		strcpy(pc_dest->orgname,pc_dest->name);
 
-		if(pc_dest->id2==0x90) setrandomname(dest,"1");//get a name from male list
-		else setrandomname(dest,"2");//get a name from female list
+		if(pc_dest->id2==0x90) setrandomname(DEREF_P_CHAR(pc_dest),"1");//get a name from male list
+		else setrandomname(DEREF_P_CHAR(pc_dest),"2");//get a name from female list
 
 		//
 		//damn..this formula seems to include also some bad color...
@@ -908,16 +906,16 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		}//if beardserial!=-1
 
 		//only refresh once
-		teleport(dest);
+		teleport(DEREF_P_CHAR(pc_dest));
 
-		socket=calcSocketFromChar(dest);
+		socket=calcSocketFromChar(DEREF_P_CHAR(pc_dest));
 
-		wornitems(socket, dest);//send update to current socket
+		wornitems(socket, DEREF_P_CHAR(pc_dest));//send update to current socket
 
 		for (j=0;j<now;j++)
 		{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-			if (perm[j] && inrange1p(dest, currchar[j]) && (j!=socket))
-				wornitems(j, dest);
+			if (perm[j] && inrange1p(DEREF_P_CHAR(pc_dest), currchar[j]) && (j!=socket))
+				wornitems(j, DEREF_P_CHAR(pc_dest));
 		}
 
 		pc_dest->incognito=true;//AntiChrist
@@ -978,7 +976,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->in;
 		pc_dest->in-=more1;
 		pc_dest->mn=min(pc_dest->mn, pc_dest->in);
-		statwindow(calcSocketFromChar(dest), dest);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(30);
 		pTE->num=4;
 		pTE->more1=more1;

@@ -44,6 +44,7 @@
 
 int addrandomcolor(int s, char *colorlist)
 {
+	P_CHAR pc_s = MAKE_CHAR_REF(s);
 	char sect[512];
 	int i,j,storeval;
 	i=0; j=0;
@@ -53,11 +54,11 @@ int addrandomcolor(int s, char *colorlist)
 	{
 		closescript();
 
-		//sprintf(chars[s].name, "Error Colorlist %s Not Found(1)", colorlist);
+		//sprintf(pc_s->name, "Error Colorlist %s Not Found(1)", colorlist);
 		// LB: wtf should this do apart from crashing ? copying an error message in a chars name ??
 		// very weired! think it should look like this:
 
-		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,chars[s].name);
+		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
 
 		return 0;
 	}
@@ -81,8 +82,8 @@ int addrandomcolor(int s, char *colorlist)
 		if(!i_scripts[colors_script]->find(sect))
 		{
 			closescript();
-			//sprintf(chars[s].name, "Error Colorlist %s Not Found(2)", colorlist);
-			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,chars[s].name);
+			//sprintf(pc_s->name, "Error Colorlist %s Not Found(2)", colorlist);
+			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
 			return 0;
 		}
 		loopexit=0;
@@ -106,6 +107,7 @@ int addrandomcolor(int s, char *colorlist)
 
 static int addrandomhaircolor(int s, char *colorlist)
 {
+	P_CHAR pc_s = MAKE_CHAR_REF(s);
 	char sect[512];
 	int i,j,haircolor;
 	i=0; j=0;
@@ -114,7 +116,7 @@ static int addrandomhaircolor(int s, char *colorlist)
 	if (!i_scripts[colors_script]->find(sect))
 	{
 		closescript();
-		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,chars[s].name);
+		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
 		return 0;
 	}
 	int loopexit=0;
@@ -136,8 +138,8 @@ static int addrandomhaircolor(int s, char *colorlist)
 		if(!i_scripts[colors_script]->find(sect))
 		{
 			closescript();
-			//sprintf(chars[s].name, "Error Colorlist %s Not Found(2)", colorlist);
-			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,chars[s].name);
+			//sprintf(pc_s->name, "Error Colorlist %s Not Found(2)", colorlist);
+			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
 			return 0;
 		}
 		loopexit=0;
@@ -163,13 +165,14 @@ void setrandomname(int s, char * namelist)
 {
 	char sect[512];
 	int i=0,j=0;
+	P_CHAR pc_s = MAKE_CHAR_REF(s);
 
 	sprintf(sect, "RANDOMNAME %s", namelist);
 	Script *pScpBase=i_scripts[npc_script];
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp)
 	{
-		sprintf(chars[s].name, "Error Namelist %s Not Found", namelist);
+		sprintf(pc_s->name, "Error Namelist %s Not Found", namelist);
 		return;
 	}
 
@@ -199,7 +202,7 @@ void setrandomname(int s, char * namelist)
 			{
 				if(j==i)
 				{
-					strcpy(chars[s].name,(char*)script1);
+					strcpy(pc_s->name,(char*)script1);
 					break;
 				}
 				else j++;

@@ -708,22 +708,8 @@ char cMagic::CheckResist(CHARACTER attacker, CHARACTER defender, int circle)
 //
 void cMagic::MagicDamage(CHARACTER p, int amount)
 {
-	if ( chars[p].priv2&0x02  &&  chars[p].effDex() > 0 )
-	{
-		chars[p].priv2 &= 0xFD; // unfreeze
-		int s = calcSocketFromChar(p);
-		if (s != -1) sysmessage(s, "You are no longer frozen.");
-	}
-	if ( !chars[p].isInvul() && (region[chars[p].region].priv&0x40)) // LB magic-region change
-	{
-		if (chars[p].isNpc()) amount *= 2;			// double damage against non-players
-		chars[p].hp = max(0, chars[p].hp-amount);
-		updatestats(p, 0);
-		if (chars[p].hp<=0)
-		{
-			deathstuff(p);
-		}
-	}
+	P_CHAR pc = MAKE_CHAR_REF(p);
+	MagicDamage(pc, amount);
 }
 
 void cMagic::MagicDamage(P_CHAR pc, int amount)
@@ -738,11 +724,10 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 	{
 		if (pc->isNpc()) amount *= 2;			// double damage against non-players
 		pc->hp = max(0, pc->hp-amount);
-		CHARACTER p = DEREF_P_CHAR(pc);
-		updatestats(p, 0);
-		if (pc->hp<=0)
+		updatestats(DEREF_P_CHAR(pc), 0);
+		if (pc->hp <= 0)
 		{
-			deathstuff(p);
+			deathstuff(DEREF_P_CHAR(pc));
 		}
 	}
 }
