@@ -470,7 +470,7 @@ public:
 			return true;
 		}
 
-		Targ->NpcResurrectTarget( pChar );
+		pChar->resurrect();
 		return true;
 	}
 };

@@ -225,7 +225,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						else
 						{
 							pc_i->action(0x10);
-							Targ->NpcResurrectTarget(pc);
+							pc->resurrect();
 							pc->effect(0x3709, 0x09, 0x19);
 							switch (RandomNum(0, 4)) 
 							{

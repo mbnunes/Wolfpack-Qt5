@@ -87,7 +87,7 @@ bool MultiDefinition::inMulti( short x, short y )
 
 signed char MultiDefinition::multiHeight( short x, short y, short z ) const
 {
-	for ( int j = 0; j < entries.size(); ++j )
+	for ( uint j = 0; j < entries.size(); ++j )
 	{
 		if ( entries[j].visible && ( x + entries[j].x == x ) && ( y + entries[j].y == y ) )
 		{

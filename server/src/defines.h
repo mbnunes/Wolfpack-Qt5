@@ -224,14 +224,10 @@ extern long int oldtime, newtime;
 #define WEIGHT_PER_STR 4
 #define MAXGATES 100
 
-#define NORTH 1
-#define NORTHEAST 2
-#define EAST 3
-#define SOUTHEAST 4
-#define SOUTH 5
-#define SOUTHWEST 6
-#define WEST 7
-#define NORTHWEST 8
+enum enDirection
+{
+	North = 1, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
+};
 
 // for spinning wheel -vagrant
 #define YARN 0

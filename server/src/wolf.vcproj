@@ -33,15 +33,15 @@
 				PrecompiledHeaderFile=".\Debug/wolf.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
+				ProgramDataBaseFileName="c:\wolfpack\"
 				BrowseInformation="1"
 				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"
-				DisableSpecificWarnings="4290,4267"
-				ForcedIncludeFiles="qvaluelist.h;qstring.h"
+				DisableSpecificWarnings="4290,4267,4511,4512,4309,4245,"
+				ForcedIncludeFiles=""
 				ShowIncludes="FALSE"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -57,7 +57,7 @@
 				AdditionalLibraryDirectories="lib\ZThread\lib,lib\Python\lib,lib\bugreport\lib"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/Wolfpack.pdb"
+				ProgramDatabaseFile="c:\wolfpack\Wolfpack.pdb"
 				GenerateMapFile="TRUE"
 				MapFileName=".\Debug/Wolfpack.map"
 				SubSystem="1"

@@ -80,7 +80,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 					socket->sysMessage( tr("You failed to resurrect the ghost") );
 				else
 				{
-					Targ->NpcResurrectTarget(ph);
+					ph->resurrect();
 					socket->sysMessage( tr("Because of your skill, you were able to resurrect the ghost.") );
 				}
 			}

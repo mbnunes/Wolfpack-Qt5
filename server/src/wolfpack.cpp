@@ -864,24 +864,6 @@ void callguards( P_CHAR pc_player )
 }
 
 
-/*
-void endScrn()
-{
-#ifdef __unix__
-
-	int status ;
-	//status = fcntl(STDIN_FILENO,F_SETFL,O_SYNC) ;
-	
-	if (tcsetattr(STDOUT_FILENO,TCSANOW,&termstate)!=0)
-	{
-		cout << "error reseting terminal console" << endl;
-		cout << strerror(errno) << endl;
-	}
-
-#endif
-}
-*/
-
 ZThread::FastMutex commandMutex;
 QStringList commandQueue;
 
@@ -1148,7 +1130,6 @@ int main( int argc, char *argv[] )
 		fstream fconsole;
 		fconsole.open("console.txt", ios::out);
 		clConsole.setStreams(NULL, (dynamic_cast<ostream*>(&fconsole)), NULL, NULL);
-	
 	}
 
 	#if defined(__unix__)
@@ -1633,7 +1614,7 @@ int main( int argc, char *argv[] )
 
 		loopTime += tempTime;
 		
-		qApp->processEvents( 40 );
+//		qApp->processOneEvent();
 	}
 
 	if( !bDeamon )
@@ -3536,7 +3517,6 @@ void StartClasses(void)
 	Map				= NULL;
 	Skills			= NULL;
 	Weight			= NULL;
-	Targ			= NULL;
 	Magic			= NULL;
 	ScriptManager	= NULL;
 	DefManager		= NULL;
@@ -3552,7 +3532,6 @@ void StartClasses(void)
 	Map				= new Maps ( SrvParams->mulPath() );
 	Skills			= new cSkills;
 	Weight			= new cWeight;
-	Targ			= new cTargets;
 	Magic			= new cMagic;
 	MultisCache		= new cMultisCache( SrvParams->mulPath() );
 	//Weather = new cWeather;
@@ -3575,7 +3554,6 @@ void DeleteClasses()
 	delete Map;
 	delete Skills;
 	delete Weight;
-	delete Targ;
 	delete Magic;
 	delete ScriptManager;
 	delete DefManager;

@@ -159,7 +159,6 @@ Maps			*Map;
 cSkills			*Skills;
 cFishing        *Fishing;
 cWeight			*Weight;
-cTargets		*Targ;
 cMagic			*Magic;
 cSpeech	        *Speech;
 cTrade	        *Trade;

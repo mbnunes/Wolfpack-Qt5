@@ -185,7 +185,7 @@ QValueVector< UINT16 > cUORxSpeechRequest::keywords()
 	for( UINT16 i = 0; i < count; ++i )
 	{
 		// Invalid Packet size
-		if( offset+2 > size() )
+		if( offset+2U > size() )
 			return keywords;
 
 		UINT16 value;

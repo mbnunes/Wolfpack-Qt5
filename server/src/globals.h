@@ -183,7 +183,6 @@ extern Maps						*Map;
 extern cSkills					*Skills;
 extern cFishing					*Fishing;
 extern cWeight					*Weight;
-extern cTargets					*Targ;
 extern cMagic					*Magic;
 extern cSpeech					*Speech;
 extern cTrade					*Trade;

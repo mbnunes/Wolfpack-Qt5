@@ -89,6 +89,8 @@ using namespace ZThread;
 
 class cAsyncNetIOPrivate
 {
+private:
+	cAsyncNetIOPrivate( cAsyncNetIOPrivate& ); // Satisfy warning C4511
 public:
 	cAsyncNetIOPrivate();
 	~cAsyncNetIOPrivate();
