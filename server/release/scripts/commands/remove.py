@@ -33,11 +33,11 @@ def doRemove( char, args, target ):
 			else:
 				socket = None
 
-			if player.account.rank >= char.account.rank:
+			if player.rank >= char.rank:
 				char.socket.sysmessage("You cannot remove this player.")
 				return False
 			else:
-				if player.account.acl != 'player':
+				if player.account and player.account.acl != 'player':
 					char.socket.sysmessage( "Players with special accounts can not be removed." )
 					return False
 				if socket:
