@@ -108,36 +108,6 @@ CREATE TABLE corpses_equipment (
   PRIMARY KEY (serial,layer)
 );
 
-CREATE TABLE guildstones (
-  serial int(11) NOT NULL default '0',
-  guildname varchar(255) NOT NULL default '',
-  abbreviation varchar(255) NOT NULL default '',
-  guildtype tinyint(1) NOT NULL default '0',
-  charter longtext NOT NULL,
-  webpage varchar(255) NOT NULL default 'http://www.wpdev.org',
-  master int(11) NOT NULL default '-1',
-  priv int(11) NOT NULL default '-1',
-  PRIMARY KEY (serial)
-);
-
-CREATE TABLE guildstones_members (
-  serial int(11) NOT NULL default '0',
-  member int(11) NOT NULL default '-1',
-  PRIMARY KEY (serial,member)
-);
-
-CREATE TABLE guildstones_recruits (
-  serial int(11) NOT NULL default '0',
-  recruit int(11) NOT NULL default '-1',
-  PRIMARY KEY (serial,recruit)
-);
-
-CREATE TABLE guildstones_war (
-  serial int(11) NOT NULL default '0',
-  enemy int(11) NOT NULL default '-1',
-  PRIMARY KEY (serial,enemy)
-);
-
 CREATE TABLE houses (
   serial int(11) NOT NULL default '0',
   nokey tinyint(1) NOT NULL default '0',
@@ -269,5 +239,22 @@ CREATE TABLE uobjectmap (
   PRIMARY KEY (serial)
 );
 
+CREATE TABLE `effects` (
+  `id` int(11) NOT NULL default '0',
+  `objectid` varchar(64) NOT NULL default '',
+  `expiretime` int(11) NOT NULL default '0',
+  `dispellable` tinyint(4) NOT NULL default '0',
+  `source` int(11) NOT NULL default '-1',
+  `destination` int(11) NOT NULL default '-1',
+  PRIMARY KEY  (`id`)
+);
 
-    
+CREATE TABLE `effects_properties` (
+  `id` int(11) NOT NULL default '0',
+  `key` varchar(64) NOT NULL default '',
+  `type` varchar(64) NOT NULL default '',
+  `value` text NOT NULL,
+  PRIMARY KEY  (`id`,`key`)
+);
+
+
