@@ -62,7 +62,6 @@ class TailorItemAction(CraftItemAction):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 1 # All tailoring items are markable
 		self.cloth = 0 # How many cloth this part is using (Special processing because of color)
-		self.requiretool = True
 
 	#
 	# This check is here to make sure that we only use one kind of 
@@ -233,15 +232,23 @@ class TailorItemAction(CraftItemAction):
 class TailoringMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
-		self.allowmark = 1
-		self.allowrepair = 1
+		self.allowmark = True
+		self.allowrepair = True
 		self.allowenhance = True
 		self.submaterials1 = LEATHERS
 		self.submaterial1missing = 1044463
 		self.submaterial1noskill = 1049311
 		self.gumptype = 0x4f1ba411 # This should be unique
 		self.repairsound = 0x248 # Repair soundeffect
-
+		self.requiretool = True
+		
+	#
+	# Check for an anvil too when checking for the tool
+	#
+	def checktool(self, player, item, wearout = False):
+		if not MakeMenu.checktool(self, player, item, wearout):
+			return False
+		return True
 	#
 	# Get the material used by the character from the tags
 	#
