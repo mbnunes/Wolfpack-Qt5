@@ -78,7 +78,7 @@ void do_lsd(UOXSOCKET s)
 					P_CHAR mapchar = FindCharBySerial(*it);
 					if (pi != NULL)
 					{
-						 color = pi->color; // fetch item's color
+						 color = pi->color(); // fetch item's color
 						 if (rand()%44==0) color+=pi->pos.x-pi->pos.y; else
 						 color+=pc_currchar->pos.x+pc_currchar->pos.y;
 						 color+=rand()%3; // add random "noise"

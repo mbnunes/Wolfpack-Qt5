@@ -510,7 +510,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			if (!strcmp("COLOR",(char*)script1)) {
 				if (retitem != NULL)
 				{
-					retitem->color = hex2num(script2);
+					retitem->setColor( hex2num(script2) );
 				}
 			}
 			else if (!strcmp("CARVE",(char*)script1)) pc_c->carve=str2num(script2);
@@ -523,7 +523,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			{
 				if (retitem != NULL && haircolor!=-1)
 				{
-					retitem->color = (haircolor);
+					retitem->setColor( haircolor );
 				}
 			}
 			else if (!strcmp("COLORLIST",(char*)script1))
@@ -532,7 +532,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 				unsigned short storeval = addrandomcolor(pc_c, (char*)script2);
 				if (retitem != NULL)
 				{
-					retitem->color = storeval;
+					retitem->setColor( storeval );
 				}
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
@@ -649,7 +649,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 					haircolor=addrandomhaircolor(pc_c,(char*)script2);
 					if (haircolor!=-1)
 					{
-						retitem->color = (haircolor);
+						retitem->setColor( haircolor );
 					}
 				}
 				pScp->Resume(m);

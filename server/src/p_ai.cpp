@@ -690,7 +690,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, string& comm)
 			if (pi != NULL)
 			pi->type = 1000;
 			pi->setId(0x14F0);
-			pi->color = 0x0099;
+			pi->setColor( 0x0099 );
 			pi->priv |= 0x02;
 			pi->value = goldcount;
 			DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);

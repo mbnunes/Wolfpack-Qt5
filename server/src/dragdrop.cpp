@@ -543,7 +543,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		ShortToCharPtr(pi->id(),wearitem+5);
 		wearitem[8]=pi->layer;
 		LongToCharPtr(pi->contserial,wearitem+9);
-		ShortToCharPtr(pi->color, &wearitem[13]);
+		ShortToCharPtr(pi->color(), &wearitem[13]);
 		Xsend(s, wearitem, 15);
 		wornitems(s, pc_k);//send update to current socket
 		// -Frazurbluu- Worn item triggers will need code here

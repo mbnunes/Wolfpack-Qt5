@@ -76,7 +76,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 	if (pi_bolts == NULL) return; 
 	short int amt=0;
 	short int amt1=0;
-	unsigned short col1 = pi_bolts->color; //-Frazurbluu- added color retention for tailoring from cloth
+	unsigned short col1 = pi_bolts->color(); //-Frazurbluu- added color retention for tailoring from cloth
 
 	if (pi_bolts && !pi_bolts->isLockedDown()) // Ripper
 	{
@@ -106,7 +106,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 					return;
 				}
 			itemmake[s].Mat1id=npi->id();
-			itemmake[s].newcolor = npi->color;
+			itemmake[s].newcolor = npi->color();
 			MakeMenu(s,30,TAILORING);
 			}
 			return;
@@ -122,7 +122,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 					return;
 				}
 				itemmake[s].Mat1id=pi_bolts->id();
-				itemmake[s].newcolor = pi_bolts->color;
+				itemmake[s].newcolor = pi_bolts->color();
 				if ( IsCutLeather(pi_bolts->id()) || IsHide(pi_bolts->id()) )
 					MakeMenu(s,40,TAILORING);
 				else
@@ -289,7 +289,7 @@ static void AnvilTarget2(int s,				// socket #
 		if (pi_pack == NULL) 
 			return;
 
-		int amt = pi_pack->CountItems( pi->id(), pi->color);
+		int amt = pi_pack->CountItems( pi->id(), pi->color());
 		if ((itemmake[s].has=amt) < ma)
 		{
 			sysmessage(s, tr("You don't have enough %1 ingots to make anything.").arg(matname) );
@@ -324,7 +324,7 @@ void cSkills::Smith(int s)
 
 		if (id==0x1BEF || id==0x1BF2)	// is it an ingot ?
 		{
-		switch(pi->color)		// AnvilTarget2 args: socket #, item, minimum amount, makemenu #, name of metal
+		switch(pi->color())		// AnvilTarget2 args: socket #, item, minimum amount, makemenu #, name of metal
 			{
 			case 0x0961:	ingottype=1;	AnvilTarget2(s, pi, 3,  1, "iron");		return;
 			case 0x0466:	ingottype=2;	AnvilTarget2(s, pi, 1, 50, "golden");	return;
@@ -1031,7 +1031,7 @@ void cSkills::SmeltOre(int s)
 				P_ITEM pix = FindItemBySerial(pc_currchar->smeltitem);	// on error return
 				if ( pix == NULL)
 					return;
-				switch (pix->color)
+				switch ( pix->color() )
 				{
 					case 0x0000:	SmeltOre2(s,   0, 0x1BF2, 0x0961,"Iron");	break;
 					case 0x0466:	SmeltOre2(s, 850, 0x1BF2, 0x0466,"Golden");	break;
@@ -1548,7 +1548,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
-		unsigned short col1 = pi->color; //-Frazurbluu- added color retention for bandage cutting from cloth
+		unsigned short col1 = pi->color(); //-Frazurbluu- added color retention for bandage cutting from cloth
 
 		if ((IsCloth(pi->id()) && (IsCutCloth(pi->id()))))
 		{
@@ -2567,7 +2567,7 @@ void cSkills::Tinkering(int s)
 			if (CheckInPack(s,pi))
 			{
 				int amt;
-				itemmake[s].has = amt = pc_currchar->CountItems(pi->id(), pi->color);
+				itemmake[s].has = amt = pc_currchar->CountItems( pi->id(), pi->color() );
 				if(amt<2)
 				{ 
 					sysmessage(s, tr("You don't have enough ingots to make anything.") );
@@ -2585,7 +2585,7 @@ void cSkills::Tinkering(int s)
 				}
 				else
 				{
-					itemmake[s].Mat1color = pi->color;	// only if ingots are used
+					itemmake[s].Mat1color = pi->color();	// only if ingots are used
 					Skills->MakeMenu(s,80,TINKERING);
 				}
 			}
@@ -2879,7 +2879,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	if (Skills->CheckSkill((pc),sk, 0, 1000))
 	{
 		char* Name = NULL;
-		unsigned short Color = pi->color;
+		unsigned short Color = pi->color();
 		switch(pi->smelt)
 		{
 		case 1:	Name="#";			 	Color=0x0961;	break;

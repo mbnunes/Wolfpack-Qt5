@@ -492,7 +492,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "id", Item->id() )
 	else getStrProperty( "name", Item->name.c_str() )
 	else getStrProperty( "name2", Item->name2.c_str() )
-	else getIntProperty( "color", Item->color )
+	else getIntProperty( "color", Item->color() )
 	else getIntProperty( "amount", Item->amount )
 	else getIntProperty( "amount2", Item->amount2 )
 	else getIntProperty( "serial", Item->serial )
@@ -597,7 +597,10 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 
 	else setStrProperty( "name", Item->name )
 	else setStrProperty( "name2", Item->name2 )
-	else setIntProperty( "color", Item->color )
+	
+	else if( !strcmp( "color", name ) )
+		self->Item->setColor( PyInt_AS_LONG( value ) );
+
 	else setIntProperty( "amount", Item->amount )
 	else setIntProperty( "amount2", Item->amount2 )
 	else setIntProperty( "serial", Item->serial )

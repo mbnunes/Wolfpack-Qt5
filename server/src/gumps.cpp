@@ -301,7 +301,7 @@ void cGump::Input(int s)
 					pj->setId(k);
 					break;	 // ID
 		case 4:		k = hex2num( text );	
-					pj->color = k;
+					pj->setColor( k );
 					break;	// Hue
 		case 5:		k = str2num( text );	pj->pos.x = k;		break;	// X
 		case 6:		k = str2num( text );	pj->pos.y = k;		break;	// Y

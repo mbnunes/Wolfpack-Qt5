@@ -416,7 +416,7 @@ void wearIt(const UOXSOCKET s, const P_ITEM pi)
 	ShortToCharPtr(pi->id(),wearitem+5);
 	wearitem[8]=pi->layer;
 	LongToCharPtr(pi->contserial,wearitem+9);
-	ShortToCharPtr(pi->color, &wearitem[13]);
+	ShortToCharPtr(pi->color(), &wearitem[13]);
 	Xsend(s, wearitem, 15);
 }
 
@@ -631,7 +631,7 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 		bpitem[11]=pi->pos.y>>8;
 		bpitem[12]=pi->pos.y%256;
 		LongToCharPtr(serial, &bpitem[13]);
-		ShortToCharPtr(pi->color, &bpitem[17]);
+		ShortToCharPtr(pi->color(), &bpitem[17]);
 		bpitem[19]=pi->decaytime=0;//HoneyJar // reseting the decaytimer in the backpack
 		Xsend(s, bpitem, 19);
 	}
@@ -696,7 +696,7 @@ void backpack2(int s, SERIAL serial) // Send corpse stuff
 			bpitem[11]=pi->pos.y>>8;
 			bpitem[12]=pi->pos.y%256;
 			LongToCharPtr(serial, &bpitem[13]);
-			ShortToCharPtr(pi->color, &bpitem[17]);
+			ShortToCharPtr(pi->color(), &bpitem[17]);
 			bpitem[19]=pi->decaytime=0;// reseting the decaytimer in the backpack	//moroallan
 			Xsend(s, bpitem, 19);
 		}
@@ -738,7 +738,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 		bpitem[18]='\xC6';
 	} else
 	{//else like a normal item
-		ShortToCharPtr(pi->color, &bpitem[17]);
+		ShortToCharPtr(pi->color(), &bpitem[17]);
 	}
 	bpitem[19]=pi->decaytime=0; // HoneyJar, array range is 0-19 ! //reseting the decaytimer in the backpack
 
@@ -874,7 +874,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 			itmput[17]=0xC6;
 		} else
 		{
-			ShortToCharPtr(pi->color, &itmput[16]);
+			ShortToCharPtr(pi->color(), &itmput[16]);
 		}
 
 		itmput[18]=0;
@@ -2726,10 +2726,10 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 					ShortToCharPtr(pi->id(),oc+k+4);
 					oc[k+6]=pi->layer;
 					k=k+7;
-					if ( pi->color != 0 )
+					if ( pi->color() != 0 )
 					{
 						oc[k-3] |= 0x80;
-						ShortToCharPtr(pi->color, &oc[k+0]);
+						ShortToCharPtr(pi->color(), &oc[k+0]);
 						k=k+2;
 					}
 					layers[pi->layer] = 1;
@@ -2802,7 +2802,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 				//m1[m1t+11]=pi_j->pos.y>>8;//Item y position
 				//m1[m1t+12]=pi_j->pos.y%256;//Item y position
 				LongToCharPtr(pi->serial,m1+m1t+13); //Container serial number
-				ShortToCharPtr(pi->color, &m1[m1t+17]);
+				ShortToCharPtr(pi->color(), &m1[m1t+17]);
 				m1[4]++; // Increase item count.
 				m1t=m1t+19;
 				value=pi_j->value;
@@ -2912,7 +2912,7 @@ int sellstuff(int s, P_CHAR pc)
 						{
 							LongToCharPtr(pi_j->serial,m1+m1t+0);
 							ShortToCharPtr(pi_j->id(),m1+m1t+4);
-							ShortToCharPtr(pi_j->color,m1+m1t+6);
+							ShortToCharPtr(pi_j->color(),m1+m1t+6);
 							ShortToCharPtr(pi_j->amount,m1+m1t+8);
 							value=pi_q->value;
 							value=calcValue(pi_j, value);

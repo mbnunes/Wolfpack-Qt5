@@ -382,15 +382,15 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			&& SrvParams->rank_system()==0)	// this would interfer with the rank system
 		{
 			pi->rank=30; // Ripper..used for item smelting
-			if(pi->color == 0x00 && pi->smelt == 2) pi->smelt=2; //Silver
-			else if(pi->color==0x0466) pi->smelt=3; //Golden
-			else if(pi->color==0x0150) pi->smelt=4; //Agapite
-			else if(pi->color==0x0386) pi->smelt=5; //Shadow
-			else if(pi->color==0x0191) pi->smelt=6; //Mythril
-			else if(pi->color==0x02E7) pi->smelt=7; //Bronze
-			else if(pi->color==0x022F) pi->smelt=8; //Verite
-			else if(pi->color==0x02C3) pi->smelt=9; //Merkite
-			else if(pi->color==0x046E) pi->smelt=10; //Copper
+			if(pi->color() == 0x00 && pi->smelt == 2) pi->smelt=2; //Silver
+			else if(pi->color()==0x0466) pi->smelt=3; //Golden
+			else if(pi->color()==0x0150) pi->smelt=4; //Agapite
+			else if(pi->color()==0x0386) pi->smelt=5; //Shadow
+			else if(pi->color()==0x0191) pi->smelt=6; //Mythril
+			else if(pi->color()==0x02E7) pi->smelt=7; //Bronze
+			else if(pi->color()==0x022F) pi->smelt=8; //Verite
+			else if(pi->color()==0x02C3) pi->smelt=9; //Merkite
+			else if(pi->color()==0x046E) pi->smelt=10; //Copper
 			else
 			pi->smelt=1; //Iron
 
@@ -463,7 +463,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		
 		if ( skill == TAILORING ) // -Fraz- Implementing color remembrance for tailored items
 		{
-			pi->color = itemmake[s].newcolor;
+			pi->setColor( itemmake[s].newcolor );
 			RefreshItem(pi);
 		}
 		if(!pc_currchar->making) sysmessage(s,"You create the item and place it in your backpack.");

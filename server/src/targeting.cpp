@@ -350,7 +350,7 @@ void DyeTarget(int s)
 			b=((((c1<<8)+c2)&0x4000)>>14)+((((c1<<8)+c2)&0x8000)>>15);
 			if (!b)
 			{
-				pi->color = static_cast<unsigned short>(c1 << 8) + c2;
+				pi->setColor( static_cast<unsigned short>(c1 << 8) + c2 );
 			}
 			RefreshItem(pi);
 		}
@@ -1015,7 +1015,7 @@ void cTargets::DvatTarget(int s)
 		P_CHAR pc = GetPackOwner(pi);
 		if(pc == currchar[s] || pi->isInWorld())
 		{//if on ground or currchar is owning the item - AntiChrist
-			pi->color = static_cast<unsigned short>(addid1[s]<<8) + addid2[s];
+			pi->setColor( static_cast<unsigned short>(addid1[s]<<8) + addid2[s] );
 			RefreshItem(pi);
 			soundeffect(s,0x02,0x3e); // plays the dye sound, LB
 		} else
@@ -3688,9 +3688,9 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	}
 
 	c=0x99;
-	pi1->glow_color = pi1->color; // backup old colors
+	pi1->glow_color = pi1->color(); // backup old colors
 
-	pi1->color = c;
+	pi1->setColor( c );
 
 	P_ITEM pi2 = Items->SpawnItem(s, pc_currchar,1,"glower",0,0x16,0x47,0,0,1); // new client 1.26.2 glower object
 
@@ -3762,7 +3762,7 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 		return;
 	}
 
-	pi->color = pi->glow_color;
+	pi->setColor( pi->glow_color );
 
 	Items->DeleItem(pj); // delete glowing object
 

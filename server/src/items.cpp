@@ -67,7 +67,7 @@ cItem::cItem( cItem &src )
 	this->flags.isBeeingDragged = src.flags.isBeeingDragged;
 	this->setId(src.id());
 	this->pos = src.pos;
-	this->color = src.color;
+	this->color_ = src.color_;
 	this->SetContSerial(src.contserial);
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer = this->oldlayer = src.layer;
@@ -420,17 +420,12 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->type==1)
 			rest=pi->DeleteAmount(rest, _id, _color);
-		if (pi->id()==_id && (_color == 0 || (pi->color == _color)))
+		if (pi->id() == _id && ( _color == 0 || ( pi->color() == _color ) ) )
 			rest=pi->ReduceAmount(rest);
 		if (rest<=0)
 			break;
 	}
 	return rest;
-}
-
-void cItem::setColor(unsigned short _color)
-{
-	color = _color;
 }
 
 void cItem::Serialize(ISerialization &archive)
@@ -442,7 +437,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("name2",		name2);
 		archive.read("creator",		creator);
 		archive.read("sk_name",		madewith);
-		archive.read("color",		color);
+		archive.read("color",		color_);
 		archive.read("cont",		contserial);
 		archive.read("layer",		layer);
 		archive.read("itemhand",	itmhand);
@@ -515,7 +510,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("name2",		name2);
 		archive.write("creator",	creator);
 		archive.write("sk_name",	madewith);
-		archive.write("color",		color);
+		archive.write("color",		color());
 		archive.write("cont",		contserial);
 		archive.write("layer",		layer);
 		archive.write("itemhand",	itmhand);
@@ -701,7 +696,7 @@ void cItem::Init(bool mkser)
 	this->setId(0x0001); // Item visuals as stored in the client
 	// this->name2[0]=0x00; Removed by Magius(CHE)
 	this->pos = this->oldpos = Coord_cl(100, 100, 0);
-	this->color = 0x00; // Hue
+	this->color_ = 0x00; // Hue
 	this->contserial = INVALID_SERIAL; // Container that this item is found in
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer=this->oldlayer=0; // Layer if equipped on paperdoll
@@ -888,7 +883,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					if (!strcmp("COLOR", (char*)script1))
 					{
 						tmp = hex2num(script2);
-						pi->color = tmp;
+						pi->setColor( tmp );
 					}
 					else if (!strcmp("CREATOR", (char*)script1))		pi->creator = (char*)script2; // by Magius(CHE)
 					else if (!strcmp("COLORLIST", (char*)script1))
@@ -897,7 +892,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 						closescript();
 						tmp = addrandomcolor(currchar[so], (char*)script2);
 						{
-							pi->color = tmp;
+							pi->setColor( tmp );
 						}
 						openscript(sect);
 						fseek(scpfile, pos, SEEK_SET);
@@ -1338,7 +1333,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			P_ITEM pSt = FindItemBySerial(vecContainer[ci]);
-			if (pSt->id()==id && !pSt->free && pSt->color == color)
+			if (pSt->id() == id && !pSt->free && pSt->color() == color)
 			{
 				if (pSt->amount+nAmount > 65535)	// if it would create an overflow (amount is ushort!),
 					continue;						// let's search for another pile to add to
@@ -1356,7 +1351,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	if(cName!=NULL)
 		pi->name = cName;
 	pi->setId(id);
-	pi->color = color;
+	pi->setColor( color );
 	pi->amount=nAmount;
 	pi->pileable=pile;
 	pi->att=5;
@@ -1436,7 +1431,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					else if (!(strcmp("COLOR",(char*)script1)))
 					{
 						tmp=hex2num(script2);
-						pi->color = tmp;
+						pi->setColor( tmp );
 					}
 				break;
 				
@@ -1989,7 +1984,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 
 		// <color>480</color>
 		else if( TagName == "color" )
-			Item->color = Value.toUShort( NULL, 16 );
+			Item->setColor( Value.toUShort( NULL, 16 ) );
 
 		// <events>a,b,c</events>
 		//else if( TagName == "color" )

@@ -980,8 +980,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					target(s, 0, 1, 0, 237, "What item would you like to Smelt?");
 					return; // Ripper..Smelting items.
 				case 0x0FAB:// dye vat
-					addid1[s] = static_cast<unsigned char>(pi->color>>8);
-					addid2[s] = static_cast<unsigned char>(pi->color%256);
+					addid1[s] = static_cast<unsigned char>(pi->color()>>8);
+					addid2[s] = static_cast<unsigned char>(pi->color()%256);
 					target(s, 0, 1, 0, 32, "Select the clothing to use this on.");
 					return;// dye vat
 				case 0x14F0:// houses

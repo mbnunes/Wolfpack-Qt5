@@ -45,20 +45,22 @@ class cItem : public cUObject
 {
 protected:
 	UI16 id_;
+	UI16 color_;
 
 public:
 	// Getters
 	UI16	id() const { return id_; };
+	UI16	color() const { return color_; };
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
+	void	setColor( UI16 nValue ) { color_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual string objectID();
-	unsigned short color; // Hue
 	unsigned short amount; // Amount of items in pile
 	unsigned short amount2; //Used to track things like number of yards left in a roll of cloth
 	struct						// Attention, this is a bit field
@@ -184,8 +186,6 @@ public:
 	
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
-	
-	void setColor(unsigned short color);
 	
 //	inline unsigned short color()		{return (unsigned short)((color1<<8)+color2);}
 	void MoveTo(int newx, int newy, signed char newz);

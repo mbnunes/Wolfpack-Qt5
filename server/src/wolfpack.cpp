@@ -1265,7 +1265,7 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 						{
 							if( pi->id() == itemid )
 							{
-								if( pi->color == color )
+								if( pi->color() == color )
 									goldCount += pi->amount;
 							}
 						}
@@ -1305,7 +1305,7 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 						{
 							if( pi->id() == itemid )
 							{
-								if( pi->color == color )
+								if( pi->color() == color )
 								{
 									if( total >= pi->amount )
 									{
@@ -1345,7 +1345,7 @@ void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object nu
 		pi = FindItemBySerial(vecContainer[ci]);
 		if(pi->layer==0x10 || pi->layer==0x0B)//beard(0x10) and hair
 		{
-			pi->color = piDye->color;	//Now change the color to the hair dye bottle color!
+			pi->setColor( piDye->color() );	//Now change the color to the hair dye bottle color!
 			RefreshItem(pi);
 		}
 	}
@@ -1839,9 +1839,9 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	{
 		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x52], buffer[s][0x53], static_cast<unsigned short>(buffer[s][0x54]<<8)+buffer[s][0x55],0,0);
 		if(pi == NULL) return;
-		if ( pi->color < 0x044E || pi->color > 0x04AD )
+		if ( pi->color() < 0x044E || pi->color() > 0x04AD )
 		{
-			pi->color = 0x044E;
+			pi->setColor( 0x044E );
 		}
 		pi->SetContSerial(pc->serial);
 		pi->layer=0x0B;
@@ -1851,9 +1851,9 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	{
 		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x56], buffer[s][0x57], static_cast<unsigned short>(buffer[s][0x58]<<8) + buffer[s][0x59],0,0);
 		if(pi == NULL) return;//AntiChrist to preview crashes
-		if ( pi->color < 0x044E || pi->color > 0x04AD )
+		if ( pi->color() < 0x044E || pi->color() > 0x04AD )
 		{
-			pi->color = 0x044E;
+			pi->setColor( 0x044E );
 		}
 		pi->SetContSerial(pc->serial);
 		pi->layer=0x10;
@@ -1901,7 +1901,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		break;
 	}
 	// pant/skirt color -> old client code, random color
-	pi->color = static_cast<unsigned short>(buffer[s][102]<<8) + buffer[s][103];
+	pi->setColor( static_cast<unsigned short>(buffer[s][102]<<8) + buffer[s][103] );
 	pi->SetContSerial(pc->serial);
 	pi->type=0;
 	pi->dye=1;
@@ -1920,7 +1920,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	{
 		pi->setId(0x1517);
 	}
-	pi->color = static_cast<unsigned short>(buffer[s][100]<<8) + buffer[s][101];
+	pi->setColor( static_cast<unsigned short>(buffer[s][100]<<8) + buffer[s][101] );
 
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x05;
@@ -6141,7 +6141,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 		ShortToCharPtr(pi->id(),wearitem+5);
 		wearitem[8]=pi->layer;
 		LongToCharPtr(pi->contserial,wearitem+9);
-		ShortToCharPtr(pi->color, wearitem+13);
+		ShortToCharPtr(pi->color(), wearitem+13);
 		P_CHAR charcont = FindCharBySerial(pi->contserial);
 		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
 		{

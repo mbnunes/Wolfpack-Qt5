@@ -136,7 +136,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype, const int coloring,
 	// Added colormem token here! by Magius(CHE) §
 	if (pi_i != NULL && coloring>-1)
 	{
-		pi_i->color = memcolor;
+		pi_i->setColor( memcolor );
 		RefreshItem(pi_i);
 	}
 	// end addons
@@ -337,7 +337,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						j = makenumber(2);
 						if (pi != NULL)
 						{// AntiChrist
-							if (clr1 != pi->color)
+							if (clr1 != pi->color())
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);
@@ -811,7 +811,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							// Added colormem token here! by Magius(CHE) §
 							if (coloring > -1)
 							{
-								pi_itemnum->color = memcolor;
+								pi_itemnum->setColor( memcolor );
 								RefreshItem(pi_itemnum);
 							}
 							// end addons	
@@ -1145,7 +1145,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								p = pi_needitem;
 							if (p != NULL)
 							{
-								memcolor = p->color;
+								memcolor = p->color();
 								coloring = 1;
 							}
 							else
@@ -1302,7 +1302,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							j = makenumber(2);
 							if (pi_needitem != NULL)
 							{// AntiChrist
-								if (clr1 != pi_needitem->color)
+								if (clr1 != pi_needitem->color())
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -1651,7 +1651,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							j = makenumber(2);
 							if (pi_evti != NULL)
 							{// AntiChrist
-								if (clr1 != pi_evti->color)
+								if (clr1 != pi_evti->color())
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -2536,7 +2536,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							// Added colormem token here! by Magius(CHE) §
 							if (coloring>-1)
 							{
-								pi_c->color = memcolor;
+								pi_c->setColor( memcolor );
 								RefreshItem(pi_c);
 							}
 							// end addons	
@@ -2718,7 +2718,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 								p = pi_needitem;
 							if (p != NULL)
 							{
-								memcolor = p->color;
+								memcolor = p->color();
 								coloring = 1;
 							}
 							else 
@@ -2791,7 +2791,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 								closescript();
 								return;
 							}
-							if (clr1 != pi_needitem->color)
+							if (clr1 != pi_needitem->color())
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);
@@ -2918,7 +2918,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 								closescript();
 								return;
 							}
-							if (clr1 != pi_evti->color)
+							if (clr1 != pi_evti->color())
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);

@@ -656,12 +656,12 @@ void cCommands::DyeItem(int s) // Rehue an item
            	b=((((c1<<8)+c2)&0x4000)>>14)+((((c1<<8)+c2)&0x8000)>>15);	       
 			if (!b)
             {
-              pi->color = static_cast<unsigned short>(c1<<8) + c2;
+              pi->setColor( static_cast<unsigned short>(c1<<8) + c2 );
 			}
 
 			if (((c1<<8)+c2)==17969)
 			{
-				pi->color = static_cast<unsigned short>(c1<<8) + c2;
+				pi->setColor( static_cast<unsigned short>(c1<<8) + c2 );
 			}
 			RefreshItem(pi);//AntiChrist
 			

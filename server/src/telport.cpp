@@ -245,7 +245,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						if (pi_hair != NULL)
 						{
 							x=hex2num(script2);
-							pi_hair->color = x;
+							pi_hair->setColor( x );
 							RefreshItem(pi_hair);//AntiChrist
 							teleport(pc_s);
 						}
@@ -269,7 +269,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						if (pi_beard != NULL)
 						{
 							x=hex2num(script2);
-							pi_beard->color = x;
+							pi_beard->setColor( x );
 							RefreshItem(pi_beard);//AntiChrist
 							teleport(pc_s);
 						}
@@ -541,7 +541,7 @@ void monstergate(P_CHAR pc_s, int x)
 			{
 				if (pRetitem == NULL)
 				{
-					pRetitem->color = hex2num(script2);
+					pRetitem->setColor( hex2num(script2) );
 				}
 			}
 			if (!(strcmp("POISON",(char*)script1))) pc_s->poison=str2num(script2);

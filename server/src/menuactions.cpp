@@ -214,7 +214,7 @@ UI32 consumeResources( P_ITEM Container, UI32 Amount, const vector< UI16 > &Matc
 
 			for( UI08 j = 0; j < MatchingColors.size(); j++ )
 			{
-				if( MatchingColors[ j ] == Item->color )
+				if( MatchingColors[ j ] == Item->color() )
 				{
 					MatchColor = true;
 				}
@@ -313,7 +313,7 @@ UI32 countResources( P_ITEM Container, const vector< UI16 > &MatchingIDs, const 
 
 			for( UI08 j = 0; j < MatchingColors.size(); j++ )
 			{
-				if( MatchingColors[ j ] == Item->color )
+				if( MatchingColors[ j ] == Item->color() )
 				{
 					MatchColor = true;
 				}
