@@ -514,29 +514,32 @@ cCharInfoGump::cCharInfoGump( cChar* pChar, UINT32 page )
 
 			// Give information about the spawnregion
 			addText( 50, 120, tr( "Name:" ), 0x834 );
-			addText( 250, 120, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
+			addInputField( 250, 120, 150, 16,  1, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
 			addText( 50, 140, tr( "Title:" ), 0x834 );
-			addText( 250, 140, QString( "%1" ).arg( pChar->title() ), 0x834 );
+			addInputField( 250, 140, 150, 16,  2, QString( "%1" ).arg( pChar->title() ), 0x834 );
 			addText( 50, 160, tr( "Body:" ), 0x834 );
-			addText( 250, 160, QString( "%1" ).arg( pChar->id() ), 0x834 );
+			addInputField( 250, 160, 150, 16,  3, QString( "%1" ).arg( pChar->id() ), 0x834 );
 			addText( 50, 180, tr( "Skin:" ), 0x834 );
-			addText( 250, 180, QString( "%1" ).arg( pChar->skin() ), 0x834 );
+			addInputField( 250, 180, 150, 16,  4, QString( "%1" ).arg( pChar->skin() ), 0x834 );
 			addText( 50, 200, tr( "Strength:" ), 0x834 );
-			addText( 250, 200, QString( "%1 / %2" ).arg( pChar->st2 ).arg( pChar->st ), 0x834 );
+			addInputField( 250, 200, 150, 16,  5, QString( "%1" ).arg( pChar->st ), 0x834 );
 			addText( 50, 220, tr( "Dexterity:" ), 0x834 );
-			addText( 250, 220, QString( "%1 / %2" ).arg( pChar->decDex() ).arg( pChar->realDex() ), 0x834 );
+			addInputField( 250, 220, 150, 16,  6, QString( "%1" ).arg( pChar->realDex() ), 0x834 );
 			addText( 50, 240, tr( "Intelligence:" ), 0x834 );
-			addText( 250, 240, QString( "%1 / %2" ).arg( pChar->in2 ).arg( pChar->in2 ), 0x834 );
+			addInputField( 250, 240, 150, 16,  7, QString( "%1" ).arg( pChar->in ), 0x834 );
 			addText( 50, 260, tr( "Hitpoints:" ), 0x834 );
-			addText( 250, 260, QString( "%1" ).arg( pChar->hp ), 0x834 );
+			addInputField( 250, 260, 150, 16,  8, QString( "%1" ).arg( pChar->hp ), 0x834 );
 			addText( 50, 280, tr( "Stamina:" ), 0x834 );
-			addText( 250, 280, QString( "%1" ).arg( pChar->stm ), 0x834 );
+			addInputField( 250, 280, 150, 16,  9, QString( "%1" ).arg( pChar->stm ), 0x834 );
 			addText( 50, 300, tr( "Mana:" ), 0x834 );
-			addText( 250, 300, QString( "%1" ).arg( pChar->mn ), 0x834 );
+			addInputField( 250, 300, 150, 16, 10, QString( "%1" ).arg( pChar->mn ), 0x834 );
 
-			// OK button
-			addButton( 50, 340, 0x481, 0x483, 0 ); 
-			addText( 90, 340, tr( "Close" ), 0x834 );
+			// Apply button
+			addButton( 50, 340, 0x481, 0x483, page_ ); 
+			addText( 90, 340, tr( "Apply" ), 0x834 );
+			// Close button
+			addButton( 180, 340, 0x47E, 0x480, 0 ); 
+			addText( 220, 340, tr( "Close" ), 0x834 );
 			// next page
 			addButton( 340, 340, 0x0FA, 0x0FA, page_+1 );
 		}
@@ -551,29 +554,33 @@ cCharInfoGump::cCharInfoGump( cChar* pChar, UINT32 page )
 
 			// Give information about the spawnregion
 			addText( 50, 120, tr( "Spawnregion:" ), 0x834 );
-			addText( 250, 120, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
+			addInputField( 250, 120, 150, 16, 11, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
 			addText( 50, 140, tr( "Karma:" ), 0x834 );
-			addText( 250, 140, QString( "%1" ).arg( pChar->karma ), 0x834 );
+			addInputField( 250, 140, 150, 16, 12, QString( "%1" ).arg( pChar->karma ), 0x834 );
 			addText( 50, 160, tr( "Fame:" ), 0x834 );
-			addText( 250, 160, QString( "%1" ).arg( pChar->fame ), 0x834 );
+			addInputField( 250, 160, 150, 16, 13, QString( "%1" ).arg( pChar->fame ), 0x834 );
 			addText( 50, 180, tr( "Kills:" ), 0x834 );
-			addText( 250, 180, QString( "%1" ).arg( pChar->kills ), 0x834 );
+			addInputField( 250, 180, 150, 16, 14, QString( "%1" ).arg( pChar->kills ), 0x834 );
 			addText( 50, 200, tr( "Deaths:" ), 0x834 );
-			addText( 250, 200, QString( "%1" ).arg( pChar->deaths ), 0x834 );
+			addInputField( 250, 200, 150, 16, 15, QString( "%1" ).arg( pChar->deaths ), 0x834 );
 			addText( 50, 220, tr( "Defense:" ), 0x834 );
-			addText( 250, 220, QString( "%1" ).arg( pChar->def ), 0x834 );
+			addInputField( 250, 220, 150, 16, 16, QString( "%1" ).arg( pChar->def ), 0x834 );
 			addText( 50, 240, tr( "Npc Wander:" ), 0x834 );
-			addText( 250, 240, QString( "%1" ).arg( pChar->npcWander ), 0x834 );
+			addInputField( 250, 240, 150, 16, 17, QString( "%1" ).arg( pChar->npcWander ), 0x834 );
 			addText( 50, 260, tr( "Carve:" ), 0x834 );
-			addText( 250, 260, QString( "%1" ).arg( pChar->carve() ), 0x834 );
+			addInputField( 250, 260, 150, 16, 18, QString( "%1" ).arg( pChar->carve() ), 0x834 );
 			addText( 50, 280, tr( "Loot:" ), 0x834 );
-			addText( 250, 280, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
+			addInputField( 250, 280, 150, 16, 19, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
 			addText( 50, 300, tr( "Hunger:" ), 0x834 );
-			addText( 250, 300, QString( "%1" ).arg( pChar->hunger() ), 0x834 );
+			addInputField( 250, 300, 150, 16, 20, QString( "%1" ).arg( pChar->hunger() ), 0x834 );
 
-			// OK button
-			addButton( 50, 340, 0x481, 0x483, 0 ); 
-			addText( 90, 340, tr( "Close" ), 0x834 );
+			// Apply button
+			addButton( 50, 340, 0x481, 0x483, page_ ); 
+			addText( 90, 340, tr( "Apply" ), 0x834 );
+			// Close button
+			addButton( 180, 340, 0x47E, 0x480, 0 ); 
+			addText( 220, 340, tr( "Close" ), 0x834 );
+
 			// previous page
 			addButton( 320, 340, 0x0FC, 0x0FC, page_-1 );
 		}
@@ -587,6 +594,75 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 	if( char_ )
 	{
+		std::map< UINT16, QString >::iterator it = choice.textentries.begin();
+		while( it != choice.textentries.end() )
+		{
+			switch( it->first )
+			{
+			case 1:
+				char_->name = it->second.latin1();
+				break;
+			case 2:
+				char_->setTitle( it->second );
+				break;
+			case 3:
+				char_->setId( hex2dec( it->second ).toUShort() );
+				break;
+			case 4:
+				char_->setSkin( hex2dec( it->second ).toUShort() );
+				break;
+			case 5:
+				char_->st = hex2dec( it->second ).toShort();
+				break;
+			case 6:
+				char_->setDex( hex2dec( it->second ).toShort() );
+				break;
+			case 7:
+				char_->in = hex2dec( it->second ).toShort();
+				break;
+			case 8:
+				char_->hp = hex2dec( it->second ).toShort();
+				break;
+			case 9:
+				char_->stm = hex2dec( it->second ).toShort();
+				break;
+			case 10:
+				char_->mn = hex2dec( it->second ).toShort();
+				break;
+			case 11:
+				char_->setSpawnregion( it->second );
+				break;
+			case 12:
+				char_->karma = hex2dec( it->second ).toInt();
+				break;
+			case 13:
+				char_->fame = hex2dec( it->second ).toInt();
+				break;
+			case 14:
+				char_->kills = hex2dec( it->second ).toUInt();
+				break;
+			case 15:
+				char_->deaths = hex2dec( it->second ).toUInt();
+				break;
+			case 16:
+				char_->def = hex2dec( it->second ).toUInt();
+				break;
+			case 17:
+				char_->npcWander = hex2dec( it->second ).toUShort();
+				break;
+			case 18:
+				char_->setCarve( it->second );
+				break;
+			case 19:
+				char_->setLootList( it->second );
+				break;
+			case 20:
+				char_->setHunger( hex2dec( it->second ).toInt() );
+				break;
+			}
+			it++;
+		}
+
 		cCharInfoGump* pGump = new cCharInfoGump( char_, choice.button );
 		socket->send( pGump );
 	}

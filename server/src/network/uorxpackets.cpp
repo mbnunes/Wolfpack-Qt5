@@ -136,5 +136,22 @@ gumpChoice_st cUORxGumpResponse::choice()
 {
 	gumpChoice_st choice;
 	choice.button = getInt( 11 );
+	UINT32 numSwitches = getInt( 15 );
+	UINT32 i;
+	for( i = 0; i < numSwitches; i++ )
+	{
+		choice.switches.push_back( getInt( 19 + 4 * i ) );
+	}
+	UINT32 numTextEntries = getInt( 19 + numSwitches );
+	UINT32 offset = 0;
+	for( i = 0; i < numTextEntries; i++ )
+	{
+		UINT16 textLength = getShort( 25 + numSwitches + offset );
+		choice.textentries.insert( 
+			make_pair< UINT16, QString >( getShort( 23 + numSwitches + offset ), getUnicodeString( 27 + numSwitches + offset, textLength * 2 ) ) );
+
+		offset += 4 + textLength * 2;
+	}
+
 	return choice;
 }

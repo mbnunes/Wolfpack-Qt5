@@ -33,6 +33,11 @@
 #ifndef __TYPEDEFS_H__
 #define __TYPEDEFS_H__
 
+// Library includes
+#include "qstring.h"
+#include <vector>
+#include <map>
+
 // Forward Base Classes declaration
 
 class cItem;
@@ -58,7 +63,8 @@ typedef const cChar *		PC_CHAR;
 struct gumpChoice_st 
 {
 	unsigned int button;
-	// TO-DO insert vectors for checkbox information
+	std::vector< unsigned int > switches;
+	std::map< unsigned short, QString > textentries;
 };
 
 #endif
