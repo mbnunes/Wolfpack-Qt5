@@ -23,11 +23,23 @@
 	<item id="efa" type="spellbook">
 		<id>0xefa</id>
 		<type>9</type> <!-- Keep this for now -->
-		<twohanded />
+		<onehanded />
+		<newbied />
 		<decay/>
 		<value>30</value>
 		<category>Professions\Mage\Spellbook (N/S)</category>
 	</item>
+
+	<!-- Runebook -->
+	<item id="22c5">
+		<id>0x22c5</id>
+		<onehanded>
+		<decay />
+		<newbied />
+		<category>Professions\Mage\Runebook </category>
+		<events>runebook</events>
+	</item>
+		
 
 	<!-- Recall Runes -->
 	<item id="1f14">
