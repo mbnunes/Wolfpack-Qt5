@@ -307,7 +307,7 @@ void cGump::Input(int s)
 		case 6:		k = str2num( text );	pj->pos.y = k;		break;	// Y
 		case 7:		k = str2num( text );	pj->pos.z = k;		break;	// Z
 		case 8:		k = str2num( text );	pj->type = k;		break;	 // Type
-		case 9:		k = str2num( text );	pj->itmhand = k;	break;	// Itemhand - added by Xuri
+		case 9:		k = str2num( text );	pj->setItemhand( k );	break;	// Itemhand - added by Xuri
 		case 10:	k = str2num( text );	pj->setLayer( k );		break;	// Layer
 		case 11:	k = str2num( text );	pj->setAmount( k );		break;	// Amount
 		case 12:	k = hex2num( text );	// More
@@ -1129,7 +1129,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Type");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->type);
 		line--; if( line == 0 ) strcpy( (char*)script1,  "ItemHand" );
-		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->itmhand );
+		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->itemhand() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Layer");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->layer, pj->layer);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Amount");

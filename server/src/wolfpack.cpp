@@ -1954,7 +1954,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->spd=50;
 	pi->lodamage=3;
 	pi->hidamage=15;
-	pi->itmhand=1;
+	pi->setItemhand( 1 );
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
 

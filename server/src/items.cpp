@@ -71,7 +71,7 @@ cItem::cItem( cItem &src )
 	this->SetContSerial(src.contserial);
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer_ = this->oldlayer = src.layer_;
-	this->itmhand = src.itmhand;
+	this->itemhand_ = src.itemhand_;
 	this->type = src.type;
 	this->type2 = src.type2;
 	this->offspell = src.offspell;
@@ -440,7 +440,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("color",		color_);
 		archive.read("cont",		contserial);
 		archive.read("layer",		layer_);
-		archive.read("itemhand",	itmhand);
+		archive.read("itemhand",	itemhand_);
 		archive.read("type",		type);
 		archive.read("type2",		type2);
 		archive.read("offspell",	offspell);
@@ -513,7 +513,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("color",		color());
 		archive.write("cont",		contserial);
 		archive.write("layer",		layer_);
-		archive.write("itemhand",	itmhand);
+		archive.write("itemhand",	itemhand_);
 		archive.write("type",		type);
 		archive.write("type2",		type2);
 		archive.write("offspell",	offspell);
@@ -699,7 +699,7 @@ void cItem::Init(bool mkser)
 	this->contserial = INVALID_SERIAL; // Container that this item is found in
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer_ = this->oldlayer = 0; // Layer if equipped on paperdoll
-	this->itmhand=0; // Layer if equipped on paperdoll
+	this->itemhand = 0; // Layer if equipped on paperdoll
 	this->type=0; // For things that do special things on doubleclicking
 	this->type2=0;
 	this->offspell=0;
@@ -1464,7 +1464,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				case 'l':
 					if (!(strcmp("INT", (char*)script1))) pi->in=str2num(script2);
 					else if (!(strcmp("INTADD", (char*)script1))) pi->in2=str2num(script2);
-					else if (!(strcmp("ITEMHAND",(char*)script1))) pi->itmhand=str2num(script2);
+					else if (!(strcmp("ITEMHAND",(char*)script1))) pi->setItemhand( str2num(script2) );
 					else if (!(strcmp("LAYER",(char*)script1))) pi->setLayer( str2num(script2) );
 					else if (!(strcmp("LODAMAGE", (char*)script1))) pi->lodamage=str2num(script2);
 				break;
@@ -2090,7 +2090,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 
 		// <itemhand>2</itemhand>
 		else if( TagName == "itemhand" )
-			Item->itmhand = Value.toInt();
+			Item->setItemhand( Value.toInt() );
 
 		// <requires type="xx">2</requires>
 		else if( TagName == "requires" )

@@ -471,32 +471,32 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
  					sysmessage(s, "You already have an armor equipped!");
 					letsbounce = 1;
 				}
-				else if (pi2->itmhand==1 && pi->itmhand==1)
+				else if (pi2->itemhand()==1 && pi->itemhand()==1)
 				{
 					sysmessage(s,"You already have a weapon equipped!");
 					letsbounce=1;
 				}
-				else if (pi2->itmhand==1 && pi->itmhand==2)
+				else if (pi2->itemhand()==1 && pi->itemhand()==2)
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a weapon equipped!");
 					letsbounce=1;
 				}
-				else if (pi2->itmhand==2 && pi->itmhand==1)
+				else if (pi2->itemhand()==2 && pi->itemhand()==1)
 				{
 					sysmessage(s,"Your hands are both occupied!");
 					letsbounce=1;
 				}
-				else if (pi2->itmhand==2 && pi->itmhand==2)
+				else if (pi2->itemhand()==2 && pi->itemhand()==2)
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a two handed weapon equipped!");
 					letsbounce=1;
 				}
-				else if (pi2->itmhand==2 && pi->itmhand==3)
+				else if (pi2->itemhand()==2 && pi->itemhand()==3)
 				{
 					sysmessage(s,"You cannot equip a shield with a two handed weapon equipped!");
 					letsbounce=1;
 				}
-				else if (pi2->itmhand==3 && pi->itmhand==2)
+				else if (pi2->itemhand()==3 && pi->itemhand()==2)
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a shield equipped!");
 					letsbounce=1;

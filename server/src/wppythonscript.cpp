@@ -500,7 +500,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "z", Item->pos.z )
 	else getIntProperty( "plane", Item->pos.plane )
 	else getIntProperty( "layer", Item->layer() )
-	else getIntProperty( "itemhand", Item->itmhand )
+	else getIntProperty( "itemhand", Item->itemhand() )
 	else getIntProperty( "type", Item->type )
 	else getIntProperty( "type2", Item->type2 )
 	
@@ -619,7 +619,9 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "layer" ) )
 		self->Item->setLayer( PyInt_AS_LONG( value ) );
 	
-	else setIntProperty( "itemhand", Item->itmhand )
+	else if( !strcmp( name, "itemhand" ) )
+		self->Item->setItemhand( PyInt_AS_LONG( value ) );
+
 	else setIntProperty( "type", Item->type )
 	else setIntProperty( "type2", Item->type2 )
 	// CONTAINER!!

@@ -51,6 +51,7 @@ protected:
 	QString name2_;
 	QString name_;
 	SI08 layer_;
+	UI08 itemhand_;
 
 public:
 	// Getters
@@ -61,6 +62,7 @@ public:
 	const QString	&name2()	const { return name2_; };
 	const QString	&name()		const { return name_; };
 	UI08			layer()		const { return layer_; }; // Layer if equipped on paperdoll
+	UI08			itemhand()	const { return itemhand_; };
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -70,6 +72,7 @@ public:
 	void	setName2( const QString nValue ) { name2_ = nValue; };
 	void	setName( const QString nValue ) { name_ = nValue; };
 	void	setLayer( SI08 nValue ) { layer_ = nValue; };
+	void	setItemhand( UI08 nValue ) { itemhand_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -82,7 +85,7 @@ public:
 	} flags;
 	
 	SERIAL contserial;
-	int itmhand; // ITEMHAND system - AntiChrist
+	//int itmhand; // ITEMHAND system - AntiChrist
 	unsigned int type; // For things that do special things on doubleclicking
 	unsigned int type2;
 	
