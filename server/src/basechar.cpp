@@ -3325,6 +3325,14 @@ double cBaseChar::getManaRate()
 		checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
 	}
 
+	if ( !isMeditating() ) {
+		double chance = ( double ) mana() / maxMana();
+		double value = sqrt( skillValue( MEDITATION ) * 0.0005 );
+		chance *= ( 1.0 - value );
+		chance += value;
+		checkSkill( MEDITATION, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
+	}
+
 	double medPoints = QMIN( 13.0, ( intelligence() + skillValue( MEDITATION ) * 0.03 ) * ( skillValue( MEDITATION ) < 1000 ? 0.025 : 0.0275 ) );
 	double focusPoints = skillValue( FOCUS ) * 0.005;
 

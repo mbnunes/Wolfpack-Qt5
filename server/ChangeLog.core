@@ -1,6 +1,7 @@
 Wolfpack ChangeLog
 
 Wolfpack 12.9.13 Beta (CVS)
+	- Fixed meditation skillcheck in mana regeneration code.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error
