@@ -7,14 +7,17 @@
 # Remote Administration Webserver                               #
 #===============================================================#
 
+from wolfpack.consts import *
 from threading import Thread, Event
 import time
 from whrandom import random
 from CGIHTTPServer import CGIHTTPRequestHandler
 from BaseHTTPServer import HTTPServer
+from SocketServer import BaseServer
 import os
 import posixpath
 import urllib
+import atexit
 import sys
 import socket
 import cStringIO
@@ -23,7 +26,27 @@ import web.sessions
 
 # Just override handle_error for nicer error handling
 class Webserver( HTTPServer ):
-    def handle_error(self, request, client_address):
+	def __init__( self, addr, handler ):
+		BaseServer.__init__( self, addr, handler )
+		self.socket = socket.socket( self.address_family, self.socket_type )
+		self.socket.setblocking( 0 )
+		self.server_bind()
+		self.server_activate()
+
+	def handle_request(self):
+		try:
+			request, client_address = self.get_request()
+			request.setblocking( 1 )
+		except socket.error:
+			return
+		if self.verify_request(request, client_address):
+			try:
+				self.process_request(request, client_address)
+			except:
+				self.handle_error(request, client_address)
+				self.close_request(request)
+
+	def handle_error(self, request, client_address):
 		# Ignore Socket Errors && IOErrors
 		if sys.exc_type == socket.error or sys.exc_type == IOError:
 			dummy = cStringIO.StringIO()
@@ -90,29 +113,36 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 class WebserverThread(Thread):
 	def __init__( self, port=2594 ):
 		Thread.__init__( self )
-		self.finished = Event()
 		self.port = port
+		self.stopped = Event()
+		self.httpd = None
 
 	def cancel( self ):
-		self.finished.set()
+		self.stopped.set()
+		self.httpd.server_close()
 
 	def run( self ):
 		# Wait with binding the webserver for 5 Seconds
 		server_address = ( '', self.port )
 		time.sleep( 5 )	
 
+		# Starting up
+		print "Remote Admin running on port %u\n" % self.port
+
 		try:
-			httpd = Webserver( server_address, WebserverHandler )
+			self.httpd = Webserver( server_address, WebserverHandler )
 		except:
-			print "error occured"
+			traceback.print_exc()
+			return
 
-		while not self.finished.isSet():
-			httpd.handle_request()
-			time.sleep( 0.001 )
+		while 1:
+			self.httpd.handle_request()
 
-		self.finished.clear()
+			self.stopped.wait( 0.05 )
+			if self.stopped.isSet():
+				break
 
-		httpd.server_close()
+		print "Shutting down the Remote Admin.\n"
 
 thread = None
 
@@ -121,13 +151,16 @@ def onLoad():
 
 	# Start the Thread
 	global thread
-	thread = WebserverThread( 2594 )
+	thread = WebserverThread( WEBSERVER_THREAD )
 	thread.start()
 
 def onUnload():
 	# Stop the Thread
 	global thread
 	if thread:
+		
 		thread.cancel()
+		time.sleep( 1 )
+		thread.join() # Join with the thread
 
 	web.sessions.clear_sessions()
