@@ -11,79 +11,79 @@
 	<item id="13d6_barbed" inherit="13d6">
 		<barbed_leather_armor />
 		<baseid>13d6</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Gorget</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Gorget</category>
 	</item>
 
 	<item id="1c02_barbed" inherit="1c02">
 		<barbed_leather_armor />
 		<baseid>1c02</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Armor</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Armor</category>
 	</item>
 
 	<item id="1c03_barbed" inherit="1c03">
 		<barbed_leather_armor />
 		<baseid>1c02</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Armor 2</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Armor 2</category>
 	</item>
 
 	<item id="1c0c_barbed" inherit="1c0c">
 		<barbed_leather_armor />
 		<baseid>1c0c</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Bustier</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Bustier</category>
 	</item>
 
 	<item id="1c0d_barbed" inherit="1c0d">
 		<barbed_leather_armor />
 		<baseid>1c0c</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Bustier 2</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Bustier 2</category>
 	</item>
 
 	<item id="13d5_barbed" inherit="13d5">
 		<barbed_leather_armor />
 		<baseid>13d5</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Gloves</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Gloves</category>
 	</item>
 
 	<item id="13dd_barbed" inherit="13dd">
 		<barbed_leather_armor />
 		<baseid>13d5</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Gloves 2</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Gloves 2</category>
 	</item>
 
 	<item id="13da_barbed" inherit="13da">
 		<barbed_leather_armor />
 		<baseid>13da</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Leggings</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Leggings</category>
 	</item>
 
 	<item id="13e1_barbed" inherit="13e1">
 		<barbed_leather_armor />
 		<baseid>13da</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Leggings 2</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Leggings 2</category>
 	</item>
 
 	<item id="13d4_barbed" inherit="13d4">
 		<barbed_leather_armor />
 		<baseid>13d4</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Sleeves</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Sleeves</category>
 	</item>
 
 	<item id="13dc_barbed" inherit="13dc">
 		<barbed_leather_armor />
 		<baseid>13d4</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Sleeves 2</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Sleeves 2</category>
 	</item>
 
 	<item id="13db_barbed" inherit="13db">
 		<barbed_leather_armor />
 		<baseid>13db</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Tunic</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Tunic</category>
 	</item>
 
 	<item id="13e2_barbed" inherit="13e2">
 		<barbed_leather_armor />
 		<baseid>13db</baseid>
-		<category>Armor\Studded Leather Armor\Barbed Leather\Studded Tunic 2</category>
+		<category>Armor\Barbed Leather\Studded Leather Armor\Studded Tunic 2</category>
 	</item>
 
 </definitions>
