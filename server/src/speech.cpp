@@ -70,7 +70,7 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 		return false;
 
 	bool ok;
-	INT32 num = speech.toInt( &ok ); // Generally try to convert it
+	//INT32 num = speech.toInt( &ok ); // Generally try to convert it
 	QString notification;
 
 	switch ( pChar->inputMode() )
