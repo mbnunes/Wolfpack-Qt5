@@ -61,12 +61,13 @@ def onSpeech( listener, speaker, text, keywords ):
           backpack = speaker.getbackpack()
 
           while amount > 0:
-            item = wolfpack.additem( "eed" )
+            item = wolfpack.additem("eed")
             item.amount = min( [ amount, 65535 ] )
-            item.container = backpack
-
-            amount -= min( [ amount, 65535 ] )
-
+            amount -= item.amount
+            
+            if not wolfpack.utilities.tocontainer(item, backpack):
+            	item.update()            
+            
           speaker.soundeffect( 0x37, 0 )
           
       break
