@@ -115,7 +115,6 @@ public:
 	int lodamage; //Minimum Damage weapon inflicts
 	int hidamage; //Maximum damage weapon inflicts
 	int racehate; //Race # that weapon does x2 damage to -Fraz-
-	int wpsk; //The skill needed to use the item
 	signed short hp; //Number of hit points an item has.
 	signed short maxhp; // Max number of hit points an item can have.
 	signed short st; // The strength needed to equip the item
@@ -237,7 +236,7 @@ private:
 	unsigned char PackType(unsigned char id1, unsigned char id2);
 	
 	// Added by DarkStorm
-	void applyItemSection( P_ITEM Item, QString Section );
+	void applyItemSection( P_ITEM Item, const QString &Section );
 
 public:
 	// Added by DarkStorm

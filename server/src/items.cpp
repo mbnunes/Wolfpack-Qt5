@@ -101,7 +101,6 @@ cItem::cItem( cItem &src )
 	this->racehate=src.racehate;
 	this->smelt=src.smelt;
 	this->secureIt = src.secureIt;
-	this->wpsk=src.wpsk;
 	this->hp=src.hp;
 	this->maxhp=src.maxhp;
 	this->st=src.st;
@@ -728,7 +727,6 @@ void cItem::Init(bool mkser)
 	this->racehate=-1; //race hating weapon -Fraz-
 	this->smelt=0; // for smelting items
 	this->secureIt=0; // secured chests
-	this->wpsk=0; //The skill needed to use the item
 	this->hp=0; //Number of hit points an item has.
 	this->maxhp=0; // Max number of hit points an item can have.
 	this->st=0; // The strength needed to equip the item
@@ -1925,13 +1923,35 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 	}		
 }
 
-QString processNode( const QDomElement &Node )
+const QString processNode( const QDomElement &Node )
 {
-	return "Worked";
+	if( Node.nodeName() == "namelist" )
+	{
+		// Get the namelist and select a random name!
+		// ...
+		QString selectedName = Node.text();
+		return selectedName;
+	}
+
+	if( !Node.hasChildNodes() )
+		return Node.text();
+
+	// Process the childnodes
+	QDomNodeList childNodes = Node.childNodes();
+
+	for( int i = 0; i < childNodes.count(); i++ )
+	{
+		if( !childNodes.item( i ).isElement() )
+			continue;
+
+		return processNode( Node );
+	}
+
+	return "";
 }
 
 // Applies a script-section to an item
-void cAllItems::applyItemSection( P_ITEM Item, QString Section )
+void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 {
 	QDomElement *ItemSection = DefManager->getSection( WPDT_ITEM, Section );
 
@@ -2036,13 +2056,25 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 		else if( TagName == "speed" )
 			Item->spd = Value.toLong();
 
-		// <speed>10</speed>
+		// <good>10</good>
 		else if( TagName == "good" )
 			Item->good = Value.toInt();
 
 		// <lightsource>10</lightsource>
 		else if( TagName == "lightsource" )
 			Item->dir = Value.toUShort();
+
+		// <more1>10</more1>
+		else if( TagName == "more1" )
+			Item->more1 = Value.toInt();
+
+		// <more>10</more> <<<<< alias for more1
+		else if( TagName == "more" )
+			Item->more1 = Value.toInt();
+
+		// <more2>10</more2>
+		else if( TagName == "more2" )
+			Item->more2 = Value.toInt();
 
 		// <morex>10</morex>
 		else if( TagName == "morex" )
@@ -2080,15 +2112,52 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 
 		// <decay />
 		// <nodecay />
-#pragma note( "Needs a closer look" )
 		else if( TagName == "decay" )
-			Item->priv &= 0x1F;
+			Item->priv |= 0x01;
 		else if( TagName == "nodecay" )
-			Item->priv |= 0x1F;
+			Item->priv &= 0xFE;
+
+		// <pile />
+		// <nopile />
+		else if( TagName == "pile" )
+			Item->pileable = true;
+
+		else if( TagName == "nopile" )
+			Item->pileable = false;
+
+		// <dispellable />
+		// <notdispellable />
+		else if( TagName == "dispellable" )
+			Item->priv |= 0x04;
+		else if( TagName == "notdispellable" )
+			Item->priv &= 0xFB;
+
+		// <newbie />
+		// <notnewbie />
+		else if( TagName == "newbie" )
+			Item->priv |= 0x04;
+		else if( TagName == "notnewbie" )
+			Item->priv &= 0xFB;
 
 		// <itemhand>2</itemhand>
 		else if( TagName == "itemhand" )
 			Item->setItemhand( Value.toInt() );
+
+		// <restock>2</restock>
+		else if( TagName == "restock" )
+			Item->restock = Value.toInt();
+
+		// <trigger>2</trigger>
+		else if( TagName == "trigger" )
+			Item->trigger = Value.toInt();
+
+		// <triggertype>2</triggertype>
+		else if( TagName == "triggertype" )
+			Item->trigtype = Value.toInt();
+
+		// <smelt>2</smelt>
+		else if( TagName == "smelt" )
+			Item->smelt = Value.toInt();
 
 		// <requires type="xx">2</requires>
 		else if( TagName == "requires" )
@@ -2115,10 +2184,6 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 			Item->visible = 0;
 		else if( TagName == "ownervisible" )
 			Item->visible = 1;
-
-		// <dispellable />
-		else if( TagName == "dispellable" )
-			Item->priv |= 0x04;
 
 		// <modifier type="xx">2</modifier>
 		else if( TagName == "modifier" )
