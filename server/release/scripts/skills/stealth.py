@@ -16,6 +16,19 @@ STEALTH_DELAY = 5000
 # the hiding skill before you can use the stealth skill
 MIN_HIDING = 800
 
+def onWalk(char, direction, sequence):
+	if char.stealthedsteps <= 0:
+		char.removescript('skills.stealth')
+	elif direction & 0x80:
+		if char.socket:
+			char.socket.clilocmessage(500814, "", 0x3b2, 3)
+		char.hidden = False
+		char.stealthedsteps = 0
+		char.removescript('skills.stealth')
+		char.update()
+	
+	return False
+
 def stealth( char, skill ):
 	if char.socket.hastag( 'skill_delay' ):
 		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
@@ -44,6 +57,7 @@ def stealth( char, skill ):
 	if success:
 		char.socket.clilocmessage( 502730, "", 0x3b2, 3 )
 		char.stealthedsteps = int(ceil(char.skill[STEALTH] / 50.0))
+		char.addscript('skills.stealth') # Unhide on run
 	else:
 		char.socket.clilocmessage( 502731, "", 0x3b2, 3 )
 		char.hidden = 0
