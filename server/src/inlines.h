@@ -58,19 +58,6 @@ inline UOXSOCKET calcSocketFromChar(CHARACTER i)
 	return calcSocketFromChar(MAKE_CHAR_REF(i));
 }
 
-inline int calcCharFromSer(unsigned char ser1, unsigned char ser2, unsigned char ser3, unsigned char ser4)
-{
-	int serial;
-
-	serial = calcserial(ser1, ser2, ser3, ser4);
-	return(findbyserial(charsp, serial, 1));
-}
-
-inline int calcCharFromSer(int serial)
-{
-	return(findbyserial(charsp, serial, 1));
-}
-
 inline void SetTimerSec(unsigned long *timer, const short seconds)
 {
 	*timer=seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;

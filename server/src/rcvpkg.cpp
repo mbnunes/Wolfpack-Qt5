@@ -39,14 +39,13 @@
 
 void RcvAttack(P_CLIENT ps)
 {
-	UOXSOCKET s=ps->GetSocket();
+	UOXSOCKET s = ps->GetSocket();
 	CHARACTER cc = ps->GetCurrChar();
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
 	int j;
 
-	int serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
+	SERIAL serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
 	if(serial == INVALID_SERIAL) return;
-//	int i = calcCharFromSer( serial );
 	P_CHAR pc_i = FindCharBySerPtr(&buffer[s][1]);
 	if(pc_i == NULL) return;	//to avoid problems
 	

@@ -180,12 +180,13 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 //
 void cTargets::triggertarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)//Char
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)//Char
 	{
 			//triggerwitem(i,-1,1); is this used also for npcs?!?!
-	} else
+	} 
+	else
 	{//item
 		P_ITEM pi = FindItemBySerial(serial);
 		if(pi != NULL)
@@ -318,10 +319,9 @@ void DyeTarget(int s)
 			SndDyevat(s,pi->serial, pi->id());
 			RefreshItem(pi);
 		}
-		int i=calcCharFromSer(serial);
-		if (i!=-1)
+		P_CHAR pc = FindCharBySerial(serial);
+		if (pc != NULL)
 		{
-			P_CHAR pc = MAKE_CHARREF_LR(i);
 			SndDyevat(s,pc->serial,0x2106);
 		}
 	}
@@ -352,10 +352,9 @@ void DyeTarget(int s)
 			RefreshItem(pi);
 		}
 
-		int i=calcCharFromSer(serial);
-		if (i!=-1)
+		P_CHAR pc = FindCharBySerial(serial);
+		if (pc != NULL)
 		{
-			P_CHAR pc = MAKE_CHARREF_LR(i);
 			body=(pc->id1<<8)+pc->id2;
 			k=(addid1[s]<<8)+addid2[s];
 			if( ( (k>>8) < 0x80 ) && body >= 0x0190 && body <= 0x0193 )
@@ -368,7 +367,7 @@ void DyeTarget(int s)
 			if (k!=0x8000) // 0x8000 also crashes client ...
 			{
 				pc->skin = pc->xskin = k;
-				updatechar(i);
+				updatechar(DEREF_P_CHAR(pc));
 			}
 		}
 	}
@@ -420,37 +419,40 @@ void cTargets::IDtarget(int s)
 //public !!
 void cTargets::XTeleport(int s, int x)
 {
-	int i, serial = INVALID_SERIAL;
+	SERIAL serial = INVALID_SERIAL;
 	P_CHAR pc_currchar = currchar[s];
+	P_CHAR pc = NULL;
 	switch (x)
 	{
 		case 0:
 			serial = LongFromCharPtr(buffer[s] + 7);
-			i = calcCharFromSer(serial);
+			pc = FindCharBySerial(serial);
 			break;
 		case 2:
 			if (perm[makenumber(1)])
 			{
-				i = DEREF_P_CHAR(currchar[makenumber(1)]);
+				pc = currchar[makenumber(1)];
 			}
 			else 
 				return;
 			break;
 		case 3:
-			i = pc_currchar->making;
-			currchar[i]->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
-			teleport(DEREF_P_CHAR(currchar[i]));
+			{
+				UOXSOCKET s = pc_currchar->making;
+				currchar[s]->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+				teleport(DEREF_P_CHAR(currchar[s]));
+			}
 			return;
 		case 5:
 			serial = calcserial(hexnumber(1), hexnumber(2), hexnumber(3), hexnumber(4));
-			i = calcCharFromSer(serial);
+			pc = FindCharBySerial(serial);
 			break;
 	}
 	
-	if (i!=-1)
+	if (pc != NULL)
 	{
-		chars[i].MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
-		updatechar(i);
+		pc->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+		updatechar(DEREF_P_CHAR(pc));
 		return;// Zippy
 	}
 	P_ITEM pi = FindItemBySerial(serial);
@@ -879,12 +881,11 @@ public:
 
 void cTargets::CloseTarget(int s)
 {
-	int j;
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if(i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if(pc != NULL)
 	{
-		j=calcSocketFromChar(i);
+		UOXSOCKET j = calcSocketFromChar(DEREF_P_CHAR(pc));
 		if(j>-1)
 		{
 			sysmessage(s, "Kicking player");
@@ -1048,14 +1049,13 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 
 void cTargets::AllSetTarget(int s)
 {
-	int j, k;
+	int j;
 
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	P_CHAR pc = MAKE_CHARREF_LR(i);
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
 	if(pc != NULL)
 	{
-		k=calcSocketFromChar(DEREF_P_CHAR(pc));
+		UOXSOCKET k = calcSocketFromChar(DEREF_P_CHAR(pc));
 		if (addx[s]<TRUESKILLS)
 		{
 			pc->baseskill[addx[s]]=addy[s];
@@ -1349,14 +1349,10 @@ static void Priv3Target(UOXSOCKET s, P_CHAR pc)
 
 void cTargets::SquelchTarg(int s)//Squelch
 {
-	int p;
-//	int time=uiCurrentTime;
-
-	int serial=LongFromCharPtr(buffer[s]+7);
-	p=calcCharFromSer(serial);
-	if (p!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(p);
 		if(pc->isGM())
 		{
 			sysmessage(s, "You cannot squelch GMs.");
@@ -1366,7 +1362,7 @@ void cTargets::SquelchTarg(int s)//Squelch
 		{
 			pc->squelched=0;
 			sysmessage(s, "Un-squelching...");
-			sysmessage(calcSocketFromChar(p), "You have been unsquelched!");
+			sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)), "You have been unsquelched!");
 			pc->mutetime=-1;
 		}
 		else
@@ -1374,7 +1370,7 @@ void cTargets::SquelchTarg(int s)//Squelch
 			pc->mutetime=-1;
 			pc->squelched=1;
 			sysmessage(s, "Squelching...");
-			sysmessage(calcSocketFromChar(p), "You have been squelched!");
+			sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)), "You have been squelched!");
 			
 			if (addid1[s]!=255 || addid1[s]!=0)
 		
@@ -1874,11 +1870,10 @@ static void AxeTarget(P_CLIENT pC, PKGx6C *pp)
 
 void cTargets::NpcTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		addid1[s]=pc->ser1;
 		addid2[s]=pc->ser2;
 		addid3[s]=pc->ser3;
@@ -1889,11 +1884,10 @@ void cTargets::NpcTarget(int s)
 
 void cTargets::NpcTarget2(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if (pc->isNpc())
 		{
 			pc->ftarg = calcserial(addid1[s], addid2[s], addid3[s], addid4[s]);
@@ -1904,11 +1898,10 @@ void cTargets::NpcTarget2(int s)
 
 void cTargets::NpcRectTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if ((pc->isNpc()))
 		{
 			pc->fx1=addx[s];
@@ -1923,11 +1916,10 @@ void cTargets::NpcRectTarget(int s)
 
 void cTargets::NpcCircleTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if ((pc->isNpc()))
 		{
 			pc->fx1=addx[s];
@@ -1952,11 +1944,10 @@ void cTargets::NpcWanderTarget(int s)
 //taken from 6904t2(5/10/99) - AntiChrist
 void cTargets::NpcAITarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->npcaitype=addx[s];
 		sysmessage(s, "Npc AI changed.");//AntiChrist
 	}
@@ -1964,11 +1955,11 @@ void cTargets::NpcAITarget(int s)
 
 void cTargets::xBankTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		openbank(s, i);
+		openbank(s, DEREF_P_CHAR(pc));
 	}
 }
 
@@ -2092,30 +2083,29 @@ void cTargets::MakeShopTarget(int s)
 
 void cTargets::JailTarget(int s, int c) 
 { 
-	int i, tmpnum = 0, serial; 
+	SERIAL serial; 
+	P_CHAR tmpnum = NULL;
 	
 	int x = 0; 
-	if (c==-1) 
+	if (c == INVALID_SERIAL) 
 	{ 
 		serial = LongFromCharPtr(buffer[s] + 7); 
-		i = calcCharFromSer(serial); 
-		tmpnum = i; 
+		tmpnum = FindCharBySerial(serial); 
 	} 
 	else 
 	{ 
-		i = calcCharFromSer(c); 
-		tmpnum = i; 
+		tmpnum = FindCharBySerial(c); 
 	} 
-	if (tmpnum==-1)
+	if (tmpnum == NULL)
 		return; // lb 
-	P_CHAR pc = MAKE_CHARREF_LR(tmpnum); 
+	P_CHAR pc = tmpnum; 
 	
 	if (pc->cell>0) 
 	{ 
 		sysmessage(s, "That player is already in jail!"); 
 		return; 
 	} 
-	
+	int i;
 	for (i = 1; i < 11; i++) 
 	{ 
 		if (!jails[i].occupied) 
@@ -2130,7 +2120,7 @@ void cTargets::JailTarget(int s, int c)
 			pc->jailsecs = addmitem[s]; // Additem array used for jail time here.. 
 			addmitem[s] = 0; // clear it 
 			pc->jailtimer = uiCurrentTime +(MY_CLOCKS_PER_SEC*pc->jailsecs); 
-			teleport(tmpnum); 
+			teleport(DEREF_P_CHAR(tmpnum)); 
 			UOXSOCKET prisoner = calcSocketFromChar(tmpnum); 
 			jails[i].occupied = 1; 
 			sysmessage(prisoner, "You are jailed !"); 
@@ -2172,16 +2162,15 @@ void cTargets::FollowTarget(int s)
 
 void cTargets::TransferTarget(int s)
 {
-	int char1, char2;
 	char t[120];
 
-	char1=calcCharFromSer(addx[s]);
-	char2=calcCharFromSer(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]);
-	P_CHAR pc1 = MAKE_CHARREF_LR(char1);
-	P_CHAR pc2 = MAKE_CHARREF_LR(char2);
+	P_CHAR pc1 = FindCharBySerial(addx[s]);
+	P_CHAR pc2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
+	if ( pc1 == NULL || pc2 == NULL)
+		return;
 
 	sprintf(t,"* %s will now take %s as his master *",pc1->name,pc2->name);
-	npctalkall(char1,t,0);
+	npctalkall(DEREF_P_CHAR(pc1), t, 0);
 
 	if (pc1->ownserial != -1) 
 		pc1->SetOwnSerial(-1);
@@ -2194,13 +2183,12 @@ void cTargets::TransferTarget(int s)
 
 void cTargets::BuyShopTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	P_CHAR pc = MAKE_CHARREF_LR(i);
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 		if ((pc->serial==serial))
 		{
-			Targ->BuyShop(s, i);
+			Targ->BuyShop(s, DEREF_P_CHAR(pc));
 			return;
 		}
 		sysmessage(s, "Target shopkeeper not found...");
@@ -2247,11 +2235,10 @@ int cTargets::BuyShop(int s, int c)
 // 
 void cTargets::permHideTarget(int s) 
 { 
-	int serial = LongFromCharPtr(buffer[s] + 7); 
-	int i = calcCharFromSer(serial); 
-	if (i!=-1) 
+	SERIAL serial = LongFromCharPtr(buffer[s] + 7); 
+	P_CHAR pc = FindCharBySerial(serial); 
+	if (pc != NULL) 
 	{ 
-		P_CHAR pc = MAKE_CHARREF_LR(i); 
 		if (pc->hidden == 1) 
 		{ 
 			if (pc == currchar[s])
@@ -2260,11 +2247,11 @@ void cTargets::permHideTarget(int s)
 				sysmessage(s, "He is already hiding."); 
 			return; 
 		} 
-		pc->priv2 = pc->priv2 | 8; 
+		pc->priv2 |= 8; 
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
-		soundeffect2(i, 0x02, 0x08); 
-		tempeffect(i, i, 33, 1, 0, 0); 
+		soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x08); 
+		tempeffect(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), 33, 1, 0, 0); 
 		return; 
 	} 
 } 
@@ -2279,11 +2266,10 @@ void cTargets::permHideTarget(int s)
 // 
 void cTargets::unHideTarget(int s) 
 { 
-	int serial = LongFromCharPtr(buffer[s] + 7); 
-	int i = calcCharFromSer(serial); 
-	if (i!=-1) 
+	SERIAL serial = LongFromCharPtr(buffer[s] + 7); 
+	P_CHAR pc = FindCharBySerial(serial); 
+	if (pc != NULL) 
 	{ 
-		P_CHAR pc = MAKE_CHARREF_LR(i); 
 		if (pc->hidden == 0) 
 		{ 
 			if (pc == currchar[s])
@@ -2298,8 +2284,8 @@ void cTargets::unHideTarget(int s)
 		// which takes the char coords. 
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
-		soundeffect2(i, 0x02, 0x08); 
-		tempeffect(i, i, 34, 1, 0, 0); 
+		soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x08); 
+		tempeffect(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), 34, 1, 0, 0); 
 		return; 
 	} 
 } 
@@ -2310,11 +2296,10 @@ void cTargets::unHideTarget(int s)
 
 void cTargets::SetSpeechTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if (pc->isPlayer())
 		{
 			sysmessage(s,"You can only change speech for npcs.");
@@ -2326,65 +2311,60 @@ void cTargets::SetSpeechTarget(int s)
 
 static void SetSpAttackTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->spattack=tempint[s];
 	}
 }
 
 void cTargets::SetSpaDelayTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->spadelay=tempint[s];
 	}
 }
 
 void cTargets::SetPoisonTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->poison=tempint[s];
 	}
 }
 
 void cTargets::SetPoisonedTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->poisoned=tempint[s];
 		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
-		impowncreate(calcSocketFromChar(i),i,1); //Lb, sends the green bar !
+		impowncreate(calcSocketFromChar(DEREF_P_CHAR(pc)),DEREF_P_CHAR(pc),1); //Lb, sends the green bar !
 	}
 }
 
 void cTargets::FullStatsTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
-		soundeffect2(i, 0x01, 0xF2);
-		staticeffect(i, 0x37, 0x6A, 0x09, 0x06);
+		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
+		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
 		pc->mn=pc->in;
 		pc->hp=pc->st;
 		pc->stm=pc->effDex();
-		updatestats(i, 0);
-		updatestats(i, 1);
-		updatestats(i, 2);
+		updatestats(DEREF_P_CHAR(pc), 0);
+		updatestats(DEREF_P_CHAR(pc), 1);
+		updatestats(DEREF_P_CHAR(pc), 2);
 		return;
 	}
 	sysmessage(s,"That is not a person.");
@@ -2392,11 +2372,10 @@ void cTargets::FullStatsTarget(int s)
 
 void cTargets::SetAdvObjTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->advobj=tempint[s];
 	}
 }
@@ -2408,11 +2387,10 @@ void cTargets::SetAdvObjTarget(int s)
 //
 void cTargets::CanTrainTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if (pc->isPlayer())
 		{
 			sysmessage(s, "Only NPC's may train.");

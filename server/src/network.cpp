@@ -1640,7 +1640,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						if( ( pc_currchar->murdererSer > 0 ) && SrvParms->bountysactive ) 
 						{
 							sprintf( (char*)temp, "To place a bounty on %s, use the command BOUNTY <Amount>.",
-						        chars[calcCharFromSer(pc_currchar->murdererSer)].name );
+						        FindCharBySerial(pc_currchar->murdererSer)->name );
 							sysmessage( s,(char*) temp );
 						}
 						sysmessage(s, "You are now a ghost.");

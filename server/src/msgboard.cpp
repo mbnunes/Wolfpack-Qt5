@@ -1461,8 +1461,6 @@ void MsgBoardRemovePost( int s )
 	// Find the post and mark it for deletion
 	// thereby removing it from the bulletin boards list
 	
-	// int s = calcSerFromChar( serial );
-	
 	FILE *file = NULL;
 	// 50 chars for prefix and 4 for the extension plus the ending NULL
 	char fileName[256] = {0,};
@@ -2052,7 +2050,8 @@ int MsgBoardPostQuest( int serial, int questType )
 					// LOCATION in X, Y coords
 				case 'l':
 					{
-						sprintf( flagPos, "%d, %d", (chars[calcCharFromSer( serial )].pos.x), (chars[calcCharFromSer( serial )].pos.y) );
+						P_CHAR pc = FindCharBySerial(serial);
+						sprintf( flagPos, "%d, %d", pc->pos.x, pc->pos.y );
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2060,7 +2059,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// NPC title
 				case 't':
 					{
-						strcpy( flagPos, (chars[calcCharFromSer( serial )].title) );
+						strcpy( flagPos, FindCharBySerial( serial )->title );
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2068,7 +2067,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// Destination Region Name
 				case 'r':
 					{
-						strcpy( flagPos, region[chars[calcCharFromSer( serial )].questDestRegion].name ); 
+						strcpy( flagPos, region[FindCharBySerial( serial )->questDestRegion].name ); 
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2076,7 +2075,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// Region Name
 				case 'R':
 					{
-						strcpy( flagPos, region[chars[calcCharFromSer( serial )].region].name ); 
+						strcpy( flagPos, region[FindCharBySerial( serial )->region].name ); 
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2084,9 +2083,9 @@ int MsgBoardPostQuest( int serial, int questType )
 					// Gold amount
 				case 'g':
 					{
-            char szBounty[32] = "";
+						char szBounty[32] = "";
 
-	    sprintf(szBounty,"%d",chars[calcCharFromSer( serial )].questBountyReward) ;
+						sprintf(szBounty,"%d", FindCharBySerial( serial )->questBountyReward) ;
 						strcpy( flagPos, szBounty ); 
 						strcat( (char*)temp, tempString );
 						break;
