@@ -93,6 +93,7 @@ public:
 	P_CHAR player( void ) const;
 	P_ITEM dragging() const;
 	AccountRecord* account( void ) const { return _account; }
+	void setAccount( AccountRecord* data ) { _account = data; }
 
 
 	Q_UINT32 rxBytes( void ) const;

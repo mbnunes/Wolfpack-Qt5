@@ -325,6 +325,9 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 */
 void cUOSocket::disconnect( void )
 {
+	if( _account )
+		_account->setInUse( false );
+
 	cNetwork::instance()->netIo()->flush( _socket );
 	_socket->close();
 }
@@ -364,7 +367,10 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 	if( !_account && !authenticate( packet->username(), packet->password() ) )
 		disconnect();
 	else
+	{
 		sendCharList();
+		_account->setInUse( true );
+	}
 }
 
 /*!

@@ -591,6 +591,10 @@ SOURCE=.\resource.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\resources.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\serbinfile.h
 # End Source File
 # Begin Source File

@@ -65,6 +65,7 @@ private:
 	QDateTime blockUntil;
 	bool blocked_;
 	int attempts_;
+	bool inUse_;
 
 public:	
 	AccountRecord();
@@ -78,6 +79,7 @@ public:
 	bool authorized( const QString& action, const QString& value ) const;
 	bool addCharacter( cChar* );
 	bool removeCharacter( cChar* );
+	bool inUse() const;
 	
 	bool isBlocked() const;
 	void resetLoginAttempts() { attempts_ = 0; };
@@ -92,6 +94,7 @@ public:
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
 	void refreshAcl();
+	void setInUse( bool data );
 		
 	void Serialize( ISerialization& );
 	QString	objectID( void ) const;
@@ -183,6 +186,16 @@ inline QDateTime AccountRecord::lastLogin() const
 inline void AccountRecord::setLastLogin( const QDateTime& d )
 {
 	lastLogin_ = d;
+}
+
+inline bool AccountRecord::inUse() const
+{
+	return inUse_;
+}
+
+inline void AccountRecord::setInUse( bool data )
+{
+	inUse_ = data;
 }
 
 #endif // __ACCOUNTS_H__

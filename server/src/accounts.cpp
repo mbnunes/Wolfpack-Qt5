@@ -45,6 +45,7 @@ AccountRecord::AccountRecord()
 	aclName_ = QString();
 	acl_ = 0; // Null it out
 	blocked_ = false;
+	inUse_ = false;
 }
 
 void AccountRecord::Serialize( ISerialization& archive )
@@ -162,12 +163,7 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 			return 0;
 		}
 
-		bool inUse = false;
-		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock && !inUse; mSock = cNetwork::instance()->next())
-			if( mSock->account() == it.data() )
-				inUse = true;
-
-		if( inUse )
+		if( it.data()->inUse() )
 		{
 			*error = AlreadyInUse;
 			return 0;
@@ -177,7 +173,7 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 		if (it.data()->password() == password)
 		{
 			it.data()->setLastLogin( QDateTime::currentDateTime() );
-			it.data()->resetLoginAttempts();		
+			it.data()->resetLoginAttempts();
 			return it.data();
 		}
 		else
@@ -238,6 +234,7 @@ void cAccounts::load()
 void cAccounts::reload()
 {
 	QMap< SERIAL, QString > characcnames;
+	QStringList sockaccnames;
 
 	AllCharsIterator iterChars;
 	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
@@ -248,6 +245,16 @@ void cAccounts::reload()
 			characcnames.insert( pc->serial, pc->account()->login() );
 		}
 	}
+
+	cUOSocket* mSock = NULL;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->account() )
+			sockaccnames.push_back( mSock->account()->login() );
+		else
+			sockaccnames.push_back( QString((char*)0) );
+	}
+
 	clear();
 	load();
 
@@ -259,6 +266,15 @@ void cAccounts::reload()
 			pc->setAccount( getRecord( it.data() ), false );
 		++it;
 	}
+
+	QStringList::const_iterator sit = sockaccnames.begin();
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( !(*sit).isNull() )
+			mSock->setAccount( getRecord( (*sit) ) );
+		++sit;
+	}
+	
 }
 
 AccountRecord* cAccounts::createAccount( const QString& login, const QString& password )

@@ -266,6 +266,7 @@ public:
 	std::vector< cMakeMenu* >	subMenus()		{ return submenus_; }
 	std::vector< cMakeAction* > actions()		{ return actions_; }
 	QString						name()			{ return name_; }
+	QString						link()			{ return link_; }
 	cMakeMenu*					prevMenu()		{ return prev_; }
 
 	// Setters
@@ -296,6 +297,7 @@ public:
 
 private:
 	QString						name_;
+	QString						link_;
 
 	cMakeMenu*					prev_;
 	std::vector< cMakeMenu* >	submenus_;

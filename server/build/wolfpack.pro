@@ -203,4 +203,5 @@ INTERFACES	=
 TRANSLATIONS    = \
                   languages/wolfpack_pt-BR.ts \
                   languages/wolfpack_it.ts \
-                  languages/wolfpack_nl.ts
+                  languages/wolfpack_nl.ts \
+                  languages/wolfpack_ge.ts

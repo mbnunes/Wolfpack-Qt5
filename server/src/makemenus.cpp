@@ -616,9 +616,20 @@ void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
 	pSection->execute( socket );
 }
 
+
+// cross linking will lead to an infinite loop and stack overflow
+// we avoid this by adding a special attribute for the menu tags
+// instead of the inherit attributes: link
 cMakeMenu::cMakeMenu( const QDomElement &Tag, cMakeMenu* previous )
 {
 	name_ = Tag.attribute( "id" );
+	link_ = (char*)0;
+	if( Tag.hasAttribute( "link" ) )
+	{
+		link_ = Tag.attribute( "link" );
+		QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "link" ) );
+		applyDefinition( *DefSection );
+	}
 	if( Tag.hasAttribute( "inherit" ) )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "inherit" ) );
@@ -634,7 +645,9 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 	QString TagName = Tag.nodeName();
 	QString Value = getNodeValue( Tag );
 
-	if( TagName == "menu" )
+	bool recurse = link_.isNull();
+
+	if( TagName == "menu" && recurse )
 	{
 		cMakeMenu* pMakeMenu = new cMakeMenu( Tag, this );
 
@@ -642,7 +655,7 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 			submenus_.push_back( pMakeMenu );
 	}
 
-	else if( TagName == "action" )
+	else if( TagName == "action" && recurse )
 	{
 		cMakeAction* pMakeAction = new cMakeAction( Tag, this );
 		actions_.push_back( pMakeAction );
@@ -654,12 +667,26 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 
 cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notices )
 {
+	prev_ = menu->prevMenu();
+	// link attribute:
+	if( !menu->link().isNull() )
+	{
+		cMakeMenu* pMenu = cAllMakeMenus::getInstance()->getMenu( menu->link() );
+		if( pMenu )
+			menu = pMenu;
+		else
+		{
+			pMenu = menu->prevMenu();
+			if( pMenu )
+				menu = menu->prevMenu();
+		}
+	}
+
 	QString htmlmask = "<basefont color=\"#FFFFFF\">%1";
 	QString htmlmaskcenter = "<basefont color=\"#FFFFFF\"><div align=\"center\">%1</div>";
 
 	action_ = NULL;
 	menu_ = menu;
-	prev_ = menu->prevMenu();
 
 	setX( 50 );
 	setY( 50 );
@@ -700,7 +727,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 	addHtmlGump( 305, 385, 150, 18, htmlmask.arg( tr("MAKE LAST") ) );
 
 	// PREVIOUS MENU button, return value: -1
-	if( menu_->prevMenu() )
+	if( prev_ )
 	{
 		addButton( 15, 362, 0xFAE, 0xFB0, -1 );
 		addHtmlGump( 50, 365, 150, 18, htmlmask.arg( tr("PREVIOUS MENU") ) );
