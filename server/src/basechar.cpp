@@ -2960,6 +2960,8 @@ bool cBaseChar::kill( cUObject* source )
 
 	playDeathSound();
 
+	onDeath( source, corpse );
+
 	if ( npc )
 	{
 		remove();
@@ -2970,8 +2972,6 @@ bool cBaseChar::kill( cUObject* source )
 		death.setDead( true );
 		player->socket()->send( &death );
 	}
-
-	onDeath( source, corpse );
 
 	if ( player )
 	{
