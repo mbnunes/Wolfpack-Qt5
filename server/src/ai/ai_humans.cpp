@@ -63,34 +63,11 @@ void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 	{
 		if( comm.contains( tr(" BUY") ) )
 		{
-			P_ITEM pContA = m_npc->GetItemOnLayer( cBaseChar::BuyRestockContainer );
-			P_ITEM pContB = m_npc->GetItemOnLayer( cBaseChar::BuyNoRestockContainer );
-
-			m_npc->turnTo( pTalker );
-
-			if( !pContA && !pContB )
-			{
-				m_npc->talk( tr( "Sorry but i have no goods to sell" ) );
-				return;
-			}
-
-			m_npc->talk( tr( "Take a look at my wares!" ) );
-			pTalker->socket()->sendBuyWindow( m_npc );
+			m_npc->vendorBuy( pTalker );
 		}
 		else if( comm.contains( tr(" SELL") ) )
 		{
-			P_ITEM pContC = m_npc->GetItemOnLayer( cBaseChar::SellContainer );
-
-			m_npc->turnTo( pTalker );
-
-			if( !pContC )
-			{
-				m_npc->talk( tr( "Sorry, I cannot use any of your wares!" ) );
-				return;
-			}
-
-			m_npc->talk( tr( "This could be of interest!" ) );
-			pTalker->socket()->sendSellWindow( m_npc, pTalker );
+			m_npc->vendorSell( pTalker );
 		}
 	}
 }

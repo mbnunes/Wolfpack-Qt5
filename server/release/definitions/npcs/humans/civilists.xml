@@ -72,14 +72,14 @@
 	<npc id="vendor_male">
 		<inherit>base_male</inherit>
 		<ai>Human_Vendor</ai>
-		<bindmenu>train_menu</bindmenu>
+		<bindmenu>vendor_menu,train_menu</bindmenu>
 		<events>trainmenu</events>
 		<invulnerable />
 	</npc>
 	<npc id="vendor_female">
 		<inherit>base_female</inherit>
 		<ai>Human_Vendor</ai>
-		<bindmenu>train_menu</bindmenu>
+		<bindmenu>vendor_menu,train_menu</bindmenu>
 		<events>trainmenu</events>
 		<invulnerable />
 	</npc>

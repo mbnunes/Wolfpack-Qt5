@@ -1299,6 +1299,38 @@ void cNPC::awardFame( short amount )
 	}
 }
 
+void cNPC::vendorBuy( P_PLAYER player )
+{
+	P_ITEM pContA = GetItemOnLayer( cBaseChar::BuyRestockContainer );
+	P_ITEM pContB = GetItemOnLayer( cBaseChar::BuyNoRestockContainer );
+
+	if ( player->isDead() )
+		return;
+
+	if( !pContA && !pContB )
+	{
+		talk( tr( "Sorry but i have no goods to sell" ) );
+		return;
+	}
+	
+	talk( 500186, 0, 0, false, saycolor(), player->socket() ); // Greetings.  Have a look around.
+	player->socket()->sendBuyWindow( this );
+}
+
+void cNPC::vendorSell( P_PLAYER player )
+{
+	P_ITEM pContC = GetItemOnLayer( cBaseChar::SellContainer );
+	
+	if( !pContC )
+	{
+		talk( tr( "You have nothing I would be interested in." ), 0, 0, false, player->socket() );
+		return;
+	}
+	
+	talk( tr( "This could be of interest!" ), 0, 0, false, player->socket() );
+	player->socket()->sendSellWindow( this, player );
+}
+
 void cNPC::log( eLogLevel loglevel, const QString &string )
 {
 	// NPC's usually don't have sockets

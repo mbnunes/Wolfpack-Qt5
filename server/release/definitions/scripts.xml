@@ -98,6 +98,7 @@
 	<script>bankermenu</script>
 	<script>trainmenu</script>
 	<script>paperdollmenu</script>
+	<script>vendormenu</script>
 
 	<!-- Speech Scripts -->
 	<script>speech.pets</script>

@@ -59,6 +59,12 @@
 		<option tag="49" msgid="6048" checkvisible="true" checkenabled="true" /> <!-- Remove Trap -->
 	</contextmenu>
 
+	<contextmenu id="vendor_menu">
+		<events>vendormenu</events>
+		<option tag="1" msgid="6103" />
+		<option tag="2" msgid="6104" />
+	</contextmenu>
+
 	<contextmenu id="banker_menu">
 	    <events>bankermenu</events>
 		<option tag="1" msgid="6105"/>

@@ -105,6 +105,8 @@ public:
 	void log( const QString &string );
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
+	void vendorBuy( P_PLAYER player );
+	void vendorSell( P_PLAYER player );
 	virtual bool isInnocent();
 
 	// other public methods
