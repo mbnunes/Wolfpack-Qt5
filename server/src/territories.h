@@ -106,6 +106,14 @@ public:
 	{
 		return flags_ & 0x0400;
 	}
+	bool isNoGuardMessage( void ) const
+	{
+		return flags_ & 0x0800;
+	}
+	bool isNoEnterMessage( void ) const
+	{
+		return flags_ & 0x1000;
+	}
 	QString guardOwner( void ) const
 	{
 		return guardowner_;
@@ -200,6 +208,20 @@ private:
 			flags_ |= 0x0400;
 		else
 			flags_ &= ~0x0400;
+	}
+	void setNoGuardMessage( bool data )
+	{
+		if ( data )
+			flags_ |= 0x0800;
+		else
+			flags_ &= ~0x0800;
+	}
+	void setNoEnterMessage( bool data )
+	{
+		if ( data )
+			flags_ |= 0x1000;
+		else
+			flags_ &= ~0x1000;
 	}
 
 	virtual void processNode( const cElement* Tag );

@@ -120,11 +120,15 @@ void cTerritory::processNode( const cElement* Tag )
 
 	// <guardowner>text</guardowner>
 	else if ( TagName == "guardowner" )
-		this->guardowner_ = Value;
+		if ( Value == "the town" )
+			this->guardowner_ = "";
+		else
+			this->guardowner_ = Value;
 
 	// <midilist>MIDI_COMBAT</midilist>
 	else if ( TagName == "midilist" )
 		this->midilist_ = Value;
+
 	else if ( TagName == "flags" )
 	{
 		flags_ = 0;
@@ -155,6 +159,10 @@ void cTerritory::processNode( const cElement* Tag )
 				setCave( true );
 			else if ( childNode->name() == "nomusic" )
 				setNoMusic( true );
+			else if ( childNode->name() == "noguardmessage" )
+				setNoGuardMessage( true );
+			else if ( childNode->name() == "noentermessage" )
+				setNoEnterMessage( true );
 		}
 	}
 
@@ -386,27 +394,45 @@ void cTerritories::check( P_CHAR pc )
 		PyObject* args = Py_BuildValue( "(NNN)", PyGetCharObject( pc ), PyGetRegionObject( lastRegion ), PyGetRegionObject( currRegion ) );
 		if ( !cPythonScript::callChainedEventHandler( EVENT_CHANGEREGION, pc->getEvents(), args ) && socket )
 		{
-			if ( lastRegion && !lastRegion->name().isEmpty() )
+			if ( lastRegion && !lastRegion->name().isEmpty() && !lastRegion->isNoEnterMessage() )
 				socket->sysMessage( tr( "You have left %1." ).arg( lastRegion->name() ) );
 
-			if ( currRegion && !currRegion->name().isEmpty() )
+			if ( currRegion && !currRegion->name().isEmpty() && !currRegion->isNoEnterMessage() )
 				socket->sysMessage( tr( "You have entered %1." ).arg( currRegion->name() ) );
 
 			if ( ( currRegion->isGuarded() != lastRegion->isGuarded() ) || ( currRegion->isGuarded() && ( currRegion->guardOwner() != lastRegion->guardOwner() ) ) )
 			{
-				if ( currRegion->isGuarded() )
+				/* Guarded Setting Changes */
+				if ( currRegion->isGuarded() != lastRegion->isGuarded() )
+				{
+					if ( lastRegion->isGuarded() && !lastRegion->isNoGuardMessage() )
+					{
+						if ( lastRegion->guardOwner().isEmpty() )
+							socket->clilocMessage( 500113 ); // You have left the protection of the town guards.
+						else
+							socket->sysMessage( tr( "You have left the protection of %1 guards." ).arg( lastRegion->guardOwner() ) );
+					}
+					if ( currRegion->isGuarded() && !currRegion->isNoGuardMessage() )
+					{
+						if ( currRegion->guardOwner().isEmpty() )
+							socket->clilocMessage( 500112 ); // You are now under the protection of the town guards
+						else
+							socket->sysMessage( tr( "You are now under the protection of %1 guards." ).arg( currRegion->guardOwner() ) );
+					}
+				}
+			}
+			/* Remain Guarded */
+			if ( currRegion->isGuarded() == lastRegion->isGuarded() )
+			{
+				/* Only show if you haven't gotten a message before.
+					Or, only show if the guard owner changes.
+				 */
+				if ( ( !currRegion->isNoGuardMessage() && !lastRegion->isNoGuardMessage() ) && ( currRegion->guardOwner() != lastRegion->guardOwner() ) )
 				{
 					if ( currRegion->guardOwner().isEmpty() )
 						socket->clilocMessage( 500112 ); // You are now under the protection of the town guards
 					else
-						socket->sysMessage( currRegion->guardOwner() );
-				}
-				else
-				{
-					if ( lastRegion->guardOwner().isEmpty() )
-						socket->clilocMessage( 500113 ); // You have left the protection of the town guards.
-					else
-						socket->sysMessage( lastRegion->guardOwner() );
+						socket->sysMessage( tr( "You are now under the protection of %1 guards." ).arg( currRegion->guardOwner() ) );
 				}
 			}
 		}

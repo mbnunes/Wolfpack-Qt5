@@ -72,7 +72,7 @@ static PyMethodDef wpRegionMethods[] =
 static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 {
 	/*
-		\rproperty region.parent This property represents the parent region of this region. If there is no parent region this 
+		\rproperty region.parent This property represents the parent region of this region. If there is no parent region this
 		property contains None, otherwise another region object for the parent region.
 	*/
 	if ( !strcmp( name, "parent" ) )
@@ -177,6 +177,16 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "nomusic" ) )
 		return PyInt_FromLong( self->pRegion->isNoMusic() ? 1 : 0 );
+	/*
+		\rproperty region.noguardmessage This boolean flag indicates that no guard message should show when entering this region..
+	*/
+	else if ( !strcmp( name, "noguardmessage" ) )
+		return PyInt_FromLong( self->pRegion->isNoGuardMessage() ? 1 : 0 );
+	/*
+		\rproperty region.noentermessage This boolean flag indicates that no entrance message should show when entering this region.
+	*/
+	else if ( !strcmp( name, "noentermessage" ) )
+		return PyInt_FromLong( self->pRegion->isNoEnterMessage() ? 1 : 0 );
 
 	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }
