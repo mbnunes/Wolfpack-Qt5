@@ -44,6 +44,7 @@ def cmdWho( socket, command, argstring ):
 	# Pages to create, (( socketcount / 10) + 1 )
 	# Player list increases by 22 pixels
 	maxpages = (worldsocketcount + 9) / 10
+
 	page = 0
 	serialcount = 0
 	while page <= maxpages:
@@ -55,17 +56,24 @@ def cmdWho( socket, command, argstring ):
 		if page > 1:
 			gump.addPageButton( 240, 320, 0x0FC, 0x0FC, page - 1 )
 		upby = 22
-		skip = page * 10
+		skip = (page - 1) * 10
 		skipped = 0
-		for serial in wholist[:]:
+		for serial in wholist:
+			# Skip the first X players
 			if skipped < skip:
 				skipped += 1
 				continue
 			
 			if not serial:
 				break
+		
 			player = wolfpack.findchar( serial )
+		
 			if not player or not player.account or not player.socket:
+				continue
+
+			# Skip invisible gms with a higher rank
+			if player.invisible and player.rank > socket.player.rank:
 				continue
 
 			# serialcount + 10 for callback, we will -10 there and look at wholist.
@@ -74,7 +82,7 @@ def cmdWho( socket, command, argstring ):
 			gump.addText( 240, 40 + upby, unicode( "%s" % player.socket.address ), 0x834 )
 			upby += 22
 			serialcount += 1
-			if serialcount == ((page * 10) - 1):
+			if serialcount >= 10:
 				break
 
 	gump.setArgs( [ wholist ] )

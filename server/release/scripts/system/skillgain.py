@@ -135,7 +135,7 @@ def gainskill(char, skill, totalskill, totalcap):
 					totalskill -= points
 
 					if DEBUG_SKILLS == 1:
-						char.log(LOG_TRACE, 'Character [%x] lost %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, SKILLS[i][SKILL_NAME], char.skill[i] / 10.0))
+						char.log(LOG_TRACE, 'Character [%x] lost %.01f%% of %s [%.01f%%].\n' % (char.serial, points, SKILLS[i][SKILL_NAME], char.skill[i] / 10.0))
 
 					if char.socket:
 						char.socket.updateskill(i)
@@ -148,7 +148,7 @@ def gainskill(char, skill, totalskill, totalcap):
 			char.skill[skill] += int(points * 10)
 			totalskill += points
 			if DEBUG_SKILLS == 1:
-				char.log(LOG_TRACE, 'Character [%x] gained %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, info[SKILL_NAME], char.skill[skill] / 10.0))
+				char.log(LOG_TRACE, 'Character [%x] gained %.01f%% of %s [%.01f%%].\n' % (char.serial, points, info[SKILL_NAME], char.skill[skill] / 10.0))
 
 			if char.socket:
 				char.socket.updateskill(skill)
