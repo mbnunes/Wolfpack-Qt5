@@ -1,0 +1,37 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<npc id="mapmaker_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="ef3"><amount>40</amount></item> <!-- Empty Scrool -->
+				<item id="mapmakers_pen"><amount>20</amount></item> <!-- Mapmaker's Pen -->
+				<item id="14ec"><amount>20</amount></item> <!-- Blank Map -->
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A mapmaker vendor -->
+	<npc id="mapmaker_male">
+		<inherit>vendor_male</inherit>
+		<title context="Vendor Male Titles">the Mapmaker</title>
+		<cartography><random min="900" max="1000" /></cartography>
+		<category>Vendors\MapMaker (Male)</category>
+		<inherit id="mapmaker_inventory" />
+	</npc>
+	
+	<npc id="mapmaker_female">
+		<inherit>vendor_female</inherit>
+		<title context="Vendor Female Titles">the Mapmaker</title>
+		<cartography><random min="900" max="1000" /></cartography>
+		<category>Vendors\MapMaker (Female)</category>
+		<inherit id="mapmaker_inventory" />
+	</npc>
+
+</definitions>
