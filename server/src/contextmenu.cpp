@@ -52,7 +52,7 @@ void cContextMenu::processNode( const cElement* Tag )
 		ushort tag = Tag->getAttribute( "tag" ).toUShort();
 		ushort color = Tag->getAttribute( "color" ).toUShort( &ok );
 		if ( !ok )
-			color = 0x7FE0; // Default
+			color = 0; // Default
 		bool checkenabled = Tag->getAttribute( "checkenabled", "false" ).lower() == "true";
 		bool checkvisible = Tag->getAttribute( "checkvisible", "false" ).lower() == "true";
 		entries_.push_back( new cContextMenuEntry( msgid, tag, color, checkvisible, checkenabled ) );

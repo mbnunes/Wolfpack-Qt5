@@ -1458,6 +1458,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
 
 	contextMenu_.clear();
 	unsigned int i = 0;
+	unsigned int totalCount = 0;
 	for ( ; menuIt != bindMenus.end(); ++menuIt )
 	{
 		cContextMenu* menu = ContextMenus::instance()->getMenu( *menuIt );
@@ -1480,9 +1481,10 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
 				if ( !menu->onCheckEnabled( this->player(), clicked, entryCount ) )
 					enabled = false;
 			menuPacket.addEntry( i, ( *it )->cliloc(), enabled ? ( *it )->flags() : ( *it )->flags() | 0x0001, ( *it )->color() );
+			totalCount++;
 		}
 	}
-	if ( i ) // Won't send empty menus
+	if ( i && totalCount ) // Won't send empty menus
 		send( &menuPacket );
 }
 
@@ -3097,6 +3099,21 @@ void cUOSocket::handleChat( cUOPacket* packet )
 
 bool cUOSocket::useItem( P_ITEM item )
 {
+	P_ITEM outmostItem = item->getOutmostItem();
+
+	cMulti *multi = outmostItem->multi();
+
+	// Check security if using items within a multi
+	if (multi && multi->canHandleEvent(EVENT_CHECKSECURITY)) {
+		PyObject *args = Py_BuildValue("(NNN)", _player->getPyObject(), multi->getPyObject(), outmostItem->getPyObject());
+		bool result = multi->callEventHandler(EVENT_CHECKSECURITY, args);
+		Py_DECREF(args);
+
+		if (result) {
+			return false; // Access Denied
+		}
+	}
+
 	if (item->type() != 1 && !item->corpse()) {
 		if ( !_player->isGM() && _player->objectDelay() >= Server::instance()->time() )
 		{
@@ -3157,16 +3174,6 @@ bool cUOSocket::useItem( P_ITEM item )
 
 		if (owner && owner != _player) {
 			log(LOG_NOTICE, tr("Looking into corpse of player '%1' ('%2', 0x%3)\n").arg(owner->name()).arg(owner->account() ? owner->account()->login() : QString("unknown")).arg(owner->serial(), 0, 16));
-		}
-	}
-
-	// Secure containers
-	if ( item->isLockedDown() && item->secured() )
-	{
-		if ( !_player->owns( item ) && !_player->isGM() )
-		{
-			sysMessage( tr( "That is a secured chest!" ) );
-			return true;
 		}
 	}
 

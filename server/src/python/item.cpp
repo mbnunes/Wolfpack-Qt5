@@ -747,26 +747,6 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 	return PyInt_FromLong( self->pItem->content().size() );
 }
 
-// If we are in a multi, return the multi object for it
-// otherwise pynone
-/*
-	\method item.multi
-	\description Checks if the item is a multi object,
-	\return Returns true or false if a multi.
-*/
-static PyObject* wpItem_multi( wpItem* self, PyObject* args )
-{
-	Q_UNUSED( args );
-	/*
-	if( self->pItem->free )
-	{
-		Py_RETURN_NONE;
-	}
-	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) )
-	*/
-	Py_RETURN_NONE;
-}
-
 /*
 	\method item.lightning
 	\description Zaps the object with a lightning bolt!
@@ -1212,7 +1192,6 @@ static PyMethodDef wpItemMethods[] =
 { "getoutmostchar",		( getattrofunc ) wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
 { "getoutmostitem",		( getattrofunc ) wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
 { "getname",			( getattrofunc ) wpItem_getname, METH_VARARGS, "Get item name." },
-{ "multi",				( getattrofunc ) wpItem_multi,	METH_VARARGS, 0 },
 { "lightning",			( getattrofunc ) wpItem_lightning, METH_VARARGS, 0 },
 { "resendtooltip",		( getattrofunc ) wpItem_resendtooltip, METH_VARARGS, 0 },
 { "dupe",				( getattrofunc ) wpItem_dupe, METH_VARARGS, 0 },

@@ -546,6 +546,17 @@ It's triggered for the item, then for the npc and then for the global hook.
 */
 "onResurrect",
 
+/*
+\event onCheckSecurity
+\param player The player who is seeking access to an item.
+\param multi The multi the object or the object is in.
+\param item The item the player is seeking access to.
+\condition Triggered when a player tries to use an item that is within a multi, tries to drop an item into a container that is within a multi or tries to grab
+	an item that is in a container that is in a multi.
+\notes Return True to deny access to the item.
+*/
+"onCheckSecurity",
+
 0
 };
 

@@ -59,6 +59,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fixed command processing with command char . and body 0x3db.
 	- Added AI Monster_Mage.
 	- Hitpoints are now unsigned.
+	- Empty context menus are no longer send to the client.
+	- Added the onCheckSecurity event for housing.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

@@ -31,6 +31,7 @@
 #include "sectors.h"
 #include "serverconfig.h"
 #include "skills.h"
+#include "multi.h"
 #include "muls/maps.h"
 #include "network/network.h"
 #include "network/uosocket.h"
@@ -79,6 +80,21 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 		return;
 	}
 
+	P_ITEM outmostCont = pItem->getOutmostItem();
+
+	cMulti *multi = outmostCont->multi();
+	// Check security if using items within a multi
+	if (multi && multi->canHandleEvent(EVENT_CHECKSECURITY)) {
+		PyObject *args = Py_BuildValue("(NNN)", pChar->getPyObject(), multi->getPyObject(), outmostCont->getPyObject());
+		bool result = multi->callEventHandler(EVENT_CHECKSECURITY, args);
+		Py_DECREF(args);
+
+		if (result) {
+			socket->bounceItem( pItem, BR_NO_REASON );
+			return; // Access Denied
+		}
+	}
+
 	if ( pItem->onPickup( pChar ) )
 		return;
 
@@ -115,8 +131,6 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 		bounceItem( socket, pItem, true );
 		return;
 	}*/
-
-	P_ITEM outmostCont = pItem->getOutmostItem();
 
 	// If the top-most container ( thats important ) is a corpse
 	// and looting is a crime, flag the character criminal.
@@ -648,6 +662,20 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		socket->send( &bounce );
 		pItem->remove();
 		return;
+	}
+
+	P_ITEM outmostCont = pCont->getOutmostItem();
+	cMulti *multi = outmostCont->multi();
+	// Check security if using items within a multi
+	if (multi && multi->canHandleEvent(EVENT_CHECKSECURITY)) {
+		PyObject *args = Py_BuildValue("(NNN)", pChar->getPyObject(), multi->getPyObject(), outmostCont->getPyObject());
+		bool result = multi->callEventHandler(EVENT_CHECKSECURITY, args);
+		Py_DECREF(args);
+
+		if (result) {
+			socket->bounceItem( socket->dragging(), BR_NO_REASON );
+			return; // Access Denied
+		}
 	}
 
 	if ( pItem->onDropOnItem( pCont ) )
