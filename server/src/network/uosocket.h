@@ -146,6 +146,7 @@ public:
 	void poll();
 	void soundEffect( UINT16 soundId, cUObject *source = NULL ); 
 	void attachTarget( cTargetRequest *request );
+	void attachTarget( cTargetRequest *request, UINT16 multiid );
 	void resendWorld( bool clean = true );
 	void resync();
 	void updateStamina( P_CHAR pChar = NULL );

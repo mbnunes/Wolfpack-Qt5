@@ -71,7 +71,7 @@ protected:
 	SERIAL	deedserial_;
 	SERIAL	senderserial_;
 public:
-	cBuildMultiTarget( const QString &multisection, const SERIAL &senderserial, const SERIAL &deedserial ) { multisection_ = multisection; senderserial_ = senderserial; deedserial_ = deedserial; };
+	cBuildMultiTarget( const QString &multisection, SERIAL senderserial, SERIAL deedserial ) { multisection_ = multisection; senderserial_ = senderserial; deedserial_ = deedserial; };
 
 	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
 };

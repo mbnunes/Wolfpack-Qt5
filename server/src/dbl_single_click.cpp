@@ -1038,7 +1038,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 								childNode = childNode.nextSibling();
 							}
 							if( houseid != 0 )
-								attachPlaceRequest( s, new cBuildMultiTarget( pi->tags.get( "multisection" ).toString() , currchar[s]->serial, pi->serial ), houseid - 0x4000 );
+								socket->attachTarget( new cBuildMultiTarget( pi->tags.get( "multisection" ).toString() , pc_currchar->serial, pi->serial ), houseid );
 						}
 					}
 					return;// deeds

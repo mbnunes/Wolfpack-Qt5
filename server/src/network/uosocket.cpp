@@ -1279,6 +1279,25 @@ void cUOSocket::attachTarget( cTargetRequest *request )
 	send( &target );
 }
 
+void cUOSocket::attachTarget( cTargetRequest *request, UINT16 multiid )
+{
+	if( multiid < 0x4000 )
+		return;
+
+	if( targetRequest )
+	{
+		targetRequest->timedout( this );
+		delete targetRequest;
+	}
+
+	targetRequest = request;
+
+	cUOTxPlace target;
+	target.setTargSerial( 1 );
+	target.setModelID( 0x4000 - multiid );
+	send( &target );
+}
+
 /*!
   This method handles cUORxTarget packet types.
   \sa cUORxTarget

@@ -687,6 +687,15 @@ public:
 	void setTargSerial( UINT32 data ) { setInt( 2, data ); }
 };
 
+// 0x99 Place
+class cUOTxPlace: public cUOPacket
+{
+public:
+	cUOTxPlace(): cUOPacket( 0x99, 26 ) { rawPacket[1] = 0x01; }
+	void setTargSerial( UINT32 data ) { setInt( 2, data ); }
+	void setModelID( UINT16 data ) { setShort( 18, data ); }
+};
+
 // 0x54 SoundEffect
 class cUOTxSoundEffect: public cUOPacket
 {
