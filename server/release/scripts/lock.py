@@ -30,6 +30,7 @@ def gump_response(char, args, response):
 
     # Set the lock id
     item.settag('lock', response.text[1])
+    item.resendtooltip()
 
     char.socket.sysmessage('Added the lock to the item.')
 
@@ -48,6 +49,8 @@ def gump_response(char, args, response):
     elif item.hastag('locked'):
       item.deltag('locked')
 
+    item.resendtooltip()
+
     char.socket.sysmessage('Modified the lock of this item.')
 
   # Remove lock
@@ -60,6 +63,7 @@ def gump_response(char, args, response):
     while 'lock' in events:
       events.remove('lock')
     item.events = events
+    item.resendtooltip()
 
     char.socket.sysmessage('The lock has been removed from the item.')
 

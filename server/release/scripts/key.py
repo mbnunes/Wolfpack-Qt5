@@ -30,7 +30,7 @@ def gump_response(char, args, response):
       key.deltag('lock')
       char.socket.sysmessage('You erase the lock information from the key.')    
 
-  key.update()
+  key.resendtooltip()
 
 def rename_key(char, key):
   
@@ -126,6 +126,7 @@ def copy_response(char, args, target):
   # Tinkering check (15%-30%, 25% chance of loosing the key on failure)
   if char.checkskill(TINKERING, 150, 300):
     key.settag('lock',target.item.gettag('lock'))
+    key.resendtooltip()
     char.socket.clilocmessage(501676)    
   else:
     char.socket.clilocmessage(501677)
