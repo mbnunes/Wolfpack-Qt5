@@ -365,8 +365,10 @@ int main( int argc, char *argv[] )
 	Console::instance()->send( "\n" );
 
 	// Try to load several data files
+#if !defined(_DEBUG)
 	try
 	{
+#endif
 		Console::instance()->send( "Loading skills...\n" );
 		Skills->load();
 
@@ -408,6 +410,7 @@ int main( int argc, char *argv[] )
 		MapObjects::instance()->addMap( 3, 2560, 2048 );
 
 		Console::instance()->send( "\n" );
+#if !defined(_DEBUG)
 	}
 	catch( wpException &exception )
 	{
@@ -419,7 +422,7 @@ int main( int argc, char *argv[] )
 		Console::instance()->log( LOG_ERROR, "Unknown error while loading data files.\n" );
 		return 1;
 	}
-
+#endif
 
 	SetGlobalVars();
 
