@@ -152,9 +152,9 @@ def hack_logs( char, target, tool, resource ):
 	# Let him hack
 	char.action( 0xd )
 	char.soundeffect( 0x13e )
-	wolfpack.addtimer( 2000, "weapons.blades.chop_tree", [char, pos] )
-	wolfpack.addtimer( 3500, "weapons.blades.chop_tree", [char, pos] )
-	wolfpack.addtimer( 4000, "weapons.blades.successlumberjacking", [char, pos, resource, amount, tool, resname, woodtable ] )
+	wolfpack.addtimer( 2000, "skills.lumberjacking.chop_tree", [char, pos] )
+	wolfpack.addtimer( 3500, "skills.lumberjacking.chop_tree", [char, pos] )
+	wolfpack.addtimer( 4000, "skills.lumberjacking.successlumberjacking", [char, pos, resource, amount, tool, resname, woodtable ] )
 	return
 
 # HACK KINDLINGS
@@ -212,7 +212,7 @@ def successlumberjacking( time, args ):
 		return OOPS
 	else:
 		# Skill Check against LUMBERJACKING
-		if not char.checkskill(resource, LUMBERJACKING, reqskill, 1200):
+		if not char.checkskill( LUMBERJACKING, reqskill, 1200 ):
 			char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
 			success = 0
 			return OOPS
