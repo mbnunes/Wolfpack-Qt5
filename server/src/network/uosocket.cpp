@@ -1230,6 +1230,7 @@ void cUOSocket::resendPlayer( bool quick )
 	// Resend our equipment
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( _player );
+	drawChar.setHighlight(_player->notority(_player));
 	send( &drawChar );
 
 	cUOTxDrawPlayer drawPlayer;
