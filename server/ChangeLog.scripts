@@ -54,6 +54,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Made .move work correctly on players again.
 		- Nuke also works from bottom right to top left now.
 		- Fix for guildstone if guild has more than 4 members.
+		- You no longer keep your beard when polymorphing into a human female.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:
