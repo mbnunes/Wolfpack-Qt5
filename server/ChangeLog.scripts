@@ -64,6 +64,7 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Adjusted timers in several skills to be item/char.addtimer.
 		- Improved/Fixed pet control functionality through word commands.
 		- Fixed a bug where equipment didn't update stats if double clicked to equip.
+		- Implemented a new page system.
 	* Misc. Changes:
 		- Experimental Mac OSX Support
 	* Known Issues, Bugs, and Missing Features:
