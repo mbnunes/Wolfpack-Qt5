@@ -457,6 +457,57 @@ public:
 };
 
 
+// Evaluate Inteligence
+class cSkIntEval: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pc = FindCharBySerial( target->serial() );
+		P_CHAR pc_currchar = socket->player();
+		if(pc == NULL || pc_currchar == NULL) 
+			return;
+		
+		if (pc == pc_currchar)
+		{ 
+			socket->sysMessage( tr("You cannot analyze yourself!") ); 
+			return; 
+		}
+		
+		
+		// blackwind distance fix 
+		if( pc->pos.distance(pc_currchar->pos) >= 10 ) 
+		{ 
+			socket->sysMessage( tr("You need to be closer to find out") ); 
+			return; 
+		} 
+		
+		if (!Skills->CheckSkill(pc_currchar,EVALUATINGINTEL, 0, 1000)) 
+		{
+			socket->sysMessage( tr("You are not certain..") );
+			return;
+		}
+		if ((pc->in == 0)) 
+			socket->sysMessage( tr("It looks smarter than a rock, but dumber than a piece of wood.") );
+		else
+		{
+			if		(pc->in <= 10)	socket->sysMessage( tr("That person looks slightly less intelligent than a rock.") );
+			else if (pc->in <= 20)	socket->sysMessage( tr("That person looks fairly stupid.") );
+			else if (pc->in <= 30)	socket->sysMessage( tr("That person looks not the brightest.") );
+			else if (pc->in <= 40)	socket->sysMessage( tr("That person looks about average.") );
+			else if (pc->in <= 50)	socket->sysMessage( tr("That person looks moderately intelligent.") );
+			else if (pc->in <= 60)	socket->sysMessage( tr("That person looks very intelligent.") );
+			else if (pc->in <= 70)	socket->sysMessage( tr("That person looks extremely intelligent.") );
+			else if (pc->in <= 80)	socket->sysMessage( tr("That person looks extraordinarily intelligent.") );
+			else if (pc->in <= 90)	socket->sysMessage( tr("That person looks like a formidable intellect, well beyond the ordinary.") );
+			else if (pc->in <= 99)	socket->sysMessage( tr("That person looks like a definite genius.") );
+			else if (pc->in >=100)  socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
+		}
+	}
+};
+
+
+
 //////////////////////////
 // Function:	CalcRank
 // History:		24 Agoust 1999 created by Magius(CHE)
@@ -1857,7 +1908,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		break;
 	case EVALUATINGINTEL:
 		message = "What would you like to evaluate?";
-		//target(s, 0, 1, 0, 41, );
+		targetRequest = new cSkIntEval;
 		break;
 	case TAMING:
 		message = "Tame which animal?";
