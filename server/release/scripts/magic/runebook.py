@@ -72,6 +72,7 @@ def onDropOnItem( book, item ):
 			# insert rune - is runebook a container ?
 			wolfpack.utilities.tocontainer( item, book )
 			item.update()
+			char.soundeffect(0x42)
 			return True
 		
 		# Recall Scrolls for recharging
@@ -84,7 +85,7 @@ def onDropOnItem( book, item ):
 					charges = item.amount
 					maxcharges = book.gettag('maxcharges') - book.gettag('charges')
 					
-					if maxcharges > 0:		
+					if maxcharges > 0:					
 						charges = min(charges, maxcharges)		
 						book.settag('charges', book.gettag('charges') + charges)
 						
@@ -95,6 +96,10 @@ def onDropOnItem( book, item ):
 							item.amount -= charges
 							item.update()
 							item.resendtooltip()						
+							
+						char.soundeffect(0x249)
+					else:
+						char.socket.clilocmessage(502410)
 			except:
 				pass
 	
@@ -131,11 +136,13 @@ def droprune( char, book, runenumber ):
 			rune.update()
 			book.settag( "rune %i" % runenumber, -1 )
 			book.update()
+			
+			char.socket.clilocmessage(502421)			
 			return True
 		#elif rune and rune.container != book.serial:
 		#	book.settag( "rune %i" % runenumber, -1 )
 		#	book.update()
-		#	return True
+		#	return True		
 	return False
 
 def rmdelay( self, args ):
