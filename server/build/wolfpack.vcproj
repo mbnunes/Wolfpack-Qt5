@@ -167,10 +167,10 @@
 				AdditionalIncludeDirectories="sqlite;STLPort\stlport;msvcrt\include;qt;C:\MySQL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER;MYSQL_DRIVER"
 				StringPooling="TRUE"
-				MinimalRebuild="FALSE"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
-				StructMemberAlignment="3"
+				StructMemberAlignment="0"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
 				EnableEnhancedInstructionSet="0"
@@ -178,7 +178,7 @@
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				BrowseInformation="1"
-				WarningLevel="0"
+				WarningLevel="1"
 				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="3"/>
 			<Tool

@@ -2341,37 +2341,46 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		player->socket()->send( &damage );
 	}
 
-	// There is a 33% chance that blood is created on hit by phsical means
+    // There is a 33% chance that blood is created on hit by phsical means
 	if ( type == DAMAGE_PHYSICAL && !RandomNum( 0, 2 ) )
 	{
-		P_ITEM blood = 0;
+		int bloodColor = 0;
 
-		// If more than 50% of the maximum healthpoints has been dealt as damage
-		// we display a big puddle of blood
-		if ( amount >= maxHitpoints_ * 0.50 )
-		{
-			blood = cItem::createFromList( "BIG_BLOOD_PUDDLES" );
-
-			// Otherwise we display a medium puddle of blood if the damage is greater
-			// than 25% of the maximum healthpoints
-		}
-		else if ( amount >= maxHitpoints_ * 0.35 )
-		{
-			blood = cItem::createFromList( "MEDIUM_BLOOD_PUDDLES" );
-
-			// at last we only display a small stain of blood if the damage has been
-			// greater than 10% of the maximum hitpoints
-		}
-		else if ( amount >= maxHitpoints_ * 0.20 )
-		{
-			blood = cItem::createFromList( "SMALL_BLOOD_PUDDLES" );
+		if (basedef_) {
+			bloodColor = (int)basedef_->getIntProperty("bloodcolor", 0);
 		}
 
-		if ( blood )
-		{
-			blood->moveTo( pos_ ); // Move it to the feet of the victim
-			blood->setNoDecay( false ); // Override the nodecay tag in the definitions
-			blood->update(); // Send it to all sockets in range
+		if (bloodColor != -1) {
+			P_ITEM blood = 0;
+
+			// If more than 50% of the maximum healthpoints has been dealt as damage
+			// we display a big puddle of blood
+			if ( amount >= maxHitpoints_ * 0.50 )
+			{
+				blood = cItem::createFromList( "BIG_BLOOD_PUDDLES" );
+
+				// Otherwise we display a medium puddle of blood if the damage is greater
+				// than 25% of the maximum healthpoints
+			}
+			else if ( amount >= maxHitpoints_ * 0.35 )
+			{
+				blood = cItem::createFromList( "MEDIUM_BLOOD_PUDDLES" );
+
+				// at last we only display a small stain of blood if the damage has been
+				// greater than 10% of the maximum hitpoints
+			}
+			else if ( amount >= maxHitpoints_ * 0.20 )
+			{
+				blood = cItem::createFromList( "SMALL_BLOOD_PUDDLES" );
+			}
+
+			if ( blood )		
+			{
+				blood->setColor(bloodColor);
+				blood->setNoDecay( false ); // Override the nodecay tag in the definitions
+				blood->moveTo( pos_ ); // Move it to the feet of the victim
+				blood->update(); // Send it to all sockets in range
+			}
 		}
 	}
 
