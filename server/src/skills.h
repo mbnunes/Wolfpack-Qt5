@@ -116,7 +116,6 @@ public:
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
-	void CreatePotion(P_PLAYER pc, char type, char sub, P_ITEM pi_mortar);
 	void TinkerAxel(int s);
 	void TinkerAwg(int s);
 	void TinkerClock(int s);

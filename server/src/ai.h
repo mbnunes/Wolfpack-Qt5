@@ -93,7 +93,7 @@ public:
 	virtual ~AbstractAI() {} // virtual destructor.
 
 	// some events that can be triggered from outside
-	virtual void onSpeechInput( P_PLAYER pTalker, const QString &comm ) {}
+	virtual void onSpeechInput( P_PLAYER pTalker, const QString &comm ) { Q_UNUSED(pTalker); Q_UNUSED(comm); }
 
 	// this method is called, when the npc ai should be checked
 	virtual void check();

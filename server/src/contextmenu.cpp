@@ -164,6 +164,7 @@ const cConMenuOptions* cAllConMenus::getMenuOptions( const QString& bindmenu, co
 
 const cConMenu* cAllConMenus::getMenu( const QString& bindmenu, const QString& acl ) const
 {
+	Q_UNUSED(acl);
 	QMap< QString, cConMenu >::const_iterator it( menus_.find( bindmenu ) );
 	if ( it != menus_.end() )
 		return &it.data();

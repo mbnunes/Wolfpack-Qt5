@@ -96,6 +96,8 @@ bool cLoginEncryption::init( unsigned int seed, const char *buffer, unsigned int
 */
 void cLoginEncryption::serverEncrypt( char *buffer, unsigned int length )
 {
+	Q_UNUSED(buffer);
+	Q_UNUSED(length);
 	return; // No Server->Client Encryption done sever-side
 }
 

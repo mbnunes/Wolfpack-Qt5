@@ -439,6 +439,7 @@ PyObject* wpMulti_additem( wpMulti* self, PyObject* args )
  */
 PyObject* wpMulti_chars( wpMulti* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
 	QValueList< SERIAL > chars = self->pMulti->chars();
@@ -459,6 +460,7 @@ PyObject* wpMulti_chars( wpMulti* self, PyObject* args )
  */
 PyObject* wpMulti_items( wpMulti* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
 	QValueList< SERIAL > items = self->pMulti->items();
@@ -479,6 +481,7 @@ PyObject* wpMulti_items( wpMulti* self, PyObject* args )
  */
 PyObject* wpMulti_friends( wpMulti* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
 	std::vector< SERIAL > friends = self->pMulti->friends();
@@ -499,6 +502,7 @@ PyObject* wpMulti_friends( wpMulti* self, PyObject* args )
  */
 PyObject* wpMulti_bans( wpMulti* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
 	std::vector< SERIAL > bans = self->pMulti->bans();

@@ -644,12 +644,6 @@ void EraseGuild(int guildnumber)
 	*/
 }
 
-
-static void RemoveShields(P_CHAR pc)
-{
-
-}
-
 // guilderasemember() Wipes all guild related data from a player
 void cGuildStone::removeMember(P_CHAR pc)
 {

@@ -628,6 +628,7 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pVendor, con
 void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 {
 	Q_UNUSED(socket);
+	Q_UNUSED(msg);
 	// Not inside a multi
 	if( pPlayer->multis() == INVALID_SERIAL )
 		return; 

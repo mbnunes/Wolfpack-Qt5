@@ -680,6 +680,7 @@ PyObject* wpItem_setadv( wpItem* self, PyObject* args )
 
 PyObject* wpItem_spellscount( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 

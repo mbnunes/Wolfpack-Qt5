@@ -607,6 +607,7 @@ PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 */
 PyObject *wpSocket_resendstatus( wpSocket *self, PyObject *args )
 {
+	Q_UNUSED(args);
 	self->pSock->sendStatWindow();
 	return PyTrue;
 }

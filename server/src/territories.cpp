@@ -276,7 +276,7 @@ bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
 
 void cAllTerritories::load( void )
 {
-	UI32 starttime = getNormalizedTime();
+//	UI32 starttime = getNormalizedTime();
 	QStringList DefSections = DefManager->getSections( WPDT_REGION );
 
 	if( DefSections.isEmpty() )

@@ -146,7 +146,7 @@ cAsyncNetIOPrivate::cAsyncNetIOPrivate()
 
 cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
 {
-	for ( int i = 0; i < packets->size(); ++i )
+	for ( uint i = 0; i < packets->size(); ++i )
 	{
 		QMutexLocker lock( &packetsMutex );
 		delete packets->front();

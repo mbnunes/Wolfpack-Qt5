@@ -104,7 +104,7 @@ public:
 	virtual bool	isboat()		{ return false; }
 	virtual UINT32	revision() { return 0; }
 
-	virtual void	addCHTile( UINT16 model, Coord_cl pos) {}
+	virtual void	addCHTile( UINT16 model, Coord_cl pos) { Q_UNUSED(model); Q_UNUSED(pos); }
 	virtual void	clearTiles( void ) {}
 	virtual void	sendCH( cUOSocket* socket ) {}
 

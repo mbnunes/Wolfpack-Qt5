@@ -42,54 +42,6 @@
 #include "npc.h"
 #include "ai.h"
 
-static QStringList getFlagNames( const tile_st &tile )
-{
-#define FLAG_STUB( a, b, c ) if( tile.a & b ) flags.push_back( tr( c ) )
-	QStringList flags;
-
-	// Flag 1
-	FLAG_STUB( flag1, 0x01, "background" );
-	FLAG_STUB( flag1, 0x02, "weapon" );
-	FLAG_STUB( flag1, 0x04, "transparent" );
-	FLAG_STUB( flag1, 0x08, "translucent" );
-	FLAG_STUB( flag1, 0x10, "wall" );
-	FLAG_STUB( flag1, 0x20, "damaging" );
-	FLAG_STUB( flag1, 0x40, "impassable" );
-	FLAG_STUB( flag1, 0x80, "wet" );
-
-	// Flag 2
-	//FLAG_STUB( flag2, 0x01, "unknown1" ); 
-	FLAG_STUB( flag2, 0x02, "surface" );
-	FLAG_STUB( flag2, 0x04, "stairs" );
-	FLAG_STUB( flag2, 0x08, "stackable" );
-	FLAG_STUB( flag2, 0x10, "window" );
-	FLAG_STUB( flag2, 0x20, "no shoot" );
-	FLAG_STUB( flag2, 0x40, "a" );
-	FLAG_STUB( flag2, 0x80, "an" );
-
-	// Flag 3
-	FLAG_STUB( flag3, 0x01, "internal" ); 
-	FLAG_STUB( flag3, 0x02, "foliage" );
-	FLAG_STUB( flag3, 0x04, "partial hue" );
-	//FLAG_STUB( flag3, 0x08, "unknown2" );
-	FLAG_STUB( flag3, 0x10, "map" );
-	FLAG_STUB( flag3, 0x20, "container" );
-	FLAG_STUB( flag3, 0x40, "wearable" );
-	FLAG_STUB( flag3, 0x80, "lightsource" );
-
-	// Flag 4
-	FLAG_STUB( flag4, 0x01, "animation" ); 
-	FLAG_STUB( flag4, 0x02, "no diagonal" );
-	//FLAG_STUB( flag4, 0x04, "unknown3" );
-	FLAG_STUB( flag4, 0x08, "armor" );
-	FLAG_STUB( flag4, 0x10, "roof" );
-	FLAG_STUB( flag4, 0x20, "door" );
-	FLAG_STUB( flag4, 0x40, "stair back" );
-	FLAG_STUB( flag4, 0x80, "stair right" );
-
-	return flags;
-#undef FLAG_STUB
-}
 
 class cAddItemTarget: public cTargetRequest
 {

@@ -616,6 +616,7 @@ void commandTele( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandSave( cUOSocket *socket, const QString &command, QStringList &args ) throw()
 {
+	Q_UNUSED(args);
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
 	World::instance()->save();
@@ -623,6 +624,7 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandServerTime( cUOSocket *socket, const QString &command, QStringList &args ) throw()
 {
+	Q_UNUSED(args);
 	Q_UNUSED(command);
 	socket->sysMessage( tr( "Server time: %1" ).arg( uiCurrentTime ) );
 }

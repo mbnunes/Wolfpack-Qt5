@@ -35,7 +35,7 @@
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName="c:\wolfpack\"
 				BrowseInformation="1"
-				WarningLevel="1"
+				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
@@ -249,9 +249,6 @@
 				RelativePath=".\items.cpp">
 			</File>
 			<File
-				RelativePath=".\magic.cpp">
-			</File>
-			<File
 				RelativePath=".\makemenus.cpp">
 			</File>
 			<File
@@ -265,9 +262,6 @@
 			</File>
 			<File
 				RelativePath=".\network.cpp">
-			</File>
-			<File
-				RelativePath=".\newmagic.cpp">
 			</File>
 			<File
 				RelativePath="npc.cpp">
@@ -330,9 +324,6 @@
 				RelativePath=".\targetactions.cpp">
 			</File>
 			<File
-				RelativePath=".\targeting.cpp">
-			</File>
-			<File
 				RelativePath=".\targetrequests.cpp">
 			</File>
 			<File
@@ -343,9 +334,6 @@
 			</File>
 			<File
 				RelativePath=".\tracking.cpp">
-			</File>
-			<File
-				RelativePath="twofish\twofish.cpp">
 			</File>
 			<File
 				RelativePath=".\uobject.cpp">
@@ -369,13 +357,7 @@
 				RelativePath=".\wpconsole.cpp">
 			</File>
 			<File
-				RelativePath=".\wpdefaultscript.cpp">
-			</File>
-			<File
 				RelativePath=".\wpdefmanager.cpp">
-			</File>
-			<File
-				RelativePath=".\wpscriptmanager.cpp">
 			</File>
 			<File
 				RelativePath=".\wptargetrequests.cpp">
@@ -973,13 +955,7 @@
 				RelativePath=".\wpconsole.h">
 			</File>
 			<File
-				RelativePath=".\wpdefaultscript.h">
-			</File>
-			<File
 				RelativePath=".\wpdefmanager.h">
-			</File>
-			<File
-				RelativePath=".\wpscriptmanager.h">
 			</File>
 			<File
 				RelativePath=".\wptargetrequests.h">
@@ -1106,9 +1082,6 @@
 				RelativePath="python\multi.cpp">
 			</File>
 			<File
-				RelativePath="python\npcai.cpp">
-			</File>
-			<File
 				RelativePath=".\python\pyaccount.cpp">
 			</File>
 			<File
@@ -1134,12 +1107,6 @@
 			</File>
 			<File
 				RelativePath=".\python\utilities.h">
-			</File>
-			<File
-				RelativePath=".\python\wppythonscript.cpp">
-			</File>
-			<File
-				RelativePath=".\python\wppythonscript.h">
 			</File>
 		</Filter>
 		<Filter

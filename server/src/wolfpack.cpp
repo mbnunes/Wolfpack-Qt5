@@ -1319,40 +1319,6 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
 
 }
 
-// streamlined by Duke 01.06.2000
-int getsubamount(int serial, short id)
-{
-	unsigned long total=0;
-	unsigned int ci;
-	P_ITEM pi;
-	P_ITEM pContainer = FindItemBySerial(serial);
-	cItem::ContainerContent container(pContainer->content());
-	cItem::ContainerContent::const_iterator it (container.begin());
-	cItem::ContainerContent::const_iterator end(container.end());
-	for (; it != end; ++it )
-	{
-		pi = *it;
-
-		if( pi->id() == id )
-			total += pi->amount();
-
-		if( pi->type() == 1 ) 
-			total += getsubamount( pi->serial(), id );
-	}
-	return total;
-}
-
-int getamount(P_CHAR pc, short id)
-{
-	if (pc == NULL)
-		return 0;
-	P_ITEM pi=pc->getBackpack();
-	if (pi==NULL)
-		return 0;
-	else
-		return getsubamount(pi->serial(), id);
-}
-
 // not_deleted = output parameter, returns number of items that could NOT be deleted
 // somewhat dirty that it defaults to a global dummy variable, sorry for that.
 // but i couldnt find any other way to keep the old signature and old name.

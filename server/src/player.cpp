@@ -1059,7 +1059,7 @@ UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
 {
 	P_ITEM pPack = getBackpack();
 
-	UINT32 dAmount;
+	UINT32 dAmount = 0;
 
 	if( pPack )
 		dAmount = pPack->DeleteAmount( amount, 0xEED, 0 );

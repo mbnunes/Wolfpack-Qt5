@@ -106,8 +106,8 @@ public:
 class cNoEncryption : public cClientEncryption
 {
 public:
-	void serverEncrypt( char *buffer, unsigned int length ) {}
-	void clientDecrypt( char *buffer, unsigned int length ) {}
+	void serverEncrypt( char *buffer, unsigned int length ) { Q_UNUSED(buffer); Q_UNUSED(length); }
+	void clientDecrypt( char *buffer, unsigned int length ) { Q_UNUSED(buffer); Q_UNUSED(length); }
 };
 
 #endif

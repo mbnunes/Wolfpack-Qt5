@@ -228,74 +228,6 @@ P_ITEM cSkills::GetInstrument(cUOSocket* socket)
 	return 0;
 }
 
-///////////////////////////
-// name:	DoPotion
-// history: unknown, revamped by Duke,21.04.2000
-// Purpose:	determines regs and quantity, creates working sound and
-//			indirectly calls CreatePotion on success
-//
-///////////////////////////
-// name:	CreatePotion
-// history: unknown, revamped by Duke,21.04.2000
-// Purpose:	does the appropriate skillcheck for the potion, creates it
-//			in the mortar on success and tries to put it into a bottle
-//
-void cSkills::CreatePotion(P_PLAYER pc, char type, char sub, P_ITEM pi_mortar)
-{
-	int success=0;
-
-	if ( pc == NULL ) return;
-
-	switch((10*type)+sub)
-	{
-	case 11:success=pc->checkSkill( ALCHEMY,151, 651);break;//agility
-	case 12:success=pc->checkSkill( ALCHEMY,351, 851);break;//greater agility
-	case 21:success=pc->checkSkill( ALCHEMY,  0, 500);break;//lesser cure
-	case 22:success=pc->checkSkill( ALCHEMY,251, 751);break;//cure
-	case 23:success=pc->checkSkill( ALCHEMY,651,1151);break;//greater cure
-	case 31:success=pc->checkSkill( ALCHEMY, 51, 551);break;//lesser explosion
-	case 32:success=pc->checkSkill( ALCHEMY,351, 851);break;//explosion
-	case 33:success=pc->checkSkill( ALCHEMY,651,1151);break;//greater explosion
-	case 41:success=pc->checkSkill( ALCHEMY,  0, 500);break;//lesser heal
-	case 42:success=pc->checkSkill( ALCHEMY,151, 651);break;//heal
-	case 43:success=pc->checkSkill( ALCHEMY,551,1051);break;//greater heal
-	case 51:success=pc->checkSkill( ALCHEMY,  0, 500);break;//night sight
-	case 61:success=pc->checkSkill( ALCHEMY,  0, 500);break;//lesser poison
-	case 62:success=pc->checkSkill( ALCHEMY,151, 651);break;//poison
-	case 63:success=pc->checkSkill( ALCHEMY,551,1051);break;//greater poison
-	case 64:success=pc->checkSkill( ALCHEMY,901,1401);break;//deadly poison
-	case 71:success=pc->checkSkill( ALCHEMY,  0, 500);break;//refresh
-	case 72:success=pc->checkSkill( ALCHEMY,251, 751);break;//total refreshment
-	case 81:success=pc->checkSkill( ALCHEMY,251, 751);break;//strength
-	case 82:success=pc->checkSkill( ALCHEMY,451, 951);break;//greater strength
-	default:
-		LogError("switch reached default");
-		return;
-	}
-
-	if (success==0 && !pc->isGM()) // AC bugfix
-	{
-		pc->emote( tr("*%1 tosses the failed mixture from the mortar, unable to create a potion from it.*").arg(pc->name()) );
-		return;
-	}
-	pi_mortar->setType( 17 );
-	pi_mortar->setMore1(type);
-	pi_mortar->setMore2(sub);
-	pi_mortar->setMoreX(pc->skillValue(ALCHEMY));
-	
-	if (!(getamount(pc, 0x0F0E)>=1))
-	{
-//		target(calcSocketFromChar(pc), 0, 1, 0, 109, "Where is an empty bottle for your potion?");
-	}
-	else
-	{
-		pc->soundEffect( 0x0240 );
-		pc->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc->name()));
-		delequan(pc, 0x0F0E, 1);
-		Skills->PotionToBottle(pc, pi_mortar);
-	} 
-}
-
 /////////////////////////
 // name:	BottleTarget
 // history: unknown, revamped by Duke,23.04.2000
@@ -1607,7 +1539,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool
 			return false;
 	}
 
-	stAdvancement advance;
+	stAdvancement advance = 0;
 	bool found = false;
 
 	// Find the stAdvance for our current skillLevel

@@ -1345,7 +1345,6 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 	if ( packet->isTip() )
 	{
 		UI32 tip = packet->lastTip();
-		UI32 y = 10;
 
 		if( tip == 0 ) 
 			tip = 1; 

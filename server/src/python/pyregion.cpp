@@ -144,6 +144,9 @@ PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 
 int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value )
 {
+	Q_UNUSED(self);
+	Q_UNUSED(name);
+	Q_UNUSED(value);
 	// Regions have no changeable attributes yet
 	return 0;
 }

@@ -44,6 +44,8 @@ bool PersistentObject::del()
 
 void PersistentObject::load( char **result, UINT16 &offset )
 {
+	Q_UNUSED(result);
+	Q_UNUSED(offset);
 	isPersistent = true;
 }
 

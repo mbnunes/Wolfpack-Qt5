@@ -548,7 +548,7 @@ P_CHAR RegionIterator4Chars::GetData( void )
 		return static_cast< cBaseChar* >( iter->items[ iter->pos ] );
 }
 
-RegionIterator4Chars& RegionIterator4Chars::operator ++( int i )
+RegionIterator4Chars& RegionIterator4Chars::operator ++( int )
 {
 	iter->pos++;
 	return *this;
@@ -586,7 +586,7 @@ P_ITEM RegionIterator4Items::GetData( void )
 		return static_cast< cItem* >( iter->items[ iter->pos ] );
 }
 
-RegionIterator4Items& RegionIterator4Items::operator++( int i )
+RegionIterator4Items& RegionIterator4Items::operator++( int )
 {
 	iter->pos++;
 	return *this;
