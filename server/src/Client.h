@@ -51,7 +51,7 @@ protected:
 	int		socket;
 //	bool	dragging;
 public:
-	cClient(int s);
+	explicit cClient(int s);
 	~cClient();
 	UOXSOCKET GetSocket();
 	cChar* getPlayer();
