@@ -3,7 +3,7 @@
 // Used by res.rc
 //
 #define IDI_ICON1                       101
-#define IDI_ICON2                       103
+#define IDB_LOGO						102
 
 // Next default values for new objects
 // 

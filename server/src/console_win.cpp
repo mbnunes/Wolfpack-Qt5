@@ -319,7 +319,7 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 	ZeroMemory( &wpClass, sizeof( WNDCLASS ) );
 	wpClass.hInstance = hInstance;
 	wpClass.lpfnWndProc = wpWindowProc;
-	wpClass.hIcon = LoadIcon( hInstance, MAKEINTRESOURCE( IDI_ICON2 ) );
+	wpClass.hIcon = LoadIcon( hInstance, MAKEINTRESOURCE( IDI_ICON1 ) );
 	wpClass.hbrBackground = GetSysColorBrush( COLOR_BTNFACE );
 	wpClass.lpszClassName = WOLFPACK_CLASS;
 	wpClass.style = CS_DBLCLKS | CS_VREDRAW | CS_HREDRAW;
