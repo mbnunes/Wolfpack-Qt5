@@ -37,6 +37,7 @@
 	<!-- System Scripts -->
 	<script id="webadmin"		type="python" module="webadmin" />
 	<script id="commands"		type="python" module="commands" />
+	<script id="tooltip"		type="python" module="tooltip" />
 
 	<!-- Skills -->
 	<script id="skills.anatomy"			type="python" module="skills.anatomy" />
