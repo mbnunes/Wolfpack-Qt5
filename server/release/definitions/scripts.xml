@@ -84,6 +84,7 @@
 	<script>commands.add</script>
 	<script>commands.adddecor</script>
 	<script>commands.bank</script>
+	<script>commands.boom</script>
 	<script>commands.cast</script>
 	<script>commands.decoration</script>
 	<script>commands.disconnect</script>
