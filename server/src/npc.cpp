@@ -497,7 +497,7 @@ void cNPC::kill()
 	// Now for the corpse
 	P_ITEM pi_backpack = getBackpack();
 	
-#pragma message("Implement here tradewindow closing and disposal of it's cItem*")
+#pragma message(__FILE__ Reminder "Implement here tradewindow closing and disposal of it's cItem*")
 	// Close here the trade window... we still not sure how this will work, so I took out
 	//the old code
 	ele = 0;

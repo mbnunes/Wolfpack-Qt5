@@ -190,6 +190,11 @@ void cTempEffect::load( unsigned int id, const char **result )
 	serializable = true;
 }
 
+cTempEffects::cTempEffects()
+{
+	std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() ); // No temp effects to start with
+}  
+
 void cTempEffects::check()
 {
 	cTempEffect *tEffect = NULL;
@@ -314,6 +319,21 @@ void cTempEffects::save()
 		++it;
 	}
 }
+
+int cTempEffects::countSerializables()
+{
+	int count = 0;
+
+	std::vector< cTempEffect* >::iterator it  = teffects.begin();
+	std::vector< cTempEffect* >::iterator end = teffects.end();
+	for ( ; it != end; ++it )
+	{
+		if( (*it)->isSerializable() )
+			++count;
+	}
+	return count;
+}
+
 
 // cDelayedHideChar
 cDelayedHideChar::cDelayedHideChar( SERIAL serial )

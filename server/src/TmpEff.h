@@ -152,7 +152,7 @@ private:
 	};
 
 public:
-	cTempEffects()	{ std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() ); }  // No temp effects to start with
+	cTempEffects();
 	std::vector< cTempEffect* > teffects;
 
 	void load();
@@ -170,18 +170,8 @@ public:
 		return teffects.size();
 	}
 
-	int countSerializables()
-	{
-		int count = 0;
-		std::vector< cTempEffect* >::iterator it = teffects.begin();
-		while( it != teffects.end() )
-		{
-			if( (*it)->isSerializable() )
-				++count;
-			++it;
-		}
-		return count;
-	}
+	int countSerializables();
+
 };
 
 typedef SingletonHolder<cTempEffects> TempEffects;
