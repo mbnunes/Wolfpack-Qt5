@@ -146,7 +146,6 @@ protected:
 	unsigned int beggingRange_;
 	unsigned int beggingTime_;
 	unsigned char season_;
-	QString databaseDriver_;
 	QString databaseName_;
 	QString databaseUsername_;
 	QString databasePassword_;
@@ -344,7 +343,6 @@ public:
 	QString databaseHost() const;
 	QString databasePassword() const;
 	QString databaseUsername() const;
-	QString databaseDriver() const;
 	QString databaseName() const;
 
 	// Remote Admin
@@ -1097,11 +1095,6 @@ inline int cSrvParams::resetAttemptCount() const
 inline QString cSrvParams::accountsArchiver() const
 {
 	return accountsArchiver_;
-}
-
-inline QString cSrvParams::databaseDriver() const
-{
-	return databaseDriver_;
 }
 
 inline QString cSrvParams::databaseHost() const 

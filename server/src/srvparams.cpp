@@ -119,8 +119,6 @@ void cSrvParams::readData()
 	databaseUsername_		= getString("Database", "username", QString::null, true);
 	databaseHost_			= getString("Database", "host", "localhost", true);
 	databaseName_			= getString("Database", "name", "wolfpack", true);
-	databaseDriver_			= getString("Database", "driver", "QMYSQL3", true);
-
 
 	// Remote Admin
 	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);
