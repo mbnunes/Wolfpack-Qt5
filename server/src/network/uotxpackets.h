@@ -607,4 +607,18 @@ public:
 	void setFlag( UINT8 flag ) { rawPacket[65] = flag; }
 };
 
+// 0x93 Book Title
+class cUOTxBookTitle: public cUOPacket
+{
+public:
+	cUOTxBookTitle(): cUOPacket( 0x93, 99 ) {}
+
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setWriteable( bool data ) { rawPacket[5] = data ? 1 : 0; }
+	// New flag ?
+	void setPages( UINT16 data ) { setShort( 7, data ); }
+	void setTitle( const QString &title ) { setAsciiString( 9, title.latin1(), 60 ); }
+	void setAuthor( const QString &author ) { setAsciiString( 69, author.latin1(), 30 ); }
+};
+
 #endif

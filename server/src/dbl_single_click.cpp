@@ -1576,18 +1576,18 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		// Try to mount the rideable animal
 		if( chardist( pChar, pTarget ) <  2 || pChar->isGM() )
 		{
-			if( pChar->polymorph() )
+			if( !pChar->isHuman() )
 			{
-				socket->sysMessage(tr("You cannot ride anything under polymorph effect."));
+				socket->sysMessage( tr( "You are unable to ride an animal" ) );
 				return;
 			}
 			if( pChar->dead )
 			{
-				socket->sysMessage(tr("You are dead and cannot do that."));
+				socket->sysMessage( tr("You are dead and cannot do that." ) );
 				return;
 			}
 			if( pTarget->war )
-				socket->sysMessage(tr("Your pet is in battle right now!"));
+				socket->sysMessage( tr("Your pet is in battle right now!" ) );
 			else
 				mounthorse( s, pTarget );
 		}

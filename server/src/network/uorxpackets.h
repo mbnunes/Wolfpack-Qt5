@@ -295,5 +295,49 @@ public:
 	bool   isNotice()	{ return (*this)[3] == 1;	}
 };
 
+// 0x93 UpdateBook
+class cUORxUpdateBook: public cUOPacket
+{
+public:
+	cUORxUpdateBook( const QByteArray &data ): cUOPacket( data ) {}
+	UINT32 serial() { return getInt( 1 ); }
+	UINT32 unknown() { return getInt( 5 ); }
+	QString title() { return &rawPacket.data()[9]; }
+	QString author() { return &rawPacket.data()[69]; }
+};
+
+// 0x75 Rename Character
+class cUORxRename: public cUOPacket
+{
+public:
+	cUORxRename( const QByteArray &data ): cUOPacket( data ) {}
+	UINT32 serial() { return getInt( 1 ); }
+	QString name() { return &rawPacket.data()[5]; }
+};
+
+// 0x72 Change Warmode
+class cUORxChangeWarmode: public cUOPacket
+{
+public:
+	cUORxChangeWarmode( const QByteArray &data ): cUOPacket( data ) {}
+	bool warmode() { return ( rawPacket[1] == 0 ) ? false : true; }
+};
+
+// 0x6C Target
+class cUORxTarget: public cUOPacket
+{
+public:
+	cUORxTarget( const QByteArray &data ): cUOPacket( data ) {}
+	UINT8 type() { return rawPacket[1]; }
+	UINT32 targetSerial() { return getInt( 2 ); }
+	UINT8 cursorType() { return rawPacket[6]; }
+	UINT32 serial() { return getInt( 7 ); }
+	UINT16 x() { return getShort( 11 ); }
+	UINT16 y() { return getShort( 13 ); }
+	UINT8 unknown() { return rawPacket[15]; }
+	INT8 z() { return rawPacket[16]; }
+	UINT16 model() { return getShort( 17 ); }
+};
+
 #endif
 
