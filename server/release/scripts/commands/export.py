@@ -169,7 +169,7 @@ def export( char, args, choice ):
 					output.write( "NAME=%s%s" % ( item.name, newline ) )
 				output.write( "ID=0%x%s" % ( item.id, newline ) )
 				output.write( "COLOR=0%x%s" % ( item.color, newline ) )
-				output.write( "P=%i,%i,%i%s%s" % ( item.pos.x, item.pos.y, item.pos.z, newline ) )
+				output.write( "P=%i,%i,%i%s%s" % ( item.pos.x, item.pos.y, item.pos.z, newline, newline ) )
 
 			elif format == 2: # WSC, Lonewolf Style, Compatible with Linux Worldforge
 				output.write( "SECTION WORLDITEM%s" % newline )
