@@ -43,7 +43,7 @@ def target(player, arguments, target):
 
   # Needs to in our belongings
   if target.item.getoutmostchar() != player:
-    player.socket.clilocmessage()
+    player.socket.clilocmessage(500364)
     return
 
   # Wear out the tools
