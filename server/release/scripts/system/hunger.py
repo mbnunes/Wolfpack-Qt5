@@ -24,5 +24,5 @@ def onTimeChange( player ):
 			elif player.hunger == 0:
 				player.damage( 3, random.randint( 0, hungerdamage ) )
 				player.socket.sysmessage( tr("Your stomach hurts from the lack of food...") )
-			playet.settag('lasthunger', wolfpack.time.minutes())
+			player.settag('lasthunger', wolfpack.time.minutes())
 	return False
