@@ -549,19 +549,18 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 		}
 	}
 
-	return 0;
-//	return { -1, QString( "Property '%1' wasn't found" ).arg( name ) }; // Property not found
+	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
 }
 
 stError *cUObject::getProperty( const QString &name, cVariant &value )
 {
 	GET_PROPERTY( "bindmenu", bindmenu_ )
-	else GET_PROPERTY( "serial", serial )
+	else GET_PROPERTY( "serial", "0x" + QString::number( serial, 16 ) )
 	else GET_PROPERTY( "multi", FindItemBySerial( multis ) )
 	else GET_PROPERTY( "free", free ? 1 : 0 )
 	else GET_PROPERTY( "name", name )
 	else GET_PROPERTY( "pos", pos )
 	else GET_PROPERTY( "eventlist", eventList_.join(",") );
 
-	return 0;
+	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
 }

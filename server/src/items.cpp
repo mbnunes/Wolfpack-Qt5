@@ -2561,7 +2561,7 @@ P_CHAR cItem::getOutmostChar()
 void cItem::setAmount( UI16 nValue )
 {
 	amount_ = nValue;
-	setWeight( amount_ * weight() );
+	setTotalweight( totalweight_ + ( ( nValue - amount_ ) * weight_ ) );
 }
 
 UINT16 cItem::getWeaponSkill()
@@ -2602,10 +2602,353 @@ UINT16 cItem::getWeaponSkill()
 // Simple setting and getting of properties for scripts and the set command.
 stError *cItem::setProperty( const QString &name, const cVariant &value )
 {
+	SET_INT_PROPERTY( "id", id_ )
+	else SET_INT_PROPERTY( "color", color_ )
+	
+	// Amount needs weight handling
+	else if( name == "amount" )
+	{
+		int val = value.toInt();
+		if( val <= 0 )
+		{
+			Items->DeleItem( this );
+			return 0;
+		}
+
+		int diff = val - amount_;
+		setTotalweight( totalweight_ + diff * weight_ );
+		amount_ = val;
+		return 0;
+	}
+
+	else SET_INT_PROPERTY( "amount2", amount2_ )
+	else SET_STR_PROPERTY( "name2", name2_ )
+	else SET_STR_PROPERTY( "name", name_ )
+	else SET_INT_PROPERTY( "layer", layer_ )
+	else SET_STR_PROPERTY( "murderer", murderer_ )
+	else SET_INT_PROPERTY( "type", type_ )
+	else SET_INT_PROPERTY( "type2", type2_ )
+	else SET_INT_PROPERTY( "offspell", offspell_ )
+	else SET_INT_PROPERTY( "speed", speed_ )
+	else SET_INT_PROPERTY( "lodamage", lodamage_ )
+	else SET_INT_PROPERTY( "hidamage", hidamage_ )
+	else if( name == "weight" )
+	{
+		setWeight( value.toInt() );
+		return 0;
+	}
+	else if( name == "stones" )
+	{
+		setWeight( value.toInt() * 10 );
+		return 0;
+	}
+	else SET_INT_PROPERTY( "health", hp_ )
+	else SET_INT_PROPERTY( "maxhealth", maxhp_ )
+	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
+	else SET_INT_PROPERTY( "moreb1", moreb1_ )
+	else SET_INT_PROPERTY( "moreb2", moreb2_ )
+	else SET_INT_PROPERTY( "moreb3", moreb3_ )
+	else SET_INT_PROPERTY( "moreb4", moreb4_ )
+
+	else SET_INT_PROPERTY( "owner", ownserial )
+
+	else if( name == "totalweight" )
+	{
+		setTotalweight( value.toInt() );
+		return 0;
+	}
+	else SET_STR_PROPERTY( "carve", carve_ )
+	else SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
+	else SET_INT_PROPERTY( "accuracy", accuracy_ )
+	
+	else if( name == "container" )
+	{
+		// To int and Check for Serial type (makes it safer as well)
+		SERIAL cser = value.toInt();
+		P_CHAR pChar = FindCharBySerial( cser );
+		P_ITEM pItem = FindItemBySerial( cser );
+		
+		if( pItem )
+			pItem->addItem( this );
+		else if( pChar )
+		{
+			// Get a valid layer
+			tile_st tInfo = TileCache::instance()->getTile( id_ );
+			if( tInfo.layer != 0 )
+				pChar->addItem( (cChar::enLayer)tInfo.layer, this );
+		}
+		else
+		{
+			// Remove from Cont and move to the old containers position
+			P_ITEM pCont = getOutmostItem();
+			P_CHAR pChar = pCont->getOutmostChar();
+
+			if( pChar )
+				pos = pChar->pos;
+			else
+				pos = pCont->pos;
+
+			removeFromCont();
+			cMapObjects::getInstance()->add( this );
+		}
+	}
+
+	else SET_INT_PROPERTY( "more1", more1_ )
+	else SET_INT_PROPERTY( "more2", more2_ )
+	else SET_INT_PROPERTY( "more3", more3_ )
+	else SET_INT_PROPERTY( "more4", more4_ )
+	else SET_INT_PROPERTY( "morex", morex_ )
+	else SET_INT_PROPERTY( "morey", morey_ )
+	else SET_INT_PROPERTY( "morez", morez_ )
+	else SET_INT_PROPERTY( "doordir", doordir_ )
+	else SET_INT_PROPERTY( "dooropen", dooropen_ )
+	else SET_INT_PROPERTY( "dye", dye_ )
+	else SET_INT_PROPERTY( "attack", att_ )
+	else SET_INT_PROPERTY( "defense", def_ )
+	else SET_INT_PROPERTY( "strength", st_ )
+	else SET_INT_PROPERTY( "dexterity", dx_ )
+	else SET_INT_PROPERTY( "intelligence", in_ )
+	else if( name == "strength2" )
+	{
+		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
+		if( pChar )
+			pChar->removeItemBonus( this );
+
+		st2_ = value.toInt();
+
+		if( pChar )
+			pChar->giveItemBonus( this );
+		
+		return 0;
+	}
+	else if( name == "dexterity2" )
+	{
+		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
+		if( pChar )
+			pChar->removeItemBonus( this );
+
+		dx2_ = value.toInt();
+
+		if( pChar )
+			pChar->giveItemBonus( this );
+
+		return 0;
+	}
+	else if( name == "intelligence2" )
+	{
+		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
+		if( pChar )
+			pChar->removeItemBonus( this );
+
+		in2_ = value.toInt();
+
+		if( pChar )
+			pChar->giveItemBonus( this );
+
+		return 0;
+	}
+	else SET_INT_PROPERTY( "gatetime", gatetime_ )
+	else SET_INT_PROPERTY( "gatenumber", gatenumber_ )
+	else SET_INT_PROPERTY( "decaytime", decaytime_ )
+
+	else if( name == "visible" )
+	{
+		if( value.toInt() )
+			visible = 0;
+		else
+			visible = 2;
+
+		return 0;
+	}
+
+	else if( name == "ownervisible" )
+	{
+		if( value.toInt() )
+			visible = 1;
+		else
+			visible = 2;
+
+		return 0;
+	}
+
+	else SET_INT_PROPERTY( "spawn", spawnserial )
+	else SET_INT_PROPERTY( "dir", dir )
+	else SET_INT_PROPERTY( "value", this->value )
+	else SET_INT_PROPERTY( "restock", restock )
+	else SET_INT_PROPERTY( "disabled", disabled )
+	else SET_STR_PROPERTY( "disabledmsg", disabledmsg )
+	else SET_INT_PROPERTY( "poisoned", poisoned )
+	else SET_INT_PROPERTY( "murdertime", murdertime )
+	else SET_INT_PROPERTY( "rank", rank )
+	else SET_STR_PROPERTY( "creator", creator )
+	else SET_INT_PROPERTY( "good", good )
+	else SET_INT_PROPERTY( "rndvaluerate", rndvaluerate )
+	else SET_INT_PROPERTY( "madewith", madewith )
+	else SET_STR_PROPERTY( "description", desc )
+	else SET_INT_PROPERTY( "incognito", incognito )
+	else SET_INT_PROPERTY( "timeunused", time_unused )
+	else SET_INT_PROPERTY( "timeusedlast", timeused_last )
+	else SET_INT_PROPERTY( "magic", magic_ )
+
+	// Flags
+	else if( name == "decay" )
+	{
+		if( value.toInt() )
+			priv |= 0x01;
+		else
+			priv &= ~0x01;
+		return 0;
+	}
+	else if( name == "newbie" )
+	{
+		if( value.toInt() )
+			priv |= 0x02;
+		else
+			priv &= ~0x02;
+		return 0;
+	}
+	else if( name == "dispellable" )
+	{
+		if( value.toInt() )
+			priv |= 0x04;
+		else
+			priv &= ~0x04;
+		return 0;
+	}
+	else if( name == "secured" )
+	{
+		if( value.toInt() )
+			priv |= 0x08;
+		else
+			priv &= ~0x08;
+		return 0;
+	}
+	else if( name == "wipeable" )
+	{
+		if( value.toInt() )
+			priv |= 0x10;
+		else
+			priv &= ~0x10;
+		return 0;
+	}
+	else if( name == "twohanded" )
+	{
+		if( value.toInt() )
+			priv |= 0x20;
+		else
+			priv &= ~0x20;
+		return 0;
+	}
+	else if( name == "corpse" )
+	{
+		if( value.toInt() )
+			priv |= 0x40;
+		else
+			priv &= ~0x40;
+		return 0;
+	}
+
 	return cUObject::setProperty( name, value );
 }
 
 stError *cItem::getProperty( const QString &name, cVariant &value )
 {
+	GET_PROPERTY( "id", id_ )
+	else GET_PROPERTY( "color", color_ )
+	else GET_PROPERTY( "amount", amount_ )
+	else GET_PROPERTY( "amount2", amount2_ )
+	else GET_PROPERTY( "name2", name2_ )
+	else GET_PROPERTY( "name", name_ )
+	else GET_PROPERTY( "layer", layer_ )
+	// Flag properties are set elsewhere!!
+	else GET_PROPERTY( "murderer", murderer_ )
+	else GET_PROPERTY( "type", type_ )
+	else GET_PROPERTY( "type2", type2_ )
+	else GET_PROPERTY( "offspell", offspell_ )
+	else GET_PROPERTY( "speed", speed_ )
+	else GET_PROPERTY( "lodamage", lodamage_ )
+	else GET_PROPERTY( "hidamage", hidamage_ )
+	else GET_PROPERTY( "weight", weight_ )
+	else GET_PROPERTY( "stones", ceil( weight_ / 10 ) )
+	else GET_PROPERTY( "health", hp_ )
+	else GET_PROPERTY( "maxhealth", maxhp_ )
+	else GET_PROPERTY( "spawnregion", spawnregion_ )
+	else GET_PROPERTY( "moreb1", moreb1_ )
+	else GET_PROPERTY( "moreb2", moreb2_ )
+	else GET_PROPERTY( "moreb3", moreb3_ )
+	else GET_PROPERTY( "moreb4", moreb4_ )
+	else GET_PROPERTY( "owner", FindCharBySerial( ownserial ) )
+	else GET_PROPERTY( "totalweight", totalweight_ )
+	else GET_PROPERTY( "carve", carve_ )
+	else GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
+	else GET_PROPERTY( "accuracy", accuracy_ )
+	
+	// container
+	else if( name == "container" )
+	{
+		if( container_ && container_->isItem() )
+			value = cVariant( dynamic_cast< P_ITEM >( container_ ) );
+		else if( container_ && container_->isChar() )
+			value = cVariant( dynamic_cast< P_CHAR >( container_ ) );
+		else
+			value = cVariant( (P_ITEM)0 );
+
+		return 0;
+	}
+
+	else GET_PROPERTY( "more1", more1_ )
+	else GET_PROPERTY( "more2", more2_ )
+	else GET_PROPERTY( "more3", more3_ )
+	else GET_PROPERTY( "more4", more4_ )
+	else GET_PROPERTY( "morex", (int)morex_ )
+	else GET_PROPERTY( "morey", (int)morey_ )
+	else GET_PROPERTY( "morez", (int)morez_ )
+	else GET_PROPERTY( "doordir", doordir_ )
+	else GET_PROPERTY( "dooropen", dooropen_ )
+	else GET_PROPERTY( "dye", dye_ )
+	else GET_PROPERTY( "attack", (int)att_ )
+	else GET_PROPERTY( "defense", (int)def_ )
+	else GET_PROPERTY( "strength", st_ )
+	else GET_PROPERTY( "strength2", st2_ )
+	else GET_PROPERTY( "dexterity", dx_ )
+	else GET_PROPERTY( "dexterity2", dx2_ )
+	else GET_PROPERTY( "intelligence", in_ )
+	else GET_PROPERTY( "intelligence2", in2_ )
+	else GET_PROPERTY( "gatetime", (int)gatetime_ )
+	else GET_PROPERTY( "gatenumber", gatenumber_ )
+	else GET_PROPERTY( "decaytime", (int)decaytime_ )
+
+	// Visible
+	else GET_PROPERTY( "visible", visible == 0 ? 1 : 0 )
+	else GET_PROPERTY( "ownervisible", visible == 1 ? 1 : 0 )
+	else GET_PROPERTY( "spawn", FindItemBySerial( spawnserial ) )
+
+	else GET_PROPERTY( "dir", dir )
+	else GET_PROPERTY( "value", value )
+	else GET_PROPERTY( "restock", restock )
+	else GET_PROPERTY( "disabled", (int)disabled )
+	else GET_PROPERTY( "disabledmsg", disabledmsg )
+	else GET_PROPERTY( "poisoned", (int)poisoned )
+	else GET_PROPERTY( "murdertime", murdertime )
+	else GET_PROPERTY( "rank", rank )
+	else GET_PROPERTY( "creator", creator )
+	else GET_PROPERTY( "good", good )
+	else GET_PROPERTY( "rndvaluerate", rndvaluerate )
+	else GET_PROPERTY( "madewith", madewith )
+	else GET_PROPERTY( "description", desc )
+	else GET_PROPERTY( "incognito", incognito ? 1 : 0 )
+	else GET_PROPERTY( "timeunused", (int)time_unused )
+	else GET_PROPERTY( "timeusedlast", (int)timeused_last )
+	else GET_PROPERTY( "magic", magic_ )
+
+	// Flags
+	else GET_PROPERTY( "decay", priv & 0x01 ? 1 : 0 )
+	else GET_PROPERTY( "newbie", priv & 0x02 ? 1 : 0 )
+	else GET_PROPERTY( "dispellable", priv & 0x04 ? 1 : 0 )
+	else GET_PROPERTY( "secured", priv & 0x08 ? 1 : 0 )
+	else GET_PROPERTY( "wipeable", priv & 0x10 ? 1 : 0 )
+	else GET_PROPERTY( "twohanded", priv & 0x20 ? 1 : 0 )
+	else GET_PROPERTY( "corpse", priv & 0x40 ? 1 : 0 )
+
 	return cUObject::getProperty( name, value );
 }

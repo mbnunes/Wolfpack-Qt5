@@ -3634,10 +3634,10 @@ void cChar::restock()
 // Simple setting and getting of properties for scripts and the set command.
 stError *cChar::setProperty( const QString &name, const cVariant &value )
 {
-	return 0;
+	return cUObject::setProperty( name, value );
 }
 
 stError *cChar::getProperty( const QString &name, cVariant &value )
 {
-	return 0;
+	return cUObject::getProperty( name, value );
 }
