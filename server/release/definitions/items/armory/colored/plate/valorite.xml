@@ -10,87 +10,87 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="valorite_armor_plate_female" inherit="1c04">
-		<valorite_armor />
+	<item id="1c04_valorite" inherit="1c04">
 		<baseid>1c04</baseid>
+		<valorite_armor />
 		<category>Armor\Valorite\Platemail\Female Armor (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_plate_female_2" inherit="1c05">
+	<item id="1c05_valorite" inherit="1c05">
+		<baseid>1c04</baseid>
 		<valorite_armor />
-		<baseid>1c05</baseid>
 		<category>Armor\Valorite\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="valorite_armor_plate_male" inherit="1415">
-		<valorite_armor />
+	<item id="1415_valorite" inherit="1415">
 		<baseid>1415</baseid>
+		<valorite_armor />
 		<category>Armor\Valorite\Platemail\Male Armor (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_plate_male_2" inherit="1416">
+	<item id="1416_valorite" inherit="1416">
+		<baseid>1415</baseid>
 		<valorite_armor />
-		<baseid>1416</baseid>
 		<category>Armor\Valorite\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
-	<item id="valorite_armor_plate_arms" inherit="1410">
-		<valorite_armor />
+	<item id="1410_valorite" inherit="1410">
 		<baseid>1410</baseid>
+		<valorite_armor />
 		<category>Armor\Valorite\Platemail\Arms (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_plate_arms_2" inherit="1417">
+	<item id="1417_valorite" inherit="1417">
+		<baseid>1410</baseid>
 		<valorite_armor />
-		<baseid>1417</baseid>
 		<category>Armor\Valorite\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
-	<item id="valorite_armor_plate_gloves" inherit="1414">
-		<valorite_armor />
+	<item id="1414_valorite" inherit="1414">
 		<baseid>1414</baseid>
+		<valorite_armor />
 		<category>Armor\Valorite\Platemail\Gloves (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_plate_gloves_2" inherit="1418">
+	<item id="1418_valorite" inherit="1418">
+		<baseid>1414</baseid>
 		<valorite_armor />
-		<baseid>1418</baseid>
 		<category>Armor\Valorite\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
-	<item id="valorite_armor_plate_gorget" inherit="1413">
-		<valorite_armor />
+	<item id="1413_valorite" inherit="1413">
 		<baseid>1413</baseid>
+		<valorite_armor />
 		<category>Armor\Valorite\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
-	<item id="valorite_armor_plate_helmet" inherit="1412">
-		<valorite_armor />
+	<item id="1412_valorite" inherit="1412">
 		<baseid>1412</baseid>
+		<valorite_armor />
 		<category>Armor\Valorite\Platemail\Helm (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_plate_helmet_2" inherit="1419">
+	<item id="1419_valorite" inherit="1419">
+		<baseid>1412</baseid>
 		<valorite_armor />
-		<baseid>1419</baseid>
 		<category>Armor\Valorite\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="valorite_armor_plate_leggings" inherit="1411">
+	<item id="1411_valorite" inherit="1411">
 		<valorite_armor />
 		<baseid>1411</baseid>
 		<category>Armor\Valorite\Platemail\Legs (N/S)</category>
 	</item>
 
-	<item id="valorite_armor_plate_leggings_2" inherit="141a">
+	<item id="141a_valorite" inherit="141a">
+		<baseid>1411</baseid>
 		<valorite_armor />
-		<baseid>141a</baseid>
 		<category>Armor\Valorite\Platemail\Legs (E/W)</category>
 	</item>
 

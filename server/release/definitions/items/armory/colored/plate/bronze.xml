@@ -10,87 +10,87 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="bronze_armor_plate_female" inherit="1c04">
-		<bronze_armor />
+	<item id="1c04_agapite" inherit="1c04">
 		<baseid>1c04</baseid>
+		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Female Armor (N/S)</category>
 	</item>
 
-	<item id="bronze_armor_plate_female_2" inherit="1c05">
+	<item id="1c05_bronze" inherit="1c05">
+		<baseid>1c04</baseid>
 		<bronze_armor />
-		<baseid>1c05</baseid>
 		<category>Armor\Bronze\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="bronze_armor_plate_male" inherit="1415">
-		<bronze_armor />
+	<item id="1415_bronze" inherit="1415">
 		<baseid>1415</baseid>
+		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Male Armor (N/S)</category>
 	</item>
 
-	<item id="bronze_armor_plate_male_2" inherit="1416">
+	<item id="1416_bronze" inherit="1416">
+		<baseid>1415</baseid>
 		<bronze_armor />
-		<baseid>1416</baseid>
 		<category>Armor\Bronze\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
-	<item id="bronze_armor_plate_arms" inherit="1410">
-		<bronze_armor />
+	<item id="1410_bronze" inherit="1410">
 		<baseid>1410</baseid>
+		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Arms (N/S)</category>
 	</item>
 
-	<item id="bronze_armor_plate_arms_2" inherit="1417">
+	<item id="1417_bronze" inherit="1417">
+		<baseid>1410</baseid>
 		<bronze_armor />
-		<baseid>1417</baseid>
 		<category>Armor\Bronze\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
-	<item id="bronze_armor_plate_gloves" inherit="1414">
-		<bronze_armor />
+	<item id="1414_bronze" inherit="1414">
 		<baseid>1414</baseid>
+		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Gloves (N/S)</category>
 	</item>
 
-	<item id="bronze_armor_plate_gloves_2" inherit="1418">
+	<item id="1418_bronze" inherit="1418">
+		<baseid>1414</baseid>
 		<bronze_armor />
-		<baseid>1418</baseid>
 		<category>Armor\Bronze\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
-	<item id="bronze_armor_plate_gorget" inherit="1413">
-		<bronze_armor />
+	<item id="1413_bronze" inherit="1413">
 		<baseid>1413</baseid>
+		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
-	<item id="bronze_armor_plate_helmet" inherit="1412">
-		<bronze_armor />
+	<item id="1412_bronze" inherit="1412">
 		<baseid>1412</baseid>
+		<bronze_armor />
 		<category>Armor\Bronze\Platemail\Helm (N/S)</category>
 	</item>
 
-	<item id="bronze_armor_plate_helmet_2" inherit="1419">
+	<item id="1419_bronze" inherit="1419">
+		<baseid>1412</baseid>
 		<bronze_armor />
-		<baseid>1419</baseid>
 		<category>Armor\Bronze\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="bronze_armor_plate_leggings" inherit="1411">
+	<item id="1411_bronze" inherit="1411">
 		<bronze_armor />
 		<baseid>1411</baseid>
 		<category>Armor\Bronze\Platemail\Legs (N/S)</category>
 	</item>
 
-	<item id="bronze_armor_plate_leggings_2" inherit="141a">
+	<item id="141a_bronze" inherit="141a">
+		<baseid>1411</baseid>
 		<bronze_armor />
-		<baseid>141a</baseid>
 		<category>Armor\Bronze\Platemail\Legs (E/W)</category>
 	</item>
 

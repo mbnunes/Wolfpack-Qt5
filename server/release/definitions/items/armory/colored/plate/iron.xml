@@ -10,87 +10,87 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="iron_armor_plate_female" inherit="1c04">
-		<iron_armor />
+	<item id="1c04_iron" inherit="1c04">
 		<baseid>1c04</baseid>
+		<iron_armor />
 		<category>Armor\Iron\Platemail\Female Armor (N/S)</category>
 	</item>
 
-	<item id="iron_armor_plate_female_2" inherit="1c05">
+	<item id="1c05_iron" inherit="1c05">
+		<baseid>1c04</baseid>
 		<iron_armor />
-		<baseid>1c05</baseid>
 		<category>Armor\Iron\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="iron_armor_plate_male" inherit="1415">
-		<iron_armor />
+	<item id="1415_iron" inherit="1415">
 		<baseid>1415</baseid>
+		<iron_armor />
 		<category>Armor\Iron\Platemail\Male Armor (N/S)</category>
 	</item>
 
-	<item id="iron_armor_plate_male_2" inherit="1416">
+	<item id="1416_iron" inherit="1416">
+		<baseid>1415</baseid>
 		<iron_armor />
-		<baseid>1416</baseid>
 		<category>Armor\Iron\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
-	<item id="iron_armor_plate_arms" inherit="1410">
-		<iron_armor />
+	<item id="1410_iron" inherit="1410">
 		<baseid>1410</baseid>
+		<iron_armor />
 		<category>Armor\Iron\Platemail\Arms (N/S)</category>
 	</item>
 
-	<item id="iron_armor_plate_arms_2" inherit="1417">
+	<item id="1417_iron" inherit="1417">
+		<baseid>1410</baseid>
 		<iron_armor />
-		<baseid>1417</baseid>
 		<category>Armor\Iron\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
-	<item id="iron_armor_plate_gloves" inherit="1414">
-		<iron_armor />
+	<item id="1414_iron" inherit="1414">
 		<baseid>1414</baseid>
+		<iron_armor />
 		<category>Armor\Iron\Platemail\Gloves (N/S)</category>
 	</item>
 
-	<item id="iron_armor_plate_gloves_2" inherit="1418">
+	<item id="1418_iron" inherit="1418">
+		<baseid>1414</baseid>
 		<iron_armor />
-		<baseid>1418</baseid>
 		<category>Armor\Iron\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
-	<item id="iron_armor_plate_gorget" inherit="1413">
-		<iron_armor />
+	<item id="1413_iron" inherit="1413">
 		<baseid>1413</baseid>
+		<iron_armor />
 		<category>Armor\Iron\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
-	<item id="iron_armor_plate_helmet" inherit="1412">
-		<iron_armor />
+	<item id="1412_iron" inherit="1412">
 		<baseid>1412</baseid>
+		<iron_armor />
 		<category>Armor\Iron\Platemail\Helm (N/S)</category>
 	</item>
 
-	<item id="iron_armor_plate_helmet_2" inherit="1419">
+	<item id="1419_iron" inherit="1419">
+		<baseid>1412</baseid>
 		<iron_armor />
-		<baseid>1419</baseid>
 		<category>Armor\Iron\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="iron_armor_plate_leggings" inherit="1411">
+	<item id="1411_iron" inherit="1411">
 		<iron_armor />
 		<baseid>1411</baseid>
 		<category>Armor\Iron\Platemail\Legs (N/S)</category>
 	</item>
 
-	<item id="iron_armor_plate_leggings_2" inherit="141a">
+	<item id="141a_iron" inherit="141a">
+		<baseid>1411</baseid>
 		<iron_armor />
-		<baseid>141a</baseid>
 		<category>Armor\Iron\Platemail\Legs (E/W)</category>
 	</item>
 
