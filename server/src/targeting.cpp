@@ -749,7 +749,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	if (SrvParms->gm_log)
 	{
 		sprintf((char*)temp, "%s.gm_log",chars[currchar[s]].name);
-		sprintf((char*)temp2, "%s as made %s a GM.\n",chars[currchar[s]].name,pc->name);
+		sprintf((char*)temp2, "%s has made %s a GM.\n",chars[currchar[s]].name,pc->name);
 		savelog((char*)temp2, (char*)temp);
 	}
 	unmounthorse(calcSocketFromChar(c));	//AntiChrist bugfix
@@ -766,8 +766,8 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	
 	for (i = 0; i < 7; i++) // this overwrites all previous settings !
 	{
-		pc->priv3[i]=metagm[0][i]; // gm defaults
-		pc->menupriv=1;
+		pc->priv3[i]=metagm[3][i]; // gm defaults
+		//pc->menupriv=1;
 		if (pc->account==0) pc->priv3[i]=0xffffffff;
 		pc->menupriv=-1; // LB, disabling menupriv stuff for gms per default
 	}
@@ -806,7 +806,7 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 	{
 		// logging
 		sprintf((char*)temp, "%s.gm_log",chars[currchar[s]].name);
-		sprintf((char*)temp2, "%s as made %s a Counselor.\n",chars[currchar[s]].name,pc->name);
+		sprintf((char*)temp2, "%s has made %s a Counselor.\n",chars[currchar[s]].name,pc->name);
 		savelog((char*)temp2, (char*)temp);
 	}
 	pc->id1=0x03;
@@ -825,7 +825,7 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 	for (int u=0;u<7;u++) // this overwrites all previous settigns !!!
 	{
 		pc->priv3[u]=metagm[1][u]; // counselor defaults
-		pc->menupriv=4;
+		//pc->menupriv=4;
 		if (pc->account==0) pc->priv3[u]=0xffffffff;
 	}
 	MoveBelongingsToBp(pc,c);

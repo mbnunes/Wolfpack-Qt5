@@ -5322,21 +5322,30 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 	//First, let's see their karma.
 
 	if (pc->karma <= -200)
+	{
 		pc->setMurderer();
-		
+	}	
 	if (pc->isPlayer())
 	{
-		if (pc->kills >= (unsigned) repsys.maxkills)
+		if (pc->isGMorCounselor())
+		{
+			pc->setInnocent();
+			return;
+		}
+		else if (pc->kills >= (unsigned) repsys.maxkills)
 		{
 			pc->setMurderer();
+			return;
 		}	
 		else if (pc->crimflag==-1 || pc->crimflag == 0)
 		{
 			pc->setInnocent();
+			return;
 		}
 		else if (pc->crimflag>0)
 		{
 			pc->setCriminal();
+			return;
 		}		
 		else
 		{
