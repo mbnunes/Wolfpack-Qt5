@@ -637,7 +637,7 @@ void cRespawn::Continue()
 			if (k<pi->amount)	// lord binary, adds spawn amount checking
 			{
 				int olditemcount = cItemsManager::getItemsManager().size();
-				Npcs->AddNPC(INVALID_SOCKET, pi, pi->morex);
+				Npcs->AddNPC(-1, pi, pi->morex);
 				if (cItemsManager::getItemsManager().size()-olditemcount>300)
 				{
 					char ttt[222];
