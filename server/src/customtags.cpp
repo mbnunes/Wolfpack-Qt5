@@ -42,76 +42,57 @@
 #include <qstring.h>
 
 /*!
+    \class cVariant customtags.h
+    \brief The cVariant class acts like a union for the most common Wolfpack data types.
+
+    \ingroup objectmodel
+    \ingroup misc
+    \mainclass
+
+    Because C++ forbids unions from including types that have
+    non-default constructors or destructors, most interesting Wolfpack
+    classes cannot be used in unions. Without cVariant, this would be
+    a problem for Python properties, Custom tags, etc.
+
+    The methods named toT() (for any supported T, see the \c Type
+    documentation for a list) are const. If you ask for the stored
+    type, they return a copy of the stored object. If you ask for a
+    type that can be generated from the stored type, toT() copies and
+    converts and leaves the object itself unchanged. If you ask for a
+    type that cannot be generated from the stored type, the result
+    depends on the type (see the function documentation for details).
+
+    The asT() functions are not const. They do conversion like the
+    toT() methods, set the variant to hold the converted value, and
+    return a reference to the new contents of the variant.
+
+    Here is some example code to demonstrate the use of cVariant:
+
+	\code
+		cVariant val;
+		if( PyString_Check( value ) )
+			val = cVariant( PyString_AsString( value ) );
+		else if( PyInt_Check( value ) )
+			val = cVariant( PyInt_AsLong( value ) );
+		else if( checkWpItem( value ) )
+			val = cVariant( getWpItem( value ) );
+		else if( checkWpChar( value ) )
+			val = cVariant( getWpChar( value ) );
+		else if( checkWpCoord( value ) )
+			val = cVariant( getWpCoord( value ) );
+		else if( PyFloat_Check( value ) )
+			val = cVariant( PyFloat_AsDouble( value ) );
+	\endcode
+
+*/
+
+
+/*!
   Constructs an invalid variant.
 */
 cVariant::cVariant()
 {
 	typ = cVariant::Invalid;
-}
-
-/*!
-  Destroys the cVariant and the contained object.
-
-  Note that subclasses that reimplement clear() should reimplement
-  the destructor to call clear().  This destructor calls clear(), but
-  because it is the destructor, cVariant::clear() is called rather than
-  a subclass's clear().
-*/
-cVariant::~cVariant()
-{
-	clear();
-}
-
-cVariant& cVariant::operator= ( const cVariant &v )
-{
-	typ = v.typ;
-
-	// For non pointer types we can simply use the union
-    switch( typ )
-	{
-	case cVariant::String:
-	    value.ptr = new QString( v.toString() );
-	    break;
-	case cVariant::Coord:
-		value.ptr = new Coord_cl( v.toCoord() );
-	    break;
-	default:
-		memcpy( &value, &v.value, sizeof( value ) );
-		break;
-	}
-
-	return *this;
-}
-
-bool cVariant::operator==( const cVariant &v ) const
-{
-	if( typ == v.typ )
-	{
-		switch( typ )
-		{
-		case cVariant::String:
-			return *(QString*)value.ptr == *(QString*)v.value.ptr;
-			
-		case cVariant::Coord:
-			return *(Coord_cl*)value.ptr == *(Coord_cl*)v.value.ptr;
-
-		case Int:
-			return value.i == v.value.i;
-
-		case Double:
-			return value.d == v.value.d;
-
-		default:
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool cVariant::operator!=( const cVariant &v ) const
-{
-	return !operator==( v );
 }
 
 cVariant::cVariant( const cVariant &v )
@@ -177,6 +158,84 @@ cVariant::cVariant( Coord_cl val )
 {
     typ = Coord;
     value.ptr = new Coord_cl( val );
+}
+
+/*!
+  Destroys the cVariant and the contained object.
+
+  Note that subclasses that reimplement clear() should reimplement
+  the destructor to call clear().  This destructor calls clear(), but
+  because it is the destructor, cVariant::clear() is called rather than
+  a subclass's clear().
+*/
+cVariant::~cVariant()
+{
+	cVariant::clear();
+}
+
+/*!
+    Assigns the value of the variant \a variant to this variant.
+
+    This is a deep copy of the variant.
+*/
+cVariant& cVariant::operator= ( const cVariant &v )
+{
+	typ = v.typ;
+
+	// For non pointer types we can simply use the union
+    switch( typ )
+	{
+	case cVariant::String:
+	    value.ptr = new QString( v.toString() );
+	    break;
+	case cVariant::Coord:
+		value.ptr = new Coord_cl( v.toCoord() );
+	    break;
+	default:
+		memcpy( &value, &v.value, sizeof( value ) );
+		break;
+	}
+
+	return *this;
+}
+
+/*!
+    Compares this QVariant with \a v and returns TRUE if they are
+    equal; otherwise returns FALSE.
+*/
+bool cVariant::operator==( const cVariant &v ) const
+{
+	if( typ == v.typ )
+	{
+		switch( typ )
+		{
+		case cVariant::String:
+			return *(QString*)value.ptr == *(QString*)v.value.ptr;
+			
+		case cVariant::Coord:
+			return *(Coord_cl*)value.ptr == *(Coord_cl*)v.value.ptr;
+
+		case Int:
+			return value.i == v.value.i;
+
+		case Double:
+			return value.d == v.value.d;
+
+		default:
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/*!
+    Compares this QVariant with \a v and returns TRUE if they are not
+    equal; otherwise returns FALSE.
+*/
+bool cVariant::operator!=( const cVariant &v ) const
+{
+	return !operator==( v );
 }
 
 /*!
@@ -460,11 +519,6 @@ Coord_cl cVariant::toCoord() const
 	return Coord_cl( 0, 0, 0, 0 );
 }
 
-#define Q_VARIANT_AS( f ) Q##f& cVariant::as##f() { \
-   if ( typ != f ) *this = cVariant( to##f() ); return *((Q##f*)value.ptr);}
-
-Q_VARIANT_AS(String)
-
 /*! \fn QString& cVariant::asString()
 
   Tries to convert the variant to hold a string value. If that
@@ -474,6 +528,12 @@ Q_VARIANT_AS(String)
 
   \sa toString()
 */
+QString& cVariant::asString()
+{
+	if ( typ != String )
+		*this = cVariant( toString() );
+	return *((QString*)value.ptr);
+}
 
 /*!
   Returns the variant's value as int reference.
@@ -568,7 +628,12 @@ bool cVariant::cast( Type t )
 /*****************************************************************************
   cCustomTags member functions
  *****************************************************************************/
+const cVariant cVariant::null;
 
+/*!
+	Copy constructor, accepts \a d cCustomTags and
+	creates a copy of it.
+*/
 cCustomTags::cCustomTags( const cCustomTags& d )
 {
 	if( d.tags_ )
@@ -579,22 +644,42 @@ cCustomTags::cCustomTags( const cCustomTags& d )
 	changed = true;
 }
 
-cCustomTags& cCustomTags::operator=( const cCustomTags& tags )
+/*!
+	Destructor, free the memory resources allocated by the custom tag
+*/
+cCustomTags::~cCustomTags()
+{
+	if( tags_ )
+		delete tags_;
+}
+
+/*!
+	Provides assign semantics for custom tags.
+*/
+cCustomTags& cCustomTags::operator=( const cCustomTags& d )
 {
 	changed = true;
-	if( tags.tags_ )
-		tags_ = new QMap< QString, cVariant >( *tags.tags_ );
+	if( d.tags_ )
+		tags_ = new QMap< QString, cVariant >( *d.tags_ );
 	else
 		tags_ = 0;
 
 	return *this;
 }
 
+/*!
+	Removes the tags from the given serial \a key object from
+	the persistent storage
+*/
 void cCustomTags::del( SERIAL key )
 {
 	persistentBroker->addToDeleteQueue( "tags", QString( "serial = '%1'" ).arg( key ) );
 }
 
+/*!
+	Saves the custom tags into the persistent storage, under
+	the object identified by the \a key serial.
+*/
 void cCustomTags::save( SERIAL key )
 {
 	if( !changed )
@@ -629,6 +714,9 @@ void cCustomTags::save( SERIAL key )
 	changed = false;
 }
 
+/*!
+	Loads Custom tags under the \a key serial from the persistent storage
+*/
 void cCustomTags::load( SERIAL key )
 {
 	if( tags_ )
@@ -658,6 +746,9 @@ void cCustomTags::load( SERIAL key )
 	changed = false;
 }
 
+/*!
+	Tests if the \a key tag exists
+*/
 bool cCustomTags::has( const QString &key ) const
 {
 	if( tags_ )
@@ -669,6 +760,10 @@ bool cCustomTags::has( const QString &key ) const
 	return false;
 }
 
+/*!
+	Retrieves the value of the given \a key tag
+	\sa cVariant
+*/
 const cVariant &cCustomTags::get( const QString& key ) const
 {
 	if( tags_ )
@@ -680,6 +775,7 @@ const cVariant &cCustomTags::get( const QString& key ) const
 
 	return cVariant::null;
 }
+
 
 void cCustomTags::set( const QString& key, const cVariant& value )
 {
@@ -748,10 +844,3 @@ QValueList< cVariant > cCustomTags::getValues( void )
 	return QValueList< cVariant >();
 }
 
-cCustomTags::~cCustomTags()
-{
-	if( tags_ )
-		delete tags_;
-}
-
-const cVariant cVariant::null;
