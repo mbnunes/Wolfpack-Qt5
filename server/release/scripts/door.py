@@ -1,3 +1,11 @@
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  | Created by: unknown                        #
+#   )).-' {{ ;'`   | Revised by:                                #
+#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#===============================================================#
+# Doors                                                         #                    									#
+#===============================================================#
 
 import wolfpack
 from wolfpack.utilities import *
@@ -295,17 +303,16 @@ def onUse( char, item ):
 	# Using doors doesnt count against the object-delay
 	char.objectdelay = 0
 
-	# Do we have a linked door, is this door not open?
-	if item.hastag('link') and not item.hastag('opened'):
-		doubledoor = wolfpack.finditem( hex2dec(item.gettag('link')) )
-		# Double check to make sure either door isn't open.
-		if not item.hastag('opened') and not doubledoor.hastag('opened'):
-			opendoor( char, doubledoor )
-	
 	# In Range?
 	if not char.gm and not char.canreach( item, 2 ):
 		char.message( "You cannot reach the handle from here." )
 		return 1
 		
+	# Do we have a linked door, is this door not open?
+	if item.hastag('link') and not item.hastag('opened'):
+		doubledoor = wolfpack.finditem( int(item.gettag('link')) )
+		# Double check to make sure either door isn't open.
+		if not item.hastag('opened') and not doubledoor.hastag('opened'):
+			opendoor( char, doubledoor )
 	return opendoor( char, item )
 
