@@ -565,17 +565,17 @@ void cPlayer::mount( P_NPC pMount )
 
 bool cPlayer::isGM() const
 {
-	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) && account()->isStaff();
+	return account() && ( account()->rank() >= 50 ) && account()->isStaff();
 }
 
 bool cPlayer::isCounselor() const
 {
-	return account() && ( account()->acl() == "counselor" ) && account()->isStaff();
+	return account() && ( account()->rank() >= 25 && account()->rank() < 50 ) && account()->isStaff();
 }
 
 bool cPlayer::isGMorCounselor() const
 {
-	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) && account()->isStaff();
+	return account() && ( account()->rank() >= 25 ) && account()->isStaff();
 }
 
 void cPlayer::showName( cUOSocket* socket )
