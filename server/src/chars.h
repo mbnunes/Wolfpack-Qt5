@@ -57,6 +57,7 @@ class QString;
 class cUOSocket;
 class cGuildStone;
 class cTerritory;
+class cTempEffect;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -71,6 +72,8 @@ public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	typedef QMap<ushort, cItem*> ContainerContent;
 	typedef QValueVector< cChar* > Followers;
+	typedef QValueVector< cTempEffect* > Effects;
+
 	//  Chaos/Order Guild Stuff for Ripper
 	enum enLayer { TradeWindow, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
@@ -83,6 +86,7 @@ protected:
 
 	ContainerContent		content_;
 	Followers				followers_; // NPC owned by this character
+	Effects					effects_; // Tempeffects affecting this character (Bless, Other Status affecting spells)
 	P_CHAR					owner_;
 
 	SERIAL					trackingTarget_;
@@ -781,6 +785,11 @@ public:
 	Followers followers() const;
 	bool Owns( P_ITEM pi );
 
+	// Effect System
+	void addEffect( cTempEffect *effect );
+	void removeEffect( cTempEffect *effect );
+	Effects effects() const;
+
 	// Definition loading - sereg
 protected:
 	virtual void processNode( const QDomElement& Tag );
@@ -849,6 +858,7 @@ inline QString			cChar::orgname() const			{ return orgname_; }
 inline QString			cChar::title() const			{ return title_;   }
 inline bool				cChar::unicode() const			{ return unicode_; }
 inline AccountRecord*	cChar::account() const			{ return account_; }
+inline cChar::Effects	cChar::effects() const			{ return effects_; }
 
 // Setters
 inline void	cChar::setGuildType(short data)				{ GuildType = data; }

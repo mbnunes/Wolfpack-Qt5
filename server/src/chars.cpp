@@ -3288,7 +3288,7 @@ void cChar::startRepeatedAction( UINT8 action, UINT16 delay )
 
 void cChar::stopRepeatedAction()
 {
-	TempEffects::instance()->dispel( this, "repeataction", false );
+	TempEffects::instance()->dispel( this, this, "repeataction", false );
 }
 
 static void characterRegisterAfterLoading( P_CHAR pc )
@@ -3502,3 +3502,12 @@ P_ITEM cChar::getWeapon()
 
 	return 0;
 }
+
+void cChar::addEffect( cTempEffect *effect )
+{
+}
+
+void cChar::removeEffect( cTempEffect *effect )
+{
+}
+

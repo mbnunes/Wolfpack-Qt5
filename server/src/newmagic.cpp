@@ -309,7 +309,7 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 
 	// Stop the repeating animation and the endspell thing
 	pMage->stopRepeatedAction();
-	TempEffects::instance()->dispel( pMage, "endcasting" ); // just to be sure...
+	TempEffects::instance()->dispel( pMage, 0, "endcasting" ); // just to be sure...
 	
 	if( fizzle )
 	{
