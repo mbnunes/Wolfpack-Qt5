@@ -1,0 +1,432 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification: Split From walls.xml
+=================================================================
+-->
+
+<definitions>
+
+	<item id="e">
+		<id>0xe</id>
+		<category>Buildings\Walls\Wooden Wall 1\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="f">
+		<id>0xf</id>
+		<category>Buildings\Walls\Wooden Wall 1\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="22">
+		<id>0x22</id>
+		<category>Buildings\Walls\Stone Wall 1\Window 1</category>
+		<nodecay/>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="23">
+		<id>0x23</id>
+		<category>Buildings\Walls\Stone Wall 1\Window 2</category>
+		<lightsource>0</lightsource>
+		<nodecay/>
+	</item>
+
+	<item id="3b">
+		<id>0x3b</id>
+		<category>Buildings\Walls\Brick Wall\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="3c">
+		<id>0x3c</id>
+		<category>Buildings\Walls\Brick Wall\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="5d">
+		<id>0x5d</id>
+		<category>Buildings\Walls\Stone Wall 2\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="5e">
+		<id>0x5e</id>
+		<category>Buildings\Walls\Stone Wall 2\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="83">
+		<id>0x83</id>
+		<category>Buildings\Walls\Stone Wall 3\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="85">
+		<id>0x85</id>
+		<category>Buildings\Walls\Stone Wall 3\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="8d">
+		<id>0x8d</id>
+		<category>Buildings\Walls\Stone Wall 3\Window 3</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="8f">
+		<id>0x8f</id>
+		<category>Buildings\Walls\Stone Wall 3\Window 4</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="98">
+		<id>0x98</id>
+		<category>Buildings\Walls\Log Wall\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="99">
+		<id>0x99</id>
+		<category>Buildings\Walls\Log Wall\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="b9">
+		<id>0xb9</id>
+		<category>Buildings\Walls\Wooden Wall 2\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="ba">
+		<id>0xba</id>
+		<category>Buildings\Walls\Wooden Wall 2\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="bb">
+		<id>0xbb</id>
+		<category>Buildings\Walls\Wooden Wall 2\Window w. Bar 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="bc">
+		<id>0xbc</id>
+		<category>Buildings\Walls\Wooden Wall 2\Window w. Bar 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="fc">
+		<id>0xfc</id>
+		<category>Buildings\Walls\Marble Wall 1\Fancy\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="fd">
+		<id>0xfd</id>
+		<category>Buildings\Walls\Marble Wall 1\Fancy\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="102">
+		<id>0x102</id>
+		<category>Buildings\Walls\Marble Wall 1\With Bar\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="103">
+		<id>0x103</id>
+		<category>Buildings\Walls\Marble Wall 1\With Bar\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="108">
+		<id>0x108</id>
+		<category>Buildings\Walls\Marble Wall 1\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="109">
+		<id>0x109</id>
+		<category>Buildings\Walls\Marble Wall 1\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="13a">
+		<id>0x13a</id>
+		<category>Buildings\Walls\Plaster Wall 1\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="13b">
+		<id>0x13b</id>
+		<category>Buildings\Walls\Plaster Wall 1\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="154">
+		<id>0x154</id>
+		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="155">
+		<id>0x155</id>
+		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="156">
+		<id>0x156</id>
+		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 3</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="157">
+		<id>0x157</id>
+		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 4</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="15c">
+		<id>0x15c</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="15d">
+		<id>0x15d</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="162">
+		<id>0x162</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="163">
+		<id>0x163</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="252">
+		<id>0x252</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="253">
+		<id>0x253</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="254">
+		<id>0x254</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 3</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1ad">
+		<id>0x1ad</id>
+		<category>Buildings\Walls\Rattan Wall\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1ae">
+		<id>0x1ae</id>
+		<category>Buildings\Walls\Rattan Wall\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1af">
+		<id>0x1af</id>
+		<category>Buildings\Walls\Rattan Wall\Window 3</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1b0">
+		<id>0x1b0</id>
+		<category>Buildings\Walls\Rattan Wall\Window 4</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1c4">
+		<id>0x1c4</id>
+		<category>Buildings\Walls\Hide Wall\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1c5">
+		<id>0x1c5</id>
+		<category>Buildings\Walls\Hide Wall\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1c6">
+		<id>0x1c6</id>
+		<category>Buildings\Walls\Hide Wall\Window 3</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1c7">
+		<id>0x1c7</id>
+		<category>Buildings\Walls\Hide Wall\Window 4</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1d3">
+		<id>0x1d3</id>
+		<category>Buildings\Walls\Stone Wall 5\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="1d4">
+		<id>0x1d4</id>
+		<category>Buildings\Walls\Stone Wall 5\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="207">
+		<id>0x207</id>
+		<category>Buildings\Walls\Plaster Wall 2\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="208">
+		<id>0x208</id>
+		<category>Buildings\Walls\Plaster Wall 2\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="209">
+		<id>0x209</id>
+		<category>Buildings\Walls\Plaster Wall 2\Window 3</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="20a">
+		<id>0x20a</id>
+		<category>Buildings\Walls\Plaster Wall 2\Window 4</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="295">
+		<id>0x295</id>
+		<category>Buildings\Walls\Marble Wall 2\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="296">
+		<id>0x296</id>
+		<category>Buildings\Walls\Marble Wall 2\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="29b">
+		<id>0x29b</id>
+		<category>Buildings\Walls\Marble Wall 2\With Bar\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="29c">
+		<id>0x29c</id>
+		<category>Buildings\Walls\Marble Wall 2\With Bar\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="2ad">
+		<id>0x2ad</id>
+		<category>Buildings\Walls\Marble Wall 2\Fancy\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="2ae">
+		<id>0x2ae</id>
+		<category>Buildings\Walls\Marble Wall 2\Fancy\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="3dd">
+		<id>0x3dd</id>
+		<category>Buildings\Walls\Sandstone Wall 2\Window 1</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="3de">
+		<id>0x3de</id>
+		<category>Buildings\Walls\Sandstone Wall 2\Window 2</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+	<item id="3df">
+		<id>0x3df</id>
+		<category>Buildings\Walls\Sandstone Wall 2\Window 3</category>
+		<nodecay/>
+		<lightsource>0</lightsource>
+	</item>
+
+</definitions>

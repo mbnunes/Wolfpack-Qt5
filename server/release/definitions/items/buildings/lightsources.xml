@@ -15,14 +15,14 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="9fc">
 		<id>0x9fc</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (Empty)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="9fd">
@@ -30,7 +30,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a00">
@@ -38,14 +38,14 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (N/S) (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a01">
 		<id>0xa01</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (Empty)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a02">
@@ -53,7 +53,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a05">
@@ -61,7 +61,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a06">
@@ -69,7 +69,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (Empty)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a07">
@@ -77,7 +77,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a0a">
@@ -85,7 +85,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a0b">
@@ -93,7 +93,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (Empty)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a0c">
@@ -101,7 +101,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a18">
@@ -109,7 +109,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a15">
@@ -117,7 +117,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a1d">
@@ -125,7 +125,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a1a">
@@ -133,7 +133,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a1f">
@@ -153,7 +153,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lantern (Off)</category>
-		<direction>29</direction>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a22">
@@ -161,7 +161,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lantern (On)</category>
-		<direction>29</direction>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a28">
@@ -169,7 +169,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 1 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a0f">
@@ -177,7 +177,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 1 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a26">
@@ -185,7 +185,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 2 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b1a">
@@ -193,7 +193,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 2 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a27">
@@ -201,7 +201,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Small Candelabra (Off)</category>
-		<direction>1</direction>
+		<lightsource>1</lightsource>
 		<weight>3.0</weight>
 	</item>
 
@@ -210,7 +210,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Small Candelabra (On)</category>
-		<direction>1</direction>
+		<lightsource>1</lightsource>
 		<weight>3.0</weight>
 	</item>
 
@@ -219,7 +219,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Big Candlabra (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b26">
@@ -227,7 +227,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Big Candlabra (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b27" inherit="b26">
@@ -241,7 +241,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 1 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b20">
@@ -249,7 +249,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 1 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b22">
@@ -257,7 +257,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 2 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b23">
@@ -265,7 +265,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 2 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b24">
@@ -273,7 +273,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 3 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b25">
@@ -281,13 +281,13 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 3 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="e31">
 		<id>0xe31</id>
 		<nodecay />
-		<category>Decoration\Lightsources\Brazier 1</category>		
+		<category>Decoration\Lightsources\Brazier 1</category>
 	</item>
 
 	<item id="19aa">
@@ -313,7 +313,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 3 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="142f">
@@ -321,7 +321,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 3 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="1430">
@@ -329,7 +329,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 4 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="1433">
@@ -337,7 +337,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 4 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="1434">
@@ -345,7 +345,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 5 (On)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<item id="1437">
@@ -353,7 +353,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 5 (Off)</category>
-		<direction>2</direction>
+		<lightsource>2</lightsource>
 	</item>
 
 	<!-- Skull Candle -->

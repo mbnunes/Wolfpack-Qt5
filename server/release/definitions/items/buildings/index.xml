@@ -27,4 +27,5 @@
 	<include file="definitions/items/buildings/stairs.xml"/>
 	<include file="definitions/items/buildings/walls.xml"/>
 	<include file="definitions/items/buildings/weapons.xml"/>
+	<include file="definitions/items/buildings/windows.xml"/>
 </definitions>
