@@ -33,6 +33,8 @@
 
 #include "engine.h"
 
+#include <stdexcept>
+
 template <class T, unsigned int MAXSIZE> 
 class FixedSizePtrStack 
 {
