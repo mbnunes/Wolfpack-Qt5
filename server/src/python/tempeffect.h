@@ -224,6 +224,7 @@ public:
 		dispelId_ = reader.readUtf8();
 		int count = reader.readInt();
 
+		args = PyTuple_New(count);
 		for(int i = 0; i < count; ++i) {
 			cVariant variant;
 			PyObject *object = 0;
