@@ -1,4 +1,9 @@
 
+"""
+	\command guilds
+	\description Shows a dialog with all guilds.
+"""
+
 import wolfpack
 from math import ceil
 import time

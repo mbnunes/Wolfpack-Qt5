@@ -31,6 +31,13 @@ time = 24 * 3600000 # Value * Hours
 
 #optimizequery = "OPTIMIZE TABLE `accounts` , `boats` , `boats_itemids` , `boats_itemoffsets` , `bookpages` , `books` , `characters` , `corpses` , `corpses_equipment` , `effects` , `effects_properties` , `guilds` , `guilds_canidates` , `guilds_members` , `houses` , `items` , `multis` , `multis_bans` , `multis_friends` , `npcs` , `players` , `settings` , `skills` , `tags` , `uobject` , `uobjectmap` "
 
+"""
+	\command optimizedb
+	\description Optimize the world and account database.
+	\notes This command can only be used if one of your 
+	databases is using the MySQL driver.
+"""
+
 def onLoad():
 	if accountsdriver == 'mysql' or worlddriver == 'mysql':
 		wolfpack.addtimer( time, "mysql_optimize_db.timer", [] )

@@ -7,6 +7,26 @@
 # Script for Spellbooks                                         #
 #===============================================================#
 
+"""
+	\command addspell
+	\description Add a spell to a spellbok.
+	\usage - <code>addspell id</code>	
+	- <code>addspell all</code>
+	Id is the id of the spell you want to add. 
+	If you use 'addspell all', all available spells
+	will be added to the book.
+"""
+
+"""
+	\command removespell
+	\description Remove a spell from a spellbook.
+	\usage - <code>removespell id</code>	
+	- <code>removespell all</code>
+	Id is the id of the spell that should be removed
+	from the book. If you use 'removespell all', all 
+	spells will be removed from the book.
+"""
+
 from math import floor,ceil
 import wolfpack
 
