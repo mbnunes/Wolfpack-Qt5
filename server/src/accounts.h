@@ -78,8 +78,8 @@ public:
 	cAccount();
 
 	QString login() const;
-
 	QString password() const;
+	unsigned char plevel() const;
 	void remove();
 	void setPassword( const QString& );
 	QValueVector<P_PLAYER> caracterList() const;

@@ -155,10 +155,15 @@ void cCommands::loadACLs( void )
 			continue;
 
 		QString ACLname = *it;
-		
+        	
 		// While we are in this loop we are building an ACL
 		cAcl *acl = new cAcl;
 		acl->name = ACLname;
+		acl->plevel = Tag->getAttribute("plevel", "1").toUShort();
+		if (acl->plevel == 0 || acl->plevel == 255) {
+			acl->plevel = 1;
+		}
+
 		QMap< QString, bool > group;
 		QString groupName;
 

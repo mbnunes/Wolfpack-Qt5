@@ -52,6 +52,7 @@ class cAcl
 {
 public:
 	QString name;
+	unsigned char plevel;
 	QMap< QString, QMap< QString, bool > > groups;
 };
 
