@@ -106,46 +106,45 @@ void applyRank( UOXSOCKET Socket, P_ITEM Item, UI08 Rank )
 	switch( Rank )
 	{
 		case 1: 
-			Message = "You made an item with no quality!";
+			Message = tr("You made an item with no quality!");
 			break;
 
 		case 2: 
-			Message = "You made an item very below standard quality!";
+			Message = tr("You made an item very below standard quality!");
 			break;
 
 		case 3: 
-			Message = "You made an item below standard quality!";
+			Message = tr("You made an item below standard quality!");
 			break;
 
 		case 4: 
-			Message = "You made a weak quality item!";
+			Message = tr("You made a weak quality item!");
 			break;
 
 		case 5: 
-			Message = "You made a standard quality item!";
+			Message = tr("You made a standard quality item!");
 			break;
 
 		case 6: 
-			Message = "You made a nice quality item!";
+			Message = tr("You made a nice quality item!");
 			break;
 
 		case 7: 
-			Message = "You made a good quality item!";
+			Message = tr("You made a good quality item!");
 			break;
 
 		case 8: 
-			Message = "You made a great quality item!";
+			Message = tr("You made a great quality item!");
 			break;
 
 		case 9: 
-			Message = "You made a beautiful quality item!";
+			Message = tr("You made a beautiful quality item!");
 			break;
 
 		case 10: 
-			Message = "You made a perfect quality item!";
+			Message = tr("You made a perfect quality item!");
 			break;
 	}
-
 	sysmessage( Socket, Message );
 }
 

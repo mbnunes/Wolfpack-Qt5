@@ -144,7 +144,6 @@ public:
 	bool		isCharacter( void );
 	bool		isItem( void );
 	bool		isSerial( void );
-	bool		isNull( void );
 
 
 private:
@@ -242,10 +241,10 @@ public:
 	cVariant	get( QString key ) { return this->tags_[ key ]; }
 	void		set( QString key, cVariant value ) 
 	{
-		if( value.isNull() )
+		if( !value.isValid() )
 			this->tags_.erase( key );
 		else
-			this->tags_[ key ] = value; 
+			this->tags_.insert(std::make_pair(key, value)); 
 	}
 	void		remove( QString key ) { this->tags_.erase( key ); }
 
