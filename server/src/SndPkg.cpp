@@ -1395,8 +1395,8 @@ void textflags (int s, int i, char *name)
 	talk[8]=1;
 	talk[9]=6; // Mode: "You see"
 	guild=Guilds->Compare(currchar[s],i);
-	race = RaceManager->CheckRelation(pc,pc_currchar);
-	if (guild==1 || race == 1) //Same guild (Green)
+	race = Races.CheckRelation(pc, pc_currchar);
+	if (guild == 1 || race == 1) //Same guild (Green)
 	{
 		talk[10]=0x00;
 		talk[11]=0x43;
@@ -2880,8 +2880,8 @@ void impowncreate(int s, int i, int z) //socket, player to send
 	k=19;
 	int guild,race;
 	guild=Guilds->Compare(currchar[s],i);
-	race=RaceManager->CheckRelation(pc_currchar,pc);
-	if (guild==1 || race == 1)//Same guild (Green)
+	race = Races.CheckRelation(pc_currchar, pc);
+	if (guild == 1 || race == 1)//Same guild (Green)
 		oc[18]=2;
 	else if (guild==2 || race == 2) // Enemy guild.. set to orange
 		oc[18]=5;

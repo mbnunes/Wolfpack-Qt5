@@ -1,12 +1,41 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//========================================================================================
+
 #include "wolfpack.h"
 #include "races.h"
 
-vector<cRaces *> Races;
-
-void cRaceManager::LoadRaceFile()
+void cRaces::LoadRaceFile()
 {
-	int racecount=0;
-	wscfile=fopen("races.scp", "r");
+	int racecount = 0;
+	wscfile = fopen("races.scp", "r");
 	if (wscfile == NULL) 
 	{
 		return;
@@ -16,87 +45,87 @@ void cRaceManager::LoadRaceFile()
 		readw2();
 		if(!(strcmp((char*)script1,"SECTION")))
 		{
-			racecount=Races.size();
-			Races.resize(Races.size()+1);
-			Races[racecount]=new cRaces;
+			cRace dummy;
+			races.push_back(dummy);
+			racecount = races.size() - 1;
 		}
-		else
+		else if( racecount < races.size())
 		{
 			switch(script1[0])
 			{
 			case 'B':
 			case 'b':
 				if(!strcmp((char*)script1, "BEARDREQ"))
-					Races[racecount]->BeardReq=str2num(script2);
+					races[racecount].BeardReq = str2num(script2);
 				break;
 			case 'C':
 			case 'c':
 				if(!strcmp((char*)script1, "CANUSESKILL"))
-					Races[racecount]->CanUseSkill.push_back(str2num(script2));
-				if(!strcmp((char*)script1, "CANTUSEITEM"))
-					Races[racecount]->CantUseItem.push_back(str2num(script2));
+					races[racecount].CanUseSkill.push_back(str2num(script2));
+				else if(!strcmp((char*)script1, "CANTUSEITEM"))
+					races[racecount].CantUseItem.push_back(str2num(script2));
 				break;
 			case 'D':
 			case 'd':
 				if(!strcmp((char*)script1, "DEXCAP"))
-					Races[racecount]->DexCap=str2num(script2);
+					races[racecount].DexCap = str2num(script2);
 				break;
 			case 'G':
 			case 'g':
 				if(!strcmp((char*)script1, "GENDER"))
-					Races[racecount]->Gender=str2num(script2);
+					races[racecount].Gender = str2num(script2);
 				break;
 			case 'H':
 			case 'h':
 				if(!strcmp((char*)script1, "HAIRREQ"))
-					Races[racecount]->HairReq=str2num(script2);
-				if(!strcmp((char*)script1, "HAIRBEARDLIST"))
-					strcpy(Races[racecount]->HairBeardList,script2);
+					races[racecount].HairReq = str2num(script2);
+				else if(!strcmp((char*)script1, "HAIRBEARDLIST"))
+					races[racecount].HairBeardList = script2;
 				break;
 			case 'I':
 			case 'i':
 				if(!strcmp((char*)script1, "ISPLAYERRACE"))
-					Races[racecount]->IsPlayerRace=str2num(script2);
-				if(!strcmp((char*)script1, "INTCAP"))
-					Races[racecount]->IntCap=str2num(script2);
-				if(!strcmp((char*)script1, "IMUNETOSPELL"))
-					Races[racecount]->ImuneToSpell.push_back(str2num(script2));
+					races[racecount].IsPlayerRace=str2num(script2);
+				else if(!strcmp((char*)script1, "INTCAP"))
+					races[racecount].IntCap=str2num(script2);
+				else if(!strcmp((char*)script1, "IMUNETOSPELL"))
+					races[racecount].ImuneToSpell.push_back(str2num(script2));
 				break;
 			case 'N':
 			case 'n':
 				if(!strcmp((char*)script1, "NIGHTSIGHT"))
-					Races[racecount]->NightSight=str2num(script2);
-				if(!strcmp((char*)script1, "NOHAIR"))
-					Races[racecount]->NoHair=str2num(script2);
-				if(!strcmp((char*)script1, "NOBEARD"))
-					Races[racecount]->NoBeard=str2num(script2);
+					races[racecount].NightSight=str2num(script2);
+				else if(!strcmp((char*)script1, "NOHAIR"))
+					races[racecount].NoHair=str2num(script2);
+				else if(!strcmp((char*)script1, "NOBEARD"))
+					races[racecount].NoBeard=str2num(script2);
 				break;
 			case 'R':
 			case 'r':
 				if(!strcmp((char*)script1, "RACENAME"))
-					strcpy(Races[racecount]->RaceName,script2);
-				if(!strcmp((char*)script1, "RACEALLY"))
-					Races[racecount]->RacialAlly.push_back(str2num(script2));
-				if(!strcmp((char*)script1, "RACEENEMY"))
-					Races[racecount]->RacialEnemy.push_back(str2num(script2));
+					races[racecount].RaceName = script2;
+				else if(!strcmp((char*)script1, "RACEALLY"))
+					races[racecount].RacialAlly.push_back(str2num(script2));
+				else if(!strcmp((char*)script1, "RACEENEMY"))
+					races[racecount].RacialEnemy.push_back(str2num(script2));
 				break;
 			case 'S':
 			case 's':
 				if(!strcmp((char*)script1, "STARTINT"))
-					Races[racecount]->StartInt=str2num(script2);
-				if(!strcmp((char*)script1, "STARTDEX"))
-					Races[racecount]->StartDex=str2num(script2);
-				if(!strcmp((char*)script1, "STARTSTR"))
-					Races[racecount]->StartStr=str2num(script2);
-				if(!strcmp((char*)script1, "STRCAP"))
-					Races[racecount]->StrCap=str2num(script2);
-				if(!strcmp((char*)script1, "SKINLIST"))
-					strcpy(Races[racecount]->SkinList,script2);
+					races[racecount].StartInt=str2num(script2);
+				else if(!strcmp((char*)script1, "STARTDEX"))
+					races[racecount].StartDex=str2num(script2);
+				else if(!strcmp((char*)script1, "STARTSTR"))
+					races[racecount].StartStr=str2num(script2);
+				else if(!strcmp((char*)script1, "STRCAP"))
+					races[racecount].StrCap=str2num(script2);
+				else if(!strcmp((char*)script1, "SKINLIST"))
+					races[racecount].SkinList = script2;
 				break;
 			case 'V':
 			case 'v':
 				if(!strcmp((char*)script1, "VISRANGE"))
-					Races[racecount]->VisRange=str2num(script2);
+					races[racecount].VisRange = str2num(script2);
 				break;
 			default:
 				break;
@@ -106,15 +135,15 @@ void cRaceManager::LoadRaceFile()
 	fclose(wscfile);
 }
 
-void cRaceManager::SetRace(P_CHAR pc,int race)
+void cRaces::SetRace(P_CHAR pc, int race)
 {
-	int i=0,n=0;
+	int i = 0, n = 0;
 	int so=calcSocketFromChar(DEREF_P_CHAR(pc));
-	short colorlist=addrandomcolor(DEREF_P_CHAR(pc),(char*)Races[race]->HairBeardList);
+	short colorlist = addrandomcolor(DEREF_P_CHAR(pc),(char*)Races[race]->HairBeardList.c_str());
 
 	pc->race=race;
 
-	pc->skin=addrandomcolor(DEREF_P_CHAR(pc),(char*)Races[race]->SkinList);
+	pc->skin=addrandomcolor(DEREF_P_CHAR(pc),(char*)Races[race]->SkinList.c_str());
 
 	if(Races[race]->NoHair)
 	{
@@ -173,19 +202,20 @@ void cRaceManager::SetRace(P_CHAR pc,int race)
 		if((Races[race]->HairReq==1 && pc->id2==0x90) || (Races[race]->HairReq==2 && pc->id2==0x91)|| (Races[race]->HairReq==3))
 		{
 			vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-			for (int ci=0;ci<vecContainer.size();ci++)
+			for (unsigned int ci = 0; ci < vecContainer.size(); ci++)
 			{
-				i=calcItemFromSer(vecContainer[ci]);
-				if (i!=-1)
-					if ((items[i].layer==0x0B) && (items[i].contserial==pc->serial))
+				P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+				if (pi != NULL)
+					if ((pi->layer == 0x0B) && (pi->contserial == pc->serial))
 					{
-						Items->DeleItem(i);
+						Items->DeleItem(pi);
 					}
 			}
-			int hairstyle=RandomHairStyle();
-			n=Items->SpawnItem(so,DEREF_P_CHAR(pc),1, "#", 0, 0x20, hairstyle, 0x04, 0x62,0,0);
-			if(n==-1) return;//AntiChrist to preview crashes
-			const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+			int hairstyle = RandomHairStyle();
+			n = Items->SpawnItem( so, DEREF_P_CHAR(pc), 1, "#", 0, 0x20, hairstyle, 0x04, 0x62, 0, 0 );
+			const P_ITEM pi = MAKE_ITEM_REF(n);
+			if (pi == NULL)
+				return;
 			pi->setColor(colorlist);
 			pi->SetContSerial(pc->serial);
 			pi->layer=0x0B;
@@ -215,109 +245,83 @@ void cRaceManager::SetRace(P_CHAR pc,int race)
 	statwindow(so, DEREF_P_CHAR(pc));
 }
 
-int cRaceManager::RandomHairStyle()
+int cRaces::RandomHairStyle()
 {
-	int i=0;
-	i=RandomNum(0,9);
-	switch( i )
+	switch( RandomNum(0,9) )
 	{
-	case 0:
-		return 0x3B;
-	case 1:
-		return 0x3D;
-	case 2:
-		return 0x44;
-	case 3:
-		return 0x45;
-	case 4:
-		return 0x46;
-	case 5:
-		return 0x47;
-	case 6:
-		return 0x48;
-	case 7:
-		return 0x49;
-	case 8:
-		return 0x4A;
-	case 9:
-		return 0x44;
-	default:
-		return 0x47;
+	case 0:		return 0x3B;
+	case 1:		return 0x3D;
+	case 2:		return 0x44;
+	case 3:		return 0x45;
+	case 4:		return 0x46;
+	case 5:		return 0x47;
+	case 6:		return 0x48;
+	case 7:		return 0x49;
+	case 8:		return 0x4A;
+	case 9:		return 0x44;
+	default:	return 0x47;
 	}
 }
 
-int cRaceManager::RandomBeardStyle()
+int cRaces::RandomBeardStyle()
 {
-	int i=0;
-	i=RandomNum(0,7);
-	switch( i )
+	switch( RandomNum(0,7) )
 	{
-	case 0:
-		return 0x3B;
-	case 1:
-		return 0x3E;
-	case 2:
-		return 0x3F;
-	case 3:
-		return 0x40;
-	case 4:
-		return 0x41;
-	case 5:
-		return 0x4B;
-	case 6:
-		return 0x4C;
-	case 7:
-		return 0x4D;
-	default:
-		return 0x47;
+	case 0:		return 0x3B;
+	case 1:		return 0x3E;
+	case 2:		return 0x3F;
+	case 3:		return 0x40;
+	case 4:		return 0x41;
+	case 5:		return 0x4B;
+	case 6:		return 0x4C;
+	case 7:		return 0x4D;
+	default:	return 0x47;
 	}
 }
 
-int cRaceManager::CheckRelation(P_CHAR pc_1, P_CHAR pc_2)
+int cRaces::CheckRelation(P_CHAR pc_1, P_CHAR pc_2)
 {
-	char temp[512]={' '};
-	if(pc_1==pc_2)
+	if(pc_1 == pc_2)
 		return 0;
-	if(pc_1->isNpc())
+	if(pc_1->isNpc() || pc_2->isNpc())
 		return 0;
-	if(pc_2->isNpc())
-		return 0; 
-	int race1=pc_1->race;
-	int race2=pc_2->race;
-	if(race1==race2)
+
+	int race1 = pc_1->race;
+	int race2 = pc_2->race;
+	if(race1 == race2)
 		return 1;
-	int rc=0;
-	for(rc=0;rc<Races[race1]->RacialAlly.size();rc++)
+	unsigned int rc;
+	for(rc = 0; rc < Races[race1]->RacialAlly.size(); rc++)
 		if(Races[race1]->RacialAlly[rc] == race2)
 			return 1;
-	for(rc=0;rc<Races[race1]->RacialEnemy.size();rc++)
+	for(rc = 0; rc < Races[race1]->RacialEnemy.size(); rc++)
 		if(Races[race1]->RacialEnemy[rc] == race2)
 			return 2;
 	return 3;
 }
 
-bool cRaces::CheckSkillUse(int skillnum)
+bool cRace::CheckSkillUse(int skillnum)
 {
-	int skillcount=0;
-	for(skillcount=0;skillcount!=CanUseSkill.size();skillcount++)
+	unsigned int skillcount;
+	for(skillcount = 0; skillcount != CanUseSkill.size(); skillcount++)
 		if(CanUseSkill[skillcount] = skillnum)
 			return true;
 	return false;
 }
 
-bool cRaces::CheckSpellImune(int spellnum)
+bool cRace::CheckSpellImune(int spellnum)
 {
-	int spellcount=0;
-	for(spellcount=0;spellcount!=ImuneToSpell.size();spellcount++)
+	unsigned int spellcount;
+	for(spellcount = 0; spellcount != ImuneToSpell.size(); spellcount++)
 		if(ImuneToSpell[spellcount] = spellnum)
 			return true;
 	return false;
 }
 
-bool cRaces::CheckItemUse(int itemnum)
+bool cRace::CheckItemUse(int itemnum)
 {
-	int itemcount=0;
-	for(itemcount=0;itemcount!=CantUseItem.size();itemcount++)
+	unsigned int itemcount;
+	for(itemcount = 0; itemcount != CantUseItem.size(); itemcount++)
 		if(CantUseItem[itemcount] = itemnum)
 			return false;
 	return true;

@@ -1922,7 +1922,10 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					if( aggressiveSpell( curSpell ) )
 					{
-						if ((pc_defender->isInnocent())&&(i != cc)&& !pc_currchar->Owns(&chars[i])&&(!Guilds->Compare(i,cc))&&(!RaceManager->CheckRelation(pc_currchar,pc_defender)) ){criminal(cc);}
+						if ((pc_defender->isInnocent())&&(i != cc)&& !pc_currchar->Owns(&chars[i])&&(!Guilds->Compare(i,cc))&&(!Races.CheckRelation(pc_currchar,pc_defender)) )
+						{
+							criminal(cc);
+						}
 						if (pc_defender->npcaitype==17) // Ripper 11-14-99
 						{
 							sysmessage(s," They are Invulnerable merchants!");

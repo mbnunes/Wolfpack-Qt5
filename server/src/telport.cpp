@@ -874,7 +874,7 @@ void objTeleporters(int s)
 
 								if(pmi->type == 88)
 								{
-									RaceManager->SetRace(pc_s,pmi->morex);
+									Races.SetRace(pc_s,pmi->morex);
 								}
 					}
 				}

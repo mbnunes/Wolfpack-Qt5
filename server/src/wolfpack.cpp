@@ -3096,7 +3096,7 @@ int main(int argc, char *argv[])
 	item_char_test(); //LB
 	Guilds->CheckConsistancy(); // LB
 	clConsole.send("Loading Races!\n");
-	RaceManager->LoadRaceFile();
+	Races.LoadRaceFile();
 	clConsole.send("Races Loaded!\n");
 	Weather->start();
 	//Network->InitConnThread();
@@ -5652,8 +5652,8 @@ void StartClasses(void)
 	clConsole.send("Initializing classes...");
 
 // NULL Classes out first....
-	cwmWorldState=NULL;
-	mapRegions=NULL;
+	cwmWorldState = NULL;
+	mapRegions = NULL;
 	Accounts=NULL;
 	Admin=NULL;
 	Boats=NULL;
@@ -5682,31 +5682,30 @@ void StartClasses(void)
 	cwmWorldState=new CWorldMain;
 	mapRegions = new cRegion;
 	Accounts = new cAccount;
-	Admin=new cAdmin;
-	Boats=new cBoat;
-	Combat=new cCombat;
-	Commands=new cCommands;
+	Admin = new cAdmin;
+	Boats = new cBoat;
+	Combat = new cCombat;
+	Commands = new cCommands;
 	Guilds=new cGuilds;
-	Gumps=new cGump;
-	Items=new cAllItems;
-	Map=new cMapStuff;
-	Npcs=new cCharStuff;
-	Skills=new cSkills;
-	Weight=new cWeight;
-	Targ=new cTargets;
-	Network=new cNetworkStuff;
-	Magic=new cMagic;
-	Books=new cBooks;
-	ItemArray= new cItemArray;
-	CharArray= new cCharArray;
-	Respawn=new cRespawn;
+	Gumps = new cGump;
+	Items = new cAllItems;
+	Map = new cMapStuff;
+	Npcs = new cCharStuff;
+	Skills = new cSkills;
+	Weight = new cWeight;
+	Targ = new cTargets;
+	Network = new cNetworkStuff;
+	Magic = new cMagic;
+	Books = new cBooks;
+	ItemArray = new cItemArray;
+	CharArray = new cCharArray;
+	Respawn = new cRespawn;
 	AllTmpEff = new cAllTmpEff;
 	Movement = new cMovement;
-	Weather=new cWeather;
+	Weather = new cWeather;
 	HouseManager=new cHouseManager;
 	House.resize(0);
-	RaceManager=new cRaceManager;
-	Races.resize(0);
+
 	// Sky's AI Stuff
 	DragonAI=new cCharStuff::cDragonAI;
 	BankerAI=new cCharStuff::cBankerAI;

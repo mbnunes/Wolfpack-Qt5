@@ -994,7 +994,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				int guild, race;
 				//chars[i].flag=0x04;       // everyone should be blue on default
 				guild=Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
-				race = RaceManager->CheckRelation(pc,pc_check);
+				race = Races.CheckRelation(pc,pc_check);
 				if( pc->kills > repsys.maxkills ) extmove[16]=6;
 				else if (guild==1 || race==1)//Same guild (Green)
 					extmove[16]=2;
@@ -1354,7 +1354,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             if (pc->hidden) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
             const int guild = Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
-            const int race = RaceManager->CheckRelation(pc,pc_check);
+            const int race = Races.CheckRelation(pc,pc_check);
             if (pc->kills > repsys.maxkills ) extmove[16]=6; // ripper
             //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
             //chars[i].flag=0x04;       // everyone should be blue on default

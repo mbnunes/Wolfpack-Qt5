@@ -50,4 +50,4 @@ will highlight red. (Ripper)
 cash check, just drop on any banker :) (Ripper)
 42) Changed: Bankers to hear at 12 tiles, instead of 6 tiles. This gives you allmost a
 screen away to open bank. helps to open from outsidebank. (Ripper)
-43) Added: Races! (Skyfire)
+43) Added: Races! (Skyfire/Correa)
