@@ -689,6 +689,21 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		return;
 	}
 	
+	if( pItem->onDropOnItem( pCont ) )
+	{
+		if( socket->dragging() )
+			socket->bounceItem( socket->dragging(), BR_NO_REASON );
+
+		return;
+	}
+	else if( pCont->onDropOnItem( pItem ) )
+	{
+		if( socket->dragging() )
+			socket->bounceItem( socket->dragging(), BR_NO_REASON );
+
+		return;
+	}
+
 	// If the target belongs to another character 
 	// It needs to be our vendor or else it's denied
 	P_CHAR packOwner = pCont->getOutmostChar();
