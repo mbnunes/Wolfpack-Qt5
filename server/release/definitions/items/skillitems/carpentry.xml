@@ -6,12 +6,85 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
+
 <definitions>
+        <!-- Draw Knife -->
+	<item id="10e4">
+		<name>draw knife</name>
+		<id>0x10e4</id>
+		<decay/>
+		<value>5</value>
+	</item>
+	
+	<!-- Dovetail Saw -->
+	<item id="1028">
+		<name>dovetail saw</name>
+		<id>0x1028</id>
+		<decay/>
+		<value>15</value>
+	</item>
+	
 	<!-- saw -->
 	<item id="1034">
 		<name>saw</name>
 		<id>0x1034</id>
-		<hitpoints>20</hitpoints>
+		<value>20</value>
+	</item>
+	
+	!-- Carpenter Hammer -->
+	<item id="102a">
+		<name>carpenter hammer</name>
+		<id>0x102a</id>
+		<value>15</value>
+	</item>
+	
+	!-- Jointing Plane -->
+	<item id="1030">
+		<name>jointing plane</name>
+		<id>0x1030</id>
+		<value>15</value>
+	</item>
+	
+	!-- Smoothing Plane -->
+	<item id="1032">
+		<name>smoothing plane</name>
+		<id>0x1032</id>
+		<value>15</value>
+	</item>
+	
+	!-- Scorp -->
+	<item id="10e7">
+		<name>scorp</name>
+		<id>0x10e7</id>
+		<value>10</value>
+	</item>
+	
+	!-- Inshave -->
+	<item id="10e6">
+		<name>inshave</name>
+		<id>0x10e6</id>
+		<value>10</value>
+	</item>
+	
+	!-- Moulding Plane -->
+	<item id="102c">
+		<name>moulding plane</name>
+		<id>0x102c</id>
+		<value>15</value>
+	</item>
+	
+	!-- Nails -->
+	<item id="102e">
+		<name>nails</name>
+		<id>0x102e</id>
+		<value>5</value>
+	</item>
+	
+	!-- Froe -->
+	<item id="10e5">
+		<name>froe</name>
+		<id>0x10e5</id>
+		<value>10</value>
 	</item>
 	
 	<!-- board -->

@@ -9,10 +9,11 @@
 <definitions>
 	<!--  default -->
 	<startitems id="default">
-		<!--gold --><gold>1000</gold>
+		<!--Gold --><gold>1000</gold>
 		<!--Dagger --><item id="f51"></item>
-		<!--candle --><item id="a0f"></item>
-		<!--book --><item id="ff1"></item>
+		<!--Candle --><item id="a0f"></item>
+		<!--Book --><item id="ff1"></item>
+		<!--Shoes --><equipment id="170f"></equipment>
 	</startitems>
 
 	<!--  Alchemy -->
@@ -76,6 +77,9 @@
 	<!--  Bowcraft -->
 	<startitems id="bowcraft">
 	        <inherit id="default" />
+	        <!--Boards --><item id="1bd7"><amount>14</amount></item>
+	        <!--Feathers --><item id="1bd1"><amount>5</amount></item>
+	        <!--Shafts --><item id="1bd4"><amount>5</amount></item>
 	</startitems>
 
 	<!--  Peacemaking -->
@@ -87,11 +91,16 @@
 	<!--  Camping -->
 	<startitems id="camping">
 	        <inherit id="default" />
+	        <!--Bedroll --><item id="a58"></item>
+	        <!--Kindling --><item id="de1"><amount>5</amount></item>
 	</startitems>
 
 	<!--  Carpentry -->
 	<startitems id="carpentry">
 	        <inherit id="default" />
+	        <!--Half Apron --><equipment id="153b"></equipment>
+	        <!--Boards --><item id="1bd7"><amount>10</amount></item>
+	        <!--Random Carpentry Tool--><item><inherit><random list="CARPENTRYTOOLS" /></inherit></item>
 	</startitems>
 
 	<!--  Cartography -->
