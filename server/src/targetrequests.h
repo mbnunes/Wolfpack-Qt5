@@ -584,6 +584,18 @@ public:
 			return true;
 		}
 
+		// check for rank
+		P_CHAR pChar = dynamic_cast< P_CHAR >( pObject );
+		if( pChar && pChar->objectType() == enPlayer)
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
+			if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+			{
+				socket->sysMessage( tr( "Better do not try that!" ) );
+				return true;
+			}
+		}
+
 		// Move the object relatively
 		pObject->removeFromView();
 		Coord_cl newPos = pObject->pos() + Coord_cl( x, y, z );
@@ -592,17 +604,6 @@ public:
 		if( pObject->isChar() )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( pObject );
-
-			// check for rank
-			if( pChar && pChar->objectType() == enPlayer)
-			{
-				P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
-				if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
-				{
-					socket->sysMessage( tr( "Better do not try that!" ) );
-					return true;
-				}
-			}
 
 			if( pChar )
 				pChar->resend();
