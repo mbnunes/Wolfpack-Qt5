@@ -1,0 +1,24 @@
+.maintitle {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 16px;
+	font-weight: bold;
+	color: #336633;
+}
+.smalltext {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 10px;
+	color: #999999;
+}
+.sectiontitle {
+
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 14px;
+	font-weight: bold;
+	color: #666666;
+}
+.text {
+
+
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 12px;
+}
