@@ -662,6 +662,41 @@
 		<category>Decoration\Bedroom\Pillow 12</category>
 	</item>
 
+	<item id="163a">
+		<id>0x163a</id>
+		<category>Decoration\Bedroom\Pillow 13</category>
+	</item>
+
+	<item id="163b">
+		<id>0x163b</id>
+		<category>Decoration\Bedroom\Pillow 14</category>
+	</item>
+
+	<item id="163c">
+		<id>0x163c</id>
+		<category>Decoration\Bedroom\Pillow 15</category>
+	</item>
+
+	<item id="1914">
+		<id>0x1914</id>
+		<category>Decoration\Bedroom\Towel</category>
+	</item>
+
+	<item id="1915">
+		<id>0x1915</id>
+		<category>Decoration\Bedroom\Pillow 16</category>
+	</item>
+
+	<item id="1916">
+		<id>0x1916</id>
+		<category>Decoration\Bedroom\Massage Table (1/2)</category>
+	</item>
+
+	<item id="1917">
+		<id>0x1917</id>
+		<category>Decoration\Bedroom\Massage Table (2/2)</category>
+	</item>
+
 	<!-- Bookcases -->
 	<item id="a97">
 		<id>0x0a97</id>
@@ -1174,6 +1209,36 @@
 		<category>Decoration\Tables\Covered Counter (N/S) (2/2)</category>
 	</item>
 
+	<item id="1667">
+		<id>0x1667</id>
+		<category>Decoration\Tables\Covered Table (N/S) (1/3)</category>
+	</item>
+
+	<item id="1668">
+		<id>0x1668</id>
+		<category>Decoration\Tables\Covered Table (N/S) (2/3)</category>
+	</item>
+
+	<item id="1669">
+		<id>0x1669</id>
+		<category>Decoration\Tables\Covered Table (N/S) (3/3)</category>
+	</item>
+
+	<item id="166a">
+		<id>0x166a</id>
+		<category>Decoration\Tables\Covered Table (W/E) (1/3)</category>
+	</item>
+
+	<item id="166b">
+		<id>0x166b</id>
+		<category>Decoration\Tables\Covered Table (W/E) (2/3)</category>
+	</item>
+
+	<item id="166c">
+		<id>0x166c</id>
+		<category>Decoration\Tables\Covered Table (W/E) (3/3)</category>
+	</item>
+
 	<!-- Bamboo Table -->
 	<item id="11d6">
 		<id>0x11d6</id>
@@ -1379,32 +1444,72 @@
 
 	<item id="c26">
 		<id>0x0c26</id>
-		<category>Decoration\Broken Furniture\Ruined Bed (W/E) (1/3)</category>
+		<category>Decoration\Broken Furniture\Ruined Bed 1 (W/E) (1/3)</category>
 	</item>
 
 	<item id="c27">
 		<id>0x0c27</id>
-		<category>Decoration\Broken Furniture\Ruined Bed (W/E) (2/3)</category>
+		<category>Decoration\Broken Furniture\Ruined Bed 1 (W/E) (2/3)</category>
 	</item>
 
 	<item id="c28">
 		<id>0x0c28</id>
-		<category>Decoration\Broken Furniture\Ruined Bed (W/E) (3/3)</category>
+		<category>Decoration\Broken Furniture\Ruined Bed 1 (W/E) (3/3)</category>
 	</item>
 
 	<item id="c29">
 		<id>0x0c29</id>
-		<category>Decoration\Broken Furniture\Ruined Bed (N/S) (1/3)</category>
+		<category>Decoration\Broken Furniture\Ruined Bed 1 (N/S) (1/3)</category>
 	</item>
 
 	<item id="c2a">
 		<id>0x0c2a</id>
-		<category>Decoration\Broken Furniture\Ruined Bed (N/S) (2/3)</category>
+		<category>Decoration\Broken Furniture\Ruined Bed 1 (N/S) (2/3)</category>
 	</item>
 
 	<item id="c2b">
 		<id>0x0c2b</id>
-		<category>Decoration\Broken Furniture\Ruined Bed (N/S) (3/3)</category>
+		<category>Decoration\Broken Furniture\Ruined Bed 1 (N/S) (3/3)</category>
+	</item>
+
+	<item id="1894">
+		<id>0x1894</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (1/4)</category>
+	</item>
+
+	<item id="1895">
+		<id>0x1895</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (2/4)</category>
+	</item>
+
+	<item id="1896">
+		<id>0x1896</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (3/4)</category>
+	</item>
+
+	<item id="1897">
+		<id>0x1897</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (4/4)</category>
+	</item>
+
+	<item id="1898">
+		<id>0x1898</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (1/4)</category>
+	</item>
+
+	<item id="1899">
+		<id>0x1899</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (2/4)</category>
+	</item>
+
+	<item id="189a">
+		<id>0x189a</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (3/4)</category>
+	</item>
+
+	<item id="189b">
+		<id>0x189b</id>
+		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (4/4)</category>
 	</item>
 
 	<item id="c2c">
@@ -1502,5 +1607,91 @@
 	<item id="10b1">
 		<id>0x10b1</id>
 		<category>Decoration\Hanging Pole\Hanging Pole (N/S) (3/3)</category>
+	</item>
+
+	<!-- Bar -->
+	<item id="190e">
+		<id>0x190e</id>
+		<category>Decoration\Bar\Bar Door (N/S)</category>
+	</item>
+
+	<item id="190f">
+		<id>0x190f</id>
+		<category>Decoration\Bar\Bar Door (W/E)</category>
+	</item>
+
+	<item id="1910">
+		<id>0x1910</id>
+		<category>Decoration\Bar\Bar Corner 1</category>
+	</item>
+
+	<item id="1911">
+		<id>0x1911</id>
+		<category>Decoration\Bar\Bar Corner 2</category>
+	</item>
+
+	<item id="1912">
+		<id>0x1912</id>
+		<category>Decoration\Bar\Bar Corner 3</category>
+	</item>
+
+	<item id="1913">
+		<id>0x1913</id>
+		<category>Decoration\Bar\Bar Corner 4</category>
+	</item>
+
+	<item id="1918">
+		<id>0x1918</id>
+		<category>Decoration\Bar\Bar 1</category>
+	</item>
+
+	<item id="1919">
+		<id>0x1919</id>
+		<category>Decoration\Bar\Bar 2</category>
+	</item>
+
+	<item id="191a">
+		<id>0x191a</id>
+		<category>Decoration\Bar\Bar 3</category>
+	</item>
+
+	<item id="191b">
+		<id>0x191b</id>
+		<category>Decoration\Bar\Bar 4</category>
+	</item>
+
+	<item id="191c">
+		<id>0x191c</id>
+		<category>Decoration\Bar\Bar 5</category>
+	</item>
+
+	<item id="191d">
+		<id>0x191d</id>
+		<category>Decoration\Bar\Bar 6</category>
+	</item>
+
+	<item id="191e">
+		<id>0x191e</id>
+		<category>Decoration\Bar\Bar 7</category>
+	</item>
+
+	<item id="191f">
+		<id>0x191f</id>
+		<category>Decoration\Bar\Bar 8</category>
+	</item>
+
+	<item id="1941">
+		<id>0x1941</id>
+		<category>Decoration\Bar\Glass Mugs</category>
+	</item>
+
+	<item id="1942">
+		<id>0x1942</id>
+		<category>Decoration\Bar\Goblets</category>
+	</item>
+
+	<item id="1943">
+		<id>0x1943</id>
+		<category>Decoration\Bar\Tankards</category>
 	</item>
 </definitions>

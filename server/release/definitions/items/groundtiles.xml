@@ -2498,37 +2498,127 @@
 
 	<item id="1783">
 		<id>0x1783</id>
-	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	<category>Ground Tiles\Grass\Edges\Grass 2</category>
 	</item>
 
 	<item id="1784">
 		<id>0x1784</id>
-	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	<category>Ground Tiles\Grass\Edges\Grass 3</category>
 	</item>
 
 	<item id="1785">
 		<id>0x1785</id>
-	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	<category>Ground Tiles\Grass\Edges\Grass 4</category>
 	</item>
 
 	<item id="1786">
 		<id>0x1786</id>
-	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	<category>Ground Tiles\Grass\Edges\Grass 5</category>
 	</item>
 
 	<item id="1787">
 		<id>0x1787</id>
-	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	<category>Ground Tiles\Grass\Edges\Grass 6</category>
 	</item>
 
 	<item id="1788">
 		<id>0x1788</id>
-	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	<category>Ground Tiles\Grass\Edges\Grass 7</category>
 	</item>
 
 	<item id="1789">
 		<id>0x1789</id>
-	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	<category>Ground Tiles\Grass\Edges\Grass 8</category>
 	</item>
 
+	<!-- Snow (DarkStorm) -->
+	<item id="17bd">
+		<id>0x17bd</id>
+		<category>Ground Tiles\Snow\Snow 1</category>
+	</item>
+
+	<item id="17be">
+		<id>0x17be</id>
+		<category>Ground Tiles\Snow\Snow 2</category>
+	</item>
+
+	<item id="17bf">
+		<id>0x17bf</id>
+		<category>Ground Tiles\Snow\Snow 3</category>
+	</item>
+
+	<item id="17c0">
+		<id>0x17c0</id>
+		<category>Ground Tiles\Snow\Snow 4</category>
+	</item>
+
+	<item id="17c1">
+		<id>0x17c1</id>
+		<category>Ground Tiles\Snow\Edges\Snow 1</category>
+	</item>
+
+	<item id="17c2">
+		<id>0x17c2</id>
+		<category>Ground Tiles\Snow\Edges\Snow 2</category>
+	</item>
+
+	<item id="17c3">
+		<id>0x17c3</id>
+		<category>Ground Tiles\Snow\Edges\Snow 3</category>
+	</item>
+
+	<item id="17c4">
+		<id>0x17c4</id>
+		<category>Ground Tiles\Snow\Edges\Snow 4</category>
+	</item>
+
+	<item id="17c5">
+		<id>0x17c5</id>
+		<category>Ground Tiles\Snow\Edges\Snow 5</category>
+	</item>
+
+	<item id="17c6">
+		<id>0x17c6</id>
+		<category>Ground Tiles\Snow\Edges\Snow 6</category>
+	</item>
+
+	<item id="17c7">
+		<id>0x17c7</id>
+		<category>Ground Tiles\Snow\Edges\Snow 7</category>
+	</item>
+
+	<item id="17c8">
+		<id>0x17c8</id>
+		<category>Ground Tiles\Snow\Edges\Snow 8</category>
+	</item>
+
+	<item id="17c9">
+		<id>0x17c9</id>
+		<category>Ground Tiles\Snow\Edges\Snow 9</category>
+	</item>
+
+	<item id="17ca">
+		<id>0x17ca</id>
+		<category>Ground Tiles\Snow\Edges\Snow 10</category>
+	</item>
+
+	<item id="17cb">
+		<id>0x17cb</id>
+		<category>Ground Tiles\Snow\Edges\Snow 11</category>
+	</item>
+
+	<item id="17cc">
+		<id>0x17cc</id>
+		<category>Ground Tiles\Snow\Edges\Snow 12</category>
+	</item>
+
+	<item id="17cd">
+		<id>0x17cd</id>
+		<category>Ground Tiles\Snow\Snow 5</category>
+	</item>
+
+	<item id="17ce">
+		<id>0x17ce</id>
+		<category>Ground Tiles\Snow\Snow 6</category>
+	</item>
 </definitions>

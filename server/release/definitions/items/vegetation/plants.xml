@@ -8,27 +8,6 @@
 | Plants and Flowers                                            |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items (insgesamt 149) gelöscht werden:
-c37, c38
-c45 bis c4e
-c4f bis c5b
-c5e bis c60
-c83 bis c94
-c97, c98
-c9f bis ca5
-ca7, ca8
-cac bis cc1
-cc3 bis cc8
-ceb bis cf2
-d04 bis d0b
-d25 bis d36
-d3f, d40
-dae, daf
-db8 bis dbe
-dc1 bis dc3
-1a99 bis 1aa2
-1f0d bis 1f12
--->
 <definitions>
         <!-- Flowers -->
         <item id="C37">
@@ -808,6 +787,87 @@ dc1 bis dc3
 		<category>Vegetation\Growing\Corn Stalk 2</category>
 	</item>
 
+	<item id="18dd">
+		<id>0x18dd</id>
+		<category>Vegetation\Growing\Mandrake Root (N/S)</category>
+	</item>
+
+	<item id="18de">
+		<id>0x18de</id>
+		<category>Vegetation\Growing\Mandrake Root (W/E)</category>
+	</item>
+
+	<item id="18df">
+		<id>0x18df</id>
+		<category>Vegetation\Growing\Mandrake (W/E)</category>
+	</item>
+
+	<item id="18e0">
+		<id>0x18e0</id>
+		<category>Vegetation\Growing\Mandrake (N/S)</category>
+	</item>
+
+	<item id="18e1">
+		<id>0x18e1</id>
+		<category>Vegetation\Growing\Garlic (W/E)</category>
+	</item>
+
+	<item id="18e2">
+		<id>0x18e2</id>
+		<category>Vegetation\Growing\Garlic (N/S)</category>
+	</item>
+
+	<item id="18e3">
+		<id>0x18e3</id>
+		<category>Vegetation\Growing\Garlic Bulb (W/E)</category>
+	</item>
+
+	<item id="18e4">
+		<id>0x18e4</id>
+		<category>Vegetation\Growing\Garlic Bulb (N/S)</category>
+	</item>
+
+	<item id="18e5">
+		<id>0x18e5</id>
+		<category>Vegetation\Growing\Nightshade (W/E)</category>
+	</item>
+
+	<item id="18e6">
+		<id>0x18e6</id>
+		<category>Vegetation\Growing\Nightshade (N/S)</category>
+	</item>
+
+	<item id="18e7">
+		<id>0x18e7</id>
+		<category>Vegetation\Growing\Nightshade Root (W/E)</category>
+	</item>
+
+	<item id="18e8">
+		<id>0x18e8</id>
+		<category>Vegetation\Growing\Nightshade Root (N/S)</category>
+	</item>
+
+	<item id="18e9">
+		<id>0x18e9</id>
+		<category>Vegetation\Growing\Ginseng (W/E)</category>
+	</item>
+
+	<item id="18ea">
+		<id>0x18ea</id>
+		<category>Vegetation\Growing\Ginseng (N/S)</category>
+	</item>
+
+	<item id="18eb">
+		<id>0x18eb</id>
+		<category>Vegetation\Growing\Ginseng Root (N/S)</category>
+	</item>
+
+	<item id="18ec">
+		<id>0x18ec</id>
+		<category>Vegetation\Growing\Ginseng Root (W/E)</category>
+	</item>
+
+	<!-- Potted Flowers -->
         <item id="11C6">
                 <id>0x11C6</id>
                 <category>Vegetation\Flowers\Empty Flower Pot 1</category>

@@ -1428,4 +1428,35 @@
                 <id>0x0674</id>
                 <category>Buildings\Roofs\Gray Tent Roof\Roof 27</category>
         </item>
+
+	<!-- Stone Tile Roof -->
+	<item id="1939">
+		<id>0x1939</id>
+        <category>Buildings\Roofs\Stone Tile Roof\Roof 1</category>
+	</item>
+
+	<item id="193a">
+		<id>0x193a</id>
+        <category>Buildings\Roofs\Stone Tile Roof\Roof 2</category>
+	</item>
+
+	<item id="193b">
+		<id>0x193b</id>
+        <category>Buildings\Roofs\Stone Tile Roof\Roof 3</category>
+	</item>
+
+	<item id="193c">
+		<id>0x193c</id>
+        <category>Buildings\Roofs\Stone Tile Roof\Roof 4</category>
+	</item>
+
+	<item id="193d">
+		<id>0x193d</id>
+        <category>Buildings\Roofs\Stone Tile Roof\Roof 5</category>
+	</item>
+
+	<item id="193e">
+		<id>0x193e</id>
+        <category>Buildings\Roofs\Stone Tile Roof\Roof 6</category>
+	</item>
 </definitions>

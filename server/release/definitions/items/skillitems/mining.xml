@@ -23,13 +23,6 @@
 		<category>Skill Items\Mining\Pickaxe (N/S)</category>
 	</item>
 
-	<!-- forge -->
-	<item id="fb1">
-		<name>forge</name>
-		<id>0x0FB1</id>
-		<nodecay />
-	</item>
-
     <!-- Shovel -->
 	<item id="f39">
 		<id>0x0f39</id>

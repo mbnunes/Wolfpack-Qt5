@@ -2,6 +2,50 @@
 	These items are not available ingame.
 -->
 <definitions>
+	<!-- Useless (because duplicate) flour mill tiles -->
+	<item id="188b">
+		<id>0x188b</id>
+	</item>
+
+	<item id="1893">
+		<id>0x1893</id>
+	</item>
+
+	<!-- Useless (because incomplete) Banners -->
+	<item id="1597">
+		<id>0x1597</id>
+	</item>
+
+	<!-- Ninos Sign -->
+	<item id="163d">
+		<id>0x163d</id>
+	</item>
+
+	<item id="163e">
+		<id>0x163e</id>
+	</item>
+
+	<item id="163f">
+		<id>0x163f</id>
+	</item>
+
+	<item id="1641">
+		<id>0x1641</id>
+	</item>
+
+	<item id="1642">
+		<id>0x1642</id>
+	</item>
+
+	<item id="1643">
+		<id>0x1643</id>
+	</item>
+
+	<!-- Water Tile -->
+	<item id="1559">
+		<id>0x1559</id>
+	</item>
+
 	<!-- TD/LBR specific Lava tiles -->
 	<item id="136e">
 		<id>0x136e</id>

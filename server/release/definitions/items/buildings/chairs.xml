@@ -305,4 +305,14 @@
 		<id>0x121b</id>
 		<category>Decoration\Chairs\Stone Throne 4</category>
 	</item>
+
+	<item id="1526">
+		<id>0x1526</id>
+		<category>Decoration\Chairs\Lord British Throne (1/2)</category>
+	</item>
+
+	<item id="1527">
+		<id>0x1527</id>
+		<category>Decoration\Chairs\Lord British Throne (2/2)</category>
+	</item>
 </definitions>

@@ -245,4 +245,9 @@
                 <id>0x1585</id>
                 <category>Decoration\Decorative Shields\Shield (Gold w. Sword) (N/S) 2</category>
         </item>
+
+        <item id="1514">
+                <id>0x1514</id>
+                <category>Decoration\Decorative Shields\Serpents Crest (W/E)</category>
+        </item>
 </definitions>

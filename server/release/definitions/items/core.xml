@@ -7,126 +7,7 @@
 =================================================================
 -->
 <definitions>
-	<!-- deed -->
-	<item id="14f0">
-		<name>deed</name>
-		<id>0x14F0</id>
-	</item>
-
-	<!-- key -->
-	<item id="100f">
-		<name>key</name>
-		<id>0x100F</id>
-	</item>
-
-	<!-- Scissors -->
-	<item id="f9e">
-		<id>0x0f9e</id>
-		<decay/>
-		<value>13</value>
-		<weight>1.0</weight>
-	</item>
-	
-	<!-- Lockpick -->
-	<item id="14fb">
-		<id>0x14fb</id>
-		<decay/>
-		<value>2</value>
-		<weight>.2</weight>
-	</item>
-	
-	<!-- Tinker Tools -->
-	<item id="1ebc">
-		<id>0x1ebc</id>
-		<decay/>
-		<value>35</value>
-		<weight>2.0</weight>
-	</item>
-
-        <!-- Dagger -->
-	<item id="f51">
-		<bindmenu id="ITEM_MENU"/>
-		<id>0xf51</id>
-		<itemhand>1</itemhand>
-		<decay />
-		<value>15</value>
-		<attack min="3" max="15" />
-		<durability>35</durability>
-		<speed>55</speed>
-		<weight>1.0</weight>
-	</item>
-	
-	<!-- Skinning Knife -->
-	<item id="ec4">
-		<id>0x0ec4</id>
-		<itemhand>1</itemhand>
-		<decay />
-		<value>20</value>
-		<attack min="1" max="10" />
-		<durability>35</durability>
-		<requires type="str">5</requires>
-		<speed>40</speed>
-		<weight>1.0</weight>
-	</item>
-	
-	<!-- Katana -->
-	<item id="13ff">
-		<id>0x13ff</id>
-		<itemhand>1</itemhand>
-		<defense>5</defense>
-		<decay />
-		<value>75</value>
-		<attack min="5" max="26" />
-		<durability>45</durability>
-		<requires type="str">10</requires>
-		<speed>50</speed>
-		<weight>3.0</weight>
-		<type>1001</type>
-	</item>
-
-	<!-- longsword -->
-	<item id="13b8">
-		<id>0x13B8</id>
-		<itemhand>1</itemhand>
-		<defense>5</defense>
-		<attack min="5" max="33" />
-		<durability>45</durability>
-		<speed>35</speed>
-		<weight>4.00</weight>
-		<value>70</value>
-		<decay />
-		<type>1001</type>
-	</item>
-
-	<!-- broadsword -->
-	<item id="f5e">
-		<id>0xf5e</id>
-		<itemhand>1</itemhand>
-		<attack min="2" max="29" />
-		<durability>65</durability>
-		<defense>5</defense>
-		<decay />
-		<value>80</value>
-		<requires type="str">50</requires>
-		<speed>45</speed>
-		<weight>3.0</weight>
-		<type>1001</type>
-	</item>
-
-	<!-- Sheperd Crook -->
-	<item id="e81">
-		<id>0xe81</id>
-		<itemhand>2</itemhand>
-		<attack min="2" max="8" />
-		<durability>10</durability>
-		<decay />
-		<layer>2</layer>
-		<value>10</value>
-		<speed>30</speed>
-		<weight>2.0</weight>
-	</item>
-
-    	<!-- Wooden Shield -->
+   	<!-- Wooden Shield -->
 	<item id="1b7a">
 		<id>0x1b7a</id>
 		<itemhand>3</itemhand>
@@ -139,23 +20,10 @@
 		<weight>5.0</weight>
 	</item>
 
-	<!-- Dyes -->
-	<item id="fa9">
-		<id>0xfa9</id>
-		<type>405</type>
-	</item>
-
-	<!-- Dye Tub -->
-	<item id="fab">
-		<id>0xfab</id>
-		<type>406</type>
-	</item>
-
 	<item id="bank_check">
 		<id>0x14ef</id>
 		<events>check</events>
 		<name>a bank check</name>
 		<weight>0.1</weight>
 	</item>
-
 </definitions>

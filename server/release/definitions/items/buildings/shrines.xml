@@ -315,4 +315,44 @@
 		<id>0x14e6</id>
 		<category>Decoration\Shrines\Chaos\Part 4</category>
 	</item>	
+
+	<item id="150a">
+		<id>0x150a</id>
+		<category>Decoration\Shrines\Sacrifice (W/E)\Part 1</category>
+	</item>
+
+	<item id="150b">
+		<id>0x150b</id>
+		<category>Decoration\Shrines\Sacrifice (W/E)\Part 2</category>
+	</item>
+
+	<item id="150c">
+		<id>0x150c</id>
+		<category>Decoration\Shrines\Sacrifice (W/E)\Part 3</category>
+	</item>
+
+	<item id="150d">
+		<id>0x150d</id>
+		<category>Decoration\Shrines\Sacrifice (W/E)\Part 4</category>
+	</item>
+
+	<item id="150e">
+		<id>0x150e</id>
+		<category>Decoration\Shrines\Sacrifice (N/S)\Part 1</category>
+	</item>
+
+	<item id="150f">
+		<id>0x150f</id>
+		<category>Decoration\Shrines\Sacrifice (N/S)\Part 2</category>
+	</item>
+
+	<item id="1510">
+		<id>0x1510</id>
+		<category>Decoration\Shrines\Sacrifice (N/S)\Part 3</category>
+	</item>
+
+	<item id="1511">
+		<id>0x1511</id>
+		<category>Decoration\Shrines\Sacrifice (N/S)\Part 4</category>
+	</item>
 </definitions>

@@ -150,6 +150,16 @@
 		<category>Professions\Stablemaster\Loose Grain</category>
 	</item>
 
+	<item id="14e7">
+		<id>0x14e7</id>
+		<category>Professions\Stablemaster\Hitching Post (W/E)</category>
+	</item>
+
+	<item id="14e8">
+		<id>0x14e8</id>
+		<category>Professions\Stablemaster\Hitching Post (N/S)</category>
+	</item>
+
 	<!-- Fishing Decoration -->
 	<item id="dc8">
 		<id>0x0dc8</id>
@@ -396,6 +406,66 @@
 	<item id="13e0">
 		<id>0x13e0</id>
 		<category>Professions\Tailorer\Hanging Studded Tunic (W/E)</category>
+	</item>
+
+	<item id="175d">
+		<id>0x175d</id>
+		<category>Professions\Tailorer\Folded Cloth 1 (W/E)</category>
+	</item>
+
+	<item id="175e">
+		<id>0x175e</id>
+		<category>Professions\Tailorer\Folded Cloth 2 (W/E)</category>
+	</item>
+
+	<item id="175f">
+		<id>0x175f</id>
+		<category>Professions\Tailorer\Folded Cloth 3 (W/E)</category>
+	</item>
+
+	<item id="1760">
+		<id>0x1760</id>
+		<category>Professions\Tailorer\Folded Cloth 4 (W/E)</category>
+	</item>
+
+	<item id="1761">
+		<id>0x1761</id>
+		<category>Professions\Tailorer\Folded Cloth 1 (N/S)</category>
+	</item>
+
+	<item id="1762">
+		<id>0x1762</id>
+		<category>Professions\Tailorer\Folded Cloth 2 (N/S)</category>
+	</item>
+
+	<item id="1763">
+		<id>0x1763</id>
+		<category>Professions\Tailorer\Folded Cloth 3 (N/S)</category>
+	</item>
+
+	<item id="1764">
+		<id>0x1764</id>
+		<category>Professions\Tailorer\Folded Cloth 4 (N/S)</category>
+	</item>
+
+	<item id="1765">
+		<id>0x1765</id>
+		<category>Professions\Tailorer\Cloth (W/E)</category>
+	</item>
+
+	<item id="1766">
+		<id>0x1766</id>
+		<category>Professions\Tailorer\Cut Cloth (N/S)</category>
+	</item>
+
+	<item id="1767">
+		<id>0x1767</id>
+		<category>Professions\Tailorer\Cloth (N/S)</category>
+	</item>
+
+	<item id="1768">
+		<id>0x1768</id>
+		<category>Professions\Tailorer\Cut Cloth (W/E)</category>
 	</item>
 
 	<!-- Fletcher -->
@@ -836,6 +906,296 @@
 	<item id="1007">
 		<id>0x1007</id>
 		<category>Professions\Alchemist\Half Full Jar</category>
+	</item>
+
+	<item id="1810">
+		<id>0x1810</id>
+		<category>Professions\Alchemist\Hourglass</category>
+	</item>
+
+	<item id="1811">
+		<id>0x1811</id>
+		<category>Professions\Alchemist\Hourglass (Animated)</category>
+	</item>
+
+	<item id="181d">
+		<id>0x181d</id>
+		<category>Professions\Alchemist\Alchemical Symbol 1</category>
+	</item>
+
+	<item id="181e">
+		<id>0x181e</id>
+		<category>Professions\Alchemist\Alchemical Symbol 2</category>
+	</item>
+
+	<item id="181f">
+		<id>0x181f</id>
+		<category>Professions\Alchemist\Alchemical Symbol 3</category>
+	</item>
+
+	<item id="1820">
+		<id>0x1820</id>
+		<category>Professions\Alchemist\Alchemical Symbol 4</category>
+	</item>
+
+	<item id="1821">
+		<id>0x1821</id>
+		<category>Professions\Alchemist\Alchemical Symbol 5</category>
+	</item>
+
+	<item id="1822">
+		<id>0x1822</id>
+		<category>Professions\Alchemist\Alchemical Symbol 6</category>
+	</item>
+
+	<item id="1823">
+		<id>0x1823</id>
+		<category>Professions\Alchemist\Alchemical Symbol 7</category>
+	</item>
+
+	<item id="1824">
+		<id>0x1824</id>
+		<category>Professions\Alchemist\Alchemical Symbol 8</category>
+	</item>
+
+	<item id="1825">
+		<id>0x1825</id>
+		<category>Professions\Alchemist\Alchemical Symbol 9</category>
+	</item>
+
+	<item id="1826">
+		<id>0x1826</id>
+		<category>Professions\Alchemist\Alchemical Symbol 10</category>
+	</item>
+
+	<item id="1827">
+		<id>0x1827</id>
+		<category>Professions\Alchemist\Alchemical Symbol 11</category>
+	</item>
+
+	<item id="1828">
+		<id>0x1828</id>
+		<category>Professions\Alchemist\Alchemical Symbol 12</category>
+	</item>
+
+	<item id="1829">
+		<id>0x1829</id>
+		<category>Professions\Alchemist\Flask Stand</category>
+	</item>
+
+	<item id="182a">
+		<id>0x182a</id>
+		<category>Professions\Alchemist\Flask 1</category>
+	</item>
+
+	<item id="182b">
+		<id>0x182b</id>
+		<category>Professions\Alchemist\Flask 2</category>
+	</item>
+
+	<item id="182c">
+		<id>0x182c</id>
+		<category>Professions\Alchemist\Flask 3</category>
+	</item>
+
+	<item id="182d">
+		<id>0x182d</id>
+		<category>Professions\Alchemist\Flask 4</category>
+	</item>
+
+	<item id="182e">
+		<id>0x182e</id>
+		<category>Professions\Alchemist\Flask 5</category>
+	</item>
+
+	<item id="182f">
+		<id>0x182f</id>
+		<category>Professions\Alchemist\Flask 6</category>
+	</item>
+
+	<item id="1830">
+		<id>0x1830</id>
+		<category>Professions\Alchemist\Flask 7</category>
+	</item>
+
+	<item id="1831">
+		<id>0x1831</id>
+		<category>Professions\Alchemist\Flask 8</category>
+	</item>
+
+	<item id="1832">
+		<id>0x1832</id>
+		<category>Professions\Alchemist\Flask 9</category>
+	</item>
+
+	<item id="1833">
+		<id>0x1833</id>
+		<category>Professions\Alchemist\Flask 10</category>
+	</item>
+
+	<item id="1834">
+		<id>0x1834</id>
+		<category>Professions\Alchemist\Flask 11</category>
+	</item>
+
+	<item id="1835">
+		<id>0x1835</id>
+		<category>Professions\Alchemist\Flask 12</category>
+	</item>
+
+	<item id="1836">
+		<id>0x1836</id>
+		<category>Professions\Alchemist\Flask 13</category>
+	</item>
+
+	<item id="1837">
+		<id>0x1837</id>
+		<category>Professions\Alchemist\Flask 14</category>
+	</item>
+
+	<item id="1838">
+		<id>0x1838</id>
+		<category>Professions\Alchemist\Flask 15</category>
+	</item>
+
+	<item id="1839">
+		<id>0x1839</id>
+		<category>Professions\Alchemist\Flask 16</category>
+	</item>
+
+	<item id="183a">
+		<id>0x183a</id>
+		<category>Professions\Alchemist\Flask 17</category>
+	</item>
+
+	<item id="183b">
+		<id>0x183b</id>
+		<category>Professions\Alchemist\Flask 18</category>
+	</item>
+
+	<item id="183c">
+		<id>0x183c</id>
+		<category>Professions\Alchemist\Flask 19</category>
+	</item>
+
+	<item id="183d">
+		<id>0x183d</id>
+		<category>Professions\Alchemist\Flask 20</category>
+	</item>
+
+	<item id="183e">
+		<id>0x183e</id>
+		<category>Professions\Alchemist\Flask 21</category>
+	</item>
+
+	<item id="183f">
+		<id>0x183f</id>
+		<category>Professions\Alchemist\Flask 22</category>
+	</item>
+
+	<item id="1840">
+		<id>0x1840</id>
+		<category>Professions\Alchemist\Flask 23</category>
+	</item>
+
+	<item id="1841">
+		<id>0x1841</id>
+		<category>Professions\Alchemist\Flask 24</category>
+	</item>
+
+	<item id="1842">
+		<id>0x1842</id>
+		<category>Professions\Alchemist\Flask 25</category>
+	</item>
+
+	<item id="1843">
+		<id>0x1843</id>
+		<category>Professions\Alchemist\Flask 26</category>
+	</item>
+
+	<item id="1844">
+		<id>0x1844</id>
+		<category>Professions\Alchemist\Flask 27</category>
+	</item>
+
+	<item id="1845">
+		<id>0x1845</id>
+		<category>Professions\Alchemist\Flask 28</category>
+	</item>
+
+	<item id="1846">
+		<id>0x1846</id>
+		<category>Professions\Alchemist\Flask 29</category>
+	</item>
+
+	<item id="1847">
+		<id>0x1847</id>
+		<category>Professions\Alchemist\Flask 30</category>
+	</item>
+
+	<item id="1848">
+		<id>0x1848</id>
+		<category>Professions\Alchemist\Flask 31</category>
+	</item>
+
+	<item id="1849">
+		<id>0x1849</id>
+		<category>Professions\Alchemist\Heating Stand (W/E) (Off)</category>
+	</item>
+
+	<item id="184a">
+		<id>0x184a</id>
+		<category>Professions\Alchemist\Heating Stand (W/E) (On)</category>
+	</item>
+
+	<item id="184d">
+		<id>0x184d</id>
+		<category>Professions\Alchemist\Heating Stand (N/S) (Off)</category>
+	</item>
+
+	<item id="184e">
+		<id>0x184e</id>
+		<category>Professions\Alchemist\Heating Stand (N/S) (On)</category>
+	</item>
+
+	<item id="1851">
+		<id>0x1851</id>
+		<category>Professions\Alchemist\Scales (N/S)</category>
+	</item>
+
+	<item id="1852">
+		<id>0x1852</id>
+		<category>Professions\Alchemist\Scales (W/E)</category>
+	</item>
+
+	<item id="185b">
+		<id>0x185b</id>
+		<category>Professions\Alchemist\Empty Vials (N/S)</category>
+	</item>
+
+	<item id="185c">
+		<id>0x185c</id>
+		<category>Professions\Alchemist\Empty Vials (W/E)</category>
+	</item>
+
+	<item id="185d">
+		<id>0x185d</id>
+		<category>Professions\Alchemist\Full Vials (N/S)</category>
+	</item>
+
+	<item id="185e">
+		<id>0x185e</id>
+		<category>Professions\Alchemist\Full Vials (W/E)</category>
+	</item>
+
+	<item id="1865">
+		<id>0x1865</id>
+		<category>Professions\Alchemist\Dishing Stump (N/S)</category>
+	</item>
+
+	<item id="1866">
+		<id>0x1866</id>
+		<category>Professions\Alchemist\Dishing Stump (W/E)</category>
 	</item>
 
 	<!-- Gipsy -->
@@ -1360,6 +1720,171 @@
 		<category>Professions\Baker\Spam</category>
 	</item>
 
+	<item id="14e0">
+		<id>0x14e0</id>
+		<category>Professions\Baker\Bucket</category>
+	</item>
+
+	<item id="14e9">
+		<id>0x14e9</id>
+		<category>Professions\Baker\Moulding Board (N/S)</category>
+	</item>
+
+	<item id="14ea">
+		<id>0x14ea</id>
+		<category>Professions\Baker\Moulding Board (W/E)</category>
+	</item>
+
+	<item id="10e3">
+		<id>0x10e3</id>
+		<category>Professions\Baker\Dough Bowl</category>
+	</item>
+
+	<item id="187e">
+		<id>0x187e</id>
+		<category>Professions\Baker\Spilled Flour 1</category>
+	</item>
+
+	<item id="187f">
+		<id>0x187f</id>
+		<category>Professions\Baker\Spilled Flour 2</category>
+	</item>
+
+	<item id="1880">
+		<id>0x1880</id>
+		<category>Professions\Baker\Spilled Flour 3</category>
+	</item>
+
+	<item id="1881">
+		<id>0x1881</id>
+		<category>Professions\Baker\Spilled Flour 4</category>
+	</item>
+
+	<item id="1882">
+		<id>0x1882</id>
+		<category>Professions\Baker\Winnowing Basket</category>
+	</item>
+
+	<item id="1883">
+		<id>0x1883</id>
+		<category>Professions\Baker\Millstone 1</category>
+	</item>
+
+	<item id="1884">
+		<id>0x1884</id>
+		<category>Professions\Baker\Millstone 2</category>
+	</item>
+
+	<item id="1885">
+		<id>0x1885</id>
+		<category>Professions\Baker\Millstone 3</category>
+	</item>
+
+	<item id="1886">
+		<id>0x1886</id>
+		<category>Professions\Baker\Millstone 4</category>
+	</item>
+
+	<item id="1887">
+		<id>0x1887</id>
+		<category>Professions\Baker\Millstone 5</category>
+	</item>
+
+	<item id="1888">
+		<id>0x1888</id>
+		<category>Professions\Baker\Millstone 6</category>
+	</item>
+
+	<item id="1889">
+		<id>0x1889</id>
+		<category>Professions\Baker\Millstone 7</category>
+	</item>
+
+	<item id="188a">
+		<id>0x188a</id>
+		<category>Professions\Baker\Millstone 8</category>
+	</item>
+
+	<item id="1920">
+		<id>0x1920</id>
+		<category>Professions\Baker\Flour Mill 1 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1921">
+		<id>0x1921</id>
+		<category>Professions\Baker\Flour Mill 2 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1922">
+		<id>0x1922</id>
+		<category>Professions\Baker\Flour Mill 1 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1923">
+		<id>0x1923</id>
+		<category>Professions\Baker\Flour Mill 2 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1924">
+		<id>0x1924</id>
+		<category>Professions\Baker\Crank (W/E)</category>
+	</item>
+
+	<item id="1925">
+		<id>0x1925</id>
+		<category>Professions\Baker\Flour Mill 3 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1926">
+		<id>0x1926</id>
+		<category>Professions\Baker\Flour Mill 3 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1928">
+		<id>0x1928</id>
+		<category>Professions\Baker\Rotating Crank (W/E)</category>
+	</item>
+
+	<item id="192c">
+		<id>0x192c</id>
+		<category>Professions\Baker\Flour Mill 1 (N/S) (1/2)</category>
+	</item>
+
+	<item id="192d">
+		<id>0x192d</id>
+		<category>Professions\Baker\Flour Mill 2 (N/S) (1/2)</category>
+	</item>
+
+	<item id="192e">
+		<id>0x192e</id>
+		<category>Professions\Baker\Flour Mill 1 (N/S) (2/2)</category>
+	</item>
+
+	<item id="192f">
+		<id>0x192f</id>
+		<category>Professions\Baker\Flour Mill 2 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1930">
+		<id>0x1930</id>
+		<category>Professions\Baker\Crank (N/S)</category>
+	</item>
+
+	<item id="1931">
+		<id>0x1931</id>
+		<category>Professions\Baker\Flour Mill 3 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1932">
+		<id>0x1932</id>
+		<category>Professions\Baker\Flour Mill 3 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1934">
+		<id>0x1934</id>
+		<category>Professions\Baker\Rotating Crank (N/S)</category>
+	</item>
+
 	<!-- Mapmaker -->
 	<item id="1047">
 		<id>0x1047</id>
@@ -1369,6 +1894,66 @@
 	<item id="1048">
 		<id>0x1048</id>
 		<category>Professions\Mapmaker\Globe 2</category>
+	</item>
+
+	<item id="14eb">
+		<id>0x14eb</id>
+		<category>Professions\Mapmaker\Map (N/S)</category>
+	</item>
+
+	<item id="14ec">
+		<id>0x14ec</id>
+		<category>Professions\Mapmaker\Map (W/E)</category>
+	</item>
+
+	<item id="14ed">
+		<id>0x14ed</id>
+		<category>Professions\Mapmaker\Rolled Map (N/S)</category>
+	</item>
+
+	<item id="14ee">
+		<id>0x14ee</id>
+		<category>Professions\Mapmaker\Rolled Map (W/E)</category>
+	</item>
+
+	<item id="14ef">
+		<id>0x14ef</id>
+		<category>Professions\Mapmaker\Deed (N/S)</category>
+	</item>
+
+	<item id="14f0">
+		<id>0x14f0</id>
+		<category>Professions\Mapmaker\Deed (W/E)</category>
+	</item>
+
+	<item id="14f1">
+		<id>0x14f1</id>
+		<category>Professions\Mapmaker\Ship Plans (N/S)</category>
+	</item>
+
+	<item id="14f2">
+		<id>0x14f2</id>
+		<category>Professions\Mapmaker\Ship Plans (W/E)</category>
+	</item>
+
+	<item id="14f3">
+		<id>0x14f3</id>
+		<category>Professions\Mapmaker\Ship Model (N/S)</category>
+	</item>
+
+	<item id="14f4">
+		<id>0x14f4</id>
+		<category>Professions\Mapmaker\Ship Model (W/E)</category>
+	</item>
+
+	<item id="14f5">
+		<id>0x14f5</id>
+		<category>Professions\Mapmaker\Spyglass (W/E)</category>
+	</item>
+
+	<item id="14f6">
+		<id>0x14f6</id>
+		<category>Professions\Mapmaker\Spyglass (N/S)</category>
 	</item>
 
 	<!-- Tinker -->
@@ -1472,9 +2057,24 @@
 		<category>Professions\Tinker\Springs (N/S)</category>
 	</item>
 
-	<item id="10e3">
-		<id>0x10e3</id>
-		<category>Professions\Tinker\Dough Bowl</category>
+	<item id="1876">
+		<id>0x1876</id>
+		<category>Professions\Tinker\Iron Wire</category>
+	</item>
+
+	<item id="1877">
+		<id>0x1877</id>
+		<category>Professions\Tinker\Silver Wire</category>
+	</item>
+
+	<item id="1878">
+		<id>0x1878</id>
+		<category>Professions\Tinker\Gold Wire</category>
+	</item>
+
+	<item id="1879">
+		<id>0x1879</id>
+		<category>Professions\Tinker\Copper Wire</category>
 	</item>
 
 	<!-- Cook -->
@@ -1583,4 +2183,73 @@
 		<id>0x142b</id>
 		<category>Professions\Beekeper\Pot of Wax 2</category>
 	</item>
+
+	<!-- Thieve -->
+	<item id="14fb">
+		<id>0x14fb</id>
+		<category>Professions\Thieve\Lockpick (W/E)</category>
+	</item>
+
+	<item id="14fc">
+		<inherit id="14fb" />
+		<id>0x14fc</id>
+		<category>Professions\Thieve\Lockpick (E/W)</category>
+	</item>
+
+	<item id="14fd">
+		<id>0x14fd</id>
+		<category>Professions\Thieve\Lockpicks (W/E)</category>
+	</item>
+
+	<item id="14fe">
+		<id>0x14fe</id>
+		<category>Professions\Thieve\Lockpicks (N/S)</category>
+	</item>
+
+	<!-- Peasant -->
+	<item id="14ff">
+		<id>0x14ff</id>
+		<category>Professions\Peasant\Seive</category>
+	</item>
+
+	<item id="1500">
+		<id>0x1500</id>
+		<category>Professions\Peasant\Plough (W/E) (1/2)</category>
+	</item>
+
+	<item id="1501">
+		<id>0x1501</id>
+		<category>Professions\Peasant\Plough (W/E) (2/2)</category>
+	</item>
+
+	<item id="1502">
+		<id>0x1502</id>
+		<category>Professions\Peasant\Plough (N/S) (2/2)</category>
+	</item>
+
+	<item id="1503">
+		<id>0x1503</id>
+		<category>Professions\Peasant\Plough (N/S) (1/2)</category>
+	</item>
+
+	<item id="1504">
+		<id>0x1504</id>
+		<category>Professions\Peasant\Harrow (N/S) (1/2)</category>
+	</item>
+
+	<item id="1505">
+		<id>0x1505</id>
+		<category>Professions\Peasant\Harrow (N/S) (2/2)</category>
+	</item>
+
+	<item id="1506">
+		<id>0x1506</id>
+		<category>Professions\Peasant\Harrow (W/E) (1/2)</category>
+	</item>
+
+	<item id="1507">
+		<id>0x1507</id>
+		<category>Professions\Peasant\Harrow (W/E) (2/2)</category>
+	</item>
+
 </definitions>

@@ -6,7 +6,6 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
-
 <!-- 
 Food subtypes:
 0 - no food
@@ -23,7 +22,6 @@ Food subtypes:
 11 - leather
 12 - metal
 -->
-
 <definitions>
 	<!-- Used as a base for all drinks -->	
 	<item id="drinks_base">
@@ -31,13 +29,6 @@ Food subtypes:
 		<value>20</value>
 		<type>105</type>
 		<weight>0.5</weight>
-	</item>
-
-	<!-- Hay -->
-	<item id="f36">
-		<category>Equipment\Food\Hay</category>
-		<id>0x0F36</id>
-		<food>6</food>
 	</item>
 
 	<!-- Stew -->
@@ -198,7 +189,7 @@ Food subtypes:
 
 	<!-- Pear -->
 	<item id="994">
-		<category>Equipment\Food\Pear</category>
+		<category>Equipment\Food\Pear 1</category>
 		<id>0x0994</id>
 		<decay />
 		<value>15</value>
@@ -584,7 +575,7 @@ Food subtypes:
 
 	<!-- Peach -->
 	<item id="9d2">
-		<category>Equipment\Food\Peach</category>
+		<category>Equipment\Food\Peach 1</category>
 		<id>0x09d2</id>
 		<value>3</value>
 		<type>14</type>
@@ -1267,5 +1258,313 @@ Food subtypes:
 	<item id="10e9">
 		<id>0x10e9</id>
 		<category>Decoration\Kitchen\Large Wooden Spoon</category>
+	</item>
+
+	<item id="15f8">
+		<id>0x15f8</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Decoration\Kitchen\Wooden Bowl</category>
+	</item>
+
+	<item id="15f9">
+		<id>0x15f9</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Carrots 1</category>
+	</item>
+
+	<item id="15fa">
+		<id>0x15fa</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Corn 1</category>
+	</item>
+
+	<item id="15fb">
+		<id>0x15fb</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Lettuce 1</category>
+	</item>
+
+	<item id="15fc">
+		<id>0x15fc</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Peas 1</category>
+	</item>
+
+	<item id="15fd">
+		<id>0x15fd</id>
+		<category>Decoration\Kitchen\Pewter Bowl</category>
+	</item>
+
+	<item id="15fe">
+		<id>0x15fe</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Carrots 2</category>
+	</item>
+
+	<item id="15ff">
+		<id>0x15ff</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Corn 2</category>
+	</item>
+
+	<item id="1600">
+		<id>0x1600</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Lettuce 2</category>
+	</item>
+
+	<item id="1601">
+		<id>0x1601</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Peas 2</category>
+	</item>
+
+	<item id="1602">
+		<id>0x1602</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Potatoes 2</category>
+	</item>
+
+	<item id="1603">
+		<id>0x1603</id>
+		<category>Decoration\Kitchen\Large Pewter Bowl</category>
+	</item>
+
+	<item id="1604">
+		<id>0x1604</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bowl of Stew</category>
+	</item>
+
+	<item id="1605">
+		<id>0x1605</id>
+		<category>Decoration\Kitchen\Large Wooden Bowl</category>
+	</item>
+
+	<item id="1606">
+		<id>0x1606</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Tomato Soup</category>
+	</item>
+
+	<item id="1608">
+		<id>0x1608</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Chicken Leg</category>
+	</item>
+
+	<item id="160a">
+		<id>0x160a</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Leg of Lamb</category>
+	</item>
+
+	<item id="160b">
+		<id>0x160b</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Pan of Cookies</category>
+	</item>
+
+	<item id="160c">
+		<id>0x160c</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Plate of Cookies</category>
+	</item>
+
+	<item id="171d">
+		<id>0x171d</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Banana 1 (N/S)</category>
+	</item>
+
+	<item id="171e">
+		<id>0x171e</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Banana 1 (W/E)</category>
+	</item>
+
+	<item id="171f">
+		<id>0x171f</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Banana 2 (N/S)</category>
+	</item>
+
+	<item id="1720">
+		<id>0x1720</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Banana 2 (W/E)</category>
+	</item>
+
+	<item id="1721">
+		<id>0x1721</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Banana 3 (W/E)</category>
+	</item>
+
+	<item id="1722">
+		<id>0x1722</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Banana 3 (N/S)</category>
+	</item>
+
+	<item id="1723">
+		<id>0x1723</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Coconut 1 (W/E)</category>
+	</item>
+
+	<item id="1724">
+		<id>0x1724</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Coconut 1 (N/S)</category>
+	</item>
+
+	<item id="1725">
+		<id>0x1725</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Coconut 2</category>
+	</item>
+
+	<item id="1726">
+		<id>0x1726</id>
+		<category>Equipment\Food\Coconut 3</category>
+	</item>
+
+	<item id="1727">
+		<id>0x1727</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Bunch of Dates</category>
+	</item>
+
+	<item id="1728">
+		<id>0x1728</id>
+		<category>Equipment\Food\Lemon</category>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+	</item>
+
+	<item id="1729">
+		<id>0x1729</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Lemons</category>
+	</item>
+
+	<item id="172a">
+		<id>0x172a</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Lime</category>
+	</item>
+
+	<item id="172b">
+		<id>0x172b</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Limes</category>
+	</item>
+
+	<item id="172c">
+		<id>0x172c</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Peach 2</category>
+	</item>
+
+	<item id="172d">
+		<id>0x172d</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Pear 2</category>
+	</item>
+
+	<item id="1871">
+		<id>0x1871</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Beef Carcass 1 (N/S)</category>
+	</item>
+
+	<item id="1872">
+		<id>0x1872</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Beef Carcass 1 (W/E)</category>
+	</item>
+
+	<item id="1873">
+		<id>0x1873</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Beef Carcass 2 (N/S)</category>
+	</item>
+
+	<item id="1874">
+		<id>0x1874</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Beef Carcass 2 (W/E)</category>
 	</item>
 </definitions>

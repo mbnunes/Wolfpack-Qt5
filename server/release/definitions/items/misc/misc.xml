@@ -165,7 +165,22 @@
 
 	<item id="1011">
 		<id>0x1011</id>
-		<category>Misc\Keys\Keyring</category>
+		<category>Misc\Keys\Keyring 1</category>
+	</item>
+
+	<item id="1769">
+		<id>0x1769</id>
+		<category>Misc\Keys\Keyring 2</category>
+	</item>
+
+	<item id="176a">
+		<id>0x176a</id>
+		<category>Misc\Keys\Keyring 3</category>
+	</item>
+
+	<item id="176b">
+		<id>0x176b</id>
+		<category>Misc\Keys\Keyring 4</category>
 	</item>
 
 	<item id="1012">
@@ -603,5 +618,571 @@
 	<item id="149a">
 		<id>0x149a</id>
 		<category>Misc\Telescope\Telescope (66/66)</category>
+	</item>
+
+	<!-- Vat -->
+	<item id="14d7">
+		<id>0x14d7</id>
+		<category>Misc\Vat\Empty Vat (1/9)</category>
+	</item>
+
+	<item id="14d8">
+		<id>0x14d8</id>
+		<category>Misc\Vat\Empty Vat 1 (2/9)</category>
+	</item>
+
+	<item id="14d9">
+		<id>0x14d9</id>
+		<category>Misc\Vat\Empty Vat (4/9)</category>
+	</item>
+
+	<item id="14da">
+		<id>0x14da</id>
+		<category>Misc\Vat\Empty Vat 1 (3/9)</category>
+	</item>
+
+	<item id="14db">
+		<id>0x14db</id>
+		<category>Misc\Vat\Empty Vat (5/9)</category>
+	</item>
+
+	<item id="14dc">
+		<id>0x14dc</id>
+		<category>Misc\Vat\Empty Vat (6/9)</category>
+	</item>
+
+	<item id="14dd">
+		<id>0x14dd</id>
+		<category>Misc\Vat\Empty Vat (7/9)</category>
+	</item>
+
+	<item id="14de">
+		<id>0x14de</id>
+		<category>Misc\Vat\Empty Vat (8/9)</category>
+	</item>
+
+	<item id="14df">
+		<id>0x14df</id>
+		<category>Misc\Vat\Empty Vat (9/9)</category>
+	</item>
+
+	<item id="14e1">
+		<id>0x14e1</id>
+		<category>Misc\Vat\Empty Vat 2 (2/9)</category>
+	</item>
+
+	<item id="14e2">
+		<id>0x14e2</id>
+		<category>Misc\Vat\Empty Vat 2 (3/9)</category>
+	</item>
+
+	<item id="151e">
+		<id>0x151e</id>
+		<category>Misc\Vat\Vat w. Vines (1/6)</category>
+	</item>
+
+	<item id="151f">
+		<id>0x151f</id>
+		<category>Misc\Vat\Vat w. Vines 1 (2/6)</category>
+	</item>
+
+	<item id="1520">
+		<id>0x1520</id>
+		<category>Misc\Vat\Vat w. Vines 2 (2/6)</category>
+	</item>
+
+	<item id="1521">
+		<id>0x1521</id>
+		<category>Misc\Vat\Vat w. Vines (3/6)</category>
+	</item>
+
+	<item id="1522">
+		<id>0x1522</id>
+		<category>Misc\Vat\Vat w. Vines (4/6)</category>
+	</item>
+
+	<item id="1523">
+		<id>0x1523</id>
+		<category>Misc\Vat\Vat w. Vines (5/6)</category>
+	</item>
+
+	<item id="1524">
+		<id>0x1524</id>
+		<category>Misc\Vat\Vat w. Vines 1 (6/6)</category>
+	</item>
+
+	<item id="1525">
+		<id>0x1525</id>
+		<category>Misc\Vat\Vat w. Vines 2 (6/6)</category>
+	</item>
+
+	<item id="1550">
+		<id>0x1550</id>
+		<category>Misc\Vat\Vat w. Water 1 (1/6)</category>
+	</item>
+
+	<item id="1551">
+		<id>0x1551</id>
+		<category>Misc\Vat\Vat w. Water 2 (1/6)</category>
+	</item>
+
+	<item id="1552">
+		<id>0x1552</id>
+		<category>Misc\Vat\Vat w. Water (2/6)</category>
+	</item>
+
+	<item id="1553">
+		<id>0x1553</id>
+		<category>Misc\Vat\Vat w. Water (3/6)</category>
+	</item>
+
+	<item id="1554">
+		<id>0x1554</id>
+		<category>Misc\Vat\Vat w. Water (4/6)</category>
+	</item>
+
+	<item id="1555">
+		<id>0x1555</id>
+		<category>Misc\Vat\Vat w. Water 1 (5/6)</category>
+	</item>
+
+	<item id="1556">
+		<id>0x1556</id>
+		<category>Misc\Vat\Vat w. Water 2 (5/6)</category>
+	</item>
+
+	<item id="1558">
+		<id>0x1558</id>
+		<category>Misc\Vat\Vat w. Water (6/6)</category>
+	</item>
+
+	<!-- DarkSource -->
+	<item id="1646">
+		<id>0x1646</id>
+		<category>Misc\Light &amp; Dark Source\Dark Source</category>
+	</item>
+
+	<!-- LightSource -->
+	<item id="1647">
+		<id>0x1647</id>
+		<category>Misc\Light &amp; Dark Source\Light Source</category>
+	</item>
+
+	<!-- Fountains -->
+	<item id="1731">
+		<id>0x1731</id>
+		<category>Misc\Fountains\Stone Fountain (1/16)</category>
+	</item>
+
+	<item id="1732">
+		<id>0x1732</id>
+		<category>Misc\Fountains\Stone Fountain (2/16)</category>
+	</item>
+
+	<item id="1733">
+		<id>0x1733</id>
+		<category>Misc\Fountains\Stone Fountain (3/16)</category>
+	</item>
+
+	<item id="1734">
+		<id>0x1734</id>
+		<category>Misc\Fountains\Stone Fountain (4/16)</category>
+	</item>
+
+	<item id="1735">
+		<id>0x1735</id>
+		<category>Misc\Fountains\Stone Fountain (5/16)</category>
+	</item>
+
+	<item id="1736">
+		<id>0x1736</id>
+		<category>Misc\Fountains\Stone Fountain (6/16)</category>
+	</item>
+
+	<item id="1737">
+		<id>0x1737</id>
+		<category>Misc\Fountains\Stone Fountain (7/16)</category>
+	</item>
+
+	<item id="1738">
+		<id>0x1738</id>
+		<category>Misc\Fountains\Stone Fountain (8/16)</category>
+	</item>
+
+	<item id="1739">
+		<id>0x1739</id>
+		<category>Misc\Fountains\Stone Fountain (9/16)</category>
+	</item>
+
+	<item id="173a">
+		<id>0x173a</id>
+		<category>Misc\Fountains\Stone Fountain (10/16)</category>
+	</item>
+
+	<item id="173b">
+		<id>0x173b</id>
+		<category>Misc\Fountains\Stone Fountain (11/16)</category>
+	</item>
+
+	<item id="173c">
+		<id>0x173c</id>
+		<category>Misc\Fountains\Stone Fountain (12/16)</category>
+	</item>
+
+	<item id="173d">
+		<id>0x173d</id>
+		<category>Misc\Fountains\Stone Fountain (13/16)</category>
+	</item>
+
+	<item id="173e">
+		<id>0x173e</id>
+		<category>Misc\Fountains\Stone Fountain (14/16)</category>
+	</item>
+
+	<item id="173f">
+		<id>0x173f</id>
+		<category>Misc\Fountains\Stone Fountain (15/16)</category>
+	</item>
+
+	<item id="1740">
+		<id>0x1740</id>
+		<category>Misc\Fountains\Stone Fountain (16/16) (Not Animated)</category>
+	</item>
+
+	<item id="1741">
+		<id>0x1741</id>
+		<category>Misc\Fountains\Stone Fountain (16/16)</category>
+	</item>
+
+	<item id="1753">
+		<id>0x1753</id>
+		<category>Misc\Fountains\Stone Fountain (11/16) (Not Animated)</category>
+	</item>
+
+	<item id="1755">
+		<id>0x1755</id>
+		<category>Misc\Fountains\Stone Fountain (9/16) (Not Animated)</category>
+	</item>
+
+	<item id="1757">
+		<id>0x1757</id>
+		<category>Misc\Fountains\Stone Fountain (13/16) (Not Animated)</category>
+	</item>
+
+	<item id="1759">
+		<id>0x1759</id>
+		<category>Misc\Fountains\Stone Fountain (15/16) (Not Animated)</category>
+	</item>
+
+	<!-- Teleporter -->
+	<item id="17cf">
+		<id>0x17cf</id>
+		<category>Misc\Teleporter\Teleporter 1 (1/9)</category>
+	</item>
+
+	<item id="17d0">
+		<id>0x17d0</id>
+		<category>Misc\Teleporter\Teleporter 1 (2/9)</category>
+	</item>
+
+	<item id="17d1">
+		<id>0x17d1</id>
+		<category>Misc\Teleporter\Teleporter 1 (3/9)</category>
+	</item>
+
+	<item id="17d2">
+		<id>0x17d2</id>
+		<category>Misc\Teleporter\Teleporter 1 (4/9)</category>
+	</item>
+
+	<item id="17d3">
+		<id>0x17d3</id>
+		<category>Misc\Teleporter\Teleporter 1 (5/9)</category>
+	</item>
+
+	<item id="17d4">
+		<id>0x17d4</id>
+		<category>Misc\Teleporter\Teleporter 1 (6/9)</category>
+	</item>
+
+	<item id="17d5">
+		<id>0x17d5</id>
+		<category>Misc\Teleporter\Teleporter 1 (7/9)</category>
+	</item>
+
+	<item id="17d6">
+		<id>0x17d6</id>
+		<category>Misc\Teleporter\Teleporter 1 (8/9)</category>
+	</item>
+
+	<item id="17d7">
+		<id>0x17d7</id>
+		<category>Misc\Teleporter\Teleporter 1 (9/9)</category>
+	</item>
+
+	<item id="17d8">
+		<id>0x17d8</id>
+		<category>Misc\Teleporter\Teleporter 2 (1/9)</category>
+	</item>
+
+	<item id="17d9">
+		<id>0x17d9</id>
+		<category>Misc\Teleporter\Teleporter 2 (2/9)</category>
+	</item>
+
+	<item id="17da">
+		<id>0x17da</id>
+		<category>Misc\Teleporter\Teleporter 2 (3/9)</category>
+	</item>
+
+	<item id="17db">
+		<id>0x17db</id>
+		<category>Misc\Teleporter\Teleporter 2 (4/9)</category>
+	</item>
+
+	<item id="17dc">
+		<id>0x17dc</id>
+		<category>Misc\Teleporter\Teleporter 2 (5/9)</category>
+	</item>
+
+	<item id="17dd">
+		<id>0x17dd</id>
+		<category>Misc\Teleporter\Teleporter 2 (6/9)</category>
+	</item>
+
+	<item id="17de">
+		<id>0x17de</id>
+		<category>Misc\Teleporter\Teleporter 2 (7/9)</category>
+	</item>
+
+	<item id="17df">
+		<id>0x17df</id>
+		<category>Misc\Teleporter\Teleporter 2 (8/9)</category>
+	</item>
+
+	<item id="17e0">
+		<id>0x17e0</id>
+		<category>Misc\Teleporter\Teleporter 2 (9/9)</category>
+	</item>
+
+	<item id="17e1">
+		<id>0x17e1</id>
+		<category>Misc\Teleporter\Teleporter 3 (1/9)</category>
+	</item>
+
+	<item id="17e2">
+		<id>0x17e2</id>
+		<category>Misc\Teleporter\Teleporter 3 (2/9)</category>
+	</item>
+
+	<item id="17e3">
+		<id>0x17e3</id>
+		<category>Misc\Teleporter\Teleporter 3 (3/9)</category>
+	</item>
+
+	<item id="17e4">
+		<id>0x17e4</id>
+		<category>Misc\Teleporter\Teleporter 3 (4/9)</category>
+	</item>
+
+	<item id="17e5">
+		<id>0x17e5</id>
+		<category>Misc\Teleporter\Teleporter 3 (5/9)</category>
+	</item>
+
+	<item id="17e6">
+		<id>0x17e6</id>
+		<category>Misc\Teleporter\Teleporter 3 (6/9)</category>
+	</item>
+
+	<item id="17e7">
+		<id>0x17e7</id>
+		<category>Misc\Teleporter\Teleporter 3 (7/9)</category>
+	</item>
+
+	<item id="17e8">
+		<id>0x17e8</id>
+		<category>Misc\Teleporter\Teleporter 3 (8/9)</category>
+	</item>
+
+	<item id="17e9">
+		<id>0x17e9</id>
+		<category>Misc\Teleporter\Teleporter 3 (9/9)</category>
+	</item>
+
+	<item id="17ea">
+		<id>0x17ea</id>
+		<category>Misc\Teleporter\Teleporter 4 (1/9)</category>
+	</item>
+
+	<item id="17eb">
+		<id>0x17eb</id>
+		<category>Misc\Teleporter\Teleporter 4 (2/9)</category>
+	</item>
+
+	<item id="17ec">
+		<id>0x17ec</id>
+		<category>Misc\Teleporter\Teleporter 4 (3/9)</category>
+	</item>
+
+	<item id="17ed">
+		<id>0x17ed</id>
+		<category>Misc\Teleporter\Teleporter 4 (4/9)</category>
+	</item>
+
+	<item id="17ee">
+		<id>0x17ee</id>
+		<category>Misc\Teleporter\Teleporter 4 (5/9)</category>
+	</item>
+
+	<item id="17ef">
+		<id>0x17ef</id>
+		<category>Misc\Teleporter\Teleporter 4 (6/9)</category>
+	</item>
+
+	<item id="17f0">
+		<id>0x17f0</id>
+		<category>Misc\Teleporter\Teleporter 4 (7/9)</category>
+	</item>
+
+	<item id="17f1">
+		<id>0x17f1</id>
+		<category>Misc\Teleporter\Teleporter 4 (8/9)</category>
+	</item>
+
+	<item id="17f2">
+		<id>0x17f2</id>
+		<category>Misc\Teleporter\Teleporter 4 (9/9)</category>
+	</item>
+
+	<item id="17fc">
+		<id>0x17fc</id>
+		<category>Misc\Teleporter\Teleporter 5 (1/9)</category>
+	</item>
+
+	<item id="17fd">
+		<id>0x17fd</id>
+		<category>Misc\Teleporter\Teleporter 5 (2/9)</category>
+	</item>
+
+	<item id="17fe">
+		<id>0x17fe</id>
+		<category>Misc\Teleporter\Teleporter 5 (3/9)</category>
+	</item>
+
+	<item id="17ff">
+		<id>0x17ff</id>
+		<category>Misc\Teleporter\Teleporter 5 (4/9)</category>
+	</item>
+
+	<item id="1800">
+		<id>0x1800</id>
+		<category>Misc\Teleporter\Teleporter 5 (5/9)</category>
+	</item>
+
+	<item id="1801">
+		<id>0x1801</id>
+		<category>Misc\Teleporter\Teleporter 5 (6/9)</category>
+	</item>
+
+	<item id="1802">
+		<id>0x1802</id>
+		<category>Misc\Teleporter\Teleporter 5 (7/9)</category>
+	</item>
+
+	<item id="1803">
+		<id>0x1803</id>
+		<category>Misc\Teleporter\Teleporter 5 (8/9)</category>
+	</item>
+
+	<item id="1804">
+		<id>0x1804</id>
+		<category>Misc\Teleporter\Teleporter 5 (9/9)</category>
+	</item>
+
+	<item id="1805">
+		<id>0x1805</id>
+		<category>Misc\Teleporter\Teleporter 6 (1/9)</category>
+	</item>
+
+	<item id="1806">
+		<id>0x1806</id>
+		<category>Misc\Teleporter\Teleporter 6 (2/9)</category>
+	</item>
+
+	<item id="1807">
+		<id>0x1807</id>
+		<category>Misc\Teleporter\Teleporter 6 (3/9)</category>
+	</item>
+
+	<item id="1808">
+		<id>0x1808</id>
+		<category>Misc\Teleporter\Teleporter 6 (4/9)</category>
+	</item>
+
+	<item id="1809">
+		<id>0x1809</id>
+		<category>Misc\Teleporter\Teleporter 6 (5/9)</category>
+	</item>
+
+	<item id="180a">
+		<id>0x180a</id>
+		<category>Misc\Teleporter\Teleporter 6 (6/9)</category>
+	</item>
+
+	<item id="180b">
+		<id>0x180b</id>
+		<category>Misc\Teleporter\Teleporter 6 (7/9)</category>
+	</item>
+
+	<item id="180c">
+		<id>0x180c</id>
+		<category>Misc\Teleporter\Teleporter 6 (8/9)</category>
+	</item>
+
+	<item id="180d">
+		<id>0x180d</id>
+		<category>Misc\Teleporter\Teleporter 6 (9/9)</category>
+	</item>
+
+	<!-- Quest Items -->
+	<item id="1869">
+		<id>0x1869</id>
+		<category>Misc\Quest Items\Virtue Stone 1</category>
+	</item>
+
+	<item id="186a">
+		<id>0x186a</id>
+		<category>Misc\Quest Items\Virtue Stone 2</category>
+	</item>
+
+	<item id="186b">
+		<id>0x186b</id>
+		<category>Misc\Quest Items\Virtue Stone 3</category>
+	</item>
+
+	<item id="186c">
+		<id>0x186c</id>
+		<category>Misc\Quest Items\Virtue Stone 4</category>
+	</item>
+
+	<item id="186d">
+		<id>0x186d</id>
+		<category>Misc\Quest Items\Virtue Stone 5</category>
+	</item>
+
+	<item id="186e">
+		<id>0x186e</id>
+		<category>Misc\Quest Items\Virtue Stone 6</category>
+	</item>
+
+	<item id="186f">
+		<id>0x186f</id>
+		<category>Misc\Quest Items\Virtue Stone 7</category>
+	</item>
+
+	<item id="1870">
+		<id>0x1870</id>
+		<category>Misc\Quest Items\Virtue Stone 8</category>
 	</item>
 </definitions>

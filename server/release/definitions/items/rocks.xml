@@ -163,4 +163,64 @@
 		<id>0x136d</id>
 		<category>Rocks\Rock 11</category>
 	</item>
+
+	<item id="1771">
+		<id>0x1771</id>
+		<category>Rocks\Rock 12</category>
+	</item>
+
+	<item id="1772">
+		<id>0x1772</id>
+		<category>Rocks\Rock 13</category>
+	</item>
+
+	<item id="1773">
+		<id>0x1773</id>
+		<category>Rocks\Rock 14</category>
+	</item>
+
+	<item id="1774">
+		<id>0x1774</id>
+		<category>Rocks\Rock 15</category>
+	</item>
+
+	<item id="1775">
+		<id>0x1775</id>
+		<category>Rocks\Rock 16</category>
+	</item>
+
+	<item id="1776">
+		<id>0x1776</id>
+		<category>Rocks\Rock 17</category>
+	</item>
+
+	<item id="1777">
+		<id>0x1777</id>
+		<category>Rocks\Rock 18</category>
+	</item>
+
+	<item id="1778">
+		<id>0x1778</id>
+		<category>Rocks\Rock 19</category>
+	</item>
+
+	<item id="1779">
+		<id>0x1779</id>
+		<category>Rocks\Rock 20</category>
+	</item>
+
+	<item id="177a">
+		<id>0x177a</id>
+		<category>Rocks\Rock 21</category>
+	</item>
+
+	<item id="177b">
+		<id>0x177b</id>
+		<category>Rocks\Rock 22</category>
+	</item>
+
+	<item id="177c">
+		<id>0x177c</id>
+		<category>Rocks\Rock 23</category>
+	</item>
 </definitions>

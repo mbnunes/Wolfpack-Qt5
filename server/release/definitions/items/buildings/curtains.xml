@@ -70,6 +70,16 @@
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 12</categories>
 	</item>
 
+	<item id="160d">
+		<id>0x160d</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 13</categories>
+	</item>
+
+	<item id="160e">
+		<id>0x160e</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 14</categories>
+	</item>
+
 	<item id="12da">
 		<id>0x12da</id>
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 1</categories>
@@ -168,5 +178,50 @@
 	<item id="12ed">
 		<id>0x12ed</id>
 		<categories>Decoration\Curtains\White Curtain\White Curtain Sash (N/S)</categories>
+	</item>
+
+	<item id="154e">
+		<id>0x154e</id>
+		<categories>Decoration\Curtains\Standing Red Curtain\Red Curtain (1/3)</categories>
+	</item>
+
+	<item id="154f">
+		<id>0x154f</id>
+		<categories>Decoration\Curtains\Standing Red Curtain\Red Curtain (3/3)</categories>
+	</item>
+
+	<item id="1557">
+		<id>0x1557</id>
+		<categories>Decoration\Curtains\Standing Red Curtain\Red Curtain (2/3)</categories>
+	</item>
+
+	<item id="159e">
+		<id>0x159e</id>
+		<categories>Decoration\Curtains\Small White Curtains\White Curtain 1 (W/E)</categories>
+	</item>
+
+	<item id="159f">
+		<id>0x159f</id>
+		<categories>Decoration\Curtains\Small White Curtains\White Curtain 1 (N/S)</categories>
+	</item>
+
+	<item id="15f6">
+		<id>0x15f6</id>
+		<categories>Decoration\Curtains\Small White Curtains\White Curtain 2 (W/E)</categories>
+	</item>
+
+	<item id="15f7">
+		<id>0x15f7</id>
+		<categories>Decoration\Curtains\Small White Curtains\White Curtain 2 (N/S)</categories>
+	</item>
+
+	<item id="1638">
+		<id>0x1638</id>
+		<categories>Decoration\Curtains\Small Red Curtain\Red Curtain 1</categories>
+	</item>
+
+	<item id="1639">
+		<id>0x1639</id>
+		<categories>Decoration\Curtains\Small Red Curtain\Red Curtain 2</categories>
 	</item>
 </definitions>

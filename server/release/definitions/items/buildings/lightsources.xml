@@ -250,4 +250,25 @@
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 5 (Off)</category>
 	</item>
+
+	<!-- Skull Candle -->
+	<item id="1853">
+		<id>0x1853</id>
+		<category>Decoration\Lightsources\Skullcandle (W/E) (Off)</category>
+	</item>
+
+	<item id="1854">
+		<id>0x1854</id>
+		<category>Decoration\Lightsources\Skullcandle (W/E) (On)</category>
+	</item>
+
+	<item id="1857">
+		<id>0x1857</id>
+		<category>Decoration\Lightsources\Skullcandle (N/S) (Off)</category>
+	</item>
+
+	<item id="1858">
+		<id>0x1858</id>
+		<category>Decoration\Lightsources\Skullcandle (N/S) (On)</category>
+	</item>
 </definitions>

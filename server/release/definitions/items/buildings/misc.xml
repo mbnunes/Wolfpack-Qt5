@@ -60,6 +60,26 @@
 		<category>Buildings\Docks\Pier 6</category>
 	</item>
 
+	<item id="14f7">
+		<id>0x14f7</id>
+		<category>Buildings\Docks\Anchor (W/E)</category>
+	</item>
+
+	<item id="14f8">
+		<id>0x14f8</id>
+		<category>Buildings\Docks\Furled Rope (W/E)</category>
+	</item>
+
+	<item id="14f9">
+		<id>0x14f9</id>
+		<category>Buildings\Docks\Anchor (N/S)</category>
+	</item>
+
+	<item id="14fa">
+		<id>0x14fa</id>
+		<category>Buildings\Docks\Furled Rope (N/S)</category>
+	</item>
+
 	<!-- Ankhs -->
 	<item id="2">
 		<id>0x0002</id>
@@ -1278,4 +1298,44 @@
 		<category>Decoration\Statues\Statue 2 (W/E) (3/3)</category>
 	</item>
 
+	<!-- Decorative Armor -->
+	<item id="1508">
+		<id>0x1508</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 1 (W/E)</category>
+	</item>
+
+	<item id="1509">
+		<id>0x1509</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 2 (W/E)</category>
+	</item>
+
+	<item id="1512">
+		<id>0x1512</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 3 (N/S)</category>
+	</item>
+
+	<item id="1513">
+		<id>0x1513</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 4 (N/S)</category>
+	</item>
+
+	<item id="151a">
+		<id>0x151a</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 3 (N/S)</category>
+	</item>
+
+	<item id="151b">
+		<id>0x151b</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 4 (N/S)</category>
+	</item>
+
+	<item id="151c">
+		<id>0x151c</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 1 (N/S)</category>
+	</item>
+
+	<item id="151d">
+		<id>0x151d</id>
+		<category>Decoration\Decorative Armor\Decorative Armor 2 (N/S)</category>
+	</item>
 </definitions>
