@@ -548,7 +548,7 @@ static PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 	UINT16 deleted = 0;
 
 	if ( pPack )
-		deleted = amount - pPack->DeleteAmount( amount, id, color );
+		deleted = amount - pPack->deleteAmount( amount, id, color );
 
 	return PyInt_FromLong( deleted );
 }
@@ -740,10 +740,10 @@ static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 		color = getArgInt( 1 );
 
 	P_ITEM pPack = self->pChar->getBackpack();
-	UINT16 avail = 0;
+	unsigned int avail = 0;
 
 	if ( pPack )
-		avail = pPack->CountItems( id, color );
+		avail = pPack->countItems( id, color );
 
 	return PyInt_FromLong( avail );
 }

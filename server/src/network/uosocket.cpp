@@ -2393,7 +2393,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setDexterity( _player->dexterity() );
 		sendStats.setIntelligence( _player->intelligence() );
 		sendStats.setWeight( _player->weight() );
-		sendStats.setGold( _player->CountBankGold() + _player->CountGold() );
+		sendStats.setGold( _player->countBankGold() + _player->countGold() );
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->controlslots() );
 		sendStats.setMaxPets( 5 );
@@ -3031,13 +3031,13 @@ bool cUOSocket::useItem( P_ITEM item )
 	// Criminal for looting an innocent corpse & unhidden if not owner...
 	if ( item->corpse() )
 	{
-		if ( !_player->Owns( item ) && !_player->isGM() )
+		if ( !_player->owns( item ) && !_player->isGM() )
 		{
 			_player->unhide();
 		}
 
 		// TODO: Add a XML option for this
-		if ( !_player->Owns( item ) && !_player->isGM() && _player->isInnocent() )
+		if ( !_player->owns( item ) && !_player->isGM() && _player->isInnocent() )
 		{
 			// Innocent Corpse and not in the same party && party allowance for looting?
 			if ( item->hasTag( "notoriety" ) && item->getTag( "notoriety" ).toInt() == 0x01 )
@@ -3065,7 +3065,7 @@ bool cUOSocket::useItem( P_ITEM item )
 	// Secure containers
 	if ( item->isLockedDown() && item->secured() )
 	{
-		if ( !_player->Owns( item ) && !_player->isGM() )
+		if ( !_player->owns( item ) && !_player->isGM() )
 		{
 			sysMessage( tr( "That is a secured chest!" ) );
 			return true;

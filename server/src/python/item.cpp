@@ -314,7 +314,7 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 
 	UINT16 deleted = 0;
-	deleted = self->pItem->DeleteAmount( amount, id, color );
+	deleted = self->pItem->deleteAmount( amount, id, color );
 
 	return PyInt_FromLong( deleted );
 }
@@ -344,8 +344,8 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	if ( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 
-	UINT16 avail = 0;
-	avail = self->pItem->CountItems( id, color );
+	unsigned int avail = 0;
+	avail = self->pItem->countItems( id, color );
 
 	return PyLong_FromLong( avail );
 }
@@ -676,26 +676,7 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 	if ( checkArgInt( 3 ) )
 		autoStack = getArgInt( 3 ) != 0;
 
-	// Special rules:
-	// If randomPos == false but autoStack == true then manually set a random position as well
-	// If randomPos == true but autoStack = false then manually set the random position
-
-	if ( randomPos && !autoStack )
-	{
-		self->pItem->addItem( pItem, false, handleWeight );
-		pItem->SetRandPosInCont( self->pItem );
-	}
-	else if ( !randomPos && autoStack )
-	{
-		Coord_cl pos = pItem->pos();
-		self->pItem->addItem( pItem, true, handleWeight );
-		if ( !pItem->free )
-			pItem->moveTo( pos );
-	}
-	else
-	{
-		self->pItem->addItem( pItem, randomPos, handleWeight );
-	}
+	self->pItem->addItem( pItem, randomPos, handleWeight, false, autoStack );
 
 	Py_RETURN_NONE;
 }

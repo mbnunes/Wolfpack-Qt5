@@ -107,7 +107,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 		}
 		else if ( message.contains( tr( " RELEASE" ) ) )
 		{
-			int gold = pTalker->CountBankGold() + pTalker->CountGold();
+			int gold = pTalker->countBankGold() + pTalker->countGold();
 			P_ITEM pPack = m_npc->getBankbox();
 			cItem::ContainerContent stableitems;
 			if ( pPack )
