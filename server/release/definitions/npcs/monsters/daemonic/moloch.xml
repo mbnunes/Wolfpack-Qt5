@@ -1,0 +1,42 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Moloch, Blue Four Armed Daemon -->
+	<npc id="moloch" inherit="monster_base">
+		<name>moloch</name>
+		<id>785</id>
+		<karma>-10000</karma>
+		<fame>11000</fame>
+		<!-- Stats -->
+		<str><random min="331" max="360"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="41" max="64"/></int>
+		<maxhitpoints><random min="171" max="200"/></maxhitpoints>
+		<!-- Skills -->
+		<magicresistance><random min="651" max="750"/></magicresistance>
+		<tactics><random min="751" max="900"/></tactics>
+		<wrestling><random min="701" max="900"/></wrestling>
+		<anatomy>0</anatomy>
+		<!-- Damage -->
+		<mindamage>41</mindamage>
+		<maxdamage>61</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<!-- Loot Packs -->
+		<!--<lootpacks></lootpacks>-->
+		<!-- Misc. -->
+		<category>Monsters\Daemonic\Moloch</category>
+	</npc>
+
+</definitions>

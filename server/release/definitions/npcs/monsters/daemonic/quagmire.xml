@@ -1,0 +1,44 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Quagmire -->
+	<npc id="quagmire" inherit="monster_base">
+		<name>quagmire</name>
+		<id>789</id>
+		<karma>-4500</karma>
+		<fame>4650</fame>
+		<!-- Stats -->
+		<str><random min="101" max="130"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="31" max="55"/></int>
+		<maxhitpoints><random min="91" max="105"/></maxhitpoints>
+		<!-- Skills -->
+		<magicresistance><random min="651" max="850"/></magicresistance>
+		<tactics><random min="501" max="600"/></tactics>
+		<wrestling><random min="601" max="800"/></wrestling>
+		<anatomy>0</anatomy>
+		<!-- Damage -->
+		<mindamage>17</mindamage>
+		<maxdamage>24</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_poison" value="40" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<!-- Loot Packs -->
+		<!--<lootpacks></lootpacks>-->
+		<!-- Misc. -->
+		<category>Monsters\Daemonic\Quagmire</category>
+	</npc>
+
+</definitions>

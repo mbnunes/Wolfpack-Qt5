@@ -9,9 +9,9 @@
 <definitions>
 
 	<!-- Skeletal Dragon -->
-	<npc id="skeletal_dragon" inherit="undead_base">
+	<npc id="skeletal_dragon" inherit="monster_base">
 		<name>skeletal dragon</name>
-		<id>0x68</id>
+		<id>104</id>
 		<karma><random min="-10000" max="-15000" /></karma>
 		<fame><random min="10000" max="15000" /></fame>
 		<!-- Stats -->
@@ -40,7 +40,7 @@
 		<!-- Loot Packs -->
 		<lootpacks>gold_superrich;gems_medium</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\Undead\Skeletal Dragon</category>
+		<category>Monsters\Dragons\Skeletal Dragon</category>
 	</npc>
 
 </definitions>

@@ -1,0 +1,42 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Summoned Only?  -->
+	<npc id="summoned_death_adder">
+		<name>death adder</name>
+		<id>21</id>
+		<skin>0x0</skin>
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Stats -->
+		<str>70</str>
+		<dex>150</dex>
+		<int>100</int>
+		<maxhitpoints>50</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Skills -->
+		<magicresistance>0</magicresistance>
+		<tactics>500</tactics>
+		<wrestling>900</wrestling>
+		<anatomy>0</anatomy>
+		<poisoning>1500</poisoning>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>4</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="10" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<!-- Loot Packs -->
+		<!--<lootpacks></lootpacks>-->
+		<!-- Misc. -->
+		<category>Summoned\Death Adder</category>
+	</npc>
+
+</definitions>

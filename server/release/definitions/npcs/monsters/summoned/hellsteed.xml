@@ -1,0 +1,18 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!--  -->
+	<npc id="summoned_hellsteed" inherit="hellsteed">
+		<karma>0</karma>
+		<fame>0</fame>
+		<category>Summoned\Hellsteed</category>
+	</npc>
+
+</definitions>

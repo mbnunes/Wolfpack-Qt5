@@ -1,0 +1,42 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!--  -->
+	<npc id="summoned_vampire_bat" inherit="vampire_bat">
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Stats -->
+		<str>120</str>
+		<dex>120</dex>
+		<int>100</int>
+		<maxhitpoints>90</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Skills -->
+		<magicresistance>0</magicresistance>
+		<tactics>500</tactics>
+		<wrestling><random min="901" max="990"/></wrestling>
+		<anatomy>0</anatomy>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>21</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<!--<lootpacks></lootpacks>-->
+		<!-- Misc. -->
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Summoned\Vampire Bat</category>
+	</npc>
+
+</definitions>

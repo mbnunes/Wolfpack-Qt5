@@ -1,0 +1,47 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!--  -->
+	<npc id="crystal_elemental" inherit="monster_base">
+		<name>crystal elemental</name>
+		<id>300</id>
+		<karma>-10000</karma>
+		<fame>10000</fame>
+		<!-- Stats -->
+		<str><random min="136" max="160"/></str>
+		<dex><random min="51" max="65"/></dex>
+		<int><random min="86" max="110"/></int>
+		<maxhitpoints>150</maxhitpoints>
+		<!-- Skills -->
+		<magicresistance><random min="801" max="900"/></magicresistance>
+		<tactics><random min="751" max="850"/></tactics>
+		<wrestling><random min="651" max="750"/></wrestling>
+		<anatomy>0</anatomy>
+		<magery><random min="701" max="750"/></magery>
+		<meditation><random min="701" max="750"/></meditation>
+		<evaluatingintel><random min="601" max="750"/></evaluatingintel>
+		<!-- Damage -->
+		<mindamage>20</mindamage>
+		<maxdamage>29</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_energy" value="20" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="55,70" type="int" />
+		<!-- Loot Packs -->
+		<!--<lootpacks></lootpacks>-->
+		<!-- Misc. -->
+		<category>Monsters\Elementals\Crystal Elemental</category>
+	</npc>
+
+</definitions>

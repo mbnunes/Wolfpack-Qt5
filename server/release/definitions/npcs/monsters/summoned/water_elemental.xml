@@ -1,0 +1,41 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!--  -->
+	<npc id="summoned_water_elemental" inherit="water_elemental">
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Stats -->
+		<str>200</str>
+		<dex>70</dex>
+		<int>100</int>
+		<maxhitpoints>165</maxhitpoints>
+		<!-- Skills -->
+		<magicresistance><random min="" max=""/></magicresistance>
+		<tactics><random min="" max=""/></tactics>
+		<wrestling><random min="" max=""/></wrestling>
+		<!-- Damage -->
+		<mindamage>27</mindamage>
+		<maxdamage>38</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_cold" value="100" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_poison" value="45,55" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<!-- Loot Packs -->
+		<!--<lootpacks></lootpacks>-->
+		<!-- Misc. -->
+		<category>Summoned\Water Elemental</category>
+	</npc>
+
+</definitions>
