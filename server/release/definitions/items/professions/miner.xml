@@ -610,4 +610,11 @@
 		<category>Professions\Miner\Granite\Valorite Granite</category>
 	</item>
 
+	<!-- Sand -->
+	<item id="sand">
+		<id>0x11ea</id>
+		<name>#1044626</name>
+		<weight>1.0</weight>
+		<category>Professions\Miner\Sand</category>
+	</item>
 </definitions>

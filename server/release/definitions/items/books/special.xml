@@ -23,4 +23,12 @@
 		<category>Equipment\Books\Special\Sand Mining Book</category>
 		<basescripts>books.sandmining</basescripts>
 	</item>
+
+	<item id="glassblowing_book">
+		<id>0xff4</id>
+		<name>Crafting Glass With Glassblowing</name>
+		<weight>1.0</weight>
+		<category>Equipment\Books\Special\Glassblowing Book</category>
+		<basescripts>books.glassblowing</basescripts>
+	</item>
 </definitions>
