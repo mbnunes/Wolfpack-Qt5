@@ -54,6 +54,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Overhauled the body sound system. Now allows for every sound to be overriden individually in the bodyinfo or
 	  in the base definition.
 	- The <include> tag is now context-sensitive (i.e. can be used within definition elements to include child elements).
+	- Fixed bug #0000355. (Animation translation incorrect on horses)
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

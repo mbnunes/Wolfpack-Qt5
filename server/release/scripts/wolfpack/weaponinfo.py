@@ -171,8 +171,8 @@ WEAPONINFO = {
 	# Broadsword
 	'f5e': {
 		SWING: [ 0x9 ],
-		HITSOUND: [0x23b, 0x23c, 0x237],
-		MISSSOUND: [ 0x23a, 0x238, 0x239 ]
+		HITSOUND: [0x237],
+		MISSSOUND: [0x23a]
 	},
 	# Butcher Knife
 	'13f6': {

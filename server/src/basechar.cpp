@@ -543,9 +543,6 @@ void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 		case ANIM_FIDGET_YAWN:
 		case ANIM_GET_HIT:
 		case ANIM_BLOCK:
-		case ANIM_ATTACK_2H_JAB:
-		case ANIM_ATTACK_2H_WIDE:
-		case ANIM_ATTACK_2H_DOWN:
 			id = ANIM_HORSE_SLAP;
 			break;
 		case ANIM_ATTACK_1H_WIDE:
@@ -553,6 +550,9 @@ void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 		case ANIM_ATTACK_1H_DOWN:
 		case ANIM_CAST_DIR:
 		case ANIM_ATTACK_UNARM:
+		case ANIM_ATTACK_2H_JAB:
+		case ANIM_ATTACK_2H_WIDE:
+		case ANIM_ATTACK_2H_DOWN:
 			id = ANIM_HORSE_ATTACK;
 			break;
 		case ANIM_CAST_AREA:
