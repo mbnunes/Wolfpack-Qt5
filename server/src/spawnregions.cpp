@@ -301,41 +301,65 @@ void cSpawnRegion::processNode( const cElement* tag )
 		this->checkFreeSpot_ = false;
 
 	// <maxnpcamount value="10" />
-	else if ( name == "maxnpcamount" && tag->hasAttribute( "value" ) )
-		this->maxNpcAmt_ = tag->getAttribute( "value" ).toUShort();
+	// <maxnpcamount>10</maxnpcamount>
 	else if ( name == "maxnpcamount" )
-		this->maxNpcAmt_ = value.toUShort();
+	{
+		if ( tag->hasAttribute( "value" ) )
+			this->maxNpcAmt_ = tag->getAttribute( "value" ).toUShort();
+		else
+			this->maxNpcAmt_ = value.toUShort();
+	}
 
 	// <maxitemamount value="5" />
-	else if ( name == "maxitemamount" && tag->hasAttribute( "value" ) )
-		this->maxItemAmt_ = tag->getAttribute( "value" ).toUShort();
+	// <maxitemamount>5</maxitemamount>
 	else if ( name == "maxitemamount" )
-		this->maxItemAmt_ = value.toUShort();
+	{
+		if ( tag->hasAttribute( "value" ) )
+			this->maxItemAmt_ = tag->getAttribute( "value" ).toUShort();
+		else
+			this->maxItemAmt_ = value.toUShort();
+	}
 
 	// <npcspercycle value="3" />
-	else if ( name == "npcspercycle" && tag->hasAttribute( "value" ) )
-		this->npcsPerCycle_ = tag->getAttribute( "value" ).toUShort();
+	// <npcspercycle>3</npcspercycle>
 	else if ( name == "npcspercycle" )
-		this->npcsPerCycle_ = value.toUShort();
+	{
+		if ( tag->hasAttribute( "value" ) )
+			this->npcsPerCycle_ = tag->getAttribute( "value" ).toUShort();
+		else
+			this->npcsPerCycle_ = value.toUShort();
+	}
 
 	// <itemspercycle value="3" />
-	else if ( name == "itemspercycle" && tag->hasAttribute( "value" ) )
-		this->itemsPerCycle_ = tag->getAttribute( "value" ).toUShort();
+	// <itemspercycle>3</itemspercycle>
 	else if ( name == "itemspercycle" )
-		this->itemsPerCycle_ = value.toUShort();
-
-	// <delay min="xx" max="xx" />
-	// <delay value="" />
-	else if ( name == "delay" && tag->hasAttribute( "value" ) )
 	{
-		unsigned int delay = tag->getAttribute( "value" ).toUInt();
-		minTime_ = delay;
-		maxTime_ = delay;
+		if ( tag->hasAttribute( "value" ) )
+			this->itemsPerCycle_ = tag->getAttribute( "value" ).toUShort();
+		else
+			this->itemsPerCycle_ = value.toUShort();
 	}
-	else if ( name == "delay" && tag->hasAttribute( "min" ) && tag->hasAttribute( "max" ) )
+
+	// <delay min="5" max="10" />
+	// <delay value="5" />
+	// <delay>5</delay>
+	else if ( name == "delay" )
 	{
-		minTime_ = tag->getAttribute( "min" ).toUInt();
-		maxTime_ = tag->getAttribute( "max" ).toUInt();
+		if ( tag->hasAttribute( "min" ) && tag->hasAttribute( "max" ) )
+		{
+			minTime_ = tag->getAttribute( "min" ).toUInt();
+			maxTime_ = tag->getAttribute( "max" ).toUInt();
+		}
+		else if ( tag->hasAttribute( "value" ) )
+		{
+			minTime_ = tag->getAttribute( "value" ).toUInt();
+			maxTime_ = tag->getAttribute( "value" ).toUInt();
+		}
+		else
+		{
+			minTime_ = value.toUInt();
+			maxTime_ = value.toUInt();
+		}
 	}
 
 	// <active />

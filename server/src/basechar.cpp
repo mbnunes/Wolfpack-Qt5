@@ -1229,96 +1229,184 @@ void cBaseChar::processNode( const cElement* Tag )
 	}
 #endif
 
-	//<stat type="str">100</stats>
+	//<stat type="str">100</stat>
+	//<stat type="str" value="100" />
+	//<stat type="str" min="50" max="100" />
 	else if ( TagName == "stat" )
 	{
 		if ( Tag->hasAttribute( "type" ) )
 		{
 			QString statType = Tag->getAttribute( "type" );
-			if ( statType == "str" )
+			if ( statType == "str" || statType == "strength" )
 			{
-				strength_ = Value.toLong();
+				if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+					strength_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+				else if ( Tag->hasAttribute( "value" ) )
+					strength_ = Tag->getAttribute( "value" ).toLong();
+				else
+					strength_ = Value.toLong();
+
 				if ( maxHitpoints_ == 0 )
 					maxHitpoints_ = strength_;
 				hitpoints_ = maxHitpoints_;
 			}
-			else if ( statType == "dex" )
+			else if ( statType == "dex" || statType == "dexterity" )
 			{
-				dexterity_ = Value.toLong();
+				if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+					dexterity_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+				else if ( Tag->hasAttribute( "value" ) )
+					dexterity_ = Tag->getAttribute( "value" ).toLong();
+				else
+					dexterity_ = Value.toLong();
+
 				if ( maxStamina_ == 0 )
 					maxStamina_ = dexterity_;
 				stamina_ = maxStamina_;
 			}
-			else if ( statType == "int" )
+			else if ( statType == "int" || statType == "intelligence" )
 			{
-				intelligence_ = Value.toLong();
+				if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+					intelligence_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+				else if ( Tag->hasAttribute( "value" ) )
+					intelligence_ = Tag->getAttribute( "value" ).toLong();
+				else
+					intelligence_ = Value.toLong();
+
 				if ( maxMana_ == 0 )
 					maxMana_ = intelligence_;
 				mana_ = maxMana_;
 			}
 			else if ( statType == "maxhp" || statType == "maxhitpoints" )
 			{
-				maxHitpoints_ = Value.toLong();
+				if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+					maxHitpoints_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+				else if ( Tag->hasAttribute( "value" ) )
+					maxHitpoints_ = Tag->getAttribute( "value" ).toLong();
+				else
+					maxHitpoints_ = Value.toLong();
 				hitpoints_ = maxHitpoints_;
 			}
 			else if ( statType == "maxstm" || statType == "maxstamina" )
 			{
-				maxStamina_ = Value.toLong();
+				if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+					maxStamina_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+				else if ( Tag->hasAttribute( "value" ) )
+					maxStamina_ = Tag->getAttribute( "value" ).toLong();
+				else
+					maxStamina_ = Value.toLong();
 				stamina_ = maxStamina_;
 			}
 			else if ( statType == "maxmn" || statType == "maxmana" )
 			{
-				maxMana_ = Value.toLong();
+				if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+					maxMana_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+				else if ( Tag->hasAttribute( "value" ) )
+					maxMana_ = Tag->getAttribute( "value" ).toLong();
+				else
+					maxMana_ = Value.toLong();
 				mana_ = maxMana_;
 			}
 		}
 	}
-
-	// Aliasses <str <dex <int <maxhp <maxstm <maxmn <maxhitpoints <maxstamina <maxmana
-	else if ( TagName == "str" )
+	// Aliases to <stat></stat>
+	// <str min="50" max="100 />
+	// <str value="100" />
+	// <str>100</str>
+	else if ( TagName == "str" || TagName == "strength" )
 	{
-		strength_ = Value.toLong();
+		if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+			strength_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+		else if ( Tag->hasAttribute( "value" ) )
+			strength_ = Tag->getAttribute( "value" ).toLong();
+		else
+			strength_ = Value.toLong();
 		maxHitpoints_ = strength_;
 		hitpoints_ = maxHitpoints_;
 	}
-	else if ( TagName == "dex" )
+	// <dex value="100" />
+	// <dex>100</dex>
+	else if ( TagName == "dex" || TagName == "dexterity" )
 	{
-		dexterity_ = Value.toLong();
+		if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+			dexterity_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+		else if ( Tag->hasAttribute( "value" ) )
+			dexterity_ = Tag->getAttribute( "value" ).toLong();
+		else
+			dexterity_ = Value.toLong();
 		maxStamina_ = dexterity_;
 		stamina_ = maxStamina_;
 	}
-	else if ( TagName == "int" )
+	// <int value="100" />
+	// <int>100</int>
+	else if ( TagName == "int" || TagName == "intelligence" )
 	{
-		intelligence_ = Value.toLong();
+		if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+			intelligence_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+		else if ( Tag->hasAttribute( "value" ) )
+			intelligence_ = Tag->getAttribute( "value" ).toLong();
+		else
+			intelligence_ = Value.toLong();
 		maxMana_ = intelligence_;
 		mana_ = maxMana_;
 	}
+	// <maxhitpoints value="100" />
+	// <maxhitpoints>100</maxhitpoints>
 	else if ( TagName == "maxhp" || TagName == "maxhitpoints" )
 	{
-		maxHitpoints_ = Value.toLong();
+		if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+			maxHitpoints_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+		else if ( Tag->hasAttribute( "value" ) )
+			maxHitpoints_ = Tag->getAttribute( "value" ).toLong();
+		else
+			maxHitpoints_ = Value.toLong();
 		hitpoints_ = maxHitpoints_;
 	}
+	// <maxstamina value="100" />
+	// <maxstamina>100</maxstamina>
 	else if ( TagName == "maxstm" || TagName == "maxstamina" )
 	{
-		maxStamina_ = Value.toLong();
+		if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+			maxStamina_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+		else if ( Tag->hasAttribute( "value" ) )
+			maxStamina_ = Tag->getAttribute( "value" ).toLong();
+		else
+			maxStamina_ = Value.toLong();
 		stamina_ = maxStamina_;
 	}
+	// <maxmana value="100" />
+	// <maxmana>100</maxmana>
 	else if ( TagName == "maxmn" || TagName == "maxmana" )
 	{
-		maxMana_ = Value.toLong();
+		if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+			maxMana_ = RandomNum( Tag->getAttribute( "min" ).toLong(), Tag->getAttribute( "max" ).toLong() );
+		else if ( Tag->hasAttribute( "value" ) )
+			maxMana_ = Tag->getAttribute( "value" ).toLong();
+		else
+			maxMana_ = Value.toLong();
 		mana_ = maxMana_;
 	}
 
-	//<skill type="alchemy">100</skill>
-	//<skill type="1">100</skill>
-	else if ( TagName == "skill" && Tag->hasAttribute( "type" ) )
+	// <skill id="alchemy">100</skill>
+	// <skill id="1">100</skill>
+	// <skill id="alchemy" value="100" />
+	// <skill id="1" value="100" />
+	// <skill id="alchemy" min="100" max="200" />
+	else if ( TagName == "skill" && Tag->hasAttribute( "id" ) )
 	{
-		if ( Tag->getAttribute( "type" ).toInt() > 0 && Tag->getAttribute( "type" ).toInt() <= ALLSKILLS )
-			setSkillValue( ( Tag->getAttribute( "type" ).toInt() - 1 ), Value.toInt() );
+		Q_INT16 skillId = -1;
+		if ( Tag->getAttribute( "id" ).toInt() > 0 && Tag->getAttribute( "id" ).toInt() <= ALLSKILLS )
+			skillId = (Q_INT16)( Tag->getAttribute( "id" ).toInt() - 1 );
 		else
+			skillId = (Q_INT16)( Skills::instance()->findSkillByDef( Tag->getAttribute( "id", "" ) ) );
+		// Get the value
+		if ( skillId <= ALLSKILLS && skillId >= 0 )
 		{
-			Q_INT16 skillId = Skills::instance()->findSkillByDef( Tag->getAttribute( "type", "" ) );
-			setSkillValue( skillId, Value.toInt() );
+			if ( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
+				setSkillValue( skillId, (Q_INT16)RandomNum( Tag->getAttribute( "min" ).toInt(), Tag->getAttribute( "max" ).toInt() ) );
+			else if ( Tag->hasAttribute( "value" ) )
+				setSkillValue( skillId, (Q_INT16)Tag->getAttribute( "value" ).toInt() );
+			else
+				setSkillValue( skillId, Value.toInt() );
 		}
 	}
 
@@ -1391,19 +1479,30 @@ void cBaseChar::processNode( const cElement* Tag )
 			}
 		}
 	}
-	// <saycolor>color</saycolor>
+	// <saycolor>0x12</saycolor>
+	// <saycolor value="0x12" />
 	else if ( TagName == "saycolor" )
 	{
 		bool ok;
-		ushort color = Value.toUShort( &ok );
+		ushort color;
+		if ( Tag->hasAttribute( "value" ) )
+			color = Tag->getAttribute( "value" ).toUShort();
+		else
+			color = Value.toUShort( &ok );
 		if ( ok )
 			this->setSaycolor( color );
 	}
-	// <haircolor>color</haircolor> dyes currently equipped hair/beard
+	// Dyes currently equipped hair/beard
+	// <haircolor value="0x12" />
+	// <haircolor>0x12</haircolor>
 	else if ( TagName == "haircolor" )
 	{
 		bool ok;
-		ushort color = Value.toUShort( &ok );
+		ushort color;
+		if ( Tag->hasAttribute( "value" ) )
+			color = Tag->getAttribute( "value" ).toUShort();
+		else
+			color = Value.toUShort( &ok );
 		if ( ok )
 		{
 			P_ITEM hair = getItemOnLayer( Hair );

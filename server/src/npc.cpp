@@ -690,7 +690,7 @@ void cNPC::processNode( const cElement* Tag )
 	changed_ = true;
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
-
+	
 	//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
 	//<......... type="rect" ... />
 	//<......... type="3" ... />

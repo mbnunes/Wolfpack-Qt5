@@ -826,16 +826,6 @@ void cItem::processNode( const cElement* Tag )
 	else if ( TagName == "nodye" )
 		this->setDye( false );
 
-	//<id value="0x12f9" />
-	// <id>0x12f9</id>
-	else if ( TagName == "id" )
-	{
-		if ( Tag->hasAttribute( "value" ) )
-			this->setId( Tag->getAttribute( "value" ).toUShort() );
-		else
-			this->setId( Value.toUShort() );
-	}
-
 	// <content><item id="a" />...<item id="z" /></content> (sereg)
 	else if ( TagName == "content" && Tag->childCount() > 0 )
 		this->processContainerNode( Tag );
@@ -887,11 +877,11 @@ void cItem::processModifierNode( const cElement* Tag )
 		else
 		{
 			/*
-					int offset = Value.find( "%1" );
-					QString left = Value.left( offset );
-					QString right = Value.right( Value.length() - ( offset + 2 ) );
-					name_ = left + name_ + right;
-					*/
+			** int offset = Value.find( "%1" );
+			** QString left = Value.left( offset );
+			** QString right = Value.right( Value.length() - ( offset + 2 ) );
+			** name_ = left + name_ + right;
+			*/
 			name_ = Value.arg( name_ );
 		}
 	}

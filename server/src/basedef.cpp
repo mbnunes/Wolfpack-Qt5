@@ -166,7 +166,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "attacksound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
-		for ( int i = 0; i < parts.size(); ++i )
+		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			attackSound_.append( value );
@@ -176,7 +176,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "idlesound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
-		for ( int i = 0; i < parts.size(); ++i )
+		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			idleSound_.append( value );
@@ -186,7 +186,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "hitsound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
-		for ( int i = 0; i < parts.size(); ++i )
+		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			hitSound_.append( value );
@@ -196,7 +196,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "gethitsound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
-		for ( int i = 0; i < parts.size(); ++i )
+		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			gethitSound_.append( value );
@@ -206,7 +206,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "deathsound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
-		for ( int i = 0; i < parts.size(); ++i )
+		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			deathSound_.append( value );
@@ -623,10 +623,17 @@ void cItemBaseDef::reset()
 
 void cItemBaseDef::processNode( const cElement* node )
 {
+	// <weight value="10.5" />
+	// <weight>10.5</weight>
 	if ( node->name() == "weight" )
 	{
-		weight_ = node->text().toFloat();
+		if ( node->hasAttribute( "value" ) )
+			weight_ = node->getAttribute( "value" ).toInt();
+		else
+			weight_ = node->text().toFloat();
 	}
+	// <buyprice value="10" />
+	// <buyprice>10</sellprice>
 	else if ( node->name() == "buyprice" )
 	{
 		if ( node->hasAttribute( "value" ) )
@@ -634,6 +641,8 @@ void cItemBaseDef::processNode( const cElement* node )
 		else
 			buyprice_ = node->value().toUInt();
 	}
+	// <sellprice value="10" />
+	// <sellprice>10</sellprice>
 	else if ( node->name() == "sellprice" )
 	{
 		if ( node->hasAttribute( "value" ) )
@@ -641,6 +650,8 @@ void cItemBaseDef::processNode( const cElement* node )
 		else
 			sellprice_ = node->value().toUInt();
 	}
+	// <type value="1" />
+	// <type>1</type>
 	else if ( node->name() == "type" )
 	{
 		if ( node->hasAttribute( "value" ) )
@@ -648,6 +659,8 @@ void cItemBaseDef::processNode( const cElement* node )
 		else
 			type_ = node->value().toUShort();
 	}
+	// <lightsource value="1" />
+	// </lightsource>1</lightsource>
 	else if ( node->name() == "lightsource" )
 	{
 		if ( node->hasAttribute( "value" ) )
@@ -655,6 +668,8 @@ void cItemBaseDef::processNode( const cElement* node )
 		else
 			lightsource_ = node->value().toUShort();
 	}
+	// <decaydelay value="120" />
+	// <decaydelay>120</decaydelay>
 	else if ( node->name() == "decaydelay" )
 	{
 		if ( node->hasAttribute( "value" ) )
@@ -662,6 +677,8 @@ void cItemBaseDef::processNode( const cElement* node )
 		else
 			decaydelay_ = node->value().toUInt();
 	}
+	// <watersource value="1" />
+	// <watersouce>1</watersource>
 	else if ( node->name() == "watersource" )
 	{
 		if ( node->hasAttribute( "value" ) )
@@ -669,6 +686,8 @@ void cItemBaseDef::processNode( const cElement* node )
 		else
 			setWaterSource( node->value().toUInt() != 0 );
 	}
+	// <inherit id="axe" />
+	// <inherit>axe</inherit>
 	else if ( node->name() == "inherit" )
 	{
 		QString inheritID;

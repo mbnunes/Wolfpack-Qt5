@@ -164,14 +164,25 @@ void cTerritory::processNode( const cElement* Tag )
 		}
 	}
 
+	// <snowchance value="50" />
 	// <snowchance>50</snowchance>
 	else if ( TagName == "snowchance" )
-		this->snowchance_ = Value.toUShort();
+	{
+		if ( Tag->hasAttribute( "value" ) )
+			this->snowchance_ = Tag->getAttribute( "value" ).toUShort();
+		else
+			this->snowchance_ = Value.toUShort();
+	}
 
+	// <rainchance value="50" />
 	// <rainchance>50</rainchance>
 	else if ( TagName == "rainchance" )
-		this->rainchance_ = Value.toUShort();
-
+	{
+		if ( Tag->hasAttribute( "value" ) )
+			this->rainchance_ = Tag->getAttribute( "value" ).toUShort();
+		else
+			this->rainchance_ = Value.toUShort();
+	}
 	// <tradesystem>
 	//		<good num="1">
 	//			<buyable>10</buyable>
