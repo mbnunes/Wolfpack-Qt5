@@ -16,6 +16,7 @@ PARAM_PATTERN = re.compile('\\\\param\s+(\w+)\s+([^\\\\]*?)\s*(?=\Z|[\s\n]+\\\\\
 INHERIT_PATTERN = re.compile('\\\\inherit\s+(\w+)\s*(?=\Z|[\s\n]+\\\\\w)', re.S)
 FUNCTION_NAME_PATTERN = re.compile("\\\\function\s([\w\.]+)", re.S)
 LINK_OBJECT_PATTERN = re.compile("<object\\s+id=\"([^\\\"]+)\">(.*?)<\\/object>", re.S)
+LINK_MODULE_PATTERN = re.compile("<module\\s+id=\"([^\\\"]+)\">(.*?)<\\/module>", re.S)
 
 VERSION = "Unknown"
 BETA = ""
@@ -44,6 +45,17 @@ def processtext(text):
 		
 		# Replace
 		replacement = '<a href="object_%s.html">%s</a>' % (link.group(1).lower(), link.group(2))
+		text = text[0:link.start()] + replacement + text[link.end():]
+		
+	# Replace the <module tags
+	while 1:
+		link = LINK_MODULE_PATTERN.search(text)
+		
+		if not link:
+			break
+		
+		# Replace
+		replacement = '<a href="module_%s.html">%s</a>' % (link.group(1).lower().replace('.', '_'), link.group(2))
 		text = text[0:link.start()] + replacement + text[link.end():]
 	
 	return text
@@ -297,6 +309,7 @@ def parsepython(filename):
 
 	commands = []
 	functions = []
+	constants = []
 	results = pattern.finditer(content)
 	for result in results:
 		text = result.group(1)
@@ -308,7 +321,45 @@ def parsepython(filename):
 			function = parsefunction(text)
 			if function:
 				functions.append(function)
-	return (commands, [], [], [], [], functions)
+				
+	# Parse Constants
+	#constants = re.compile('"""\\s*(.*?)\\s*"""', re.S) # Multiline comment pattern
+	constantsre = re.compile('"""[^"]+\s*\\\\constants\s+([^\s]+)\s+(.*?)\\s*"""(.*?)"""[^"]*?\\\\end[^"]*?"""', re.S)
+	iterator = constantsre.finditer(content)
+	for result in iterator:
+		module = result.group(1)
+		name = result.group(2)
+		code = result.group(3)
+		description = ''
+		if "\n" in name:
+			(name, description) = name.split("\n", 1)			
+
+		# Remove multiline comments and intended lines from the
+		# code and start parsing constants
+		removemultiline = re.compile('""".*?"""', re.S)
+		while 1:
+			result = removemultiline.search(code)
+			if not result:
+				break
+			code = code[:result.start()] + code[result.end():]
+		
+		constant = {
+			'module': module,
+			'name': name,
+			'description': processtext(description),
+			'constants': [],
+		}
+		
+		findconstants = re.compile('^(\w+)\s*=\s*.*?$', re.M)
+		results = findconstants.finditer(code)
+		for result in results:
+			name = result.group(1)
+			if name.upper() != name:
+				continue
+			constant['constants'].append(result.group(0).strip())
+		constants.append(constant)
+									
+	return (commands, [], [], [], [], functions, constants)
 
 #
 # The following function parses a C++ file 
@@ -425,4 +476,4 @@ def parsecpp(filename):
 		global BETA
 		BETA = result.group(1)		
 
-	return (commands, events, objects, objectsmethods, objectsproperties, functions)
+	return (commands, events, objects, objectsmethods, objectsproperties, functions, [])

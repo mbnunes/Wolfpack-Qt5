@@ -1,5 +1,7 @@
 
+import re
 import math
+import urllib
 import time
 import os
 import os.path
@@ -14,6 +16,7 @@ objects = []
 objectsmethods = []
 objectsproperties = []
 functions = []
+constants = []
 
 if len(paths) == 0:
 	print "Usage: python generate.py path1[,path2,...]"
@@ -26,22 +29,24 @@ def examine(path):
 	global objectsmethods
 	global objectsproperties
 	global functions
+	global constants
 	
 	#print "Examining %s..." % path
 	files = glob(path + '/*.py')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsepython(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions, newconstants) = parsepython(file)
 			commands += newcommands
 			events += newevents
 			functions += newfunctions
+			constants += newconstants
 			
 	files = glob(path + '/*.cpp')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions, newconstants) = parsecpp(file)
 			commands += newcommands
 			events += newevents
 			objects += newobjects
@@ -53,7 +58,7 @@ def examine(path):
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions, newconstants) = parsecpp(file)
 			commands += newcommands
 			events += newevents
 			objects += newobjects
@@ -399,6 +404,19 @@ for function in functions:
 			
 		if current not in modules:
 			modules.append(current)
+			
+for constant in constants:
+	module = constant['module']
+	current = ''
+	fmodules = module.split('.')
+	for module in fmodules:
+		if current != '':
+			current += '.' + module
+		else:
+			current = module		
+			
+		if current not in modules:
+			modules.append(current)			
 
 # Create an overview
 # Compile a command overview
@@ -441,7 +459,12 @@ for module in modules:
 	for function in functions:
 		if function['module'] == module:
 			localfunctions.append(function)
-
+			
+	localconstants = []
+	for constant in constants:
+		if constant['module'] == module:
+			localconstants.append(constant)
+			
 	template = open('templates/module.html')
 	text = template.read()
 	template.close()
@@ -463,9 +486,9 @@ for module in modules:
 			id = col * rows + row
 			if id < len(localfunctions):
 				function = localfunctions[id]
-				overview += '<td>-&#160;<a href="#func_%s">%s</a></td>' % (function['name'].lower(), function['name'])
+				overview += '<td width="15%%">-&#160;<a href="#func_%s">%s</a></td>' % (function['name'].lower(), function['name'])
 			else:
-				overview += "<td>&nbsp;</td>\n";
+				overview += "<td width=\"15%\">&nbsp;</td>\n";
 	
 		overview += "</tr>\n"
 		
@@ -473,6 +496,10 @@ for module in modules:
 		
 	# Generate a list of methods
 	overview = ''
+	if len(localfunctions) > 0:
+		overview += """<p><span class="sectiontitle">MODULE FUNCTIONS</span><br>
+			<br>"""
+	
 	for i in range(0, len(localfunctions)):
 		function = localfunctions[i]
 		
@@ -504,8 +531,94 @@ for module in modules:
 						
 		if i != len(localfunctions) - 1:
 			overview += '<hr size="1">'
-						
+	
 	text = text.replace('{MODULEFUNCTIONS}', overview)
+			
+	# Create a function overview first
+	overview = ''
+	cols = 4
+	rows = int(math.ceil(len(localconstants) / 4.0))
+	
+	localconstants.sort(namesort)
+	
+	for row in range(0, rows):
+		if row == 0:
+			overview += """
+			<br><strong>Constants:</strong>
+			<table width="100%"  border="0" cellspacing="0" cellpadding="2">"""
+		
+		overview += "<tr>\n"
+	
+		for col in range(0, cols):
+			id = col * rows + row
+			if id < len(localconstants):
+				constant = localconstants[id]
+				overview += '<td width="25%%">-&#160;<a href="#const_%s">%s</a></td>' % (urllib.quote(constant['name'].lower()), constant['name'])
+			else:
+				overview += "<td width=\"25%\">&nbsp;</td>\n";
+	
+		overview += "</tr>\n"
+	
+		if row == rows - 1:
+			overview += "</table>"
+		
+	text = text.replace('{CONSTANTSOVERVIEW}', overview)			
+			
+	# Generate a list of constants
+	overview = ''
+	
+	if len(localconstants) > 0:
+		overview += """<p><span class="sectiontitle">MODULE CONSTANTS</span><br>
+			<br>"""
+	
+	for i in range(0, len(localconstants)):
+		constant = localconstants[i]
+		consttext = ''
+				
+		for const in constant['constants']:
+			# If this constant is for a number, 
+			# color it red, otherwise color it grey
+			quotecolor = re.compile('((?<!\\\\)".*?(?<!\\\\)")')
+			curpos = 0
+			while 1:
+				result = quotecolor.search(const, curpos)
+				if not result:
+					break
+				newconst = const[:result.start()] + '<font color="#008000">%s</font>' % result.group(0)
+				curpos = len(newconst)
+				newconst += const[result.end():]
+				const = newconst
+				
+			quotecolor = re.compile('\\#.*')
+			curpos = 0
+			while 1:
+				result = quotecolor.search(const, curpos)
+				if not result:
+					break
+				newconst = const[:result.start()] + '<font color="#008000">%s</font>' % result.group(0)
+				curpos = len(newconst)
+				newconst += const[result.end():]
+				const = newconst				
+				
+			consttext += const
+			consttext += "<br>\n"
+
+		if len(constant['description']) > 0:
+			constant['description'] += '<br>'		
+
+		overview += "<a name=\"const_%(anchor)s\"></a><b><code style=\"font-size: 12px\">%(name)s</code></b><br />\
+					%(description)s<br/><code>%(constants)s</code>\n\
+						<br /><a href=\"#top\">Back to top</a>\n" % {
+							'name': constant['name'],
+							'description': constant['description'],
+							'anchor': urllib.quote(constant['name'].lower()),
+							'constants': consttext
+						}
+						
+		if i != len(localconstants) - 1:
+			overview += '<hr size="1">'			
+						
+	text = text.replace('{MODULECONSTANTS}', overview)
 	
 	output = open('webroot/module_%s.html' % module.replace('.', '_').lower(), "wt")
 	output.write(text)
