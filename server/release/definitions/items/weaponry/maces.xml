@@ -1,0 +1,21 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg	                        |
+|   )).-' {{ ;'`   | Revised by: DarkStorm                      |
+|  ( (  ;._ \\ ctr | Last Modification: created	                |
+=================================================================
+-->
+<definitions>
+	<item id="f5c">
+		<id>0x0f5c</id>
+		<type>1004</type>
+		<category>Weapons\Maces\Mace (W/E)</category>
+	</item>
+
+	<item id="f5d">
+		<inherit id="f5c" />
+		<id>0x0f5d</id>
+		<category>Weapons\Maces\Mace (N/S)</category>
+	</item>
+</definitions>
