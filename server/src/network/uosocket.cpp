@@ -653,6 +653,8 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	unknown.setOption(3);
 //	send( &unknown );
 
+	pChar->setLogoutTime(0);
+
 	// Reset combat information
 	pChar->setAttackTarget(0);
 
