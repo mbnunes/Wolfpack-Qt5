@@ -9,7 +9,7 @@ from wolfpack.consts import RED, ALCHEMY, STRENGTH_TIME, ANIM_FIDGET3, \
 	SOUND_DRINK1, SOUND_AGILITY_UP, AGILITY_TIME, POTION_GREATERHEAL_RANGE, \
 	POTION_HEAL_RANGE, POTION_LESSERHEAL_RANGE, MAGERY, \
 	POTION_LESSEREXPLOSION_RANGE, POTION_GREATEREXPLOSION_RANGE, \
-	POTION_EXPLOSION_RANGE, SOUND_STRENGTH_UP, HEAL_POT_DELAY, GRAY
+	POTION_EXPLOSION_RANGE, SOUND_STRENGTH_UP, HEAL_POT_DELAY
 
 
 # potion [ return_bottle, aggressive, target, name ]
@@ -414,7 +414,7 @@ def healPotion( char, potion, healtype ):
 	# Compare
 	elapsed = int( char.gettag( "heal_pot_timer" ) )
 	if elapsed > wolfpack.time.currenttime():
-		socket.clilocmessage( 500235, '', GRAY ) # You must wait 10 seconds before using another healing potion.
+		socket.clilocmessage( 500235 ) # You must wait 10 seconds before using another healing potion.
 		return False
 	else:
 		char.settag( "heal_pot_timer", (wolfpack.time.currenttime() + HEAL_POT_DELAY) )
@@ -435,8 +435,8 @@ def healPotion( char, potion, healtype ):
 
 	# Resend Health
 	char.updatehealth()
-	#char.socket.clilocmessage( 1060203, str(amount) , GRAY, NORMAL ) # broken
-	socket.sysmessage( 'You have had ' + str( amount ) + ' hit points of damage healed.', GRAY )
+	#char.socket.clilocmessage( 1060203, str(amount) ) # broken
+	socket.sysmessage( 'You have had ' + str( amount ) + ' hit points of damage healed.' )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
