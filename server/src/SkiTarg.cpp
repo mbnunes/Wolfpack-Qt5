@@ -511,30 +511,28 @@ void cSkills::Mine(int s)
 		return;
 	}
 
-	if (resource.miningstamina<0 && abs(resource.miningstamina)>pc->stm)
+	if (SrvParams->miningstamina()<0 && abs(SrvParams->miningstamina())>pc->stm)
 	{
 		sysmessage(s, tr("You are too tired to mine.") );
 		return;
 	}
 
-	pc->stm+=resource.miningstamina;
+	pc->stm+=SrvParams->miningstamina();
 	if(pc->stm<0) pc->stm=0;
 	if(pc->stm>pc->effDex()) pc->stm=pc->effDex();
 	updatestats(pc,2);
-
-	if(resource.orearea<10) resource.orearea=10;
 	
 	if(oretime[0][0]==0)//First time done since server started
 	{
 		oretime[0][0]=17;//lucky number ;-)
-		oreamount[0][0]=resource.ore;
+		oreamount[0][0]=SrvParams->ore();
 		LogMessage("WOLFPACK: Mining startup, setting ore values and times...");
 		for(a=1;a<max_res_x;a++)
 		{
 			for(b=1;b<max_res_y;b++)
 			{
-				oreamount[a][b]=resource.ore;
-				SetTimerSec(&oretime[a][b], resource.oretime);
+				oreamount[a][b]=SrvParams->ore();
+				SetTimerSec(&oretime[a][b], SrvParams->oretime());
 			}
 		}
 		LogMessage("Done.");
@@ -573,7 +571,7 @@ void cSkills::Mine(int s)
 	y=(buffer[s][0x0D]<<8)+buffer[s][0x0E];
 	z=buffer[s][0x10];
 	
-	if (SrvParms->minecheck>0) // time consuming mountain mine check only if absolutely necassairy. (mincheck!=0 && maptype targeted && distance>5)
+	if (SrvParams->minecheck()>0) // time consuming mountain mine check only if absolutely necassairy. (mincheck!=0 && maptype targeted && distance>5)
 	{
 		if ((buffer[s][0x11]!=0)&&(buffer[s][0x12]!=0)) mountain=0; // we tried to mine an static or dynamic item 
 		else 		
@@ -606,22 +604,22 @@ void cSkills::Mine(int s)
 		mountain=1; // can be adjusted 1 to 53 (1=ground - 53=top of mountain) this isn't really true but the higher the number the higher up the mountain you are 'usually'.
 	*/
 			
-	a=pc->pos.x/resource.orearea;
-	b=pc->pos.y/resource.orearea;
+	a=pc->pos.x/SrvParams->orearea();
+	b=pc->pos.y/SrvParams->orearea();
 	if(a>=max_res_x || b>=max_res_y) return;//bad place...(A dungeon or something)
 	
 	if(oretime[a][b]<=curtime)
 	{
-		for(c=0;c<resource.ore;c++)//Find howmany periods have been by, give 1 more ore for each period.
+		for(c=0;c<SrvParams->ore();c++)//Find howmany periods have been by, give 1 more ore for each period.
 		{
-			if((oretime[a][b]+(c*resource.oretime*MY_CLOCKS_PER_SEC))<=curtime && oreamount[a][b]<resource.ore)
-				oreamount[a][b]+=resource.orerate;//AntiChrist
+			if((oretime[a][b]+(c*SrvParams->oretime()*MY_CLOCKS_PER_SEC))<=curtime && oreamount[a][b]<SrvParams->ore())
+				oreamount[a][b]+=SrvParams->orerate();//AntiChrist
 			else break;
 		}
-		SetTimerSec(&oretime[a][b],resource.oretime);
+		SetTimerSec(&oretime[a][b],SrvParams->oretime());
 	}
 	
-	if(oreamount[a][b]>resource.ore) oreamount[a][b]=resource.ore;
+	if(oreamount[a][b]>SrvParams->ore()) oreamount[a][b]=SrvParams->ore();
 	
 	if(oreamount[a][b]<=0)
 	{
@@ -629,7 +627,7 @@ void cSkills::Mine(int s)
 		return;
 	}
 	
-	if (((SrvParms->minecheck==1)&&(!floor)&&(!mountain)))//Mine only mountains & floors
+	if (((SrvParams->minecheck()==1)&&(!floor)&&(!mountain)))//Mine only mountains & floors
 	{
 		sysmessage(s, tr("You can't mine that!") );
 		return;
@@ -662,9 +660,9 @@ void cSkills::Mine(int s)
 		//(put resource.miningtrigger=0 to disable this feature
 		//and use standard mining!)
 		//
-		if(resource.miningtrigger>0)
+		if(SrvParams->miningtrigger()>0)
 		{
-			pc->targtrig=resource.miningtrigger;
+			pc->targtrig=SrvParams->miningtrigger();
 			P_ITEM pi = FindItemBySerial(addmitem[s]);
 			Trig->triggerwitem(s, pi, 1);
 			// Currently Disabled.
@@ -716,23 +714,21 @@ void cSkills::TreeTarget(int s)
 
 	//AntiChrist
 	//Logging stamina
-	if (resource.logstamina<0 && abs(resource.logstamina)>pc->stm)
+	if (SrvParams->logstamina()<0 && abs(SrvParams->logstamina())>pc->stm)
 	{
 		sysmessage(s, tr("You are too tired to chop.") );
 		return;
 	}
 
-	pc->stm+=resource.logstamina;
+	pc->stm+=SrvParams->logstamina();
 	if(pc->stm<0) pc->stm=0;
 	if(pc->stm>pc->effDex()) pc->stm=pc->effDex();
 	updatestats(pc,2);
-
-	if(resource.logarea<10) resource.logarea=10; //New -- Zippy
 	
 	if(logtime[0][0]==0)//First time done since server started
 	{
 		logtime[0][0]=17;//lucky number ;-)
-		logamount[0][0]=resource.logs;
+		logamount[0][0]=SrvParams->logs();
 		LogMessage("Lumberjacking startup, setting tree values and times...");
 		
 		//for(a=1;a<410;a++)
@@ -740,8 +736,8 @@ void cSkills::TreeTarget(int s)
 		{
 			for(b=1;b<max_res_y;b++)
 			{
-				logamount[a][b]=resource.logs;
-				SetTimerSec(&logtime[a][b],resource.logtime);
+				logamount[a][b]=SrvParams->logs();
+				SetTimerSec(&logtime[a][b],SrvParams->logtime());
 			}
 		}
 		LogMessage("Done.");
@@ -763,23 +759,23 @@ void cSkills::TreeTarget(int s)
 		return;
 	}
 
-	a=pc->pos.x/resource.logarea; //Zippy
-	b=pc->pos.y/resource.logarea;
+	a=pc->pos.x/SrvParams->logarea(); //Zippy
+	b=pc->pos.y/SrvParams->logarea();
 		
 	if(a>=max_res_x || b>=max_res_y) return;
 	
 	if(logtime[a][b]<=curtime)
 	{
-		for(c=0;c<resource.logs;c++)//Find howmany 10 min periods have been by, give 1 more for each period.
+		for(c=0;c<SrvParams->logs();c++)//Find howmany 10 min periods have been by, give 1 more for each period.
 		{
-			if((logtime[a][b]+(c*resource.logtime*MY_CLOCKS_PER_SEC))<=curtime && logamount[a][b]<resource.logs)
-				logamount[a][b]+=resource.lograte;//AntiChrist
+			if((logtime[a][b]+(c*SrvParams->logtime()*MY_CLOCKS_PER_SEC))<=curtime && logamount[a][b]<SrvParams->logs())
+				logamount[a][b]+=SrvParams->lograte();//AntiChrist
 			else break;
 		}
-		SetTimerSec(&logtime[a][b],resource.logtime);
+		SetTimerSec(&logtime[a][b],SrvParams->logtime());
 	}
 	
-	if(logamount[a][b]>resource.logs) logamount[a][b]=resource.logs;
+	if(logamount[a][b]>SrvParams->logs()) logamount[a][b]=SrvParams->logs();
 	
 	if(logamount[a][b]<=0)
 	{
@@ -816,7 +812,7 @@ void cSkills::TreeTarget(int s)
 		//(put resource.logtrigger=0 to disable this feature
 		//and use standard logging!)
 		//
-		if(resource.logtrigger>0)
+		if(SrvParams->logtrigger()>0)
 		{
 			//pc->targtrig=resource.logtrigger;
 			P_ITEM pi = FindItemBySerial(addmitem[s]);

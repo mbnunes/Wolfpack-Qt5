@@ -172,10 +172,7 @@ extern int shoprestockrate;
 extern unsigned int respawntime;
 extern unsigned int gatedesttime;
 
-extern tracking_st tracking_data;
 extern begging_st begging_data;
-extern fishing_st fishing_data;
-extern spiritspeak_st spiritspeak_data;
 extern speed_st speed;//Lag Fix -- Zippy
 extern server_st server_data;
 extern int triggerx;
@@ -209,12 +206,6 @@ extern char n_scripts[NUM_SCRIPTS][512] ; // array of script filenames
 
 extern unsigned long initialserversec ;
 extern unsigned long initialservermill ;
-
-
-// DasRaetsels' stuff up, don't touch :)
-
-extern repsys_st repsys;
-extern resource_st resource;
 
 
 /////////////////////////////////////////////

@@ -91,7 +91,6 @@ void loadserverdefaults(void)
 	server_data.usespecialbank=0;	//AntiChrist - 1= Special Bank enabled
 
 	// Should we check character age for delete?
-	server_data.minecheck=2;
 
 	server_data.msgboardpath[0] = 0;	   // Dupois - Added Dec 20, 1999 for message boards (current dir)
 	
@@ -105,35 +104,11 @@ void loadserverdefaults(void)
 		
 	speed.srtime=30;
 	
-	resource.logs=3;
-	resource.logtime=600;
-	resource.logarea=10;
-	resource.lograte=3;
-	resource.logtrigger=0;
-	resource.logstamina=-5;
-	resource.ore=10;
-	resource.oretime=600;
-	resource.orerate=3;
-	resource.orearea=10;
-	resource.miningtrigger=0;
-	resource.miningstamina=-5;
-	//REPSYS
-	repsys.crimtime=120;
-	repsys.maxkills=5;
-	repsys.murderdecay=28800;
-	//RepSys ---^
-	tracking_data.baserange=TRACKINGRANGE;
-	tracking_data.maxtargets=MAXTRACKINGTARGETS;
-	tracking_data.basetimer=TRACKINGTIMER;
-	tracking_data.redisplaytime=TRACKINGDISPLAYTIME;
 	begging_data.range=3;
 	begging_data.timer=300;
 	strcpy(begging_data.text[0],"Could thou spare a few coins?");
 	strcpy(begging_data.text[1],"Hey buddy can you spare some gold?");
 	strcpy(begging_data.text[2],"I have a family to feed, think of the children.");
-	fishing_data.basetime=FISHINGTIMEBASE;
-	fishing_data.randomtime=FISHINGTIMER;
-	spiritspeak_data.spiritspeaktimer=SPIRITSPEAKTIMER;
 }
 
 void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
@@ -147,46 +122,6 @@ void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
 		else if(!(strcmp((char*)script1,"CACHE_MUL"))) Map->Cache = atoi((char*)script2);	
 	}
 	while (  (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-void loadresources()
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"MINECHECK"))) SrvParms->minecheck=str2num(script2); // Moved by Magius(CHE)
-		else if(!(strcmp((char*)script1,"LOGS_PER_AREA"))) resource.logs=str2num(script2);
-		else if(!(strcmp((char*)script1,"LOG_RESPAWN_TIME"))) resource.logtime=str2num(script2);
-		else if(!(strcmp((char*)script1,"LOG_RESPAWN_RATE"))) resource.lograte=str2num(script2);
-		else if(!(strcmp((char*)script1,"LOG_RESPAWN_AREA"))) resource.logarea=str2num(script2);
-		else if(!(strcmp((char*)script1,"LOG_TRIGGER"))) resource.logtrigger=str2num(script2);
-		else if(!(strcmp((char*)script1,"LOG_STAMINA"))) resource.logstamina=str2num(script2);
-		else if(!(strcmp((char*)script1,"ORE_PER_AREA"))) resource.ore=str2num(script2);
-		else if(!(strcmp((char*)script1,"ORE_RESPAWN_TIME"))) resource.oretime=str2num(script2);
-		else if(!(strcmp((char*)script1,"ORE_RESPAWN_RATE"))) resource.orerate=str2num(script2);
-		else if(!(strcmp((char*)script1,"ORE_RESPAWN_AREA"))) resource.logarea=str2num(script2);
-		else if(!(strcmp((char*)script1,"ORE_TRIGGER"))) resource.miningtrigger=str2num(script2);
-		else if(!(strcmp((char*)script1,"ORE_STAMINA"))) resource.miningstamina=str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-void loadrepsys() //Repsys
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"MURDER_DECAY"))) repsys.murderdecay=str2num(script2);
-		else if(!(strcmp((char*)script1,"MAXKILLS"))) repsys.maxkills=str2num(script2);
-		else if(!(strcmp((char*)script1,"CRIMINAL_TIME"))) repsys.crimtime=str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-
-	if (!repsys.murderdecay) repsys.murderdecay=420;
-	if (!repsys.maxkills) repsys.maxkills=4;
-	if (!repsys.crimtime) repsys.crimtime=120;
 }
 
 void loadserver()
@@ -218,26 +153,6 @@ void loadserver()
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
 
-
-void loadtracking() // Load scriptable tracking data
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"BASE_TRACKING_RANGE"))) tracking_data.baserange=str2num(script2);
-		else if(!(strcmp((char*)script1,"MAX_TRACKING_TARGETS")))
-		{
-			tracking_data.maxtargets=str2num(script2);
-			if(tracking_data.maxtargets>MAXTRACKINGTARGETS)
-				tracking_data.maxtargets=MAXTRACKINGTARGETS;
-		}
-		else if(!(strcmp((char*)script1,"BASE_TRACKING_TIME"))) tracking_data.basetimer=str2num(script2);
-		else if(!(strcmp((char*)script1,"TRACKING_MESSAGE_REDISPLAY_TIME"))) tracking_data.redisplaytime=str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
 void loadbegging()
 {
 	unsigned long loopexit=0;
@@ -250,29 +165,6 @@ void loadbegging()
 		else if(!(strcmp((char*)script1,"BEGGING_TEXT0"))) strcpy(begging_data.text[0],(char*)script2);
 		else if(!(strcmp((char*)script1,"BEGGING_TEXT1"))) strcpy(begging_data.text[1],(char*)script2);
 		else if(!(strcmp((char*)script1,"BEGGING_TEXT2"))) strcpy(begging_data.text[2],(char*)script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-void loadfishing()
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"BASE_FISHING_TIME"))) fishing_data.basetime=str2num(script2);
-		else if(!(strcmp((char*)script1,"RANDOM_FISHING_TIME"))) fishing_data.randomtime=str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-void loadspiritspeak()
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"SPIRITSPEAKTIMER"))) spiritspeak_data.spiritspeaktimer=str2num(script2);
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
@@ -319,12 +211,7 @@ void loadserverscript(char *fn) // Load a server script
 			if(!(strcmp((char*)script2, "SERVER"))) loadserver();
 			else if(!(strcmp((char*)script2, "CLIENTS_ALLOWED"))) loadclientsallowed();
 			else if(!(strcmp((char*)script2, "SPEED"))) loadspeed(); // Zippy
-			else if(!(strcmp((char*)script2, "RESOURCE"))) loadresources();
-			else if(!(strcmp((char*)script2, "REPSYS"))) loadrepsys();
-			else if(!(strcmp((char*)script2, "TRACKING"))) loadtracking();
 			else if(!(strcmp((char*)script2, "BEGGING"))) loadbegging();
-			else if(!(strcmp((char*)script2, "FISHING"))) loadfishing();
-			else if(!(strcmp((char*)script2, "SPIRITSPEAK"))) loadspiritspeak();
 			else if(!(strcmp((char*)script2, "TIME_LIGHT"))) loadtime_light();
 			// added by Magius(CHE)
 			// end addons by Magius(CHE)
@@ -381,39 +268,6 @@ void saveserverscript(void)
 	fprintf(file, "CHECK_SPAWNREGIONS %i\n",speed.srtime);
 	fprintf(file, "CACHE_MUL %i\n",Map->Cache);
 	fprintf(file, "}\n\n");
-
-
-	fprintf(file, "SECTION RESOURCE\n");
-	fprintf(file, "{\n");
-	fprintf(file, "MINECHECK %i\n",server_data.minecheck);
-	fprintf(file, "ORE_PER_AREA %i\n",resource.ore);
-	fprintf(file, "ORE_RESPAWN_TIME %i\n",resource.oretime);
-	fprintf(file, "ORE_RESPAWN_RATE %i\n",resource.orerate);
-	fprintf(file, "ORE_RESPAWN_AREA %i\n",resource.orearea);
-	fprintf(file, "ORE_TRIGGER %i\n",resource.miningtrigger);
-	fprintf(file, "ORE_STAMINA %i\n",resource.miningstamina);
-	fprintf(file, "LOGS_PER_AREA %i\n",resource.logs);
-	fprintf(file, "LOG_RESPAWN_TIME %i\n",resource.logtime);
-	fprintf(file, "LOG_RESPAWN_RATE %i\n",resource.lograte);
-	fprintf(file, "LOG_RESPAWN_AREA %i\n",resource.logarea);
-	fprintf(file, "LOG_TRIGGER %i\n",resource.logtrigger);
-	fprintf(file, "LOG_STAMINA %i\n",resource.logstamina);
-	fprintf(file, "}\n\n");
-	
-	fprintf(file, "SECTION REPSYS\n");
-	fprintf(file, "{\n");
-	fprintf(file, "MURDER_DECAY %i\n", repsys.murderdecay);
-	fprintf(file, "MAXKILLS %i\n", repsys.maxkills);
-	fprintf(file, "CRIMINAL_TIME %i\n", repsys.crimtime);
-	fprintf(file, "}\n\n");
-	
-	fprintf(file, "SECTION TRACKING\n");
-	fprintf(file, "{\n");
-	fprintf(file, "BASE_TRACKING_RANGE %i\n",tracking_data.baserange);
-	fprintf(file, "MAX_TRACKING_TARGETS %i\n",tracking_data.maxtargets);
-	fprintf(file, "BASE_TRACKING_TIME %i\n",tracking_data.basetimer);
-	fprintf(file, "TRACKING_MESSAGE_REDISPLAY_TIME %i\n",tracking_data.redisplaytime);
-	fprintf(file, "}\n\n");
 	
 	fprintf(file, "SECTION BEGGING\n");
 	fprintf(file, "{\n");
@@ -423,17 +277,6 @@ void saveserverscript(void)
 	fprintf(file, "BEGGING_TEXT0 %s\n",begging_data.text[0]);
 	fprintf(file, "BEGGING_TEXT1 %s\n",begging_data.text[1]);
 	fprintf(file, "BEGGING_TEXT2 %s\n",begging_data.text[2]);
-	fprintf(file, "}\n\n");
-	
-	fprintf(file, "SECTION FISHING\n");
-	fprintf(file, "{\n");
-	fprintf(file, "BASE_FISHING_TIME %i\n",fishing_data.basetime);
-	fprintf(file, "RANDOM_FISHING_TIME %i\n",fishing_data.randomtime);
-	fprintf(file, "}\n\n");
-	
-	fprintf(file, "SECTION SPIRITSPEAK\n");
-	fprintf(file, "{\n");
-	fprintf(file, "SPIRITSPEAKTIMER %i\n",spiritspeak_data.spiritspeaktimer);
 	fprintf(file, "}\n\n");
 	
 	fprintf(file, "SECTION TIME_LIGHT\n");

@@ -1336,9 +1336,9 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 												{ if  (title[15].other[0] != 0) sprintf((char*)temp, " [%s]",title[15].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
 	if (pc->tamed && pc->npcaitype!=17 )		{ if  (title[16].other[0] != 0) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
 	if (pc->war)								{ if  (title[17].other[0] != 0) sprintf((char*)temp, " [%s]",title[17].other); strcat(name2,(char*)temp); } // ripper
-	if ((pc->crimflag>0)&&(pc->kills<repsys.maxkills)) 
+	if ((pc->crimflag>0)&&(pc->kills<SrvParams->maxkills())) 
 												{ if  (title[18].other[0] != 0) sprintf((char*)temp, " [%s]",title[18].other); else temp[0] = 0; strcat(name2,(char*)temp); }// ripper
-	if (pc->kills>=repsys.maxkills)				{ if  (title[19].other[0] != 0) sprintf((char*)temp, " [%s]",title[19].other); else temp[0] = 0; strcat(name2,(char*)temp); } // AntiChrist
+	if (pc->kills>=SrvParams->maxkills())				{ if  (title[19].other[0] != 0) sprintf((char*)temp, " [%s]",title[19].other); else temp[0] = 0; strcat(name2,(char*)temp); } // AntiChrist
 
 	GuildTitle(s, pc);
 

@@ -892,7 +892,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 						UOXSOCKET attacker_socket = calcSocketFromChar(pc_attacker);
 						sysmessage(attacker_socket, tr("You have killed %1 innocent people.").arg(pc_attacker->kills));
 						//clConsole.send("DEBUG %s's kills are now -> %i\n",pc_attacker->name,pc_attacker->kills);
-						if (pc_attacker->kills==repsys.maxkills+1)
+						if (pc_attacker->kills==SrvParams->maxkills()+1)
 							sysmessage(attacker_socket, tr("You are now a murderer!"));
 					}
 					

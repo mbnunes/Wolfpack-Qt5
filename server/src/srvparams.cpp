@@ -22,6 +22,11 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	// Remote Admin
 	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);
 	EnableRA_			    = getBool("Remote Admin",	"Enable", false, true);
+
+	// Repsys
+	murderdecay_		    = getNumber("Repsys", "Murder Decay", 28800, true);
+	maxkills_		        = getNumber("Repsys", "Max Kills", 5, true);
+	crimtime_		        = getNumber("Repsys", "Criminal Time", 120, true);
     
 	// Game Speed Group
 	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
@@ -40,11 +45,12 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	snoopdelay_			    = getNumber("Game Speed", "Snoop Delay", 7, true);
 	housedecay_secs_	    = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
 	default_jail_time_	    = getNumber("Game Speed", "Default Jail Time", 86400, true);
+	spiritspeaktimer_	    = getNumber("Game Speed", "Spirit Speak Timer", 60, true);
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
 	statcap_				= getNumber("General",	"StatsCap",			300, true);
-	commandPrefix_			= getString("General",	"Command Prefix",	"#", true).latin1()[0];
+	commandPrefix_			= getString("General",	"Command Prefix",	"'", true).latin1()[0];
 	skillAdvanceModifier_	= getNumber("General",	"Skill Advance Modifier", 1000, true);
 	statsAdvanceModifier_	= getNumber("General",	"Stats Advance Modifier", 500, true);
 	bgSound_				= getNumber("General",	"BackGround Sound Chance", 2, true);
@@ -115,6 +121,31 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	staminarate_			= getNumber("Regenerate", "Stamina Regenerate", 3, true);
 	manarate_				= getNumber("Regenerate", "Mana Regenerate", 5, true);
 	armoraffectmana_		= getNumber("Regenerate", "Armor Affect Mana Regenerate", 0, true);
+
+	// Resources
+	minecheck_			    = getNumber("Resources", "MineCheck", 1, true);
+	logs_			        = getNumber("Resources", "Logs Per Area", 10, true);
+	logtime_			    = getNumber("Resources", "Log Respawn Time", 600, true);
+	lograte_			    = getNumber("Resources", "Log Respawn Rate", 10, true);
+	logarea_			    = getNumber("Resources", "Log Respawn Area", 10, true);
+	logtrigger_			    = getNumber("Resources", "Log Trigger", 0, true);
+	logstamina_			    = getNumber("Resources", "Log Stamina", 0, true);
+	ore_			        = getNumber("Resources", "Ore Per Area", 30, true);
+	oretime_			    = getNumber("Resources", "Ore Respawn Time", 600, true);
+	orerate_			    = getNumber("Resources", "Ore Respawn Rate", 5, true);
+	orearea_			    = getNumber("Resources", "Ore Respawn Area", 10, true);
+	miningtrigger_			= getNumber("Resources", "Ore Trigger", 0, true);
+	miningstamina_			= getNumber("Resources", "Ore Stamina", 0, true);
+
+	// Tracking
+	baserange_			    = getNumber("Tracking", "Base Tracking Range", 10, true);
+	maxtargets_			    = getNumber("Tracking", "Max Tracking Targets", 20, true);
+	basetimer_			    = getNumber("Tracking", "Base Tracking Time", 5, true);
+	redisplaytime_			= getNumber("Tracking", "Tracking Message Redisplay Time", 5, true);
+
+	// Fishing
+	basetime_			    = getNumber("Fishing", "Base Fishing Time", 10, true);
+	randomtime_			    = getNumber("Fishing", "Random Fishing Time", 5, true);
 
 	flush(); // if any key created, save it.
 }

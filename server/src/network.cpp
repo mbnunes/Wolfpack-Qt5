@@ -627,7 +627,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	Accounts->SetOnline(acctno[s], pc_currchar->serial);
 	teleport(pc_currchar);
 
-	pc_currchar->murderrate=uiCurrentTime+repsys.murderdecay*MY_CLOCKS_PER_SEC; // LB, bugfix for murder-count getting --'ed each start
+	pc_currchar->murderrate=uiCurrentTime+SrvParams->murderdecay()*MY_CLOCKS_PER_SEC; // LB, bugfix for murder-count getting --'ed each start
 
 	updates(s);
 

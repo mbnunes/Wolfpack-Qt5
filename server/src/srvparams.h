@@ -100,6 +100,7 @@ protected:
 	unsigned long int housedecay_secs_;
 	unsigned int default_jail_time_;
 	unsigned char showCVCS_;
+	unsigned int spiritspeaktimer_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -131,6 +132,36 @@ protected:
 	unsigned int rank_system_;
 	short checkBank_;
 	unsigned int vendorGreet_;
+
+	//Repsys
+	long int		murderdecay_;
+	unsigned int	maxkills_;
+	int				crimtime_;
+
+	// Resources
+	unsigned int        minecheck_;
+	unsigned int		logs_;
+	unsigned long int	logtime_;
+	unsigned long int	lograte_;
+	unsigned int		logarea_;
+	int					logtrigger_;
+	int					logstamina_;
+	unsigned int		ore_;
+	unsigned long int	oretime_;
+	unsigned long int	orerate_;
+	unsigned int		orearea_;
+	int					miningtrigger_;
+	int					miningstamina_;
+
+	//Tracking
+	unsigned int baserange_;
+	unsigned int maxtargets_;
+	unsigned int basetimer_;
+	unsigned int redisplaytime_;
+
+	// Fishing
+	unsigned int basetime_;
+	unsigned int randomtime_;
 
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
@@ -208,6 +239,7 @@ public:
 	unsigned long int housedecay_secs() const;
 	unsigned int default_jail_time() const;
 	unsigned char showCVCS() const;
+	unsigned int spiritspeaktimer() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -239,6 +271,36 @@ public:
 	unsigned int rank_system() const;
 	short checkBank() const;
 	unsigned int vendorGreet() const;
+
+	// Repsys
+	long int		murderdecay() const;
+	unsigned int	maxkills() const;
+	int				crimtime() const;
+
+	// Resources
+	unsigned int        minecheck() const;
+	unsigned int		logs() const;
+	unsigned long int	logtime() const;
+	unsigned long int	lograte() const;
+	unsigned int		logarea() const;
+	int					logtrigger() const;
+	int					logstamina() const;
+	unsigned int		ore() const;
+	unsigned long int	oretime() const;
+	unsigned long int	orerate() const;
+	unsigned int		orearea() const;
+	int					miningtrigger() const;
+	int					miningstamina() const;
+
+	// Tracking
+	unsigned int baserange() const;
+	unsigned int maxtargets() const;
+	unsigned int basetimer() const;
+	unsigned int redisplaytime() const;
+
+	// Fishing
+	unsigned int basetime() const;
+	unsigned int randomtime() const;
 
 private:
 	void setDefaultStartLocation();
@@ -712,6 +774,121 @@ inline unsigned int cSrvParams::ra_port() const
 inline bool cSrvParams::EnableRA() const
 {
 	return EnableRA_;
+}
+
+inline long int cSrvParams::murderdecay() const
+{
+	return murderdecay_;
+}
+
+inline unsigned int cSrvParams::maxkills() const
+{
+	return maxkills_;
+}
+
+inline int cSrvParams::crimtime() const
+{
+	return crimtime_;
+}
+
+inline unsigned int cSrvParams::logs() const
+{
+	return logs_;
+}
+
+inline unsigned long int cSrvParams::logtime() const
+{
+	return logtime_;
+}
+
+inline unsigned long int cSrvParams::lograte() const
+{
+	return lograte_;
+}
+
+inline unsigned int cSrvParams::logarea() const
+{
+	return logarea_;
+}
+
+inline int cSrvParams::logtrigger() const
+{
+	return logtrigger_;
+}
+
+inline int cSrvParams::logstamina() const
+{
+	return logstamina_;
+}
+
+inline unsigned int cSrvParams::ore() const
+{
+	return ore_;
+}
+
+inline unsigned long int cSrvParams::oretime() const
+{
+	return oretime_;
+}
+
+inline unsigned long int cSrvParams::orerate() const
+{
+	return orerate_;
+}
+
+inline unsigned int cSrvParams::orearea() const
+{
+	return orearea_;
+}
+
+inline int cSrvParams::miningtrigger() const
+{
+	return miningtrigger_;
+}
+
+inline int cSrvParams::miningstamina() const
+{
+	return miningstamina_;
+}
+
+inline unsigned int cSrvParams::minecheck() const
+{
+	return minecheck_;
+}
+
+inline unsigned int cSrvParams::baserange() const
+{
+	return baserange_;
+}
+
+inline unsigned int cSrvParams::maxtargets() const
+{
+	return maxtargets_;
+}
+
+inline unsigned int cSrvParams::basetimer() const
+{
+	return basetimer_;
+}
+
+inline unsigned int cSrvParams::redisplaytime() const
+{
+	return redisplaytime_;
+}
+
+inline unsigned int cSrvParams::basetime() const
+{
+	return basetime_;
+}
+
+inline unsigned int cSrvParams::randomtime() const
+{
+	return randomtime_;
+}
+
+inline unsigned int cSrvParams::spiritspeaktimer() const
+{
+	return spiritspeaktimer_;
 }
 
 #endif __SRVPARAMS_H___

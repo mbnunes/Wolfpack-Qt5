@@ -369,9 +369,9 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		{
 			if (pc->kills>0)
 				pc->kills--;
-			if ((pc->kills==repsys.maxkills)&&(repsys.maxkills>0))
+			if ((pc->kills==SrvParams->maxkills())&&(SrvParams->maxkills()>0))
 				sysmessage(s, tr("You are no longer a murderer.") );
-			pc->murderrate=(repsys.murderdecay*MY_CLOCKS_PER_SEC)+currenttime;//AntiChrist
+			pc->murderrate=(SrvParams->murderdecay()*MY_CLOCKS_PER_SEC)+currenttime;//AntiChrist
 		}
 		setcharflag(pc);//AntiChrist
 	}
@@ -443,7 +443,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	{
 		if(pc->trackingdisplaytimer<=currenttime)
 		{
-			pc->trackingdisplaytimer=currenttime+tracking_data.redisplaytime*MY_CLOCKS_PER_SEC;
+			pc->trackingdisplaytimer=currenttime+SrvParams->redisplaytime()*MY_CLOCKS_PER_SEC;
 			Skills->Track(pc);
 		}
 	} else

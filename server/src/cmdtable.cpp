@@ -1983,8 +1983,12 @@ void command_cclear(UOXSOCKET s)
 void command_minecheck(UOXSOCKET s)
 // (d) Set the server mine check interval in minutes.
 {
+	int d;
+	d = SrvParams->minecheck();
 	if (tnum==2)
-		SrvParms->minecheck=makenumber(1);
+	d=makenumber(1);
+	sprintf((char*)temp, "Minecheck changed to %i", d);
+	sysmessage(s, (char*)temp);
 	return;
 }
 

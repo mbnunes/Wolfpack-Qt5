@@ -182,9 +182,6 @@ unsigned char xcounter;
 unsigned char ycounter;
 int secure; // Secure mode
 
-repsys_st repsys;
-resource_st resource;
-
 int xycount;
 
 // - the below structure is for looking up items based on serial #
@@ -241,10 +238,7 @@ int global_lis=1;
 
 unsigned long int serverstarttime;
 
-tracking_st tracking_data = {TRACKINGRANGE,MAXTRACKINGTARGETS,TRACKINGTIMER,TRACKINGDISPLAYTIME};
 begging_st begging_data; // was = {BEGGINGRANGE,"Could thou spare a few coins?","Hey buddy can you spare some gold?","I have a family to feed, think of the children."};
-fishing_st fishing_data = {FISHINGTIMEBASE,FISHINGTIMER};
-spiritspeak_st spiritspeak_data = {SPIRITSPEAKTIMER};
 speed_st speed;
 server_st server_data ;
 int triggerx;

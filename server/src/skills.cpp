@@ -1345,7 +1345,7 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	impaction(s,0x11);			// I heard there is no action...but I decided to add one
 	soundeffect(s,0x02,0x4A);	// only get the sound if you are successful
 	sysmessage(s,"You establish a connection to the netherworld.");
-	SetTimerSec(&currchar[s]->spiritspeaktimer,spiritspeak_data.spiritspeaktimer+currchar[s]->in);
+	SetTimerSec(&currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in);
 }
 
 int cSkills::GetCombatSkill(P_CHAR pc)
@@ -1633,8 +1633,8 @@ void cSkills::Tracking(int s,int selection)
 {
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->trackingtarget = pc_currchar->trackingtargets[selection]; // sets trackingtarget that was selected in the gump
-	SetTimerSec(&pc_currchar->trackingtimer,(((tracking_data.basetimer*pc_currchar->skill[TRACKING])/1000)+1)); // tracking time in seconds ... gm tracker -> basetimer+1 seconds, 0 tracking -> 1 sec, new calc by LB
-	SetTimerSec(&pc_currchar->trackingdisplaytimer,tracking_data.redisplaytime);
+	SetTimerSec(&pc_currchar->trackingtimer,(((SrvParams->basetimer()*pc_currchar->skill[TRACKING])/1000)+1)); // tracking time in seconds ... gm tracker -> basetimer+1 seconds, 0 tracking -> 1 sec, new calc by LB
+	SetTimerSec(&pc_currchar->trackingdisplaytimer,SrvParams->redisplaytime());
 	P_CHAR pc_trackingTarget = FindCharBySerial(pc_currchar->trackingtarget);
 	sprintf((char*)temp,"You are now tracking %s.", pc_trackingTarget->name.c_str());
 	sysmessage(s,(char*)temp);
@@ -1659,7 +1659,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 
 	char type[40]="You see no signs of any animals.";
 	unsigned int MaxTrackingTargets=0;
-	unsigned int distance=tracking_data.baserange + pc_currchar->skill[TRACKING]/50;
+	unsigned int distance=SrvParams->baserange() + pc_currchar->skill[TRACKING]/50;
 
 	if(m==(2+TRACKINGMENUOFFSET))
 	{

@@ -68,30 +68,6 @@ struct path_st
 	unsigned short y;
 };
 
-// REPSYS
-struct repsys_st
-{
-	long int		murderdecay;
-	unsigned int	maxkills;
-	int				crimtime;
-};
-
-struct resource_st
-{
-	unsigned int		logs;
-	unsigned long int	logtime;
-	unsigned long int	lograte;// AntiChrist
-	unsigned int		logarea;
-	int					logtrigger;// AntiChrist
-	int					logstamina;// AntiChrist
-	unsigned int		ore;
-	unsigned long int	oretime;
-	unsigned long int	orerate;// AntiChrist
-	unsigned int		orearea;
-	int					miningtrigger;// AntiChrist
-	int					miningstamina;// AntiChrist
-};
-
 struct creat_st
 {
 	int basesound;
@@ -266,30 +242,11 @@ struct jail_st
 	bool occupied;
 };
 
-struct tracking_st
-{
-	unsigned int baserange;
-	unsigned int maxtargets;
-	unsigned int basetimer;
-	unsigned int redisplaytime;
-};
-
 struct begging_st
 {
 	int timer;
 	unsigned int range;
 	char text[3][256];
-};
-
-struct fishing_st
-{
-	unsigned int basetime;
-	unsigned int randomtime;
-};
-
-struct spiritspeak_st
-{
-	unsigned int spiritspeaktimer;
 };
 
 struct speed_st // Lag Fix

@@ -617,7 +617,7 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 
 	if (f>=10000) // Morollans bugfix for repsys
 	{
-		if (pc->kills >= (unsigned)repsys.maxkills)
+		if (pc->kills >= (unsigned)SrvParams->maxkills())
 		{
 			if (pc->id2==0x91) strcpy(fametitle,"The Murderous Lady ");//Morrolan rep
 			else strcpy(fametitle,"The Murderer Lord ");
@@ -627,7 +627,7 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 	}
 	else
 	{
-		if (pc->kills >= (unsigned)repsys.maxkills)
+		if (pc->kills >= (unsigned)SrvParams->maxkills())
 		{
 			strcpy(fametitle,"The Murderer "); //Morrolan rep
 		}
@@ -1066,7 +1066,7 @@ void deathstuff(P_CHAR pc_player)
 						sprintf((char*)temp, "You have killed %i innocent people.", pc_t->kills);
 						UOXSOCKET sock = calcSocketFromChar(pc_t);
 						sysmessage(sock, (char*)temp);
-						if (pc_t->kills==(unsigned)repsys.maxkills)
+						if (pc_t->kills==(unsigned)SrvParams->maxkills())
 							sysmessage(sock, "You are now a murderer!");
 						setcharflag(pc_t);//AntiChrist
 					}
@@ -5575,10 +5575,12 @@ void criminal(P_CHAR pc)//Repsys ....Ripper
 {
 	if (pc == NULL)
 		return;
+	if (pc->isGMorCounselor())
+		return;
 	if ((pc->isPlayer())&&!(pc->isCriminal() || pc->isMurderer()))
 	{//Not an npc, not grey, not red
 		
-		 pc->crimflag=(repsys.crimtime*MY_CLOCKS_PER_SEC)+uiCurrentTime;
+		 pc->crimflag=(SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime;
 		 //printw(" Seeting Crimflag to %d \n",chars[c].crimflag) ;
 		 sysmessage(calcSocketFromChar(pc),"You are now a criminal!");
 		 setcharflag(pc);
@@ -5602,7 +5604,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			pc->setInnocent();
 			return;
 		}
-		else if (pc->kills >= (unsigned) repsys.maxkills)
+		else if (pc->kills >= (unsigned) SrvParams->maxkills())
 		{
 			pc->setMurderer();
 			return;

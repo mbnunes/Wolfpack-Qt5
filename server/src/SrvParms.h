@@ -44,12 +44,6 @@ void saveserverscript(void);
 #define STABLOCKCACHESIZE 1000
 #define NPCSPEED .3	// was .2  5 steps every second
 
-#define TRACKINGRANGE 10        // tracking range is at least TRACKINGRANGE, additional distance is calculated by Skill,INT
-#define TRACKINGTIMER 30        // tracking last at least TRACKINGTIMER seconds, additional time is calculated by Skill,INT, & DEX
-#define TRACKINGDISPLAYTIME 30  // tracking will display above the character every TRACKINGDISPLAYTIME seconds
-
-#define FISHINGTIMEBASE 10              // it takes at least FISHINGTIMEBASE sec to fish
-#define FISHINGTIMER 5
 #define ECLIPSETIMER .5
 
 #define DECAYTIMER 300  // 5 minute decay rate
@@ -58,7 +52,6 @@ struct server_st
 {
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
-	unsigned int minecheck;
 	char archivepath[256];
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
 	int usespecialbank; //special bank - AntiChrist
