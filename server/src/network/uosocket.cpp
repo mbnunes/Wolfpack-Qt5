@@ -1316,19 +1316,18 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 		contextMenu_.append( menu );
 		uint entryCount = 0;
 		cContextMenu::const_iterator it = menu->begin();
-		for ( ; it != menu->end(); ++it, ++entryCount )
+		for ( ; it != menu->end(); ++it, ++entryCount, ++i )
 		{
-			if ( (*it)->checkVisible() )
+			//if ( (*it)->checkVisible() )
 				if ( !menu->onCheckVisible( this->player(), clicked, entryCount ) )
 				{
-					++i;
 					continue;
 				}
 			bool enabled = true;
 			if ( (*it)->checkEnabled() )
 				if ( !menu->onCheckEnabled( this->player(), clicked, entryCount ) )
 					enabled = false;
-			menuPacket.addEntry( i++, (*it)->cliloc(), enabled ? (*it)->flags() : (*it)->flags() | 0x0001, (*it)->color() );
+			menuPacket.addEntry( i, (*it)->cliloc(), enabled ? (*it)->flags() : (*it)->flags() | 0x0001, (*it)->color() );
 		}
 	}
 	if ( i ) // Won't send empty menus
@@ -2347,8 +2346,8 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	vendorBuy.setSerial( pItem->serial() );
 
 	/* dont ask me, but the order of the items for vendorbuy is reversed */
-	QValueList< buyitem_st > buyitems;
-	QValueList< buyitem_st >::const_iterator bit;
+	QValueList<buyitem_st> buyitems;
+	QValueList<buyitem_st>::const_iterator bit;
 	QPtrList<cItem> items;
 
 	cItem::ContainerContent container = pItem->content();
@@ -2362,7 +2361,6 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	sortedList.sort();
 
 	bool restockNow = false;
-
 	if ( pItem->layer() == cBaseChar::BuyRestockContainer )
 	{
 		if ( pItem->hasTag("last_restock_time") )
@@ -2380,29 +2378,29 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 			mItem->setRestock( mItem->amount() );
 
 		unsigned short amount = pItem->layer() == cBaseChar::BuyRestockContainer ? mItem->restock() : mItem->amount();
-		if (amount >= 1) {
-			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, 1, amount, pItem->serial() );
+		if (amount >= 1 && mItem->buyprice() > 0) {
+			itemContent.addItem(mItem->serial(), mItem->id(), mItem->color(), i, 1, amount, pItem->serial());
 
 			// change how the name is displayed
-			QString name = mItem->getName(true);
+			/*QString name = mItem->getName(true);
 			name[0] = name[0].upper();
 			for ( uint j = 1; j < name.length() - 1; ++j )
 				if ( name.at(j).isSpace() )
-					name.at(j+1) = name.at(j+1).upper();
+					name.at(j+1) = name.at(j+1).upper();*/
 
-			vendorBuy.addItem(mItem->buyprice(), "");
 			items.append(mItem);
 			++i;
 		}
 	}
 
-	send(&itemContent);
+	// Reverse items
 
-	for (P_ITEM item = items.first(); item; item = items.next()) {
+	send(&itemContent);
+	for (P_ITEM item = items.last(); item; item = items.prev()) {
+		vendorBuy.addItem(item->buyprice(), " ");
 		item->sendTooltip(this);
 	}
-
-	send( &vendorBuy );
+	send(&vendorBuy);
 }
 
 void cUOSocket::sendBuyWindow( P_NPC pVendor )
