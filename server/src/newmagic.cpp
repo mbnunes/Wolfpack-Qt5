@@ -40,6 +40,7 @@
 #include "network/uosocket.h"
 #include "srvparams.h"
 #include "TmpEff.h"
+#include "spellbook.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
 #include "wpdefaultscript.h"
@@ -534,7 +535,13 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	}
 
 	// Check for required mana and required reagents, if not present: cancel casting
-	if( !checkMana( pMage, spell ) || !checkReagents( pMage, spell ) )
+	if( !checkMana( pMage, spell ) )
+	{
+		pMage->message( tr( "You don't have enough mana to cast this spell." ) );
+		return;
+	}
+	
+	if( !checkReagents( pMage, spell ) )
 		return;
 
 	if( pMage->casting() )
@@ -665,12 +672,19 @@ static bool cont_has_spell( P_ITEM pCont, UINT8 spell )
 {
 	if( pCont->objectID() == "cSpellBook" )
 	{
-		return true;
+		cSpellBook *pBook = dynamic_cast< cSpellBook* >( pCont );
+
+		if( pBook )
+			return pBook->hasSpell( spell );
+
+		return false;
 	}
 	else if( pCont->content().size() > 0 )
 	{
-		cItem::ContainerContent::const_iterator iter = pCont->content().begin();
-		for( ; iter != pCont->content().end(); ++iter )
+		cItem::ContainerContent content = pCont->content();
+		cItem::ContainerContent::const_iterator iter;
+		cItem::ContainerContent::const_iterator end = content.end();
+		for( iter = content.begin(); iter != end; ++iter )
 			if( cont_has_spell( *iter, spell ) )
 				return true;
 	}
@@ -681,7 +695,7 @@ static bool cont_has_spell( P_ITEM pCont, UINT8 spell )
 bool cNewMagic::hasSpell( P_CHAR pMage, UINT8 spell )
 {
 	// Check for SpellBooks
-	return cont_has_spell( pMage->getBankBox(), spell );
+	return cont_has_spell( pMage->getBackpack(), spell );
 }
 
 cNewMagic *NewMagic;

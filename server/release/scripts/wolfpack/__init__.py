@@ -6,7 +6,7 @@
 #===============================================================#
 
 import _wolfpack
-import types
+from types import *
 
 def finditem( serial ):
 	if serial <= 0x40000000:
@@ -31,3 +31,9 @@ def addnpc( definition ):
 		raise TypeError, "You need to provide a valid definition string"
 	else:
 		return _wolfpack.addnpc( definition )
+
+def region( x, y, map ):
+	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType:
+		raise TypeError, "x, y and map need to be integer values"
+	else:
+		return _wolfpack.region( x, y, map )
