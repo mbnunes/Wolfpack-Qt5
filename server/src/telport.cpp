@@ -401,7 +401,7 @@ void monstergate(int s, int x)
 		P_ITEM pi = iterItem.GetData();
 		if (pc_s->Wears(pi) &&
 			pi->layer!=0x15 && pi->layer!=0x1D &&
-			pi->layer!=0x10 && pi->layer!=0x0B && (pi->free==0))
+			pi->layer!=0x10 && pi->layer!=0x0B && (!pi->free))
 		{
 			if (pBackpack == NULL)
 			{

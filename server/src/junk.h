@@ -85,7 +85,6 @@ extern cCharStuff::cBankerAI	*BankerAI;
 #if !defined(MIN)
 #define MIN(arga, argb) (arga<argb?arga:argb)
 #endif
-extern int *itemids;
 
 extern int escortRegions;
 

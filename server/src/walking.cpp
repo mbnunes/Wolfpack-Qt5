@@ -1187,7 +1187,7 @@ void WalkingHandleGlowingItems(P_CHAR pc)
 			P_ITEM pi = FindItemBySerial(glowItems[ci]);
 			if (pi != NULL)
 			{
-				if (pi->free==0)
+				if ( !pi->free )
 				{
 					pc->glowHalo(pi);
 				}

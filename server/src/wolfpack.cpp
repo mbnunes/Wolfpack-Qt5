@@ -888,16 +888,17 @@ P_ITEM packitem(int p) // Find packitem (old interface)
 
 void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
 {
-	chars[j].onhorse=false;
+	chars[j].onhorse = false;
 	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(chars[j].serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL && pi->free == 0)
+		if (pi != NULL && !pi->free)
 		{
-			if (pi->layer==0x19) chars[j].onhorse=true;
+			if (pi->layer==0x19) 
+				chars[j].onhorse = true;
 			wearIt(s,pi);
 		}
 	}
@@ -2022,7 +2023,7 @@ int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new hors
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer == 0x19 && pi->free == 0) 
+		if (pi->layer == 0x19 && !pi->free) 
 		{ 
 			////////////////////////////////////// 
 			// Lets 'unstable' the mount. 
@@ -2243,7 +2244,9 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
 		{ 
 			P_ITEM pi = iterItems.GetData();
-			if (pi->free==0) total++; totaltotal++; 
+			if (!pi->free) 
+				total++; 
+			totaltotal++; 
 		}
 		AllCharsIterator iter_char;
 		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++) 
@@ -2414,14 +2417,14 @@ void callguards( int p )
 	}
 }
 
-void mounthorse(int s, int x) // Remove horse char and give player a horse item 
+void mounthorse(int s, int x1) // Remove horse char and give player a horse item 
 { 
 	int j; 
-	int cc = currchar[s];
-	P_CHAR pc_mount = MAKE_CHARREF_LR(x);
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+//	int cc = currchar[s];
+	P_CHAR pc_mount = MAKE_CHARREF_LR(x1);
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	
-	if (npcinrange(s, x, 2) == 0 && !pc_currchar->isGM())
+	if (npcinrange(s, DEREF_P_CHAR(pc_mount), 2) == 0 && !pc_currchar->isGM())
 		return; 
 	if (pc_currchar->Owns(pc_mount) || pc_currchar->isGM()) 
 	{ 
@@ -2432,7 +2435,7 @@ void mounthorse(int s, int x) // Remove horse char and give player a horse item
 		}
 		strcpy((char*)temp, pc_mount->name); 
 		pc_currchar->onhorse = true; 
-		const P_ITEM pi = Items->SpawnItem(cc, 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0); 
+		const P_ITEM pi = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0); 
 		if(!pi) return;
 		
 		pi->id1 = 0x3E; 
@@ -2466,7 +2469,6 @@ void mounthorse(int s, int x) // Remove horse char and give player a horse item
 		
 		pi->SetContSerial(pc_currchar->serial); 
 		pi->layer = 0x19; 
-		
 		pi->MoveTo(pc_mount->fx1, pc_mount->fy1, pc_mount->fz1); 
 		
 		pi->moreb1 = pc_mount->npcWander; 
@@ -2484,12 +2486,12 @@ void mounthorse(int s, int x) // Remove horse char and give player a horse item
 		if (pc_mount->summontimer != 0) 
 			pi->decaytime = pc_mount->summontimer; 
 		
-		wornitems(s, cc);// send update to current socket 
+		wornitems(s, DEREF_P_CHAR(pc_currchar));// send update to current socket 
 		
 		for (j = 0; j < now; j++)// and to all inrange sockets (without re-sending to current socket) 
 		{ 
 			if (inrange1(s, j) && perm[j] &&(s != j))
-				wornitems(j, cc); 
+				wornitems(j, DEREF_P_CHAR(pc_currchar)); 
 		} 
 		////////////////////////////////// 
 		// Gonna stable instead of delete a mount. 
@@ -2525,7 +2527,7 @@ void mounthorse(int s, int x) // Remove horse char and give player a horse item
 		for (int ch = 0; ch < now; ch++) 
 		{ 
 			if (perm[ch])
-				impowncreate(ch, x, 0); 
+				impowncreate(ch, DEREF_P_CHAR(pc_mount), 0); 
 		} 
 		
 		pc_mount->id1 = id1; 
@@ -2752,7 +2754,7 @@ void start_glow(void)	// better to make an extra function cauze in loaditem it c
 	for (it.Begin(); !it.atEnd();it++)
 	{
 		const P_ITEM pi = it.GetData();	// on error return
-		if (pi->glow>0 && pi->free==0)
+		if (pi->glow>0 && !pi->free)
 		{
 			if (!pi->isInWorld())
 			{

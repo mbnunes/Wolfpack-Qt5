@@ -194,9 +194,6 @@ int xycount;
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-int *itemids;
-
-
 unsigned char w_anim[3]={0x1d,0x95,0}; // flying blood instead of lightnings, LB in a real bad mood
 
 unsigned int raindroptime;

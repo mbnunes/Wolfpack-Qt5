@@ -42,6 +42,6 @@ SERIAL cItemsManager::getUnusedSerial() const
 {
 	typedef maxKeyPred<SERIAL, cItem*> max_serialPred;
 	map<SERIAL, cItem*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
-	return max(0x40000000, temp->first);
+	return max(0x40000000, temp->first+1);
 }
 

@@ -1306,7 +1306,7 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 			P_ITEM pi = FindItemBySerial(vecGlowItems[ci]);
 			if( pi != NULL )
 			{
-				if( pi->free == 0 )
+				if( !pi->free )
 				{
 					pc->glowHalo(pi);
 				}

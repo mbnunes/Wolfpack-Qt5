@@ -115,8 +115,8 @@ template<class T> T* Storage_cl<T>::operator[](long index)
 		return ptrData;
 	}
 	
-	interData = mapData.find(indices[index]);
-	if (interData == mapData.end())
+	iterData = mapData.find(indices[index]);
+	if (iterData == mapData.end())
 	{
 		LogError("Error in chars[] index!\n");
 		return ptrData;
@@ -156,8 +156,8 @@ bool Container_cl::find(SERIAL serContainer, SERIAL serObject)
 	{
 		if (iterData->second == serObject)
 		{
-			bStatus = true ;
-			break ;
+			bStatus = true;
+			break;
 		}
 	}
 	return bStatus;
@@ -165,7 +165,7 @@ bool Container_cl::find(SERIAL serContainer, SERIAL serObject)
 
 bool Container_cl::remove(SERIAL serContainer, SERIAL serObject)
 {
-	bool bStatus = false ;
+	bool bStatus = false;
 	typedef multimap<SERIAL, SERIAL>::iterator iterSerial;
 	pair<iterSerial, iterSerial> iterRange = mapData.equal_range(serContainer);
 		
@@ -175,7 +175,7 @@ bool Container_cl::remove(SERIAL serContainer, SERIAL serObject)
 		{
 			mapData.erase(iterData);
 			bStatus = true;
-			break ;
+			break;
 		}
 	}
 	return bStatus;
@@ -186,10 +186,11 @@ vector<SERIAL> Container_cl::getData(SERIAL serContainer)
 	vector<SERIAL> vecValue;
 	typedef multimap<SERIAL, SERIAL>::iterator iterSerial;
 	pair<iterSerial, iterSerial> iterRange = mapData.equal_range(serContainer);
-		
+
 	for (iterData = iterRange.first; iterData != iterRange.second; ++iterData)
 	{
-		vecValue.push_back(iterData->second) ;
+//		if (iterData->first == serContainer)
+		vecValue.push_back(iterData->second);
 	}
 	return vecValue;
 }

@@ -696,7 +696,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0x15 && pi->layer!=0x1D &&
-			pi->layer!=0x10 && pi->layer!=0x0B && (pi->free==0))
+			pi->layer!=0x10 && pi->layer!=0x0B && (!pi->free))
 		{
 			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{

@@ -24,9 +24,6 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name ZTHREAD_1_5_1_static
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name ZTHREAD_1_5_2_static
     End Project Dependency
 }}}

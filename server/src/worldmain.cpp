@@ -1447,7 +1447,7 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 					Items->DeleItem(pi_j);
 				}
 /*				if ((pi_j->contserial==pi->serial) &&
-					(pi_j->free==0)&&
+					(pi_j->free==false)&&
 					((pi_j->layer==0x0B)||(pi_j->layer==0x10)))
 				{
 					Items->DeleItem(pi_j);
@@ -1522,7 +1522,7 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 		swapDragInfo(pi);
 	}
 	// removed y > 200 (wind errors) and 6044 changed to 6144 (Abaddon)
-	if (pi->free==0 && ( !pi->isInWorld() || (pi->pos.x > 200 && pi->pos.x < 6144 && pi->pos.y < 4096 )))
+	if (pi->free==false && ( !pi->isInWorld() || (pi->pos.x > 200 && pi->pos.x < 6144 && pi->pos.y < 4096 )))
 	{
 		sp=sectbuf;
 		save_txt("SECTION WORLDITEM");

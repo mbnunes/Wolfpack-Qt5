@@ -167,7 +167,7 @@ the line of sight.
 	map_st map1;
 	SI32 length, i,j;
 	/////what is checked for
-	int checkitemcount=0;
+	vector<short> itemids;
 	int checkthis[ITEM_TYPE_CHOICES];
 	int checkthistotal;
 	int itemtype;
@@ -383,8 +383,7 @@ the line of sight.
 						return blocked;
 					else
 					{
-						itemids[checkitemcount]=stat->itemid;
-						checkitemcount++;
+						itemids.push_back(stat->itemid);
 					}
 #else
 					itemids[checkitemcount]=stat->itemid;
@@ -410,8 +409,7 @@ the line of sight.
 								return blocked;
 							else
 							{
-								itemids[checkitemcount] = pi->id();
-								checkitemcount++;
+								itemids.push_back(pi->id());
 							}
 #else
 							itemids[checkitemcount] = pi->id();
@@ -445,8 +443,7 @@ the line of sight.
 								if ((zcheck>=pi->pos.z+multi.z)&&
 									(zcheck<=(pi->pos.z+multi.z + tile.height)))
 								{
-									itemids[checkitemcount]=multi.tile;
-									checkitemcount++;
+									itemids.push_back(multi.tile);
 								}
 							}
 						}
@@ -463,7 +460,7 @@ the line of sight.
 		if (zcheck!=target.z) b2plus=b2plus+b2_incrament;
 	} // for loop
  
-	for (i=0;i<checkitemcount;i++)
+	for (i=0;i<itemids.size();i++)
 	{
 		for (j=0;j<checkthistotal;j++)
 		{

@@ -79,12 +79,12 @@ void cItem::setContSerialOnly(long contser)
 void cItem::SetContSerial(long contser)
 {
 	if (contserial != INVALID_SERIAL)
-		contsp.remove(contserial, this->serial);
+		contsp.remove(this->contserial, this->serial);
 
 	setContSerialOnly(contser);
 
-	if (contser!=-1)
-		contsp.insert(contserial, this->serial);
+	if (contser != INVALID_SERIAL)
+		contsp.insert(this->contserial, this->serial);
 }
 
 void cItem::setOwnSerialOnly(long ownser)
@@ -450,8 +450,8 @@ void cItem::Init(char mkser)
 	this->good=-1; // Magius(CHE)
 	this->rndvaluerate=0; // Magius(CHE) (2)
 
-	this->multis=-1;//Multi serial
-	this->free=0;
+	this->multis=INVALID_SERIAL;//Multi serial
+	this->free = false;
 	this->flags.isBeeingDragged=0;
 	this->setId(0x0001); // Item visuals as stored in the client
 	// this->name2[0]=0x00; Removed by Magius(CHE)
@@ -460,8 +460,8 @@ void cItem::Init(char mkser)
 	this->pos.z=this->oldz=0;
 	this->color1=0x00; // Hue
 	this->color2=0x00;
-	this->setContSerialOnly(-1); // Container that this item is found in
-	this->oldcontserial=-1;
+	this->setContSerialOnly(INVALID_SERIAL); // Container that this item is found in
+	this->oldcontserial=INVALID_SERIAL;
 	this->layer=this->oldlayer=0; // Layer if equipped on paperdoll
 	this->itmhand=0; // Layer if equipped on paperdoll
 	this->type=0; // For things that do special things on doubleclicking
@@ -544,7 +544,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 	if ( pi == NULL )
 		return;
 
-	if (pi->free==0)
+	if (!pi->free)
 	{
 		
 		removeitem[1]=pi->ser1;
@@ -1405,7 +1405,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 	if(pi->magic==4) {pi->decaytime=0; return;}
 	if( pi->decaytime <= currenttime || (overflow) )//fixed by JustMichael
 	{
-		if (pi->priv&0x01 && pi->isInWorld() && pi->free==0)
+		if (pi->priv&0x01 && pi->isInWorld() && !pi->free)
 		{  // decaytime = 5 minutes, * 60 secs per min, * MY_CLOCKS_PER_SEC
 			if (pi->decaytime==0) 
 			{
@@ -1534,7 +1534,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 				{
 					P_ITEM pi_ci = FindItemBySerial(vecSpawn[j]);
 					if (pi_ci != NULL) 
-						if((pi_ci->free==0))
+						if((!pi_ci->free))
 						{
 							if (pi != pi_ci && pi_ci->pos.x == pi->pos.x && pi_ci->pos.y == pi->pos.y && pi_ci->pos.z == pi->pos.z)
 							{
@@ -1599,7 +1599,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 				{
 					P_ITEM pi_ci = FindItemBySerial(vecContainer[j]);
 					if (pi_ci != NULL)
-					if (pi_ci->contserial == pi->serial && pi_ci->free==0)
+					if (pi_ci->contserial == pi->serial && !pi_ci->free)
 					{
 						m++;
 					}
