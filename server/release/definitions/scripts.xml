@@ -129,6 +129,7 @@
 
 	<!-- Speech Scripts -->
 	<script>speech.pets</script>
+	<script>speech.barber</script>
 	<script>speech.banker</script>
 	<script>speech.stablemaster</script>
 
