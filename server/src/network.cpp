@@ -79,15 +79,18 @@ cNetworkStuff::cNetworkStuff() // Initialize sockets
 }
 
 void cNetworkStuff::DoStreamCode(UOXSOCKET s)
-{
+{ 
 	int status ;
 	int len = Pack(outbuffer[s],  xoutbuffer, boutlength[s]);
 	if ((status = send(client[s], xoutbuffer, len, MSG_NOSIGNAL)) == SOCKET_ERROR)
 	{
          #ifndef __unix__
 		   errno = WSAGetLastError();
+		   if (errno != WSAECONNRESET) LogErrorVar("Socket Send error %i \n",errno) ;
+         #else
+		 LogError("Socket Send error \n") ;
          #endif
-		 if (errno != WSAECONNRESET) LogErrorVar("Socket Send error %i \n",errno) ;
+		
 	}
 }
 

@@ -741,11 +741,11 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 	P_ITEM pWeapon=pc_attacker->getWeapon();
 
 	P_CHAR pc_defender = FindCharBySerial(pc_attacker->targ);
-	if (pc_attacker->priv2&2) //The char is paralyzed 
+	/*if (pc_attacker->priv2&2) //The char is paralyzed 
 	{ 
         sysmessage(calcSocketFromChar(pc_attacker), "You are frozen and cannot attack."); 
         return; 
-	}
+	}*/
 	if ((pc_defender == NULL) || (pc_defender->isPlayer() && !online(pc_defender) || pc_defender->isHidden()) && pc_attacker->war)
 	{
 		pc_attacker->war=false; // LB
