@@ -52,17 +52,17 @@
 typedef struct _PKGx08
 {
 //0x08 Packet
-//Drop Item(s) (14 bytes) 
-//* BYTE cmd 
-//* BYTE[4] item id 
+//Drop Item(s) (14 bytes)
+//* BYTE cmd
+//* BYTE[4] item id
 	long Iserial;
-//* BYTE[2] xLoc 
+//* BYTE[2] xLoc
 	short TxLoc;
-//* BYTE[2] yLoc 
+//* BYTE[2] yLoc
 	short TyLoc;
-//* BYTE zLoc 
+//* BYTE zLoc
 	signed char TzLoc;
-//* BYTE[4] Move Into (FF FF FF FF if normal world) 
+//* BYTE[4] Move Into (FF FF FF FF if normal world)
 	long Tserial;
 } PKGx08;
 
@@ -165,7 +165,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 	
 	pc_currchar->disturbMed(s); // Meditation
 	
-	// Zippy's stealing changes  
+	// Zippy's stealing changes
 	P_ITEM px = pi;
 	if (!px->isInWorld())  // Find character owning item
 	{
@@ -204,15 +204,15 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 					}
 					// Blackwinds Looting is crime implementation
 					// changed slightly by Ripper
-					if (px->corpse != 0 && !pc_currchar->Owns(px)) 
-					{ 
+					if (px->corpse != 0 && !pc_currchar->Owns(px))
+					{
 						P_CHAR co = FindCharBySerial(px->ownserial);
-						if (px->more2 == 1 && GuildCompare( pc_currchar, co ) == 0) 
-						{ 
-							pc_currchar->karma -= 5; 
+						if (px->more2 == 1 && GuildCompare( pc_currchar, co ) == 0)
+						{
+							pc_currchar->karma -= 5;
 							criminal(pc_currchar);
-							sysmessage(s, "You lost some karma!"); 
-						} 
+							sysmessage(s, "You lost some karma!");
+						}
 						npc = 0;
 					} // Criminal stuff
 					if (px->corpse != 0)
@@ -220,7 +220,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				} // end if x!=-1
 				
 				if (px == NULL)
-					npc = 0; 
+					npc = 0;
 			}
 		} while ((npc == NULL) &&(++loopexit < MAXLOOPS));
 	}
@@ -236,7 +236,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				ps->ResetDragging();
 				item_bounce3(pi);
 				pi->setOwnerMovable();
-			} 
+			}
 			return;
 		}
 	}
@@ -330,9 +330,9 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 					  float res=float( (pc_currchar->weight+wgt) - ((pc_currchar->st*WEIGHT_PER_STR)+30))*2;
 					  int diff = pc_currchar->st;
 					  diff -= (int)res;
-					  if (diff<=0 && !pc_currchar->isGM() )					   
+					  if (diff<=0 && !pc_currchar->isGM() )					
 					  {
-						 tooheavy=true;						 						 
+						 tooheavy=true;						 						
 
 						 bounce[1] = 0;
 						 Xsend(s, bounce, 2);
@@ -341,18 +341,18 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 						   ps->ResetDragging();
 						   item_bounce4(s, pi);
 						 }
-						 sysmessage(s, "you can't pick this up, this is too heavy");					 
+						 sysmessage(s, "you can't pick this up, this is too heavy");					
 						 return;
 					 }
 					}
-				} 
+				}
 
-                if (!tooheavy) pc_currchar->weight+=wgt;				   
+                if (!tooheavy) pc_currchar->weight+=wgt;				
 				update = 1;	*/				
 
 				// LB remark: drop item if too heavy is a good solution,
 				// but there's still a small bug remaining.
-				// added weight from items picked up, but not put to bp, pd,  in other words hold in ones hand, 
+				// added weight from items picked up, but not put to bp, pd,  in other words hold in ones hand,
 				// is NOT subtracted when being dropped again to ground/other chars/other chars' bp's.
 				// but this bug doesnt show up becasue weight is re-calculated automatically all 10 secs.
 				// without adding weight of the item curently carrying in hand.
@@ -374,7 +374,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 			}
 		}
 	} // end of if i!=-1
-	if (update) 
+	if (update)
 		statwindow(s, pc_currchar);
 }
 
@@ -421,7 +421,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 
 	if (pi->id1>=0x40) return; // LB, client crashfix if multi-objects are moved to PD
 
-	if (pc_k == pc_currchar || pc_currchar->isGM()) 
+	if (pc_k == pc_currchar || pc_currchar->isGM())
 	{
 		if (pc_k != NULL) //lb
 			if (pc_k == pc_currchar && pi->st>pc_k->st)
@@ -446,7 +446,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 				if (ps->IsDragging())
                 {
 					ps->ResetDragging();
-					item_bounce4(s,pi);				  
+					item_bounce4(s,pi);				
 					UpdateStatusWindow(s,pi);
 				}
 				return;
@@ -501,7 +501,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 					sysmessage(s,"You cannot equip a two handed weapon with a shield equipped!");
 					letsbounce=1;
 				}
-				else if (pi2->layer == tile.layer) 
+				else if (pi2->layer == tile.layer)
 				{
  					sysmessage(s, "You already have an armor equipped!");
 					letsbounce = 1;
@@ -518,7 +518,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 					itemsfx(s, pi->id());		// antichrist
 				}
 				return;
-			} 
+			}
 		}
 		if (!(pc_currchar->isGM())) //Ripper..players cant equip items on other players or npc`s paperdolls.
 		{
@@ -585,22 +585,22 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	{
 		soundeffect2(pc_currchar, 0x003A+(rand()%3));	//0x3A - 0x3C three different sounds
 
-		if((pi->poisoned)&&(pc_target->poisoned<pi->poisoned)) 
+		if((pi->poisoned)&&(pc_target->poisoned<pi->poisoned))
 		{
 			soundeffect2(pc_target, 0x0246); //poison sound - SpaceDog
 			pc_target->poisoned=pi->poisoned;
 			pc_target->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_target->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 			pc_target->poisonwearofftime=pc_target->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
-			impowncreate(s, pc_target, 1); //Lb, sends the green bar ! 
+			impowncreate(s, pc_target, 1); //Lb, sends the green bar !
 		}
 		
-		if(pi->name == "#") 
+		if(pi->name == "#")
 			pi->getName(temp2);
 		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name.c_str(),temp2);
 		pc_target->emotecolor = 0x0026;
 		npcemoteall(pc_target,(char*)temp,1);
 		pc_target->hunger++;
-	} 
+	}
 	else
 	{
 		sysmessage(s,"It doesn't appear to want the item");
@@ -853,7 +853,7 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	
 	P_ITEM pack = Packitem(pc_currchar); // LB ...
 	if (pack == NULL) // if player has no pack, put it at its feet
-	{ 
+	{
 		pi->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		RefreshItem(pi);//AntiChrist
 	}
@@ -991,10 +991,11 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			{
 				P_ITEM j=Trade->tradestart(s, pTC); //trade-stuff
 				if(j==NULL)
+				{
+					cout << "Bad trade start ptr " << endl;
 					return true;
+				}
 				pi->SetContSerial(j->serial);
-				P_ITEM pj = Trade->tradestart(s, pTC); //trade-stuff
-				pi->SetContSerial(pj->serial);
 				pi->pos.x = 30;
 				pi->pos.y = 30;
 				pi->pos.z = 9;
@@ -1104,13 +1105,13 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	{
 		RefreshItem(pCont);//AntiChrist
 		return;
-	} 
+	}
 	
 	if (pItem == NULL || pCont == NULL) return; //LB
 	pItem->flags.isBeeingDragged = false;
 
-	if (pItem->id1>=0x40) 
-	{ 
+	if (pItem->id1>=0x40)
+	{
 	   abort = true; // LB crashfix that prevents moving multi objcts in BP's
        sysmessage(s, "Hey, putting houses in your pack crashes your back and client!");
 	}
@@ -1332,13 +1333,13 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 
 			if (pItem->glow != INVALID_SERIAL) // LB's glowing items stuff
 			{
-				P_CHAR pc = GetPackOwner(pCont); 
+				P_CHAR pc = GetPackOwner(pCont);
 				pc_currchar->removeHalo(pItem); // if gm put glowing object in another pack, handle glowsp correctly !
-				if (pc != NULL) 
+				if (pc != NULL)
 				{
 					pc->addHalo(pItem);
 					pc->glowHalo(pItem);
-				}		   
+				}		
 				
 			}	
 }
@@ -1360,39 +1361,39 @@ void cDragdrop::drop_item(P_CLIENT ps) // Item is dropped
 	
 	if (clientDimension[s]==3)
 	{
-	  // UO:3D clients send SOMETIMES two dragg packets for a single dragg action. 
+	  // UO:3D clients send SOMETIMES two dragg packets for a single dragg action.
 	  // sometimes we HAVE to swallow it, sometimes it has to be interpreted
 	  // if UO:3D specific item loss problems are reported, this is probably the code to blame :)
 	  // LB
 	  P_ITEM pi = FindItemBySerial(pp->Iserial);
 
-	  #ifdef debug_dragg 
+	  #ifdef debug_dragg
 	    if (i!=-1) { sprintf(temp, "%04x %02x %02x %01x %04x i-name: %s EVILDRAG-old: %i\n",pp->Iserial, pp->TxLoc, pp->TyLoc, pp->TzLoc, pp->Tserial, items[i].name, EVILDRAGG[s]); clConsole.send(temp); }
 		else { sprintf(temp, "blocked: %04x %02x %02x %01x %04x i-name: invalid item EVILDRAG-old: %i\n",pp->Iserial, pp->TxLoc, pp->TyLoc, pp->TzLoc, pp->Tserial, EVILDRAGG[s]); clConsole.send(temp); }
       #endif
 
-	  if  ( (pp->TxLoc==-1) && (pp->TyLoc==-1) && (pp->Tserial==0)  && (EVILDRAGG[s]==1) ) 
-	  { 
-		  EVILDRAGG[s]=0; 
+	  if  ( (pp->TxLoc==-1) && (pp->TyLoc==-1) && (pp->Tserial==0)  && (EVILDRAGG[s]==1) )
+	  {
+		  EVILDRAGG[s]=0;
           #ifdef debug_dragg
-		    clConsole.send("Swallow only\n"); 
+		    clConsole.send("Swallow only\n");
           #endif
-		  return; 
+		  return;
 	  }	 // swallow! note: previous evildrag !
-	  else if ( (pp->TxLoc==-1) && (pp->TyLoc==-1) && (pp->Tserial==0)  && (EVILDRAGG[s]==0) ) 
+	  else if ( (pp->TxLoc==-1) && (pp->TyLoc==-1) && (pp->Tserial==0)  && (EVILDRAGG[s]==0) )
 	  {
           #ifdef debug_dragg
-		    clConsole.send("Bounce & Swallow\n"); 
+		    clConsole.send("Bounce & Swallow\n");
           #endif
 
-		  item_bounce6(ps, pi); 
-		  return; 
+		  item_bounce6(ps, pi);
+		  return;
 	  }
 	  else if ( ( (pp->TxLoc!=-1) && (pp->TyLoc!=-1) && ( pp->Tserial!=-1)) || ( (isItemSerial(pp->Iserial)) && (isItemSerial(pp->Tserial)) ) ) EVILDRAGG[s]=1; // calc new evildrag value
 	  else EVILDRAGG[s]=0;
-	} 
+	}
 
-	#ifdef debug_dragg 
+	#ifdef debug_dragg
 	  else
 	  {
 		 ITEM i = calcItemFromSer( pp->Iserial );
@@ -1402,6 +1403,6 @@ void cDragdrop::drop_item(P_CLIENT ps) // Item is dropped
 
 	if ( (buffer[s][10]>=0x40) && (buffer[s][10]!=0xff) )
 		pack_item(ps,pp);
-	else 
+	else
 		dump_item(ps,pp);
 }

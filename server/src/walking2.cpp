@@ -963,11 +963,11 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 	const int newy=pc->pos.y;
 	if (socket ==-1)
 		UOXSOCKET socket = calcSocketFromChar( pc );
-        if (socket == -1)
-        {
+        //if (socket == -1)
+        //{
         	//cout << "Error getting our own socket, but proceeding"<<endl;
-        	return ;
-        }  // We couldnt get our own entry, wich is an error, but for another day
+        //	return ;
+        //}  // We couldnt get our own entry, wich is an error, but for another day
 	for (int i = 0; i < now; ++i)
 	{
 

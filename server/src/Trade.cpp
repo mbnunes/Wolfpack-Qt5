@@ -58,7 +58,7 @@ void cTrade::buyaction(int s)
 //	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi_pack = Packitem(pc_currchar);
-	if (pi_pack == NULL) 
+	if (pi_pack == NULL)
 		return; //LB no player-pack - no buy action possible - and no crash too ;-)
 	P_CHAR npc = FindCharBySerial(calcserial(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]));
 
@@ -82,7 +82,7 @@ void cTrade::buyaction(int s)
 			// Fixed for adv trade system -- Magius(CHE) §
 			tmpvalue = buyit[i]->value;
 			tmpvalue = calcValue(buyit[i], tmpvalue);
-			if (SrvParms->trade_system==1) 
+			if (SrvParms->trade_system==1)
 				tmpvalue = calcGoodValue(pc_currchar, buyit[i], tmpvalue,0);
 			goldtotal += (amount[i]*tmpvalue);
 			// End Fix for adv trade system -- Magius(CHE) §
@@ -139,7 +139,7 @@ void cTrade::buyaction(int s)
 			npcaction(npc, 0x20);		// bow (Duke, 17.3.2001)
 
 			clear = 1;
-			if( !(pc_currchar->isGM() ) ) 
+			if( !(pc_currchar->isGM() ) )
 			{
 				if( useBank )
 					DeleBankItem( pc_currchar, 0x0EED, 0, goldtotal );
@@ -286,7 +286,7 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
 		return true;
 	return false;
 }
- 
+
 //##ModelId=3C5D92B20156
 void cTrade::sellaction(int s)
 {
@@ -426,7 +426,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	}
 
 	P_ITEM pi_ps = Items->SpawnItem(s2, pc_currchar, 1, "#", 0, 0x1E, 0x5E, 0, 0, 0);
-	if(pi_ps == NULL) 
+	if(pi_ps == NULL)
 		return 0;
 	pi_ps->pos = Coord_cl(26, 0, 0);
 	pi_ps->SetContSerial(pc_currchar->serial);
@@ -434,11 +434,11 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_ps->type=1;
 	pi_ps->dye=0;
 	sendbpitem(s, pi_ps);
-	if (s2 != INVALID_UOXSOCKET) 
+	if (s2 != INVALID_UOXSOCKET)
 		sendbpitem(s2, pi_ps);
 
 	P_ITEM pi_pi = Items->SpawnItem(s2,pc_i,1,"#",0,0x1E,0x5E,0,0,0);
-	if (pi_pi == NULL) 
+	if (pi_pi == NULL)
 		return 0;
 	pi_pi->pos = Coord_cl(26, 0, 0);
 	pi_pi->SetContSerial(pc_i->serial);
@@ -446,7 +446,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_pi->type=1;
 	pi_pi->dye=0;
 	sendbpitem(s, pi_pi);
-	if (s2 != INVALID_UOXSOCKET) 
+	if (s2 != INVALID_UOXSOCKET)
 		sendbpitem(s2, pi_pi);
 
 	pi_pi->moreb1 = static_cast<unsigned char>((pi_ps->serial&0xFF000000)>>24);
@@ -482,6 +482,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 		LongToCharPtr(pi_ps->serial,msg+12);
 		msg[16]=1;
 		strcpy((char*)&(msg[17]), pc_currchar->name.c_str());
+
 		Xsend(s2, msg, 47);
 	}
 	return pi_ps;
@@ -525,15 +526,16 @@ void cTrade::clearalltrades()
 void cTrade::trademsg(int s)
 {
 	P_ITEM cont1, cont2;
+	cont1 = cont2 = NULL ;
 	switch(buffer[s][3])
 	{
 	case 0://Start trade - Never happens, sent out by the server only.
 		break;
 	case 2://Change check marks. Possibly conclude trade
 		cont1 = FindItemBySerPtr(&buffer[s][4]);
-		if (cont1 != NULL) 
-			cont2 = FindItemBySerial(calcserial(cont1->moreb1, cont1->moreb2, cont1->moreb3, cont1->moreb4)); 
-		else 
+		if (cont1 != NULL)
+			cont2 = FindItemBySerial(calcserial(cont1->moreb1, cont1->moreb2, cont1->moreb3, cont1->moreb4));
+		else
 			cont2 = NULL;
 		if (cont2 != NULL) // lb crashfix
 		{
@@ -575,8 +577,11 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 	P_ITEM bp2 = Packitem(p2);
 	if(bp2 == NULL) return;
 	UOXSOCKET s1 = calcSocketFromChar(p1);
+	if (s1 ==-1)
+		cout << "Error getting socket in trade, calcSocketFromChar for s1" << endl;
 	UOXSOCKET s2 = calcSocketFromChar(p2);
-
+    if (s2 ==-1)
+		cout << "Error getting socket in trade, calcSocketFromChar for si" << endl;
 	serial = cont1->serial;
 	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
@@ -586,10 +591,10 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 		if (pi != NULL)
 			if ((pi->contserial==serial))
 			{
-				if (pi->glow != INVALID_SERIAL) 
+				if (pi->glow != INVALID_SERIAL)
 					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
 				bp2->AddItem(pi);
-				if (pi->glow != INVALID_SERIAL) 
+				if (pi->glow != INVALID_SERIAL)
 					glowsp.insert(p1->serial, pi->serial);
 				if (s1!=-1)
 					RefreshItem(pi);//AntiChrist
@@ -606,10 +611,10 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 		if (pi != NULL)
 			if ((pi->contserial==serial))
 			{
-				if (pi->glow != INVALID_SERIAL) 
+				if (pi->glow != INVALID_SERIAL)
 					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
 				bp1->AddItem(pi);
-				if (pi->glow != INVALID_SERIAL) 
+				if (pi->glow != INVALID_SERIAL)
 					glowsp.insert(currchar[s1]->serial, pi->serial);
 				if (s2 != INVALID_UOXSOCKET)
 					RefreshItem(pi);//AntiChrist
