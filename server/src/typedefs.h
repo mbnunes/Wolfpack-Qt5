@@ -42,6 +42,8 @@ class cPlayer;
 class cUObject;
 class cUOSocket;
 class Coord_cl;
+class cParty;
+class cUOPacket;
 
 // Typedefs
 

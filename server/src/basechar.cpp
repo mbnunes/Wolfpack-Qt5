@@ -33,6 +33,7 @@
 #include "basedef.h"
 #include "corpse.h"
 #include "npc.h"
+#include "party.h"
 #include "player.h"
 #include "globals.h"
 #include "world.h"
@@ -1657,6 +1658,52 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		return 0;
 	}
 
+	P_PLAYER player = dynamic_cast<P_PLAYER>(source);
+	
+	if (!player) {
+		P_ITEM tool = dynamic_cast<P_ITEM>(source);
+		if (tool && tool->owner()) {
+			player = dynamic_cast<P_PLAYER>(tool->owner());
+		}
+	}
+
+	// Show the amount of damage dealt over the head of the victim
+	if (player && player->socket()) {
+		cUOTxDamage damage;
+		damage.setUnknown1(1);
+		damage.setDamage(amount);
+		damage.setSerial(serial_);
+		player->socket()->send(&damage);
+	}
+	
+	// There is a 33% chance that blood is created on hit
+	if (!RandomNum(0,2)) {
+		P_ITEM blood = 0;
+
+		// If more than 50% of the maximum healthpoints has been dealt as damage
+		// we display a big puddle of blood
+		if (amount >= maxHitpoints_ * 0.50) {
+			blood = cItem::createFromList("BIG_BLOOD_PUDDLES");
+
+		// Otherwise we display a medium puddle of blood if the damage is greater 
+		// than 25% of the maximum healthpoints
+		} else if (amount >= maxHitpoints_ * 0.35) {
+			blood = cItem::createFromList("MEDIUM_BLOOD_PUDDLES");
+	
+		// at last we only display a small stain of blood if the damage has been
+		// greater than 10% of the maximum hitpoints
+		} else if (amount >= maxHitpoints_ * 0.20) {
+			blood = cItem::createFromList("SMALL_BLOOD_PUDDLES");
+		}
+
+		if (blood) {
+			blood->moveTo(pos_); // Move it to the feet of the victim			
+			blood->setNoDecay(false); // Override the nodecay tag in the definitions
+			blood->setDecayTime(uiCurrentTime + 20 * MY_CLOCKS_PER_SEC); // Let it decay in 20 seconds from now
+			blood->update(); // Send it to all sockets in range
+		}
+	}
+
 	// Would we die?
 	if( amount >= hitpoints_ ) {
 		kill(source);
@@ -2070,10 +2117,11 @@ bool cBaseChar::kill(cUObject *source) {
 	}
 
 	P_CHAR pKiller = dynamic_cast<P_CHAR>(source);
+	P_ITEM pTool = 0;
 
 	// Were we killed by some sort of item?
 	if (source && !pKiller) {
-		P_ITEM pTool = dynamic_cast<P_ITEM>(source);
+		pTool = dynamic_cast<P_ITEM>(source);
 
 		// If we were killed by some sort of tool (explosion potions)
 		// the owner is responsible for the murder
@@ -2084,7 +2132,7 @@ bool cBaseChar::kill(cUObject *source) {
 
 	// Only trigger the reputation system if we can find someone responsible 
 	// for the murder
-	if (pKiller && pKiller == this) {
+	if (pKiller && pKiller != this) {
 		// Only award karma and fame in unguarded areas
 		if (!pKiller->inGuardedArea()) {
 			pKiller->awardFame(fame_);
@@ -2094,23 +2142,39 @@ bool cBaseChar::kill(cUObject *source) {
 		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pKiller);
 
 		// Only players can become criminal
-		if (pPlayer && isInnocent()) {
-			pPlayer->makeCriminal();
-			pPlayer->setKills(pPlayer->kills() + 1);
-			setMurdererSerial(pPlayer->serial());
+		if (pPlayer) {
+			// Award fame and karma to the party members of this player if they can see the victim
+			if (pPlayer->party()) {
+				QPtrList<cPlayer> members = pPlayer->party()->members();
 
-			// Report the number of slain people to the player
-			if (pPlayer->socket()) {
-				pPlayer->socket()->sysMessage(tr("You have killed %1 innocent people.").arg(pPlayer->kills()));
+				for (P_PLAYER member = members.first(); member; member = members.next()) {
+					if (member != pPlayer && member->canSeeChar(this)) {
+						if (!member->inGuardedArea()) {
+							member->awardFame(fame_);
+							member->awardKarma(this, 0 - karma_);
+						}
+					}
+				}
 			}
 
-			// The player became a murderer
-			if (pPlayer->kills() >= SrvParams->maxkills()) {
-				pPlayer->setMurdererTime(getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
+			if (isInnocent()) {
+				pPlayer->makeCriminal();
+				pPlayer->setKills(pPlayer->kills() + 1);
+				setMurdererSerial(pPlayer->serial());
 
+				// Report the number of slain people to the player
 				if (pPlayer->socket()) {
-					pPlayer->socket()->clilocMessage(502134);
-				}			
+					pPlayer->socket()->sysMessage(tr("You have killed %1 innocent people.").arg(pPlayer->kills()));
+				}
+
+				// The player became a murderer
+				if (pPlayer->kills() >= SrvParams->maxkills()) {
+					pPlayer->setMurdererTime(getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
+	
+					if (pPlayer->socket()) {
+						pPlayer->socket()->clilocMessage(502134);
+					}			
+				}
 			}
 		}
 	}
@@ -2176,6 +2240,10 @@ bool cBaseChar::kill(cUObject *source) {
 					// Put into the backpack
 					if (item->newbie()) {
 						backpack->addItem(item);
+
+						if (player && player->socket()) {
+							item->update(player->socket());
+						}
 					} else {
 						corpse->addItem(item);
 						corpse->addEquipment(layer, item->serial());
@@ -2272,12 +2340,29 @@ bool cBaseChar::kill(cUObject *source) {
 			shroud->update();
 		}
 
+		player->resend(false, true);
+
 		if (player->socket()) {
 			player->socket()->resendPlayer(true);
 			
 			// Notify the player of his death
 			cUOTxCharDeath death;
 			player->socket()->send(&death);
+		}
+
+		// Notify the party that we died.
+		if (player->party()) {
+			QString message;
+
+			if (source == player) {
+				message = tr("I comitted suicide.");
+			} else if (pKiller) {
+				message = tr("I was killed by %1.").arg(pKiller->name());
+			} else {
+				message = tr("I was killed.");
+			}
+
+			player->party()->send(player, message);		
 		}
 	}
 
@@ -2301,25 +2386,27 @@ bool cBaseChar::canSee(cUObject *object, bool lineOfSight) {
 }
 
 bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight) {
-	if (!character || character->free) {
-		return false;
-	}
-
-	if (character->isInvisible() || character->isHidden()) {
-		return false;
-	}
-
-	if (character->isDead()) {
-		// Only NPCs with spiritspeak >= 1000 can see dead people
-		// or if the AI overrides it
-		if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000) {
+	if (character != this) {
+		if (!character || character->free) {
 			return false;
 		}
-	}
 
-	// Check distance
-	if (pos_.distance(character->pos()) > VISRANGE) {
-		return false;
+		if (character->isInvisible() || character->isHidden()) {
+			return false;
+		}
+
+		if (character->isDead()) {
+			// Only NPCs with spiritspeak >= 1000 can see dead people
+			// or if the AI overrides it
+			if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000) {
+				return false;
+			}
+		}
+
+		// Check distance
+		if (pos_.distance(character->pos()) > VISRANGE) {
+			return false;
+		}
 	}
 
 	return true;

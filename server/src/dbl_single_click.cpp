@@ -38,6 +38,7 @@
 #include "skills.h"
 #include "network.h"
 #include "gumps.h"
+#include "party.h"
 #include "targetrequests.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
@@ -107,19 +108,29 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	// Criminal for looting an innocent corpse & unhidden if not owner...
 	if( pi->corpse() )
 	{
-		if (pc_currchar->isInvisible() && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
-		{
-			pc_currchar->setHidden( 0 );
-			pc_currchar->resend( false );
+		if (pc_currchar->isHidden() && !pc_currchar->Owns(pi) && !pc_currchar->isGM()) {
+			pc_currchar->setHidden(0);
+			pc_currchar->resend(false);
 		}
 
 		// TODO: Add a XML option for this
-		if( !pc_currchar->Owns( pi ) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
+		if(!pc_currchar->Owns(pi) && !pc_currchar->isGM() && pc_currchar->isInnocent())
 		{
-			// Innocent Corpse?
-			if( pi->hasTag( "notoriety" ) && pi->getTag( "notoriety" ).toInt() == 1 ) 
-			{
-				pc_currchar->makeCriminal();
+			// Innocent Corpse and not in the same party && party allowance for looting?
+			if (pi->hasTag("notoriety") && pi->getTag("notoriety").toInt() == 0x01) {
+				P_PLAYER owner = dynamic_cast<P_PLAYER>(pi->owner());
+				bool allowed = false;
+
+				if (owner && owner->party() && owner->party() == pc_currchar->party()) {
+					// Check if the player allowed looting his corpse by party members
+					if (owner->party()->lootingAllowed().contains(owner)) {
+						allowed = true;
+					}
+				}
+
+				if (!allowed) {
+					pc_currchar->makeCriminal();
+				}
 			}
 		}
 	}

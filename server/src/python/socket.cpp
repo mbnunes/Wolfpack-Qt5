@@ -715,8 +715,13 @@ static PyObject *wpSocket_getAttr( wpSocket *self, char *name )
 {
 	if( !strcmp( name, "player" ) )
 		return PyGetCharObject( self->pSock->player() );
-	else
+	else if (!strcmp(name, "screenwidth")) {
+		return PyInt_FromLong(self->pSock->screenWidth());
+	} else if (!strcmp(name, "screenheight")) {
+		return PyInt_FromLong(self->pSock->screenHeight());
+	} else {
 		return Py_FindMethod( wpSocketMethods, (PyObject*)self, name );
+	}
 }
 
 static int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value )

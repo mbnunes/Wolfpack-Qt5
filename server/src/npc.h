@@ -199,6 +199,10 @@ public:
 	void setWanderFollowTarget(P_CHAR data );
 	void setWanderDestination(const Coord_cl &data );
 
+	// cPythonScriptable inherited methods
+	PyObject *getPyObject();
+	const char *className() const;
+
 private:
 	bool changed_;
 

@@ -1103,7 +1103,7 @@ public:
 	cUOTxClilocMsgAffix(): cUOPacket ( 0xCC, PacketLen ) { setShort( 1, PacketLen ); }
 
 	enum { LowerLeft = 6, OnObject = 7, PacketLen = 50 };
-	enum { DontMove = 0x04, Unknown = 0x02, Prepend = 0x01 };
+	enum { DontMove = 0x04, System = 0x02, Prepend = 0x01 };
 
 	void setSerial ( SERIAL data )	{ setInt( 3, data ); }
 	void setBody ( Q_UINT16 data )	{ setShort( 7, data ); }
@@ -1355,6 +1355,70 @@ public:
 		(*this)[16] = 0xFF;
 	}
 	void setSerial( uint data ) { setInt( 5, data ); }
+};
+
+// 0xBF 0x06 Party System
+class cUOTxPartyUpdate : public cUOPacket {
+public:
+	cUOTxPartyUpdate() : cUOPacket(0xBF, 7) {
+		setShort(1, 7); // PacketSize
+		setShort(3, 6); // SubCommand
+		(*this)[5] = 1; // SubSubCommand
+	}
+
+	void addMember(SERIAL serial);
+};
+
+class cUOTxPartyRemoveMember : public cUOPacket {
+public:
+	cUOTxPartyRemoveMember() : cUOPacket(0xBF, 11) {
+		setShort(1, 11); // PacketSize
+		setShort(3, 6); // SubCommand
+		(*this)[5] = 2; // SubSubCommand
+	}
+
+	void setSerial(SERIAL serial) {
+		setInt(7, serial);
+	}
+
+	void addMember(SERIAL player);
+};
+
+class cUOTxPartyTellMember : public cUOPacket {
+public:
+	cUOTxPartyTellMember() : cUOPacket(0xBF, 12) {
+		setShort(1, 11); // PacketSize
+		setShort(3, 6); // SubCommand
+		(*this)[5] = 3; // SubSubCommand
+	}
+
+	void setSerial(SERIAL serial) {
+		setInt(6, serial);
+	}
+
+	enum eMode {
+		SingleMember = 0x03,
+		WholeParty = 0x04		
+	};
+
+	void setMode(eMode mode) {
+		(*this)[5] = mode;
+	}
+
+	void setText(const QString &message);
+};
+
+class cUOTxPartyInvitation : public cUOPacket {
+public:
+	cUOTxPartyInvitation() : cUOPacket(0xBF, 10) {
+		setShort(1, 10);
+		setShort(3, 6);
+		(*this)[5] = 7;
+	}
+
+	void setSerial(SERIAL serial) {
+		setInt(6, serial);
+	}
 };
 
 // 0x9E

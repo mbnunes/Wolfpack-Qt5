@@ -393,27 +393,6 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 	}
 }
 
-/*
- * - SEND OUR OWN STEP TO PLAYERS AROUND US
- * Two possibilities:
- * a) send a 0x78 packet to people we came in range
- * b) send a 0x77 packet to people who see us already
- */
-void cMovement::sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos )
-{
-	if( !pWalker || !pChar || !pChar->socket() )
-		return;
-
-	if( pChar->pos().distance( pWalker->pos() ) > pChar->visualRange() )
-		return; // We got out of his visual range.
-	
-	if( pChar->pos().distance( oldpos ) > pChar->visualRange() )
-		pChar->socket()->sendChar( pWalker ); // Previously we were out of range 
-	else
-		pChar->socket()->updateChar( pWalker ); // Previously we were already known
-}
-
-
 /*!
 	This handles if a character actually tries to walk (NPC & Player)
 */
@@ -526,56 +505,30 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	
 	if( player && player->socket() )
 		player->socket()->allowMove( sequence );
+	
+	RegionIterator4Chars ri( pChar->pos() );
+	for( ri.Begin(); !ri.atEnd(); ri++ ) {
+		P_CHAR observer = ri.GetData();
 
-
-	if( player )
-	{
-		RegionIterator4Chars ri( player->pos() );
-		for( ri.Begin(); !ri.atEnd(); ri++ )
-		{
-			P_NPC pNpc = dynamic_cast< P_NPC >( ri.GetData() );
-
-			if( pNpc )
-			{
-				if( pNpc->pos().distance( player->pos() ) <= player->visualRange() )
-				{
-					// Is it a *new* character?
-					if( pNpc->pos().distance( oldpos ) > player->visualRange() )
-						player->socket()->sendChar( pNpc );
+		// If we are a player, send us new characters
+		if (player && player->socket()) {
+			if (observer->pos().distance(player->pos()) <= player->visualRange() && 
+				observer->pos().distance(oldpos) > player->visualRange()) {
+					player->socket()->sendChar(observer);
 				}
-			}
-			else
-			{
-				P_PLAYER pChar_vis = dynamic_cast<P_PLAYER>( ri.GetData() );
+		}
 
-				if( !pChar_vis )
-					continue;
+		// Send our movement to the observer
+		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>(observer);
 
-				if( ( pChar_vis != player ) &&
-					( !player->isDead() || player->isAtWar() || player->isGM() ) && 
-					( !player->isHidden() || player->isGM() ) )
-					sendWalkToOther( pChar_vis, player, oldpos );
+		if (otherplayer && otherplayer->socket() && otherplayer->canSee(pChar)) {            
+			if (otherplayer->pos().distance(oldpos) > otherplayer->visualRange()) {
+				otherplayer->socket()->sendChar(pChar); // Previously we were out of range 
+			} else {
+				otherplayer->socket()->updateChar(pChar); // Previously we were already known
 			}
 		}
 	}
-	else
-	{
-		RegionIterator4Chars ri( pChar->pos() );
-		for( ri.Begin(); !ri.atEnd(); ri++ )
-		{
-			P_PLAYER pChar_vis = dynamic_cast<P_PLAYER>(ri.GetData());
-
-			if( !pChar_vis )
-				continue;
-
-			if( ( !pChar->isDead() || pChar->isAtWar() ) && ( !pChar->isHidden() ) )
-				sendWalkToOther( pChar_vis, pChar, oldpos );
-		}
-	}
-
-	// keep on checking this even if we just turned, because if you are taking damage
-	// for standing here, lets keep on dishing it out. if we pass whether we actually
-	// moved or not we can optimize things some
 }
 
 short int cMovement::CheckMovementType(P_CHAR pc)

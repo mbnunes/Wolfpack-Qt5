@@ -152,6 +152,7 @@ SOURCES         = \
 		network.cpp \
 		npc.cpp \
 		encryption.cpp \
+    party.cpp \
 		persistentbroker.cpp \
 		persistentobject.cpp \
 		preferences.cpp \

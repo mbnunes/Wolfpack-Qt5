@@ -36,6 +36,7 @@
 
 // Wolfpack Includes
 #include "../corpse.h"
+#include "../party.h"
 #include "../dbl_single_click.h" // Deprecated
 #include "../accounts.h"
 #include "../globals.h"
@@ -97,7 +98,8 @@ using namespace std;
 */
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
-		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice )
+		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ),
+		_screenWidth(640), _screenHeight(480)
 {
 	_socket->resetStatus();
 	_ip = _socket->peerAddress().toString();
@@ -308,6 +310,13 @@ void cUOSocket::recieve()
 }
 
 /*!
+	\brief This method handles processing of party messages.
+*/
+void cUOSocket::handleParty(cUOPacket *packet) {
+	cParty::handlePacket(this, packet);
+}
+
+/*!
   This method handles cUORxLoginRequest packet types.
   \sa cUORxLoginRequest
 */
@@ -361,8 +370,15 @@ void cUOSocket::disconnect( void )
 	if( _player )
 	{
 		_player->onLogout();
-		_player->setSocket( NULL );
-		_player->account()->setInUse( false );
+		_player->setSocket(NULL);
+		_player->account()->setInUse(false);
+
+		// Remove the player from it's party
+		if (_player->party()) {
+			_player->party()->removeMember(_player);
+		} else {
+			TempEffects::instance()->dispel(_player, 0, "cancelpartyinvitation", false, false);
+		}
 	}
 
 	cNetwork::instance()->netIo()->flush( _socket );
@@ -378,7 +394,7 @@ void cUOSocket::disconnect( void )
 			pTmpEff->setExpiretime_s( SrvParams->quittime() );
 			TempEffects::instance()->insert( pTmpEff );
 		}
-		_player->resend( true );
+		_player->resend(true);
 	}
 }
 
@@ -529,8 +545,8 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// d) Set the Game Time
 
 	// We're now playing this char
-	pChar->setHidden( 0 ); // Unhide us (logged out)
-	setPlayer( pChar );
+	pChar->setHidden(0); // Unhide us (logged out)
+	setPlayer(pChar);
 	pChar->account()->setInUse( true );
 
 	// This needs to be sent once
@@ -579,7 +595,12 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// This is required to display strength requirements correctly etc.
 	sendStatWindow();
 
-	pChar->moveTo( pChar->pos() );
+	// Reset the party
+	cUOTxPartyRemoveMember updateparty;
+	updateparty.setSerial(_player->serial());
+	send(&updateparty);
+
+	pChar->moveTo(pChar->pos());
 
 	// Start the game / Resend
 	cUOTxStartGame startGame;
@@ -937,28 +958,57 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
   This method handles cUORxMultiPorpuse packet types.
   \sa cUORxMultiPorpuse
 */
-void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet ) 
-{ 
-	if ( !packet ) // Happens if it's not inherited from cUORxMultiPurpose
+void cUOSocket::handleMultiPurpose(cUORxMultiPurpose *packet) {
+	switch(packet->subCommand()) {
+	// Screen Size
+	case cUORxMultiPurpose::screenSize:
+		if (packet->size() >= 13) {
+			_screenWidth = packet->getShort(7);
+			_screenHeight = packet->getShort(9);
+		}
 		return;
 
-	switch( packet->subCommand() ) 
-	{ 
-	case cUORxMultiPurpose::setLanguage: 
-		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( packet ) ); break; 
-	case cUORxMultiPurpose::contextMenuRequest: 
-		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break; 
+	// Ignore this packet (Unknown Login Info)
+	case cUORxMultiPurpose::unknownLoginInfo:
+		return;
+
+	// Ignore this packet (Status gump closed)
+	case cUORxMultiPurpose::closedStatusGump:
+		return;
+
+	case cUORxMultiPurpose::setLanguage:
+		handleSetLanguage(dynamic_cast< cUORxSetLanguage* >(packet));
+		return;
+
+	case cUORxMultiPurpose::contextMenuRequest:
+		handleContextMenuRequest(dynamic_cast<cUORxContextMenuRequest*>(packet));
+		return;
+
 	case cUORxMultiPurpose::contextMenuSelection: 
-		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( packet ) ); break; 
+		handleContextMenuSelection(dynamic_cast<cUORxContextMenuSelection*>(packet));
+		return; 
+
 	case cUORxMultiPurpose::castSpell:
-		handleCastSpell( dynamic_cast< cUORxCastSpell* >( packet ) ); break;
+		handleCastSpell(dynamic_cast<cUORxCastSpell*>(packet));
+		return;
+
 	case cUORxMultiPurpose::toolTip:
-		handleToolTip( dynamic_cast< cUORxRequestToolTip* >( packet ) ); break;
+		handleToolTip(dynamic_cast<cUORxRequestToolTip*>(packet));
+		return;
+
 	case cUORxMultiPurpose::customHouseRequest:
-		handleCustomHouseRequest( dynamic_cast< cUORxCustomHouseRequest* >( packet ) ); break;
-	default:
-		Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );	
-	}; 
+		handleCustomHouseRequest(dynamic_cast<cUORxCustomHouseRequest*>(packet));
+		return;
+
+	case cUORxMultiPurpose::partySystem:
+		handleParty(packet);
+		return;		
+	};
+
+	QString message;
+	message.sprintf("Receieved unknown multi purpose subcommand: 0x%02x", packet->subCommand());
+	message += packet->dump(packet->uncompressed()) + "\n";
+	log(LOG_WARNING, message);
 } 
 
 /*!
@@ -1258,15 +1308,12 @@ void cUOSocket::resendPlayer( bool quick )
 		cUOTxWarmode warmode;
 		warmode.setStatus( _player->isAtWar() );
 		send( &warmode );
-	}
-
-	// Start the game!
-	if( !quick )
-	{
+	
+		// Start the game!
 		cUOTxStartGame startGame;
 		send( &startGame );
 
-		// Reset the walking sequence
+        // Reset the walking sequence
 		_walkSequence = 0xFF;
 	}
 }
@@ -2058,6 +2105,11 @@ void cUOSocket::updateStamina( P_CHAR pChar )
 	}
 
 	send( &update );
+
+	// Send the packet to our party members too
+	if (pChar == _player && _player->party()) {
+		_player->party()->send(&update);
+	}
 }
 
 void cUOSocket::updateMana( P_CHAR pChar )
@@ -2083,6 +2135,11 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	}
 
 	send( &update );
+
+	// Send the packet to our party members too
+	if (pChar == _player && _player->party()) {
+		_player->party()->send(&update);
+	}
 }
 
 void cUOSocket::updateHealth( P_CHAR pChar )
@@ -2094,11 +2151,15 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 		return;
 
 	cUOTxUpdateHealth update;
-	update.setSerial( pChar->serial() );
-	update.setMaximum( pChar->maxHitpoints() );
-	update.setCurrent( pChar->hitpoints() );
+	update.setSerial(pChar->serial());
+	update.setMaximum(pChar->maxHitpoints());
+	update.setCurrent(pChar->hitpoints());
+	send(&update);
 
-	send( &update );
+	// Send the packet to our party members too
+	if (pChar == _player && _player->party()) {
+		_player->party()->send(&update);
+	}
 }
 
 void cUOSocket::sendStatWindow( P_CHAR pChar )
@@ -2113,7 +2174,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	cUOTxSendStats sendStats;
 
 	// TODO: extended packet information
-	sendStats.setFullMode( pChar == _player, true /*_version.left(1).toInt() == 3*/ );
+	sendStats.setFullMode(pChar == _player, true);
 
 	// Dont allow rename-self
 	sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>(pChar)->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
@@ -2144,6 +2205,17 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	}
 
 	send( &sendStats );
+
+	// Send the packet to our party members too
+	if (pChar == _player && _player->party()) {
+		QPtrList<cPlayer> members = _player->party()->members();
+
+		for (P_PLAYER member = members.first(); member; member = members.next()) {
+			if (member->socket() && member != _player) {
+				member->socket()->send(&sendStats);
+			}
+		}
+	}
 }
 
 bool cUOSocket::inRange( cUOSocket* socket ) const
@@ -2390,7 +2462,7 @@ void cUOSocket::clilocMessage( const UINT32 MsgID, const QString &params, const 
 	}
 	else
 	{
-		msg.setSerial( 0xFFFF );
+		msg.setSerial( 0xFFFFFFFF );
 		msg.setType( cUOTxClilocMsg::LowerLeft );
 		msg.setName( "System" );
 	}
@@ -2404,7 +2476,7 @@ void cUOSocket::clilocMessage( const UINT32 MsgID, const QString &params, const 
 	send( &msg );
 }
 
-void cUOSocket::clilocMessageAffix( const UINT32 MsgID, const QString &params, const QString &affix, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool dontMove, bool prepend )
+void cUOSocket::clilocMessageAffix( const UINT32 MsgID, const QString &params, const QString &affix, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool dontMove, bool prepend, bool system )
 {
 	cUOTxClilocMsgAffix msg;
 
@@ -2419,7 +2491,7 @@ void cUOSocket::clilocMessageAffix( const UINT32 MsgID, const QString &params, c
 	}
 	else
 	{
-		msg.setSerial( 0xFFFF );
+		msg.setSerial( 0xFFFFFFFF );
 		msg.setType( cUOTxClilocMsg::LowerLeft );
 		msg.setName( "System" );
 	}
@@ -2432,6 +2504,8 @@ void cUOSocket::clilocMessageAffix( const UINT32 MsgID, const QString &params, c
 		flags |= cUOTxClilocMsgAffix::Prepend;
 	if( dontMove )
 		flags |= cUOTxClilocMsgAffix::DontMove;
+	if (system) 
+		flags |= cUOTxClilocMsgAffix::System;
 	msg.setFlags( flags );
 
 	msg.setMsgNum( MsgID );

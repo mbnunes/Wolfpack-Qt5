@@ -36,6 +36,7 @@
 #include "chars.h"
 #include "basechar.h"
 #include "items.h"
+#include "party.h"
 #include "player.h"
 #include "npc.h"
 #include "globals.h"
@@ -96,9 +97,17 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 	MapObjects::instance()->remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
 
 	P_PLAYER pp_k = dynamic_cast<P_PLAYER>(pc_k);
-	if ( pp_k )
-		if ( pp_k->account() )
-			pp_k->account()->removeCharacter( pp_k );
+	if (pp_k) {
+		if (pp_k->account()) {
+			pp_k->account()->removeCharacter(pp_k);
+		}
+
+		if (pp_k->party()) {
+			pp_k->party()->removeMember(pp_k);
+		} else {
+			TempEffects::instance()->dispel(pp_k, 0, "cancelpartyinvitation", false, false);
+		}
+	}
 	
 	World::instance()->deleteObject( pc_k );
 }

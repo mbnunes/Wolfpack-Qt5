@@ -313,6 +313,12 @@
 				RelativePath=".\pagesystem.h">
 			</File>
 			<File
+				RelativePath=".\party.cpp">
+			</File>
+			<File
+				RelativePath=".\party.h">
+			</File>
+			<File
 				RelativePath=".\persistentbroker.cpp">
 			</File>
 			<File

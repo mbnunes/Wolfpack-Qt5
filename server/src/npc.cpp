@@ -1341,3 +1341,11 @@ void cNPC::log( const QString &string )
 {
 	log( LOG_NOTICE, string );
 }
+
+PyObject *cNPC::getPyObject() {
+	return PyGetCharObject(this);
+}
+
+const char *cNPC::className() const {
+	return "npc";
+}

@@ -35,6 +35,7 @@
 #include "python/engine.h"
 #include "python/utilities.h"
 #include "typedefs.h"
+#include "customtags.h"
 
 // Library Includes
 #include <qstring.h>
@@ -126,5 +127,109 @@ public:
 	}
 };
 
-#endif // __WPPYTHONSCRIPT_H__
+struct stError {
+	unsigned char code;
+	QString text;
+};
 
+#define PROPERTY_ERROR(errno, data) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
+
+#define GET_PROPERTY(id, getter) if( name == id ) {\
+	value = cVariant(getter); \
+	return 0; \
+}
+
+#define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
+	QString text = value.toString(); \
+	if( text == QString::null )	\
+		PROPERTY_ERROR( -2, "String expected" ) \
+	setter = text; \
+	return 0; \
+	}
+
+#define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Integer expected" ) \
+	setter = data; \
+	return 0; \
+	}
+
+#define SET_FLOAT_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	float data = static_cast<QString>( value.toString() ).toFloat( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Float expected" ) \
+	setter = data; \
+	return 0; \
+	}
+
+#define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Boolean expected" ) \
+	setter = data == 0 ? false : true; \
+	return 0; \
+	}
+
+#define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toChar(); \
+	return 0; \
+	}
+
+#define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toItem(); \
+	return 0; \
+	}
+
+/*!
+	\brief A base class for object scriptable trough the python interface.
+	This class provides comfortable methods to create python objects out of 
+	objects.
+*/
+class cPythonScriptable {
+public:
+	/*!
+		\brief Used to identify a specific object type.
+		\returns A pointer to the name of this class.
+	*/
+	virtual const char *className() const;
+
+	/*!
+		\brief Does this class implement a given interface?
+		\param name The name of the interface.
+		\returns True if this class implements the interface, otherwise false.
+	*/
+	virtual bool implements(const QString &name) const;
+
+	/*!
+		\brief Create and return a python wrapper object for this object.
+		\returns A python object representing this object.
+	*/
+	virtual PyObject *getPyObject() = 0;
+
+	/*!
+		\brief Sets a property for this object.
+		This method allows the developer to set properties for this object
+		using a variant \a value and the \a name of the property.
+		\param name The name of the property.
+		\param value The value that should be set.
+		\returns If an error occured it returns a pointer to an error structure. The callee is responsible
+			for freeing this structure, otherwise a null pointer is returned.
+	*/
+	virtual stError *setProperty( const QString &name, const cVariant &value );
+
+	/*!
+		\brief Gets a property of this object.
+		This method gets a property of this object and stores it's value in \a value.
+		\param name The name of the property.
+		\param value A reference to the variant the value should be stored in.
+		\returns If an error occured it returns a pointer to an error structure. The callee is responsible
+			for freeing this structure, otherwise a null pointer is returned.
+	*/
+	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+};
+
+#endif

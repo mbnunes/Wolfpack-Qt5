@@ -81,9 +81,9 @@ PyObject *PyGetObjectObject( cUObject *object )
 	return 0;
 }
 
-static QStringList getFlagNames( const tile_st &tile )
+static QStringList getFlagNames(unsigned char flag1, unsigned char flag2, unsigned char flag3, unsigned char flag4)
 {
-#define FLAG_STUB( a, b, c ) if( tile.a & b ) flags.push_back( tr( c ) )
+#define FLAG_STUB( a, b, c ) if( a & b ) flags.push_back( tr( c ) )
 	QStringList flags;
 
 	// Flag 1
@@ -693,6 +693,38 @@ static PyObject* wpHasMap( PyObject* self, PyObject* args )
 	return Map->hasMap( map ) ? PyTrue : PyFalse;
 }
 
+static PyObject *wpLanddata(PyObject *self, PyObject *args) {
+	Q_UNUSED(self);
+	unsigned int tileid;
+
+	if (!PyArg_ParseTuple(args, "i:wolfpack.landdata(id)", &tileid)) {
+		return 0;
+	}
+
+	land_st tile = TileCache::instance()->getLand(tileid);
+
+	PyObject *dict = PyDict_New();
+	PyDict_SetItemString(dict, "name", PyString_FromString(tile.name));
+	PyDict_SetItemString(dict, "unknown1", PyInt_FromLong(tile.unknown1));
+	PyDict_SetItemString(dict, "unknown2", PyInt_FromLong(tile.unknown2));
+	PyDict_SetItemString( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
+	PyDict_SetItemString( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
+	PyDict_SetItemString( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
+	PyDict_SetItemString( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
+	PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
+	PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
+	PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
+
+	QString flags = getFlagNames(tile.flag1, tile.flag2, tile.flag3, tile.flag4).join(",");
+	if (flags.isNull()) {
+		PyDict_SetItemString( dict, "flagnames", PyString_FromString("") );
+    } else {
+		PyDict_SetItemString( dict, "flagnames", PyString_FromString(flags.latin1()) );
+	}
+
+	return dict;
+}
+
 /*!
 	Returns the tiledata information for a item id.
 */
@@ -700,7 +732,7 @@ static PyObject *wpTiledata( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	uint tileid = 0;
-	if ( !PyArg_ParseTuple( args, "i:wolfpack.tiledata", &tileid ) )
+	if ( !PyArg_ParseTuple( args, "i:wolfpack.tiledata(id)", &tileid ) )
 		return 0;
 
 	tile_st tile = TileCache::instance()->getTile( tileid );
@@ -736,7 +768,13 @@ static PyObject *wpTiledata( PyObject* self, PyObject* args )
 		PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
 		PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
 		PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
-		PyDict_SetItemString( dict, "flagnames", PyString_FromString( getFlagNames( tile ).join(",") ) );
+
+		QString flags = getFlagNames(tile.flag1, tile.flag2, tile.flag3, tile.flag4).join(",");
+		if (flags.isNull()) {
+			PyDict_SetItemString( dict, "flagnames", PyString_FromString("") );
+        } else {
+			PyDict_SetItemString( dict, "flagnames", PyString_FromString(flags.latin1()) );
+		}
 	}
 	
 	return dict;
@@ -1132,6 +1170,7 @@ static PyMethodDef wpGlobal[] =
 	{ "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." },
 	{ "allcharsserials",	wpAllCharsSerials,				METH_VARARGS, "Returns a list of all chars serials" },
 	{ "allitemsserials",	wpAllItemsSerials,				METH_VARARGS, "Returns a list of all items serials" },
+	{ "landdata",			wpLanddata,						METH_VARARGS, "Returns the landdata information for a given tile stored on the server." },
 	{ "tiledata",			wpTiledata,						METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
 	{ "coord",				wpCoord,						METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
 	{ "multi",				wpMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },

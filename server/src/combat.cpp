@@ -576,126 +576,6 @@ namespace Combat
 		// Calculate the AR rating for this spot of the body
 		UINT16 ar = pDefender->calcDefense( bodyPart, true );
 		damage -= RandomNum( ar / 2, ar );
-		
-		// When we reached this point, nothing will affect the damage anymore.
-		// If Damage <= 0 that does NOT mean the defender parried the blow or
-		// did something else.. It just means our hit stopped at the armor of
-		// the defender. This does not mean we did a miss or something.
-
-		QString defMessage, attMessage;
-
-		// Define all messages for hit-areas
-
-		static const char* hitLegs[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in the left thigh!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the left thigh!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in the right thigh!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the right thigh!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in the groin!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the groin!")
-		};
-
-		static const char* hitBody[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your chest!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the chest!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a blow to your stomach!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You land a blow to %1's stomach!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your ribs!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the ribs!")
-		};
-
-		static const char* hitBodyHard[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a terrible blow to your chest!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You land a terrible blow to %1's chest!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 knocks the wind out of you!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You knock the wind out of %1!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 has broken your rib!"),					QT_TRANSLATE_NOOP("CombatHitMessages", "It sounds as if you have broken one of %1's ribs!")
-		};
-
-		static const char* hitArms[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your left arm!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the left arm!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you in your right arm!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 in the right arm!")
-		};
-
-		static const char* hitHands[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at your left hand!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the left hand!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at your right hand!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the right hand!")
-		};
-
-		static const char* hitNeck[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at the throat!"),			QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the throat!"),
-		};
-
-		static const char* hitHead[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you straight in the face!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 straight in the face!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you at the head!"),				QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 at the head!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 hits you square in the jaw!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You hit %1 square in the jaw!")
-		};
-
-		static const char* hitHeadHard[] = {
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a stunning blow to your head!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You land a stunning blow to %1's head!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 smashed a blow across your face!"),		QT_TRANSLATE_NOOP("CombatHitMessages", "You smash a blow across %1's face!"),
-			QT_TRANSLATE_NOOP("CombatHitMessages", "%1 lands a terrible hit to your temple!"),	QT_TRANSLATE_NOOP("CombatHitMessages", "You land a terrible hit at %1's temple!")
-		};
-
-		// Check if it has been a "hard" hit
-		bool hardHit = ( pDefender->strength() * 0.1 <= damage );
-
-		// Get the message for the defender and attacker
-		switch( bodyPart )
-		{
-		case BODY:
-			if( hardHit )
-			{				
-				defMessage = hitBody[ ( RandomNum( 0, 2 ) * 2 ) ];
-				attMessage = hitBody[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
-			}
-			else
-			{
-				defMessage = hitBodyHard[ ( RandomNum( 0, 2 ) * 2 ) ];
-				attMessage = hitBodyHard[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
-			}
-			break;
-
-		case ARMS:
-			defMessage = hitArms[ ( RandomNum( 0, 1 ) * 2 ) ];
-			attMessage = hitArms[ ( RandomNum( 0, 1 ) * 2 ) + 1 ];
-			break;
-
-		case NECK:
-			defMessage = hitNeck[0];
-			attMessage = hitNeck[1];
-			break;
-
-		case HEAD:
-			if( hardHit )
-			{				
-				defMessage = hitHead[ ( RandomNum( 0, 2 ) * 2 ) ];
-				attMessage = hitHead[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
-			}
-			else
-			{
-				defMessage = hitHeadHard[ ( RandomNum( 0, 2 ) * 2 ) ];
-				attMessage = hitHeadHard[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
-			}
-			break;
-
-		case HANDS:
-			defMessage = hitHands[ ( RandomNum( 0, 1 ) * 2 ) ];
-			attMessage = hitHands[ ( RandomNum( 0, 1 ) * 2 ) + 1 ];
-			break;
-
-		case LEGS:
-			defMessage = hitLegs[ ( RandomNum( 0, 2 ) * 2 ) ];
-			attMessage = hitLegs[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
-			break;
-		}
-
-		if( pAttacker->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
-			if( pp->socket() )
-				pp->socket()->sysMessage( qApp->translate("CombatHitMessages", attMessage.arg( pDefender->name() ) ) );
-		}
-
-		if( pDefender->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
-			if( pp->socket() )
-				pp->socket()->sysMessage( qApp->translate("CombatHitMessages", defMessage.arg( pAttacker->name() ) ) );
-		}
 
 		// Macefighting Weapons (2handed only) 
 		// Deal Stamina loss
@@ -749,57 +629,12 @@ namespace Combat
 		// Finally deal the damage
 		damage = QMAX( 0, damage );
 
-		if( damage > 0 )
-		{
+		if (damage > 0) {
 			damage = pDefender->damage( DAMAGE_PHYSICAL, damage, pAttacker );
-			
+
 			if( !damage || pDefender->isDead() )
 				return;
-
-			P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( pAttacker );
-
-			if( pPlayer && pPlayer->socket() )
-			{
-				cUOTxDamage showdamage;
-				showdamage.setSerial( pDefender->serial() );
-				showdamage.setUnknown1( 1 ); // Always 1
-				showdamage.setDamage( damage );
-				pPlayer->socket()->send( &showdamage );
-			}			
 		}
-
-		// Create blood below the defender if severe
-		// damage has been dealt
-		/*if( RandomNum( 1, 10 ) == 1 ) // 10% chance
-		{
-	       UINT16 id = 0x122c;
-
-	       if( totaldamage > 50 )
-			   id = 0x122a;
-
-		   else if( totaldamage > 40 )
-			   id = 0x122d;
-
-	       else if( totaldamage > 30 )
-			   id = 0x122e;
-
-	       else if( totaldamage > 20 )
-			   id = 0x122b;
-
-		   else if( totaldamage < 10 )
-			   id = 0x1645;
-
-		   P_ITEM pBlood = Items->SpawnItem( pDefender, 1, "#", 0, id, 0, 0 );
-		   
-		   if( pBlood )
-		   {
-			  pBlood->moveTo( pDefender->pos );
-			  pBlood->priv = 1;
-			  pBlood->setGMMovable(); // Moveable by GM
-			  pBlood->update();
-			  pBlood->decaytime = ( 8 * MY_CLOCKS_PER_SEC ) + uiCurrentTime; // Will stay 8 secs
-		   }
-		}*/
 
 		// We lost Stamina
 		if( pDefender->stamina() != oldStm && pDefender->objectType() == enPlayer )

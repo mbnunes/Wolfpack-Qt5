@@ -82,11 +82,20 @@ private:
 	QBitArray *tooltipscache_;
 	QPtrList<cContextMenu> contextMenu_;
 	QMap< SERIAL, cGump* > gumps;
+	unsigned short _screenWidth, _screenHeight;
 
 	bool authenticate( const QString &username, const QString &password );
 //	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
+	inline unsigned short screenWidth() const {
+		return _screenWidth;
+	}
+
+	inline unsigned short screenHeight() const {
+		return _screenHeight;
+	}
+
 	cCustomTags tags() const	{ return tags_;		}
 	cCustomTags& tags()			{ return tags_;		}
 
@@ -180,12 +189,13 @@ public:
 	void handleCHClear( cUORxAosMultiPurpose *packet );
 	void handleCHLevel( cUORxCHLevel *packet );
 	void handleCHRevert( cUORxAosMultiPurpose *packet );
+	void handleParty( cUOPacket *packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
 	void showSpeech( const cUObject *object, const QString &message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, UINT8 speechType = 0x00 ) const;
-	void sysMessage( const QString &message, Q_UINT16 color = 0x0037, UINT16 font = 3 ) const;
+	void sysMessage( const QString &message, Q_UINT16 color = 0x3b2, UINT16 font = 3 ) const;
 	void sendCharList();
 	void removeObject( cUObject *object );
 	void setPlayer( P_PLAYER pChar = NULL ); // Updates the current player
@@ -214,8 +224,8 @@ public:
 	void sendBuyWindow( P_CHAR pVendor );
 	void sendSellWindow( P_CHAR pVendor, P_CHAR pSeller );
 	void sendVendorCont( P_ITEM pItem );
-	void clilocMessage( const UINT32 MsgID, const QString &params = 0, const Q_UINT16 color = 0x37, const Q_UINT16 font = 3, cUObject *object = 0 ); 
-	void clilocMessageAffix( const UINT32 MsgID, const QString &params = 0, const QString &affix = 0, const Q_UINT16 color = 0x37, const Q_UINT16 font = 3, cUObject *object = 0, bool dontMove = false, bool prepend = false ); 
+	void clilocMessage( const UINT32 MsgID, const QString &params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0 );
+	void clilocMessageAffix( const UINT32 MsgID, const QString &params = 0, const QString &affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0, bool dontMove = false, bool prepend = false, bool system = false );
 	void updateLightLevel( UINT8 level );
 	void sendQuestArrow( bool show, UINT16 x, UINT16 y );
 	void closeGump( UINT32 type, UINT32 returnCode );

@@ -39,6 +39,7 @@
 #include "singleton.h"
 #include "customtags.h"
 #include "factory.h"
+#include "pythonscript.h"
 
 // System includes
 #include <vector>
@@ -57,9 +58,7 @@ class QSqlQuery;
 class cItem;
 class cUOTxTooltipList;
 
-struct stError;
-
-class cUObject : public PersistentObject, public cDefinable
+class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable 
 {
 private:
 	uchar changed_:1;
@@ -168,10 +167,10 @@ public:
 	bool isChar() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
 
 	void processNode( const cElement *Tag );
+	stError *setProperty( const QString &name, const cVariant &value );
+	stError *getProperty( const QString &name, cVariant &value ) const;
 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
-	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value ) const;
 	virtual void flagUnchanged() { changed_ = false; }
 	void resendTooltip();
 
@@ -215,63 +214,5 @@ private:
 };
 
 typedef SingletonHolder< cUObjectFactory > UObjectFactory;
-
-struct stError 
-{
-	INT8 code;
-	QString text;
-};
-
-#define PROPERTY_ERROR( errno, data ) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
-
-#define GET_PROPERTY( id, getter ) if( name == id ) {\
-	value = cVariant( getter ); \
-	return 0; \
-}
-
-#define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
-	QString text = value.toString(); \
-	if( text == QString::null )	\
-		PROPERTY_ERROR( -2, "String expected" ) \
-	setter = text; \
-	return 0; \
-	}
-
-#define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
-	bool ok; \
-	INT32 data = value.toInt( &ok ); \
-	if( !ok ) \
-		PROPERTY_ERROR( -2, "Integer expected" ) \
-	setter = data; \
-	return 0; \
-	}
-
-#define SET_FLOAT_PROPERTY( id, setter ) if( name == id ) {\
-	bool ok; \
-	float data = static_cast<QString>( value.toString() ).toFloat( &ok ); \
-	if( !ok ) \
-		PROPERTY_ERROR( -2, "Float expected" ) \
-	setter = data; \
-	return 0; \
-	}
-
-#define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
-	bool ok; \
-	INT32 data = value.toInt( &ok ); \
-	if( !ok ) \
-		PROPERTY_ERROR( -2, "Boolean expected" ) \
-	setter = data == 0 ? false : true; \
-	return 0; \
-	}
-
-#define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
-	setter = value.toChar(); \
-	return 0; \
-	}
-
-#define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
-	setter = value.toItem(); \
-	return 0; \
-	}
 
 #endif // __UOBJECT_H__

@@ -65,6 +65,7 @@ cPlayer::cPlayer()
 	visualRange_		= VISRANGE;
 	profile_			= (char*)0;
 	fixedLightLevel_	= 0xFF;
+	party_				= 0;
 }
 
 
@@ -1400,48 +1401,54 @@ void cPlayer::log( const QString &string )
 }
 
 bool cPlayer::canSeeChar(P_CHAR character, bool lineOfSight) {
-	if (!character || character->free) {
-		return false;
-	}
-
-	// Check distance
-	if (pos_.distance(character->pos()) > visualRange()) {
-		return false;
-	}
-
-	// By default we are mor privileged than our target if we are a gm
-	bool privileged = isGM();
-
-	P_PLAYER player = dynamic_cast<P_PLAYER>(character);
-	if (player) {
-		// Disconnected players are invisible unless allShow is active for the current account
-		if (!player->socket() && (!account_ || !account_->isAllShow())) {
+	if (character != this) {
+		if (!character || character->free) {
 			return false;
 		}
 
-		// Determine if we are more privileged than the target
-		if (player->account()) {
-			if (!account_ || player->account()->rank() > account_->rank()) {
-				privileged = false;
+		// Check distance
+		if (pos_.distance(character->pos()) > visualRange()) {
+			return false;
+		}
+
+		// By default we are mor privileged than our target if we are a gm
+		bool privileged = isGM();
+
+		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+		if (player) {
+			// Disconnected players are invisible unless allShow is active for the current account
+			if (!player->socket() && (!account_ || !account_->isAllShow())) {
+				return false;
+			}
+
+			// Determine if we are more privileged than the target
+			if (player->account()) {
+				if (!account_ || player->account()->rank() > account_->rank()) {
+					privileged = false;
+				}
+			}
+
+			if (party_ && party_ == player->party()) {
+				privileged = true;
 			}
 		}
-	}
 
-	// Hidden and invisible characters are invisible unless we are more privileged than them
-	if (character->isInvisible() || character->isHidden()) {
-		if (!privileged) {
-			return false;
-		}
-	}
-
-	// Dead characters are invisible unless we have more than 100.0% spirit speak 
-	// or are privileged...
-	if (character->isDead()) {
-		// Only NPCs with spiritspeak >= 1000 can see dead people
-		// or if the AI overrides it
-		if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000) {
+		// Hidden and invisible characters are invisible unless we are more privileged than them
+		if (character->isInvisible() || character->isHidden()) {
 			if (!privileged) {
 				return false;
+			}
+		}
+
+		// Dead characters are invisible unless we have more than 100.0% spirit speak 
+		// or are privileged...
+		if (character->isDead()) {
+			// Only NPCs with spiritspeak >= 1000 can see dead people
+			// or if the AI overrides it
+			if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000) {
+				if (!privileged) {
+					return false;
+				}
 			}
 		}
 	}
@@ -1487,4 +1494,12 @@ bool cPlayer::canSeeItem(P_ITEM item, bool lineOfSight) {
 	}
 
 	return true;
+}
+
+PyObject *cPlayer::getPyObject() {
+	return PyGetCharObject(this);
+}
+
+const char *cPlayer::className() const {
+	return "player";
 }

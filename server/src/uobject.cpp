@@ -648,7 +648,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 
-	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
+	return cPythonScriptable::setProperty(name, value);
 }
 
 stError *cUObject::getProperty( const QString &name, cVariant &value ) const
@@ -662,7 +662,7 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "eventlist", eventList_ == QString::null ? QString( "" ) : eventList_ )
 	else GET_PROPERTY( "direction", dir_ )
 
-	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
+	return cPythonScriptable::getProperty(name, value);
 }
 
 void cUObject::sendTooltip( cUOSocket* mSock )

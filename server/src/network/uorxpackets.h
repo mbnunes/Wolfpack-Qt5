@@ -272,13 +272,29 @@ class cUORxMultiPurpose: public cUOPacket
 public:
 	enum eSubCommands
 	{
-		unknown = 0,
-		initFastWalk,
+		unknown = 0x00,
+		initFastWalk = 0x01,
+		addFastWalk = 0x02,
+		closeGump = 0x04,
+		screenSize = 0x05,
+		partySystem = 0x06,
+		changeMap = 0x08,
+		wrestlingStun = 0x0a,
+		setLanguage = 0x0b,
+		closedStatusGump = 0x0c,
+		// Unknown: 0x0d
+		// Unknown: 0x0e
+		unknownLoginInfo = 0x0f,
+		toolTip = 0x10,
+        // Unknown: 0x11
+		// Unknown: 0x12
 		contextMenuRequest = 0x13,
 		contextMenuSelection = 0x15,
-		setLanguage = 0x0B,
-		castSpell = 0x1c,
-		toolTip = 0x10,
+		codexOfWisdom = 0x17,
+		enableMapDiff = 0x18,
+		// extendedStats = 0x19, = Server Message
+		extendedStats = 0x1a,
+		castSpell = 0x1c,		
 		customHouseRequest = 0x1e
 	};
 

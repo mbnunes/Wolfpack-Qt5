@@ -139,6 +139,7 @@ public:
 	cMakeSection*				lastSection( cMakeMenu* basemenu );
 	// pets
 	CharContainer				pets() const;
+	cParty*						party() const;
 
 	// setters
     void setAccount(cAccount* data, bool moveFromAccToAcc = true);
@@ -158,6 +159,7 @@ public:
 	void setMaySnoop(bool data);
 	void setMayBroadcast(bool data);
 	void setShowSerials(bool data);
+	void setParty(cParty *data);
 
 	virtual void setStamina( INT16 data, bool notify = true );
 
@@ -171,6 +173,10 @@ public:
 	bool canSeeChar(P_CHAR character, bool lineOfSight = false);
 	bool canSeeItem(P_ITEM item, bool lineOfSight = false);
 
+	// cPythonScriptable inherited methods
+	PyObject *getPyObject();
+	const char *className() const;
+
 private:
 	bool changed_;
 
@@ -181,6 +187,9 @@ protected:
 
 	// other protected methods
 	void applyStartItemDefinition( const cElement *Tag );
+
+	// The party this player belongs to
+	cParty *party_;
 
     // The account object including this char.
     // cOldChar::account_
@@ -423,5 +432,12 @@ inline cBaseChar::CharContainer cPlayer::pets() const
 	return pets_;
 }
 
+inline cParty *cPlayer::party() const {
+	return party_;
+}
+
+inline void cPlayer::setParty(cParty *data) {
+	party_ = data;
+}
 
 #endif /* CPLAYER_H_HEADER_INCLUDED */

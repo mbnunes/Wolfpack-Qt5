@@ -491,7 +491,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 
 		position = (position * 5) + QMIN(4, pChar->fame() / 2500);
 
-		if (position < titles.size()) {
+		if (pChar->objectType() != enNPC && position < titles.size()) {
 			QString prefix = titles[position];
 			if (prefix.length() > 0) {
 				prefix.prepend("The ");
@@ -726,4 +726,25 @@ void cUOTxSellList::addItem( UINT32 serial, UINT16 id, UINT16 hue,
 	setShort( offset + 10, value );
 	setShort( offset + 12, name.length() + 1 );
 	setAsciiString( offset + 14, name.latin1(), name.length() + 1 );
+}
+
+void cUOTxPartyUpdate::addMember(SERIAL serial) {
+	resize(size() + 4);
+	setShort(1, size());
+	setInt(size() - 4, serial);
+	(*this)[6]++;
+}
+
+void cUOTxPartyRemoveMember::addMember(SERIAL serial) {
+	resize(size() + 4);
+	setShort(1, size());
+	setInt(size() - 4, serial);
+	(*this)[6]++;
+}
+
+void cUOTxPartyTellMember::setText(const QString &message) {
+	resize(12 + message.length() * 2);
+	setShort(1, size());
+	setUnicodeString(10, message, message.length()*2, false);
+	setShort(size()-2, 0); // Null termination
 }

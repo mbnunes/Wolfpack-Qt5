@@ -322,3 +322,25 @@ bool cPythonScript::canChainHandleEvent( ePythonEvent event, cPythonScript **cha
 	}
 	return result;
 }
+
+stError *cPythonScriptable::setProperty(const QString &name, const cVariant &value) {
+	// No settable properties are available for this class
+    PROPERTY_ERROR(-1, QString( "Property not found: '%1'" ).arg(name))
+}
+
+stError *cPythonScriptable::getProperty(const QString &name, cVariant &value) const {
+	GET_PROPERTY("classname", className());
+	PROPERTY_ERROR(-1, QString( "Property not found: '%1'" ).arg(name))
+}
+
+bool cPythonScriptable::implements(const QString &name) const {
+	if (name == className()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+const char *cPythonScriptable::className() const {
+	return "pythonscriptable";
+}

@@ -35,6 +35,7 @@
 
 #include "../territories.h"
 #include "../skills.h"
+#include "../party.h"
 #include "../combat.h"
 #include "../srvparams.h"
 #include "../walking.h"
@@ -1804,6 +1805,15 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 			return PyFalse;
 
 		return player->isGM() ? PyTrue : PyFalse;
+	} else if (!strcmp("party", name)) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>(self->pChar);
+
+		if (player && player->party()) {
+			return player->party()->getPyObject();
+		}
+
+		Py_INCREF(Py_None);
+		return Py_None;
 	} else if( !strcmp("rank", name)) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	

@@ -65,48 +65,13 @@
 
 using namespace std;
 
-/**
- * Loads item definitions and transforms them into cItemBase instances.
- */
-cItemBases::cItemBases()
-{
-	itembases.setAutoDelete( true );
-}
-
-void cItemBases::load()
-{
-	// Clear all current ItemBases
-	itembases.clear();
-
-	QStringList sections = DefManager->getSections( WPDT_ITEM );
-
-	for( unsigned int i = 0; i < sections.size(); ++i )
-	{
-		const cElement *element = DefManager->getDefinition( WPDT_ITEM, sections[i] );
-		const QString &id = element->getAttribute( "id" );
-
-		if( id != QString::null )
-		{
-			cItemBase *itembase = new cItemBase;
-			itembase->id_ = id;
-
-			itembases.insert( id, itembase );
-		}
-	}
-}
-
-inline cItemBase *cItemBases::getItemBase( const QString &id )
-{
-	return itembases.find( id );
-}
-
 /*****************************************************************************
   cItem member functions
  *****************************************************************************/
 
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), sellprice_( 0 ),
-buyprice_( 0 ), restock_( 1 ), base( 0 )
+buyprice_( 0 ), restock_( 1 ), baseid_(QString::null)
 {
 	spawnregion_ = QString::null;
 	Init( false );
@@ -152,7 +117,7 @@ cItem::cItem( const cItem &src )
 	this->type_ = src.type_;
 	this->visible_=src.visible_;
 	this->weight_ = src.weight_;
-	this->base = src.base;
+	this->baseid_ = src.baseid_;
 	this->setTotalweight( ceilf( amount_ * weight_ * 100 ) / 100 );
 
 	this->recreateEvents();
@@ -473,7 +438,7 @@ void cItem::save()
 		addField("sellprice",		sellprice_ );
 		addField("buyprice",		buyprice_ );
 		addField("restock",			restock_ );
-		addStrField("baseid",		base ? base->id() : QString("") );
+		addStrField("baseid",		baseid_ );
 
 		addCondition( "serial", serial() );
 		saveFields;
@@ -640,8 +605,9 @@ void cItem::decay( unsigned int currenttime )
 	// Locked Down Items, NoDecay Items and Items in Containers can never decay
 	// And ofcourse items in multis cannot
 	// Static/Nevermovable items can't decay too
-	if( container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2 )
+	if (container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2) {
 		return;
+	}
 
 	// Start decaying
 	if( !decaytime() )
@@ -1680,29 +1646,30 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	}
 }
 
-bool cItem::wearOut()
-{
-	if( RandomNum( 1, 4 ) == 4 )
-		setHp( hp() - 1 );
+bool cItem::wearOut() {
+	if (RandomNum(1, 4) == 4) {
+		setHp(hp() - 1);
+	}
 
-	if( hp() <= 0 )
-	{
+	if (hp() <= 0) {
 		// Get the owner of the item
-		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(getOutmostChar());
+		P_CHAR owner = getOutmostChar();
+		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(owner);
 
-		if( pOwner )
-		{
-			pOwner->message( tr( "*You destroy your %1*" ).arg( getName( true ) ), 0x23 );
+		if(pOwner && pOwner->socket()) {
+			if (!name_.isEmpty()) {
+				pOwner->socket()->clilocMessageAffix(1008129, QString::null, name_);
+			} else {
+				pOwner->socket()->clilocMessageAffix(1008129, QString::null, getName());
+			}
+		}
 
-			// Send it to the people in range
-			cUOSocket *mSock = 0;
-			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-			{
-				if( !mSock || mSock == pOwner->socket() )
-					continue;
-
-				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->visualRange() ) )
-					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name() ).arg( getName( true ) ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
+		// Show to all characters in range that the item has been destroyed and not just unequipped
+		if (owner) {
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+				if (owner != socket->player() && socket->canSee(owner)) {
+					socket->clilocMessageAffix(0xf9060 + id_, "", tr("You see %1 destroy his ").arg(owner->name()), 0x23, 3, owner, false, true);
+				}
 			}
 		}
 
@@ -1822,7 +1789,7 @@ void cItem::load( char **result, UINT16 &offset )
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );
 	restock_ = atoi( result[offset++] );
-	base = ItemBases::instance()->getItemBase( result[offset++] );
+	baseid_ = result[offset++];
 
 	// Their own weight should already be set.
 	totalweight_ = ceilf( amount_ * weight_ * 100 ) / 100;
@@ -2012,7 +1979,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 
 	else if( name == "baseid" )
 	{
-		base = ItemBases::instance()->getItemBase( value.toString() );
+		baseid_ = value.toString();
 	}
 
 	// Amount needs weight handling
@@ -2178,7 +2145,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 stError *cItem::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "id", id_ )
-	else GET_PROPERTY( "baseid", ( base ? base->id() : QString::null ) )
+	else GET_PROPERTY( "baseid", baseid_ )
 	else GET_PROPERTY( "color", color_ )
 	else GET_PROPERTY( "amount", amount_ )
 	else GET_PROPERTY( "layer", layer_ )
@@ -2288,7 +2255,7 @@ P_ITEM cItem::createFromScript( const QString& id )
 	{
 		nItem = new cItem;
 		nItem->Init( true );
-		nItem->base = ItemBases::instance()->getItemBase( id );
+		nItem->setBaseid(id);
 		nItem->applyDefinition( section );
 		nItem->onCreate( id );
 	}
@@ -2337,4 +2304,13 @@ void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 				tooltip.addLine(1050039, " \t" + name_);
 			}
 	}
+}
+
+// Python implementation
+PyObject *cItem::getPyObject() {
+	return PyGetItemObject(this);
+}
+
+const char *cItem::className() const {
+	return "item";
 }

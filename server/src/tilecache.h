@@ -90,6 +90,8 @@ struct land_st
 	char name[20];
 
 	bool isBlocking() const	{ return flag1 & 0x40; }
+	bool isWet() const { return flag1 & 0x80; }
+	bool isRoofOrFloorTile() const { return flag1 & 0x01; }
 };
 
 class cTileCache

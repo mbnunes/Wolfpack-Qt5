@@ -46,45 +46,13 @@
 // Forward Class declarations
 class ISerialization;
 class cUOSocket;
-class cItemBases;
-
-/**
- *  Provides properties to types of items. There is one instance of this
- *  class per item definition. There should be no thread issues as this is
- *  read only during runtime, except for the DefManager.
- */
-class cItemBase
-{
-friend class cItemBases;
-private:
-	QString id_;
-public:
-	inline const QString &id() const { return id_; }
-};
-
-/**
- *  Manages all cItemBase instances and provides an interface for
- *  cItem to retrieve pointers.
- */
-class cItemBases
-{
-protected:
-	QDict< cItemBase > itembases;
-
-public:
-	cItemBases();
-	void load();
-	inline cItemBase *getItemBase( const QString &id );
-};
-
-typedef SingletonHolder< cItemBases > ItemBases;
 
 #pragma pack(1)
 class cItem : public cUObject
 {
 private:
 	bool changed_;
-	cItemBase *base;
+	QString baseid_;
 	void flagChanged() { changed_ = true; } // easier to debug, compiler should make it inline;
 
 public:
@@ -105,6 +73,8 @@ public:
 	P_ITEM	dupe();
 	void	soundEffect( UINT16 sound );
 	void sendTooltip( cUOSocket* mSock );
+	PyObject *getPyObject();
+	const char *className() const;
 
 	// Getters
 	ushort			id()			const { return id_; }			// The graphical id of the item
@@ -138,7 +108,7 @@ public:
 	uint			decaytime()		const { return decaytime_; }
 	uchar			visible()		const { return visible_;}
 	uchar			priv()			const { return priv_;	}
-
+	QString			baseid()		const { return baseid_; }    
 	QString			spawnregion()	const { return spawnregion_; }
 
 //***************************END ADDED GETTERS************
@@ -167,6 +137,7 @@ public:
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( float data );
 	void	setSpawnRegion( const QString &data ) { spawnregion_ = data; flagChanged(); }
+	void	setBaseid(const QString &data) { baseid_ = data; flagChanged(); }
 
 	cItem();
 	cItem( const cItem& src); // Copy constructor

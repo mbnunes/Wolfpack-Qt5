@@ -92,27 +92,29 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data ) 
 { 
 	cUOPacket temp(data);
+	
 	// Switch the Subcommand 
-	switch( temp.getShort( 3 ) ) 
-	{ 
+	switch (temp.getShort(3)) { 
 	case setLanguage: 
-		return new cUORxSetLanguage( data ); break; 
+		return new cUORxSetLanguage(data);
+		break;
 	case contextMenuRequest: 
-		return new cUORxContextMenuRequest( data ); break; 
+		return new cUORxContextMenuRequest(data);
+		break;
 	case contextMenuSelection: 
-		return new cUORxContextMenuSelection( data ); break; 
+		return new cUORxContextMenuSelection(data);
+		break;
 	case castSpell:
-		return new cUORxCastSpell( data ); break;
+		return new cUORxCastSpell(data);
+		break;
 	case toolTip:
-		return new cUORxRequestToolTip( data ); break;
+		return new cUORxRequestToolTip(data);
+		break;
 	case customHouseRequest:
-		return new cUORxCustomHouseRequest( data ); break;
+		return new cUORxCustomHouseRequest(data);
+		break;
 	default:
-		{
-			//qWarning("Unknown cUORxMultiPurpose subcommand");
-			//qWarning( cUOPacket::dump( data ) );
-			return new cUOPacket( data ); 
-		}
+		return new cUORxMultiPurpose(data);
 	}; 
 } 
 

@@ -209,8 +209,9 @@ void cTempEffects::check()
 		if( isCharSerial( tEffect->getDest() ) )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( FindCharBySerial( tEffect->getDest() ) );
-			if( pChar )
+			if (pChar) {
 				pChar->removeEffect( tEffect );
+			}
 		}
 
 		tEffect->Expire();
@@ -232,22 +233,25 @@ void cTempEffects::check()
 */
 void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent, bool onlyDispellable )
 {
-	std::vector< cTempEffect* >::iterator i = teffects.begin();
-	for( i = teffects.begin(); i != teffects.end(); i++ )
-		if( (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial() && (*i)->objectID() == type )
-		{
-			if( isCharSerial( (*i)->getSour() ) )
-			{
-				P_CHAR pChar = FindCharBySerial( (*i)->getSour() );
-				if( pChar )
-					pChar->removeEffect( (*i) );
-			}
+	std::vector<cTempEffect*>::iterator it = teffects.begin();
+	QPtrList<cTempEffect> eraselist;
 
-			(*i)->Dispel( pc_dest, pSource );
-			teffects.erase( i );
+	/*
+		Note: Erasing iterators would invalidate our iterator and crash.
+	*/
+	for (; it != teffects.end(); ++it) {
+		cTempEffect *effect = *it;
+
+		if ((!onlyDispellable || effect->dispellable) && effect->getDest() == pc_dest->serial() && effect->objectID() == type) {
+			pc_dest->removeEffect(effect);
+			effect->Dispel(pSource, silent);
+			eraselist.append(effect);
 		}
+	}
 
-		std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+	for (cTempEffect *effect = eraselist.first(); effect; effect = eraselist.next()) {
+		erase(effect);
+	}
 }
 
 void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )

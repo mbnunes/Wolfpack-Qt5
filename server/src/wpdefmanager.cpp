@@ -374,7 +374,6 @@ void WPDefManager::load( void )
 
 	Commands::instance()->loadACLs();
 	BaseDefManager::instance()->load();
-	ItemBases::instance()->load();
 }
 
 // Returns a list of section-names found
