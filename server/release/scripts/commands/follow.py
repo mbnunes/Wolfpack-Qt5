@@ -40,24 +40,26 @@ def who_target(player, arguments, target):
 	if player == target or target.pos.map == 0xFF:
 		player.socket.sysmessage(tr('You chose an invalid follow target.'))
 		return
-	dofollow( player, target)
+	dofollow(player, target)
 
 def target(player, arguments, target):
 	if not target.char or target.char == player or target.pos.map == 0xFF:
 		player.socket.sysmessage(tr('You chose an invalid follow target.'))
 		return
-	dofollow( player, target)
+	target = target.char.serial
+	dofollow(player, target)
 	return
 
-def dofollow( player, target):
-	if target.rank > player.rank:
+def dofollow(player, target):
+	char = wolfpack.findchar(target)
+	if char.rank > player.rank:
 		player.socket.sysmessage(tr('You better don''t do that.'))
 		return
 
-	message = tr('Started following 0x%x.') % target.serial
+	message = tr('Started following 0x%x.') % char.serial
 	player.socket.sysmessage(message)
 	player.socket.log(LOG_MESSAGE, message + "\n")
-	player.socket.settag('follow_target', target.serial)
+	player.socket.settag('follow_target', char.serial)
 	player.dispel(None, True, 'FOLLOW_TIMER')
 	player.addtimer(1500, timer, [], False, False, 'FOLLOW_TIMER')
 	return

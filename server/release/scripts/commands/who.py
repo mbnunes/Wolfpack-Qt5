@@ -194,7 +194,7 @@ def callbackSocket( char, args, choice ):
 		return False
 	# Follow
 	elif choice.button == 8:
-		commands.follow.who_target( char, args, player )
+		commands.follow.who_target( char, args, args[0] )
 		return True
 	# Disconnect
 	elif choice.button == 7:
