@@ -22,9 +22,9 @@ win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
 win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
 
-unix:INCLUDEPATH += lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
-unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
-unix:TMAKE_CXXFLAGS = -funsigned-char -w
+unix:INCLUDEPATH += /usr/local/include/stlport lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
+unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil -lstlport_gcc
+unix:TMAKE_CXXFLAGS = -funsigned-char -w -O2
 
 HEADERS         = \
 		  Timing.h \
@@ -36,7 +36,6 @@ HEADERS         = \
 		  books.h \
 		  bounty.h \
 		  chars.h \
-                  charsmgr.h \
 		  classes.h \
 		  coord.h \
 		  combat.h \
@@ -49,6 +48,7 @@ HEADERS         = \
 		  defines.h \
 		  dragdrop.h \
 		  encryption.h \
+		  exceptions.h \
 		  globals.h \
 		  guildstones.h \
 		  gumps.h \
@@ -56,7 +56,6 @@ HEADERS         = \
                   iserialization.h \
 		  itemid.h \
 		  items.h \
-                  itemsmgr.h \
                   magic.h \
 		  makemenus.h \
 		  multis.h \
@@ -90,10 +89,10 @@ HEADERS         = \
 		  weight.h \
 		  whitespace.h \
 		  wolfpack.h \
-		  worldmain.h \
 		  wpconsole.h \
 		  tilecache.h \
 		  walking.h \
+		  world.h \
 		  wpdefaultscript.h \
 		  wpdefmanager.h \
 		  wpscriptmanager.h \
@@ -114,8 +113,8 @@ SOURCES         = \
 		  boats.cpp \
 		  books.cpp \
 		  bounty.cpp \
+		  char_flatstore.cpp \
                   chars.cpp \
-                  charsmgr.cpp \
 		  combat.cpp \
 		  commands.cpp \
 		  contextmenu.cpp \
@@ -134,9 +133,9 @@ SOURCES         = \
 		  house.cpp \
 		  html.cpp \
                   iserialization.cpp \
+						item_flatstore.cpp \
 		  itemid.cpp \
 		  items.cpp \
-                  itemsmgr.cpp \
 		  magic.cpp \
 		  makemenus.cpp \
 		  maps.cpp \
@@ -167,12 +166,13 @@ SOURCES         = \
                   territories.cpp \
                   tracking.cpp \
 		  uobject.cpp \
+		  uobject_flatstore.cpp \
 		  utilsys.cpp \
 		  weight.cpp \
 		  wolfpack.cpp \
-		  worldmain.cpp \
 		  wpconsole.cpp \
 		  walking.cpp \
+		  world.cpp \
 		  wpdefmanager.cpp \
 		  wpdefaultscript.cpp \
 		  wpscriptmanager.cpp \
@@ -202,12 +202,23 @@ SOURCES		+= python/char.cpp \
 		   python/engine.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
+			python/multi.cpp \
 		   python/pyaccount.cpp \
 		   python/pycoord.cpp \
 		   python/pyregion.cpp \
 		   python/pytooltip.cpp \	
 		   python/socket.cpp \
 		   python/wppythonscript.cpp
+
+# Flatstore Module
+HEADERS	+= flatstore/exceptions.h \
+			flatstore/flatstore.h \
+			flatstore/flatstore_keys.h \
+			flatstore/version.h
+
+SOURCES	+= flatstore/exceptions.cpp \
+			flatstore/flatstore.cpp \
+			flatstore/flatstore_c.cpp
 
 INTERFACES	=
 TRANSLATIONS    = \

@@ -75,8 +75,8 @@ public:
 
 class cWorld
 {
-friend cCharIterator;
-friend cItemIterator;
+friend class cCharIterator;
+friend class cItemIterator;
 
 private:
 	// Everything that doesn't need to be accessed via a getter or setter

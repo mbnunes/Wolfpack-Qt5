@@ -129,7 +129,7 @@ inline bool inRange(int x1, int y1, int x2, int y2, int range)
 #if defined(__unix__)
 void signal_handler(int signal)
 {
-	AllCharsIterator iter;
+	cCharIterator iter;
 
 	switch (signal)
 	{
@@ -148,15 +148,10 @@ void signal_handler(int signal)
 				Skills->reload();
 
 				// Update the Regions
-				for( iter.Begin(); !iter.atEnd(); iter++ )
+				for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
 				{
-					P_CHAR pChar = iter.GetData();
-
-					if( pChar )
-					{
-						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-						pChar->setRegion( region );
-					}
+					cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+					pChar->setRegion( region );
 				}
 		break ;
 		

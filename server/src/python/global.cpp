@@ -357,7 +357,7 @@ PyObject* wpFindmulti( PyObject* self, PyObject* args )
 		PyErr_BadArgument();
 		return NULL;
 	}
-	Coord_cl pos = getArgCoord( 1 );
+	Coord_cl pos = getArgCoord( 0 );
 	P_MULTI pMulti = cMulti::findMulti( pos );
 	return PyGetMultiObject( pMulti );
 }
