@@ -144,7 +144,6 @@
 **
 */
 
-//##ModelId=3C5D92AD0054
 void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 {
 	// Here it used to check if dir was -1 and return. We need to make sure that we
@@ -299,7 +298,6 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	if (!amTurning)
 	{
 		HandleTeleporters(pc, socket, oldx, oldy);
-        
 		HandleWeatherChanges(pc, socket);
 	}
 	
@@ -334,7 +332,6 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 // West           6 0x06         134 0x86
 // Northwest      7 0x07         135 0x87
 
-//##ModelId=3C5D92AD0221
 bool cMovement::isValidDirection(int dir)
 {
 	return ( dir == ( dir & 0x87 ) );
@@ -352,7 +349,6 @@ bool cMovement::isValidDirection(int dir)
 // end of the spell cast. With this new check, we don't even need to set the frozen bit when
 // casting a spell!
 
-//##ModelId=3C5D92AD0235
 bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 
@@ -399,7 +395,6 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 
 // Rewrote to deny the client... We'll see if it works.
 
-//##ModelId=3C5D92AD025D
 bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 	// Who are we going to check for weight restrictions?
@@ -436,7 +431,6 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 // I left a gap between Player and NPC because someone may want to implement race
 // restrictions... 
 
-//##ModelId=3C5D92AE00C4
 short int cMovement::CheckMovementType(P_CHAR pc)
 {
 	// Am I a GM Body?
@@ -466,8 +460,6 @@ short int cMovement::CheckMovementType(P_CHAR pc)
 	return retval;
 }
 
-
-//##ModelId=3C5D92AE010A
 bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz)
 {
 	unsigned int StartGrid=mapRegions->StartGrid(cx, cy);
@@ -498,8 +490,6 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, si
 }
 
 // check if GM Body
-
-//##ModelId=3C5D92AD0285
 bool cMovement::CanGMWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -562,7 +552,6 @@ bool cMovement::CanGMWalk(unitile_st xyb)
 	return false;
 }
 
-//##ModelId=3C5D92AD02C1
 bool cMovement::CanNPCWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -582,7 +571,6 @@ bool cMovement::CanNPCWalk(unitile_st xyb)
 	return false;
 }
 
-//##ModelId=3C5D92AD02A3
 bool cMovement::CanPlayerWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -602,8 +590,6 @@ bool cMovement::CanPlayerWalk(unitile_st xyb)
 	return false;
 }
 
-
-//##ModelId=3C5D92AD02E9
 bool cMovement::CanFishWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -650,11 +636,9 @@ bool cMovement::CanFishWalk(unitile_st xyb)
 
 // needs testing... not totally accurate, but something to hold place.
 
-//##ModelId=3C5D92AD0307
 bool cMovement::CanBirdWalk(unitile_st xyb)
 {
 //	unsigned short int blockid = xyb.id;
-
 	return ( CanNPCWalk(xyb) || CanFishWalk(xyb) );
 }
 
@@ -676,7 +660,6 @@ bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw(
     return true;
 }
 
-//##ModelId=3C5D92AE01F0
 bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 // New need for return
 // returns true if updatechar required, or false if not
@@ -792,7 +775,7 @@ void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount
 	{
 		land_st land;
 		Map->SeekLand(mapid, &land);
-		
+	
 		xyblock[xycount].type=0;
 		xyblock[xycount].basez = mapz;
 		xyblock[xycount].id = mapid;
@@ -954,7 +937,6 @@ void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int 
 
 
 // actually send the walk command back to the player and increment the sequence
-//##ModelId=3C5D92AE02FE
 void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence)
 {
 	if (socket!=INVALID_UOXSOCKET)
@@ -973,18 +955,18 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 }
 
 // send out our movement to all other players who can see us move
-//##ModelId=3C5D92AE0327
 void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy)
 {
 	// lets cache these vars in advance
 	const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
 	const int newx=pc->pos.x;
 	const int newy=pc->pos.y;
+	const UOXSOCKET socket = calcSocketFromChar( pc );
 
-	for (int i=0;i<now;i++)
+	for (int i = 0; i < now; ++i)
 	{
 		// lets see, its much cheaper to call perm[i] first so i'm reordering this
-		if ((perm[i]) && (inrange1p(pc, currchar[i])))
+		if ((socket != i) && (perm[i]) && (inrange1p(pc, currchar[i])))
 		{
 			/*if (
 				(((abs(newx-chars[currchar[i]].pos.x)==visibleRange )||(abs(newy-chars[currchar[i]].pos.y)== visibleRange )) &&
