@@ -22,6 +22,8 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Region Updates/Fixes.
 			Added flags: noentermessage and noguardmessage
 			Fixed guardowner messages
+		- Removed <gold></gold> support.
+			Item baseid 'eed' should be used instead.
 	* Definition Changes:
 		- Fixed Sheep definitions
 		- Regions are split up facet/type/name.xml
@@ -63,6 +65,9 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Door improvements.
 			Speed in which blocks are checked improved.
 			Manual closing block checks.
+		- Timer fixes for database scripts.
+		- Fixed recalling to areas outside of a region.
+		- Fixed renaming runes
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
