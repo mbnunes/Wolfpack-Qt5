@@ -90,7 +90,7 @@ uint AccountRecord::secsToUnblock() const
 
 bool AccountRecord::addCharacter( cChar* d )
 {
-	if (qFind( characters_.begin(), characters_.end(), d ) != characters_.end())
+	if( qFind( characters_.begin(), characters_.end(), d ) == characters_.end() )
 	{
 		characters_.push_back(d);
 		return true;

@@ -98,12 +98,13 @@ void cCommands::loadACLs( void )
 	{
 		clConsole.ProgressFail();
 		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "WARNING: Privlvls for admins, gms, counselors and players undefined!\n" );
+		clConsole.send( "WARNING: No ACLs for players, counselors, gms and admins defined!\n" );
 		clConsole.ChangeColor( WPC_NORMAL );
 		return;
 	}
+
 	QString groupName;
-	for(QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
+	for( QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
 		QDomElement *Tag = DefManager->getSection( WPDT_PRIVLEVEL, *it );
 		QMap<QString, stACLcommand> group;
@@ -129,8 +130,8 @@ void cCommands::loadACLs( void )
 			else if ( Tag->tagName() == "action" )
 			{
 				stACLcommand action;
-				action.name = Tag->attribute("name", "any");
-				action.permit = Tag->attribute("permit", "false") == "true" ? true : false;
+				action.name = Tag->attribute( "name", "any" );
+				action.permit = Tag->attribute( "permit", "false" ) == "true" ? true : false;
 				group.insert( action.name, action );
 			}
 			n = n.nextSibling().toElement();

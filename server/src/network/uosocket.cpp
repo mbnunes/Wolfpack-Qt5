@@ -592,7 +592,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem = pChar->getBackpack();
 	
 	pChar->setAccount( _account );
-
 	giveNewbieItems( packet );
 	
 	// Start the game with the newly created char -- OR RELAY HIM !!
