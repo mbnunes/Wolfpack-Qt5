@@ -256,7 +256,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 							if (pc->med)
 							{
 								int s = calcSocketFromChar(pc);
-								sysmessage(s, "You are at peace.");
+								sysmessage(s, tr("You are at peace.").latin1());
 								pc->med = false;
 							}
 							pc->mn = pc->in;
@@ -351,7 +351,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 			{
 				pc->squelched=0;
 				pc->mutetime=-1;
-				sysmessage(s, "You are no longer squelched!");
+				sysmessage(s, tr("You are no longer squelched!").latin1());
 			}
 		}
 	}
@@ -360,7 +360,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	{
 		if ( pc->crimflag > 0 && ( pc->crimflag <= currenttime || overflow ) &&  pc->isCriminal() )//AntiChrist
 		{
-			sysmessage(s,"You are no longer a criminal.");
+			sysmessage(s, tr("You are no longer a criminal.").latin1());
 			pc->crimflag=-1;
 			pc->setInnocent();
 		}
@@ -369,7 +369,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 			if (pc->kills>0)
 				pc->kills--;
 			if ((pc->kills==repsys.maxkills)&&(repsys.maxkills>0))
-				sysmessage(s, "You are no longer a murderer.");
+				sysmessage(s, tr("You are no longer a murderer.").latin1());
 			pc->murderrate=(repsys.murderdecay*MY_CLOCKS_PER_SEC)+currenttime;//AntiChrist
 		}
 		setcharflag(pc);//AntiChrist
@@ -405,13 +405,13 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	{
 		if ((pc->jailtimer>0) && (pc->jailtimer <= uiCurrentTime))
 		{
-			sysmessage(s,"Your jail time is over!");
+			sysmessage(s, tr("Your jail time is over!").latin1());
 			
 			if (pc != NULL)
 			{
 				if(pc->cell==0)
 				{			
-					sysmessage(s,"You're not in jail already ? Please report to GM");
+					sysmessage(s, tr("You're not in jail already ? Please report to GM").latin1());
 					pc->jailtimer=0;
 					sprintf((char*)temp,"%i cause bug in jail system.",pc->account);
 					savelog((char*)temp,"server.log");
@@ -429,7 +429,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					sprintf((char*)temp,"%s is auto-released from jail \n",pc->name.c_str());
 					savelog((char*)temp,"server.log");
 					
-					sysmessage(s, "You are released.");
+					sysmessage(s, tr("You are released.").latin1());
 				}
 			}
 			
@@ -469,14 +469,14 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		switch(pc->hunger)
 		{
 		case 6: break; //Morrolan
-		case 5: sysmessage(s,"You are still stuffed from your last meal");	break;
-		case 4:	sysmessage(s,"You are not very hungry but could eat more");	break;
-		case 3:	sysmessage(s,"You are feeling fairly hungry");				break;
-		case 2:	sysmessage(s,"You are extremely hungry");					break;
-		case 1:	sysmessage(s,"You are very weak from starvation");			break;
+		case 5: sysmessage(s, tr("You are still stuffed from your last meal").latin1());	break;
+		case 4:	sysmessage(s, tr("You are not very hungry but could eat more").latin1());	break;
+		case 3:	sysmessage(s, tr("You are feeling fairly hungry").latin1());				break;
+		case 2:	sysmessage(s, tr("You are extremely hungry").latin1());						break;
+		case 1:	sysmessage(s, tr("You are very weak from starvation").latin1());			break;
 		case 0:
 			if (!pc->isGMorCounselor())
-				sysmessage(s,"You must eat very soon or you will die!");
+				sysmessage(s, tr("You must eat very soon or you will die!").latin1());
 			break;
 		}
 		pc->hungertime = currenttime+(SrvParams->hungerRate() * MY_CLOCKS_PER_SEC); // Bookmark
@@ -486,12 +486,12 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
 		if (pc->hp > 0 && pc->hunger<2 && !pc->isGMorCounselor() && !pc->dead)
 		{
-			sysmessage(s,"You are starving !");
+			sysmessage(s, tr("You are starving !").latin1());
 			pc->hp -= SrvParams->hungerDamage();
 			updatestats(pc, 0);
 			if(pc->hp<=0)
 			{
-				sysmessage(s,"You have died of starvation");
+				sysmessage(s, tr("You have died of starvation").latin1());
 				deathstuff(pc);
 			}
 		}
@@ -577,7 +577,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				if (pc->hp<1)
 				{
 					deathstuff(pc);
-					sysmessage(s, "The poison has killed you.");
+					sysmessage(s, tr("The poison has killed you.").latin1());
 				}
 			} // end switch
 		} // end if poison-wear off-timer
@@ -587,7 +587,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	{
 		pc->poisoned = 0;
 		impowncreate(s, pc, 1); // updating to blue stats-bar ...
-		sysmessage(s, "The poison has worn off.");
+		sysmessage(s, tr("The poison has worn off.").latin1());
 	}
 	if( pc->onhorse )
 	{

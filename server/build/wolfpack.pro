@@ -184,4 +184,6 @@ SOURCES         = Client.cpp \
 		  walking2.cpp \
 		  packlen.cpp
 INTERFACES	=
- 
+TRANSLATIONS    = \
+                  wolfpack_pt-BR.ts
+

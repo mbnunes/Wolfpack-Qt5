@@ -1851,7 +1851,7 @@ void weblaunch(int s, char *txt) // Direct client to a web page
 	int l;
 	char launchstr[4]="\xA5\x00\x00";
 
-	sysmessage(s, "Launching your web browser. Please wait...");
+	sysmessage(s, tr("Launching your web browser. Please wait...").latin1());
 	l=strlen(txt)+4;
 	launchstr[1]=l>>8;
 	launchstr[2]=l%256;

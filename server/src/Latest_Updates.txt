@@ -104,3 +104,5 @@ will be placed in the bank. Need new npc.scp with the brokers in it. They are NP
 85) verdata.mul still required in ini file, but if not found, server continues (punt)
 86) fixed: spells have a delay again (Duke)
 87) changed: ALL monsters (approx 1000) have sounds now & corrected wrong ones (LB)
+88) Added: Internationalization support ( for languages that do not require UTF-16 ). Support
+done thru Wolfpack Runtime Library ( Correa )

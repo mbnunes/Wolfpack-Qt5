@@ -35,6 +35,9 @@
 #undef  DBGFILE
 #define DBGFILE "inlines.h"
 
+// library Includes
+#include "qapplication.h"
+
 inline UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {
 	int j;
@@ -66,6 +69,10 @@ inline void SetTimerSec(unsigned int *timer, const short seconds)
 inline bool isCharSerial(long ser) {return (ser != INVALID_SERIAL && ser >= 0 && ser <  0x40000000);}
 inline bool isItemSerial(long ser) {return (ser != INVALID_SERIAL && ser >= 0 && ser >= 0x40000000);}
 
+inline QString tr( const char* text, const char* comment = 0, const char* context = "@default" )
+{
+	return qApp->translate( context, text, comment );
+}
 
 
 #endif

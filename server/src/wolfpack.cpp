@@ -62,6 +62,11 @@
 #include "regions.h"
 #include "srvparams.h"
 
+// Library Includes
+#include "qapplication.h"
+#include "qtranslator.h"
+#include "qstring.h"
+
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
 #include "debug.h"
@@ -2722,6 +2727,8 @@ void checkparm(string param)
 
 int main(int argc, char *argv[])
 {
+	QApplication app( argc, argv ); // we need one instance
+
     bDeamon = false ;
 	keeprun = 1; // First of all, we want to run :)
 	if (argc > 1)
@@ -2835,7 +2842,7 @@ int main(int argc, char *argv[])
 
 	//constart();
 
-	clConsole.send("Starting WOLFPACK...\n");
+	clConsole.send( "Starting WOLFPACK...\n" );
 	openings = 0;
 	scpfilename[0] = 0;
 
@@ -2873,7 +2880,13 @@ int main(int argc, char *argv[])
 	}
 	clConsole.send("Done.\n");
 
-
+	QTranslator translator(0); // must be valid thru app life.
+	QString languageFile = SrvParams->getString("General", "Language File", "", true);
+	if ( !languageFile.isEmpty() )
+	{
+		translator.load( languageFile, "./languages" );
+		app.installTranslator( &translator );
+	}
 
 	//Now lets load the custom scripts, if they have them defined...
 	i=0;

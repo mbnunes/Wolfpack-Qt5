@@ -72,8 +72,6 @@ void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b);
 void action(int s, int x); // Character does a certain action
 void npcaction(P_CHAR pc_npc, int x); // NPC character does a certain action
 void sysbroadcast(const char *txt); // System broadcast in bold text
-void sysmessage(UOXSOCKET s, char *txt, ...); // System message (In lower left corner);
-void sysmessage(UOXSOCKET s, short color, char *txt, ...);
 void itemmessage(UOXSOCKET s, char *txt, int serial, short color=0x0000);
 void wearIt(const UOXSOCKET s, const P_ITEM pi);
 void backpack(UOXSOCKET s, SERIAL serial); // Send Backpack (with items);
@@ -131,5 +129,12 @@ void sendtradestatus(P_ITEM cont1, P_ITEM cont2);
 void endtrade(SERIAL);
 void tellmessage(int i, int s, char *txt);
 void PlayDeathSound( P_CHAR pc );
+void sysmessage(UOXSOCKET s, char *txt, ...); // System message (In lower left corner);
+void sysmessage(UOXSOCKET s, short color, char *txt, ...);
+inline void sysmessage(UOXSOCKET s, const char *txt)
+{
+	sysmessage( s, (char*)txt);
+}
+
 
 #endif

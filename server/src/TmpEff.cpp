@@ -286,7 +286,8 @@ void cTmpEff::Expire()
 		{
 			pc_s->priv2 &= 0xFD;
 			UOXSOCKET sk=calcSocketFromChar((pc_s));
-			if (sk!=-1) sysmessage(sk, "You are no longer frozen.");
+			if (sk!=-1) 
+				sysmessage(sk, tr("You are no longer frozen.").latin1());
 			Magic->afterParticles(38, pc_s); 			
 		}
 		break;
