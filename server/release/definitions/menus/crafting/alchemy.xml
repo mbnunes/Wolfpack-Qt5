@@ -137,7 +137,7 @@
 			<material id="f8c" amount="3" name="Sulfurous Ash" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_lesserexplosion" name="Explosion Potion">
+		<craft definition="potion_explosion" name="Explosion Potion">
 			<alchemy min="350" max="850" />
 			<material id="f8c" amount="5" name="Sulfurous Ash" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
