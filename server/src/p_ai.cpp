@@ -370,7 +370,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						d = chardist( pc_i, pc );
 						if (d > 10 || pc->isInvul() || pc->dead)
 							continue;
-						if (!(pc->npcaitype == 2 || pc->isCriminal() || pc->isMurderer()))
+						if (!(pc->npcaitype == 2 || pc->isMurderer()))
 							continue;
 						if (pc->isPlayer() && !onl)
 							continue;
