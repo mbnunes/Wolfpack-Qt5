@@ -181,7 +181,7 @@ void serXmlFile::close()
 	document = 0;
 }
 
-void serXmlFile::writeObjectID(QString &data)
+void serXmlFile::writeObjectID( const QString &data )
 {
 	node = document->createElement("objectID");
 	node.setAttribute("value", data);

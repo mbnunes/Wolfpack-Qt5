@@ -129,7 +129,7 @@ void serBinFile::close()
 	file.close();
 }
 
-void serBinFile::writeObjectID(QString& data)
+void serBinFile::writeObjectID( const QString& data )
 {
 	write("objectID", data);
 	++_count;

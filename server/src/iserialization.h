@@ -97,7 +97,7 @@ public:
 	virtual void writeObject( cSerializable * );
 
 	// Write Methods
-	virtual void writeObjectID(QString&) = 0;
+	virtual void writeObjectID( const QString& ) = 0;
 	virtual void write(const char* Key, std::string &data) = 0;
 	virtual void write(const char* Key, unsigned int data) = 0;
 	virtual void write(const char* Key, signed int data) = 0;

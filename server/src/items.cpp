@@ -244,7 +244,7 @@ long cItem::ReduceAmount(const short amt)
 	return rest;
 }
 
-void cItem::setContSerial( UI32 nValue )
+void cItem::setContSerial( SI32 nValue )
 {
 	if( this->contserial != INVALID_SERIAL )
 		contsp.remove( this->contserial, this->serial );
