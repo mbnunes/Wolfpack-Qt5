@@ -46,7 +46,7 @@ public:
 	virtual ~cSerializable() {;}
 
 	virtual void		Serialize( ISerialization &archive );
-	virtual std::string objectID( void );
+	virtual std::string objectID( void ) = 0;
 };
 
 /*!

@@ -630,9 +630,10 @@ bool checkSkill( UOXSOCKET Socket, QDomElement& Action )
 		// Only process Resource nodes
 		if( ( !Nodes.item( i ).isElement() ) || ( Nodes.item( i ).toElement().nodeName() != "useitem" ) )
 			continue;
-
+		
 		// Process the Resource Node
-		useItem( Socket, Nodes.item( i ).toElement(), true );
+		QDomElement Action = Nodes.item( i ).toElement();
+		useItem( Socket, Action, true );
 	}
 
 	return false;

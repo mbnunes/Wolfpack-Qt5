@@ -1024,6 +1024,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 void CWorldMain::savenewworld(QString module)
 {
 	static unsigned long ocCount, oiCount;
+	UI32 savestarttime = getNormalizedTime();
 
 //	AllTmpEff->Off();
 
@@ -1034,8 +1035,9 @@ void CWorldMain::savenewworld(QString module)
 		{
 			sysbroadcast("World data saving....");
 			clConsole.send("Worldsave Started!\n" );
-			clConsole.send("items: %i\n", cItemsManager::getInstance()->size());
-			clConsole.send("chars: %i\n", cCharsManager::getInstance()->size());
+			clConsole.send("items  : %i\n", cItemsManager::getInstance()->size());
+			clConsole.send("chars  : %i\n", cCharsManager::getInstance()->size());
+			clConsole.send("effects: %i\n", AllTmpEff->size());
 		}
 		isSaving = true;
 	}
@@ -1076,7 +1078,10 @@ void CWorldMain::savenewworld(QString module)
 	if ( announce() )
 	{
 		sysbroadcast("Worldsave Done!\n");
-		clConsole.send("Worldsave Done!\n");
+		char temp[128];
+		sprintf( temp, "World saved in %.03f sec", (float)(((float)getNormalizedTime() - (float)savestarttime) / CLOCKS_PER_SEC ) );
+		clConsole.PrepareProgress( temp );
+		clConsole.ProgressDone();
 	}
 
 //	Guilds->Write( iWsc );
