@@ -19,6 +19,7 @@
 		<requires type='str'>45</requires> 
 		<restock>10</restock>
 		<smelt>4</smelt>
+		<type>1008</type>
 		<weight>27</weight>
 		<value>10.0</value>
 	</item>
@@ -36,6 +37,7 @@
 		<restock>10</restock>
 		<smelt>18</smelt>
 		<weight>36</weight>
+		<type>1008</type>
 		<value>30.0</value>
 	</item>
 
@@ -43,6 +45,7 @@
 	<item id="1b7b">
 		<decay />
 		<defense>18</defense>
+		<type>1008</type>
 		<durability>100</durability>
 		<nodye />
 		<id>0x1B7B</id>
@@ -68,6 +71,7 @@
 		<restock>10</restock>
 		<smelt>14</smelt>
 		<weight>5.4</weight>
+		<type>1008</type>
 		<value>500</value>
 	</item>
 </definitions>
