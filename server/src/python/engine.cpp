@@ -30,6 +30,7 @@
 
 #include "engine.h"
 
+#include "../srvparams.h"
 #include "../console.h"
 #include "../globals.h"
 
@@ -67,78 +68,46 @@ void startPython( int argc, char* argv[], bool silent )
 
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first
 
-	Py_Initialize(); // Initialize python finally
+	Py_Initialize();
 	PySys_SetArgv( argc, argv );
 
 	// Modify our search-path
-	PyObject *sysModule = PyImport_ImportModule( "sys" );
-	PyObject *searchPath = PyObject_GetAttrString( sysModule, "path" );
+	PyObject *searchpath = PySys_GetObject( "path" );
 	
-	// Sorry but we can't use our DefManager for this
-	QDomDocument Document( "python" );
-	QFile File( "python.xml" );
-
-    if ( !File.open( IO_ReadOnly ) )
+	QStringList elements = QStringList::split( ";", SrvParams->getString( "General", "Python Searchpath", "./scripts;.", true ) );
+	
+	// Prepend our items to the searchpath
+	for( int i = elements.count() - 1; i >= 0; --i )
 	{
-		if( !silent )
-			Console::instance()->ProgressSkip();
-		Console::instance()->send( "Unable to open python.xml!\n" );
-		return;
+		PyList_Insert( searchpath, 0, PyString_FromString( elements[i].latin1() ) );
 	}
-
-    if ( !Document.setContent( &File ) ) {
-        File.close();
-        
-		if( !silent )
-			Console::instance()->ProgressSkip();
-		Console::instance()->send( "Unable to parse python.xml" );
-
-		return;
-	}
-
-	File.close();
-
-	QDomElement pythonSettings = Document.documentElement();
-	QDomNodeList nodeList = pythonSettings.childNodes();
-
-	for( UI08 i = 0; i < nodeList.count(); i++ )
-	{
-		if( !nodeList.item( i ).isElement() )
-			continue;
-
-		QDomElement element = nodeList.item( i ).toElement();
-		
-		if( element.nodeName() != "searchpath" )
-			continue;
-
-		PyList_Append( searchPath, PyString_FromString( element.text().ascii() ) );
-	}
-
-	PyObject_SetAttrString( sysModule, "path", searchPath );
 	
 	// Import site now
 	PyObject *m = PyImport_ImportModule( "site" );
-	if( m == NULL )
+	
+	if( !m )
 	{
-		Console::instance()->ProgressFail();
-		if( PyErr_Occurred() )
-			PyErr_Print();
+		if( !silent )
+		{
+			Console::instance()->ProgressFail();
+			if( PyErr_Occurred() )
+				PyErr_Print();
+		}
+		
 		return;
 	}
-	else
-	{
-		Py_XDECREF( m );
-    }
+
+	Py_XDECREF( m );
 	
 	try
 	{
-		
 		init_wolfpack_globals(); // Init wolfpack extensions
 	}
 	catch( ... )
 	{
 		if( !silent )
 			Console::instance()->ProgressFail();
+
 		Console::instance()->send( "Failed to initialize the python extension modules\n" );
 		return;
 	}

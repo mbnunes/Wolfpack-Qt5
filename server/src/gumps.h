@@ -47,9 +47,8 @@ class cSpawnRegion;
   cGump class
  *****************************************************************************/
 
-class cGump : public QObject
+class cGump
 {
-	Q_OBJECT
 protected:
 	SERIAL serial_, type_;
 	Q_INT32 x_,y_;
@@ -204,7 +203,6 @@ inline void cGump::setNoDispose( bool data )
 
 class cSpawnRegionInfoGump : public cGump
 {
-	Q_OBJECT
 protected:
 	cSpawnRegion* region_;
 
@@ -216,7 +214,6 @@ public:
 
 class cTagsInfoGump : public cGump
 {
-	Q_OBJECT
 protected:
 	cUObject* object_;
 
@@ -228,7 +225,6 @@ public:
 
 class cWhoMenuGump : public cGump
 {
-	Q_OBJECT
 private:
 	UINT32 page_;
 	std::vector< cUOSocket* > sockets_;
@@ -241,7 +237,6 @@ public:
 
 class cSocketInfoGump : public cGump
 {
-	Q_OBJECT
 private:
 	cUOSocket* socket_;
 
@@ -253,7 +248,6 @@ public:
 
 class cPagesGump : public cGump
 {
-	Q_OBJECT
 private:
 	UINT32 page_;
 	WPPAGE_TYPE ptype_;
@@ -268,7 +262,6 @@ public:
 
 class cPageInfoGump : public cGump
 {
-	Q_OBJECT
 private:
 	cPage*	page_;
 
@@ -280,7 +273,6 @@ public:
 
 class cHelpGump : public cGump
 {
-	Q_OBJECT
 private:
 	SERIAL char_;
 

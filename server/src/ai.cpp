@@ -599,7 +599,7 @@ void Action_Flee::execute()
 		{
 			int v1 = newPos.x - fleePos.x;
 			int v2 = newPos.y - fleePos.y;
-			float v_norm = sqrt( v1 * v1 + v2 * v2 );
+			float v_norm = sqrt( (double)( v1 * v1 + v2 * v2 ) );
 			newPos.x = newPos.x + (INT16)floor( rnddist * v1 / v_norm );
 			newPos.y = newPos.y + (INT16)floor( rnddist * v2 / v_norm );
 		}

@@ -40,6 +40,7 @@
 #include "exceptions.h"
 #include "basechar.h"
 #include "player.h"
+#include "inlines.h"
 
 #include "globals.h" // needed for object SrvParams
 

@@ -355,11 +355,12 @@ void WPDefManager::load( void )
 			int mult = childTag->getAttribute( "mult" ).toInt();
 			if( mult <= 0 )
 				mult = 1;
-			int i = 0;
-			while( i < mult )
+			
+			int j = 0;
+			while( j < mult )
 			{
 				list.push_back( data );
-				++i;
+				++j;
 			}
 		}
 

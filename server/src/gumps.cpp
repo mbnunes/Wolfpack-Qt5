@@ -43,6 +43,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "world.h"
+#include "inlines.h"
 
 // System Includes
 #include <math.h>

@@ -128,7 +128,6 @@ protected:
 
 class cMultiGump : public cGump
 {
-	Q_OBJECT
 private:
 	SERIAL char_;
 	SERIAL multi_;

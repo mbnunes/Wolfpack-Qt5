@@ -45,9 +45,8 @@
 #include <qobject.h>
 #include <set>
 
-class cResource : public QObject, public cDefinable
+class cResource : public cDefinable
 {
-	Q_OBJECT
 public:
 	cResource( const cElement *Tag );
 
@@ -148,7 +147,6 @@ typedef SingletonHolder<cAllResources> Resources;
 
 class cFindResource : public cTargetRequest
 {
-	Q_OBJECT
 public:
 	cFindResource( QString resname ) : resourcename_( resname ), tool_( INVALID_SERIAL ) {}
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
@@ -161,7 +159,6 @@ private:
 
 class cConvertResource : public cTargetRequest
 {
-	Q_OBJECT
 public:
 	cConvertResource( QString resname, cItem* pi ) : resourcename_( resname ), sourceserial_( pi->serial() ) {}
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );

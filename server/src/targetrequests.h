@@ -48,7 +48,6 @@
 
 class cAddItemTarget: public cTargetRequest
 {
-	Q_OBJECT
 	QString item_;
 	bool nodecay;
 public:
@@ -58,7 +57,6 @@ public:
 
 class cAddNpcTarget: public cTargetRequest
 {
-	Q_OBJECT
 	QString npc_;
 public:
 	cAddNpcTarget( const QString &npc ) : npc_(npc) {}
@@ -67,7 +65,6 @@ public:
 
 class cBuildMultiTarget: public cTargetRequest
 {
-	Q_OBJECT
 	QString multisection_;
 	SERIAL	deedserial_;
 	SERIAL	senderserial_;
@@ -78,7 +75,7 @@ public:
 
 class cSetMultiOwnerTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 	SERIAL multi_;
 	bool coowner_;
 public:
@@ -89,7 +86,7 @@ public:
 
 class cMultiAddToListTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 	SERIAL	multi_;
 	bool	banlist_;
 public:
@@ -100,7 +97,7 @@ public:
 
 class cMultiChangeLockTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	SERIAL multi_;
 public:
@@ -112,7 +109,7 @@ public:
 // Stealing
 class cSkStealing: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target );
 };
@@ -121,7 +118,7 @@ public:
 // Forensics Evaluation
 class cSkForensics: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -169,7 +166,7 @@ public:
 // Poisoning
 class cSkPoisoning: public cTargetRequest
 {
-	Q_OBJECT
+	
 	bool poisonSelected;
 	P_ITEM pPoison;
 public:
@@ -203,7 +200,7 @@ public:
 
 class cSkRepairItem : public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	cDoCodeAction* makesection_;
 public:
@@ -213,7 +210,7 @@ public:
 
 class cResurectTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -233,7 +230,7 @@ public:
 
 class cKillTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -255,7 +252,7 @@ public:
 
 class cSetTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 	QString key,value;
 public:
 	cSetTarget( const QString& nKey, const QString& nValue ) : key(nKey), value(nValue) {}
@@ -264,14 +261,14 @@ public:
 
 class cRemoveTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cTeleTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -296,7 +293,7 @@ public:
 
 class cShowTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	QString key;
 public:
@@ -306,7 +303,7 @@ public:
 
 class cSetTagTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	UINT8 type_;
 	QString key_;
@@ -352,7 +349,7 @@ public:
 
 class cGetTagTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	QString key_;
 public:
@@ -387,7 +384,7 @@ public:
 
 class cRemoveTagTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	QString key_;
 public:
@@ -452,7 +449,7 @@ public:
 
 class cTagsInfoTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	cTagsInfoTarget() {}
 
@@ -484,7 +481,7 @@ public:
 
 class cAddEventTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	QString _event;
 public:
@@ -495,7 +492,7 @@ public:
 
 class cRemoveEventTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	QString _event;
 public:
@@ -531,7 +528,7 @@ public:
 
 class cMoveTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	INT16 x,y,z;
 public:
@@ -577,7 +574,7 @@ public:
 
 class cTileTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	INT16 x1, y1;
 	INT8 z;
@@ -590,7 +587,7 @@ public:
 
 class cRestockTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
@@ -615,7 +612,7 @@ public:
 */
 class cDyeTubDyeTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 	UINT16 _color;
 public:
 	cDyeTubDyeTarget( UINT16 color ) : _color(color) {}
@@ -624,7 +621,7 @@ public:
 
 class cStableTarget: public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	P_NPC m_npc;
 public:
@@ -643,7 +640,7 @@ public:
 
 class cFollowTarget : public cTargetRequest
 {
-	Q_OBJECT
+	
 private:
 	P_NPC m_npc;
 public:

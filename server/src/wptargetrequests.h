@@ -43,9 +43,8 @@ class cUOSocket;
 class cUORxTarget;
 
 // Abstract base-class for target requests
-class cTargetRequest : public QObject
+class cTargetRequest
 {
-	Q_OBJECT
 protected:
 	UI32 timeout_; // Timeout in MS
 	UI32 targetId_; // Target id so no overlapping targets are processed

@@ -63,9 +63,8 @@ struct stTargetItem
 	UINT16 hue;
 };
 
-class cUOSocket : public QObject
+class cUOSocket
 {
-	Q_OBJECT
 public:
 	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
 private:

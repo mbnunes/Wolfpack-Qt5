@@ -118,9 +118,8 @@ private:
 	UINT16		max_;
 };
 
-class cMakeSection : public QObject, public cDefinable
+class cMakeSection : public cDefinable
 {
-	Q_OBJECT
 public:
 	cMakeSection( const QString &name, cMakeAction* baseaction = NULL );
 	cMakeSection( const cElement *Tag, cMakeAction* baseaction = NULL );
@@ -146,7 +145,6 @@ protected:
 
 class cMakeCustomSection : public cMakeSection
 {
-	Q_OBJECT
 public:
 	cMakeCustomSection( const QString &name, cMakeAction* baseaction = NULL );
 	cMakeCustomSection( const cElement *Tag, cMakeAction* baseaction = NULL );
@@ -180,7 +178,6 @@ protected:
 
 class cMakeNpcSection : public cMakeSection
 {
-	Q_OBJECT
 public:
 	cMakeNpcSection( const QString &name, cMakeAction* baseaction = NULL );
 	cMakeNpcSection( const cElement *Tag, cMakeAction* baseaction = NULL );
@@ -212,7 +209,6 @@ private:
 
 class cMakeResourceSection : public cMakeCustomSection
 {
-	Q_OBJECT
 public:
 	cMakeResourceSection( const QString &name, cMakeAction* baseaction = NULL );
 	cMakeResourceSection( const cElement *Tag, cMakeAction* baseaction = NULL );
@@ -228,7 +224,6 @@ public:
 
 class cMakeAmountSection : public cMakeCustomSection
 {
-	Q_OBJECT
 public:
 	cMakeAmountSection( const QString &name, cMakeAction* baseaction = NULL );
 	cMakeAmountSection( const cElement *Tag, cMakeAction* baseaction = NULL );
@@ -244,7 +239,6 @@ public:
 
 class cDoCodeAction : public cMakeSection
 {
-	Q_OBJECT
 public:
 	cDoCodeAction( const QString &name, cMakeAction* baseaction = NULL );
 	cDoCodeAction( const cElement *Tag, cMakeAction* baseaction = NULL );
@@ -258,7 +252,6 @@ public:
 
 class cDoScriptAction : public cMakeSection
 {
-	Q_OBJECT
 public:
 	cDoScriptAction( const QString &name, cMakeAction* baseaction = NULL );
 	cDoScriptAction( const cElement *Tag, cMakeAction* baseaction = NULL );
@@ -425,7 +418,6 @@ private:
 
 class cMakeMenuGump : public cGump
 {
-	Q_OBJECT
 private:
 	cMakeMenu* menu_;
 	cMakeMenu* prev_;
@@ -440,7 +432,6 @@ public:
 
 class cLastTenGump : public cGump
 {
-	Q_OBJECT
 private:
 	cMakeMenu* prev_;
 	QPtrList< cMakeSection > sections_;

@@ -119,9 +119,8 @@ public:
 	std::map< UI32, good_st >		tradesystem_;
 };
 
-class cAllTerritories : public QObject, public cAllBaseRegions
+class cAllTerritories : public cAllBaseRegions
 {
-	Q_OBJECT
 public:
 
 	void		load( void );
