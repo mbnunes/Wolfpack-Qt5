@@ -31,7 +31,11 @@ def onUse(player, item):
 	item.deltag('pet')
 	item.delete()
 
-	pet.stablemaster = -1
+	pet.removescript('figurine')
+	pet.owner = player
+	pet.stablemaster = 0
+	pet.wandertype = 0 # Stay where you are...
+	pet.direction = player.direction
 	pet.moveto(player.pos)
 	pet.update()
 	pet.sound(SND_IDLE)

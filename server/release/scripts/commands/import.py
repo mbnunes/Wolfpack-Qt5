@@ -96,11 +96,11 @@ def onLoad():
 def parseMulti( file, pos ):
   warnings = ''
   count = 0
-
   for line in file:
     # Replace \r and \n's
     line = line.replace( "\r", "" )
     line = line.replace( "\n", "" )
+
 
     if len(line.split(' ')) != 5:
       continue

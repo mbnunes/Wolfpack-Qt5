@@ -1,4 +1,5 @@
 
+from wolfpack import tr
 import wolfpack
 import wolfpack.time
 import math
@@ -6,11 +7,7 @@ import time
 from random import randint, random
 from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
 from system import poison
-from wolfpack.consts import RED, ALCHEMY, STRENGTH_TIME, ANIM_FIDGET3, \
-	SOUND_DRINK1, SOUND_AGILITY_UP, AGILITY_TIME, POTION_GREATERHEAL_RANGE, \
-	POTION_HEAL_RANGE, POTION_LESSERHEAL_RANGE, MAGERY, \
-	POTION_LESSEREXPLOSION_RANGE, POTION_GREATEREXPLOSION_RANGE, \
-	POTION_EXPLOSION_RANGE, SOUND_STRENGTH_UP, HEAL_POT_DELAY
+from wolfpack.consts import *
 
 
 # potion [ return_bottle, aggressive, target, name ]
@@ -40,7 +37,8 @@ POTIONS = \
 	21:	[ True, 0, 0, 'Greater Intellegence', 'A keg of Greater Intellegence potions', 'potion_greaterintelligence' ], # greater intelligence
 	22:	[ 1, 0, 0, 'Lesser Mana', 'A keg of Lesser Mana potions', 'potion_lessermana' ], # lesser mana
 	23:	[ 1, 0, 0, 'Mana', 'A keg of Mana potions', 'potion_mana' ], # mana
-	24:	[ 1, 0, 0, 'Greater Mana', 'A keg of Greater Mana potions', 'potion_greatermana' ] # greater mana
+	24:	[ 1, 0, 0, 'Greater Mana', 'A keg of Greater Mana potions', 'potion_greatermana' ], # greater mana
+	25: [ True, False, True, 'Shrink', 'A keg of Shrink potions', 'potion_shrink' ], # shrink
 }
 
 POT_RETURN_BOTTLE = 0
@@ -57,7 +55,7 @@ explodables = [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexp
 def onUse( char, item ):
 	socket = char.socket
 	# Potions need to be on your body to use them, or in arms reach.
-	if item.getoutmostchar() != char:
+	if not char.canreach(item, -1):
 		char.message( "This potion is out of your reach..." )
 		return False
 
@@ -80,6 +78,9 @@ def onUse( char, item ):
 					item.settag('exploding', 'true')
 				socket.sysmessage( 'You should throw this now!', RED )
 				socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
+			elif potiontype == 25:
+				socket.sysmessage( 'What do you want to shrink?' )
+				socket.attachtarget( 'potions.shrinktarget', [ item.serial ] )
 
 		# We just drink this potion...
 		else:
@@ -624,6 +625,61 @@ def refreshPotion( char, potion, refreshtype ):
 	char.soundeffect( SOUND_DRINK1 )
 	consumePotion( char, potion, POTIONS[ refreshtype ][ POT_RETURN_BOTTLE ] )
 	return True
+
+
+#
+# Shrink a char in range
+#
+def shrinktarget(player, arguments, target):
+	potion = wolfpack.finditem(arguments[0])
+	if not potion or not player.canreach(potion, -1):
+		player.socket.sysmessage(tr('The shrink potion has to be in your backpack to use it.'))
+		return
+
+	if not target.char:
+		player.socket.sysmessage(tr('You can only shrink pets owned by you.'))
+		return
+	
+	if not player.canreach(target.char, 1):
+		player.socket.clilocmessage(500312)
+		return
+		
+	if target.char.player:
+		player.socket.sysmessage(tr('You cannot shrink other players.'))
+		return
+		
+	if target.char.owner != player:
+		player.socket.sysmessage(tr("You don't own that creature."))
+		return
+		
+	if target.char.id in [0x190, 0x191, 0x192, 0x193, 0x3db]:
+		player.socket.sysmessage(tr('You can only shrink animals and monsters!'))
+		return
+
+	bodyinfo = wolfpack.bodyinfo(target.char.id)
+
+	if bodyinfo['figurine'] <= 0 or bodyinfo['figurine'] >= 0x4000:
+		player.socket.sysmessage(tr('You cannot shrink that.'))
+		return
+
+	target.char.sound(SND_IDLE)
+
+	# Create a new figurine and make it newbie
+	figurine = wolfpack.additem('%x' % bodyinfo['figurine'])
+	figurine.newbie = True
+	figurine.addscript('figurine')
+	figurine.settag('pet', target.char.serial)
+	figurine.name = target.char.name
+	figurine.update()
+	player.getbackpack().additem(figurine, True, False) # Random pos, no auto stacking
+	figurine.update()
+
+	target.char.removefromview()
+	target.char.owner = None
+	target.char.stablemaster = figurine.serial
+	target.char.addscript('figurine') # This is a figurined NPC
+
+	consumePotion(player, potion)
 
 # INVIS POTION
 # 502179	Your skin becomes extremely sensitive to light, changing to mirror the colors of things around you.
