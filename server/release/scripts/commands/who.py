@@ -1,4 +1,14 @@
-
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts
+#  ((    _/{  "-;  | Created by: Dreoth
+#   )).-' {{ ;'`   | Revised by:
+#  ( (  ;._ \\ ctr | Last Modification: Ported from core
+#===============================================================#
+"""
+	\command who
+	\description Manage connected clients.
+	\notes The gump shown will allow you to travel to the client, send messages or bring them directly to you.
+"""
 import wolfpack
 import wolfpack.sockets
 import wolfpack.accounts
