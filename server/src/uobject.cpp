@@ -108,7 +108,8 @@ void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 
 	// Position Changed
 	cMulti* multi = cMulti::find( newpos );
-	if ( multi_ != multi )
+	// Don't put multis into themselves
+	if ( multi != this && multi_ != multi )
 	{
 		if ( multi_ )
 		{
