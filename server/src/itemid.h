@@ -50,6 +50,7 @@ bool IsSword		(short id);
 bool IsSwordType	(short id);
 bool IsMace1H		(short id);
 bool IsMace2H		(short id);
+bool IsDagger       (short id);
 bool IsMaceType		(short id);
 bool IsFencing1H	(short id);
 bool IsFencing2H	(short id);// -Fraz- for paralyzing

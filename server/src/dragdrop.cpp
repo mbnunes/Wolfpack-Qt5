@@ -620,7 +620,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
 	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,false);
 	int t=calcCharFromSer(pp->Tserial);
 	// Search for the key word "the head of"
 	if( strstr( pi->name, "the head of" ) )
@@ -659,45 +659,35 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
 	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,false);
 	int t=calcCharFromSer(pp->Tserial);
 	if(pi->id()!=0x0EED)
 	{
 		sprintf((char*)temp,"Sorry %s i can only use gold",pc_currchar->name);
 		npctalk(s,t,(char*)temp,0);
-		Sndbounce5(s);
-		if (ps->IsDragging())
-		{
-			ps->ResetDragging();
-			item_bounce5(s,pi);
-			return true;
-		}
+		return false;
+	}
+	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name,pi->amount);
+	npctalk(s,t,(char*)temp,0);
+	if(pi->amount<=100)
+	{
+		pc_currchar->karma += 10;
+		sysmessage(s,"You have gain a little karma!");
 	}
 	else
 	{
-		sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name,pi->amount);
-		npctalk(s,t,(char*)temp,0);
-		if(pi->amount<=100)
-		{
-			pc_currchar->karma += 10;
-			sysmessage(s,"You have gain a little karma!");
-		}
-		else if(pi->amount>100)
-		{
-			pc_currchar->karma += 50;
-			sysmessage(s,"You have gain some karma!");
-		}
-		Items->DeleItem(pi);
-		return true;
+		pc_currchar->karma += 50;
+		sysmessage(s,"You have gain some karma!");
 	}
-	return true;
+		Items->DeleItem(pi);
+	    return true;
 }
 
 static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
@@ -861,17 +851,41 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				// Item dropped on a Guard (possible bounty quest)
 				if( ( pTC->isNpc() ) && ( pTC->npcaitype == 4 ) )
 				{
-					ItemDroppedOnGuard( ps, pp, pi);
+					if (!ItemDroppedOnGuard( ps, pp, pi) )
+					{
+						Sndbounce5(s);
+						if (ps->IsDragging())
+						{
+							ps->ResetDragging();
+							item_bounce5(s,pi);
+						}
+					}
 					return true;
 				}
 				if ( pTC->npcaitype == 5 )
 				{
-					ItemDroppedOnBeggar( ps, pp, pi);
+					if (!ItemDroppedOnBeggar( ps, pp, pi))
+					{
+						Sndbounce5(s);
+						if (ps->IsDragging())
+						{
+							ps->ResetDragging();
+							item_bounce5(s,pi);
+						}
+					}
 					return true;
 				}
 				if ( pTC->npcaitype == 8 )
 				{
-					ItemDroppedOnBanker( ps, pp, pi);
+					if (!ItemDroppedOnBanker( ps, pp, pi))
+					{
+						Sndbounce5(s);
+						if (ps->IsDragging())
+						{
+							ps->ResetDragging();
+							item_bounce5(s,pi);
+						}
+					}
 					return true;
 				}
 				

@@ -682,19 +682,17 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		}
 	}
 
-	if ((pc->fleeat==0)) pc->fleeat=NPC_BASE_FLEEAT;
-	if ((pc->reattackat==0)) pc->reattackat=NPC_BASE_REATTACKAT;
+//	if ((pc->fleeat==0)) pc->fleeat=SrvParms->npc_base_fleeat;
+//	if ((pc->reattackat==0)) pc->reattackat=SrvParms->npc_base_reattackat;
 
-	if (!(pc->npcWander==5)&&
-		(pc->hp<pc->st*pc->fleeat/100))
+	if (pc->npcWander!=5 &&	pc->hp < pc->st*pc->fleeat/100)
 	{
 		pc->oldnpcWander = pc->npcWander;
 		pc->npcWander=5;
 		pc->setNextMoveTime();
 	}
 
-	if ((pc->npcWander==5)&&
-		(pc->hp>pc->st*pc->reattackat/100))
+	if (pc->npcWander==5 &&	pc->hp > pc->st*pc->reattackat/100)
 	{
 		pc->npcWander = pc->oldnpcWander;
 		pc->setNextMoveTime();

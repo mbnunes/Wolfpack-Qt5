@@ -131,8 +131,8 @@ void loadserverdefaults(void)
 	server_data.monsters_vs_animals=0;			// By default monsters won't attack animals;
 	server_data.animals_attack_chance=15;		// a 15% chance
 	server_data.animals_guarded=0;				// By default players can attack animals without summoning guards
-	server_data.npc_base_fleeat=NPC_BASE_FLEEAT;
-	server_data.npc_base_reattackat=NPC_BASE_REATTACKAT;
+	server_data.npc_base_fleeat=20;             // 20% hp
+	server_data.npc_base_reattackat=40;
 	server_data.maxabsorbtion=20;				// 20 Arm (single armour piece) -- Magius(CHE)
 	server_data.maxnohabsorbtion=100;			// 100 Arm (total armour) -- Magius(CHE)
 	server_data.sellbyname=1;		// Values= 0(Disabled) or 1(Enabled) - The NPC Vendors buy from you if your item has the same name of his item! --- Magius(CHE)

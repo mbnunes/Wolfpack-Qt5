@@ -235,8 +235,8 @@ public:
 	unsigned int poisontxt; // poision text timer
 	unsigned int poisonwearofftime; // LB, makes poision wear off ...
 	
-	int fleeat;
-	int reattackat;
+	short fleeat;
+	short reattackat;
 	int trigger; //Trigger number that character activates
 	char trigword[31]; //Word that character triggers on.
 	unsigned int disabled; //Character is disabled, cant trigger.

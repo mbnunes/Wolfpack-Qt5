@@ -140,10 +140,15 @@ bool IsMaceType(short id)
 	return ( IsMace1H(id) || IsMace2H(id) );
 }
 
+bool IsDagger(short id)
+{
+	return ( id==0x0F51 || id==0x0F52 );
+}
+
 bool IsFencing1H(short id)
 {
-	return ((id==0x1404 || id==0x1405) ||	// war fork -Fraz- adjusted
-			(id==0x0F51 || id==0x0F52) ||   // dagger
+	return ( IsDagger(id) ||
+			(id==0x1404 || id==0x1405) ||	// war fork -Fraz- adjusted
 			(id==0x1400 || id==0x1401) );	// kryss 
 }
 

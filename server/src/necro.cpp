@@ -160,109 +160,91 @@ int SpawnRandomItem(int nCharID,int nInPack, char* cScript, char* cList, char* c
 
 void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 {
-	if(buffer[nSocket][11]==0xFF && buffer[nSocket][12]==0xFF && buffer[nSocket][13]==0xFF && buffer[nSocket][14]==0xFF) 
-		return; // check if user canceled operation
-
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[nSocket]);
-	P_ITEM pVial = MAKE_ITEMREF_LR(addx[nSocket]);
-	if (!pVial) return; // should never happen
+	cItem* Vial=MAKE_ITEMREF_LR(addx[nSocket]);
+	if (!Vial) return; // should never happen
 	
-	int nDist=0;
-	P_ITEM pDagger = NULL;
-	SERIAL serial = calcserial(buffer[nSocket][7],buffer[nSocket][8],buffer[nSocket][9],buffer[nSocket][10]);
+//	int nTargetID=-1;
+	
+	
+	int cc = currchar[nSocket];
+	cChar* Player = MAKE_CHARREF_LR(cc);
 
-	// Look for a Dagger
-	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
-	unsigned int ci;
-	for (ci=0;ci<vecContainer.size();ci++)
+	cItem* Weapon = Player->getWeapon(); // search for a dagger in the players hand
+	if (!Weapon || !IsDagger(Weapon->id()) )
 	{
-		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL)
-		{
-			if (((pi->layer==1)&&(pi->contserial==pc_currchar->serial) && (pi->id()==0x0F51 || pi->id()==0x0F52)))
-			{
-				pDagger = pi;
-				break;
-			}
-		}
+		sysmessage(nSocket,"You do not have a dagger equipped.");
+		return;
 	}
 	
-	if(pVial != NULL && serial != INVALID_SERIAL && pDagger != NULL)
+	int serial=LongFromCharPtr(buffer[nSocket]+7);
+	if (isCharSerial(serial))
 	{
-		pVial->more1=0;
-		if(isCharSerial(serial))
+		cChar* Victim = FindCharBySerial(serial);
+		if (!Victim)
+			return;
+		Vial->more1=0;
+		if(!Victim->npc)
 		{
-			P_CHAR pTargetID = FindCharBySerial( serial );
-
 			// checkskill hmmm what skill/s has/have to added here LB ...
 			
-			if( pTargetID == pc_currchar)
+			if( Victim->isSameAs(Player) )
 			{
-				if(pTargetID->hp<=10)
+				if(Victim->hp<=10)
 				{
 					sysmessage(nSocket,"You are too wounded to continue.");
 					return;
 				}
-				else
-				{
-					sysmessage(nSocket, "You prick your finger and fill the vial.");
-					pTargetID->hp = (pTargetID->hp - ((rand()%6)+2));
-					MakeNecroReg(nSocket, pVial, 0x0E24);
-					return;
-				}
+				sysmessage(nSocket,"You prick your finger and fill the vial.");
 			}
 			else
 			{
-				nDist=chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pTargetID));
-				if((inrange1p(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pTargetID)))&&
-					(nDist<=2))
-				{
-					if(pTargetID->isNpc())
-					{
-						Karma(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pTargetID),(0-(pTargetID->karma)));
-						if(((pTargetID->id1==0x00)&&(pTargetID->id2==0x0c))||((pTargetID->id2>=0x3b)&&(pTargetID->id2<=0x3d)))
-							pVial->more1=1;
-						pTargetID->hp = (pTargetID->hp-((rand()%6)+2));
-						MakeNecroReg(nSocket,pVial,0x0E24);
-						// Guard be summuned if in town and good npc
-						// if good flag criminal
-						// if evil npc attack necromancer but don't flag criminal
-					}
-					else
-					{
-						Karma(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pTargetID), (0-(pTargetID->karma)));
-						pTargetID->hp = (pTargetID->hp-((rand()%6)+2));
-						sysmessage(calcSocketFromChar(DEREF_P_CHAR(pTargetID)),"%s has pricked you with a dagger and sampled your blood.", pc_currchar->name);
-						MakeNecroReg(nSocket,pVial,0x0E24);
-						// flag criminal						
-					}
-				}
-				else 
+				if (Player->dist(Victim) > 2)
 				{
 					sysmessage(nSocket,"That individual is not anywhere near you.");
 					return;
 				}
-			}
-		}
-		else if(isItemSerial(serial))
-		{
-			P_ITEM pTargetID = FindItemBySerial(serial);
-			if (pTargetID->corpse==1)
-			{
-				pVial->more1=pTargetID->more1;
-				Karma(DEREF_P_CHAR(pc_currchar),-1,-1000);
-				if(pTargetID->more2<4)
+				int vv=DEREF_P_CHAR(Victim);
+				if (Victim->npc)
 				{
-					sysmessage(nSocket,"You take a sample of blood from the corpse.");
-					MakeNecroReg(nSocket,pVial,0x0E24);
-					pTargetID->more2++;
+					if( Victim->id1==0x00 &&( Victim->id2==0x0c || (Victim->id2>=0x3b && Victim->id2<=0x3d) ))
+						Vial->more1=1;
+					// Guard be summuned if in town and good npc
+					// if good flag criminal
+					// if evil npc attack necromancer but don't flag criminal
 				}
-				else sysmessage(nSocket,"You examine the corpse but, decide any further blood samples would be to contaminated.");
+				else
+				{
+					sprintf(temp,"%s has pricked you with a dagger and sampled your blood.",Player->name);
+					sysmessage(calcSocketFromChar(vv),temp);
+					// flag criminal						
+				}
+				Karma(cc,vv,(0-(Victim->karma)));
 			}
-			else sysmessage(nSocket,"That is not a person or a corpse!");
+			Victim->hp -= (rand()%6)+2;
+			MakeNecroReg(nSocket,Vial,0x0E24);
 		}
-	}		
-	if(pDagger == NULL) sysmessage(nSocket,"You do not have a dagger equipped.");	
+	}
+	else
+	{
+		cItem* Corpse = FindItemBySerial(serial);
+		if (!Corpse)
+			return;
+		if (!Corpse->corpse)
+			sysmessage(nSocket,"That is not a person or a corpse!");
+		else
+		{
+			Vial->more1=Corpse->more1;
+			Karma(cc,-1,-1000);
+			if (Corpse->more2<4)
+			{
+				sysmessage(nSocket,"You take a sample of blood from the corpse.");
+				MakeNecroReg(nSocket,Vial,0x0E24);
+				Corpse->more2++;
+			}
+			else
+				sysmessage(nSocket,"You examine the corpse but, decide any further blood samples would be to contaminated.");
+		}
+	}
 }
 
 void MakeNecroReg(int nSocket, P_ITEM pMat, short id)

@@ -68,3 +68,7 @@ screen away to open bank. helps to open from outsidebank. (Ripper)
 57) Added: More commands for player vendors, now you can say vendor buy,purchase,gold,
 collect,get,look,view,browse and packup. A little code change for them also. (Ripper)
 58) Added: You can now say retrieve or claim with pets name to a stablemaster. (Ripper)
+59) Fixed: bad char index nnn in file necro.cpp line 178 / sampling blood from a corpse (Lonewolf)
+60) Fixed: duplicate and wrong messages plus a 'dead' item when dropping items on beggars or guards (Lonewolf)
+61) Fixed: npc_base_fleeat and _reattack in server.scp didn't work. NOTE: existing npcs and
+    those with their own setting in npc.scp will keep their fleeat-values (Lonewolf)

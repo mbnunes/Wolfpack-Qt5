@@ -374,8 +374,8 @@ void cChar::Init(bool ser)
 	this->poisontxt=0; // poision text timer
 	this->poisonwearofftime=0; // LB, makes poision wear off ...
 	
-	this->fleeat=0;
-	this->reattackat=0;
+	this->fleeat=SrvParms->npc_base_fleeat;
+	this->reattackat=SrvParms->npc_base_reattackat;
 	this->trigger=0; //Trigger number that character activates
 	this->trigword[0]='\x00'; //Word that character triggers on.
 	this->disabled=0; //Character is disabled for n cicles, cant trigger.

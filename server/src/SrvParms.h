@@ -62,10 +62,6 @@ void saveserverscript(void);
 #define REGENRATE3 5 // Seconds to heal ONE mn
 #define GATETIMER 30
 
-
-#define NPC_BASE_FLEEAT 20
-#define NPC_BASE_REATTACKAT 40
-
 struct server_st
 {
 	unsigned int packetsendstyle; // LB .. defines the way packets are send
