@@ -1468,8 +1468,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						}
 						if (j==0)
 						{
-							serial=pc_currchar->serial;
-							serhash=serial%HASHMAX;
+							serial = pc_currchar->serial;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
 							unsigned int i;
 							for (i=0;i<vecContainer.size();i++)
@@ -1512,8 +1511,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							
 						break;
 					}
-			
-					
 					break; // Lord Binary !!!!
 
 				case 0x9B:// GM Page		

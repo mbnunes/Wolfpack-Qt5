@@ -3556,15 +3556,14 @@ void cTargets::DupeTarget(int s)
 
 void cTargets::MoveToBagTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcItemFromSer(serial);
-	P_ITEM pi=MAKE_ITEMREF_LR(i);
-	if (i==-1) return;
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
+	P_ITEM pi = FindItemBySerial(serial);
+	if (pi == NULL) return;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_ITEM pBackpack = Packitem(pc_currchar);
+	if(pBackpack == NULL) return;
 	
-	int p=packitem(currchar[s]);
-	if(p==-1) return;
-	
-	pi->SetContSerial(items[p].serial);
+	pi->SetContSerial(pBackpack->serial);
 	pi->pos.x=50+rand()%80;
 	pi->pos.y=50+rand()%80;
 	pi->pos.z=9;
@@ -3572,7 +3571,7 @@ void cTargets::MoveToBagTarget(int s)
 	pi->decaytime=0;//reset decaytimer
 	
 	SndRemoveitem(pi->serial);
-	RefreshItem(i);
+	RefreshItem(pi);
 }
 
 void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with the targetting cursor

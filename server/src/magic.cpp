@@ -1664,7 +1664,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	if (type==0 && (!(pc_currchar->isGM())))//if they are a gm they don't have a delay :-)
 	{
 		pc_currchar->spelltime=((spells[num].delay/10)*MY_CLOCKS_PER_SEC)+uiCurrentTime;
-		pc_currchar->priv2=pc_currchar->priv2|2;//freeze
+		pc_currchar->priv2 |= 2;//freeze
 	} 
 	else
 	{

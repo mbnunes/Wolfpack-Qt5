@@ -153,7 +153,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial==0) //owner of the pet ? and not already stabled ?
 			{
 				char pntmp[150];
-				strcpy(pntmp,p_pet->name);
+				strcpy(pntmp, p_pet->name);
 				strupr(pntmp);
 				if (strstr( comm, pntmp)) //if petname is in
 				{

@@ -1580,11 +1580,11 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 	   y) If the place chosen is not a valid position (the NPC can't walk there) then a new 
 	   place will be chosen, if a valid place cannot be found in a certain # of tries (50), 
 		   the NPC will be placed directly on the spawner and the server op will be warned. */
-		   
-		   if ((items[i].type==69 || items[i].type==125)&& items[i].isInWorld())
+		   P_ITEM pi_i = MAKE_ITEM_REF(i);
+		   if ((pi_i->type==69 || pi_i->type==125)&& pi_i->isInWorld())
 		   {
-			   if (items[i].more3==0) items[i].more3=10;
-			   if (items[i].more4==0) items[i].more4=10;
+			   if (pi_i->more3==0) pi_i->more3=10;
+			   if (pi_i->more4==0) pi_i->more4=10;
 			   //signed char z, ztemp, found;
 	   
 			   k=0;
@@ -1592,20 +1592,20 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			   {
 				   if (k>=50) //this CAN be a bit laggy. adjust as nessicary
 				   {
-					   clConsole.send("WOLFPACK: Problem area spawner found at [%i,%i,%i]. NPC placed at default location.\n",items[i].pos.x,items[i].pos.y,items[i].pos.z);
+					   clConsole.send("WOLFPACK: Problem area spawner found at [%i,%i,%i]. NPC placed at default location.\n",pi_i->pos.x,pi_i->pos.y,pi_i->pos.z);
 					   xos=0;
 					   yos=0;
 					   break;
 				   }
-				   xos=RandomNum(-items[i].more3,items[i].more3);
-				   yos=RandomNum(-items[i].more4,items[i].more4);
-				   // clConsole.send("Spawning at Offset %i,%i (%i,%i,%i) [-%i,%i <-> -%i,%i]. [Loop #: %i]\n",xos,yos,items[i].x+xos,items[i].y+yos,items[i].z,items[i].more3,items[i].more3,items[i].more4,items[i].more4,k); /** lord binary, changed %s to %i, crash when uncommented ! **/
+				   xos=RandomNum(-pi_i->more3,pi_i->more3);
+				   yos=RandomNum(-pi_i->more4,pi_i->more4);
+				   // clConsole.send("Spawning at Offset %i,%i (%i,%i,%i) [-%i,%i <-> -%i,%i]. [Loop #: %i]\n",xos,yos,pi_i->x+xos,pi_i->y+yos,pi_i->z,pi_i->more3,pi_i->more3,pi_i->more4,pi_i->more4,k); /** lord binary, changed %s to %i, crash when uncommented ! **/
 				   k++;
-				   if ((items[i].pos.x+xos<1) || (items[i].pos.y+yos<1)) lb=0; /* lord binary, fixes crash when calling npcvalid with negative coordiantes */
-				   else lb=Movement->validNPCMove(items[i].pos.x+xos,items[i].pos.y+yos,items[i].pos.z,DEREF_P_CHAR(pc_c));				 
+				   if ((pi_i->pos.x+xos<1) || (pi_i->pos.y+yos<1)) lb=0; /* lord binary, fixes crash when calling npcvalid with negative coordiantes */
+				   else lb=Movement->validNPCMove(pi_i->pos.x+xos,pi_i->pos.y+yos,pi_i->pos.z,DEREF_P_CHAR(pc_c));				 
 				   
 				   //Bug fix Monsters spawning on water:
-				   MapStaticIterator msi(items[i].pos.x + xos, items[i].pos.y + yos);
+				   MapStaticIterator msi(pi_i->pos.x + xos, pi_i->pos.y + yos);
 
 				   staticrecord *stat;
 				   loopexit=0;
@@ -1621,11 +1621,15 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			   } while (!lb);
 		   } // end Zippy's changes (exept for all the +xos and +yos around here....)
 
-		   pc_c->pos.x=items[i].pos.x+xos;
-		   pc_c->pos.y=items[i].pos.y+yos;
-		   pc_c->dispz=pc_c->pos.z=items[i].pos.z;
-		   pc_c->SetSpawnSerial(items[i].serial);
-		} // end of if !triggerx
+		   pc_c->pos.x=pi_i->pos.x+xos;
+		   pc_c->pos.y=pi_i->pos.y+yos;
+		   pc_c->dispz=pc_c->pos.z=pi_i->pos.z;
+		   pc_c->SetSpawnSerial(pi_i->serial);
+		   if ( pi_i->type == 125 )
+		   {
+			  MsgBoardQuestEscortCreate( DEREF_P_CHAR(pc_c) );
+		   }
+	   } // end of if !triggerx
 		break;
 	case 2: // take position from Socket
 		if (s!=-1)
@@ -1664,7 +1668,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 	//default: do nothing
 	}
    
-	pc_c->region=calcRegionFromXY(pc_c->pos.x, pc_c->pos.y);
+	pc_c->region = calcRegionFromXY(pc_c->pos.x, pc_c->pos.y);
    
    //Now find real 'skill' based on 'baseskill' (stat modifiers)
    for(z=0;z<TRUESKILLS;z++)
@@ -1678,10 +1682,6 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
    // After the NPC has been fully initialized, then post the message (if its a quest spawner) type==125
    if (postype==1) // lb crashfix
    {
-      if ( items[i].type == 125 )
-	  {
-          MsgBoardQuestEscortCreate( DEREF_P_CHAR(pc_c) );
-	  }
    }
    // End - Dupois
 
