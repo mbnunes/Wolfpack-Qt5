@@ -38,64 +38,64 @@ prices = {
 		}
 		
 def onSpeech( listener, speaker, text, keywords ):
-	# Check if our name is in the beginning of the string
-	if not text.lower().startswith( listener.name.lower() ):
-		return 0
-
-	if speaker.id != 0x190 and speaker.id != 0x191:
-		listener.say( "I can't cut your hair!",5 )
-		return 1
-
-	# We only have one keyword
-	gump = cGump( 0, 0, 0, 50, 50 )
-	gump.addBackground( 0x24a4, 425, 400 )
-	gump.startPage( 0 )
-	gump.addHtmlGump( 10, 30, 450, 20, '<basefont size="7" color="#336699"><center>Barber shop</center></basefont>' )
-	gump.addTilePic( 155, 31, 0xDFD )
-
-	# Page Switches (only for men)
-	if speaker.id == 0x190:
-		gump.addPageButton( 40, 61, 0x4B9, 0x4BA, 0x11 )
-		gump.addHtmlGump( 60, 60, 100, 20, '<basefont color="#333333"><u>Hair</u></basefont>' )
-
-		gump.addPageButton( 190, 61, 0x4B9, 0x4BA, 0x21 )
-		gump.addHtmlGump( 210, 60, 100, 20, '<basefont color="#333333"><u>Beard</u></basefont>' )
-
-	# Hair
-	addHairPage( speaker, gump, 0x11, 0x203B ) # Short Hair
-	addHairPage( speaker, gump, 0x12, 0x203C ) # Long Hair
-	addHairPage( speaker, gump, 0x13, 0x203D ) # Ponytail
-	addHairPage( speaker, gump, 0x14, 0x2044 ) # Mohawk
-	addHairPage( speaker, gump, 0x15, 0x2045 ) # Pageboy
-	addHairPage( speaker, gump, 0x16, 0x2046 ) # Buns hair
-	addHairPage( speaker, gump, 0x17, 0x2047 ) # Afro
-	addHairPage( speaker, gump, 0x18, 0x2048 ) # Receding hair
-	addHairPage( speaker, gump, 0x19, 0x2049 ) # 2 pig-tails
-	addHairPage( speaker, gump, 0x1A, 0x204a ) # Krisna Hair
-	addHairPage( speaker, gump, 0x1B, 0x0000 ) # None
-
-	if speaker.id == 0x190:
-		# Beard
-		gump.startPage( 0x21 )
-
-		# BEARDS
-		addBeardPage( speaker, gump, 0x21, 0x203E ) # Long Beard
-		addBeardPage( speaker, gump, 0x22, 0x203F ) # Short Beard
-		addBeardPage( speaker, gump, 0x23, 0x2040 ) # Goatee
-		addBeardPage( speaker, gump, 0x24, 0x2041 ) # Mustache
-		addBeardPage( speaker, gump, 0x25, 0x204B ) # Med Short Beard
-		addBeardPage( speaker, gump, 0x26, 0x204C ) # Med Long Beard
-		addBeardPage( speaker, gump, 0x27, 0x204D ) # Vandyke
-		addBeardPage( speaker, gump, 0x28, 0x0000 ) # None
-
-	gump.startPage( 0 )
-	gump.addButton( 350, 335, 2119, 2120, 0 ) # Cancel
-
-	gump.setCallback( "speech.barber.gump_callback" )
-	gump.setArgs( [ listener.serial ] )
-	gump.send( speaker )
-
-	return 1
+  # Check if our name is in the beginning of the string
+  if not text.lower().startswith( listener.name.lower() ):
+  	return 0
+  
+  if speaker.id != 0x190 and speaker.id != 0x191:
+  	listener.say(1042298)
+  	return 1
+  
+  # We only have one keyword
+  gump = cGump( 0, 0, 0, 50, 50 )
+  gump.addBackground( 0x24a4, 425, 400 )
+  gump.startPage( 0 )
+  gump.addHtmlGump( 10, 30, 450, 20, '<basefont size="7" color="#336699"><center>Barber shop</center></basefont>' )
+  gump.addTilePic( 155, 31, 0xDFD )
+  
+  # Page Switches (only for men)
+  if speaker.id == 0x190:
+  	gump.addPageButton( 40, 61, 0x4B9, 0x4BA, 0x11 )
+  	gump.addHtmlGump( 60, 60, 100, 20, '<basefont color="#333333"><u>Hair</u></basefont>' )
+  
+  	gump.addPageButton( 190, 61, 0x4B9, 0x4BA, 0x21 )
+  	gump.addHtmlGump( 210, 60, 100, 20, '<basefont color="#333333"><u>Beard</u></basefont>' )
+  
+  # Hair
+  addHairPage( speaker, gump, 0x11, 0x203B ) # Short Hair
+  addHairPage( speaker, gump, 0x12, 0x203C ) # Long Hair
+  addHairPage( speaker, gump, 0x13, 0x203D ) # Ponytail
+  addHairPage( speaker, gump, 0x14, 0x2044 ) # Mohawk
+  addHairPage( speaker, gump, 0x15, 0x2045 ) # Pageboy
+  addHairPage( speaker, gump, 0x16, 0x2046 ) # Buns hair
+  addHairPage( speaker, gump, 0x17, 0x2047 ) # Afro
+  addHairPage( speaker, gump, 0x18, 0x2048 ) # Receding hair
+  addHairPage( speaker, gump, 0x19, 0x2049 ) # 2 pig-tails
+  addHairPage( speaker, gump, 0x1A, 0x204a ) # Krisna Hair
+  addHairPage( speaker, gump, 0x1B, 0x0000 ) # None
+  
+  if speaker.id == 0x190:
+  	# Beard
+  	gump.startPage( 0x21 )
+  
+  	# BEARDS
+  	addBeardPage( speaker, gump, 0x21, 0x203E ) # Long Beard
+  	addBeardPage( speaker, gump, 0x22, 0x203F ) # Short Beard
+  	addBeardPage( speaker, gump, 0x23, 0x2040 ) # Goatee
+  	addBeardPage( speaker, gump, 0x24, 0x2041 ) # Mustache
+  	addBeardPage( speaker, gump, 0x25, 0x204B ) # Med Short Beard
+  	addBeardPage( speaker, gump, 0x26, 0x204C ) # Med Long Beard
+  	addBeardPage( speaker, gump, 0x27, 0x204D ) # Vandyke
+  	addBeardPage( speaker, gump, 0x28, 0x0000 ) # None
+  
+  gump.startPage( 0 )
+  gump.addButton( 350, 335, 2119, 2120, 0 ) # Cancel
+  
+  gump.setCallback( "speech.barber.gump_callback" )
+  gump.setArgs( [ listener.serial ] )
+  gump.send( speaker )
+  
+  return 1
 
 def addHairPage( char, gump, page, id ):
 	gump.startPage( page )
