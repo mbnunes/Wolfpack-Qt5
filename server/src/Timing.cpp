@@ -149,11 +149,10 @@ void cTiming::poll() {
 	}
 
 	if (nextCombatCheck <= time) {
-		events |= cBaseChar::EventCombat;
-		nextCombatCheck = time + 100;
+		nextCombatCheck = time + 250;
 		
 		// Check for timed out fights
-		QPtrList<cFightInfo> &fights = Combat::instance()->fights();
+		QPtrList<cFightInfo> fights = Combat::instance()->fights();
 		QPtrList<cFightInfo> todelete;
 		cFightInfo *info;
 		for (info = fights.first(); info; info = fights.next()) {
@@ -163,6 +162,14 @@ void cTiming::poll() {
 				if (info->victim()->isDead() || info->attacker()->isDead() && 
 					!info->attacker()->inRange(info->victim(), SrvParams->attack_distance())) {
 					todelete.append(info);
+				}
+			} else {
+				if (info->attacker()) {
+					info->attacker()->poll(time, cBaseChar::EventCombat);
+				}
+
+				if (info->victim()) {
+					info->victim()->poll(time, cBaseChar::EventCombat);
 				}
 			}
 		}
@@ -375,7 +382,7 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 
 	// Give the AI time to process events
 	if (npc->ai() && npc->aiCheckTime() <= time) {
-		npc->setAICheckTime(time + npc->aiCheckInterval() + RandomNum(0, npc->aiCheckInterval() / 10));
+		npc->setAICheckTime(time + npc->aiCheckInterval());
 		npc->ai()->check();
 	}
 

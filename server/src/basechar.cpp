@@ -687,7 +687,6 @@ void cBaseChar::resurrect() {
 			(*it)->update();
 		}
 
-		// Get all the items from the corpse (first move all equipment to the ground)
 		for (unsigned char layer = SingleHandedWeapon; layer < Mount; layer++) {
 			if (layer != Backpack && layer != Hair && layer != FacialHair) {
 				P_ITEM item = atLayer((enLayer)layer);
@@ -1286,9 +1285,6 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 
 	if( !noRemove )
 	{
-		// Dragging doesnt count as Equipping
-		if( layer != Dragging )
-			pi->onEquip( this, layer );
 		pi->removeFromCont();
 	}
 
@@ -1303,10 +1299,16 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	} else {
 		pi->container_ = this; // Avoid a flagChanged()
 	}
-
+	
 	if (handleWeight && (pi->layer() < 0x1A || pi->layer() == 0x1E)) {
 		weight_ += pi->totalweight();
 	}
+	
+	if (!noRemove) {
+		// Dragging doesnt count as Equipping
+		if( layer != Dragging )
+			pi->onEquip( this, layer );
+	}	
 }
 
 void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
@@ -1314,16 +1316,16 @@ void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
 	P_ITEM pi = atLayer(layer);
 	if ( pi )
 	{
-		// Dragging doesnt count as Equipping
-		if( layer != Dragging )
-			pi->onUnequip( this, layer );
-
 		pi->setContainer(0);
 		pi->setLayer( 0 );
 		content_.remove((ushort)(layer));
 
 		if( handleWeight )
 			weight_ -= pi->totalweight();
+			
+		// Dragging doesnt count as Equipping
+		if( layer != Dragging )
+			pi->onUnequip( this, layer );			
 	}
 }
 

@@ -411,7 +411,7 @@ void cItem::save()
 		addField("type",			type_);
 		addField("amount",			amount_);
 		addField("decaytime",		(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
-		addField("weight",			( ceilf( weight_ * 100 ) / 100 ) );
+		addField("weight",			weight_);
 		addField("hp",				hp_ );
 		addField("maxhp",			maxhp_ );
 		addField("magic",			magic_ );
@@ -1684,6 +1684,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else if( name == "baseid" )
 	{
 		baseid_ = value.toString();
+		return 0;
 	}
 	/*
 		\property item.amount The amount of objects in a stack.

@@ -63,7 +63,7 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 	QPtrList<cFightInfo> fights = pc_k->fights();
 	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
 		delete info;
-	}	
+	}
 
 	// Call the onDelete event.
 	PyObject *args = Py_BuildValue("(O&)", PyGetCharObject, pc_k);

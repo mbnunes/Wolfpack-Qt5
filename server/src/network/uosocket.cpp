@@ -647,6 +647,18 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	pChar->resend(false);
 	resendWorld(false);
 
+	// Send the equipment Tooltips
+	cBaseChar::ItemContainer content = _player->content();
+	cBaseChar::ItemContainer::const_iterator it;
+
+	for (it = content.begin(); it != content.end(); it++) {	
+		P_ITEM pItem = it.data();
+		if (pItem->layer() <= 0x19) {
+			pItem->update(this);
+			pItem->sendTooltip(this);
+		}
+	}
+
 	cUOTxWarmode warmode;
 	warmode.setStatus( pChar->isAtWar() );
 	send( &warmode );

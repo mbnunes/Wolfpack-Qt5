@@ -49,6 +49,13 @@
 class Coord_cl;
 class AbstractAI;
 
+// Uncomment if you want AI debugging messages
+// #define AIDEBUG
+
+#if !defined(NDEBUG) && !defined(AIDEBUG)
+#define AIDEBUG
+#endif
+
 class AbstractAction
 {
 protected:
@@ -81,6 +88,7 @@ public:
 
 	P_NPC			npc() const { return m_npc; }
 	void			setNPC( P_NPC npc ) { m_npc = npc; }
+	virtual const char *name() = 0;
 
 protected:
 	P_NPC			m_npc;
@@ -145,6 +153,9 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+	virtual const char *name() {
+		return "Action_Wander";
+	}
 
 protected:
 	void moveTo( const Coord_cl& pos );
@@ -159,6 +170,10 @@ protected:
 public:
 	Action_Flee( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ), pFleeFrom( NULL ) {}
 	virtual void execute();
+
+	virtual const char *name() {
+		return "Action_Flee";
+	}
 protected:
 	P_CHAR pFleeFrom;
 };
@@ -167,10 +182,15 @@ class Action_FleeAttacker : public Action_Flee
 {
 protected:
 	Action_FleeAttacker() : Action_Flee() {}
+
 public:
 	Action_FleeAttacker( P_NPC npc, AbstractAI* ai ) : Action_Flee( npc, ai ) {}
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Action_FleeAttacker";
+	}
 };
 
 class Action_Defend : public AbstractAction
@@ -182,6 +202,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Action_Defend";
+	}
 };
 
 class Monster_Aggr_Wander : public Action_Wander
@@ -191,6 +215,10 @@ protected:
 public:
 	Monster_Aggr_Wander( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ) {}
 	virtual float preCondition();
+
+	virtual const char *name() {
+		return "Monster_Aggr_Wander";
+	}
 };
 
 class Monster_Aggr_MoveToTarget : public Action_Wander
@@ -202,6 +230,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Action_MoveToTarget";
+	}
 };
 
 class Monster_Aggr_Fight : public AbstractAction
@@ -213,6 +245,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Monster_Aggr_Fight";
+	}
 };
 
 class Monster_Aggressive : public AbstractAI
@@ -365,6 +401,10 @@ public:
 	Animal_Wild_Flee( P_NPC npc, AbstractAI* ai ) : Action_Flee( npc, ai ) {}
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Animal_Wild_Flee";
+	}
 };
 
 class AnimalAI : public AbstractAI
@@ -429,6 +469,10 @@ public:
 	void setPreCondFunction( const QString &data ) { precond = data; }
 	void setPostCondFunction( const QString &data ) { postcond = data; }
 
+	virtual const char *name() {
+		return "ScriptAction:" + exec;
+	}
+
 protected:
 	QString exec;
 	QString precond;
@@ -467,6 +511,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Human_Guard_Called_Fight";
+	}
 };
 
 class Human_Guard_Called_TeleToTarget : public AbstractAction
@@ -478,6 +526,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Human_Guard_Called_TeleToTarget";
+	}
 };
 
 class Human_Guard_Called_Disappear : public AbstractAction
@@ -489,6 +541,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Human_Guard_Called_Disappear";
+	}
 };
 
 class cTerritory;
@@ -519,6 +575,10 @@ public:
 	Human_Guard_Wander( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ) {}
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Human_Guard_Wander";
+	}
 };
 
 class Human_Guard_MoveToTarget : public Action_Wander
@@ -530,6 +590,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Human_Guard_MoveToTarget";
+	}
 };
 
 class Human_Guard_Fight : public AbstractAction
@@ -541,6 +605,10 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+
+	virtual const char *name() {
+		return "Human_Guard_Fight";
+	}
 };
 
 class Human_Guard : public AbstractAI

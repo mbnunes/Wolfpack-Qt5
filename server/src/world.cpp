@@ -84,7 +84,7 @@ typedef std::map< SERIAL, P_CHAR > CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
-#define WP_DATABASE_VERSION "4"
+#define WP_DATABASE_VERSION "5"
 
 // This is used for autocreating the tables
 struct {

@@ -121,9 +121,6 @@ void cPlayer::load( char **result, UINT16 &offset )
 	visualRange_ = atoi( result[offset++] );
 	profile_ = result[offset++];
 	fixedLightLevel_ = atoi( result[offset++] );
-	if (fixedLightLevel_ == 0xFF) {
-		fixedLightLevel_ = 0;
-	}
 	strengthLock_ = atoi(result[offset++]);
 	dexterityLock_ = atoi(result[offset++]);
 	intelligenceLock_ = atoi(result[offset++]);

@@ -124,6 +124,10 @@ struct ActionNodeComparePredicate : public std::binary_function<stActionNode, st
 };
 
 void AbstractAI::check() {
+#if defined(AIDEBUG)
+	AbstractAction *oldaction = m_currentAction;
+#endif
+
 	// If we have no current action or our action cant be executed, we must get a new one
 	if (!m_currentAction || (m_currentAction && m_currentAction->preCondition() <= 0.0f)) {
 		std::vector<stActionNode> actions;
@@ -143,6 +147,14 @@ void AbstractAI::check() {
 		}
 	}
 
+	// Action is changing
+#if defined(AIDEBUG)
+	if (m_currentAction && oldaction != m_currentAction) {
+		QString message = QString("[NEWACTION: %1]").arg(m_currentAction->name());
+		m_npc->talk(message);
+	}
+#endif
+
 	// Now we should have a current action set, else do nothing!
 	if (m_currentAction) {
 		m_currentAction->execute();
@@ -151,6 +163,12 @@ void AbstractAI::check() {
 		// if the action is finished (when it returns >= 1.0f)!
 		float rnd = RandomNum(0, 1000) / 1000.0f;
 		if (m_currentAction->postCondition() >= rnd) {
+			// Action changing
+#if defined(AIDEBUG)
+			QString message = QString("[ENDACTION: %1]").arg(m_currentAction->name());
+			m_npc->talk(message);
+#endif
+
 			m_currentAction = NULL;
 		}
 	}
@@ -647,9 +665,15 @@ float Action_FleeAttacker::preCondition()
 		return 0.0f;
 
 	pFleeFrom = pAttacker;
-	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
-						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
-	return healthmod;
+
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 1.0;
+	}
+
+	return 0.0;
 }
 
 float Action_FleeAttacker::postCondition()
@@ -669,9 +693,14 @@ float Action_FleeAttacker::postCondition()
 	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, SrvParams->pathfindFleeRadius() ) )
 		return 1.0f;
 
-	float healthmod = (float)(m_npc->hitpoints() - m_npc->criticalHealth()) /
-						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
-	return healthmod;
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 0.0;
+	}
+
+	return 1.0;
 }
 
 float Action_Defend::preCondition()
@@ -701,8 +730,14 @@ float Action_Defend::preCondition()
 	if( !m_npc->inRange( pAttacker, range ) )
 		return 0.0f;
 
-	float healthmod = (float)m_npc->hitpoints() / ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints());
-	return healthmod;
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 0.0;
+	}
+
+	return 1.0;
 }
 
 float Action_Defend::postCondition()
@@ -729,9 +764,14 @@ float Action_Defend::postCondition()
 	if( !m_npc->inRange( pAttacker, range ) )
 		return 1.0f;
 
-	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
-						(float)(m_npc->maxHitpoints() - ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints()));
-	return healthmod;
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 1.0;
+	}
+
+	return 0.0;
 }
 
 void Action_Defend::execute()

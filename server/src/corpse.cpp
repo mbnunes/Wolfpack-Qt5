@@ -208,7 +208,7 @@ void cCorpse::update( cUOSocket *mSock )
 }
 
 SERIAL cCorpse::getEquipment(UINT8 layer) {
-	if (equipment_.find(layer) != equipment_.end()) {
+	if (equipment_.find(layer) == equipment_.end()) {
 		return INVALID_SERIAL;
 	} else {
 		return equipment_[layer];
@@ -217,8 +217,10 @@ SERIAL cCorpse::getEquipment(UINT8 layer) {
 
 void cCorpse::addEquipment( UINT8 layer, SERIAL serial )
 {
-	if( equipment_.find( layer ) != equipment_.end() )
+	if(equipment_.find( layer ) != equipment_.end()) {
+		equipment_[layer] = serial;
 		return;
+	}
 
 	equipment_.insert( make_pair( layer, serial ) );
 }

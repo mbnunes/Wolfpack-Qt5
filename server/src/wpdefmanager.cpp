@@ -188,7 +188,7 @@ public:
 
 					// If the element has an id, 
 					if (!tagId.isEmpty()) {
-						if (impl->unique[categories[i].key].contains(tagId)) {
+						if (impl->unique[categories[i].key].contains(tagId) && !SrvParams->overwriteDefinitions()) {
 							Console::instance()->log(LOG_WARNING, QString("Duplicate %1: %2\n[File: %3, Line: %4]\n").arg(element->name()).arg(tagId).arg(filename).arg(locator->lineNumber()));
 							delete element;
 						} else {

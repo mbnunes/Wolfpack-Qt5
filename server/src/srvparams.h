@@ -64,6 +64,7 @@ protected:
 	std::vector<StartLocation_st> startLocation_;
 	
 	// loaded data
+	bool overwriteDefinitions_;
 	bool hashAccountPasswords_;
 	bool convertUnhashedPasswords_;
 	bool allowUnencryptedClients_;
@@ -135,11 +136,6 @@ protected:
 	float checkAITime_;
 	unsigned int animalWildFleeRange_;
 	unsigned int guardDispelTime_;
-
-	// Regenerate
-	double hitpointrate_;
-	double staminarate_;
-	double manarate_;
 
 	// Combat
 	int attackstamina_;
@@ -237,6 +233,7 @@ public:
 	double npcMoveTime() const;
 	double tamedNpcMoveTime() const;
 	unsigned int showNpcTitles() const;
+	bool overwriteDefinitions() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -249,11 +246,6 @@ public:
 	QString accountsPassword() const;
 	QString accountsUsername() const;
 	QString accountsName() const;
-
-	// Regenerate
-	double hitpointrate() const;
-	double staminarate() const;
-	double manarate() const;
 
 	// Combat
 	int attackstamina() const;
@@ -494,21 +486,6 @@ inline unsigned char cSrvParams::attack_distance() const
 	return attack_distance_;
 }
 
-inline double cSrvParams::hitpointrate() const
-{
-	return hitpointrate_;
-}
-
-inline double cSrvParams::staminarate() const
-{
-	return staminarate_;
-}
-
-inline double cSrvParams::manarate() const
-{
-	return manarate_;
-}
-
 inline unsigned int cSrvParams::snoopdelay() const
 {
 	return snoopdelay_;
@@ -725,6 +702,10 @@ inline bool cSrvParams::hashAccountPasswords() const {
 
 inline bool cSrvParams::convertUnhashedPasswords() const {
 	return convertUnhashedPasswords_;
+}
+
+inline bool cSrvParams::overwriteDefinitions() const {
+	return overwriteDefinitions_;
 }
 
 #endif //__SRVPARAMS_H___

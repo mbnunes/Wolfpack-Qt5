@@ -271,8 +271,14 @@ float Monster_Aggr_MoveToTarget::preCondition()
 	if( m_npc->inRange( pAI->currentVictim(), range ) )
 		return 0.0f;
 
-	float healthmod = (float)m_npc->hitpoints() / ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints());
-	return healthmod;
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 0.0;
+	}
+
+	return 1.0;
 }
 
 float Monster_Aggr_MoveToTarget::postCondition()
@@ -297,9 +303,14 @@ float Monster_Aggr_MoveToTarget::postCondition()
 	if( m_npc->inRange( pAI->currentVictim(), range ) )
 		return 1.0f;
 
-	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
-						(float)(m_npc->maxHitpoints() - ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints()));
-	return healthmod;
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 1.0;
+	}
+
+	return 0.0;
 }
 
 void Monster_Aggr_MoveToTarget::execute()
@@ -346,8 +357,14 @@ float Monster_Aggr_Fight::preCondition()
 	if( !m_npc->inRange( pAI->currentVictim(), range ) )
 		return 0.0f;
 
-	float healthmod = (float)m_npc->hitpoints() / ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints());
-	return healthmod;
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 0.0;
+	}
+
+	return 1.0;
 }
 
 float Monster_Aggr_Fight::postCondition()
@@ -370,12 +387,21 @@ float Monster_Aggr_Fight::postCondition()
 		range = weapon->getTag("range").toInt();
 	}
 
-	if( !m_npc->inRange( pAI->currentVictim(), range ) )
+	if( !m_npc->inRange( pAI->currentVictim(), range ) ) {
+#if defined(AIDEBUG)
+		m_npc->talk("[COMBAT: Not In Range]");
+#endif
 		return 1.0f;
+	}
 
-	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
-						(float)(m_npc->maxHitpoints() - ((float)m_npc->criticalHealth()/100.0f * (float)m_npc->maxHitpoints()));
-	return healthmod;
+	// 1.0 = Full Health, 0.0 = Dead
+	float diff = 1.0 - QMAX(0, (m_npc->maxHitpoints() - m_npc->hitpoints()) / (float)m_npc->maxHitpoints());
+
+	if (diff <= m_npc->criticalHealth() / 100.0) {
+		return 1.0;
+	}
+
+	return 0.0;
 }
 
 void Monster_Aggr_Fight::execute()
