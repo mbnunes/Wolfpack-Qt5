@@ -7,6 +7,10 @@ Project: "ZTHREAD_2_2_9_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner
 
 Package=<5>
 {{{
+    begin source code control
+    ZTHREAD_static
+    .\lib\zthread
+    end source code control
 }}}
 
 Package=<4>
@@ -19,6 +23,10 @@ Project: "pythoncore"=.\lib\Python\PCbuild\pythoncore.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
+    begin source code control
+    pythoncore
+    .\lib\python
+    end source code control
 }}}
 
 Package=<4>
@@ -31,6 +39,10 @@ Project: "wolf"=.\wolf.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
+    begin source code control
+    wolf
+    .
+    end source code control
 }}}
 
 Package=<4>

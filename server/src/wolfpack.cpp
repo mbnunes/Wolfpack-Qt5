@@ -736,7 +736,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 		else if (x==(db+2))
 		{
@@ -756,7 +756,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 		else if (x==(db+4))
 		{
@@ -774,7 +774,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.x++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 		else if (x==(db+6))
 		{
@@ -794,7 +794,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 		else if (x==(db+8))
 		{
@@ -814,7 +814,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 		else if (x==(db+10))
 		{
@@ -834,7 +834,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 		else if (x==(db+12))
 		{
@@ -846,7 +846,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		{
 			pi->setId( pi->id() - 1 );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 		else if( x == ( db + 14 ) )
 		{
@@ -864,7 +864,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
-			pi->dooropen=0;
+			pi->setDoorOpen(0);
 		}
 
 		// This is *so* obvious...

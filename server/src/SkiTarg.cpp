@@ -72,7 +72,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
 			pi_c->setWeight( 10 );
-			pi_c->att=9;
+			pi_c->setAtt(9);
 			pi_c->setAmount( amt );
 			pi_c->update();
 			Items->DeleItem(pi);

@@ -752,7 +752,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setMaxhp( RandomNum( 25, 50 ) );
 	pItem->setHp( pItem->maxhp() );
 	pChar->addItem( cChar::Shirt, pItem );	
-	pItem->dye = 1;
+	pItem->setDye(1);
 	pItem->priv |= 0x02;
 	ItemsManager::instance()->registerItem( pItem );
 
@@ -765,7 +765,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setMaxhp( RandomNum( 25, 50 ) );
 	pItem->setHp( pItem->maxhp() );
 	pChar->addItem( cChar::Pants, pItem );
-	pItem->dye = 1;
+	pItem->setDye(1);
 	pItem->priv |= 0x02;
 	ItemsManager::instance()->registerItem( pItem );
 
@@ -775,7 +775,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem = new cItem;
 		pItem->Init();
 
-		pItem->dye = 1;
+		pItem->setDye(1);
 		pItem->priv |= 0x02;
 		pItem->setId( packet->hairStyle() );
 		pItem->setColor( packet->hairColor() );

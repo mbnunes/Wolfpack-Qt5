@@ -646,7 +646,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 240, tr( "High damage:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pItem->hidamage() ), 0x834 );
 		addText( 50, 260, tr( "Str (required):" ), 0x834 );
-		addInputField( 200, 260, 200, 16, 18, QString( "%1" ).arg( pItem->st ), 0x834 );
+		addInputField( 200, 260, 200, 16, 18, QString( "%1" ).arg( pItem->st() ), 0x834 );
 		addText( 50, 280, tr( "Dex (required):" ), 0x834 );
 		addInputField( 200, 280, 200, 16, 19, QString( "%1" ).arg( pItem->dx ), 0x834 );
 		addText( 50, 300, tr( "Int (required):" ), 0x834 );
@@ -673,7 +673,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addResizeGump( 195, 300, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Dyable:" ), 0x834 );
-		addInputField( 200, 120, 200, 16, 21, QString( "%1" ).arg( pItem->dye ), 0x834 );
+		addInputField( 200, 120, 200, 16, 21, QString( "%1" ).arg( pItem->dye() ), 0x834 );
 		addText( 50, 140, tr( "Decay:" ), 0x834 );
 		addInputField( 200, 140, 200, 16, 22, QString( "%1" ).arg( pItem->priv & 0x01 ? "true" : "false" ), 0x834 );
 		addText( 50, 160, tr( "Dispellable/newbie:" ), 0x834 );
@@ -852,7 +852,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->setHidamage( hex2dec( it->second ).toShort() );
 				break;
 			case 18:
-				item_->st = hex2dec( it->second ).toShort();
+				item_->setSt( hex2dec( it->second ).toShort() );
 				break;
 			case 19:
 				item_->dx = hex2dec( it->second ).toShort();
@@ -861,7 +861,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->in = hex2dec( it->second ).toShort();
 				break;
 			case 21:
-				item_->dye = hex2dec( it->second ).toUShort();
+				item_->setDye( hex2dec( it->second ).toUShort() );
 				break;
 			case 22:
 				if( it->second == "true" || hex2dec( it->second ).toUInt() )

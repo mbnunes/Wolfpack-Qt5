@@ -457,9 +457,9 @@ void cTmpEff::Expire()
 			P_ITEM pDoor = FindItemBySerial( getDest() );
 			if( pDoor )
 			{
-				if( !pDoor->dooropen )
+				if( !pDoor->dooropen() )
 					break;
-				pDoor->dooropen = 0;
+				pDoor->setDoorOpen(0);
 				dooruse( NULL, pDoor );
 			}
 			break;
@@ -1117,13 +1117,13 @@ bool cTempEffects::add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char m
 		pTE->more2=more2;
 		break;
 	case 13:
-		if (piDest->dooropen)
+		if (piDest->dooropen())
 		{
-			piDest->dooropen = 0;
+			piDest->setDoorOpen(0);
 			return 0;
 		}
 		pTE->setExpiretime_s(10);
-		piDest->dooropen=1;
+		piDest->setDoorOpen(1);
 		break;
 	case 14: //Tauriel training dummies swing for 5(?) seconds
 		pTE->setExpiretime_s(5);

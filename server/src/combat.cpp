@@ -528,9 +528,9 @@ namespace Combat
 					pDefender->socket()->sysMessage( tr( "You parried the blow!" ) );
 
 				if( wSkill != ARCHERY )
-					damage -= pShield->def;
+					damage -= pShield->def();
 				else
-					damage -= pShield->def / 2;
+					damage -= pShield->def() / 2;
 			}
 		}
 

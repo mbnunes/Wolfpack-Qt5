@@ -414,7 +414,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 //	pi_ps->setContSerial(pc_currchar->serial);
 	pi_ps->setLayer( 0 );
 	pi_ps->setType( 1 );
-	pi_ps->dye=0;
+	pi_ps->setDye(0);
 	sendbpitem(s, pi_ps);
 	if (s2 != INVALID_UOXSOCKET)
 		sendbpitem(s2, pi_ps);
@@ -426,7 +426,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 //	pi_pi->setContSerial(pc_i->serial);
 	pi_pi->setLayer( 0 );
 	pi_pi->setType( 1 );
-	pi_pi->dye=0;
+	pi_pi->setDye(0);
 	sendbpitem(s, pi_pi);
 	if (s2 != INVALID_UOXSOCKET)
 		sendbpitem(s2, pi_pi);

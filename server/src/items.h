@@ -90,8 +90,13 @@ protected:
 	unsigned int morex_;
 	unsigned int morey_;
 	unsigned int morez_;
-
-
+	unsigned char doordir_; // Reserved for doors
+	unsigned char dooropen_;
+	unsigned char dye_; // Reserved: Can item be dyed by dye kit
+	unsigned int att_; // Item attack
+	unsigned int def_; // Item defense
+	signed short st_; // The strength needed to equip the item
+	signed short st2_; // The strength the item gives
 //********************END ADDED FROM PUBLIC *************
 
 	virtual void	processNode( const QDomElement &Tag );
@@ -153,7 +158,13 @@ public:
 	unsigned int	morex()			const { return morex_; }
 	unsigned int	morey()			const { return morey_; }
 	unsigned int	morez()			const { return morez_; }	
-
+	unsigned char	doordir()		const { return doordir_; }
+	unsigned char	dooropen()		const { return dooropen_; }
+	unsigned char	dye()			const { return dye_; }
+	unsigned int	att()			const { return att_; }
+	unsigned int	def()			const { return def_; }
+	signed short	st()			const { return st_; }
+	signed short	st2()			const { return st2_; }
 //***************************END ADDED GETTERS************
 
 
@@ -209,18 +220,18 @@ public:
 	void	setMoreX( unsigned int data ) { morex_ = data; }
 	void	setMoreY( unsigned int data ) { morey_ = data; }
 	void	setMoreZ( unsigned int data ) { morez_ = data; }
-
-
+	void	setDoorDir( unsigned char data ) { doordir_ = data; }
+	void	setDoorOpen( unsigned char data ) { dooropen_ = data; }
+	void	setDye( unsigned char data ) { dye_ = data; }
+	void	setAtt(	unsigned int data ) { att_ = data; }
+	void	setDef( unsigned int data ) { def_ = data; }
+	void	setSt( signed short data ) { st_ = data; }
+	void	setSt2( signed short data ) { st2_ = data; }
 //*******************************************END ADDED SETTERS**********
 	SERIAL contserial;
 	
-	unsigned char doordir; // Reserved for doors
-	unsigned char dooropen;
-	unsigned char dye; // Reserved: Can item be dyed by dye kit
-	unsigned int att; // Item attack
-	unsigned int def; // Item defense
-	signed short st; // The strength needed to equip the item
-	signed short st2; // The strength the item gives
+	
+
 	signed short dx; // The dexterity needed to equip the item
 	signed short dx2; // The dexterity the item gives
 	signed short in; // The intelligence needed to equip the item

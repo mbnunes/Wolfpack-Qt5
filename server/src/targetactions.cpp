@@ -214,7 +214,7 @@ bool cSkLockpicking::responsed( cUOSocket *socket, cUORxTarget *target )
 bool cDyeTarget::responsed( cUOSocket* socket, cUORxTarget *target )
 {
 	P_ITEM pi = FindItemBySerial(target->serial());
-	if ( pi && pi->dye == 1 )
+	if ( pi && pi->dye() == 1 )
 	{
 		P_CHAR pc = pi->getOutmostChar();
 		if(pc == socket->player() || pi->isInWorld())

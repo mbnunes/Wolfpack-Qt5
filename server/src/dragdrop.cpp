@@ -349,7 +349,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Required Strength
-	if( pItem->st > pWearer->st() )
+	if( pItem->st() > pWearer->st() )
 	{
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not strong enough" ) );

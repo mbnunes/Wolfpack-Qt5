@@ -620,7 +620,7 @@ int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 void cChar::removeItemBonus(cItem* pi)
 {
 //	this->st -= pi->st2;
-	this->setSt( ( this->st() ) - pi->st2);
+	this->setSt( ( this->st() ) - pi->st2());
 	this->chgDex(-1 * pi->dx2);
 	this->in_ -= pi->in2;
 }
@@ -1132,7 +1132,7 @@ void cChar::processNode( const QDomElement &Tag )
 			pBackpack->pos.z = 0;
 			this->addItem( Backpack, pBackpack );
 			pBackpack->setType( 1 );
-			pBackpack->dye=1;
+			pBackpack->setDye(1);
 
 			if( Tag.hasChildNodes() )
 				pBackpack->applyDefinition( Tag );
@@ -1704,7 +1704,7 @@ void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 
 void cChar::giveItemBonus(cItem* pi)
 {
-	st_ += pi->st2;
+	st_ += pi->st2();
 	chgDex( pi->dx2 );
 	in_ += pi->in2;
 }
@@ -2623,8 +2623,8 @@ P_CHAR cChar::unmount()
 			pMount->setSt( pi->moreb2() );
 			pMount->setDex( pi->moreb3() );
 			pMount->setIn( pi->moreb4() );
-			pMount->setFx2( pi->att );
-			pMount->setFy2( pi->def );
+			pMount->setFx2( pi->att() );
+			pMount->setFy2( pi->def() );
 			pMount->setHp( pi->hp() );
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
@@ -2714,8 +2714,8 @@ void cChar::mount( P_CHAR pMount )
 		pMountItem->setMoreb2( pMount->st() );
 		pMountItem->setMoreb3( pMount->realDex() );
 		pMountItem->setMoreb4( pMount->in() );
-		pMountItem->att = pMount->fx2();
-		pMountItem->def = pMount->fy2();
+		pMountItem->setAtt( pMount->fx2() );
+		pMountItem->setDef( pMount->fy2() );
 		pMountItem->setHp( pMount->hp() );
 		pMountItem->setLodamage( pMount->fame() );
 		pMountItem->setHidamage( pMount->karma() );
@@ -3116,7 +3116,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 		
 		// Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
 		if( pShield && IsShield( pShield->id() ) )
-			total += ( (UI16)floor( (float)( skill( PARRYING ) * pShield->def ) / 200.0f ) + 1 );
+			total += ( (UI16)floor( (float)( skill( PARRYING ) * pShield->def() ) / 200.0f ) + 1 );
 	} 	
 
 	if( skill( PARRYING ) >= 1000 ) 
@@ -3133,7 +3133,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 			//blackwinds new stuff 
 			UI16 effdef = 0;
 			if( pi->maxhp() > 0 ) 
-				effdef = (UI16)floor( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def );
+				effdef = (UI16)floor( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def() );
 
 			if( bodypart == ALLBODYPARTS )
 			{

@@ -166,7 +166,7 @@ public:
 			return true;
 		}
 
-		if( ( ( pItem->lodamage() == 0 ) && ( pItem->hidamage() == 0 ) ) && !pItem->def )
+		if( ( ( pItem->lodamage() == 0 ) && ( pItem->hidamage() == 0 ) ) && !pItem->def() )
 		{
 			socket->sysMessage( tr( "This does not appear to be a weapon" ) );
 			return true;
@@ -174,7 +174,7 @@ public:
 
 		if( pChar->isGM() )
 		{
-			socket->sysMessage( tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg( pItem->att ).arg( pItem->def ).arg( pItem->lodamage() ).arg( pItem->hidamage() ) );
+			socket->sysMessage( tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg( pItem->att() ).arg( pItem->def() ).arg( pItem->lodamage() ).arg( pItem->hidamage() ) );
 			return true;
 		}
 
@@ -234,17 +234,17 @@ public:
 				}
 			}
 			// Armor ratings
-			else if( pItem->def )
+			else if( pItem->def() )
 			{
 				QString status;
 
-				if      ( pItem->def > 12) status = tr( "is superbly crafted to provide maximum protection" );
-				else if ( pItem->def > 10) status = tr( "offers excellent protection" );
-				else if ( pItem->def > 8 ) status = tr( "is a superior defense against attack" );
-				else if ( pItem->def > 6 ) status = tr( "serves as a sturdy protection" );
-				else if ( pItem->def > 4 ) status = tr( "offers some protection against blows" );
-				else if ( pItem->def > 2 ) status = tr( "provides very little protection" );
-				else if ( pItem->def > 0 ) status = tr( "provides almost no protection" );
+				if      ( pItem->def() > 12) status = tr( "is superbly crafted to provide maximum protection" );
+				else if ( pItem->def() > 10) status = tr( "offers excellent protection" );
+				else if ( pItem->def() > 8 ) status = tr( "is a superior defense against attack" );
+				else if ( pItem->def() > 6 ) status = tr( "serves as a sturdy protection" );
+				else if ( pItem->def() > 4 ) status = tr( "offers some protection against blows" );
+				else if ( pItem->def() > 2 ) status = tr( "provides very little protection" );
+				else if ( pItem->def() > 0 ) status = tr( "provides almost no protection" );
 				else					   status = tr( "offers no defense against attackers" );
 
 				mParts.push_back( status );
@@ -2480,7 +2480,7 @@ void CollectAmmo(int s, int a, int b)
 	{
 		P_ITEM pi = Items->SpawnItem(s, currchar[s],a,"#",1,0x0F,0x3F,0,1,1);
 		if(pi == NULL) return;
-		pi->att=0;
+		pi->setAtt(0);
 		sysmessage(s, "You collect the arrows.");
 	}
 	
@@ -2488,7 +2488,7 @@ void CollectAmmo(int s, int a, int b)
 	{
 		P_ITEM pi = Items->SpawnItem(s, currchar[s], b,"#",1,'\x1B','\xFB',0,1,1);
 		if(pi == NULL) return;
-		pi->att=0;
+		pi->setAtt(0);
 		sysmessage(s, "You collect the bolts.");
 	}
 }
@@ -2860,7 +2860,7 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 			{
 				if (!(strstr(pi->name().ascii(), "leather") || strstr(pi->name().ascii(), "magic") ||
 					strstr(pi->name().ascii(), "boot")|| strstr(pi->name().ascii(), "mask")))
-					ar += pi->def;
+					ar += pi->def();
 			}
 		}
 	}

@@ -518,7 +518,7 @@ public:
 					Skills->updateSkillLevel( pChar, i );
 			}
 			else
-				pItem->st = hex2dec( value ).toInt();
+				pItem->setSt( hex2dec( value ).toInt() );
 
 		else if( key == "dex" )
 			if( pChar )
@@ -1165,7 +1165,7 @@ public:
 			if( pChar )
 				result = QString( "%1" ).arg( pChar->st() );
 			else 
-				result = QString( "%1" ).arg( pItem->st );
+				result = QString( "%1" ).arg( pItem->st() );
 
 		else if( ( key == "dex" ) )
 			if( pChar )

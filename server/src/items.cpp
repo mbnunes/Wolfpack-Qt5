@@ -78,7 +78,7 @@ void cItem::registerInFactory()
 // constructor
 cItem::cItem(): 
 contserial( INVALID_SERIAL ), container_(0), totalweight_(0), incognito(false),
-rndvaluerate(0), dooropen(0),gatetime(0),gatenumber(-1),disabledmsg(""),murdertime(0),
+rndvaluerate(0), dooropen_(0),gatetime(0),gatenumber(-1),disabledmsg(""),murdertime(0),
 timeused_last(0) {};
 
 cItem::cItem( cItem &src )
@@ -116,18 +116,18 @@ cItem::cItem( cItem &src )
 	this->morez_ = src.morez_;
 	this->amount_ = src.amount_;
 	this->amount2_ = src.amount2_;
-	this->doordir = src.doordir;
-	this->dooropen = src.dooropen;
-	this->dye = src.dye;
+	this->doordir_ = src.doordir_;
+	this->dooropen_ = src.dooropen_;
+	this->dye_ = src.dye_;
 	this->carve_ = src.carve_;
-	this->att = src.att;
-	this->def = src.def;
+	this->att_ = src.att_;
+	this->def_ = src.def_;
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
 	this->hp_ = src.hp_;
 	this->maxhp_=src.maxhp_;
-	this->st=src.st;
-	this->st2=src.st2;
+	this->st_=src.st_;
+	this->st2_=src.st2_;
 	this->dx=src.dx;
 	this->dx2=src.dx2;
 	this->in=src.in;
@@ -504,20 +504,20 @@ void cItem::save()
 	addField("morey",			morey_);
 	addField("morez",			morez_);
 	addField("amount",		amount_);
-	addField("doordir",		doordir);
-	addField("dye",			dye);
+	addField("doordir",		doordir_);
+	addField("dye",			dye_);
 	addField("decaytime",		decaytime > 0 ? decaytime - uiCurrentTime : 0);
-	addField("att",			att);
-	addField("def",			def);
+	addField("att",			att_);
+	addField("def",			def_);
 	addField("hidamage",		hidamage_);
 	addField("lodamage",		lodamage_);
-	addField("st",			st);
+	addField("st",			st_);
 	addField("time_unused",	time_unused);
 	addField("weight",		weight_);
 	addField("hp",			hp_);
 	addField("maxhp",			maxhp_);
 	addField("rank",			rank);
-	addField("st2",			st2);
+	addField("st2",			st2_);
 	addField("dx",			dx);
 	addField("dx2",			dx2);
 	addField("intelligence",	in);
@@ -657,18 +657,18 @@ void cItem::Init( bool mkser )
 	this->morez_=0;
 	this->amount_ = 1; // Amount of items in pile
 	this->amount2_ = 0; //Used to track things like number of yards left in a roll of cloth
-	this->doordir=0; // Reserved for doors
-	this->dooropen=0;
-	this->dye=0; // Reserved: Can item be dyed by dye kit
+	this->doordir_=0; // Reserved for doors
+	this->dooropen_=0;
+	this->dye_=0; // Reserved: Can item be dyed by dye kit
 	this->carve_=(char*)0;// carving system
-	this->att=0; // Item attack
-	this->def=0; // Item defense
+	this->att_=0; // Item attack
+	this->def_=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
 	this->hidamage_=0; //Maximum damage weapon inflicts
 	this->hp_=0; //Number of hit points an item has.
 	this->maxhp_=0; // Max number of hit points an item can have.
-	this->st=0; // The strength needed to equip the item
-	this->st2=0; // The strength the item gives
+	this->st_=0; // The strength needed to equip the item
+	this->st2_=0; // The strength the item gives
 	this->dx=0; // The dexterity needed to equip the item
 	this->dx2=0; // The dexterity the item gives
 	this->in=0; // The intelligence needed to equip the item
@@ -871,9 +871,9 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	pi->setId(id);
 	pi->setColor( color );
 	pi->setAmount( nAmount );
-	pi->att=5;
+	pi->setAtt(5);
 	pi->priv |= 0x01;
-	if (IsCutCloth(pi->id())) pi->dye=1;// -Fraz- fix for cut cloth not dying
+	if (IsCutCloth(pi->id())) pi->setDye(1);// -Fraz- fix for cut cloth not dying
 	if (bPack)
 	{
 		if (pPack)
@@ -1390,7 +1390,7 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <defense>10</defense>
 	else if( TagName == "defense" )
-		this->def = Value.toInt();
+		this->def_ = Value.toInt();
 
 	// for convenience
 	// <food>1</food>
@@ -1527,7 +1527,7 @@ void cItem::processNode( const QDomElement& Tag )
 		QString Type = Tag.attribute( "type" );
 			
 		if( Type == "str" )
-			this->st = Value.toULong();
+			this->st_ = Value.toULong();
 		else if( Type == "dex" )
 			this->dx = Value.toULong();
 		else if( Type == "int" )
@@ -1553,7 +1553,7 @@ void cItem::processNode( const QDomElement& Tag )
 		QString Type = Tag.attribute( "type" );
 			
 		if( Type == "str" )
-			this->st2 = Value.toShort();
+			this->st2_ = Value.toShort();
 		else if( Type == "dex" )
 			this->dx2 = Value.toShort();
 		else if( Type == "int" )
@@ -1563,9 +1563,9 @@ void cItem::processNode( const QDomElement& Tag )
 	// <dye />
 	// <nodye />
 	else if( TagName == "dye" )
-		this->dye = 1;
+		this->setDye(1);
 	else if( TagName == "nodye" )
-		this->dye = 0;
+		this->setDye(0);
 
 	// <corpse />
 	// <nocorpse />
@@ -1671,9 +1671,9 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	else if( TagName == "defense" )
 	{
 		if( Value.contains(".") || Value.contains(",") )
-			def = (UINT32)ceil((float)def * Value.toFloat());
+			def_ = (UINT32)ceil((float)def_ * Value.toFloat());
 		else
-			def += Value.toUInt();
+			def_ += Value.toUInt();
 	}
 
 	// <weight>-10</weight>
@@ -1724,9 +1724,9 @@ void cItem::processModifierNode( const QDomElement &Tag )
 		if( Type == "str" )
 		{
 			if( Value.contains(".") || Value.contains(",") )
-				st = (INT32)ceil((float)st * Value.toFloat());
+				st_ = (INT32)ceil((float)st_ * Value.toFloat());
 			else
-				this->st += Value.toLong();
+				this->st_ += Value.toLong();
 		}
 		else if( Type == "dex" )
 		{
@@ -1755,9 +1755,9 @@ void cItem::processModifierNode( const QDomElement &Tag )
 		if( Type == "str" )
 		{
 			if( Value.contains(".") || Value.contains(",") )
-				st2 = (INT32)ceil((float)st2 * Value.toFloat());
+				st2_ = (INT32)ceil((float)st2_ * Value.toFloat());
 			else
-				this->st2 += Value.toLong();
+				this->st2_ += Value.toLong();
 		}
 		else if( Type == "dex" )
 		{
@@ -2145,12 +2145,12 @@ void cItem::applyRank( UI08 rank )
 	INT16  maxlodam = (UINT16)floor( maxmod * (double)lodamage() );
 	INT16  minhidam = (UINT16)floor( minmod * (double)hidamage() );
 	INT16  maxhidam = (UINT16)floor( maxmod * (double)hidamage() );
-	UINT16 mindef = (UINT16)floor( minmod * (double)def );
-	UINT16 maxdef = (UINT16)floor( maxmod * (double)def );
+	UINT16 mindef = (UINT16)floor( minmod * (double)def() );
+	UINT16 maxdef = (UINT16)floor( maxmod * (double)def() );
 	
 	setLodamage( RandomNum( minlodam, maxlodam ) );
 	setHidamage( RandomNum( minhidam, maxhidam ) );
-	def = RandomNum( mindef, maxdef );
+	def_ = RandomNum( mindef, maxdef );
 	setMaxhp( RandomNum( minhp_, maxhp_ ) );
 	setHp( maxhp() );
 	this->rank = rank;
@@ -2338,22 +2338,22 @@ void cItem::load( char **result, UINT16 &offset )
 	morey_ = atoi( result[offset++] );
 	morez_ = atoi( result[offset++] );
 	amount_ = atoi( result[offset++] );
-	doordir = atoi( result[offset++] );
-	dye = atoi( result[offset++] );
+	doordir_ = atoi( result[offset++] );
+	dye_ = atoi( result[offset++] );
 	decaytime = atoi( result[offset++] );
 	if( decaytime > 0 ) 
 		decaytime += uiCurrentTime;
-	att = atoi( result[offset++] );
-	def = atoi( result[offset++] );
+	att_ = atoi( result[offset++] );
+	def_ = atoi( result[offset++] );
 	hidamage_ = atoi( result[offset++] );
 	lodamage_ = atoi( result[offset++] );
-	st = atoi( result[offset++] );
+	st_ = atoi( result[offset++] );
 	time_unused = atoi( result[offset++] );
 	weight_ = atoi( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
 	rank = atoi( result[offset++] );
-	st2 = atoi( result[offset++] );
+	st2_ = atoi( result[offset++] );
 	dx = atoi( result[offset++] );
 	dx2 = atoi( result[offset++] );
 	in = atoi( result[offset++] );
