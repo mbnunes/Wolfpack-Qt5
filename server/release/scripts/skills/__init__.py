@@ -101,6 +101,12 @@ def checkskill(char, skill, chance):
 def totalstats( char ):
 	return char.strength + char.dexterity + char.intelligence
 
+def cleartag( self, args ):
+	char = args[0]
+	tagname = args[1]
+	self.deltag( tagname )
+	return OK
+
 def antimacrocheck( char, skillid, object ):
 	#Get or set antimacro tag: "AM" + SERIAL = COUNT
 	tagname = "AMC_" + str( char.serial ) + " " + str( skillid )
@@ -112,7 +118,7 @@ def antimacrocheck( char, skillid, object ):
 		elif count > ANTIMACROALLOWANCE + 1:
 			return OOPS
 		else:
-			object.addtimer( ANTIMACRODELAY, "wolfpack.utilities.cleartag", [char, tagname] )
+			object.addtimer( ANTIMACRODELAY, "skills.cleartag", [char, tagname] )
 			return OOPS
 	else:
 		object.settag( tagname, "1" )

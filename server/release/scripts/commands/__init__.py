@@ -2,6 +2,7 @@
 import wolfpack
 from wolfpack import time
 from wolfpack.utilities import hex2dec
+from wolfpack.gumps import cGump
 
 def season( socket, command, arguments ):
 	packet = [ 0xbc, int(arguments), 0x01 ]
@@ -178,7 +179,14 @@ def followers(socket, command, arguments):
 	socket.sysmessage('Whose followers do you want to see?')
 	socket.attachtarget("commands.followers_target", [])
 
+def test(socket, command, arguments):
+	gump = cGump()
+	gump.addGump(0, 0, 0x67)
+	gump.addText(0, 0, "਎Here is your bank box,".decode('utf-8'), 2)
+	gump.send(socket)	
+
 def onLoad():
+	wolfpack.registercommand("test", test)
 	wolfpack.registercommand("resendtooltip", resendtooltip)
 	wolfpack.registercommand("season", season)
 	wolfpack.registercommand("updateplayer", updateplayer)

@@ -53,10 +53,12 @@ def rolldice(dice, sides=6, bonus=0):
 
 """
 	\function wolfpack.utilities.hex2dec
-	\param value
-	\param default
-	\return Integer
-	\description Converts a given hex value into a decimal value.
+	\param value The string you want to convert.
+	\param default Defaults to 0.
+	The default value that will be returned if there is an error converting the given string.
+	\return The string converted to an integer value.
+	\description Converts a string to an integer value and accepts either a normal decimal number (<code>64</code>) or the
+	standard hexadecimal notation (<code>0x40</code>).
 """
 def hex2dec(value, default = 0):
 	if type( value ) is IntType:
@@ -74,9 +76,9 @@ def hex2dec(value, default = 0):
 
 """
 	\function wolfpack.utilities.evenorodd
-	\param value
-	\return "even" or "odd"
-	\description Takes a given int value and determines if it is even or odd.
+	\param value The integer value that should be checked.
+	\return A string which is either "even" or "odd".
+	\description Takes a given int value and determines if it is even or odd and returns a string with the result.
 """
 def evenorodd( value ):
 	if value % 2 == 0:
@@ -86,20 +88,22 @@ def evenorodd( value ):
 
 """
 	\function wolfpack.utilities.itemsmatch
-	\param item1
-	\param item2
-	\return Boolean
-	\description Determines if the items match for stacking.
+	\param item1 The first item.
+	\param item2 The second item.
+	\return True if the items could stack, false otherwise.
+	\description Determines if the items match for stacking. This function does not check
+	if the stacked amount is larger than the maximum.
 """
 def itemsmatch(a, b):
 	return a.canstack(b)
 
 """
 	\function wolfpack.utilities.tobackpack
-	\param item
-	\param char
-	\return Boolean
-	\description Moves an object into a character's backpack.
+	\param item The item you want to move to the backpack of the character.
+	\param char The character in whose backpack you want to place the item.
+	\return True if the item was stacked inside the characters backpack and is now invalid.
+	False if the item has been put into the characters backpack and needs to be updated.
+	\description Moves an object into a characters backpack and stacks it if possible.
 """
 def tobackpack(item, char):
 	backpack = char.getbackpack()
@@ -107,10 +111,11 @@ def tobackpack(item, char):
 
 """
 	\function wolfpack.utilities.tocontainer
-	\param item
-	\param container
-	\return Boolean
-	\description Moves an item to a container, stacks if possible.
+	\param item The item you want to move to the given container.
+	\param container The container you want to move the item into.
+	\return True if the item was stacked inside the container and has been deleted.
+	False if the item has not been stacked and needs to be updated in order to be seen.
+	\description Moves an object into a container and stacks it if possible.
 """
 def tocontainer( item, container ):
 	for content in container.content:
@@ -128,14 +133,14 @@ def tocontainer( item, container ):
 
 """
 	\function wolfpack.utilities.cont2cont
-	\param container1
-	\param container2
-	\description Moves objects from container1 to container2.
+	\param container1 The source container.
+	\param container2 The target container.
+	\description Moves all objects from container1 to container2.
 """
 def cont2cont( container1, container2 ):
 	for item in container1.content:
-		tocontainer( item, container2 )
-		item.update()
+		if not tocontainer( item, container2 ):
+			item.update()
 
 """
 	\function wolfpack.utilities.isclothing
@@ -438,37 +443,14 @@ def isdirt( tile ):
 			range( 13742, 13746 )
 
 """
-	\function wolfpack.utilities.cleartag
-	\param self
-	\param args[ char, tagname ]
-	\description Removes a tagname from a character.
-"""
-def cleartag( self, args ):
-	char = args[0]
-	tagname = args[1]
-	self.deltag( tagname )
-	return OK
-
-"""
-	\function wolfpack.utilities.rusmsg
-	\param player
-	\param locmsg
-	\description Sends a localized system message to a given player.
-"""
-def rusmsg( player, locmsg ):
-	player.socket.sysmessage( unicode( locmsg, 'cp1251') )
-	return OK
-
-#
-# Internal function for resource searches
-#
-"""
 	\function wolfpack.utilities.checkresources
-	\param container
-	\param baseid
-	\param amount
-	\return Ineger
-	\description Returns the amount of a resource to consume in a container from a given baseid.
+	\param container The container you want to search in.
+	\param baseid The baseid of the resource you are looking for.
+	\param amount The amount that is required of the given resource.
+	\return 0 if all the required resources have been found. Otherwise the remaining amount of 
+	the resource that has not been found.
+	\description Recursively searches for items with a given baseid in a container and checks if a
+	given amount can be found.
 """
 def checkresources(container, baseid, amount):
   for item in container.content:
@@ -484,18 +466,6 @@ def checkresources(container, baseid, amount):
 
   return amount
 
-#
-# Internal Recursive function for consuming resources.
-# Return the amount left to consume.
-#
-"""
-	\function wolfpack.utilities.consumeresourcesinternal
-	\param container
-	\param baseid
-	\param amount
-	\return Integer
-	\description Consumes an amount of resources from a container with the given baseid.
-"""
 def consumeresourcesinternal(container, baseid, amount):
   for item in container.content:
     if item.baseid == baseid:
@@ -512,18 +482,13 @@ def consumeresourcesinternal(container, baseid, amount):
 
   return amount
 
-#
-# Consume a certain amount of a certain resource.
-# Return true if the resources have been consumed
-# correctly.
-#
 """
 	\function wolfpack.utilities.consumeresources
-	\param container
-	\param baseid
-	\param amount
-	\return Integer or False
-	\description Consumes the amount of resources from a container with a given baseid.
+	\param container The container you want to remove from.
+	\param baseid The baseid of the items you want to remove.
+	\param amount The amount of items you want to remove.
+	\return True if the resource could be consumed, false otherwise.
+	\description Removes a given amount of items with a given baseid recursively from a given container.
 """
 def consumeresources(container, baseid, amount):
   if checkresources(container, baseid, amount) == 0:
@@ -532,15 +497,24 @@ def consumeresources(container, baseid, amount):
   return 0
 
 """
-	\function magic.utilities.energydamage
+	\function wolfpack.utilities.energydamage
 	\param target The target that is taking damage. Only characters are allowed.
 	\param source The source of the damage. May be None.
 	\param amount The amount of damage dealt.
-	\param physical The physical fraction of the damage.
-	\param fire The fire fraction of the damage.
-	\param cold The cold fraction of the damage.
-	\param poison The poison fraction of the damage.
-	\param energy The energy fraction of the damage.
+	\param physical Defaults to 0. 
+	The physical fraction of the damage. This is an integer value ranging from 0 to 100.
+	\param fire Defaults to 0. 
+	The fire fraction of the damage. This is an integer value ranging from 0 to 100.
+	\param cold Defaults to 0. 
+	The cold fraction of the damage. This is an integer value ranging from 0 to 100.
+	\param poison Defaults to 0.
+	The poison fraction of the damage. This is an integer value ranging from 0 to 100.
+	\param energy Defaults to 0.
+	The energy fraction of the damage. This is an integer value ranging from 0 to 100.
+	\param noreflect Defaults to 0. If this parameter is 1, no physical damage will be reflected back to 
+	the source.
+	\param damagetype Defaults to DAMAGE_MAGICAL. This is the damagetype passed on to the internal damage function.
+	You can ignore this most of the time.
 	\description Deal damage to a target and take the targets energy resistances into account.
 """
 def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0, noreflect=0, damagetype=DAMAGE_MAGICAL):
@@ -593,8 +567,8 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 
 """
 	\function wolfpack.utilities.createlockandkey
-	\param item
-	\description Makes a current container lockable and creates a key.
+	\param container The container you want to make lockable.
+	\description Makes a current container lockable and creates a key in it.
 """
 def createlockandkey( container ):
 	if container.type == 1:
