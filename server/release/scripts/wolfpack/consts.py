@@ -49,6 +49,9 @@ AMMUNITION = 21
 REQSTR = 22
 REQDEX = 23
 REQINT = 24
+LUCK = 25
+GOLDINCREASE = 26
+LOWERREQS = 27
 
 # Checks for certain item types
 ITEM_ARMOR = 1 # Armor
