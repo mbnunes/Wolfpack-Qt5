@@ -298,14 +298,14 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 	{	
 		case BLACKSMITHING:	targ->delonsuccess(s);	break;
 		case CARPENTRY:		targ->delonsuccess(s);break;
-		case INSCRIPTION: delequan(DEREF_P_CHAR(pc_currchar), itemmake[s].Mat1id, 1); break;//don't use default, cauz we delete 1 scroll //use materialid
-		//case TAILORING: delequan(DEREF_P_CHAR(pc_currchar), itemmake[s].materialid1,itemmake[s].materialid2, itemmake[s].needs);break;	//same as default skill
+		case INSCRIPTION: delequan(pc_currchar, itemmake[s].Mat1id, 1); break;//don't use default, cauz we delete 1 scroll //use materialid
+		//case TAILORING: delequan(pc_currchar, itemmake[s].materialid1,itemmake[s].materialid2, itemmake[s].needs);break;	//same as default skill
 		case TINKERING:
 		case BOWCRAFT:	targ->delonsuccess(s);break;
 		// Polygon: Delete empty map for carto
 		case CARTOGRAPHY:	if (!DelEmptyMap(DEREF_P_CHAR(pc_currchar))) return;break;
 		default:
-			delequan(DEREF_P_CHAR(pc_currchar), itemmake[s].Mat1id, itemmake[s].needs);
+			delequan(pc_currchar, itemmake[s].Mat1id, itemmake[s].needs);
 		}
 		itemmake[s].Mat1id=0;
 		const P_ITEM pi = Items->SpawnItemBackpack2(s, x, 0);
@@ -691,7 +691,7 @@ void cSkills::Hide(int s)
 		// Change FS delay 
 		// 
 		// 
-		staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x09, 0x09, 0x19); 
+		staticeffect(pc_currchar, 0x37, 0x09, 0x09, 0x19); 
 		soundeffect2(pc_currchar, 0x0208); 
 		tempeffect(pc_currchar, pc_currchar, 33, 1, 0, 0); 
 		// immediate hiding overwrites the effect. 
@@ -845,7 +845,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 		success=true;
 		sprintf((char*)temp, "*%s starts grinding some %s in the mortar.*", currchar[s]->name, regname);
 		npcemoteall(currchar[s], (char*)temp,1); // LB, the 1 stops stupid alchemy spam
-		delequan(DEREF_P_CHAR(currchar[s]),regid,regamount);
+		delequan(currchar[s],regid,regamount);
 	}
 	else
 		sysmessage(s, "You do not have enough reagents for that potion.");
@@ -962,7 +962,7 @@ void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 		soundeffect(s, 0x02, 0x40);	// Liquid sfx
 		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name);
 		npcemoteall(pc, (char*)temp,0);
-		delequan(DEREF_P_CHAR(pc), 0x0F0E, 1);
+		delequan(pc, 0x0F0E, 1);
 		Skills->PotionToBottle(s, pi_mortar);
 	} 
 }
@@ -1567,7 +1567,7 @@ void cSkills::RandomSteal(int s)
 
 	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name, item->name);
 	sysmessage(s, (char*)temp);
-	if (npcinrange(s,DEREF_P_CHAR(pc_npc),1))
+	if (npcinrange(s, pc_npc, 1))
 	{
 		if ((item->weight>cansteal) && (item->type!=1 && item->type!=63 &&
 			item->type!=65 && item->type!=87))//Containers
@@ -1604,7 +1604,7 @@ void cSkills::RandomSteal(int s)
 			
 			if (pc_npc->isNpc()) npctalkall(pc_npc, "Guards!! A thief is amoung us!",0);
 			
-			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
+			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare( pc_currchar, pc_npc )==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild
 			
 			if (item->name[0] != '#')
@@ -1698,7 +1698,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 		P_CHAR mapchar = ri.GetData();
 		if (mapchar != NULL)
 		{
-			d = chardist(DEREF_P_CHAR(mapchar), DEREF_P_CHAR(currchar[s]));
+			d = chardist( mapchar, currchar[s] );
 			
 			id = mapchar->id();
 			if((d<=distance)&&(!mapchar->dead)&&(id>=id1&&id<=id2)&&calcSocketFromChar(mapchar) != s&&(online(mapchar)||mapchar->isNpc()))
@@ -2396,13 +2396,13 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 		}
 		if (type==1) 
 		{
-			delequan(DEREF_P_CHAR(pc_currchar), 0x0F3F, 1);
+			delequan(pc_currchar, 0x0F3F, 1);
 			pButte->more1++;
 			//add moving effect here to item, not character
 		}
 		else
 		{
-			delequan(DEREF_P_CHAR(pc_currchar), 0x1BFB, 1, NULL);
+			delequan(pc_currchar, 0x1BFB, 1, NULL);
 			pButte->more2++;
 			//add moving effect here to item, not character
 		} 

@@ -1397,7 +1397,7 @@ void textflags (int s, int i, char *name)
 	talk[7]=1;
 	talk[8]=1;
 	talk[9]=6; // Mode: "You see"
-	guild=Guilds->Compare(DEREF_P_CHAR(currchar[s]),DEREF_P_CHAR(pc));
+	guild = Guilds->Compare(currchar[s], pc);
 	race = Races.CheckRelation(pc, pc_currchar);
 	if (guild == 1 || race == 1) //Same guild (Green)
 	{
@@ -1471,7 +1471,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		{
 		   Xsend(i, removeitem, 5);
 		   if (inrange1p(pc, currchar[i])) 
-			   impowncreate(i, DEREF_P_CHAR(pc), 1);
+			   impowncreate(i, pc, 1);
 		}
 	}
 	
@@ -1494,7 +1494,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 					{
 						if ((mapchar->isNpc()||online(mapchar)||pc->isGM())&&(pc != mapchar)&&(inrange1p(pc, mapchar)))
 						{
-							impowncreate(k, DEREF_P_CHAR(mapchar), 1);
+							impowncreate(k, mapchar, 1);
 						}
 					} else if (mapitem != NULL) {
 						if(iteminrange(k, mapitem,Races[pc->race]->VisRange))
@@ -1559,7 +1559,7 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 		{			 
 			if (inrange1p(pc, currchar[i]))
 			{
-				impowncreate(i, DEREF_P_CHAR(pc), 1);
+				impowncreate(i, pc, 1);
 			}
 		}
 	}
@@ -1572,7 +1572,7 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 			P_CHAR pc_i = iter_char.GetData();
 			if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(pc, pc_i)))
 			{
-				impowncreate(k, DEREF_P_CHAR(pc_i), 1);
+				impowncreate(k, pc_i, 1);
 			}
 		}
 		if (perm[k]) 
@@ -1624,7 +1624,7 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 			}
 			if (inrange1p(pc, currchar[i]))
 			{
-				impowncreate(i, DEREF_P_CHAR(pc), 0);			
+				impowncreate(i, pc, 0);			
 			}
 		}
 	}
@@ -2204,12 +2204,12 @@ void npcemote(int s, int npc, char *txt, char antispam) // NPC speech
 // simply dont set them in that case
 // the last parameter is for particlesystem optimization only (dangerous). don't use unless you know 101% what you are doing.
 
-void staticeffect(CHARACTER player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop,  bool UO3DonlyEffekt, stat_st *sta, bool skip_old)
+void staticeffect(P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop,  bool UO3DonlyEffekt, stat_st *sta, bool skip_old)
 {
 	int a0,a1,a2,a3,a4;
 	char effect[29];
 	int j;
-	P_CHAR pc_player = MAKE_CHARREF_LR(player);
+	if ( pc_player == NULL ) return;
 
 	if (!skip_old)
 	{
@@ -2262,7 +2262,7 @@ void staticeffect(CHARACTER player, unsigned char eff1, unsigned char eff2, unsi
 			 } else if (clientDimension[j]==3) // 3d client, send 3d-Particles	
 			 {
 
-				staticeffectUO3D(player, sta);
+				staticeffectUO3D(pc_player, sta);
 
 				// allow to fire up to 4 layers at same time (like on OSI servers)
 				a0 = sta->effect[10];
@@ -2291,15 +2291,13 @@ void staticeffect(CHARACTER player, unsigned char eff1, unsigned char eff2, unsi
 }
 
 
-void movingeffect(int source, int dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt, move_st *str, bool skip_old )
+void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt, move_st *str, bool skip_old )
 {
 	
 	char effect[29];
 	int j;
 
-	P_CHAR pc_source = MAKE_CHARREF_LR(source);
-	P_CHAR pc_dest   = MAKE_CHARREF_LR(dest);
-
+	if ( pc_source == NULL || pc_dest == NULL) return;
 
 	if (!skip_old)
 	{
@@ -2418,10 +2416,11 @@ void bolteffect(int player, bool UO3DonlyEffekt, bool skip_old )
 			 {
 				 Xsend(j, effect, 28);
 
-			 } else if (clientDimension[j]==3) // 3d client, send 3d-Particles	
+			 } 
+			 else if (clientDimension[j]==3) // 3d client, send 3d-Particles	
 			 {
 
-				bolteffectUO3D(player);			
+				bolteffectUO3D(pc_player);			
 				Xsend(j, particleSystem, 49);
 			 }
 			 else if (clientDimension[j] != 2 && clientDimension[j] !=3 ) { sprintf(temp, "Invalid Client Dimension: %i\n",clientDimension[j]); LogError(temp); }
@@ -2833,24 +2832,18 @@ void deathmenu(int s) // Character sees death menu
 	Xsend(s, testact, 2);
 }
 
-void impowncreate(int s, int i, int z) //socket, player to send
+void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 {
 	int j, k,ci;
 	unsigned char oc[1024];
 
-	if ( (i < 0) || (i > cmem))
-	{
-#ifdef DEBUG
-		ConOut("impowncreate -> i overflow. (%i)", i);
-#endif
-		i = 0;
-	}
-    P_CHAR pc = MAKE_CHARREF_LR(i);
+    if ( pc == NULL )
+		return;
 
 	if (s==-1) return; //lb
 	P_CHAR pc_currchar = currchar[s];
 
-	if (pc->stablemaster_serial>0) return; // dont **show** stabled pets
+	if (pc->stablemaster_serial != INVALID_SERIAL) return; // dont **show** stabled pets
 
 	int sendit;
 	if (pc->isHidden() && pc!=currchar[s] && (pc_currchar->isGM())==0) sendit=0; else sendit=1;
@@ -2890,7 +2883,7 @@ void impowncreate(int s, int i, int z) //socket, player to send
 
 	k=19;
 	int guild,race;
-	guild=Guilds->Compare(DEREF_P_CHAR(currchar[s]),DEREF_P_CHAR(pc));
+	guild = Guilds->Compare( currchar[s], pc );
 	race = Races.CheckRelation(pc_currchar, pc);
 	if (guild == 1 || race == 1)//Same guild (Green)
 		oc[18]=2;
@@ -2956,7 +2949,7 @@ void impowncreate(int s, int i, int z) //socket, player to send
 	Xsend(s, oc, k);
 }
 
-void sendshopinfo(int s, int c, P_ITEM pi)
+void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 {
 	unsigned char m1[6096] = {0,};
 	unsigned char m2[6096] = {0,};
@@ -3334,11 +3327,11 @@ void tellmessage(int i, int s, char *txt)
 // effect 12 -> 
 
 
-void staticeffectUO3D(int player, stat_st *sta)
+void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta)
 {  
    
-   PC_CHAR pc_cs=MAKE_CHARREF_LOGGED(player,err);
-   if (err) return;
+   if ( pc_cs == NULL )
+	   return;
 
    // please no optimization of p[...]=0's yet :)
 
@@ -3579,7 +3572,7 @@ void itemeffectUO3D(P_ITEM pi, stat_st *sta)
 	particleSystem[48]=0x0;
 }
 
-void bolteffectUO3D(CHARACTER player)
+void bolteffectUO3D(P_CHAR player)
 {
 	Magic->doStaticEffect(player, 30);
 }

@@ -178,7 +178,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	
 	// remove it from screen!
 
-	int pet=DEREF_P_CHAR(p_pet);
+	//int pet=DEREF_P_CHAR(p_pet);
 	int xx=p_pet->pos.x;
 	int yy=p_pet->pos.y;
 	short id=p_pet->id(); 
@@ -188,7 +188,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 
 	for (int ch=0; ch<now; ch++)
 	{	
-		if (perm[ch]) impowncreate(ch, pet, 0); 
+		if (perm[ch]) impowncreate(ch, p_pet, 0); 
 	}
 
 	p_pet->setId(id); 
@@ -278,7 +278,7 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	else
 	{
-		delequan( DEREF_P_CHAR(pPlayer), 0x0EED, fee, NULL );
+		delequan( pPlayer, 0x0EED, fee, NULL );
 	}
 	
     //// if paid -> return pet
@@ -296,7 +296,7 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	
 	for (int ch=0; ch<now; ch++)
 	{	
-		if (perm[ch]) impowncreate(ch, DEREF_P_CHAR(p_pet), 0); 
+		if (perm[ch]) impowncreate(ch, p_pet, 0); 
 	}
 	
 	npctalk(s,pMaster,"Thx! Here's your pet",0);
@@ -832,25 +832,23 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 
 bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 {
-	CHARACTER vendor = DEREF_P_CHAR(pVendor);
-
 	if (pVendor->npcaitype == 17)
-		return 0;
+		return false;
 
 	if (pPlayer->dist(pVendor) > 4)
-		return 0;
+		return false;
 
-	if (!VendorChkName(pVendor,comm))
+	if (!VendorChkName(pVendor, comm))
 		return false;
 
     if (strstr(comm, " BUY"))
 	{
-	    Targ->BuyShop(s, vendor);
+	    Targ->BuyShop(s, pVendor);
 		return true;
 	}
 	if (strstr( comm, " SELL"))
 	{
-		sellstuff(s, vendor);						
+		sellstuff(s, DEREF_P_CHAR(pVendor));						
 		return true;
 	}
 	return false;

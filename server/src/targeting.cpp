@@ -2047,7 +2047,7 @@ void cTargets::StaminaTarget(int s)
 	if (pc != NULL)
 	{
 		soundeffect2(pc, 0x01F2);
-		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
+		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 		pc->stm = pc->effDex();
 		updatestats(pc, 2);
 		return;
@@ -2062,7 +2062,7 @@ void cTargets::ManaTarget(int s)
 	if (pc != NULL)
 	{
 		soundeffect2(pc, 0x01F2);
-		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
+		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 		pc->mn = pc->in;
 		updatestats(pc, 1);
 		return;
@@ -2191,17 +2191,18 @@ void cTargets::BuyShopTarget(int s)
 	if (pc != NULL)
 		if ((pc->serial==serial))
 		{
-			Targ->BuyShop(s, DEREF_P_CHAR(pc));
+			Targ->BuyShop(s, pc);
 			return;
 		}
 		sysmessage(s, "Target shopkeeper not found...");
 }
 
-int cTargets::BuyShop(int s, int c)
+int cTargets::BuyShop(UOXSOCKET s, P_CHAR pc)
 {
 	P_ITEM pCont1=NULL, pCont2=NULL;
 
-	P_CHAR pc = MAKE_CHARREF_LRV(c, 0);
+	if ( pc == NULL )
+		return 0;
 
 	unsigned int ci=0;
 	P_ITEM pi;
@@ -2224,9 +2225,9 @@ int cTargets::BuyShop(int s, int c)
 		return 0;
 	}
 
-	impowncreate(s, c, 0); // Send the NPC again to make sure info is current. (OSI does this we might not have to)
-	sendshopinfo(s, c, pCont1); // Send normal shop items
-	sendshopinfo(s, c, pCont2); // Send items sold to shop by players
+	impowncreate(s, pc, 0); // Send the NPC again to make sure info is current. (OSI does this we might not have to)
+	sendshopinfo(s, pc, pCont1); // Send normal shop items
+	sendshopinfo(s, pc, pCont2); // Send items sold to shop by players
 	SndShopgumpopen(s,pc->serial);
 	statwindow(s, currchar[s]); // Make sure the gold total has been sent.
 	return 1;
@@ -2350,7 +2351,7 @@ void cTargets::SetPoisonedTarget(int s)
 	{
 		pc->poisoned=tempint[s];
 		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
-		impowncreate(calcSocketFromChar(pc),DEREF_P_CHAR(pc),1); //Lb, sends the green bar !
+		impowncreate(calcSocketFromChar(pc), pc, 1); //Lb, sends the green bar !
 	}
 }
 
@@ -2361,7 +2362,7 @@ void cTargets::FullStatsTarget(int s)
 	if (pc != NULL)
 	{
 		soundeffect2(pc, 0x01F2);
-		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
+		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 		pc->mn=pc->in;
 		pc->hp=pc->st;
 		pc->stm=pc->effDex();
@@ -3106,7 +3107,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	RefreshItem(pi1);
 	RefreshItem(pi2);
 
-	impowncreate(s,DEREF_P_CHAR(pc_currchar),0); // if equipped send new color too
+	impowncreate(s, pc_currchar, 0); // if equipped send new color too
 }
 
 void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from items
@@ -3153,7 +3154,7 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	pi->glow=0; // remove glow-identifier
 	RefreshItem(pi);
 
-	impowncreate(s,DEREF_P_CHAR(currchar[s]),0); // if equipped send new old color too
+	impowncreate(s, currchar[s], 0); // if equipped send new old color too
 
 	currchar[s]->removeHalo(pi);
 }

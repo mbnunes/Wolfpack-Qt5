@@ -107,7 +107,7 @@ void do_lsd(UOXSOCKET s)
 					}// end of if item
 					else if (mapchar != NULL)// character
 					{
-						di = chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar));
+						di = chardist(pc_currchar, mapchar);
 						if (di<10) if (rand()%10==0)
 						{
 							icnt++;
@@ -325,8 +325,8 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		if (pc->smokedisplaytimer<=currenttime)
 		{
 			pc->smokedisplaytimer=currenttime+5*MY_CLOCKS_PER_SEC;
-			staticeffect(DEREF_P_CHAR(pc), 0x37, 0x35, 0, 30);
-			soundeffect2(DEREF_P_CHAR(pc), 0x00, 0x2B);
+			staticeffect(pc, 0x37, 0x35, 0, 30);
+			soundeffect2(pc, 0x002B);
 			switch( RandomNum(0, 6) )
 			{
 			 case 0:	npcemote(s, DEREF_P_CHAR(pc), "*Drags in deep*",1 );	break;
@@ -605,7 +605,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 	if ( pc->poisoned && pc->poisonwearofftime<=currenttime && online(pc) )
 	{
 		pc->poisoned = 0;
-		impowncreate(s,DEREF_P_CHAR(pc),1); // updating to blue stats-bar ...
+		impowncreate(s, pc, 1); // updating to blue stats-bar ...
 		sysmessage(s, "The poison has worn off.");
 	}
 	if( pc->onhorse )
@@ -783,7 +783,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		if ((pc->poisoned))
 		{
 			pc->poisoned=0;
-			impowncreate(calcSocketFromChar(pc),DEREF_P_CHAR(pc),1); // updating to blue stats-bar ...
+			impowncreate(calcSocketFromChar(pc), pc, 1); // updating to blue stats-bar ...
 		}
 	}
 
@@ -1029,7 +1029,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							{
 								if (mapchar->isNpc()) 
 									genericCheck(DEREF_P_CHAR(mapchar),currenttime); // lb, lagfix
-								if (chardist(DEREF_P_CHAR(currchar[i]), DEREF_P_CHAR(mapchar))<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
+								if (chardist(currchar[i], mapchar)<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
 									checkNPC(mapchar, currenttime);
 								else if (mapchar->isPlayer() &&
 									Accounts->GetInWorld(mapchar->account) == mapchar->serial && mapchar->logout>0 &&

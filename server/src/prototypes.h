@@ -144,13 +144,13 @@ void gcollect();
 //signed char mapheight(int x, int y);
 //void seekland(int landnum, land_st *land);
 void weather(int s, unsigned char bolt);
-unsigned char npcinrange (int s, int i, int distance);  //check for horse distance...
+unsigned char npcinrange (UOXSOCKET s, P_CHAR i, int distance);  //check for horse distance...
 //void xbanktarget(int s);
 void openbank(int s, int i);
 void openspecialbank(int s, int i);//AntiChrist
 char inbankrange(int i);
 int getamount(P_CHAR pc, short id);
-void delequan(int s, short id, int amount, int *not_deleted = NULL);
+void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void gettokennum(char * s, int num);
 void setrandomname(int s, char * namelist);
 void donewithcall(int s, int type);
@@ -202,7 +202,7 @@ void saveserverscript(void);
 void loadserverdefaults(void);
 int numbitsset( int number );
 int whichbit( int number, int bit );
-unsigned int chardist (CHARACTER a, CHARACTER b);
+unsigned int chardist (P_CHAR a, P_CHAR b);
 unsigned int itemdist(CHARACTER a, P_ITEM pi);
 
 int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color = 0x0000 );

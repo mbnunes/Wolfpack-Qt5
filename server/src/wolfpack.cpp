@@ -207,12 +207,14 @@ bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,distance);
 }
 
-unsigned char npcinrange (UOXSOCKET s, CHARACTER i, int distance)
+unsigned char npcinrange (UOXSOCKET s, P_CHAR pc, int distance)
 {
-	if (i<=-1) return 0;
+	if (pc == NULL) 
+		return 0;
 	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->isGM()) return 1;
-	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,chars[i].pos.x,chars[i].pos.y,distance);
+	if (pc_currchar->isGM()) 
+		return 1;
+	return inRange(pc_currchar->pos.x,pc_currchar->pos.y, pc->pos.x, pc->pos.y, distance);
 }
 
 
@@ -301,11 +303,11 @@ unsigned int dist(Coord_cl &a, Coord_cl &b) // Distance between position a and b
 	return a.distance(b);
 }
 
-unsigned int chardist (CHARACTER a, CHARACTER b) // Distance between characters a and b
+unsigned int chardist (P_CHAR a, P_CHAR b) // Distance between characters a and b
 {
-	if (a==-1 || b==-1)
+	if (a == NULL || b == NULL)
 		return 30;
-	return dist(chars[a].pos, chars[b].pos);
+	return dist(a->pos, b->pos);
 }
 
 
@@ -1055,7 +1057,7 @@ void deathstuff(int i)
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
-					if(pc_player->isInnocent() && (Races.CheckRelation(pc_t,pc_player)==1) && Guilds->Compare(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player))==0 && pc_t->attackfirst == 1)
+					if(pc_player->isInnocent() && (Races.CheckRelation(pc_t,pc_player)==1) && Guilds->Compare( pc_t, pc_player ) == 0 && pc_t->attackfirst == 1)
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
@@ -1174,7 +1176,7 @@ void deathstuff(int i)
 			if( pi_j->id1 == 0x1B && ( pi_j->id2 == 0xC3 || pi_j->id2 == 0xC4 ) )
 			{
 				soundeffect2(pc_player, 0x01FE);
-				staticeffect(DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06);
+				staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
 				Items->DeleItem( pi_j );
 			}
 			if (pi_j->type==1 && pi_j->layer!=0x1A && pi_j->layer!=0x1B &&
@@ -1194,7 +1196,7 @@ void deathstuff(int i)
 						if( pi_k->id1 == 0x1B && ( pi_k->id2 == 0xC3 || pi_k->id2 == 0xC4 ) )
 						{
 							soundeffect2(pc_player, 0x01FE);
-							staticeffect(DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06);
+							staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
 							Items->DeleItem( pi_k );
 						}
 						RefreshItem(pi_k);//AntiChrist
@@ -2080,7 +2082,7 @@ int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new hors
 				for (int ch = 0; ch < now; ch++) 
 				{ 
 					if (perm[ch])
-						impowncreate(ch, DEREF_P_CHAR(p_pet), 0); 
+						impowncreate(ch, p_pet, 0); 
 				} 
 			} 
 			// cant find horse in stable 
@@ -2410,7 +2412,7 @@ void callguards( int p )
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
 		{
-			if( chardist( p, DEREF_P_CHAR(pc) ) < 15 )
+			if( chardist( pc_player, pc ) < 15 )
 			{
 				if( !pc->dead && !pc->isInnocent() )
 				{
@@ -2427,7 +2429,7 @@ void mounthorse(int s, int x1) // Remove horse char and give player a horse item
 	P_CHAR pc_mount = MAKE_CHARREF_LR(x1);
 	P_CHAR pc_currchar = currchar[s];
 	
-	if (npcinrange(s, DEREF_P_CHAR(pc_mount), 2) == 0 && !pc_currchar->isGM())
+	if (npcinrange(s, pc_mount, 2) == 0 && !pc_currchar->isGM())
 		return; 
 	if (pc_currchar->Owns(pc_mount) || pc_currchar->isGM()) 
 	{ 
@@ -2530,7 +2532,7 @@ void mounthorse(int s, int x1) // Remove horse char and give player a horse item
 		for (int ch = 0; ch < now; ch++) 
 		{ 
 			if (perm[ch])
-				impowncreate(ch, DEREF_P_CHAR(pc_mount), 0); 
+				impowncreate(ch, pc_mount, 0); 
 		} 
 		
 		pc_mount->id1 = id1; 
@@ -3573,10 +3575,10 @@ void npcattacktarget(int target2, int target)
 	if (pc_target->dead || pc_target2->dead) return;
 
 	if (pc_target->targ!=INVALID_SERIAL)
-		cdist = chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(FindCharBySerial(pc_target->targ)));
+		cdist = chardist( pc_target, FindCharBySerial(pc_target->targ));
 	else cdist=30;
 
-	if (cdist>chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(pc_target2)))
+	if (cdist>chardist(pc_target, pc_target2))
 	{
 		pc_target->targ = pc_target2->serial;
 		pc_target->attacker = pc_target2->serial;
@@ -3584,10 +3586,10 @@ void npcattacktarget(int target2, int target)
 	}
 
 	if (pc_target2->targ != INVALID_SERIAL)
-		cdist=chardist(DEREF_P_CHAR(pc_target2), DEREF_P_CHAR(FindCharBySerial(pc_target2->targ)));
+		cdist = chardist(pc_target2, FindCharBySerial(pc_target2->targ));
 	else cdist=30;
 
-	if ((cdist>chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(pc_target2)))&&
+	if ((cdist > chardist(pc_target, pc_target2))&&
 		((!(pc_target2->npcaitype==4)||(!((pc_target2->targ==INVALID_SERIAL)))))) // changed from 0x40 to 4, LB
 	{
 		pc_target2->targ = pc_target->serial;
@@ -3855,9 +3857,11 @@ int getamount(P_CHAR pc, short id)
 // but i couldnt find any other way to keep the old signature and old name. 
 // if theres a cleaner way, let me know, LB
 
-void delequan(int c, short id, int amount, int *not_deleted)
+void delequan(P_CHAR pc, short id, int amount, int *not_deleted)
 {
-	P_CHAR pc=MAKE_CHARREF_LR(c);
+	if ( pc == NULL )
+		return;
+
 	P_ITEM pi=Packitem(pc);
 	if (pi == NULL) 
 	{ 
@@ -3866,7 +3870,7 @@ void delequan(int c, short id, int amount, int *not_deleted)
 		return; 
 	}
 
-	int nd = pi->DeleteAmount(amount,id);
+	int nd = pi->DeleteAmount(amount, id);
 	if (not_deleted != NULL)
 		*not_deleted = nd;
 }
@@ -4053,7 +4057,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 	switch(pi->morey)
 	{
 	case 1: // Agility Potion
-		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3a, 0, 15);
+		staticeffect(pc_p, 0x37, 0x3a, 0, 15);
 		switch(pi->morez)
 		{
 		case 1:
@@ -4106,12 +4110,12 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			}
 			if (pc_p->poisoned) sysmessage(s,"The potion was not able to cure this poison."); else
 			{
-				staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3A, 0, 15);
+				staticeffect(pc_p, 0x37, 0x3A, 0, 15);
 				soundeffect2(pc_p, 0x01E0); //cure sound - SpaceDog
 				sysmessage(s,"The poison was cured.");
 			}
 		}
-		impowncreate(calcSocketFromChar(pc_p), DEREF_P_CHAR(pc_p),1); //Lb, makes the green bar blue or the blue bar blue !
+		impowncreate(calcSocketFromChar(pc_p), pc_p, 1); //Lb, makes the green bar blue or the blue bar blue !
 		break;
 
 	case 3: // Explosion Potion
@@ -4152,11 +4156,11 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		if (s!=-1) updatestats(pc_p, 0);
-		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
 		soundeffect2(pc_p, 0x01F2); //Healing Sound - SpaceDog
 		break;
 	case 5: // Night Sight Potion
-		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06);
+		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06);
 		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*secondsperuominute*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
 		soundeffect2(pc_p, 0x01E3);
 		break;
@@ -4164,7 +4168,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		if(pc_p->poisoned < pi->morez) pc_p->poisoned=pi->morez;
 		if(pi->morez>4) pi->morez=4;
 		pc_p->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
-		impowncreate(calcSocketFromChar(pc_p),DEREF_P_CHAR(pc_p),1); //Lb, sends the green bar !
+		impowncreate(calcSocketFromChar(pc_p), pc_p, 1); //Lb, sends the green bar !
 		soundeffect2(pc_p, 0x0246); //poison sound - SpaceDog
 		sysmessage(s, "You poisoned yourself! *sigh*"); //message -SpaceDog
 		break;
@@ -4184,11 +4188,11 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		if (s!=-1) updatestats(pc_p, 2);
-		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
 		soundeffect2(pc_p, 0x01F2); //Healing Sound
 		break;
 	case 8: // Strength Potion
-		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3a, 0, 15);
+		staticeffect(pc_p, 0x37, 0x3a, 0, 15);
 		switch(pi->morez)
 		{
 		case 1:
@@ -4224,7 +4228,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		if (s!=-1) updatestats(pc_p, 1);
-		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
 		soundeffect2(pc_p, 0x01E7); //agility sound - SpaceDog
 		break;
 
@@ -4237,7 +4241,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		tempeffect(pc_p, pc_p, 20, 60+RandomNum(1,120), 0, 0); // trigger effect
-		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
 		soundeffect5(calcSocketFromChar(pc_p), 0x00, 0xF8); // lsd sound :)
 		break;
 

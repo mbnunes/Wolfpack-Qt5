@@ -107,7 +107,7 @@ void RcvAttack(P_CLIENT ps)
 			for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
 			{
 				P_CHAR toCheck = iter_char.GetData();
-				if (pc_i->Owns(toCheck) && toCheck->npcaitype == 32 && chardist( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(toCheck) )<= 10 )
+				if (pc_i->Owns(toCheck) && toCheck->npcaitype == 32 && chardist( pc_currchar, toCheck )<= 10 )
 				{
 					npcattacktarget( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(toCheck) );
 				}
@@ -116,7 +116,7 @@ void RcvAttack(P_CLIENT ps)
 
 		if (pc_i->inGuardedArea() && SrvParms->guardsactive)
 		{
-			if (pc_i->isPlayer() && pc_i->isInnocent() && Guilds->Compare( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_i) )==0) //REPSYS
+			if (pc_i->isPlayer() && pc_i->isInnocent() && Guilds->Compare( pc_currchar, pc_i )==0) //REPSYS
 			{
 				criminal( pc_currchar );
 				Combat->SpawnGuard(pc_currchar, pc_i ,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
@@ -163,7 +163,7 @@ void RcvAttack(P_CLIENT ps)
 		{
 			if (pc_i->isInnocent())
 			{
-				if (pc_i->isPlayer() && Guilds->Compare( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_i) )==0)
+				if (pc_i->isPlayer() && Guilds->Compare( pc_currchar, pc_i )==0)
 				{
 					criminal( pc_currchar );
 				}

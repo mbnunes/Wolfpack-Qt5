@@ -205,7 +205,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 					if (px->corpse != 0 && !pc_currchar->Owns(px)) 
 					{ 
 						P_CHAR co = FindCharBySerial(px->ownserial);
-						if (px->more2 == 1 && Guilds->Compare(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(co)) == 0) 
+						if (px->more2 == 1 && Guilds->Compare( pc_currchar, co ) == 0) 
 						{ 
 							pc_currchar->karma -= 5; 
 							criminal(pc_currchar);
@@ -590,7 +590,7 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			pc_target->poisoned=pi->poisoned;
 			pc_target->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_target->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 			pc_target->poisonwearofftime=pc_target->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
-			impowncreate(s,DEREF_P_CHAR(pc_target),1); //Lb, sends the green bar ! 
+			impowncreate(s, pc_target, 1); //Lb, sends the green bar ! 
 		}
 		
 		if(pi->name[0]=='#') pi->getName(temp2);
@@ -966,7 +966,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 	if( pi->id1 == 0x1B && ( pi->id2 == 0xC3 || pi->id2 == 0xC4 ) )
 	{
 		soundeffect2(pc_currchar, 0x01FE);
-		staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x2A, 0x09, 0x06);
+		staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06);
 		Items->DeleItem( pi );
 		return;
 	}

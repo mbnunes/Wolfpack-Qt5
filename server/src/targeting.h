@@ -186,6 +186,6 @@ public:
 	void ReleaseTarget(int s, int c);
 	P_ITEM AddMenuTarget(int s, int x, int addmitem);
 	void XTeleport(int s, int x);
-	int BuyShop(int s,int c);
+	int BuyShop(UOXSOCKET s, P_CHAR pc);
 };
 #endif	// _TARGETING_INCLUDED

@@ -274,7 +274,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		P_CHAR pc_vis = ri.GetData();
 		if (pc_vis != NULL)
 		{
-			int distance=chardist(DEREF_P_CHAR(pc_vis), DEREF_P_CHAR(pc));
+			int distance = chardist(pc_vis, pc);
 			if(distance<=Races[pc_vis->race]->VisRange)
 				SendWalkToOtherPlayers(pc_vis, dir, oldx, oldy);
 		}
@@ -964,7 +964,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				)*/
 			if ((abs(newx-currchar[i]->pos.x)<Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)<Races[pc->race]->VisRange))
 			{
-				impowncreate(i, DEREF_P_CHAR(pc), 1);
+				impowncreate(i, pc, 1);
 			}
 			else
 				//    if ((abs(newx-chars[currchar[i]].pos.x)<VISRANGE)||(abs(newy-chars[currchar[i]].pos.y)<VISRANGE))
@@ -992,7 +992,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
 				int guild, race;
 				//chars[i].flag=0x04;       // everyone should be blue on default
-				guild=Guilds->Compare( DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]) );
+				guild = Guilds->Compare( pc, currchar[i] );
 				race = Races.CheckRelation(pc,pc_check);
 				if( pc->kills > repsys.maxkills ) extmove[16]=6;
 				else if (guild==1 || race==1)//Same guild (Green)
@@ -1046,7 +1046,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 						((abs(newx-mapchar->pos.x)== visibleRange )&&(abs(newy-mapchar->pos.y)== visibleRange ))
 						)
 					{
-						impowncreate(socket, DEREF_P_CHAR(mapchar), 1);
+						impowncreate(socket, mapchar, 1);
 					}
 				}
 				if (oldx == newx && oldy == newy)	// just turning ?
@@ -1356,7 +1356,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
             if (pc->hidden) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-            const int guild = Guilds->Compare( DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]) );
+            const int guild = Guilds->Compare( pc, currchar[i] );
             const int race = Races.CheckRelation(pc,pc_check);
             if (pc->kills > repsys.maxkills ) extmove[16]=6; // ripper
             //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
@@ -1588,7 +1588,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
             P_CHAR pc_attacker = FindCharBySerial(pc_i->attacker);
             if (pc_attacker != NULL)
             {
-                if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_attacker)) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
+                if ( chardist( pc_i, pc_attacker ) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
                 {
                     if ( online( pc_attacker ) || pc_attacker->isNpc() )
                     {
@@ -1616,7 +1616,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 	                if (pc_target == NULL) return;
 		            if ( online(pc_target) || pc_target->isNpc() )
 			        {
-				        if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_target)) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
+				        if ( chardist( pc_i, pc_target) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
 					    {
 						    PathFind(pc_i, pc_target->pos.x, pc_target->pos.y);
 	                        j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
@@ -1658,10 +1658,10 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 					P_CHAR pc_k = FindCharBySerial(pc_i->targ);
 					if (pc_k == NULL) return;
 					
-					if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_k)) < P_PF_MFD )
+					if ( chardist(pc_i, pc_k) < P_PF_MFD )
 					{
 						// calculate a x,y to flee towards
-						int mydist = P_PF_MFD - chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_k)) + 1;
+						int mydist = P_PF_MFD - chardist( pc_i, pc_k) + 1;
 						j=chardirxyz(DEREF_P_CHAR(pc_i), pc_k->pos.x, pc_k->pos.y);
 						short int myx = GetXfromDir(j, pc_i->pos.x);
 						short int myy = GetYfromDir(j, pc_i->pos.y);

@@ -2040,7 +2040,7 @@ void cSkills::TameTarget(int s)
 
 	if(buffer[s][7]==0xFF) return;
 	if (pc != NULL)
-		if ((pc->isNpc() && (chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc)) <= 3))) //Ripper
+		if ((pc->isNpc() && (chardist(pc_currchar, pc) <= 3))) //Ripper
 		{
 			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
 			{
@@ -2138,7 +2138,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	}
 	
 	P_CHAR pc_npc = GetPackOwner(pi);
-//	 = MAKE_CHARREF_LR(npc);
+
 	if (pc_npc->npcaitype == 17)
 	{
 		sysmessage(s, "You cannot steal that.");
@@ -2152,7 +2152,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	}
 
 	skill = Skills->CheckSkill(pc_currchar,STEALING,0,999);
-	if (npcinrange(s,DEREF_P_CHAR(pc_npc),1))
+	if (npcinrange(s, pc_npc, 1))
 	{
 		if (skill)
 		{
@@ -2175,7 +2175,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 				criminal( pc_currchar );
 
-				if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
+				if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(pc_currchar, pc_npc)==0)//AntiChrist
 					criminal(pc_currchar);//Blue and not attacker and not guild
 			
 				if (pi->name!="#")
@@ -2224,7 +2224,7 @@ void cSkills::BeggingTarget(int s)
 
 	if (pc != NULL)
 	{
-		if(chardist(DEREF_P_CHAR(pc),DEREF_P_CHAR(pc_currchar))>=5)
+		if(chardist(pc, pc_currchar)>=5)
 		{
 			sysmessage(s,"You are not close enough to beg.");
 			return;
@@ -2315,7 +2315,7 @@ void cSkills::AnimalLoreTarget(int s)
 	P_CHAR pc_currchar = currchar[s];
 
 	// blackwind distance fix 
-	if( chardist( DEREF_P_CHAR(pc), DEREF_P_CHAR(pc_currchar) ) >= 10 ) 
+	if( chardist( pc, pc_currchar ) >= 10 ) 
 	{ 
 		sysmessage( s, "You need to be closer to find out more about them" ); 
 		return; 

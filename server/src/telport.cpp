@@ -138,7 +138,7 @@ void advancementobjects(int s, int x, int allways)
 	int pos;
 	if ((pc_s->advobj==0)||(allways==1))
 	{
-		staticeffect(s, 0x37, 0x3A, 0, 15);
+		staticeffect(pc_s, 0x37, 0x3A, 0, 15);
 		soundeffect2(pc_s, 0x01E9);
 		pc_s->advobj=x;
 		openscript("advance.scp");
@@ -713,7 +713,7 @@ void monstergate(int s, int x)
 	 Skills->updateSkillLevel(s,z);
  }
  updatechar(pc_s);
- staticeffect(s, 0x37, 0x3A, 0, 15);
+ staticeffect(pc_s, 0x37, 0x3A, 0, 15);
  soundeffect2(pc_s, 0x01E9);
 }
 
@@ -767,7 +767,7 @@ void polycolorgate(int s, int x)
 	pScp->Close(); 
   
 	updatechar(pc_s); 
-	staticeffect(s, 0x37, 0x3A, 0, 15); 
+	staticeffect(pc_s, 0x37, 0x3A, 0, 15); 
 	soundeffect2(pc_s, 0x01E9); 
 } 
 // 

@@ -142,7 +142,7 @@ void cTrade::buyaction(int s)
 				if( useBank )
 					DeleBankItem( DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldtotal );
 				else
-					delequan( DEREF_P_CHAR(pc_currchar), 0x0EED, goldtotal, NULL );
+					delequan( pc_currchar, 0x0EED, goldtotal, NULL );
 			}
 			for (i=0;i<itemtotal;i++)
 			{

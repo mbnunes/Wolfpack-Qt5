@@ -791,13 +791,13 @@ void cGuilds::StoneMove(int s)
 // 2= both in opposite guilds/guildtypes (so fighting is okay, orange highlighting)
 // 0= no guildwarfare, or no guild relation (so no fighting, normal highlighting)
 // Oh, Order/Order or Chaos/Chaos guilds (in different guilds) may not war eachother! 
-int cGuilds::Compare(int player1, int player2)
+int cGuilds::Compare(P_CHAR player1, P_CHAR player2)
 {
 	int counter;
-	if (player1<0 || player2<0) return 0;
+	if (player1 == NULL || player2 == NULL) return 0;
 
-	int guildnumber=chars[player1].guildnumber;
-    int guildnumber2=chars[player2].guildnumber;
+	int guildnumber=player1->guildnumber;
+    int guildnumber2=player2->guildnumber;
 
 	// one of both not in a guild -> no guildwarfare
 	if (guildnumber<0 || guildnumber>=MAXGUILDS || guildnumber2<0 || guildnumber2>=MAXGUILDS) return 0;

@@ -634,7 +634,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	wornitems(s, DEREF_P_CHAR(pc_currchar));
 	teleport((pc_currchar));
 	Xsend(s, modeset, 5);
-	impowncreate(s, DEREF_P_CHAR(pc_currchar), 0);
+	impowncreate(s, pc_currchar, 0);
 	Xsend(s, techstuff, 20);
 	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 
@@ -793,7 +793,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 	for (i=0;i<now;i++) 
 	{
 		if(perm[i] && i!=s && inrange1p(currchar[i], pc_currchar))
-			impowncreate(i,DEREF_P_CHAR(pc_currchar),0);
+			impowncreate(i, pc_currchar, 0);
 	}
 
 	return valid;

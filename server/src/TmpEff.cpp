@@ -284,7 +284,7 @@ void cTmpEff::Expire()
 			pc_s->priv2 &= 0xFD;
 			int sk=calcSocketFromChar((pc_s));
 			if (sk!=-1) sysmessage(sk, "You are no longer frozen.");
-			Magic->afterParticles(38, DEREF_P_CHAR(pc_s)); 			
+			Magic->afterParticles(38, pc_s); 			
 		}
 		break;
 	case 2:
@@ -417,13 +417,13 @@ void cTmpEff::Expire()
 			pc_s->stm=3; // stamina near 0
 			pc_s->mn=3;
 			pc_s->hp=pc_s->hp/7;
-			impowncreate(k,DEREF_P_CHAR(pc_s),0);
+			impowncreate(k, pc_s, 0);
 			all_items(k); // absolutely necassairy here !!!
 			AllCharsIterator it;
 			for (it.Begin(); !it.atEnd(); it++) // that hurts, but there's no other good way
 			{
 				P_CHAR pc = it.GetData();
-				if (chardist(DEREF_P_CHAR(pc_s), DEREF_P_CHAR(pc))<15 && ( online(pc) || pc->isNpc() ) ) 
+				if (chardist( pc_s, pc ) < 15 && ( online(pc) || pc->isNpc() ) ) 
 					updatechar(pc);
 			}
 		}
@@ -564,7 +564,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 	case 2:	// night sight
 		pc_dest->fixedlight=worldbrightlevel;
 		dolight(calcSocketFromChar((pc_dest)), worldbrightlevel);
-		Magic->afterParticles(6, DEREF_P_CHAR(pc_dest)); // shows particles for UO:3D clients, like On OSI servers
+		Magic->afterParticles(6, pc_dest); // shows particles for UO:3D clients, like On OSI servers
 
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 30.12.2000)
 			pTE->setExpiretime_s(dur);
@@ -935,7 +935,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		LSD[k]=1;
 		pc_source->hp=pc_source->st;
 		pc_source->mn=pc_source->in;
-		impowncreate(k,DEREF_P_CHAR(pc_source),0);
+		impowncreate(k, pc_source, 0);
 		pTE->setExpiretime_s(90);
 		break;
 

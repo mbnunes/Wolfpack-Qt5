@@ -92,7 +92,7 @@ void cCombat::ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi)//S=Socket c=Cha
 	case 43: Magic->ExplosionSpell(DEREF_P_CHAR(pc_currchar),c); break;
 	case 51: Magic->NPCFlameStrikeTarget(DEREF_P_CHAR(pc_currchar),c); break;
 	default:
-		staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x35, 0, 30);
+		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
 		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x5C);
 		break;
 	}
@@ -117,7 +117,7 @@ void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 			pc_defender->poisonwearofftime=pc_defender->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
 			if (sd != -1) 
 			{
-				impowncreate(sd,DEREF_P_CHAR(pc_defender),1); //Lb, sends the green bar ! 
+				impowncreate(sd, pc_defender, 1); //Lb, sends the green bar ! 
 				sysmessage(sd,"You have been poisoned!");//AntiChrist 
 			}
 		}
@@ -176,7 +176,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 
 	pc_attacker->swingtarg=-1;
 
-	if((chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_deffender))>1 && fightskill!=ARCHERY) || !los) return;
+	if((chardist(pc_attacker, pc_deffender)>1 && fightskill!=ARCHERY) || !los) return;
 	if(pc_deffender->isNpc() && pc_deffender->isInvul()) return; // ripper
 
 
@@ -440,7 +440,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 					pc_deffender->hp -= damage-damage1;
 					if (pc_deffender->isNpc()) damage1 = damage1 * SrvParms->npcdamage; // by Magius(CHE)
 					pc_attacker->hp -= damage1;  // Remove damage from attacker
-					staticeffect(DEREF_P_CHAR(pc_deffender), 0x37, 0x4A, 0, 15);//RA effect - AntiChrist (9/99)
+					staticeffect(pc_deffender, 0x37, 0x4A, 0, 15);//RA effect - AntiChrist (9/99)
 					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())))// Stamina Loss -Fraz-
 					{ 
 						//pc_attacker->stm-=3+(rand()%4);
@@ -529,7 +529,7 @@ static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int 
 	{
 		int spattacks = numbitsset( pc_attacker->spattack );
 
-		if (!pc_defender->dead && chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))<server_data.attack_distance && spattacks > 0 )
+		if (!pc_defender->dead && chardist(pc_attacker, pc_defender) < server_data.attack_distance && spattacks > 0 )
 		{
 			if (los)
 			{																	
@@ -712,12 +712,12 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 			CHARACTER d=DEREF_P_CHAR(pc_defender);
 			if (bowtype==1)
 			{
-				delequan(a, 0x0F3F, 1, NULL);
+				delequan(pc_attacker, 0x0F3F, 1, NULL);
 				movingeffect3(a, d, 0x0F, 0x42, 0x08, 0x00, 0x00,0,0,0,0);
 			}
 			else
 			{
-				delequan(a, 0x1BFB, 1, NULL);
+				delequan(pc_attacker, 0x1BFB, 1, NULL);
 				movingeffect3(a, d, 0x1B, 0xFE, 0x08, 0x00, 0x00,0,0,0,0);
 			}
 		}
@@ -755,7 +755,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 		
 		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(pc_defender) && !pc_defender->dead) ) // ripper		
 		{
-			if (chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender)) > SrvParms->attack_distance)
+			if (chardist( pc_attacker, pc_defender ) > SrvParms->attack_distance)
 			{
 				if (pc_attacker->npcaitype==4 && pc_attacker->inGuardedArea()) // changed from 0x40 to 4, LB
 				{
@@ -763,7 +763,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					
 					teleport((pc_attacker));
 					soundeffect2(DEREF_P_CHAR(pc_attacker), 0x01, 0xFE); // crashfix, LB
-					staticeffect(DEREF_P_CHAR(pc_attacker), 0x37, 0x2A, 0x09, 0x06);
+					staticeffect(pc_attacker, 0x37, 0x2A, 0x09, 0x06);
 					npctalkall(pc_attacker,"Halt, scoundrel!",1);
 				}
 				else 
@@ -813,7 +813,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 							//	sysmessage(s1, "You are out of ammunitions!"); //-Fraz- this message can cause problems removed
 						}
 					}
-					if ( chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))<2 && fightskill!=ARCHERY ) x=1;
+					if ( chardist( pc_attacker, pc_defender )<2 && fightskill!=ARCHERY ) x=1;
 					if (x)
 					{
 						// - Do stamina maths - AntiChrist (6) -
@@ -834,7 +834,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 						
 						DoCombatAnimations( pc_attacker, pc_defender, fightskill, bowtype, los);
 
-						if (((chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype==4)) // changed from 0x40 to 4
+						if (((chardist( pc_attacker, pc_defender )<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype==4)) // changed from 0x40 to 4
                         {
 							if (los)
 							{
@@ -879,7 +879,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 				
 				if ((pc_attacker->isPlayer())&&(pc_defender->isPlayer()))//Player vs Player
 				{
-					if(pc_defender->isInnocent() && Guilds->Compare(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
+					if(pc_defender->isInnocent() && Guilds->Compare(pc_attacker, pc_defender )==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
 					{
 						pc_attacker->kills++;
 						sprintf((char*)temp, "You have killed %i innocent people.", pc_attacker->kills);
@@ -1238,7 +1238,7 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 		pc_guard->summontimer =(getNormalizedTime() +(MY_CLOCKS_PER_SEC*25));    
 		
 		soundeffect2(DEREF_P_CHAR(pc_guard), 0x01, 0xFE);  // Tauriel 1-9-99 changed to stop crashing used to call soundeffect (expeted socket)
-		staticeffect(DEREF_P_CHAR(pc_guard), 0x37, 0x2A, 0x09, 0x06);
+		staticeffect(pc_guard, 0x37, 0x2A, 0x09, 0x06);
 		
 		updatechar(pc_guard);
 		switch (RandomNum(0,1))

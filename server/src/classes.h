@@ -260,16 +260,16 @@ public:
 	stat_st getStatEffects_pre( int num);
 	stat_st getStatEffects_after( int num);
 	stat_st getStatEffects_item( int num);
-	void preParticles(int num, CHARACTER c);
-	void afterParticles(int num, CHARACTER c);
+	void preParticles(int num, P_CHAR pc);
+	void afterParticles(int num, P_CHAR pc);
 	void itemParticles(int num, P_ITEM pi);
 	void invisibleItemParticles(CHARACTER c, int num, short x, short y, signed char z);
 	move_st getMoveEffects( int num );
 	sound_st getSoundEffects( int num );
 	bool aggressiveSpell( int num );
 	bool fieldSpell( int num );
-	void doMoveEffect( int num, int target, int source );
-	void doStaticEffect( int source, int num );
+	void doMoveEffect( int num, P_CHAR target, P_CHAR source );
+	void doStaticEffect( P_CHAR source, int num );
 	void playSound( int source, int num );
 //	void NewDelReagents( CHARACTER s, reag_st reags );
 	

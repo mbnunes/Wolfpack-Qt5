@@ -92,7 +92,7 @@ public:
 	void Recruit(int s);
 	void TargetWar(int s);
 	void StoneMove(int s);
-	int Compare(int player1, int player2);
+	int Compare(P_CHAR player1, P_CHAR player2);
 	void GumpInput(int s, int type, int index, char *text);
 	void GumpChoice(int s, int main, int sub);
 	int SearchByStone(int s);

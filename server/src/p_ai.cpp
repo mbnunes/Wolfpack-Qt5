@@ -70,7 +70,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						if (d > 3)
 							continue;
 						if (pc->isInvul() || pc->isNpc() || pc->dead || !pc->isInnocent() || !onl)
@@ -92,7 +92,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
 							continue;
 						if (pc->isMurderer()) 
@@ -109,7 +109,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						{
 							npcaction(DEREF_P_CHAR(pc_i), 0x10);
 							Targ->NpcResurrectTarget(pc);
-							staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
+							staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 							switch (RandomNum(0, 4)) 
 							{
 							case 0: 
@@ -143,7 +143,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						chance = RandomNum(1, 100);
 						if (DEREF_P_CHAR(pc) == DEREF_P_CHAR(pc_i))
 							continue;
@@ -191,7 +191,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
 							continue;
 						if (pc->isInnocent())
@@ -203,7 +203,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						{
 							npcaction(DEREF_P_CHAR(pc_i), 0x10);
 							Targ->NpcResurrectTarget(pc);
-							staticeffect(DEREF_P_CHAR(pc), 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
+							staticeffect(pc, 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
 							switch (RandomNum(0, 4)) 
 							{
 							case 0: npctalkall(pc_i, "Fellow minion of Mondain, Live!!", 1);											break;
@@ -227,7 +227,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						if (d > 10 || pc->isInvul() || pc->dead || !onl || pc->isHidden())
 							continue;
 						if(pc->isCriminal() || pc->isMurderer())
@@ -249,7 +249,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						if (d > 3 || pc->isInvul() || pc->isNpc() || pc->dead || !onl || !pc->isInnocent())
 							continue;
 						int beg= RandomNum(0, 2);
@@ -293,8 +293,8 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
-						if (DEREF_P_CHAR(pc_i) == DEREF_P_CHAR(pc) || d > 3 || pc->isInvul() || pc->dead || !onl)
+						d = chardist( pc_i, pc);
+						if (pc_i == pc || d > 3 || pc->isInvul() || pc->dead || !onl)
 							continue;
 						if ((pc->isPlayer() && pc->crimflag > 0) || (Races.CheckRelation(pc,pc_i)!=1))
 						{
@@ -317,7 +317,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							pc_i->pos.y = pc->pos.y;
 							pc_i->pos.z = pc->pos.z;
 							soundeffect2(pc_i, 0x01FE); // crashfix, LB
-							staticeffect(DEREF_P_CHAR(pc_i), 0x37, 0x2A, 0x09, 0x06);
+							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
 							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
 							return;
@@ -337,7 +337,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						if (d > 10 || pc->isPlayer() || pc->npcaitype != 61)
 							continue;
 						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
@@ -356,7 +356,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist( pc_i, pc );
 						if (d > 10 || pc->isInvul() || pc->dead)
 							continue;
 						if (!(pc->npcaitype == 2 || pc->isCriminal() || pc->isMurderer()))
@@ -380,7 +380,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 				if (pc != NULL)
 				{
 				    onl = online(pc);
-				    d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+				    d = chardist(pc_i, pc);
 				    if (d > 10 || pc->isNpc() || pc->isInvul() || pc->dead || (pc->isPlayer() && !onl))
 					    continue;
 
@@ -402,7 +402,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist(pc_i, pc);
 						if (d > 10 || pc->isInvul() || pc->dead || pc->npcaitype != 2 || !onl)
 							continue;
 						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
@@ -421,7 +421,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist(pc_i, pc);
 						if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded || !onl)
 							continue;
 						if (pc->Owns(pc_i))
@@ -444,7 +444,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						d = chardist(pc_i, pc);
 						if (d > 10 || pc->isInvul() || pc->dead || !onl)
 							continue;
 						if (Races.CheckRelation(pc,pc_i)==1)
@@ -485,7 +485,7 @@ void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 			P_CHAR pc = ri.GetData();
 			if (pc != NULL)
 			{
-				distance = chardist(i, DEREF_P_CHAR(pc));
+				distance = chardist(pc_i, pc);
 				if (!pc->npc && !online(pc))	// no offline players (Duke)
 					continue;
 				if (Races.CheckRelation(pc,pc_i)==1)

@@ -105,8 +105,8 @@ void npctalk_runic(int s, int npc, char *txt,char antispam); // NPC speech
 void npcemote(int s, int npc, char *txt, char antispam); // NPC speech
 
 
-void staticeffect (CHARACTER player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, bool UO3DonlyEffekt=false, stat_st *str=NULL, bool skip_old=false );
-void movingeffect(CHARACTER source, CHARACTER dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt=false, move_st *str=NULL, bool skip_old=false);
+void staticeffect (P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, bool UO3DonlyEffekt=false, stat_st *str=NULL, bool skip_old=false );
+void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt=false, move_st *str=NULL, bool skip_old=false);
 void bolteffect(CHARACTER player, bool UO3DonlyEffekt=false, bool skip_old=false);
 void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt=false, stat_st *str=NULL, bool skip_old=false);
 
@@ -116,17 +116,17 @@ void movingeffect3(CHARACTER source, CHARACTER dest, unsigned char eff1, unsigne
 void movingeffect2(CHARACTER source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode);
 void bolteffect2(CHARACTER player,char a1,char a2);	// experimenatal, lb
 
-void staticeffectUO3D(CHARACTER player, stat_st *sta);
+void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta);
 void movingeffectUO3D(CHARACTER source, CHARACTER dest, move_st *sta);
-void bolteffectUO3D(CHARACTER player);
+void bolteffectUO3D(P_CHAR player);
 void itemeffectUO3D(P_ITEM pi, stat_st *sta);
 
 void dolight(int s, char level);
 void updateskill(int s, int skillnum); // updated for client 1.26.2b by LB
 void deathaction(int s, P_ITEM pi_x); // Character does a certain action
 void deathmenu(int s); // Character sees death menu
-void impowncreate(int s, int i, int z); //socket, player to send
-void sendshopinfo(int s, int c, P_ITEM pi);
+void impowncreate(int s, P_CHAR pc, int z); //socket, player to send
+void sendshopinfo(int s, P_CHAR pc, P_ITEM pi);
 int sellstuff(int s, int i);
 void playmidi(int s, char num1, char num2);
 void sendtradestatus(P_ITEM cont1, P_ITEM cont2);

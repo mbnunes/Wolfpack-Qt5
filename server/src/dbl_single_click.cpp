@@ -88,7 +88,7 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 		sysmessage(s,"you dont have enough gold to play!");
 		return;
 	}
-	delequan(DEREF_P_CHAR(pc_currchar), 0x0EED, server_data.slotamount, NULL);	// lets delete the coins played.
+	delequan(pc_currchar, 0x0EED, server_data.slotamount, NULL);	// lets delete the coins played.
 	int spin=RandomNum( 0,100);	// now lets spin to win :)
 	switch(spin)
 	{
@@ -350,7 +350,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		pco = GetPackOwner(pi);
 		npc = DEREF_P_CHAR(pco);
 		
-		if ((npcinrange(s, DEREF_P_CHAR(pco), 2)) || (iteminrange(s, pi, 2)))
+		if ((npcinrange(s, pco, 2)) || (iteminrange(s, pi, 2)))
 		{	
 			if (pco == NULL)// reorganized by AntiChrist to avoid crashes
 				backpack(s, serial);
@@ -560,7 +560,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				pc_currchar->poisoned = pi->poisoned;
 				pc_currchar->poisontime = uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 				pc_currchar->poisonwearofftime = pc_currchar->poisontime +(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // wear off starts after poison takes effect - AntiChrist
-				impowncreate(s, DEREF_P_CHAR(currchar[s]), 1); // Lb, sends the green bar ! 
+				impowncreate(s, currchar[s], 1); // Lb, sends the green bar ! 
 			}
 			
 			pi->ReduceAmount(1);	// Remove a food item
@@ -907,7 +907,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
                  sysmessage(s,"Your fame is %i",pc_currchar->fame); 
                  sysmessage(s,"Your Kill count is %i ",pc_currchar->kills); 
                  sysmessage(s,"You died %i times.",pc_currchar->deaths);
-				 staticeffect(s, 0x37, 0x2A, 0x09, 0x06 );
+				 staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06 );
 				 sysmessage(s,"*The crystal ball seems to have vanished*");
                  pi->ReduceAmount(1); 
                  return; 
@@ -1629,7 +1629,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		(target->id2==(unsigned char)'\xDA') ||
 		(target->id2==(unsigned char)'\xDB')))
 	{//if mount
-		if (chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(target))<2 || pc_currchar->isGM())
+		if (chardist( pc_currchar, target )<2 || pc_currchar->isGM())
 		{
 			//AntiChrist - cannot ride animals under polymorph effect
 			if (pc_currchar->polymorph)
