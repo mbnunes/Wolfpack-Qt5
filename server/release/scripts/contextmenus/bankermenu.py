@@ -1,4 +1,6 @@
 
+from wolfpack import tr
+
 #
 # Answer the banker context menu.
 #
