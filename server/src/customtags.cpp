@@ -163,6 +163,13 @@ cVariant::cVariant( double val )
     d->value.d = val;
 }
 
+cVariant::cVariant( long int val )
+{
+	d = new Private;
+	d->typ = Long;
+	d->value.d = val;
+}
+
 /*!
   Constructs a new variant with a cChar* value, \a val.
 */

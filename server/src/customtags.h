@@ -59,6 +59,7 @@ public:
 		Invalid = 0,
 		String,
 		Int,
+		Long,
 		Double,
 		Char,
 		Item,
@@ -75,6 +76,7 @@ public:
 	cVariant( cItem* );
 	cVariant( Coord_cl );
     cVariant( double );
+	 cVariant( long int );
 
     cVariant& operator= ( const cVariant& );
     bool operator==( const cVariant& ) const;
