@@ -218,6 +218,7 @@ void cAccounts::save()
 		archive->writeObject( it.data() );
 	}
 	archive->close();
+	delete archive;
 }
 
 void cAccounts::load()
