@@ -2033,11 +2033,12 @@ void cUOSocket::resendWorld( bool clean )
 	if( !_player )
 		return;
 
-	RegionIterator4Items itIterator( _player->pos() );
-	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )
-	{
-		P_ITEM pItem = itIterator.GetData();
-		pItem->update(this);
+	cItemSectorIterator *itemIter = SectorMaps::instance()->findItems(_player->pos(), BUILDRANGE);
+	for (cItem *item = itemIter->first(); item; item = itemIter->next()) {
+		if (clean) {
+			removeObject(item);
+		}
+		item->update(this);
 	}
 
 	RegionIterator4Chars chIterator( _player->pos(), _player->visualRange() );
@@ -2047,11 +2048,8 @@ void cUOSocket::resendWorld( bool clean )
 		if (pChar == _player)
 			continue;
 
-		if (clean)
-		{
-			cUOTxRemoveObject rObject;
-			rObject.setSerial(pChar->serial());
-			send(&rObject);
+		if (clean) {
+			removeObject(pChar);
 		}
 		
 		// Hidden

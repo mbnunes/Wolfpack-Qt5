@@ -395,12 +395,14 @@ static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 /*!
 	Resends the world around this socket.
 */
-static PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
-{
-	Q_UNUSED(args);
-	if( !self->pSock )
-		return PyFalse;
-	self->pSock->resendWorld( false );
+static PyObject* wpSocket_resendworld(wpSocket* self, PyObject* args) {
+	unsigned char clean = 0;
+	if (!PyArg_ParseTuple(args, "|B:socket.resendworld([clean=0])", &clean)) {
+		return 0;
+	}
+
+	self->pSock->resendWorld(clean != 0);
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
