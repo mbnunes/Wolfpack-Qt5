@@ -599,7 +599,7 @@ def pages_gump(player, i=0):
 		gump.addButton( 260, 320, 0x0FC, 0x0FC, 2 )
 
 	gump.setArgs([i])
-	gump.setType(0x87bde41a)
+	gump.setType(0x77bde41a)
 	gump.setCallback(pages_gump_response)
 	gump.send(player.socket)
 
