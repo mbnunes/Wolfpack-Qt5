@@ -30,3 +30,4 @@ the starting gold. NOTE: You MUST take the starting gold line out of the wolfpac
 isnt needed anymore. (Ripper)
 24) Added: Made all the starting equipting including shirt/pants & dagger newbiefyed. (Ripper)
 25) Fixed: Minor Wrestling speed bug (not checking skill)
+26) Fixed: HouseEject, HouseBan and HouseTransfer all now work right ;) (Ripper)

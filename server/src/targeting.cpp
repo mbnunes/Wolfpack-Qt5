@@ -2717,7 +2717,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	P_ITEM pHouse=MAKE_ITEMREF_LR(house);
 	
 	if (sign ==-1 || house ==-1) return; //lb
-	if(pc->serial == chars[currchar[s]].serial) sysmessage(s, "you already own this house!"); return;
+	if(pc->serial == chars[currchar[s]].serial) {sysmessage(s, "you already own this house!"); return;}
 	
 	pSign->SetOwnSerial(o_serial);
 	
@@ -2774,7 +2774,7 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 	if((c!=-1)&&(h!=-1)) {
 		int sx, sy, ex, ey;
 		Map->MultiArea(h, &sx,&sy,&ex,&ey);
-		if(pc->serial == chars[currchar[s]].serial) sysmessage(s,"Do you really want to do that?!"); return;
+		if(pc->serial == chars[currchar[s]].serial) {sysmessage(s,"Do you really want to do that?!"); return;}
 		if(pc->pos.x>=sx&&pc->pos.y>=sy&&pc->pos.x<=ex&&pc->pos.y<=ey)
 		{
 			pc->MoveTo(ex,ey,pc->pos.z);
@@ -2825,7 +2825,7 @@ void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to
 	{
 		int r;
 		P_CHAR pc = MAKE_CHARREF_LR(c);
-		if(pc->serial == chars[currchar[s]].serial) sysmessage(s,"You cant do that!"); return;
+		if(pc->serial == chars[currchar[s]].serial) {sysmessage(s,"You cant do that!"); return;}
 		r=add_hlist(c, h, H_FRIEND);
 		if(r==1)
 		{
