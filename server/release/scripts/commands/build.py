@@ -171,9 +171,9 @@ BUILD_TYPES = {
 	'woodenwall1small': (buildWall, ('10', '11', '12', '13')),	
 	'woodenwall1tiny': (buildWall, ('14', '15', '16', '17')),
 	
-	'woodenwall1': (buildWall, ('a6', 'a7', 'a8', 'a9')),			
-	'woodenwall1small': (buildWall, ('b6', 'b8', 'b7', '13')),	
-	'woodenwall1tiny': (buildWall, ('bd', 'be', 'bf', 'c0')),
+	'woodenwall2': (buildWall, ('a6', 'a7', 'a8', 'a9')),			
+	'woodenwall2small': (buildWall, ('b6', 'b8', 'b7', '13')),	
+	'woodenwall2tiny': (buildWall, ('bd', 'be', 'bf', 'c0')),
 	
 	'plasterwall1': (buildWall, (['127', '12b', '132', '135'], ['12f', '131', '137', '137', '137'], ['12e', '130', '136', '136', '136'], '12a')),
 	'plasterwall1wrecked': (buildWall, (['127', '12b', '132', '135', '37f', '383', '38a', '38d', '392'], ['387', '389', '38f', '38f', '38f', '394', '396'], ['386', '388', '38e', '38e', '38e', '393', '395'], '12a')),
