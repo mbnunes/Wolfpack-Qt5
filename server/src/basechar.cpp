@@ -1109,10 +1109,9 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 {
 	bool success = false;
 
-	// Maximum Value of 120 for checks
-	// I disabled this so you can make skillchecks for grandmasters that are still tough
-	//if( max > 1200 )
-	//    max = 1200;
+	/* Returns false if you don't have the skill required. */
+	if ( skillValue( skill ) < min )
+		return false;
 
 	// How far is the players skill above the required minimum.
 	int charrange = abs( skillValue( skill ) - min );
