@@ -41,23 +41,6 @@
 // Forward declaration for wolfpack extension function
 void init_wolfpack_globals();
 
-// Forward declarations for
-// the python extensions
-extern "C" {
-#ifndef PY_NOSOCKETS
-	void init_socket( void );
-#endif
-#ifndef PY_NOSRE
-	void init_sre( void );
-#endif
-#ifndef PY_NOBINASCII
-	void initbinascii( void );
-#endif
-#ifndef PY_NOMD5
-	void initmd5( void );
-#endif
-};
-
 /*!
 	Stops the python interpreter
 */
@@ -138,24 +121,8 @@ void startPython( int argc, char* argv[] )
                 Py_XDECREF( m );
         }
 
-	// Init several modules
 	try
 	{
-#ifndef PY_NOSOCKETS
-		init_socket(); // Sockets
-#endif
-
-#ifndef PY_NOSRE
-		init_sre(); // Regular Expression Engine
-#endif
-
-#ifndef PY_NOBINASCII
-		initbinascii(); // Binary/ASCII Transformations and Operations - i.e. CRC32
-#endif
-
-#ifndef PY_NOMD5		
-		initmd5(); // MD5 Crypto
-#endif
 		
 		init_wolfpack_globals(); // Init wolfpack extensions
 	}

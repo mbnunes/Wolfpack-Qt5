@@ -50,14 +50,14 @@ public:
 
 		if( !sInfo || !NewMagic->checkTarget( socket->player(), sInfo, target ) )
 		{
-			NewMagic->disturb( socket->player(), false, -1 );
+			socket->player()->setCasting( false );
 			return true;
 		}
 
 		// The Target is correct, let us do our spellcheck now and consume mana + reagents.
 		if( !NewMagic->useMana( socket->player(), spell ) || !NewMagic->useReagents( socket->player(), spell ) )
 		{
-			NewMagic->disturb( socket->player(), false, -1 );
+			socket->player()->setCasting( false );
 			return true;
 		}
 
@@ -82,6 +82,9 @@ public:
 		// Call the Spell Effect for this Spell
 		if( sInfo->script )
 			sInfo->script->onSpellSuccess( socket->player(), spell, type, pObject, pos, target->model() );
+
+		// End Casting
+		socket->player()->setCasting( false );
 
 		return true;
 	}
@@ -131,6 +134,7 @@ void cNewMagic::load()
 			continue;
 
 		spells[id].script = 0;
+		//memset( &spells[id].reagents, 0, sizeof( stReagents ) );
 
         id--;
 		QDomElement node = elem->firstChild().toElement();
@@ -176,6 +180,35 @@ void cNewMagic::load()
 				spells[id].scroll = hex2dec( node.text() ).toLong();
 			else if( node.nodeName() == "script" )
 				spells[id].script = ScriptManager->find( node.text() );
+			else if( node.nodeName() == "reagents" )
+			{
+				QDomNodeList nList = node.childNodes();
+
+				for( INT32 i = 0; i < nList.count(); ++i )
+				{
+					QDomElement sNode = nList.item( i ).toElement();
+
+					if( !sNode.isNull() )
+					{
+						if( sNode.nodeName() == "blackpearl" )
+							spells[id].reagents.blackpearl = hex2dec( sNode.text() ).toInt();
+						else if( sNode.nodeName() == "bloodmoss" )
+							spells[id].reagents.bloodmoss = hex2dec( sNode.text() ).toInt();
+						else if( sNode.nodeName() == "garlic" )
+							spells[id].reagents.garlic = hex2dec( sNode.text() ).toInt();
+						else if( sNode.nodeName() == "ginseng" )
+							spells[id].reagents.ginseng = hex2dec( sNode.text() ).toInt();
+						else if( sNode.nodeName() == "mandrake" )
+							spells[id].reagents.mandrake = hex2dec( sNode.text() ).toInt();
+						else if( sNode.nodeName() == "nightshade" )
+							spells[id].reagents.nightshade = hex2dec( sNode.text() ).toInt();
+						else if( sNode.nodeName() == "spidersilk" )
+							spells[id].reagents.spidersilk = hex2dec( sNode.text() ).toInt();
+						else if( sNode.nodeName() == "sulfurash" )
+							spells[id].reagents.sulfurash = hex2dec( sNode.text() ).toInt();
+					}
+				}
+			}
 
 			QDomNode tmp = node.nextSibling();
 			if( !tmp.isNull() )
@@ -324,7 +357,13 @@ bool cNewMagic::useMana( P_CHAR pMage, UINT8 spell )
 */
 bool cNewMagic::checkMana( P_CHAR pMage, UINT8 spell )
 {
-	return true;
+	stNewSpell *sInfo = findSpell( spell );
+	bool enoughMana = false;
+
+	if( sInfo && pMage->mn() >= sInfo->mana )
+		enoughMana = true;
+
+	return enoughMana;
 }
 
 /*!
@@ -338,6 +377,14 @@ bool cNewMagic::useReagents( P_CHAR pMage, UINT8 spell )
 	return true;
 }
 
+#define checkReagent( name, itemid )		if( name > 0 && pItem->id() == itemid ) \
+		{\
+			if( pItem->amount() > name ) \
+				name = 0; \
+			else \
+				name -= pItem->amount(); \
+		}\
+
 /*!
 	Just like useReagents this function is checking 
 	for required reagents on a characater to cast a 
@@ -347,7 +394,66 @@ bool cNewMagic::useReagents( P_CHAR pMage, UINT8 spell )
 */
 bool cNewMagic::checkReagents( P_CHAR pMage, UINT8 spell )
 {
-	return true;
+	// Check for each reagent.
+	// So we dont need to loop trough all items over and over again we'll use ONE loop (will be a bit less clean)
+	P_ITEM pPack = pMage->getBackpack();
+
+	stNewSpell *sInfo = findSpell( spell );
+	UINT8 ginseng = sInfo->reagents.ginseng;
+	UINT8 bloodmoss = sInfo->reagents.bloodmoss;
+	UINT8 mandrake = sInfo->reagents.mandrake;
+	UINT8 blackpearl = sInfo->reagents.blackpearl;
+	UINT8 spidersilk = sInfo->reagents.spidersilk;
+	UINT8 garlic = sInfo->reagents.garlic;
+	UINT8 nightshade = sInfo->reagents.nightshade;
+	UINT8 sulfurash = sInfo->reagents.sulfurash;
+
+	QPtrList< cItem > content = pPack->getContainment();
+
+	for( P_ITEM pItem = content.first(); pItem; pItem = content.next() )
+	{
+		checkReagent( blackpearl, 0xF7A )
+		else checkReagent( bloodmoss, 0xF7B )
+		else checkReagent( garlic, 0xF84 )
+		else checkReagent( ginseng, 0xF85 )
+		else checkReagent( mandrake, 0xF86 )
+		else checkReagent( nightshade, 0xF88 )
+		else checkReagent( sulfurash, 0xF8C )
+		else checkReagent( spidersilk, 0xF8D )		
+	}
+
+	QStringList missing;
+
+	if( ginseng > 0 )
+		missing.append( tr( "Ginseng" ) );
+	if( bloodmoss > 0 )
+		missing.append( tr( "Bloodmoss" ) );
+	if( mandrake > 0 )
+		missing.append( tr( "Mandrake" ) );
+	if( blackpearl > 0 )
+		missing.append( tr( "Black Pearls" ) );
+	if( spidersilk > 0 )
+		missing.append( tr( "Spider's Silk" ) );
+	if( garlic > 0 )
+		missing.append( tr( "Garlic" ) );
+	if( nightshade > 0 )
+		missing.append( tr( "Nightshade" ) );
+	if( sulfurash > 0 )
+		missing.append( tr( "Sulfurous Ash" ) );
+
+	bool enoughReagents = true;
+
+	if( missing.count() > 0 )
+	{
+		if( pMage->socket() )
+		{
+			pMage->message( tr( "You dont have enough reagents" ) );
+			pMage->socket()->sysMessage( tr( "You lack the following reagents: %1" ).arg( missing.join( ", ") ) );
+		}
+		enoughReagents = false;
+	}
+
+	return enoughReagents;
 }
 
 /*!

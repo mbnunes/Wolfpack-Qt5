@@ -115,7 +115,7 @@ inline QString __escapeReservedCharacters( const QString& d )
 		}
 #else
 	#define loadPersistentUIntValue(fieldName, property) \
-		property = cursor.field(fieldname)->value().toUInt()
+		property = cursor.field(fieldName)->value().toUInt()
 #endif
 
 
