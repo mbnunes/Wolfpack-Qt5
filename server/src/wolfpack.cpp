@@ -153,16 +153,16 @@ void signal_handler(int signal)
 	switch (signal)
 	{
 	case SIGHUP:
-		SrvParams->reload();
-		cNetwork::instance()->reload();
-		DefManager->reload();
-		cAllSpawnRegions::getInstance()->reload();
-		cAllTerritories::getInstance()->reload();
-		cAllResources::getInstance()->reload();
-		cAllMakeMenus::getInstance()->reload();
-		cAllConMenus::getInstance()->reload();
-		cCommands::instance()->loadACLs();
-		ScriptManager->reload();
+                SrvParams->reload();
+                cNetwork::instance()->reload();
+                DefManager->reload();
+                SpawnRegions::instance()->reload();
+                cAllTerritories::getInstance()->reload();
+                Resources::instance()->reload();
+                MakeMenus::instance()->reload();
+                ContextMenus::instance()->reload();
+                cCommands::instance()->loadACLs();
+                ScriptManager->reload();
 		break ;
 		
 	case SIGUSR1:
