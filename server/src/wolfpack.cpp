@@ -166,6 +166,8 @@ bool inVisRange(int x1, int y1, int x2, int y2)
 
 int inrange1 (UOXSOCKET a, UOXSOCKET b) // Are players from sockets a and b in visual range
 {
+	if ( a == INVALID_UOXSOCKET || b == INVALID_UOXSOCKET )
+		return 0;
 	if (!(a==b)
 		&& inVisRange(currchar[a]->pos.x, currchar[a]->pos.y, currchar[b]->pos.x, currchar[b]->pos.y))
 		return 1;
@@ -271,7 +273,7 @@ void init_deamon()
 
 #if defined(__unix__)
 	
-	int i ;
+/*	int i ;
 	pid_t pid ;
 
 	if ((pid = fork() ) != 0)
@@ -302,6 +304,7 @@ void init_deamon()
 	signal(SIGTERM,&signal_handler) ;
 // we have this here, because convient, but should be set regardless of deamon or not.
 // Keeps a disconnected socket from terminating the server.
+	*/
 #if !defined(__linux__)
 	signal(SIGPIPE,&signal_handler) ;
 #endif
@@ -2711,7 +2714,7 @@ int main(int argc, char *argv[])
 	#if defined(__unix__)
 	// Under unix we go to deamon mode
 	cout << "Going into deamon mode, returning local control to terminal" <<endl;
-	init_deamon() ;
+	init_deamon();
 	// set up our console redirection
 	fstream fconsole;
 	fconsole.open("console.txt", ios::out);
