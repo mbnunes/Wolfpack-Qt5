@@ -181,7 +181,7 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 }
 
 extern bool lineOfSightNew(Coord_cl origin, Coord_cl target);
-extern void getAverageZ(const Coord_cl &pos, int &z, int &average, int &top);
+extern void getMapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, int &top);
 extern Coord_cl getItemLosCoord(P_ITEM pItem);
 extern Coord_cl getCharLosCoord(P_CHAR pChar, bool eye);
 
@@ -197,8 +197,9 @@ static PyObject* wpCoord_lineofsightnew( wpCoord* self, PyObject* args )
 		pos = getWpCoord(object);
 		
 		// Get the average elevation
-        int bottom, average, top;
-		getAverageZ(pos, bottom, average, top);
+        int bottom, top;
+		unsigned short id;
+		getMapTileSpan(pos, id, bottom, top);
 
 		// Use the top
 		pos.z = top;

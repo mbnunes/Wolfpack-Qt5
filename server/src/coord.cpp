@@ -93,7 +93,7 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
 	if (zDiff != 0) {
 		zDiagonal = sqrt( xyDiagonal * xyDiagonal + (double)( zDiff * zDiff ) );
 	} else {
-		zDiagonal = zDiff;
+		zDiagonal = xyDiagonal;
 	}
 
 	// Calculate the "increases"
@@ -127,139 +127,101 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
 	return pointList;
 }
 
-void getAverageZ(const Coord_cl &pos, int &z, int &average, int &top) {
-	int elevations[4];
+void getMapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, int &top) {
+	int topZ, bottomZ, leftZ, rightZ;
 	Coord_cl tempPos = pos;
 
 	// Get the elevation of the tile itself
-	elevations[0] = Maps::instance()->seekMap(tempPos).z;
+	map_st tile = Maps::instance()->seekMap(tempPos);
+	topZ = tile.z;
+	id = tile.id;
 
 	// Get the elevation of the tile on the lower left
 	tempPos = pos;
 	tempPos.y += 1;
-	elevations[1] = Maps::instance()->seekMap(tempPos).z;
+	leftZ = Maps::instance()->seekMap(tempPos).z;
 
 	// Get the elevation of the tile on the lower right
 	tempPos = pos;
 	tempPos.x += 1;
-	elevations[2] = Maps::instance()->seekMap(tempPos).z;
+	rightZ = Maps::instance()->seekMap(tempPos).z;
 
 	// Get the elevation of the tile below
 	tempPos = pos;
 	tempPos.x += 1;
 	tempPos.y += 1;
-	elevations[3] = Maps::instance()->seekMap(tempPos).z;	
+	bottomZ = Maps::instance()->seekMap(tempPos).z;	
 
 	// Get the smallest of the z values
-	z = QMIN( QMIN( QMIN(elevations[0], elevations[1]), elevations[2]), elevations[3]);
+	bottom = QMIN( QMIN( QMIN(topZ, leftZ), rightZ), bottomZ);
     
 	// Get the highest of the z values
-	top = QMAX( QMAX( QMAX(elevations[0], elevations[1]), elevations[2]), elevations[3]);
-
-	// Whatever difference is smaller leads to the average elevation of the tile
-	if (abs(elevations[0] - elevations[3]) > abs(elevations[1] - elevations[2])) {
-		average = (int)floor((elevations[1] + elevations[2]) / 2.0);
-	} else {
-		average = (int)floor((elevations[0] + elevations[3]) / 2.0);
-	}
+	top = QMAX( QMAX( QMAX(topZ, leftZ), rightZ), bottomZ);
 }
 
-// Check for blocking tiles at the given position
-inline bool checkBlockingTiles(const Coord_cl &pos, const Coord_cl &target) {
-	// Check Map first
-	map_st maptile = Maps::instance()->seekMap(pos);
-	int mapBottom, mapTop, mapAverage;
-	getAverageZ(pos, mapBottom, mapAverage, mapTop);
+// A small structure used to check for blocking dynamics at the given position
+struct stBlockingItem {
+	unsigned short id;
+	int bottom;
+	int top;
+	bool maptile;
+};
 
-	// Ignore certain types of maptiles (Thanks to Krrios for help)
-	if (maptile.id != 2 && maptile.id != 0x1DB && (maptile.id < 0x1AE || maptile.id > 0x1B5)) {
-		// See if we intersect the maptile
-		if (pos.z >= mapBottom && pos.z <= mapTop) {
-			// The maptile won't block if it's our target.
-			if (pos.x != target.x || pos.y != target.y || mapBottom > target.z || mapTop < target.z) {
-				return true;
-			}
-		}
+// Get blocking tiles at the given x,y,map coordinate
+void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
+	stBlockingItem item;
+
+	// Maptiles first
+	getMapTileSpan(pos, item.id, item.bottom, item.top);
+	item.maptile = true;
+
+    // Only include this maptile if it's relevant for our line of sight
+	if (item.id != 2 && item.id != 0x1DB && (item.id < 0x1AE || item.id > 0x1B5)) {
+		items.append(item);
 	}
 
-	// Search for statics at that position
+	item.maptile = false;
+
+	// Search for statics at the same position
 	StaticsIterator statics = Maps::instance()->staticsIterator(pos, true);
-
-	// There is a special behaviour for 0x244 maptiles if there
-	// is no static item or dynamic item in the area.
-	if (maptile.id == 0x244 && statics.atEnd()) {
-		// If there are *any* items at that position, skip the special behaviour.
-		cItemSectorIterator *items = SectorMaps::instance()->findItems(pos, 0);
-
-		bool found = false;
-		for (P_ITEM item = items->first(); item; item = items->next()) {
-			if (item->visible() == 0) {
-				found = true;
-				break;
-			}
-		}
-
-		delete items;
-
-		if (!found) {			
-			return true;
-		}
-	}
 
 	// Find blocking statics
 	for (; !statics.atEnd(); ++statics) {
-		const staticrecord &item = *statics;
-
-		tile_st tile = TileCache::instance()->getTile(item.itemid);
-		int height = tile.height;		
+		const staticrecord &sitem = *statics;
 		
-		// Bridges are half as high as normal tiles
-		if (tile.flag2 & 0x04) {
-			height /= 2;
-		}
+		tile_st tile = TileCache::instance()->getTile(sitem.itemid);
 
-		if (item.zoff <= pos.z && item.zoff + height >= pos.z) {
-			// Window and noshoot tiles block
-			if (tile.flag2 & 0x30) {
-				// This will not block if it's "within" our target.
-				if (pos.x != target.x || pos.y != target.y || item.zoff > target.z || item.zoff + height < target.z) {
-					return true;
-				}
-			}
-		}
+		if (tile.flag2 & 0x30) {			
+			item.bottom = sitem.zoff;
+			// Bridges are only half as high
+			item.top = item.bottom + (tile.flag2 & 0x04) ? (tile.height / 2) : tile.height;			
+			item.id = sitem.itemid;
+			items.append(item);
+        }
 	}
 
 	// Search for items at the given location
-	cItemSectorIterator *items = SectorMaps::instance()->findItems(pos, 0);
+	cItemSectorIterator *ditems = SectorMaps::instance()->findItems(pos, 0);
 
-	for (P_ITEM item = items->first(); item; item = items->next()) {
+	for (P_ITEM ditem = ditems->first(); ditem; ditem = ditems->next()) {
 		// If the item is invisible or a multi, skip past it.
-		if (item->visible() != 0 || item->isMulti()) {
+		if (ditem->visible() != 0 || ditem->isMulti()) {
 			continue;
 		}
 
-		tile_st tile = TileCache::instance()->getTile(item->id());
+		tile_st tile = TileCache::instance()->getTile(ditem->id());
 
 		// Window and noshoot tiles block
 		if (tile.flag2 & 0x30) {
-			// Calculate the correct height
-			int height = tile.height;
-			if (tile.flag2 & 0x04) {
-				height /= 2;
-			}
-
-            // See if the item intersects our current position
-			if (pos.z >= item->pos().z && pos.z <= item->pos().z + height) {
-				// This will not block if it's "within" our target.
-				if (pos.x != target.x || pos.y != target.y || item->pos().z > target.z || item->pos().z + height < target.z) {
-					delete items;
-					return true;
-				}
-			}
+			item.id = ditem->id();
+			item.bottom = ditem->pos().z;
+			// Bridges are only half as high
+			item.top = item.bottom + (tile.flag2 & 0x04) ? (tile.height / 2) : tile.height;
+			items.append(item);
 		}
 	}
 
-	delete items;
+	delete ditems;
 
 	// Check for multis around the area
 	cItemSectorIterator *multis = SectorMaps::instance()->findMultis(pos, BUILDRANGE);
@@ -269,57 +231,56 @@ inline bool checkBlockingTiles(const Coord_cl &pos, const Coord_cl &target) {
 		// Get all items for this multi
 		MultiDefinition *data = MultiCache::instance()->getMulti(multi->id() - 0x4000);
 		if (data) {
-			QValueVector<multiItem_st> items = data->getEntries();
+			QValueVector<multiItem_st> mitems = data->getEntries();
 			QValueVector<multiItem_st>::iterator it;
 
-			for (it = items.begin(); it != items.end(); ++it) {
-				multiItem_st item = *it;
-				int itemz = item.z + multi->pos().z;
+			for (it = mitems.begin(); it != mitems.end(); ++it) {
+				multiItem_st mitem = *it;
 
-				if (multi->pos().x + item.x != pos.x || multi->pos().y + item.y != pos.y) {
+				// Skip this multi tile if it's not at the position we need it to be
+				if (!mitem.visible || multi->pos().x + mitem.x != pos.x || multi->pos().y + mitem.y != pos.y) {
 					continue;
 				}
 
-				tile_st tile = TileCache::instance()->getTile(item.tile);
-
-				// Calculate the correct height
-				int height = tile.height;
-				if (tile.flag2 & 0x04) {
-					height /= 2;
-				}
+				tile_st tile = TileCache::instance()->getTile(mitem.tile);
 				
-				// Has to be visible and blocking
-				if (item.visible && tile.flag2 & 0x30) {
-					if (pos.z >= itemz && pos.z <= itemz + height) {
-						// This will not block if it's "within" our target.
-						if (pos.x != target.x || pos.y != target.y || itemz > target.z || itemz + height < target.z) {
-							delete multis;
-							return true;
-						}
-					}
+				// Has to be blocking
+				if (tile.flag2 & 0x30) {
+					item.bottom = mitem.z + multi->pos().z;
+					item.top = item.bottom + (tile.flag2 & 0x04) ? (tile.height / 2) : tile.height;
+					item.id = mitem.tile;
+					items.append(item);
 				}
 			}
 		}
 	}
 
 	delete multis;
-
-	return false;
 }
 
-// Make sure that the points are aligned from top to bottom
-inline void normalizeCoords(Coord_cl &a, Coord_cl &b) {
-	if (a.x > b.x) {
-		std::swap(a.x, b.x);
+// Check for blocking tiles at the given position
+inline bool checkBlockingTiles(const QValueList<stBlockingItem> &items, const Coord_cl &pos, const Coord_cl &target) {
+	// Iterate trough all blocking tiles
+	QValueList<stBlockingItem>::const_iterator it;
+	for (it = items.begin(); it != items.end(); ++it) {
+		stBlockingItem item = *it;
+
+		// 0x244 tiles are handled differently. If they're the only 
+		// tile at the xy position, they're blocking.
+		if (item.maptile && item.id == 0x244 && items.count() != 1) {
+			continue;
+		}
+
+		// Do we intersect the blocking tile?
+		if (pos.z >= item.bottom && pos.z <= item.top) {
+			// If the blocking item is within our target area, forget about it.
+			if (pos.x != target.x || pos.y != target.y || item.bottom > target.z || item.top < target.z) {
+				return true;
+			}
+		}
 	}
 
-	if (a.y > b.y) {
-		std::swap(a.y, b.y);
-	}
-
-	if (a.z > b.z) {
-		std::swap(a.z, b.z);
-	}
+	return false;
 }
 
 // Check the line of sight from a source to a target coordinate.
@@ -339,12 +300,21 @@ bool lineOfSightNew(Coord_cl origin, Coord_cl target) {
 
 	bool result = true;
 
+	int lastX = -1, lastY = -1;
+	QValueList<stBlockingItem> blockingItems;
+
 	QValueList<Coord_cl>::const_iterator it;
 	for (it = pointList.begin(); it != pointList.end(); ++it) {
 		Coord_cl point = *it;
 
+		// Get a fresh tile-list
+		if (point.x != lastX || point.y != lastY) {
+			blockingItems.clear();
+			getBlockingTiles(point, blockingItems);
+		}
+
 		// Check if there are blocking map, static or dynamic items.
-		bool blocked = checkBlockingTiles(point, target);
+		bool blocked = checkBlockingTiles(blockingItems, point, target);
 
 		// Play an effect for the tile
 		if (blocked) {
