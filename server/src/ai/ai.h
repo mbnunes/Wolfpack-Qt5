@@ -279,6 +279,24 @@ protected:
 	virtual void selectVictim();
 };
 
+class Monster_Berserk : public Monster_Aggressive_L0
+{
+protected:
+	Monster_Berserk() : Monster_Aggressive_L0() {}
+	unsigned int lastVictimChange;
+
+public:
+	Monster_Berserk(P_NPC npc) : Monster_Aggressive_L0(npc) {
+		lastVictimChange = 0;
+	}
+
+	static void registerInFactory();
+	virtual QString name() {return "Monster_Berserk";}
+
+protected:
+	virtual void selectVictim();
+};
+
 class Normal_Base : public AbstractAI {
 protected:
 	Normal_Base() : AbstractAI() {

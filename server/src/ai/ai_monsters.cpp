@@ -100,11 +100,58 @@ void Monster_Aggressive_L0::selectVictim()
 
 		// If we found a new target, let us attack it
 		m_npc->fight(m_currentVictim);
-		if (m_currentVictim) {
-			m_npc->log(QString("Selected a new target [%1]. [%2]").arg(m_currentVictim->serial()).arg(m_npc->serial()));
-		} else {
-			m_npc->log(QString("No new target was found. [%2]").arg(m_currentVictim->serial()).arg(m_npc->serial()));
+	}
+}
+
+static AbstractAI* productCreator_MB()
+{
+	return new Monster_Berserk(NULL);
+}
+
+void Monster_Berserk::registerInFactory()
+{
+	AIFactory::instance()->registerType("Monster_Berserk", productCreator_MB);
+}
+
+void Monster_Berserk::selectVictim()
+{
+	bool victimChanged = false;
+
+	// Clear the current victim if neccesary
+	if (m_currentVictim) {
+		if (!m_npc->canSeeChar(m_currentVictim)
+			|| m_currentVictim->isInvulnerable() 
+			|| m_currentVictim->isDead()) {
+				victimChanged = true;
+				m_currentVictim = 0;
 		}
+	}
+
+	if (!m_currentVictim || lastVictimChange + 2000 <= uiCurrentTime) {
+		// Get the first best character and attack it
+		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
+		for (ri.Begin(); !ri.atEnd(); ri++) {
+			P_CHAR victim = ri.GetData();
+
+			// For now we will limit ourselves to Players
+			if(victim != m_npc 
+				&& !victim->isInvulnerable() 
+				&& !victim->isDead() 
+				&& m_npc->canSee(victim)) {
+				// Make sure that we can really see our victim
+				if (m_npc->lineOfSight(victim, true)) {
+					m_currentVictim = victim;
+					victimChanged = true;
+					break;
+				}
+			}
+		}
+
+		// If we found a new target, let us attack it
+		if (victimChanged) {
+			m_npc->fight(m_currentVictim);
+		}
+		lastVictimChange = uiCurrentTime + 2000;
 	}
 }
 
@@ -137,6 +184,8 @@ void Monster_Aggressive_L1::selectVictim()
 		// - Target not dead.
 		// - Target in attack range.
 		if( m_currentVictim->isDead() )
+			m_currentVictim = NULL;
+		else if( m_currentVictim->isInvulnerable() )
 			m_currentVictim = NULL;
 		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
 			m_currentVictim = NULL;

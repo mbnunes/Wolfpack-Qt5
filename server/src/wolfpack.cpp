@@ -414,6 +414,7 @@ int main( int argc, char **argv )
 	// NPC AI types
 	Monster_Aggressive_L0::registerInFactory();
 	Monster_Aggressive_L1::registerInFactory();
+	Monster_Berserk::registerInFactory();
 	Human_Vendor::registerInFactory();
 	Human_Stablemaster::registerInFactory();
 	Human_Guard::registerInFactory();
