@@ -8,7 +8,7 @@
 -->
 <definitions>
 	<menu id="CRAFTMENU_BOWCRAFT">
-		<name>Carpentry</name>
+		<name>Bowcraft</name>
 		
 		<menu inherit="BOWCRAFT_resources" />
 		<menu inherit="BOWCRAFT_arrow" />

@@ -1,0 +1,914 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: khpae                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<menu id="CRAFTMENU_TINKERING">
+		<name>Tinkering</name>
+		
+		<menu inherit="TINKERING_wooden" />
+		<menu inherit="TINKERING_tools" />
+		<menu inherit="TINKERING_parts" />
+		<menu inherit="TINKERING_utensils" />
+		<menu inherit="TINKERING_miscellaneous" />
+		<menu inherit="TINKERING_jewelry" />
+		<menu inherit="TINKERING_multi" />
+		<menu inherit="TINKERING_trap" />
+	</menu>
+	
+	<menu id="TINKERING_wooden">
+		<name>Wooden Items</name>
+		
+		<action>
+			<name>Jointing Plane</name>
+			<model>0x1030</model>
+			<description>a jointing plane</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="4" />
+				<makeitem section="1030" amount="1" />
+				<skillcheck skillid="37" min="0" max="1" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Moulding Plane</name>
+			<model>0x102c</model>
+			<description>a moulding plane</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="4" />
+				<makeitem section="102c" amount="1" />
+				<skillcheck skillid="37" min="0" max="1" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Smoothing Plane</name>
+			<model>0x1032</model>
+			<description>a smoothing plane</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="4" />
+				<makeitem section="1032" amount="1" />
+				<skillcheck skillid="37" min="0" max="1" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Clock Frame</name>
+			<model>0x104d</model>
+			<description>a clock frame</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="6" />
+				<makeitem section="104d" amount="1" />
+				<skillcheck skillid="37" min="0" max="1" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+		<name>Axle</name>
+		<model>0x105b</model>
+		<description>an axle</description>
+		<make>
+			 <useitem itemid="0x1bd7-0x1bdc" name="boards" amount="1" />
+			 <makeitem section="105b" amount="1" />
+			 <skillcheck skillid="37" min="0" max="1" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Rolling Pin</name>
+			<model>0x1043</model>
+			<description>a rolling pin</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="5" />
+				<makeitem section="1043" amount="1" />
+				<skillcheck skillid="37" min="0" max="1" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<menu id="TINKERING_tools">
+		<name>Tools</name>
+		
+		<action type="resource">
+			<name>Scissor</name>
+			<model>0x0f9e</model>
+			<description>a scissor</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="f9e" amount="1" />
+				<skillcheck skillid="37" min="50" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Mortar and Pestle</name>
+			<model>0x0e9b</model>
+			<description>a mortar and pestle</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="3" />
+				<makeitem section="e9b" amount="1" />
+				<skillcheck skillid="37" min="200" max="300" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Scorp</name>
+			<model>0x10e7</model>
+			<description>a scorp</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="10e7" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Tinker's Tools</name>
+			<model>0x1eb9</model>
+			<description>tinker's tools</name>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="1eb9" amount="1" />
+				<skillcheck skillid="37" min="100" max="200" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Hatchet</name>
+			<model>0x0f43</model>
+			<description>a hatchet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="f43" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Draw Knife</name>
+			<model>0x10e4</model>
+			<description>a draw knife</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="10e4" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Sewing Kit</name>
+			<model>0x0f9d</model>
+			<description>a sewing kit</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="f9d" amount="1" />
+				<skillcheck skillid="37" min="100" max="200" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Saw</name>
+			<model>0x1034</model>
+			<description>a saw</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="1034" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Dovetail Saw</name>
+			<model>0x1028</model>
+			<description>a dovetail saw</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="1028" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Froe</name>
+			<model>0x10e5</model>
+			<description>a froe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="10e5" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Shovel</name>
+			<model>0x0f39</model>
+			<description>a shovel</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="f39" amount="1" />
+				<skillcheck skillid="37" min="400" max="500" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Hammer</name>
+			<model>0x102a</model>
+			<description>a hammer</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="102a" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Tongs</name>
+			<model>0x0fbb</model>
+			<description>a tongs</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="fbb" amount="1" />
+				<skillcheck skillid="37" min="350" max="450" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Smith's Hammer</name>
+			<model>0x13e3</model>
+			<description>a smith's hammer</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="13e3" amount="1" />
+				<skillcheck skillid="37" min="400" max="500" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Sledge Hammer</name>
+			<model>0x0fb4</model>
+			<description>a sledge hammer</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="fb4" amount="1" />
+				<skillcheck skillid="37" min="400" max="500" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<!--action type="resource">
+			<name>Dragon Smith Hammer</name>
+			<model></model>
+			<description>a dragon smith hammer</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="" amount="1" />
+				<skillcheck skillid="37" min="400" max="500" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action-->
+		
+		<action type="resource">
+			<name>Inshave</name>
+			<model>0x10e6</model>
+			<description>an inshave</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="10e6" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Pickaxe</name>
+			<model>0x0e85</model>
+			<description>a pickaxe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="e85" amount="1" />
+				<skillcheck skillid="37" min="400" max="500" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Lockpick</name>
+			<model>0x14fb</model>
+			<description>a lockpick</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="14fb" amount="1" />
+				<skillcheck skillid="37" min="450" max="550" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Skillet</name>
+			<model>0x09e2</model>
+			<description>a skillet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="9e2" amount="1" />
+				<skillcheck skillid="37" min="300" max="400" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Flour Sifter</name>
+			<model>0x103e</model>
+			<description>a flour sifter</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="3" />
+				<makeitem section="103e" amount="1" />
+				<skillcheck skillid="37" min="500" max="600" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Fletcher's Tools</name>
+			<model>0x1022</model>
+			<description>a fletcher's tool</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="3" />
+				<makeitem section="1022" amount="1" />
+				<skillcheck skillid="37" min="350" max="450" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Mapmaker's Pen</name>
+			<model>0x0fbf</model>
+			<description>a mapmaker's pen</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="fbf" amount="1" />
+				<skillcheck skillid="37" min="250" max="350" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Scribe's Pen</name>
+			<model>0x0fc0</model>
+			<description>a scribe's pen</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="fc0" amount="1" />
+				<skillcheck skillid="37" min="250" max="350" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<menu id="TINKERING_parts">
+		<name>Parts</name>
+
+		<action type="resource">
+			<name>Gears</name>
+			<model>0x1053</model>
+			<description>a gear</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="1053" amount="1" />
+				<skillcheck skillid="37" min="50" max="150" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Clock Parts</name>
+			<model>0x104f</model>
+			<description>a clock part</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="104f" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<!--action type="resource">
+			<name>Barrel Tap</name>
+			<model></model>
+			<description>a barrel tap</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="" amount="1" />
+				<skillcheck skillid="37" min="350" max="450" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action-->
+
+		<action type="resource">
+			<name>Springs</name>
+			<model>0x105d</model>
+			<description>springs</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="105d" amount="1" />
+				<skillcheck skillid="37" min="50" max="150" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Sextant Parts</name>
+			<model>0x1059</model>
+			<description>sextant parts</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="1059" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Barrel Hoops</name>
+			<model>0x10e1</model>
+			<description>barrel hoops</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="5" />
+				<makeitem section="10e1" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Hinge</name>
+			<model>0x1055</model>
+			<description>a hinge</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="1055" amount="1" />
+				<skillcheck skillid="37" min="50" max="150" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<!--action type="resource">
+			<name>Bola Ball</name>
+			<model></model>
+			<description>a bola ball</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="10" />
+				<makeitem section="" amount="1" />
+				<skillcheck skillid="37" min="450" max="550" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action-->
+	</menu>
+
+	<menu id="TINKERING_utensils">
+		<name>Utensils</name>
+
+		<action type="resource">
+			<name>Butcher Knife</name>
+			<model>0x13f6</model>
+			<description>a butcher knife</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="13f6" amount="1" />
+				<skillcheck skillid="37" min="250" max="350" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Spoon</name>
+			<model>0x09c2</model>
+			<description>a spoon</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="9c2" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Plate</name>
+			<model>0x09d7</model>
+			<description>a plate</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="9d7" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Fork</name>
+			<model>0x09f5</model>
+			<description>a fork</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="9f5" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Cleaver</name>
+			<model>0x0ec3</model>
+			<description>a cleaver</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="3" />
+				<makeitem section="ec3" amount="1" />
+				<skillcheck skillid="37" min="200" max="300" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Knife</name>
+			<model>0x09f7</model>
+			<description>a knife</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="1" />
+				<makeitem section="9f7" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Goblet</name>
+			<model>0x09bf</model>
+			<description>a goblet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="9bf" amount="1" />
+				<skillcheck skillid="37" min="100" max="200" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Pewter Mug</name>
+			<model>0x0fff</model>
+			<description>a pewter mug</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="fff" amount="1" />
+				<skillcheck skillid="37" min="100" max="200" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Skinning Knife</name>
+			<model>0x0ec4</model>
+			<description>a skinning knife</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="ec4" amount="1" />
+				<skillcheck skillid="37" min="250" max="350" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<menu id="TINKERING_miscellaneous">
+		<name>Miscellaneous</name>
+
+		<action type="resource">
+			<name>Key Ring</name>
+			<model>0x1011</model>
+			<description>a key ring</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="1011" amount="1" />
+				<skillcheck skillid="37" min="100" max="200" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+		
+		<action type="resource">
+			<name>Candelabra</name>
+			<model>0x0b1d</model>
+			<description>a candelabra</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="b1d" amount="1" />
+				<skillcheck skillid="37" min="550" max="750" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Scales</name>
+			<model>0x1851</model>
+			<description>a scales</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="1851" amount="1" />
+				<skillcheck skillid="37" min="600" max="800" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Iron Key</name>
+			<model>0x1010</model>
+			<description>an iron key</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="3" />
+				<makeitem section="1010" amount="1" />
+				<skillcheck skillid="37" min="200" max="300" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Globe</name>
+			<model>0x1048</model>
+			<description>a blobe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="1048" amount="1" />
+				<skillcheck skillid="37" min="550" max="750" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Spyglass</name>
+			<model>0x14f5</model>
+			<description>a spyglass</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="14f5" amount="1" />
+				<skillcheck skillid="37" min="600" max="800" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Lantern</name>
+			<model>0x0a15</model>
+			<description>a lantern</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="2" />
+				<makeitem section="a15" amount="1" />
+				<skillcheck skillid="37" min="200" max="300" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="resource">
+			<name>Heating Stand</name>
+			<model>0x1849</model>
+			<description>a heating stand</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="4" />
+				<makeitem section="1849" amount="1" />
+				<skillcheck skillid="37" min="600" max="800" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<!--
+	a jewelry requires one gem which will be prompted with a target cursor
+	so that all of these are done through the python script
+	-->
+	<menu id="TINKERING_jewelry">
+		<name>Jewelry</name>
+
+		<action type="script">
+			<name>Ring</name>
+			<model>0x108a</model>
+			<description>a ring</description>
+			<make script="skills.tinkering.makering" />
+		</action>
+
+		<action type="script">
+			<name>Necklace(Silver)</name>
+			<model>0x1f0a</model>
+			<description>a silver necklace</description>
+			<make script="skills.tinkering.makesilvernecklace" />
+		</action>
+
+		<action type="script">
+			<name>Necklace(Jeweled)</name>
+			<model>0x1088</model>
+			<description>a necklace</description>
+			<make script="skills.tinkering.makenecklace" />
+		</action>
+
+		<action type="script">
+			<name>Earring</name>
+			<model>0x1087</model>
+			<description>an earring</description>
+			<make script="skills.tinkering.makeearring" />
+		</action>
+
+		<action type="script">
+			<name>Necklace(Golden)</name>
+			<model>0x1089</model>
+			<description>a golden necklace</description>
+			<make script="skills.tinkering.makegoldennecklace" />
+		</action>
+
+		<action type="script">
+			<name>Bracelet</name>
+			<model>0x1086</model>
+			<description>a bracelet</description>
+			<make script="skills.tinkering.makebracelet" />
+		</action>
+	</menu>
+
+	<menu id="TINKERING_multi">
+		<name>Multi-Component Items</name>
+
+		<action>
+			<name>Axle with Gears</name>
+			<model>0x1051</model>
+			<description>an axle with gears</description>
+			<make>
+				<useitem itemid="0x105b,0x105c" name="axle" amount="1" />
+				<useitem itemid="0x1053,0x1054" name="gears" amount="1" />
+				<makeitem section="1051" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Clock Parts</name>
+			<model>0x104f</model>
+			<description>clock parts</description>
+			<make>
+				<useitem itemid="0x1051,0x1052" name="axle with gears" amount="1" />
+				<useitem itemid="0x105d,0x105e" name="springs" amount="1" />
+				<makeitem section="104f" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Sextant Parts</name>
+			<model>0x1059</model>
+			<description>sextant parts</description>
+			<make>
+				<useitem itemid="0x1051,0x1052" name="axle with gears" amount="1" />
+				<useitem itemid="0x1055,0x1056" name="hinge" amount="1" />
+				<makeitem section="1059" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Clock</name>
+			<model>0x104b</model>
+			<description>a clock</description>
+			<make>
+				<useitem itemid="0x104d,0x104e" name="clock frame" amount="1" />
+				<useitem itemid="0x104f,0x1050" name="clock parts" amount="1" />
+				<makeitem section="104b" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Sextant</name>
+			<model>0x1057</model>
+			<description>a sextant</description>
+			<make>
+				<useitem itemid="0x1059,0x105a" name="sextant parts" amount="1" />
+				<makeitem section="1057" amount="1" />
+				<skillcheck skillid="37" min="0" max="100" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<!--action>
+			<name>Bola</name>
+			<model></model>
+			<description>a bola</description>
+			<make>
+				<useitem itemid="" name="bola balls" amount="4" />
+				<useitem itemid="0x1067,0x1068,0x1081,0x1082" name="cut up leather" amount="3" />
+				<makeitem section="" amount="1" />
+				<skillcheck skillid="37" min="600" max="800" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action-->
+
+		<action>
+			<name>Potion Keg</name>
+			<model>0x1ad6</model>
+			<description>a potion keg</description>
+			<make>
+				<useitem itemid="0x0e7f" name="keg" amount="1" />
+				<!--useitem itemid="" name="barrel tap" amount="1" /-->
+				<useitem itemid="0x1db8" name="barrel lid" amount="1" />
+				<useitem itemid="0x0f0e" name="empty bottle" amount="10" />
+				<makeitem section="1ad6" amount="1" />
+				<skillcheck skillid="37" min="750" max="900" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<menu id="TINKERING_trap">
+		<name>Traps</name>
+	</menu>
+</definitions>
