@@ -148,7 +148,6 @@ void signal_handler(int signal)
                 MakeMenus::instance()->reload();
                 ScriptManager->reload();
 				ContextMenus::instance()->reload();
-				NewMagic->load();
 				Skills->reload();
 
 				// Update the Regions
