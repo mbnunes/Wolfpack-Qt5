@@ -37,14 +37,9 @@ a:active {
 </style></head>
 
 <body>
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td bgcolor="#004B2C"><img src="top_logo.jpg" width="586" height="87"></td>
-  </tr>
-  <tr>
-    <td height="3" bgcolor="#999999"><img src="spacer.gif" width="1" height="3"></td>
-  </tr>
-</table>
+<?
+	require_once('header.inc.php');
+?>
 <div align="center">
   <p>      <span class="maintitle">Wolfpack Object Reference </span></p>
   <table width="780" border="0" cellspacing="3" cellpadding="0">
@@ -58,13 +53,13 @@ a:active {
 			$row = mysql_fetch_array($result);
 		}
 		mysql_free_result($result);
-	}	
+	}
 
 	if ($row != NULL) {
 	?>      <p><span class="sectiontitle">OBJECT DESCRIPTION</span><br>
       <br>
-          <strong>Name:</strong>          <?=$row[0]?>        
-          <br>        
+          <strong>Name:</strong>          <?=$row[0]?>
+          <br>
           <br>
           <?
 		  	if (strlen($row[1]) > 0) {
@@ -82,17 +77,17 @@ a:active {
         <?
 		$commands = array();
 		$result = mysql_query("SELECT `method` FROM documentation_objects_methods WHERE `object`= '$row[0]' ORDER BY `method` ASC;");
-		while ($row = mysql_fetch_array($result)) {	
+		while ($row = mysql_fetch_array($result)) {
 			array_push($commands, $row[0]);
 		}
 		mysql_free_result($result);
-	  
+
 		$cols = 7;
 		$rows = ceil(sizeof($commands) / $cols);
 
-		for ($row = 0; $row < $rows; ++$row) {		
-			echo "<tr>\n";		
-			for ($col = 0; $col < $cols; ++$col) {										
+		for ($row = 0; $row < $rows; ++$row) {
+			echo "<tr>\n";
+			for ($col = 0; $col < $cols; ++$col) {
 				$id = $col * $rows + $row;
 				if ($id < sizeof($commands)) {
 ?>
@@ -109,8 +104,8 @@ a:active {
 ?>
       </table>
 	  <span class="sectiontitle"><br>
-	  OBJECT PROPERTIES </span><br>          
-		Nice little object properties<br>		<br>        
+	  OBJECT PROPERTIES </span><br>
+		Nice little object properties<br>		<br>
           <?
 	}  else {
 ?>
@@ -120,17 +115,17 @@ a:active {
         <?
 		$commands = array();
 		$result = mysql_query("SELECT `object` FROM documentation_objects ORDER BY `object` ASC;");
-		while ($row = mysql_fetch_array($result)) {	
+		while ($row = mysql_fetch_array($result)) {
 			array_push($commands, $row[0]);
 		}
 		mysql_free_result($result);
-	  
+
 		$cols = 7;
 		$rows = ceil(sizeof($commands) / $cols);
 
-		for ($row = 0; $row < $rows; ++$row) {		
-			echo "<tr>\n";		
-			for ($col = 0; $col < $cols; ++$col) {										
+		for ($row = 0; $row < $rows; ++$row) {
+			echo "<tr>\n";
+			for ($col = 0; $col < $cols; ++$col) {
 				$id = $col * $rows + $row;
 				if ($id < sizeof($commands)) {
 ?>
@@ -154,7 +149,7 @@ a:active {
     <td class="text"><a href="index.php"></a><a href="object.php">Back to the Object Overview </a><a href="index.php"><br>
       Back to the Wolfpack Reference</a></td>
   </tr>
-</table> 
+</table>
   <br>
   <?
   	require_once('footer.inc.php');

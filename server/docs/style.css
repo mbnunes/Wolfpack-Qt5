@@ -17,8 +17,9 @@
 	color: #666666;
 }
 .text {
-
-
 	font-family: "Trebuchet MS", Arial, Helvetica;
 	font-size: 12px;
+}
+img {
+	border: 0;
 }

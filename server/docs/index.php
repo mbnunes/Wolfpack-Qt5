@@ -38,25 +38,20 @@ a:active {
 </style></head>
 
 <body>
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td bgcolor="#004B2C"><img src="top_logo.jpg" width="586" height="87"></td>
-  </tr>
-  <tr>
-    <td height="3" bgcolor="#999999"><img src="spacer.gif" width="1" height="3"></td>
-  </tr>
-</table>
+<?
+	require_once('header.inc.php');
+?>
 <div align="center"><br><span class="maintitle">Wolfpack Reference</span><br>
 <br>
 <table width="740" border="0" cellspacing="3" cellpadding="2">
   <tr align="left" valign="top">
-    <td width="33%" class="text"><div align="left"><span class="sectiontitle">INGAME COMMANDS</span><br> 
+    <td width="33%" class="text"><div align="left"><span class="sectiontitle">INGAME COMMANDS</span><br>
           These commands can be used by players, gms and admins while in the game. This section gives you an overview over all available commands and how to use them.<br>
           <a href="command.php">Read more...  (<?
 		  	$result = mysql_query("SELECT COUNT(*) FROM documentation_commands;");
 			echo array_pop(mysql_fetch_array($result));
 			mysql_free_result($result);
-		  ?> commands)</a><br>      
+		  ?> commands)</a><br>
           <br>
     </div></td>
     <td width="33%" class="text"><span class="sectiontitle">SCRIPTING OBJECTS</span><br>
@@ -66,7 +61,7 @@ a:active {
       Wolfpack comes with a sophisticated library of scripts. This section of the documentation provides an overview over the library and its functions.<br>
       <a href="#">Read more... </a></td>
   </tr>
-</table> 
+</table>
 <hr width="740" size="1" noshade>
 
 <table width="740" border="0" cellpadding="2" cellspacing="3">
@@ -78,7 +73,7 @@ a:active {
 			echo array_pop(mysql_fetch_array($result));
 			mysql_free_result($result);
 		  ?> events)</a><br></td><td width="33%" class="text"><span class="sectiontitle">DEFINITION TAGS</span><br>
-        This section provides an overview over the tags used in the Wolfpack XML definitions. 
+        This section provides an overview over the tags used in the Wolfpack XML definitions.
         <a href="#">Read more...</a></td>
     <td width="33%" class="text"><span class="sectiontitle">MISCELLANEOUS</span><br>
       Miscelleneous information can be found in this section. Links, configuration and setup among other things.<br>

@@ -37,14 +37,9 @@ a:active {
 </style></head>
 
 <body>
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td bgcolor="#004B2C"><img src="top_logo.jpg" width="586" height="87"></td>
-  </tr>
-  <tr>
-    <td height="3" bgcolor="#999999"><img src="spacer.gif" width="1" height="3"></td>
-  </tr>
-</table>
+<?
+	require_once('header.inc.php');
+?>
 <div align="center">
   <p>      <span class="maintitle">Wolfpack Command Reference </span></p>
   <table width="780" border="0" cellspacing="3" cellpadding="0">
@@ -59,7 +54,7 @@ a:active {
 		}
 		mysql_free_result($result);
 	}
-	
+
 	if ($row != NULL) {
 	?><span class="sectiontitle">COMMAND DESCRIPTION</span><br>
         <br>        <strong>Command Name:</strong> <?=$row[0]?><br>
@@ -69,14 +64,14 @@ a:active {
 	<?
 	if (strlen($row[2]) > 0) {
 	?>
-	<strong>Usage:</strong><br> 
+	<strong>Usage:</strong><br>
 	<?=$row[2]?><br>
 	<br>
 	<?
 	}
-	
+
 	if (strlen($row[3]) > 0) {
-	?>	
+	?>
 	<strong>Notes:</strong><br>
 	<?=$row[3]?><br>
 	<br>
@@ -85,8 +80,8 @@ a:active {
 }  else {
 ?>
 
-<span class="sectiontitle">INGAME COMMANDS</span><br> 
-To use one of the commands in this section, you have to know about your <em>Command Prefix</em> first. The default command prefix is the character <strong>'</strong>, but you can change it to any character you like in your wolfpack.xml file. If you know your command prefix, simply prepend it to the name of the command and say it ingame. The command will then be executed. <br> 
+<span class="sectiontitle">INGAME COMMANDS</span><br>
+To use one of the commands in this section, you have to know about your <em>Command Prefix</em> first. The default command prefix is the character <strong>'</strong>, but you can change it to any character you like in your wolfpack.xml file. If you know your command prefix, simply prepend it to the name of the command and say it ingame. The command will then be executed. <br>
 The name of the command is case insensitive.<br>
 You can see a list of all available commands at the bottom of this page.<br><br>
 <?
@@ -99,17 +94,17 @@ You can see a list of all available commands at the bottom of this page.<br><br>
       <?
 		$commands = array();
 		$result = mysql_query("SELECT name FROM documentation_commands ORDER BY name ASC;");
-		while ($row = mysql_fetch_array($result)) {	
+		while ($row = mysql_fetch_array($result)) {
 			array_push($commands, $row[0]);
 		}
 		mysql_free_result($result);
-	  
+
 		$cols = 7;
 		$rows = ceil(sizeof($commands) / $cols);
 
-		for ($row = 0; $row < $rows; ++$row) {		
-			echo "<tr>\n";		
-			for ($col = 0; $col < $cols; ++$col) {										
+		for ($row = 0; $row < $rows; ++$row) {
+			echo "<tr>\n";
+			for ($col = 0; $col < $cols; ++$col) {
 				$id = $col * $rows + $row;
 				if ($id < sizeof($commands)) {
 ?>
@@ -127,7 +122,7 @@ You can see a list of all available commands at the bottom of this page.<br><br>
   <tr valign="top">
     <td class="text"><a href="index.php">Back to the Wolfpack Reference</a></td>
   </tr>
-</table> 
+</table>
   <br>
   <?
   	require_once('footer.inc.php');
