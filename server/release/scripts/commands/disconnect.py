@@ -16,7 +16,8 @@ def disconnecttarget( char, args, target ):
 	if target.char:
 		if target.char.socket:
 			target.char.socket.disconnect()
-		target.char.update()
+		target.char.logouttime = 1
+		target.char.removefromview()
 	return 1
 
 def onLoad():
