@@ -330,7 +330,7 @@ bool cUObject::hasEvent( const QString& name ) const
 /*!
 	Adds an event handler to this object
 */
-void cUObject::addEvent( cPythonScript* event )
+void cUObject::addEvent( cPythonScript* event, bool append )
 {
 	if ( isScriptChainFrozen() )
 	{
@@ -348,9 +348,18 @@ void cUObject::addEvent( cPythonScript* event )
 		unsigned int count = reinterpret_cast<unsigned int>( *scriptChain );
 
 		cPythonScript** newScriptChain = new cPythonScript* [count + 2];
-		memcpy( newScriptChain, scriptChain, ( count + 1 ) * sizeof( cPythonScript * ) );
+		if ( append || count == 0 )
+		{
+			memcpy( newScriptChain, scriptChain, ( count + 1 ) * sizeof( cPythonScript * ) );
+			newScriptChain[count + 1] = event;
+		}
+		else
+		{
+			// make room for the 1st event
+			memcpy( &newScriptChain[2], &scriptChain[1], ( count ) * sizeof( cPythonScript * ) );
+			newScriptChain[1] = event;
+		}
 		newScriptChain[0] = reinterpret_cast<cPythonScript*>( count + 1 );
-		newScriptChain[count + 1] = event;
 
 		delete[] scriptChain;
 		scriptChain = newScriptChain;
@@ -382,7 +391,7 @@ void cUObject::removeEvent( const QString& name )
 		return;
 	}
 
-	if ( !hasEvent( event->name() ) )
+	if ( !hasEvent( name ) )
 	{
 		return;
 	}

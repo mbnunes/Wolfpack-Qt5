@@ -108,7 +108,7 @@ public:
 
 	// Event Management Methods
 	void clearEvents();
-	void addEvent( cPythonScript* Event );
+	void addEvent( cPythonScript * Event, bool append = false );
 	void removeEvent( const QString& Name );
 	bool hasEvent( const QString& Name ) const;
 	void freezeScriptChain();
