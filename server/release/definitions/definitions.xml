@@ -1,0 +1,95 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<item id="gnarled_staff">
+		<name>a superb gnarled staff</name>
+		<id>0x13F9</id>
+		<attack min="15" max="30" />
+		<rank>10</rank>
+		<durability>10</durability>
+	</item>
+	
+	<item id="throne">
+		<name>Throne</name>
+		<id>0xB33</id>
+	</item>
+	
+	<item id="door">
+		<name>a door</name>
+		<id>0x6c5</id>
+		<type>12</type> <!-- Door type -->
+	</item>
+	
+	<item id="shirt">
+		<id>0x1517</id>
+	</item>
+	
+	<npc id="man">
+		<id>0x190</id>
+		<name>Manfred</name>
+		<title>the Baker</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<equipped>
+	   		<item><inherit id="shirt" /></item>
+		</equipped>		
+	</npc>
+
+	<!-- Lists -->
+	<include file="definitions/lists/names.xml" />
+	<include file="definitions/lists/skins.xml" />
+	<include file="definitions/lists/misc.xml" />
+	<include file="definitions/lists/colors.xml" />
+
+	<!-- Skills -->
+	<include file="definitions/skills.xml" />
+
+	<!-- NPCs -->
+	<include file="definitions/npcs/npcs.xml" />
+
+	<!-- Locations -->
+	<include file="definitions/locations.xml" />
+
+	<!-- ACLs -->
+	<include file="definitions/access.xml" />	
+
+	<!-- Boats -->
+	<include file="definitions/multis/boats.xml" />
+
+	<!-- Regions -->
+	<include file="definitions/regions.xml" />
+
+	<!-- Items -->
+	<!--<include file="definitions/items/unsorted.xml" />-->
+	<include file="definitions/items/core.xml" />
+	<include file="definitions/items/books/books.xml" />
+
+	<!-- Spells -->
+	<include file="definitions/spells.xml" />
+
+	<!-- Scripts -->
+	<include file="definitions/scripts.xml" />
+	<include file="definitions/trigger.xml" />
+	
+	<!-- Menus -->
+	<include file="definitions/menus/gmpage.xml" />
+	
+	<!-- 
+		The following Menus can be defined:
+			GM Additem Menus
+			GM Travel Menus
+			Inscription
+			Tracking
+			Polymorph
+	-->
+	
+	
+	<!--<include file="definitions/crafting/blacksmithing.xml" />-->
+</definitions>

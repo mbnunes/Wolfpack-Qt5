@@ -1,12 +1,9 @@
-<!--
-=================================================================
-|   )      (\_     | WOLFPACK 13.x.x Scripts                    |
-|  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
-=================================================================
--->
 <definitions>
+<!-- // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+<!-- // || 			Wolfpack Scripts (spells.scp)     		  || -->
+<!-- // ||			Maintained by Ripper and Skyfire		  || -->
+<!-- // ||			Last Update - N/A - 		                  || -->
+<!-- // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
 <!-- // ENABLE: 0 - No, 1 - Yes           MANTRA: Words of Power -->
 <!-- // CIRCLE: Spell Circle              ACTION: Animation -->
 <!-- // MANA: Mana Cost                   DELAY:  Delay for casting (tenths of a second) -->

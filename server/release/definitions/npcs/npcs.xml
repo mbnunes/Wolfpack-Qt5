@@ -7,5 +7,18 @@
 =================================================================
 -->
 <definitions>
-	<location id="britain center">1000,1000,0</location>
+	<!-- Male Base -->
+	<npc id="human_male_base">
+		<name><random list="NAMES_MALE" /></name>
+		<skin><random list="SKINS_HUMAN" /></skin>
+
+		<!-- The Equipment of a standard human -->
+		<equipped>
+			<item inherit="e75" />
+			<item inheritlist="HAIR" />
+			<item inherit="1efd" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
+	</npc>
 </definitions>

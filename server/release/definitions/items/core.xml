@@ -1,0 +1,63 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Fancy Shirt -->
+	<item id="1efd">
+		<id>0x1efd</id>
+		<color><random list="COLORS_MISC" /></color>
+	</item>
+
+	<!-- Boots -->
+	<item id="170b">
+		<id>0x170b</id>
+	</item>
+	
+	<!-- Shoes -->
+	<item id="170f">
+		<id>0x170f</id>
+	</item>	
+	
+	<!-- Thigh Boots -->
+	<item id="1711">
+		<id>0x1711</id>
+	</item>
+
+	<!-- Short Pants -->
+	<item id="152e">
+		<id>0x152e</id>
+		<color><random list="COLORS_MISC" /></color>
+	</item>	
+
+	<!-- Long Pants -->
+	<item id="1539">
+		<id>0x1539</id>
+		<color><random list="COLORS_MISC" /></color>
+	</item>		
+
+	<!-- Backpack -->
+	<item id="e75">
+		<id>0xE75</id>
+	</item>
+
+	<!-- Hair -->
+	<item id="203b">
+		<id>0x203b</id>
+		<color><random list="HAIRCOLOR" /></color>
+	</item>
+	
+	<item id="203c">
+		<id>0x203c</id>
+		<color><random list="HAIRCOLOR" /></color>
+	</item>
+	
+	<item id="203d">
+		<id>0x203d</id>
+		<color><random list="HAIRCOLOR" /></color>
+	</item>
+</definitions>

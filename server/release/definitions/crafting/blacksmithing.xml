@@ -1,4 +1,15 @@
 <definitions>
+	<menu id="addmenu" >
+		<include id="plants" />
+		<actions caption="Cancel" color="" model="" >
+			<additem id="" />
+			<pagegm reason="Bug" />
+		</actions>
+	</menu>
+	
+</definitions>
+
+<definitions>
 	<menu id="1" name="Blacksmithing">
 		<submenu model="1416" id="2" name="Armor" />
 	</menu>

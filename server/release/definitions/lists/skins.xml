@@ -1,0 +1,69 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<list id="SKINS_HUMAN">
+		<item>0x3ea</item>
+		<item>0x3eb</item>
+		<item>0x3ec</item>
+		<item>0x3ed</item>
+		<item>0x3ee</item>
+		<item>0x3ef</item>
+		<item>0x3f0</item>
+		<item>0x3f1</item>
+		<item>0x3f2</item>
+		<item>0x3f3</item>
+		<item>0x3f4</item>
+		<item>0x3f5</item>
+		<item>0x3f6</item>
+		<item>0x3f7</item>
+		<item>0x3f8</item>
+		<item>0x3f9</item>
+		<item>0x3fa</item>
+		<item>0x3fb</item>
+		<item>0x3fc</item>
+		<item>0x3fd</item>
+		<item>0x3fe</item>
+		<item>0x3ff</item>
+		<item>0x400</item>
+		<item>0x401</item>
+		<item>0x402</item>
+		<item>0x403</item>
+		<item>0x404</item>
+		<item>0x405</item>
+		<item>0x406</item>
+		<item>0x407</item>
+		<item>0x408</item>
+		<item>0x409</item>
+		<item>0x40a</item>
+		<item>0x40b</item>
+		<item>0x40c</item>
+		<item>0x40d</item>
+		<item>0x40e</item>
+		<item>0x40f</item>
+		<item>0x410</item>
+		<item>0x411</item>
+		<item>0x412</item>
+		<item>0x413</item>
+		<item>0x414</item>
+		<item>0x415</item>
+		<item>0x416</item>
+		<item>0x417</item>
+		<item>0x418</item>
+		<item>0x419</item>
+		<item>0x41a</item>
+		<item>0x41b</item>
+		<item>0x41c</item>
+		<item>0x41d</item>
+		<item>0x41e</item>
+		<item>0x41f</item>
+		<item>0x420</item>
+		<item>0x421</item>
+		<item>0x422</item>
+	</list>
+</definitions>

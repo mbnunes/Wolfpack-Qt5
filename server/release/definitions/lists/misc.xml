@@ -1,0 +1,81 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- IDs of Pants -->
+	<list id="PANTS">
+		<item>152e</item> <!-- Short -->
+		<item>1539</item> <!-- Long -->
+	</list>
+	
+	<!-- IDs of Shoes -->
+	<list id="SHOES">
+		<item>170b</item>
+		<item>170f</item>
+		<item>1711</item>
+	</list>
+
+	<!-- Item IDs of Hair -->
+	<list id="HAIR">
+		<item>203b</item>
+		<item>203c</item>
+		<item>203d</item>
+	</list>
+	
+	<!-- Colors of hair -->
+	<list id="HAIRCOLOR">
+		<item>0x44e</item>
+		<item>0x44f</item>
+		<item>0x450</item>
+		<item>0x451</item>
+		<item>0x452</item>
+		<item>0x453</item>
+		<item>0x454</item>
+		<item>0x455</item>
+		<item>0x456</item>
+		<item>0x457</item>
+		<item>0x458</item>
+		<item>0x459</item>
+		<item>0x45a</item>
+		<item>0x45b</item>
+		<item>0x45c</item>
+		<item>0x45d</item>
+		<item>0x45e</item>
+		<item>0x45f</item>
+		<item>0x460</item>
+		<item>0x461</item>
+		<item>0x462</item>
+		<item>0x463</item>
+		<item>0x464</item>
+		<item>0x465</item>
+		<item>0x466</item>
+		<item>0x467</item>
+		<item>0x468</item>
+		<item>0x469</item>
+		<item>0x46a</item>
+		<item>0x46b</item>
+		<item>0x46c</item>
+		<item>0x46d</item>
+		<item>0x46e</item>
+		<item>0x46f</item>
+		<item>0x470</item>
+		<item>0x471</item>
+		<item>0x472</item>
+		<item>0x473</item>
+		<item>0x474</item>
+		<item>0x475</item>
+		<item>0x476</item>
+		<item>0x477</item>
+		<item>0x478</item>
+		<item>0x479</item>
+		<item>0x47a</item>
+		<item>0x47b</item>
+		<item>0x47c</item>
+		<item>0x47d</item>
+	</list>
+</definitions>
