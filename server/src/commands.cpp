@@ -748,89 +748,6 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 }
 
 /*
-	\command tags
-	\description Manage the tags for an object.
-	\usage - <code>tags set [key] [value]</code>
-	- <code>tags set [key] [value] string</code>
-	- <code>tags set [key] [value] value</code>
-	Key denotes the name of the tag you want to set, remove or view.
-	Value is the value of the new tag. If you specify 'value' as the last
-	parameter, the tag will be evaluated and set as an integer.
-	The set subcommand will attach a new tag or change an existing tag.
-	The get subcommand will show the value of a tag attached to the object.
-	The remove subcommand will remove a tag from the object.
-	The info subcommand will show a dialog with all attached tags.
-
-	\notes The remove subcommand also accepts <i>all</i> as the key which will
-	remove all attached tags from the object.
-*/
-void commandTags( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	// Tags set		<key> <value>	(as string/value)
-	// Tags get		<key>
-	// Tags remove	<key> or all
-	// Tags info
-
-	if ( args.count() == 0 )
-	{
-		socket->sysMessage( tr( "Usage: tags <set|get|remove|info>" ) );
-		return;
-	}
-
-	QString subCommand = args[0].lower();
-
-	// set
-	if ( subCommand == "set" )
-	{
-		if ( args.count() < 3 )
-		{
-			socket->sysMessage( tr( "Usage: tags set <key> <value> (as value/string)" ) );
-		}
-		else
-		{
-			UINT8 type = 0; // 0 - string, 1 - value
-			if ( args.count() == 5 )
-			{
-				if ( args[4].lower() == "value" )
-					type = 1;
-			}
-			socket->sysMessage( tr( "Please select a target" ) );
-			socket->attachTarget( new cSetTagTarget( args[1], args[2], type ) );
-		}
-	}
-	if ( subCommand == "get" )
-	{
-		if ( args.count() < 2 )
-		{
-			socket->sysMessage( tr( "Usage tags get <key>" ) );
-		}
-		else
-		{
-			socket->sysMessage( tr( "Please select a target" ) );
-			socket->attachTarget( new cGetTagTarget( args[1] ) );
-		}
-	}
-	if ( subCommand == "remove" )
-	{
-		if ( args.count() < 2 )
-		{
-			socket->sysMessage( tr( "Usage tags remove <key>" ) );
-		}
-		else
-		{
-			socket->sysMessage( tr( "Please select a target" ) );
-			socket->attachTarget( new cRemoveTagTarget( args[1] ) );
-		}
-	}
-	if ( subCommand == "info" )
-	{
-		socket->sysMessage( tr( "Please select a target" ) );
-		socket->attachTarget( new cTagsInfoTarget() );
-	}
-}
-
-/*
 	\command who
 	\description Manage connected clients.
 	\notes The gump shown will allow you to travel to the client, send messages or bring them directly to you.
@@ -1479,5 +1396,35 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
-	{ "ACCOUNT", commandAccount }, { "ADDEVENT", commandAddEvent }, { "ALLMOVE", commandAllMove }, { "ALLSHOW", commandAllShow }, { "ALLSKILLS", commandAllSkills }, { "BROADCAST", commandBroadcast }, { "DOORGEN", commandDoorGenerator }, { "FIX", commandFix }, { "GMTALK", commandGmtalk }, { "INVIS", commandInvis }, { "KILL", commandKill }, { "MOVE", commandMove }, { "PAGES", commandPages }, { "PAGENOTIFY", commandPageNotify }, { "PASSWORD", commandPassword }, { "RELOAD", commandReload }, { "REMOVE", commandRemove }, { "REMOVEEVENT", commandRemoveEvent }, { "RESEND", commandResend }, { "RESTOCK", commandRestock }, { "RESURRECT", commandResurrect }, { "SAVE", commandSave }, { "SERVERTIME", commandServerTime }, { "SET", commandSet }, { "SHOW", commandShow }, { "SHUTDOWN", commandShutDown }, { "STAFF", commandStaff }, { "SPAWNREGION", commandSpawnRegion }, { "TAGS", commandTags }, { "TELE", commandTele }, { "WHO", commandWho }, { NULL, NULL }
+	{ "ACCOUNT", commandAccount }, 
+	{ "ADDEVENT", commandAddEvent }, 
+	{ "ALLMOVE", commandAllMove },
+	{ "ALLSHOW", commandAllShow }, 
+	{ "ALLSKILLS", commandAllSkills }, 
+	{ "BROADCAST", commandBroadcast }, 
+	{ "DOORGEN", commandDoorGenerator }, 
+	{ "FIX", commandFix }, 
+	{ "GMTALK", commandGmtalk }, 
+	{ "INVIS", commandInvis }, 
+	{ "KILL", commandKill }, 
+	{ "MOVE", commandMove }, 
+	{ "PAGES", commandPages }, 
+	{ "PAGENOTIFY", commandPageNotify }, 
+	{ "PASSWORD", commandPassword }, 
+	{ "RELOAD", commandReload }, 
+	{ "REMOVE", commandRemove }, 
+	{ "REMOVEEVENT", commandRemoveEvent }, 
+	{ "RESEND", commandResend }, 
+	{ "RESTOCK", commandRestock }, 
+	{ "RESURRECT", commandResurrect }, 
+	{ "SAVE", commandSave }, 
+	{ "SERVERTIME", commandServerTime },
+	{ "SET", commandSet }, 
+	{ "SHOW", commandShow }, 
+	{ "SHUTDOWN", commandShutDown }, 
+	{ "STAFF", commandStaff }, 
+	{ "SPAWNREGION", commandSpawnRegion }, 
+	{ "TELE", commandTele },
+	{ "WHO", commandWho }, 
+	{ NULL, NULL }
 };

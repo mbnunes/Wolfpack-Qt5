@@ -416,39 +416,6 @@ public:
 	}
 };
 
-class cTagsInfoTarget : public cTargetRequest
-{
-public:
-	cTagsInfoTarget()
-	{
-	}
-
-	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
-	{
-		if ( isCharSerial( target->serial() ) )
-		{
-			P_CHAR pChar = FindCharBySerial( target->serial() );
-			if ( pChar )
-			{
-				cTagsInfoGump* pGump = new cTagsInfoGump( pChar );
-				socket->send( pGump );
-			}
-			return true;
-		}
-		else if ( isItemSerial( target->serial() ) )
-		{
-			P_ITEM pItem = FindItemBySerial( target->serial() );
-			if ( pItem )
-			{
-				cTagsInfoGump* pGump = new cTagsInfoGump( pItem );
-				socket->send( pGump );
-			}
-			return true;
-		}
-		return false;
-	}
-};
-
 class cAddEventTarget : public cTargetRequest
 {
 private:

@@ -251,17 +251,6 @@ public:
 	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
-class cTagsInfoGump : public cGump
-{
-protected:
-	cUObject* object_;
-
-public:
-	cTagsInfoGump( const cUObject* object_ );
-
-	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
-};
-
 class cWhoMenuGump : public cGump
 {
 private:
