@@ -33,6 +33,7 @@ def response( char, args, target ):
 		skin = args[0]
 		if skin == 0:
 			skin = target.char.orgskin
+		target.char.removefromview()
 		target.char.skin = hex(skin)
 		target.char.update()
 	else:

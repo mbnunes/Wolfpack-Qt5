@@ -72,7 +72,6 @@ nonsaves = [ \
 	'35d','35e','35f','360','361','362','363' ]
 
 def exportcmd( socket, command, arguments ):
-
 	socket.sysmessage( "Target the upper left corner of the area you want to export." )
 	socket.attachtarget( "commands.export.callback", [] )
 

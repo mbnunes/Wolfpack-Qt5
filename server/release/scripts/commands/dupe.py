@@ -22,26 +22,26 @@ import wolfpack
 from wolfpack.utilities import hex2dec
 
 def dupe(socket, command, arguments):
-  arguments = arguments.strip() # Remove trailing and leading whitespaces
-  amount = 1
+	arguments = arguments.strip() # Remove trailing and leading whitespaces
+	amount = 1
 
-  if len( arguments ) > 0:
-    try:
-      amount = hex2dec(arguments)
-    except:
-      socket.sysmessage( 'Usage: dupe <amount>' )
-    return
+	if len( arguments ) > 0:
+		try:
+			amount = hex2dec(arguments)
+		except:
+			socket.sysmessage( 'Usage: dupe <amount>' )
+			return False
 
-  socket.sysmessage( 'Please choose an item to dupe.' )
-  socket.attachtarget( "commands.dupe.callback", [amount] )
+	socket.sysmessage( 'Please choose an item to dupe.' )
+	socket.attachtarget( "commands.dupe.callback", [amount] )
 
 def callback(char, args, target):
-  if not target.item:
-    char.socket.sysmessage('You have to target an item.')
-    return
+	if not target.item:
+		char.socket.sysmessage('You have to target an item.')
+		return False
 
-  for i in range(0, args[0]):
-    target.item.dupe().update()
+	for i in range(0, args[0]):
+		target.item.dupe().update()
 
 def onLoad():
-  wolfpack.registercommand("dupe", dupe)
+	wolfpack.registercommand("dupe", dupe)

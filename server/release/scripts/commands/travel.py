@@ -13,9 +13,7 @@
 """
 
 import wolfpack
-import string
-from moongate import *
-from wolfpack.consts import *
+from moongate import sendGump
 
 def travel( socket, command, args ):
 	char = socket.player

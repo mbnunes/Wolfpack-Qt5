@@ -21,8 +21,11 @@ import wolfpack
 import string
 from wolfpack.consts import *
 
-usage =   'Usage: stat <short-stat-name> <value>'
+usage = 'Usage: stat <short-stat-name> <value>'
 example = 'Example: stat str 100'
+
+def onLoad():
+	wolfpack.registercommand( "stat", stat )
 
 def stat( socket, command, args ):
 	args = args.strip()   # Remove trailing and leading whitespaces
@@ -88,7 +91,3 @@ def callback( char, args, target ):
 	char.updatestats()
 
 	return True
-
-def onLoad():
-	wolfpack.registercommand( "stat", stat )
-

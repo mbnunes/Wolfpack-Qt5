@@ -207,7 +207,7 @@ jungle_decor = [
 	'cc5' # Grasses
 ]
 flowers_decor = [
-	'c37', 'c38', 'c45', 'c46', 'c47', 'c48', 'c49', 'c4a', 'c4b', 'c4c', 'c4d', 'c4e', # Small Flowers
+	#'c37', 'c38', 'c45', 'c46', 'c47', 'c48', 'c49', 'c4a', 'c4b', 'c4c', 'c4d', 'c4e', # Small Flowers
 	'c84', # Foxglove Flowers
 	'c85', # Orfluer Flowers
 	'c87', # Champion Flowers

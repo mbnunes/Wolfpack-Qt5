@@ -22,9 +22,9 @@ from wolfpack.utilities import *
 from wolfpack import *
 
 def str2bool( str ):
-    if str.upper() == "TRUE":
-        return True
-    return False
+	if str.upper() == "TRUE":
+		return True
+	return False
 
 def info( socket, command, argstring ):
 	#args = argstring.split(" ")

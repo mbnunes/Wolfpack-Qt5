@@ -283,6 +283,10 @@ def accountShow( socket, username, key ):
 				socket.sysmessage( "%s.rank = %i" % ( account.name, account.rank ) )
 				char.log( LOG_MESSAGE, "Requested %s.rank.\n" % account.name )
 				return True
+			elif key == 'email':
+				socket.sysmessage( "%s.email = %i" % ( account.name, account.email ) )
+				char.log( LOG_MESSAGE, "Requested %s.email.\n" % account.name )
+				return True
 			else:
 				socket.sysmessage( "Error: Unknown account key!" )
 				return True
@@ -322,7 +326,7 @@ def accountSet( socket, username, key, value ):
 				acl_list = None
 				acl_list = wolfpack.accounts.acls()
 				if not acl_list or len( acl_list ) == 0:
-					socket.sysmessage( "Error: No ACLs are defined!" )
+					socket.sysmessage( "Critical Error: No ACLs are defined!" )
 					return False
 				if not value in acl_list:
 					socket.sysmessage( "Error: %s is not a valid account.acl!" % value )
@@ -345,16 +349,16 @@ def accountSet( socket, username, key, value ):
 				oldvalue = account.flags
 				socket.sysmessage( "Previous: %s.flags = %s" % ( account.name, account.flags ) )
 				account.flags = hex2dec(value)
-				socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.flags ) )
+				socket.sysmessage( "Changed: %s.flags = %s" % ( account.name, account.flags ) )
 				char.log( LOG_MESSAGE, "Modified %s.flags ( %s :: %s ).\n" % ( account.name, oldvalue, value ) )
 				return True
 			# MultiGems
 			elif key == 'multigems':
-				if value.lower() == "true" or value.lower() == "false" or value == 1 or value == 0:
+				if value.lower() == "true" or value.lower() == "false" or value in [ 0, 1 ]:
 					oldvalue = account.multigems
-					socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.multigems ) )
+					socket.sysmessage( "Previous: %s.multigems = %s" % ( account.name, account.multigems ) )
 					account.multigems = value
-					socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.multigems ) )
+					socket.sysmessage( "Changed: %s.multigems = %s" % ( account.name, account.multigems ) )
 					char.log( LOG_MESSAGE, "Modified %s.multigems ( %s :: %s ).\n" % ( account.name, oldvalue, value ) )
 					return True
 				else:
@@ -371,11 +375,25 @@ def accountSet( socket, username, key, value ):
 				else:
 					oldvalue = account.password
 					account.password = key
-					socket.sysmessage( "Changed: %s.password" % ( account.name, account.password ) )
-					char.log( LOG_MESSAGE, "Modified %s.password.\n" % ( char.serial, account.name ) )
+					socket.sysmessage( "Changed: %s.password" % account.name )
+					char.log( LOG_MESSAGE, "Modified %s.password.\n" % account.name )
+					return True
+			# Email
+			elif key == 'email':
+				if len( key ) > 255 or len( key ) == 0:
+					if len( key ) > 255:
+						socket.sysmessage( "Error: Email exceeds the 255 character limit!" )
+					if len( key ) == 0:
+						socket.sysmessage( "Error: Email is NULL!" )
+					return False
+				else:
+					oldvalue = account.email
+					account.email = key
+					socket.sysmessage( "Changed: %s.email" % account.name )
+					char.log( LOG_MESSAGE, "Modified %s.email.\n" % account.name )
 					return True
 			# READ ONLY VALUES
-			elif key == 'name' or key == 'lastlogin' or key == 'inuse' or key == 'characters' or key == 'rank':
+			elif key in ['name','lastlogin','inuse','characters','rank']:
 				char.log( LOG_MESSAGE, "Attempted modification of read-only value %s.%s.\n" % ( char.serial, account.name, key ) )
 				socket.sysmessage( "Error: The account.%s property is read only!" % key )
 				return False

@@ -11,14 +11,11 @@
 	\notes Tests line of sight between you and the target?
 """
 
-
 import wolfpack
-from wolfpack import *
-from wolfpack.consts import *
-
+from wolfpack.consts import LOG_MESSAGE
 
 def testlos( socket, command, arguments ):
-    wolfpack.console.log( LOG_MESSAGE, "Message" )
+	wolfpack.console.log( LOG_MESSAGE, "Message" )
 
 def onLoad():
 	wolfpack.registercommand( "testlos", testlos )

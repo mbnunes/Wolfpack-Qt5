@@ -1,4 +1,3 @@
-
 """
 	\command settag
 	\description Attach tags to objects or change existing ones.
@@ -8,24 +7,21 @@
 	it defaults to string. Name is the name of the tag you
 	want to change or attach while value is the desired tag value.
 """
-
 """
 	\command gettag
 	\description Retrieve the value and type of a tag.
 	\usage - <code>gettag name</code>
 	Shows the type and value of the tag with the given name.
 """
-
 """
 	\command deltag
 	\description Delete a tag attached to an object.
 	\usage - <code>deltag name</code>
 	Deletes the tag with the given name on the selected object.
 """
-
 """
 	\command taginfo
-	\description This command shows a menu with all tags assigned to the 
+	\description This command shows a menu with all tags assigned to the
 	targetted object.
 	\usage - <code>taginfo</code>
 """
@@ -38,10 +34,10 @@ from wolfpack.consts import *
 def taginfo_callback(player, tagnames, response):
 	if response.button != 1:
 		return
-	
-	object = wolfpack.findobject(tagnames[0])	
+
+	object = wolfpack.findobject(tagnames[0])
 	if not object:
-		return	
+		return
 	tagnames = tagnames[1:]
 
 	switches = response.switches
@@ -53,12 +49,12 @@ def taginfo_callback(player, tagnames, response):
 				(tagnames[i], object.serial, unicode(oldvalue), type(oldvalue).__name__))
 			object.deltag(tagnames[i])
 			continue
-		
+
 		if response.text.has_key(i * 2 + 0) and response.text.has_key(i * 2 + 1):
 			# Get value and name of the tag
 			name = response.text[i * 2]
 			value = response.text[i * 2 + 1]
-			
+
 			# Should the value be interpreted as a number?
 			if i * 2 in switches:
 				if '.' in value or ',' in value:
@@ -73,18 +69,18 @@ def taginfo_callback(player, tagnames, response):
 					except:
 						player.socket.sysmessage("Invalid integer value for tag '%s': '%s'." % (name, value))
 						continue # Skip to next tag
-						
+
 			try:
 				name = str(name)
 			except:
 				player.socket.sysmessage("Invalid tagname: '%s'." % name)
 				continue # Skip to next tag
-			
+
 			# Set the new tag value for the player
 			oldvalue = object.gettag(tagnames[i])
 			change = (name != tagnames[i]) or (type(oldvalue) != type(value)) or (oldvalue != value)
-			
-			if change:			
+
+			if change:
 				player.log(LOG_MESSAGE, u"Settings tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), object.serial, unicode(value), type(value).__name__))
 				object.deltag(tagnames[i])
 				object.settag(name, value)
@@ -103,7 +99,7 @@ def taginfo_response(player, arguments, target):
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback("commands.tags.taginfo_callback")
 	dialog.setArgs([object.serial] + tags)
-	
+
 	dialog.startPage(0)
 	dialog.addResizeGump(35, 12, 9260, 460, 504)
 	dialog.addGump(1, 12, 10421, 0)
@@ -124,14 +120,14 @@ def taginfo_response(player, arguments, target):
 	dialog.addGump(265, 11, 10252, 0)
 	dialog.addButton(60, 476, 247, 248, 1)
 	dialog.addButton(136, 476, 242, 241, 0)
-	
+
 	# This is a group
 	count = (len(tags) + 3) / 4
-	
-	for i in range(0, count):		
+
+	for i in range(0, count):
 		page = i + 1
 		dialog.startPage(page)
-		
+
 		if page > 1:
 			dialog.addText(88, 445, "Previous Page", 2100)
 			dialog.addPageButton(59, 444, 9909, 9911, page - 1)
@@ -139,26 +135,26 @@ def taginfo_response(player, arguments, target):
 		if page < count:
 			dialog.addText(376, 445, "Next Page", 2100)
 			dialog.addPageButton(448, 445, 9903, 9905, page + 1)
-		
+
 		for j in range(0, 4):
-			tagid = i * 4 + j			
+			tagid = i * 4 + j
 			if tagid >= len(tags):
 				continue
-				
+
 			tag = tags[tagid]
 			value = object.gettag(tag)
 			yoffset = j * 80
-			dialog.addResizeGump(65, 109 + yoffset, 9200, 405, 68)			
-			dialog.addText(78, 117 + yoffset, "Name", 2100)				
+			dialog.addResizeGump(65, 109 + yoffset, 9200, 405, 68)
+			dialog.addText(78, 117 + yoffset, "Name", 2100)
 			dialog.addText(78, 146 + yoffset, "Value", 2100)
 			dialog.addResizeGump(123, 144 + yoffset, 9300, 250, 26)
-			dialog.addInputField(129, 147 + yoffset, 240, 20, 2100, tagid * 2 + 1, unicode(value))	
+			dialog.addInputField(129, 147 + yoffset, 240, 20, 2100, tagid * 2 + 1, unicode(value))
 			dialog.addResizeGump(123, 115 + yoffset, 9300, 250, 26)
 			dialog.addInputField(128, 118 + yoffset, 240, 20, 2100, tagid * 2 + 0, tag)
-			
+
 			dialog.addCheckbox(380, 118 + yoffset, 208, 209, tagid * 2 + 1, 0)
-			dialog.addText(405, 118 + yoffset, "Delete", 2100)			
-			
+			dialog.addText(405, 118 + yoffset, "Delete", 2100)
+
 			dialog.addCheckbox(380, 147 + yoffset, 208, 209, tagid * 2 + 0, type(value) == float or type(value) == int)
 			dialog.addText(405, 147 + yoffset, "Number", 2100)
 
@@ -170,7 +166,7 @@ def taginfo_response(player, arguments, target):
 def commandTaginfo(socket, command, arguments):
 	socket.sysmessage("Select an object you want to use this command on.")
 	socket.attachtarget("commands.tags.taginfo_response", [])
-	
+
 #
 # Target response
 #
@@ -184,10 +180,10 @@ def settagResponse(player, arguments, target):
 
 		if not target.char.hastag(name):
 			change = 1
-		else:		
+		else:
 			oldvalue = target.char.gettag(name)
 			change = (type(oldvalue) != type(value)) or (oldvalue != value)
-		
+
 		if change:
 			player.log(LOG_MESSAGE, u"Settings tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.char.serial, unicode(value), type(value).__name__))
 			target.char.settag(name, value)
@@ -196,10 +192,10 @@ def settagResponse(player, arguments, target):
 	elif target.item:
 		if not target.item.hastag(name):
 			change = 1
-		else:		
+		else:
 			oldvalue = target.item.gettag(name)
 			change = (type(oldvalue) != type(value)) or (oldvalue != value)
-			
+
 		if change:
 			player.log(LOG_MESSAGE, u"Settings tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.item.serial, unicode(value), type(value).__name__))
 			target.item.settag(name, value)
