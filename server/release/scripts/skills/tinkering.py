@@ -114,11 +114,19 @@ class TinkerItemAction(CraftItemAction):
 		item.decay = 1
 
 		# See if this item
-		if self.retaincolor and self.submaterial1 > 0:
+		if self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
 			material = self.parent.submaterials1[material]
 			item.color = material[4]
 			item.settag('resname', material[5])
+			
+		# Apply properties of secondary material
+		if self.submaterial2 > 0:
+			material = self.parent.getsubmaterial2used(player, arguments)
+			material = self.parent.submaterials2[material]
+			item.color = material[4]
+			item.settag('resname2', material[5])
+
 
 		# Apply one-time boni
 		healthbonus = fromitem(item, DURABILITYBONUS)
@@ -150,7 +158,7 @@ class TinkerItemAction(CraftItemAction):
 class TinkeringMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
-		self.allowmark = 1
+		self.allowmark = True
 		#self.allowrepair = 1
 		self.submaterials1 = blacksmithing.METALS
 		self.submaterials2 = GEMS
@@ -164,19 +172,38 @@ class TinkeringMenu(MakeMenu):
 	#
 	def getsubmaterial1used(self, player, arguments):
 		if not player.hastag('blacksmithing_ore'):
-			return 0
+			return False
 		else:
 			material = int(player.gettag('blacksmithing_ore'))
 			if material < len(self.submaterials1):
 				return material
 			else:
-				return 0
+				return False
+	
+	#
+	# Get the material used by the character from the tags
+	#
+	def getsubmaterial2used(self, player, arguments):
+		if not player.hastag('tinkering_gems'):
+			return False
+		else:
+			material = int(player.gettag('tinkering_gems'))
+			if material < len(self.submaterials2):
+				return material
+			else:
+				return False
 
 	#
 	# Save the material preferred by the user in a tag
 	#
 	def setsubmaterial1used(self, player, arguments, material):
 		player.settag('blacksmithing_ore', material)
+	
+	#
+	# Save the material preferred by the user in a tag
+	#
+	def setsubmaterial2used(self, player, arguments, material):
+		player.settag('tinkering_gems', material)
 
 #
 # Load a menu with a given id and

@@ -300,12 +300,6 @@ class BlacksmithingMenu(MakeMenu):
 	#
 	# Save the material preferred by the user in a tag
 	#
-	def setsubmaterial2used(self, player, arguments):
-		player.settag('blacksmithing_scales', material)
-
-	#
-	# Save the material preferred by the user in a tag
-	#
 	def setsubmaterial1used(self, player, arguments, material):
 		player.settag('blacksmithing_ore', material)
 
