@@ -50,6 +50,51 @@ void cSetPrivLvlTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	socket->sysMessage( tr( "PrivLvl set to : %1" ).arg( plevel_ ) );
 };
 
+void cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
+{
+	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
+		return;
+
+	//QStringList arguments = QStringList::split( " ", npc_ );
+	QDomElement *node = DefManager->getSection( WPDT_ITEM, item_ );
+
+	// Check first if we even are able to create a char
+	if( !node )
+	{
+		bool ok = false;
+		hex2dec( item_ ).toULong( &ok );
+		if( !ok )
+		{
+			socket->sysMessage( tr( "Item Definition '%1' not found" ).arg( item_ ) );
+			return;
+		}
+	}
+
+	// Otherwise create our item here
+	P_ITEM pItem = new cItem;
+	pItem->Init();
+	cItemsManager::getInstance()->registerItem( pItem );
+
+	Coord_cl newPos = socket->player()->pos;
+	newPos.x = target->x();
+	newPos.y = target->y();
+	newPos.z = target->z() + Map->TileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
+	pItem->moveTo( newPos );
+
+	if( node )
+	{
+		pItem->applyDefinition( (*node ) );
+	}
+	else
+	{
+		pItem->setName( "Item" );
+		pItem->setId( hex2dec( item_ ).toULong() );
+	}
+
+	// Send the item to its surroundings
+	pItem->update();
+}
+
 void cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )

@@ -263,7 +263,7 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 	if( node && !node->isNull() )
 	{
 		socket->sysMessage( tr( "Where do you want to add the '%1'" ).arg( param ) );
-		socket->attachTarget( new cAddNpcTarget( param ) );
+		socket->attachTarget( new cAddItemTarget( param ) );
 		return;
 	}
 

@@ -47,6 +47,8 @@
 //Forward class declarations
 class cTempEffect;
 class cTmpEff;
+class cScriptEffect;
+class cTimedSpellAction;
 class cTempEffects;
 
 // Wolfpack includes
@@ -60,11 +62,37 @@ protected:
 	SERIAL		destSer;
 	QString		objectid;
 	bool		serializable;
+
 public:
 	unsigned int expiretime;
 	unsigned char dispellable;
+
+	// Fib Heap Node variables 
+	cTempEffect*	left;
+	cTempEffect*	right;
+	cTempEffect*	father;
+	cTempEffect*	son;
+	unsigned int	rank;
+	bool			marker;
+
 public:
-						cTempEffect() { serializable = true; };
+//	cTempEffect() { serializable = true; }
+	cTempEffect( cTempEffect* left_ = NULL, cTempEffect* right_ = NULL, cTempEffect* father_ = NULL,
+				cTempEffect* son_ = NULL, int rank_ = 0, bool marker_ = false )
+	{
+		serializable = true;
+		left = left_;
+		right = right_;
+		if( !left )
+			left = this;
+		if( !right )
+			right = this;
+		father = father_;
+		son = son_;
+		rank = rank_;
+		marker = marker_;
+	}
+
 	virtual				~cTempEffect() {}
 	void				setExpiretime_s(int seconds);
 	void				setExpiretime_ms(float milliseconds);
@@ -79,6 +107,8 @@ public:
 	virtual QString		objectID() const  { return objectid;}
 	bool				isSerializable( void ) { return serializable; }
 	void				setSerializable( bool data ) { serializable = data; }
+
+	std::vector< cTempEffect* > asVector();
 };
 
 class cTmpEff : public cTempEffect
@@ -123,6 +153,30 @@ public:
 	virtual void Serialize(ISerialization &archive);
 };
 
+class cTmpEffFibHeap
+{
+public:
+	cTmpEffFibHeap()						{ head = NULL; }
+	cTmpEffFibHeap( cTempEffect* head_ )	{ head = head_; }
+	~cTmpEffFibHeap()	{}
+
+	// methods
+	cTempEffect*	accessMin();
+	void			deleteMin();
+	void			erase( cTempEffect* pT );
+	void			insert( cTempEffect* pT );
+	cTempEffect*	meld( cTmpEffFibHeap &nFheap );
+
+	std::vector< cTempEffect* >		asVector();
+
+private:
+	void			decrease( cTempEffect* pT, int diffTime );
+
+public:
+	// variables
+	cTempEffect*	head;
+};
+
 class cTempEffects
 {
 private:
@@ -135,21 +189,30 @@ private:
 		}
 	};
 
-	std::vector<cTempEffect*> teffects;
 	static cTempEffects instance;
 
 protected:
-	cTempEffects()	{}  // No temp effects to start with
+	cTempEffects()	{ teffects = cTmpEffFibHeap(); }  // No temp effects to start with
 
 public:
-	void Check();
-	bool Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
-	bool Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
-	void Insert(cTempEffect* pTE);
-	void Serialize(ISerialization &archive);
-	bool Exists( P_CHAR pc_source, P_CHAR pc_dest, int num );
-	void Dispel( P_CHAR pc_dest );
-	unsigned int size( void );
+	cTmpEffFibHeap	teffects;
+
+	void check();
+	bool add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
+	bool add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
+	void serialize(ISerialization &archive);
+//	bool Exists( P_CHAR pc_source, P_CHAR pc_dest, int num );
+	void dispel( P_CHAR pc_dest );
+
+	void insert( cTempEffect* pT )
+	{
+		teffects.insert( pT );
+	}
+
+	int	 size()
+	{
+		return teffects.asVector().size();
+	}
 
 	static cTempEffects *getInstance( void ) { return &instance; }
 };

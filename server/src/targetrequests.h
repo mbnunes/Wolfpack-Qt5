@@ -44,6 +44,16 @@ public:
 	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
+class cAddItemTarget: public cTargetRequest
+{
+protected:
+	QString item_;
+public:
+	cAddItemTarget( const QString &item ) { item_ = item; };
+
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
+};
+
 class cAddNpcTarget: public cTargetRequest
 {
 protected:

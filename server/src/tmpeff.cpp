@@ -33,6 +33,8 @@
 // TmpEff.cpp: implementation of temporary effects
 //				cut from Wolfpack.cpp by Duke, 25.10.2000
 
+#define RANK_ARRAY_SIZE 65535
+
 #include "platform.h"
 
 // Wolfpack Includes
@@ -580,18 +582,32 @@ void cTempEffects::On()
 }
 */
 
-void cTempEffects::Check()
+void cTempEffects::check()
 {
-	if ( !teffects.empty() && (*teffects.begin())->expiretime <= uiCurrentTime )
+	while( teffects.accessMin() && teffects.accessMin()->expiretime <= uiCurrentTime )
 	{
-		cTempEffect *pTEs = *teffects.begin();
-
-		pTEs->Expire();
-		pop_heap( teffects.begin(), teffects.end(), ComparePredicate() ); // still sorted.
-		delete pTEs;
+		teffects.accessMin()->Expire();
+		teffects.deleteMin();
 	}
+
+/*	for debugging
+	if( RandomNum(0,100) > 95 )
+	{
+		cScriptEffect* pTE = new cScriptEffect();
+		pTE->expiretime = uiCurrentTime + 10000;
+		teffects.insert( pTE );
+
+		pTE = new cScriptEffect();
+		pTE->expiretime = uiCurrentTime + 50000;
+		teffects.insert( pTE );
+
+		pTE = new cScriptEffect();
+		pTE->expiretime = uiCurrentTime + 100000;
+		teffects.insert( pTE );
+	} */
 }
 
+/*
 bool cTempEffects::Exists( P_CHAR pc_source, P_CHAR pc_dest, int num )
 {
 	cTmpEff *pTE;
@@ -608,8 +624,9 @@ bool cTempEffects::Exists( P_CHAR pc_source, P_CHAR pc_dest, int num )
 	}
 	return false;
 }
+*/
 
-bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
+bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
 	
 	int color, color1, color2, socket; //used for incognito spell
@@ -619,10 +636,13 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 
 	cTempEffect *pTEs;
 	cTmpEff *pTE;
-	register unsigned int i;
-	for ( i = 0; i < teffects.size(); ++i)	// If there is already an effect of the same or similar kind, reverse it first (Duke)
+
+	std::vector< cTempEffect* > teffects_ = teffects.asVector();
+	std::vector< cTempEffect* >::iterator it = teffects_.begin();
+
+	while( it != teffects_.end() )
 	{
-		pTEs = teffects[i];
+		pTEs = (*it);
 		if( typeid(*pTEs) == typeid(cTmpEff) )
 			pTE = dynamic_cast<cTmpEff *>(pTEs);
 		else
@@ -645,12 +665,11 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 				(pTE->num==19&& num==18) )  //reverse incognito effect if we have to use poly - AntiChrist (12/99)
 			{
 				pTE->Reverse();
-				teffects.erase( teffects.begin() + i ); // Should we continue searching?
+				teffects.erase( pTEs ); // Should we continue searching?
 			}
 		}
+		it++;
 	}
-
-	make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
 
 	pTE = new cTmpEff;
 	pTE->Init();
@@ -1095,11 +1114,11 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		return 0;
 	}
 
-	cTempEffects::getInstance()->Insert( pTE );
+	cTempEffects::getInstance()->teffects.insert( pTE );
 	return 1;
 }
 
-bool cTempEffects::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
+bool cTempEffects::add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
 //	if (pc_source == NULL)
 //		return 0;
@@ -1142,20 +1161,15 @@ bool cTempEffects::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char m
 		delete pTE; // do not leak this resource.
 		return false;
 	}
-	this->Insert(pTE);
+	this->teffects.insert(pTE);
 	return true;
 }
 
-void cTempEffects::Insert(cTempEffect* pTE)
+void cTempEffects::serialize(ISerialization &archive)
 {
-	teffects.push_back( pTE );
-	push_heap( teffects.begin(), teffects.end(), ComparePredicate() );
-}
-
-void cTempEffects::Serialize(ISerialization &archive)
-{
-	std::vector< cTempEffect* >::iterator it = teffects.begin();
-	while( it != teffects.end() )
+	std::vector< cTempEffect* > teffects_ = teffects.asVector();
+	std::vector< cTempEffect* >::iterator it = teffects_.begin();
+	while( it != teffects_.end() )
 	{
 		if( (*it)->isSerializable() )
 			archive.writeObject( (*it) );
@@ -1163,31 +1177,26 @@ void cTempEffects::Serialize(ISerialization &archive)
 	}
 }
 
-void cTempEffects::Dispel( P_CHAR pc_dest )
+void cTempEffects::dispel( P_CHAR pc_dest )
 {
-	vector<cTempEffect *>::iterator i;
-	for( i = teffects.begin(); i != teffects.end(); i++ )
+	std::vector< cTempEffect* > teffects_ = teffects.asVector();
+	std::vector< cTempEffect* >::iterator i = teffects_.begin();
+	for( i = teffects_.begin(); i != teffects_.end(); i++ )
 		if( i != NULL && (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial )
 		{
 			(*i)->Off( pc_dest );
-			teffects.erase( i );
+			teffects.erase( (*i) );
 		}
-	make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
-}
-
-unsigned int cTempEffects::size( void )
-{
-	return teffects.size();
 }
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
-	return cTempEffects::getInstance()->Add(pc_source, pc_dest, num, more1, more2, more3, dur);
+	return cTempEffects::getInstance()->add(pc_source, pc_dest, num, more1, more2, more3, dur);
 }
 
 unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
-	return cTempEffects::getInstance()->Add(source, piDest, num, more1, more2, more3);
+	return cTempEffects::getInstance()->add(source, piDest, num, more1, more2, more3);
 }
 
 // cTimedSpellAction
@@ -1214,9 +1223,268 @@ cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
 void cTimedSpellAction::Expire()
 {
 	if( character != INVALID_SERIAL )
-		cTempEffects::getInstance()->Insert( new cTimedSpellAction( character, action ) );
+		cTempEffects::getInstance()->teffects.insert( new cTimedSpellAction( character, action ) );
 }
 
 // Singleton
 cTempEffects cTempEffects::instance;
 
+
+//  Fibonacci Heap implementation
+//
+//  18.07.2002, Joerg Stueckler (sereg)
+//  email: joe.di@gmx.de
+//
+//  based on "Algorithms and Data Structures", T.Ottmann/P.Widmayer, 4th Edition
+//  Ch. 6.1.5., page 410
+cTempEffect*	cTmpEffFibHeap::accessMin() // O(1)!
+{
+	return head;
+}
+
+void			cTmpEffFibHeap::insert( cTempEffect* pT )	// O(1) too!
+{
+	cTmpEffFibHeap toMeld = cTmpEffFibHeap( pT );
+	this->meld( toMeld );
+}
+
+cTempEffect*	cTmpEffFibHeap::meld( cTmpEffFibHeap &nFheap )	// O(1) !!!
+{
+	if( !this->head )
+	{
+		this->head = nFheap.head;
+	}
+	else if( this->head && nFheap.head )
+	{
+		cTempEffect* minHead = NULL;
+		cTempEffect* maxHead = NULL;
+		if( this->head->expiretime < nFheap.head->expiretime )
+		{
+			minHead = this->head;
+			maxHead = nFheap.head;
+		}
+		else
+		{
+			maxHead = this->head;
+			minHead = nFheap.head;
+		}
+		minHead->left->right = maxHead;
+		cTempEffect* rightElement = maxHead->left;
+		maxHead->left = minHead->left;
+		minHead->left = rightElement;
+		rightElement->right = minHead;
+
+		this->head = minHead;
+	}
+	
+	return this->head;
+}
+
+void			cTmpEffFibHeap::deleteMin()		// O( lg N )
+{
+	if( this->head )
+	{
+		if( this->head->left == this->head ) // only one element in the heap
+		{
+			delete this->head;
+			this->head = NULL;
+			return;
+		}
+		else
+		{
+			if( this->head->son ) // min element has a son
+			{
+				// replace the head with its sons in the list
+				this->head->right->left = this->head->son->left;
+				this->head->son->left->right = this->head->right;
+				this->head->son->left = this->head->left;
+				this->head->left->right = this->head->son;
+
+				cTempEffect* newHead = this->head->son;
+				delete this->head;
+				this->head = newHead;
+			}
+			else
+			{
+				// unlink the head from the list
+				this->head->right->left = this->head->left;
+				this->head->left->right = this->head->right;
+
+				cTempEffect* newHead = this->head->right;
+				delete this->head;
+				this->head = newHead;
+			}
+
+			// now we have to iterate through the root list to find two trees with equal rank
+			// we use an array to find collisions.
+			cTempEffect* ranks[RANK_ARRAY_SIZE];
+			memset( &ranks, 0, sizeof( ranks ) );
+
+			cTempEffect* it = this->head;
+			cTempEffect* minNode = it;
+			cTempEffect* coll = NULL;
+
+			bool collision = false;
+			do
+			{
+				collision = false;
+				it->father = NULL; // reset the fathers of the inserted sons of head (see above)
+				if( it->expiretime < minNode->expiretime )
+					minNode = it; // find the min node by the way :)
+
+				if( ranks[ it->rank ] && ranks[ it->rank ] != it ) // there is already another address stored in the array!
+				{
+					coll = ranks[ it->rank ];
+					ranks[ it->rank ] = NULL;
+
+					if( coll->expiretime < it->expiretime )
+					{
+						cTempEffect* templeft = NULL;
+						cTempEffect* tempright = NULL;
+						if( coll->left == it )
+						{
+							templeft = it->left;
+							tempright = coll->right;
+
+							templeft->right = coll;
+							tempright->left = it;
+							it->left = coll;
+							it->right = tempright;
+							coll->left = templeft;
+							coll->right = it;
+						}
+						else if( coll->right == it )
+						{
+							templeft = coll->left;
+							tempright = it->right;
+
+							templeft->right = it;
+							tempright->left = coll;
+							it->left = templeft;
+							it->right = coll;
+							coll->left = it;
+							coll->right = tempright;
+						}
+						else
+						{
+							// swap the min element into it position
+							templeft = coll->left;
+							tempright = coll->right;
+
+							it->left->right = coll;
+							it->right->left = coll;
+							coll->right = it->right;
+							coll->left = it->left;
+						
+							templeft->right = it;
+							tempright->left = it;
+							it->right = tempright;
+							it->left = templeft;
+						}
+						templeft = it;
+						it = coll;
+						coll = templeft;
+					}
+
+					// delete max element (coll) out of the list
+					// if coll was head move the head one node right
+					if( coll == this->head )
+						this->head = coll->right;
+					coll->left->right = coll->right;
+					coll->right->left = coll->left;
+
+					// insert max into the list of sons of min
+					if( it->son )
+					{
+						cTempEffect* rightElement = it->son->left;
+						coll->left = rightElement;
+						it->son->left = coll;
+						rightElement->right = coll;
+						coll->right = it->son;
+					}
+					else
+					{
+						it->son = coll;
+						coll->left = coll;
+						coll->right = coll;
+					}
+					coll->father = it;
+
+					it->rank = it->rank + 1;
+
+					it->marker = false; // reset the marker cause the node got an additional son
+
+					it = it->left;
+					collision = true;
+				}
+				else
+				{
+					ranks[ it->rank ] = it;
+				}
+				it = it->right;
+			} while( it != this->head || collision);
+
+			this->head = minNode;
+		}
+	}
+}
+
+void			cTmpEffFibHeap::decrease( cTempEffect* pT, int diffTime ) // O( 1 )
+{
+	if( !pT )
+		return;
+
+	pT->expiretime -= diffTime;
+	if( pT != this->head )
+	{
+		// first cut pT out and insert it into the root list
+		// mark the father, if the father is already marked,
+		// run decrease(...) recursively with diffTime = 0
+		pT->left->right = pT->right;
+		pT->right->left = pT->left;
+
+		this->insert( pT );
+
+		if( pT->father->marker )
+			this->decrease( pT->father, 0 );
+		else
+			pT->father->marker = true;
+
+		pT->father = NULL;
+		pT->marker = false;
+	}
+}
+
+void			cTmpEffFibHeap::erase( cTempEffect *pT ) // O( lg N )
+{
+	this->decrease( pT, (pT->expiretime - this->head->expiretime) + 1 );
+	this->deleteMin();
+}
+
+std::vector< cTempEffect* > cTempEffect::asVector()
+{
+	std::vector< cTempEffect* > list_ = std::vector< cTempEffect* >();
+	
+	cTempEffect* iterNode = this;
+
+	do
+	{
+		list_.push_back( iterNode );
+		if( iterNode->son )
+		{
+			std::vector< cTempEffect* > sons_ = iterNode->son->asVector();
+			list_.insert( list_.end(), sons_.begin(), sons_.end() );
+		}
+		iterNode = iterNode->right;
+	} while( iterNode != this );
+
+	return list_;
+}
+
+std::vector< cTempEffect* >	cTmpEffFibHeap::asVector()
+{
+	if( this->head )
+		return this->head->asVector();
+	else
+		return std::vector< cTempEffect* >();
+}

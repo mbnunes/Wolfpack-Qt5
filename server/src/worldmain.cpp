@@ -1009,7 +1009,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 
 		archive->readObject( pTE );
 
-		cTempEffects::getInstance()->Insert( pTE );
+		cTempEffects::getInstance()->insert( pTE );
 	}
 	clConsole.send(" Done.\n");
 	archive->close();
@@ -1066,7 +1066,7 @@ void CWorldMain::savenewworld(QString module)
 
 	archive = cPluginFactory::serializationArchiver( module );
 	archive->prepareWritting( "effects" );
-	cTempEffects::getInstance()->Serialize( *archive );
+	cTempEffects::getInstance()->serialize( *archive );
 	archive->close();
 	delete archive;
 

@@ -494,7 +494,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 
 	// Start our casting action
 	// AllTmpEff->Insert( new cTimedAction( caster, spell->action(), spell->delay() ) );
-	cTempEffects::getInstance()->Insert( new cTimedSpellAction( caster->serial, spell->action() ) );
+	cTempEffects::getInstance()->insert( new cTimedSpellAction( caster->serial, spell->action() ) );
 	cMagic::preParticles( spellId, caster );
 
 	return spell->prepare( caster, sourceType );
