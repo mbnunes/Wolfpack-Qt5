@@ -129,14 +129,10 @@ Maps::Maps( const QString& path ) : basePath( path )
 {
 }
 
-static void deleteFunctor( void* d )
-{
-	delete d;
-}
-
 Maps::~Maps()
 {
-	std::for_each( d.begin(), d.end(), deleteFunctor);
+	for ( iterator it = d.begin(); it != d.end(); ++it )
+		delete it.data();
 }
 
 bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
@@ -303,7 +299,7 @@ StaticsIterator Maps::staticsIterator(uint id, ushort x, ushort y, bool exact /*
 {
 	iterator it = d.find( id );
 	if ( it == d.end() )
-		throw std::bad_exception("Invalid map id");
+		throw std::bad_exception((const char*)"Invalid map id");
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
