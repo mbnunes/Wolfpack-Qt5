@@ -66,7 +66,7 @@ def response( char, args, target ):
 		return
 
 	# town cryer : I feel sorry for thee... Thou dost not look trustworthy... no gold for thee today! : 500405 + 500406
-	gold = npc.countresource( GOLD_COIN_ID )
+	gold = npc.countresource( GOLD_COIN )
 	if not gold or gold < 10:
 		# Thou dost not look trustworthy... no gold for thee today!
 		char.socket.clilocmessage( 500406, "", 0x3b2, 3, npc )
