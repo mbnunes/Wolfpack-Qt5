@@ -1638,14 +1638,19 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 	}
 }
 
-void cChar::talk( const QString &message, UI16 color, UINT8 type )
+void cChar::talk( const QString &message, UI16 color, UINT8 type, cUOSocket* socket )
 {
+	if( antispamtimer() < uiCurrentTime )
+		setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*10 );
+	else 
+		return;
+
 	if( color == 0xFFFF )
 		color = saycolor_;
 
 	QString lang( "ENU" );
 
-	if( socket() )
+	if( this->socket() )
 		lang = socket_->lang();
 	
 	cUOTxUnicodeSpeech::eSpeechType speechType;
@@ -1690,20 +1695,35 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type )
 		}
 
 	}
-	// Send to all clients in range
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-			if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
-			{
-				// Take the dead-status into account
-				if( dead && !isNpc() )
-					if( !mSock->player()->dead && !mSock->player()->spiritspeaktimer && !mSock->player()->isGMorCounselor() )
-						textSpeech.setText( ghostSpeech );
-					else
-						textSpeech.setText( message );
 
-				mSock->send( &textSpeech );
-			}
+	if( socket )
+	{
+		// Take the dead-status into account
+		if( dead && !isNpc() )
+			if( !socket->player()->dead && !socket->player()->spiritspeaktimer && !socket->player()->isGMorCounselor() )
+				textSpeech.setText( ghostSpeech );
+			else
+				textSpeech.setText( message );
+
+		socket->send( &textSpeech );
+	}
+	else
+	{
+		// Send to all clients in range
+		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		{
+				if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
+				{
+					// Take the dead-status into account
+					if( dead && !isNpc() )
+						if( !mSock->player()->dead && !mSock->player()->spiritspeaktimer && !mSock->player()->isGMorCounselor() )
+							textSpeech.setText( ghostSpeech );
+						else
+							textSpeech.setText( message );
+
+					mSock->send( &textSpeech );
+				}
+		}
 	}
 }
 

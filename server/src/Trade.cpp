@@ -248,9 +248,7 @@ void cTrade::sellaction(int s)
 		}
 		if (maxsell>SrvParams->sellmaxitem())
 		{
-			char tmpmsg[256];
-			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",currchar[s]->name.c_str(),SrvParams->sellmaxitem());
-			npctalkall(pc_n, tmpmsg,0);
+			pc_n->talk( tr("Sorry %1 but i can buy only %2 items at time!").arg(currchar[s]->name.c_str()).arg(SrvParams->sellmaxitem()), -1, 0 );
 			return;
 		}
 
@@ -263,7 +261,7 @@ void cTrade::sellaction(int s)
 			// player may have taken items out of his bp while the sell menu was up ;-)
 			if( pSell->amount() < amt )
 			{
-				npctalkall(pc_n, "Cheating scum! Leave now, before I call the guards!",0);
+				pc_n->talk( tr("Cheating scum! Leave now, before I call the guards!"), -1, 0 );
 				return;
 			}
 

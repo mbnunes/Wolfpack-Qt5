@@ -163,19 +163,19 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 
 	if (pc_currchar->Owns(pc))
 	{
-		npctalk(s, pc, "I work for you, you need not buy things from me!",0);
+		pc->talk( tr("I work for you, you need not buy things from me!"), -1, 0 );
 		return;
 	}
 
 	int gleft=pc_currchar->CountGold();
 	if (gleft<pi->value)
 	{
-		npctalk(s, pc, "You cannot afford that.",0);
+		pc->talk( tr("You cannot afford that."), -1, 0 );
 		return;
 	}
 	pBackpack->DeleteAmount(price,0x0EED);	// take gold from player
 
-	npctalk(s, pc, "Thank you.",0);
+	pc->talk( tr("Thank you."), -1, 0 );
 	pc->setHoldg(pc->holdg() + pi->value); // putting the gold to the vendor's "pocket"
 
 	// sends item to the proud new owner's pack
@@ -2743,15 +2743,12 @@ void cTargets::FollowTarget(int s)
 
 void cTargets::TransferTarget(int s)
 {
-	char t[120];
-
 	P_CHAR pc1 = FindCharBySerial(addx[s]);
 	P_CHAR pc2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
 	if ( !( pc1 && pc2 ) ) // They were not found, could be bad formed packet.
 		return;
 
-	sprintf(t,"* %s will now take %s as his master *",pc1->name.c_str(), pc2->name.c_str());
-	npctalkall(pc1, t, 0);
+	pc1->emote( tr("%1 will now take %2 as his master.").arg(pc1->name.c_str()).arg(pc2->name.c_str()), -1 );
 
 	if (pc1->ownserial != -1) 
 		pc1->SetOwnSerial(-1);

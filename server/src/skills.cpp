@@ -552,10 +552,10 @@ public:
 			{
 				switch(rand()%4)
 				{
-				case 0: npctalkall(pc_currchar, "I've always wanted a pet like you.",0); break;
-				case 1: npctalkall(pc_currchar, "Will you be my friend?",0); break;
-				case 2: sprintf((char*)temp, "Here %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
-				case 3: sprintf((char*)temp, "Good %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
+				case 0: pc_currchar->talk( tr("I've always wanted a pet like you."), -1 ,0);		break;
+				case 1: pc_currchar->talk( tr("Will you be my friend?"), -1 ,0);					break;
+				case 2: pc_currchar->talk( tr("Here %1.").arg(pc->name.c_str()), -1 ,0);			break;
+				case 3: pc_currchar->talk( tr("Good %1.").arg(pc->name.c_str()), -1 ,0);			break;
 				default: 
 					LogError("switch reached default");
 				}
@@ -629,9 +629,9 @@ public:
 			
 			switch ( RandomNum(0, 2))
 			{
-			case 0:		npctalkall(pc_currchar, (char*)tr("Could thou spare a few coins?").latin1(),0); break;
-			case 1:		npctalkall(pc_currchar, (char*)tr("Hey buddy can you spare some gold?").latin1(),0); break;
-			case 2:		npctalkall(pc_currchar, (char*)tr("I have a family to feed, think of the children.").latin1(),0); break;
+			case 0:		pc_currchar->talk( tr("Could thou spare a few coins?"), -1 ,0);						break;
+			case 1:		pc_currchar->talk( tr("Hey buddy can you spare some gold?"), -1 ,0);				break;
+			case 2:		pc_currchar->talk( tr("I have a family to feed, think of the children."), -1 ,0);	break;
 			}
 			
 			if (!Skills->CheckSkill(pc_currchar, BEGGING, 0, 1000))
@@ -698,7 +698,7 @@ public:
 					pc->talk( tr("Thou dost not look trustworthy... no gold for thee today! ") );
 					return true;
 				}
-				npctalkall(pc, (char*)tr("I feel sorry for thee... here have a gold coin .").latin1(), 0);
+				pc->talk( tr("I feel sorry for thee... here have a gold coin ."), -1, 0 );
 				addgold(toOldSocket(socket), realgold);
 				socket->sysMessage( tr("Some gold is placed in your pack.") );
 			}
@@ -829,7 +829,7 @@ public:
 				if (pc_npc != NULL) //lb
 				{
 					if (pc_npc->isNpc()) 
-						npctalkall(pc_npc, "Guards!! A thief is amoung us!", 0);
+						pc_npc->talk( tr("Guards!! A thief is amoung us!"), -1, 0x09 );
 					
 					criminal( pc_currchar );
 					
@@ -2138,7 +2138,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 			socket->sysMessage( tr("You have been cought!") );
 			
 			if (pc_npc->isNpc()) 
-				npctalkall(pc_npc, "Guards!! A thief is amoung us!",0);
+				pc_npc->talk( tr("Guards!! A thief is amoung us!"), -1, 0x09 );
 			
 			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare( pc_currchar, pc_npc )==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild

@@ -681,13 +681,11 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					pc->setTamed(false);
 					if(pc->ownserial!=-1) 
 						pc->SetOwnSerial(-1);
-					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name.c_str());
-					npctalkall(pc, (char*)temp,0);
-					{
-						pc->soundEffect( 0x01FE );
-						if( SrvParams->tamedDisappear() == 1 )
-							Npcs->DeleteChar(pc);
-					}
+					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name.c_str()) );
+
+					pc->soundEffect( 0x01FE );
+					if( SrvParams->tamedDisappear() == 1 )
+						Npcs->DeleteChar(pc);
 				}
 				//sprintf(t,"* %s must eat very soon or he will die! *",pc->name);
 				break;

@@ -254,7 +254,7 @@ void cMagic::speakMantra( P_CHAR caster, cSpell *spell )
 	if( spell->runic() || caster->skill( MAGERY ) >= 1000 )
 		npctalkall_runic( caster, spell->mantra().upper().ascii(), 0 );
 	else
-		npctalkall( caster, spell->mantra().ascii(), 0 );
+		caster->talk( spell->mantra(), -1, 0 );
 }
 
 cSpell *cMagic::getSpell( UI08 spellId )

@@ -73,16 +73,16 @@ public:
 	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID( void ) const { return "BOAT"; }
 
-	void handlePlankClick( UOXSOCKET s, P_ITEM pplank );
+	void handlePlankClick( cUOSocket* socket, P_ITEM pplank );
 	void switchPlankState( P_ITEM pplank );
 
 	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
 	bool move( void );
 	void turn( SI08 turn );
 
-	char speechInput( UOXSOCKET s, const QString &input );
+	char speechInput( cUOSocket* socket, const QString &input );
 
-	void toDeed( UOXSOCKET s );
+	void toDeed( cUOSocket* socket );
 
 	//void setAutoSail( UOXSOCKET s, P_ITEM pMap );
 	bool doesAutoSail( void ) { return autosail_ > 0; }
@@ -94,7 +94,7 @@ protected:
 	virtual void processNode( const QDomElement &Tag );
 	void	processSpecialItemNode( const QDomElement &Tag, UI08 item );
 
-	bool leave( UOXSOCKET s, P_ITEM pplank );
+	bool leave( cUOSocket* socket, P_ITEM pplank );
 
 	bool isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir );
 

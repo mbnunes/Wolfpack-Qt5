@@ -74,9 +74,11 @@ protected:
 	UI08 moreb3_;
 	UI08 moreb4_;
 
-	void	processNode( const QDomElement &Tag );
+	virtual void	processNode( const QDomElement &Tag );
 	void	processModifierNode( const QDomElement &Tag );
 public:
+	virtual void	talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, cUOSocket* socket = NULL );
+
 	void	processContainerNode( const QDomElement &Tag );
 	virtual void update( cUOSocket *mSock = NULL );
 	P_ITEM	dupe();

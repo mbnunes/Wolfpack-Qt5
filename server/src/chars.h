@@ -706,7 +706,6 @@ public:
 	unsigned int dist(cChar* pc);
 	unsigned int dist(cItem* pi);
 	void soundEffect( UI16 soundId, bool hearAll = true );
-	void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0 );
 	void giveGold( Q_UINT32 amount, bool inBank = false );
 	UINT32 takeGold( UINT32 amount, bool useBank = false );
 	void emote( const QString &emote, UI16 color = 0xFFFF );
@@ -725,9 +724,10 @@ public:
 	bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 
+	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, cUOSocket* socket = NULL );
 	// Definition loading - sereg
 protected:
-	void processNode( const QDomElement& Tag );
+	virtual void processNode( const QDomElement& Tag );
 };
 
 class cCharStuff

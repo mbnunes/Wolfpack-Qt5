@@ -2431,4 +2431,55 @@ void cItem::applyRank( UI08 rank )
 	setHp( maxhp() );
 }
 
+void cItem::talk( const QString &message, UI16 color, UINT8 type, cUOSocket* socket )
+{
+	QString lang( "ENU" );
 
+	if( socket )
+		lang = socket->lang();
+	
+	cUOTxUnicodeSpeech::eSpeechType speechType;
+
+	switch( type )
+	{
+	case 0x01:
+		speechType = cUOTxUnicodeSpeech::Broadcast;
+	case 0x06:
+		speechType = cUOTxUnicodeSpeech::System;
+	case 0x09:
+		speechType = cUOTxUnicodeSpeech::Yell;
+	case 0x02:
+		speechType = cUOTxUnicodeSpeech::Emote;
+	case 0x08:
+		speechType = cUOTxUnicodeSpeech::Whisper;
+	default:
+		speechType = cUOTxUnicodeSpeech::Regular;
+	};
+
+	cUOTxUnicodeSpeech textSpeech;
+	textSpeech.setSource( serial );
+	textSpeech.setModel( id() );
+	textSpeech.setFont( 3 ); // Default Font
+	textSpeech.setType( speechType );
+	textSpeech.setLanguage( lang );
+	textSpeech.setName( name_ );
+	textSpeech.setColor( color );
+	textSpeech.setText( message );
+	textSpeech.setText( message );
+
+	if( socket )
+	{
+		socket->send( &textSpeech );
+	}
+	else
+	{
+		// Send to all clients in range
+		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		{
+				if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
+				{
+					mSock->send( &textSpeech );
+				}
+		}
+	}
+}

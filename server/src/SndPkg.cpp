@@ -1249,89 +1249,6 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 		}
 }
 
-void itemtalk(int s, P_ITEM pi, char *txt) // Item "speech"
-{
-	int tl;
-
-	if (s<=-1 || pi == NULL) return;
-
-	tl=44+strlen(txt)+1;
-	talk[1]=tl>>8;
-	talk[2]=tl%256;
-	LongToCharPtr(pi->serial,talk+3);
-	ShortToCharPtr(pi->id(),talk+7);
-	talk[9]=0; // Type
-	talk[10]=0x04;
-	talk[11]=0x81;
-	talk[12]=0;
-	talk[13]=3;
-	Xsend(s, talk, 14);
-	Xsend(s, (void*)pi->name().ascii(), 30);
-	Xsend(s, txt, strlen(txt)+1);
-}
-
-void npctalk(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC speech
-{
-	int tl;
-	char machwas;
-
-	if (pc_npc == NULL || s==-1) return; //lb
-
-	P_CHAR pc_currchar = currchar[s];
-
-	if (antispam)
-	{
-		if (pc_npc->antispamtimer()<uiCurrentTime)
-		{
-			pc_npc->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*10);
-			machwas=1;
-		} else machwas=0;
-	} else machwas=1;
-
-	if (machwas)
-	{
-		tl=44+strlen(txt)+1;
-		talk[1]=tl>>8;
-		talk[2]=tl%256;
-		LongToCharPtr(pc_npc->serial, &talk[3]);
-		ShortToCharPtr(pc_npc->serial, &talk[7]);
-		talk[9]=0; // Type
-		pc_npc->setSayColor( 0x0481 );
-
-		talk[12]=0;
-		talk[13]=pc_currchar->fonttype();
-
-		if (pc_npc->npcaitype()==2 && SrvParams->badNpcsRed() == 0) //bad npcs speech (red)..Ripper
-		{
-			pc_npc->setSayColor( 0x03B2 );
-		}
-		else if (pc_npc->npcaitype()==2 && SrvParams->badNpcsRed() == 1)
-		{
-			pc_npc->setSayColor( 0x0026 );
-		}
-		else if(pc_npc->isNpc() && !pc_npc->tamed() && !pc_npc->guarded() && !pc_npc->war)
-		{
-			pc_npc->setSayColor( 0x005b );
-		}
-
-		ShortToCharPtr(pc_npc->saycolor(), &talk[10]);
-		Xsend(s, talk, 14);
-		Xsend(s, (void*)pc_npc->name.c_str(), 30);
-		Xsend(s, txt, strlen(txt)+1);
-	}
-}
-
-void npctalkall(P_CHAR npc, const char *txt,char antispam) // NPC speech to all in range.
-{
-	if (npc==NULL) return;
-
-	int i;
-
-	for (i=0;i<now;i++)
-		if (inrange1p(npc, currchar[i])&&perm[i])
-			npctalk(i, npc, txt,antispam);
-}
-
 void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC speech
 {
 	int tl;
@@ -2290,7 +2207,7 @@ int sellstuff(int s, P_CHAR pc)
 	}
 	else
 	{
-		npctalkall(pc, "Thou doth posses nothing of interest to me.",0);
+		pc->talk( tr("Thou doth posses nothing of interest to me."), -1, 0 );
 	}
 	m2[0]=0x33;
 	m2[1]=0x00;

@@ -163,9 +163,6 @@ void updates(UOXSOCKET s); // Update Window
 void tips(cUOSocket* socket, int i); // Tip of the day window
 void weblaunch(int s, char *txt); // Direct client to a web page
 void broadcast(int s); // GM Broadcast (Done if a GM yells something);
-void itemtalk(int s, P_ITEM pi, char *txt); // Item "speech"
-void npctalk(int s, cChar* pNpc, const char *txt,char antispam); // NPC speech
-void npctalkall(cChar* pNpc, const char *txt,char antispam); // NPC speech to all in range.
 void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam); // NPC speech
 void npcemote(int s, P_CHAR pc_npc, const char *txt, char antispam); // NPC speech
 

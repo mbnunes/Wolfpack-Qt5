@@ -36,6 +36,7 @@
 #include "tilecache.h"
 #include "mapstuff.h"
 #include "srvparams.h"
+#include "network/uosocket.h"
 
 #include "classes.h" // only for the illegal_z!
 
@@ -46,7 +47,7 @@ cBoat::cBoat()
 {
 	cItem::Init( false );
 
-	this->free = true;
+	this->priv = 0;
 	this->contserial = INVALID_SERIAL;
 	//this->deedsection_ = (char*)0;
 	this->boatdir = 0;
@@ -90,24 +91,31 @@ cBoat::cBoat()
 void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
 	P_CHAR pc_currchar = FindCharBySerial( senderserial );
-	UOXSOCKET s = calcSocketFromChar( pc_currchar );
+	cUOSocket* socket = pc_currchar->socket();
 	P_ITEM pdeed = FindItemBySerial( deedserial );
 	UI08 siproblem = 0;
 
-	if( s != -1 )
-		Xsend( s, wppause, 2 ); // pause the client till sending
+	if( socket )
+	{
+		// pause the client till sending
+		cUOTxPause* uoPacket = new cUOTxPause();
+		uoPacket->pause();
+		socket->send( uoPacket );
+	}
 
 	this->type_ = 117;//Boat type
-	this->name_ = "a mast";//Name is something other than "%s's house"
+	this->name_ = tr("a mast");
 	this->boatdir = 0; // starting with north boatdirection
 
 	this->applyDefinition( Tag );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
-		if( s != -1 )
+		if( socket )
 		{
-			Xsend( s, restart, 2 );
-			sysmessage( s, "Can not build boat at this location!" );
+			cUOTxPause* uoPacket = new cUOTxPause();
+			uoPacket->resume();
+			socket->send( uoPacket );
+			socket->sysMessage( tr("Can not build boat at this location!") );
 		}
 		cItemsManager::getInstance()->unregisterItem( this );
 		cItemsManager::getInstance()->deleteItem( this );
@@ -119,9 +127,9 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->pos.y = posy;
 	this->pos.z = posz;
 
-	for( int i = 0; i < 4; i++ )
+	for( int i = 0; i < 4; ++i )
 	{
-		for( int j = 0; j < 6; j++ )
+		for( int j = 0; j < 6; ++j )
 		{
 			if( this->itemids[i][j] == 0 )
 			{
@@ -192,10 +200,12 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 
 	if( siproblem > 0 )
 	{
-		if( s != -1 )
+		if( socket )
 		{
-			Xsend( s, restart, 2 );
-			sysmessage( s, "Can not build boat without itemid definitions for special items!" );
+			cUOTxPause* uoPacket = new cUOTxPause();
+			uoPacket->resume();
+			socket->send( uoPacket );
+			socket->sysMessage( tr("Can not build boat without itemid definitions for special items!") );
 		}
 		cItemsManager::getInstance()->unregisterItem( this );
 		cItemsManager::getInstance()->deleteItem( this );
@@ -206,13 +216,13 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		return;
 	}
 
-	P_ITEM pKey = Items->SpawnItem(s, pc_currchar, 1, "a boat key", 0, 0x10, 0x0F, 0, 1,1);
+	P_ITEM pKey = Items->SpawnItem(-1, pc_currchar, 1, "a boat key", 0, 0x10, 0x0F, 0, 1,1);
 		
 	pKey->tags.set( "boatserial", this->serial );
 	pKey->setType( 7 );
 	pKey->priv=2;
         
-	P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a boat key", 0, 0x10, 0x0F, 0,1,1);
+	P_ITEM pKey2 = Items->SpawnItem(-1, pc_currchar, 1, "a boat key", 0, 0x10, 0x0F, 0,1,1);
 	P_ITEM bankbox = pc_currchar->getBankBox();
 	pKey2->tags.set( "boatserial", this->serial );
 	pKey2->setType( 7 );
@@ -234,7 +244,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->update();
 
 	cRegion::RegionIterator4Chars ri( pos );
-	for (ri.Begin(); !ri.atEnd(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc = ri.GetData();
 		UOXSOCKET retr = calcSocketFromChar( pc );
@@ -252,8 +262,13 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	if( pDeed != NULL )
 		Items->DeleItem( pDeed );
 
-	if( s != -1 )
-		Xsend( s, restart, 2 ); // resume the client
+	if( socket )
+	{
+		// resume client
+		cUOTxPause* uoPacket = new cUOTxPause();
+		uoPacket->resume();
+		socket->send( uoPacket );
+	}
 	
 //    pc_currchar->SetMultiSerial(this->serial);
 	this->SetOwnSerial( pc_currchar->serial );
@@ -447,7 +462,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 	land_st land;
 	tile_st tile;
 	bool mapblocks = false;
-	for( j = 0; j < length; j++ )
+	for( j = 0; j < length; ++j )
 	{
 		mfile->get_st_multi(&multi);
 		map = Map->SeekMap( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
@@ -525,8 +540,7 @@ void cBoat::turn( SI08 turn )
 		errormsg = "Arr, something's in the way!";
 
 	// first pause all clients in visrange
-	vector< UOXSOCKET > socketsinrange; // sockets of the chars in visrange
-	vector< UOXSOCKET >::iterator iter_sock;
+	QPtrList< cUOSocket > socketsinrange; // sockets of the chars in visrange
 
 	cRegion::RegionIterator4Chars ri( pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
@@ -534,16 +548,18 @@ void cBoat::turn( SI08 turn )
 		P_CHAR pc = ri.GetData();
 		if( pc != NULL ) 
 		{
-			UOXSOCKET s = calcSocketFromChar( pc );
-			if( s != -1 )
+			cUOSocket* socket = pc->socket();
+			if( socket )
 			{
 				if( errormsg.isNull() || errormsg.isEmpty() )
 				{
-					Xsend( s, wppause, 2 );
-					socketsinrange.push_back( s );
+					cUOTxPause* uoPacket = new cUOTxPause();
+					uoPacket->pause();
+					socket->send( uoPacket );
+					socketsinrange.append( socket );
 				}
 				else
-					itemtalk( s, pTiller, (char*)errormsg.latin1() );
+					pTiller->talk( errormsg, 0x481, 0 );
 			}
 		}
 	}
@@ -580,30 +596,22 @@ void cBoat::turn( SI08 turn )
 			}
 			mapRegions->Add( pc );
 
-			extmove[0]=0x77;
-			LongToCharPtr(pc->serial, &extmove[1]);
-			ShortToCharPtr(pc->id(),  &extmove[5]);
-			extmove[7]=pc->pos.x>>8;
-			extmove[8]=pc->pos.x%256;
-			extmove[9]=pc->pos.y>>8;
-			extmove[10]=pc->pos.y%256;
-			extmove[11]=pc->pos.z;
-			extmove[12]=pc->dir|0x80;
+			cUOTxUpdatePlayer* uoPacket = new cUOTxUpdatePlayer();
+			uoPacket->setSerial( pc->serial );
+			uoPacket->setBody( pc->id() );
+			uoPacket->setX( pc->pos.x );
+			uoPacket->setY( pc->pos.y );
+			uoPacket->setZ( pc->pos.z );
+			uoPacket->setDirection( pc->dir|0x80 );
 
-			extmove[13]=0;
-			extmove[14]=0;
-
-			extmove[15]=0;
-			extmove[16]=0;
-
-			iter_sock = socketsinrange.begin();
-			while( iter_sock != socketsinrange.end() )
+			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
+			while( iter_sock.current() )
 			{
-				Xsend( *iter_sock, extmove, 17 );
-				iter_sock++;
+				iter_sock.current()->send( uoPacket );
+				++iter_sock;
 			}
 		}
-		it++;
+		++it;
 	}
 	it = vecItemEntries.begin();
 	while( it != vecItemEntries.end() )
@@ -628,14 +636,14 @@ void cBoat::turn( SI08 turn )
 			}
 			mapRegions->Add( pi );
 
-			iter_sock = socketsinrange.begin();
-			while( iter_sock != socketsinrange.end() )
+			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
+			while( iter_sock.current() )
 			{
-				senditem( *iter_sock, pi );
-				iter_sock++;
+				pi->update( iter_sock.current() );
+				++iter_sock;
 			}
 		}
-		it++;
+		++it;
 	}
 
 	// change positions and ids of the special items
@@ -659,16 +667,19 @@ void cBoat::turn( SI08 turn )
 		pHold->pos.z );
 	pHold->setId( itemids[shortboatdir][HOLD_ID] );
 
-	iter_sock = socketsinrange.begin();
-	while( iter_sock != socketsinrange.end() )
+	QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
+	cUOSocket* mSock;
+	while( mSock = iter_sock.current() )
 	{
-		senditem( *iter_sock, pPortplank );
-		senditem( *iter_sock, pStarplank );
-		senditem( *iter_sock, pTiller );
-		senditem( *iter_sock, pHold );
-		senditem( *iter_sock, this );
-		Xsend( *iter_sock, restart, 2 );
-		iter_sock++;
+		pPortplank->update( mSock );
+		pStarplank->update( mSock );
+		pTiller->update( mSock );
+		pHold->update( mSock );
+		this->update( mSock );
+		cUOTxPause* uoPacket = new cUOTxPause();
+		uoPacket->resume();
+		mSock->send( uoPacket );
+		++iter_sock;
 	}
 }
 
@@ -743,8 +754,7 @@ bool cBoat::move( void )
 
 	// Move all the special items
 	// first pause all clients in visrange
-	vector< UOXSOCKET > socketsinrange; // sockets of the chars in visrange
-	vector< UOXSOCKET >::iterator iter_sock;
+	QPtrList< cUOSocket > socketsinrange; // sockets of the chars in visrange
 	vector< SERIAL > vecItemEntries = imultisp.getData( this->serial );
 	vector< SERIAL > vecCharEntries = cmultisp.getData( this->serial );
 	vector< SERIAL >::iterator it;
@@ -755,16 +765,18 @@ bool cBoat::move( void )
 		P_CHAR pc = ri.GetData();
 		if( pc != NULL ) 
 		{
-			UOXSOCKET s = calcSocketFromChar( pc );
-			if( s != -1 )
+			cUOSocket* socket = pc->socket();
+			if( socket )
 			{
 				if( errormsg.isNull() && errormsg.isEmpty() )
 				{
-					Xsend( s, wppause, 2 );
-					socketsinrange.push_back( s );
+					cUOTxPause* uoPacket = new cUOTxPause();
+					uoPacket->pause();
+					socket->send( uoPacket );
+					socketsinrange.append( socket );
 				}
 				else
-					itemtalk( s, pTiller, (char*)errormsg.latin1() );
+					pTiller->talk( errormsg, 0x481, 0 );
 			}
 		}
 	}
@@ -787,14 +799,14 @@ bool cBoat::move( void )
 		{
 			pi->MoveTo( pi->pos.x + dx, pi->pos.y + dy, pi->pos.z );
 
-			iter_sock = socketsinrange.begin();
-			while( iter_sock != socketsinrange.end() )
+			QPtrListIterator< cUOSocket> iter_sock( socketsinrange );
+			while( iter_sock.current() )
 			{
-				senditem( *iter_sock, pi );
-				iter_sock++;
+				pi->update( iter_sock.current() );
+				++iter_sock;
 			}
 		}
-		it++;
+		++it;
 	}
 
 	it = vecCharEntries.begin();
@@ -804,53 +816,49 @@ bool cBoat::move( void )
 		if( pc != NULL )
 		{
 			pc->MoveTo( pc->pos.x + dx, pc->pos.y + dy, pc->pos.z );
-			teleport( pc );
-				extmove[0]=0x77;
-			LongToCharPtr(pc->serial, &extmove[1]);
-			ShortToCharPtr(pc->id(),  &extmove[5]);
-			extmove[7]=pc->pos.x>>8;
-			extmove[8]=pc->pos.x%256;
-			extmove[9]=pc->pos.y>>8;
-			extmove[10]=pc->pos.y%256;
-			extmove[11]=pc->pos.z;
-			extmove[12]=pc->dir|0x80;
+//			teleport( pc );
 
-			extmove[13]=0;
-			extmove[14]=0;
+			cUOTxUpdatePlayer* uoPacket = new cUOTxUpdatePlayer();
+			uoPacket->setSerial( pc->serial );
+			uoPacket->setBody( pc->id() );
+			uoPacket->setX( pc->pos.x );
+			uoPacket->setY( pc->pos.y );
+			uoPacket->setZ( pc->pos.z );
+			uoPacket->setDirection( pc->dir|0x80 );
 
-			extmove[15]=0;
-			extmove[16]=0;
 
-			iter_sock = socketsinrange.begin();
-			while( iter_sock != socketsinrange.end() )
+			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
+			while( iter_sock.current() )
 			{
-				Xsend( *iter_sock, extmove, 17 );
-				iter_sock++;
+				iter_sock.current()->send( uoPacket );
+				++iter_sock;
 			}
 		}
-		it++;
+		++it;
 	}
 
-
-	iter_sock = socketsinrange.begin();
-	while( iter_sock != socketsinrange.end() )
+	QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
+	cUOSocket* mSock;
+	while( mSock = iter_sock.current() )
 	{
-		senditem( *iter_sock, pPortplank );
-		senditem( *iter_sock, pStarplank );
-		senditem( *iter_sock, pTiller );
-		senditem( *iter_sock, pHold );
-		senditem( *iter_sock, this );
-		Xsend( *iter_sock, restart, 2 );
-		iter_sock++;
+		pPortplank->update( mSock );
+		pStarplank->update( mSock );
+		pTiller->update( mSock );
+		pHold->update( mSock );
+		this->update( mSock );
+		cUOTxPause* uoPacket = new cUOTxPause();
+		uoPacket->resume();
+		mSock->send( uoPacket );
+		++iter_sock;
 	}
 
 	return true;
 }
 
-void cBoat::handlePlankClick( UOXSOCKET s, P_ITEM pplank )
+void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 {
-	P_CHAR pc_currchar = currchar[s];
-	if( pc_currchar == NULL )
+	P_CHAR pc_currchar = socket->player();
+	if( !pc_currchar )
 		return;
 
 	bool charonboat = false;
@@ -906,28 +914,26 @@ void cBoat::handlePlankClick( UOXSOCKET s, P_ITEM pplank )
 		pc_currchar->MoveTo( x, y, z );
 		teleport( pc_currchar );
 		pc_currchar->SetMultiSerial( this->serial ); // set chars->multis value
-		sysmessage( s, "You entered a boat" );
+		socket->sysMessage( tr("You entered a boat") );
 	}
 	else
 	{
-		if( leave( s, pplank ) ) 
+		if( leave( socket, pplank ) ) 
 		{
-			sysmessage( s, "You left the boat." );
+			socket->sysMessage( tr("You left the boat.") );
 		} 
 		else 
 		{
-			sysmessage( s, "You cannot get off here!" );
+			socket->sysMessage( tr("You cannot get off here!") );
 		}
 	}
 }
 
-bool cBoat::leave( UOXSOCKET s, P_ITEM pplank )
+bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 {
-	P_CHAR pc_currchar = currchar[s];
-	if( pc_currchar == NULL )
-	{
+	P_CHAR pc_currchar = socket->player();
+	if( !pc_currchar )
 		return false;
-	}
 
 	UI16 x, y, x0, y0, x1, y1;
 	switch( this->boatdir ) 
@@ -1073,12 +1079,11 @@ void cBoat::setAutoSail (UOXSOCKET s, P_ITEM pMap, P_ITEM pTiller) {
 }
 */
 
-char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a command. msg must already be capitalized
+char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they said a command. msg must already be capitalized
 {
-	//P_CHAR pc_currchar = currchar[s];
 	SERIAL serial;
 
-	if( s == INVALID_UOXSOCKET ) 
+	if( !socket ) 
 		return 0;
 
 	//get the tiller man's item #
@@ -1093,42 +1098,42 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 		this->shift_ = -1;
 		this->moves_ = 1;
 		if( move() )
-			itemtalk (s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	} else if (msg.contains ("FORWARD RIGHT") ) {
 		this->shift_ = 1;
 		this->moves_ = 1;
 		if( move() )
-			itemtalk (s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	} else if (msg.contains ("BACKWARD RIGHT") ) {
 		this->shift_ = 1;
 		this->moves_ = -1;
-		itemtalk (s, tiller, "Aye, sir.");
+		tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	} else if (msg.contains ("BACKWARD LEFT")) {
 		this->shift_ = -1;
 		this->moves_ = -1;
 		if( move() )
-			itemtalk (s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	} else	if (msg.contains ("FORWARD")) {
 		this->moves_ = 1;
 		if( move() )
-			itemtalk (s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 	} else if (msg.contains ("BACKWARD")) {
 		this->moves_ = -1;
 		if( move() )
-			itemtalk (s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 	} else if(msg.contains("LEFT") && !msg.contains("TURN"))	{
 		this->shift_ = -1;
 		if( move() )
-			itemtalk(s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	} else if(msg.contains("RIGHT") && !msg.contains("TURN")) {
 		this->shift_ = 1;
 		if( move() )
-			itemtalk(s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	}
 
@@ -1138,7 +1143,7 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 		this->autosail_ = 0;
 		this->shift_ = 0;
 		this->moves_ = 0;
-		itemtalk(s, tiller, "Aye, sir."); 
+		tiller->talk( tr("Aye, sir."), 0x481, 0 );
 		return 1;
 	}
 
@@ -1147,27 +1152,27 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 		if( msg.contains("RIGHT") || msg.contains("STARBOARD") )
 		{
 			this->turn(1);
-			itemtalk(s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 			return 1;
 		}
 		else if( msg.contains("LEFT") || msg.contains("PORT") )
 		{
 			this->turn(-1);
-			itemtalk(s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 			return 1;
 		}
 		else if( msg.contains("COME ABOUT") || msg.contains("AROUND") )
 		{
 			turn(1);
 			turn(1);
-			itemtalk(s, tiller, "Aye, sir.");
+			tiller->talk( tr("Aye, sir."), 0x481, 0 );
 			return 1;
 		}
 	}
 
 	if(msg.contains("SET NAME"))
 	{
-		tiller->setName( QString("a ship named %1").arg(msg.right(msg.length()-8)) );
+		tiller->setName( tr("a ship named %1").arg(msg.right(msg.length()-8)) );
 		return 1;
 	}
 
@@ -1175,14 +1180,14 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 }
 
 // khpae - make deed from a boat
-void cBoat::toDeed( UOXSOCKET s ) {
-	P_CHAR pc = currchar[s];
+void cBoat::toDeed( cUOSocket* socket ) {
+	P_CHAR pc = socket->player();
 	if (pc == NULL) {
 		return;
 	}
 	// if player is in boat
 	if (pc->multis == this->serial) {
-		sysmessage (s, "You must leave the boat to deed it.");
+		socket->sysMessage ( tr("You must leave the boat to deed it.") );
 		return;
 	}
 	// check the player has the boat key
@@ -1212,24 +1217,24 @@ void cBoat::toDeed( UOXSOCKET s ) {
 		}
 	}
 	if ((!found) || (pi==NULL)) {
-		sysmessage (s, "You don't have the boat key.");
+		socket->sysMessage ( tr("You don't have the boat key.") );
 		return;
 	}
 	// if any pcs / npcs / items are in the boat, it cannot be deed.
 	vector<SERIAL> vitem = imultisp.getData (this->serial);
 	if (vitem.size () > 0) {
-		sysmessage (s, "You can only deed with empty boat (remove items).");
+		socket->sysMessage ( tr("You can only deed with empty boat (remove items).") );
 		return;
 	}
 	vector<SERIAL> vchar = cmultisp.getData (this->serial);
 	if (vchar.size () > 0) {
-		sysmessage (s, "You can only deed with empty boat (remove pc/npcs.");
+		socket->sysMessage ( tr("You can only deed with empty boat (remove pc/npcs).") );
 		return;
 	}
 	// add deed
-	P_ITEM bdeed = Items->SpawnItemBackpack2 (s, this->deedsection_, 0);
+	P_ITEM bdeed = Items->SpawnItemBackpack2 (-1, this->deedsection_, 0);
 	if (bdeed == NULL) {
-		sysmessage (s, "There's problem with deed boat. Please contact Game Master.");
+		socket->sysMessage ( tr("There's problem with deed boat. Please contact Game Master.") );
 		return;
 	}
 	// remove key
@@ -1262,7 +1267,7 @@ void cBoat::toDeed( UOXSOCKET s ) {
 
 	Items->DeleItem (this);
 	pc->SetMultiSerial( INVALID_SERIAL );
-	sysmessage (s, "You deed the boat.");
+	socket->sysMessage ( tr("You deed the boat.") );
 }
 
 void cBoat::Serialize( ISerialization &archive )
@@ -1275,7 +1280,7 @@ void cBoat::Serialize( ISerialization &archive )
 		for( i = 0; i < 8; i++ )
 		{
 			int currid = 0;
-			archive.read( "boat.multiid", currid );
+			archive.read( (char*)QString("boat.multiid%1").arg(i).latin1(), currid );
 			this->multiids_.push_back( currid );
 		}
 		for( i = 0; i < 4; i++ )
@@ -1308,7 +1313,7 @@ void cBoat::Serialize( ISerialization &archive )
 		for( i = 0; i < 8; i++ )
 		{
 			int currid = this->multiids_[i];
-			archive.write( "boat.multiid", currid );
+			archive.write( (char*)QString("boat.multiid%1").arg(i).latin1(), currid );
 		}
 		for( i = 0; i < 4; i++ )
 		{

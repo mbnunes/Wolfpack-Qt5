@@ -974,6 +974,7 @@ public:
 	void setRendermode( UINT32 data ) { setInt( 32, data ); }
 };
 
+// 0xBF Close Gump
 class cUOTxCloseGump: public cUOPacket
 {
 public:
@@ -982,6 +983,7 @@ public:
 	void setButton( UINT32 data ) { setInt( 9, data ); }
 };
 
+// 0x6F Trade
 class cUOTxTrade: public cUOPacket
 {
 public:
@@ -992,5 +994,23 @@ public:
 	void setBox2( SERIAL data ) { setInt( 12, data ); }
 	void setAction( UINT8 data ) { rawPacket[3] = data; }
 };
+
+/* 0x1C Ascii Talk
+class cUOTxTalk : public cUOPacket
+{
+public:
+	cUOTxTalk() : cUOPacket( 0x1c, 14 ) { setShort( 1, 14 ); }
+	void setSerial( SERIAL data )	{ setInt( 3, data ); }
+	void setId( UINT16 data )		{ setShort( 7, data ); }
+	void setType( UINT8 data )		{ rawPacket[9] = data; }
+	void setColor( UINT16 data )	{ setShort( 10, data ); }
+	void setFont( UINT16 data )		{ setShort( 12, data ); }
+	void setName( const QString &data )	{ setAsciiString( 14, (char*)data.latin1(), 30 ); }
+	void setMessage( const QString &data ) 
+	{ 
+		setAsciiString( 44, (char*)data.latin1(), data.length() );
+		setShort( 1, getShort( 1 ) + data.length() + 1 );
+	}
+};*/
 
 #endif

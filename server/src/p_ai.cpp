@@ -78,8 +78,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isInvul() || pc->dead || !pc->isInnocent())
 							continue;
-						sprintf((char*)temp, "Hello %s, Welcome to my shop, How may i help thee?.", pc->name.c_str());
-						npctalkall(pc_i, (char*)temp, 1);
+						pc_i->talk( tr("Hello %1, Welcome to my shop, How may i help thee?.").arg( pc->name.c_str() ), -1, 0 );
 						pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 					}
 				}
@@ -188,17 +187,17 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				{
 					if (pc_i->hp <(pc_i->st()/2))
 					{
-						npctalkall(pc_i, "In Vas Mani", 0);
+						pc_i->talk( tr("In Vas Mani"), -1, 0 );
 						Magic->NPCHeal(pc_i);
 					}
 					else if (pc_i->poisoned())
 					{
-						npctalkall(pc_i, "An Nox", 0);
+						pc_i->talk( tr("An Nox"), -1, 0 );
 						Magic->NPCCure(pc_i);
 					}
 					else if ( Victim && Victim->priv2&0x20 )
 					{
-						npctalkall(pc_i, "An Ort", 0);
+						pc_i->talk( tr("An Ort"), -1, 0 );
 						Magic->NPCDispel(pc_i, Victim);
 					}
 				}
@@ -228,7 +227,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isInnocent())
 						{
-							npctalkall(pc_i, "I dispise all things good. I shall not give thee another chance!", 1);
+							pc_i->talk( tr("I dispise all things good. I shall not give thee another chance!"), -1, 0 );
 							return;
 						}
 						else
@@ -238,11 +237,11 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							staticeffect(pc, 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
 							switch (RandomNum(0, 4)) 
 							{
-							case 0: npctalkall(pc_i, "Fellow minion of Mondain, Live!!", 1);											break;
-							case 1: npctalkall(pc_i, "Thou has evil flowing through your vains, so I will bring you back to life.", 1);	break;
-							case 2: npctalkall(pc_i, "If I res thee, promise to raise more hell!.", 1);									break;
-							case 3: npctalkall(pc_i, "From hell to Britannia, come alive!.", 1);										break;
-							case 4: npctalkall(pc_i, "Since you are Evil, I will bring you back to consciouness.", 1);					break;
+							case 0: pc_i->talk( tr("Fellow minion of Mondain, Live!!"), -1, 0);												break;
+							case 1: pc_i->talk( tr("Thou has evil flowing through your vains, so I will bring you back to life."), -1, 0);	break;
+							case 2: pc_i->talk( tr("If I res thee, promise to raise more hell!."), -1, 0);									break;
+							case 3: pc_i->talk( tr("From hell to Britannia, come alive!."), -1, 0);											break;
+							case 4: pc_i->talk( tr("Since you are Evil, I will bring you back to consciouness."), -1, 0);					break;
 							}
 						}
 					}
@@ -279,14 +278,12 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
 						{
-							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name.c_str());
-							npctalkall(pc_i, (char*)temp, 1);
+							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg( pc->name.c_str() ), -1, 0 );
 							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), pc->region.latin1());
-							npctalkall(pc_i, (char*)temp, 1);
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg( pc->name.c_str() ).arg( pc->region ), -1, 0 );
 							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
 						}
 						else if (d <= SrvParams->attack_distance() &&(
@@ -302,7 +299,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							// We found a victim
 				            if( Victim != NULL )
 							npcattacktarget(pc_i, Victim);
-							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+							pc_i->talk( tr("Thou shalt regret thine actions, swine!"), -1, 0 );
 							return;
 						}
 					}
@@ -327,9 +324,9 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						switch (RandomNum(0, 2))
 						{
-						case 0: npctalkall(pc_i, "Could thou spare a few coins?", 1);					break;
-						case 1: npctalkall(pc_i, "Hey buddy can you spare some gold?", 1);				break;
-						case 2: npctalkall(pc_i, "I have a family to feed, think of the children.", 1);	break;
+						case 0: pc_i->talk( tr("Could thou spare a few coins?"), -1, 0 );					break;
+						case 1: pc_i->talk( tr("Hey buddy can you spare some gold?"), -1, 0 );				break;
+						case 2: pc_i->talk( tr("I have a family to feed, think of the children."), -1, 0 );	break;
 						}
 						pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 					}
@@ -370,14 +367,12 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
 						{
-							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name.c_str());
-							npctalkall(pc_i, (char*)temp, 1);
+							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg(pc->name.c_str()), -1, 0 );
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), pc->region.latin1());
-							npctalkall(pc_i, (char*)temp, 1);
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg(pc->name.c_str()).arg(pc->region), -1, 0 );
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (d <= SrvParams->attack_distance() &&(
@@ -393,7 +388,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							// We found a victim
 				            if( Victim != NULL )
 							npcattacktarget(pc_i, Victim);
-							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+							pc_i->talk( tr("Thou shalt regret thine actions, swine!"), -1, 0 );
 							return;
 						}
 					}
@@ -465,8 +460,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				    if (pc->dead)
 					    continue;
 
-				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", QString("%1").arg(pc_i->questDestRegion()).latin1());
-				    npctalkall(pc_i,(char*)temp,1);
+					pc_i->talk( tr("I am waiting for my escort to %1, Will you take me?").arg( pc_i->questDestRegion() ), -1 , 0 );
 				    pc_i->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*30);
 				    return;
 				}
@@ -543,7 +537,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 	if ( pc_i == NULL ) return;
 	if (pc_i->war)
 	{
-		npctalkall(pc_i, "Who dares disturbe me?!?!", 1);
+		pc_i->talk( tr("Who dares disturbe me?!?!"), -1, 0 );
 		cRegion::RegionIterator4Chars ri(pc_i->pos);
 		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
@@ -668,8 +662,7 @@ void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 {
 	P_CHAR pc_currchar = currchar[c];
-	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name.c_str(), pc_currchar->CountBankGold());
-	npctalk(c, pBanker, temp, 1);
+	pBanker->talk( tr("%1's balance as of now is %2.").arg(pc_currchar->name.c_str()).arg(pc_currchar->CountBankGold()), -1, 0 );
 	return true;
 }
 
@@ -695,13 +688,13 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, const string& comm)
 		addgold(c, goldcount);
 		//goldsfx(c, goldcount);
 		DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
-		sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name.c_str(), goldcount);
-		npctalk(c, pBanker, temp, 1);
+		pBanker->talk( tr("%1 here is your withdraw of %2.").arg(pc_currchar->name.c_str()).arg(goldcount), -1, 0 );
 		return true;
 	}
 	else
-		sprintf(temp, "%s you have insufficent funds!", pc_currchar->name.c_str());
-	npctalk(c, pBanker, temp, 1);
+	{
+		pBanker->talk( tr("%1 you have insufficent funds!").arg(pc_currchar->name.c_str()), -1, 0 );
+	}
 	return true;
 }
 
@@ -725,8 +718,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 		int goldcount = value;
 		if (goldcount < 5000 || goldcount > 1000000)
 		{
-			sprintf(temp, "%s you can only get checks worth 5000gp to 1000000gp.", pc_currchar->name.c_str());
-			npctalk(c, pBanker, temp, 1);
+			pBanker->talk( tr("%1 you can only get checks worth 5000gp to 1000000gp.").arg(pc_currchar->name.c_str()), -1, 0 );
 			return false;
 		}
 		if (d >= goldcount)
@@ -742,13 +734,12 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 			P_ITEM bankbox = pc_currchar->getBankBox();
 			bankbox->AddItem(pi);
 			//statwindow(c, pc_currchar);
-			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name.c_str(), goldcount);
-			npctalk(c, pBanker, temp, 1);
+			pBanker->talk( tr("%1 your check has been placed in your bankbox, it is worth %2.").arg(pc_currchar->name.c_str()).arg(goldcount), -1, 0 );
 			return true;
 		}
 		else
-			sprintf(temp, "%s you have insufficent funds!", pc_currchar->name.c_str());
-		npctalk(c, pBanker, temp, 1);
+			pBanker->talk( tr("%s you have insufficent funds!").arg(pc_currchar->name.c_str()), -1, 0 );
+
 		return true;
 	}
 }

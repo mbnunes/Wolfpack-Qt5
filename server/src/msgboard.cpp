@@ -2282,8 +2282,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	// If they have no money, well, oops!
 	if ( servicePay == 0 )
 	{
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()).latin1() );
-		npctalk( k, pc_npc, (char*)temp, 0 );
+		pc_npc->talk( tr("Thank you %1 for thy service. We have made it safely to %2. Alas, I seem to be a little short on gold. I have nothing to pay you with.").arg(currchar[k]->name.c_str()).arg(pc_npc->questDestRegion()), -1, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
 	{
@@ -2291,8 +2290,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
 		//goldsfx( k, servicePay );
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()).latin1() );
-		npctalk( k, pc_npc, (char*)temp, 0 );
+		pc_npc->talk( tr("Thank you %1 for thy service. We have made it safely to %2. Here is thy pay as promised.").arg(currchar[k]->name.c_str()).arg(pc_npc->questDestRegion()), -1, 0 );
 	}
 	
 	// Inform the PC of what he has just been given as payment

@@ -358,7 +358,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				if (pi->tags.get("boatserial").isValid())
 				{
 					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toUInt() ) );
-					pBoat->handlePlankClick( s, pi );
+					pBoat->handlePlankClick( socket, pi );
 				}
 				else 
 					socket->sysMessage(tr("That is locked."));
@@ -830,10 +830,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_vendor->SetOwnSerial(pc_currchar->serial);
 						pc_vendor->setTamed(false);
 						Items->DeleItem(pi);
-						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name.c_str());
-						npctalk(s, pc_vendor, (char*)temp, 1);
-						updatechar(pc_vendor);
-						teleport(pc_vendor);
+						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name.c_str()), -1, 0 );
+						updatechar( pc_vendor );
+						pc_vendor->update();
 					}
 					else 
 						socket->sysMessage(tr("You must be close to a house and have a key in your pack to place that."));

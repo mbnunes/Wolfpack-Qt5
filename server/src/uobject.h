@@ -53,6 +53,7 @@
 //class ISerialization;
 class Coord_cl;
 class WPDefaultScript;
+class cUOSocket;
 
 class cUObject : public cSerializable, public cDefinable
 {
@@ -81,9 +82,14 @@ public:
 	std::string name;
 	Coord_cl pos;
 	cCustomTags tags;
+
 // Methods
+public:
+	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, cUOSocket* socket = NULL ) = 0;
+
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;
+
 
 	std::vector< WPDefaultScript* > scriptChain;
 	QStringList eventList_; // Important for recreating the scriptChain on reloading
