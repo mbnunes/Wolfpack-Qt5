@@ -9,14 +9,11 @@
 <definitions>
 	<item id="gem">
 		<id>0x1ea7</id>
-		<moveable>0</moveable>
 		<nodecay/>
 	</item>
 
 	<item id="ore_gem" inherit="gem">
 		<tag name="resource" value="ore" type="string" />
-		<tag name="min" value="10" type="int" />
-		<tag name="max" value="34" type="int" />
 		<name>Ore gem</name>
 		<category>Resources\Resource gems</category>
 	</item>
