@@ -20,8 +20,8 @@
 		<dex value="15" />
 		<int value="5" />
 		<!-- Status -->
-		<maxhitpoints>3</maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints value="3" />
+		<maxmana value="0" />
 		<!-- Skills -->
 		<skill id="wrestling" value="50" />
 		<skill id="tactics" value="50" />

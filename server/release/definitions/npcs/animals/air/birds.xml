@@ -13,7 +13,7 @@
 		<name><random list="NAMES_BIRDS" /></name>
 		<ai>Animal_Wild</ai>
 		<id value="6" />
-		<skin><random list="SKINS_BIRD" /></skin>
+		<skin list="SKINS_BIRD" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
@@ -21,7 +21,7 @@
 		<dex value="25" />
 		<int min="1" max="4" />
 		<!-- Status -->
-		<maxhitpoints><random min="1" max="3" /></maxhitpoints>
+		<maxhitpoints min="1" max="3" />
 		<maxmana value="0" />
 		<!-- Skills -->
 		<skill id="wrestling" value="50" />
