@@ -592,6 +592,9 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	{
 		P_CHAR pChar_vis = ri.GetData();
 
+		if( !pChar_vis )
+			continue;
+
 		if( pChar_vis && ( pChar_vis != pChar ) && ( !pChar->dead() || pChar->war() || pChar_vis->isGM() ) && ( !pChar->isHidden() || pChar_vis->isGM() ) )
 			sendWalkToOther( pChar_vis, pChar, oldpos );
 	}

@@ -399,7 +399,7 @@ RegionIterator4Items& RegionIterator4Items::operator++ ( int )
 P_ITEM RegionIterator4Items::GetData()
 {
 	P_ITEM pi = NULL;
-	while( !(pi = FindItemBySerial( *currentIterator )) && !atEnd() )
+	while( !atEnd() && !(pi = FindItemBySerial( *currentIterator )) )
 		(*this)++;
 	return pi;
 }
@@ -457,7 +457,7 @@ RegionIterator4Chars& RegionIterator4Chars::operator++ ( int )
 P_CHAR RegionIterator4Chars::GetData()
 {
 	P_CHAR pc = NULL;
-	while( !(pc = FindCharBySerial( *currentIterator )) && !atEnd() )
+	while( !atEnd() && !(pc = FindCharBySerial( *currentIterator )) )
 		(*this)++;
 	return pc;
 }
