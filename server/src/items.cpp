@@ -1349,6 +1349,8 @@ void cItem::processContainerNode( const cElement *tag )
 			{
 				cItem* nItem = cItem::createFromScript( element->getAttribute("id") );
 				addItem( nItem, true, false );
+				for ( unsigned int j = 0; j < element->childCount(); ++j )
+					nItem->processNode( element->getChild( j ) );
 			}
 			else if( element->hasAttribute( "list" ) )
 			{
