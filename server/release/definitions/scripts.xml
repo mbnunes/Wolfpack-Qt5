@@ -47,6 +47,7 @@
 	<script>wolfpack.commands.bank</script>
 	<script>wolfpack.commands.cast</script>
 	<script>wolfpack.commands.decoration</script>
+	<script>wolfpack.commands.dupe</script>
 	<script>wolfpack.commands.dye</script>
 	<script>wolfpack.commands.export</script>
 	<script>wolfpack.commands.import</script>
