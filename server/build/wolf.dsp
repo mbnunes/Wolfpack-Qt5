@@ -744,6 +744,14 @@ SOURCE=.\python\pyregion.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\pyspawnregion.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\pyspawnregion.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\pytooltip.cpp
 # End Source File
 # Begin Source File

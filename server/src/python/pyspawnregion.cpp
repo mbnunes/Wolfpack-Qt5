@@ -31,8 +31,8 @@
 #include "../uobject.h"
 
 /*
-\object region
-\description This object type represents a region within the ultima online world.
+\object spawnregion
+\description This object type represents a spawnregion within the Ultima Online world.
 */
 typedef struct
 {
@@ -45,7 +45,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name );
 static int wpSpawnRegion_setAttr( wpSpawnRegion* self, char* name, PyObject* value );
 
 /*!
-The typedef for Wolfpack Python items
+	The typedef for Wolfpack Python items
 */
 static PyTypeObject wpSpawnRegionType =
 {
@@ -63,21 +63,30 @@ static PyTypeObject wpSpawnRegionType =
 
 /*
 \method spawnregion.removeitem
-\description 
 \param serial
+\description Remove the given object from a spawnregion, freeing the slot for a new item
+to be spawned.
 */
-static PyObject* wpSpawnRegion_removeitem( wpSpawnRegion* self, PyObject* args )
+static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 {
 	SERIAL serial;
-	if ( !PyArg_ParseTuple( args, "i:spawnregion.removeitem(serial)", &serial ) )
+	if ( !PyArg_ParseTuple( args, "i:spawnregion.remove(serial)", &serial ) )
 	{
 		return 0;
 	}
 
-	QPtrList<cUObject> items = self->pRegion->spawnedItems(); // Copy
-	cUObject *object;
+	QPtrList<cUObject> objects;
+	if ( isItemSerial(serial) )
+	{
+		objects = self->pRegion->spawnedItems(); // Copy
+	}
+	else
+	{
+		objects = self->pRegion->spawnedNpcs(); // Copy
+	}
 
-	for (object = items.first(); object; object = items.next()) 
+	cUObject *object;
+	for (object = objects.first(); object; object = objects.next()) 
 	{
 		if ( object->serial() == serial )
 			object->remove();
@@ -86,33 +95,24 @@ static PyObject* wpSpawnRegion_removeitem( wpSpawnRegion* self, PyObject* args )
 }
 
 /*
-\method spawnregion.removenpc
-\description 
-\param serial
+\method spawnregion.spawn
+\param baseids [Optional] is a list of BaseIDs to be spawned from
+\description Remove the given object from a spawnregion, freeing the slot for a new item
+to be spawned.
 */
-static PyObject* wpSpawnRegion_removenpc( wpSpawnRegion* self, PyObject* args )
+static PyObject* wpSpawnRegion_spawn( wpSpawnRegion* self, PyObject* args )
 {
-	SERIAL serial;
-	if ( !PyArg_ParseTuple( args, "i:spawnregion.removenpc(serial)", &serial ) )
+	PyObject* baseids = 0;
+	if ( !PyArg_ParseTuple( args, "|O!:spawnregion.spawn([baseids])", &PyList_Type, &baseids ) )
 	{
 		return 0;
 	}
-
-	QPtrList<cUObject> items = self->pRegion->spawnedNpcs(); // Copy
-	cUObject *object;
-
-	for (object = items.first(); object; object = items.next()) 
-	{
-		if ( object->serial() == serial )
-			object->remove();
-	}
-	Py_RETURN_NONE;
 }
 
 static PyMethodDef wpSpawnRegionMethods[] =
 {
-	{ "removeitem",			( getattrofunc ) wpSpawnRegion_removeitem, METH_VARARGS, NULL },
-	{ "removenpc",			( getattrofunc ) wpSpawnRegion_removenpc, METH_VARARGS, NULL },
+	{ "remove",				( getattrofunc ) wpSpawnRegion_remove,	METH_VARARGS, NULL },
+	{ "spawn",				( getattrofunc ) wpSpawnRegion_spawn,	METH_VARARGS, NULL },
 	{ NULL, NULL, 0, NULL }
 };
 
@@ -140,16 +140,16 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 		return PyInt_FromLong( self->pRegion->maxNpcs() );
 	}
 	/*
-	\rproperty spawnregion.curnpcspawn
+	\rproperty spawnregion.npcspawncount
 	*/
-	else if ( !strcmp( name, "curnpcspawn" ) )
+	else if ( !strcmp( name, "npcspawncount" ) )
 	{
 		return PyInt_FromLong( self->pRegion->npcs() );
 	}
 	/*
-	\rproperty spawnregion.curitemspawn
+	\rproperty spawnregion.itemspawncount
 	*/
-	else if ( !strcmp( name, "curitemspawn" ) )
+	else if ( !strcmp( name, "itemspawncount" ) )
 	{
 		return PyInt_FromLong( self->pRegion->items() );
 	}
@@ -193,7 +193,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 		return list;
 	}
 	/*
-	\rproperty spawnregion.spawneditems
+	\rproperty spawnregion.spawnednpcs
 	*/
 	else if ( !strcmp( name, "spawnednpcs" ) )
 	{
