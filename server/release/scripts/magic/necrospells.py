@@ -1,3 +1,12 @@
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  | Created by: Radiant                        #
+#   )).-' {{ ;'`   | Revised by:                                #
+#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#===============================================================#
+# Necromancy Spells                                             #
+#===============================================================#
+
 import wolfpack
 from wolfpack.consts import *
 from magic.utilities import *
