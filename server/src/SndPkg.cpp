@@ -2982,7 +2982,7 @@ cUnicodeSpeech::cUnicodeSpeech( cUObject *origin, const QString &message, UI16 c
 
 		if( !origin )
 		{
-			LongToCharPtr( INVALID_SERIAL, (UI08*)&data.data()[3] );
+			LongToCharPtr( (UINT32)INVALID_SERIAL, (UI08*)&data.data()[3] );
 			ShortToCharPtr( 0xFFFF, (UI08*)&data.data()[7] );
 			strcpy( &data.data()[18], "System" );
 		}
