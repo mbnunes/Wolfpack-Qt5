@@ -473,7 +473,7 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 //public !!
 void cTargets::Wiping(int s) // Clicking the corners of wiping calls this function - Crwth 01/11/1999
 {
-	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
+/*	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
 
 	if (clickx[s]==-1 && clicky[s]==-1) {
 		clickx[s]=(buffer[s][11]<<8)+buffer[s][12];
@@ -516,7 +516,7 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 				Items->DeleItem(pi);
 			}
 		}
-	}
+	}*/
 }
 
 static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it (unmovable) at that spot

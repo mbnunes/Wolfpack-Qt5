@@ -2622,7 +2622,12 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 
 	// Set the outside indices
 	pi->SetSpawnSerial( pi->spawnserial );
-	pi->setContSerial( pi->contserial );
+	/*pi->setContSerial( pi->contserial );*/
+	P_ITEM pCont = FindItemBySerial( pi->contserial );
+
+	if( pCont )
+		pCont->setWeight( pCont->weight() + pi->weight() );
+
 	pi->SetOwnSerial( pi->ownserial );
 
 	if( pi->maxhp() == 0) 

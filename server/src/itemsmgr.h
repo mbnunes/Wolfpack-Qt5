@@ -45,32 +45,16 @@ class cItem;
 // System Includes
 #include <map>
 #include <list>
-#include "my_hash_map.h"
+#include <hash_map>
 
 using namespace std;
 
-struct IntHasher {
-
-  // Since we are hashing based on integers we can just use the
-  // GENERIC_HASH macro.  GENERIC_HASH is a macro which takes
-  // an integer and scrambles it up.
-  int operator()(const int & key)const {return GENERIC_HASH(key);}
-
-  // SecondHashValue also takes an integer and scrambles it up.
-  // However, for this to be useful we need SecondHashValue to
-  // scramble the key up in a different way.  Therefore we multiply
-  // key by 3 before calling GENERIC_HASH.  Also note that we have
-  // set things up so SecondHashValue ALWAYS returns an odd number.
-  // This is REQUIRED.  SecondHashValue must ALWAYS return an odd
-  // number for the hash table to be properly searched.
-  int SecondHashValue(const int & key)const {
-    return 2*GENERIC_HASH(3*key) + 1;
+struct eqint
+{
+  bool operator()(const int s1, const int s2) const
+  {
+    return (s1 == s2);
   }
-
-};
-
-struct IntEqualCmp {
-  bool operator()(const int x, const int y) const {return x == y;}
 };
 
 /*!
@@ -87,21 +71,16 @@ USAGE
 	\see cItem
 
 */
-class cItemsManager: public std::map< SERIAL, P_ITEM >
+//class cItemsManager: public std::map< SERIAL, P_ITEM >
+class cItemsManager: public hash_map< SERIAL, P_ITEM, hash<int>, eqint >
 {
 protected:
 	// Data members
 	std::list<cItem*> deletedItems;
 	SERIAL lastUsedSerial;
-	my_hash_map<SERIAL, cItem*, IntHasher, IntEqualCmp> *hashMap;
 protected:
 	// Initialize our hashmap
-	cItemsManager()
-	{
-		IntHasher intHasher;
-		IntEqualCmp equalCmp;
-		hashMap = new my_hash_map<SERIAL, cItem*, IntHasher, IntEqualCmp>( 1000, intHasher, equalCmp ); // Pre allocate 1000 items
-	}
+	cItemsManager()	{}
 	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
 	cItemsManager& operator=(cItemsManager& _it) { return *this; } // Unallow Assignment
 public:
@@ -147,9 +126,9 @@ public:
 	bool atBegin()									{ return (iterItems == cItemsManager::getInstance()->begin()); }
 	bool atEnd()									{ return (iterItems == cItemsManager::getInstance()->end()); }
 	const AllItemsIterator operator++(int);
-	const AllItemsIterator operator--(int);
-	AllItemsIterator& operator++()								{ ++iterItems; return *this;				}
-	AllItemsIterator& operator--()								{ --iterItems; return *this;				}
+	//const AllItemsIterator operator--(int);
+	AllItemsIterator& operator++()								{ iterItems++; return *this;				}
+	//AllItemsIterator& operator--()								{ iterItems--; return *this;				}
 	
 };
 
@@ -160,12 +139,12 @@ inline const AllItemsIterator AllItemsIterator::operator++(int)
 	return returnValue;						// return what was fetched
 }
 
-inline const AllItemsIterator AllItemsIterator::operator--(int)
+/*inline const AllItemsIterator AllItemsIterator::operator--(int)
 {
 	AllItemsIterator returnValue(*this);	// fetch
-	--iterItems;							// increment
+	iterItems--;							// increment
 	return returnValue;						// return what was fetched
-}
+}*/
 
 inline bool isItemSerial(long ser) 
 {

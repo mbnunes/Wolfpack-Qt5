@@ -488,7 +488,7 @@ void cTrade::clearalltrades()
 						}
 					}
 			}
-			iterItems--; // Iterator will became invalid when deletting.
+			//iterItems++; // Iterator will became invalid when deletting.
 			Items->DeleItem(pi);
 			clConsole.send("Trade cleared\n");
 		}

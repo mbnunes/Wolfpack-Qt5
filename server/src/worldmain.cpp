@@ -129,9 +129,9 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	
 	MYSQL mysql;
 	mysql_init(&mysql);
-	mysql_options(&mysql,MYSQL_OPT_COMPRESS,0);
-
-	if( !mysql_real_connect(&mysql,"localhost","root","","wolfpack",0,NULL,0))
+	//mysql_options(&mysql,MYSQL_OPT_COMPRESS,0);
+	
+	if( !mysql_real_connect( &mysql, SrvParams->databaseHost().latin1(), SrvParams->databaseUsername().latin1(),SrvParams->databasePassword().latin1(), SrvParams->databaseName().latin1(), 0, NULL, 0 ) )
 	{
 		fprintf( stderr, "Failed to connect to database: Error: %s\n", mysql_error(&mysql) );
 		return;
@@ -156,6 +156,9 @@ void CWorldMain::loadnewworld(QString module) // Load world
 
 		if( i % 1000 == 0 )
 			qWarning( QString::number( i ) );
+
+		if( i % 100000 == 0 )
+			printf( "Took: %i msecs", getNormalizedTime() - sTime );
 	}
 
 	mysql_free_result( result );
