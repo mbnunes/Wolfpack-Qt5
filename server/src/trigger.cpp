@@ -383,7 +383,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						// Taur 69.02 added to get some chance of
 						// skill gain on failure
 						unsigned int skill = p; // Magius(CHE) §
-						unsigned int baseskill = pc_ts->baseskill[skill];
+						unsigned int baseskill = pc_ts->baseSkill(skill);
 						if (i > baseskill)
 						{
 							Skills->AdvanceSkill(currchar[ts], skill, 0);
@@ -920,7 +920,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							j = makenumber(1);
 							if (j >= 0)
 							{
-								if (!(pc_ts->baseskill[i] >= j))
+								if (!(pc_ts->baseSkill(i) >= j))
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -930,7 +930,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							else 
 							{
-								if (!(pc_ts->baseskill[i] <= abs(j)))
+								if (!(pc_ts->baseSkill(i) <= abs(j)))
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -1814,11 +1814,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							
 							if (j)
 							{
-								if (pc_ts->baseskill[p] < 1000)
+								if (pc_ts->baseSkill(p) < 1000)
 								{
-									pc_ts->baseskill[p] += j;
-									if (pc_ts->baseskill[p]>1000)
-										pc_ts->baseskill[p] = 1000;
+									pc_ts->setBaseSkill(p, pc_ts->baseSkill(p) + j );
+									if (pc_ts->baseSkill(p)>1000)
+										pc_ts->setBaseSkill(p, 1000);
 									Skills->AdvanceStats(currchar[ts], p);
 									Skills->updateSkillLevel(currchar[ts], p);
 									updateskill(ts, p);
@@ -1925,7 +1925,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							{
 								if ((p>-1) && (p<49))
 								{
-									pc_ts->baseskill[p] -= j;
+									pc_ts->setBaseSkill(p, pc_ts->baseSkill(p)-j);
 									Skills->updateSkillLevel(currchar[ts], p);
 									updateskill(ts, p);
 									pi->trigon=0;
@@ -1958,7 +1958,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							{
 								if ((p>-1) && (p<49))
 								{
-									pc_ts->baseskill[p] += j;
+									pc_ts->setBaseSkill(p, pc_ts->baseSkill(p) + j);
 									Skills->updateSkillLevel(currchar[ts], p);
 									updateskill(ts, p);
 									pi->trigon=1;
@@ -2135,7 +2135,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						// Taur 69.02 added to get some chance of
 						// skill gain on failure
 						unsigned int skill = p; // Magius(CHE) §
-						unsigned int baseskill = pc_ts->baseskill[skill];
+						unsigned int baseskill = pc_ts->baseSkill(skill);
 						if (i > baseskill)
 						{
 							Skills->AdvanceSkill(pc_ts, skill, 0);
@@ -3062,11 +3062,11 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							
 							if (j)
 							{
-								if (pc_ts->baseskill[p] < 1000)
+								if (pc_ts->baseSkill(p) < 1000)
 								{
-									pc_ts->baseskill[p] += j;
-									if (pc_ts->baseskill[p]>1000)
-										pc_ts->baseskill[p] = 1000;
+									pc_ts->setBaseSkill(p, pc_ts->baseSkill(p)+j);
+									if (pc_ts->baseSkill(p)>1000)
+										pc_ts->setBaseSkill(p, 1000);
 								}
 							}
 							else 

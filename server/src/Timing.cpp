@@ -208,9 +208,9 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 				{
 					if (pc->regen + (c*interval) <= currenttime && pc->hp <= pc->st)
 					{
-						if (pc->skill[17] < 500)
+						if (pc->skill(17) < 500)
 							pc->hp++;
-						else if (pc->skill[17] < 800)
+						else if (pc->skill(17) < 800)
 							pc->hp += 2;
 						else 
 							pc->hp += 3;
@@ -276,7 +276,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 					// 100 = Maximum skill (GM)
 					// 50 = int affects mana regen (%50)
 					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
-					int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill[MEDITATION] + 1)/10) + ((pc->in + 1) / 2)) / ratio));
+					int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill(MEDITATION) + 1)/10) + ((pc->in + 1) / 2)) / ratio));
 					if (pc->med())
 					{
 						pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);

@@ -674,7 +674,7 @@ void cSkills::Mine(int s)
 		
 		//*******************************************************************
 		//If mining skill is lower than 65 can only mine iron ore : Cork
-		if (pc->skill[MINING]<650
+		if (pc->skill(MINING)<650
 			|| rand()%5)			// only a 20% chance of finding colored ore
 		{
 			if (!(rand()%20))			// a 5% chance for 5 small ores
@@ -684,7 +684,7 @@ void cSkills::Mine(int s)
 			sysmessage(s, tr("You place some iron ore in your pack.") );
 			return;
 		}
-		else if(pc->skill[MINING]>=850 && !(rand()%18))
+		else if(pc->skill(MINING)>=850 && !(rand()%18))
 		{
 			//Skills->CheckSkill(player,MINING,850,1000);
 			SpawnRandomItem(s,1,"necro.scp","ITEMLIST","999"); 
@@ -692,7 +692,7 @@ void cSkills::Mine(int s)
 		}
 		else
 		{
-			const Ore* pOre = getColorFound(pc->skill[MINING]);	// get random ore
+			const Ore* pOre = getColorFound(pc->skill(MINING));	// get random ore
 
 			char tmp[100];
 			sprintf(tmp,"%s Ore",pOre->name);
@@ -970,7 +970,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		return;
 
 
-	if (pc_currchar->skill[MINING] < minskill)
+	if (pc_currchar->skill(MINING) < minskill)
 	{
 		sysmessage(s, tr("You have no idea what to do with this strange ore") );
 		return;					
@@ -1305,7 +1305,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 	y=(buffer[s][13]<<8)+buffer[s][14];
 	z=buffer[s][16];
 	
-	j=pc_currchar->skill[DETECTINGHIDDEN];
+	j=pc_currchar->skill(DETECTINGHIDDEN);
 	
 	range = (j*j/1.0E6)*VISRANGE;	// this seems like an ok formula
 	
@@ -1321,7 +1321,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 				dy=abs(pc->pos.y-y);
 
 				c=hypot(dx, dy);
-				low = (int)(pc->skill[HIDING]*pc->skill[HIDING]/1E3 - (range*50/VISRANGE)*(range-c)/range);
+				low = (int)(pc->skill(HIDING)*pc->skill(HIDING)/1E3 - (range*50/VISRANGE)*(range-c)/range);
 				if (low<0) low=0;
 				else if (low>1000) low=1000;
 				
@@ -1650,11 +1650,11 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		
 		if (pp->dead)
 		{
-			if (ph->skill[HEALING] < 800 || ph->skill[ANATOMY] < 800)
+			if (ph->skill(HEALING) < 800 || ph->skill(ANATOMY) < 800)
 				sysmessage(s, tr("You are not skilled enough to resurrect") );
 			else
 			{
-				int reschance = static_cast<int>((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.17);
+				int reschance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.17);
 				int rescheck=RandomNum(1,100);
 				CheckSkill((ph),HEALING,800,1000);
 				CheckSkill((ph),ANATOMY,800,1000);
@@ -1672,14 +1672,14 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		
 		if (pp->poisoned()>0)
 		{
-			if (ph->skill[HEALING]<600 || ph->skill[ANATOMY]<600)
+			if (ph->skill(HEALING)<600 || ph->skill(ANATOMY)<600)
 			{
 				sysmessage(s, tr("You are not skilled enough to cure poison.") );
 				sysmessage(s, tr("The poison in your target's system counters the bandage's effect.") );
 			}
 			else
 			{
-				int curechance = static_cast<int>((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.67);
+				int curechance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.67);
 				int curecheck=RandomNum(1,100);
 				CheckSkill((ph),HEALING,600,1000);
 				CheckSkill((ph),ANATOMY,600,1000);
@@ -1710,8 +1710,8 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			}
 			else
 			{
-				int healmin = (((ph->skill[HEALING]/5)+(ph->skill[ANATOMY]/5))+3); //OSI's formula for min amount healed (Skyfire)
-				int healmax = (((ph->skill[HEALING]/5)+(ph->skill[ANATOMY]/2))+10); //OSI's formula for max amount healed (Skyfire)
+				int healmin = (((ph->skill(HEALING)/5)+(ph->skill(ANATOMY)/5))+3); //OSI's formula for min amount healed (Skyfire)
+				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(ANATOMY)/2))+10); //OSI's formula for max amount healed (Skyfire)
 				int j=RandomNum(healmin,healmax);
 				//int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
 				if(j>(pp->st-pp->hp))
@@ -1728,8 +1728,8 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				sysmessage(s, tr("You are not skilled enough to heal that creature.") );
 			else
 			{
-				int healmin = (((ph->skill[HEALING]/5)+(ph->skill[VETERINARY]/5))+3); //OSI's formula for min amount healed (Skyfire)
-				int healmax = (((ph->skill[HEALING]/5)+(ph->skill[VETERINARY]/2))+10); //OSI's formula for max amount healed (Skyfire)
+				int healmin = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/5))+3); //OSI's formula for min amount healed (Skyfire)
+				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/2))+10); //OSI's formula for max amount healed (Skyfire)
 				int j=RandomNum(healmin,healmax);
 				if(j>(pp->st-pp->hp))
 					j=(pp->st-pp->hp);
@@ -2083,7 +2083,7 @@ void cSkills::TameTarget(int s)
 				}
 			}
 			if ((!Skills->CheckSkill(pc_currchar,TAMING, 0, 1000))||
-				(pc_currchar->skill[TAMING]<pc->taming)) 
+				(pc_currchar->skill(TAMING)<pc->taming)) 
 			{
 				sysmessage(s, tr("You were unable to tame it.") );
 				return;
@@ -2117,7 +2117,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = currchar[s];
-    int cansteal = max(1,pc_currchar->baseskill[STEALING]/10);
+    int cansteal = max(1,pc_currchar->baseSkill(STEALING)/10);
 	cansteal = cansteal * 10;
 		
 	if (buffer[s][7]<0x40)
@@ -2177,7 +2177,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 			all_items(s);
 		} else sysmessage(s, tr("You failed to steal that item.") );
 		
-		if (((!(skill))&&(rand()%16==7)) || (pc_currchar->skill[STEALING]<rand()%1001))
+		if (((!(skill))&&(rand()%16==7)) || (pc_currchar->skill(STEALING)<rand()%1001))
 		{
 			sysmessage(s, tr("You have been cought!") );
 			
@@ -2263,7 +2263,7 @@ void cSkills::BeggingTarget(int s)
 			else
 			{
 				pc->setBegging_timer( SrvParams->beggingTime() * MY_CLOCKS_PER_SEC + uiCurrentTime); 
-				x=pc->skill[BEGGING]/50;
+				x=pc->skill(BEGGING)/50;
 
 				if (x<1) x=1; 
 				y=rand()%x;
@@ -2472,7 +2472,7 @@ void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 {
 	P_CHAR pc_currchar = currchar[s];
 
-	if (pc_currchar->skill[STEALING] < 300)
+	if (pc_currchar->skill(STEALING) < 300)
 	// check if under 30 in stealing
 	{
 		Skills->CheckSkill(pc_currchar,STEALING, 0, 1000);
@@ -2684,7 +2684,7 @@ public:
 		{
 			P_CHAR pc_currchar = currchar[s];
 
-			if (pc_currchar->skill[TINKERING]<minskill)
+			if (pc_currchar->skill(TINKERING)<minskill)
 			{
 				sysmessage(s, tr("You aren't skilled enough to even try that!") );
 				return;
@@ -2808,7 +2808,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 { // Ripper..Repair items.
 	P_CHAR pc = currchar[s];
 
-	short smithing=pc->baseskill[BLACKSMITHING];
+	short smithing=pc->baseSkill(BLACKSMITHING);
 
 	if (smithing < 500)
 	{
@@ -2886,7 +2886,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		sysmessage(s,tr("Must be closer to the forge.") );
 		return;
 	}
-	if(pc->skill[sk]< 300 || ( pc->skill[sk]<500 && pi->smelt()!=1 ) )
+	if(pc->skill(sk)< 300 || ( pc->skill(sk)<500 && pi->smelt()!=1 ) )
 	{
 		sysmessage(s, tr("You aren't skilled enough to even try that!") );
 		return;

@@ -128,8 +128,8 @@ void cChar::Init(bool ser)
 	this->setCreationDay(getPlatformDay());
 	for (i=0;i<TRUESKILLS;i++)
 	{
-		this->baseskill[i]=0;
-		this->skill[i]=0;
+		this->setBaseSkill(i, 0);
+		this->setSkill(i, 0);
 	}
 	this->npc=false;
 	this->shop=false; //1=npc shopkeeper
@@ -278,8 +278,8 @@ void cChar::Init(bool ser)
 
 	for (i=0;i<TRUESKILLS;i++)
 	{
-		this->baseskill[i]=0;
-		this->skill[i]=0;
+		this->setBaseSkill(i, 0);
+		this->setSkill(i, 0);
 	}
 	for (i = 0; i < ALLSKILLS; i++) 
 		this->lockSkill[i]=0;
@@ -630,7 +630,7 @@ unsigned int cChar::getSkillSum()
 	register unsigned int sum = 0, a;
 	for (a=0;a<ALLSKILLS;a++)
 	{
-		sum+=this->baseskill[a];
+		sum+=this->baseSkill_[a];
 	}
 	return sum;		// this *includes* the decimal digit ie. xxx.y
 }
@@ -642,8 +642,8 @@ unsigned int cChar::getSkillSum()
 
 int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 {
-	int delta = min(250,this->baseskill[skill]/2);		// half the trainers skill, but not more than 250
-	delta -= pPlayer->baseskill[skill];					// calc difference
+	int delta = min(250,this->baseSkill(skill)/2);		// half the trainers skill, but not more than 250
+	delta -= pPlayer->baseSkill(skill);					// calc difference
 	if (delta <= 0)
 		return 0;
 
@@ -760,7 +760,7 @@ void cChar::Serialize(ISerialization &archive)
 			char t[256] = {0,};
 			numtostr(j, t);
 			string temp = string("skill") + string(t);
-			archive.read(temp.c_str(), baseskill[j]);
+			archive.read(temp.c_str(), baseSkill_[j]);
 			temp = string("skl") + string(t);
 			archive.read(temp.c_str(), lockSkill[j] );
 		}
@@ -909,7 +909,7 @@ void cChar::Serialize(ISerialization &archive)
 			char t[256] = {0,};
 			numtostr(j, t);
 			string temp = string("skill") + string(t);
-			archive.write(temp.c_str(), baseskill[j]);
+			archive.write(temp.c_str(), baseSkill_[j]);
 			temp = string("skl") + string(t);
 			archive.write(temp.c_str(), lockSkill[j] );
 		}

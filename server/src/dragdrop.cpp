@@ -886,7 +886,7 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				delta = pi->amount();		// so adjust skillgain
 			Items->DeleItem(pi);
 		}
-		pc_currchar->baseskill[sk]+=delta;
+		pc_currchar->setBaseSkill(sk, pc_currchar->baseSkill(sk) + delta);
 		Skills->updateSkillLevel(pc_currchar, sk);
 		updateskill(s,sk);
 

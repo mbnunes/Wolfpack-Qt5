@@ -275,10 +275,10 @@ void cTmpEff::Reverse()
 	case 21:
 		int toDrop;
 		toDrop = more1; //Effect->more1;
-		if( ( pc_s->baseskill[PARRYING] - toDrop ) < 0 )
-			pc_s->baseskill[PARRYING] = 0;
+		if( ( pc_s->baseSkill(PARRYING) - toDrop ) < 0 )
+			pc_s->setBaseSkill(PARRYING, 0);
 		else
-			pc_s->baseskill[PARRYING] -= toDrop;
+			pc_s->setBaseSkill(PARRYING, pc_s->baseSkill(PARRYING) - toDrop);
 		
 	default:
 		clConsole.send("ERROR: Fallout of switch\n"); //Morrolan
@@ -464,10 +464,10 @@ void cTmpEff::Expire()
 	case 21:
 		int toDrop;
 		toDrop = more1; //Effect->more1;
-		if( ( pc_s->baseskill[PARRYING] - toDrop ) < 0 )
-			pc_s->baseskill[PARRYING] = 0;
+		if( ( pc_s->baseSkill(PARRYING) - toDrop ) < 0 )
+			pc_s->setBaseSkill(PARRYING, 0);
 		else
-			pc_s->baseskill[PARRYING] -= toDrop;
+			pc_s->setBaseSkill(PARRYING, pc_s->baseSkill(PARRYING) - toDrop);
 		break;
 		
 	case 33: // delayed hiding for gms after flamestrike effect
@@ -658,7 +658,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 	{
 	case 1:
 		pc_dest->priv2 |= 0x02;
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/100);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/100);
 		pTE->more1=0;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -671,7 +671,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 30.12.2000)
 			pTE->setExpiretime_s(dur);
 		else
-			pTE->setExpiretime_s(pc_source->skill[MAGERY]*10);
+			pTE->setExpiretime_s(pc_source->skill(MAGERY)*10);
 		pTE->more1=0;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -682,7 +682,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pc_dest->chgDex(-1 * more1);
 		pc_dest->stm=min(pc_dest->stm, pc_dest->effDex());
 		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -693,7 +693,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pc_dest->in-=more1;
 		pc_dest->mn=min(pc_dest->mn, pc_dest->in);
 		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -704,7 +704,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pc_dest->st-=more1;
 		pc_dest->hp=min(pc_dest->hp, pc_dest->st);
 		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -717,7 +717,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
 			pTE->setExpiretime_s(dur);
 		else
-			pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+			pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -727,7 +727,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			more1=pc_dest->in-255;
 		pc_dest->in+=more1;
 		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -740,7 +740,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
 			pTE->setExpiretime_s(dur);
 		else			// else use caster's skill
-			pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+			pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -766,7 +766,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pc_dest->chgDex(more2);
 		pc_dest->in+=more3;
 		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
 		pTE->more3=more3;
@@ -783,14 +783,14 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pc_dest->chgDex(-1 * more2);
 		pc_dest->in-=more3;
 		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
 		pTE->more3=more3;
 		pTE->dispellable=1;
 		break;
 	case 15: // Reactive armor
-		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
+		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->dispellable=1;
 		break;
 	case 16: //Explosion potions	Tauriel
@@ -1039,7 +1039,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pTE->setExpiretime_s(12);
 		pTE->dispellable=1;
 		pTE->more1=more1;
-		pc_dest->baseskill[PARRYING] += more1;
+		pc_dest->setBaseSkill(PARRYING, pc_dest->baseSkill(PARRYING) + more1);
 		break;
 
 	case 33: // gm hiding

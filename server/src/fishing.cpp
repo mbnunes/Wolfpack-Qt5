@@ -237,7 +237,7 @@ void cFishing::Fish(P_CHAR pc_i)
 	pc_i->stm-=2; // lose 2 stamina each cast.
 
 	// New Random fishing up treasures and monsters...Ripper
-	unsigned short skill=pc_i->skill[FISHING];
+	unsigned short skill=pc_i->skill(FISHING);
 	int fishup=(RandomNum(0,100));
 		switch (fishup)
 		{
@@ -333,7 +333,7 @@ void cFishing::Fish(P_CHAR pc_i)
 	idnum=0xCC+ii;
 
 	///**** exotic fish stuff *****//
-	float mv=-0.087087087f*(float)pc_i->skill[FISHING]+100.087087087086f; // gm fish -> 1/13 % probability on new spawn(!) to have exotic color, neophyte: 1/92 % probability, linear interpolation in between
+	float mv=-0.087087087f*(float)pc_i->skill(FISHING)+100.087087087086f; // gm fish -> 1/13 % probability on new spawn(!) to have exotic color, neophyte: 1/92 % probability, linear interpolation in between
 	int no_idea_for_variable_name = (int) mv;
 	if (no_idea_for_variable_name<=0) no_idea_for_variable_name=1; // prevent modulo crashes	
 	if (rand()%no_idea_for_variable_name==0) 

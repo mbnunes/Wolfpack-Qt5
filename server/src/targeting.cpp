@@ -764,8 +764,8 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	
 	for (i = 0; i < TRUESKILLS; i++)
 	{
-		pc->baseskill[i]=1000;
-		pc->skill[i]=1000;
+		pc->setBaseSkill(i,1000);
+		pc->setSkill(i, 1000);
 	}
 	
 	// All stats to 100
@@ -3825,12 +3825,12 @@ void cTargets::ShowSkillTarget(int s) // LB's showskills
 
 		for (a=0;a<ALLSKILLS;a++)
 		{
-			if (z==0 || z==1) k=pc->baseskill[a]; else k=pc->skill[a];
+			if (z==0 || z==1) k=pc->baseSkill(a); else k=pc->skill(a);
 			if (z==0 || z==2) zz=9; else zz=-1;
 
 			if (k>zz) // show only if skills >=1
 			{
-				if (z==2 || z==3) j=pc->skill[a]/10; else j=pc->baseskill[a]/10;	// get skill value
+				if (z==2 || z==3) j=pc->skill(a)/10; else j=pc->baseSkill(a)/10;	// get skill value
 				numtostr(j,sk);		// skill-value string in sk
 				ges+=j;
 				sprintf((char*)temp, "%s %s", skillname[a],sk);

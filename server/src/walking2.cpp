@@ -719,7 +719,7 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 		if(pc->stealth()!=-1)
 		{ //AntiChrist - Stealth
 			pc->setStealth(pc->stealth()+1);
-			if(pc->stealth()>((SrvParams->maxStealthSteps()*pc->skill[STEALTH])/1000))
+			if(pc->stealth()>((SrvParams->maxStealthSteps()*pc->skill(STEALTH))/1000))
 			{
 				pc->setStealth(-1);
 				pc->setHidden( 0 );

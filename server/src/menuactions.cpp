@@ -157,7 +157,7 @@ UI08 calcRank( P_CHAR Character, UI08 Skill, UI08 MinSkill, UI08 MaxSkill )
 	float sk_range,randnum,randnum1;
 
 	rk_range = 10;
-	sk_range = (float)50.00 + Character->skill[ Skill ] - MinSkill;
+	sk_range = (float)50.00 + Character->skill(Skill) - MinSkill;
 	
 	if( sk_range <= 0 )
 		rank = 1;
@@ -599,7 +599,7 @@ bool checkSkill( UOXSOCKET Socket, QDomElement& Action )
 		Maximum = Action.attributeNode( "max" ).nodeValue().toInt();
 
 	// We only make items depending on the server-setting
-	if( Character->baseskill[ Skill ] < Minimum ) 
+	if( Character->baseSkill( Skill ) < Minimum ) 
 	{
 		// If the server owner wants it
 		//if( !SrvParams->BelowMinSkillFails() ) <<<<< DOESNT WORK ?!?!?
@@ -612,7 +612,7 @@ bool checkSkill( UOXSOCKET Socket, QDomElement& Action )
 	// Play the sound for the corresponding skill
 	playSkillSound( Socket, Skill, true );
 
-	if( ( Character->baseskill[ Skill ] >= Minimum ) && ( Skills->CheckSkill( Character, Skill, Minimum, Maximum ) ) )
+	if( ( Character->baseSkill( Skill ) >= Minimum ) && ( Skills->CheckSkill( Character, Skill, Minimum, Maximum ) ) )
 		return true;
 
 	// Handle the failure(!)

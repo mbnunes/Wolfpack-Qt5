@@ -79,7 +79,7 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 	P_CHAR pc_currchar = currchar[s];
 	unsigned short int spellnum=((pi->morex*8)-8)+pi->morey;
 	unsigned short int tempmana=pc_currchar->mn;//Save their mana so we can give it back.
-	unsigned short int tempmage=pc_currchar->skill[MAGERY];//Easier than writing new functions for all these spells
+	unsigned short int tempmage=pc_currchar->skill(MAGERY);//Easier than writing new functions for all these spells
 
 
 	if(pi->type() != 15 || pi->morez<=0 ) return;
@@ -105,7 +105,7 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 		break;
 	}
 	pc_currchar->mn+=tempmana;
-	pc_currchar->skill[MAGERY]=tempmage;
+	pc_currchar->setSkill(MAGERY, tempmage);
 	if(pc_currchar->in<pc_currchar->mn) pc_currchar->mn=pc_currchar->in;//Shouldn't happen, but just in case;
 	updatestats(pc_currchar, 1);
 	
@@ -234,13 +234,12 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				basedamage=Combat->CalcAtt(pc_attacker); // Calc base damage
 			else
 			{
-				if ((pc_attacker->skill[WRESTLING]/100) > 0) 
+				if ((pc_attacker->skill(WRESTLING)/100) > 0) 
 				{
-					if (pc_attacker->skill[WRESTLING]/100!=0)
-						basedamage=rand()%(pc_attacker->skill[WRESTLING]/100);
-					else basedamage=0;
+					basedamage = rand()%(pc_attacker->skill(WRESTLING)/100);
 				}
-				else basedamage=rand()%2;
+				else 
+					basedamage=rand()%2;
 			}
 
 			if((pc_attacker->isPlayer()) && (fightskill!=WRESTLING))
@@ -261,19 +260,19 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				}
 			}
 			Skills->CheckSkill(pc_attacker, TACTICS, 0, 1000);
-			damage=(int)(basedamage*((pc_attacker->skill[TACTICS]+500.0)/1000.0)); // Add Tactical bonus
+			damage=(int)(basedamage*((pc_attacker->skill(TACTICS)+500.0)/1000.0)); // Add Tactical bonus
 			damage=damage+(int)((basedamage*(pc_attacker->st/500.0))); // Add Strength bonus
 
 			//Adds a BONUS DAMAGE for ANATOMY
 			//Anatomy=100 -> Bonus +20% Damage - AntiChrist (11/10/99)
 			if (Skills->CheckSkill(pc_attacker, ANATOMY, 0, 1000))
 			{
-				float multiplier=(((pc_attacker->skill[ANATOMY]*20)/1000.0f)/100.0f)+1;
+				float multiplier=(((pc_attacker->skill(ANATOMY)*20)/1000.0f)/100.0f)+1;
 				damage=(int)  (damage * multiplier);
 			}
 			//Adds a BONUS DEFENCE for TACTICS
 			//Tactics=100 -> Bonus -20% Damage - AntiChrist (11/10/99)
-			float multiplier=1-(((pc_deffender->skill[TACTICS]*20)/1000.0f)/100.0f);
+			float multiplier=1-(((pc_deffender->skill(TACTICS)*20)/1000.0f)/100.0f);
 			damage=(int)  (damage * multiplier);
 			P_ITEM pShield=pc_deffender->getShield();
 			if(pShield)
@@ -441,7 +440,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					// -Frazurbluu- RA may need a rewrite to be more OSI standard here
 					// Its said 80% deflected 10% to attacker / 10% defender gotta check special effects
 					int damage1;
-					damage1=(int)( damage*(pc_deffender->skill[MAGERY]/2000.0));
+					damage1=(int)( damage*(pc_deffender->skill(MAGERY)/2000.0));
 					pc_deffender->hp -= damage-damage1;
 					if (pc_deffender->isNpc()) damage1 = damage1 * SrvParams->npcdamage(); // by Magius(CHE)
 					pc_attacker->hp -= damage1;  // Remove damage from attacker
@@ -668,10 +667,10 @@ static void SetWeaponTimeout(P_CHAR Attacker, P_ITEM Weapon)
 	}
 	else 
 	{
-		if(Attacker->skill[WRESTLING]>200) j = 35;
-		else if(Attacker->skill[WRESTLING]>400) j = 40;
-		else if(Attacker->skill[WRESTLING]>600) j = 45;
-		else if(Attacker->skill[WRESTLING]>800) j = 50;
+		if(Attacker->skill(WRESTLING)>200) j = 35;
+		else if(Attacker->skill(WRESTLING)>400) j = 40;
+		else if(Attacker->skill(WRESTLING)>600) j = 45;
+		else if(Attacker->skill(WRESTLING)>800) j = 50;
 		else j = 30;
 		x = (15000*MY_CLOCKS_PER_SEC) / ((Attacker->effDex()+100) * j);
 	}
@@ -967,9 +966,9 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 	if (x==0) // -Fraz- added parrying skill bonuses
 	{ 
 		if (pShield)
-			total+=(((pc->skill[PARRYING]*pShield->def)/200)+1); // Updated to OSI standars (Skyfire)
+			total+=(((pc->skill(PARRYING)*pShield->def)/200)+1); // Updated to OSI standars (Skyfire)
 	} 		//Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
-	if (pc->skill[PARRYING]==1000) 
+	if (pc->skill(PARRYING)>=1000) 
 		total+=5; // gm parry bonus. 
 	if (ishuman(pc)) // Added by Magius(CHE) 
 	{ 

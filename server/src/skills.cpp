@@ -364,7 +364,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		if(!pc_currchar->isGM())		//AntiChrist - do this only if not a GM! bugfix - to avoid "a door mixed by GM..."
 		{
 			pi->creator = pc_currchar->name; // Memorize Name of the creator
-			if (pc_currchar->skill[skill]>950)
+			if (pc_currchar->skill(skill)>950)
 				pi->madewith=skill+1; // Memorize Skill used
 			else
 				pi->madewith=0-skill-1; // Memorize Skill used
@@ -402,7 +402,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 
 			int modifier = 1;
 			int skmin = itemmake[s].minskill;
-			int skcha = pc_currchar->skill[skill];
+			int skcha = pc_currchar->skill(skill);
 			int skdif = skcha-skmin;
 			if (   skdif > 0 && skmin!=1000			// just to be sure ...
 				&& skmin >= 500						// only for higher level items
@@ -644,7 +644,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 			}
 			if (imk->maxskill<200) imk->maxskill=200;
 			if ((imk->has<imk->needs) || ((imk->has2) &&
-				(imk->has2<imk->needs)) || (pc_currchar->skill[skill]<imk->minskill))
+				(imk->has2<imk->needs)) || (pc_currchar->skill(skill)<imk->minskill))
 				gmnumber--;
 
 			pScp->NextLineSplitted();
@@ -772,7 +772,7 @@ void cSkills::Stealth(int s)//AntiChrist
 		sysmessage(s,"You must hide first.");
 		return;
 	}
-	if (pc_currchar->skill[HIDING]<700)
+	if (pc_currchar->skill(HIDING)<700)
 	{
 		sysmessage(s,"You are not hidden well enough. Become better at hiding.");
 		pc_currchar->unhide();
@@ -1005,7 +1005,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	pi_mortar->setType( 17 );
 	pi_mortar->more1=type;
 	pi_mortar->more2=sub;
-	pi_mortar->morex=pc->skill[ALCHEMY];
+	pi_mortar->morex=pc->skill(ALCHEMY);
 	
 	if (!(getamount(pc, 0x0F0E)>=1))
 	{
@@ -1106,7 +1106,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	if(!pc->isGM())
 	{
 		pi_potion->creator = pc->name; // Magius(CHE) - Memorize Name of the creator
-		if (pc->skill[ALCHEMY]>950) pi_potion->madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
+		if (pc->skill(ALCHEMY)>950) pi_potion->madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
 		else pi_potion->madewith=0-ALCHEMY-1; // Memorize Skill used - Magius(CHE)
 	} else {
 		pi_potion->creator[0]='\0';
@@ -1148,7 +1148,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 
 	if(high>1200) high=1200;
 
-	int charrange=pc->skill[sk]-low;	// how far is the player's skill above the required minimum ?
+	int charrange=pc->skill(sk)-low;	// how far is the player's skill above the required minimum ?
 	if(charrange<0) charrange=0;
 
 	if (!(high-low))
@@ -1161,7 +1161,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 	
 	if( chance >= rand()%1000 ) skillused = 1;
 	
-	if(pc->baseskill[sk]<high)
+	if(pc->baseSkill(sk)<high)
 	{
 		if (sk!=MAGERY || (sk==MAGERY && pc->isPlayer() && currentSpellType[s]==0))
 		{
@@ -1202,7 +1202,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 
 	for (int b=0;b<(ALLSKILLS+1);b++) 
 	{
-		if (pc->lockSkill[b]==1 && pc->baseskill[b]!=0) // only count atrophy candidtes if they are above 0 !!!
+		if (pc->lockSkill[b]==1 && pc->baseSkill(b)!=0) // only count atrophy candidtes if they are above 0 !!!
 		{
 			atrophy_candidates[c]=b;
 			c++;
@@ -1213,7 +1213,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 	{
 		for (a=0;a<ALLSKILLS;a++)
 		{
-			ges+=pc->baseskill[a];
+			ges+=pc->baseSkill(a);
 		}
 		ges=ges/10;
 
@@ -1228,7 +1228,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 	
 	unsigned long loopexit=0;
 	while ( (wpadvance[1+i+skill[sk].advance_index].skill==sk && 
-		wpadvance[1+i+skill[sk].advance_index].base<=pc->baseskill[sk]) && (++loopexit < MAXLOOPS) )
+		wpadvance[1+i+skill[sk].advance_index].base<=pc->baseSkill(sk)) && (++loopexit < MAXLOOPS) )
 	{
 		i++;
 	}
@@ -1242,7 +1242,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 	if (incval>rand()%SrvParams->skillAdvanceModifier())
 	{
 		retval=1;
-		pc->baseskill[sk]++;			
+		pc->setBaseSkill(sk, pc->baseSkill(sk)+1);			
 	}
 
 	if (retval)
@@ -1257,10 +1257,10 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 			if (c==1) 
 			{
 				dsk = atrophy_candidates[0];
-				if (pc->baseskill[dsk]>=2) d=2; else d=1; // avoid value below 0 (=65535 cause unsigned)
+				if (pc->baseSkill(dsk)>=2) d=2; else d=1; // avoid value below 0 (=65535 cause unsigned)
 				{ 
-					if (d==1 && pc->baseskill[dsk]==0) d=0; // should never happen ...
-						pc->baseskill[dsk]-=d;
+					if (d==1 && pc->baseSkill(dsk)==0) d=0; // should never happen ...
+						pc->setBaseSkill(dsk, pc->baseSkill(dsk)-d);
 					Skills->updateSkillLevel(pc, dsk); 		// we HAVE to correct the skill-value
 					updateskill(calcSocketFromChar(pc), dsk); // and send changed skill values packet so that client can re-draw correctly			
 				}
@@ -1270,18 +1270,18 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 			{
 				if (c!=0) d=rand()%c; else d=0;
 				dsk = atrophy_candidates[d];
-				if (pc->baseskill[dsk]>=1) 
+				if (pc->baseSkill(dsk)>=1) 
 				{
-					pc->baseskill[dsk]--;
+					pc->setBaseSkill(dsk, pc->baseSkill(dsk)-1);
 					Skills->updateSkillLevel(pc, dsk); 	
 					updateskill(calcSocketFromChar(pc), dsk); 				
 				}
 
 				if (c!=0) d=rand()%c; else d=0;
 				dsk = atrophy_candidates[d];
-				if (pc->baseskill[dsk]>=1) 
+				if (pc->baseSkill(dsk)>=1) 
 				{
-					pc->baseskill[dsk]--;
+					pc->setBaseSkill(dsk, pc->baseSkill(dsk)-1);
 					Skills->updateSkillLevel(pc, dsk); 	
 					updateskill(calcSocketFromChar(pc), dsk); 			
 				}
@@ -1583,7 +1583,7 @@ void cSkills::RandomSteal(int s)
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = currchar[s];	
-	int cansteal = max(1, pc_currchar->baseskill[STEALING]/10);
+	int cansteal = max(1, pc_currchar->baseSkill(STEALING)/10);
 	cansteal = cansteal * 10;
 	
 	P_CHAR pc_npc = FindCharBySerPtr(buffer[s]+7);
@@ -1650,7 +1650,7 @@ void cSkills::RandomSteal(int s)
 			all_items(s);
 		} else sysmessage(s, "You failed to steal that item.");
 		
-		if ((!skill && rand()%5+15==17) || (pc_currchar->skill[STEALING]<rand()%1001))
+		if ((!skill && rand()%5+15==17) || (pc_currchar->skill(STEALING)<rand()%1001))
 		{//Did they get cought? (If they fail 1 in 5 chance, other wise their skill away from 1000 out of 1000 chance)
 			sysmessage(s,"You have been cought!");
 			
@@ -1685,7 +1685,7 @@ void cSkills::Tracking(int s,int selection)
 {
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->trackingtarget = pc_currchar->trackingtargets[selection]; // sets trackingtarget that was selected in the gump
-	pc_currchar->trackingtimer = (((SrvParams->basetimer()*pc_currchar->skill[TRACKING])/1000)+1) * MY_CLOCKS_PER_SEC + uiCurrentTime;
+	pc_currchar->trackingtimer = (((SrvParams->basetimer()*pc_currchar->skill(TRACKING))/1000)+1) * MY_CLOCKS_PER_SEC + uiCurrentTime;
 	pc_currchar->setTrackingdisplaytimer(SrvParams->redisplaytime() * MY_CLOCKS_PER_SEC + uiCurrentTime);
 	P_CHAR pc_trackingTarget = FindCharBySerial(pc_currchar->trackingtarget);
 	sprintf((char*)temp,"You are now tracking %s.", pc_trackingTarget->name.c_str());
@@ -1711,7 +1711,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 
 	char type[40]="You see no signs of any animals.";
 	unsigned int MaxTrackingTargets=0;
-	unsigned int distance=SrvParams->baserange() + pc_currchar->skill[TRACKING]/50;
+	unsigned int distance=SrvParams->baserange() + pc_currchar->skill(TRACKING)/50;
 
 	if(m==(2+TRACKINGMENUOFFSET))
 	{
@@ -2284,10 +2284,10 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 	int temp = (((skill[s].st * pc->st) / 100 +
 		(skill[s].dx * pc->effDex()) / 100 +
 		(skill[s].in * pc->in) / 100)
-		*(1000-pc->baseskill[s]))/1000+pc->baseskill[s];
+		*(1000-pc->baseSkill(s)))/1000+pc->baseSkill(s);
 	
 		
-	pc->skill[s] = max(static_cast<unsigned int>(pc->baseskill[s]), static_cast<unsigned int>(temp));
+	pc->setSkill(s, max(static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp)));
 }
 
 void cSkills::TDummy(int s)
@@ -2327,10 +2327,10 @@ void cSkills::TDummy(int s)
 		tempeffect2(0, pj, 14, 0, 0, 0);
 		RefreshItem(pj);
 	}
-	if(currchar[s]->skill[skillused] < 300)
+	if(currchar[s]->skill(skillused) < 300)
 	{
 		Skills->CheckSkill(currchar[s], skillused, 0, 1000);
-		if(currchar[s]->skill[TACTICS] < 300)
+		if(currchar[s]->skill(TACTICS) < 300)
 			Skills->CheckSkill(currchar[s], TACTICS, 0, 250);  //Dupois - Increase tactics but only by a fraction of the normal rate
 	}
 	else
@@ -2455,12 +2455,12 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 		if (pc_currchar->onHorse()) Combat->CombatOnHorse(pc_currchar);
 		else Combat->CombatOnFoot(pc_currchar);
 		
-		if (pc_currchar->skill[ARCHERY] < 350)
+		if (pc_currchar->skill(ARCHERY) < 350)
 			Skills->CheckSkill(pc_currchar,ARCHERY, 0, 1000);
 		else
 			sysmessage(s1, "You learn nothing from practicing here");
 
-		switch((pc_currchar->skill[ARCHERY]+((rand()%200)-100))/100)
+		switch((pc_currchar->skill(ARCHERY)+((rand()%200)-100))/100)
 		{
 		case -1:
 		case 0:
@@ -2508,31 +2508,31 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 	}
 	if (Skills->GetAntiMagicalArmorDefence(pc_currchar)>15) // blackwind armor affect fix
 	{
-		sysmessage(s, "Regenerative forces cannot penetrate your armor.");
+		sysmessage(s, tr("Regenerative forces cannot penetrate your armor."));
 		pc_currchar->setMed(false);
 		return;
 	}
 	else if (pc_currchar->getWeapon() || pc_currchar->getShield())
 	{
-		sysmessage(s, "You cannot meditate with a weapon or shield equipped!");
+		sysmessage(s, tr("You cannot meditate with a weapon or shield equipped!"));
 		pc_currchar->setMed( false );
 		return;
 	}
 	else if ((pc_currchar->mn) == (pc_currchar->in))
 	{
-		sysmessage(s, "You are at peace.");
+		sysmessage(s, tr("You are at peace."));
 		pc_currchar->setMed( false );
 		return;
 	}
 	else if (!Skills->CheckSkill(pc_currchar, MEDITATION, 0, 1000))
 	{
-		sysmessage(s, "You cannot focus your concentration.");
+		sysmessage(s, tr("You cannot focus your concentration."));
 		pc_currchar->setMed( false );
 		return;
 	}
 	else
 	{
-		sysmessage(s, "You enter a meditative trance.");
+		sysmessage(s, tr("You enter a meditative trance."));
 		pc_currchar->setMed( true );
 		soundeffect(s, 0x00, 0xf9);
 		return;
@@ -3027,7 +3027,7 @@ bool cSkills::MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool No
 				UI32 MinimumSkill = Element.attributeNode( "min" ).nodeValue().toUInt();
 
 				// The Character does not have the required skill
-				if( myChar->baseskill[ Skill ] < MinimumSkill )
+				if( myChar->baseSkill( Skill ) < MinimumSkill )
 				{
 					// Notify the user that he failed if it's requested
 					if( Notify )
@@ -3046,7 +3046,7 @@ bool cSkills::MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool No
 				UI32 MaximumSkill = Element.attributeNode( "max" ).nodeValue().toUInt();
 
 				// The Character has reached the maximum Skill
-				if( myChar->baseskill[ Skill ] >= MaximumSkill )
+				if( myChar->baseSkill( Skill ) >= MaximumSkill )
 					CanGain = false;
 			}
 
@@ -3070,7 +3070,7 @@ bool cSkills::MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool No
 			Dice -= Difficulty; // Difficulty is Positive
 
 			// Check if we reached our Skill
-			SI16 CheckSkill = abs( myChar->baseskill[ Skill ] - 1000 );
+			SI16 CheckSkill = abs( myChar->baseSkill( Skill ) - 1000 );
 
 			bool Success = false;
 

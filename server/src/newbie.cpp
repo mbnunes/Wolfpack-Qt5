@@ -70,15 +70,15 @@ int nextbestskill(P_CHAR pc, int bstskll)  // Which skill is the second highest
 	
 	for (i = 0; i < TRUESKILLS; i++) 
 	{
-		if (pc->baseskill[i] > b && pc->baseskill[i] < pc->baseskill[bstskll] && bstskll != i )
+		if (pc->baseSkill(i) > b && pc->baseSkill(i) < pc->baseSkill(bstskll) && bstskll != i )
 		{
 			a = i;
-			b = pc->baseskill[i];
+			b = pc->baseSkill(i);
 		}
-		if ( pc->baseskill[i] == pc->baseskill[bstskll] && bstskll != i)
+		if ( pc->baseSkill(i) == pc->baseSkill(bstskll) && bstskll != i)
 		{
 			a = i;
-			b = pc->baseskill[i];
+			b = pc->baseSkill(i);
 		}
 	}
 	return a;
@@ -97,7 +97,7 @@ void newbieitems(UOXSOCKET s, P_CHAR pc)
 	first = bestskill(pc);
 	second = nextbestskill(pc, first);
 	third = nextbestskill(pc, second);
-	if (pc->baseskill[third] < 190)
+	if (pc->baseSkill(third) < 190)
 		third = 46;
 
 	for (itemaddperskill = 1; itemaddperskill <= 4; itemaddperskill++)

@@ -363,10 +363,10 @@ int bestskill(P_CHAR pc_p) // Which skill is the highest for character p
 	if ( pc_p == NULL)
 		return 0;
 	for (i=0;i<TRUESKILLS;i++)
-		if (pc_p->baseskill[i]>b)
+		if (pc_p->baseSkill(i)>b)
 		{
 			a=i;
-			b=pc_p->baseskill[i];
+			b=pc_p->baseSkill(i);
 		}
 	return a;
 }
@@ -496,7 +496,7 @@ void loadcustomtitle() // for custom titles
 char *title1(P_CHAR pc) // Paperdoll title for character p (1)
 {
 	int titlenum = 0;
-	int x = pc->baseskill[bestskill(pc)];
+	int x = pc->baseSkill(bestskill(pc));
 
 	//if (x>=1000) titlenum=10;
 	//else if (x>=960) titlenum=9;
@@ -1851,10 +1851,13 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	for (ii=0;ii<TRUESKILLS;ii++)
 	{
-		pc->baseskill[ii]=0;
-		if (ii==buffer[s][0x4a]) pc->baseskill[buffer[s][0x4a]]=buffer[s][0x4b]*10;
-		if (ii==buffer[s][0x4c]) pc->baseskill[buffer[s][0x4c]]=buffer[s][0x4d]*10;
-		if (ii==buffer[s][0x4e]) pc->baseskill[buffer[s][0x4e]]=buffer[s][0x4f]*10;
+		pc->setBaseSkill(ii, 0);
+		if (ii==buffer[s][0x4a]) 
+			pc->setBaseSkill(buffer[s][0x4a], buffer[s][0x4b]*10);
+		else if (ii==buffer[s][0x4c]) 
+			pc->setBaseSkill(buffer[s][0x4c], buffer[s][0x4d]*10);
+		else if (ii==buffer[s][0x4e]) 
+			pc->setBaseSkill(buffer[s][0x4e],buffer[s][0x4f]*10);
 		Skills->updateSkillLevel(pc, ii);
 	}
 
@@ -3992,10 +3995,10 @@ void addgold(UOXSOCKET s, int totgold)
 
 void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 {
-	int s, x;
+	int x;
 
 	if ( pc_p == NULL ) return;
-	s = calcSocketFromChar(pc_p);
+	UOXSOCKET s = calcSocketFromChar(pc_p);
 	P_CHAR pc_currchar = currchar[s];
 
 	//blackwinds fix for potion delay
@@ -4098,16 +4101,16 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			pc_p->hp=min(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill[17]/100), pc_p->st);
-			sysmessage(s, "You feel better!");
+			pc_p->hp=min(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st);
+			sysmessage(s, tr("You feel better!"));
 			break;
 		case 2:
-			pc_p->hp=min(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill[17]/50), pc_p->st);
-			sysmessage(s, "You feel more healty!");
+			pc_p->hp=min(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st);
+			sysmessage(s, tr("You feel more healty!"));
 			break;
 		case 3:
-			pc_p->hp=min(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill[17]/40), pc_p->st);
-			sysmessage(s, "You feel much more healty!");
+			pc_p->hp=min(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st);
+			sysmessage(s, tr("You feel much more healty!"));
 			break;
 		default:
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
@@ -4128,18 +4131,18 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		pc_p->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
 		impowncreate(calcSocketFromChar(pc_p), pc_p, 1); //Lb, sends the green bar !
 		soundeffect2(pc_p, 0x0246); //poison sound - SpaceDog
-		sysmessage(s, "You poisoned yourself! *sigh*"); //message -SpaceDog
+		sysmessage(s, tr("You poisoned yourself! *sigh*")); //message -SpaceDog
 		break;
 	case 7: // Refresh Potion
 		switch(pi->morez)
 		{
 		case 1:
 			pc_p->stm=min(pc_p->stm+20+RandomNum(1,10), (int)pc_p->effDex());
-			sysmessage(s, "You feel more energetic!");
+			sysmessage(s, tr("You feel more energetic!"));
 			break;
 		case 2:
 			pc_p->stm=min(pc_p->stm+40+RandomNum(1,30), (int)pc_p->effDex());
-			sysmessage(s, "You feel much more energetic!");
+			sysmessage(s, tr("You feel much more energetic!"));
 			break;
 		default:
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
@@ -4155,11 +4158,11 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		{
 		case 1:
 			tempeffect(currchar[s], pc_p, 8, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
-			sysmessage(s, "You feel more strong!");
+			sysmessage(s, tr("You feel more strong!"));
 			break;
 		case 2:
 			tempeffect(currchar[s], pc_p, 8, 10+RandomNum(1,20), 0, 0, 120);
-			sysmessage(s, "You feel much more strong!");
+			sysmessage(s, tr("You feel much more strong!"));
 			break;
 		default:
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
@@ -4195,7 +4198,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		if (s==-1) return;
 		if (LSD[s]==1)
 		{
-			sysmessage(s,"no,no,no,cant you get enough ?");
+			sysmessage(s, tr("no,no,no,cant you get enough ?"));
 			return;
 		}
 		tempeffect(pc_p, pc_p, 20, 60+RandomNum(1,120), 0, 0); // trigger effect

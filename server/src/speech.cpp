@@ -597,7 +597,7 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 			int j,y = 0;
 			for(j=0;j<ALLSKILLS;j++)
 			{
-				if(pTrainer->baseskill[j]>=10 && pPlayer->baseskill[j]<250)
+				if(pTrainer->baseSkill(j)>=10 && pPlayer->baseSkill(j)<250)
 				{
 					sprintf(temp2,"%s, ", skillname[j]);
 					strlwr(temp2);
@@ -620,12 +620,12 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	else // They do want to learn a specific skill
 	{
-		if(pTrainer->baseskill[skill]>10 && pTrainer->cantrain())
+		if(pTrainer->baseSkill(skill)>10 && pTrainer->cantrain())
 		{
 			strcpy(temp2,skillname[skill]);
 			strlwr(temp2);
 			sprintf(temp,"Thou wishest to learn of %s?",temp2);
-			if(pPlayer->baseskill[skill]>=250)
+			if(pPlayer->baseSkill(skill)>=250)
 			{
 				strcat(temp, " I can teach thee no more than thou already knowest!");
 			}
@@ -637,7 +637,7 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 				else
 				{
 					int delta = pTrainer->getTeachingDelta(pPlayer, skill, sum);
-					int perc = (pPlayer->baseskill[skill] + delta)/10;
+					int perc = (pPlayer->baseSkill(skill) + delta)/10;
 					
 					sprintf(temp2, " Very well I, can train thee up to the level of %i percent for %i gold. Pay for less and I shall teach thee less.",perc,delta);
 					strcat(temp, temp2);

@@ -611,7 +611,6 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				else
 					Char->npcWander = 0; //default
 			}
-
 		//<ai>2</ai>
 		else if( TagName == "ai" )
 			Char->setNpcAIType( Value.toInt() );
@@ -619,7 +618,6 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 		//<onhorse />
 		else if( TagName == "onhorse" )
 			Char->setOnHorse( true );
-
 		//<priv1>0</priv1>
 		else if( TagName == "priv1" )
 			Char->setPriv( Value.toUShort() );
@@ -627,11 +625,9 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 		//<priv2>0</priv2>
 		else if( TagName == "priv2" )
 			Char->priv2 = Value.toUShort();
-
 		//<poison>2</poison>
 		else if( TagName == "poison" )
 			Char->setPoison( Value.toInt() );
-
 		//<reattackat>40</reattackat>
 		else if( TagName == "reattackat" )
 			Char->setReattackat( Value.toShort() );
@@ -726,11 +722,11 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 		{
 			if( Tag.attributeNode("type").nodeValue().toInt() > 0 &&
 				Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
-				Char->baseskill[(Tag.attributeNode("type").nodeValue().toInt() - 1)] = Value.toInt();
+				Char->setBaseSkill((Tag.attributeNode("type").nodeValue().toInt() - 1), Value.toInt());
 			else
 				for( j = 0; j < ALLSKILLS; j++ )
-					if( Tag.attributeNode("type").nodeValue() == QString(skillname[j]) )
-						Char->baseskill[j] = Value.toInt();
+					if( Tag.attributeNode("type").nodeValue().contains( QString(skillname[j]), false ) )
+						Char->setBaseSkill(j, Value.toInt());
 		}
 
 		//<equipped>

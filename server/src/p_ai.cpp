@@ -178,7 +178,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 
 				}
 
-				if (pc_i->baseskill[MAGERY]>400)
+				if (pc_i->baseSkill(MAGERY)>400)
 				{
 					if (pc_i->hp <(pc_i->st/2))
 					{

@@ -85,8 +85,6 @@ public:
 	signed short			mn2; // Reserved for calculation
 	int						hidamage; //NPC Damage
 	int						lodamage; //NPC Damage
-	unsigned short int		baseskill[ALLSKILLS+1]; // Base skills without stat modifiers
-	unsigned short int		skill[ALLSKILLS+1]; // List of skills (with stat modifiers)
 	bool					npc;	// true = Character is an NPC
 	bool					shop;	// true = npc shopkeeper
 	unsigned char			cell; // Reserved for jailing players
@@ -260,6 +258,8 @@ protected:
 	int						squelched_; // zippy  - squelching
 	unsigned int			mutetime_; //Time till they are UN-Squelched.
 	bool					med_; // 0=not meditating, 1=meditating //Morrolan - Meditation 
+	unsigned short  		baseSkill_[ALLSKILLS+1]; // Base skills without stat modifiers
+	unsigned short  		skill_[ALLSKILLS+1]; // List of skills (with stat modifiers)
 
 	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -380,6 +380,9 @@ public:
 	int						squelched() const { return squelched_;}
 	int						mutetime() const { return mutetime_; }
 	bool					med() const { return med_;}
+	unsigned short			baseSkill( int v ) const { return baseSkill_[v]; }
+	unsigned short			skill( int v ) const {return skill_[v];} // List of skills (with stat modifiers)
+
 	
 	// Setters
 	void					setGuildType(short data);
@@ -484,7 +487,8 @@ public:
 	void					setSquelched( int data) { squelched_ = data;}
 	void					setMutetime( int data ) { mutetime_ = data;}
 	void					setMed( bool data ) { med_ = data;}
-
+	void					setBaseSkill( int s, unsigned short v) { baseSkill_[s] = v; }
+	void					setSkill( int s, unsigned short v) { skill_[s] = v;}
 	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
