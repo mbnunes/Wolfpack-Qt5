@@ -13,8 +13,6 @@
 # Estrutura da tabela `boats`
 #
 
-ALTER TABLE `uobject` ADD `havetags` TINYINT( 1 ) DEFAULT '0' NOT NULL ; TINYINT( 1 ) DEFAULT '0' NOT NULL
-
 CREATE TABLE boats (
   serial int(11) NOT NULL default '0',
   autosail tinyint(1) unsigned NOT NULL default '0',
@@ -441,6 +439,7 @@ CREATE TABLE uobject (
   pos_map tinyint(4) NOT NULL default '0',
   events varchar(255) default NULL,
   bindmenu varchar(255) default NULL,
+  havetags tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cUObject';
