@@ -6,7 +6,19 @@
 #  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
 #################################################################
 
-# TODO: check for dependencies like "seq".
+# seq replacement (not all distributions include seq)
+#wp_seq()
+#{
+#	FIRST="$1";
+#	LAST="$2";
+#	while [ "$FIRST" -le "$LAST" ];
+#	do
+#		echo "$FIRST";
+#		FIRST="$(expr $FIRST + 1)";
+#	done;
+#}
+
+# aszlig: weird, i thought i used seq!?
 
 ask_path()
 {
@@ -17,28 +29,31 @@ ask_path()
 		echo -en "\nor just press enter to skip.";
 		echo -en "\e[A\rPlease enter the correct include directory: ";
 		read SUPPLIED_PATH;
-		if [ "$SUPPLIED_PATH" = "" ]; then
+		if [ ! "$SUPPLIED_PATH" = "" ]; then
 			break;
 		fi
 	done;
 }
 
-# <mysql>
-echo -n "Searching for MySQL includes... ";
-
-MYSQLINC=$(mysql_config --cflags|cut -d\' -f2);
-
-if ! [ "$MYSQLINC" ];
+if [ "$1" != "--disable-mysql" ]
 then
-	ask_path;
-	MYSQLINC="$SUPPLIED_PATH";
-	if ! [ "$MYSQLINC" ]; then
-		echo "MySQL support disabled ";
-	fi
-else
-	echo "$MYSQLINC";
+	# <mysql>
+	echo -n "Searching for MySQL includes... ";
+
+	MYSQLINC=$(mysql_config --cflags|cut -d\' -f2);
+
+	if ! [ "$MYSQLINC" ];
+	then
+		ask_path;
+		MYSQLINC="$SUPPLIED_PATH";
+		if [ ! "$MYSQLINC" ]; then
+			echo "MySQL support disabled ";
+		fi
+	else
+		echo "$MYSQLINC";
+	fi;
+	# </mysql>
 fi;
-# </mysql>
 
 # <python>
 echo -n "Searching for Python includes... ";
