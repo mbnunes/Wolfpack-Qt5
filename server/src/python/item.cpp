@@ -33,6 +33,7 @@
 #include "item.h"
 #include "char.h"
 #include "../items.h"
+#include "../tilecache.h"
 #include "../prototypes.h"
 #include "../junk.h"
 
@@ -249,6 +250,66 @@ PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 	return PyInt_FromLong( -1 );
 }
 
+/*!
+	Takes at least two arguments (amount,item-id)
+	Optionally the color of the item we 
+	want to consume too.
+	It consumes the items and amount specified
+	and returns how much have been really consumed.
+*/
+PyObject* wpItem_useresource( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+	
+	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+	{
+		clConsole.send( "Minimum argument count for item.useresource is 2\n" );
+		return PyInt_FromLong( 0 );
+	}
+
+    UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	UINT16 color = 0;
+
+	if( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
+
+	UINT16 deleted = 0;
+	deleted = self->pItem->DeleteAmount( amount, id, color );
+
+	return PyInt_FromLong( deleted );
+}
+
+/*!
+	Takes at least one argument (item-id)
+	Optionally the color
+	It returns the amount of a resource
+	available
+*/
+PyObject* wpItem_countresource( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+	
+	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	{
+		clConsole.send( "Minimum argument count for item.countresource is 1\n" );
+		return PyInt_FromLong( 0 );
+	}
+
+	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	INT16 color = -1;
+
+	if( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+
+	UINT16 avail = 0;
+	avail = self->pItem->CountItems( id, color );
+
+	return PyInt_FromLong( avail );
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
@@ -258,6 +319,8 @@ static PyMethodDef wpItemMethods[] =
 	{ "soundeffect",		(getattrofunc)wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
 	{ "distance",			(getattrofunc)wpItem_distance, METH_VARARGS, "Distance to another object or a given position." },
 	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
+	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
+	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
     { NULL, NULL, 0, NULL }
 };
 
@@ -286,8 +349,8 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	{
 		if( isItemSerial( self->pItem->contserial ) )
 			return PyGetItemObject( FindItemBySerial( self->pItem->contserial ) );
-		// else if( isCharSerial( self->pItem->contserial ) )
-			//return PyGetCharObject( FindCharBySerial( self->pItem->contserial ) );
+		else if( isCharSerial( self->pItem->contserial ) )
+			return PyGetCharObject( FindCharBySerial( self->pItem->contserial ) );
 		else
 			return Py_None;
 	}
@@ -486,7 +549,52 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 
 	else if( !strcmp( name, "spawnregion" ) )
 		self->pItem->setSpawnRegion( PyString_AS_STRING( value ) );
-	// incognito
+	
+	// Moving the item into a container
+	else if( !strcmp( name, "container" ) )
+	{
+		// Check if we're passed an item
+		SERIAL contserial = 0; // 0 = invalid = cancel
+
+		P_CHAR pChar = getWpChar( value );
+		P_ITEM pItem = getWpItem( value );
+
+		if( value == Py_None )
+			contserial = INVALID_SERIAL;
+		else if( pChar )
+			contserial = pChar->serial;
+		else if( pItem )
+			contserial = pItem->serial;
+		else if( PyInt_Check( value ) )
+		{
+			// Check if it could be a valid serial
+			SERIAL sSerial = PyInt_AsLong( value );
+			pItem = FindItemBySerial( sSerial );
+			pChar = FindCharBySerial( sSerial );
+
+			if( pItem )
+				contserial = sSerial;
+			else if( pChar )
+				contserial = sSerial;
+		}
+
+		if( contserial != 0 )
+		{
+			self->pItem->setContSerial( contserial );
+
+			// Get a random position
+			if( pItem && ( pItem->GetContGumpType() != -1 ) )
+				self->pItem->SetRandPosInCont( pItem );
+
+			// Or put it on the right layer (chars)
+			if( pChar && self->pItem->layer() == 0 )
+			{
+				tile_st tInfo = cTileCache::instance()->getTile( self->pItem->id() );
+				if( tInfo.layer > 0 )
+					self->pItem->setLayer( tInfo.layer );
+			}
+		}
+	}
 
 	return 0;
 }

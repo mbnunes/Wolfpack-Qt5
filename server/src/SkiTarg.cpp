@@ -99,7 +99,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			if(npi == NULL) return;// crash check
 			npi->setWeight( 10 );
 			npi->setAmount( amt1 );
-			RefreshItem(npi);
+			npi->update();
 			Items->DeleItem(pi_bolts);
 			Weight->NewCalc(pc_currchar);
 			statwindow(s, pc_currchar);
@@ -1028,7 +1028,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		{
 			sysmessage(s, tr("Your hand slips and some of your materials are destroyed.") );
 			pi->setAmount( pi->amount() / 2 );
-			RefreshItem(pi);					// tell the client item has been changed
+			pi->update();
 		}
 	}
 	else
@@ -1040,8 +1040,8 @@ static void SmeltOre2(	int s,					// current char's socket #
 		cItem* Ingot = Items->SpawnItem(pc_currchar, numore, tmp, 1, id, color, 1);
 		if (Ingot)
 		{
-			Ingot->setWeight( 20 ); // Thats 0.2 stone
-			RefreshItem(Ingot);
+			Ingot->setWeight( 2 ); // Thats 0.2 stone
+			Ingot->update();
 		}
 
 		sysmessage(s, tr("You have smelted your ore") );
@@ -1063,7 +1063,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 
 void cSkills::SmeltOre(int s)
 {
-	P_CHAR pc_currchar = currchar[s];
+	/*P_CHAR pc_currchar = currchar[s];
 
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && !pi->isLockedDown()) // Ripper
@@ -1096,12 +1096,12 @@ void cSkills::SmeltOre(int s)
 		}
 	}
 
-	pc_currchar->setSmeltItem( INVALID_SERIAL );
+	pc_currchar->setSmeltItem( INVALID_SERIAL );*/
 }
 
 void cSkills::Wheel(int s, int mat)//Spinning wheel
 {
-	int tailme=0;
+	/*int tailme=0;
 	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1135,17 +1135,17 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			}
 
 			pti->priv |= 0x01;
-			RefreshItem(pti);
+			pti->update();
 			tailme=1;
 		}
 	}
 	pc_currchar->setTailItem( INVALID_SERIAL );
-	if(!tailme) sysmessage(s,tr("You cant tailor here.") );
+	if(!tailme) sysmessage(s,tr("You cant tailor here.") );*/
 }
 
 void cSkills::Loom(int s)
 {
-	int tailme=0;
+/*	int tailme=0;
 	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1176,7 +1176,7 @@ void cSkills::Loom(int s)
 						pti->ReduceAmount( 1 );
 
 					// It's auto-deleted
-					RefreshItem(pti);
+					pti->update();
 					return;
 				}
 				
@@ -1198,14 +1198,14 @@ void cSkills::Loom(int s)
 					pti->priv |= 1;
 					pti->setAmount( static_cast<unsigned short> ( pti->amount() * 0.25 ) );
 				}
-				RefreshItem( pti );//AntiChrist
+				pti->update();
 				tailme=1;
 			}
 		}
 	}
 	pc_currchar->setTailItem( INVALID_SERIAL );
 	if(!tailme) 
-		sysmessage(s, tr("You cant tailor here.") );
+		sysmessage(s, tr("You cant tailor here.") );*/
 }
 
 ////////////
@@ -1215,7 +1215,7 @@ void cSkills::Loom(int s)
 
 void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 {
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+/*	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
@@ -1238,18 +1238,18 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar, piRaw->amount(),"#",1,id1,id2,0,1,1);
 						if(pi_c == NULL) return;
 						pi_c->setType( 14 );
-						RefreshItem(pi_c);
+						pi_c->update();
 						Items->DeleItem(piRaw);
 					}
 				}
 			}
 		}
-	} 
+	} */
 }
 
 void cSkills::MakeDough(int s)
 {
-	bool tailme = false;
+/*	bool tailme = false;
 	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1275,19 +1275,19 @@ void cSkills::MakeDough(int s)
 				pti->priv |= 0x01;
 				pti->setAmount( pti->amount() * 2 );
 				
-				RefreshItem(pti);
+				pti->update();
 				tailme = true;
 			}
 		}
 	}
 	pc_currchar->setTailItem( INVALID_SERIAL );
 	if(!tailme) 
-		sysmessage(s, tr("You cant mix here.") );
+		sysmessage(s, tr("You cant mix here.") );*/
 }
 
 void cSkills::MakePizza(int s)
 {
-	int tailme=0;
+	/*int tailme=0;
 	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1314,14 +1314,14 @@ void cSkills::MakePizza(int s)
 				pti->priv |= 0x01;
 				pti->setAmount( pti->amount() * 2 );
 				
-				RefreshItem(pti);
+				pti->update();
 				tailme = 1;
 			}
 		}
 	}
 	pc_currchar->setTailItem( INVALID_SERIAL);
 	if(!tailme) 
-		sysmessage(s, tr("You cant mix here.") );
+		sysmessage(s, tr("You cant mix here.") );*/
 }
 
 /*
@@ -1461,7 +1461,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			pi_c->setWeight( 10 );
 			pi_c->att=9;
 			pi_c->setAmount( amt );
-			RefreshItem(pi_c);
+			pi_c->update();
 			Items->DeleItem(pi);
 			return;
 		}	
@@ -2134,7 +2134,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		if (Ingot)
 		{
 			Ingot->setWeight( 20 );	// that is 0.2 stone
-			RefreshItem(Ingot);
+			Ingot->update();
 			sysmessage(s, tr("you smelt the item and place some ingots in your pack.") );
 			Items->DeleItem(pi);
 		}

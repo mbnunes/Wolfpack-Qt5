@@ -101,7 +101,7 @@ void StonePlacement(UOXSOCKET s)
 		pStone->setLockedDown();
 		pStone->setOwnSerialOnly(pc->serial);
 
-		RefreshItem(pStone);//AntiChrist
+		pStone->update();//AntiChrist
 		Items->DeleItem(pDeed);
 		entrygump(s, pc->serial,100,1,40,"Enter a name for the guild.");
 	}
@@ -127,7 +127,7 @@ void StonePlacement(UOXSOCKET s)
 			pStone->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
 			pStone->type = 202;
 			pStone->priv = 0;		
-			RefreshItem(pStone);//AntiChrist
+			pStone->update();//AntiChrist
 			Items->DeleItem(pDeed);
 			pc->fx1 = INVALID_SERIAL;
 			guilds[guildnumber].stone = pStone->serial;

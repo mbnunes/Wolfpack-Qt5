@@ -475,14 +475,14 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						pj->morez = 2;
 						pj->pos.z = pj->pos.z + 17;
-						RefreshItem(pj);// AntiChrist
+						pj->update();// AntiChrist
 						w = 1;
 					}
 					else if (pj->morez == 2)
 					{
 						pj->morez = 1;
 						pj->pos.z = pj->pos.z - 17;
-						RefreshItem(pj);// AntiChrist
+						pj->update();// AntiChrist
 						w = 0;
 					}
 				}
@@ -501,14 +501,14 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						pj->morez = 4;
 						pj->pos.z = pj->pos.z + 17;							
-						RefreshItem(pj);// AntiChrist
+						pj->update();// AntiChrist
 						w = 1;
 					}
 					else if (pj->morez == 4)
 					{
 						pj->morez = 3;
 						pj->pos.z = pj->pos.z - 17;							
-						RefreshItem(pj);// AntiChrist
+						pj->update();// AntiChrist
 						w = 0;
 					}
 				}
@@ -745,7 +745,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							pj->morey = pj->moreb2();
 							pj->morez = pj->moreb3();
 							pj->visible = 0;								
-							RefreshItem(pj);// AntiChrist
+							pj->update();// AntiChrist
 						} 
 						else 
 						{
@@ -756,7 +756,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							pj->morey = 0;
 							pj->morez = 0;
 							pj->visible = 2;							
-							RefreshItem(pj);// AntiChrist
+							pj->update();// AntiChrist
 						}
 					}
 				}
@@ -937,7 +937,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			{ 
 	             socket->sysMessage(tr("Crystall ball shatters..")); 
 	             pi->ReduceAmount(1);
-				 RefreshItem(pi);
+				 pi->update();
 			}
             return;// End jailball
 	    case 402: // Blackwinds Reputation ball 
@@ -1219,7 +1219,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							pFire->priv |= 1;
 //							pFire->decaytime = (uiCurrentTime +(SrvParms->decaytimer*MY_CLOCKS_PER_SEC));							
 							pFire->startDecay();
-							RefreshItem(pFire);// AntiChrist
+							pFire->update();// AntiChrist
 							pi->ReduceAmount(1);
 						}
 					}
@@ -1233,7 +1233,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						pi->setId(0x1509);
 						pi->setType( 45 );
-						RefreshItem(pi);// AntiChrist
+						pi->update();// AntiChrist
 					}
 					else
 					{
@@ -1245,7 +1245,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						pi->setId(0x1508);
 						pi->setType( 45 );
-						RefreshItem(pi);// AntiChrist
+						pi->update();// AntiChrist
 					}
 					else
 					{
@@ -1258,7 +1258,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						pi->setId(0x1245);
 						pi->setType( 45 );				
-						RefreshItem(pi);// AntiChrist
+						pi->update();// AntiChrist
 					}
 					else
 					{
@@ -1270,7 +1270,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						pi->setId(0x1230);
 						pi->setType( 45 );					
-						RefreshItem(pi);// AntiChrist
+						pi->update();// AntiChrist
 					}
 					else
 					{
@@ -1284,7 +1284,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							  pi->id1 = 0x10;
 							  pi->id2 = 0x3A;
 							  pi->type = 45;						
-							  RefreshItem(x);// AntiChrist
+							  x->update();// AntiChrist
 							  }
 							  else
 							  {
@@ -1299,7 +1299,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							 pi->id1 = 0x10;
 							 pi->id2 = 0x39;
 							 pi->type = 45;						
-							 RefreshItem(x);// AntiChrist
+							 pi->update();// AntiChrist
 							 }
 							 else
 							 {

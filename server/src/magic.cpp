@@ -2184,7 +2184,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										pi_c->dir=1;
 										
 										mapRegions->Add(pi_c);	//add gate to list of items in the region
-										RefreshItem(pi_c);//AntiChrist
+										pi_c->update();//AntiChrist
 									}
 									if (n==1)
 									{
@@ -3056,7 +3056,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								pi->MoveTo(fx[j], fy[j], Map->Height( Coord_cl( fx[j], fy[j], z, pi->pos.map )));
 								pi->dir=29;
 								pi->magic=2;
-								RefreshItem(pi);
+								pi->update();
 								cMagic::itemParticles(snr,pi);
 							}
 						}
@@ -3210,7 +3210,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	                 pj->setType( 14 );
 					 sprintf((char*)temp,"You magically create food in your backpack: %s",pj->name().ascii());
 		             sysmessage(s,(char*)temp);
-	                 RefreshItem(pj);
+	                 pj->update();
 				  }
 			   }
 			}
@@ -3999,7 +3999,7 @@ void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, s
     it->pos.x=x;
 	it->pos.y=y;
 	it->pos.z=z;					
-	RefreshItem( it );
+	it->update();
 	itemParticles(spellNum, it );
 	// this is rather tricky, deleitem can't be applied there
 	// because the client has to tihnk its still there. np because it's an invisible item anyway
@@ -4416,7 +4416,7 @@ void cMagic::Gate(UOXSOCKET s)
 					pi_c->gatenumber=gatecount;
 					pi_c->dir=1;
 					mapRegions->Add(pi_c);	//add gate to list of items in the region
-					RefreshItem(pi_c);//AntiChrist
+					pi_c->update();//AntiChrist
 				}
 				if (n==1)
 				{

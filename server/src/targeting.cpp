@@ -181,7 +181,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 
 	// sends item to the proud new owner's pack
 	pi->setContSerial(pBackpack->serial);
-	RefreshItem(pi);
+	pi->update();
 
 }
 
@@ -268,7 +268,7 @@ static void AddTarget(int s, PKGx6C *pp)
 	pi->priv=0;	//Make them not decay
 	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+Map->TileHeight(pp->model));
 
-	RefreshItem(pi);
+	pi->update();
 	addid1[s]=0;
 	addid2[s]=0;
 }
@@ -321,7 +321,7 @@ void DyeTarget(int s)
 		{
 
 			//SndDyevat(s,pi->serial, pi->id());
-			RefreshItem(pi);
+			pi->update();
 		}
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc != NULL)
@@ -352,7 +352,7 @@ void DyeTarget(int s)
 			{
 				pi->setColor( static_cast<unsigned short>(c1 << 8) + c2 );
 			}
-			RefreshItem(pi);
+			pi->update();
 		}
 
 		P_CHAR pc = FindCharBySerial(serial);
@@ -389,7 +389,7 @@ public:
 	void ItemSpecific()
 	{
 		pi->pos.z=addx[s];
-		RefreshItem(pi);
+		pi->update();
 	}
 };
 
@@ -404,7 +404,7 @@ void cTargets::IDtarget(int s)
 			return;
 
 		pi->setId( ( addx[s] << 8 ) + addy[s]  );
-		RefreshItem(pi);
+		pi->update();
 		return;
 	}
 	else if (isCharSerial(serial))
@@ -461,7 +461,7 @@ void cTargets::XTeleport(int s, int x)
 	if (pi != NULL)
 	{
 		pi->moveTo(pc_currchar->pos);
-		RefreshItem(pi);
+		pi->update();
 	}
 }
 
@@ -494,7 +494,7 @@ static void PrivTarget(int s, P_CHAR pc)
 
 static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 {
-	if (pi)
+	/*if (pi)
 	{
 		if ((pi->more1==0)&&(pi->more2==0)&&
 			(pi->more3==0)&&(pi->more4==0))
@@ -569,7 +569,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 				if( pBoat != NULL )
 				{
 					pBoat->switchPlankState( pi );
-					RefreshItem(pi);
+					pi->update();
 				}
 			}
 			//End Boats --^
@@ -582,8 +582,8 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			return;
 		}//else
 		return;
-	}//if
-}//keytarget()
+	}//if*/
+}
 
 void cTargets::IstatsTarget(int s)
 {
@@ -870,7 +870,7 @@ public:
 			return;
 		}
 		this->pi->setAmount( addx[s] );
-		RefreshItem(pi);
+		pi->update();
 	}
 };
 
@@ -899,7 +899,7 @@ P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 up
 	P_ITEM pi = Items->createScriptItem(s, QString("%1").arg(addmitem), 0);
 	if (pi == NULL) return NULL;
 	if (x)
-		RefreshItem(pi);
+		pi->update();
 	return pi;
 }
 
@@ -920,7 +920,7 @@ void cTargets::VisibleTarget (int s)
 		if(pi != NULL)
 		{
 			pi->visible=addx[s];
-			RefreshItem(pi);
+			pi->update();
 		}
 	}
 	else
@@ -1006,7 +1006,7 @@ void cTargets::DvatTarget(int s)
 		if(pc == currchar[s] || pi->isInWorld())
 		{//if on ground or currchar is owning the item - AntiChrist
 			pi->setColor( static_cast<unsigned short>(addid1[s]<<8) + addid2[s] );
-			RefreshItem(pi);
+			pi->update();
 			soundeffect(s,0x02,0x3e); // plays the dye sound, LB
 		} else
 		{
@@ -1296,7 +1296,7 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 			if(!pi) return;
 			pi->priv=0;	//Make them not decay
 			pi->MoveTo(x,y,pp->TzLoc+Map->TileHeight(pp->model));
-			RefreshItem(pi);
+			pi->update();
 		}
 
 	addid1[s]=0;
@@ -1371,7 +1371,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 			pi->setContSerial(INVALID_SERIAL);
 			pi->setGMMovable(); //make item unmovable once thrown
 			movingeffect2(pc_currchar, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
-			RefreshItem(pi);
+			pi->update();
 		}
 	}
 	else 
@@ -1456,7 +1456,7 @@ static void TeleStuff(int s, PKGx6C *pp)
 			i=targ;
 			items[i].MoveTo(x,y,z);
 			sysmessage(s, "Moving item...");
-			RefreshItem(i);
+			i->update();
 		}
 		targ=-1;
 		return;
@@ -1476,7 +1476,7 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 	pi1->pos.z=pi2->pos.z;
 	pi1->setGMMovable();//AntiChrist - makes the item unmovable
 	pi1->startDecay();
-	RefreshItem(pi1);
+	pi1->update();
 
 //	int c;
 	if (feat)
@@ -1543,7 +1543,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 	pi1->moveTo(pi2->pos);
 	pi1->setGMMovable();//AntiChrist - makes the item unmovable
 	pi1->startDecay();
-	RefreshItem(pi1);
+	pi1->update();
 
 
 	if(pi3->morey)	//if it's a human corpse
@@ -1634,7 +1634,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 				nItem->pos.x=20+(rand()%50);
 				nItem->pos.y=85+(rand()%75);
 				nItem->pos.z=9;
-				RefreshItem( nItem );
+				nItem->update();
 			}
 			it++;
 		}
@@ -1653,7 +1653,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 			pj->setContSerial(-1);
 			pj->moveTo(pi3->pos);
 			pj->startDecay();
-			RefreshItem(pj);
+			pj->update();
 		}
 		Items->DeleItem(pi3);	//and then delete the corpse
 	}
@@ -1661,7 +1661,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 static void CorpseTarget(const P_CLIENT pC)
 {
-	int n = 0;
+	/*int n = 0;
 	UOXSOCKET s = pC->socket();
 	
 	int serial = LongFromCharPtr(buffer[s] + 7);
@@ -2403,7 +2403,7 @@ static void CorpseTarget(const P_CLIENT pC)
 		}
 	}// if i!=-1
 	if (!n)
-		sysmessage(s, "That is too far away.");
+		sysmessage(s, "That is too far away.");*/
 }
 
 static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
@@ -2432,7 +2432,7 @@ static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
 		P_ITEM pi = Items->SpawnItem(pC->player(), amt, "#", 1, 0x097A, 0, 1);
 		if(!pi)
 			return;
-		RefreshItem(pi);
+		pi->update();
 		Items->DeleItem(rpi);
 	}
 	else
@@ -2453,7 +2453,7 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 		if(!pi)
 			return;
 		pi->moveTo(pc->pos);
-		RefreshItem(pi);
+		pi->update();
 		sysmessage(s, "You hack at the tree and produce some kindling.");
 	}
 	else if( IsLog(pp->model) || IsBoard(pp->model) )
@@ -3019,7 +3019,7 @@ void cTargets::SetDirTarget(int s)
 		if (pi != NULL)
 		{
 			pi->dir=addx[s];
-			RefreshItem(pi);
+			pi->update();
 			return;
 		}
 	}
@@ -3057,7 +3057,7 @@ void cTargets::NewXTarget(int s) // Notice a high similarity to th function abov
 		Coord_cl pos(pi->pos);
 		pos.x = addx[s];
 		pi->moveTo(pos);
-		RefreshItem(pi);
+		pi->update();
 	}
 	else if (isCharSerial(serial))
 	{
@@ -3082,7 +3082,7 @@ void cTargets::NewYTarget(int s)
 		Coord_cl pos(pi->pos);
 		pos.y = addx[s];
 		pi->moveTo(pos);
-		RefreshItem(pi);
+		pi->update();
 	}
 	else if (isCharSerial(serial))
 	{
@@ -3108,7 +3108,7 @@ void cTargets::IncXTarget(int s)
 		Coord_cl pos(pi->pos);
 		pos.x += addx[s];
 		pi->moveTo(pos);
-		RefreshItem(pi);
+		pi->update();
 	}
 	else if (isCharSerial(serial))
 	{
@@ -3134,7 +3134,7 @@ void cTargets::IncYTarget(int s)
 		Coord_cl pos(pi->pos);
 		pos.y += addx[s];
 		pi->moveTo(pos);
-		RefreshItem(pi);
+		pi->update();
 	}
 	else if (isCharSerial(serial))
 	{
@@ -3195,7 +3195,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 		pi3 = Items->SpawnItem(pc, 1, "a house key", 0, 0x100F,0,0);//gold key for everything else
 		if(!pi3) return;
 		pi3->moveTo(pc->pos);
-		RefreshItem(pi3);
+		pi3->update();
 	}
 	pi3->more1 = static_cast<unsigned char>((pHouse->serial&0xFF000000)>>24);
 	pi3->more2 = static_cast<unsigned char>((pHouse->serial&0x00FF0000)>>16);
@@ -3368,7 +3368,7 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 			}
 			pi->setLockedDown();	// LOCKED DOWN!
 			pi->setOwnSerialOnly(currchar[s]->serial);
-			RefreshItem(pi);
+			pi->update();
 			return;
 		}
 		else
@@ -3415,7 +3415,7 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 		    pi->setLockedDown();	// LOCKED DOWN!
 			pi->setSecured( true );
 			pi->setOwnSerialOnly(currchar[s]->serial);
-			RefreshItem(pi);
+			pi->update();
 			return;
 		}
 		if( pi->type() != 1 )
@@ -3471,7 +3471,7 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 		{
 			pi->setAllMovable();	// Default as stored by the client, perhaps we should keep a backup?
 			pi->setSecured( false );
-			RefreshItem( pi );
+			pi->update();
 			return;
 		}
 		else if( pi_multi == NULL )
@@ -3568,8 +3568,8 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi1->glow=pi2->serial; // set glow-identifier
 
 
-	RefreshItem(pi1);
-	RefreshItem(pi2);
+	pi1->update();
+	pi2->update();
 
 	impowncreate(s, pc_currchar, 0); // if equipped send new color too
 }
@@ -3615,7 +3615,7 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	Items->DeleItem(pj); // delete glowing object
 
 	pi->glow = INVALID_SERIAL; // remove glow-identifier
-	RefreshItem(pi);
+	pi->update();
 
 	impowncreate(s, currchar[s], 0); // if equipped send new old color too
 
@@ -3826,12 +3826,12 @@ static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 		pi->more2=addid2[s];
 		pi->more3=addid3[s];
 		pi->more4=addid4[s];
-		RefreshItem(pi);
+		pi->update();
 		break;
 	case  28://MovableTarget
 	case 111://yes, it's duplicate
 		pi->magic=addx[s];
-		RefreshItem(pi);
+		pi->update();
 		break;
 	case 31://ColorsTarget
 		/*if (pi->id()==0x0FAB ||						//dye vat
@@ -3872,18 +3872,18 @@ static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 			return;
 		}
 		pi->setAmount2( addx[s] );
-		RefreshItem(pi);
+		pi->update();
 		break;
 	case 133://SetWipeTarget
 		pi->setWipe( addid1[s] != 0 ? true : false );
-		RefreshItem(pi);
+		pi->update();
 		break;
 	}
 }
 
 void cTargets::LoadCannon(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
+	/*int serial=LongFromCharPtr(buffer[s]+7);
 	P_ITEM pi = FindItemBySerial(serial);
 	if (pi != NULL)
 	{
@@ -3907,7 +3907,7 @@ void cTargets::LoadCannon(int s)
 				else sysmessage(s, "That object doesn't fit into cannon.");
 			}
 		}
-	}
+	}*/
 }
 
 void cTargets::MoveToBagTarget(int s)
@@ -4292,5 +4292,5 @@ void cTargets::AddItem( UOXSOCKET s )
 
 	Item->setContSerial( -1 );
 	Item->MoveTo( TargetX, TargetY, TargetZ );
-	RefreshItem( Item );
+	Item->update();
 }

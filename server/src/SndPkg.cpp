@@ -939,82 +939,16 @@ void chardel (UOXSOCKET s) // Deletion of character
 
 void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 {
-	int i;
-	if ( pc == NULL )
-		return;
-	UOXSOCKET k = calcSocketFromChar(pc);
-	if (k!=-1)	// If a player, move them to the appropriate XYZ
-	{
-		LongToCharPtr(pc->serial, &removeitem[1]);
-
-		LongToCharPtr(pc->serial, &goxyz[1]);
-		ShortToCharPtr( pc->id(), &goxyz[5]);
-		ShortToCharPtr(pc->skin(), &goxyz[8]);
-		if(pc->poisoned()) 
-			goxyz[10] |= 0x04; 
-		else 
-			goxyz[10] = 0x00; //AntiChrist -- thnx to SpaceDog
-		if (pc->isHidden()) 
-			goxyz[10] |= 0x80;
-		goxyz[11]=pc->pos.x>>8;
-		goxyz[12]=pc->pos.x%256;
-		goxyz[13]=pc->pos.y>>8;
-		goxyz[14]=pc->pos.y%256;
-		goxyz[17]=pc->dir|0x80;
-		//goxyz[18]=pc->dispz;
-		goxyz[18]=pc->pos.z;
-		Xsend(k, goxyz, 19);
-		walksequence[k]=-1;
-	}
-	for (i=0;i<now;i++) // Send the update to all players.
-	{
-		// Dupois - had to remove the && (k!=i)), doesn update the client
-		// Added Oct 08, 1998
-		if (perm[i])
-		{
-		   Xsend(i, removeitem, 5);
-		   if (inrange1p(pc, currchar[i])) 
-			   impowncreate(i, pc, 1);
-		}
-	}
+	pc->removeFromView();
+	pc->resend( false );
 	
+	if( pc->socket() )
+		pc->socket()->resendWorld( false );
 
-	if (k!=-1)
-	{
-		//Char mapRegions
-		int	StartGrid=mapRegions->StartGrid(pc->pos);
-		unsigned int increment=0;
-		for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
-		{
-			for (int a=0;a<3;a++)
-			{
-				cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-				cRegion::rawIterator it = vecEntries.begin();
-				for ( ; it != vecEntries.end(); ++it)
-				{
-					P_CHAR mapchar = FindCharBySerial(*it);
-					P_ITEM mapitem = FindItemBySerial(*it);
-					if (mapchar != NULL)
-					{
-						if ((mapchar->isNpc()||online(mapchar)||pc->isGM())&&(pc != mapchar)&&(inrange1p(pc, mapchar)))
-						{
-							impowncreate(k, mapchar, 1);
-						}
-					} else if (mapitem != NULL) {
-						if(iteminrange(k, mapitem,VISRANGE))
-						{
-							senditem(k, mapitem);
-						}
-					}
-				}
-			}
-		}
-		if (perm[k]) dolight(k, SrvParams->worldCurrentLevel());
-	}
-	cAllTerritories::getInstance()->check(pc);
+	cAllTerritories::getInstance()->check( pc );
 }
 
-void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can find their corpses
+void teleport2( P_CHAR pc ) // used for /RESEND only - Morrolan, so people can find their corpses
 {
 	int i;
 	UOXSOCKET k = calcSocketFromChar(pc);
@@ -2475,7 +2409,7 @@ void endtrade(SERIAL serial)
 				pi->pos.y = RandomNum(50, 130);
 				pi->pos.z=9;
 				if (s1 != -1)
-					RefreshItem(pi);//AntiChrist
+					pi->update();
 			}
 	}
 	vecContainer.clear();
@@ -2495,7 +2429,7 @@ void endtrade(SERIAL serial)
 				pi->pos.y=50+(rand()%80);
 				pi->pos.z=9;
 				if (s2 != -1)
-					RefreshItem(pi);//AntiChrist
+					pi->update();
 			}
 	}
 	Items->DeleItem(pi_cont1);

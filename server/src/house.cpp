@@ -250,7 +250,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM si = ri.GetData();
-		sendinrange(si);
+		si->update();
 	}
 		
 	pc_currchar->MoveTo( pc_currchar->pos.x + charpos_.x, pc_currchar->pos.y + charpos_.y, pc_currchar->pos.z + charpos_.z );
@@ -307,7 +307,7 @@ P_ITEM cHouse::toDeed( UOXSOCKET s )
 			P_ITEM pPvDeed = Items->SpawnItem(pc_currchar, 1, (char*)QString("A vendor deed for %1").arg( pc->name.c_str() ).latin1(), 0, 0x14F0, 0, true);
 			pPvDeed->setType( 217 );
 			pPvDeed->value = 2000;
-			RefreshItem( pPvDeed );
+			pPvDeed->update();
 			sysmessage(s, QString("Packed up vendor %1.").arg(pc->name.c_str()) );
 		}
 	}
@@ -324,7 +324,7 @@ P_ITEM cHouse::toDeed( UOXSOCKET s )
 	else
 	{
 		pDeed->setContSerial( pc_currchar->packitem );
-		RefreshItem( pDeed );
+		pDeed->update();
 	}
 
 	return pDeed;

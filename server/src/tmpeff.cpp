@@ -416,26 +416,6 @@ void cTmpEff::Expire()
 			}
 			break;
 		}
-	case 14: //- training dummies Tauriel check to see if item moved or not before searching for it
-		{
-			P_ITEM pTrainDummy = FindItemBySerial( getDest() );
-			if( pTrainDummy )
-			{
-				if( pTrainDummy->id() == 0x1071 )
-				{
-					pTrainDummy->setId( 0x1070 );
-					pTrainDummy->gatetime = 0;
-					RefreshItem( pTrainDummy );
-				}
-				else if( pTrainDummy->id() == 0x1075 )
-				{
-					pTrainDummy->setId( 0x1074 );
-					pTrainDummy->gatetime = 0;
-					RefreshItem( pTrainDummy );
-				}
-			}
-		}
-		break;
 	case 15: //reactive armor
 		pc_s->setRa(0);
 		break;

@@ -676,14 +676,14 @@ public:
 									
 									// This does not end in a crash !??
 									//if( pi_j != NULL ) // Only if we still have an item
-									RefreshItem(pi_j); // resend new amount
+									pi_j->update(); // resend new amount
 									
 									abort = 1;
 								}
 								else // not enough money in this pile -> only delete it
 								{
 									Items->DeleItem( pi_j );
-									RefreshItem( pi_j ); // Refresh a deleted item?
+									pi_j->update(); // Refresh a deleted item?
 									realgold += pi_j->amount();
 								}
 							}
@@ -778,21 +778,7 @@ public:
 			socket->sysMessage( tr("You cannot steal that.") );
 			return true;
 		}
-		if( pi->id()==0x1E2D || pi->id()==0x1E2C )
-		{
-			if (pc_currchar->skill(STEALING) < 300)	// check if under 30 in stealing
-			{
-				Skills->CheckSkill(pc_currchar,STEALING, 0, 1000);
-				// check their skill
-				socket->soundEffect( 0x0249, pi );
-				// rustling sound..dont know if right but it works :)
-			}
-			else
-			{
-				socket->sysMessage( tr("You learn nothing from practicing here") );
-			}
-			return true;
-		}
+
 		if ( pi->layer() != 0		// no stealing for items on layers other than 0 (equipped!) ,
 			|| pi->newbie()			// newbie items,
 			|| pi->isInWorld() )	// and items not being in containers allowed !
@@ -982,7 +968,7 @@ public:
 		pPoison->setId(0x0F0E);
 		pPoison->moveTo(pc->pos);
 		pPoison->priv|=0x01;
-		RefreshItem(pPoison);
+		pPoison->update();
 		return true;
 	}
 
@@ -1577,7 +1563,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		if ( skill == TAILORING ) // -Fraz- Implementing color remembrance for tailored items
 		{
 			pi->setColor( itemmake[s].newcolor );
-			RefreshItem(pi);
+			pi->update();
 		}
 		if(!pc_currchar->making) sysmessage(s,"You create the item and place it in your backpack.");
 		Zero_Itemmake(s);
@@ -1605,7 +1591,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			pik->creator = pc_currchar->name;	// Store the creator
 			pik->setContSerial(pi->serial);			// Set the container
 			pik->SetRandPosInCont(pi);				// Put the damn thing in the container
-			RefreshItem(pik);							// Refresh it
+			pik->update();							// Refresh it
 			sysmessage(s, "You create a corresponding key and put it in the chest");
 		}
 //		End of: By Polygon
@@ -2209,7 +2195,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 		pi_potion->madewith=0;
 	}
 	
-	RefreshItem(pi_potion);
+	pi_potion->update();
 	pi_mortar->setType( 0 );
 	// items[i].weight=100; // Ripper 11-25-99
 	// AntiChrist NOTE: please! use the HARDITEMS.SCP...
@@ -3404,53 +3390,6 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 	pc->setSkill( s, QMAX( static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp) ) );
 }
 
-void cSkills::TDummy(int s)
-{
-	//unsigned int i;
-	int serial,hit;
-	int type = Combat->GetBowType(currchar[s]);
-	
-	if (type > 0)
-	{
-		sysmessage(s, "Practice archery on archery buttes !");
-		return;
-	}
-	int skillused = Skills->GetCombatSkill(currchar[s]);
-	
-	if (currchar[s]->onHorse())
-		Combat->CombatOnHorse(currchar[s]);
-	else
-		Combat->CombatOnFoot(currchar[s]);
-	
-	hit=rand()%3;
-	switch(hit)
-	{
-	case 0: soundeffect(s, 0x01, 0x3B);break;
-	case 1: soundeffect(s, 0x01, 0x3C);break;
-	case 2: soundeffect(s, 0x01, 0x3D);break;
-	default:
-		LogError("switch reached default");
-		return;
-	}
-	serial=calcserial((buffer[s][1]&0x7F),buffer[s][2],buffer[s][3],buffer[s][4]);
-	P_ITEM pj = FindItemBySerial( serial );
-	if (pj != NULL)
-	{
-		if (pj->id()==0x1070) pj->setId(0x1071);
-		if (pj->id()==0x1074) pj->setId(0x1075);
-		tempeffect2(0, pj, 14, 0, 0, 0);
-		RefreshItem(pj);
-	}
-	if(currchar[s]->skill(skillused) < 300)
-	{
-		Skills->CheckSkill(currchar[s], skillused, 0, 1000);
-		if(currchar[s]->skill(TACTICS) < 300)
-			Skills->CheckSkill(currchar[s], TACTICS, 0, 250);  //Dupois - Increase tactics but only by a fraction of the normal rate
-	}
-	else
-		sysmessage(s, "You feel you would gain no more from using that.");   
-}
-
 void CollectAmmo(int s, int a, int b)
 {
 	
@@ -3471,7 +3410,7 @@ void CollectAmmo(int s, int a, int b)
 	}
 }
 
-void cSkills::AButte(int s1, P_ITEM pButte)
+/*void cSkills::AButte(int s1, P_ITEM pButte)
 {
 	int v1,i;
 	int arrowsquant=0;
@@ -3496,14 +3435,14 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 		{
 			P_ITEM pi = Items->SpawnItem(s1, pc_currchar,pButte->more1/2,"#",1,0x0F,0x3F,0,1,0);
 			if(pi == NULL) return;
-			RefreshItem(pi);
+			pi->update();
 		}
 		
 		if(pButte->more2>0)
 		{
 			P_ITEM pi = Items->SpawnItem(s1,pc_currchar,pButte->more2/2,"#",1,0x1B,0xFB,0,1,0);
 			if(pi == NULL) return;
-			RefreshItem(pi);
+			pi->update();
 		}
 		
 		i=0;
@@ -3609,7 +3548,7 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 		}
 	}
 	if ((v1>1)&&(v1<5)||(v1>8)) sysmessage(s1, "You cant use that from here.");
-}
+}*/
 
 void cSkills::Meditation( cUOSocket *socket )
 {

@@ -556,7 +556,8 @@ void cChar::glowHalo(P_ITEM pi)
 			pHalo->pos.z=this->pos.z+4;
 			pHalo->dir=29;
 		}
-		RefreshItem(pHalo);//AntiChrist
+
+		pHalo->update();//AntiChrist
 	}
 }
 

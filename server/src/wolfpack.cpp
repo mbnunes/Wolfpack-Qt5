@@ -202,13 +202,6 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,vr);
 }
 
-bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
-{
-	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->isGM()) return true;
-	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,distance);
-}
-
 //================================================================================
 //
 // signal handlers
@@ -879,7 +872,7 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 									{
 										pi->ReduceAmount( total );
 										total = 0;
-										RefreshItem( pi );
+										pi->update();
 									}
 
 								}
@@ -909,7 +902,7 @@ void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object nu
 		if(pi->layer()==0x10 || pi->layer()==0x0B)//beard(0x10) and hair
 		{
 			pi->setColor( piDye->color() );	//Now change the color to the hair dye bottle color!
-			RefreshItem(pi);
+			pi->update();
 		}
 	}
 	Items->DeleItem(piDye);	//Now delete the hair dye bottle!
@@ -1253,7 +1246,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 	}
 }
 
-int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn new horse)
+int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item)
 {
 	unsigned int ci = 0;
 	int ch;
@@ -1292,28 +1285,19 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 				}
 			}
 			
-			if (found)
+			if( found )
 			{
 				stablesp.remove(stablemaster_serial, p_pet->serial);
 				
 				p_pet->setStablemaster_serial( INVALID_SERIAL ); // actual unstabling
 				p_pet->setTimeused_last( getNormalizedTime() );
 				p_pet->setTime_unused( 0 );
-				p_pet->pos = p_petowner->pos;
+				p_pet->moveTo( p_petowner->pos );
 				p_pet->npcWander = 0;
-				
-				mapRegions->Remove(p_pet);
-				mapRegions->Add(p_pet);
-				
-				for (ch = 0; ch < now; ch++)
-				{
-					if (perm[ch])
-						impowncreate(ch, p_pet, 0);
-				}
 			}
-			pi->pos = p_petowner->pos; // to satisfy iteminrange() call from DeleItem.
-			Items->DeleItem(pi);
-			updatechar(p_pet);
+
+			Items->DeleItem( pi );
+			p_pet->resend( false );
 			return 0;
 		}
 	}
@@ -4629,69 +4613,6 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					pc->setCriminal();
 				break;
 		}
-	}
-}
-
-
-//Written by AntiChrist - 4/11/1999
-//
-//This is very useful for bandwidth i think....i replaced all the
-//stupid loops in the entire code sending a item to ALL the
-//sockets...without checking if the socket's character was in
-//range.....very baaad!
-//
-//I also added the inpack check and the worned check....
-//
-void RefreshItem(P_ITEM pi)//Send this item to all online people in range
-{//check if item is in a pack or on the ground, then use different methods
-	unsigned int a;
-	signed int aa ;
-
-	if( pi == NULL ) return; //just to be on the right side
-
-	if( pi->contserial == pi->serial )
-	{
-		clConsole.send( "ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n", pi->name().ascii(), pi->serial);
-		pi->setContSerial( -1 );
-	}
-
-	// first check: let's check if it's on the ground....
-	if( pi->isInWorld() )
-	{//yeah, it's on ground!
-		for( a=0; a < (unsigned)now; a++ )//send this item to all the sockets in range
-		{
-			if( perm[a] && iteminrange( a,  pi, VISRANGE ) )
-				senditem( a, pi );
-		}
-		return;
-	}
-
-	//if not, let's check if it's on a char or in a pack
-	if( isCharSerial( pi->contserial ) )//container is a player...it means it's equipped on a character!
-	{
-		LongToCharPtr(pi->serial,wearitem+1);
-		ShortToCharPtr(pi->id(),wearitem+5);
-		wearitem[8]=pi->layer();
-		LongToCharPtr(pi->contserial,wearitem+9);
-		ShortToCharPtr(pi->color(), wearitem+13);
-		P_CHAR charcont = FindCharBySerial(pi->contserial);
-		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
-		{
-			if(perm[a] && inrange1p(currchar[a], charcont))
-				Xsend(a, wearitem, 15);
-		}
-		return;
-	}
-	else //container is an item...it means we have to use sendbpitem()!!
-	{
-		for(aa=0;aa<now;aa++)//send this item to all the sockets in range
-		{
-			if(perm[aa])
-				sendbpitem(aa, pi);//NOTE: there's already the inrange check
-								 //in the sendbpitem() function, so it's unuseful
-								 //to do a double check!!
-		}
-		return;
 	}
 }
 

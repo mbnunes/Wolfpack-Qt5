@@ -251,7 +251,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						{
 							x=hex2num(script2);
 							pi_hair->setColor( x );
-							RefreshItem(pi_hair);//AntiChrist
+							pi_hair->update();//AntiChrist
 							teleport(pc_s);
 						}
 					}
@@ -275,7 +275,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						{
 							x=hex2num(script2);
 							pi_beard->setColor( x );
-							RefreshItem(pi_beard);//AntiChrist
+							pi_beard->update();//AntiChrist
 							teleport(pc_s);
 						}
 					}
@@ -351,7 +351,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 								if(pPack != NULL) 
 									retitem->setContSerial(pPack->serial);
 							}
-							RefreshItem(retitem);//AntiChrist
+							retitem->update();//AntiChrist
 							teleport(pc_s);
 						}
 					}
@@ -431,7 +431,7 @@ void monstergate(P_CHAR pc_s, int x)
                 pi->setLayer(0x00);   
     
 				SndRemoveitem(pi->serial);   
-				RefreshItem(pi);//AntiChrist   
+				pi->update();//AntiChrist   
 			}   
 			else if (pc_s->Wears(pi) &&   
 				(pi->layer() == 0x0B || pi->layer() == 0x10))   

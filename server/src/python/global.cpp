@@ -122,10 +122,19 @@ static PyMethodDef wpConsole[] =
 
 /*!
 	Adds an item
+	Argument is just the def-section
 */
 PyObject* wpAdditem( PyObject* self, PyObject* args )
 {
-	return PyTrue;
+	if( PyTuple_Size( args ) < 1 || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
+	{
+		clConsole.send( "Minimum argument count for wolfpack.additem is 1\n" );
+		return Py_None;
+	}
+
+
+	P_ITEM pItem = Items->createScriptItem( PyString_AsString( PyTuple_GetItem( args, 0 ) ) );
+	return PyGetItemObject( pItem );
 }
 
 /*!

@@ -141,7 +141,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype, const int coloring,
 	if (pi_i != NULL && coloring>-1)
 	{
 		pi_i->setColor( memcolor );
-		RefreshItem(pi_i);
+		pi_i->update();
 	}
 	// end addons
 	if (ttype)
@@ -818,7 +818,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							if (coloring > -1)
 							{
 								pi_itemnum->setColor( memcolor );
-								RefreshItem(pi_itemnum);
+								pi_itemnum->update();
 							}
 							// end addons	
 							if (ttype)
@@ -1561,14 +1561,14 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								P_ITEM mapitem = ri.GetData();
 								if (mapitem != NULL)
 								{// if it's close enought
-									if (iteminrange(ts, mapitem, p))
+									/*if( iteminrange(ts, mapitem, p))
 									{
 										sprintf(sect, "x%x", mapitem->id());
 										if (strstr((char*)comm[0], sect))
 										{// if it's the item we want
 											pi_c = mapitem;// we found it :D
 										}
-									}
+									}*/
 								}
 							}
 							
@@ -1881,7 +1881,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								splitline();
 								pi_itemnum = FindItemBySerial(pc_ts->envokeitem());
 								pi_itemnum->setId( static_cast< UI16 >( hexnumber( 0 ) << 8 ) + hexnumber( 1 ) );
-								RefreshItem(pi_itemnum);// AntiChrist
+								pi_itemnum->update();// AntiChrist
 							}
 						}
 						else if (!(strcmp("SETOWNER", (char*)script1)))  // Set ownership of item
@@ -1904,7 +1904,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								splitline();
 								pi_itemnum = pi;
 								pi->setId( static_cast<unsigned short>(hexnumber(0) << 8) + hexnumber(1) );
-								RefreshItem(pi_itemnum);// AntiChrist
+								pi_itemnum->update();// AntiChrist
 								
 							}
 						}
@@ -2542,7 +2542,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							if (coloring>-1)
 							{
 								pi_c->setColor( memcolor );
-								RefreshItem(pi_c);
+								pi_c->update();
 							}
 							// end addons	
 							if (ttype)

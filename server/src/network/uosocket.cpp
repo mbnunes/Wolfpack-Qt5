@@ -817,8 +817,8 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 	if( packet->range() > 20 )
 		return; // Na..
 
-	if( _player )
-		_player->VisRange = packet->range();
+	//if( _player )
+	//	_player->VisRange = packet->range();
 }
 
 /*!

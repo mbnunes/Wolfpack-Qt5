@@ -801,7 +801,7 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, cons
 		{
 			pDeed->setType( 217 );
 			pDeed->value = 2000;
-			RefreshItem( pDeed );
+			pDeed->update();
 			Npcs->DeleteChar( pVendor );
 			socket->sysMessage( tr( "Packed up vendor %1." ).arg( pVendor->name.c_str() ) );
 			return true;

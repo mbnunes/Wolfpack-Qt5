@@ -658,12 +658,6 @@ void cBoat::turn( SI08 turn )
 		pHold->pos.z );
 	pHold->setId( itemids[shortboatdir][HOLD_ID] );
 
-/*	RefreshItem( pTiller );
-	RefreshItem( pPortplank );
-	RefreshItem( pStarplank );
-	RefreshItem( pHold );
-	RefreshItem( this );
-*/	
 	iter_sock = socketsinrange.begin();
 	while( iter_sock != socketsinrange.end() )
 	{
@@ -836,12 +830,7 @@ bool cBoat::move( void )
 		it++;
 	}
 
-/*	RefreshItem( pTiller );
-	RefreshItem( pPortplank );
-	RefreshItem( pStarplank );
-	RefreshItem( pHold );
-	RefreshItem( this );
-*/
+
 	iter_sock = socketsinrange.begin();
 	while( iter_sock != socketsinrange.end() )
 	{
@@ -1369,15 +1358,6 @@ P_ITEM findmulti(Coord_cl pos) //Sortta like getboat() only more general... use 
 	}
 
 	return multi;
-}
-
-void sendinrange(P_ITEM pi)//Send this item to all online people in range
-{//(Decided this was better than writting 1000 for loops to send an item.
-	for(int a=0;a<now;a++)
-	{
-		if(perm[a] && iteminrange(a, pi, VISRANGE))
-			senditem(a, pi);
-	}
 }
 
 bool inmulti(Coord_cl pos, P_ITEM pi)//see if they are in the multi at these chords (Z is NOT checked right now)

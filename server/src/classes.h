@@ -137,9 +137,7 @@ public:
 	int EngraveAction(int s, P_ITEM pi, int cir, int spl);
 	void updateSkillLevel(P_CHAR pc, int s);
 	void LockPick(int s);
-	void TDummy(int s);
 	void Tinkering(int s);
-	void AButte(int s1, P_ITEM pButte);
 	void Persecute(cUOSocket*);//AntiChrist persecute stuff
 	void Cartography(int s); // By Polygon - opens the cartography skillmenu
 	bool HasEmptyMap(P_CHAR pc); // By Polygon - checks if player has an empty map

@@ -497,6 +497,15 @@ public:
 		else if( key == "mana" && pChar )
 			pChar->mn = hex2dec( value ).toInt();
 
+		else if( key == "morex" && pItem )
+			pItem->morex = hex2dec( value ).toInt();
+
+		else if( key == "morey" && pItem )
+			pItem->morey = hex2dec( value ).toInt();
+
+		else if( key == "morez" && pItem )
+			pItem->morez = hex2dec( value ).toInt();
+
 		// Object tags
 		else if( key.left( 4 ) == "tag." )
 		{
@@ -1047,6 +1056,15 @@ public:
 			else 
 				result = QString( "%1" ).arg( pItem->in );
 
+		else if( key == "morex" && pItem )
+			result = QString( "%1" ).arg( pItem->morex );
+
+		else if( key == "morey" && pItem )
+			result = QString( "%1" ).arg( pItem->morey );
+
+		else if( key == "morez" && pItem )
+			result = QString( "%1" ).arg( pItem->morez );
+
 		else if( key == "pos" )
 			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.map );
 
@@ -1078,10 +1096,10 @@ public:
 				result = QString( "%1" ).arg( pItem->hp() );
 		}
 
-		else if( key = "stamina" && pChar )
+		else if( key == "stamina" && pChar )
 			result = QString( "%1" ).arg( pChar->stm );
 
-		else if( key = "mana" && pChar )
+		else if( key == "mana" && pChar )
 			result = QString( "%1" ).arg( pChar->mn );
 
 		// Check if key was a skillname

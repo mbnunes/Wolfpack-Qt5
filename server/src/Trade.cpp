@@ -521,9 +521,9 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 				if (pi->glow != INVALID_SERIAL)
 					glowsp.insert(p1->serial, pi->serial);
 				if (s1!=-1)
-					RefreshItem(pi);//AntiChrist
+					pi->update();//AntiChrist
 				if (s2!=-1) sendbpitem(s2, pi);
-					RefreshItem(pi);//AntiChrist
+					pi->update();//AntiChrist
 			}
 	}
 	serial = cont2->serial;
@@ -541,9 +541,9 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 				if (pi->glow != INVALID_SERIAL)
 					glowsp.insert(currchar[s1]->serial, pi->serial);
 				if (s2 != INVALID_UOXSOCKET)
-					RefreshItem(pi);//AntiChrist
+					pi->update();//AntiChrist
 				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, pi);
-					RefreshItem(pi);//AntiChrist
+					pi->update();//AntiChrist
 			}
 	}
 }

@@ -1034,7 +1034,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 				if (pSt->amount() + nAmount > 65535)	// if it would create an overflow (amount is ushort!),
 					continue;						// let's search for another pile to add to
 				pSt->setAmount( pSt->amount() + nAmount );
-				RefreshItem(pSt);
+				pSt->update();
 				return pSt;
 			}
 		}
@@ -1069,7 +1069,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	
 	//clConsole.send("Adding Harditems settings in items.cpp:spawnitem\n");
 	GetScriptItemSetting(pi); // Added by Magius(CHE) (2)
-	RefreshItem(pi);
+	pi->update();
 	return pi;
 }
 
@@ -1220,8 +1220,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 							pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
 
 							pi_j->startDecay();
-
-							RefreshItem(pi_j);//AntiChrist
+							pi_j->update();//AntiChrist
 						   }
 						} // enof of if j!=-1
 					}
@@ -1415,7 +1414,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 			pi->SetRandPosInCont(pChest);
 		}
 	}
-	RefreshItem(pi);//AntiChrist
+	pi->update();//AntiChrist
 }
 
 void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
@@ -1449,7 +1448,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 						
 			pi->setContSerial(-1);
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
-			RefreshItem(pi);
+			pi->update();
 			
 			for (int j=0;j<now;j++)
 				if (inrange1p(pc_p, currchar[j])&&perm[j])
@@ -1488,7 +1487,7 @@ P_ITEM cAllItems::createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned 
 	{
 		if( nItem->isInWorld() )
 			mapRegions->Add( nItem );
-		sendinrange( nItem );
+		nItem->update();
 	}
 
 	return nItem;

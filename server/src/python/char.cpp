@@ -62,8 +62,8 @@ static PyTypeObject wpCharType = {
     "WPChar",
     sizeof(wpCharType),
     0,
-    wpDealloc,				
-    0,								
+    wpDealloc,
+    0,
     (getattrfunc)wpChar_getAttr,
     (setattrfunc)wpChar_setAttr,
 };
@@ -354,6 +354,72 @@ PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 	return PyInt_FromLong( Skills->GetCombatSkill( self->pChar ) );
 }
 
+/*!
+	Takes at least two arguments (amount,item-id)
+	Optionally the color of the item we 
+	want to consume too.
+	It consumes the items and amount specified
+	and returns how much have been really consumed.
+*/
+PyObject* wpChar_useresource( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+	
+	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+	{
+		clConsole.send( "Minimum argument count for char.useresource is 2\n" );
+		return PyInt_FromLong( 0 );
+	}
+
+    UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	UINT16 color = 0;
+
+	if( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
+
+	P_ITEM pPack = self->pChar->getBackpack();
+	UINT16 deleted = 0;
+
+	if( pPack )
+		deleted = pPack->DeleteAmount( amount, id, color );
+
+	return PyInt_FromLong( deleted );
+}
+
+/*!
+	Takes at least one argument (item-id)
+	Optionally the color
+	It returns the amount of a resource
+	available
+*/
+PyObject* wpChar_countresource( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+	
+	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	{
+		clConsole.send( "Minimum argument count for char.countresource is 1\n" );
+		return PyInt_FromLong( 0 );
+	}
+
+	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	INT16 color = -1;
+
+	if( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+
+	P_ITEM pPack = self->pChar->getBackpack();
+	UINT16 avail = 0;
+
+	if( pPack )
+		avail = pPack->CountItems( id, color );
+
+	return PyInt_FromLong( avail );
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -367,6 +433,8 @@ static PyMethodDef wpCharMethods[] =
 	{ "checkskill",		(getattrofunc)wpChar_checkskill, METH_VARARGS, "Performs a skillcheck for the character." },
 	{ "itemonlayer",	(getattrofunc)wpChar_itemonlayer, METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
 	{ "combatskill",	(getattrofunc)wpChar_combatskill, METH_VARARGS, "Returns the combat skill the character would currently use." },
+	{ "useresource",	(getattrofunc)wpChar_useresource, METH_VARARGS, "Consumes a resource posessed by the char." },
+	{ "countresource",	(getattrofunc)wpChar_countresource, METH_VARARGS, "Counts the amount of a certain resource the user has." },
     { NULL, NULL, 0, NULL }
 };
 
@@ -408,6 +476,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		skills->base = true;
 		skills->pChar = self->pChar;
 		return (PyObject*)( skills );
+	}
+
+	else if( !strcmp( "backpack", name ) )
+	{
+		return (PyObject*)PyGetItemObject( self->pChar->getBackpack() );
 	}
 
 	else if( !strcmp( "skill", name ) )
