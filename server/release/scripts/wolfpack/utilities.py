@@ -871,7 +871,7 @@ def testenemy(socket, c, a):
 
 """
 	\function wolfpack.utilities.isValidPosition
-	\param position The wolfpack coord object to check.
+	\param pos The wolfpack coord object to check.
 	\return Returns a boolean value if the position is valid.
 	\description Checks to see if a given coord object is a valid map position.
 """
