@@ -46,6 +46,11 @@ def animaltaming( char, skill ):
 	return 1
 
 def response( char, args, target ):
+    dotame( char, target.char )
+    char.socket.sysmessage("Testing")
+    return 1
+
+def dotame( char, totame ):
 
 	socket = char.socket
 
@@ -55,16 +60,14 @@ def response( char, args, target ):
 		return
 
 	# Check for a valid target
-	if not target.char:
+	if not totame:
 		socket.clilocmessage( 502801, "", 0x3b2, 3, char )
 		return
 
 	# it's a player
-	if target.char.socket:
+	if totame.socket:
 		socket.clilocmessage( 502469, "", 0x3b2, 3, char )
 		return
-
-	totame = target.char
 
 	# You can't reach that (too far away, no los, wrong map)
 	if char.distanceto( totame ) > TAMING_RANGE:
@@ -75,7 +78,7 @@ def response( char, args, target ):
 		return
 
 	# Invulnerable Characters cannot be examined
-	if target.char.invulnerable or target.char.dead:
+	if totame.invulnerable or totame.dead:
 		socket.clilocmessage( 502675, "", 0x3b2, 3, totame )
 		return
 
@@ -120,7 +123,7 @@ def response( char, args, target ):
 	totame.settag( 'angry', 0 )
 
 	# Turn toward the char we want to look at
-	char.turnto( target.char )
+	char.turnto( totame )
 	
 	# start taming
 	socket.clilocmessage( 1010598, "", 0x3b2, 3, totame )
@@ -186,14 +189,21 @@ def callback( char, args ):
 			totame.settag( 'num_tamed', num_tamed )
 			# increase required taming skill
 			totame.totame += TAME_UPS[ num_tamed ]
+			# remove "Tame" context menu
+
+			bindmenus = totame.bindmenu.split(",")
+			bindmenus.remove('tame_menu')
+			bindmenus.append('pet_menu')
+			totame.bindmenu = ", ".join(bindmenus)
+			
 			# success msg : 502799
 			char.socket.clilocmessage( 502799, "", 0x3b2, 3, totame )
 		else:
 			removetags( totame )
 			# fail msg : 502798
 			char.socket.clilocmessage( 502798, "", 0x3b2, 3, totame )
-			if totame.ai:
-				totame.ai.tameattempt()
+#			if totame.ai:
+#				totame.ai.tameattempt()
 		return
 
 	num_try += 1
@@ -207,12 +217,12 @@ def callback( char, args ):
 		else:
 			totame.settag( 'angry', 1 )
 			
-		if totame.ai:
-			totame.ai.tameattempt()
+#		if totame.ai:
+#			totame.ai.tameattempt()
 			
-		print totame.ai.state
+#		print totame.ai.state
 
-	char.socket.clilocmessage( msgID, "", 0x3b2, 3, totame )
+	char.socket.clilocmessage( msgID, "", 0x3b2, 3, char )
 	char.addtimer( TAMING_DURATION, "skills.animaltaming.callback", [ havetamed, totame.serial, num_try ] )
 
 def removetags( char ):

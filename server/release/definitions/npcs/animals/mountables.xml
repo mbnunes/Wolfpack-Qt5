@@ -16,6 +16,7 @@
 		<category>Animals\Ridables\Beetle</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<defense><random min="30" max="40" /></defense>
@@ -37,6 +38,7 @@
 		<id>0x031a</id>
 		<category>Animals\Ridables\Swamp Dragon </category>
 		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
 		<karma>-2000</karma>
 		<fame>2000</fame>
 		<defense><random min="35" max="40" /></defense>
@@ -182,6 +184,7 @@
 		<id>793</id>
 		<category>Animals\Ridables\Hellsteed</category>
 		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
 		<karma>0</karma>
 		<fame>0</fame>
 		<defense><random min="60" max="70" /></defense>
@@ -202,6 +205,7 @@
 		<id>0x0074</id>
 		<category>Animals\Ridables\Nightmare 1</category>
 		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
 		<karma>-14000</karma>
 		<fame>14000</fame>
 		<defense><random min="55" max="65" /></defense>
@@ -290,6 +294,7 @@
 		<id>0x00da</id>
 		<category>Animals\Ridables\Frenzied Ostard (Weak)</category>
 		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<defense><random min="25" max="30" /></defense>

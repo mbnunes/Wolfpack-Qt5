@@ -103,6 +103,8 @@
 	<script>contextmenus.trainmenu</script>
 	<script>contextmenus.paperdollmenu</script>
 	<script>contextmenus.vendormenu</script>
+	<script>contextmenus.tamemenu</script>
+	<script>contextmenus.petmenu</script>
 
 	<!-- Speech Scripts -->
 	<script>speech.pets</script>
