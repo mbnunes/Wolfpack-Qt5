@@ -136,6 +136,7 @@ public:
 	void registerSqlQuery( const QString &type, const QString &query )
 	{
 		sql_queries.insert( make_pair( type, query ) );
+		sql_keys.push_back(type);
 	}
 
 	QString findSqlQuery( const QString &type )
@@ -154,7 +155,7 @@ public:
 	}
 
 private:
-	map< QString, QString > sql_queries;
+	std::map< QString, QString > sql_queries;
 	QStringList sql_keys;
 };
 
