@@ -1967,8 +1967,6 @@ void cUOSocket::handleAction( cUORxAction *packet )
 	case 0x27:
 	case 0x39:
 		{
-			// Convert the "Action"
-			sysMessage( "." + packet->action() + "." );
 			NewMagic->castSpell( _player, packet->action().toInt()-1 );
 		}
 		break;
@@ -2080,7 +2078,8 @@ void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const
 void cUOSocket::cancelTarget()
 {
 	cUOTxTarget target;
-	target.setTargSerial( 0xFFFFFFFF );
+	target.setTargSerial( 0 );
+	target[6] = 3; // Cursor Type
 	send( &target );
 
 	if( targetRequest )

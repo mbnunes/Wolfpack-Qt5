@@ -2043,10 +2043,6 @@ public:
 
 void cChar::action( UINT8 id )
 {
-	// No "double" actions using this function
-	if( animated )
-		return;
-
 	bool mounted = onHorse();
 
 	if( mounted && ( id == 0x10 || id == 0x11 ) )
@@ -2069,9 +2065,6 @@ void cChar::action( UINT8 id )
 		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange() ) && ( !isHidden() || socket->player()->isGM() ) )
 			socket->send( &action );
 	}
-
-	// Reset the animated status after a given amount of time.
-	cTempEffects::getInstance()->insert( new cResetAnimated( this, 1500 ) );
 }
 
 UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char

@@ -367,7 +367,17 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	// This will repeat the animation until
 	// We are done casting or until we are being
 	// disturbed.
-	pMage->startRepeatedAction( 0xE9, 1250 ); // Repeat every 1250 ms
+	//pMage->startRepeatedAction( 0xE9, 1250 ); // Repeat every 1250 ms
+
+	cUOTxAction action;
+	action.setAction( 0xE9 );
+	action.setSerial( pMage->serial );
+	action.setDirection( pMage->dir() );
+	action.setRepeat( 3 );
+	action.setRepeatFlag( 1 );
+	action.setSpeed( 1 );
+
+	pMage->socket()->send( &action );
 
 	// Now we have to do the following: 
 	// We show the target cursor after a given amount of time (set in the scripts)
