@@ -222,7 +222,7 @@ inline QString cUOSocket::lang( void ) const
 
 inline QString cUOSocket::ip( void ) const
 {
-	return _socket->address().toString();
+	return _socket->peerAddress().toString();
 }
 
 inline P_CHAR cUOSocket::player( void ) const

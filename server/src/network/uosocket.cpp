@@ -162,7 +162,7 @@ void cUOSocket::recieve()
 	// After two pings we idle-disconnect
 	if( lastPacket == 0x73 && packetId == 0x73 )
 	{
-		clConsole.send( QString( "Socket idle-kicked [%1]" ).arg( _socket->address().toString() ) );
+		clConsole.send( QString( "Socket idle-kicked [%1]" ).arg( _socket->peerAddress().toString() ) );
 		disconnect();
 		return;
 	}
@@ -170,7 +170,7 @@ void cUOSocket::recieve()
 	// Disconnect harmful clients
 	if( ( _account < 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
-		clConsole.send( QString( "Communication Error [%1 instead of 0x80|0x91] [%2]\n" ).arg( packetId, 2, 16 ).arg( _socket->address().toString() ) );
+		clConsole.send( QString( "Communication Error [%1 instead of 0x80|0x91] [%2]\n" ).arg( packetId, 2, 16 ).arg( _socket->peerAddress().toString() ) );
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( DL_BADCOMMUNICATION );
 		send( &denyLogin );
@@ -465,7 +465,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 bool cUOSocket::authenticate( const QString &username, const QString &password )
 {
 	// Log
-	clConsole.send( QString( "Trying to log in as %1 using password %2 [%3]\n" ).arg( username ).arg( password ).arg( _socket->address().toString() ) );
+	clConsole.send( QString( "Trying to log in as %1 using password %2 [%3]\n" ).arg( username ).arg( password ).arg( _socket->peerAddress().toString() ) );
 
 	cAccounts::enErrorCode error = cAccounts::NoError;
 	AccountRecord* authRet = Accounts->authenticate( username, password, &error );
@@ -494,7 +494,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			denyPacket.setReason( DL_BLOCKED ); break;
 		};
 
-		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
+		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->peerAddress().toString() ) );
 		send( &denyPacket );
 	}
 

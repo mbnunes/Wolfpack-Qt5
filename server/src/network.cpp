@@ -95,7 +95,7 @@ void cNetwork::poll( void )
 		loginSockets.append( new cUOSocket(socket) );
 
 		// Notify the admin
-		clConsole.send( tr( "Socket connected [%1]\n" ).arg( socket->address().toString() ) );
+		clConsole.send( tr( "Socket connected [%1]\n" ).arg( socket->peerAddress().toString() ) );
 	}
 
 	// fast return
@@ -109,7 +109,7 @@ void cNetwork::poll( void )
 		// Check for disconnected sockets
 		if ( uoSocket->socket()->error() != QSocketDevice::NoError )
 		{
-			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->address().toString() ) );
+			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );
 			netIo_->unregisterSocket( uoSocket->socket() );
 			uoSockets.remove();
 		}
@@ -126,7 +126,7 @@ void cNetwork::poll( void )
 	{
 		if( uoSocket->socket()->error() != QSocketDevice::NoError )
 		{
-			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->address().toString() ) );
+			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );
 			netIo_->unregisterSocket( uoSocket->socket() );
 			loginSockets.remove();
 			continue;
