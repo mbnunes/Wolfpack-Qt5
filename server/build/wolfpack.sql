@@ -9,6 +9,17 @@
 # Banco de Dados : `wolfpack`
 # --------------------------------------------------------
 
+#
+# Estrutura da tabela `bookpages`
+#
+CREATE TABLE bookpages (    
+	serial int(11) NOT NULL default '0',
+	page tinyint(3) unsigned NOT NULL default '0',
+	text varchar(255) binary NOT NULL default '',
+	KEY page (page),
+	KEY serial (serial)
+) TYPE=MyISAM;
+# --------------------------------------------------------
 
 #
 # Estrutura da tabela `books`
@@ -65,7 +76,7 @@ CREATE TABLE characters (
   npc tinyint(1) NOT NULL default '0',
   holdgold int(10) unsigned NOT NULL default '0',
   shop tinyint(1) NOT NULL default '0',
-  own int(11) NOT NULL default '-1',
+  owner int(11) NOT NULL default '-1',
   robe int(11) NOT NULL default '0',
   karma int(11) NOT NULL default '0',
   fame int(11) NOT NULL default '0',
@@ -300,10 +311,6 @@ CREATE TABLE boats (
   multi2 smallint(6) unsigned default '0',
   multi3 smallint(6) unsigned default '0',
   multi4 smallint(6) unsigned default '0',
-  multi5 smallint(6) unsigned default '0',
-  multi6 smallint(6) unsigned default '0',
-  multi7 smallint(6) unsigned default '0',
-  multi8 smallint(6) unsigned default '0',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cBoat';
@@ -362,4 +369,3 @@ CREATE TABLE corpses (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cCorpse';
-
