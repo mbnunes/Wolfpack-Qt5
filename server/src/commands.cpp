@@ -1560,7 +1560,7 @@ void commandTags( cUOSocket *socket, const QString &command, QStringList &args )
 void commandWho( cUOSocket *socket, const QString &command, QStringList &args )
 {
 	// Who
-	cWhoMenuGump* pGump = new cWhoMenuGump();
+	cWhoMenuGump* pGump = new cWhoMenuGump( 1 );
 	socket->send( pGump );
 }
 

@@ -261,10 +261,11 @@ public:
 class cWhoMenuGump : public cGump
 {
 private:
+	UINT32 page_;
 	std::vector< cUOSocket* > sockets_;
 
 public:
-	cWhoMenuGump();
+	cWhoMenuGump( UINT32 page );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };

@@ -387,10 +387,6 @@ SOURCE=.\wpdefmanager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\wppythonscript.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\wpscriptmanager.cpp
 # End Source File
 # Begin Source File
@@ -720,10 +716,6 @@ SOURCE=.\wpdefaultscript.h
 # Begin Source File
 
 SOURCE=.\wpdefmanager.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\wppythonscript.h
 # End Source File
 # Begin Source File
 

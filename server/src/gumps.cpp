@@ -426,6 +426,21 @@ void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 h
 	layout_.push_back( QString( "{gumppictiled %1 %2 %3 %4 %5%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString("") ) ); 
 }
 
+void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack )
+{
+	QString layout = "{htmlgump %1 %2 %3 %4 %5 %6 0}";
+	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
+	layout = layout.arg( addRawText( html ) ).arg( hasBack ? 1 : 0 );
+	layout_.push_back( layout );
+}
+
+void cGump::addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height )
+{
+	QString layout = "{checkertrans %1 %2 %3 %4}";
+	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
+	layout_.push_back( layout );
+}
+
 cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 {
 	region_ = region;
@@ -1151,8 +1166,12 @@ void cTagsInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 }
 
-cWhoMenuGump::cWhoMenuGump()
+cWhoMenuGump::cWhoMenuGump( UINT32 page )
 {
+	if( page == 0 )
+		return;
+
+	page_ = page;
 	QStringList charNames;
 	QStringList charLocations;
 //	QStringList charRegions;
@@ -1171,14 +1190,12 @@ cWhoMenuGump::cWhoMenuGump()
 		}
 	}
 
-	UINT32 page_ = 0;
 	UINT32 numsocks = charNames.size();
 	UINT32 pages = ((UINT32)floor( numsocks / 10 ))+1;
 
 	startPage();
 	addBackground( 0xE10, 380, 340 ); //Background
-	addRawLayout( "{checkertrans 15 15 350 310}" );
-	//addCheckertrans( 15, 15, 570, 390 );
+	addCheckertrans( 15, 15, 350, 310 );
 	addGump( 130, 18, 0xFA8 );
 	addText( 165, 20, tr( "Who Menu" ), 0x530 );
 	
@@ -1186,31 +1203,28 @@ cWhoMenuGump::cWhoMenuGump()
 	addText( 70, 300, "Close", 0x834 );
 	addButton( 30, 300, 0xFB1, 0xFB3, 0 ); 
 
-	for( page_ = 1; page_ <= pages; page_++ )
+	startPage( 1 );
+
+	UINT32 i;
+	UINT32 right = page_ * 10 - 1;
+	UINT32 left = page_ * 10 - 10;
+	if( numsocks < right )
+		right = numsocks-1;
+
+	for( i = left; i <= right; i++ )
 	{
-		startPage( page_ );
-
-		UINT32 i;
-		UINT32 right = page_ * 10 - 1;
-		UINT32 left = page_ * 10 - 10;
-		if( numsocks < right )
-			right = numsocks-1;
-
-		for( i = left; i <= right; i++ )
-		{
-			addButton( 20, 60 + (i-left) * 20, 0xFA5, 0xFA7, i+1 ); 
-			addText( 50, 60 + (i-left) * 20, QString( "%1" ).arg( charNames[i] ), 0x834 );
-			addText( 200, 60 + (i-left) * 20, QString( "%1" ).arg( charLocations[i] ), 0x834 );
-//			addText( 370, 60 + (i-left) * 20, QString( "%1" ).arg( charRegions[i] ), 0x834 );
-		}
-
-		addText( 280, 300, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
-		if( page_ > 1 ) // previous page
-			addPageButton( 240, 300, 0x0FC, 0x0FC, page_-1 );
-
-		if( page_ < pages ) // next page
-			addPageButton( 260, 300, 0x0FA, 0x0FA, page_+1 );
+		addButton( 20, 60 + (i-left) * 20, 0xFA5, 0xFA7, i+3 ); 
+		addText( 50, 60 + (i-left) * 20, QString( "%1" ).arg( charNames[i] ), 0x834 );
+		addText( 200, 60 + (i-left) * 20, QString( "%1" ).arg( charLocations[i] ), 0x834 );
+//		addText( 370, 60 + (i-left) * 20, QString( "%1" ).arg( charRegions[i] ), 0x834 );
 	}
+
+	addText( 280, 300, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+	if( page_ > 1 ) // previous page
+		addButton( 240, 300, 0x0FC, 0x0FC, 1 );
+
+	if( page_ < pages ) // next page
+		addButton( 260, 300, 0x0FA, 0x0FA, 2 );
 }
   
 void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
@@ -1219,27 +1233,28 @@ void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
 		return;
 	else
 	{
-/*		cWhoMenuGump* pGump = new cWhoMenuGump();
-		socket->send( pGump );*/
-
-		cWhoChildGump* pGump2 = new cWhoChildGump( sockets_[ choice.button-1 ] );
-		socket->send( pGump2 );
+		switch( choice.button )
+		{
+		case 1:
+			{
+				cWhoMenuGump* pGump = new cWhoMenuGump( page_-1 );
+				socket->send( pGump );
+			}
+			break;
+		case 2:
+			{
+				cWhoMenuGump* pGump = new cWhoMenuGump( page_+1 );
+				socket->send( pGump );
+			}
+			break;
+		default:
+			{
+				cWhoChildGump* pGump2 = new cWhoChildGump( sockets_[ choice.button-3 ] );
+				socket->send( pGump2 );
+			}
+			break;
+		}
 	}
-}
-
-void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack )
-{
-	QString layout = "{htmlgump %1 %2 %3 %4 %5 %6 0}";
-	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
-	layout = layout.arg( addRawText( html ) ).arg( hasBack ? 1 : 0 );
-	layout_.push_back( layout );
-}
-
-void cGump::addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height )
-{
-	QString layout = "{checkertrans %1 %2 %3 %4}";
-	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
-	layout_.push_back( layout );
 }
 
 cWhoChildGump::cWhoChildGump( cUOSocket* socket )
@@ -1253,8 +1268,7 @@ cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 		
 		addBackground( 0xE10, 440, 340 ); //Background
 		addResizeGump( 195, 260, 0xBB8, 165, 20 );
-		addRawLayout( "{checkertrans 15 15 410 310}" );
-		//addCheckertrans( 15, 15, 570, 390 );
+		addCheckertrans( 15, 15, 410, 310 );
 		addGump( 160, 18, 0xFA2 );
 		addText( 195, 20, tr( "Socket Menu" ), 0x530 );
 	
