@@ -582,6 +582,8 @@ void cSpawnRegion::spawnSingleNPC()
 
 		pChar->resend(false); // Resend the NPC
 		onSpawn( pChar ); // Call the onSpawn event
+	} else {
+		Console::instance()->log(LOG_ERROR, tr("Unable to find valid spot for spawnregion %1.\n").arg(id_));
 	}
 }
 
