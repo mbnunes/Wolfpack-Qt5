@@ -44,6 +44,7 @@
 class ISerialization;
 class cUOSocket;
 
+
 class cItem : public cUObject
 {
 	Q_OBJECT
@@ -392,6 +393,80 @@ protected:
 	int			sellprice_;
 	int			buyprice_;
 	int			price_; // This price is only used for player vendor items
+	
+	//Charges
+	ushort		chrg_count_;	//Charges count
+	ushort		chrg_spell_;	//Charge spell
+
+	//Damage %
+	SI08		dmg_increase_;
+	SI08		dmg_physical_;
+	SI08		dmg_cold_;
+	SI08		dmg_fire_;
+	SI08		dmg_poison_;
+	SI08		dmg_energy_;
+	SI08		dmg_spell_;		//Spell damage increase
+
+	//Other modifiers
+	SI08		dfn_chance_;	//Defence chance increase %
+	short		dxt_bonus_;		//Dexterity bonus
+	short		int_bonus_;		//Intelligence bonus
+	short		str_bonus_;		//Strength bonus
+
+	SI08		gld_increase_;	//Gold increase %
+	short		mana_increase_;	//Mana increase
+	short		stam_increase_; //Stamina increase
+	SI08		swing_increase_;//Swing speed increase %
+
+	SI08		nhn_potions_;	//Enhance potions %
+	short		cst_recovery_;	//Faster cast recovery
+	short		cst_speed_;		//Faster casting
+	SI08		self_repair_;	//Self repair
+	
+	//Hit modifiers
+	SI08		hit_chance_;	//Hit chance increase %
+	SI08		hit_cold_;		//Hit cold %
+	SI08		hit_dispel_;	//Hit dispel %
+	SI08		hit_energy_;	//Hit energy %
+	SI08		hit_fire_;		//Hit fire %
+	SI08		hit_fireball_;	//Hit fireball %
+	SI08		hit_harm_;		//Hit harm %
+	SI08		hit_lifeleech_;	//Hit life leech %
+	SI08		hit_lighting_;	//Hit lighting %
+	SI08		hit_lattack_;	//Hit lower atack %
+	SI08		hit_ldefence_;	//Hit lower defence %
+	SI08		hit_marrow_;	//Hit magic arrow %
+	SI08		hit_manaleech_;	//Hit mana leech %
+	SI08		hit_physical_;	//Hit physical area %
+	SI08		hit_poisoon_;	//Hit poison area %
+	SI08		hit_stamleech_;	//Hit stamina leech %
+	short		hit_point_;		//Hit point increase (amount)
+
+	//Lower requirements for resources and stats consumption
+	SI08		low_mana_;		//Low mana cost %
+	SI08		low_reagent_;	//Low reagent cost %
+	SI08		low_global_;	//Low requirements %
+	
+	//Durability
+	ushort		drb_base_;		//Durability base
+	ushort		drb_current_;   //Durability current
+	ushort		uss_base_;		//Uses base
+	ushort		uss_current_;	//Uses current
+
+
+	//Regenerations
+	ushort		mana_regen_;	//Mana regeneration
+	ushort		stam_regen_;	//Stamina regeneration
+	ushort		hit_regen_;		//Hit point regeneration
+
+
+	//Reflecting and resisting
+	SI08		rfl_physical_;	//Reflect physical %
+	SI08		rss_cold_;		//Cold resist %
+	SI08		rss_energy_;	//Energy resist %
+	SI08		rss_fire_;		//Fire resist %
+	SI08		rss_physical_;	//Physical resist %
+	SI08		rss_poison_;	//Poison resist %
 
 	// More values
 	uchar		moreb1_;
