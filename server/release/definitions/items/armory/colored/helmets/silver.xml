@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="silver_helmets_bascinet">
+		<inherit id="140d" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="silver_helmets_bascinet_2">
+		<inherit id="140c" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="silver_helmets_nose">
+		<inherit id="140f" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="silver_helmets_nose_2">
+		<inherit id="140e" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="silver_helmets_helmet">
+		<inherit id="140b" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="silver_helmets_helmet_2">
+		<inherit id="140a" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="silver_helmets_close">
+		<inherit id="1409" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="silver_helmets_close_2">
+		<inherit id="1408" />
+		<silver_armor />
+		<category>Armor\Silver\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

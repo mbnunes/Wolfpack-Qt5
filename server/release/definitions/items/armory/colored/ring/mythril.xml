@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- ring armor -->
+	<!-- ring gloves -->
+	<item id="mythril_armor_ring_gloves">
+		<inherit id="13eb" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Gloves (N/S)</category>
+	</item>
+
+	<item id="mythril_armor_ring_gloves_2">
+		<inherit id="13f2" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Gloves (E/W)</category>
+	</item>
+
+	<!-- ring leggings -->
+	<item id="mythril_armor_ring_leggings">
+		<inherit id="13f0" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="mythril_armor_ring_leggings_2">
+		<inherit id="13f1" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- ring sleeves -->
+	<item id="mythril_armor_ring_sleeves">
+		<inherit id="13ee" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Sleeves (N/S)</category>
+	</item>
+
+	<item id="mythril_armor_ring_sleeves_2">
+		<inherit id="13ef" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Sleeves (E/W)</category>
+	</item>
+
+	<!-- ring tunic -->
+	<item id="mythril_armor_ring_tunic">
+		<inherit id="13ec" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="mythril_armor_ring_tunic_2">
+		<inherit id="13ed" />
+		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>
