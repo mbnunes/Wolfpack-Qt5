@@ -995,7 +995,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, short int
 			if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
 			if (us->hidden()) extmove[15]=extmove[15]|0x80;
 			if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
-			if(us->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
+			if(us->poisoned()) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
 			//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
 			int guild;
 			//chars[i].flag=0x04;       // everyone should be blue on default
@@ -1007,7 +1007,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, short int
 				extmove[16]=5;
 			else
 			{
-				switch(us->flag)
+				switch(us->flag())
 				{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
 				case 0x01: extmove[16]=6; break;// If a bad, show as red.
 				case 0x04: extmove[16]=1; break;// If a good, show as blue.
@@ -1465,9 +1465,12 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 			ShortToCharPtr(pc->skin(), &extmove[13]);
 
 
-            if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
-            if (pc->hidden()) extmove[15]=extmove[15]|0x80;
-            if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
+            if (pc->war) 
+				extmove[15]=0x40; 
+			else 
+				extmove[15]=0x00;
+            if (pc->hidden()) extmove[15] |= 0x80;
+            if (pc->poisoned()) extmove[15] |= 0x04; //AntiChrist -- thnx to SpaceDog
             const int guild = GuildCompare( pc, currchar[i] );
             if (pc->kills > SrvParams->maxkills() ) extmove[16]=6; // ripper
             //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
@@ -1479,7 +1482,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             //                  else if( !chars[i].npc && ( chars[i].priv&1 || chars[i].priv&80 ) )
             //                          extmove[16] = 7;
             else {
-                switch(pc->flag)
+                switch(pc->flag())
                 {//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
                 case 0x01: extmove[16]=6; break;// If a bad, show as red.
                 case 0x04: extmove[16]=1; break;// If a good, show as blue.

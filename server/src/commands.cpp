@@ -728,7 +728,7 @@ void cCommands::SetTriggerWord(int s)
   if (pc != NULL)
   {
 		sysmessage(s, tr("Trigger word set"));
-		pc->trigword = xtext[s];
+		pc->setTrigword( xtext[s] );
   }
 }
 
@@ -765,8 +765,8 @@ void cCommands::SetNPCTrigger(int s)
 	{
 		//   if (chars[i].npc)
 		//   {
-		sysmessage(s, tr("NPC triggered"));
-		pc->trigger = addx[s];
+		sysmessage(s, tr("NPC triggered") );
+		pc->setTrigger( addx[s] );
 		//   }else{
 		//    sysmessage(s,"You can not trigger Player Characters");
 		//   }

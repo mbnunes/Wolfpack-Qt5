@@ -253,15 +253,15 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 					if (pc->regen3 + (c*interval) <= currenttime && pc->mn <= pc->in)
 					{
 						pc->mn++;
-						if (pc->med && pc->mn <= pc->mn2)
+						if (pc->med() && pc->mn <= pc->mn2)
 							pc->mn += 5;
 						if (pc->mn>pc->in)
 						{
-							if (pc->med)
+							if (pc->med())
 							{
 								int s = calcSocketFromChar(pc);
 								sysmessage(s, tr("You are at peace.") );
-								pc->med = false;
+								pc->setMed(false);
 							}
 							pc->mn = pc->in;
 							break;
@@ -277,7 +277,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 					// 50 = int affects mana regen (%50)
 					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
 					int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill[MEDITATION] + 1)/10) + ((pc->in + 1) / 2)) / ratio));
-					if (pc->med)
+					if (pc->med())
 					{
 						pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);
 					}
@@ -347,14 +347,14 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 	if (LSD[s]) do_lsd(s); //LB's LSD potion-stuff
 
-	if (pc->isPlayer() && online(pc) && pc->squelched==2)
+	if (pc->isPlayer() && online(pc) && pc->squelched()==2)
 	{
-		if (pc->mutetime!=-1)
+		if (pc->mutetime()>0)
 		{
-			if (pc->mutetime<=currenttime||overflow)
+			if (pc->mutetime()<=currenttime||overflow)
 			{
-				pc->squelched=0;
-				pc->mutetime=-1;
+				pc->setSquelched(0);
+				pc->setMutetime(0);
 				sysmessage(s, tr("You are no longer squelched!") );
 			}
 		}
@@ -362,34 +362,34 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 	if (pc->isPlayer() && online(pc))
 	{
-		if ( pc->crimflag > 0 && ( pc->crimflag <= currenttime || overflow ) &&  pc->isCriminal() )//AntiChrist
+		if ( pc->crimflag() > 0 && ( pc->crimflag() <= currenttime || overflow ) &&  pc->isCriminal() )//AntiChrist
 		{
 			sysmessage(s, tr("You are no longer a criminal.") );
-			pc->crimflag=-1;
+			pc->setCrimflag(0);
 			pc->setInnocent();
 		}
-		if (pc->murderrate<currenttime)//AntiChrist
+		if (pc->murderrate()<currenttime)//AntiChrist
 		{
 			if (pc->kills>0)
 				pc->kills--;
 			if ((pc->kills==SrvParams->maxkills())&&(SrvParams->maxkills()>0))
 				sysmessage(s, tr("You are no longer a murderer.") );
-			pc->murderrate=(SrvParams->murderdecay()*MY_CLOCKS_PER_SEC)+currenttime;//AntiChrist
+			pc->setMurderrate((SrvParams->murderdecay()*MY_CLOCKS_PER_SEC)+currenttime);//AntiChrist
 		}
 		setcharflag(pc);//AntiChrist
 	}
 
 	if ( pc->isPlayer() && pc->casting() )//PC casting a spell
 	{
-		pc->nextact--;
-		if (pc->spelltime<=currenttime||overflow)//Spell is complete target it.
+		pc->setNextact(pc->nextact()-1);
+		if (pc->spelltime()<=currenttime||overflow)//Spell is complete target it.
 		{
 			Magic->AfterSpellDelay( s, pc );
 		}
-		else if (pc->nextact<=0)//redo the spell action
+		else if (pc->nextact()<=0)//redo the spell action
 		{
-			pc->nextact=75;
-			impaction(s, pc->spellaction);
+			pc->setNextact(75);
+			impaction(s, pc->spellaction());
 		}
 	}
 
@@ -503,19 +503,19 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 	// new math + poison wear off timer added by lord binary !
 
-	if ( pc->poisoned && (online(pc) || pc->isNpc()) && !pc->isInvul() )
+	if ( pc->poisoned() && (online(pc) || pc->isNpc()) && !pc->isInvul() )
 	{
-		if (pc->poisontime<=currenttime || (overflow))
+		if (pc->poisontime()<=currenttime || (overflow))
 		{
-			if (pc->poisonwearofftime>currenttime) // lb, makes poison wear off pc's
+			if (pc->poisonwearofftime()>currenttime) // lb, makes poison wear off pc's
 			{
-				switch (pc->poisoned)
+				switch (pc->poisoned())
 				{
 				case 1:
-					pc->poisontime=currenttime+(5*MY_CLOCKS_PER_SEC);
-					if ( pc->poisontxt<=currenttime || (overflow))
+					pc->setPoisontime(currenttime+(5*MY_CLOCKS_PER_SEC));
+					if ( pc->poisontxt()<=currenttime || (overflow))
 					{
-						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks a bit nauseous *", pc->name.c_str());
 						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -526,10 +526,10 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					updatestats(pc, 0);
 					break;
 				case 2:
-					pc->poisontime=currenttime+(4*MY_CLOCKS_PER_SEC);
-					if ((pc->poisontxt<=currenttime)||(overflow))
+					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
+					if ((pc->poisontxt()<=currenttime)||(overflow))
 					{
-						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
 						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -540,10 +540,10 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					updatestats(pc, 0);
 					break;
 				case 3:
-					pc->poisontime=currenttime+(3*MY_CLOCKS_PER_SEC);
-					if ( pc->poisontxt <= currenttime ||(overflow))
+					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
+					if ( pc->poisontxt() <= currenttime ||(overflow))
 					{
-						pc->poisontxt = currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s is in severe pain! *", pc->name.c_str());
 						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -557,10 +557,10 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					updatestats(pc, 0);
 					break; // lb !!!
 				case 4:
-					pc->poisontime = currenttime+(3*MY_CLOCKS_PER_SEC);
-					if ( pc->poisontxt <= currenttime || (overflow))
+					pc->setPoisontime( currenttime+(3*MY_CLOCKS_PER_SEC) );
+					if ( pc->poisontxt() <= currenttime || (overflow))
 					{
-						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *", pc->name.c_str());
 						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -575,7 +575,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 				default:
 					clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, checkPC()\n"); //Morrolan
-					pc->poisoned=0;
+					pc->setPoisoned(0);
 					return;
 				}
 				if (pc->hp<1)
@@ -587,9 +587,9 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		} // end if poison-wear off-timer
 	} // end if poison-damage timer
 
-	if ( pc->poisoned && pc->poisonwearofftime<=currenttime && online(pc) )
+	if ( pc->poisoned() && pc->poisonwearofftime()<=currenttime && online(pc) )
 	{
-		pc->poisoned = 0;
+		pc->setPoisoned(0);
 		impowncreate(s, pc, 1); // updating to blue stats-bar ...
 		sysmessage(s, tr("The poison has worn off.") );
 	}
@@ -635,9 +635,9 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 	if (!pc->free) //bud
 	{
-		if ((pc->disabled>0)&&((pc->disabled<=currenttime)||(overflow)))
+		if ((pc->disabled()>0)&&((pc->disabled()<=currenttime)||(overflow)))
 		{
-			pc->disabled=0;
+			pc->setDisabled(0);
 		}
 		if (pc->summontimer<=currenttime||(overflow))
 		{
@@ -668,14 +668,14 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 //	if ((pc->fleeat==0)) pc->fleeat=SrvParms->npc_base_fleeat;
 //	if ((pc->reattackat==0)) pc->reattackat=SrvParms->npc_base_reattackat;
 
-	if (pc->npcWander!=5 &&	pc->hp < pc->st*pc->fleeat/100)
+	if (pc->npcWander!=5 &&	pc->hp < pc->st*pc->fleeat()/100)
 	{
 		pc->oldnpcWander = pc->npcWander;
 		pc->npcWander=5;
 		pc->setNextMoveTime();
 	}
 
-	if (pc->npcWander==5 &&	pc->hp > pc->st*pc->reattackat/100)
+	if (pc->npcWander==5 &&	pc->hp > pc->st*pc->reattackat()/100)
 	{
 		pc->npcWander = pc->oldnpcWander;
 		pc->setNextMoveTime();
@@ -685,19 +685,19 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	// end of flee code
 
 	// new poisoning code, Lord Binary
-	if (pc->poisoned && !(pc->isInvul()) )
+	if (pc->poisoned() && !(pc->isInvul()) )
 	{
-		if ((pc->poisontime<=currenttime)||(overflow))
+		if ((pc->poisontime()<=currenttime)||(overflow))
 		{
-			if (pc->poisonwearofftime>currenttime) // lb, makes poison wear off pc's
+			if (pc->poisonwearofftime()>currenttime) // lb, makes poison wear off pc's
 			{
-				switch (pc->poisoned)
+				switch (pc->poisoned())
 				{
 				case 1:
-					pc->poisontime=currenttime+(5*MY_CLOCKS_PER_SEC);
-					if ((pc->poisontxt<=currenttime)||(overflow))
+					pc->setPoisontime(currenttime+(5*MY_CLOCKS_PER_SEC));
+					if ((pc->poisontxt()<=currenttime)||(overflow))
 					{
-						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks a bit nauseous *",pc->name.c_str());
 						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -706,10 +706,10 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					updatestats(pc, 0);
 					break;
 				case 2:
-					pc->poisontime=currenttime+(4*MY_CLOCKS_PER_SEC);
-					if ((pc->poisontxt<=currenttime)||(overflow))
+					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
+					if ((pc->poisontxt()<=currenttime)||(overflow))
 					{
-						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
 						pc->emotecolor = 0x0026; //buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -720,10 +720,10 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					updatestats(pc, 0);
 					break;
 				case 3:
-					pc->poisontime=currenttime+(3*MY_CLOCKS_PER_SEC);
-					if ((pc->poisontxt<=currenttime)||(overflow))
+					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
+					if ((pc->poisontxt()<=currenttime)||(overflow))
 					{
-						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s is in severe pain! *",pc->name.c_str());
 						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -733,10 +733,10 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					updatestats(pc, 0);
 					break; // lb !!!
 				case 4:
-					pc->poisontime=currenttime+(3*MY_CLOCKS_PER_SEC);
-					if ((pc->poisontxt<=currenttime)||(overflow))
+					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
+					if ((pc->poisontxt()<=currenttime)||(overflow))
 					{
-						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
+						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name.c_str());
 						pc->emotecolor = 0x0026;//buffer[s][4];
 						npcemoteall(pc,t,1);
@@ -748,7 +748,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					break;
 				default:
 					clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, checkNPC()\n"); //Morrolan
-					pc->poisoned=0;
+					pc->setPoisoned(0);
 					return;
 				}
 				if (pc->hp < 1)
@@ -759,11 +759,11 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		} // end if poison-wear off-timer
 	} // end if poison-damage timer
 
-	if ((pc->poisonwearofftime<=currenttime))
+	if ((pc->poisonwearofftime()<=currenttime))
 	{
-		if ((pc->poisoned))
+		if ((pc->poisoned()))
 		{
-			pc->poisoned=0;
+			pc->setPoisoned(0);
 			impowncreate(calcSocketFromChar(pc), pc, 1); // updating to blue stats-bar ...
 		}
 	}

@@ -293,8 +293,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		
 		else if (Trig->checkenvoke( ((pi->id()&0xFF00) >> 8), (pi->id()&0x00FF) ))
 		{
-			pc_currchar->envokeitem = pi->serial;
-			pc_currchar->envokeid = pi->id();
+			pc_currchar->setEnvokeitem( pi->serial );
+			pc_currchar->setEnvokeid( pi->id() );
 			target(s, 0, 1, 0, 24, "What will you use this on?");
 			return;
 		}
@@ -565,13 +565,13 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			default: sysmessage(s, "You are simply too full to eat any more!");				break;
 			}// switch(pc_currchar->hunger)
 			
-			if ((pi->poisoned) &&(pc_currchar->poisoned < pi->poisoned)) 
+			if ((pi->poisoned) &&(pc_currchar->poisoned() < pi->poisoned)) 
 			{
 				sysmessage(s, "You have been poisoned!");
 				soundeffect2(currchar[s], 0x0246); // poison sound - SpaceDog
-				pc_currchar->poisoned = pi->poisoned;
-				pc_currchar->poisontime = uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-				pc_currchar->poisonwearofftime = pc_currchar->poisontime +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // wear off starts after poison takes effect - AntiChrist
+				pc_currchar->setPoisoned( pi->poisoned );
+				pc_currchar->setPoisontime( uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+				pc_currchar->setPoisonwearofftime( pc_currchar->poisontime() +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()) ); // wear off starts after poison takes effect - AntiChrist
 				impowncreate(s, currchar[s], 1); // Lb, sends the green bar ! 
 			}
 			

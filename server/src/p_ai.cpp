@@ -185,7 +185,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						npctalkall(pc_i, "In Vas Mani", 0);
 						Magic->NPCHeal(pc_i);
 					}
-					else if (pc_i->poisoned)
+					else if (pc_i->poisoned())
 					{
 						npctalkall(pc_i, "An Nox", 0);
 						Magic->NPCCure(pc_i);
@@ -318,7 +318,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						d = chardist( pc_i, pc);
 						if (pc_i == pc || d > 3 || pc->isInvul() || pc->dead || !onl)
 							continue;
-						if (pc->isPlayer() && pc->crimflag > 0)
+						if (pc->isPlayer() && pc->crimflag() > 0)
 						{
 							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name.c_str());
 							npctalkall(pc_i, (char*)temp, 1);
@@ -544,7 +544,7 @@ void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 {
 	if (currenttime >= pc_i->spatimer)
 	{
-		if (pc_i->poisoned)
+		if (pc_i->poisoned())
 		{
 			Magic->NPCCure(pc_i);
 		}

@@ -676,7 +676,7 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 		pc->npcaitype(), pc->npcWander, (float)pc->weight);
 	sysmessage(s, (char*)temp);
 	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
-		pc->poisoned,pc->poison,pc->hunger(),pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
+		pc->poisoned(),pc->poison(),pc->hunger(),pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
 	Gumps->Open(s, pc, 0, 8);
 	statwindow(s, pc);
@@ -1413,28 +1413,28 @@ void cTargets::SquelchTarg(int s)//Squelch
 			sysmessage(s, "You cannot squelch GMs.");
 			return;
 		}
-		if (pc->squelched)
+		if (pc->squelched())
 		{
-			pc->squelched=0;
+			pc->setSquelched(0);
 			sysmessage(s, "Un-squelching...");
 			sysmessage(calcSocketFromChar(pc), "You have been unsquelched!");
-			pc->mutetime=-1;
+			pc->setMutetime(0);
 		}
 		else
 		{
-			pc->mutetime=-1;
-			pc->squelched=1;
+			pc->setMutetime(-1);
+			pc->setSquelched(1);
 			sysmessage(s, "Squelching...");
 			sysmessage(calcSocketFromChar(pc), "You have been squelched!");
 			
 			if (addid1[s]!=255 || addid1[s]!=0)
 		
 			{
-				pc->mutetime=(unsigned int) (uiCurrentTime+(addid1[s]*MY_CLOCKS_PER_SEC));
+				pc->setMutetime((unsigned int) (uiCurrentTime+(addid1[s]*MY_CLOCKS_PER_SEC)));
 				
 				addid1[s]=255;
 			
-				pc->squelched=2;
+				pc->setSquelched(2);
 			}
 		}
 	}
@@ -2983,7 +2983,7 @@ void cTargets::SetPoisonTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->poison=tempint[s];
+		pc->setPoison(tempint[s]);
 	}
 }
 
@@ -2993,8 +2993,8 @@ void cTargets::SetPoisonedTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->poisoned=tempint[s];
-		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // lb, poison wear off timer setting
+		pc->setPoisoned(tempint[s]);
+		pc->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
 		impowncreate(calcSocketFromChar(pc), pc, 1); //Lb, sends the green bar !
 	}
 }
@@ -3024,7 +3024,7 @@ void cTargets::SetAdvObjTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->advobj=tempint[s];
+		pc->setAdvobj(tempint[s]);
 	}
 }
 
@@ -3044,7 +3044,7 @@ void cTargets::CanTrainTarget(int s)
 			sysmessage(s, "Only NPC's may train.");
 			return;
 		}
-		pc->cantrain = !pc->cantrain;	//turn on if off, off if on
+		pc->setCantrain(!pc->cantrain());	//turn on if off, off if on
 	}
 }
 
@@ -3054,7 +3054,7 @@ void cTargets::SetSplitTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->split=tempint[s];
+		pc->setSplit(tempint[s]);
 	}
 }
 
@@ -3064,7 +3064,7 @@ void cTargets::SetSplitChanceTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->splitchnc=tempint[s];
+		pc->setSplitchnc(tempint[s]);
 	}
 }
 
@@ -4175,7 +4175,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				if ( pi != NULL )
 				{
 					Trig->triggerwitem(s, pi, 0);
-					pc_currchar->envokeid = 0x00;
+					pc_currchar->setEnvokeid(0x00);
 					return;
 				}
 				// Checking if target is an NPC	--- By Magius(CHE) §
@@ -4183,12 +4183,12 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				if(pc_i != NULL)
 				{
 					Trig->triggernpc(s, pc_i, 0);
-					pc_currchar->envokeid = 0x00;
+					pc_currchar->setEnvokeid(0x00);
 					return;
 				}
 				// End Addons by Magius(CHE) §
 				Trig->triggerwitem(s, NULL, 0);
-				pc_currchar->envokeid = 0x00;
+				pc_currchar->setEnvokeid(0x00);
 				return;
 			}
 		case 25: Targ->CloseTarget(s); break;
@@ -4295,7 +4295,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 154: Skills->ForensicsTarget(s); break;
 		case 155:
 			{
-				currchar[s]->poisonserial=LongFromCharPtr(buffer[s]+7);
+				currchar[s]->setPoisonserial(LongFromCharPtr(buffer[s]+7));
 				target(s, 0, 1, 0, 156, "What item do you want to poison?");
 				return;
 			}
@@ -4345,14 +4345,14 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 
 		case 220: 
 			{
-				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(currchar[s]->guildstone));
+				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(currchar[s]->guildstone()));
 				if ( pStone != NULL )
 					pStone->Recruit(s);			
 			}
 			break;
 		case 221:
 			{
-				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(currchar[s]->guildstone));
+				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(currchar[s]->guildstone()));
 				if ( pStone != NULL )
 			//		pStone->TargetWar(s);
 				sysmessage(s, "Sorry, currently disabled");

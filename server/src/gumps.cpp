@@ -280,7 +280,7 @@ void cGump::Input(int s)
 
 	if (type == 100)
 	{
-		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc_currchar->guildstone));
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc_currchar->guildstone()));
 		if ( pStone != NULL)
 			pStone->GumpInput(s,type,index,text);
 	}
@@ -1374,7 +1374,7 @@ void MenuChoice( UOXSOCKET Socket )
 	if ( (UI08)( Menu >> 8 ) == 0xFE )
 	{
 		// Get the Guildstone item
-		cGuildStone* pStone = dynamic_cast<cGuildStone*>( FindItemBySerial( pc_currchar->guildstone ) );
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>( FindItemBySerial( pc_currchar->guildstone() ) );
 		
 		if ( pStone != NULL )
 			pStone->GumpChoice( Socket, Menu, Choice );

@@ -664,7 +664,7 @@ void cSkills::Mine(int s)
 		//
 		if(SrvParams->miningtrigger()>0)
 		{
-			pc->targtrig=SrvParams->miningtrigger();
+			pc->setTargtrig(SrvParams->miningtrigger());
 			P_ITEM pi = FindItemBySerial(addmitem[s]);
 			Trig->triggerwitem(s, pi, 1);
 			// Currently Disabled.
@@ -1642,7 +1642,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		}
 		if ((ph->isInnocent()) &&(ph->serial != pp->serial))
 		{
-	       if ((pp->crimflag>0) ||(pp->isMurderer()))
+	       if ((pp->crimflag()>0) ||(pp->isMurderer()))
 		   {
 		       criminal(ph);
 		   }
@@ -1670,7 +1670,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		}
 		
 		
-		if (pp->poisoned>0)
+		if (pp->poisoned()>0)
 		{
 			if (ph->skill[HEALING]<600 || ph->skill[ANATOMY]<600)
 			{
@@ -1685,7 +1685,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				CheckSkill((ph),ANATOMY,600,1000);
 				if(curechance<=curecheck)
 				{
-					pp->poisoned=0;
+					pp->setPoisoned(0);
 					sysmessage(s, tr("Because of your skill, you were able to counter the poison.") );
 				}
 				else
@@ -2408,7 +2408,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 {
 	P_CHAR pc = currchar[s];
 
-	P_ITEM pPoi=FindItemBySerial(pc->poisonserial);
+	P_ITEM pPoi=FindItemBySerial(pc->poisonserial());
 	if (!pPoi) return;
 
 	if(pPoi->type!=19 || pPoi->morey!=6)
@@ -2417,7 +2417,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		return;
 	}
 	
-	pc->poisonserial=0;
+	pc->setPoisonserial(INVALID_SERIAL);
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi)
 	{
@@ -2465,7 +2465,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		sysmessage(s, tr("You can't poison that item.") );
 		return;
 	}
-	pc->poisonserial=0;
+	pc->setPoisonserial(INVALID_SERIAL);
 }
 
 void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper

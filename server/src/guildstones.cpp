@@ -68,7 +68,7 @@ void StonePlacement(UOXSOCKET s)
 	
 	if (pDeed->id() == 0x14F0)
 	{
-		if (pc->guildstone != INVALID_SERIAL)
+		if (pc->guildstone() != INVALID_SERIAL)
 		{
 			itemmessage(s,"You are already in a guild.",pDeed->serial);
 			return;
@@ -83,11 +83,11 @@ void StonePlacement(UOXSOCKET s)
 		pStone->setId(0x0ED5);
 		pStone->setName( "Guildstone for an unnamed guild" );
 		Items->GetScriptItemSetting(pStone);
-		pc->guildstone = pStone->serial;
+		pc->setGuildstone( pStone->serial );
 		if (pc->id() == 0x0191)	
-			pc->guildtitle = "Guildmistress";	
+			pc->setGuildtitle("Guildmistress");
 		else
-			pc->guildtitle = "Guildmaster";
+			pc->setGuildtitle("Guildmaster");
 
 		pStone->webpage = DEFAULTWEBPAGE;
 		pStone->charter = DEFAULTCHARTER;
@@ -167,16 +167,16 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	}
 
 	strcpy(guildfealty, "yourself");
-	if ((pc->guildfealty != pc->serial)&&(pc->guildfealty != INVALID_SERIAL))
+	if ((pc->guildfealty() != pc->serial)&&(pc->guildfealty() != INVALID_SERIAL))
 	{
-		vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->guildfealty);
+		vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->guildfealty());
 		if ( it != member.end())
 		{
 			strcpy(guildfealty, FindCharBySerial(*it)->name.c_str());
 		}
 	}
 	else 
-		pc->guildfealty = pc->serial;	
+		pc->setGuildfealty( pc->serial );
 	if (this->ownserial == INVALID_SERIAL) 
 		CalcMaster();
 	
@@ -189,7 +189,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		case chaos:			strcpy(guildt, " Chaos");		break;
 	}
 	
-	if (pc->guildtoggle) 
+	if (pc->guildtoggle()) 
 		strcpy(toggle, "On");
 	else
 		strcpy(toggle, "Off");
@@ -205,7 +205,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 
 		if (guildmaster<0) return;
 
-		lentext = sprintf(mygump[0], "%s (%s %s)", this->guildName.c_str(), guildmaster->guildtitle.c_str(), guildmaster->name.c_str());
+		lentext = sprintf(mygump[0], "%s (%s %s)", this->guildName.c_str(), guildmaster->guildtitle().latin1(), guildmaster->name.c_str());
 		strcpy(mygump[1],"Recruit someone into the guild.");
 		strcpy(mygump[2],"View the current roster.");
 		strcpy(mygump[3],"View the guild's charter.");
@@ -217,7 +217,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		{															
 			gumpnum=10;
 			gmprefix[8] = 0;
-			sprintf(mygump[8],"Access %s functions.", guildmaster->guildtitle.c_str());
+			sprintf(mygump[8],"Access %s functions.", guildmaster->guildtitle().latin1());
 			sprintf(mygump[9],"View list of guild that %s has declared war on.", this->guildName.c_str());
 			sprintf(mygump[10],"View list of guilds that have declared war on %s.",this->guildName.c_str());
 		} else {													// Normal Members access!
@@ -227,7 +227,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		break;
 	case 2:														// guildmaster menu
 		gumpnum=14;
-		lentext = sprintf(mygump[0], "%s, %s functions", this->guildName.c_str(), guildmaster->guildtitle.c_str());
+		lentext = sprintf(mygump[0], "%s, %s functions", this->guildName.c_str(), guildmaster->guildtitle().latin1());
 		strcpy(mygump[1], "Set the guild name.");
 		strcpy(mygump[2], "Set the guild's abbreviation.");
 		sprintf(mygump[3], "Change the type of the guild. (Currently a%s guild.)",guildt);
@@ -499,7 +499,7 @@ void GuildResign(int s)
 
 	P_CHAR pc = currchar[s];
 
-	cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc->guildstone));
+	cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc->guildstone()));
 
 	if (pStone == NULL)
 	{
@@ -575,10 +575,10 @@ void cGuildStone::removeMember(P_CHAR pc)
 
 	vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->serial);
 	member.erase(it);
-	pc->guildstone = INVALID_SERIAL;
-	pc->guildfealty = INVALID_SERIAL;
-	pc->guildtoggle = false;
-	pc->guildtitle = "";
+	pc->setGuildstone( INVALID_SERIAL );
+	pc->setGuildfealty( INVALID_SERIAL );
+	pc->setGuildtoggle( false );
+	pc->setGuildtitle( QString::null );
 	RemoveShields(pc);
 }
 
@@ -600,14 +600,14 @@ void cGuildStone::ToggleAbbreviation(UOXSOCKET s)
 	}
 	else
 	{
-		if (!pc->guildtoggle)									// If set to Off then
+		if (!pc->guildtoggle())									// If set to Off then
 		{
-			pc->guildtoggle = true;									// Turn it On
+			pc->setGuildtoggle(true);									// Turn it On
 			sysmessage(s, "You toggled your abbreviation on.");	// Tell player about the change
 		}
 		else													// Otherwise
 		{
-			pc->guildtoggle = false;					// Turn if Off
+			pc->setGuildtoggle(false);					// Turn if Off
 			sysmessage(s, "You toggled your abbreviation off.");	// And tell him also
 		}
 	}
@@ -622,7 +622,7 @@ void cGuildStone::ToggleAbbreviation(UOXSOCKET s)
 void cGuildStone::Recruit(UOXSOCKET s)
 {
 
-	if ( currchar[s]->guildstone == INVALID_SERIAL ) 
+	if ( currchar[s]->guildstone() == INVALID_SERIAL ) 
 	{
 		sysmessage(s,"you are in no guild");
 		return;
@@ -633,7 +633,7 @@ void cGuildStone::Recruit(UOXSOCKET s)
 	P_CHAR pc = FindCharBySerial( serial );
 	if(pc != NULL)
 	{
-			if (pc->guildstone != INVALID_SERIAL) 
+			if (pc->guildstone() != INVALID_SERIAL) 
 				sysmessage(s,"This person is already in a guild.");
 			else 
 			{
@@ -655,12 +655,12 @@ int GuildCompare(P_CHAR player1, P_CHAR player2)
 	if (player1 == NULL || player2 == NULL) return 0;
 
 	// one of both not in a guild -> no guildwarfare
-	if (player1->guildstone == INVALID_SERIAL || player2->guildstone == INVALID_SERIAL ) return 0;
+	if (player1->guildstone() == INVALID_SERIAL || player2->guildstone() == INVALID_SERIAL ) return 0;
 
-	if (player1->guildstone == player2->guildstone) { return 1; }
+	if (player1->guildstone() == player2->guildstone()) { return 1; }
 
-	cGuildStone* pStone1 = dynamic_cast<cGuildStone*>(FindItemBySerial(player1->guildstone));
-	cGuildStone* pStone2 = dynamic_cast<cGuildStone*>(FindItemBySerial(player2->guildstone));
+	cGuildStone* pStone1 = dynamic_cast<cGuildStone*>(FindItemBySerial(player1->guildstone()));
+	cGuildStone* pStone2 = dynamic_cast<cGuildStone*>(FindItemBySerial(player2->guildstone()));
 
 	if ( pStone1->guildType != pStone2->guildType && pStone1->guildType != cGuildStone::standard && pStone2->guildType != cGuildStone::standard)
 	{
@@ -714,7 +714,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 	// Truncate the first few bytes
 	UI08 Page = (UI08)MenuID;
 
-	if ( pc_currchar->guildstone != this->serial ) 
+	if ( pc_currchar->guildstone() != this->serial ) 
 		return;
 
 	switch( Page )
@@ -850,7 +850,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 			return;
 		else
 		{
-			pc_currchar->guildfealty = member[ Choice ];
+			pc_currchar->setGuildfealty( member[ Choice ] );
 		}
 		Menu( s, 1 );
 		return;
@@ -973,7 +973,7 @@ void cGuildStone::ChangeTitle(UOXSOCKET s, char *text)
 
 	if (member == NULL) member = currchar[s];
 	this->priv = INVALID_SERIAL;
-	member->guildtitle = text;
+	member->setGuildtitle( text );
 	if (member == currchar[s]) 
 		sysmessage(s,"You changed your own title.");
 	else 
@@ -1083,7 +1083,7 @@ void cGuildStone::CalcMaster()
 	for ( i = 0; i < member.size(); ++i)
 	{
 		P_CHAR pc = FindCharBySerial( member[i] );
-		votes[pc->guildfealty]++;
+		votes[pc->guildfealty()]++;
 	}
 
 /*	struct maxVotes : public binary_function< pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>, bool>
@@ -1183,9 +1183,9 @@ void GuildTitle(int s, P_CHAR pc_player2)
 	if ( pc_player2 == NULL )
 		return;
 
-	if ( pc_player2->guildstone != INVALID_SERIAL && pc_player2->guildtoggle )
+	if ( pc_player2->guildstone() != INVALID_SERIAL && pc_player2->guildtoggle() )
 	{
-		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial( pc_player2->guildstone ));
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial( pc_player2->guildstone() ));
 		strcpy(abbreviation, pStone->abbreviation.c_str());
 		
 		if (!(strcmp(abbreviation,"")))
@@ -1197,8 +1197,8 @@ void GuildTitle(int s, P_CHAR pc_player2)
 		default:													break;		
 		}
 
-		if (pc_player2->guildtitle != "") 
-			sprintf(title,"[%s, %s] [%s]",pc_player2->guildtitle.c_str(),abbreviation,guildtype);
+		if (!pc_player2->guildtitle().isEmpty()) 
+			sprintf(title,"[%s, %s] [%s]",pc_player2->guildtitle().latin1(),abbreviation,guildtype);
 		else 
 			sprintf(title,"[%s] [%s]",abbreviation, guildtype);
 

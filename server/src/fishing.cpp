@@ -197,9 +197,9 @@ void cFishing::FishTarget(P_CLIENT ps)
 	if (ok)
 	{
 		action(s,0x0b);
-		if (SrvParams->randomtime()!=0) pPlayer->fishingtimer=rand()%SrvParams->randomtime()+SrvParams->basetime();
+		if (SrvParams->randomtime()!=0) pPlayer->setFishingtimer(rand()%SrvParams->randomtime()+SrvParams->basetime());
 		else
-		pPlayer->fishingtimer=SrvParams->basetime();
+		pPlayer->setFishingtimer(SrvParams->basetime());
 		
 		soundeffect(s, 0x02, 0x3F);
 		pPlayer->unhide();

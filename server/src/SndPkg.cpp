@@ -1314,7 +1314,7 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 												{ if  (title[15].other[0] != 0) sprintf((char*)temp, " [%s]",title[15].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
 	if (pc->tamed() && pc->npcaitype()!=17 )		{ if  (title[16].other[0] != 0) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
 	if (pc->war)								{ if  (title[17].other[0] != 0) sprintf((char*)temp, " [%s]",title[17].other); strcat(name2,(char*)temp); } // ripper
-	if ((pc->crimflag>0)&&(pc->kills<SrvParams->maxkills())) 
+	if ((pc->crimflag()>0)&&(pc->kills<SrvParams->maxkills())) 
 												{ if  (title[18].other[0] != 0) sprintf((char*)temp, " [%s]",title[18].other); else temp[0] = 0; strcat(name2,(char*)temp); }// ripper
 	if (pc->kills>=SrvParams->maxkills())				{ if  (title[19].other[0] != 0) sprintf((char*)temp, " [%s]",title[19].other); else temp[0] = 0; strcat(name2,(char*)temp); } // AntiChrist
 
@@ -1346,7 +1346,7 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 	}
 	else
 	{
-		switch(pc->flag)
+		switch(pc->flag())
 		{
 		case 0x01:	talk[10]=0x00;talk[11]=0x26;break;//red
 		case 0x04:	talk[10]=0x00;talk[11]=0x5A;break;//blue
@@ -1376,7 +1376,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		goxyz[5]=pc->id1;
 		goxyz[6]=pc->id2;
 		ShortToCharPtr(pc->skin(), &goxyz[8]);
-		if(pc->poisoned) 
+		if(pc->poisoned()) 
 			goxyz[10] |= 0x04; 
 		else 
 			goxyz[10] = 0x00; //AntiChrist -- thnx to SpaceDog
@@ -1524,7 +1524,7 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 				LongToCharPtr(pc->serial, &goxyz[1]);
 				ShortToCharPtr(pc->id(),  &goxyz[5]);
 				ShortToCharPtr(pc->skin(),  &goxyz[8]);
-				if(pc->poisoned) 
+				if(pc->poisoned()) 
 					goxyz[10]=0x04; 
 				else 
 					goxyz[10]=0x00;	//AntiChrist -- thnx to SpaceDog
@@ -2691,7 +2691,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	ShortToCharPtr(pc->skin(), &oc[15]); // Character skin color
 	oc[17]=0; // Character flags
 	if (pc->isHidden() || !(online(pc)||pc->isNpc())) oc[17]=oc[17]|0x80; // Show hidden state correctly
-	if (pc->poisoned) oc[17]=oc[17]|0x04; //AntiChrist -- thnx to SpaceDog
+	if (pc->poisoned()) oc[17]=oc[17]|0x04; //AntiChrist -- thnx to SpaceDog
 
 	k=19;
 	int guild,race;
@@ -2701,7 +2701,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	else if (guild==2) // Enemy guild.. set to orange
 		oc[18]=5;
 	else
-		switch(pc->flag)
+		switch(pc->flag())
 	{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
 		case 0x01: oc[18]=6; break;// If a bad, show as red.
 		case 0x04: oc[18]=1; break;// If a good, show as blue.

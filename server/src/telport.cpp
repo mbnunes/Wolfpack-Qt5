@@ -141,18 +141,18 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 	if ( pc_s == NULL ) return;
 
 	int pos;
-	if ((pc_s->advobj==0)||(allways==1))
+	if ((pc_s->advobj()==0)||(allways==1))
 	{
 		staticeffect(pc_s, 0x37, 0x3A, 0, 15);
 		soundeffect2(pc_s, 0x01E9);
-		pc_s->advobj=x;
+		pc_s->setAdvobj(x);
 		openscript("advance.scp");
 		sprintf(sect, "ADVANCEMENT %i", x);
 		if (!i_scripts[advance_script]->find(sect))
 		{
 			closescript();
 			clConsole.send("ADVANCEMENT OBJECT: Script section not found. Aborting.\n");
-			pc_s->advobj=0;
+			pc_s->setAdvobj(0);
 			return;
 		}
 		else			
@@ -369,7 +369,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 					if (!(strcmp("ADVOBJ",(char*)script1)))
 					{
 						x=str2num(script2);
-						pc_s->advobj=x;
+						pc_s->setAdvobj(x);
 					}
 				}
 			}
@@ -550,7 +550,7 @@ void monstergate(P_CHAR pc_s, int x)
 					pRetitem->setColor( hex2num(script2) );
 				}
 			}
-			if (!(strcmp("POISON",(char*)script1))) pc_s->poison=str2num(script2);
+			if (!(strcmp("POISON",(char*)script1))) pc_s->setPoison(str2num(script2));
 			
 			//--------------------- NEW STAT & SKILL FORMAT ----------------
 			//Handle Stats

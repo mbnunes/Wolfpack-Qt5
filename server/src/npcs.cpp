@@ -517,7 +517,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			else if (!strcmp("CAMPING",(char*)script1)) pc_c->baseskill[CAMPING] = getstatskillvalue((char*)script2);
 			else if (!strcmp("CARPENTRY",(char*)script1)) pc_c->baseskill[CARPENTRY] = getstatskillvalue((char*)script2);
 			else if (!strcmp("CARTOGRAPHY",(char*)script1)) pc_c->baseskill[CARTOGRAPHY] = getstatskillvalue((char*)script2);
-			else if (!strcmp("CANTRAIN",(char*)script1)) pc_c->cantrain=true;
+			else if (!strcmp("CANTRAIN",(char*)script1)) pc_c->setCantrain(true);
 			else if (!strcmp("COOKING",(char*)script1)) pc_c->baseskill[COOKING] = getstatskillvalue((char*)script2);
 			else if (!strcmp("COLORMATCHHAIR",(char*)script1))
 			{
@@ -589,7 +589,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			else if (!strcmp("FORENSICS",(char*)script1)) pc_c->baseskill[FORENSICS] = getstatskillvalue((char*)script2);
 			else if (!strcmp("FX1",(char*)script1)) fx1=str2num(script2);  // new NPCWANDER implementation
 			else if (!strcmp("FX2",(char*)script1)) fx2=str2num(script2);
-			else if (!strcmp("FLEEAT",(char*)script1)) pc_c->fleeat=str2num(script2);
+			else if (!strcmp("FLEEAT",(char*)script1)) pc_c->setFleeat(str2num(script2));
 			else if (!strcmp("FAME",(char*)script1)) pc_c->fame=str2num(script2);
 			else if (!strcmp("FENCING",(char*)script1)) pc_c->baseskill[FENCING] = getstatskillvalue((char*)script2);
 			else if (!strcmp("FY1",(char*)script1)) fy1=str2num(script2);
@@ -746,7 +746,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
-			else if (!(strcmp((char*)script1, "NOTRAIN"))) pc_c->cantrain=false;
+			else if (!(strcmp((char*)script1, "NOTRAIN"))) pc_c->setCantrain(false);
 			else if (!(strcmp("NPCWANDER",(char*)script1))) pc_c->npcWander=str2num(script2);
 			else if (!(strcmp("NPCAI",(char*)script1))) pc_c->setNpcAIType( hex2num(script2) );
 			break;
@@ -762,7 +762,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			if (!strcmp("PARRYING",(char*)script1)) pc_c->baseskill[PARRYING] = getstatskillvalue((char*)script2);
 			else if (!(strcmp("PRIV1",(char*)script1))) pc_c->setPriv(str2num(script2));
 			else if (!(strcmp("PRIV2",(char*)script1))) pc_c->priv2=str2num(script2);
-			else if (!(strcmp("POISON",(char*)script1))) pc_c->poison=str2num(script2);
+			else if (!(strcmp("POISON",(char*)script1))) pc_c->setPoison(str2num(script2));
 			else if ((!(strcmp("PEACEMAKING",(char*)script1)))||(!(strcmp("SKILL9",(char*)script1)))) pc_c->baseskill[PEACEMAKING] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("PROVOCATION",(char*)script1)))||(!(strcmp("SKILL22",(char*)script1)))) pc_c->baseskill[PROVOCATION] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("POISONING",(char*)script1)))||(!(strcmp("SKILL30",(char*)script1)))) pc_c->baseskill[POISONING] = getstatskillvalue((char*)script2);
@@ -794,7 +794,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			case 'R':
 			case 'r':
 			if (!(strcmp("RACE",(char*)script1))) pc_c->race=str2num(script2);
-			else if (!(strcmp("REATTACKAT",(char*)script1))) pc_c->reattackat=str2num(script2);
+			else if (!(strcmp("REATTACKAT",(char*)script1))) pc_c->setReattackat(str2num(script2));
 			else if ((!(strcmp("REMOVETRAPS",(char*)script1)))||(!(strcmp("SKILL48",(char*)script1)))) pc_c->baseskill[REMOVETRAPS] = getstatskillvalue((char*)script2);
 			else if (!(strcmp("RSHOPITEM",(char*)script1)))
 			{
@@ -941,13 +941,13 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			}
 			else if (!(strcmp("SPATTACK",(char*)script1))) pc_c->spattack=str2num(script2);
 			else if (!(strcmp("SPEECH",(char*)script1))) pc_c->speech=str2num(script2);
-			else if (!(strcmp("SPLIT",(char*)script1))) pc_c->split=str2num(script2);
+			else if (!(strcmp("SPLIT",(char*)script1))) pc_c->setSplit(str2num(script2));
 			else if ((!(strcmp("STR",(char*)script1)))||(!(strcmp("STRENGTH",(char*)script1)))) {
 				pc_c->st  = getstatskillvalue((char*)script2);
 				pc_c->st2 = pc_c->st;
 				pc_c->hp  = pc_c->st;
 			}
-			else if (!(strcmp("SPLITCHANCE",(char*)script1))) pc_c->splitchnc=str2num(script2);
+			else if (!(strcmp("SPLITCHANCE",(char*)script1))) pc_c->setSplitchnc(str2num(script2));
 			else if (!(strcmp("SAYCOLOR",(char*)script1))) 			pc_c->saycolor = static_cast<UI16>(hex2num(script2));
 			else if (!(strcmp("SPADELAY",(char*)script1))) pc_c->spadelay=str2num(script2);
 			else if ((!(strcmp("SPIRITSPEAK",(char*)script1)))||(!(strcmp("SKILL32",(char*)script1)))) pc_c->baseskill[SPIRITSPEAK] = getstatskillvalue((char*)script2);
@@ -978,8 +978,8 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			case 't':
 			if (!(strcmp("TITLE",(char*)script1))) pc_c->setTitle( script2 );
 			else if ((!(strcmp("TOTAME", (char*)script1)))||(!(strcmp("TAMING", (char*)script1)))) pc_c->taming=str2num(script2);
-			else if (!(strcmp("TRIGGER",(char*)script1)))	pc_c->trigger=str2num(script2);
-			else if (!(strcmp("TRIGWORD",(char*)script1)))	pc_c->trigword = (char*)script2;
+			else if (!(strcmp("TRIGGER",(char*)script1)))	pc_c->setTrigger(str2num(script2));
+			else if (!(strcmp("TRIGWORD",(char*)script1)))	pc_c->setTrigword((char*)script2);
 			else if ((!(strcmp("TACTICS",(char*)script1)))||(!(strcmp("SKILL27",(char*)script1)))) pc_c->baseskill[TACTICS] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("TAILORING",(char*)script1)))||(!(strcmp("SKILL34",(char*)script1)))) pc_c->baseskill[TAILORING] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("TAMING",(char*)script1)))||(!(strcmp("SKILL35",(char*)script1)))) pc_c->baseskill[TAMING] = getstatskillvalue((char*)script2);
@@ -1159,7 +1159,10 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	pc_c->stm = pc_k->realDex();
 	pc_c->mn = pc_k->in;
 	z=rand()%35;
-	if (z == 5) pc_c->split=1; else pc_c->split=0;	
+	if (z == 5) 
+		pc_c->setSplit(1); 
+	else 
+		pc_c->setSplit(0);	
 	updatechar(pc_c);
 }
 

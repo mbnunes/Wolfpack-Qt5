@@ -752,8 +752,8 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 	{
 		if (poison>5) poison = 5;
 		else if (poison<0) poison = 1;
-		pc->poisoned=poison;
-		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer());	// lb
+		pc->setPoisoned(poison);
+		pc->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
 		if (s != -1)
 			impowncreate(s, pc, 1); //Lb, sends the green bar !
 	}
@@ -971,7 +971,7 @@ void cMagic::SpellFail(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	//Use Reagents on failure ( if casting from spellbook )
 	if (currentSpellType[s]==0)
-		DelReagents( pc_currchar, pc_currchar->spell );
+		DelReagents( pc_currchar, pc_currchar->spell() );
 
 	//npcaction(cc, 128); // whaaaaaaaaaaaaaat ?
 	//orders the PG to move a step on, but the pg doesn't really move
@@ -1067,8 +1067,8 @@ void cMagic::NPCCure(P_CHAR pc)
 	{
 		doStaticEffect(pc, 11);
 		SubtractMana(pc,5);
-		pc->poisoned=0;
-		pc->poisonwearofftime=uiCurrentTime;
+		pc->setPoisoned(0);
+		pc->setPoisonwearofftime(uiCurrentTime);
 		npcemoteall(pc, "Laughs at the poison attempt", 0);
 	}
 
@@ -1474,13 +1474,13 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	int type = currentSpellType[s];
 	P_CHAR pc_currchar = currchar[s];
 //	int cc=currchar[s];
-	pc_currchar->spell=num;
-	int curSpell = pc_currchar->spell;
+	pc_currchar->setSpell(num);
+	int curSpell = pc_currchar->spell();
 
 	if ((pc_currchar->cell !=0) && (!pc_currchar->isGM()))
 	{
 		sysmessage(s,"You are in jail and cannot cast spells");
-		pc_currchar->spell = 0;
+		pc_currchar->setSpell(0);
 		pc_currchar->setCasting(false);
 		return false;
 	}
@@ -1492,7 +1492,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 			if (pc_currchar->inGuardedArea())
 			{
 			sysmessage(s,"you can't cast spells here");
-			pc_currchar->spell = 0;
+			pc_currchar->setSpell(0);
 			pc_currchar->setCasting(false);
 			return false;
 			}
@@ -1501,7 +1501,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	if( spells[num].enabled != 1 )
 	{
 		sysmessage( s, "That spell is currently not enabled" );
-		pc_currchar->spell = 0;
+		pc_currchar->setSpell(0);
 		pc_currchar->setCasting(false);
 		return false;
 	}
@@ -1521,7 +1521,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 					|| IsChaosOrOrderShield(pj->id()) ))
 				{
 					sysmessage(s,"You cannot cast with a weapon equipped.");
-					pc_currchar->spell = 0;
+					pc_currchar->setSpell(0);
 					pc_currchar->setCasting(false);
 					return false;
 				}
@@ -1535,7 +1535,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	//Check for enough reagents
 	if (type==0 && (!CheckReagents(pc_currchar, num)))
 	{
-		pc_currchar->spell = 0;
+		pc_currchar->setSpell(0);
 		pc_currchar->setCasting(false);
 		return false;
 	}
@@ -1545,7 +1545,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 		{
 			//success=0;
 			sysmessage(s, "You have insufficient mana to cast that spell.");
-			pc_currchar->spell = 0;
+			pc_currchar->setSpell(0);
 			pc_currchar->setCasting(false);
 			return false;
 		}
@@ -1563,17 +1563,17 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	//AntiChrist - 26/10/99
 	//LET'S USE SCRIPT-CONFIGURABLE DELAYS!!!
 	pc_currchar->setCasting(true);
-	if(pc_currchar->spell!=999) pc_currchar->spell=num;
-	pc_currchar->spellaction=spells[num].action;
-	pc_currchar->nextact=75;
+	if(pc_currchar->spell()!=999) pc_currchar->setSpell(num);
+	pc_currchar->setSpellaction(spells[num].action);
+	pc_currchar->setNextact(75);
 	if (type==0 && (!(pc_currchar->isGM())))//if they are a gm they don't have a delay :-)
 	{
-		pc_currchar->spelltime=(spells[num].delay*MY_CLOCKS_PER_SEC)+uiCurrentTime;
+		pc_currchar->setSpelltime((spells[num].delay*MY_CLOCKS_PER_SEC)+uiCurrentTime);
 		pc_currchar->priv2 |= 2;//freeze
 	}
 	else
 	{
-		pc_currchar->spelltime=0;
+		pc_currchar->setSpelltime(0);
 	}
 	if (type==1)
 	{
@@ -1585,7 +1585,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 		if (type==1 && !(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
 		{
 				SpellFail(s);
-				pc_currchar->spell = 0;
+				pc_currchar->setSpell( 0 );
 				pc_currchar->setCasting(false);
 				return false;
 		}
@@ -1639,7 +1639,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	
 	int loskill, hiskill;//AntiChrist moved here
 	P_CHAR pc_currchar = currchar[s];
-	int curSpell = pc_currchar->spell;
+	int curSpell = pc_currchar->spell();
 	short xo,yo;
 	signed char zo;
 	
@@ -1665,7 +1665,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		if (!(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
 		{
 			SpellFail(s);
-			pc_currchar->spell = 0;
+			pc_currchar->setSpell( 0 );
 			pc_currchar->setCasting(false);
 			return;
 		}
@@ -1788,7 +1788,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			}
 			else
 				sysmessage( s, "Not a valid target on item!" );
-			pc_currchar->spell = 0;
+			pc_currchar->setSpell( 0 );
 			return;
 		}
 		
@@ -1851,7 +1851,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						m=pc_currchar->skill[MAGERY];
 						if ((pc_currchar->isInnocent()) &&(pc_currchar->serial != pc_defender->serial))
 						{
-							if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
+							if ((pc_defender->crimflag()>0) ||(pc_defender->isMurderer()))
 							{
 								criminal(pc_currchar);
 							}
@@ -1884,7 +1884,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							break;
 						}
 						tempeffect( pc_currchar, pc_defender, 15, pc_currchar->skill[MAGERY]/100, 0, 0 );
-						pc_defender->ra=1;
+						pc_defender->setRa(1);
 						break;
 						//////////// (8) WEAKEN /////////////////
 					case 8:
@@ -1900,8 +1900,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (11) CURE //////////////////
 					case 11:
-						pc_defender->poisoned=0;
-						pc_defender->poisonwearofftime=uiCurrentTime;
+						pc_defender->setPoisoned(0);
+						pc_defender->setPoisonwearofftime(uiCurrentTime);
 						impowncreate(s, pc_defender, 1); // updating to blue bar
 						break;
 						//////////// (12) HARM //////////////////
@@ -1940,8 +1940,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 20:
 						if(CheckResist(pc_currchar, pc_defender, 1)) return;
 						{
-							pc_defender->poisoned=2;
-							pc_defender->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // LB
+							pc_defender->setPoisoned(2);
+							pc_defender->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer())); // LB
 							impowncreate( s, pc_defender, 1); //Lb, sends the green bar !
 						}
 						break;
@@ -1957,7 +1957,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 29:
 						if ((pc_currchar->isInnocent()) &&(pc_currchar->serial != pc_defender->serial))
 						{
-							if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
+							if ((pc_defender->crimflag()>0) ||(pc_defender->isMurderer()))
 							{
 								criminal(pc_currchar);
 							}
@@ -2237,7 +2237,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										cMagic::doStaticEffect(mapchar, 25);										
 										// tempeffect(DEREF_P_CHAR(pc_currchar), ii, 2, 0, 0, 0); // lb bugfix ?? why does this cll night-sight effect
 										soundeffect2(mapchar, 0x01E9);
-										mapchar->poisoned=0;
+										mapchar->setPoisoned(0);
 									}
 									else
 									{
@@ -2772,7 +2772,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		}
 		else
 			sysmessage( s, "Can't cope with this spell, requires a target but it doesn't specify what type" );
-		pc_currchar->spell = 0;
+		pc_currchar->setSpell( 0 );
 		return;
 	}
 	else
@@ -2916,7 +2916,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			break;
 		}
 		//sysmessage( s, "Spells like meteor swarm will go here, eventually" );
-		pc_currchar->spell = 0;
+		pc_currchar->setSpell( 0 );
 		return;
 	}
 	
@@ -4060,15 +4060,15 @@ void cMagic::SpeakMantra4Spell(P_CHAR Caster, int num)
 
 void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)
 {
-	if( Magic->requireTarget( pc->spell ) )
+	if( Magic->requireTarget( pc->spell() ) )
 	{
-		target(s,0,1,0,100, spells[pc->spell].strToSay );
+		target(s,0,1,0,100, spells[pc->spell()].strToSay );
 	}
 	else
 	{
 		Magic->NewCastSpell( s );
 	}
 	pc->setCasting(false);
-	pc->spelltime=0;
+	pc->setSpelltime(0);
 	pc->priv2 &= 0xfd; // unfreeze, bugfix LB
 }

@@ -116,13 +116,13 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 
 void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 {
-	if ((pc_attacker->poison)&&(pc_defender->poisoned<pc_attacker->poison))
+	if ((pc_attacker->poison())&&(pc_defender->poisoned() < pc_attacker->poison()))
 	{
 		if (rand()%3==0) // || fightskill==FENCING)//0 1 or 2 //fencing always poisons :) - AntiChrist
 		{
-			pc_defender->poisoned=pc_attacker->poison;
-			pc_defender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_defender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			pc_defender->poisonwearofftime=pc_defender->poisontime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); //wear off starts after poison takes effect - AntiChrist
+			pc_defender->setPoisoned(pc_attacker->poison());
+			pc_defender->setPoisontime(uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_defender->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+			pc_defender->setPoisonwearofftime(pc_defender->poisontime()+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer())); //wear off starts after poison takes effect - AntiChrist
 			if (sd != -1) 
 			{
 				impowncreate(sd, pc_defender, 1); //Lb, sends the green bar ! 
@@ -221,9 +221,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			//AntiChrist -- for poisoned weapons
 			if((pWeapon) && (pWeapon->poisoned>0))
 			{
-				   pc_deffender->poisoned=pWeapon->poisoned;
-				   pc_deffender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			       pc_deffender->poisonwearofftime=pc_deffender->poisontime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); //wear off starts after poison takes effect - AntiChrist
+				   pc_deffender->setPoisoned(pWeapon->poisoned);
+				   pc_deffender->setPoisontime(uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+			       pc_deffender->setPoisonwearofftime(pc_deffender->poisontime()+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer())); //wear off starts after poison takes effect - AntiChrist
 			}
 			CheckPoisoning(s2, pc_attacker, pc_deffender);	// attacker poisons defender
 			CheckPoisoning(s1, pc_deffender, pc_attacker); // and vice versa
@@ -427,9 +427,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				if(pc_deffender->casting() && currentSpellType[s2]==0 )
 				{//if casting a normal spell (scroll: no concentration loosen)
 					currentSpellType[s2]=0;
-					pc_deffender->spell=-1;
+					pc_deffender->setSpell(-1);
 					pc_deffender->setCasting(false);
-					pc_deffender->spelltime=0;
+					pc_deffender->setSpelltime(0);
 					pc_deffender->priv2 &= 0xfd; // unfreeze, bugfix LB
 					Magic->SpellFail(s2);
 				}
@@ -437,7 +437,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 
 			if(damage>0)
 			{
-				if (pc_deffender->ra) // For reactive armor spell
+				if (pc_deffender->ra()) // For reactive armor spell
 				{
 					// -Frazurbluu- RA may need a rewrite to be more OSI standard here
 					// Its said 80% deflected 10% to attacker / 10% defender gotta check special effects
@@ -502,12 +502,12 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				}
 
 				/////////  For Splitting NPCs ///  McCleod
-				if ((pc_deffender->split>0)&&(pc_deffender->hp>=1))
+				if ((pc_deffender->split()>0)&&(pc_deffender->hp>=1))
 				{
-					if (rand()%100<=pc_deffender->splitchnc)
+					if (rand()%100<=pc_deffender->splitchnc())
 					{
-						if (pc_deffender->split==1) splitnum=1;
-						else splitnum=rand()%pc_deffender->split+1;
+						if (pc_deffender->split()==1) splitnum=1;
+						else splitnum=rand()%pc_deffender->split()+1;
 						
 						for (splitcount=0;splitcount<splitnum;splitcount++)
 							Npcs->Split(pc_deffender);

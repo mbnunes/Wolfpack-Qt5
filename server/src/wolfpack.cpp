@@ -658,7 +658,7 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 		sprintf(tempstr, "%s %s", pc->name.c_str(), pc->title().latin1());
 	}
 	// ripper ..rep stuff
-	else if ((pc->crimflag>0) && (!(pc->dead) && (pc->kills<4)))
+	else if ((pc->crimflag()>0) && (!(pc->dead) && (pc->kills<4)))
 	{
 		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
 	}
@@ -893,7 +893,7 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a char
 	if (pc_i == NULL)
 		return;
 
-	if (pc_i->squelched)
+	if (pc_i->squelched())
 	{
 		sprintf((char*)temp," [%s]",title[7].other);
 		if (!(strcmp(title[7].other,""))) temp[0] = 0;
@@ -1075,8 +1075,8 @@ void deathstuff(P_CHAR pc_player)
 	pc_player->setSkin(0x0000); // Undyed
 	pc_player->dead = true;	// Dead
 	pc_player->hp = 0;		// With no hp left
-	pc_player->poisoned = 0;
-	pc_player->poison = 0;	//AntiChrist
+	pc_player->setPoisoned(0);
+	pc_player->setPoison(0);	//AntiChrist
 	// Make the corpse
 	sprintf((char*)temp,"corpse of %s",pc_player->name.c_str());
 	const P_ITEM pi_c = Items->SpawnItem(pc_player, 1, (char*)temp, 0, 0x2006, pc_player->xskin(), 0);
@@ -2388,7 +2388,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		pi->hp = pc_mount->hp;
 		pi->lodamage = pc_mount->fame;
 		pi->hidamage = pc_mount->karma;
-		pi->poisoned = pc_mount->poisoned;
+		pi->poisoned = pc_mount->poisoned();
 		if (pc_mount->summontimer != 0)
 			pi->decaytime = pc_mount->summontimer;
 		
@@ -4069,7 +4069,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		break;
 
 	case 2: // Cure Potion
-		if (pc_p->poisoned<1)
+		if (pc_p->poisoned()<1)
 			sysmessage(s,"The potion had no effect.");
 		else
 		{
@@ -4077,30 +4077,32 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			{
 			case 1:
 				x=RandomNum(1,100);
-				if (pc_p->poisoned==1 && x<81) pc_p->poisoned=0;
-				if (pc_p->poisoned==2 && x<41) pc_p->poisoned=0;
-				if (pc_p->poisoned==3 && x<21) pc_p->poisoned=0;
-				if (pc_p->poisoned==4 && x< 6) pc_p->poisoned=0;
+				if (pc_p->poisoned()==1 && x<81) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==2 && x<41) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==3 && x<21) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==4 && x< 6) pc_p->setPoisoned(0);
 				break;
 			case 2:
 				x=RandomNum(1,100);
-				if (pc_p->poisoned==1) pc_p->poisoned=0;
-				if (pc_p->poisoned==2 && x<81) pc_p->poisoned=0;
-				if (pc_p->poisoned==3 && x<41) pc_p->poisoned=0;
-				if (pc_p->poisoned==4 && x<21) pc_p->poisoned=0;
+				if (pc_p->poisoned()==1) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==2 && x<81) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==3 && x<41) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==4 && x<21) pc_p->setPoisoned(0);
 				break;
 			case 3:
 				x=RandomNum(1,100);
-				if (pc_p->poisoned==1) pc_p->poisoned=0;
-				if (pc_p->poisoned==2) pc_p->poisoned=0;
-				if (pc_p->poisoned==3 && x<81) pc_p->poisoned=0;
-				if (pc_p->poisoned==4 && x<61) pc_p->poisoned=0;
+				if (pc_p->poisoned()==1) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==2) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==3 && x<81) pc_p->setPoisoned(0);
+				else if (pc_p->poisoned()==4 && x<61) pc_p->setPoisoned(0);
 				break;
 			default:
 				clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 				return;
 			}
-			if (pc_p->poisoned) sysmessage(s,"The potion was not able to cure this poison."); else
+			if (pc_p->poisoned()) 
+				sysmessage(s,"The potion was not able to cure this poison."); 
+			else
 			{
 				staticeffect(pc_p, 0x37, 0x3A, 0, 15);
 				soundeffect2(pc_p, 0x01E0); //cure sound - SpaceDog
@@ -4157,9 +4159,9 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		soundeffect2(pc_p, 0x01E3);
 		break;
 	case 6: // Poison Potion
-		if(pc_p->poisoned < pi->morez) pc_p->poisoned=pi->morez;
+		if(pc_p->poisoned() < pi->morez) pc_p->setPoisoned(pi->morez);
 		if(pi->morez>4) pi->morez=4;
-		pc_p->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); // lb, poison wear off timer setting
+		pc_p->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
 		impowncreate(calcSocketFromChar(pc_p), pc_p, 1); //Lb, sends the green bar !
 		soundeffect2(pc_p, 0x0246); //poison sound - SpaceDog
 		sysmessage(s, "You poisoned yourself! *sigh*"); //message -SpaceDog
@@ -5999,7 +6001,7 @@ void criminal(P_CHAR pc)//Repsys ....Ripper
 	if ((pc->isPlayer())&&!(pc->isCriminal() || pc->isMurderer()))
 	{//Not an npc, not grey, not red
 		
-		 pc->crimflag=(SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime;
+		 pc->setCrimflag((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
 		 //printw(" Seeting Crimflag to %d \n",chars[c].crimflag) ;
 		 sysmessage(calcSocketFromChar(pc),"You are now a criminal!");
 		 setcharflag(pc);
@@ -6028,12 +6030,12 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			pc->setMurderer();
 			return;
 		}	
-		else if (pc->crimflag==-1 || pc->crimflag == 0)
+		else if (pc->crimflag() == 0)
 		{
 			pc->setInnocent();
 			return;
 		}
-		else if (pc->crimflag>0)
+		else if (pc->crimflag()>0)
 		{
 			pc->setCriminal();
 			return;
@@ -6093,7 +6095,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					P_CHAR pc_owner = FindCharBySerial(pc->ownserial);
 					if (pc_owner != NULL)
 					{
-						pc->flag = pc_owner->flag;
+						pc->setFlag(pc_owner->flag());
 					}
 				}
 				else

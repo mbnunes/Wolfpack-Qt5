@@ -142,46 +142,6 @@ public:
 	unsigned int			trackingtimer; // Timer used for the duration of tracking
 	SERIAL					trackingtarget; // Tracking target ID
 	SERIAL					trackingtargets[MAXTRACKINGTARGETS];
-	unsigned int			fishingtimer; // Timer used to delay the catching of fish
-	int						advobj; //Has used advance gate?
-	int						poison; // used for poison skill 
-	unsigned int			poisoned; // type of poison
-	unsigned int			poisontime; // poison damage timer
-	unsigned int			poisontxt; // poision text timer
-	unsigned int			poisonwearofftime; // LB, makes poision wear off ...
-	short					fleeat;
-	short					reattackat;
-	int						trigger; //Trigger number that character activates
-	string					trigword; //Word that character triggers on.
-	unsigned int			disabled; //Character is disabled, cant trigger.
-	string					disabledmsg; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
-	unsigned short			envokeid;  //ID1 of item user envoked
-	SERIAL					envokeitem;
-	unsigned char			split;
-	unsigned char			splitchnc;
-	int						targtrig; //Stores the number of the trigger the character for targeting
-	char					ra;  // Reactive Armor spell
-	int						trainer; // Serial of the NPC training the char, -1 if none.
-	char					trainingplayerin; // Index in skillname of the skill the NPC is training the player in
-	bool					cantrain;
-	// Begin of Guild Related Character information (DasRaetsel)
-	bool					guildtoggle;		// Toggle for Guildtitle								(DasRaetsel)
-	string					guildtitle;			// Title Guildmaster granted player						(DasRaetsel)
-	SERIAL					guildfealty;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
-	SERIAL					guildstone;			// Number of guild player is in (0=no guild)			(DasRaetsel)
-	char					flag; //1=red 2=grey 4=Blue 8=green 10=Orange
-	unsigned int			tempflagtime;
-	// End of Guild Related Character information
-	unsigned int			murderrate; //#of ticks until one murder decays //REPSYS 
-	long int				crimflag; //Time when No longer criminal -1=Not Criminal
-	unsigned int			spelltime; //Time when they are done casting....
-	int						spell; //current spell they are casting....
-	int						spellaction; //Action of the current spell....
-	int						nextact; //time to next spell action....
-	SERIAL					poisonserial; //AntiChrist -- poisoning skill
-	int						squelched; // zippy  - squelching
-	int						mutetime; //Time till they are UN-Squelched.
-	bool					med; // 0=not meditating, 1=meditating //Morrolan - Meditation 
 	//int statuse[3]; //Morrolan - stat/skill cap STR/INT/DEX in that order
 	//int skilluse[TRUESKILLS][1]; //Morrolan - stat/skill cap
 	unsigned char			lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
@@ -259,6 +219,47 @@ protected:
 	int						npcaitype_; // NPC ai
 	int						callnum_; //GM Paging
 	int						playercallnum_; //GM Paging
+
+	unsigned int			fishingtimer_; // Timer used to delay the catching of fish
+	int						advobj_; //Has used advance gate?
+	int						poison_; // used for poison skill 
+	unsigned int			poisoned_; // type of poison
+	unsigned int			poisontime_; // poison damage timer
+	unsigned int			poisontxt_; // poision text timer
+	unsigned int			poisonwearofftime_; // LB, makes poision wear off ...
+	short					fleeat_;
+	short					reattackat_;
+	int						trigger_; //Trigger number that character activates
+	QString					trigword_; //Word that character triggers on.
+	unsigned int			disabled_; //Character is disabled, cant trigger.
+	QString					disabledmsg_; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
+	unsigned short			envokeid_;  //ID1 of item user envoked
+	SERIAL					envokeitem_;
+	unsigned char			split_;
+	unsigned char			splitchnc_;
+	int						targtrig_; //Stores the number of the trigger the character for targeting
+	char					ra_;  // Reactive Armor spell
+	SERIAL					trainer_; // Serial of the NPC training the char, -1 if none.
+	char					trainingplayerin_; // Index in skillname of the skill the NPC is training the player in
+	bool					cantrain_;
+	// Begin of Guild Related Character information (DasRaetsel)
+	bool					guildtoggle_;		// Toggle for Guildtitle								(DasRaetsel)
+	QString					guildtitle_;			// Title Guildmaster granted player						(DasRaetsel)
+	SERIAL					guildfealty_;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
+	SERIAL					guildstone_;			// Number of guild player is in (0=no guild)			(DasRaetsel)
+	char					flag_; //1=red 2=grey 4=Blue 8=green 10=Orange
+	unsigned int			tempflagtime_;
+	// End of Guild Related Character information
+	unsigned int			murderrate_; //#of ticks until one murder decays //REPSYS 
+	long int				crimflag_; //Time when No longer criminal -1=Not Criminal
+	unsigned int			spelltime_; //Time when they are done casting....
+	int						spell_; //current spell they are casting....
+	int						spellaction_; //Action of the current spell....
+	int						nextact_; //time to next spell action....
+	SERIAL					poisonserial_; //AntiChrist -- poisoning skill
+	int						squelched_; // zippy  - squelching
+	unsigned int			mutetime_; //Time till they are UN-Squelched.
+	bool					med_; // 0=not meditating, 1=meditating //Morrolan - Meditation 
 
 	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -341,6 +342,44 @@ public:
 	int						npcaitype() const { return npcaitype_;}
 	int						callnum() const { return callnum_; }
 	int						playercallnum() const { return playercallnum_; }
+	unsigned int			fishingtimer() const {return fishingtimer_;}
+	int						advobj() const { return advobj_;}
+	int						poison() const { return poison_;}
+	unsigned int			poisoned() const { return poisoned_; }
+	unsigned int			poisontime() const { return poisontime_;}
+	unsigned int			poisontxt() const { return poisontxt_;}
+	unsigned int			poisonwearofftime() const { return poisonwearofftime_;}
+	short					fleeat() const { return fleeat_;}
+	short					reattackat() const { return reattackat_; }
+	int						trigger() const { return trigger_; }
+	QString					trigword() const { return trigword_; }
+	unsigned int			disabled() const { return disabled_; }
+	QString					disabledmsg() const { return disabledmsg_; }
+	unsigned short			envokeid() const { return envokeid_;}
+	SERIAL					envokeitem() const { return envokeitem_;}
+	unsigned char			split() const { return split_;}
+	unsigned char			splitchnc() const { return splitchnc_;}
+	int						targtrig() const { return targtrig_;}
+	char					ra() const { return ra_;}
+	SERIAL					trainer() const { return trainer_;}
+	char					trainingplayerin() const { return trainingplayerin_;}
+	bool					cantrain() const { return cantrain_; }
+	bool					guildtoggle() const { return guildtoggle_; }
+	QString					guildtitle() const { return guildtitle_; }
+	SERIAL					guildfealty() const { return guildfealty_;}
+	SERIAL					guildstone() const { return guildstone_;}
+	char					flag() const { return flag_;}
+	unsigned int			tempflagtime() const { return tempflagtime_; }
+	unsigned int			murderrate() const { return murderrate_;}
+	long int				crimflag() const { return crimflag_;}
+	unsigned int			spelltime() const { return spelltime_;}
+	int						spell() const { return spell_;}
+	int						spellaction() const { return spellaction_;}
+	int						nextact() const { return nextact_;}
+	SERIAL					poisonserial() const { return poisonserial_;}
+	int						squelched() const { return squelched_;}
+	int						mutetime() const { return mutetime_; }
+	bool					med() const { return med_;}
 	
 	// Setters
 	void					setGuildType(short data);
@@ -360,7 +399,6 @@ public:
 	void					setXSkin( unsigned short data) { xskin_ = data; }
 	void					setCreationDay( unsigned int data ) { creationday_ = data; }
 	void					setGmRestrict( unsigned char data ) { gmrestrict_ = data; }
-
 	void					setStealth(int data) {stealth_ = data;}
 	void					setRunning(unsigned int data) {running_ = data;}
 	void					setLogout(unsigned int data) {logout_ = data;}
@@ -407,6 +445,45 @@ public:
 	void					setNpcAIType( int data ) { npcaitype_ = data;}
 	void					setCallNum ( int data ) { callnum_ = data;}
 	void					setPlayerCallNum ( int data ) { playercallnum_ = data;}
+
+	void					setFishingtimer( unsigned int data ) { fishingtimer_ = data;}
+	void					setAdvobj( int data ) { advobj_ = data; }
+	void					setPoison( int data ) { poison_ = data;}
+	void					setPoisoned( unsigned int data ) {poisoned_ = data;}
+	void					setPoisontime( unsigned int data ) { poisontime_ = data;}
+	void					setPoisontxt( unsigned int data ) { poisontxt_ = data;}
+	void					setPoisonwearofftime( unsigned int data ) {poisonwearofftime_ = data;}
+	void					setFleeat( short data ) { fleeat_ = data; }
+	void					setReattackat(short data) { reattackat_ = data; }
+	void					setTrigger( int data ) { trigger_ = data; }
+	void					setTrigword( const QString& data ) { trigword_ = data;}
+	void					setDisabled( unsigned int data ) { disabled_ = data;}
+	void					setDisabledmsg( const QString& data ) { disabledmsg_ = data;}
+	void					setEnvokeid( unsigned short data ) { envokeid_ = data;}
+	void					setEnvokeitem( SERIAL data ) { envokeitem_ = data; }
+	void					setSplit(unsigned char data) {split_ = data;}
+	void					setSplitchnc(unsigned char data) {splitchnc_ = data;}
+	void					setTargtrig( int data ) { targtrig_ = data; }
+	void					setRa( char data ) { ra_ = data;}
+	void					setTrainer( SERIAL data ) { trainer_ = data;}
+	void					setTrainingplayerin( char data ) { trainingplayerin_ = data;}
+	void					setCantrain( bool data ) { cantrain_ = data;}
+	void					setGuildtoggle( bool data ) { guildtoggle_ = data;}
+	void					setGuildtitle( const QString& data ) { guildtitle_ = data;}
+	void					setGuildfealty( SERIAL data ) { guildfealty_ = data;}
+	void					setGuildstone( SERIAL data ) { guildstone_ = data; }
+	void					setFlag( char data ) { flag_ = data; }
+	void					setTempflagtime( unsigned int data ) { tempflagtime_ = data;}
+	void					setMurderrate( unsigned int data ) { murderrate_ = data;}
+	void					setCrimflag( unsigned int data ) { crimflag_ = data;}
+	void					setSpelltime( unsigned int data ) { spelltime_ = data;}
+	void					setSpell( int data ) { spell_ = data;}
+	void					setSpellaction( int data ) { spellaction_ = data;}
+	void					setNextact( int data ) { nextact_ = data;}
+	void					setPoisonserial( SERIAL data ) {poisonserial_ = data;}
+	void					setSquelched( int data) { squelched_ = data;}
+	void					setMutetime( int data ) { mutetime_ = data;}
+	void					setMed( bool data ) { med_ = data;}
 
 	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
@@ -482,7 +559,6 @@ public:
 	bool canPickUp(cItem* pi);
 	unsigned int dist(cChar* pc);
 	unsigned int dist(cItem* pi);
-	int MyHome();
 
 	// Wrapper events! - darkstorm
 	bool onShowCharName( P_CHAR Viewer ); // Shows the name of a character to someone else
@@ -545,16 +621,16 @@ inline bool  cChar::isInvul() const			{return (priv&0x04 ?true:false);}
 inline bool  cChar::canSnoop() const		{return (priv&0x40 ?true:false);}
 inline bool  cChar::canBroadcast() const	{return (priv&0x02 ?true:false);}
 inline bool  cChar::canSeeSerials() const 	{return (priv&0x08 ?true:false);}
-inline bool  cChar::isInnocent() const		{return (flag&0x04 ?true:false);}
-inline bool  cChar::isMurderer() const		{return (flag&0x01 ?true:false);}
-inline bool  cChar::isCriminal() const		{return (flag&0x02 ?true:false);}
+inline bool  cChar::isInnocent() const		{return (flag_&0x04 ?true:false);}
+inline bool  cChar::isMurderer() const		{return (flag_&0x01 ?true:false);}
+inline bool  cChar::isCriminal() const		{return (flag_&0x02 ?true:false);}
 inline unsigned char cChar::getPriv() const	{return priv;}
 inline void cChar::setPriv(unsigned char p)	{this->priv=p;}
 inline void cChar::makeInvulnerable()		{priv |= 4;}
 inline void cChar::makeVulnerable()			{priv &= 0xFB;}
-inline void cChar::setMurderer()			{flag = 0x01;}
-inline void cChar::setInnocent()			{flag = 0x04;}
-inline void cChar::setCriminal()			{flag = 0x02;}
+inline void cChar::setMurderer()			{flag_ = 0x01;}
+inline void cChar::setInnocent()			{flag_ = 0x04;}
+inline void cChar::setCriminal()			{flag_ = 0x02;}
 
 // Getters
 inline short			cChar::guildType() const		{ return GuildType; }

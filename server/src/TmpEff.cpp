@@ -388,7 +388,7 @@ void cTmpEff::Expire()
 		}
 		break;
 	case 15: //reactive armor
-		pc_s->ra=0;
+		pc_s->setRa(0);
 		break;
 	case 16: //Explosion potion messages	Tauriel
 		sprintf((char*)temp, "%i", more3);
@@ -696,7 +696,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 
 		int c1,b,k;
 		//Grey flag when polymorphed - AntiChrist (9/99)
-		pc_dest->crimflag=(polyduration*MY_CLOCKS_PER_SEC)+uiCurrentTime;
+		pc_dest->setCrimflag((polyduration*MY_CLOCKS_PER_SEC)+uiCurrentTime);
 		if(pc_dest->onHorse()) 
 			k = unmounthorse(calcSocketFromChar(pc_dest));
 		k=(more1<<8)+more2;

@@ -202,53 +202,53 @@ void cChar::Init(bool ser)
 	this->trackingtarget = INVALID_SERIAL; // Tracking target ID
 	for (i=0;i<MAXTRACKINGTARGETS;i++)
 		this->trackingtargets[i]=0;
-	this->fishingtimer=0; // Timer used to delay the catching of fish
+	this->setFishingtimer(0); // Timer used to delay the catching of fish
 
-	this->advobj=0; //Has used advance gate?
+	this->setAdvobj(0); //Has used advance gate?
 	
-	this->poison=0; // used for poison skill 
-	this->poisoned=0; // type of poison
-	this->poisontime=0; // poison damage timer
-	this->poisontxt=0; // poision text timer
-	this->poisonwearofftime=0; // LB, makes poision wear off ...
+	this->setPoison(0); // used for poison skill 
+	this->setPoisoned(0); // type of poison
+	this->setPoisontime(0); // poison damage timer
+	this->setPoisontxt(0); // poision text timer
+	this->setPoisonwearofftime(0); // LB, makes poision wear off ...
 	
-	this->fleeat=SrvParams->npc_base_fleeat();
-	this->reattackat=SrvParams->npc_base_reattackat();
-	this->trigger=0; //Trigger number that character activates
-	this->trigword = "";
-	this->disabled=0; //Character is disabled for n cicles, cant trigger.
-	this->disabledmsg = ""; //Character disabled message. -- by Magius(CHE) §
-	this->envokeid = 0x00; //ID of item user envoked
-	this->envokeitem = INVALID_SERIAL;
-	this->split = 0;
-	this->splitchnc = 0;
-	this->targtrig=0; //Stores the number of the trigger the character for targeting
-	this->ra=0;  // Reactive Armor spell
-	this->trainer=0; // Serial of the NPC training the char, -1 if none.
-	this->trainingplayerin=0; // Index in skillname of the skill the NPC is training the player in
-	this->cantrain=true;
+	this->setFleeat(SrvParams->npc_base_fleeat());
+	this->setReattackat(SrvParams->npc_base_reattackat());
+	this->setTrigger(0); //Trigger number that character activates
+	this->setTrigword(QString::null);
+	this->setDisabled(0); //Character is disabled for n cicles, cant trigger.
+	this->setDisabledmsg(QString::null); //Character disabled message. -- by Magius(CHE) §
+	this->setEnvokeid(0x00); //ID of item user envoked
+	this->setEnvokeitem(INVALID_SERIAL);
+	this->setSplit(0);
+	this->setSplitchnc(0);
+	this->setTargtrig(0); //Stores the number of the trigger the character for targeting
+	this->setRa(0);  // Reactive Armor spell
+	this->setTrainer(INVALID_SERIAL); // Serial of the NPC training the char, -1 if none.
+	this->setTrainingplayerin(0); // Index in skillname of the skill the NPC is training the player in
+	this->setCantrain(true);
 	// Begin of Guild Related Character information (DasRaetsel)
-	this->guildtoggle=false;		// Toggle for Guildtitle								(DasRaetsel)
-	this->guildtitle="";	// Title Guildmaster granted player						(DasRaetsel)
-	this->guildfealty=-1;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
-	this->guildstone=INVALID_SERIAL;		// GuildStone Serial of guild player is in (INVALID_SERIAL=no guild)			(DasRaetsel)
+	this->setGuildtoggle(false);		// Toggle for Guildtitle								(DasRaetsel)
+	this->setGuildtitle(QString::null);	// Title Guildmaster granted player						(DasRaetsel)
+	this->setGuildfealty(INVALID_SERIAL);		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
+	this->setGuildstone(INVALID_SERIAL);		// GuildStone Serial of guild player is in (INVALID_SERIAL=no guild)			(DasRaetsel)
 	this->GuildTraitor=false; 
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
-	this->flag=0x02; //1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
-	this->tempflagtime=0;
+	this->setCriminal(); //flags = 0x2; 1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
+	this->setTempflagtime(0);
 	// End of Guild Related Character information
-	this->murderrate=0; //# of ticks till murder decays.
-	this->crimflag=-1; // time when no longer criminal -1 = not criminal
+	this->setMurderrate(0); //# of ticks till murder decays.
+	this->setCrimflag(0); // time when no longer criminal -1 = not criminal
 	this->setCasting(false); // 0/1 is the cast casting a spell?
-	this->spelltime=0; //Time when they are done casting....
-	this->spell=0; //current spell they are casting....
-	this->spellaction=0; //Action of the current spell....
-	this->nextact=0; //time to next spell action....
-	this->poisonserial=-1; //AntiChrist -- poisoning skill
+	this->setSpelltime(0); //Time when they are done casting....
+	this->setSpell(0); //current spell they are casting....
+	this->setSpellaction(0); //Action of the current spell....
+	this->setNextact(0); //time to next spell action....
+	this->setPoisonserial(INVALID_SERIAL); //AntiChrist -- poisoning skill
 	
-	this->squelched=0; // zippy  - squelching
-	this->mutetime=0; //Time till they are UN-Squelched.
-	this->med = false; // false = not meditating, true = meditating //Morrolan - Meditation 
+	this->setSquelched(0); // zippy  - squelching
+	this->setMutetime(0); //Time till they are UN-Squelched.
+	this->setMed(false); // false = not meditating, true = meditating //Morrolan - Meditation 
 	this->setStealth(-1); //AntiChrist - stealth ( steps already done, -1=not using )
 	this->setRunning(0); //AntiChrist - Stamina Loose while running
 	this->setLogout(0);//Time till logout for this char -1 means in the world or already logged out //Instalog
@@ -354,10 +354,10 @@ P_ITEM cChar::GetBankBox( short banktype )
 
 void cChar::disturbMed(UOXSOCKET s)
 {
-	if (this->med) //Meditation
+	if (this->med()) //Meditation
 	{
-		this->med = false;
-		if (s != -1)
+		this->setMed( false );
+		if (s != INVALID_UOXSOCKET)
 			sysmessage(s, "You break your concentration.");
 	}
 }
@@ -672,7 +672,7 @@ bool cChar::canPickUp(cItem* pi)
 {
 	if (!pi)
 	{
-		LogCritical("bad parm");
+		LogCritical("cChar::canPickUp() - bad parm");
 		return false;
 	}
 
@@ -687,16 +687,6 @@ bool cChar::canPickUp(cItem* pi)
 	if ( pi->isGMMovable() || (tile.weight == 255 && !pi->isAllMovable()))
 		return false;
 	return true;
-}
-
-int cChar::MyHome()
-{
-/*	int h;
-	h=HouseManager->GetHouseNum(this);
-	if(h>=0)
-		if(House[h]->OwnerSerial==this->serial)
-			return h;*/
-	return -1;
 }
 
 void cChar::Serialize(ISerialization &archive)
@@ -760,9 +750,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("packitem",		packitem);
 		archive.read("fixedlight",		fixedlight);
 		archive.read("speech",			speech);
-		archive.read("trigger",			trigger);
-		archive.read("trigword",		trigword);
-		archive.read("disablemsg",		disabledmsg);
+		archive.read("trigger",			trigger_);
+		archive.read("trigword",		trigword_);
+		archive.read("disablemsg",		disabledmsg_);
 		unsigned int j;
 		for (j=0;j<TRUESKILLS;j++)
 		{
@@ -773,7 +763,7 @@ void cChar::Serialize(ISerialization &archive)
 			temp = string("skl") + string(t);
 			archive.read(temp.c_str(), lockSkill[j] );
 		}
-		archive.read("cantrain", cantrain);
+		archive.read("cantrain", cantrain_);
 		
 		archive.read("att",				att);
 		archive.read("def",				def);
@@ -798,19 +788,19 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("summontimer",		summontimer);
 		if (summontimer != 0)
 			summontimer += uiCurrentTime;
-		archive.read("advobj",			advobj);
-		archive.read("poison",			poison);
-		archive.read("poisoned",		poisoned);
-		archive.read("fleeat",			fleeat);
-		archive.read("reattackat",		reattackat);
-		archive.read("split",			split);
-		archive.read("splitchance",		splitchnc);
+		archive.read("advobj",			advobj_);
+		archive.read("poison",			poison_);
+		archive.read("poisoned",		poisoned_);
+		archive.read("fleeat",			fleeat_);
+		archive.read("reattackat",		reattackat_);
+		archive.read("split",			split_);
+		archive.read("splitchance",		splitchnc_);
 		// Begin of Guild related things (DasRaetsel)
-		archive.read("guildtoggle",		guildtoggle);  
-		archive.read("guildstone",		guildstone);  
-		archive.read("guildtitle",		guildtitle);  
-		archive.read("guildfealty",		guildfealty);  
-		archive.read("murderrate",		murderrate);
+		archive.read("guildtoggle",		guildtoggle_);  
+		archive.read("guildstone",		guildstone_);  
+		archive.read("guildtitle",		guildtitle_);  
+		archive.read("guildfealty",		guildfealty_);  
+		archive.read("murderrate",		murderrate_);
 		archive.read("menupriv",		menupriv_);
 		archive.read("questtype",		questType_);
 		archive.read("questdestregion",	questDestRegion_);
@@ -909,9 +899,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("packitem",		packitem);
 		archive.write("fixedlight",		fixedlight);
 		archive.write("speech",			speech);
-		archive.write("trigger",		trigger);
-		archive.write("trigword",		trigword);
-		archive.write("disablemsg",		disabledmsg);
+		archive.write("trigger",		trigger_);
+		archive.write("trigword",		trigword_);
+		archive.write("disablemsg",		disabledmsg_);
 		unsigned int j;
 		for (j=0;j<TRUESKILLS;j++)
 		{
@@ -922,7 +912,7 @@ void cChar::Serialize(ISerialization &archive)
 			temp = string("skl") + string(t);
 			archive.write(temp.c_str(), lockSkill[j] );
 		}
-		archive.write("cantrain", cantrain);
+		archive.write("cantrain", cantrain_);
 		
 		archive.write("att",			att);
 		archive.write("def",			def);
@@ -946,19 +936,19 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("taming",			taming);
 		archive.write("summonremainingseconds", summontimer/MY_CLOCKS_PER_SEC);
 		
-		archive.write("advobj",			advobj);
-		archive.write("poison",			poison);
-		archive.write("poisoned",		poisoned);
-		archive.write("fleeat",			fleeat);
-		archive.write("reattackat",		reattackat);
-		archive.write("split",			split);
-		archive.write("splitchance",	splitchnc);
+		archive.write("advobj",			advobj_);
+		archive.write("poison",			poison_);
+		archive.write("poisoned",		poisoned_);
+		archive.write("fleeat",			fleeat_);
+		archive.write("reattackat",		reattackat_);
+		archive.write("split",			split_);
+		archive.write("splitchance",	splitchnc_);
 		// Begin of Guild related things (DasRaetsel)
-		archive.write("guildtoggle",	guildtoggle);  
-		archive.write("guildnumber",	guildstone);  
-		archive.write("guildtitle",		guildtitle);  
-		archive.write("guildfealty",	guildfealty);  
-		archive.write("murderrate",		murderrate);
+		archive.write("guildtoggle",	guildtoggle_);  
+		archive.write("guildnumber",	guildstone_);  
+		archive.write("guildtitle",		guildtitle_);  
+		archive.write("guildfealty",	guildfealty_);  
+		archive.write("murderrate",		murderrate_);
 		archive.write("menupriv",		menupriv_);
 		archive.write("questtype",		questType_);
 		archive.write("questdestregion",questDestRegion_);

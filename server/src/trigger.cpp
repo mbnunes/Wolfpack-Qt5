@@ -192,12 +192,12 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 
 	if (ttype == 1)
 	{
-		if (pc_ts->targtrig)
-			trig = pc_ts->targtrig;
+		if (pc_ts->targtrig())
+			trig = pc_ts->targtrig();
 		else
 			if (pi != NULL)
 				trig = pi->trigger;
-			pc_ts->targtrig = 0;
+			pc_ts->setTargtrig(0);
 			openscript("triggers.scp");
 			sprintf(sect, "TRG %i", trig);
 			if (!i_scripts[trigger_script]->find(sect))
@@ -351,7 +351,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							if (j>0)
 							{
-								pc_ts->targtrig = j;
+								pc_ts->setTargtrig(j);
 								closescript();
 								triggerwitem(ts, pi, 1);
 								return;
@@ -402,7 +402,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						if (j>0)
 						{
 							// Magius(CHE) §
-							pc_ts->targtrig = j;
+							pc_ts->setTargtrig(j);
 							closescript();
 							triggerwitem(ts, pi, 1);
 							return;
@@ -974,12 +974,12 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							cline = &script2[0];
 							splitline();
 							j = makenumber(1);
-							sprintf(sect, "x%x", pc_ts->envokeid);
+							sprintf(sect, "x%x", pc_ts->envokeid());
 							if (strstr((char*)comm[0], sect))
 							{
 								// IEnvoked item found in IFREQ --> Jump Trigger
 								// clConsole.send("IFREQ %s  -> Jumping to trigger %i\n",comm[0],j);
-								pc_ts->targtrig = j;
+								pc_ts->setTargtrig(j);
 								closescript();
 								triggerwitem(ts, pi, 1);
 								return;
@@ -1318,7 +1318,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							
 							if (j>0)
 							{
-								pc_ts->targtrig = j;
+								pc_ts->setTargtrig(j);
 								closescript();
 								triggerwitem(ts, pi, 1);
 								return;
@@ -1460,14 +1460,14 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							if (npcnum!=NULL)
 							{
-								npcnum->trigger = str2num(script2);
+								npcnum->setTrigger(str2num(script2));
 							}
 						}
 						else if (!(strcmp("NEWWORD", (char*)script1)))  // Give the new npc a trigger word
 						{
 							if (npcnum!=NULL)
 							{
-								npcnum->trigword = (char*)script2;
+								npcnum->setTrigword((char*)script2);
 							}
 						}
 						break;
@@ -1667,7 +1667,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							
 							if (j>0)
 							{
-								pc_ts->targtrig = j;
+								pc_ts->setTargtrig(j);
 								closescript();
 								triggerwitem(ts, pi, 1);
 								return;
@@ -1774,7 +1774,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						}
 						else if (!(strcmp("REQ", (char*)script1)))  // Check if envoked by certain item.
 						{
-							sprintf(sect, "x%x", pc_ts->envokeid);
+							sprintf(sect, "x%x", pc_ts->envokeid());
 							if (!strstr((char*)script2, sect))
 							{
 								sysmessage(ts, "That didn't seem to work.");
@@ -1783,7 +1783,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							else
 							{ // Lines Added By Magius(CHE) to fix Targ trigger
-								pi_evti = FindItemBySerial(pc_ts->envokeitem);
+								pi_evti = FindItemBySerial(pc_ts->envokeitem());
 								if (pi_evti!= NULL)// AntiChrist
 								{
 									if (pi_evti->name() != "#") // Get Temporany Name of the REQUIRED Item - Magius(CHE)
@@ -1870,11 +1870,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						}
 						else if (!(strcmp("SETEVID", (char*)script1)))  // Set envoked items id to new id
 						{
-							if (pc_ts->envokeitem != INVALID_SERIAL)
+							if (pc_ts->envokeitem() != INVALID_SERIAL)
 							{
 								cline = &script2[0];
 								splitline();
-								pi_itemnum = FindItemBySerial(pc_ts->envokeitem);
+								pi_itemnum = FindItemBySerial(pc_ts->envokeitem());
 								pi_itemnum->setId( static_cast< UI16 >( hexnumber( 0 ) << 8 ) + hexnumber( 1 ) );
 								RefreshItem(pi_itemnum);// AntiChrist
 							}
@@ -1908,7 +1908,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						if (!(strcmp("TARG", (char*)script1)))  // Give a targeter with trigger number --- Fixed By Magius(CHE)
 						{
 							target(ts, 0, 1, 0, 204, "Select a target");
-							pc_ts->targtrig = str2num(script2);
+							pc_ts->setTargtrig(str2num(script2));
 						}
 						else if (!(strcmp("TRONSK", (char*)script1))) // Trigger On Skill
 						{
@@ -2070,9 +2070,9 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 	if (ttype == 1)
 	{
 		openscript("ntrigrs.scp");
-		sprintf(sect, "TRG %i", ti->trigger);
+		sprintf(sect, "TRG %i", ti->trigger());
 		if (ti != NULL)
-			trig = ti->trigger;
+			trig = ti->trigger();
 		if (!i_scripts[ntrigger_script]->find(sect))
 		{
 			closescript();
@@ -2091,12 +2091,12 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 			return;
 		}
 	}
-	if (ti->disabled>uiCurrentTime) // Added by Magius(CHE) §
+	if (ti->disabled()>uiCurrentTime) // Added by Magius(CHE) §
 	{
-		if (!ti->disabledmsg.empty())
-			strcpy((char*)temp, ti->disabledmsg.c_str());
+		if (!ti->disabledmsg().isEmpty())
+			strcpy((char*)temp, ti->disabledmsg().latin1());
 		else 
-			strcpy((char*)temp, "You cant work now! Wait more time!");
+			strcpy((char*)temp, "You can not work now! Wait some more!");
 		sysmessage(ts, (char*)temp);
 		closescript();
 		return;
@@ -2173,8 +2173,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 					{
 						if (ti!=NULL)
 						{
-							ti->disabled = (uiCurrentTime +(MY_CLOCKS_PER_SEC*str2num(script2)));
-							ti->disabledmsg = dismsg; // Added by Magius(CHE) §
+							ti->setDisabled((uiCurrentTime +(MY_CLOCKS_PER_SEC*str2num(script2))));
+							ti->setDisabledmsg(dismsg);
 						}
 					}
 					else if (!(strcmp("DISABLEMSG", (char*)script1)))  // Disable NPC Message --- by Magius(CHE) §
@@ -2407,7 +2407,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							cline = &script2[0];
 							splitline();
 							j = makenumber(1);
-							sprintf(sect, "x%x", pc_ts->envokeid);
+							sprintf(sect, "x%x", pc_ts->envokeid());
 							if (strstr((char*)comm[0], sect))
 							{
 								// IEnvoked item found in IFREQ --> Jump Trigger
@@ -2804,7 +2804,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							}
 							if (j>0)
 							{
-								pc_ts->targtrig = j;
+								pc_ts->setTargtrig(j);
 								closescript();
 								//triggerwitem(ts, ti, 1);
 #pragma note("second parm is a item not a char... [DISABLED]")
@@ -2871,14 +2871,14 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							}
 							if (npcnum!=NULL)
 							{
-								npcnum->trigger = str2num(script2);
+								npcnum->setTrigger(str2num(script2));
 							}
 						}
 						else if (!(strcmp("NEWWORD", (char*)script1)))  // Give the new npc a triggerword
 						{
 							if (npcnum!=NULL)
 							{
-								npcnum->trigword = (char*)script2;
+								npcnum->setTrigword((char*)script2);
 							}
 						}
 						else if (!(strcmp("NEWSPEECH", (char*)script1)))  // Give the new npc a new spech -- MAgius(CHE) §
@@ -2931,7 +2931,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							}
 							if (j>0)
 							{
-								pc_ts->targtrig = j;
+								pc_ts->setTargtrig(j);
 								closescript();
 								//triggerwitem(ts, ti, 1);
 #pragma note("second param is a item, not a char... [DISABLED]")
@@ -2957,7 +2957,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						}
 						else if (!(strcmp("REQ", (char*)script1)))  // Check if envoked by certain item. Added By Magius(CHE) to fix Targ trigger
 						{
-							sprintf(sect, "x%x", pc_ts->envokeid);
+							sprintf(sect, "x%x", pc_ts->envokeid());
 							if (!strstr((char*)script2, sect))
 							{
 								sysmessage(ts, "That didn't seem to work.");
@@ -2966,7 +2966,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							}
 							else 
 							{
-								pi_evti = FindItemBySerial(pc_ts->envokeitem);
+								pi_evti = FindItemBySerial(pc_ts->envokeitem());
 								if (pi_evti->name() != "#") // Get Temporany Name of the REQUIRED Item - Magius(CHE)
  									strcpy(tempname2, pi_evti->name().ascii() );
 								else 
@@ -2988,7 +2988,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						else if (!(strcmp("SETTRG", (char*)script1)))  // Set npcs trigger to new trigger
 						{
 							if (ti!=NULL)
-								ti->trigger = str2num(script2);
+								ti->setTrigger(str2num(script2));
 						}
 						else if (!(strcmp("SPEECH", (char*)script1)))  // Set the triggered npc a new spech -- Magius(CHE) §
 						{
@@ -3046,7 +3046,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						else if (!(strcmp("SETWORD", (char*)script1)))  // Sets the trigger word of an NPC
 						{
 							if (ti!=NULL)
-								ti->trigword = script2;
+								ti->setTrigword(script2);
 						}
 						else if (!(strcmp("SKL", (char*)script1)))  // Do math on the players skill
 						{

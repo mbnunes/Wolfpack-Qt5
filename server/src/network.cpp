@@ -571,7 +571,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	startup[17]=pc_currchar->dir;
 	startup[28]=0;
 
-	if(pc_currchar->poisoned) startup[28]=0x04; else startup[28]=0x00; //AntiChrist -- thnx to SpaceDog
+	if(pc_currchar->poisoned()) startup[28]=0x04; else startup[28]=0x00; //AntiChrist -- thnx to SpaceDog
 	pc_currchar->spiritspeaktimer=0;	// initially set spiritspeak timer to 0
 
 	pc_currchar->setStealth(-1);//AntiChrist
@@ -631,7 +631,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	Accounts->SetOnline(acctno[s], pc_currchar->serial);
 	teleport(pc_currchar);
 
-	pc_currchar->murderrate=uiCurrentTime+SrvParams->murderdecay()*MY_CLOCKS_PER_SEC; // LB, bugfix for murder-count getting --'ed each start
+	pc_currchar->setMurderrate(uiCurrentTime+SrvParams->murderdecay()*MY_CLOCKS_PER_SEC);
 
 	updates(s);
 

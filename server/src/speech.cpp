@@ -344,13 +344,13 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 		//if (strstr( comm, "CHAOS SHIELD")) //Ripper...if in chaos guild get a new shield.
 		if (comm.find("CHAOS SHIELD") != string::npos)
 		{	// if they say chaos shield
-			if(pPlayer->guildstone == INVALID_SERIAL)	// if not in a guild.
+			if(pPlayer->guildstone() == INVALID_SERIAL)	// if not in a guild.
 			{
 				npctalk(s,pGuard,"You must be in a chaos guild to get a shield!",1);
 			}
 			else 
 			{
-				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pPlayer->guildstone));
+				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pPlayer->guildstone()));
 				if ( pStone == NULL )
 				{
 					npctalk(s,pGuard,"You must be in a chaos guild to get a shield!",1);
@@ -383,13 +383,13 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 			// if they say order shield
 		if (comm.find("ORDER SHIELD") != string::npos)
 		{
-			if(pPlayer->guildstone == INVALID_SERIAL)	// if not in a guild.
+			if(pPlayer->guildstone() == INVALID_SERIAL)	// if not in a guild.
 			{
 				npctalk(s,pGuard,"You must be in a order guild to get a shield!",1);
 			}
 			else
 			{
-				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pPlayer->guildstone));
+				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pPlayer->guildstone()));
 				if ( pStone == NULL )
 				{
 					npctalk(s,pGuard,"You must be in a chaos guild to get a shield!",1);
@@ -461,19 +461,18 @@ bool TriggerSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 		abs(pPlayer->pos.y-pc->pos.y)<=4 &&
 		abs(pPlayer->pos.z-pc->pos.z)<=5)
 	{
-		if (pc->trigger)
+		if (pc->trigger())
 		{
-			if (!pc->trigword.empty())
+			if (!pc->trigword().isEmpty())
 			{
 				//char twtmp[150];
 				//strcpy(twtmp, pc->trigword.c_str());
 				//strupr(twtmp);
-				string twtmp ;
-				transform(pc->trigword.begin(), pc->trigword.end(), twtmp.begin(), ::toupper);
+				QString twtmp = pc->trigword().upper();
 				//if (strstr( comm, twtmp))
-				if (comm.find(twtmp) != string::npos)
+				if (comm.find(twtmp.latin1()) != string::npos)
 				{
-					if (pc->disabled>0 && pc->disabled>uiCurrentTime)//AntiChrist
+					if (pc->disabled()>0 && pc->disabled()>uiCurrentTime)//AntiChrist
 					{
 						npctalkall(pc,"I'm a little busy now! Leave me be!",0);
 					}
@@ -578,10 +577,9 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 		return 0;
 
 	int i,skill=-1;
-	pPlayer->trainer=-1; //this is to prevent errors when a player says "train <skill>" then don't pay the npc
+	pPlayer->setTrainer(INVALID_SERIAL); //this is to prevent errors when a player says "train <skill>" then don't pay the npc
 	for(i=0;i<ALLSKILLS;i++)
 	{
-		
 		//if(strstr(comm, skillname[i]))
 		if (comm.find(skillname[i]) != string::npos)
 		{
@@ -592,9 +590,9 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 		
 	if(skill==-1) // Didn't ask to be trained in a specific skill - Leviathan fix
 	{
-		if(pPlayer->trainer==-1) //not being trained, asking what skills they can train in
+		if(pPlayer->trainer() == INVALID_SERIAL) //not being trained, asking what skills they can train in
 		{
-			pTrainer->trainingplayerin='\xFF'; // Like above, this is to prevent  errors when a player says "train <skill>" then doesn't pay the npc
+			pTrainer->setTrainingplayerin('\xFF'); // Like above, this is to prevent  errors when a player says "train <skill>" then doesn't pay the npc
 			strcpy(temp,"I can teach thee the following skills: ");
 			int j,y = 0;
 			for(j=0;j<ALLSKILLS;j++)
@@ -608,7 +606,7 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 					y++;
 				}
 			}
-			if(y && pTrainer->cantrain) // skills and a trainer ?
+			if(y && pTrainer->cantrain()) // skills and a trainer ?
 			{
 				temp[strlen(temp)-2]='.'; // Make last character a . not a ,  just to look nicer
 				npctalk(s, pTrainer, temp,0);
@@ -622,7 +620,7 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	else // They do want to learn a specific skill
 	{
-		if(pTrainer->baseskill[skill]>10 && pTrainer->cantrain)
+		if(pTrainer->baseskill[skill]>10 && pTrainer->cantrain())
 		{
 			strcpy(temp2,skillname[skill]);
 			strlwr(temp2);
@@ -643,8 +641,8 @@ bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s)
 					
 					sprintf(temp2, " Very well I, can train thee up to the level of %i percent for %i gold. Pay for less and I shall teach thee less.",perc,delta);
 					strcat(temp, temp2);
-					pPlayer->trainer=pTrainer->serial;
-					pTrainer->trainingplayerin=skill;
+					pPlayer->setTrainer(pTrainer->serial);
+					pTrainer->setTrainingplayerin(skill);
 				}
 			}
 			npctalk(s, pTrainer, temp,0);
@@ -1115,7 +1113,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	if (InputSpeech(punt, pc_currchar, s))	// handle things like renaming or describing an item
 		return;
 
-	if (pc_currchar->squelched)					// not allowed to talk
+	if (pc_currchar->squelched())					// not allowed to talk
 	{
 		sysmessage(s, "You have been squelched.");
 		return;
@@ -1277,7 +1275,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 				{							  
 					if (match == 1)
 					{
-						pNpc->trigger = str2num(script2);
+						pNpc->setTrigger( str2num(script2) );
 						scpMark m=pScp->Suspend();
 						
 						Trig->triggernpc(s, pNpc, 1);

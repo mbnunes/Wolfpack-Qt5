@@ -578,12 +578,12 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	{
 		soundeffect2(pc_currchar, 0x003A+(rand()%3));	//0x3A - 0x3C three different sounds
 
-		if((pi->poisoned)&&(pc_target->poisoned<pi->poisoned))
+		if((pi->poisoned)&&(pc_target->poisoned()<pi->poisoned))
 		{
 			soundeffect2(pc_target, 0x0246); //poison sound - SpaceDog
-			pc_target->poisoned=pi->poisoned;
-			pc_target->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_target->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			pc_target->poisonwearofftime=pc_target->poisontime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()); //wear off starts after poison takes effect - AntiChrist
+			pc_target->setPoisoned(pi->poisoned);
+			pc_target->setPoisontime(uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_target->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+			pc_target->setPoisonwearofftime(pc_target->poisontime()+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer())); //wear off starts after poison takes effect - AntiChrist
 			impowncreate(s, pc_target, 1); //Lb, sends the green bar !
 		}
 		
@@ -778,7 +778,7 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 
 	if( pi->id() ==0x0EED )
 	{ // They gave the NPC gold
-		char sk=pc_t->trainingplayerin;
+		char sk=pc_t->trainingplayerin();
 		npctalk(s, pc_t, "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!",0);
 
 		int sum = pc_currchar->getSkillSum();
@@ -804,8 +804,8 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		Skills->updateSkillLevel(pc_currchar, sk);
 		updateskill(s,sk);
 
-		pc_currchar->trainer=-1;
-		pc_t->trainingplayerin='\xFF';
+		pc_currchar->setTrainer(INVALID_SERIAL);
+		pc_t->setTrainingplayerin('\xFF');
 		itemsfx(s, pi->id());//AntiChrist - do the gold sound
 		return true;
 	}
@@ -936,7 +936,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				}
 				
 				//This crazy training stuff done by Anthracks (fred1117@tiac.net)
-				if(pc_currchar->trainer!=pTC->serial)
+				if(pc_currchar->trainer() != pTC->serial)
 				{
 					npctalk(s, pTC, "Thank thee kindly, but I have done nothing to warrant a gift.",0);
 					Sndbounce5(s);
