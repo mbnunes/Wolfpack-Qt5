@@ -12,8 +12,8 @@
 	<npc id="ophidian_matriarch" inherit="monster_base">
 		<name>ophidian matriarch</name>
 		<id>87</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="416" max="505"/></str>
 		<dex><random min="96" max="115"/></dex>

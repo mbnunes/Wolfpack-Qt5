@@ -14,8 +14,8 @@
 		<strproperty name="monsterspeech" value="ratman" />
 		<name><random list="NAMES_RATMAN" /></name>
 		<id>143</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="146" max="180"/></str>
 		<dex><random min="101" max="130"/></dex>

@@ -12,8 +12,8 @@
 	<npc id="kraken" inherit="monster_base">
 		<name>kraken</name>
 		<id>77</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="756" max="780"/></str>
 		<dex><random min="226" max="245"/></dex>

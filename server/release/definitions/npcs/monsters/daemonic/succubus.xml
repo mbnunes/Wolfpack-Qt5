@@ -12,8 +12,8 @@
 	<npc id="succubus" inherit="monster_base">
 		<name>succubus</name>
 		<id>149</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="488" max="620" /></str>
 		<dex><random min="121" max="170" /></dex>

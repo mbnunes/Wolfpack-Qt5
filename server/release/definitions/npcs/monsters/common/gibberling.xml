@@ -12,8 +12,8 @@
 	<npc id="gibberling" inherit="monster_base">
 		<name>gibberling</name>
 		<id>307</id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="141" max="165"/></str>
 		<dex><random min="101" max="125"/></dex>

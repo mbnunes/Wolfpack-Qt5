@@ -13,8 +13,8 @@
 		<name>pack horse</name>
 		<id>291</id>
 		<ai>Animal_Domestic</ai>
-		<karma><random list="KARMA_NL0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_NL0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="44" max="120" /></str>
 		<dex><random min="36" max="55" /></dex>

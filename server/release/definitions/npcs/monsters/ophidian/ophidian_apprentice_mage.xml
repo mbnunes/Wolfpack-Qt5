@@ -12,8 +12,8 @@
 	<npc id="ophidian_apprentice_mage" inherit="monster_base">
 		<name>ophidian apprentice mage</name>
 		<id>85</id>
-		<karma><random list="KARMA_L3" /></karma>
-		<fame><random list="FAME_L3" /></fame>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="181" max="205"/></str>
 		<dex><random min="193" max="215"/></dex>

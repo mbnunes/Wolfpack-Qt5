@@ -12,8 +12,8 @@
 	<npc id="centaur" inherit="monster_base">
 		<name><random list="NAMES_CENTAUR" /></name>
 		<id>101</id>
-		<karma><random list="KARMA_NL0" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_NL0" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="202" max="300" /></str>
 		<dex><random min="104" max="260" /></dex>

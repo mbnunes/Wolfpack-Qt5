@@ -13,8 +13,8 @@
 	<npc id="silver_serpent" inherit="monster_base">
 		<name>silver serpent</name>
 		<id>91</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="161" max="360" /></str>
 		<dex><random min="151" max="300" /></dex>

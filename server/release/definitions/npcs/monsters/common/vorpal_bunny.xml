@@ -13,7 +13,7 @@
 		<name>vorpal bunny</name>
 		<id>205</id>
 		<karma>0</karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="FAME_L1" />
 		<str>15</str>
 		<dex>2000</dex>
 		<int>1000</int>

@@ -12,8 +12,8 @@
 	<npc id="bronze_elemental" inherit="monster_base">
 		<name>bronze elemental</name>
 		<id>108</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="226" max="255"/></str>
 		<dex><random min="126" max="145"/></dex>

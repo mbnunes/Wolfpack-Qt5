@@ -12,8 +12,8 @@
 	<npc id="flesh_renderer" inherit="monster_base">
 		<name>flesh renderer</name>
 		<id>315</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="401" max="460"/></str>
 		<dex><random min="201" max="210"/></dex>

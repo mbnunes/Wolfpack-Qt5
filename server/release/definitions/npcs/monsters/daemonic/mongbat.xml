@@ -12,8 +12,8 @@
 	<npc id="mongbat" inherit="monster_base">
 		<name>mongbat</name>
 		<id>39</id>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="6" max="10"/></str>
 		<dex><random min="26" max="38"/></dex>

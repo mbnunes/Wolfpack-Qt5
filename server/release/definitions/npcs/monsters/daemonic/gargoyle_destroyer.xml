@@ -12,8 +12,8 @@
 	<npc id="gargoyle_destroyer" inherit="monster_base">
 		<name>gargoyle destroyer</name>
 		<id>754</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="760" max="850"/></str>
 		<dex><random min="102" max="150"/></dex>

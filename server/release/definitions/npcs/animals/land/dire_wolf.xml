@@ -14,8 +14,8 @@
 		<id>23</id>
 		<ai>Animal_Aggressive</ai>
 		<skin><random list="SKINS_NEUTRAL" /></skin>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="96" max="120" /></str>
 		<dex><random min="81" max="105" /></dex>

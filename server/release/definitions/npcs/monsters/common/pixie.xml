@@ -13,7 +13,7 @@
 		<name><random list="NAMES_PIXIE" /></name>
 		<id>128</id>
 		<karma>0</karma>
-		<fame><random list="FAME_L3" /></fame>
+		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="21" max="30"/></str>
 		<dex><random min="301" max="400"/></dex>

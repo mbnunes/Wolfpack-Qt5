@@ -12,8 +12,8 @@
 	<npc id="red_solen_queen" inherit="monster_base">
 		<name>red solen infiltrator</name>
 		<id>783</id>
-		<karma><random list="KARMA_L3" /></karma>
-		<fame><random list="FAME_L3" /></fame>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="296" max="320"/></str>
 		<dex><random min="121" max="145"/></dex>

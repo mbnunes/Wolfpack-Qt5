@@ -12,8 +12,8 @@
 	<npc id="exodus_minion_lord" inherit="monster_base">
 		<name>exodus minion lord</name>
 		<id>763</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="851" max="950"/></str>
 		<dex><random min="101" max="110"/></dex>

@@ -12,8 +12,8 @@
 	<npc id="ophidian_justicar" inherit="monster_base">
 		<name>ophidian justicar</name>
 		<id>85</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="281" max="305"/></str>
 		<dex><random min="191" max="215"/></dex>

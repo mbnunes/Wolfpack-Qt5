@@ -12,8 +12,8 @@
 	<npc id="giant_ice_serpent" inherit="monster_base">
 		<name>giant ice serpent</name>
 		<id>89</id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="216" max="245"/></str>
 		<dex><random min="26" max="50"/></dex>

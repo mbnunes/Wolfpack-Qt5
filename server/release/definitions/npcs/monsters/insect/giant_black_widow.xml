@@ -13,8 +13,8 @@
 	<npc id="giant_black_widow" inherit="monster_base">
 		<name>giant black widow</name>
 		<id>157</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="76" max="100" /></str>
 		<dex><random min="96" max="115" /></dex>

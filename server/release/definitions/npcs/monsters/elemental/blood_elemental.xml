@@ -13,8 +13,8 @@
 	<npc id="blood_elemental" inherit="monster_base">
 		<name>blood elemental</name>
 		<id>159</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="526" max="615"/></str>
 		<dex><random min="66" max="85"/></dex>

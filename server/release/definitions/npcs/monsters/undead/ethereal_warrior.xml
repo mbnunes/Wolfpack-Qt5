@@ -12,8 +12,8 @@
 	<npc id="ethereal_warrior" inherit="undead_base">
 		<name>ethereal warrior</name>
 		<id>123</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="586" max="785" /></str>
 		<dex><random min="177" max="255" /></dex>

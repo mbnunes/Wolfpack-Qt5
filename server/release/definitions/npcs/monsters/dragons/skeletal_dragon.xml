@@ -12,8 +12,8 @@
 	<npc id="skeletal_dragon" inherit="monster_base">
 		<name>skeletal dragon</name>
 		<id>104</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="898" max="1030" /></str>
 		<dex><random min="68" max="200" /></dex>

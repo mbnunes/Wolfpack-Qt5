@@ -14,7 +14,7 @@
 		<id>5</id>
 		<skin>0x66d</skin>
 		<karma>0</karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="504" max="700"/></str>
 		<dex><random min="202" max="300"/></dex>

@@ -13,8 +13,8 @@
 		<name>ki-rin</name>
 		<id>132</id>
 		<ai>Animal_Wild</ai>
-		<karma><random list="KARMA_NL4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_NL4" />
+		<inherit id="FAME_L4" />
 		<!-- Damage -->
 		<mindamage>35</mindamage>
 		<maxdamage>45</maxdamage>

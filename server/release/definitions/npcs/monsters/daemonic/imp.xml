@@ -12,8 +12,8 @@
 	<npc id="imp" inherit="monster_base">
 		<name>imp</name>
 		<id>74</id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="91" max="115"/></str>
 		<dex><random min="61" max="80"/></dex>

@@ -13,7 +13,7 @@
 		<name>golem</name>
 		<id>752</id>
 		<karma><random list="FAME_NL3" /></karma>
-		<fame><random list="FAME_L3" /></fame>
+		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="251" max="350"/></str>
 		<dex><random min="76" max="100"/></dex>

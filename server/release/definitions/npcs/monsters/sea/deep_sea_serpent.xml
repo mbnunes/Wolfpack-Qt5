@@ -12,8 +12,8 @@
 	<npc id="deep_sea_serpent" inherit="monster_base">
 		<name>deep sea serpent</name>
 		<id>150</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="251" max="425"/></str>
 		<dex><random min="87" max="135"/></dex>

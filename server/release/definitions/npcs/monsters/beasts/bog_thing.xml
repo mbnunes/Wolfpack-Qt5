@@ -12,8 +12,8 @@
 	<npc id="bog_thing" inherit="monster_base">
 		<name>bog thing</name>
 		<id>780</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="801" max="900"/></str>
 		<dex><random min="46" max="65"/></dex>

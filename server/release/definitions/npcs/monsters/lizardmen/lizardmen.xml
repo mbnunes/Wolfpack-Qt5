@@ -14,8 +14,8 @@
 		<basescripts>speech.monster</basescripts>
 		<name><random list="NAMES_LIZARDMAN" /></name>
 		<id><random list="NPCIDS_LIZARDMAN" /></id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="86" max="105"/></dex>

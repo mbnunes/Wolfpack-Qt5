@@ -13,8 +13,8 @@
 		<name>boar</name>
 		<id>290</id>
 		<ai>Animal_Wild</ai>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str>25</str>
 		<dex>15</dex>
@@ -48,8 +48,8 @@
 		<name>pig</name>
 		<id>203</id>
 		<ai>Animal_Wild</ai>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str>20</str>
 		<dex>20</dex>

@@ -13,8 +13,8 @@
 	<npc id="abyssmal_horror" inherit="monster_base">
 		<name>abyssmal horror</name>
 		<id>312</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="401" max="421"/></str>
 		<dex><random min="81" max="90"/></dex>

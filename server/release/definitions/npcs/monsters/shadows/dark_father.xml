@@ -13,8 +13,8 @@
 	<npc id="dark_father" inherit="monster_base">
 		<name>dark father</name>
 		<id>318</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<!-- Yes, this strong. Check stratics... -->
 		<str>500</str>

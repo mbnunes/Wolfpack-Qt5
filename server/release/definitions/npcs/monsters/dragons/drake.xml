@@ -12,8 +12,8 @@
 	<npc id="drake" inherit="monster_base">
 		<name>drake</name>
 		<id><random list="NPCIDS_DRAKE" /></id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="401" max="430"/></str>
 		<dex><random min="133" max="152"/></dex>

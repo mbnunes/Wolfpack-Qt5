@@ -12,8 +12,8 @@
 	<npc id="ophidian_knight_errant" inherit="monster_base">
 		<name>ophidian knight-errant</name>
 		<id>86</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="417" max="595"/></str>
 		<dex><random min="166" max="175"/></dex>

@@ -13,7 +13,7 @@
 		<name>gazer larva</name>
 		<id>778</id>
 		<karma>0</karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
 		<dex><random min="51" max="75"/></dex>

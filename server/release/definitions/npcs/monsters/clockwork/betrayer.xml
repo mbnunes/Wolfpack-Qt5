@@ -12,8 +12,8 @@
 	<npc id="betrayer" inherit="monster_base">
 		<name>betrayer</name>
 		<id>767</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="401" max="500"/></str>
 		<dex><random min="81" max="100"/></dex>

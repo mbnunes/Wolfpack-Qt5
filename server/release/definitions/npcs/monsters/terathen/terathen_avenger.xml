@@ -12,8 +12,8 @@
 	<npc id="terathan_avenger" inherit="monster_base">
 		<name>terathan avenger</name>
 		<id>152</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="467" max="645"/></str>
 		<dex><random min="77" max="95"/></dex>

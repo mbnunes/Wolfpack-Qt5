@@ -12,75 +12,75 @@
 <definitions>
 
 	<!-- Fame Gain -->
-	<list id="FAME_L1">
-		<item><random min="0" max="1249" /></item>
-	</list>
+	<npc id="FAME_L1">
+		<fame><random min="0" max="1249" /></fame>
+	</npc>
 
-	<list id="FAME_L2">
-		<item><random min="1250" max=" 2499" /></item>
-	</list>
+	<npc id="FAME_L2">
+		<fame><random min="1250" max=" 2499" /></fame>
+	</npc>
 
-	<list id="FAME_L3">
-		<item><random min="2500" max=" 4999" /></item>
-	</list>
+	<npc id="FAME_L3">
+		<fame><random min="2500" max=" 4999" /></fame>
+	</npc>
 
-	<list id="FAME_L4">
-		<item><random min="5000" max="9999" /></item>
-	</list>
+	<npc id="FAME_L4">
+		<fame><random min="5000" max="9999" /></fame>
+	</npc>
 
-	<list id="FAME_L5">
-		<item><random min="10000" max="25000" /></item>
-	</list>
+	<npc id="FAME_L5">
+		<fame><random min="10000" max="25000" /></fame>
+	</npc>
 
 	<!-- Zero Karma Gain -->
-	<list id="KARMA_NL0">
-		<item><random min="0" max="624" /></item>
-	</list>
+	<npc id="KARMA_NL0">
+		<karma><random min="0" max="624" /></karma>
+	</npc>
 
-	<list id="KARMA_L0">
-		<item><random min="-624" max="0" /></item>
-	</list>
+	<npc id="KARMA_L0">
+		<karma><random min="-624" max="0" /></karma>
+	</npc>
 
 	<!-- Positive Karma Gain -->
-	<list id="KARMA_NL1">
-		<item><random min="625" max="1249" /></item>
-	</list>
+	<npc id="KARMA_NL1">
+		<karma><random min="625" max="1249" /></karma>
+	</npc>
 
-	<list id="KARMA_NL2">
-		<item><random min="1250" max="2499" /></item>
-	</list>
+	<npc id="KARMA_NL2">
+		<karma><random min="1250" max="2499" /></karma>
+	</npc>
 
-	<list id="KARMA_NL3">
-		<item><random min="2500" max="4999" /></item>
-	</list>
+	<npc id="KARMA_NL3">
+		<karma><random min="2500" max="4999" /></karma>
+	</npc>
 
-	<list id="KARMA_NL4">
-		<item><random min="5000" max="9999" /></item>
-	</list>
+	<npc id="KARMA_NL4">
+		<karma><random min="5000" max="9999" /></karma>
+	</npc>
 
-	<list id="KARMA_NL5">
-		<item><random min="10000" max="25000" /></item>
-	</list>
+	<npc id="KARMA_NL5">
+		<karma><random min="10000" max="25000" /></karma>
+	</npc>
 
 	<!-- Negative Karma Gain -->
-	<list id="KARMA_L1">
-		<item><random max="-625" min="-1249" /></item>
-	</list>
+	<npc id="KARMA_L1">
+		<karma><random max="-625" min="-1249" /></karma>
+	</npc>
 
-	<list id="KARMA_L2">
-		<item><random max="-1250" min="-2499" /></item>
-	</list>
+	<npc id="KARMA_L2">
+		<karma><random max="-1250" min="-2499" /></karma>
+	</npc>
 
-	<list id="KARMA_L3">
-		<item><random max="-2500" min="-4999" /></item>
-	</list>
+	<npc id="KARMA_L3">
+		<karma><random max="-2500" min="-4999" /></karma>
+	</npc>
 
-	<list id="KARMA_L4">
-		<item><random max="-5000" min="-9999" /></item>
-	</list>
+	<npc id="KARMA_L4">
+		<karma><random max="-5000" min="-9999" /></karma>
+	</npc>
 
-	<list id="KARMA_L5">
-		<item><random max="-10000" min="-25000" /></item>
-	</list>
+	<npc id="KARMA_L5">
+		<karma><random max="-10000" min="-25000" /></karma>
+	</npc>
 
 </definitions>

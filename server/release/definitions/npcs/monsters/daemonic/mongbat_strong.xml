@@ -10,8 +10,8 @@
 
 	<!-- mongbat (strong) -->
 	<npc id="mongbat_strong" inherit="mongbat">
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="56" max="80"/></str>
 		<dex><random min="61" max="80"/></dex>

@@ -12,8 +12,8 @@
 	<npc id="serpentine_dragon" inherit="monster_base">
 		<name>serpentine dragon</name>
 		<id>103</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="111" max="140"/></str>
 		<dex><random min="201" max="220"/></dex>

@@ -12,8 +12,8 @@
 	<npc id="ice_fiend" inherit="monster_base">
 		<name>ice fiend</name>
 		<id>43</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="376" max="405" /></str>
 		<dex><random min="176" max="195" /></dex>

@@ -14,8 +14,8 @@
 		<strproperty name="monsterspeech" value="orc" />
 		<name>orc chopper</name>
 		<id>139</id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="147" max="245"/></str>
 		<dex><random min="91" max="115"/></dex>

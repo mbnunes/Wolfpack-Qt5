@@ -13,8 +13,8 @@
 		<name>hellcat</name>
 		<id>201</id>
 		<skin>0x485</skin>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="51" max="100"/></str>
 		<dex><random min="52" max="150"/></dex>

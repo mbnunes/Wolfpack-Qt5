@@ -12,8 +12,8 @@
 	<npc id="ancient_wyrm" inherit="monster_base">
 		<name>ancient wyrm</name>
 		<id>798</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="1096" max="1185"/></str>
 		<dex><random min="86" max="175"/></dex>

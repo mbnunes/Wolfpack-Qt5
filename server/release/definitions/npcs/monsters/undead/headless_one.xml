@@ -10,8 +10,8 @@
 	<npc id="headless" inherit="undead_base">
 		<name>headless one</name>
 		<id>31</id>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		
 		<!-- Stats -->
 		<str><random min="26" max="50"/></str>

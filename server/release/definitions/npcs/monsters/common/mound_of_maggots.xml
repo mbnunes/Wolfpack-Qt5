@@ -12,8 +12,8 @@
 	<npc id="mound_of_maggots" inherit="monster_base">
 		<name>mound of maggots</name>
 		<id>319</id>
-		<karma><random list="KARMA_L1" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L1" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="61" max="70"/></str>
 		<dex><random min="61" max="70"/></dex>

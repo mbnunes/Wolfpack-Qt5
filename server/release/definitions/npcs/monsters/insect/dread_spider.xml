@@ -13,8 +13,8 @@
 	<npc id="dread_spider" inherit="monster_base">
 		<name>dread spider</name>
 		<id>19</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="196" max="220"/></str>
 		<dex><random min="126" max="145"/></dex>

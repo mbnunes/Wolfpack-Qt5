@@ -12,8 +12,8 @@
 	<npc id="titan" inherit="monster_base">
 		<name>titan</name>
 		<id>76</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="556" max="585"/></str>
 		<dex><random min="126" max="145"/></dex>

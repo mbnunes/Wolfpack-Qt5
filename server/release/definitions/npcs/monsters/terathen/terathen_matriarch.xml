@@ -12,8 +12,8 @@
 	<npc id="terathan_matriarch" inherit="monster_base">
 		<name>terathan matriarch</name>
 		<id>72</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="316" max="405"/></str>
 		<dex><random min="96" max="115"/></dex>

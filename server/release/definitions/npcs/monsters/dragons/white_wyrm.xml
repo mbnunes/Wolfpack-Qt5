@@ -12,8 +12,8 @@
 	<npc id="white_wyrm" inherit="monster_base">
 		<name>white wyrm</name>
 		<id><random list="NPCIDS_WHITEWYRM" /></id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="721" max="760"/></str>
 		<dex><random min="101" max="130"/></dex>

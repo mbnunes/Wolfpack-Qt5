@@ -12,8 +12,8 @@
 	<npc id="elder_gazer" inherit="monster_base">
 		<name>elder gazer</name>
 		<id>68</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="296" max="325"/></str>
 		<dex><random min="86" max="105"/></dex>

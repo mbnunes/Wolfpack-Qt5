@@ -13,7 +13,7 @@
 		<name>wisp</name>
 		<id>58</id>
 		<karma>0</karma>
-		<fame><random list="FAME_L3" /></fame>
+		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="196" max="225"/></str>
 		<dex><random min="196" max="225"/></dex>

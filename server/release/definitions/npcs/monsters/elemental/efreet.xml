@@ -12,8 +12,8 @@
 	<npc id="efreet" inherit="monster_base">
 		<name>efreet</name>
 		<id>131</id>
-		<karma><random list="KARMA_L4" /></karma>
-		<fame><random list="FAME_L4" /></fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="326" max="355" /></str>
 		<dex><random min="266" max="285" /></dex>

@@ -13,8 +13,8 @@
 		<name>llama</name>
 		<id>220</id>
 		<ai>Animal_Wild</ai>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="21" max="49" /></str>
 		<dex><random min="36" max="55" /></dex>

@@ -12,8 +12,8 @@
 	<npc id="exodus_overseer" inherit="monster_base">
 		<name>exodus overseer</name>
 		<id>756</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="551" max="650"/></str>
 		<dex><random min="76" max="95"/></dex>

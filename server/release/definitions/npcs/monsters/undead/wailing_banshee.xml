@@ -12,8 +12,8 @@
 	<npc id="wailing_banshee" inherit="monster_base">
 		<name>wailing banshee</name>
 		<id>310</id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="126" max="150"/></str>
 		<dex><random min="76" max="100"/></dex>

@@ -13,8 +13,8 @@
 		<name>desert ostard</name>
 		<id>210</id>
 		<ai>Animal_Wild</ai>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="56" max="75" /></dex>
@@ -47,8 +47,8 @@
 		<id>218</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_BIRD" /></skin>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="56" max="75" /></dex>
@@ -79,8 +79,8 @@
 		<name>frenzied ostard</name>
 		<id>219</id>
 		<skin><random list="SKINS_BIRD" /></skin>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="96" max="115" /></dex>

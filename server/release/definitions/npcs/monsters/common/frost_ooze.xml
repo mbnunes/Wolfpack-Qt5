@@ -12,8 +12,8 @@
 	<npc id="frost_ooze" inherit="monster_base">
 		<name>frost ooze</name>
 		<id>94</id>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="18" max="30"/></str>
 		<dex><random min="16" max="21"/></dex>

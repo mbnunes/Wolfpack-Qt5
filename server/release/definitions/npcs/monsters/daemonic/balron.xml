@@ -12,8 +12,8 @@
 	<npc id="balron" inherit="monster_base">
 		<name><random list="NAMES_BALRON" /></name>
 		<id>40</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="986" max="1185"/></str>
 		<dex><random min="177" max="255"/></dex>

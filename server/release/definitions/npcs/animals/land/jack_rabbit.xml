@@ -14,8 +14,8 @@
 		<id>205</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_ANIMAL" /></skin>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str>15</str>
 		<dex>25</dex>

@@ -12,8 +12,8 @@
 	<npc id="plague_beast" inherit="monster_base">
 		<name>plague beast</name>
 		<id>775</id>
-		<karma><random list="KARMA_L5" /></karma>
-		<fame><random list="FAME_L5" /></fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="302" max="500"/></str>
 		<dex>80</dex>

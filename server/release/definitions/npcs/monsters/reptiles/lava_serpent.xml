@@ -12,8 +12,8 @@
 	<npc id="lava_serpent" inherit="monster_base">
 		<name>lava serpent</name>
 		<id>90</id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="386" max="415"/></str>
 		<dex><random min="56" max="80"/></dex>

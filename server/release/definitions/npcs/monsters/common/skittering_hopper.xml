@@ -12,8 +12,8 @@
 	<npc id="skittering_hopper" inherit="monster_base">
 		<name>skittering hopper</name>
 		<id>302</id>
-		<karma><random list="KARMA_L0" /></karma>
-		<fame><random list="FAME_L1" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="41" max="65"/></str>
 		<dex><random min="91" max="115"/></dex>

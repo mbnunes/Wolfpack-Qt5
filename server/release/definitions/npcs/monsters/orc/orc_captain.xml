@@ -14,8 +14,8 @@
 		<basescripts>speech.monster</basescripts>
 		<name>orc captain</name>
 		<id>7</id>
-		<karma><random list="KARMA_L2" /></karma>
-		<fame><random list="FAME_L2" /></fame>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="111" max="145"/></str>
 		<dex><random min="101" max="135"/></dex>
