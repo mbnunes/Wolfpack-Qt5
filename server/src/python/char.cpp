@@ -461,9 +461,9 @@ PyObject* wpChar_damage( wpChar* self, PyObject* args )
 	if( getArgInt( 0 ) == 0 )
 		return PyTrue;
 
-	// Play take-damage animation
-	Combat::playGetHitSoundEffect( self->pChar );
-	
+	// Play take-damage animation / soundeffect
+	Combat::playGetHitSoundEffect( self->pChar );	
+	Combat::playGetHitAnimation( self->pChar );
 
 	self->pChar->setHp( self->pChar->hp() - getArgInt( 0 ) );
 	self->pChar->updateHealth();
@@ -969,6 +969,14 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Adds a temp effect to this character.
+*/
+PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
+{
+	return PyFalse;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -991,6 +999,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Shows an emote above the character." },
 	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
 	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
+	{ "addtimer",		(getattrofunc)wpChar_addtimer, METH_VARARGS, "Adds a timer to this character." },
 
 	// Update Stats
 	{ "updatestats",	(getattrofunc)wpChar_updatemana, METH_VARARGS, "Resends other stats to this character." },

@@ -427,6 +427,10 @@ void cChar::setNextMoveTime(short tamediv)
 //
 void cChar::fight(P_CHAR other)
 {
+	// I am already fighting this character.
+	if( war() && targ() == other->serial )
+		return;
+
 	// Store the current Warmode
 	bool oldwar = war_;
 
@@ -1993,14 +1997,21 @@ void cChar::action( UINT8 id )
 {
 	bool mounted = ( atLayer( Mount ) != 0 );
 
-	if( mounted && ( id == 0x10 || id == 0x11 ) )
-		id = 0x1b;
-	else if( mounted && ( id == 0x0D ) )
+	// Bow + Area Cast
+	if( mounted && ( id == 0x11 || id == 0x12 ) )
+		id = 0x1B;
+
+	else if( mounted && ( id == 0x0D || id == 0x14 ) )
 		id = 0x1D;
-	else if( mounted && ( id == 0x09 ) )
+	
+	// Attack (1H,Side,Down) + Cast Directed
+	else if( mounted && ( id == 0x09 || id == 0x0a ||id == 0x0b ||id == 0x10 ) )
 		id = 0x1A;
-	else if( mounted && ( id == 0x20 ) )
-		id = 0x1c; 
+	
+	// Bow + Salute + Eat
+	else if( mounted && ( id == 0x13 || id == 0x20 || id == 0x21 || id == 0x22 ) )
+		id = 0x1C; 
+
 	else if( ( mounted || this->id() < 0x190 ) && ( id == 0x22 ) )
 		return;
 

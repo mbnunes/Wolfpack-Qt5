@@ -60,6 +60,8 @@ namespace Combat
 	void playMissedSoundEffect( P_CHAR pChar, P_ITEM pWeapon );
 	void playSoundEffect( P_CHAR pChar, P_ITEM pWeapon );
 	void playGetHitSoundEffect( P_CHAR pChar );
+	void playGetHitAnimation( P_CHAR pChar );
+
 	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWeapon );
 
 	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos );

@@ -260,6 +260,8 @@ namespace Combat
 	void checkandhit( P_CHAR pAttacker )
 	{
 		P_CHAR pDefender = FindCharBySerial( pAttacker->swingtarg() );
+		
+		// We made our swing, so reset the target.
 		pAttacker->setSwingTarg( INVALID_SERIAL );
 
 		if( !pDefender || pDefender->isInvul() )
@@ -1246,6 +1248,14 @@ namespace Combat
 			case 2:		pc->action( 0x09 );	return; //fist top-down
 			case 3:		pc->action( 0x1F );	return; //fist over-head
 		}
+	}
+
+	// play the get hit animation
+	void playGetHitAnimation( P_CHAR pChar )
+	{
+		// When we are not currently doing a swing against a target
+		if( pChar->swingtarg() == INVALID_SERIAL )
+			pChar->action( 0x14 );
 	}
 
 	// play the "MISSED" sound effect
