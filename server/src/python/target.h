@@ -94,7 +94,7 @@ wpDealloc,
 
 };
 
-static PyObject* PyGetTarget( cUORxTarget* target, UINT8 map )
+static PyObject* PyGetTarget( cUORxTarget* target, Q_UINT8 map )
 {
 	if ( !target )
 	{

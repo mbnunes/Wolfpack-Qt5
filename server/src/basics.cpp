@@ -114,11 +114,11 @@ bool parseCoordinates( const QString& input, Coord_cl& coord )
 	if ( !ok )
 		return false;
 
-	INT8 z = coords[2].toShort( &ok );
+	Q_INT8 z = coords[2].toShort( &ok );
 	if ( !ok )
 		return false;
 
-	UINT8 map = coord.map; // Current by default
+	Q_UINT8 map = coord.map; // Current by default
 	if ( coords.size() > 3 )
 	{
 		map = coords[3].toUShort( &ok );

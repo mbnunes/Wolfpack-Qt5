@@ -194,7 +194,7 @@ void cNPC::save()
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
 		addField( "stablemaster", stablemasterSerial_ );
 		addStrField( "ai", aiid_ );
-		addField( "wandertype", ( UINT8 ) wanderType() );
+		addField( "wandertype", ( Q_UINT8 ) wanderType() );
 		addField( "wanderx1", wanderX1() );
 		addField( "wanderx2", wanderX2() );
 		addField( "wandery1", wanderY1() );
@@ -319,7 +319,7 @@ void cNPC::resend( bool clean )
 	}
 }
 
-void cNPC::talk( const QString& message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
+void cNPC::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospam, cUOSocket* socket )
 {
 	if ( autospam )
 	{
@@ -408,7 +408,7 @@ void cNPC::talk( const Q_UINT32 MsgID, const QString& params /*= 0*/, const QStr
 	}
 }
 
-UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
+Q_UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
 	if ( isIncognito() )
 	{
@@ -427,7 +427,7 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 		7 = invulnerable (yellow)
 		//7 = unknown use (translucent (like 0x4000 hue))
 	*/
-	UINT8 result;
+	Q_UINT8 result;
 
 	if ( isInvulnerable() )
 	{
@@ -435,7 +435,7 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 	}
 
 	// Check for Guild status + Highlight
-	//	UINT8 guildStatus = GuildCompare( this, pChar );
+	//	Q_UINT8 guildStatus = GuildCompare( this, pChar );
 
 	//	if( npcaitype() == 0x02 )
 	//		return 0x06; // 6 = Red -> Monster
@@ -824,7 +824,7 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	else if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -845,7 +845,7 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	else if ( name.left( 9 ) == "skillcap." )
 	{
 		QString skill = name.right( name.length() - 9 );
-		INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -855,7 +855,7 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	}
 	else
 	{
-		INT16 skillId = Skills::instance()->findSkillByDef( name );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( name );
 
 		if ( skillId != -1 )
 		{

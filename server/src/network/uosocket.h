@@ -81,7 +81,7 @@ private:
 	cAccount* _account;
 	P_PLAYER _player;
 	eSocketState _state;
-	UINT8 lastPacket, _viewRange, _walkSequence;
+	Q_UINT8 lastPacket, _viewRange, _walkSequence;
 	cTargetRequest* targetRequest;
 	QString _lang, _version;
 	cCustomTags tags_;
@@ -247,7 +247,7 @@ public:
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
-	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, UINT8 speechType = 0x00 ) const;
+	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, Q_UINT8 speechType = 0x00 ) const;
 	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, Q_UINT16 font = 3 ) const;
 	void sendCharList();
 	void removeObject( cUObject* object );
@@ -260,7 +260,7 @@ public:
 	void sendPaperdoll( P_CHAR pChar );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
-	void bounceItem( P_ITEM pItem, UINT8 reason );
+	void bounceItem( P_ITEM pItem, Q_UINT8 reason );
 	void updatePlayer();
 	void resendPlayer( bool quick = true );
 	void poll();

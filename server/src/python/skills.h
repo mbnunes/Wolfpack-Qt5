@@ -40,7 +40,7 @@ typedef struct
 {
 	PyObject_HEAD;
 	P_CHAR pChar;
-	UINT8 type; // 0: Value; 1: Cap; 2: Lock
+	Q_UINT8 type; // 0: Value; 1: Cap; 2: Lock
 } wpSkills;
 
 int wpSkills_length( wpSkills* self )

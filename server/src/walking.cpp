@@ -107,8 +107,8 @@ using namespace std;
 // Can walk the tile, the tile's height and if the tile's a stair
 struct stBlockItem
 {
-	INT8 z;
-	UINT8 height;
+	Q_INT8 z;
+	Q_UINT8 height;
 	bool walkable;
 
 	stBlockItem() : z( -128 ), height( 0 ), walkable( false )
@@ -186,7 +186,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 
 		// If we are a stair only the half height counts (round up)
 		if ( tTile.flag2 & 0x04 )
-			staticBlock.height = ( UINT8 ) ( tTile.height + 1 / 2 );
+			staticBlock.height = ( Q_UINT8 ) ( tTile.height + 1 / 2 );
 		else
 			staticBlock.height = tTile.height;
 
@@ -290,7 +290,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 	for ( i = 0; i < blockList.size(); ++i )
 	{
 		stBlockItem item = blockList[i];
-		INT8 itemTop = ( item.z + item.height );
+		Q_INT8 itemTop = ( item.z + item.height );
 
 		// If we encounter any object with itemTop <= pos.z which is NOT walkable
 		// Then we can as well just return false as while falling we would be
@@ -328,7 +328,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 		// Lets check if there is enough space ABOVE that position (at least 15 z units)
 		// If there is ANY impassable object between pos.z and pos.z + 15 we can't walk here
 		stBlockItem item = blockList[i];
-		INT8 itemTop = ( item.z + item.height );
+		Q_INT8 itemTop = ( item.z + item.height );
 
 		// Does the top of the item looms into our space
 		// Like before 15 is the assumed height of ourself
@@ -804,7 +804,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	const INT32 dt = DynTile( mPos );
 
 	// if there is a dynamic tile at this spot, check to see if its a blocker
-	// if it does block, might as well INT16-circuit and return right away
+	// if it does block, might as well Q_INT16-circuit and return right away
 	if ( dt >= 0 )
 	{
 		tile_st tile = TileCache::instance()->getTile( dt );

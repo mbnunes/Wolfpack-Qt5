@@ -362,7 +362,7 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 		// row[3] = cap (unused!)
 		Q_UINT16 skill = res.getInt( 0 );
 		Q_UINT16 value = res.getInt( 1 );
-		UINT8 lockType = res.getInt( 2 );
+		Q_UINT8 lockType = res.getInt( 2 );
 		Q_UINT16 cap = res.getInt( 3 );
 
 		if ( lockType > 2 )
@@ -894,9 +894,9 @@ void cBaseChar::resurrect()
 
 void cBaseChar::turnTo( const Coord_cl& pos )
 {
-	INT16 xdif = ( INT16 ) ( pos.x - this->pos().x );
-	INT16 ydif = ( INT16 ) ( pos.y - this->pos().y );
-	UINT8 nDir;
+	Q_INT16 xdif = ( Q_INT16 ) ( pos.x - this->pos().x );
+	Q_INT16 ydif = ( Q_INT16 ) ( pos.y - this->pos().y );
+	Q_UINT8 nDir;
 
 	if ( xdif == 0 && ydif < 0 )
 		nDir = 0;
@@ -934,7 +934,7 @@ void cBaseChar::turnTo( cUObject* object )
 */
 void cBaseChar::wear( P_ITEM pi )
 {
-	UINT8 layer = pi->layer();
+	Q_UINT8 layer = pi->layer();
 
 	if ( !pi->container() )
 	{
@@ -1318,7 +1318,7 @@ void cBaseChar::processNode( const cElement* Tag )
 			setSkillValue( ( Tag->getAttribute( "type" ).toInt() - 1 ), Value.toInt() );
 		else
 		{
-			INT16 skillId = Skills::instance()->findSkillByDef( Tag->getAttribute( "type", "" ) );
+			Q_INT16 skillId = Skills::instance()->findSkillByDef( Tag->getAttribute( "type", "" ) );
 			setSkillValue( skillId, Value.toInt() );
 		}
 	}
@@ -1402,7 +1402,7 @@ void cBaseChar::processNode( const cElement* Tag )
 	}
 	else
 	{
-		INT16 skillId = Skills::instance()->findSkillByDef( TagName );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( TagName );
 
 		if ( skillId == -1 )
 			cUObject::processNode( Tag );
@@ -2136,7 +2136,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -2147,7 +2147,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	else if ( name.left( 9 ) == "skillcap." )
 	{
 		QString skill = name.right( name.length() - 9 );
-		INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -2157,7 +2157,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	else
 	{
 		// See if there's a skill by that name
-		INT16 skillId = Skills::instance()->findSkillByDef( name );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( name );
 
 		if ( skillId != -1 )
 		{
@@ -2179,7 +2179,7 @@ void cBaseChar::setSkillCap( Q_UINT16 skill, Q_UINT16 cap )
 	skills_[skill].changed = true;
 }
 
-void cBaseChar::setSkillLock( Q_UINT16 skill, UINT8 lock )
+void cBaseChar::setSkillLock( Q_UINT16 skill, Q_UINT8 lock )
 {
 	if ( lock > 2 )
 		lock = 0;
@@ -2198,12 +2198,12 @@ Q_UINT16 cBaseChar::skillCap( Q_UINT16 skill ) const
 	return skills_[skill].cap;
 }
 
-UINT8 cBaseChar::skillLock( Q_UINT16 skill ) const
+Q_UINT8 cBaseChar::skillLock( Q_UINT16 skill ) const
 {
 	return skills_[skill].lock;
 }
 
-void cBaseChar::setStamina( INT16 data, bool notify )
+void cBaseChar::setStamina( Q_INT16 data, bool notify )
 {
 	stamina_ = data;
 	changed_ = notify;

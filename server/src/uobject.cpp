@@ -604,7 +604,7 @@ void cUObject::lightning( unsigned short hue )
 /*!
 	Displays an effect emitting from this object toward another item or character
 */
-void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool explodes, UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool explodes, Q_UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	if ( !target )
 		return;
@@ -638,7 +638,7 @@ void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool 
 /*!
 	Displays an effect emitting from this object and moving towards a specific location.
 */
-void cUObject::effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection, bool explodes, UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection, bool explodes, Q_UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_MOVING );
@@ -668,7 +668,7 @@ void cUObject::effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection,
 /*!
 	Displays an effect moving with this object.
 */
-void cUObject::effect( Q_UINT16 id, UINT8 speed, UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCESER );

@@ -130,11 +130,11 @@ public:
 class cSetTagTarget : public cTargetRequest
 {
 private:
-	UINT8 type_;
+	Q_UINT8 type_;
 	QString key_;
 	QString value_;
 public:
-	cSetTagTarget( QString key, QString value, UINT8 type )
+	cSetTagTarget( QString key, QString value, Q_UINT8 type )
 	{
 		type_ = type;
 		key_ = key;
@@ -298,7 +298,7 @@ class cMoveTarget : public cTargetRequest
 private:
 	Q_INT16 x, y, z;
 public:
-	cMoveTarget( Q_INT16 _x, Q_INT16 _y, INT8 _z ) : x( _x ), y( _y ), z( _z )
+	cMoveTarget( Q_INT16 _x, Q_INT16 _y, Q_INT8 _z ) : x( _x ), y( _y ), z( _z )
 	{
 	}
 

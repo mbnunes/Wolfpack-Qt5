@@ -1450,7 +1450,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
   This method prints \a message on top of \a object using the given \a color and \a speechType
   \sa cUObject, cUOTxUnicodeSpeech, cUOTxUnicodeSpeech::eSpeechType
 */
-void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UINT16 color, Q_UINT16 font, UINT8 speechType ) const
+void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UINT16 color, Q_UINT16 font, Q_UINT8 speechType ) const
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial() );
@@ -2070,7 +2070,7 @@ void cUOSocket::poll()
 	}
 }
 
-void cUOSocket::attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, INT16 xOffset, INT16 yOffset, INT16 zOffset )
+void cUOSocket::attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, Q_INT16 xOffset, Q_INT16 yOffset, Q_INT16 zOffset )
 {
 	// Let the old one time out
 	if ( targetRequest && targetRequest != request )
@@ -2145,7 +2145,7 @@ void cUOSocket::handleTarget( cUORxTarget* packet )
 		return;
 
 	// Check if there really was a response or if it just was canceled
-	if ( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( ( UINT8 ) packet->z() == 0xFF ) ) )
+	if ( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( ( Q_UINT8 ) packet->z() == 0xFF ) ) )
 		targetRequest->canceled( this );
 	else
 	{
@@ -2239,7 +2239,7 @@ P_ITEM cUOSocket::dragging() const
 	return _player->atLayer( cBaseChar::Dragging );
 }
 
-void cUOSocket::bounceItem( P_ITEM pItem, UINT8 reason )
+void cUOSocket::bounceItem( P_ITEM pItem, Q_UINT8 reason )
 {
 	cUOTxBounceItem bounce;
 	bounce.setReason( ( eBounceReason ) reason );
@@ -2465,7 +2465,7 @@ void cUOSocket::sendSkill( Q_UINT16 skill )
 	pUpdate.setValue( _player->skillValue( skill ) );
 	pUpdate.setRealValue( _player->skillValue( skill ) );
 
-	UINT8 lock = _player->skillLock( skill );
+	Q_UINT8 lock = _player->skillLock( skill );
 
 	if ( lock == 0 )
 		pUpdate.setStatus( cUOTxUpdateSkill::Up );
@@ -2777,7 +2777,7 @@ void cUOSocket::clilocMessageAffix( const Q_UINT32 MsgID, const QString& params,
 	msg.setHue( color );
 	msg.setFont( font );
 
-	UINT8 flags = 0;
+	Q_UINT8 flags = 0;
 	if ( prepend )
 		flags |= cUOTxClilocMsgAffix::Prepend;
 	if ( dontMove )

@@ -269,7 +269,7 @@ float Monster_Aggr_MoveToTarget::preCondition()
 	if ( !pAI || !pAI->currentVictim() )
 		return 0.0f;
 
-	UINT8 range = 1;
+	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 
 	if ( weapon && weapon->hasTag( "range" ) )
@@ -304,7 +304,7 @@ float Monster_Aggr_MoveToTarget::postCondition()
 	if ( !pAI || !pAI->currentVictim() )
 		return 1.0f;
 
-	UINT8 range = 1;
+	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon && weapon->hasTag( "range" ) )
 	{
@@ -361,7 +361,7 @@ float Monster_Aggr_Fight::preCondition()
 	if ( !pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead() )
 		return 0.0f;
 
-	UINT8 range = 1;
+	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon && weapon->hasTag( "range" ) )
 	{
@@ -396,7 +396,7 @@ float Monster_Aggr_Fight::postCondition()
 	if ( !pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead() )
 		return 1.0f;
 
-	UINT8 range = 1;
+	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon && weapon->hasTag( "range" ) )
 	{

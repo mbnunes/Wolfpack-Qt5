@@ -339,7 +339,7 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	}
 
 	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	INT16 color = -1;
+	Q_INT16 color = -1;
 
 	if ( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
@@ -531,7 +531,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	// Optional Arguments
 	bool fixedDirection = true;
 	bool explodes = false;
-	UINT8 speed = 10;
+	Q_UINT8 speed = 10;
 	Q_UINT16 hue = 0;
 	Q_UINT16 renderMode = 0;
 
@@ -1049,8 +1049,8 @@ static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 {
 	Q_UINT16 id;
 	// Optional Arguments
-	UINT8 speed = 5;
-	UINT8 duration = 10;
+	Q_UINT8 speed = 5;
+	Q_UINT8 duration = 10;
 	Q_UINT16 hue = 0;
 	Q_UINT16 renderMode = 0;
 

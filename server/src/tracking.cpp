@@ -97,7 +97,7 @@ public:
 		Timers::instance()->insert( new cRefreshTracking( player->serial(), choice.button ) );
 	}
 
-	cTrackingList( P_CHAR player, UINT8 type )
+	cTrackingList( P_CHAR player, Q_UINT8 type )
 	{
 		setType( 0xFE12ACDE );
 

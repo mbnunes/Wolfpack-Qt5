@@ -136,9 +136,9 @@ public:
 	void postload( unsigned int version ) = 0;
 
 	// Utility Methods
-	void effect( Q_UINT16 id, UINT8 speed = 10, UINT8 duration = 5, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 ); // Moving with this character
-	void effect( Q_UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
-	void effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
+	void effect( Q_UINT16 id, Q_UINT8 speed = 10, Q_UINT8 duration = 5, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 ); // Moving with this character
+	void effect( Q_UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, Q_UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
+	void effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection = true, bool explodes = false, Q_UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
 	void lightning( unsigned short hue = 0 );
 	bool inRange( cUObject* object, Q_UINT32 range ) const;
 	void removeFromView( bool clean = true );
@@ -151,7 +151,7 @@ public:
 	{
 		return isCharSerial( serial_ );
 	}
-	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, Q_UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 	virtual void flagUnchanged()
 	{
 		changed_ = false;

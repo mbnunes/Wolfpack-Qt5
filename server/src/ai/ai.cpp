@@ -540,7 +540,7 @@ void Action_Wander::execute()
 
 	case enFreely:
 		{
-			UINT8 dir = m_npc->direction();
+			Q_UINT8 dir = m_npc->direction();
 			if ( RandomNum( 0, 100 ) < 20 )
 				dir = RandomNum( 0, 7 );
 
@@ -555,7 +555,7 @@ void Action_Wander::execute()
 			Q_UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
 			Q_UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 
-			UINT8 dir = m_npc->pos().direction( Coord_cl( rndx, rndy ) );
+			Q_UINT8 dir = m_npc->pos().direction( Coord_cl( rndx, rndy ) );
 			m_npc->setDirection( dir );
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
@@ -570,10 +570,10 @@ void Action_Wander::execute()
 			float rnddist = ( float ) RandomNum( 1, m_npc->wanderRadius() );
 			// now get a point on this circle around the m_npc
 			float rndphi = ( float ) RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
-			pos.x = pos.x + ( INT16 ) floor( cos( rndphi ) * rnddist );
-			pos.y = pos.y + ( INT16 ) floor( sin( rndphi ) * rnddist );
+			pos.x = pos.x + ( Q_INT16 ) floor( cos( rndphi ) * rnddist );
+			pos.y = pos.y + ( Q_INT16 ) floor( sin( rndphi ) * rnddist );
 
-			UINT8 dir = m_npc->pos().direction( pos );
+			Q_UINT8 dir = m_npc->pos().direction( pos );
 			m_npc->setDirection( dir );
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
@@ -611,7 +611,7 @@ void Action_Wander::execute()
 void Action_Wander::moveTo( const Coord_cl& pos )
 {
 	// simply move towards the target
-	UINT8 dir = m_npc->pos().direction( pos );
+	Q_UINT8 dir = m_npc->pos().direction( pos );
 	Coord_cl newPos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 	if ( !mayWalk( m_npc, newPos ) )
 	{
@@ -646,7 +646,7 @@ void Action_Wander::movePath( const Coord_cl& pos )
 {
 	if ( ( waitForPathCalculation <= 0 && !m_npc->hasPath() ) || pos != m_npc->pathDestination() )
 	{
-		UINT8 range = 1;
+		Q_UINT8 range = 1;
 		if ( m_npc->rightHandItem() )
 		{
 			unsigned int type = m_npc->rightHandItem()->type();
@@ -671,7 +671,7 @@ void Action_Wander::movePath( const Coord_cl& pos )
 	{
 		waitForPathCalculation = 0;
 		Coord_cl nextmove = m_npc->nextMove();
-		UINT8 dir = m_npc->pos().direction( nextmove );
+		Q_UINT8 dir = m_npc->pos().direction( nextmove );
 		m_npc->setDirection( dir );
 		Movement::instance()->Walking( m_npc, dir, 0xFF );
 		m_npc->popMove();
@@ -699,14 +699,14 @@ void Action_Flee::execute()
 			int v1 = newPos.x - fleePos.x;
 			int v2 = newPos.y - fleePos.y;
 			float v_norm = sqrt( ( double ) ( v1* v1 + v2* v2 ) );
-			newPos.x = newPos.x + ( INT16 ) floor( rnddist * v1 / v_norm );
-			newPos.y = newPos.y + ( INT16 ) floor( rnddist * v2 / v_norm );
+			newPos.x = newPos.x + ( Q_INT16 ) floor( rnddist * v1 / v_norm );
+			newPos.y = newPos.y + ( Q_INT16 ) floor( rnddist * v2 / v_norm );
 		}
 		else
 		{
 			float rndphi = ( float ) RandomNum( 0, 100 ) / 100.0f * 2 * 3.14;
-			newPos.x = newPos.x + ( INT16 ) floor( sin( rndphi ) * rnddist );
-			newPos.y = newPos.y + ( INT16 ) floor( cos( rndphi ) * rnddist );
+			newPos.x = newPos.x + ( Q_INT16 ) floor( sin( rndphi ) * rnddist );
+			newPos.y = newPos.y + ( Q_INT16 ) floor( cos( rndphi ) * rnddist );
 		}
 
 		// we use pathfinding for fleeing
@@ -797,7 +797,7 @@ float Action_Defend::preCondition()
 	if ( m_npc->hitpoints() < m_npc->criticalHealth() )
 		return 0.0f;
 
-	UINT8 range = 1;
+	Q_UINT8 range = 1;
 	if ( m_npc->rightHandItem() )
 	{
 		unsigned int type = m_npc->rightHandItem()->type();
@@ -839,7 +839,7 @@ float Action_Defend::postCondition()
 	if ( !pAttacker || pAttacker->isDead() )
 		return 1.0f;
 
-	UINT8 range = 1;
+	Q_UINT8 range = 1;
 	if ( m_npc->rightHandItem() )
 	{
 		unsigned int type = m_npc->rightHandItem()->type();

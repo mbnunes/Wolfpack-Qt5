@@ -734,7 +734,7 @@ static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 	}
 
 	Q_UINT16 id = getArgInt( 0 );
-	INT16 color = -1;
+	Q_INT16 color = -1;
 
 	if ( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
 		color = getArgInt( 1 );
@@ -1327,8 +1327,8 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 	Q_UINT16 id = getArgInt( 0 );
 
 	// Optional Arguments
-	UINT8 speed = 5;
-	UINT8 duration = 10;
+	Q_UINT8 speed = 5;
+	Q_UINT8 duration = 10;
 	Q_UINT16 hue = 0;
 	Q_UINT16 renderMode = 0;
 

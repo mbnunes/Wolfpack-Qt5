@@ -121,7 +121,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		}
 
 		Q_UINT16 amount = packet->iAmount( i );
-		UINT8 layer = packet->iLayer( i );
+		Q_UINT8 layer = packet->iLayer( i );
 
 		// First check: is the item on the vendor in the specified layer
 		if ( layer == 0x1A )

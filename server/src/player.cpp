@@ -279,7 +279,7 @@ void cPlayer::resend( bool clean )
 	}
 }
 
-void cPlayer::talk( const QString& message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
+void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospam, cUOSocket* socket )
 {
 	Q_UNUSED( autospam );
 	if ( color == 0xFFFF )
@@ -366,7 +366,7 @@ void cPlayer::talk( const QString& message, UI16 color, UINT8 type, bool autospa
 	}
 }
 
-UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
+Q_UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
 	// Player is incognito
 	if ( isIncognito() )
@@ -375,7 +375,7 @@ UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another ch
 	}
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red, 0x07 Yellow
-	UINT8 result;
+	Q_UINT8 result;
 
 	if ( isInvulnerable() )
 	{
@@ -1110,7 +1110,7 @@ bool cPlayer::onUse( P_ITEM pItem )
 	return result;
 }
 
-void cPlayer::setStamina( INT16 data, bool notify /* = true */ )
+void cPlayer::setStamina( Q_INT16 data, bool notify /* = true */ )
 {
 	bool update = false;
 	if ( data != stamina() && notify )
@@ -1200,7 +1200,7 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	else if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -1215,7 +1215,7 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	else if ( name.left( 9 ) == "skillcap." )
 	{
 		QString skill = name.right( name.length() - 9 );
-		INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -1227,7 +1227,7 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	}
 	else
 	{
-		INT16 skillId = Skills::instance()->findSkillByDef( name );
+		Q_INT16 skillId = Skills::instance()->findSkillByDef( name );
 		if ( skillId != -1 )
 		{
 			setSkillValue( skillId, value.toInt() );

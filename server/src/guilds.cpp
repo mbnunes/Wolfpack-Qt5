@@ -898,7 +898,6 @@ void cGuild::load( cBufferedReader& reader, unsigned int version ) {
 	guildstone_ = World::instance()->findItem(reader.readInt());
 
 	// Save Members/Canidates
-	P_PLAYER player;
 
 	int count, i;
 	count = reader.readInt();

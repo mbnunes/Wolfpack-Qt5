@@ -81,8 +81,8 @@ public:
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false );
 	virtual void resend( bool clean = true );
-	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	virtual UINT8 notoriety( P_CHAR pChar );
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, Q_UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
+	virtual Q_UINT8 notoriety( P_CHAR pChar );
 	virtual void showName( cUOSocket* socket );
 	virtual void soundEffect( ushort soundId, bool hearAll = true );
 	virtual void giveGold( uint amount, bool inBank = false );
@@ -139,9 +139,9 @@ public:
 		return inputMode_;
 	}
 	SERIAL inputItem() const;
-	UINT8 visualRange() const;
+	Q_UINT8 visualRange() const;
 	QString profile() const;
-	UINT8 fixedLightLevel() const;
+	Q_UINT8 fixedLightLevel() const;
 
 	// bit flag getters
 	bool maySnoop() const;
@@ -165,9 +165,9 @@ public:
 		inputMode_ = data;
 	}
 	void setInputItem( SERIAL data );
-	void setVisualRange( UINT8 data );
+	void setVisualRange( Q_UINT8 data );
 	void setProfile( const QString& data );
-	void setFixedLightLevel( UINT8 data );
+	void setFixedLightLevel( Q_UINT8 data );
 	// bit flag setters
 	void setMaySnoop( bool data );
 	void setMayBroadcast( bool data );
@@ -183,7 +183,7 @@ public:
 	void setDexterityLock( unsigned char data );
 	void setIntelligenceLock( unsigned char data );
 
-	virtual void setStamina( INT16 data, bool notify = true );
+	virtual void setStamina( Q_INT16 data, bool notify = true );
 
 	void remove();
 
@@ -267,14 +267,14 @@ protected:
 	SERIAL inputItem_;
 
 	// Visual range of the player
-	UINT8 visualRange_;
+	Q_UINT8 visualRange_;
 
 	// Paperdoll profile of the char
 	QString profile_;
 
 	// Fixed light level. is used in dungeons or for nightsight spell.
 	// cOldChar:fixedlight_
-	UINT8 fixedLightLevel_;
+	Q_UINT8 fixedLightLevel_;
 };
 
 inline cAccount* cPlayer::account() const
@@ -364,12 +364,12 @@ inline void cPlayer::setInputItem( SERIAL data )
 	inputItem_ = data;
 }
 
-inline UINT8 cPlayer::visualRange() const
+inline Q_UINT8 cPlayer::visualRange() const
 {
 	return visualRange_;
 }
 
-inline void cPlayer::setVisualRange( UINT8 data )
+inline void cPlayer::setVisualRange( Q_UINT8 data )
 {
 	visualRange_ = data;
 	changed_ = true;
@@ -386,12 +386,12 @@ inline void cPlayer::setProfile( const QString& data )
 	changed_ = true;
 }
 
-inline UINT8 cPlayer::fixedLightLevel() const
+inline Q_UINT8 cPlayer::fixedLightLevel() const
 {
 	return fixedLightLevel_;
 }
 
-inline void cPlayer::setFixedLightLevel( UINT8 data )
+inline void cPlayer::setFixedLightLevel( Q_UINT8 data )
 {
 	fixedLightLevel_ = data;
 	changed_ = true;
