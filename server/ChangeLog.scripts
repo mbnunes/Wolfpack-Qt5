@@ -5,25 +5,31 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Added an email field for accounts.
 		- Timer fixes.
 		- Changes to event/script functions. ( See Python changes. )
+		- Fixes for walking and ladders
+		- Added support for basescripts, read-only assigned scripts.
+		- Added compression support for binary saves.
 	* Definition Changes:
 		- Tag Changes:
 			<events></events> is now <scripts></scripts>
+		- Basescripts added to many scripts. Read only assigned scripts.
+			Format is: <basescripts></basescripts>
 	* Python Script Changes:
 		- Function Changes:
 			Old: addevent() hasevent() removeevent()
 			New: addscript() hasscript() removescript()
+			Note: hasevent still exists, but has another purpose.
 		- Added the bolt command, just lightnings the target.
 		- Added the email command, changes your account's email.
 		- Added sparkle effects to the heal/restore commands.
 		- Fixes for the account command:
 			Fixed a few typos.
-			Fixed a bug in updating the password
+			Fixed a bug in updating the passwords of accounts.
 			Added support for the email field.
-			Fixed a bug with updating passwords. ( Dreoth was tired. :P )
-		- Tweaked the hunger script.
-		- Fixed an update bug with npcs and the dye command.
+		- Tweaked the hunger script to affect hunger less often.
+		- Fixed an update bug with NPCs and the dye command.
 		- Fixed a bug with the dupe command.
 	* Misc. Changes:
+		- Experimental Mac OSX Support
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
 		- Spawn regions are incomplete.
