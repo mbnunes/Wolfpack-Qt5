@@ -411,12 +411,10 @@ void monstergate(P_CHAR pc_s, int x)
                          }   
                          if (pBackpack == NULL)   
                          {   
-                                 scpMark m=pScp->Suspend();   
                                  pBackpack = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",0,0x0E,0x75,0,0,0);   
                                  if (pBackpack == NULL)   
                                          return;   
                                  pc_s->packitem = pBackpack->serial;   
-                                 pScp->Resume(m);   
     
                                  pBackpack->setContSerial(pc_s->serial);   
                                  pBackpack->setLayer(0x15);   
