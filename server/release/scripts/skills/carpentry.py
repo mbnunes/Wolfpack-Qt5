@@ -6,7 +6,7 @@ import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
 import random
-from skills.blacksmithing import METALS
+import skills.blacksmithing
 
 #
 # Check if the character is using the right tool
@@ -166,7 +166,7 @@ class CarpentryMenu(MakeMenu):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = 1
 		#self.allowrepair = 1
-		self.submaterials1 = METALS
+		self.submaterials1 = skills.blacksmithing.METALS
 		self.submaterial1missing = 1042081 # Ingots
 		self.submaterial1noskill = 500586
 		self.gumptype = 0x4f6ba469 # This should be unique

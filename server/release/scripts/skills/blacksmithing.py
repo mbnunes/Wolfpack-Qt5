@@ -18,15 +18,15 @@ import random
 # The first four values are requied by the makemenu system.
 # The last value is the resname to use for newly crafted items
 METALS = [
-		['Iron',				BLACKSMITHING, 0, ['iron_ingot'], 0x0, 'iron'],
-		['Dull Copper', BLACKSMITHING, 650, ['dullcopper_ingot'], 0x973, 'dullcopper'],
-		['Shadow Iron', BLACKSMITHING, 700, ['shadowiron_ingot'], 0x966, 'shadowiron'],
-		['Copper',			BLACKSMITHING, 750, ['copper_ingot'], 0x96d, 'copper'],
-		['Bronze',			BLACKSMITHING, 800, ['bronze_ingot'], 0x972, 'bronze'],
-		['Gold',				BLACKSMITHING, 850, ['gold_ingot'], 0x8a5, 'gold'],
-		['Agapite',		 BLACKSMITHING, 900, ['agapite_ingot'], 0x979, 'agapite'],
-		['Verite',			BLACKSMITHING, 950, ['verite_ingot'], 0x89f, 'verite'],
-		['Valorite',		BLACKSMITHING, 990, ['valorite_ingot'], 0x8ab, 'valorite'],
+	['Iron',				BLACKSMITHING, 0, ['iron_ingot'], 0x0, 'iron'],
+	['Dull Copper', BLACKSMITHING, 650, ['dullcopper_ingot'], 0x973, 'dullcopper'],
+	['Shadow Iron', BLACKSMITHING, 700, ['shadowiron_ingot'], 0x966, 'shadowiron'],
+	['Copper',			BLACKSMITHING, 750, ['copper_ingot'], 0x96d, 'copper'],
+	['Bronze',			BLACKSMITHING, 800, ['bronze_ingot'], 0x972, 'bronze'],
+	['Gold',				BLACKSMITHING, 850, ['gold_ingot'], 0x8a5, 'gold'],
+	['Agapite',		 BLACKSMITHING, 900, ['agapite_ingot'], 0x979, 'agapite'],
+	['Verite',			BLACKSMITHING, 950, ['verite_ingot'], 0x89f, 'verite'],
+	['Valorite',		BLACKSMITHING, 990, ['valorite_ingot'], 0x8ab, 'valorite'],
 ]
 
 #
@@ -249,10 +249,10 @@ class SmithItemAction(CraftItemAction):
 class BlacksmithingMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
-		self.allowmark = 1
-		self.allowrepair = 1
-		#self.allowenhance = 1
-		self.allowsmelt = 1
+		self.allowmark = True
+		self.allowrepair = True
+		self.allowenhance = True
+		self.allowsmelt = True
 		self.submaterials1 = METALS
 		self.submaterials2 = SCALES
 		self.submaterial2missing = 1060884

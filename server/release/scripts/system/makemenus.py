@@ -6,6 +6,7 @@ import math
 from wolfpack import console
 from wolfpack.consts import *
 import random
+from wolfpack import tr
 
 # Known menus
 menus = {}
@@ -130,7 +131,7 @@ class MakeItemAction(MakeAction):
 				player.log(LOG_MESSAGE, "Created item %s (0x%x).\n" % (self.definition, item.serial))
 			if not tobackpack(item, player):
 				item.update()			
-			player.socket.sysmessage('You put the new item into your backpack.')
+			player.socket.sysmessage(tr('You put the new item into your backpack.'))
 			MakeAction.make(self, player, arguments, nodelay)
 
 	#
@@ -169,14 +170,14 @@ class MakeItemAction(MakeAction):
 		gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
 		if self.itemid != 0:
 			gump.addTilePic(15, 42, self.itemid)
-		gump.addHtmlGump(10, 132, 150, 20, centerhtml % "SKILLS")
-		gump.addHtmlGump(10, 217, 150, 20, centerhtml % "MATERIALS")
-		gump.addHtmlGump(10, 302, 150, 20, centerhtml % "OTHER")
-		gump.addHtmlGump(170, 39, 70, 20, whitehtml % "ITEM")
+		gump.addHtmlGump(10, 132, 150, 20, centerhtml % tr("SKILLS"))
+		gump.addHtmlGump(10, 217, 150, 20, centerhtml % tr("MATERIALS"))
+		gump.addHtmlGump(10, 302, 150, 20, centerhtml % tr("OTHER"))
+		gump.addHtmlGump(170, 39, 70, 20, whitehtml % tr("ITEM"))
 		gump.addButton(15, 387, 0xFAE, 0xFB0, 0) # Back to the parent menu of this node
-		gump.addText(50, 389, "Back", 0x480)
+		gump.addText(50, 389, tr("Back"), 0x480)
 		gump.addButton(375, 387, 4005, 4007, 1) # Make the item
-		gump.addText(410, 389, "Make Now", 0x480)
+		gump.addText(410, 389, tr("Make Now"), 0x480)
 
 		# Item Name
 		gump.addText(245, 39, self.title, 0x480)
@@ -206,7 +207,7 @@ class CraftItemAction(MakeItemAction):
 		self.markable = 0
 		# Sysmessage sent if you don't have enough material.
 		# Integer or String allowed
-		self.lackmaterial = "You don't have enough material to make that."
+		self.lackmaterial = tr("You don't have enough material to make that.")
 
 	#
 	# Make invisible if we dont have the minimum
@@ -229,7 +230,7 @@ class CraftItemAction(MakeItemAction):
 			material = self.parent.getsubmaterial1used(player, arguments)
 			if material >= len(materials):
 				if not silent:
-					player.socket.sysmessage("You try to craft with an invalid material.")
+					player.socket.sysmessage(tr("You try to craft with an invalid material."))
 				return 0
 			material = materials[material]
 			# Check the skill requirement of the material.
@@ -256,7 +257,7 @@ class CraftItemAction(MakeItemAction):
 			material = self.parent.getsubmaterial2used(player, arguments)
 			if material >= len(materials):
 				if not silent:
-					player.socket.sysmessage("You try to craft with an invalid material.")
+					player.socket.sysmessage(tr("You try to craft with an invalid material."))
 				return 0
 			material = materials[material]
 			# Check the skill requirement of the material.
@@ -364,7 +365,7 @@ class CraftItemAction(MakeItemAction):
 	#
 	def getotherhtml(self, player, arguments):
 		chance = self.getexceptionalchance(player, arguments) * 100
-		return 'Chance to create an exceptional item: %0.02f%%.<br>' % chance
+		return tr('Chance to create an exceptional item: %0.02f%%.<br>') % chance
 
 	#
 	# Generates the HTML used on the materials field of the details gump
@@ -587,7 +588,7 @@ class MakeMenu:
 		self.subactions = []
 		self.title = title
 		self.gumptype = 0
-		self.name_makelast = "Make Last"
+		self.name_makelast = tr("Make Last")
 		self.delay = 0 # Delay in ms until item is crafted.
 
 		# Display a repair item button on the makemenu
@@ -767,21 +768,21 @@ class MakeMenu:
 		# Allow repairing items.
 		if self.allowrepair:
 			gump.addButton(350, 310, 4005, 4007, 10)
-			gump.addText(385, 313, "Repair Item", 0x480)
+			gump.addText(385, 313, tr("Repair Item"), 0x480)
 
 		# Allow enhancement of items
 		if self.allowenhance:
 			gump.addButton(350, 330, 4005, 4007, 11)
-			gump.addText(385, 333, "Enhance Item", 0x480)
+			gump.addText(385, 333, tr("Enhance Item"), 0x480)
 
 		# Allow smelting of items
 		if self.allowsmelt:
 			gump.addButton(350, 350, 4005, 4007, 12)
-			gump.addText(385, 353, "Smelt Item", 0x480)
+			gump.addText(385, 353, tr("Smelt Item"), 0x480)
 
 		# EXIT button , return value: 0
 		gump.addButton(15, 350, 0xFB1, 0xFB3, 0)
-		gump.addText(50, 353, "Exit", 0x480)
+		gump.addText(50, 353, tr("Exit"), 0x480)
 
 		# MAKE LAST button , return value: 2
 		gump.addButton(15, 330, 4005, 4007, 2)
@@ -792,24 +793,24 @@ class MakeMenu:
 		# just return to the normal page
 		if submenu:
 			gump.addButton(15, 310, 0xFAE, 0xFB0, 9)
-			gump.addText(50, 313, "Back", 0x480)
+			gump.addText(50, 313, tr("Back"), 0x480)
 		elif self.parent:
 			gump.addButton(15, 310, 0xFAE, 0xFB0, 3)
-			gump.addText(50, 313, "Previous Menu", 0x480)
+			gump.addText(50, 313, tr("Previous Menu"), 0x480)
 
 		# LAST 10
 		if not submenu:
 			gump.addButton(15, 60, 0xFAB, 0xFAD, 1)
-			gump.addText(50, 63, "Last Ten", 0x480)
+			gump.addText(50, 63, tr("Last Ten"), 0x480)
 
 		# MARK ITEM button
 		if self.allowmark:
 			if not player.hastag('markitem'):
 				buttonid = 4 # DONT MARK ITEM -> MARK ITEM
-				message = "Dont Mark Item"
+				message = tr("Dont Mark Item")
 			else:
 				buttonid = 5 # Turns to "DONT MARK ITEM"
-				message= "Mark Item"
+				message= tr("Mark Item")
 
 			gump.addButton(165, 350, 4005, 4007, buttonid)
 			gump.addText(200, 353, message, 0x480)
@@ -862,7 +863,7 @@ class MakeMenu:
 		# Directly execute the last action the user made.
 		elif response.button == 2:
 			if not self.makelast(player, arguments):
-				player.socket.sysmessage("You didn't make anything yet.")
+				player.socket.sysmessage(tr("You didn't make anything yet."))
 				self.send(player, arguments)
 
 		# Show the parent menu.
@@ -968,11 +969,11 @@ class MakeMenu:
 			if material < len(self.submaterials1):
 				data = self.submaterials1[material]
 				if data[2] and player.skill[data[1]] < data[2]:
-					player.socket.sysmessage('You are not skilled enough to use this material.')
+					player.socket.sysmessage(tr('You are not skilled enough to use this material.'))
 				else:
 					self.setsubmaterial1used(player, arguments, material)
 			else:
-				player.socket.sysmessage('You selected an invalid material.')
+				player.socket.sysmessage(tr('You selected an invalid material.'))
 			self.send(player, arguments)
 
 		# MaterialSelection: Secondary Material
@@ -981,11 +982,11 @@ class MakeMenu:
 			if material < len(self.submaterials2):
 				data = self.submaterials2[material]
 				if data[2] and player.skill[data[1]] < data[2]:
-					player.socket.sysmessage('You are not skilled enough to use this material.')
+					player.socket.sysmessage(tr('You are not skilled enough to use this material.'))
 				else:
 					self.setsubmaterial2used(player, arguments, material)
 			else:
-				player.socket.sysmessage('You selected an invalid material.')
+				player.socket.sysmessage(tr('You selected an invalid material.'))
 			self.send(player, arguments)
 
 	#
@@ -1015,8 +1016,8 @@ class MakeMenu:
 		gump.addCheckerTrans(10, 10, 510, 368)
 
 		gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
-		gump.addHtmlGump(10, 39, 200, 20, centerhtml % "CATEGORIES")
-		gump.addHtmlGump(215, 39, 305, 20, centerhtml % "SELECTIONS")
+		gump.addHtmlGump(10, 39, 200, 20, centerhtml % tr("CATEGORIES"))
+		gump.addHtmlGump(215, 39, 305, 20, centerhtml % tr("SELECTIONS"))
 
 		return gump
 
@@ -1069,12 +1070,12 @@ class MakeMenu:
 			# Add a back button
 			if i > 0:
 				gump.addPageButton(15, 290, 0xFAE, 0xFB0, i)
-				gump.addText(50, 293, "Previous Page", 0x480)
+				gump.addText(50, 293, tr("Previous Page"), 0x480)
 
 			# Add a next button
 			if i+1 < pages:
 				gump.addPageButton(350, 290, 4005, 4007, i + 2)
-				gump.addText(385, 293, "Next Page", 0x480)
+				gump.addText(385, 293, tr("Next Page"), 0x480)
 
 		gump.setArgs([self.id] + args)
 		gump.send(player)
