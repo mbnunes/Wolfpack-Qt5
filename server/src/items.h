@@ -409,10 +409,12 @@ public:
 		} else {
 			priv_ &= ~ 0x04;
 		}
+		flagChanged();
+		changed(TOOLTIP);
 	}
 	bool isLockedDown()
 	{
-		return priv_ & 0x04 != 0;
+		return (priv_ & 0x04) != 0;
 	}
 
 	// Public event wrappers added by darkstorm
@@ -473,7 +475,6 @@ protected:
 		1: This item is always movable
 		2: This item cannot be moved
 		3: This item can only be moved by it's owner
-		4: This item has been locked down
 	*/
 	unsigned char movable_ : 3;
 

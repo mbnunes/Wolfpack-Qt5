@@ -2270,7 +2270,7 @@ unsigned short cItem::restock()
 
 unsigned int cItem::decayDelay()
 {
-	if ( container_ || nodecay() || ( !corpse() && multi_ ) )
+	if ( container_ || nodecay() || ( !corpse() && multi_ ) || isLockedDown() )
 	{
 		return 0;
 	}
