@@ -14,7 +14,7 @@ def onContextEntry(char, target, tag):
 
 		bank = char.getbankbox()
 		target.turnto(char)
-		target.say("Here is your bank box, %s." % char.name)
+		target.say(tr("Here is your bank box, %s.") % char.name)
 		char.socket.sendcontainer(bank)
 
 	elif tag == 2:
@@ -22,8 +22,8 @@ def onContextEntry(char, target, tag):
 		bank = char.getbankbox()
 		amount = bank.countresource(0xEED, 0x0)
 		if not amount:
-			target.say("Alas you don't have any money in your bank.")
+			target.say(tr("Alas you don't have any money in your bank."))
 		else:
-			target.say("You have %i gold in your bank." % amount)
+			target.say(tr("You have %i gold in your bank.") % amount)
 
 	return 1

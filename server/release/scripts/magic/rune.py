@@ -9,6 +9,7 @@
 
 import wolfpack
 from wolfpack.gumps import cGump
+from wolfpack import tr
 
 # This function returns 1 if the tested
 # item is a recall rune
@@ -86,9 +87,9 @@ def onShowTooltip(viewer, object, tooltip):
 	tooltip.reset()
 
 	if marked:
-		tooltip.add(1042971, "a recall rune for %s" % object.name)
+		tooltip.add(1042971, tr("a recall rune for %s") % object.name)
 	else:
-		tooltip.add(1042971, "an unmarked recall rune")
+		tooltip.add(1042971, tr("an unmarked recall rune"))
 
 def onSingleClick( item, char ):
 	# We are not a rune
