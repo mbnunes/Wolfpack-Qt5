@@ -534,6 +534,61 @@ static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
+/*
+	\method socket.sendobject
+	\description Send an object to this socket only.
+	\param object The <object id="ITEM">item</object> or <object id="char">char</object> char object that should
+	be sent to this socket.
+*/
+static PyObject* wpSocket_sendobject( wpSocket* self, PyObject* args )
+{
+	if ( !self->pSock )
+		Py_RETURN_NONE;
+
+	cUObject *object;
+
+	if (!PyArg_ParseTuple(args, "O&:socket.sendobject( object )", &PyConvertObject, &object)) {
+		return 0;
+	}
+
+	P_ITEM pItem = dynamic_cast<P_ITEM>(object);
+
+	if (pItem) {
+		pItem->update(self->pSock);
+	} else {
+		P_CHAR pChar = dynamic_cast<P_CHAR>(object);
+		if (pChar) {
+			self->pSock->sendChar(pChar);
+		}
+	}
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method socket.removeobject
+	\description Remove an object from this socket only.
+	\param object The <object id="ITEM">item</object> or <object id="char">char</object> char object that should
+	be removed from the view of this socket.
+*/
+static PyObject* wpSocket_removeobject( wpSocket* self, PyObject* args )
+{
+	if ( !self->pSock )
+		Py_RETURN_NONE;
+
+	cUObject *object;
+
+	if (!PyArg_ParseTuple(args, "O&:socket.removeobject( object )", &PyConvertObject, &object)) {
+		return 0;
+	}
+
+	if (object) {
+		self->pSock->removeObject(object);
+	}
+
+	Py_RETURN_NONE;
+}
+
 // DEPRECATED
 static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 {
@@ -792,6 +847,8 @@ static PyMethodDef wpSocketMethods[] =
 { "resendworld",		( getattrofunc ) wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },
 { "resendplayer",		( getattrofunc ) wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." },
 { "sendcontainer",		( getattrofunc ) wpSocket_sendcontainer,  METH_VARARGS, "Sends a container to the socket." },
+{ "sendobject",			( getattrofunc ) wpSocket_sendobject,  METH_VARARGS, NULL },
+{ "removeobject",		( getattrofunc ) wpSocket_removeobject,  METH_VARARGS, NULL },
 { "sendpacket",			( getattrofunc ) wpSocket_sendpacket,		METH_VARARGS, "Sends a packet to this socket." },
 { "sendpaperdoll",		( getattrofunc ) wpSocket_sendpaperdoll,	METH_VARARGS,	"Sends a char's paperdool to this socket."	},
 { "gettag",				( getattrofunc ) wpSocket_gettag,	METH_VARARGS,	"Gets a tag from a socket." },

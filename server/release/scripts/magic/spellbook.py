@@ -201,6 +201,11 @@ def onUse( char, item ):
 		char.socket.sysmessage('The book has to be in your belongings to be used.')
 		return 1
 
+	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook
+	# once its already open.
+	char.socket.removeobject(item)
+	char.socket.sendobject(item)
+
 	packet = wolfpack.packet( 0x24, 7 )
 	packet.setint( 1, item.serial )
 	packet.setshort( 5, 0xffff )

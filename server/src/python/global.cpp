@@ -538,7 +538,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	cPythonEffect* effect = new cPythonEffect( function, py_args );
 
 	// Should we save this effect?
-	if ( checkArgInt( 3 ) && getArgInt( 3 ) != 0 )
+	if ( PyTuple_Size( args ) == 4 && PyObject_IsTrue( PyTuple_GetItem( args, 3 ) ) )
 		effect->setSerializable( true );
 	else
 		effect->setSerializable( false );
