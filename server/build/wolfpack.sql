@@ -351,6 +351,12 @@ CREATE TABLE npcs (
   stablemaster int(11) NOT NULL default '-1',
   lootlist varchar(255) default NULL,
   ai varchar(255) default NULL,
+  wandertype smallint(3) NOT NULL default '0',
+  wanderx1 smallint(6) NOT NULL default '0',
+  wanderx2 smallint(6) NOT NULL default '0',
+  wandery1 smallint(6) NOT NULL default '0',
+  wandery2 smallint(6) NOT NULL default '0',
+  wanderradius smallint(6) NOT NULL default '0',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cNPC';
