@@ -36,8 +36,8 @@
 	<script>keyring</script>
 	<script>ore</script>
 
-  <!-- Deeds -->
-  <script>deeds.hairstyle</script>
+	<!-- Deeds -->
+	<script>deeds.hairstyle</script>
 
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
@@ -96,6 +96,7 @@
 	<script>daggermenu</script>
 	<script>bankermenu</script>
 	<script>trainmenu</script>
+	<script>paperdollmenu</script>
 
 	<!-- Speech Scripts -->
 	<script>speech.pets</script>

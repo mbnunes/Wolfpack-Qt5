@@ -65,6 +65,11 @@
 		<option tag="2" msgid="6124"/>
 	</contextmenu>
 
+	<contextmenu id="paperdoll_menu">
+		<events>paperdollmenu</events>
+		<option tag="1" msgid="6123"/>
+	</contextmenu>
+
 	<contextmenu id="healer_menu">
 		<option tag="1" msgid="0489"/>
 	</contextmenu>

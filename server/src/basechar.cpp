@@ -1020,10 +1020,11 @@ void cBaseChar::processNode( const cElement *Tag )
 	// <bindmenu id="contextmenu />
 	if( TagName == "bindmenu" )
 	{
+		QString bindmenu = this->bindmenu();
 		if( !Tag->getAttribute( "id" ).isNull() )
-			this->setBindmenu(Tag->getAttribute( "id" ));
+			this->setBindmenu( bindmenu.isEmpty() ? Tag->getAttribute( "id" ) : bindmenu + "," + Tag->getAttribute( "id" ) );
 		else
-			setBindmenu(Value);
+			setBindmenu( bindmenu.isEmpty() ? Value : bindmenu + "," + Value );
 	}
 
 	//<backpack>
@@ -1210,7 +1211,14 @@ void cBaseChar::processNode( const cElement *Tag )
 			}
 		}
 	}
-
+	// <saycolor>color</saycolor>
+	else if ( TagName == "saycolor" )
+	{	
+		bool ok;
+		ushort color = Value.toUShort(&ok);
+		if ( ok )
+			this->setSaycolor( color );
+	}
 	else
 	{
 		INT16 skillId = Skills->findSkillByDef( TagName );

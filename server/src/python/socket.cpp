@@ -534,6 +534,25 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+	
+	if( !checkArgChar( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	if( !getArgChar( 0 ) )
+		return PyFalse;
+
+	self->pSock->sendPaperdoll( getArgChar( 0 ) );
+
+	return PyTrue;
+}
+
 /*!
 	Returns the custom tag passed
 */
@@ -679,6 +698,7 @@ static PyMethodDef wpSocketMethods[] =
 	{ "resendplayer",		(getattrofunc)wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." },
 	{ "sendcontainer",		(getattrofunc)wpSocket_sendcontainer,  METH_VARARGS, "Sends a container to the socket." },
 	{ "sendpacket",			(getattrofunc)wpSocket_sendpacket,		METH_VARARGS, "Sends a packet to this socket." },
+	{ "sendpaperdoll",		(getattrofunc)wpSocket_sendpaperdoll,	METH_VARARGS,	"Sends a char's paperdool to this socket."	},
 	{ "gettag",				(getattrofunc)wpSocket_gettag,	METH_VARARGS,	"Gets a tag from a socket." },
 	{ "settag",				(getattrofunc)wpSocket_settag,	METH_VARARGS,	"Sets a tag to a socket." },
 	{ "hastag",				(getattrofunc)wpSocket_hastag,	METH_VARARGS,	"Checks if a socket has a specific tag." },
