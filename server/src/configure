@@ -9,6 +9,16 @@
 # BIG FAT TODO:	write clean functions instead of that blown up
 #		include/library search routines.
 
+##### make_newlines [string]
+# replacement of echo -e for newlines
+make_newlines ()
+{
+	for i in $(echo "$1"|sed -e 's/ /^/g;s/\\n/ /g');
+	do
+		echo "$i"|tr '^' ' ';
+	done;
+}
+
 ##### normalize_path [path]
 # strips off unneeded slashes
 normalize_path ()
@@ -41,8 +51,8 @@ ask_path ()
 
 	while [ ! -d "$SUPPLIED_PATH" ] && ! regexp_exist "${SUPPLIED_PATH}/${1}";
 	do
-		echo -en "\nor just press enter to skip." >&2;
-		echo -en "\e[A\rPlease enter the correct $LIB_OR_INC directory: " >&2;
+		echo "Please enter the correct $LIB_OR_INC directory," >&2;
+		echo -n "or just press enter to skip: " >&2;
 		read SUPPLIED_PATH;
 		echo >&2;
 
@@ -298,9 +308,9 @@ then
 		fi;
 	done;
 
-	py_pathes="$(echo -e "$py_pathes")";
+	py_pathes="$(make_newlines "$py_pathes")";
 
-	[ "$py_pathes" ] && PYTHON_INC="$(echo "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+	[ "$py_pathes" ] && PYTHON_INC="$(echo "$py_pathes"|sort -nr|head -n 1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
 
 	if [ ! "$PYTHON_INC" ];
 	then
@@ -345,9 +355,9 @@ then
 		fi;
 	done;
 
-	py_libs="$(echo -e "$py_libs")";
+	py_libs="$(make_newlines "$py_libs")";
 
-	[ "$py_libs" ] && PYTHON_LIB="$(echo "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+	[ "$py_libs" ] && PYTHON_LIB="$(echo "$py_libs"|sort -nr|head -n 1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
 
 	if [ ! "$PYTHON_LIB" ];
 	then
