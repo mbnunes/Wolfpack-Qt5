@@ -184,7 +184,7 @@ inline void PyReportError( void )
 		PyErr_Print();
 }
 
-inline PyObject* PyGetTargetObject( PKGx6C Target )
+inline PyObject* PyGetTargetObject( cUORxTarget* Target )
 {
 	Py_WPTarget *returnVal = PyObject_New( Py_WPTarget, &Py_WPTargetType );
 	returnVal->targetInfo = Target;
@@ -1342,14 +1342,14 @@ PyObject *Py_WPTargetGetAttr( Py_WPTarget *self, char *name )
 	// Return what we've targetted
 	if( !strcmp( name, "target" ) )
 	{
-		if( self->targetInfo.Tserial != 0x00000000 )
+		if( self->targetInfo->serial() != 0x00000000 )
 		{
-			if( self->targetInfo.Tserial >= 0x40000000 )
+			if( isItemSerial(self->targetInfo->serial()) )
 				return PyString_FromString( "item" );
 			else
 				return PyString_FromString( "char" );
 		}
-		else if( self->targetInfo.model == 0 )
+		else if( self->targetInfo->model() == 0 )
 			return PyString_FromString( "ground" );
 		else
 			return PyString_FromString( "static" );
@@ -1357,34 +1357,34 @@ PyObject *Py_WPTargetGetAttr( Py_WPTarget *self, char *name )
 	// Return an item object
 	else if( !strcmp( name, "item" ) )
 	{
-		if( ( self->targetInfo.Tserial == 0x00000000 ) || ( self->targetInfo.Tserial < 0x40000000 ) )
+		if( ( self->targetInfo->serial() == 0x00000000 ) || ( self->targetInfo->serial() < 0x40000000 ) )
 			return Py_None;  
 		else 
-			return PyGetItemObject( FindItemBySerial( self->targetInfo.Tserial ) ); 
+			return PyGetItemObject( FindItemBySerial( self->targetInfo->serial() ) ); 
 	}
 	// Return a char object
 	else if( !strcmp( name, "char" ) )
 	{
-		if( ( self->targetInfo.Tserial == 0x00000000 ) || ( self->targetInfo.Tserial >= 0x40000000 ) )
+		if( ( self->targetInfo->serial() == 0x00000000 ) || ( self->targetInfo->serial() >= 0x40000000 ) )
 			return Py_None;  
 		else 
-			return PyGetCharObject( FindCharBySerial( self->targetInfo.Tserial ) ); 
+			return PyGetCharObject( FindCharBySerial( self->targetInfo->serial() ) ); 
 	}
 	else if( !strcmp( name, "x" ) )
 	{
-		return PyInt_FromLong( self->targetInfo.TxLoc );
+		return PyInt_FromLong( self->targetInfo->x() );
 	}
 	else if( !strcmp( name, "y" ) )
 	{
-		return PyInt_FromLong( self->targetInfo.TyLoc );
+		return PyInt_FromLong( self->targetInfo->y() );
 	}
 	else if( !strcmp( name, "z" ) )
 	{
-		return PyInt_FromLong( self->targetInfo.TzLoc );
+		return PyInt_FromLong( self->targetInfo->z() );
 	}
 	else if( !strcmp( name, "static" ) )
 	{
-		return PyInt_FromLong( self->targetInfo.model );
+		return PyInt_FromLong( self->targetInfo->model() );
 	}
 
 	return Py_None;
@@ -1408,10 +1408,10 @@ cPythonTarget::cPythonTarget( PyObject *callback, PyObject *arguments )
 }
 
 // Call the codeobject
-void cPythonTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
+bool cPythonTarget::responsed( cUOSocket* socket, cUORxTarget *targetInfo )
 {
 	if( !PyCallable_Check( callback_ ) )
-		return;
+		return true;
 
 	// Set the target-information
 	PyObject *arguments = PyTuple_New( PyTuple_Size( arguments_ ) + 1 );
@@ -1435,6 +1435,7 @@ void cPythonTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 
 	if( PyErr_Occurred() )
 		PyErr_Print();
+	return true;
 }
 
 // Free our arguments

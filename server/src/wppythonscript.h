@@ -401,7 +401,7 @@ static PyTypeObject Py_WPEquipmentType = {
 
 typedef struct {
     PyObject_HEAD;
-	PKGx6C targetInfo;
+	cUORxTarget* targetInfo;
 } Py_WPTarget;
 
 PyObject *Py_WPTargetGetAttr( Py_WPTarget *self, char *name );
@@ -434,7 +434,7 @@ public:
 	cPythonTarget( PyObject *callback, PyObject *arguments );
 	virtual ~cPythonTarget() {};
 
-	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
+	virtual bool responsed( cUOSocket* socket, cUORxTarget *target );
 	virtual void timedout( UOXSOCKET socket );
 };
 

@@ -71,7 +71,7 @@ int rollDice( QString dicePattern ) // roll dices d&d style
 	int z = dicePattern.right( dicePattern.length()-1 - poffset ).toInt();
 	int y = dicePattern.mid( doffset+1, poffset-doffset-1 ).toInt();
 
-	return RandomNum(x,y)+z;
+	return RandomNum(x,x*y)+z;
 }
 
 int str2num( string s, int base)

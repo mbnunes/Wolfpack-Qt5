@@ -96,40 +96,40 @@ inline void SetSkillDelay(P_CHAR pc)
 class cSkAnatomy: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pChar = socket->player();
 
 		if( !pChar )
-			return;
+			return true;
 
 		P_CHAR aChar = FindCharBySerial( target->serial() );
 
 		if( !aChar )
 		{
 			socket->sysMessage( tr( "You need to examine that" ) );
-			return;
+			return true;
 		}
 
 		// Examination on yourself 
 		if( pChar == aChar )
 		{
 			pChar->message( tr( "You know yourself well enough." ) );
-			return;
+			return true;
 		}
 
 		// Are we in range?
 		if( !pChar->inRange( aChar, 9 ) )
 		{
 			pChar->message( tr( "You are too far away to examine that." ) );
-			return;
+			return true;
 		}
 
 		// Check the Skill
 		if( !Skills->CheckSkill( pChar, ANATOMY, 0, 1000 ) ) 
 		{
 			pChar->message( tr( "You are not certain." ) );
-			return;
+			return true;
 		}
 
 		register UINT16 dex = aChar->effDex();
@@ -139,7 +139,7 @@ public:
 		if( !str && !dex )
 		{
 			socket->showSpeech( aChar, tr( "It does not appear to be a living being." ) );
-			return;
+			return true;
 		}
 
 		QString part1, part2;
@@ -168,6 +168,7 @@ public:
 		else if (dex >=100) part2 = tr( "superhumanly agile" );
 		
 		socket->showSpeech( aChar, tr( "This person looks %1 and %2." ).arg( part1 ).arg( part2 ) );
+		return true;
 	}
 };
 
@@ -175,36 +176,36 @@ public:
 class cSkArmsLore: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_ITEM pItem = FindItemBySerial( target->serial() );
 		P_CHAR pChar = socket->player();
 
 		if( !pChar )
-			return;
+			return true;
 
 		if( !pItem || !target->serial() )
 		{
 			socket->sysMessage( tr( "You need to target an item" ) );
-			return;
+			return true;
 		}
 
 		if( ( ( pItem->lodamage() == 0 ) && ( pItem->hidamage() == 0 ) ) && !pItem->def )
 		{
 			socket->sysMessage( tr( "This does not appear to be a weapon" ) );
-			return;
+			return true;
 		}
 
 		if( pChar->isGM() )
 		{
 			socket->sysMessage( tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg( pItem->att ).arg( pItem->def ).arg( pItem->lodamage() ).arg( pItem->hidamage() ) );
-			return;
+			return true;
 		}
 
 		if( !Skills->CheckSkill( pChar, ARMSLORE, 0, 250 ) )
 		{
 			socket->sysMessage( tr( "You are not certain..." ) );
-			return;
+			return true;
 		}
 
 		QStringList mParts;
@@ -277,7 +278,7 @@ public:
 		if( mParts.count() == 0 )
 		{
 			socket->sysMessage( tr( "You are not sure..." ) );
-			return;
+			return true;
 		}
 
 		// Build a human readable sentence
@@ -307,6 +308,7 @@ public:
 				case 10:socket->sysMessage( tr("It seems a perfect quality item.") );				break;
 			}
 		}
+		return true;
 	}
 };
 
@@ -314,12 +316,12 @@ public:
 class cSkDetectHidden: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pChar = socket->player();
 
 		if( !pChar )
-			return;
+			return true;
 
 		Coord_cl dPos = pChar->pos;
 		dPos.x = target->x();
@@ -328,7 +330,7 @@ public:
 
 		// If its out of the characters visrange cancel (How could he've clicked there??)
 		if( dPos.distance( pChar->pos ) > pChar->VisRange )
-			return;
+			return true;
         
 		UINT16 dSkill = pChar->skill( DETECTINGHIDDEN );		
 		double range = ( dSkill * dSkill / 1.0E6 ) * VISRANGE; // this seems like an ok formula
@@ -365,6 +367,7 @@ public:
 
 		if( !found )
 			socket->sysMessage( tr( "You didn't find anything hidden" ) );
+		return true;
 	}
 };
 
@@ -372,14 +375,14 @@ public:
 class cSkItemID: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pc_currchar = socket->player();
 		const P_ITEM pi = FindItemBySerial( target->serial() );
 		if ( !pi )
 		{
 			socket->sysMessage( tr("Unable to identify that.") );
-			return;
+			return true;
 		}
 
 		if ( !pi->isLockedDown() ) // Ripper
@@ -393,7 +396,7 @@ public:
 				if( pi->corpse() )
 				{
 					socket->sysMessage( tr("You have to use your forensics evalutation skill to know more on this corpse.") );
-					return;
+					return true;
 				}
 				
 				// Identify Item by Antichrist // Changed by MagiusCHE)
@@ -453,6 +456,7 @@ public:
 				}
 			}
 		}
+		return true;
 	}
 };
 
@@ -461,17 +465,17 @@ public:
 class cSkIntEval: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pc = FindCharBySerial( target->serial() );
 		P_CHAR pc_currchar = socket->player();
 		if(pc == NULL || pc_currchar == NULL) 
-			return;
+			return true;
 		
 		if (pc == pc_currchar)
 		{ 
 			socket->sysMessage( tr("You cannot analyze yourself!") ); 
-			return; 
+			return true; 
 		}
 		
 		
@@ -479,13 +483,13 @@ public:
 		if( pc->pos.distance(pc_currchar->pos) >= 10 ) 
 		{ 
 			socket->sysMessage( tr("You need to be closer to find out") ); 
-			return; 
+			return true; 
 		} 
 		
 		if (!Skills->CheckSkill(pc_currchar,EVALUATINGINTEL, 0, 1000)) 
 		{
 			socket->sysMessage( tr("You are not certain..") );
-			return;
+			return true;
 		}
 		if ((pc->in == 0)) 
 			socket->sysMessage( tr("It looks smarter than a rock, but dumber than a piece of wood.") );
@@ -503,6 +507,7 @@ public:
 			else if (pc->in <= 99)	socket->sysMessage( tr("That person looks like a definite genius.") );
 			else if (pc->in >=100)  socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
 		}
+		return true;
 	}
 };
 
@@ -511,16 +516,16 @@ public:
 class cSkTame: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		
 		P_CHAR pc = FindCharBySerial(target->serial());
 		if ( pc == NULL ) 
-			return;
+			return true; 
 		P_CHAR pc_currchar = socket->player();
 		
 		if( !lineOfSight( pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
-			return;
+			return true;
 		
 		bool tamed = false;
 		if ((pc->isNpc() && (chardist(pc_currchar, pc) <= 3))) //Ripper
@@ -528,18 +533,18 @@ public:
 			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
 			{
 				socket->sysMessage( tr("You can't tame that creature.") );
-				return;
+				return true;
 			}
 			// Below... can't tame if you already have!
 			if( (pc->tamed()) && pc_currchar->Owns(pc) )
 			{
 				socket->sysMessage( tr("You already control that creature!" ) );
-				return;
+				return true;
 			}
 			if( pc->tamed() )
 			{
 				socket->sysMessage( tr("That creature looks tame already." ) );
-				return;
+				return true;
 			}
 			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.c_str(),pc->name.c_str());
 			for(int a=0;a<3;a++)
@@ -558,7 +563,7 @@ public:
 				(pc_currchar->skill(TAMING)<pc->taming)) 
 			{
 				socket->sysMessage( tr("You were unable to tame it.") );
-				return;
+				return true;
 			}
 			pc_currchar->talk(tr("It seems to accept you as it's master!"));
 			tamed = true;
@@ -582,6 +587,7 @@ public:
 		}
 		if (!tamed) 
 			socket->sysMessage( tr("You can't tame that!") );
+		return true;
 	}
 };
 
@@ -590,7 +596,7 @@ public:
 class cSkBegging: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		int gold,x,y,realgold;
 		char abort;
@@ -598,18 +604,18 @@ public:
 		
 		P_CHAR pc = FindCharBySerial( target->serial() );
 		if (!pc)
-			return;
+			return true;
 		
 		if(online(pc))
 		{
 			socket->sysMessage( tr("Maybe you should just ask.") );
-			return;
+			return true;
 		}
 		
 		if(chardist(pc, pc_currchar)>=5)
 		{
 			socket->sysMessage( tr("You are not close enough to beg.") );
-			return;
+			return true;
 		}
 		
 		if(pc->isHuman() && (pc->in != 0)) //Used on human
@@ -617,7 +623,7 @@ public:
 			if (pc->begging_timer()>=uiCurrentTime)
 			{
 				pc->talk(tr("Annoy someone else !"));
-				return;
+				return true;
 			}
 			
 			switch ( RandomNum(0, 2))
@@ -689,7 +695,7 @@ public:
 				if (gold<=0)
 				{				
 					pc->talk( tr("Thou dost not look trustworthy... no gold for thee today! ") );
-					return;
+					return true;
 				}
 				npctalkall(pc, (char*)tr("I feel sorry for thee... here have a gold coin .").latin1(), 0);
 				addgold(toOldSocket(socket), realgold);
@@ -698,9 +704,296 @@ public:
 		}
 		else
 			socket->sysMessage( tr("That would be foolish.") );
+		return true;
 	}
 };
 
+
+// Animal Lore
+class cSkAnimalLore: public cTargetRequest
+{
+public:
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pc = FindCharBySerial( target->serial() );
+		if( !pc ) return true;
+		P_CHAR pc_currchar = socket->player();
+		
+		// blackwind distance fix 
+		if( chardist( pc, pc_currchar ) >= 10 ) 
+		{ 
+			socket->sysMessage( tr("You need to be closer to find out more about them" ) ); 
+			return true; 
+		} 
+		
+		if (pc->isGMorCounselor())
+		{
+			socket->sysMessage( tr("Little is known of these robed gods.") );
+			return true;
+		}
+		if (pc->isHuman()) // Used on human
+		{
+			socket->sysMessage( tr("The human race should use dvorak!") );
+			return true;
+		}
+		else // Lore used on a non-human
+		{
+			if (Skills->CheckSkill(pc_currchar, ANIMALLORE, 0, 1000))
+			{
+				pc->talk( tr("Attack [%1] Defense [%2] Taming [%3] Hit Points [%4]").arg(pc->att).arg(pc->def).arg(pc->taming/10).arg(pc->hp) );
+				return true;
+			}
+			else
+			{
+				socket->sysMessage( tr("You can not think of anything relevant at this time.") );
+				return true;
+			}
+		}
+		return true;
+	}
+};
+
+// Stealing
+class cSkStealing: public cTargetRequest
+{
+public:
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		int i, skill;
+		char temp2[512];
+		tile_st tile;
+		P_CHAR pc_currchar = socket->player();
+		int cansteal = QMAX( 1, pc_currchar->baseSkill( STEALING ) / 10 );
+		cansteal = cansteal * 10;
+		
+		if (isCharSerial(target->serial()))
+		{
+			cSkills::RandomSteal(socket, target->serial());
+			return true;
+		}
+		
+		const P_ITEM pi = FindItemBySerial(target->serial());
+		if (!pi)
+		{
+			socket->sysMessage( tr("You cannot steal that.") );
+			return true;
+		}
+		if( pi->id()==0x1E2D || pi->id()==0x1E2C )
+		{
+			if (pc_currchar->skill(STEALING) < 300)	// check if under 30 in stealing
+			{
+				Skills->CheckSkill(pc_currchar,STEALING, 0, 1000);
+				// check their skill
+				socket->soundEffect( 0x0249, pi );
+				// rustling sound..dont know if right but it works :)
+			}
+			else
+			{
+				socket->sysMessage( tr("You learn nothing from practicing here") );
+			}
+			return true;
+		}
+		if ( pi->layer() != 0		// no stealing for items on layers other than 0 (equipped!) ,
+			|| pi->newbie()			// newbie items,
+			|| pi->isInWorld() )	// and items not being in containers allowed !
+		{
+			socket->sysMessage( tr("You cannot steal that.") );
+			return true;
+		}
+		if( (pi->totalweight()/10) > cansteal ) // LB, bugfix, (no weight check)
+		{
+			socket->sysMessage( tr("That is too heavy.") );
+			return true;
+		}
+		
+		P_CHAR pc_npc = GetPackOwner(pi);
+		
+		if (pc_npc->npcaitype() == 17)
+		{
+			socket->sysMessage( tr("You cannot steal that.") );
+			return true;
+		}
+		
+		if (pc_npc == pc_currchar)
+		{
+			socket->sysMessage( tr("You catch yourself red handed.") );
+			return true;
+		}
+		
+		skill = Skills->CheckSkill(pc_currchar,STEALING, 0, 999);
+		if( pc_currchar->inRange( pc_npc, 1 ) )
+		{
+			if (skill)
+			{
+				P_ITEM pi_pack = Packitem(pc_currchar);
+				if (pi_pack == NULL) 
+					return true;
+				pi->setContSerial(pi_pack->serial);
+				socket->sysMessage( tr("You successfully steal that item.") );
+				pi->update();
+			} 
+			else 
+				socket->sysMessage( tr("You failed to steal that item.") );
+			
+			if (((!(skill))&&(rand()%16==7)) || (pc_currchar->skill(STEALING)<rand()%1001))
+			{
+				socket->sysMessage( tr("You have been cought!") );
+				
+				if (pc_npc != NULL) //lb
+				{
+					if (pc_npc->isNpc()) 
+						npctalkall(pc_npc, "Guards!! A thief is amoung us!", 0);
+					
+					criminal( pc_currchar );
+					
+					if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
+						criminal(pc_currchar);//Blue and not attacker and not guild
+					
+					if (pi->name() != "#")
+					{
+						sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg(pi->name()) );
+						sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg(pi->name()).arg(pc_npc->name.c_str()) );
+					} 
+					else
+					{
+						tile = cTileCache::instance()->getTile( pi->id() );
+						sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg((char*)tile.name) );
+						sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg((char*)tile.name).arg(pc_npc->name.c_str()) );
+					}
+					socket->sysMessage((char*)temp); //lb
+				}
+				for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+				{
+					if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in >= pc_currchar->in))) 
+						mSock->sysMessage(temp2);
+				}
+			}
+		} 
+		else 
+			socket->sysMessage( tr("You are too far away to steal that item.") );
+		return true;
+	}
+};
+
+
+// Forensics Evaluation
+class cSkForensics: public cTargetRequest
+{
+public:
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		int curtim=uiCurrentTime;
+		const PC_ITEM pi = FindItemBySerial(target->serial());
+		P_CHAR pc_currchar = socket->player();
+		
+		if( !pi || !pi->corpse() )
+		{
+			socket->sysMessage( tr( "That does not appear to be a corpse." ) );
+			return true;
+		}
+		
+		if(pc_currchar->isGM())
+		{
+			socket->sysMessage( tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg( pi->murderer() ) );
+		}
+		else
+		{
+			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 0, 500)) 
+				socket->sysMessage( tr("You are not certain about the corpse.")); 
+			else
+			{
+				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2, tr("few") );
+				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2, tr("many") );
+				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2, tr("many many"));
+				socket->sysMessage( tr("The %1 is %2 seconds old.").arg(pi->name()).arg(temp2) );
+				
+				if ( !Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer() == "" ) 
+					socket->sysMessage( tr("You can't say who was the killer.") ); 
+				else
+				{
+					socket->sysMessage( tr("The killer was %1.").arg( pi->murderer() ) );
+				}
+			}
+		}
+		return true;
+	}
+};
+
+
+// Poisoning
+class cSkPoisoning: public cTargetRequest
+{
+	bool poisonSelected;
+	P_ITEM pPoison;
+public:
+	cSkPoisoning() : poisonSelected(false), pPoison(0) {}
+
+	bool selectPoison( cUOSocket* socket, cUORxTarget* target )
+	{
+		pPoison = FindItemBySerial( target->serial() );
+		if ( !pPoison || pPoison->type() != 19 || pPoison->type() != 6 )
+		{
+			socket->sysMessage( tr("That is not a valid poison") );
+			return true;
+		}
+		poisonSelected = true;
+		return false; // Resend the target request
+	}
+
+	bool poisonItem( cUOSocket* socket, cUORxTarget* target )
+	{
+		
+		P_ITEM pi = FindItemBySerial( target->serial() );
+		if ( !pi )
+			return true;
+		
+		P_CHAR pc = socket->player();
+		int success=0;
+		switch(pPoison->morez)
+		{
+		case 1:	success=Skills->CheckSkill((pc), POISONING, 0, 500);		break;//lesser poison
+		case 2:	success=Skills->CheckSkill((pc), POISONING, 151, 651);		break;//poison
+		case 3:	success=Skills->CheckSkill((pc), POISONING, 551, 1051);		break;//greater poison
+		case 4:	success=Skills->CheckSkill((pc), POISONING, 901, 1401);		break;//deadly poison
+		default:
+			LogError("switch reached default");
+			return true;
+		}
+		if(success)
+		{
+			soundeffect2(pc, 0x0247); //poisoning effect
+			if(pi->poisoned<pPoison->morez) pi->poisoned = pPoison->morez;
+			socket->sysMessage( tr("You successfully poison that item.") );
+		} 
+		else
+		{
+			soundeffect2(pc, 0x0247); //poisoning effect
+			socket->sysMessage( tr("You fail to apply the poison.") );
+		}
+		
+		//empty bottle after poisoning
+		P_ITEM pi_poison = pPoison;
+		if (!pPoison->isInWorld()) 
+			contsp.remove(pPoison->contserial, pi_poison->serial);
+		SERIAL kser = pPoison->serial;
+		
+		pPoison->Init(0);
+		pPoison->SetSerial(kser);
+		pPoison->setId(0x0F0E);
+		pPoison->moveTo(pc->pos);
+		pPoison->priv|=0x01;
+		RefreshItem(pPoison);
+		return true;
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if ( poisonSelected )
+			return poisonItem( socket, target );
+		else
+			return selectPoison( socket, target );
+	}
+};
 
 //////////////////////////
 // Function:	CalcRank
@@ -2146,7 +2439,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		}
 		
 		message = tr("What do you wish to steal?");
-		//target(s,0,1,0,205, );
+		targetRequest = new cSkStealing;
 		break;
 	case INSCRIPTION:
 		message = tr("What do you wish to place a spell on?");
@@ -2161,14 +2454,16 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		break;
 	case ANIMALLORE:
 		message = tr("What animal do you wish to get information about?");
-		//target(s, 0, 1, 0, 153, );
+		targetRequest = new cSkAnimalLore;
 		break;
 	case FORENSICS:
 		message = tr("What corpse do you want to examine?");
+		targetRequest = new cSkForensics;
 		//target(s, 0, 1, 0, 154, );
 		break;
 	case POISONING:
 		message = tr("What poison do you want to apply?");
+		targetRequest = new cSkPoisoning;
 		//target(s, 0, 1, 0, 155, );
 		break;
 
@@ -2203,21 +2498,25 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	SetSkillDelay( pChar );
 }
 
-void cSkills::RandomSteal(int s)
+void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 {
 	int i, skill;
 	char temp2[512];
 	tile_st tile;
-	P_CHAR pc_currchar = currchar[s];	
+	P_CHAR pc_currchar = socket->player();	
 	int cansteal = QMAX(1, pc_currchar->baseSkill(STEALING)/10);
 	cansteal = cansteal * 10;
 	
-	P_CHAR pc_npc = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR pc_npc = FindCharBySerial(victim);
 	if (pc_npc == NULL) 
 		return;
 
 	P_ITEM pBackpack = Packitem(pc_npc);
-	if (pBackpack == NULL) {sysmessage(s,"bad luck, your victim doesnt have a backpack"); return; } //LB
+	if (pBackpack == NULL) 
+	{
+		socket->sysMessage( tr("bad luck, your victim doesnt have a backpack") ); 
+		return; 
+	}
 	
 	i=0;
 	P_ITEM item = NULL;
@@ -2226,44 +2525,44 @@ void cSkills::RandomSteal(int s)
 		item = FindItemBySerial(vecContainer[rand()%vecContainer.size()]);
 
 	if (pc_npc == pc_currchar) {
-		sysmessage(s,"You catch yourself red handed.");
+		socket->sysMessage( tr("You catch yourself red handed.") );
 		return;
 	}
 	
 	if (pc_npc->npcaitype() == 17)
 	{
-		sysmessage(s, "You cannot steal that.");
+		socket->sysMessage( tr("You cannot steal that.") );
 		return;
 	}
 
 	// Lb, crashfix, happens if pack=empty i guess
 	if (item == NULL) 
 	{ 
-		sysmessage(s,"your victim doesnt have posessions");
+		socket->sysMessage( tr("your victim doesnt have posessions") );
 		return;
 	}
 
 	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.c_str(), item->name().ascii());
-	sysmessage(s, (char*)temp);
+	socket->sysMessage( (char*)temp );
 	if( pc_currchar->inRange( pc_npc, 1 ) )
 	{
 		if( ( (item->totalweight()/10) > cansteal ) && (item->type()!=1 && item->type()!=63 && item->type()!=65 && item->type()!=87))//Containers
 		{
-			sysmessage(s,"That is too heavy.");
+			socket->sysMessage( tr("That is too heavy.") );
 			return;
 		} else if((item->type() == 1 || item->type() == 63 || item->type() == 65 || item->type() == 87) && (Weight->RecursePacks(item) > cansteal))
 		{
-			sysmessage(s,"That is too heavy.");
+			socket->sysMessage( tr("That is too heavy.") );
 			return;
 		}
 		if (pc_npc->isGMorCounselor())
 		{
-			sysmessage(s, "You can't steal from gods.");
+			socket->sysMessage( tr("You can't steal from gods.") );
 			return;
 		}
 		if(item->priv & 0x02)//newbie
 		{
-			sysmessage(s,"That item has no value to you.");
+			socket->sysMessage( tr("That item has no value to you.") );
 			return;
 		}
 		
@@ -2271,15 +2570,17 @@ void cSkills::RandomSteal(int s)
 		if (skill)
 		{
 			item->setContSerial(pc_currchar->packitem);
-			sysmessage(s,"You successfully steal that item.");
-			all_items(s);
-		} else sysmessage(s, "You failed to steal that item.");
+			socket->sysMessage( tr("You successfully steal that item.") );
+			item->update();
+		} else 
+			socket->sysMessage( tr("You failed to steal that item.") );
 		
 		if ((!skill && rand()%5+15==17) || (pc_currchar->skill(STEALING)<rand()%1001))
 		{//Did they get cought? (If they fail 1 in 5 chance, other wise their skill away from 1000 out of 1000 chance)
-			sysmessage(s,"You have been cought!");
+			socket->sysMessage( tr("You have been cought!") );
 			
-			if (pc_npc->isNpc()) npctalkall(pc_npc, "Guards!! A thief is amoung us!",0);
+			if (pc_npc->isNpc()) 
+				npctalkall(pc_npc, "Guards!! A thief is amoung us!",0);
 			
 			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare( pc_currchar, pc_npc )==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild
@@ -2293,17 +2594,14 @@ void cSkills::RandomSteal(int s)
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(), tile.name);
 				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(),tile.name, pc_npc->name.c_str());
 			}
-			sysmessage(s,(char*)temp); // bugfix, LB
-			
-			for(i=0;i<now;i++)
+			socket->sysMessage( (char*)temp); // bugfix, LB
+			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 			{
-				if (perm[i])
-				{
-				    if((i!=s)&&(inrange1p(pc_currchar,currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && currchar[i]->in>=pc_currchar->in))) sysmessage(s,temp2);
-				}
+				if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in >= pc_currchar->in))) 
+					mSock->sysMessage(temp2);
 			}
 		}
-	} else sysmessage(s, "You are too far away to steal that item.");
+	} else socket->sysMessage( tr("You are too far away to steal that item.") );
 }
 
 void cSkills::Tracking(int s,int selection)

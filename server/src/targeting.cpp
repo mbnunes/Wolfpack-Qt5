@@ -4065,7 +4065,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 38: Magic->Recall(s); break;
 		case 39: Magic->Mark(s); break;
 		case 40: Skills->ItemIdTarget(s); break;
-		case 41: Skills->Evaluate_int_Target(s); break;
+//		case 41: Skills->Evaluate_int_Target(s); break;
 		//case 42: Skills->TameTarget(s); break;
 		case 43: Magic->Gate(s); break;
 		case 44: Magic->Heal(s); break; // we need this for /heal command
@@ -4145,15 +4145,15 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 150: SetSpAttackTarget(s); break;
 		case 151: Targ->FullStatsTarget(s); break;
 //		case 152: Skills->BeggingTarget(s); break;
-		case 153: Skills->AnimalLoreTarget(s); break;
-		case 154: Skills->ForensicsTarget(s); break;
-		case 155:
-			{
-				currchar[s]->setPoisonserial(LongFromCharPtr(buffer[s]+7));
-				target(s, 0, 1, 0, 156, "What item do you want to poison?");
-				return;
-			}
-		case 156: Skills->PoisoningTarget(s); break;
+//		case 153: Skills->AnimalLoreTarget(s); break;
+//		case 154: Skills->ForensicsTarget(s); break;
+//		case 155:
+//			{
+//				currchar[s]->setPoisonserial(LongFromCharPtr(buffer[s]+7));
+//				target(s, 0, 1, 0, 156, "What item do you want to poison?");
+//				return;
+//			}
+//		case 156: Skills->PoisoningTarget(s); break;
 
 		case 160: Skills->Inscribe(s,0); break;
 
@@ -4174,7 +4174,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 178: Targ->SetAdvObjTarget(s); break;
 		case 179: if (Cready) SetInvulFlag(ps,pc); break;
 		case 180: Skills->Tinkering(s); break;
-		case 181: Skills->PoisoningTarget(s); break;
+//		case 181: Skills->PoisoningTarget(s); break;
 
 		case 183: Skills->TinkerAxel(s); break;
 		case 184: Skills->TinkerAwg(s); break;
@@ -4184,12 +4184,12 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 198: Tiling(s,pt); break;
 		case 199: Targ->Wiping(s); break;
 		case 204: triggertarget(s); break; // Fixed by Magius(CHE)
-		case 205: Skills->StealingTarget(s); break;
+//		case 205: Skills->StealingTarget(s); break;
 		case 206: Targ->CanTrainTarget(s); break;
 		case 207: ExpPotionTarget(s,pt); break;
 		case 209: Targ->SetSplitTarget(s); break;
 		case 210: Targ->SetSplitChanceTarget(s); break;
-		case 213: Skills->PickPocketTarget(s); break;
+//		case 213: Skills->PickPocketTarget(s); break;
 
 		case 220: 
 			{

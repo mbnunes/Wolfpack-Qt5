@@ -51,7 +51,7 @@ public:
 	cTargetRequest( void ) { timeout_ = 0; }; // Never times out
 	virtual ~cTargetRequest( void ) { };
 
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target ) {}; // Request has been answered
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target ) = 0; // Request has been answered
 	virtual void timedout( cUOSocket *socket ) {}; // Request is overwritten
 
 	UI32 targetId( void ) { return targetId_; }

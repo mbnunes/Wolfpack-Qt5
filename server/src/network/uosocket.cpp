@@ -1382,10 +1382,16 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 	if( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( packet->z() == 0xFF ) ) )
 		targetRequest->timedout( this );
 	else
-		targetRequest->responsed( this, packet );
+	{
+		if ( targetRequest->responsed( this, packet ) )
+		{
+			delete targetRequest;
+			targetRequest = 0;
+		}
+		else
+			attachTarget( targetRequest ); // Resend target.
+	}
 
-	delete targetRequest;
-	targetRequest = 0;
 }
 
 /*!

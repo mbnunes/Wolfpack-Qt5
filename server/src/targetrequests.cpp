@@ -37,23 +37,24 @@
 #include "items.h"
 #include "itemsmgr.h"
 
-void cSetPrivLvlTarget::responsed( cUOSocket *socket, cUORxTarget *target )
+bool cSetPrivLvlTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	if( !isCharSerial( target->serial() ) )
-		return;
+		return true;
 
 	P_CHAR pc = FindCharBySerial( target->serial() );
 	if( !pc )
-		return;
+		return true;
 
 	pc->setPrivLvl( plevel_ );
 	socket->sysMessage( tr( "PrivLvl set to : %1" ).arg( plevel_ ) );
-};
+	return true;
+};	
 
-void cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
+bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
-		return;
+		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
 	QDomElement *node = DefManager->getSection( WPDT_ITEM, item_ );
@@ -66,7 +67,7 @@ void cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		if( !ok )
 		{
 			socket->sysMessage( tr( "Item Definition '%1' not found" ).arg( item_ ) );
-			return;
+			return true;
 		}
 	}
 
@@ -85,7 +86,7 @@ void cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 
 	if( !pItem )
-		return;
+		return true;
 
 	Coord_cl newPos = socket->player()->pos;
 	newPos.x = target->x();
@@ -95,12 +96,13 @@ void cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 	// Send the item to its surroundings
 	pItem->update();
+	return true;
 }
 
-void cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
+bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
-		return;
+		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
 	QDomElement *node = DefManager->getSection( WPDT_NPC, npc_ );
@@ -113,7 +115,7 @@ void cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		if( !ok )
 		{
 			socket->sysMessage( tr( "NPC Definition '%1' not found" ).arg( npc_ ) );
-			return;
+			return true;
 		}
 	}
 
@@ -149,16 +151,17 @@ void cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 	// Send the char to it's surroundings
 	pChar->resend( false ); // It's new so no need to remove it first
+	return true;
 };
 
-void cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
+bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
-		return;
+		return true;
 	
 	QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );
 	if( DefSection->isNull() )
-		return;
+		return true;
 
 	if( DefSection->attribute( "type" ) == "house" )
 	{
@@ -174,6 +177,7 @@ void cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 		pBoat->build( *DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
 	}
+	return true;
 };
 
 

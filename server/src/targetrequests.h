@@ -41,7 +41,7 @@ protected:
 public:
 	cSetPrivLvlTarget( const QString &plevel ) { plevel_ = plevel; };
 
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cAddItemTarget: public cTargetRequest
@@ -51,7 +51,7 @@ protected:
 public:
 	cAddItemTarget( const QString &item ) { item_ = item; };
 
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cAddNpcTarget: public cTargetRequest
@@ -61,7 +61,7 @@ protected:
 public:
 	cAddNpcTarget( const QString &npc ) { npc_ = npc; };
 
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cBuildMultiTarget: public cTargetRequest
@@ -73,7 +73,7 @@ protected:
 public:
 	cBuildMultiTarget( const QString &multisection, SERIAL senderserial, SERIAL deedserial ) { multisection_ = multisection; senderserial_ = senderserial; deedserial_ = deedserial; };
 
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target );
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 #endif

@@ -222,17 +222,18 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 class cResurectTarget: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 
 		if( !pChar )
 		{
 			socket->sysMessage( tr( "This is not a living being." ) );
-			return;
+			return true;
 		}
 
 		Targ->NpcResurrectTarget( pChar );
+		return true;
 	}
 };
 
@@ -265,20 +266,21 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 class cKillTarget: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		if( !socket->player() )
-			return;
+			return true;
 
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 
 		if( !pChar )
 		{
 			socket->sysMessage( tr( "You need to target a living being" ) );
-			return;
+			return true;
 		}
 
 		pChar->kill();
+		return true;
 	}
 };
 
@@ -370,7 +372,7 @@ public:
 		value = nValue;
 	}
 
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 		P_ITEM pItem = FindItemBySerial( target->serial() );
@@ -386,7 +388,7 @@ public:
 		if( !pObject )
 		{
 			socket->sysMessage( tr( "Please select a valid character or item" ) );
-			return;
+			return true;
 		}
 
 		// Object name
@@ -427,7 +429,7 @@ public:
 			if( !parseCoordinates( value, newCoords ) )
 			{
 				socket->sysMessage( tr( "Invalid coordinates '%1'" ).arg( value ) );
-				return;
+				return true;
 			}
 			pObject->moveTo( newCoords );
 		}
@@ -525,7 +527,7 @@ public:
 			if( !found )
 			{
 				socket->sysMessage( tr( "Unknown key '%1'" ).arg( key ) );
-				return;
+				return true;
 			}
 		}
 
@@ -533,6 +535,7 @@ public:
 			pChar->resend();
 		else if( pItem )
 			pItem->update();
+		return true;
 	}
 };
 
@@ -561,7 +564,7 @@ void commandResend( cUOSocket *socket, const QString &command, QStringList &args
 class cRemoveTarget: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 		P_ITEM pItem = FindItemBySerial( target->serial() );
@@ -571,7 +574,7 @@ public:
 			if( pChar->socket() )
 			{
 				socket->sysMessage( "You cannot delete logged in characters" );
-				return;
+				return true;
 			}
 
 			if( pChar->account() )
@@ -584,6 +587,7 @@ public:
 		}
 		else
 			socket->sysMessage( "You need to select either an item or a character" );
+		return true;
 	}
 };
 
@@ -781,12 +785,12 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 class cTeleTarget: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		// This is a GM command so we do not check anything but send the 
 		// char where he wants to move
 		if( !socket->player() )
-			return;
+			return true;
 	
 		socket->player()->removeFromView( false );
 
@@ -799,6 +803,7 @@ public:
 		socket->player()->resend( false );
 		socket->resendWorld();
         socket->resendPlayer();
+		return true;
 	}
 };
 
@@ -864,10 +869,10 @@ QStringList getFlagNames( const tile_st &tile )
 class cInfoTarget: public cTargetRequest
 {
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		if( !socket->player() )
-			return;
+			return true;
 
 		Coord_cl pos = socket->player()->pos;
 		pos.x = target->x();
@@ -971,6 +976,7 @@ public:
 				}
 			}
 		}
+		return true;
 	}
 };
 
@@ -986,14 +992,14 @@ private:
 	QString key;
 public:
 	cShowTarget( const QString _key ) { key = _key; }
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		// Check for a valid target
 		cUObject *pObject;
 		P_ITEM pItem = FindItemBySerial( target->serial() );
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 		if( !pChar && !pItem )
-			return;
+			return true;
 
 		if( pChar )
 			pObject = pChar;
@@ -1083,11 +1089,12 @@ public:
 			if( !found )
 			{
 				socket->sysMessage( tr( "Unknown key '%1'" ).arg( key ) );
-				return;
+				return true;
 			}
 		}
 
 		socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( result ) );
+		return true;
 	}
 };
 
@@ -1104,13 +1111,13 @@ private:
 public:
 	cBankTarget( UINT8 data ) { layer = data; }
 
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 		if( !pChar )
 		{
 			socket->sysMessage( tr( "This does not appear to be a living being." ) );
-			return;
+			return true;
 		}
 
 		P_ITEM pItem = pChar->GetItemOnLayer( layer );
@@ -1118,10 +1125,11 @@ public:
 		if( !pItem )
 		{
 			socket->sysMessage( tr( "This being does not have a container on layer 0x%1" ).arg( layer, 2, 16 ) );
-			return;
+			return true;
 		}
 
 		socket->sendContainer( pItem );
+		return true;
 	}
 };
 

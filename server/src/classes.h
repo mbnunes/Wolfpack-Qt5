@@ -77,7 +77,6 @@ private:
 	void PlayInstrumentPoor(cUOSocket*, P_ITEM pi);
 	P_ITEM GetInstrument( cUOSocket* );
 	P_ITEM GetInstrument( UOXSOCKET );
-	void RandomSteal(int s);	
 	void TellScroll(char *menu_name, int player, long item_param);
 	void CollectAmmo(int s, int a, int b);
 	void Meditation(cUOSocket* s);
@@ -87,6 +86,7 @@ public:
 	// Moved here by Storm
 	UI08 CalcRank( UOXSOCKET Socket, UI16 SkillValue, UI16 MinSkill, UI16 MaxSkill );
 
+	static void RandomSteal( cUOSocket*, SERIAL );	
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	void TasteIDTarget(int s);
@@ -129,17 +129,11 @@ public:
 	void SpiritSpeak(int s);
 	void ArmsLoreTarget(int s);
 	void ItemIdTarget(int s);
-	void Evaluate_int_Target(UOXSOCKET s);
 	void AnatomyTarget(int s);
 	int GetCombatSkill(P_CHAR pc);
 	void SkillUse( cUOSocket*, UINT16 );
-	void StealingTarget(int s);
-	void PickPocketTarget(int s);
 	void CreateTrackingMenu(int s, int m);
 	void TrackingMenu(int s, int gmindex);
-	void AnimalLoreTarget(int s);
-	void ForensicsTarget(int s);
-	void PoisoningTarget(int s);
 	int Inscribe(int s, long snum);
 	int EngraveAction(int s, P_ITEM pi, int cir, int spl);
 	void updateSkillLevel(P_CHAR pc, int s);
