@@ -91,6 +91,8 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 		return new cUORxDeleteCharacter( data );
 	case 0x91:
 		return new cUORxServerAttach( data );
+	case 0x98:
+		return new cUORxAllNames( data );
 	case 0x9B:
 		return new cUORxHelpRequest( data );
 	case 0x9F:

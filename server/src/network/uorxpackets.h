@@ -1226,4 +1226,19 @@ public:
 	}
 };
 
+// 0x98 AllNames
+class cUORxAllNames : public cUOPacket {
+public:
+	cUORxAllNames(const QByteArray &data) : cUOPacket( data ) {
+	}
+
+	unsigned int serial() {
+		return getInt(3);
+	}
+
+	const QString &name() {
+		return getAsciiString(7);
+	}
+};
+
 #endif // __UO_RXPACKETS__

@@ -2464,4 +2464,20 @@ public:
 	void addItem( unsigned int serial, unsigned short id, unsigned short hue, unsigned short amount, unsigned short value, const QString& name );
 };
 
+// 0x98 AllNames
+class cUOTxAllNames : public cUOPacket {
+public:
+	cUOTxAllNames() : cUOPacket(0x98, 37) {
+		setShort(1, 37);
+	}
+
+	void setSerial(unsigned int data) {
+		setInt(3, data);
+	}
+
+	void setName(const QString &name) {
+		setAsciiString(7, name.latin1(), 29);
+	}
+};
+
 #endif // __UO_TXPACKETS__

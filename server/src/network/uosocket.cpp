@@ -335,6 +335,8 @@ void cUOSocket::recieve()
 		handleDeleteCharacter( dynamic_cast<cUORxDeleteCharacter*>( packet ) ); break;
 	case 0x91:
 		handleServerAttach( dynamic_cast<cUORxServerAttach*>( packet ) ); break;
+	case 0x98:
+		handleAllNames(dynamic_cast<cUORxAllNames*>(packet)); break;
 	case 0x9B:
 		handleHelpRequest( dynamic_cast<cUORxHelpRequest*>( packet ) ); break;
 	case 0x9F:
@@ -791,6 +793,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 		this->_socket->close();
 		return;
 	}
+
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 5 characters
@@ -3196,4 +3199,16 @@ bool cUOSocket::useItem( P_ITEM item )
 
 	sysMessage( tr( "You can't think of a way to use that item." ) );
 	return false;
+}
+
+void cUOSocket::handleAllNames(cUORxAllNames *packet) {
+	cUObject *object = World::instance()->findObject(packet->serial());
+
+	// Send a packet back with the name of the requested object
+	if (object) {
+		cUOTxAllNames allnames;
+		allnames.setSerial(object->serial());
+		allnames.setName(object->name());
+		send(&allnames);
+	}
 }
