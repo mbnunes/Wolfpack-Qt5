@@ -41,7 +41,9 @@
 
 #if defined (__unix__)
 #include <termios.h>
+#include <stdio.h>
 #include <fcntl.h>
+#define getch() getchar()
 #else
 
 //#include <winsock2.h>
