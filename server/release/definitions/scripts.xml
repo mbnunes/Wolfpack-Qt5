@@ -129,6 +129,7 @@
 	<script>webadmin</script>
 	<script>uogstatus</script>
   <script>skillgain</script>
+  <script>system.makemenus</script>
 
 	<!-- Tools -->
 	<script>tools.pickaxe</script>

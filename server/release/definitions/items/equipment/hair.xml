@@ -74,43 +74,43 @@
 	<!-- Beards -->
 	<item id="203e">
 		<id>0x203e</id>
-		<color><random list="BeardsCOLOR" /></color>
+		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Long Beard</category>
 	</item>
 
 	<item id="203f">
 		<id>0x203f</id>
-		<color><random list="BeardsCOLOR" /></color>
+		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Short Beard</category>
 	</item>
 
 	<item id="2040">
 		<id>0x2040</id>
-		<color><random list="BeardsCOLOR" /></color>
+		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Goatee</category>
 	</item>
 
 	<item id="2041">
 		<id>0x2041</id>
-		<color><random list="BeardsCOLOR" /></color>
+		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Mustache</category>
 	</item>
 
 	<item id="204b">
 		<id>0x204b</id>
-		<color><random list="BeardsCOLOR" /></color>
+		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Med Short Beard</category>
 	</item>
 
 	<item id="204c">
 		<id>0x204c</id>
-		<color><random list="BeardsCOLOR" /></color>
+		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Med Long Beard</category>
 	</item>
 
 	<item id="204d">
 		<id>0x204d</id>
-		<color><random list="BeardsCOLOR" /></color>
+		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Vandyke</category>
 	</item>
 
