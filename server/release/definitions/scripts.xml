@@ -56,6 +56,7 @@
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
   <script>wolfpack.commands.edit</script>
+  <script>wolfpack.commands.skillinfo</script>
   <script>wolfpack.commands.tags</script>
   <script>wolfpack.commands.tile</script>
 	<script>wolfpack.commands.action</script>
