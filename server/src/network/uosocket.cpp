@@ -808,7 +808,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		( packet->skillValue1() + packet->skillValue2() + packet->skillValue3() > 100 ) )
 	{
 		log( QString( "Submitted invalid skills during char creation (%1=%2,%3=%4,%5=%6).\n" ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() ) );
-		cancelCreate( tr( "Invalid Character skills" ) )
+		cancelCreate(tr( "Invalid Character skills" ))
 	}
 
 	// Check Hair

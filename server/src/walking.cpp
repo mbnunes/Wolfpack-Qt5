@@ -693,7 +693,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 
 	if( pChar->stamina() < requiredStamina )
 	{
-		pChar->talk( tr( "You are too exhausted to move" ) );
+		pChar->sysmessage( tr( "You are too exhausted to move" ) );
 		return false;
 	}
 

@@ -2267,15 +2267,20 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 bool cBaseChar::onDeath(cUObject *source, P_ITEM corpse)
 {
 	bool result = false;
+	cPythonScript *global= ScriptManager::instance()->getGlobalHook(EVENT_DEATH);
 
-	if( scriptChain )
-	{
-		PyObject *args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse );
-		result = cPythonScript::callChainedEventHandler( EVENT_DEATH, scriptChain, args );
-		Py_DECREF( args );
+	if (scriptChain || global) {
+		PyObject *args = Py_BuildValue("(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse);
+		if (global) {
+			global->callEventHandler(EVENT_DEATH, args);
+		}
+		if (scriptChain) {
+			cPythonScript::callChainedEventHandler(EVENT_DEATH, scriptChain, args);
+		}
+		Py_DECREF(args);
 	}
 
-	return result;
+	return true;
 }
 
 bool cBaseChar::onCHLevelChange( unsigned int level )
@@ -2514,29 +2519,6 @@ bool cBaseChar::kill(cUObject *source) {
 			{
 				item->moveTo(pos_);
 				item->update();
-			}
-		}
-	}
-
-	// Create Loot for NPcs
-	if (npc && !npc->lootList().isEmpty())
-	{
-		QStringList lootlist = Definitions::instance()->getList(npc->lootList());
-
-		QStringList::const_iterator it;
-		for (it = lootlist.begin(); it != lootlist.end(); ++it)
-		{
-			P_ITEM loot = cItem::createFromScript(*it);
-
-			if (loot)
-			{
-				if (corpse)
-					corpse->addItem(loot);
-				else
-				{
-					loot->moveTo(pos_);
-					loot->update();
-				}
 			}
 		}
 	}

@@ -83,6 +83,7 @@ Q_INT32 resolveName( const QString& data )
 }
 
 cConfig::cConfig() : Preferences("wolfpack.xml", "Wolfpack", "1.0") {
+	readData();
 }
 
 void cConfig::readData() {
