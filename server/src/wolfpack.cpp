@@ -298,13 +298,14 @@ int main( int argc, char **argv )
 
 				case 'p':
 					if( run_background == true )
+					{
 						pidfile = argv[i+1];
+						pidfile_add( pidfile );
+					}
 					break;
 			}
 		}
 	}
-	if( pidfile )
-		pidfile_add( pidfile );
 #endif
 
 	keeprun = 1;
