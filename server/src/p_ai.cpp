@@ -144,7 +144,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						onl = online(pc);
 						d = chardist( pc_i, pc );
 						chance = RandomNum(1, 100);
-						if (pc == pc_i)
+						if (pc == pc_i || !onl)
 							continue;
 						if (d>SrvParms->attack_distance)
 							continue;
