@@ -1,10 +1,9 @@
-from wolfpack import console
+from wolfpack import console, properties
 from wolfpack.consts import *
 import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
-from wolfpack.properties import itemcheck, fromitem
 import random
 from skills.blacksmithing import METALS
 
@@ -159,8 +158,8 @@ class CarpentryMenu(MakeMenu):
       return
 
     item = target.item
-    weapon = itemcheck(item, ITEM_WEAPON)
-    shield = itemcheck(item, ITEM_SHIELD)
+    weapon = properties.itemcheck(item, ITEM_WEAPON)
+    shield = properties.itemcheck(item, ITEM_SHIELD)
 
     if weapon or shield:
       # Item in full repair
