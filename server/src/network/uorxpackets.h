@@ -33,6 +33,7 @@
 
 // Wolfpack Includes
 #include "../typedefs.h"
+#include "../gumps.h"
 #include "uopacket.h"
 #include "../defines.h"
 

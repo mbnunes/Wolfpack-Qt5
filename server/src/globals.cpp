@@ -49,8 +49,6 @@ wp_version_info wp_version;
 #include <qdatetime.h>
 
 enServerState serverState;
-time_t oldtime;
-time_t newtime;
 QDateTime uoTime;
 int autosaved;
 int secure = 1;

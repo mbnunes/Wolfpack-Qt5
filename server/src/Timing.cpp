@@ -66,6 +66,10 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
 
+// global junk
+time_t oldtime;
+time_t newtime;
+
 void restockNPC( UINT32 currenttime, P_NPC pc_i )
 {
 	if( SrvParams->shopRestock() && ( shoprestocktime <= currenttime ) )

@@ -996,7 +996,7 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose *packet )
 			Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );	
 	}; 
 } 
-#pragma message(__FILE__ Reminder "Implement Custom House subcommands here")
+#pragma message(Reminder "Implement Custom House subcommands here")
 void cUOSocket::handleCHBackup( cUORxAosMultiPurpose *packet )
 {
 }

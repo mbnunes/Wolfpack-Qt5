@@ -36,12 +36,23 @@
 
 #include <qstringlist.h>
 #include <qobject.h>
+#include <vector>
+#include <map>
 
 // Forward Declarations
 class cUObject;
 class cUOSocket;
 class cPage;
 class cSpawnRegion;
+
+
+struct gumpChoice_st 
+{
+	signed int button;
+	std::vector< unsigned int > switches;
+	std::map< unsigned short, QString > textentries;
+};
+
 
 /*****************************************************************************
   cGump class

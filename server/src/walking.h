@@ -35,6 +35,8 @@
 #include "typedefs.h"
 #include "singleton.h"
 
+#include <qglobal.h>
+
 struct unitile_st
 {
 	signed char basez;

@@ -32,49 +32,36 @@
 #if !defined(__DEFINES_H__)
 #define __DEFINES_H__
 
-#define _ST_( L ) #L
-#define _MST_( M, L ) M(L)
-#define $LINE _MST_(_ST_, __LINE__)
-#define Reminder  "("$LINE"):Remind: "
 
-#define MAXLOOPS 250000
+//o---------------------------------------------------------------------------o
+// FIXMEs / TODOs / NOTE macros
+//o---------------------------------------------------------------------------o
+#define _QUOTE(x) # x
+#define QUOTE(x) _QUOTE(x)
+#define __FILE__LINE__ __FILE__ "(" QUOTE(__LINE__) ") : "
+#define todo( x )  message( __FILE__LINE__" TODO :   " #x "\n" )
+#define fixme( x )  message( __FILE__LINE__" FIXME:   " #x "\n" )
+#define note( x )  message( __FILE__LINE__" NOTE :   " #x "\n" )
+
+#define Reminder  __FILE__LINE__ ":Remind: "
+
+//#define MAXLOOPS 250000
 #define MaxZstep 5
 
 #if defined(__unix__)
-#define BYTE unsigned char
-#define SOCKET_ERROR -1
 
-extern "C" {
-char *strlwr(char *);
-char *strupr(char *);
-};
 #include <sys/types.h>
-extern time_t  oldtime, newtime;
-//#define Sleep(sec) usleep(sec * 1000)
-
-#else
-extern long int oldtime, newtime;
 
 #endif
-//#ifndef MSG_NOSIGNAL
-//#define MSG_NOSIGNAL 0
-//#endif
 
 #define ILLEGAL_Z	128
 
-#define MAX_GUILDTYPE 2	// Code to support the Chaos/order system
-#define MAXSERV 5 // Maximum servers in login listing
-//#define MAXSTART 15 // Maximum starting locations
-
-#define MAXPAGES 75 // Maximum number of pages in the GM queue
 #define VISRANGE 18 // Visibility for normal items
 #define BUILDRANGE 31 // Visibility for castles and keeps
 
 #define XYMAX 256 // Maximum items Wolfpack can handle on one X/Y square
-//#define MAXEFFECTS MAXCHARS/10
 #define MAXLAYERS 50 // Maximum number of Layers in paperdolls (still not sure how many)
 #define ITEMMENUOFFSET 256
-#define CMAX 40 // Maximum parameters in one line (Only for memory reasons)
 #define VERFILE_MAP 0x00
 #define VERFILE_STAIDX 0x01
 #define VERFILE_STATICS 0x02
@@ -206,10 +193,6 @@ enum enDirection
 {
 	North = 1, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
 };
-
-// for spinning wheel -vagrant
-#define YARN 0
-#define THREAD 1
 
 // Line Of Sight
 #define ITEM_TYPE_CHOICES 6

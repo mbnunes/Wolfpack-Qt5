@@ -53,6 +53,8 @@ class cTempEffects;
 #include "typedefs.h"
 #include "singleton.h"
 
+#include <qstring.h>
+
 class cDBResult;
 
 class cTempEffect

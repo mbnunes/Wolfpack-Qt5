@@ -69,9 +69,9 @@ private:
 	// Everything that doesn't need to be accessed via a getter or setter
 	// is implemented in this private structure for compile reasons.
 	class cWorldPrivate *p;
-	UINT32 _charCount;
-	UINT32 _itemCount;
-	UINT32 lastTooltip;
+	unsigned int _charCount;
+	unsigned int _itemCount;
+	unsigned int lastTooltip;
 	SERIAL _lastCharSerial, _lastItemSerial;
 
 public:
@@ -101,10 +101,10 @@ public:
 	SERIAL findCharSerial() const { return _lastCharSerial + 1; }
 	SERIAL findItemSerial() const { return _lastItemSerial + 1; }
 
-	UINT32 charCount() const { return _charCount; }
-	UINT32 itemCount() const { return _itemCount; }
+	unsigned int charCount() const { return _charCount; }
+	unsigned int itemCount() const { return _itemCount; }
 
-	UINT32 getUnusedTooltip() { return ++lastTooltip; }
+	unsigned int getUnusedTooltip() { return ++lastTooltip; }
 };
 
 typedef SingletonHolder< cWorld > World;
