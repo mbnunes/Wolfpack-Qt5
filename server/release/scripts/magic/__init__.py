@@ -36,19 +36,21 @@ def onLoad():
 # This part of the code has to be npc safe!
 #
 # Mode: 0 = Book
-def castSpell( char, spell, mode = 0, args = [] ):
+# Mode: 1 = Scroll
+# MOde: 2 = Wand
+def castSpell( char, spell, mode = 0, args = [], target = None, item = None ):
 	if char.dead:
 		return
 
 	socket = char.socket
-
+	
 	if not spells.has_key(spell):
 		if socket:
 			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d\n" % spell)
 			socket.sysmessage('ERROR: Unknown Spell')
 		return
 
-	spells[spell].precast(char, mode, args)
+	spells[spell].precast(char, mode, args, target, item)
 
 # Target Cancel
 def target_cancel(char):
@@ -68,6 +70,14 @@ def target_response( char, args, target ):
 
 	spell = args[0]
 	mode = args[1]
+	item = args[3]
+	args = args[2]
+	if type(item) == int:
+		item = wolfpack.findobject(item)
+		# Object went out of scope
+		if not item:
+			fizzle(char)
+			return
 
 	# Char Targets
 	if target.char and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_CHAR):
@@ -92,7 +102,9 @@ def target_response( char, args, target ):
 				char.socket.clilocmessage(500237)
 			return
 
-		spell.target(char, mode, TARGET_CHAR, target.char)
+		message = "Casting spell %u (%s) on character %s (0x%x).\n"  % (spell.spellid, spell.__class__.__name__, target.char.name, target.char.serial)
+		char.log(LOG_MESSAGE, message)
+		spell.target(char, mode, TARGET_CHAR, target.char, args, item)
 
 	# Item Target
 	elif target.item and ( spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_ITEM ):
@@ -104,8 +116,10 @@ def target_response( char, args, target ):
 			if char.socket:
 				char.socket.clilocmessage(500237)
 			return
-
-		spell.target(char, mode, TARGET_ITEM, target.item)
+			
+		message = "Casting spell %u (%s) on item %s (0x%x).\n"  % (spell.spellid, spell.__class__.__name__, target.item.getname(), target.item.serial)
+		char.log(LOG_MESSAGE, message)
+		spell.target(char, mode, TARGET_ITEM, target.item, args, item)
 
 	# Ground Target
 	elif (target.item or target.char or target.pos) and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_GROUND):
@@ -129,7 +143,9 @@ def target_response( char, args, target ):
 				char.socket.clilocmessage(500237)
 			return
 
-		spell.target(char, mode, TARGET_GROUND, pos)
+		message = "Casting spell %u (%s) on coordinate %s.\n"  % (spell.spellid, spell.__class__.__name__, str(pos))
+		char.log(LOG_MESSAGE, message)
+		spell.target(char, mode, TARGET_GROUND, pos, args, item)
 
 	else:
 		char.socket.clilocmessage(501857)

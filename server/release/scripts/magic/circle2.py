@@ -13,7 +13,7 @@ class Agility (CharEffectSpell):
 		self.reagents = {REAGENT_MANDRAKE: 1, REAGENT_BLOODMOSS: 1}
 		self.mantra = 'Ex Uus'
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 1, 0)
 		target.effect(0x375a, 10, 15)
 		target.soundeffect(0x28e)
@@ -24,7 +24,7 @@ class Cunning (CharEffectSpell):
 		self.reagents = {REAGENT_MANDRAKE: 1, REAGENT_NIGHTSHADE: 1}
 		self.mantra = 'Uus Wis'
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 2, 0)
 
 		target.effect(0x375a, 10, 15)
@@ -36,7 +36,7 @@ class Strength (CharEffectSpell):
 		self.reagents = {REAGENT_MANDRAKE: 1, REAGENT_NIGHTSHADE: 1}
 		self.mantra = 'Uus Mani'
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 0, 0)
 
 		target.effect(0x375a, 10, 15)
@@ -70,7 +70,7 @@ class MagicTrap (Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'In Jux'
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		# Only containers are trappable
@@ -78,7 +78,7 @@ class MagicTrap (Spell):
 			char.message('You can''t trap that.')
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		pos = target.pos
@@ -101,10 +101,10 @@ class RemoveTrap (Spell):
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'An Jux'
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		# Already Trapped?
@@ -130,7 +130,7 @@ class Protection(Spell):
 		self.mantra = 'Uus Sanct'
 
 	def cast(self, char, mode, args=[]):
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		# Toggle Protection
@@ -171,7 +171,7 @@ class Cure (CharEffectSpell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1}
 		self.mantra = 'An Nox'
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		if target.poison != -1:
 			chance = (10000 + int(char.skill[MAGERY] * 7.5) - ((target.poison + 1) * 1750)) / 10000.0
 

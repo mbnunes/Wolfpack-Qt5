@@ -16,7 +16,7 @@ class Clumsy (CharEffectSpell):
 		self.harmful = 1
 		self.reflectable = 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 1, 1)
 
 		target.effect(0x3779, 10, 15)
@@ -31,7 +31,7 @@ class Feeblemind (CharEffectSpell):
 		self.harmful = 1
 		self.reflectable = 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 2, 1)
 
 		target.effect(0x3779, 10, 15)
@@ -46,7 +46,7 @@ class Weaken (CharEffectSpell):
 		self.harmful = 1
 		self.reflectable = 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 0, 1)
 
 		target.effect(0x3779, 10, 15)
@@ -60,7 +60,7 @@ class CreateFood(Spell):
 		self.mantra = 'In Mani Ylem'
 
 	def cast(self, char, mode, args=[]):
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		# Randomly select one id of food
@@ -93,7 +93,7 @@ class Heal (CharEffectSpell):
 			return 0
 		return 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		# 10% of Magery + 1-5
 		#amount = int(0.01 * char.skill[MAGERY]) + random.randint(1, 5)
 		amount = int(char.skill[MAGERY] / 100) + random.randint(1, 3)
@@ -126,7 +126,7 @@ class NightSight (CharEffectSpell):
 			return 0
 		return 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		# Remove an old bonus
 		if target.hastag('nightsight'):
 			bonus = target.gettag('nightsight')
@@ -167,7 +167,7 @@ class ReactiveArmor(Spell):
 		self.mantra = 'Flam Sanct'
 
 	def cast(self, char, mode, args=[]):
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		# Toggle ReactiveArmor

@@ -20,14 +20,14 @@ class BladeSpirits (Spell):
 		else:
 			return Spell.cast(self, char, mode)
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		if char.player and char.controlslots >= 5:
 			char.socket.clilocmessage(1049645)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		spirits = wolfpack.addnpc('summoned_blade_spirit', target)
@@ -44,7 +44,7 @@ class DispelField (Spell):
 		self.mantra = 'An Grav'
 		self.validtarget = TARGET_ITEM
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		# Dispellable?
@@ -53,7 +53,7 @@ class DispelField (Spell):
 				char.socket.clilocmessage(1005049)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		wolfpack.effect(0x376a, target.pos, 9, 20)
@@ -105,7 +105,7 @@ class Incognito (Spell):
 			char.socket.clilocmessage(1005559)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		duration = int(1 + (6 * char.skill[MAGERY]) / 50.0) * 1000
@@ -177,7 +177,7 @@ class MagicReflect(Spell):
 		self.mantra = 'In Jux Sanct'
 
 	def cast(self, char, mode, args=[]):
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		# Toggle Magic Reflection
@@ -228,7 +228,7 @@ class Paralyze (CharEffectSpell):
 			return 0
 		return 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		target.disturb()
 		target.frozen = 1
 		target.resendtooltip()
@@ -256,10 +256,10 @@ class PoisonField(Spell):
 		self.mantra = 'In Nox Grav'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		xdiff = abs(target.x - char.pos.x)
@@ -327,7 +327,7 @@ class SummonCreature (Spell):
 			return
 		return Spell.cast(self, char, mode)
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		if char.player and char.controlslots + 2 > 5:
@@ -340,7 +340,7 @@ class SummonCreature (Spell):
 				char.socket.clilocmessage(501942)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		npcid = random.choice(	['polar_bear', 'grizzly_bear', 'black_bear',

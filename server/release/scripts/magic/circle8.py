@@ -22,7 +22,7 @@ class Earthquake(Spell):
 		self.mantra = 'In Vas Por'
 
 	def cast(self, char, mode, args):
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		if char.player:
@@ -66,10 +66,10 @@ class EnergyVortex(Spell):
 		self.mantra = 'Vas Corp Por'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		ev = wolfpack.addnpc('summoned_energy_vortex', target)
@@ -84,7 +84,7 @@ class Resurrection(Spell):
 		self.mantra = 'An Corp'
 		self.validtarget = TARGET_CHAR
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		if not target.player:
@@ -95,7 +95,7 @@ class Resurrection(Spell):
 			char.socket.clilocmessage(501041)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		target.resurrect()
@@ -110,14 +110,14 @@ class SummonElementBase(Spell):
 		self.casttime = 6000
 		self.controlslots = 3
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		if char.player and char.controlslots + self.controlslots > 5:
 			char.socket.clilocmessage(1049645)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		creature = wolfpack.addnpc(self.elementid, target)

@@ -14,8 +14,8 @@ class ChainLightning (Spell):
 		self.mantra = 'Vas Ort Grav'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.turnto(target)
@@ -61,10 +61,10 @@ class EnergyField(Spell):
 		self.mantra = 'In Sanct Grav'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		xdiff = abs(target.x - char.pos.x)
@@ -135,7 +135,7 @@ class GateTravel (Spell):
 
 		return Spell.cast(self, char, mode)
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		# We can only recall from recall runes
@@ -143,7 +143,7 @@ class GateTravel (Spell):
 			char.message(502357)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		if not target.hastag('marked') or target.gettag('marked') != 1:
@@ -251,8 +251,8 @@ class MassDispel (Spell):
 		self.mantra = 'Vas An Ort'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.turnto(target)
@@ -292,8 +292,8 @@ class MeteorSwarm (Spell):
 		self.mantra = 'Flam Kal Des Ylem'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.turnto(target)
@@ -343,7 +343,7 @@ class Polymorph (Spell):
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_GINSENG: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'Vas Ylem Rel'
 
-	def checkrequirements(self, char, mode, args=[]):
+	def checkrequirements(self, char, mode, args=[], target=None, item=None):
 		if char.polymorph:
 			if char.socket:
 				char.socket.clilocmessage(1005559)
@@ -356,7 +356,7 @@ class Polymorph (Spell):
 		if len(args) == 0:
 			polymorph.showmenu(char)
 			return 0
-		return Spell.checkrequirements(self, char, mode, args)
+		return Spell.checkrequirements(self, char, mode, args, target, item)
 
 	def cast(self, char, mode, args):
 		if char.polymorph:

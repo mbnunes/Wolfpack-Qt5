@@ -23,7 +23,7 @@ class AnimateDead(NecroSpell):
         self.validtarget = TARGET_ITEM
         self.circle = 4
 
-    def target(self, char, mode, targettype, target, args=[]):
+    def target(self, char, mode, targettype, target, args, item):
         char.turnto(target)
 
         if target.id != 0x2006:
@@ -38,7 +38,7 @@ class AnimateDead(NecroSpell):
             char.socket.sysmessage('You may not use this on players!')
             return
 
-        if not self.consumerequirements(char, mode):
+        if not self.consumerequirements(char, mode, args, target, item):
             return
 
         char.socket.sysmessage('Not yet implented')

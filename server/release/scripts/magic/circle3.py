@@ -14,7 +14,7 @@ class Bless (CharEffectSpell):
 		self.reagents = {REAGENT_MANDRAKE: 1, REAGENT_GARLIC: 1}
 		self.mantra = 'Rel Sanct'
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 3, 0)
 
 		target.effect(0x373a, 10, 15)
@@ -40,10 +40,10 @@ class WallOfStone(Spell):
 		self.mantra = 'In Sanct Ylem'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		xdiff = abs(target.x - char.pos.x)
@@ -80,7 +80,7 @@ class Teleport(Spell):
 		self.validtarget = TARGET_GROUND
 		self.range = 12
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		# Line of Sight (touch!! or else we can teleport trough windows)
@@ -95,7 +95,7 @@ class Teleport(Spell):
 				char.socketclilocmessage(501942)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		source = char.pos
@@ -118,7 +118,7 @@ class MagicLock(Spell):
 		self.mantra = 'An Por'
 		self.validtarget = TARGET_ITEM
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		# We can only lock unlocked chests
@@ -131,7 +131,7 @@ class MagicLock(Spell):
 			char.message(501761)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		events = target.events
@@ -151,7 +151,7 @@ class Unlock(Spell):
 		self.mantra = 'Ex Por'
 		self.validtarget = TARGET_ITEM
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		# We can only lock unlocked chests
@@ -163,7 +163,7 @@ class Unlock(Spell):
 			char.message(503099)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		events = target.events
@@ -182,7 +182,7 @@ class Telekinesis(Spell):
 		self.mantra = 'Ort Por Ylem'
 		self.validtarget = TARGET_ITEM
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		events = target.events
@@ -204,7 +204,7 @@ class Telekinesis(Spell):
 		if not hasevent and target.type != 1:
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		wolfpack.effect(0x376a, target.pos, 9, 32)
@@ -234,7 +234,7 @@ class Poison (CharEffectSpell):
 		self.harmful = 1
 		self.reflectable = 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		target.disturb()
 
 		if self.checkresist(char, target):

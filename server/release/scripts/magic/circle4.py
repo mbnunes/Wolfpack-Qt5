@@ -14,7 +14,7 @@ class Curse (CharEffectSpell):
 		self.harmful = 1
 		self.reflectable = 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		statmodifier(char, target, 3, 1)
 		target.effect(0x373a, 10, 15)
 		target.soundeffect(0x1ea)
@@ -34,7 +34,7 @@ class GreaterHeal (CharEffectSpell):
 			return 0
 		return 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		# 40% of Magery + 1-10
 		amount = int(0.04 * char.skill[ MAGERY ]) + random.randint(1, 10)
 		target.hitpoints = min(target.maxhitpoints, target.hitpoints + amount)
@@ -122,7 +122,7 @@ class Recall (Spell):
 
 		return Spell.cast(self, char, mode)
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		# We can only recall from recall runes
@@ -130,7 +130,7 @@ class Recall (Spell):
 			char.message(502357)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		if not target.hastag('marked') or target.gettag('marked') != 1:
@@ -179,14 +179,14 @@ class FireField(Spell):
 		self.harmful = 1
 		self.resistable = 1
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		if not char.canreach(target, 10):
 			char.message(500237)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		xdiff = abs(target.x - char.pos.x)
@@ -239,8 +239,8 @@ class ArchCure (Spell):
 		self.mantra = 'Vas An Nox'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.turnto(target)
@@ -272,8 +272,8 @@ class ArchProtection (Spell):
 		self.mantra = 'Vas Uus Sanct'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.turnto(target)

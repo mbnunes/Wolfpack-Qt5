@@ -74,7 +74,12 @@ Wolfpack 12.9.8 Beta (CVS)
 			Inscription - Thanks to khpae
 		- Decoration Saving
 		- Magic fixes: Fire, Poison, Energy and Paralyze fields should work better.
-			Mass dispell can now wipe out these fields.		
+			Mass dispell can now wipe out these fields.
+		- Scrolls are now usable and actually cast the spell. 
+		  For scrolls the following rules are in effect:
+		    50% decreased mana usage.
+		   	The effective circle for measuring the skill requirement is lowered by two
+		   	 when casting from a scroll.
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!

@@ -42,13 +42,35 @@ def callback(char, args):
 	eventlist = char.events
 	eventlist.remove('magic')
 	char.events = eventlist
+	
+	# target
+	if args[3] and type(args[3]) == int:
+		target = wolfpack.findobject(args[3])
+		
+		# Object went out of scope
+		if not target:
+			fizzle(char)
+			return
+	else:
+		target = None
+	
+	# item
+	if args[4] and type(args[4]) == int:
+		item = wolfpack.findobject(args[4])
+		
+		# Object went out of scope
+		if not item:
+			fizzle(char)
+			return
+	else:
+		item = None
 
-	args[0].cast(char, args[1], args[2])
+	args[0].cast(char, args[1], args[2], args[3], item)
 
 # Basic Spell Class
 class Spell:
 	# We affect another character
-	def affectchar(self, char, mode, target, args=[]):
+	def affectchar(self, char, mode, target, args=[], item=None):
 		return 1
 
 	def register(self, id):
@@ -79,9 +101,17 @@ class Spell:
 	#
 	# Prepare the casting of this spell.
 	#
-	def precast(self, char, mode=0, args=[]):
+	def precast(self, char, mode=0, args=[], target = None, item = None):	
 		eventlist = char.events
 		socket = char.socket
+		
+		# Casting from a scroll and no scroll was passed
+		if mode == 1 and not item:
+			return
+		
+		# Casting from a wand and no wand was passed
+		if mode == 2 and not item:
+			return
 
 		# We are frozen
 		if char.frozen:
@@ -99,7 +129,7 @@ class Spell:
 			char.message("You don't know the spell you want to cast.")
 			return 0
 
-		if not self.checkrequirements(char, mode, args):
+		if not self.checkrequirements(char, mode, args, target, item):
 			return 0
 
 		# Unhide the Caster
@@ -111,13 +141,28 @@ class Spell:
 		# Precasting
 		char.events = ['magic'] + eventlist
 		char.action(self.castaction)
-		char.addtimer(self.calcdelay(), 'magic.spell.callback', [self, mode, args], 0, 0, "cast_delay")
+		
+		if item:
+			item = item.serial
+			
+		if target and (type(target).__name__ == 'wpchar' or type(target).__name__ == 'wpitem'):
+			target = target.serial
+			
+		if mode == MODE_BOOK:
+			source = 'book'
+		elif mode == MODE_SCROLL:
+			source = 'scroll (0x%x)' % item
+		elif mode == MODE_WAND:
+			source = 'wand (0x%x)' % item
+
+		char.log(LOG_MESSAGE, "Casting spell %u (%s) from %s.\n" % (self.spellid, self.__class__.__name__, source))
+		char.addtimer(self.calcdelay(), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
 		return 1
 
 	def calcdelay(self):
 		return self.casttime
 
-	def checkrequirements(self, char, mode, args=[]):
+	def checkrequirements(self, char, mode, args=[], target=None, item=None):
 		if char.dead:
 			return 0
 
@@ -136,28 +181,65 @@ class Spell:
 						char.message(502630)
 						return 0
 
+		elif mode == MODE_SCROLL:
+			# Check if the scroll is allright
+			if not item or item.getoutmostchar() != char:
+				char.message(501625)
+				return 0
+				
+			# Check for Mana
+			if char.mana < (self.mana + 1) / 2:
+				char.message(502625)
+				return 0
+
+		elif mode == MODE_WAND:
+			# Check if the wand is allright
+			if not item or item.getoutmostchar() != char:
+				return 0
+
 		return 1
 
-	def consumerequirements(self, char, mode, args=[]):
+	def consumerequirements(self, char, mode, args=[], target=None, item=None):
 		# Check Basic Requirements before proceeding (Includes Death of Caster etc.)
-		if not self.checkrequirements(char, mode):
+		if not self.checkrequirements(char, mode, args, target, item):
 			fizzle(char)
-			return 0
+			return 0	
 
 		# Consume Mana
 		if mode == MODE_BOOK:
 			if self.mana != 0:
-				char.mana -= self.mana
+				char.mana = max(0, char.mana - self.mana)
 				char.updatemana()
 
 			# Consume Reagents
 			if len(self.reagents) > 0:
 				consumeReagents(char.getbackpack(), self.reagents.copy())
+		
+		# Reduced Skill, Reduced Mana, No Reagents
+		elif mode == MODE_SCROLL:
+			if self.mana != 0:
+				char.mana = max(0, char.mana - (self.mana + 1) / 2)
+				char.updatemana()
+		
+			# Remove one of the scrolls
+			if item.amount == 1:
+				item.delete()
+			else:
+				item.amount -= 1
+				item.update()
+
+		# No requirements at all
+		elif mode == MODE_WAND:		
+			pass
 
 		# Check Skill
 		if self.skill != None:
-			minskill = max(0, int((1000 / 7) * self.circle - 200))
-			maxskill = min(1200, int((1000 / 7) * self.circle + 200))
+			if mode == MODE_BOOK:
+				circle = self.circle
+			else:
+				circle = self.circle - 2
+			minskill = max(0, int((1000 / 7) * circle - 200))
+			maxskill = min(1200, int((1000 / 7) * circle + 200))
 
 			if not char.checkskill(self.skill, minskill, maxskill):
 				char.message(502632)
@@ -167,7 +249,7 @@ class Spell:
 		return 1
 
 	# Not implemented yet
-	def checkreflect(self, char, mode, targettype, target):
+	def checkreflect(self, char, mode, targettype, target, args, item):
 		return 0
 
 	#
@@ -223,15 +305,21 @@ class Spell:
 
 		return chance >= random.random()
 
-	def cast(self, char, mode, args=[]):
-		if char.socket:
-			char.socket.settag('cast_target', 1)
-			char.socket.attachtarget('magic.target_response', [ self, mode, args ], 'magic.target_cancel', 'magic.target_timeout', 8000) # Don't forget the timeout later on
+	def cast(self, char, mode, args=[], target=None, item=None):
+		if not target:
+			if char.socket:
+				char.socket.settag('cast_target', 1)
+				if item:
+					item = item.serial
+				char.socket.attachtarget('magic.target_response', [ self, mode, args, item ], 'magic.target_cancel', 'magic.target_timeout', 8000) # Don't forget the timeout later on
+			else:
+				# Callback to the NPC AI ??
+				wolfpack.console.log(LOG_ERROR, "A NPC is trying to cast a spell.")
+		# A target has been supplied
 		else:
-			# Callback to the NPC AI ??
-			wolfpack.console.log(LOG_ERROR, "A NPC is trying to cast a spell.")
+			char.message('target has been supplied')
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		raise Exception, "Spell without target method: " + str(self.__class__.__name__)
 
 	#
@@ -246,25 +334,25 @@ class CharEffectSpell (Spell):
 		self.validtarget = TARGET_CHAR
 		self.resistable = 1 # Most of them are resistable
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		raise Exception, "CharEffectSpell with unimplemented effect method: " + str(self.__clas__.__name__)
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		if not self.affectchar(char, mode, target):
+		if not self.affectchar(char, mode, target, item):
 			return
 
 		char.turnto(target)
 
-		if self.reflectable and self.checkreflect(char, mode, targettype, target):
+		if self.reflectable and self.checkreflect(char, mode, targettype, target, args, item):
 			target = char
 
 		if self.harmful:
 			self.harmchar(char, target)
 
-		self.effect(char, target)
+		self.effect(char, target, mode, args, item)
 
 #
 # A damage spell. It can be delayed but doesnt need
@@ -279,7 +367,7 @@ class DelayedDamageSpell(CharEffectSpell):
 		self.delay = 1000 # Default Delay
 		self.sound = None
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		# Shoot a missile?
 		if self.missile:
 			char.movingeffect(self.missile[0], target, self.missile[1], self.missile[2], self.missile[3])
@@ -302,7 +390,6 @@ def damage_callback(target, args):
 
 	# Something went out of scope
 	if not char or not spell:
-		wolfpack.console.log(LOG_WARNING, "Either Caster or Spell went out of scope in damage_callback.\n")
 		return
 
 	spell.damage(char, target)

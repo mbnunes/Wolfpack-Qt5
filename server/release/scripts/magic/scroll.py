@@ -8,6 +8,8 @@
 #===============================================================#
 
 import wolfpack
+import magic
+from magic.utilities import MODE_SCROLL
 from magic.spellbook import addspell, hasspell
 
 # calculate the spell-id of a scroll
@@ -22,16 +24,12 @@ def calcSpellId( item ):
 
 def onUse( char, item ):
 	try:
-		char.message( 'Casting spell %d' % calcSpellId( item ) )
+		spell = calcSpellId(item)		
 	except:
-		char.socket.sysmessage( 'Broken scroll' )
+		char.socket.sysmessage('This scroll seems to be broken.')
 		return False
 
-	if item.amount > 1:
-		item.amount -= 1
-		item.update()
-	else:
-		item.delete()
+	magic.castSpell(char, spell + 1, MODE_SCROLL, [], None, item)
 
 	return True
 

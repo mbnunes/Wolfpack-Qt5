@@ -28,7 +28,7 @@ class Dispel (CharEffectSpell):
 			return 0
 		return 1
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		# Show an effect at the position
 		if self.checkresist(char, target):
 			target.effect(0x3779, 10, 20)
@@ -75,7 +75,7 @@ class Invisibility (CharEffectSpell):
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_NIGHTSHADE: 1}
 		self.mantra = 'An Lor Xen'
 
-	def effect(self, char, target):
+	def effect(self, char, target, mode, args, item):
 		# Clean previous removal timers
 		target.dispel(None, 1, "invisibility_reveal")
 
@@ -106,7 +106,7 @@ class Mark (Spell):
 
 		return Spell.cast(self, char, mode)
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
 		if not char.region or char.region.nomark:
@@ -124,7 +124,7 @@ class Mark (Spell):
 				char.socket.clilocmessage(1062422)
 			return
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.soundeffect(0x1fa)
@@ -143,8 +143,8 @@ class MassCurse (Spell):
 		self.mantra = 'Vas Des Sanct'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.turnto(target)
@@ -185,10 +185,10 @@ class ParalyzeField(Spell):
 		self.harmful = 1
 		self.resistable = 1
 
-	def target(self, char, mode, targettype, target, args=[]):
+	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if not self.consumerequirements(char, mode):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		xdiff = abs(target.x - char.pos.x)
@@ -241,8 +241,8 @@ class Reveal (Spell):
 		self.mantra = 'Wis Quas'
 		self.validtarget = TARGET_GROUND
 
-	def target(self, char, mode, targettype, target, args=[]):
-		if not self.consumerequirements(char, mode):
+	def target(self, char, mode, targettype, target, args, item):
+		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
 		char.turnto(target)
