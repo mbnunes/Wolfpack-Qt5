@@ -29,154 +29,23 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-// WOLFPACK - Bounty System
-// FILE - bounty.cpp
-// DATE - July 17, 2000
-//   By - Dupois (dupois@home.com)
-//
 #include "bounty.h"
-#include "msgboard.h"
 
-#undef  DBGFILE
-#define DBGFILE "bounty.cpp"
-
-//////////////////////////////////////////////////////////////////////////////
-// FUNCTION:    BountyAskVictim( int nVictimSerial, int nMurdererSerial )
-//
-// PURPOSE:     Used to ask the murder victim whether they would like to place
-//              a bounty on the head of the murderer.
-// 
-// PARAMETERS:  nVictimSerial   Victim characters serial number
-//              nMurdererSerial Murderer characters serial number
-//
-// RETURNS:     void
-//////////////////////////////////////////////////////////////////////////////
 void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 {
-  int nAmount     = 0;
-  PC_CHAR pcc_nVictimIdx  = FindCharBySerial( nVictimSerial );
-  PC_CHAR pcc_nMurderIdx  = FindCharBySerial( nMurdererSerial );
- 
-  if (pcc_nVictimIdx == NULL || pcc_nMurderIdx == NULL) return;
+}
 
-  // Indicate that the victim is being asked if they want to place a bounty
-  sprintf((char*)temp, "BountyAskVictim():  %s is attempting to place a bounty of %i on %s\n",
-          pcc_nVictimIdx->name().latin1(), nAmount, pcc_nMurderIdx->name().latin1() );
-  LogMessage((char*)temp);
-
-  // If the amount of the bounty is larger than zero, create a bounty posting
-  if( nAmount > 0 )
-  {
-     if( BountyCreate( pcc_nMurderIdx->serial(), nAmount ) )
-	 {
-         sprintf((char*)temp, "BountyAskVictim():  %s has placed a bounty of %i on %s\n",
-                pcc_nVictimIdx->name().latin1(),
-                nAmount,
-                pcc_nMurderIdx->name().latin1() );
-		 LogMessage((char*)temp);
-	 }
-
-     else
-	 {
-       sprintf((char*)temp, "BountyAskVictim():  %s FAILED to place a bounty of %i on %s\n",
-               pcc_nVictimIdx->name().latin1(),
-               nAmount,
-               pcc_nMurderIdx->name().latin1() );
-	   LogMessage((char*)temp);
-	 }
-  }
-
-  return;
-
-} // BountyAskVictim()
-
-
-//////////////////////////////////////////////////////////////////////////////
-// FUNCTION:    BountyCreate( int nMurdererSerial, int nRewardAmount )
-//
-// PURPOSE:     Used to create the bounty posting message on the global
-//              bulletin board for all to see.
-// 
-// PARAMETERS:  nMurdererSerial Murderer characters serial number
-//              nRewardAmount   Bounty placed on the murderers head
-//
-// RETURNS:     TRUE  Bounty post successfully created
-//              FALSE Bounty post could not be created
-//////////////////////////////////////////////////////////////////////////////
 bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 {
-//  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
-//  int   nPostSerial = INVALID_SERIAL;
-//  
-//  if (pc_nIndex == NULL) return false;
-//
-//  // Check that we have a reward amount greater than zero
-//  if( nRewardAmount > 0 )
-//  {
-//    // Check that this murderer doesn't already have a bounty on them
-//    if( pc_nIndex->questBountyReward() > 0 )
-//    {
-//      // This murderer already has a bounty on them because they 
-//      // have a reward amount on their head, so delete old bounty
-//      // and add the new (updated) one
-//      nRewardAmount += pc_nIndex->questBountyReward();
-//      BountyDelete( nMurdererSerial );
-//    }
-//
-//    // Attempt to post the message first
-//    pc_nIndex->setQuestBountyReward(nRewardAmount);
-//    nPostSerial = MsgBoardPostQuest( nMurdererSerial, BOUNTYQUEST );
-//
-//    // If we received a valid serial number then the post was successfull
-//    if( nPostSerial > 0 )
-//    {
-//      pc_nIndex->setQuestBountyPostSerial(nPostSerial);
-//      return true;
-//    }
-//  }
-//
-//  // Failed to post bounty
-//  sprintf((char*)temp, "BountyCreate():  FAILED to place a bounty of %i on %s (PostSerial=%x)\n",
-//          nRewardAmount,
-//          pc_nIndex->name.latin1(),
-//          nPostSerial );
-//  LogWarning((char*)temp);
-//
-//  // Post must have failed
   return false;
-
-} // BountyCreate()
+}
 
 bool cBounty::BountyDelete( int nMurdererSerial )
 {
-//  bool  bReturn = true;
-//  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
-//
-//  if ( pc_nIndex == NULL ) return false;
-//
-//
-//  // Find and mark the post associated with this bounty as deleted
-//  // so that the bulletin board maintenance routine can clean it up
-//  bReturn = MsgBoardRemoveGlobalPostBySerial( pc_nIndex->questBountyPostSerial() );
-//
-//  // Reset all bounty values for this character
-//  pc_nIndex->setQuestBountyReward(0);
-//  pc_nIndex->setQuestBountyPostSerial( INVALID_SERIAL );
-
   return false;
-
-} // BountyDelete()
+}
 
 bool cBounty::BountyWithdrawGold( P_CHAR pVictim, int nAmount )
 {
-	int has = pVictim->CountBankGold();
-	if (has < nAmount)
-		return false;
-
-	P_ITEM pBox = pVictim->getBankBox();
-	if (!pBox)
-		return false;	// shouldn't happen coz it's needed in CountBankGold...
-
-	pBox->DeleteAmount(nAmount,0x0EED);
 	return true;
 }
