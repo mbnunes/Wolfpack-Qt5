@@ -143,12 +143,6 @@
 		<value>39</value>
 		<weight>5.0</weight>
 	</item>
-	
-	<!-- Candle -->
-	<item id="a0f">
-		<id>0xa0f</id>
-		<dir>2</dir>
-	</item>
 
 	<!-- Dyes -->
 	<item id="fa9">

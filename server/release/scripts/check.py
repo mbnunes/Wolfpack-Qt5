@@ -13,6 +13,11 @@ def onCreate( item, definition ):
 	item.settag( 'value', 0 )
 
 def onSingleClick( char, item ):
+	if not item.hastag( 'value' ):
+		return 0
+
+	char.socket.showspeech( "%s [Value: %i]" % ( item.name, int( item.gettag( 'value' ) ) ) )
+	return 1
 
 def onUse( char, item ):
 	char.socket.showspeech( item, "Drop this on a banker in order to deposit it." )

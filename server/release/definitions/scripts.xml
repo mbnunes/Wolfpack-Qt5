@@ -6,6 +6,7 @@
 	<script id="slotmachine" 	type="python" module="slotmachine" />
 	<script id="kindling" 		type="python" module="kindling" />
 	<script id="check"			type="python" module="check" />
+	<script id="lightsource"	type="python" module="lightsource" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />

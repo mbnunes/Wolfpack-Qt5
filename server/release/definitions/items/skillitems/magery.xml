@@ -16,6 +16,34 @@
 		<value>30</value>
 		<category>Skill Items\Magery\Spellbook</category>
 	</item>
+
+	<!-- Recall Runes -->
+	<item id="1f14">
+		<category>Skill Items\Magery\Runes\Recall Rune (1)</category>
+		<id>0x1f14</id>
+		<weight>1</weight>
+		<newbie />
+		<decay />
+		<events>recall_rune</events>
+	</item>
+
+	<item id="1f15">
+		<inherit id="1f14" />
+		<id>0x1f15</id>
+		<category>Skill Items\Magery\Runes\Recall Rune (2)</category>
+	</item>
+
+	<item id="1f16">
+		<inherit id="1f14" />
+		<id>0x1f16</id>
+		<category>Skill Items\Magery\Runes\Recall Rune (3)</category>
+	</item>
+
+	<item id="1f17">
+		<inherit id="1f14" />
+		<id>0x1f17</id>
+		<category>Skill Items\Magery\Runes\Recall Rune (4)</category>
+	</item>
 	
 	<!-- Scrolls -->
 	
@@ -23,8 +51,9 @@
 	<item id="1f2e">
 		<id>0x1f2e</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Clumsy</category>
 	</item>
 	
@@ -32,8 +61,9 @@
 	<item id="1f2f">
 		<id>0x1f2f</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Create Food</category>
 	</item>
 	
@@ -41,8 +71,9 @@
 	<item id="1f30">
 		<id>0x1f30</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Feeblemind</category>
 	</item>
 	
@@ -50,8 +81,9 @@
 	<item id="1f31">
 		<id>0x1f31</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Heal</category>		
 	</item>
 	
@@ -59,8 +91,9 @@
 	<item id="1f32">
 		<id>0x1f32</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Magic Arrow</category>
 	</item>
 	
@@ -68,8 +101,9 @@
 	<item id="1f33">
 		<id>0x1f33</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Night Sight</category>
 	</item>
 	
@@ -77,8 +111,9 @@
 	<item id="1f2d">
 		<id>0x1f2d</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Reactive Armor</category>
 	</item>
 	
@@ -86,8 +121,9 @@
 	<item id="1f34">
 		<id>0x1f34</id>
 		<decay/>
+		<type>1105</type>
 		<value>15</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Weaken</category>
 	</item>
 	
@@ -95,8 +131,9 @@
 	<item id="1f35">
 		<id>0x1f35</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Agility</category>
 	</item>
 	
@@ -104,8 +141,9 @@
 	<item id="1f36">
 		<id>0x1f36</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Cunning</category>
 	</item>
 	
@@ -113,8 +151,9 @@
 	<item id="1f37">
 		<id>0x1f37</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Cure</category>
 	</item>
 	
@@ -122,8 +161,9 @@
 	<item id="1f38">
 		<id>0x1f38</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Harm</category>		
 	</item>
 	
@@ -131,8 +171,9 @@
 	<item id="1f39">
 		<id>0x1f39</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Magic Trap</category>
 	</item>
 	
@@ -140,8 +181,9 @@
 	<item id="1f3a">
 		<id>0x1f3a</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Magic Untrap</category>
 	</item>
 	
@@ -149,8 +191,9 @@
 	<item id="1f3b">
 		<id>0x1f3b</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Protection</category>
 	</item>
 	
@@ -158,8 +201,9 @@
 	<item id="1f3c">
 		<id>0x1f3c</id>
 		<decay/>
+		<type>1105</type>
 		<value>30</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Strength</category>
 	</item>
 	
@@ -167,8 +211,9 @@
 	<item id="1f3d">
 		<id>0x1f3d</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Bless</category>
 	</item>
 	
@@ -176,8 +221,9 @@
 	<item id="1f3e">
 		<id>0x1f3e</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Fireball</category>
 	</item>
 	
@@ -185,8 +231,9 @@
 	<item id="1f3f">
 		<id>0x1f3f</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Magic Lock</category>
 	</item>
 	
@@ -194,8 +241,9 @@
 	<item id="1f40">
 		<id>0x1f40</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Poison</category>
 	</item>
 	
@@ -203,8 +251,9 @@
 	<item id="1f41">
 		<id>0x1f41</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Telekinesis</category>
 	</item>
 	
@@ -212,8 +261,9 @@
 	<item id="1f42">
 		<id>0x1f42</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Teleport</category>
 	</item>
 	
@@ -221,8 +271,9 @@
 	<item id="1f43">
 		<id>0x1f43</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Unlock</category>
 	</item>
 	
@@ -230,8 +281,9 @@
 	<item id="1f44">
 		<id>0x1f44</id>
 		<decay/>
+		<type>1105</type>
 		<value>45</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Wall of Stone</category>
 	</item>
 	
@@ -239,8 +291,9 @@
 	<item id="1f45">
 		<id>0x1f45</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Arch Cure</category>
 	</item>
 	
@@ -248,8 +301,9 @@
 	<item id="1f46">
 		<id>0x1f46</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Arch Protection</category>
 	</item>
 	
@@ -257,8 +311,9 @@
 	<item id="1f47">
 		<id>0x1f47</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Curse</category>
 	</item>
 	
@@ -266,8 +321,9 @@
 	<item id="1f48">
 		<id>0x1f48</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Fire Field</category>
 	</item>
 	
@@ -275,8 +331,9 @@
 	<item id="1f49">
 		<id>0x1f49</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Greater Heal</category>
 	</item>
 	
@@ -284,8 +341,9 @@
 	<item id="1f4a">
 		<id>0x1f4a</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Lightning</category>
 	</item>
 	
@@ -293,8 +351,9 @@
 	<item id="1f4b">
 		<id>0x1f4b</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Mana Drain</category>
 	</item>
 	
@@ -302,8 +361,9 @@
 	<item id="1f4c">
 		<id>0x1f4c</id>
 		<decay/>
+		<type>1105</type>
 		<value>60</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Recall</category>
 	</item>
 	
@@ -311,8 +371,9 @@
 	<item id="1f4d">
 		<id>0x1f4d</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Blade Spirits</category>
 	</item>
 	
@@ -320,8 +381,9 @@
 	<item id="1f4e">
 		<id>0x1f4e</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Dispel Field</category>
 	</item>
 	
@@ -329,8 +391,9 @@
 	<item id="1f4f">
 		<id>0x1f4f</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Incognito</category>
 	</item>
 	
@@ -338,8 +401,9 @@
 	<item id="1f50">
 		<id>0x1f50</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Magic Reflection</category>
 	</item>
 	
@@ -347,8 +411,9 @@
 	<item id="1f51">
 		<id>0x1f51</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Mind Blast</category>
 	</item>
 	
@@ -356,8 +421,9 @@
 	<item id="1f52">
 		<id>0x1f52</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Paralyze</category>
 	</item>
 	
@@ -365,8 +431,9 @@
 	<item id="1f53">
 		<id>0x1f53</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Poison Field</category>
 	</item>
 	
@@ -374,8 +441,9 @@
 	<item id="1f54">
 		<id>0x1f54</id>
 		<decay/>
+		<type>1105</type>
 		<value>75</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Summon Creature</category>
 	</item>
 	
@@ -383,8 +451,9 @@
 	<item id="1f55">
 		<id>0x1f55</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Dispel Scroll</category>
 	</item>
 	
@@ -392,8 +461,9 @@
 	<item id="1f56">
 		<id>0x1f56</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Energy Bolt</category>
 	</item>
 	
@@ -401,8 +471,9 @@
 	<item id="1f57">
 		<id>0x1f57</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Explosion</category>
 	</item>
 	
@@ -410,8 +481,9 @@
 	<item id="1f58">
 		<id>0x1f58</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Invisibility</category>
 	</item>
 	
@@ -419,8 +491,9 @@
 	<item id="1f59">
 		<id>0x1f59</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Mark</category>
 	</item>
 	
@@ -428,8 +501,9 @@
 	<item id="1f5a">
 		<id>0x1f5a</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Mass Curse</category>
 	</item>
 	
@@ -437,8 +511,9 @@
 	<item id="1f5b">
 		<id>0x1f5b</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Paralyze Field</category>
 	</item>
 	
@@ -446,8 +521,9 @@
 	<item id="1f5c">
 		<id>0x1f5c</id>
 		<decay/>
+		<type>1105</type>
 		<value>90</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Reveal</category>
 	</item>
 	
@@ -455,8 +531,9 @@
 	<item id="1f5d">
 		<id>0x1f5d</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Chain Lightning</category>
 	</item>
 	
@@ -464,8 +541,9 @@
 	<item id="1f5e">
 		<id>0x1f5e</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Energy Field</category>
 	</item>
 	
@@ -473,8 +551,9 @@
 	<item id="1f5f">
 		<id>0x1f5f</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Flamestrike</category>
 	</item>
 	
@@ -482,8 +561,9 @@
 	<item id="1f60">
 		<id>0x1f60</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Gate Travel</category>
 	</item>
 	
@@ -491,8 +571,9 @@
 	<item id="1f61">
 		<id>0x1f61</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Mana Vampire</category>
 	</item>
 	
@@ -500,8 +581,9 @@
 	<item id="1f62">
 		<id>0x1f62</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Mass Dispel</category>
 	</item>
 	
@@ -509,8 +591,9 @@
 	<item id="1f63">
 		<id>0x1f63</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Meteor Swarm</category>
 	</item>
 	
@@ -518,8 +601,9 @@
 	<item id="1f64">
 		<id>0x1f64</id>
 		<decay/>
+		<type>1105</type>
 		<value>105</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Polymorph</category>
 	</item>
 	
@@ -527,8 +611,9 @@
 	<item id="1f65">
 		<id>0x1f65</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Earthquake</category>
 	</item>
 	
@@ -536,8 +621,9 @@
 	<item id="1f66">
 		<id>0x1f66</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Energy Vortex</category>
 	</item>
 	
@@ -545,8 +631,9 @@
 	<item id="1f67">
 		<id>0x1f67</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Resurrection</category>
 	</item>
 	
@@ -554,8 +641,9 @@
 	<item id="1f68">
 		<id>0x1f68</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Summon Air Elemental</category>
 	</item>
 	
@@ -563,8 +651,9 @@
 	<item id="1f69">
 		<id>0x1f69</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Summon Daemon</category>
 	</item>
 	
@@ -572,8 +661,9 @@
 	<item id="1f6a">
 		<id>0x1f6a</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Summon Earth Elemental</category>
 	</item>
 	
@@ -581,8 +671,9 @@
 	<item id="1f6b">
 		<id>0x1f6b</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Summon Fire Elemental</category>
 	</item>
 	
@@ -590,8 +681,9 @@
 	<item id="1f6c">
 		<id>0x1f6c</id>
 		<decay/>
+		<type>1105</type>
 		<value>120</value>
-		<weight>.02</weight>
+		<weight>0.02</weight>
 		<category>Skill Items\Magery\Scrolls\Summon Water Elemental</category>
 	</item>
 	
