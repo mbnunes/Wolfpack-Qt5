@@ -10,14 +10,15 @@
 
 	<!-- hellcat (large) -->
 	<npc id="large_hellcat" inherit="monster_base">
-		<name>hell cat</name>
+		<name>hellcat</name>
 		<id>127</id>
-		<karma><random min="-1250" max="-2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="116" max="185" /></str>
 		<dex><random min="96" max="115" /></dex>
 		<int><random min="76" max="100" /></int>
+		<maxhitpoints><random min="97" max="131" /></maxhitpoints>
 		<!-- Skills -->
 		<wrestling><random min="501" max="650" /></wrestling>
 		<tactics><random min="501" max="650" /></tactics>
@@ -25,15 +26,15 @@
 		<totame>891</totame>
 		<food>1</food>
 		<!-- Damage -->
-		<mindamage>9</mindamage>
-		<maxdamage>18</maxdamage>
-		<tag name="dmg_fire" value="60" type="int" />
+		<mindamage>10</mindamage>
+		<maxdamage>32</maxdamage>
+		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_physical" value="30,45" type="int" />
 		<tag name="res_fire" value="85,95" type="int" />
 		<tag name="res_energy" value="25,40" type="int" />
 		<!-- Misc. -->
-		<category>Monsters\Daemonic\Hell Cat (Large)</category>
+		<category>Monsters\Daemonic\Hellcat (Large)</category>
 	</npc>
 
 </definitions>

@@ -12,8 +12,8 @@
 	<npc id="doppleganger" inherit="monster_base">
 		<name>doppleganger</name>
 		<id>777</id>
-		<karma>-1800</karma>
-		<fame>1800</fame>
+		<karma><random list="KARMA_L1" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="81" max="110"/></str>
 		<dex><random min="56" max="75"/></dex>

@@ -12,8 +12,8 @@
 	<npc id="stone_harpy" inherit="monster_base">
 		<name>stone harpy</name>
 		<id>73</id>
-		<karma>-4500</karma>
-		<fame>4500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="296" max="320"/></str>
 		<dex><random min="86" max="110"/></dex>
@@ -23,8 +23,8 @@
 		<tactics><random min="701" max="1000"/></tactics>
 		<wrestling><random min="701" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="8" type="int" />
-		<tag name="maxdamage" value="16" type="int" />
+		<mindamage>20</mindamage>
+		<maxdamage>40</maxdamage>
 		<tag name="dmg_poison" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />

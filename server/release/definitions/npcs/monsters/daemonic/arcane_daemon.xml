@@ -12,8 +12,8 @@
 	<npc id="arcane_daemon" inherit="monster_base">
 		<name>arcane daemon</name>
 		<id>784</id>
-		<karma>-22000</karma>
-		<fame>18000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="131" max="150"/></str>
 		<dex><random min="126" max="136"/></dex>

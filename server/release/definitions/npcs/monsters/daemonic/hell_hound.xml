@@ -11,13 +11,14 @@
 	<!-- a hell hound -->
 	<npc id="hell_hound" inherit="monster_base">
 		<name>hell hound</name>
-		<id>97</id>
-		<karma>-3400</karma>
-		<fame>3400</fame>
+		<id><random list="NPCIDS_HELLHOUND"/></id>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="102" max="150"/></str>
 		<dex><random min="81" max="105"/></dex>
 		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="66" max="125" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="576" max="750"/></magicresistance>
 		<tactics><random min="501" max="700"/></tactics>
@@ -36,6 +37,10 @@
 		<desc>What so ever raiment a daemon adorns, doubt not that their power remains beneath the garb. Truer words could not be spoken of the hounds from hell. Vicious and hungry, these hounds are pack animals whose sole desire is to relieve wanderers of their mortal coil.</desc>
 		<carve>carve_hell_hound</carve>
 		<category>Monsters\Daemonic\Hell Hound</category>
+	</npc>
+
+	<npc id="hell_hound_1" inherit="hell_hound">
+		<id>97</id>
 	</npc>
 
 	<npc id="hell_hound_2" inherit="hell_hound">

@@ -12,19 +12,20 @@
 	<npc id="enslaved_gargoyle" inherit="monster_base">
 		<name>enslaved gargoyle</name>
 		<id>753</id>
-		<karma>0</karma>
-		<fame>3500</fame>
+		<karma><random list="KARMA_L1" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="302" max="360" /></str>
 		<dex><random min="76" max="95" /></dex>
 		<int><random min="81" max="105" /></int>
+		<maxhitpoints><random min="186" max="212" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="701" max="850"/></magicresistance>
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="401" max="800"/></wrestling>
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>14</maxdamage>
+		<mindamage>18</mindamage>
+		<maxdamage>35</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_fire" value="50,70" type="int" />

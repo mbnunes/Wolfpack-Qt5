@@ -12,13 +12,13 @@
 	<npc id="gargoyle" inherit="monster_base">
 		<name>gargoyle</name>
 		<id>4</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
-		<gold><random min="60" max="100"/></gold>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="146" max="175"/></str>
 		<dex><random min="76" max="95"/></dex>
-		<int><random min="701" max="850"/></int>
+		<int><random min="81" max="105"/></int>
+		<maxhitpoints><random min="88" max="105" /></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="701" max="850"/></evaluatingintel>
 		<magery><random min="701" max="850"/></magery>
@@ -26,8 +26,8 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="401" max="800"/></wrestling>
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>14</maxdamage>
+		<mindamage>14</mindamage>
+		<maxdamage>27</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_fire" value="25,35" type="int" />

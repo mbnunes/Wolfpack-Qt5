@@ -12,8 +12,8 @@
 	<npc id="moloch" inherit="monster_base">
 		<name>moloch</name>
 		<id>785</id>
-		<karma>-10000</karma>
-		<fame>11000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="331" max="360"/></str>
 		<dex><random min="66" max="85"/></dex>

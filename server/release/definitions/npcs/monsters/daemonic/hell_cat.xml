@@ -10,23 +10,24 @@
 
 	<!-- a hell cat (small) -->
 	<npc id="hellcat" inherit="monster_base">
-		<name>hell cat</name>
+		<name>hellcat</name>
 		<id>201</id>
 		<skin>0x485</skin>
-		<karma>-1000</karma>
-		<fame>1000</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="51" max="100"/></str>
 		<dex><random min="52" max="150"/></dex>
 		<int><random min="13" max="85"/></int>
+		<maxhitpoints><random min="48" max="67" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="451" max="600"/></magicresistance>
 		<tactics><random min="401" max="550"/></tactics>
 		<wrestling><random min="301" max="400"/></wrestling>
 		<totame>711</totame>
 		<!-- Damage -->
-		<mindamage>6</mindamage>
-		<maxdamage>12</maxdamage>
+		<mindamage>9</mindamage>
+		<maxdamage>18</maxdamage>
 		<tag name="dmg_fire" value="60" type="int" />
 		<!-- Resists -->
 		<tag name="res_physical" value="25,35" type="int" />
@@ -35,7 +36,7 @@
 		<!-- Misc. -->
 		<desc>These cats hail from another plane. Why they were brought to ours is a mystery. The hellcat does not make a good pet, as they are likely to immolate at inopportune times. Balls of yarn are nothing more than a waiting fuse.</desc>
 		<carve>carve_hellcat</carve>
-		<category>Monsters\Daemonic\Hell Cat (Small)</category>
+		<category>Monsters\Daemonic\Hellcat (Small)</category>
 	</npc>
 
 </definitions>

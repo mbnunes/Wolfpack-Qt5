@@ -12,21 +12,23 @@
 	<npc id="daemon" inherit="monster_base">
 		<name><random list="NAMES_DAEMON" /></name>
 		<id><random list="NPCIDS_DAEMON" /></id>
-		<karma>-15000</karma>
-		<fame>15000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="476" max="505"/></str>
 		<dex><random min="76" max="95"/></dex>
-		<int><random min="701" max="800"/></int>
+		<int><random min="301" max="325"/></int>
+		<maxhitpoints><random min="286" max="303" /></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="701" max="800"/></evaluatingintel>
 		<magery><random min="701" max="800"/></magery>
 		<magicresistance><random min="851" max="950"/></magicresistance>
 		<tactics><random min="701" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>14</maxdamage>
+		<mindamage>21</mindamage>
+		<maxdamage>39</maxdamage>
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->

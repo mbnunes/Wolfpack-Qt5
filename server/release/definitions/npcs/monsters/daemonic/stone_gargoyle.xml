@@ -12,19 +12,20 @@
 	<npc id="stone_gargoyle" inherit="monster_base">
 		<name>stone gargoyle</name>
 		<id>67</id>
-		<karma>-4000</karma>
-		<fame>4000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="246" max="275"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="81" max="105"/></int>
+		<maxhitpoints><random min="148" max="165" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="851" max="1000"/></magicresistance>
 		<tactics><random min="801" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="11" type="int" />
-		<tag name="maxdamage" value="17" type="int" />
+		<mindamage>25</mindamage>
+		<maxdamage>40</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
