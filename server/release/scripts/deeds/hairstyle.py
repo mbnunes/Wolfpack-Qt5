@@ -55,7 +55,7 @@ def response(char, args, response):
     deed.delete()
 
 def onUse(char, deed):
-  if char.id != 0x190 or char.id != 0x191:
+  if char.id != 0x190 and char.id != 0x191:
     char.socket.clilocmessage(1042298)
     return 1
 
