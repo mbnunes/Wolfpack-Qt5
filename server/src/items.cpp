@@ -1511,7 +1511,7 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 		if( DefSection->attribute( "type" ) == "book" )
 		{
 			cBook* nBook = new cBook();
-			nBook->Init();
+			nBook->serial = cItemsManager::getInstance()->getUnusedSerial();
 			cItemsManager::getInstance()->registerItem( nBook );
 
 			nBook->applyDefinition( *DefSection );
