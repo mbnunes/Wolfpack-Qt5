@@ -1554,20 +1554,22 @@ void cMagic::MagicArrow(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 //
 void cMagic::ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
+/*
+		
+		if ( pc_attacker == NULL || pc_defender == NULL)
+			return;
 	
-	if ( pc_attacker == NULL || pc_defender == NULL)
-		return;
-
-	CheckMagicReflect(pc_attacker, pc_defender);
+		CheckMagicReflect(pc_attacker, pc_defender);
+		
+		if (usemana)
+			SubtractMana(pc_attacker, 4);
 	
-	if (usemana)
-		SubtractMana(pc_attacker, 4);
-
-	doStaticEffect(pc_defender, 1);
-	pc_defender->soundEffect( 0x01DF );
-	if (CheckResist(pc_attacker, pc_defender, 1)) return;
-	tempeffect(pc_attacker, pc_defender, 3, pc_attacker->skillValue(MAGERY)/100, 0, 0);
-	return;
+		doStaticEffect(pc_defender, 1);
+		pc_defender->soundEffect( 0x01DF );
+		if (CheckResist(pc_attacker, pc_defender, 1)) return;
+		tempeffect(pc_attacker, pc_defender, 3, pc_attacker->skillValue(MAGERY)/100, 0, 0);
+		return;*/
+	
 }
 
 ///////////////////
@@ -1577,20 +1579,22 @@ void cMagic::ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 //
 void cMagic::FeebleMindSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
-
-	if ( pc_attacker == NULL || pc_defender == NULL)
-		return;
-
-	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+/*
 	
-	if (usemana)
-		SubtractMana(pc_attacker, 4);
-
-	doStaticEffect(pc_target, 3);
-	pc_target->soundEffect( 0x01E4 );
-	if (CheckResist(pc_attacker, pc_target, 1)) return;
-	tempeffect(pc_attacker, pc_target, 4, pc_attacker->skillValue(MAGERY)/100, 0, 0);
-	return;
+		if ( pc_attacker == NULL || pc_defender == NULL)
+			return;
+	
+		P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+		
+		if (usemana)
+			SubtractMana(pc_attacker, 4);
+	
+		doStaticEffect(pc_target, 3);
+		pc_target->soundEffect( 0x01E4 );
+		if (CheckResist(pc_attacker, pc_target, 1)) return;
+		tempeffect(pc_attacker, pc_target, 4, pc_attacker->skillValue(MAGERY)/100, 0, 0);
+		return;*/
+	
 }
 
 ///////////////////
@@ -1600,18 +1604,20 @@ void cMagic::FeebleMindSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 //
 void cMagic::WeakenSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
-	if ( pc_attacker == NULL || pc_defender == NULL)
-		return;
-	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+/*
+		if ( pc_attacker == NULL || pc_defender == NULL)
+			return;
+		P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+		
+		if (usemana)
+			SubtractMana(pc_attacker, 4);
+		
+		doStaticEffect(pc_target, 8);
+		pc_target->soundEffect( 0x01E6 );
+		if(CheckResist(pc_attacker, pc_target, 1)) return;
+		tempeffect(pc_attacker, pc_target, 5, pc_attacker->skillValue(MAGERY)/100, 0, 0);
+		return;*/
 	
-	if (usemana)
-		SubtractMana(pc_attacker, 4);
-	
-	doStaticEffect(pc_target, 8);
-	pc_target->soundEffect( 0x01E6 );
-	if(CheckResist(pc_attacker, pc_target, 1)) return;
-	tempeffect(pc_attacker, pc_target, 5, pc_attacker->skillValue(MAGERY)/100, 0, 0);
-	return;
 }
 
 ///////////////////
@@ -1672,21 +1678,23 @@ void cMagic::FireballSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 //
 void cMagic::CurseSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
-	int j;
-
-	if ( pc_attacker == NULL || pc_defender == NULL)
-		return;
-	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+/*
+		int j;
 	
-	if (usemana)
-		SubtractMana(pc_attacker, 11);
-
-	doStaticEffect(pc_target, 27);
-	pc_target->soundEffect( 0x01E1 );
-	if(CheckResist(pc_attacker, pc_target, 1)) return;
-	j = pc_attacker->skillValue(MAGERY)/100;
-	tempeffect(pc_attacker, pc_target, 12, j, j, j);
-	return;
+		if ( pc_attacker == NULL || pc_defender == NULL)
+			return;
+		P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+		
+		if (usemana)
+			SubtractMana(pc_attacker, 11);
+	
+		doStaticEffect(pc_target, 27);
+		pc_target->soundEffect( 0x01E1 );
+		if(CheckResist(pc_attacker, pc_target, 1)) return;
+		j = pc_attacker->skillValue(MAGERY)/100;
+		tempeffect(pc_attacker, pc_target, 12, j, j, j);
+		return;*/
+	
 }
 
 
@@ -1739,18 +1747,20 @@ void cMagic::MindBlastSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana
 //
 void cMagic::ParalyzeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
-	if ( pc_attacker == NULL || pc_defender == NULL)
-		return;
-	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+/*
+		if ( pc_attacker == NULL || pc_defender == NULL)
+			return;
+		P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+		
+		if (usemana)
+			SubtractMana(pc_attacker, 14);
 	
-	if (usemana)
-		SubtractMana(pc_attacker, 14);
-
-	if (CheckResist(pc_attacker, pc_target, 5)) return;
-	doStaticEffect(pc_target, 38);
-	pc_target->soundEffect( 0x0204 );
-	tempeffect(pc_attacker, pc_target, 1, 0, 0, 0);
-	return;
+		if (CheckResist(pc_attacker, pc_target, 5)) return;
+		doStaticEffect(pc_target, 38);
+		pc_target->soundEffect( 0x0204 );
+		tempeffect(pc_attacker, pc_target, 1, 0, 0, 0);
+		return;*/
+	
 }
 
 

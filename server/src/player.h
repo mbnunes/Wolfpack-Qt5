@@ -414,5 +414,10 @@ inline enCharTypes cPlayer::objectType()
 	return enPlayer;
 }
 
+inline cBaseChar::CharContainer cPlayer::pets() const
+{
+	return pets_;
+}
+
 
 #endif /* CPLAYER_H_HEADER_INCLUDED */

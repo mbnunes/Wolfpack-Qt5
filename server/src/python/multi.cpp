@@ -38,6 +38,8 @@
 #include "../itemid.h"
 #include "../spellbook.h"
 #include "../multis.h"
+#include "../player.h"
+#include "../basechar.h"
 #include "../network/uotxpackets.h"
 
 extern cAllItems *Items;
@@ -115,7 +117,9 @@ PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
 		PyErr_BadArgument();
 		return NULL;
 	}
-	P_CHAR player = getArgChar( 0 );
+	P_PLAYER player = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
+	if ( !player )
+		return PyFalse;
 
 //	self->pMulti->sendCH( player->socket() );
 	cUOTxAskCustomHouse askch;
@@ -562,7 +566,7 @@ PyObject *wpMulti_getAttr( wpMulti *self, char *name )
 
 			switch( result.type() )
 			{
-			case cVariant::Char:
+			case cVariant::BaseChar:
 				obj = PyGetCharObject( result.toChar() );
 				break;
 			case cVariant::Item:

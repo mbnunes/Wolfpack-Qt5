@@ -602,7 +602,7 @@ inline void cBaseChar::setCreationDate(const QDateTime &data)
 	changed( SAVE );
 }
 
-UINT32 cBaseChar::criminalTime() const
+inline UINT32 cBaseChar::criminalTime() const
 {
     return criminalTime_;
 }
@@ -690,7 +690,7 @@ inline void cBaseChar::setFlag(UINT8 data)
 	changed( SAVE );
 }
 
-bool cBaseChar::gender() const
+inline bool cBaseChar::gender() const
 {
     return gender_;
 }
@@ -1285,6 +1285,16 @@ inline void cBaseChar::setAttackFirst(bool data)
 	changed( SAVE );
 }
 
+inline cBaseChar::CharContainer cBaseChar::guardedby() const
+{
+	return guardedby_;
+}
+
+inline cBaseChar::ItemContainer cBaseChar::content() const
+{
+	return content_;
+}
+
 inline bool cBaseChar::isHuman() const 
 { 
 	return (bodyID_ == 0x190 || bodyID_ == 0x191); 
@@ -1310,5 +1320,9 @@ inline P_ITEM cBaseChar::leftHandItem() const
 	return atLayer( DualHandedWeapon );
 }
 
+inline cBaseChar::EffectContainer cBaseChar::effects() const
+{
+	return effects_;
+}
 
 #endif /* CBASECHAR_H_HEADER_INCLUDED */

@@ -33,6 +33,9 @@
 #include "Python.h"
 #include "utilities.h"
 #include "../accounts.h"
+#include "../chars.h"
+#include "../basechar.h"
+#include "../player.h"
 #include "qvaluevector.h"
 
 /*!
@@ -68,7 +71,7 @@ PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 	if( self->account == 0 )
 		return PyFalse;
 
-	QValueVector< cChar* > chars = self->account->caracterList();
+	QValueVector< P_PLAYER > chars = self->account->caracterList();
 	for( uint i = 0; i < chars.size(); ++i )
 		cCharStuff::DeleteChar( chars[i] );
 
@@ -109,7 +112,7 @@ PyObject *wpAccount_addcharacter( wpAccount *self, PyObject *args )
 		return 0;
 	}
 
-	P_CHAR pChar = getArgChar( 0 );
+	P_PLAYER pChar = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
 
 	if( pChar )
 	{
@@ -130,7 +133,7 @@ PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
 		return 0;
 	}
 
-	P_CHAR pChar = getArgChar( 0 );
+	P_PLAYER pChar = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
 
 	if( pChar )
 	{
@@ -184,7 +187,7 @@ PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 	else if( !strcmp( name, "characters" ) )
 	{
 		PyObject *list = PyList_New( 0 );
-		QValueVector< cChar* > characters = self->account->caracterList();
+		QValueVector< P_PLAYER > characters = self->account->caracterList();
 		for( uint i = 0; i < characters.size(); ++i )
 			PyList_Append( list, PyGetCharObject( characters[i] ) );
 		return list;

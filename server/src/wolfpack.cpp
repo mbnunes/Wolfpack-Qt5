@@ -262,7 +262,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 {
 	if( !pi )
 		return;
-
+#pragma fixme("dunno how to replace the old tempeffect2, commented out but this introduces a bug here!! please review.")
 	if( socket && socket->player() && !socket->player()->inRange( pi, 2 ) )
 	{
 		socket->sysMessage( tr( "You cannot reach the handle from here." ) );
@@ -284,7 +284,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if( x == ( db + 1 ) )
 		{
@@ -304,7 +304,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+3))
 		{
@@ -323,7 +323,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.x--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+5))
 		{
@@ -342,7 +342,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+7))
 		{
@@ -362,7 +362,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+9))
 		{
@@ -382,7 +382,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+11))
 		{
@@ -398,7 +398,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		{
 			pi->setId( pi->id() + 1 );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if (x==(db+13))
 		{
@@ -413,7 +413,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 			pos.y--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
+//			tempeffect2(0, pi, 13, 0, 0, 0);
 		}
 		else if( x == ( db + 15 ) )
 		{

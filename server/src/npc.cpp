@@ -1243,7 +1243,7 @@ float cNPC::pathHeuristic( const Coord_cl &source, const Coord_cl &destination )
 	The algorithm..
 	currently works in x,y,z direction. no idea how to implement map jumping yet.
 */
-void cNPC::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
+void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 {
 	if( path_.size() > 0 )
 		path_.clear();

@@ -36,6 +36,7 @@ class cChar;
 #include "../network/uosocket.h"
 #include "../typedefs.h"
 #include "../basechar.h"
+#include "../player.h"
 #include "utilities.h"
 
 typedef struct {
@@ -80,8 +81,8 @@ PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
 	else if( self->type == 2 )
 		self->pChar->setSkillLock( skill, value );
 
-	if( self->pChar->socket() )
-		self->pChar->socket()->sendSkill( skill );
+	if( self->pChar->isA("cPlayer") && static_cast<P_PLAYER>(self->pChar)->socket() )
+		static_cast<P_PLAYER>(self->pChar)->socket()->sendSkill( skill );
 
 	return 0;
 }

@@ -32,7 +32,8 @@
 
 #include "../network/uotxpackets.h"
 #include "../network/uosocket.h"
-
+#include "../basechar.h"
+#include "../player.h"
 
 typedef struct {
     PyObject_HEAD;
@@ -79,7 +80,9 @@ PyObject *wpTooltip_send( wpTooltip *self, PyObject *args )
 		return NULL;
 	}
 	
-	P_CHAR player = getArgChar( 0 );
+	P_PLAYER player = dynamic_cast<P_PLAYER>( getArgChar( 0 ) ); 
+	if ( !player )
+		return PyFalse;
 	player->socket()->send( self->list );
 
     return PyTrue;

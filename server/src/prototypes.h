@@ -88,8 +88,8 @@ void reloadScripts();
 // Guildstone related functions
 int chardirxyz(P_CHAR pc, int x, int y);	// direction from character a to char b
 bool inrange1p (PC_CHAR pca, P_CHAR pcb);
-unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
-unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
+//unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
+//unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 void setcharflag(P_CHAR pc);
 
 #endif
