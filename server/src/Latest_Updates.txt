@@ -1,0 +1,25 @@
+-----------------------------------------------------------
+                        Wolfpack 12.7
+----------------------------------------------------------
+
+1) Added: password command allows players to change their passwords in-game (Correa)
+2) Added: Initial support to overlaping coordinates (x, y, z) - Needed by Ilshenar (Correa)
+3) Added: Criminal for looting an innocent corpse & unhidden if not owner. (Ripper)
+4) fixed: A problem I(!) have introduced in 12.5.6 beta :-(
+namely Wolfpack refusing to start on (some) W95 machines (LB)
+5) Fixed: kinda server freeze when saying 'bank' in a crowded area (Duke)
+6) Fixed: two bugs with player vendor PACKUP command (Duke)
+7) Fixed: player vendors didn't respond to "time" and "location" questions (Duke)
+8) Fixed: stablemasters didn't find the pet to stable if it was in another mapcell (Duke)
+9) Fixed: stablemasters didn't respond if they were in another mapcell than the player (Duke)
+10) Fixed: a BAD bug with inrange1p(). Might be responsible for dozens of problems (GonZo/Duke)
+11) Fixed: deep sea fishing is now possible (Duke)
+12) Fixed: msg house.cpp:504 invalid item index <-1> (Duke)
+13) Fixed: at least one reason for error "container of item 12345 not found" (Duke)
+14) Fixed: items that were beeing dragged during a worldsave did not get saved and thus disappeared (Duke)
+15) Fixed: error msg "combat.cpp:1185 invalid char index <-1>" (Duke)
+16) Fixed: error msg "skills.cpp:875 switch reached default for <50> (Duke)
+17) Fixed: warning msg when dropping on chest of drawers, bookshelf and armoire (Duke)
+18) Fixed: disabled msg "Spawning an item that is not truly pileable". Using default from .mul (Duke)
+19) Fixed: some places in trigger.cpp that caused "Script Manager ERROR" (Duke)
+20) Fixed: A log error for carving. (Ripper)

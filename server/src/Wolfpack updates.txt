@@ -1,0 +1,1201 @@
+                    Wolfpack EMU Updates..by Ripper
+                   ----------------------------------
+
+Known bugs: 
+
+If you value the integrity of your worldfiles dont use zero-lag-saves.
+To disable them set LOOPSAVE -1 in server.scp
+You can still use it, but you have been warned!
+
+If you change scripts while the server is running it might crash.
+Freeze the server with the serversleep command while you 
+change scripts on the fly.
+
+For more of them look at: www.wpdev.com
+
+Wolfpack Homepage: www.wpdev.com
+
+-----------------------------------------------------------
+                        Wolfpack 12.6
+----------------------------------------------------------
+
+01) Fixed: Possess now holds the priv3 commands when switching bodies.(Aldur)
+02) Fixed: A exploit where you could release items in other players houses.(Ripper)
+03) Added: When you sclick a spellbook it will show how many spells are in it.
+ie: [64 spells] a spellbook. (Ripper & Aldur)
+04) Added: If you log out on an ethereal colored mount and the server shuts down
+and restarts it defaults to its orig color.(Aldur) 
+05) Added: Made it so new mounts are not made each time. You get to keep your original
+mount when mounting/unmounting. (Aldur)
+06) Added: A new type for items that allows you to just change your body type and
+color instead of gaining everything the monster in the npc script file has. New item
+type is 84 and the morex is set the exact same way as the monstergate. (Aldur)
+07) Fixed: Alot of sounds fixed and changed. (Paul77)
+08) Added: Craftable chests now come with a key and are lockable.(Polygon)
+
+beta 1
+
+09) Fixed: str2num() was sensitive to trailing blanks. That function is used all over
+    the place and may have caused a LOT of strange behaviour (Duke)
+10) Fixed: GM hiding now works better with the flamestrike. hiding it self
+works better. (Aldur)
+11) healing: now when you apply the bandages you dont get immediately the hp you
+had to, but there's a delay that can also be set.(Solarin)
+12) meditation: it works, it can be improved, but before such change when you
+used it to re-get mana, it didnt work at all.(Solarin)
+13) snooping: I put a delay between an action and the next one. in fact you
+could be GM Snooper in less than 10 minutes.(Solarin)
+14) Added: runic talk to gm mages (Blackwind)
+15) Added: auto-release from jail after a preset time set with 'tweak (Blackwind)
+16) Added: pre-worldsave warning (Blackwind)
+17) Added: onHorse Stamina loss (blackwind)
+18) Fixed: 2 crashing bugs: into inrange2() and into findbyserial() (blackwind)
+19) Added: If you try to mount a horse while it is in war mode, it will message you
+"Your pet is in battle right now!" (Ripper)
+20) Fixed: a general fix for items/chars beeing more than once in a 'list' eg. container.
+    Probably responsible for most of the ghost item effects (Duke)
+21) Fixed: smelting did not give ingots. Amount of ingots is now calculated from the
+    weight of the smelted item (Ripper & Duke)
+22) Added: a little speedup by replacing str2num() by atoi() (Duke)
+23) Added: Blackwinds Reputation ball, When you dclick the ball it will show
+your current Fame,Karma,Kills and deaths. I also took out the player commands
+famecount, karmacount, murders and deathcount.(blackwind & Ripper)
+24) Added: New corpse criminal system. If you are blue and die, your corpse will
+have a [Innocent] in blue above your corpse. If someone loots this corpse you will
+get flagged a criminal & lose some karma. If you are a criminal and die, your corpse will
+have a [Criminal] in grey above corpse. Free looting without criminal flag or karma lost.
+If you are a Murderer, your corpse will have a [Murderer] in red above the corpse.
+Looting this corpse will have no criminal flag or karma lost.(blackwind & Ripper)
+25) Added: New jail system. use 'jail #  where # = the amount in seconds for a players
+jail time. example: 'jail 120  that will jail the player for 2 mins.(blackwind)
+26) Added: 2 new commands: 'sysm (text here) and 'eclipse:
+eclipse : fades world to dark or light ( its a cool quest effect ) .
+no parameters requried , use eclipse command to make world fade to dark ,
+use again to fade to light..
+sysm : enables GM to send broadcasting server messages such as
+" System : Restarting server " . ,Usefull for maint. messages. (blackwind)
+27) Added: people flag criminal for casting agressive spells on innocent characters 
+(they won't flag for casting on themselves or pets that they own) (hozonko)
+28) Borland compilier (5.5, free one) support, and make file. Updated MSVC make file as well. (punt)
+29) Added: New command 'deltype #  the # = the type of an item. example: bread is type = 14
+so do 'deltype 14 and every bread and item with type 14 will be deleted.This was made so
+you can delete unwanted spawners in the world. (Ripper & Aldur)
+30) Added: Now any chests you add to carpentry create will add a key.(Ripper)
+31) Added: Added the flame strike effect to various GM 'movement' command ('tell 'go 'goiter 'goplace 'wholist->go to a char). 
+Change if you want this effect on by using 'setgmmoveeff # where 0 = off and 1 = flame strike and 2-6 are different color sparkles 
+Default is off and it is done in such a way that other effects can be added later on if wanted.(Aldur)
+
+beta 2
+
+32) Fixed: a bad,bad bug with house transfer. It caused the 'linked characters'-problem. (Duke) 
+33) Changed: the #EMPTY-command is restricted to GMs for now. Too powerful ;) (exploits). (Duke)
+34) Fixed: you will no longer lose a hungerpoint for every server restart (Duke)
+35) Changed: the 'Spawning an item that is not truly pileable' warning into an error, because
+    scripters can't do anything about it (Duke)
+36) Fixed: the above message for carved arms, legs etc. (Duke)
+37) Fixed: beard change became permanent after incognito (Duke)
+38) Fixed: guildstones diappearing from screen (Duke)
+39) Fixed: equipped spellbook didn't allow meditation and wrestling (hozonko/Duke)
+40) Fixed: ghosts can no longer mount horses etc. (hozonko/Duke)
+41) Fixed: decaytimmer not being saved/loaded (Correa)
+42) Fixed: bandwidth saving for walking (jnugen/Duke)
+43) Fixed: crashes due to memory reallocation that crept in with the last betas (Duke)
+44) Added: Remote Admin System, using telnet. Details in documentation (Correa, heavily based on Nox-Wizard's implementation)
+45) Fixed: Several crashing points (blackwind and Hozonko)
+46) Fixed: Corpse not generated in some situations (Hozonko)
+47) Wand fixes, and an Item id wand (frazurbluu)
+48) - reverted. Need more testing/redesign (Correa)
+49) Fixed: a bad index with tempeffects/healing (Correa/Duke)
+50) Fixed: wolf.dsw project file in CVS
+51) Fixed: crash occuring then a GM dropped an item on a char that is not logged in (Polygon) 
+52) Fixed: some six critical error messages (Duke)
+53) Fixed: GMs were restricted to region 0, made GMs not restricted by default in 'makegm (Correa)
+53) Changed: removed the casting action when using a wand (frazurbluu)
+54) Fixed: Gate problem which allows a housing exploit (frazurbluu)
+55) Fixed: Distance not being checked in Animal Lore and Evaluate Inteligence (blackwind)
+56) Fixed: items stayed longtime under ground / under sea should be weaker than the original ones (blackwind)
+57) Fixed: Tweak is now working for both Chars and Items (Correa)
+58) Added: GOPLACE # so you can add this to the makemenu`s in create.scp and define the # (frazurbluu)
+in the location.scp.
+example:
+SECTION MAKEMENU 15 
+{ 
+TRAVEL 
+0dda Britain Bank 
+RESOURCE 0 
+SKILL 0 
+GOPLACE 17 
+0dda Britain Cemetary 
+RESOURCE 0 
+SKILL 0 
+GOPLACE 18 
+} (Fraz)
+59) Added: Stop for machinegun archery with tab in and out. (Ripper)
+60) Fixed: Stable animals could be attacked by npcs, even tho they are invisible.(Aldur)
+61) Added: Cartography skill (Polygon)
+62) Added: Treasure maps - still missing some script stuff, but the code is all there... comming soon (Polygon)
+63) Added: OSI style Meditation. (Blackwind)
+64) Added: OSI style Reactive Armor & Protection.(Blackwind)
+65) Added: Potion delay.(Blackwind) (withdrawn, Duke)
+66) Fixed: Speedy NPCs.(Blackwind)
+67) Fixed: Attack Distance for combat.(Blackwind)
+
+beta 3
+(some fixes of beta bugs)
+beta 4
+
+68) Added: Blood now spills in combat :) (Blackwind)
+69) Tuned: a BIG reduction of cpu usage in combat (Duke)
+70) Fixed: 'respawn cmd will now respawn all regions to the max (Duke)
+71) Fixed: loss of stamina when moving while secure trade window is open (Duke)
+72) Changed: re-adjusted the chance of finding coloured ore to 20% (Duke)
+73) Added: skillgain for anatomy during combat (Duke)
+74) Fixed: Npcs walking on counters & display cases.(Ripper) (thanks to casanova)
+
+window$ beta
+
+75) Fixed: Mining crashing server (Correa)
+76) Fixed: Trainers will now consider your skillcap in their offer (Duke)
+77) Fixed: you couldn't have trainers that could only train up to values between 12.5 and 24.9 (Duke)
+78) Fixed: gold given to trainers wasn't deleted correctly (Duke)
+79) Fixed: a beta bug where stats saved as 50 were loaded as 10 (Duke)
+80) Fixed: a bug where fish werent deleting or giving proper amount of fish steaks (Ripper/Fraz)
+81) Fixed: Scroll casting skill checks, also scrolls will not delete if spell failed, also must be in pack/equipped
+           same fix for wands. (Frazurbluu)
+82) Fixed: A few items in the wrong sections (weapons) and a few new sections added (isFish,isFishWater, and new
+           weapon catagories for new OSI like combat) (Frazurbluu)
+83) Fixed: Tailoring fixed to be just like OSI, including bandages, all things retain color throughout crafting
+84) Added: Better healing system suggested by Ramases (Frazurbluu)
+85) Added: Parrying bonus's to Defense by Blackwind includes armor losing rating by damage (Fraz)
+86) Added: OSI like 2handed special attacks (fencing=paralyze, swords=concussion, macing=stamina loss on target) (Frazurbluu)
+87) Added: New Trigger type 2 for equippable object, includes the new trigger.scp commands
+	   ONMSG,OFFMSG,ONEMT,OFFEMT, and TRONSK (Frazurbluu) Ill add docs once Im sure I have it all uploaded
+88) Added: RACE and RACEHATE Weapons, ie.. add RACE 1 to undead, and RACEHATE 1 to silver weapons and they give x2 damage
+	   You can continue with RACE 2, RACE 3 ect... (Frazurbluu)
+89) Fixed: Archers running and mounted will now recieve a delay before they are able to shoot again after moving. (Frazurbluu)
+90) Fixed: crash when 'go 0, 0, 0 (Polygon)
+91) Fixed: Gumps crashing server introduced a few betas ago (Correa)
+92) Fixed: a (beta) crash with iteminrange (GonZo / Duke)
+93) Fixed: a crash with LineOfSight (Ramsess / Duke)
+94) Fixed: guards greeting logged off players (Duke)
+
+beta 5 (windows only)
+
+95) Fixed: item description (player vendors) was not saved correctly (Duke)
+96) Fixed: bad char index in DyeTarget() (Duke)
+97) Fixed: crash (beta) when targeting ground with scissors (Duke)
+98) Fixed: House transfer didnt work on house signs. (Ripper)
+99) Fixed: spawnregions support multiple NPC lines again (Duke)
+100) Fixed: mana not subtracted for first spell after serverstart (Duke)
+101) Fixed: 2 security flaws in remoteadmin (Xanathar)
+102) Fixed: Items will now load their correct description (Xanathar)
+103) Fixed: (beta 5) could not produce kindling (Duke)
+104) Fixed: (beta) 'incx and 'incy not working for chars (Duke)
+105) Fixed: You could transfer,ban,kick or make yourself a friend with a house sign.(Ripper)
+106) Fixed: a crash with dclick an item with bad container (Ramsess/Duke)
+107) Fixed: (beta) can't use objects nor skills after drinking a potion (Duke)
+108) Fixed: Deamon is now the default behavior under unix.  Responds to signals as specified:
+SIGHUP to reload our scripts (kinda a standard for sighup to be reload)
+SIGUSR2 to be world save
+SIGUSR1 for an Account reload
+109) Fixed: some 40 occurences of 'invalid char index <-1>' (Duke)
+110) Fixed: Invisibility spell works again (Duke)
+111) Fixed: (beta) more than 50 potential crashers (Duke)
+112) Fixed: an ooold bug with ItemRandomValue() (Duke)
+113) Fixed: wolfpack.ini now handles multiple servers in different ports. Notice the info in
+wolfpack.ini is related to loginserver, gameserver port is now at server.scp (Correa)
+114) Fixed: Items not decaying sometimes. It will take a while until your worldfiles are cleaned up, but the items WILL decay (Duke)
+
+beta 6
+
+115) Fixed: (beta) walking etc. while invisible (Duke)
+116) Added: improved reuse of item memory (Duke)
+117) Fixed: Stats loss when certain items bounce (Xanathar)
+
+118) Fixed: Non-Unicode speech crashed/has froozen client. 
+Note that Non unicode speech is disabled since client 3.0.? client side 
+even if turned off in uo.cfg
+So that's only a compatibility fix for 2.x and early 3.x clients.
+testing non unicode speech needs 2.x clients AND say macros.
+say macros format changed, you need to re-type say macros if you switch 2.x / 3.x clients.
+Also note that it still needs testing !!! (LB)
+119) Fixed: Some Unicode speech bugs (LB)
+120) Fixed: added new 3.0.3a packets to packet array. To be ignored safely (LB)
+(avoids potential synch loss if send)
+121) Fixed: handling of permanent/temporary effects on dexterity (Duke)
+122) Changed: Snd/Recv error 10054 is considered harmless and no longer logged (Duke)
+123) Fixed: five 'invalid char index' messages (Duke)
+124) Fixed: you can now sell dyed clothes (Duke)
+125) Fixed: Tailored and cut items now retain correct weight values (Frazurbluu)
+126) Fixed: When carving sheep, no unspun wool was returned, now returns 1 (Frazurbluu)
+127) Fixed: butcher knife was not considered a swordtype weapon (Duke)
+128) Fixed: A chance where a teleport guard *could* attack out of town limits.(Ripper)
+129) Fixed: the range of spells on chars and the attack range of npcs are now both controlled ba ATTACK_RANGE in server.scp (Duke)
+130) Fixed: Earthquake and explosion potions no longer affect vendors (Duke)
+131) Fixed: Earthquake no longer affects the caster (Duke)
+132) Fixed: you can now get kindling from jungle trees (Duke)
+133) Fixed: spawn.scp now supports mutiple NLISTs and ILISTs (Duke)
+134) Fixed: (beta) 'NOT hungry' wasn't restored correctly (Ramsess/Duke)
+135) Fixed: crashes from Messageboardmaintance at serverstart (LB)
+136) Added: Different PacketSendStyles. (LB)
+            Can be defined in server.scp
+            Valid values: 
+            PACKETSENDSTYLE: UOX3
+            PACKETSENDSTYLE: OSI
+            PACKETSENDSTYLE: SMARTWOLF
+            Note: detailed description wil be added, NOT finished yet. 
+            As of 30.August 2001 OSI+SMARTWOLF are ignored + not implemented
+137) changed: only values different from their defaults will be saved (Duke)
+            In previous versions all non-zero values were save. WARNING:
+			once you have save a worldfile with THIS version, you can't load it with previous versions !
+138) Fixed: (beta) npc walking did check wrong tiles when walking to NE, NW,...(jnugen/Duke)
+139) Fixed: Jail time/info not being saved in worldfiles (Ramsess)
+140) Fixed: (beta) crash with speech (Ramsess/Duke)
+141) Fixed: (beta) 'naked shopkeepers' (Duke)
+142) Added: improved reuse of chars memory (Duke)
+143) Added: VendorGreet to the SECTION VENDOR in the server.scp.
+VendorGreet = 1  vendors will greet you. (default)
+VendorGreet = 0  vendors will not greet you. (Ripper)
+144) Fixed: Some minor changes to equipting weapons. Should work as designed. (Ripper)
+145) Fixed: 'can't use items equipped by other players' right after purchase (Duke)
+146) Fixed: Healers will now react correctly when resurrecting ghost. Took out
+the ability to attack a healer to resurrect (no need to). (Ripper)
+147) Fixed: Cutting bandages from cloth only produced 1 bandage. (Ripper)
+148) Fixed: (beta) couldn't use dagger for bowcrafting (Duke)
+149) Fixed: crash when 'makegm target had no backpack (Duke)
+150) Fixed: Pets did not attack if commanded to when another char with the same name was in a guarded area (Duke)
+151) Fixed: Energy vortex and Blade spirits attacking offline players (Duke)
+152) Fixed: Healers healing logged out players (Duke)
+153) Fixed: Wearing multiple armors bug - happens specially with UO:3D clients (Xanathar)
+154) Fixed: weight of an item could be added to the player even if they couldn't pick it up (jnugen/Duke)
+155) Fixed: Poison not giving damage (Xanathar)
+156) Fixed: Players can only see ghosts in war mode & ghosts can talk to each other again.(Correa/Ripper)
+
+-----------------------------------------------------------
+                          Wolfpack 12.5
+----------------------------------------------------------
+
+01) Removed class List (an slower linked list) in favor of a std::map. This affects specially
+    the script's lookup time. (Correa)
+02) Moved gump scripts from misc.scp to a new gumps.scp in preparation for better scripted
+    gumps. (Correa)
+03) Added: New trigger OPENGUMP <GUMP #> that will open the corresponding gump # defined
+    at gumps.scp (Correa)
+04) Fixed: Fishing no longer spawns monsters in guarded areas.
+05) Fixed: Mr. Noname being created at unmounthorse(). There might still be other places in code
+    causing this bug. (Correa)
+06) fixed: Inscription will now check for regs and mana before checking skill (exploit) (Duke)
+07) changed: mana will be subtracted regardless of success on inscribe (Duke)
+08) changed: mining coloured ore is now more like OSI. Might need some adjustment though.
+	(WP had only 10% color, OSI has 50% for GM miners) (Duke)
+09) fixed: crash when a script was closed twice. Probably responsible for a lot of server crashes.(Duke)
+10) fixed: crash bug with the PUT trigger tag. (Duke)
+11) added: a prototype of restricting GMs to certain regions. Find the GM in the wsc and add
+	'GMRESTRICT #' to it, where # is the region#. Currently just 1 region. (Duke)
+12) added: you can now gain skill from repairing items (Duke)
+13) Fixed: Summons didnt disappear. (Ripper)
+14) Fixed: Tamed creatures didnt flag the same as owner. (Ripper)
+15) Improved char loading time.
+16) Fixed: Npcs will not attack you if you are hidden :) (Ripper)
+17) Added: You will now unhide when fishing or mining. (Ripper)
+18) Added: Npcs wont attack and they will go out of war mode, if you are
+hidden, out of site like in a house or behind a wall. also added line of sight to
+taming, so you cant tame thru walls anymore.(Ripper)
+19) Fixed: 'bad char index -1' with chain lightning (Duke)
+20) Fixed: all items were 'newbie' when you die in 12.4.x (Duke)
+21) Fixed: So you cant teleport on items, fixes a house break in. (Ripper)
+22) Added: If you heal a grey or a red with bandages, heal or greater heal
+you will get a criminal flag. (Ripper)
+23) Fixed: Enticement cant be used on invul, shopkeeper or in town.(Ripper)
+24) Added: No mining while on a horse.(Ripper)
+25) Fixed: Server crash when you cast a spell then die and still have target cursor
+and target someone.(Ripper)
+26) Fixed: Mr.Nonames should no longer be created (Duke)
+27) Fixed: when a guildmember resigned, all shields were removed from all members (Duke)
+28) Added: isMurderer(),isInnocent(),isCriminal(),setMurderer(),setInnocent() and setCriminal.
+Please use these instead of flag== or flag= 0x01 0x02 0x04. (Ripper)
+29) Added: Mantra`s to the npc`s that heal and cure themselves and dispel.(Ripper)
+30) Added: New AI 11 in the p_ai.cpp.Add NPCAI B to any good npc in the npc.scp to make it
+attack red npcs and murderers & criminals onsite. I added this cause when a red attacks a good npc, the other good
+npc`s in the area will just walk around them watching, now they gang attack the red.
+NOTE: DO NOT ADD to a npc with a NPCAI # already. (Ripper)
+31) Fixed: Guards will no longer give fame & karma. (Ripper)
+32) Fixed: Weight updates correctly now when you drop item on ground.(Ripper)
+33) Fixed: Summon monster will no longer produce Mr.Nonames (Duke)
+34) Fixed: eliminated/improved some error messages (Duke)
+35) Fixed: Npcs will break attack from a player if logged off. Npcs will
+No longer sit and wait for you to log on ;) (Ripper)
+36) Fixed: "they are invul merchants" bug when dclick explosion potion (Duke)
+37) Fixed: explosion potions will now do damage to npcs (Duke)
+38) Fixed: Nighmares will keep stats when dismounted.(Ripper)
+39) Added: houseintown to the server.scp. (default) houseintown 0 = houses cant be layed in town
+houseintown 1 = houses can be layed in town. (Ripper)
+40) Added: GMs can lay houses in or out of town, no matter what the houseintown # is.(Ripper)
+------------------------------------------------------------
+                        Wolfpack 12.4
+----------------------------------------------------------
+
+1) Some speed-up in trigger execution, code clean-ups and small bandwidth saving
+   in updatestats(), ItemDroppedOnSelf() and updatechar(). (Correa)
+2) Added: When a GM double clicks a horse, it's automatically tamed
+   by him (no speech), also removed distance < 2 restriction to GMs. (Correa)
+3) Eliminated more ifdefs, increasing the amount of shared code/approach between os's. (punt)
+4) added: full featured (=OSI like) and polymorph
+UO:3D particleSystem implementation (LB)
+polymorph = ( 3D clients can see ALL spellcasting action 
+(no matter if done via 2D or 3D client) with new particle System. 
+2D clients see it (no matter if casted via 2D or 3D client) the old way)
+5) Added: CHECK_NPCFOLLOW 0.500000 as a default to the server.scp for npc following
+   speed. i think 0.200000 is a better setting.(Ripper)
+6) Removed: The teleporting pets to owner when following.(Ripper)
+7) fixed 19(!!!!!!!!!!!!!!!!!!!!!) magery bugs. (LB)
+8) fixed a few magery related server crash bugs (LB)
+9) Added: IP Blocking Rules. To enable, add a hosts_deny.scp file with your scripts.  Enter entiries as single ip's (192.168.0.0) or as masks (192.168.0.0/255.255.255.0). Ensure there is one entry per line, with an EOF at the end of the file.  This file will be reloaded with your scripts by pressing r at the console. (Correa & punt)
+10) fixed: 'bad char index ### in file magic.cpp line 288' (Duke)
+11) fixed: 'bad item index 0 in file wolfpack.cpp line #### itemcount 0' when starting the      server with NO wsc files (Duke)
+12) Fixed: Auto Account creation requires a non-blank password.
+13) Some speed-up finding characters on login screen.
+14) Broken pipe addressed (hopefully) 
+15) Added: AUTO_RELOAD_ACCT option to server.scp - if non-zero it will check if accounts.adm     has changed, if so, it will automatically reload the account. AUTO_RELOAD_ACCT is the       time between checks in minutes.
+16) fixed: when dragging items to the map where they can't be placed
+they disappeared. (UO:3D only bug) fixed !  (LB)
+17) Teleport stuff rewritten to use STL containers (LB/Correa)
+
+18) fixed: 'items.cpp:205 trying to put something INTO a non container, id=EFA' 0xEFA = spellbooks. (Duke)
+19) fixed: 'items.cpp:1480 invalid item index <-1>' resulting from a bad item # in the     scripts (Duke)
+20) fixed: a socket/index confusion message from the trade window (Duke)
+21) fixed: 'worldmain.cpp:1853 invalid item index  errorcode:1' (Duke)
+22) fixed: some triggers not using up the material (USEUP keyword) (Duke)
+23) fixed: yet another UO:3D drag & drop problem (dragging containers in subcontainer)     hopefully the last one :) (LB)
+24) Added a character age swtich in server.scp, under server section. CHECKCHARAGE 0/1. If 1, then characters must be 7 days old to delete. (punt/Correa)
+25) Fixed: disappearing horses from vendor. (Ripper)
+26) Fixed: You dont get "mr noname" npcs anymore. also some code cleanups. (Correa)
+27) added: better message for 'item has bad contserial' containing both serials (Duke)
+28) Fixed: Changing characters direction in tweak menu no longer changes body ID. (Correa)
+29) Fixed: Locked doors could be locked down and released. (Ripper)
+30) fixed: wrong combat animation for cutlass & large war axe (Duke)
+
+31) fixed: shooting at poisoning creatures poisened the archer (Duke)
+32) Removed need for ncurses library, standard unix file/terminal methods used for console i/o
+33) Added: "BANKITEM" keyword to newbie.scp - put a newbie item directly into player's bankbox.(Correa)
+34) Added: When you lay a house you will get a key in your backpack and now get one in your bankbox too. (Ripper/Correa)
+35) fixed: tinkering sextant parts: the sextant didn't show without reopening backpack (Duke)
+36) fixed: using a pile of sextant parts would delete the whole pile on success (Duke)
+37) Changed: Item counts are displayed like OSI (OSI patched the mulfiles with it, now both static and dynamic items have the same style)
+38) GMs are no longer restricted casting spells in town.
+39) Changed 3 logs from chopping tree to giving 10. (Ripper)
+40) Added: some IsLog(), IsBoard(), IsShaft() and IsFeather() to the code.(Ripper)
+41) fixed: small wooden box x09aa opened basket gump (Duke)
+42) Fixed: Guards will no longer talk to offline players.
+43) Changed: in the titles.scp make the prowess section "only" have these:
+Neophyte,Novice,Apprentice,Journeyman,Expert,Adept,Master,Grandmaster (Ripper)
+
+44) Changed: the 'WOLFPACK Script Manager ERROR' should only show up once per problem (Duke)
+45) fixed: one of the bugs that caused the above error to be logged so often recently (Duke)
+46) Fixed: houses left doors and sign, also will now delete all items in house on re-deed of house.(Ripper)
+47) Added: EV & BS to the summons in the npc.scp. They will now summon from script when using
+magic spell. also all other eighth circle summons will too. Must have npc.scp with NPC #`s
+290 - 296 at the bottom.will be in next release of scripts.EV & BS are not tamed and if
+no one around will attack caster so becarefull :) (Ripper)
+48) Fixed: Empty shelf gumps are openned correctly now. (Correa)
+49) fixed: selling shields gave wrong price (Duke)
+50) Changed: 'makegm now show houses as default
+51) Added: Forges and Anvils cannot be locked down.(Ripper)
+52) Added: Animals will flag blue in town when animal_guarded ==1 in the server.scp and grey
+out side of town. If animals_guarded ==0 then animals will flag grey in and out of town.
+also reorganized the setcharflag(). (Ripper)
+53) GMs can redeed player's houses.
+54) Fixed: two 'bad char index' critical errors in boats.cpp (Duke)
+55) Fixed: removed the excessive skillcheck that made your mining skill explode above 65 (Duke)
+56) Added: improved error logging for alchemy (Duke)
+
+-----------------------------------------------------------------------------------
+
+                       Wolfpack 12.3
+                        
+----------------------------------------------------------
+
+1) Fixed: four(!) bugs with pets guarding, three of them capable
+of corrupting the ownership eg. partially transferring it to chars walking by.
+Probably responsible for other funny behaviour.
+It's highly recommended that you wipe & respawn your npcs ! (Duke)
+
+2) Millions of code cleanups :-) Also in server.scp you can activate
+auto account creation AUTO_CREATE_ACCTS 0 =off AUTO_CREATE_ACCTS 1 =on (punt)
+
+3) Fixed a bug in the poisioning code that always set the poisiong damage to 0.
+   works now as designed (Xanathar)
+4) added: vendors bow after a purchase (Duke, idea by Walker)
+5) fixed: Armslore skill will raise above 75 (Duke)
+
+6) fixed: weaken scroll casting reactive armour (Duke)
+7) Fixed: Some minor touch ups for SmeltItemTarget() and RepairTarget() (Ripper)
+8) Fixed: some fixes for secured chests wouldnt open for owner.(Ripper)
+9) Fixed: House key will be newbifyed when you build house. Note:
+you will need to redeed house or make a new one for change.(Ripper)
+10) Fixed: Exploit where you could lock down and release house signs.(Ripper)
+11) Fixed: good/evil healers will now res a ghost when you walk up to them.(Ripper)
+12) Added: When you use 'Respawn you will get a system broadcast " World is respawning
+expect some lag" when done respawning, you will get a message respawning is complete.(Ripper)
+13) Fixed: Redone the Smelting had a few problems with color items.(Ripper)
+14) lots of nice code clean & speed ups (Freelancers [Correa]) Thanks !
+15) Added: No delay on opening doors,chests,backpacks,
+spellbooks,books and eating food.(Ripper)
+16) improved: Clients Version Controll System. 
+Main differnce is that you can specify LISTS of clients that are allowed instead of a single one. 
+For details see CVCS.txt (LB)
+17) Fixed: Secured chests wouldnt hold owner or status on restart of
+server, redone some :) (Ripper)
+18) Fixed: using UO3D client didn't allow character creation. (LB)
+19) Fixed: a signed/unsigned issue with smithing (Duke)
+20) fixed: a potential crash bug with getamount() (Duke)
+21) fixed: tinkering will no longer use & delete ingots of mixed color (Duke)
+22) very nice login speedup (Freelancers [COrrea] )
+23) fixed: sell price was higher than buy price for house deed vendors (Duke)
+24) More code cleanups and a fix for a exploit with arm/disarm macro.(correa)
+25) fixed: UO:3D container ghosting (LB)
+26) fixed: wrong price for coloured armour when sold to a vendor (Duke)
+27) fixed: fished up items in other people's backpacks (Duke)
+28) Added: You cant succeed in provocation in town.(Ripper)
+29) fixed: no inrange-check for "name BUY". This led to wrong buy menues ie. a baking items menu
+    while standing next to a smith sometimes when there was a 2nd vendor of the same name nearby.(Duke)
+30) Added: UO:3D animations (let's dance... ) (LB)
+31) fixed: problems with dragging items to paperdoll that happened with UO:3D client only (LB)
+----------------------------------------------------------
+
+                       Wolfpack 12.2
+----------------------------------------------------------
+
+1) Fixed: Weight on cursor didnt add if item was a container and
+had items in it. (Ripper)
+2) Changed: Took out criminal player if has pet attack in town,
+added you cant have pets attack in town. (Ripper)
+3) Added: A change on how many times the server checks if a
+spawner is set to nodecay. helps performance. (Xanathar)
+4) Fixed: So summons work better and get spawned from the scripts.
+you will need the new section for summons in the npc.scp. Now
+you can adjust yourself how powerfull or weak you want summons.
+Only summons are Daemon, Air, Fire, Water and Earth.(290-294)
+MUST use the new NPC #`s.will be in wp 12.2 scripts.(Ripper)
+5) Fixed: Mounted pets when dis-mounted will have their same stats
+as they had from the scripts. So they wont lose stats when dis-mounted.
+Also added in color check.you can dye your horse and it will keep
+the same color when dis-mounted.(Ripper)
+6) Fixed: Magic resist now works the way it should.Eval now
+increases magic damage, Resist now decreases magic damage.(Lord Pluto)
+7) changed: sextants show sextant coordinates instead of x,y coordinates (LB)
+8) Added: A new Fishing.cpp & Fishing.scp. All fishing code was moved to
+the fishing.cpp. Also added you can fish up random items, scriptable in
+the new fishing.scp. You MUST use the new fishing.scp. (Ripper)
+9) Added: New trigger command word NEWBIEITEM . You can use this
+in triggers to make a item newbie ;) (Ripper)
+10) Fixed: Now forges and anvils will delete when you redeed house.(Ripper)
+11) Fixed: Client 2.0.7 doesnt give unknown packets and crash the client,
+also the speech is working again. BIG Thanks to Beosil for figuring out
+the packets and for his great tool Sniffy and Big thanks to Punt for
+coding all the fixes in. Thank you guys, you are tops :) (Ripper)
+
+12) fixed: the 'random newbie gold', 'ghost gold' and 'two players share same gold' bugs (Duke)
+13) fixed: 'add menu disappearing' bug (Duke)
+14) fixed: further improved client 2.0.7 speech compatibility. 
+(corrected some minor errata in Beo's and Punts work). Should now work *perfect*. 
+A very big thx to Beosil and Punt from me too for the pioneer work on it (LB)
+15) fixed: spawning gold (or other items) in players pack when he
+already had near 64k caused an overflow and made 64k disappear (Duke)
+16) fixed: house decay should now work as designed (Duke)
+17) Moved: The repairtarget() & smeltitemtarget() to the skitarg.cpp.(Ripper)
+18) Added: The anvil is used for repairing items now.also added
+a new ForgeInRange() for smelting.(Ripper)
+19) Fixed: Problems with range when repairing & smelting.(Ripper)
+20) Fixed: Bug where you couldnt smelt colored items.NOTE: you can only
+smelt newly made blacksmith items.(Ripper)
+21) Added: when you do 'cstats you will get also get str,dex and int stats
+of the targeted player/npc. (Ripper)
+22) Added: Raw bird to the carvetarget() & corrected some that were wrong
+on the rest :) (Ripper)
+23) Added: More options to the 'tweak command. thanks to xuri for the idea. (Ripper)
+24) Added: Beggars now give karma as a reward for giving them gold. (Ripper)
+25) Fixed: Npc training is fixed and you need to have NOTRAIN in the npc.scp on
+NPCs that DO NOT train. if the npc dont have NOTRAIN then they will train a
+player in whatever skills they have :) (Ripper)
+26) Changed: Took out the STR,DEX and INT out of the 'cstats command. see 'tweak addition.(Ripper)
+27) Fixed: Lockpicks will not delete the whole pile if more than one :) (Ripper)
+28) Added: client version control system (LB). Detailed dokumentation: see CVCS.txt (LB)
+29) Added: you can now add COLORLIST # to a item in the items.scp. the # is a section
+in the colors.scp. This will make random colors for the item :) (Ripper)
+30) Added: Fix so NPCs that ride horses will get the correct combat animation
+when in battle. just add ONHORSE to the NPC in the npc.scp. (Frazurbluu)
+31) Fixed: a former crash bug with telling your pet to guard you (Duke)
+32) Fixed: Playervendor so you can now see his hello message.(Ripper)
+33) Added: More forges for smelting and added them to redeed house.(Ripper)
+34) Added: When a player is jailed he will now be frozen, no spells, no skills and not
+beable to attack anyone. when released he will be unfrozen. (Ripper)
+35) Changed: Took out the hides and added leather pieces for tailoring.(Ripper\Fraz)
+36) Fixed: Now you can only smelt items that are in your backpack.(Ripper\Fraz)
+37) Added: 2 new chest types. type 8 is a decaying locked item spawner chest,
+type 66 is a decaying item spawner.they were added for new itemlists in scripts.(Ripper\Fraz)
+38) Fixed: Kindling wont delete the whole pile anymore. (Ripper)
+39) Fixed: magery skill not rising (Duke)
+40) Changed: Console color is black background with red text.I think we
+will change to a different color every release, unless you dont like it :) (Ripper)
+
+-----------------------------------------------------------
+                        Wolfpack 12.1
+----------------------------------------------------------
+
+1) fixed: TRIGGER & TRIGWORD are no longer ignored in npcs.scp (Duke)
+2) fixed: casting while hidden will now just reveal you (Frazurbluu/Duke)
+3) fixed: attacking now turns char towards enemy (Duke)
+4) fixed: setting housedecay_secs to -1 now disables house decay (Duke)
+5) fixed: items dropped onto a conainer in the world will have random positions inside (Duke)
+6) fixed: if there are problems with loading mapfiles, 
+   it writes the problem description to the CriticalErrors file and closes itself.
+   Instead of continuing and crashing at itemload or having severe problems lateron. (LB)
+7) fixed: exploit: gaining skills sparing with invul-npcs (ripper)
+8) fixed: Glorious Lord/lady didn't show their names when singlecklicked (Duke)
+9) added: a new player(!) command. Say "#empty" and target two containers. All
+   Items from the first will be moved to the second container (Duke)=======
+
+10)fixed: IDFX trigger keyword caused all items created after that beeing 
+   placed on the triggered item (Duke)
+11)fixed: nightsight potions now last for 12 UO-hours (Duke)
+12)fixed: nightsight spells now last for skill*100 real seconds (Duke)
+13)fixed: the minimum chance of failure has been reduced from 10% to 1%.
+   This made GM mages fizzle at lvl 1 spells. Anyway, they still will fizzle once in a while :)
+   This also made mining coloured ore VERY hard. (Duke)
+14)fixed: a crash bug at startup when chars had been deleted (Duke)
+15)Added: Shop Vendors will greet you when you come to shop :).(Ripper)
+16)fixed: Lag with many spawners in an opened backpack (or on the ground) (Duke)
+17)Added: New Beggars ai, they will talk to you when you pass them.
+also you can drop gold on them and they will thank you :)
+NPCAI 5 must be on the beggars in the npc.scp. (done in wp 12.1 scripts)..(Ripper)
+18)Added: New CHECKBANK # has been added to the "section vendor" in the server.scp.
+You set this to the amount for the vendor to check your bankbox instead
+of your backpack. CHECKBANK 2000 is the default on startup. If you set
+it higher than the highest priced item in the world, then vendors will
+allways check the bank.
+
+(NOTE: Vendors will *NOT* look in both Bank & Backpack.)
+
+example:
+CHECKBANK 0 = Vendors will never check the bankbox.
+
+CHECKBANK 2000 = The vendor will ONLY take from bankbox if the item
+to buy is 2000 or greater. If item to buy is less than 2000 then the
+vendor will ONLY look in your backpack.Check doc`s for more info.....(Ripper)
+19)Fixed: small fix for evil healers and changed from npcai 666 to npcai 3.
+So use NPCAI 3 for them in the scripts or in game.(Ripper)
+20)Added: New town guards..They do not teleport out of world but they will
+teleport to an enemy and they will still work with guardsoff. they
+also talk to criminals and blues.made NPC 2 & 3 in Npc.scp to NPCAI 9.(Ripper)
+21)Fixed: pet guarding,if a pet owner is attacked, the pet will attack the attacker :)...(Ripper)
+22)Fixed: So pets can go thru gates with owner...(Ripper)
+
+----------------------------------------------------------
+                        Wolfpack 12.0
+----------------------------------------------------------
+
+1) fixed: PlayerVendors didn't subtract gold when in sub-pack (Duke)
+2) fixed: couldn't resurrect with bandages (Duke)
+3) fixed: Explosion Potions sometimes didn't do damage (Duke)
+4) fixed: Bankers didn't respond in some locations (Duke)
+5) fixed: an exploit with Makemenues where you could gain skill on 
+	failure without losing material (Duke)
+6) fixed: a crash bug with CheckSkill (Duke)
+7) tuned: loading the items at startup is *much* faster (95%) (Duke)
+    (Saves me 25 seconds with 33k items on an Athlon 600 :))
+8) fixed: the wtrig command now works correctly (Ripper)
+9) fixed: a client crash with locked down itens that have a looong name (Duke)
+
+10)fixed: guildstones movement problem (Duke)
+11)fixed: arch protection now should have a sound (Duke)
+12)fixed: an occasional server crash when reallocating item memory (Duke)
+13)added: slotmachine. Needs ITEM 9999 in items.scp (will be in wp 12.0 scripts) (Ripper)
+14)fixed: armslore now works again (Duke)
+15)found: You can cook raw fish steaks if you delete them(x97a) in envoke.scp (Duke)
+16)fixed: missing the target will leave arrows on the ground (chance is 2/3) (Duke)
+17)fixed: the earthquake spell so it wont hurt or kill GMs or account 0. 
+also it wont flag the person criminal unless it hits a blue. (Ripper)
+18)fixed: attacking. now it criminals right and npcs will shout 
+help guards again. it seems to improve alot.(Ripper)
+19) Added: Chaos/Order guards.. if you are in a chaos guild and you lose
+your shield just find a chaos guard and say "chaos shield" and you get a new one.
+you do the same for a order guild. (Ripper)
+20) Fixed: A bug in the Bottletarget when you tryed to target something other than
+a empty bottle.(Ripper)
+21) Added: Fireworks wand so you can accually use them now :)  (Ripper)
+22) added: new system for item memory (re)allocation. Prevents server crashes
+    from bad pointers after a realloc (Duke)
+23) added: pseudo-multitasking for the 'respawn command. It will no longer block
+ you for minutes, it only slows you down (quite a bit) (Duke)
+
+
+-----------------------------------------------------------
+                        Wolfpack 11.9
+----------------------------------------------------------
+
+1) Fixed some server freezes  (LB)
+2) Fixed busy waiting if no one logged in (activation via nice 4 or nice 5 in wolfpack.ini) (LB)
+3) fixed: a bug detected by the msg 'bad char index xxx in file wolfpack.cpp line 2283'
+   (a former crash bug with the dispel field spell) (Duke)
+4) fixed: a bad create.scp will no longer produce tons of 'Script manager errors' (Duke)
+5) added: the Makemenu # to the 'bad create.scp' warning msg. makes it easier to find typos (Duke)
+6) fixed: a bug with magic lock/unlock and trap/untrap. (Ripper & Duke)
+7) fixed: a very bad bug concerning temporary effects like strength spells/potions. When two effects
+   of the same kind affected one player (eg.2 strength spells), the reversing of the second one could
+   affect a totally different player!!. Changes for both players (the gain for player 1 and the loss
+   for player 2) were permanent ! This bug explains a LOT of 'funny behaviours' that were reported
+   and treated as separate bugs. :))) (Duke)
+8) fixed: Strength & Agility potions now have a duration of 2 minutes (OSI) (Duke)
+
+9) changed: Network code rewrite part II. (LB) 
+   this fixes:
+   a) odd login problems (for example players getting someone is already using this account permanently until server restarted)
+   b) tons of unreproducable, very bad  & strange bugs when players logged in.
+   c) (unnecassairy) lag at login 
+   d) insta logout didnt work (insta-logout regions scriptable in regions.scp, charout time in server.scp)  
+   e) lots of quirks with networking such as no more than 40 players could connect, (128 now)
+      closing of connections out of the blue and more.
+   ...
+
+10) fixed: a design bug with the LOG_TRIGGER in server.scp (Duke)
+    You can now use normal lumberjacking code, just the creation of
+    the logs is redirected to wtrigrs.scp thus eliminating the need
+    to put all the axes into envoke.scp :) The old log_trigger was directed
+    to triggers.scp with no chance to determine the type of tree. So if somebody
+    was using this, he'll have to rewrite his trigger a bit.
+11) changed: double durability for weapons & items when used (Duke)
+12) fixed: bowfletching didn't work (Duke)
+13) fixed: problems with Blacksmithing (Duke)
+14) fixed: bad server crash when opening certain npc-paperdolls (LB)
+15) fixed: tons of guild related problems (LB)
+16) fixed: if a guildstone decayed, or a guildmaster deleted his char,
+    members of a guild deleted their chars and the like players from that guild couldn't 
+    resign from old guild anymore. those cases get checked and fixed at each  serverstart (LB)
+17) fixed: norealmultis were treated as houses (Ripper)
+18) tweaked: pet (and npc)-speed (Ripper) 
+19) added: serversleep command. serversleep x lets the server sleep for x seconds.
+    purpose: if you change scripts on the fly - while the server runs - you might
+    experience a server crash we couldn't chase down till 11.9 release.
+    If you want to change scripts on the fly safely - use this command and change scripts
+    while it sleeps. after the x seconds have passed the server awakes automatically of course. (LB)
+20) added: new titles.scp. All(!) stuff that goes to your paperdoll on doubleclick and above your head on singleclick
+    is now scriptable. the new titles.scp is MANDATORY. (LB)
+21) added: Taste-ID skill (Ripper)
+22) added: reloadcachedscripts command. (LB)
+23) fixed: pickpocketdummies didn't work (Ripper)
+24) fixed: selling loads of items to npcs might have crashed the server. (LB)
+25) fixed: Explosion potions didn't work (LB)
+
+-----------------------------------------------------------
+                        Wolfpack 11.8
+----------------------------------------------------------
+
+1) changed: HOUSE_DECAY improvments: Decay status gets shown if you open your house sign. 
+Changed the refreshment trigger: Opening the door of your house. 
+For all details see housedecay.txt. (LB) 
+Remark: you need the new misc.scp if you want to see it.
+2) fixed: building houses inside houses, building houses on rocks, trees etc not possible anymore. 
+Needs new house.scp. (LB)
+3) fixed: sometimes menus didnt work after a certain time. Only a server restart helped. (LB)
+4) fixed: dragon ships not working. Needs new house.scp (Ripper)
+5) fixed: Logging in multiple times with the same account has been possible  
+(though the second login froze the client)  (LB)
+6) fixed: server crash on certain spawn-locations. (LB)
+7) added: dramatic(!!!) server stability enhancement, removal of loads of dead code. (Duke)
+8) fixed: exploit with teleport spell (teleporting on top of chars/npcs) (LB)
+9) fixed: (parts of the) network code rewritten, should reduce or kill client freezes. (LB) 
+10) fixed: ports other than 2593 didnt work. (LB)
+11) fixed: the player lists in the server status html generation was bugged. (LB)
+12) added: stabling (for details see stabling.txt) (LB)
+13) added: if a GM hides or unhides you'll see an special effect (LB)
+14) fixed: server freeze if clients send garbage 
+(for example if not using ignition, or bad guys sending garbage intentionaly to kill the server) (LB)
+15) added: SAVESPAWNREGIONS keyword to server.scp. 
+if set to 0 items &  npcs spawned with spawn-script (only!) wont be saved. (LB)
+16) added: playerlist command. Like wholist, but only shows players online (Ripper)
+
+-----------------------------------------------------------
+                        Wolfpack11.7
+----------------------------------------------------------
+
+1) fixed: Cooking will no longer leave you with a pile of '0 raw ribs' (Duke)
+2) fixed: a potential crash bug with MAXTRACKINGTARGETS >20 (Duke)
+3) fixed: two bugs that were detected by the '2179 bad index' msg (Duke)
+4) fixed: a bug where a bad wolfpack.ini could destroy the server.scp (Duke)
+5) added: the delay for healing with bandages(on top of objectdelay) is now
+  scriptable (BANDAGEDELAY in server.scp) (Duke)
+6) added: the use of bandages while in combat is now scriptable
+  (BANDAGEINCOMBAT in server.scp) (Duke)
+7) added: the time until a 'disconnect due to inactivity' occurs is now
+  scriptable through the INACTIVITYTIMEOUT keyword in server.scp (Duke)
+  Note: only for LAN-environments and debugging. shard-owners should continue
+  to use the 300 secs default !)
+8) fixed: bad items with an invalid Item-Id crashed the client. 
+   Now they get deleted on server startup (LB)
+9) fixed: no return after EOF in some scripts -> server freeze. Fixed.
+   Now theres no need anymore for the additional return. (LB) 
+10) fixed: Spawning items whose item-numbers dont exist in the scripts crashed the server. (LB)
+11) fixed: the NOTRAIN keyword now works. NPCs with it won't teach. (Duke)
+    Note: a lot of shopkeepers *DO* have this keyword in npcs.scp, and thus in your wsc-files.
+    They will stop teaching you ! The ugly side of bugfixing *g*. So you will have
+    to edit your scripts and/or wsc-files.
+12) fixed: Spellbooks will no longer take damage in combat (Duke)
+13) fixed: you can no longer use a lot of funny items (eg. axles,..) as a loom (Duke)
+14) added: HOUSE_DECAY. For details see housedecay.txt in the docs folder. (LB)
+15) fixed: LSD code was decatived by accident. reavtivated + fixed exploits (LB)
+16) fixed: vendor packup code fixed & locked down vendor deeds cant be activated anymore (Ripper)
+17) changed: some [xxx] tags appear in white. (Ripper)
+18) changed: makegm command gives now all add (menupriv) privileges (LB)
+19) fixed: garbage collection rewritten. (LB)
+20) fixed: SPAWN.scp not working. Now it works again. The code was so terribly strange/buggy
+that I've completely rewritten it. As a side effect - unfortunatly - 
+old - pre 11.7 spawn.scp spawns cant be deleted anymore via 'spawnkill.  
+If you need to do kill those old spawns do that via wp 11.6
+New ones can be deleted via spawnkill command of course.
+Also fixed a few flaws in the region-spawn commands  (LB)
+21) changed: tweaked some internal data structures for hopefully more performance. (LB)
+22) changed: Snooping doesnt flag you criminal anymore (Ripper)
+23) fixed: some memory leaks (Duke)
+24) fixed: ancient bug in reading accounts.adm. (LB)
+The account number given was ignored, instead of it an internal counnter was used.
+Example:
+
+section account 3
+{
+...
+}
+section account 5
+{
+..
+}
+
+EOF
+
+with pre 11.7 versions this was read as account 0 and 1, not 3 and 5.
+Thx to Just Michael pointing that out.
+Remark: If you change the account number of *exisitng* chars, you have to change
+the accounts value in wpchars of that char manually.
+Taken out autocreation and guest accounts due to extreme bugs with it.
+Unless there are massive requests for it, it wont be re-activated and fixed.
+
+-----------------------------------------------------------
+                        Wolfpack11.6
+----------------------------------------------------------
+
+1) Fixed: a bad server crash with certain malformed scripts. (LB)
+fixed the code(!) so that it gives an errormessgae instead of crashing
+2) Fixed: copying keys didnt work. (LB)
+3) Fixed: exploit with the fishing skill (LB)
+4) Fixed: skill window didnt update correcly if a skill was going up (LB)
+5) Fixed: bouncing bug when teleporting (LB)
+6) code rewrite/restructuring continued (LB,Duke and Antichrist)
+7) Fixed: laying pentagrams crashed the client. (LB)
+8) Added: ligthouse, telescope and treasure deeds. (LB)
+the see 7&8 you have to get sure you use the new house.scp and items.scp
+
+-----------------------------------------------------------
+                        Wolfpack11.5
+----------------------------------------------------------
+
+1) Fixed: a (major) server crash @ NPC-"AI"-Code (LB)
+2) Fixed: a (major) server crash @ NPC-attack-code (LB)
+3) Fixed: several other server crashes (LB)
+4) started a big code rewrite/restructuring project. (LB & DUKE)
+This mass changes will take a long time. At least one month if not more (2?).
+If finshed WP should get super-stable and it's readability/maintainability should be increased.
+Anyway, we spend weeks to plan how to do that as smooth as possible.
+But at least 20.000 Line of code have to be rewritten, so some hoppalas are inevitable.
+To fight this, we will do frequent releases! (min: 1 week, max, 2 weeks) till this 
+project is finshed.
+The more feedback we get, the better it gets.   
+If you think of it as multi-step-project, since 11.5 we are in the middle-of step 1.
+5) added/started: error_logging to file. (related to 4)
+Its very important for us and that you read error_logging.txt (LB)
+6) Removed multithreading stuff for now. 
+Reason: it had no synch at all. 
+This caused severe world file corruption problems. 
+(In addition to the problem mentioned under known bugs)
+Needs full redesign before being re-enabled.
+But please neither delete the rem'ed out threading-code nor reomve the CThread.cpp file.
+The same applies to the Weathersystem.
+Remark: already done in 11.4, just forgot to mention it (LB)
+
+-----------------------------------------------------------
+                        Wolfpack11.4
+-----------------------------------------------------------
+
+1) Added: New fishing so when you catch a fish it checks around player to see if other fish are on
+the ground and if there is it will stack the fish up to a certain amount and then it wont stack anymore
+on them.also theres a chance for deep fishing out exotic fish :) (Lord Binary)
+2) Added: New mining fixes so if you set MINECHECK 1 in server.scp you can only mine mountains
+and cave floors. (Lord Binary)
+3) Added: New and improved LSD potions..remark: lsd potions: 'add 18 41, 'settype 19, 'setmorey 10 ..(Lord Binary)
+4) Added: New RUNIC Mantras New spells.scp token: RUNIC 0   -> disable... RUNIC 1 -> enable it *per* spell
+Only added 8th circle spells with RUNIC 1...feel free to add others :) (Lord Binary)
+5) Fixed: server crashes with certain npc spawning situations (LB)
+6) Fixed: (a seldom) server crash when selling and buying stuff from npcs (LB)
+7) Fixed: Cut down memory requirement per item from 1250 bytes to 711 bytes (LB)
+Note1: Memory requirement per Npc is around 1.7kb
+Note2: For 100k items thats around -50MB's !
+9) Added: DNS-resolution for server address in wolfpack.ini. (LB)
+This means you can use an IP adress *or* a "DNS-name" for your server.
+example: (new)
+Wolfpack test shard
+kiste.itc.or.at
+2593
+###
+same example: (old)
+Wolfpack test shard
+195.202.129.122
+2593
+###
+Note1: both versions work. the old one is still possible.
+Note2: localhost equals 127.0.0.1
+
+10) Fixed: the pickpocket dip`s now gain stealing instead of lockpicking.you need
+to go into the server.scp and make sure ROGUE 1 is set for stealing to work.then just
+use stealing and target a pickpocket dummy and it will raise stealing to 30. (Ripper)
+11) Fixed: a problem with smelt items where you could smelt items made with carpentry.(Ripper)
+12) Added: You can now d-click the raw fish steaks,raw bird,raw lamb,raw ribs and
+raw checken legs and then target fire to cook them, also if you succeed it will cook them all.
+You will need to take the cooking triggers out of the wtrigs.scp or get wolfpack 11.4 scripts.(Ripper)
+
+13) Fixed: freshly carved items will no longer give the 'equipped by other players' msg (Duke)
+14) Added: animals with fur will now yield hides (like OSI). I can make it switchable if somebody tells
+me what to do with fur (Duke)
+15) Added: weapons now take damage during combat. Even bows & xbows (Duke)
+16) Added: you can now keep your preferred settings (and only those) in a file called shards_server.scp
+They will override those from server.scp, thus eliminating the need to merge your server.scp with the 
+new server.scp every time you install a new wp_scp.zip (Duke)
+17) Fixed: you can now pick cotton without crashing the server (Duke)
+
+18) Added bounty system (see BOUNTY.TXT for details) (dupois@home.com)
+19) Updated MSGBOARD.SCP with entries for bounty quest as well as adding a %g
+    option to be used as a replaceable parameter for the bounty amount.(Dupois)
+20) Removed InitKbThread() call in main() (caused server crash and world file
+    corruption when # was pressed at console)  Might also be responsible for script crash.
+    Definetly a multithreading issue as I tested it both ways and with InitKbThread() in
+    the server would crash and corrupt the world file on a random basis.(Dupois)
+21) Added a new wolfpack icon to the distribution for review.(Dupois)
+
+-----------------------------------------------------------------------------------
+                        Wolfpack11.3
+----------------------------------------------------------
+1) Fixed: Archery buttes now give back half of the arrows you shoot. that is missed
+or hit. also fixed the messages so it dont give double messages. (Ripper)
+2) Added: Fishing now loses a little stamina while you fish...if you get to 0 in
+stamina, it will say you are too tired to fish and need rest :) (Ripper)
+3) Added: Pickpocket Dip`s dummys.use a lockpick on them and you can train on
+them up to 30.Also theres a chance the pick will break.(Ripper)
+4) Fixed: so you cant put a 2 handed weapon on with a 2 handed weapon allready equipted.(Ripper)
+5) Fixed: Made the dagger you start with be a 1 handed weapon.(Ripper)
+6) Added: (will need new items and create.scp to work right) Item smelting..it only works on
+items that was made by a player and not items bought.
+You can only smelt armor and weapons made by blacksmithing, but all colors do work :).
+Heres what you need to do...you need to have 30 in Mining to smelt iron stuff and 50 in Mining
+to smelt colored items. then doubleclick a forge and then target the player made item
+and it will delete the item and give you half the ingots it took to make the item. (Ripper)
+7) Changed some of the ingot colors and names around in the items.scp and create.scp.
+i think you will like the ore and ingots now, seem to look good :) (Ripper)
+8) Fixed: took all the def (ar) off the 1 handed and 2 handed weapons in the items.scp.
+use the shields and armor if you want (AR). also fixed some errors in items.scp :) (Ripper)
+9) Fixed: a statwindow bug that where it wouldnt update right till you open and closed window.(LB)
+-----------------------------------------------------------------------------------
+                        Wolfpack11.2
+-----------------------------------------------------------
+1) Fixed: A bad server crash bug with AddNPC and NPC-Spawning. (LB)
+2) Fixed: Weather system server crash. (LB)
+3) Added: changed the when you say time to a npc it dont say wolfpack time. They will say
+for ex: "it is now 07:21 in the evening". (Ripper)*
+4) Took out all REPAIRWORLD stuff for now. seem way too buggy. (Ripper)*
+5) Added: Fishing is done in hardcode now and i have taken the 2 sections of fishing
+out of the wtrigrs.scp as it isnt needed anymore.also fish spawn on ground and not
+in your backpack anymore, like they should.also taken fishing pole out of envoke.acp.(Ripper)
+-----------------------------------------------------------------------------------
+                        Wolfpack11.1b
+-----------------------------------------------------------
+1) Fixed: A bad bug for walking overloaded would crash server.Also fixed console
+loading accounts would crash. also fixes all walking :) (Skyfire)*
+-----------------------------------------------------------------------------------
+                        Wolfpack11.1a
+-----------------------------------------------------------
+1) Fixed: Seems a bug got in that NPC`s and some items were invisible.(Ripper)*
+-----------------------------------------------------------------------------------
+                        Wolfpack11.1
+-----------------------------------------------------------
+1) fixes for npcs showing different names on them. (Ripper)*
+2) new AddNPC() to replace the addrespawnnpc() and addnpcxyz()..runs smoother. (Duke)
+3) new Carpentry() so you have to make boards then use boards to make furniture,
+also new sections added for create.scp (menus 19 & 20) and items.scp for boards. (Duke)*
+4) Fixed: the npc shopkeepers will now restock auto :) (Duke)*
+5) Added a enhancement to makemenu to run smoother.(Duke)*
+6) Added changes to amount and amount2..when you use the 'setamount command you
+cant pile more than 64k gp into a pile cause of some client issues that caused bugs.(Ripper & Duke)
+7) Fixed a bug when you locked down a dye tub (maybe others) and when you released
+it you couldnt use it anymore. (Ripper)
+8) Added if you say "where am i" or "location" to an NPC and you are out of town
+it will say you are in the wilderness..if you are in a town it will say you are
+in (town name) also it shows your coordinates..if you dont like let me know i will
+take that out.i thought it would be helpfull :) .(Ripper)*
+9) Added if you say "time" to a npc it will tell you wolfpack time.(Ripper)*
+10) Added touch ups to the lock down code so secured chests show right and also
+if the item is allready locked down you have to release it to lock down or secure again.(Ripper)*
+11) Added blank scroll making to tinkering with logs in the create.scp.(Ripper)*
+12) Added a new makemenutarget() to make this run smoother and fix bugs.(Duke)*
+13) Added fixes for pentagrams...they wont add a key no more.also added PENTA in house.scp
+under house section for pentagrams.(give feedback if problems still) (Ripper)
+14) Fixed it where it says you deleted 3 keys when redeeding a house.(Ripper)
+15) Added a better getamount() more efficient .(Duke)
+16) Added: (WARNING) this has some problems at the moment so please leave it set to 0 in the server.scp.
+if you set this above 0 right now it could DAMAGE your world files. this is what it does when fixed: 
+if a GM says "REPAIRWORLD" the world will repair its self.example of some things it does.
+fixes NPC`s and reg players stats that are over 100 or under 10, sets poison to 0 and sets frozen
+to unfrozen and other stuff.also will add alot more later :) also added REPAIRWORLDTIMER # to
+the server.scp.that way you can set how long you want between world repairs.(its in seconds). (Ripper)
+17) Added & Fixed all new Tinkering for clocks and parts.also new makemenu`s 70 & 80 replaced with new ones
+for better scrolling and organizing.new menus are 70 & 80,81,82,83 and 84. (Duke)*
+18) Fixed the stealth message where it said "you can move tot steps unseen" to "you can move # steps unseen".
+the # = maxstealthsteps # in the server.scp.Also fixed some other messages that needed it.(Ripper)*
+19) Fixed: Healing has been fixed and redone.(Duke)*
+20) Added the boar to carving and fixed some errors.(Ripper)
+21) Added: SHOPRESTOCK 1 to server.scp so shops will auto restock..if set to SHOPRESTOCK 0
+then the shops wont auto restock.this was added cause some like shopkeepers not to restock
+unless they wanted them to.also you still can use 'restock no matter what the setting :) (Ripper)
+22) Added: Both clock frames to the the tinker shopkeepers.also added item 5514 a clock frame to the
+items.scp.(Ripper)*
+23) Added: New Weather system. Completley defineable in regions.scp. Define the chance to rain/snow, how 
+long it waits to start since last weather action to happen again, and how long it performs the weather action.
+Region.scp needed. (Skyfire)
+24) Fixed: alot of errors in the create.scp and others.also took out scripts that werent needed. :) (Ripper)*
+25) Fixed: when you say balance to a banker, it only shows it once now. (Ripper)*
+26) Fixed: Npc`s shouldnt pause no more when they attack or get attacked before they move :) (Ripper)*
+27) Added: Cache_Muls was added to give more speed to wp.to use this start the server and when startup is complete
+then save the world and then shutdown the server and then go into the server.scp and change the cache_mul to 1
+to activate it. this was from uox source and all credit goes to whom originally added this. Zippy i know for sure :) (Skyfire)
+28) Added: fix for new encryption also you need the new ignition to start client.so just run the server
+then run ignition and it will patch up and then your set :) thanks to LB for the code fixes to the source
+and a thank you and great job on ignition to Beosil :) (Ripper)*
+-----------------------------------------------------------------------------------
+                        Wolfpack11.0
+-----------------------------------------------------------
+1) Changed: the uox3.cpp and uox3.h are now wolfpack.cpp and wolfpack.h...also you will need
+wolfpack11.0 scripts cause uox3.ini is now wolfpack.ini...also the world files will also need to
+be changed from items.wsc to wpitems.wsc and the chars.wsc to wppcs.wsc.If you dont have a world file
+or if you forget to change yours dont worry it wont over write your world file it will just run a
+blank world and when the world saves they will be created :) (Ripper & Skyfire)
+2) Changed healing to check both Healing and Anatomy skill level. (Skyfire)
+3) Added new lag free worldsaves (you dont notice it saving). (Skyfire & Eagle)
+4) New alchemy functions put in (smoother and faster). (Duke)
+5) Begins of NPC Grouping AI added in (NPC's can form clans). (Skyfire)
+6) Added: All spawner types 61 thru 65 and 69 and 125 will auto set to nodecay.(Ripper)
+7) small fix for murderer and criminal flags to show up right.(Ripper)
+8) New spawnitem() rewrite and fixes for spawning and the gold bug fix :) (Duke & Ripper)
+9) Fix for houses so they cant be layed in backpacks and send you to the ocean :) . (Ripper)
+10) Added: scriptable port..add the port # in the wolfpack.ini under your ip. (Skyfire)
+11) Added: new checkskill for players and one for NPC`s :) (Skyfire & Ripper)
+12) Added: All new house deeds to the architects :) need new scripts. (Ripper)
+13) Added: Pets that are guarding will now attack the enemy that attacks thier master :) (Ripper)
+14) Fixes to the attack messages and guards. (Ripper)
+15) Fixed Fetch to say not available now..will add later :) (Ripper)
+16) Changed KILLS to MURDERS..so when you say murders it will show you how many murders you have
+instead of kills.This was done cause when you said skills it gave you your kills :) (Ripper)
+17) Added: Secured chests for houses..say "i wish to secure this" then you target a chest and it
+will make it [locked down & secure].say "i wish to release this" and its back to normal.also
+only owner of the house can open it and GM`s :). (Ripper)
+18) Added: The new house sign gumps by The Ancient One..thanks its nice :) (Ripper)
+19) Fixed lag for going thru teleport gates. (Skyfire)
+20) Added Running for npc`s. (Skyfire)
+21) Fixed a few errors in the house.scp. (Ripper)
+22) Added in MultiThreading (currently for all_items_all function) NOT complete yet. (Skyfire)
+23) Added: Repairing items..you can only use the sledge hammer for it.so get wolfpack scripts 11.0.(Ripper)
+24) Added: New Dragon AI. Use npcai 60 to use it.(Skyfire)
+25) Added: NPC magic users can now heal and cure themselves plus they can cast dispel (NOT complete yet).(Skyfire)
+26) Added: you can set home, work, and food locations for npc's to goto every day and night(in progress) (soon to be scriptable). (Skyfire)
+27) Added that GMs can now use any players house signs..incase they need too :) (Ripper)
+28) Added: say FAMECOUNT and it will give you your fame count.(Ripper)
+29) Added: say KARMACOUNT and it will give you your karma count.(Ripper)
+30) Added: say LOCATION to a NPC and it will say what town you are in.Only works in town right now.(Ripper)
+31) Added: say PACKUP to a player vendor you OWN and it will delete the vendor and
+place a player vendor deed in your pack.Make sure you take all items and gold off him
+or else you will lose it.(Ripper)
+32) Added: say DEATHCOUNT and it tells you how many times you been killed :) (Ripper)
+------------------------------------------------------------------------------------
+                        Wolfpack10.2
+-----------------------------------------------------------
+1) Added: Quest escorts can now go thru gates, also following pets
+will teleport to you thru the gates :) (Ripper)
+2) The skills.cpp has been completely revamped.(Duke)
+3) Added: So when you convert a house to a deed it will DELETE ALL items in the
+house.So make sure you take items out first.Yes even lockdowns get deleted :) (Ripper)
+4) Added: Autoaccounts has been added and is scriptable in the server.scp..
+autoaccount 0= disabled ...autoaccount 1= activated :) (skyfire)
+5) Fixes for items and stones in a container to show right amount when clicked.(skyfire)
+6) Fixes for chaos/order shields so you dont get more than 1 when changing guild type.(skyfire)
+7) Added: When pets are in follow mode and you get 6 tiles away they teleport to you.(skyfire)
+8) Added: inscribe.gmp to the scripts now engraving works again, you will need
+wolfpack scripts 10.2 :) (Ripper)
+9) Fixed the item spawning chests..they will spawn 5 items and then when some are taken out
+they spawn up to 5 again.You can set any amount on them if you wish, the ones i made in the .add menu
+amount is set to 5.They are set to use random items from ITEMLIST 70 for now. (Ripper)
+10) Added: You can now have a chance at making different quality or exceptional items from blacksmithing.(Duke)
+11) Added: a code fix for when you arent skilled enough for creating any items it shows the ones you are right. (Duke)
+12) Added: new ore and changed some that were there, made them more like osi style.all the ore are
+iron,golden,agapite,shadow,valorite,bronze,verite,merkite,copper and silver.also
+changes in scripts for these to work right.will add back in mythril and dull copper later :) (Ripper)
+13) Added: A check in so when items that arent pilable and they show like 11 viking swords it resets
+it to amount 1 :) (Ripper)
+14) Fixed it so when you use a feather on a shaft to make a arrow or shaft on feather it deletes both
+feather and shaft.not just 1 of them anymore.(Ripper)
+15) Fixed the summoncreature list by taking out bad npcs and rearanged the list for better random chances.(Ripper)
+16) Added colored chainmail to the blacksmith menu`s.not all colored chained is in yet.(Ripper)
+17) Added when you use yarn on loom you get 1 cloth for 5 yarn and you get 1 bolt of cloth for 5 thread.
+also added when you fail you lose a random amount of the material.(Ripper)
+18) Added: that when you use a pickaxe or shovel for mining it will break and disappear.(Ripper)
+19) new client fix for client 2.0.0 (LB)
+-----------------------------------------------------------------------------------
+                        Wolfpack10.1
+-----------------------------------------------------------
+1) Had to take out most of 10.0 cause of some bad bugs :(
+2) Added back the weight for carrying a item on your hand with cursor.
+3) Added back gold disappearing bug fix.Please let me know if still there.
+4) Added back 10 sec delay for using bandages and took out cant heal in a fight.
+All the rest that were script changes are ok, all other code changes have been
+taking out.Sorry if this caused any problems.Next release will have some good changes.
+-----------------------------------------------------------------------------------
+                        Wolfpack10.0
+-----------------------------------------------------------
+1) Added: a 10 sec delay on using bandages.also took out the cant use while fighting :)
+2) Added: Leatherworking so you can use a sewing kit on hides and get a leather makemenu
+this was changes in the script, also alot of trigger script errors fixed :)
+3) Added: when you have a tamed pet follow you, it will teleport to you when it gets >=7 tiles away :)
+4) Added: All Bellows when d-clicked they make the bellow sound now.If anyone knows how to make
+the annimation work on it ...let me know and ill add it :)
+5) Took scripted cannon and cannon tools out of scripts.With the hardcoded cannon and cannon ball fixed there
+was no need for these anymore.You can only get a cannon and cannon ball by creating with blacksmithing.they
+are under weapons.
+6) Added; a fix for the gold disappearing bug.(not sure if working) needs alot more testing
+so if you see the problem again please let me know :)
+7) Added: Weight is now added to your char when you are holding a item on your cursor :) (thanks to SD & Skyfire)
+8) Added: some various fixes to the scripts and code.
+
+-----------------------------------------------------------------------------------
+                        Wolfpack9.0
+-----------------------------------------------------------
+1) Fixed the milking cow with a pitcher.Use item 50032 on a cow
+need new scripts wolfpack 9.0 :)
+2) Fixed a big bug where fieldspells didnt decay till world saves :) (thanks to LB)
+3) Fixed it so makegm now gives the player full commands again :)
+4) Fixed it so makecns for councilors will remove thier hair and clothes
+and items like a GM and gave them the blue robe of course :) also fixed 
+their menupriv to 4 which gives them yell to all and travel menus.You can
+edit this stuff in the menupriv.scp to whatever you want.
+5) Added: New function called CheckValidPlace() in guildstones.cpp.It is for
+guildstones not to be placed anywhere but in houses or on the steps :) also
+theres a check for it in stoneplacement.(thanks to skyfire)
+6) Added: some code fixes to chaos/order shields and stones to prevent some crashes.(thanks to LB)
+7) Added: It will now criminal player if you carve a human corpse and also
+lose some fame and karma :)
+8) Added: a new advancestat() system that is scriptable.It is in the server
+script as SKILLADVANCEMODIFIER and STATSADVANCEMODIFIER.here is the values of each:
+STATSADVANCEMODIFIER value
+   value   a nonzero, positive decimal number
+   the higher the number, the slower the increase
+   default is 500
+   Values between 1000 and 2000 resemble OSI standard
+   A value below your stat value (i.e. 10 or 30) will give a small increase 
+   *every* time you do something.
+   Values above 10000 will make you old and grey before reaching GM stats
+SKILLADVANCEMODIFIER value
+   value   a nonzero, positive decimal number
+   the higher the number, the slower the increase
+   default is 1000
+   A value of 1000 resembles current Wolfpack standard. (thanks to duke)
+9) Added: Cannon and cannon ball it is creatable from blacksmithing.you load cannon with cannon balls
+and yes the cannon fires and will kill :)
+10) Fixed: Major fixes to the create.scp.it fixes the makemenu`s and a possible crash :)
+11) Fixed: Fixes for fishing took out the fish head and fillet..just gives steaks.
+12) Added: to make boards from carpentry with logs. (thanks to unseen)
+-----------------------------------------------------------
+                        Wolfpack8.0
+-----------------------------------------------------------
+1) Fixed the trade window so when you cancel window it dont go to other player.(thanks to LB)
+2) lowered the power of healing with bandages a little.
+3) Added so you cant use bandages while you are fighting :)
+4) Added in some new code to handle casting spells in and out of town.Now only good
+spells and summons can be casted in town.You can edit this in a new function in
+magic.cpp called townTarget().Also you will need to add NOMAGIC 0 or 1 in the regions.scp
+0=you can cast there and 1=you cant cast there.Also the MAGICDAMAGE 0 or 1 in region.scp
+is 0=no damage from magic and 1=damage from magic in that region.If you dont use
+your own scripts then get wolfpack8.0 scripts for all new updates for code :) (thanks to LB)
+5) added: you can cast spells with staffs or chaos/order shields equipted :)
+6) Added: If you have a tamed pet attack in town you and the pet will be flagged a criminal.
+7) Added: Scriptable commandprefixs..in the server.scp there is a commandprefix ' change the ' to
+what ever you want so you can use in game as .add 'add >add <add and so on :) (thanks to AB)
+8) Added: So NPCs cant spawn on rocks. (thanks to popy)
+
+                        Wolfpack7.0
+-----------------------------------------------------------
+1) Fixed so when you summoncreatures and get a ridable creature like a horse
+it will delete when summontimer is up...it just boots you off it :) (thanks to AB)
+2) Added a new command /delid ## ## ..the #= the ID # of a certain item.When used
+it will delete all the items in the world with that ID # :) ( thanks AB )
+3) Added so you cant build a house in town.(thanks to Popy)
+4) Took off the last target highlight for now..too annoying :) will add back if wanted.
+5) More fixes to spawning guards and rep sys..nothing big yet.still working on it.
+
+                        Wolfpack6.0
+-----------------------------------------------------------
+1) Fixed a problem where certain items that were locked down disappeared.
+2) Added Protection,Arch Protection and Summoncreature spells. Thanks to AB
+3) Fixed a exploit where players could grab items off a playervendor.
+4) took out where fencing allways poisoned.
+5) Added when you set guild type to chaos all members in that guild that
+are online will get chaos shields in there pack,the same for order shields.
+if you set chaos and you are allready a order it will delete your order shield
+and place a chaos shield in your pack,same vice-versus.You can edit the shields
+in the items.scp, it takes the item #`s 28 and 29 :) (thanks to AB and Evilded)
+6) Fixed a bug where players could attack blue players in town with no guards.
+
+                        Wolfpack5.0
+-----------------------------------------------------------
+1) Fixed a bug where good healers would heal a criminal ghost that attacked
+the healer :)
+2) Fixed a bug where sometimes when you res your int goes up to 100.
+3) Fixed where it showed a player disconnected on the console that wasnt
+even on.
+4) Changed maxguildmembers and maxrecruits to 30 from 10 :)
+5) More changes to the criminal rep system..alot more changes soon :)
+6) Fixed fishing and cutting fish..need new scripts.
+7) when guards kill non human npc`s the npc deletes :)
+8) Fixed so locked down food cant be eaten :)
+9) Fixed a problem where carpentry wasnt working.
+10) Boosted EV,BS and summon daemon :)
+11) Fixed it so guild members highlight green and enemy guilds highlight
+orange..also if green attack green or orange no criminal flag or guard kill :)
+12) Added TAMED_DISAPPEAR # to the server.scp..if set to 1 if you release a
+tamed animal it will disappear..if set to 0 it wont disappear :)
+13) Added alot more items like scrolls,cloth and others that CANT be used
+when they are locked down in houses.Test and let me know if i missed any :)
+
+                         Wolfpack4.0
+-------------------------------------------------------
+1) Acct 0 now has name [Admin] highlighted in yellow.No [invul] but you are :)
+(only if in GM form)
+2) Acct 0 now has The shard admin so and so on his paperdoll.
+(only in GM form)
+3) Players cant use teleport spell to tele on water :) .Thanks LB
+4) Boats seem to work good now...if you want more than 1 player
+on boat at a time then you need to have owner open boat with key
+get on boat then lock it and give key to next player and he does same
+thing till all are on :) may need new scripts.
+5) Reminder: If you didnt know..there is a 5min disconect for players
+that are inactive for 5mins.it will disconnect you after the 5mins.
+6) More work on the criminal stuff.
+7) Fixed hairdye...put in items.scp ID 0e27 or 0eff for bottle and
+COLOR 0026 for red...make as many diff ones as you want :) Thanks LB.
+8) new fixes for redeed house..now deletes keys in your backpack.thanks AB
+9) More fixes to createbandages so it gives 5 bandages for each cloth used.
+10) Added escorts to message boards. thanks to dupois for this :)
+11) Added Namedeeds..they are type 186 and you can change your name
+with them 1 time. thanks to eagle/evilded :)
