@@ -56,7 +56,7 @@ void teleporters(CHARACTER s)
 			if((iter_tele_locations->second.origem.z == illegal_z)||(pc_s->pos.z == iter_tele_locations->second.origem.z))
 			{
 				pc_s->MoveTo(iter_tele_locations->second.destination.x, iter_tele_locations->second.destination.y, iter_tele_locations->second.destination.z);
-				teleport(s);
+				teleport(pc_s);
 				return;
 			}
 		}
@@ -243,7 +243,7 @@ void advancementobjects(int s, int x, int allways)
 							pi_hair->color1=x>>8;
 							pi_hair->color2=x%256;
 							RefreshItem(pi_hair);//AntiChrist
-							teleport(DEREF_P_CHAR(pc_s));
+							teleport(pc_s);
 						}
 					}
 
@@ -268,7 +268,7 @@ void advancementobjects(int s, int x, int allways)
 							pi_beard->color1=x>>8;
 							pi_beard->color2=x%256;
 							RefreshItem(pi_beard);//AntiChrist
-							teleport(DEREF_P_CHAR(pc_s));
+							teleport(pc_s);
 						}
 					}
 
@@ -344,14 +344,14 @@ void advancementobjects(int s, int x, int allways)
 									retitem->SetContSerial(pPack->serial);
 							}
 							RefreshItem(retitem);//AntiChrist
-							teleport(DEREF_P_CHAR(pc_s));
+							teleport(pc_s);
 						}
 					}
 
 					if (!(strcmp((char*)script1,"SKIN")))
 					{
 						pc_s->skin = pc_s->xskin = static_cast<UI16>(hex2num(script2));
-						teleport(DEREF_P_CHAR(pc_s));
+						teleport(pc_s);
 					}
 
 					if (!(strcmp("POLY",(char*)script1)))
@@ -361,7 +361,7 @@ void advancementobjects(int s, int x, int allways)
 						pc_s->xid1=x>>8;
 						pc_s->id2=x%256;
 						pc_s->xid2=x%256;
-						teleport(DEREF_P_CHAR(pc_s));
+						teleport(pc_s);
 					}
 
 					if (!(strcmp("ADVOBJ",(char*)script1)))
@@ -801,7 +801,7 @@ void objTeleporters(int s)
 						if ((pmi->type == 60) && (pmi->morex + pmi->morey + pmi->morez >0))
 						{
 							pc_s->MoveTo(pmi->morex,pmi->morey,pmi->morez);
-							teleport(s);
+							teleport(pc_s);
 						}
 						
 						// advancement objects

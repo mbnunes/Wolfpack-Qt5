@@ -632,7 +632,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	Xsend(s, startup, 37);
 	pc_currchar->war=0;
 	wornitems(s, DEREF_P_CHAR(pc_currchar));
-	teleport(DEREF_P_CHAR(pc_currchar));
+	teleport((pc_currchar));
 	Xsend(s, modeset, 5);
 	impowncreate(s, DEREF_P_CHAR(pc_currchar), 0);
 	Xsend(s, techstuff, 20);
@@ -679,7 +679,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	}
 
 	Accounts->SetOnline(acctno[s], pc_currchar->serial);
-	teleport(DEREF_P_CHAR(pc_currchar));
+	teleport((pc_currchar));
 
 	pc_currchar->murderrate=uiCurrentTime+repsys.murderdecay*MY_CLOCKS_PER_SEC; // LB, bugfix for murder-count getting --'ed each start
 
@@ -1303,7 +1303,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x22:// Resync Request			
-					teleport(DEREF_P_CHAR(pc_currchar));
+					teleport((pc_currchar));
 					break;
 
 				case 0x03:// Speech			

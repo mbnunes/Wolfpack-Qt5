@@ -1617,7 +1617,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 
 							pos = ftell(scpfile);	// teleport might open scripts
 							closescript();
-							teleport(DEREF_P_CHAR(currchar[ts]));
+							teleport(currchar[ts]);
 							if (ttype)
 								openscript("triggers.scp");
 							else 
@@ -2944,7 +2944,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							pc_ts->pos.x = makenumber(0);
 							pc_ts->pos.y = makenumber(1);
 							pc_ts->pos.z = makenumber(2);
-							teleport(DEREF_P_CHAR(pc_ts));
+							teleport(pc_ts);
 						}
 						break;
 					case 'R':

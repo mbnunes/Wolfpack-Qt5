@@ -267,7 +267,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 	}
 //	END OF: By Polygon
 
-	if(!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),skill, itemmake[s].minskill, itemmake[s].maxskill) && !pc_currchar->isGM()) //GM cannot fail! - AntiChrist
+	if(!Skills->CheckSkill(pc_currchar,skill, itemmake[s].minskill, itemmake[s].maxskill) && !pc_currchar->isGM()) //GM cannot fail! - AntiChrist
 	{
 		// Magius(CHE) §
 		// With these 2 lines if you have a resouce item with
@@ -676,7 +676,7 @@ void cSkills::Hide(int s)
 		return; 
 	} 
 	
-	if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), HIDING, 0, 1000)) 
+	if (!Skills->CheckSkill(pc_currchar, HIDING, 0, 1000)) 
 	{ 
 		sysmessage(s, "You are unable to hide here."); 
 		return; 
@@ -720,7 +720,7 @@ void cSkills::Stealth(int s)//AntiChrist
 		pc_currchar->unhide();
 		return;
 	}
-	if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),STEALTH, 0, 1000)) 
+	if (!Skills->CheckSkill(pc_currchar,STEALTH, 0, 1000)) 
 	{
 		pc_currchar->unhide();
 		return;
@@ -742,8 +742,8 @@ void cSkills::PeaceMaking(int s)
 		return;
 	}
 	P_CHAR pc_currchar = currchar[s];
-	res1=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), PEACEMAKING, 0, 1000);
-	res2=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MUSICIANSHIP, 0, 1000);
+	res1=Skills->CheckSkill(pc_currchar, PEACEMAKING, 0, 1000);
+	res2=Skills->CheckSkill(pc_currchar, MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
 		Skills->PlayInstrumentWell(s, p_inst);
@@ -913,26 +913,26 @@ void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 
 	switch((10*type)+sub)
 	{
-	case 11:success=Skills->CheckSkill(s, ALCHEMY,151, 651);break;//agility
-	case 12:success=Skills->CheckSkill(s, ALCHEMY,351, 851);break;//greater agility
-	case 21:success=Skills->CheckSkill(s, ALCHEMY,  0, 500);break;//lesser cure
-	case 22:success=Skills->CheckSkill(s, ALCHEMY,251, 751);break;//cure
-	case 23:success=Skills->CheckSkill(s, ALCHEMY,651,1151);break;//greater cure
-	case 31:success=Skills->CheckSkill(s, ALCHEMY, 51, 551);break;//lesser explosion
-	case 32:success=Skills->CheckSkill(s, ALCHEMY,351, 851);break;//explosion
-	case 33:success=Skills->CheckSkill(s, ALCHEMY,651,1151);break;//greater explosion
-	case 41:success=Skills->CheckSkill(s, ALCHEMY,  0, 500);break;//lesser heal
-	case 42:success=Skills->CheckSkill(s, ALCHEMY,151, 651);break;//heal
-	case 43:success=Skills->CheckSkill(s, ALCHEMY,551,1051);break;//greater heal
-	case 51:success=Skills->CheckSkill(s, ALCHEMY,  0, 500);break;//night sight
-	case 61:success=Skills->CheckSkill(s, ALCHEMY,  0, 500);break;//lesser poison
-	case 62:success=Skills->CheckSkill(s, ALCHEMY,151, 651);break;//poison
-	case 63:success=Skills->CheckSkill(s, ALCHEMY,551,1051);break;//greater poison
-	case 64:success=Skills->CheckSkill(s, ALCHEMY,901,1401);break;//deadly poison
-	case 71:success=Skills->CheckSkill(s, ALCHEMY,  0, 500);break;//refresh
-	case 72:success=Skills->CheckSkill(s, ALCHEMY,251, 751);break;//total refreshment
-	case 81:success=Skills->CheckSkill(s, ALCHEMY,251, 751);break;//strength
-	case 82:success=Skills->CheckSkill(s, ALCHEMY,451, 951);break;//greater strength
+	case 11:success=Skills->CheckSkill(pc, ALCHEMY,151, 651);break;//agility
+	case 12:success=Skills->CheckSkill(pc, ALCHEMY,351, 851);break;//greater agility
+	case 21:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//lesser cure
+	case 22:success=Skills->CheckSkill(pc, ALCHEMY,251, 751);break;//cure
+	case 23:success=Skills->CheckSkill(pc, ALCHEMY,651,1151);break;//greater cure
+	case 31:success=Skills->CheckSkill(pc, ALCHEMY, 51, 551);break;//lesser explosion
+	case 32:success=Skills->CheckSkill(pc, ALCHEMY,351, 851);break;//explosion
+	case 33:success=Skills->CheckSkill(pc, ALCHEMY,651,1151);break;//greater explosion
+	case 41:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//lesser heal
+	case 42:success=Skills->CheckSkill(pc, ALCHEMY,151, 651);break;//heal
+	case 43:success=Skills->CheckSkill(pc, ALCHEMY,551,1051);break;//greater heal
+	case 51:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//night sight
+	case 61:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//lesser poison
+	case 62:success=Skills->CheckSkill(pc, ALCHEMY,151, 651);break;//poison
+	case 63:success=Skills->CheckSkill(pc, ALCHEMY,551,1051);break;//greater poison
+	case 64:success=Skills->CheckSkill(pc, ALCHEMY,901,1401);break;//deadly poison
+	case 71:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//refresh
+	case 72:success=Skills->CheckSkill(pc, ALCHEMY,251, 751);break;//total refreshment
+	case 81:success=Skills->CheckSkill(pc, ALCHEMY,251, 751);break;//strength
+	case 82:success=Skills->CheckSkill(pc, ALCHEMY,451, 951);break;//greater strength
 	default:
 		LogError("switch reached default");
 		return;
@@ -1068,10 +1068,11 @@ void cSkills::PotionToBottle(CHARACTER s, P_ITEM pi_mortar)
 	return;
 }
 
-char cSkills::CheckSkill(int c, unsigned short int sk, int low, int high)
+char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 {
 	char skillused=0;
-	P_CHAR pc = MAKE_CHARREF_LRV(c,0);
+	if ( pc == NULL ) 
+		return 0;
     UOXSOCKET s=-1;
     if(pc->isPlayer()) s=calcSocketFromChar(DEREF_P_CHAR(pc));
 	
@@ -1331,7 +1332,7 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	//	Unsure if spirit speaking should they attempt again?
 	//	Suggestion: If they attempt the skill and the timer is !0 do not have it raise the skill
 	
-	if(!Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),SPIRITSPEAK, 0, 1000))
+	if(!Skills->CheckSkill(currchar[s], SPIRITSPEAK, 0, 1000))
 	{
 		sysmessage(s,"You fail your attempt at contacting the netherworld.");
 		return;
@@ -1585,7 +1586,7 @@ void cSkills::RandomSteal(int s)
 			return;
 		}
 		
-		skill = Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), STEALING, 0, 999);
+		skill = Skills->CheckSkill(pc_currchar, STEALING, 0, 999);
 		if (skill)
 		{
 			item->SetContSerial(pc_currchar->packitem);
@@ -1915,9 +1916,9 @@ static int CheckThreeSkills(int s, int low, int high)
 {
 	int part=0;
 	currentSpellType[s]=0;		// needed for MAGERY check
-	part += Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), INSCRIPTION,  low, high);
-	part += Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MAGERY,		low, high);
-	part += Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), TINKERING,	low, high);
+	part += Skills->CheckSkill(currchar[s], INSCRIPTION,  low, high);
+	part += Skills->CheckSkill(currchar[s], MAGERY,		low, high);
+	part += Skills->CheckSkill(currchar[s], TINKERING,	low, high);
 	return part;
 }
 
@@ -2278,9 +2279,9 @@ void cSkills::TDummy(int s)
 	}
 	if(currchar[s]->skill[skillused] < 300)
 	{
-		Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),skillused, 0, 1000);
+		Skills->CheckSkill(currchar[s], skillused, 0, 1000);
 		if(currchar[s]->skill[TACTICS] < 300)
-			Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),TACTICS, 0, 250);  //Dupois - Increase tactics but only by a fraction of the normal rate
+			Skills->CheckSkill(currchar[s], TACTICS, 0, 250);  //Dupois - Increase tactics but only by a fraction of the normal rate
 	}
 	else
 		sysmessage(s, "You feel you would gain no more from using that.");   
@@ -2403,7 +2404,7 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 		else Combat->CombatOnFoot(DEREF_P_CHAR(pc_currchar));
 		
 		if (pc_currchar->skill[ARCHERY] < 350)
-			Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),ARCHERY, 0, 1000);
+			Skills->CheckSkill(pc_currchar,ARCHERY, 0, 1000);
 		else
 			sysmessage(s1, "You learn nothing from practicing here");
 
@@ -2471,7 +2472,7 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 		pc_currchar->med = 0;
 		return;
 	}
-	else if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MEDITATION, 0, 1000))
+	else if (!Skills->CheckSkill(pc_currchar, MEDITATION, 0, 1000))
 	{
 		sysmessage(s, "You cannot focus your concentration.");
 		pc_currchar->med = 0;
@@ -2682,7 +2683,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 		sysmessage(owner_sock, (char*)temp);
 		return;
 	}
-	else if (Skills->CheckSkill(DEREF_P_CHAR(player), SNOOPING, 0, 1000))
+	else if (Skills->CheckSkill(player, SNOOPING, 0, 1000))
 	{
 		backpack(s, container->serial);
 		sysmessage(s, "You successfully peek into that container.");
@@ -2800,7 +2801,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 
 	if(pc_currchar->skilldelay<=uiCurrentTime || pc_currchar->isGM())	// Char doin something?
 	{
-		if (CheckSkill(s, CARTOGRAPHY, tmap->morey * 10, 1000))	// Is the char skilled enaugh to decipher the map
+		if (CheckSkill(pc_currchar, CARTOGRAPHY, tmap->morey * 10, 1000))	// Is the char skilled enaugh to decipher the map
 		{
 			P_ITEM nmap = Items->SpawnItemBackpack2(s, 70025, 0);
 			if (nmap == NULL)

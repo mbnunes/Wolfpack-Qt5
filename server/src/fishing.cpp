@@ -219,7 +219,7 @@ void cFishing::Fish(CHARACTER i)
 
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 
-	if(!Skills->CheckSkill(i,FISHING, 0, 1000))
+	if(!Skills->CheckSkill(pc_i, FISHING, 0, 1000))
 	{
 		sysmessage(s,"You fish for a while, but fail to catch anything.");
 		return;

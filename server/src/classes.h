@@ -188,7 +188,7 @@ public:
 	void AlchemyTarget(int s);
 	void BottleTarget(int s);
 	void PotionToBottle(CHARACTER s, P_ITEM pi_mortar);
-	char CheckSkill(int s,unsigned short int sk, int low, int high);
+	char CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high);
 	void CreateBandageTarget(int s);
 	void HealingSkillTarget(UOXSOCKET s);
 	void SpiritSpeak(int s);

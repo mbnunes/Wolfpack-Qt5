@@ -94,16 +94,16 @@ static void reverseIncognito(P_CHAR pc)
 		}
 		
 		//only refresh once, when poly finished
-		teleport(c);
-		int socket=calcSocketFromChar(c);//calculate only once
+		teleport(pc);
+		int socket=calcSocketFromChar(DEREF_P_CHAR(pc));//calculate only once
 		if (socket!=-1)
 		{
-			wornitems(socket, c);//send update to current socket
+			wornitems(socket, DEREF_P_CHAR(pc));//send update to current socket
 			int j;
 			for (j=0;j<now;j++)
 			{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
 				if (perm[j] && inrange1p(c, DEREF_P_CHAR(currchar[j])) && (j!=socket))
-					wornitems(j, c);
+					wornitems(j, DEREF_P_CHAR(pc));
 			}
 		}
 		pc->incognito=false;//AntiChrist
@@ -233,7 +233,7 @@ void cTmpEff::Reverse()
 			pc_s->id1=pc_s->xid1;
 			pc_s->id2=pc_s->xid2;
 			pc_s->polymorph=false;
-			teleport(DEREF_P_CHAR(pc_s));
+			teleport(pc_s);
 		}
 		break;
 	case 19: //Incognito spell by AntiChrist
@@ -282,41 +282,41 @@ void cTmpEff::Expire()
 		if (pc_s->priv2&0x02)
 		{
 			pc_s->priv2 &= 0xFD;
-			int sk=calcSocketFromChar(DEREF_P_CHAR(pc_s));
+			int sk=calcSocketFromChar((pc_s));
 			if (sk!=-1) sysmessage(sk, "You are no longer frozen.");
 			Magic->afterParticles(38, DEREF_P_CHAR(pc_s)); 			
 		}
 		break;
 	case 2:
 		pc_s->fixedlight='\xFF';
-		dolight(calcSocketFromChar(DEREF_P_CHAR(pc_s)), worldbrightlevel);
+		dolight(calcSocketFromChar((pc_s)), worldbrightlevel);
 		break;
 	case 3:
 		pc_s->chgDex(more1);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 4:
 		pc_s->in+=more1;
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 5:
 		pc_s->st+=more1;
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 6:
 		pc_s->chgDex(-1 * more1);
 		pc_s->stm=min(pc_s->stm, (int)pc_s->effDex());
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 7:
 		pc_s->in-=more1;
 		pc_s->mn=min(pc_s->mn, pc_s->in);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 8:
 		pc_s->st-=more1;
 		pc_s->hp=min(pc_s->hp, pc_s->st);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 9:
 		if (more1 == 0)
@@ -344,13 +344,13 @@ void cTmpEff::Expire()
 		pc_s->stm=min(pc_s->stm, (int)pc_s->effDex());
 		pc_s->in-=more3;
 		pc_s->mn=min(pc_s->mn, pc_s->in);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 12:
 		pc_s->st+=more1;
 		pc_s->chgDex(more2);
 		pc_s->in+=more3;
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
+		statwindow(calcSocketFromChar((pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 13:
 		{
@@ -360,7 +360,7 @@ void cTmpEff::Expire()
 				if (pDoor->dooropen==0)
 					break;
 				pDoor->dooropen=0;
-				dooruse(calcSocketFromChar(DEREF_P_CHAR(pc_s)), pDoor);
+				dooruse(calcSocketFromChar((pc_s)), pDoor);
 			}
 			break;
 		}
@@ -389,11 +389,11 @@ void cTmpEff::Expire()
 		break;
 	case 16: //Explosion potion messages	Tauriel
 		sprintf((char*)temp, "%i", more3);
-		sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_s)), (char*)temp); // crashfix, LB
+		sysmessage(calcSocketFromChar((pc_s)), (char*)temp); // crashfix, LB
 		break;
 	case 17: //Explosion potion explosion	Tauriel			
 		pc_s = FindCharBySerial(getSour());
-		explodeitem(calcSocketFromChar(DEREF_P_CHAR(pc_s)), FindItemBySerial(getDest())); //explode this item
+		explodeitem(calcSocketFromChar((pc_s)), FindItemBySerial(getDest())); //explode this item
 		break;
 	case 18: //Polymorph spell by AntiChrist 9/99
 		if(pc_s->polymorph)//let's ensure it's under polymorph effect!
@@ -401,7 +401,7 @@ void cTmpEff::Expire()
 			pc_s->id1=pc_s->xid1;
 			pc_s->id2=pc_s->xid2;
 			pc_s->polymorph=false;
-			teleport(DEREF_P_CHAR(pc_s));
+			teleport(pc_s);
 		}
 		break;
 	case 19: //Incognito spell by AntiChrist 12/99
@@ -409,7 +409,7 @@ void cTmpEff::Expire()
 		break;
 		
 	case 20: // LSD potions, LB 5'th nov 1999
-		k=calcSocketFromChar(DEREF_P_CHAR(pc_s));
+		k=calcSocketFromChar((pc_s));
 		if (k==-1) return;
 		LSD[k]=0;
 		sysmessage(k,"LSD has worn off");
@@ -434,7 +434,7 @@ void cTmpEff::Expire()
 		break;
 		
 	case 33: // delayed hiding for gms after flamestrike effect
-		k=calcSocketFromChar(DEREF_P_CHAR(pc_s));
+		k=calcSocketFromChar((pc_s));
 		sysmessage(k,"You have hidden yourself well.");
 		pc_s->hidden=1;
 		updatechar(DEREF_P_CHAR(pc_s));
@@ -442,7 +442,7 @@ void cTmpEff::Expire()
 		
 	case 34: // delayed unhide for gms
 		// Changed to be uniform with delayed hideing  (Aldur)
-		k = calcSocketFromChar(DEREF_P_CHAR(pc_s)); 
+		k = calcSocketFromChar((pc_s)); 
 		sysmessage(k, "You are now visible."); 
 		pc_s->hidden = 0; 
 		updatechar(DEREF_P_CHAR(pc_s)); 
@@ -557,7 +557,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		break;
 	case 2:	// night sight
 		pc_dest->fixedlight=worldbrightlevel;
-		dolight(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), worldbrightlevel);
+		dolight(calcSocketFromChar((pc_dest)), worldbrightlevel);
 		Magic->afterParticles(6, DEREF_P_CHAR(pc_dest)); // shows particles for UO:3D clients, like On OSI servers
 
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 30.12.2000)
@@ -573,7 +573,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->effDex();
 		pc_dest->chgDex(-1 * more1);
 		pc_dest->stm=min(pc_dest->stm, (int)pc_dest->effDex());
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -584,7 +584,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->in;
 		pc_dest->in-=more1;
 		pc_dest->mn=min(pc_dest->mn, pc_dest->in);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -595,7 +595,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->st;
 		pc_dest->st-=more1;
 		pc_dest->hp=min(pc_dest->hp, pc_dest->st);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -605,7 +605,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		if (pc_dest->effDex()+more1>250)
 			more1=250-pc_dest->effDex();
 		pc_dest->chgDex(more1);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
 			pTE->setExpiretime_s(dur);
 		else
@@ -618,7 +618,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		if (pc_dest->in+more1>255)
 			more1=pc_dest->in-255;
 		pc_dest->in+=more1;
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -628,7 +628,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		if (pc_dest->st+more1>255)
 			more1=pc_dest->st-255;
 		pc_dest->st+=more1;
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
 			pTE->setExpiretime_s(dur);
 		else			// else use caster's skill
@@ -657,7 +657,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		pc_dest->st+=more1;
 		pc_dest->chgDex(more2);
 		pc_dest->in+=more3;
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
@@ -674,7 +674,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		pc_dest->st-=more1;
 		pc_dest->chgDex(-1 * more2);
 		pc_dest->in-=more3;
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
@@ -732,7 +732,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			pc_dest->id1=pc_dest->xid1;
 			pc_dest->id2=pc_dest->xid2;
 			pc_dest->polymorph=false;
-			teleport(DEREF_P_CHAR(pc_dest));
+			teleport(pc_dest);
 		}
 		int j,ci;
 
@@ -907,9 +907,9 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 		}//if beardserial!=-1
 
 		//only refresh once
-		teleport(DEREF_P_CHAR(pc_dest));
+		teleport(pc_dest);
 
-		socket=calcSocketFromChar(DEREF_P_CHAR(pc_dest));
+		socket=calcSocketFromChar((pc_dest));
 
 		wornitems(socket, DEREF_P_CHAR(pc_dest));//send update to current socket
 
@@ -977,7 +977,7 @@ bool cAllTmpEff::Add(int source, int dest, int num, unsigned char more1, unsigne
 			more1=pc_dest->in;
 		pc_dest->in-=more1;
 		pc_dest->mn=min(pc_dest->mn, pc_dest->in);
-		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_dest)), DEREF_P_CHAR(pc_dest));
+		statwindow(calcSocketFromChar((pc_dest)), DEREF_P_CHAR(pc_dest));
 		pTE->setExpiretime_s(30);
 		pTE->num=4;
 		pTE->more1=more1;

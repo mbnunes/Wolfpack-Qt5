@@ -176,7 +176,7 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 			   {
 				  pc_b->MoveTo(boat2->pos.x+1, boat2->pos.y+1, boat2->pos.z+2);
                   pc_b->SetMultiSerial(boat2->serial);
-				  teleport(DEREF_P_CHAR(pc_b));
+				  teleport((pc_b));
 			   }
 			}
 		}
@@ -194,7 +194,7 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 	} else {
 		LeaveBoat(s, pi_plank);//They are on a boat, get off
 	}
-	teleport(DEREF_P_CHAR(pc_cs));//Show them they moved.
+	teleport((pc_cs));//Show them they moved.
 }
 
 
@@ -246,7 +246,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 								pc_b->multis=-1;
 							}
 							
-							teleport(DEREF_P_CHAR(pc_b));
+							teleport((pc_b));
 						}
 					}
 				}
@@ -719,7 +719,7 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 		if (pc_c != NULL)
 		{
 			pc_c->MoveTo(pc_c->pos.x+=tx, pc_c->pos.y+=ty, pc_c->pos.z);
-			teleport(DEREF_P_CHAR(pc_c));
+			teleport((pc_c));
 		}
 	}
 	Xsend(s,restart,2);
@@ -749,7 +749,7 @@ void cBoat::TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir)//Turn an item that was
 	//Set then in their new cell
 
 	mapRegions->Add(pc_i);
-	teleport(DEREF_P_CHAR(pc_i));
+	teleport((pc_i));
 }
 
 void cBoat::TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir)//Turn an item that was on the boat when the boat was turned.

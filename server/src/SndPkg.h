@@ -85,7 +85,7 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2);
 void chardel (UOXSOCKET s); // Deletion of character
 void textflags (int s, int i, char *name);
-void teleport(CHARACTER s); // Teleports character to its current set coordinates
+void teleport(P_CHAR pc); // Teleports character to its current set coordinates
 void teleport2(CHARACTER s); // used for /RESEND only - Morrolan, so people can find their corpses
 void updatechar(CHARACTER c); // If character status has been changed (Polymorph);, resend him
 void target(UOXSOCKET s, int a1, int a2, int a3, int a4, char *txt); // Send targetting cursor to client

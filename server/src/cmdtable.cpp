@@ -762,13 +762,13 @@ void command_resend(UOXSOCKET s)
 {
 	all_items(s);
 	LogMessage("ALERT: all_items() called in command_resend().\nThis function could cause a lot of lag!\n");
-	teleport(DEREF_P_CHAR(currchar[s]));
+	teleport((currchar[s]));
 	return;
 }
 
 void command_teleport(UOXSOCKET s)
 {
-	teleport(DEREF_P_CHAR(currchar[s])); 
+	teleport((currchar[s])); 
 	return;
 }
 
@@ -855,7 +855,7 @@ void command_goplace(UOXSOCKET s)
 			doGmMoveEff(s); 
 			
 			pc_cs->MoveTo(addx[s],addy[s],addz[s]); 
-			teleport(DEREF_P_CHAR(currchar[s])); 
+			teleport((currchar[s])); 
 			
 			doGmMoveEff(s); 
 		} 
@@ -889,7 +889,7 @@ void command_gochar(UOXSOCKET s)
 					doGmMoveEff(s); 
 					
 					pc_cs->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z); 
-					teleport(DEREF_P_CHAR(currchar[s])); 
+					teleport((currchar[s])); 
 					
 					doGmMoveEff(s); 
 					
@@ -913,7 +913,7 @@ void command_gochar(UOXSOCKET s)
 					doGmMoveEff(s); 
 					
 					pc_cs->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z); 
-					teleport(DEREF_P_CHAR(currchar[s])); 
+					teleport((currchar[s])); 
 					
 					doGmMoveEff(s); 
 					
@@ -939,7 +939,7 @@ void command_fix(UOXSOCKET s)
 		{
 			pc_cs->dispz = pc_cs->pos.z = validtelepos(s);
 		}
-		teleport(DEREF_P_CHAR(currchar[s]));
+		teleport((currchar[s]));
 	}
 	return;
 }
@@ -1009,7 +1009,7 @@ void command_poly(UOXSOCKET s)
 		}
 	}
 	
-	teleport(DEREF_P_CHAR(currchar[s]));
+	teleport((currchar[s]));
 	return;
 	
 }
@@ -1032,7 +1032,7 @@ void command_skin(UOXSOCKET s)
 		if (k != 0x8000)
 		{	
 			pc_currchar->skin = pc_currchar->xskin = k;
-			teleport(DEREF_P_CHAR(currchar[s]));
+			teleport((currchar[s]));
 		}
 	}
 	return;
@@ -1093,7 +1093,7 @@ void command_go(UOXSOCKET s)
 			P_CHAR pc_currchar = currchar[s];
 			
 			pc_currchar->MoveTo(x,y,z); 
-			teleport(DEREF_P_CHAR(currchar[s])); 
+			teleport((currchar[s])); 
 			
 			doGmMoveEff(s); 
 		} 
@@ -1596,7 +1596,7 @@ void command_allmoveon(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 |= 0x01;
-	teleport(DEREF_P_CHAR(currchar[s]));
+	teleport((currchar[s]));
 	sysmessage(s, "ALLMOVE enabled."); // Crackerjack 07/25/99
 	return;
 	
@@ -1607,7 +1607,7 @@ void command_allmoveoff(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 &= (0xFF-0x01);
-	teleport(DEREF_P_CHAR(currchar[s]));
+	teleport((currchar[s]));
 	sysmessage(s, "ALLMOVE disabled."); // Crackerjack 07/25/99
 	return;
 	
@@ -1618,7 +1618,7 @@ void command_showhs(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 |= 0x04;
-	teleport(DEREF_P_CHAR(currchar[s]));
+	teleport((currchar[s]));
 	sysmessage(s, "House icons visible. (Houses invisible)");
 	return;
 	
@@ -1629,7 +1629,7 @@ void command_hidehs(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 &= (0xFF-0x04);
-	teleport(DEREF_P_CHAR(currchar[s]));
+	teleport((currchar[s]));
 	sysmessage(s, "House icons hidden. (Houses visible)");
 	return;
 }
@@ -2230,7 +2230,7 @@ void command_gotocur(UOXSOCKET s)
 		{
 			pc_currchar->MoveTo(pc_i->pos.x, pc_i->pos.y, pc_i->pos.z);
 			sysmessage(s,"Transporting to your current call.");
-			teleport(DEREF_P_CHAR(currchar[s]));
+			teleport((currchar[s]));
 			x++;
 		}  
 		if(x == 0)
@@ -2242,7 +2242,7 @@ void command_gotocur(UOXSOCKET s)
 			{
 				pc_currchar->MoveTo(pc_i->pos.x, pc_i->pos.y, pc_i->pos.z);
 				sysmessage(s,"Transporting to your current call.");
-				teleport(DEREF_P_CHAR(currchar[s]));
+				teleport((currchar[s]));
 			}
 		}
 	}

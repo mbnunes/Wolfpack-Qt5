@@ -279,7 +279,7 @@ static void TeleTarget(int s, PKGx6C *pp)
 		doGmMoveEff(s); 
 		
 		pc_currchar->MoveTo(x,y,z+Map->TileHeight(pp->model)); 
-		teleport(DEREF_P_CHAR(pc_currchar)); 
+		teleport(pc_currchar); 
 		
 		doGmMoveEff(s); 
 	} 
@@ -380,7 +380,7 @@ public:
 	void CharSpecific()
 	{
 		pc->dispz=pc->pos.z=addx[s];
-		teleport(DEREF_P_CHAR(pc));
+		teleport(pc);
 	}
 	void ItemSpecific()
 	{
@@ -440,7 +440,7 @@ void cTargets::XTeleport(int s, int x)
 			{
 				UOXSOCKET s = pc_currchar->making;
 				currchar[s]->MoveTo(pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
-				teleport(DEREF_P_CHAR(currchar[s]));
+				teleport(currchar[s]);
 			}
 			return;
 		case 5:
@@ -495,7 +495,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 		{
 			if ( pi->type==7 && (iteminrange(s,pi,2) || (!pi->isInWorld()) ) )
 			{
-				if (!Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),TINKERING, 400, 1000))
+				if (!Skills->CheckSkill(currchar[s], TINKERING, 400, 1000))
 				{
 					sysmessage(s,"You fail and destroy the key blank.");
 					Items->DeleItem(pi);
@@ -2010,7 +2010,7 @@ void cTargets::ReleaseTarget(int s, int c)
 			pc->priv2 = 0; 
 			pc->jailsecs = 0; 
 			pc->jailtimer = 0; 
-			teleport(DEREF_P_CHAR(pc)); 
+			teleport(pc); 
 			soundeffect(c, 1, 0xfd); // Play sound effect for player 
 			sysmessage(c, "You are released.."); 
 			sysmessage(s, "Player %s released.", pc->name); 
@@ -2073,7 +2073,7 @@ void cTargets::MakeShopTarget(int s)
 	if (pc != NULL)
 	{
 		Commands->MakeShop(DEREF_P_CHAR(pc));
-		teleport(DEREF_P_CHAR(pc));
+		teleport(pc);
 		sysmessage(s, "The buy containers have been added.");
 		return;
 	}
@@ -2119,7 +2119,7 @@ void cTargets::JailTarget(int s, int c)
 			pc->jailsecs = addmitem[s]; // Additem array used for jail time here.. 
 			addmitem[s] = 0; // clear it 
 			pc->jailtimer = uiCurrentTime +(MY_CLOCKS_PER_SEC*pc->jailsecs); 
-			teleport(DEREF_P_CHAR(tmpnum)); 
+			teleport(tmpnum); 
 			UOXSOCKET prisoner = calcSocketFromChar(tmpnum); 
 			jails[i].occupied = 1; 
 			sysmessage(prisoner, "You are jailed !"); 
@@ -2496,7 +2496,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 				break;
 			}
 		}
-		teleport(DEREF_P_CHAR(pc));
+		teleport(pc);
 		return true;
 	}
 
@@ -2524,7 +2524,7 @@ void cTargets::NewXTarget(int s) // Notice a high similarity to th function abov
 		if (pc == NULL)
 			return;
 		pc->MoveTo(addx[s],pc->pos.y,pc->pos.z);
-		teleport(DEREF_P_CHAR(pc));
+		teleport(pc);
 	}
 }
 
@@ -2545,7 +2545,7 @@ void cTargets::NewYTarget(int s)
 		if (pc == NULL)
 			return;
 		pc->MoveTo(pc->pos.x,addx[s],pc->pos.z);
-		teleport(DEREF_P_CHAR(pc));
+		teleport(pc);
 	}
 }
 
@@ -2567,7 +2567,7 @@ void cTargets::IncXTarget(int s)
 		if (pc == NULL)
 			return;
 		pc->MoveTo(pc->pos.x + addx[s],pc->pos.y,pc->pos.z);
-		teleport(DEREF_P_CHAR(pc));
+		teleport(pc);
 	}
 }
 
@@ -2589,7 +2589,7 @@ void cTargets::IncYTarget(int s)
 		if (pc == NULL)
 			return;
 		pc->MoveTo(pc->pos.x, pc->pos.y + addx[s], pc->pos.z);
-		teleport(DEREF_P_CHAR(pc));
+		teleport(pc);
 	}
 }
 
@@ -2726,7 +2726,7 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 		if(pc->pos.x>=sx&&pc->pos.y>=sy&&pc->pos.x<=ex&&pc->pos.y<=ey)
 		{
 			pc->MoveTo(ex,ey,pc->pos.z);
-			teleport(DEREF_P_CHAR(pc));
+			teleport(pc);
 			sysmessage(s, "Player ejected.");
 		}
 		else

@@ -1000,7 +1000,7 @@ void deathstuff(int i)
 		pc_player->id1=pc_player->xid1;
 		pc_player->id2=pc_player->xid2;
 		pc_player->polymorph = false;
-		teleport(DEREF_P_CHAR(pc_player));
+		teleport(pc_player);
 	}
 
 	pc_player->xid1=pc_player->id1; // lb bugfix
@@ -1257,9 +1257,9 @@ void deathstuff(int i)
 	if (pc_player->account!=-1) // LB
 	{
 		
-		teleport(DEREF_P_CHAR(pc_player));
+		teleport(pc_player);
 	
-		q = calcSocketFromChar(DEREF_P_CHAR(pc_player));
+		q = calcSocketFromChar(pc_player);
 		if (q>-1) deathmenu(q);
 	}
 //	if ((ele==13)||(ele==15)||(ele==16)||(ele==574))//-Frazurbluu, we're gonna remove this strange little function :)
@@ -2281,7 +2281,7 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 		pc_currchar->xid1=tmp>>8;
 		pc_currchar->id2=tmp%256;
 		pc_currchar->xid2=tmp%256;
-		teleport(DEREF_P_CHAR(pc_currchar));
+		teleport(pc_currchar);
 		return;
 	}
 	if (!(strcmp("SKIN", (char*)script1)))
@@ -2323,7 +2323,7 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 		if (addx[s]!=0)
 		{
 			pc_currchar->MoveTo(addx[s],addy[s],addz[s]);
-			teleport(DEREF_P_CHAR(pc_currchar));
+			teleport(pc_currchar);
 		}
 		return;
 	}

@@ -350,7 +350,7 @@ void cCommands::NextCall(int s, int type)
 					gmpages[i].handled = 1;
 					pc_currchar->MoveTo(pc_player->pos.x, pc_player->pos.y, pc_player->pos.z);
 					pc_currchar->callnum = i;
-					teleport(DEREF_P_CHAR(pc_currchar));
+					teleport((pc_currchar));
 					x++;
 				}// if
 				if (x > 0)
@@ -383,7 +383,7 @@ void cCommands::NextCall(int s, int type)
 					gmpages[i].handled = 1;
 					pc_currchar->MoveTo(pc_player->pos.x, pc_player->pos.y, pc_player->pos.z);
 					pc_currchar->callnum = i;
-					teleport(DEREF_P_CHAR(pc_currchar));
+					teleport((pc_currchar));
 					x++;
 					break;
 				}// if

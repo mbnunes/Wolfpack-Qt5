@@ -434,7 +434,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 					pc->jailsecs=0;
 					pc->jailtimer=0;
 					pc->priv2=0;
-					teleport(DEREF_P_CHAR(pc));
+					teleport(pc);
 					
 					sprintf((char*)temp,"%s is auto-released from jail \n",pc->name);
 					savelog((char*)temp,"server.log");

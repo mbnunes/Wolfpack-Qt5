@@ -128,7 +128,7 @@ void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 {
 	P_CHAR pDefender = MAKE_CHARREF_LR(pAttacker->swingtarg);
-	UOXSOCKET s1=calcSocketFromChar(DEREF_P_CHAR(pAttacker));
+	UOXSOCKET s1=calcSocketFromChar((pAttacker));
 
 	unsigned short los=line_of_sight(s1,pAttacker->pos, pDefender->pos,	WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);
 
@@ -144,7 +144,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 	P_CHAR pc_attacker = MAKE_CHARREF_LR(a);
 	P_CHAR pc_deffender = MAKE_CHARREF_LR(d);
 
-	UOXSOCKET s1=calcSocketFromChar(DEREF_P_CHAR(pc_attacker)), s2=calcSocketFromChar(DEREF_P_CHAR(pc_deffender));
+	UOXSOCKET s1=calcSocketFromChar((pc_attacker)), s2=calcSocketFromChar((pc_deffender));
 	unsigned short fightskill=Skills->GetCombatSkill(DEREF_P_CHAR(pc_attacker)), bowtype=Combat->GetBowType(DEREF_P_CHAR(pc_attacker)),splitnum,splitcount,hitin;
 	unsigned int basedamage;
 	int damage; // removed from unsigne by Magius(CHE)
@@ -180,7 +180,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 	if(pc_deffender->isNpc() && pc_deffender->isInvul()) return; // ripper
 
 
-	hit=Skills->CheckSkill(DEREF_P_CHAR(pc_attacker), fightskill, 0, 1000);  // increase fighting skill for attacker and defender
+	hit=Skills->CheckSkill(pc_attacker, fightskill, 0, 1000);  // increase fighting skill for attacker and defender
 	if (!hit)
 	{
 		if (pc_attacker->isPlayer())
@@ -255,13 +255,13 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 							
 				}
 			}
-			Skills->CheckSkill(DEREF_P_CHAR(pc_attacker), TACTICS, 0, 1000);
+			Skills->CheckSkill(pc_attacker, TACTICS, 0, 1000);
 			damage=(int)(basedamage*((pc_attacker->skill[TACTICS]+500.0)/1000.0)); // Add Tactical bonus
 			damage=damage+(int)((basedamage*(pc_attacker->st/500.0))); // Add Strength bonus
 
 			//Adds a BONUS DAMAGE for ANATOMY
 			//Anatomy=100 -> Bonus +20% Damage - AntiChrist (11/10/99)
-			if (Skills->CheckSkill(DEREF_P_CHAR(pc_attacker), ANATOMY, 0, 1000))
+			if (Skills->CheckSkill(pc_attacker, ANATOMY, 0, 1000))
 			{
 				float multiplier=(((pc_attacker->skill[ANATOMY]*20)/1000.0f)/100.0f)+1;
 				damage=(int)  (damage * multiplier);
@@ -273,7 +273,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			P_ITEM pShield=pc_deffender->getShield();
 			if(pShield)
 			{
-				if (Skills->CheckSkill(DEREF_P_CHAR(pc_deffender), PARRYING, 0, 1000))// chance to block with shield
+				if (Skills->CheckSkill(pc_deffender, PARRYING, 0, 1000))// chance to block with shield
 				{
 					if (pShield->def!=0) damage-=rand()%(pShield->def);// damage absorbed by shield
 					if(rand()%2) pShield->hp--; //Take off a hit point
@@ -761,7 +761,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 				{
 					pc_attacker->MoveTo(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z);
 					
-					teleport(DEREF_P_CHAR(pc_attacker));
+					teleport((pc_attacker));
 					soundeffect2(DEREF_P_CHAR(pc_attacker), 0x01, 0xFE); // crashfix, LB
 					staticeffect(DEREF_P_CHAR(pc_attacker), 0x37, 0x2A, 0x09, 0x06);
 					npctalkall(DEREF_P_CHAR(pc_attacker),"Halt, scoundrel!",1);
@@ -794,7 +794,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 				if (Combat->TimerOk(DEREF_P_CHAR(pc_attacker)))
 				{
 					int los = line_of_sight(-1, pc_attacker->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);
-					UOXSOCKET s1 = calcSocketFromChar(DEREF_P_CHAR(pc_attacker));
+					UOXSOCKET s1 = calcSocketFromChar((pc_attacker));
 					int fightskill=Skills->GetCombatSkill(DEREF_P_CHAR(pc_attacker));
 					x=0;
 					if (fightskill==ARCHERY)
@@ -881,10 +881,10 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					{
 						pc_attacker->kills++;
 						sprintf((char*)temp, "You have killed %i innocent people.", pc_attacker->kills);
-						sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_attacker)),(char*)temp);
+						sysmessage(calcSocketFromChar((pc_attacker)),(char*)temp);
 						//clConsole.send("DEBUG %s's kills are now -> %i\n",pc_attacker->name,pc_attacker->kills);
 						if (pc_attacker->kills==repsys.maxkills+1)
-							sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_attacker)),"You are now a murderer!");
+							sysmessage(calcSocketFromChar((pc_attacker)),"You are now a murderer!");
 					}
 					
 					if (SrvParms->pvp_log)

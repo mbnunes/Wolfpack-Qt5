@@ -292,26 +292,28 @@ char cMagic::GateCollision(PLAYER s)
 					if ( pc_player->isPlayer() )
 					{
 						// Look for an NPC
-						for ( unsigned int index = 0; index < charcount; index++ )
+						cRegion::RegionIterator4Chars rg(pc_player->pos);
+						for ( rg.Begin(); rg.GetData() != rg.End(); rg++ )
 						{
+							P_CHAR pc = rg.GetData();
 							// That is following this player character
-							if ( (chars[index].isNpc()) && (chars[index].ftarg == pc_player->serial) )
+							if ( (pc->isNpc()) && (pc->ftarg == pc_player->serial) )
 							{
 								// If the NPC that is following this player character is within 5 paces
-								if ( chardist(s, index)<=4 )
+								if ( chardist(s, DEREF_P_CHAR(pc))<=4 )
 								{
 									// Teleport the NPC along with the player
-									chars[index].MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
-									teleport(index);
+									pc->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
+									teleport(pc);
 								}
 							}
 						}
 					}
 					// Set the characters destination
 					pc_player->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
-					teleport(s);
-					soundeffect( calcSocketFromChar( s ), 0x01, 0xFE );
-					staticeffect( s, 0x37, 0x2A, 0x09, 0x06 );
+					teleport(pc_player);
+					soundeffect( calcSocketFromChar( DEREF_P_CHAR(pc_player) ), 0x01, 0xFE );
+					staticeffect( DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06 );
 				}
 			}
 		}
@@ -669,7 +671,8 @@ P_CHAR cMagic::CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender)
 //
 char cMagic::CheckResist(CHARACTER attacker, CHARACTER defender, int circle)
 {
-	char i=Skills->CheckSkill(defender, MAGICRESISTANCE, 80*circle, 800+(80*circle));
+	P_CHAR pc_defender = MAKE_CHAR_REF(defender);
+	char i=Skills->CheckSkill(pc_defender, MAGICRESISTANCE, 80*circle, 800+(80*circle));
 
 	if (i)
 	{
@@ -1014,10 +1017,11 @@ void cMagic::NPCHeal(CHARACTER s)
 {
     int loskill=spells[10].loskill;
     int hiskill=spells[10].hiskill;
+	P_CHAR pc = MAKE_CHARREF_LR(s);
 
-	if (!Skills->CheckSkill(s, MAGERY, loskill, hiskill))
+	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
 	{
-		UOXSOCKET ss=calcSocketFromChar(s);
+		UOXSOCKET ss=calcSocketFromChar(DEREF_P_CHAR(pc));
 		if (ss>-1)
 		{
 			SpellFail(ss);
@@ -1026,7 +1030,6 @@ void cMagic::NPCHeal(CHARACTER s)
 	}
 	if (CheckMana(s,10))
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(s);
 		SubtractMana(pc, 10);
 		int j=pc->hp+(pc->skill[MAGERY]/30+RandomNum(1,12));
 		pc->hp=min(pc->st, j);
@@ -1039,9 +1042,10 @@ void cMagic::NPCCure(CHARACTER s)
 {
     int loskill=spells[11].loskill;
     int hiskill=spells[11].hiskill;
-	if (!Skills->CheckSkill(s, MAGERY, loskill, hiskill))
+	P_CHAR pc = MAKE_CHARREF_LR(s);
+	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
 	{
-		UOXSOCKET ss=calcSocketFromChar(s);
+		UOXSOCKET ss=calcSocketFromChar(DEREF_P_CHAR(pc));
 		if (ss>-1)
 		{
 			SpellFail(ss);
@@ -1050,12 +1054,11 @@ void cMagic::NPCCure(CHARACTER s)
 	}
 	if (CheckMana(s,11))
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(s);
-		doStaticEffect(s, 11);
+		doStaticEffect(DEREF_P_CHAR(pc), 11);
 		SubtractMana(pc,5);
 		pc->poisoned=0;
 		pc->poisonwearofftime=uiCurrentTime;
-		npcemoteall(s,"Laughs at the poison attempt",0);
+		npcemoteall(DEREF_P_CHAR(pc), "Laughs at the poison attempt", 0);
 	}
 
 }
@@ -1064,25 +1067,26 @@ void cMagic::NPCDispel(CHARACTER s, CHARACTER i)
 {
 	int loskill=spells[41].loskill;
 	int hiskill=spells[41].hiskill;
-	if (!Skills->CheckSkill(s, MAGERY, loskill, hiskill))
+	P_CHAR pc_s = MAKE_CHARREF_LR(s);
+	if (!Skills->CheckSkill(pc_s, MAGERY, loskill, hiskill))
 	{
-		UOXSOCKET ss=calcSocketFromChar(s);
+		UOXSOCKET ss=calcSocketFromChar(DEREF_P_CHAR(pc_s));
 		if (ss>-1)
 		{
 			SpellFail(ss);
 		}
 		return;
 	}
-	if (CheckMana(s,41))
+	if (CheckMana(DEREF_P_CHAR(pc_s),41))
 	{
-		if (chars[i].priv2&0x20)
+		P_CHAR pc_i = MAKE_CHARREF_LR(i);
+		if (pc_i->priv2&0x20)
 		{
-			P_CHAR pc_s = MAKE_CHARREF_LR(s);
-			P_CHAR pc_i = MAKE_CHARREF_LR(i);
 			SubtractMana(pc_s,20);
 			tileeffect(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z, 0x37, 0x2A, 0x00, 0x00);
-			if (pc_i->isNpc()) Npcs->DeleteChar(i);
-			else deathstuff(i);
+			if (pc_i->isNpc()) 
+				Npcs->DeleteChar(DEREF_P_CHAR(pc_i));
+			else deathstuff(DEREF_P_CHAR(pc_i));
 		}
 	}
 }
@@ -1161,11 +1165,11 @@ void cMagic::NPCCannonTarget(CHARACTER s, CHARACTER t)
 //
 char cMagic::CheckParry(CHARACTER player, int circle)
 {
-	char i=Skills->CheckSkill(player, PARRYING, 80*circle, 800+(80*circle));
-	int s;
+	P_CHAR pc_player = MAKE_CHAR_REF(player);
+	char i=Skills->CheckSkill(pc_player, PARRYING, 80*circle, 800+(80*circle));
 	if(i)
 	{
-		s=calcSocketFromChar(player);
+		UOXSOCKET s = calcSocketFromChar(DEREF_P_CHAR(pc_player));
 		if (s!=-1)
 		{
 			sysmessage(s, "You have dodged the cannon blast, and have taken less damage.");
@@ -1671,7 +1675,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	}
 	if (!SrvParms->cutscrollreq)
 	{
-		if (type==1 && !(pc_currchar->isGM()) && !Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MAGERY, loskill, hiskill))
+		if (type==1 && !(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
 		{
 				SpellFail(s);
 				pc_currchar->spell = 0;
@@ -1752,7 +1756,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	{
 		loskill=spells[curSpell].loskill;
 		hiskill=spells[curSpell].hiskill;
-		if (!(pc_currchar->isGM()) && !Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MAGERY, loskill, hiskill))
+		if (!(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
 		{
 			SpellFail(s);
 			pc_currchar->spell = 0;
@@ -1804,7 +1808,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_currchar), curSpell, xo, yo, zo);
 								
 								pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez); //LB
-								teleport(DEREF_P_CHAR(pc_currchar));
+								teleport((pc_currchar));
 								doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
 								sysmessage(s,"You have recalled from the rune.");
 								recalled=true;
@@ -2281,7 +2285,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							zo=pc_currchar->pos.z;
 							
 							pc_currchar->MoveTo(x,y,z);
-							teleport( DEREF_P_CHAR(pc_currchar) );
+							teleport( pc_currchar );
 							doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
 							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_currchar), curSpell, xo, yo, zo);
 						}
@@ -3963,7 +3967,7 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 	//	soundeffect2(DEREF_P_CHAR(pc_currchar), 0x02, 0x0F); Deleted by Paul77 - Polymorph doesn't have a sound
 	tempeffect(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),18,id1,id2,0);
 
-	teleport(DEREF_P_CHAR(pc_currchar));
+	teleport((pc_currchar));
 }
 
 // only used for the /heal command
@@ -4000,7 +4004,7 @@ void cMagic::Recall(UOXSOCKET s)
 		else
 		{
 			pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez); //LB
-			teleport(DEREF_P_CHAR(pc_currchar));
+			teleport((pc_currchar));
 			sysmessage(s,"You have recalled from the rune.");
 		}
 	} else sysmessage(s,"Not a valid recall target");//AntiChrist

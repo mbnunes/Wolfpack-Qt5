@@ -144,13 +144,13 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				doGmMoveEff(s); 	// have a flamestrike at origin and at player destination point 	//Aldur
 				
 				pc_currchar->MoveTo(pc_c->pos.x,pc_c->pos.y,pc_c->pos.z); 
-				teleport(DEREF_P_CHAR(currchar[s])); 
+				teleport((currchar[s])); 
 				
 				doGmMoveEff(s); 
 				break;
 			case 201://xtele
 				pc_c->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-				teleport(DEREF_P_CHAR(pc_c));
+				teleport((pc_c));
 				
 				break;
 			case 202://jail char
@@ -182,7 +182,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 						break;
 					}
 					sysmessage(s, "Kicking player");				
-					Network->Disconnect(calcSocketFromChar(DEREF_P_CHAR(pc_c)));
+					Network->Disconnect(calcSocketFromChar((pc_c)));
 					break;
 				}
 			default:
@@ -395,7 +395,7 @@ void cGump::Input(int s)
 	 	case 18:    k = str2num( text );	pc_j->jailsecs = k;	break;	// Kills
 		}
 
-	 teleport(DEREF_P_CHAR(pc_j));
+	 teleport((pc_j));
 	 tweakmenu(s, pc_j->serial);
 	}
 
@@ -1382,7 +1382,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 		if((main-TRACKINGMENUOFFSET)>=TRACKINGMENUOFFSET+1&&(main-TRACKINGMENUOFFSET)<=TRACKINGMENUOFFSET+3)
 		{
 			if(!sub) return;
-			if(!Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),TRACKING, 0, 1000))
+			if(!Skills->CheckSkill(currchar[s], TRACKING, 0, 1000))
 			{
 				sysmessage(s,"You fail your attempt at tracking.");
 				return;

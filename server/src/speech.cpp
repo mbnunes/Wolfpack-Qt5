@@ -778,7 +778,6 @@ bool VendorChkName(cChar* pVendor, char* comm)
 
 bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 {
-	CHARACTER vendor = DEREF_P_CHAR(pVendor);
 
 	if (!(pVendor->npcaitype == 17))
 	     return 0;
@@ -801,7 +800,7 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	if (strstr(comm, " BUY") || strstr(comm, " PURCHASE"))
 	{
-		addx[s]=vendor;
+		addx[s]=DEREF_P_CHAR(pVendor);
 		npctalk(s,pVendor,"What would you like to buy?",0);
 		target(s,0,1,0,224," ");
 		return true;

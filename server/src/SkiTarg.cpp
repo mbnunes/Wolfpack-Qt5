@@ -346,7 +346,7 @@ void cSkills::TasteIDTarget(int s)
 			sysmessage(s,"You cant taste that!");
 			return;
 		}
-		if (!CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 0, 250))
+		if (!CheckSkill(pc_currchar, TASTEID, 0, 250))
 		{
 			sysmessage(s, "You can't quite tell what this item is...");
 		}
@@ -359,7 +359,7 @@ void cSkills::TasteIDTarget(int s)
 			}
 			
 			// Identify Item by Antichrist // Changed by MagiusCHE)
-			if (CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 250, 500))
+			if (CheckSkill(pc_currchar, TASTEID, 250, 500))
 				if (pi->name2 && (strcmp(pi->name2,"#")))
 					strcpy(pi->name,pi->name2); // Item identified! -- by Magius(CHE)
 				
@@ -369,7 +369,7 @@ void cSkills::TasteIDTarget(int s)
 				sprintf((char*)temp, "You found that this item appears to be called: %s", temp2);
 				sysmessage(s, (char*)temp);
 				
-				if (CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 250, 500))
+				if (CheckSkill(pc_currchar, TASTEID, 250, 500))
 				{
 					if((pi->poisoned>0) || (pi->morex==4 && pi->morey==6 && pi->morez==1))
 						sysmessage(s,"This item is poisoned!");
@@ -377,7 +377,7 @@ void cSkills::TasteIDTarget(int s)
 						sysmessage(s,"This item shows no poison.");
 					
 					// Show Creator by Magius(CHE)
-					if (CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 250, 500))
+					if (CheckSkill(pc_currchar, TASTEID, 250, 500))
 					{
 						if (strlen(pi->creator)>0)
 						{
@@ -633,7 +633,7 @@ void cSkills::Mine(int s)
 		action(s,0x0b);
 	soundeffect(s,0x01,0x25); 
 	
-	if(!Skills->CheckSkill(DEREF_P_CHAR(pc),MINING, 0, 1000)) 
+	if(!Skills->CheckSkill(pc, MINING, 0, 1000)) 
 	{
 		sysmessage(s,"You sifted thru the dirt and rocks, but found nothing useable.");
 		if(oreamount[a][b]>0 && rand()%2==1) oreamount[a][b]--;//Randomly deplete resources even when they fail 1/2 chance you'll loose ore.
@@ -786,7 +786,7 @@ void cSkills::TreeTarget(int s)
 	else action(s,0x0D);
 	soundeffect(s,0x01,0x3E);
 	
-	if (!Skills->CheckSkill(DEREF_P_CHAR(pc),LUMBERJACKING, 0, 1000)) 
+	if (!Skills->CheckSkill(pc, LUMBERJACKING, 0, 1000)) 
 	{
 		sysmessage(s,"You chop for a while, but fail to produce any usable wood.");
 		if(logamount[a][b]>0 && rand()%2==1) logamount[a][b]--;//Randomly deplete resources even when they fail 1/2 chance you'll loose wood.
@@ -841,7 +841,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 	else
 		action(s,0x0b);
 	soundeffect(s,0x01,0x25);
-	if(!Skills->CheckSkill(DEREF_P_CHAR(pc),MINING, 0, 800)) 
+	if(!Skills->CheckSkill(pc, MINING, 0, 800)) 
 	{
 		sysmessage(s,"You sifted through the dirt and found nothing.");
 		return;
@@ -968,7 +968,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		sysmessage(s,"You have no idea what to do with this strange ore");
 		return;					
 	}
-	if(!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),MINING, 0, 1000))
+	if(!Skills->CheckSkill(pc_currchar, MINING, 0, 1000))
 	{
 		if (pi->amount==1)
 		{
@@ -1064,7 +1064,7 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 	{
 		if(iteminrange(s,pi,3))
 		{
-			if (!Skills->CheckSkill(DEREF_P_CHAR(currchar[s]),TAILORING, 0, 1000)) 
+			if (!Skills->CheckSkill(currchar[s],TAILORING, 0, 1000)) 
 			{
 				sysmessage(s,"You failed to spin your material.");
 				return;
@@ -1117,7 +1117,7 @@ void cSkills::Loom(int s)
 					sysmessage(s,"You do not have enough material to make anything!");
 					return;
 				}
-				if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),TAILORING, 300, 1000)) 
+				if (!Skills->CheckSkill(pc_currchar,TAILORING, 300, 1000)) 
 				{
 					sysmessage(s,"You failed to make cloth.");
 					sysmessage(s,"You have broken and lost some material!");
@@ -1175,7 +1175,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 				{
 					char tmpmsg[250];
 					soundeffect(s,0x01,0xDD);	// cooking sound
-					if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),COOKING, 0, 1000)) 
+					if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 					{
 						sprintf(tmpmsg,"You failed to cook the %s and drop some into the ashes.",matname);
 						piRaw->ReduceAmount(1+(rand() %(piRaw->amount)));
@@ -1208,7 +1208,7 @@ void cSkills::MakeDough(int s)
 		{
 			if(iteminrange(s,pi,3))
 			{
-				if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),COOKING, 0, 1000)) 
+				if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 				{
 					sysmessage(s,"You failed to mix, and spilt your water.");
 					return;
@@ -1245,7 +1245,7 @@ void cSkills::MakePizza(int s)
 		{
 			if(iteminrange(s,pi,3))
 			{
-				if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),COOKING, 0, 1000)) 
+				if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 				{
 					sysmessage(s,"You failed to mix.");
 					Items->DeleItem(pi);
@@ -1312,7 +1312,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 				if (low<0) low=0;
 				else if (low>1000) low=1000;
 				
-				if ((Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),DETECTINGHIDDEN,low,1000))&&(c<=range))
+				if ((Skills->CheckSkill(pc_currchar,DETECTINGHIDDEN,low,1000))&&(c<=range))
 				{
 					pc->unhide();
 				
@@ -1418,8 +1418,8 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	int res1 = CheckSkill(DEREF_P_CHAR(pc_currchar), ENTICEMENT, 0, 1000);
-	int res2 = CheckSkill(DEREF_P_CHAR(pc_currchar), MUSICIANSHIP, 0, 1000);
+	int res1 = CheckSkill(pc_currchar, ENTICEMENT, 0, 1000);
+	int res2 = CheckSkill(pc_currchar, MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
 		P_CHAR pc_target = FindCharBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]));
@@ -1464,10 +1464,10 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	if (CheckSkill(DEREF_P_CHAR(Player), MUSICIANSHIP, 0, 1000))
+	if (CheckSkill((Player), MUSICIANSHIP, 0, 1000))
 	{
 		PlayInstrumentWell(s, inst);
-		if (CheckSkill(DEREF_P_CHAR(Player), PROVOCATION, 0, 1000))
+		if (CheckSkill((Player), PROVOCATION, 0, 1000))
 		{
 			if (Player->inGuardedArea())
 				Combat->SpawnGuard(DEREF_P_CHAR(Player), DEREF_P_CHAR(Player), Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
@@ -1643,8 +1643,8 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			{
 				int reschance = static_cast<int>((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.17);
 				int rescheck=RandomNum(1,100);
-				CheckSkill(DEREF_P_CHAR(ph),HEALING,800,1000);
-				CheckSkill(DEREF_P_CHAR(ph),ANATOMY,800,1000);
+				CheckSkill((ph),HEALING,800,1000);
+				CheckSkill((ph),ANATOMY,800,1000);
 				if(reschance<=rescheck)
 					sysmessage(s,"You failed to resurrect the ghost");
 				else
@@ -1668,8 +1668,8 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			{
 				int curechance = static_cast<int>((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.67);
 				int curecheck=RandomNum(1,100);
-				CheckSkill(DEREF_P_CHAR(ph),HEALING,600,1000);
-				CheckSkill(DEREF_P_CHAR(ph),ANATOMY,600,1000);
+				CheckSkill((ph),HEALING,600,1000);
+				CheckSkill((ph),ANATOMY,600,1000);
 				if(curechance<=curecheck)
 				{
 					pp->poisoned=0;
@@ -1690,7 +1690,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		
 		if(pp->isHuman()) //Used on human
 		{
-			if (!CheckSkill(DEREF_P_CHAR(ph),HEALING,0,1000))
+			if (!CheckSkill((ph),HEALING,0,1000))
 			{
 				sysmessage(s,"You apply the bandages, but they barely help!");
 				pp->hp++;
@@ -1711,7 +1711,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		}
 		else //Bandages used on a non-human
 		{
-			if (!CheckSkill(DEREF_P_CHAR(ph),VETERINARY,0,1000))
+			if (!CheckSkill((ph),VETERINARY,0,1000))
 				sysmessage(s,"You are not skilled enough to heal that creature.");
 			else
 			{
@@ -1753,7 +1753,7 @@ void cSkills::ArmsLoreTarget(int s)
 		return;
 	}
 	
-	if (!CheckSkill(DEREF_P_CHAR(pc_currchar),ARMSLORE, 0, 250))
+	if (!CheckSkill(pc_currchar,ARMSLORE, 0, 250))
 		sysmessage(s,"You are not certain...");
 	else
 	{
@@ -1778,7 +1778,7 @@ void cSkills::ArmsLoreTarget(int s)
 			sprintf(temp2," [%.1f %%]",totalhp*100);
 			strcat((char*)temp,temp2);	// Magius(CHE) §
 		}
-		if (CheckSkill(DEREF_P_CHAR(pc_currchar),ARMSLORE, 250, 510))
+		if (CheckSkill(pc_currchar,ARMSLORE, 250, 510))
 		{
 			if (pi->hidamage)
 			{
@@ -1792,7 +1792,7 @@ void cSkills::ArmsLoreTarget(int s)
 				else                  strcpy((char*)p2, " Might scratch your opponent slightly.");
 				strcat((char*)temp,p2);
 				
-				if (Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), ARMSLORE, 500, 1000))
+				if (Skills->CheckSkill(pc_currchar, ARMSLORE, 500, 1000))
 				{
 					if      (pi->spd > 35) strcpy((char*)p2, " And is very fast.");
 					else if (pi->spd > 25) strcpy((char*)p2, " And is fast.");
@@ -1818,7 +1818,7 @@ void cSkills::ArmsLoreTarget(int s)
 
 		if (!(pi->rank<1 || pi->rank>10 || SrvParms->rank_system==0))
 		{
-			if (Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),ARMSLORE, 250, 500))
+			if (Skills->CheckSkill(pc_currchar,ARMSLORE, 250, 500))
 			{
 				switch(pi->rank)
 				{
@@ -1845,7 +1845,7 @@ void cSkills::ItemIdTarget(int s)
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
 	{
-		if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 0, 250))
+		if (!CheckSkill(pc_currchar, ITEMID, 0, 250))
 		{
 			sysmessage(s, "You can't quite tell what this item is...");
 		}
@@ -1858,7 +1858,7 @@ void cSkills::ItemIdTarget(int s)
 			}
 
 			// Identify Item by Antichrist // Changed by MagiusCHE)
-			if (CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 250, 500))
+			if (CheckSkill(pc_currchar, ITEMID, 250, 500))
 				if (pi->name2 && (strcmp(pi->name2,"#"))) strcpy(pi->name,pi->name2); // Item identified! -- by Magius(CHE)
 
 			if(pi->name[0]=='#') pi->getName(temp2);
@@ -1867,7 +1867,7 @@ void cSkills::ItemIdTarget(int s)
 			sysmessage(s,(char*) temp);
 
 			// Show Creator by Magius(CHE)
-			if (CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 250, 500))
+			if (CheckSkill(pc_currchar, ITEMID, 250, 500))
 			{
 				if (strlen(pi->creator)>0)
 				{
@@ -1879,7 +1879,7 @@ void cSkills::ItemIdTarget(int s)
 			sysmessage(s, (char*)temp2);
 			// End Show creator
 
-			if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 250, 500))
+			if (!CheckSkill(pc_currchar, ITEMID, 250, 500))
 			{
 				sysmessage(s, "You can't tell if it is magical or not.");
 			}
@@ -1891,13 +1891,13 @@ void cSkills::ItemIdTarget(int s)
 				}
 				else
 				{
-					if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 500, 1000))
+					if (!CheckSkill(pc_currchar, ITEMID, 500, 1000))
 					{
 						sysmessage(s,"This item is enchanted with a spell, but you cannot determine which");
 					}
 					else
 					{
-						if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 750, 1100))
+						if (!CheckSkill(pc_currchar, ITEMID, 750, 1100))
 						{
 							sprintf((char*)temp, "It is enchanted with the spell %s, but you cannot determine how many charges remain.",spellname[(8*(pi->morex-1))+pi->morey-1]);
 							sysmessage(s,(char*)temp);
@@ -1941,7 +1941,7 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 		return; 
 	} 
 
-	if (!CheckSkill(DEREF_P_CHAR(pc_currchar),EVALUATINGINTEL, 0, 1000)) 
+	if (!CheckSkill(pc_currchar,EVALUATINGINTEL, 0, 1000)) 
 	{
 		sysmessage(s,"You are not certain..");
 		return;
@@ -1985,7 +1985,7 @@ void cSkills::AnatomyTarget(int s)
 		return;
 	}
 	
-	if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),ANATOMY, 0, 1000)) 
+	if (!Skills->CheckSkill(pc_currchar,ANATOMY, 0, 1000)) 
 	{
 		sysmessage(s,"You are not certain..");
 		return;
@@ -2071,7 +2071,7 @@ void cSkills::TameTarget(int s)
 					LogError("switch reached default");
 				}
 			}
-			if ((!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),TAMING, 0, 1000))||
+			if ((!Skills->CheckSkill(pc_currchar,TAMING, 0, 1000))||
 				(pc_currchar->skill[TAMING]<pc->taming)) 
 			{
 				sysmessage(s,"You were unable to tame it.");
@@ -2151,7 +2151,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		return;
 	}
 
-	skill = Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),STEALING,0,999);
+	skill = Skills->CheckSkill(pc_currchar,STEALING,0,999);
 	if (npcinrange(s,DEREF_P_CHAR(pc_npc),1))
 	{
 		if (skill)
@@ -2238,7 +2238,7 @@ void cSkills::BeggingTarget(int s)
 			}
 
 			npctalkall(DEREF_P_CHAR(pc_currchar), begging_data.text[rand()%3],0); // npcemoteall?
-			if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),BEGGING, 0, 1000))
+			if (!Skills->CheckSkill(pc_currchar,BEGGING, 0, 1000))
 				sysmessage(s,"They seem to ignore your begging plees.");
 			else
 			{
@@ -2332,7 +2332,7 @@ void cSkills::AnimalLoreTarget(int s)
 	}
 	else // Lore used on a non-human
 	{
-		if (Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), ANIMALLORE, 0, 1000))
+		if (Skills->CheckSkill(pc_currchar, ANIMALLORE, 0, 1000))
 		{
 			sprintf((char*)temp, "Attack [%i] Defense [%i] Taming [%i] Hit Points [%i]", pc->att, pc->def, pc->taming/10, pc->hp);
 			npcemote(s, DEREF_P_CHAR(pc), (char*)temp, 0);
@@ -2365,14 +2365,14 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	}
 	else
 	{
-		if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), FORENSICS, 0, 500)) sysmessage(s,"You are not certain about the corpse."); else
+		if (!Skills->CheckSkill(pc_currchar, FORENSICS, 0, 500)) sysmessage(s,"You are not certain about the corpse."); else
 		{
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2,"few");
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2,"many");
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2,"many many");
 			sprintf((char*)temp,"The %s is %s seconds old.", pi->name, temp2);
 			sysmessage(s,(char*)temp);
-			if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), FORENSICS, 500, 1000) || *(pi->murderer)=='\0') sysmessage(s,"You can't say who was the killer."); else
+			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || *(pi->murderer)=='\0') sysmessage(s,"You can't say who was the killer."); else
 			{
 				sprintf((char*)temp,"The killer was %s.",pi->murderer);
 				sysmessage(s,(char*)temp);
@@ -2402,10 +2402,10 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		int success=0;
 		switch(pPoi->morez)
 		{
-		case 1:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 0, 500);		break;//lesser poison
-		case 2:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 151, 651);		break;//poison
-		case 3:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 551, 1051);		break;//greater poison
-		case 4:	success=Skills->CheckSkill(DEREF_P_CHAR(pc), POISONING, 901, 1401);		break;//deadly poison
+		case 1:	success=Skills->CheckSkill((pc), POISONING, 0, 500);		break;//lesser poison
+		case 2:	success=Skills->CheckSkill((pc), POISONING, 151, 651);		break;//poison
+		case 3:	success=Skills->CheckSkill((pc), POISONING, 551, 1051);		break;//greater poison
+		case 4:	success=Skills->CheckSkill((pc), POISONING, 901, 1401);		break;//deadly poison
 		default:
 			LogError("switch reached default");
 			return;
@@ -2460,7 +2460,7 @@ void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 	if (pc_currchar->skill[STEALING] < 300)
 	// check if under 30 in stealing
 	{
-		Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),STEALING, 0, 1000);
+		Skills->CheckSkill(pc_currchar,STEALING, 0, 1000);
 		// check their skill
 		soundeffect(s, 0x02, 0x49);
 		// rustling sound..dont know if right but it works :)
@@ -2517,7 +2517,7 @@ void cSkills::LockPick(int s)
 					soundeffect3(pi, 0x01FF);
 					sysmessage(s, "You manage to pick the lock.");
 				} else
-					if(Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), LOCKPICKING, 0, 1000))
+					if(Skills->CheckSkill(pc_currchar, LOCKPICKING, 0, 1000))
 					{
 						switch(pi->type)
 						{
@@ -2675,7 +2675,7 @@ public:
 				sysmessage(s,"You aren't skilled enough to even try that!");
 				return;
 			}
-			if( !Skills->CheckSkill( DEREF_P_CHAR(pc_currchar), TINKERING, minskill, 1000 ) )
+			if( !Skills->CheckSkill( pc_currchar, TINKERING, minskill, 1000 ) )
 			{
 				failmsg(s);
 				P_ITEM piLoser= rand()%2 ? piTarg : piClick;
@@ -2828,7 +2828,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 		else if ((smithing>=700)) dmg=2;
 		else if ((smithing>=500)) dmg=3;
 
-		if (Skills->CheckSkill(DEREF_P_CHAR(pc),BLACKSMITHING, 0, 1000))
+		if (Skills->CheckSkill((pc),BLACKSMITHING, 0, 1000))
 		{
 			pi->maxhp-=dmg;
 			pi->hp=pi->maxhp;
@@ -2879,7 +2879,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		sysmessage(s,"You aren't skilled enough to even try that!");
 		return;
 	}
-	if (Skills->CheckSkill(DEREF_P_CHAR(pc),sk, 0, 1000))
+	if (Skills->CheckSkill((pc),sk, 0, 1000))
 	{
 		char* Name = NULL;
 		short Color = pi->color();

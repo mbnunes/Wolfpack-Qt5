@@ -710,13 +710,13 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			i = pi->morex;
 			pc_currchar->id1 = i >> 8; 
 			pc_currchar->id2 = i%256; 
-			teleport(DEREF_P_CHAR(currchar[s]));
+			teleport((currchar[s]));
 			pi->type = 102;
 			return; // case 101
 		case 102: //??
 			pc_currchar->id1 = pc_currchar->xid1; 
 			pc_currchar->id2 = pc_currchar->xid2; 
-			teleport(DEREF_P_CHAR(currchar[s]));
+			teleport((currchar[s]));
 			pi->type = 101;
 			return; // case 102
 		case 103: // Army enlistment
@@ -725,7 +725,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			return; // case 103 (army enlistment object)
 		case 104: // Teleport object
 			pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez);
-			teleport(DEREF_P_CHAR(currchar[s]));
+			teleport((currchar[s]));
 			return; // case 104 (teleport object (again?))
 		case 105:  // For drinking
 			switch (RandomNum(0, 1))
@@ -826,7 +826,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name);
 						npctalk(s, DEREF_P_CHAR(pc_vendor), (char*)temp, 1);
 						updatechar(DEREF_P_CHAR(pc_vendor));
-						teleport(DEREF_P_CHAR(pc_vendor));
+						teleport((pc_vendor));
 					}
 					else 
 						sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
@@ -998,28 +998,28 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					Skills->AButte(s, pi);
 					return;// archery butte
 				case 0x0E9C:
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x38);
 					else 
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x39);
 					return;
 				case 0x0E9D:
 				case 0x0E9E:
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x52);
 					else 
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x53);
 					return;
 				case 0x0EB1:
 				case 0x0EB2:
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x45);
 					else 
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x46);
 					return;
 				case 0x0EB3:
 				case 0x0EB4:
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), MUSICIANSHIP, 0, 1000))
+					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4C);
 					else 
 						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4D);
@@ -1184,7 +1184,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x0DE1:
 				case 0x0DE2: // camping
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
+					if (Skills->CheckSkill(currchar[s], CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
 					{
 						P_ITEM pFire = Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", 0, 0x0DE3, 0, 0);
 						if (pFire)
@@ -1209,7 +1209,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					return; // camping
 				case 0x1508: // magic statue?
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
+					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1509);
 						pi->type = 45;					
@@ -1221,7 +1221,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					return;
 				case 0x1509:
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
+					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1508);
 						pi->type = 45;						
@@ -1234,7 +1234,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x1230:
 				case 0x1246: // guillotines?
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
+					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1245);
 						pi->type = 45;					
@@ -1246,7 +1246,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}  
 					return;
 				case 0x1245: // Guillotine stop animation
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
+					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1230);
 						pi->type = 45;						
@@ -1259,7 +1259,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x1039:  // closed flour sack
 							  /*
-							  if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
+							  if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 							  {
 							  pi->id1 = 0x10;
 							  pi->id2 = 0x3A;
@@ -1274,7 +1274,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x103A: // open flour sack
 							 /*
-							 if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), ITEMID, 0, 10))
+							 if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 							 {
 							 pi->id1 = 0x10;
 							 pi->id2 = 0x39;
@@ -1418,7 +1418,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x1059:
 				case 0x105A:// tinker sextant
-					if (Skills->CheckSkill(DEREF_P_CHAR(currchar[s]), TINKERING, 500, 1000))
+					if (Skills->CheckSkill(currchar[s], TINKERING, 500, 1000))
 					{
 						sysmessage(s, "You create the sextant.");
 						P_ITEM pi_sextant = Items->SpawnItem(s, DEREF_P_CHAR(currchar[s]), 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1);

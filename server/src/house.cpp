@@ -240,7 +240,7 @@ void cHouseManager::AddHome(int s, int i)
 		pMulti->SetOwnSerial(pc_currchar->serial);
 		if (!hitem[0] && !boat)
 		{
-			teleport(DEREF_P_CHAR(pc_currchar));
+			teleport((pc_currchar));
 			cRegion::RegionIterator4Items rii(pMulti->pos);
 			for(rii.Begin();rii.GetData() != rii.End(); rii++)
 			{
@@ -404,7 +404,7 @@ void cHouseManager::AddHome(int s, int i)
 			pc_currchar->pos.y=y+cy;
 			pc_currchar->dispz=pc_currchar->pos.z=z+cz;
 			//clConsole.send("Z: %i Offset: %i Char: %i Total: %i\n",z,cz,pc_currchar->pos.z,z+cz);
-			teleport(DEREF_P_CHAR(pc_currchar));
+			teleport((pc_currchar));
 		}
 	}
 }
@@ -484,7 +484,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 		sysmessage(s,"All house items and keys removed.");
 		
 		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos.x, pc->pos.y);
-		teleport(DEREF_P_CHAR(pc));
+		teleport((pc));
 		return;
 	}
 }

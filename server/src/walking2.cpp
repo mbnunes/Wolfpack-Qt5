@@ -734,7 +734,7 @@ bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 			{
 				pc->pos.x = House[h]->pos2.x+1;
                 pc->pos.y = House[h]->pos2.y+1;
-                teleport(DEREF_P_CHAR(pc));
+                teleport(pc);
                 if (socket!=INVALID_UOXSOCKET)
 				{
 					sysmessage(socket, "You are banned from that location.");

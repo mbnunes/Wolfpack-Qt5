@@ -272,7 +272,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 
 	updatechar(DEREF_P_CHAR(pc));
 	statwindow(so, DEREF_P_CHAR(pc));
-	teleport(DEREF_P_CHAR(pc));
+	teleport(pc);
 }
 
 int cRaces::RandomHairStyle()

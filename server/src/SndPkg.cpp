@@ -1432,10 +1432,11 @@ void textflags (int s, int i, char *name)
 	Xsend(s, name2, strlen(name2)+1);
 }
 
-void teleport(int s) // Teleports character to its current set coordinates
+void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 {
 	int i;
-	P_CHAR pc = MAKE_CHARREF_LR(s)
+	if ( pc == NULL )
+		return;
 	UOXSOCKET k = calcSocketFromChar(pc);
 	if (k!=-1)	// If a player, move them to the appropriate XYZ
 	{
@@ -1458,8 +1459,8 @@ void teleport(int s) // Teleports character to its current set coordinates
 		goxyz[17]=pc->dir|0x80;
 		goxyz[18]=pc->dispz;
 		Xsend(k, goxyz, 19);
-		Weight->NewCalc(s);	// Ison 2-20-99
-		statwindow(k, s);	// Ison 2-20-99
+		Weight->NewCalc(DEREF_P_CHAR(pc));	// Ison 2-20-99
+		statwindow(k, DEREF_P_CHAR(pc));	// Ison 2-20-99
 		walksequence[k]=-1;
 	}
 	for (i=0;i<now;i++) // Send the update to all players.
@@ -1469,7 +1470,7 @@ void teleport(int s) // Teleports character to its current set coordinates
 		if (perm[i])
 		{
 		   Xsend(i, removeitem, 5);
-		   if (inrange1p(s, DEREF_P_CHAR(currchar[i]))) 
+		   if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]))) 
 			   impowncreate(i, DEREF_P_CHAR(pc), 1);
 		}
 	}
@@ -1491,7 +1492,7 @@ void teleport(int s) // Teleports character to its current set coordinates
 					P_ITEM mapitem = FindItemBySerial(vecEntries[w]);
 					if (mapchar != NULL)
 					{
-						if ((mapchar->isNpc()||online(DEREF_P_CHAR(mapchar))||pc->isGM())&&(s!=DEREF_P_CHAR(mapchar))&&(inrange1p(s, DEREF_P_CHAR(mapchar))))
+						if ((mapchar->isNpc()||online(DEREF_P_CHAR(mapchar))||pc->isGM())&&(pc != mapchar)&&(inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(mapchar))))
 						{
 							impowncreate(k, DEREF_P_CHAR(mapchar), 1);
 						}
@@ -1506,7 +1507,7 @@ void teleport(int s) // Teleports character to its current set coordinates
 		}
 		if (perm[k]) dolight(k, worldcurlevel);
 	}
-	checkregion(s);
+	checkregion(DEREF_P_CHAR(pc));
 }
 
 void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can find their corpses
