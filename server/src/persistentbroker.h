@@ -132,11 +132,16 @@ inline QString __escapeReservedCharacters( const QString& d )
 #define addField( name, value ) fields.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( value ) );
 #define addStrField( name, value ) fields.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( __escapeReservedCharacters( value ) ) );
 #define addCondition( name, value ) conditions.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( value ) );
-#define saveFields if( isPersistent ) \
+#define saveFields \
+	if( isPersistent ) \
+	{ \
 		if( !driver.execute( QString( "UPDATE `%1` SET %2 WHERE %3" ).arg( table ).arg( fields.join(", ") ).arg( conditions.join(" AND ") ) ) ) \
 			throw driver.error(); \
+	} \
 	else \
+	{ \
 		if( !driver.execute( QString( "INSERT INTO `%1` SET %2" ).arg( table ).arg( fields.join( ", " ) ) ) ) \
-			throw driver.error(); 
+			throw driver.error();  \
+	}
 
 #endif // __PERSISTENTBROKER_H__
