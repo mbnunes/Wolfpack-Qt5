@@ -1968,6 +1968,8 @@ void cChar::action( UINT8 id )
 		id = 0x1b;
 	else if( mounted && ( id == 0x0D ) )
 		id = 0x1D;
+	else if( mounted && ( id == 0x20 ) )
+		id = 0x1c;
 	else if( ( mounted || this->id() < 0x190 ) && ( id == 0x22 ) )
 		return;
 
