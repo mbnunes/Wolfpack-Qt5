@@ -64,6 +64,7 @@
 #include "qtranslator.h"
 #include "qstring.h"
 #include "qdatetime.h"
+#include "qfile.h"
 
 extern "C" {
 	void init_socket( void );
@@ -2686,6 +2687,66 @@ void checkparm(string param)
 	// Add what ever paramters you want
 }
 
+// Start the python engine
+void startPython( int argc, char* argv[] )
+{
+	clConsole.PrepareProgress( "Starting Python interpreter" );
+	
+	Py_SetProgramName( argv[ 0 ] );
+	Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
+
+	Py_Initialize(); // Initialize python finally
+	PySys_SetArgv( argc, argv );
+
+	// Modify our search-path
+	PyObject *sysModule = PyImport_ImportModule( "sys" );
+	PyObject *searchPath = PyObject_GetAttrString( sysModule, "path" );
+	
+	// Sorry but we can't use our DefManager for this
+	QDomDocument Document( "python" );
+	QFile File( QString( "python.xml" ) );
+
+    if ( !File.open( IO_ReadOnly ) )
+	{
+		clConsole.ProgressSkip();
+	
+		clConsole.send( "Unable to open python.xml!\n" );
+		return;
+	}
+
+    if ( !Document.setContent( &File ) ) {
+        File.close();
+        
+		clConsole.ProgressSkip();
+		clConsole.send( "Unable to parse python.xml" );
+
+		return;
+	}
+
+	File.close();
+
+	QDomElement pythonSettings = Document.documentElement();
+	QDomNodeList nodeList = pythonSettings.childNodes();
+
+	for( UI08 i = 0; i < nodeList.count(); i++ )
+	{
+		if( !nodeList.item( i ).isElement() )
+			continue;
+
+		QDomElement element = nodeList.item( i ).toElement();
+		
+		if( element.nodeName() != "searchpath" )
+			continue;
+
+		PyList_Append( searchPath, PyString_FromString( element.text().ascii() ) );
+	}
+	
+	init_socket();
+	initPythonExtensions();
+
+	clConsole.ProgressDone();
+}
+
 int main( int argc, char *argv[] )
 {
 	QApplication app( argc, argv ); // we need one instance
@@ -2838,22 +2899,7 @@ int main( int argc, char *argv[] )
 
 	DefManager->Load();
 
-	// Start loading Python !
-	
-	clConsole.PrepareProgress( "Starting Python interpreter" );
-	
-	Py_SetProgramName( argv[ 0 ] );
-	Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
-
-	Py_Initialize(); // Initialize python finally
-	PySys_SetArgv( argc, argv );
-
-	init_socket();
-	initPythonExtensions();
-
-	clConsole.ProgressDone();
-
-	// Done loading Python 
+	startPython( argc, argv );
 
 	ScriptManager->Load();
 
