@@ -290,12 +290,12 @@ def onUse( char, item ):
 	char.objectdelay = 0
 
 	# In Range?
-	if not char.canreach( item, 2 ):
+	if not char.gm and not char.canreach( item, 2 ):
 		char.message( "You cannot reach the handle from here." )
 		return 1
 		
 	# The Door has no lock
-	if not item.hastag( 'lock' ):
+	if not item.hastag( 'lock' ) or char.gm:
 		return opendoor( char, item )
 	
 	lock = int( item.gettag( 'lock' ) )
