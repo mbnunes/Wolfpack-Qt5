@@ -56,7 +56,6 @@ class cNetworkStuff;
 #include "debug.h"
 #include "speech.h"
 #include "dragdrop.h"
-#include "sregions.h"
 #include "rcvpkg.h"
 #include "SndPkg.h"
 

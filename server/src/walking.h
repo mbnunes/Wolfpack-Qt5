@@ -47,7 +47,6 @@ using namespace std ;
 //wolfpack includes
 
 #include "wolfpack.h"
-#include "sregions.h"
 #include "SndPkg.h"
 #include "debug.h"
 

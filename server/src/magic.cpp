@@ -39,7 +39,6 @@
 */
 
 #include "magic.h"
-#include "sregions.h"
 #include "chars.h"
 #include "items.h"
 #include "scriptc.h"
