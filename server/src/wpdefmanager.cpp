@@ -66,60 +66,61 @@ void WPDefManager::ProcessNode( QDomElement Node )
 
 	QString NodeID = Node.attribute("id");
 
-	DefSections &Sections = Items; // Defaults to Items
+	DefSections *Sections = 0; // Defaults to Items
 
 	// IF's for all kind of nodes
 	// <item id="xx">
 	// <script id="xx">
 	// <npc id="xx">
 	if( NodeName == "item" )
-		Sections = Items;
+		Sections = &Items;
 	else if( NodeName == "script" )
-		Sections = Scripts;
+		Sections = &Scripts;
 	else if( NodeName == "npc" )
-		Sections = NPCs;
+		Sections = &NPCs;
 	else if( NodeName == "menu" )
-		Sections = Menus;
+		Sections = &Menus;
 	else if( NodeName == "spell" )
-		Sections = Spells;
+		Sections = &Spells;
 	else if( NodeName == "list" )
-		Sections = StringLists;
+		Sections = &StringLists;
 	else if( NodeName == "acl" )
-		Sections = PrivLevels;
+		Sections = &PrivLevels;
 	else if( NodeName == "spawnregion" )
-		Sections = SpawnRegions;
+		Sections = &SpawnRegions;
 	else if( NodeName == "region" )
-		Sections = Regions;
+		Sections = &Regions;
 	else if( NodeName == "multi" )
-		Sections = Multis;
+		Sections = &Multis;
 	else if( NodeName == "text" )
-		Sections = Texts;
+		Sections = &Texts;
 	else if( NodeName == "startitems" )
-		Sections = StartItems;
+		Sections = &StartItems;
 	else if( NodeName == "location" )
-		Sections = Locations;
+		Sections = &Locations;
 	else if( NodeName == "skill" )
-		Sections = Skills;
+		Sections = &Skills;
 	else if( NodeName == "action" )
-		Sections = Actions;
+		Sections = &Actions;
 	else if( NodeName == "make" )
-		Sections = MakeSections;
+		Sections = &MakeSections;
 	else if( NodeName == "makeitem" )
-		Sections = MakeItems;
+		Sections = &MakeItems;
 	else if( NodeName == "useitem" )
-		Sections = UseItems;
+		Sections = &UseItems;
 	else if( NodeName == "skillcheck" )
-		Sections = SkillChecks;
+		Sections = &SkillChecks;
 	else if( NodeName == "define" )
-		Sections = Defines;
+		Sections = &Defines;
 	else if( NodeName == "resource" )
-		Sections = Resources;
+		Sections = &Resources;
  	else if( NodeName == "contextmenu" )	
- 		Sections = ContextMenus;
-	else
+ 		Sections = &ContextMenus;
+
+	if( !Sections )
 		return;
 
-	if( Sections.find( NodeID ) != Sections.end() )
+	if( Sections->find( NodeID ) != Sections->end() )
 	{
 		clConsole.ChangeColor( WPC_YELLOW );
 		clConsole.send( "Warning: " );
@@ -127,7 +128,7 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		clConsole.send( tr( "Duplicate %1: %2\n" ).arg( NodeName ).arg( NodeID ) );
 	}
 
-    Sections.insert( NodeID, Node );
+    Sections->insert( NodeID, Node );
 }
 
 // Recursive Function for Importing Script Sections

@@ -1097,32 +1097,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1441:
 					target(s, 0, 1, 0, 86, "What would you like to use that on ?");
 					return;
-				case 0x0DE1:
-				case 0x0DE2: // camping
-					if( currchar[s]->checkSkill( CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
-					{
-						P_ITEM pFire = Items->SpawnItem(currchar[s], 1, "#", 0, 0x0DE3, 0, 0);
-						if (pFire)
-						{
-							pFire->setType( 45 );
-							pFire->dir = 2;
-							if (pi->isInWorld())
-								pFire->moveTo(pi->pos);
-							else
-								pFire->moveTo(pc_currchar->pos);
-
-							pFire->priv |= 1;
-//							pFire->decaytime = (uiCurrentTime +(SrvParms->decaytimer*MY_CLOCKS_PER_SEC));							
-							pFire->startDecay();
-							pFire->update();// AntiChrist
-							pi->ReduceAmount(1);
-						}
-					}
-					else
-					{
-						sysmessage(s, "You fail to light a fire.");
-					}
-					return; // camping
 				case 0x1508: // magic statue?
 					if( currchar[s]->checkSkill( ITEMID, 0, 10))
 					{
