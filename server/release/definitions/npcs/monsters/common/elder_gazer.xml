@@ -10,7 +10,7 @@
 		<inherit id="monster_base" />
 		<karma><random min="10000" max="15000" /></karma>
 		<fame><random min="10000" max="15000" /></fame>
-		<defense><random min="45" max="55" /</defense>
+		<defense><random min="45" max="55" /></defense>
 		<lodamage>23</lodamage>
 		<hidamage>59</hidamage>
 		<!-- Stats -->
