@@ -177,3 +177,7 @@ void cConsole::send(const QString &sMessage)
 		incompleteLine_.append( sMessage );
 	}
 }
+
+void cConsole::setAttributes( bool bold, bool italic, unsigned char r, unsigned char g, unsigned char b, unsigned char size )
+{
+}

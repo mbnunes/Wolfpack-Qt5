@@ -61,6 +61,13 @@ enum WPC_ColorKeys
 	WPC_WHITE,
 };
 
+enum eFontType
+{
+	FONT_SERIF = 0,
+	FONT_NOSERIF,
+	FONT_FIXEDWIDTH
+};
+
 class cConsole
 {
 private:
@@ -99,6 +106,8 @@ public:
 	virtual void start();
 	virtual void poll();
 	virtual void stop();
+
+	void setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, eFontType font );
 private:
 
 	std::istream *inputstrm;

@@ -161,10 +161,6 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 	case WM_ERASEBKGND:
 		return 1;
 
-	case WM_SETFOCUS:
-		SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
-		return 1;
-
 	case WM_NOTIFY:
 		if( wparam == CONTROL_LOGWINDOW )
 		{		
@@ -205,6 +201,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		
 	case WM_DESTROY:
 		keeprun = 0;
+		PostQuitMessage( 0 );
 		return 0;
 
 	default:
@@ -328,10 +325,22 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 
 	MSG msg;
 
-	while( GetMessage( &msg, mainWindow, 0, 0 ) > 0 )
+	while( GetMessage( &msg, 0, 0, 0 ) > 0 )
 	{
-		if( msg.message == WM_CHAR && msg.hwnd == inputWindow && msg.lParam == '\r' )
+		if( msg.message == WM_CHAR && msg.hwnd == inputWindow && msg.wParam == '\r' )
+		{
+			if( serverState == RUNNING )
+			{
+				char command[512] = { 0, };
+				GetWindowText( inputWindow, command, 512 );
+				SetWindowText( inputWindow, "" );
+
+				// Process Command
+				Console::instance()->handleCommand( command );
+			}
+
 			continue;
+		}
 
 		TranslateMessage( &msg );
 		DispatchMessage( &msg );
@@ -340,7 +349,6 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 	keeprun = 0; // We quit, so let's quit the server too
 
 	guiThread.wait();
-	FreeLibrary( hRiched );
 	
 	return guiThread.returnValue();
 }
@@ -384,6 +392,9 @@ void cConsole::send(const QString &sMessage)
 		SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)"" );
 	}
 
+	// Place the Caret at the End of the Text
+	
+
 	// process \b properly
 	if ( sMessage.contains("\b") )
 	{
@@ -403,18 +414,15 @@ void cConsole::send(const QString &sMessage)
 		}
 	}
 
-	range.cpMin = GetWindowTextLength( logWindow );
-	range.cpMax = GetWindowTextLength( logWindow );
-	SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
+	unsigned int tLength = GetWindowTextLength( logWindow );
+	SendMessage( logWindow, EM_SETSEL, tLength, tLength );
 
 	// Now it will get right, even if the user had selected sth.
 	SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
 
 	// And ofcourse if not some control is currently capturing the input
 	if( !GetCapture() )
-	{
-		SendMessage( logWindow, EM_LINESCROLL, 0, SendMessage( logWindow, EM_LINEFROMCHAR, ( ctrlLength + textLength ) - 1, 0 ) );
-	}
+		SendMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
 }
 
 void cConsole::ChangeColor( WPC_ColorKeys color )
@@ -454,4 +462,60 @@ void cConsole::ChangeColor( WPC_ColorKeys color )
 void cConsole::setConsoleTitle( const QString& data )
 {
 	SetWindowText( mainWindow, data.latin1() );
+}
+
+// Extended Attributes
+void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, eFontType font )
+{
+	CHARFORMAT cf;
+	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
+	cf.cbSize = sizeof( CHARFORMAT );
+
+	SendMessage( logWindow, EM_GETCHARFORMAT, SCF_SELECTION, (WPARAM)&cf );
+
+	if( bold )
+	{
+		cf.dwMask |= CFM_BOLD;
+		cf.dwEffects |= CFE_BOLD;
+	}
+
+	if( italic )
+	{
+		cf.dwMask |= CFM_ITALIC;
+		cf.dwEffects |= CFE_ITALIC;
+	}
+
+	if( underlined )
+	{
+		cf.dwMask |= CFM_UNDERLINE;
+		cf.dwEffects |= CFE_UNDERLINE;
+	}
+
+	cf.dwMask |= CFM_COLOR;
+	cf.crTextColor = RGB( r, g, b );
+
+	if( size )
+	{
+		cf.dwMask |= CFM_SIZE;
+		cf.yHeight = size;
+	}
+
+	cf.dwMask |= CFM_FACE;
+
+	switch( font )
+	{
+	case FONT_SERIF:
+		strcpy( cf.szFaceName, "Courier" );
+		break;
+
+	case FONT_NOSERIF:
+		strcpy( cf.szFaceName, "Arial" );
+		break;
+
+	case FONT_FIXEDWIDTH:
+		strcpy( cf.szFaceName, "Fixedsys" );
+		break;
+	}
+
+	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
