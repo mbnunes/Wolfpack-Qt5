@@ -903,8 +903,8 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 			pi = *it;
 			if (pi->layer() > 1 && pi->layer() < 25)
 			{
-				if (!(strstr(pi->name().ascii(), "leather") || strstr(pi->name().ascii(), "magic") ||
-					strstr(pi->name().ascii(), "boot")|| strstr(pi->name().ascii(), "mask")))
+				if (!(pi->name().contains("leather") || pi->name().contains("magic") ||
+					  pi->name().contains("boot")    || pi->name().contains("mask")  ))
 					ar += pi->def();
 			}
 		}
