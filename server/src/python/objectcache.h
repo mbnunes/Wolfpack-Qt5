@@ -58,7 +58,7 @@ public:
     void push (T* x)			// push object ( Note, this is exception safe, don't change)
     {
 		if ( numElements == MAXSIZE )
-			throw std::out_of_range("FixedSizePtrStack<>::push(): stack is full");
+			throw std::out_of_range(std::string("FixedSizePtrStack<>::push(): stack is full"));
 		elements[numElements] = x; // Append
 		++numElements;			   // Increase number.
     }
