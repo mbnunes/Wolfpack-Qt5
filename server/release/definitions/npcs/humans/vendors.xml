@@ -2096,4 +2096,206 @@
 		</tactics>
 		<category>Vendors\Stablemaster (Female)</category>
 	</npc>
+	<!-- A weaponsmith vendor -->
+	<npc id="weaponsmith_male">
+		<inherit>base_male</inherit>
+		<title>the Weaponsmith</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Weaponsmith (Male)</category>
+	</npc>
+	<npc id="weaponsmith_female">
+		<inherit>base_female</inherit>
+		<title>the Weaponsmith</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Weaponsmith (Female)</category>
+	</npc>
+	<!-- A bard vendor -->
+	<npc id="bard_male">
+		<inherit>base_male</inherit>
+		<title>the Bard</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Bard (Male)</category>
+	</npc>
+	<npc id="bard_female">
+		<inherit>base_female</inherit>
+		<title>the Bard</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Bard (Female)</category>
+	</npc>
+	<!-- A veterinarian -->
+	<npc id="veterinarian_male">
+		<inherit>base_male</inherit>
+		<title>the Veterinarian</title>
+		<ai>Human_Vendor</ai>
+		<category>Vendors\Veterinarian (Male)</category>
+	</npc>
+	<npc id="veterinarian_female">
+		<inherit>base_female</inherit>
+		<title>the Veterinarian</title>
+		<ai>Human_Vendor</ai>
+		<category>Vendors\Veterinarian (Female)</category>
+	</npc>
+	<!-- A bowyer vendor -->
+	<npc id="bowyer_male">
+		<inherit>base_male</inherit>
+		<title>the Bowyer</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Bowyer (Male)</category>
+	</npc>
+	<npc id="bowyer_female">
+		<inherit>base_female</inherit>
+		<title>the Bowyer</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Bowyer (Female)</category>
+	</npc>
+	<!-- A leatherworker vendor -->
+	<npc id="leatherworker_male">
+		<inherit>base_male</inherit>
+		<title>the Leatherworker</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Leatherworker (Male)</category>
+	</npc>
+	<npc id="leatherworker_female">
+		<inherit>base_female</inherit>
+		<title>the Leatherworker</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Leatherworker (Female)</category>
+	</npc>
+	<!-- A artist -->
+	<npc id="artist_male">
+		<inherit>base_male</inherit>
+		<title>the Artist</title>
+		<ai>Human_Vendor</ai>
+		<category>Vendors\Artist (Male)</category>
+	</npc>
+	<npc id="artist_female">
+		<inherit>base_female</inherit>
+		<title>the Artist</title>
+		<ai>Human_Vendor</ai>
+		<category>Vendors\Artist (Female)</category>
+	</npc>
+	<!-- A cobbler vendor -->
+	<npc id="cobbler_male">
+		<inherit>base_male</inherit>
+		<title>the Cobbler</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Cobbler (Male)</category>
+	</npc>
+	<npc id="cobbler_female">
+		<inherit>base_female</inherit>
+		<title>the Cobbler</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Cobbler (Female)</category>
+	</npc>
+	<!-- A fisherman vendor -->
+	<npc id="fisherman_male">
+		<inherit>base_male</inherit>
+		<title>the Fisherman</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Fisherman (Male)</category>
+	</npc>
+	<!-- A fisherlady vendor -->
+	<npc id="fisherlady_female">
+		<inherit>base_female</inherit>
+		<title>the Fisherlady</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Fisherlady (Female)</category>
+	</npc>
+	<!-- A spinner vendor -->
+	<npc id="spinner_male">
+		<inherit>base_male</inherit>
+		<title>the Spinner</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Spinner (Male)</category>
+	</npc>
+	<npc id="spinner_female">
+		<inherit>base_female</inherit>
+		<title>the Spinner</title>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>
+			<restockable>
+			</restockable>
+			<sellable>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Spinner (Female)</category>
+	</npc>
 </definitions>
