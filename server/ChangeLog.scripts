@@ -62,6 +62,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Blacksmithing now logs smelting and repairing and allows using static forges and anvils.
 		- Withdraw now updates the gold put into the players backpack.
 		- Allowed translation of the base makemenu.
+		- Added tilecolor command.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
