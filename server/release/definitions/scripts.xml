@@ -9,6 +9,7 @@
 	<script id="lightsource"	type="python" module="lightsource" />
 	<script id="weapons_blades" type="python" module="weapons.blades" />
 	<script id="scissors" 		type="python" module="scissors" />
+	<script id="webadmin"		type="python" module="webadmin" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />

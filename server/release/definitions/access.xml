@@ -21,6 +21,9 @@
 		<group name="multi">
 			<action name="any" permit="true" />
 		</group>
+		<group name="RemoteAccess">
+			<action name="any" permit="true" />
+		</group>
 	</acl>
 	
 	<!-- GameMaster privs -->
