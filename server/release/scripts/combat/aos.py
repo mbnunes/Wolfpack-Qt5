@@ -50,7 +50,9 @@ def fireweapon(attacker, defender, weapon):
 		if not consumeresources(attacker.getbackpack(), ammo, 1):
 			if attacker.socket:
 				attacker.socket.sysmessage('You are out of ammo.')
-			return 0
+			if attacker.npc:
+				tobackpack(weapon, attacker)
+			return False
 
 		if random.random() >= 0.50:
 			if defender.player:
@@ -81,7 +83,7 @@ def fireweapon(attacker, defender, weapon):
 		hue = properties.fromitem(weapon, PROJECTILEHUE)
 		attacker.movingeffect(projectile, defender, 0, 0, 14, hue)
 
-	return 1
+	return True
 
 #
 # Checks if the character hits his target or misses instead

@@ -22,6 +22,7 @@
 		<maxstamina><random min="186" max="200"/></maxstamina>
 		<maxmana><random min="96" max="110"/></maxmana>
 		<!-- Skills -->
+		<archery><random min="809" max="899"/></archery>
 		<wrestling><random min="809" max="899"/></wrestling>
 		<tactics><random min="910" max="1000"/></tactics>
 		<magicresistance><random min="910" max="1000"/></magicresistance>
@@ -42,8 +43,17 @@
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_poison" value="35,45" type="int" />
 		<tag name="res_energy" value="35,45" type="int" />
+		<!-- Equiped -->
+		<equipped>
+			<item id="f50" /> <!-- Crossbow -->
+			<item id="e75"> <!-- Backpack -->
+				<content>
+					<item id="1bfb"><amount><random min="40" max="60"/></amount></item> <!-- Bolts -->
+				</content>
+			</item>
+		</equipped>
 		<!-- Loot Packs -->
-		<!-- Missing: Crossbow, 40-60 Bolts, 10-20 Reagents, Longsword -->
+		<!-- Missing: 10-20 Reagents, Longsword -->
 		<lootpacks>gold_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Captain</category>

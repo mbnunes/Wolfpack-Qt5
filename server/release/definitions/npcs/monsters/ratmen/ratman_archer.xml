@@ -37,7 +37,15 @@
 		<tag name="res_physical" value="40,55" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
-		<!-- Missing: Bow, 50 Arrow -->
+		<!-- Equiped -->
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+			<item id="e75"> <!-- Backpack -->
+				<content>
+					<item id="f3f"><amount><random min="50" max="70"/></amount></item> <!-- Arrows -->
+				</content>
+			</item>
+		</equipped>
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ratmen\Ratman Archer</category>
 		

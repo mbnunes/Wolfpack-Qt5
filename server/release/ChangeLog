@@ -66,6 +66,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Removed the "Pink Spawn" from decoration.
   - Fixed skeletal steeds stats and skills.
   - Added stackable burned food that is used when cooking fails.
+  - Added ranged weapons + ammo to orc scout, ratmen archer, meer captain and juka lord.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
