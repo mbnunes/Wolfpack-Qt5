@@ -29,6 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#include <limits> // Python tries to redefine some of this stuff, so include first
+
 #include "utilities.h"
 #include "skills.h"
 #include "content.h"
