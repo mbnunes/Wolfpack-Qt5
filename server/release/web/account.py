@@ -55,7 +55,7 @@ if save == 1:
 
 	# Only continue if we didn't fail already
 	if not message:
-		record.acl = form.getvalue( 'acl', 'player' ) # If error = default to playor ;)
+		record.acl = form.getvalue( 'acl', 'player' ) # If error = default to player ;)
 		if form.getvalue( 'block', 'false' ) == 'true': 
 			record.block()
 		else:
