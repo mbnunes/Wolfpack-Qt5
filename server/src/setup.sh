@@ -8,9 +8,8 @@ NECESSARY_COMMANDS="bash seq run-parts expr grep sed cut head tail chmod";
 #
 
 echo -e "\e[1;32mChecking for base dependencies:\e[m";
-#
-# check for base commands:
-#
+
+# check for base commands {{{
 	echo -e "\e[33m--> \e[1mAre necessary commands available?\e[m";
 		echo -en "\e[36m---->\e[m ";
 		for DEP in $NECESSARY_COMMANDS;
@@ -32,9 +31,9 @@ echo -e "\e[1;32mChecking for base dependencies:\e[m";
 			exit 1;
 		fi;
 	#
-#
-# check for permissions which are required by run-parts:
-#
+# }}}
+
+# check for permissions which are required by run-parts {{{
 	echo -e "\e[33m--> \e[1mPermissions correctly set?\e[m";
 	#
 	# does setup.d exist?
@@ -146,9 +145,9 @@ echo -e "\e[1;32mChecking for base dependencies:\e[m";
 			exit 1;
 		fi;
 	#
-#
-# Check configuration file:
-#
+# }}}
+
+# Check configuration file {{{
 	echo -e "\e[33m--> \e[1mIs configuration okay?\e[m";
 	#
 	# Does it exist?
@@ -192,7 +191,8 @@ echo -e "\e[1;32mChecking for base dependencies:\e[m";
 			exit 1;
 		fi
 	#
-#
+# }}}
+
 echo -e "\e[1;32mOkay, starting setup scripts:\e[m";
 
 export CONFIG_FILE;
