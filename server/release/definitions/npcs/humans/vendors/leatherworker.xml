@@ -10,11 +10,10 @@
 	<npc id="leatherworker_inventory">
 		<shopkeeper>
 			<restockable>
-				<item id="1078"><amount>999</amount></item>
+				<item id="leather_hides"><amount>999</amount></item>
 				<item id="1711"><amount>10</amount></item>
 			</restockable>
 			<sellable>
-				<item id="1078"/>
 				<item id="1081"/>
 				<item id="leather_cut"/>
 				<item id="leather_hides"/>		
