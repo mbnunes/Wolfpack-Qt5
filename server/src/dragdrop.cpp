@@ -763,34 +763,30 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	}
 
 	// Spell Book
-	if( pCont->type() == 9 && pItem->type() == 1105 )
-	{
-		cSpellBook *pBook = dynamic_cast< cSpellBook* >( pCont );
+	cSpellBook *pBook = dynamic_cast< cSpellBook* >( pCont );
+	if( pBook )
+ 	{
+		SI08 spellId = NewMagic->calcSpellId( pItem->id() );
 
-		if( pBook )
+		if( pItem->type() != 1105 || spellId < 0 )
 		{
-			SI08 spellId = NewMagic->calcSpellId( pItem->id() );
+			socket->sysMessage( tr( "You can only put scrolls into a spellbook" ) );
+			socket->bounceItem( pItem, BR_NO_REASON );
+			return;
+		}		
 
-			if( spellId < 0 )
-			{
-				socket->sysMessage( tr( "You can only put scrolls into a spellbook" ) );
-				socket->bounceItem( pItem, BR_NO_REASON );
-				return;
-			}		
-
-			if( pBook->hasSpell( spellId ) )
-			{
-				socket->sysMessage( tr( "That spellbook already contains this spell" ) );
-				socket->bounceItem( pItem, BR_NO_REASON );
-				return;
-			}
-			else
-			{	
-				pBook->addSpell( spellId );
-				Items->DeleItem( pItem );
-				pBook->update( socket );
-				return;
-			}
+		if( pBook->hasSpell( spellId ) )
+		{
+			socket->sysMessage( tr( "That spellbook already contains this spell" ) );
+			socket->bounceItem( pItem, BR_NO_REASON );
+			return;
+		}
+		else
+		{	
+			pBook->addSpell( spellId );
+			Items->DeleItem( pItem );
+			pBook->update( socket );
+			return;
 		}
 	}
 
@@ -821,7 +817,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// We may also drop into *any* locked chest
 	// So we can have post-boxes ;o)
 	// Spellbooks are containers for us as well
-	if( pCont->type() == 9 || pCont->type() == 1 || pCont->type() == 8 || pCont->type() == 63 || pCont->type() == 65 || pCont->type() == 66 )
+	if( pCont->type() == 1 || pCont->type() == 8 || pCont->type() == 63 || pCont->type() == 65 || pCont->type() == 66 )
 	{
 		// If we're dropping it onto the closed container
 		if( dropPos.distance( pCont->pos() ) == 0 )
@@ -869,12 +865,12 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	pItem->setPos( pItem->pos() + Coord_cl(0, 0, 2) );
 	pItem->update();
 
-	// This needs to be checked
+/*	// This needs to be checked
 	// It annoyingly shows the spellbook
 	// whenever you add a scroll
 	// << could it be that addItemToContainer is enough?? >>
 	if( pCont->type() == 9 )
-		Magic->openSpellBook( pChar, pCont );
+		Magic->openSpellBook( pChar, pCont );*/
 }
 
 // Food was dropped on a pet
