@@ -408,13 +408,13 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	cVariant value = self->pItem->getTag( key );
 
-	if ( value.type() == cVariant::StringType )
-		return QString2Python( value.toString() );
-	else if ( value.type() == cVariant::IntType )
-		return PyInt_FromLong( value.asInt() );
-	else if ( value.type() == cVariant::DoubleType )
-		return PyFloat_FromDouble( value.asDouble() );
-
+	switch( value.type() )
+	{
+	case cVariant::StringType:	return QString2Python( value.toString() );
+	case cVariant::IntType:		return PyInt_FromLong( value.asInt() );
+	case cVariant::DoubleType:	return PyFloat_FromDouble( value.asDouble() );
+	default: break;
+	}
 	Py_RETURN_NONE;
 }
 
@@ -481,9 +481,9 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "s:item.hastag( key )", &pKey ) )
 		return 0;
 
-	QString key( pKey );
-
-	return self->pItem->getTag( key ).isValid() ? PyTrue() : PyFalse();
+	if ( self->pItem->hasTag( pKey ) )
+		Py_RETURN_TRUE;
+	Py_RETURN_FALSE;
 }
 
 /*!
@@ -691,10 +691,9 @@ static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	if ( !self->pItem )
-		return false;
+		Py_RETURN_FALSE;
 
-	QString name = self->pItem->getName( true );
-	return QString2Python( name );
+	return QString2Python( self->pItem->getName( true ) );
 }
 
 /*!
