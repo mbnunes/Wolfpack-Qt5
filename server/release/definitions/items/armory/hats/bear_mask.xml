@@ -4,10 +4,10 @@
 	<!-- Bear Mask n/s -->
 	<item id="1545">
 		<category>Clothes\Headwear\Bear Mask (N/S)</category>
-		<category>Armor\Headwear\Bear Mask (N/S)</catogery>
+		<category>Armor\Headwear\Bear Mask (N/S)</category>
 		<id>0x1545</id>
 		<nodye />
-		<requires type='str'>10</requires>
+		<tag name='req_str' value='10' type='int' />
 		<durability><random min="20" max="25" /></durability>
 		<decay />
 		<value>40</value>

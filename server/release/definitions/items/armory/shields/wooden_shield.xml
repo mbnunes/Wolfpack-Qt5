@@ -9,12 +9,11 @@
  <definitions>
 
 	<!-- Wooden shield -->
-	<name id="1b7a">
+	<item id="1b7a">
 		<id>0x1b7a</id>
 		<name>wooden shield</name>
 		<decay />
 		<nodye />
-		<defense>8</defense>
 		<durability><random min="20" max="25" /></durability>
 		<tag name="req_str" value="20" type="int" />
 		<tag name="aos_req_str" value="20" type="int" />
