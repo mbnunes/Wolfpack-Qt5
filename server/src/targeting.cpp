@@ -54,91 +54,6 @@
 #define DBGFILE "targeting.cpp"
 //#include "debug.h"
 
-///////////////////
-// class:	cTarget
-// purpose:	base class of all Target classes
-//			encapsulates the basic functions of target processing
-// remarks:	intended to become a member of the 'transaction' class in the future
-//			the cTargets::multitarget shall become the ctarget::factory
-//			Duke, 07/16/00
-//			Changed my mind. These classes are now considered 'experimental'
-//			Duke, 7.11.2000
-//
-class cTarget
-{
-protected:
-	UOXSOCKET s;
-	SERIAL serial;
-	void makeSerial()		{serial=LongFromCharPtr(buffer[s]+7);}
-public:
-	cTarget(P_CLIENT pCli)	{s=pCli->socket();}
-	virtual void process() = 0;
-};
-
-class cCharTarget : public virtual cTarget
-{
-protected:
-	P_CHAR pc;
-
-public:
-	cCharTarget(P_CLIENT pCli) : cTarget(pCli) {}
-	virtual void CharSpecific() = 0;
-	virtual void process()
-	{
-		makeSerial();
-		pc = FindCharBySerial(serial);
-		if (pc != NULL)
-			CharSpecific();
-		else
-			sysmessage(s,"That is not a character.");
-	}
-};
-
-class cItemTarget : public virtual cTarget
-{
-protected:
-	P_ITEM pi;
-public:
-	cItemTarget(P_CLIENT pCli) : cTarget(pCli) {}
-	virtual void ItemSpecific() = 0;
-	virtual void process()
-	{
-		makeSerial();
-		pi = FindItemBySerial(serial);
-		if (pi != NULL)
-			ItemSpecific();
-		else
-			sysmessage(s, "That is not an item.");
-	}
-};
-
-class cWpObjTarget : public virtual cItemTarget, public virtual cCharTarget
-{
-public:
-	cWpObjTarget(P_CLIENT pCli) : cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
-//	virtual void CharSpecific() = 0;
-//	virtual void ItemSpecific() = 0;
-	virtual void process()
-	{
-		makeSerial();
-		if(isItemSerial(serial)) // an item's serial ?
-		{
-			pi = FindItemBySerial(serial);
-			if (pi != NULL)
-				ItemSpecific();
-			else
-				sysmessage(s,"That is not a valid item.");
-		}
-		else
-		{
-			pc = FindCharBySerial(serial);
-			if (pc != NULL)
-				CharSpecific();
-			else
-				sysmessage(s,"That is not a valid character.");
-		}
-	}
-};
 
 void cTargets::PlVBuy(int s)//PlayerVendors
 {
@@ -382,24 +297,6 @@ void cTargets::IstatsTarget(int s)
 		}
 	}
 }
-static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
-{
-	/*UOXSOCKET s = ps->socket();
-
-	sprintf((char*)temp, "Ser [%8x] ID [%2x] Name [%s] Skin [%x] Account [%x] Priv [%x %x] Position [%i %i %i] CTimeout [%i] Fame [%i] Karma [%i] Deaths [%i] Kills [%i] NPCAI [%x] NPCWANDER [%d] WEIGHT [%.2f]",
-		pc->serial,pc->id(),
-		pc->name.c_str(),pc->skin(),
-		pc->account(),pc->getPriv(),pc->priv2,
-		pc->pos.x,pc->pos.y,pc->pos.z, pc->timeout,
-		pc->fame,pc->karma,pc->deaths,pc->kills,
-		pc->npcaitype(), pc->npcWander, (float)pc->weight);
-	sysmessage(s, (char*)temp);
-	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
-		pc->poisoned(),pc->poison(),pc->hunger(),pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
-	sysmessage(s, (char*)temp);
-	cGumps::instance()->Open(s, pc, 0, 8);
-	statwindow(s, pc);*/
-}
 
 static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 {
@@ -442,165 +339,6 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 		}
 	}
 	updatechar(pc_c);
-}
-
-static void GMTarget(P_CLIENT ps, P_CHAR pc)
-{
-	UOXSOCKET s = ps->socket();
-
-	int i;	
-	if (SrvParams->gmLog())
-	{
-		sprintf((char*)temp, "%s.gm_log",currchar[s]->name.c_str());
-		sprintf((char*)temp2, "%s has made %s a GM.\n",currchar[s]->name.c_str(),pc->name.c_str());
-		savelog((char*)temp2, (char*)temp);
-	}
-	UOXSOCKET targSocket = calcSocketFromChar(pc);
-	if ( targSocket == -1 )
-		return;
-	pc->unmount();
-	
-	pc->setId(0x03DB);
-	pc->setSkin(0x8021);
-	pc->setXid(0x03DB);
-	pc->setXSkin(0x8021);
-	pc->setPriv(0xF7);
-	pc->setPriv2((unsigned char) (0xD9));
-	
-	pc->setMenupriv(-1); // LB, disabling menupriv stuff for gms per default
-	
-	for (i = 0; i < TRUESKILLS; i++)
-	{
-		pc->setBaseSkill(i,1000);
-		pc->setSkill(i, 1000);
-	}
-	
-	// All stats to 100
-	pc->setSt( 100 );
-	pc->setSt2( 100 );
-	pc->setHp( 100 );
-	pc->setStm( 100 );
-	pc->setIn( 100 );
-	pc->setIn2( 100 );
-	pc->setMn( 100 );
-	pc->setMn2( 100 );
-	pc->setDex( 100 );
-	
-	if (strncmp(pc->name.c_str(), "GM", 2))
-	{
-		sprintf((char*)temp, "GM %s", pc->name.c_str());
-		pc->name = (char*)temp;
-	}
-	MoveBelongingsToBp(pc, pc);
-}
-
-static void CnsTarget(P_CLIENT ps, P_CHAR pc)
-{
-	UOXSOCKET s = ps->socket();
-
-	if (SrvParams->gmLog())
-	{
-		// logging
-		sprintf((char*)temp, "%s.gm_log",currchar[s]->name.c_str());
-		sprintf((char*)temp2, "%s has made %s a Counselor.\n",currchar[s]->name.c_str(),pc->name.c_str());
-		savelog((char*)temp2, (char*)temp);
-	}
-	pc->setId(0x03DB);
-	pc->setSkin(0x8003);
-	pc->setXid(0x03DB);
-	pc->setXSkin(0x8002);
-	pc->setPriv(0xB6);
-	pc->setPriv2('\x8D');
-	if (strncmp(pc->name.c_str(), "Counselor", 9))
-	{
-		sprintf((char*)temp, "Counselor %s", pc->name.c_str());
-		pc->name  = (char*)temp;
-	}
-	MoveBelongingsToBp(pc, pc);
-}
-
-static void KillTarget(P_CHAR pc, int ly)
-{
-	unsigned int ci=0;
-	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer()==ly)
-		{
-			Items->DeleItem(pi);
-		}
-	}
-}
-
-void cTargets::GhostTarget(int s)
-{
-	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	if(pc != NULL)
-	{
-		if(!pc->dead())
-		{
-			P_CHAR pc_currchar = currchar[s];
-			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
-			bolteffect(pc, true);
-			pc->soundEffect(0x0029);
-			pc->kill();
-		}
-		else
-			sysmessage(s,"That player is already dead.");
-	}
-}
-
-class cBoltTarget : public cCharTarget
-{
-public:
-	cBoltTarget(P_CLIENT pCli) : cCharTarget(pCli), cTarget(pCli) {}
-	void CharSpecific()
-	{
-		if (w_anim[0]==0 && w_anim[1]==0)
-		{
-			bolteffect(pc, true);
-			pc->soundEffect( 0x0029 );
-		}
-		else
-		{
-			for (int j=0;j<=333;j++) 
-				bolteffect2(pc, w_anim[0],w_anim[1]);
-		}
-	}
-};
-
-class cSetAmountTarget : public cItemTarget
-{
-public:
-	cSetAmountTarget(P_CLIENT pCli) : cItemTarget(pCli), cTarget(pCli) {}
-	void ItemSpecific()
-	{
-		if (addx[s] > 64000) //Ripper..to fix a client bug for over 64k.
-		{
-			sysmessage(s, "No amounts over 64k in a pile!");
-			return;
-		}
-		this->pi->setAmount( addx[s] );
-		pi->update();
-	}
-};
-
-void cTargets::CloseTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if(pc != NULL)
-	{
-		UOXSOCKET j = calcSocketFromChar(pc);
-		if(j>-1)
-		{
-			sysmessage(s, "Kicking player");
-			sysmessage(j, "You have been kicked!"); //New -- Zippy
-			//cNetwork::instance()->disconnect(j);
-		}
-	}
 }
 
 // public !!!
@@ -647,69 +385,6 @@ void cTargets::VisibleTarget (int s)
 	}
 }
 
-///////////////
-// Name:	ContainerEmptyTarget1&2
-// Purpose:	used by the '#empty' user-command
-// history: by Duke, 29.12.2000
-//
-static void ContainerEmptyTarget1(P_CLIENT ps, P_ITEM pi)
-{
-	UOXSOCKET s = ps->socket();
-	if (isItemSerial(pi->serial) && pi->type() == 1)
-	{
-		addx[s]=pi->serial;
-		target(s, 0, 1, 0, 72, "Select container to fill:");
-	}
-	else
-		sysmessage(s,"That is not a valid container!");
-}
-static void ContainerEmptyTarget2(P_CLIENT ps, P_ITEM pNewCont)
-{
-	UOXSOCKET s = ps->socket();
-	if( pNewCont->type() == 1 )
-	{
-		P_ITEM pi;	// item to move from old container
-		unsigned int ci = 0;
-		vector<SERIAL> vecContainer = contsp.getData(addx[s]);
-		for ( ci = 0; ci < vecContainer.size(); ci++)
-		{
-			pi = FindItemBySerial(vecContainer[ci]);
-			pNewCont->AddItem(pi);
-		}
-	}
-	else
-		sysmessage(s,"That is not a valid container!");
-}
-
-static void OwnerTarget(P_CLIENT ps, P_CHAR pc)
-{
-	UOXSOCKET s = ps->socket();
-	
-	int addser=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	pc->SetOwnSerial(addser);
-	if (addser==-1)
-	{
-		pc->setTamed(false);
-	}
-	else
-	{
-		pc->setTamed(true);
-	}
-}
-
-static void OwnerTarget(P_CLIENT ps, P_ITEM pi)
-{
-	UOXSOCKET s = ps->socket();
-	
-	int os=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	pi->SetOwnSerial(os);
-
-	if (pi->visible==1)
-	{
-		for (int j=0;j<now;j++) if (perm[j]) senditem(j,pi); // necassairy for items with visible value of 1
-	}
-}
-
 void cTargets::DvatTarget(int s)
 {
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -751,14 +426,6 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	cMapObjects::getInstance()->add(pc); // add it to da regions ...
 	pc->isNpc();
 	updatechar(pc);
-}
-
-static void SetInvulFlag(P_CLIENT ps, P_CHAR pc)
-{
-	if (addx[ps->socket()]==1)
-		pc->makeInvulnerable();
-	else
-		pc->makeVulnerable();
 }
 
 static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls this function - Crwth 01/11/1999
@@ -1182,808 +849,6 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 	}
 }
 
-static void CorpseTarget(const P_CLIENT pC)
-{
-	/*int n = 0;
-	UOXSOCKET s = pC->socket();
-	
-	int serial = LongFromCharPtr(buffer[s] + 7);
-	P_ITEM pi = FindItemBySerial(serial);
-	if (pi != NULL)
-	{
-		if (iteminrange(s, pi, 1))
-		{
-			npcshape[0] = pi->serial;
-			action(s, 0x20);
-			n = 1;
-			if (pi->more1 == 0)
-			{
-				pi->more1 = 1;// corpse being carved...can't carve it anymore
-				
-				if (pi->morey || !pi->carve().isEmpty())
-				{// if specified, use enhanced carving system!
-					newCarveTarget(s, pi);// AntiChrist
-				}
-				else
-				{// else use standard carving
-					switch (pi->amount())
-					{
-						case 0x01: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Ogre
-						case 0x02: 
-							CarveTarget(s, 0, 5, 0, 0, 0, 0);
-							break; // Ettin
-						case 0x03: 
-							break;	// Zombie
-						case 0x04: 
-							break;	// Gargoyle
-						case 0x05: 
-							CarveTarget(s, 36, 0, 0, 0, 0, 1);
-							break; // Eagle
-						case 0x06: 
-							CarveTarget(s, 25, 0, 0, 0, 0, 1);
-							break; // Bird
-						case 0x07: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Orc (with an axe in 2d)
-						case 0x08: 
-							break;	// Corpser
-						case 0x09: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Daemon
-						case 0x0A: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Daemon (with a sword in 2d)
-						case 0x0B: 
-							break;	// Dread Spider
-						case 0x0C: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // Dragon (green in t2a/grey in uo:td)
-						case 0x0D: 
-							break;	// Air Elemental
-						case 0x0E: 
-							break;	// Earth Elemental
-						case 0x0F: 
-							break;	// Fire Elemental
-						case 0x10: 
-							break;	// Water Elemental
-						case 0x11: 
-							CarveTarget(s, 0, 3, 0, 0, 0, 0);
-							break; // Orc
-						case 0x12: 
-							CarveTarget(s, 0, 5, 0, 0, 0, 0);
-							break; // Ettin (with club in 2d)
-						case 0x13: 
-							break;       // Frost Spider
-						case 0x14: 
-							break;       // Giant Spider
-						case 0x15: 
-							CarveTarget(s, 0, 4, 20, 0, 0, 0);
-							break; // Giant Serpent
-						case 0x16: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Gazer
-						case 0x17: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Dire Wolf
-						case 0x18: 
-							break;	// Liche
-						case 0x19: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Grey Wolf
-						case 0x1A: 
-							break;	// Ghoul
-						case 0x1B: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Grey Wolf (another one)
-						case 0x1C: 
-							break;	// Spider
-						case 0x1D: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Gorilla
-						case 0x1E: 
-							CarveTarget(s, 50, 0, 0, 0, 0, 1);
-							break; // Harpy
-						case 0x1F: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Headless
-							// case 0x20: break;	//-NULL-
-						case 0x21: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Lizardman
-						case 0x22: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // White Wolf
-						case 0x23: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Lizardman (with spear in 2d)
-						case 0x24: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Lizardman (with mace in 2d)
-						case 0x25: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // White Wolf (another one)
-						case 0x26: 
-							break;	// Black Gate Daemon
-						case 0x27: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Mongbat
-						case 0x28: 
-							break;	// Elder Daemon
-						case 0x29: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Orc (with club in 2d)
-						case 0x2A: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Ratman
-						case 0x2B: 
-							break;	// Ice Fiend
-						case 0x2C: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Ratman (with axe in 2d)
-						case 0x2D: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Ratman (with dagger in 2d)
-						case 0x2E: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // Ancient Wyrm
-						case 0x2F: 
-							break;	// Reaper
-						case 0x30: 
-							break;	// Giant Scorpion
-						case 0x31: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // White Wyrm
-						case 0x32: 
-							break;	// Skeleton
-						case 0x33: 
-							break;	// Slime
-						case 0x34: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Snake
-						case 0x35: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Troll (with axe in 2d)
-						case 0x36: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Troll
-						case 0x37: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Troll (with club in 2d)
-						case 0x38: 
-							break;	// Skeleton (with axe in 2d)
-						case 0x39: 
-							break;	// Skeleton (with sword in 2d)
-						case 0x3A: 
-							break;	// Wisp
-						case 0x3B: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // Red Dragon
-						case 0x3C: 
-							CarveTarget(s, 0, 10, 20, 0, 0, 0);
-							break; // Drake (green in t2a/grey in uo:td)
-						case 0x3D: 
-							CarveTarget(s, 0, 10, 20, 0, 0, 0);
-							break; // Red Drake
-						case 0x3E: 
-							CarveTarget(s, 0, 10, 20, 0, 0, 0);
-							break; // Wyvern
-						case 0x3F: 
-							CarveTarget(s, 0, 1, 10, 0, 0, 0);
-							break; // Cougar
-						case 0x40: 
-							CarveTarget(s, 0, 1, 0, 2, 0, 0);
-							break; // Snow Leopard
-						case 0x41: 
-							CarveTarget(s, 0, 1, 0, 2, 0, 0);
-							break; // Snow Leopard (another one)
-						case 0x42: 
-							break;       // Swamp Tentacles
-						case 0x43: 
-							break;       // Stone Gargoyle
-						case 0x44: 
-							break;       // Elder Gazer
-						case 0x45: 
-							break;       // Elder Gazer (another one)
-						case 0x46: 
-							CarveTarget(s, 0, 0, 0, 0, 0, 0);
-							break; // Terathan Warrior
-						case 0x47: 
-							CarveTarget(s, 0, 0, 0, 0, 0, 0);
-							break; // Terathan Drone
-						case 0x48: 
-							CarveTarget(s, 0, 0, 0, 0, 0, 0);
-							break; // Terathan Queen
-						case 0x49: 
-							break;       // Stone Harpy
-						case 0x4A: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Imp
-						case 0x4B: 
-							CarveTarget(s, 0, 4, 0, 0, 0, 0);
-							break; // Titan
-						case 0x4C: 
-							CarveTarget(s, 0, 4, 0, 0, 0, 0);
-							break; // Cyclopean Warrior
-						case 0x4D: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // Kraken
-						case 0x4E: 
-							break;       // Lich Lord
-						case 0x50: 
-							CarveTarget(s, 0, 10, 2, 0, 0, 0);
-							break; // Giant Toad
-						case 0x51: 
-							CarveTarget(s, 0, 4, 1, 0, 0, 0);
-							break; // Bullfrog
-						case 0x52: 
-							break;       // Lich Lord (another one)
-						case 0x53: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Ogre Lord
-						case 0x54: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Ogre Lord (another one)
-						case 0x55: 
-							CarveTarget(s, 0, 5, 7, 0, 0, 0);
-							break; // Ophidian Mage
-						case 0x56: 
-							CarveTarget(s, 0, 5, 7, 0, 0, 0);
-							break; // Ophidian Warrior
-						case 0x57: 
-							CarveTarget(s, 0, 5, 7, 0, 0, 0);
-							break; // Ophidian Queen
-						case 0x58: 
-							CarveTarget(s, 0, 2, 8, 0, 0, 0);
-							break; // Mountain Goat
-						case 0x59: 
-							CarveTarget(s, 0, 4, 20, 0, 0, 0);
-							break; // Giant Ice Snake
-						case 0x5A: 
-							CarveTarget(s, 0, 4, 20, 0, 0, 0);
-							break; // Giant Lava Snake
-						case 0x5B: 
-							CarveTarget(s, 0, 4, 20, 0, 0, 0);
-							break; // Giant Silver Serpent
-						case 0x5C: 
-							CarveTarget(s, 0, 4, 20, 0, 0, 0);
-							break; // Giant Silver Serpent (another one)
-						case 0x5D: 
-							CarveTarget(s, 0, 4, 20, 0, 0, 0);
-							break; // Giant Silver Serpent (another one)
-						case 0x5E: 
-							break;       // Frost Slime
-						case 0x5F: 
-							break;       // Leviathan (only works in 2D client)
-						case 0x60: 
-							break;       // Frost Slime (another one)
-						case 0x61: 
-							break;       // Hell Hound
-						case 0x62: 
-							break;       // Hell Hound (another one)
-						case 0x63: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Dark Wolf
-						case 0x64: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Silver Wolf
-						case 0x65: 
-							CarveTarget(s, 0, 4, 10, 0, 0, 0);
-							break; // Centaur
-						case 0x66: 
-							break;       // Exodus
-						case 0x67: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // Asian Dragon
-						case 0x68: 
-							break;       // Skeletal Dragon
-							// case 0x69: break;       //-NULL-
-						case 0x6A: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // Shadow Wyrm
-						case 0x6B: 
-							break;       // Agapite Elemental
-						case 0x6C: 
-							break;       // Bronze Elemental
-						case 0x6D: 
-							break;       // Copper Elemental
-						case 0x6E: 
-							break;       // Dull Copper Elemental
-						case 0x6F: 
-							break;       // Iron Elemental
-						case 0x70: 
-							break;       // Valorite Elemental
-						case 0x71: 
-							break;       // Verite Elemental
-						case 0x72: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Dark Steed
-						case 0x73: 
-							break;       // Ethereal Horse
-						case 0x74: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Nightmare
-						case 0x75: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Silver Steed
-						case 0x76: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // War Horse (Britannians Faction)
-						case 0x77: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // War Horse (Mage Council Faction)
-						case 0x78: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // War Horse (Minax Faction)
-						case 0x79: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // War Horse (Shadowlords Faction)
-						case 0x7A: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Unicorn
-						case 0x7B: 
-							break;       // Ethereal Warrior (smallest)
-						case 0x7C: 
-							break;       // Evil Mage
-						case 0x7D: 
-							break;       // Evil Mage Master
-						case 0x7E: 
-							break;       // Evil Mage Master (another one)
-						case 0x7F: 
-							break;       // Predator Hell Cat
-						case 0x80: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Pixie (smallest)
-						case 0x81: 
-							break;       // Swamp Tentacles (another one)
-						case 0x82: 
-							break;       // Blistering Gargoyle
-						case 0x83: 
-							break;       // Efreet
-						case 0x84: 
-							break;       // Kirin
-						case 0x85: 
-							break;       // Small Alligator
-						case 0x86: 
-							break;       // Komodo Dragon
-						case 0x87: 
-							CarveTarget(s, 0, 2, 0, 0, 0, 0);
-							break; // Artic Ogre Lord
-						case 0x88: 
-							break;       // Ophidian Archmage
-						case 0x89: 
-							break;       // Ophidian Knight
-						case 0x8A: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Orc Lord
-						case 0x8B: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Orc Lord (another one)
-						case 0x8C: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Orc Shaman
-						case 0x8D: 
-							break;       // Paladin
-						case 0x8E: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Ratman (another one)
-						case 0x8F: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Ratman Shaman
-						case 0x90: 
-							break;       // Sea Horse
-						case 0x91: 
-							CarveTarget(s, 0, 12, 0, 0, 0, 0);
-							break; // Sea Serpent
-						case 0x92: 
-							break;       // Shadowlord
-						case 0x93: 
-							break;       // Skeleton Knight
-						case 0x94: 
-							break;       // Skeleton Mage
-						case 0x95: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Succubus (smallest)
-						case 0x96: 
-							CarveTarget(s, 0, 10, 0, 0, 0, 0);
-							break; // Sea Serpent (smallest)
-						case 0x97: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Dolphin
-						case 0x98: 
-							break;       // Terathan Avenger
-						case 0x99: 
-							break;       // Ghoul
-						case 0x9A: 
-							break;       // Mummy
-						case 0x9B: 
-							break;       // Rotting Corpse
-							// case 0x9C: break;       //-NULL-
-						case 0x9D: 
-							break;       // Black Widow Spider (smallest)
-						case 0x9E: 
-							break;       // Acid Elemental
-						case 0x9F: 
-							break;       // Blood Elemental
-						case 0xA0: 
-							break;       // Blood Elemental (another one)
-						case 0xA1: 
-							break;       // Ice Elemental
-						case 0xA2: 
-							break;       // Poison Elemental
-						case 0xA3: 
-							break;       // Snow Elemental
-						case 0xA4: 
-							break;       // Energy Vortex
-						case 0xA5: 
-							break;       // Black Wisp
-						case 0xA6: 
-							break;       // Gold Elemental
-						case 0xA7: 
-							CarveTarget(s, 0, 1, 0, 2, 0, 0);
-							break; // Brown Bear
-						case 0xA8: 
-							break;       // Shadow Fiend
-							// case 0xA9: break;       //-NULL-
-						case 0xAA: 
-							break;       // Ethereal Llama
-						case 0xAB: 
-							break;       // Ethereal Ostard
-						case 0xAC: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // Red Dragon (biggest)
-						case 0xAD: 
-							break;       // Black Widow Spider (biggest)
-						case 0xAE: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Succubus (biggest)
-						case 0xAF: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Ethereal Warrior (biggest)
-						case 0xB0: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Pixie (biggest)
-						case 0xB1: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Nightmare (another one)
-						case 0xB2: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Nightmare (another one)
-						case 0xB3: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Nightmare (another one)
-						case 0xB4: 
-							CarveTarget(s, 0, 19, 20, 0, 0, 0);
-							break; // White Wyrm (Retro)
-						case 0xB5: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Orc Scout
-						case 0xB6: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Orc Bomber
-							// case 0xB7-case 0xBA: break; //-NULL-
-						case 0xBB: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Ridgeback
-						case 0xBC: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Savage Ridgeback
-						case 0xBD: 
-							CarveTarget(s, 0, 4, 0, 0, 0, 0);
-							break; // Orc Brute
-							// case 0xBE-case 0xC7: break; //-NULL-
-						case 0xC8: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Horse (Dappled Brown)
-						case 0xC9: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Cat
-						case 0xCA: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Alligator
-						case 0xCB: 
-							CarveTarget(s, 0, 6, 0, 0, 0, 0);
-							break; // Pig
-						case 0xCC: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Horse (dark)
-						case 0xCD: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Rabbit
-						case 0xCE: 
-							CarveTarget(s, 0, 1, 12, 0 , 0, 0);
-							break; // Lava Lizard
-						case 0xCF: 
-							CarveTarget(s, 0, 3, 0, 0, 1, 0);
-							break; // Sheep
-						case 0xD0: 
-							CarveTarget(s, 25, 0, 0, 0, 0, 1);
-							break; // Chicken
-						case 0xD1: 
-							CarveTarget(s, 0, 2, 8, 0, 0, 0);
-							break; // Goat Billy
-						case 0xD2: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Desert Ostard
-						case 0xD3: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Bear
-						case 0xD4: 
-							CarveTarget(s, 0, 1, 0, 2, 0, 0);
-							break; // Grizzly Bear
-						case 0xD5: 
-							CarveTarget(s, 0, 2, 0, 3, 0, 0);
-							break; // Polar Bear
-						case 0xD6: 
-							CarveTarget(s, 0, 1, 10, 0, 0, 0);
-							break; // Panther
-						case 0xD7: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Giant Rat
-						case 0xD8: 
-							CarveTarget(s, 0, 8, 12, 0, 0, 0);
-							break; // Cow (black)
-						case 0xD9: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Hound
-						case 0xDA: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Frenzied Ostard
-						case 0xDB: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Forest Ostard
-						case 0xDC: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Llama
-						case 0xDD: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Walrus
-							// case 0xDE: break;	//-NULL-
-						case 0xDF: 
-							CarveTarget(s, 0, 3, 0, 0, 0, 0);
-							break; // Sheep (Shorn)
-						case 0xE1: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Timber Wolf
-						case 0xE2: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Horse (Dappled Grey)
-							// case 0xE3: break;	//-NULL-
-						case 0xE4: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Horse (tan)
-							// case 0xE5: break;	//-NULL-
-							// case 0xE6: break;	//-NULL-
-						case 0xE7: 
-							CarveTarget(s, 0, 8, 12, 0, 0, 0);
-							break; // Spotted Cow
-						case 0xE8: 
-							CarveTarget(s, 0, 10, 15, 0, 0, 0);
-							break; // Brown Bull
-						case 0xE9: 
-							CarveTarget(s, 0, 10, 15, 0, 0, 0);
-							break; // Spotted Bull
-						case 0xEA: 
-							CarveTarget(s, 0, 6, 15, 0, 0, 0);
-							break; // Great Heart
-							// case 0xEB: break;	//-NULL-
-							// case 0xEC: break;	//-NULL-
-						case 0xED: 
-							CarveTarget(s, 0, 5, 8, 0, 0, 0);
-							break; // Hind
-						case 0xEE: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Sewer Rat
-							// case 0xEF-case 0xFF: break; //-NULL-
-						case 0x0122: 
-							CarveTarget(s, 0, 10, 0, 0, 0, 0);
-							break; // Boar
-							// case 0x0123: break;   //-NULL-
-						case 0x0124: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Pack Llama
-							// case 0x0125-case 0x01A5: break; //-NULL
-						case 0x01A4: 
-							break;     // Blonde Boy (only in pre-t2a relases)
-						case 0x01A5: 
-							break;     // Brunette Boy (only in pre-t2a relases)
-						case 0x01A6: 
-							break;     // Toddler Girl (only in pre-t2a relases)
-						case 0x01A7: 
-							break;     // Brunette Girl (only in pre-t2a relases)
-							// case 0x01A8-case 0x02EF: break; //-NULL-
-						case 0x02F0: 
-							break;     // Iron Golem
-						case 0x02F1: 
-							break;     // Gargoyle Slave
-						case 0x02F2: 
-							break;     // Gargoyle Enforcer
-						case 0x02F3: 
-							break;     // Gargoyle Guard
-						case 0x02F4: 
-							break;     // Exodus Clockwork Overseer
-						case 0x02F5: 
-							break;     // Exodus Clockwork Minion
-						case 0x02F6: 
-							break;     // Gargoyle Shopkeeper
-							// case 0x02F7-case 0xFA: break; //-NULL-
-						case 0x02FB: 
-							break;     // Exodus Clockwork Minion (biggest)
-						case 0x02FC: 
-							break;     // Juka Warrior
-						case 0x02FD: 
-							break;     // Juka Mage
-						case 0x02FE: 
-							break;     // Kabur (NPC)
-						case 0x02FF: 
-							break;     // Blackthorn Cohort
-						case 0x0300: 
-							break;     // Juggernaut
-						case 0x0301: 
-							break;     // Future Blackthorn (NPC)
-						case 0x0302: 
-							break;     // Meer Mage
-						case 0x0303: 
-							break;     // Meer Warrior
-						case 0x0304: 
-							break;     // Adranath (NPC)
-						case 0x0305: 
-							break;     // Capitain Dasha (NPC)
-						case 0x0306: 
-							break;     // Dawn Girl (NPC)
-							// case 0x0307: break;     //Plague Beast (not working yet)
-						case 0x0308: 
-							break;     //Horde Demon (smallest)
-							// case 0x0309: break;     //Doppleganger (not working yet)
-							// case 0x030A: break;     //Swarm (not working yet)
-							// case 0x030B: break;     //Bogling (not working yet)
-							// case 0x030C: break;     //Bog Thing (not working yet)
-							// case 0x030D: break;     //Fire Ant Worker (not working yet)
-							// case 0x030E: break;     //Fire Ant Warrior (not working yet)
-							// case 0x030F: break;     //Fire Ant Queen (not working yet)
-							// case 0x0310: break;     //Arcane Demon (not working yet)
-							// case 0x0311: break;     //Four Armed Demon (not working yet)
-							// case 0x0312: break;     //Chariot (not working yet)
-							// case 0x0313: break;     //-NULL-
-							// case 0x0314: break;     //Sphinx (not working yet)
-							// case 0x0315: break;     //Quagmire (not working yet)
-							// case 0x0316: break;     //Sand Vortex (not working yet)
-							// case 0x0317: break;     //Giant Beetle (not working yet)
-							// case 0x0318: break;     //Chaos Demon (not working yet)
-							// case 0x0319: break;     //Skeletal Mount (not working yet)
-							// case 0x031A: break;     //Swamp Dragon (not working yet)
-						case 0x031B: 
-							break;     //Horde Demon
-						case 0x031C: 
-							break;     //Horde Demon (biggest)
-						case 0x031D: 
-							break;     // Fire Dragon (buggy model)
-						case 0x031E: 
-							break;     // Rust Dragon (buggy model)
-							// case 0x031F: break;     //Armored Swamp Dragon (not working yet)
-							// case 0x0320-case 0x033: break; //-NULL-
-						case 0x0334: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Dappled Brown Horse (another one)
-						case 0x0338: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Dark Brown Horse (another one)
-						case 0x0339: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Desert Ostard (another one)
-						case 0x033A: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Forest Ostard (another one)
-						case 0x033B: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Frenzied Ostard (another one)
-						case 0x033C: 
-							CarveTarget(s, 0, 1, 12, 0, 0, 0);
-							break; // Llama (another one)
-							// case 0x033D: break; //-NULL-
-							// case 0x033E: break; //-NULL-
-						case 0x033F: 
-							CarveTarget(s, 25, 0, 0, 0, 0, 1);
-							break; // Parrot
-							// case 0x0340: CarveTarget(s,36, 0, 0, 0, 0, 1); break; //Phoenix (Not working yet)
-							// case 0x0341: CarveTarget(s,25, 0, 0, 0, 0, 1); break; //Turkey (Not working yet)
-						case 0x0342: 
-							break;     // Hell Cat
-						case 0x0343: 
-							CarveTarget(s, 0, 1, 0, 1, 0, 0);
-							break; // Jackrabbit
-							// case 0x0344: break;     //-NULL-
-						case 0x0345: 
-							break;     // Ice Snake
-						case 0x0346: 
-							break;     // Lava Snake
-						case 0x0347: 
-							CarveTarget(s, 0, 15, 0, 0, 0, 0);
-							break; // Ridgeback (another one)
-							// case 0x0348: break;     //Giant Ridgeback (not working yet)
-							// case 0x0349: break;     //Flame Ridgeback (not working yet)
-							// case 0x034A: break;     //Hatchling Ridgeback (not working yet)
-						case 0x034B: 
-							CarveTarget(s, 0, 1, 0, 0, 0, 0);
-							break; // Town Rat
-							// case 0x034C-case 0x034F: break; //-NULL-
-						case 0x0350: 
-							CarveTarget(s, 0, 3, 10, 0, 0, 0);
-							break; // Tan Horse (another one)
-							// case 0x0351-case 0x03F5: break; //-NULL-
-							// case 0x03E6: break; //Kirin (another one) (not working! why??)
-						default:
-							LogErrorVar("Fallout of switch statement, value <%i>", pi->amount());
-					}// switch
-				}// if morey || carve>-1
-			}
-			else 
-			{
-				sysmessage(s, "You carve the corpse but find nothing usefull.");
-			}// if more1==0
-			// break;
-		}
-	}// if i!=-1
-	if (!n)
-		sysmessage(s, "That is too far away.");*/
-}
-
-static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
-{
-	UOXSOCKET s = pC->socket();
-	short id=pp->model;
-
-	if (isCharSerial(pp->Tserial))
-	{
-		;	// a sheep or goat ?
-	}
-	else if (IsCorpse(id))
-	{
-		CorpseTarget(pC);
-	}
-	else if(IsFish(id))
-	{
-		const P_ITEM rpi=FindItemBySerial(pp->Tserial);
-		short int amt=0;
-		if (!rpi) return;
-		if (rpi->amount()>1)
-			amt=(rpi->amount()*4);
-		else
-			amt=4; 
-		soundeffect(s,0x00,0x50);
-		P_ITEM pi = Items->SpawnItem(pC->player(), amt, "#", 1, 0x097A, 0, 1);
-		if(!pi)
-			return;
-		pi->update();
-		Items->DeleItem(rpi);
-	}
-	else
-		sysmessage(s,"You can't think of a way to use your blade on that.");
-}
-
-void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
-{
-	UOXSOCKET s = pC->socket();
-
-	if (IsTree(pp->model))
-	{
-		P_CHAR pc = pC->player();
-		if (!pc->onHorse()) action(s,0x0D);
-		else action(s,0x1d);
-		soundeffect(s,0x01,0x3E);
-		P_ITEM pi = Items->SpawnItem(pc,1,"#",1,0x0DE1,0,0); //Kindling
-		if(!pi)
-			return;
-		pi->moveTo(pc->pos);
-		pi->update();
-		sysmessage(s, "You hack at the tree and produce some kindling.");
-	}
-	else if( IsLog(pp->model) || IsBoard(pp->model) )
-		Skills->Fletching( pC->player()->socket() );
-	else
-		BladeTarget(pC,pp);
-}
 
 void cTargets::NpcTarget(int s)
 {
@@ -3134,82 +1999,6 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	currchar[s]->removeHalo(pi);
 }
 
-void cTargets::MenuPrivTarg(int s)//LB's menu privs
-{
-	int i;
-	char temp[512];
-
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL ) return;
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc!=NULL)
-	{
-		i=addid1[s];
-		sprintf(temp,"Setting Menupriv number %i",i);
-		sysmessage(s,temp);
-		sprintf(temp,"Menupriv %i set by %s",i,currchar[s]->name.c_str());
-		sysmessage(calcSocketFromChar(pc),temp);
-		pc->setMenupriv(i);
-	}
-}
-
-void cTargets::ShowSkillTarget(int s) // LB's showskills
-{
-/*	int a,j,k,b=0,c,z,zz,ges=0;
-	char skill_info[(ALLSKILLS+1)*40];
-	char sk[25];
-
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL ) return;
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		z=addx[s];
-		if (z<0 || z>3) z=0;
-		if (z==2 || z==3)
-			sprintf(skill_info, "%s's skills:", pc->name.c_str());
-		else
-			sprintf(skill_info, "%s's baseskills:", pc->name.c_str());
-
-		b=pc->name.size()+11;
-		if (b>23) b=23;
-
-		for (c=b;c<=26;c++)
-			strcpy(&skill_info[strlen(skill_info)], " ");
-
-		numtostr(ges,sk);
-		sprintf((char*)temp,"sum: %s",sk);
-		strcpy(&skill_info[strlen(skill_info)],(char*)temp);
-
-		for (a=0;a<ALLSKILLS;a++)
-		{
-			if (z==0 || z==1) k=pc->baseSkill(a); else k=pc->skill(a);
-			if (z==0 || z==2) zz=9; else zz=-1;
-
-			if (k>zz) // show only if skills >=1
-			{
-				if (z==2 || z==3) j=pc->skill(a)/10; else j=pc->baseSkill(a)/10;	// get skill value
-				numtostr(j,sk);		// skill-value string in sk
-				ges+=j;
-				sprintf((char*)temp, "%s %s", skillname[a],sk);
-				strcpy(&skill_info[strlen(skill_info)],(char*)temp);
-
-				b=strlen(skillname[a])+strlen(sk)+1; // it doesnt like \n's, so insert spaces till end of line
-				if (b>23) b=23;
-				for (c=b;c<=26;c++)
-					 strcpy(&skill_info[strlen(skill_info)], " ");
-			}
-		}
-		numtostr(ges,sk);
-		sprintf((char*)temp,"sum: %s  ",sk);
-		strcpy(&skill_info[strlen(skill_info)],(char*)temp);
-
-		SndUpdscroll(s, strlen(skill_info), skill_info);
-	}
-	else
-		sysmessage(s,"no valid target");*/
-}
-
 void cTargets::FetchTarget(UOXSOCKET s) // Ripper
 {
 	sysmessage(s,"Fetch is not available at this time.");
@@ -3253,145 +2042,6 @@ void cTargets::ResurrectionTarget( UOXSOCKET s )
 	}
 }
 
-//AntiChrist - shows the COMMENT line in the account section of player current acct.
-void cTargets::ShowAccountCommentTarget(int s)
-{
-/*
-	int j,accountfound=0,commentfound=0;
-	temp2[0] = '\0';
-
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL ) return;
-	P_CHAR pc = FindCharBySerial(serial);
-	if(pc != NULL)
-	{
-		if(pc->account() == 0)
-		{
-			sysmessage(s,"No account available for that character.");
-			return; //only if char has an account
-		}
-
-		openscript("accounts.adm");
-		unsigned long loopexit=0;
-		do
-		{
-			read2();
-			if (!(strcmp((char*)script1, "SECTION")))
-			{
-				j=str2num(script2);
-				if(j==pc->account()) accountfound=1;//we are in the right section
-			}
-
-			if (!(strcmp((char*)script1, "COMMENT")))
-			{
-				if(accountfound)
-				{
-					strcpy((char*)temp2,(char*)script2);
-					commentfound=1;
-					break;
-				}
-			}
-		}
-		while ((strcmp((char*)script1, "EOF")) && (++loopexit < MAXLOOPS));
-
-		if(accountfound==0)
-		{
-			sysmessage(s,"Can't find character's account in ACCOUNTS.ADM file!!!");
-			closescript();
-			return;
-		}
-
-		if(commentfound==0 && strlen((char*)temp2)>0)
-		{
-			sysmessage(s,"No comment available for that character's account.");
-			closescript();
-			return;
-		}
-
-		sysmessage(s,"Account Comment: %s",temp2);
-		closescript();
-	}
-	*/
-}
-
-void cTargets::SetHome(int s)
-{
-}
-
-void cTargets::SetWork(int s)
-{
-}
-
-void cTargets::SetFood(int s)
-{
-}
-
-static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
-{
-	UOXSOCKET s=ps->socket();
-	P_ITEM pi=FindItemBySerial(pt->Tserial);
-	if (pi==NULL) return;
-	switch(pt->Tnum)
-	{
-	case 10://MoreTarget
-		pi->more1=addid1[s];
-		pi->more2=addid2[s];
-		pi->more3=addid3[s];
-		pi->more4=addid4[s];
-		pi->update();
-		break;
-	case  28://MovableTarget
-	case 111://yes, it's duplicate
-		pi->magic=addx[s];
-		pi->update();
-		break;
-	case 31://ColorsTarget
-		/*if (pi->id()==0x0FAB ||						//dye vat
-			pi->id()==0x0EFF || pi->id()==0x0E27 )	//hair dye
-			//SndDyevat(s,pi->serial,pi->id());
-		else
-			sysmessage(s, "You can only use this item on a dye vat.");*/
-		break;
-	case 63://MoreXTarget
-		pi->morex=addx[s];
-		break;
-	case 64://MoreYTarget
-		pi->morey=addx[s];
-		break;
-	case 65://MoreZTarget
-		pi->morez=addx[s];
-		break;
-	case 66://MoreXYZTarget
-		pi->morex=addx[s];
-		pi->morey=addy[s];
-		pi->morez=addz[s];
-		break;
-	case 89://ObjPrivTarget
-		if (addid1[s]==0) pi->priv=pi->priv&0xFE; // lb ...
-		if (addid1[s]==1) pi->priv=pi->priv|0x01;
-		if (addid1[s]==3) pi->priv=addid2[s];
-		break;
-	case 122://SetValueTarget
-		pi->value=addx[s];
-		break;
-	case 123://SetRestockTarget
-		pi->restock=addx[s];
-		break;
-	case 129://SetAmount2Target
-		if (addx[s] > 64000) //Ripper..to fix a client bug for over 64k.
-		{
-			sysmessage(s, "No amounts over 64k in a pile!");
-			return;
-		}
-		pi->setAmount2( addx[s] );
-		pi->update();
-		break;
-	case 133://SetWipeTarget
-		pi->setWipe( addid1[s] != 0 ? true : false );
-		pi->update();
-		break;
-	}
-}
 
 void cTargets::LoadCannon(int s)
 {
@@ -3443,10 +2093,10 @@ void cTargets::MoveToBagTarget(int s)
 	pi->update();
 }
 
-void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with the targetting cursor
+
+void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something with the targetting cursor
 {
-	cUOSocket* socket = ps->player()->socket();
-	UOXSOCKET s = ps->socket();
+	UOXSOCKET s = toOldSocket( socket );
 	targetok[ s ] = 0;
 
 	PKGx6C tbuf, *pt = &tbuf;
@@ -3520,20 +2170,18 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 6: if (Iready) pi->setType( addid1[s] ); break; //Typetarget
 //		case 7: Targ->IDtarget(s); break;
 //		case 8:	XgoTarget(s); break;
-		case 10: ItemTarget(ps,pt); break;//MoreTarget
+//		case 10: ItemTarget(ps,pt); break;//MoreTarget
 		case 11: if (Iready) KeyTarget(s,pi); break;
 		case 12: Targ->IstatsTarget(s); break;
-		case 13: if (Cready) CstatsTarget(ps,pc); break;
-		case 14: if (Cready) GMTarget(ps,pc); break;
-		case 15: if (Cready) CnsTarget(ps,pc); break;
-		case 16: if (Cready) KillTarget(pc, 0x0b); break;
-		case 17: if (Cready) KillTarget(pc, 0x10); break;
-		case 18: if (Cready) KillTarget(pc, 0x15); break;
+//		case 13: if (Cready) CstatsTarget(ps,pc); break;
+//		case 14: if (Cready) GMTarget(ps,pc); break;
+//		case 15: if (Cready) CnsTarget(ps,pc); break;
+//		case 16: if (Cready) KillTarget(pc, 0x0b); break;
+//		case 17: if (Cready) KillTarget(pc, 0x10); break;
+//		case 18: if (Cready) KillTarget(pc, 0x15); break;
 		case 19: if (Cready) pc->setFontType( addid1[s] ); break;
-		case 20: Targ->GhostTarget(s); break;
+//		case 20: Targ->GhostTarget(s); break;
 		case 21: Targ->ResurrectionTarget(s); break; // needed for /resurrect command
-		case 22: { cBoltTarget		T(ps);	T.process();} break;
-		case 23: { cSetAmountTarget	T(ps);	T.process();} break;
 		case 24:
 			{
 				SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -3558,12 +2206,12 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				pc_currchar->setEnvokeid(0x00);
 				return;
 			}
-		case 25: Targ->CloseTarget(s); break;
+//		case 25: Targ->CloseTarget(s); break;
 		case 26: Targ->AddItem( s ); break;
 		case 27: Targ->NpcMenuTarget(s); break;
-		case 28: ItemTarget(ps,pt); break;//MovableTarget
-		case 30: if (Cready) OwnerTarget(ps,pc); else if (Iready) OwnerTarget(ps,pi); break;
-		case 31: ItemTarget(ps,pt); break;//ColorsTarget
+//		case 28: ItemTarget(ps,pt); break;//MovableTarget
+//		case 30: if (Cready) OwnerTarget(ps,pc); else if (Iready) OwnerTarget(ps,pi); break;
+//		case 31: ItemTarget(ps,pt); break;//ColorsTarget
 		case 32: Targ->DvatTarget(s); break;
 		case 33: AddNpcTarget(s,pt); break;
 //		case 34: if (Cready) pc->priv2|=2; break;
@@ -3579,7 +2227,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 44: Magic->Heal(s); break; // we need this for /heal command
 //		case 45: Fishing->FishTarget(ps); break;
 		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
-		case 48: Targ->ShowAccountCommentTarget(s); break;
+//		case 48: Targ->ShowAccountCommentTarget(s); break;
 		case 53: npcact(s); break;
 		case 56: Targ->NpcTarget(s); break;
 		case 57: Targ->NpcTarget2(s); break;
@@ -3590,10 +2238,10 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 63: //MoreXTarget
 		case 64: //MoreYTarget
 		case 65: //MoreZTarget
-		case 66: ItemTarget(ps,pt); break;//MoreXYZTarget
+//		case 66: ItemTarget(ps,pt); break;//MoreXYZTarget
 		case 67: Targ->NpcRectTarget(s); break;
-		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
-		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
+//		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
+//		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
 //		case 75: Targ->TargIdTarget(s); break;
 
 //		case 79: Skills->ProvocationTarget1(s); break;
@@ -3601,17 +2249,17 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 81: Skills->EnticementTarget1(s); break;
 		case 82: Skills->EnticementTarget2(s); break;
 
-		case 86: Targ->SwordTarget(ps,pt); break;
+//		case 86: Targ->SwordTarget(ps,pt); break;
 		case 87: Magic->SbOpenContainer(s); break;
 		case 88: Targ->SetDirTarget(s); break;
-		case 89: ItemTarget(ps,pt); break;//ObjPrivTarget
+//		case 89: ItemTarget(ps,pt); break;//ObjPrivTarget
 
 		case 100: Magic->NewCastSpell( s ); break;	// we now have this as our new spell targeting location
 		case 106: Targ->NpcAITarget(s); break;
 		case 107: Targ->xBankTarget(s); break;
 		case 108: Skills->AlchemyTarget(s); break;
 		case 109: Skills->BottleTarget(s); break;
-		case 111: ItemTarget(ps,pt); break;//MovableTarget
+//		case 111: ItemTarget(ps,pt); break;//MovableTarget
 		case 112: Targ->SellStuffTarget(s); break;
 		case 113: Targ->ManaTarget(s); break;
 		case 114: Targ->StaminaTarget(s); break;
@@ -3621,17 +2269,17 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 119: Targ->TransferTarget(s); break;
 		case 120: Targ->GuardTarget( s ); break;
 		case 121: Targ->BuyShopTarget(s); break;
-		case 122: ItemTarget(ps,pt); break;//SetValueTarget
-		case 123: ItemTarget(ps,pt); break;//SetRestockTarget
+//		case 122: ItemTarget(ps,pt); break;//SetValueTarget
+//		case 123: ItemTarget(ps,pt); break;//SetRestockTarget
 		case 124: Targ->FetchTarget(s); break;
 
 		case 126: Targ->JailTarget(s,-1); break;
 		case 127: Targ->ReleaseTarget(s,-1); break;
 		case 128: Skills->CreateBandageTarget(s); break;
-		case 129: ItemTarget(ps,pt); break;//SetAmount2Target
+//		case 129: ItemTarget(ps,pt); break;//SetAmount2Target
 		case 131: if (currchar[s]->isGM()) Targ->permHideTarget(s); break; /* not used */
 		case 132: if (currchar[s]->isGM()) Targ->unHideTarget(s); break; /* not used */
-		case 133: ItemTarget(ps,pt); break;//SetWipeTarget
+//		case 133: ItemTarget(ps,pt); break;//SetWipeTarget
 		case 134: Skills->Carpentry( socket ); break;
 		case 135: Targ->SetSpeechTarget(s); break;
 //		case 136: Targ->XTeleport(s,0); break;
@@ -3664,7 +2312,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 176: Targ->SetPoisonedTarget(s); break;
 		case 177: Targ->SetSpaDelayTarget(s); break;
 		case 178: Targ->SetAdvObjTarget(s); break;
-		case 179: if (Cready) SetInvulFlag(ps,pc); break;
+//		case 179: if (Cready) SetInvulFlag(ps,pc); break;
 //		case 180: Skills->Tinkering(s); break;
 //		case 181: Skills->PoisoningTarget(s); break;
 
@@ -3720,17 +2368,14 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 			}
 		}
 			break;
-		case 247: Targ->ShowSkillTarget(s);break; //showskill target
-		case 248: Targ->MenuPrivTarg(s);break; // menupriv target
+//		case 247: Targ->ShowSkillTarget(s);break; //showskill target
+//		case 248: Targ->MenuPrivTarg(s);break; // menupriv target
 		case 249: Targ->UnglowTaget(s);break; // unglow
 		case 251: Targ->NewXTarget(s); break; // NEWX
 		case 252: Targ->NewYTarget(s); break; // NEWY
 		case 253: Targ->IncXTarget(s); break; // INCX
 		case 254: Targ->IncYTarget(s); break; // INCY
 		case 255: Targ->GlowTarget(s); break; // glow
-		case 256: Targ->SetHome(s); break;
-		case 257: Targ->SetWork(s); break;
-		case 258: Targ->SetFood(s); break;
 		case 259: Targ->HouseUnFriendTarget(s); break;
 
 		default:

@@ -92,7 +92,6 @@ class cTargets
 {
 private:
 	void AddItem( UOXSOCKET s );
-	void CharTarget(P_CLIENT ps, PKGx6C *pt);
 	void HouseSecureDown( UOXSOCKET s ); // Ripper
 	void HouseLockdown( UOXSOCKET s ); // Abaddon
     void HouseRelease( UOXSOCKET s ); // Abaddon
@@ -102,15 +101,12 @@ private:
 	void NewzTarget(int s);
 	void TypeTarget(int s);
 	void IstatsTarget(int s);
-	void GhostTarget(int s);
 	void AmountTarget(int s);
-	void CloseTarget(int s);
 	void VisibleTarget(int s);
 	void DvatTarget(int s);
 	void LoadCannon(int s);
 //	void SetInvulFlag(int s);
 	void SquelchTarg(int s);
-	void SwordTarget(P_CLIENT pC, PKGx6C *pt);
 	void NpcTarget(int s);
 	void NpcTarget2(int s);
 	void NpcRectTarget(int s);
@@ -155,18 +151,12 @@ private:
     void UnglowTaget(int s); 
 	void TargetsMenuPrivTarg(int s);
 	void ResurrectionTarget( UOXSOCKET s );
-	void MenuPrivTarg(int s);
-	void ShowSkillTarget(int s);
 	//taken from 6904t2(5/10/99) - AntiChrist
 	void GuardTarget( UOXSOCKET s );
 	void FetchTarget( UOXSOCKET s );
 	void SetMurderCount( int s );	// Abaddon 12 Sept 1999
-	void ShowAccountCommentTarget(int s);//AntiChrist
-	void SetHome(int s);
-	void SetWork(int s);
-	void SetFood(int s);
 public:
-	void MultiTarget(P_CLIENT ps);
+	void MultiTarget(cUOSocket*);
 	void Wiping(int s);
 	P_CHAR NpcMenuTarget(int s);
 	bool NpcResurrectTarget(P_CHAR pc);

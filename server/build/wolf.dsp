@@ -129,10 +129,6 @@ SOURCE=.\charsmgr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\client.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\combat.cpp
 # End Source File
 # Begin Source File
@@ -446,10 +442,6 @@ SOURCE=.\charsmgr.h
 # Begin Source File
 
 SOURCE=.\classes.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Client.h
 # End Source File
 # Begin Source File
 
