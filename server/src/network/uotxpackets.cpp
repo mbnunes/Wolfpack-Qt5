@@ -347,7 +347,12 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 	setAmount( pItem->amount() );
 	setX( pItem->pos.x );
 	setY( pItem->pos.y );
-	setContainer( pItem->contserial );
+
+	if( pItem->container() )
+		setContainer( pItem->container()->serial );
+	else
+		setContainer( INVALID_SERIAL );
+	
 	setColor( pItem->color() );
 }
 

@@ -301,7 +301,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			}
 			if (pi->container() && pi->container()->isItem())
 			{
-				P_ITEM pio = GetOutmostCont(pi);
+				P_ITEM pio = pi->getOutmostItem();
 				if( !pio ) 
 					return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
 

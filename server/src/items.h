@@ -320,6 +320,8 @@ public:
 	virtual bool onTalkToItem( P_CHAR Talker, const QString &Text );
 	
 	QPtrList< cItem > getContainment() const;
+	P_ITEM getOutmostItem();
+	P_CHAR getOutmostChar();
 protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 };

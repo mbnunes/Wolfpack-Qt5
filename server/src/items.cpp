@@ -195,7 +195,7 @@ P_ITEM cItem::getCorpse( void )
 	if( isInWorld() || ( container_ && container_->isChar() ) )
 		return 0;
 
-	P_ITEM Cont = GetOutmostCont( this );
+	P_ITEM Cont = getOutmostItem();
 
 	if( !Cont || !Cont->corpse() )
 		return 0;
@@ -2115,7 +2115,7 @@ void cItem::update( cUOSocket *mSock )
 		cUOTxAddContainerItem contItem;
 		contItem.fromItem( this );
 
-		P_ITEM iCont = GetOutmostCont( this, 0xFF );
+		P_ITEM iCont = getOutmostItem();
 		cUObject *oCont = iCont;
 
 		if( iCont && iCont->container() && iCont->container()->isChar() )
@@ -2477,6 +2477,8 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	}
 	if ( handleWeight )
 		setTotalweight( this->totalweight() + pItem->totalweight() );
+
+	pItem->layer_ = 0;
 	pItem->container_ = this;
 	pItem->contserial = this->serial;
 }
@@ -2527,3 +2529,35 @@ void cItem::removeFromCont( bool handleWeight )
 	container_ = 0;
 }
 
+P_ITEM cItem::getOutmostItem()
+{
+	if( container_ && container_->isItem() )
+	{
+		P_ITEM pCont = dynamic_cast< P_ITEM >( container_ );
+		if( pCont )
+			return pCont->getOutmostItem();
+		else
+			return this;
+	}
+	else
+		return this;
+}
+
+P_CHAR cItem::getOutmostChar()
+{
+	if( container_ && container_->isChar() )
+	{		
+		return dynamic_cast< P_CHAR >( container_ );
+	}
+	else if( container_ && container_->isItem() )
+	{
+		P_ITEM pCont = dynamic_cast< P_ITEM >( container_ );
+
+		if( pCont )
+			return pCont->getOutmostChar();
+		else
+			return 0;
+	}
+	else
+		return 0;		
+}

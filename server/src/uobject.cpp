@@ -412,7 +412,8 @@ void cUObject::removeFromView( bool clean )
 
 	if( isItemSerial( serial ) )
 	{
-		P_ITEM pCont = GetOutmostCont( dynamic_cast<P_ITEM>(this), 64 );
+		P_ITEM pItem = dynamic_cast<P_ITEM>(this);
+		P_ITEM pCont = pItem->getOutmostItem();
 		if( pCont )
 		{
 			mPos = pCont->pos;

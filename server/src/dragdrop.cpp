@@ -138,7 +138,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		return;
 	}*/
 
-	P_ITEM outmostCont = GetOutmostCont( pItem, 64 );  
+	P_ITEM outmostCont = pItem->getOutmostItem();
 
 	// If it's a trade-window, reset the ack-status
 	if( outmostCont && ( outmostCont->container() == pChar ) && ( outmostCont->layer() == 0 ) && ( outmostCont->id() == 0x1E5E ) )
@@ -771,7 +771,9 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	{
 		// If we're dropping it onto the closed container
 		if( dropPos.distance( pCont->pos ) == 0 )
+		{
 			pCont->addItem( pItem );
+		}
 		else
 		{
 			pCont->addItem( pItem, false );
@@ -812,9 +814,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// And were *un*able to stack it (!)
 	// >> Set it to the location of the item we dropped it on and stack it up by 2
 	pItem->moveTo( pCont->pos );
-	pItem->pos.z += 2; // Increase z by 2
-	pItem->setLayer( 0 );
-	pCont->addItem(pItem);
+	pItem->pos.z += 2; // Increase z by 2	
 	pItem->update();
 
 	// This needs to be checked

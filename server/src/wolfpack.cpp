@@ -1444,7 +1444,7 @@ int main( int argc, char *argv[] )
 
 			if( pCont )
 			{
-				pCont->addItem( pi, false, true );
+				pCont->addItem( pi, false, true, true );
 			}
 			else
 			{
@@ -1459,7 +1459,7 @@ int main( int argc, char *argv[] )
 
 			if( pCont )
 			{
-				pCont->addItem( (cChar::enLayer)pi->layer(), pi );
+				pCont->addItem( (cChar::enLayer)pi->layer(), pi, true, true );
 			}
 			else
 			{
@@ -2017,29 +2017,9 @@ void initque() // Initilizes the gmpages[] and counspages[] arrays and also jail
 }
 */
 
-P_ITEM GetOutmostCont(P_ITEM pItem, short rec)
-{
-	if ( rec < 0 )				// too many recursions
-		return pItem; 
-
-	if ( !pItem )				// bad param.
-		return 0; 
-	
-	if ( ( pItem->container() && isCharSerial( pItem->container()->serial ) || pItem->isInWorld() ) )
-		return pItem;
-
-	P_ITEM pOut = dynamic_cast<P_ITEM>(pItem->container());	// up one level
-	if (!pOut)
-	{
-		LogErrorVar("container of item %i not found",pItem->serial);
-		LogErrorVar("ID of that item is %x",pItem->id());
-	}
-	return GetOutmostCont(pOut,--rec);
-}
-
 P_CHAR GetPackOwner(P_ITEM pItem, short rec)
 {
-	P_ITEM pio = GetOutmostCont(pItem,--rec);
+	P_ITEM pio = pItem->getOutmostItem();
 	if ( !pio || pio->isInWorld() )
 		return 0;
 	return dynamic_cast<P_CHAR>(pio->container());
@@ -2437,7 +2417,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 
 	if (tmpreg == "none" )
 	{
-		P_ITEM pio=GetOutmostCont(pi);
+		P_ITEM pio = pi->getOutmostItem();
 		if (!pio) return;
 		cTerritory* Region;
 		if (pio->isInWorld())
