@@ -12,6 +12,7 @@
 	<npc id="ophidian_mage_weak">
 		<name>a ophidian mage</name>
 		<id>0x055</id>
+<category>Monsters\ophidians\ophidian mage weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -59,12 +60,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_ophidian_mage_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian mage medium-->
 	<npc id="ophidian_mage_medium">
 		<name>a ophidian mage</name>
 		<id>0x055</id>
+<category>Monsters\ophidians\ophidian mage medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -112,12 +115,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_ophidian_mage_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian mage hard-->
 	<npc id="ophidian_mage_hard">
 		<name>a ophidian mage</name>
 		<id>0x055</id>
+<category>Monsters\ophidians\ophidian mage whard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -165,12 +170,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_ophidian_mage_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian queen weak-->
 	<npc id="ophidian_queen_weak">
 		<name>a ophidian queen</name>
 		<id>0x057</id>
+<category>Monsters\ophidians\ophidian queen weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -218,12 +225,14 @@
 		<meditation>
 			<random min="160" max="165"/>
 		</meditation>
+<carve>carve_ophidian_queen_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian queen medium-->
 	<npc id="ophidian_queen_medium">
 		<name>a ophidian queen</name>
 		<id>0x057</id>
+<category>Monsters\ophidians\ophidian queen medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -271,12 +280,14 @@
 		<meditation>
 			<random min="189" max="195"/>
 		</meditation>
+<carve>carve_ophidian_queen_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian queen hard-->
 	<npc id="ophidian_queen_hard">
 		<name>a ophidian queen</name>
 		<id>0x057</id>
+<category>Monsters\ophidians\ophidian queen hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -324,12 +335,14 @@
 		<meditation>
 			<random min="217" max="224"/>
 		</meditation>
+<carve>carve_ophidian_queen_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian warrior weak-->
 	<npc id="ophidian_warrior_weak">
 		<name>a ophidian warrior</name>
 		<id>0x056</id>
+<category>Monsters\ophidians\ophidian warrior weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -368,12 +381,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_ophidian_warrior_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian warrior medium-->
 	<npc id="ophidian_warrior_medium">
 		<name>a ophidian warrior</name>
 		<id>0x056</id>
+<category>Monsters\ophidians\ophidian warrior medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -412,12 +427,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_ophidian_warrior_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian warrior hard-->
 	<npc id="ophidian_warrior_hard">
 		<name>a ophidian warrior</name>
 		<id>0x056</id>
+<category>Monsters\ophidians\ophidian warrior hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -456,6 +473,8 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_ophidian_warrior_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>
+

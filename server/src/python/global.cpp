@@ -353,8 +353,8 @@ PyObject *wpStatics( PyObject* self, PyObject* args )
 		PyObject *dict = PyDict_New();
 
 		PyDict_SetItemString( dict, "id", PyInt_FromLong( iter->itemid ) );
-		PyDict_SetItemString( dict, "x", PyInt_FromLong( xBlock + iter->xoff ) );
-		PyDict_SetItemString( dict, "y", PyInt_FromLong( yBlock + iter->yoff ) );
+		PyDict_SetItemString( dict, "x", PyInt_FromLong( ( xBlock * 8 ) + iter->xoff ) );
+		PyDict_SetItemString( dict, "y", PyInt_FromLong( ( yBlock * 8 )+ iter->yoff ) );
 		PyDict_SetItemString( dict, "z", PyInt_FromLong( iter->zoff ) );
 
 		PyList_Append( list, dict );

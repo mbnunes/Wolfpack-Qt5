@@ -1,0 +1,703 @@
+<definitions>
+
+        <!-- gorilla -->
+        <npc id="gorilla">
+                <name>gorilla</name>
+                <id>0x1D</id>
+                <category>Animals\Land\Gorilla</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma><random min="5" max="10" /></karma>
+                <fame><random min="5" max="10" /></fame>
+                <defense><random min="9" max="11" /></defense>
+                <lodamage>2</lodamage>
+                <hidamage>12</hidamage>
+                <!-- Stats -->
+                <str><random min="50" max="55" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="35" max="40" /></int>
+                <!-- Skills -->
+                <wrestling><random min="420" max="440" /></wrestling>
+                <tactics><random min="420" max="440" /></tactics>
+                <parrying><random min="420" max="440" /></parrying>
+                <magicresistance><random min="420" max="440" /></magicresistance>
+                <totame>600</totame>
+                <food>5</food>
+                <carve>carve_gorilla</carve>
+        </npc>
+
+        <!-- bullfrog -->
+        <npc id="bullfrog">
+                <name>bullfrog</name>
+                <id>0x51</id>
+                <category>Animals\Land\Bullfrog</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma><random min="5" max="10" /></karma>
+                <fame><random min="800" max="1100" /></fame>
+                <defense><random min="7" max="9" /></defense>
+                <lodamage>1</lodamage>
+                <hidamage>2</hidamage>
+                <!-- Stats -->
+                <str><random min="44" max="48" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="9" max="11" /></int>
+                <!-- Skills -->
+                <wrestling><random min="390" max="410" /></wrestling>
+                <tactics><random min="390" max="410" /></tactics>
+                <magicresistance><random min="240" max="260" /></magicresistance>
+                <totame>231</totame>
+               	<food>0</food>
+               	<carve>carve_bullfrog</carve>
+        </npc>
+
+        <!-- snake -->
+        <npc id="snake">
+                <name>snake</name>
+                <id>0x34</id>
+                <category>Animals\Land\Snake</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma><random min="-500" max="500" /></karma>
+                <fame><random min="500" max="1000" /></fame>
+                <defense><random min="7" max="9" /></defense>
+                <lodamage>1</lodamage>
+                <hidamage>4</hidamage>
+                <!-- Stats -->
+                <str><random min="20" max="25" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="5" max="10" /></int>
+                <!-- Skills -->
+                <wrestling><random min="180" max="200" /></wrestling>
+                <tactics><random min="180" max="200" /></tactics>
+                <magicresistance><random min="140" max="160" /></magicresistance>
+                <parrying><random min="140" max="160" /></parrying>
+                <totame>701</totame>
+                <food>0</food>
+                <carve>carve_snake</carve>
+        </npc>
+
+        <!-- aligator -->
+        <npc id="aligator">
+                <name>aligator</name>
+                <id>0xCA</id>
+                <category>Animals\Land\Aligator</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>-1500</karma>
+                <fame>1500</fame>
+                <defense>15</defense>
+                <lodamage>2</lodamage>
+                <hidamage>18</hidamage>
+                <!-- Stats -->
+                <str><random min="76" max="100" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="11" max="20" /></int>
+                <!-- Skills -->
+                <wrestling><random min="400" max="600" /></wrestling>
+                <tactics><random min="400" max="600" /></tactics>
+                <magicresistance><random min="250" max="400" /></magicresistance>
+                <parrying><random min="380" max="730" /></parrying>
+                <totame>601</totame>
+                <food>0</food>
+                <carve>carve_aligator</carve>
+        </npc>
+
+        <!-- bear dark brown-->
+        <npc id="bear_d_brown">
+                <name>bear</name>
+                <id>0xD3</id>
+                <category>Animals\Land\Bear(dark brown)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense><random min="7" max="9" /></defense>
+                <lodamage>2</lodamage>
+                <hidamage>12</hidamage>
+                <!-- Stats -->
+                <str><random min="140" max="160" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="5" max="15" /></int>
+                <!-- Skills -->
+                <wrestling><random min="390" max="410" /></wrestling>
+                <tactics><random min="390" max="410" /></tactics>
+                <magicresistance><random min="190" max="210" /></magicresistance>
+                <parrying><random min="240" max="260" /></parrying>
+                <totame>411</totame>
+                <food>1</food>
+                <carve>carve_bear_d_brown</carve>
+        </npc>
+
+        <!-- bear light brown  -->
+        <npc id="bear_l_brown">
+                <name>bear</name>
+                <id>0xD4</id>
+                <category>Animals\Land\Bear (light brown)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>-500</karma>
+                <fame>500</fame>
+                <defense>12</defense>
+                <lodamage>6</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="220" max="240" /></str>
+                <dex><random min="60" max="80" /></dex>
+                <int><random min="10" max="20" /></int>
+                <!-- Skills -->
+                <wrestling><random min="490" max="510" /></wrestling>
+                <tactics><random min="690" max="710" /></tactics>
+                <magicresistance><random min="440" max="460" /></magicresistance>
+                <parrying><random min="690" max="710" /></parrying>
+                <totame>591</totame>
+                <food>1</food>
+                <carve>carve_bear_l_brown</carve>
+        </npc>
+
+        <!-- bear polar -->
+        <npc id="bear_polar">
+                <name>polarbear</name>
+                <id>0xD5</id>
+                <category>Animals\Land\Bear (polar)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense><random min="8" max="10" /></defense>
+                <lodamage>5</lodamage>
+                <hidamage>14</hidamage>
+                <!-- Stats -->
+                <str><random min="270" max="290" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="20" max="30" /></int>
+                <!-- Skills -->
+                <wrestling><random min="590" max="610" /></wrestling>
+                <tactics><random min="690" max="710" /></tactics>
+                <magicresistance><random min="440" max="460" /></magicresistance>
+                <parrying><random min="690" max="710" /></parrying>
+                <totame>351</totame>
+                <food>2</food>
+                <carve>carve_bear_polar</carve>
+        </npc>
+
+        <!-- boar -->
+        <npc id="boar">
+                <name>boar</name>
+                <id>0x122</id>
+                <category>Animals\Land\Boar</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense><random min="14" max="16" /></defense>
+                <lodamage>3</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="120" max="130" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="30" max="40" /></int>
+                <!-- Skills -->
+                <wrestling><random min="490" max="510" /></wrestling>
+                <tactics><random min="370" max="380" /></tactics>
+                <magicresistance><random min="370" max="380" /></magicresistance>
+                <parrying><random min="490" max="510" /></parrying>
+                <totame>291</totame>
+                <food>8</food>
+                <carve>carve_boar</carve>
+        </npc>
+
+        <!-- bull (black & white) -->
+        <npc id="bull_black">
+                <name>bull</name>
+                <id>0xE9</id>
+                <category>Animals\Land\Bull (black & white)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>15</defense>
+                <lodamage>3</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="190" max="210" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="45" max="55" /></int>
+                <!-- Skills -->
+                <wrestling><random min="490" max="510" /></wrestling>
+                <tactics><random min="490" max="510" /></tactics>
+                <magicresistance><random min="240" max="260" /></magicresistance>
+                <parrying><random min="490" max="510" /></parrying>
+                <totame>711</totame>
+                <food>6</food>
+                <carve>carve_bull_black</carve>
+        </npc>
+
+        <!-- bull brown -->
+        <npc id="bull_brown">
+                <name>bull</name>
+                <id>0xE8</id>
+                <category>Animals\Land\Bull (brown)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>15</defense>
+                <lodamage>3</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="190" max="210" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="45" max="55" /></int>
+                <!-- Skills -->
+                <wrestling><random min="490" max="510" /></wrestling>
+                <tactics><random min="490" max="510" /></tactics>
+                <magicresistance><random min="240" max="260" /></magicresistance>
+                <parrying><random min="490" max="510" /></parrying>
+                <totame>711</totame>
+                <food>6</food>
+                <carve>carve_bull_brown</carve>
+        </npc>
+
+        <!-- bunny -->
+        <npc id="bunny">
+                <name>bunny</name>
+                <id>0xCD</id>
+                <category>Animals\Land\Bunny</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>3</defense>
+                <lodamage>1</lodamage>
+                <hidamage>2</hidamage>
+                <!-- Stats -->
+                <str><random min="4" max="6" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="4" max="6" /></int>
+                <!-- Skills -->
+                <wrestling><random min="40" max="60" /></wrestling>
+                <tactics><random min="40" max="60" /></tactics>
+                <magicresistance><random min="40" max="60" /></magicresistance>
+                <parrying><random min="40" max="60" /></parrying>
+                <totame>91</totame>
+                <food>0</food>
+                <carve>carve_bunny</carve>
+        </npc>
+
+        <!-- cat -->
+        <npc id="cat">
+                <name>cat</name>
+                <id>0xC9</id>
+                <category>Animals\Land\Cat</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>4</defense>
+                <lodamage>1</lodamage>
+                <hidamage>3</hidamage>
+                <!-- Stats -->
+                <str><random min="9" max="10" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="4" max="6" /></int>
+                <!-- Skills -->
+                <wrestling><random min="40" max="60" /></wrestling>
+                <tactics><random min="30" max="50" /></tactics>
+                <magicresistance><random min="40" max="60" /></magicresistance>
+                <parrying><random min="20" max="40" /></parrying>
+                <totame>91</totame>
+                <food>0</food>
+                <carve>carve_cat</carve>
+        </npc>
+
+        <!-- cow black & white -->
+        <npc id="cow_black">
+                <name>cow</name>
+                <id>0xD8</id>
+                <category>Animals\Land\Cow (black & white)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>10</defense>
+                <lodamage>2</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="80" max="100" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="5" max="10" /></int>
+                <!-- Skills -->
+                <wrestling><random min="590" max="610" /></wrestling>
+                <tactics><random min="590" max="610" /></tactics>
+                <magicresistance><random min="590" max="610" /></magicresistance>
+                <parrying><random min="590" max="610" /></parrying>
+                <totame>111</totame>
+                <food>6</food>
+                <carve>carve_cow_black</carve>
+        </npc>
+
+        <!-- cow brown -->
+        <npc id="cow_brown">
+                <name>cow</name>
+                <id>0xE7</id>
+                <category>Animals\Land\Cow (brown)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>10</defense>
+                <lodamage>2</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="80" max="100" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="5" max="10" /></int>
+                <!-- Skills -->
+                <wrestling><random min="590" max="610" /></wrestling>
+                <tactics><random min="590" max="610" /></tactics>
+                <magicresistance><random min="590" max="610" /></magicresistance>
+                <parrying><random min="590" max="610" /></parrying>
+                <totame>111</totame>
+                <food>6</food>
+                <carve>carve_cow_brown</carve>
+        </npc>
+
+        <!-- deer -->
+        <npc id="deer">
+                <name>deer</name>
+                <id>0xED</id>
+                <category>Animals\Land\Deer</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>10</defense>
+                <lodamage>2</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="90" max="110" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="20" max="30" /></int>
+                <!-- Skills -->
+                <wrestling><random min="240" max="260" /></wrestling>
+                <tactics><random min="240" max="260" /></tactics>
+                <magicresistance><random min="140" max="160" /></magicresistance>
+                <parrying><random min="240" max="260" /></parrying>
+                <totame>231</totame>
+                <food>6</food>
+                <carve>carve_deer</carve>
+        </npc>
+
+        <!-- dog -->
+        <npc id="dog">
+                <name>dog</name>
+                <id>0xD9</id>
+                <category>Animals\Land\Dog</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>6</defense>
+                <lodamage>2</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="30" max="40" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="30" max="40" /></int>
+                <!-- Skills -->
+                <wrestling><random min="340" max="360" /></wrestling>
+                <tactics><random min="340" max="360" /></tactics>
+                <magicresistance><random min="240" max="260" /></magicresistance>
+                <parrying><random min="340" max="360" /></parrying>
+                <totame>91</totame>
+                <food>0</food>
+                <carve>carve_dog</carve>
+        </npc>
+
+        <!-- goat -->
+        <npc id="goat">
+                <name>goat</name>
+                <id>0xD1</id>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>8</defense>
+                <lodamage>2</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="70" max="80" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="30" max="40" /></int>
+                <!-- Skills -->
+                <wrestling><random min="370" max="380" /></wrestling>
+                <tactics><random min="370" max="380" /></tactics>
+                <magicresistance><random min="370" max="380" /></magicresistance>
+                <parrying><random min="370" max="380" /></parrying>
+                <totame>111</totame>
+                <food>0</food>
+                <carve>carve_goat</carve>
+        </npc>
+
+        <!-- great hart -->
+        <npc id="hart_great">
+                <name>great hart</name>
+                <id>0xEA</id>
+                <category>Animals\Land\Great Hart</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>15</defense>
+                <lodamage>3</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="140" max="160" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="40" max="60" /></int>
+                <!-- Skills -->
+                <wrestling><random min="370" max="380" /></wrestling>
+                <tactics><random min="370" max="380" /></tactics>
+                <magicresistance><random min="220" max="230" /></magicresistance>
+                <parrying><random min="370" max="380" /></parrying>
+                <totame>591</totame>
+                <food>0</food>
+                <carve>carve_hart_great</carve>
+        </npc>
+
+        <!-- horse pack -->
+        <npc id="horse_pack">
+                <name>packhorse</name>
+                <id>0x123</id>
+                <category>Animals\Land\Horse (pack)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>10</defense>
+                <lodamage>3</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="120" max="130" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="5" max="10" /></int>
+                <!-- Skills -->
+                <wrestling><random min="320" max="330" /></wrestling>
+                <tactics><random min="320" max="610" /></tactics>
+                <magicresistance><random min="240" max="330" /></magicresistance>
+                <parrying><random min="320" max="330" /></parrying>
+                <totame>291</totame>
+                <food>3</food>
+                <carve>carve_horse_pack</carve>
+        </npc>
+
+        <!-- lama pack-->
+        <npc id="lama_pack">
+                <name>packlama</name>
+                <id>0x124</id>
+                <category>Animals\Land\Lama (pack)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>10</defense>
+                <lodamage>2</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="120" max="130" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="5" max="10" /></int>
+                <!-- Skills -->
+                <wrestling><random min="180" max="200" /></wrestling>
+                <tactics><random min="180" max="200" /></tactics>
+                <magicresistance><random min="140" max="160" /></magicresistance>
+                <parrying><random min="340" max="360" /></parrying>
+                <totame>291</totame>
+                <food>3</food>
+                <carve>carve_lama_pack</carve>
+        </npc>
+
+        <!-- panther -->
+        <npc id="panther">
+                <name>panther</name>
+                <id>0xD6</id>
+                <category>Animals\Land\Panther</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>8</defense>
+                <lodamage>2</lodamage>
+                <hidamage>12</hidamage>
+                <!-- Stats -->
+                <str><random min="50" max="70" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="20" max="40" /></int>
+                <!-- Skills -->
+                <wrestling><random min="440" max="460" /></wrestling>
+                <tactics><random min="440" max="460" /></tactics>
+                <magicresistance><random min="140" max="160" /></magicresistance>
+                <parrying><random min="540" max="560" /></parrying>
+                <totame>411</totame>
+                <food>1</food>
+                <carve>carve_panther</carve>
+        </npc>
+
+        <!-- pig -->
+        <npc id="pig">
+                <name>pig</name>
+                <id>0xCB</id>
+                <category>Animals\Land\Pig</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>10</defense>
+                <lodamage>2</lodamage>
+                <hidamage>10</hidamage>
+                <!-- Stats -->
+                <str><random min="70" max="80" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="20" max="30" /></int>
+                <!-- Skills -->
+                <wrestling><random min="370" max="380" /></wrestling>
+                <tactics><random min="240" max="260" /></tactics>
+                <magicresistance><random min="240" max="260" /></magicresistance>
+                <parrying><random min="370" max="380" /></parrying>
+                <totame>111</totame>
+                <food>6</food>
+                <carve>carve_pig</carve>
+        </npc>
+
+        <!-- rat -->
+        <npc id="rat">
+                <name>rat</name>
+                <id>0xEE</id>
+                <category>Animals\Land\Rat</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>3</defense>
+                <lodamage>1</lodamage>
+                <hidamage>2</hidamage>
+                <!-- Stats -->
+                <str><random min="8" max="10" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="5" max="10" /></int>
+                <!-- Skills -->
+                <wrestling><random min="40" max="60" /></wrestling>
+                <tactics><random min="40" max="60" /></tactics>
+                <magicresistance><random min="40" max="60" /></magicresistance>
+                <parrying><random min="40" max="60" /></parrying>
+                <totame>1100</totame>
+                <food>0</food>
+                <carve>carve_rat</carve>
+        </npc>
+
+        <!-- sheep (sheered) -->
+        <npc id="sheep_sheered">
+                <name>sheep</name>
+                <id>0xDF</id>
+                <category>Animals\Land\Sheep (sheered)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>5</defense>
+                <lodamage>1</lodamage>
+                <hidamage>5</hidamage>
+                <!-- Stats -->
+                <str><random min="40" max="60" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="20" max="30" /></int>
+                <!-- Skills -->
+                <wrestling><random min="240" max="260" /></wrestling>
+                <tactics><random min="240" max="260" /></tactics>
+                <magicresistance><random min="240" max="260" /></magicresistance>
+                <parrying><random min="240" max="260" /></parrying>
+                <totame>111</totame>
+                <food>0</food>
+                <carve>carve_sheep_sheered</carve>
+        </npc>
+
+        <!-- sheep -->
+        <npc id="sheep_unsheered">
+                <name>sheep</name>
+                <id>0xCF</id>
+                <category>Animals\Land\Sheep (unsheered)</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>5</defense>
+                <lodamage>1</lodamage>
+                <hidamage>5</hidamage>
+                <!-- Stats -->
+                <str><random min="40" max="60" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="20" max="30" /></int>
+                <!-- Skills -->
+                <wrestling><random min="240" max="260" /></wrestling>
+                <tactics><random min="240" max="260" /></tactics>
+                <magicresistance><random min="240" max="260" /></magicresistance>
+                <parrying><random min="240" max="260" /></parrying>
+                <totame>111</totame>
+                <food>0</food>
+                <carve>carve_sheep_unsheered</carve>
+        </npc>
+
+        <!-- walrus -->
+        <npc id="walrus">
+                <name>walrus</name>
+                <id>0xDD</id>
+                <category>Animals\Land\Walrus</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>9</defense>
+                <lodamage>3</lodamage>
+                <hidamage>6</hidamage>
+                <!-- Stats -->
+                <str><random min="20" max="25" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="15" max="20" /></int>
+                <!-- Skills -->
+                <wrestling><random min="180" max="200" /></wrestling>
+                <tactics><random min="180" max="200" /></tactics>
+                <magicresistance><random min="140" max="160" /></magicresistance>
+                <parrying><random min="440" max="460" /></parrying>
+                <totame>351</totame>
+                <food>0</food>
+                <carve>carve_walrus</carve>
+        </npc>
+
+        <!-- wolf -->
+        <npc id="wolf">
+                <name>wolf</name>
+                <id>0xE1</id>
+                <category>Animals\Land\Wolf</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>0</fame>
+                <defense>10</defense>
+                <lodamage>3</lodamage>
+                <hidamage>15</hidamage>
+                <!-- Stats -->
+                <str><random min="40" max="60" /></str>
+                <dex><random min="15" max="20" /></dex>
+                <int><random min="40" max="60" /></int>
+                <!-- Skills -->
+                <wrestling><random min="490" max="510" /></wrestling>
+                <tactics><random min="490" max="510" /></tactics>
+                <magicresistance><random min="370" max="380" /></magicresistance>
+                <parrying><random min="490" max="510" /></parrying>
+                <totame>111</totame>
+                <food>1</food>
+                <carve>carve_wolf</carve>
+        </npc>
+
+</definitions>

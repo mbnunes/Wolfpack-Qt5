@@ -12,6 +12,7 @@
 	<npc id="orc_weak">
 		<name>a orc</name>
 		<id>0x011</id>
+<category>Monsters\orcs\orc weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -50,12 +51,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_orc_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc medium-->
 	<npc id="orc_medium">
 		<name>a orc</name>
 		<id>0x011</id>
+<category>Monsters\orcs\orc medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -94,12 +97,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_orc_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc hard-->
 	<npc id="orc_hard">
 		<name>a orc</name>
 		<id>0x011</id>
+<category>Monsters\orcs\orc hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -138,12 +143,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_orc_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc captain weak-->
 	<npc id="orc_captain_weak">
 		<name>a orc captain</name>
 		<id>0x007</id>
+<category>Monsters\orcs\orc captain weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -182,12 +189,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_orc_captain_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc captain medium-->
 	<npc id="orc_captain_medium">
 		<name>a orc captain</name>
 		<id>0x007</id>
+<category>Monsters\orcs\orc captain medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -226,12 +235,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_orc_captain_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc captain hard-->
 	<npc id="orc_captain_hard">
 		<name>a orc captain</name>
 		<id>0x007</id>
+<category>Monsters\orcs\orc captain hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -270,6 +281,8 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_orc_captain_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>
+

@@ -1552,19 +1552,18 @@ void cChar::processNode( const QDomElement &Tag )
 					this->fy2_ = this->pos.y + Tag.attribute("y2").toInt();
 					this->fz1_ = -1 ;
 				}
-			else if( wanderType == "circle" || wanderType == "2" )
+			else if( wanderType == "circle" || wanderType == "4" )
 			{
-				this->npcWander_ = 2;
-				this->fx1_ =  this->pos.x ;
-				this->fy1_ = this->pos.y ;
-				this->fz1_ = this->pos.z ;
+				this->npcWander_ = 4;
+				this->fx1_ =  this->pos.x;
+				this->fy1_ = this->pos.y;
 				if( Tag.attributes().contains("radius") )
 					this->fx2_ =  Tag.attribute("radius").toInt();
 				else
-					this->fx2_ = 2 ;
+					this->fx2_ = 5;
 			}
-			else if( wanderType == "free" || wanderType == "1" )
-				this->npcWander_ = 1;
+			else if( wanderType == "free" || wanderType == "2" )
+				this->npcWander_ = 2;
 			else
 				this->npcWander_ = 0; //default
 		}

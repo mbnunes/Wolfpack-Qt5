@@ -944,13 +944,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				return;
 			}
 
-		case 1001: // Sword Weapons (Swordsmanship)
-		case 1002: // Axe Weapons (Swordsmanship + Lumberjacking)
-			// Show a target-request
-			socket->sysMessage( tr( "What do you want to use this on?" ) );
-			socket->attachTarget( new cFindResource( "RESOURCE_LOG" ) );
-			return;
-
+		// 1001: Sword Weapons (Swordsmanship)
+		case 1001: 
+		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+		case 1002: 
 		// 1005: Fencing
 		case 1005:
 		// 1003: Macefighting (Staffs)
@@ -1150,62 +1147,29 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						socket->sysMessage(tr("You failed to use this statue."));
 					}
 					return;
-				case 0x1039:  // closed flour sack
-							  /*
-							  if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
-							  {
-							  pi->id1 = 0x10;
-							  pi->id2 = 0x3A;
-							  pi->type = 45;						
-							  x->update();// AntiChrist
-							  }
-							  else
-							  {
-							  sysmessage(s, "You failed to use this.");
-							  }
-					*/
-					return;
-				case 0x103A: // open flour sack
-							 /*
-							 if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
-							 {
-							 pi->id1 = 0x10;
-							 pi->id2 = 0x39;
-							 pi->type = 45;						
-							 pi->update();// AntiChrist
-							 }
-							 else
-							 {
-							 sysmessage(s, "You failed to use this.");
-							 }
-					*/
-					return;
-				case 0x0DBF:
-				case 0x0DC0:// fishing
+
+				//case 0x0DBF:
+				//case 0x0DC0:// fishing
 //					target(s, 0, 1, 0, 45, "Fish where?");
-					return;
-				case 0x0E9B: // Mortar for Alchemy
-					if (pi->type() == 17)
-					{
-						addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-						addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-						addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-						addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+				//	return;
+				//case 0x0E9B: // Mortar for Alchemy
+				//	if (pi->type() == 17)
+				//	{
+				//		addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+			//			addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+			//			addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+			//			addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 //						target(s, 0, 1, 0, 109, "Where is an empty bottle for your potion?");
-					}
-					else
-					{
-						addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-						addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-						addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-						addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+			//		}
+			//		else
+			//		{
+			///			addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+			//			addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+			//			addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+			//			addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 //						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
-					}
-					return; // alchemy
-				case 0x0F9E:
-				case 0x0F9F: // scissors
-//					target(s, 0, 1, 0, 128, "What cloth should I use these scissors on?");
-					return;
+			//		}
+			//		return; // alchemy
 				case 0x0E21: // healing
 					{
 						cSkHealing* target = new cSkHealing( pi->serial );
@@ -1299,16 +1263,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					else 
 						socket->sysMessage(tr("you fail to create the sextant."));
 					return;
-				case 0x1EBC: // tinker's tools
-					Skills->Tinkering( socket );
-					return;
 				default:
-					//	clConsole.send("Unhandled item id for item: %s with id: %X.",pi->name, itemids); //check for unused items - Morrolan
 					break;
-			}// switch (itemids)
+			}
 		}
+
 		// END Check items by ID
-		socket->sysMessage(tr("You can't think of a way to use that item."));
+		socket->sysMessage( tr( "You can't think of a way to use that item." ) );
 }
 
 /*!

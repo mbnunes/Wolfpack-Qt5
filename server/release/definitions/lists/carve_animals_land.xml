@@ -1,0 +1,146 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: nacor                         |
+|   )).-' {{ ;'`   | Revised by:                          |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<list id="carve_gorilla">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,1</item> <!-- hides -->
+	</list>
+
+	<list id="carve_bullfrog">
+		<item>1539,4</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_snake">
+		<item>9f1,1</item> <!-- meat -->
+	</list>
+	
+	<list id="carve_aligator">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,12</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_bear_d_brown">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,12</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_bear_l_brown">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,12</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_bear_polar">
+		<item>9f1,2</item> <!-- meat -->
+		<item>1539,3</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_boar">
+		<item>9f1,2</item> <!-- meat -->
+	</list>
+	
+	<list id="carve_bull_black">
+		<item>9f1,10</item> <!-- meat -->
+		<item>1539,15</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_bull_brown">
+		<item>9f1,10</item> <!-- meat -->
+		<item>1539,15</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_bunny">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,4</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_cat">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,1</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_cow_black">
+		<item>9f1,8</item> <!-- meat -->
+		<item>1539,12</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_cow_brown">
+		<item>9f1,8</item> <!-- meat -->
+		<item>1539,12</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_deer">
+		<item>9f1,5</item> <!-- meat -->
+		<item>1539,8</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_dog">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,7</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_goat">
+		<item>9f1,2</item> <!-- meat -->
+		<item>1539,8</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_hart_great">
+		<item>9f1,6</item> <!-- meat -->
+		<item>1539,15</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_horse_pack">
+		<item>9f1,3</item> <!-- meat -->
+		<item>1539,10</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_lama_pack">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,12</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_panther">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,10</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_pig">
+		<item>9f1,6</item> <!-- meat -->
+	</list>
+	
+	<list id="carve_rat">
+		<item>9f1,1</item> <!-- meat -->
+	</list>
+	
+	<list id="carve_sheep_sheered">
+		<item>9f1,3</item> <!-- meat -->
+		<item>1539,1</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_sheep_unsheered">
+		<item>9f1,3</item> <!-- meat -->
+		<item>1539,1</item> <!-- hides -->
+		<item>df8,1</item> <!-- wool -->
+	</list>
+	
+	<list id="carve_walrus">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,10</item> <!-- hides -->
+	</list>
+	
+	<list id="carve_wolf">
+		<item>9f1,1</item> <!-- meat -->
+		<item>1539,5</item> <!-- hides -->
+	</list>
+	
+	
+	
+	
+	
+	
+</definitions>

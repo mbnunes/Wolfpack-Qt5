@@ -671,7 +671,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	for (ri.Begin(); !ri.atEnd() && !pResItem; ri++)
 	{
 		P_ITEM pi = ri.GetData();
-		if( pi && pi->pos.x == pos.x && pi->pos.y == pos.y && pi->objectID() == "RESOURCEITEM" )
+		if( pi && pi->pos.x == pos.x && pi->pos.y == pos.y && pi->objectID() == "cResourceItem" )
 		{
 			pResItem = dynamic_cast< cResourceItem* >(pi);
 			if( pResItem->resource() != section_ )

@@ -1213,11 +1213,20 @@ void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )
 	Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
 
 	// When the circle or box is not set yet reset the npcwalking setting
-    if(	( ( type == 1 ) && ( pChar->fx1() == -1 ) || ( pChar->fx2() == -1 ) || ( pChar->fy1() == -1 ) || ( pChar->fy2() == -1 ) ) ||
-		( ( type == 2 ) && ( pChar->fx1() == -1 ) || ( pChar->fx2() == -1 ) || ( pChar->fy1() == -1 ) ) )
+    if(	
+		( type == 1 && ( ( pChar->fx1() == -1 ) || ( pChar->fx2() == -1 ) || ( pChar->fy1() == -1 ) || ( pChar->fy2() == -1 ) ) ) ||
+		( type == 2 && pChar->fx2() == -1 ) 
+		)
 	{
 		pChar->setNpcWander( 0 );
 		type = 0;
+	}
+
+	// If we should wander around in a circle and the middle of our circle is not yet set, let's reset it to our current position
+	if( type == 2 && pChar->fx1() == -1 && pChar->fy1() == -1 )
+	{
+		pChar->setFx1( pChar->pos.x );
+		pChar->setFy1( pChar->pos.y );
 	}
     
 	// If we either have to walk in a box or a circle we'll check if the new direction

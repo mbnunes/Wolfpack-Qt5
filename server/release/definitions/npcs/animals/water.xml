@@ -1,0 +1,28 @@
+<definitions>
+
+	<!-- Dolphin -->
+	<npc id="dolphin">
+		<name>dolphin</name>
+		<id>0x0097</id>
+		<category>Animals\Water\dolphin</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma><random min="30" max="50" /></karma>
+		<fame><random min="20" max="40" /></fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+		<!-- Stats -->
+		<str><random min="10" max="15" /></str>
+		<dex><random min="15" max="20" /></dex>
+		<int><random min="20" max="25" /></int>
+		<!-- Skills -->
+		<wrestling><random min="575" max="625" /></wrestling>
+		<tactics><random min="475" max="525" /></tactics>
+		<parrying><random min="475" max="525" /></parrying>
+		<magicresistance><random min="475" max="525" /></magicresistance>
+		<totame>500</totame>
+		<carve>carve_dolphin</carve>
+	</npc>
+		
+</definitions>

@@ -12,6 +12,7 @@
 	<npc id="hellcat_weak">
 		<name>a hellcat</name>
 		<id>0x0c9</id>
+<category>Monsters\deamons\hellcat weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -47,12 +48,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_hellcat_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a hellcat medium-->
 	<npc id="hellcat_medium">
 		<name>a hellcat</name>
 		<id>0x0c9</id>
+<category>Monsters\deamons\hellcat medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -88,12 +91,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_hellcat_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a hellcat hard-->
 	<npc id="hellcat_hard">
 		<name>a hellcat</name>
 		<id>0x0c9</id>
+<category>Monsters\deamons\hellcat hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -129,12 +134,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_hellcat_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a lava lizard weak-->
 	<npc id="lava_lizard_weak">
 		<name>a lava lizard</name>
 		<id>0x0ce</id>
+<category>Monsters\deamons\lava lizard weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -173,12 +180,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_lava_lizard_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a lava lizard medium-->
 	<npc id="lava_lizard_medium">
 		<name>a lava lizard</name>
 		<id>0x0ce</id>
+<category>Monsters\deamons\lava lizard medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -217,12 +226,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_lava_lizard_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a lava lizard hard-->
 	<npc id="lava_lizard_hard">
 		<name>a lava lizard</name>
 		<id>0x0ce</id>
+<category>Monsters\deamons\lava lizard hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -261,12 +272,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_lava_lizard_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a hell hound weak-->
 	<npc id="hell_hound_weak">
 		<name>a hell hound</name>
 		<id>0x0e1</id>
+<category>Monsters\deamons\hell hound weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -305,12 +318,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_hell_hound_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a hell hound medium-->
 	<npc id="hell_hound_medium">
 		<name>a hell hound</name>
 		<id>0x0e1</id>
+<category>Monsters\deamons\hell hound medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -349,12 +364,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_hell_hound_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a hell hound hard-->
 	<npc id="hell_hound_hard">
 		<name>a hell hound</name>
 		<id>0x0e1</id>
+<category>Monsters\deamons\hell hound hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -393,12 +410,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_hell_hound_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a mong bat weak-->
 	<npc id="mong_bat_weak">
 		<name>a mong bat</name>
 		<id>0x027</id>
+<category>Monsters\deamons\mong bat weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -437,12 +456,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_mong_bat_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a mong bat medium-->
 	<npc id="mong_bat_medium">
 		<name>a mong bat</name>
 		<id>0x027</id>
+<category>Monsters\deamons\mong bat medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -481,12 +502,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_mong_bat_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a mong bat hard-->
 	<npc id="mong_bat_hard">
 		<name>a mong bat</name>
 		<id>0x027</id>
+<category>Monsters\deamons\mong bat hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -525,12 +548,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
+<carve>carve_mong_bat_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a imp weak-->
 	<npc id="imp_weak">
 		<name>a imp</name>
 		<id>0x027</id>
+<category>Monsters\deamons\imp weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -578,12 +603,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_imp_weak</carve>
 		<!-- Priv -->
-	</npc>
+           </npc>
 	<!-- a imp medium-->
 	<npc id="imp_medium">
 		<name>a imp</name>
 		<id>0x027</id>
+<category>Monsters\deamons\imp medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -631,12 +658,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_imp_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a imp hard-->
 	<npc id="imp_hard">
 		<name>a imp</name>
 		<id>0x027</id>
+<category>Monsters\deamons\imp hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -684,12 +713,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_imp_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a gargoyle weak-->
 	<npc id="gargoyle_weak">
 		<name>a gargoyle</name>
 		<id>0x040</id>
+<category>Monsters\deamons\gargoyle weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -737,12 +768,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_gargoyle_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a gargoyle medium-->
 	<npc id="gargoyle_medium">
 		<name>a gargoyle</name>
 		<id>0x040</id>
+<category>Monsters\deamons\gargoyle medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -790,12 +823,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_gargoyle_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a gargoyle hard-->
 	<npc id="gargoyle_hard">
 		<name>a gargoyle</name>
 		<id>0x040</id>
+<category>Monsters\deamons\gargoyle hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -843,12 +878,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_gargoyle_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a demon weak-->
 	<npc id="demon_weak">
 		<name>a demon</name>
 		<id>0x009</id>
+<category>Monsters\deamons\demon weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -896,12 +933,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_demon_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a demon medium-->
 	<npc id="demon_medium">
 		<name>a demon</name>
 		<id>0x009</id>
+<category>Monsters\deamons\demon medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -949,12 +988,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_demon_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a demon hard-->
 	<npc id="demon_hard">
 		<name>a demon</name>
 		<id>0x009</id>
+<category>Monsters\deamons\demon hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -1002,12 +1043,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
+<carve>carve_demon_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a demon (with sword) weak-->
 	<npc id="demon_with_sword_weak">
 		<name>a demon (with sword)</name>
 		<id>0x00a</id>
+<category>Monsters\deamons\demon with sword weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -1055,12 +1098,14 @@
 		<meditation>
 			<random min="232" max="431"/>
 		</meditation>
+<carve>carve_demon_with_sword_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a demon (with sword) medium-->
 	<npc id="demon_with_sword_medium">
 		<name>a demon (with sword)</name>
 		<id>0x00a</id>
+<category>Monsters\deamons\demon with sword medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -1108,12 +1153,14 @@
 		<meditation>
 			<random min="273" max="508"/>
 		</meditation>
+<carve>carve_demon_with_sword_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a demon (with sword) hard-->
 	<npc id="demon_with_sword_hard">
 		<name>a demon (with sword)</name>
 		<id>0x00a</id>
+<category>Monsters\deamons\demon with sword hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -1161,6 +1208,8 @@
 		<meditation>
 			<random min="313" max="584"/>
 		</meditation>
+<carve>carve_demon_with_sword_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>
+
