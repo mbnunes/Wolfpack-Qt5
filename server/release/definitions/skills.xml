@@ -441,7 +441,8 @@
 	</skill>
 
 	<!--  Veterinary -->
-	<skill id="39">0.8</strchance>
+	<skill id="39">
+		<strchance>0.8</strchance>
 		<dexchance>0.4</dexchance>
 		<intchance>0.8</intchance>
 		<gainchance>1</gainchance>
