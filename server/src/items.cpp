@@ -547,6 +547,7 @@ void cItem::Serialize(ISerialization &archive)
 	{
 		unsigned short temp;
 		archive.read("id",			temp);			setId(temp);
+		archive.read("name",		name_);
 		archive.read("name2",		name2_);
 		archive.read("creator",		creator);
 		archive.read("sk_name",		madewith);
@@ -616,6 +617,7 @@ void cItem::Serialize(ISerialization &archive)
 	else if ( archive.isWritting())
 	{
 		archive.write("id",			id());
+		archive.write("name",		name_); // warning: items do not use cUObject name!
 		archive.write("name2",		name2_);
 		archive.write("creator",	creator);
 		archive.write("sk_name",	madewith);
@@ -1472,6 +1474,8 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 
 			nBook->applyDefinition( *DefSection );
 			nBook->setSection( Section );
+
+			nItem = nBook;
 		}
 	}
 	else

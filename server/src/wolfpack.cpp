@@ -810,6 +810,7 @@ void deathstuff( P_CHAR pChar )
 {
 	int l, q, ele;
 	int nType=0;
+	UINT32 ci;
 
 	if( !pChar )
 		return;
@@ -922,7 +923,7 @@ void deathstuff( P_CHAR pChar )
 
 	P_ITEM pi_j;
 	vector<SERIAL> vecContainer( contsp.getData( pChar->serial ) );
-	for( UINT32 ci = 0; ci < vecContainer.size(); ++ci )
+	for( ci = 0; ci < vecContainer.size(); ++ci )
 	{
 		pi_j = FindItemBySerial(vecContainer[ci]);
 		if(pi_j && pi_j->type()==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
@@ -1021,7 +1022,7 @@ void deathstuff( P_CHAR pChar )
 	vecContainer = contsp.getData(pChar->serial);
 	bool resetShop = false;
 
-	for ( UINT32 ci = 0; ci < vecContainer.size(); ci++)
+	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi_j = FindItemBySerial( vecContainer[ci] );
 		// for BONUS ITEMS - remove bonus

@@ -71,25 +71,27 @@ void cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 
 	// Otherwise create our item here
-	P_ITEM pItem = new cItem;
-	pItem->Init();
-	cItemsManager::getInstance()->registerItem( pItem );
+	P_ITEM pItem = NULL;
+	if( node )
+		pItem = Items->createScriptItem( item_ );
+	else
+	{
+		pItem = new cItem;
+		pItem->Init();
+		cItemsManager::getInstance()->registerItem( pItem );
+
+		pItem->setName( "an item" );
+		pItem->setId( hex2dec( item_ ).toULong() );
+	}
+
+	if( !pItem )
+		return;
 
 	Coord_cl newPos = socket->player()->pos;
 	newPos.x = target->x();
 	newPos.y = target->y();
 	newPos.z = target->z() + Map->TileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
 	pItem->moveTo( newPos );
-
-	if( node )
-	{
-		pItem->applyDefinition( (*node ) );
-	}
-	else
-	{
-		pItem->setName( "Item" );
-		pItem->setId( hex2dec( item_ ).toULong() );
-	}
 
 	// Send the item to its surroundings
 	pItem->update();

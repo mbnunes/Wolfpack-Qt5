@@ -49,8 +49,8 @@ protected:
 	UI16		color_;
 	UI16		amount_; 
 	UI16		amount2_; 
-	QString		name2_;
 	QString		name_;
+	QString		name2_;
 	SI08		layer_;
 	QString		murderer_;
 	SI16		lodamage_; 
@@ -87,7 +87,7 @@ public:
 	UI16			amount()		const { return amount_; }		// Amount of items in pile
 	UI16			amount2()		const { return amount2_; }		// Used to track things like number of yards left in a roll of cloth
 	const QString	&name2()		const { return name2_; }		// The identified name of the item
-	const QString	&name()			const { return name_; }			// Returns the item's name
+	const QString	&name()			const { return name_; }		// The identified name of the item
 	UI08			layer()			const { return layer_; }		// Layer if equipped on paperdoll
 	bool			twohanded()		const { return priv&0x20; }		// Is the weapon twohanded ?
 	const QString	&murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
@@ -121,8 +121,8 @@ public:
 	void	setColor( UI16 nValue ) { color_ = nValue; };
 	void	setAmount( UI16 nValue ) { amount_ = nValue; }; // Amount of items in pile
 	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
-	void	setName2( const QString nValue ) { name2_ = nValue; };
 	void	setName( const QString nValue ) { name_ = nValue; };
+	void	setName2( const QString nValue ) { name2_ = nValue; };
 	void	setLayer( SI08 nValue ) { layer_ = nValue; };
 	void	setTwohanded( bool nValue ) { nValue ? priv &= 0x20 : priv |= 0xDF; };
 	void	setMurderer( const QString nValue ) { murderer_ = nValue; };
