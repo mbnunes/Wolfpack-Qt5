@@ -2234,7 +2234,7 @@ void cItem::update( cUOSocket *mSock )
 			P_CHAR pChar = mSock->player();
 
 			// Only send to sockets in range
-			if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange ) )
+			if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
 				return;
 
 			// Completely invisible
@@ -2266,7 +2266,7 @@ void cItem::update( cUOSocket *mSock )
 				P_CHAR pChar = mSock->player();
 	
 				// Only send to sockets in range
-				if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange ) )
+				if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
 					continue;
 	
 				// Completely invisible
@@ -2311,7 +2311,7 @@ void cItem::update( cUOSocket *mSock )
 			P_CHAR pChar = socket->player();
 
 			// Only send to sockets in range
-			if( !pChar || !pChar->inRange( pOwner, pChar->VisRange ) )
+			if( !pChar || !pChar->inRange( pOwner, pChar->VisRange() ) )
 				continue;
 
 			socket->send( &equipItem );
@@ -2336,7 +2336,7 @@ void cItem::update( cUOSocket *mSock )
 		{
 			P_CHAR pChar = socket->player();
 
-			if( !pChar || ( pChar->pos.distance( oCont->pos ) > pChar->VisRange ) )
+			if( !pChar || ( pChar->pos.distance( oCont->pos ) > pChar->VisRange() ) )
 				continue;
 
 			socket->send( &contItem );
@@ -2368,7 +2368,7 @@ P_ITEM cItem::dupe()
 void cItem::soundEffect( UINT16 sound )
 {
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
 			mSock->soundEffect( sound, this );
 }
 
@@ -2521,7 +2521,7 @@ bool cItem::wearOut()
 				if( !mSock || mSock == pOwner->socket() )
 					continue;
 
-				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->VisRange ) )
+				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->VisRange() ) )
 					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name.c_str() ).arg( getName() ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
 			}
 		}

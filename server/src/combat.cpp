@@ -1287,7 +1287,7 @@ namespace Combat
 			pGuard->setNpcWander(2);  // set wander mode
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
-			pGuard->summontimer = ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) );    
+			pGuard->setSummonTimer( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );    
 			
 			pGuard->soundEffect( 0x1FE );
 			staticeffect( pGuard, 0x37, 0x2A, 0x09, 0x06 );

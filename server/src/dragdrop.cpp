@@ -470,7 +470,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// ONLY the new equipped item and the sound-effect
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && ( mSock->player()->pos.distance( pWearer->pos ) <= mSock->player()->VisRange ) );
+		if( mSock->player() && ( mSock->player()->pos.distance( pWearer->pos ) <= mSock->player()->VisRange() ) );
 		{
 			mSock->send( &wearItem );
 			mSock->send( &soundEffect );
@@ -781,7 +781,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 				return;
 			}
 			else
-			{
+			{	
 				pBook->addSpell( spellId );
 				Items->DeleItem( pItem );
 				return;

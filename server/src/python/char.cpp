@@ -657,14 +657,20 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		return PyGetRegionObject( self->pChar->region() );
 
 //	else pGetInt( "skilldelay", skilldelay )
-	else if( !strcmp( "skilldelay", name) )
+	else if( !strcmp( "skilldelay", name ) )
 		return PyInt_FromLong( self->pChar->skilldelay() );
 //	else pGetInt( "objectdelay", objectdelay )
-	else if( !strcmp( "objectdelay", name) )
+	else if( !strcmp( "objectdelay", name ) )
 		return PyInt_FromLong( self->pChar->objectdelay() );
-	else pGetInt( "taming", taming )
-	else pGetInt( "summontimer", summontimer )
-	else pGetInt( "visrange", VisRange )
+//	else pGetInt( "taming", taming )
+	else if( !strcmp( "taming", name ) )
+		return PyInt_FromLong( self->pChar->taming() );
+//	else pGetInt( "summontimer", summontimer )
+	else if( !strcmp( "summontimer", name ) )
+		return PyInt_FromLong( self->pChar->summontimer() );
+//	else pGetInt( "visrange", VisRange )
+	else if( !strcmp( "visrange", name ) )
+		return PyInt_FromLong( self->pChar->VisRange() );
 	
 	else if( !strcmp( "trackingtarget", name ) )
 	{

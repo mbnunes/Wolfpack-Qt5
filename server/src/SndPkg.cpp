@@ -668,7 +668,7 @@ void skillwindow(int s) // Opens the skills list, updated for client 1.26.2b by 
 		skillmid[4]=pc_currchar->baseSkill(i)>>8;
 		skillmid[5]=pc_currchar->baseSkill(i)%256;
 
-		x=pc_currchar->lockSkill[i];
+		x=pc_currchar->lockSkill(i);
 		if (x!=0 && x!=1 && x!=2) x=0;
 		skillmid[6]=x; // leave it unlocked, regardless
 		Xsend(s, skillmid, 7);
@@ -1449,7 +1449,7 @@ void updateskill(int s, int skillnum) // updated for client 1.26.2b by LB
 	update[7] = pc_currchar->skill(skillnum)%256;
 	update[8] = pc_currchar->baseSkill(skillnum) >> 8;
 	update[9] = pc_currchar->baseSkill(skillnum)%256;
-	x = pc_currchar->lockSkill[skillnum];
+	x = pc_currchar->lockSkill(skillnum);
 	if (x != 0 && x != 1 && x != 2) 
 		x = 0;
 	update[10] = x;

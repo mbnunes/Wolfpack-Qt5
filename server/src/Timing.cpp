@@ -343,8 +343,8 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	}
 
 	// Reset spirit-speak
-	if( pc->spiritspeaktimer > 0 && pc->spiritspeaktimer <= uiCurrentTime )
-		pc->spiritspeaktimer = 0;
+	if( pc->spiritspeaktimer() > 0 && pc->spiritspeaktimer() <= uiCurrentTime )
+		pc->setSpiritSpeakTimer(0);
 	
 	// Jail stuff
 	if( pc->cell() > 0 )
@@ -560,7 +560,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			pc->setDisabled(0);
 		}
 
-		if( pc->summontimer && ( pc->summontimer <= currenttime ) )
+		if( pc->summontimer() && ( pc->summontimer() <= currenttime ) )
 		{
 			// Dupois - Added Dec 20, 1999
 			// QUEST expire check - after an Escort quest is created a timer is set

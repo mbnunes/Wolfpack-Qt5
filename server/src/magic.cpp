@@ -891,7 +891,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
  		}
 		pc_monster->SetOwnSerial(pc_currchar->serial);
 		pc_monster->MoveTo(pc_currchar->pos.x+rand()%2, pc_currchar->pos.y+rand()%2, pc_currchar->pos.z);
- 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+ 		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
  		updatechar(pc_monster);
  		npcaction(pc_monster, 0x0C);
 		doStaticEffect(pc_monster, spellnum);
@@ -904,7 +904,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 			pc_monster = cCharStuff::createScriptNpc(s,NULL,"295",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			if( pc_monster == NULL )
 				return;
-            pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+            pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 			pc_monster->setNpcAIType(50);
 			pc_monster->setTamed(false);			
 		}
@@ -914,7 +914,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 			pc_monster = cCharStuff::createScriptNpc(s,NULL,"291",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			if( pc_monster == NULL )
 				return;
-			pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+			pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 			pc_monster->setTamed(true);
 		}
 		break;
@@ -923,7 +923,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"290",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x000E: //Earth
@@ -931,7 +931,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"292",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x000F: //Fire
@@ -939,7 +939,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"293",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x0010: //Water
@@ -947,7 +947,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"294",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setTamed(true);
 		break;
 	case 0x023E: //Blade Spirits
@@ -955,7 +955,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = cCharStuff::createScriptNpc(s,NULL,"296",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		if( pc_monster == NULL )
 			return;
-		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 		pc_monster->setNpcAIType(50);
 		pc_monster->setTamed(false);
 		break;
@@ -966,7 +966,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setDef(50);
 		pc_monster->setLoDamage(50);
 		pc_monster->setHiDamage(100);
-		pc_monster->spattack=7552; // 1-7 level spells
+		pc_monster->setSpAttack(7552); // 1-7 level spells
 		pc_monster->setBaseSkill(MAGERY, 900); // 90 magery
 		pc_monster->setBaseSkill(TACTICS, 1000); // 70 tactics
 		pc_monster->setBaseSkill(WRESTLING, 900);
@@ -989,7 +989,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setDef(50);
 		pc_monster->setLoDamage(50);
 		pc_monster->setHiDamage(100);
-		pc_monster->spattack=7552; // 1-7 level spells
+		pc_monster->setSpAttack(7552); // 1-7 level spells
 		pc_monster->setBaseSkill(MAGERY, 1000); // 100 magery
 		pc_monster->setBaseSkill(TACTICS, 1000);// 100 tactics
 		pc_monster->setBaseSkill(WRESTLING, 900);
@@ -1010,7 +1010,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setDef(20);
 		pc_monster->setLoDamage(10);
 		pc_monster->setHiDamage(45);
-		pc_monster->spattack=4095; // 1-7 level spells
+		pc_monster->setSpAttack(4095); // 1-7 level spells
 		pc_monster->setBaseSkill(MAGERY, 500); // 90 magery
 		pc_monster->setBaseSkill(TACTICS, 1000); // 70 tactics
 		pc_monster->setBaseSkill(WRESTLING, 900);
@@ -1051,8 +1051,8 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->MoveTo(x, y, z);
 	}
 
-	pc_monster->spadelay=10;
-	pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2)));
+	pc_monster->setSpaDelay(10);
+	pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
 	updatechar(pc_monster);
 	npcaction(pc_monster, 0x0C);
 	doStaticEffect(pc_monster, spellnum);

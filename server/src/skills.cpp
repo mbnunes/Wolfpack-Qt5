@@ -301,7 +301,7 @@ public:
 		dPos.z = target->z();
 
 		// If its out of the characters visrange cancel (How could he've clicked there??)
-		if( dPos.distance( pChar->pos ) > pChar->VisRange )
+		if( dPos.distance( pChar->pos ) > pChar->VisRange() )
 			return true;
         
 		UINT16 dSkill = pChar->skill( DETECTINGHIDDEN );		
@@ -502,7 +502,7 @@ public:
 		bool tamed = false;
 		if ((pc->isNpc() && (chardist(pc_currchar, pc) <= 3))) //Ripper
 		{
-			if (pc->taming>1200||pc->taming==0)//Morrolan default is now no tame
+			if (pc->taming()>1200||pc->taming() == 0 )//Morrolan default is now no tame
 			{
 				socket->sysMessage( tr("You can't tame that creature.") );
 				return true;
@@ -532,7 +532,7 @@ public:
 				}
 			}
 			if ((!pc_currchar->checkSkill(TAMING, 0, 1000))||
-				(pc_currchar->skill(TAMING)<pc->taming)) 
+				(pc_currchar->skill(TAMING)<pc->taming())) 
 			{
 				socket->sysMessage( tr("You were unable to tame it.") );
 				return true;
@@ -711,7 +711,7 @@ public:
 		else // Lore used on a non-human
 		{
 			UI16 skill = pc_currchar->skill( ANIMALLORE );
-			if( pc->tamed() || ( skill >= 1000 && skill <= 1100 && (pc->taming<=1200||pc->taming>0) ) ||
+			if( pc->tamed() || ( skill >= 1000 && skill <= 1100 && (pc->taming()<=1200||pc->taming()>0) ) ||
 				skill >= 1100 )
 			{
 				if( pc_currchar->checkSkill( ANIMALLORE, 0, 1000 ) )
@@ -1269,7 +1269,7 @@ void cSkills::Hide( cUOSocket *socket )
 		return;
 
 	P_CHAR aChar = FindCharBySerial( pChar->attacker() );
-	if( aChar && aChar->inRange( pChar, pChar->VisRange ) )
+	if( aChar && aChar->inRange( pChar, pChar->VisRange() ) )
 	{
 		pChar->message( tr( "You cannot hide while fighting." ) );
 		return; 
@@ -1664,7 +1664,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 		return 0;
 
 
-	lockstate=pc->lockSkill[sk];
+	lockstate=pc->lockSkill(sk);
 	if (pc->isGM()) lockstate=0;
 	// for gms no skill cap exists, also ALL skill will be interperted as up, no matter how they are set
 
@@ -1679,7 +1679,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 
 	for (int b=0;b<(ALLSKILLS+1);b++) 
 	{
-		if (pc->lockSkill[b]==1 && pc->baseSkill(b)!=0) // only count atrophy candidtes if they are above 0 !!!
+		if (pc->lockSkill(b)==1 && pc->baseSkill(b)!=0) // only count atrophy candidtes if they are above 0 !!!
 		{
 			atrophy_candidates[c]=b;
 			c++;

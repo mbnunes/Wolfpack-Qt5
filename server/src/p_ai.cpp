@@ -582,7 +582,7 @@ void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 
 void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_CHAR pc)
 {
-	if (currenttime >= pc_i->spatimer)
+	if (currenttime >= pc_i->spatimer())
 	{
 		switch (RandomNum(0, 5))
 		{
@@ -605,7 +605,7 @@ void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_C
 
 void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 {
-	if (currenttime >= pc_i->spatimer)
+	if (currenttime >= pc_i->spatimer())
 	{
 		if (pc_i->poisoned())
 		{
@@ -623,7 +623,7 @@ void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 
 void cCharStuff::cDragonAI::DoneAI(P_CHAR pc_i, int currenttime)
 {
-	pc_i->spatimer = currenttime + (pc_i->spadelay*MY_CLOCKS_PER_SEC); 
+	pc_i->setSpaTimer( currenttime + (pc_i->spadelay()*MY_CLOCKS_PER_SEC) );  
 	return;
 }
 

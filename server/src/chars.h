@@ -65,25 +65,7 @@ class cChar : public cUObject
 public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
-		
-	char					blocked;
-	char					dir2;
-	unsigned int			spiritspeaktimer; // Timer used for duration of spirit speak
-	int						spattack;
-	int						spadelay;
-	unsigned int			spatimer;
-	int						taming; //Skill level required for taming
-	unsigned int			summontimer; //Timer for summoned creatures.
-	
-	//int statuse[3]; //Morrolan - stat/skill cap STR/INT/DEX in that order
-	//int skilluse[TRUESKILLS][1]; //Morrolan - stat/skill cap
-	unsigned char			lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
-    // commands shows 
-    // 0 = off 
-    // 1 = FlameStrike 
-    // 2-6 = Sparkles
-    int						gmMoveEff;
-	int						VisRange;
+
 
 	// Protected Data Members	
 protected:
@@ -195,8 +177,6 @@ protected:
 	unsigned short  		skill_[ALLSKILLS+1]; // List of skills (with stat modifiers)
 	cUOSocket*				socket_;
 	unsigned short			weight_;
-
-	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	void	day(unsigned long day) ; // set the day it was created
@@ -205,36 +185,25 @@ protected:
 	signed short			dx;		// Dexterity
 	signed short			dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
 	signed short			tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
-
 	QString					loot_; // holds the lootlist section
-//BEGIN ADDED FROM PUBLIC*****************************************
 	unsigned char			fonttype_; // Speech font to use
 	UI16					saycolor_; // Color for say messages
 	unsigned short			emotecolor_; // Color for emote messages
 	signed short			st_; // Strength
 	signed short			st2_; // Reserved for calculation
-
-	// Skyfire's NPC advancments.
 	bool					may_levitate_;
-	//Skyfire - End NPC's home/work/food vars'
 	unsigned char			pathnum_;
 	path_st					path_[PATHNUM];
-
-	signed char				dispz_;   // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
-	// changed from unsigned to signed, LB
-	
+	signed char				dispz_;   
 	unsigned char			dir_; //&0F=Direction
 	unsigned short			xid_; // Backup of body type for ghosts
 	unsigned char			priv2_;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
-	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
-	
 	signed short			in_; // Intelligence
 	signed short			in2_; // Reserved for calculation
 	signed short			hp_; // Hitpoints
 	signed short			stm_; // Stamina
 	signed short			mn_; // Mana
 	signed short			mn2_; // Reserved for calculation
-
 	int						hidamage_; //NPC Damage
 	int						lodamage_; //NPC Damage
 	bool					npc_;	// true = Character is an NPC
@@ -242,53 +211,56 @@ protected:
 	unsigned char			cell_; // Reserved for jailing players
 	unsigned int			jailtimer_; // Blackwind - Timer used for crystall ball and jail time.
 	int						jailsecs_;	//             Tweak this value by using command tweak before jailing person 
-	//			   or he will be jailed 1 day ( in realtime )
-
 	int						ownserial_; // If Char is an NPC, this sets its owner
 	int						robe_; // Serial number of generated death robe (If char is a ghost)
 	int						karma_;
 	signed int				fame_;	
-
 	unsigned int			kills_; //PvP Kills
 	unsigned int			deaths_;
 	bool					dead_; // Is character dead
 	SERIAL					packitem_; // Serial of backpack
-
 	unsigned char			fixedlight_; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	unsigned char			speech_; // For NPCs: Number of the assigned speech block
 	unsigned int			def_; // Intrinsic defense
 	bool					war_; // War Mode
-
 	SERIAL					targ_; // Current combat target
 	unsigned int			timeout_; // Combat timeout (For hitting)
 	unsigned int			timeout2_; // memory of last shot timeout
 	unsigned int			regen_, regen2_, regen3_;//Regeneration times for mana, stamin, and str
-	
 	enInputMode				inputmode_;	// Used for entering text; 0= none, 4=rename rune
 	SERIAL					inputitem_;		// serial of item the text is referring to
 	SERIAL					attacker_; // Character's serial who attacked this character
 	unsigned int			npcmovetime_; // Next time npc will walk
-
 	unsigned char			npcWander_; // NPC Wander Mode
 	unsigned char			oldnpcWander_; // Used for fleeing npcs
 	SERIAL					ftarg_; // NPC Follow Target
-
 	int						fx1_; //NPC Wander Point 1 x
 	int						fx2_; //NPC Wander Point 2 x
 	int						fy1_; //NPC Wander Point 1 y
 	int						fy2_; //NPC Wander Point 2 y
 	signed char				fz1_; //NPC Wander Point 1 z
-
-	//int pagegm; //GM Paging
-	//char region;
 	cTerritory*				region_;
 	unsigned int			skilldelay_;
 	unsigned int			objectdelay_;
 	int						making_; // skill number of skill using to make item, 0 if not making anything.
 	SERIAL					lastTarget_;
-//END ADDED FROM PUBLIC ******************************************
-	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
+	char					blocked_;
+	char					dir2_;
+	unsigned int			spiritspeaktimer_; // Timer used for duration of spirit speak
+	int						spattack_;
+	int						spadelay_;
+	unsigned int			spatimer_;
+	int						taming_; //Skill level required for taming
+	unsigned int			summontimer_; //Timer for summoned creatures.
+	unsigned char			lockSkill_[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
+    // commands shows 
+    // 0 = off 
+    // 1 = FlameStrike 
+    // 2-6 = Sparkles
+    int						gmMoveEff_;
+	int						VisRange_;
 
+	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 	unsigned int			food_;
 
 	// Public Methods
@@ -415,8 +387,6 @@ public:
 	unsigned short			stones() const { return (weight_ / 10); }
 	QString					lootList() const { return loot_; }
 	UINT32					trackingTimer() const { return trackingTimer_; }
-
-//BEGIN ADDED GETTERS**********************************************
 	unsigned char			fonttype() const { return fonttype_; }
 	UI16					saycolor() const { return saycolor_; }
 	unsigned short			emotecolor() const { return emotecolor_; }
@@ -444,51 +414,52 @@ public:
 	unsigned char			cell() const { return cell_; }
 	unsigned int			jailtimer() const { return jailtimer_; }
 	int						jailsecs() const { return jailsecs_; }
-
 	int						ownserial() const { return ownserial_; }
 	int						robe() const { return robe_; }
 	int						karma() const { return karma_; }
 	signed int				fame() const { return fame_; }
-
 	unsigned int			kills() const { return kills_; }
 	unsigned int			deaths() const { return deaths_; }
 	bool					dead() const { return dead_; }
 	SERIAL					packitem() const { return packitem_; }
-
 	unsigned char			fixedlight() const { return fixedlight_; }
 	unsigned char			speech() const { return speech_; }
 	unsigned int			def() const { return def_; }
 	bool					war() const { return war_; }
-
 	SERIAL					targ() const { return targ_; }
 	unsigned int			timeout() const { return timeout_; }
 	unsigned int			timeout2() const { return timeout2_; }
 	unsigned int			regen() const { return regen_; }
 	unsigned int		    regen2() const { return regen2_; }
 	unsigned int			regen3() const { return regen3_; }
-
 	enInputMode				inputmode() const { return inputmode_; }
 	SERIAL					inputitem() const { return inputitem_; }
 	SERIAL					attacker() const { return attacker_; }
 	unsigned int			npcmovetime() const { return npcmovetime_; }
-
 	unsigned char			npcWander() const { return npcWander_; }
 	unsigned char			oldnpcWander() const { return oldnpcWander_; }
 	SERIAL					ftarg() const { return ftarg_; }
-
 	int						fx1() const { return fx1_; }
 	int						fx2() const { return fx2_; }
 	int						fy1() const { return fy1_; }
 	int						fy2() const { return fy2_; }
 	signed char				fz1() const { return fz1_; }
-
-	
 	cTerritory*				region() const { return region_; }
 	unsigned int			skilldelay() const { return skilldelay_; }
 	unsigned int			objectdelay() const { return objectdelay_; }
 	int						making() const { return making_; }
 	SERIAL					lastTarget() const { return lastTarget_; }
-//END ADDED GETTERS***********************************************
+	char					blocked() const { return blocked_; }
+	char					dir2() const { return dir2_; }
+	unsigned int			spiritspeaktimer() const { return spiritspeaktimer_; }
+	int						spattack() const { return spattack_; }
+	int						spadelay() const { return spadelay_; }
+	unsigned int			spatimer() const { return spatimer_; }
+	int						taming() const { return taming_; }
+	unsigned int			summontimer() const { return summontimer_; }
+	unsigned char			lockSkill( int data ) const { return lockSkill_[data]; }// LB, client 1.26.2b skill managment
+    int						gmMoveEff() const { return gmMoveEff_; }
+	int						VisRange() const { return VisRange_; }
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
 	unsigned int			food() const { return food_; }
@@ -597,8 +568,6 @@ public:
 	void					setLootList( QString data ) { loot_ = data; }
 	void					setTrackingTarg( SERIAL data ) { trackingTarget_ = data; }
 	void					setTrackingTimer( UINT32 data ) { trackingTimer_ = data; }
-
-//ADDED SETTERS******************************************************
 	void					setFontType( unsigned char data ) { fonttype_ = data; }
 	void					setSayColor( UI16 data ) { saycolor_ = data; }
 	void					setEmoteColor( unsigned short data ) { emotecolor_ = data; }
@@ -619,7 +588,6 @@ public:
 	void					setStm( signed short data ) { stm_ = data; }
 	void					setMn( signed short data ) { mn_ = data; }
 	void					setMn2( signed short data ) { mn2_ = data; }
-	
 	void					setHiDamage( int data ) { hidamage_ = data; }
 	void					setLoDamage( int data ) { lodamage_ = data; }
 	void					setNpc( bool data ) { npc_ = data; }
@@ -632,48 +600,49 @@ public:
 	void					setRobe( int data ) { robe_ = data; }
 	void					setKarma( int data ) { karma_ = data; }
 	void					setFame( signed int data ) { fame_ = data; }
-
 	void					setKills( unsigned int data ) { kills_ = data; }
 	void					setDeaths( unsigned int data ) { deaths_ = data; }
 	void					setDead( bool data ) { dead_ = data; }
 	void					setPackItem( SERIAL data ) { packitem_ = data; }
-
 	void					setFixedLight( unsigned char data ) { fixedlight_ = data; }
 	void					setSpeech( unsigned char data ) { speech_ = data; }
 	void					setDef( unsigned int data ) { def_ = data; }
 	void					setWar( bool data ) { war_ = data; }
-
 	void					setFood( unsigned int data ) { food_ = data; }
-
 	void					setTarg( SERIAL data ) { targ_ = data; }
 	void					setTimeOut( unsigned int data ) { timeout_ = data; }
 	void					setTimeOut2( unsigned int data ) { timeout2_ = data; }
 	void					setRegen( unsigned int data ) { regen_ = data; }
 	void					setRegen2( unsigned int data ) { regen2_ = data; }  
 	void					setRegen3( unsigned int data ) { regen3_ = data; }
-		
 	void					setInputMode( enInputMode data ) { inputmode_ = data; }
 	void					setInputItem( SERIAL data ) { inputitem_ = data; }
 	void					setAttacker( SERIAL data ) { attacker_ = data; }
 	void					setNpcMoveTime( unsigned int data ) { npcmovetime_ = data; }
-
 	void					setNpcWander( unsigned char data ) { npcWander_ = data; }
 	void					setOldNpcWander( unsigned char data ) { oldnpcWander_ = data; }
 	void					setFtarg( SERIAL data ) { ftarg_ = data; }
-
 	void					setFx1( int data ) { fx1_ = data; }
 	void					setFx2( int data ) { fx2_ = data; }
 	void					setFy1( int data ) { fy1_ = data; }
 	void					setFy2( int data ) { fy2_ = data; }
 	void					setFz1( signed char data ) { fz1_ = data; }
-	
 	void					setRegion( cTerritory* data ) { region_ = data; }
 	void					setSkillDelay( unsigned int data ) { skilldelay_ = data; }
 	void					setObjectDelay( unsigned int data ) { objectdelay_ = data; }
 	void					setMaking( int data ) { making_ = data; }
 	void					setLastTarget( SERIAL data ) { lastTarget_ = data; }
-	//END SETTERS********************************************************
-
+	void					setBlocked( char data ) { blocked_ = data; }
+	void					setDir2( char data ) { dir2_ = data; }
+	void					setSpiritSpeakTimer( unsigned int data ) { spiritspeaktimer_ = data; }
+	void					setSpAttack( int data ) { spattack_ = data; }
+	void					setSpaDelay( int data ) { spadelay_ = data; }
+	void					setSpaTimer( unsigned int data ) { spatimer_ = data; }
+	void					setTaming( int data ) { taming_ = data; }
+	void					setSummonTimer( unsigned int data ) { summontimer_ = data; }
+	void					setLockSkill( int index, unsigned char val ) { lockSkill_[index] = val; }
+    void					setGmMoveEff( int data ) { gmMoveEff_ = data; }
+	void					setVisRange( int data ) { VisRange_ = data; }
 	void					clearLastSelections( void );
 
 	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char

@@ -425,7 +425,7 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 	}
 
 	// Distance check (VisRange + 5 for macros)
-	if( pos.distance( socket->player()->pos ) > ( socket->player()->VisRange + 5 ) )
+	if( pos.distance( socket->player()->pos ) > ( socket->player()->VisRange() + 5 ) )
 	{
 		socket->sysMessage( tr( "You can't see the target." ) );
 		return false;

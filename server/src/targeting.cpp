@@ -1015,7 +1015,7 @@ static void SetSpAttackTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->spattack=tempint[s];
+		pc->setSpAttack(tempint[s]);
 	}
 }
 
@@ -1025,7 +1025,7 @@ void cTargets::SetSpaDelayTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->spadelay=tempint[s];
+		pc->setSpaDelay( tempint[s] );
 	}
 }
 

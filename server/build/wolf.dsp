@@ -249,6 +249,10 @@ SOURCE=.\network.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\newmagic.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\npcs.cpp
 # End Source File
 # Begin Source File
@@ -298,6 +302,10 @@ SOURCE=.\spawnregions.cpp
 # Begin Source File
 
 SOURCE=.\speech.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\spellbook.cpp
 # End Source File
 # Begin Source File
 
@@ -565,6 +573,10 @@ SOURCE=.\network.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\newmagic.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\packlen.h
 # End Source File
 # Begin Source File
@@ -618,6 +630,10 @@ SOURCE=.\spawnregions.h
 # Begin Source File
 
 SOURCE=.\speech.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\spellbook.h
 # End Source File
 # Begin Source File
 

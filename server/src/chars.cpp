@@ -105,7 +105,7 @@ void cChar::setSerial(SERIAL ser)
 
 void cChar::Init(bool ser)
 {
-	VisRange = VISRANGE ;
+	VisRange_ = VISRANGE ;
 	unsigned int i;
 
 	if (ser)
@@ -224,14 +224,14 @@ void cChar::Init(bool ser)
 	this->skilldelay_ = 0;
 	this->objectdelay_ = 0;
 	this->making_ = -1; // skill number of skill using to make item, 0 if not making anything.
-	this->blocked=0;
-	this->dir2=0;
-	this->spiritspeaktimer=0; // Timer used for duration of spirit speak
-	this->spattack=0;
-	this->spadelay=0;
-	this->spatimer=0;
-	this->taming=0; //Skill level required for taming
-	this->summontimer=0; //Timer for summoned creatures.
+	this->blocked_ = 0;
+	this->dir2_ = 0;
+	this->spiritspeaktimer_ = 0; // Timer used for duration of spirit speak
+	this->spattack_ = 0;
+	this->spadelay_ = 0;
+	this->spatimer_ = 0;
+	this->taming_ = 0; //Skill level required for taming
+	this->summontimer_ = 0; //Timer for summoned creatures.
 	this->trackingTimer_ = 0; // Timer used for the duration of tracking
 	this->trackingTarget_ = INVALID_SERIAL;
 	this->setFishingtimer(0); // Timer used to delay the catching of fish
@@ -310,7 +310,7 @@ void cChar::Init(bool ser)
 		this->setSkill(i, 0);
 	}
 	for (i = 0; i < ALLSKILLS; i++) 
-		this->lockSkill[i]=0;
+		this->lockSkill_[i]=0;
 
 	this->setFood( 0 );
 }
@@ -454,7 +454,7 @@ void cChar::fight(P_CHAR other)
 cChar::cChar():
 	socket_(0), account_(0)
 {
-	VisRange = VISRANGE;
+	VisRange_ = VISRANGE;
 }
 ///////////////////////
 // Name:	CountItems
@@ -761,7 +761,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("account",			login);
 		setAccount( Accounts->getRecord( login ) );
 		archive.read("creationday",		creationday_);
-		archive.read("gmmoveeff",		gmMoveEff);
+		archive.read("gmmoveeff",		gmMoveEff_);
 		archive.read("guildtype",		GuildType);
 		archive.read("guildtraitor",	GuildTraitor);
 		archive.read("dispz",			dispz_ );
@@ -810,7 +810,7 @@ void cChar::Serialize(ISerialization &archive)
 		for ( j = 0; j < TRUESKILLS; j++ )
 		{
 			archive.read( (char*)QString( "skill%1" ).arg( j ).latin1(), baseSkill_[j] );
-			archive.read( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill[j] );
+			archive.read( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill_[j] );
 		}
 		archive.read("cantrain",		cantrain_);
 		
@@ -830,13 +830,13 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("hidden",			hidden_);
 		archive.read("hunger",			hunger_);
 		archive.read("npcaitype",		npcaitype_);
-		archive.read("spattack",		spattack);
-		archive.read("spadelay",		spadelay);
-		archive.read("taming",			taming);
+		archive.read("spattack",		spattack_);
+		archive.read("spadelay",		spadelay_);
+		archive.read("taming",			taming_);
 
-		archive.read("summontimer",		summontimer);
-		if (summontimer != 0)
-			summontimer += uiCurrentTime;
+		archive.read("summontimer",		summontimer_);
+		if (summontimer_ != 0)
+			summontimer_ += uiCurrentTime;
 		archive.read("advobj",			advobj_);
 		archive.read("poison",			poison_);
 		archive.read("poisoned",		poisoned_);
@@ -948,7 +948,7 @@ void cChar::Serialize(ISerialization &archive)
 		for( j = 0; j < TRUESKILLS; j++ )
 		{
 			archive.write( (char*)QString( "skill%1" ).arg( j ).latin1(), baseSkill_[j] );
-			archive.write( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill[j] );
+			archive.write( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill_[j] );
 		}
 		archive.write("cantrain", cantrain_);
 		
@@ -968,10 +968,10 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("hidden",			hidden_);
 		archive.write("hunger",			hunger_);
 		archive.write("npcaitype",		npcaitype_);
-		archive.write("spattack",		spattack);
-		archive.write("spadelay",		spadelay);
-		archive.write("taming",			taming);
-		unsigned int summtimer = summontimer-uiCurrentTime;
+		archive.write("spattack",		spattack_);
+		archive.write("spadelay",		spadelay_);
+		archive.write("taming",			taming_);
+		unsigned int summtimer = summontimer_ - uiCurrentTime;
 		archive.write("summonremainingseconds", summtimer);
 		
 		archive.write("advobj",			advobj_);
@@ -1467,7 +1467,7 @@ void cChar::processNode( const QDomElement &Tag )
 		
 	//<spattack>3</spattack>
 	else if( TagName == "spattack" )
-		this->spattack = Value.toInt();
+		this->spattack_ = Value.toInt();
 
 	//<speech>13</speech>
 	else if( TagName == "speech" )
@@ -1487,7 +1487,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<spadelay>3</spadelay>
 	else if( TagName == "spadelay" )
-		this->spadelay = Value.toInt();
+		this->spadelay_ = Value.toInt();
 
 	//<stablemaster />
 	else if( TagName == "stablemaster" )
@@ -1499,7 +1499,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<totame>115</totame>
 	else if( TagName == "totame" )
-		this->taming = Value.toInt();
+		this->taming_ = Value.toInt();
 
 	//<skill type="alchemy">100</skill>
 	//<skill type="1">100</skill>
@@ -1625,7 +1625,7 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 	{
 		// Send the sound to all sockets in range
 		for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
-			if( s->player() && s->player()->inRange( this, s->player()->VisRange ) )
+			if( s->player() && s->player()->inRange( this, s->player()->VisRange() ) )
 				s->send( &pSoundEffect );
 	}
 }
@@ -1697,7 +1697,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	{
 		// Take the dead-status into account
 		if( dead_ && !isNpc() )
-			if( !socket->player()->dead() && !socket->player()->spiritspeaktimer && !socket->player()->isGMorCounselor() )
+			if( !socket->player()->dead() && !socket->player()->spiritspeaktimer() && !socket->player()->isGMorCounselor() )
 				textSpeech->setText( ghostSpeech );
 			else
 				textSpeech->setText( message );
@@ -1713,7 +1713,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 				{
 					// Take the dead-status into account
 					if( dead_ && !isNpc() )
-						if( !mSock->player()->dead() && !mSock->player()->spiritspeaktimer && !mSock->player()->isGMorCounselor() )
+						if( !mSock->player()->dead() && !mSock->player()->spiritspeaktimer() && !mSock->player()->isGMorCounselor() )
 							textSpeech->setText( ghostSpeech );
 						else
 							textSpeech->setText( message );
@@ -1741,7 +1741,7 @@ void cChar::emote( const QString &emote, UI16 color )
 	textSpeech.setText( emote );
 	
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
 			mSock->send( &textSpeech );
 }
 
@@ -1890,7 +1890,7 @@ void cChar::update( void )
 	{
 		P_CHAR pChar = mSock->player();
 
-		if( pChar && pChar->socket() && pChar->inRange( this, pChar->VisRange ) )
+		if( pChar && pChar->socket() && pChar->inRange( this, pChar->VisRange() ) )
 		{
 			updatePlayer->setHighlight( notority( pChar ) );
 			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );	
@@ -1921,7 +1921,7 @@ void cChar::resend( bool clean )
 		if( !pChar || !pChar->socket() )
 			continue;
 
-		if( pChar->pos.distance( pos ) > pChar->VisRange )
+		if( pChar->pos.distance( pos ) > pChar->VisRange() )
 			continue;
 
         // Remove it ONLY before resending if we have to do it "clean"
@@ -2014,7 +2014,7 @@ void cChar::updateHealth( void )
 		P_CHAR pChar = cIter.GetData();
 
 		// Send only if target can see us
-		if( !pChar || !pChar->socket() || !pChar->inRange( this, pChar->VisRange ) || ( isHidden() && !pChar->isGM() && this != pChar ) )
+		if( !pChar || !pChar->socket() || !pChar->inRange( this, pChar->VisRange() ) || ( isHidden() && !pChar->isGM() && this != pChar ) )
 			continue;
 	
 		pChar->socket()->sendStatWindow( this );
@@ -2066,7 +2066,7 @@ void cChar::action( UINT8 id )
 
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 	{
-		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) && ( !isHidden() || socket->player()->isGM() ) )
+		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange() ) && ( !isHidden() || socket->player()->isGM() ) )
 			socket->send( &action );
 	}
 
@@ -2157,7 +2157,7 @@ void cChar::kill()
 		{
 			if( pc_t->npcaitype() == 4 )
 			{
-				pc_t->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * 20 ) );
+				pc_t->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * 20 ) ) );
 				pc_t->setNpcWander(2);
 				pc_t->setNextMoveTime();
 				pc_t->talk( tr( "Thou have suffered thy punishment, scoundrel." ), -1, 0, true );
@@ -2423,7 +2423,7 @@ void cChar::kill()
 	rObject.setSerial( serial );
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) && ( mSock != socket_ ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) && ( mSock != socket_ ) )
 		{
 			if( SrvParams->showDeathAnim() )
 				mSock->send( &dAction );
@@ -2603,7 +2603,7 @@ void cChar::updateWornItems()
 			packet.setSerial( pi->serial );
 			packet.fromItem( pi );
 			for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
-				if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) ) 
+				if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange() ) ) 
 					socket->send( &packet );
 		}
 	}
@@ -2646,7 +2646,7 @@ void cChar::wear( P_ITEM pi )
 	packet.setSerial( pi->serial );
 	packet.fromItem( pi );
 	for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
-		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) ) 
+		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange() ) ) 
 			socket->send( &packet );
 }
 
@@ -2678,7 +2678,7 @@ P_CHAR cChar::unmount()
 				pMount->setFame( pi->lodamage() );
 				pMount->setKarma( pi->hidamage() );
 				pMount->setPoisoned( pi->poisoned );
-				pMount->summontimer = pi->decaytime;
+				pMount->setSummonTimer( pi->decaytime );
 
 				pMount->moveTo( pos );
 				pMount->resend( false );
@@ -2773,8 +2773,8 @@ void cChar::mount( P_CHAR pMount )
 		pMountItem->setLodamage( pMount->fame() );
 		pMountItem->setHidamage( pMount->karma() );
 		pMountItem->poisoned = pMount->poisoned();
-		if (pMount->summontimer != 0)
-			pMountItem->decaytime = pMount->summontimer;
+		if (pMount->summontimer() != 0)
+			pMountItem->decaytime = pMount->summontimer();
 	
 		// Sends update.
 		wear( pMountItem );
@@ -3087,7 +3087,7 @@ void cChar::attackTarget( P_CHAR defender )
 	{
 		P_CHAR pChar = cIter.GetData();
 
-		if( pChar && ( pChar != defender ) && pChar->socket() && pChar->inRange( this, pChar->VisRange ) )
+		if( pChar && ( pChar != defender ) && pChar->socket() && pChar->inRange( this, pChar->VisRange() ) )
 			pChar->socket()->showSpeech( this, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 	}
 }
@@ -3331,7 +3331,7 @@ void cChar::effect( UINT16 id, cUObject *target, bool fixedDirection, bool explo
 			continue;
 
 		// The Socket has to be either in range of Source or Target
-		if( mSock->player()->inRange( this, mSock->player()->VisRange ) || mSock->player()->inRange( target, mSock->player()->VisRange ) )
+		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || mSock->player()->inRange( target, mSock->player()->VisRange() ) )
 			mSock->send( &effect );
 	}
 }
@@ -3360,7 +3360,7 @@ void cChar::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, bool
 			continue;
 
 		// The Socket has to be either in range of Source or Target
-		if( mSock->player()->inRange( this, mSock->player()->VisRange ) || ( mSock->player()->pos.distance( target ) <= mSock->player()->VisRange ) )
+		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || ( mSock->player()->pos.distance( target ) <= mSock->player()->VisRange() ) )
 			mSock->send( &effect );
 	}
 }
@@ -3383,7 +3383,7 @@ void cChar::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 r
 	cUOSocket *mSock = 0;
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
 			mSock->send( &effect );
 	}
 }

@@ -1657,7 +1657,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	// Except the one being attacked
 	QString message = tr( "*You see %1 attacking %2!" ).arg(_player->name.c_str()).arg(pc_i->name.c_str());
 	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
-		if( s->player() && s != this && s->player()->inRange( _player, s->player()->VisRange ) && s->player() != pc_i )
+		if( s->player() && s != this && s->player()->inRange( _player, s->player()->VisRange() ) && s->player() != pc_i )
 			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 
 	// Send an extra message to the victim
@@ -1693,7 +1693,7 @@ void cUOSocket::resendWorld( bool clean )
 		pItem->update( this );
 	}
 
-	RegionIterator4Chars chIterator( _player->pos, _player->VisRange );
+	RegionIterator4Chars chIterator( _player->pos, _player->VisRange() );
 
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
@@ -1887,7 +1887,7 @@ bool cUOSocket::inRange( cUOSocket* socket ) const
 {
 	if ( !socket || !socket->player() || !_player )
 		return false;
-	return ( socket->player()->pos.distance( _player->pos ) < socket->player()->VisRange );
+	return ( socket->player()->pos.distance( _player->pos ) < socket->player()->VisRange() );
 }
 
 void cUOSocket::handleBookPage( cUORxBookPage* packet )
@@ -2043,7 +2043,7 @@ void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 
 void cUOSocket::handleSkillLock( cUORxSkillLock* packet )
 {
-	player()->lockSkill[ packet->skill() ] = packet->lock();
+	player()->setLockSkill( packet->skill(), packet->lock() );
 }
 
 /*

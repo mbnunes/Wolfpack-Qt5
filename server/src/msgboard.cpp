@@ -2234,7 +2234,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	
 	// Set the expirey time on the NPC if no body accepts the quest
 	if ( SrvParams->escortinitexpire() )
-		pc_npc->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortinitexpire() ) );
+		pc_npc->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortinitexpire() ) ) );
 	
 	// Make sure the questDest is valid otherwise don't post and delete the NPC
 	if ( !pc_npc->questDestRegion() )
@@ -2306,7 +2306,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	pc_npc->setQuestDestRegion(0);				// Reset quest destination region
 	
 	// Set a timer to automatically delete the NPC
-	pc_npc->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortdoneexpire() ) );
+	pc_npc->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortdoneexpire() ) ) );
 	
 	pc_npc->setOwnSerial(-1);
 }
@@ -2731,12 +2731,12 @@ void MsgBoardMaintenance( void )
 											if ( pc_z->ftarg() == INVALID_SERIAL )
 											{
 												// Lets reset the summontimer to the escortinit
-												pc_z->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortinitexpire() ) );
+												pc_z->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortinitexpire() ) ) );
 											}
 											else // It must have an escort in progress so set the escortactiveexpire timer
 											{
 												// Lets reset the summontimers to the escortactive value
-												pc_z->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) );
+												pc_z->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) ) );
 											}
 											
 											// Found a matching NPC for this posted quest so flag the post for compression

@@ -445,7 +445,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 			UI32 newDist = pChar->pos.distance( pItem->pos );
 
 			// Was out of range before and now is in range
-			if( ( oldDist >= pChar->VisRange ) && ( newDist <= pChar->VisRange ) )
+			if( ( oldDist >= pChar->VisRange() ) && ( newDist <= pChar->VisRange() ) )
 			{
 				pItem->update( socket );
 			}
@@ -924,11 +924,11 @@ void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& o
 	Q_UINT32 oldDistance = pChar->pos.distance( oldpos );
 	
 	// We dont see him, he doesn't see us
-	if( ( newDistance > pChar->VisRange ) && ( newDistance > pWalker->VisRange ) )
+	if( ( newDistance > pChar->VisRange() ) && ( newDistance > pWalker->VisRange() ) )
 		return;
 
 	// Someone got into our range
-	if( socket && ( newDistance <= pWalker->VisRange ) && ( oldDistance > pWalker->VisRange ) )
+	if( socket && ( newDistance <= pWalker->VisRange() ) && ( oldDistance > pWalker->VisRange() ) )
 		socket->sendChar( pChar );
 
 	// This guy is already known to us
@@ -937,11 +937,11 @@ void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& o
 	//	socket->updateChar( pChar );
 
 	// We got into somone elses Range
-	if( visSocket && ( newDistance <= pChar->VisRange ) && ( oldDistance > pChar->VisRange ) )
+	if( visSocket && ( newDistance <= pChar->VisRange() ) && ( oldDistance > pChar->VisRange() ) )
 		visSocket->sendChar( pWalker );
 
 	// We are already known to this guy
-	if( visSocket && ( newDistance <= pChar->VisRange ) && ( oldDistance <= pChar->VisRange ) )
+	if( visSocket && ( newDistance <= pChar->VisRange() ) && ( oldDistance <= pChar->VisRange() ) )
 		visSocket->updateChar( pWalker );
 }
 

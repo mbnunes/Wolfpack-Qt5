@@ -433,7 +433,7 @@ bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QS
 			pEscortee->setNpcAIType( 0 );           // Set AI to 0
 			
 			// Set the expire time if nobody excepts the quest
-			pEscortee->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) );
+			pEscortee->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) ) );
 			
 			// Send out the rant about accepting the escort
 			pEscortee->talk( tr( "Lead on! Payment shall be made when we arrive at %1." ).arg( pEscortee->questDestRegion() ) ),
@@ -694,8 +694,8 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		pPlayer->setGuarded( false );
 
 		// Has it been summoned ? Let's dispel it
-		if( pPet->summontimer )
-			pPet->summontimer = uiCurrentTime;
+		if( pPet->summontimer() )
+			pPet->setSummonTimer( uiCurrentTime );
 
 		pPet->setFtarg( INVALID_SERIAL );
 		pPet->setNpcWander( 2 );

@@ -143,7 +143,7 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		archive->readObject( pc );
 		cCharsManager::getInstance()->registerChar( pc );
 		int zeta;
-		for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill[zeta]!=0 && pc->lockSkill[zeta]!=1 && pc->lockSkill[zeta]!=2) pc->lockSkill[zeta]=0;
+		for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill(zeta)!=0 && pc->lockSkill(zeta)!=1 && pc->lockSkill(zeta)!=2) pc->setLockSkill(zeta,0);
 
 		//AntiChrist bugfix for hiding
 //		pc->priv2 &= 0xf7; // unhide - AntiChrist

@@ -4150,7 +4150,7 @@ void doGmMoveEff( UOXSOCKET s )
 	P_CHAR pc_currchar = currchar[s];
 	if (!(pc_currchar->priv2() & 0x08))
 	{
-		switch (pc_currchar->gmMoveEff)
+		switch (pc_currchar->gmMoveEff())
 		{
 		case 1:
 			// flamestrike
