@@ -811,7 +811,7 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 				continue;
 			}
 
-			// Strip out the portion after the last \ 
+			// Strip out the portion after the last slash 
 			int pos = category.findRev('\\');
 			if (pos != -1) {
 				category = category.left(pos);
