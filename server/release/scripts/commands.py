@@ -15,11 +15,17 @@ def onCommand( socket, command, argstring ):
 	return 1
 
 def testpacket( socket, command, argstring ):
-	packet = [ 0xd6, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0xff, 0xff, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00 ]
-	packet[ 2 ] = len( packet )
+	file = open( 'packet.dat', 'rb' )
+	content = file.read()
+	file.close()
+
+	packet = []
+
+	for char in content:
+		packet.append( ord( char ) )
 
 	socket.sendpacket( packet )
-	
+
 def sendpacket( socket, command, argstring ):
 	# Build a list
 	packet = []

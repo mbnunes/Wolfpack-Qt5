@@ -43,10 +43,19 @@ class cGump:
 		#	file.write( line + "\n" )
 		#file.close()
 
+		if( self.noclose == 1 ):
+			self.layout.insert( 0, '{ noclose }' )
+
+		if( self.nodispose == 1 ):
+			self.layout.insert( 0, '{ nodispose }' )
+
+		if( self.nomove == 1 ):
+			self.layout.insert( 0, '{ nomove }' )
+
 		if not socket:
 			raise TypeError( "You passed an invalid socket." )
 		else:
-			socket.sendgump( self.x, self.y, self.nomove, self.noclose, self.nodispose, self.serialid, self.typeid, self.layout, self.texts, self.callback, self.args )
+			socket.sendgump( self.x, self.y, 0, 0, 0, self.serialid, self.typeid, self.layout, self.texts, self.callback, self.args )
 
 	# For "rawly" modifying the list
 	def addRawLayout( self, data ):
@@ -129,6 +138,7 @@ class cGump:
 		else:
 			self.layout.append( "{gumppic %i %i %u hue=%u}" % ( x, y, id, hue ) )
 
+	# Seems NOT hueable!
 	def addTiledGump( self, x, y, width, height, id, hue = 0 ):
 		if hue == -1:
 			self.layout.append( "{gumppictiled %i %i %u %u %u}" % ( x, y, width, height, id ) )
@@ -164,13 +174,16 @@ class cGump:
 
 		self.layout.append( "{htmlgump %i %i %u %u %u %u %u}" % ( x, y, width, height, self.addRawText( html ), hasBack, canScroll ) )
 
-	def addXmfHtmlGump( self, x, y, width, height, clilocid, hasBack = 0, canScroll = 0 ):
+	def addXmfHtmlGump( self, x, y, width, height, clilocid, hasBack = 0, canScroll = 0, color = 0 ):
 		if( canScroll != 0 ):
 			canScroll = 1
 		if( hasBack != 0 ):
 			hasBack = 1
 
-		self.layout.append( "{xmfhtmlgump %i %i %u %u %u %u %u}" % ( x, y, width, height, clilocid, hasBack, canScroll ) )
+		if color != 0:
+			self.layout.append( "{xmfhtmlgumpcolor %i %i %u %u %u %u %u %u}" % ( x, y, width, height, clilocid, hasBack, canScroll, color ) )
+		else:
+			self.layout.append( "{xmfhtmlgump %i %i %u %u %u %u %u}" % ( x, y, width, height, clilocid, hasBack, canScroll ) )
 
 	def addCheckerTrans( self, x, y, width, height ):
 		self.layout.append( "{checkertrans %i %i %u %u}" % ( x, y, width, height ) )
