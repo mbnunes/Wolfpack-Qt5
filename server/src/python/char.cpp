@@ -1592,7 +1592,7 @@ static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 	PyObject *object = 0;
 	unsigned int touch = 1;
 
-	if( !PyArg_ParseTuple( args, "O|i:char.cansee( [char,item,pos], [lineofsight] )", &object, &touch ) )
+	if( !PyArg_ParseTuple( args, "O|i:char.cansee( [char,item], [lineofsight] )", &object, &touch ) )
 		return 0;
 
 	bool result = false;
@@ -1663,89 +1663,89 @@ static PyObject* wpChar_additem( wpChar *self, PyObject *args )
 
 static PyMethodDef wpCharMethods[] = 
 {
-	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
-	{ "resurrect",		(getattrofunc)wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
-	{ "kill",			(getattrofunc)wpChar_kill,				METH_VARARGS, "This kills the character." },
-	{ "damage",			(getattrofunc)wpChar_damage,			METH_VARARGS, "This damages the current character." },
-    { "update",			(getattrofunc)wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
-	{ "resendtooltip",	(getattrofunc)wpChar_resendtooltip,		METH_VARARGS, "Resends the tooltip for this character." },
-	{ "updateflags",	(getattrofunc)wpChar_updateflags,		METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
-	{ "removefromview", (getattrofunc)wpChar_removefromview,	METH_VARARGS, "Removes the char from all surrounding clients." },
-	{ "message",		(getattrofunc)wpChar_message,			METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
-	{ "soundeffect",	(getattrofunc)wpChar_soundeffect,		METH_VARARGS, "Plays a soundeffect for the character." },
-	{ "distanceto",		(getattrofunc)wpChar_distanceto,		METH_VARARGS, "Distance to another object or a given position." },
-	{ "action",			(getattrofunc)wpChar_action,			METH_VARARGS, "Lets the char perform an action." },
-	{ "directionto",	(getattrofunc)wpChar_directionto,		METH_VARARGS, "Distance to another object or a given position." },
-	{ "checkskill",		(getattrofunc)wpChar_checkskill,		METH_VARARGS, "Performs a skillcheck for the character." },
-	{ "itemonlayer",	(getattrofunc)wpChar_itemonlayer,		METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
-	{ "combatskill",	(getattrofunc)wpChar_combatskill,		METH_VARARGS, "Returns the combat skill the character would currently use." },
-	{ "getweapon",		(getattrofunc)wpChar_getweapon,			METH_VARARGS, "What weapon does the character currently wear." },
-	{ "useresource",	(getattrofunc)wpChar_useresource,		METH_VARARGS, "Consumes a resource posessed by the char." },
-	{ "countresource",	(getattrofunc)wpChar_countresource,		METH_VARARGS, "Counts the amount of a certain resource the user has." },
-	{ "emote",			(getattrofunc)wpChar_emote,				METH_VARARGS, "Shows an emote above the character." },
-	{ "say",			(getattrofunc)wpChar_say,				METH_VARARGS, "The character begins to talk." },
-	{ "turnto",			(getattrofunc)wpChar_turnto,			METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
-	{ "equip",			(getattrofunc)wpChar_equip,				METH_VARARGS, "Equips a given item on this character." },
-	{ "maywalk",		(getattrofunc)wpChar_maywalk,			METH_VARARGS, "Checks if this character may walk to a specific cell." },
-	{ "sound",			(getattrofunc)wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
-	{ "disturb",		(getattrofunc)wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
-	{ "canreach",		(getattrofunc)wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
-	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, "Checks if the character can see a specific object." },
-	{ "notoriety",		(getattrofunc)wpChar_notoriety,			METH_VARARGS, "Returns the notoriety of a character toward another character." },
-	{ "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
-	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
-	{ "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
-	{ "isdead",			(getattrofunc)wpChar_isdead,			METH_VARARGS, "Checks if the character is alive or not."},
-	
-	// Mostly NPC functions
-	{ "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },
-	{ "goto",			(getattrofunc)wpChar_goto,				METH_VARARGS, "The character should go to a coordinate." },
-	{ "follow",			(getattrofunc)wpChar_follow,			METH_VARARGS, "The character should follow someone else." },
-
-	{ "addtimer",		(getattrofunc)wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
-	{ "dispel",			(getattrofunc)wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
-
-	// Update Stats
-	{ "updatestats",	(getattrofunc)wpChar_updatestats,		METH_VARARGS, "Resends other stats to this character." },
-	{ "updatemana",		(getattrofunc)wpChar_updatemana,		METH_VARARGS, "Resends the manabar to this character." },
-	{ "updatestamina",	(getattrofunc)wpChar_updatestamina,		METH_VARARGS, "Resends the stamina bar to this character." },
-	{ "updatehealth",	(getattrofunc)wpChar_updatehealth,		METH_VARARGS, "Resends the healthbar to the environment." },
-
-	// Mount/Unmount
-	{ "unmount",		(getattrofunc)wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
-	{ "mount",			(getattrofunc)wpChar_mount,				METH_VARARGS, "Mounts this on a specific mount." },
-
-	// Effects
-	{ "movingeffect",	(getattrofunc)wpChar_movingeffect,		METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
-	{ "effect",			(getattrofunc)wpChar_effect,			METH_VARARGS, "Shows an effect staying with this character." },
-
-	// Bank/Backpack
-	{ "getbankbox",		(getattrofunc)wpChar_getbankbox,		METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
-	{ "getbackpack",	(getattrofunc)wpChar_getbackpack,		METH_VARARGS, "Gets and autocreates a backpack for the character." },
-
-	// Follower System
-	{ "addfollower",	(getattrofunc)wpChar_addfollower,		METH_VARARGS, "Adds a follower to the user." },
-	{ "removefollower",	(getattrofunc)wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
-	{ "hasfollower",	(getattrofunc)wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
-
-	// Tag System
-	{ "gettag",			(getattrofunc)wpChar_gettag,			METH_VARARGS, "Gets a tag assigned to a specific char." },
-	{ "settag",			(getattrofunc)wpChar_settag,			METH_VARARGS, "Sets a tag assigned to a specific char." },
-	{ "hastag",			(getattrofunc)wpChar_hastag,			METH_VARARGS, "Checks if a certain char has the specified tag." },
-	{ "deltag",			(getattrofunc)wpChar_deltag,			METH_VARARGS, "Deletes the specified tag." },
-
-	// Crafting Menu
-	{ "sendmakemenu",	(getattrofunc)wpChar_sendmakemenu,		METH_VARARGS, "Sends MakeMenu to this character." },
-
-	// Reputation System
-	{ "iscriminal",		(getattrofunc)wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
-	{ "ismurderer",		(getattrofunc)wpChar_ismurderer,		METH_VARARGS, "Is this character a murderer." },
-	{ "criminal",		(getattrofunc)wpChar_criminal,			METH_VARARGS, "Make this character criminal." },
-
-	// Is*? Functions
-	{ "isitem",			(getattrofunc)wpChar_isitem,			METH_VARARGS, "Is this an item." },
-	{ "ischar",			(getattrofunc)wpChar_ischar,			METH_VARARGS, "Is this a char." },
-    { NULL, NULL, 0, NULL }
+  { "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
+  { "resurrect",		(getattrofunc)wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
+  { "kill",			(getattrofunc)wpChar_kill,				METH_VARARGS, "This kills the character." },
+  { "damage",			(getattrofunc)wpChar_damage,			METH_VARARGS, "This damages the current character." },
+  { "update",			(getattrofunc)wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
+  { "resendtooltip",	(getattrofunc)wpChar_resendtooltip,		METH_VARARGS, "Resends the tooltip for this character." },
+  { "updateflags",	(getattrofunc)wpChar_updateflags,		METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
+  { "removefromview", (getattrofunc)wpChar_removefromview,	METH_VARARGS, "Removes the char from all surrounding clients." },
+  { "message",		(getattrofunc)wpChar_message,			METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
+  { "soundeffect",	(getattrofunc)wpChar_soundeffect,		METH_VARARGS, "Plays a soundeffect for the character." },
+  { "distanceto",		(getattrofunc)wpChar_distanceto,		METH_VARARGS, "Distance to another object or a given position." },
+  { "action",			(getattrofunc)wpChar_action,			METH_VARARGS, "Lets the char perform an action." },
+  { "directionto",	(getattrofunc)wpChar_directionto,		METH_VARARGS, "Distance to another object or a given position." },
+  { "checkskill",		(getattrofunc)wpChar_checkskill,		METH_VARARGS, "Performs a skillcheck for the character." },
+  { "itemonlayer",	(getattrofunc)wpChar_itemonlayer,		METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
+  { "combatskill",	(getattrofunc)wpChar_combatskill,		METH_VARARGS, "Returns the combat skill the character would currently use." },
+  { "getweapon",		(getattrofunc)wpChar_getweapon,			METH_VARARGS, "What weapon does the character currently wear." },
+  { "useresource",	(getattrofunc)wpChar_useresource,		METH_VARARGS, "Consumes a resource posessed by the char." },
+  { "countresource",	(getattrofunc)wpChar_countresource,		METH_VARARGS, "Counts the amount of a certain resource the user has." },
+  { "emote",			(getattrofunc)wpChar_emote,				METH_VARARGS, "Shows an emote above the character." },
+  { "say",			(getattrofunc)wpChar_say,				METH_VARARGS, "The character begins to talk." },
+  { "turnto",			(getattrofunc)wpChar_turnto,			METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
+  { "equip",			(getattrofunc)wpChar_equip,				METH_VARARGS, "Equips a given item on this character." },
+  { "maywalk",		(getattrofunc)wpChar_maywalk,			METH_VARARGS, "Checks if this character may walk to a specific cell." },
+  { "sound",			(getattrofunc)wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
+  { "disturb",		(getattrofunc)wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
+  { "canreach",		(getattrofunc)wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
+  { "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, "Checks if the character can see a specific object." },
+  { "notoriety",		(getattrofunc)wpChar_notoriety,			METH_VARARGS, "Returns the notoriety of a character toward another character." },
+  { "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
+  { "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
+  { "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
+  { "isdead",			(getattrofunc)wpChar_isdead,			METH_VARARGS, "Checks if the character is alive or not."},
+  
+  // Mostly NPC functions
+  { "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },
+  { "goto",			(getattrofunc)wpChar_goto,				METH_VARARGS, "The character should go to a coordinate." },
+  { "follow",			(getattrofunc)wpChar_follow,			METH_VARARGS, "The character should follow someone else." },
+  
+  { "addtimer",		(getattrofunc)wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
+  { "dispel",			(getattrofunc)wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
+  
+  // Update Stats
+  { "updatestats",	(getattrofunc)wpChar_updatestats,		METH_VARARGS, "Resends other stats to this character." },
+  { "updatemana",		(getattrofunc)wpChar_updatemana,		METH_VARARGS, "Resends the manabar to this character." },
+  { "updatestamina",	(getattrofunc)wpChar_updatestamina,		METH_VARARGS, "Resends the stamina bar to this character." },
+  { "updatehealth",	(getattrofunc)wpChar_updatehealth,		METH_VARARGS, "Resends the healthbar to the environment." },
+  
+  // Mount/Unmount
+  { "unmount",		(getattrofunc)wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
+  { "mount",			(getattrofunc)wpChar_mount,				METH_VARARGS, "Mounts this on a specific mount." },
+  
+  // Effects
+  { "movingeffect",	(getattrofunc)wpChar_movingeffect,		METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
+  { "effect",			(getattrofunc)wpChar_effect,			METH_VARARGS, "Shows an effect staying with this character." },
+  
+  // Bank/Backpack
+  { "getbankbox",		(getattrofunc)wpChar_getbankbox,		METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
+  { "getbackpack",	(getattrofunc)wpChar_getbackpack,		METH_VARARGS, "Gets and autocreates a backpack for the character." },
+  
+  // Follower System
+  { "addfollower",	(getattrofunc)wpChar_addfollower,		METH_VARARGS, "Adds a follower to the user." },
+  { "removefollower",	(getattrofunc)wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
+  { "hasfollower",	(getattrofunc)wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
+  
+  // Tag System
+  { "gettag",			(getattrofunc)wpChar_gettag,			METH_VARARGS, "Gets a tag assigned to a specific char." },
+  { "settag",			(getattrofunc)wpChar_settag,			METH_VARARGS, "Sets a tag assigned to a specific char." },
+  { "hastag",			(getattrofunc)wpChar_hastag,			METH_VARARGS, "Checks if a certain char has the specified tag." },
+  { "deltag",			(getattrofunc)wpChar_deltag,			METH_VARARGS, "Deletes the specified tag." },
+  
+  // Crafting Menu
+  { "sendmakemenu",	(getattrofunc)wpChar_sendmakemenu,		METH_VARARGS, "Sends MakeMenu to this character." },
+  
+  // Reputation System
+  { "iscriminal",		(getattrofunc)wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
+  { "ismurderer",		(getattrofunc)wpChar_ismurderer,		METH_VARARGS, "Is this character a murderer." },
+  { "criminal",		(getattrofunc)wpChar_criminal,			METH_VARARGS, "Make this character criminal." },
+  
+  // Is*? Functions
+  { "isitem",			(getattrofunc)wpChar_isitem,			METH_VARARGS, "Is this an item." },
+  { "ischar",			(getattrofunc)wpChar_ischar,			METH_VARARGS, "Is this a char." },
+  { NULL, NULL, 0, NULL }
 };
 
 // Getters & Setters
@@ -1856,9 +1856,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		for( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
-	}
-	else
-	{
+	} else if (!strcmp("npc", name)) {
+    return self->pChar->objectType() == enNPC ? PyTrue : PyFalse;
+  } else if (!strcmp("player", name)) {
+    return self->pChar->objectType() == enPlayer ? PyTrue : PyFalse;
+  } else {
 		cVariant result;
 		stError *error = self->pChar->getProperty( name, result );
 

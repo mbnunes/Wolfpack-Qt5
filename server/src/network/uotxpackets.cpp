@@ -279,9 +279,9 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if (pChar->isInvulnerable()) {
+	/*if (pChar->isInvulnerable()) {
 		setFlag(flag() | 0x08);
-	}
+	}*/
 
 	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );
@@ -333,9 +333,9 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if (pChar->isInvulnerable()) {
+	/*if (pChar->isInvulnerable()) {
 		setFlag(flag() | 0x08);
-	}
+	}*/
 
 	if( pChar->isHidden() || ( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() ) )
 		setFlag( flag() | 0x80 );
@@ -406,9 +406,9 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if (pChar->isInvulnerable()) {
+	/*if (pChar->isInvulnerable()) {
 		setFlag(flag() | 0x08);
-	}
+	}*/
 
 	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );
@@ -513,9 +513,9 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if (pChar->isInvulnerable()) {
+	/*if (pChar->isInvulnerable()) {
 		setFlag(flag() | 0x08);
-	}
+	}*/
 
 	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );

@@ -318,11 +318,11 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 
 UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
-	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
+	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red, 0x07 Yellow
 	UINT8 result;
 
 	if (isInvulnerable()) {
-		return 0;
+		return 7;
 	}
 
 	// Check for Guild status + Highlight

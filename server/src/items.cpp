@@ -1940,21 +1940,21 @@ P_ITEM cItem::getOutmostItem()
 
 P_CHAR cItem::getOutmostChar()
 {
-	if( container_ && container_->isChar() )
-	{
-		return dynamic_cast< P_CHAR >( container_ );
-	}
-	else if( container_ && container_->isItem() )
-	{
-		P_ITEM pCont = dynamic_cast< P_ITEM >( container_ );
+	P_CHAR result = 0;
 
-		if( pCont )
-			return pCont->getOutmostChar();
-		else
-			return 0;
+	if (container_) {
+		result = dynamic_cast<P_CHAR>(container_);
+
+		if (!result) {
+			P_ITEM container = dynamic_cast<P_ITEM>(container_);
+
+			if (container) {
+				result = container->getOutmostChar();
+			}
+		}
 	}
-	else
-		return 0;
+
+	return result;
 }
 
 // If we change the amount, the weight changes as well

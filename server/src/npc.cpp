@@ -370,12 +370,13 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 		4 = criminal (gray)
 		5 = enemy (orange)
 		6 = murderer (red)
-		7 = unknown use (translucent (like 0x4000 hue))
+		7 = invulnerable (yellow)
+		//7 = unknown use (translucent (like 0x4000 hue))
 	*/
 	UINT8 result;
 
 	if (isInvulnerable()) {
-		return 0;
+		return 7;
 	}
 
 	// Check for Guild status + Highlight

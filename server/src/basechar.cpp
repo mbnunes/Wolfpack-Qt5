@@ -2288,13 +2288,13 @@ bool cBaseChar::canSee(cUObject *object, bool lineOfSight) {
 	P_ITEM item = dynamic_cast<P_ITEM>(object);
 
 	if (item) {
-		return canSee(item, lineOfSight);
+		return canSeeItem(item, lineOfSight);
 	}
 
 	P_CHAR character = dynamic_cast<P_CHAR>(object);
 
 	if (character) {
-		return canSee(character, lineOfSight);
+		return canSeeChar(character, lineOfSight);
 	}
 
 	return false;
