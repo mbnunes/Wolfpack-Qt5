@@ -132,11 +132,7 @@ public:
 	virtual bool onCommand( cUOSocket *socket, const QString &name, const QString &args ) { Q_UNUSED(socket); Q_UNUSED(name); Q_UNUSED(args); return false; }
 
 	// Magic System
-	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
-	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
-	virtual bool onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); Q_UNUSED(target); return false; }
-	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
-	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { Q_UNUSED(pMage); Q_UNUSED(spell); Q_UNUSED(type); return false; }
+	virtual bool onCastSpell( cPlayer *player, unsigned int spell ) { Q_UNUSED( player ); Q_UNUSED( spell ); return false; }
 };
 
 #endif

@@ -44,7 +44,6 @@
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"
-#include "newmagic.h"
 #include "spellbook.h"
 #include "multis.h"
 #include "dragdrop.h"
@@ -688,6 +687,16 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	}
 }
 
+inline char calcSpellId( cItem *item )
+{
+	tile_st tile = TileCache::instance()->getTile( item->id() );
+
+	if( tile.unknown1 == 0 )
+		return -1;
+	else
+		return tile.unknown1 - 1;
+}
+
 void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
 {
 	P_PLAYER pChar = socket->player();
@@ -779,7 +788,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	cSpellBook *pBook = dynamic_cast< cSpellBook* >( pCont );
 	if( pBook )
  	{
-		SI08 spellId = NewMagic->calcSpellId( pItem->id() );
+		SI08 spellId = calcSpellId( pItem );
 
 		if( pItem->type() != 1105 || spellId < 0 )
 		{

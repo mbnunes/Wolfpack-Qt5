@@ -218,10 +218,6 @@ SOURCE=.\LoS.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\magic.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\makemenus.cpp
 # End Source File
 # Begin Source File
@@ -239,10 +235,6 @@ SOURCE=.\multiscache.cpp
 # Begin Source File
 
 SOURCE=.\network.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\newmagic.cpp
 # End Source File
 # Begin Source File
 
@@ -809,10 +801,6 @@ InputName=items
 # End Source File
 # Begin Source File
 
-SOURCE=.\magic.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\makemenus.h
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -896,10 +884,6 @@ SOURCE=.\multiscache.h
 # Begin Source File
 
 SOURCE=.\network.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\newmagic.h
 # End Source File
 # Begin Source File
 

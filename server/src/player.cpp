@@ -1344,6 +1344,23 @@ bool cPlayer::onLogin( void )
 	return false;
 }
 
+bool cPlayer::onCastSpell( unsigned int spell )
+{
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onCastSpell( this, spell ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CASTSPELL );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		(*it)->onCastSpell( this, spell );
+
+	return false;
+}
+
 bool cPlayer::onLogout( void )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )

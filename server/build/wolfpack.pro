@@ -82,7 +82,6 @@ HEADERS         = \
                   iserialization.h \
 		  itemid.h \
 		  items.h \
-                  magic.h \
 		  makemenus.h \
 		  multis.h \
 		  network.h \
@@ -123,8 +122,7 @@ HEADERS         = \
 		  wpscriptmanager.h \
 		  wptargetrequests.h \
 		  corpse.h \
-		  spellbook.h \
-                  newmagic.h
+		  spellbook.h
 		  
 SOURCES         = \
 		  LoS.cpp \
@@ -158,7 +156,6 @@ SOURCES         = \
 	   	  item_flatstore.cpp \
 		  itemid.cpp \
 		  items.cpp \
-		  magic.cpp \
 		  makemenus.cpp \
 		  maps.cpp \
 		  multis.cpp \
@@ -201,7 +198,6 @@ SOURCES         = \
 		  wpdefaultscript.cpp \
 		  wpscriptmanager.cpp \
 		  wptargetrequests.cpp \
-		  newmagic.cpp \
 		  spellbook.cpp
 
 # Twofish Module

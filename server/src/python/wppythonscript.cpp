@@ -345,68 +345,15 @@ bool WPPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxToolti
 	PyEvalMethod( "onShowToolTip" )
 }
 
-
-bool WPPythonScript::onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type )
+bool WPPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
 {
-	PyHasMethod( "onBeginCast" )
-	
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
+	PyHasMethod( "onCastSpell" )
+
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( player) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
 
-	PyEvalMethod( "onBeginCast" )
-}
-
-bool WPPythonScript::onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type )
-{
-	PyHasMethod( "onEndCast" )
-	
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
-
-	PyEvalMethod( "onEndCast" )
-}
-
-bool WPPythonScript::onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target )
-{
-	PyHasMethod( "onSpellCheckTarget" )
-	
-	PyObject *tuple = PyTuple_New( 4 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
-	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos().map ) );
-
-	PyEvalMethod( "onSpellCheckTarget" )
-}
-
-bool WPPythonScript::onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target )
-{
-	PyHasMethod( "onSpellSuccess" )
-	
-	PyObject *tuple = PyTuple_New( 4 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
-	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos().map ) );
-
-	PyEvalMethod( "onSpellSuccess" )
-}
-
-bool WPPythonScript::onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target )
-{
-	PyHasMethod( "onSpellFailure" )
-	
-	PyObject *tuple = PyTuple_New( 4 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
-	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos().map ) );
-	
-	PyEvalMethod( "onSpellFailure" )
+	PyEvalMethod( "onCastSpell" )
 }
 
 bool WPPythonScript::onCreate( cUObject *object, const QString &definition )

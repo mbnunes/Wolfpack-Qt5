@@ -36,7 +36,6 @@
 #include "../territories.h"
 #include "../prototypes.h"
 #include "../wolfpack.h"
-#include "../newmagic.h"
 #include "../skills.h"
 #include "../combat.h"
 #include "../srvparams.h"
@@ -1367,7 +1366,6 @@ PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	player->disturbMed();
-	NewMagic->disturb( self->pChar );
 
 	return PyTrue;
 }

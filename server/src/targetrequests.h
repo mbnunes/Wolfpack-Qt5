@@ -935,18 +935,6 @@ public:
 	}
 };
 
-class cSpellTarget : public cTargetRequest
-{
-	Q_OBJECT
-	UINT8 spell;
-	UINT8 type;
-public:
-	cSpellTarget( P_PLAYER pMage, UINT8 _spell, UINT8 _type );
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
-	virtual void timedout( cUOSocket *socket );
-	virtual void canceled( cUOSocket *socket );
-};
-
 /*!
 	Class for handling a dye request (for dying dye-tubs).
 */

@@ -59,7 +59,6 @@
 #include "wpscriptmanager.h"
 #include "wptargetrequests.h"
 #include "python/engine.h"
-#include "newmagic.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "corpse.h"
@@ -68,7 +67,6 @@
 #include "multiscache.h"
 #include "Trade.h"
 #include "network/uotxpackets.h"
-#include "magic.h"
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
@@ -492,7 +490,6 @@ void reloadScripts()
 	MakeMenus::instance()->reload();
 	ScriptManager->reload(); // Reload Scripts
 	ContextMenus::instance()->reload();
-	NewMagic->load();
 	Skills->reload();
 
 	// Update the Regions
@@ -698,21 +695,17 @@ static void startClasses()
 	Items			 = 0;
 	Map				 = 0;
 	Skills			 = 0;
-	Magic			 = 0;
 	ScriptManager	 = 0;
 	DefManager		 = 0;
 	SrvParams		 = 0;
-	NewMagic		 = 0;
 	persistentBroker = 0;
 
 	SrvParams		 = new cSrvParams( "wolfpack.xml", "Wolfpack", "1.0" );
 	Items			 = new cAllItems;
 	Map				 = new Maps ( SrvParams->mulPath() );
 	Skills			 = new cSkills;
-	Magic			 = new cMagic;
 	ScriptManager	 = new WPScriptManager;
 	DefManager		 = new WPDefManager;
-	NewMagic		 = new cNewMagic;
 	persistentBroker = new PersistentBroker;
 }
 
@@ -725,10 +718,8 @@ static void freeClasses( void )
 	delete Items;
 	delete Map;
 	delete Skills;
-	delete Magic;
 	delete ScriptManager;
 	delete DefManager;
-	delete NewMagic;
 }
 
 void SetGlobalVars()
@@ -865,10 +856,6 @@ int main( int argc, char *argv[] )
 
 		clConsole.send( "Loading accounts...\n" );
 		Accounts::instance()->load();
-
-		clConsole.send( "Loading spells...\n" );
-		Magic->load();
-		NewMagic->load();
 
 		clConsole.send( "Loading ip blocking rules...\n" );
 		cNetwork::instance()->load();
@@ -1150,8 +1137,6 @@ int main( int argc, char *argv[] )
 	SrvParams->flush(); // Save config options
 
 	// Simply emptying of containers, no progressbar needed
-	Magic->unload();
-	NewMagic->unload();
 	DefManager->unload();
 
 	// Stop Python Interpreter.

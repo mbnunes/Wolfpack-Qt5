@@ -95,11 +95,7 @@ public:
 	// Magic System (This should be reduced eventually. It's a bit much)
 	// But as soon as the flag-system is introduced for python-script 
 	// It shouldn't be that much.
-	bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type );
-	bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type );
-	bool onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target );
-	bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* );
-	bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* );
+	bool onCastSpell( cPlayer *player, unsigned int spell );
 };
 
 #endif // __WPPYTHONSCRIPT_H__

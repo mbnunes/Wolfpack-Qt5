@@ -74,6 +74,7 @@ class QString;
 #define EVENT_SHOWPAPERDOLL			0x10000000
 #define EVENT_SHOWSKILLGUMP			0x20000000
 #define EVENT_STATGAIN				0x40000000
+#define EVENT_CASTSPELL				0x80000000
 
 class WPScriptManager  
 {

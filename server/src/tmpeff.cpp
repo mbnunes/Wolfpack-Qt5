@@ -48,7 +48,6 @@
 #include "network/uosocket.h"
 #include "skills.h"
 #include "mapobjects.h"
-#include "magic.h"
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"

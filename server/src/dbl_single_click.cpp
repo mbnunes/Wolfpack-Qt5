@@ -48,61 +48,12 @@
 #include "multis.h"
 #include "targetactions.h"
 #include "boats.h"
-#include "magic.h"
 #include "chars.h"
 #include "npc.h"
 #include "itemid.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
-
-// Shows the Spellbook gump when using a spellbook
-void useSpellBook( cUOSocket *socket, P_PLAYER mage, P_ITEM spellbook )
-{
-	mage->setObjectDelay( 0 );
-
-	if( ( spellbook->container() != mage ) && ( spellbook->getOutmostChar() != mage  ) )
-	{
-		socket->sysMessage( tr( "The spellbook needs to be in your hands or in your backpack." ) );
-		return;
-	}
-
-	Magic->openSpellBook( mage, spellbook );
-}
-
-// Use a wand
-void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
-{
-	unsigned int tempuint;
-	// Is it in our backpack or on our body ?
-	if( ( wand->container() != mage )  && ( wand->getOutmostChar() != mage ) )
-	{
-		socket->sysMessage( tr( "If you wish to use this, it must be equipped or in your backpack." ) );
-		return;
-	}
-
-	// Here it is either in our backpack or on our body
-	if( wand->morez() == 0 )
-	{
-		socket->sysMessage( tr( "This Items magic is depleted." ) );
-		return;
-	}
-
-	// morex: circle, morey: spell
-	UI16 spellId = ( (wand->morex()-1) * 8 ) + wand->morey();
-	
-	Magic->prepare( mage, spellId, 2 );
-	wand->setMoreX((tempuint = wand->morex())-- );
-//	wand->morex--; // Reduce our charges
-
-	if( wand->morex() == 0 )
-	{
-		wand->setType( wand->type2() );
-		wand->setMoreX(0);
-		wand->setMoreY(0);
-		wand->setOffspell( 0 );
-	}
-}
 
 void usehairdye(cUOSocket* socket, P_ITEM piDye)
 {
@@ -236,33 +187,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	if( pi->onUse( pc_currchar ) )
 		return;
 
-	// Spell Scroll
-	if( IsSpellScroll( pi->id() ) && !pi->isLockedDown() )
-	{
-		P_CHAR owner = pi->getOutmostChar();
-
-		if( owner != pc_currchar )
-		{
-			socket->sysMessage( tr( "The scroll must be in your possessions to envoke its magic." ) );
-			return;
-		}
-
-		UI16 model = Magic->calcSpellId( pi->id() );
-		
-		if( Magic->prepare( pc_currchar, model, 1 ) )
-			pi->ReduceAmount( 1 );
-
-		return;
-	}
-
 	// Check item behaviour by it's tpye
 	switch (pi->type())
 	{
 	case 1: // normal containers
-	case 63:
-		if( pi->moreb1() )
-			Magic->MagicTrap( pc_currchar, pi );
-
 	case 65: // nodecay item spawner..Ripper
 	case 66: // decaying item spawner..Ripper
 		{
@@ -417,18 +345,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	case 7: // key
 		return;// case 7 (keys)
 	case 8: // locked item spawner
-	case 64: // locked container //Morrolan traps?
-		// Added traps effects by AntiChrist
 		pc_currchar->setObjectDelay( 0 );
-		if (pi->moreb1())
-			Magic->MagicTrap(pc_currchar, pi);
 		socket->sysMessage( tr("This item is locked.") );
 		return;// case 8/64 (locked container)
-
-	// Spellbook
-	case 9:
-		useSpellBook( socket, pc_currchar, pi );
-		return;
 
 	// Book
 	case 11:
@@ -555,28 +474,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		}
 		return;
 	
-	// Wands
-	case 15:
-		useWand( socket, pc_currchar, pi );
-		return;
-
-	case 18: // crystal ball?
-		switch (RandomNum(0, 9))
-		{
-		case 0: socket->showSpeech(pi, tr("Seek out the mystic llama herder."));									break;
-		case 1: socket->showSpeech(pi, tr("Wherever you go, there you are."));										break;
-		case 2: socket->showSpeech(pi, tr("Quick! Lord Binary is giving away gold at the castle!"));				break;
-		case 3: socket->showSpeech(pi, tr("Ripper is watching you every move."));									break;
-		case 4: socket->showSpeech(pi, tr("The message appears to be too cloudy to make anything out of it."));		break;
-		case 5: socket->showSpeech(pi, tr("You have just lost five strength.. not!"));								break;
-		case 6: socket->showSpeech(pi, tr("You're really playing a game you know"));								break;
-		case 7: socket->showSpeech(pi, tr("You will be successful in all you do."));								break;
-		case 8: socket->showSpeech(pi, tr("You are a person of culture."));											break;
-		case 9: socket->showSpeech(pi, tr("Give me a break! How much good fortune do you expect!"));				break;
-		}// switch
-		//soundeffect(s, 0x01, 0xEC);
-		return;// case 18 (crystal ball?)
-
 		// Teleport object
 		case 104: 
 			pc_currchar->removeFromView( false );
@@ -832,13 +729,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		// 1108: Tailoring Tools
 		case 1108:
 			Skills->Fletching( socket );
-			return;
-
-		// 1201: Necromancy Book
-		// 1202: Paladin Book
-		case 1201:
-		case 1202:
-			useSpellBook( socket, pc_currchar, pi );
 			return;
 
 		default:						

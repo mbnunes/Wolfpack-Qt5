@@ -80,6 +80,13 @@ static PyObject *PyGetItemRegionIterator( unsigned short x1, unsigned short y1, 
 	return (PyObject*)returnVal;
 }
 
+static PyObject *PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
+{
+	wpRegionIteratorItems *returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
+	returnVal->iter = SectorMaps::instance()->findItems( map, xBlock * 8, yBlock * 8 );
+	return (PyObject*)returnVal;
+}
+
 /*
  *	Character Region Iterator
  */
@@ -126,6 +133,13 @@ static PyObject *PyGetCharRegionIterator( unsigned short x1, unsigned short y1, 
 	wpRegionIteratorChars *returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
 	returnVal->iter = SectorMaps::instance()->findChars( map, x1, y1, x2, y2 );
 
+	return (PyObject*)returnVal;
+}
+
+static PyObject *PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
+{
+	wpRegionIteratorChars *returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
+	returnVal->iter = SectorMaps::instance()->findChars( map, xBlock * 8, yBlock * 8 );
 	return (PyObject*)returnVal;
 }
 

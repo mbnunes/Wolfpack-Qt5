@@ -45,7 +45,6 @@
 #include "wpdefaultscript.h"
 #include "spellbook.h"
 #include "books.h"
-#include "newmagic.h"
 #include "house.h"
 #include "boats.h"
 #include "accounts.h"
@@ -1291,60 +1290,6 @@ bool cMultiChangeLockTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	socket->sysMessage( tr("Select another item to lock/unlock!") );
 	return false;
-}
-
-cSpellTarget::cSpellTarget( P_PLAYER pMage, UINT8 _spell, UINT8 _type )
-{
-	spell = _spell;
-	type = _type;
-	
-	// We will just use the Mage for the sysmessage
-	stNewSpell *sInfo = NewMagic->findSpell( spell );
-	
-	if( sInfo )
-		pMage->socket()->sysMessage( sInfo->target );
-	
-	timeout_ = uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC );
-}
-
-bool cSpellTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	if( !socket->player() || !socket->player()->isCasting() )
-		return true;
-	
-	stNewSpell *sInfo = NewMagic->findSpell( spell );
-	
-	if( !sInfo || !NewMagic->checkTarget( socket->player(), sInfo, target ) )
-	{
-		socket->player()->setCasting( false );
-		return true;
-	}
-	
-	// Eventually here should be the call for another python function
-	// But i'm not sure how this will affect cpu usage, so i will leave it 
-	// out for now.
-	
-	// The Target is correct, let us do our spellcheck now and consume mana + reagents.
-	NewMagic->execSpell( socket->player(), spell, type, target );
-	
-	return true;
-}
-
-void cSpellTarget::timedout( cUOSocket *socket )
-{
-	P_CHAR pChar = socket->player();
-	// After the target timed out we cancel our spell
-	if( pChar )
-	{
-		socket->sysMessage( tr( "You loose your concentration after waiting for too long." ) );
-		NewMagic->disturb( pChar, false, -1 );
-	}
-}
-
-void cSpellTarget::canceled( cUOSocket *socket )
-{
-	if( socket->player() )
-		NewMagic->disturb( socket->player(), false, -1 );
 }
 
 bool cDyeTubDyeTarget::responsed( cUOSocket *socket, cUORxTarget *target )

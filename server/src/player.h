@@ -104,6 +104,7 @@ public:
 	virtual bool onHelp( void ); // The character wants help
 	virtual bool onChat( void ); // The character wants to chat
 	virtual bool onShowContext( cUObject *object ); // Shows a context menu for a specific item
+	virtual bool onCastSpell( unsigned int spell );
 	bool onPickup( P_ITEM pItem );
 
 

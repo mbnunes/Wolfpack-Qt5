@@ -47,7 +47,6 @@
 #include "multiscache.h"
 #include "tilecache.h"
 #include "multis.h"
-#include "magic.h"
 #include "basechar.h"
 #include "npc.h"
 #include "player.h"
@@ -388,33 +387,6 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 			}
 		}*/
 		return true;
-	};
-
-	switch( pItem->id() )
-	{
-	// Fire Field
-	case 0x3996:
-	case 0x398c:
-		if( !Magic->CheckResist( NULL, pChar, 4 ) )
-			Magic->MagicDamage( pChar, pItem->morex()/3000 );
-		pChar->soundEffect( 0x208 );
-		return false;
-
-	//Poison field
-	case 0x3915:
-	case 0x3920:
-		if( !Magic->CheckResist( NULL, pChar, 5 ) )
-			Magic->PoisonDamage( pChar, 1 );
-		pChar->soundEffect( 0x208 );
-		return false;
-
-	// Para field
-	case 0x3979:
-	case 0x3967:
-//		if( !Magic->CheckResist( NULL, pChar, 6 ) )
-//			tempeffect( pChar, pChar, 1, 0, 0, 0 );
-		pChar->soundEffect( 0x204 );
-		return false;
 	};
 
 	return false;

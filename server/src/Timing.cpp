@@ -46,7 +46,6 @@
 #include "boats.h"
 #include "house.h"
 #include "typedefs.h"
-#include "magic.h"
 #include "itemid.h"
 #include "basechar.h"
 #include "npc.h"
@@ -293,8 +292,6 @@ void checkPC( P_PLAYER pc, unsigned int currenttime )
 
 	if ( pc == NULL ) return;
 
-	// Check if the character is in a field which affects him
-	Magic->CheckFieldEffects2( currenttime, pc, 1 ); 
 	
 	// We are not swinging 
 	// So set up a swing target and start swinging
@@ -555,8 +552,6 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 	// We are swinging and completed our move
 	else if( !pc->isDead() && ( pc->swingTarget() >= 0 && pc->nextHitTime() <= currenttime ) )
 		Combat::checkandhit( pc );
-
-	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 
 /*	if( pc->shop() )
 		restockNPC( currenttime, pc );

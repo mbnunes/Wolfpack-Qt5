@@ -121,7 +121,6 @@ cSrvParams		*SrvParams;
 cAllItems		*Items;
 Maps			*Map;
 cSkills			*Skills;
-cMagic			*Magic;
 cSpeech	        *Speech;
 cBounty         *Bounty;
 WPScriptManager	*ScriptManager;

@@ -56,7 +56,6 @@
 #include "../skills.h"
 #include "../contextmenu.h"
 #include "../TmpEff.h"
-#include "../newmagic.h"
 #include "../targetrequests.h"
 #include "../dragdrop.h"
 #include "../Trade.h"
@@ -986,7 +985,10 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 
 void cUOSocket::handleCastSpell( cUORxCastSpell *packet )
 {
-	NewMagic->castSpell( _player, packet->spell() - 1 );
+	if( !_player )
+		return;
+
+	_player->onCastSpell( packet->spell() );
 }
 
 void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet ) 

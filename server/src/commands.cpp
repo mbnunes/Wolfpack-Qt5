@@ -51,7 +51,6 @@
 #include "mapobjects.h"
 #include "resources.h"
 #include "contextmenu.h"
-#include "newmagic.h"
 #include "spellbook.h"
 
 // System Includes
@@ -941,7 +940,6 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	{
 		clConsole.send( "Reloading python scripts\n" );
 		ScriptManager->reload();
-		NewMagic->load();
 		ContextMenus::instance()->reload();
 	}
 	if( subCommand == "scripts" )
@@ -956,7 +954,6 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
 		ScriptManager->reload(); // Reload Scripts
-		NewMagic->load();
 		Skills->reload();
 		ContextMenus::instance()->reload();
 
@@ -985,7 +982,6 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		MakeMenus::instance()->reload();
 		ScriptManager->reload(); // Reload Scripts
 		ContextMenus::instance()->reload();
-		NewMagic->load();
 
 		// Update the Regions
 		cCharIterator iter;
