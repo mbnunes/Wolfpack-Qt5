@@ -226,11 +226,11 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						if (!pc->npc && !online(pc))
+						if (pc->isPlayer() && !online(pc))
 					       continue;					// logged out player
 				        if (pc_i->isSameAs(pc))
 					       continue;					// the guard himself
-				        if (!(pc->npcaitype==2 || /*pc->isCriminal() ||*/ pc->isMurderer()))
+				        if (!(pc->npcaitype==2 || pc->isMurderer()))
 					       continue;
 				        d = pc_i->dist(pc);
 				        if (d > SrvParms->attack_distance || pc->isInvul() || pc->dead)
@@ -312,7 +312,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							npctalkall(pc_i, (char*)temp, 1);
 							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 						}
-						else if (pc->isPlayer() && pc->isInnocent() && !pc->dead)
+						else if (pc->isPlayer() && !(pc->isInnocent() || pc->dead))
 						{
 							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), region[pc->region].name);
 							npctalkall(pc_i, (char*)temp, 1);
@@ -320,8 +320,8 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						}
 						else if (d <= 10 &&(
 							(pc->isNpc() &&(pc->npcaitype == 2))	// evil npc
-							||(pc->isPlayer() && !(pc->isInnocent()) && !(pc->isCriminal()))	// a player, not grey or blue
-							||(pc->attackfirst == 1)))	// any agressor
+							||(pc->isPlayer() && !(pc->isInnocent()) || pc->isCriminal()))	// a player, not grey or blue
+							||(pc->attackfirst == 1))	// any agressor
 						{
 							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
 							pc_i->pos.y = pc->pos.y;
@@ -348,7 +348,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					{
 						onl = online(pc);
 						d = chardist( pc_i, pc );
-						if (d > 10 || pc->isPlayer() || pc->npcaitype != 61)
+						if (d > 10 || pc->isPlayer() || (pc->isNpc() && pc->npcaitype != 2))
 							continue;
 						npcattacktarget(pc_i, pc);
 						return;
@@ -402,25 +402,6 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			}
 		}
 		break;
-		case 30: // why is this the same as case 50???..Ripper
-			if (!pc_i->war)
-			{
-				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-				{
-					P_CHAR pc = ri.GetData();
-					if (pc != NULL)
-					{
-						onl = online(pc);
-						d = chardist(pc_i, pc);
-						if (d > 10 || pc->isInvul() || pc->dead || pc->npcaitype != 2 || !onl)
-							continue;
-						npcattacktarget(pc_i, pc);
-						return;
-					}
-				}
-			}
-			break;
 		case 32: // Pets Guarding..Ripper
 			if (pc_i->isNpc() && pc_i->tamed)
 			{
@@ -444,7 +425,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				}
 			}
 			break;
-		case 50:// EV/BS
+		   case 50:// EV/BS
 			if (!pc_i->war)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);

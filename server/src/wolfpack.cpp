@@ -5385,9 +5385,9 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			pc->setCriminal();
 		}
 	}
-	if (pc->isNpc() && ((pc->npcaitype == 0x02) || // bad npc
-		(pc->npcaitype == 0x03) ||  // bad healer
-		(pc->npcaitype == 0x50)))   // EV & BS
+	if (pc->isNpc() && ((pc->npcaitype == 2) || // bad npc
+		(pc->npcaitype == 3) ||  // bad healer
+		(pc->npcaitype == 50)))   // EV & BS
 	{
 		if (server_data.BadNpcsRed == 0)
 		{
@@ -5415,8 +5415,6 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			case 8: // banker
 			case 9: // town guard
 			case 17: // player vendor
-			case 30: // ?
-			case 40: // ? old teleport guards?
 				pc->setInnocent();
 				break;
 			default:

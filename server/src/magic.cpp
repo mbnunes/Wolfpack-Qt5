@@ -372,7 +372,6 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 			soundeffect(s, 0x02, 0x17); // AE
 			pc_monster = Npcs->AddNPCxyz(s,291,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-			pc_monster->npcaitype=50;
 			pc_monster->tamed=true;
 		}
 		break;
