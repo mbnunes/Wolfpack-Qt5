@@ -549,7 +549,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		wearitem[13]=pi->color1;
 		wearitem[14]=pi->color2;
 		Xsend(s, wearitem, 15);
-		wornitems(s, DEREF_P_CHAR(pc_k));//send update to current socket
+		wornitems(s, pc_k);//send update to current socket
 		// -Frazurbluu- Worn item triggers will need code here
 		// Trigger cod ewill also need the adjustments made for skill adding
 		// An apply/unapply type of variable must be added for skill gains
@@ -558,7 +558,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		for (j=0;j<now;j++)
 		{
 			if (perm[j] && inrange1p(pc_k, currchar[j]) && (j!=s))//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-				wornitems(j, DEREF_P_CHAR(pc_k));
+				wornitems(j, pc_k);
 		}
 		
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details	// Added Oct 09, 1998

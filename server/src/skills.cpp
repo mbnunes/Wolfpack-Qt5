@@ -2009,6 +2009,7 @@ void TellScroll( char *menu_name, int s, long snum )
 			LogError("switch reached default");
 			return;
 		}
+		
 		if (part < 3)		// failure !
 		{
 			switch(part)

@@ -892,19 +892,19 @@ P_ITEM packitem(int p) // Find packitem (old interface)
 	return pi;
 }
 
-void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
+void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 {
-	chars[j].onhorse = false;
+	pc->onhorse = false;
 	unsigned int ci=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(chars[j].serial);
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL && !pi->free)
 		{
 			if (pi->layer==0x19) 
-				chars[j].onhorse = true;
+				pc->onhorse = true;
 			wearIt(s,pi);
 		}
 	}
@@ -2491,12 +2491,12 @@ void mounthorse(int s, int x1) // Remove horse char and give player a horse item
 		if (pc_mount->summontimer != 0) 
 			pi->decaytime = pc_mount->summontimer; 
 		
-		wornitems(s, DEREF_P_CHAR(pc_currchar));// send update to current socket 
+		wornitems(s, pc_currchar);// send update to current socket 
 		
 		for (j = 0; j < now; j++)// and to all inrange sockets (without re-sending to current socket) 
 		{ 
 			if (inrange1(s, j) && perm[j] &&(s != j))
-				wornitems(j, DEREF_P_CHAR(pc_currchar)); 
+				wornitems(j, pc_currchar); 
 		} 
 		////////////////////////////////// 
 		// Gonna stable instead of delete a mount. 

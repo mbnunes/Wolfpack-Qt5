@@ -183,7 +183,7 @@ void wipe(int s);
 
 void loadmetagm();
 void xteleport(int s,int x);
-void wornitems(UOXSOCKET s, CHARACTER j);
+void wornitems(UOXSOCKET s, P_CHAR pc);
 void RefreshItem(P_ITEM pi);
 int MenuListGenerator();
 void itemmenu(int s, int m);

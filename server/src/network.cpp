@@ -631,7 +631,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	Xsend(s, startup, 37);
 	pc_currchar->war=0;
-	wornitems(s, DEREF_P_CHAR(pc_currchar));
+	wornitems(s, pc_currchar);
 	teleport((pc_currchar));
 	Xsend(s, modeset, 5);
 	impowncreate(s, pc_currchar, 0);

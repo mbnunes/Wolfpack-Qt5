@@ -98,12 +98,12 @@ static void reverseIncognito(P_CHAR pc)
 		int socket=calcSocketFromChar(pc);//calculate only once
 		if (socket!=-1)
 		{
-			wornitems(socket, DEREF_P_CHAR(pc));//send update to current socket
+			wornitems(socket, pc);//send update to current socket
 			int j;
 			for (j=0;j<now;j++)
 			{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
 				if (perm[j] && inrange1p(pc, currchar[j]) && (j!=socket))
-					wornitems(j, DEREF_P_CHAR(pc));
+					wornitems(j, pc);
 			}
 		}
 		pc->incognito=false;//AntiChrist
@@ -915,14 +915,14 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		//only refresh once
 		teleport(pc_dest);
 
-		socket=calcSocketFromChar((pc_dest));
+		socket=calcSocketFromChar(pc_dest);
 
-		wornitems(socket, DEREF_P_CHAR(pc_dest));//send update to current socket
+		wornitems(socket, pc_dest);//send update to current socket
 
 		for (j=0;j<now;j++)
 		{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
 			if (perm[j] && inrange1p(pc_dest, currchar[j]) && (j!=socket))
-				wornitems(j, DEREF_P_CHAR(pc_dest));
+				wornitems(j, pc_dest);
 		}
 
 		pc_dest->incognito=true;//AntiChrist
