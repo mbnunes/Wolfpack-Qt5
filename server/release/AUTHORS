@@ -4,8 +4,10 @@ Wolfpack Emu - We backend your world.
 IRC #wolfpack @ irc.freenode.net
 Home: http://www.wpdev.org
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Known authors, in order by last name.
-
+Known authors whom are on the developer list.
+This is for both the core code and the scripts.
+Format: Last, First (Alias) :: Email
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Anatoly (Ambassador Kosh)
 Biehunko, Michael (Aszlig)
 Correa, Thiago (Correa)
