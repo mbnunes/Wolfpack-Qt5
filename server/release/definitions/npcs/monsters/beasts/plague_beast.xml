@@ -19,15 +19,15 @@
 		<!-- Damage -->
 		<lodamage>20</lodamage>
 		<hidamage>24</hidamage>
-		<physicaldamage>60</physicaldamage>
-		<poisondamage>40</poisondamage>
+		<tag name="physicaldamage" value="60" />
+		<tag name="poisondamage" value="40" />
 		<!-- Resists -->
 		<defense><random min="45" max="55" /></defense>
-		<coldresist><random min="25" max="35"/></coldresist>
-		<energyresist><random min="25" max="35"/></energyresist>
-		<fireresist><random min="40" max="50"/></fireresist>
-		<physicalresist><random min="45" max="55"/></physicalresist>
-		<poisonresist><random min="65" max="75"/></poisonresist>
+		<tag name="coldresist" value="25,35" />
+		<tag name="energyresist" value="25,35" />
+		<tag name="fireresist" value="40,50" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="65,75" />
 		<!-- Misc. -->
 		<category>Monsters\Beasts\Plague Beast</category>
 	</npc>

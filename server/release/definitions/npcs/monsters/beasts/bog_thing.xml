@@ -20,15 +20,15 @@
 		<!-- Damage -->
 		<lodamage>10</lodamage>
 		<hidamage>23</hidamage>
-		<physicaldamage>60</physicaldamage>
-		<poisondamage>40</poisondamage>
+		<tag name="physicaldamage" value="60" />
+		<tag name="poisondamage" value="40" />
 		<!-- Resists -->
 		<defense><random min="30" max="40"/></defense>
-		<coldresist><random min="10" max="15"/></coldresist>
-		<energyresist><random min="20" max="25"/></energyresist>
-		<fireresist><random min="20" max="25"/></fireresist>
-		<physicalresist><random min="30" max="40"/></physicalresist>
-		<poisonresist><random min="40" max="50"/></poisonresist>
+		<tag name="coldresist" value="10,15" />
+		<tag name="energyresist" value="20,25" />
+		<tag name="fireresist" value="20,25" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="40,50" />
 		<!-- Misc. -->
 		<desc>The Bog Thing is best described as a shambling mound of plants, muck, and vermin. Most bog things are about twice the size of a man and resemble a large mound with two or more arms and a hole in the middle of its chest that resembles a mouth. The creature is entirely formed from plant growth. While they demonstrate no known means ofcommunication, they are able to coordinate their boglings during battle. They are very aggressive and territorial, and will attack any human that ventures too close to their land.</desc>
 		<category>Monsters\Beasts\Bog Thing</category>

@@ -23,11 +23,11 @@
 		<hidamage>7</hidamage>
 		<!-- Resists -->
 		<defense><random min="20" max="25"/></defense>
-		<coldresist><random min="15" max="25"/></coldresist>
-		<energyresist><random min="15" max="25"/></energyresist>
-		<fireresist><random min="10" max="20"/></fireresist>
-		<physicalresist><random min="20" max="25"/></physicalresist>
-		<poisonresist><random min="15" max="25"/></poisonresist>
+		<tag name="coldresist" value="15,25" />
+		<tag name="energyresist" value="15,25" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="20,25" />
+		<tag name="poisonresist" value="15,25" />
 		<!-- Misc -->
 		<category>Monsters\Beasts\Bogling</category>
 	</npc>
