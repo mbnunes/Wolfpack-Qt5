@@ -3,6 +3,7 @@ import string
 import wolfpack.gumps
 from wolfpack.gumps import *
 from wolfpack.utilities import *
+from wolfpack import *
 
 def onLoad():
 	wolfpack.registercommand( "info", "cmdinfo" )
@@ -334,7 +335,7 @@ def charinfo( socket, char ):
 		gump.addText( 50, 220, "Taming Min. Skill:", 0x834 )
 		gump.addInputField( 200, 220, 200, 16, 46, str( char.totame ), 0x834 )
 		gump.addText( 50, 240, "Owner:", 0x834 )
-		ownerser = "invalid"
+		ownerser = "-1"
 		if char.owner:
 			ownerser = str( char.owner.serial )
 		gump.addInputField( 200, 240, 200, 16, 47, ownerser, 0x834 )
@@ -487,7 +488,9 @@ def charinfo_response( player, args, choice ):
 			elif key == 46:
 				char.totame = int( hex2dec( textentries[ key ] ) )
 			elif key == 47:
-				char.owner = wolfpack.findChar( int( hex2dec( textentries[ key ] ) ) )
+				owner = wolfpack.findchar( int( hex2dec( textentries[ key ] ) ) )
+				if owner:
+					char.owner = owner
 		else:
 			if key == 41:
 				char.account = textentries[ key ]
