@@ -143,12 +143,18 @@ cMultisCache::cMultisCache( const QString& path ) : basePath(path)
 void cMultisCache::load()
 {
 	QFile indexFile( basePath + QDir::separator() + "multi.idx" );
-	indexFile.open( IO_ReadOnly );
+	if ( !indexFile.open( IO_ReadOnly ) )
+	{
+		qFatal(QString("Error openning file %1 for read").arg( basePath + QDir::separator() + "multi.idx") );
+	}
 	QDataStream indexStream( &indexFile );
 	indexStream.setByteOrder( QDataStream::LittleEndian );
 
 	QFile multiFile( basePath + QDir::separator() + "multi.mul" );
-	multiFile.open( IO_ReadOnly );
+	if ( !multiFile.open( IO_ReadOnly ) )
+	{
+		qFatal(QString("Error openning file %1 for read").arg( basePath + QDir::separator() + "multi.mul") );
+	}
 
 	struct
 	{

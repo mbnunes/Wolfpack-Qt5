@@ -79,7 +79,7 @@ bool cTileCache::load( const QString &nPath )
 	if( !input.open( IO_ReadOnly ) )
 	{
 		clConsole.ProgressFail();
-		clConsole.send( "Couldn't open tiledata.mul!" );
+		clConsole.send( QString("Couldn't open tiledata.mul, attempted with %1").arg( path + "tiledata.mul" ) );
 		return false;
 	}
 

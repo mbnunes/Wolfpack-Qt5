@@ -73,7 +73,7 @@ Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08)
  */
 UI32 Coord_cl::distance( const Coord_cl &src) const
 {
-	UI32 uiResult = ~0; // Initialize with *infinite*
+	UI32 uiResult = ~0U; // Initialize with *infinite*
 	if ( map == src.map )
 	{
 		RF64 rfResult = sqrt(static_cast<RF64>((x - src.x)*(x - src.x) + (y - src.y)*(y - src.y)/* + (z - src.z)*(z - src.z)*/));
