@@ -622,7 +622,7 @@ class MakeMenu:
     # we show the history. So we don't need a huge iteration
     # here.
     if player.hastag(historyname):
-      history = str(player.gettag(historyname)).split(';')[:10]
+      history = unicode(player.gettag(historyname)).split(';')[:10]
       yoffset = 60
       j = 0
       for item in history:
@@ -763,7 +763,7 @@ class MakeMenu:
       historyname = 'makehistory'
 
     if player.hastag(historyname):
-      history = str(player.gettag(historyname)).split(';')
+      history = unicode(player.gettag(historyname)).split(';')
       if len(history) > 0:
         (menu, action) = history[0].split(":")
         global menus
@@ -862,7 +862,7 @@ class MakeMenu:
 
       subaction = response.button & ~ 0x10000000
       if player.hastag(historyname):
-        history = str(player.gettag(historyname)).split(';')
+        history = unicode(player.gettag(historyname)).split(';')
         if subaction < len(history):
           (menu, action) = history[subaction].split(':')
           action = int(action)
@@ -879,7 +879,7 @@ class MakeMenu:
 
       subaction = response.button & ~ 0x08000000
       if player.hastag(historyname):
-        history = str(player.gettag(historyname)).split(';')
+        history = unicode(player.gettag(historyname)).split(';')
         if subaction < len(history):
           (menu, action) = history[subaction].split(':')
           action = int(action)

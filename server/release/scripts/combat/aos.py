@@ -265,7 +265,7 @@ def absorbdamage(defender, damage):
           shield.health -= 1
           shield.resendtooltip()
 
-      if shield.health <= 0:
+      if shield and shield.health <= 0:
         tobackpack(shield, defender)
         shield.update()
         if defender.socket:

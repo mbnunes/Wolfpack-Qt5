@@ -23,11 +23,11 @@ def onSwing(attacker, defender, time):
 	# We won't allow any swings from or against players
 	# who are offline
 	if defender.player and not defender.socket and not defender.logouttime:
-		attacker.attacktarget = None
+		attacker.attacktarget = 0
 		return
 
 	if attacker.player and not attacker.socket and not attacker.logouttime:
-		attacker.attacktarget = None
+		attacker.attacktarget = 0
 		return
 
 	# Let the defender strike back if he doesnt fight anyone right now
