@@ -29,54 +29,36 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_)
-#define AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_
-
-// Library Includes
 #include "qdom.h"
 #include "qmap.h"
 #include "qstring.h"
 #include "qstringlist.h"
+#include "wpdefmanager.h"
+#include "items.h"
+#include "chars.h"
 
-typedef QMap< QString, QDomElement > DefSections;
-
-enum WPDEF_TYPE 
+class cWPXMLParser
 {
-	WPDT_ITEM = 0,
-	WPDT_SCRIPT,
-	WPDT_NPC,
-	WPDT_ITEMLIST,
-	WPDT_MENU,
-	WPDT_RESOURCE,
-	WPDT_INVALID
-};
-
-class WPDefManager  
-{
-private:
-	// Maps
-	DefSections Items;
-	DefSections Scripts;
-	DefSections NPCs;
-	DefSections ItemLists;
-	DefSections Menus;
-	DefSections Resources;
-
-	bool ImportSections( const QString& FileName );
-	void ProcessNode( QDomElement Node );
-
 public:
-	WPDefManager() {};
-	virtual ~WPDefManager() {};
+	cWPXMLParser();
+	virtual ~cWPXMLParser() {};
 
-	void reload( void );
-	void load( void );
-	void unload( void );
+	cWPXMLParser( WPDEF_TYPE baseType );
+	cWPXMLParser( WPDEF_TYPE baseType, QDomElement* baseTag );
 
-	QDomElement *getSection( WPDEF_TYPE Type, QString Section );
-	QStringList getSections( WPDEF_TYPE Type );
+	QDomElement*		baseTag( void )						{ return basetag;	 };
+	void				setBaseTag( QDomElement* newTag )	{ basetag = newTag;	 };
+	WPDEF_TYPE			baseType( void )					{ return basetype;	 };
+	void				setBaseType( WPDEF_TYPE newType )	{ basetype = newType;};
+
+	bool				prepareParsing( QString Section );
+	void				applyNodes( P_ITEM Item, QDomElement* Node = NULL );
+	void				applyNodes( P_CHAR Char, QDomElement* Node = NULL );
+
+	void				processItemContainerNode( P_ITEM contItem, QDomElement &Node );
+	void				processScriptItemNode( P_ITEM madeItem, QDomElement &Node );
+
+private:
+	QDomElement*		basetag;
+	WPDEF_TYPE			basetype;
 };
-
-const QString processNode( QDomElement Node );
-
-#endif // !defined(AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_)

@@ -372,6 +372,7 @@ extern termios termstate ;
 
 extern WPScriptManager *ScriptManager;
 extern WPDefManager *DefManager;
+
 //
 
 #endif
