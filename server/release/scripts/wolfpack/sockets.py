@@ -5,6 +5,11 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
+"""
+	\library wolfpack.sockets
+	\description Contains functions for sockets.
+"""
+
 import _wolfpack.sockets
 
 def first():

@@ -1,4 +1,9 @@
 
+"""
+	\library wolfpack.time
+	\description Contains several functions for wolfpack time.
+"""
+
 import _wolfpack.time
 
 # Return the minute of the hour for the current game time. Range: 0 - 59

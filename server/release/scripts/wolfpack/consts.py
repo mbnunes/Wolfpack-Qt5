@@ -7,6 +7,11 @@
 # Constants used in Python scripts                              #
 #===============================================================#
 
+"""
+	\library wolfpack.consts
+	\description Contains several constants for scripts.
+"""
+
 # Which port should the remote admin run on
 REMOTEADMIN_PORT = 2594
 

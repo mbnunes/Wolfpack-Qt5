@@ -1,4 +1,9 @@
 
+"""
+	\library wolfpack.database
+	\description Contains several server functions for databases.
+"""
+
 import _wolfpack.database
 
 ACCOUNTS = 1

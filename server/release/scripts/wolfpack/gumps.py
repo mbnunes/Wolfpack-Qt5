@@ -7,6 +7,11 @@
 # Python class for gumps.                     #
 #===============================================================#
 
+"""
+	\library wolfpack.gumps
+	\description Contains several functions for gumps.
+"""
+
 from types import *
 
 class cGump:
@@ -142,7 +147,7 @@ class cGump:
   def addButton( self, x, y, up, down, returncode ):
     self.layout.append( "{button %i %i %u %u 1 0 %u}" % ( x, y, up, down, returncode ) )
 
-  def addPageButton( self, x, y, up, down, page ):  
+  def addPageButton( self, x, y, up, down, page ):
     self.layout.append( "{button %i %i %u %u 0 %u 0}" % ( x, y, up, down, page ) )
 
   def addGump( self, x, y, id, hue = -1 ):
@@ -187,7 +192,7 @@ class cGump:
       hasBack = 1
 
     self.layout.append( "{htmlgump %i %i %u %u %u %u %u}" % ( x, y, width, height, self.addRawText( html ), hasBack, canScroll ) )
-    
+
   def addXmfHtmlGump( self, x, y, width, height, clilocid, hasBack = 0, canScroll = 0, color = 0 ):
     if( canScroll != 0 ):
       canScroll = 1
@@ -212,7 +217,7 @@ class WarningGump:
   def __init__(self, header, headerColor, content, contentColor, width, height, callback, state ):
     self.callback = callback
     self.state = state
-    
+
     self.gump = cGump( 1, 0, 0, (640 - width) / 2, (480 - height) / 2 )
     self.gump.startPage( 0 )
     self.gump.addBackground( 5054, width, height )
@@ -230,13 +235,13 @@ class WarningGump:
     self.gump.addCheckerTrans( 10, height - 30, width - 20, 20 )
     self.gump.addButton( 10, height - 30, 4005, 4007, 1 )
     self.gump.addXmfHtmlGump( 40, height - 30, 170, 20, 1011036, 0, 0, 32767 )
-    
+
     self.gump.addButton( 10 + ((width - 20) / 2), height - 30, 4005, 4007, 0 )
     self.gump.addXmfHtmlGump( 40 + ((width - 20) / 2), height - 30, 170, 20, 1011012, 0, 0, 32767 )
 
     # set the callback
 
-  def send( self, char ) :    
+  def send( self, char ) :
     # There are two possibilities
     socket = None
 
@@ -250,8 +255,8 @@ class WarningGump:
     self.gump.setArgs([self.callback, self.state])
     self.gump.setCallback("wolfpack.gumps.WarningGump_onResponse")
     self.gump.send( socket )
-    
-          
+
+
 
 def WarningGump_onResponse( player, args, choice ):
   socket = player.socket
@@ -270,7 +275,7 @@ class NoticeGump:
   def __init__(self, header, headerColor, content, contentColor, width, height, callback, state ):
     self.callback = callback
     self.state = state
-    
+
     self.gump = cGump( 1, 0, 0, (640 - width) / 2, (480 - height) / 2 )
     self.gump.startPage( 0 )
     self.gump.addBackground( 5054, width, height )
@@ -288,8 +293,8 @@ class NoticeGump:
     self.gump.addCheckerTrans( 10, height - 30, width - 20, 20 )
     self.gump.addButton( 10, height - 30, 4005, 4007, 0 )
     self.gump.addXmfHtmlGump( 40, height - 30, 170, 20, 1011036, 0, 0, 32767 )
-    
-  def send( self, char ) :    
+
+  def send( self, char ) :
     # There are two possibilities
     socket = None
 
@@ -303,7 +308,7 @@ class NoticeGump:
     self.gump.setArgs([self.callback, self.state])
     self.gump.setCallback("wolfpack.gumps.NoticeGump_onResponse")
     self.gump.send( socket )
-          
+
 
 def NoticeGump_onResponse( player, args, choice ):
   socket = player.socket

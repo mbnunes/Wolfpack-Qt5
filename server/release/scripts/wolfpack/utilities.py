@@ -7,6 +7,11 @@
 # Utility functions used in Python scripts                      #
 #===============================================================#
 
+"""
+	\library wolfpack.utilities
+	\description Contains several useful functions for scripts.
+"""
+
 # Calculates the Magic Damage (Base Damage + Base + Source)
 
 import wolfpack
@@ -15,12 +20,20 @@ from math import floor
 import random
 from types import *
 
+"""
+	\function wolfpack.utilities.rolldice
+	\param dice
+	\param sides
+	\param bonus
+	\return Result
+	\description Rolls some dice and returns a result.
+"""
 def rolldice(dice, sides, bonus):
 	result = 0
 	for i in range(0, dice):
 		result += random.randint(1, sides)
 	result += bonus
-	return bonus
+	return result
 
 def hex2dec(value, default = 0):
 	if type( value ) is IntType:
@@ -28,7 +41,7 @@ def hex2dec(value, default = 0):
 
 	try:
 		value = value.lower()
-	
+
 		if not value.startswith( "0x" ):
 			return int( value )
 		else:
@@ -67,7 +80,7 @@ def cont2cont( container1, container2 ):
 	for item in container1.content:
 		tocontainer( item, container2 )
 		item.update()
-		
+
 
 def isclothing( item ):
 
@@ -110,7 +123,7 @@ def isarmor( item ):
 			0x2658, 0x2642, 0x2641, 0x2648, 0x2657, 0x1c00, 0x1c01, 0x1c02, \
 			0x1c03, 0x1c04, 0x1c05, 0x1c06, 0x1c07, 0x1c08, 0x1c09, 0x1c0a, \
 			0x1c0b, 0x1c0c, 0x1c0d, 0x1f0b, 0x1f0c, 0x1549, 0x154a, 0x154b, \
-			0x154c, 0x2646, 0x2647, 0x13bb ] 
+			0x154c, 0x2646, 0x2647, 0x13bb ]
 
 	if item.id in armors:
 		return 1
@@ -132,7 +145,7 @@ def isshield( item ):
 
 	if item.id in shields:
 		return 1
-	else: 
+	else:
 		return 0
 
 def isspellbook( item ):
@@ -182,7 +195,7 @@ def ismountainorcave( tile ):
 			range( 13354, 13356 ) + \
 			range( 13361, 13371 ) + \
 			range( 13625, 13638 ) + \
-			range( 16233, 16245 ) 
+			range( 16233, 16245 )
 
 def issand( tile ):
 	return tile in range( 22, 63 ) + \
@@ -271,7 +284,7 @@ def isdirt( tile ):
 			range( 2444, 2495 ) + \
 			range( 12788, 12796 ) + \
 			range( 13683, 13695 ) + \
-			range( 13742, 13746 ) 
+			range( 13742, 13746 )
 
 def cleartag( self, args ):
 	char = args[0]
@@ -312,7 +325,7 @@ def consumeresourcesinternal(container, baseid, amount):
         item.amount -= amount
         item.update()
         return 0
-      
+
       amount -= item.amount
       item.delete()
     else:
@@ -328,5 +341,5 @@ def consumeresourcesinternal(container, baseid, amount):
 def consumeresources(container, baseid, amount):
   if checkresources(container, baseid, amount) == 0:
     return consumeresourcesinternal(container, baseid, amount) == 0
-  
+
   return 0

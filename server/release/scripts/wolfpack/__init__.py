@@ -30,11 +30,14 @@ hasevent = _wolfpack.hasevent
 hasnamedevent = _wolfpack.hasnamedevent
 callevent = _wolfpack.callevent
 callnamedevent = _wolfpack.callnamedevent
+#statics = _wolfpack.statics
+
 
 """
-	\function finditem
+	\function wolfpack.finditem
 	\param serial
-	\return Serial of the item, or None if failed.
+	\return Object or None
+	\description Tries to find an object by its serial.
 """
 def finditem( serial ):
 	if serial <= 0x40000000:
@@ -43,9 +46,10 @@ def finditem( serial ):
 		return _wolfpack.finditem( int( serial ) )
 
 """
-	\function findchar
+	\function wolfpack.findchar
 	\param serial
-	\return Serial of the char, or None if failed.
+	\return Character of None
+	\description Tries to find a character by its serial.
 """
 def findchar( serial ):
 	if serial >= 0x40000000:
@@ -54,19 +58,21 @@ def findchar( serial ):
 		return _wolfpack.findchar( int( serial ) )
 
 """
-	\function findmulti
+	\function wolfpack.findmulti
 	\param arg
-	\return Serial of the multi or None.
+	\return Multi or None.
+	\description Tries to find a multi based on its position.
 """
 def findmulti( arg ):
 	return _wolfpack.findmulti( arg )
 
 """
-	\function region
+	\function wolfpack.region
 	\param x
 	\param y
 	\param map
-	\return The region id for the coordinates given.
+	\return The Region ID
+	\description Gets the region for a position.
 """
 def region( x, y, map ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType:
@@ -75,36 +81,39 @@ def region( x, y, map ):
 		return _wolfpack.region( x, y, map )
 
 """
-	\function itemregion
+	\function wolfpack.itemregion
 	\param x1
 	\param y1
 	\param x2
 	\param y2
 	\param map
-	\return Array of items in the given region.
+	\return List of Items or None
+	\description Grabs a list of items in a given area.
 """
 def itemregion( x1, y1, x2, y2, map ):
 	return _wolfpack.itemregion( x1, y1, x2, y2, map )
 
 """
-	\function charregion
+	\function wolfpack.charregion
 	\param x1
 	\param y1
 	\param x2
 	\param y2
 	\param map
-	\return Array of characters in the given region.
+	\return List of Characters or None
+	\description Grabs a list of characters in a given area.
 """
 def charregion( x1, y1, x2, y2, map ):
 	return _wolfpack.charregion( x1, y1, x2, y2, map )
 
 # Statics, Items, Map
 """
-	\function map
+	\function wolfpack.map
 	\param x
 	\param y
 	\param map
-	\return Unknown?
+	\return List of Map Information
+	\description Returns a dictionary with information about a given map tile.
 """
 def map( x, y, map ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType:
@@ -113,9 +122,10 @@ def map( x, y, map ):
 		return _wolfpack.map( x, y, map )
 
 """
-	\function hasmap
+	\function wolfpack.hasmap
 	\param map
-	\return True or False, if you have the map id passed.
+	\return True or False
+	\description Returns True/False if you have the map id.
 """
 def hasmap( map ):
 	if not type( map ) is IntType:
@@ -124,27 +134,28 @@ def hasmap( map ):
 		return _wolfpack.hasmap( map )
 
 """
-	\function statics
+	\function wolfpack.statics
 	\param x
 	\param y
 	\param map
 	\param exact
-	\return Unknown?
+	\return List of Statics
+	\description Returns a list of statics at a given point.
 """
 def statics( x, y, map, exact=1 ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( exact ) is IntType:
 		raise TypeError, "x, y and map need to be integer values"
 	else:
 		return _wolfpack.statics( x, y, map, exact )
-#statics = _wolfpack.statics
 
 """
-	\function items
+	\function wolfpack.items
 	\param x
 	\param y
 	\param map
 	\param range
-	\return Array of items at a given position.
+	\return List of Items
+	\description Returns a list of items at a given point.
 """
 def items( x, y, map, range=1 ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( range ) is IntType:
@@ -153,12 +164,13 @@ def items( x, y, map, range=1 ):
 		return _wolfpack.items( x, y, map, range )
 
 """
-	\function chars
+	\function wolfpack.chars
 	\param x
 	\param y
 	\param map
 	\param range
-	\return Array of characters at a given position.
+	\return List of Chars
+	\description Returns a list of characters at a given point.
 """
 def chars( x, y, map, range=1 ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( range ) is IntType:
@@ -167,43 +179,47 @@ def chars( x, y, map, range=1 ):
 		return _wolfpack.chars( x, y, map, range )
 
 """
-	\function itemiterator
-	\return Array of items.
+	\function wolfpack.itemiterator
+	\return List of Items.
+	\description Returns an iterator for all items in the world.
 """
 def itemiterator():
 	return _wolfpack.itemiterator()
 
 """
-	\function chariterator
-	\return Array of characters.
+	\function wolfpack.chariterator
+	\return List of Chars.
+	\description Returns an iterator for all chars in the world.
 """
 def chariterator():
 	return _wolfpack.chariterator()
 
 """
-	\function allitemsserials
-	\return Array of all existing item serials
+	\function wolfpack.allitemsserials
+	\return List of Item Serials
+	\description Returns a list of all item serials.
 """
 def allitemsserials():
 	return _wolfpack.allitemsserials()
 
 """
-	\function allcharsserials
-	\return Array of all existing character serials
+	\function wolfpack.allcharsserials
+	\return List of Char Serials
+	\description Returns a list of all character serials.
 """
 def allcharsserials():
 	return _wolfpack.allcharsserials()
 
 """
-	\function addtimer
+	\function wolfpack.addtimer
 	\param expiretime
 	\param function
 	\param args
 	\param serializable
 	\return None
+	\description Adds a timed effect.
 """
 def addtimer( expiretime, function, args, serializable=0 ):
-
 	if not type( expiretime ) is IntType:
 		raise TypeError, "expiretime needs to be a number"
 	elif not type( function ) is StringType:
@@ -219,9 +235,10 @@ def addtimer( expiretime, function, args, serializable=0 ):
 	return _wolfpack.addtimer( expiretime, function, args, serializable )
 
 """
-	\function list
+	\function wolfpack.list
 	\param id
-	\return List of the given id.
+	\return List of Definitions
+	\description Returns a list defined in the definitions as a Python List.
 """
 def list( id ):
 	if not type( id ) is StringType:
@@ -229,159 +246,178 @@ def list( id ):
 	return _wolfpack.list( id )
 
 """
-	\function registerglobal
+	\function wolfpack.registerglobal
 	\param event
 	\param script
 	\return None
+	\description Registers a global script hook.
 """
 # Register a global hook
 def registerglobal( event, script ):
 	return _wolfpack.registerglobal( event, script )
 
 """
-	\function registercommand
+	\function wolfpack.registercommand
 	\param command
 	\param script
 	\return None
+	\description Registers a global command hook.
 """
 # Register this script to fetch a specific command
 def registercommand( command, script ):
 	return _wolfpack.registercommand( command, script )
 
 """
-	\function tiledata
+	\function wolfpack.tiledata
 	\param id
-	\return Data of the given tile id.
+	\return Tile Data
+	\description Returns the tiledata information for a given tile stored on the server.
 """
 def tiledata( id ):
 	return _wolfpack.tiledata( id )
 
 """
-	\function landdata
+	\function wolfpack.landdata
 	\param id
-	\return Data of the given land id.
+	\return Land Data
+	\description Returns the landdata information for a given tile stored on the server.
 """
 def landdata( id ):
 	return _wolfpack.landdata( id )
 
 """
-	\function coord
+	\function wolfpack.coord
 	\param x
 	\param y
 	\param z
 	\param map
 	\return None
+	\description Creates a coordinate object from the given parameters (x,y,z,map).
 """
 def coord( x, y, z, map ):
 	return _wolfpack.coord( x, y, z, map )
 
 """
-	\function effect
+	\function wolfpack.effect
 	\param id
 	\param pos
 	\param speed
 	\param duration
 	\return None
+	\description Shows a graphical effect.
 """
 def effect( id, pos, speed, duration ):
 	_wolfpack.effect( id, pos, speed, duration )
 
 """
-	\function serveruptime
-	\return The server's uptime in seconds.
+	\function wolfpack.serveruptime
+	\return Uptime, INT
+	\description Returns uptime of server in seconds.
 """
 # Returns uptime of server in seconds
 def serveruptime():
 	return _wolfpack.serveruptime()
 
 """
-	\function serverversion
-	\return The server's version string.
+	\function wolfpack.serverversion
+	\return Version, STRING
+	\description Returns the server version string.
 """
 # Returns the server version
 def serverversion():
 	return _wolfpack.serverversion()
 
 """
-	\function isstarting
-	\return True or False, if the server is starting.
+	\function wolfpack.isstarting
+	\return True or False
+	\description Returns if the server is in starting state.
 """
 def isstarting():
 	return _wolfpack.isstarting()
 
 """
-	\function isrunning
-	\return True or False, if the server is running.
+	\function wolfpack.isrunning
+	\return True or False
+	\description Returns if the server is in running state.
 """
 def isrunning():
 	return _wolfpack.isrunning()
 
 """
-	\function isreloading
-	\return True or False, if the server is reloading.
+	\function wolfpack.isreloading
+	\return True or False
+	\description Returns if the server is in reload state.
 """
 def isreloading():
 	return _wolfpack.isreloading()
 
 """
-	\function isclosing
-	\return True or False, if the server is closing.
+	\function wolfpack.isclosing
+	\return True or False
+	\description Returns if the server is in closing state.
 """
 def isclosing():
 	return _wolfpack.isclosing()
 
 """
-	\function spell
+	\function wolfpack.spell
 	\param id
 	\return None
+	\description Unknown?
 """
 def spell( id ):
 	return _wolfpack.spell( id )
 
 """
-	\function multi
+	\function wolfpack.multi
 	\param id
-	\return None
+	\return Multi
+	\description Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT.
 """
 def multi( id ):
 	return _wolfpack.multi( id )
 
 """
-	\function newnpc
+	\function wolfpack.newnpc
 	\param createserial
-	\return The npc created
+	\return NPC
+	\description Creates an entirely new npc.
 """
 def newnpc( createserial = 0 ):
 	return _wolfpack.newnpc( createserial )
 
 """
-	\function newitem
+	\function wolfpack.newitem
 	\param createserial
-	\return The item created.
+	\return Item
+	\description Creates an entirely new item.
 """
 def newitem( createserial = 0 ):
 	return _wolfpack.newitem( createserial )
 
 """
-	\function newplayer
+	\function wolfpack.newplayer
 	\param createserial
-	\return The player created
+	\return Player
+	\description Creates an entirely new player.
 """
 def newplayer( createserial = 0 ):
 	return _wolfpack.newplayer( createserial )
 
 """
-	\function tickcount
-	\return None
+	\function wolfpack.tickcount
+	\return Tickcount
+	\description Returns the current Tickcount on Windows.
 """
 def tickcount():
 	return _wolfpack.tickcount()
 
 """
-	\function packet
+	\function wolfpack.packet
 	\param id
 	\param size
 	\return None
+	\description Creates a packet.
 """
 def packet( id, size ):
 	return _wolfpack.packet( id, size )
