@@ -1184,7 +1184,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "dispel",			(getattrofunc)wpChar_dispel, METH_VARARGS, "Dispels this character (with special options)." },
 
 	// Update Stats
-	{ "updatestats",	(getattrofunc)wpChar_updatemana, METH_VARARGS, "Resends other stats to this character." },
+	{ "updatestats",	(getattrofunc)wpChar_updatestats, METH_VARARGS, "Resends other stats to this character." },
 	{ "updatemana",		(getattrofunc)wpChar_updatemana, METH_VARARGS, "Resends the manabar to this character." },
 	{ "updatestamina",	(getattrofunc)wpChar_updatestamina, METH_VARARGS, "Resends the stamina bar to this character." },
 	{ "updatehealth",	(getattrofunc)wpChar_updatehealth, METH_VARARGS, "Resends the healthbar to the environment." },
