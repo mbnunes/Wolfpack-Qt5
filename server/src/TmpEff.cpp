@@ -46,6 +46,7 @@
 #include "iserialization.h"
 #include "classes.h"
 #include "network.h"
+#include "wpdefmanager.h"
 
 #include <algorithm>
 #include <typeinfo>
@@ -896,9 +897,9 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			pc_dest->setOrgname( pc_dest->name.c_str() );
 
 			if(pc_dest->id2==0x90) 
-				setrandomname(pc_dest, "1");//get a name from male list
+				pc_dest->name = DefManager->getRandomListEntry( "1" );
 			else 
-				setrandomname(pc_dest, "2");//get a name from female list
+				pc_dest->name = DefManager->getRandomListEntry( "2" );//get a name from female list
 
 			//
 			//damn..this formula seems to include also some bad color...

@@ -146,7 +146,6 @@ char inbankrange(int i);
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void gettokennum(char * s, int num);
-void setrandomname(P_CHAR pc_s, char * namelist);
 void donewithcall(int s, int type);
 void initque();
 void MenuChoice( UOXSOCKET Socket );
@@ -210,9 +209,6 @@ int del_hlist(int c, int h);
 //
 void house_speech(int s, string& talk);
 void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);
-
-unsigned short addrandomcolor(P_CHAR pc_s, char *colorlist);
-
 
 void lockpick(int s);
 

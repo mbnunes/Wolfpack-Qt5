@@ -3208,6 +3208,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			getcell=mapRegions->GetCell(pc_currchar->pos);
 			increment=0;
 #pragma note("Replace by Char region iterator")
+
 			for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 			{
 				for (a=0;a<3;a++)
