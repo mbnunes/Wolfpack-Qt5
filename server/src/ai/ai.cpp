@@ -530,6 +530,7 @@ float Action_Wander::postCondition()
 	case enCircle:
 	case enRectangle:
 	case enWanderSpawnregion:
+	case enHalt:
 		return 1.0f;
 
 	case enDestination:

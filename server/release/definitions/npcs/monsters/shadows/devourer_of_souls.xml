@@ -26,7 +26,7 @@
 		<anatomy>0</anatomy>
 		<magery><random min="901" max="1000"/></magery>
 		<meditation><random min="901" max="1000"/></meditation>
-		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
+		<evaluatingintelligence><random min="901" max="1000"/></evaluatingintelligence>
 		<!-- Damage -->
 		<mindamage>89</mindamage>
 		<maxdamage>114</maxdamage>

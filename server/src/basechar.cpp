@@ -1274,22 +1274,19 @@ void cBaseChar::processNode( const cElement* Tag )
 	else if ( TagName == "str" )
 	{
 		strength_ = Value.toLong();
-		if ( maxHitpoints_ == 0 )
-			maxHitpoints_ = strength_;
+		maxHitpoints_ = strength_;
 		hitpoints_ = maxHitpoints_;
 	}
 	else if ( TagName == "dex" )
 	{
 		dexterity_ = Value.toLong();
-		if ( maxStamina_ == 0 )
-			maxStamina_ = dexterity_;
+		maxStamina_ = dexterity_;
 		stamina_ = maxStamina_;
 	}
 	else if ( TagName == "int" )
 	{
 		intelligence_ = Value.toLong();
-		if ( maxMana_ == 0 )
-			maxMana_ = intelligence_;
+		maxMana_ = intelligence_;
 		mana_ = maxMana_;
 	}
 	else if ( TagName == "maxhp" || TagName == "maxhitpoints" )

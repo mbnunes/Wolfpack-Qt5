@@ -22,7 +22,7 @@
 		<maxhitpoints>6000</maxhitpoints>
 		<!-- Skills -->
 		<!-- Yes this thing is VERY powerfull... -->
-		<evaluatingintel>2000</evaluatingintel>
+		<evaluatingintelligence>2000</evaluatingintelligence>
 		<magicresistance><random min="1176" max="1200"/></magicresistance>
 		<tactics>1000</tactics>
 		<wrestling><random min="841" max="880"/></wrestling>

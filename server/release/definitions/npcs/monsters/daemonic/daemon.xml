@@ -20,7 +20,7 @@
 		<int><random min="301" max="325"/></int>
 		<maxhitpoints><random min="286" max="303" /></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintel><random min="701" max="800"/></evaluatingintel>
+		<evaluatingintelligence><random min="701" max="800"/></evaluatingintelligence>
 		<magery><random min="701" max="800"/></magery>
 		<magicresistance><random min="851" max="950"/></magicresistance>
 		<tactics><random min="701" max="800"/></tactics>

@@ -23,7 +23,7 @@
 		<magicresistance><random min="1005" max="1500"/></magicresistance>
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
-		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
+		<evaluatingintelligence><random min="901" max="1000"/></evaluatingintelligence>
 		<magery><random min="955" max="1000"/></magery>
 		<anatomy>0</anatomy>
 		<meditation><random min="955" max="1000"/></meditation>

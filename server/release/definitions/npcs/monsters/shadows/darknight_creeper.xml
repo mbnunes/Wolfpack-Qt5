@@ -24,7 +24,7 @@
 		<tactics>1000</tactics>
 		<wrestling><random min="901" max="909"/></wrestling>
 		<anatomy>0</anatomy>
-		<evaluatingintel><random min="1181" max="1200"/></evaluatingintel>
+		<evaluatingintelligence><random min="1181" max="1200"/></evaluatingintelligence>
 		<magery><random min="776" max="875"/></magery>
 		<meditation>1500</meditation>
 		<poisoning>1200</poisoning>

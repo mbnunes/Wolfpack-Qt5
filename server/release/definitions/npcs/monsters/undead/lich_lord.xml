@@ -21,7 +21,7 @@
 		<dex><random min="146" max="165"/></dex>
 		<int><random min="901" max="1000"/></int>
 		<!-- Skills -->
-		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
+		<evaluatingintelligence><random min="901" max="1000"/></evaluatingintelligence>
 		<magery><random min="901" max="1000"/></magery>
 		<magicresistance><random min="1505" max="2000"/></magicresistance>
 		<tactics><random min="501" max="700"/></tactics>

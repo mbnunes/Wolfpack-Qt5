@@ -39,7 +39,11 @@
 #include <math.h>
 
 // Is this an invalid target?
-bool invalidTarget(P_NPC npc, P_CHAR victim, int dist = -1) {
+bool invalidTarget(P_NPC npc, P_CHAR victim, int dist) {
+	if (!victim) {
+		return true;
+	}
+
 	if (victim->isInvulnerable() || victim->isDead()) {
 		return true;
 	}
@@ -64,7 +68,7 @@ bool invalidTarget(P_NPC npc, P_CHAR victim, int dist = -1) {
 }
 
 // Is this a valid target?
-bool validTarget(P_NPC npc, P_CHAR victim, int dist = -1) {
+bool validTarget(P_NPC npc, P_CHAR victim, int dist) {
 	if (invalidTarget(npc, victim, dist)) {
 		return false;
 	}
@@ -327,15 +331,17 @@ void Monster_Aggr_MoveToTarget::execute()
 		m_npc->fight( currentVictim );
 	}
 
+	bool run = m_npc->dist(currentVictim) > 3;
+
 	if ( Config::instance()->pathfind4Combat() && m_npc->dist(currentVictim) < 5 )
 	{
-		if (!movePath( currentVictim->pos() )) {
+		if (!movePath( currentVictim->pos(), run )) {
 			nextTry = Server::instance()->time() + RandomNum(1250, 2250);
 		}
 	}
 	else
 	{
-		moveTo( currentVictim->pos() );
+		moveTo( currentVictim->pos(), run );
 	}
 }
 

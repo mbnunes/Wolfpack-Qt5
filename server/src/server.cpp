@@ -27,6 +27,7 @@
 
 #include "accounts.h"
 #include "ai/ai.h"
+#include "ai/ai_mage.h"
 #include "basedef.h"
 #include "basics.h"
 #include "commands.h"
@@ -465,6 +466,7 @@ void cServer::load()
 	// NPC AI types
 	Monster_Aggressive_L0::registerInFactory();
 	Monster_Aggressive_L1::registerInFactory();
+	Monster_Mage::registerInFactory();
 	Monster_Berserk::registerInFactory();
 	Human_Vendor::registerInFactory();
 	Human_Stablemaster::registerInFactory();

@@ -23,7 +23,7 @@
 		<mindamage>5</mindamage>
 		<maxdamage>13</maxdamage>
 		<!-- Skills -->
-		<evaluatingintel>400</evaluatingintel>
+		<evaluatingintelligence>400</evaluatingintelligence>
 		<magery>500</magery>
 		<meditation>400</meditation>
 		<magicresistance>100</magicresistance>

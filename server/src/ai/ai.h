@@ -51,6 +51,10 @@ class AbstractAI;
 // Uncomment if you want AI debugging messages
 // #define AIDEBUG
 
+// Export this for other AI functions
+bool invalidTarget(P_NPC npc, P_CHAR victim, int dist = -1);
+bool validTarget(P_NPC npc, P_CHAR victim, int dist = -1);
+
 class AbstractAction
 {
 protected:

@@ -26,7 +26,7 @@
 		<magicresistance><random min="1500" max="1500"/></magicresistance>
 		<anatomy>0</anatomy>
 		<magery><random min="1200" max="1200"/></magery>
-		<evaluatingintel><random min="1200" max="1200"/></evaluatingintel>
+		<evaluatingintelligence><random min="1200" max="1200"/></evaluatingintelligence>
 		<meditation><random min="1200" max="1200" /></meditation>
 		<!-- Damage -->
 		<mindamage>66</mindamage>

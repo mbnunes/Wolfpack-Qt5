@@ -25,7 +25,7 @@
 		<wrestling><random min="601" max="700"/></wrestling>
 		<magery>0</magery>
 		<meditation>0</meditation>
-		<evaluatingintel>0</evaluatingintel>
+		<evaluatingintelligence>0</evaluatingintelligence>
 		<!-- Damage -->
 		<mindamage>15</mindamage>
 		<maxdamage>37</maxdamage>

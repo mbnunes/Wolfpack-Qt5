@@ -2183,7 +2183,7 @@ bool cItem::isInLockedItem()
 	{
 		P_ITEM pCont = dynamic_cast<P_ITEM>( container_ );
 
-		if ( pCont->hasScript( "lock" ) )
+		if ( pCont->hasScript( "lock" ) && pCont->hasTag("locked") && pCont->getTag("locked").toInt() != 0 )
 		{
 			return true;
 		}

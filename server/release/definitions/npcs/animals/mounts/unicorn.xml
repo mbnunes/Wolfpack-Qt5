@@ -36,7 +36,7 @@
 		<tactics><random min="201" max="225" /></tactics>
 		<magicresistance><random min="753" max="900" /></magicresistance>
 		<magery><random min="602" max="800" /></magery>
-		<evaluatingintel><random min="801" max="900" /></evaluatingintel>
+		<evaluatingintelligence><random min="801" max="900" /></evaluatingintelligence>
 		<meditation><random min="501" max="600" /></meditation>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->

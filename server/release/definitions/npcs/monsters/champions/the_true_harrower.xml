@@ -12,6 +12,7 @@
 	<npc id="the_true_harrower" inherit="monster_base">
 		<name>The True Harrower</name>
 		<id>780</id>
+		<skin>0x497</skin>
 		<karma>-25000</karma>
 		<fame>25000</fame>
 		<!-- Stats -->
@@ -24,7 +25,7 @@
 		<tactics><random min="902" max="1100"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<magery><random min="1200" max="1200"/></magery>
-		<evaluatingintel><random min="1200" max="1200"/></evaluatingintel>
+		<evaluatingintelligence><random min="1200" max="1200"/></evaluatingintelligence>
 		<meditation><random min="1200" max="1200" /></meditation>
 		<anatomy>0</anatomy>
 		<!-- Damage -->

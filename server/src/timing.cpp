@@ -437,7 +437,7 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	if ( npc->isTamed() && Config::instance()->hungerRate() && npc->hungerTime() <= time )
 	{
 		// Creatures owned by GMs won't hunger.
-		if (!npc->owner() || !npc->owner()->isGMorCounselor()) {
+		if ( !npc->owner() || !npc->owner()->isGMorCounselor()) {
 			if ( npc->hunger() )
 			{
 				npc->setHunger( npc->hunger() - 1 );

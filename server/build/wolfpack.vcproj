@@ -941,6 +941,12 @@
 				RelativePath=".\ai\ai_humans.cpp">
 			</File>
 			<File
+				RelativePath=".\ai\ai_mage.cpp">
+			</File>
+			<File
+				RelativePath=".\ai\ai_mage.h">
+			</File>
+			<File
 				RelativePath=".\ai\ai_monsters.cpp">
 			</File>
 		</Filter>

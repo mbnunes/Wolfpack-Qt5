@@ -21,7 +21,7 @@
 		<maxhitpoints><random min="196" max="213" /></maxhitpoints>
 		<!-- Skills -->
 		<anatomy><random min="303" max="600"/></anatomy>
-		<evaluatingintel><random min="701" max="850"/></evaluatingintel>
+		<evaluatingintelligence><random min="701" max="850"/></evaluatingintelligence>
 		<magery><random min="701" max="850"/></magery>
 		<magicresistance><random min="601" max="750"/></magicresistance>
 		<tactics><random min="801" max="900"/></tactics>
