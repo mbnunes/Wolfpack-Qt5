@@ -14,8 +14,10 @@
 		<title>the Bowyer</title>
 		<shopkeeper>
 			<restockable>
+				<item id="1022"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="1022" />
 			</sellable>
 		</shopkeeper>
 		<archery><random min="600" max="830" /></archery>
@@ -28,8 +30,10 @@
 		<title>the Bowyer</title>
 		<shopkeeper>
 			<restockable>
+				<item id="1022"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="1022" />
 			</sellable>
 		</shopkeeper>
 		<archery><random min="600" max="830" /></archery>

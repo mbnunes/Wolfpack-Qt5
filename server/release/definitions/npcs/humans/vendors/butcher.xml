@@ -13,7 +13,28 @@
 		<inherit>vendor_male</inherit>
 		<title>the butcher</title>
 		<shopkeeper>
-			<restockable/>
+			<restockable>
+				<item id="9f1"><amount>20</amount></item>
+				<item id="1609"><amount>20</amount></item>
+				<item id="1607"><amount>20</amount></item>
+				<item id="9b9"><amount>20</amount></item>
+				<item id="979"><amount>20</amount></item>
+				<item id="9c0"><amount>20</amount></item>
+				<item id="13f6"><amount>20</amount></item>
+				<item id="ec3"><amount>20</amount></item>
+				<item id="ec4"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="9f1" />
+				<item id="1609" />
+				<item id="1607" />
+				<item id="9b9" />
+				<item id="979" />
+				<item id="9c0" />
+				<item id="13f6" />
+				<item id="ec3" />
+				<item id="ec4" />
+			</sellable>
 		</shopkeeper>
 		<anatomy><random min="450" max="680" /></anatomy>
 		<category>Vendors\Butcher (Male)</category>
@@ -23,7 +44,28 @@
 		<inherit>vendor_female</inherit>
 		<title>the butcher</title>
 		<shopkeeper>
-			<restockable/>
+			<restockable>
+				<item id="9f1"><amount>20</amount></item>
+				<item id="1609"><amount>20</amount></item>
+				<item id="1607"><amount>20</amount></item>
+				<item id="9b9"><amount>20</amount></item>
+				<item id="979"><amount>20</amount></item>
+				<item id="9c0"><amount>20</amount></item>
+				<item id="13f6"><amount>20</amount></item>
+				<item id="ec3"><amount>20</amount></item>
+				<item id="ec4"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="9f1" />
+				<item id="1609" />
+				<item id="1607" />
+				<item id="9b9" />
+				<item id="979" />
+				<item id="9c0" />
+				<item id="13f6" />
+				<item id="ec3" />
+				<item id="ec4" />
+			</sellable>
 		</shopkeeper>
 		<anatomy><random min="450" max="680" /></anatomy>
 		<category>Vendors\Butcher (Female)</category>

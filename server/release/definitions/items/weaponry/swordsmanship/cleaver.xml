@@ -8,8 +8,8 @@
 		<onehanded />
 		<decay />
 		<nodye />
-		<sellprice>8</sellprice>
-		<buyprice>16</buyprice>
+		<sellprice>12</sellprice>
+		<buyprice>24</buyprice>
 		<attack min="11" max="13" />
 		<durability><random min="30" max="46" /></durability>
 		<speed>46</speed>

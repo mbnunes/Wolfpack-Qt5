@@ -34,6 +34,8 @@
 	<!-- Stool -->
 	<item id="a2a">
 		<id>0x0a2a</id> <nodecay />
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Stool\Stool 1</category>
 	</item>
 
@@ -45,6 +47,8 @@
 	<!-- Wooden Bench -->
 	<item id="b2c">
 		<id>0x0b2c</id> <nodecay />
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 1 (W/E)</category>
 	</item>
 
@@ -61,6 +65,8 @@
 
 	<item id="b2f">
 		<id>0x0b2f</id> <nodecay />
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 2</category>
 	</item>
 
@@ -82,12 +88,16 @@
 
 	<item id="b33">
 		<id>0x0b33</id> <nodecay />
+		<buyprice>58</buyprice>
+		<sellprice>24</sellprice>
 		<category>Decoration\Chairs\Wooden Throne\Wooden Throne 2</category>
 	</item>
 
 	<!-- Wooden Chair -->
 	<item id="b4e">
 		<id>0x0b4e</id> <nodecay />
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 1</category>
 	</item>
 
@@ -108,6 +118,8 @@
 
 	<item id="b52">
 		<id>0x0b52</id> <nodecay />
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 1</category>
 	</item>
 
@@ -128,6 +140,8 @@
 
 	<item id="b56">
 		<id>0x0b56</id> <nodecay />
+		<buyprice>16</buyprice>
+		<sellprice>8</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 1</category>
 	</item>
 
@@ -148,6 +162,8 @@
 
 	<item id="b5a">
 		<id>0x0b5a</id> <nodecay />
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 1</category>
 	</item>
 
@@ -169,6 +185,8 @@
 	<!-- misc -->
 	<item id="b5e">
 		<id>0x0b5e</id> <nodecay />
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Misc\Foot Stool</category>
 	</item>
 

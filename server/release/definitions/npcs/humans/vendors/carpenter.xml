@@ -13,7 +13,64 @@
 		<inherit>vendor_male</inherit>
 		<title>the Carpenter</title>
 		<shopkeeper>
-			<restockable/>
+			<restockable>
+				<item id="e7d"><amount>20</amount></item>
+				<item id="e7e"><amount>20</amount></item>
+				<item id="e3e"><amount>20</amount></item>
+				<item id="e3c"><amount>20</amount></item>
+				<item id="e43"><amount>20</amount></item>
+				<item id="b7d"><amount>20</amount></item>
+				<item id="b34"><amount>20</amount></item>
+				<item id="b7c"><amount>20</amount></item>
+				<item id="b33"><amount>20</amount></item>
+				<item id="b2f"><amount>20</amount></item>
+				<item id="a2a"><amount>20</amount></item>
+				<item id="b5e"><amount>20</amount></item>
+				<item id="b4e"><amount>20</amount></item>
+				<item id="b52"><amount>20</amount></item>
+				<item id="b56"><amount>20</amount></item>
+				<item id="b5a"><amount>20</amount></item>
+				<item id="b2c"><amount>20</amount></item>
+				<item id="1034"><amount>20</amount></item>
+				<item id="10e7"><amount>20</amount></item>
+				<item id="1032"><amount>20</amount></item>
+				<item id="10e4"><amount>20</amount></item>
+				<item id="10e5"><amount>20</amount></item>
+				<item id="102a"><amount>20</amount></item>
+				<item id="10e6"><amount>20</amount></item>
+				<item id="1030"><amount>20</amount></item>
+				<item id="102c"><amount>20</amount></item>
+				<item id="1028"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="e7d" />
+				<item id="e7e" />
+				<item id="e3e" />
+				<item id="e3c" />
+				<item id="e43" />
+				<item id="b7d" />
+				<item id="b34" />
+				<item id="b7c" />
+				<item id="b33" />
+				<item id="b2f" />
+				<item id="a2a" />
+				<item id="b5e" />
+				<item id="b4e" />
+				<item id="b52" />
+				<item id="b56" />
+				<item id="b5a" />
+				<item id="b2c" />
+				<item id="1034" />
+				<item id="10e7" />
+				<item id="1032" />
+				<item id="10e4" />
+				<item id="10e5" />
+				<item id="102a" />
+				<item id="10e6" />
+				<item id="1030" />
+				<item id="102c" />
+				<item id="1028" />
+			</sellable>
 		</shopkeeper>
 		<carpentry><random min="850" max="1000" /></carpentry>
 		<lumberjacking><random min="600" max="830" /></lumberjacking>
@@ -24,7 +81,64 @@
 		<inherit>vendor_female</inherit>
 		<title>the Carpenter</title>
 		<shopkeeper>
-			<restockable/>
+			<restockable>
+				<item id="e7d"><amount>20</amount></item>
+				<item id="e7e"><amount>20</amount></item>
+				<item id="e3e"><amount>20</amount></item>
+				<item id="e3c"><amount>20</amount></item>
+				<item id="e43"><amount>20</amount></item>
+				<item id="b7d"><amount>20</amount></item>
+				<item id="b34"><amount>20</amount></item>
+				<item id="b7c"><amount>20</amount></item>
+				<item id="b33"><amount>20</amount></item>
+				<item id="b2f"><amount>20</amount></item>
+				<item id="a2a"><amount>20</amount></item>
+				<item id="b5e"><amount>20</amount></item>
+				<item id="b4e"><amount>20</amount></item>
+				<item id="b52"><amount>20</amount></item>
+				<item id="b56"><amount>20</amount></item>
+				<item id="b5a"><amount>20</amount></item>
+				<item id="b2c"><amount>20</amount></item>
+				<item id="1034"><amount>20</amount></item>
+				<item id="10e7"><amount>20</amount></item>
+				<item id="1032"><amount>20</amount></item>
+				<item id="10e4"><amount>20</amount></item>
+				<item id="10e5"><amount>20</amount></item>
+				<item id="102a"><amount>20</amount></item>
+				<item id="10e6"><amount>20</amount></item>
+				<item id="1030"><amount>20</amount></item>
+				<item id="102c"><amount>20</amount></item>
+				<item id="1028"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="e7d" />
+				<item id="e7e" />
+				<item id="e3e" />
+				<item id="e3c" />
+				<item id="e43" />
+				<item id="b7d" />
+				<item id="b34" />
+				<item id="b7c" />
+				<item id="b33" />
+				<item id="b2f" />
+				<item id="a2a" />
+				<item id="b5e" />
+				<item id="b4e" />
+				<item id="b52" />
+				<item id="b56" />
+				<item id="b5a" />
+				<item id="b2c" />
+				<item id="1034" />
+				<item id="10e7" />
+				<item id="1032" />
+				<item id="10e4" />
+				<item id="10e5" />
+				<item id="102a" />
+				<item id="10e6" />
+				<item id="1030" />
+				<item id="102c" />
+				<item id="1028" />
+			</sellable>
 		</shopkeeper>
 		<carpentry><random min="850" max="1000" /></carpentry>
 		<lumberjacking><random min="600" max="830" /></lumberjacking>

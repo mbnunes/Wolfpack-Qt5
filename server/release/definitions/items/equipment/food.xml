@@ -397,6 +397,8 @@ Food subtypes:
 	<item id="9b6">
 		<category>Equipment\Food\Fried Eggs</category>
 		<id>0x09b6</id>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
 		<type>14</type>
 		<weight>1</weight>
 		<type2>14</type2>
@@ -481,8 +483,8 @@ Food subtypes:
 	<item id="9c0">
 		<category>Equipment\Food\Sausage (W/E)</category>
 		<id>0x09c0</id>
-		<buyprice>20</buyprice>
-		<sellprice>10</sellprice>
+		<buyprice>17</buyprice>
+		<sellprice>8</sellprice>
 		<type>14</type>
 		<weight>1</weight>
 		<type2>8</type2>
@@ -555,8 +557,8 @@ Food subtypes:
 	<item id="9c9">
 		<category>Equipment\Food\Ham (w/e)</category>
 		<id>0x09c9</id>
-		<buyprice>24</buyprice>
-		<sellprice>12</sellprice>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<type>14</type>
 		<weight>0.1</weight>
 		<type2>8</type2>
@@ -845,8 +847,8 @@ Food subtypes:
 	<item id="9f1">
 		<category>Equipment\Food\Cut of Raw Rips</category>
 		<id>0x09f1</id>
-		<buyprice>8</buyprice>
-		<sellprice>4</sellprice>
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
 		<weight>0.2</weight>
 		<events>cooking</events>
 	</item>
@@ -1290,8 +1292,8 @@ Food subtypes:
 	<!-- Raw Leg of Lamb -->
 	<item id="1609">
 		<id>0x1609</id>
-		<buyprice>9</buyprice>
-		<sellprice>4</sellprice>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
 		<weight>0.2</weight>
 		<category>Equipment\Food\Raw Leg of Lamb</category>
 		<events>cooking</events>
@@ -1488,6 +1490,8 @@ Food subtypes:
 
 	<item id="160b">
 		<id>0x160b</id>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
 		<category>Equipment\Food\Pan of Cookies</category>
 	</item>
 

@@ -257,8 +257,10 @@
 
 	<item id="1028">
 		<id>0x1028</id>
+		<buyprice>14</buyprice>
+		<sellprice>7</sellprice>
 		<category>Professions\Carpenter\Dovetail Saw (N/S)</category>
-    <events>skills.carpentry</events>
+		<events>skills.carpentry</events>
 	</item>
 
 	<item id="1029">
@@ -268,8 +270,10 @@
 
 	<item id="102a">
 		<id>0x102a</id>
+		<buyprice>28</buyprice>
+		<sellprice>14</sellprice>
 		<category>Professions\Carpenter\Hammer 1</category>
-    <events>skills.carpentry</events>
+		<events>skills.carpentry</events>
 	</item>
 
 	<item id="102b">
@@ -279,8 +283,10 @@
 
 	<item id="102c">
 		<id>0x102c</id>
+		<buyprice>13</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Moulding Planes (N/S)</category>
-    <events>skills.carpentry</events>
+		<events>skills.carpentry</events>
 	</item>
 
 	<item id="102d">
@@ -291,7 +297,7 @@
 	<item id="102e">
 		<id>0x102e</id>
 		<category>Professions\Carpenter\Nails (W/E)</category>
-    <events>skills.carpentry</events>
+    		<events>skills.carpentry</events>
 	</item>
 
 	<item id="102f">
@@ -301,8 +307,10 @@
 
 	<item id="1030">
 		<id>0x1030</id>
+		<buyprice>13</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Jointing Plane (N/S)</category>
-    <events>skills.carpentry</events>
+    		<events>skills.carpentry</events>
 	</item>
 
 	<item id="1031">
@@ -312,8 +320,10 @@
 
 	<item id="1032">
 		<id>0x1032</id>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Smoothing Plane (N/S)</category>
-    <events>skills.carpentry</events>
+    		<events>skills.carpentry</events>
 	</item>
 
 	<item id="1033">
@@ -323,8 +333,10 @@
 
 	<item id="1034">
 		<id>0x1034</id>
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
 		<category>Professions\Carpenter\Saw (N/S)</category>
-    <events>skills.carpentry</events>
+    		<events>skills.carpentry</events>
 	</item>
 
 	<item id="1035">
@@ -334,26 +346,34 @@
 
 	<item id="10e4">
 		<id>0x10e4</id>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Draw Knife</category>
-    <events>skills.carpentry</events>
+		<events>skills.carpentry</events>
 	</item>
 
 	<item id="10e5">
 		<id>0x10e5</id>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Froe</category>
-    <events>skills.carpentry</events>
+		<events>skills.carpentry</events>
 	</item>
 
 	<item id="10e6">
 		<id>0x10e6</id>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Inshave</category>
-    <events>skills.carpentry</events>
+		<events>skills.carpentry</events>
 	</item>
 
 	<item id="10e7">
 		<id>0x10e7</id>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Scorp</category>
-    <events>skills.carpentry</events>
+		<events>skills.carpentry</events>
 	</item>
 
 	<item id="1bd7">

@@ -42,6 +42,8 @@
 	<item id="e7d">
 		<id>0xe7d</id>
 		<type>1</type>
+		<buyprice>14</buyprice>
+		<sellprice>7</sellprice>
 		<category>Equipment\Containers\Wooden Box (W/E)</category>
 		<weight>4.0</weight>
 	</item>
@@ -119,6 +121,8 @@
 	<item id="e3c">
 		<id>0x0e3c</id>
 		<type>1</type>
+		<buyprice>14</buyprice>
+		<sellprice>7</sellprice>
 		<category>Equipment\Containers\Big Crate (W/E)</category>
 	</item>
 
@@ -131,6 +135,8 @@
 	<item id="e3e">
 		<id>0x0e3e</id>
 		<type>1</type>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Equipment\Containers\Small Crate 2 (W/E)</category>
 	</item>
 
@@ -161,6 +167,8 @@
 	<item id="e43">
 		<id>0x0e43</id>
 		<type>1</type>
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
 		<category>Equipment\Containers\Wooden Metal Chest (N/S)</category>
 	</item>
 
@@ -193,6 +201,8 @@
 
 	<item id="e7e">
 		<id>0x0e7e</id>
+		<buyprice>10</buyprice>
+		<sellprice>5</sellprice>
 		<category>Equipment\Containers\Small Crate 1 (W/E)</category>
 	</item>
 

@@ -950,6 +950,8 @@
 	<!-- Nightstand freely adapted from sphere ;) -->
 	<item id="b34">
 		<id>0x0b34</id> <nodecay />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 		<category>Decoration\Tables\Nightstand\Nightstand (N/S) (1/2)</category>
 	</item>
 
@@ -1099,11 +1101,15 @@
 
 	<item id="b7c">
 		<id>0x0b7c</id> <nodecay />
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<category>Decoration\Tables\Wooden Table\Wooden Table 5 (W/E)</category>
 	</item>
 
 	<item id="b7d">
 		<id>0x0b7d</id> <nodecay />
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<category>Decoration\Tables\Wooden Table\Wooden Table 6 (W/E)</category>
 	</item>
 

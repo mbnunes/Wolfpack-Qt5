@@ -15,8 +15,18 @@
 		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
+				<item id="eb2"><amount>10</amount></item>
+				<item id="eb3"><amount>10</amount></item>
+				<item id="e9c"><amount>10</amount></item>
+				<item id="eb1"><amount>10</amount></item>
+				<item id="e9e"><amount>10</amount></item>
 			</restockable>
 			<sellable>
+				<item id="eb2" />
+				<item id="eb3" />
+				<item id="e9c" />
+				<item id="eb1" />
+				<item id="e9e" />
 			</sellable>
 		</shopkeeper>
 		<discordance><random min="640" max="1000" /></discordance>
@@ -35,8 +45,18 @@
 		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
+				<item id="eb2"><amount>10</amount></item>
+				<item id="eb3"><amount>10</amount></item>
+				<item id="e9c"><amount>10</amount></item>
+				<item id="eb1"><amount>10</amount></item>
+				<item id="e9e"><amount>10</amount></item>
 			</restockable>
 			<sellable>
+				<item id="eb2" />
+				<item id="eb3" />
+				<item id="e9c" />
+				<item id="eb1" />
+				<item id="e9e" />
 			</sellable>
 		</shopkeeper>
 		<discordance><random min="640" max="1000" /></discordance>

@@ -41,6 +41,8 @@
 
 	<item id="1022">
 		<id>0x1022</id>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<category>Professions\Fletcher\Arrow Fletching 1</category>
 	</item>
 

@@ -73,6 +73,8 @@
 	<item id="e9c">
 		<id>0xe9c</id>
 		<decay/>
+		<buyprice>50</buyprice>
+		<sellprice>25</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Drum</category>
 		<events>environment</events>
@@ -91,6 +93,8 @@
 	<item id="e9e">
 		<id>0xe9e</id>
 		<decay/>
+		<buyprice>60</buyprice>
+		<sellprice>30</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Tamberine with Ribbon</category>
 		<events>environment</events>
@@ -100,6 +104,8 @@
 	<item id="eb1">
 		<id>0xeb1</id>
 		<decay/>
+		<buyprice>90</buyprice>
+		<sellprice>45</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Standing Harp</category>
 		<events>environment</events>
@@ -109,6 +115,8 @@
 	<item id="eb2">
 		<id>0xeb2</id>
 		<decay/>
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Harp</category>
 		<events>environment</events>
@@ -118,6 +126,8 @@
 	<item id="eb3">
 		<id>0xeb3</id>
 		<decay/>
+		<buyprice>40</buyprice>
+		<sellprice>20</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Lute (N/S)</category>
 		<events>environment</events>
