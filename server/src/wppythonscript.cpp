@@ -756,83 +756,45 @@ PyObject* Py_WPItem_delete( Py_WPItem* self, PyObject* args )
 
 PyObject *Py_WPCharGetAttr( Py_WPChar *self, char *name )
 {
-	if( !strcmp( name, "name" ) )
-		return PyString_FromString( self->Char->name.c_str() );	
-
-	else if( !strcmp( name, "orgname" ) )
-		return PyString_FromString( self->Char->orgname.c_str() );	
-
-	else if( !strcmp( name, "title" ) )
-		return PyString_FromString( self->Char->orgname.c_str() );	
-
-	else if( !strcmp( name, "serial" ) )
-		return PyInt_FromLong( self->Char->serial );
-
-	// Body, XBody, Skin, XSkin
-	else if( !strcmp( name, "body" ) )
-		return PyInt_FromLong( self->Char->id() );
-
-	else if( !strcmp( name, "xbody" ) )
-		return PyInt_FromLong( self->Char->xid );
-
-	else if( !strcmp( name, "skin" ) )
-		return PyInt_FromLong( self->Char->skin );
+	getCharStrProperty( "name", name.c_str() )
+	else getCharStrProperty( "orgname", orgname.c_str() )
+	else getCharStrProperty( "title", title.c_str() )
+	else getCharIntProperty( "serial", serial )
+	else getCharIntProperty( "body", id() )
+	else getCharIntProperty( "xbody", xid )
+	else getCharIntProperty( "skin", skin )
+	else getCharIntProperty( "xskin", xskin )
 	
-	else if( !strcmp( name, "xskin" ) )
-		return PyInt_FromLong( self->Char->xskin );
+	else getCharIntProperty( "health", hp )
+	else getCharIntProperty( "stamina", stm )
+	else getCharIntProperty( "mana", mn )
 
-	// Health, Stamina, Mana
-	else if( !strcmp( name, "health" ) )
-		return PyInt_FromLong( self->Char->hp );
+	else getCharIntProperty( "strength", st )
+	else getCharIntProperty( "dexterity", effDex() )
+	else getCharIntProperty( "intelligence", in )
 
-	else if( !strcmp( name, "stamina" ) )
-		return PyInt_FromLong( self->Char->stm );
+	else getCharIntProperty( "x", pos.x )
+	else getCharIntProperty( "y", pos.y )
+	else getCharIntProperty( "z", pos.z )
+	else getCharIntProperty( "plane", pos.plane )
 
-	else if( !strcmp( name, "mana" ) )
-		return PyInt_FromLong( self->Char->mn );
+	else getCharIntProperty( "direction", dir )
+	else getCharIntProperty( "flags2", priv2 )
+	else getCharIntProperty( "hidamage", hidamage )
+	else getCharIntProperty( "lodamage", lodamage )
 
-	// Strength, Dexterity, Intelligence
-	else if( !strcmp( name, "strength" ) )
-		return PyInt_FromLong( self->Char->st );
+	else if( !strcmp( "equipment", name ) )
+	{
+		Py_WPEquipment *returnVal = PyObject_New( Py_WPEquipment, &Py_WPEquipmentType );
+		returnVal->Char = self->Char; // Never forget that
+		return (PyObject*)returnVal;
+	}
 
-	else if( !strcmp( name, "dexterity" ) )
-		return PyInt_FromLong( self->Char->effDex() );
-
-	else if( !strcmp( name, "intelligence" ) )
-		return PyInt_FromLong( self->Char->in );
-
-	// X,Y,Z,(W)
-	else if( !strcmp( name, "x" ) )
-		return PyInt_FromLong( self->Char->pos.x );
-
-	else if( !strcmp( name, "y" ) )
-		return PyInt_FromLong( self->Char->pos.y );
-
-	else if( !strcmp( name, "z" ) )
-		return PyInt_FromLong( self->Char->pos.z );
-
-	else if( !strcmp( name, "plane" ) )
-		return PyInt_FromLong( self->Char->pos.plane );
-
-	else if( !strcmp( name, "direction" ) )
-		return PyInt_FromLong( self->Char->dir );
-
-	else if( !strcmp( name, "incognito" ) )
+	/*else if( !strcmp( name, "incognito" ) )
 		return self->Char->incognito ? PyTrue : PyFalse;
 
 	else if( !strcmp( name, "polymorph" ) )
-		return self->Char->polymorph ? PyTrue : PyFalse;
-
-	// Flags ?
-	else if( !strcmp( name, "flags2" ) )
-		return PyInt_FromLong( self->Char->priv2 );
-
-	// HiDamage,LoDamage
-	else if( !strcmp( name, "hidamage" ) )
-		return PyInt_FromLong( self->Char->hidamage );
-
-	else if( !strcmp( name, "lodamage" ) )
-		return PyInt_FromLong( self->Char->lodamage );
+		return self->Char->polymorph ? PyTrue : PyFalse;*/
 
 	// If no property is found search for a method
 	return Py_FindMethod( Py_WPCharMethods, (PyObject*)self, name );
