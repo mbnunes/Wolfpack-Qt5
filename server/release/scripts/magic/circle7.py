@@ -93,7 +93,7 @@ class EnergyField(Spell):
 			newitem.id = itemid
 			newitem.moveto(pos)
 			newitem.decay = 0
-			newitem.direction = 29
+			#newitem.direction = 29
 			newitem.settag('dispellable_field', 1)
 			newitem.update()
 			serials.append(newitem.serial)
@@ -266,6 +266,7 @@ class MassDispel (Spell):
 
 		# Enumerate chars
 		chars = wolfpack.chars(target.x, target.y, char.pos.map, 8)
+		items = wolfpack.items(target.x, target.y, char.pos.map, 8)
 		for target in chars:
 			if char == target or not target.npc or target.summontimer == 0:
 				continue
@@ -278,12 +279,11 @@ class MassDispel (Spell):
 				target.delete()
 			
 		# Field spells
-		items = wolfpack.items(target.x, target.y, char.pos.map, 8)
 		for item in items:
-			if target.hastag('dispellable_field'):
-				wolfpack.effect(0x376a, target.pos, 9, 20)
-				target.soundeffect(0x201)
-				target.delete()
+			if item.hastag('dispellable_field'):
+				wolfpack.effect(0x376a, item.pos, 9, 20)
+				item.soundeffect(0x201)
+				item.delete()
 
 class MeteorSwarm (Spell):
 	def __init__(self):

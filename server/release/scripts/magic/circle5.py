@@ -295,7 +295,7 @@ class PoisonField(Spell):
 		for pos in positions:
 			newitem = wolfpack.newitem(1)
 			newitem.id = itemid
-			newitem.direction = 29
+			#newitem.direction = 29
 			newitem.moveto(pos)
 			newitem.decay = 0 # Dont decay. TempEffect will take care of them
 			newitem.settag('dispellable_field', 1)
