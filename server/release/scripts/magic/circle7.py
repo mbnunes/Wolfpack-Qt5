@@ -270,9 +270,20 @@ class MassDispel (Spell):
 			if char == target or not target.npc or target.summontimer == 0:
 				continue
 
-			wolfpack.effect(0x3728, target.pos, 8, 20)
-			target.soundeffect(0x201)
-			target.delete()
+			if self.checkresist(char, tgarget):
+				target.effect(0x3779, 10, 20)
+			else:
+				wolfpack.effect(0x3728, target.pos, 8, 20)
+				target.soundeffect(0x201)
+				target.delete()
+			
+		# Field spells
+		items = wolfpack.items(target.x, target.y, char.pos.map, 8)
+		for item in items:
+			if target.hastag('dispellable_field'):
+				wolfpack.effect(0x376a, target.pos, 9, 20)
+				target.soundeffect(0x201)
+				target.delete()
 
 class MeteorSwarm (Spell):
 	def __init__(self):
