@@ -20,7 +20,7 @@ def evaluatingintel( char, skill ):
 
 	if char.socket.hastag( 'skill_delay' ):
 		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
-			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
