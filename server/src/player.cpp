@@ -1121,7 +1121,7 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 		else
 		{
 			P_ITEM pItem = 0;
-			const QString &id = node->getAttribute( "id" );
+			const QString &id = node->getAttribute("id");
 
 			if( id != QString::null )
 			{
@@ -1157,7 +1157,7 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 				else if( node->name() == "equipment" )
 				{
 					unsigned char layer = pItem->layer();
-					pItem->setLayer( 0 );
+					pItem->setLayer(0);
 
 					if( !layer )
 					{

@@ -50,7 +50,7 @@ struct tile_st
 	char flag2;
 	char flag3;
 	char flag4;
-	float weight;
+	unsigned char weight;
 	char layer;
 	short unknown1;
 	char unknown2;
