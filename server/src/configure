@@ -82,8 +82,9 @@ fi;
 echo -n "Searching for Python library.... ";
 
 for py_libpath in \
-		/usr/lib/[Pp]ython*/libpython*.a \
-		/usr/lib/[Pp]ython*/config/libpython*.a \
+		/usr/lib/libpython*.so \
+		/usr/lib/[Pp]ython*/libpython*.so \
+		/usr/lib/[Pp]ython*/config/libpython*.so \
 		;
 do
 	if [ -e "$py_libpath" ];

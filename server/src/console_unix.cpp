@@ -41,6 +41,7 @@
 // Wolfpack includes
 #include "console.h"
 #include "globals.h"
+#include "wolfpack.h"
 
 using namespace std;
 
@@ -78,8 +79,6 @@ void setNonBlockingIo()
 
 void signal_handler(int signal)
 {
-	cCharIterator iter;
-
 	switch (signal)
 	{
 	case SIGHUP:	queueAction( RELOAD_SCRIPTS );		break;
