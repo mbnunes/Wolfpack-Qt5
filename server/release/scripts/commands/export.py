@@ -137,7 +137,7 @@ def export( char, args, choice ):
 	item = iterator.first
 	i = 0
 	while item:
-		if not item.baseid in nonsaves and ( item.spawnregion == None or item.spawnregion == '' ):
+		if not item.baseid in nonsaves and len( item.spawnregion ) == 0
 			# Build our string
 			if format == 1: # Sphere 51a
 				output.write( "[WORLDITEM 0%x]%s" % ( item.id, newline ) )
@@ -175,17 +175,17 @@ def export( char, args, choice ):
 				# Older Format, no baseid/map saved
 				#output.write( "0x%x %i %i %i 0x%x%s" % ( item.id, item.pos.x, item.pos.y, item.pos.z, item.color, newline ) )
 
-		if item.amount > 1:
-			warnings += 'Item %i has an amount of %i. This information will be lost when made static.<br><br>' % ( hex( item.serial ), item.amount )
+			if item.amount > 1:
+				warnings += 'Item %i has an amount of %i. This information will be lost when made static.<br><br>' % ( hex( item.serial ), item.amount )
 
-		eventlist = item.eventlist
-		if len( eventlist ) > 0:
-			warnings += 'Item %i has events (%s) assigned to it. It wont be usable when made static.<br><br>' % ( hex( item.serial ), eventlist )
+			eventlist = item.eventlist
+			if len( eventlist ) > 0:
+				warnings += 'Item %i has events (%s) assigned to it. It wont be usable when made static.<br><br>' % ( hex( item.serial ), eventlist )
 
-		if item.type != 0:
+			if item.type != 0:
 			warnings += 'Item %i is of type %i. It wont be usable when made static.<br><br>' % ( hex( item.serial ), item.type )
 
-		i += 1
+			i += 1
 
 		item = iterator.next
 
