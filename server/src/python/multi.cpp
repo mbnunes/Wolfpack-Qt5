@@ -117,29 +117,37 @@ PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
 	}
 	P_CHAR player = getArgChar( 0 );
 
-	cUOTxCustomHouse customhouse;
-	P_MULTI pMulti = self->pMulti;
-	
-	Coord_cl multicoord = pMulti->pos();
-
-	QValueList< SERIAL > items = pMulti->items();
-	QValueList< SERIAL >::iterator it = items.begin();
-	customhouse.setSerial( pMulti->serial() );
-	customhouse.setCompression( 0 );	
-	customhouse.setRevision( pMulti->revision() );
-	
-	while( it != items.end() )
-	{
-		P_ITEM pItem = FindItemBySerial( *it );
-		if( pItem )
-			customhouse.addTile( pItem->id(), multicoord - pItem->pos() );
-		it ++;
-	}
-	player->socket()->send( &customhouse );
+	self->pMulti->sendCH( player->socket() );
 
 	return PyTrue;
 }
 
+/*! 
+	Adds a tile to the custom house
+*/
+PyObject* wpMulti_addchtile( wpMulti* self, PyObject* args )
+{
+	Q_UNUSED(args);	
+	if( !self->pMulti || self->pMulti->free || !self->pMulti->ishouse() )
+		return PyFalse;
+	
+	if( PyTuple_Size( args ) < 4 || !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+	UINT16 model;
+	Coord_cl pos;
+	
+	model = getArgInt( 0 );
+	pos.x = getArgInt( 1 );
+	pos.y = getArgInt( 2 );
+	pos.z = getArgInt( 3 );
+	
+	self->pMulti->addCHTile( model, pos );
+
+	return PyTrue;
+}
 /*!
 	Removes the multi
 */
@@ -509,6 +517,7 @@ static PyMethodDef wpMultiMethods[] =
 	{ "items",				(getattrofunc)wpMulti_items, METH_VARARGS, "Returns the list of the items in this multi." },
 	{ "friends",			(getattrofunc)wpMulti_friends, METH_VARARGS, "Returns the friends list of this multi." },
 	{ "bans",				(getattrofunc)wpMulti_friends, METH_VARARGS, "Returns the ban list of this multi." },
+	{ "addchtile",			(getattrofunc)wpMulti_addchtile, METH_VARARGS, "Adds a tile to the custom house." },
 
 	// Tag System
 	{ "gettag",				(getattrofunc)wpMulti_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },

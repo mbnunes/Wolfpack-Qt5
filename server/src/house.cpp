@@ -364,3 +364,16 @@ void cHouse::registerInFactory()
 	UObjectFactory::instance()->registerType("cHouse", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cHouse", sqlString );
 }
+
+void cHouse::sendCH( cUOSocket* socket )
+{
+	cUOTxCustomHouse customhouse;
+	customhouse.setSerial( this->serial() );
+	customhouse.setCompression( 0 );	
+	customhouse.setRevision( this->revision() );
+
+	for( UINT32 i = 0; i < chtiles_.count(); i++ )
+		customhouse.addTile( chtiles_[i].model(), chtiles_[i].pos() );
+	
+	socket->send( &customhouse );
+}

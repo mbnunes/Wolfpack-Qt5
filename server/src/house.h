@@ -38,9 +38,26 @@
 
 // Library Includes
 #include <qstringlist.h>
+#include <qvaluelist.h>
 
 // Forward Class declaration
 class cUOSocket;
+
+class CHTile  //Custom house tile
+{
+public:		
+	CHTile(){}
+	~CHTile(){}
+	CHTile( UINT16 model, Coord_cl pos) { model_ = model; pos_ = pos; }
+	UINT16 model() const { return model_; }
+	Coord_cl pos() const { return pos_; }
+
+private:
+	UINT16	model_;
+	Coord_cl pos_;
+};
+
+typedef QValueList< CHTile > CHTiles;
 
 class cHouse : public cMulti
 {
@@ -79,6 +96,10 @@ public:
 	QString	deedSection( void ) { return deedsection_; }
 	void	setDeedSection( QString data ) { deedsection_ = data; }
 
+	void	addCHTile( UINT16 model, Coord_cl pos) { chtiles_.push_back( CHTile( model, pos ) ); }
+	void	clearTiles( void ) { chtiles_.clear(); }
+	void	sendCH( cUOSocket* socket );
+	
 	bool	ishouse() { return true; }
 	bool	isboat() { return false; }
 	UINT32	revision() { return revision_; }
@@ -97,6 +118,9 @@ protected:
 	};
 	UINT32 revision_;
 	posxyz_st	charpos_;
+
+	CHTiles chtiles_;
+
 };
 
 #endif // __HOUSE_H__
