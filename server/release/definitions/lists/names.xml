@@ -1,4 +1,3 @@
-<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Ambassador Kosh (HiTech) -->
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -125,114 +124,7 @@
 		<item>Yog-Sothoth</item>
 		<item>Zoray</item>
 	</list>
-	<list id="NAMES_DRAGON">
-		<item>Aegnor</item>
-		<item>Aelfric</item>
-		<item>Ainvar</item>
-		<item>Alcor</item>
-		<item>Arazion</item>
-		<item>Ardarion</item>
-		<item>Arkanis</item>
-		<item>Athrax</item>
-		<item>Barghest</item>
-		<item>Baros</item>
-		<item>Begarin</item>
-		<item>Beynlore</item>
-		<item>Burat</item>
-		<item>Cairne</item>
-		<item>Carthon</item>
-		<item>Chamdar</item>
-		<item>Ciric</item>
-		<item>Cruzado</item>
-		<item>Cyphrak</item>
-		<item>D'harun</item>
-		<item>Daelon</item>
-		<item>Daktar</item>
-		<item>Darvain</item>
-		<item>Dracus</item>
-		<item>Dradar</item>
-		<item>Draelin</item>
-		<item>Draenor</item>
-		<item>Durodund</item>
-		<item>Eklor</item>
-		<item>Elrak</item>
-		<item>Fangorn</item>
-		<item>Farynthane</item>
-		<item>Feenark</item>
-		<item>Galtor</item>
-		<item>Gemma</item>
-		<item>Gragus</item>
-		<item>Irian</item>
-		<item>Israfel</item>
-		<item>Jaden</item>
-		<item>Jefahn</item>
-		<item>K'shar</item>
-		<item>Kalimus</item>
-		<item>Kallomane</item>
-		<item>Kanax</item>
-		<item>Kelnos</item>
-		<item>Kharn</item>
-		<item>Khir</item>
-		<item>Kragon</item>
-		<item>Kylnath</item>
-		<item>Larac</item>
-		<item>Lathis</item>
-		<item>Lenroc</item>
-		<item>Lonthorynthoryl</item>
-		<item>Lorreck</item>
-		<item>Lyticant</item>
-		<item>Mattrick</item>
-		<item>Mazrim</item>
-		<item>Modrei</item>
-		<item>Morturus</item>
-		<item>Muktar</item>
-		<item>Murdon</item>
-		<item>Murron</item>
-		<item>Myndon</item>
-		<item>Mythran</item>
-		<item>Mytor</item>
-		<item>Nabius</item>
-		<item>Nalynkal</item>
-		<item>Nazgul</item>
-		<item>Paorin</item>
-		<item>Quillan</item>
-		<item>Rendar</item>
-		<item>Sang Qui</item>
-		<item>Scythyn</item>
-		<item>Shilor</item>
-		<item>Smaug</item>
-		<item>Sobran</item>
-		<item>Soltak</item>
-		<item>Sorz</item>
-		<item>Taban</item>
-		<item>Telzar</item>
-		<item>Teron</item>
-		<item>Trethovian</item>
-		<item>Tyrnar</item>
-		<item>Ulath</item>
-		<item>Vandor</item>
-		<item>Vermithrax</item>
-		<item>Vitar</item>
-		<item>Vlade</item>
-		<item>Volan</item>
-		<item>Wydstrin</item>
-		<item>X'calak</item>
-		<item>Xaelin</item>
-		<item>Xandor</item>
-		<item>Xarthos</item>
-		<item>Xaxtox</item>
-		<item>Xenix</item>
-		<item>Xiltanth</item>
-		<item>Xylor</item>
-		<item>Xystil</item>
-		<item>Yazad</item>
-		<item>Yllthane</item>
-		<item>Ylthallynon</item>
-		<item>Ythoryn</item>
-		<item>Zalifar</item>
-		<item>Zathrix</item>
-		<item>Zunrek</item>
-	</list>
+
 	<list id="NAMES_EVIL_MAGE">
 		<item>Aegnor</item>
 		<item>Aelfric</item>
@@ -6069,7 +5961,7 @@
 		<item>Zuza</item>
 		<item>Zuzanny</item>
 	</list>
-	<list id="NAMES_OGRE">
+	<list id="NAMES_ORC">
 		<item>Abghat</item>
 		<item>Adgulg</item>
 		<item>Aghed</item>
@@ -7057,5 +6949,6 @@
 	<list id="NAMES_SHADE">
 		<item>a shade</item>
 		<item>a spectre</item>
+		<item>a bogle</item>
 	</list>
 </definitions>
