@@ -18,6 +18,7 @@
 		<smelt>14</smelt>
 		<weight>7.0</weight>
 		<buyprice>103</buyprice>
+		<sellprice>51</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Chainmail\Tunic NS</category>
