@@ -38,8 +38,6 @@ worlddriver = database.driver( database.WORLD )
 
 time = 24 * 3600000 * 7 # Every Week
 
-worldtables = "`characters`, `corpses`, `corpses_equipment`, `effects`, `effects_properties`, `guilds`, `guilds_canidates`, `guilds_members`, `items`, `npcs`, `players`, `settings`, `skills`, `spawnregions,` `tags`, `uobject`, `uobjectmap`"
-
 """
 	\command backupdb
 	\description Performs a backup on the world and account database.
@@ -98,12 +96,12 @@ def backup_db():
 				# Time to backup
 				if accountsdriver == 'mysql':
 					database.open( database.ACCOUNTS )
-					database.execute( "BACKUP TABLE `accounts` TO '%s'" % ( accountsdir ) )
+					database.execute( "BACKUP TABLE %s TO '%s'" % ( database.MYSQL_ACCOUNTS, accountsdir ) )
 					database.close()
 					log( LOG_MESSAGE, "Accounts database saved to: %s" % ( accountsdir ) )
 				if worlddriver == 'mysql':
 					database.open( database.WORLD )
-					database.execute( "BACKUP TABLE %s TO '%s'" % ( worldtables, worlddir ) )
+					database.execute( "BACKUP TABLE %s TO '%s'" % ( database.MYSQL_WORLD, worlddir ) )
 					database.close()
 					#else:
 					#	log( LOG_MESSAGE, "Warning: Failed to open the world database!" )
