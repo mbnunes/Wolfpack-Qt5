@@ -119,7 +119,6 @@ extern long int oldtime, newtime;
 #define BUILDRANGE 31 // Visibility for castles and keeps
 #define PATHNUM 2
 
-
 #define XYMAX 256 // Maximum items Wolfpack can handle on one X/Y square
 //#define MAXEFFECTS MAXCHARS/10
 #define MAXLAYERS 50 // Maximum number of Layers in paperdolls (still not sure how many)

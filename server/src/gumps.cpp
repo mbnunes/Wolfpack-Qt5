@@ -43,6 +43,7 @@
 #include "classes.h"
 #include "network.h"
 #include "scriptc.h"
+#include "network/uosocket.h"
 
 #include "debug.h"
 
@@ -1673,7 +1674,7 @@ Q_UINT32 cGump::addRawText( const QString &data )
 }
 
 // Send it to UOXSOCKET s
-void cGump::send( UOXSOCKET socket )
+void cGump::send( cUOSocket *socket )
 {
 	QString layout = layout_.join( "" );
 	QByteArray packet( 21 + layout.length() + 2 );
@@ -1701,7 +1702,8 @@ void cGump::send( UOXSOCKET socket )
 	
 	// Calc the packet length
 	ShortToCharPtr( packet.count(), (Q_UINT8*)&packet.data()[1] );
-	Xsend( socket, packet.data(), packet.count() );
+	cUOPacket uoPacket( packet );
+	socket->send( &uoPacket );
 }
 
 void cGump::addButton( Q_INT32 buttonX, Q_INT32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, Q_INT32 returnCode )

@@ -31,8 +31,11 @@
 
 #include "commands.h"
 #include "globals.h"
+#include "tilecache.h"
+#include "gumps.h"
 #include "wpconsole.h"
 #include "wpdefmanager.h"
+#include "mapstuff.h"
 #include "worldmain.h"
 #include "srvparams.h"
 #include "territories.h"
@@ -657,6 +660,80 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
 }
 
+class cInfoTarget: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( !socket->player() )
+			return;
+
+		Coord_cl pos = socket->player()->pos;
+		pos.x = target->x();
+		pos.y = target->y();
+		pos.z = target->z();
+
+		// Map Target
+		if( !target->model() && !target->serial() )
+		{
+			map_st mapTile = Map->SeekMap( pos );
+			
+			// Display a gump with this information
+			cGump iGump( 0, 0 );
+
+			// Basic .INFO Header
+			iGump.addResizeGump( 0, 40, 0xA28, 450, 250 ); //Background
+			iGump.addGump( 105, 18, 0x58B ); // Fancy top-bar
+			iGump.addGump( 182, 0, 0x589 ); // "Button" like gump
+			iGump.addTilePic( 202, 23, 0x14eb ); // Type of info menu
+
+            iGump.addText( 175, 90, tr( "Landscape Info" ), 0x530 );
+			
+			Coord_cl pos = socket->player()->pos;
+			pos.x = target->x();
+			pos.y = target->y();
+
+			// Give information about the tile
+			land_st lTile = cTileCache::instance()->getLand( Map->SeekMap( pos ).id );
+
+			iGump.addText( 50, 120, tr( "Name: %1" ).arg( lTile.name ), 0x834 );
+
+			iGump.addText( 50, 145, tr( "ID: 0x%1" ).arg( Map->SeekMap( pos ).id, 0, 16 ), 0x834 );
+
+			iGump.addText( 50, 170, tr( "Z Height: %1" ).arg( Map->SeekMap( pos ).z ), 0x834 );
+
+			// Wet ? Impassable ? At least these are the most interesting
+			QStringList flags;
+
+			if( lTile.flag1&0x80 )
+				flags.push_back( tr( "wet" ) );
+
+			if( lTile.flag1&0x40 )
+				flags.push_back( tr( "impassable" ) );
+
+			if( lTile.flag2&0x02 )
+				flags.push_back( tr( "surface" ) );
+
+			if( lTile.flag2&0x04 )
+				flags.push_back( tr( "stairs" ) );
+
+			iGump.addText( 50, 195, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
+
+			// OK button
+			iGump.addButton( 90, 240, 0x481, 0x483, 0 ); // Only Exit possible
+			iGump.addText( 130, 240, tr( "Close" ), 0x834 );
+
+			iGump.send( socket );
+		}
+	}
+};
+
+void commandInfo( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->sysMessage( tr( "Please select a target" ) );
+	socket->attachTarget( new cInfoTarget );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -671,6 +748,7 @@ stCommand cCommands::commands[] =
 	{ "GO", commandGo },
 	{ "WHERE", commandWhere },
 	{ "FIX", commandFix },
+	{ "INFO", commandInfo },
 	{ "SET", commandSet },
 	{ NULL, NULL }
 };

@@ -273,15 +273,28 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setHightlight( 0 ); // NEED TO SET HIGHLIGHT
 
 	// Add our equipment
-	/*vector< SERIAL > equipment = contsp.getData( pChar->serial );
+	vector< SERIAL > equipment = contsp.getData( pChar->serial );
+	bool layers[0x19] = {0,};
+
 	for( Q_UINT32 i = 0; i < equipment.size(); ++i )
 	{
 		P_ITEM pItem = FindItemBySerial( equipment[i] );
 		if( !pItem )
 			continue;
 
+		// Only send visible layers
+		// 0x19 = horse layer
+		if( pItem->layer() > 0x19 )
+			continue;
+
+		// Only send items once
+		if( layers[ pItem->layer() ] )
+			continue;
+
+		layers[ pItem->layer() ] = true;
+
 		addEquipment( pItem->serial, pItem->id(), pItem->layer(), pItem->color() );
-	}*/
+	}
 }
 
 void cUOTxCharEquipment::fromItem( P_ITEM pItem )

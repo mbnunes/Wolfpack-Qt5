@@ -279,7 +279,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 #ifndef __unix__
 					if( ( server.sIP == 0 ) && ( lastIpCheck <= uiCurrentTime ) )
 					{
-						PHOSTENT hostinfo;
+						hostent *hostinfo;
 						char name[256];
 
 						// We check for a new IP max. every 30 minutes
