@@ -34,6 +34,10 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Fixed another trading issue.
 		- Fixed bug #0000278 (Weapon not being unequipped)
 		- Pet commands now always allow control by GMs.
+		- Fixes for remove:
+		  Remove now gives a warning about deletion of players.
+		  Remove should only delete player characters under the player acl.
+		- New commands: kick, ban, unban.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
