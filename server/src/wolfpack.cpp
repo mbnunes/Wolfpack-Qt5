@@ -191,14 +191,29 @@ static void InitMultis()
 }
 
 QMutex actionMutex;
-QValueVector< eActionType > actionQueue;
+QValueVector<eActionType> actionQueue;
 
-void queueAction( eActionType type )
-{
+void queueAction (eActionType type) {
 	if (serverState == RUNNING) {
 		QMutexLocker lock( &actionMutex );
 		actionQueue.push_back( type );
 	}
+}
+
+#if defined(Q_OS_WIN32)
+QMutex dataMutex;
+#endif
+
+void lockDataMutex() {
+#if defined(Q_OS_WIN32)
+	dataMutex.lock();
+#endif
+}
+
+void unlockDataMutex() {
+#if defined(Q_OS_WIN32)
+	dataMutex.unlock();
+#endif
 }
 
 //#if defined(_DEBUG)
@@ -450,73 +465,89 @@ int main( int argc, char **argv )
 	Console::instance()->start(); // Startup Console
 
 	QWaitCondition niceLevel;
+	
+	unsigned char cycles = 0;
+	lockDataMutex();
 
 	// This is our main loop
-	while( keeprun )
-	{		
-		// Python threading - start
-		_save = PyEval_SaveThread();
-
-		switch( SrvParams->niceLevel() )
-		{
-			case 0: break;	// very unnice - hog all cpu time
-			case 1: if ( cNetwork::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
-			case 2: niceLevel.wait(10); break;
-			case 3: niceLevel.wait(40); break;// very nice
-			case 4: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(10); else niceLevel.wait(4000); break; // anti busy waiting
-			case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
-			default: niceLevel.wait(10); break;
-		}
-		qApp->processEvents( 40 );
-
-		// Python threading - end
-		PyEval_RestoreThread( _save );
+	while (keeprun) {
+		++cycles;
 
 		// Update our currenttime
 		uiCurrentTime = getNormalizedTime();
 
-		// Perform Threadsafe Actions
-		actionMutex.lock();
+		// Every 10th cycle we sleep for a while and give other threads processing time.
+		if (cycles == 10) {
+			cycles = 0;
 
-		while( actionQueue.begin() != actionQueue.end() )
-		{
-			eActionType type = *(actionQueue.begin());
-			actionQueue.erase( actionQueue.begin() );
+			// Python threading - start
+			_save = PyEval_SaveThread();
 
-			switch( type )
+			switch( SrvParams->niceLevel() )
 			{
-			case RELOAD_ACCOUNTS:
-				Console::instance()->PrepareProgress( "Reloading Accounts" );
-				Accounts::instance()->reload();
-				Console::instance()->ProgressDone();
-				break;
-
-			case RELOAD_CONFIGURATION:
-				Console::instance()->PrepareProgress( "Reloading Configuration" );
-				SrvParams->reload();
-				Console::instance()->ProgressDone();
-				break;
-
-			case RELOAD_SCRIPTS:
-				DefManager->reload();
-
-			case RELOAD_PYTHON:
-				ScriptManager::instance()->reload();
-				break;
-
-			case SAVE_WORLD:
-				World::instance()->save();
-				break;
+				case 0: break;	// very unnice - hog all cpu time
+				case 1: if ( cNetwork::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
+				case 2: niceLevel.wait(10); break;
+				case 3: niceLevel.wait(40); break;// very nice
+				case 4: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(10); else niceLevel.wait(4000); break; // anti busy waiting
+				case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
+				default: niceLevel.wait(10); break;
 			}
+			qApp->processEvents( 40 );
+
+			// Python threading - end
+			PyEval_RestoreThread( _save );
+
+			// Unlock the main mutex to give the gui time for processing data
+			unlockDataMutex();
+			lockDataMutex();			
 		}
 
-		actionMutex.unlock();
+		// Perform Threadsafe Actions
+		if (!actionQueue.empty()) {
+			actionMutex.lock();
+			while (actionQueue.begin() != actionQueue.end()) {
+				eActionType type = *(actionQueue.begin());
+				actionQueue.erase( actionQueue.begin() );
+
+				switch( type )
+				{
+				case RELOAD_ACCOUNTS:
+					Console::instance()->PrepareProgress( "Reloading Accounts" );
+					Accounts::instance()->reload();
+					Console::instance()->ProgressDone();
+					break;
+
+				case RELOAD_CONFIGURATION:
+					Console::instance()->PrepareProgress( "Reloading Configuration" );
+					SrvParams->reload();
+					Console::instance()->ProgressDone();
+					break;
+
+				case RELOAD_SCRIPTS:
+					DefManager->reload();
+
+				case RELOAD_PYTHON:
+					ScriptManager::instance()->reload();
+					break;
+
+				case SAVE_WORLD:
+					World::instance()->save();
+					break;
+				}
+			}
+			actionMutex.unlock();
+		}
+
+		// See if we should release our data lock for a while.
+		
 
 		Console::instance()->poll();
 		cNetwork::instance()->poll();
 		Timing::instance()->poll();
 	}
 
+	unlockDataMutex();
 	serverState = SHUTDOWN;
 
 	ScriptManager::instance()->onServerStop();

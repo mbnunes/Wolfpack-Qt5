@@ -32,8 +32,7 @@
 #if !defined( __WOLFPACK_H__ )
 #define __WOLFPACK_H__
 
-enum eActionType
-{
+enum eActionType {
 	RELOAD_SCRIPTS = 0,
 	RELOAD_PYTHON,
 	RELOAD_ACCOUNTS,
@@ -41,6 +40,19 @@ enum eActionType
 	SAVE_WORLD
 };
 
-void queueAction( eActionType );
+void queueAction(eActionType action);
+
+/*!
+	\brief Locks the main application mutex.
+	This waits until the mainloop decides to 
+	give other threads some time.
+*/
+void lockDataMutex();
+
+/*!
+	\brief Unlocks the main application mutex.
+	This locks until the mainloop doesn't access the data anymore.
+*/
+void unlockDataMutex();
 
 #endif

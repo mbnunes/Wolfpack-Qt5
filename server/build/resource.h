@@ -11,7 +11,9 @@
 #define IDI_ICON3                       106
 #define IDI_ICONRED                     106
 #define IDD_DIALOGABOUT                 107
+#define IDD_ACCOUNTDIALOG               109
 #define IDC_RICHEDIT                    1000
+#define IDC_ACCOUNTS                    1002
 #define IDC_EXIT                        40001
 #define ID_RELOAD_ACCOUNTS              40002
 #define ID_RELOAD_CONFIGURATION         40003
@@ -21,15 +23,17 @@
 #define ID_SERVER_LISTUSERS             40007
 #define ID_HELP_ABOUT                   40009
 #define ID_HELP_WOLFPACKHOMEPAGE        40010
+#define ID_ACCOUNTS_MANAGE              40013
+#define ID_ACCOUNTS_ADD                 40014
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        109
-#define _APS_NEXT_COMMAND_VALUE         40011
-#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_RESOURCE_VALUE        110
+#define _APS_NEXT_COMMAND_VALUE         40015
+#define _APS_NEXT_CONTROL_VALUE         1005
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
