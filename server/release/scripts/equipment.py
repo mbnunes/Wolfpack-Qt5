@@ -357,6 +357,8 @@ def onShowTooltip(viewer, object, tooltip):
 			except:
 				object.deltag('skillbonus_%u' % i)
 				continue
+				
+	return False
 
 #
 # Check for certain equipment requirements
