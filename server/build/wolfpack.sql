@@ -1,3 +1,4 @@
+
 CREATE TABLE `settings` (
 	`option` varchar(255) NOT NULL default '',
 	`value` varchar(255) NOT NULL default '',
@@ -84,7 +85,6 @@ CREATE TABLE `items` (
 	`magic` tinyint(3)  NOT NULL default '0',
 	`owner` int(11) NOT NULL default '-1',
 	`visible` tinyint(3)  NOT NULL default '0',
-	`spawnregion` varchar(255) default NULL,
 	`priv` tinyint(3)  NOT NULL default '0',
 	`baseid` varchar(64) NOT NULL default '',
 	PRIMARY KEY (`serial`)
@@ -95,7 +95,6 @@ CREATE TABLE `npcs` (
 	`summontime` int(11)  NOT NULL default '0',
 	`additionalflags` int(11)  NOT NULL default '0',
 	`owner` int(11) NOT NULL default '-1',
-	`spawnregion` varchar(255) default NULL,
 	`stablemaster` int(11) NOT NULL default '-1',
 	`ai` varchar(255) default NULL,
 	`wandertype` smallint(3) NOT NULL default '0',
