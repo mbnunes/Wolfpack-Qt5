@@ -14,8 +14,8 @@
 		<decay />
 		<id>0xFF1</id>
 		<weight>10</weight>
-		<title>The First Wolfpack
-13.0.0 Book</title>
+		<predefined />
+		<title>The First 13.0.0 Book</title>
 		<author>sereg</author>
 		<content>
 <page no="1">well, i do not expect the 
@@ -27,4 +27,16 @@ the second page!</page>
 		</content>
 		<type>11</type>
 	</item>
+	
+	<item id="empty_book" type="book">
+		<value>1000</value>
+		<name>a book</name>
+		<identified>an empty book</identified>
+		<decay />
+		<id>0xFF1</id>
+		<weight>10</weight>
+		<type>11</type>
+		<pages>32</pages>
+	</item>
+	
 </definition>
