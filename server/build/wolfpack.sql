@@ -262,30 +262,30 @@ CREATE TABLE `effects_properties` (
 	PRIMARY KEY  (`id`,`keyname`)
 );
 
-CREATE TABLE guilds (
-  serial int(11) NOT NULL default '0',
-  name varchar(255) NOT NULL default '',
-  abbreviation varchar(255) NOT NULL default '',
-  charta LONGTEXT NOT NULL,
-  website varchar(255) NOT NULL default '',
-  alignment int(2) NOT NULL default '0',
-  leader int(11) NOT NULL default '-1',
-  founded int(11) NOT NULL default '0',
-  guildstone int(11) NOT NULL default '-1',
-  PRIMARY KEY(serial)
+CREATE TABLE `guilds` (
+	`serial` int(11) NOT NULL default '0',
+	`name` varchar(255) NOT NULL default '',
+	`abbreviation` varchar(255) NOT NULL default '',
+	`charta` LONGTEXT NOT NULL,
+	`website` varchar(255) NOT NULL default '',
+	`alignment` int(2) NOT NULL default '0',
+	`leader` int(11) NOT NULL default '-1',
+	`founded` int(11) NOT NULL default '0',
+	`guildstone` int(11) NOT NULL default '-1',
+	PRIMARY KEY(`serial`)
 );
 
-CREATE TABLE guilds_members (
-  guild int(11) NOT NULL default '0',
-  player int(11) NOT NULL default '0',
-	showsign int(1) NOT NULL default '0',
-	guildtitle varchar(255) NOT NULL default '',
-  joined int(11) NOT NULL default '0',
-  PRIMARY KEY(guild,player)
+CREATE TABLE `guilds_members` (
+	`guild` int(11) NOT NULL default '0',
+	`player` int(11) NOT NULL default '0',
+	`showsign` int(1) NOT NULL default '0',
+	`guildtitle` varchar(255) NOT NULL default '',
+	`joined` int(11) NOT NULL default '0',
+	PRIMARY KEY(`guild`,`player`)
 );
 
-CREATE TABLE guilds_canidates (
-  guild int(11) NOT NULL default '0',
-  player int(11) NOT NULL default '0',
-  PRIMARY KEY(guild,player)
+CREATE TABLE `guilds_canidates` (
+	`guild` int(11) NOT NULL default '0',
+	`player` int(11) NOT NULL default '0',
+	PRIMARY KEY(`guild`,`player`)
 );
