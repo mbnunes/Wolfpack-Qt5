@@ -625,22 +625,8 @@ void cNPC::callGuards()
 	} else 
 		return;
 
-	if (!inGuardedArea() || !SrvParams->guardsActive() )
-		return;
+	cBaseChar::callGuards()
 
-	// Is there a criminal around?
-	RegionIterator4Chars ri(pos());
-	for( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		P_CHAR pc = ri.GetData();
-		if( pc )
-		{
-			if( !pc->isDead() && !pc->isInnocent() && inRange( pc, 14 ) )
-			{
-				Combat::spawnGuard( pc, pc, pc->pos() );
-			}
-		}
-	}
 }
 
 void cNPC::showName( cUOSocket *socket )

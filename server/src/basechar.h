@@ -135,6 +135,7 @@ public:
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
 	cItem* atLayer( enLayer layer ) const;
 	bool Owns( P_ITEM pi ) const;
+	void callGuards();
 
 	// Wrapper events
 	virtual bool onSingleClick( P_CHAR Viewer ); // Shows the name of a character to someone else

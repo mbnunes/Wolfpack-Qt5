@@ -1748,4 +1748,24 @@ void cBaseChar::setStamina(INT16 data, bool notify /* = true */ )
 	changed( SAVE );
 }
 
+void cBaseChar::callGuards()
+{
+	if (!inGuardedArea() || !SrvParams->guardsActive() )
+		return;
+
+	// Is there a criminal around?
+	RegionIterator4Chars ri(pos());
+	for( ri.Begin(); !ri.atEnd(); ri++ )
+	{
+		P_CHAR pc = ri.GetData();
+		if( pc )
+		{
+			if( !pc->isDead() && !pc->isInnocent() && inRange( pc, 14 ) )
+			{
+				Combat::spawnGuard( pc, pc, pc->pos() );
+			}
+		}
+	}
+}
+
 

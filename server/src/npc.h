@@ -103,10 +103,10 @@ public:
 	// other public methods
 	stError *setProperty( const QString &name, const cVariant &value );
 	stError *getProperty( const QString &name, cVariant &value ) const;
-	void callGuards();
 	void attackTarget( P_CHAR defender );
 	void toggleCombat();
 	void setNextMoveTime( void );
+	void callGuards(); // overriding
 
 	// getters
 	UINT32			additionalFlags() const;

@@ -50,6 +50,7 @@
 #include "itemid.h"
 #include "player.h"
 #include "npc.h"
+#include "chars.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -376,9 +377,9 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 }
 
 // All this Stuff should be scripted
-bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pChar, const QString& comm )
+bool QuestionSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pChar, const QString& comm )
 {
-	if( pChar->npcaitype()==2 || !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
+	if( !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
 		return false;
 	
 	// Tell the questioner our name
@@ -411,11 +412,11 @@ bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pChar, const QStri
 	return false;
 }
 
-bool BankerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pBanker, const QString& comm )
+bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_CHAR pBanker, const QString& comm )
 {
 	// Needs to be a banker
-	if( pBanker->npcaitype() != 8 )
-		return false;
+/*	if( pBanker->npcaitype() != 8 )
+		return false;*/
 
 	if( pPlayer->dist(pBanker) > 6 )
 		return false;
@@ -524,14 +525,14 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 	return false;
 }
 
-bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& comm )
+bool PetCommand( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pPet, const QString& comm )
 {
 	if( pPet->owner() != pPlayer && !pPlayer->isGM() )
 		return false;
 
 	// player vendor
-	if( pPet->npcaitype() == 17 )
-		return false;
+/*	if( pPet->npcaitype() == 17 )
+		return false;*/
 	
 	// too far away to hear us
 	if( pPlayer->dist( pPet ) > 7 )
@@ -552,9 +553,9 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	{
 		if( comm.contains( " ME" ) )
 		{
-			pPet->setFtarg( pPlayer->serial() );
-			pPet->setNpcWander( 1 );
-			playmonstersound( pPet, pPet->id(), SND_STARTATTACK );
+			pPet->setWanderFollowTarget( pPlayer->serial() );
+			pPet->setWanderType( enFollowTarget );
+			playmonstersound( pPet, pPet->bodyID(), SND_STARTATTACK );
 		}
 		else
 		{
@@ -588,8 +589,8 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	else if( comm.contains( " COME" ) )
 	{
 		//pPlayer->setGuarded( false );
-		pPet->setFtarg( pPlayer->serial() );
-		pPet->setNpcWander(1);
+		pPet->setWanderFollowTarget( pPlayer->serial() );
+		pPet->setWanderType( enFollowTarget );
 		pPet->setNextMoveTime();
 		pPlayer->message( tr( "Your pet begins following you." ) );
 		bReturn = true;
@@ -610,13 +611,13 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	else if( ( comm.contains( " STOP" ) ) || ( comm.contains(" STAY") ) )
 	{
 		//pPlayer->setGuarded( false );
-		pPet->setFtarg( INVALID_SERIAL );
-		pPet->setTarg( INVALID_SERIAL );
+		pPet->setWanderFollowTarget( INVALID_SERIAL );
+		pPet->setCombatTarget( INVALID_SERIAL );
 
-		if (pPet->war()) 
+		if (pPet->isAtWar()) 
 			pPet->toggleCombat();
 
-		pPet->setNpcWander(0);
+		pPet->setWanderType( enHalt );
 		bReturn = true;
 	}
 	else if( comm.contains( " TRANSFER" ) )
@@ -632,11 +633,11 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		//pPlayer->setGuarded( false );
 
 		// Has it been summoned ? Let's dispel it
-		if( pPet->summontimer() )
-			pPet->setSummonTimer( uiCurrentTime );
+		if( pPet->summonTime() > uiCurrentTime )
+			pPet->setSummonTime( uiCurrentTime );
 
-		pPet->setFtarg( INVALID_SERIAL );
-		pPet->setNpcWander( 2 );
+		pPet->setWanderFollowTarget( INVALID_SERIAL );
+		pPet->setWanderType( enFreely );
 		pPet->setOwner( NULL );
 		pPet->setTamed( false );
 		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name() ) );
@@ -697,10 +698,10 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 		return false;
 }
 
-bool PlayerVendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, const QString &comm )
+bool PlayerVendorSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pVendor, const QString &comm )
 {
-	if( pVendor->npcaitype() != 17 )
-	     return false;
+/*	if( pVendor->npcaitype() != 17 )
+	     return false;*/
 
 	if( pPlayer->dist( pVendor ) > 4 )
 		return false;
@@ -751,13 +752,13 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, cons
 	return false;
 }
 
-bool VendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, const QString& comm )
+bool VendorSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pVendor, const QString& comm )
 {
-	if( pVendor->npcaitype() == 17 )
-		return false;
+/*	if( pVendor->npcaitype() == 17 )
+		return false;*/
 
-	if( !pVendor->shop() )
-		return false;
+/*	if( !pVendor->shop() )
+		return false;*/
 
 	if( pPlayer->dist( pVendor ) > 4 )
 		return false;
@@ -864,9 +865,9 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 //			what kind of npcs are standing around and then checking only those keywords
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
-bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, QValueVector< UINT16 > &keywords )
+bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm, QValueVector< UINT16 > &keywords )
 {
-    if( !pPlayer->socket() || pPlayer->dead() )
+    if( !pPlayer->socket() || pPlayer->isDead() )
 		return false;
 
 	QString speechUpr = comm.upper();
@@ -874,10 +875,10 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
 	RegionIterator4Chars ri( pPlayer->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		P_CHAR pNpc = ri.GetData();
+		P_NPC pNpc = dynamic_cast<P_NPC>(ri.GetData());
 
 		// We will only process NPCs here
-		if( !pNpc->isNpc() )
+		if( !pNpc )
 			continue;
 
 		// at least they should be on the screen
@@ -943,7 +944,7 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 		return;
 
 	// not allowed to talk
-	if( pChar->squelched() )
+	if( pChar->isMuted() )
 	{
 		socket->sysMessage( tr( "You re squelched and cannot talk" ) );
 		return;
@@ -956,7 +957,7 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 		color = 0x2;
 
 	if( type == 0 || type == 2)
-		pChar->setSayColor( color );
+		pChar->setSaycolor( color );
 
 	if( SrvParams->speechLog() )
 	{
@@ -974,7 +975,7 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 	if( pChar->onTalk( type, color, font, speech, lang ) )
 		return;
 
-	if( ( type == 0x09 ) && ( pChar->canBroadcast() ) )
+	if( ( type == 0x09 ) && ( pChar->mayBroadcast() ) )
 	{
 		pChar->talk( speech, color, type );
 		return;
@@ -1027,12 +1028,12 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 		++pit;
 	}
 
-	// this makes it so npcs do not respond to dead people - HEALERS ??
-	if( pChar->dead() )
+	// this makes it so npcs do not respond to isDead people - HEALERS ??
+	if( pChar->isDead() )
 		return;
 	
-	cChar* pc = NULL;
-	cChar* pNpc = NULL;
+/*	P_CHAR pc = NULL; ???
+	P_CHAR pNpc = NULL;
 	RegionIterator4Chars ri( pChar->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{	
@@ -1045,4 +1046,5 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 			break;
 		}
 	}
+	*/
 }

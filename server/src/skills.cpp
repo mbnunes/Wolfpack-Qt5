@@ -601,9 +601,11 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		return;
 	}
 */
-	if( pVictim->isGMorCounselor() )
+	if( pVictim->objectType() == enPlayer )
 	{
-		socket->sysMessage( tr( "You can't steal from game masters." ) );
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pVictim);
+		if( pp->isGMorCounselor() )
+			socket->sysMessage( tr( "You can't steal from game masters." ) );
 		return;
 	}
 
@@ -692,26 +694,31 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		socket->sysMessage( tr( "You have been cought!" ) );
 
 		// Human non red NPCs need special handling
-		if( pVictim->isNpc() && pVictim->isInnocent() && pVictim->isHuman() )
+		if( pVictim->objectType() == enNPC && pVictim->isInnocent() && pVictim->isHuman() )
 		{
+			P_NPC pn = dynamic_cast<P_NPC>(pVictim);
 			pVictim->talk( tr( "Guards! A thief is amoung us!" ), -1, 0x09 );
 			if( pVictim->region() && pVictim->region()->isGuarded() )
-				pChar->callGuards();
+				pn->callGuards();
 		}
 		
 		if( pVictim->isInnocent() && pChar->attackerSerial() != pVictim->serial() && GuildCompare( pChar, pVictim ) == 0)
 			pChar->makeCriminal(); // Blue and not attacker and not guild
 
 		// Our Victim always notices it.
-		if( pVictim->socket() )
-			pVictim->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name() ).arg( pToSteal->getName( true ) ) );
+		if( pVictim->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pVictim);
+			if( pp->socket() )
+				pp->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name() ).arg( pToSteal->getName( true ) ) );
+		}
 
 		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name() ).arg( pItem->getName() ).arg( pVictim->name() );	
 
 		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 		{
 			// Everyone within 7 Tiles notices us
-			if( mSock != socket && mSock != pVictim->socket() && mSock->player() && mSock->player()->inRange( pChar, 7 ) ) 
+			if( mSock != socket && mSock->player() && mSock->player()->serial() != pVictim->serial() && mSock->player()->inRange( pChar, 7 ) ) 
 				mSock->showSpeech( pChar, message );
 		}
 		
@@ -897,14 +904,15 @@ void cSkills::Meditation( cUOSocket *socket )
 // decrease=3+(your int/10)
 void cSkills::Persecute ( cUOSocket* socket )
 {
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 
 	if( !pc_currchar )
 		return;
 
-	P_CHAR target = FindCharBySerial(pc_currchar->targ());
+	P_CHAR target = FindCharBySerial(pc_currchar->combatTarget());
+	P_PLAYER pt = dynamic_cast<P_PLAYER>(target);
 
-	if( target->isGM() )
+	if( pt && pt->isGM() )
 		return;
 
 	int decrease = ( pc_currchar->intelligence() / 10 ) + 3;
@@ -919,19 +927,20 @@ void cSkills::Persecute ( cUOSocket* socket )
 				target->setMana(target->mana() - decrease);
 			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));
 
-			if ( target->socket() )
+			if ( pt && pt->socket() )
 			{
-				target->socket()->updateMana( target );
-				target->socket()->sysMessage( tr( "A damned soul is disturbing your mind!" ) );
+				pt->socket()->updateMana( target );
+				pt->socket()->sysMessage( tr( "A damned soul is disturbing your mind!" ) );
 			}
 
-			pc_currchar->setSkillDelay();
+			pc_currchar->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
 
 			QString message = tr( "*You see %1 is being persecuted by a ghost*" ).arg( target->name() );
+			cUOSocket* ptsocket = pt ? pt->socket() : NULL;
 							
 			for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 			{
-				if( socket->inRange( s ) && s != socket && s != target->socket() ) 
+				if( socket->inRange( s ) && s != socket && ptsocket != socket ) 
 					socket->showSpeech( target, message, 0x26, 3, 0x02 );
 			}
 		} 
@@ -955,9 +964,9 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 		
 		unsigned int ci = 0;
 		P_ITEM pi;
-		cChar::ContainerContent container(pc->content());
-		cChar::ContainerContent::const_iterator it (container.begin());
-		cChar::ContainerContent::const_iterator end(container.end());
+		cBaseChar::ItemContainer container(pc->content());
+		cBaseChar::ItemContainer::const_iterator it (container.begin());
+		cBaseChar::ItemContainer::const_iterator end(container.end());
 		for (; it != end; ++it )
 		{
 			pi = *it;
@@ -972,7 +981,7 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 	return ar;
 }
 
-void cSkills::Snooping( P_CHAR player, P_ITEM container )
+void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 {
 	cUOSocket *socket = player->socket();
 	
@@ -980,10 +989,11 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 		return;
 
 	P_CHAR pc_owner = container->getOutmostChar();
+	P_PLAYER pp_owner = dynamic_cast<P_PLAYER>(pc_owner);
 
-	if( pc_owner->isGMorCounselor() )
+	if( pp_owner && pp_owner->isGMorCounselor() )
 	{
-		pc_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name() ) );
+		pp_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name() ) );
 		socket->sysMessage( tr( "You can't peek into that container or you'll be jailed." ) );
 		return;
 	}
@@ -996,16 +1006,16 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 	{
 		socket->sysMessage( tr( "You failed to peek into that container." ) );
 
-		if( pc_owner->isNpc() )
+		if( !pp_owner ) // is NPC ?
 			pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );
 		else
-			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name() ) );
+			pp_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name() ) );
 	}
 
 	
 
 //	SetTimerSec(player->objectdelay(), SrvParams->objectDelay()+SrvParams->snoopdelay());
-	player->setObjectDelay( SetTimerSec(player->objectdelay(), SrvParams->objectDelay()+SrvParams->snoopdelay()) );
+	player->setObjectDelay( SetTimerSec(player->objectDelay(), SrvParams->objectDelay()+SrvParams->snoopdelay()) );
 
 }
 
@@ -1402,6 +1412,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 
 	return skillTitle;
 	*/
+	return "";
 }
 
 const QString &cSkills::getSkillName( UINT16 skill ) const
@@ -1444,9 +1455,9 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 	if( !pChar )
 		return false;
 
-	UINT16 realStr = pChar->st() - pChar->st2();
-	UINT16 realDex = pChar->realDex();
-	UINT16 realInt = pChar->in() - pChar->in2();
+	UINT16 realStr = pChar->strength() - pChar->strengthMod();
+	UINT16 realDex = pChar->dexterity() - pChar->dexterityMod();
+	UINT16 realInt = pChar->intelligence() - pChar->intelligenceMod();
 
 	UINT32 statSum = realDex + realStr + realInt;
 
@@ -1539,8 +1550,10 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 	if( !pChar )
 		return false;
 
+	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
+
 	// For GMs there is no LockState
-	UINT8 lockState = pChar->isGM() ? 0 : pChar->skillLock( skill );
+	UINT8 lockState = ( pPlayer && pPlayer->isGM() ) ? 0 : pChar->skillLock( skill );
 
 	// NOTE:
 	// Before this change, if you used locked skills you couldn't gain
@@ -1609,8 +1622,8 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 		gained = true;
 		pChar->setSkillValue( skill, pChar->skillValue( skill ) + 1 );
 
-		if( pChar->socket() )
-			pChar->socket()->sendSkill( skill );
+		if( pPlayer && pPlayer->socket() )
+			pPlayer->socket()->sendSkill( skill );
 	}
 
 	// Let a skill fall if we really gained and statcap is reached
@@ -1621,8 +1634,8 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 
 		pChar->setSkillValue( skill, pChar->skillValue( skill ) - 1 );
 		
-		if( pChar->socket() )
-			pChar->socket()->sendSkill( skill );
+		if( pPlayer && pPlayer->socket() )
+			pPlayer->socket()->sendSkill( skill );
 	}
 	
 	return gained;

@@ -136,7 +136,7 @@ public:
 	void Persecute(cUOSocket*);//AntiChrist persecute stuff
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
-	void Snooping(P_CHAR, P_ITEM);
+	void Snooping(P_PLAYER, P_ITEM);
 };
 
 // Repair Item
