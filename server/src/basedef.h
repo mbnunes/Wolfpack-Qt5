@@ -28,6 +28,7 @@
 #if !defined( __BASEDEF_H__ )
 #define __BASEDEF_H__
 
+#include "definitions.h"
 #include "definable.h"
 #include "singleton.h"
 #include "pythonscript.h"
@@ -55,6 +56,8 @@ protected:
 	virtual void reset();
 	virtual void load() = 0;
 	void refreshScripts();
+
+	eDefCategory definitionType;
 public:
 	void processNode( const cElement* node );
 
@@ -356,6 +359,12 @@ public:
 	// When reset is called, all loaded basedefs are unflagged.
 	void reset();
 	void refreshScripts();
+};
+
+class cMultiBaseDef : public cItemBaseDef
+{
+public:
+	cMultiBaseDef( const QCString& id );
 };
 
 typedef SingletonHolder<cItemBaseDefs> ItemBaseDefs;

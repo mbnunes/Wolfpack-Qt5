@@ -361,6 +361,7 @@ void cCharBaseDefs::refreshScripts()
 cItemBaseDef::cItemBaseDef( const QCString& id )
 {
 	id_ = id;
+	definitionType = WPDT_ITEM;
 	reset();
 }
 
@@ -418,7 +419,7 @@ void cItemBaseDef::processNode( const cElement* node )
 		else
 			inheritID = node->value();
 
-		const cElement* element = Definitions::instance()->getDefinition( WPDT_ITEM, inheritID );
+		const cElement* element = Definitions::instance()->getDefinition( definitionType, inheritID );
 		if ( element )
 			applyDefinition( element );
 	}
@@ -434,7 +435,7 @@ void cItemBaseDef::load()
 	if ( !loaded )
 	{
 		loaded = true;
-		const cElement* element = Definitions::instance()->getDefinition( WPDT_ITEM, id_ );
+		const cElement* element = Definitions::instance()->getDefinition( definitionType, id_ );
 
 		if ( !element )
 		{
@@ -454,8 +455,14 @@ cItemBaseDef* cItemBaseDefs::get( const QCString& id )
 
 	if ( it == definitions.end() )
 	{
-		cItemBaseDef* def = new cItemBaseDef( id );
-		it = definitions.insert( id, def );
+		// Is this a multi base definition?
+		if (Definitions::instance()->getDefinition(WPDT_MULTI, id)) {
+			cMultiBaseDef* def = new cMultiBaseDef( id );
+			it = definitions.insert( id, def );
+		} else {
+			cItemBaseDef* def = new cItemBaseDef( id );
+			it = definitions.insert( id, def );
+		}
 	}
 
 	return it.data();
@@ -680,4 +687,8 @@ PyObject *cItemBaseDef::getProperty( const QString& name ) {
 	PY_PROPERTY("lightsource", lightsource()) // \rproperty.lightsource The lightmap id for this item.
 	PY_PROPERTY("watersource", isWaterSource()) // \rproperty.watersource Indicates whether this item is a source of water.
 	return cBaseDef::getProperty(name);
+}
+
+cMultiBaseDef::cMultiBaseDef(const QCString &id) : cItemBaseDef(id) {
+	definitionType = WPDT_MULTI;
 }

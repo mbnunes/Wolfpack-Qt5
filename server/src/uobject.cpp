@@ -235,6 +235,9 @@ void cUObject::load( cBufferedReader& reader, unsigned int /*version*/ )
 	name_ = reader.readUtf8();
 	serial_ = reader.readInt();
 	setMulti( dynamic_cast<cMulti*>( World::instance()->findItem( reader.readInt() ) ) );
+	if (multi_) {
+		multi_->addObject(this);
+	}
 	pos_.x = reader.readShort();
 	pos_.y = reader.readShort();
 	pos_.z = reader.readByte();
