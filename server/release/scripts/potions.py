@@ -145,7 +145,7 @@ def targetexplosionpotion(char, args, target):
 	potion = args[0]
 	throwobject(char, potion, pos, 1, 3, 5)
 	# char, potion, counter value
-	potionexplosion( [ char, potion, 3 ] )
+	potionexplosion( [ char, potion, 4 ] )
 	potion.settag('exploding', 'true')
 	return
 
@@ -171,7 +171,7 @@ def potioncountdown( time, args ):
 	counter = args[2]
 	if counter >= 0:
 		if counter > 0:
-			potion.say("%u" % counter)
+			potion.say("%u" % (counter - 1))
 			counter -= 1
 		potionexplosion([char, potion, counter])
 	return
@@ -187,7 +187,7 @@ def potionregion( args ):
 	elif potion.gettag('potiontype') == 12:
 		outradius = 2
 	elif potion.gettag('potiontype') == 13:
-		outradius = 3
+		outradius = randint(2,3)
 	else:
 		outradius = 1
 	x1 = int(potion.pos.x - outradius)
@@ -209,7 +209,7 @@ def potionregion( args ):
 		if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
 			if not chainbomb.hastag('exploding'):
 				chainbomb.settag('exploding', 'true')
-				wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char, chainbomb, 0] )
+				wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0] )
 				chainbomb = chainregion.next
 			else:
 				chainbomb = chainregion.next
@@ -439,37 +439,6 @@ def strengthPotion( char, potion, strengthtype ):
 def poisonPotion( char, potion, poisontype ):
 	char.socket.sysmessage( "You shouldn't drink that..." )
 	return
-
-# Potion Kegs
-def onDropOnItem(target, potion):
- 	# check for potionkeg event on object
- 	if not 'potionkeg' in target.events:
-		# This isn't a potion keg
-		return OOPS
-	if not potion.hastag('potiontype'):
-		# 502232	The keg is not designed to hold that type of object.
-		return OOPS
-
-	if target.hastag('kegfill') and target.hastag('potiontype'):
-		if potion.gettag('potiontype') == target.gettag('potiontype'):
-			kegfill = target.gettag('kegfill')
-			if kegfill < 100:
-				kegfill += 1
-				target.settag('kegfill', kegfill)
-				potion.delete()
-			else:
-				# 502233	The keg will not hold any more!
-				return OOPS
-		else:
-			# 502236	You decide that it would be a bad idea to mix different types of potions.
-			return OOPS
-	else:
-		target.settag( 'potiontype', potion.gettag('potiontype') )
-		target.settag( 'kegfill', 1 )
-
-		return
- 	return
-
 
 # INVIS POTION
 # ID: 0x7A9A3 (0)
