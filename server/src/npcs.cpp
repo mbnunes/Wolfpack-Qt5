@@ -974,7 +974,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			if (!(strcmp("TITLE",(char*)script1))) pc_c->title = script2;
 			else if ((!(strcmp("TOTAME", (char*)script1)))||(!(strcmp("TAMING", (char*)script1)))) pc_c->taming=str2num(script2);
 			else if (!(strcmp("TRIGGER",(char*)script1)))	pc_c->trigger=str2num(script2);
-			else if (!(strcmp("TRIGWORD",(char*)script1)))	strcpy(pc_c->trigword,(char*)script2);
+			else if (!(strcmp("TRIGWORD",(char*)script1)))	pc_c->trigword = (char*)script2;
 			else if ((!(strcmp("TACTICS",(char*)script1)))||(!(strcmp("SKILL27",(char*)script1)))) pc_c->baseskill[TACTICS] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("TAILORING",(char*)script1)))||(!(strcmp("SKILL34",(char*)script1)))) pc_c->baseskill[TAILORING] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("TAMING",(char*)script1)))||(!(strcmp("SKILL35",(char*)script1)))) pc_c->baseskill[TAMING] = getstatskillvalue((char*)script2);

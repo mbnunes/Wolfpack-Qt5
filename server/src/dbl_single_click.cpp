@@ -254,8 +254,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				} 
 				else 
 				{
-					if (!pi->disabledmsg[0] == 0x0) 
-						sysmessage(s, pi->disabledmsg); // Added by Magius(CHE) §
+					if (!pi->disabledmsg.empty()) 
+						sysmessage(s, (char*)pi->disabledmsg.c_str()); // Added by Magius(CHE) §
 					else 
 						sysmessage(s, "That doesnt seem to work right now.");
 					return;

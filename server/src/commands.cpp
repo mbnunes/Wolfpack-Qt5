@@ -758,7 +758,7 @@ void cCommands::SetTriggerWord(int s)
   if (pc != NULL)
   {
 		sysmessage(s,"Trigger word set");
-		strcpy(pc->trigword,xtext[s]);
+		pc->trigword = xtext[s];
   }
 }
 

@@ -126,7 +126,7 @@ public:
 	int trigtype; //Type of trigger
 	int trigon; //New trigger for items -Frazurbluu-
 	unsigned int disabled; //Item is disabled, cant trigger.
-	char disabledmsg[128]; //Item is disabled, so display this message. -- added by Magius(CHE) §
+	string disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
 	int tuses;    //Number of uses for trigger
 	unsigned int poisoned; //AntiChrist -- for poisoning skill
 	char murderer[50]; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)

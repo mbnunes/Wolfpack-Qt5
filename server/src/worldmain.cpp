@@ -113,7 +113,7 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "DEAD"))			  pc->dead = true;   // dead only appears in file if it's true.
 			else if (!strcmp((char*)script1, "DEF"))			  pc->def=str2num(script2);
 			else if (!strcmp((char*)script1, "DISABLED"))		  pc->disabled=uiCurrentTime+(str2num(script2)*MY_CLOCKS_PER_SEC);
-			else if (!strcmp((char*)script1, "DISABLEMSG"))		  strncpy(pc->disabledmsg,(char*)script2,255);
+			else if (!strcmp((char*)script1, "DISABLEMSG"))		  pc->disabledmsg = (char*)script2;
 		break;
 
 		case 'E':
@@ -333,7 +333,7 @@ void loadchar(int x) // Load a character from WSC
 			if (!strcmp((char*)script1, "TITLE"))				  pc->title = (char*)script2;
 			else if (!strcmp((char*)script1, "TAMING"))			  pc->taming=str2num(script2);
 			else if (!strcmp((char*)script1, "TRIGGER"))		  pc->trigger=str2num(script2);
-			else if (!strcmp((char*)script1, "TRIGWORD"))		  strcpy(pc->trigword,(char*)script2);
+			else if (!strcmp((char*)script1, "TRIGWORD"))		  pc->trigword = (char*)script2;
 			else if (!strcmp((char*)script1, "TIME_UNUSED"))	  pc->time_unused=str2num(script2);
 		break;
 
@@ -528,7 +528,7 @@ void loaditem (int x) // Load an item from WSC
 
 		case 'd':
 		case 'D':
-			if (!(strcmp((char*)script1, "DISABLEMSG"))){ strcpy(pi->disabledmsg,(char*)script2);} // Added by Magius(CHE) §
+			if (!(strcmp((char*)script1, "DISABLEMSG"))) { pi->disabledmsg = (char*)script2;} // Added by Magius(CHE) §
 			else if (!(strcmp((char*)script1, "DISABLED"))) { pi->disabled=uiCurrentTime+(str2num(script2)*MY_CLOCKS_PER_SEC); }//AntiChrist
 			else if (!(strcmp((char*)script1, "DIR"))) { pi->dir=str2num(script2); }
 			else if (!(strcmp((char*)script1, "DOORFLAG"))) { pi->doordir=str2num(script2); }
@@ -1266,10 +1266,10 @@ void CWorldMain::SaveChar( P_CHAR pc )
 				fprintf(cWsc, "SPEECH %i\n", pc->speech);
 			if (pc->trigger != pc_reference->trigger)
 				fprintf(cWsc, "TRIGGER %i\n", pc->trigger);
-			if (strcmp(pc->trigword, pc_reference->trigword))
-				fprintf(cWsc, "TRIGWORD %s\n", pc->trigword);
-			if (strcmp(pc->disabledmsg, pc_reference->disabledmsg))
-				fprintf(cWsc, "DISABLEMSG %s\n", pc->disabledmsg); // Added by Magius(CHE) §
+			if (pc->trigword != pc_reference->trigword)
+				fprintf(cWsc, "TRIGWORD %s\n", pc->trigword.c_str());
+			if (pc->disabledmsg != pc_reference->disabledmsg)
+				fprintf(cWsc, "DISABLEMSG %s\n", pc->disabledmsg.c_str()); // Added by Magius(CHE) §
 			
 			for (j=0;j<TRUESKILLS;j++)
 			{

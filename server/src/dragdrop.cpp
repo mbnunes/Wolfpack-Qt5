@@ -1024,7 +1024,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 
 void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 {
-	int j, serial;
+	SERIAL serial;
 	bool abort = false;
 	UOXSOCKET s = ps->GetSocket();
 	P_CHAR pc_currchar = ps->getPlayer();
@@ -1049,7 +1049,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	if (pItem->id1>=0x40) 
 	{ 
 	   abort = true; // LB crashfix that prevents moving multi objcts in BP's
-       sysmessage(s,"Hey, putting houses in your pack crashes your back and client!");
+       sysmessage(s, "Hey, putting houses in your pack crashes your back and client!");
 	}
 	P_CHAR pc_j = GetPackOwner(pCont);
 	if (pc_j != NULL)

@@ -579,7 +579,7 @@ void cRespawn::Continue()
 {
 
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
+	for (iterItems.Begin(); !iterItems.atEnd() && doItemSpawns; ++iterItems)
 	{
 		P_ITEM pi = iterItems.GetData();
 		unsigned int k, ci;
@@ -633,6 +633,7 @@ void cRespawn::Continue()
 			}
 		}
 	}
+	doItemSpawns = false;
 	unsigned int i;
 	for( i = currentSpawnRegion; i < spawnregion.size(); ++i) //New -- Zippy region spawner
 	{

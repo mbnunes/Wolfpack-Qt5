@@ -58,13 +58,14 @@ class cRespawn
 {
 private:
 	bool respawning;
+	bool doItemSpawns;
 	int currentSpawnRegion;
 	unsigned int currentSpawnItem;
 public:
-	cRespawn() {respawning=false;}
+	cRespawn() {respawning = doItemSpawns = false;}
 	~cRespawn() {}
 	bool AreWeRespawning() {return respawning;}
-	void Start() {respawning=true; currentSpawnRegion=1; currentSpawnItem=0;}
+	void Start() {respawning = doItemSpawns = true; currentSpawnRegion=1; currentSpawnItem=0;}
 	void Continue();
 };
 

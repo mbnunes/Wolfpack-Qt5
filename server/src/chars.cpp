@@ -219,9 +219,9 @@ void cChar::Init(bool ser)
 	this->fleeat=SrvParms->npc_base_fleeat;
 	this->reattackat=SrvParms->npc_base_reattackat;
 	this->trigger=0; //Trigger number that character activates
-	this->trigword[0]='\x00'; //Word that character triggers on.
+	this->trigword = "";
 	this->disabled=0; //Character is disabled for n cicles, cant trigger.
-	this->disabledmsg[0] = 0; //Character disabled message. -- by Magius(CHE) §
+	this->disabledmsg = ""; //Character disabled message. -- by Magius(CHE) §
 	this->envokeid1=0x00; //ID1 of item user envoked
 	this->envokeid2=0x00; //ID2 of item user envoked
 	this->envokeitem = INVALID_SERIAL;

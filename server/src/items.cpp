@@ -120,7 +120,7 @@ cItem::cItem( cItem &src )
 	this->trigtype=src.trigtype;
 	this->trigon=src.trigon;
 	this->disabled=src.disabled;
-	strcpy(this->disabledmsg, src.disabledmsg);
+	this->disabledmsg = src.disabledmsg;
 	this->tuses=src.tuses;
 	this->poisoned=src.poisoned;
 	strcpy(this->murderer, src.murderer);
@@ -604,7 +604,7 @@ void cItem::Init(char mkser)
 	this->trigtype=0; //Type of trigger
 	this->trigon=0; // equipped item trigger -Frazurbluu-
 	this->disabled=0; //Item is disabled, cant trigger.
-	this->disabledmsg[0] = 0; //Item disabled message. -- by Magius(CHE) §
+	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
 	this->tuses=0;    //Number of uses for trigger
 	this->poisoned=0; //AntiChrist -- for poisoning skill
 	this->murderer[0]=0x00; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
@@ -767,7 +767,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					else if (!strcmp("DISABLED", (char*)script1))
 						pi->disabled = uiCurrentTime + (str2num(script2)*MY_CLOCKS_PER_SEC);// AntiChrist
 					else if (!strcmp("DISABLEMSG", (char*)script1))
-						strcpy(pi->disabledmsg, (char*)script2);  
+						pi->disabledmsg = (char*)script2;  
 					else if (!strcmp("DISPELLABLE", (char*)script1))
 						pi->priv |= 0x04;
 					else if (!strcmp("DECAY", (char*)script1))
@@ -1306,8 +1306,8 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					else if (!(strcmp("DYE",(char*)script1))) pi->dye=str2num(script2);
 					else if (!(strcmp("DIR",(char*)script1))) pi->dir=str2num(script2);
 					else if (!(strcmp("DECAY",(char*)script1))) pi->priv=pi->priv|0x01;
-					else if (!(strcmp("DISPELLABLE",(char*)script1))) pi->priv=pi->priv|0x04;
-					else if (!(strcmp("DISABLEMSG",(char*)script1))) strcpy(pi->disabledmsg,script2);  // Added by Magius(CHE) §
+					else if (!(strcmp("DISPELLABLE",(char*)script1))) pi->priv|=0x04;
+					else if (!(strcmp("DISABLEMSG",(char*)script1))) pi->disabledmsg=script2;
 					else if (!(strcmp("DISABLED",(char*)script1))) pi->disabled=uiCurrentTime+(str2num(script2)*MY_CLOCKS_PER_SEC);//AntiChrist
 				break;
 

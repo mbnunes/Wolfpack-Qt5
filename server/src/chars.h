@@ -242,9 +242,9 @@ public:
 	short fleeat;
 	short reattackat;
 	int trigger; //Trigger number that character activates
-	char trigword[31]; //Word that character triggers on.
+	string trigword; //Word that character triggers on.
 	unsigned int disabled; //Character is disabled, cant trigger.
-	char disabledmsg[256]; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
+	string disabledmsg; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
 	char envokeid1; //ID1 of item user envoked
 	char envokeid2; //ID2 of item user envoked
 	SERIAL envokeitem;

@@ -422,10 +422,10 @@ bool TriggerSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 	{
 		if (pc->trigger)
 		{
-			if (strlen(pc->trigword))
+			if (!pc->trigword.empty())
 			{
 				char twtmp[150];
-				strcpy(twtmp, pc->trigword);
+				strcpy(twtmp, pc->trigword.c_str());
 				strupr(twtmp);
 				if (strstr( comm, twtmp))
 				{

@@ -237,8 +237,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 		if (pi->disabled>uiCurrentTime) // Added by Magius(CHE) §
 		{
 			// if (!pi->disabledmsg[0]==0x0) strcpy(temp,pi->disabledmsg);
-			if (strlen(pi->disabledmsg)>0)
-				strcpy((char*)temp, pi->disabledmsg);// AntiChrist
+			if (!pi->disabledmsg.empty())
+				strcpy((char*)temp, pi->disabledmsg.c_str());// AntiChrist
 			else 
 				strcpy(temp, "That doesnt seem to work right now.");
 			sysmessage(ts, (char*)temp);
@@ -495,7 +495,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						if (pi!=NULL)
 						{
 							pi->disabled = (uiCurrentTime +(MY_CLOCKS_PER_SEC*str2num(script2)));
-							strcpy(pi->disabledmsg, dismsg); // Added by Magius(CHE) §
+							pi->disabledmsg = dismsg;
 						}
 					}
 					else if (!(strcmp("DISABLEMSG", (char*)script1)))  // Disable Item Message --- by Magius(CHE) §
@@ -1485,7 +1485,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							if (npcnum!=NULL)
 							{
-								strcpy(npcnum->trigword, (char*)script2);
+								npcnum->trigword = (char*)script2;
 							}
 						}
 						break;
@@ -2113,8 +2113,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 	}
 	if (ti->disabled>uiCurrentTime) // Added by Magius(CHE) §
 	{
-		if (!ti->disabledmsg[0] == 0x0)
-			strcpy((char*)temp, ti->disabledmsg);
+		if (!ti->disabledmsg.empty())
+			strcpy((char*)temp, ti->disabledmsg.c_str());
 		else 
 			strcpy((char*)temp, "You cant work now! Wait more time!");
 		sysmessage(ts, (char*)temp);
@@ -2194,7 +2194,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						if (ti!=NULL)
 						{
 							ti->disabled = (uiCurrentTime +(MY_CLOCKS_PER_SEC*str2num(script2)));
-							strcpy(ti->disabledmsg, dismsg); // Added by Magius(CHE) §
+							ti->disabledmsg = dismsg; // Added by Magius(CHE) §
 						}
 					}
 					else if (!(strcmp("DISABLEMSG", (char*)script1)))  // Disable NPC Message --- by Magius(CHE) §
@@ -2914,7 +2914,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						{
 							if (npcnum!=NULL)
 							{
-								strcpy(npcnum->trigword, (char*)script2);
+								npcnum->trigword = (char*)script2;
 							}
 						}
 						else if (!(strcmp("NEWSPEECH", (char*)script1)))  // Give the new npc a new spech -- MAgius(CHE) §
@@ -3084,7 +3084,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						else if (!(strcmp("SETWORD", (char*)script1)))  // Sets the trigger word of an NPC
 						{
 							if (ti!=NULL)
-								strcpy(ti->trigword, script2);
+								ti->trigword = script2;
 						}
 						else if (!(strcmp("SKL", (char*)script1)))  // Do math on the players skill
 						{
