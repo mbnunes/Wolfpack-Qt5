@@ -108,3 +108,5 @@ will be placed in the bank. Need new npc.scp with the brokers in it. They are NP
 done thru Wolfpack Runtime Library ( Correa )
 89) Added: GMs & Councilors no longer become criminal. (Ripper)
 90) Added: LBR ridable mounts. (Ripper)
+91) changed: tweaked combat animations further.
+added hopefully better looking extra animations if you are fighting on kirins, ostards, llamas, ridgebacks.(LB)

@@ -1099,6 +1099,44 @@ void cCombat::CombatOnHorse(P_CHAR pc)
 {
 	if ( pc == NULL ) return;
 	P_ITEM pWeapon=pc->getWeapon();
+
+	// tweak for better fight animations if on Lama, ostards, kirin, seahorse, or ridgeback
+	// LB (04-02-2002)
+	
+
+	P_ITEM pHorseItem=pc->GetItemOnLayer(0x19);	
+
+	int base;
+	switch(pHorseItem->id2)
+	{
+	    case 0xab: // llamas
+		case 0xa6:
+			base=0x2b;
+			break;
+
+		case 0xa3:  // ostards 
+		case 0xa4:
+		case 0xa5:
+		case 0xac:
+			base=0x35;
+			break;
+
+		case 0xad: // kirin
+			base=0x3f;
+			break;
+
+		case 0xb3: // sea horse
+			base=0x49;
+			break;
+
+		case 0xb8: //ridgeback
+			base=0x53;
+			break;
+
+	    default:
+			base = 0x17; // default (horse) base animation
+			break;
+	}
 	if (pWeapon)
 	{
 		short id = pWeapon->id();
