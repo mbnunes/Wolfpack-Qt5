@@ -36,7 +36,6 @@
 #undef  DBGFILE
 #define DBGFILE "CFile.cpp"
 
-//##ModelId=3C5D92F102FB
 bool cFile::Open(char FileName[20], char type[5]) //type: ASCII=0   BINARY=1
 {	
 	if((OpenedFile = fopen(FileName, type))==NULL)
@@ -49,7 +48,6 @@ bool cFile::Open(char FileName[20], char type[5]) //type: ASCII=0   BINARY=1
 	return true;
 }
 
-//##ModelId=3C5D92F1030F
 void cFile::Close()
 {
 	if(OpenedFile==NULL)
@@ -58,8 +56,7 @@ void cFile::Close()
 	OpenedFile = NULL;
 	isOpen=false;
 }
-	
-//##ModelId=3C5D92F10319
+
 void cFile::Read2()
 {
 	int i, keep=0,loopexit=0;

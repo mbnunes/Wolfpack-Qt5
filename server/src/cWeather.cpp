@@ -36,8 +36,6 @@
 #include "cweather.h"
 
 //using namespace ZThread;
-
-//##ModelId=3C5D92F502C4
 void cWeather::DoWeather(int s)
 { 
 	char rain[5]="\x65\x01\x46\x00";
@@ -68,7 +66,6 @@ void cWeather::DoWeather(int s)
 	return;
 }
 
-//##ModelId=3C5D92F502F7
 void cWeather::CalcType(UOXSOCKET s)
 {
 	int rchance=0;
@@ -118,7 +115,6 @@ void cWeather::CalcType(UOXSOCKET s)
 	} // if schance>rchance
 }
 
-//##ModelId=3C5D92F502E3
 void cWeather::WTimer()
 {
 	unsigned int CurTime=uiCurrentTime;
@@ -140,7 +136,6 @@ void cWeather::WTimer()
 	}
 }
 
-//##ModelId=3C5D92F502ED
 void cWeather::CTimer()
 {	
 	unsigned char r;
@@ -163,7 +158,6 @@ void cWeather::CTimer()
 	}
 }
 
-//##ModelId=3C5D92F5030B
 void cWeather::run() throw()
 { 
 	while ( keeprun )
@@ -181,7 +175,6 @@ void cWeather::run() throw()
 	}
 }
 
-//##ModelId=3C5D92F50316
 void cWeather::kill() throw()
 {
 	keeprun = false;

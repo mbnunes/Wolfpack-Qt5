@@ -56,16 +56,10 @@ cClient::cClient(UOXSOCKET so)
 		socket=so;
 }
 
-//##ModelId=3C5D92F70000
 cClient::~cClient(){}
 
-//##ModelId=3C5D92F70001
 UOXSOCKET	cClient::GetSocket()	{return socket;}
-//##ModelId=3C5D92F7000A
 P_CHAR		cClient::getPlayer()	{return currchar[socket];}
-//##ModelId=3C5D92F70014
 bool		cClient::IsDragging()	{return (DRAGGED[socket]>0);}
-//##ModelId=3C5D92F70028
 void		cClient::SetDragging()	{DRAGGED[socket]=1;}
-//##ModelId=3C5D92F70032
 void		cClient::ResetDragging(){DRAGGED[socket]=0;}
