@@ -218,6 +218,7 @@ void cAccounts::load()
 		}
 	}
 	archive->close();
+	delete archive;
 }
 
 void cAccounts::reload()

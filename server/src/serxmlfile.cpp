@@ -123,9 +123,9 @@ serXmlFile::~serXmlFile()
 		file->close();
 		delete file;
 	}
+	delete document;
 	delete reader;
 	delete source;
-	delete handler;
 }
 
 void serXmlFile::setVersion(unsigned int __version)
@@ -184,8 +184,7 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 	if ( _count == 0 )
 	{
 		file->close();
-		delete document;
-		document = 0;
+		document = NULL;
 		prepareReading( ident.c_str(), ++bLevel );
 	}
 	node = root;
@@ -255,8 +254,7 @@ void serXmlFile::close()
 		delete file;
 		file = 0;
 	}
-	delete document;
-	document = 0;
+	document = NULL;
 }
 
 void serXmlFile::writeObjectID( const QString &data )
@@ -363,15 +361,12 @@ void serXmlFile::done()
 void serXmlFile::readObjectID(QString &data)
 {
 	// Read the object-id if we're done reading the current item (this *will* lead to bugs with non-new item-files)
-	node = node.firstChild().toElement();
-	while( ( node.nodeName() != "objectID" ) || !node.hasChildNodes() )
+	QDomNodeList nodeList = node.elementsByTagName( "objectID" );
+	if( nodeList.count() > 0 )
 	{
-		node = node.nextSibling().toElement();
-		if( node.isNull() )
-			return;
+		node = nodeList.item( 0 ).toElement();
+		data = nodeList.item( 0 ).toElement().attribute("value");
 	}
-		
-	data = node.attribute("value");
 }
 
 void serXmlFile::read(const char* Key, std::string& data)

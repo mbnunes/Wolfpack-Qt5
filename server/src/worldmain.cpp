@@ -116,7 +116,6 @@ CWorldMain::~CWorldMain()
 
 void CWorldMain::loadnewworld(QString module) // Load world
 {
-
 	ISerialization* archive = cPluginFactory::serializationArchiver(module);
 
 	QString objectID;
@@ -217,10 +216,13 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	}
 	clConsole.send(" Done.\n");
 	archive->close();
+	delete archive;
 
 	SERIAL newCont;
 
 	// Load Items
+	archive = cPluginFactory::serializationArchiver(module);
+
 	archive->prepareReading( "items" ); // Load Items
 	clConsole.send( "Loading Items %i...\n", archive->size() );
 	progress.restart(archive->size());
@@ -285,8 +287,11 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	}
 	clConsole.send(" Done.\n");
 	archive->close();
+	delete archive;
 
 	// Load Temporary Effects
+	archive = cPluginFactory::serializationArchiver(module);
+
 	archive->prepareReading( "effects" );
 	clConsole.send("Loading Temp. Effects %i...\n", archive->size());
 	progress.restart(archive->size());
