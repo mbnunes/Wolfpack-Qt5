@@ -1,7 +1,27 @@
 import wolfpack
+from wolfpack.consts import *
 from wolfpack.gumps import cGump
 
+# Register as a global script
+def onLoad():
+   wolfpack.registerglobal( HOOK_CHAR, EVENT_CHLEVELCHANGE, "signpost" )
 
+def onCHLevelChange( char, level ):
+   if not char.hastag( 'customizing' ):
+      return
+   multi = wolfpack.findmulti( int( char.gettag( 'customizing' ) ) )
+   
+   char.socket.sysmessage( 'multi at: ' + str( multi.pos.z ) )
+   char.socket.sysmessage( 'char at: ' + str( char.pos.z ) )
+   alt = (level-1) * 49
+   if level == 3:
+      char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, char.pos.z+1, multi.pos.map ) )
+   if level == 2:
+      char.moveto( wolfpack.coord( multi.pos.x+4, multi.pos.y+4, multi.pos.z+alt, multi.pos.map ) )
+   if level == 1:
+      char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, char.pos.z-1, multi.pos.map ) )
+   char.update()
+   return 1
 
 def onUse( char, item ):
    gump0( char, "signpost.gumpcallback", item )
@@ -291,13 +311,16 @@ def customize( char, item ):
 
    multi = wolfpack.findmulti( int( item.gettag( 'house' ) ) )
    multi.sendcustomhouse( char )
+   char.socket.sysmessage( str( multi.serial ) )
    #char.socket.sysmessage( "Multi serial : %i" % multi.serial )
    char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, multi.pos.z+7, multi.pos.map ) )
    char.update()
    #woodenpost = wolfpack.finditem( item.morez )
    #woodenpost.delete()
    char.socket.customize( item )
-   return
+   char.settag( 'customizing', multi.serial )
+
+   return 1
 
 def switchgump( char, target, args ):
    item = args[0]

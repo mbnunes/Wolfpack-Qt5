@@ -145,6 +145,7 @@ def response( char, args, target ):
 
 def foundation( char, target, width, height, multiid ):
    multi = wolfpack.multi( CUSTOMHOUSE )
+   char.socket.sysmessage( str( multi.serial ) )
    multi.id = multiid + 0x4000
    multi.decay = FALSE
    multi.moveto( target.pos )

@@ -111,6 +111,8 @@ public:
 
 	bool onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip );
 
+	bool onCHLevelChange( P_CHAR pChar, uint level );
+
 	bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords );
 
 	bool onWearItem( P_PLAYER pPlayer, P_CHAR pChar, P_ITEM pItem, unsigned char layer );

@@ -1040,7 +1040,7 @@ void cUOSocket::handleCHClear( cUORxAosMultiPurpose *packet )
 }
 void cUOSocket::handleCHLevel( cUORxCHLevel *packet )
 {
-	player()->onCHLevelChange( packet->serial() );
+	player()->onCHLevelChange( packet->level() );
 }
 void cUOSocket::handleCHRevert( cUORxAosMultiPurpose *packet )
 {

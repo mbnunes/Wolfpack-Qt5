@@ -1220,9 +1220,30 @@ bool cBaseChar::onDeath()
 
 	return false;
 }
-bool cBaseChar::onCHLevelChange( SERIAL multi_serial )
+bool cBaseChar::onCHLevelChange( uint level )
 {
-	cMulti* multi = dynamic_cast< cMulti* >( FindItemBySerial( multi_serial ) );
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onCHLevelChange( this, level  ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	// Try to process the hooks then
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CHLEVELCHANGE );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onCHLevelChange( this, level ) ) 
+			return true;
+
+	
 	return false;
 }
 bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )

@@ -386,6 +386,18 @@ bool cPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltip
 	return PyEvalMethod( "onShowToolTip", tuple );
 }
 
+bool cPythonScript::onCHLevelChange( P_CHAR pChar, uint level )
+{
+	PyHasMethod( "onCHLevelChange" )
+	
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( level ) );
+
+	return PyEvalMethod( "onCHLevelChange", tuple );
+}
+
+
 unsigned int cPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source )
 {
 	if( !codeModule )
