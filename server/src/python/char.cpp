@@ -977,8 +977,71 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 {
-	PyErr_SetString( PyExc_NotImplementedError, "Not implemented yet" );
-	return 0;
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	// We now have the list of effects applied to pChar
+	// Now check if we force dispelling and only have two arguments
+	if( PyTuple_Size( args ) == 0 )
+	{
+		TempEffects::instance()->dispel( self->pChar, 0, false );
+	}
+	else if( checkArgChar( 0 ) )
+	{
+		// Iterate trough the list of tempeffects
+		cChar::Effects effects = self->pChar->effects();
+
+		P_CHAR pSource = getArgChar( 0 );
+		bool force = checkArgInt( 1 ) && ( getArgInt( 1 ) != 0 );
+		QString dispelid;
+		PyObject *dispelargs = 0;
+
+		if( checkArgStr( 2 ) )
+			dispelid = getArgStr( 2 );
+
+		if( PyList_Check( PyTuple_GetItem( args, 3 ) ) )
+			dispelargs = PyList_AsTuple( PyTuple_GetItem( args, 3 ) );
+		
+		if( !dispelargs )
+			dispelargs = PyTuple_New( 0 );
+
+		for( INT32 i = 0; i < effects.size(); ++i )
+		{
+			// No python effect, but we are forcing.
+			if( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() != "cPythonEffect" )
+			{
+				effects[i]->Dispel( pSource, false );
+				self->pChar->removeEffect( effects[i] );
+				TempEffects::instance()->teffects.erase( effects[i] );
+			}
+			// We are dispelling everything and this is a python effect
+			else if( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() == "cPythonEffect" )
+			{
+				// At least use the specific dispel function
+				cPythonEffect *pEffect = dynamic_cast< cPythonEffect* >( effects[i] );
+				if( pEffect )
+				{
+					pEffect->Dispel( pSource, dispelargs );
+					self->pChar->removeEffect( effects[i] );
+					TempEffects::instance()->teffects.erase( effects[i] );
+				}
+			}
+			// We are dispelling specific python effects
+			else if( ( force || effects[i]->dispellable ) && effects[i]->objectID() == "cPythonEffect" && !dispelid.isNull() )
+			{
+				cPythonEffect *pEffect = dynamic_cast< cPythonEffect* >( effects[i] );
+				if( pEffect && pEffect->dispelId() == dispelid )
+				{
+					pEffect->Dispel( pSource, dispelargs );
+					self->pChar->removeEffect( effects[i] );
+					TempEffects::instance()->teffects.erase( effects[i] );
+				}
+			}
+			
+		}
+	}
+
+	return PyTrue;
 }
 
 /*!
@@ -987,7 +1050,7 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 {
 	// Three arguments
-	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+	if( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
