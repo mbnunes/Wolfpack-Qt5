@@ -46,7 +46,7 @@ def handleStatus(socket, packet):
             break
 
     if statusPacket:
-        status = 'Wolfpack, Clients=%i, Items=%i, Chars=%i, Version=%s' % (wolfpack.sockets.count(), wolfpack.itemcount(), wolfpack.charcount(), wolfpack.serverversion())
+        status = 'olfpack, Clients=%i, Items=%i, Chars=%i, Version=%s' % (wolfpack.sockets.count(), wolfpack.itemcount(), wolfpack.charcount(), wolfpack.serverversion())
 
         packet = wolfpack.packet(87, len(status) + 1)
         packet.setascii(1, status)
