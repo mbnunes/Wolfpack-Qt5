@@ -128,7 +128,7 @@ class cGump:
     self.layout.append( "{group %u}" % groupid )
 
   def addText( self, x, y, text, hue=0 ):
-    self.layout.append( "{text %i %i %u %u}" % ( x, y, hue, self.addRawText( text ) ) )
+    self.layout.append("{text %i %i %u %u}" % (x, y, hue, self.addRawText(text)))
 
   def addBackground( self, id, width, height ):
     self.addResizeGump( 0, 0, id, width, height )

@@ -21,17 +21,59 @@ def modifiers(object, tooltip):
     if object.hastag(tag):
       tooltip.add(cliloc, str(object.gettag(tag)))
 
+PREFIXES = {
+    'dullcopper': 1018332,
+    'shadowiron': 1018333,
+    'copper': 1018334,
+    'bronze': 1018335,
+    'gold': 1018336,
+    'agapite': 1018337,
+    'verite': 1018338,
+    'valorite': 1018339,
+}
+
 #
 # Equipment has a lot of additional effects.
 # These are shown to the user in form of tooltips.
 #
 def onShowTooltip(viewer, object, tooltip):
+  # Reinsert the name if we need an ore prefix
+  if object.hastag('resname'):    
+    resname = str(object.gettag('resname'))
+    if PREFIXES.has_key(resname):
+      tooltip.reset() # Remove all previous lines
+      prefix = PREFIXES[resname]
+      if len(object.name) == 0:
+        itemname = '#' + str(1020000 + object.id)
+      else:
+        itemname = object.name
+
+      if object.amount > 1:
+        # amount\torename\tname
+        tooltip.add(1050045, "%u\t#%u\t%s" % (object.amount, prefix, itemname))
+      else:
+        # orename\tname
+        if object.hastag('exceptional'):
+          tooltip.add(1053100, "#%u\t%s" % (prefix, itemname))
+        else:
+          tooltip.add(1053099, "#%u\t%s" % (prefix, itemname))
+
+  # Exceptional item?
+  if object.hastag('exceptional'):
+    tooltip.add(1060636, '')
+    
+    # 1050043: Crafted by ~param~
+    serial = int(object.gettag('exceptional'))
+    crafter = wolfpack.findchar(serial)
+    if crafter:
+      tooltip.add(1050043, crafter.name)
+
   armor = itemcheck(object, ITEM_ARMOR)
   weapon = itemcheck(object, ITEM_WEAPON)  
   shield = itemcheck(object, ITEM_SHIELD)
 
   # Only Armors and Weapons have durability
-  if weapon or armor:
+  if weapon or armor or shield:
     tooltip.add(1060639, "%u\t%u" % (object.health, object.maxhealth))
   
   # Weapon specific properties

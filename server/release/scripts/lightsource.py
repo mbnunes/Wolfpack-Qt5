@@ -83,13 +83,14 @@ def onUse( char, item ):
 		# Change the id
 		newid = ids[ item.id ]
 
-		if item.container and item.container.isitem() and newid in burning:
-			char.socket.showspeech( item, "You can't light this in a container." )
-			return 1
-
-		item.id = newid
-		item.update()
-		char.soundeffect( 0x226 )
+		# Item can be reached
+		if char.canreach( item, 3 ):
+			item.id = newid
+			item.update()
+			char.soundeffect( 0x226 )
+		# Item can not be reached
+		else:
+			char.socket.clilocmessage(500312)
 
 	# This is no Light Source
 	else:

@@ -109,9 +109,6 @@ def hex2dec( value ):
 	if type( value ) is IntType:
 		return value
 
-	if not type( value ) is StringType:
-		raise TypeError, "Can only Convert Integers and Strings"
-
 	value = value.lower()
 
 	if not value.startswith( "0x" ):
