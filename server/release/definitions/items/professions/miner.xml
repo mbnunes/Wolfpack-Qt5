@@ -185,6 +185,7 @@
 		<id>0x0e85</id>
 		<durability>50</durability>
 		<type>1104</type>
+		<events>tools.pickaxe</events>
 		<category>Professions\Miner\Pickaxe (W/E)</category>
 	</item>
 
@@ -194,6 +195,7 @@
 		<type>1104</type>
 		<durability>30</durability>
 		<decay/>
+		<events>tools.pickaxe</events>
 		<category>Professions\Miner\Shovel (W/E)</category>
 	</item>
 

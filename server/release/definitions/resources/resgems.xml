@@ -9,7 +9,7 @@
 <definitions>
 	<item id="gem">
 		<id>0x1ea7</id>
-		<invisible/>
+		<moveable>0</moveable>
 		<nodecay/>
 	</item>
 

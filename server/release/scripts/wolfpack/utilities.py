@@ -198,7 +198,7 @@ def isweapon( item ):
 		return 0
 
 def isshield( item ):
-	shields = [ 0x1b72, 0x1b73, 0x1b73, 0x1b74, 0x1b75, 0x1b76, 0x1b77, 0x1b78, \
+	shields = [ 0x1b72, 0x1b73, 0x1b74, 0x1b75, 0x1b76, 0x1b77, 0x1b78, \
 		 0x1b79, 0x1b7a, 0x1b7b, 0x1bc3, 0x1bc4, 0x1bc5 ]
 
 	if item.id in shields:
@@ -217,3 +217,55 @@ def isspellbook( item ):
 def isinstrument( item ):
 	return item.id in [ 0xE9C, 0xE9D, 0xE9E, 0xEB1, 0xEB2, 0xEB3, 0xEB4 ]
 
+
+def isminingtool( item ):
+	return item.id in [ 0xf39, 0xf3a, 0xe85, 0xe86 ]
+
+def isoregem( item ):
+	return item.id == 0x1ea7 and item.hastag( 'resource' ) and item.gettag( 'resource' ) == 'ore' and item.hastag( 'min' ) and item.hastag( 'max' )
+
+def ismountainorcave( tile ):
+	return tile in  range(  220,  231 ) + \
+			range(  236,  247 ) + \
+			range(  252,  263 ) + \
+			range(  268,  279 ) + \
+			range(  286,  297 ) + \
+			range(  321,  324 ) + \
+			range(  467,  474 ) + \
+			range(  476,  487 ) + \
+			range(  492,  495 ) + \
+			range(  543,  579 ) + \
+			range(  581,  601 ) + \
+			range(  610,  613 ) + \
+			range( 1339, 1359 ) + \
+			range( 1361, 1363 ) + \
+			range( 1386, 1386 ) + \
+			range( 1741, 1757 ) + \
+			range( 1771, 1790 ) + \
+			range( 1801, 1824 ) + \
+			range( 1831, 1854 ) + \
+			range( 1861, 1884 ) + \
+			range( 1981, 2004 ) + \
+			range( 2028, 2033 ) + \
+			range( 2100, 2105 )
+
+def issand( tile ):
+	return tile in  range(   22,   62 ) + \
+			range(   68,   75 ) + \
+			range(  286,  301 ) + \
+			range(  402,  402 ) + \
+			range(  424,  427 ) + \
+			range(  441,  465 ) + \
+			range(  642,  645 ) + \
+			range(  650,  657 ) + \
+			range(  821,  828 ) + \
+			range(  833,  836 ) + \
+			range(  845,  852 ) + \
+			range(  857,  860 ) + \
+			range(  951,  958 ) + \
+			range(  967,  970 ) + \
+			range( 1447, 1458 ) + \
+			range( 1611, 1618 ) + \
+			range( 1623, 1626 ) + \
+			range( 1635, 1642 ) + \
+			range( 1647, 1650 )

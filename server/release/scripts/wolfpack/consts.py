@@ -295,3 +295,14 @@ LOG_WARNING = 3
 LOG_NOTICE  = 4
 LOG_TRACE   = 5
 LOG_DEBUG   = 6
+
+# Colors
+YELLOW = 0x37
+GRAY = 0x3b2
+
+# Fonts
+NORMAL = 3
+
+# Results
+OK = 1
+OOPS = 0
