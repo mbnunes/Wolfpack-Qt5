@@ -19,7 +19,27 @@ def onShowTooltip( sender, target, tooltip ):
     name = target.getname()
 
     if target.id == 0x2006 and len(target.name) > 0:
-      tooltip.add(1046414, target.name)
+      notoriety = 0x00
+
+      if target.hastag('notoriety'):
+        notoriety = int(target.gettag('notoriety'))
+
+      color = '#FFFFFF'
+
+      # 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
+      colors = {
+        0x01 : '#00FFFF',
+        0x02 : '#10d010',
+        0x03 : '#d0d0d0',
+        0x04 : '#d0d0d0',
+        0x05 : '#ff9900',
+        0x06 : '#d01010'
+      }
+
+      if not colors.has_key(notoriety):      
+        tooltip.add(1050045, " \tThe Remains Of \t" + target.name)
+      else:
+        tooltip.add(1050045, '<basefont color="%s">' % colors[notoriety] + " \tThe Remains Of \t<h3>" + target.name)
 
     elif isarmor ( target ):
     	armor( target, tooltip )
@@ -61,10 +81,24 @@ def onShowTooltip( sender, target, tooltip ):
       if isspellbook( target ):
       	tooltip.add( 1042886, str( target.spellscount() ) )
   else:
-    name = target.name
-    tooltip.add( 1050045, " \t" + name + "\t " )
+    tooltip.add(1050045, " \t%s\t " % target.name)
+  
+    # Tame = 502006
+    if target.tamed:
+      tooltip.add(502006, "")
 
-  tooltip.send( sender )
+    # Seems to break it ??
+    #if target.invulnerable and sender.gm:
+    #  tooltip.add(1050045, " \t(invulnerable)\t ")
+    #  tooltip.add(502006, "")
+
+    if target.frozen:
+      tooltip.add(1050045, " \t(frozen)\t ")
+
+    if target.iscriminal():
+      tooltip.add(1050045, " \t(criminal)\t ")
+
+  tooltip.send(sender)
   return 1
 
 def armor( target, tooltip ):
@@ -74,7 +108,7 @@ def armor( target, tooltip ):
 	tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ) )           #Durability
 
 def container( target, tooltip ):
-	tooltip.add( 1050045, "Bag" )
+	tooltip.add( 1050045, " \tBag\t " )
 	tooltip.add( 1050044, "1000\t10000" )     #$count items, $weight stones
 
 def shield( target, tooltip ):
@@ -136,6 +170,3 @@ def modifiers( target, tooltip ):
 			if modifiers[ tagname ][1]:
 				params = str( target.gettag( tagname ) )
 			tooltip.add( modifiers[ tagname ][0], params )
-
-
-
