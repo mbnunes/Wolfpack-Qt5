@@ -79,8 +79,6 @@ a:hover {
 <span class="maintitle">SERVERSTATUS</span>  </div>
 <table width="530"  border="0" align="center" cellpadding="5" cellspacing="0">
   <tr>
-	<td width="520"><strong>Connected Accounts:</strong> <%=wolfpack.sockets.count()%> of <%=wolfpack.accounts.count()%><br />
-	  <br />
 <%
 socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
@@ -91,6 +89,8 @@ while socket:
 	socket = nextsocket
 	nextsocket = wolfpack.sockets.next()
 %>
+	<td width="520"><strong>Connected Accounts:</strong> <%=count_players%> of <%=wolfpack.accounts.count()%><br />
+	  <br />
 	  <strong>Player Characters:</strong> <%=count_players%> <br />
 	  <strong>NPCs:</strong> <%=wolfpack.npccount()%> <br />
 	  <strong>Items:</strong> <%=wolfpack.itemcount()%> <br />
