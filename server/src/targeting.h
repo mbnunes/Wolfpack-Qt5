@@ -99,7 +99,6 @@ private:
 	void SetSpeechTarget(int s);
 	void SetPoisonTarget(int s);
 	void SetPoisonedTarget(int s);
-	void FullStatsTarget(int s);
 	void CanTrainTarget(int s);
 	void SetSpaDelayTarget(int s);
 	void NewXTarget(int s);

@@ -400,7 +400,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					tempshort = pc->hp();
 					tempshort -= QMAX(((tempshort)*RandomNum(5,15))/100, RandomNum(0,1) );
 					pc->setHp( tempshort );
-					updatestats(pc, 0);
+					pc->updateHealth();
 					break;
 				case 2:
 					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
@@ -444,7 +444,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					tempshort = pc->hp();
 					tempshort -= QMAX( ( tempshort * RandomNum( 30, 40 ) ) / 100, 1 );
 					pc->setHp( tempshort );
-					updatestats(pc, 0);
+					pc->updateHealth();
 					break;
 
 				default:
@@ -560,7 +560,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					}
 //					pc->hp -= RandomNum(1,2);
 					pc->setHp( pc->hp() - RandomNum(1,2) );
-					updatestats(pc, 0);
+					pc->updateHealth();
 					break;
 				case 2:
 					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
@@ -574,7 +574,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					
 //					pc->hp -= pcalc;
 					pc->setHp( pc->hp() - pcalc);
-					updatestats(pc, 0);
+					pc->updateHealth();
 					break;
 				case 3:
 					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
@@ -586,7 +586,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					pcalc=( ( pc->hp() * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
 //					pc->hp -= pcalc;
 					pc->setHp( pc->hp() - pcalc);
-					updatestats(pc, 0);
+					pc->updateHealth();
 					break; // lb !!!
 				case 4:
 					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
@@ -599,7 +599,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					pcalc=( (pc->hp() * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
 //					pc->hp -= pcalc;
 					pc->setHp(pc->hp() - pcalc);
-					updatestats(pc, 0);
+					pc->updateHealth();
 					break;
 				default:
 					clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, checkNPC()\n"); //Morrolan

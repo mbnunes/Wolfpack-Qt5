@@ -494,7 +494,7 @@ void explodeitem(int s, P_ITEM pi)
 	}
 	else
 	{
-		staticeffect2(pi, (unsigned char)0x36, (unsigned char)0xB0, (unsigned char)0x10, (unsigned char)0x80, (unsigned char)0x00);
+		pi->effect( 0x36B0, 0x10, 0x80 );
 		pi->soundEffect( 0x207 );
 	}
 
@@ -532,7 +532,7 @@ void explodeitem(int s, P_ITEM pi)
 				tempshort = pc->hp();
 				tempshort -= dmg+(2-QMIN(dx,dy));
 				pc->setHp( tempshort );
-				updatestats(pc, 0);
+				pc->updateHealth();
 				if (pc->hp()<=0)
 				{
 					pc->kill();
@@ -2033,7 +2033,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 	switch(pi->morey())
 	{
 	case 1: // Agility Potion
-		staticeffect(pc_p, 0x37, 0x3a, 0, 15);
+		pc_p->effect( 0x373a, 10, 15 );
 		switch(pi->morez())
 		{
 		case 1:
@@ -2092,7 +2092,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 				sysmessage(s,"The potion was not able to cure this poison."); 
 			else
 			{
-				staticeffect(pc_p, 0x37, 0x3A, 0, 15);
+				pc_p->effect( 0x373A, 10, 15);
 				pc_p->soundEffect( 0x01E0 ); //cure sound
 				if( pc_p->socket() )
 					pc_p->socket()->sysMessage( tr( "The poison was cured." ) );
@@ -2148,11 +2148,11 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		}
 
 		pc_p->updateHealth();
-		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		pc_p->effect( 0x376A, 0x09, 0x06 ); // Sparkle effect
 		pc_p->soundEffect( 0x01F2 ); //Healing Sound
 		break;
 	case 5: // Night Sight Potion
-		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06);
+		pc_p->effect( 0x376A, 0x09, 0x06 );
 		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
 		pc_p->soundEffect( 0x01E3 );
 		break;
@@ -2186,11 +2186,11 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		}
 		
 		pc_p->updateHealth();
-		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		pc_p->effect( 0x376A, 0x09, 0x06 ); // Sparkle effect
 		pc_p->soundEffect( 0x01F2 ); //Healing Sound
 		break;
 	case 8: // Strength Potion
-		staticeffect(pc_p, 0x37, 0x3a, 0, 15);
+		pc_p->effect( 0x373a, 10, 15 );
 		switch(pi->morez())
 		{
 		case 1:
@@ -2229,8 +2229,9 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		if (s!=-1) updatestats(pc_p, 1);
-		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
+		if ( pc_p->socket() )
+			pc_p->socket()->updateMana( pc_p );
+		pc_p->effect( 0x376A, 0x09, 0x06 ); // Sparkle effect
 		pc_p->soundEffect( 0x01E7 ); // Agility sound
 		break;
 

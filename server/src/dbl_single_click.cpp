@@ -891,7 +891,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
                 socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame())); 
                 socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills())); 
                 socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths()));
-				staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06 );
+				pc_currchar->effect( 0x372A, 0x09, 0x06 );
 				socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
                 pi->ReduceAmount(1); 
                 return; 

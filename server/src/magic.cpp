@@ -806,71 +806,6 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 //
 char cMagic::GateCollision(P_CHAR pc_player)
 {
-	unsigned int n;
-//	extern cRegion *cMapObjects::getInstance();
-
-	// Check to make sure that this isn't a NPC (they shouldn't go throught gates)
-	if( pc_player->isNpc() )
-	return 0;
-
-	// Now check whether the PC (player character) has moved or simply turned
-	// If they have only turned, then ignore checking for a gate collision since it would
-	// have happened the previous time
-	if( pc_player->pos == pc_player->prevPos() )
-		return 0;
-
-	RegionIterator4Items ri( pc_player->pos );
-	for( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		P_ITEM mapitem = ri.GetData();
-		if (mapitem != NULL)
-		{
-			if (mapitem->type() == 51 || (mapitem->type()==52))
-			{
-				if (mapitem->type()==51) n=1;
-				else n=0;
-				if ((pc_player->pos.x==mapitem->pos.x)&&
-					(pc_player->pos.y==mapitem->pos.y)&&
-					(pc_player->pos.z>=mapitem->pos.z))
-				{
-			// Dupois - Check for any NPC's that are following this player
-			//			There has to be a better way than this...
-			//			Think about it some more and change this.
-			// If this is a player character
-					if ( pc_player->isPlayer() )
-					{
-						// Look for an NPC
-						RegionIterator4Chars rg(pc_player->pos);
-						for ( rg.Begin(); !rg.atEnd(); rg++ )
-						{
-							P_CHAR pc = rg.GetData();
-							// That is following this player character
-							if ( (pc->isNpc()) && (pc->ftarg() == pc_player->serial) )
-							{
-								// If the NPC that is following this player character is within 5 paces
-								if ( pc_player->dist(pc) <= 4 )
-								{
-									// Teleport the NPC along with the player
-									pc->MoveTo(gatex[mapitem->gatenumber()][n], gatey[mapitem->gatenumber()][n], gatez[mapitem->gatenumber()][n]);
-									teleport(pc);
-								}
-							}
-						}
-					}
-					// Set the characters destination
-					pc_player->MoveTo(gatex[mapitem->gatenumber()][n], gatey[mapitem->gatenumber()][n]+ 1, gatez[mapitem->gatenumber()][n]);
-					teleport(pc_player);
-					pc_player->soundEffect( 0x01FE );
-					staticeffect( pc_player, 0x37, 0x2A, 0x09, 0x06 );
-				}
-			}
-		}
-	}
-
-	// Since the character has moved a step update the prevXYZ values
-	// to prevent the "bounce back" effect of the GateCollision check
-	pc_player->setPrevPos(pc_player->pos);
-
 	return 1;
 }
 
@@ -1183,15 +1118,6 @@ char cMagic::SubtractMana4Spell(P_CHAR pc, int num)
 }
 char cMagic::SubtractMana(P_CHAR pc, int mana)
 {
-	if (pc->priv2()&0x10)
-		return 1;
-
-	if (pc->mn() >= mana)
-		pc->setMn( pc->mn() - mana );
-	else
-		pc->setMn(0);
-
-	updatestats((pc), 1);//AntiChrist - bugfix
 	return 1;
 }
 
@@ -1203,25 +1129,11 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 //
 bool cMagic::CheckMagicReflect(P_CHAR pc)
 {
-	if (pc->priv2()&0x40)
-	{
-//		pc->priv2 &= 0xBF;
-		pc->setPriv2(pc->priv2() & 0xBF);
-		staticeffect(pc, 0x37, 0x3A, 0, 15);
-		return true;
-	}
 	return false;
 }
 
 P_CHAR cMagic::CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender)
 {
-	if (defender->priv2()&0x40)
-	{
-//		defender->priv2 &= 0xBF;
-		defender->setPriv2(defender->priv2() & 0xBF);
-		staticeffect(defender, 0x37, 0x3A, 0, 15);
-		return attacker;
-	}
 	return defender;
 }
 
@@ -1431,7 +1343,7 @@ void cMagic::BoxSpell(UOXSOCKET s, int& x1, int& x2, int& y1, int& y2, int& z1, 
 void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 {
 	if (!pTrap) return;
-	staticeffect(pc, 0x36, 0xB0, 0x09, 0x09);
+	pc->effect( 0x36B0, 0x09, 0x09 );
 	pc->soundEffect( 0x0207 );
 	if(CheckResist(NULL, pc, 4))
 		MagicDamage(pc,pTrap->moreb2());
@@ -1520,13 +1432,6 @@ int cMagic::RegMsg(P_CHAR pc, reag_st failmsg)
 //
 void cMagic::PFireballTarget(P_CHAR pc_i, P_CHAR pc, int j) //j = % dammage
 {
-	int dmg;
-	movingeffect(pc_i, pc, 0x36, 0xD5, 0x05, 0x00, 0x01);
-	pc_i->soundEffect( 0x015E );
-	// do we have to calculate attacker hp percentage,
-	// or defender hp percentage?!?!?!
-	dmg=(int)(((float)pc->hp()/100) * j);
-	MagicDamage(pc, dmg);
 }
 
 ///////////////////
@@ -1536,21 +1441,6 @@ void cMagic::PFireballTarget(P_CHAR pc_i, P_CHAR pc, int j) //j = % dammage
 //
 void cMagic::SpellFail(UOXSOCKET s)
 {
-	P_CHAR pc_currchar = currchar[s];
-	//Use Reagents on failure ( if casting from spellbook )
-	if (currentSpellType[s]==0)
-		DelReagents( pc_currchar, pc_currchar->spell() );
-
-	//npcaction(cc, 128); // whaaaaaaaaaaaaaat ?
-	//orders the PG to move a step on, but the pg doesn't really move
-	//disappearing from the other clients. solarin
-	
-	if ( rand()%5==2 )
-		doStaticEffect(pc_currchar, 99);
-	else
-		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
-	pc_currchar->soundEffect( 0x005C );
-	npcemote(s, pc_currchar, "The spell fizzles.",0);
 }
 
 
@@ -1568,51 +1458,10 @@ void cMagic::SpellFail(UOXSOCKET s)
 //
 void cMagic::LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana)
 {
-	if ( pc_Attacker == NULL || pc_Defender == NULL)
-		return;
-	P_CHAR pc_trg = CheckMagicReflect(pc_Attacker, pc_Defender);
-	
-	if (usemana)
-		SubtractMana(pc_Attacker, 11);
-	bolteffect(pc_trg, true);
-	pc_trg->soundEffect( 0x0029 );
-
-	if (CheckResist(pc_Attacker, pc_trg, 4))
-	{
-		MagicDamage(pc_trg, pc_Attacker->skill(MAGERY)/180+RandomNum(1,2));
-		//MagicDamage(t, (2+(rand()%3)+1)*(pc_currchar->skill(MAGERY)/1000+1));
-	}
-	else
-	{
-		MagicDamage(pc_trg, (pc_Attacker->skill(MAGERY)+1*(pc_Attacker->skill(EVALUATINGINTEL)/3))/(89+1*(pc_trg->skill(MAGICRESISTANCE)/30))+RandomNum(1,5));
-		//MagicDamage(t, (4+(rand()%5)+2)*(pc_currchar->skill(MAGERY)/750+1));
-	}
-	return;
 }
 
 void cMagic::NPCHeal(P_CHAR pc)
 {
-    int loskill=spells[10].loskill;
-    int hiskill=spells[10].hiskill;
-	if ( pc == NULL ) return;
-
-	if (!pc->checkSkill( MAGERY, loskill, hiskill))
-	{
-		UOXSOCKET ss=calcSocketFromChar(pc);
-		if (ss>-1)
-		{
-			SpellFail(ss);
-		}
-		return;
-	}
-	if (CheckMana(pc,10))
-	{
-		SubtractMana(pc, 10);
-		int j=pc->hp()+(pc->skill(MAGERY)/30+RandomNum(1,12));
-		pc->setHp( QMIN(pc->st(), static_cast<signed short>(j)) );
-		doStaticEffect(pc, 4);
-		updatestats(pc, 0);
-	}
 }
 
 void cMagic::NPCCure(P_CHAR pc)
@@ -2026,24 +1875,24 @@ void cMagic::preParticles(int num, P_CHAR pc)
 {
     stat_st t;
 	t = cMagic::getStatEffects_pre(num);
-	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
-	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true); 			 			  		
+//	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
+//	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true); 			 			  		
 }
 
 void cMagic::afterParticles(int num, P_CHAR pc)
 {
     stat_st t;
 	t = cMagic::getStatEffects_after(num);
-	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
-	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
+//	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
+//	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
 }
 
 void cMagic::itemParticles(int num, P_ITEM pi)
 {
     stat_st t;
 	t = cMagic::getStatEffects_item(num);
-	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
-	staticeffect2(pi, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
+//	if( t.effect[4] != -1 && t.effect[5] != -1 && t.effect[6] != -1 && t.effect[7] != -1 )
+//	staticeffect2(pi, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
 }
 
 void cMagic::NewCastSpell( UOXSOCKET s )
@@ -4087,28 +3936,10 @@ void cMagic::playSound( P_CHAR pc_source, int num )
 
 void cMagic::doStaticEffect( P_CHAR source, int num )
 {
-	stat_st temp;
-	memset( &temp , -1, sizeof(stat_st) );	
-	temp = getStatEffects( num );
-
-	if( temp.effect[0] != -1 && temp.effect[1] != -1 && temp.effect[2] != -1 && temp.effect[3] != -1 )
-	{
-		staticeffect( source, temp.effect[0], temp.effect[1], temp.effect[2], temp.effect[3], true,  &temp);
-		// looks stupid to pass a pointer to a struct variable and elements of the *same* struct variable
-		// actually it's very tricky but ok. (via pointer #4..15 is accessed, saved work to change a few 1000 LOC's)
-		// please don't touch. thx, LB
-	}
 }
 
 void cMagic::doMoveEffect( int num, P_CHAR target, P_CHAR source )
 {
-	move_st temp;
-	memset( &temp , -1, sizeof( move_st) );	
-
-	temp = getMoveEffects( num );
-
-	if( temp.effect[0] != -1 && temp.effect[1] != -1 && temp.effect[2] != -1 && temp.effect[3] != -1 && temp.effect[4] != -1 )
-		movingeffect(source, target, temp.effect[0], temp.effect[1], temp.effect[2], temp.effect[3], temp.effect[4], true, &temp );
 }
 
 bool cMagic::aggressiveSpell( int num )
@@ -4284,18 +4115,6 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 // LB
 void cMagic::Heal(UOXSOCKET s)
 {
-	P_CHAR pc_currchar = currchar[s];
-	SERIAL defender=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc_defender = FindCharBySerial( defender );
-	if (pc_defender != NULL)
-	{
-		playSound( pc_currchar, 4);
-		doStaticEffect(pc_defender, 4);
-		pc_defender->setHp( pc_defender->st() );
-		updatestats((pc_defender), 0);
-	} else
-		sysmessage(s,"Not a valid heal target");
-
 }
 
 // only used for the /recall command

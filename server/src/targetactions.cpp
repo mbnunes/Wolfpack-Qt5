@@ -148,7 +148,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				int j = RandomNum(healmin, healmax);
 				// khpae
 				pp->setHp( (pp->st() > (pp->hp() + j)) ? (pp->hp() + j) : pp->st() );
-				updatestats(pp, 0);
+				pp->updateHealth();
 				socket->sysMessage( tr("You apply the bandages and the creature looks a bit healthier.") );
 			}
 		}

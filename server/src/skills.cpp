@@ -1365,10 +1365,10 @@ void cSkills::Persecute ( cUOSocket* socket )
 				target->setMn(0);
 			else 
 				target->setMn(target->mn() - decrease);
-			updatestats(target,1);//update
 			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));
 			if ( target->socket() )
 			{
+				target->socket()->updateMana( target );
 				target->socket()->sysMessage(tr("A damned soul is disturbing your mind!"));
 			}
 			pc_currchar->setSkillDelay();

@@ -239,7 +239,7 @@ void cTargets::VisibleTarget (int s)
 		if(pc != NULL)
 		{
 			pc->setHidden( addx[s] );
-			updatechar(pc);
+			pc->update();
 		}
 	}
 }
@@ -752,25 +752,6 @@ void cTargets::SetPoisonedTarget(int s)
 		pc->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
 		impowncreate(calcSocketFromChar(pc), pc, 1); //Lb, sends the green bar !
 	}
-}
-
-void cTargets::FullStatsTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->soundEffect( 0x01F2 );
-		staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
-		pc->setMn( pc->in() );
-		pc->setHp( pc->st() );
-		pc->setStm(pc->effDex() );
-		updatestats(pc, 0);
-		updatestats(pc, 1);
-		updatestats(pc, 2);
-		return;
-	}
-	sysmessage(s,"That is not a person.");
 }
 
 ////////////////

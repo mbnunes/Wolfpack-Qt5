@@ -729,7 +729,7 @@ namespace Combat
 			if( pAttacker->hp() <= 0 )
 				pAttacker->kill();
 
-			staticeffect( pDefender, 0x37, 0x4A, 0, 15 ); // RA effect (update!)
+			pDefender->effect( 0x374A, 10, 15 ); // RA effect (update!)
 		}
 
 		// Finally deal the damage
@@ -845,7 +845,7 @@ namespace Combat
 					pAttacker->resend( false );
 					
 					pAttacker->soundEffect( 0x1FE );
-					staticeffect( pAttacker, 0x37, 0x2A, 0x09, 0x06 );
+					pAttacker->effect( 0x372A, 0x09, 0x06 );
 
 					if( RandomNum( 1, 4 ) == 1 )
 						pAttacker->talk( tr("Halt, scoundrel!"), -1, 0, true );
@@ -1305,7 +1305,7 @@ namespace Combat
 			pGuard->setSummonTimer( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );    
 			
 			pGuard->soundEffect( 0x1FE );
-			staticeffect( pGuard, 0x37, 0x2A, 0x09, 0x06 );
+			pGuard->effect( 0x372A, 0x09, 0x06 );
 
 			// Send guard to surrounding Players
 			pGuard->resend( false );

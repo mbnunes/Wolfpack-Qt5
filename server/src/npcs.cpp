@@ -116,7 +116,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 		pc_c->setSplit(1); 
 	else 
 		pc_c->setSplit(0);	
-	updatechar(pc_c);
+	pc_c->update();
 }
 
 P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )

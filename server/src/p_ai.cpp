@@ -110,7 +110,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						{
 							pc_i->action( 0x10 );
 							pc->resurrect();
-							staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
+							pc->effect( 0x376A, 0x09, 0x06 );
 							switch (RandomNum(0, 4)) 
 							{
 							case 0: 
@@ -288,7 +288,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							pc_i->pos.y = pc->pos.y;
 							pc_i->pos.z = pc->pos.z;
 							pc_i->soundEffect( 0x01FE );
-							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
+							pc_i->effect( 0x372A, 0x09, 0x06 );
 							// We found a victim
 				            if( Victim )
 							 pc_i->attackTarget( Victim );
@@ -377,7 +377,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							pc_i->pos.y = pc->pos.y;
 							pc_i->pos.z = pc->pos.z;
 							pc_i->soundEffect( 0x01FE );
-							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
+							pc_i->effect( 0x372A, 0x09, 0x06 );
 							// We found a victim
 				            if( Victim )
 							pc_i->attackTarget( Victim );

@@ -425,9 +425,9 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_ps->setLayer( 0 );
 	pi_ps->setType( 1 );
 	pi_ps->setDye(0);
-	sendbpitem(s, pi_ps);
-	if (s2 != INVALID_UOXSOCKET)
-		sendbpitem(s2, pi_ps);
+//	sendbpitem(s, pi_ps);
+//	if (s2 != INVALID_UOXSOCKET)
+//		sendbpitem(s2, pi_ps);
 
 	P_ITEM pi_pi = Items->SpawnItem(s2,pc_i,1,"#",0,0x1E,0x5E,0,0,0);
 	if (pi_pi == NULL)
@@ -437,9 +437,9 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_pi->setLayer( 0 );
 	pi_pi->setType( 1 );
 	pi_pi->setDye(0);
-	sendbpitem(s, pi_pi);
-	if (s2 != INVALID_UOXSOCKET)
-		sendbpitem(s2, pi_pi);
+//	sendbpitem(s, pi_pi);
+//	if (s2 != INVALID_UOXSOCKET)
+//		sendbpitem(s2, pi_pi);
 
 	pi_pi->setMoreb1( static_cast<unsigned char>((pi_ps->serial&0xFF000000)>>24) );
 	pi_pi->setMoreb2( static_cast<unsigned char>((pi_ps->serial&0x00FF0000)>>16) );

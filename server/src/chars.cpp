@@ -2174,7 +2174,7 @@ void cChar::updateHealth( void )
 		if( !pChar || !pChar->socket() || !pChar->inRange( this, pChar->VisRange() ) || ( isHidden() && !pChar->isGM() && this != pChar ) )
 			continue;
 	
-		pChar->socket()->sendStatWindow( this );
+		pChar->socket()->updateHealth( this );
 	}
 }
 
@@ -2559,7 +2559,7 @@ void cChar::kill()
 						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
 						{
 							soundEffect( 0x01FE );
-							staticeffect( this, 0x37, 0x2A, 0x09, 0x06 );
+							this->effect( 0x372A, 0x09, 0x06 );
 							Items->DeleItem( pi_k );
 						}
 					}
