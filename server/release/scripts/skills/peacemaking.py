@@ -16,6 +16,10 @@ def onSkillUse( char, skill ):
 	if skill != PEACEMAKING:
 		return 0
 
+	if char.hastag( 'skill_delay' ):
+		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	# check instrument in backpack
 	backpack = char.getbackpack()
 	if not backpack:

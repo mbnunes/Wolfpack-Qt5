@@ -17,6 +17,10 @@ def onSkillUse( char, skill ):
 	if skill != EVALUATINGINTEL:
 		return 0
 
+	if char.hastag( 'skill_delay' ):
+		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	char.socket.clilocmessage( 0x7A4AA, "", 0x3b2, 3 ) # What would you like to evaluate
 	char.socket.attachtarget( "skills.evaluatingintel.response" )
 	return 1

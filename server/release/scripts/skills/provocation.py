@@ -20,6 +20,10 @@ def onSkillUse( char, skill ):
 	if skill != PROVOCATION:
 		return 0
 
+	if char.hastag( 'skill_delay' ):
+		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	# check instrument in backpack
 	backpack = char.getbackpack()
 	if not backpack:
@@ -140,6 +144,7 @@ def response( char, args, target ):
 		return 1
 
 	# start combat
+	# will be added : these will stop combat if the char go out of sight
 	target1.attack( target2 )
 	target2.attack( target1 )
 	return 1

@@ -31,6 +31,9 @@ def onSkillUse( char, skill ):
 		return 0
 
 	socket = char.socket
+	if char.hastag( 'skill_delay' ):
+		socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
 
 	# Assign the target request
 	socket.clilocmessage( 502789, "", 0x3b2, 3 )

@@ -18,6 +18,10 @@ def onSkillUse( char, skill ):
 	if skill != HIDING:
 		return 0
 
+	if char.hastag( 'skill_delay' ):
+		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	success = char.checkskill( HIDING, 0, 1000 )
 
 	if success:

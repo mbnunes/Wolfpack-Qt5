@@ -17,6 +17,10 @@ def onSkillUse( char, skill ):
 	if skill != ARMSLORE:
 		return 0
 
+	if char.hastag( 'skill_delay' ):
+		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	char.socket.clilocmessage( 0x7A27D, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.armslore.response" )
 

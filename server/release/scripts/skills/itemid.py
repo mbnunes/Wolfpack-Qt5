@@ -16,6 +16,10 @@ def onSkillUse( char, skill ):
 	if skill != ITEMID:
 		return 0
 
+	if char.hastag( 'skill_delay' ):
+		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	char.socket.clilocmessage( 0x7A277, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.itemid.response" )
 	return 1

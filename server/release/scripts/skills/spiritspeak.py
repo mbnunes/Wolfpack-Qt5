@@ -18,6 +18,10 @@ def onSkillUse( char, skill ):
 		return 0
 	socket = char.socket
 
+	if char.hastag( 'skill_delay' ):
+		socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	socket.clilocmessage( 0x1034BA, "", 0x3b2, 3, char )
 	char.action( 0x11 )
 	char.addtimer( 1000, "skills.spiritspeak.effect", [skill] )

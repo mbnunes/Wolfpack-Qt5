@@ -17,6 +17,10 @@ def onSkillUse( char, skill ):
 	if skill != ANIMALLORE:
             return 0
 
+	if char.hastag( 'skill_delay' ):
+		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		return 1
+
 	char.socket.clilocmessage( 0x7A268, "", 0x3b2, 3 ) # What animal should I look at?
 	char.socket.attachtarget( "skills.animallore.response" )    
     
