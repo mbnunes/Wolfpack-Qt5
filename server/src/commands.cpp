@@ -379,8 +379,8 @@ void commandSet( cUOSocket *socket, const QString &command, const QStringList &a
 	{
 		QString value = args.join( " " );
 		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
-		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "strength" ).arg( value ) );
-		socket->attachTarget( new cSetTarget( "strength", value ) );
+		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "dexterity" ).arg( value ) );
+		socket->attachTarget( new cSetTarget( "dexterity", value ) );
 	}
 	else if( key == "int" )
 	{
