@@ -164,7 +164,7 @@ def makebread( char ):
 		return
 	
 	# firstly, we check a dough
-	if not backpack.countresource( 0x103d, 0x0 )
+	if not backpack.countresource( 0x103d, 0x0 ):
 		return
 	# second, check the fires to bake
 	if not checkfire( char.pos ):
@@ -190,7 +190,7 @@ def makecookiepan( char ):
 	if not backpack:
 		return
 	
-	if not backpack.countresource( 0x103f )
+	if not backpack.countresource( 0x103f ):
 		return
 	if not checkfire( char.pos ):
 		return
@@ -304,4 +304,4 @@ def checkfire( pos ):
 				break
 		if found_fire:
 			break
-	return found_fire:
+	return found_fire
