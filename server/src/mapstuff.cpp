@@ -59,8 +59,6 @@ void bitprint(FILE *fp, unsigned char x)
 }
 #endif
 
-
-//##ModelId=3C5D92DF0196
 cMapStuff::cMapStuff() : versionCache(NULL), versionRecordCount(0), versionMemory(0), StaMem(0), TileMem(0),
 Cache(0), Map0CacheHit(0), Map0CacheMiss(0), StaticBlocks(0),
 mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), multifile(NULL), midxfile(NULL)
@@ -85,7 +83,6 @@ mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), mu
 	
 }
 
-//##ModelId=3C5D92DF01A0
 cMapStuff::~cMapStuff()
 {
 	if (versionCache) delete [] versionCache;
@@ -99,7 +96,6 @@ cMapStuff::~cMapStuff()
 	if( midxfile )  delete midxfile;
 }
 
-//##ModelId=3C5D92DF01AA
 void cMapStuff::Load()
 {
 	clConsole.send("Preparing to open *.mul files...\n(If they don't open, fix your paths in the wolfpack.ini)\n");
@@ -187,7 +183,6 @@ void cMapStuff::Load()
 // oh yah, well that's encouraging.. NOT! at least LB was kind enough to
 // move this out into a separate file. he gets kudos for that!
 //int cMapStuff::TileHeight(int tilenum)
-//##ModelId=3C5D92DF02C3
 signed char cMapStuff::TileHeight(int tilenum)
 {
 	tile_st tile;
@@ -218,7 +213,6 @@ bool CanUseOldZ(int oldz, int newz)
 //|   Purpose     :  Top of statics at/above given coordinates
 //o-------------------------------------------------------------o
 //int cMapStuff::StaticTop(int x, int y, int oldz)
-//##ModelId=3C5D92DF01F1
 signed char cMapStuff::StaticTop(short int x, short int y, signed char oldz)
 {
 //	int top = illegal_z;
@@ -252,7 +246,6 @@ signed char cMapStuff::StaticTop(short int x, short int y, signed char oldz)
 //           probably with the floor-bit
 
 //bool cMapStuff::IsUnderRoof(int x, int y, int z)
-//##ModelId=3C5D92DF01B4
 bool cMapStuff::IsUnderRoof(short int x, short int y, signed char z)
 {
 	MapStaticIterator msi(x, y);
@@ -301,7 +294,6 @@ bool cMapStuff::IsUnderRoof(short int x, short int y, signed char z)
 
 //
 // i guess this function returns where the tile is a 'blocker' meaning you can't pass through it
-//##ModelId=3C5D92E0017A
 bool cMapStuff::DoesTileBlock(int tilenum)
 {
 	tile_st tile;
@@ -311,7 +303,6 @@ bool cMapStuff::DoesTileBlock(int tilenum)
 	return DoesTileBlock(tile);
 }
 
-//##ModelId=3C5D92E001CA
 bool cMapStuff::DoesTileBlock( tile_st &tile )
 {
 	return (tile.flag1&0x40) == 0x40;
@@ -319,7 +310,6 @@ bool cMapStuff::DoesTileBlock( tile_st &tile )
 
 // crackerjack 8/9/1999 - finds the "corners" of a multitile object. I use
 // this for when houses are converted into deeds.
-//##ModelId=3C5D92DF0313
 void cMapStuff::MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2)
 {
 	st_multi multi;
@@ -348,7 +338,6 @@ void cMapStuff::MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2)
 
 // return the height of a multi item at the given x,y. this seems to actually return a height
 //int cMapStuff::MultiHeight(int i, int x, int y, int oldz)
-//##ModelId=3C5D92DE039E
 signed char cMapStuff::MultiHeight(P_ITEM pi, short int x, short int y, signed char oldz)
 {                                                                                                                                  	st_multi multi;                                                                                                               
 	UOXFile *mfile = NULL;
@@ -1123,7 +1112,6 @@ map_st cMapStuff::SeekMap0( unsigned short x, unsigned short y )
 
 // these two functions don't look like they are actually used by anything
 // anymore, at least we know which bit means wet
-//##ModelId=3C5D92DF00B0
 bool cMapStuff::IsTileWet(int tilenum)   // lord binary
 {
 	tile_st tile;
@@ -1133,7 +1121,6 @@ bool cMapStuff::IsTileWet(int tilenum)   // lord binary
 
 // i don't know what this bit means exactly, its a walkway? or you are allowed
 // to walk?
-//##ModelId=3C5D92DF00CE
 bool cMapStuff::TileWalk(int tilenum)
 {
 	tile_st tile;
@@ -1145,7 +1132,6 @@ bool cMapStuff::TileWalk(int tilenum)
 
 // Blocking statics at/above given coordinates?
 //bool cMapStuff::DoesStaticBlock( int x, int y, int oldz )
-//##ModelId=3C5D92DF013C
 bool cMapStuff::DoesStaticBlock( short int x, short int y, signed char oldz )
 {
 	MapStaticIterator msi(x, y);
@@ -1172,7 +1158,6 @@ bool cMapStuff::DoesStaticBlock( short int x, short int y, signed char oldz )
 
 // Return new height of player who walked to X/Y but from OLDZ
 //int cMapStuff::Height(int x, int y, int oldz)
-//##ModelId=3C5D92DF02E1
 signed char cMapStuff::Height(short int x, short int y, signed char oldz)
 {
 	// let's check in this order.. dynamic, static, then the map
@@ -1190,7 +1175,6 @@ signed char cMapStuff::Height(short int x, short int y, signed char oldz)
 // can the monster move here from an adjacent cell at elevation 'oldz'
 // use illegal_z if they are teleporting from an unknown z
 //bool cMapStuff::CanMonsterMoveHere(int x, int y, int oldz)
-//##ModelId=3C5D92E0018E
 bool cMapStuff::CanMonsterMoveHere(short int x, short int y, signed char oldz)
 {
 	if( x < 0 || y < 0 || x >= ( MapTileWidth * 8 ) || y >= ( MapTileHeight * 8 ) )
@@ -1224,7 +1208,6 @@ bool cMapStuff::CanMonsterMoveHere(short int x, short int y, signed char oldz)
     return true;
 }
 
-//##ModelId=3C5D92E00134
 bool cMapStuff::IsRoofOrFloorTile( tile_st *tile )
 // checks to see if the tile is either a roof or floor tile
 {
@@ -1249,7 +1232,6 @@ bool cMapStuff::IsRoofOrFloorTile( tile_st *tile )
 	return false;
 }
 
-//##ModelId=3C5D92E00166
 bool cMapStuff::IsRoofOrFloorTile( unitile_st *tile )
 // checks to see if the tile is either a roof or floor tile
 {
