@@ -567,7 +567,7 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 	cVariant value = self->pSock->tags().get(key);
 
 	if( value.type() == cVariant::String )
-		return PyUnicode_FromWideChar((Py_UNICODE*)value.toString().ucs2(), value.toString().length());
+		return PyUnicode_FromUnicode((Py_UNICODE*)value.toString().ucs2(), value.toString().length());
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 	else if( value.type() == cVariant::Double )
