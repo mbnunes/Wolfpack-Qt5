@@ -67,6 +67,7 @@
 	<script>trashcan</script>
 	<script>wall_clock</script>
 	<script>wool</script>
+	<script>xmlconfig</script>
 	<script>yarn</script>
 
 	<!-- Potions -->
@@ -160,10 +161,11 @@
 	<script>magic.circle6</script>
 	<script>magic.circle7</script>
 	<script>magic.circle8</script>
+	<script>magic.chivalry</script>
+	<script>magic.chivalryspellbook</script>
 	<script>magic.firefield</script>
 	<script>magic.gate</script>
 	<script>magic.necromancy</script>
-	<script>magic.necrospells</script>
 	<script>magic.necrospellbook</script>
 	<script>magic.nightsight</script>
 	<script>magic.paralyzefield</script>
@@ -267,7 +269,7 @@
 	<script>plants.greenthorns</script>
 	<script>plants.redleaves</script>
 	<script>plants.orangepetals</script>
-	
+
 	<!-- Playervendors -->
 	<script>npc.playervendor</script>
 	<script>npc.playervendor.item</script>
