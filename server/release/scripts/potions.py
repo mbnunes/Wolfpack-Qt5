@@ -9,37 +9,39 @@ from system import poison
 # potion [ return_bottle, aggressive, target, name ]
 potions = \
 {
-	0:		[ 1, 0, 0, 1044542 ], # nightsight
-	1:		[ 1, 0, 0, 1044543 ], # lesser heal
-	2:		[ 1, 0, 0, 1044544 ], # heal
-	3:		[ 1, 0, 0, 1044545 ], # greater heal
-	4:		[ 1, 0, 0, 1044552 ], # lesser cure
-	5:		[ 1, 0, 0, 1044553 ], # cure
-	6:		[ 1, 0, 0, 1044554 ], # greater cure
-	7:		[ 1, 0, 0, 1044540 ], # agility
-	8:		[ 1, 0, 0, 1044541 ], # greater agility
-	9:		[ 1, 0, 0, 1044546 ], # strength
-	10:	[ 1, 0, 0, 1044547 ], # greater strength
-	11:	[ 0, 1, 1, 1044555 ], # lesser explosion
-	12:	[ 0, 1, 1, 1044556 ], # explosion
-	13:	[ 0, 1, 1, 1044557 ], # greater explosion
-	14:	[ 1, 0, 0, 1044548 ], # lesser poison
-	15:	[ 1, 0, 0, 1044549 ], # poison
-	16:	[ 1, 0, 0, 1044550 ], # greater poison
-	17:	[ 1, 0, 0, 1044551 ], # deadly poison
-	18:	[ 1, 0, 0, 1044538 ], # refresh
-	19:	[ 1, 0, 0, 1044539 ], # total refresh
-	20:	[ 1, 0, 0, 'Intellegence' ], # intelligence
-	21:	[ 1, 0, 0, 'Greater Intellegence' ], # greater intelligence
-	22:	[ 1, 0, 0, 'Lesser Mana' ], # lesser mana
-	23:	[ 1, 0, 0, 'Mana' ], # mana
-	24:	[ 1, 0, 0, 'Greater Mana' ] # greater mana
+	0:		[ 1, 0, 0, '#1044542', '#1041620', 'potion_nightsight' ], # nightsight
+	1:		[ 1, 0, 0, '#1044543', '#1041634', 'potion_lesserheal' ], # lesser heal
+	2:		[ 1, 0, 0, '#1044544', '#1041635', 'potion_heal' ], # heal
+	3:		[ 1, 0, 0, '#1044545', '#1041636', 'potion_greaterheal' ], # greater heal
+	4:		[ 1, 0, 0, '#1044552', '#1041621', 'potion_lessercure' ], # lesser cure
+	5:		[ 1, 0, 0, '#1044553', '#1041622', 'potion_cure' ], # cure
+	6:		[ 1, 0, 0, '#1044554', '#1041623', 'potion_greatercure' ], # greater cure
+	7:		[ 1, 0, 0, '#1044540', '#1041624', 'potion_agility' ], # agility
+	8:		[ 1, 0, 0, '#1044541', '#1041625', 'potion_greateragility' ], # greater agility
+	9:		[ 1, 0, 0, '#1044546', '#1041626', 'potion_strength' ], # strength
+	10:	[ 1, 0, 0, '#1044547', '#1041627', 'potion_greaterstrength' ], # greater strength
+	11:	[ 0, 1, 1, '#1044555', '#1041637', 'potion_lesserexplosion' ], # lesser explosion
+	12:	[ 0, 1, 1, '#1044556', '#1041638', 'potion_explosion' ], # explosion
+	13:	[ 0, 1, 1, '#1044557', '#1041639', 'potion_greaterexplosion' ], # greater explosion
+	14:	[ 1, 0, 0, '#1044548', '#1041628', 'potion_lesserpoison' ], # lesser poison
+	15:	[ 1, 0, 0, '#1044549', '#1041629', 'potion_poison' ], # poison
+	16:	[ 1, 0, 0, '#1044550', '#1041630', 'potion_greaterpoison' ], # greater poison
+	17:	[ 1, 0, 0, '#1044551', '#1041631', 'potion_deadlypoison' ], # deadly poison
+	18:	[ 1, 0, 0, '#1044538', '#1041632', 'potion_refresh' ], # refresh
+	19:	[ 1, 0, 0, '#1044539', '#1041633', 'potion_totalrefresh' ], # total refresh
+	20:	[ 1, 0, 0, 'Intellegence', 'A keg of Intellegence potions', 'potion_intelligence' ], # intelligence
+	21:	[ 1, 0, 0, 'Greater Intellegence', 'A keg of Greater Intellegence potions', 'potion_greaterintelligence' ], # greater intelligence
+	22:	[ 1, 0, 0, 'Lesser Mana', 'A keg of Lesser Mana potions', 'potion_lessermana' ], # lesser mana
+	23:	[ 1, 0, 0, 'Mana', 'A keg of Mana potions', 'potion_mana' ], # mana
+	24:	[ 1, 0, 0, 'Greater Mana', 'A keg of Greater Mana potions', 'potion_greatermana' ] # greater mana
 }
 
 POT_RETURN_BOTTLE = 0
 POT_AGGRESSIVE = 1
 POT_TARGET = 2
 POT_NAME = 3
+KEG_NAME = 4
+POT_DEF = 5
 
 # Use the potion
 def onUse( char, item ):
@@ -71,44 +73,36 @@ def onUse( char, item ):
 		else:
 			# If it's a drinkable potion we check if there is a free hand.
 			if not canUsePotion( char, item ):
-				return OOPS
+				return OK
 
 			# Nightsight Potions
 			if potiontype == 0:
 				nightsightPotion( char, item )
-				return OK
 			# Heal Potions
 			elif potiontype in [1,2,3]:
 				healPotion(char, item, potiontype)
-				return OK
 			# Cure Potions
 			elif potiontype in [4,5,6]:
 				curePotion(char, item, potiontype)
-				return OK
 			# Agility Potions
 			elif potiontype in [7,8]:
 				agilityPotion( char, item, potiontype )
-				return OK
 			# Strength Potions
 			elif potiontype in [ 9, 10 ]:
 				strengthPotion( char, item, potiontype )
-				return OK
 			# Poison Potions
 			elif potiontype in [ 14, 15, 16, 17 ]:
 				poisonPotion( char, item, potiontype )
-				return OK
 			# Refresh Potions
 			elif potiontype in [ 18, 19 ]:
 				refreshPotion( char, item, potiontype )
-				return OK
 
-			# Unknown Potion
-			else:
-				return OOPS
+		return OK
 
 
 # Explosion Potion Function
 def targetexplosionpotion(char, args, target):
+	socket = char.socket
 	potion = args[0]
 	if not potion:
 		return OOPS
@@ -124,7 +118,7 @@ def targetexplosionpotion(char, args, target):
 		pos = target.pos
 
 	if char.distanceto(pos) > 15:
-		char.socket.clilocmessage(1005539)
+		socket.clilocmessage(1005539)
 		return
 
 	throwobject(char, potion, pos, 1, 3, 5)

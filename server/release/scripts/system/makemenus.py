@@ -377,7 +377,7 @@ class CraftItemAction(MakeItemAction):
 			materials = self.parent.submaterials2
 			material = self.parent.getsubmaterial2used(player, arguments)
 			materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial2)
-			
+
 		for material in self.materials:
 			materialshtml += "%s: %u<br>" % (material[2], material[1])
 
@@ -444,7 +444,7 @@ class CraftItemAction(MakeItemAction):
 		if self.parent.delay != 0 and not nodelay:
 			self.playcrafteffect(player, arguments)
 			player.socket.settag('makemenu_crafting', 1)
-			
+
 			# Create a copy of the arguments list and transform all char/item objects using
 			# the ObjectWrapper function.
 			wrapped = []
@@ -453,7 +453,7 @@ class CraftItemAction(MakeItemAction):
 					wrapped.append(ObjectWrapper(arg))
 				else:
 					wrapped.append(arg)
-			
+
 			player.addtimer(self.parent.delay, "system.makemenus.craft_timer", [self, wrapped])
 			return 0
 		elif self.parent.delay == 0:
@@ -464,10 +464,10 @@ class CraftItemAction(MakeItemAction):
 
 		# 50% chance to loose half of the material
 		if not success:
-			lostmaterials = 0.5 >= random.random()			
+			lostmaterials = 0.5 >= random.random()
 			if lostmaterials:
 				self.consumematerial(player, arguments, 1)
-				
+
 			self.fail(player, arguments, lostmaterials)
 			self.parent.send(player, arguments)
 		else:
@@ -499,9 +499,9 @@ class CraftItemAction(MakeItemAction):
 						self.success(player, arguments, item, 1, 0)
 				else:
 					self.success(player, arguments, item, 0, 0)
-					
+
 			if not tobackpack(item, player):
-				item.update()					
+				item.update()
 
 		# Register in make history
 		MakeAction.make(self, player, arguments, nodelay)
@@ -510,15 +510,15 @@ class CraftItemAction(MakeItemAction):
 def craft_timer(player, arguments):
 	player.socket.deltag('makemenu_crafting')
 	(menu, args) = arguments
-	
+
 	realargs = []
 	for arg in args:
 		if isinstance(arg, ObjectWrapper):
 			realargs.append(arg.get())
 		else:
 			realargs.append(arg)
-			
-	menu.make(player, realargs, 1)	
+
+	menu.make(player, realargs, 1)
 
 #
 # Internal function for sorting a list of
@@ -727,7 +727,7 @@ class MakeMenu:
 			if i == 10:
 				xoffset += 150
 				yoffset = 60
-		
+
 			yoffset = 60 + (i % 10) * 20
 			if materials[i][2] != 0 and player.skill[materials[i][1]] < materials[i][2]:
 				gump.addText(xoffset + 35, yoffset + 3, materials[i][0], 0x3b1)
