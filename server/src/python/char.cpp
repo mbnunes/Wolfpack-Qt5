@@ -1741,11 +1741,24 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	
-		if ( !player )
+		if (!player)
 			return PyFalse;
+
 		return player->isGM() ? PyTrue : PyFalse;
-	}
-	else if( !strcmp( "region", name ) )
+	} else if (!strcmp("plevel", name)) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
+	
+		if (!player)
+			return PyInt_FromLong(1);
+
+		cAccount *account = player->account();
+
+		if (account) {
+			return PyInt_FromLong(account->plevel());
+		} else {
+			return PyInt_FromLong(1);
+		}
+	} else if( !strcmp( "region", name ) )
 		return PyGetRegionObject( self->pChar->region() );
 
 	else if( !strcmp( "account", name ) )
