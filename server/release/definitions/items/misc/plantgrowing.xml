@@ -25,6 +25,7 @@
 		<basescript>plants.seed</basescript>
 		<weight>1.0</weight>
 		<id>0xdcf</id>
+		<tag name="showtype" value="1" type="int" />
 	</item>
 
 	<!-- Green Thorns -->

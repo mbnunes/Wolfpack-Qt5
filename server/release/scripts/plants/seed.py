@@ -2,6 +2,8 @@
 import plants.genuses
 import plants.hues
 import wolfpack
+import random
+from consts import *
 
 SEED_BASEID = 'seed'
 
@@ -116,3 +118,15 @@ def plant_target(player, arguments, target):
 		seed.say(1061919, '', '', False, 0x3b2, player.socket) # You must use a seed on a bowl of dirt!
 	else:
 		player.socket.clilocmessage(1061919) # You must use a seed on a bowl of dirt!
+
+#
+# Create a certain seed type?
+#
+def onCreate(seed, definition):
+	if not seed.hastag('genus'):
+		seed.settag('genus', random.choice([0, 8, 16])) # Campion, Fern, Tribarrel		
+	if not seed.hastag('hue'):
+		seed.settag('hue', random.choice([COLOR_PLAIN, COLOR_RED, COLOR_BLUE, COLOR_YELLOW]))
+		hue = getHue(seed)
+		seed.color = hue.color
+		seed.update()
