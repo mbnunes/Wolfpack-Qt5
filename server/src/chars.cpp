@@ -857,6 +857,10 @@ void cChar::load( char **result, UINT16 &offset )
 {
 	cUObject::load( result, offset );
 
+	// Broken Serial?
+	if( !isCharSerial( serial() ) )
+		throw QString( "Character has invalid item serial: 0x%1" ).arg( serial(), 0, 16 );
+
 	orgname_ = result[offset++];
 	title_ = result[offset++];
 	setAccount( Accounts::instance()->getRecord( result[offset++] ) );

@@ -2360,6 +2360,10 @@ void cItem::load( char **result, UINT16 &offset )
 {
 	cUObject::load( result, offset ); // Load the items we inherit from first
 
+	// Broken Serial?
+	if( !isItemSerial( serial() ) )
+		throw QString( "Item has invalid character serial: 0x%1" ).arg( serial(), 0, 16 );
+
 	id_ = atoi( result[offset++] );
 	name_ = result[offset++];
 	name2_ = result[offset++];

@@ -457,7 +457,9 @@ RegionIterator4Chars& RegionIterator4Chars::operator++ ( int )
 P_CHAR RegionIterator4Chars::GetData()
 {
 	P_CHAR pc = NULL;
+
 	while( !atEnd() && !(pc = FindCharBySerial( *currentIterator )) )
 		(*this)++;
+
 	return pc;
 }
