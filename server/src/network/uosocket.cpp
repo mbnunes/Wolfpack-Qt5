@@ -742,10 +742,41 @@ void cUOSocket::showSpeech( cUObject *object, const QString &message, Q_UINT16 c
 	send( &speech );
 }
 
+void cUOSocket::allowMove( Q_UINT8 sequence )
+{
+	cUOTxAcceptMove acceptMove;
+	acceptMove.setSequence( sequence );
+	send( &acceptMove );
+
+	_walkSequence = ( sequence < 255 ) ? sequence : 1;
+}
+
+void cUOSocket::denyMove( Q_UINT8 sequence )
+{
+	cUOTxDenyMove deny;
+	deny.fromChar( _player );
+	deny.setSequence( sequence );
+	send( &deny );
+}
+
 void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 {
 //	cUOPacket moveOk(0x22, 3);
 	Movement->Walking( this->_player, packet->direction(), packet->key());
 //	moveOk[1] = packet->key();
 //	send( &moveOk );
+}
+
+void cUOSocket::updateChar( P_CHAR pChar )
+{
+	cUOTxUpdatePlayer updatePlayer;
+	updatePlayer.fromChar( pChar );
+	send( &updatePlayer );
+}
+
+void cUOSocket::sendChar( P_CHAR pChar )
+{
+	cUOTxDrawObject drawObject;
+	// ADD FROM CHAR
+	send( &drawObject );
 }

@@ -44,6 +44,7 @@
 #include "classes.h"
 #include "mapstuff.h"
 #include "territories.h"
+#include "network/uosocket.h"
 
 #undef  DBGFILE
 #define DBGFILE "SrvParms.cpp"
@@ -149,7 +150,7 @@
 **
 */
 
-void cMovement::Walking(P_CHAR pc, UI08 dir, int sequence)
+void cMovement::Walking( P_CHAR pChar, UI08 dir, int sequence )
 {
 	// Here it used to check if dir was -1 and return. We need to make sure that we
 	// don't have any unexpected values, otherwise how can we eliminate dir as a potential
@@ -159,179 +160,123 @@ void cMovement::Walking(P_CHAR pc, UI08 dir, int sequence)
 	// and we are directly on top of them
 
 	// Scripting
-	if( pc->onWalk( dir, sequence ) )
+	if( pChar->onWalk( dir, sequence ) )
 		return;
 
-	if ( ! isValidDirection(dir) )
+	if( !isValidDirection( dir ) )
 	{
-#if DEBUG_WALK_ERROR
-		printf("%s (cMovement::Walking) caught bad direction = %s %d 0x%x\n", DBGFILE, pc->name.c_str(), dir, dir);
-#endif
-		pc->pathnum += PATHNUM;
+		pChar->pathnum += PATHNUM;
 		return;
 	}
 
-    UOXSOCKET socket = calcSocketFromChar(pc);
+	cUOSocket *socket = pChar->socket();
 
-    if (!VerifySequence(pc, socket, sequence))
-        return;
+	// Is the sequence in order ?
+	if( socket && !verifySequence( socket, sequence ) )
+		return;
 
 	// If checking for weight is more expensive, shouldn't we check for frozen first?
-	if ( isFrozen(pc, socket, sequence) )
+	if( pChar->isFrozen() )
+	{
+		if( socket )
+			socket->denyMove( sequence );
 		return;
-
-    if ( isOverloaded(pc, socket, sequence) )
-        return;
+	}
+	
+	if( isOverloaded( pChar ) )
+	{
+		if( socket )
+		{
+			socket->sysMessage( tr( "You are too fatigued to carry %1 stones" ).arg( pChar->weight ) );
+			socket->denyMove( sequence );
+		}
+		return;
+	}
 
 	// save our original location before we even think about moving
-	const Coord_cl oldpos(pc->pos);
-//	const short int oldx = pc->pos.x;
-//	const short int oldy = pc->pos.y;
-//	const signed char oldz = pc->pos.z;
+	const Coord_cl oldpos( pChar->pos );
 	
-	// this if assumes that chars[s].dir has no high-bits just lets make sure of it
-	// assert((pc->dir & 0xFFF0) == 0);
-	// this assertion is failing, so either my assumption about it is wrong or there
-	// is a bugaboo
-	
-	// see if we have stopped to turn or if we are moving
-	const bool amTurning = ((dir&0x07) != pc->dir);
-	if (!amTurning)
+	// If the Direction we're moving to is different from our current direction
+	// We're turning and NOT moving into a specific direction
+	// Clear the running flag here (!)
+	if( dir&0x7F != pChar->dir )
 	{
-		if (!CheckForRunning(pc, socket, dir))
-			return;
-		
-		if (!CheckForStealth(pc, socket))
-			return;
-		
-		/* this is already done in the cNetwork method that calls this, so its redundant here
-        ** i'm leaving this in because it might make more sense to have it here because we can
-        * call it only in the case of actual movement
-        if (pc->med) //Morrolan - Meditation
-        {
-            pc->med=false;
-            sysmessage(c, "You break your concentration.");
-        }
-		*/
-		
-		// if this was an NPC lets reset their move timer
-		// this seems to be an usual place within this function to reset this
-		// i guess they can turn a whole lot this way
-		// Thyme: Already reset in NPCMovement (which calls this function, and NPCWalk)
-		//if (pc->npc)
-		//{
-		//	pc->npcmovetime=(unsigned int)(uiCurrentTime+(double)(NPCSPEED*CLOCKS_PER_SEC)); //reset move timer
-		//}
+		checkRunning( pChar, dir ); // Reduces Stamina and does other things related to running
+		checkStealth( pChar ); // Reveals the user if neccesary
 
-		signed char myz = illegal_z;
-		short int myx = GetXfromDir(dir, pc->pos.x);
-		short int myy = GetYfromDir(dir, pc->pos.y);
-		if ( ! CanCharMove(pc, pc->pos.x, pc->pos.y, myz, dir) )
+		Coord_cl newCoord( pChar->pos );
+		newCoord.z = illegal_z;
+		newCoord.x = GetXfromDir( dir, pChar->pos.x );
+		newCoord.y = GetYfromDir( dir, pChar->pos.y );
+
+		// Check if the char can move to those new coordinates
+		if( !CanCharMove( pChar, pChar->pos.x, pChar->pos.y, newCoord.z, dir ) )
 		{
-#if DEBUG_WALK
-			printf("%s (cMovement::Walking) Character Walk Failed for %s\n", DBGFILE, pc->name.c_str());
-			printf("%s (cMovement::Walking) sx (%d) sy (%d) sz (%d)\n", DBGFILE, pc->pos.x, pc->pos.y, pc->pos.z);
-			printf("%s (cMovement::Walking) dx (%d) dy (%d) dz (%d)\n", DBGFILE, myx, myy, myz);
-#endif
-			if ( socket != INVALID_UOXSOCKET )
-				deny(socket, pc, sequence);
-			if ( pc->isNpc() )
-					pc->pathnum += P_PF_MRV;
+			if( socket )
+				socket->denyMove( sequence );
+			else if( pChar->isNpc() )
+				pChar->pathnum += P_PF_MRV;
+
 			return;
 		}
-		dispz = z = myz;
+        
+		dispz = z = newCoord.z;
 
-#if DEBUG_WALK
-		printf("%s (cMovement::Walking) Character Walk Passed for %s\n", DBGFILE, pc->name.c_str());
-		printf("%s (cMovement::Walking) sx (%d) sy (%d) sz (%d)\n", DBGFILE, pc->pos.x, pc->pos.y, pc->pos.z);
-		printf("%s (cMovement::Walking) dx (%d) dy (%d) dz (%d)\n", DBGFILE, myx, myy, myz);
-#endif
-
-		if ( pc->isNpc() && CheckForCharacterAtXYZ(pc, myx, myy, myz) )
+		// Check if we're going to collide with characters
+		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord.x, newCoord.y, newCoord.z ) )
 		{
-			pc->pathnum += P_PF_MRV;
+			pChar->pathnum += P_PF_MRV;
 			return;
 		}
 
-		MoveCharForDirection(pc, dir);
-		
-		// i actually moved this for now after the z =  illegal_z, in the end of CrazyXYBlockStuff()
-		// can't see how that would hurt anything
-		if (!CheckForHouseBan(pc, socket))
-			return;
-		
-		/*
-		** OK AT THIS POINT IT IS NOW OFFICIALLY A LEGAL MOVE TO MAKE, LETS GO FOR IT!
-		**
-		** That means any bugs concerning if a move was legal must be before this point!
-		*/
-
-		// i moved this down after we are certain we are moving
-//		if( server_data.footSteps )
-//  			playTileSound( socket );
-		
-		// since we actually moved, update the regions code
-		HandleRegionStuffAfterMove(pc, oldpos);
-	}
-	else
-	{
-		//printf("Player is turning in the same spot.\n");
+		// We moved so let's update our location
+		pChar->moveTo( newCoord );
 	}
 	
 	// do all of the following regardless of whether turning or moving i guess
-	
 	// set the player direction to contain only the cardinal direction bits
-	pc->dir = (dir&0x07);
+	pChar->dir = ( dir & 0x07 );
 	
-	SendWalkToPlayer(pc, socket, sequence);
+	socket->allowMove( sequence );
 
-	cRegion::RegionIterator4Chars ri(pc->pos);
+	cRegion::RegionIterator4Chars ri( pChar->pos );
+
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
-		P_CHAR pc_vis = ri.GetData();
-		if ((pc_vis != NULL)&& (pc_vis != pc))
-		{
-			int distance = chardist(pc_vis, pc);
-			if(distance<=pc_vis->VisRange)
-			{
-				SendWalkToOtherPlayers(pc_vis, pc, dir, oldpos, socket);
-			}
-		}
+		P_CHAR pChar_vis = ri.GetData();
+
+		if( pChar_vis && ( pChar_vis != pChar ) )
+			sendWalkToOther( pChar_vis, pChar, oldpos );
 	}
 	
-	OutputShoveMessage( pc, socket, oldpos );
+	outputShoveMessage( pChar, socket, oldpos );
 	
 	// keep on checking this even if we just turned, because if you are taking damage
 	// for standing here, lets keep on dishing it out. if we pass whether we actually
 	// moved or not we can optimize things some
-	HandleItemCollision(pc, socket, amTurning);
+	/*HandleItemCollision(pChar, socket, amTurning);
 	
 	// i'm going ahead and optimizing this, if you haven't really moved, should be
 	// no need to check for teleporters and the weather shouldn't change
 	if (!amTurning)
 	{
-		HandleTeleporters(pc, socket, oldpos);
-		HandleWeatherChanges(pc, socket);
+		HandleTeleporters(pChar, socket, oldpos);
+		HandleWeatherChanges(pChar, socket);
 	}
 	
 	// i'm afraid i don't know what this does really, do you need to do it when turning??
-	HandleGlowItems(pc, socket);
+	HandleGlowItems(pChar, socket);
 	
 	// would have already collided, right??
-	if (!amTurning && pc->isPlayer())
-		Magic->GateCollision(pc);
+	if (!amTurning && pChar->isPlayer())
+		Magic->GateCollision(pChar);
 	
 	// again, don't know if we need to check when turning or not
 	if( !amTurning )
-			cAllTerritories::getInstance()->check(pc); // doesn't change physical coords, so no point in making a change
-	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",pc->name,pc->region,region[pc->region].name);
-
+			cAllTerritories::getInstance()->check(pChar); // doesn't change physical coords, so no point in making a change
+	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",pChar->name,pChar->region,region[pChar->region].name);
+*/
 }
-
-
-
-
-
 
 // Function      : cMovement::isValidDirection()
 // Written by    : Unknown
@@ -355,37 +300,6 @@ bool cMovement::isValidDirection(UI08 dir)
 	return ( dir == ( dir & 0x87 ) );
 }
 
-// Function      : cMovement::isFrozen()
-// Written by    : Unknown
-// Revised by    : Thyme
-// Revision Date : 2000.09.21
-// Purpose       : Check if a character is frozen or casting a spell
-// Method        : Because of the way the source uses the frozen flag, I decided to change
-// something in how this works. If the character is casting a spell (chars.casting is true)
-// OR if they're frozen (chars.priv2 & FROZEN_BIT) then they can't walk. Why? If a player/npc
-// has their frozen bit set, and they cast a spell, they will lose their frozen bit at the
-// end of the spell cast. With this new check, we don't even need to set the frozen bit when
-// casting a spell!
-
-bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
-{
-	if ( pc->priv2 & P_C_PRIV2_FROZEN )
-	{
-		if (socket != INVALID_UOXSOCKET)
-		{
-			sysmessage(socket, "You are frozen and cannot move.");
-			deny(socket, pc, sequence);
-		}
-#if DEBUG_WALK
-		printf("%s (cMovement::isFrozen) frozen char %s\n", DBGFILE, pc->name.c_str());
-#endif
-		return true;
-	}
-
-	return false;
-
-}
-
 // Thyme 07/28/00
 
 // return TRUE is character is overloaded (with weight)
@@ -400,25 +314,16 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 
 // Rewrote to deny the client... We'll see if it works.
 
-bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
+bool cMovement::isOverloaded( P_CHAR pc )
 {
 	// Who are we going to check for weight restrictions?
 	if ( !pc->dead &&							// If they're not dead
 		 !pc->isNpc() &&							// they're not an npc
 		 !pc->isGMorCounselor())			// they're not a GM
 	{
-		// Can probably put this in the above check, but I'll keep it here for now.
-		if ( socket != INVALID_UOXSOCKET )
+		if( !Weight->CheckWeight( pc ) || ( pc->stm < 3 ) )
 		{
-			if (!Weight->CheckWeight(socket) || (pc->stm<3))
-			{
-				sysmessage(socket, "You are too fatigued to move, you are carrying %d stones.", pc->weight);
-				deny(socket, pc, sequence);
-#if DEBUG_WALK
-				printf("%s (cMovement::Walking) overloaded char %s\n", DBGFILE, pc->name.c_str());
-#endif
-				return true;
-			}
+			return true;
 		}
 	}
 	return false;
@@ -652,118 +557,73 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
-bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw()
+bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence )
 {
-    if (socket != INVALID_UOXSOCKET)
-    {
-        if ((walksequence[socket] + 1 != sequence) && (sequence != 256))
-        {
-            deny(socket, pc, sequence);
-            return false;
-        }
-    }
-    return true;
-}
-
-bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, UI08 dir)
-// New need for return
-// returns true if updatechar required, or false if not
-// PARAM WARNING: unreferenced paramater socket
-{
-	// if we are running
-	if (dir&0x80)
-	{ //AntiChrist -- if running
-		// if we are using stealth
-		if (pc->stealth()!=-1) { //AntiChrist - Stealth - stop hiding if player runs
-			pc->setStealth(-1);
-			pc->setHidden( 0 );
-			updatechar(pc);
-		}
-
-
-//Don't regenerate stamina while running
-		pc->regen2=uiCurrentTime+(SrvParams->staminarate()*MY_CLOCKS_PER_SEC);
-		pc->setRunning(pc->running()+1);
-		// if all these things
-		if(!pc->dead && !pc->onHorse() && pc->running()>(SrvParams->runningStamSteps())*2)
-		{
-			//The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
-			pc->setRunning(0);
-			pc->stm--;
-			updatestats(pc,2);
-		}
-		if( pc->war && pc->targ != INVALID_SERIAL )
-		{
-			pc->timeout=uiCurrentTime+MY_CLOCKS_PER_SEC*2;
-		}
-
-	} else {
-		pc->setRunning(0);
+	if ( ( socket->walkSequence() + 1 != sequence ) && ( sequence != 0xFF ) )
+	{
+		socket->denyMove( sequence );
+		return false;
 	}
 	return true;
 }
 
-bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
-// PARAM WARNING: unreferenced paramater socket
+void cMovement::checkRunning( P_CHAR pc, Q_UINT8 dir )
 {
-	if ((pc->hidden())&&(!(pc->priv2&8)))
+	// if we are running
+	if( !( dir & 0x80 ) )
 	{
-		if(pc->stealth()!=-1)
-		{ //AntiChrist - Stealth
-			pc->setStealth(pc->stealth()+1);
-			if(pc->stealth()>((SrvParams->maxStealthSteps()*pc->skill(STEALTH))/1000))
+		pc->setRunning( 0 );
+		return;
+	}
+
+	// Running automatically stops stealthing
+	if( pc->stealth() != -1 ) 
+	{
+		pc->setStealth(-1);
+		pc->setHidden( 0 );
+		updatechar(pc);
+	}
+
+	// Don't regenerate stamina while running
+	pc->regen2 = uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC );
+	pc->setRunning( pc->running() + 1 );
+	
+	// If we're running on our feet, check for stamina loss
+	if( !pc->dead && !pc->onHorse() && pc->running() > ( SrvParams->runningStamSteps() ) * 2 )
+	{
+		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
+		pc->setRunning( 0 );
+		pc->stm--;
+		updatestats( pc, 2 );
+	}
+
+	if( pc->war && pc->targ != INVALID_SERIAL )
+	{
+		pc->timeout = uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ); // 2 Second timeout
+	}
+}
+
+void cMovement::checkStealth( P_CHAR pChar )
+{
+	if( ( pChar->hidden() ) && ( !( pChar->priv2 & 8 ) ) )
+	{
+		if( pChar->stealth() != -1 )
+		{
+			pChar->setStealth( pChar->stealth() + 1 );
+			if( pChar->stealth() > ( ( SrvParams->maxStealthSteps() * pChar->skill( STEALTH ) ) / 1000 ) )
 			{
-				pc->setStealth(-1);
-				pc->setHidden( 0 );
-				updatechar( pc );
+				pChar->setStealth( -1 );
+				pChar->setHidden( 0 );
+				updatechar( pChar );
 			}
 		}
 		else
 		{
-			pc->setHidden( 0 );
-			updatechar( pc );
+			pChar->setHidden( 0 );
+			updatechar( pChar );
 		}
 	}
-	return true;
 }
-
-// see if a player has tried to move into a house they were banned from it
-bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
-{
-    if ( pc->isPlayer() ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
-    {
-/*        	walksequence[socket] = -1;
-		int h=HouseManager->GetHouseNum(pc);
-		if(h>=0)
-		{
-			int i=House[h]->FindBan(pc);
-			if(i>=0)
-			{
-				pc->pos.x = House[h]->pos2.x+1;
-                pc->pos.y = House[h]->pos2.y+1;
-                teleport(pc);
-                if (socket!=INVALID_UOXSOCKET)
-				{
-					sysmessage(socket, "You are banned from that location.");
-					walksequence[socket] = -1;
-				}
-			}
-		}
-*/    }
-    return true;
-}
-
-// Thyme 2000.09.21
-// I already made sure I could move there (even the crazy XY block stuff) so this IS a valid move. Just move the
-// directions. Oh, and since I we already have the GetX/YfromDir functions (and we need those) why don't we just
-// use them here?
-void cMovement::MoveCharForDirection(P_CHAR pc, UI08 dir)
-{
-	pc->pos.x = GetXfromDir(dir, pc->pos.x);
-	pc->pos.y = GetYfromDir(dir, pc->pos.y);
-}
-
-// Split up of FillXYBlockStuff
 
 void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xycount)
 {
@@ -875,311 +735,98 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 	}
 } //- end of itemcount for loop
 
-// checkout everything we might need to take into account and fill it into the xyblock array
-/*
-void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount)
+void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& oldpos )
 {
-	GetBlockingMap(x, y, xyblock, xycount);
-	GetBlockingStatics(x, y, xyblock, xycount);
-	GetBlockingDynamics(x, y, xyblock, xycount);
-}
-*/
+	// What we need to decide here is if we
+	// Need to UPDATE the player (so it's walking on the screen)
+	// Or if we need to CREATE the player if it was not in 
+	// The visibility range of our Viewer
 
-// so we are going to move, lets update the regions
-// FYI, Items equal to or greater than 1000000 are considered characters...
-void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, const Coord_cl& oldpos)
-{
-	// save where we were moving to
-	const short int nowx = pc->pos.x;
-	const short int nowy = pc->pos.y;
+	cUOSocket *socket = pWalker->socket();
+	cUOSocket *visSocket = pChar->socket();
 
-	// i'm trying a new optimization here, if we end up in the same map cell
-	// as we started, i'm sure there's no real reason to remove and readd back
-	// to the same spot..
-	if (cRegion::GetCell(oldpos) != cRegion::GetCell(pc->pos))
-	{
-		// restore our original location and remove ourself
-		Coord_cl newpos = pc->pos;
-		pc->pos = oldpos;
-		mapRegions->Remove(pc);
-		// we have to remove it with OLD x,y ... LB, very important, and he is right!
+	// If both are not connected it's useless to send updates
+	if( !socket && !visSocket )
+		return;
 
-		// restore the new location and add ourselves
-		pc->pos = newpos;
+	// We can see the target and didn't see it before
+	Q_UINT32 newDistance = pChar->pos.distance( pWalker->pos );
+	Q_UINT32 oldDistance = pChar->pos.distance( oldpos );
 	
-		mapRegions->Add(pc);
+	// We dont see him, he doesn't see us
+	if( ( newDistance < pChar->VisRange ) && ( newDistance < pWalker->VisRange ) )
+		return;
 
-		// i suspect the new weather code probably needs something here, so if
-		// you walk from one region to another it can adjust the weather, but i
-		// could be wrong
-	}
-#if DEBUG_WALKING
-	else
-	{
-		//printf("Guess what? I didn't change regions.\n");
-	}
-#endif
+	// Someone got into our range
+	if( socket && ( newDistance <= pWalker->VisRange ) && ( oldDistance > pWalker->VisRange ) )
+		socket->sendChar( pChar );
 
-	// i'm moving this to the end because the regions shouldn't care what the z was
-	pc->dispz = dispz;
-	pc->pos.z = z;
+	// This guy is already known to us
+	if( socket && ( newDistance <= pWalker->VisRange ) && ( oldDistance <= pWalker->VisRange ) )
+		visSocket->updateChar( pChar );
+
+	// We got into somone elses Range
+	if( visSocket && ( newDistance <= pChar->VisRange ) && ( oldDistance > pChar->VisRange ) )
+		visSocket->sendChar( pWalker );
+
+	// We are already known to this guy
+	if( visSocket && ( newDistance <= pChar->VisRange ) && ( oldDistance <= pChar->VisRange ) )
+		visSocket->updateChar( pWalker );
 }
 
-
-// actually send the walk command back to the player and increment the sequence
-void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence)
-{
-	if (socket != INVALID_UOXSOCKET)
-	{
-		char walkok[4]="\x22\x00\x01";
-		walkok[1]=buffer[socket][2];
-		walkok[2]=0x41;
-		if (pc->hidden())
-			walkok[2]=0x00;
-		cNetwork::instance()->xSend(socket, walkok, 3, 0);
-
-		walksequence[socket] = sequence;
-		if (walksequence[socket] == 255)
-			walksequence[socket] = 0;
-	}
-}
-
-	
-void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, const Coord_cl& oldpos, UOXSOCKET socket )
-{
-
-	// Ok, we are TOLD to how to send this to
-	
-	// We need to decide, to send a 78, or 77.
-
-	UOXSOCKET visSocket = calcSocketFromChar(pc);
-	{
-		// It is a real player, we actually care
-		if ( us->pos.distance( pc->pos ) <= pc->VisRange && pc->pos.distance( oldpos ) > pc->VisRange )
-//		if (((abs(newx-us->pos.x) <= pc->VisRange) || (abs(newy-us->pos.y) <= pc->VisRange)) &&
-//		(!((abs(oldx-us->pos.x) <= pc->VisRange) || (abs(oldy-us->pos.y) <= pc->VisRange))))
-		{
-
-			if (visSocket != INVALID_UOXSOCKET)
-				impowncreate(visSocket, us, 1);
-			if (socket != INVALID_UOXSOCKET)
-				impowncreate(socket,pc,1) ;
-		}
-		else if ( visSocket != INVALID_UOXSOCKET ) // did we get a valid socket?
-		{
-			// We just need to send out a 77
-			LongToCharPtr(us->serial, &extmove[1]);
-			ShortToCharPtr(us->id(), &extmove[5]);
-			extmove[7]=us->pos.x>>8;
-			extmove[8]=us->pos.x%256;
-			extmove[9]=us->pos.y>>8;
-			extmove[10]=us->pos.y%256;
-			extmove[11]=us->dispz;
-			extmove[12]=dir;
-			ShortToCharPtr(us->skin(), &extmove[13]);
-			if( us->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
-				extmove[12]=dir|0x80;
-			if( us->isNpc() && (pc->ftarg != INVALID_SERIAL))
-				extmove[12]=dir|0x80;
-			if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
-			if (us->hidden()) extmove[15]=extmove[15]|0x80;
-			if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
-			if(us->poisoned()) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-			//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
-			int guild;
-			//chars[i].flag=0x04;       // everyone should be blue on default
-			guild = GuildCompare( pc, us );
-			if( us->kills > SrvParams->maxkills() ) extmove[16]=6;
-			else if (guild==1)//Same guild (Green)
-				extmove[16]=2;
-			else if (guild==2) // Enemy guild.. set to orange
-				extmove[16]=5;
-			else
-			{
-				switch(us->flag())
-				{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-				case 0x01: extmove[16]=6; break;// If a bad, show as red.
-				case 0x04: extmove[16]=1; break;// If a good, show as blue.
-				case 0x08: extmove[16]=2; break; //green (guilds)
-				case 0x10: extmove[16]=5; break;//orange (guilds)
-				default:extmove[16]=3; break;//grey
-				}
-			}
-			cNetwork::instance()->xSend(visSocket, extmove, 17, 0);
-		}
-	}
-}
-
-
-
-
-/*
-// lets cache these vars in advance
-	//const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
-	const int visibleRange =VISRANGE ;
-	const int newx=pc->pos.x;
-	const int newy=pc->pos.y;
-	if (socket ==-1)
-		UOXSOCKET socket = calcSocketFromChar( pc );
-        //if (socket == -1)
-        //{
-        	//cout << "Error getting our own socket, but proceeding"<<endl;
-        //	return ;
-        //}  // We couldnt get our own entry, wich is an error, but for another day
-	for (int i = 0; i < now; ++i)
-	{
-
-		// lets see, its much cheaper to call perm[i] first so i'm reordering this
-		if ((socket != i) && (perm[i]) && (inrange1p(pc, currchar[i])))
-		{
-//			if (
-				(((abs(newx-chars[currchar[i]].pos.x)==visibleRange )||(abs(newy-chars[currchar[i]].pos.y)== visibleRange )) &&
-//				((abs(oldx-chars[currchar[i]].pos.x)>visibleRange )||(abs(oldy-chars[currchar[i]].pos.y)>visibleRange ))) ||
-//				((abs(newx-chars[currchar[i]].pos.x)==visibleRange )&&(abs(newy-chars[currchar[i]].pos.y)==visibleRange ))
-//				)
-
-				
-			//if (
-			//(abs(newx-currchar[i]->pos.x)==Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)==Races[pc->race]->VisRange) &&
-			//(abs(oldx-currchar[i]->pos.x)>Races[pc->race]->VisRange) && (abs(oldx-currchar[i]->pos.y) > Races[pc->race]->VisRange) )
-			if (((abs(newx-currchar[i]->pos.x) == currchar[i]->VisRange) || (abs(newy-currchar[i]->pos.y) == currchar[i]->VisRange)) &&
-			(!((abs(oldx-currchar[i]->pos.x) <= currchar[i]->VisRange) || (abs(oldy-currchar[i]->pos.y) <= currchar[i]->VisRange))))
-			{
-
-				impowncreate(i, pc, 1);
-			}
-			else
-
-				//    if ((abs(newx-chars[currchar[i]].pos.x)<VISRANGE)||(abs(newy-chars[currchar[i]].pos.y)<VISRANGE))
-			{
-				P_CHAR pc_check = currchar[i];
-				LongToCharPtr(pc->serial, &extmove[1]);
-				ShortToCharPtr(pc->id(), &extmove[5]);
-				extmove[7]=pc->pos.x>>8;
-				extmove[8]=pc->pos.x%256;
-				extmove[9]=pc->pos.y>>8;
-				extmove[10]=pc->pos.y%256;
-				extmove[11]=pc->dispz;
-				extmove[12]=dir;
-				//     extmove[12]=chars[currchar[c]].dir&0x7F;
-				//     extmove[12]=buffer[c][1];
-				ShortToCharPtr(pc->skin, &extmove[13]);
-				if( pc->isNpc()  && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
-					extmove[12]=dir|0x80;
-				if( pc->isNpc() && (pc->ftarg != INVALID_SERIAL))
-					extmove[12]=dir|0x80;
-				if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
-				if (pc->hidden) extmove[15]=extmove[15]|0x80;
-				if( pc->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
-				if(pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-				//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
-				int guild, race;
-				//chars[i].flag=0x04;       // everyone should be blue on default
-				guild = GuildCompare( pc, currchar[i] );
-				race = Races.CheckRelation(pc,pc_check);
-				if( pc->kills > repsys.maxkills ) extmove[16]=6;
-				else if (guild==1 || race==1)//Same guild (Green)
-					extmove[16]=2;
-				else if (guild==2 || race==2) // Enemy guild.. set to orange
-					extmove[16]=5;
-				else
-				{
-					switch(pc->flag)
-					{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-					case 0x01: extmove[16]=6; break;// If a bad, show as red.
-					case 0x04: extmove[16]=1; break;// If a good, show as blue.
-					case 0x08: extmove[16]=2; break; //green (guilds)
-					case 0x10: extmove[16]=5; break;//orange (guilds)
-					default:extmove[16]=3; break;//grey
-					}
-				}
-				if (currchar[i] != pc ) // fix from homey (NPCs will display right)
-				{
-					//unsigned int punt = extmove[0] ;
-					//cout << "NPC Walk sent, ID : " << hex<< punt <<dec <<endl;
-					cNetwork::instance()->xSend(i, extmove, 17, 0);
-				}
-			}
-		}
-	}
-}
-*/
 // see if we should mention that we shove something out of the way
-void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos)
+void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord_cl& oldpos )
 {
-	if (socket!=INVALID_UOXSOCKET)
+	if( !socket )
+		return;
+
+	const int visibleRange = VISRANGE;
+
+	cRegion::RegionIterator4Chars ri( pChar->pos );
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
-		// lets cache these vars in advance
+		P_CHAR mapChar = ri.GetData();
 
+		if( !mapChar || mapChar == pChar || ( !online( mapChar ) && !mapChar->isNpc() ) )
+			continue;
 
-        const int visibleRange = VISRANGE;
-		const Coord_cl newpos(pc->pos);
+		// If it's not on the same position it's useless to check
+		if( mapChar->pos != pChar->pos )
+			continue;
 
-		cRegion::RegionIterator4Chars ri(pc->pos);
-		for (ri.Begin(); !ri.atEnd(); ri++)
+		if( ( pChar->id() == 0x3DB ) || ( pChar->id() == 0x192 ) || ( pChar->id() == 0x193 ) || !pChar->isGMorCounselor() )
+			continue;
+
+		// Trigger the event for the "stumbled apon" character
+		if( pChar->onCollideChar( mapChar ) )
+			continue;
+
+		if( mapChar->onCollideChar( pChar ) )
+			continue;
+
+		if( mapChar->isHidden() && !mapChar->dead && !mapChar->isInvul() && !mapChar->isGM() )
 		{
-			P_CHAR mapchar = ri.GetData();
-			if (mapchar != NULL)
-			{
-#if DEBUG
-				printf("DEBUG: Mapchar %i [%i]\n",mapchar,mapitem);
-#endif
-				//Let GMs see logged out players
-				if ( online(mapchar) || mapchar->isNpc() || pc->isGM())
-				{
-					if (
-						(((abs(newpos.x-mapchar->pos.x)== visibleRange )||(abs(newpos.y-mapchar->pos.y)== visibleRange )) &&
-						((abs(oldpos.x-mapchar->pos.x) > visibleRange )||(abs(oldpos.y-mapchar->pos.y)> visibleRange ))) ||
-						((abs(newpos.x-mapchar->pos.x)== visibleRange )&&(abs(newpos.y-mapchar->pos.y)== visibleRange ))
-						)
-					{
-						impowncreate(socket, mapchar, 1);
-					}
-				}
-				if (oldpos.x == newpos.x && oldpos.y == newpos.y)	// just turning ?
-				continue;						// no multiple shoving
-				if (!(
-				pc->id()==0x03DB ||
-				pc->id()==0x0192 ||
-				pc->id()==0x0193 ||
-				pc->isGMorCounselor()
-				))
-				{
-					if (mapchar != pc && (online(mapchar) || mapchar->isNpc()))
-					{
-						if (mapchar->pos.x == pc->pos.x && mapchar->pos.y == pc->pos.y && mapchar->pos.z == pc->pos.z)
-						{
-							// Trigger the event for the "stumbled apon" character
-							if( pc->onCollideChar( mapchar ) )
-								continue;
+			if( socket )
+				socket->sysMessage( tr( "Being perfectly rested, you shoved something invisible out of the way." ) );
 
-							if( mapchar->onCollideChar( pc ) )
-								continue;
+		    pChar->stm = max( pChar->stm - 4, 0 );
+			updatestats( pChar, 2 );
+		}
+		else if( !mapChar->isHidden() && !mapChar->dead && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
+		{
+			if( socket )
+				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name.c_str() ) );
+			
+			pChar->stm = max( pChar->stm - 4, 0 );
+			updatestats( pChar, 2 );
+		}
+		else if( !mapChar->isGMorCounselor() && !mapChar->isInvul() ) //A normal player (No priv1(Not a gm))
+		{
+			if( socket )
+				socket->sysMessage( "Being perfectly rested, you shove something invisible out of the way." );
 
-							if (mapchar->isHidden() && !mapchar->dead && !mapchar->isInvul() && !mapchar->isGM())
-							{
-								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.");
-								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
-							    pc->stm = max(pc->stm-4, 0);
-								updatestats(pc, 2);  // arm code
-							}
-						    else if (!mapchar->isHidden() && !mapchar->dead && (!(mapchar->isInvul())) &&(!(mapchar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
-							{
-								sprintf(temp, "Being perfectly rested, you shove %s out of the way.", mapchar->name.c_str());
-								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
-								pc->stm = max(pc->stm-4, 0);
-								updatestats(pc, 2);  // arm code
-							}
-						    else if(!mapchar->isGMorCounselor() && !mapchar->isInvul())//A normal player (No priv1(Not a gm))
-							{
-								if (socket != INVALID_UOXSOCKET) sysmessage(socket, "Being perfectly rested, you shove something invisible out of the way.");
-								pc->stm=max(pc->stm-4, 0);
-								updatestats(pc, 2);  // arm code
-							}
-						}
-					}
-				}
-			}
+			pChar->stm = max( pChar->stm - 4, 0 );
+			updatestats( pChar, 2 );
 		}
 	}
 }
@@ -1584,7 +1231,6 @@ unsigned short cMovement::GetXfromDir(UI08 dir, unsigned short x)
 
 }
 
-
 // Ok, I'm going to babble here, but here's my thinking process...
 // Max Heuristic is 5 (for now) and I'm not concerned about walls... I'll add that later
 // Easiest way I think would be for recursive call for now... Will change later if need be
@@ -1602,7 +1248,6 @@ unsigned short cMovement::GetXfromDir(UI08 dir, unsigned short x)
 // if I'm an NPC, recalculate my path and step... I'm also gonna take out the path structure
 // in chars_st... all we need is to hold the directions, not the x and y... Hopefully this will
 // save memory.
-
 void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 {
 
@@ -1991,21 +1636,6 @@ bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z,
 	}
 
 	return CanCharWalk(pc, GetXfromDir(dir, x), GetYfromDir(dir, y), z);
-}
-
-void cMovement::deny( UOXSOCKET k, P_CHAR pc, int sequence )
-{
-	char walkdeny[9] = "\x21\x00\x01\x02\x01\x02\x00\x01";
-	
-	walkdeny[1] = sequence;
-	walkdeny[2] = pc->pos.x>>8;
-	walkdeny[3] = pc->pos.x%256;
-	walkdeny[4] = pc->pos.y>>8;
-	walkdeny[5] = pc->pos.y%256;
-	walkdeny[6] = pc->dir;
-	walkdeny[7] = pc->dispz;
-	cNetwork::instance()->xSend( k, walkdeny, 8, 0 );
-	walksequence[k] = -1;
 }
 
 

@@ -34,6 +34,8 @@
 
 #include "wolfpack.h"
 
+class cUOSocket;
+
 class cMovement
 {
 
@@ -65,8 +67,7 @@ private:
 
 	bool MoveHeightAdjustment( int MoveType, unitile_st *thisblock, int &ontype, signed int &nItemTop, signed int &nNewZ );
 	bool isValidDirection(UI08 dir);
-	bool isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence);
-	bool isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence);
+	bool isOverloaded( P_CHAR );
 
 	bool CanGMWalk(unitile_st xyb);
 	bool CanPlayerWalk(unitile_st xyb);
@@ -91,15 +92,12 @@ private:
 	unsigned short GetYfromDir( UI08 dir, unsigned short y );
 	void PathFind( P_CHAR pc, unsigned short gx, unsigned short gy );
 
-	bool VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw();
-	bool CheckForRunning(P_CHAR pc, UOXSOCKET socket, UI08 dir);
-	bool CheckForStealth(P_CHAR pc, UOXSOCKET socket);
-	bool CheckForHouseBan(P_CHAR pc, UOXSOCKET socket);
-	void MoveCharForDirection(P_CHAR pc, UI08 dir);
-	void HandleRegionStuffAfterMove(P_CHAR pc, const Coord_cl& oldpos);
-	void SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence);
-	void SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, const Coord_cl& oldpos, UOXSOCKET socket=-1);
-	void OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos );
+	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
+	void checkRunning( P_CHAR, Q_UINT8 );
+	void checkStealth( P_CHAR );
+	void sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& oldpos );
+
+	void outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord_cl& oldpos );
 	void HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning);
 	void HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos);
 	void HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket);

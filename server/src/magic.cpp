@@ -2107,7 +2107,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								sysmessage(s,"That rune has not been marked yet!");
 								recalled = false;
 							}
-							else if (!pc_currchar->isGM() && Weight->CheckWeight2(s)) //Morrolan no recall if too heavy, GM's excempt
+							else if (!pc_currchar->isGM()) //Morrolan no recall if too heavy, GM's excempt
 							{
 								sysmessage(s, "You are too heavy to do that!");
 								sysmessage(s, "You feel drained from the attempt.");

@@ -208,7 +208,7 @@ public:
 class cWeight
 {
 public:
-	int CheckWeight(UOXSOCKET s);
+	bool CheckWeight( P_CHAR pChar );
 	float RecursePacks(P_ITEM bp);
 	int CheckWeight2(int s);
 	void NewCalc(P_CHAR pc);

@@ -205,3 +205,73 @@ void cUOTxContextMenu::addEntry( Q_UINT16 textId, Q_UINT16 returnVal )
     rawPacket[ 7 ]++;
 	setShort( 1, rawPacket.count() );
 }
+
+void cUOTxDenyMove::setCoord( Coord_cl coord )
+{
+		setShort( 2, coord.x );
+		setShort( 4, coord.y );
+		(*this)[7] = coord.z;
+}
+
+void cUOTxDenyMove::fromChar( P_CHAR pChar )
+{
+	setCoord( pChar->pos );
+	setDirection( pChar->dir );
+}
+
+void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
+{
+	setSerial( pChar->serial );
+	setX( pChar->pos.x );
+	setY( pChar->pos.y );
+	setZ( pChar->pos.z );
+	setHue( pChar->skin() );
+	setBody( pChar->id() );
+	
+	// If he's running we need to take that into account here
+	// ->running() is greater than zero in that case
+	setDirection( pChar->running() ? pChar->dir|0x80 : pChar->dir );
+
+	// Set Flag and Highlight color
+/*			if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
+			if (us->hidden()) extmove[15]=extmove[15]|0x80;
+			if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
+			if(us->poisoned()) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
+			//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
+			int guild;
+			//chars[i].flag=0x04;       // everyone should be blue on default
+			guild = GuildCompare( pc, us );
+			if( us->kills > SrvParams->maxkills() ) extmove[16]=6;
+			else if (guild==1)//Same guild (Green)
+				extmove[16]=2;
+			else if (guild==2) // Enemy guild.. set to orange
+				extmove[16]=5;
+			else
+			{
+				switch(us->flag())
+				{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
+				case 0x01: extmove[16]=6; break;// If a bad, show as red.
+				case 0x04: extmove[16]=1; break;// If a good, show as blue.
+				case 0x08: extmove[16]=2; break; //green (guilds)
+				case 0x10: extmove[16]=5; break;//orange (guilds)
+				default:extmove[16]=3; break;//grey
+				}
+		}*/
+}
+
+void cUOTxDrawObject::fromChar( P_CHAR pChar )
+{
+	setSerial( pChar->serial );
+	setModel( pChar->id() );
+	setAmount( 0 );
+	setX( pChar->pos.x );
+	setY( pChar->pos.y );
+	setZ( pChar->pos.z );
+	setDirection( pChar->dir );
+	setColor( pChar->skin() );
+	setFlags( 0 ); // NEED TO SET FLAGS
+	setHightlight( 0 ); // NEED TO SET HIGHLIGHT
+
+	// Add our equipment (later)
+	//void addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color );
+}

@@ -78,6 +78,7 @@ public:
 	// Operators
 	Coord_cl& operator= (const Coord_cl& clCoord);
 	bool operator==(const Coord_cl&);
+	bool operator!=(const Coord_cl&);
 	Coord_cl operator+(const Coord_cl& src) const;
 	UI32 distance( const Coord_cl &src) const;
 	static UI32 distance ( const Coord_cl &a, const Coord_cl &b );

@@ -121,24 +121,25 @@ float cWeight::RecursePacks(P_ITEM bp)
 	return totalweight;
 }
 
-int cWeight::CheckWeight(UOXSOCKET s) // Check when player is walking if overloaded
+ // Check when player is walking if overloaded
+bool cWeight::CheckWeight( P_CHAR pChar )
 {
-	P_CHAR pc = currchar[s];
-	if (pc != NULL)
-	if ((pc->weight > (pc->st*WEIGHT_PER_STR)+30))
-	{
-		float res=float(pc->weight - ((pc->st*WEIGHT_PER_STR)+30))*2;
+	if( !pChar )
+		return false;
 
-		pc->stm -= (int)res;
-		if (pc->stm<=0)
+	if( ( pChar->weight > ( pChar->st * WEIGHT_PER_STR ) + 30 ) )
+	{
+		float res = float( pChar->weight - ( ( pChar->st * WEIGHT_PER_STR ) + 30 ) ) * 2;
+
+		pChar->stm -= (int)res;
+		if( pChar->stm <= 0 )
 		{
-			pc->stm=0;
-			//AntiChrist - displays a message
-			sysmessage(s, "You are overloaded! You can't hold all this weight..");
-			return 0;
+			pChar->stm = 0;
+			return false;
 		}
 	}
-	return 1;
+
+	return true;
 }
 
 int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting if overloaded

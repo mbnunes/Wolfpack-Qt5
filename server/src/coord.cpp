@@ -99,6 +99,11 @@ bool Coord_cl::operator== (const Coord_cl& src)
 	return (x == src.x && y == src.y && z == src.z && map == src.map && plane == src.plane);
 }
 
+bool Coord_cl::operator!= (const Coord_cl& src)
+{
+	return !(x == src.x && y == src.y && z == src.z && map == src.map && plane == src.plane);
+}
+
 Coord_cl Coord_cl::operator+ (const Coord_cl& src) const
 {
 	return Coord_cl(this->x + src.x, this->y + src.y, this->z + src.z);

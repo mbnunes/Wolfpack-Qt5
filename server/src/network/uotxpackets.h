@@ -40,8 +40,9 @@
 #include "../junk.h"
 
 #include <vector>
-
 #include "uopacket.h"
+
+class Coord_cl;
 
 enum eDenyLogin
 {
@@ -433,6 +434,25 @@ public:
 	void setZ( Q_INT8 data ) { rawPacket[ 18 ] = data; }
 };
 
+// 0x77 UpdatePlayer
+class cUOTxUpdatePlayer: public cUOPacket
+{
+public:
+	cUOTxUpdatePlayer(): cUOPacket( 0x77, 17 ) {}
+
+	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
+	void setBody( Q_UINT16 data ) { setShort( 5, data ); }
+	void setX( Q_UINT16 data ) { setShort( 7, data ); }
+	void setY( Q_UINT16 data ) { setShort( 9, data ); }
+	void setZ( Q_INT8 data ) { (*this)[11] = data; }
+	void setDirection( Q_UINT8 data ) { (*this)[12] = data; }
+	void setHue( Q_UINT16 data ) { setShort( 13, data ); }
+	void setFlag( Q_UINT8 data ) { (*this)[15] = data; }
+	void setHighlight( Q_UINT8 data ) { (*this)[16] = data; }
+
+	void fromChar( P_CHAR pChar );
+};
+
 // 0x78 DrawObject
 class cUOTxDrawObject: public cUOPacket
 {
@@ -450,7 +470,8 @@ public:
 	void setDirection( Q_UINT8 data ) { rawPacket[17] = data; }
 	void setColor( Q_UINT16 data ) { setShort( 18, data ); }
     void setFlags( Q_UINT8 data ) { rawPacket[20] = data; }
-	void setNotority( Q_UINT8 data ) { rawPacket[21] = data; }
+	void setHightlight( Q_UINT8 data ) { rawPacket[21] = data; }
+	void fromChar( P_CHAR pChar );
 	// The last 4 bytes are the terminator
 
 	void addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color );
@@ -533,6 +554,25 @@ class cUOTxContextMenu: public cUOPacket
 public:
 	cUOTxContextMenu(): cUOPacket( 0xBF, 8 ) { setShort( 1, 8 ); setShort( 3, 0x14 ); setShort( 5, 0x0001 ); }
 	void addEntry( Q_UINT16 textId, Q_UINT16 returnVal );
+};
+
+// 0x21 DenyMove
+class cUOTxDenyMove: public cUOPacket
+{
+public:
+	cUOTxDenyMove(): cUOPacket( 0x21, 8 ) {}
+	void setSequence( Q_UINT8 data ) { (*this)[1] = data; }
+	void setCoord( Coord_cl coord );
+	void setDirection( Q_UINT8 data ) { (*this)[6] = data; }
+	void fromChar( P_CHAR pChar );
+};
+
+// 0x22 AcceptMove
+class cUOTxAcceptMove: public cUOPacket
+{
+public:
+	cUOTxAcceptMove(): cUOPacket( 0x22, 4 ) {}
+	void setSequence( Q_UINT8 data ) { (*this)[1] = data; }
 };
 
 #endif
