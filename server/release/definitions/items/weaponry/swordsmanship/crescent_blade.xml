@@ -3,7 +3,6 @@
 
 	<!-- Crescent Blade-->
 	<item id="26cb">
-		<name>crescent blade</name>
 		<id>0x26cb</id>
 		<twohanded />
 		<decay />

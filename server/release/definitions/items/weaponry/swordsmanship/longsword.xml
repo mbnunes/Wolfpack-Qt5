@@ -3,7 +3,6 @@
 
 	<!-- Longsword -->
 	<item id="f61">
-		<name>longsword</name>
 		<id>0xf61</id>
 		<onehanded />
 		<decay />

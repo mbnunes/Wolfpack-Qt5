@@ -3,7 +3,6 @@
 
 	<!-- Viking Sword -->
 	<item id="13b9">
-		<name>viking sword</name>
 		<id>0x13b9</id>
 		<onehanded />
 		<decay />

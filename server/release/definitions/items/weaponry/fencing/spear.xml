@@ -3,7 +3,6 @@
 
 	<!-- Spear -->
 	<item id="f62">
-		<name>spear</name>
 		<id>0xf62</id>
 		<twohanded />
 		<decay />

@@ -3,7 +3,6 @@
 
 	<!-- Black Staff -->
 	<item id="df1">
-		<name>black staff</name>
 		<id>0xdf1</id>
 		<decay />
 		<nodye />

@@ -3,7 +3,6 @@
 
 	<!-- Bardiche -->
 	<item id="f4d">
-		<name>bardiche</name>
 		<id>0xf4d</id>
 		<twohanded />
 		<decay />

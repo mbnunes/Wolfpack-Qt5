@@ -3,7 +3,6 @@
 
 	<!-- Broad Sword -->
 	<item id="f5e">
-		<name>broad sword</name>
 		<id>0xf5e</id>
 		<onehanded />
 		<decay />

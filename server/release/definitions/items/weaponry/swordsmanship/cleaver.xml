@@ -3,7 +3,6 @@
 
 	<!-- Cleaver -->
 	<item id="ec3">
-		<name>cleaver</name>
 		<id>0xec3</id>
 		<onehanded />
 		<decay />

@@ -3,7 +3,6 @@
 
 	<!-- Scimitar -->
 	<item id="13b6">
-		<name>scimitar</name>
 		<id>0x13b6</id>
 		<onehanded />
 		<decay />

@@ -3,7 +3,6 @@
 
 	<!-- Heavy Cross Bow left -->
 	<item id="13fd">
-		<name>heavy crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0x13fd</id>
 		<twohanded />
@@ -15,7 +14,6 @@
 		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="55" /></durability>
 		<weight>9.0</weight>
-
 		<events>equipment</events>
 		<type>1007</type>
 		<category>Weapons\Bows\Heavy Crossbow (N/S)</category>

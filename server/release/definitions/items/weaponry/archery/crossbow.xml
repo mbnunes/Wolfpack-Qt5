@@ -3,7 +3,6 @@
 
 	<!-- Cross Bow left -->
 	<item id="f4f">
-		<name>crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0xf4f</id>
 		<twohanded />

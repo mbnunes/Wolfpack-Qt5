@@ -3,7 +3,6 @@
 
 	<!-- Lance -->
 	<item id="26ca">
-		<name>lance</name>
 		<id>0x26ca</id>
 		<onehanded />
 		<decay />

@@ -164,79 +164,78 @@
 	</item>
 
 	<!-- Sledge Hammer -->
-	<item id="fb4">
-		<id>0x0FB4</id>
-		<events>skills.blacksmithing,equipment</events>
+	<item id="sledge_hammer" inherit="fb4">
+		<baseid>fb4</baseid>
+		<id>0xfb4</id>
 		<category>Professions\Blacksmith\Sledge Hammer (W/E)</category>
-		<tag name="remaining_uses" type="int" value="55" />
 	</item>
-	
+
 	<!-- Sledge Hammer -->
-	<item id="fb5">
-		<inherit id="fb4" />
-		<id>0x0FB5</id>
+	<item id="sledge_hammer_2" inherit="sledge_hammer">
+		<baseid>fb5</baseid>
+		<id>0xfb5</id>
 		<category>Professions\Blacksmith\Sledge Hammer (N/S)</category>
 	</item>
 
 	<!-- Smith's Hammer -->
-	<item id="13e3">
+	<item id="smiths_hammer" inherit="13e3">
+		<baseid>13e3</baseid>
 		<id>0x13e3</id>
-		<events>skills.blacksmithing,equipment</events>
 		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
-		<tag name="remaining_uses" type="int" value="45" />
 	</item>
 
-	<item id="13e4">
-		<inherit id="13e3" />
+	<item id="smiths_hammer_2" inherit="smiths_hammer">
+		<baseid>13e4</baseid>
 		<id>0x13e4</id>
 		<category>Professions\Blacksmith\Smith's Hammer (N/S)</category>
 	</item>
 
-  <!-- Red Scales -->
-  <item id="red_scales">
-    <name>#1053129</name>
-    <id>0x26b4</id>
-    <color>0x66D</color>
-    <category>Professions\Blacksmith\Scales\Red Scales</category>
-  </item>
+	<!-- Red Scales -->
+	<item id="red_scales">
+		<name>#1053129</name>
+		<id>0x26b4</id>
+		<color>0x66D</color>
+		<category>Professions\Blacksmith\Scales\Red Scales</category>
+	</item>
 
-  <!-- Yellow Scales -->
-  <item id="yellow_scales">
-    <name>#1053130</name>
-    <id>0x26b4</id>
-    <color>0x8A8</color>
-    <category>Professions\Blacksmith\Scales\Yellow Scales</category>
-  </item>
+	<!-- Yellow Scales -->
+	<item id="yellow_scales">
+		<name>#1053130</name>
+		<id>0x26b4</id>
+		<color>0x8A8</color>
+		<category>Professions\Blacksmith\Scales\Yellow Scales</category>
+	</item>
 
-  <!-- Black Scales -->
-  <item id="black_scales">
-    <name>#1053131</name>
-    <id>0x26b4</id>
-    <color>0x455</color>
-    <category>Professions\Blacksmith\Scales\Black Scales</category>
-  </item>
+	<!-- Black Scales -->
+	<item id="black_scales">
+		<name>#1053131</name>
+		<id>0x26b4</id>
+		<color>0x455</color>
+		<category>Professions\Blacksmith\Scales\Black Scales</category>
+	</item>
 
-  <!-- Green Scales -->
-  <item id="green_scales">
-    <name>#1053132</name>
-    <id>0x26b4</id>
-    <color>0x851</color>
-    <category>Professions\Blacksmith\Scales\Green Scales</category>
-  </item>
+	<!-- Green Scales -->
+	<item id="green_scales">
+		<name>#1053132</name>
+		<id>0x26b4</id>
+		<color>0x851</color>
+		<category>Professions\Blacksmith\Scales\Green Scales</category>
+	</item>
 
-  <!-- White Scales -->
-  <item id="white_scales">
-    <name>#1053133</name>
-    <id>0x26b4</id>
-    <color>0x8FD</color>
-    <category>Professions\Blacksmith\Scales\White Scales</category>
-  </item>
+	<!-- White Scales -->
+	<item id="white_scales">
+		<name>#1053133</name>
+		<id>0x26b4</id>
+		<color>0x8FD</color>
+		<category>Professions\Blacksmith\Scales\White Scales</category>
+	</item>
 
-  <!-- Blue Scales -->
-  <item id="blue_scales">
-    <name>#1053134</name>
-    <id>0x26b4</id>
-    <color>0x8B0</color>
-    <category>Professions\Blacksmith\Scales\Blue Scales</category>
-  </item>
+	<!-- Blue Scales -->
+	<item id="blue_scales">
+		<name>#1053134</name>
+		<id>0x26b4</id>
+		<color>0x8B0</color>
+		<category>Professions\Blacksmith\Scales\Blue Scales</category>
+	</item>
+
 </definitions>

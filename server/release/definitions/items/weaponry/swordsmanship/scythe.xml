@@ -3,7 +3,6 @@
 
 	<!-- Scythe -->
 	<item id="26c4">
-		<name>scythe</name>
 		<id>0x26c4</id>
 		<twohanded />
 		<decay />

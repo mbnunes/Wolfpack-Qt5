@@ -3,7 +3,6 @@
 
 	<!-- Two Handed Axe -->
 	<item id="1443">
-		<name>two handed axe</name>
 		<id>0x1443</id>
 		<twohanded />
 		<decay />

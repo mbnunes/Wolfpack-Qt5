@@ -3,7 +3,6 @@
 
 	<!-- Composite Bow -->
 	<item id="26c2">
-		<name>composite bow</name>
 		<id>0x26c2</id>
 		<bindmenu id="item_menu"/>
 		<twohanded />

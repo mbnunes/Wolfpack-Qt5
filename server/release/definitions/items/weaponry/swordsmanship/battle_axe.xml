@@ -3,7 +3,6 @@
 
 	<!-- Battle Axe -->
 	<item id="f47">
-		<name>battle axe</name>
 		<id>0xf47</id>
 		<twohanded />
 		<decay />

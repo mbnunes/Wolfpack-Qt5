@@ -3,7 +3,6 @@
 
 	<!-- Kryss -->
 	<item id="1401">
-		<name>kryss</name>
 		<id>0x1401</id>
 		<onehanded />
 		<decay />

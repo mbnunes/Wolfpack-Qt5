@@ -3,7 +3,6 @@
 
 	<!-- Katana -->
 	<item id="13ff">
-		<name>katana</name>
 		<id>0x13ff</id>
 		<onehanded />
 		<decay />

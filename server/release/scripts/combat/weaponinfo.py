@@ -715,5 +715,29 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 26
+  },
+  # Smithing Hammer 1
+  '13e3': {
+    MINDAMAGE: 13,
+    MAXDAMAGE: 15,
+    SPEED: 33
+  },
+  # Smithing Hammer 2
+  '13e4': {
+    MINDAMAGE: 13,
+    MAXDAMAGE: 15,
+    SPEED: 33
+  },
+  # Sledge Hammer 1
+  'fb4': {
+    MINDAMAGE: 13,
+    MAXDAMAGE: 15,
+    SPEED: 33
+  },
+  # Sledge Hammer 2
+  'fb5': {
+    MINDAMAGE: 13,
+    MAXDAMAGE: 15,
+    SPEED: 33
   }
 }

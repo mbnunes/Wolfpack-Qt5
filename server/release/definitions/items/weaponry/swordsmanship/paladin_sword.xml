@@ -3,7 +3,6 @@
 
 	<!-- Paladin Sword -->
 	<item id="26cf">
-		<name>paladin sword</name>
 		<id>0x26cf</id>
 		<onehanded />
 		<decay />

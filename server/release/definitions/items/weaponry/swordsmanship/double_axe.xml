@@ -3,7 +3,6 @@
 
 	<!-- Double Axe -->
 	<item id="f4b">
-		<name>double axe</name>
 		<id>0xf4b</id>
 		<twohanded />
 		<decay />

@@ -3,7 +3,6 @@
 
 	<!-- Hatchet -->
 	<item id="f43">
-		<name>hatchet</name>
 		<id>0xf43</id>
 		<twohanded />
 		<decay />

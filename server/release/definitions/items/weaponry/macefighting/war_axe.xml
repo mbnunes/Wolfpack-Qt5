@@ -3,7 +3,6 @@
 
 	<!-- War Axe -->
 	<item id="13b0">
-		<name>war axe</name>
 		<id>0x13b0</id>
 		<onehanded />
 		<decay />

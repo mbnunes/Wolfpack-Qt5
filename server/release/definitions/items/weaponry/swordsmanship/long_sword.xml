@@ -3,7 +3,6 @@
 
 	<!-- Long Sword -->
 	<item id="13b8">
-		<name>long sword</name>
 		<id>0x13b8</id>
 		<onehanded />
 		<decay />

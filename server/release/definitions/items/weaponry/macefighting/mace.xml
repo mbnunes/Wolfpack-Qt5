@@ -3,7 +3,6 @@
 
 	<!-- Mace -->
 	<item id="f5c">
-		<name>mace</name>
 		<id>0xf5c</id>
 		<onehanded />
 		<decay />

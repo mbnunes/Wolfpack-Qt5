@@ -3,7 +3,6 @@
 
 	<!-- Pickaxe -->
 	<item id="e86">
-		<name>pickaxe</name>
 		<id>0xe86</id>
 		<onehanded />
 		<decay />

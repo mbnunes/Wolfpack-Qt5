@@ -3,7 +3,6 @@
 
 	<!-- Butcher Knife -->
 	<item id="13f6">
-		<name>butcher knife</name>
 		<id>0x13f6</id>
 		<onehanded />
 		<decay />
@@ -19,8 +18,7 @@
 		<category>Weapons\Swords\Butcher Knife (N/S)</category>
 	</item>
 
-	<item id="13f7">
-		<inherit id="13f6" />
+	<item id="13f7" inherit="13f6">
 		<id>0x13f7</id>
 		<category>Weapons\Swords\Butcher Knife (E/W)</category>
 	</item>

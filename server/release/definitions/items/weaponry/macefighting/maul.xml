@@ -3,7 +3,6 @@
 
 	<!-- Maul -->
 	<item id="143b">
-		<name>maul</name>
 		<id>0x143b</id>
 		<onehanded />
 		<decay />

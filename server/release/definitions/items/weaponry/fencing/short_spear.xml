@@ -3,9 +3,7 @@
 
 	<!-- Short Spear -->
 	<item id="1403">
-		<name>short spear</name>
 		<id>0x1403</id>
-		<name>short spear</name>
 		<twohanded />
 		<decay />
 		<nodye />

@@ -3,7 +3,6 @@
 
 	<!-- Bow right -->
 	<item id="13b1">
-		<name>bow</name>
 		<id>0x13b1</id>
 		<twohanded />
 		<decay />

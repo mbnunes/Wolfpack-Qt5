@@ -3,7 +3,6 @@
 
 	<!-- War Hammer -->
 	<item id="1439">
-		<name>war hammer</name>
 		<id>0x1439</id>
 		<twohanded />
 		<decay />

@@ -3,7 +3,6 @@
 
 	<!-- Executioners Axe -->
 	<item id="f45">
-		<name>executioner's axe</name>
 		<id>0x0f45</id>
 		<twohanded />
 		<decay />

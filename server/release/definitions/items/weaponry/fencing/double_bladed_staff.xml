@@ -3,7 +3,6 @@
 
 	<!-- Double Bladed Staff -->
 	<item id="26c9">
-		<name>double bladed staff</name>
 		<id>0x26c9</id>
 		<twohanded />
 		<decay />

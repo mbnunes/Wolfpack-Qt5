@@ -3,7 +3,6 @@
 
 	<!-- Hammer Pick -->
 	<item id="143d">
-		<name>hammer pick</name>
 		<id>0x143d</id>
 		<onehanded />
 		<decay />

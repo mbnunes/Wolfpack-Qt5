@@ -3,7 +3,6 @@
 
 	<!-- Halberd -->
 	<item id="143f">
-		<name>halberd</name>
 		<id>0x143f</id>
 		<twohanded />
 		<decay />

@@ -3,7 +3,6 @@
 
 	<!-- Club -->
 	<item id="13b4">
-		<name>club</name>
 		<id>0x13b4</id>
 		<onehanded />
 		<decay />

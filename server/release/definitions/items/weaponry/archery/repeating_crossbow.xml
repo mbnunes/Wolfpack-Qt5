@@ -3,7 +3,6 @@
 
 	<!-- Repeating Crossbow -->
 	<item id="26cd">
-		<name>repeating crossbow</name>
 		<bindmenu id="item_menu"/>
 		<id>0x26cd</id>
 		<twohanded />

@@ -3,7 +3,6 @@
 
 	<!-- Skinning Knife -->
 	<item id="ec4">
-		<name>skinning knife</name>
 		<id>0xec4</id>
 		<onehanded />
 		<decay />
