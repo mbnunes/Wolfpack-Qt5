@@ -73,3 +73,8 @@ def addtimer( expiretime, function, args, serializable=0 ):
 
 	return _wolfpack.addtimer( expiretime, function, args, serializable )
 	
+def list( id ):
+	if not type( id ) is StringType:
+		raise TypeError, "id needs to be a string"
+
+	return _wolfpack.list( id )

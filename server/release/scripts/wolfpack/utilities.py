@@ -13,6 +13,7 @@ import wolfpack
 from wolfpack.consts import *
 from math import floor
 import whrandom
+from types import *
 
 def agression( source, target, spell ):
 	spellinfo = wolfpack.spell( spell )
@@ -122,3 +123,17 @@ def statmodifier( char, time, mStr, mDex, mInt ):
 
 	# Save the values in a tempeffect to remove them later
 	char.addtimer( time, "wolfpack.utilities.statmodifier_expire", [ mStr, mDex, mInt ], 1, 1, "statmodifier", "wolfpack.utilities.statmodifier_dispel" )
+
+def hex2dec( value ):
+	if type( value ) is IntType:
+		return value
+
+	if not type( value ) is StringType:
+		raise TypeError, "Can only Convert Integers and Strings"
+
+	value = value.lower()
+
+	if not value.startswith( "0x" ):
+		return int( value )
+	else:
+		return int( value.replace( "0x", "" ), 16 )
