@@ -153,6 +153,18 @@ void newbieitems(CHARACTER c)
 					openscript("newbie.scp");
 					fseek(scpfile, pos, SEEK_SET);
 				}
+				else if (!strcmp("GOLD", (char*)script1))
+				{
+					goldamount = str2num(script2);
+					pos = ftell(scpfile);
+					closescript();
+				    n =Items->SpawnItem(s,DEREF_P_CHAR(pc),goldamount,"#",1,0x0E,0xED,0,0,1,0);
+	                if(n==-1) return;
+					items[n].priv |= 0x02; // Mark as a newbie item
+					strcpy((char*)script1, "DUMMY");
+					openscript("newbie.scp");
+					fseek(scpfile, pos, SEEK_SET);
+				}
 			}  
 		}	
 		while ((script1[0] != '}') &&(++loopexit < MAXLOOPS));

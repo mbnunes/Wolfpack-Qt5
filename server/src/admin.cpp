@@ -131,9 +131,6 @@ void cAdmin::ReadIni()
 	heartbeat=false;
 	if (temp[0]=='1') heartbeat=true;
 	ReadString();
-	strcpy(goldamountstr, temp);
-	goldamount=atoi(goldamountstr);
-	ReadString();
 	strcpy((char*)defaultpriv1str, temp);
 	defaultpriv1=hstr2num(defaultpriv1str);
 	ReadString();

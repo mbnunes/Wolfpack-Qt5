@@ -2037,16 +2037,6 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 #endif
 
-	{	// limit the scope of pi
-	// Give the character some gold
-	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),goldamount,"#",1,0x0E,0xED,0,0,1,0);
-	if(n==-1) return;//AntiChrist to preview crashes
-	//const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
-	//setserial(n, packitem(DEREF_P_CHAR(pc)), 1);
-	//pi->layer=0x01;
-	//pi->att=5;
-	}
-
 	currchar[s]=DEREF_P_CHAR(pc);
 	newbieitems(DEREF_P_CHAR(pc));
 
@@ -2110,7 +2100,8 @@ int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new hors
 				p_pet->time_unused = 0; 
 				p_pet->pos.x = p_petowner->pos.x; 
 				p_pet->pos.y = p_petowner->pos.y; 
-				p_pet->pos.z = p_petowner->pos.z; 
+				p_pet->pos.z = p_petowner->pos.z;
+				p_pet->npcWander = 0;
 				
 				mapRegions->Remove(p_pet); 
 				mapRegions->Add(p_pet); 
