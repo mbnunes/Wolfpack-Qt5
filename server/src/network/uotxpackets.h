@@ -36,6 +36,9 @@
 #include "qcstring.h"
 #include "qstring.h"
 #include "qstringlist.h"
+#include "../typedefs.h"
+#include "../junk.h"
+
 #include <vector>
 
 #include "uopacket.h"
@@ -473,6 +476,32 @@ public:
 		rawPacket[2] = minute;
 		rawPacket[3] = second;
 	}
+};
+
+// 0xAE UnicodeSpeech
+class cUOTxUnicodeSpeech: public cUOPacket
+{
+public:
+	cUOTxUnicodeSpeech(): cUOPacket( 0xAE, 50 ) { setShort(1, 50 ); }
+
+	enum eSpeechType
+	{
+		Regular = 0x00,
+		Broadcast,
+		Emote,
+		System = 0x06,
+		Whisper = 0x08,
+		Yell = 0x09
+	};
+
+	void setSource( SERIAL data ) { setInt( 3, data ); }
+	void setModel( Q_UINT16 data ) { setShort( 7, data ); }
+	void setType( eSpeechType data ) { rawPacket[ 9 ] = data; }
+	void setColor( Q_UINT16 data ) { setShort( 10, data ); }
+	void setFont( Q_UINT16 font ) { setShort( 12, font ); }
+	void setLanguage( const QString &data ) { memcpy( &rawPacket.data()[14], data.latin1(), MIN( data.length()+1, 4 ) ); }
+	void setName( const QString &data ) { memcpy( &rawPacket.data()[18], data.latin1(), MIN( data.length()+1, 30 ) ); }
+	void setText( const QString &data );
 };
 
 #endif

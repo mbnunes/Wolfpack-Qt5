@@ -55,14 +55,17 @@ class cUOSocket
 {
 private:
 	QSocketDevice *_socket;
-	Q_UINT32 _rxBytes, _txBytes;
-	void *player,*account;
+	Q_UINT32 _rxBytes, _txBytes, _uniqueId;
+	void *player;
+	Q_INT32 _account; // Our account-id > should be a pointer
 	eSocketState _state;
-	Q_UINT32 _uniqueId;
+	Q_UINT8 lastPacket;
+
+	bool authenticate( const QString &username, const QString &password );
 
 public:
 	cUOSocket( QSocketDevice *sDevice ): 
-		_state( SS_LOGGINGIN ), account(0), player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
+		lastPacket( 0xFF ), _state( SS_LOGGINGIN ), _account(-1), player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
 	virtual ~cUOSocket( void ) { delete _socket; }
 
 	QSocketDevice *socket( void ) { return _socket; }
@@ -81,6 +84,9 @@ public:
 	void recieve(); // Tries to recieve one packet and process it
 	void send( cUOPacket *packet );
 
+	// Helper
+	void sysMessage( const QString &message, Q_UINT16 color = 0xFFFF );
+
 	void disconnect( void ); // Call this whenever the socket should disconnect
 
 	// Handler
@@ -90,6 +96,7 @@ public:
 	void handleServerAttach( cUORxServerAttach *packet );
 	void handleDeleteCharacter( cUORxDeleteCharacter *packet );
 	void handlePlayCharacter( cUORxPlayCharacter *packet );
+	void handleCreateChar( cUORxCreateChar *packet );
 
 	// Utilities
 	void sendCharList();

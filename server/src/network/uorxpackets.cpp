@@ -41,6 +41,10 @@ cUOPacket *getUOPacket( const QByteArray &data )
 
 	switch( packetId )
 	{
+	case 0x00:
+		return new cUORxCreateChar( data );
+	case 0x01:
+		return new cUORxNotifyDisconnect( data );
 	case 0x80:
 		return new cUORxLoginRequest( data );
 	case 0xA4:

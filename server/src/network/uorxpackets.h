@@ -38,6 +38,47 @@
 
 cUOPacket *getUOPacket( const QByteArray &data );
 
+// 0x00: Create Char
+class cUORxCreateChar: public cUOPacket
+{
+public:
+	cUORxCreateChar( const QByteArray &data ): cUOPacket( data ) {}
+	Q_UINT32 pattern1( void ) { return getInt( 1 ); }
+	Q_UINT32 pattern2( void ) { return getInt( 5 ); }
+	Q_UINT8 pattern3( void ) { return rawPacket[ 9 ]; }
+	QString name( void ) { return &rawPacket.data()[10]; }
+	QString password( void ) { return &rawPacket.data()[40]; }
+	Q_UINT8 gender( void ) { return rawPacket[70]; } // 0 = male, 1 = female
+	Q_UINT8 strength( void ) { return rawPacket[71]; }
+	Q_UINT8 dexterity( void ) { return rawPacket[72]; }
+	Q_UINT8 intelligence( void ) { return rawPacket[73]; }
+	Q_UINT8 skillId1( void ) { return rawPacket[74]; }
+	Q_UINT8 skillValue1( void ) { return rawPacket[75]; }
+	Q_UINT8 skillId2( void ) { return rawPacket[76]; }
+	Q_UINT8 skillValue2( void ) { return rawPacket[77]; }
+	Q_UINT8 skillId3( void ) { return rawPacket[78]; }
+	Q_UINT8 skillValue3( void ) { return rawPacket[79]; }
+	Q_UINT16 skinColor( void ) { return getShort( 80 ); }
+	Q_UINT16 hairStyle( void ) { return getShort( 82 ); }
+	Q_UINT16 hairColor( void ) { return getShort( 84 ); }
+	Q_UINT16 beardStyle( void ) { return getShort( 86 ); }
+	Q_UINT16 beardColor( void ) { return getShort( 88 ); }
+	Q_UINT16 startTown( void ) { return getShort( 90 ); }
+	Q_UINT16 unknown1( void ) { return getShort( 92 ); }
+	Q_UINT16 slot( void ) { return getShort( 94 ); }
+	Q_UINT32 ip( void ) { return getInt( 96 ); }
+	Q_UINT16 shirtColor( void ) { return getShort( 100 ); }
+	Q_UINT16 pantsColor( void ) { return getShort( 102 ); }
+};
+
+// 0x01: NotifyDisconnect
+class cUORxNotifyDisconnect: public cUOPacket
+{
+public:
+	cUORxNotifyDisconnect( const QByteArray &data ): cUOPacket( data ) {}
+	Q_UINT32 pattern( void ) { return getInt( 1 ); }
+};
+
 // 0x80: Login Request
 class cUORxLoginRequest: public cUOPacket
 {
@@ -78,8 +119,8 @@ class cUORxServerAttach: public cUOPacket
 public:
 	cUORxServerAttach( const QByteArray &data ): cUOPacket( data ) {}
 	Q_UINT32 authId( void ) { return getInt( 1 ); }
-	QString username( void ) { return &rawPacket.data()[2]; }
-	QString password( void ) { return &rawPacket.data()[32]; }
+	QString username( void ) { return &rawPacket.data()[5]; }
+	QString password( void ) { return &rawPacket.data()[35]; }
 };
 
 // 0x73 Ping

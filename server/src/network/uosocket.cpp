@@ -33,6 +33,14 @@
 #include "uopacket.h"
 #include "uotxpackets.h"
 #include "asyncnetio.h"
+#include "../network.h"
+
+// Wolfpack Includes
+#include "../accounts.h"
+#include "../globals.h"
+#include "../junk.h"
+#include "../structs.h"
+#include "../srvparams.h"
 
 #include <conio.h>
 #include <iostream>
@@ -40,40 +48,52 @@
 
 using namespace std;
 
-extern cAsyncNetIO* netio;
-
 // Send a packet to our ioHandle
 void cUOSocket::send( cUOPacket *packet )
 {
-	//cout << "Sending packet:" << endl;
-	//packet->print( &cout );
-	netio->sendPacket( _socket, packet, ( _state != SS_LOGGINGIN ) );
+	// Don't send when we're already disconnected
+	if( !_socket->isOpen() )
+		return;
+
+	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != SS_LOGGINGIN ) );
 }
 
 // Tries to recieve and process a packet
 void cUOSocket::recieve()
 {
-	cUOPacket *packet = netio->recvPacket( _socket );
+	cUOPacket *packet = cNetwork::instance()->netIo()->recvPacket( _socket );
 
 	if( !packet )
 		return;
 
 	Q_UINT8 packetId = (*packet)[0];
 
-	packet->print( &cout );
+
+	// After two pings we idle-disconnect
+	if( lastPacket == 0x73 && packetId == 0x73 )
+	{
+		clConsole.send( QString( "Socket idle-kicked [%1]" ).arg( _socket->address().toString() ) );
+		disconnect();
+		return;
+	}
 
 	// Disconnect harmful clients
-	if( ( _state == SS_CONNECTING ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
+	if( ( _account < 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		_socket->close();
+		clConsole.send( QString( "Communication Error [%1 instead of 0x80|0x91] [%2]\n" ).arg( packetId, 2, 16 ).arg( _socket->address().toString() ) );
+		cUOTxDenyLogin *denyLogin = new cUOTxDenyLogin( DL_BADCOMMUNICATION );
+		send( denyLogin );
+		disconnect();
 		return;
 	}
 
 	// Relay it to the handler functions
 	switch( packetId )
 	{
+	case 0x00:
+		handleCreateChar( static_cast< cUORxCreateChar* >( packet ) ); break;
+	case 0x01: // Disconnect Notification recieved, should NEVER happen as it's unused now
+		disconnect(); break;
 	case 0x02: // just want to walk a little.
 		{
 			cUOPacket moveOk(3);
@@ -89,7 +109,7 @@ void cUOSocket::recieve()
 	case 0x91:
 		handleServerAttach( dynamic_cast< cUORxServerAttach* >( packet ) ); break;
 	case 0x73:
-		send( packet ); break; // For pings we just bounce the packet back
+		break; // Pings are handeled
 	case 0x83:
 		handleDeleteCharacter( dynamic_cast< cUORxDeleteCharacter* >( packet ) ); break;
 	case 0x5D:
@@ -106,28 +126,21 @@ void cUOSocket::recieve()
 // Packet Handler
 void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 {
-	// has to check for username/password here (normally)
-	cout << "Trying to access the server via: " << packet->username().latin1() << "/" << packet->password().latin1() << endl;
-
-	cUOPacket *denyPacket = NULL;
-
-	// TODO: Insert authentication code here
-
-	if( packet->username() != "admin" )
-		denyPacket = new cUOTxDenyLogin( DL_NOACCOUNT );
-	else if( packet->password() != "admin" )
-		denyPacket = new cUOTxDenyLogin( DL_BADPASSWORD );
-
-	// Reject login
-	if( denyPacket )
+	// If we dont authenticate disconnect us
+	if( !authenticate( packet->username(), packet->password() ) )
 	{
-		send( denyPacket );
-		delete denyPacket;
+		disconnect();
 		return;
 	}
 
+	// Otherwise build the shard-list
 	cUOTxShardList *shardList = new cUOTxShardList;
-	shardList->addServer( 0, "My Server", 10, 0, 0x7F000001 );
+
+	vector< ServerList_st > shards = SrvParams->serverList();
+	
+	for( Q_UINT8 i = 0; i < shards.size(); ++i )
+		shardList->addServer( i, shards[i].sServer, shards[i].uiFull, shards[i].uiTime, shards[i].sIP );
+	
 	send( shardList );
 	delete shardList;
 }
@@ -136,22 +149,34 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 {
 	// Do something with the retrieved hardware information here
 	// > Hardware Log ??
-	QString hardwareMsg = QString( "Hardware: %1 Processors [Type: %2], %2 MB RAM, %3 MB Harddrive" ).arg( packet->processorCount() ).arg( packet->processorType() ).arg( packet->memoryInMb() ).arg( packet->largestPartitionInMb() );
-	cout << hardwareMsg.latin1() << endl;
+	//QString hardwareMsg = QString( "Hardware: %1 Processors [Type: %2], %2 MB RAM, %3 MB Harddrive" ).arg( packet->processorCount() ).arg( packet->processorType() ).arg( packet->memoryInMb() ).arg( packet->largestPartitionInMb() );
+	//cout << hardwareMsg.latin1() << endl;
+}
+
+void cUOSocket::disconnect( void )
+{
+	_socket->close();
 }
 
 void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 {
-	cout << "User selected shard: " << packet->shardId() << endl;
+	// Relay him - save an auth-id so we recog. him when he relays locally
+	vector< ServerList_st > shards = SrvParams->serverList();
 
-	// Relay him - save an auth-id so we recog. him when he's relay locally
+	if( packet->shardId() >= shards.size() )
+	{
+		disconnect();
+		return;
+	}
+	
 	_uniqueId = rand() % 0xFFFFFFFF;
-
-	cUOTxRelayServer relay;
-	relay.setServerIp( 0x7F000001 );
-	relay.setServerPort( 2593 );
-	relay.setAuthId( _uniqueId );
-	send( &relay );
+	
+	cUOTxRelayServer *relay = new cUOTxRelayServer;
+	relay->setServerIp( shards[ packet->shardId() ].sIP );
+	relay->setServerPort( shards[ packet->shardId() ].uiPort );
+	relay->setAuthId( _uniqueId );
+	send( relay );
+	delete relay;
 }
 
 void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
@@ -159,23 +184,36 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 	// From this point our output is compressed (!)
 	_state = SS_LOGGEDIN;
 
+	// Re-Authenticate the user !!
+	if( _account < 0 )
+	{
+		if( !authenticate( packet->username(), packet->password() ) )
+		{
+			disconnect();
+			return;
+		}
+	}
+
 	// We either have to recheck our login here or 
 	// use the auth-id (not safe!!)
 	// but for testing/debugging we'll assume that it's safe to continue
-
 	sendCharList();
 }
 
 void cUOSocket::sendCharList()
 {
 	cUOTxCharTownList *charList = new cUOTxCharTownList;
-	charList->addCharacter( "This" );
-	charList->addCharacter( "is" );
-	charList->addCharacter( "just" );
-	charList->addCharacter( "a" );
-	charList->addCharacter( "test" );
+	vector< P_CHAR > characters = Accounts->characters( _account );
 
-	charList->addTown( 0, "Britain", "Britain" );
+	// Add the characters
+	for( Q_UINT8 i = 0; i < characters.size(); ++i )
+		charList->addCharacter( characters[ i ]->name.c_str() );
+
+	// Add the Starting Locations
+	vector< StartLocation_st > startLocations = SrvParams->startLocation();
+	for( Q_UINT8 i = 0; i < startLocations.size(); ++i )
+		charList->addTown( i, startLocations[i].name, startLocations[i].name );
+
 	charList->compile();
 	send( charList );
 	delete charList;
@@ -183,7 +221,7 @@ void cUOSocket::sendCharList()
 
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 {
-	cout << "Trying to delete character with id " << packet->index() << endl;
+	//cout << "Trying to delete character with id " << packet->index() << endl;
 
 	cUOTxUpdateCharList *update = new cUOTxUpdateCharList;
 	update->setCharacter( 0, "You deleted me!" );
@@ -192,15 +230,15 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 {
-	cout << "User is trying to play character " << packet->character().latin1() << " [" << packet->password().latin1() << "]" << endl;
-	cout << "in slot " << packet->slot() << endl;
+	//cout << "User is trying to play character " << packet->character().latin1() << " [" << packet->password().latin1() << "]" << endl;
+	//cout << "in slot " << packet->slot() << endl;
 
 	// Minimum Requirements for log in
 	// a) Set the map the user is on
 	// b) Set the client features
 	// c) Confirm the Login
 	// d) Start the Game
-	// E) Set the Game Time
+	// e) Set the Game Time
 
 	cUOTxClientFeatures *clientFeatures = new cUOTxClientFeatures;
 	clientFeatures->setLbr( true );
@@ -243,5 +281,68 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 	gameTime->setTime( 12, 19, 3 );
 	send( gameTime );
 	delete gameTime;
+}
+
+bool cUOSocket::authenticate( const QString &username, const QString &password )
+{
+	// Log
+	clConsole.send( QString( "Trying to log in as %1 using password %2 [%3]\n" ).arg( username ).arg( password ).arg( _socket->address().toString() ) );
+
+	Q_INT32 authRet = Accounts->Authenticate( username, password );
+
+	cUOPacket *denyPacket = NULL;
+
+	switch( authRet )
+	{
+	case LOGIN_NOT_FOUND:
+		denyPacket = new cUOTxDenyLogin( DL_NOACCOUNT ); break;
+	case BAD_PASSWORD:
+		denyPacket = new cUOTxDenyLogin( DL_BADPASSWORD ); break;
+	case ACCOUNT_WIPE:
+	case ACCOUNT_BANNED:
+		denyPacket = new cUOTxDenyLogin( DL_BLOCKED ); break;
+	};
+
+	// Reject login
+	if( denyPacket )
+	{
+		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
+		send( denyPacket );
+		delete denyPacket;
+		disconnect();
+		return false;
+	}	
+
+	_account = authRet;
+	return true;
+}
+
+// Processes a create character request
+// Notes from Lord Binaries packet documentation:
+
+void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
+{
+	// Several security checks
+	vector< P_CHAR > characters = Accounts->characters( _account );
+
+	if( characters.size() >= 5 )
+	{
+
+	}
+
+}
+
+void cUOSocket::sysMessage( const QString &message, Q_UINT16 )
+{
+	// Color: 0x0037
+	cUOTxUnicodeSpeech *speech = new cUOTxUnicodeSpeech;
+	speech->setSource( 0xFFFFFFFF );
+	speech->setModel( 0xFFFF );
+	speech->setFont( 3 );
+	speech->setLanguage( "ENU" ); // Standard server language >> Change later
+	speech->setColor( 0x0037 );
+	speech->setType( cUOTxUnicodeSpeech::System );
+	speech->setName( "System" );
+	
 }
 
