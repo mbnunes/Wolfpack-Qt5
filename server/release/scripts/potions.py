@@ -75,7 +75,7 @@ def onUse( char, item ):
 			if potiontype in [ 11, 12, 13 ]:
 				# char, potion, counter value
 				if not item.hastag('exploding'):
-					potionexplosion( item, [ char.serial, 4] )
+					potionexplosion( item, [char, 4, item.amount] )
 					item.settag('exploding', 'true')
 				socket.sysmessage( 'You should throw this now!', RED )
 				socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
@@ -160,41 +160,47 @@ def targetexplosionpotion(char, args, target):
 
 # Explosion Potion Function
 def potionexplosion( potion, args ):
-	char = wolfpack.findchar(args[0])
-	counter = args[1]
-	bonus = potion.amount
-	if not bonus:
-		bonus = 1
-	if counter > 0:
-		potion.addtimer( 1000, "potions.potioncountdown", [char.serial, counter, bonus] )
-		return
+	if args[1] > 0:
+		potion.addtimer( 1000, "potions.potioncountdown", [args[0], args[1], args[2]] )
 	else:
 		potion.soundeffect(0x307) # Boom!
 		potion.effect( explosions[randint( 0, 2 )], 20, 10 )
-		potionregion( [char, potion, bonus] )
+		potionregion( args[0], potion, args[2] )
 		potion.delete()
-		return
+	return
 
 # Explosion Potion Function
 def potioncountdown( potion, args ):
 	counter = args[1]
-	bonus = args[2]
 	if potion:
-		if not bonus:
-			bonus = 1
 		if counter >= 0:
 			if counter > 0:
 				if (counter - 1) > 0:
 					potion.say("%u" % (counter - 1))
 				counter -= 1
-			potion.addtimer( 0, "potions.potionexplosion", [ args[0], counter, bonus ] )
+			potion.addtimer( 0, "potions.potionexplosion", [args[0], counter, args[2]] )
+	return
+
+def chainpotiontimer( char, potion, bomb, outradius ):
+	# Doing error checks first, makes it faster
+	if not checkLoS( potion, bomb, outradius ):
+		return
+	if not bomb.hastag('potiontype'):
+		return
+	if not int( bomb.gettag('potiontype') ) in [ 11, 12, 13 ]:
+		return
+	if bomb.hastag('exploding'):
 		return
 
+	bomb.settag( 'exploding', char.serial )
+	if bomb.hastag( 'kegfill' ) and int( bomb.gettag( 'kegfill' ) ) >= 1:
+		bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char, 0, int( bomb.gettag( 'kegfill' ) ) ] )
+	else:
+		bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char, 0, bomb.amount ] )
+	return
+
 # Explosion Potion Function
-def potionregion( args ):
-	char = args[0]
-	potion = args[1]
-	bonus = args[2]
+def potionregion( char, potion, bonus=0 ):
 	if potion.gettag('potiontype') == 11:
 		outradius = 1
 	elif potion.gettag('potiontype') == 12:
@@ -225,89 +231,60 @@ def potionregion( args ):
 				outradius = 6
 			else:
 				outradius = 5
-	# Empty Lists
-	potion_chainlist = []
+
+	outradius = max( 1, outradius )
 	# Potion is thrown on the ground
 	if not potion.container:
-		x1 = int(potion.pos.x - outradius)
-		y1 = int(potion.pos.y - outradius)
-		x2 = int(potion.pos.x + outradius)
-		y2 = int(potion.pos.y + outradius)
-		damageregion = wolfpack.charregion( x1, y1, x2, y2, potion.pos.map )
+		x1 = min( int(potion.pos.x - outradius), int(potion.pos.x + outradius) )
+		x2 = max( int(potion.pos.x - outradius), int(potion.pos.x + outradius) )
+		y1 = min( int(potion.pos.y - outradius), int(potion.pos.y + outradius) )
+		y2 = max( int(potion.pos.y - outradius), int(potion.pos.y + outradius) )
 		# Character Bombing
+		damageregion = wolfpack.charregion( x1, y1, x2, y2, potion.pos.map )
 		target = damageregion.first
 		while target:
+			if not target.ischar:
+				target = damageregion.next
 			if checkLoS( target, potion, outradius ):
-				potiondamage(char, target, potion, bonus)
+				potiondamage( char, target, potion, bonus )
 				target = damageregion.next
 			else:
 				target = damageregion.next
 
 		# Chain Reaction Bombing
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, potion.pos.map )
-
 		chainbomb = chainregion.first
 		# Scan the region, build a list of explosives
 		while chainbomb:
-			# Doing error checks first, makes it faster
-			if not checkLoS( potion, chainbomb, outradius ):
-				chainbomb = chainregion.next
-			if chainbomb.hastag('exploding'):
-				chainbomb = chainregion.next
-			# Type Checking
-			if not potion.hastag('potiontype') or not chainbomb.gettag('potiontype') in [11,12,13]:
-				chainbomb = chainregion.next
-			# Append
-			potion_chainlist.append( chainbomb )
+			chainpotiontimer( char, potion, chainbomb, outradius )
 			chainbomb = chainregion.next
-		# Explosions
-		for bomb in potion_chainlist:
-			bomb.settag( 'exploding', char.serial )
-			if chainbomb.hastag( 'kegfill' ) and int( chainbomb.gettag( 'kegfill' ) ) >= 1:
-				bomb.addtimer( randint(1000,2250), "potions.potioncountdown", [ char.serial, 0, int( bomb.gettag( 'kegfill' ) ) ] )
-			else:
-				bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char.serial, 0, bomb.amount ] )
-
 		return
 	# Potion is in a container
 	else:
-		x1 = int(char.pos.x - outradius)
-		y1 = int(char.pos.y - outradius)
-		x2 = int(char.pos.x + outradius)
-		y2 = int(char.pos.y + outradius)
-		damageregion = wolfpack.charregion( x1, y1, x2, y2, char.pos.map )
+		x1 = min( int(char.pos.x - outradius), int(char.pos.x + outradius) )
+		x2 = max( int(char.pos.x - outradius), int(char.pos.x + outradius) )
+		y1 = min( int(char.pos.y - outradius), int(char.pos.y + outradius) )
+		y2 = max( int(char.pos.y - outradius), int(char.pos.y + outradius) )
 		# Area Bombing
+		damageregion = wolfpack.charregion( x1, y1, x2, y2, potion.pos.map )
 		target = damageregion.first
 		while target:
+			if not target.ischar:
+				target = damageregion.next
 			if checkLoS( char, target, outradius ):
-				potiondamage(char, target, potion, bonus)
+				potiondamage( char, target, potion, bonus )
 				target = damageregion.next
 			else:
 				target = damageregion.next
 
+		potion_chainlist = []
 		# Chain Reaction Bombing
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, char.pos.map )
 		chainbomb = chainregion.first
 		# Scan the region, build a list of explosives
 		while chainbomb:
-			# Doing error checks first, makes it faster
-			if not checkLoS( potion, chainbomb, outradius ):
-				chainbomb = chainregion.next
-			if chainbomb.hastag('exploding'):
-				chainbomb = chainregion.next
-			# Type Checking
-			if not potion.hastag('potiontype') or not chainbomb.gettag('potiontype') in [11,12,13]:
-				chainbomb = chainregion.next
-			# Append
-			potion_chainlist.append( chainbomb )
+			chainpotiontimer( char, potion, chainbomb, outradius )
 			chainbomb = chainregion.next
-		# Explosions
-		for bomb in potion_chainlist:
-			bomb.settag( 'exploding', char.serial )
-			if chainbomb.hastag( 'kegfill' ) and int( chainbomb.gettag( 'kegfill' ) ) >= 1:
-				bomb.addtimer( randint(1000,2250), "potions.potioncountdown", [ char.serial, 0, int( bomb.gettag( 'kegfill' ) ) ] )
-			else:
-				bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char.serial, 0, bomb.amount ] )
 		return
 
 # Explosion Potion Function
