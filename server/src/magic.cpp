@@ -2784,6 +2784,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	              if (pj != NULL) // Ripper
 				  {
 	                 pj->type=14;
+					 sprintf((char*)temp,"You magically create food in your backpack: %s",pj->name.c_str());
+		             sysmessage(s,(char*)temp);
 	                 RefreshItem(pj);
 				  }
 			   }
