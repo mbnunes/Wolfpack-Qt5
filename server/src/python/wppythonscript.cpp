@@ -28,6 +28,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+#include <qglobals.h>
+
 #if defined (Q_OS_UNIX)
 #include <limits.h>  //compatability issue. GCC 2.96 doesn't have limits include
 #else
