@@ -14,4 +14,7 @@
 	<script id="wall_clock" type="python">
 		<module name="wall_clock" />
 	</script>	
+
+	<script id="spell_clumsy" type="python"><module name="spells.clumsy" /></script>
+	<script id="spell_createfood" type="python"><module name="spells.createfood" /></script>
 </definitions>
