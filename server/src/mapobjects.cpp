@@ -273,6 +273,8 @@ RegionIterator4Items::RegionIterator4Items( const Coord_cl &pos, UI32 distance )
 RegionIterator4Items& RegionIterator4Items::operator=( const Coord_cl &pos )
 {
 	position_ = pos;
+	serials.clear();
+	cMapObjects::getInstance()->search( pos, distance_, this->serials );
 	Begin();
 	return *this;
 }
@@ -315,6 +317,8 @@ RegionIterator4Chars::RegionIterator4Chars( const Coord_cl &pos, UI32 distance )
 RegionIterator4Chars& RegionIterator4Chars::operator=( const Coord_cl &pos )
 {
 	position_ = pos;
+	serials.clear();
+	cMapObjects::getInstance()->search( pos, distance_, this->serials );
 	Begin();
 	return *this;
 }

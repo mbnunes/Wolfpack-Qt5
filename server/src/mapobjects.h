@@ -116,6 +116,8 @@ public:
 	{
 		position_ = pos;
 		distance_ = distance;
+		serials.clear();
+		cMapObjects::getInstance()->search( pos, distance, this->serials );
 		Begin();
 	}
 
@@ -141,6 +143,7 @@ public:
 	{
 		position_ = pos;
 		distance_ = distance;
+		serials.clear();
 		cMapObjects::getInstance()->search( pos, distance, this->serials );
 		Begin();
 	}
