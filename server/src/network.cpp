@@ -107,11 +107,11 @@ void cNetwork::poll( void )
 	for ( uoSocket = uoSockets.first(); uoSocket; uoSocket = uoSockets.next())
 	{
 		// Check for disconnected sockets
-		if ( uoSocket->socket()->error() != QSocketDevice::NoError )
+		if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() )
 		{
 			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );			
-			netIo_->unregisterSocket( uoSocket->socket() );
 			uoSocket->disconnect();
+			netIo_->unregisterSocket( uoSocket->socket() );			
 			uoSockets.remove();
 		}
 		else

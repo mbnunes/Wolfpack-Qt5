@@ -328,6 +328,9 @@ void cUOSocket::disconnect( void )
 	if( _account )
 		_account->setInUse( false );
 
+	if( _player )
+		_player->setSocket( NULL );
+
 	cNetwork::instance()->netIo()->flush( _socket );
 	_socket->close();
 }
