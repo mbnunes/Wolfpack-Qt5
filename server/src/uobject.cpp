@@ -1069,6 +1069,13 @@ void cUObject::save(cBufferedWriter& writer) {
 	length = writer.position() - length;
 	writer.setSkipSize( getClassid(), length );
 
+	// Save the spawnregion association
+	if (spawnregion_) {
+		writer.writeByte(0xFA);
+		writer.writeUtf8(spawnregion_->name());
+		writer.writeInt(serial_);
+	}
+
 	// Save tags for this object
 	tags_.save( serial_, writer );
 }

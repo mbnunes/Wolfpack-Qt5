@@ -2357,13 +2357,12 @@ unsigned int cItem::decayDelay()
 
 void cItem::save( cBufferedWriter& writer )
 {
-	cUObject::save( writer );
+	cUObject::save(writer);
 
 	// Save container content
 	ContainerContent::iterator it = content_.begin();
-	for ( ; it != content_.end(); ++it )
-	{
-		( *it )->save( writer );
+	for (; it != content_.end(); ++it) {
+		(*it)->save(writer);
 	}
 }
 

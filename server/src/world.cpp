@@ -465,6 +465,19 @@ void cWorld::load()
 					}
 					// Special Type for Tags
 				}
+				else if ( type == 0xFA )
+				{
+					QString spawnregion = reader.readUtf8();
+					SERIAL serial = reader.readInt();
+
+					cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
+					cUObject *object = findObject( serial );
+					if (object && region) {
+						object->setSpawnregion(region);
+					} else if (object) {
+						object->remove();
+					}
+				}
 				else if ( type == 0xFB )
 				{
 					QString name = reader.readUtf8();
@@ -751,9 +764,10 @@ void cWorld::load()
 
 			cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
 			cUObject *object = findObject( serial );
-			if (object && region)
-			{
+			if (object && region) {
 				object->setSpawnregion(region);
+			} else if (object) {
+				object->remove();
 			}
 		}
 
