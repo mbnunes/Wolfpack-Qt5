@@ -73,3 +73,15 @@ class cObjectCache
 			stack.push( obj );
 		}
 };
+
+class cCharObjectCache : public cObjectCache
+{
+public:
+	cCharObjectCache() : cObjectCache() {}
+};
+
+class cItemObjectCache : public cObjectCache
+{
+public:
+	cItemObjectCache() : cObjectCache() {}
+};

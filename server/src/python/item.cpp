@@ -48,7 +48,7 @@ extern cAllItems *Items;
 #include "objectcache.h"
 #include "../singleton.h"
 
-typedef SingletonHolder< cObjectCache > ItemCache;
+typedef SingletonHolder< cItemObjectCache > ItemCache;
 
 static void FreeItemObject( PyObject *obj )
 {

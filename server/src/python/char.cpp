@@ -49,7 +49,7 @@
 #include "objectcache.h"
 #include "../singleton.h"
 
-typedef SingletonHolder< cObjectCache > CharCache;
+typedef SingletonHolder< cCharObjectCache > CharCache;
 
 static void FreeCharObject( PyObject *obj )
 {
