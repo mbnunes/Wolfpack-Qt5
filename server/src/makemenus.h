@@ -486,7 +486,6 @@ public:
 private:
 	std::map< QString, cMakeMenu* >		menus_;
 	void unload();
-	void parseLocationNode( cMakeMenu* pGoMenu, const cElement* defSection );
 };
 
 typedef SingletonHolder<cAllMakeMenus> MakeMenus;

@@ -201,74 +201,6 @@ void cCommands::loadACLs( void )
 	Accounts::instance()->clearAcls();
 }
 
-// COMMAND IMPLEMENTATION
-// Purpose:
-// .go >> Gump with possible targets
-// .go x,y,z,[map] >> Go to those coordinates
-// .go placename >> Go to that specific place
-void commandGo( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	P_CHAR pChar = socket->player();
-
-	if( !pChar )
-		return;
-
-	UI08 map = pChar->pos().map;
-
-	if( args.isEmpty() )
-	{
-		socket->sysMessage( "Bringin up travel gump" );
-		MakeMenus::instance()->callMakeMenu( socket, "GO_MENU" );
-		return;
-	}
-	else
-	{
-
-		Coord_cl newPos = pChar->pos();
-		QString argument = args.join(" ");
-		if( parseCoordinates( argument, newPos ) )
-		{
-			if (!SectorMaps::instance()->validMap(newPos.map)) {
-				socket->sysMessage("You specified an invalid map.");
-				return;
-			}
-
-			// This is a bandwith saving method
-			// Before we're moving the character anywhere we remove it
-			// only from the sockets in range and then resend it to only the new sockets in range
-
-			pChar->removeFromView( false );
-			pChar->moveTo( newPos );
-			pChar->resend( false, true );
-			socket->resendPlayer( map == pChar->pos().map );
-			socket->resendWorld();
-			return;
-		}
-
-		// When we reached this point it's clear that we didn't find any valid coordinates in our arguments
-		const cElement *node = DefManager->getDefinition( WPDT_LOCATION, argument );
-
-		if( node && parseCoordinates( node->text(), newPos ) )
-		{
-			if (!SectorMaps::instance()->validMap(newPos.map)) {
-				socket->sysMessage("You specified an invalid map.");
-				return;
-			}
-
-			pChar->removeFromView( false );
-			pChar->moveTo( newPos );
-			pChar->resend( false, true );
-			socket->resendPlayer( map == pChar->pos().map );
-			socket->resendWorld();
-			return;
-		}
-	}
-
-	// If we reached this end it's definetly an invalid command
-	socket->sysMessage( tr( "Usage: go [location|x,y,z,[map]]" ) );
-}
-
 void commandResurrect( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
 	Q_UNUSED(args);
@@ -291,70 +223,6 @@ void commandFix( cUOSocket *socket, const QString &command, const QStringList &a
 	Q_UNUSED(command);
 	// TODO: Eventually check if the character is stuck etc.
 	socket->resendPlayer();
-}
-
-void commandAddItem( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	QString param = args.join( " " ).stripWhiteSpace();
-
-	const cElement *node = DefManager->getDefinition( WPDT_ITEM, param );
-
-	if( node )
-	{
-		socket->sysMessage( tr( "Where do you want to add the item '%1'?" ).arg( param ) );
-		socket->attachTarget( new cAddItemTarget( param ) );
-	}
-
-	return;
-}
-
-void commandAddNpc( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	QString param = args.join( " " ).stripWhiteSpace();
-
-	const cElement *node = DefManager->getDefinition( WPDT_NPC, param );
-
-	if( node )
-	{
-		socket->sysMessage( tr( "Where do you want to add the npc '%1'" ).arg( param ) );
-		socket->attachTarget( new cAddNpcTarget( param ) );
-	}
-
-	return;
-}
-
-void commandAdd( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	// Bring up the Add-menu
-	if( args.count() < 1 )
-	{
-		MakeMenus::instance()->callMakeMenu( socket, "ADD_MENU" );
-		return;
-	}
-
-	QString param = args.join( " " ).stripWhiteSpace();
-
-	// An item definition with that name exists
-	if( DefManager->getDefinition( WPDT_ITEM, param ) )
-	{
-		socket->sysMessage( tr( "Where do you want to add the item '%1'" ).arg( param ) );
-		socket->attachTarget( new cAddItemTarget( param ) );
-		return;
-	}
-
-	// Same for NPCs
-	if( DefManager->getDefinition( WPDT_NPC, param ) )
-	{
-		socket->sysMessage( tr( "Where do you want to add the npc '%1'" ).arg( param ) );
-		socket->attachTarget( new cAddNpcTarget( param ) );
-		return;
-	}
-
-	socket->sysMessage( tr( "Item or NPC Definition '%1' not found" ).arg( param ) );
-	return;
 }
 
 void commandSet( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
@@ -1530,17 +1398,13 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 stCommand cCommands::commands[] =
 {
 	{ "ACCOUNT", commandAccount },
-	{ "ADD", commandAdd },
 	{ "ADDEVENT", commandAddEvent },
-	{ "ADDITEM", commandAddItem },
-	{ "ADDNPC", commandAddNpc },
 	{ "ALLMOVE", commandAllMove },
 	{ "ALLSHOW", commandAllShow },
 	{ "ALLSKILLS", commandAllSkills },
 	{ "BROADCAST", commandBroadcast },
 	{ "DOORGEN", commandDoorGenerator },
 	{ "FIX", commandFix },
-	{ "GO", commandGo },
 	{ "GMTALK", commandGmtalk },
 	{ "INVIS", commandInvis },
 	{ "KILL", commandKill },

@@ -24,17 +24,8 @@ def findchar( serial ):
 def findmulti( arg ):
 	return _wolfpack.findmulti( arg )
 
-def additem( definition ):
-	if not type( definition ) is StringType:
-		raise TypeError, "You need to provide a valid definition string"
-	else:
-		return _wolfpack.additem( definition )
-
-def addnpc( definition, pos ):
-	if not type( definition ) is StringType:
-		raise TypeError, "You need to provide a valid definition string"
-	else:
-		return _wolfpack.addnpc( definition, pos )
+additem = _wolfpack.additem
+addnpc = _wolfpack.addnpc
 
 def region( x, y, map ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType:

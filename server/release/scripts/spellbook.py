@@ -68,6 +68,18 @@ def hasspell( item, spell ):
 		
 	return 0	
 
+# spellcount
+def countspells(item):
+  count = 0
+
+  for i in range( 1, 9 ):
+    if item.hastag('circle' + str(i)):
+      spells = int(item.gettag('circle' + str(i)))
+      for j in range(0, 9):
+        if (spells >> j) & 0x01:
+          count += 1
+  return count 
+
 # Adds the specified spell to the specified spellbook
 def addspell( item, spell ):
 	if not item or not 'spellbook' in item.events:
@@ -182,4 +194,4 @@ def onUse( char, item ):
 # Create the special tooltip
 #
 def onShowTooltip(viewer, object, tooltip):
-  tooltip.add(1042886, str(object.spellscount()))
+  tooltip.add(1042886, str(countspells(object)))

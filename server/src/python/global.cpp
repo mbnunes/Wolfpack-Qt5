@@ -370,16 +370,14 @@ static PyMethodDef wpTime[] =
 */
 static PyObject* wpAdditem( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
-	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
+	char *definition;
+
+	if (!PyArg_ParseTuple(args, "s:wolfpack.additem(def)", &definition)) {
+		return 0;
 	}
 
-
-	P_ITEM pItem = cItem::createFromScript( PyString_AsString( PyTuple_GetItem( args, 0 ) ) );
-	return PyGetItemObject( pItem );
+	P_ITEM pItem = cItem::createFromScript(definition);
+	return PyGetItemObject(pItem);
 }
 
 /*!
@@ -387,14 +385,13 @@ static PyObject* wpAdditem( PyObject* self, PyObject* args )
 */
 static PyObject* wpAddnpc( PyObject* self, PyObject* args )
 {
-	Q_UNUSED(self);	
-	if( PyTuple_Size( args ) < 2 || !checkArgStr( 0 ) || !checkWpCoord( PyTuple_GetItem( args, 1 ) ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
+	char *definition;
+	Coord_cl pos;
+
+	if (!PyArg_ParseTuple(args, "sO&:wolfpack.addnpc(def, pos)", &definition, &PyConvertCoord, &pos)) {
+		return 0;
 	}
 
-	Coord_cl pos = getWpCoord( PyTuple_GetItem( args, 1 ) );
 	P_CHAR pChar = cCharStuff::createScriptNpc( getArgStr( 0 ), pos );
 
 	return PyGetCharObject( pChar ); 

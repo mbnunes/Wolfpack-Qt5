@@ -128,8 +128,8 @@ private:
 		MT_ITEMS
 	};
 
-	cSectorIterator *findObjects( MapType type, cSectorMap *map, unsigned int x, unsigned int y );
-	cSectorIterator *findObjects( MapType type, cSectorMap *map, unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2 );
+	cSectorIterator *findObjects( MapType type, cSectorMap *map, int x, int y );
+	cSectorIterator *findObjects( MapType type, cSectorMap *map, int x1, int y1, int x2, int y2 );
 public:
 	cSectorMaps();
 	virtual ~cSectorMaps();
@@ -143,12 +143,12 @@ public:
 	// These methods help in finding items on the map, either in a specific block
 	// or by a center coordinate and a distance parameter
 	// or inside of a rectangle defined by x1,y1 and x2,y2
-	cItemSectorIterator *findItems( unsigned char map, unsigned int x, unsigned int y ); // Find items in a specific block
-	cItemSectorIterator *findItems( unsigned char map, unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2 );
+	cItemSectorIterator *findItems( unsigned char map, int x, int y ); // Find items in a specific block
+	cItemSectorIterator *findItems( unsigned char map, int x1, int y1, int x2, int y2 );
 	cItemSectorIterator *findItems( const Coord_cl &center, unsigned char distance );
 
-	cCharSectorIterator *findChars( unsigned char map, unsigned int x, unsigned int y ); // Find items in a specific block
-	cCharSectorIterator *findChars( unsigned char map, unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2 );
+	cCharSectorIterator *findChars( unsigned char map, int x, int y ); // Find items in a specific block
+	cCharSectorIterator *findChars( unsigned char map, int x1, int y1, int x2, int y2 );
 	cCharSectorIterator *findChars( const Coord_cl &center, unsigned char distance );
 };
 

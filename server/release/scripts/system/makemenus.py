@@ -66,7 +66,8 @@ class MakeAction:
     identifier = '%s:%u' % (self.parent.id, self.parent.subactions.index(self))
     if player.hastag('makehistory'):
       history = str(player.gettag('makehistory')).split(';')
-      history.remove(identifier)
+      if identifier in history:
+        history.remove(identifier)
 
     history = [identifier] + history[:9]
     player.settag('makehistory', ';'.join(history))
@@ -336,8 +337,6 @@ class MakeMenu:
           if action < len(menu.subactions):
             menu.subactions[action].make(player, arguments)
             return 1
-        else:
-          raise TypeError, menu
 
     return 0
 

@@ -44,24 +44,6 @@
 #include "npc.h"
 #include "ai/ai.h"
 
-
-class cAddItemTarget: public cTargetRequest
-{
-	QString item_;
-	bool nodecay;
-public:
-	cAddItemTarget( const QString &item, bool _nodecay = false ) : item_(item), nodecay( _nodecay ) {}
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
-class cAddNpcTarget: public cTargetRequest
-{
-	QString npc_;
-public:
-	cAddNpcTarget( const QString &npc ) : npc_(npc) {}
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
 class cBuildMultiTarget: public cTargetRequest
 {
 	QString multisection_;

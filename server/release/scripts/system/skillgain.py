@@ -37,7 +37,8 @@ def gainstat(char, stat):
   # Atrohpy
   # Like the skill atrophy we have a certain chance to 
   # decrease another (lock: down) stat here.
-  if totalstats / char.statcap >= random():
+  # Only active for players
+  if char.player and totalstats / char.statcap >= random():
     stats = [0, 1, 2]
     if char.strengthlock != 1 or stat == 0 or realstr <= 1:
       stats.remove(0)
@@ -142,17 +143,17 @@ def gainskill(char, skill, totalskill, totalcap):
     realdex = char.dexterity - char.dexterity2
     realint = char.intelligence - char.intelligence2    
 
-    if char.strengthlock == 0 and realstr >= char.strengthcap:
+    if (char.npc or char.strengthlock == 0) and realstr >= char.strengthcap:
       strchance = 0.0
     else:
       strchance /= 33.3
 
-    if char.dexteritylock == 0 and realdex >= char.dexteritycap:
+    if (char.npc or char.dexteritylock == 0) and realdex >= char.dexteritycap:
       dexchance = 0.0
     else:
       dexchance /= 33.3
 
-    if char.intelligencelock == 0 and realint >= char.intelligencecap:
+    if (char.npc or char.intelligencelock == 0) and realint >= char.intelligencecap:
       intchance = 0.0
     else:
       intchance /= 33.3
