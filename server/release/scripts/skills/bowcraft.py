@@ -265,12 +265,8 @@ def loadMenu(id, parent = None):
         for j in range(0, child.childcount):
           subchild = child.getchild(j)
 
-          # How much of the primary resource should be consumed
-          if subchild.name == 'leather':
-            action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
-
           # Normal Material
-          elif subchild.name == 'material':
+          if subchild.name == 'material':
             if not subchild.hasattribute('id'):
               console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
               break
@@ -278,10 +274,11 @@ def loadMenu(id, parent = None):
               ids = subchild.getattribute('id').split(';')
               try:
                 amount = hex2dec(subchild.getattribute('amount', '1'))
+                materialname = subchild.getattribute('name', 'Unknown')
               except:
                 console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
                 break
-              action.materials.append([ids, amount])
+              action.materials.append([ids, amount, materialname])
 
           # Consume all available materials scaled by the
           # amount of each submaterial
