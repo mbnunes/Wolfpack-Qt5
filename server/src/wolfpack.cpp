@@ -689,7 +689,6 @@ void gcollect () // Remove items which were in deleted containers
 	bool bdelete;
 	LogMessage("Performing Garbage Collection...");
 	int debug = 0;
-	unsigned int total = cItemsManager::getItemsManager().size();
 	AllItemsIterator iter_items;
 	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++, debug++)
 	{
@@ -1081,7 +1080,7 @@ void deathstuff(P_CHAR pc_player)
 	if (z != -1) 
 		unmounthorse(z);
 
-	int ci=0;
+	unsigned int ci=0;
 	P_ITEM pi_j;
 	vector<SERIAL> vecContainer = contsp.getData(pc_player->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -1324,7 +1323,7 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 	SERIAL serial = pc->serial;
 	int counter2 = 0;
 	int total = amt;
-	int ci;
+	unsigned int ci;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for( ci = 0; ci < vecOwn.size() && total > 0; ci++ )
 	{
@@ -3816,7 +3815,7 @@ void openspecialbank(int s, P_CHAR pc)
 int getsubamount(int serial, short id)
 {
 	unsigned long loopexit=0,total=0;
-	int ci=0;
+	unsigned int ci;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)

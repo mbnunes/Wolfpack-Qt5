@@ -81,7 +81,6 @@ bool doregionspawn(int r)//Regionspawns
 	if (spawnregion[r].current >= spawnregion[r].max || spawnregion[r].max == 0) return false;
 
 	int x = 0, y = 0, z = 0;
-	int item = -1;
 	int counter;
 
 	if( spawnregion[r].totalnpclists > 0 )
@@ -583,7 +582,6 @@ void cRespawn::Continue()
 	{
 		if (doregionspawn(i) == false)	// no more things to spawn in this region
 			currentSpawnRegion++;
-		return;			// take a break after each region 
 	}
 
 	AllItemsIterator iterItems;
@@ -591,7 +589,7 @@ void cRespawn::Continue()
 	{
 		P_ITEM pi = iterItems.GetData();
 		int k, serial, ci;
-		if (pi->type==61)
+		if (pi->type == 61)
 		{
 			k = 0;
 			serial = pi->serial;
@@ -615,7 +613,6 @@ void cRespawn::Continue()
 			{
 				Items->AddRespawnItem(pi, pi->morex, 0);
 				currentSpawnItem++;
-				return;			// take a break
 			}
 		}
 
@@ -636,7 +633,7 @@ void cRespawn::Continue()
 				}
 			}
 
-			if (k<pi->amount)	// lord binary, adds spawn amount checking
+			if (k < pi->amount)	// lord binary, adds spawn amount checking
 			{
 				Npcs->AddNPC(-1, pi, pi->morex);
 				pi->gatetime=0;

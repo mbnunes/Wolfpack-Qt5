@@ -249,7 +249,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 
 					if ((!(strcmp("DYEBEARD",(char*)script1))))
 					{
-						int ci;
+						unsigned int ci;
 						P_ITEM pi_beard = NULL;
 						vector<SERIAL> vecContainer = contsp.getData(pc_s->serial);
 						for (ci = 0; ci < vecContainer.size();ci++)

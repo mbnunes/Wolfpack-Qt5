@@ -45,8 +45,7 @@
 int addrandomcolor(P_CHAR pc_s, char *colorlist)
 {
 	char sect[512];
-	int i,j,storeval;
-	i=0; j=0;
+	int i = 0,j = 0,storeval = 0;
 	openscript("colors.scp");
 	sprintf(sect, "RANDOMCOLOR %s", colorlist);
 	if (!i_scripts[colors_script]->find(sect))
@@ -389,7 +388,7 @@ P_CHAR cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed
 
 P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed char z1)
 {
-	int tmp, z,c, lovalue, hivalue;
+	int tmp, z, lovalue, hivalue;
 	int k=0, xos=0, yos=0, lb;
 	char sect[512];
 	int haircolor = -1; //(we need this to remember the haircolor)

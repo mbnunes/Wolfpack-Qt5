@@ -1819,9 +1819,8 @@ signed long cNetworkStuff::Authenticate( const char *username, const char *pass 
 void cNetworkStuff::LoadHosts_deny(void)
 {
 	unsigned long loopexit = 0;
-	std::string  sScript1 ;
-	std::string  sToken1 ;
-	int siEnd ;
+	std::string  sScript1;
+	std::string  sToken1;
 	
 	if (hosts_deny.size() != 0)
 		hosts_deny.clear();
@@ -1838,7 +1837,7 @@ void cNetworkStuff::LoadHosts_deny(void)
 			ip_block_st ip_block;
 			unsigned long ip_address;
 			sScript1 = script1 ;
-			siEnd = sScript1.find("/") ;
+			string::size_type siEnd = sScript1.find("/") ;
 			sToken1 = sScript1.substr(0,siEnd) ;
 			
 			//char* straddr = strtok(script1, "/");

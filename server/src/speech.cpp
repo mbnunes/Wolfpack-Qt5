@@ -228,7 +228,7 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	//// stabled the petowner owns
 	//// if not return
     ///////////////////////////////////////////////////////////////////
-	int ci;	
+	unsigned int ci;	
 	P_CHAR  p_pet = NULL;
 	bool found = false;
 	vector<SERIAL> pets = stablesp.getData(pMaster->serial);
@@ -252,7 +252,7 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	if (!found) 
 	{ 
-		npctalk(s,pMaster,"sorry, I can't return that pet",0);
+		npctalk(s,pMaster, "sorry, I can't return that pet",0);
 		return 1;
 	} 
 

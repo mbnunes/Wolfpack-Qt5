@@ -2455,7 +2455,6 @@ void cTargets::SetDirTarget(int s)
 //
 bool cTargets::NpcResurrectTarget(P_CHAR pc)
 {
-	unsigned int j ;
 	if ( pc == NULL)
 		return true;
 
@@ -3533,8 +3532,8 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 	if ((buffer[s][2]==0)&&(buffer[s][3]==1)&&(buffer[s][4]==0))
 	{
 		bool Iready=false, Cready=false;
-		P_ITEM pi;
-		P_CHAR pc;
+		P_ITEM pi = NULL;
+		P_CHAR pc = NULL;
 		if(buffer[s][7]>=0x40) // an item's serial ?
 		{
 			pi=FindItemBySerial(pt->Tserial);
