@@ -372,10 +372,6 @@ SOURCE=.\weight.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\wip.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\wolfpack.cpp
 # End Source File
 # Begin Source File
@@ -701,10 +697,6 @@ SOURCE=.\weight.h
 # Begin Source File
 
 SOURCE=.\whitespace.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\wip.h
 # End Source File
 # Begin Source File
 
