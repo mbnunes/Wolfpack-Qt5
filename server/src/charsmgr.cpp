@@ -2,23 +2,25 @@
 #include "charsmgr.h"
 
 #include <algorithm>
-
+/*
 template<class _T, class _P>
-struct maxKeyPred : binary_function<pair<_T, _P>, pair<_T, _P>, bool>
+class maxKeyPred : public binary_function<pair<_T, _P>, pair<_T, _P>, bool>
 {
+public:
 	bool operator()(pair<_T, _P> a, pair<_T, _P> b)
 	{
 		return a.first < b.first;
 	}
 };
-/*
+*/
+
 struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar*>, bool>
 {
-	bool operator()(pair<SERIAL,cchar*> a, pair<SERIAL,cChar*> b)
+	bool operator()(pair<SERIAL,cChar*> a, pair<SERIAL,cChar*> b)
 	{
 		return a.first < b.first;
 	}
-};*/
+};
 
 void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
@@ -40,7 +42,7 @@ void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 
 SERIAL cCharsManager::getUnusedSerial() const
 {
-	typedef maxKeyPred<SERIAL, cChar*> max_serialPred;
+//	typedef maxKeyPred<SERIAL, cChar*> max_serialPred;
 	map<SERIAL, cChar*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
 	return max(1, temp->first+1); // no serial 0
 }
