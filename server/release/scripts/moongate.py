@@ -162,9 +162,9 @@ def gateCallback( char, args, target ):
 	# set world number
 	numWorld = 0
 	if( ( button > 9 ) and ( button < 18 ) ):
-		numWorld = 0
-	elif ( ( button > 17 ) and ( button < 26 ) ):
 		numWorld = 1
+	elif ( ( button > 17 ) and ( button < 26 ) ):
+		numWorld = 0
 	elif( ( button > 25 ) and ( button < 35 ) ):
 		numWorld = 2
 	else:
