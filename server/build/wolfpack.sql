@@ -448,6 +448,7 @@ CREATE TABLE uobject (
   pos_y smallint(6) unsigned NOT NULL default '0',
   pos_z smallint(6) NOT NULL default '0',
   pos_map tinyint(4) NOT NULL default '0',
+  direction char(1) NOT NULL default '0',
   events varchar(255) default NULL,
   bindmenu varchar(255) default NULL,
   havetags tinyint(1) NOT NULL default '0',
