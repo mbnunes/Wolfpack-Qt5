@@ -825,5 +825,15 @@ ARMORINFO = {
 		RESISTANCE_COLD: 3,
 		RESISTANCE_POISON: 3,
 		RESISTANCE_ENERGY: 3
+	},
+	# Kabuto
+	# This will need to be adjusted later for balance once Stratics has data.
+	'236d': {
+		REQSTR: 45,
+		RESISTANCE_PHYSICAL: 4,
+		RESISTANCE_FIRE: 3,
+		RESISTANCE_COLD: 4,
+		RESISTANCE_POISON: 5,
+		RESISTANCE_ENERGY: 6
 	}
 }
