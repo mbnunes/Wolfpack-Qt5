@@ -60,6 +60,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed clientcrashs related to the page menu.
 		- Crashfix for wipe all in certain situations.
 		- Blacksmithing now logs smelting and repairing and allows using static forges and anvils.
+		- Withdraw now updates the gold put into the players backpack.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
