@@ -71,4 +71,55 @@
 		<item>121</item>
 	</list>
 
+	<!-- Balron IDs -->
+	<list id="NPCIDS_BALRON">
+		<item>38</item>
+		<item>40</item>
+	</list>
+
+	<!-- Daemon IDs -->
+	<list id="NPCIDS_DAEMON">
+		<item>9</item>
+		<item>10</item>
+		<item>102</item>
+	</list>
+
+	<!-- Dragon IDs -->
+	<list id="NPCIDS_DRAGON">
+		<item>12</item>
+		<item>59</item>
+	</list>
+
+	<!-- Drake IDs -->
+	<list id="NPCIDS_DRAKE">
+		<item>60</item>
+		<item>61</item>
+	</list>
+
+	<!-- White Wyrm IDs -->
+	<list id="NPCIDS_WHITEWYRM">
+		<item>49</item>
+		<item>180</item>
+	</list>
+
+	<!-- Lizardman IDs -->
+	<list id="NPCIDS_LIZARDMAN">
+		<item>33</item>
+		<item>35</item>
+		<item>36</item>
+	</list>
+
+	<!-- Orc IDs -->
+	<list id="NPCIDS_ORC">
+		<item>17</item>
+		<item>41</item>
+	</list>
+
+	<!-- Ratman IDs -->
+	<list id="NPCIDS_RATMAN">
+		<item>42</item>
+		<item>44</item>
+		<item>45</item>
+	</list>
+
 </definitions>
