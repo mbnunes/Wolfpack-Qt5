@@ -178,10 +178,10 @@ class SmithItemAction(CraftItemAction):
 			item.maxhealth = max(1, item.maxhealth + bonus)
 			item.health = item.maxhealth
 
-		weightbonus = fromitem(item, WEIGHTBONUS)
-		if weightbonus != 0:
-			bonus = int(math.ceil(item.weight * (weightbonus / 100.0)))
-			item.weight = max(0, item.weight + bonus)
+		#weightbonus = fromitem(item, WEIGHTBONUS)
+		#if weightbonus != 0:
+			#bonus = int(math.ceil(item.weight * (weightbonus / 100.0)))
+			#item.weight = max(0, item.weight + bonus)
 
 		# Distribute another 6 points randomly between the resistances this armor already has
 		if exceptional:
