@@ -2508,8 +2508,8 @@ void cChar::resurrect()
 	if( pRobe )
 		Items->DeleItem( pRobe );
 
-#pragma note( "A robe has to be present as 1F03 in the scripts" )
-	pRobe = Items->createScriptItem( "1F03" );
+#pragma note( "A robe has to be present as 1f03 in the scripts" )
+	pRobe = Items->createScriptItem( "1f03" );
 
 	if( !pRobe ) 
 		return;

@@ -99,13 +99,13 @@ PyObject* PyGetRegionObject( cTerritory* );
 cTerritory* getWpRegion( PyObject* );
 
 // Argument checks
-#define checkArgObject( id ) checkWpItem( PyTuple_GetItem( args, id ) ) || checkWpChar( PyTuple_GetItem( args, id ) )
-#define checkArgInt( id ) PyInt_Check( PyTuple_GetItem( args, id ) )
+#define checkArgObject( id ) ( PyTuple_Size( args ) > id && ( checkWpItem( PyTuple_GetItem( args, id ) ) || checkWpChar( PyTuple_GetItem( args, id ) ) ) )
+#define checkArgInt( id ) ( PyTuple_Size( args ) > id && PyInt_Check( PyTuple_GetItem( args, id ) ) )
 #define getArgInt( id ) PyInt_AsLong( PyTuple_GetItem( args, id ) )
-#define checkArgStr( id ) PyString_Check( PyTuple_GetItem( args, id ) )
+#define checkArgStr( id ) ( PyTuple_Size( args ) > id && PyString_Check( PyTuple_GetItem( args, id ) ) )
 #define getArgStr( id ) PyString_AsString( PyTuple_GetItem( args, id ) )
-#define checkArgAccount( id ) checkWpAccount( PyTuple_GetItem( args, id ) )
-#define checkArgRegion( id ) checkWpRegion( PyTuple_GetItem( args, id ) )
+#define checkArgAccount( id ) ( PyTuple_Size( args ) > id && checkWpAccount( PyTuple_GetItem( args, id ) ) )
+#define checkArgRegion( id ) ( PyTuple_Size( args ) > id && checkWpRegion( PyTuple_GetItem( args, id ) ) )
 #define getArgRegion( id ) getWpRegion( PyTuple_GetItem( args, id ) )
 #define getArgAccount( id ) getWpAccount( PyTuple_GetItem( args, id ) )
 

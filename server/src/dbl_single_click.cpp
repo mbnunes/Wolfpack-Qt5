@@ -49,40 +49,14 @@
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
 
-// Loads a Cannonball
-class cLoadCannon: public cTargetRequest
-{
-protected:
-	SERIAL cannonBall;
-public:
-	cLoadCannon( SERIAL nBall ) { cannonBall = nBall; };
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		socket->sysMessage( "You try to put the cannon ball into the cannon but fail" );
-		return true;
-	}
-};
-
-void useCannonBall( UOXSOCKET socket, P_CHAR user, P_ITEM cannonball )
-{
-	if( cannonball->isLockedDown() )
-	{
-		sysmessage( socket, "This is too heavy for you" );
-		return;
-	}
-
-	// Display a target
-	attachTargetRequest( socket, new cLoadCannon( cannonball->serial ) );
-}
-
 // Shows the Spellbook gump when using a spellbook
-void useSpellBook( UOXSOCKET socket, P_CHAR mage, P_ITEM spellbook )
+void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
 {
 	mage->objectdelay = 0;
 
 	if( ( spellbook->contserial != mage->serial ) && ( GetPackOwner( spellbook, 10 ) != mage  ) )
 	{
-		sysmessage( socket, "The spellbook needs to be in your hands or in your backpack." );
+		socket->sysMessage( tr( "The spellbook needs to be in your hands or in your backpack." ) );
 		return;
 	}
 
@@ -90,19 +64,19 @@ void useSpellBook( UOXSOCKET socket, P_CHAR mage, P_ITEM spellbook )
 }
 
 // Use a wand
-void useWand( UOXSOCKET socket, P_CHAR mage, P_ITEM wand )
+void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
 {
 	// Is it in our backpack or on our body ?
 	if( ( wand->contserial != mage->serial )  && ( GetPackOwner( wand, 10 ) != mage ) )
 	{
-		sysmessage( socket, "If you wish to use this, it must be equipped or in your backpack." );
+		socket->sysMessage( tr( "If you wish to use this, it must be equipped or in your backpack." ) );
 		return;
 	}
 
 	// Here it is either in our backpack or on our body
 	if( wand->morez == 0 )
 	{
-		sysmessage( socket, "This Items magic is depleted." );
+		socket->sysMessage( tr( "This Items magic is depleted." ) );
 		return;
 	}
 
@@ -122,88 +96,8 @@ void useWand( UOXSOCKET socket, P_CHAR mage, P_ITEM wand )
 	}
 }
 
-//////////////////
-// name:	Item_ToolWearOut (2 interfaces)
-// history:	first impl by Ripper in various places
-//			collected here by Duke, 7.11.2000
-// purpose:	apply wear out to item, delete if necessary
-// remark:	1st interface will become a method of the item class,
-//			2nd is only for convenience here
-//
-static bool Item_ToolWearOut(P_ITEM pi)
-{
-	if((rand()%4)==0)
-		pi->setHp( pi->hp() - 1 ); //Take off a hit point
-
-	if( pi->hp() <= 0 )
-	{	 
-		Items->DeleItem(pi);
-		return true;
-	}
-	else
-		return false;
-}
-
-static bool Item_ToolWearOut(UOXSOCKET s, P_ITEM pi)
-{
-	if(Item_ToolWearOut(pi))	// has item been destroyed ??
-	{	 
-		sprintf((char*)temp,"Your %s has been destroyed",pi->name().ascii());
-		sysmessage(s,(char*)temp);
-		return true;
-	}
-	else
-		return false;
-}
-
-//////////////////
-// name:	slotmachine
-// history:	by Ripper, 5.12.2000
-// purpose:	takes 5gp to spin it and gives random wins
-//
-void slotmachine(UOXSOCKET s, P_ITEM pi)
-{
-	if (pi == NULL)
-		return;
-	P_CHAR pc_currchar = currchar[s];
-	if(pc_currchar->dead)		// no ghosts playing :)
-	{
-		sysmessage(s,"ghosts cant do that!");
-		return;
-	}
-	if(pc_currchar->CountGold() < SrvParams->slotAmount())	// check his gold to see if has enough.
-	{
-		sysmessage(s,"you dont have enough gold to play!");
-		return;
-	}
-	delequan(pc_currchar, 0x0EED, SrvParams->slotAmount(), NULL);	// lets delete the coins played.
-	int spin=RandomNum( 0,100);	// now lets spin to win :)
-	/*switch(spin)
-	{
-	case 0: Items->SpawnItemBackpack2(s,"3185",1);
-		sysmessage(s,"Single bars, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 1: Items->SpawnItemBackpack2(s,"3186",1);
-		sysmessage(s,"Double bars, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 2: Items->SpawnItemBackpack2(s,"3187",1);
-		sysmessage(s,"Triple bars, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 3: Items->SpawnItemBackpack2(s,"2003",1);
-		sysmessage(s,"Any three 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 4: Items->SpawnItemBackpack2(s,"2004",1);
-		sysmessage(s,"Three blue 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 5: Items->SpawnItemBackpack2(s,"2005",1);
-		sysmessage(s,"Three white 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 6: Items->SpawnItemBackpack2(s,"2006",1);
-		sysmessage(s,"Three red 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 7: Items->SpawnItemBackpack2(s,"2007",1);
-		sysmessage(s,"Jackpot, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	default : itemmessage(s,"Sorry,not a winner,please insert coins.",pi->serial); break;
-	}
-	soundeffect(s, 0x00, 0x57);	// my stupid spin sound hehe.*/
-}
-
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 {
-	//	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xA0\x01\x90\x01\x90";
 	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xFF\x01\x90\x01\x90";
 	// By Polygon: Lower map border is 4095, not 4000, no more needed with new system anyway ;)
 	unsigned char map2[12] = "\x56\x40\x01\x02\x03\x05\x00\x00\x00\x00\x00";
@@ -372,8 +266,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	case 1: // normal containers
 	case 63:
 		if( pi->moreb1() )
-			Magic->MagicTrap(pc_currchar, pi); // added by AntiChrist
-		// only 1 and 63 can be trapped, so pleaz leave it here :) - Anti
+			Magic->MagicTrap( pc_currchar, pi );
+
 	case 65: // nodecay item spawner..Ripper
 	case 66: // decaying item spawner..Ripper
 		{
@@ -501,9 +395,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			Magic->MagicTrap(pc_currchar, pi);
 		sysmessage(s, "This item is locked.");
 		return;// case 8/64 (locked container)
-	case 9: // spellbook
-		useSpellBook( s, pc_currchar, pi );
+
+	// Spellbook
+	case 9:
+		useSpellBook( socket, pc_currchar, pi );
 		return;
+
 	case 10: // map?
 		LongToCharPtr(pi->serial, &map1[1]);
 		LongToCharPtr(pi->serial, &map2[1]);
@@ -531,7 +428,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		Xsend(s, map1, 19);
 		Xsend(s, map2, 11);
 		return;// maps
-	case 11: // book (not spellbooks)
+
+	// Book
+	case 11:
 	{
 		cBook* pBook = dynamic_cast< cBook* >(pi);
 		if( pBook )
@@ -567,7 +466,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			socket->sysMessage( tr( "This door is locked." ) );
 			return;
 		}
-	case 14: // For eating food
+
+	// Food
+	case 14:
 		pc_currchar->objectdelay = 0;
 		if (pi->isLockedDown())
 			return; // Ripper..cant eat locked down food :)
@@ -605,12 +506,14 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			
 			pi->ReduceAmount(1);	// Remove a food item
 			pc_currchar->setHunger( pc_currchar->hunger()+1 );
-		}// else
-		return; // case 14 (food)
+		}
+		return;
+	
 	// Wands
 	case 15:
-		useWand( s, pc_currchar, pi );
-		return; // case 15 (magic items)
+		useWand( socket, pc_currchar, pi );
+		return;
+
 	case 18: // crystal ball?
 		switch (RandomNum(0, 9))
 		{
@@ -680,18 +583,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			sysmessage(s, "Enter your new name.");
 			Items->DeleItem(pi);
 			return;// rename deed! -- eagle 1/29/00
-		case 187: // Ripper...slotmachine
-            if( pc_currchar->inRange( pi, 1 ) )
-			{ 
-	             slotmachine(s, pi);
-				 return;
-			} 
-            else 
-			{ 
-	             sysmessage(s, "You need to be closer to use that."); 
-			}
-            return;// Ripper
-		case 100:  // type 100?  this ain't in the docs... - Morrolan
+
+		case 100:  // type 100?  this ain't in the docs...
 			{
 				AllItemsIterator it;
 				for (it.Begin(); !it.atEnd(); it++)
@@ -723,7 +616,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					}
 				}
 			}
-			return; // case 100
+			return;
+
 		case 101: //??
 			pc_currchar->setId( pi->morex ); 
 			teleport(pc_currchar);
@@ -749,7 +643,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		// Drinks (This needs some other effects as well)
 		case 105:  
 			pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );			
-			pi->ReduceAmount(1); // Remove a drink
+			pi->ReduceAmount( 1 ); // Remove a drink
 			pc_currchar->message( "Gulp!" );
 			return;
 
@@ -772,11 +666,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
 				return;
 				// End of guild stuff
-
-		// Cannon Ball
-		case 204:
-			useCannonBall( s, pc_currchar, pi );
-			return;
 
 		// PlayerVendors deed
 		case 217:			
@@ -1065,7 +954,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x0E86:
 				case 0x0F39:// shovels
 				case 0x0F3A:
-					if (!Item_ToolWearOut(s, pi))
+					if( !pi->wearOut() )
 					{
 						socket->sysMessage( tr("Where do you want to dig?") );
 						socket->attachTarget( new cFindResource( "RESOURCE_ORE" ) );

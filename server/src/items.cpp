@@ -2491,3 +2491,36 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 		}
 	}
 }
+
+bool cItem::wearOut()
+{
+	if( RandomNum( 1, 4 ) == 4 )
+		setHp( hp() - 1 );
+
+	if( hp() <= 0 )
+	{
+		// Get the owner of the item
+		P_CHAR pOwner = GetPackOwner( this, 64 );
+
+		if( pOwner )
+		{
+			pOwner->message( tr( "*You destroy your %1*" ).arg( getName() ), 0x23 );
+
+			// Send it to the people in range
+			cUOSocket *mSock = 0;
+			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			{
+				if( !mSock || mSock == pOwner->socket() )
+					continue;
+
+				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->VisRange ) )
+					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name.c_str() ).arg( getName() ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
+			}
+		}
+
+		Items->DeleItem( this );
+		return true;
+	}
+
+	return false;
+}

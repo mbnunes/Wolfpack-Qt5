@@ -407,6 +407,55 @@ PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 }
 
 /*!
+	Resurrects the current character
+*/
+PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	self->pChar->resurrect();
+
+	return PyTrue;
+}
+
+/*!
+	Resurrects the current character
+*/
+PyObject* wpChar_kill( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	self->pChar->kill();
+
+	return PyTrue;
+}
+
+/*!
+	Deals damage to the character
+	This cannot be used for healing!
+*/
+PyObject* wpChar_damage( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgInt( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for char.damage is 1\n" );
+		return PyFalse;
+	}
+
+	self->pChar->hp -= getArgInt( 0 );
+
+	if( self->pChar->hp <= 0 )
+		self->pChar->kill();
+
+	return PyTrue;
+}
+
+/*!
 	Shows an emote above the chars head
 */
 PyObject* wpChar_emote( wpChar* self, PyObject* args )
@@ -436,17 +485,17 @@ PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 	
-	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	if( PyTuple_Size( args ) < 1 || !checkArgInt( 0 ) )
 	{
 		clConsole.send( "Minimum argument count for char.countresource is 1\n" );
 		return PyInt_FromLong( 0 );
 	}
 
-	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	UINT16 id = getArgInt( 0 );
 	INT16 color = -1;
 
-	if( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	if( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
+		color = getArgInt( 1 );
 
 	P_ITEM pPack = self->pChar->getBackpack();
 	UINT16 avail = 0;
@@ -460,6 +509,9 @@ PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
+	{ "resurrect",		(getattrofunc)wpChar_resurrect, METH_VARARGS, "Resurrects the character." },
+	{ "kill",			(getattrofunc)wpChar_kill, METH_VARARGS, "This kills the character." },
+	{ "damage",			(getattrofunc)wpChar_damage, METH_VARARGS, "This damages the current character." },
     { "update",			(getattrofunc)wpChar_update, METH_VARARGS, "Sends the char to all clients in range." },
 	{ "removefromview", (getattrofunc)wpChar_removefromview, METH_VARARGS, "Removes the char from all surrounding clients." },
 	{ "message",		(getattrofunc)wpChar_message, METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
@@ -590,6 +642,25 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( "socket", name ) )
 		return PyGetSocketObject( self->pChar->socket() );
 
+	else if( !strcmp( "pos", name ) )
+		return PyGetCoordObject( self->pChar->pos );
+
+	else if( !strcmp( "baseskill", name ) )
+	{
+		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
+		skills->base = true;
+		skills->pChar = self->pChar;
+		return (PyObject*)( skills );
+	}
+
+	else if( !strcmp( "skill", name ) )
+	{
+		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
+		skills->base = false;
+		skills->pChar = self->pChar;
+		return (PyObject*)( skills );
+	}
+
 	/*getStrProperty( "name", pChar->name.c_str() )
 	else getStrProperty( "orgname", pChar->orgname().latin1() )
 	else getStrProperty( "title", pChar->title().latin1() )
@@ -622,20 +693,6 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		content->contserial = self->pChar->serial;
 		return (PyObject*)content;
 	}
-
-	else if( !strcmp( "baseskill", name ) )
-	{
-		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
-		skills->base = true;
-		skills->pChar = self->pChar;
-		return (PyObject*)( skills );
-	}
-
-	else if( !strcmp( "backpack", name ) )
-	{
-		return (PyObject*)PyGetItemObject( self->pChar->getBackpack() );
-	}
-
 	else if( !strcmp( "skill", name ) )
 	{
 		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );

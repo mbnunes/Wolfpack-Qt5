@@ -59,6 +59,27 @@ static PyTypeObject wpCoordType = {
     (setattrfunc)wpCoord_setAttr,
 };
 
+PyObject *wpCoord_distance( wpCoord *self, PyObject *args )
+{
+	// Check if the paramter is a coordinate
+	if( !checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
+	{
+		return PyInt_FromLong( -1 );
+	}
+	else
+	{
+		Coord_cl pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
+
+		// Calculate the distance
+		return PyInt_FromLong( self->coord.distance( pos ) );
+	}
+}
+
+static PyMethodDef wpCoordMethods[] = 
+{
+	{ "distance",	(getattrofunc)wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
+};
+
 PyObject *wpCoord_getAttr( wpCoord *self, char *name )
 {
 	if( !strcmp( name, "x" ) )
@@ -70,7 +91,7 @@ PyObject *wpCoord_getAttr( wpCoord *self, char *name )
 	else if( !strcmp( name, "map" ) )
 		return PyInt_FromLong( self->coord.map );
 	else
-		return Py_None;
+		return Py_FindMethod( wpCoordMethods, (PyObject*)self, name );
 }
 
 int wpCoord_setAttr( wpCoord *self, char *name, PyObject *value )

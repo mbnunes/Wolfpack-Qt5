@@ -162,7 +162,8 @@ public:
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID() const;
-	
+
+	bool wearOut(); // The item wears out and true is returned if it's destroyed
 	P_ITEM	getCorpse( void ); // Get the corpse this item is in
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
