@@ -191,4 +191,52 @@
 		<id>0x13e4</id>
 		<category>Professions\Blacksmith\Smith's Hammer (N/S)</category>
 	</item>
+
+  <!-- Red Scales -->
+  <item id="red_scales">
+    <name>#1053129</name>
+    <id>0x26b4</id>
+    <color>0x66D</color>
+    <category>Professions\Blacksmith\Scales\Red Scales</category>
+  </item>
+
+  <!-- Yellow Scales -->
+  <item id="yellow_scales">
+    <name>#1053130</name>
+    <id>0x26b4</id>
+    <color>0x8A8</color>
+    <category>Professions\Blacksmith\Scales\Yellow Scales</category>
+  </item>
+
+  <!-- Black Scales -->
+  <item id="black_scales">
+    <name>#1053131</name>
+    <id>0x26b4</id>
+    <color>0x455</color>
+    <category>Professions\Blacksmith\Scales\Black Scales</category>
+  </item>
+
+  <!-- Green Scales -->
+  <item id="green_scales">
+    <name>#1053132</name>
+    <id>0x26b4</id>
+    <color>0x851</color>
+    <category>Professions\Blacksmith\Scales\Green Scales</category>
+  </item>
+
+  <!-- White Scales -->
+  <item id="white_scales">
+    <name>#1053133</name>
+    <id>0x26b4</id>
+    <color>0x8FD</color>
+    <category>Professions\Blacksmith\Scales\White Scales</category>
+  </item>
+
+  <!-- Blue Scales -->
+  <item id="blue_scales">
+    <name>#1053134</name>
+    <id>0x26b4</id>
+    <color>0x8B0</color>
+    <category>Professions\Blacksmith\Scales\Blue Scales</category>
+  </item>
 </definitions>
