@@ -908,9 +908,9 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				// This is a rather stupid method...
 				// Only one character is hearing the sound at once
 				case 88:
-					if( pItem->pos.distance( socket->player()->pos ) < pItem->morey )
-						if( RandomNum( 1, 100 ) <= pItem->morez )
-							socket->soundEffect( pItem->morex, pItem );
+					if( pItem->pos.distance( socket->player()->pos ) < pItem->morey() )
+						if( RandomNum( 1, 100 ) <= pItem->morez() )
+							socket->soundEffect( pItem->morex(), pItem );
 					break;
 
 				// Move Boats

@@ -68,6 +68,7 @@ void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
 // Use a wand
 void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
 {
+	unsigned int tempuint;
 	// Is it in our backpack or on our body ?
 	if( ( wand->container() != mage )  && ( wand->getOutmostChar() != mage ) )
 	{
@@ -76,24 +77,24 @@ void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
 	}
 
 	// Here it is either in our backpack or on our body
-	if( wand->morez == 0 )
+	if( wand->morez() == 0 )
 	{
 		socket->sysMessage( tr( "This Items magic is depleted." ) );
 		return;
 	}
 
 	// morex: circle, morey: spell
-	UI16 spellId = ( (wand->morex-1) * 8 ) + wand->morey;
+	UI16 spellId = ( (wand->morex()-1) * 8 ) + wand->morey();
 	
 	Magic->prepare( mage, spellId, 2 );
+	wand->setMoreX((tempuint = wand->morex())-- );
+//	wand->morex--; // Reduce our charges
 
-	wand->morex--; // Reduce our charges
-
-	if( wand->morex == 0 )
+	if( wand->morex() == 0 )
 	{
 		wand->setType( wand->type2() );
-		wand->morex = 0;
-		wand->morey = 0;
+		wand->setMoreX(0);
+		wand->setMoreY(0);
 		wand->setOffspell( 0 );
 	}
 }
@@ -105,7 +106,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	unsigned char map2[12] = "\x56\x40\x01\x02\x03\x05\x00\x00\x00\x00\x00";
 	// By Polygon: This one is needed to show the location on treasure maps
 	unsigned char map3[12] = "\x56\x40\x01\x02\x03\x01\x00\x00\x00\x00\x00";
-	
+	unsigned int tempuint;
+
 	SERIAL serial = target_serial;
 	P_CHAR pc_currchar = socket->player();
 
@@ -332,16 +334,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				P_ITEM pj = iterItems.GetData();
 				if (pj->type() == 3)
 				{
-					if (pj->morez == 1)
+					if (pj->morez() == 1)
 					{
-						pj->morez = 2;
+						pj->setMoreZ(2);
 						pj->pos.z = pj->pos.z + 17;
 						pj->update();// AntiChrist
 						w = 1;
 					}
-					else if (pj->morez == 2)
+					else if (pj->morez() == 2)
 					{
-						pj->morez = 1;
+						pj->setMoreZ(1);
 						pj->pos.z = pj->pos.z - 17;
 						pj->update();// AntiChrist
 						w = 0;
@@ -358,16 +360,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				P_ITEM pj = iterItems.GetData();
 				if (pj->type() == 5)
 				{
-					if (pj->morez == 3)
+					if (pj->morez() == 3)
 					{
-						pj->morez = 4;
+						pj->setMoreZ(4);
 						pj->pos.z = pj->pos.z + 17;							
 						pj->update();// AntiChrist
 						w = 1;
 					}
-					else if (pj->morez == 4)
+					else if (pj->morez() == 4)
 					{
-						pj->morez = 3;
+						pj->setMoreZ(3);
 						pj->pos.z = pj->pos.z - 17;							
 						pj->update();// AntiChrist
 						w = 0;
@@ -422,8 +424,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		map1[13] = pi->moreb3();	// Assign lowright y
 		map1[14] = pi->moreb4();
 		int width, height;		// Tempoary storage for w and h;
-		width = 134 + (134 * pi->morez);	// Calculate new w and h
-		height = 134 + (134 * pi->morez);
+		width = 134 + (134 * pi->morez());	// Calculate new w and h
+		height = 134 + (134 * pi->morez());
 		map1[15] = width>>8;
 		map1[16] = width%256;
 		map1[17] = height>>8;
@@ -577,12 +579,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			// taken from 6904t2(5/10/99) - AntiChrist
 		case 181: // Fireworks wands
 			int wx, wy, wi;
-			if (pi->morex <= 0)
+			if (pi->morex() <= 0)
 			{
 				socket->sysMessage(tr("That is out of charges."));
 				return;
 			}
-			pi->morex--;
+			pi->setMoreX((tempuint=pi->morex())--);
+			//pi->morex--;
 			sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
 			socket->sysMessage((char*) temp);
 			
@@ -603,7 +606,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			return;
 			
 		case 185: // let's smoke! :)
-			pc_currchar->setSmokeTimer(pi->morex*MY_CLOCKS_PER_SEC + getNormalizedTime());
+			pc_currchar->setSmokeTimer(pi->morex()*MY_CLOCKS_PER_SEC + getNormalizedTime());
 			Items->DeleItem(pi);
 			return;
 		case 186: // rename deed! -- eagle 1/29/00
@@ -618,26 +621,26 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				for (it.Begin(); !it.atEnd(); it++)
 				{
 					P_ITEM pj = it.GetData();
-					if (((pj->moreb1() == pi->morex) &&(pj->moreb2() == pi->morey) &&(pj->moreb3() == pi->morez))
-						||((pj->morex == pi->morex) &&(pj->morey == pi->morey) &&(pj->morez == pi->morez))
-						&&((pj != pi) &&(pi->morex != 0) &&(pi->morey != 0) &&(pi->morez != 0)))
+					if (((pj->moreb1() == pi->morex()) &&(pj->moreb2() == pi->morey()) &&(pj->moreb3() == pi->morez()))
+						||((pj->morex() == pi->morex()) &&(pj->morey() == pi->morey()) &&(pj->morez() == pi->morez()))
+						&&((pj != pi) &&(pi->morex() != 0) &&(pi->morey() != 0) &&(pi->morez() != 0)))
 					{ 
-						if ((pj->morex == 0) &&(pj->morey == 0) &&(pj->morez == 0))
+						if ((pj->morex() == 0) &&(pj->morey() == 0) &&(pj->morez() == 0))
 						{ 
-							pj->morex = pj->moreb1();
-							pj->morey = pj->moreb2();
-							pj->morez = pj->moreb3();
+							pj->setMoreX(pj->moreb1());
+							pj->setMoreY(pj->moreb2());
+							pj->setMoreZ(pj->moreb3());
 							pj->visible = 0;								
 							pj->update();// AntiChrist
 						} 
 						else 
 						{
-							pj->setMoreb1( pj->morex );
-							pj->setMoreb2( pj->morey );
-							pj->setMoreb3( pj->morez );
-							pj->morex = 0;
-							pj->morey = 0;
-							pj->morez = 0;
+							pj->setMoreb1( pj->morex() );
+							pj->setMoreb2( pj->morey() );
+							pj->setMoreb3( pj->morez() );
+							pj->setMoreX(0);
+							pj->setMoreY(0);
+							pj->setMoreZ(0);
 							pj->visible = 2;							
 							pj->update();// AntiChrist
 						}
@@ -647,7 +650,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			return;
 
 		case 101: //??
-			pc_currchar->setId( pi->morex ); 
+			pc_currchar->setId( pi->morex() ); 
 			teleport(pc_currchar);
 			pi->setType( 102 );
 			return; // case 101
@@ -659,7 +662,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		// Teleport object
 		case 104: 
 			pc_currchar->removeFromView( false );
-			pc_currchar->MoveTo( pi->morex, pi->morey, pi->morez );
+			pc_currchar->MoveTo( pi->morex(), pi->morey(), pi->morez() );
 			pc_currchar->resend( false );
 			return;
 		
@@ -803,8 +806,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			tly = (pi->more3() << 8) + pi->more4();
 			lrx = (pi->moreb1() << 8) + pi->moreb2();
 			lry = (pi->moreb3() << 8) + pi->moreb4();
-			posx = (256 * (pi->morex - tlx)) / (lrx - tlx);	// Generate location for point
-			posy = (256 * (pi->morey - tly)) / (lry - tly);
+			posx = (256 * (pi->morex() - tlx)) / (lrx - tlx);	// Generate location for point
+			posy = (256 * (pi->morey() - tly)) / (lry - tly);
 			map3[7] = posx>>8;	// Store the point position
 			map3[8] = posx%256;
 			map3[9] = posy>>8;
@@ -843,12 +846,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				{
 					if ((pi->container() == pBackpack) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
 					{
-						if (pi->morex <= 0)
+						if (pi->morex() <= 0)
 						{
 							sysmessage(s,  "That is out of charges.");
 							return;
 						}
-						pi->morex--;
+						pi->setMoreX((tempuint=pi->morex())--);
+						//pi->morex--;
 						sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
 						socket->sysMessage((char*) temp);
 //						target(s, 0, 1, 0, 75, "What do you wish to identify?");

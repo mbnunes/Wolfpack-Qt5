@@ -1453,7 +1453,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			gump = 0x51; break;
 
 		case 0x0Ab2: 
-			if( pCont->morex == 1 ) 
+			if( pCont->morex() == 1 ) 
 				gump = 0x4a;
 			break;
 

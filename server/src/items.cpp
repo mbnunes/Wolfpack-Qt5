@@ -111,9 +111,9 @@ cItem::cItem( cItem &src )
 	this->moreb2_ = src.moreb2_;
 	this->moreb3_ = src.moreb3_;
 	this->moreb4_ = src.moreb4_;
-	this->morex = src.morex;
-	this->morey = src.morey;;
-	this->morez = src.morez;
+	this->morex_ = src.morex_;
+	this->morey_ = src.morey_;;
+	this->morez_ = src.morez_;
 	this->amount_ = src.amount_;
 	this->amount2_ = src.amount2_;
 	this->doordir = src.doordir;
@@ -500,9 +500,9 @@ void cItem::save()
 	addField("moreb2",		moreb2_);
 	addField("moreb3",		moreb3_);
 	addField("moreb4",		moreb4_);
-	addField("morex",			morex);
-	addField("morey",			morey);
-	addField("morez",			morez);
+	addField("morex",			morex_);
+	addField("morey",			morey_);
+	addField("morez",			morez_);
 	addField("amount",		amount_);
 	addField("doordir",		doordir);
 	addField("dye",			dye);
@@ -652,9 +652,9 @@ void cItem::Init( bool mkser )
 	this->moreb2_=0;
 	this->moreb3_=0;
 	this->moreb4_=0;
-	this->morex=0;
-	this->morey=0;
-	this->morez=0;
+	this->morex_=0;
+	this->morey_=0;
+	this->morez_=0;
 	this->amount_ = 1; // Amount of items in pile
 	this->amount2_ = 0; //Used to track things like number of yards left in a roll of cloth
 	this->doordir=0; // Reserved for doors
@@ -1131,7 +1131,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 		break;
 	};
 
-	pItem->gatetime = currenttime + ( RandomNum( pItem->morex, pItem->morey ) * MY_CLOCKS_PER_SEC );
+	pItem->gatetime = currenttime + ( RandomNum( pItem->morex(), pItem->morey() ) * MY_CLOCKS_PER_SEC );
 
 	/*
 
@@ -1470,15 +1470,15 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <morex>10</morex>
 	else if( TagName == "morex" )
-		this->morex = Value.toInt();
+		this->morex_ = Value.toInt();
 
 	// <morex>10</morex>
 	else if( TagName == "morey" )
-		this->morex = Value.toInt();
+		this->morex_ = Value.toInt();
 
 	// <morez>10</morez>
 	else if( TagName == "morez" )
-		this->morez = Value.toInt();
+		this->morez_ = Value.toInt();
 
 	// <morexyz>10</morexyz>
 	else if( TagName == "morexyz" )
@@ -1486,9 +1486,9 @@ void cItem::processNode( const QDomElement& Tag )
 		QStringList Elements = QStringList::split( ",", Value );
 		if( Elements.count() == 3 )
 		{
-			this->morex = Elements[ 0 ].toInt();
-			this->morey = Elements[ 1 ].toInt();
-			this->morez = Elements[ 2 ].toInt();
+			this->morex_ = Elements[ 0 ].toInt();
+			this->morey_ = Elements[ 1 ].toInt();
+			this->morez_ = Elements[ 2 ].toInt();
 		}
 	}
 
@@ -1881,9 +1881,9 @@ void cItem::showName( cUOSocket *socket )
 
 	// Show charges for wands only if they are identified
 	if( type() == 15 && name_ == name2_ )
-			itemname.append( tr( " [%1 charge%2]" ).arg( morez ).arg( ( morez > 1 ) ? "s" : "" ) );
+			itemname.append( tr( " [%1 charge%2]" ).arg( morez_ ).arg( ( morez_ > 1 ) ? "s" : "" ) );
 	else if( type() == 404 || type() == 181 )
-		itemname.append( tr( " [%1 charge%2]" ).arg( morex ).arg( ( morex > 1 ) ? "s" : "" ) );
+		itemname.append( tr( " [%1 charge%2]" ).arg( morex_ ).arg( ( morex_ > 1 ) ? "s" : "" ) );
 	
 	// Show the name here
 	socket->showSpeech( this, itemname );
@@ -2347,9 +2347,9 @@ void cItem::load( char **result, UINT16 &offset )
 	moreb2_ = atoi( result[offset++] );
 	moreb3_ = atoi( result[offset++] );
 	moreb4_ = atoi( result[offset++] );
-	morex = atoi( result[offset++] );
-	morey = atoi( result[offset++] );
-	morez = atoi( result[offset++] );
+	morex_ = atoi( result[offset++] );
+	morey_ = atoi( result[offset++] );
+	morez_ = atoi( result[offset++] );
 	amount_ = atoi( result[offset++] );
 	doordir = atoi( result[offset++] );
 	dye = atoi( result[offset++] );
@@ -2399,7 +2399,9 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
 
+
 void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRemove )
+
 {
 	if( pItem == this || !pItem )
 		return;
@@ -2453,7 +2455,9 @@ bool cItem::contains( const cItem* pItem ) const
 {
 	ContainerContent::const_iterator it = std::find(content_.begin(), content_.end(), pItem);
 	return it != content_.end();
+
 }
+
 
 void cItem::removeFromCont( bool handleWeight )
 {
@@ -2551,3 +2555,4 @@ UINT16 cItem::getWeaponSkill()
 			return WRESTLING;
 	};
 }
+

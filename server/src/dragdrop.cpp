@@ -148,10 +148,10 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		P_ITEM tradeWindow = FindItemBySerial( calcserial( outmostCont->moreb1(), outmostCont->moreb2(), outmostCont->moreb3(), outmostCont->moreb4() ) );
 
 		// If one of the trade-windows has the ack-status reset it
-		if( tradeWindow && ( tradeWindow->morez || outmostCont->morez ) )
+		if( tradeWindow && ( tradeWindow->morez() || outmostCont->morez() ) )
 		{
-			tradeWindow->morez = 0;
-			outmostCont->morez = 0;
+			tradeWindow->setMoreZ(0);
+			outmostCont->setMoreZ(0);
 			sendtradestatus( tradeWindow, outmostCont );
 		}
 	}
@@ -692,10 +692,10 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		P_ITEM tradeWindow = FindItemBySerial( calcserial( pCont->moreb1(), pCont->moreb2(), pCont->moreb3(), pCont->moreb4() ) );
 
 		// If it *IS* a trade-window, replace the status
-		if( tradeWindow && ( pCont->morez || tradeWindow->morez ) )
+		if( tradeWindow && ( pCont->morez() || tradeWindow->morez() ) )
 		{
-			tradeWindow->morez = 0;
-			pCont->morez = 0;
+			tradeWindow->setMoreZ(0);
+			pCont->setMoreZ(0);
 			sendtradestatus( tradeWindow, pCont );
 		}
 	}

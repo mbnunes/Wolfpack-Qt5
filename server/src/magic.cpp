@@ -2115,7 +2115,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						{
 							//////////// (32) RECALL ////////////////
 						case 32:
-							if ( pi->morex<=200 && pi->morey<=200 )
+							if ( pi->morex()<=200 && pi->morey()<=200 )
 							{
 								sysmessage(s,"That rune has not been marked yet!");
 								recalled = false;
@@ -2135,7 +2135,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								
 								cMagic::invisibleItemParticles(pc_currchar, curSpell, xo, yo, zo);
 								
-								pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez); //LB
+								pc_currchar->MoveTo(pi->morex(),pi->morey(),pi->morez()); //LB
 								teleport((pc_currchar));
 								doStaticEffect( pc_currchar, curSpell );
 								sysmessage(s,"You have recalled from the rune.");
@@ -2152,9 +2152,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				                    return;
 								}
 							}
-							pi->morex=pc_currchar->pos.x;
-							pi->morey=pc_currchar->pos.y;
-							pi->morez=pc_currchar->pos.z;
+							pi->setMoreX(pc_currchar->pos.x);
+							pi->setMoreY(pc_currchar->pos.y);
+							pi->setMoreZ(pc_currchar->pos.z);
 							sysmessage(s,"Recall rune marked.");
 							//antichrist
 							if( Region != NULL )
@@ -2165,7 +2165,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							break;
 							//////////// (52) GATE //////////////////
 						case 52:
-							if ( pi->morex<=200 && pi->morey<=200 )
+							if ( pi->morex()<=200 && pi->morey()<=200 )
 							{
 								sysmessage(s,"That rune has not been marked yet!");
 								recalled=false;
@@ -2175,9 +2175,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								gatex[gatecount][0]=pc_currchar->pos.x;	//create gate a player location
 								gatey[gatecount][0]=pc_currchar->pos.y;
 								gatez[gatecount][0]=pc_currchar->pos.z;
-								gatex[gatecount][1]=pi->morex; //create gate at marked location
-								gatey[gatecount][1]=pi->morey;
-								gatez[gatecount][1]=pi->morez;
+								gatex[gatecount][1]=pi->morex(); //create gate at marked location
+								gatey[gatecount][1]=pi->morey();
+								gatez[gatecount][1]=pi->morez();
 								recalled=true;
 								
 								for (n=0;n<2;n++)
@@ -3066,7 +3066,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							{
 								pi->priv |= 0x05;
 								pi->decaytime=uiCurrentTime+((pc_currchar->skill(MAGERY)/15)*MY_CLOCKS_PER_SEC);
-								pi->morex=pc_currchar->skill(MAGERY); // remember casters magery skill for damage, LB
+								pi->setMoreX(pc_currchar->skill(MAGERY)); // remember casters magery skill for damage, LB
 								pi->MoveTo(fx[j], fy[j], Map->height( Coord_cl( fx[j], fy[j], z, pi->pos.map )));
 								pi->dir=29;
 								pi->magic=2;
@@ -4320,13 +4320,13 @@ void cMagic::Recall(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	if (pi)
 	{
-		if ( pi->morex<=200 && pi->morey<=200 )
+		if ( pi->morex()<=200 && pi->morey()<=200 )
 		{
 			sysmessage(s,"That rune has not been marked yet!");
 		}
 		else
 		{
-			pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez); //LB
+			pc_currchar->MoveTo(pi->morex(),pi->morey(),pi->morez()); //LB
 			teleport((pc_currchar));
 			sysmessage(s,"You have recalled from the rune.");
 		}
@@ -4342,9 +4342,9 @@ void cMagic::Mark(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	if (pi)
 	{
-		pi->morex=pc_currchar->pos.x;
-		pi->morey=pc_currchar->pos.y;
-		pi->morez=pc_currchar->pos.z;
+		pi->setMoreX(pc_currchar->pos.x);
+		pi->setMoreY(pc_currchar->pos.y);
+		pi->setMoreZ(pc_currchar->pos.z);
 		sysmessage(s,"Recall rune marked.");
 	} else sysmessage(s,"Not a valid mark target");//AntiChrist
 }
@@ -4391,7 +4391,7 @@ void cMagic::Gate(UOXSOCKET s)
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);	//Targeted item
 	if (pi)
 	{
-		if ( pi->morex<=200 && pi->morey<=200 )
+		if ( pi->morex()<=200 && pi->morey()<=200 )
 		{
 			sysmessage(s,"That rune has not been marked yet!");
 		}
@@ -4402,9 +4402,9 @@ void cMagic::Gate(UOXSOCKET s)
 			gatex[gatecount][0]=pc_currchar->pos.x;	//create gate a player location
 			gatey[gatecount][0]=pc_currchar->pos.y;
 			gatez[gatecount][0]=pc_currchar->pos.z;
-			gatex[gatecount][1]=pi->morex; //create gate at marked location
-			gatey[gatecount][1]=pi->morey;
-			gatez[gatecount][1]=pi->morez;
+			gatex[gatecount][1]=pi->morex(); //create gate at marked location
+			gatey[gatecount][1]=pi->morey();
+			gatez[gatecount][1]=pi->morez();
 
 			for (n=0;n<2;n++)
 			{

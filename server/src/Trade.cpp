@@ -439,8 +439,8 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_ps->setMore2( static_cast<unsigned char>((pi_pi->serial&0x00FF0000)>>16) );
 	pi_ps->setMore3( static_cast<unsigned char>((pi_pi->serial&0x0000FF00)>>8) );
 	pi_ps->setMore4( static_cast<unsigned char>((pi_pi->serial&0x000000FF)) );
-	pi_ps->morez  = 0;
-	pi_pi->morez  = 0;
+	pi_ps->setMoreZ(0);
+	pi_pi->setMoreZ(0);
 
 	msg[0] = 0x6F; // Header Byte
 	msg[1] = 0; // Size
@@ -520,9 +520,9 @@ void cTrade::trademsg(int s)
 			cont2 = NULL;
 		if (cont2 != NULL) // lb crashfix
 		{
-			cont1->morez=buffer[s][11];
+			cont1->setMoreZ(buffer[s][11]);
 			sendtradestatus(cont1, cont2);
-			if (cont1->morez && cont2->morez)
+			if (cont1->morez() && cont2->morez())
 			{
 				dotrade(cont1, cont2);
 				endtrade(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));

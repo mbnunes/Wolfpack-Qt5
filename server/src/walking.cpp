@@ -363,9 +363,9 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 	// Gate
 	case 51:
 	case 52:
-		dPos.x = pItem->morex;
-		dPos.y = pItem->morey;
-		dPos.z = pItem->morez;
+		dPos.x = pItem->morex();
+		dPos.y = pItem->morey();
+		dPos.z = pItem->morez();
 
 		// Soundeffect before teleport
 		pChar->soundEffect( 0x1FE );
@@ -403,7 +403,7 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 	case 0x3996:
 	case 0x398c:
 		if( !Magic->CheckResist( NULL, pChar, 4 ) )
-			Magic->MagicDamage( pChar, pItem->morex/3000 );
+			Magic->MagicDamage( pChar, pItem->morex()/3000 );
 		pChar->soundEffect( 0x208 );
 		return false;
 

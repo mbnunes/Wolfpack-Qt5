@@ -791,7 +791,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	}
 
 	// the amount is stored in morex, vein in morey!
-	amount = pResItem->morex;
+	amount = pResItem->morex();
 	if( amount == 0 )
 	{
 		pc->action( charaction_ );
@@ -799,7 +799,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		socket->sysMessage( emptymsg_ );
 		return;
 	}
-	vein = pResItem->morey;
+	vein = pResItem->morey();
 
 
 	if( vein > 0 && vein <= resourcespecs_.size() && possible_resspecs.find( vein-1 ) != possible_resspecs.end() )
@@ -874,7 +874,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	}
 	
 	amount -= spawnamount;
-	pResItem->morex = amount;
+	pResItem->setMoreX(amount);
 	if( amount == 0 )
 	{
 		pResItem->decaytime = uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC;
@@ -1117,8 +1117,8 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 		priv |= 0x01;
 		decaytime = uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC;
 	}
-	morex = amount;
-	morey = vein;
+	setMoreX(amount);
+	setMoreY(vein);
 	this->setId( 0x1ea7 );
 	this->amount_ = 1;
 	this->setName( tr("resitem: %1").arg(resource) );

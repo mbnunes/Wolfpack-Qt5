@@ -142,6 +142,7 @@ void cUObject::save()
 	tags.save( serial );
 
 	PersistentObject::save();
+
 }
 
 /*!

@@ -357,7 +357,7 @@ P_ITEM cChar::getBankBox( void )
 	pi->Init();
 	pi->setId( 0x9ab );
 	pi->SetOwnSerial(this->serial);
-	pi->morex=1;
+	pi->setMoreX(1);
 	pi->setType( 1 );
 	pi->setName( tr( "%1's bank box" ).arg( name ) );
 	addItem( BankBox, pi, true, true );
@@ -2264,7 +2264,7 @@ void cChar::kill()
 	}
 
 	corpse->setBodyId( xid_ );
-	corpse->morey = ishuman( this ); //is human??
+	corpse->setMoreY( ishuman( this ) ); //is human??
 	corpse->setCarve( carve() ); //store carve section
 	corpse->setName2( name.latin1() );
 
@@ -2618,13 +2618,13 @@ P_CHAR cChar::unmount()
 	P_ITEM pi = atLayer(Mount);
 	if( pi && !pi->free)
 	{
-		P_CHAR pMount = FindCharBySerial( pi->morex );
+		P_CHAR pMount = FindCharBySerial( pi->morex() );
 		if( pMount )
 		{
 			pMount->setFx1( pi->pos.x );
 			pMount->setFy1( pi->pos.y );
 			pMount->setFz1( pi->pos.z );
-			pMount->setId( pi->morey );
+			pMount->setId( pi->morey() );
 			pMount->setNpcWander(pi->moreb1());
 			pMount->setSt( pi->moreb2() );
 			pMount->setDex( pi->moreb3() );
@@ -2713,8 +2713,8 @@ void cChar::mount( P_CHAR pMount )
 		npos.z = pMount->fz1();
 		pMountItem->moveTo(npos);
 		
-		pMountItem->morex = pMount->serial;
-		pMountItem->morey = pMount->id();
+		pMountItem->setMoreX(pMount->serial);
+		pMountItem->setMoreY(pMount->id());
 
 		pMountItem->setMoreb1( pMount->npcWander() );
 		pMountItem->setMoreb2( pMount->st() );

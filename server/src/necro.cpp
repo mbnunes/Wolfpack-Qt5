@@ -151,7 +151,7 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 9, 0);
 		pItem = Items->SpawnItem(nSocket, pc_currchar, 1, "bone powder", 1, 0x0F, 0x8F, 0, 1, 1);
 		if(pItem == NULL) return;//AntiChrist to preview crashes
-		pItem->morex = 666;
+		pItem->setMoreX(666);
 		pItem->setMore1(1); // this will fill more with info to tell difference between ash and bone
 		Items->DeleItem(pMat);
 		
@@ -163,14 +163,14 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 			pItem = Items->SpawnItem(nSocket, pc_currchar,1,"#",1,0x0F,0x82,0,1,1);
 			if(pItem==NULL) return;//AntiChrist to preview crashes
 			pItem->value=15;
-			pItem->morex=666;
+			pItem->setMoreX(666);
 		}
 		else
 		{
 			pItem = Items->SpawnItem(nSocket, pc_currchar,1,"#",1,0x0F,0x7D,0,1,1);
 			if(pItem==NULL) return;//AntiChrist to preview crashes
 			pItem->value=10;
-			pItem->morex=666;
+			pItem->setMoreX(666);
 		}
 		pMat->ReduceAmount(1);
 	}

@@ -77,10 +77,12 @@ bool PersistentBroker::saveObject( PersistentObject* object )
 {
 /*	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
 	if ( hasTransaction )
+
 		connection->transaction();*/
 	object->save();
 /*	if ( hasTransaction )
 		connection->commit();*/
+
 	return true;
 }
 

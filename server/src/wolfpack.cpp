@@ -572,8 +572,8 @@ void explodeitem(int s, P_ITEM pi)
 		pi->soundEffect( 0x207 );
 	}
 
-	len=pi->morex/250; //4 square max damage at 100 alchemy
-	switch (pi->morez)
+	len=pi->morex()/250; //4 square max damage at 100 alchemy
+	switch (pi->morez())
 	{
 	case 1:dmg=RandomNum( 5,10) ;break;
 	case 2:dmg=RandomNum(10,20) ;break;
@@ -1224,14 +1224,14 @@ static void quickdelete( P_ITEM pi )
 }
 
 #if defined(_DEBUG)
-#include <crash.h>
+//#include <crash.h>
 #endif
 
 int main( int argc, char *argv[] )
 {
 #if defined(_DEBUG)
-	InstallCrashHandler( HANDLER_CONSOLE, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
-	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
+//	InstallCrashHandler( HANDLER_CONSOLE, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
+//	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
 #endif
 
 	QApplication app( argc, argv, false ); // we need one instance
@@ -2141,11 +2141,11 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
           pc_p->skilldelay=uiCurrentTime + (MY_CLOCKS_PER_SEC*14);
 #endif
 
-	switch(pi->morey)
+	switch(pi->morey())
 	{
 	case 1: // Agility Potion
 		staticeffect(pc_p, 0x37, 0x3a, 0, 15);
-		switch(pi->morez)
+		switch(pi->morez())
 		{
 		case 1:
 			tempeffect(currchar[s], pc_p, 6, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
@@ -2172,7 +2172,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 			sysmessage(s,"The potion had no effect.");
 		else
 		{
-			switch(pi->morez)
+			switch(pi->morez())
 			{
 			case 1:
 				x=RandomNum(1,100);
@@ -2233,7 +2233,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		return; // lb bugfix, break is wronh here because it would delete bottle
 
 	case 4: // Heal Potion
-		switch(pi->morez)
+		switch(pi->morez())
 		{
 		case 1:
 //			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st());
@@ -2268,8 +2268,8 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		pc_p->soundEffect( 0x01E3 );
 		break;
 	case 6: // Poison Potion
-		if(pc_p->poisoned() < pi->morez) pc_p->setPoisoned(pi->morez);
-		if(pi->morez>4) pi->morez=4;
+		if(pc_p->poisoned() < pi->morez()) pc_p->setPoisoned(pi->morez());
+		if(pi->morez()>4) pi->setMoreZ(4);
 		
 		pc_p->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
 		pc_p->resend( false );
@@ -2277,7 +2277,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		sysmessage(s, tr( "You poisoned yourself!" )); //message
 		break;
 	case 7: // Refresh Potion
-		switch(pi->morez)
+		switch(pi->morez())
 		{
 		case 1:
 //			pc_p->stm=QMIN(pc_p->stm+20+RandomNum(1,10), (int)pc_p->effDex());
@@ -2302,7 +2302,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		break;
 	case 8: // Strength Potion
 		staticeffect(pc_p, 0x37, 0x3a, 0, 15);
-		switch(pi->morez)
+		switch(pi->morez())
 		{
 		case 1:
 			tempeffect(currchar[s], pc_p, 8, 5+RandomNum(1,10), 0, 0, 120);	// duration 2 minutes Duke, 31.10.2000
@@ -2320,20 +2320,20 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 		break;
 
 	case 9: // Mana Potion
-		switch(pi->morez)
+		switch(pi->morez())
 		{
 		case 1:
 		
 //			pc_p->mn=QMIN(pc_p->mn+10+pi->morex/100, (unsigned)pc_p->in);
 			tempshort = pc_p->mn();
-			pc_p->setMn( QMIN(tempshort+10+pi->morex/100, (unsigned)pc_p->in()) );
+			pc_p->setMn( QMIN(tempshort+10+pi->morex()/100, (unsigned)pc_p->in()) );
 		
 			break;
 		case 2:
 		
 //			pc_p->mn=QMIN(pc_p->mn+20+pi->morex/50, (unsigned)pc_p->in);
 			tempshort = pc_p->mn();
-			pc_p->setMn( QMIN(tempshort+20+pi->morex/50, (unsigned)pc_p->in()) );
+			pc_p->setMn( QMIN(tempshort+20+pi->morex()/50, (unsigned)pc_p->in()) );
 		
 			break;
 		default:
@@ -2355,7 +2355,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 
 	// empty bottle after drinking
 //	pi->setContSerial( -1 );
-	if( pi->morey != 3 )
+	if( pi->morey() != 3 )
 	{
 		SERIAL kser = pi->serial;
 		pi->Init( 0 );
@@ -2380,11 +2380,11 @@ int calcValue(P_ITEM pi, int value)
 
 	if( pi->type() == 19 )
 	{
-		if (pi->morex>500) 
+		if (pi->morex()>500) 
 			mod	=mod+1;
-		if (pi->morex>900) mod=mod+1;
-		if (pi->morex>1000) mod=mod+1;
-		if (pi->morez>1) mod=mod+(3*(pi->morez-1));
+		if (pi->morex()>900) mod=mod+1;
+		if (pi->morex()>1000) mod=mod+1;
+		if (pi->morez()>1) mod=mod+(3*(pi->morez()-1));
 		value=(value*mod)/10;
 	}
 

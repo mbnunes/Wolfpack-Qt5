@@ -722,11 +722,11 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 180, tr( "Made with skill no.:" ), 0x834 );
 		addInputField( 200, 180, 200, 16, 34, QString( "%1" ).arg( pItem->madewith ), 0x834 );
 		addText( 50, 200, tr( "Morex:" ), 0x834 );
-		addInputField( 200, 200, 200, 16, 35, QString( "%1" ).arg( pItem->morex ), 0x834 );
+		addInputField( 200, 200, 200, 16, 35, QString( "%1" ).arg( pItem->morex() ), 0x834 );
 		addText( 50, 220, tr( "Morey:" ), 0x834 );
-		addInputField( 200, 220, 200, 16, 36, QString( "%1" ).arg( pItem->morey ), 0x834 );
+		addInputField( 200, 220, 200, 16, 36, QString( "%1" ).arg( pItem->morey() ), 0x834 );
 		addText( 50, 240, tr( "Morez:" ), 0x834 );
-		addInputField( 200, 240, 200, 16, 37, QString( "%1" ).arg( pItem->morez ), 0x834 );
+		addInputField( 200, 240, 200, 16, 37, QString( "%1" ).arg( pItem->morez() ), 0x834 );
 		addText( 50, 260, tr( "More1:" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 38, QString( "%1" ).arg( pItem->more1() ), 0x834 );
 		addText( 50, 280, tr( "More2:" ), 0x834 );
@@ -910,13 +910,13 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->madewith = hex2dec( it->second ).toInt();
 				break;
 			case 35:
-				item_->morex = hex2dec( it->second ).toUInt();
+				item_->setMoreX( hex2dec( it->second ).toUInt() );
 				break;
 			case 36:
-				item_->morey = hex2dec( it->second ).toUInt();
+				item_->setMoreY( hex2dec( it->second ).toUInt() );
 				break;
 			case 37:
-				item_->morez = hex2dec( it->second ).toUInt();
+				item_->setMoreZ( hex2dec( it->second ).toUInt() );
 				break;
 			case 38:
 				item_->setMore1( hex2dec( it->second ).toUShort() );

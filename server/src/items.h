@@ -87,6 +87,9 @@ protected:
 	unsigned char more2_;
 	unsigned char more3_;
 	unsigned char more4_;
+	unsigned int morex_;
+	unsigned int morey_;
+	unsigned int morez_;
 
 
 //********************END ADDED FROM PUBLIC *************
@@ -147,6 +150,9 @@ public:
 	unsigned char	more2()			const { return more2_; }
 	unsigned char	more3()			const { return more3_; }
 	unsigned char	more4()			const { return more4_; }
+	unsigned int	morex()			const { return morex_; }
+	unsigned int	morey()			const { return morey_; }
+	unsigned int	morez()			const { return morez_; }	
 
 //***************************END ADDED GETTERS************
 
@@ -200,13 +206,14 @@ public:
 	void	setMore2( unsigned char data ) { more2_ = data; }
 	void	setMore3( unsigned char data ) { more3_ = data; }
 	void	setMore4( unsigned char data ) { more4_ = data; }
+	void	setMoreX( unsigned int data ) { morex_ = data; }
+	void	setMoreY( unsigned int data ) { morey_ = data; }
+	void	setMoreZ( unsigned int data ) { morez_ = data; }
 
 
 //*******************************************END ADDED SETTERS**********
 	SERIAL contserial;
-	unsigned int morex;
-	unsigned int morey;
-	unsigned int morez;
+	
 	unsigned char doordir; // Reserved for doors
 	unsigned char dooropen;
 	unsigned char dye; // Reserved: Can item be dyed by dye kit
@@ -321,7 +328,9 @@ public:
 	virtual bool onSingleClick( P_CHAR Viewer );
 	virtual bool onTalkToItem( P_CHAR Talker, const QString &Text );
 	
+
 	QPtrList< cItem > getContainment() const;
+
 	P_ITEM getOutmostItem();
 	P_CHAR getOutmostChar();
 protected:

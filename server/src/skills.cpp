@@ -420,11 +420,11 @@ public:
 							{
 								if (!pc_currchar->checkSkill( ITEMID, 750, 1100, false ))
 								{
-									socket->sysMessage( tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]) );
+									socket->sysMessage( tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex()-1))+pi->morey()-1]) );
 								}
 								else
 								{
-									socket->sysMessage( tr("It is enchanted with the spell %1, and has %2 charges remaining.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]).arg(pi->morez) );
+									socket->sysMessage( tr("It is enchanted with the spell %1, and has %2 charges remaining.").arg(spellname[(8*(pi->morex()-1))+pi->morey()-1]).arg(pi->morez()) );
 								}
 							}
 						}
@@ -942,7 +942,7 @@ public:
 		
 		P_CHAR pc = socket->player();
 		int success=0;
-		switch(pPoison->morez)
+		switch(pPoison->morez())
 		{
 		case 1:	success=pc->checkSkill( POISONING, 0, 500);		break;//lesser poison
 		case 2:	success=pc->checkSkill( POISONING, 151, 651);		break;//poison
@@ -958,7 +958,7 @@ public:
 		if(success)
 		{
 			
-			if(pi->poisoned<pPoison->morez) pi->poisoned = pPoison->morez;
+			if(pi->poisoned<pPoison->morez()) pi->poisoned = pPoison->morez();
 			socket->sysMessage( tr("You successfully poison that item.") );
 		} 
 		else
@@ -1021,7 +1021,7 @@ public:
 					
 				if (pc_currchar->checkSkill( TASTEID, 250, 500, false ))
 				{
-					if((pi->poisoned>0) || (pi->morex==4 && pi->morey==6 && pi->morez==1))
+					if((pi->poisoned>0) || (pi->morex()==4 && pi->morey()==6 && pi->morez()==1))
 						socket->sysMessage( tr("This item is poisoned!") );
 					else
 						socket->sysMessage( tr("This item shows no poison.") );
@@ -1539,7 +1539,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	pi_mortar->setType( 17 );
 	pi_mortar->setMore1(type);
 	pi_mortar->setMore2(sub);
-	pi_mortar->morex=pc->skill(ALCHEMY);
+	pi_mortar->setMoreX(pc->skill(ALCHEMY));
 	
 	if (!(getamount(pc, 0x0F0E)>=1))
 	{
@@ -1627,9 +1627,9 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	
 	pi_potion->setName( QString( "%1 potion" ).arg( pn ) );
 	pi_potion->setType( 19 );
-	pi_potion->morex = pi_mortar->morex;
-	pi_potion->morey = pi_mortar->more1();
-	pi_potion->morez = pi_mortar->more2();
+	pi_potion->setMoreX(pi_mortar->morex());
+	pi_potion->setMoreY(pi_mortar->more1());
+	pi_potion->setMoreZ(pi_mortar->more2());
 	
 	// the remainder of this function NOT (yet) revamped by Duke !
 	

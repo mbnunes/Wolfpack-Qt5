@@ -583,13 +583,13 @@ public:
 			pItem->setMore4( hex2dec( value ).toInt() );
 
 		else if( key == "morex" && pItem )
-			pItem->morex = hex2dec( value ).toInt();
+			pItem->setMoreX( hex2dec( value ).toInt() );
 
 		else if( key == "morey" && pItem )
-			pItem->morey = hex2dec( value ).toInt();
+			pItem->setMoreY( hex2dec( value ).toInt() );
 
 		else if( key == "morez" && pItem )
-			pItem->morez = hex2dec( value ).toInt();
+			pItem->setMoreZ( hex2dec( value ).toInt() );
 
 		else if( key == "map" && pChar )
 		{
@@ -1192,13 +1192,13 @@ public:
 			result = QString( "%1" ).arg( pItem->more4() );
 
 		else if( key == "morex" && pItem )
-			result = QString( "%1" ).arg( pItem->morex );
+			result = QString( "%1" ).arg( pItem->morex() );
 
 		else if( key == "morey" && pItem )
-			result = QString( "%1" ).arg( pItem->morey );
+			result = QString( "%1" ).arg( pItem->morey() );
 
 		else if( key == "morez" && pItem )
-			result = QString( "%1" ).arg( pItem->morez );
+			result = QString( "%1" ).arg( pItem->morez() );
 
 		else if( key == "visible" && pItem )
 			result = QString( "%1" ).arg( pItem->visible );
