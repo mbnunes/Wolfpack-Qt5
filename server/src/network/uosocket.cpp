@@ -717,7 +717,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Shirt
 	pItem->setId( 0x1517 );
 	pItem->setColor( packet->shirtColor() );
-	pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
+	pChar->addItem( cChar::Shirt, pItem );
 	pItem->dye = 1;
 	pItem->priv |= 0x02;
 	ItemsManager::instance()->registerItem( pItem );
@@ -728,7 +728,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Skirt or Pants
 	pItem->setId( ( packet->gender() != 0 ) ? 0x1516 : 0x152E );
 	pItem->setColor( packet->pantsColor() );
-	pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
+	pChar->addItem( cChar::Pants, pItem );
 	pItem->dye = 1;
 	pItem->priv |= 0x02;
 	ItemsManager::instance()->registerItem( pItem );
@@ -743,7 +743,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->priv |= 0x02;
 		pItem->setId( packet->hairStyle() );
 		pItem->setColor( packet->hairColor() );
-		pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
+		pChar->addItem( cChar::Hair, pItem );
 		ItemsManager::instance()->registerItem( pItem );
 	}
 
@@ -755,7 +755,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->setId( packet->beardStyle() );
 		pItem->priv |= 0x02;
 		pItem->setColor( packet->beardColor() );
-		pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
+		pChar->addItem( cChar::FacialHair, pItem );
 		ItemsManager::instance()->registerItem( pItem );
 	}
 

@@ -3375,9 +3375,9 @@ bool cChar::onShowContext( cUObject *object )
 void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
 {
 	// DoubleEquip is *NOT* allowed
-	if ( content_.contains(layer) )
+	if ( atLayer( layer ) != 0 )
 	{
-		clConsole.send( "WARNING: Trying to put an item on layer %i which is already occupied", layer );
+		clConsole.send( "WARNING: Trying to put an item on layer %i which is already occupied\n", layer );
 		return;
 	}
 
