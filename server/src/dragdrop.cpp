@@ -779,8 +779,19 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 	// We dropped the item NOT on a container
 	// And were *un*able to stack it (!)
 	// >> Set it to the location of the item we dropped it on and stack it up by 2
-	pItem->moveTo( pCont->pos() );
-	pItem->setPos( pItem->pos() + Coord_cl(0, 0, 2) );
+	if (pCont->container()) {
+		P_ITEM pNewCont = dynamic_cast<P_ITEM>(pCont->container());
+
+		if (pNewCont) {
+			pNewCont->addItem(pItem, false);
+			pItem->setPos(pCont->pos() + Coord_cl(0, 0, 2));
+		} else {
+			pChar->getBackpack()->addItem(pItem);
+		}
+	} else {
+		pItem->moveTo(pCont->pos() + Coord_cl(0, 0, 2));
+	}
+
 	pItem->update();
 
 /*	// This needs to be checked

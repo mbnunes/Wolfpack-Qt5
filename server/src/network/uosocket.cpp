@@ -1084,7 +1084,6 @@ void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
 
 void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 {
-
 	P_CHAR pChar;
 	P_ITEM pItem;
 	cUOTxTooltipList tooltips;
@@ -1093,10 +1092,10 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 	pItem = FindItemBySerial( packet->serial() );
 	if( pItem )
 	{
-		tooltips.setSerial( pItem->serial() );
-		tooltips.setId( pItem->getTooltip() );
+		tooltips.setSerial(pItem->serial());
+		tooltips.setId(pItem->getTooltip());
 
-		if( !pItem->onShowTooltip( this->player(), &tooltips ) ) // just for test if object haven't tooltip
+		if(!pItem->onShowTooltip(this->player(),&tooltips)) // just for test if object haven't tooltip
 		{
 			if( pItem->name().isNull() || pItem->name().isEmpty() )
 			{

@@ -734,23 +734,22 @@ QStringList cUObject::getTags() const
 }
 
 void cUObject::resendTooltip() {
-	tooltip_ = World::instance()->getUnusedTooltip(); 
-	setTooltip(tooltip_);
+	// Either Attach or Refresh the Data
+	if (tooltip_ == 0xFFFFFFFF) {
+		tooltip_ = World::instance()->getUnusedTooltip();
+		
+		cUOTxAttachTooltip attach;
+		attach.setId(tooltip_);
+		attach.setSerial(serial_);
 
-	cUOTxAttachTooltip tooltip;
-
-	tooltip.setId( tooltip_ );
-	tooltip.setSerial( serial() );
-
-	cUOTxAttachTooltip attach;
-	attach.setId(tooltip_);
-	attach.setSerial(serial_);
-
-	for (cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next()) {
-		if (s->player() && s->player()->inRange(this, s->player()->visualRange())) {
-			s->addTooltip(tooltip_);
-			s->send(&attach);
+		for (cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next()) {
+			if (s->player() && s->player()->inRange(this, s->player()->visualRange())) {
+				s->addTooltip(tooltip_);
+				s->send(&attach);
+			}
 		}
+	} else {
+		// TODO: Tooltip implementation sucks... redo...
 	}
 }
 
