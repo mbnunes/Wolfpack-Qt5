@@ -419,7 +419,7 @@ def callback(char, args, target):
 
 	# Drop Rune
 	elif( button > 200 and button < 217 ):
-		it not maymodify:
+		if not maymodify:
 			char.socket.sysmessage(tr('The runebook has to be in your belongings to modify it.'))
 			
 			closeGump(char, item)
