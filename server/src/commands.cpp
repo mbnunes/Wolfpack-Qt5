@@ -660,7 +660,7 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{
 		if ( mSock->player() && mSock->player()->isGM() )
-			mSock->sysMessage( message, 0x539 );
+			mSock->sysMessage( message, 32 );
 	}
 }
 
