@@ -784,8 +784,8 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		sprintf(temp, "*%s appears to have decided that it is better off without a master *", pPet->name.c_str());
 		npctalkall(pPet,temp,0);
 		{
-			soundeffect2(pPet, 0x01FE);
 			if(SrvParams->tamedDisappear()==1)
+				soundeffect2(pPet, 0x01FE);
 				Npcs->DeleteChar(pPet) ;
 		}
 		bReturn = true;
