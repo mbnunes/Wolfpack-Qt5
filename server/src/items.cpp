@@ -1949,6 +1949,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 						
 			pi->SetContSerial(-1);
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
+			RefreshItem(pi);
 			
 			for (int j=0;j<now;j++)
 				if (inrange1p(pc_p, currchar[j])&&perm[j])
