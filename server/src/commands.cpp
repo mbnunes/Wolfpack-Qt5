@@ -532,6 +532,17 @@ public:
 		else if( key == "morez" && pItem )
 			pItem->morez = hex2dec( value ).toInt();
 
+		else if( key == "map" && pChar )
+		{
+			pChar->moveTo( Coord_cl( pChar->pos.x, pChar->pos.y, pChar->pos.z, value.toInt() ) );
+			if ( pChar->socket() )
+			{
+				pChar->socket()->resendPlayer();
+				pChar->socket()->resendWorld();
+			}
+
+		}
+
 		// Object tags
 		else if( key.left( 4 ) == "tag." )
 		{

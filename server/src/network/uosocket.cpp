@@ -1042,6 +1042,10 @@ void cUOSocket::resendPlayer()
 	if( !_player )
 		return;
 
+	cUOTxChangeMap changeMap; // Make sure we switch client when this changes
+	changeMap.setMap( _player->pos.map );
+	send( &changeMap );
+
 	cUOTxDrawPlayer drawPlayer;
 	drawPlayer.fromChar( _player );
 	send( &drawPlayer );
@@ -1680,10 +1684,6 @@ void cUOSocket::resendWorld( bool clean )
 {
 	if( !_player )
 		return;
-
-	cUOTxChangeMap changeMap; // Make sure we switch client when this changes
-	changeMap.setMap( _player->pos.map );
-	send( &changeMap );
 
 	RegionIterator4Items itIterator( _player->pos );
 	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )
