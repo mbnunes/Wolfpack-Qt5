@@ -1,7 +1,7 @@
 
 <definitions>
 
-	<region id="ilshenar_terort_skitas">
+	<region name="ilshenar_terort_skitas">
 		<rectangle x1="528" y1="376" x2="624" y2="464" map="2" />
 	</region>
 

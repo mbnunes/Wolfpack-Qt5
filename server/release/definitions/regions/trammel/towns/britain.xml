@@ -1,7 +1,7 @@
 
 <definitions>
 	<!-- Britain -->
-	<region id="trammel_britain">
+	<region name="trammel_britain">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -21,7 +21,7 @@
 	</region>
 
 	<!-- Britain's Farmlands -->
-	<region id="trammel_britain_farmlands">
+	<region name="trammel_britain_farmlands">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -39,7 +39,7 @@
 	</region>
 
 	<!-- Lord British's castle -->
-	<region id="trammel_lord_british_castle">
+	<region name="trammel_lord_british_castle">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -55,7 +55,7 @@
 	</region>
 
 	<!-- Lord Blackthorne's castle -->
-	<region id="trammel_lord_blackthorne_castle">
+	<region name="trammel_lord_blackthorne_castle">
 		<flags>
 			<guarded />
 			<noagressivemagic />

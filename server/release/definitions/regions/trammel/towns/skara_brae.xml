@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Skara Brae -->
-	<region id="trammel_skara_brae">
+	<region name="trammel_skara_brae">
 		<flags>
 			<guarded />
 			<noagressivemagic />

@@ -11,7 +11,7 @@
 -->
 <definitions>
 
-	<region id="trammel_teleports">
+	<region name="trammel_teleports">
 		<!-- The World -->
 		<rectangle x1="1" y1="1" x2="6144" y2="4096" map="1" />
 		<!-- Teleports -->

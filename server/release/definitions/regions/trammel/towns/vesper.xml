@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Vesper -->
-	<region id="trammel_vesper">
+	<region name="trammel_vesper">
 		<flags>
 			<guarded />
 			<noagressivemagic />

@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Gargoyle City, Ver Lor Reg -->
-	<region id="ilshenar_gargoyle_city">
+	<region name="ilshenar_gargoyle_city">
 		<rectangle x1="824" y1="552" x2="856" y2="728" map="2" />
 		<rectangle x1="752" y1="576" x2="824" y2="704" map="2" />
 		<rectangle x1="856" y1="576" x2="896" y2="704" map="2" />

@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Trinsic -->
-	<region id="felucca_trinsic">
+	<region name="felucca_trinsic">
 		<flags>
 			<guarded />
 			<noagressivemagic />

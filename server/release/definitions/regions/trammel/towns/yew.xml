@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Yew -->
-	<region id="trammel_yew">
+	<region name="trammel_yew">
 		<flags>
 			<guarded />
 			<noagressivemagic />

@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Skara Brae -->
-	<region id="felucca_skara_brae">
+	<region name="felucca_skara_brae">
 		<flags>
 			<guarded />
 			<noagressivemagic />

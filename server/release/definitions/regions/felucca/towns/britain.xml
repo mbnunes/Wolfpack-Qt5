@@ -1,7 +1,7 @@
 
 <definitions>
 	<!-- Britain -->
-	<region id="felucca_britain">
+	<region name="felucca_britain">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -21,7 +21,7 @@
 	</region>
 
 	<!-- Britain's Farmlands -->
-	<region id="felucca_britain_farmlands">
+	<region name="felucca_britain_farmlands">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -55,7 +55,7 @@
 	</region>
 
 	<!-- Lord Blackthorne's castle -->
-	<region id="felucca_lord_blackthorne_castle">
+	<region name="felucca_lord_blackthorne_castle">
 		<flags>
 			<guarded />
 			<noagressivemagic />

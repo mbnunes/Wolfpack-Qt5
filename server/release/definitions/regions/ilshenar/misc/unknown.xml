@@ -2,14 +2,14 @@
 <definitions>
 
 	<!-- Termir Flam -->
-	<region id="Ilshenar Termir Flam">
+	<region name="Ilshenar Termir Flam">
 		<rectangle x1="1520" y1="368" x2="1752" y2="496" map="2" />
 		<rectangle x1="1520" y1="296" x2="1576" y2="368" map="2" />
 		<rectangle x1="1752" y1="440" x2="1776" y2="480" map="2" />
 	</region>
 
 	<!-- Twin Oaks -->
-	<region id="Ilshenar Twin Oaks">
+	<region name="Ilshenar Twin Oaks">
 		<rectangle x1="1536" y1="1032" x2="1584" y2="1072" map="2" />
 	</region>
 

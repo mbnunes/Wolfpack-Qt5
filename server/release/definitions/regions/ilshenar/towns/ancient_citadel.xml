@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Ancient Citadel -->
-	<region id="ilshenar_ancient_citadel">
+	<region name="ilshenar_ancient_citadel">
 		<rectangle x1="1448" y1="496" x2="1552" y2="600" map="2" />
 	</region>
 

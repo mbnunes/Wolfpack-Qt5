@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Bet-Lem Reg -->
-	<region id="ilshenar_bet-lem_reg">
+	<region name="ilshenar_bet-lem_reg">
 		<rectangle x1="1232" y1="936" x2="1272" y2="984" map="2" />
 	</region>
 

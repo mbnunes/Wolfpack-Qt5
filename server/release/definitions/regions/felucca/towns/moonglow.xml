@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Moonglow -->
-	<region id="felucca_moonglow">
+	<region name="felucca_moonglow">
 		<flags>
 			<guarded />
 			<noagressivemagic />

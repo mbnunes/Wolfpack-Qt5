@@ -11,7 +11,7 @@
 -->
 <definitions>
 
-	<region id="ilshenar_teleports">
+	<region name="ilshenar_teleports">
 		<!-- The World -->
 		<rectangle x1="1" y1="1" x2="2304" y2="1600" map="2" />
 		<!-- Teleports -->

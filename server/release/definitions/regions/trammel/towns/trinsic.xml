@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Trinsic -->
-	<region id="trammel_trinsic">
+	<region name="trammel_trinsic">
 		<flags>
 			<guarded />
 			<noagressivemagic />

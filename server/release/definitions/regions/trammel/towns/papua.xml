@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Papua -->
-	<region id="trammel_papua">
+	<region name="trammel_papua">
 		<flags>
 			<guarded />
 			<noagressivemagic />
