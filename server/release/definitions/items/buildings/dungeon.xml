@@ -374,25 +374,24 @@
 	<!-- Spiderwebs -->
 	<item id="ee3">
 		<id>0xEE3</id>
-		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 1</category>
+		<events>spiderweb</events>
+		<maxhealth>100</maxhealth>
+		<health>100</health>		
 	</item>
 
-	<item id="ee4">
+	<item id="ee4" inherit="ee4">
 		<id>0xEE4</id>
-		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 2</category>
 	</item>
 
-	<item id="ee5">
+	<item id="ee5" inherit="ee5">
 		<id>0xEE5</id>
-		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 3</category>
 	</item>
 
-	<item id="ee6">
+	<item id="ee6" inherit="ee6">
 		<id>0xEE6</id>
-		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 4</category>
 	</item>
 
@@ -626,12 +625,6 @@
 	</item>
 
 	<!-- Traps -->
-	<item id="1004">
-		<id>0x1004</id>
-		<nodecay />
-		<category>Dungeon\Traps\Barrel Trap</category>
-	</item>
-
 	<item id="10f5">
 		<id>0x10F5</id>
 		<nodecay />

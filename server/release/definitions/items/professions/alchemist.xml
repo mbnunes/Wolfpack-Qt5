@@ -439,6 +439,7 @@
 		<category>Professions\Alchemist\Scales (N/S)</category>
 	</item>
 
+	<!-- Todo: Script Scales -->
 	<item id="1852">
 		<id>0x1852</id>
 		<category>Professions\Alchemist\Scales (W/E)</category>
@@ -549,5 +550,12 @@
 		<id>0xf0d</id>
 		<category>Professions\Alchemist\Potions\Purple Potion</category>
 	</item>
-
+	
+	<!-- Potion Keg -->
+	<item id="potionkeg">
+		<id>0x1940</id>
+		<weight>1.0</weight>
+		<events>potionkeg</events>
+		<movable /> <!-- Always movable -->
+	</item>
 </definitions>

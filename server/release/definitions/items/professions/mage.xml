@@ -971,4 +971,11 @@
 		<id>0x1f72</id>
 		<category>Professions\Mage\Scroll 9 (W/E)</category>
 	</item>
+	
+	<!-- Inscription Tool ? -->
+	<item id="scribes_pen">
+		<name>#1044168</name>
+		<id>0x0fbf</id>
+		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
+	</item>	
 </definitions>

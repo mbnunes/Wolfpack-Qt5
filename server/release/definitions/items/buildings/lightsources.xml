@@ -153,7 +153,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lantern (Off)</category>
-		<direction>2</direction>
+		<direction>29</direction>
 	</item>
 
 	<item id="a22">
@@ -161,7 +161,7 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lantern (On)</category>
-		<direction>2</direction>
+		<direction>29</direction>
 	</item>
 
 	<item id="a28">
@@ -200,17 +200,18 @@
 		<id>0xa27</id>
 		<nodecay />
 		<events>lightsource</events>
-		<category>Decoration\Lightsources\Small Candlabra (Off)</category>
-		<direction>2</direction>
+		<category>Decoration\Lightsources\Small Candelabra (Off)</category>
+		<direction>1</direction>
+		<weight>3.0</weight>
 	</item>
 
 	<item id="b1d">
 		<id>0xb1d</id>
 		<nodecay />
 		<events>lightsource</events>
-		<direction>2</direction>
-		<category>Decoration\Lightsources\Small Candlabra (On)</category>
-		<direction>2</direction>
+		<category>Decoration\Lightsources\Small Candelabra (On)</category>
+		<direction>1</direction>
+		<weight>3.0</weight>
 	</item>
 
 	<item id="a29">
