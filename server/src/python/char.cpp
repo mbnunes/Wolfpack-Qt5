@@ -364,7 +364,7 @@ PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+		return PyInt_FromLong( 0 );
 	
 	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
@@ -383,7 +383,7 @@ PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 	UINT16 deleted = 0;
 
 	if( pPack )
-		deleted = pPack->DeleteAmount( amount, id, color );
+		deleted = amount - pPack->DeleteAmount( amount, id, color );
 
 	return PyInt_FromLong( deleted );
 }
@@ -402,11 +402,10 @@ PyObject* wpChar_emote( wpChar* self, PyObject* args )
 		return PyFalse;
 	}
 
-	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	QString message = QString( "*%1*" ).arg( PyString_AsString( PyTuple_GetItem( args, 0 ) ) );
 	self->pChar->emote( message );
 	return PyTrue;
 }
-
 
 /*!
 	Takes at least one argument (item-id)
@@ -490,6 +489,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else getIntProperty( "flags2", pChar->priv2 )
 	else getIntProperty( "hidamage", pChar->hidamage )
 	else getIntProperty( "lodamage", pChar->lodamage )
+	else getIntProperty( "objectdelay", pChar->objectdelay )
 
 	else if( !strcmp( "baseskill", name ) )
 	{
@@ -564,6 +564,7 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 	else setIntProperty( "flags2", pChar->priv2 )
 	else setIntProperty( "hidamage", pChar->hidamage )
 	else setIntProperty( "lodamage", pChar->lodamage )
+	else setIntProperty( "objectdelay", pChar->objectdelay )
 
 	return 0;
 }

@@ -52,6 +52,10 @@
 #define getIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyInt_FromLong( self->property );
 #define getStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyString_FromString( self->property );
 
+// Argument checks
+#define checkArgInt( id ) PyInt_Check( PyTuple_GetItem( args, id ) )
+#define checkArgStr( id ) PyString_Check( PyTuple_GetItem( args, id ) )
+
 // If an error occured, report it
 inline void PyReportError( void )
 {

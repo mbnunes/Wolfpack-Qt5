@@ -310,6 +310,96 @@ PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	return PyInt_FromLong( avail );
 }
 
+/*!
+	Returns the custom tag passed
+*/
+PyObject* wpItem_gettag( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return Py_None;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for gettag is 1\n" );
+		return Py_None;
+	}
+
+	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	cVariant value = self->pItem->tags.get( key );
+
+	if( value.type() == cVariant::String )
+		return PyString_FromString( value.asString().latin1() );
+	else if( value.type() == cVariant::UInt )
+		return PyInt_FromLong( value.asUInt() );
+
+	return Py_None;
+}
+
+/*!
+	Sets a custom tag
+*/
+PyObject* wpItem_settag( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
+	{
+		clConsole.send( "Minimum argument count for settag is 2\n" );
+		return PyFalse;
+	}
+
+	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+
+	self->pItem->tags.remove( key );
+
+	if( checkArgStr( 1 ) )
+		self->pItem->tags.set( key, cVariant( QString( PyString_AsString( PyTuple_GetItem( args, 1 ) ) ) ) );
+	else if( checkArgInt( 1 ) )
+		self->pItem->tags.set( key, cVariant( (UINT32)PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) ) );
+
+	return PyTrue;
+}
+
+/*!
+	Checks if a certain tag exists
+*/
+PyObject* wpItem_hastag( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for hastag is 1\n" );
+		return PyFalse;
+	}
+
+	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	
+	return self->pItem->tags.get( key ).isValid() ? PyTrue : PyFalse;
+}
+
+/*!
+	Deletes a given tag
+*/
+PyObject* wpItem_deltag( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for deltag is 1\n" );
+		return PyFalse;
+	}
+
+	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	self->pItem->tags.remove( key );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
@@ -321,6 +411,10 @@ static PyMethodDef wpItemMethods[] =
 	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
+	{ "gettag",				(getattrofunc)wpItem_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },
+	{ "settag",				(getattrofunc)wpItem_settag, METH_VARARGS, "Sets a tag assigned to a specific item." },
+	{ "hastag",				(getattrofunc)wpItem_hastag, METH_VARARGS, "Checks if a certain item has the specified tag." },
+	{ "deltag",				(getattrofunc)wpItem_deltag, METH_VARARGS, "Deletes the specified tag." },
     { NULL, NULL, 0, NULL }
 };
 

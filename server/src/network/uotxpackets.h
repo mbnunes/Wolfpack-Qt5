@@ -904,6 +904,40 @@ public:
 	void setModel( UINT16 data ) { setShort( 7, data ); }
 };
 
+// 0x70 OldEffect
+class cUOTxOldEffect: public cUOPacket
+{
+public:
+	enum Type
+	{
+		sourceToDest = 0,
+		lightning,
+		stayXYZ,
+		staySerial,
+	};
+
+	cUOTxOldEffect(): cUOPacket( 0x70, 28 ) {}
+	void setType( UINT8 data ) { rawPacket[1] = data; }
+	void setSource( SERIAL data ) { setInt( 2, data ); }
+	void setTarget( SERIAL data ) { setInt( 6, data ); }
+	void setId( UINT16 data ) { setShort( 10, data ); }
+	void setSource( const Coord_cl &pos ) {
+		setShort( 12, pos.x );
+		setShort( 14, pos.y );
+		rawPacket[16] = pos.z;
+	}
+	void setTarget( const Coord_cl &pos ) {
+		setShort( 17, pos.x );
+		setShort( 19, pos.y );
+		rawPacket[21] = pos.z;
+	}
+	void setSpeed( UINT8 data ) { rawPacket[22] = data; }
+	void setDuration( UINT8 data ) { rawPacket[23] = data; }
+	void setUnknown( UINT16 data ) { setShort( 24, data ); }
+	void setFixedDirection( bool data ) { rawPacket[26] = data ? 1 : 0; }
+	void setExplodes( bool data ) { rawPacket[27] = data ? 1 : 0; }
+};
+
 // 0xC0 Graphical Effect
 class cUOTxEffect: public cUOPacket
 {
@@ -924,12 +958,12 @@ public:
 	void setSource( const Coord_cl &pos ) {
 		setShort( 12, pos.x );
 		setShort( 14, pos.y );
-		rawPacket[15] = pos.z;
+		rawPacket[16] = pos.z;
 	}
 	void setTarget( const Coord_cl &pos ) {
-		setShort( 16, pos.x );
-		setShort( 18, pos.y );
-		rawPacket[20] = pos.z;
+		setShort( 17, pos.x );
+		setShort( 19, pos.y );
+		rawPacket[21] = pos.z;
 	}
 	void setSpeed( UINT8 data ) { rawPacket[22] = data; }
 	void setDuration( UINT8 data ) { rawPacket[23] = data; }

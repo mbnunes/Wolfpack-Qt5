@@ -33,12 +33,11 @@
 #include "char.h"
 #include "item.h"
 #include "../globals.h"
+#include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
 #include "../junk.h"
 #include "../wpconsole.h"
 #include "../TmpEff.h"
-
-#define checkArgInt( id ) PyInt_Check( PyTuple_GetItem( args, id ) )
 
 /*!
 	Sends a string to the wolfpack console.
@@ -234,9 +233,63 @@ PyObject* wpMovingeffect( PyObject* self, PyObject* args )
 		return PyFalse;
 	}
 
-	cUOTxEffect effect;
+	SERIAL source = INVALID_SERIAL;
+	SERIAL target = INVALID_SERIAL;
+
+	// Source
+	if( getWpItem( PyTuple_GetItem( args, 1 ) ) )
+		source = getWpItem( PyTuple_GetItem( args, 1 ) )->serial;
+	else if( getWpChar( PyTuple_GetItem( args, 1 ) ) )
+		source = getWpChar( PyTuple_GetItem( args, 1 ) )->serial;
+
+	// Target
+	if( getWpItem( PyTuple_GetItem( args, 2 ) ) )
+		target = getWpItem( PyTuple_GetItem( args, 2 ) )->serial;
+	else if( getWpChar( PyTuple_GetItem( args, 2 ) ) )
+		target = getWpChar( PyTuple_GetItem( args, 2 ) )->serial;
+
+	if( source == INVALID_SERIAL || target == INVALID_SERIAL )
+		return PyFalse;
+
+	cUObject *pSource = FindItemBySerial( source );
+
+	if( !pSource )
+		pSource = FindCharBySerial( source );
+
+	if( !pSource )
+		return PyFalse;
+
+	cUObject *pTarget = FindItemBySerial( target );
+
+	if( !pTarget )
+		pTarget = FindCharBySerial( target );
+
+	if( !pTarget )
+		return PyFalse;
+
+	cUOTxOldEffect effect;
+	effect.setId( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
+	effect.setSource( source );
+	effect.setSource( pSource->pos );
+	effect.setTarget( target );
+	effect.setTarget( pTarget->pos );
+	effect.setType( cUOTxEffect::sourceToDest );
+	effect.setSpeed( 8 );
+
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		if( mSock && mSock->player() && mSock->player()->inRange( pSource, mSock->player()->VisRange ) )
+			mSock->send( &effect );
 
 	return PyTrue;
+}
+
+/*!
+	Returns the time in ms since the last server-start
+	used for object-delays and others
+*/
+PyObject* wpCurrenttime( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( uiCurrentTime );
 }
 
 /*!
@@ -251,6 +304,7 @@ static PyMethodDef wpGlobal[] =
 	{ "findchar",		wpFindchar,		METH_VARARGS, "Tries to find a char based on it's serial" },
 	{ "addtimer",		wpAddtimer,		METH_VARARGS, "Adds a timed effect" },
 	{ "movingeffect",	wpMovingeffect, METH_VARARGS, "Displays a moving item-efect" },
+	{ "currenttime",	wpCurrenttime,	METH_VARARGS, "Time in ms since server-start" },
     { NULL, NULL, 0, NULL } // Terminator
 };
 
