@@ -102,54 +102,39 @@ def findFile( searchpath ):
 
 
 def checkQt():
-
+	sys.stdout.write("Checking QT Configuration:\n")
 	if sys.platform == "win32":
 		QMAKE_EXECUTABLE = "qmake.exe"
 	else:
 		QMAKE_EXECUTABLE = "qmake"
 
-	sys.stdout.write( "Checking QTDIR enviroment variable..." )
+	sys.stdout.write( "  Checking QTDIR enviroment variable:   " )
 	if ( os.environ.has_key("QTDIR") and os.path.exists( os.environ["QTDIR"] ) ):
-		sys.stdout.write( green("ok\n") )
+		sys.stdout.write( green("Pass\n") )
+		sys.stdout.write( "  Found value for QTDIR:                %s\n" % os.environ["QTDIR"] )
 	else:
-		sys.stdout.write( red("failed") + "\n" )
-		sys.stdout.write( "You must properly setup QTDIR" )
+		sys.stdout.write( red("Fail") + "\n" )
+		sys.stdout.write( "  You must properly setup the QTDIR environment variable!\n" )
 		sys.exit();
-	sys.stdout.write( "Searching for qmake..." )
+	sys.stdout.write( "  Searching for qmake executable:       " )
 	temp = ""
 
 	QMAKESEARCHPATH = [ os.path.join(os.path.join(os.environ["QTDIR"], "bin"), QMAKE_EXECUTABLE) ]
 	for dir in string.split( os.environ["PATH"], os.path.pathsep ):
-		QMAKESEARCHPATH.append( os.path.join(dir, QMAKE_EXECUTABLE) )
+		QMAKESEARCHPATH.append( os.path.join( dir, QMAKE_EXECUTABLE ) )
 
 	qmake_file, qmake_path = findFile(QMAKESEARCHPATH)
 	global qt_qmake;
 	qt_qmake = os.path.join(qmake_path, qmake_file)
 	sys.stdout.write( "%s\n" % qt_qmake )
-
+	sys.stdout.write("\n")
 	return True
 
 def checkMySQL(options):
 	if sys.platform == "win32":
 		MySQL_LIBSEARCHPATH = [ sys.prefix + "\Libs\mysqlclient*.lib" ]
 		MySQL_INCSEARCHPATH = [ sys.prefix + "\include\mysql.h" ]
-	elif sys.platform == "linux2":
-		MySQL_LIBSEARCHPATH = [ \
-			"/usr/local/lib/libmysqlclient*.so", \
-			"/usr/local/lib/mysql/libmysqlclient*.so", \
-			"/usr/lib/libmysqlclient*.so", \
-			"/usr/lib/mysql/libmysqlclient*.so" ]
-		MySQL_LIBSTATICSEARCHPATH = [ \
-			"/usr/local/lib/libmysqlclient*.a", \
-			"/usr/local/lib/mysql/libmysqlclient*.a", \
-			"/usr/lib/libmysqlclient*.a", \
-			"/usr/lib/mysql/libmysqlclient*.a" ]
-		MySQL_INCSEARCHPATH = [ \
-			"/usr/local/include/mysql.h", \
-			"/usr/local/include/mysql/mysql.h", \
-			"/usr/include/mysql.h", \
-			"/usr/include/mysql/mysql.h" ]
-	elif sys.platform == "freebsd4" or sys.platform == "freebsd5":
+	elif sys.platform == "linux2" or sys.platform == "freebsd4" or sys.platform == "freebsd5":
 		MySQL_LIBSEARCHPATH = [ \
 			"/usr/local/lib/libmysqlclient*.so", \
 			"/usr/local/lib/mysql/libmysqlclient*.so", \
@@ -176,16 +161,17 @@ def checkMySQL(options):
 	global mysql_libpath
 	global mysql_libfile
 
+	sys.stdout.write( "  Searching for MySQL library:          " )
 	mysql_libfile, mysql_libpath = findFile( MySQL_LIBSEARCHPATH )
 	if ( mysql_libfile ):
-		sys.stdout.write("%s\n" % os.path.join( py_libpath, py_libfile ) )
+		sys.stdout.write("%s\n" % os.path.join( mysql_libpath, mysql_libfile ) )
 	else:
 		sys.stdout.write("Not Found!\n")
 		sys.exit()
 
 	global mysql_incpath
 	mysql_incfile = None
-	sys.stdout.write( "Searching for MySQL includes... " )
+	sys.stdout.write( "  Searching for MySQL includes:         " )
 	mysql_incfile, mysql_incpath = findFile( MySQL_INCSEARCHPATH )
 	if ( mysql_incfile ):
 		sys.stdout.write( "%s\n" % mysql_incpath )
@@ -196,16 +182,23 @@ def checkMySQL(options):
 	return True
 
 def checkPython( options, lookForHeaders, lookForLib ):
+	sys.stdout.write("Checking Python Configuration:\n")
+	# Default Blank
+	PYTHONLIBSEARCHPATH = []
+	PYTHONLIBSTATICSEARCHPATH = []
+	PYTHONINCSEARCHPATH = []
+	# Attept to find the system's configuration
 	PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
+	
 	if distutils.sysconfig.get_config_vars().has_key("DESTSHARED"):
 		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
-	else:
-		PYTHONLIBSEARCHPATH = []
-	PYTHONLIBSTATICSEARCHPATH = []
+
+	# Windows Search Paths
 	if sys.platform == "win32":
 		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
 		PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
-	elif sys.platform == "linux2":
+	# Linux and BSD Search Paths
+	elif sys.platform == "linux2" or sys.platform == "freebsd4" or sys.platform == "freebsd5":
 		PYTHONLIBSEARCHPATH += [ \
 			"/usr/local/lib/libpython2.3*.so", \
 			"/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
@@ -221,26 +214,11 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
 			"/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a" ]
 		PYTHONINCSEARCHPATH += [ \
+			"/usr/local/include/Python.h", \
 			"/usr/local/include/[Pp]ython2.3*/Python.h", \
+			"/usr/include/Python.h", \
 			"/usr/include/[Pp]ython2.3*/Python.h" ]
-	elif sys.platform == "freebsd4" or sys.platform == "freebsd5":
-		PYTHONLIBSEARCHPATH += [ \
-			"/usr/local/lib/libpython2.3*.so", \
-			"/usr/local/lib/[Pp]ython2.3*/libpython2.3*.so", \
-			"/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.so", \
-			"/usr/lib/libpython2.3*.so", \
-			"/usr/lib/[Pp]ython2.3*/libpython2.3*.so", \
-			"/usr/lib/[Pp]ython2.3*/config/libpython2.3*.so" ]
-		PYTHONLIBSTATICSEARCHPATH += [ \
-			"/usr/local/lib/libpython2.3*.a", \
-			"/usr/local/lib/[Pp]ython2.3*/libpython2.3*.a", \
-			"/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a", \
-			"/usr/lib/libpython2.3*.a", \
-			"/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
-			"/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a" ]
-		PYTHONINCSEARCHPATH += [ \
-			"/usr/local/include/[Pp]ython2.3*/Python.h", \
-			"/usr/include/[Pp]ython2.3*/Python.h" ]
+	# MacOSX Search Paths
 	elif sys.platform == "darwin":
 		PYTHONINCSEARCHPATH += [ \
 			"/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
@@ -249,6 +227,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/local/lib/[Pp]ython*/config/libpython*.a", \
 			"/System/Library/Frameworks/Python.framework/Versions/Current/Python", \
 			"/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/libpython*.a" ]
+	# Undefined OS
 	else:
 		sys.stdout.write(red("ERROR")+": Unknown platform %s to checkPython()\n" % sys.platform )
 		sys.exit()
@@ -266,37 +245,22 @@ def checkPython( options, lookForHeaders, lookForLib ):
 		PYTHONLIBSEARCHPATH = None
 		PYTHONLIBSEARCHPATH = [ options.py_libpath ]
 
-	sys.stdout.write( "Checking Python version... " )
+	sys.stdout.write( "  Checking Python version:              " )
 	if sys.hexversion >= 0x020200F0:
 		sys.stdout.write(green("Pass\n"))
 	else:
 		sys.stdout.write( red("Fail") + "\n" )
-		sys.stdout.write( bold("Wolfpack requires Python version greater than 2.2.0 ") )
+		sys.stdout.write( bold("  Wolfpack requires Python version >= 2.3.0\n") )
 		sys.exit();
 
-	sys.stdout.write( "Checking CPU byte order... %s\n" % sys.byteorder )
+	sys.stdout.write( "  Checking CPU byte order:              %s\n" % sys.byteorder )
 	if sys.byteorder != 'little':
 		sys.stdout.write(yellow("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work!\n" )
-
-	if lookForLib:
-		sys.stdout.write( "Searching for Python library... " )
-		global py_libpath
-		global py_libfile
-		py_libfile = None
-		py_libpath = None
-		py_libfile, py_libpath = findFile( PYTHONLIBSEARCHPATH )
-		if ( py_libfile ):
-			sys.stdout.write("%s\n" % os.path.join( py_libpath, py_libfile ) )
-		else:
-			sys.stdout.write(red("Not Found!") + "\n")
-			sys.exit()
 
 	if lookForHeaders:
 		global py_incpath
 		global py_incfile
-		py_incfile = None
-		py_incpath = None
-		sys.stdout.write( "Searching for Python includes... " )
+		sys.stdout.write( "  Searching for Python includes:        " )
 		py_incfile, py_incpath = findFile( PYTHONINCSEARCHPATH )
 		if ( py_incfile ):
 			sys.stdout.write( "%s\n" % py_incpath )
@@ -304,7 +268,18 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			sys.stdout.write(red("Not Found!") + "\n")
 			sys.exit()
 
+	if lookForLib:
+		sys.stdout.write( "  Searching for Python library:         " )
+		global py_libpath
+		global py_libfile
+		py_libfile, py_libpath = findFile( PYTHONLIBSEARCHPATH )
+		if ( py_libfile ):
+			sys.stdout.write( "%s\n" % os.path.join( py_libpath, py_libfile ) )
+		else:
+			sys.stdout.write(red("Not Found!") + "\n")
+			sys.exit()
 
+	sys.stdout.write("\n")
 	return True
 
 # Entry point
@@ -312,7 +287,6 @@ def main():
 	# Options for qmake
 	DEFINES = ""
 	CONFIG = ""
-
 	# Setup command line parser
 	parser = OptionParser(version="%prog 0.2")
 	parser.add_option("--dsp", action="store_true", dest="dsp", help="also Generate Visual Studio project files")
@@ -335,13 +309,28 @@ def main():
 	if sys.platform == "darwin":
 		pyLibSearch = False
 
+	# Neat Header
+	#headerbuffer = "                                        "
+	#sys.stdout.write( " \n" )
+	#sys.stdout.write( headerbuffer + red( "  )      (\_     ") + "\n" )
+	#sys.stdout.write( headerbuffer + red( " ((    _/{  \"-;  ") + "\n" )
+	#sys.stdout.write( headerbuffer + red( "  )).-\" {{ ;\"`   ") + "\n" )
+	#sys.stdout.write( "Running Wolfpack Configuration:         " )
+	#sys.stdout.write( red( " ( (  ;._ \\\\     " ) + "\n" )
+	#sys.stdout.write( headerbuffer + green( "****************\n" ) )
+	
+	# Check QT Settings
+	checkQt()
+	# Check Python Settings
 	checkPython( options, pyIncSearch, pyLibSearch )
 
 	if options.enable_mysql:
 		CONFIG += "mysql "
 		DEFINES += "MYSQL_DRIVER "
+		sys.stdout.write("Checking MySQL Configuration:\n")
 		checkMySQL(options)
-	checkQt()
+		sys.stdout.write("\n")
+	
 
 	if not options.enable_translation:
 		DEFINES += "QT_NO_TRANSLATION "
@@ -381,7 +370,6 @@ def main():
 	else:
 		CONFIG += "release warn_off "
 
-
 	# if --aidebug
 	if options.enable_aidebug:
 		DEFINES += "_AIDEBUG "
@@ -400,6 +388,7 @@ def main():
 		os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro", "-t vcapp"])
 	sys.stdout.write(bold(green("Done\n")))
 	sys.stdout.write(bold("Configure finished. Please run 'make' now.\n"))
+	sys.stdout.write("\n")
 
 if __name__ == "__main__":
 	main()
