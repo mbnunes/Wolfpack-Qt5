@@ -674,7 +674,8 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//strcpy(petname,pPet->name.c_str());
 	//strupr(petname);
 	string petname ;
-	transform(pPet->name.begin(), pPet->name.end(), petname.begin(), ::toupper);
+	petname = pPet->name ;
+	transform(petname.begin(), petname.end(), petname.begin(), ::toupper);
 	bool bAllCommand = false;
 	//if ( !strstr( comm, petname) )	//if petname is not in
 	if (comm.find(petname) == string::npos)
