@@ -35,6 +35,7 @@
 #include "basics.h"
 #include "inlines.h"
 #include "wpconsole.h"
+#include "commands.h"
 
 // Library Includes
 #include <qdom.h>
