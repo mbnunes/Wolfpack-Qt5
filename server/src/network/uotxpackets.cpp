@@ -167,7 +167,7 @@ void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 	}
 
 	setSerial( pChar->serial() );
-	setDirection( pChar->direction() );
+	setDirection( pChar->running() ? (pChar->direction() | 0x80) : pChar->direction() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
@@ -246,7 +246,7 @@ void cUOTxDenyMove::setCoord( const Coord_cl& coord )
 void cUOTxDenyMove::fromChar( P_CHAR pChar )
 {
 	setCoord( pChar->pos() );
-	setDirection( pChar->direction() );
+	setDirection( pChar->running() ? (pChar->direction() | 0x80) : pChar->direction() );
 }
 
 void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
@@ -277,7 +277,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 
 	// If he's runningSteps we need to take that into account here
 	// ->runningSteps() is greater than zero in that case
-	setDirection( pChar->runningSteps() ? pChar->direction() | 0x80 : pChar->direction() );
+	setDirection( pChar->running() ? (pChar->direction() | 0x80) : pChar->direction() );
 
 	setFlag( 0 );
 
@@ -341,7 +341,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
-	setDirection( pChar->direction() );
+	setDirection( pChar->running() ? (pChar->direction() | 0x80) : pChar->direction() );
 	setFlag( 0 );
 
 	if ( pChar->isAtWar() && !pChar->isDead() )
@@ -451,7 +451,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
-	setDirection( pChar->direction() );
+	setDirection( pChar->running() ? (pChar->direction() | 0x80) : pChar->direction() );
 	//void setFlags( unsigned char data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 9 = invul,0x40=attack, 0x80=hidden CHARMODE_WAR
 }
 

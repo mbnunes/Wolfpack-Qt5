@@ -91,7 +91,7 @@ cBaseChar::cBaseChar()
 	emoteColor_ = 0x23;
 	creationDate_ = QDateTime::currentDateTime();
 	stealthedSteps_ = 0;
-	runningSteps_ = 0;
+	running_ = false;
 	murdererTime_ = 0;
 	criminalTime_ = 0;
 	skillDelay_ = 0;
@@ -1631,10 +1631,12 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else
 		SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
 		/*
-		\property char.runningsteps This integer property indicates how many steps the character is running so far.
+		\property char.running This boolean property indicates whether this character was running when he made his last step.
 		*/
-	else
-		SET_INT_PROPERTY( "runningsteps", runningSteps_ )
+	else if (name == "running") {
+		setRunning( value.toInt() != 0 );
+		return 0;
+	}
 		/*
 		\property char.tamed This boolean property indicates whether the character is tamed or not.
 		*/
@@ -1984,7 +1986,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	PY_PROPERTY( "orgskin", orgSkin_ )
 	PY_PROPERTY( "creationdate", creationDate_.toString() )
 	PY_PROPERTY( "stealthedsteps", stealthedSteps_ )
-	PY_PROPERTY( "runningsteps", runningSteps_ )
+	PY_PROPERTY( "running", running_ )
 	PY_PROPERTY( "tamed", isTamed() )
 	PY_PROPERTY( "guarding", guarding_ )
 	PY_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )

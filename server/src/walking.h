@@ -64,7 +64,6 @@ private:
 	bool consumeStamina( P_PLAYER pChar, bool running );
 	bool checkObstacles( P_CHAR pChar, const Coord_cl& newPos, bool running );
 	bool verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw();
-	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
 	void checkStealth( P_CHAR );
 	void sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos );
 

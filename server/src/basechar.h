@@ -389,7 +389,7 @@ public:
 	uint regenStaminaTime() const;
 	uint regenManaTime() const;
 	cTerritory* region() const;
-	uint runningSteps() const;
+	bool running() const;
 	ushort saycolor() const;
 	uint skillDelay() const;
 	ushort skin() const;
@@ -471,7 +471,7 @@ public:
 	void setRegenStaminaTime( uint data );
 	void setRegenManaTime( uint data );
 	void setRegion( cTerritory* data );
-	void setRunningSteps( uint data );
+	void setRunning( bool data );
 	void setSaycolor( ushort data );
 	void setSkillDelay( uint data );
 	void setSkin( ushort data );
@@ -781,7 +781,7 @@ protected:
 	int stealthedSteps_;
 
 	// Saves the number of steps the char ran.
-	uint runningSteps_;
+	bool running_;
 
 	// Time, till murderer flag disappears. cOldChar::murderrate_
 	uint murdererTime_;
@@ -1178,14 +1178,14 @@ inline void cBaseChar::setPropertyFlags( uint data )
 	changed_ = true;
 }
 
-inline uint cBaseChar::runningSteps() const
+inline bool cBaseChar::running() const
 {
-	return runningSteps_;
+	return running_;
 }
 
-inline void cBaseChar::setRunningSteps( uint data )
+inline void cBaseChar::setRunning( bool data )
 {
-	runningSteps_ = data;
+	running_ = data;
 }
 
 inline uint cBaseChar::skillDelay() const

@@ -469,6 +469,8 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	bool running = dir & 0x80;
 	dir = dir & 0x7F; // Remove the running flag
 
+	pChar->setRunning(running);
+
 	bool turning = dir != pChar->direction();
 
 	// This happens if we're moving
@@ -620,25 +622,6 @@ bool cMovement::verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw()
 	}
 
 	return true;
-}
-
-// This only gets called when running
-void cMovement::checkRunning( cUOSocket* socket, P_CHAR pChar, Q_UINT8 /*dir*/ )
-{
-	// Don't regenerate stamina while running
-	pChar->setRegenStaminaTime( ( uint )( Server::instance()->time() + floor( pChar->getStaminaRate() * 1000 ) ) );
-	pChar->setRunningSteps( pChar->runningSteps() + 1 );
-
-	// If we're running on our feet, check for stamina loss
-	// Crap
-	if ( !pChar->isDead() && !pChar->atLayer( cBaseChar::Mount ) && pChar->runningSteps() > ( Config::instance()->runningStamSteps() ) * 2 )
-	{
-		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
-		// ^^ WTF?
-		pChar->setRunningSteps( 0 );
-		pChar->setStamina( pChar->stamina() - 1 );
-		socket->updateStamina();
-	}
 }
 
 void cMovement::checkStealth( P_CHAR pChar )
