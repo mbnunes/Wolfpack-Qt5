@@ -1522,10 +1522,8 @@ void cSkills::RandomSteal(int s)
 	tile_st tile;
 	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);	
-	//int cansteal=2+pc_currchar->baseskill[STEALING]/100; // 0 stealing 2 stones, 10  3 stones, 99.9 12 stones, 100 17 stones !!!
-	//if (pc_currchar->baseskill[STEALING]>999) cansteal=17;
-	int cansteal=200+pc_currchar->baseskill[STEALING];
-	if (pc_currchar->baseskill[STEALING]>999) cansteal=1700;
+	int cansteal = max(1,pc_currchar->baseskill[STEALING]/10);
+	cansteal = cansteal * 10;
 	
 	P_CHAR pc_npc = FindCharBySerPtr(buffer[s]+7);
 	if (pc_npc == NULL) 
