@@ -56,7 +56,7 @@ class MakeAction:
   # Checks if this option is visible to 
   # the given character.
   #
-  def visible(self, char):
+  def visible(self, char, arguments):
     return 1
 
   #

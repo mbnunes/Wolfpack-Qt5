@@ -47,15 +47,36 @@ WEAPON_PROPERTIES = {
 }
 
 #
+# Check for anvil and forge
+#
+def checkanvilandforge(char):
+  # Check dynamic items.
+  # We should later check for statics too
+  forge = 0
+  anvil = 0
+  items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 5)
+  for item in items:
+    if item.id == 0xFAF or item.id == 0xFB0:
+      anvil = 1
+    elif item.id == 0xFB1 or (item.id >= 0x197A and item.id <= 0x19A9):
+      forge = 1
+
+    if anvil and forge:
+      return 1
+
+  return 0
+
+#
 # Bring up the blacksmithing menu
 #
 def onUse(char, item):
-  pass
-
-def testmenu(socket, command, arguments):
-  menu = findmenu('BLACKSMITHING')
-  if menu:
-    menu.send(socket.player)
+  if not checkanvilandforge(char):
+    char.socket.clilocmessage(1044267)
+  else:
+    menu = findmenu('BLACKSMITHING')
+    if menu:
+      menu.send(char)
+  return 1
 
 #
 # Smith an item.
@@ -145,6 +166,10 @@ class SmithItemAction(CraftItemAction):
   #
   def make(self, player, arguments):
     # Look for forge and anvil
+    if not checkanvilandforge(player):
+      player.socket.clilocmessage(1044267)
+      self.parent.send(player)
+      return 0
 
     return CraftItemAction.make(self, player, arguments)
 
@@ -318,4 +343,3 @@ def loadMenu(id, parent = None):
 #
 def onLoad():
   loadMenu('BLACKSMITHING')
-  wolfpack.registercommand('testmenu', testmenu)
