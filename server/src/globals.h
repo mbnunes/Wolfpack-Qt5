@@ -38,6 +38,7 @@
 
 #include <vector>
 #include <map>
+#include <list>
 
 #if defined(__unix__)
 #include <termios.h>
@@ -298,7 +299,7 @@ extern char xoutbuffer[MAXBUFFER_REAL*3];
 // - item's serial, owner's serial, char's serial, and container's serial
 
 extern Container_cl stablesp, cmultisp, imultisp, contsp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;
-
+extern std::list<SERIAL> guilds;
 
 /******************************************************/
 

@@ -474,8 +474,8 @@ void loadchar(int x) // Load a character from WSC
  if (pc->isPlayer() && pc->account==0) pc->menupriv=-1;
 
 
- int max_x = MapTileWidth  * 8;
- int max_y = MapTileHeight * 8;
+ int max_x = cMapStuff::mapTileWidth(pc->pos)  * 8;
+ int max_y = cMapStuff::mapTileHeight(pc->pos) * 8;
    if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
 // if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
  {
@@ -775,8 +775,8 @@ void loaditem (int x) // Load an item from WSC
 
 	if (pi->isInWorld())
 	{
-		int max_x = MapTileWidth  * 8;
-		int max_y = MapTileHeight * 8;
+		int max_x = cMapStuff::mapTileWidth(pi->pos)  * 8;
+		int max_y = cMapStuff::mapTileHeight(pi->pos) * 8;
 		mapRegions->Add(pi); // it reurns 1 if inalid, if invalid it DOESNT get added !!!
 		if (pi->pos.x>max_x || pi->pos.y>max_y) 
 		//if (pi->pos.x<0 || pi->pos.y<0 || pi->pos.x>max_x || pi->pos.y>max_y)	// lord bianry
@@ -818,6 +818,8 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		pi->Init(false);
 		archive.readObject( pi );
 		cItemsManager::getInstance()->registerItem( pi );
+		if ( objectID == "GUILDSTONE" ) // register as guild as well
+			guilds.push_back(pi->serial);
 		pi->timeused_last = getNormalizedTime();
 		// Set the outside indices
 		pi->SetSpawnSerial(pi->spawnserial);

@@ -382,6 +382,8 @@ char firstpacket[MAXCLIENT+1];
 
 Container_cl stablesp, imultisp, cmultisp, contsp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;
 
+list<SERIAL> guilds;
+
 /******************************************************/
 
 ///////////////////////////////////////////

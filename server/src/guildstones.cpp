@@ -66,7 +66,7 @@ void StonePlacement(UOXSOCKET s)
 		return;
 	}
 	
-	if (pDeed->id()==0x14F0)
+	if (pDeed->id() == 0x14F0)
 	{
 		if (pc->guildstone != INVALID_SERIAL)
 		{
@@ -400,65 +400,77 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	}
 	case 14:														// declare War list
 	{
-/*		int dummy;
 		gumpnum=1;
 		lentext=sprintf(mygump[0], "What guilds do you with to declare war?");
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (guild=1;guild<MAXGUILDS;guild++)
+		list<SERIAL>::iterator it;
+		for (it = guilds.begin(); it != guilds.end(); ++it)
 		{
-			if ( !guilds[guild].free && guildnumber != guild )
+			if ( !this->free && this->serial != *it )
 			{
-				dummy=0;
-				for (war=1;war<MAXGUILDWARS;war++)
+				unsigned int i;
+				for (i = 0; i < this->war.size(); ++i)
 				{
-					if (guilds[guildnumber].war[war]==guild) dummy=1;
+					if (this->war[i] == *it) 
+					{
+						++gumpnum;
+						P_ITEM pStone = FindItemBySerial(*it);
+						strcpy(mygump[++counter], pStone->name.c_str());
+					}
 				}
-				if (dummy!=1) {counter++;gumpnum++;strcpy(mygump[counter],guilds[guild].name);}
 			}
 		}
 		gmprefix[7]=8014>>8;
 		gmprefix[8]=8014%256;
-*/		break;
+		break;
 	}
 	case 15:														// declare peace list
-/*		gumpnum=guilds[guildnumber].wars+1;
-		lentext=sprintf(mygump[0], "What guilds do you with to declare peace?");
+	{
+		gumpnum = this->war.size();
+		lentext = sprintf(mygump[0], "What guilds do you with to declare peace?");
 		strcpy(mygump[1], "Select this to return to the menu.");
-		counter=1;
-		for (war=1;war<MAXGUILDWARS;war++)
+		counter = 1;
+		unsigned int i;
+		for (i = 0; i < this->war.size(); ++i)
 		{
-			if (guilds[guildnumber].war[war]!=0)
+			if ( this->war[i] != INVALID_SERIAL)
 			{
-				counter++;
-				strcpy(mygump[counter],guilds[guilds[guildnumber].war[war]].name);
+				P_ITEM pStone = FindItemBySerial( this->war[i] );
+				strcpy(mygump[++counter], pStone->name.c_str());
 			}
 		}
 		gmprefix[7]=8015>>8;
 		gmprefix[8]=8015%256;
-*/		break;
+		break;
+	}
 	case 16:														// War list 2
-/*		gumpnum=1;
-		lentext=sprintf(mygump[0], "Guilds that have decalred war on %s.",guilds[guildnumber].name);
+		{
+		gumpnum=1;
+		lentext=sprintf(mygump[0], "Guilds that have decalred war on %s.", this->name.c_str());
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (guild=1;guild<MAXGUILDS;guild++)
+		list<SERIAL>::iterator it;
+		for (it = guilds.begin(); it != guilds.end(); ++it)
 		{
-			if (!guilds[guild].free)
+			if ((*it) != INVALID_SERIAL)
 			{
-				for (war=1;war<MAXGUILDWARS;war++)
+				unsigned int i;
+				for ( i = 0; i < this->war.size(); ++i)
 				{
-					if (guilds[guild].war[war]==guildnumber)
+					if (this->war[i] == *it)
 					{
-						counter++; gumpnum++;
-						strcpy(mygump[counter],guilds[guild].name);
+						++gumpnum;
+						P_ITEM pStone = FindItemBySerial(*it);
+						strcpy(mygump[++counter], pStone->name.c_str());
 					}
 				}
 			}
 		}
 		gmprefix[7]=8016>>8;
 		gmprefix[8]=8016%256;
-*/		break;
+		break;
+		}
 	}
 	
 	int total=9+1+lentext+1;
@@ -580,8 +592,6 @@ void cGuildStone::removeMember(P_CHAR pc)
 	pc->guildtitle = "";
 	RemoveShields(pc);
 }
-
-
 
 // guildtoggleabbreviation() Toggles the settings for showing or not showing the guild title
 // Informs player about his change
@@ -848,54 +858,56 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 		Menu(s,1);
 		return;
 	case 8014:													// declare war menu
-/*		counter=1;
-		for (guild=1;guild<MAXGUILDS;guild++)
 		{
-			if ((strcmp(guilds[guildnumber].name,guilds[guild].name))&&
-				(!guilds[guild].free))
+			counter=1;
+			list<SERIAL>::iterator it;
+			for (it = guilds.begin(); it != guilds.end(); ++it)
 			{
-				counter++;
-				if (sub==counter)
+				if (this->serial != *it)
 				{
-					slot=Guilds->SearchSlot(guildnumber,4);
-					for (war=1;war<MAXGUILDWARS;war++)
+					++counter;
+					if (sub == counter)
 					{
-						if (guilds[guildnumber].war[war]==guild) slot=0;
-					}
-					if ((slot!=-1)&&(slot!=0))
-					{
-						guilds[guildnumber].wars++;
-						guilds[guildnumber].war[slot]=guild;
-						sprintf(text,"%s declared war to %s",guilds[guildnumber].name,guilds[guild].name);
-						Guilds->Broadcast(guildnumber,text);
-					}
-					else
-					{
-						if (slot==-1) sysmessage(s,"No more war slots free.");
-						else if (slot == 0) sysmessage(s,"This guild is already in our warlist.");
+						if ( find(this->war.begin(), this->war.end(), *it ) != this->war.end() )
+							sysmessage(s,"This guild is already in our warlist.");
+						else
+						{
+							this->war.push_back(*it);
+							cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(*it));
+							char text[256];
+							sprintf(text,"%s declared war to %s", this->name.c_str(), pStone->name.c_str());
+							this->Broadcast(text);
+							pStone->Broadcast(text);
+							
+						}
 					}
 				}
 			}
 		}
-*/		Menu(s,2);
+		Menu(s,2);
 		return;
-	case 8015:													// declare peace menu
-/*		counter=1;
-		for (war=1;war<MAXGUILDWARS;war++)
+	case 8015:		// declare peace menu
 		{
-			if (guilds[guildnumber].war[war]!=0)
+			counter = 1;
+			unsigned int i;
+			for (i = 0; i < this->war.size(); ++i)
 			{
-				counter++;
-				if (sub==counter)
+				if (this->war[i] != INVALID_SERIAL) // we don't need a loop here, really.
 				{
-					sprintf(text,"%s declared peace to %s",guilds[guildnumber].name,guilds[guilds[guildnumber].war[war]].name);
-					Guilds->Broadcast(guildnumber,text);
-					guilds[guildnumber].war[war]=0;
-					guilds[guildnumber].wars--;
+					++counter;
+					if (sub == counter)
+					{
+						char text[256];
+						cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(this->war[i]));
+						sprintf(text,"%s declared peace to %s",this->name.c_str(), pStone->name.c_str());
+						this->war.erase( this->war.begin() + i );
+						this->Broadcast(text);
+						pStone->Broadcast(text);
+					}
 				}
 			}
 		}
-*/		Menu(s,2);
+		Menu(s,2);
 		return;
 	case 8016:													// warlist menu 2
 		Menu(s,1);
@@ -912,30 +924,20 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 // guildmambers about the change.
 void cGuildStone::ChangeName(UOXSOCKET s, char *text)
 {
-/*	int guildnumber=Guilds->SearchByStone(s);
-
-	if (guildnumber==-1) return;
-
-	P_ITEM pStone = FindItemBySerial( guilds[guildnumber].stone );
-	if (pStone == NULL) return;
-	int guild;
-	bool exists = false;
+	list<SERIAL>::iterator it;
+	for (it = guilds.begin(); it != guilds.end(); ++it)
+	{
+		P_ITEM pStone = FindItemBySerial(*it);
+		if (pStone->name == text) 
+		{
+			sysmessage(s,"This name is already taken by another guild.");
+			return;
+		}
+	}
+	this->name = text;
 	char txt[200];
-
-	for (guild=1;guild<MAXGUILDS;guild++)
-	{
-		if (!(strcmp((char*)text,guilds[guild].name))) exists = true;
-	}
-	if (!exists)
-	{
-		strcpy(guilds[guildnumber].name, (char*)text);
-		pStone->name = "Guildstone for ";
-		pStone->name += guilds[guildnumber].name;
-		sprintf(txt,"Your guild got renamed to %s",guilds[guildnumber].name);
-		Guilds->Broadcast(guildnumber,txt);
-	}
-	else sysmessage(s,"This name is already taken by another guild.");
-	*/
+	sprintf(txt, "Your guild got renamed to %s", this->name.c_str());
+	this->Broadcast(txt);
 }
 
 
@@ -945,26 +947,21 @@ void cGuildStone::ChangeName(UOXSOCKET s, char *text)
 // the change.
 void cGuildStone::ChangeAbbreviation(UOXSOCKET s, char *text)
 {
-/*	int guildnumber=Guilds->SearchByStone(s);
-
-	if (guildnumber==-1) return;
-
-	int guild;
-	bool exists = false;
+	list<SERIAL>::iterator it;
+	for (it = guilds.begin(); it != guilds.end(); ++it)
+	{
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(*it));
+		if (pStone->abbreviation == text) 
+		{
+			sysmessage(s,"This abbreviation is already taken by another guild.");
+			return;
+		}
+	}
+	this->abbreviation = text;
 	char txt[200];
-
-	for ( guild = 1; guild < MAXGUILDS; guild++ )
-	{
-		if (!(strcmp((char*)text,guilds[guild].abbreviation))) exists = true;
-	}
-	if (!exists)
-	{
-		strcpy(guilds[guildnumber].abbreviation,(char*)text);
-		sprintf(txt,"Your guild has now the abbreviation: %s",guilds[guildnumber].abbreviation);
-		Guilds->Broadcast(guildnumber,txt);
-	}
-	else sysmessage(s,"This abbreviation is already taken by another guild.");
-*/	Menu(s,2);
+	sprintf(txt, "Your guild has now the abbreviation: %s", this->abbreviation.c_str());
+	this->Broadcast(txt);
+	Menu(s,2);
 }
 
 // guildtitlechange(character, text) copies the text info the characters title field (guildnumber
@@ -972,16 +969,16 @@ void cGuildStone::ChangeAbbreviation(UOXSOCKET s, char *text)
 // private field (as backup buffer) and notifies editing player about the change.
 void cGuildStone::ChangeTitle(UOXSOCKET s, char *text)
 {
-/*	P_CHAR member = FindCharBySerial(guilds[guildnumber].priv);
+	P_CHAR member = FindCharBySerial(this->priv);
 
 	if (member == NULL) member = currchar[s];
-	guilds[guildnumber].priv = INVALID_SERIAL;
-	member->guildtitle = (char*)text;
-	if (member==currchar[s]) 
+	this->priv = INVALID_SERIAL;
+	member->guildtitle = text;
+	if (member == currchar[s]) 
 		sysmessage(s,"You changed your own title.");
 	else 
 		sysmessage(s,"You changed the title.");
-*/	Menu(s,2);
+	Menu(s,2);
 }
 
 // TESTED: OKAY
