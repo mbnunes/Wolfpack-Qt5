@@ -5,12 +5,12 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Allowed viewing and setting account properties via .set and .show.
 			Replace <property> with the name of the account property and <value>
 			with the value you want to set:
-			set account.<property> <value>
-			show account.<property>
+			.set account.<property> <value>
+			.show account.<property>
 		- Moved the account property getters and setters into the cAccount class.
 		- Added an e-mail field to the account database.
 		- Added the "email" property for accounts to the python interface.
-		- .exportdefinitions now exports data about NPCs and their equipment to the
+		- .exportdefinitions now exports data about NPCS and their equipment to the
 			categories.db database.
 		- .exportdefinitions now exports data about multis to the
 			categories.db database.
@@ -18,14 +18,27 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Binary backups can automatically be compressed using gzip.
 		- The number of backups kept can be limited.
 		- Allowed scripts to be attached to base definitions by using
-			<basescripts>a,b,c</basescripts>.
-			Those scripts are attached to objects by using their baseid property.
-			If you change the <basescripts> tags in the definition, all objects using
-			that definition will use the new scripts automatically.
+			<basescripts>a,b,c</basescripts>. Those scripts are attached to objects by
+			using their baseid property. If you change the <basescripts> tags in the
+			definition, all objects using that definition will use the new scripts
+			automatically.
 		- onDetach and onAttach are not called for those scripts.
 		- hasscript(a) will return true if a is in the basescripts.
 		- addscript now prepends a new script rather than appending it.
-		- Fix for spawnregions where y1 > y2.
+		- The python .scripts property includes all script names, including the
+			scripts in basescripts.
+		- Added a new property .basescripts to get a comma separated list of all
+			scripts in the basescripts list.
+		- New property: char.overweight Returns true if the character is overloaded.
+		- New property: char.maxweight Returns the maximum stones a character can carry.
+		- Stamina loss while walking.
+		- Stamina loss when taking damage.
+		- Overweight prevents walking now.
+		- Walking is denied if stamina is 0.
+		- Fixed an issue with account names containing foreign characters on save.
+		- Fixed an issue with walking/running not being sent to other cliens.
+		- Added wolfpack.queuecode to queue a python function for the next mainloop iteration.
+		- Documentation fixes for item.addtimer.
 	* Definition Changes:
 		- Tag Changes:
 			<events></events> is now <scripts></scripts>
@@ -46,6 +59,11 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Tweaked the hunger script to affect hunger less often.
 		- Fixed an update bug with NPCs and the dye command.
 		- Fixed a bug with the dupe command.
+		- Fixed bugs with the fishing skill.
+		- Fixed several magic related bugs.
+		- Adjusted timers in several skills to be item/char.addtimer.
+		- Improved/Fixed pet control functionality through word commands.
+		- Fixed a bug where equipment didn't update stats if double clicked to equip.
 	* Misc. Changes:
 		- Experimental Mac OSX Support
 	* Known Issues, Bugs, and Missing Features:
