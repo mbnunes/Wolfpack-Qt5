@@ -1,0 +1,119 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ardan Malori                   |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<menu id="CRAFTMENU_FLETCHING">
+		<name>Carpentry</name>
+		
+		<menu inherit="FLETCHING_misc" />
+		<menu inherit="FLETCHING_weapons" />
+	</menu>
+	
+	<menu id="FLETCHING_misc">
+		<name>Miscellanous</name>
+		
+		<action>
+			<name>Kindling</name>
+			<model>0xDE1</model>
+			<description>A kindling</description>
+			<make>
+				<useitem itemid="0x1BD7-0x1BDC" name="boards" amount="1" />
+				<makeitem section="de1" amount="1" />
+				<skillcheck skillid="8" min="0" max="100" />
+			</make>
+			<fail>You failed to craft the kindling</fail>
+			<success>You succeeded in crafting the kindling</success>
+		</action>
+
+		<action>
+			<name>Shaft</name>
+			<model>0x1BD4</model>
+			<description>A shaft</description>
+			<make>
+				<useitem itemid="0x1BD7-0x1BDC" name="boards" amount="1" />
+				<makeitem section="1bd4" amount="1" />
+				<skillcheck skillid="8" min="0" max="100" />
+			</make>
+			<fail>You failed to craft the shaft</fail>
+			<success>You succeeded in crafting the shaft</success>
+		</action>
+	</menu>
+
+	<menu id="FLETCHING_weapons">
+		<name>Weapons</name>
+
+		<action>
+			<name>Arrow</name>
+			<model>0xF3F</model>
+			<description>An arrow</description>
+			<make>
+				<useitem itemid="0x1BD4-0x1BD6" name="shaft" amount="1" />
+				<useitem itemid="0x1BD1-0x1BD2" name="feather" amount="1" />
+				<makeitem section="f3f" amount="1" />
+				<skillcheck skillid="8" min="0" max="100" />
+			</make>
+			<fail>You failed to craft the arrow</fail>
+			<success>You succeeded in crafting the arrow</success>
+		</action>
+
+		<action>
+			<name>Bolt</name>
+			<model>0x1BFB</model>
+			<description>A bolt</description>
+			<make>
+				<useitem itemid="0x1BD4-0x1BD6" name="shaft" amount="1" />
+				<useitem itemid="0x1BD1-0x1BD2" name="feather" amount="1" />
+				<makeitem section="1bfb" amount="1" />
+				<skillcheck skillid="8" min="0" max="100" />
+			</make>
+			<fail>You failed to craft the bolt</fail>
+			<success>You succeeded in crafting the bolt</success>
+		</action>
+		
+		<action>
+			<name>Crossbow</name>
+			<model>0xF4F</model>
+			<description>A crossbow</description>
+			<make>
+				<useitem itemid="0x1BD7-0x1BDC" name="boards" amount="7" />
+				<makeitem section="f4f" amount="1" />
+				<skillcheck skillid="8" min="600" max="900" />
+			</make>
+			<fail>You failed to craft the crossbow</fail>
+			<success>You succeeded in crafting the crossbow</success>
+		</action>
+		
+		<action>
+			<name>Bow</name>
+			<model>0x13B1</model>
+			<description>A bow</description>
+			<make>
+				<useitem itemid="0x1BD7-0x1BDC" name="boards" amount="7" />
+				<makeitem section="13b1" amount="1" />
+				<skillcheck skillid="8" min="300" max="450" />
+			</make>
+			<fail>You failed to craft the bow</fail>
+			<success>You succeeded in crafting the bow</success>
+		</action>
+
+		<action>
+			<name>heavy Crossbow</name>
+			<model>0x13fc</model>
+			<description>A heavy crossbow</description>
+			<make>
+				<useitem itemid="0x1BD7-0x1BDC" name="boards" amount="10" />
+				<makeitem section="13fc" amount="1" />
+				<skillcheck skillid="8" min="900" max="1000" />
+			</make>
+			<fail>You failed to craft the crossbow</fail>
+			<success>You succeeded in crafting the crossbow</success>
+		</action>
+
+	</menu>
+
+</definitions>

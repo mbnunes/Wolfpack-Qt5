@@ -1,0 +1,630 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+             <menu id="CRAFTMENU_TAILORING">
+                   <name>Tailoring</name>
+
+                   <menu inherit="TAILORING_CLOAKS" />
+                   <menu inherit="TAILORING_SHIRTS" />
+                   <menu inherit="TAILORING_PANTS" />
+                   <menu inherit="TAILORING_HATS" />
+                   <menu inherit="TAILORING_MISC" />
+                   <menu inherit="TAILORING_FOOT" />
+                   <menu inherit="TAILORING_LEATHERARMOR" />
+
+             </menu>
+
+             <menu id="TAILORING_CLOAKS">
+                   <name>Cloaks/Dresses</name>
+
+                   <action>
+                           <name>Cloak</name>
+                           <model>0x1515</model>
+                           <description>A cloak against the coldness</description>
+                           <make>
+                             	<useitem itemid="0x1765-0x1768" name="clothes" amount="14" />
+                                 <makeitem section="1515" amount="1" />
+                                 <skillcheck skillid="34" min="414" max="621" />
+                           </make>
+                           <fail>You failed to craft the cloak</fail>
+                        <success>You succeeded in crafting the cloak</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Robe</name>
+                           <model>0x1f03</model>
+                           <description>A robe against the coldness</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="16" />
+                                 <makeitem section="1f03" amount="1" />
+                                 <skillcheck skillid="34" min="539" max="808" />
+                           </make>
+                           <fail>You failed to craft the robe</fail>
+                        <success>You succeeded in crafting the robe</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>plain Dress</name>
+                           <model>0x1f01</model>
+                           <description>A plain Dress</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="10" />
+                                 <makeitem section="1f01" amount="1" />
+                                 <skillcheck skillid="34" min="124" max="186" />
+                           </make>
+                           <fail>You failed to craft the plain dress</fail>
+                        <success>You succeeded in crafting the plain dress</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>fancy Dress</name>
+                           <model>0x1f00</model>
+                           <description>A fancy Dress</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="12" />
+                                 <makeitem section="1f00" amount="1" />
+                                 <skillcheck skillid="34" min="150" max="225" />
+                           </make>
+                           <fail>You failed to craft the fancy dress</fail>
+                        <success>You succeeded in crafting the fancy dress</success>
+                   </action>
+
+             </menu>
+
+             <menu id="TAILORING_SHIRTS">
+                   <name>Shirts/Doublets</name>
+
+                   <action typ="resource">
+                           <name>Shirt</name>
+                           <model>0x1517</model>
+                           <description>A shirt</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="8" />
+                                 <makeitem section="1517" amount="1" />
+                                 <skillcheck skillid="34" min="207" max="315" />
+                           </make>
+                           <fail>You failed to craft the shirt</fail>
+                        <success>You succeeded in crafting the shirt</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>fancy Shirt</name>
+                           <model>0x1efd</model>
+                           <description>A fancy shirt</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="8" />
+                                 <makeitem section="1efd" amount="1" />
+                                 <skillcheck skillid="34" min="248" max="375" />
+                           </make>
+                           <fail>You failed to craft the fancy shirt</fail>
+                        <success>You succeeded in crafting the fancy shirt</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Doublet</name>
+                           <model>0x1f7b</model>
+                           <description>A doublet</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="8" />
+                                 <makeitem section="1f7b" amount="1" />
+                                 <skillcheck skillid="34" min="0" max="900" />
+                           </make>
+                           <fail>You failed to craft the doublet</fail>
+                        <success>You succeeded in crafting the doublet</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>tunic</name>
+                           <model>0x1fa1</model>
+                           <description>A tunic</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="12" />
+                                 <makeitem section="1fa1" amount="1" />
+                                 <skillcheck skillid="34" min="0" max="900" />
+                           </make>
+                           <fail>You failed to craft the tunic</fail>
+                        <success>You succeeded in crafting the tunic</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Surcoat</name>
+                           <model>0x1ffd</model>
+                           <description>A surcoat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="14" />
+                                 <makeitem section="1ffd" amount="1" />
+                                 <skillcheck skillid="34" min="082" max="200" />
+                           </make>
+                           <fail>You failed to craft the surcoat</fail>
+                        <success>You succeeded in crafting the surcoat</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Jesters Suit</name>
+                           <model>0x1f9f</model>
+                           <description>A Jesters Suit</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="24" />
+                                 <makeitem section="1f9f" amount="1" />
+                                 <skillcheck skillid="34" min="082" max="200" />
+                           </make>
+                           <fail>You failed to craft the jesters suit</fail>
+                        <success>You succeeded in crafting the jesters suit</success>
+                   </action>
+
+             </menu>
+
+             <menu id="TAILORING_PANTS">
+                   <name>Pants/Skirts</name>
+
+                   <action typ="resource">
+                           <name>short Pants</name>
+                           <model>0x152e</model>
+                           <description>Short pants</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="6" />
+                                 <makeitem section="152e" amount="1" />
+                                 <skillcheck skillid="34" min="248" max="375" />
+                           </make>
+                           <fail>You failed to craft the short pants</fail>
+                        <success>You succeeded in crafting the short pants</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>long Pants</name>
+                           <model>0x1539</model>
+                           <description>Long pants</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="8" />
+                                 <makeitem section="1539" amount="1" />
+                                 <skillcheck skillid="34" min="248" max="375" />
+                           </make>
+                           <fail>You failed to craft the long pants</fail>
+                        <success>You succeeded in crafting the long pants</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>a kilt</name>
+                           <model>0x1537</model>
+                           <description>a kilt</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="8" />
+                                 <makeitem section="1537" amount="1" />
+                                 <skillcheck skillid="34" min="207" max="314" />
+                           </make>
+                           <fail>You failed to craft the kilt</fail>
+                        <success>You succeeded in crafting the kilt</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>a skirt</name>
+                           <model>0x1516</model>
+                           <description>a skirt</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="10" />
+                                 <makeitem section="1516" amount="1" />
+                                 <skillcheck skillid="34" min="290" max="435" />
+                           </make>
+                           <fail>You failed to craft the skirt</fail>
+                        <success>You succeeded in crafting the skirt</success>
+                   </action>
+
+             </menu>
+
+             <menu id="TAILORING_HATS">
+                   <name>Hats/Caps</name>
+
+                   <action typ="resource">
+                           <name>Skullcap</name>
+                           <model>0x1544</model>
+                           <description>A skullcap</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="2" />
+                                 <makeitem section="1544" amount="1" />
+                                 <skillcheck skillid="34" min="0" max="1000" />
+                           </make>
+                           <fail>You failed to craft the skullcap</fail>
+                        <success>You succeeded in crafting the skullcap</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Bandana</name>
+                           <model>0x1540</model>
+                           <description>A bandana</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="2" />
+                                 <makeitem section="1540" amount="1" />
+                                 <skillcheck skillid="34" min="0" max="1000" />
+                           </make>
+                           <fail>You failed to craft the bandana</fail>
+                        <success>You succeeded in crafting the bandana</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Floppy Hat</name>
+                           <model>0x1713</model>
+                           <description>A floppy hat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="11" />
+                                 <makeitem section="1713" amount="1" />
+                                 <skillcheck skillid="34" min="081" max="160" />
+                           </make>
+                           <fail>You failed to craft the floppy hat</fail>
+                        <success>You succeeded in crafting the floppy hat</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Cap</name>
+                           <model>0x1715</model>
+                           <description>A cap</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="11" />
+                                 <makeitem section="1715" amount="1" />
+                                 <skillcheck skillid="34" min="062" max="120" />
+                           </make>
+                           <fail>You failed to craft the cap</fail>
+                        <success>You succeeded in crafting the cap</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Wide-brim hat</name>
+                           <model>0x1714</model>
+                           <description>A wide-brim hat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="12" />
+                                 <makeitem section="1714" amount="1" />
+                                 <skillcheck skillid="34" min="062" max="120" />
+                           </make>
+                           <fail>You failed to craft the wide-brim hat</fail>
+                        <success>You succeeded in crafting the wide-brim hat</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Straw hat</name>
+                           <model>0x1717</model>
+                           <description>A straw hat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="10" />
+                                 <makeitem section="1717" amount="1" />
+                                 <skillcheck skillid="34" min="062" max="120" />
+                           </make>
+                           <fail>You failed to craft the straw hat</fail>
+                        <success>You succeeded in crafting the straw hat</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Tall straw hat</name>
+                           <model>0x1716</model>
+                           <description>A tall straw hat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="13" />
+                                 <makeitem section="1716" amount="1" />
+                                 <skillcheck skillid="34" min="067" max="130" />
+                           </make>
+                           <fail>You failed to craft the tall straw hat</fail>
+                        <success>You succeeded in crafting the tall straw hat</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Wizard hat</name>
+                           <model>0x1718</model>
+                           <description>A wizard hat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="15" />
+                                 <makeitem section="1718" amount="1" />
+                                 <skillcheck skillid="34" min="072" max="140" />
+                           </make>
+                           <fail>You failed to craft the wizard hat</fail>
+                        <success>You succeeded in crafting the wizard hat</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Bonnet</name>
+                           <model>0x1719</model>
+                           <description>A bonnet</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="11" />
+                                 <makeitem section="1719" amount="1" />
+                                 <skillcheck skillid="34" min="062" max="130" />
+                           </make>
+                           <fail>You failed to craft the bonnet</fail>
+                        <success>You succeeded in crafting the bonnet</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Feathered hat</name>
+                           <model>0x171a</model>
+                           <description>A feathered hat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="12" />
+                                 <makeitem section="171a" amount="1" />
+                                 <skillcheck skillid="34" min="062" max="130" />
+                           </make>
+                           <fail>You failed to craft the feathered hat</fail>
+                        <success>You succeeded in crafting the feathered hat</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Tricorne</name>
+                           <model>0x171b</model>
+                           <description>A tricorne</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="12" />
+                                 <makeitem section="171b" amount="1" />
+                                 <skillcheck skillid="34" min="062" max="130" />
+                           </make>
+                           <fail>You failed to craft the tricorne</fail>
+                        <success>You succeeded in crafting the tricorne</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Jester hat</name>
+                           <model>0x171c</model>
+                           <description>A jester hat</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="15" />
+                                 <makeitem section="171c" amount="1" />
+                                 <skillcheck skillid="34" min="072" max="140" />
+                           </make>
+                           <fail>You failed to craft the jester hat</fail>
+                        <success>You succeeded in crafting the jester hat</success>
+                   </action>
+
+             </menu>
+
+             <menu id="TAILORING_MISC">
+                   <name>Miscellaneous</name>
+
+                   <action typ="resource">
+                           <name>Body Sash</name>
+                           <model>0x1541</model>
+                           <description>A body sash</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="4" />
+                                 <makeitem section="1541" amount="1" />
+                                 <skillcheck skillid="34" min="042" max="100" />
+                           </make>
+                           <fail>You failed to craft the body sash</fail>
+                        <success>You succeeded in crafting the body sash</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Half apron</name>
+                           <model>0x153b</model>
+                           <description>A half apron</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="6" />
+                                 <makeitem section="153b" amount="1" />
+                                 <skillcheck skillid="34" min="207" max="304" />
+                           </make>
+                           <fail>You failed to craft the half apron</fail>
+                        <success>You succeeded in crafting the half apron</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Full apron</name>
+                           <model>0x153d</model>
+                           <description>A full apron</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="10" />
+                                 <makeitem section="153d" amount="1" />
+                                 <skillcheck skillid="34" min="290" max="435" />
+                           </make>
+                           <fail>You failed to craft the full apron</fail>
+                        <success>You succeeded in crafting the full apron</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Oil cloth</name>
+                           <model>0xa58</model>
+                           <description>a oil cloth</description>
+                           <make>
+                                 <useitem itemid="0x1765-0x1768" name="clothes" amount="1" />
+                                 <makeitem section="a58" amount="1" />
+                                 <skillcheck skillid="34" min="746" max="1000" />
+                           </make>
+                           <fail>You failed to craft the oil cloth</fail>
+                        <success>You succeeded in crafting the oil cloth</success>
+                   </action>
+
+             </menu>
+
+             <menu id="TAILORING_FOOT">
+                   <name>Footwear</name>
+
+                   <action typ="resource">
+                           <name>Sandals</name>
+                           <model>0x170d</model>
+                           <description>Sandals</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="4" />
+                                 <makeitem section="170d" amount="1" />
+                                 <skillcheck skillid="34" min="124" max="186" />
+                           </make>
+                           <fail>You failed to craft the sandals</fail>
+                        <success>You succeeded in crafting the sandals</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Shoes</name>
+                           <model>0x170f</model>
+                           <description>Shoes</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="6" />
+                                 <makeitem section="170f" amount="1" />
+                                 <skillcheck skillid="34" min="165" max="218" />
+                           </make>
+                           <fail>You failed to craft the shoes</fail>
+                        <success>You succeeded in crafting the shoes</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Boots</name>
+                           <model>0x170b</model>
+                           <description>Boots</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="8" />
+                                 <makeitem section="170b" amount="1" />
+                                 <skillcheck skillid="34" min="331" max="481" />
+                           </make>
+                           <fail>You failed to craft the boots</fail>
+                        <success>You succeeded in crafting the boots</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>Tigh boots</name>
+                           <model>0x1711</model>
+                           <description>Tigh boots</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="10" />
+                                 <makeitem section="1711" amount="1" />
+                                 <skillcheck skillid="34" min="414" max="621" />
+                           </make>
+                           <fail>You failed to craft the tigh boots</fail>
+                        <success>You succeeded in crafting the tigh boots</success>
+                   </action>
+
+             </menu>
+
+             <menu id="TAILORING_LEATHERARMOR">
+                   <name>Leather armor</name>
+
+                   <action typ="resource">
+                           <name>leather gorget</name>
+                           <model>0x13c7</model>
+                           <description>a leather gorget</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="4" />
+                                 <makeitem section="13c7" amount="1" />
+                                 <skillcheck skillid="34" min="439" max="658" />
+                           </make>
+                           <fail>You failed to craft the leather gorget</fail>
+                        <success>You succeeded in crafting the leather gorget</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather cap</name>
+                           <model>0x1db9</model>
+                           <description>a leather cap</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="2" />
+                                 <makeitem section="1db9" amount="1" />
+                                 <skillcheck skillid="34" min="062" max="120" />
+                           </make>
+                           <fail>You failed to craft the leather cap</fail>
+                        <success>You succeeded in crafting the leather cap</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather gloves</name>
+                           <model>0x13c6</model>
+                           <description>leather gloves</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="3" />
+                                 <makeitem section="13c6" amount="1" />
+                                 <skillcheck skillid="34" min="518" max="787" />
+                                                            </make>
+                           <fail>You failed to craft the leather gloves</fail>
+                        <success>You succeeded in crafting the leather gloves</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather sleeves</name>
+                           <model>0x13c5</model>
+                           <description>leather sleeves</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="4" />
+                                 <makeitem section="13c5" amount="1" />
+                                 <skillcheck skillid="34" min="539" max="800" />
+                                                            </make>
+                           <fail>You failed to craft the leather sleeves</fail>
+                        <success>You succeeded in crafting the leather sleeves</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather leggings</name>
+                           <model>0x13cb</model>
+                           <description>leather leggings</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="10" />
+                                 <makeitem section="13cb" amount="1" />
+                                 <skillcheck skillid="34" min="663" max="1000" />
+                                                            </make>
+                           <fail>You failed to craft the leather leggings</fail>
+                        <success>You succeeded in crafting the leather leggings</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather tunic</name>
+                           <model>0x13cc</model>
+                           <description>a leather tunic</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="12" />
+                                 <makeitem section="13cc" amount="1" />
+                                 <skillcheck skillid="34" min="705" max="1000" />
+                                                            </make>
+                           <fail>You failed to craft the leather tunic</fail>
+                        <success>You succeeded in crafting the leather tunic</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather shorts</name>
+                           <model>0x1c00</model>
+                           <description>leather shorts</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="8" />
+                                 <makeitem section="1c00" amount="1" />
+                                 <skillcheck skillid="34" min="622" max="933" />
+                                                            </make>
+                           <fail>You failed to craft the leather shorts</fail>
+                        <success>You succeeded in crafting the leather shorts</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather skirt</name>
+                           <model>0x1c08</model>
+                           <description>a leather skirt</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="6" />
+                                 <makeitem section="1c08" amount="1" />
+                                 <skillcheck skillid="34" min="580" max="860" />
+                                                            </make>
+                           <fail>You failed to craft the leather skirt</fail>
+                        <success>You succeeded in crafting the leather skirt</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>leather bustier</name>
+                           <model>0x1c0a</model>
+                           <description>a leather bustier</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="6" />
+                                 <makeitem section="1c0a" amount="1" />
+                                 <skillcheck skillid="34" min="580" max="860" />
+                                                            </make>
+                           <fail>You failed to craft the leather bustier</fail>
+                        <success>You succeeded in crafting the leather bustier</success>
+                   </action>
+
+                   <action typ="resource">
+                           <name>womans leather armor</name>
+                           <model>0x1c0a</model>
+                           <description>a leather for woman</description>
+                           <make>
+                                 <useitem itemid="0x1067,0x1068,0x1081,0x1082" name="hides" amount="8" />
+                                 <makeitem section="1c0a" amount="1" />
+                                 <skillcheck skillid="34" min="622" max="933" />
+                                                            </make>
+                           <fail>You failed to craft the leather armor</fail>
+                        <success>You succeeded in crafting the leather armor</success>
+                   </action>
+
+             </menu>
+
+</definitions>
