@@ -45,6 +45,7 @@
 
 // System includes
 #include <algorithm>
+#include <exception>
 #include <assert.h>
 
 class MapsPrivate
