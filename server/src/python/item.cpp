@@ -78,7 +78,8 @@ static PyTypeObject wpItemType = {
     "wpitem",
     sizeof(wpItemType),
     0,
-    FreeItemObject,				
+    //FreeItemObject,				
+	wpDealloc,
     0,								
     (getattrfunc)wpItem_getAttr,
     (setattrfunc)wpItem_setAttr,
@@ -90,7 +91,8 @@ inline PyObject* PyGetItemObject( P_ITEM item )
 	if( item == NULL )
 		return Py_None;
 
-	wpItem *returnVal = (wpItem*)ItemCache::instance()->allocObj( 50, &wpItemType );
+//	wpItem *returnVal = (wpItem*)ItemCache::instance()->allocObj( 50, &wpItemType );
+	wpItem *returnVal = PyObject_New( wpItem, &wpItemType );
 	returnVal->pItem = item;
 	return (PyObject*)returnVal;
 }

@@ -81,8 +81,9 @@ static PyTypeObject wpCharType = {
     "wpchar",
     sizeof(wpCharType),
     0,
-    FreeCharObject,
-    0,
+//	FreeCharObject,
+	wpDealloc,    
+	0,
     (getattrfunc)wpChar_getAttr,
     (setattrfunc)wpChar_setAttr,
 	wpChar_compare,
@@ -93,7 +94,8 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 	if( !pChar )
 		return Py_None;
 
-	wpChar *returnVal = (wpChar*)CharCache::instance()->allocObj( 50, &wpCharType );
+	//wpChar *returnVal = (wpChar*)CharCache::instance()->allocObj( 50, &wpCharType );
+	wpChar *returnVal = PyObject_New( wpChar, &wpCharType );
 	returnVal->pChar = pChar;
 	return (PyObject*)returnVal;
 }
