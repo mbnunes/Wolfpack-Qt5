@@ -13,7 +13,6 @@
 		<name>ice snake</name>
 		<id>52</id>
 		<skin>0x480</skin>
-		
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
@@ -23,9 +22,9 @@
 		<maxmana>0</maxmana>
 		<maxhitpoints><random min="27" max="31" /></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="393" max="540" /></wrestling>
-		<tactics><random min="393" max="540" /></tactics>
-		<magicresistance><random min="151" max="200" /></magicresistance>
+		<skill id="wrestling"><random min="393" max="540" /></skill>
+		<skill id="tactics"><random min="393" max="540" /></skill>
+		<skill id="magicresistance"><random min="151" max="200" /></skill>
 		<!-- Damage -->
 		<mindamage>5</mindamage>
 		<maxdamage>17</maxdamage>

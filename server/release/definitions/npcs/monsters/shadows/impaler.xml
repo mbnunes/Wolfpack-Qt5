@@ -20,11 +20,11 @@
 		<int>190</int>
 		<maxhitpoints>5000</maxhitpoints>
 		<!-- Skills -->
-		<magicresistance>1000</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>800</wrestling>
-		<poisoning>1600</poisoning>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance">1000</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">800</skill>
+		<skill id="poisoning">1600</skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>72</mindamage>
 		<maxdamage>79</maxdamage>
@@ -40,7 +40,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Impaler</category>
 		<strproperty name="slayer_group" value="daemons" />
-		
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="5" />
 	</npc>

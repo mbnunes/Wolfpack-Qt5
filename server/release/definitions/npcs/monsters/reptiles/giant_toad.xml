@@ -21,9 +21,9 @@
 		<maxmana>0</maxmana>
 		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="251" max="400"/></magicresistance>
-		<tactics><random min="401" max="600"/></tactics>
-		<wrestling><random min="401" max="600"/></wrestling>
+		<skill id="magicresistance"><random min="251" max="400"/></skill>
+		<skill id="tactics"><random min="401" max="600"/></skill>
+		<skill id="wrestling"><random min="401" max="600"/></skill>
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>27</maxdamage>
@@ -37,10 +37,10 @@
 		<lootpacks>lootpack_poor</lootpacks>
 		<mintaming>771</mintaming>
 		<category>Monsters\Reptiles\Giant Toad</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
-		<strproperty name="carve_hides_type" value="spined" />		
+		<strproperty name="carve_hides_type" value="spined" />
 	</npc>
 
 </definitions>

@@ -21,10 +21,10 @@
 		<int><random min="21" max="40" /></int>
 		<maxhitpoints><random min="97" max="216" /></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="851" max="1000" /></wrestling>
-		<tactics><random min="801" max="950" /></tactics>
-		<magicresistance><random min="951" max="1000" /></magicresistance>
-		<poisoning><random min="901" max="1000" /></poisoning>
+		<skill id="wrestling"><random min="851" max="1000" /></skill>
+		<skill id="tactics"><random min="801" max="950" /></skill>
+		<skill id="magicresistance"><random min="951" max="1000" /></skill>
+		<skill id="poisoning"><random min="901" max="1000" /></skill>
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>53</maxdamage>
@@ -41,7 +41,7 @@
 		<category>Monsters\Reptiles\Silver Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
 		<intproperty name="carve_meat" value="1" />
-		
+
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 	</npc>

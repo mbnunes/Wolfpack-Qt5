@@ -22,13 +22,13 @@
 		<maxhitpoints>6000</maxhitpoints>
 		<!-- Skills -->
 		<!-- Yes this thing is VERY powerfull... -->
-		<evaluatingintelligence>2000</evaluatingintelligence>
-		<magicresistance><random min="1176" max="1200"/></magicresistance>
-		<tactics>1000</tactics>
-		<wrestling><random min="841" max="880"/></wrestling>
-		<magery><random min="1126" max="1175"/></magery>
-		<anatomy>0</anatomy>
-		<meditation>2000</meditation>
+		<skill id="evaluatingintelligence">2000</skill>
+		<skill id="magicresistance"><random min="1176" max="1200"/></skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling"><random min="841" max="880"/></skill>
+		<skill id="magery"><random min="1126" max="1175"/></skill>
+		<skill id="anatomy">0</skill>
+		<skill id="meditation">2000</skill>
 		<!-- Damage -->
 		<mindamage>39</mindamage>
 		<maxdamage>49</maxdamage>

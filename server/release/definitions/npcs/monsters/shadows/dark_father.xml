@@ -23,13 +23,13 @@
 		<maxhitpoints>30000</maxhitpoints>
 		<maxmana>5000</maxmana>
 		<!-- Skills -->
-		<magicresistance>1500</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>1200</wrestling>
-		<anatomy>0</anatomy>
-		<evaluatingintelligence>1000</evaluatingintelligence>
-		<magery>1000</magery>
-		<meditation>1200</meditation>
+		<skill id="magicresistance">1500</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">1200</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="evaluatingintelligence">1000</skill>
+		<skill id="magery">1000</skill>
+		<skill id="meditation">1200</skill>
 		<!-- Damage -->
 		<mindamage>56</mindamage>
 		<maxdamage>67</maxdamage>
