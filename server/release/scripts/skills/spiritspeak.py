@@ -62,7 +62,7 @@ def effect(char, args):
 	items = wolfpack.items(pos.x, pos.y, pos.map, 3)
 	corpses = []
 	for item in items:
-		if item.baseid == '2006' and not item.hastag('drained'):
+		if item.baseid == '2006' and not item.hastag('drained') and item.id == 0x2006:
 			corpses.append(item)
 
 	# There was an undrained corpse near the player using
