@@ -9,6 +9,9 @@ from glob import glob
 paths = sys.argv[1:]
 commands = []
 events = []
+objects = []
+objectsmethods = []
+objectsproperties = []
 
 if len(paths) == 0:
 	print "Usage: python generate.py path1[,path2,...]"
@@ -17,12 +20,16 @@ if len(paths) == 0:
 def examine(path):
 	global commands
 	global events
+	global objects
+	global objectsmethods
+	global objectsproperties
+	
 	#print "Examining %s..." % path
 	files = glob(path + '/*.py')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents) = parsepython(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsepython(file)
 			commands += newcommands
 			events += newevents
 			
@@ -30,17 +37,23 @@ def examine(path):
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsecpp(file)
 			commands += newcommands
 			events += newevents
+			objects += newobjects
+			objectsmethods += newobjectsmethods
+			objectsproperties += newobjectsproperties
 			
 	files = glob(path + '/*.h')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsecpp(file)
 			commands += newcommands
 			events += newevents
+			objects += newobjects
+			objectsmethods += newobjectsmethods
+			objectsproperties += newobjectsproperties			
 	
 	# Get subdirectories and process them
 	entries = glob(path + '/*')
@@ -57,6 +70,8 @@ def quote(text):
 print "DELETE FROM documentation_commands;"
 print "DELETE FROM documentation_settings;"
 print "DELETE FROM documentation_events;"
+print "DELETE FROM documentation_objects;"
+print "DELETE FROM documentation_objects_methods;"
 
 # Time
 print "INSERT INTO documentation_settings VALUES('generated', %u);" % int(time.time())
@@ -67,3 +82,9 @@ for command in commands:
 
 for event in events:
 	print "INSERT INTO documentation_events VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(event['name']), quote(event['prototype']), quote(event['parameters']), quote(event['returnvalue']), quote(event['callcondition']), quote(event['notes']))
+
+for object in objects:
+	print "INSERT INTO documentation_objects VALUES('%s', '%s');" % (quote(object['object']), quote(object['description']))
+	
+for method in objectsmethods:
+	print "INSERT INTO documentation_objects_methods VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(method['object']), quote(method['method']), quote(method['prototype']), quote(method['parameters']), quote(method['returnvalue']), quote(method['description']))

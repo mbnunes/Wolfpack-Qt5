@@ -3,7 +3,7 @@
 	$db_host = 'localhost';
 	$db_name = 'wpdev';
 	$db_username = 'wpdev';
-	$db_password = '';
+	$db_password = 'indiana';
 	
 	// Connect to the database host.
 	if (!@mysql_connect($db_host, $db_username, $db_password)) {

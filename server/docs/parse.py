@@ -2,8 +2,10 @@
 import re
 
 COMMAND_NAME_PATTERN = re.compile("\\\\command\s(\w+)", re.S)
-COMMAND_DESCRIPTION_PATTERN = re.compile('\\\\description\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
-COMMAND_USAGE_PATTERN = re.compile('\\\\usage\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
+OBJECT_NAME_PATTERN = re.compile("\\\\object\s(\w+)", re.S)
+METHOD_NAME_PATTERN = re.compile("\\\\method\s([\w\.]+)", re.S)
+DESCRIPTION_PATTERN = re.compile('\\\\description\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
+USAGE_PATTERN = re.compile('\\\\usage\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 NOTES_PATTERN = re.compile('\\\\notes\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 RETURNVALUE_PATTERN = re.compile('\\\\return\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 CALLCONDITION_PATTERN = re.compile('\\\\condition\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
@@ -43,12 +45,12 @@ def parsecommand(text):
 		name = result.group(1).upper()
 
 	# Search for the description
-	result = COMMAND_DESCRIPTION_PATTERN.search(text)
+	result = DESCRIPTION_PATTERN.search(text)
 	if result:
 		description = result.group(1)
 		
 	# Search for the usage
-	result = COMMAND_USAGE_PATTERN.search(text)
+	result = USAGE_PATTERN.search(text)
 	if result:
 		usage = result.group(1)
 		
@@ -63,6 +65,85 @@ def parsecommand(text):
 		'usage': processtext(usage),
 		'notes': processtext(notes),
 	}
+	
+#
+# Parse an object comment
+#
+def parseobject(text):
+	name = ''
+	description = ''
+
+	# Get the object name we're documenting
+	result = OBJECT_NAME_PATTERN.search(text)
+	if not result:
+		return None
+	else:
+		name = result.group(1).upper()
+
+	# Search for the description
+	result = DESCRIPTION_PATTERN.search(text)
+	if result:
+		description = result.group(1)
+	
+	return {
+		'object': processtext(name),
+		'description': processtext(description),
+	}	
+	
+#
+# Parse an object method comment
+#
+def parsemethod(text):
+	object = ''
+	method = ''
+	description = ''
+	prototype = ''
+	parameters = ''
+	returnvalue = ''
+
+	# Get the object name we're documenting
+	result = METHOD_NAME_PATTERN.search(text)
+	if not result:
+		return None
+	else:
+		name = result.group(1).split('.', 1)
+		if len(name) != 2:
+			return None
+		else:
+			object = name[0].upper()
+			method = name[1]
+
+	# Search for the description
+	result = DESCRIPTION_PATTERN.search(text)
+	if result:
+		description = result.group(1)
+	
+	# Search for the returnvalue
+	result = RETURNVALUE_PATTERN.search(text)
+	if result:
+		returnvalue = result.group(1)	
+
+	parameters = [] # Generate a list of parameters
+	paramnames = []
+	
+	results = PARAM_PATTERN.findall(text)
+	for result in results:
+		param = result[0].strip()
+		desc = result[1].strip()
+		parameters.append("- <i>%s</i>\n%s" % (param, desc))
+		paramnames.append(param)
+
+	# Generate the prototype
+	prototype = "%s(%s)" % (method, ', '.join(paramnames))
+	
+	return {
+		'object': processtext(object),
+		'method': processtext(method),
+		'description': processtext(description),
+		'returnvalue': processtext(returnvalue),
+		'parameters': processtext("\n\n".join(parameters)),
+		'prototype': processtext(prototype),
+	}		
 
 #
 # Parse a event comment
@@ -137,7 +218,7 @@ def parsepython(filename):
 			command = parsecommand(text)
 			if command:
 				commands.append(command)
-	return (commands, [])
+	return (commands, [], [], [], [])
 
 #
 # The following function parses a C++ file 
@@ -152,6 +233,9 @@ def parsecpp(filename):
 
 	commands = []
 	events = []
+	objects = []
+	objectsmethods = []
+	objectsproperties = []
 
 	results = pattern.finditer(content)
 	for result in results:
@@ -164,6 +248,14 @@ def parsecpp(filename):
 			event = parseevent(text)
 			if event:
 				events.append(event)
+		elif text.startswith('\\object'):
+			object = parseobject(text)
+			if object:
+				objects.append(object)
+		elif text.startswith('\\method'):
+			method = parsemethod(text)
+			if method:
+				objectsmethods.append(method)
 
 	# See if there is a version string in this file
 	result = re.compile("inline\s+const\s+char\s*\*\s*productVersion\(\)\s*\{\s*return\s+\"([^\"]+)\"\;", re.S).search(content)
@@ -179,4 +271,4 @@ def parsecpp(filename):
 		global BETA
 		BETA = result.group(1)		
 
-	return (commands, events)
+	return (commands, events, objects, objectsmethods, objectsproperties)
