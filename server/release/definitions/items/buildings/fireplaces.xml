@@ -1,0 +1,73 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Fireplaces & Ovens                                            |
+=================================================================
+-->
+<definitions>
+	<!-- Sandstone Fireplace -->
+	<item id="45d">
+		<id>0x045d</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (W/E) (1/2)</category>
+	</item>
+
+	<item id="45e">
+		<id>0x045e</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (W/E) (2/2)</category>
+	</item>
+
+	<item id="45f">
+		<id>0x045f</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (N/S) (1/2)</category>
+	</item>
+
+	<item id="460">
+		<id>0x0460</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Empty Sandstone Fireplace (N/S) (2/2)</category>
+	</item>
+
+	<!-- Sandstone Oven -->
+	<item id="461">
+		<id>0x0461</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (W/E) (1/2)</category>
+	</item>
+
+	<item id="462">
+		<id>0x0462</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (W/E) (2/2)</category>
+	</item>
+
+	<item id="46a">
+		<id>0x046a</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (N/S) (1/2)</category>
+	</item>
+
+	<item id="46f">
+		<id>0x046f</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Oven (N/S) (2/2)</category>
+	</item>
+
+	<item id="475">
+		<id>0x0475</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (W/E) (1/2)</category>
+	</item>
+
+	<item id="47b">
+		<id>0x047b</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (N/S) (1/2)</category>
+	</item>
+
+	<item id="482">
+		<id>0x0482</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (N/S) (2/2)</category>
+	</item>
+
+	<item id="489">
+		<id>0x0489</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Sandstone Fireplace (W/E) (2/2)</category>
+	</item>
+</definitions>

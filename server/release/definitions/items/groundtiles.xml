@@ -1,0 +1,112 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Ground Tiles                                                  |
+=================================================================
+-->
+<definitions>
+	<!-- Unlabeled -->
+	<item id="40b">
+		<id>0x040b</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 1</category>
+	</item>
+
+	<item id="40c">
+		<id>0x040c</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 2</category>
+	</item>
+
+	<item id="40d">
+		<id>0x040d</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 3</category>
+	</item>
+
+	<item id="40e">
+		<id>0x040e</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 4</category>
+	</item>
+
+	<item id="40f">
+		<id>0x040f</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 5</category>
+	</item>
+
+	<item id="410">
+		<id>0x0410</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 6</category>
+	</item>
+
+	<item id="411">
+		<id>0x0411</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 7</category>
+	</item>
+
+	<item id="412">
+		<id>0x0412</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 8</category>
+	</item>
+
+	<item id="413">
+		<id>0x0413</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 9</category>
+	</item>
+
+	<item id="414">
+		<id>0x0414</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 10</category>
+	</item>
+
+	<item id="415">
+		<id>0x0415</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 11</category>
+	</item>
+
+	<item id="416">
+		<id>0x0416</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 12</category>
+	</item>
+
+	<item id="417">
+		<id>0x0417</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 13</category>
+	</item>
+
+	<item id="418">
+		<id>0x0418</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 14</category>
+	</item>
+
+	<item id="419">
+		<id>0x0419</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 15</category>
+	</item>
+
+	<item id="41a">
+		<id>0x041a</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 16</category>
+	</item>
+
+	<item id="41b">
+		<id>0x041b</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 17</category>
+	</item>
+
+	<item id="41c">
+		<id>0x041c</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 18</category>
+	</item>
+
+	<item id="41d">
+		<id>0x041d</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 19</category>
+	</item>
+
+	<item id="41e">
+		<id>0x041e</id>
+		<category>Ground Tiles\Unlabeled\Unlabeled 20</category>
+	</item>
+</definitions>

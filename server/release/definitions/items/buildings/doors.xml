@@ -633,4 +633,401 @@
 		<category>Buildings\Doors\Barred Metal Door 2 (W/NW)</category>
 	</item>
 
+	<!-- Secret Doors Stone 1 -->
+	<item id="e8">
+		<id>0x00e8</id>
+	</item>
+
+	<item id="e9">
+		<id>0x00e9</id>
+	</item>
+
+	<item id="ea">
+		<id>0x00ea</id>
+	</item>
+
+	<item id="eb">
+		<id>0x00eb</id>
+	</item>
+
+	<item id="ec">
+		<id>0x00ec</id>
+	</item>
+
+	<item id="ed">
+		<id>0x00ed</id>
+	</item>
+
+	<item id="ee">
+		<id>0x00ee</id>
+	</item>
+
+	<item id="ef">
+		<id>0x00ef</id>
+	</item>
+
+	<item id="f0">
+		<id>0x00f0</id>
+	</item>
+
+	<item id="f1">
+		<id>0x00f1</id>
+	</item>
+
+	<item id="f2">
+		<id>0x00f2</id>
+	</item>
+
+	<item id="f3">
+		<id>0x00f3</id>
+	</item>
+
+	<item id="f4">
+		<id>0x00f4</id>
+	</item>
+
+	<item id="f5">
+		<id>0x00f5</id>
+	</item>
+
+	<item id="f6">
+		<id>0x00f6</id>
+	</item>
+
+	<item id="f7">
+		<id>0x00f7</id>
+	</item>	
+
+	<!-- Secret Doors Dungeon -->
+	<item id="314">
+		<id>0x0314</id>
+	</item>
+
+	<item id="315">
+		<id>0x0315</id>
+	</item>
+
+	<item id="316">
+		<id>0x0316</id>
+	</item>
+
+	<item id="317">
+		<id>0x0317</id>
+	</item>
+
+	<item id="318">
+		<id>0x0318</id>
+	</item>
+
+	<item id="319">
+		<id>0x0319</id>
+	</item>
+
+	<item id="31a">
+		<id>0x031a</id>
+	</item>
+
+	<item id="31b">
+		<id>0x031b</id>
+	</item>
+
+	<item id="31c">
+		<id>0x031c</id>
+	</item>
+
+	<item id="31d">
+		<id>0x031d</id>
+	</item>
+
+	<item id="31e">
+		<id>0x031e</id>
+	</item>
+
+	<item id="31f">
+		<id>0x031f</id>
+	</item>
+
+	<item id="320">
+		<id>0x0320</id>
+	</item>
+
+	<item id="321">
+		<id>0x0321</id>
+	</item>
+
+	<item id="322">
+		<id>0x0322</id>
+	</item>
+
+	<item id="323">
+		<id>0x0323</id>
+	</item>
+
+	<!-- Secret Doors Stone 2 -->
+	<item id="324">
+		<id>0x0324</id>
+	</item>
+
+	<item id="325">
+		<id>0x0325</id>
+	</item>
+
+	<item id="326">
+		<id>0x0326</id>
+	</item>
+
+	<item id="327">
+		<id>0x0327</id>
+	</item>
+
+	<item id="328">
+		<id>0x0328</id>
+	</item>
+
+	<item id="329">
+		<id>0x0329</id>
+	</item>
+
+	<item id="32a">
+		<id>0x032a</id>
+	</item>
+
+	<item id="32b">
+		<id>0x032b</id>
+	</item>
+
+	<item id="32c">
+		<id>0x032c</id>
+	</item>
+
+	<item id="32d">
+		<id>0x032d</id>
+	</item>
+
+	<item id="32e">
+		<id>0x032e</id>
+	</item>
+
+	<item id="32f">
+		<id>0x032f</id>
+	</item>
+
+	<item id="330">
+		<id>0x0330</id>
+	</item>
+
+	<item id="331">
+		<id>0x0331</id>
+	</item>
+
+	<item id="332">
+		<id>0x0332</id>
+	</item>
+
+	<item id="333">
+		<id>0x0333</id>
+	</item>
+
+	<!-- Secret Doors Wooden 1 -->
+	<item id="334">
+		<id>0x0334</id>
+	</item>
+
+	<item id="335">
+		<id>0x0335</id>
+	</item>
+
+	<item id="336">
+		<id>0x0336</id>
+	</item>
+
+	<item id="337">
+		<id>0x0337</id>
+	</item>
+
+	<item id="338">
+		<id>0x0338</id>
+	</item>
+
+	<item id="339">
+		<id>0x0339</id>
+	</item>
+
+	<item id="33a">
+		<id>0x033a</id>
+	</item>
+
+	<item id="33b">
+		<id>0x033b</id>
+	</item>
+
+	<item id="33c">
+		<id>0x033c</id>
+	</item>
+
+	<item id="33d">
+		<id>0x033d</id>
+	</item>
+
+	<item id="33e">
+		<id>0x033e</id>
+	</item>
+
+	<item id="33f">
+		<id>0x033f</id>
+	</item>
+
+	<item id="340">
+		<id>0x0340</id>
+	</item>
+
+	<item id="341">
+		<id>0x0341</id>
+	</item>
+
+	<item id="342">
+		<id>0x0342</id>
+	</item>
+
+	<item id="343">
+		<id>0x0343</id>
+	</item>
+
+	<item id="344">
+		<id>0x0344</id>
+	</item>
+
+	<!-- Secret Doors Wooden 2 -->
+	<item id="345">
+		<id>0x0345</id>
+	</item>
+
+	<item id="346">
+		<id>0x0346</id>
+	</item>
+
+	<item id="347">
+		<id>0x0347</id>
+	</item>
+
+	<item id="348">
+		<id>0x0348</id>
+	</item>
+
+	<item id="349">
+		<id>0x0349</id>
+	</item>
+
+	<item id="34a">
+		<id>0x034a</id>
+	</item>
+
+	<item id="34b">
+		<id>0x034b</id>
+	</item>
+
+	<item id="34c">
+		<id>0x034c</id>
+	</item>
+
+	<item id="34d">
+		<id>0x034d</id>
+	</item>
+
+	<item id="34e">
+		<id>0x034e</id>
+	</item>
+
+	<item id="34f">
+		<id>0x034f</id>
+	</item>
+
+	<item id="350">
+		<id>0x0350</id>
+	</item>
+
+	<item id="351">
+		<id>0x0351</id>
+	</item>
+
+	<item id="352">
+		<id>0x0352</id>
+	</item>
+
+	<item id="353">
+		<id>0x0353</id>
+	</item>
+
+	<!-- Secret Doors Stone 3 -->
+	<item id="354">
+		<id>0x0354</id>
+	</item>
+
+	<item id="355">
+		<id>0x0355</id>
+	</item>
+
+	<item id="356">
+		<id>0x0356</id>
+	</item>
+
+	<item id="357">
+		<id>0x0357</id>
+	</item>
+
+	<item id="358">
+		<id>0x0358</id>
+	</item>
+
+	<item id="359">
+		<id>0x0359</id>
+	</item>
+
+	<item id="35a">
+		<id>0x035a</id>
+	</item>
+
+	<item id="35b">
+		<id>0x035b</id>
+	</item>
+
+	<item id="35c">
+		<id>0x035c</id>
+	</item>
+
+	<item id="35d">
+		<id>0x035d</id>
+	</item>
+
+	<item id="35e">
+		<id>0x035e</id>
+	</item>
+
+	<item id="35f">
+		<id>0x035f</id>
+	</item>
+
+	<item id="360">
+		<id>0x0360</id>
+	</item>
+
+	<item id="361">
+		<id>0x0361</id>
+	</item>
+
+	<item id="362">
+		<id>0x0362</id>
+	</item>
+
+	<item id="363">
+		<id>0x0363</id>
+	</item>
+
+	<item id="364">
+		<id>0x0364</id>
+	</item>
+
+	<item id="365">
+		<id>0x0365</id>
+	</item>
 </definitions>

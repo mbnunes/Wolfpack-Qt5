@@ -1,0 +1,888 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<!-- Aus der base.xml müssen folgende Items gelöscht werden:
+aa9 bis afa
+1098 bis 10a3
+1e36 bis 1e5b
+1dd3 bis 1dfc
+-->
+<definitions>
+        <!-- Rug - Brown -->
+        <item id="aa9">
+                <id>0x0aa9</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 1</category>
+        </item>
+
+        <item id="aaa">
+                <id>0x0aaa</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 2</category>
+        </item>
+
+        <item id="aab">
+                <id>0x0aab</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 3</category>
+        </item>
+
+        <item id="aac">
+                <id>0x0aac</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 4</category>
+        </item>
+
+        <item id="aad">
+                <id>0x0aad</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 5</category>
+        </item>
+
+        <item id="aae">
+                <id>0x0aae</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 6</category>
+        </item>
+
+        <item id="aaf">
+                <id>0x0aaf</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 7</category>
+        </item>
+
+        <item id="ab0">
+                <id>0x0ab0</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 8</category>
+        </item>
+
+        <item id="ab1">
+                <id>0x0ab1</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 9</category>
+        </item>
+
+        <item id="ab2">
+                <id>0x0ab2</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 10</category>
+        </item>
+
+        <item id="1dd3">
+                <id>0x1dd3</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 11</category>
+        </item>
+
+        <item id="1dd4">
+                <id>0x1dd4</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 12</category>
+        </item>
+
+        <item id="1dd5">
+                <id>0x1dd5</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 13</category>
+        </item>
+
+        <item id="1dd6">
+                <id>0x1dd6</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 14</category>
+        </item>
+
+        <item id="1dd7">
+                <id>0x1dd7</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 15</category>
+        </item>
+
+        <item id="1dd8">
+                <id>0x1dd8</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 16</category>
+        </item>
+
+        <item id="1dd9">
+                <id>0x1dd9</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 17</category>
+        </item>
+
+        <item id="1dda">
+                <id>0x1dda</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 18</category>
+        </item>
+
+        <item id="1ddb">
+                <id>0x1ddb</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 19</category>
+        </item>
+
+        <item id="1ddc">
+                <id>0x1ddc</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 20</category>
+        </item>
+
+        <item id="1ddd">
+                <id>0x1ddd</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 21</category>
+        </item>
+
+        <item id="1dde">
+                <id>0x1dde</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 22</category>
+        </item>
+
+        <item id="1ddf">
+                <id>0x1ddf</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 23</category>
+        </item>
+
+        <item id="1de0">
+                <id>0x1de0</id>
+                <category>Decoration\Carpets\Rug - Brown\Rug 24</category>
+        </item>
+
+        <!-- Rug - Green -->
+        <item id="ab3">
+                <id>0x0ab3</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 1</category>
+        </item>
+
+        <item id="ab4">
+                <id>0x0ab4</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 2</category>
+        </item>
+
+        <item id="ab5">
+                <id>0x0ab5</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 3</category>
+        </item>
+
+        <item id="ab6">
+                <id>0x0ab6</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 4</category>
+        </item>
+
+        <item id="ab7">
+                <id>0x0ab7</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 5</category>
+        </item>
+
+        <item id="ab8">
+                <id>0x0ab8</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 6</category>
+        </item>
+
+        <item id="ab9">
+                <id>0x0ab9</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 7</category>
+        </item>
+
+        <item id="aba">
+                <id>0x0aba</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 8</category>
+        </item>
+
+        <item id="abb">
+                <id>0x0abb</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 9</category>
+        </item>
+
+        <item id="abc">
+                <id>0x0abc</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 10</category>
+        </item>
+
+        <item id="1de1">
+                <id>0x1de1</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 11</category>
+        </item>
+
+        <item id="1de2">
+                <id>0x1de2</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 12</category>
+        </item>
+
+        <item id="1de3">
+                <id>0x1de3</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 13</category>
+        </item>
+
+        <item id="1de4">
+                <id>0x1de4</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 14</category>
+        </item>
+
+        <item id="1de5">
+                <id>0x1de5</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 15</category>
+        </item>
+
+        <item id="1de6">
+                <id>0x1de6</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 16</category>
+        </item>
+
+        <item id="1de7">
+                <id>0x1de7</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 17</category>
+        </item>
+
+        <item id="1de8">
+                <id>0x1de8</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 18</category>
+        </item>
+
+        <item id="1de9">
+                <id>0x1de9</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 19</category>
+        </item>
+
+        <item id="1dea">
+                <id>0x1dea</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 20</category>
+        </item>
+
+        <item id="1deb">
+                <id>0x1deb</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 21</category>
+        </item>
+
+        <item id="1dec">
+                <id>0x1dec</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 22</category>
+        </item>
+
+        <item id="1ded">
+                <id>0x1ded</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 23</category>
+        </item>
+
+        <item id="1dee">
+                <id>0x1dee</id>
+                <category>Decoration\Carpets\Rug - Green\Rug 24</category>
+        </item>
+
+        <!-- Carpet - Blue 1 -->
+        <item id="abd">
+                <id>0x0abd</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 1</category>
+        </item>
+
+        <item id="abe">
+                <id>0x0abe</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 2</category>
+        </item>
+
+        <item id="abf">
+                <id>0x0abf</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 3</category>
+        </item>
+
+        <item id="ac0">
+                <id>0x0ac0</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 4</category>
+        </item>
+
+        <item id="ac1">
+                <id>0x0ac1</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 5</category>
+        </item>
+
+        <item id="ac2">
+                <id>0x0ac2</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 6</category>
+        </item>
+
+        <item id="ac3">
+                <id>0x0ac3</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 7</category>
+        </item>
+
+        <item id="ac4">
+                <id>0x0ac4</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 8</category>
+        </item>
+
+        <item id="ac5">
+                <id>0x0ac5</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 9</category>
+        </item>
+
+        <item id="af6">
+                <id>0x0af6</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 10</category>
+        </item>
+
+        <item id="af7">
+                <id>0x0af7</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 11</category>
+        </item>
+
+        <item id="af8">
+                <id>0x0af8</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 12</category>
+        </item>
+
+        <item id="af9">
+                <id>0x0af9</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 13</category>
+        </item>
+
+        <item id="afa">
+                <id>0x0afa</id>
+                <category>Decoration\Carpets\Carpet - Blue 1\Carpet 14</category>
+        </item>
+
+        <!-- Carpet - Red -->
+        <item id="ac6">
+                <id>0x0ac6</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 1</category>
+        </item>
+
+        <item id="ac7">
+                <id>0x0ac7</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 2</category>
+        </item>
+
+        <item id="ac8">
+                <id>0x0ac8</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 3</category>
+        </item>
+
+        <item id="ac9">
+                <id>0x0ac9</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 4</category>
+        </item>
+
+        <item id="aca">
+                <id>0x0aca</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 5</category>
+        </item>
+
+        <item id="acb">
+                <id>0x0acb</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 6</category>
+        </item>
+
+        <item id="acc">
+                <id>0x0acc</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 7</category>
+        </item>
+
+        <item id="acd">
+                <id>0x0acd</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 8</category>
+        </item>
+
+        <item id="ace">
+                <id>0x0ace</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 9</category>
+        </item>
+
+        <item id="acf">
+                <id>0x0acf</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 10</category>
+        </item>
+
+        <item id="ad0">
+                <id>0x0ad0</id>
+                <category>Decoration\Carpets\Carpet - Red\Carpet 11</category>
+        </item>
+
+        <!-- Carpet - Blue 2 -->
+        <item id="ad1">
+                <id>0x0ad1</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 1</category>
+        </item>
+
+        <item id="ad2">
+                <id>0x0ad2</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 2</category>
+        </item>
+
+        <item id="ad3">
+                <id>0x0ad3</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 3</category>
+        </item>
+
+        <item id="ad4">
+                <id>0x0ad4</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 4</category>
+        </item>
+
+        <item id="ad5">
+                <id>0x0ad5</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 5</category>
+        </item>
+
+        <item id="ad6">
+                <id>0x0ad6</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 6</category>
+        </item>
+
+        <item id="ad7">
+                <id>0x0ad7</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 7</category>
+        </item>
+
+        <item id="ad8">
+                <id>0x0ad8</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 8</category>
+        </item>
+
+        <item id="ad9">
+                <id>0x0ad9</id>
+                <category>Decoration\Carpets\Carpet - Blue 2\Carpet 9</category>
+        </item>
+
+        <!-- Carpet - Brown -->
+        <item id="ada">
+                <id>0x0ada</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 1</category>
+        </item>
+
+        <item id="adb">
+                <id>0x0adb</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 2</category>
+        </item>
+
+        <item id="adc">
+                <id>0x0adc</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 3</category>
+        </item>
+
+        <item id="add">
+                <id>0x0add</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 4</category>
+        </item>
+
+        <item id="ade">
+                <id>0x0ade</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 5</category>
+        </item>
+
+        <item id="adf">
+                <id>0x0adf</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 6</category>
+        </item>
+
+        <item id="ae0">
+                <id>0x0ae0</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 7</category>
+        </item>
+
+        <item id="ae1">
+                <id>0x0ae1</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 8</category>
+        </item>
+
+        <item id="ae2">
+                <id>0x0ae2</id>
+                <category>Decoration\Carpets\Carpet - Brown\Carpet 9</category>
+        </item>
+
+        <!-- Carpet - Dark Red -->
+        <item id="ae3">
+                <id>0x0ae3</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 1</category>
+        </item>
+
+        <item id="ae4">
+                <id>0x0ae4</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 2</category>
+        </item>
+
+        <item id="ae5">
+                <id>0x0ae5</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 3</category>
+        </item>
+
+        <item id="ae6">
+                <id>0x0ae6</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 4</category>
+        </item>
+
+        <item id="ae7">
+                <id>0x0ae7</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 5</category>
+        </item>
+
+        <item id="ae8">
+                <id>0x0ae8</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 6</category>
+        </item>
+
+        <item id="ae9">
+                <id>0x0ae9</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 7</category>
+        </item>
+
+        <item id="aea">
+                <id>0x0aea</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 8</category>
+        </item>
+
+        <item id="aeb">
+                <id>0x0aeb</id>
+                <category>Decoration\Carpets\Carpet - Dark Red\Carpet 9</category>
+        </item>
+
+        <!-- Carpet - Blue 3 -->
+        <item id="aec">
+                <id>0x0aec</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 1</category>
+        </item>
+
+        <item id="aed">
+                <id>0x0aed</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 2</category>
+        </item>
+
+        <item id="aee">
+                <id>0x0aee</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 3</category>
+        </item>
+
+        <item id="aef">
+                <id>0x0aef</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 4</category>
+        </item>
+
+        <item id="af0">
+                <id>0x0af0</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 5</category>
+        </item>
+
+        <item id="af1">
+                <id>0x0af1</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 6</category>
+        </item>
+
+        <item id="af2">
+                <id>0x0af2</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 7</category>
+        </item>
+
+        <item id="af3">
+                <id>0x0af3</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 8</category>
+        </item>
+
+        <item id="af4">
+                <id>0x0af4</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 9</category>
+        </item>
+
+        <item id="af5">
+                <id>0x0af5</id>
+                <category>Decoration\Carpets\Carpet - Blue 3\Carpet 10</category>
+        </item>
+
+        <!-- Carpet - Gray -->
+        <item id="1098">
+                <id>0x1098</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 1</category>
+        </item>
+
+        <item id="1099">
+                <id>0x1099</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 2</category>
+        </item>
+
+        <item id="109a">
+                <id>0x109a</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 3</category>
+        </item>
+
+        <item id="109b">
+                <id>0x109b</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 4</category>
+        </item>
+
+        <item id="109c">
+                <id>0x109c</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 5</category>
+        </item>
+
+        <item id="109d">
+                <id>0x109d</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 6</category>
+        </item>
+
+        <item id="109e">
+                <id>0x109e</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 7</category>
+        </item>
+
+        <item id="109f">
+                <id>0x109f</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 8</category>
+        </item>
+
+        <item id="10a0">
+                <id>0x10a0</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 9</category>
+        </item>
+
+        <item id="10a1">
+                <id>0x10a1</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 10</category>
+        </item>
+
+        <item id="10a2">
+                <id>0x10a2</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 11</category>
+        </item>
+
+        <item id="10a3">
+                <id>0x10a3</id>
+                <category>Decoration\Carpets\Carpet - Gray\Carpet 12</category>
+        </item>
+
+        <!-- Bearskin Rug -->
+        <item id="1e36">
+                <id>0x1e36</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 1</category>
+        </item>
+
+        <item id="1e37">
+                <id>0x1e37</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 2</category>
+        </item>
+
+        <item id="1e38">
+                <id>0x1e38</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 3</category>
+        </item>
+
+        <item id="1e39">
+                <id>0x1e39</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 4</category>
+        </item>
+
+        <item id="1e3a">
+                <id>0x1e3a</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 5</category>
+        </item>
+
+        <item id="1e3b">
+                <id>0x1e3b</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 6</category>
+        </item>
+
+        <item id="1e3c">
+                <id>0x1e3c</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 7</category>
+        </item>
+
+        <item id="1e3d">
+                <id>0x1e3d</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 8</category>
+        </item>
+
+        <item id="1e3e">
+                <id>0x1e3e</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 9</category>
+        </item>
+
+        <item id="1e40">
+                <id>0x1e40</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 10</category>
+        </item>
+
+        <item id="1e41">
+                <id>0x1e41</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 11</category>
+        </item>
+
+        <item id="1e42">
+                <id>0x1e42</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 12</category>
+        </item>
+
+        <item id="1e43">
+                <id>0x1e43</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 13</category>
+        </item>
+
+        <item id="1e44">
+                <id>0x1e44</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 14</category>
+        </item>
+
+        <item id="1e45">
+                <id>0x1e45</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 15</category>
+        </item>
+
+        <item id="1e46">
+                <id>0x1e46</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 16</category>
+        </item>
+
+        <item id="1e47">
+                <id>0x1e47</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 17</category>
+        </item>
+
+        <item id="1e48">
+                <id>0x1e48</id>
+                <category>Decoration\Carpets\Bearskin Rug\Rug 18</category>
+        </item>
+
+        <!-- Polar Bearskin Rug -->
+        <item id="1e49">
+                <id>0x1e49</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 1</category>
+        </item>
+
+        <item id="1e4a">
+                <id>0x1e4a</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 2</category>
+        </item>
+
+        <item id="1e4b">
+                <id>0x1e4b</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 3</category>
+        </item>
+
+        <item id="1e4c">
+                <id>0x1e4c</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 4</category>
+        </item>
+
+        <item id="1e4d">
+                <id>0x1e4d</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 5</category>
+        </item>
+
+        <item id="1e4e">
+                <id>0x1e4e</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 6</category>
+        </item>
+
+        <item id="1e4f">
+                <id>0x1e4f</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 7</category>
+        </item>
+
+        <item id="1e50">
+                <id>0x1e50</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 8</category>
+        </item>
+
+        <item id="1e51">
+                <id>0x1e51</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 9</category>
+        </item>
+
+        <item id="1e53">
+                <id>0x1e53</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 10</category>
+        </item>
+
+        <item id="1e54">
+                <id>0x1e54</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 11</category>
+        </item>
+
+        <item id="1e55">
+                <id>0x1e55</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 12</category>
+        </item>
+
+        <item id="1e56">
+                <id>0x1e56</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 13</category>
+        </item>
+
+        <item id="1e57">
+                <id>0x1e57</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 14</category>
+        </item>
+
+        <item id="1e58">
+                <id>0x1e58</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 15</category>
+        </item>
+
+        <item id="1e59">
+                <id>0x1e59</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 16</category>
+        </item>
+
+        <item id="1e5a">
+                <id>0x1e5a</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 17</category>
+        </item>
+
+        <item id="1e5b">
+                <id>0x1e5b</id>
+                <category>Decoration\Carpets\Polar Bearskin Rug\Rug 18</category>
+        </item>
+
+        <!-- Rug - Gray -->
+        <item id="1def">
+                <id>0x1def</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 1</category>
+        </item>
+
+        <item id="1df0">
+                <id>0x1df0</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 2</category>
+        </item>
+
+        <item id="1df1">
+                <id>0x1df1</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 3</category>
+        </item>
+
+        <item id="1df2">
+                <id>0x1df2</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 4</category>
+        </item>
+
+        <item id="1df3">
+                <id>0x1df3</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 5</category>
+        </item>
+
+        <item id="1df4">
+                <id>0x1df4</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 6</category>
+        </item>
+
+        <item id="1df5">
+                <id>0x1df5</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 7</category>
+        </item>
+
+        <item id="1df6">
+                <id>0x1df6</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 8</category>
+        </item>
+
+        <item id="1df7">
+                <id>0x1df7</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 9</category>
+        </item>
+
+        <item id="1df8">
+                <id>0x1df8</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 10</category>
+        </item>
+
+        <item id="1df9">
+                <id>0x1df9</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 11</category>
+        </item>
+
+        <item id="1dfa">
+                <id>0x1dfa</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 12</category>
+        </item>
+
+        <item id="1dfb">
+                <id>0x1dfb</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 13</category>
+        </item>
+
+        <item id="1dfc">
+                <id>0x1dfc</id>
+                <category>Decoration\Carpets\Rug - Gray\Rug 14</category>
+        </item>
+
+</definitions>

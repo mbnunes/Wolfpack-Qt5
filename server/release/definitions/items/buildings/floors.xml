@@ -1,0 +1,985 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Floors                                                        |
+=================================================================
+-->
+<definitions>
+        <!-- Blue Floor -->
+        <item id="491">
+                <id>0x0491</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 1</category>
+        </item>
+
+        <item id="492">
+                <id>0x0492</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 2</category>
+        </item>
+
+        <item id="493">
+                <id>0x0493</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 3</category>
+        </item>
+
+        <item id="494">
+                <id>0x0494</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 4</category>
+        </item>
+
+        <item id="49b">
+                <id>0x049b</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 5</category>
+        </item>
+
+        <item id="4ea">
+                <id>0x04ea</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 6</category>
+        </item>
+
+        <item id="4eb">
+                <id>0x04eb</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 7</category>
+        </item>
+
+        <item id="4ec">
+                <id>0x04ec</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 8</category>
+        </item>
+
+        <item id="4ed">
+                <id>0x04ed</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 9</category>
+        </item>
+
+        <item id="4ee">
+                <id>0x04ee</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 10</category>
+        </item>
+
+        <item id="4ef">
+                <id>0x04ef</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 11</category>
+        </item>
+
+        <item id="4f0">
+                <id>0x04f0</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 12</category>
+        </item>
+
+        <item id="4f1">
+                <id>0x04f1</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 13</category>
+        </item>
+
+        <item id="4f2">
+                <id>0x04f2</id>
+                <category>Buildings\Floors\Blue Floor\Blue Floor 14</category>
+        </item>
+
+        <!-- Marble Floor 1 -->
+        <item id="495">
+                <id>0x0495</id>
+                <category>Buildings\Floors\Marble Floor 1\Marble Floor 1</category>
+        </item>
+
+        <item id="496">
+                <id>0x0496</id>
+                <category>Buildings\Floors\Marble Floor 1\Marble Floor 2</category>
+        </item>
+
+        <item id="497">
+                <id>0x0497</id>
+                <category>Buildings\Floors\Marble Floor 1\Marble Floor 3</category>
+        </item>
+
+        <item id="498">
+                <id>0x0498</id>
+                <category>Buildings\Floors\Marble Floor 1\Marble Floor 4</category>
+        </item>
+
+        <!-- Marble Floor 2 -->
+        <item id="50d">
+                <id>0x050d</id>
+                <category>Buildings\Floors\Marble Floor 2\Marble Floor 1</category>
+        </item>
+
+        <item id="50e">
+                <id>0x050e</id>
+                <category>Buildings\Floors\Marble Floor 2\Marble Floor 2</category>
+        </item>
+
+        <item id="50f">
+                <id>0x050f</id>
+                <category>Buildings\Floors\Marble Floor 2\Green Marble Floor 1</category>
+        </item>
+
+        <item id="510">
+                <id>0x0510</id>
+                <category>Buildings\Floors\Marble Floor 2\Green Marble Floor 2</category>
+        </item>
+
+        <item id="511">
+                <id>0x0511</id>
+                <category>Buildings\Floors\Marble Floor 2\Marble Floor 3</category>
+        </item>
+
+        <item id="512">
+                <id>0x0512</id>
+                <category>Buildings\Floors\Marble Floor 2\Marble Floor 4</category>
+        </item>
+
+        <item id="513">
+                <id>0x0513</id>
+                <category>Buildings\Floors\Marble Floor 2\Marble Floor 5</category>
+        </item>
+
+        <item id="514">
+                <id>0x0514</id>
+                <category>Buildings\Floors\Marble Floor 2\Marble Floor 6</category>
+        </item>
+
+        <!-- Grey Slate Floor -->
+        <item id="49c">
+                <id>0x049c</id>
+                <category>Buildings\Floors\Grey Slate Floor\Grey Slate Floor 1</category>
+        </item>
+
+        <!-- Sandstone Paver -->
+        <item id="49d">
+                <id>0x049d</id>
+                <category>Buildings\Floors\Sandstone Paver\Sandstone Paver 1</category>
+        </item>
+
+        <item id="49e">
+                <id>0x049e</id>
+                <category>Buildings\Floors\Sandstone Paver\Sandstone Paver 2</category>
+        </item>
+
+        <item id="49f">
+                <id>0x049f</id>
+                <category>Buildings\Floors\Sandstone Paver\Sandstone Paver 3</category>
+        </item>
+
+        <item id="4a0">
+                <id>0x04a0</id>
+                <category>Buildings\Floors\Sandstone Paver\Sandstone Paver 4</category>
+        </item>
+
+        <!-- Wooden Planks -->
+        <item id="4a1">
+                <id>0x04a1</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 1</category>
+        </item>
+
+        <item id="4a2">
+                <id>0x04a2</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 2</category>
+        </item>
+
+        <item id="4a3">
+                <id>0x04a3</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 3</category>
+        </item>
+
+        <item id="4a4">
+                <id>0x04a4</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 4</category>
+        </item>
+
+        <item id="4c6">
+                <id>0x04c6</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 5</category>
+        </item>
+
+        <item id="4c7">
+                <id>0x04c7</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 6</category>
+        </item>
+
+        <item id="4c8">
+                <id>0x04c8</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 7</category>
+        </item>
+
+        <item id="4c9">
+                <id>0x04c9</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 8</category>
+        </item>
+
+        <item id="4ca">
+                <id>0x04ca</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 9</category>
+        </item>
+
+        <item id="4cb">
+                <id>0x04cb</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 10</category>
+        </item>
+
+        <item id="4cc">
+                <id>0x04cc</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 11</category>
+        </item>
+
+        <item id="4cd">
+                <id>0x04cd</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 12</category>
+        </item>
+
+        <item id="4ce">
+                <id>0x04ce</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 13</category>
+        </item>
+
+        <item id="4cf">
+                <id>0x04cf</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 14</category>
+        </item>
+
+        <item id="4d0">
+                <id>0x04d0</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 15</category>
+        </item>
+
+        <item id="4d1">
+                <id>0x04d1</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 16</category>
+        </item>
+
+        <item id="4d2">
+                <id>0x04d2</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 17</category>
+        </item>
+
+        <item id="4d3">
+                <id>0x04d3</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 18</category>
+        </item>
+
+        <item id="4d4">
+                <id>0x04d4</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 19</category>
+        </item>
+
+        <item id="4d5">
+                <id>0x04d5</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 20</category>
+        </item>
+
+        <item id="4d6">
+                <id>0x04d6</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 21</category>
+        </item>
+
+        <item id="4d7">
+                <id>0x04d7</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 22</category>
+        </item>
+
+        <item id="4d8">
+                <id>0x04d8</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 23</category>
+        </item>
+
+        <item id="4d9">
+                <id>0x04d9</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 24</category>
+        </item>
+
+        <item id="4da">
+                <id>0x04da</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 25</category>
+        </item>
+
+        <item id="4db">
+                <id>0x04db</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 26</category>
+        </item>
+
+        <item id="4dc">
+                <id>0x04dc</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 27</category>
+        </item>
+
+        <item id="4dd">
+                <id>0x04dd</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 28</category>
+        </item>
+
+        <item id="4de">
+                <id>0x04de</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 29</category>
+        </item>
+
+        <item id="4df">
+                <id>0x04df</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 30</category>
+        </item>
+
+        <item id="4e0">
+                <id>0x04e0</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 31</category>
+        </item>
+
+        <item id="4e1">
+                <id>0x04e1</id>
+                <category>Buildings\Floors\Wooden Planks\Wooden Planks 32</category>
+        </item>
+
+        <!-- Wooden Boards -->
+        <item id="4a5">
+                <id>0x04a5</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 1</category>
+        </item>
+
+        <item id="4a6">
+                <id>0x04a6</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 2</category>
+        </item>
+
+        <item id="4a7">
+                <id>0x04a7</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 3</category>
+        </item>
+
+        <item id="4a8">
+                <id>0x04a8</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 4</category>
+        </item>
+
+        <item id="4a9">
+                <id>0x04a9</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 5</category>
+        </item>
+
+        <item id="4aa">
+                <id>0x04aa</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 6</category>
+        </item>
+
+        <item id="4ab">
+                <id>0x04ab</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 7</category>
+        </item>
+
+        <item id="4ac">
+                <id>0x04ac</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 8</category>
+        </item>
+
+        <item id="4ad">
+                <id>0x04ad</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 9</category>
+        </item>
+
+        <item id="4ae">
+                <id>0x04ae</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 10</category>
+        </item>
+
+        <item id="4af">
+                <id>0x04af</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 11</category>
+        </item>
+
+        <item id="4b0">
+                <id>0x04b0</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 12</category>
+        </item>
+
+        <item id="4b1">
+                <id>0x04b1</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 13</category>
+        </item>
+
+        <item id="4b2">
+                <id>0x04b2</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 14</category>
+        </item>
+
+        <item id="4b3">
+                <id>0x04b3</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 15</category>
+        </item>
+
+        <item id="4b4">
+                <id>0x04b4</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 16</category>
+        </item>
+
+        <item id="4b5">
+                <id>0x04b5</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 17</category>
+        </item>
+
+        <item id="4b6">
+                <id>0x04b6</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 18</category>
+        </item>
+
+        <item id="4b7">
+                <id>0x04b7</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 19</category>
+        </item>
+
+        <item id="4b8">
+                <id>0x04b8</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 20</category>
+        </item>
+
+        <item id="4b9">
+                <id>0x04b9</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 21</category>
+        </item>
+
+        <item id="4ba">
+                <id>0x04ba</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 22</category>
+        </item>
+
+        <item id="4bb">
+                <id>0x04bb</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 23</category>
+        </item>
+
+        <item id="4bc">
+                <id>0x04bc</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 24</category>
+        </item>
+
+        <item id="4bd">
+                <id>0x04bd</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 25</category>
+        </item>
+
+        <item id="4be">
+                <id>0x04be</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 26</category>
+        </item>
+
+        <item id="4bf">
+                <id>0x04bf</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 27</category>
+        </item>
+
+        <item id="4c0">
+                <id>0x04c0</id>
+                <category>Buildings\Floors\Wooden Boards\Wooden Boards 28</category>
+        </item>
+
+
+        <!-- Wooden Logs -->
+        <item id="4c1">
+                <id>0x04c1</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 1</category>
+        </item>
+
+        <item id="4c2">
+                <id>0x04c2</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 2</category>
+        </item>
+
+        <item id="4c3">
+                <id>0x04c3</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 3</category>
+        </item>
+
+        <item id="4c4">
+                <id>0x04c4</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 4</category>
+        </item>
+
+        <item id="4c5">
+                <id>0x04c5</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 5</category>
+        </item>
+
+        <item id="504">
+                <id>0x0504</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 6</category>
+        </item>
+
+        <item id="505">
+                <id>0x0505</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 7</category>
+        </item>
+
+        <item id="506">
+                <id>0x0506</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 8</category>
+        </item>
+
+        <item id="507">
+                <id>0x0507</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 9</category>
+        </item>
+
+        <item id="508">
+                <id>0x0508</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 10</category>
+        </item>
+
+        <item id="509">
+                <id>0x0509</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 11</category>
+        </item>
+
+        <item id="50a">
+                <id>0x050a</id>
+                <category>Buildings\Floors\Wooden Logs\Wooden Logs 12</category>
+        </item>
+
+        <item id="50b">
+                <id>0x050b</id>
+                <category>Buildings\Floors\Wooden Logs\Gray Wooden Logs 1</category>
+        </item>
+
+        <item id="50c">
+                <id>0x050c</id>
+                <category>Buildings\Floors\Wooden Logs\Gray Wooden Logs 2</category>
+        </item>
+
+        <!-- Bricks -->
+        <item id="4e2">
+                <id>0x04e2</id>
+                <category>Buildings\Floors\Bricks\Bricks 1</category>
+        </item>
+
+        <item id="4e3">
+                <id>0x04e3</id>
+                <category>Buildings\Floors\Bricks\Bricks 2</category>
+        </item>
+
+        <item id="4e4">
+                <id>0x04e4</id>
+                <category>Buildings\Floors\Bricks\Bricks 3</category>
+        </item>
+
+        <item id="4e5">
+                <id>0x04e5</id>
+                <category>Buildings\Floors\Bricks\Bricks 4</category>
+        </item>
+
+        <item id="4e6">
+                <id>0x04e6</id>
+                <category>Buildings\Floors\Bricks\Bricks 5</category>
+        </item>
+
+        <item id="4e7">
+                <id>0x04e7</id>
+                <category>Buildings\Floors\Bricks\Bricks 6</category>
+        </item>
+
+        <item id="4e8">
+                <id>0x04e8</id>
+                <category>Buildings\Floors\Bricks\Bricks 7</category>
+        </item>
+
+        <item id="4e9">
+                <id>0x04e9</id>
+                <category>Buildings\Floors\Bricks\Bricks 8</category>
+        </item>
+        
+        <item id="537">
+                <id>0x0537</id>
+                <category>Buildings\Floors\Bricks\Bricks 9</category>
+        </item>
+
+        <item id="538">
+                <id>0x0538</id>
+                <category>Buildings\Floors\Bricks\Bricks 10</category>
+        </item>
+
+        <item id="539">
+                <id>0x0539</id>
+                <category>Buildings\Floors\Bricks\Bricks 11</category>
+        </item>
+
+        <item id="53a">
+                <id>0x053a</id>
+                <category>Buildings\Floors\Bricks\Bricks 12</category>
+        </item>
+
+        <!-- Red Floor -->
+        <item id="4f3">
+                <id>0x04f3</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 1</category>
+        </item>
+
+        <item id="4f4">
+                <id>0x04f4</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 2</category>
+        </item>
+
+        <item id="4f5">
+                <id>0x04f5</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 3</category>
+        </item>
+
+        <item id="4f6">
+                <id>0x04f6</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 4</category>
+        </item>
+
+        <item id="4f7">
+                <id>0x04f7</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 5</category>
+        </item>
+
+        <item id="4f8">
+                <id>0x04f8</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 6</category>
+        </item>
+
+        <item id="4f9">
+                <id>0x04f9</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 7</category>
+        </item>
+
+        <item id="4fa">
+                <id>0x04fa</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 8</category>
+        </item>
+
+        <item id="4fb">
+                <id>0x04fb</id>
+                <category>Buildings\Floors\Red Floor\Red Floor 9</category>
+        </item>
+
+        <!-- Flagstones (gray) -->
+        <item id="4fc">
+                <id>0x04fc</id>
+                <category>Buildings\Floors\Flagstones (gray)\Flagstones 1</category>
+        </item>
+
+        <item id="4fd">
+                <id>0x04fd</id>
+                <category>Buildings\Floors\Flagstones (gray)\Flagstones 2</category>
+        </item>
+
+        <item id="4fe">
+                <id>0x04fe</id>
+                <category>Buildings\Floors\Flagstones (gray)\Flagstones 3</category>
+        </item>
+
+        <item id="4ff">
+                <id>0x04ff</id>
+                <category>Buildings\Floors\Flagstones (gray)\Flagstones 4</category>
+        </item>
+
+        <!-- Flagstones (sandstone) -->
+        <item id="500">
+                <id>0x0500</id>
+                <category>Buildings\Floors\Flagstones (sandstone)\Flagstones 1</category>
+        </item>
+
+        <item id="501">
+                <id>0x0501</id>
+                <category>Buildings\Floors\Flagstones (sandstone)\Flagstones 2</category>
+        </item>
+
+        <item id="502">
+                <id>0x0502</id>
+                <category>Buildings\Floors\Flagstones (sandstone)\Flagstones 3</category>
+        </item>
+
+        <item id="503">
+                <id>0x0503</id>
+                <category>Buildings\Floors\Flagstones (sandstone)\Flagstones 4</category>
+        </item>
+
+        <!-- Cobblestones -->
+        <item id="515">
+                <id>0x0515</id>
+                <category>Buildings\Floors\Cobblestones\Cobblestones 1</category>
+        </item>
+
+        <item id="516">
+                <id>0x0516</id>
+                <category>Buildings\Floors\Cobblestones\Cobblestones 2</category>
+        </item>
+
+        <item id="517">
+                <id>0x0517</id>
+                <category>Buildings\Floors\Cobblestones\Cobblestones 3</category>
+        </item>
+
+        <item id="518">
+                <id>0x0518</id>
+                <category>Buildings\Floors\Cobblestones\Cobblestones 4</category>
+        </item>
+
+        <!-- Stone Paver -->
+        <item id="519">
+                <id>0x0519</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 1</category>
+        </item>
+
+        <item id="51a">
+                <id>0x051a</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 2</category>
+        </item>
+
+        <item id="51b">
+                <id>0x051b</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 3</category>
+        </item>
+
+        <item id="51c">
+                <id>0x051c</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 4</category>
+        </item>
+
+        <item id="51d">
+                <id>0x051d</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 5</category>
+        </item>
+
+        <item id="51e">
+                <id>0x051e</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 6</category>
+        </item>
+
+        <item id="51f">
+                <id>0x051f</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 7</category>
+        </item>
+
+        <item id="520">
+                <id>0x0520</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 8</category>
+        </item>
+
+        <item id="521">
+                <id>0x0521</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 9</category>
+        </item>
+
+        <item id="522">
+                <id>0x0522</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 10</category>
+        </item>
+
+        <item id="523">
+                <id>0x0523</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 11</category>
+        </item>
+
+        <item id="524">
+                <id>0x0524</id>
+                <category>Buildings\Floors\Stone Paver\Stone Paver 12</category>
+        </item>
+
+        <!-- Sandstone Floor -->
+        <item id="525">
+                <id>0x0525</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 1</category>
+        </item>
+
+        <item id="526">
+                <id>0x0526</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 2</category>
+        </item>
+
+        <item id="527">
+                <id>0x0527</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 3</category>
+        </item>
+
+        <item id="528">
+                <id>0x0528</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 4</category>
+        </item>
+
+        <item id="529">
+                <id>0x0529</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 5</category>
+        </item>
+
+        <item id="52a">
+                <id>0x052a</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 6</category>
+        </item>
+
+        <item id="52b">
+                <id>0x052b</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 7</category>
+        </item>
+
+        <item id="52c">
+                <id>0x052c</id>
+                <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 8</category>
+        </item>
+	
+		<!-- Dark Dark Sandstone Floor -->
+        <item id="52f">
+                <id>0x052f</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 1</category>
+        </item>
+
+        <item id="530">
+                <id>0x0530</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 2</category>
+        </item>
+
+        <item id="531">
+                <id>0x0531</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 3</category>
+        </item>
+
+        <item id="532">
+                <id>0x0532</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 4</category>
+        </item>
+
+        <item id="533">
+                <id>0x0533</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 5</category>
+        </item>
+
+        <item id="534">
+                <id>0x0534</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 6</category>
+        </item>
+
+        <item id="535">
+                <id>0x0535</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 7</category>
+        </item>
+
+        <item id="536">
+                <id>0x0536</id>
+                <category>Buildings\Floors\Dark Sandstone Floor\Dark Sandstone Floor 8</category>
+        </item>
+
+        <!-- Cave Floor -->
+        <item id="53b">
+                <id>0x053b</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 1</category>
+        </item>
+
+        <item id="53c">
+                <id>0x053c</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 2</category>
+        </item>
+
+        <item id="53d">
+                <id>0x053d</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 3</category>
+        </item>
+
+        <item id="53e">
+                <id>0x053e</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 4</category>
+        </item>
+
+        <item id="53f">
+                <id>0x053f</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 5</category>
+        </item>
+
+        <item id="540">
+                <id>0x0540</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 6</category>
+        </item>
+
+        <item id="541">
+                <id>0x0541</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 7</category>
+        </item>
+
+        <item id="542">
+                <id>0x0542</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 8</category>
+        </item>
+
+        <item id="543">
+                <id>0x0543</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 8</category>
+        </item>
+
+        <item id="544">
+                <id>0x0544</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 9</category>
+        </item>
+
+        <item id="545">
+                <id>0x0545</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 10</category>
+        </item>
+
+        <item id="546">
+                <id>0x0546</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 11</category>
+        </item>
+
+        <item id="547">
+                <id>0x0547</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 12</category>
+        </item>
+
+        <item id="548">
+                <id>0x0548</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 13</category>
+        </item>
+
+        <item id="549">
+                <id>0x0549</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 14</category>
+        </item>
+
+        <item id="54a">
+                <id>0x054a</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 15</category>
+        </item>
+
+        <item id="54b">
+                <id>0x054b</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 16</category>
+        </item>
+
+        <item id="54c">
+                <id>0x054c</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 17</category>
+        </item>
+
+        <item id="54d">
+                <id>0x054d</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 18</category>
+        </item>
+
+        <item id="54e">
+                <id>0x054e</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 19</category>
+        </item>
+
+        <item id="54f">
+                <id>0x054f</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 20</category>
+        </item>
+
+        <item id="551">
+                <id>0x0551</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 21</category>
+        </item>
+
+        <item id="552">
+                <id>0x0552</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 22</category>
+        </item>
+
+        <item id="553">
+                <id>0x0553</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 23</category>
+        </item>
+
+        <item id="56a">
+                <id>0x056a</id>
+                <category>Buildings\Floors\Cave Floor\Cave Floor 24</category>
+        </item>
+
+</definitions>

@@ -2,6 +2,15 @@
 	These items are not available ingame.
 -->
 <definitions>
+	<!-- Unuse & Nodraw -->
+	<item id="0">
+		<id>0x0000</id>
+	</item>
+
+	<item id="1">
+		<id>0x0001</id>
+	</item>
+
 	<!-- Profession "Texts" -->
 	<item id="2008">
 		<id>0x2008</id>

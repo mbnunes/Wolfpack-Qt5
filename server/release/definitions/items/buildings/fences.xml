@@ -1,0 +1,32 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Fences                                                        |
+=================================================================
+-->
+<definitions>
+	<!-- Wooden Fence 1 -->
+	<item id="3b3">
+		<id>0x03b3</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 1</category>
+	</item>
+
+	<item id="3b4">
+		<id>0x03b4</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 2</category>
+	</item>
+
+	<item id="3b5">
+		<id>0x03b5</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 3</category>
+	</item>
+
+	<item id="3b6">
+		<id>0x03b6</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 4</category>
+	</item>
+</definitions>

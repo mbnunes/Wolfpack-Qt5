@@ -1,0 +1,62 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Misc stuff for buildings                                      |
+=================================================================
+-->
+<definitions>
+	<!-- Docks -->
+	<item id="3a5">
+		<id>0x03a5</id>
+		<category>Buildings\Docks\Pier 1</category>
+	</item>
+
+	<item id="3a6">
+		<id>0x03a6</id>
+		<category>Buildings\Docks\Rope 1</category>
+	</item>
+
+	<item id="3a7">
+		<id>0x03a7</id>
+		<category>Buildings\Docks\Rope 2</category>
+	</item>
+
+	<item id="3a8">
+		<id>0x03a8</id>
+		<category>Buildings\Docks\Pier 3</category>
+	</item>
+
+	<item id="3a9">
+		<id>0x03a9</id>
+		<category>Buildings\Docks\Pier 4</category>
+	</item>
+
+	<item id="3aa">
+		<id>0x03aa</id>
+		<category>Buildings\Docks\Pier 2</category>
+	</item>
+
+	<item id="3ab">
+		<id>0x03ab</id>
+		<category>Buildings\Docks\Pier 3</category>
+	</item>
+
+	<item id="3ac">
+		<id>0x03ac</id>
+		<category>Buildings\Docks\Pier 4</category>
+	</item>
+
+	<item id="3ad">
+		<id>0x03ad</id>
+		<category>Buildings\Docks\Pier 5</category>
+	</item>
+
+	<item id="3ae">
+		<id>0x03ae</id>
+		<category>Buildings\Docks\Pier 6</category>
+	</item>
+</definitions>

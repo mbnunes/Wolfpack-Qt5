@@ -1,0 +1,33 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Chairs and Benches                                            |
+=================================================================
+-->
+<definitions>
+	<!-- Marble Bench -->
+	<item id="459">
+		<id>0x0459</id>
+		<category>Decoration\Chairs\Marble Bench (N/S)</category>
+	</item>
+
+	<item id="45a">
+		<id>0x045a</id>
+		<category>Decoration\Chairs\Marble Bench (W/E)</category>
+	</item>
+
+	<!-- Sandstone Bench -->
+	<item id="45b">
+		<id>0x045b</id>
+		<category>Decoration\Chairs\Sandstone Bench (N/S)</category>
+	</item>
+
+	<item id="45c">
+		<id>0x045c</id>
+		<category>Decoration\Chairs\Sandstone Bench (W/E)</category>
+	</item>
+</definitions>
