@@ -4765,17 +4765,15 @@ void cChar::findPath( const Coord_cl &goal, float sufficient_cost = 0.0f )
 	/*
 		Each iteration of the following loop will take the first element
 		out of the priority queue and calculate the neighbour nodes 
-		(sourrounding coordinates). The first element is pushed into
-		the current path vector. When pushing we must check, if we ran
-		into a dead end before. If we did so, we must pop the current path
-		vector till we are at the right step position.
+		(sourrounding coordinates). The nodes have prev pointers which let
+		us get the whole path in the end.
 
 		All neighbours that are reachable will be pushed into the priority
 		queue.
 
 		If no neighbour is reachable we ran into a dead end. Nothing will
-		be done in this iteration, because we check for dead ends at
-		the beginning of this loop.
+		be done in this iteration, because we'll get a better node out of the
+		priority queue next iteration.
 	*/
 
 	pathnode_cl *currentNode = NULL;
