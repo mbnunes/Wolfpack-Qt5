@@ -27,13 +27,13 @@
 	</npc>
 
 	<!-- Armored Swamp Dragons -->
-	<npc id="swamp_dragon_2" inherit="swampdragon_1">
+	<npc id="swamp_dragon_2" inherit="swamp_dragon_1">
 		<id>799</id>
 		<category>Animals\Mounts\Armored Swamp Dragon (Weak)</category>
 	</npc>
 
 	<!-- Armored Swamp Dragons -->
-	<npc id="swamp_dragon_3" inherit="swampdragon_2">
+	<npc id="swamp_dragon_3" inherit="swamp_dragon_2">
 		<category>Animals\Mounts\Armored Swamp Dragon (Strong)</category>
 		<karma>-3500</karma>
 		<fame>3500</fame>

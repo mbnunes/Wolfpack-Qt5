@@ -159,6 +159,7 @@
 	<script>skills.alchemy</script>
 	<script>skills.tinkering</script>
 	<script>skills.carpentry</script>
+	<script>skills.stealth</script>
 	<script>skills.blacksmithing</script>
 	<script>skills.healing</script>
 	<script>skills.hiding</script>
