@@ -1221,11 +1221,11 @@ int cAllItems::SpawnItem(UOXSOCKET nSocket, CHARACTER ch,
 
 P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)
 {
-	if (ch < 0) 
+	P_CHAR pc_ch = MAKE_CHAR_REF(ch);
+	if (pc_ch == NULL) 
 		return NULL;
-
-	P_ITEM bankbox = NULL;
-	bankbox = chars[ch].GetBankBox();
+	
+	P_ITEM bankbox = pc_ch->GetBankBox();
 	
 	if (bankbox == NULL)
 	{
@@ -1233,12 +1233,12 @@ P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)
 		return NULL;
 	}
 
-	UOXSOCKET s = calcSocketFromChar(ch);          // Don't check if s == -1, it's ok if it is.
+	UOXSOCKET s = calcSocketFromChar(DEREF_P_CHAR(pc_ch));          // Don't check if s == -1, it's ok if it is.
 	ITEM i = CreateScriptItem(s, nItem, 1);
 	P_ITEM pi = MAKE_ITEMREF_LRV(i, NULL);
 	GetScriptItemSetting(pi); 
 	bankbox->AddItem(pi);
-	statwindow(s, currchar[s]);
+	statwindow(s, DEREF_P_CHAR(pc_ch));
 	return pi;
 }
 
@@ -1833,17 +1833,18 @@ void cAllItems::AddRespawnItem(int s, int x, int y)
 	RefreshItem(pi);//AntiChrist
 }
 
-void cAllItems::CheckEquipment(CHARACTER p) // check equipment of character p
+void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 {
-	if (p<0) return; // LB crashfix
+	if (pc_p == NULL)
+		return;
 
 	int ci=0, loopexit=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
+	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if(pi->st>chars[p].st)//if strength required > character's strength
+		if(pi->st>pc_p->st)//if strength required > character's strength
 		{
 			if(pi->name[0]=='#')
 				pi->getName(temp2);
@@ -1851,25 +1852,25 @@ void cAllItems::CheckEquipment(CHARACTER p) // check equipment of character p
 				strcpy((char*)temp2,pi->name);
 			
 			sprintf((char*)temp, "You are not strong enough to keep %s equipped!", temp2);
-			sysmessage(calcSocketFromChar(p), (char*)temp);
-			itemsfx(calcSocketFromChar(p), pi->id());
+			sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_p)), (char*)temp);
+			itemsfx(calcSocketFromChar(DEREF_P_CHAR(pc_p)), pi->id());
 			
 			//Subtract stats bonus and poison
-			chars[p].removeItemBonus(pi);
+			pc_p->removeItemBonus(pi);
 			if ((pi->trigon==1) && (pi->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				triggerwitem(p, DEREF_P_ITEM(pi), 1); // trigger is fired when unequipped? sorry this needs checked
+				triggerwitem(DEREF_P_CHAR(pc_p), DEREF_P_ITEM(pi), 1); // trigger is fired when unequipped? sorry this needs checked
 			}
-			if(chars[p].poison && pi->poisoned) chars[p].poison-=pi->poisoned;
-			if(chars[p].poison<0) chars[p].poison=0;
+			if(pc_p->poison && pi->poisoned) pc_p->poison-=pi->poisoned;
+			if(pc_p->poison<0) pc_p->poison=0;
 			
 			pi->SetContSerial(-1);
-			pi->MoveTo(chars[p].pos.x,chars[p].pos.y,chars[p].pos.z);
+			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
 			
 			for (int j=0;j<now;j++)
-				if (inrange1p(p, currchar[j])&&perm[j])
+				if (inrange1p(DEREF_P_CHAR(pc_p), currchar[j])&&perm[j])
 				{
-					wornitems(j, p);
+					wornitems(j, DEREF_P_CHAR(pc_p));
 					senditem(j, pi);
 				}
 		}

@@ -253,14 +253,14 @@ void cTmpEff::Reverse()
 		return;
 	}//switch
 	
-	Items->CheckEquipment(DEREF_P_CHAR(pc_s)); //AntiChrist - checks equipments for stats requirements
+	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
 }
 
 void cTmpEff::Expire()
 {
 	int mortar,k,ccc;
 
-	int s=calcCharFromSer(getDest());
+	P_CHAR pc_s = FindCharBySerial(getDest());
 	if (   num != 9		// grinding
 		&& num != 10	// create potion
 		&& num != 13	// door close
@@ -270,54 +270,53 @@ void cTmpEff::Expire()
 		//Added by TANiS to fix errors, memory corruption and door auto-close 10-6-98
 		// Check to see if it's a dead char and delete the wrong effect, or if it's just
 		// a door auto-close effect and process it the right way.
-		if ( s < 0 || s >= cmem )
+		if ( pc_s == NULL )
 		{
 			return;		// just remove this effect
 		} //End of TANiS' change
 	}
-//	P_CHAR pc_s = MAKE_CHARREF_LR(s);	// enabling this reveals a nasty bug I have not found yet: some effects will not work (Duke,13.8.01)
-	P_CHAR pc_s = MAKE_CHAR_REF(s);
+
 	switch(num)
 	{
 	case 1:
 		if (pc_s->priv2&0x02)
 		{
 			pc_s->priv2 &= 0xFD;
-			int sk=calcSocketFromChar(s);
+			int sk=calcSocketFromChar(DEREF_P_CHAR(pc_s));
 			if (sk!=-1) sysmessage(sk, "You are no longer frozen.");
-			Magic->afterParticles(38, s); 			
+			Magic->afterParticles(38, DEREF_P_CHAR(pc_s)); 			
 		}
 		break;
 	case 2:
 		pc_s->fixedlight='\xFF';
-		dolight(calcSocketFromChar(s), worldbrightlevel);
+		dolight(calcSocketFromChar(DEREF_P_CHAR(pc_s)), worldbrightlevel);
 		break;
 	case 3:
 		pc_s->chgDex(more1);
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 4:
 		pc_s->in+=more1;
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 5:
 		pc_s->st+=more1;
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 6:
 		pc_s->chgDex(-1 * more1);
 		pc_s->stm=min(pc_s->stm, (int)pc_s->effDex());
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 7:
 		pc_s->in-=more1;
 		pc_s->mn=min(pc_s->mn, pc_s->in);
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 8:
 		pc_s->st-=more1;
 		pc_s->hp=min(pc_s->hp, pc_s->st);
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 9:
 		if (more1 == 0)
@@ -325,16 +324,16 @@ void cTmpEff::Expire()
 			if (more2!=0)
 			{
 				sprintf((char*)temp, "*%s continues grinding.*", pc_s->name);
-				npcemoteall(s, (char*)temp,1);
+				npcemoteall(DEREF_P_CHAR(pc_s), (char*)temp,1);
 			}
-			soundeffect2(s, 0x02, 0x42);
+			soundeffect2(DEREF_P_CHAR(pc_s), 0x02, 0x42);
 		}
 		break;
 	case 10:
-		s=calcCharFromSer(getSour());
-		mortar=calcItemFromSer(getDest());
+		pc_s = FindCharBySerial(getSour());
+		mortar = calcItemFromSer(getDest());
 		if(mortar>-1) //AntiChrist - to prevent crashes
-			Skills->CreatePotion(s, more1, more2, mortar);
+			Skills->CreatePotion(DEREF_P_CHAR(pc_s), more1, more2, mortar);
 		break;
 	case 11:
 		pc_s->st-=more1;
@@ -343,13 +342,13 @@ void cTmpEff::Expire()
 		pc_s->stm=min(pc_s->stm, (int)pc_s->effDex());
 		pc_s->in-=more3;
 		pc_s->mn=min(pc_s->mn, pc_s->in);
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 12:
 		pc_s->st+=more1;
 		pc_s->chgDex(more2);
 		pc_s->in+=more3;
-		statwindow(calcSocketFromChar(s), s);
+		statwindow(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_CHAR(pc_s));
 		break;
 	case 13:
 		{
@@ -359,7 +358,7 @@ void cTmpEff::Expire()
 				if (pDoor->dooropen==0)
 					break;
 				pDoor->dooropen=0;
-				dooruse(calcSocketFromChar(s), DEREF_P_ITEM(pDoor));
+				dooruse(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_ITEM(pDoor));
 			}
 			break;
 		}
@@ -388,11 +387,11 @@ void cTmpEff::Expire()
 		break;
 	case 16: //Explosion potion messages	Tauriel
 		sprintf((char*)temp, "%i", more3);
-		sysmessage(calcSocketFromChar(s), (char*)temp); // crashfix, LB
+		sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_s)), (char*)temp); // crashfix, LB
 		break;
 	case 17: //Explosion potion explosion	Tauriel			
-		s=calcCharFromSer(getSour());
-		explodeitem(calcSocketFromChar(s), calcItemFromSer(getDest())); //explode this item
+		pc_s = FindCharBySerial(getSour());
+		explodeitem(calcSocketFromChar(DEREF_P_CHAR(pc_s)), calcItemFromSer(getDest())); //explode this item
 		break;
 	case 18: //Polymorph spell by AntiChrist 9/99
 		if(pc_s->polymorph)//let's ensure it's under polymorph effect!
@@ -400,7 +399,7 @@ void cTmpEff::Expire()
 			pc_s->id1=pc_s->xid1;
 			pc_s->id2=pc_s->xid2;
 			pc_s->polymorph=false;
-			teleport(s);
+			teleport(DEREF_P_CHAR(pc_s));
 		}
 		break;
 	case 19: //Incognito spell by AntiChrist 12/99
@@ -408,18 +407,18 @@ void cTmpEff::Expire()
 		break;
 		
 	case 20: // LSD potions, LB 5'th nov 1999
-		k=calcSocketFromChar(s);
+		k=calcSocketFromChar(DEREF_P_CHAR(pc_s));
 		if (k==-1) return;
 		LSD[k]=0;
 		sysmessage(k,"LSD has worn off");
 		pc_s->stm=3; // stamina near 0
 		pc_s->mn=3;
 		pc_s->hp=pc_s->hp/7;
-		impowncreate(k,s,0);
+		impowncreate(k,DEREF_P_CHAR(pc_s),0);
 		all_items(k); // absolutely necassairy here !!!
 		for (ccc =0; ccc<charcount; ccc++) // that hurts, but there's no other good way
 		{
-			if (chardist(s,ccc)<15 && ( online(ccc) || chars[ccc].isNpc() ) ) updatechar(ccc);
+			if (chardist(DEREF_P_CHAR(pc_s),ccc)<15 && ( online(ccc) || chars[ccc].isNpc() ) ) updatechar(ccc);
 		}
 		break;
 		
@@ -433,34 +432,34 @@ void cTmpEff::Expire()
 		break;
 		
 	case 33: // delayed hiding for gms after flamestrike effect
-		k=calcSocketFromChar(s);
+		k=calcSocketFromChar(DEREF_P_CHAR(pc_s));
 		sysmessage(k,"You have hidden yourself well.");
 		pc_s->hidden=1;
-		updatechar(s);
+		updatechar(DEREF_P_CHAR(pc_s));
 		break;
 		
 	case 34: // delayed unhide for gms
 		// Changed to be uniform with delayed hideing  (Aldur)
-		k = calcSocketFromChar(s); 
+		k = calcSocketFromChar(DEREF_P_CHAR(pc_s)); 
 		sysmessage(k, "You are now visible."); 
 		pc_s->hidden = 0; 
-		updatechar(s); 
+		updatechar(DEREF_P_CHAR(pc_s)); 
 		break;
 		
 	case 35: //heals some pf - solarin
 		int iHp;
 		iHp=(int)more1;
 		pc_s->hp+=iHp;
-		updatestats(s, 0);
+		updatestats(DEREF_P_CHAR(pc_s), 0);
 		if (!more2)
-			tempeffect(s,s,35,more1+1,1,more3,0);
+			tempeffect(DEREF_P_CHAR(pc_s),DEREF_P_CHAR(pc_s),35,more1+1,1,more3,0);
 		break;
 		
 	default:
 		LogErrorVar("Fallout of switch (num = %i).", num);
 		break;
 	}
-	Items->CheckEquipment(s); //AntiChrist - checks equipments for stats requirements
+	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
 }
 
 void cAllTmpEff::Off()

@@ -247,7 +247,7 @@ public:
 	void DecayItem(unsigned int currenttime, int i);
 	void RespawnItem(unsigned int Currenttime, int i);
 	void AddRespawnItem(int s, int x, int y);
-	void CheckEquipment(CHARACTER p); //AntiChrist
+	void CheckEquipment(P_CHAR pc_p); //AntiChrist
 	int  Find_items_around_player(int player, unsigned char id1, unsigned char id2, unsigned char x, unsigned char y, int max_returns, int* items_found);
 	void CheckMemoryRequest();
 	bool AllocateMemory(int NumberOfItems);
