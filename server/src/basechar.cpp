@@ -47,6 +47,10 @@
 #include "itemid.h"
 #include "basics.h"
 #include "tilecache.h"
+#include "wpdefaultscript.h"
+#include "wpscriptmanager.h"
+#include "skills.h"
+#include "wpdefmanager.h"
 
 cBaseChar::cBaseChar()
 {
@@ -1127,7 +1131,7 @@ bool cBaseChar::onDropOnChar( P_ITEM pItem )
 	return false;
 }
 
-QString cChar::onShowPaperdollName( P_CHAR pOrigin )
+QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
@@ -1191,23 +1195,23 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	else if( TagName == "direction" )
 	{
 		if( Value == "NE" )
-			this->dir_ = 1;
+			this->direction_ = 1;
 		else if( Value == "E" )
-			this->dir_ = 2;
+			this->direction_ = 2;
 		else if( Value == "SE" )
-			this->dir_ = 3;
+			this->direction_ = 3;
 		else if( Value == "S" )
-			this->dir_ = 4;
+			this->direction_ = 4;
 		else if( Value == "SW" )
-			this->dir_ = 5;
+			this->direction_ = 5;
 		else if( Value == "W" )
-			this->dir_ = 6;
+			this->direction_ = 6;
 		else if( Value == "NW" )
-			this->dir_ = 7;
+			this->direction_ = 7;
 		else if( Value == "N" )
-			this->dir_ = 0;
+			this->direction_ = 0;
 		else
-			this->dir_ = Value.toUShort();
+			this->direction_ = Value.toUShort();
 	}
 
 	//<stat type="str">100</stats>
@@ -1218,18 +1222,15 @@ void cBaseChar::processNode( const QDomElement &Tag )
 			QString statType = Tag.attribute( "type" );
 			if( statType == "str" )
 			{
-				this->st_ = Value.toLong();
-				this->hp_ = this->st_;
+				strength_ = Value.toLong();
 			}
 			else if( statType == "dex" )
 			{
-				this->setDex( Value.toLong() );
-				this->stm_ = this->realDex();
+				dexterity_ = Value.toLong();
 			}
 			else if( statType == "int" )
 			{
-				this->in_ = Value.toLong();
-				this->mn_ = this->in_;
+				intelligence_ = Value.toLong();
 			}
 		}
 	}
@@ -1237,29 +1238,26 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	// Aliasses <str <dex <int
 	else if( TagName == "str" )
 	{
-		st_ = Value.toLong();
-		hp_ = st_;
+		strength_ = Value.toLong();
 	}
 
 	else if( TagName == "dex" )
 	{
-		setDex( Value.toLong() );
-		stm_ = realDex();
+		dexterity_ = Value.toLong();
 	}
 	
 	else if( TagName == "int" )
 	{
-		in_ = Value.toLong();
-		mn_ = in_;
+		intelligence_ = Value.toLong();
 	}
 
 	//<defense>10</defense>
 	else if( TagName == "defense" )
-		this->def_ = Value.toUInt();
+		this->bodyArmor_ = Value.toUInt();
 
 	//<emotecolor>0x482</emotecolor>
 	else if( TagName == "emotecolor" )
-		this->emotecolor_ = Value.toUShort();
+		this->emoteColor_ = Value.toUShort();
 
 	//<fame>8000</fame>
 	else if( TagName == "fame" )
@@ -1270,7 +1268,7 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	{
 		UI16 bit = Value.toUShort();
 		if( bit < 32 && bit > 0 )
-			this->food_ |= ( 1 << (bit-1) );
+			this->nutriment_ |= ( 1 << (bit-1) );
 	}
 
 	//<gold>100</gold>
@@ -1282,8 +1280,8 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	//<id>0x11</id>
 	else if( TagName == "id" )
 	{
-		this->setId( Value.toInt() );
-		this->xid_ = this->id();
+		bodyID_ = Value.toInt();
+		orgBodyID_ = bodyID_;
 	}
 
 	//<karma>-500</karma>
@@ -1297,13 +1295,13 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	//<skin>0x342</skin>
 	else if( TagName == "skin" )
 	{
-		this->setSkin( Value.toUShort() );
-		this->setXSkin( Value.toUShort() );
+		skin_ = Value.toUShort();
+		orgSkin_ = Value.toUShort();
 	}
 		
 	//<saycolor>0x110</saycolor>
 	else if( TagName == "saycolor" )
-		this->setSayColor( Value.toUShort() );
+		saycolor_ = Value.toUShort();
 
 	//<title>the king</title>
 	else if( TagName == "title" )
@@ -1377,7 +1375,7 @@ void cBaseChar::processNode( const QDomElement &Tag )
 			if( !mLayer )
 				Items->DeleItem( nItem );
 			else
-				this->addItem( static_cast<cChar::enLayer>(mLayer), nItem ); // not sure about this one.
+				this->addItem( static_cast<cBaseChar::enLayer>(mLayer), nItem ); // not sure about this one.
 
 			++iter;
 		}
@@ -1448,16 +1446,16 @@ void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
 stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 {
 	changed( SAVE|TOOLTIP );
-	SET_STR_PROPERTY( "orgname", orgname_ )
+	SET_STR_PROPERTY( "orgname", orgName_ )
 	else SET_STR_PROPERTY( "title", title_ )
-	else if( name == "account" )
+	else if( name == "incognito" )
 	{
-		setAccount( Accounts::instance()->getRecord( value.toString() ) );
-		npc_ = ( account() == 0 );
-		return 0;
+		setIncognito( value.toInt() );
 	}
-	else SET_INT_PROPERTY( "incognito", incognito_ )
-	else SET_INT_PROPERTY( "polymorph", polymorph_ )
+	else if( name == "polymorph" )
+	{
+		setPolymorphed( value.toInt() );
+	}
 	else if( name == "haircolor" )
 	{
 		bool ok;
@@ -1495,84 +1493,61 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "skin", skin_ )
-	else SET_INT_PROPERTY( "xskin", xskin_ )
-	else SET_INT_PROPERTY( "creationday", creationday_ )
-	else SET_INT_PROPERTY( "stealth", stealth_ )
-	else SET_INT_PROPERTY( "running", running_ )
-	else SET_INT_PROPERTY( "logout", logout_ )
-	else SET_INT_PROPERTY( "clientidletime", clientidletime_ )
-	else SET_INT_PROPERTY( "swingtarget", swingtarg_ )
-	else SET_INT_PROPERTY( "tamed", tamed_ )
-	else SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
-	else SET_INT_PROPERTY( "antiguardstimer", antiguardstimer_ )
+	else SET_INT_PROPERTY( "orgskin", orgSkin_ )
+	else if( name == "creationdate" )
+	{
+		creationDate_ = QDateTime::fromString( value.toString() );
+	}
+	else SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
+	else SET_INT_PROPERTY( "runningsteps", runningSteps_ )
+	else SET_INT_PROPERTY( "swingtarget", swingTarget_ )
+	else if( name == "tamed" )
+	{
+		setTamed( value.toInt() );
+	}
 	else SET_CHAR_PROPERTY( "guarding", guarding_ )
-	else SET_STR_PROPERTY( "carve", carve_ )
-	else SET_INT_PROPERTY( "murderer", murdererSer_ )
-	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
-	else SET_INT_PROPERTY( "stablemaster", stablemaster_serial_ )
-	else SET_INT_PROPERTY( "casting", casting_ )
-	else SET_INT_PROPERTY( "hidden", hidden_ )
-	else SET_INT_PROPERTY( "attackfirst", attackfirst_ )
+	else SET_INT_PROPERTY( "murderer", murdererSerial_ )
+	else if( name == "casting" )
+	{
+		setCasting( value.toInt() );
+	}
+	else if( name == "hidden" )
+	{
+		setHidden( value.toInt() );
+	}
 	else SET_INT_PROPERTY( "hunger", hunger_ )
-	else SET_INT_PROPERTY( "hungertime", hungertime_ )
-	else SET_INT_PROPERTY( "npcaitype", npcaitype_ )
+	else SET_INT_PROPERTY( "hungertime", hungerTime_ )
 	else SET_INT_PROPERTY( "poison", poison_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
-	else SET_INT_PROPERTY( "poisontime", poisontime_ )
-	else SET_INT_PROPERTY( "poisonwearofftime", poisonwearofftime_ )
-	else SET_INT_PROPERTY( "fleeat", fleeat_ )
-	else SET_INT_PROPERTY( "reattackat", reattackat_ )
-	else SET_INT_PROPERTY( "split", split_ )
-	else SET_INT_PROPERTY( "splitchance", splitchnc_ )
-	else SET_INT_PROPERTY( "ra", ra_ )
-	else SET_INT_PROPERTY( "trainer", trainer_ )
-	else SET_INT_PROPERTY( "trainingplayerin", trainingplayerin_ )
-	else SET_INT_PROPERTY( "cantrain", cantrain_ )
-/*	else if( name == "guildstone" )
+	else SET_INT_PROPERTY( "poisontime", poisonTime_ )
+	else SET_INT_PROPERTY( "poisonwearofftime", poisonWearOffTime_ )
+	else if( name == "ra" )
 	{
-		P_ITEM pItem = value.toItem();
-		// Remove from Current Guild
-		if( !pItem )
-		{
-			cGuildStone *pGuild = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
-			if( pGuild )
-				pGuild->removeMember( this );
-			guildstone_ = INVALID_SERIAL;
-			return 0;
-		}
-		else if( pItem->serial() != guildstone_ )
-		{
-			cGuildStone *pGuild = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
-			if( pGuild )
-				pGuild->removeMember( this );
-			guildstone_ = pItem->serial();
-			return 0;
-		}
-		else
-			return 0;
-	}*/
+		setReactiveArmor( value.toInt() );
+	}
 	else SET_INT_PROPERTY( "flag", flag_ )
-	else SET_INT_PROPERTY( "murderrate", murderrate_ )
-	else SET_INT_PROPERTY( "crimflag", crimflag_ )
-	else SET_INT_PROPERTY( "squelched", squelched_ )
-	else SET_INT_PROPERTY( "mutetime", mutetime_ )
-	else SET_INT_PROPERTY( "meditating", med_ )
+	else SET_INT_PROPERTY( "murderertime", murdererTime_ )
+	else SET_INT_PROPERTY( "criminaltime", criminalTime_ )
+	else if( name == "meditating" )
+	{
+		setMeditating( value.toInt() );
+	}
 	else SET_INT_PROPERTY( "weight", weight_ )
 	else if( name == "stones" )
 	{
 		weight_ = value.toInt() * 10;
 		return 0;
 	}
-	else SET_STR_PROPERTY( "lootlist", lootlist_ )
+	else SET_STR_PROPERTY( "lootlist", lootList_ )
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
-	else SET_INT_PROPERTY( "emotecolor", emotecolor_ )
-	else SET_INT_PROPERTY( "strength", st_ )
-	else SET_INT_PROPERTY( "dexterity", dx )
+	else SET_INT_PROPERTY( "emotecolor", emoteColor_ )
+	else SET_INT_PROPERTY( "strength", strength_ )
+	else SET_INT_PROPERTY( "dexterity", dexterity_ )
 	else SET_INT_PROPERTY( "intelligence", in_ )
 	else SET_INT_PROPERTY( "strength2", st2_ )
 	else SET_INT_PROPERTY( "dexterity2", dx2 )
 	else SET_INT_PROPERTY( "intelligence2", in2_ )
-	else SET_INT_PROPERTY( "direction", dir_ )
+	else SET_INT_PROPERTY( "direction", direction_ )
 	else SET_INT_PROPERTY( "xid", xid_ )
 	else SET_INT_PROPERTY( "priv", priv )
 	else SET_INT_PROPERTY( "priv2", priv2_ )
@@ -1705,7 +1680,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "strength2", st2_ )
 	GET_PROPERTY( "dexterity2", dx2 )
 	GET_PROPERTY( "intelligence2", in2_ )
-	GET_PROPERTY( "direction", dir_ )
+	GET_PROPERTY( "direction", direction_ )
 	GET_PROPERTY( "xid", xid_ )
 	GET_PROPERTY( "priv", priv )
 	GET_PROPERTY( "priv2", priv2_ )
