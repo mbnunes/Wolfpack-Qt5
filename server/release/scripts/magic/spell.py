@@ -115,7 +115,7 @@ class Spell:
 		if char.npc and char.bodytype != BODY_HUMAN:
 			return
 
-		if self.mantra and mode in [MODE_BOOK, MODE_SCROLL]:
+		if self.mantra and mode in [MODE_BOOK, MODE_SCROLL, MODE_CMD]:
 			char.say(self.mantra)
 
 	#
@@ -221,7 +221,7 @@ class Spell:
 		# spells are cast more slowly
 		if char.propertyflags & 0x20000:
 			castspeed += 2
-			
+
 		# Cast Speed Bonus is capped at 2
 		castspeed -= min(2, properties.fromchar(char, CASTSPEEDBONUS))
 
@@ -312,9 +312,9 @@ class Spell:
 				return 0
 
 		return 1
-		
+
 	# Check for Reagents
-	def checkreagents(self, char, mode, args=[]):		
+	def checkreagents(self, char, mode, args=[]):
 		if not char.npc and len(self.reagents) > 0:
 			items = countReagents(char.getbackpack(), self.reagents.copy())
 
@@ -326,7 +326,7 @@ class Spell:
 		return True
 
 	# Consume Reagents
-	def consumereagents(self, char, mode, args=[]):		
+	def consumereagents(self, char, mode, args=[]):
 		if not char.npc and len(self.reagents) > 0:
 			lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
 
@@ -403,11 +403,11 @@ class Spell:
 		bonus = char.skill[INSCRIPTION] / 100.0
 		bonus += char.intelligence / 10.0
 		spelldamagebonus = properties.fromchar(char, SPELLDAMAGEBONUS)
-		
+
 		# Spell Damage Bonus is capped at 15% against players
 		if target and target.player and spelldamagebonus > 15:
 			spelldamagebonus = 15
-		
+
 		bonus += spelldamagebonus
 
 		damage *= 1.0 + bonus / 100.0

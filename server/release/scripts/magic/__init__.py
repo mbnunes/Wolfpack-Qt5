@@ -29,13 +29,14 @@ def onLoad():
 #
 # Mode: 0 = Book
 # Mode: 1 = Scroll
-# MOde: 2 = Wand
+# Mode: 2 = Wand
+# Mode: 3 = Command
 def castSpell( char, spell, mode = 0, args = [], target = None, item = None ):
 	if char.dead:
 		return
 
 	socket = char.socket
-	
+
 	if not spells.has_key(spell):
 		if socket:
 			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d.\n" % spell)
@@ -124,7 +125,7 @@ def target_response( char, args, target ):
 			if char.socket:
 				char.socket.clilocmessage(500237)
 			return False
-			
+
 		message = u"Casting spell %u (%s) on item %s (0x%x).\n"  % (spell.spellid, spell.__class__.__name__, target.item.getname(), target.item.serial)
 		char.log(LOG_MESSAGE, message)
 		spell.target(char, mode, TARGET_ITEM, target.item, args, item)
@@ -179,13 +180,13 @@ def onDamage(char, type, amount, source):
 def maymove(char, direction, sequence):
 	if char.npc or char.gm:
 		return True
-		
+
 	return False
 
 def onWalk( char, direction, sequence ):
 	if maymove(char, direction, sequence):
 		return False
-			
+
 	# Disallow movement for players
 	packet = wolfpack.packet(0x21, 8)
 	packet.setbyte(1, sequence)

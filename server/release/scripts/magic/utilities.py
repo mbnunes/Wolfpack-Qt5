@@ -20,11 +20,16 @@ REAGENT_NIGHTSHADE = 'f88'
 REAGENT_SULFURASH = 'f8c'
 REAGENT_SPIDERSILK = 'f8d'
 
-# Rarer Reagents
+# Necromancy Reagents
 REAGENT_BATWING = 'f78'
+REAGENT_DAEMONBLOOD = 'f7d'
+REAGENT_GRAVEDUST = 'f8f'
+REAGENT_NOXCRYSTAL = 'f8e'
+REAGENT_PIGIRON = 'f8a'
+
+# Rarer Reagents
 REAGENT_BLACKMOOR = 'f79'
 REAGENT_BLOODSPAWN = 'f7c'
-REAGENT_DAEMONBLOOD = 'f7d'
 REAGENT_BONE = 'f7e'
 REAGENT_BRIMSTONE = 'f7f'
 REAGENT_DAEMONBONE = 'f80'
@@ -33,10 +38,7 @@ REAGENT_DRAGONSBLOOD = 'f82'
 REAGENT_EXECUTIONERSCAP = 'f83'
 REAGENT_EYEOFNEWT = 'f87'
 REAGENT_OBSIDIAN = 'f89'
-REAGENT_PIGIRON = 'f8a'
 REAGENT_PUMICE = 'f8b'
-REAGENT_NOXCRYSTAL = 'f8e'
-REAGENT_GRAVEDUST = 'f8f'
 REAGENT_DEADWOOD = 'f90'
 REAGENT_WYRMSHEART = 'f91'
 
@@ -55,7 +57,7 @@ def fizzle(char):
 
 	if char.socket:
 		char.socket.deltag('cast_target')
-		
+
 		# Only play the fizzle effect for players
 		char.effect(0x3735, 1, 30)
 		char.soundeffect(0x5c)
@@ -66,10 +68,10 @@ def fizzle(char):
 def hasSpell(char, spell, silent = True):
 	if char.npc:
 		return True
-	
+
 	book = char.itemonlayer(1)
 
-	if magic.spellbook.hasspell(book, spell):		
+	if magic.spellbook.hasspell(book, spell):
 		return True
 
 	for book in char.getbackpack().content:
@@ -77,7 +79,7 @@ def hasSpell(char, spell, silent = True):
 			return True
 
 	if not silent and char.socket:
-		char.socket.clilocmessage(1042404) # You don't know that spell.	
+		char.socket.clilocmessage(1042404) # You don't know that spell.
 
 	return False
 
@@ -123,7 +125,7 @@ def statmodifier_dispel(char, args, source, dispelargs):
 #
 # A stat enhancing spell has expired
 #
-def statmodifier_expire(char, args):	
+def statmodifier_expire(char, args):
 	stat = args[0]
 	amount = args[1]
 
