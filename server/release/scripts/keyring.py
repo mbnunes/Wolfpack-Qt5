@@ -84,8 +84,10 @@ def lock_response(char, args, target):
 			if key_lock == target_lock:
 				if target.item.hastag('locked') and int(target.item.gettag('locked')) == 1:
 					target.item.deltag('locked')
+					target.item.say(1048001, "", "", False, 0x3b2, char.socket)
 				else:
 					target.item.settag('locked',1)
+					target.item.say(1048000, "", "", False, 0x3b2, char.socket)
 				char.soundeffect(0x241)
 				return
 
