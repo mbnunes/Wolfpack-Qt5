@@ -436,7 +436,7 @@ def onWearItem(player, wearer, item, layer):
 		if player != wearer:
 			player.socket.sysmessage('This person can\'t wear that item, seems not smart enough.')
 		else:
-			player.socket.sysmessage('You are not ingellgent enough to equip this item.')
+			player.socket.sysmessage('You are not intelligent enough to equip this item.')
 		return True
 
 	# Reject equipping an item with durability 1 or less
