@@ -347,7 +347,9 @@ void serXmlFile::done()
 	else
 	{
 		QDomNode parent = node.parentNode();
-		parent.removeChild( node );
+		QDomNode toDelete = parent.removeChild( node );
+		toDelete.clear();
+
 		if( parent.toElement() == document->documentElement() )
 		{
 			reader->parse( source );
