@@ -51,6 +51,8 @@ wp_version_info wp_version;
 
 using namespace std;
 
+enServerState serverState;
+
 //	Instantiate our console object
 WPConsole_cl clConsole;
 

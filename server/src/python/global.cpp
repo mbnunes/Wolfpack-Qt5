@@ -850,6 +850,59 @@ PyObject* wpCurrentdatetime( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns if the server is in starting state
+*/
+PyObject* wpIsStarting( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);	
+	Q_UNUSED(self);
+	if( serverState == STARTUP )
+		return PyTrue;
+	else
+		return PyFalse;
+}
+
+/*!
+	Returns if the server is in running state
+*/
+PyObject* wpIsRunning( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);	
+	Q_UNUSED(self);
+	if( serverState == RUNNING )
+		return PyTrue;
+	else
+		return PyFalse;
+}
+
+/*!
+	Returns if the server is in reload state
+*/
+PyObject* wpIsReloading( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);	
+	Q_UNUSED(self);
+	if( serverState == SCRIPTRELOAD )
+		return PyTrue;
+	else
+		return PyFalse;
+}
+
+/*!
+	Returns if the server is in closing state
+*/
+PyObject* wpIsClosing( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);	
+	Q_UNUSED(self);
+	if( serverState == SHUTDOWN )
+		return PyTrue;
+	else
+		return PyFalse;
+}
+
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
@@ -878,6 +931,10 @@ static PyMethodDef wpGlobal[] =
 	{ "serveruptime",		wpServerUptime,		METH_VARARGS, "Returns uptime of server in seconds." },
 	{ "serverversion",		wpServerVersion,	METH_VARARGS, "Returns the server version string." },
 	{ "currentdatetime",	wpCurrentdatetime,	METH_VARARGS, "Returns the current real date/time" },
+	{ "isstarting",			wpIsStarting,		METH_VARARGS, "Returns if the server is in starting state" },
+	{ "isrunning",			wpIsRunning,		METH_VARARGS, "Returns if the server is in running state" },
+	{ "isreloading",		wpIsReloading,		METH_VARARGS, "Returns if the server is in reload state" },
+	{ "isclosing",			wpIsClosing,		METH_VARARGS, "Returns if the server is in closing state" },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

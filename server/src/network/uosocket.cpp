@@ -2080,7 +2080,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setWeight( pChar->stones() );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
-		sendStats.setSex( true );
+		sendStats.setSex( pChar->sex() );
 		sendStats.setPets( _player->followers().size() );
 		sendStats.setMaxPets( 0xFF );
 		sendStats.setStatCap( SrvParams->statcap() );

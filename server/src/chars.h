@@ -101,6 +101,7 @@ protected:
 	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname_;//original name - for Incognito
 	QString					title_;
+	bool					sex_;
 	bool					unicode_; // This is set to 1 if the player uses unicode speech, 0 if not
 	unsigned short			id_;
 	AccountRecord*			account_; // changed to signed, lb
@@ -321,6 +322,7 @@ public:
 	bool					guildTraitor() const; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname() const;	  //original name - for Incognito
 	QString					title() const;
+	bool					sex() const;
 	bool					unicode() const; // This is set to 1 if the player uses unicode speech, 0 if not
 	AccountRecord*			account() const; // changed to signed, lb
 	bool					incognito() const { return incognito_;	}
@@ -500,6 +502,7 @@ public:
 	void					setGuildTraitor(bool  d);
 	void					setOrgname(const QString& d);//original name - for Incognito
 	void					setTitle( const QString& d);
+	void					setSex( bool male );
 	void					setUnicode( bool d); // This is set to 1 if the player uses unicode speech, 0 if not
 	void					setAccount( AccountRecord* data, bool moveFromAccToAcc = true ); // changed to signed, lb
 	void					setIncognito ( bool d) { incognito_ = d; changed( SAVE );} 
@@ -877,6 +880,7 @@ inline QString			cChar::title() const			{ return title_;   }
 inline bool				cChar::unicode() const			{ return unicode_; }
 inline AccountRecord*	cChar::account() const			{ return account_; }
 inline cChar::Effects	cChar::effects() const			{ return effects_; }
+inline bool				cChar::sex() const				{ return sex_; }
 
 // Setters
 inline void	cChar::setGuildType(short d)			{ GuildType = d; changed( SAVE ); }
@@ -884,5 +888,6 @@ inline void cChar::setGuildTraitor(bool  d)			{ GuildTraitor = d; changed( SAVE 
 inline void	cChar::setOrgname( const QString& d )	{ orgname_ = d; changed( SAVE );}
 inline void cChar::setTitle( const QString& d )		{ title_ = d;   changed( SAVE );}
 inline void cChar::setUnicode(bool d)				{ unicode_ = d; changed( SAVE );}
+inline void cChar::setSex( bool male )				{ sex_ = male; changed( SAVE ); }
 
 #endif // __CHARS_H__

@@ -115,6 +115,7 @@ cChar::cChar( const P_CHAR mob )
 	this->GuildTraitor = mob->guildTraitor();
 	this->orgname_ = mob->orgname();
 	this->title_ = mob->title();
+	this->sex_ = mob->sex();
 	this->unicode_ = mob->unicode();
 	this->id_ = mob->id();
 	this->account_ = mob->account();
@@ -350,6 +351,7 @@ void cChar::Init(bool ser)
 	this->setName("Man");
 	this->setOrgname( "Man" );
 	this->title_ = "";
+	this->sex_ = true;
 	this->socket_ = 0;
 	this->setAntispamtimer(0);//LB - anti spam
 
@@ -972,6 +974,7 @@ void cChar::load( char **result, UINT16 &offset )
 		guarding_ = 0;
 	
 	parseCoordinates( result[offset++], ptarg_ );
+	sex_ = atoi( result[offset++] );
 
 	SetSpawnSerial( spawnserial_ );
 
@@ -1117,6 +1120,7 @@ void cChar::save()
 		addStrField( "profile", profile_ );
 		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
 		addStrField( "destination", QString( "%1,%2,%3,%4" ).arg( ptarg_.x ).arg( ptarg_.y ).arg( ptarg_.z ).arg( ptarg_.map ) );
+		addField( "sex", sex_ );
 		
 		addCondition( "serial", serial() );
 		saveFields;
@@ -4204,6 +4208,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	SET_INT_PROPERTY( "food", food_ )
 	SET_CHAR_PROPERTY( "owner", owner_ )
 	SET_STR_PROPERTY( "profile", profile_ )
+	SET_INT_PROPERTY( "sex", sex_ )
 	SET_INT_PROPERTY( "id", id_ )
 
 	// skill.
@@ -4372,6 +4377,7 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "food", (int)food_ )
 	GET_PROPERTY( "owner", owner_ )
 	GET_PROPERTY( "profile", profile_ )
+	GET_PROPERTY( "sex", sex_ )
 	GET_PROPERTY( "id", id_ )
 
 	// skill.

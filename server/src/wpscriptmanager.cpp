@@ -83,6 +83,7 @@ void WPScriptManager::remove( const QString& Name )
 
 void WPScriptManager::reload( void )
 {
+	serverState = SCRIPTRELOAD;
 	// First unload, then reload
 	unload();
 
@@ -118,6 +119,7 @@ void WPScriptManager::reload( void )
 	}
 
 	clConsole.ProgressDone();
+	serverState = RUNNING;
 }
 
 // Unload all scripts

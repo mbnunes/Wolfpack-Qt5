@@ -57,9 +57,13 @@ class WPConsole_cl;
 #include "structs.h"
 #include "storage.h"
 
-// Global Variables
-//	Instantiate our console object
+enum enServerState { STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN };
 
+// Global Variables
+
+extern enServerState serverState;
+
+//	Instantiate our console object
 extern WPConsole_cl clConsole;
 
 extern unsigned int uiCurrentTime;

@@ -945,6 +945,7 @@ int main( int argc, char *argv[] )
 	unsigned long tempTime;
 	uiCurrentTime = serverstarttime = getNormalizedTime();
 
+	serverState = STARTUP;
 	// Print a seperator somehow
 	clConsole.send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
 
@@ -1306,6 +1307,8 @@ int main( int argc, char *argv[] )
 	cConsoleThread consoleThread;
 	consoleThread.start();
 
+	serverState = RUNNING;
+
 	// This is our main loop
 	while( keeprun )
 	{		
@@ -1415,6 +1418,8 @@ int main( int argc, char *argv[] )
 		
 		qApp->processEvents( 40 );
 	}
+
+	serverState = SHUTDOWN;
 
 	consoleThread.cancel();
 
