@@ -851,14 +851,14 @@ char cMagic::GateCollision(P_CHAR pc_player)
 								if ( chardist(pc_player, pc) <= 4 )
 								{
 									// Teleport the NPC along with the player
-									pc->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
+									pc->MoveTo(gatex[mapitem->gatenumber()][n], gatey[mapitem->gatenumber()][n], gatez[mapitem->gatenumber()][n]);
 									teleport(pc);
 								}
 							}
 						}
 					}
 					// Set the characters destination
-					pc_player->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n]+ 1, gatez[mapitem->gatenumber][n]);
+					pc_player->MoveTo(gatex[mapitem->gatenumber()][n], gatey[mapitem->gatenumber()][n]+ 1, gatez[mapitem->gatenumber()][n]);
 					teleport(pc_player);
 					soundeffect( calcSocketFromChar( pc_player ), 0x01, 0xFE );
 					staticeffect( pc_player, 0x37, 0x2A, 0x09, 0x06 );
@@ -4403,9 +4403,9 @@ void cMagic::Gate(UOXSOCKET s)
 					pi_c->pos.x=gatex[gatecount][n];
 					pi_c->pos.y=gatey[gatecount][n];
 					pi_c->pos.z=gatez[gatecount][n];
-					pi_c->gatetime = static_cast<unsigned int>(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC));
+					pi_c->setGateTime(static_cast<unsigned int>(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC)));
 					//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
-					pi_c->gatenumber=gatecount;
+					pi_c->setGateNumber(gatecount);
 					pi_c->dir=1;
 					cMapObjects::getInstance()->add(pi_c);	//add gate to list of items in the region
 					pi_c->update();//AntiChrist

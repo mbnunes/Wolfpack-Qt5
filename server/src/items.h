@@ -97,6 +97,14 @@ protected:
 	unsigned int def_; // Item defense
 	signed short st_; // The strength needed to equip the item
 	signed short st2_; // The strength the item gives
+	signed short dx_; // The dexterity needed to equip the item
+	signed short dx2_; // The dexterity the item gives
+	signed short in_; // The intelligence needed to equip the item
+	signed short in2_; // The intelligence the item gives
+	unsigned char magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
+	unsigned int gatetime_;
+	int gatenumber_;
+	unsigned int decaytime_;
 //********************END ADDED FROM PUBLIC *************
 
 	virtual void	processNode( const QDomElement &Tag );
@@ -165,6 +173,14 @@ public:
 	unsigned int	def()			const { return def_; }
 	signed short	st()			const { return st_; }
 	signed short	st2()			const { return st2_; }
+	signed short	dx()			const { return dx_; }
+	signed short	dx2()			const { return dx2_; }
+	signed short	in()			const { return in_; }
+	signed short	in2()			const { return in2_; }
+	unsigned char	magic()			const { return magic_; }
+	unsigned int	gatetime()		const { return gatetime_; }
+	int				gatenumber()	const { return gatenumber_; }
+	unsigned int	decaytime()		const { return decaytime_; }
 //***************************END ADDED GETTERS************
 
 
@@ -227,19 +243,21 @@ public:
 	void	setDef( unsigned int data ) { def_ = data; }
 	void	setSt( signed short data ) { st_ = data; }
 	void	setSt2( signed short data ) { st2_ = data; }
+	void	setDx( signed short data ) { dx_ = data; }
+	void	setDx2( signed short data ) { dx2_ = data; }
+	void	setIn( signed short data ) { in_ = data; }
+	void	setIn2( signed short data ) { in2_ = data; }
+	void	setMagic( unsigned char data ) { magic_ = data; }
+	void	setGateTime( unsigned int data ) { gatetime_ = data; }
+	void	setGateNumber( int data ) { gatenumber_ = data; }
+	void	setDecayTime( unsigned int data ) { decaytime_ = data; }
 //*******************************************END ADDED SETTERS**********
 	SERIAL contserial;
 	
 	
 
-	signed short dx; // The dexterity needed to equip the item
-	signed short dx2; // The dexterity the item gives
-	signed short in; // The intelligence needed to equip the item
-	signed short in2; // The intelligence the item gives
-	unsigned char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
-	unsigned int gatetime;
-	int gatenumber;
-	unsigned int decaytime;
+	
+	
 	//signed int destroyTimer; // Ripper for chaos/order shields
 	SERIAL ownserial;
 	unsigned char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
@@ -326,14 +344,14 @@ public:
 	int  DeleteAmount(int amount, unsigned short _id, unsigned short _color = 0);
 	QString getName( bool shortName = false );
 	void startDecay();
-	void setAllMovable()		{this->magic=1;} // set it all movable..
-	bool isAllMovable()         {return (magic==1);}
-	void setGMMovable()		    {this->magic=2;} // set it GM movable.
-	bool isGMMovable()          {return (magic==2);}
-	void setOwnerMovable()		{this->magic=3;} // set it owner movable.
-	bool isOwnerMovable()       {return (magic==3);}
-	void setLockedDown()        {this->magic=4;} // set it locked down.
-	bool isLockedDown()			{return (magic==4);}
+	void setAllMovable()		{this->magic_=1;} // set it all movable..
+	bool isAllMovable()         {return (magic_==1);}
+	void setGMMovable()		    {this->magic_=2;} // set it GM movable.
+	bool isGMMovable()          {return (magic_==2);}
+	void setOwnerMovable()		{this->magic_=3;} // set it owner movable.
+	bool isOwnerMovable()       {return (magic_==3);}
+	void setLockedDown()        {this->magic_=4;} // set it locked down.
+	bool isLockedDown()			{return (magic_==4);}
 
 	// Public event wrappers added by darkstorm
 	virtual bool onSingleClick( P_CHAR Viewer );

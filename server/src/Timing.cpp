@@ -899,7 +899,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				// This is rather stupid, why is it not a normal decaytimer!
 				case 51:
 				case 52:
-					if( pItem->gatetime < currenttime )
+					if( pItem->gatetime() < currenttime )
 						Items->DeleItem( pItem );
 					break;
 
@@ -916,13 +916,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				// Move Boats
 				case 117:
 					if( pItem->tags.get( "tiller" ).isValid() && 
-						( pItem->gatetime <= currenttime ) )
+						( pItem->gatetime() <= currenttime ) )
 					{
 						cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->tags.get( "boatserial" ).toInt() ) );
 						if( pBoat )
 						{
 							pBoat->move();
-							pItem->gatetime=(UINT32)( currenttime + (double)( SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC ) );
+							pItem->setGateTime((UINT32)( currenttime + (double)( SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC ) ));
 						}
 					}
 					break;

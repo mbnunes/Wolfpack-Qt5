@@ -152,7 +152,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pTiller->tags.set( "tiller", 1 );
 		pTiller->tags.set( "boatserial", this->serial );
 		this->itemserials[ TILLER ] = pTiller->serial;
-		pTiller->gatetime=(unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
+		pTiller->setGateTime((unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
 	}
 		
 	P_ITEM pPlankR = Items->SpawnItem( pc_currchar, 1, "#", 0, this->itemids[0][ PORT_P_C ], 0, 0 );

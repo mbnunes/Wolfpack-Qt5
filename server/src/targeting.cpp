@@ -302,7 +302,7 @@ void cTargets::IstatsTarget(int s)
 				pi->creator.latin1(),
 				pi->madewith,
 				pi->value,
-				int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),
+				int(double(int(pi->decaytime()-uiCurrentTime)/MY_CLOCKS_PER_SEC)),
 				(pi->priv)&0x01,
 				pi->good,
 				pi->rndvaluerate); // Magius(CHE) (2)

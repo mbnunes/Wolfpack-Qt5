@@ -583,7 +583,7 @@ public:
 		
 		if( pi->multis == pMulti->serial && pi->type() != 117 )
 		{
-			pi->magic = (pi->magic == 4 && pi->type() != 222) ? 0 : 4;
+			pi->setMagic((pi->magic() == 4 && pi->type() != 222) ? 0 : 4);
 			pi->update();
 		}
 		socket->sysMessage( tr("Select another item to lock/unlock!") );

@@ -78,7 +78,7 @@ void cItem::registerInFactory()
 // constructor
 cItem::cItem(): 
 contserial( INVALID_SERIAL ), container_(0), totalweight_(0), incognito(false),
-rndvaluerate(0), dooropen_(0),gatetime(0),gatenumber(-1),disabledmsg(""),murdertime(0),
+rndvaluerate(0), dooropen_(0),gatetime_(0),gatenumber_(-1),disabledmsg(""),murdertime(0),
 timeused_last(0) {};
 
 cItem::cItem( cItem &src )
@@ -125,18 +125,18 @@ cItem::cItem( cItem &src )
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
 	this->hp_ = src.hp_;
-	this->maxhp_=src.maxhp_;
-	this->st_=src.st_;
-	this->st2_=src.st2_;
-	this->dx=src.dx;
-	this->dx2=src.dx2;
-	this->in=src.in;
-	this->in2=src.in2;
+	this->maxhp_ = src.maxhp_;
+	this->st_ = src.st_;
+	this->st2_ = src.st2_;
+	this->dx_ = src.dx_;
+	this->dx2_ = src.dx2_;
+	this->in_ = src.in_;
+	this->in2_ = src.in2_;
 	this->speed_=src.speed_;
-	this->magic=src.magic;
-	this->gatetime=src.gatetime;
-	this->gatenumber=src.gatenumber;
-	this->decaytime = src.decaytime;
+	this->magic_ = src.magic_;
+	this->gatetime_ = src.gatetime_;
+	this->gatenumber_ = src.gatenumber_;
+	this->decaytime_ = src.decaytime_;
 	this->setOwnSerialOnly(src.ownserial);
 	this->visible=src.visible;
 	this->spawnserial=src.spawnserial;
@@ -220,7 +220,7 @@ void cItem::startDecay()
 	if( contserial != INVALID_SERIAL )
 		return;
 
-	this->decaytime = SrvParams->decayTime()*MY_CLOCKS_PER_SEC+uiCurrentTime;
+	this->decaytime_ = SrvParams->decayTime()*MY_CLOCKS_PER_SEC+uiCurrentTime;
 }
 
 
@@ -509,7 +509,7 @@ void cItem::save()
 	addField("amount",		amount_);
 	addField("doordir",		doordir_);
 	addField("dye",			dye_);
-	addField("decaytime",		decaytime > 0 ? decaytime - uiCurrentTime : 0);
+	addField("decaytime",		decaytime_ > 0 ? decaytime_ - uiCurrentTime : 0);
 	addField("att",			att_);
 	addField("def",			def_);
 	addField("hidamage",		hidamage_);
@@ -521,13 +521,13 @@ void cItem::save()
 	addField("maxhp",			maxhp_);
 	addField("rank",			rank);
 	addField("st2",			st2_);
-	addField("dx",			dx);
-	addField("dx2",			dx2);
-	addField("intelligence",	in);
-	addField("intelligence2",	in2);
+	addField("dx",			dx_);
+	addField("dx2",			dx2_);
+	addField("intelligence",	in_);
+	addField("intelligence2",	in2_);
 	addField("speed",			speed_);
 	addField("poisoned",		poisoned);
-	addField("magic",			magic);
+	addField("magic",			magic_);
 	addField("owner",			ownserial);
 	addField("visible",		visible);
 	addField("spawn",			spawnserial);
@@ -672,15 +672,15 @@ void cItem::Init( bool mkser )
 	this->maxhp_=0; // Max number of hit points an item can have.
 	this->st_=0; // The strength needed to equip the item
 	this->st2_=0; // The strength the item gives
-	this->dx=0; // The dexterity needed to equip the item
-	this->dx2=0; // The dexterity the item gives
-	this->in=0; // The intelligence needed to equip the item
-	this->in2=0; // The intelligence the item gives
+	this->dx_ = 0; // The dexterity needed to equip the item
+	this->dx2_ = 0; // The dexterity the item gives
+	this->in_ = 0; // The intelligence needed to equip the item
+	this->in2_ = 0; // The intelligence the item gives
 	this->speed_=0; //The speed of the weapon
-	this->magic=0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
-	this->gatetime=0;
-	this->gatenumber=-1;
-	this->decaytime=0;
+	this->magic_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
+	this->gatetime_= 0;
+	this->gatenumber_= -1;
+	this->decaytime_ = 0;
 	this->setOwnSerialOnly(-1);
 	this->visible=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->spawnserial=-1;
@@ -951,8 +951,8 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 		return;
 	cMulti* pi_multi = NULL;
 	
-	if(pi->isLockedDown()) {pi->decaytime=0; return;}
-	if( pi->decaytime <= currenttime )
+	if(pi->isLockedDown()) {pi->setDecayTime(0); return;}
+	if( pi->decaytime() <= currenttime )
 	{
 		if (pi->priv&0x01 && pi->isInWorld() && !pi->free)
 		{  // decaytime = 5 minutes, * 60 secs per min, * MY_CLOCKS_PER_SEC
@@ -961,7 +961,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 				pi->startDecay();
 			}
 			
-			if (pi->decaytime<=currenttime)
+			if (pi->decaytime()<=currenttime)
 			{
                 //Multis --Boats ->
 				
@@ -1045,7 +1045,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 		return;
 
 	// Not ready to respawn yet
-	if( pItem->gatetime > currenttime )
+	if( pItem->gatetime() > currenttime )
 		return;
 
 	switch( pItem->type() )
@@ -1134,7 +1134,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 		break;
 	};
 
-	pItem->gatetime = currenttime + ( RandomNum( pItem->morex(), pItem->morey() ) * MY_CLOCKS_PER_SEC );
+	pItem->setGateTime(currenttime + ( RandomNum( pItem->morex(), pItem->morey() ) * MY_CLOCKS_PER_SEC ));
 
 	/*
 
@@ -1537,11 +1537,11 @@ void cItem::processNode( const QDomElement& Tag )
 	// <ownermovable />
 	// <immovable />
 	else if( TagName == "movable" )
-		this->magic = 1;
+		this->magic_ = 1;
 	else if( TagName == "immovable" )
-		this->magic = 2;
+		this->magic_ = 2;
 	else if( TagName == "ownermovable" )
-		this->magic = 3;
+		this->magic_ = 3;
 
 	// <decay />
 	// <nodecay />
@@ -1583,9 +1583,9 @@ void cItem::processNode( const QDomElement& Tag )
 		if( Type == "str" )
 			this->st_ = Value.toULong();
 		else if( Type == "dex" )
-			this->dx = Value.toULong();
+			this->dx_ = Value.toULong();
 		else if( Type == "int" )
-			this->in = Value.toULong();
+			this->in_ = Value.toULong();
 	}
 
 	// <visible />
@@ -1609,9 +1609,9 @@ void cItem::processNode( const QDomElement& Tag )
 		if( Type == "str" )
 			this->st2_ = Value.toShort();
 		else if( Type == "dex" )
-			this->dx2 = Value.toShort();
+			this->dx2_ = Value.toShort();
 		else if( Type == "int" )
-			this->in2 = Value.toShort();
+			this->in2_ = Value.toShort();
 	}
 
 	// <dye />
@@ -1785,16 +1785,16 @@ void cItem::processModifierNode( const QDomElement &Tag )
 		else if( Type == "dex" )
 		{
 			if( Value.contains(".") || Value.contains(",") )
-				dx = (INT32)ceil((float)dx * Value.toFloat());
+				dx_ = (INT32)ceil((float)dx_ * Value.toFloat());
 			else
-				this->dx += Value.toLong();
+				this->dx_ += Value.toLong();
 		}
 		else if( Type == "int" )
 		{
 			if( Value.contains(".") || Value.contains(",") )
-				in = (INT32)ceil((float)in * Value.toFloat());
+				in_ = (INT32)ceil((float)in_ * Value.toFloat());
 			else
-				this->in += Value.toLong();
+				this->in_ += Value.toLong();
 		}
 	}
 
@@ -1816,16 +1816,16 @@ void cItem::processModifierNode( const QDomElement &Tag )
 		else if( Type == "dex" )
 		{
 			if( Value.contains(".") || Value.contains(",") )
-				dx2 = (INT32)ceil((float)dx2 * Value.toFloat());
+				dx2_ = (INT32)ceil((float)dx2_ * Value.toFloat());
 			else
-				this->dx2 += Value.toLong();
+				this->dx2_ += Value.toLong();
 		}
 		else if( Type == "int" )
 		{
 			if( Value.contains(".") || Value.contains(",") )
-				in2 = (INT32)ceil((float)in2 * Value.toFloat());
+				in2_ = (INT32)ceil((float)in2_ * Value.toFloat());
 			else
-				this->in2 += Value.toLong();
+				this->in2_ += Value.toLong();
 		}
 	}
 
@@ -2394,9 +2394,9 @@ void cItem::load( char **result, UINT16 &offset )
 	amount_ = atoi( result[offset++] );
 	doordir_ = atoi( result[offset++] );
 	dye_ = atoi( result[offset++] );
-	decaytime = atoi( result[offset++] );
-	if( decaytime > 0 ) 
-		decaytime += uiCurrentTime;
+	decaytime_ = atoi( result[offset++] );
+	if( decaytime_ > 0 ) 
+		decaytime_ += uiCurrentTime;
 	att_ = atoi( result[offset++] );
 	def_ = atoi( result[offset++] );
 	hidamage_ = atoi( result[offset++] );
@@ -2408,13 +2408,13 @@ void cItem::load( char **result, UINT16 &offset )
 	maxhp_ = atoi( result[offset++] );
 	rank = atoi( result[offset++] );
 	st2_ = atoi( result[offset++] );
-	dx = atoi( result[offset++] );
-	dx2 = atoi( result[offset++] );
-	in = atoi( result[offset++] );
-	in2 = atoi( result[offset++] );
+	dx_ = atoi( result[offset++] );
+	dx2_ = atoi( result[offset++] );
+	in_ = atoi( result[offset++] );
+	in2_ = atoi( result[offset++] );
 	speed_ = atoi( result[offset++] );
 	poisoned = atoi( result[offset++] );
-	magic = atoi( result[offset++] );
+	magic_ = atoi( result[offset++] );
 	ownserial = atoi( result[offset++] );
 	visible = atoi( result[offset++] );
 	spawnserial = atoi( result[offset++] );

@@ -621,8 +621,8 @@ void cChar::removeItemBonus(cItem* pi)
 {
 //	this->st -= pi->st2;
 	this->setSt( ( this->st() ) - pi->st2());
-	this->chgDex(-1 * pi->dx2);
-	this->in_ -= pi->in2;
+	this->chgDex(-1 * pi->dx2());
+	this->in_ -= pi->in2();
 }
 
 ////////////
@@ -1730,8 +1730,8 @@ void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 void cChar::giveItemBonus(cItem* pi)
 {
 	st_ += pi->st2();
-	chgDex( pi->dx2 );
-	in_ += pi->in2;
+	chgDex( pi->dx2() );
+	in_ += pi->in2();
 }
 
 void cChar::showName( cUOSocket *socket )
@@ -2655,7 +2655,7 @@ P_CHAR cChar::unmount()
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
 			pMount->setPoisoned( pi->poisoned );
-			pMount->setSummonTimer( pi->decaytime );
+			pMount->setSummonTimer( pi->decaytime() );
 			
 			pMount->moveTo( pos );
 			pMount->resend( false );
@@ -2747,7 +2747,7 @@ void cChar::mount( P_CHAR pMount )
 		pMountItem->setHidamage( pMount->karma() );
 		pMountItem->poisoned = pMount->poisoned();
 		if (pMount->summontimer() != 0)
-			pMountItem->decaytime = pMount->summontimer();
+			pMountItem->setDecayTime(pMount->summontimer());
 
 		pMountItem->update();
 

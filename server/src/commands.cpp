@@ -528,7 +528,7 @@ public:
 					Skills->updateSkillLevel( pChar, i );
 			}
 			else
-				pItem->dx = hex2dec( value ).toInt();
+				pItem->setDx( hex2dec( value ).toInt() );
 
 		else if( key == "int" )
 			if( pChar )
@@ -538,7 +538,7 @@ public:
 					Skills->updateSkillLevel( pChar, i );
 			}
 			else
-				pItem->in = hex2dec( value ).toInt();
+				pItem->setIn( hex2dec( value ).toInt() );
 
 		// Type
 		else if( key == "type" && pItem )
@@ -568,7 +568,7 @@ public:
 			pChar->setMn( hex2dec( value ).toInt() );
 
 		else if( key == "movable" && pItem )
-			pItem->magic = hex2dec( value ).toInt();
+			pItem->setMagic( hex2dec( value ).toInt() );
 
 		else if( key == "more1" && pItem )
 			pItem->setMore1( hex2dec( value ).toInt() );
@@ -1171,13 +1171,13 @@ public:
 			if( pChar )
 				result = QString( "%1" ).arg( pChar->effDex() );
 			else 
-				result = QString( "%1" ).arg( pItem->dx );
+				result = QString( "%1" ).arg( pItem->dx() );
 
 		else if( ( key == "int" ) )
 			if( pChar )
 				result = QString( "%1" ).arg( pChar->in() );
 			else 
-				result = QString( "%1" ).arg( pItem->in );
+				result = QString( "%1" ).arg( pItem->in() );
 
 		else if( key == "more1" && pItem )
 			result = QString( "%1" ).arg( pItem->more1() );
@@ -1204,7 +1204,7 @@ public:
 			result = QString( "%1" ).arg( pItem->visible );
 
 		else if( key == "movable" && pItem )
-			result = QString( "%1" ).arg( pItem->magic );
+			result = QString( "%1" ).arg( pItem->magic() );
 
 		else if( key == "type" && pItem )
 			result = QString( "%1" ).arg( pItem->type() );

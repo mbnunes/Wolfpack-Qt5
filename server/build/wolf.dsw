@@ -1,5 +1,5 @@
 Microsoft Developer Studio Workspace File, Format Version 6.00
-# WARNUNG: DIESE ARBEITSBEREICHSDATEI DARF NICHT BEARBEITET ODER GELÖSCHT WERDEN!
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
 
 ###############################################################################
 
@@ -7,6 +7,10 @@ Project: "wolf"=.\wolf.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
+    begin source code control
+    wolf
+    .
+    end source code control
 }}}
 
 Package=<4>

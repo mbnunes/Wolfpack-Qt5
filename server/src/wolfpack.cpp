@@ -1467,12 +1467,12 @@ int main( int argc, char *argv[] )
 			StoreItemRandomValue(pi, "none");
 
 		// effect on dex ? like plate eg.
-		if( pi->dx2 && pi->container() && pi->container()->isChar() )
+		if( pi->dx2() && pi->container() && pi->container()->isChar() )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( pi->container() );
 
 			if( pChar )
-				pChar->chgDex( pi->dx2 );
+				pChar->chgDex( pi->dx2() );
 		}
 	}
 

@@ -877,7 +877,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	pResItem->setMoreX(amount);
 	if( amount == 0 )
 	{
-		pResItem->decaytime = uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC;
+		pResItem->setDecayTime(uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC);
 		pResItem->priv |= 0x01; // let the item decay
 		pResItem->update();
 	}
@@ -1115,7 +1115,7 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 	else
 	{
 		priv |= 0x01;
-		decaytime = uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC;
+		setDecayTime(uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC);
 	}
 	setMoreX(amount);
 	setMoreY(vein);

@@ -648,9 +648,9 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 260, tr( "Str (required):" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 18, QString( "%1" ).arg( pItem->st() ), 0x834 );
 		addText( 50, 280, tr( "Dex (required):" ), 0x834 );
-		addInputField( 200, 280, 200, 16, 19, QString( "%1" ).arg( pItem->dx ), 0x834 );
+		addInputField( 200, 280, 200, 16, 19, QString( "%1" ).arg( pItem->dx() ), 0x834 );
 		addText( 50, 300, tr( "Int (required):" ), 0x834 );
-		addInputField( 200, 300, 200, 16, 20, QString( "%1" ).arg( pItem->in ), 0x834 );
+		addInputField( 200, 300, 200, 16, 20, QString( "%1" ).arg( pItem->in() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -679,7 +679,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 160, tr( "Dispellable/newbie:" ), 0x834 );
 		addInputField( 200, 160, 200, 16, 23, QString( "%1" ).arg( pItem->priv & 0x04 ? "true" : "false" ), 0x834 );
 		addText( 50, 180, tr( "Movable:" ), 0x834 );
-		addInputField( 200, 180, 200, 16, 24, QString( "%1" ).arg( pItem->magic ), 0x834 );
+		addInputField( 200, 180, 200, 16, 24, QString( "%1" ).arg( pItem->magic() ), 0x834 );
 		addText( 50, 200, tr( "Visible:" ), 0x834 );
 		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pItem->visible ), 0x834 );
 		addText( 50, 220, tr( "Rank:" ), 0x834 );
@@ -855,10 +855,10 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->setSt( hex2dec( it->second ).toShort() );
 				break;
 			case 19:
-				item_->dx = hex2dec( it->second ).toShort();
+				item_->setDx( hex2dec( it->second ).toShort() );
 				break;
 			case 20:
-				item_->in = hex2dec( it->second ).toShort();
+				item_->setIn( hex2dec( it->second ).toShort() );
 				break;
 			case 21:
 				item_->setDye( hex2dec( it->second ).toUShort() );
@@ -876,7 +876,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 					item_->priv &= 0xFB;
 				break;
 			case 24:
-				item_->magic = hex2dec( it->second ).toUShort();
+				item_->setMagic( hex2dec( it->second ).toUShort() );
 				break;
 			case 25:
 				item_->visible = hex2dec( it->second ).toUShort();

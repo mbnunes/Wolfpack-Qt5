@@ -633,17 +633,17 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else getIntProperty( "hp", pItem->hp() )
 	else getIntProperty( "maxhp", pItem->maxhp() )
 	else getIntProperty( "str", pItem->st() )
-	else getIntProperty( "dex", pItem->dx )
-	else getIntProperty( "int", pItem->in )
+	else getIntProperty( "dex", pItem->dx() )
+	else getIntProperty( "int", pItem->in() )
 	else getIntProperty( "str2", pItem->st2() )
-	else getIntProperty( "dex2", pItem->dx2 )
-	else getIntProperty( "int2", pItem->in2 )
+	else getIntProperty( "dex2", pItem->dx2() )
+	else getIntProperty( "int2", pItem->in2() )
 	else getIntProperty( "speed", pItem->speed() )
 	else getIntProperty( "secured", pItem->secured() ? 1 : 0 )
-	else getIntProperty( "moveable", pItem->magic )
-	else getIntProperty( "gatetime", pItem->gatetime )
-	else getIntProperty( "gatenumber", pItem->gatenumber )
-	else getIntProperty( "decaytime", pItem->decaytime )
+	else getIntProperty( "moveable", pItem->magic() )
+	else getIntProperty( "gatetime", pItem->gatetime() )
+	else getIntProperty( "gatenumber", pItem->gatenumber() )
+	else getIntProperty( "decaytime", pItem->decaytime() )
 	
 	else if( !strcmp( name, "decay" ) )
 		return PyInt_FromLong( (self->pItem->priv&0x01) ? 1 : 0 );
@@ -743,7 +743,7 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 		else
 		{
 			self->pItem->priv &= 0xFE;
-			self->pItem->decaytime = 0;
+			self->pItem->setDecayTime(0);
 		}
 
 	// CONTAINER!!
@@ -784,13 +784,21 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 //	else setIntProperty( "str", pItem->st )
 	else if( !strcmp( name, "str" ) )
 		self->pItem->setSt( PyInt_AS_LONG( value ) );
-	else setIntProperty( "dex", pItem->dx )
-	else setIntProperty( "int", pItem->in )
+//	else setIntProperty( "dex", pItem->dx )
+	else if( !strcmp( name, "dex" ) )
+		self->pItem->setDx( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "int", pItem->in )
+	else if( !strcmp( name, "int" ) )
+		self->pItem->setIn( PyInt_AS_LONG( value ) );
 //	else setIntProperty( "str2", pItem->st2 )
 	else if( !strcmp( name, "str2" ) )
 		self->pItem->setSt2( PyInt_AS_LONG( value ) );
-	else setIntProperty( "dex2", pItem->dx2 )
-	else setIntProperty( "int2", pItem->in2 )
+//	else setIntProperty( "dex2", pItem->dx2 )
+	else if( !strcmp( name, "dex2" ) )
+		self->pItem->setDx2( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "int2", pItem->in2 )
+	else if( !strcmp( name, "int2" ) )
+		self->pItem->setIn2( PyInt_AS_LONG( value ) );
 
 	else if( !strcmp( name, "speed" ) )
 		self->pItem->setSpeed( PyInt_AS_LONG( value ) );
@@ -807,10 +815,19 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "secured" ) )
 		self->pItem->setSecured( ( PyInt_AS_LONG( value ) == 1 ) ? true : false );
 
-	else setIntProperty( "moveable", pItem->magic )
-	else setIntProperty( "gatetime", pItem->gatetime )
-	else setIntProperty( "gatenumber", pItem->gatenumber )
-	else setIntProperty( "decaytime", pItem->decaytime )
+//	else setIntProperty( "moveable", pItem->magic )
+	else if( !strcmp( name, "moveable" ) )
+		self->pItem->setMagic( PyInt_AS_LONG( value ) );
+//	else if( !strcmp( name, "moveable ) )
+//	else setIntProperty( "gatetime", pItem->gatetime )
+	else if( !strcmp( name, "gatetime" ) )
+		self->pItem->setGateTime( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "gatenumber", pItem->gatenumber )
+	else if( !strcmp( name, "gatenumber" ) )
+		self->pItem->setGateNumber( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "decaytime", pItem->decaytime )
+	else if( !strcmp( name, "decaytime" ) )
+		self->pItem->setDecayTime( PyInt_AS_LONG( value ) );
 	// ownserial
 	else setIntProperty( "visible", pItem->visible )
 	// spanserial
