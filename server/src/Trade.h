@@ -33,41 +33,32 @@
 #define __TRADE_H__
 
 //Platform specifics
-
 #include "platform.h"
 
-
 //system includes 
-
-
 #include <iostream>
 
-//forward class
-class cTrade;
-
-
 // Wolfpack includes
-
 #include "wolfpack.h"
 #include "itemid.h"
 #include "debug.h"
 
 class cUORxBuy;
 
-class cTrade
+namespace Trade
 {
-public:
 	P_ITEM startTrade( P_CHAR pPlayer, P_CHAR pChar );
 
-	void buyaction( cUOSocket *socket, cUORxBuy *packet );
-	void sellaction(int s);
+	void buyAction( cUOSocket *socket, cUORxBuy *packet );
+	void sellAction( cUOSocket *socket, cUORxSell *packet );
+
+
 	P_ITEM tradestart(UOXSOCKET s, P_CHAR pc_i);
 	void clearalltrades();
 	void trademsg(int s);
 	void dotrade(P_ITEM cont1, P_ITEM cont2);
 };
 
-extern cTrade	*Trade;
 
 #endif
 

@@ -167,6 +167,7 @@ public:
 	void handleHelpRequest( cUORxHelpRequest* packet );
 	void handleSkillLock( cUORxSkillLock* packet );
 	void handleBuy( cUORxBuy* packet );
+	void handleSell( cUORxSell* packet );
 	void handleDye( cUORxDye* packet );
 	void handleProfile( cUORxProfile* packet );
 	void handleRename( cUORxRename* packet );

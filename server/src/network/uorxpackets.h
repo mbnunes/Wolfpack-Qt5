@@ -577,7 +577,6 @@ public:
 	cUORxSell( const QByteArray &data ): cUOPacket( data ) {}
 	UINT32 serial() const				{ return getInt( 3 ); }
 	UINT16 itemCount() const			{ return getShort( 7 ); }
-	UINT8 iLayer( UINT16 item ) const	{ return (*this)[ 9 + ( item * 6 ) ]; }
 	UINT32 iSerial( UINT16 item ) const	{ return getInt( 9 + ( item * 6 ) ); }
 	UINT16 iAmount( UINT16 item ) const	{ return getShort( 13 + ( item * 6 ) ); }
 };

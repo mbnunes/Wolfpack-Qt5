@@ -123,7 +123,6 @@ Maps			*Map;
 cSkills			*Skills;
 cMagic			*Magic;
 cSpeech	        *Speech;
-cTrade	        *Trade;
 cBounty         *Bounty;
 WPScriptManager	*ScriptManager;
 WPDefManager    *DefManager;

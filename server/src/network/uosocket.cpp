@@ -276,6 +276,8 @@ void cUOSocket::recieve()
 		handleUpdateBook( dynamic_cast< cUORxUpdateBook* >( packet ) ); break;
 	case 0x9B:
 		handleHelpRequest( dynamic_cast< cUORxHelpRequest* >( packet ) ); break;
+	case 0x9F:
+		handleSell( dynamic_cast< cUORxSell* >( packet ) ); break;
 	case 0xA0:
 		handleSelectShard( dynamic_cast< cUORxSelectShard* >( packet ) ); break;
 	case 0xA4:
@@ -2341,6 +2343,21 @@ void cUOSocket::handleSkillLock( cUORxSkillLock* packet )
 }
 
 void cUOSocket::handleBuy( cUORxBuy* packet )
+{
+	P_NPC pVendor = dynamic_cast< P_NPC >(FindCharBySerial( packet->serial() ));
+	if( pVendor && player() )
+	{
+		cNPC_AI* pAI = pVendor->ai();
+		if( pAI && pAI->currState() )
+		{
+			pAI->currState()->handleSelection( player(), packet );
+			pAI->updateState();
+			return;
+		}
+	}
+}
+
+void cUOSocket::handleSell( cUORxSell* packet )
 {
 	P_NPC pVendor = dynamic_cast< P_NPC >(FindCharBySerial( packet->serial() ));
 	if( pVendor && player() )

@@ -162,12 +162,13 @@ void Human_Vendor_Wander::speechInput( P_PLAYER pTalker, const QString &message 
 
 void Human_Vendor_Wander::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
 {
-	Trade->buyaction( pPlayer->socket(), packet );
+	Trade::buyAction( pPlayer->socket(), packet );
 //	nextState = new Human_Vendor_Wander( m_interface, npc );
 }
 
 void Human_Vendor_Wander::handleSelection( P_PLAYER pPlayer, cUORxSell* packet )
 {
+	Trade::sellAction( pPlayer->socket(), packet );
 #pragma note( "Implement handling of incoming cUORxSell packet!" )
 //	nextState = new Human_Vendor_Wander( m_interface, npc );
 }
@@ -292,7 +293,7 @@ void Human_Vendor_BuyQuery::registerInFactory()
 
 void Human_Vendor_BuyQuery::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
 {
-	Trade->buyaction( pPlayer->socket(), packet );
+	Trade::buyaction( pPlayer->socket(), packet );
 	nextState = new Human_Vendor_Wander( m_interface, npc );
 }
 

@@ -55,6 +55,9 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
 
+namespace Trade
+{
+
 struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 {
 	bool operator()(P_ITEM pi, SERIAL serial) const
@@ -64,7 +67,7 @@ struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 };
 
 
-void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
+void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 {
 	P_PLAYER pChar = socket->player();
 	P_CHAR pVendor = FindCharBySerial( packet->serial() );
@@ -176,7 +179,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 
 	if( totalValue > totalGold )
 	{
-		pVendor->talk( tr( "Sorry but you do not posess enough gold." ) );
+		pVendor->talk( tr( "Sorry but you do not possess enough gold." ) );
 		socket->send( &clearBuy );
 		return;
 	}
@@ -230,126 +233,148 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
 	return false;
 }
 
-void cTrade::sellaction(int s)
+void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
 {
-	qWarning("cTrade::sellaction() disabled");
-/*	int i, amt, value=0, totgold=0;
+	P_PLAYER pChar = socket->player();
+	P_CHAR pVendor = FindCharBySerial( packet->serial() );
 
-	P_ITEM pRestock = NULL;
-	P_ITEM pNoRestock = NULL;
-	P_ITEM pSellCont = NULL;
-	P_CHAR pc_currchar = currchar[s];
+	cUOTxClearBuy clearBuy;
+	clearBuy.setSerial( pVendor->serial() );
 
-	if (buffer[s][8]!=0)
+	if( !pChar || !pVendor || pVendor->free || pChar->free )
 	{
-		P_CHAR pc_n = FindCharBySerial(calcserial(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]));
-		if (pc_n == NULL) return;
+		socket->send( &clearBuy );
+		return;
+	}
 
-		P_ITEM pi;
-		unsigned int ci;
-		vector<SERIAL> vecContainer = contsp.getData(pc_n->serial());
-		for ( ci = 0; ci < vecContainer.size(); ci++)
-		{
-			pi = FindItemBySerial(vecContainer[ci]);
-			if (pi->layer()==0x1A) pRestock = pi;				// Buy Restock container
-			else if (pi->layer()==0x1B) pNoRestock = pi;		// Buy no restock container
-			else if (pi->layer()==0x1C) pSellCont = pi;		// Sell container
-		}
+	// Is the vendor in range
+	if( !pVendor->inRange( pChar, 4 ) )
+	{
+		socket->sysMessage( tr( "You can't reach the vendor" ) );
+		return;
+	}
 
-		// Pre Calculate Total Amount of selling items to STOPS if the items if greater than SELLMAXITEM - Magius(CHE)
-		int maxsell=0;
-		i=buffer[s][8];
-		if (i>256) return;
-		for (i=0;i<buffer[s][8];i++)
+	// Check the LoS (later)
+
+	P_ITEM pPack = pChar->getBackpack();
+	if( !pPack )
+	{
+		socket->send( &clearBuy );
+		return;
+	}
+
+	UINT32 itemCount = packet->itemCount();
+
+	if( itemCount >= 256 )
+	{
+		socket->send( &clearBuy );
+		return;
+	}
+
+	// Get our total gold at once
+	UINT32 totalGold = pChar->CountBankGold() + pChar->CountGold();
+
+	P_ITEM pPurchase = pVendor->GetItemOnLayer( 0x1C );
+	if( !pPurchase )
+	{
+		socket->sysMessage( tr( "Invalid item sold." ) );
+		socket->send( &clearBuy );
+		return;
+	}
+	cItem::ContainerContent sContent;
+	cItem::ContainerContent::const_iterator it;
+
+	UINT32 totalValue = 0;
+	UINT32 i;
+	map< SERIAL, UINT16 > items;
+
+	for( i = 0; i < itemCount; ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( packet->iSerial( i ) );
+
+		if( !pItem )
 		{
-			amt=ShortFromCharPtr(buffer[s]+9+(6*i)+4);
-			maxsell+=amt;
-		}
-		if (maxsell>SrvParams->sellmaxitem())
-		{
-			pc_n->talk( tr("Sorry %1 but i can buy only %2 items at time!").arg(currchar[s]->name.latin1()).arg(SrvParams->sellmaxitem()), -1, 0 );
+			socket->sysMessage( tr( "Invalid item sold." ) );
+			socket->send( &clearBuy );
 			return;
 		}
 
-		for (i=0;i<buffer[s][8];i++)
+		UINT16 amount = packet->iAmount( i );
+
+		// First an equal item with higher amount must be in the vendors sell container!
+		sContent = pPurchase->content();
+
+		bool found = false;
+		for( it = sContent.begin(); it != sContent.end(); ++it )
 		{
-			P_ITEM pSell=FindItemBySerPtr(buffer[s]+9+(6*i));	// the item to sell
-			if (!pSell) continue;
-			amt=ShortFromCharPtr(buffer[s]+9+(6*i)+4);
-			
-			// player may have taken items out of his bp while the sell menu was up ;-)
-			if( pSell->amount() < amt )
+			if( !(*it) )
+				continue;
+	
+			if( (*it)->id() == pItem->id() && (*it)->color() == pItem->color() && (*it)->amount() >= pItem->amount() )
 			{
-				pc_n->talk( tr("Cheating scum! Leave now, before I call the guards!"), -1, 0 );
-				return;
+				found = true;
+				break;
 			}
+		}
 
-			// Search the buy restock Container
-			P_ITEM join = NULL;
-			ci=0;
-			P_ITEM pi;
-			vector<SERIAL> vecContainer = contsp.getData(pRestock->serial());
-			for ( ci = 0; ci < vecContainer.size(); ci++)
-			{
-				pi = FindItemBySerial(vecContainer[ci]);
-				if (items_match(pi,pSell))
-					join = pi;
-			}
+		if( !found )
+		{
+			socket->sysMessage( tr( "Invalid item sold." ) );
+			socket->send( &clearBuy );
+			return;
+		}
 
-			// Search the sell Container to determine the price
-			ci=0;
-			vecContainer.clear();
-			vecContainer = contsp.getData(pSellCont->serial());
-			for ( ci = 0; ci < vecContainer.size(); ci++)
-			{
-				pi = FindItemBySerial(vecContainer[ci]);
-				if (items_match(pi,pSell))
-				{
-					value=pi->value;
-					value=calcValue(pSell, value);
-					if (SrvParams->trade_system()==1)
-						value=calcGoodValue(currchar[s], pSell, value, 1); // Fixed for adv trade --- by Magius(CHE) §
-					break;	// let's take the first match
-				}
-			}
-			totgold+=(amt*value);	// add to the bill
+		// now look for the item in the player's pack
+		sContent = pPack->content();
+		if( find_if( sContent.begin(), sContent.end(), bind2nd(MatchItemAndSerial(), pItem->serial()) ) == sContent.end() )
+		{
+			socket->sysMessage( tr( "Invalid item sold." ) );
+			socket->send( &clearBuy );
+			return;
+		}
 
-			if (join != NULL)	// The item goes to the container with restockable items
+		totalValue += amount * pItem->sellprice();
+
+		items.insert( make_pair( pItem->serial(), amount ) );
+	}
+
+	// Sanity checks all passed here
+	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
+	if( pBought )
+	{
+		for( map< SERIAL,  UINT16 >::iterator iter = items.begin(); iter != items.end(); ++iter )
+		{
+			P_ITEM pItem = FindItemBySerial( iter->first );
+			UINT16 amount = iter->second;
+
+			if( pItem->isPileable() )
 			{
-				join->setAmount( join->amount() + amt );
-				join->restock-=amt;
-				pSell->ReduceAmount(amt);
+				P_ITEM pSold = pItem->dupe();
+				pSold->setAmount( iter->second );
+				pBought->addItem( pSold );
+				pSold->update();
+				if( pItem->amount() <= iter->second )
+					Items->DeleItem( pItem );
+				else
+					pItem->setAmount( pItem->amount() - iter->second );
+				pItem->update();
 			}
 			else
 			{
-				pSell->removeFromView();
-				pNoRestock->addItem( pSell );
-				if( pSell->amount() != amt )
-				{
-					P_ITEM nItem = pSell->dupe();
-					nItem->setAmount( pSell->amount() - amt );
-					pc_currchar->getBackpack()->addItem( nItem );
-				}
+				pPack->removeItem( pItem );
+				pBought->addItem( pItem );
+				pItem->update();
 			}
 		}
-		//addgold(s, totgold);
-		//goldsfx(s, totgold);	// Dupois, SFX for gold movement	// Added Oct 08, 1998
 	}
 
-	char clearmsg[9];
-	clearmsg[0]=0x3B;
-	clearmsg[1]=0x00;
-	clearmsg[2]=0x08;
-	clearmsg[3]=buffer[s][3];
-	clearmsg[4]=buffer[s][4];
-	clearmsg[5]=buffer[s][5];
-	clearmsg[6]=buffer[s][6];
-	clearmsg[7]=0x00;
-	Xsend(s, clearmsg, 8);
-*/
+	socket->send( &clearBuy );
+	pVendor->talk( tr( "Thank you %1, here are your %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
+
+	pChar->giveGold( totalValue, false );
 }
 
-P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
+P_ITEM Trade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 {
 /*	if( !pChar || !pChar->socket() || !pPlayer || !pPlayer->socket() )
 		return NULL;
@@ -400,7 +425,7 @@ P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	return 0;
 }
 
-P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
+P_ITEM Trade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 {
 //	P_CHAR pc_currchar = currchar[s];
 //	unsigned char msg[90];
@@ -485,7 +510,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	return 0;
 }
 
-void cTrade::clearalltrades()
+void Trade::clearalltrades()
 {
 	qWarning("cTrade::clearalltrades() disabled");
 /*	AllItemsIterator iterItems;
@@ -519,7 +544,7 @@ void cTrade::clearalltrades()
 */
 }
 
-void cTrade::trademsg(int s)
+void Trade::trademsg(int s)
 {
 /*	P_ITEM cont1, cont2;
 	cont1 = cont2 = NULL ;
@@ -553,7 +578,7 @@ void cTrade::trademsg(int s)
 */
 }
 
-void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
+void Trade::dotrade(P_ITEM cont1, P_ITEM cont2)
 {
 	qWarning("cTrade::dotrade() is disabled");
 /*	int serial;
@@ -614,3 +639,4 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 */
 }
 
+}

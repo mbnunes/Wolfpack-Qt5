@@ -132,6 +132,7 @@ public:
 	virtual void pay() {}
 	virtual void foundVictim( P_CHAR pVictim ) {}
 	virtual void handleSelection( P_PLAYER pPlayer, cUORxBuy* packet ) {}
+	virtual void handleSelection( P_PLAYER pPlayer, cUORxSell* packet ) {}
 	virtual void selectionCancelled() {}
 	virtual void selectionTimeOut() {}
 };
