@@ -436,6 +436,439 @@
 	
 	<menu id="ADD_NPCS_ANIMALS_mountables">
 		<name>NPCs - Mountable animals</name>
+
+		<action type="npc">
+			<name>Beetle, weak</name>
+			<description>Place a weak beetle</description>
+			<bodymodel>0x0317</bodymodel>
+			<make><makenpc name="Beetle, weak" id="beetle_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Beetle, medium</name>
+			<description>Place a medium beetle</description>
+			<bodymodel>0x0317</bodymodel>
+			<make><makenpc name="Beetle, medium" id="beetle_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Beetle, hard</name>
+			<description>Place a hard beetle</description>
+			<bodymodel>0x0317</bodymodel>
+			<make><makenpc name="Beetle, hard" id="beetle_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Dragon Swamp 1, weak</name>
+			<description>Place a weak Dragon Swanp</description>
+			<bodymodel>0x031a</bodymodel>
+			<make><makenpc name="Dragon Swamp 1, weak" id="dragon_swamp_1_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Dragon Swamp 1, medium</name>
+			<description>Place a medium Dragon Swanp</description>
+			<bodymodel>0x031a</bodymodel>
+			<make><makenpc name="Dragon Swamp 1, medium" id="dragon_swamp_1_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Dragon Swamp 1, hard</name>
+			<description>Place a hard Dragon Swanp</description>
+			<bodymodel>0x031a</bodymodel>
+			<make><makenpc name="Dragon Swamp 1, hard" id="dragon_swamp_1_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Dragon Swamp 2, weak</name>
+			<description>Place a weak Dragon Swanp</description>
+			<bodymodel>0x031f</bodymodel>
+			<make><makenpc name="Dragon Swamp 2, weak" id="dragon_swamp_2_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Dragon Swamp 2, medium</name>
+			<description>Place a medium Dragon Swamp</description>
+			<bodymodel>0x031f</bodymodel>
+			<make><makenpc name="Dragon Swamp 2, medium" id="dragon_swamp_2_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Dragon Swamp 2, hard</name>
+			<description>Place a hard Dragon Swamp</description>
+			<bodymodel>0x031f</bodymodel>
+			<make><makenpc name="Dragon Swamp 2, hard" id="dragon_swamp_2_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 1, weak</name>
+			<description>Place a weak Horse</description>
+			<bodymodel>0x00e2</bodymodel>
+			<make><makenpc name="Horse 1, weak" id="horse_1_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 1, medium</name>
+			<description>Place a medium Horse</description>
+			<bodymodel>0x00e2</bodymodel>
+			<make><makenpc name="Horse 1, medium" id="horse_1_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 1, hard</name>
+			<description>Place a hard Horse</description>
+			<bodymodel>0x00e2</bodymodel>
+			<make><makenpc name="Horse 1, hard" id="horse_1_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 2, weak</name>
+			<description>Place a weak Horse</description>
+			<bodymodel>0x00e4</bodymodel>
+			<make><makenpc name="Horse 2, weak" id="horse_2_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 2, medium</name>
+			<description>Place a medium Horse</description>
+			<bodymodel>0x00e4</bodymodel>
+			<make><makenpc name="Horse 2, medium" id="horse_2_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 2, hard</name>
+			<description>Place a hard Horse</description>
+			<bodymodel>0x00e4</bodymodel>
+			<make><makenpc name="Horse 2, hard" id="horse_2_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 3, weak</name>
+			<description>Place a weak Horse</description>
+			<bodymodel>0x00c8</bodymodel>
+			<make><makenpc name="Horse 3, weak" id="horse_3_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 3, medium</name>
+			<description>Place a medium Horse</description>
+			<bodymodel>0x00c8</bodymodel>
+			<make><makenpc name="Horse 3, medium" id="horse_3_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 3, hard</name>
+			<description>Place a hard Horse</description>
+			<bodymodel>0x00c8</bodymodel>
+			<make><makenpc name="Horse 3, hard" id="horse_3_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 4, weak</name>
+			<description>Place a weak Horse</description>
+			<bodymodel>0x00cc</bodymodel>
+			<make><makenpc name="Horse 4, weak" id="horse_4_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 4, medium</name>
+			<description>Place a medium Horse</description>
+			<bodymodel>0x00cc</bodymodel>
+			<make><makenpc name="Horse 4, medium" id="horse_4_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse 4, hard</name>
+			<description>Place a hard Horse</description>
+			<bodymodel>0x00cc</bodymodel>
+			<make><makenpc name="Horse 4, hard" id="horse_4_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse sea, weak</name>
+			<description>Place a weak Horse sea</description>
+			<bodymodel>0x0090</bodymodel>
+			<make><makenpc name="Horse sea, weak" id="horse_sea_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse sea, medium</name>
+			<description>Place a medium Horse sea</description>
+			<bodymodel>0x0090</bodymodel>
+			<make><makenpc name="Horse sea, medium" id="horse_sea_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Horse sea, hard</name>
+			<description>Place a hard Horse sea</description>
+			<bodymodel>0x0090</bodymodel>
+			<make><makenpc name="Horse sea, hard" id="horse_sea_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Kirin, weak</name>
+			<description>Place a weak Kirin</description>
+			<bodymodel>132</bodymodel>
+			<make><makenpc name="Kirin, weak" id="kirin_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Kirin, medium</name>
+			<description>Place a medium Kirin</description>
+			<bodymodel>132</bodymodel>
+			<make><makenpc name="Kirin, medium" id="kirin_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Kirin, hard</name>
+			<description>Place a hard Kirin</description>
+			<bodymodel>132</bodymodel>
+			<make><makenpc name="Kirin, hard" id="Kirin_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Llama, weak</name>
+			<description>Place a weak Llama</description>
+			<bodymodel>0x00dc</bodymodel>
+			<make><makenpc name="Llama, weak" id="llama_ridable_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Llama, medium</name>
+			<description>Place a medium Llama</description>
+			<bodymodel>0x00dc</bodymodel>
+			<make><makenpc name="Llama, medium" id="llama_ridable_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Llama, hard</name>
+			<description>Place a hard Llama</description>
+			<bodymodel>0x00dc</bodymodel>
+			<make><makenpc name="Llama, hard" id="llama_ridable_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Mount Skeletal, weak</name>
+			<description>Place a weak Mount Skeletal</description>
+			<bodymodel>793</bodymodel>
+			<make><makenpc name="Mount Skeletal, weak" id="mount_skeletal_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Mount Skeletal, medium</name>
+			<description>Place a medium Mount Skeletal</description>
+			<bodymodel>793</bodymodel>
+			<make><makenpc name="Mount Skeletal, medium" id="mount_skeletal_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Mount Skeletal, hard</name>
+			<description>Place a hard Mount Skeletal</description>
+			<bodymodel>793</bodymodel>
+			<make><makenpc name="Mount Skeletal, hard" id="mount_skeletal_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 1, weak</name>
+			<description>Place a weak Nightmare 1</description>
+			<bodymodel>0x0074</bodymodel>
+			<make><makenpc name="Nightmare 1, weak" id="nightmare_1_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 1, medium</name>
+			<description>Place a medium Nightmare 1</description>
+			<bodymodel>0x0074</bodymodel>
+			<make><makenpc name="Nightmare 1, medium" id="nightmare_1_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 1, hard</name>
+			<description>Place a hard Nightmare 1</description>
+			<bodymodel>0x0074</bodymodel>
+			<make><makenpc name="Nightmare 1, hard" id="nightmare_1_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 2, weak</name>
+			<description>Place a weak Nightmare 2</description>
+			<bodymodel>0x00b1</bodymodel>
+			<make><makenpc name="Nightmare 2, weak" id="nightmare_2_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 2, medium</name>
+			<description>Place a medium Nightmare 2</description>
+			<bodymodel>0x00b1</bodymodel>
+			<make><makenpc name="Nightmare 2, medium" id="nightmare_2_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 2, hard</name>
+			<description>Place a hard Nightmare 2</description>
+			<bodymodel>0x00b1</bodymodel>
+			<make><makenpc name="Nightmare 2, hard" id="nightmare_2_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 3, weak</name>
+			<description>Place a weak Nightmare 3</description>
+			<bodymodel>0x00b2</bodymodel>
+			<make><makenpc name="Nightmare 3, weak" id="nightmare_3_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 3, medium</name>
+			<description>Place a medium Nightmare 3</description>
+			<bodymodel>0x00b2</bodymodel>
+			<make><makenpc name="Nightmare 3, medium" id="nightmare_3_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 3, hard</name>
+			<description>Place a hard Nightmare 3</description>
+			<bodymodel>0x00b2</bodymodel>
+			<make><makenpc name="Nightmare 3, hard" id="nightmare_3_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 4, weak</name>
+			<description>Place a weak Nightmare 4</description>
+			<bodymodel>0x00b3</bodymodel>
+			<make><makenpc name="Nightmare 4, weak" id="nightmare_4_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 4, medium</name>
+			<description>Place a medium Nightmare 4</description>
+			<bodymodel>0x00b3</bodymodel>
+			<make><makenpc name="Nightmare 4, medium" id="nightmare_4_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Nightmare 4, hard</name>
+			<description>Place a hard Nightmare 4</description>
+			<bodymodel>0x00b3</bodymodel>
+			<make><makenpc name="Nightmare 4, hard" id="nightmare_4_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Desert, weak</name>
+			<description>Place a weak Ostard Desert</description>
+			<bodymodel>0x00d2</bodymodel>
+			<make><makenpc name="Ostard Desert, weak" id="ostard_desert_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Desert, medium</name>
+			<description>Place a medium Ostard Desert</description>
+			<bodymodel>0x00d2</bodymodel>
+			<make><makenpc name="Ostard Desert, medium" id="ostard_desert_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Desert, hard</name>
+			<description>Place a hard Ostard Desert</description>
+			<bodymodel>0x00d2</bodymodel>
+			<make><makenpc name="Ostard Desert, hard" id="ostard_desert_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Forest, weak</name>
+			<description>Place a weak Ostard Forest</description>
+			<bodymodel>0x00db</bodymodel>
+			<make><makenpc name="Ostard Forest, weak" id="ostard_forest_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Forest, medium</name>
+			<description>Place a medium Ostard Forest</description>
+			<bodymodel>0x00db</bodymodel>
+			<make><makenpc name="Ostard Forest, medium" id="ostard_forest_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Forest, hard</name>
+			<description>Place a hard Ostard Forest</description>
+			<bodymodel>0x00db</bodymodel>
+			<make><makenpc name="Ostard Forest, hard" id="ostard_forest_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Frenzied, weak</name>
+			<description>Place a weak Ostard Frenzied</description>
+			<bodymodel>0x00da</bodymodel>
+			<make><makenpc name="Ostard Frenzied, weak" id="ostard_frenzied_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Frenzied, medium</name>
+			<description>Place a medium Ostard Frenzied</description>
+			<bodymodel>0x00da</bodymodel>
+			<make><makenpc name="Ostard Frenzied, medium" id="ostard_frenzied_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Ostard Frenzied, hard</name>
+			<description>Place a hard Ostard Frenzied</description>
+			<bodymodel>0x00da</bodymodel>
+			<make><makenpc name="Ostard Frenzied, hard" id="ostard_frenzied_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Ridgeback, weak</name>
+			<description>Place a weak Ridgeback</description>
+			<bodymodel>187</bodymodel>
+			<make><makenpc name="Ridgeback, weak" id="ridgeback_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Ridgeback, medium</name>
+			<description>Place a medium Ridgeback</description>
+			<bodymodel>187</bodymodel>
+			<make><makenpc name="Ridgeback, medium" id="ridgeback_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Ridgeback, hard</name>
+			<description>Place a hard Ridgeback</description>
+			<bodymodel>187</bodymodel>
+			<make><makenpc name="Ridgeback, hard" id="ridgeback_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Ridgeback Savage, weak</name>
+			<description>Place a weak Ridgeback Savage</description>
+			<bodymodel>188</bodymodel>
+			<make><makenpc name="Ridgeback, weak" id="ridgeback_savage_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Ridgeback Savage, medium</name>
+			<description>Place a medium Ridgeback Savage</description>
+			<bodymodel>188</bodymodel>
+			<make><makenpc name="Ridgeback Savage, medium" id="ridgeback_savage_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Ridgeback Savage, hard</name>
+			<description>Place a hard Ridgeback Savage</description>
+			<bodymodel>188</bodymodel>
+			<make><makenpc name="Ridgeback Savage, hard" id="ridgeback_savage_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Dark, weak</name>
+			<description>Place a weak Steed Dark</description>
+			<bodymodel>0x0074</bodymodel>
+			<make><makenpc name="Steed Dark, weak" id="steed_dark_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Dark, medium</name>
+			<description>Place a medium Steed Dark</description>
+			<bodymodel>0x0074</bodymodel>
+			<make><makenpc name="Steed Dark, medium" id="steed_dark_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Dark, hard</name>
+			<description>Place a hard Steed Dark</description>
+			<bodymodel>0x0074</bodymodel>
+			<make><makenpc name="Steed Dark, hard" id="steed_dark_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Fire, weak</name>
+			<description>Place a weak Steed Fire</description>
+			<bodymodel>0x00be</bodymodel>
+			<make><makenpc name="Steed Fire, weak" id="steed_fire_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Fire, medium</name>
+			<description>Place a medium Steed Fire</description>
+			<bodymodel>0x00be</bodymodel>
+			<make><makenpc name="Steed Fire, medium" id="steed_fire_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Fire, hard</name>
+			<description>Place a hard Steed Fire</description>
+			<bodymodel>0x00be</bodymodel>
+			<make><makenpc name="Steed Fire, hard" id="steed_fire_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Silver, weak</name>
+			<description>Place a weak Steed Silver</description>
+			<bodymodel>0x0075</bodymodel>
+			<make><makenpc name="Steed Silver, weak" id="steed_silver_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Silver, medium</name>
+			<description>Place a medium Steed Silver</description>
+			<bodymodel>0x0075</bodymodel>
+			<make><makenpc name="Steed Silver, medium" id="steed_silver_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Steed Silver, hard</name>
+			<description>Place a hard Steed Silver</description>
+			<bodymodel>0x0075</bodymodel>
+			<make><makenpc name="Steed Silver, hard" id="steed_silver_hard" /></make>
+		</action>
+		<action type="npc">
+			<name>Unicorn, weak</name>
+			<description>Place a weak Unicorn</description>
+			<bodymodel>0x007a</bodymodel>
+			<make><makenpc name="Unicorn, weak" id="unicorn_weak" /></make>
+		</action>
+		<action type="npc">
+			<name>Unicorn, medium</name>
+			<description>Place a medium Unicorn</description>
+			<bodymodel>0x007a</bodymodel>
+			<make><makenpc name="Unicorn, medium" id="unicorn_medium" /></make>
+		</action>
+		<action type="npc">
+			<name>Unicorn, hard</name>
+			<description>Place a hard Unicorn</description>
+			<bodymodel>0x007a</bodymodel>
+			<make><makenpc name="Unicorn, hard" id="unicorn_hard" /></make>
+		</action>
 	</menu>
 	
 	<menu id="ADD_NPCS_HUMANS_civilists">
@@ -458,6 +891,12 @@
 			<bodymodel>0x190</bodymodel>
 
 			<make><makenpc name="Blacksmith, male" id="blacksmith" /></make>
+		</action>
+		<action type="npc">
+			<name>Banker, make</name>
+			<description>Place a male banker</description>
+			<bodymodel>0x190</bodymodel>
+			<make><makenpc name="Banker, male" id="banker" /></make>
 		</action>
 	</menu>
 	
