@@ -152,12 +152,12 @@ public:
 class cUOTxUpdateCharList: public cUOPacket
 {
 public:
-	cUOTxUpdateCharList(): cUOPacket( 4 ) {
+	cUOTxUpdateCharList(): cUOPacket( 304 ) {
 		rawPacket[ 0 ] = (Q_UINT8)0x86;
-		setShort( 1, 4 );
+		setShort( 1, 304 );
 	}
 
-	void addCharacter( QString name );
+	void setCharacter( Q_UINT8 index, QString name );
 };
 
 // 0x1B ConfirmLogin

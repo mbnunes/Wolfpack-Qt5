@@ -166,7 +166,8 @@ void cUOSocket::sendCharList( const QString &username )
 	charList->addCharacter( "This" );
 	charList->addCharacter( "is" );
 	charList->addCharacter( "just" );
-	if( username == "admin" )
+	
+	if( username != "user" )
 	{
 		charList->addCharacter( "a" );
 		charList->addCharacter( "test" );
@@ -186,15 +187,8 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 	result->setResult( CCR_BADPASS );
 	send( result );*/
 
-	sendCharList( "user" );
-	return;
-
 	cUOTxUpdateCharList *update = new cUOTxUpdateCharList;
-	update->addCharacter( "You deleted me!" );
-	update->addCharacter( "" );
-	update->addCharacter( "" );
-	update->addCharacter( "" );
-	update->addCharacter( "" );
+	update->setCharacter( 0, "You deleted me!" );
 	send( update );
 }
 

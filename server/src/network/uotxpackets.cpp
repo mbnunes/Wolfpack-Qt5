@@ -73,16 +73,16 @@ void cUOTxCharTownList::addTown( Q_UINT8 index, const QString &name, const QStri
 
 void cUOTxCharTownList::compile( void )
 {
-	rawPacket.resize( 304 + ( towns.size() * 63 ) + 4 );
+	rawPacket.resize( 309 + ( towns.size() * 63 ) );
 	rawPacket[ 0 ] = (Q_UINT8)0xA9;
 
+	rawPacket[ 3 ] = characters.size(); // Char Count
+
 	for( Q_UINT8 c = 0; c < 5; ++c )
-	{
 		if( c < characters.size() )
 			strcpy( &rawPacket.data()[ 4 + ( c * 60 ) ], characters[ c ].latin1() );
-	}
-
-	rawPacket[ 3 ] = characters.size(); // Char Count
+		else
+			rawPacket[ 4 + ( c * 60 ) ] = 0x00; // "Pad-out" the char
 
 	// Town Count
 	Q_INT32 offset = 304;
@@ -102,20 +102,16 @@ void cUOTxCharTownList::compile( void )
 		setInt( offset, flags );
 
 	// New Packet Size
-	setShort( 1, rawPacket.size() );
+	setShort( 1, rawPacket.count() );
 }
 
-void cUOTxUpdateCharList::addCharacter( QString name )
+void cUOTxUpdateCharList::setCharacter( Q_UINT8 index, QString name )
 {
-	Q_INT32 offset = rawPacket.size();
-	rawPacket.resize( rawPacket.count() + 60 );
-
+	Q_INT32 offset = 4 + ( index * 60 );
 	rawPacket[ 3 ]++;
 
 	if( name.length() > 29 )
 		name = name.left( 29 );
 
 	strcpy( &rawPacket.data()[offset], name.latin1() );
-
-	setShort( 1, rawPacket.count() );
 }
