@@ -2,7 +2,7 @@
 import wolfpack
 from wolfpack.consts import *
 from wolfpack import properties
-from wolfpack.utilities import consumeresources, tobackpack, energydamage
+from wolfpack.utilities import consumeresources, tobackpack, energydamage, mayAreaHarm
 import combat.utilities
 import random
 from math import floor, ceil, sqrt
@@ -361,7 +361,7 @@ def absorbdamage(defender, damage):
 #
 # Deal a splashdamage attack
 #
-def splashdamage(attacker, effect):
+def splashdamage(attacker, effect, excludechar = None):
 	(physical, cold, fire, poison, energy) = (0, 0, 0, 0, 0)
 	
 	if effect == SPLASHPHYSICAL:
@@ -393,25 +393,24 @@ def splashdamage(attacker, effect):
 	(mindamage, maxdamage) = properties.getdamage(attacker) # Cache the min+maxdamage
 	
 	pos = attacker.pos
-	chariterator = wolfpack.charregion(pos.x - 10, pos.y - 10, pos.x + 10, pos.y + 10, pos.map)
+	chariterator = wolfpack.charregion(pos.x - 3, pos.y - 3, pos.x + 3, pos.y + 3, pos.map)
 	target = chariterator.first
 	while target:
-		if attacker != target and (not party or party != target.party) and (not guild or guild != target.guild):
-			if not target.dead and not target.invulnerable and not target.invisible and not target.hidden:
-				tpos = target.pos
+		if attacker != target and excludechar != target and mayAreaHarm(attacker, target):
+			tpos = target.pos
 
-				# Calculate the real distance between the two characters				
-				distance = sqrt((pos.x - tpos.x) * (pos.x - tpos.x) + (pos.y - tpos.y) * (pos.y - tpos.y))
-				factor = min(1.0, (11 - distance) / 10)
-				if factor > 0.0:
-					damage = int(random.randint(mindamage, maxdamage) * factor)
-					
-					if damage > 0:
-						if not didsound:
-							attacker.soundeffect(sound)
-							didsound = True
-						target.effect(0x3779, 1, 15, hue)
-						energydamage(target, attacker, damage, physical, fire, cold, poison, energy, 0, DAMAGE_MAGICAL)
+			# Calculate the real distance between the two characters
+			distance = sqrt((pos.x - tpos.x) * (pos.x - tpos.x) + (pos.y - tpos.y) * (pos.y - tpos.y))
+			factor = min(1.0, (4 - distance) / 3)
+			if factor > 0.0:
+				damage = int(random.randint(mindamage, maxdamage) * factor)
+				
+				if damage > 0:
+					if not didsound:
+						attacker.soundeffect(sound)
+						didsound = True
+					target.effect(0x3779, 1, 15, hue)
+					energydamage(target, attacker, damage, physical, fire, cold, poison, energy, 0, DAMAGE_MAGICAL)
 
 		target = chariterator.next
 
@@ -487,7 +486,7 @@ def hit(attacker, defender, weapon, time):
 			for effectid in [SPLASHPHYSICAL, SPLASHFIRE, SPLASHCOLD, SPLASHPOISON, SPLASHENERGY]:
 				effect = properties.fromitem(weapon, effectid)
 				if effect and effect > random.randint(0, 99):
-					splashdamage(attacker, effectid)
+					splashdamage(attacker, effectid, excludechar = defender)
 					
 			# Hit Spell effects
 			for (effectid, callback) in combat.hiteffects.EFFECTS.items():
