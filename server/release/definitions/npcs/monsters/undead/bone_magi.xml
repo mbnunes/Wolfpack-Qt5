@@ -6,22 +6,30 @@
 		<name>a bone magi</name>
 		<id>0x94</id>
 		<inherit id="undead_base" />
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="40" /></defense>
-		<lodamage>4</lodamage>
-		<hidamage>11</hidamage>
+		<karma>-3000</karma>
+		<fame>3000</fame>
 		<gold><random min="60" max="90" /></gold>
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
 		<dex><random min="56" max="75"/></dex>
-		<int><random min="186" max="210"/></int>
+		<int><random min="601" max="700"/></int>
 		<!-- Skills -->
-		<wrestling><random min="451" max="550" /></wrestling>
-		<tactics><random min="451" max="600" /></tactics>
-		<magicresistance><random min="551" max="700" /></magicresistance>
-		<magery><random min="601" max="700" /></magery>
-		<evaluatingint><random min="601" max="700" /></evaluatingint>
+		<evaluatingintel><random min="601" max="700"/></evaluatingintel>
+		<magery><random min="601" max="700"/></magery>
+		<magicresistance><random min="551" max="700"/></magicresistance>
+		<tactics><random min="451" max="600"/></tactics>
+		<wrestling><random min="451" max="550"/></wrestling>
+		<!-- Damage -->
+		<lodamage>3</lodamage>
+		<hidamage>7</hidamage>
+		<!-- Resists -->
+		<defense><random min="50" max="60" /></defense>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="35,40" />
+		<tag name="poisonresist" value="20,30" />
+		<!-- Misc. -->
 		<category>Monsters\Undead\Bone Magi</category>
 	</npc>
 

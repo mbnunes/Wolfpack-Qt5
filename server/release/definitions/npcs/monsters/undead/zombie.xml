@@ -3,23 +3,30 @@
 
 	<!-- a zombie-->
 	<npc id="zombie">
-		<name>zombie</name>
-		<id>0x002</id>
+		<name>a zombie</name>
+		<id>0x2</id>
 		<inherit id="undead_base"/>
-		<karma><random min="-0" max="-624"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="15" max="20"/></defense>
-		<lodamage>5</lodamage>
-		<hidamage>10</hidamage>
+		<karma>-600</karma>
+		<fame>600</fame>
 		<!-- Stats -->
 		<str><random min="46" max="70"/></str>
 		<dex><random min="31" max="50"/></dex>
 		<int><random min="26" max="40"/></int>
 		<!-- Skills -->
-		<wrestling><random min="351" max="500"/></wrestling>
-		<tactics><random min="351" max="500"/></tactics>
 		<magicresistance><random min="151" max="400"/></magicresistance>
-		<!-- Priv -->
+		<tactics><random min="351" max="500"/></tactics>
+		<wrestling><random min="351" max="500"/></wrestling>
+		<!-- Damage -->
+		<lodamage>3</lodamage>
+		<hidamage>7</hidamage>
+		<!-- Resists -->
+		<defense><random min="15" max="20"/></defense>
+		<tag name="coldresist" value="20,30" />
+		<tag name="physicalresist" value="15,20" />
+		<tag name="poisonresist" value="5,10" />
+		<!-- Misc. -->
+		<desc>Zombies are naught but rotting corpses, restored to a mockery of lifethrough vile sorcery. Utterly devoid of any will save that whichcreated them, they do share with the other undead an unnaturalappetite for the gold and the flesh of the living. Shambling, slowcreatures, they are easily destroyed or evaded by an experiencedwarrior, unless encountered in overwhelming number.</desc>
+		<category>Monsters\Undead\Zombie</category>
 	</npc>
 
 </definitions>

@@ -6,23 +6,35 @@
 		<name>lich</name>
 		<id>0x18</id>
 		<inherit id="undead_base"/>
-		<karma><random min="-5000" max="-9999"/></karma>
-		<fame><random min="5000" max="9999"/></fame>
-		<defense><random min="50" max="50"/></defense>
-		<lodamage>50</lodamage>
-		<hidamage>55</hidamage>
+		<karma>-8000</karma>
+		<fame>8000</fame>
 		<gold><random min="180" max="220"/></gold>
 		<!-- Stats -->
 		<str><random min="171" max="200"/></str>
 		<dex><random min="126" max="145"/></dex>
-		<int><random min="276" max="305"/></int>
+		<int>1000</int>
 		<!-- Skills -->
-		<tactics><random min="701" max="900"/></tactics>
-		<magicresistance><random min="801" max="1000"/></magicresistance>
+		<evaluatingintel>1000</evaluatingintel>
 		<magery><random min="701" max="800"/></magery>
-		<evaluatingint>1000</evaluatingint>
 		<meditation><random min="851" max="950"/></meditation>
-		<!-- Priv -->
+		<magicresistance><random min="801" max="1000"/></magicresistance>
+		<tactics><random min="701" max="900"/></tactics>
+		<!-- Damage -->
+		<lodamage>24</lodamage>
+		<hidamage>26</hidamage>
+		<tag name="colddamage" value="40" />
+		<tag name="energydamage" value="50" />
+		<tag name="physicaldamage" value="10" />
+		<!-- Resists -->
+		<defense><random min="50" max="50"/></defense>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="40,50" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="40,60" />
+		<tag name="poisonresist" value="55,65" />
+		<!-- Misc. -->
+		<desc>The rarest and most feared of the undead, and rightfully so, the lichis the corpse of a mighty spellcaster kept animate through the forceof his undying spirit. The lich retains, in death, all the Magicalpotency it held in life, without any of the moderating influence ofhuman feeling. The lich is, perhaps, the only monster more feared thanthe daemon.</desc>
+		<category>Monsters\Undead\Lich</category>
 	</npc>
 
 </definitions>

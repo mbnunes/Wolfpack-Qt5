@@ -7,19 +7,30 @@
 		<id>0x39</id>
 		<inherit id="undead_base" />
 		<gold><random min="100" max="130"/></gold>
-		<karma><random min="-0" max="-624"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>18</lodamage>
-		<hidamage>43</hidamage>
+		<karma>-3000</karma>
+		<fame>3000</fame>
 		<!-- Stats -->
 		<str><random min="196" max="250"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling><random min="451" max="550"/></wrestling>
-		<tactics><random min="451" max="600"/></tactics>
-		<magicresistance><random min="451" max="600"/></magicresistance>
+		<magicresistance><random min="651" max="800"/></magicresistance>
+		<tactics><random min="851" max="1000"/></tactics>
+		<wrestling><random min="851" max="950"/></wrestling>
+		<!-- Damage -->
+		<lodamage>8</lodamage>
+		<hidamage>18</hidamage>
+		<tag name="colddamage" value="60" />
+		<tag name="physicaldamage" value="40" />
+		<!-- Resists -->
+		<defense><random min="35" max="45"/></defense>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="35,45" />
+		<tag name="poisonresist" value="20,30" />
+		<!-- Misc. -->
+		<desc>Knights who failed to hold to their tenets are doomed to roam theafterlife as Skeletal Knights. First seen in the new lands, theseknights rise in legions to battle the army of the living. Utterlydevoid of fear there is no chance a skeletal knight will ever breakoff the attack. These knights are the best sword fighters andtacticians doing battle for the ever-growing numbers of undead.</desc>
 		<category>Monsters\Undead\Skeletal Knight</category>
 	</npc>
 

@@ -4,24 +4,34 @@
 	<!-- mummy -->
 	<npc id="mummy">
 		<name>a mummy</name>
-		<id>0x9A</id>
-		<category>Monsters\Undead\Mummy</category>
-		<skin>0</skin>
+		<id>0x9a</id>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="45" max="55" /></defense>
+		<karma>-4000</karma>
+		<fame>4000</fame>
 		<gold><random min="190" max="220" /></gold>
-		<lodamage>31</lodamage>
-		<hidamage>55</hidamage>
 		<!-- Stats -->
-		<str><random min="346" max="370" /></str>
-		<dex><random min="71" max="90" /></dex>
-		<int><random min="26" max="40" /></int>
+		<str><random min="346" max="370"/></str>
+		<dex><random min="71" max="90"/></dex>
+		<int><random min="26" max="40"/></int>
 		<!-- Skills -->
-		<wrestling><random min="351" max="500" /></wrestling>
-		<tactics><random min="351" max="500" /></tactics>
-		<magicresistance><random min="151" max="400" /></magicresistance>
+		<magicresistance><random min="151" max="400"/></magicresistance>
+		<tactics><random min="351" max="500"/></tactics>
+		<wrestling><random min="351" max="500"/></wrestling>
+		<!-- Damage -->
+		<lodamage>13</lodamage>
+		<hidamage>23</hidamage>
+		<tag name="colddamage" value="60" />
+		<tag name="physicaldamage" value="40" />
+		<!-- Resists -->
+		<defense><random min="45" max="55" /></defense>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="20,30" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="20,30" />
+		<!-- Misc. -->
+		<desc>Scholars often disagree concerning how mummification came to bepracticed in our land. Some say it was reserved for royalty so thefilth of the world would no longer touch their mortal form. Thebandages enshrouding the cadavers of the ancient ruler would preventcontamination and decay of their pristine flesh. Others claimmummification was reserved for the worst of criminals. The wrappingswere used to prevent their dark souls from fleeing their wretchedbodies and reaching the outer planes. If the latter is the case, and Ibelieve it to be, I feel the next world would have been a far betterplace for them. As it is now, they walk the land freely killing allthat is living, perhaps on a gruesome quest for a pair of scissors...</desc>
+		<category>Monsters\Undead\Mummy</category>
 	</npc>
 
 </definitions>

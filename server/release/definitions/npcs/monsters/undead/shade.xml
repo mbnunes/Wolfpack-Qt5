@@ -8,9 +8,6 @@
 		<inherit id="undead_base"/>
 		<karma><random min="-2500" max="-4999"/></karma>
 		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="25" max="30"/></defense>
-		<lodamage>11</lodamage>
-		<hidamage>18</hidamage>
 		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
@@ -22,7 +19,13 @@
 		<magicresistance><random min="551" max="700"/></magicresistance>
 		<magery><random min="551" max="700"/></magery>
 		<evaluatingint><random min="551" max="700"/></evaluatingint>
-		<!-- Priv -->
+		<!-- Damage -->
+		<lodamage>11</lodamage>
+		<hidamage>18</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="30"/></defense>
+		<!-- Misc. -->
+		<category>Monsters\Undead\Shade</category>
 	</npc>
 
 </definitions>
