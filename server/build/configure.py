@@ -131,7 +131,7 @@ def checkMySQL(options):
 					"/usr/local/include/mysql.h", \
 					"/usr/include/mysql.h" ]
 	else:
-		sys.stdout.write("ERROR: Unknown platform %s to checkMySQL()" % sys.platform )
+		sys.stdout.write("ERROR: Unknown platform %s to checkMySQL()\n" % sys.platform )
 		sys.exit()
 
 	# if --static
@@ -194,9 +194,12 @@ def checkPython(options):
 					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a"]
 		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
 					 "/usr/include/[Pp]ython2.3*/Python.h"]
-
+	elif sys.platform == "darwin":
+		PYTHONINCSEARCHPATH = [ "/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
+		PYTHONLIBSEARCHPATH = [ ]
+		PYTHONLIBSTATICSEARCHPATH = []
 	else:
-		sys.stdout.write(red("ERROR")+": Unknown platform %s to checkPython()" % sys.platform )
+		sys.stdout.write(red("ERROR")+": Unknown platform %s to checkPython()\n" % sys.platform )
 		sys.exit()
 
 	# if --static
