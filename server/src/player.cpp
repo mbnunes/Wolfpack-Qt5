@@ -1766,12 +1766,16 @@ void cPlayer::remove()
 }
 
 unsigned int cPlayer::damage( eDamageType type, unsigned int amount, cUObject* source ) {
+	// Save the hitpoints for further calculation
+	unsigned int hitpoints = hitpoints_;
+	unsigned int stamina = stamina_;
+
 	amount = cBaseChar::damage(type, amount, source);
 
 	if (amount != 0) {
 		// the more stamina we have, the more we loose
 		// the more hitpoints we have, the less we loose
-		int value = (int)(amount * (100.0 / hitpoints_) * (stamina_ / 100.0)) - 5;
+		int value = (int)(amount * (100.0 / hitpoints) * (stamina / 100.0)) - 5;
 		if (value > 0) {
 			stamina_ = QMAX(0, stamina_ - value);
 			if (socket_) {
