@@ -1,3 +1,0 @@
-# config file for setup.sh
-SETUP_CACHE="setup.tmp"
-DIALOG_CACHE="setup.mnu"
