@@ -39,13 +39,14 @@
 #include "server.h"
 #include "typedefs.h"
 #include "singleton.h"
+#include "pythonscript.h"
 
 // Forward Class declarations
 
 class cPlayer;
 class cAcl;
 
-class cAccount
+class cAccount : public cPythonScriptable
 {
 	friend class cAccounts; // my manager
 private:
@@ -129,6 +130,13 @@ public:
 	void setPageNotify( bool data );
 	void setStaff( bool data );
 	void setMultiGems( bool data );
+
+	// Python Scriptable Interface
+	const char* className() const;
+	bool implements( const QString& name ) const;
+	PyObject* getPyObject();
+	PyObject* getProperty( const QString& name );
+	stError* setProperty( const QString& name, const cVariant& value );
 };
 
 
@@ -193,11 +201,6 @@ inline QString cAccount::password() const
 inline QValueVector<P_PLAYER> cAccount::caracterList() const
 {
 	return characters_;
-}
-
-inline void cAccount::setAcl( const QString& d )
-{
-	aclName_ = d;
 }
 
 inline void cAccount::block( int seconds )

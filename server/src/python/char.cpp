@@ -2650,10 +2650,8 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 	else
 	{
 		cVariant val;
-		if ( PyString_Check( value ) )
-			val = cVariant( PyString_AsString( value ) );
-		else if ( PyUnicode_Check( value ) )
-			val = cVariant( QString::fromUcs2( ( ushort * ) PyUnicode_AsUnicode( value ) ) );
+		if ( PyString_Check( value ) || PyUnicode_Check( value ) )
+			val = cVariant( Python2QString( value ) );
 		else if ( PyInt_Check( value ) )
 			val = cVariant( PyInt_AsLong( value ) );
 		else if ( checkWpItem( value ) )
@@ -2664,15 +2662,10 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 			val = cVariant( getWpCoord( value ) );
 		else if ( PyFloat_Check( value ) )
 			val = cVariant( PyFloat_AsDouble( value ) );
-
-		//if( !val.isValid() )
-		//{
-		//	if( value->ob_type )
-		//		PyErr_Format( PyExc_TypeError, "Unsupported object type: %s", value->ob_type->tp_name );
-		//	else
-		//		PyErr_Format( PyExc_TypeError, "Unknown object type" );
-		//	return 0;
-		//}
+		else if ( value == Py_True ) 
+			val = cVariant( 1 ); // True
+		else if ( value == Py_False )
+			val = cVariant( 0 ); // false
 
 		stError * error = self->pChar->setProperty( name, val );
 

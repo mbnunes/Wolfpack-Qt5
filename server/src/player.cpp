@@ -1224,6 +1224,8 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 				socket_->sendSkill( skillId );
 			return 0;
 		}
+	} else if ( name.startsWith( "account." ) && account_ ) {
+		return account_->setProperty( name.right( name.length() - 8 ), value );
 	}
 	else
 	{
@@ -1258,6 +1260,12 @@ PyObject* cPlayer::getProperty( const QString& name )
 	PY_PROPERTY( "strengthlock", strengthLock_ )
 	PY_PROPERTY( "dexteritylock", dexterityLock_ )
 	PY_PROPERTY( "intelligencelock", intelligenceLock_ )
+
+	// Forward the property to the account
+	if (name.startsWith("account.") && account_) {
+		return account_->getProperty(name.right(name.length() - 8));
+	}
+
 	return cBaseChar::getProperty( name );
 }
 

@@ -79,7 +79,7 @@ wpDealloc,
 0,
 0, // Call
 ( reprfunc ) wpAccount_str,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,
 };
 
 /*
@@ -238,148 +238,46 @@ static PyMethodDef wpAccountMethods[] =
 { NULL, NULL, 0, NULL }
 };
 
-static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
-{
-	if ( !self->account )
-	{
+static PyObject* wpAccount_getAttr( wpAccount* self, char* name ) {
+	if (!self->account) {
 		return 0;
 	}
 
-	if ( !strcmp( name, "acl" ) )
-		return PyString_FromString( self->account->acl().latin1() );
-	else if ( !strcmp( name, "email" ) ) {
-		return QString2Python( self->account->email() );
-	}
-	/*
-		\rproperty account.name The name of this account.
-	*/
-	else if ( !strcmp( name, "name" ) )
-		return PyString_FromString( self->account->login().latin1() );
-	else if ( !strcmp( name, "multigems" ) )
-	{
-		if ( self->account->isMultiGems() )
-		{
-			Py_INCREF( Py_True );
-			return Py_True;
-		}
-		else
-		{
-			Py_INCREF( Py_False );
-			return Py_False;
-		}
-	}
-	else if ( !strcmp( name, "password" ) )
-		return PyString_FromString( self->account->password().latin1() );
-	else if ( !strcmp( name, "flags" ) )
-		return PyInt_FromLong( self->account->flags() );
-	/*
-		\rproperty account.characters A list of <object id="CHAR">char</object> objects. This list contains
-		all characters assigned to this account.
-	*/
-	else if ( !strcmp( name, "characters" ) )
-	{
-		PyObject* list = PyList_New( 0 );
-		QValueVector<P_PLAYER> characters = self->account->caracterList();
-		for ( uint i = 0; i < characters.size(); ++i )
-			PyList_Append( list, PyGetCharObject( characters[i] ) );
-		return list;
-	}
-	/*
-		\rproperty account.lastlogin The last login date of this account or
-		"Unknown" if it's unknown.
-	*/
-	else if ( !strcmp( name, "lastlogin" ) )
-	{
-		if ( !self->account->lastLogin().isValid() )
-			return PyString_FromString( "Unknown" );
-		else
-			return PyString_FromString( self->account->lastLogin().toString().latin1() );
-	}
-	else if ( !strcmp( name, "blockuntil" ) )
-	{
-		if ( self->account->blockedUntil() > QDateTime::currentDateTime() )
-			return PyString_FromString( self->account->blockedUntil().toString().latin1() );
-		else
-			return PyString_FromString( "" );
-	}
-	/*
-		\rproperty account.inuse Indicates whether this account is currently in use.
-	*/
-	else if ( !strcmp( name, "inuse" ) )
-	{
-		if ( self->account->inUse() )
-			Py_RETURN_TRUE;
-		else
-			Py_RETURN_FALSE;
-	}
-	/*
-		\rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of
-		this account.
-	*/
-	else if ( !strcmp( name, "rank" ) )
-	{
-		return PyInt_FromLong( self->account->rank() );
-	}
-	else
-	{
+	PyObject *result = self->account->getProperty(name);
+
+	if (result) {
+		return result;
+	} else {
 		return Py_FindMethod( wpAccountMethods, ( PyObject * ) self, name );
 	}
 }
 
-static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
-{
-	/*
-		\property account.acl The name of the ACL used to check the permissions of this account.
-	*/
-	if ( !strcmp( name, "acl" ) && PyString_Check( value ) )
-		self->account->setAcl( PyString_AsString( value ) );
-	/*
-		\property account.email The E-Mail address associated with this account.
-	*/
-	else if ( !strcmp( name, "email" ) ) {
-		self->account->setEmail(Python2QString(value).latin1());
-	}
-	/*
-		\property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
-	*/
-	else if ( !strcmp( name, "multigems" ) )
-	{
-		if ( PyObject_IsTrue( value ) )
-		{
-			self->account->setMultiGems( true );
-		}
-		else
-		{
-			self->account->setMultiGems( false );
-		}
-	}
-	/*
-		\property account.password The password of this account. Please note that if MD5 hashing is activated,
-		this property will only return the hashed password. But when setting this property you don't need to
-		specify the MD5 hashed password as it will be automatically converted.
-	*/
-	else if ( !strcmp( name, "password" ) && PyString_Check( value ) )
-		self->account->setPassword( PyString_AsString( value ) );
-	/*
-		\property account.flags This property provides direct access to the flags of this account. Possible flags
-		are:
-		<code>0x00000001 blocked
-		0x00000002 allmove
-		0x00000004 allshow
-		0x00000008 showserials
-		0x00000010 pagenotify
-		0x00000020 staff - gm mode on/off
-		0x00000040 multigems on/off</code>
-	*/
-	else if ( !strcmp( name, "flags" ) && PyInt_Check( value ) )
-		self->account->setFlags( PyInt_AsLong( value ) );
-	else if ( !strcmp( name, "blockuntil" ) && PyString_Check( value ) )
-	{
-		QDateTime datetime = QDateTime::fromString( PyString_AsString( value ), Qt::ISODate );
-		if ( datetime > QDateTime::currentDateTime() )
-		{
-			self->account->setBlockUntil( datetime );
-		}
+static int wpAccount_setAttr(wpAccount* self, char* name, PyObject* value) {
+
+	cVariant val;
+	if ( PyString_Check( value ) || PyUnicode_Check( value ) )
+		val = cVariant( Python2QString( value ) );
+	else if ( PyInt_Check( value ) )
+		val = cVariant( PyInt_AsLong( value ) );
+	else if ( checkWpItem( value ) )
+		val = cVariant( getWpItem( value ) );
+	else if ( checkWpChar( value ) )
+		val = cVariant( getWpChar( value ) );
+	else if ( checkWpCoord( value ) )
+		val = cVariant( getWpCoord( value ) );
+	else if ( PyFloat_Check( value ) )
+		val = cVariant( PyFloat_AsDouble( value ) );
+	else if ( value == Py_True ) 
+		val = cVariant( 1 ); // True
+	else if ( value == Py_False )
+		val = cVariant( 0 ); // false
+
+	stError * error = self->account->setProperty( name, val );
+
+	if (error) {
+		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
+		delete error;
+		return 0;
 	}
 
 	return 0;

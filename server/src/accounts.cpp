@@ -580,3 +580,107 @@ void cAccounts::clearAcls()
 		++it;
 	}
 }
+
+const char* cAccount::className() const {
+	return "account";
+}
+
+bool cAccount::implements( const QString& name ) const {
+	if (name == "account") {
+		return true;
+	} else {
+		return cPythonScriptable::implements(name);
+	}
+}
+
+PyObject* cAccount::getPyObject() {
+	return createPyObject(this);
+}
+
+PyObject* cAccount::getProperty( const QString& name ) {
+	PY_PROPERTY("acl", acl());
+	PY_PROPERTY("email", email());
+	// \rproperty account.name The name of this account.
+	PY_PROPERTY("name", login());
+	PY_PROPERTY("multigems", isMultiGems() );
+	PY_PROPERTY("password", password());
+	PY_PROPERTY("flags", flags());
+	/*
+		\rproperty account.characters A list of <object id="CHAR">char</object> objects.
+		This list contains all characters assigned to this account.
+	*/
+	if (name == "characters") {
+		PyObject* list = PyList_New(characters_.size());
+		for ( uint i = 0; i < characters_.size(); ++i )
+			PyList_SetItem( list, i, PyGetCharObject( characters_[i] ) );
+		return list;
+	}
+	/*
+		\rproperty account.lastlogin The last login date of this account or
+		an empty string if it's unknown.
+	*/
+	PY_PROPERTY("lastlogin", lastLogin().toString());
+	PY_PROPERTY("blockuntil", blockUntil.toString());
+	// \rproperty account.inuse Indicates whether this account is currently in use.
+	PY_PROPERTY("inuse", inUse());
+	// \rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of this account.
+	PY_PROPERTY("rank", rank());
+
+	return cPythonScriptable::getProperty(name);
+}
+
+stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
+	// \property account.acl The name of the ACL used to check the permissions of this account.
+	if (name == "acl") {
+		setAcl(value.toString());
+		return 0;
+	}
+	// \property account.email The E-Mail address associated with this account.
+	else SET_STR_PROPERTY("email", email_)
+	// \property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
+	else if (name == "multigems") {
+		setMultiGems(value.toInt() != 0);
+		return 0;
+	}
+	/*
+		\property account.password The password of this account. Please note that if MD5 hashing is activated,
+		this property will only return the hashed password. But when setting this property you don't need to
+		specify the MD5 hashed password as it will be automatically converted.
+	*/
+	else if (name == "password") {
+		setPassword(value.toString());
+		return 0;
+	}
+	/*
+		\property account.flags This property provides direct access to the flags of this account. Possible flags
+		are:
+		<code>0x00000001 blocked
+		0x00000002 allmove
+		0x00000004 allshow
+		0x00000008 showserials
+		0x00000010 pagenotify
+		0x00000020 staff - gm mode on/off
+		0x00000040 multigems on/off</code>
+	*/
+	SET_INT_PROPERTY("flags", flags_)
+	/*
+		\property account.blockuntil This is the date and time when this account will be unblocked.
+		The following format for the date and time is used (from the QT documentation): 
+		<code>
+		Qt::ISODate - ISO 8601 extended format (YYYY-MM-DD, or with time, YYYY-MM-DDTHH:MM:SS)
+		</code>
+	*/
+	else if (name == "blockuntil") {
+		QDateTime datetime = QDateTime::fromString(value.toString(), Qt::ISODate);
+		setBlockUntil( datetime );
+		return 0;
+	}
+
+	return cPythonScriptable::setProperty( name, value );
+}
+
+void cAccount::setAcl( const QString& d )
+{
+	aclName_ = d;
+	refreshAcl();
+}
