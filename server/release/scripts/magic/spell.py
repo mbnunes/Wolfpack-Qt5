@@ -445,7 +445,9 @@ class Spell:
 	# Call this if you harm another character directly
 	#
 	def harmchar(self, char, victim):
-		pass
+		# Let the victim defend himself, if he isn't fighting yet
+		if not( victim.attacktarget ):
+			victim.fight(char)
 
 class TargetWrapper:
 	def __init__(self, obj):
