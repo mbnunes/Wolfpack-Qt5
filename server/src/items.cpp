@@ -102,7 +102,7 @@ void cItemBaseDef::processNode( const cElement* node )
 	}
 	else if ( node->name() == "type" )
 	{
-		sellprice_ = node->value().toUShort();
+		type_ = node->value().toUShort();
 	}
 	else if ( node->name() == "bindmenu" )
 	{
