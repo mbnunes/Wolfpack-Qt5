@@ -8,6 +8,23 @@ import random
 from math import floor, ceil
 from system.debugging import DEBUG_COMBAT_INFO
 from skills import poisoning
+import system.slayer
+
+#
+# Check if the given weapon can slay the given
+# NPC.
+#
+def checkSlaying(weapon, defender):
+	slayer = properties.fromitem(weapon, SLAYER)
+	if slayer == '':
+		return False
+				
+	slayer = system.slayer.findEntry(slayer)
+	
+	if not slayer:
+		return False
+		
+	return slayer.slays(defender)
 
 #
 # Check if a certain chance can be met using the skill
@@ -329,6 +346,11 @@ def hit(attacker, defender, weapon, time):
 
 	damage = random.randint(mindamage, maxdamage)
 	damage = scaledamage(attacker, damage)
+
+	# Slaying? (only against NPCs)
+	if weapon and defender.npc and checkSlaying(weapon, defender):
+		defender.effect(0x37B9, 5, 10)
+		damage *= 2
 
 	# Give the defender a chance to absorb damage
 	damage = absorbdamage(defender, damage)

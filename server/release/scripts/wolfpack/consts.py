@@ -86,6 +86,7 @@ SELFREPAIR = 53
 ENHANCEPOTIONS = 54
 BESTSKILL = 55
 MAGEWEAPON = 56
+SLAYER = 57
 
 # Checks for certain item types
 ITEM_ARMOR = 1 # Armor

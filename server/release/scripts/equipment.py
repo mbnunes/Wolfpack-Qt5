@@ -7,6 +7,7 @@ import wolfpack.armorinfo
 from wolfpack import properties
 from combat.utilities import weaponskill
 from math import ceil
+import system.slayer
 
 #
 # Show certain modifiers stored in tags.
@@ -190,6 +191,13 @@ def onShowTooltip(viewer, object, tooltip):
 
 	# Weapon specific properties
 	if weapon:
+		# Slayer
+		slayer = properties.fromitem(object, SLAYER)
+		if slayer != '':
+			slayer = system.slayer.findEntry(slayer)
+			if slayer:
+				tooltip.add(slayer.name, '')
+	
 		# One or twohanded weapon
 		if object.twohanded:
 			tooltip.add(1061171, '')

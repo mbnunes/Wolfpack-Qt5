@@ -8,6 +8,7 @@ import wolfpack.weaponinfo
 from wolfpack import console
 from wolfpack.consts import *
 from system.lootlists import *
+import system.slayer
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -103,6 +104,7 @@ PROPERTIES = {
 	REFLECTPHYSICAL: ['reflectphysical', 0, 1],
 	DURABILITYBONUS: ['durabilitybonus', 0, 0],
 	WEIGHTBONUS: ['weightbonus', 0, 0],
+	SLAYER: ['slayer', '', 0],
 }
 
 #
@@ -127,7 +129,7 @@ def fromitem(item, property):
 		# the list character.
 		if property in [HITSOUND, MISSSOUND, SWING]:
 			return str(item.gettag(info[0])).split(',')
-		elif property == AMMUNITION:
+		elif property == AMMUNITION or property == SLAYER:
 			return str(item.gettag(info[0]))
 		else:
 			return int(item.gettag(info[0]))
@@ -612,6 +614,8 @@ WEAPON_PROPERTIES = {
 	SPELLDAMAGEBONUS: [1, 12, 1, False],
 	DURABILITYBONUS: [10, 100, 10, True],
 	LOWERREQS: [10, 100, 10, True],
+	
+	SLAYER: [1, 1, 1, False], # Special
 }
 
 def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
@@ -624,10 +628,19 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 	# Select unique properties
 	for i in range(0, props):
 		property = random.choice(properties)
-		properties.remove(property)
-		
+
 		if not PROPERTIES.has_key(property):
 			continue
+			
+		# Special handling for slayers
+		if property == SLAYER:
+			slayer = system.slayer.getRandom()
+			if slayer:
+				item.settag('slayer', slayer)
+				properties.remove(property)
+			continue
+
+		properties.remove(property)
 
 		# Scale the value for the property
 		info = WEAPON_PROPERTIES[property]
@@ -690,4 +703,3 @@ def luckchance(char):
 		luck = 1200
 		
 	return LUCKTABLE[luck]
-	
