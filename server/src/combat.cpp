@@ -114,11 +114,29 @@ cFightInfo::cFightInfo(P_CHAR attacker, P_CHAR victim, bool legitimate) {
 
 cFightInfo::~cFightInfo() {
 	// Unregister the fight info object with the combat system.
-	attacker_->fights().remove(this);
-	victim_->fights().remove(this);
+	if (attacker_) {
+		attacker_->fights().remove(this);
+	}
+
+	if (victim_) {
+		victim_->fights().remove(this);
+	}
 	Combat::instance()->fights().remove(this);
 }
 
 void cFightInfo::refresh() {
 	lastaction_ = Server::instance()->time();
+}
+
+void cFightInfo::clear() {
+	if (victim_) {
+		victim_->fights().remove(this);
+	}
+
+	if (attacker_) {
+		attacker_->fights().remove(this);
+	}
+
+	attacker_ = 0;
+	victim_ = 0;
 }

@@ -57,6 +57,7 @@
 
 cBaseChar::cBaseChar()
 {
+	fights_.setAutoDelete(false);
 	lastMovement_		= 0;
 	attackTarget_		= 0;
 	nextSwing_			= 0;
@@ -2685,8 +2686,7 @@ bool cBaseChar::canSeeItem(P_ITEM item)
 
 cFightInfo *cBaseChar::findFight(P_CHAR enemy)
 {
-	if (enemy)
-	{
+	if (enemy) {
 		for (cFightInfo *fight = fights_.first(); fight; fight = fights_.next())
 		{
 			// We are only searching the fights we participate in, thats why we only
@@ -2980,7 +2980,7 @@ void cBaseChar::remove() {
 	QPtrList<cFightInfo> fights(this->fights());
 	fights.setAutoDelete(false);
 	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
-		delete info;
+		info->clear(); // Queue this structure to be deleted
 	}
 
 	// Call the onDelete event.

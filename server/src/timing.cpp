@@ -170,23 +170,23 @@ void cTiming::poll() {
 		todelete.setAutoDelete(true);
 		cFightInfo *info;
 		for (info = fights.first(); info; info = fights.next()) {
-			// 60 Seconds without melee contact and
-			// combatants are out of range...
-			if (info->lastaction() + 60000 <= time) {
-				if (info->victim()->isDead() || info->attacker()->isDead() ||
-					!info->attacker()->inRange(info->victim(), Config::instance()->attack_distance())) {
-					todelete.append(info);
-				}
-			} else {
-				P_CHAR attacker = info->attacker();
-				P_CHAR victim = info->victim();
+			P_CHAR attacker = info->attacker();
+			P_CHAR victim = info->victim();
 
-				if (attacker && !attacker->free) {
-					attacker->poll(time, cBaseChar::EventCombat);
-				}
-				if (victim && !victim->free) {
-					victim->poll(time, cBaseChar::EventCombat);
-				}
+			// These checks indicate that the fight is over.
+			if (!victim || victim->free || victim->isDead() 
+				|| !attacker || attacker->free || attacker->isDead() 
+				|| (info->lastaction() + 60000 <= time
+				&& !attacker->inRange(victim, Config::instance()->attack_distance()))) {
+				todelete.append(info);
+				continue;
+			}
+
+			attacker->poll(time, cBaseChar::EventCombat);
+
+			// Maybe the victim got deleted already.
+			if (!victim->free) {
+				victim->poll(time, cBaseChar::EventCombat);
 			}
 		}
 	}

@@ -76,6 +76,11 @@ protected:
 	unsigned int lastaction_;
 public:
 	/*!
+		\brief Destructor for the fight object.
+	*/
+	~cFightInfo();
+
+	/*!
 		\returns The attacker of this fight.
 	*/
 	inline P_CHAR attacker() {
@@ -127,14 +132,15 @@ public:
 	cFightInfo(P_CHAR attacker, P_CHAR victim, bool legitimate);
 
 	/*!
-		\brief Destructor for the fight object.
-	*/
-	~cFightInfo();
-
-	/*!
 		\brief Refresh this fights lastaction value.
 	*/
 	void refresh();
+
+	/*!
+		\brief Clear this info structure so it can be deleted
+		by the next combat check.
+	*/
+	void clear();
 };
 
 /*!
