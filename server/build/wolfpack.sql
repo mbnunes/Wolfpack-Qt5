@@ -370,3 +370,10 @@ CREATE TABLE corpses (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cCorpse';
+
+CREATE TABLE tags (
+  serial int(11) NOT NULL default '0',
+  name varchar(64) NOT NULL,
+  type varchar(6) NOT NULL,
+  value longtext NOT NULL
+) TYPE=MyISAM COMMENT='class cCustomTags';
