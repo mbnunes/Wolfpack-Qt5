@@ -88,6 +88,7 @@ public:
 
 	QString version( void ) const;
 	QString lang( void ) const;
+	QString ip( void ) const;
 
 	P_CHAR player( void ) const;
 	P_ITEM dragging() const;
@@ -217,6 +218,11 @@ inline QString cUOSocket::version( void ) const
 inline QString cUOSocket::lang( void ) const
 { 
 	return _lang; 
+}
+
+inline QString cUOSocket::ip( void ) const
+{
+	return _socket->address().toString();
 }
 
 inline P_CHAR cUOSocket::player( void ) const

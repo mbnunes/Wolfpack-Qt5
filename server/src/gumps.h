@@ -33,6 +33,7 @@
 #define __GUMPS_H__
 
 #include "typedefs.h"
+#include "pagesystem.h"
 
 #include "qstringlist.h"
 
@@ -277,6 +278,31 @@ private:
 
 public:
 	cWhoChildGump( cUOSocket* socket_ );
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
+class cPagesGump : public cGump
+{
+private:
+	UINT32 page_;
+	WPPAGE_TYPE ptype_;
+
+	std::vector< cPage* > pagequeue_;
+
+public:
+	cPagesGump( UINT32 page, WPPAGE_TYPE ptype );
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
+class cPageInfoGump : public cGump
+{
+private:
+	cPage*	page_;
+
+public:
+	cPageInfoGump( cPage* page_ );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };

@@ -45,8 +45,8 @@
 #include "scriptc.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
-#include "commands.h"
 #include "accounts.h"
+//#include "pagesystem.h"
 
 #include "debug.h"
 
@@ -1173,8 +1173,10 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 
 	page_ = page;
 	QStringList charNames;
-	QStringList charLocations;
-//	QStringList charRegions;
+	QStringList accNames;
+	QStringList IPs;
+	std::vector< UINT32 > offsets;
+	UINT32 offset = 0;
 
 	sockets_.clear();
 
@@ -1184,47 +1186,48 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 		if( pChar )
 		{
 			charNames.push_back( pChar->name.c_str() );
-			charLocations.push_back( QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ) );
-//			charRegions.push_back( pChar->region );
+			accNames.push_back( pChar->account()->login() );
+			IPs.push_back( mSock->ip() );
 			sockets_.push_back( mSock );
+			offsets.push_back( offset );
 		}
+		offset++;
 	}
 
 	UINT32 numsocks = charNames.size();
 	UINT32 pages = ((UINT32)floor( numsocks / 10 ))+1;
 
 	startPage();
-	addBackground( 0xE10, 380, 340 ); //Background
-	addCheckertrans( 15, 15, 350, 310 );
+	addBackground( 0xE10, 380, 360 ); //Background
+	addCheckertrans( 15, 15, 350, 330 );
 	addGump( 130, 18, 0xFA8 );
 	addText( 165, 20, tr( "Who Menu" ), 0x530 );
 	
 	// X button
-	addText( 70, 300, "Close", 0x834 );
-	addButton( 30, 300, 0xFB1, 0xFB3, 0 ); 
+	addText( 70, 320, "Close", 0x834 );
+	addButton( 30, 320, 0xFB1, 0xFB3, 0 ); 
 
 	startPage( 1 );
 
-	UINT32 i;
-	UINT32 right = page_ * 10 - 1;
-	UINT32 left = page_ * 10 - 10;
+	INT32 i;
+	INT32 right = page_ * 10 - 1;
+	INT32 left = page_ * 10 - 10;
 	if( numsocks < right )
 		right = numsocks-1;
 
 	for( i = left; i <= right; i++ )
 	{
-		addButton( 20, 60 + (i-left) * 20, 0xFA5, 0xFA7, i+3 ); 
-		addText( 50, 60 + (i-left) * 20, QString( "%1" ).arg( charNames[i] ), 0x834 );
-		addText( 200, 60 + (i-left) * 20, QString( "%1" ).arg( charLocations[i] ), 0x834 );
-//		addText( 370, 60 + (i-left) * 20, QString( "%1" ).arg( charRegions[i] ), 0x834 );
+		addButton( 20, 60 + (i-left) * 22, 0xFA5, 0xFA7, offsets[i]+3 ); 
+		addText( 50, 60 + (i-left) * 22, QString( "%1(%2)" ).arg( charNames[i] ).arg( accNames[i] ), 0x834 );
+		addText( 240, 60 + (i-left) * 22, QString( "%1" ).arg( IPs[i] ), 0x834 );
 	}
 
-	addText( 280, 300, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+	addText( 280, 320, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 	if( page_ > 1 ) // previous page
-		addButton( 240, 300, 0x0FC, 0x0FC, 1 );
+		addButton( 240, 320, 0x0FC, 0x0FC, 1 );
 
 	if( page_ < pages ) // next page
-		addButton( 260, 300, 0x0FA, 0x0FA, 2 );
+		addButton( 260, 320, 0x0FA, 0x0FA, 2 );
 }
   
 void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
@@ -1249,8 +1252,8 @@ void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
 			break;
 		default:
 			{
-				cWhoChildGump* pGump2 = new cWhoChildGump( sockets_[ choice.button-3 ] );
-				socket->send( pGump2 );
+				cWhoChildGump* pGump = new cWhoChildGump( sockets_[ choice.button-3 ] );
+				socket->send( pGump );
 			}
 			break;
 		}
@@ -1267,7 +1270,7 @@ cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 		startPage();
 		
 		addBackground( 0xE10, 440, 340 ); //Background
-		addResizeGump( 195, 260, 0xBB8, 165, 20 );
+		addResizeGump( 195, 260, 0xBB8, 205, 20 );
 		addCheckertrans( 15, 15, 410, 310 );
 		addGump( 160, 18, 0xFA2 );
 		addText( 195, 20, tr( "Socket Menu" ), 0x530 );
@@ -1280,14 +1283,14 @@ cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 
 		addText( 50, 60, tr( "Char name:" ), 0x834 );
 		addText( 250, 60, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
-		addText( 50, 80, tr( "Account name:" ), 0x834 );
-		addText( 250, 80, QString( "%1" ).arg( pChar->account()->login() ), 0x834 );
+		addText( 50, 80, tr( "IP:" ), 0x834 );
+		addText( 250, 80, QString( "%1" ).arg( socket->ip() ), 0x834 );
 		addText( 50, 100, tr( "Position:" ), 0x834 );
 		addText( 250, 100, QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ), 0x834 );
 		addText( 50, 120, tr( "Region:" ), 0x834 );
 		addText( 250, 120, QString( "%1" ).arg( pChar->region ), 0x834 );
-		addText( 50, 140, tr( "ACL:" ), 0x834 );
-		addText( 250, 140, QString( "%1" ).arg( pChar->account()->acl() ), 0x834 );
+		addText( 50, 140, tr( "Account / ACL:" ), 0x834 );
+		addText( 250, 140, QString( "%1 / %2" ).arg( pChar->account()->login() ).arg( pChar->account()->acl() ), 0x834 );
 
 		addButton( 20, 180, 0xFA5, 0xFA7, 1 ); 
 		addText( 50, 180, tr( "Go to position" ), 0x834 );
@@ -1297,11 +1300,12 @@ cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 		addText( 50, 220, tr( "Jail char" ), 0x834 );
 		addButton( 20, 260, 0xFBD, 0xFBF, 6 ); 
 		addText( 50, 260, tr( "Send message:" ), 0x834 );
-		addInputField( 200, 260, 150, 16, 1, tr( "<msg>" ), 0x834 );
+		addInputField( 200, 260, 190, 16, 1, tr( "<msg>" ), 0x834 );
 
 		addButton( 220, 180, 0xFAB, 0xFAD, 5 ); 
 		addText( 250, 180, tr( "Show char info gump" ), 0x834 );
-		//addText( 250, 260, tr( "" ), 0x834 );
+		addButton( 220, 200, 0xFA5, 0xFA7, 7 ); 
+		addText( 250, 200, tr( "Disconnect" ), 0x834 );
 		addButton( 220, 220, 0xFA5, 0xFA7, 4 ); 
 		addText( 250, 220, tr( "Forgive char" ), 0x834 );
 	}
@@ -1374,8 +1378,277 @@ void cWhoChildGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				socket->sysMessage( tr("Message sent.") );
 			}
 			break;
+		case 7:
+			socket_->disconnect();
+			socket->sysMessage( tr("Socket disconnected.") );
+			break;
 		}
 	}
 	else
 		socket->sysMessage( tr("ERROR: Socket has disconnected or changed character!") );
 }
+
+cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
+{
+	if( page == 0 )
+		return;
+
+	page_ = page;
+	ptype_ = ptype;
+	QStringList charNames;
+	QStringList pageTimes;
+	std::vector< WPPAGE_TYPE > pageTypes;
+	std::vector< UINT32 > offsets;
+	UINT32 offset = 0;
+
+	pagequeue_.clear();
+
+	cPagesManager::iterator it = cPagesManager::getInstance()->begin();
+	while( it != cPagesManager::getInstance()->end() )
+	{
+		cChar* pChar = FindCharBySerial( (*it)->charSerial() );
+		if( pChar && ptype <= (*it)->pageType() )
+		{
+			charNames.push_back( pChar->name.c_str() );
+			pageTimes.push_back( (*it)->pageTime() );
+			pageTypes.push_back( (*it)->pageType() );
+			offsets.push_back( offset );
+			pagequeue_.push_back( (*it) );
+		}
+		it++;
+		offset++;
+	}
+
+	UINT32 numsocks = charNames.size();
+	UINT32 pages = ((UINT32)floor( numsocks / 10 ))+1;
+
+	startPage();
+	addBackground( 0xE10, 420, 360 ); //Background
+	addCheckertrans( 15, 15, 390, 330 );
+	addGump( 150, 18, 0xFA8 );
+	addText( 185, 20, tr( "Page Queue" ), 0x530 );
+	
+	// X button
+	addText( 70, 320, "Close", 0x834 );
+	addButton( 30, 320, 0xFB1, 0xFB3, 0 ); 
+
+	startPage( 1 );
+
+	INT32 right = page_ * 10 - 1;
+	INT32 left = page_ * 10 - 10;
+	if( numsocks < right )
+		right = numsocks-1;
+
+	INT32 i = left;
+	while( i <= right )
+	{
+		addButton( 20, 60 + (i-left) * 22, 0xFA5, 0xFA7, offsets[i]+3 );
+		addText( 50, 60 + (i-left) * 22, QString( "%1" ).arg( charNames[i] ), 0x844 + 5 * pageTypes[i] );
+		addText( 200, 60 + (i-left) * 22, QString( "%1" ).arg( pageTimes[i] ), 0x844 + 5 * pageTypes[i] );
+		i++;
+	}
+
+	addText( 280, 320, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+	if( page_ > 1 ) // previous page
+		addButton( 240, 320, 0x0FC, 0x0FC, 1 );
+
+	if( page_ < pages ) // next page
+		addButton( 260, 320, 0x0FA, 0x0FA, 2 );
+}
+  
+void cPagesGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 )
+		return;
+	else
+	{
+		switch( choice.button )
+		{
+		case 1:
+			{
+				cPagesGump* pGump = new cPagesGump( page_-1, ptype_ );
+				socket->send( pGump );
+			}
+			break;
+		case 2:
+			{
+				cPagesGump* pGump = new cPagesGump( page_+1, ptype_ );
+				socket->send( pGump );
+			}
+			break;
+		default:
+			{
+				cPageInfoGump* pGump = new cPageInfoGump( pagequeue_[ choice.button-3 ] );
+				socket->send( pGump );
+			}
+			break;
+		}
+	}
+}
+
+cPageInfoGump::cPageInfoGump( cPage* page )
+{
+	page_ = page;
+
+	if( cPagesManager::getInstance()->contains( page ) )
+	{
+		cChar* pChar = FindCharBySerial( page->charSerial() );
+		startPage();
+		
+		addBackground( 0xE10, 440, 440 ); //Background
+		addResizeGump( 195, 360, 0xBB8, 205, 20 );
+		addCheckertrans( 15, 15, 410, 410 );
+		
+		addGump( 165, 18, 0xFA2 );
+		addText( 200, 20, tr( "Page Menu" ), 0x530 );
+	
+		// X button
+		addText( 70, 400, "Close", 0x834 );
+		addButton( 30, 400, 0xFB1, 0xFB3, 0 ); 
+
+		switch( page->pageType() )
+		{
+		case PT_GM:
+			addText( 250, 400, "GM Page", 0x844 + 5 * page->pageType() );
+			break;
+		case PT_COUNSELOR:
+			addText( 250, 400, "Counselor Page", 0x844 + 5 * page->pageType() );
+			break;
+		}
+
+		startPage( 1 );
+
+		UINT16 hue = 0x834;
+
+		addText( 50, 60, tr( "Char name:" ), hue );
+		addText( 200, 60, QString( "%1" ).arg( pChar->name.c_str() ), hue );
+		addText( 50, 80, tr( "Account name:" ), hue );
+		addText( 200, 80, QString( "%1" ).arg( pChar->account()->login() ), hue );
+		addText( 50, 100, tr( "Char position:" ), hue );
+		addText( 200, 100, QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ), hue );
+		addText( 50, 120, tr( "Page sent from:" ), hue );
+		addText( 200, 120, QString("%1,%2,%3 plane %4").arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().plane ), hue );
+		addText( 50, 140, tr( "Date/time:" ), hue );
+		addText( 200, 140, QString( "%1" ).arg( page->pageTime() ), hue );
+
+		addText( 50, 160, tr( "Message:" ), hue );
+		QString html = 
+			QString("<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%1</body>").arg( page_->content() );
+		addResizeGump( 45, 180, 0xBB8, 345, 84 );
+		addHtmlGump( 50, 180, 340, 80, html );
+
+		addButton( 20, 280, 0xFA5, 0xFA7, 1 ); 
+		addText( 50, 280, tr( "Go to char position" ), 0x834 );
+		addButton( 20, 300, 0xFA5, 0xFA71, 2 ); 
+		addText( 50, 300, tr( "Bring char" ), 0x834 );
+		addButton( 20, 320, 0xFA5, 0xFA7, 3 ); 
+		addText( 50, 320, tr( "Go to page position" ), 0x834 );
+		addButton( 20, 360, 0xFBD, 0xFBF, 4 ); 
+		addText( 50, 360, tr( "Send message:" ), 0x834 );
+		addInputField( 200, 360, 190, 16, 1, tr( "<msg>" ), 0x834 );
+
+		addButton( 220, 280, 0xFAB, 0xFAD, 5 ); 
+		addText( 250, 280, tr( "Show char info gump" ), 0x834 );
+		addButton( 220, 300, 0xFA5, 0xFA7, 6 ); 
+		addText( 250, 300, tr( "Move page on top" ), 0x834 );
+		addButton( 220, 320, 0xFA5, 0xFA7, 7 ); 
+		addText( 250, 320, tr( "Delete page" ), 0x834 );
+
+	}
+}
+
+void cPageInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 )
+		return;
+	else if( page_ && cPagesManager::getInstance()->contains( page_ ) )
+	{
+		cChar* pChar = FindCharBySerial( page_->charSerial() );
+		cUOSocket* socket_ = pChar->socket();
+		
+		if( !pChar || !socket_ )
+			return;
+
+		cChar* mChar = socket->player();
+		switch( choice.button )
+		{
+		case 1:
+			// Check if the privileges are ok
+			if( mChar && !mChar->account()->authorized("command", "go" ))
+			{
+				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
+			}
+			else if( mChar )
+			{
+				mChar->removeFromView( false );
+				mChar->moveTo( pChar->pos );
+				mChar->resend( false );
+				socket->resendPlayer();
+				socket->resendWorld();
+			}
+			break;
+		case 2:
+			// Check if the privileges are ok
+			if( mChar && !mChar->account()->authorized("command", "go" ))
+			{
+				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
+			}
+			else if( mChar )
+			{
+				pChar->removeFromView( false );
+				pChar->moveTo( mChar->pos );
+				pChar->resend( false );
+				socket_->resendPlayer();
+				socket_->resendWorld();
+			}
+			break;
+		case 3:
+			// Check if the privileges are ok
+			if( mChar && !mChar->account()->authorized("command", "go" ))
+			{
+				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
+			}
+			else if( mChar )
+			{
+				mChar->removeFromView( false );
+				mChar->moveTo( page_->pagePos() );
+				mChar->resend( false );
+				socket->resendPlayer();
+				socket->resendWorld();
+			}
+			break;
+		case 4:
+			{
+				std::map< UINT16, QString >::iterator it = choice.textentries.find( 1 );
+				if( it != choice.textentries.end() )
+					socket_->sysMessage( it->second );
+
+				socket->sysMessage( tr("Message sent.") );
+			}
+			break;
+		case 5:
+			// Check if the privileges are ok
+			if( mChar && !mChar->account()->authorized("command", "info" ))
+			{
+				socket->sysMessage( tr( "Access to command 'info' was denied" ) );
+			}
+			else
+			{
+				cCharInfoGump* pGump = new cCharInfoGump( pChar );
+				socket->send( pGump );
+			}
+			break;
+		case 6:
+			cPagesManager::getInstance()->moveOnTop( page_ );
+			break;
+		case 7:
+			cPagesManager::getInstance()->remove( page_ );
+			return;
+		}
+		cPageInfoGump* pGump = new cPageInfoGump( page_ );
+		socket->send( pGump );
+	}
+	else
+		socket->sysMessage( tr("ERROR: Socket has disconnected or changed character in the meantime!") );
+}
+

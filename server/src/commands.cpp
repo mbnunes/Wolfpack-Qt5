@@ -44,6 +44,7 @@
 #include "worldmain.h"
 #include "wpconsole.h"
 #include "wpdefmanager.h"
+#include "pagesystem.h"
 
 // System Includes
 #include <functional>
@@ -1564,12 +1565,21 @@ void commandWho( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->send( pGump );
 }
 
-void commandTest( cUOSocket *socket, const QString &command, QStringList &args )
+void commandPages( cUOSocket *socket, const QString &command, QStringList &args )
 {
-	cGump *gump = new cGump;
-	gump->addBackground( 0xE10, 400, 200 );
-	gump->addCheckertrans( 15, 15, 370, 170 );
-	socket->send( gump );
+	// Pages
+	if( socket->player() )
+	{
+		cPagesGump* pGump = NULL;
+
+		if( socket->player()->isGM() )
+			pGump = new cPagesGump( 1, PT_GM );
+		else if( socket->player()->isCounselor() )
+			pGump = new cPagesGump( 1, PT_COUNSELOR );
+
+		if( pGump )
+			socket->send( pGump );
+	}
 }
 
 // Command Table (Keep this at the end)
@@ -1585,6 +1595,7 @@ stCommand cCommands::commands[] =
 	{ "GO",				commandGo },
 	{ "INFO",			commandInfo },
 	{ "KILL",			commandKill },
+	{ "PAGES",			commandPages },
 	{ "REMOVE",			commandRemove },
 	{ "RESEND",			commandResend },
 	{ "RESURRECT",		commandResurrect },
@@ -1594,7 +1605,6 @@ stCommand cCommands::commands[] =
 	{ "SPAWNREGION",	commandSpawnRegion },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
-	{ "TEST",			commandTest },
 	{ "WHERE",			commandWhere },
 	{ "WHO",			commandWho },
 	{ NULL, NULL }

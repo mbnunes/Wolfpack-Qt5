@@ -567,6 +567,10 @@ SOURCE=.\packlen.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\pagesystem.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\pfactory.h
 # End Source File
 # Begin Source File
