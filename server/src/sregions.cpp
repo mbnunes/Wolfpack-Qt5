@@ -586,7 +586,7 @@ void cRespawn::Continue()
 	for( i = currentSpawnItem; i < itemcount; i++)	// Item Spawner
 	{
 		P_ITEM pi = MAKE_ITEMREF_LR(i);
-		int j, k, serial, ci;
+		int k, serial, ci;
 		if (pi->type==61)
 		{
 			k = 0;

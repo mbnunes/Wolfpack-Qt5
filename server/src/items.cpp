@@ -1685,7 +1685,7 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 
 void cAllItems::RespawnItem(unsigned int currenttime, int i)
 {
-	int  j, k,m,serial,serhash,ci, c;
+	int  j, k,m,serial,ci, c;
 	//char ilist[66]="101010100010100101010100001101010000110101010101011010";
 	P_ITEM pi=MAKE_ITEMREF_LR(i);
 	if (pi->free) return;

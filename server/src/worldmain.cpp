@@ -1449,8 +1449,8 @@ void CWorldMain::SaveChar( CHARACTER i )
 
 static void decay1(P_ITEM pi, int i)
 {
-	long serial, serhash, j;
-	int k, ci;
+	long serial;
+	int ci;
 	if (pi->corpse==1)
 	{
 		serial=pi->serial;
@@ -1639,7 +1639,7 @@ void CWorldMain::SaveItem( long i, P_ITEM pDefault)
 //o--------------------------------------------------------------------------
 bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 { 
-	int serial, ci, i;
+	int serial, ci;
 	if (charserial<=-1) return false;
  	serial=chars[charserial].serial;
  	bool foundMatch = false;

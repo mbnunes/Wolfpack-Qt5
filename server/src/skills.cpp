@@ -1949,7 +1949,7 @@ void TellScroll( char *menu_name, int s, long snum )
 {
 	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
-	unsigned x,cir,spl;
+	unsigned cir,spl;
 	int i,part;
 
 	if(snum<=0) return;				// bad spell selction
