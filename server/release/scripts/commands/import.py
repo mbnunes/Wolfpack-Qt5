@@ -378,7 +378,7 @@ def parseWsc( file, map ):
 					newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
 
 			if not newitem:
-				warning += "Found an invalid item id: %s<br>" % baseid
+				warning += "Found an invalid item id '%s' at %s<br>" % (baseid, str(newposition))
 				continue
 
 			newitem.decay = 0
