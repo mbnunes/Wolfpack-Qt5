@@ -156,6 +156,8 @@ def gateCallback( char, args, target ):
 	if( target.button != 1 ):
 		char.socket.sysmessage( "Canceled." )
 		return 1
+	if( len( target.switches ) == 0 ):
+		return 1
 
 	button = int( target.switches[0] )
 
