@@ -8,6 +8,31 @@
 -->
 <definitions>
 
+	<npc id="bowyer_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="1022"><amount>20</amount></item>
+				<item id="1bfb"><amount>60</amount></item>
+				<item id="f3f"><amount>60</amount></item>
+				<item id="1bd1"><amount>60</amount></item>
+				<item id="1bd4"><amount>60</amount></item>
+				<item id="13fd"><amount>20</amount></item>
+				<item id="13b2"><amount>20</amount></item>
+				<item id="f50"><amount>20</amount></item>				
+			</restockable>
+			<sellable>
+				<item id="1022" />
+				<item id="1bfb" />
+				<item id="f3f" />
+				<item id="1bd1" />
+				<item id="1bd4" />
+				<item id="13fd" />
+				<item id="13b2" />
+				<item id="f50" />
+			</sellable>
+		</shopkeeper>
+	</npc>
+
 	<!-- A bowyer vendor -->
 	<npc id="bowyer_male">
 		<inherit>vendor_male</inherit>
@@ -16,14 +41,7 @@
 			<item id="13b1" /> <!-- Bow -->
 			<item id="13c7" /> <!-- Leather Gorget -->
 		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="1022"><amount>20</amount></item>
-			</restockable>
-			<sellable>
-				<item id="1022" />
-			</sellable>
-		</shopkeeper>
+		<inherit id="bowyer_inventory" />
 		<archery><random min="600" max="830" /></archery>
 		<bowcrafting><random min="900" max="1000" /></bowcrafting>
 		<category>Vendors\Bowyer (Male)</category>
@@ -32,18 +50,7 @@
 	<npc id="bowyer_female">
 		<inherit>vendor_female</inherit>
 		<title context="Vendor Female Titles">the Bowyer</title>
-		<equipped>
-			<item id="13b1" /> <!-- Bow -->
-			<item id="13c7" /> <!-- Leather Gorget -->
-		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="1022"><amount>20</amount></item>
-			</restockable>
-			<sellable>
-				<item id="1022" />
-			</sellable>
-		</shopkeeper>
+		<inherit id="bowyer_inventory" />
 		<archery><random min="600" max="830" /></archery>
 		<bowcrafting><random min="900" max="1000" /></bowcrafting>
 		<category>Vendors\Bowyer (Female)</category>

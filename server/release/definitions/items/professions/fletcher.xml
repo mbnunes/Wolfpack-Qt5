@@ -99,6 +99,8 @@
 		<id>0x1bd1</id>
 		<category>Professions\Fletcher\Feather</category>
 		<weight>0.1</weight>
+		<sellprice>1</sellprice>
+		<buyprice>2</buyprice>
 	</item>
 
 	<item id="1bd2">
@@ -117,6 +119,8 @@
 		<id>0x1bd4</id>
 		<category>Professions\Fletcher\Shaft</category>
 		<weight>0.1</weight>
+		<sellprice>1</sellprice>
+		<buyprice>3</buyprice>
 	</item>
 
 	<item id="1bd5">
