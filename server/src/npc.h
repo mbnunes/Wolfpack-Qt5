@@ -40,7 +40,7 @@
 // wolfpack includes
 #include "basechar.h"
 
-class cNPC_AI;
+class AbstractAI;
 
 // Class for Non Player Characters. Implements cBaseChar.
 class cNPC : public cBaseChar
@@ -73,6 +73,9 @@ public:
 		UINT16 y1;
 		UINT16 y2;
 		UINT16 radius;
+
+		P_CHAR		followTarget;
+		Coord_cl	destination;
 	};
 
 	// implementation of interfaces
@@ -122,8 +125,9 @@ public:
 	QString			spawnregion() const;
 	SERIAL			stablemasterSerial() const;
 	QString			lootList() const;
-	cNPC_AI*		ai() const;
+	AbstractAI*		ai() const;
 	UINT32			aiCheckTime() const;
+	UINT16			aiCheckInterval() const;
 	UINT8			criticalHealth() const;
 	// bit flag getters
 	bool			hasSpell( UINT8 spell ) const;
@@ -140,6 +144,8 @@ public:
 	UINT16			wanderY1() const;
 	UINT16			wanderY2() const;
 	UINT16			wanderRadius() const;
+	P_CHAR			wanderFollowTarget() const;
+	Coord_cl		wanderDestination() const;
 
 	// setters
     void setMaxDamage(UINT16 data);
@@ -157,8 +163,9 @@ public:
 	void setStablemasterSerial(SERIAL data);
 	void setLootList(const QString &data);
     void setGuarding(P_PLAYER data);
-	void setAI( cNPC_AI* ai );
+	void setAI( AbstractAI* ai );
 	void setAICheckTime( UINT32 data );
+	void setAICheckInterval( UINT16 data );
 	void setCriticalHealth( UINT8 data );
 	// bit flag setters
 	void setSpell( UINT8 spell, bool data );
@@ -178,6 +185,8 @@ public:
 	void setWanderY1(UINT16 data);
 	void setWanderY2(UINT16 data);
 	void setWanderRadius(UINT16 data);
+	void setWanderFollowTarget(P_CHAR data );
+	void setWanderDestination(const Coord_cl &data );
 
 protected:
 	// interface implementation
@@ -250,10 +259,13 @@ protected:
 	std::deque< Coord_cl > path_;
 
 	// NPC AI State Machine interface
-	cNPC_AI* ai_;
+	AbstractAI* ai_;
 
 	// NPC AI check timer
 	UINT32	aiCheckTime_;
+
+	// NPC AI check time intervall in msec
+	UINT16	aiCheckInterval_;
 
 	// percentage of maxhitpoints when hitpoints are restored
 	UINT8	criticalHealth_;
@@ -409,12 +421,12 @@ inline void cNPC::setLootList(const QString &data)
 	changed( SAVE );
 }
 
-inline cNPC_AI* cNPC::ai() const
+inline AbstractAI* cNPC::ai() const
 {
 	return ai_;
 }
 
-inline void cNPC::setAI( cNPC_AI* ai )
+inline void cNPC::setAI( AbstractAI* ai )
 {
 	ai_ = ai;
 	changed( SAVE );
@@ -428,6 +440,16 @@ inline UINT32 cNPC::aiCheckTime() const
 inline void cNPC::setAICheckTime( UINT32 data )
 {
 	aiCheckTime_ = data;
+}
+
+inline UINT16 cNPC::aiCheckInterval() const
+{
+	return aiCheckInterval_;
+}
+
+inline void cNPC::setAICheckInterval( UINT16 data )
+{
+	aiCheckInterval_ = data;
 	changed( SAVE );
 }
 
@@ -506,6 +528,16 @@ inline UINT16 cNPC::wanderRadius() const
 	return wanderType_.radius;
 }
 
+inline P_CHAR cNPC::wanderFollowTarget() const
+{
+	return wanderType_.followTarget;
+}
+
+inline Coord_cl cNPC::wanderDestination() const
+{
+	return wanderType_.destination;
+}
+
 inline void cNPC::setWanderType(enWanderTypes data)
 {
 	wanderType_.type = data;
@@ -534,6 +566,16 @@ inline void cNPC::setWanderY2(UINT16 data)
 inline void cNPC::setWanderRadius(UINT16 data)
 {
 	wanderType_.radius = data;
+}
+
+inline void cNPC::setWanderFollowTarget(P_CHAR data)
+{
+	wanderType_.followTarget = data;
+}
+
+inline void cNPC::setWanderDestination(const Coord_cl &data)
+{
+	wanderType_.destination = data;
 }
 
 

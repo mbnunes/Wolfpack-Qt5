@@ -2344,32 +2344,12 @@ void cUOSocket::handleSkillLock( cUORxSkillLock* packet )
 
 void cUOSocket::handleBuy( cUORxBuy* packet )
 {
-	P_NPC pVendor = dynamic_cast< P_NPC >(FindCharBySerial( packet->serial() ));
-	if( pVendor && player() )
-	{
-		cNPC_AI* pAI = pVendor->ai();
-		if( pAI && pAI->currState() )
-		{
-			pAI->currState()->handleSelection( player(), packet );
-			pAI->updateState();
-			return;
-		}
-	}
+	Trade::buyAction( this, packet );
 }
 
 void cUOSocket::handleSell( cUORxSell* packet )
 {
-	P_NPC pVendor = dynamic_cast< P_NPC >(FindCharBySerial( packet->serial() ));
-	if( pVendor && player() )
-	{
-		cNPC_AI* pAI = pVendor->ai();
-		if( pAI && pAI->currState() )
-		{
-			pAI->currState()->handleSelection( player(), packet );
-			pAI->updateState();
-			return;
-		}
-	}
+	Trade::sellAction( this, packet );
 }
 
 /*

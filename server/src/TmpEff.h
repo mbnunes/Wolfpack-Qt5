@@ -236,25 +236,16 @@ public:
 	virtual void Expire();
 };
 
-class cNPC_AI;
 
-class cAIRefreshTimer: public cTempEffect
+class AbstractAI;
+
+class cStablemasterRefreshTimer: public cTempEffect
 {
 private:
 	P_NPC m_npc;
-	cNPC_AI* m_interface;
+	AbstractAI* m_interface;
 public:
-	cAIRefreshTimer( P_NPC m_npc, cNPC_AI* m_interface, UINT32 time );
-	virtual void Expire();
-};
-
-class cFleeReset: public cTempEffect
-{
-private:
-	P_NPC m_npc;
-public:
-	cFleeReset( P_NPC m_npc, UINT32 time );
-	virtual void Serialize(ISerialization &archive);
+	cStablemasterRefreshTimer( P_NPC m_npc, AbstractAI* m_interface, UINT32 time );
 	virtual void Expire();
 };
 

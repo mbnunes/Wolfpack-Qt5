@@ -29,368 +29,269 @@
 //==================================================================================
 
 #include "ai.h"
-#include "world.h"
-#include "defines.h"
 #include "npc.h"
-#include "basechar.h"
-#include "player.h"
+#include "factory.h"
 #include "mapobjects.h"
-#include "network.h"
-#include "network/uosocket.h"
-#include "inlines.h"
-#include "walking.h"
-#include "prototypes.h"
-#include "itemid.h"
-#include "coord.h"
+#include "player.h"
 #include "srvparams.h"
+#include "globals.h"
+#include "basics.h"
+#include "itemid.h"
+#include "items.h"
 
 // library includes
 #include <math.h>
 
-static cNPC_AI* productCreator_MAL0()
+void Monster_Aggressive::check()
 {
-	return new Monster_Aggressive_L0();
+	selectVictim();
+	AbstractAI::check();
+}
+
+static AbstractAI* productCreator_MAL0()
+{
+	return new Monster_Aggressive_L0( NULL );
 }
 
 void Monster_Aggressive_L0::registerInFactory()
 {
 	AIFactory::instance()->registerType("Monster_Aggressive_L0", productCreator_MAL0);
-
-	// register its states
-	Monster_Aggr_L0_Wander::registerInFactory();
-	Monster_Aggr_L0_Combat::registerInFactory();
 }
 
-Monster_Aggressive_L0::Monster_Aggressive_L0()
-{ 
-	currentState = new Monster_Aggr_L0_Wander( this, m_npc );
-}
-
-Monster_Aggressive_L0::Monster_Aggressive_L0( P_NPC currnpc )
-{ 
-	setNPC( currnpc ); 
-	currentState = new Monster_Aggr_L0_Wander( this, m_npc );
-}
-
-void Monster_Aggressive_L0::eventHandler()
+void Monster_Aggressive_L0::selectVictim()
 {
-	currentState->nextState = currentState;
-	if( !m_npc->isDead() )
+	// We must make sure, that the npc has a correct target.
+	// If he already has one, we must check if it is still correct.
+	// Else we search a new one.
+	
+	if( m_currentVictim )
 	{
-		P_CHAR pVictim = World::instance()->findChar( m_npc->combatTarget() );
-		if( !pVictim  || pVictim->isDead() )
-			currentState->won();
-		else if( !pVictim->inRange( m_npc, VISRANGE ) )
-			currentState->combatCancelled();
-
-		P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( m_npc, VISRANGE ) )
-			currentState->attacked();
-		else
+		// Check if the current target is valid, including:
+		// - Target not dead.
+		// - Target in attack range.
+		if( m_currentVictim->isDead() )
+			m_currentVictim = NULL;
+		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
+			m_currentVictim = NULL;
+	}
+	
+	if( !m_currentVictim )
+	{
+		// Get the first best character and attack it
+		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
+		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
-			// get the first best character and attack it
-			RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
-			for( ri.Begin(); !ri.atEnd(); ri++ )
+			P_CHAR pChar = ri.GetData();
+			if( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 			{
-				P_CHAR pChar = ri.GetData();
-				if( pChar && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
-				{
-					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-					if( pPlayer && pPlayer->isGMorCounselor() )
-						continue;
+				P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
+				if( pPlayer && pPlayer->isGMorCounselor() )
+					continue;
 
-					currentState->foundVictim( pChar );
-					break;
-				}
+				m_currentVictim = pChar;
+				break;
 			}
 		}
 
-		updateState();
-		currentState->execute();
-	}
-}
-
-static AbstractState* productCreator_MAL0_Wander()
-{
-	return new Monster_Aggr_L0_Wander();
-}
-
-void Monster_Aggr_L0_Wander::registerInFactory()
-{
-	StateFactory::instance()->registerType("Monster_Aggr_L0_Wander", productCreator_MAL0_Wander);
-}
-
-void Monster_Aggr_L0_Wander::attacked()
-{
-	reattack();
-	nextState = new Monster_Aggr_L0_Combat( m_interface, npc );
-}
-
-void Monster_Aggr_L0_Wander::foundVictim( P_CHAR pVictim )
-{
-	if( pVictim )
-		npc->setCombatTarget( pVictim->serial() );
-	attack();
-	nextState = new Monster_Aggr_L0_Combat( m_interface, npc );
-}
-
-static AbstractState* productCreator_MAL0_Combat()
-{
-	return new Monster_Aggr_L0_Combat();
-}
-
-void Monster_Aggr_L0_Combat::registerInFactory()
-{
-	StateFactory::instance()->registerType("Monster_Aggr_L0_Combat", productCreator_MAL0_Combat);
-}
-
-void Monster_Aggr_L0_Combat::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L0_Wander( m_interface, npc );
-}
-
-void Monster_Aggr_L0_Combat::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L0_Wander( m_interface, npc );
-}
-
-void Monster_Aggr_L0_Combat::execute()
-{
-	P_CHAR pTarget = World::instance()->findChar( npc->combatTarget() );
-	if( !pTarget )
-	{
-		won();
-		return;
+		// If we found a new target, let us attack it
+		if( m_currentVictim )
+			m_npc->fight( m_currentVictim );
 	}
 
-	UINT8 range = 1;
-	if( npc->rightHandItem() && IsBowType( npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
-
-	if( !npc->inRange( pTarget, range ) )
-	{ // move towards the target
-		if( SrvParams->pathfind4Combat() )
-			movePath( pTarget->pos() );
-		else
-			moveTo( pTarget->pos() );
-	}
 }
 
-
-static cNPC_AI* productCreator_MAL1()
+static AbstractAI* productCreator_MAL1()
 {
-	return new Monster_Aggressive_L1();
+	return new Monster_Aggressive_L1( NULL );
 }
 
 void Monster_Aggressive_L1::registerInFactory()
 {
 	AIFactory::instance()->registerType("Monster_Aggressive_L1", productCreator_MAL1);
-
-	// register its states
-	// uses L0_Wander, registered above
-	Monster_Aggr_L1_Wander::registerInFactory();
-	Monster_Aggr_L1_Combat::registerInFactory();
-	Monster_Aggr_L1_Flee::registerInFactory();
 }
 
-Monster_Aggressive_L1::Monster_Aggressive_L1()
-{ 
-	currentState = new Monster_Aggr_L1_Wander( this, m_npc );
-}
-
-Monster_Aggressive_L1::Monster_Aggressive_L1( P_NPC currnpc )
-{ 
-	setNPC( currnpc );  
-	currentState = new Monster_Aggr_L1_Wander( this, m_npc );
-}
-
-void Monster_Aggressive_L1::eventHandler()
+void Monster_Aggressive_L1::selectVictim()
 {
-	currentState->nextState = currentState;
-	if( !m_npc->isDead() )
+	// We must make sure, that the npc has a correct target.
+	// If he already has one, we must check if it is still correct.
+	// Else we search a new one.
+	
+	if( m_currentVictim )
 	{
-		P_CHAR pVictim = World::instance()->findChar( m_npc->combatTarget() );
-		if( !pVictim || pVictim->isDead() )
-			currentState->won();
-		else if( !pVictim->inRange( m_npc, VISRANGE ) )
-			currentState->combatCancelled();
+		// Check if the current target is valid, including:
+		// - Target not dead.
+		// - Target in attack range.
+		if( m_currentVictim->isDead() )
+			m_currentVictim = NULL;
+		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
+			m_currentVictim = NULL;
+	}
+	
+	int currentPriority = -0x00DDDDDD;
+	P_CHAR newVictim = m_currentVictim;
+	// we divide the negative priority of the current victim by two, 
+	// so it cant be overwritten that easy.
+	// This shall reduce "target hopping".
+	if( m_currentVictim )
+		currentPriority = (0 - m_currentVictim->dist( m_npc ) - m_currentVictim->hitpoints() - m_currentVictim->calcDefense(ALLBODYPARTS)) / 2;
 
-		if( m_npc->hitpoints() < (float)m_npc->criticalHealth() * 0.01f * m_npc->maxHitpoints() )
-			currentState->hitpointsCritical();
-		else
-			currentState->hitpointsRestored();
-
-		P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( m_npc, VISRANGE ) )
-			currentState->attacked();
-		else
+	// Get the attackable char which has the highest priority.
+	// The priority is calculated by *distance* and *strength*.
+	RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
+	for( ri.Begin(); !ri.atEnd(); ri++ )
+	{
+		P_CHAR pChar = ri.GetData();
+		if( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 		{
-			// get the first best character and attack it
-			RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
-			for( ri.Begin(); !ri.atEnd(); ri++ )
-			{
-				P_CHAR pChar = ri.GetData();
-				if( pChar && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
-				{
-					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-					if( pPlayer && pPlayer->isGMorCounselor() )
-						continue;
+			P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
+			if( pPlayer && pPlayer->isGMorCounselor() )
+				continue;
 
-					currentState->foundVictim( pChar );
-					break;
-				}
+			int priority = 0 - pChar->dist( m_npc ) - pChar->hitpoints() - pChar->calcDefense( ALLBODYPARTS );
+			if( priority > currentPriority )
+			{
+				newVictim = pChar;
+				currentPriority = priority;
 			}
 		}
-
-		updateState();
-		currentState->execute();
 	}
-}
 
-static AbstractState* productCreator_MAL1_Wander()
-{
-	return new Monster_Aggr_L1_Wander();
-}
-
-void Monster_Aggr_L1_Wander::registerInFactory()
-{
-	StateFactory::instance()->registerType("Monster_Aggr_L1_Wander", productCreator_MAL1_Wander);
-}
-
-void Monster_Aggr_L1_Wander::attacked()
-{
-	reattack();
-	nextState = new Monster_Aggr_L1_Combat( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Wander::foundVictim( P_CHAR pVictim )
-{
-	if( pVictim )
-		npc->setCombatTarget( pVictim->serial() );
-	attack();
-	nextState = new Monster_Aggr_L1_Combat( m_interface, npc );
-}
-
-static AbstractState* productCreator_MAL1_Combat()
-{
-	return new Monster_Aggr_L1_Combat();
-}
-
-void Monster_Aggr_L1_Combat::registerInFactory()
-{
-	StateFactory::instance()->registerType("Monster_Aggr_L1_Combat", productCreator_MAL1_Combat);
-}
-
-void Monster_Aggr_L1_Combat::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Combat::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Combat::hitpointsCritical()
-{
-	nextState = new Monster_Aggr_L1_Flee( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Combat::execute()
-{
-	P_CHAR pTarget = World::instance()->findChar( npc->combatTarget() );
-	if( !pTarget )
+	// If we found a new target, let us attack it
+	if( (!m_currentVictim && newVictim) || (m_currentVictim && m_currentVictim != newVictim) )
 	{
-		won();
-		return;
+		m_currentVictim = newVictim;
+		m_npc->fight( newVictim );
 	}
+}
 
+float Monster_Aggr_Wander::preCondition()
+{
+	/*
+	 * Wandering has the following preconditions:
+	 * - Same as Action_Wander
+	 * - No target has been set.
+	 */
+
+	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+	if( pAI && pAI->currentVictim() )
+		return 0.0f;
+
+	return Action_Wander::preCondition();
+}
+
+float Monster_Aggr_MoveToTarget::preCondition()
+{
+	/*
+	 * Moving to the target has the following preconditions:
+	 * - A target has been set.
+	 * - The NPC is not in combat range.
+	 *
+	 * Here we take the fuzzy logic into account.
+	 * If the npc is injured, the chance of fighting will decrease.
+	 */
+
+	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+	if( !pAI || !pAI->currentVictim() )
+		return 0.0f;
+	
 	UINT8 range = 1;
-	if( npc->rightHandItem() && IsBowType( npc->rightHandItem()->id() ) )
+	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
 		range = ARCHERY_RANGE;
 
-	if( !npc->inRange( pTarget, range ) )
-	{ // move towards the target
-		Coord_cl pos = npc->pos();
-		if( SrvParams->pathfind4Combat() )
-			movePath( pTarget->pos() );
-		else
-			moveTo( pTarget->pos() );
+	if( m_npc->inRange( pAI->currentVictim(), range ) )
+		return 0.0f;
 
-		// no move found
-		if( pos == npc->pos() )
-		{ // search new target
-			RegionIterator4Chars ri( npc->pos(), VISRANGE );
-			for( ri.Begin(); !ri.atEnd(); ri++ )
-			{
-				P_CHAR pChar = ri.GetData();
-				if( pChar && pChar != npc && pChar != pTarget && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
-				{
-					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-					if( pPlayer && pPlayer->isGMorCounselor() )
-						continue;
-
-					npc->setCombatTarget( pChar->serial() );
-					break;
-				}
-			}
-		}
-	}
+	float healthmod = (float)m_npc->hitpoints() / (float)m_npc->criticalHealth();
+	return healthmod;
 }
 
-static AbstractState* productCreator_MAL1_Flee()
+float Monster_Aggr_MoveToTarget::postCondition()
 {
-	return new Monster_Aggr_L1_Flee();
+	/*
+	 * Moving to the target has the following postconditions:
+	 * - The target is not set anymore.
+	 * - The NPC is within fight range.
+	 */
+
+	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+	if( !pAI || !pAI->currentVictim() )
+		return 1.0f;
+
+	UINT8 range = 1;
+	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
+		range = ARCHERY_RANGE;
+
+	if( m_npc->inRange( pAI->currentVictim(), range ) )
+		return 1.0f;
+
+	return 0.0f;
 }
 
-void Monster_Aggr_L1_Flee::registerInFactory()
+void Monster_Aggr_MoveToTarget::execute()
 {
-	StateFactory::instance()->registerType("Monster_Aggr_L1_Flee", productCreator_MAL1_Flee);
-}
+	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+	if( !pAI || !pAI->currentVictim() )
+		return;
 
-void Monster_Aggr_L1_Flee::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Flee::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Flee::hitpointsRestored()
-{
-	nextState = new Monster_Aggr_L1_Combat( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Flee::execute()
-{
-	if( !npc->hasPath() )
-	{
-		Coord_cl newPos = npc->pos();
-		// find a valid spot in a circle of flee_radius fields to move to
-		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
-		// now get a point on this circle around the npc
-		float rndphi = (float)RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
-		newPos.x = newPos.x + (INT16)floor( cos( rndphi ) * rnddist );
-		newPos.y = newPos.y + (INT16)floor( sin( rndphi ) * rnddist );
-
-		// we use pathfinding for fleeing
-		movePath( newPos );
-	}
+	if( SrvParams->pathfind4Combat() )
+		movePath( pAI->currentVictim()->pos() );
 	else
-		movePath();
+		moveTo( pAI->currentVictim()->pos() );
+}
+
+float Monster_Aggr_Fight::preCondition()
+{
+	/*
+	 * Fighting the target has the following preconditions:
+	 * - A target has been set.
+	 * - The target is not dead.
+	 * - The NPC is in combat range.
+	 * 
+	 * Here we take the fuzzy logic into account.
+	 * If the npc is injured, the chance of fighting will decrease.
+	 */
+
+	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+	if( !pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead() )
+		return 0.0f;
+	
+	UINT8 range = 1;
+	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
+		range = ARCHERY_RANGE;
+
+	if( !m_npc->inRange( pAI->currentVictim(), range ) )
+		return 0.0f;
+
+	float healthmod = (float)m_npc->hitpoints() / (float)m_npc->criticalHealth();
+	return healthmod;
+}
+
+float Monster_Aggr_Fight::postCondition()
+{
+	/*
+	 * Fighting the target has the following postconditions:
+	 * - The target is not set anymore.
+	 * - The NPC is not within fight range.
+	 * - The target is dead.
+	 */
+
+	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+	if( !pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead() )
+		return 1.0f;
+	
+	UINT8 range = 1;
+	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
+		range = ARCHERY_RANGE;
+
+	if( !m_npc->inRange( pAI->currentVictim(), range ) )
+		return 1.0f;
+
+	return 0.0f;
+}
+
+void Monster_Aggr_Fight::execute()
+{
+	// the execution of combat is handled somewhere else ;)
+	// nothing to do
 }
 

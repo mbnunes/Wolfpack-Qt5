@@ -150,12 +150,7 @@ void cNPC::save( FlatStore::OutputFile *output, bool first ) throw()
 
 	if( ai() )
 	{
-		QString temp = ai()->AIType();
-		if( ai()->currState() )
-		{
-			temp += "," + ai()->currState()->stateType();
-		}
-		output->chunkData( NPC_AI, temp );
+		output->chunkData( NPC_AI, ai()->name() );
 	}
 
 	if( criticalHealth() != 10 )

@@ -67,7 +67,8 @@ cNPC::cNPC()
 	stablemasterSerial_	= INVALID_SERIAL;
 	wanderType_			= stWanderType();
 	ai_					= new Monster_Aggressive_L1( this );
-	aiCheckTime_		= uiCurrentTime + SrvParams->checkAITime() * MY_CLOCKS_PER_SEC;
+	aiCheckInterval_	= (UINT16)floor(SrvParams->checkAITime() * 1000.0f);
+	aiCheckTime_		= uiCurrentTime + (float)aiCheckInterval_ * 0.001f * MY_CLOCKS_PER_SEC;
 	criticalHealth_		= 10; // 10% !
 	spellsLow_			= 0;
 	spellsHigh_			= 0;
@@ -160,12 +161,7 @@ void cNPC::save()
 		addStrField( "lootlist", lootList_);
 		if( ai_ )
 		{
-			QString temp = ai_->AIType();
-			if( ai_->currState() )
-			{
-				temp += "," + ai_->currState()->stateType();
-			}
-			addStrField( "ai", temp );
+			addStrField( "ai", ai_->name() );
 		}
 		addField( "wandertype", (UINT8)wanderType() );
 		addField( "wanderx1", wanderX1() );
@@ -1187,7 +1183,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "summontime", (int)summonTime_) 
 	else GET_PROPERTY( "summontimer", (int)summonTime_) 
 	else GET_PROPERTY( "owner", owner_ )
-	else GET_PROPERTY( "ai", ai_ ? ai_->AIType() : QString( "" ) )
+	else GET_PROPERTY( "ai", ai_ ? ai_->name() : QString( "" ) )
 	else GET_PROPERTY( "fleeat", criticalHealth_ )
 	else GET_PROPERTY( "criticalhealth", criticalHealth_ )
 	else GET_PROPERTY( "spellslow", (int)spellsLow_ )
@@ -1468,19 +1464,12 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 
 void cNPC::setAI( const QString &data )
 {
-	QStringList temp = QStringList::split( ",", data );
-	cNPC_AI* ai = AIFactory::instance()->createObject( temp[0] );
+	QString tmp = QStringList::split( ",", data )[0];
+	AbstractAI* ai = AIFactory::instance()->createObject( data );
 	if( !ai )
 		return;
 
-	ai->setNPC( this );
-
-	QString tempstate = temp[1];
-	if( !tempstate.isEmpty() )
-	{
-		AbstractState* state = StateFactory::instance()->createObject( tempstate );
-		ai->updateState( state );
-	}
+	ai->init( this );
 
 	if( ai_ )
 		delete ai_;

@@ -229,7 +229,6 @@ SOURCES		+= python/char.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
 	  	   python/multi.cpp \
-			python/npcai.cpp \
 		   python/pyaccount.cpp \
 		   python/pycoord.cpp \
 		   python/pyregion.cpp \

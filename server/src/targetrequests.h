@@ -971,9 +971,8 @@ public:
 	{
 		if( m_npc )
 		{
-			cNPC_AI* ai = m_npc->ai();
-			if( ai->currState() )
-				ai->currState()->targetCursorInput( socket, target );
+			Human_Stablemaster* ai = dynamic_cast< Human_Stablemaster* >(m_npc->ai());
+			ai->handleTargetInput( socket->player(), target );
 		}
 		return true;
 	}

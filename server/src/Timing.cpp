@@ -540,9 +540,9 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 
 	if( currenttime >= pc->aiCheckTime() )
 	{
-		pc->setAICheckTime( uiCurrentTime + SrvParams->checkAITime() * MY_CLOCKS_PER_SEC );
+		pc->setAICheckTime( uiCurrentTime + (float)pc->aiCheckInterval() * 0.001f * MY_CLOCKS_PER_SEC );
 		if( pc->ai() )
-			pc->ai()->eventHandler();
+			pc->ai()->check();
 	}
 //	cCharStuff::CheckAI( currenttime, pc );
 //	Movement::instance()->NpcMovement( currenttime, pc );

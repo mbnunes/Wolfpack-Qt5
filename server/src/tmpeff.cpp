@@ -613,31 +613,32 @@ cDelayedHeal::cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount )
 	dispellable = false;
 }
 
-cAIRefreshTimer::cAIRefreshTimer( P_NPC pNPC, cNPC_AI* interface_, UINT32 time )
+cStablemasterRefreshTimer::cStablemasterRefreshTimer( P_NPC pNPC, AbstractAI* interface_, UINT32 time )
 {
 	m_npc = pNPC;
 	m_interface = interface_;
-	objectid = "cAIRefreshTimer";
+	objectid = "cStablemasterRefreshTimer";
 	serializable = false;
 	dispellable = false;
 	expiretime = uiCurrentTime + time * MY_CLOCKS_PER_SEC;
 }
 
-void cAIRefreshTimer::Expire()
+void cStablemasterRefreshTimer::Expire()
 {
 	// lets check if the npc exists, and if the
 	// npc ai on the npc is the same like the one which set the timer
 	if( m_npc )
 	{
-		cNPC_AI* ai = m_npc->ai();
-		if( ai && ai == m_interface && ai->currState() )
+		AbstractAI* ai = m_npc->ai();
+		if( ai && ai == m_interface )
 		{
-			ai->currState()->refresh();
-			ai->updateState();
+			Human_Stablemaster* pAI = dynamic_cast< Human_Stablemaster* >(ai);
+			pAI->refreshStock();
 		}
 	}
 }
 
+/*
 cFleeReset::cFleeReset( P_NPC pNPC, UINT32 time )
 {
 	m_npc = pNPC;
@@ -675,3 +676,4 @@ void cFleeReset::Serialize( ISerialization &archive )
 
 	cTempEffect::Serialize( archive );
 }
+*/

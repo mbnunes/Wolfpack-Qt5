@@ -30,390 +30,110 @@
 
 #include "ai.h"
 #include "npc.h"
-#include "world.h"
-#include "itemid.h"
-#include "items.h"
-#include "srvparams.h"
-#include "basics.h"
-#include "globals.h"
-#include "inlines.h"
-#include "debug.h"
 #include "player.h"
 #include "network/uosocket.h"
-#include "network/uorxpackets.h"
 #include "speech.h"
 #include "targetrequests.h"
-#include "Trade.h"
 #include "TmpEff.h"
+#include "srvparams.h"
+#include "globals.h"
 #include "mapobjects.h"
 
+// library includes
 #include <math.h>
 
-static cNPC_AI* productCreator_HV()
+static AbstractAI* productCreator_HV()
 {
-	return new Human_Vendor();
+	return new Human_Vendor( NULL );
 }
 
 void Human_Vendor::registerInFactory()
 {
 	AIFactory::instance()->registerType("Human_Vendor", productCreator_HV);
-
-	// register its states
-	Human_Vendor_Wander::registerInFactory();
-	Human_Vendor_Combat::registerInFactory();
-	Human_Vendor_Flee::registerInFactory();
-//	Human_Vendor_BuyQuery::registerInFactory();
-//	Human_Vendor_SellQuery::registerInFactory();
 }
 
-Human_Vendor::Human_Vendor()
-{ 
-	currentState = new Human_Vendor_Wander( this, m_npc );
-}
-
-Human_Vendor::Human_Vendor( P_NPC currnpc )
-{ 
-	setNPC( currnpc ); 
-	currentState = new Human_Vendor_Wander( this, m_npc );
-}
-
-void Human_Vendor::eventHandler()
-{
-	currentState->nextState = currentState;
-	if( !m_npc->isDead() )
-	{
-		P_CHAR pVictim = World::instance()->findChar( m_npc->combatTarget() );
-		if( !pVictim  || pVictim->isDead() )
-			currentState->won();
-		else if( !pVictim->inRange( m_npc, VISRANGE ) )
-			currentState->combatCancelled();
-
-		if( m_npc->hitpoints() < (float)m_npc->criticalHealth() * 0.01f * m_npc->maxHitpoints() )
-			currentState->hitpointsCritical();
-		else
-			currentState->hitpointsRestored();
-
-		P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( m_npc, VISRANGE ) )
-			currentState->attacked();
-
-		updateState();
-		currentState->execute();
-	}
-}
-
-static AbstractState* productCreator_HV_Wander()
-{
-	return new Human_Vendor_Wander();
-}
-
-void Human_Vendor_Wander::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Vendor_Wander", productCreator_HV_Wander);
-}
-
-void Human_Vendor_Wander::attacked()
-{
-	callGuards();
-	reattack();
-	nextState = new Human_Vendor_Combat( m_interface, npc );
-}
-
-void Human_Vendor_Wander::speechInput( P_PLAYER pTalker, const QString &message )
+void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 {
 	if( !pTalker->socket() )
 		return;
 
-	if( npc->inRange( pTalker, 4 ) && ( VendorChkName( npc, message ) || message.contains( tr("VENDOR") ) ) )
+	if( m_npc->inRange( pTalker, 4 ) && VendorChkName( m_npc, comm ) )
 	{
-		if( message.contains( tr(" BUY") ) )
+		if( comm.contains( tr(" BUY") ) )
 		{
-			P_ITEM pContA = npc->GetItemOnLayer( cBaseChar::BuyRestockContainer );
-			P_ITEM pContB = npc->GetItemOnLayer( cBaseChar::BuyNoRestockContainer );
+			P_ITEM pContA = m_npc->GetItemOnLayer( cBaseChar::BuyRestockContainer );
+			P_ITEM pContB = m_npc->GetItemOnLayer( cBaseChar::BuyNoRestockContainer );
 
-			npc->turnTo( pTalker );
+			m_npc->turnTo( pTalker );
 
 			if( !pContA && !pContB )
 			{
-				npc->talk( tr( "Sorry but i have no goods to sell" ) );
+				m_npc->talk( tr( "Sorry but i have no goods to sell" ) );
 				return;
 			}
 
-			npc->talk( tr( "Take a look at my wares!" ) );
-			pTalker->socket()->sendBuyWindow( npc );
-
-//			nextState = new Human_Vendor_BuyQuery( m_interface, npc );
+			m_npc->talk( tr( "Take a look at my wares!" ) );
+			pTalker->socket()->sendBuyWindow( m_npc );
 		}
-		else if( message.contains( tr(" SELL") ) )
+		else if( comm.contains( tr(" SELL") ) )
 		{
-			P_ITEM pContC = npc->GetItemOnLayer( cBaseChar::SellContainer );
+			P_ITEM pContC = m_npc->GetItemOnLayer( cBaseChar::SellContainer );
 
-			npc->turnTo( pTalker );
+			m_npc->turnTo( pTalker );
 
 			if( !pContC )
 			{
-				npc->talk( tr( "Sorry, I cannot use any of your wares!" ) );
+				m_npc->talk( tr( "Sorry, I cannot use any of your wares!" ) );
 				return;
 			}
 
-			npc->talk( tr( "This could be of interest!" ) );
-			pTalker->socket()->sendSellWindow( npc, pTalker );
-
-//			nextState = new Human_Vendor_SellQuery( m_interface, npc );
+			m_npc->talk( tr( "This could be of interest!" ) );
+			pTalker->socket()->sendSellWindow( m_npc, pTalker );
 		}
 	}
 }
 
-void Human_Vendor_Wander::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
+Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : AbstractAI( npc ) 
 {
-	Trade::buyAction( pPlayer->socket(), packet );
-//	nextState = new Human_Vendor_Wander( m_interface, npc );
+	m_actions.append( new Action_Wander( npc, this ) );
+	m_actions.append( new Action_FleeAttacker( npc, this ) );
+	if( npc )
+		TempEffects::instance()->insert( new cStablemasterRefreshTimer( npc, this, SrvParams->stablemasterRefreshTime() ) );
 }
 
-void Human_Vendor_Wander::handleSelection( P_PLAYER pPlayer, cUORxSell* packet )
+void Human_Stablemaster::init( P_NPC npc )
 {
-	Trade::sellAction( pPlayer->socket(), packet );
-//	nextState = new Human_Vendor_Wander( m_interface, npc );
+	AbstractAI::init( npc );
+	TempEffects::instance()->insert( new cStablemasterRefreshTimer( npc, this, SrvParams->stablemasterRefreshTime() ) );
 }
 
-static AbstractState* productCreator_HV_Combat()
+static AbstractAI* productCreator_HS()
 {
-	return new Human_Vendor_Combat();
-}
-
-void Human_Vendor_Combat::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Vendor_Combat", productCreator_HV_Combat);
-}
-
-void Human_Vendor_Combat::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_Combat::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_Combat::hitpointsCritical()
-{
-	// call again
-	callGuards();
-	nextState = new Human_Vendor_Flee( m_interface, npc );
-}
-
-static AbstractState* productCreator_HV_Flee()
-{
-	return new Human_Vendor_Flee();
-}
-
-void Human_Vendor_Flee::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Vendor_Flee", productCreator_HV_Flee);
-}
-
-void Human_Vendor_Flee::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_Flee::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_Flee::hitpointsRestored()
-{
-	nextState = new Human_Vendor_Combat( m_interface, npc );
-}
-
-/*
-static AbstractState* productCreator_HV_BuyQuery()
-{
-	return new Human_Vendor_BuyQuery();
-}
-
-void Human_Vendor_BuyQuery::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Vendor_BuyQuery", productCreator_HV_BuyQuery);
-}
-
-void Human_Vendor_BuyQuery::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
-{
-	Trade::buyaction( pPlayer->socket(), packet );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_BuyQuery::selectionCancelled()
-{
-	npc->talk( tr( "As you wish. Farewell!" ) );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_BuyQuery::selectionTimeOut()
-{
-	npc->talk( tr( "I do not have time the whole day for a single trade! Come later, when you know what you want!" ) );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-static AbstractState* productCreator_HV_SellQuery()
-{
-	return new Human_Vendor_SellQuery();
-}
-
-void Human_Vendor_SellQuery::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Vendor_SellQuery", productCreator_HV_SellQuery);
-}
-
-void Human_Vendor_SellQuery::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
-{
-#pragma note( "TODO: do item transaction here" )
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_SellQuery::selectionCancelled()
-{
-	npc->talk( tr( "As you wish. Farewell!" ) );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-
-void Human_Vendor_SellQuery::selectionTimeOut()
-{
-	npc->talk( tr( "I do not have time the whole day for a single trade! Come later, when you know what you want!" ) );
-	nextState = new Human_Vendor_Wander( m_interface, npc );
-}
-*/
-
-static cNPC_AI* productCreator_HS()
-{
-	return new Human_Stablemaster();
+	return new Human_Stablemaster( NULL );
 }
 
 void Human_Stablemaster::registerInFactory()
 {
 	AIFactory::instance()->registerType("Human_Stablemaster", productCreator_HS);
-
-	// register its states
-	Human_Stablemaster_Wander::registerInFactory();
-	Human_Stablemaster_Combat::registerInFactory();
-	Human_Stablemaster_Flee::registerInFactory();
-//	Human_Vendor_BuyQuery::registerInFactory();
-//	Human_Vendor_SellQuery::registerInFactory();
 }
 
-Human_Stablemaster::Human_Stablemaster()
-{ 
-	currentState = new Human_Stablemaster_Wander( this, m_npc );
-
-}
-
-Human_Stablemaster::Human_Stablemaster( P_NPC currnpc )
-{ 
-	setNPC( currnpc ); 
-	currentState = new Human_Stablemaster_Wander( this, m_npc );
-}
-
-void Human_Stablemaster::eventHandler()
-{
-	currentState->nextState = currentState;
-	if( !m_npc->isDead() )
-	{
-		P_CHAR pVictim = World::instance()->findChar( m_npc->combatTarget() );
-		if( !pVictim  || pVictim->isDead() )
-			currentState->won();
-		else if( !pVictim->inRange( m_npc, VISRANGE ) )
-			currentState->combatCancelled();
-
-		if( m_npc->hitpoints() < (float)m_npc->criticalHealth() * 0.01f * m_npc->maxHitpoints() )
-			currentState->hitpointsCritical();
-		else
-			currentState->hitpointsRestored();
-
-		P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( m_npc, VISRANGE ) )
-			currentState->attacked();
-
-		updateState();
-		currentState->execute();
-	}
-}
-
-static AbstractState* productCreator_HS_Wander()
-{
-	return new Human_Stablemaster_Wander();
-}
-
-void Human_Stablemaster_Wander::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Stablemaster_Wander", productCreator_HS_Wander);
-}
-
-void Human_Stablemaster_Wander::attacked()
-{
-	callGuards();
-	reattack();
-	nextState = new Human_Stablemaster_Combat( m_interface, npc );
-}
-
-void Human_Stablemaster_Wander::execute()
-{
-	if( !m_hasRefreshTimer )
-	{
-		TempEffects::instance()->insert( new cAIRefreshTimer( npc, m_interface, SrvParams->stablemasterRefreshTime() ) );
-		m_hasRefreshTimer = true;
-	}
-	AbstractState_Wander::execute();
-}
-
-void Human_Stablemaster_Wander::refresh()
-{
-	// let's increase the refresh times of the gems in the 
-	// stablemaster's backpack
-	P_ITEM pPack = npc->getBackpack();
-	if( pPack )
-	{
-		cItem::ContainerContent content = pPack->content();
-		cItem::ContainerContent::const_iterator it( content.begin() );
-		while( it != content.end() )
-		{
-			if( (*it) && (*it)->id() == 0x1ea7 )
-			{
-				(*it)->setMoreZ( (*it)->morez() + 1 );
-			}
-			++it;
-		}
-	}
-
-	TempEffects::instance()->insert( new cAIRefreshTimer( npc, m_interface, SrvParams->stablemasterRefreshTime() ) );
-}
-
-void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &message )
+void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message )
 {
 	if( !pTalker->socket() )
 		return;
 
-	if( npc->inRange( pTalker, 4 ) && ( VendorChkName( npc, message ) || message.contains( tr("STABLEMASTER") ) ) )
+	if( m_npc->inRange( pTalker, 4 ) && ( VendorChkName( m_npc, message ) || message.contains( tr("STABLEMASTER") ) ) )
 	{
 		if( message.contains( tr(" STABLE") ) )
 		{
-			npc->talk( tr("Which pet do you want me to stable?") );
-			pTalker->socket()->attachTarget( new cStableTarget( npc ) );
+			m_npc->talk( tr("Which pet do you want me to stable?") );
+			pTalker->socket()->attachTarget( new cStableTarget( m_npc ) );
 		}
 		else if( message.contains( tr(" RELEASE") ) )
 		{
 			int gold = pTalker->CountBankGold() + pTalker->CountGold();
 			int topay = 0;
-			P_ITEM pPack = npc->getBackpack();
+			P_ITEM pPack = m_npc->getBackpack();
 			cItem::ContainerContent stableitems;
 			if( pPack )
 			{
@@ -433,7 +153,7 @@ void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &me
 			{
 				if( topay > gold )
 				{
-					npc->talk( tr("You do not possess enough gold. Come later if you have more!") );
+					m_npc->talk( tr("You do not possess enough gold. Come later if you have more!") );
 					return;
 				}
 				cItem::ContainerContent::const_iterator it( stableitems.begin() );
@@ -445,8 +165,8 @@ void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &me
 						if( pPet )
 						{
 							pPet->free = false;
-							pPet->moveTo( npc->pos() );
-							pPet->update();
+							pPet->moveTo( m_npc->pos() );
+							pPet->resend();
 						}
 						Items->DeleItem( *it );
 					}
@@ -456,34 +176,56 @@ void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &me
 				if( topay > 0 )
 				{
 					pTalker->takeGold( topay, true );
-					npc->talk( tr("Here you are! That costs %1 gold. Farewell!").arg( topay ) );
+					m_npc->talk( tr("Here you are! That costs %1 gold. Farewell!").arg( topay ) );
 				}
 				else
-					npc->talk( tr("Here's your pet back!") );
+					m_npc->talk( tr("Here's your pet back!") );
 			}
 		}
 	}
 }
 
-void Human_Stablemaster_Wander::targetCursorInput( cUOSocket *socket, cUORxTarget *target )
+void Human_Stablemaster::refreshStock()
 {
-	if( !socket || !socket->player() )
+	// let's increase the refresh times of the gems in the 
+	// stablemaster's backpack
+	P_ITEM pPack = m_npc->getBackpack();
+	if( pPack )
+	{
+		cItem::ContainerContent content = pPack->content();
+		cItem::ContainerContent::const_iterator it( content.begin() );
+		while( it != content.end() )
+		{
+			if( (*it) && (*it)->id() == 0x1ea7 )
+			{
+				(*it)->setMoreZ( (*it)->morez() + 1 );
+			}
+			++it;
+		}
+	}
+
+	TempEffects::instance()->insert( new cStablemasterRefreshTimer( m_npc, this, SrvParams->stablemasterRefreshTime() ) );
+}
+
+void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target )
+{
+	if( !player )
 		return;
 
-	P_ITEM pPack = npc->getBackpack();
+	P_ITEM pPack = m_npc->getBackpack();
 	if( !pPack )
 		return;
 
 	P_NPC pPet = dynamic_cast< P_NPC >(World::instance()->findChar( target->serial() ));
 	if( !pPet )
 	{
-		npc->talk( tr("I cannot stable that!" ) );
+		m_npc->talk( tr("I cannot stable that!" ) );
 		return;
 	}
 
-	if( pPet->owner() != socket->player() )
+	if( pPet->owner() != player )
 	{
-		npc->talk( tr("This does not belong to you!" ) );
+		m_npc->talk( tr("This does not belong to you!" ) );
 		return;
 	}
 
@@ -495,11 +237,11 @@ void Human_Stablemaster_Wander::targetCursorInput( cUOSocket *socket, cUORxTarge
 	P_ITEM pGem = new cItem();
 	pGem->Init( false );
 	pGem->setMoreX( pPet->serial() );
-	pGem->setMoreY( socket->player()->serial() );
+	pGem->setMoreY( player->serial() );
 	pGem->setMoreZ( 0 );
 	pGem->setId( 0x1ea7 );
 	pGem->setName( tr("petitem: %1").arg(pPet->name()) );
-	pGem->setName2( socket->player()->name() );
+	pGem->setName2( player->name() );
 	pGem->setVisible( 2 ); // gm visible
 	pPack->addItem( pGem );
 	pGem->update();
@@ -508,66 +250,6 @@ void Human_Stablemaster_Wander::targetCursorInput( cUOSocket *socket, cUORxTarge
 	MapObjects::instance()->remove( pPet );
 	pPet->removeFromView();
 
-	npc->talk( tr("Say release to get your pet back!") );
-}
-
-static AbstractState* productCreator_HS_Combat()
-{
-	return new Human_Stablemaster_Combat();
-}
-
-void Human_Stablemaster_Combat::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Stablemaster_Combat", productCreator_HS_Combat);
-}
-
-void Human_Stablemaster_Combat::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Stablemaster_Wander( m_interface, npc );
-}
-
-void Human_Stablemaster_Combat::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Stablemaster_Wander( m_interface, npc );
-}
-
-void Human_Stablemaster_Combat::hitpointsCritical()
-{
-	// call again
-	callGuards();
-	nextState = new Human_Stablemaster_Flee( m_interface, npc );
-}
-
-static AbstractState* productCreator_HS_Flee()
-{
-	return new Human_Stablemaster_Flee();
-}
-
-void Human_Stablemaster_Flee::registerInFactory()
-{
-	StateFactory::instance()->registerType("Human_Stablemaster_Flee", productCreator_HS_Flee);
-}
-
-void Human_Stablemaster_Flee::won()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Stablemaster_Wander( m_interface, npc );
-}
-
-void Human_Stablemaster_Flee::combatCancelled()
-{
-	npc->setAttackerSerial( INVALID_SERIAL );
-	npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Human_Stablemaster_Wander( m_interface, npc );
-}
-
-void Human_Stablemaster_Flee::hitpointsRestored()
-{
-	nextState = new Human_Stablemaster_Combat( m_interface, npc );
+	m_npc->talk( tr("Say release to get your pet back!") );
 }
 

@@ -526,141 +526,6 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 	return false;
 }
 
-bool PetCommand( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pPet, const QString& comm )
-{
-	if( pPet->owner() != pPlayer && !pPlayer->isGM() )
-		return false;
-
-	// player vendor
-/*	if( pPet->npcaitype() == 17 )
-		return false;*/
-	
-	// too far away to hear us
-	if( pPlayer->dist( pPet ) > 7 )
-		return false;
-	
-	QString petname = pPet->name();
-	bool bAllCommand = false;
-
-	if( !comm.contains( petname, false ) )
-		if( comm.contains( "ALL", false ) )
-			bAllCommand = true;
-		else
-			return false;
-	
-	bool bReturn = false;
-	
-	if( comm.contains( " FOLLOW" ) )
-	{
-		if( comm.contains( " ME" ) )
-		{
-#pragma note( "TODO: implement state change here" )
-//			pPet->setWanderFollowTarget( pPlayer->serial() );
-//			pPet->setWanderType( enFollowTarget );
-			playmonstersound( pPet, pPet->bodyID(), SND_STARTATTACK );
-		}
-		else
-		{
-			// LEGACY: target( s, 0, 1, 0, 117, "Click on the target to follow." );
-		}
-
-		bReturn = true;
-	}
-	else if( ( comm.contains( " KILL" ) ) || ( comm.contains( " ATTACK" ) ) )
-	{
-		if( pPet->inGuardedArea() ) // Ripper..No pet attacking in town.
-		{
-			pPlayer->message( tr( "You can't have pets attack in town!" ) );
-			return false;
-		}
-
-		//pPlayer->setGuarded( false );
-		// >> LEGACY
-		//addx[s]=pPet->serial();
-		//target(s, 0, 1, 0, 118, "Select the target to attack.");//AntiChrist
-		bReturn = true;
-	}
-	else if( ( comm.contains( " FETCH" ) ) || ( comm.contains( " GET" ) ) )
-	{
-		//pPlayer->setGuarded(false);
-		// >> LEGACY
-		//addx[s]=pPet->serial();
-		//target(s, 0, 1, 0, 124, "Click on the object to fetch.");
-		bReturn = true;
-	}
-	else if( comm.contains( " COME" ) )
-	{
-		//pPlayer->setGuarded( false );
-#pragma note( "TODO: implement state change here" )
-//		pPet->setWanderFollowTarget( pPlayer->serial() );
-//		pPet->setWanderType( enFollowTarget );
-		pPet->setNextMoveTime();
-		pPlayer->message( tr( "Your pet begins following you." ) );
-		bReturn = true;
-	}
-	else if( comm.contains( " GUARD" ) )
-	{
-		// LEGACY
-		/*addx[s] = pPet->serial();	// the pet's serial
-		addy[s] = 0;
-
-		if( comm.find( " ME" ) != string::npos )
-			addy[s]=1;	// indicates we already know whom to guard (for future use)
-		
-		// for now they still must click on themselves (Duke)
-		target(s, 0, 1, 0, 120, "Click on the char to guard.");*/
-		bReturn = true;
-	}
-	else if( ( comm.contains( " STOP" ) ) || ( comm.contains(" STAY") ) )
-	{
-		//pPlayer->setGuarded( false );
-#pragma note( "TODO: implement state change here" )
-//		pPet->setWanderFollowTarget( INVALID_SERIAL );
-		pPet->setCombatTarget( INVALID_SERIAL );
-
-		if (pPet->isAtWar()) 
-			pPet->toggleCombat();
-
-		pPet->setWanderType( enHalt );
-		bReturn = true;
-	}
-	else if( comm.contains( " TRANSFER" ) )
-	{
-		//pPlayer->setGuarded( false );
-		// >> LEGACY
-		/*addx[s]=pPet->serial();
-		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");*/
-		bReturn = true;
-	}
-	else if( comm.contains( " RELEASE" ) )
-	{
-		//pPlayer->setGuarded( false );
-
-		// Has it been summoned ? Let's dispel it
-		if( pPet->summonTime() > uiCurrentTime )
-			pPet->setSummonTime( uiCurrentTime );
-
-#pragma note( "TODO: implement state change here" )
-//		pPet->setWanderFollowTarget( INVALID_SERIAL );
-		pPet->setWanderType( enFreely );
-		pPet->setOwner( NULL );
-		pPet->setTamed( false );
-		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name() ) );
-		if( SrvParams->tamedDisappear() ==1 )
-		{
-			pPet->soundEffect( 0x01FE );
-			cCharStuff::DeleteChar( pPet );
-		}
-		bReturn = true;
-	}
-
-	// give other pets opotunity to process command
-	if ( bReturn && bAllCommand )
-		return false; 
-	else
-		return bReturn;
-}
-
 //PlayerVendors
 void PlVGetgold( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor )
 {
@@ -860,17 +725,12 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 					return true;
 		}
 
-		cNPC_AI* pAI = pNpc->ai();
-		if( pAI && pAI->currState() )
+		if( pNpc->ai() )
 		{
-			pAI->currState()->speechInput( pPlayer, speechUpr );
-			pAI->updateState();
+			pNpc->ai()->onSpeechInput( pPlayer, speechUpr );
 		}
 
 		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
-
-		if( PetCommand( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
 		if( StableSpeech( socket, pPlayer, pNpc, speechUpr ) )
