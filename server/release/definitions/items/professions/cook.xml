@@ -562,22 +562,22 @@
 
 	<item id="1871">
 		<id>0x1871</id>
-		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 1 (N/S)</category>
+		<category>Professions\Cook\Decoration\Beef Carcass 1 (N/S)</category>
 	</item>
 
 	<item id="1872">
 		<id>0x1872</id>
-		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 1 (W/E)</category>
+		<category>Professions\Cook\Decoration\Beef Carcass 1 (W/E)</category>
 	</item>
 
 	<item id="1873">
 		<id>0x1873</id>
-		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 2 (N/S)</category>
+		<category>Professions\Cook\Decoration\Beef Carcass 2 (N/S)</category>
 	</item>
 
 	<item id="1874">
 		<id>0x1874</id>
-		<category>Professions\Cook\Professions\Cook\Decoration\Beef Carcass 2 (W/E)</category>
+		<category>Professions\Cook\Decoration\Beef Carcass 2 (W/E)</category>
 	</item>
 
 	<!-- Raw Leg of Lamb -->
