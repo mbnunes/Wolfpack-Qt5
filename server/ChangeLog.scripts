@@ -48,10 +48,15 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New script: system.regionchange
 			This overrides the core region change messages.
 		- Updates to the food script.
-		- Checks on export to not export spawnregion items.
+		- Export command updates.
+			Checks for doors and corpses.
+			Doesn't save spawnregion items.
 		- New script: system.hunger
 			This allows players to suffer from hunger once again.
 		- Potion Kegs now work.
+		- Door improvements.
+			Speed in which blocks are checked improved.
+			Manual closing block checks.
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
