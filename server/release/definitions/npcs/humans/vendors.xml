@@ -958,7 +958,7 @@
 
 			</restockable>
 		</shopkeeper>
-		<category>Vendors\alchemist (Male)</category>
+		<category>Vendors\Alchemist (Male)</category>
 	</npc>
 
 	<!-- A herbalist vendor -->
@@ -997,7 +997,7 @@
 				<item inherit="f8d"><amount>50</amount></item>
 			</sellable>
 		</shopkeeper>
-		<category>Vendors\herbalist (Male)</category>
+		<category>Vendors\Herbalist (Male)</category>
 	</npc>
 
 	<npc id="herbalist_female">
@@ -1035,7 +1035,7 @@
 				<item inherit="f8d"><amount>50</amount></item>
 			</sellable>
 		</shopkeeper>
-		<category>Vendors\herbalist (Female)</category>
+		<category>Vendors\Herbalist (Female)</category>
 	</npc>
 	
 	<npc id="stablemaster_male">
