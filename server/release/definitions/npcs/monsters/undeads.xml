@@ -243,7 +243,7 @@
 
 	<!-- a shade medium-->
 	<npc id="shade_medium">
-		<name><randomlist ="NAMES_SHADE" /></name>
+		<name><random list="NAMES_SHADE" /></name>
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
