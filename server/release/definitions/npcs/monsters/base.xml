@@ -38,18 +38,18 @@
 	
 	<!-- Monster Speeds -->
 	<npc id="speed_slow">
-		<speed action="300" wander"600" />
+		<speed action="300" wander="600" />
 	</npc>
 	
 	<npc id="speed_medium">
-		<speed action="250" wander"500" />
+		<speed action="250" wander="500" />
 	</npc>
 	
 	<npc id="speed_fast">
-		<speed action="200" wander"400" />			
+		<speed action="200" wander="400" />			
 	</npc>
 	
 	<npc id="speed_veryfast">
-		<speed action="175" wander"350" />
+		<speed action="175" wander="350" />
 	</npc>
 </definitions>
