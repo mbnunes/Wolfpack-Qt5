@@ -16,6 +16,8 @@ def spawn(spawner, spawntype, spawndef, current, area):
       npc = wolfpack.addnpc(spawndef, spawner.pos)
       npc.settag('spawner', spawner.serial)
       npc.wandertype = 3
+      npc.wanderx1 = spawner.pos.x
+      npc.wandery1 = spawner.pos.y
       npc.wanderradius = area
       npc.addscript( 'system.spawns' )
       npc.update()
