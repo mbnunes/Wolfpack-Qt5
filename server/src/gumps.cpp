@@ -435,11 +435,11 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 choice 
 		UINT32 numrects = allrectangles.size();
 		UINT32 pages = ((UINT32)floor( numrects / 10 ))+1;
 		if( numrects < right )
-			right = numrects;
+			right = numrects-1;
 
 		QStringList rectangles = QStringList();
 		QStringList::const_iterator it = allrectangles.at( left );
-		while( it != allrectangles.at( right ) )
+		while( it != allrectangles.at( right+1 ) )
 		{
 			rectangles.push_back( (*it) );
 			it++;
