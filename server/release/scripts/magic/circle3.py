@@ -183,11 +183,11 @@ class Telekinesis(Spell):
 
 		# Check if there is an event handling onUse but not onTelekinesis
 		for event in target.scripts:
-			if wolfpack.hasscript(event, EVENT_TELEKINESIS):
+			if wolfpack.hasevent(event, EVENT_TELEKINESIS):
 				hasevent = 1 # The object has at least one telekinesis handler
 				continue
 
-			if wolfpack.hasscript(event, EVENT_USE):
+			if wolfpack.hasevent(event, EVENT_USE):
 				if char.socket:
 					char.socket.clilocmessage(501857)
 				return
@@ -207,7 +207,7 @@ class Telekinesis(Spell):
 
 		for event in target.scripts:
 			# If the event can handle onTelekinesis, call it
-			if wolfpack.hasscript(event, EVENT_TELEKINESIS):
+			if wolfpack.hasevent(event, EVENT_TELEKINESIS):
 				if wolfpack.callevent(event, EVENT_TELEKINESIS, (char, target)):
 					return
 
