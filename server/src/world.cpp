@@ -840,7 +840,7 @@ void cWorld::setOption( const QString name, const QString value )
 
 	QString sql;
 
-	if( !res.fetchrow() || !res.isValid() )
+	if( !res.isValid() || !res.fetchrow() )
 	{
 		sql = "INSERT INTO settings VALUES('%1','%2')";
 		sql = sql.arg( persistentBroker->quoteString( name ) ).arg( persistentBroker->quoteString( value ) );
