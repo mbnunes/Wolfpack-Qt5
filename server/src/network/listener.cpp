@@ -70,10 +70,10 @@ cListener::~cListener() throw()
 
 void cListener::run() throw()
 {
+	listenningSocket.setAddressReusable( true );
 	listenningSocket.bind( static_cast<Q_UINT32>(0), _port );
 	listenningSocket.listen( 20 );
 	listenningSocket.setBlocking( false ); // or else it would take a while to join()
-	listenningSocket.setAddressReusable( true );
 
 	while ( !canceled() )
 	{
