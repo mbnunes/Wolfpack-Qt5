@@ -49,6 +49,14 @@
 class cBaseRegion : public cDefinable
 {
 public:
+	struct rect_st 
+	{
+		UI16 x1;
+		UI16 x2;
+		UI16 y1;
+		UI16 y2;
+	};
+	
 	cBaseRegion(): parent_( 0 ) {;}
 
 	cBaseRegion( const QDomElement& Tag, cBaseRegion* pParent )
@@ -170,14 +178,6 @@ protected:
 	std::vector< cBaseRegion* >		subregions_;	// list of region object references of included regions
 	cBaseRegion*					parent_;		// the region directly above this region
 public:
-	struct rect_st 
-	{
-		UI16 x1;
-		UI16 x2;
-		UI16 y1;
-		UI16 y2;
-	};
-	
 	// Only getters, no setters
 	cBaseRegion *parent() const { return parent_; }
 	std::vector< cBaseRegion* > children() const { return subregions_; }
