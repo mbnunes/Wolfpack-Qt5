@@ -32,7 +32,7 @@
 #if !defined (__CWEATHER_H__)
 #define __CWEATHER_H__
 
-#include <zthread/Thread.h>
+#include <ZThread/Thread.h>
 
 using namespace ZThread;
 
