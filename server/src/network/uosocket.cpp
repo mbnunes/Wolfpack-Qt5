@@ -733,71 +733,12 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem = pChar->getBackpack();
 	
 	pChar->setAccount( _account );
-	giveNewbieItems( packet );
+	pChar->giveNewbieItems();
 	
 	Weight->NewCalc( pChar );
 
 	// Start the game with the newly created char -- OR RELAY HIM !!
     playChar( pChar );
-}
-
-/*!
-  This method handles cUORxHardwareInfo packet types creating the
-  required newbie items.
-  \sa cUORxHardwareInfo
-*/
-void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill ) 
-{
-	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString::number( skill ) );
-
-	// No Items defined
-	if( !startItems )
-		return;
-
-	// Just one type of node: item
-	QDomElement node = startItems->firstChild().toElement();
-
-	while( !node.isNull() )
-	{
-		if( node.nodeName() == "item" )
-		{
-			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
-
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				// Put it into the backpack
-				P_ITEM backpack = _player->getBackpack();
-				backpack->AddItem( pItem );
-			}
-		}
-		else if( node.nodeName() == "bankitem" )
-		{
-			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
-
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				// Put it into the bankbox
-				P_ITEM bankbox = _player->getBankBox();
-				bankbox->AddItem( pItem );
-			}
-		}
-		else if( node.nodeName() == "equipment" )
-		{
-			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
-
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				// Put it onto the char
-				pItem->setContSerial( _player->serial );
-				_player->giveItemBonus( pItem );
-			}
-		}
-
-		node = node.nextSibling().toElement();
-	}
 }
 
 /*!

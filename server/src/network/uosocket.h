@@ -67,7 +67,7 @@ private:
 	std::map< SERIAL, cGump* > gumps;
 
 	bool authenticate( const QString &username, const QString &password );
-	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
+//	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
 	// Temporary stuff, should be replaced by a tag-like system later

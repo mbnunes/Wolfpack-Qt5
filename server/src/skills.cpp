@@ -1344,25 +1344,21 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 		Skills->PlayInstrumentWell(socket, p_inst);
 		socket->sysMessage( tr( "You play your hypnotic music, stopping the battle.") );
 		
-		//Char cMapObjects::getInstance()
-		RegionIterator4Chars ri(pc_currchar->pos);
+		RegionIterator4Chars ri(pc_currchar->pos, VISRANGE);
 		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR mapchar = ri.GetData();
-			if (mapchar !=NULL)
+			if( mapchar && mapchar->war )
 			{
-				if (inrange1p(mapchar, pc_currchar) && mapchar->war)
-				{
-					j = calcSocketFromChar(mapchar);
-					if ( mapchar->socket() )
-						mapchar->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
-					if (mapchar->war) 
-						npcToggleCombat(mapchar);
-					mapchar->targ = INVALID_SERIAL;
-					mapchar->attacker = INVALID_SERIAL;
-					mapchar->resetAttackFirst();
-				}
-			}//mapitem
+				j = calcSocketFromChar(mapchar);
+				if( mapchar->socket() )
+					mapchar->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
+				if( mapchar->war ) 
+					npcToggleCombat( mapchar );
+				mapchar->targ = INVALID_SERIAL;
+				mapchar->attacker = INVALID_SERIAL;
+				mapchar->resetAttackFirst();
+			}
 		}
 	} 
 	else 

@@ -619,18 +619,21 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 
 P_ITEM cChar::getBackpack()	
 {
-	P_ITEM backpack = Packitem( this );
+	P_ITEM backpack = FindItemBySerial( packitem );
 
 	// None found so create one
 	if( !backpack )
 	{
 		backpack = Items->SpawnItem( this, 1, "#", false, 0xE75, 0x0000, false );
-		backpack->setLayer( 0x15 );
-		backpack->setOwner( this );
-		backpack->setContSerial( serial );
-		backpack->setType( 1 );
-		backpack->update();
-		packitem = backpack->serial;
+		if( backpack )
+		{
+			backpack->setLayer( 0x15 );
+			backpack->setOwner( this );
+			backpack->setContSerial( serial );
+			backpack->setType( 1 );
+			backpack->update();
+			packitem = backpack->serial;
+		}
 	}
 
 	return backpack;
@@ -2654,3 +2657,77 @@ P_CHAR cChar::unmount()
 void cChar::mount( P_CHAR pMount )
 {
 }
+
+void cChar::giveNewbieItems( Q_UINT8 skill ) 
+{
+	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString::number( skill ) );
+
+	// No Items defined
+	if( !startItems )
+		return;
+
+	// Just one type of node: item
+	QDomElement node = startItems->firstChild().toElement();
+
+	while( !node.isNull() )
+	{
+		if( node.nodeName() == "item" )
+		{
+			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				// Put it into the backpack
+				P_ITEM backpack = getBackpack();
+				if( backpack )
+					backpack->AddItem( pItem );
+				else
+					Items->DeleItem( pItem );
+			}
+		}
+		else if( node.nodeName() == "bankitem" )
+		{
+			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				// Put it into the bankbox
+				P_ITEM bankbox = getBankBox();
+				if( bankbox )
+					bankbox->AddItem( pItem );
+				else
+					Items->DeleItem( pItem );
+			}
+		}
+		else if( node.nodeName() == "equipment" )
+		{
+			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				// Put it onto the char
+				pItem->setContSerial( serial );
+				giveItemBonus( pItem );
+			}
+		}
+		else if( node.nodeName() == "gold" )
+		{
+			P_ITEM pItem = Items->createScriptItem( "eed" );
+			if( pItem )
+			{
+				pItem->setAmount( node.text().toUInt() );
+				P_ITEM backpack = getBackpack();
+				if( backpack )
+					backpack->AddItem( pItem );
+				else
+					Items->DeleItem( pItem );
+			}
+		}
+
+		node = node.nextSibling().toElement();
+	}
+}
+

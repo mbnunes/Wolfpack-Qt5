@@ -762,6 +762,8 @@ public:
 	bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
+	void giveNewbieItems( Q_UINT8 skill = 0xFF );
+
 	// Definition loading - sereg
 protected:
 	virtual void processNode( const QDomElement& Tag );
