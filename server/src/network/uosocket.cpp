@@ -1849,7 +1849,7 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	_player->onWarModeToggle( packet->warmode() );
 
 	cUOTxWarmode warmode;
-	warmode.setStatus( packet->warmode() ? 1 : 0 );
+	warmode.setStatus( _player->isAtWar() ? 1 : 0 );
 	send( &warmode );
 
 	playMusic();
