@@ -1,0 +1,91 @@
+<definitions>
+	<resource id="RESOURCE_INGOT">
+		<name>ingot</name>
+		<convertsource />
+		<artid>0x0FB1,0x012EE-0x134D,0x197A-0x19A9</artid>
+		<skillid>45</skillid>
+		<stamina min="1" max="2" />
+		<charaction>0x0B</charaction>
+		<sound>0x0125</sound>
+		<item>
+			<name>Iron</name>
+			<id>0x1BF2</id>
+			<color>0x0961</color>
+			<conversion srccolors="0" srcids="0x19BA" rate="2" />
+			<skill min="0" max="400" />
+			<quota>630</quota>
+		</item>
+		<item>
+			<name>Shadow</name>
+			<id>0x1BF2</id>
+			<color>0x0386</color>
+			<conversion srccolors="0x0386" srcids="0x19BA" rate="1.9" />
+			<skill min="650" max="900" />
+			<quota>126</quota>
+		</item>
+		<item>
+			<name>Merkite</name>
+			<id>0x1BF2</id>
+			<color>0x02C3</color>
+			<conversion srccolors="0x02C3" srcids="0x19BA" rate="1.7" />
+			<skill min="700" max="910" />
+			<quota>112</quota>
+		</item>
+		<item>
+			<name>Copper</name>
+			<id>0x1BF2</id>
+			<color>0x046E</color>
+			<conversion srccolors="0x046E" srcids="0x19BA" rate="1.5" />
+			<skill min="750" max="940" />
+			<quota>98</quota>
+		</item>
+		<item>
+			<name>Silver</name>
+			<id>0x1BF2</id>
+			<color>0</color>
+			<conversion srccolors="0x0961" srcids="0x19BA" rate="1.3" />
+			<skill min="790" max="955" />
+			<quota>84</quota>
+		</item>
+		<item>
+			<name>Bronze</name>
+			<id>0x1BF2</id>
+			<color>0x02E7</color>
+			<conversion srccolors="0x02E7" srcids="0x19BA" rate="1.0" />
+			<skill min="800" max="960" />
+			<quota>70</quota>
+		</item>
+		<item>
+			<name>Golden</name>
+			<id>0x1BF2</id>
+			<color>0x0466</color>
+			<conversion srccolors="0x0466" srcids="0x19BA" rate="0.8" />
+			<skill min="850" max="965" />
+			<quota>56</quota>
+		</item>
+		<item>
+			<name>Agapite</name>
+			<id>0x1BF2</id>
+			<color>0x0150</color>
+			<conversion srccolors="0x0150" srcids="0x19BA" rate="0.7" />
+			<skill min="900" max="975" />
+			<quota>42</quota>
+		</item>	
+		<item>
+			<name>Verite</name>
+			<id>0x1BF2</id>
+			<color>0x022F</color>
+			<conversion srccolors="0x022F" srcids="0x19BA" rate="0.5" />
+			<skill min="950" max="985" />
+			<quota>28</quota>
+		</item>	
+		<item>
+			<name>Mythril</name>
+			<id>0x1BF2</id>
+			<color>0x0191</color>
+			<conversion srccolors="0x0191" srcids="0x19BA" rate="0.3" />
+			<skill min="990" max="999" />
+			<quota>14</quota>
+		</item>	
+	</resource>
+</definitions>
