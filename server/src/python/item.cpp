@@ -367,9 +367,9 @@ PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	self->pItem->tags.remove( key );
 
 	if( checkArgStr( 1 ) )
-		self->pItem->tags.set( key, cVariant( QString( PyString_AsString( PyTuple_GetItem( args, 1 ) ) ) ) );
+		self->pItem->tags.set( key, cVariant( QString( getArgStr( 1 ) ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pItem->tags.set( key, cVariant( (int)getArgInt( 0 ) ) );
+		self->pItem->tags.set( key, cVariant( (int)getArgInt( 1 ) ) );
 
 	return PyTrue;
 }
@@ -401,7 +401,7 @@ PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	if( !checkArgStr( 0 ) )
 	{
 		PyErr_BadArgument();
 		return NULL;

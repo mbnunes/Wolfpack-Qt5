@@ -345,8 +345,11 @@ bool cAsyncNetIO::unregisterSocket( QSocketDevice* socket )
 {
 	mapsMutex.acquire();
 	iterator it = buffers.find( socket );
-	delete it.data();
-	buffers.remove( it );
+	if( it != buffers.end() )
+	{
+		delete it.data();
+		buffers.remove( it );
+	}
 	mapsMutex.release();
 	return true;
 }
@@ -586,5 +589,7 @@ void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool com
 void cAsyncNetIO::flush( QSocketDevice* socket)
 {
 	iterator it = buffers.find( socket );
-	flushWriteBuffer( it.data() );
+	
+	if( it != buffers.end() )
+		flushWriteBuffer( it.data() );
 }

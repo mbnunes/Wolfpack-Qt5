@@ -128,8 +128,11 @@ PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
 	// optional:
 	// Third Argument: Color
 	// Fourth Argument: SpeechType
-	if( !self->pSock || PyTuple_Size( args ) < 2 || !checkArgStr( 1 ) || !checkArgObject( 2 ) ) 
-		return PyFalse;
+	if( !self->pSock || !checkArgStr( 1 ) || !checkArgObject( 0 ) ) 
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
 
 	cUObject *object = NULL;
 	QString speech( PyString_AsString( PyTuple_GetItem( args, 1 ) ) );

@@ -95,7 +95,7 @@ void cNetwork::poll( void )
 		loginSockets.append( new cUOSocket(socket) );
 
 		// Notify the admin
-		clConsole.send( tr( "Socket connected [%1]\n" ).arg( socket->peerAddress().toString() ) );
+		clConsole.send( QString( "[%1] Client connected\n" ).arg( socket->peerAddress().toString() ) );
 	}
 
 	// fast return
@@ -104,15 +104,15 @@ void cNetwork::poll( void )
 
 	// Check for new Packets
 	cUOSocket* uoSocket = 0;
-	for ( uoSocket = uoSockets.first(); uoSocket; uoSocket = uoSockets.next())
+	for ( uoSocket = uoSockets.first(); uoSocket; uoSocket = uoSockets.next() )
 	{
 		// Check for disconnected sockets
 		if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() || uoSocket->socket()->isInactive() || !uoSocket->socket()->isOpen() )
 		{
-			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );			
+			clConsole.send( QString( "[%1] Client disconnected\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );			
 			uoSocket->disconnect();
 			netIo_->unregisterSocket( uoSocket->socket() );			
-			uoSockets.remove();
+			uoSockets.remove( uoSocket );
 		}
 		else
 		{
@@ -127,7 +127,7 @@ void cNetwork::poll( void )
 	{
 		if( uoSocket->socket()->error() != QSocketDevice::NoError )
 		{
-			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );
+			clConsole.send( QString( "[%1] Client disconnected\n" ).arg( uoSocket->socket()->peerAddress().toString() ) );
 			netIo_->unregisterSocket( uoSocket->socket() );
 			loginSockets.remove();
 			continue;

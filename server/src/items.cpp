@@ -1304,6 +1304,8 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 		nItem->applyDefinition( *DefSection );
 	}
 
+	nItem->onCreate( Section );
+
 	return nItem;
 }
 

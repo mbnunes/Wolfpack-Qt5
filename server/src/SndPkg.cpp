@@ -510,8 +510,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 
 void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 {
-	pc->removeFromView();
-	pc->resend( false );
+	pc->resend( true );
 	
 	if( pc->socket() )
 		pc->socket()->resendWorld( false );

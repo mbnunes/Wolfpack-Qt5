@@ -212,7 +212,6 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false );
-			socket->resendPlayer();
 			socket->resendWorld();
 			return;
 		}
@@ -225,7 +224,6 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false );
-			socket->resendPlayer();
 			socket->resendWorld();
 			return;
 		}			
@@ -460,7 +458,13 @@ public:
 				socket->sysMessage( tr( "Invalid coordinates '%1'" ).arg( value ) );
 				return true;
 			}
+			pObject->removeFromView();
 			pObject->moveTo( newCoords );
+
+			if( pChar )
+				pChar->resend( false );
+			else if( pItem );
+				pItem->update();
 		}
 		
 		// Char title
@@ -574,11 +578,10 @@ public:
 		{
 			pChar->removeFromView();
 			pChar->moveTo( Coord_cl( pChar->pos.x, pChar->pos.y, pChar->pos.z, value.toInt() ) );
+			pChar->resend( false );
+
 			if ( pChar->socket() )
-			{
-				pChar->socket()->resendPlayer();
 				pChar->socket()->resendWorld();
-			}
 		}
 
 		// Object tags
@@ -643,7 +646,7 @@ void commandSet( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandResend( cUOSocket *socket, const QString &command, QStringList &args )
 {
-	socket->resendPlayer();
+	socket->resendPlayer( false );
 	socket->resendWorld();
 }
 
@@ -888,7 +891,6 @@ public:
 
 		socket->player()->resend( false );
 		socket->resendWorld();
-        socket->resendPlayer();
 		return true;
 	}
 };

@@ -283,7 +283,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		// Only send visible layers
 		// 0x19 = horse layer
 		// -> Shop containers need to be send
-		if( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C  )
+		if( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
 			continue;
 
 		// Only send items once
@@ -298,10 +298,13 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 void cUOTxCharEquipment::fromItem( P_ITEM pItem )
 {
+	if( !pItem->container() )
+		return;
+
 	setSerial( pItem->serial );
 	setModel( pItem->id() );
 	setLayer( pItem->layer() );
-	setWearer( pItem->contserial );
+	setWearer( pItem->container()->serial );
 	setColor( pItem->color() );
 }
 
@@ -322,7 +325,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
-		setFlag( flag() | 0x04 );	
+		setFlag( flag() | 0x04 );
 
 	setX( pChar->pos.x );
 	setY( pChar->pos.y );

@@ -506,22 +506,6 @@ int cChar::CountBankGold()
 	return pi->CountItems( 0x0EED );
 }
 
-void cChar::openBank( UOXSOCKET socket )
-{
-	// Send to ourself ?
-	if( socket == INVALID_UOXSOCKET )
-	{
-		if( socket_ )
-			socket_->sendContainer( getBankBox() );
-	}
-	else
-	{
-		// Send it to the socket
-		/*P_ITEM bankBox = getBankBox();
-		backpack( socket, bankBox->serial );*/
-	}
-}
-
 bool cChar::hasWeapon()
 {
 	P_ITEM pi = atLayer( SingleHandedWeapon );
@@ -1872,33 +1856,42 @@ void cChar::resend( bool clean )
 	if( stablemaster_serial() != INVALID_SERIAL )
 		return;
 
-	RegionIterator4Chars ri( pos );
+	cUOTxRemoveObject rObject;
+	rObject.setSerial( serial );
 
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( this );
 
-	for( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		P_CHAR pChar = ri.GetData();
+	cUOSocket *mSock;
 
-		if( !pChar || !pChar->socket() || !pChar->account() )
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		// Don't send such a packet to ourself
+		if( mSock == socket_ )
+			continue;
+
+		P_CHAR pChar = mSock->player();
+
+		if( !pChar || !pChar->account() )
 			continue;
 
 		if( pChar->pos.distance( pos ) > pChar->VisRange() )
 			continue;
-
-        // Remove it ONLY before resending if we have to do it "clean"
+        
 		if( clean )
-			pChar->socket()->removeObject( this );
+			mSock->send( &rObject );
 
+		// We are logged out and the object can't see us.
 		if( !isNpc() && !socket_  && !pChar->account()->isAllShow() )
 			continue;
 
+		// We are hidden (or dead and not visible)
 		if( ( isHidden() || ( dead_ && !war_ ) ) && !pChar->isGMorCounselor() )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );
-		pChar->socket()->send( &drawChar );
+		
+		mSock->send( &drawChar );
 	}
 }
 

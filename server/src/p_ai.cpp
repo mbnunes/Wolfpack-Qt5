@@ -659,7 +659,6 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, const QString& comm)
 
 void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 {
-	currchar[c]->openBank();
 	return;
 }
 

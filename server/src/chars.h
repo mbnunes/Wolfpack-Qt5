@@ -711,7 +711,6 @@ public:
 	int  CountGold()			{return CountItems(0x0EED);}
 	P_ITEM GetItemOnLayer(unsigned char layer);
 	P_ITEM getBankBox( void );
-	void openBank( UOXSOCKET socket = -1 );
 	int  CountBankGold();
 	bool hasWeapon();
 	bool hasShield();

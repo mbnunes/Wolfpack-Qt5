@@ -484,6 +484,7 @@ bool BankerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pBanker, const QStr
 
 	if( comm.contains( "BANK" ) )
 	{
+		pBanker->turnTo( pPlayer );		
 		socket->sendContainer( pPlayer->getBankBox() );
 		return true;
 	}

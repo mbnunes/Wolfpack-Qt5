@@ -121,6 +121,11 @@ void cUOSocket::send( cUOPacket *packet ) const
 		return;
 
 	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
+
+	// Once send, flush if in Debug mode
+#if defined(_DEBUG)
+	cNetwork::instance()->netIo()->flush( _socket );
+#endif
 }
 
 /*!
@@ -186,7 +191,7 @@ void cUOSocket::recieve()
 	// After two pings we idle-disconnect
 	if( lastPacket == 0x73 && packetId == 0x73 )
 	{
-		clConsole.send( QString( "Socket idle-kicked [%1]" ).arg( _socket->peerAddress().toString() ) );
+		clConsole.send( QString( "[%1] Idle Disconnected" ).arg( _socket->peerAddress().toString() ) );
 		disconnect();
 		return;
 	}
@@ -341,9 +346,6 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 */
 void cUOSocket::disconnect( void )
 {
-//	if( !_socket->isOpen() )
-//		return;
-
 	if( _account )
 		_account->setInUse( false );
 
@@ -523,7 +525,11 @@ void cUOSocket::playChar( P_CHAR pChar )
 	clientFeatures.setT2a( true );
 	send( &clientFeatures );
 
-	// Confirm the Login
+	// We're now playing this char
+	pChar->setHidden( 0 ); // Unhide us (logged out)
+	setPlayer( pChar );
+
+	// This needs to be sent once
 	cUOTxConfirmLogin confirmLogin;
 	confirmLogin.fromChar( pChar );
 	confirmLogin.setUnknown3( 0x007f0000 );
@@ -531,10 +537,9 @@ void cUOSocket::playChar( P_CHAR pChar )
 	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
 	send( &confirmLogin );
 
-	// Change the map after the client knows about the char
-	cUOTxChangeMap changeMap;
-	changeMap.setMap( pChar->pos.map );
-	send( &changeMap );
+	// Send us our player and send the rest to us as well.
+	pChar->resend();
+	resendWorld( false );
 
 	// Start the game!
 	cUOTxStartGame startGame;
@@ -544,12 +549,6 @@ void cUOSocket::playChar( P_CHAR pChar )
 	cUOTxGameTime gameTime;
 	gameTime.setTime( uoTime.time().hour(), uoTime.time().minute(), uoTime.time().second() );
 	send( &gameTime );
-
-	// We're now playing this char:
-	pChar->setHidden( 0 );
-	setPlayer( pChar );
-	resendWorld( false );
-	pChar->resend( true ); // Send us to others
 	
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
@@ -558,11 +557,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
 {
-	// Log
-	clConsole.send( QString( "Trying to log in as %1 using password %2 [%3]\n" ).arg( username ).arg( password ).arg( _socket->peerAddress().toString() ) );
-
 	cAccounts::enErrorCode error = cAccounts::NoError;
-
 	AccountRecord* authRet = Accounts::instance()->authenticate( username, password, &error );
 
 	// Reject login
@@ -577,6 +572,8 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			{
 				authRet = Accounts::instance()->createAccount( username, password );
 				_account = authRet;
+				
+				clConsole.send( QString( "[%2] Account autocreated: '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
 				return true;
 			}
 			else
@@ -591,8 +588,12 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			denyPacket.setReason( DL_INUSE ); break;
 		};
 
-		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->peerAddress().toString() ) );
+		clConsole.send( QString( "[%2] Failed to log in as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
 		send( &denyPacket );
+	}
+	else if( error == cAccounts::NoError )
+	{
+		clConsole.send( QString( "[%2] Identified as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
 	}
 
 	_account = authRet;
@@ -1066,18 +1067,58 @@ void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 	Movement::instance()->Walking( _player, packet->direction(), packet->key());
 }
 
-void cUOSocket::resendPlayer()
+void cUOSocket::resendPlayer( bool quick )
 {
 	if( !_player )
 		return;
 
-	cUOTxChangeMap changeMap; // Make sure we switch client when this changes
-	changeMap.setMap( _player->pos.map );
-	send( &changeMap );
+	// Pause
+	cUOTxPause pause;
+	pause.pause();
+	send( &pause );
 
 	cUOTxDrawPlayer drawPlayer;
 	drawPlayer.fromChar( _player );
 	send( &drawPlayer );
+
+	// Resend our equipment
+	cChar::ContainerContent container(_player->content());
+	cChar::ContainerContent::const_iterator it (container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
+	{
+		P_ITEM pItem = *it;
+		if( !pItem )
+			continue;
+
+		// Only send visible layers
+		// 0x19 = horse layer
+		// -> Shop containers need to be send
+		if( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
+			continue;
+
+		cUOTxCharEquipment equipment;
+		equipment.fromItem( pItem );
+		send( &equipment );
+	}
+
+	// Set the warmode status
+	if( !quick )
+	{
+		cUOTxWarmode warmode;
+		warmode.setStatus( _player->war() );
+		send( &warmode );
+	
+		// Make sure we switch client when this changes
+		cUOTxChangeMap changeMap; 
+		changeMap.setMap( _player->pos.map );
+		send( &changeMap );
+	}
+
+	// Resume
+	cUOTxPause resume;
+	resume.resume();
+	send( &resume );
 
 	// Reset the walking sequence
 	_walkSequence = 0xFF;
@@ -1137,29 +1178,6 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 
 		_player = pChar;
 		_player->setSocket( this );
-	}
-
-	resendPlayer(); // Set our location
-
-	// Set the warmode status
-	cUOTxWarmode warmode;
-	warmode.setStatus( _player->war() );
-	send( &warmode );
-
-	// Send our equipment
-	cChar::ContainerContent container = _player->content();
-	cChar::ContainerContent::const_iterator it(container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
-	for( ; it != end; ++it )
-	{
-		P_ITEM pItem = *it;
-		
-		if( !pItem )
-			continue;
-
-		cUOTxCharEquipment cEquipment;
-		cEquipment.fromItem( pItem );
-		send( &cEquipment );
 	}
 
 	_state = InGame;
@@ -1432,6 +1450,14 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			break;
 	}
 
+	// If its one of the "invisible" layers send an equip item packet first
+	if( pCont->layer() == 0x1D )
+	{
+		cUOTxCharEquipment equipment;
+		equipment.fromItem( pCont );
+		send( &equipment );
+	}
+
 	// Draw the container
 	cUOTxDrawContainer dContainer;
 	dContainer.setSerial( pCont->serial );
@@ -1440,6 +1466,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 	// Add all items to the container
 	cUOTxItemContent itemContent;
+	INT32 count = 0;
 
 	cItem::ContainerContent container = pCont->content();
 	cItem::ContainerContent::const_iterator it(container.begin());
@@ -1452,6 +1479,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			continue;
 
 		itemContent.addItem( pItem );
+		++count;
 	}
 
 	if( pCont->objectID() == "CORPSE" )
@@ -1464,15 +1492,19 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		if( pCorpse->hairStyle() )
 		{
 			itemContent.addItem( 0x4FFFFFFE, pCorpse->hairStyle(), pCorpse->hairColor(), 0, 0, 1, pCorpse->serial );
+			++count;
 		}
 
 		if( pCorpse->beardStyle() )
 		{			
 			itemContent.addItem( 0x4FFFFFFF, pCorpse->beardStyle(), pCorpse->beardColor(), 0, 0, 1, pCorpse->serial );
+			++count;
 		}
 	}
 
-	send( &itemContent );
+	// Only send if there is content
+	if( count )
+		send( &itemContent );
 }
 
 void cUOSocket::removeObject( cUObject *object )
@@ -1787,8 +1819,7 @@ void cUOSocket::resendWorld( bool clean )
 
 void cUOSocket::resync()
 {
-	resendPlayer();
-	sendChar( _player );
+	resendPlayer( false );
 }
 
 P_ITEM cUOSocket::dragging() const
@@ -1796,18 +1827,7 @@ P_ITEM cUOSocket::dragging() const
 	if( !_player )
 		return 0;
 
-	cChar::ContainerContent container = _player->content();
-	cChar::ContainerContent::const_iterator it(container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
-	for( ; it != end; ++it )
-	{
-		P_ITEM pItem = *it;
-
-		if( pItem && ( pItem->layer() == 0x1E ) )
-			return pItem;
-	}
-
-	return 0;
+	return _player->atLayer( cChar::Dragging );
 }
 
 void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
