@@ -153,7 +153,7 @@ def onShowTooltip(char, item, tooltip):
 
   # The user defined name
   if len(item.name) > 0:
-    tooltip.add(1050045, " \t" + item.name + "\t ")
+    tooltip.add(1050045, " \t" + "Unlocks: " + item.name + "\t ")
 
   # Add the lock id for gms
   if char.gm:
@@ -167,4 +167,3 @@ def onShowTooltip(char, item, tooltip):
 
   # We still should apply the default handling
   return 1
-
