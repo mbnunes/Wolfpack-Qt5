@@ -220,8 +220,10 @@ SOURCES		+= python/char.cpp \
 		   python/pyregion.cpp \		   
 		   python/pytooltip.cpp \	
 		   python/socket.cpp \		   
+		   python/worlditerator.cpp
 
-HEADERS		+= python/content.h
+HEADERS		+= python/content.h \
+		+= python/worlditerator.h
 
 # SQLite Sources
 SOURCES 	+=	sqlite/attach.c \

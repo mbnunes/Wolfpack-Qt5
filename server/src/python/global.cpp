@@ -64,6 +64,7 @@
 #include "regioniterator.h"
 #include "utilities.h"
 #include "tempeffect.h"
+#include "worlditerator.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -549,6 +550,26 @@ static PyObject *wpAllItemsSerials( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns an iterator for all items in the world
+*/
+static PyObject *wpAllItemsIterator( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	Q_UNUSED(self);
+	return PyGetItemIterator();
+}
+
+/*!
+	Returns an iterator for all items in the world
+*/
+static PyObject *wpAllCharsIterator( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	Q_UNUSED(self);
+	return PyGetCharIterator();
+}
+
+/*!
 	Returns a list of all chars serials 
 */
 static PyObject *wpAllCharsSerials( PyObject* self, PyObject* args )
@@ -670,13 +691,11 @@ static PyObject *wpMap( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	// Minimum is x, y, map
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
+	uint x = 0, y = 0, map = 0;
+	if ( !PyArg_ParseTuple( args, "iii:wolfpack.map", &x, &y, &map ) )
 		return 0;
-	}
 
-	map_st mTile = Map->seekMap( Coord_cl( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) ) );
+	map_st mTile = Map->seekMap( Coord_cl( x, y, 0, map ) );
 
 	PyObject *dict = PyDict_New();
 	PyDict_SetItemString( dict, "id", PyInt_FromLong( mTile.id ) );
@@ -1105,6 +1124,8 @@ static PyMethodDef wpGlobal[] =
 	{ "map",				wpMap,							METH_VARARGS, "Returns a dictionary with information about a given map tile" },
 	{ "hasmap",				wpHasMap,						METH_VARARGS, "Returns true if the map specified is present"	},
 	{ "items",				wpItems,						METH_VARARGS, "Returns a list of items in a specific sector." },
+	{ "itemiterator",		wpAllItemsIterator,				METH_NOARGS,  "Returns an iterator for all items in the world."	},
+	{ "chariterator",		wpAllCharsIterator,				METH_NOARGS,  "Returns an iterator for all chars in the world."	},
 	{ "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." },
 	{ "allcharsserials",	wpAllCharsSerials,				METH_VARARGS, "Returns a list of all chars serials" },
 	{ "allitemsserials",	wpAllItemsSerials,				METH_VARARGS, "Returns a list of all items serials" },
