@@ -7,19 +7,19 @@
 CFG=wolf - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
 !MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -42,16 +42,16 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /Fr /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
-# ADD RSC /l 0x409 /d "NDEBUG"
+# ADD RSC /l 0x409
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib comctl32.lib $(QTDIR)\lib\qt-mt322.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"..\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib comctl32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"release\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
@@ -63,12 +63,12 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\"
+# PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MD /Gm /GR /GX /Zi /Od /I "sqlite" /I "lib\bugreport" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /Fr /FD /GZ /c
+# ADD CPP /nologo /MD /W3 /Gm /GR /GX /Zi /Od /I "sqlite" /I "lib\bugreport" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /Fr /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -76,10 +76,15 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt322.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /debug /machine:I386 /out:"..\wolfpack.exe" /pdbtype:sept /fixed:no
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /debug /machine:I386 /out:"debug\wolfpack.exe" /pdbtype:sept /fixed:no
 # SUBTRACT LINK32 /pdb:none /map
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Desc=MoveIt
+PostBuild_Cmds=copy debug\wolfpack.exe d:\wolfpack\wolfpackEXE\WolfpackDebug\WolfpackCurrent\wolfpack.exe
+# End Special Build Tool
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -131,10 +136,6 @@ SOURCE=.\combat.cpp
 # Begin Source File
 
 SOURCE=.\commands.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\serverconfig.cpp
 # End Source File
 # Begin Source File
 
@@ -270,6 +271,10 @@ SOURCE=.\server.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\serverconfig.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\skills.cpp
 # End Source File
 # Begin Source File
@@ -310,7 +315,7 @@ SOURCE=.\trade.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\twofish\TWOFISH2.C
+SOURCE=.\twofish\twofish2.cpp
 # End Source File
 # Begin Source File
 
@@ -370,10 +375,6 @@ SOURCE=.\combat.h
 
 SOURCE=.\commands.h
 # PROP Ignore_Default_Tool 1
-# End Source File
-# Begin Source File
-
-SOURCE=.\serverconfig.h
 # End Source File
 # Begin Source File
 
@@ -483,10 +484,6 @@ SOURCE=.\python\objectcache.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyaction.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\pagesystem.h
 # End Source File
 # Begin Source File
@@ -536,6 +533,10 @@ SOURCE=.\sectors.h
 # Begin Source File
 
 SOURCE=.\server.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\serverconfig.h
 # End Source File
 # Begin Source File
 
@@ -687,7 +688,7 @@ InputName=uosocket
 
 # PROP Ignore_Default_Tool 1
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -705,10 +706,6 @@ SOURCE=.\network\uotxpackets.h
 # Begin Source File
 
 SOURCE=.\python\char.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\python\pyaction.cpp
 # End Source File
 # Begin Source File
 
@@ -737,6 +734,14 @@ SOURCE=.\python\item.cpp
 # Begin Source File
 
 SOURCE=.\python\pyaccount.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\pyaction.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\pyaction.h
 # End Source File
 # Begin Source File
 
