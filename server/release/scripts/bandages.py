@@ -13,7 +13,7 @@ def onUse( char, item ):
 
 	# Already Bandaging ??
 	if char.socket.hastag( 'using_bandages' ):
-		char.message( 'You are already using bandages.' )
+		char.socket.sysmessage( 'You are already using bandages.' )
 		return 1
 
 	# Display Target
@@ -22,7 +22,7 @@ def onUse( char, item ):
 		char.socket.attachtarget('bandages.bandage_response', [item.serial])
 
 	elif item.id == 0xe20 or item.id == 0xe22:
-		char.message( 'Where do you want to wash these bandages?' )
+		char.socket.sysmessage( 'Where do you want to wash these bandages?' )
 		char.socket.attachtarget( 'bandages.wash_response', [ item.serial ] )
 
 	return 1
@@ -32,8 +32,12 @@ def wash_response( char, args, target ):
 
 	if not bandages:
 		return
+		
+	if (target.item and target.item.getoutmostchar() and target.item.getoutmostchar() != char) or not char.canreach(target.pos, 5):
+		char.socket.sysmessage("You can't reach that.")
+		return
 
-	# Did we target something wet ?
+	# Did we target something wet?
 	id = 0
 
 	if target.item:
@@ -41,13 +45,14 @@ def wash_response( char, args, target ):
 	else:
 		id = target.model
 
-	tiledata = wolfpack.tiledata( id )
+	# Wash Basins are allowed.
+	if not target.item or target.item.id != 0x1008:
+		tiledata = wolfpack.tiledata(id)
+		if not tiledata[ 'flag1' ] & 0x80:
+			char.socket.sysmessage('You cannot wash your bandages here.')
+			return
 
-	if not tiledata[ 'flag1' ] & 0x80:
-		char.message( 'You cannot wash your bandages here.' )
-		return
-
-	char.message( 'You wash your bandages and put the clean bandages into your backpack.' )
+	char.socket.sysmessage('You wash your bandages and put the clean bandages into your backpack.')
 
 	if bandages.id == 0xe20:
 		bandages.id = 0xe21
@@ -61,16 +66,16 @@ def validCorpseTarget( char, target ):
 		return 0
 
 	if not char.gm and not char.canreach( target, 2 ):
-		char.message( 'You can''t reach that.' )
+		char.socket.sysmessage( 'You can''t reach that.' )
 		return 0
 
 	if target.id != 0x2006:
-		char.message( 'Try using these on a corpse.' )
+		char.socket.sysmessage( 'Try using these on a corpse.' )
 		return 0
 
 	# Check Owner
 	if not target.owner or not target.owner.dead:
-		char.message( 'You can''t help them anymore.' )
+		char.socket.sysmessage( 'You can''t help them anymore.' )
 		return 0
 
 	return 1
@@ -78,16 +83,16 @@ def validCorpseTarget( char, target ):
 def validCharTarget( char, target ):
 	# Do we have a valid target
 	if not target:
-		char.message( 'You have to target a living thing.' )
+		char.socket.sysmessage( 'You have to target a living thing.' )
 		return 0
 
 	if not char.canreach( target, 2 ):
-		char.message( 'You are too far away to apply bandages on %s' % target.name )
+		char.socket.sysmessage( 'You are too far away to apply bandages on %s' % target.name )
 		return 0
 
 	# No resurrection feature in yet
 	if target.dead:
-		char.message( 'You can''t heal a ghost.' )
+		char.socket.sysmessage( 'You can''t heal a ghost.' )
 		return 0
 
 	if target.poison != -1:
@@ -96,9 +101,9 @@ def validCharTarget( char, target ):
 	# Already at full health
 	if target.health >= target.strength:
 		if target == char:
-			char.message( 'You are healthy.' )
+			char.socket.sysmessage( 'You are healthy.' )
 		else:
-			char.message( '%s does not require you to heal or cure them!' % target.name )
+			char.socket.sysmessage( '%s does not require you to heal or cure them!' % target.name )
 		return 0
 
 	return 1
@@ -116,11 +121,11 @@ def bandage_response( char, args, target ):
 		return
 
 	elif not target.char:
-		char.message( 'You have to target either a corpse or a creature.' )
+		char.socket.sysmessage( 'You have to target either a corpse or a creature.' )
 		return
 
 	if corpse and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
-		char.message( 'You are not skilled enough to resurrect.' )
+		char.socket.sysmessage( 'You are not skilled enough to resurrect.' )
 		return
 
 	# Consume Bandages
@@ -156,9 +161,9 @@ def bandage_response( char, args, target ):
 		char.addtimer( random.randint( 2500, 5000 ), 'bandages.bandage_timer', [ 1, success, target.item.serial, baseid ] ) # It takes 5 seconds to bandage
 	else:
 		if char == target.char:
-			char.message( 'You start applying bandages on yourself' )
+			char.socket.sysmessage( 'You start applying bandages on yourself' )
 		else:
-			char.message( 'You start applying bandages on %s' % target.char.name )
+			char.socket.sysmessage( 'You start applying bandages on %s' % target.char.name )
 			char.turnto( target.char )
 
 		char.addtimer( random.randint( 1500, 2500 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
@@ -182,7 +187,7 @@ def bandage_timer( char, args ):
 			return
 
 		if not success:
-			char.message( 'You fail to resurrect the target.' )
+			char.socket.sysmessage( 'You fail to resurrect the target.' )
 			return
 
 		if target.owner:
@@ -201,9 +206,9 @@ def bandage_timer( char, args ):
 
 			target.delete()
 
-			char.message( 'You successfully resurrect ' + owner.name )
+			char.socket.sysmessage( 'You successfully resurrect ' + owner.name )
 		else:
-			char.message( 'You can''t help them anymore' )
+			char.socket.sysmessage( 'You can''t help them anymore' )
 
 	# Character Target
 	else:
@@ -214,9 +219,9 @@ def bandage_timer( char, args ):
 
 		if not success:
 			if target != char:
-				char.message( 'You fail applying bandages to %s.' % target.name )
+				char.socket.sysmessage( 'You fail applying bandages to %s.' % target.name )
 			else:
-				char.message( 'You fail applying bandages to yourself.' )
+				char.socket.sysmessage( 'You fail applying bandages to yourself.' )
 			return
 
 		# Human target ?
@@ -237,9 +242,9 @@ def bandage_timer( char, args ):
 		target.updatehealth()
 
 		if char == target:
-			char.message( 'You successfully apply bandages on yourself.' )
+			char.socket.sysmessage( 'You successfully apply bandages on yourself.' )
 		else:
-			char.message( 'You successfully apply bandages on %s' % target.name )
+			char.socket.sysmessage( 'You successfully apply bandages on %s' % target.name )
 
 	# Create bloody bandages
 	# This is target independent
