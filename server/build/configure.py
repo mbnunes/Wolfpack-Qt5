@@ -315,6 +315,7 @@ def main():
 	config.close()
 
 	sys.stdout.write(green("Generating makefile..."))
+	sys.stdout.flush()
 	os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro"])
 	if options.dsp:
 		sys.stdout.write("Generating Visual Studio project files...\n")
