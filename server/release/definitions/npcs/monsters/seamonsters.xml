@@ -2,8 +2,8 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: White Wolf                     |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification:                         |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
@@ -12,94 +12,67 @@
 		<name>a kraken</name>
 		<id>0x008</id>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="50" max="50"/>
-		</defense>
-		<lodamage>15</lodamage>
-		<hidamage>25</hidamage>
-		<gold>
-			<random min="300" max="600"/>
-		</gold>
+		<karma><random min="-5000" max="-9999"/></karma>
+		<fame><random min="5000" max="9999"/></fame>
+		<defense><random min="45" max="55"/></defense>
+		<lodamage>75</lodamage>
+		<hidamage>121</hidamage>
+		<gold><random min="300" max="600"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="766" max="772"/>
-		</str>
-		<dex>
-			<random min="244" max="244"/>
-		</dex>
-		<int>
-			<random min="31" max="36"/>
-		</int>
+		<str><random min="756" max="780"/></str>
+		<dex><random min="226" max="245"/></dex>
+		<int><random min="26" max="40"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="548" max="562"/>
-		</wrestling>
-		<tactics>
-			<random min="495" max="558"/>
-		</tactics>
-		<magicresistance>
-			<random min="152" max="185"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="451" max="600"/></wrestling>
+		<tactics><random min="451" max="600"/></tactics>
+		<magicresistance><random min="151" max="200"/></magicresistance>
 		<category>Monsters\Sea Monsters\Kraken</category>
 		<!-- Priv -->
 	</npc>
 
-        <!-- deep sea serpent -->
-        <npc id="deep_sea_serpent">
-                <name>a deep sea serpent</name>
-                <id>0x96</id>
-                <category>Monsters\Sea Monsters\Deep Sea Serpent</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-5000" max="-9999" /></karma>
-                <fame><random min="5000" max="9999" /></fame>
-                <defense>60</defense>
-                <lodamage>6</lodamage>
-                <hidamage>15</hidamage>
-                <!-- Stats -->
-                <str><random min="259" max="385" /></str>
-                <dex><random min="100" max="125" /></dex>
-                <int><random min="110" max="149" /></int>
-                <!-- Skills -->
-                <wrestling><random min="640" max="697" /></wrestling>
-                <tactics><random min="604" max="666" /></tactics>
-		<magicresistance><random min="611" max="7373" /></magicresistance>
-		<magery><random min="150" max="150" /></magery>
-                <carve></carve>
-        </npc>
+	<!-- deep sea serpent -->
+	<npc id="deep_sea_serpent">
+		<name>a deep sea serpent</name>
+		<id>0x96</id>
+		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-5000" max="-9999" /></karma>
+		<fame><random min="5000" max="9999" /></fame>
+		<defense><random min="30" max="40" /></defense>
+		<lodamage>15</lodamage>
+		<hidamage>37</hidamage>
+		<!-- Stats -->
+		<str><random min="251" max="425" /></str>
+		<dex><random min="87" max="135" /></dex>
+		<int><random min="87" max="155" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="700" /></wrestling>
+		<tactics><random min="601" max="700" /></tactics>
+		<magicresistance><random min="601" max="750" /></magicresistance>
+		<carve></carve>
+	</npc>
 
-        <!-- sea serpent -->
-        <npc id="sea_serpent">
+	<!-- sea serpent -->
+	<npc id="sea_serpent">
 		<name>a sea serpent</name>
-                <id>0x91</id>
-                <category>Monsters\Sea Monsters\Sea Serpent</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-5000" max="-9999" /></karma>
-                <fame><random min="5000" max="9999" /></fame>
-                <defense><random min="30" max="30" /></defense>
-                <lodamage>5</lodamage>
-                <hidamage>13</hidamage>
-                <!-- Stats -->
-                <str><random min="186" max="215" /></str>
-                <dex><random min="62" max="83" /></dex>
-                <int><random min="61" max="87" /></int>
-                <!-- Skills -->
-                <wrestling><random min="643" max="730" /></wrestling>
-                <tactics><random min="601" max="694" /></tactics>
-                <magicresistance><random min="640" max="749" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<magery><random min="91" max="130" /></magery>
-		<meditation><random min="0 max="0" /></meditation>
-        </npc>
+		<id>0x91</id>
+		<category>Monsters\Sea Monsters\Sea Serpent</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-5000" max="-9999" /></karma>
+		<fame><random min="5000" max="9999" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>16</lodamage>
+		<hidamage>26</hidamage>
+		<!-- Stats -->
+		<str><random min="168" max="225" /></str>
+		<dex><random min="58" max="85" /></dex>
+		<int><random min="53" max="95" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="700" /></wrestling>
+		<tactics><random min="601" max="700" /></tactics>
+		<magicresistance><random min="601" max="750" /></magicresistance>
+	</npc>
 
 </definitions>

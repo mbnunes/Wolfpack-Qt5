@@ -3,8 +3,8 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh                           |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
-|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+|   )).-' {{ ;'`   | Revised by: sereg, Dreoth                  |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
@@ -13,44 +13,21 @@
 		<name><random list="NAMES_LIZARDMAN" /></name>
 		<id>0x021</id>
 		<category>Monsters\lizardmen\lizardman 1</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="28" max="28"/>
-		</defense>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="23" /></defense>
 		<lodamage>8</lodamage>
-		<hidamage>18</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<hidamage>12</hidamage>
+		<gold><random min="25" max="50" /></gold>
 		<!-- Stats -->
-		<str>
-			<random min="99" max="119"/>
-		</str>
-		<dex>
-			<random min="89" max="105"/>
-		</dex>
-		<int>
-			<random min="39" max="55"/>
-		</int>
+		<str><random min="96" max="120" /></str>
+		<dex><random min="86" max="105" /></dex>
+		<int><random min="36" max="60" /></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="551" max="720"/>
-		</wrestling>
-		<tactics>
-			<random min="551" max="782"/>
-		</tactics>
-		<magicresistance>
-			<random min="352" max="589"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="501" max="700" /></wrestling>
+		<tactics><random min="551" max="800" /></tactics>
+		<magicresistance><random min="351" max="600" /></magicresistance>
 		<carve>carve_lizard_man_medium</carve>
 		<!-- Priv -->
 	</npc>
@@ -60,44 +37,21 @@
 		<name><random list="NAMES_LIZARDMAN" /></name>
 		<id>0x023</id>
 		<category>Monsters\lizardmen\lizardman 2</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="28" max="28"/>
-		</defense>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="23" /></defense>
 		<lodamage>8</lodamage>
-		<hidamage>18</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<hidamage>12</hidamage>
+		<gold><random min="25" max="50" /></gold>
 		<!-- Stats -->
-		<str>
-			<random min="99" max="119"/>
-		</str>
-		<dex>
-			<random min="89" max="105"/>
-		</dex>
-		<int>
-			<random min="39" max="55"/>
-		</int>
+		<str><random min="96" max="120" /></str>
+		<dex><random min="86" max="105" /></dex>
+		<int><random min="36" max="60" /></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="551" max="720"/>
-		</wrestling>
-		<tactics>
-			<random min="551" max="782"/>
-		</tactics>
-		<magicresistance>
-			<random min="352" max="589"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="501" max="700" /></wrestling>
+		<tactics><random min="551" max="800" /></tactics>
+		<magicresistance><random min="351" max="600" /></magicresistance>
 		<carve>carve_lizard_man_medium</carve>
 		<!-- Priv -->
 	</npc>
@@ -107,44 +61,21 @@
 		<name><random list="NAMES_LIZARDMAN" /></name>
 		<id>0x024</id>
 		<category>Monsters\lizardmen\lizardman 3</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="28" max="28"/>
-		</defense>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="23" /></defense>
 		<lodamage>8</lodamage>
-		<hidamage>18</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<hidamage>12</hidamage>
+		<gold><random min="25" max="50" /></gold>
 		<!-- Stats -->
-		<str>
-			<random min="99" max="119"/>
-		</str>
-		<dex>
-			<random min="89" max="105"/>
-		</dex>
-		<int>
-			<random min="39" max="55"/>
-		</int>
+		<str><random min="96" max="120" /></str>
+		<dex><random min="86" max="105" /></dex>
+		<int><random min="36" max="60" /></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="551" max="720"/>
-		</wrestling>
-		<tactics>
-			<random min="551" max="782"/>
-		</tactics>
-		<magicresistance>
-			<random min="352" max="589"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="501" max="700" /></wrestling>
+		<tactics><random min="551" max="800" /></tactics>
+		<magicresistance><random min="351" max="600" /></magicresistance>
 		<carve>carve_lizard_man_medium</carve>
 		<!-- Priv -->
 	</npc>

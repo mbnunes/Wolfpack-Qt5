@@ -3,8 +3,8 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh                           |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
-|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+|   )).-' {{ ;'`   | Revised by: sereg, Dreoth                  |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
@@ -13,43 +13,21 @@
 		<name>a terathen drone</name>
 		<id>0x047</id>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="24" max="24"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="20" max="25"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>16</hidamage>
+		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="37" max="64"/>
-		</str>
-		<dex>
-			<random min="96" max="145"/>
-		</dex>
-		<int>
-			<random min="21" max="44"/>
-		</int>
+		<str><random min="36" max="65"/></str>
+		<dex><random min="96" max="145"/></dex>
+		<int><random min="21" max="45"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="445" max="530"/>
-		</wrestling>
-		<tactics>
-			<random min="317" max="496"/>
-		</tactics>
-		<magicresistance>
-			<random min="306" max="437"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="401" max="500"/></wrestling>
+		<tactics><random min="301" max="500"/></tactics>
+		<magicresistance><random min="301" max="450"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
 		<!-- Priv -->
 	</npc>
 
@@ -58,121 +36,70 @@
 		<name>a terathen matriarch</name>
 		<id>0x048</id>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="50" max="50"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="150" max="300"/>
-		</gold>
+		<karma><random min="-5000" max="-9999"/></karma>
+		<fame><random min="5000" max="9999"/></fame>
+		<defense><random min="45" max="55"/></defense>
+		<lodamage>26</lodamage>
+		<hidamage>47</hidamage>
+		<gold><random min="325" max="375"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="317" max="399"/>
-		</str>
-		<dex>
-			<random min="98" max="115"/>
-		</dex>
-		<int>
-			<random min="366" max="454"/>
-		</int>
+		<str><random min="316" max="405"/></str>
+		<dex><random min="96" max="115"/></dex>
+		<int><random min="366" max="455"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="698" max="802"/>
-		</wrestling>
-		<tactics>
-			<random min="511" max="691"/>
-		</tactics>
-		<magicresistance>
-			<random min="921" max="983"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="915" max="997"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="55" max="297"/>
-		</meditation>
+		<wrestling><random min="601" max="800"/></wrestling>
+		<tactics><random min="501" max="700"/></tactics>
+		<magicresistance><random min="901" max="1000"/></magicresistance>
+		<magery><random min="901" max="1000"/></magery>
+		<evaluatingint><random min="901" max="1000"/></evaluatingint>
 		<!-- Priv -->
 	</npc>
+
 	<!-- a terathen warrior -->
 	<npc id="terathen_warrior">
 		<name>a terathen warrior</name>
 		<id>0x046</id>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="30" max="30"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>16</lodamage>
+		<hidamage>38</hidamage>
+		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="167" max="205"/>
-		</str>
-		<dex>
-			<random min="98" max="141"/>
-		</dex>
-		<int>
-			<random min="45" max="64"/>
-		</int>
+		<str><random min="166" max="215"/></str>
+		<dex><random min="191" max="145"/></dex>
+		<int><random min="41" max="65"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="822" max="907"/>
-		</wrestling>
-		<tactics>
-			<random min="807" max="963"/>
-		</tactics>
-		<magicresistance>
-			<random min="602" max="749"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="801" max="900"/></wrestling>
+		<tactics><random min="801" max="1000"/></tactics>
+		<magicresistance><random min="601" max="750"/></magicresistance>
 		<!-- Priv -->
 	</npc>
 
-        <!-- terathan avenger -->
-        <npc id="terathan_avenger">
+	<!-- terathan avenger -->
+	<npc id="terathan_avenger">
 		<name>a terathan avenger</name>
-                <id>0x5</id>
-                <category>Monsters\Terathans\Terathan Avengers</category>
-                <skin>0x66d</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-10000" max="-15000" /></karma>
-                <fame><random min="10000" max="1500" /></fame>
-                <defense><random min="50" max="50" /></defense>
-                <lodamage>5</lodamage>
-                <hidamage>19</hidamage>
-                <!-- Stats -->
-                <str><random min="501" max="585" /></str>
-                <dex><random min="79" max="95" /></dex>
-                <int><random min="48" max="60" /></int>
-                <!-- Skills -->
-                <wrestling><random min="935" max="993" /></wrestling>
-                <tactics><random min="901" max="991" /></tactics>
-                <magicresistance><random min="674" max="798" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="607" max="792" /></poisoning>
-		<magery><random min="819" max="973" /></magery>
-        </npc>
+		<id>0x5</id>
+		<category>Monsters\Terathans\Terathan Avengers</category>
+		<skin>0x66d</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-10000" max="-15000" /></karma>
+		<fame><random min="10000" max="1500" /></fame>
+		<defense><random min="40" max="50" /></defense>
+		<lodamage>59</lodamage>
+		<hidamage>77</hidamage>
+		<!-- Stats -->
+		<str><random min="467" max="645" /></str>
+		<dex><random min="77" max="95" /></dex>
+		<int><random min="126" max="150" /></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000" /></wrestling>
+		<tactics><random min="901" max="1000" /></tactics>
+		<magicresistance><random min="651" max="800" /></magicresistance>
+		<evaluatingintel><random min="703" max="1000" /></evaluatingintel>
+		<poisoning><random min="601" max="800" /></poisoning>
+		<magery><random min="703" max="1000" /></magery>
+	</npc>
+
 </definitions>

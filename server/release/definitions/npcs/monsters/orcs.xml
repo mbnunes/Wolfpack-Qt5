@@ -3,8 +3,8 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh                           |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
-|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+|   )).-' {{ ;'`   | Revised by: sereg, Dreoth                  |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
@@ -12,45 +12,22 @@
 	<npc id="orc_1">
 		<name>an orc</name>
 		<id>0x011</id>
-		<category>Monsters\orcs\orc 1</category>
+		<category>Monsters\Orcs\orc 1</category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="28" max="28"/>
-		</defense>
-		<lodamage>5</lodamage>
-		<hidamage>14</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="25" max="30"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>13</hidamage>
+		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="96" max="120"/>
-		</str>
-		<dex>
-			<random min="82" max="104"/>
-		</dex>
-		<int>
-			<random min="36" max="57"/>
-		</int>
+		<str><random min="96" max="120"/></str>
+		<dex><random min="81" max="105"/></dex>
+		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="563" max="719"/>
-		</wrestling>
-		<tactics>
-			<random min="578" max="770"/>
-		</tactics>
-		<magicresistance>
-			<random min="547" max="715"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<tactics><random min="551" max="800"/></tactics>
+		<magicresistance><random min="501" max="750"/></magicresistance>
 		<carve>carve_orc</carve>
 		<!-- Priv -->
 	</npc>
@@ -58,45 +35,22 @@
 	<npc id="orc_2">
 		<name>an orc</name>
 		<id>0x029</id>
-		<category>Monsters\orcs\orc 2</category>
+		<category>Monsters\Orcs\orc 2</category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="28" max="28"/>
-		</defense>
-		<lodamage>5</lodamage>
-		<hidamage>14</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="25" max="30"/></defense>
+		<lodamage>9</lodamage>
+		<hidamage>13</hidamage>
+		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="96" max="120"/>
-		</str>
-		<dex>
-			<random min="82" max="104"/>
-		</dex>
-		<int>
-			<random min="36" max="57"/>
-		</int>
+		<str><random min="96" max="120"/></str>
+		<dex><random min="81" max="105"/></dex>
+		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="563" max="719"/>
-		</wrestling>
-		<tactics>
-			<random min="578" max="770"/>
-		</tactics>
-		<magicresistance>
-			<random min="547" max="715"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<tactics><random min="551" max="800"/></tactics>
+		<magicresistance><random min="501" max="750"/></magicresistance>
 		<carve>carve_orc</carve>
 		<!-- Priv -->
 	</npc>
@@ -105,185 +59,157 @@
 	<npc id="orc_captain">
 		<name>an orc captain</name>
 		<id>0x007</id>
-		<category>Monsters\orcs\orc captain</category>
+		<category>Monsters\Orcs\orc captain</category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="34" max="34"/>
-		</defense>
-		<lodamage>6</lodamage>
-		<hidamage>16</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>11</lodamage>
+		<hidamage>31</hidamage>
+		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="121" max="128"/>
-		</str>
-		<dex>
-			<random min="106" max="123"/>
-		</dex>
-		<int>
-			<random min="98" max="106"/>
-		</int>
+		<str><random min="111" max="145"/></str>
+		<dex><random min="101" max="135"/></dex>
+		<int><random min="86" max="110"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="100" max="100"/>
-		</wrestling>
-		<tactics>
-			<random min="853" max="977"/>
-		</tactics>
-		<magicresistance>
-			<random min="708" max="778"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_orc_captain</carve>
+		<wrestling>0</wrestling>
+		<tactics><random min="851" max="1000"/></tactics>
+		<magicresistance><random min="701" max="850"/></magicresistance>
+		<carve>carve_orc</carve>
 		<!-- Priv -->
 	</npc>
 
-        <!-- orc bomber -->
-        <npc id="orc_bomber">
-                <name>an orc bomber</name>
-                <id>0xb6</id>
-                <category>Monsters\orcs\Orc Bomber</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-1250" max="-2499" /></karma>
-                <fame><random min="1250" max="2499" /></fame>
-                <defense><random min="30" max="30" /></defense>
-                <lodamage>5</lodamage>
-                <hidamage>12</hidamage>
-                <!-- Stats -->
-                <str><random min="156" max="202" /></str>
-                <dex><random min="99" max="115" /></dex>
-                <int><random min="61" max="85" /></int>
-                <!-- Skills -->
-                <wrestling><random min="653" max="840" /></wrestling>
-                <tactics><random min="752" max="896" /></tactics>
-                <magicresistance><random min="707" max="826" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+	<!-- orc bomber -->
+	<npc id="orc_bomber">
+		<name>an orc bomber</name>
+		<id>0xb6</id>
+		<category>Monsters\Orcs\Orc Bomber</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>2</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Stats -->
+		<str><random min="147" max="215" /></str>
+		<dex><random min="91" max="115" /></dex>
+		<int><random min="61" max="85" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="850" /></wrestling>
+		<tactics><random min="751" max="900" /></tactics>
+		<magicresistance><random min="701" max="850" /></magicresistance>
+	</npc>
 
-        <!-- orc brute -->
-        <npc id="orc_brute">
-                <name>an orc brute</name>
-                <id>0xbd</id>
-                <category>Monsters\orcs\Orc Brute</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-10000" max="-15000" /></karma>
-                <fame><random min="10000" max="15000" /></fame>
-                <defense><random min="50" max="50" /></defense>
-                <lodamage>20</lodamage>
-                <hidamage>40</hidamage>
-                <!-- Stats -->
-                <str><random min="854" max="883" /></str>
-                <dex><random min="69" max="72" /></dex>
-                <int><random min="61" max="62" /></int>
-                <!-- Skills -->
-                <wrestling><random min="976" max="980" /></wrestling>
-                <tactics><random min="934" max="949" /></tactics>
-                <magicresistance><random min="1374" max="1399" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+	<!-- orc brute -->
+	<npc id="orc_brute">
+		<name>an orc brute</name>
+		<id>0xbd</id>
+		<category>Monsters\Orcs\Orc Brute</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-10000" max="-15000" /></karma>
+		<fame><random min="10000" max="15000" /></fame>
+		<defense><random min="45" max="55" /></defense>
+		<lodamage>82</lodamage>
+		<hidamage>111</hidamage>
+		<!-- Stats -->
+		<str><random min="767" max="945" /></str>
+		<dex><random min="66" max="75" /></dex>
+		<int><random min="46" max="70" /></int>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000" /></wrestling>
+		<tactics><random min="901" max="1000" /></tactics>
+		<magicresistance><random min="1251" max="1400" /></magicresistance>
+	</npc>
 
-        <!-- orc chopper -->
-        <npc id="orc_chopper">
-                <name>an orc chopper</name>
-                <id>0x8b</id>
-                <category>Monsters\orcs\Orc Chopper</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-1250" max="-2499" /></karma>
-                <fame><random min="1250" max="2499" /></fame>
-                <defense><random min="30" max="30" /></defense>
-                <lodamage>9</lodamage>
-                <hidamage>20</hidamage>
-                <!-- Stats -->
-                <str><random min="148" max="242" /></str>
-                <dex><random min="91" max="116" /></dex>
-                <int><random min="66" max="80" /></int>
-                <!-- Skills -->
-                <wrestling><random min="646" max="850" /></wrestling>
-                <tactics><random min="807" max="875" /></tactics>
-                <magicresistance><random min="644" max="847" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+	<!-- orc chopper -->
+	<npc id="orc_chopper">
+		<name>an orc chopper</name>
+		<id>0x8b</id>
+		<category>Monsters\Orcs\Orc Chopper</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>32</lodamage>
+		<hidamage>37</hidamage>
+		<!-- Stats -->
+		<str><random min="147" max="245" /></str>
+		<dex><random min="91" max="115" /></dex>
+		<int><random min="61" max="85" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="850" /></wrestling>
+		<tactics><random min="751" max="900" /></tactics>
+		<magicresistance><random min="601" max="850" /></magicresistance>
+	</npc>
 
-        <!-- orc scount -->
-        <npc id="orc_scout">
-                <name>an orc scout</name>
-                <id>0xb5</id>
-                <category>Monsters\orcs\Orc Scout</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-1250" max="-2499" /></karma>
-                <fame><random min="1250" max="2499" /></fame>
-                <defense><random min="28" max="28" /></defense>
-                <lodamage>7</lodamage>
-                <hidamage>22</hidamage>
-                <!-- Stats -->
-                <str><random min="103" max="115" /></str>
-                <dex><random min="103" max="128" /></dex>
-                <int><random min="43" max="58" /></int>
-                <!-- Skills -->
-                <wrestling><random min="100" max="100" /></wrestling>
-                <tactics><random min="674" max="794" /></tactics>
-                <magicresistance><random min="520" max="720" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+	<!-- orc scount -->
+	<npc id="orc_scout">
+		<name>an orc scout</name>
+		<id>0xb5</id>
+		<category>Monsters\Orcs\Orc Scout</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-1250" max="-2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>28</lodamage>
+		<hidamage>31</hidamage>
+		<!-- Stats -->
+		<str><random min="96" max="120" /></str>
+		<dex><random min="101" max="130" /></dex>
+		<int><random min="36" max="60" /></int>
+		<!-- Skills -->
+		<tactics><random min="551" max="800" /></tactics>
+		<magicresistance><random min="501" max="750" /></magicresistance>
+	</npc>
 
-        <!-- orcish lord -->
-        <npc id="orcish_lord">
-                <name>an orcish lord</name>
-                <id>0x8a</id>
-                <category>Monsters\orcs\Orcish Lord</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-2500" max="-4999" /></karma>
-                <fame><random min="2500" max="4999" /></fame>
-                <defense><random min="30" max="30" /></defense>
-                <lodamage>5</lodamage>
-                <hidamage>16</hidamage>
-                <!-- Stats -->
-                <str><random min="177" max="206" /></str>
-                <dex><random min="91" max="109" /></dex>
-                <int><random min="61" max="100" /></int>
-                <!-- Skills -->
-                <wrestling><random min="721" max="851" /></wrestling>
-                <tactics><random min="753" max="892" /></tactics>
-                <magicresistance><random min="716" max="804" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+	<!-- orcish lord -->
+	<npc id="orcish_lord">
+		<name>an orcish lord</name>
+		<id>0x8a</id>
+		<category>Monsters\Orcs\Orcish Lord</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-2500" max="-4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>8</lodamage>
+		<hidamage>28</hidamage>
+		<!-- Stats -->
+		<str><random min="147" max="215" /></str>
+		<dex><random min="91" max="115" /></dex>
+		<int><random min="61" max="85" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="850" /></wrestling>
+		<tactics><random min="751" max="900" /></tactics>
+		<magicresistance><random min="701" max="850" /></magicresistance>
+	</npc>
 
-        <!-- orc mage -->
-        <npc id="orc_mage">
-                <name>an orc mage</name>
-                <id>0x8c</id>
-                <category>Monsters\orcs\Orc Mage</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-2500" max="-4999" /></karma>
-                <fame><random min="2500" max="4999" /></fame>
-                <defense><random min="30" max="30" /></defense>
-                <lodamage>5</lodamage>
-                <hidamage>12</hidamage>
-                <!-- Stats -->
-                <str><random min="117" max="150" /></str>
-                <dex><random min="92" max="113" /></dex>
-                <int><random min="168" max="182" /></int>
-                <!-- Skills -->
-                <wrestling><random min="495" max="549" /></wrestling>
-                <tactics><random min="506" max="646" /></tactics>
-                <magicresistance><random min="602" max="748" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<magery><random min="663" max="766" /></magery>
-        </npc>
+	<!-- orc mage -->
+	<npc id="orc_mage">
+		<name>an orc mage</name>
+		<id>0x8c</id>
+		<category>Monsters\Orcs\Orc Mage</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="-2500" max="-4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>8</lodamage>
+		<hidamage>25</hidamage>
+		<!-- Stats -->
+		<str><random min="116" max="150" /></str>
+		<dex><random min="91" max="115" /></dex>
+		<int><random min="161" max="184" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="500" /></wrestling>
+		<tactics><random min="501" max="650" /></tactics>
+		<magicresistance><random min="601" max="750" /></magicresistance>
+		<magery><random min="601" max="725" /></magery>
+		<evaluatingint><random min="601" max="725"/></evaluatingint>
+	</npc>
+
 </definitions>
