@@ -409,7 +409,7 @@ namespace Combat
 		// Hit Chance = ( Attacker's Combat Ability + 50 ) ÷ ( [Defender's Combat Ability + 50] x 2 )
 		double hitChance = ( pAttacker->skill( wSkill ) / 10 ) + 50;
 		hitChance /= ( dEvasion + 50 ) * 2;
-		hitChance = floor( hitChance * 100 );
+		hitChance = hitChance * 100;
 
 		// Check if we missed
 		if( RandomNum( 1, 100 ) > hitChance )
@@ -719,7 +719,7 @@ namespace Combat
 		if( pDefender->ra() )
 		{
 			// lets reflect (MAGERY/2)% of the damage
-			SI32 reflectdamage = (SI32)floor( (float)damage * (float)pDefender->skill( MAGERY ) / 2000.0f );
+			SI32 reflectdamage = damage * pDefender->skill( MAGERY ) / 2000;
 			damage -= reflectdamage;
 
 			if( reflectdamage > 0 )

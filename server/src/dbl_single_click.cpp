@@ -290,8 +290,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				else 
 					socket->sysMessage(tr("That is locked."));
 			}
-			else 
-				socket->sysMessage(tr("You can't reach that!"));
+			else
+				socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
 		}
 		else if( pi->type2() == 222 )
 		{
@@ -337,13 +337,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			{
 				if( !pi->inRange( pc_currchar, 2 ) )
 				{
-					socket->sysMessage( tr( "You can't reach this." ) );
+					socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
 					return;
 				}
 
 				else if( !lineOfSight( pc_currchar->pos(), pi->pos(), WALLS_CHIMNEYS|DOORS|FLOORS_FLAT_ROOFING ) )
 				{
-					socket->sysMessage( tr( "You can't reach this." ) );
+					socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
 					return;
 				}
 				
@@ -366,7 +366,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				{
 					if( !pOCont->inRange( pc_currchar, 2 ) )
 					{
-						socket->sysMessage( tr( "You can't reach this." ) );
+						socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
 						return;
 					}
 
@@ -1196,7 +1196,8 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 			}
 			if( pChar->dead() )
 			{
-				socket->sysMessage( tr("You are dead and cannot do that." ) );
+				socket->clilocMessage( 0, 500, 949, "", 0x3b2 ); // You can't do that when you're dead.
+
 				return;
 			}
 			if( pTarget->war() )

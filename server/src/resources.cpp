@@ -45,6 +45,8 @@
 //System Includes
 #include <math.h>
 
+using namespace std;
+
 #undef DBGFILE
 #define DBGFILE "resources.cpp"
 
@@ -1402,7 +1404,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
-		socket->sysMessage( tr( "You can't reach this" ) );
+		socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
 		return false;
 	}
 	
@@ -1500,7 +1502,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
-		socket->sysMessage( tr( "You can't reach this" ) );
+		socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
 		return false;
 	}
 	

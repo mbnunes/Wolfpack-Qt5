@@ -54,6 +54,8 @@
 #include <qfile.h>
 #include <vector>
 
+using namespace std;
+
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
 

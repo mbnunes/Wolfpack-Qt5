@@ -53,6 +53,8 @@
 // System Includes
 #include <algorithm>
 
+using namespace std;
+
 #undef  DBGFILE
 #define DBGFILE "guildstones.cpp"
 

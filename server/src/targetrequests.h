@@ -909,7 +909,7 @@ public:
 
 			socket->sysMessage( tr( "Nuking from %1,%2 to %3,%4" ).arg( x1 ).arg( y1 ).arg( x2 ).arg( y2 ) );
 			UINT16 dCount = 0;
-			vector< P_ITEM > toDelete;
+			std::vector< P_ITEM > toDelete;
 
 			// This could eventually be optimized
 			AllItemsIterator iter;
@@ -925,7 +925,7 @@ public:
 				}
 			}
 
-			for( vector< P_ITEM >::iterator sIter = toDelete.begin(); sIter != toDelete.end(); ++sIter )
+			for( std::vector< P_ITEM >::iterator sIter = toDelete.begin(); sIter != toDelete.end(); ++sIter )
 				Items->DeleItem( (*sIter) );
 
 			socket->sysMessage( tr( "Deleted %1 items." ).arg( dCount ) );

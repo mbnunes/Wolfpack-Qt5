@@ -48,6 +48,9 @@ wp_version_info wp_version;
 // Library Includes
 #include <qdatetime.h>
 
+
+using namespace std;
+
 //	Instantiate our console object
 WPConsole_cl clConsole;
 

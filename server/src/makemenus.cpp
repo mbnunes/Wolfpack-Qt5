@@ -43,6 +43,8 @@
 // System Includes
 #include <math.h>
 
+using namespace std;
+
 #undef  DBGFILE
 #define DBGFILE "makemenus.cpp"
 

@@ -88,6 +88,8 @@
 #include <zthread/FastMutex.h>
 #include <fstream>
 
+using namespace std;
+
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
 #include "debug.h"

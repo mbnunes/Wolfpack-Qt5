@@ -3343,7 +3343,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 		
 		// Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
 		if( pShield && IsShield( pShield->id() ) )
-			total += ( (UI16)floor( (float)( skill( PARRYING ) * pShield->def() ) / 200.0f ) + 1 );
+			total += ( (UI16)( (float)( skill( PARRYING ) * pShield->def() ) / 200.0f ) + 1 );
 	} 	
 
 	if( skill( PARRYING ) >= 1000 ) 
@@ -3360,7 +3360,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 			//blackwinds new stuff 
 			UI16 effdef = 0;
 			if( pi->maxhp() > 0 ) 
-				effdef = (UI16)floor( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def() );
+				effdef = (UI16)( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def() );
 
 			if( bodypart == ALLBODYPARTS )
 			{
@@ -4142,7 +4142,7 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "mutetime", (int)mutetime_ )
 	GET_PROPERTY( "meditating", med_ )
 	GET_PROPERTY( "weight", weight_ )
-	GET_PROPERTY( "stones", floor( weight_ / 10.0 ) )
+	GET_PROPERTY( "stones", weight_ / 10 )
 	GET_PROPERTY( "lootlist", loot_ )
 	GET_PROPERTY( "font", fonttype_ )
 	GET_PROPERTY( "saycolor", saycolor_ )

@@ -35,10 +35,7 @@
 
 #include <iosfwd>
 
-using namespace std;
-
 // Forward declaration
-//class cUORxMultiPurpose;
 class QString;
 
 class cUOPacket
@@ -77,7 +74,7 @@ public:
 	void	setAsciiString( uint, const char*, uint );
 	static	QString dump( const QByteArray& );
 
-	virtual void print( ostream* );
+	virtual void print( std::ostream* );
 
 	// Operators
 	char& operator []( uint );

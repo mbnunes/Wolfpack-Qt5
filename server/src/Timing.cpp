@@ -52,6 +52,8 @@
 #include "qdatetime.h"
 #include <math.h>
 
+using namespace std;
+
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
 
@@ -670,7 +672,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 {
 	//int k;
 	unsigned int i;
-	register unsigned int currenttime = uiCurrentTime;
+	unsigned int currenttime = uiCurrentTime;
 	static unsigned int checkspawnregions = 0;
 	static unsigned int checknpcs = 0;
 	static unsigned int checktamednpcs = 0;
@@ -955,7 +957,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	// Update the delay for the next field-effect (every 500ms)
 	if( nextfieldeffecttime <= currenttime )
-		nextfieldeffecttime = (unsigned int)floor( (double)currenttime + ( 0.5 * MY_CLOCKS_PER_SEC ) );
+		nextfieldeffecttime = (unsigned int) ( currenttime + ( 0.5 * MY_CLOCKS_PER_SEC ) );
 
 	// Update the next-decay time (decay-check is made every 15 seconds)
 	if( nextdecaytime <= currenttime )

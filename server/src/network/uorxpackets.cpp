@@ -32,6 +32,8 @@
 #include "uopacket.h"
 #include <math.h>
 
+using namespace std;
+
 cUOPacket *getUOPacket( const QByteArray &data )
 {
 	if( data.isEmpty() )

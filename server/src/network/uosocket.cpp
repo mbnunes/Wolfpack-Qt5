@@ -1653,7 +1653,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 				Skills->Persecute( this );
 		} 
 		else
-			sysMessage( tr( "You are dead and cannot do that." ) );
+			clilocMessage( 0, 500, 949, "", 0x3b2 ); // You can't do that when you're dead.
 
 		send( &attack );
 		return;

@@ -58,6 +58,8 @@
 #include <math.h>
 #include <algorithm>
 
+using namespace std;
+
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 

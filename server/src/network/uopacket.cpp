@@ -553,10 +553,10 @@ cUOPacket& cUOPacket::operator=( cUOPacket& p )
 	0100: 00 00 -- -- -- -- -- -- -- -- -- -- -- -- -- -- : ..
   \endverbatim
 */
-void cUOPacket::print( ostream* s )
+void cUOPacket::print( std::ostream* s )
 {
 	if ( s )
-		(*s) << dump( rawPacket ).latin1() << endl;
+		(*s) << dump( rawPacket ).latin1() << std::endl;
 }
 
 
@@ -569,27 +569,37 @@ void cUOPacket::print( ostream* s )
 QString cUOPacket::dump( const QByteArray &data )
 {
 	Q_INT32 length = data.count();
-	QString dumped = QString( "\n[ packet: %1 ; length: %2 ]\n" ).arg( (Q_UINT8)data[0], 2, 16 ).arg( data.count() );
+	QString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( (Q_UINT8)data[0], 2, 16 ).arg( data.count() );
 
-	for(int actLine = 0; actLine < (length / 16) + 1; actLine++)
+	int lines = length / 16;
+	if ( length % 16 ) // always round up.
+		lines++;  
+
+	for (int actLine = 0; actLine < lines; ++actLine)
 	{
-		QString line;
+		QString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
 		line.sprintf( "%04x: ", actLine * 16 );
 		int actRow = 0;
-		for(; actRow < 16; actRow++)
+		for(; actRow < 16; ++actRow)
 		{
-			if( actLine * 16 + actRow < length ) 
-				line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
+			if( actLine * 16 + actRow < length )
+			{
+				QString number = QString::number( (uint)data[actLine*16 + actRow], 16 ) + " ";
+				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
+				if ( number.length() < 3 )
+					number.prepend( "0" );
+				line += number;
+			}
 			else 
 				line += "-- ";
 		}
 
 		line += ": ";
-
-		for(actRow = 0; actRow < 16; actRow++)
+ 
+		for(actRow = 0; actRow < 16; ++actRow)
 		{
 			if( actLine * 16 + actRow < length ) 
-				line += QString().sprintf( "%c", ( isprint(static_cast< Q_UINT8 >( data[actLine * 16 + actRow] ) ) ) ? data[actLine * 16 + actRow] : '.' );
+				line += ( isprint(static_cast< Q_UINT8 >( data[actLine * 16 + actRow] ) ) ) ? data[actLine * 16 + actRow] : '.' ;
 		}
 
 		line += "\n";

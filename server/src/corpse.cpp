@@ -42,6 +42,8 @@
 
 #include <qdom.h>
 
+using namespace std;
+
 static cUObject* productCreator()
 {
 	return new cCorpse;
