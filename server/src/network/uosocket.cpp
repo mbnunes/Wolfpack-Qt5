@@ -211,6 +211,8 @@ void cUOSocket::recieve()
 		handleGumpResponse( dynamic_cast< cUORxGumpResponse* >( packet ) ); break;
 	case 0x2C:
 		/* Resurrection menu */ break;
+	case 0x3B:
+		Trade->buyaction( this, dynamic_cast< cUORxBuy* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );

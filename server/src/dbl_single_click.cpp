@@ -214,7 +214,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	int w = 0;
 	
-	if (!pc_currchar->isGM() && pc_currchar->objectdelay > 10 && pc_currchar->objectdelay >= uiCurrentTime || overflow)
+	if( !pc_currchar->isGM() && pc_currchar->objectdelay > 10 && pc_currchar->objectdelay >= uiCurrentTime )
 	{
 		socket->sysMessage(tr("You must wait to perform another action."));
 		return;
@@ -223,8 +223,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		pc_currchar->objectdelay = SrvParams->objectDelay() * MY_CLOCKS_PER_SEC + uiCurrentTime;
 	
 	
-	P_ITEM pi = FindItemBySerial(serial);
-	if (pi == NULL)
+	P_ITEM pi = FindItemBySerial( serial );
+	
+	if( !pi )
 		return;
 
 	// Eventually we want the users to script things like
@@ -240,14 +241,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	// -- end - DarkStorm
 
-	if (isItemSerial(pi->contserial) && pi->type() != 1 && !pi->isInWorld())
-	{// Cant use stuff that isn't in your pack.
+	if( isItemSerial( pi->contserial ) && pi->type() != 1 && !pi->isInWorld())
+	{ // Cant use stuff that isn't in your pack.
 		P_CHAR pc_p = GetPackOwner(FindItemBySerial(pi->contserial));
-		if (pc_p != NULL)
-			if (pc_p != pc_currchar)
+		if( pc_p && pc_currchar != pc_p )
 				return;
 	}
-	else if (isCharSerial(pi->contserial) && pi->type() != 1 && !pi->isInWorld())
+	else if( isCharSerial( pi->contserial ) && pi->type() != 1 && !pi->isInWorld() )
 	{// in a character.
 		P_CHAR pc_p = FindCharBySerial(pi->contserial);
 		if (pc_p != NULL)
@@ -258,57 +258,59 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	// Begin Items/Guildstones Section 
 	int itype = pi->type();
 
-	// Criminal for looting an innocent corpse & unhidden if not owner..Ripper
+	// Criminal for looting an innocent corpse & unhidden if not owner...
 	if( pi->corpse() )
 	{
-		if (pc_currchar->hidden() == 1 && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
+		if (pc_currchar->hidden() && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
 		{
 			pc_currchar->setHidden( 0 );
 			pc_currchar->resend( false );
 		}
 
-		if( !pc_currchar->Owns(pi) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
+		// TODO: Add a XML option for this
+		if( !pc_currchar->Owns( pi ) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
 		{
-			if( pi->more2 == 1 )
+			if( pi->more2 == 1 ) 
 			{
 				criminal( pc_currchar );
 			}
 		}
 	}
 	
-	if (pi->isLockedDown() && pi->secured() )
+	// Secure containers
+	if( pi->isLockedDown() && pi->secured() )
 	{
-		if (!pc_currchar->Owns(pi))
+		if( !pc_currchar->Owns( pi ) && !pc_currchar->isGM() )
 		{
-			if (!(pc_currchar->isGM()))
-			{
-				socket->sysMessage(tr("That is a secured chest!"));
-				return;
-			}
+			socket->sysMessage( tr( "That is a secured chest!" ) );
+			return;
 		}
 	}
 	
-	if (pc_currchar->dead && itype != 16) // if you are dead and it's not an ankh, FORGET IT!
+	// Dead ppl can only use ankhs
+	if( pc_currchar->dead && itype != 16 )
 	{
-		socket->sysMessage(tr("You may not do that as a ghost."));
+		socket->sysMessage( tr( "Your ghostly hand passes trough the object." ) );
 		return;
 	}
-	else if (!pc_currchar->isGM() && pi->layer() != 0 && !pc_currchar->Wears(pi))
-	{// can't use other people's things!
-		if (!(pi->layer() == 0x15  && SrvParams->stealingEnabled())) // bugfix for snooping not working, LB
+
+	// You can only use equipment on your own char
+	if( !pc_currchar->isGM() && isCharSerial( pi->contserial ) && pi->contserial != pc_currchar->serial )
+	{
+		if( pi->layer() != 15 || !SrvParams->stealingEnabled() )
 		{
-			socket->sysMessage(tr("You cannot use items equipped by other players."));
+			socket->sysMessage( tr( "You cannot use items equipped by other players." ) );
 			return;
 		}
 	}
 	// Spell Scroll
-	else if ((IsSpellScroll(pi->id())) && (!pi->isLockedDown()))
+	else if( IsSpellScroll( pi->id() ) && !pi->isLockedDown() )
 	{
-		P_CHAR owner = GetPackOwner( pi, 10 ); // 10 Packs up
+		P_CHAR owner = GetPackOwner( pi, 64 );
 
 		if( owner != pc_currchar )
 		{
-			socket->sysMessage( tr( "The scroll must be in your possession to envoke its magic." ) );
+			socket->sysMessage( tr( "The scroll must be in your possessions to envoke its magic." ) );
 			return;
 		}
 
@@ -319,55 +321,15 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 		return;
 	}
-	// Begin checking objects that we force an object delay for (std objects)
-	else if( socket )
-	{
-		// start trigger stuff
-		if( pi->trigger > 0 )
-		{
-			if (pi->trigtype == 0)
-			{
-				if (pi->disabled <= uiCurrentTime)
-				{
-					Trig->triggerwitem(s, pi, 1); // if players uses trigger
-					return;
-				} 
-				else 
-				{
-					if (!pi->disabledmsg.empty()) 
-						socket->sysMessage((char*)pi->disabledmsg.c_str()); // Added by Magius(CHE) §
-					else 
-						socket->sysMessage(tr("That doesnt seem to work right now."));
-					return;
-				}
-			}
-			else 
-			{
-				socket->sysMessage(tr("You are not close enough to use that."));
-				return;
-			}
-		}
-		
-		// check this on trigger in the event that the .trigger property is not set on the item
-		// trigger code.  Check to see if item is envokable by id
-		
-		else if (Trig->checkenvoke( ((pi->id()&0xFF00) >> 8), (pi->id()&0x00FF) ))
-		{
-			pc_currchar->setEnvokeitem( pi->serial );
-			pc_currchar->setEnvokeid( pi->id() );
-			target(s, 0, 1, 0, 24, "What will you use this on?");
-			return;
-		}
-		// end trigger stuff
-		// BEGIN Check items by type 
-	}	
+
+	// Check item behaviour by it's tpye
 	switch (pi->type())
 	{
 	case 16:
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
-		if (pc_currchar->dead)
+		if( pc_currchar->dead )
 		{
-			Targ->NpcResurrectTarget(pc_currchar);
+			pc_currchar->resurrect();
 			socket->sysMessage( tr( "You have been resurrected." ) );
 			return;
 		} 

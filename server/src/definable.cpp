@@ -37,6 +37,22 @@
 
 void cDefinable::applyDefinition( const QDomElement& sectionNode )
 {
+	if( sectionNode.hasAttribute( "inherit" ) )
+	{
+		QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, sectionNode.attribute( "inherit", "" ) );
+		if( tInherit && !tInherit->isNull() )
+			applyDefinition( (*tInherit) );
+	}
+		
+	// Check for random-inherit
+	if( sectionNode.hasAttribute( "inheritlist" ) )
+	{
+		QString iSection = DefManager->getRandomListEntry( sectionNode.attribute( "inheritlist", "" ) );
+		QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, iSection );
+		if( tInherit && !tInherit->isNull() )
+			applyDefinition( (*tInherit) );
+	}
+
 	QDomNode TagNode = sectionNode.firstChild();
 	while( !TagNode.isNull() )
 	{

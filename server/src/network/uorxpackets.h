@@ -413,5 +413,17 @@ public:
 	UINT32 choice() { return getInt( 11 ); }
 };
 
+// 0x3B Buy
+class cUORxBuy: public cUOPacket
+{
+public:
+	cUORxBuy( const QByteArray &data ): cUOPacket( data ) {}
+	UINT32 serial() { return getInt( 3 ); }
+	UINT16 itemCount() { return ( ( rawPacket.size() - 8 ) / 7 ); }
+	UINT8 iLayer( UINT16 item ) { return rawPacket[ 8 + ( item * 7 ) ]; }
+	UINT32 iSerial( UINT16 item ) { return getInt( 9 + ( item * 7 ) ); }
+	UINT16 iAmount( UINT16 item ) { return getShort( 13 + ( item * 7 ) ); }
+};
+
 #endif
 

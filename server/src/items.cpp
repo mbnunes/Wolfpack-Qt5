@@ -2109,6 +2109,7 @@ P_ITEM cItem::dupe()
 
 	P_ITEM nItem = new cItem( (*this) );
 	nItem->SetSerial( cItemsManager::getInstance()->getUnusedSerial() );
+	cItemsManager::getInstance()->registerItem( nItem );
 	
 	// We wont dupe items on chars without proper handling
 	P_CHAR pWearer = FindCharBySerial( nItem->contserial );

@@ -1542,23 +1542,7 @@ void cChar::processNode( const QDomElement &Tag )
 			nItem->Init( true );
 			cItemsManager::getInstance()->registerItem( nItem );
 
-			// Check for auto-inherit
 			QDomElement tItem = (*iter);
-			if( tItem.hasAttribute( "inherit" ) )
-			{
-				QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, tItem.attribute( "inherit", "" ) );
-				if( tInherit && !tInherit->isNull() )
-					nItem->applyDefinition( (*tInherit) );
-			}
-				
-			// Check for random-inherit
-			if( tItem.hasAttribute( "inheritlist" ) )
-			{
-				QString iSection = DefManager->getRandomListEntry( tItem.attribute( "inheritlist", "" ) );
-				QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, iSection );
-				if( tInherit && !tInherit->isNull() )
-					nItem->applyDefinition( (*tInherit) );
-			}
 
 			nItem->applyDefinition( tItem );
 
@@ -2506,4 +2490,24 @@ void cChar::turnTo( cUObject *object )
 		// changed for sure
 		resend( false );
 	}
+}
+
+UINT32 cChar::takeGold( UINT32 amount, bool useBank )
+{
+	P_ITEM pPack = getBackpack();
+
+	UINT32 dAmount;
+
+	if( pPack )
+		dAmount = pPack->DeleteAmount( amount, 0xEED, 0 );
+
+	if( ( dAmount < amount ) && useBank )
+	{
+		P_ITEM pBank = getBankBox();
+
+		if( pBank )
+			dAmount += pBank->DeleteAmount( (amount-dAmount), 0xEED, 0 );
+	}
+
+	return dAmount;
 }

@@ -41,205 +41,165 @@
 #include "srvparams.h"
 #include "classes.h"
 #include "network.h"
-
+#include "network/uorxpackets.h"
+#include "network/uosocket.h"
 
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
 
-void cTrade::buyaction(int s)
+void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 {
-/*	char clearmsg[8];
-	int clear, i, j;
-	P_ITEM buyit[256];
-	int amount[512];
-	int layer[512];
-	int playergoldtotal;
-	int goldtotal;
-	int itemtotal;
-	int soldout;
-	int tmpvalue=0; // Fixed for adv trade system -- Magius(CHE) §
-//	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = currchar[s];
-	P_ITEM pi_pack = Packitem(pc_currchar);
-	if (pi_pack == NULL)
-		return; //LB no player-pack - no buy action possible - and no crash too ;-)
-	P_CHAR npc = FindCharBySerial(calcserial(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]));
+	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
 
-	if (npc <= 0) return;
+	P_CHAR pChar = socket->player();
+	P_CHAR pVendor = FindCharBySerial( packet->serial() );
 
-	clear=0;
-	goldtotal=0;
-	soldout=0;
-	itemtotal=(((256*(buffer[s][1]))+buffer[s][2])-8)/7;
-	if (itemtotal>256) return; //LB
+	cUOTxClearBuy clearBuy;
+	clearBuy.setSerial( pVendor->serial );
 
-	for(i = 0; i < itemtotal; i++)
+	if( !pChar || !pVendor || pVendor->free || pChar->free )
 	{
-		layer[i]=buffer[s][8+(7*i)];
-		buyit[i] = FindItemBySerial(calcserial(buffer[s][8+(7*i)+1], buffer[s][8+(7*i)+2], buffer[s][8+(7*i)+3], buffer[s][8+(7*i)+4]));
-		amount[i]=(256*(buffer[s][8+(7*i)+5]))+buffer[s][8+(7*i)+6];
-
-		if (buyit[i] != NULL)
-		{
-			buyit[i]->rank=10;
-			// Fixed for adv trade system -- Magius(CHE) §
-			tmpvalue = buyit[i]->value;
-			tmpvalue = calcValue(buyit[i], tmpvalue);
-			if (SrvParams->trade_system()==1)
-				tmpvalue = calcGoodValue(pc_currchar, buyit[i], tmpvalue,0);
-			goldtotal += (amount[i]*tmpvalue);
-			// End Fix for adv trade system -- Magius(CHE) §
-		}
+		socket->send( &clearBuy );
+		return;
 	}
 
-	bool useBank;
-	useBank = (goldtotal >= SrvParams->checkBank() );
-
-	if( useBank )
-		playergoldtotal = GetBankCount( pc_currchar, 0x0EED );
-	else
-		playergoldtotal = pc_currchar->CountGold();
-
-	if ((playergoldtotal>=goldtotal)||(pc_currchar->isGM()))
+	// Is the vendor in range
+	if( !pVendor->inRange( pChar, 4 ) )
 	{
-		for (i = 0; i < itemtotal; i++)
+		socket->sysMessage( tr( "You can't reach the vendor" ) );
+		return;
+	}
+
+	// Check the LoS (later)
+
+	P_ITEM pPack = pChar->getBackpack();
+	if( !pPack )
+	{
+		socket->send( &clearBuy );
+		return;
+	}
+
+	UINT32 itemCount = packet->itemCount();
+
+	if( itemCount >= 256 )
+	{
+		socket->send( &clearBuy );
+		return;
+	}
+
+	// Get our total gold at once
+	UINT32 totalGold = pChar->CountBankGold() + pChar->CountGold();
+
+	P_ITEM pStock = pVendor->GetItemOnLayer( 0x1A );
+	vector< SERIAL > sContent;
+
+	if( pStock )
+		sContent = contsp.getData( pStock->serial );
+
+	P_ITEM pBought = pVendor->GetItemOnLayer( 0x1B );
+	vector< SERIAL > bContent;
+
+	if( pBought )
+		bContent = contsp.getData( pBought->serial );
+
+	UINT32 totalValue = 0;
+	UINT32 i;
+	map< SERIAL, UINT16 > items;
+
+	for( i = 0; i < itemCount; ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( packet->iSerial( i ) );
+
+		if( !pItem )
 		{
-			if (buyit[i] != NULL)
+			socket->sysMessage( tr( "Invalid item bought." ) );
+			socket->send( &clearBuy );
+			return;
+		}
+
+		UINT16 amount = packet->iAmount( i );
+		UINT8 layer = packet->iLayer( i );
+
+		// First check: is the item on the vendor in the specified layer
+		if( layer == 0x1A )
+		{
+			if( find( sContent.begin(), sContent.end(), pItem->serial ) == sContent.end() )
 			{
-				if (buyit[i]->amount() < amount[i])
-				{
-					soldout = 1;
-				}
+				socket->sysMessage( tr( "Invalid item bought." ) );
+				socket->send( &clearBuy );
+				return;
 			}
 		}
-		if (soldout)
+		else if( layer == 0x1B )
 		{
-			npctalk(s, npc, "Alas, I no longer have all those goods in stock. Let me know if there is something else thou wouldst buy.",0);
-			clear = 1;
+			if( find( bContent.begin(), bContent.end(), pItem->serial ) == bContent.end() )
+			{
+				socket->sysMessage( tr( "Invalid item bought." ) );
+				socket->send( &clearBuy );
+				return;
+			}
 		}
 		else
 		{
-			if (pc_currchar->isGM())
-			{
-				sprintf((char*)temp, "Here you are, %s. Someone as special as thee will receive my wares for free of course.", pc_currchar->name.c_str());
-			}
-			else
-			{
-				if(useBank)
-				{
-					sprintf((char*)temp, "Here you are, %s. %d gold coin%s will be deducted from your bank account.  I thank thee for thy business.",
-					pc_currchar->name.c_str(), goldtotal, (goldtotal==1) ? "" : "s");
-				    goldsfx(s, goldtotal);
-				}
-			    else
-				{
-				    sprintf((char*)temp, "Here you are, %s.  That will be %d gold coin%s.  I thank thee for thy business.",
-					pc_currchar->name.c_str(), goldtotal, (goldtotal==1) ? "" : "s");
-				    goldsfx(s, goldtotal);	// Dupois, SFX for gold movement. Added Oct 08, 1998
-				}
-			}
-			npctalkall(npc, (char*)temp, 0);
-			npcaction(npc, 0x20);		// bow (Duke, 17.3.2001)
+			socket->sysMessage( tr( "Invalid item bought." ) );
+			socket->send( &clearBuy );
+			return;
+		}
 
-			clear = 1;
-			if( !(pc_currchar->isGM() ) )
+		// Check amount
+		if( amount > pItem->restock )
+			amount = pItem->restock;
+
+		// Nothing of that item left
+		if( amount == 0 )
+			continue;
+
+		totalValue += amount * pItem->value;
+
+		items.insert( make_pair( pItem->serial, amount ) );
+	}
+
+	if( totalValue > totalGold )
+	{
+		pVendor->talk( tr( "Sorry but you do not posess enough gold." ) );
+		socket->send( &clearBuy );
+		return;
+	}
+
+	// Sanity checks all passed here
+	for( map< SERIAL,  UINT16 >::iterator iter = items.begin(); iter != items.end(); ++iter )
+	{
+		P_ITEM pItem = FindItemBySerial( iter->first );
+		UINT16 amount = iter->second;
+
+		pItem->restock -= amount; // Reduce the items in stock
+		P_ITEM pSold;
+
+
+		if( pItem->isPileable() )
+		{
+			pSold = pItem->dupe();
+			pPack->AddItem( pSold );
+			pSold->update();
+		}
+		else
+		{
+			for( UINT16 j = 0; j < amount; ++j )
 			{
-				if( useBank )
-					DeleBankItem( pc_currchar, 0x0EED, 0, goldtotal );
-				else
-					delequan( pc_currchar, 0x0EED, goldtotal, NULL );
-			}
-			for (i=0;i<itemtotal;i++)
-			{
-				P_ITEM pi = buyit[i];
-				if (pi != NULL)
-				{
-					if (pi->amount()>amount[i])
-					{
-						if( pi->isPileable() )
-						{
-							P_ITEM nItem = buyit[i]->dupe();
-							nItem->setAmount( amount[i] );
-							pc_currchar->getBackpack()->AddItem( nItem );
-						}
-						else
-						{
-							for (j=0;j<amount[i];j++)
-							{
-								P_ITEM nItem = buyit[i]->dupe();
-								pc_currchar->getBackpack()->AddItem( nItem );
-							}
-						}
-						pi->ReduceAmount( amount[i] );
-						pi->restock += amount[i];
-					}
-					else
-					{
-						switch(layer[i])
-						{
-						case 0x1A:
-							if( pi->isPileable() )
-							{
-								P_ITEM nItem = buyit[i]->dupe();
-								nItem->setAmount( amount[i] );
-								pc_currchar->getBackpack()->AddItem( nItem );
-							}
-							else
-							{
-								for (j=0;j<amount[i];j++)
-								{
-									P_ITEM nItem = buyit[i]->dupe();
-									pc_currchar->getBackpack()->AddItem( nItem );
-								}
-							}
-							pi->ReduceAmount( amount[i] );
-							pi->restock += amount[i];
-							break;
-						case 0x1B:
-							if( pi->isPileable() )
-							{
-								pi->setContSerial(pi_pack->serial);
-								RefreshItem(buyit[i]);//AntiChrist
-							}
-							else
-							{
-								for (j=0;j<amount[i]-1;j++)
-								{
-									P_ITEM nItem = buyit[i]->dupe();
-									pc_currchar->getBackpack()->AddItem( nItem );
-								}
-								pi->setContSerial(pi_pack->serial);
-								pi->setAmount( 1 );
-								RefreshItem(buyit[i]);//AntiChrist
-							}
-							break;
-						default:
-							clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, buyaction()\n"); //Morrolan
-						}
-					}
-				}
+				pSold = pItem->dupe();
+				pPack->AddItem( pSold );
+				pSold->update();
 			}
 		}
-	}
-	else
-	{
-		npctalkall(npc, "Alas, thou dost not possess sufficient gold for this purchase!",0);
+				
+		socket->sysMessage( tr( "You put the %1 into your pack" ).arg( pItem->getName() ) );
 	}
 
-	if (clear)
-	{
-		clearmsg[0]=0x3B;
-		clearmsg[1]=0x00;
-		clearmsg[2]=0x08;
-		clearmsg[3]=buffer[s][3];
-		clearmsg[4]=buffer[s][4];
-		clearmsg[5]=buffer[s][5];
-		clearmsg[6]=buffer[s][6];
-		clearmsg[7]=0x00;
-		Xsend(s, clearmsg, 8);
-	}
-	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
-	statwindow(s, pc_currchar);*/
+	socket->send( &clearBuy );
+	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name.c_str() ).arg( totalValue ) );
+
+	if( pChar->takeGold( totalValue, true ) < totalValue )
+		clConsole.send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial, 8, 16 ).arg( pVendor->serial, 8, 16 ) );
 }
 
 // this is a q&d fix for 'sell price higher than buy price' bug (Duke, 30.3.2001)
