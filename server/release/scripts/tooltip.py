@@ -14,110 +14,110 @@ import re
 def onLoad():
 	wolfpack.registerglobal( EVENT_SHOWTOOLTIP, "tooltip" )
 
-def onShowTooltip( sender, target, tooltip ):  
-  if target.isitem():
-    name = target.getname()
-
-    if target.id == 0x2006 and len(target.name) > 0:
-      notoriety = 0x00
-
-      if target.hastag('notoriety'):
-        notoriety = int(target.gettag('notoriety'))
-
-      color = '#FFFFFF'
-
-      # 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
-      colors = {
-        0x01 : '#00FFFF',
-        0x02 : '#10d010',
-        0x03 : '#d0d0d0',
-        0x04 : '#d0d0d0',
-        0x05 : '#ff9900',
-        0x06 : '#d01010'
-      }
-
-      if not colors.has_key(notoriety):      
-        tooltip.add(1050045, " \tThe Remains Of \t" + target.name)
-      else:
-        tooltip.add(1050045, '<basefont color="%s">' % colors[notoriety] + " \tThe Remains Of \t<h3>" + target.name)
-
-    elif isarmor ( target ):
-    	armor( target, tooltip )
-    
-    elif ishat( target ):
-    	hat( target, tooltip )
-    
-    elif isshield( target ):
-    	shield( target, tooltip )
-           
-    elif isweapon( target ):
-    	weapon( target, tooltip )
-                   
-    else:
-      if target.name == '#' or target.name == '':
-        labelname = '#' + str(0xf9060 + target.id)
-      else:
-        labelname = target.name
-
-      if target.amount > 1:
-        tooltip.add(1050039, str(target.amount) + "\t" + labelname)
-      else:
-        tooltip.add(1042971, labelname)
-
-      if target.visible == 0 and sender.gm:
-          tooltip.add(3000507, "")
-      
-      modifiers( target, tooltip )
-      
-      # If the character is a gm and the targetted item has a lock, display the lock id
-      if sender.gm and 'lock' in target.events:
-      	lock = 'None'
-        
-      	if target.hastag('lock'):
-      		lock = str(target.gettag('lock'))
-        
-        if target.hastag('locked') and int(target.gettag('locked')) != 0:
-          suffix = '<br>Locked'
-        else:
-          suffix = '<br>Unlocked'
-
-      	tooltip.add(1050045, " \tLock: " + lock + suffix + "\t ")
-      
-      if isspellbook( target ):
-      	tooltip.add(1042886, str(target.spellscount()))
-  else:
-    affix = []
-
-    if target.npc and len(target.title) > 0:
-      affix.append(target.title)
-
-    if target.frozen:
-      affix.append('(frozen)')
-
-    tooltip.add(1050045, " \t%s\t %s" % (target.name, " ".join(affix)))
-  
-    # Tame = 502006
-    if target.tamed:
-      tooltip.add(502006, "")
-
-    additional = []
-
-    # These are only available to GMs
-    if sender.gm:
-      if target.invulnerable:
-        additional.append('(invulnerable)')
-        
-      if target.iscriminal():
-        additional.append('(criminal)')
-  
-      if target.ismurderer():
-        additional.append('(murderer)')
-
-    if len(additional) > 0:
-      tooltip.add(1042971, "<br>".join(additional))
-
-  tooltip.send(sender)
-  return 1
+	def onShowTooltip( sender, target, tooltip ):  
+	if target.isitem():
+		name = target.getname()
+	
+		if target.id == 0x2006 and len(target.name) > 0:
+		notoriety = 0x00
+	
+		if target.hastag('notoriety'):
+			notoriety = int(target.gettag('notoriety'))
+	
+		color = '#FFFFFF'
+	
+		# 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
+		colors = {
+			0x01 : '#00FFFF',
+			0x02 : '#10d010',
+			0x03 : '#d0d0d0',
+			0x04 : '#d0d0d0',
+			0x05 : '#ff9900',
+			0x06 : '#d01010'
+		}
+	
+		if not colors.has_key(notoriety):      
+			tooltip.add(1050045, " \tThe Remains Of \t" + target.name)
+		else:
+			tooltip.add(1050045, '<basefont color="%s">' % colors[notoriety] + " \tThe Remains Of \t<h3>" + target.name)
+	
+		elif isarmor ( target ):
+			armor( target, tooltip )
+		
+		elif ishat( target ):
+			hat( target, tooltip )
+		
+		elif isshield( target ):
+			shield( target, tooltip )
+			
+		elif isweapon( target ):
+			weapon( target, tooltip )
+					
+		else:
+		if target.name == '#' or target.name == '':
+			labelname = '#' + str(0xf9060 + target.id)
+		else:
+			labelname = target.name
+	
+		if target.amount > 1:
+			tooltip.add(1050039, str(target.amount) + "\t" + labelname)
+		else:
+			tooltip.add(1042971, labelname)
+	
+		if target.visible == 0 and sender.gm:
+			tooltip.add(3000507, "")
+		
+		modifiers( target, tooltip )
+		
+		# If the character is a gm and the targetted item has a lock, display the lock id
+		if sender.gm and 'lock' in target.events:
+			lock = 'None'
+			
+			if target.hastag('lock'):
+				lock = str(target.gettag('lock'))
+			
+			if target.hastag('locked') and int(target.gettag('locked')) != 0:
+			suffix = '<br>Locked'
+			else:
+			suffix = '<br>Unlocked'
+	
+			tooltip.add(1050045, " \tLock: " + lock + suffix + "\t ")
+		
+		if isspellbook( target ):
+			tooltip.add(1042886, str(target.spellscount()))
+	else:
+		affix = []
+	
+		if target.npc and len(target.title) > 0:
+		affix.append(target.title)
+	
+		if target.frozen:
+		affix.append('(frozen)')
+	
+		tooltip.add(1050045, " \t%s\t %s" % (target.name, " ".join(affix)))
+	
+		# Tame = 502006
+		if target.tamed:
+		tooltip.add(502006, "")
+	
+		additional = []
+	
+		# These are only available to GMs
+		if sender.gm:
+		if target.invulnerable:
+			additional.append('(invulnerable)')
+			
+		if target.iscriminal():
+			additional.append('(criminal)')
+	
+		if target.ismurderer():
+			additional.append('(murderer)')
+	
+		if len(additional) > 0:
+		tooltip.add(1042971, "<br>".join(additional))
+	
+	tooltip.send(sender)
+	return 1
 
 def armor( target, tooltip ):
 	name = target.getname()
