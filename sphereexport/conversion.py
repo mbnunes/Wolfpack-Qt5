@@ -29,7 +29,8 @@ def convertitem(output, item):
 	name = item.name
 	
 	# Replace %[^%]%
-	
+
+	direction = 1
 	tags = {}
 	dispid = item.dispid
 	events = []
@@ -122,11 +123,21 @@ def convertitem(output, item):
 
 	# Light objects
 	elif item.type in [T_LIGHT_LIT, T_LIGHT_OUT]:
+		# Morez has the type
+	
 		events.append('lightsource')
 
 	# Food
 	elif item.type == T_FOOD:
 		events.append('food')
+		
+	# Empty pitcher (fill with something?)
+	elif item.type == T_PITCHER_EMPTY:
+		pass
+		
+	# Drinks
+	elif item.type == T_PITCHER:
+		pass
 		
 	# Res Shrines (Walk On)
 	elif item.type == T_SHRINE:
@@ -135,7 +146,7 @@ def convertitem(output, item):
 		
  	# Convert Spellbook
 	elif item.type == T_SPELLBOOK:
- 		events.append('spellbook')
+ 		events.append('magic.spellbook')
  		spells1 = 0
  		spells2 = 0
  		if item.hasproperty('MORE1'):
@@ -211,31 +222,41 @@ def convertitem(output, item):
 	elif item.type in [T_WEAPON_MACE_SMITH, T_WEAPON_MACE_SHARP, T_WEAPON_SWORD, T_WEAPON_FENCE, T_WEAPON_BOW, T_WEAPON_MACE_STAFF, T_WEAPON_XBOW, T_WEAPON_AXE]:
 		if item.type == T_WEAPON_MACE_SMITH:
 			tags['remaining_uses'] = 50
-			events.append('skills.blacksmithing')
+			events.append('skills.blacksmithing')			
 			
 		# Translate types
 		if item.type == T_WEAPON_MACE_SMITH:
 			itemtype = 1004
 		elif item.type == T_WEAPON_MACE_SHARP:
 			itemtype = 1002 # Axe
-			events.append('weapons.blades')
+			events.append('blades')
 		elif item.type == T_WEAPON_AXE:
 			itemtype = 1002 # Axe
-			events.append('weapons.blades')
+			events.append('blades')
 		elif item.type == T_WEAPON_MACE_STAFF:
 			itemtype = 1003
 		elif item.type == T_WEAPON_SWORD:
 			itemtype = 1001
-			events.append('weapons.blades')
+			events.append('blades')
 		elif item.type == T_WEAPON_FENCE:
 			itemtype = 1005
-			events.append('weapons.blades')
+			events.append('blades')
 		elif item.type == T_WEAPON_BOW:
 			tags['range'] = 12
 			itemtype = 1006
 		elif item.type == T_WEAPON_XBOW:
 			tags['range'] = 12
 			itemtype = 1007
+		events.append('equipment')
+		
+		# Convert durability
+		dura = item.hex2dec(item.getproperty('MORE1', '0'))
+		hits = dura & 0xFFFF
+		maxhits = (dura >> 16) & 0xFFFF		
+
+	# Simply do nothing for these types
+	elif item.type in [T_DIRT, T_JEWELRY, T_LAVA, T_WINDOW, T_WALL]:
+		pass
 
 	# No support for wands in wolfpack yet.
 	elif item.type == T_WAND:
@@ -304,9 +325,9 @@ def convertitem(output, item):
 	
 	# recall rune
 	elif item.type == T_RUNE:
-		events.append('recall_rune')
+		events.append('magic.rune')
 		if item.hasproperty('MOREP') and item.hasproperty('MORE1'):
-			tags['charges'] = item.hex2dec(item.getproperty('MORE1'))
+			#tags['charges'] = item.hex2dec(item.getproperty('MORE1'))
 			location = ['0', '0', '0', '1']
 			morep = item.getproperty('MOREP').split(',')
 			for i in range(0, len(morep)):
@@ -450,9 +471,13 @@ def convertitem(output, item):
 		events.append('training_dummy')
 		
 	else:
-		# Add a tag containing the original sphere 
-		# information
-		tags['sphere_conversion'] = 'Type: %u, Baseid: %s' % (item.type, item.baseid)
+		if item.baseid == 'I_PFERDEPLATTE':
+			events.append('ancientrealms.pferdeplatte')
+			name = 'Pferdeplatte'
+		else:	
+			# Add a tag containing the original sphere 
+			# information
+			tags['sphere_conversion'] = 'Type: %u, Baseid: %s' % (item.type, item.baseid)
 
 	# Process Attributes
 	if item.attr & 0x0010: # Never movable
@@ -481,7 +506,7 @@ def convertitem(output, item):
 
 	# UObject entry
 	sql = "INSERT INTO uobject VALUES('%s', %u, %d, %u, %d, %d, %d, %u, '%s', '%s', %u);\n"
-	output.write(sql % (quote(name), item.serial, -1, 0, item.pos[0], item.pos[1], item.pos[2], item.pos[3], quote(','.join(events)), '', len(tags) != 0))
+	output.write(sql % (quote(name), item.serial, -1, direction, item.pos[0], item.pos[1], item.pos[2], item.pos[3], quote(','.join(events)), '', len(tags) != 0))
 
 	# ITEM entry
 	sql = "INSERT INTO items VALUES(%u, %u, %u, %d, %u, %u, %u, %u, %f, %u, %u, %u, %d, %u, '%s', %u, %u, %u, %u, '%s');\n"
@@ -548,6 +573,7 @@ def convertchar(output, char):
 		hunger = min(6, max(1, char.hex2dec(char.getproperty('FOOD'))))
 	poison = 0
 	poisoned = 0
+	owner = char.owner
 	murdertime = 0	
 	criminaltime = 0
 	gender = 0 #male
@@ -595,9 +621,9 @@ def convertchar(output, char):
 			elif item.layer == 25 and item.hasproperty('MORE2'):
 				pet = findobject(item.hex2dec(item.getproperty('MORE2')))
 				if pet:
-					# Create a mountitem and set the stablemaster serial for the ridden
-					# pet.
+					# Create a mountitem and set the stablemaster serial for the ridden pet.
 					pet.stablemaster = char.serial
+					pet.owner = char.serial
 					convertitem(output, item)
 
 	if char.hasproperty('ACCOUNT'):		
@@ -637,7 +663,6 @@ def convertchar(output, char):
 		totame = 1500 # Untameable
 		summontime = 0
 		additionalflags = 0
-		owner = -1
 		carve = ''
 		spawnregion = ''
 		lootlist = ''
@@ -683,7 +708,7 @@ def convertchar(output, char):
 		spellslow = 0
 		spellshigh = 0
 		
-		extra = "INSERT INTO npcs VALUES(%u, %u, %u, %u, %u, %u, %d, '%s', '%s', %d, '%s', '%s', %u, %d, %d, %d, %d, %d, %u, %u, %u);\n"
+		extra = "INSERT INTO npcs VALUES(%u, %u, %u, %u, %u, %u, %d, '%s', '%s', %d, '%s', '%s', %u, %d, %d, %d, %d, %d, %u, %u, %u, 1);\n"
 		extra = extra % (char.serial, 0, 0, totame, summontime, additionalflags, owner, quote(carve), quote(spawnregion), char.stablemaster, \
 			quote(lootlist), quote(ai), wandertype, wanderx1, wanderx2, wandery1, wandery2, wanderradius, fleeat, spellslow, spellshigh)
 
@@ -695,10 +720,10 @@ def convertchar(output, char):
 	output.write(sql % (quote(charname), char.serial, -1, direction, char.pos[0], char.pos[1], char.pos[2], char.pos[3], quote(','.join(events)), quote(','.join(contextmenus)), len(tags) != 0))
 
 	sql = "INSERT INTO characters VALUES(%u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u, %d, %u, %d, %u, %d, %u, %u, %u, %u, %u, %u, %d, %d, %u, %u, \
-		%u, %u, %u, %u, %u, %u, %u, %u, %d, %d, %d, %d, %d, %u, %u, %u, %u);\n"
+		%u, %u, %u, %u, %u, %u, %d, %d, %d, %d, %d, %u, %u, %u, %u);\n"
 	sql = sql % (char.serial, quote(orgname), quote(title), quote(creationdate), body, obody, skin, oskin, saycolor, emotecolor, strength, strength2, dexterity, dexterity2,
-		intelligence, intelligence2, maxhitpoints, hitpoints, maxstamina, stamina, maxmana, mana, karma, fame, kills, deaths, defense, hunger, \
-		poison, poisoned, murdertime, criminaltime, gender, propertyflags, murderer, guarding, hitpointbonus, staminabonus, manabonus, strcap, dexcap, intcap, \
+		intelligence, intelligence2, maxhitpoints, hitpoints, maxstamina, stamina, maxmana, mana, karma, fame, kills, deaths, hunger, \
+		poison, murdertime, criminaltime, gender, propertyflags, murderer, guarding, hitpointbonus, staminabonus, manabonus, strcap, dexcap, intcap, \
 		statcap)
 	output.write(sql)
 

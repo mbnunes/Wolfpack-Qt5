@@ -574,6 +574,7 @@ class WorldcharSection(Section):
 		self.tags = {} # Chartags
 		self.events = []
 		self.name = ''
+		self.owner = -1
 		self.serial = 0
 		self.pos = [0, 0, 0, 1]
 		self.attr = 0

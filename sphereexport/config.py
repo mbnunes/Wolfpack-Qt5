@@ -388,7 +388,7 @@ NPCAI = {
 	8: 'Human_Stablemaster', # Stabler (might need overhaul)
 	9: 'Normal_Base', # Thief
 	10: 'Monster_Aggressive_L1', # Monster
-	11: 'Monster_Aggressive_L1', # Berserk (Blades, Vortex)
+	11: 'Monster_Berserk', # Berserk (Blades, Vortex)
 	12: 'Monster_Aggressive_L1', # Undead
 	13: 'Monster_Aggressive_L1', # Dragon
 	14: 'Normal_Base', # Vendor offduty (?)
