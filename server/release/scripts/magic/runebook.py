@@ -10,12 +10,16 @@ from wolfpack import tr
 import magic
 import magic.spell
 from wolfpack.gumps import cGump
+import system.input
 import magic
 from magic.rune import isrune
 import magic.scroll
 from magic.utilities import fizzle, MODE_BOOK, hasSpell
 import random
 import wolfpack.utilities
+
+import housing.security
+import housing.house
 
 #
 # Is Runebook?
@@ -246,8 +250,8 @@ def sendGump(char, item):
 	runebook.startPage( 1 )
 
 	# rename button return code = 1000
-	#runebook.addButton( 130, 20, 2472, 2473, 1000 )
-	#runebook.addText( 158, 22, "Rename Book" )
+	runebook.addButton( 130, 20, 2472, 2473, 1000 )
+	runebook.addText( 158, 22, tr("Rename Book") )
 
 	# next page - top right corner
 	runebook.addPageButton( 393, 14, 2206, 2206, 2 )
@@ -318,6 +322,41 @@ def sendGump(char, item):
 	# send it
 	runebook.send( char )
 
+# Rename the runebook
+def renameBook(player, runebook):
+	player.socket.clilocmessage(502414) # Enter a name...
+	system.input.request(player, runebook, 1)
+	
+# Process text input
+def onTextInput(player, runebook, id, text):
+	if not player.canreach(runebook, 1):
+		return True
+		
+	# Check the housing security
+	if runebook.multi:
+		if housing.house.onCheckSecurity(player, runebook.multi, runebook):
+			player.socket.clilocmessage(502413)
+			return True
+			
+	runebook.settag('description', text)
+	runebook.resendtooltip()
+	player.socket.sysmessage(tr("The book's title has been changed."))
+	
+	closeGump(player, runebook)
+	sendGump(player, runebook)
+	
+	return True
+
+# Process text input cancel
+def onTextInputCancel(player, runebook, id):
+	player.socket.clilocmessage(502415)
+	
+	if player.canreach(runebook, 1):
+		closeGump(player, runebook)
+		sendGump(player, runebook)
+		
+	return True
+
 # callback function - process gump callback
 def callback( char, args, target ):
 	item = wolfpack.finditem(args[0])
@@ -329,8 +368,12 @@ def callback( char, args, target ):
 	if not char.canreach(item, 1):
 		return
 
-	button = target.button
+	if target.button == 1000:
+		renameBook(char, item)
+		return
 
+	button = target.button
+	
 	# Get selected rune number
 	runenum = ( button - 1 ) % 100
 	

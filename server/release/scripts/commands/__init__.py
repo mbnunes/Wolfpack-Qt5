@@ -217,10 +217,7 @@ def followers(socket, command, arguments):
 	socket.attachtarget("commands.followers_target", [])
 
 def test(socket, command, arguments):
-	gump = cGump()
-	gump.addGump(0, 0, 0x67)
-	gump.addText(0, 0, "਎Here is your bank box,".decode('utf-8'), 2)
-	gump.send(socket)	
+	pass
 
 def newlostarget(char, arguments, target):
 	targpos = target.pos
