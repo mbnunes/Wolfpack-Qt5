@@ -1,40 +1,23 @@
-#===============================================================#
-#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  | Created by: DarkStorm                      #
-#   )).-' {{ ;'`   | Revised by:                                #
-#  ( (  ;._ \\ ctr | Last Modification: Created                 #
-#===============================================================#
-# Module with timing functions									#
-#===============================================================#
 
 import _wolfpack.time
-import _wolfpack
 
-def second():
-	return _wolfpack.time.second()
+# Return the minute of the hour for the current game time. Range: 0 - 59
+minute = _wolfpack.time.minute
 
-def minute():
-	return _wolfpack.time.minute()
+# Return the current hour of the day. Range: 0 - 23
+hour = _wolfpack.time.hour
 
-def hour():
-	return _wolfpack.time.hour()
+# Return the days elapsed since the initialization of the game time
+days = _wolfpack.time.days
 
-def day():
-	return _wolfpack.time.day()
+# Return the minutes elapsed since the initialization of the game time
+minutes = _wolfpack.time.minutes
 
-def month():
-	return _wolfpack.time.month()
+# Return the current servertime in miliseconds since start of the gameserver.
+servertime = _wolfpack.currenttime
 
-def year():
-	return _wolfpack.time.year()
+# Return the current real date and time as a string.
+currentdatetime =  _wolfpack.currentdatetime
 
-def timestamp():
-	return _wolfpack.time.timestamp()
-
-def servertime():
-	return _wolfpack.currenttime()
-
-def currentdatetime():
-	return _wolfpack.currentdatetime()
-
+# Return the current outside lightlevel.
 currentlightlevel = _wolfpack.time.currentlightlevel

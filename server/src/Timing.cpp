@@ -55,6 +55,7 @@
 #include "inlines.h"
 #include "walking.h"
 #include "world.h"
+#include "uotime.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -106,8 +107,8 @@ void cTiming::poll() {
 
 	// Check lightlevel and time
 	if (nextUOTimeTick <= time) {
-		unsigned char oldhour = uoTime.time().hour();
-		uoTime = uoTime.addSecs(60);
+		unsigned char oldhour = UoTime::instance()->hour();
+		UoTime::instance()->setMinutes(UoTime::instance()->getMinutes() + 1);
 		nextUOTimeTick = time + SrvParams->secondsPerUOMinute() * MY_CLOCKS_PER_SEC;
 
 		unsigned char &currentLevel = SrvParams->worldCurrentLevel();
@@ -116,7 +117,7 @@ void cTiming::poll() {
 		unsigned char darklevel = SrvParams->worldDarkLevel();
 		unsigned char brightlevel = SrvParams->worldBrightLevel();
 		unsigned char difference = QMAX(0, (int)darklevel - (int)brightlevel); // Never get below zero
-		unsigned char hour = uoTime.time().hour();
+		unsigned char hour = UoTime::instance()->hour();
 
 		if (hour != oldhour) {
 			events |= cBaseChar::EventTime;
@@ -132,12 +133,12 @@ void cTiming::poll() {
 
 		// 6 to 10 = Dawn (Scaled)
 		} else if (hour >= 6 && hour < 11) {
-			double factor = ((hour - 6) * 60 + uoTime.time().minute()) / 240.0;
+			double factor = ((hour - 6) * 60 + UoTime::instance()->minute()) / 240.0;
 			newLevel = darklevel - QMIN(darklevel, froundf(factor * (float)difference));
 
 		// 18 to 22 = Nightfall (Scaled)
 		} else {
-			double factor = ((hour - 18) * 60 + uoTime.time().minute()) / 240.0;
+			double factor = ((hour - 18) * 60 + UoTime::instance()->minute()) / 240.0;
 			newLevel = brightlevel + froundf(factor * (float)difference);
 		}
 

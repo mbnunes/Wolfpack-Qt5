@@ -661,7 +661,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 
 	// Send the gametime
 	cUOTxGameTime gameTime;
-	gameTime.setTime( uoTime.time().hour(), uoTime.time().minute(), uoTime.time().second() );
+	gameTime.setTime(0, 0, 0);
 	send( &gameTime );
 
 	pChar->sendTooltip(this);
@@ -2344,9 +2344,9 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 			// change how the name is displayed
 			QString name = mItem->getName(true);
 			name[0] = name[0].upper();
-			for ( uint i = 1; i < name.length() - 1; ++i )
-				if ( name.at(i).isSpace() )
-					name.at(i+1) = name.at(i+1).upper();
+			for ( uint j = 1; j < name.length() - 1; ++j )
+				if ( name.at(j).isSpace() )
+					name.at(j+1) = name.at(j+1).upper();
 
 			vendorBuy.addItem(mItem->buyprice(), "");
 			items.append(mItem);

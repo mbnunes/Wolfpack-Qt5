@@ -45,7 +45,6 @@ unsigned int uiCurrentTime;
 #include <qdatetime.h>
 
 enServerState serverState;
-QDateTime uoTime;
 int secure = 1;
 volatile int keeprun;
 

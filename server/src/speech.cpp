@@ -36,6 +36,7 @@
 #include "speech.h"
 
 #include "sectors.h"
+#include "uotime.h"
 #include "srvparams.h"
 #include "network.h"
 #include "territories.h"
@@ -387,7 +388,7 @@ bool QuestionSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pChar, const QSt
     // say time and the npChar gives the time.
 	if( comm.contains( "TIME" ) )
 	{
-		pChar->talk( tr( "It is now %1 on %3. %4 in year %5").arg(uoTime.time().toString()).arg(uoTime.date().day()).arg(QDate::monthName(uoTime.date().month())).arg(uoTime.date().year() - 1970) );
+		pChar->talk( tr( "It is now %1 hours and %2 minutes.").arg(UoTime::instance()->hour()).arg(UoTime::instance()->minute()));
 		return true;
 	}	
 

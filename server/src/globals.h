@@ -48,7 +48,6 @@ class WPDefManager;
 // Global Variables
 extern enServerState serverState;
 extern unsigned int uiCurrentTime;
-extern QDateTime uoTime;
 
 extern volatile int keeprun;
 

@@ -35,6 +35,7 @@
 #include "srvparams.h"
 #include "dbdriver.h"
 #include "progress.h"
+#include "uotime.h"
 #include "persistentbroker.h"
 #include "accounts.h"
 #include "inlines.h"
@@ -697,12 +698,10 @@ void cWorld::load()
 
 	// load server time from db
 	QString db_time;
-	QString default_time = SrvParams->getString( "General", "UO Time", "0", true );
-	getOption( "worldtime", db_time, default_time );
-	uoTime.setTime_t( db_time.toInt() );
-
-	Console::instance()->send(QString("Worldtime is %1 on %3. %4 in year %5").arg(uoTime.time().toString()).arg(uoTime.date().day()).arg(QDate::monthName(uoTime.date().month())).arg(uoTime.date().year() - 1970) + ".\n" );
-
+	QString default_time = SrvParams->getString("General", "UO Time", "", true);
+	getOption("worldtime", db_time, default_time, false);
+	UoTime::instance()->setMinutes(db_time.toInt());
+		
 	persistentBroker->disconnect();
 
 	Console::instance()->send("World Loading ");
@@ -798,7 +797,7 @@ void cWorld::save()
 		persistentBroker->commitTransaction();
 
 		// Save the Current Time
-		setOption( "worldtime", QString::number( uoTime.toTime_t() ), false );
+		setOption("worldtime", QString::number(UoTime::instance()->getMinutes()), false );
 
 		// Save the accounts
 		Accounts::instance()->save();
@@ -835,38 +834,38 @@ void cWorld::save()
 /*
  * Gets a value from the settings table and returns the value
  */
-void cWorld::getOption( const QString name, QString &value, const QString fallback )
+void cWorld::getOption( const QString name, QString &value, const QString fallback, bool newconnection )
 {
-	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
-		return;
+	if (newconnection) {
+		if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+			return;
+		}
+
+		try
+		{
+			persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+		}
+		catch( QString &e )
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+			return;
+		}
 	}
 
-	try
-	{
-		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
-	}
-	catch( QString &e )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
-		return;
-	}
+	cDBResult res = persistentBroker->query( QString( "SELECT `value` FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
-	cDBResult res = persistentBroker->query( QString( "SELECT `option`,`value` FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
-
-	if( !res.isValid() || !res.fetchrow() )
-	{
-		res.free();
+	if (!res.fetchrow()) {
 		value = fallback;
-		return;
+	} else {
+		value = res.getString( 0 );		
 	}
-
-	value = res.getString( 0 );
-
 	res.free();
 
-	persistentBroker->disconnect();
+	if (newconnection) {
+        persistentBroker->disconnect();
+	}
 }
 
 /*

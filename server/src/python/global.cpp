@@ -36,6 +36,7 @@
 #include "../network/uotxpackets.h"
 #include "../console.h"
 #include "../guilds.h"
+#include "../uotime.h"
 #include "../TmpEff.h"
 #include "../sectors.h"
 #include "../territories.h"
@@ -269,23 +270,13 @@ static PyMethodDef wpConsole[] =
 };
 
 /*!
-	Gets the seconds of the current uo time
-*/
-static PyObject* wpTime_second( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);	
-	Q_UNUSED(args);
-	return PyInt_FromLong( uoTime.time().second() );
-}
-
-/*!
 	Gets the minutes of the current uo time
 */
 static PyObject* wpTime_minute( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	return PyInt_FromLong( uoTime.time().minute() );
+	return PyInt_FromLong( UoTime::instance()->minute() );
 }
 
 /*!
@@ -295,47 +286,24 @@ static PyObject* wpTime_hour( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	return PyInt_FromLong( uoTime.time().hour() );
+	return PyInt_FromLong( UoTime::instance()->hour() );
 }
 
-/*!
-	Gets the current day
-*/
-static PyObject* wpTime_day( PyObject* self, PyObject* args )
+static PyObject* wpTime_days( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	return PyInt_FromLong( uoTime.date().day() );
+	return PyInt_FromLong( UoTime::instance()->days() );
 }
 
 /*!
-	Gets the current month
+	Gets the elapsed minutes since initialization of the game time.
 */
-static PyObject* wpTime_month( PyObject* self, PyObject* args )
+static PyObject* wpTime_minutes( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);	
 	Q_UNUSED(args);
-	return PyInt_FromLong( uoTime.date().month() );
-}
-
-/*!
-	Gets the current year
-*/
-static PyObject* wpTime_year( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);	
-	Q_UNUSED(args);
-	return PyInt_FromLong( uoTime.date().year() );
-}
-
-/*!
-	Gets a timestamp of the current uo time
-*/
-static PyObject* wpTime_timestamp( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);	
-	Q_UNUSED(args);
-	return PyInt_FromLong( uoTime.time().elapsed() );
+	return PyInt_FromLong(UoTime::instance()->getMinutes());
 }
 
 static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
@@ -350,13 +318,10 @@ static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpTime[] = 
 {
-	{ "second",				wpTime_second,				METH_NOARGS, "Returns the current time-seconds" },
 	{ "minute",				wpTime_minute,				METH_NOARGS, "Returns the current time-minutes" },
 	{ "hour",				wpTime_hour,				METH_NOARGS, "Returns the current time-hour" },
-	{ "day",				wpTime_day,					METH_NOARGS, "Returns the current date-day" },
-	{ "month",				wpTime_month,				METH_NOARGS, "Returns the current date-month" },
-	{ "year",				wpTime_year,				METH_NOARGS, "Returns the current date-year" },
-	{ "timestamp",			wpTime_timestamp,			METH_NOARGS, "Returns the current timestamp" },
+	{ "days",				wpTime_days,				METH_NOARGS, "Returns the current date-day" },
+	{ "minutes",			wpTime_minutes,				METH_NOARGS, "Returns the current timestamp" },
 	{ "currentlightlevel",	wpTime_currentlightlevel,	METH_NOARGS, "Returns the current light level" },
     { NULL, NULL, 0, NULL } // Terminator
 };

@@ -484,6 +484,9 @@
 				RelativePath=".\uobject.h">
 			</File>
 			<File
+				RelativePath=".\uotime.h">
+			</File>
+			<File
 				RelativePath=".\verinfo.h">
 			</File>
 			<File
