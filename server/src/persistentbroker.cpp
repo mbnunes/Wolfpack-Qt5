@@ -142,6 +142,11 @@ cDBResult PersistentBroker::query( const QString& query )
 	return connection->query( query );
 }
 
+void PersistentBroker::clearDeleteQueue()
+{
+	deleteQueue.clear();
+}
+
 void PersistentBroker::flushDeleteQueue()
 {
 	std::vector< stDeleteItem >::iterator iter;

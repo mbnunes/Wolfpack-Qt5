@@ -60,6 +60,7 @@ public:
 	bool executeQuery( const QString& query );
 	cDBResult query( const QString& query );
 	void flushDeleteQueue();
+	void clearDeleteQueue();
 	void addToDeleteQueue( const QString &tables, const QString &conditions );
 
 	void lockTable( const QString& table ) const;

@@ -48,7 +48,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386 /FIXED:NO"
-				AdditionalDependencies="ws2_32.lib ZThread-2.2.10.lib qt-mt311.lib libmysql.lib"
+				AdditionalDependencies="ws2_32.lib ZThread-2.2.10.lib qt-mt311.lib libmysql.lib flatstore\debug\flatstore.lib"
 				ShowProgress="2"
 				OutputFile="C:\Wolfpack\Wolfpack.exe"
 				Version="12.9"
@@ -114,7 +114,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib odbc32.lib odbccp32.lib libmysql.lib"
+				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt311.lib odbc32.lib odbccp32.lib libmysql.lib Flatstore\Release\Flatstore.lib"
 				OutputFile="C:\wolfpack\wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -174,10 +174,10 @@
 				RelativePath=".\bounty.cpp">
 			</File>
 			<File
-				RelativePath=".\chars.cpp">
+				RelativePath="char_flatstore.cpp">
 			</File>
 			<File
-				RelativePath=".\charsmgr.cpp">
+				RelativePath=".\chars.cpp">
 			</File>
 			<File
 				RelativePath=".\combat.cpp">
@@ -234,13 +234,13 @@
 				RelativePath=".\iserialization.cpp">
 			</File>
 			<File
+				RelativePath="item_flatstore.cpp">
+			</File>
+			<File
 				RelativePath=".\itemid.cpp">
 			</File>
 			<File
 				RelativePath=".\items.cpp">
-			</File>
-			<File
-				RelativePath=".\itemsmgr.cpp">
 			</File>
 			<File
 				RelativePath=".\magic.cpp">
@@ -339,10 +339,13 @@
 				RelativePath=".\tracking.cpp">
 			</File>
 			<File
-				RelativePath="twofish\twofish2.c">
+				RelativePath="twofish\twofish.cpp">
 			</File>
 			<File
 				RelativePath=".\uobject.cpp">
+			</File>
+			<File
+				RelativePath="uobject_flatstore.cpp">
 			</File>
 			<File
 				RelativePath=".\utilsys.cpp">
@@ -357,7 +360,7 @@
 				RelativePath=".\wolfpack.cpp">
 			</File>
 			<File
-				RelativePath=".\worldmain.cpp">
+				RelativePath="world.cpp">
 			</File>
 			<File
 				RelativePath=".\wpconsole.cpp">
@@ -479,9 +482,6 @@
 "
 						Outputs="$(InputDir)moc_$(InputName).cpp"/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\charsmgr.h">
 			</File>
 			<File
 				RelativePath=".\classes.h">
@@ -623,9 +623,6 @@
 "
 						Outputs="$(InputDir)moc_$(InputName).cpp"/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\itemsmgr.h">
 			</File>
 			<File
 				RelativePath=".\magic.h">
@@ -913,7 +910,7 @@
 				RelativePath=".\wolfpack.h">
 			</File>
 			<File
-				RelativePath=".\worldmain.h">
+				RelativePath="world.h">
 			</File>
 			<File
 				RelativePath=".\wpconsole.h">
@@ -1056,6 +1053,9 @@
 			</File>
 			<File
 				RelativePath=".\python\pyregion.cpp">
+			</File>
+			<File
+				RelativePath="python\pytooltip.cpp">
 			</File>
 			<File
 				RelativePath=".\python\skills.h">

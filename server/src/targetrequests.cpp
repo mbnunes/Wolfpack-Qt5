@@ -36,7 +36,6 @@
 #include "wpdefmanager.h"
 #include "territories.h"
 #include "items.h"
-#include "itemsmgr.h"
 #include "tilecache.h"
 #include "srvparams.h"
 #include "skills.h"
@@ -85,7 +84,6 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		pItem = new cItem;
 		pItem->Init();
-		ItemsManager::instance()->registerItem( pItem );
 
 		pItem->setName( "an item" );
 		pItem->setId( hex2dec( item_ ).toULong() );
@@ -134,7 +132,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	// Otherwise create our character here
 	P_CHAR pChar = new cChar;
 	pChar->Init();
-	CharsManager::instance()->registerChar( pChar );
+	World::instance()->registerObject( pChar );
 
 	pChar->setPriv( 0x10 ); // No skill titles
 	pChar->setNpc(1);

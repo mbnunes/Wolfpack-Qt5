@@ -31,42 +31,28 @@
 
 #ifndef __WOLFPACK_H
 #define __WOLFPACK_H
+
 // Platform specifics
-
 #include "platform.h"
-
-//system includes
-
-//#include <iostream>
 
 #if defined (__unix__)
 #include <termios.h>
 #include <stdio.h>
 #include <fcntl.h>
-//#define getch() getchar()
 #endif
 
-//using namespace std;
-
-// Forward class declarations
-#include "wpconsole.h"
 #include "typedefs.h"
-//#include "boats.h"    // Boats
-//#include "msgboard.h" // Bulletin Boards
-//#include "house.h"    // Housing System
 #include "defines.h"
 #include "structs.h"
 #include "globals.h"
-#include "itemsmgr.h"
-#include "charsmgr.h"
 #include "prototypes.h"
 #include "inlines.h"
 #include "chars.h"
 #include "items.h"
 #include "basics.h"
 #include "network.h"
-
-//#include "WPScriptManager.h" // Script System
+#include "wpconsole.h"
+#include "world.h"
 
 
 #endif // __WOLFPACK_H

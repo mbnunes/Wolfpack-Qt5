@@ -33,7 +33,7 @@
 
 #include "../TmpEff.h"
 #include "../prototypes.h"
-#include "../charsmgr.h"
+#include "../world.h"
 
 class cPythonEffect : public cTempEffect
 {

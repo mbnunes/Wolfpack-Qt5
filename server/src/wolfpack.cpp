@@ -39,10 +39,11 @@
 #endif
 
 #include "wolfpack.h"
+#include "world.h"
 #include "verinfo.h"
 #include "speech.h"
 #include "territories.h"
-#include "worldmain.h"
+
 #include "books.h"
 #include "TmpEff.h"
 #include "guildstones.h"
@@ -635,16 +636,13 @@ void reloadScripts()
 	Skills->reload();
 
 	// Update the Regions
-	AllCharsIterator iter;
-	for( iter.Begin(); !iter.atEnd(); iter++ )
+	cCharIterator iter;
+	for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
 	{
-		P_CHAR pChar = iter.GetData();
-		if( pChar )
-		{
-			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-			pChar->setRegion( region );
-		}
+		cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		pChar->setRegion( region );
 	}
+
 	cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
 }
 
@@ -728,8 +726,6 @@ void interpretCommand( const QString &command )
 				return;
 			}
 
-			AllCharsIterator iter;
-
 			switch(c)
 			{
 			case '\x1B':
@@ -747,7 +743,9 @@ void interpretCommand( const QString &command )
 				break;
 			case '#':
 				clConsole.send( "Saving worldfile...");
-				cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
+				//cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
+				World::instance()->save();
+				
 				SrvParams->flush();
 				clConsole.send( "Done!\n");
 				break;
@@ -788,6 +786,7 @@ void interpretCommand( const QString &command )
 			case 'r':
 			case 'R':
 				reloadScripts();
+
 				break;
 			case '?':
 				clConsole.send("Console commands:\n");
@@ -855,8 +854,8 @@ static void quickdelete( P_ITEM pi )
 	}
 
 	//pi->del(); // Remove from database
-	
-	ItemsManager::instance()->unregisterItem( pi );
+
+	World::instance()->unregisterObject( pi );
 }
 
 /*!
@@ -864,7 +863,6 @@ static void quickdelete( P_ITEM pi )
 */
 static void startClasses()
 {
-	cwmWorldState	 = 0;
 	Items			 = 0;
 	Map				 = 0;
 	Skills			 = 0;
@@ -877,7 +875,6 @@ static void startClasses()
 	persistentBroker = 0;
 
 	SrvParams		 = new cSrvParams( "wolfpack.xml", "Wolfpack", "1.0" );
-	cwmWorldState	 = new CWorldMain;
 	Items			 = new cAllItems;
 	Map				 = new Maps ( SrvParams->mulPath() );
 	Skills			 = new cSkills;
@@ -895,7 +892,6 @@ static void startClasses()
 static void freeClasses( void )
 {
 	delete SrvParams;
-	delete cwmWorldState;
 	delete Items;
 	delete Map;
 	delete Skills;
@@ -1091,7 +1087,8 @@ int main( int argc, char *argv[] )
 
 	try
 	{
-		cwmWorldState->loadnewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
+		//cwmWorldState->loadnewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
+		World::instance()->load( QString::null, QString::null, "sql" );
 	}
 	catch( QString error )
 	{
@@ -1110,10 +1107,9 @@ int main( int argc, char *argv[] )
 	P_ITEM pi;	
 	QPtrList< cItem > deleteItems;
 
-	AllItemsIterator iter;
-	for( iter.Begin(); !iter.atEnd(); ++iter )
+	cItemIterator iter;
+	for( pi = iter.first(); pi; pi = iter.next() )
 	{
-		pi = iter.GetData();
 		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
 
 		// 1. Handle the Container Value
@@ -1185,65 +1181,61 @@ int main( int argc, char *argv[] )
 	}
 
 	// Post Process Characters
-	AllCharsIterator charIter;
-	for( charIter.Begin(); !charIter.atEnd(); ++charIter )
+	cCharIterator charIter;
+	P_CHAR pChar;
+	for( pChar = charIter.first(); pChar; pChar = charIter.next() )
 	{
-		P_CHAR pChar = charIter.GetData();
-
-		if( pChar )
+		// Find Owner
+		if( pChar->owner() )
 		{
-			// Find Owner
-			if( pChar->owner() )
+			SERIAL owner = (SERIAL)pChar->owner();
+			
+			P_CHAR pOwner = FindCharBySerial( owner );
+			if( pOwner )
 			{
-				SERIAL owner = (SERIAL)pChar->owner();
-				
-				P_CHAR pOwner = FindCharBySerial( owner );
-				if( pOwner )
-				{
-					pChar->setOwnerOnly( pOwner );
-					pOwner->addFollower( pChar, true );
-				}
-				else
-				{
-					clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( owner, 16 ) );
-					pChar->setOwnerOnly( 0 );
-				}
+				pChar->setOwnerOnly( pOwner );
+				pOwner->addFollower( pChar, true );
 			}
-
-			// Find Guarding
-			if( pChar->guarding() )
+			else
 			{
-				SERIAL guarding = (SERIAL)pChar->guarding();
-
-				P_CHAR pGuarding = FindCharBySerial( guarding );
-				if( pGuarding )
-				{
-					pChar->setGuardingOnly( pGuarding );
-					pGuarding->addGuard( pChar, true );
-				}
-				else
-				{
-					clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
-					pChar->setGuardingOnly( 0 );
-				}
+				clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( owner, 16 ) );
+				pChar->setOwnerOnly( 0 );
 			}
-
-			if( isItemSerial( pChar->multis() ) )
-			{
-				cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
-
-				if( pMulti )
-					pMulti->addChar( pChar );
-			}
-
-			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-			pChar->setRegion( region );
-
-			// Now that we have our owner set correctly
-			// do the charflags
-			setcharflag( pChar );
-			pChar->flagUnchanged(); // We've just loaded, nothing changes
 		}
+
+		// Find Guarding
+		if( pChar->guarding() )
+		{
+			SERIAL guarding = (SERIAL)pChar->guarding();
+
+			P_CHAR pGuarding = FindCharBySerial( guarding );
+			if( pGuarding )
+			{
+				pChar->setGuardingOnly( pGuarding );
+				pGuarding->addGuard( pChar, true );
+			}
+			else
+			{
+				clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
+				pChar->setGuardingOnly( 0 );
+			}
+		}
+
+		if( isItemSerial( pChar->multis() ) )
+		{
+			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
+
+			if( pMulti )
+				pMulti->addChar( pChar );
+		}
+
+		cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		pChar->setRegion( region );
+
+		// Now that we have our owner set correctly
+		// do the charflags
+		setcharflag( pChar );
+		pChar->flagUnchanged(); // We've just loaded, nothing changes
 	}
 
 	clConsole.ProgressDone();
@@ -1269,8 +1261,6 @@ int main( int argc, char *argv[] )
 	starttime = uiCurrentTime;
 	endtime = 0;
 	lclock = 0;
-
-	cwmWorldState->announce( SrvParams->announceWorldSaves() );
 
 	init_creatures(); // This initializes *fixed* data that should DEFINETLY be swaped out to the scripts !!!
 	
@@ -3271,10 +3261,12 @@ void SetGlobalVars()
 
 void InitMultis()
 {
-	AllItemsIterator iter_items;
-	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
+	cItemIterator iter_items;
+	P_ITEM pItem;
+
+	for( pItem = iter_items.first(); pItem; pItem = iter_items.next() )
 	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( iter_items.GetData() );
+		cMulti *pMulti = dynamic_cast< cMulti* >( pItem );
 		if( pMulti )
 		{
 			pMulti->checkChars();
@@ -3290,10 +3282,10 @@ int check_house_decay()
 	unsigned long int timediff;
 	unsigned long int ct=getNormalizedTime();
 	
-	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++) 
+	cItemIterator iter_items;
+	P_ITEM pi;
+	for( pi = iter_items.first(); pi; pi = iter_items.next() )
 	{   
-		P_ITEM pi = iter_items.GetData(); // there shouldnt be an error here !		 
 		if (!pi->free && IsHouse(pi->id()))
 		{
 			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
@@ -3315,12 +3307,9 @@ int check_house_decay()
 				// it (Duke, 16.2.2001)
 			}
 			
-			houses++;
-			
-		}
-		
+			houses++;			
+		}		
 	}
 	
-	//delete Watch;
 	return decayed_houses;
 }

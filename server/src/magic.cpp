@@ -3778,7 +3778,7 @@ stat_st cMagic::getStatEffects_item( int num)
 
 void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, signed char z)
 {
-	P_ITEM it;
+	/*P_ITEM it;
 
     // create a dummy item for the effect on old location
     it = Items->SpawnItem(pc, 1, "bugalert, plz let the devteam know", 0, 0x1, 0x00, 0);					
@@ -3789,7 +3789,7 @@ void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, s
 	// because the client has to tihnk its still there. np because it's an invisible item anyway
 	// but we have to tell the memory manger to delete it
 	ItemsManager::instance()->unregisterItem(it);
-	delete it;
+	delete it;*/
 }
 
 sound_st cMagic::getSoundEffects( int num )

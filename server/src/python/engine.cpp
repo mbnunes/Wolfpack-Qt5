@@ -63,9 +63,10 @@ void startPython( int argc, char* argv[], bool silent )
 		clConsole.PrepareProgress( "Starting Python interpreter" );
 	
 	Py_SetProgramName( argv[ 0 ] );
-	Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
+	//Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
+	// The above setting seems unused (DarkStorm)
 
-	Py_NoSiteFlag = 1;
+	Py_NoSiteFlag = 1; // No import because we need to set the search path first
 
 	Py_Initialize(); // Initialize python finally
 	PySys_SetArgv( argc, argv );
@@ -113,6 +114,8 @@ void startPython( int argc, char* argv[], bool silent )
 
 		PyList_Append( searchPath, PyString_FromString( element.text().ascii() ) );
 	}
+
+	PyObject_SetAttrString( sysModule, "path", searchPath );
 	
 	// Import site now
 	PyObject *m = PyImport_ImportModule( "site" );

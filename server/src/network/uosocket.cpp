@@ -754,8 +754,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setSkillValue( packet->skillId2(), packet->skillValue2()*10 );
 	pChar->setSkillValue( packet->skillId3(), packet->skillValue3()*10 );
 
-	CharsManager::instance()->registerChar( pChar );
-
 	// Create the char equipment (JUST the basics !!)
 	P_ITEM pItem = new cItem;
 	pItem->Init();
@@ -768,7 +766,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->addItem( cChar::Shirt, pItem );	
 	pItem->setDye(1);
 	pItem->setNewbie( true );
-	ItemsManager::instance()->registerItem( pItem );
 
 	pItem = new cItem;
 	pItem->Init();
@@ -781,7 +778,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->addItem( cChar::Pants, pItem );
 	pItem->setDye(1);
 	pItem->setNewbie( true );
-	ItemsManager::instance()->registerItem( pItem );
 
 	// Hair & Beard
 	if( packet->hairStyle() )
@@ -794,7 +790,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->setId( packet->hairStyle() );
 		pItem->setColor( packet->hairColor() );
 		pChar->addItem( cChar::Hair, pItem );
-		ItemsManager::instance()->registerItem( pItem );
 	}
 
 	if( packet->beardStyle() )
@@ -806,7 +801,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->setNewbie( true );
 		pItem->setColor( packet->beardColor() );
 		pChar->addItem( cChar::FacialHair, pItem );
-		ItemsManager::instance()->registerItem( pItem );
 	}
 
 	// Backpack + Bankbox autocreate

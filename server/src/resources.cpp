@@ -38,11 +38,12 @@
 #include "network/uosocket.h"
 #include "maps.h"
 #include "mapobjects.h"
-#include "itemsmgr.h"
+
 #include "skills.h"
 #include "srvparams.h"
 #include "basics.h"
 #include "wpconsole.h"
+#include "world.h"
 
 //System Includes
 #include <math.h>
@@ -787,7 +788,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			pResItem = new cResourceItem( section_, amount, vein );
 			if( pResItem )
 			{
-				pResItem->setSerial( ItemsManager::instance()->getUnusedSerial() );
+				pResItem->setSerial( World::instance()->findItemSerial() );
 				pResItem->setPos( pos );
 				MapObjects::instance()->add( pResItem );
 				pResItem->update();

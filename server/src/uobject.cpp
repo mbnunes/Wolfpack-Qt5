@@ -680,10 +680,9 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 
 	if( tooltip_ == 0xFFFFFFFF )
 	{
-		tooltip_ = ItemsManager::instance()->getUnusedTooltip(); 
+		tooltip_ = World::instance()->getUnusedTooltip(); 
 		setTooltip( tooltip_ );
 	}
-
 
 	cUOTxAttachTooltip* tooltip = new cUOTxAttachTooltip;
 

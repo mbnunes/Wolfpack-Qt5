@@ -52,7 +52,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( ushort		color		READ color			WRITE setColor			)
 	Q_PROPERTY ( ushort		amount		READ amount			WRITE setAmount			)
 	Q_PROPERTY ( ushort		restock		READ restock		WRITE setRestock		)
-	Q_OVERRIDE ( QString	name		READ name			WRITE setName			)
 	Q_PROPERTY ( uchar		layer		READ layer			WRITE setLayer			)
 	Q_PROPERTY ( QString	murderer	READ murderer		WRITE setMurderer		)
 	Q_PROPERTY ( QString	spawnregion	READ spawnregion	WRITE setSpawnRegion	)
@@ -109,6 +108,7 @@ public:
 	virtual void	talk( const QString &message, ushort color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	void load( char **, UINT16& );
 	void save();
+	void save( FlatStore::OutputFile*, bool first = false );
 	bool del();
 
 	void	processContainerNode( const QDomElement &Tag );
@@ -123,7 +123,6 @@ public:
 	ushort			restock()		const { return restock_; }		// Amount of items a vendor will respawn this item to.
 	ushort			amount2()		const { return amount2_; }		// Used to track things like number of yards left in a roll of cloth
 	const QString	&name2()		const { return name2_; }		// The identified name of the item
-	const QString	&name()			const { return name_; }			// The identified name of the item
 	uchar			layer()			const { return layer_; }		// Layer if equipped on paperdoll
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
 	const QString	&murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
@@ -221,7 +220,6 @@ public:
 	void	setAmount( ushort nValue );
 	void	setRestock( ushort nValue ) { restock_ = nValue; changed( SAVE );}
 	void	setAmount2( ushort nValue ) { amount2_ = nValue; changed( SAVE+TOOLTIP );}; //Used to track things like number of yards left in a roll of cloth
-	void	setName( const QString& nValue ) { name_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setName2( const QString& nValue ) { name2_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setLayer( uchar nValue ) { layer_ = nValue; changed( SAVE );};
 	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; changed( SAVE+TOOLTIP );};
@@ -413,7 +411,6 @@ protected:
 	ushort		amount_; 
 	ushort		restock_;
 	ushort		amount2_; 
-	QString		name_;
 	QString		name2_;
 	uchar		layer_;
 	QString		murderer_;

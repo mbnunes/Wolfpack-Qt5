@@ -38,6 +38,7 @@
 #include "globals.h"
 #include "prototypes.h"
 #include "chars.h"
+#include "world.h"
 
 #include <functional>
 #include <algorithm>
@@ -156,7 +157,7 @@ void cCorpse::update( cUOSocket *mSock )
 	
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
-		P_ITEM pItem = FindItemBySerial( it->second );
+		P_ITEM pItem = World::instance()->findItem( it->second );
 
 		if( pItem && pItem->container() == this )
 		{

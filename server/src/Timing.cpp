@@ -33,7 +33,7 @@
 #include "platform.h"
 
 #include "Timing.h"
-#include "worldmain.h"
+
 #include "walking.h"
 #include "TmpEff.h"
 #include "combat.h"
@@ -701,13 +701,11 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 		unsigned long int diff;
 
-		// TODO: BAD !! We do that twice a loop
-		AllCharsIterator iter_char;
-		   
-		for (iter_char.Begin(); !iter_char.atEnd(); ++iter_char)
+		cCharIterator iter_char;
+
+		for( P_CHAR pc = iter_char.first(); pc; pc = iter_char.next() )
 		{
-			P_CHAR pc = iter_char.GetData();
-			if (pc->npc_type() == 1)
+			if( pc->npc_type() == 1 )
 			{
 				vector<SERIAL> pets( stablesp.getData(pc->serial()) );
 				unsigned int ci;
@@ -718,7 +716,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 					{
 						diff = (getNormalizedTime() - pc_pet->timeused_last()) / MY_CLOCKS_PER_SEC;
 						pc_pet->setTime_unused( pc_pet->time_unused() + diff );
-						//clConsole.send("stabling-check debug-name: %s\n",chars[i].name);
 					}
 				}
 			}
@@ -758,7 +755,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		if (difftime(newtime, oldtime)>=SrvParams->saveInterval() )
 		{
 			autosaved = 0;
-			cwmWorldState->savenewworld(0);
+			World::instance()->save();
 			dosavewarning = 1;
 		}
 	}
@@ -939,13 +936,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	// Check the TempEffects
 	TempEffects::instance()->check();
-
-	if ( freeUnusedMemory <= currenttime )
-	{
-		ItemsManager::instance()->purge();
-		CharsManager::instance()->purge();
-		freeUnusedMemory = currenttime + MY_CLOCKS_PER_SEC*60*40; // check only each 40 minutes
-	}
 
 	if( checknpcs <= currenttime ) checknpcs=(unsigned int)((double)(SrvParams->checkNPCTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
 	if( checktamednpcs <= currenttime ) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTammedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist

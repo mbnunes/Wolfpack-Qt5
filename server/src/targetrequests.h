@@ -36,6 +36,7 @@
 #include "wptargetrequests.h"
 #include "items.h"
 #include "gumps.h"
+#include "world.h"
 
 class cAddItemTarget: public cTargetRequest
 {
@@ -833,11 +834,9 @@ public:
 			std::vector< P_ITEM > toDelete;
 
 			// This could eventually be optimized
-			AllItemsIterator iter;
-			for( iter.Begin(); !iter.atEnd(); ++iter )
+			cItemIterator iter;
+			for( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
 			{
-				P_ITEM pItem = iter.GetData();
-
 				if( pItem && pItem->isInWorld() && pItem->pos().x >= x1 && pItem->pos().x <= x2 && pItem->pos().y >= y1 && pItem->pos().y <= y2 )
 				{
 					// Delete the item

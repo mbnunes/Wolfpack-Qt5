@@ -57,6 +57,56 @@ class WPDefaultScript;
 class cUOSocket;
 class QSqlQuery;
 class cItem;
+
+namespace FlatStore
+{
+	class OutputFile;
+	class InputFile;
+};
+
+#define PROPERTY_ERROR( errno, data ) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
+
+#define GET_PROPERTY( id, getter ) if( name == id ) {\
+	value = cVariant( getter ); \
+	return 0; \
+}
+
+#define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
+	QString text = value.toString(); \
+	if( text == QString::null )	\
+		PROPERTY_ERROR( -2, "String expected" ) \
+	setter = text; \
+	return 0; \
+	}
+
+#define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Integer expected" ) \
+	setter = data; \
+	return 0; \
+	}
+
+#define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Boolean expected" ) \
+	setter = data == 0 ? false : true; \
+	return 0; \
+	}
+
+#define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toChar(); \
+	return 0; \
+	}
+
+#define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toItem(); \
+	return 0; \
+	}
+
 struct stError;
 
 class cUObject : public PersistentObject, public cDefinable
@@ -65,7 +115,7 @@ class cUObject : public PersistentObject, public cDefinable
 	Q_PROPERTY( QString bindmenu READ bindmenu WRITE setBindmenu )
 	Q_PROPERTY( QString name READ name WRITE setName )
 // Data Members
-private:
+protected:
 	QString bindmenu_;
 	UINT32 tooltip_;
 	QString name_;
@@ -101,6 +151,8 @@ public:
 	void load( char **, UINT16& );
 	void save();
 	bool del();
+	virtual void save( FlatStore::OutputFile*, bool first = false );
+	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* );
 
 	QString eventList( void ) const; // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object

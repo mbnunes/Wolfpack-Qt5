@@ -36,7 +36,6 @@
 #include "accounts.h"
 #include "wpdefaultscript.h"
 #include "chars.h"
-#include "charsmgr.h"
 #include "items.h"
 #include "debug.h"
 #include "tilecache.h"
@@ -60,10 +59,11 @@
 #include "territories.h"
 #include "dbdriver.h"
 #include "combat.h"
-#include "itemsmgr.h"
+
 #include "msgboard.h"
 #include "makemenus.h"
 #include "wpscriptmanager.h"
+#include "world.h"
 #include "itemid.h"
 
 // Qt Includes
@@ -323,28 +323,29 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 		goldsfx( socket_, amount, false );
 }
 
-void cChar::setSerial(const SERIAL ser)
+void cChar::setSerial( const SERIAL ser )
 {
-	changed( SAVE );
+	// This is not allowed
+	if( ser == INVALID_SERIAL )
+		return;
+
+	if( this->serial() != INVALID_SERIAL )
+		World::instance()->unregisterObject( this->serial() );
+
 	cUObject::setSerial( ser );
-	if ( this->serial() != INVALID_SERIAL)
-		CharsManager::instance()->registerChar(this);
+	
+	World::instance()->registerObject( this );
 }
 
-void cChar::Init(bool ser)
+void cChar::Init( bool createSerial )
 {
 	changed( SAVE|TOOLTIP );
 	VisRange_ = VISRANGE;
 	unsigned int i;
+	cUObject::setSerial( INVALID_SERIAL );
 
-	if (ser)
-	{
-		this->setSerial(CharsManager::instance()->getUnusedSerial());
-	}
-	else
-	{
-		this->setSerial( INVALID_SERIAL );
-	}
+	if( createSerial )
+		this->setSerial( World::instance()->findCharSerial() );
 
 	this->animated = false;
 	this->setMultis( INVALID_SERIAL );//Multi serial
@@ -1746,7 +1747,6 @@ void cChar::processNode( const QDomElement &Tag )
 				continue;
 	
 			nItem->Init( true );
-			ItemsManager::instance()->registerItem( nItem );
 
 			QDomElement tItem = (*iter);
 
@@ -2493,10 +2493,11 @@ void cChar::kill()
 	// TODO: Call onKilled/onKill events
 
 	// Reputation system ( I dont like the idea of this loop )
-	AllCharsIterator iter_char;
-	for( iter_char.Begin(); !iter_char.atEnd(); iter_char++ )
+	cCharIterator iter_char;
+	P_CHAR pc_t;
+
+	for( pc_t = iter_char.first(); pc_t; pc_t = iter_char.next() )
 	{
-		P_CHAR pc_t = iter_char.GetData();
 		if( ( pc_t->swingtarg() == serial() || pc_t->targ() == serial() ) && !pc_t->free )
 		{
 			if( pc_t->npcaitype() == 4 )
@@ -2591,7 +2592,6 @@ void cChar::kill()
 
 	// Create our Corpse
 	cCorpse *corpse = new cCorpse( true );
-	ItemsManager::instance()->registerItem( corpse );
 
 	const QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );
 	
@@ -3185,7 +3185,6 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				{
 					pItem = new cItem;
 					pItem->Init( true );
-					ItemsManager::instance()->registerItem( pItem );
 				}
 
 				if( pItem )
@@ -3219,7 +3218,6 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				{
 					pItem = new cItem;
 					pItem->Init( true );
-					ItemsManager::instance()->registerItem( pItem );
 				}
 
 				if( pItem )
@@ -3253,7 +3251,6 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				{
 					pItem = new cItem;
 					pItem->Init( true );
-					ItemsManager::instance()->registerItem( pItem );
 				}
 
 				if( pItem )
@@ -3688,7 +3685,7 @@ void cChar::stopRepeatedAction()
 
 static void characterRegisterAfterLoading( P_CHAR pc )
 {
-	CharsManager::instance()->registerChar( pc );
+	World::instance()->registerObject( pc );
 	pc->setPriv2(pc->priv2() & 0xBF); // ???
 
 	pc->setHidden( 0 );

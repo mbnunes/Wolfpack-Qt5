@@ -469,17 +469,14 @@ PyObject *wpAllItemsSerials( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 
-	AllItemsIterator iter;
+	cItemIterator iter;
 	PyObject *list = PyList_New( 0 );
-	for( iter.Begin(); !iter.atEnd(); iter++ )
-	{
-		P_ITEM pItem = iter.GetData();
-		if( pItem )
-			PyList_Append( list, PyInt_FromLong( pItem->serial() ) );
-	}
+	for( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
+		PyList_Append( list, PyInt_FromLong( pItem->serial() ) );
 
 	return list;
 }
+
 /*!
 	Returns a list of all chars serials 
 */
@@ -487,14 +484,11 @@ PyObject *wpAllCharsSerials( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 
-	AllCharsIterator iter;
+	cCharIterator iter;
 	PyObject *list = PyList_New( 0 );
-	for( iter.Begin(); !iter.atEnd(); iter++ )
-	{
-		P_CHAR pChar = iter.GetData();
-		if( pChar )
-			PyList_Append( list, PyInt_FromLong( pChar->serial() ) );
-	}
+
+	for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
+		PyList_Append( list, PyInt_FromLong( pChar->serial() ) );
 
 	return list;
 }

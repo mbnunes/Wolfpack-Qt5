@@ -54,6 +54,7 @@
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
+#include "world.h"
 #include "wpscriptmanager.h"
 
 // System Includes
@@ -637,26 +638,28 @@ QString cItem::getName( bool shortName )
 	return itemname;
 }
 
-void cItem::setSerial(const SERIAL ser)
+void cItem::setSerial( const SERIAL ser )
 {
-	changed( SAVE );
+	if( ser == INVALID_SERIAL )
+		return;
+
+	if( serial() != INVALID_SERIAL )
+		World::instance()->unregisterObject( this );
+
 	cUObject::setSerial( ser );
-	if (ser != INVALID_SERIAL)
-		ItemsManager::instance()->registerItem( this );
+
+	World::instance()->registerObject( this );
 }
 
 // -- Initialize an Item in the items array
-void cItem::Init( bool mkser )
+void cItem::Init( bool createSerial )
 {
 	changed( SAVE|TOOLTIP );
-	if (mkser)		// give it a NEW serial #
-	{
-		this->setSerial(ItemsManager::instance()->getUnusedSerial());
-	}
-	else
-	{
-		this->setSerial(INVALID_SERIAL);
-	}
+
+	cUObject::setSerial( INVALID_SERIAL );
+
+	if( createSerial )
+		this->setSerial( World::instance()->findItemSerial() );
 
 	this->container_ = 0;
 	this->name_ = "#";
@@ -775,8 +778,9 @@ void cAllItems::DeleItem(P_ITEM pi)
 		}
 
 		pi->del(); // Remove from database
+		
 		// Queue for later delete.
-		ItemsManager::instance()->deleteItem(pi);
+		World::instance()->deleteObject( pi );
 	}
 }
 
@@ -1246,7 +1250,7 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 		if( DefSection->attribute( "type" ) == "book" )
 		{
 			cBook* nBook = new cBook();
-			nBook->setSerial( ItemsManager::instance()->getUnusedSerial() );
+			nBook->setSerial( World::instance()->findItemSerial() );
 
 			nBook->applyDefinition( *DefSection );
 			nBook->setSection( Section );
@@ -1257,10 +1261,7 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 		{
 			cSpellBook *spellBook = new cSpellBook();
 			spellBook->Init( true );
-			ItemsManager::instance()->registerItem( spellBook );
-
 			spellBook->applyDefinition( *DefSection );
-			
 			nItem = spellBook;
 		}
 	}
@@ -1268,8 +1269,6 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 	{
 		nItem = new cItem;
 		nItem->Init( true );
-		ItemsManager::instance()->registerItem( nItem );
-		
 		nItem->applyDefinition( *DefSection );
 	}
 
@@ -1894,10 +1893,7 @@ void cItem::processContainerNode( const QDomElement &Tag )
 				continue;
 	
 			nItem->Init( true );
-			ItemsManager::instance()->registerItem( nItem );
-
 			nItem->applyDefinition( equipment[ i ] );
-
 			this->addItem(nItem);
 	}
 	childNode = childNode.nextSibling();
@@ -2141,7 +2137,7 @@ P_ITEM cItem::dupe()
 		return NULL;
 
 	P_ITEM nItem = new cItem( (*this) );
-	nItem->setSerial( ItemsManager::instance()->getUnusedSerial() );
+	nItem->setSerial( World::instance()->findItemSerial() );
 	
 	// We wont dupe items on chars without proper handling
 	P_CHAR pWearer = dynamic_cast<P_CHAR>( nItem->container() );
@@ -2368,7 +2364,8 @@ QPtrList< cItem > cItem::getContainment() const
 
 static void itemRegisterAfterLoading( P_ITEM pi )
 {
-	ItemsManager::instance()->registerItem( pi );
+	World::instance()->registerObject( pi );
+
 	if( pi->objectID() == "cGuildStone" ) // register as guild as well
 		guilds.push_back(pi->serial());
 

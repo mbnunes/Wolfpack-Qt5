@@ -384,10 +384,10 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 void cMulti::removeKeys( void )
 {
 	QPtrList< cItem > todelete;
-	AllItemsIterator iter_items;
-	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
+	cItemIterator iter_items;
+	P_ITEM pi;
+	for( pi = iter_items.first(); pi; pi = iter_items.next() )
 	{
-		P_ITEM pi = iter_items.GetData();
 		if( pi && pi->type() == 7 && pi->tags().get( "linkserial" ).isValid() && pi->tags().get( "linkserial" ).toInt() == this->serial() )
 			todelete.append( pi );
 	}

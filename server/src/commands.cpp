@@ -42,7 +42,7 @@
 #include "targetrequests.h"
 #include "territories.h"
 #include "tilecache.h"
-#include "worldmain.h"
+
 #include "wpconsole.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
@@ -618,10 +618,7 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
-	if( args.count() > 0 )
-		cwmWorldState->savenewworld( args[0] );
-	else
-		cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
+	World::instance()->save();
 }
 
 void commandInfo( cUOSocket *socket, const QString &command, QStringList &args )
@@ -1000,16 +997,12 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		ContextMenus::instance()->reload();
 
 		// Update the Regions
-		AllCharsIterator iter;
-		for( iter.Begin(); !iter.atEnd(); iter++ )
+		cCharIterator iter;
+		P_CHAR pChar;
+		for( pChar = iter.first(); pChar; pChar = iter.next() )
 		{
-			P_CHAR pChar = iter.GetData();
-
-			if( pChar )
-			{
-				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-				pChar->setRegion( region );
-			}
+			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+			pChar->setRegion( region );
 		}
 
 		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
@@ -1031,16 +1024,12 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		NewMagic->load();
 
 		// Update the Regions
-		AllCharsIterator iter;
-		for( iter.Begin(); !iter.atEnd(); iter++ )
+		cCharIterator iter;
+		P_CHAR pChar;
+		for( pChar = iter.first(); pChar; pChar = iter.next() )
 		{
-			P_CHAR pChar = iter.GetData();
-
-			if( pChar )
-			{
-				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-				pChar->setRegion( region );
-			}
+			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+			pChar->setRegion( region );
 		}
 
 		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon

@@ -65,7 +65,6 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 		return;
 	
 	nItem->Init( true );
-	ItemsManager::instance()->registerItem( nItem );
 
 	nItem->applyDefinition( Tag );
 	if( nItem->type() == 222 )
@@ -208,7 +207,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	P_CHAR pc_currchar = FindCharBySerial( senderserial );
 	cUOSocket* socket = pc_currchar->socket();
 
-	this->setSerial( ItemsManager::instance()->getUnusedSerial() );
+	this->setSerial( World::instance()->findItemSerial() );
 //	ItemsManager::instance()->registerItem( this );
 	this->SetOwnSerial( senderserial );
 	this->setPriv( 0 );

@@ -88,7 +88,7 @@ void WPScriptManager::reload( void )
 	unload();
 
 	// Stop + Restart Python
-	stopPython();	
+	stopPython();
 	startPython( qApp->argc(), qApp->argv(), true );
 
 	load();
@@ -98,25 +98,15 @@ void WPScriptManager::reload( void )
 	// because all of them got invalidated while relaoding
 	clConsole.PrepareProgress( "Recreating assigned Script-pointers" );
 
-	AllItemsIterator iter_items;
+	cItemIterator iter_items;
 	
-	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
-	{
-		P_ITEM pi = iter_items.GetData();
-		
-		if( pi )
-			pi->recreateEvents();
-	}
+	for( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
+		pItem->recreateEvents();
 
-	AllCharsIterator iter_chars;
+	cCharIterator iter_chars;
 	
-	for( iter_chars.Begin(); !iter_chars.atEnd(); ++iter_chars )
-	{
-		P_CHAR pc = iter_chars.GetData();
-		
-		if( pc )
-			pc->recreateEvents();
-	}
+	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
+		pChar->recreateEvents();
 
 	clConsole.ProgressDone();
 	serverState = RUNNING;

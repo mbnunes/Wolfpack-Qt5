@@ -41,6 +41,7 @@
 #include "inlines.h"
 #include "network/uorxpackets.h"
 #include "network/uosocket.h"
+#include "world.h"
 
 bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {

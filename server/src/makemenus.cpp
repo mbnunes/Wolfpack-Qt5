@@ -35,7 +35,7 @@
 #include "skills.h"
 #include "targetrequests.h"
 #include "wpdefmanager.h"
-#include "charsmgr.h"
+
 #include "resources.h"
 #include "srvparams.h"
 #include "Python.h"
@@ -2132,13 +2132,9 @@ void cAllMakeMenus::reload()
 	}
 	menus_.clear();
 
-	AllCharsIterator iterChars;
-	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
-	{
-		P_CHAR pc = iterChars.GetData();
-		if ( pc )
+	cCharIterator iChars;
+	for( P_CHAR pc = iChars.first(); pc; pc = iChars.next() )
 			pc->clearLastSelections();
-	}
 	load();
 }
 

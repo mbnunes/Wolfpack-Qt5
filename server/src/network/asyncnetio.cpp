@@ -703,6 +703,7 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 
 			nwritten = d->socket->writeBlock( a->data() + d->windex, i );
 		}
+
 		if ( nwritten ) 
 		{
 			if ( d->consumeWriteBuf( nwritten ) )

@@ -42,6 +42,7 @@
 
 class cItem;
 class cChar;
+class cUObject;
 
 // Typedefs
 
@@ -58,6 +59,7 @@ typedef	cItem *				P_ITEM;
 typedef const cItem *		PC_ITEM;
 typedef cChar *				P_CHAR;
 typedef const cChar *		PC_CHAR;
+typedef cUObject *			P_OBJECT;
 
 struct gumpChoice_st 
 {

@@ -299,6 +299,7 @@ public:
 	static void registerInFactory();
 	void load( char **, UINT16& );
 	void save();
+	void save( FlatStore::OutputFile*, bool first = false );
 	bool del();
     
 	// A typical sequence for the following could be:

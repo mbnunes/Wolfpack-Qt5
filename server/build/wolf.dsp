@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="wolf" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** DO NOT EDIT **
+# ** NICHT BEARBEITEN **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=wolf - Win32 Debug
-!MESSAGE This is not a valid makefile. To build this project using NMAKE,
-!MESSAGE use the Export Makefile command and run
+!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
+!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
 !MESSAGE 
-!MESSAGE You can specify a configuration when running NMAKE
-!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
+!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
 !MESSAGE 
-!MESSAGE Possible choices for configuration are:
+!MESSAGE Für die Konfiguration stehen zur Auswahl:
 !MESSAGE 
-!MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /GR /GX /O1 /Ob0 /I "lib/Python/PC" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_SHARED" /D "QT_DLL" /D "WP_DONT_USE_HASH_MAP" /Fr /YX /FD /c
+# ADD CPP /nologo /MD /GR /GX /Ox /Og /Os /Ob0 /I "lib/Python/PC" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_SHARED" /D "QT_DLL" /D "WP_DONT_USE_HASH_MAP" /Fr /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,8 +50,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 ws2_32.lib ZThread.lib qt-mt312.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib stlport_vc6.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /out:"C:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib"
-# SUBTRACT LINK32 /nodefaultlib
+# ADD LINK32 ws2_32.lib ZThread.lib qt-mt312.lib kernel32.lib user32.lib gdi32.lib advapi32.lib libmysql.lib flatstore.lib /nologo /subsystem:console /map /machine:I386 /out:"C:\wolfpack\wolfpack.exe" /opt:ref /opt:nowin98
+# SUBTRACT LINK32 /pdb:none /nodefaultlib
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
@@ -67,7 +67,8 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /Gm /GR /GX /Zi /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\bugreport" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "c:\mysql\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /Gm /GR /GX /Zi /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\bugreport" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "c:\mysql\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "WP_DONT_USE_HASH_MAP" /FR /FD /GZ /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -75,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt312.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /nodefaultlib:"libcmt" /nodefaultlib:"libcmtd" /out:"C:\Wolfpack\Wolfpack.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib"
+# ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt312.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib flatstore.lib python22.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /nodefaultlib:"python22_d.lib" /out:"C:\Wolfpack\Wolfpack.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release"
 # SUBTRACT LINK32 /pdb:none /incremental:no
 
 !ENDIF 
@@ -109,11 +110,11 @@ SOURCE=.\bounty.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\chars.cpp
+SOURCE=.\char_flatstore.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\charsmgr.cpp
+SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File
 
@@ -189,15 +190,15 @@ SOURCE=.\iserialization.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\item_flatstore.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\itemid.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\items.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\itemsmgr.cpp
 # End Source File
 # Begin Source File
 
@@ -353,6 +354,10 @@ SOURCE=.\uobject.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\uobject_flatstore.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\utilsys.cpp
 # End Source File
 # Begin Source File
@@ -369,7 +374,7 @@ SOURCE=.\wolfpack.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\worldmain.cpp
+SOURCE=.\world.cpp
 # End Source File
 # Begin Source File
 
@@ -1211,10 +1216,6 @@ SOURCE=.\whitespace.h
 # Begin Source File
 
 SOURCE=.\wolfpack.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\worldmain.h
 # End Source File
 # Begin Source File
 

@@ -35,7 +35,7 @@
 // Wolfpack Includes
 #include "accounts.h"
 #include "speech.h"
-#include "worldmain.h"
+
 #include "guildstones.h"
 #include "mapobjects.h"
 #include "srvparams.h"

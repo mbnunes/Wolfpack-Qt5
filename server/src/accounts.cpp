@@ -34,13 +34,13 @@
 #include "srvparams.h"
 #include "pfactory.h"
 #include "network/uosocket.h"
-#include "charsmgr.h"
+
 #include "commands.h"
 #include "chars.h"
 #include "network.h"
 #include "exceptions.h"
 #include "globals.h"
-
+#include "world.h"
 
 // ===== AccountRecord Methods ===== //
 
@@ -255,10 +255,10 @@ void cAccounts::reload()
 	QMap< SERIAL, QString > characcnames;
 	QStringList sockaccnames;
 
-	AllCharsIterator iterChars;
-	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
+	cCharIterator iterChars;
+	P_CHAR pc;
+	for( pc = iterChars.first(); pc; pc = iterChars.next() )
 	{
-		P_CHAR pc = iterChars.GetData();
 		if( pc->account() )
 		{
 			characcnames.insert( pc->serial(), pc->account()->login() );

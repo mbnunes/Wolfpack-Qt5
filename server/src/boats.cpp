@@ -43,7 +43,7 @@
 #include "classes.h" // only for the illegal_z!
 #include "dbdriver.h"
 #include "persistentbroker.h"
-#include "itemsmgr.h"
+
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 
@@ -106,14 +106,13 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		socket->send( &uoPacket );
 	}
 
-	this->type_ = 117;//Boat type
-	this->type2_ = 222;
-	this->name_ = tr("a mast");
-	this->boatdir = 0; // starting with north boatdirection
+	type_ = 117;//Boat type
+	type2_ = 222;
+	name_ = tr("a mast");
+	boatdir = 0; // starting with north boatdirection
 
-	this->applyDefinition( Tag );
-	this->setSerial( ItemsManager::instance()->getUnusedSerial() );
-	ItemsManager::instance()->registerItem( this );
+	applyDefinition( Tag );
+	setSerial( World::instance()->findItemSerial() );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
 		cUOTxPause uoPacket;
@@ -123,8 +122,9 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 			socket->send( &uoPacket );
 			socket->sysMessage( tr("Can not build boat at this location!") );
 		}
-		ItemsManager::instance()->unregisterItem( this );
-		ItemsManager::instance()->deleteItem( this );
+
+		World::instance()->unregisterObject( this );
+		World::instance()->deleteObject( this );
 		return;
 	}
 
@@ -203,8 +203,9 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 			socket->send( &uoPacket );
 			socket->sysMessage( tr("Can not build boat without itemid definitions for special items!") );
 		}
-		ItemsManager::instance()->unregisterItem( this );
-		ItemsManager::instance()->deleteItem( this );
+
+		World::instance()->unregisterObject( this );
+		World::instance()->deleteObject( this );
 		Items->DeleItem( pTiller );
 		Items->DeleItem( pPlankL );
 		Items->DeleItem( pPlankR );

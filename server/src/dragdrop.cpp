@@ -216,7 +216,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		if( pickedAmount != pItem->amount() )
 		{
 			P_ITEM splitItem = new cItem( *pItem ); // Create a new item to pick that up
-			splitItem->setSerial( ItemsManager::instance()->getUnusedSerial() );
+			splitItem->setSerial( World::instance()->findItemSerial() );
 			splitItem->setAmount( pItem->amount() - pickedAmount );
 			P_ITEM pContainer = dynamic_cast<P_ITEM>(pItem->container());
 			if ( pContainer )
