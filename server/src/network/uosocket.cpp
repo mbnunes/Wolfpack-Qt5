@@ -1220,7 +1220,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	else if( speech.startsWith( SrvParams->commandPrefix() ) )
 		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else
-		Speech->talking( _player, speech, color, type );
+		Speech->talking( _player, speech, keywords, color, type );
 }
 	
 /*!
