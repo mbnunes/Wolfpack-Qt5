@@ -50,7 +50,8 @@
 	<script id="skills.animaltaming" type="python" module="skills.animaltaming" />
 	<script id="skills.begging" type="python" module="skills.begging" />
 	<script id="skills.bowcraft" type="python" module="skills.bowcraft" />
-	<!--script id="alchemy" type="python" module="skills.alchemy" /-->
+	<script id="skills.cooking" type="python" module="skills.cooking" />
+	<script id="skills.alchemy" type="python" module="skills.alchemy" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />
