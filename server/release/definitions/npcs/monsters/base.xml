@@ -18,7 +18,7 @@
 		<dex><random min="10" max="50" /></dex>
 		<int><random min="10" max="50" /></int>
 		<!-- lets give base creatures a chance! -->
-		<mindamage>1</maxdamage>
+		<mindamage>1</mindamage>
 		<maxdamage>10</maxdamage>
 		<!-- Skills -->
 		<anatomy>0</anatomy>

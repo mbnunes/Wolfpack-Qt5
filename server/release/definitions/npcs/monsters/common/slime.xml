@@ -19,7 +19,7 @@
 		<str><random min="22" max="34"/></str>
 		<dex><random min="16" max="21"/></dex>
 		<int><random min="16" max="20"/></int>
-		<maxhitpoints><random min="15" max="19"/></int>
+		<maxhitpoints><random min="15" max="19"/></maxhitpoints>
 		<!-- Skills -->
 		<poisoning><random min="301" max="500"/></poisoning>
 		<magicresistance><random min="151" max="200"/></magicresistance>
