@@ -564,6 +564,7 @@ def adddecor( socket, command, args ):
 					return True
 				# Specific Tree
 				elif value in trees:
+					item = value
 					if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 						socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES]) )
 						socket.attachtarget( 'commands.adddecor.createtree', [ item ] )
