@@ -602,68 +602,6 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 	cAllTerritories::getInstance()->check( pc );
 }
 
-void teleport2( P_CHAR pc ) // used for /RESEND only - Morrolan, so people can find their corpses
-{
-	int i;
-	UOXSOCKET k = calcSocketFromChar(pc);
-	
-	for (i=0;i<now;i++)
-	{
-		if ((perm[i])&&(i!=k))
-		{
-			LongToCharPtr(pc->serial, &removeitem[1]);
-			Xsend(i, removeitem, 5);
-		}
-	}
-	if (k!=-1)	// If a player, move them to the appropriate XYZ
-	{
-		LongToCharPtr(pc->serial, &goxyz[1]);
-		ShortToCharPtr(pc->id(),  &goxyz[5]);
-		ShortToCharPtr(pc->skin(),  &goxyz[8]);
-		goxyz[10]=0;
-		if (pc->isHidden()) 
-			goxyz[10]=0x80;
-		goxyz[11]=pc->pos.x>>8;
-		goxyz[12]=pc->pos.x%256;
-		goxyz[13]=pc->pos.y>>8;
-		goxyz[14]=pc->pos.y%256;
-		goxyz[17]=pc->dir()|0x80;
-		goxyz[18]=pc->dispz();
-		Xsend(k, goxyz, 19);
-		all_items(k);
-		Weight->NewCalc(pc);	// Ison 2-20-99
-			walksequence[k]=-1;
-	}
-	for (i=0;i<now;i++) // Send the update to all players.
-	{
-		// Dupois - had to remove the && (k!=i)), doesn update the client
-		// Added Oct 08, 1998
-		if (perm[i])
-		{			 
-			if (inrange1p(pc, currchar[i]))
-			{
-				impowncreate(i, pc, 1);
-			}
-		}
-	}
-	
-	if (k!=-1)
-	{
-		AllCharsIterator iter_char;
-		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
-		{ //Tauriel only send inrange people (walking takes care of out of view)
-			P_CHAR pc_i = iter_char.GetData();
-			if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(pc, pc_i)))
-			{
-				impowncreate(k, pc_i, 1);
-			}
-		}
-		if (perm[k]) 
-			dolight(k, SrvParams->worldCurrentLevel());
-	}
-	cAllTerritories::getInstance()->check(pc);
-}
-
 void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), resend him
 {
 	int i;
