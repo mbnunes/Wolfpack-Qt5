@@ -8,14 +8,16 @@ PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE       += app
 CONFIG         += qt console thread exceptions rtti
-INCLUDEPATH    += lib/ZThread/include lib/Python/include
-DEFINES        += REENTRANT ZTHREAD_STATIC WP_DONT_USE_HASH_MAP
+#INCLUDEPATH    += lib/ZThread/include lib/Python/include
+INCLUDEPATH		+= lib/Python/include
+#DEFINES        += REENTRANT ZTHREAD_STATIC WP_DONT_USE_HASH_MAP
+#DEFINES			+= REENTRANT WP_DONT_USE_HASH_MAP
 
 unix {
 
 # Common unix settings
-	INCLUDEPATH += /usr/local/include/stlport lib/Python /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include
-	LIBS  = -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil
+	INCLUDEPATH += /usr/local/include/stlport lib/Python /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include network
+	LIBS  = -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil -lstlport_gcc
 	
 # Optional compile modes	
 	
@@ -95,6 +97,7 @@ HEADERS         = \
 		  mapobjects.h \
 		  resource.h \
 		  resources.h \
+		  sectors.h \
 		  spawnregions.h \
 		  speech.h \
                   srvparams.h \
@@ -176,6 +179,7 @@ SOURCES         = \
 		  player.cpp \
 		  player_flatstore.cpp \
 		  resources.cpp \
+		  sectors.cpp \
                   serxmlfile.cpp \
                   serbinfile.cpp \
 		  skills.cpp \
@@ -229,6 +233,7 @@ SOURCES		+= python/char.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
 	  	   python/multi.cpp \
+			python/npcai.cpp \
 		   python/pyaccount.cpp \
 		   python/pycoord.cpp \
 		   python/pyregion.cpp \
