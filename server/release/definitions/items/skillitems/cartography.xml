@@ -24,6 +24,11 @@
 		<category>map\world\small</category>
 		<id>0x14eb</id>
 		<type>10</type>
+		<more1>0</more1>
+		<more3>0</more3>
+		<moreb1>19</moreb1>
+		<moreb3>16</moreb3>
+		
 	</item>
 	<!-- map_world_middle -->
 	<item id="map_world_middle">
@@ -32,6 +37,10 @@
 		<id>0x14eb</id>
 		<type>10</type>
 		<morez>1</morez>
+		<more1>0</more1>
+		<more3>0</more3>
+		<moreb1>19</moreb1>
+		<moreb3>16</moreb3>
 	</item>
 	<!-- map_world_large -->
 	<item id="map_world_large">
@@ -40,6 +49,10 @@
 		<id>0x14eb</id>
 		<type>10</type>
 		<morez>2</morez>
+		<more1>0</more1>
+		<more3>0</more3>
+		<moreb1>19</moreb1>
+		<moreb3>16</moreb3>
 	</item>
 	<!-- map_land_small -->
 	<item id="map_land_small">
