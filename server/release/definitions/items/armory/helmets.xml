@@ -2,76 +2,73 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh	                        |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
-|  ( (  ;._ \\ ctr | Last Modification: reorganized             |
+|   )).-' {{ ;'`   | Revised by: sereg, Viper                   |
+|  ( (  ;._ \\ ctr | Last Modification: item corrections        |
 =================================================================
 -->
 <definitions>
 	<!-- bascinet helmet -->
 	<item id="140d">
-		<decay />
-		<defense>7</defense>
-		<durability>100</durability>
-		<nodye />
-		<id>0x140D</id>
-		<layer>4</layer>
-		<modifier type='dex'>-3</modifier>
 		<name>bascinet</name>
-		<requires type='str'>65</requires> 
+		<decay />
+		<nodye />
+		<defense>2.4</defense>
+		<durability>108</durability>
+		<id>0x140D</id>
+		<requires type='str'>10</requires> 
 		<restock>10</restock>
-		<smelt>6</smelt>
-		<weight>99</weight>
-		<value>140</value>
+		<smelt>12</smelt>
+		<weight>5</weight>
+		<value>127</value>
+		<category>Armor\Non Magical\Helmets\Bascinet</category>
 	</item>
 
 	<!-- nose helmet -->
 	<item id="140f">
-		<decay />
-		<defense>11</defense>
-		<durability>100</durability>
-		<nodye />
-		<id>0x140F</id>
-		<layer>13</layer>
-		<modifier type='dex'>-6</modifier>
 		<name>nose helmet</name>
-		<requires type='str'>65</requires> 
+		<decay />
+		<nodye />
+		<defense>4.1</defense>
+		<durability>52</durability>
+		<id>0x140F</id>
+		<requires type='str'>40</requires> 
 		<restock>10</restock>
-		<smelt>9</smelt>
-		<weight>162</weight>
-		<value>220</value>
+		<smelt>12</smelt>
+		<weight>5</weight>
+		<value>145</value>
+		<category>Armor\Non Magical\Helmets\Nose Helm</category>
 	</item>
 
 	<!-- normal helmet -->
 	<item id="140b">
-		<decay />
-		<defense>10</defense>
-		<durability>100</durability>
-		<nodye />
-		<id>0x140B</id>
-		<layer>6</layer>
-		<modifier type='dex'>-5</modifier>
 		<name>helmet</name>
-		<requires type='str'>45</requires> 
+		<decay />
+		<nodye />
+		<defense>4.1</defense>
+		<durability>52</durability>
+		<id>0x140B</id>
+		<requires type='str'>40</requires> 
 		<restock>10</restock>
-		<smelt>8</smelt>
-		<weight>99</weight>
-		<value>200</value>
+		<smelt>12</smelt>
+		<weight>5</weight>
+		<value>116</value>
+		<category>Armor\Non Magical\Helmets\Normal Helm</category>
 	</item>
 
 	<!-- close helmet -->
 	<item id="1408">
-		<decay />
-		<defense>12</defense>
-		<durability>100</durability>
-		<nodye />
-		<id>0x1408</id>
-		<layer>2</layer>
-		<modifier type='dex'>-8</modifier>
 		<name>close helmet</name>
-		<requires type='str'>85</requires> 
+		<decay />
+		<nodye />
+		<defense>4.1</defense>
+		<durability>52</durability>
+		<id>0x1408</id>
+		<requires type='str'>40</requires> 
 		<restock>10</restock>
-		<smelt>10</smelt>
-		<weight>72</weight>
-		<value>240</value>
+		<smelt>12</smelt>
+		<weight>5</weight>
+		<value>145</value>
+		<category>Armor\Non Magical\Helmets\Close Helm</category>
 	</item>
 </definitions>
+

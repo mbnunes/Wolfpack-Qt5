@@ -1,0 +1,733 @@
+<!-- 
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Viper                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: added categories        |
+================================================================= 
+-->
+<definitions>
+	<!-- Chain Coifs -->
+		<item id="def_chain_coif">
+			<inherit id="13bb" />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Defense\Coif</category>
+		</item>
+
+		<item id="guard_chain_coif">
+			<inherit id="13bb" />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Guarding\Coif</category>
+		</item>
+
+		<item id="hard_chain_coif">
+			<inherit id="13bb" />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Hardening\Coif</category>
+		</item>
+
+		<item id="fort_chain_coif">
+			<inherit id="13bb" />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Fortification\Coif</category>
+		</item>
+
+		<item id="invul_chain_coif">
+			<inherit id="13bb" />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Invulnerability\Coif</category>
+		</item>
+
+		<!-- Durable -->
+		<item id="durable_chain_coif">
+			<inherit id="13bb" />
+			<durable />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Durable\Coif</category>
+		</item>
+
+		<item id="dur_def_chain_coif">
+			<inherit id="13bb" />
+			<durable />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Defense\Coif</category>
+		</item>
+
+		<item id="dur_guard_chain_coif">
+			<inherit id="13bb" />
+			<durable />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Guarding\Coif</category>
+		</item>
+
+		<item id="dur_hard_chain_coif">
+			<inherit id="13bb" />
+			<durable />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Hardening\Coif</category>
+		</item>
+
+		<item id="dur_fort_chain_coif">
+			<inherit id="13bb" />
+			<durable />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Fortification\Coif</category>
+		</item>
+
+		<item id="dur_invul_chain_coif">
+			<inherit id="13bb" />
+			<durable />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Invulnerability\Coif</category>
+		</item>
+
+		<!-- Substantial -->
+		<item id="substantial_chain_coif">
+			<inherit id="13bb" />
+			<substantial />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Substantial\Coif</category>
+		</item>
+
+		<item id="sub_def_chain_coif">
+			<inherit id="13bb" />
+			<substantial />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Defense\Coif</category>
+		</item>
+
+		<item id="sub_guard_chain_coif">
+			<inherit id="13bb" />
+			<substantial />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Guarding\Coif</category>
+		</item>
+
+		<item id="sub_hard_chain_coif">
+			<inherit id="13bb" />
+			<substantial />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Hardening\Coif</category>
+		</item>
+
+		<item id="sub_fort_chain_coif">
+			<inherit id="13bb" />
+			<substantial />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Fortification\Coif</category>
+		</item>
+
+		<item id="sub_invul_chain_coif">
+			<inherit id="13bb" />
+			<substantial />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Invulnerability\Coif</category>
+		</item>
+
+		<!-- Massive -->
+		<item id="massive_chain_coif">
+			<inherit id="13bb" />
+			<massive />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Massive\Coif</category>
+		</item>
+
+		<item id="mass_def_chain_coif">
+			<inherit id="13bb" />
+			<massive />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Defense\Coif</category>
+		</item>
+
+		<item id="mass_guard_chain_coif">
+			<inherit id="13bb" />
+			<massive />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Guarding\Coif</category>
+		</item>
+
+		<item id="mass_hard_chain_coif">
+			<inherit id="13bb" />
+			<massive />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Hardening\Coif</category>
+		</item>
+
+		<item id="mass_fort_chain_coif">
+			<inherit id="13bb" />
+			<massive />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Fortification\Coif</category>
+		</item>
+
+		<item id="mass_invul_chain_coif">
+			<inherit id="13bb" />
+			<massive />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Invulnerability\Coif</category>
+		</item>
+
+		<!-- Fortified -->
+		<item id="fortified_chain_coif">
+			<inherit id="13bb" />
+			<fortified />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Fortified\Coif</category>
+		</item>
+
+		<item id="fort_def_chain_coif">
+			<inherit id="13bb" />
+			<fortified />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Defense\Coif</category>
+		</item>
+
+		<item id="fort_guard_chain_coif">
+			<inherit id="13bb" />
+			<fortified />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Guarding\Coif</category>
+		</item>
+
+		<item id="fort_hard_chain_coif">
+			<inherit id="13bb" />
+			<fortified />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Hardening\Coif</category>
+		</item>
+
+		<item id="fort_fort_chain_coif">
+			<inherit id="13bb" />
+			<fortified />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Fortification\Coif</category>
+		</item>
+
+		<item id="fort_invul_chain_coif">
+			<inherit id="13bb" />
+			<fortified />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Invulnerability\Coif</category>
+		</item>
+
+		<!-- Indestructible -->
+		<item id="indestructible_chain_coif">
+			<inherit id="13bb" />
+			<indestructible />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Indestructible\Coif</category>
+		</item>
+
+		<item id="indes_def_chain_coif">
+			<inherit id="13bb" />
+			<indestructible />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Defense\Coif</category>
+		</item>
+
+		<item id="indes_guard_chain_coif">
+			<inherit id="13bb" />
+			<indestructible />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Guarding\Coif</category>
+		</item>
+
+		<item id="indes_hard_chain_coif">
+			<inherit id="13bb" />
+			<indestructible />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Hardening\Coif</category>
+		</item>
+
+		<item id="indes_fort_chain_coif">
+			<inherit id="13bb" />
+			<indestructible />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Fortification\Coif</category>
+		</item>
+
+		<item id="indes_invul_chain_coif">
+			<inherit id="13bb" />
+			<indestructible />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Invulnerability\Coif</category>
+		</item>
+
+	<!-- Chain Legging -->
+
+		<item id="def_chain_legs">
+			<inherit id="13c3" />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Defense\leggings</category>
+		</item>
+
+		<item id="guard_chain_legs">
+			<inherit id="13c3" />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Guarding\leggings</category>
+		</item>
+
+		<item id="hard_chain_legs">
+			<inherit id="13c3" />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Hardening\leggings</category>
+		</item>
+
+		<item id="fort_chain_legs">
+			<inherit id="13c3" />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Fortification\leggings</category>
+		</item>
+
+		<item id="invul_chain_legs">
+			<inherit id="13c3" />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Invulnerability\leggings</category>
+		</item>
+
+		<!-- Durable -->
+		<item id="durable_chain_legs">
+			<inherit id="13c3" />
+			<durable />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Durable\leggings</category>
+		</item>
+
+		<item id="dur_def_chain_legs">
+			<inherit id="13c3" />
+			<durable />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Defense\leggings</category>
+		</item>
+
+		<item id="dur_guard_chain_legs">
+			<inherit id="13c3" />
+			<durable />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Guarding\leggings</category>
+		</item>
+
+		<item id="dur_hard_chain_legs">
+			<inherit id="13c3" />
+			<durable />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Hardening\Leggings</category>
+		</item>
+
+		<item id="dur_fort_chain_legs">
+			<inherit id="13c3" />
+			<durable />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Fortification\leggings</category>
+		</item>
+
+		<item id="dur_invul_chain_legs">
+			<inherit id="13c3" />
+			<durable />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Durable\Invulnerability\leggings</category>
+		</item>
+
+		<!-- Substantial -->
+		<item id="substantial_chain_legs">
+			<inherit id="13c3" />
+			<substantial />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Substantial\leggings</category>
+		</item>
+
+		<item id="sub_def_chain_legs">
+			<inherit id="13c3" />
+			<substantial />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Defense\leggings</category>
+		</item>
+
+		<item id="sub_guard_chain_legs">
+			<inherit id="13c3" />
+			<substantial />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Guarding\leggings</category>
+		</item>
+
+		<item id="sub_hard_chain_legs">
+			<inherit id="13c3" />
+			<substantial />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Hardening\leggings</category>
+		</item>
+
+		<item id="sub_fort_chain_legs">
+			<inherit id="13c3" />
+			<substantial />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Fortification\leggings</category>
+		</item>
+
+		<item id="sub_invul_chain_legs">
+			<inherit id="13c3" />
+			<substantial />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Substantial\Invulnerability\leggings</category>
+		</item>
+
+		<!-- Massive -->
+		<item id="massive_chain_legs">
+			<inherit id="13c3" />
+			<massive />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Massive\leggings</category>
+		</item>
+
+		<item id="mass_def_chain_legs">
+			<inherit id="13c3" />
+			<massive />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Defense\leggings</category>
+		</item>
+
+		<item id="mass_guard_chain_legs">
+			<inherit id="13c3" />
+			<massive />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Guarding\leggings</category>
+		</item>
+
+		<item id="mass_hard_chain_legs">
+			<inherit id="13c3" />
+			<massive />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Hardening\leggings</category>
+		</item>
+
+		<item id="mass_fort_chain_legs">
+			<inherit id="13c3" />
+			<massive />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Fortification\leggings</category>
+		</item>
+
+		<item id="mass_invul_chain_legs">
+			<inherit id="13c3" />
+			<massive />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Massive\Invulnerability\leggings</category>
+		</item>
+
+		<!-- Fortified -->
+		<item id="fortified_chain_legs">
+			<inherit id="13c3" />
+			<fortified />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Fortified\leggings</category>
+		</item>
+
+		<item id="fort_def_chain_legs">
+			<inherit id="13c3" />
+			<fortified />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Defense\leggings</category>
+		</item>
+
+		<item id="fort_guard_chain_legs">
+			<inherit id="13c3" />
+			<fortified />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Guarding\leggings</category>
+		</item>
+
+		<item id="fort_hard_chain_legs">
+			<inherit id="13c3" />
+			<fortified />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Hardening\leggings</category>
+		</item>
+
+		<item id="fort_fort_chain_legs">
+			<inherit id="13c3" />
+			<fortified />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Fortification\leggings</category>
+		</item>
+
+		<item id="fort_invul_chain_legs">
+			<inherit id="13c3" />
+			<fortified />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Fortified\Invulnerability\leggings</category>
+		</item>
+
+		<!-- Indestructible -->
+		<item id="indestructible_chain_legs">
+			<inherit id="13c3" />
+			<indestructible />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Indestructible\leggings</category>
+		</item>
+
+		<item id="indes_def_chain_legs">
+			<inherit id="13c3" />
+			<indestructible />
+			<defense_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Defense\leggings</category>
+		</item>
+
+		<item id="indes_guard_chain_legs">
+			<inherit id="13c3" />
+			<indestructible />
+			<guarding_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Guarding\leggings</category>
+		</item>
+
+		<item id="indes_hard_chain_legs">
+			<inherit id="13c3" />
+			<indestructible />
+			<hardening_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Hardening\leggings</category>
+		</item>
+
+		<item id="indes_fort_chain_legs">
+			<inherit id="13c3" />
+			<indestructible />
+			<fortification_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Fortification\leggings</category>
+		</item>
+
+		<item id="indes_invul_chain_legs">
+			<inherit id="13c3" />
+			<indestructible />
+			<invulnerability_arms_legs_head />
+			<category>Armor\Magical\Chainmail\Indestructible\Invulnerability\leggings</category>
+		</item>
+	<!-- Chain Tunic -->
+
+		<item id="def_chain_tunic">
+			<inherit id="13c4" />
+			<defense_body />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Defense\tunic</category>
+		</item>
+
+		<item id="guard_chain_tunic">
+			<inherit id="13c4" />
+			<guarding_body />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Guarding\tunic</category>
+		</item>
+
+		<item id="hard_chain_tunic">
+			<inherit id="13c4" />
+			<hardening_body />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Hardening\tunic</category>
+		</item>
+
+		<item id="fort_chain_tunic">
+			<inherit id="13c4" />
+			<fortification_body />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Fortification\tunic</category>
+		</item>
+
+		<item id="invul_chain_tunic">
+			<inherit id="13c4" />
+			<invulnerability_body />
+			<category>Armor\Magical\Chainmail\AR Modified Only\Invulnerability\tunic</category>
+		</item>
+
+		<!-- Durable -->
+		<item id="durable_chain_tunic">
+			<inherit id="13c4" />
+			<durable />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Durable\tunic</category>
+		</item>
+
+		<item id="dur_def_chain_tunic">
+			<inherit id="13c4" />
+			<durable />
+			<defense_body />
+			<category>Armor\Magical\Chainmail\Durable\Defense\tunic</category>
+		</item>
+
+		<item id="dur_guard_chain_tunic">
+			<inherit id="13c4" />
+			<durable />
+			<guarding_body />
+			<category>Armor\Magical\Chainmail\Durable\Guarding\tunic</category>
+		</item>
+
+		<item id="dur_hard_chain_tunic">
+			<inherit id="13c4" />
+			<durable />
+			<hardening_body />
+			<category>Armor\Magical\Chainmail\Durable\Hardening\tunic</category>
+		</item>
+
+		<item id="dur_fort_chain_tunic">
+			<inherit id="13c4" />
+			<durable />
+			<fortification_body />
+			<category>Armor\Magical\Chainmail\Durable\Fortification\tunic</category>
+		</item>
+
+		<item id="dur_invul_chain_tunic">
+			<inherit id="13c4" />
+			<durable />
+			<invulnerability_body />
+			<category>Armor\Magical\Chainmail\Durable\Invulnerability\tunic</category>
+		</item>
+
+		<!-- Substantial -->
+		<item id="substantial_chain_tunic">
+			<inherit id="13c4" />
+			<substantial />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Substantial\tunic</category>
+		</item>
+
+		<item id="sub_def_chain_tunic">
+			<inherit id="13c4" />
+			<substantial />
+			<defense_body />
+			<category>Armor\Magical\Chainmail\Substantial\Defense\tunic</category>
+		</item>
+
+		<item id="sub_guard_chain_tunic">
+			<inherit id="13c4" />
+			<substantial />
+			<guarding_body />
+			<category>Armor\Magical\Chainmail\Substantial\Guarding\tunic</category>
+		</item>
+
+		<item id="sub_hard_chain_tunic">
+			<inherit id="13c4" />
+			<substantial />
+			<hardening_body />
+			<category>Armor\Magical\Chainmail\Substantial\Hardening\tunic</category>
+		</item>
+
+		<item id="sub_fort_chain_tunic">
+			<inherit id="13c4" />
+			<substantial />
+			<fortification_body />
+			<category>Armor\Magical\Chainmail\Substantial\Fortification\tunic</category>
+		</item>
+
+		<item id="sub_invul_chain_tunic">
+			<inherit id="13c4" />
+			<substantial />
+			<invulnerability_body />
+			<category>Armor\Magical\Chainmail\Substantial\Invulnerability\tunic</category>
+		</item>
+
+		<!-- Massive -->
+		<item id="massive_chain_tunic">
+			<inherit id="13c4" />
+			<massive />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Massive\tunic</category>
+		</item>
+
+		<item id="mass_def_chain_tunic">
+			<inherit id="13c4" />
+			<massive />
+			<defense_body />
+			<category>Armor\Magical\Chainmail\Massive\Defense\tunic</category>
+		</item>
+
+		<item id="mass_guard_chain_tunic">
+			<inherit id="13c4" />
+			<massive />
+			<guarding_body />
+			<category>Armor\Magical\Chainmail\Massive\Guarding\tunic</category>
+		</item>
+
+		<item id="mass_hard_chain_tunic">
+			<inherit id="13c4" />
+			<massive />
+			<hardening_body />
+			<category>Armor\Magical\Chainmail\Massive\Hardening\tunic</category>
+		</item>
+
+		<item id="mass_fort_chain_tunic">
+			<inherit id="13c4" />
+			<massive />
+			<fortification_body />
+			<category>Armor\Magical\Chainmail\Massive\Fortification\tunic</category>
+		</item>
+
+		<item id="mass_invul_chain_tunic">
+			<inherit id="13c4" />
+			<massive />
+			<invulnerability_body />
+			<category>Armor\Magical\Chainmail\Massive\Invulnerability\tunic</category>
+		</item>
+
+		<!-- Fortified -->
+		<item id="fortified_chain_tunic">
+			<inherit id="13c4" />
+			<fortified />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Fortified\tunic</category>
+		</item>
+
+		<item id="fort_def_chain_tunic">
+			<inherit id="13c4" />
+			<fortified />
+			<defense_body />
+			<category>Armor\Magical\Chainmail\Fortified\Defense\tunic</category>
+		</item>
+
+		<item id="fort_guard_chain_tunic">
+			<inherit id="13c4" />
+			<fortified />
+			<guarding_body />
+			<category>Armor\Magical\Chainmail\Fortified\Guarding\tunic</category>
+		</item>
+
+		<item id="fort_hard_chain_tunic">
+			<inherit id="13c4" />
+			<fortified />
+			<hardening_body />
+			<category>Armor\Magical\Chainmail\Fortified\Hardening\tunic</category>
+		</item>
+
+		<item id="fort_fort_chain_tunic">
+			<inherit id="13c4" />
+			<fortified />
+			<fortification_body />
+			<category>Armor\Magical\Chainmail\Fortified\Fortification\tunic</category>
+		</item>
+
+		<item id="fort_invul_chain_tunic">
+			<inherit id="13c4" />
+			<fortified />
+			<invulnerability_body />
+			<category>Armor\Magical\Chainmail\Fortified\Invulnerability\tunic</category>
+		</item>
+
+		<!-- Indestructible -->
+		<item id="indestructible_chain_tunic">
+			<inherit id="13c4" />
+			<indestructible />
+			<category>Armor\Magical\Chainmail\Durability Modified Only\Indestructible\tunic</category>
+		</item>
+
+		<item id="indes_def_chain_tunic">
+			<inherit id="13c4" />
+			<indestructible />
+			<defense_body />
+			<category>Armor\Magical\Chainmail\Indestructible\Defense\tunic</category>
+		</item>
+
+		<item id="indes_guard_chain_tunic">
+			<inherit id="13c4" />
+			<indestructible />
+			<guarding_body />
+			<category>Armor\Magical\Chainmail\Indestructible\Guarding\tunic</category>
+		</item>
+
+		<item id="indes_hard_chain_tunic">
+			<inherit id="13c4" />
+			<indestructible />
+			<hardening_body />
+			<category>Armor\Magical\Chainmail\Indestructible\Hardening\tunic</category>
+		</item>
+
+		<item id="indes_fort_chain_tunic">
+			<inherit id="13c4" />
+			<indestructible />
+			<fortification_body />
+			<category>Armor\Magical\Chainmail\Indestructible\Fortification\tunic</category>
+		</item>
+
+		<item id="indes_invul_chain_tunic">
+			<inherit id="13c4" />
+			<indestructible />
+			<invulnerability_body />
+			<category>Armor\Magical\Chainmail\Indestructible\Invulnerability\tunic</category>
+		</item>
+</definitions>				
