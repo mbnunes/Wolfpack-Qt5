@@ -58,7 +58,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), "").simplifyWhiteSpace();
+			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), "", false).simplifyWhiteSpace();
 			bKeepLooping = ( tmp != "" );
 			if ( bKeepLooping ) // valid data.
 			{

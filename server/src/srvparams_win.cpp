@@ -115,15 +115,14 @@ QString cSrvParams::mulPath() const
 std::vector<ServerList_st>& cSrvParams::serverList()
 {
 	static unsigned int lastIpCheck = 0;
-	static UINT32 inetIp = 0;
-
-	if ( serverList_.empty() ) // Empty? Try to load
+	static bool dynamicIP = false;
+	if ( serverList_.empty() || ( dynamicIP && lastIpCheck <= uiCurrentTime ) ) // Empty? Try to load
 	{
 		bool bKeepLooping = true;
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), "").simplifyWhiteSpace();
+			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), QString::null, false).simplifyWhiteSpace();
 			bKeepLooping = !tmp.isEmpty();
 			if ( bKeepLooping ) // valid data.
 			{
@@ -146,8 +145,9 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 					// This code will retrieve the first
 					// valid Internet IP it finds
 					// and replace a 0.0.0.0 with it
-					if( !inetIp || ( ( server.ip == 0 ) && ( lastIpCheck <= uiCurrentTime ) ) )
+					if( ( ( server.ip == 0 ) && ( lastIpCheck <= uiCurrentTime ) ) )
 					{
+						dynamicIP = true;
 						hostent *hostinfo;
 						char name[256];
 
