@@ -53,6 +53,9 @@ typedef struct {
 } wpChar;
 
 // Forward Declarations
+#define pGetInt( a, b ) if( !strcmp( name, a ) ) return PyInt_FromLong( self->pChar->b );
+#define pGetStr( a, b ) if( !strcmp( name, a ) ) return PyString_FromString( self->pChar->b );
+
 PyObject *wpChar_getAttr( wpChar *self, char *name );
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value );
 
@@ -479,9 +482,112 @@ static PyMethodDef wpCharMethods[] =
 // Getters & Setters
 PyObject *wpChar_getAttr( wpChar *self, char *name )
 {
-	QString field = name;
+	pGetStr( "name", name.c_str() )
+	else pGetStr( "orgname", orgname().latin1() )
+	else pGetStr( "title", title().latin1() )
 
-	getStrProperty( "name", pChar->name.c_str() )
+	else pGetInt( "id", id() )
+	else pGetInt( "xid", xid )
+    
+	else pGetInt( "race", race )
+	else pGetInt( "dir", dir )
+
+	// Flags
+	else pGetInt( "allmove", canMoveAll() ? 1 : 0 )
+	else pGetInt( "frozen", isFrozen() ? 1 : 0 )
+	else pGetInt( "iconmultis", viewHouseIcons() ? 1 : 0 )
+	else pGetInt( "permhidden", isHiddenPermanently() ? 1 : 0 )
+	else pGetInt( "hidden", hidden() )
+	else pGetInt( "nomana", priv2 & 0x10 ? 1 : 0 )
+	else pGetInt( "dispellable", priv2 & 0x20 ? 1 : 0 )
+	else pGetInt( "permmagicreflect", priv2 & 0x40 ? 1 : 0 )
+	else pGetInt( "noreags", priv2 & 0x80 ? 1 : 0 )
+
+	else pGetInt( "fonttype", fonttype )
+	else pGetInt( "saycolor", saycolor )
+	else pGetInt( "emotecolor", emotecolor )
+
+	else pGetInt( "str", st )
+	else pGetInt( "dex", effDex() )
+	else pGetInt( "int", in )
+
+	else pGetInt( "str2", st2 )
+	else pGetInt( "dex2", decDex() )
+	else pGetInt( "int2", in2 )
+
+	else pGetInt( "health", hp )
+	else pGetInt( "stamina", stm )
+	else pGetInt( "mana", mn )
+
+	else pGetInt( "hidamage", hidamage )
+	else pGetInt( "lodamage", lodamage )
+
+	else pGetInt( "npc", npc )
+	else pGetInt( "shop", shop )
+	else pGetInt( "cell", cell )
+	
+	// Owner
+	else if( !strcmp( name, "owner" ) )
+		return PyGetCharObject( FindCharBySerial( self->pChar->ownserial ) );
+
+	else pGetInt( "karma", karma )
+	else pGetInt( "fame", fame )
+	else pGetInt( "kills", kills )
+	else pGetInt( "deaths", deaths )
+	else pGetInt( "dead", dead )
+
+	else if( !strcmp( name, "backpack" ) )
+		return PyGetItemObject( self->pChar->getBackpack() );
+
+	else pGetInt( "def", def )
+	else pGetInt( "war", war )
+	
+	// Target
+	else if( !strcmp( "target", name ) )
+	{
+		if( isItemSerial( self->pChar->targ ) )
+			return PyGetItemObject( FindItemBySerial( self->pChar->targ ) );
+		else if( isCharSerial( self->pChar->targ ) )
+			return PyGetCharObject( FindCharBySerial( self->pChar->targ ) );
+	}
+
+	else pGetInt( "npcwander", npcWander )
+	else pGetInt( "oldnpcwander", oldnpcWander )
+	
+	// Region object
+	else if( !strcmp( "region", name ) )
+	{
+		return Py_None;
+	}
+
+	else pGetInt( "skilldelay", skilldelay )
+	else pGetInt( "objectdelay", objectdelay )
+	else pGetInt( "taming", taming )
+	else pGetInt( "summontimer", summontimer )
+	else pGetInt( "visrange", VisRange )
+	
+	else if( !strcmp( "trackingtarget", name ) )
+	{
+		if( isItemSerial( self->pChar->trackingTarget() ) )
+			return PyGetItemObject( FindItemBySerial( self->pChar->trackingTarget() ) );
+		else if( isCharSerial( self->pChar->trackingTarget() ) )
+			return PyGetCharObject( FindCharBySerial( self->pChar->trackingTarget() ) );
+	}
+
+	// Account object
+	else if( !strcmp( "account", name ) )
+	{
+		return Py_None;
+	}
+
+	else pGetInt( "incognito", incognito() )
+	else pGetInt( "polymorph", polymorph() )
+	else pGetInt( "haircolor", haircolor() )
+	else pGetInt( "hairstyle", hairstyle() )
+	else pGetInt( "beardcolor", beardcolor() )
+	else pGetInt( "beardstyle", beardstyle() )
+
+	/*getStrProperty( "name", pChar->name.c_str() )
 	else getStrProperty( "orgname", pChar->orgname().latin1() )
 	else getStrProperty( "title", pChar->title().latin1() )
 	else getIntProperty( "serial", pChar->serial )
@@ -540,16 +646,16 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 	else if( !strcmp( "equipment", name ) )
 	{
-		/*Py_WPEquipment *returnVal = PyObject_New( Py_WPEquipment, &Py_WPEquipmentType );
+		Py_WPEquipment *returnVal = PyObject_New( Py_WPEquipment, &Py_WPEquipmentType );
 		returnVal->pChar = self->pChar; // Never forget that
-		return (PyObject*)returnVal;*/
+		return (PyObject*)returnVal;
 		return Py_None;
 	}
 
 	// Base skill
 	else for( UINT8 i = 0; i < ALLSKILLS; ++i )
 		if( field.upper() == skillname[ i ] ) 
-			return PyInt_FromLong( self->pChar->baseSkill( i ) );
+			return PyInt_FromLong( self->pChar->baseSkill( i ) );*/
 
 	// If no property is found search for a method
 	return Py_FindMethod( wpCharMethods, (PyObject*)self, name );
