@@ -43,6 +43,7 @@
 		<nodecay />
 		<movable>2</movable>
 		<type>1</type>
+		<category>Equipment\Containers\Trashcan</category>
 	</item>
 
 </definitions>

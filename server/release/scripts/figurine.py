@@ -118,3 +118,11 @@ def shrinktarget( char, args, target ):
 #
 def onLoad():
 	wolfpack.registercommand('shrink', shrink)
+	
+"""
+	\command shrink
+	\description With this command you can shrink a NPC.
+	\usage - <code>shrink</code>
+	 A figurine will be created at the point you shrinked it.
+	\notes This command cannot be used on players. 
+"""
