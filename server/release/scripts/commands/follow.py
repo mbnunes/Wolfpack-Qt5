@@ -37,7 +37,8 @@ def timer(char, args):
 
 # for the .who-menu
 def who_target(player, arguments, target):
-	if player == target or target.pos.map == 0xFF:
+	char = wolfpack.findchar(target)
+	if player == char or char.pos.map == 0xFF:
 		player.socket.sysmessage(tr('You chose an invalid follow target.'))
 		return
 	dofollow(player, target)
