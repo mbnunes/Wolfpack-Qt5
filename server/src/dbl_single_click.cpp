@@ -1573,7 +1573,7 @@ void singleclick(UOXSOCKET s)
 			itemmessage(s,"[Murderer]",serial, 0x0026);
 	}  // end highlighting
 	// Let's handle secure/locked down stuff.
-	if (pi->isLockedDown() && pi->type != 12 && pi->type != 203)
+	if (pi->isLockedDown() && pi->type != 12 && pi->type != 13 && pi->type != 203)
 	{
 		if (pi->secureIt !=1)
 			itemmessage(s, "[locked down]", serial, 0x0481);
