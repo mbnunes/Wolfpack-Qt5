@@ -70,7 +70,13 @@ def openDoor( socket ):
 				if event == 'door':
 					opendoor = 1
 					break
+
 		if opendoor == 1:
-			wolfpack.callevent( event, EVENT_USE, (char, door) )
+			scripts = item.scripts + item.basescripts.split(',')
+			args = (char, door)
+			for script in scripts:
+				if wolfpack.hasevent(script, EVENT_USE):
+					if wolfpack.callevent(script, EVENT_USE, args):
+						break
 			break
 	return True
