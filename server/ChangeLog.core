@@ -35,6 +35,7 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Fixed a bug in the new ContainerCopyIterator.
 	- Fixed movement not correctly being sent to other characters.
 	- Fixed Multi Update range.
+	- Added .reload muls and added a broadcast message to the reload commands.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

@@ -99,25 +99,25 @@ inline QString makeAscii(const QString &input) {
 
 		// German umlauts can be represented differently
 		switch (c) {
-			case 'ü':
+			case 129: // ü
 				result.append("ue");
 				continue;
-			case 'ä':
+			case 132: // ä
 				result.append("ae");
 				continue;
-			case 'ö':
+			case 148: // ö
 				result.append("oe");
 				continue;
-			case 'ß':
+			case 225: // ß
 				result.append("ss");
 				continue;
-			case 'Ü':
+			case 154: // Ü
 				result.append("Ue");
 				continue;
-			case 'Ä':
+			case 142: // Ä
 				result.append("Ae");
 				continue;
-			case 'Ö':
+			case 153: // Ö
 				result.append("Oe");
 				continue;
 		}

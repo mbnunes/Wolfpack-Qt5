@@ -365,6 +365,7 @@ void cSpawnRegion::processNode( const cElement *tag )
 				Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a rectangle with an invalid z attribute '%2'.\n").arg(id_).arg(tag->getAttribute("z")));
 				return;
 			}
+			fixedZ = true;
 		}
 
 		positions_.append(new cSpawnRectangle(from, to, map, fixedZ, z)); // Append to position

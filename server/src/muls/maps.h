@@ -134,6 +134,7 @@ public:
 	bool canFit( int x, int y, int z, uint map ) const;
 	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) const throw( wpException );
 	StaticsIterator staticsIterator( const Coord&, bool exact = true ) const throw( wpException );
+	void flushCache();
 };
 
 // Inline member functions

@@ -44,6 +44,7 @@
 #include "contextmenu.h"
 #include "pythonscript.h"
 #include "network/network.h"
+#include "muls/multiscache.h"
 #include "walking.h"
 #include "dbdriver.h"
 
@@ -529,16 +530,29 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 	}
 	else if ( subCommand == "python" )
 	{
+		Network::instance()->broadcast(tr("Reloading python scripts."));
 		Server::instance()->reload( "scripts" );
+		Network::instance()->broadcast(tr("Finished reloading python scripts."));
 	}
 	else if ( subCommand == "scripts" )
 	{
+		Network::instance()->broadcast(tr("Reloading definitions."));
 		Server::instance()->reload( "definitions" );
+		Network::instance()->broadcast(tr("Finished reloading definitions."));
 	}
-
-	if ( subCommand == "all" )
+	else if ( subCommand == "muls" )
 	{
+		Network::instance()->broadcast(tr("Reloading mul files."));
+		Maps::instance()->reload();
+		TileCache::instance()->reload();
+		MultiCache::instance()->reload();
+		Network::instance()->broadcast(tr("Finished reloading mul files."));
+	}
+	else if ( subCommand == "all" )
+	{
+		Network::instance()->broadcast(tr("Reloading server configuration."));
 		Server::instance()->reload( "configuration" ); // This will reload nearly everything
+		Network::instance()->broadcast(tr("Finished reloading server configuration."));
 	}
 }
 

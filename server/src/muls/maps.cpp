@@ -97,6 +97,7 @@ public:
 
 	MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw( wpFileNotFoundException );
 	map_st seekMap( ushort x, ushort y );
+	void flushCache();
 };
 
 /*****************************************************************************
@@ -288,6 +289,18 @@ void cMaps::load()
 	registerMap( 4, "map4.mul", 181, 181, "statics4.mul", "staidx4.mul" );
 
 	cComponent::load();
+}
+
+void MapsPrivate::flushCache() {
+	this->staticsCache.clear();
+	this->mapCache.clear();
+}
+
+void cMaps::flushCache() {
+	for ( iterator it = d.begin(); it != d.end(); ++it )
+	{
+		it.data()->flushCache();
+	}
 }
 
 /*!
@@ -761,3 +774,4 @@ void StaticsIterator::dec()
 	if ( pos > 0 )
 		--pos;
 }
+
