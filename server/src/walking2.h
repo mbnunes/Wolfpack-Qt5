@@ -73,7 +73,7 @@ private:
 	void PathFind( P_CHAR pc, unsigned short gx, unsigned short gy );
 
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
-	void checkRunning( P_CHAR, Q_UINT8 );
+	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
 	void checkStealth( P_CHAR );
 	void sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& oldpos );
 

@@ -1402,3 +1402,75 @@ void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
 
 	}
 }
+
+void cUOSocket::updateStamina( P_CHAR pChar )
+{
+	if( !pChar )
+		pChar = _player;
+
+	if( !pChar )
+		return;
+
+	cUOTxUpdateStamina update;
+	
+	if( pChar == _player )
+	{
+		update.setMaximum( pChar->effDex() );
+		update.setCurrent( pChar->stm );
+	}
+	else
+	{
+		update.setMaximum( 100 );
+		update.setCurrent( (UINT16)((pChar->stm/pChar->effDex())*100) );
+	}
+
+	send( &update );
+}
+
+void cUOSocket::updateMana( P_CHAR pChar )
+{
+	if( !pChar )
+		pChar = _player;
+
+	if( !pChar )
+		return;
+
+	cUOTxUpdateStamina update;
+	
+	if( pChar == _player )
+	{
+		update.setMaximum( pChar->in );
+		update.setCurrent( pChar->mn );
+	}
+	else
+	{
+		update.setMaximum( 100 );
+		update.setCurrent( (UINT16)((pChar->mn/pChar->in)*100) );
+	}
+
+	send( &update );
+}
+
+void cUOSocket::updateHealth( P_CHAR pChar )
+{
+	if( !pChar )
+		pChar = _player;
+
+	if( !pChar )
+		return;
+
+	cUOTxUpdateStamina update;
+	
+	if( pChar == _player )
+	{
+		update.setMaximum( pChar->st );
+		update.setCurrent( pChar->hp );
+	}
+	else
+	{
+		update.setMaximum( 100 );
+		update.setCurrent( (UINT16)((pChar->hp/pChar->st)*100) );
+	}
+
+	send( &update );
+}

@@ -357,7 +357,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if( dir == pChar->dir )
 	{
 		if( running )
-			checkRunning( pChar, dir ); // Reduces Stamina and does other things related to running
+			checkRunning( socket, pChar, dir ); // Reduces Stamina and does other things related to running
 		else
 			pChar->setRunning( 0 );
 
@@ -611,33 +611,33 @@ bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw()
 }
 
 // This only gets called when running
-void cMovement::checkRunning( P_CHAR pc, Q_UINT8 dir )
+void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 {
 	// Running automatically stops stealthing
-	if( pc->stealth() != -1 ) 
+	if( pChar->stealth() != -1 ) 
 	{
-		pc->setStealth(-1);
-		pc->setHidden( 0 );
-		pc->update();
+		pChar->setStealth( -1 );
+		pChar->setHidden( 0 );
+		pChar->update();
 	}
 
 	// Don't regenerate stamina while running
-	pc->regen2 = uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC );
-	pc->setRunning( pc->running() + 1 );
+	pChar->regen2 = uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC );
+	pChar->setRunning( pChar->running() + 1 );
 	
 	// If we're running on our feet, check for stamina loss
-	if( !pc->dead && !pc->onHorse() && pc->running() > ( SrvParams->runningStamSteps() ) * 2 )
+	// Crap
+	if( !pChar->dead && !pChar->onHorse() && pChar->running() > ( SrvParams->runningStamSteps() ) * 2 )
 	{
 		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
-		pc->setRunning( 0 );
-		pc->stm--;
-		updatestats( pc, 2 );
+		// ^^ WTF?
+		pChar->setRunning( 0 );
+		pChar->stm--;
+		socket->updateStamina();
 	}
 
-	if( pc->war && pc->targ != INVALID_SERIAL )
-	{
-		pc->timeout = uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ); // 2 Second timeout
-	}
+	if( pChar->war && pChar->targ != INVALID_SERIAL )
+		pChar->timeout = uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ); // 2 Second timeout
 }
 
 void cMovement::checkStealth( P_CHAR pChar )

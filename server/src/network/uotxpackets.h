@@ -723,4 +723,34 @@ public:
 	void setReason( eBounceReason reason ) { rawPacket[1] = reason; }
 };
 
+// 0xA1 Update Health
+class cUOTxUpdateHealth: public cUOPacket
+{
+public:
+	cUOTxUpdateHealth(): cUOPacket( 0xA1, 9 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setMaximum( UINT16 data ) { setShort( 5, data ); }
+	void setCurrent( UINT16 data ) { setShort( 7, data ); }
+};
+
+// 0xA2 Update Mana
+class cUOTxUpdateMana: public cUOPacket
+{
+public:
+	cUOTxUpdateMana(): cUOPacket( 0xA2, 9 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setMaximum( UINT16 data ) { setShort( 5, data ); }
+	void setCurrent( UINT16 data ) { setShort( 7, data ); }
+};
+
+// 0xA3 Update Stamina
+class cUOTxUpdateStamina: public cUOPacket
+{
+public:
+	cUOTxUpdateStamina(): cUOPacket( 0xA3, 9 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setMaximum( UINT16 data ) { setShort( 5, data ); }
+	void setCurrent( UINT16 data ) { setShort( 7, data ); }
+};
+
 #endif
