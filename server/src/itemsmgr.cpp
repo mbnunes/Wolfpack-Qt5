@@ -73,6 +73,26 @@ SERIAL cItemsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cItem*> max_serialPred;
 	map<SERIAL, cItem*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
-	return max(0x40000000, temp->first+1);
+	return max(0x40000001, temp->first+1);
 }
 
+void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
+{
+	if ( pi != NULL)
+	{
+		deletedItems.push_back(pi);
+		unregisterItem(pi);
+	}
+	else
+		throw wp_exceptions::bad_ptr("Invalid argument pi at cItemsManager::deleteItem");
+}
+
+void cItemsManager::purge()
+{
+	list<cItem*>::iterator it;
+	for (it = deletedItems.begin(); it != deletedItems.end(); it++)
+	{
+		delete *it;
+	}
+	deletedItems.clear();
+}

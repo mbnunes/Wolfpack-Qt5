@@ -41,10 +41,14 @@
 
 // System Includes
 #include <map>
+#include <list>
 
 // Singleton Class to manage Items.
 class cCharsManager : public std::map<SERIAL, cChar*>
 {
+protected:
+	// Data Members
+	std::list<cChar*> deletedChars;
 protected:
 	cCharsManager() {} // Unallow anyone to instantiate.
 	cCharsManager(cCharsManager& _it) {} // Unallow copy constructor
@@ -53,6 +57,8 @@ public:
 	void registerChar( cChar* ) throw(wp_exceptions::bad_ptr);
 	void unregisterChar( cChar* ) throw (wp_exceptions::bad_ptr);
 	SERIAL getUnusedSerial() const;
+	void deleteChar( cChar* ) throw(wp_exceptions::bad_ptr);
+	void purge();
 
 	static cCharsManager& getCharsManager()
 	{

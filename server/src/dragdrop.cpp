@@ -296,7 +296,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 					{
 						P_ITEM pi_c = new cItem(*pi);
 						//	pi_c->Init(0);
-#pragma note("Replace by a copy constructor before finishing items[]")
+#pragma note("Works for now, but need to change to prototype pattern later")
 						//memcpy(pi_c, pi, sizeof(cItem));  // Tauriel reduce code faster too
 						pi_c->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
 

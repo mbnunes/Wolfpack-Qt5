@@ -6,14 +6,13 @@
 
 PROJECT = Wolfpack Emu
 
-#INCLUDEPATH = ./ZThread/include
+INCLUDEPATH = ./ZThread/include
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS ZTHREAD_STATIC
 win32-g++:DEFINES = WIN32 ZTHREAD_STATIC
-#unix:DEFINES   = ZTHREAD_STATIC
-unix:TMAKE_CXXFLAGS = -funsigned-char -I/usr/local/include -ggdb
-#unix:LIBS= -LZThread/lib/ -lZThread 
-unix:LIBS= -L/usr/local/lib/ -L/usr/local/lib/pth -lZThread -lpthread 
+unix:DEFINES   = ZTHREAD_STATIC
+unix:TMAKE_CXXFLAGS = -funsigned-char
+unix:LIBS= -LZThread/lib/ -lZThread 
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:LIBS= -LZThread/lib/ -lwsock32 -lZThread
 win32-msvc:RC_FILE         = res.rc
@@ -24,7 +23,7 @@ win32-borland:TMAKE_CXXFLAGS = -K -5 -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-
 win32-borland:LIBS = ws2_32.lib
 TARGET          = wolfpack
 TEMPLATE        = app
-CONFIG          = console debug
+CONFIG          = console release
 HEADERS         = Client.h \
 		  SndPkg.h \
 		  SrvParms.h \
@@ -119,6 +118,7 @@ SOURCES         = Client.cpp \
 		  combat.cpp \
 		  commands.cpp \
 		  coord.cpp \
+		  cWeather.cpp \
 		  dbl_single_click.cpp \
 		  debug.cpp \
 		  dragdrop.cpp \
@@ -166,7 +166,6 @@ SOURCES         = Client.cpp \
 		  worldmain.cpp \
 		  wpconsole.cpp \
 		  tilecache.cpp \
-		  walking2.cpp \
-		  cweather.cpp
+		  walking2.cpp
 INTERFACES	=
  

@@ -832,15 +832,17 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 void checkauto() // Check automatic/timer controlled stuff (Like fighting and regeneration)
 {
 	//int k;
-	unsigned int i,currenttime=uiCurrentTime; //\/ getclock only once
-	static unsigned int checkspawnregions=0;
-	static unsigned int checknpcs=0;
-	static unsigned int checktamednpcs=0;
-	static unsigned int checknpcfollow=0;
-	static unsigned int checkitemstime=0;
-	static unsigned int lighttime=0;
-	static unsigned int htmltime=0;
-	static unsigned int housedecaytimer=0;
+	unsigned int i;
+	register unsigned int currenttime = uiCurrentTime;
+	static unsigned int checkspawnregions = 0;
+	static unsigned int checknpcs = 0;
+	static unsigned int checktamednpcs = 0;
+	static unsigned int checknpcfollow = 0;
+	static unsigned int checkitemstime = 0;
+	static unsigned int lighttime = 0;
+	static unsigned int htmltime = 0;
+	static unsigned int housedecaytimer = 0;
+	static unsigned int freeUnusedMemory = 0;
 
 	//static unsigned int repairworldtimer=0;
 
@@ -856,7 +858,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		// check stabling
 		///////////////////
 
-		int ci,serial; //,serhash;
+		int ci,serial;
 		unsigned long int diff;
 
 		//char * t;
@@ -885,7 +887,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			}
 		}
 
-		housedecaytimer=uiCurrentTime+MY_CLOCKS_PER_SEC*60*11; // check only each 11 minutes
+		housedecaytimer=uiCurrentTime+MY_CLOCKS_PER_SEC*60*30; // check only each 30 minutes
 	}
 
 
@@ -1077,6 +1079,14 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}//for i<now
 
 	AllTmpEff->Check();
+
+	if ( freeUnusedMemory <= currenttime )
+	{
+		cItemsManager::getItemsManager().purge();
+		cCharsManager::getCharsManager().purge();
+		freeUnusedMemory = currenttime + MY_CLOCKS_PER_SEC*60*40; // check only each 40 minutes
+	}
+
 	if(checknpcs<=currenttime) checknpcs=(unsigned int)((double)(speed.npctime*MY_CLOCKS_PER_SEC+currenttime)); //lb
 	if(checktamednpcs<=currenttime) checktamednpcs=(unsigned int)((double) currenttime+(speed.tamednpctime*MY_CLOCKS_PER_SEC)); //AntiChrist
 	if(checknpcfollow<=currenttime) checknpcfollow=(unsigned int)((double) currenttime+(speed.npcfollowtime*MY_CLOCKS_PER_SEC)); //Ripper

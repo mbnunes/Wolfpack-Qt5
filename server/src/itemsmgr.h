@@ -41,10 +41,14 @@
 
 // System Includes
 #include <map>
+#include <list>
 
 // Singleton Class to manage Items.
 class cItemsManager : public std::map<SERIAL, cItem*>
 {
+protected:
+	// Data members
+	std::list<cItem*> deletedItems;
 protected:
 	cItemsManager() {} // Unallow anyone to instantiate.
 	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
@@ -52,6 +56,8 @@ protected:
 public:
 	void registerItem( cItem* ) throw(wp_exceptions::bad_ptr);
 	void unregisterItem( cItem* ) throw (wp_exceptions::bad_ptr);
+	void deleteItem ( cItem * ) throw (wp_exceptions::bad_ptr);
+	void purge();
 	SERIAL getUnusedSerial() const;
 
 	static cItemsManager& getItemsManager()

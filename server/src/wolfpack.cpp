@@ -2797,7 +2797,7 @@ int main(int argc, char *argv[])
 	uiCurrentTime = serverstarttime = getNormalizedTime();
 
 	#ifndef __unix__ // If X-Wolf mandatory flag is set don't start if wolfpack hasn't been started by X-Wolf
-#if 1
+#if 0
 //	if (0) 
 
 	  int win = GetWindowsVersion();

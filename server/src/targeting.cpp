@@ -731,7 +731,10 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 		sprintf((char*)temp2, "%s has made %s a GM.\n",currchar[s]->name,pc->name);
 		savelog((char*)temp2, (char*)temp);
 	}
-	unmounthorse(calcSocketFromChar(pc));	//AntiChrist bugfix
+	UOXSOCKET targSocket = calcSocketFromChar(pc);
+	if ( targSocket == -1 )
+		return;
+	unmounthorse(targSocket);	//AntiChrist bugfix
 	
 	pc->id1=0x03;
 	pc->id2='\xDB';

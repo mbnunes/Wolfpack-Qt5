@@ -677,9 +677,10 @@ void cAllItems::DeleItem(P_ITEM pi)
 			if (pContent != NULL)
 				DeleItem(pContent);
 		}
+		// Remove from map
 		cItemsManager::getItemsManager().unregisterItem(pi);
-		delete pi;
-		pi = NULL;
+		// Queue for later delete.
+		cItemsManager::getItemsManager().deleteItem(pi);
 	}
 	
 }

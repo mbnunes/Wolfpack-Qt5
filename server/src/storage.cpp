@@ -187,9 +187,11 @@ vector<SERIAL> Container_cl::getData(SERIAL serContainer)
 	typedef multimap<SERIAL, SERIAL>::iterator iterSerial;
 	pair<iterSerial, iterSerial> iterRange = mapData.equal_range(serContainer);
 
+	bool debug = iterRange.first == mapData.end();
+	debug = iterRange.second == mapData.end();
+
 	for (iterData = iterRange.first; iterData != iterRange.second; ++iterData)
 	{
-//		if (iterData->first == serContainer)
 		vecValue.push_back(iterData->second);
 	}
 	return vecValue;

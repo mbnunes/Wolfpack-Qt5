@@ -77,3 +77,23 @@ SERIAL cCharsManager::getUnusedSerial() const
 	return max(1, temp->first+1); // no serial 0
 }
 
+void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)
+{
+	if ( pc != NULL)
+	{
+		deletedChars.push_back(pc);
+		unregisterChar(pc);
+	}
+	else
+		throw wp_exceptions::bad_ptr("Invalid argument pc at cCharsManager::deleteChar");
+}
+
+void cCharsManager::purge()
+{
+	list<cChar*>::iterator it;
+	for (it = deletedChars.begin(); it != deletedChars.end(); it++)
+	{
+		delete *it;
+	}
+	deletedChars.clear();
+}
