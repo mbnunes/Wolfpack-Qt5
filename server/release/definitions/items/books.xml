@@ -8,7 +8,7 @@
 -->
 <definitions>
 	<!-- Dont create this as a normal item -->
-	<item id="book_base">
+	<item id="book_base" type="book">
 		<value>130</value>
 		<name>book</name>
 		<decay />
@@ -25,35 +25,35 @@
 	</item>
 
 	<!-- Book 2 -->
-	<item id="ff0">
+	<item id="ff0" type="book">
 		<inherit id="book_base" />
 		<category>Equipment\Books\Book 2</category>
 		<id>0x0ff0</id>
 	</item>
 
 	<!-- Book 3 -->
-	<item id="ff1">
+	<item id="ff1" type="book">
 		<inherit id="book_base" />
 		<category>Equipment\Books\Book 3</category>
 		<id>0x0ff1</id>
 	</item>
 
 	<!-- Book 4 -->
-	<item id="ff2">
+	<item id="ff2" type="book">
 		<inherit id="book_base" />
 		<category>Equipment\Books\Book 4</category>
 		<id>0x0ff2</id>
 	</item>
 
 	<!-- Book 5 -->
-	<item id="ff3">
+	<item id="ff3" type="book">
 		<inherit id="book_base" />
 		<category>Equipment\Books\Book 5</category>
 		<id>0x0ff3</id>
 	</item>
 
 	<!-- Book 6 -->
-	<item id="ff4">
+	<item id="ff4" type="book">
 		<inherit id="book_base" />
 		<category>Equipment\Books\Book 6</category>
 		<id>0x0ff4</id>

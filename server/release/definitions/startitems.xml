@@ -9,6 +9,9 @@
 <definitions>
 	<!--  default -->
 	<startitems id="default">
-		<gold>100</gold>
+		<!--  gold --><gold>100</gold>
+		<!--  bread --><item id="103c"><type>14</type><amount>2</amount></item>
+		<!--  candle --><item id="a0f"></item>
+		<!--  book --><item id="ff1"></item>
 	</startitems>	
 </definitions>

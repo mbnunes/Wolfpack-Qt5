@@ -2851,34 +2851,43 @@ void loadskills()
 			continue;
 
         QDomElement *skillNode = DefManager->getSection( WPDT_SKILL, skills[i] );
-		QDomElement node = skillNode->firstChild().toElement();
+		if( skillNode->isNull() )
+			skillNode = DefManager->getSection( WPDT_SKILL, QString( skillname[i] ).lower() );
+		if( skillNode->isNull() )
+			continue;
+
+		QDomNode childNode = skillNode->firstChild();
 		
 		skill[skillId].advance_index = l;
 		
-		while( !node.isNull() )
+		while( !childNode.isNull() )
 		{
-			if( node.nodeName() == "str" )
-				skill[skillId].st = node.text().toInt();
-			
-			else if( node.nodeName() == "dex" )
-				skill[skillId].dx = node.text().toInt();
-
-			else if( node.nodeName() == "int" )
-				skill[skillId].in = node.text().toInt();
-
-			else if( node.nodeName() == "makeword" )
-				skill[skillId].madeword = node.text();
-
-			else if( node.nodeName() == "advancement" )
+			QDomElement node = childNode.toElement();
+			if( !node.isNull() )
 			{
-				wpadvance[l].base = node.attribute( "base", "0" ).toInt();
-				wpadvance[l].failure = node.attribute( "failure", "0" ).toInt();
-				wpadvance[l].success = node.attribute( "success", "0" ).toInt();
-				wpadvance[l].skill = skillId;
-				l++;
+				if( node.nodeName() == "str" )
+					skill[skillId].st = node.text().toInt();
+				
+				else if( node.nodeName() == "dex" )
+					skill[skillId].dx = node.text().toInt();
+
+				else if( node.nodeName() == "int" )
+					skill[skillId].in = node.text().toInt();
+
+				else if( node.nodeName() == "makeword" )
+					skill[skillId].madeword = node.text();
+
+				else if( node.nodeName() == "advancement" )
+				{
+					wpadvance[l].base = node.attribute( "base", "0" ).toInt();
+					wpadvance[l].failure = node.attribute( "failure", "0" ).toInt();
+					wpadvance[l].success = node.attribute( "success", "0" ).toInt();
+					wpadvance[l].skill = skillId;
+					l++;
+				}
 			}
 
-			node = node.nextSibling().toElement();
+			childNode = childNode.nextSibling();
 		}
 	}
 }
