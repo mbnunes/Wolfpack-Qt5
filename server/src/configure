@@ -39,6 +39,29 @@ regexp_exist ()
 	return 1;
 }
 
+##### get_best_lib
+# reads libs from stdin and gets the most useable one
+# currently hust the one with the shortest path length
+get_best_lib ()
+{
+	read LINE;
+	SHORTEST_LEN="$(echo -n "$LINE"|wc -c)";
+	SHORTEST_LINE="$LINE";
+
+	while read LINE;
+	do
+		LINE_LEN="$(echo -n "$LINE"|wc -c)";
+
+		if [ "$LINE_LEN" -lt "$SHORTEST_LEN" ];
+		then
+			SHORTEST_LEN="$LINE_LEN";
+			SHORTEST_LINE="$LINE";
+		fi;
+	done;
+
+	echo "$SHORTEST_LINE";
+}
+
 ##### ask_path [regexp]
 # asks the user to submit a new path
 # the regexp is to check the validity of the user's input
@@ -334,8 +357,8 @@ echo -n "Searching for Python includes... ";
 if [ ! "${_PYTHON_INC}" ];
 then
 	for py_incpath in \
-			/usr/include/[Pp]ython*/Python.h \
 			/usr/local/include/[Pp]ython*/Python.h \
+			/usr/include/[Pp]ython*/Python.h \
 			;
 	do
 		if [ -e "$py_incpath" ];
@@ -346,7 +369,7 @@ then
 
 	py_pathes="$(make_newlines "$py_pathes")";
 
-	[ "$py_pathes" ] && PYTHON_INC="$(echo "$py_pathes"|sort -nr|head -n 1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+	[ "$py_pathes" ] && PYTHON_INC="$(echo "$py_pathes"|sort -nr|get_best_lib|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
 
 	if [ ! "$PYTHON_INC" ];
 	then
@@ -372,16 +395,16 @@ STATIC_PRESENT="";
 if [ ! "${_PYTHON_LIB}" ];
 then
 	for py_libpath in \
+			/usr/local/lib/libpython*.so \
+			/usr/local/lib/libpython*.a \
+			/usr/local/lib/[Pp]ython*/libpython*.so \
+			/usr/local/lib/[Pp]ython*/libpython*.a \
 			/usr/lib/libpython*.so \
 			/usr/lib/libpython*.a \
 			/usr/lib/[Pp]ython*/libpython*.so \
 			/usr/lib/[Pp]ython*/libpython*.a \
 			/usr/lib/[Pp]ython*/config/libpython*.so \
 			/usr/lib/[Pp]ython*/config/libpython*.a \
-			/usr/local/lib/libpython*.so \
-			/usr/local/lib/libpython*.a \
-			/usr/local/lib/[Pp]ython*/libpython*.so \
-			/usr/local/lib/[Pp]ython*/libpython*.a \
 			/usr/local/lib/[Pp]ython*/config/libpython*.so \
 			/usr/local/lib/[Pp]ython*/config/libpython*.a \
 			;
@@ -399,7 +422,7 @@ then
 
 	py_libs="$(make_newlines "$py_libs")";
 
-	[ "$py_libs" ] && PYTHON_LIB="$(echo "$py_libs"|sort -nr|head -n 1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+	[ "$py_libs" ] && PYTHON_LIB="$(echo "$py_libs"|sort -nr|get_best_lib|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
 
 	if [ ! "$PYTHON_LIB" ];
 	then
