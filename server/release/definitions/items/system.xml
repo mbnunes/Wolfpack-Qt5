@@ -31,7 +31,7 @@
 		<invisible />
 		<scripts>spawngem</scripts>
 		<nodecay />
-		<movable>2</movable>
+		<movable>3</movable>
 	</item>
 
 	<!-- Trash Can -->

@@ -121,6 +121,7 @@
 	<script>commands.skillinfo</script>
 	<script>commands.skill</script>
 	<script>commands.sound</script>
+	<script>commands.spawn</script>
 	<script>commands.stat</script>
 	<script>commands.tags</script>
 	<script>commands.tele</script>
