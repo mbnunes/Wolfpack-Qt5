@@ -735,11 +735,6 @@ void cBaseChar::setSerial( const SERIAL ser )
 	World::instance()->registerObject( this );
 }
 
-void cBaseChar::MoveToXY(short newx, short newy)
-{
-	this->MoveTo(newx,newy,pos().z);	// keep the old z value
-}
-
 void cBaseChar::MoveTo(short newx, short newy, signed char newz)
 {
 	// Avoid crash if go to 0,0
@@ -753,7 +748,7 @@ bool cBaseChar::Wears(P_ITEM pi)
 	return (this == pi->container());	
 }
 
-unsigned int cBaseChar::getSkillSum()
+unsigned int cBaseChar::getSkillSum() const
 {
 	unsigned int sum = 0;
 
@@ -767,17 +762,17 @@ unsigned int cBaseChar::getSkillSum()
 void cBaseChar::removeItemBonus(cItem* pi)
 {
 	changed( SAVE|TOOLTIP );
-	strength_ -= pi->st2();
-	dexterity_ -= pi->dx2();
-	intelligence_ -= pi->in2();
+	strength_ -= pi->strengthMod();
+	dexterity_ -= pi->dexterityMod();
+	intelligence_ -= pi->intelligenceMod();
 }
 
 void cBaseChar::giveItemBonus(cItem* pi)
 {
 	changed( SAVE|TOOLTIP );
-	strength_ += pi->st2();
-	dexterity_ += pi->dx2();
-	intelligence_ += pi->in2();
+	strength_ += pi->strengthMod();
+	dexterity_ += pi->dexterityMod();
+	intelligence_ += pi->intelligenceMod();
 }
 
 void cBaseChar::Init( bool createSerial )

@@ -99,33 +99,6 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	World::instance()->deleteObject( pc_k );
 }
 
-/*
-void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
-{
-	int z;
-
-	if ( pc_k == NULL ) return;
-	
-	//P_CHAR pc_c = new cChar(*pc_k);
-	P_CHAR pc_c = new cChar( pc_k );
-	if ( pc_c == NULL ) return;
-//	pc_c->Init();
-	pc_c->setSerial( World::instance()->findCharSerial() );
-	pc_c->setFtarg(INVALID_SERIAL);
-	pc_c->moveTo(pc_k->pos() + Coord_cl(1, 0, 0) );
-	pc_c->setKills(0);
-	pc_c->setHp( pc_k->st() );
-	pc_c->setStm( pc_k->realDex() );
-	pc_c->setMn( pc_k->in() );
-	z=rand()%35;
-	if (z == 5) 
-		pc_c->setSplit(1); 
-	else 
-		pc_c->setSplit(0);	
-	pc_c->update();
-}
-*/
-
 P_NPC cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
 {
 	if( section.isNull() || section.isEmpty() )

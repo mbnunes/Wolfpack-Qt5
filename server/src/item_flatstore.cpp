@@ -219,20 +219,20 @@ void cItem::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( rank() )
 		output->chunkData( ITEM_RANK, (int)rank() );
 
-	if( st2() )
-		output->chunkData( ITEM_STRENGTH2, (short)st2() );
+	if( strengthMod() )
+		output->chunkData( ITEM_STRENGTH2, (short)strengthMod() );
 
-	if( dx() )
-		output->chunkData( ITEM_DEXTERITY, (short)dx() );
+	if( dexterityReq() )
+		output->chunkData( ITEM_DEXTERITY, (short)dexterityReq() );
 	
-	if( dx2() )
-		output->chunkData( ITEM_DEXTERITY2, (short)dx2() );
+	if( dexterityMod() )
+		output->chunkData( ITEM_DEXTERITY2, (short)dexterityMod() );
 
-	if( in() )
-		output->chunkData( ITEM_INTELLIGENCE, (short)in() );
+	if( intelligenceReq() )
+		output->chunkData( ITEM_INTELLIGENCE, (short)intelligenceReq() );
 
-	if( in2() )
-		output->chunkData( ITEM_INTELLIGENCE2, (short)in2() );
+	if( intelligenceMod() )
+		output->chunkData( ITEM_INTELLIGENCE2, (short)intelligenceMod() );
 
 	if( speed() )
 		output->chunkData( ITEM_SPEED, (short)speed() );

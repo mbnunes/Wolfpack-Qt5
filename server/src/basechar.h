@@ -122,9 +122,8 @@ public:
 	void SetMultiSerial(long mulser);
 	void setSerial(SERIAL ser);
 	void MoveTo(short newx, short newy, signed char newz);
-	void MoveToXY(short newx, short newy);
 	bool Wears(P_ITEM pi);
-	unsigned int getSkillSum();
+	unsigned int getSkillSum() const;
 	void removeItemBonus(cItem* pi);
 	void giveItemBonus(cItem* pi);
 	void Init(bool ser = true);

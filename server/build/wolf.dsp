@@ -25,7 +25,7 @@ CFG=wolf - Win32 Debug
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "wolf"
 # PROP Scc_LocalPath "."
-CPP=cl.exe
+CPP=xicl6.exe
 RSC=rc.exe
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -49,7 +49,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /subsystem:console /map /machine:I386 /nodefaultlib:"libcmt MSVCRTD" /out:"D:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
@@ -74,7 +74,7 @@ LINK32=link.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"c:\Wolfpack\Wolfpack.exe" /pdbtype:sept /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none

@@ -78,11 +78,11 @@ class cItem : public cUObject
 	Q_PROPERTY ( uint		att			READ att			WRITE setAtt			)
 	Q_PROPERTY ( uint		def			READ def			WRITE setDef			)
 	Q_PROPERTY ( short		st			READ st				WRITE setSt				)
-	Q_PROPERTY ( short		st2			READ st2			WRITE setSt2			)
-	Q_PROPERTY ( short		dx			READ dx				WRITE setDx				)
-	Q_PROPERTY ( short		dx2			READ dx2			WRITE setDx2			)
-	Q_PROPERTY ( short		in			READ in				WRITE setIn				)
-	Q_PROPERTY ( short		in2			READ in2			WRITE setIn2			)
+	Q_PROPERTY ( short		strengthMod	READ strengthMod	WRITE setStrengthMod	)
+	Q_PROPERTY ( short		dx			READ dexterityReq	WRITE setDexterityReq	)
+	Q_PROPERTY ( short		dx2			READ dexterityMod	WRITE setDexterityMod	)
+	Q_PROPERTY ( short		in			READ intelligenceMod	WRITE setIntelligenceMod	)
+	Q_PROPERTY ( short		in2			READ intelligenceReq	WRITE setIntelligenceReq	)
 	Q_PROPERTY ( uchar		magic		READ magic			WRITE setMagic			)
 	Q_PROPERTY ( uint		gatetime	READ gatetime		WRITE setGateTime		)
 	Q_PROPERTY ( int		gatenumber	READ gatenumber		WRITE setGateNumber		)
@@ -171,11 +171,11 @@ public:
 	uint			att()			const { return att_; }
 	uint			def()			const { return def_; }
 	short			st()			const { return st_; }
-	short			st2()			const { return st2_; }
-	short			dx()			const { return dx_; }
-	short			dx2()			const { return dx2_; }
-	short			in()			const { return in_; }
-	short			in2()			const { return in2_; }
+	short			strengthMod()	const { return st2_; }
+	short			dexterityReq()	const { return dx_; }
+	short			dexterityMod()	const { return dx2_; }
+	short			intelligenceReq()	const { return in_; }
+	short			intelligenceMod()	const { return in2_; }
 	uchar			magic()			const { return magic_; }
 	uint			gatetime()		const { return gatetime_; }
 	int				gatenumber()	const { return gatenumber_; }
@@ -277,11 +277,11 @@ public:
 	void	setAtt(	uint data ) { att_ = data; changed( SAVE );}
 	void	setDef( uint data ) { def_ = data; changed( SAVE+TOOLTIP );}
 	void	setSt( short data ) { st_ = data; changed( SAVE+TOOLTIP );}
-	void	setSt2( short data ) { st2_ = data; changed( SAVE+TOOLTIP );}
-	void	setDx( short data ) { dx_ = data; changed( SAVE+TOOLTIP );}
-	void	setDx2( short data ) { dx2_ = data; changed( SAVE+TOOLTIP );}
-	void	setIn( short data ) { in_ = data; changed( SAVE+TOOLTIP );}
-	void	setIn2( short data ) { in2_ = data; changed( SAVE+TOOLTIP );}
+	void	setStrengthMod( short data ) { st2_ = data; changed( SAVE+TOOLTIP );}
+	void	setDexterityReq( short data ) { dx_ = data; changed( SAVE+TOOLTIP );}
+	void	setDexterityMod( short data ) { dx2_ = data; changed( SAVE+TOOLTIP );}
+	void	setIntelligenceReq( short data ) { in_ = data; changed( SAVE+TOOLTIP );}
+	void	setIntelligenceMod( short data ) { in2_ = data; changed( SAVE+TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; changed( SAVE+TOOLTIP );}
 	void	setGateTime( uint data ) { gatetime_ = data; changed( SAVE );}
 	void	setGateNumber( int data ) { gatenumber_ = data; changed( SAVE );}
@@ -314,8 +314,8 @@ public:
 	void	setResist( ushort id, short data ){ resist_.replace( id, data ); }		// Resisting damage %
 	void	setReflect( ushort id, short data ){ reflect_.replace( id, data ); }		// Reflecting damage %
 
-	void 	setCharge_count( short data ) { charge_count_ = data; }
-	void	setCharge_spell( short data ) { charge_spell_ = data; }
+	void 	setChargeCount( short data ) { charge_count_ = data; }
+	void	setChargeSpell( short data ) { charge_spell_ = data; }
 
 	void	setDrb_base( ushort data ) { drb_base_ = data; }
 	void	setDrb_current( ushort data ) { drb_current_ = data; }

@@ -377,7 +377,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Required Dexterity
-	if( pItem->dx() > pWearer->dexterity() )
+	if( pItem->dexterityReq() > pWearer->dexterity() )
 	{
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not agile enough" ) );
@@ -389,7 +389,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 	
 	// Required Intelligence
-	if( pItem->in() > pWearer->intelligence() )
+	if( pItem->intelligenceReq() > pWearer->intelligence() )
 	{
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not smart enough" ) );
