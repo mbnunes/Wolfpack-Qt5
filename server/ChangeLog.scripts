@@ -20,6 +20,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Fixed Sheep definitions
 		- Regions are split up facet/type/name.xml
 			This gives a better overview of what we have and do not have.
+		- Fixed regions so they work properly again.
 	* Python Script Changes:
 		- New Command: taginfo
 		- New Function: wolfpack.findobject(serial)
@@ -38,6 +39,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Fixed sheering of sheeps and wool regrowing
 		- Rudimentarily Implemented Map Plotting
 		- new wolfpack.utilities function: booleantoggle( boolean )
+		- Cleanups to help reduce memory consumption.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
