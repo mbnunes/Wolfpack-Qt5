@@ -48,7 +48,7 @@ def magicdamage( basedamage, spell, mage, defender ):
 
 	# Calculate the resistances
 	chance1 = floor( defender.baseskill[ MAGICRESISTANCE ] / 5 )
-	chance2 = floor( defender.baseskill[ MAGICRESISTANCE ] - ( mage.baseskill[ MAGERY ] / 5 + circle * 5 ) ) )
+	chance2 = floor( defender.baseskill[ MAGICRESISTANCE ] - ( mage.baseskill[ MAGERY ] / 5 + circle * 5 ) )
 
 	chance = max( [ chance1, chance2 ] ) # The higher chance is used
 
