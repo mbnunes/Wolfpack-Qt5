@@ -9,6 +9,8 @@
 
 cTileInfo::cTileInfo() {
 	refcount = 1;
+	memset(items, 0, sizeof(items));
+	memset(land, 0, sizeof(land));
 }
 
 cTileInfo::~cTileInfo() {
