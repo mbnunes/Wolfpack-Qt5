@@ -58,7 +58,7 @@ def onCommand( socket, command, arguments ):
 		
 # Does the Spellbook have a specific spell?
 def hasspell( item, spell ):
-	if item and 'spellbook' in items.events:	
+	if item and 'spellbook' in item.events:
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 		spell = spell % 8
 		

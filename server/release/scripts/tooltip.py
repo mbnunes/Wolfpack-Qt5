@@ -75,7 +75,8 @@ def armor( target, tooltip ):
    tooltip.add( 1060445, "1" )                #Cold Resist
    tooltip.add( 1060449, "5" )                #Poison Resist
    tooltip.add( 1060446, "3" )                #Energy Resist
-   tooltip.add( 1061170, str( target.strength ) )               #Strength Requirement
+   if target.hastag( 'req_str' ):
+      tooltip.add( 1061170, str( target.gettag( 'req_str' ) ) )               #Strength Requirement
    tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ) )           #Durability
 
 def container( target, tooltip ):
@@ -88,7 +89,8 @@ def shield( target, tooltip ):
    if (target.hastag( "blessed")):
       tooltip.add( 1038021, "" ) # Blessed
    tooltip.add( 1060448, "1" )         #Physical resist
-   tooltip.add( 1061170, str( target.strength ) )        #Strength requirement
+   if target.hastag( 'req_str' ):
+      tooltip.add( 1061170, str( target.gettag( 'req_str' ) ) )               #Strength Requirement
    tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ) )  #Durability
 
 def hat( target, tooltip ):
@@ -100,7 +102,8 @@ def hat( target, tooltip ):
    tooltip.add( 1060445, "9" )         #Cold Resist
    tooltip.add( 1060449, "5" )         #Poison Resist
    tooltip.add( 1060446, "3" )         #Energy Resist
-   tooltip.add( 1061170, str( target.strength ) )        #Strength requirement
+   if target.hastag( 'req_str' ):
+      tooltip.add( 1061170, str( target.gettag( 'req_str' ) ) )               #Strength Requirement
    tooltip.add( 1060639, str( target.health ) + "\t"  + str( target.maxhealth) )    #Durability
 
 def weapon( target, tooltip ):
@@ -111,7 +114,8 @@ def weapon( target, tooltip ):
    tooltip.add( 1060403, "100" ) # Physical Damage
    tooltip.add( 1061168, str( target.lodamage ) + " \t" + str(target.hidamage))# Weapon Damage
    tooltip.add( 1061167, str( target.speed ))
-   tooltip.add( 1061170, str( target.strength ))
+   if target.hastag( 'req_str' ):
+      tooltip.add( 1061170, str( target.gettag( 'req_str' ) ) )               #Strength Requirement
    if ( target.twohanded ):
       tooltip.add( 1061171, "" ) # two-handed
    else:
