@@ -45,6 +45,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bug #0000346. (Unmovable items crafted by carpenters)
 		- Fixed a bug with loot (typo)
 		- Fixed a bug with the who menu related to more than 10 players connected.
+		- Implemented random generation of slayer weapons for magic loot.
 		- Added slayer weapons. See ./scripts/system/slayer.py
 		- Added two new skill numbers for bushido and ninjitsu.
 		- Added template weaponinfo for new samurai weapons.
