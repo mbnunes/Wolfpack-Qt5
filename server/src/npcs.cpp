@@ -359,6 +359,7 @@ void cChar::Init(bool ser)
 	this->spadelay=0;
 	this->spatimer=0;
 	this->taming=0; //Skill level required for taming
+	this->provocation=0; // Skill level required for provocation.
 	this->summontimer=0; //Timer for summoned creatures.
 	this->trackingtimer=0; // Timer used for the duration of tracking
 	this->trackingtarget = INVALID_SERIAL; // Tracking target ID
@@ -1315,6 +1316,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 			else if (!(strcmp("PRIV1",(char*)script1))) pc_c->setPriv(str2num(script2));
 			else if (!(strcmp("PRIV2",(char*)script1))) pc_c->priv2=str2num(script2);
 			else if (!(strcmp("POISON",(char*)script1))) pc_c->poison=str2num(script2);
+			else if ((!(strcmp("TOPROVOK", (char*)script1)))||(!(strcmp("PROVOCATION", (char*)script1)))) pc_c->provocation=str2num(script2);
 			else if ((!(strcmp("PEACEMAKING",(char*)script1)))||(!(strcmp("SKILL9",(char*)script1)))) pc_c->baseskill[PEACEMAKING] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("PROVOCATION",(char*)script1)))||(!(strcmp("SKILL22",(char*)script1)))) pc_c->baseskill[PROVOCATION] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("POISONING",(char*)script1)))||(!(strcmp("SKILL30",(char*)script1)))) pc_c->baseskill[POISONING] = getstatskillvalue((char*)script2);

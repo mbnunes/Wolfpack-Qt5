@@ -1329,13 +1329,19 @@ void cSkills::DetectHidden(UOXSOCKET s)
 void cSkills::ProvocationTarget1(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = currchar[s];
 
-	if( pc == NULL ) return;
+	if( pc == NULL || pc_currchar == NULL) return;
 
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
+		return;
+	}
+	if (pc->provocation>1000||pc->provocation==0 || (pc_currchar->provocation < pc->provocation))
+	{
+		sysmessage(s, "You can't entice that npc!");
 		return;
 	}
 	if ( pc->isInvul() || pc->shop==1 || // invul or shopkeeper
@@ -2042,7 +2048,7 @@ void cSkills::TameTarget(int s)
 	if (pc != NULL)
 		if ((pc->isNpc() && (chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc)) <= 3))) //Ripper
 		{
-			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
+			if (pc->taming>1000||pc->taming==0||(pc_currchar->taming < pc->taming))//Morrolan default is now no tame
 			{
 				sysmessage(s, "You can't tame that creature.");
 				return;

@@ -2933,7 +2933,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								
 								if (pc->isPlayer() && online(pc))
 								{
-									if(rand()%2) npcaction(ii, 0x15); else npcaction(DEREF_P_CHAR(pc), 0x16);
+									if(rand()%2) npcaction(DEREF_P_CHAR(pc), 0x15); else npcaction(DEREF_P_CHAR(pc), 0x16);
 									if((pc->isNpc() || online(pc)) && pc->hp==0)
 									{
 										deathstuff(DEREF_P_CHAR(pc));                              
