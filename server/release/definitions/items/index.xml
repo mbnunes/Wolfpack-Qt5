@@ -19,4 +19,6 @@
 	<include file="definitions/items/slotmachine.xml"/>
 	<include file="definitions/items/system.xml"/>
 	<include file="definitions/items/unsorted.xml"/>
+	<!-- Please remove stuff from this file as it is assigned -->
+	<include file="definitions/items/not_assigned.xml"/>
 </definitions>

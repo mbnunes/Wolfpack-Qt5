@@ -167,11 +167,6 @@
 		<id>0x2b65</id>
 	</item>
 
-	<!-- Shopkeeper Contain, created via the display id, not via script -->
-	<item id="2af8">
-		<id>0x2af8</id>
-	</item>
-
 	<!-- Unused Bearskin Rug Tiles -->
 	<item id="2ac8">
 		<id>0x2ac8</id>
@@ -1260,26 +1255,6 @@
 		<id>0x342b</id>
 	</item>
 
-	<item id="3431">
-		<id>0x3431</id>
-	</item>
-
-	<item id="3432">
-		<id>0x3432</id>
-	</item>
-
-	<item id="3433">
-		<id>0x3433</id>
-	</item>
-
-	<item id="3434">
-		<id>0x3434</id>
-	</item>
-
-	<item id="3435">
-		<id>0x3435</id>
-	</item>
-
 	<item id="3436">
 		<id>0x3436</id>
 	</item>
@@ -1486,10 +1461,6 @@
 
 	<item id="35b1">
 		<id>0x35b1</id>
-	</item>
-
-	<item id="36b0">
-		<id>0x36b0</id>
 	</item>
 
 	<item id="36b1">
