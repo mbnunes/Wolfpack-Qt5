@@ -24,6 +24,8 @@ def spawn(spawner, spawntype, spawndef, current, area):
     elif spawntype == 0:
       pass
   except:
+    if( spawner ):
+      console.log(LOG_WARNING, "Invalid spawner: 0x%x.\n" % spawner.serial)
     return
 
   spawner.settag('current', current + 1)
