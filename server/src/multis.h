@@ -43,9 +43,7 @@
 #include "uobject.h"
 #include "items.h"
 #include "gumps.h"
-
-// Forward Declaration
-class cChar;
+#include "basechar.h"
 
 // Beware! This is abstract (more or less)
 class cMulti : public cItem

@@ -94,6 +94,13 @@ void WPConsole_cl::send(const QString &sMessage)
 {
 	if( sMessage.contains( "\n" ) )
 	{
+#if defined(Q_OS_UNIX) && 0 
+		sMessage.replace("\e[0m", "");
+	  	sMessage.replace("\e[1;32m", "");
+		sMessage.replace("\e[1;31m", "");
+		sMessage.replace("\e[1;33m", "");
+		sMessage.replace("\e[1;37m", "");
+#endif
 		incompleteLine_.append( sMessage ); // Split by \n
 		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
 
@@ -232,7 +239,7 @@ void WPConsole_cl::ProgressSkip( void )
 // Change the console Color
 void WPConsole_cl::ChangeColor( WPC_ColorKeys Color )
 {
-#if defined(__unix__)
+#if defined(Q_OS_UNIX)
 QString cb = "\e[0m";
 		switch( Color )
 		{
@@ -250,8 +257,7 @@ QString cb = "\e[0m";
 
 		}
 		send( cb );
-#endif
-	#ifndef __unix__
+#elif defined(Q_OS_WIN32)
 		HANDLE ConsoleHandle = GetStdHandle( STD_OUTPUT_HANDLE );
 		UI16 ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE;
 
@@ -282,7 +288,7 @@ QString cb = "\e[0m";
 		}
 
 		SetConsoleTextAttribute( ConsoleHandle, ColorKey );
-	#endif
+#endif
 }
 
 void WPConsole_cl::setConsoleTitle( const QString& data )

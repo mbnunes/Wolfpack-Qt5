@@ -161,6 +161,7 @@ SOURCES         = \
 		  multiscache.cpp \
 		  network.cpp \
 		  npc.cpp \
+		  npc_flatstore.cpp \
 		  p_ai.cpp \
 		  encryption.cpp \
                   pfactory.cpp \
@@ -168,6 +169,7 @@ SOURCES         = \
 		  persistentobject.cpp \
 		  preferences.cpp \
 		  player.cpp \
+		  player_flatstore.cpp \
 		  resources.cpp \
                   serxmlfile.cpp \
                   serbinfile.cpp \
