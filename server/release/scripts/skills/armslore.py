@@ -46,9 +46,10 @@ def response( char, args, target ):
 				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
 				return 0
 
-		if not target.item.type in weapontypes or target.item.id in armors:
-			char.socket.clilocmessage( 0x7A280, "", 0x3b2, 3 )
-			return 0
+		if not target.item.type in weapontypes:
+			if not target.item.id in armors:
+				char.socket.clilocmessage( 0x7A280, "", 0x3b2, 3 )
+				return 0
 
 		if not char.checkskill( ARMSLORE, 0, 1000 ):
 			char.socket.clilocmessage( 0x7A281, "", 0x3b2, 3 )
