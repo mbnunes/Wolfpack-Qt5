@@ -19,15 +19,15 @@ if username != '' and password != '':
 	
 	# Wrong Account
 	if not account:
-		message = "The account '%s' does not exist." % username
+		message = "Unable to comply, authentication failed."
 
 	# Wrong Password
 	elif account.password != password:
-		message = "The password you entered is incorrect."
+		message = "Unable to comply, authentication failed."
 
 	# Authorized for Remote Admin?
 	elif not account.authorized( 'RemoteAccess', 'login' ):
-		message = "You are not authorized to log in to the Remote Administration interface."
+		message = "Unable to comply, authentication failed."
 
 	# Authentication succeeded
 	else:
