@@ -129,6 +129,7 @@ SOURCES += \
 	basics.cpp \
 	combat.cpp \
 	commands.cpp \
+	content.cpp \
 	serverconfig.cpp \
 	console.cpp \
 	contextmenu.cpp \
