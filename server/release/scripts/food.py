@@ -104,6 +104,7 @@ def onCollide( char, item ):
 def onWalk(char, dir, sequence):
 	if char.baseid in farm_eaters:
 		items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
+		food = None
 		for item in items:
 			if 'food' in item.events and item.baseid in farm_food:
 				food = item

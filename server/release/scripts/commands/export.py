@@ -137,7 +137,7 @@ def export( char, args, choice ):
 	item = iterator.first
 	i = 0
 	while item:
-		if not item.baseid in nonsaves:
+		if not item.baseid in nonsaves and ( item.spawnregion == None or item.spawnregion == '' ):
 			# Build our string
 			if format == 1: # Sphere 51a
 				output.write( "[WORLDITEM 0%x]%s" % ( item.id, newline ) )
