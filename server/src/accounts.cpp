@@ -355,6 +355,11 @@ bool AccountRecord::isShowSerials() const
 	return flags_&0x00000008;
 }
 
+bool AccountRecord::isPageNotify() const
+{
+	return flags_&0x00000010;
+}
+
 void AccountRecord::setBlocked( bool data )
 {
 	if( data )
@@ -385,4 +390,12 @@ void AccountRecord::setShowSerials( bool data )
 		flags_ |= 0x00000008;
 	else
 		flags_ &= 0xFFFFFFF7;
+}
+
+void AccountRecord::setPageNotify( bool data )
+{
+	if( data )
+		flags_ |= 0x00000010;
+	else
+		flags_ &= 0xFFFFFFEF;
 }

@@ -36,6 +36,8 @@
 #include "typedefs.h"
 #include "globals.h"
 #include "wpdefmanager.h"
+#include "persistentbroker.h"
+#include "dbdriver.h"
 
 // Library includes
 #include "qstring.h"
@@ -62,6 +64,8 @@ public:
 		pagecateg_	= 0;
 	}
 
+	cPage() {}
+
 	~cPage() {}
 
 	SERIAL		charSerial()	const { return charserial_; }
@@ -75,6 +79,7 @@ public:
 	void	setPageType( WPPAGE_TYPE data ) { pagetype_		= data; }
 	void	setPagePos( Coord_cl data )		{ pagepos_		= data; }
 	void	setPageTime( void )				{ pagetime_		= QDateTime::currentDateTime().toString(); }
+	void	setPageTime( QString data )		{ pagetime_		= data; }
 	void	setContent( QString data )		{ content_		= data; }
 	void	setPageCategory( UINT32 data )	{ pagecateg_	= data; }
 };
@@ -86,6 +91,44 @@ protected:
 	cPagesManager(cPagesManager& _it) {} // Unallow copy constructor
 	cPagesManager& operator=(cPagesManager& _it) { return *this; } // Unallow Assignment
 public:
+	void save()
+	{
+		persistentBroker->executeQuery( "DELETE FROM pages" );
+
+		int i = 0;
+		cPagesManager::const_iterator it = begin();
+		while( it != end() )
+		{
+			cPage *page = *it;
+
+			QString sql( "INSERT INTO pages SET charserial = '%1', pagetype = '%2', pagetime = '%3', pagepos = '%4', content = '%5', category = '%6', pageorder = '%7'" );
+			sql = sql.arg( page->charSerial() ).arg( page->pageType() ).arg( __escapeReservedCharacters( page->pageTime() ) ).arg( QString( "%1,%2,%3,%4" ).arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().map ) ).arg( __escapeReservedCharacters( page->content() ) ).arg( page->pageCategory() ).arg( i++ );
+			persistentBroker->executeQuery( sql );
+
+			++it;
+		}
+	}
+
+	void load()
+	{
+		cDBResult result = persistentBroker->query( "SELECT charserial,pagetype,pagetime,pagepos,content,category,pageorder FROM pages ORDER BY pageorder ASC" );
+		while( result.fetchrow() )
+		{
+			char **row = result.data();
+			cPage *page = new cPage;
+			page->setCharSerial( atoi( row[0] ) );
+			page->setPageType( (WPPAGE_TYPE)atoi( row[1] ) );
+			page->setPageTime( row[2] );
+			Coord_cl pos;
+			parseCoordinates( row[3], pos );
+			page->setPagePos( pos );
+			page->setContent( row[4] );
+			page->setPageCategory( atoi( row[5] ) );
+			push_back( page );
+		}
+		result.free();
+	}
+
 	~cPagesManager()
 	{
 		cPagesManager::iterator it = begin();

@@ -1263,6 +1263,20 @@ void commandInvis( cUOSocket *socket, const QString &command, QStringList &args 
 	socket->player()->resend( false, false );
 }
 
+void commandPageNotify( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( socket->account()->isPageNotify() || ( args.count() > 0 && args[0].toInt() == 0 ) )
+	{
+		socket->account()->setPageNotify( false );
+		socket->sysMessage( tr( "PageNotify is now '0'." ) );
+	}
+	else if( !socket->account()->isPageNotify() || ( args.count() > 0 && args[0].toInt() == 1 ) )
+	{
+		socket->account()->setPageNotify( true );
+		socket->sysMessage( tr( "PageNotify is now '1'." ) );
+	}
+}
+
 // Change password for current account
 void commandPassword( cUOSocket *socket, const QString &command, QStringList &args )
 {
@@ -1326,6 +1340,7 @@ stCommand cCommands::commands[] =
 	{ "MOVE",			commandMove },
 	{ "NUKE",			commandNuke },
 	{ "PAGES",			commandPages },
+	{ "PAGENOTIFY",		commandPageNotify },
 	{ "PASSWORD",		commandPassword },
 	{ "RELOAD",			commandReload },
 	{ "REMOVE",			commandRemove },

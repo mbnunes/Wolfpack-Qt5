@@ -1655,7 +1655,21 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			pPage->setPageType( PT_COUNSELOR );
 			break;
 		}
+
 		pPage->setPageCategory( choice.switches[1] );
+
+		QString account = "";
+		if( pChar->account() )
+			account = pChar->account()->login();
+		QString message = tr( "%1 Page from %2 [%3]: %4" ).arg( choice.switches[0] == 1 ? "GM" : "Counselor" ).arg( pChar->name ).arg( account ).arg( lines.join( "\n" ) );
+
+		cUOSocket *mSock = 0;
+		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		{
+			// Send a Message to this Character
+			if( mSock->account() && mSock->account()->isPageNotify() )
+				mSock->sysMessage( message );
+		}
 	}
 }
 

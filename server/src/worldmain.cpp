@@ -50,6 +50,7 @@
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
+#include "pagesystem.h"
 
 // Library Includes
 #include <qcstring.h>
@@ -156,6 +157,9 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		clConsole.send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
 	}
 
+	// Load Pages
+	cPagesManager::getInstance()->load();
+
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);
 
@@ -260,6 +264,9 @@ void CWorldMain::savenewworld(QString module)
 	archive->close();
 	delete archive;
 
+	// Save The pages
+	cPagesManager::getInstance()->save();
+	
 	// Save the accounts
 	clConsole.PrepareProgress( tr( "Saving %1 accounts" ).arg( Accounts::instance()->count() ).latin1() );
 	Accounts::instance()->save();

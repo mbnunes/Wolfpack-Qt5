@@ -70,6 +70,7 @@ private:
 	// 0x00000002 allmove
 	// 0x00000004 allshow
 	// 0x00000008 showserials
+	// 0x00000010 pagenotify
 	UINT32 flags_;
 	int attempts_;
 	bool inUse_;
@@ -109,11 +110,13 @@ public:
 	bool isAllMove() const;
 	bool isAllShow() const;
 	bool isShowSerials() const;
+	bool isPageNotify() const;
 
 	void setBlocked( bool data );
 	void setAllMove( bool data );
 	void setAllShow( bool data );
 	void setShowSerials( bool data );
+	void setPageNotify( bool data );
 };
 
 
