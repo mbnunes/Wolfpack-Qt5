@@ -162,7 +162,8 @@ vector<string> listDirectory(string sDirectory)
 	string sBase ;
 	// We need under windows to get the base direcotry, to add back
 	sBase = sDirectory.substr(0,sDirectory.find_last_of("\\/") + 1) ;
-#if defined(__borland__)
+
+#if defined(__BORLANDC__)
 	char* szTemp ;
 	szTemp = new char[sDirectory.size() + 1] ;
 	for (UI32 uiBozo=0; uiBozo < sDirectory.size() ; uiBozo++)
@@ -173,6 +174,7 @@ vector<string> listDirectory(string sDirectory)
 	siStatus = _findfirst(szTemp,&stFind) ;
 	delete[] szTemp ;
 #else
+
 	siStatus = _findfirst(sDirectory.c_str(),&stFind) ;
 #endif
 	siHandle = siStatus ;
@@ -189,7 +191,7 @@ vector<string> listDirectory(string sDirectory)
 	{
 		_findclose(siHandle) ;
 	}
-#endif 
+#endif
 	
 	return vecDirList ;
 }

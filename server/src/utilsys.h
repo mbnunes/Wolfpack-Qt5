@@ -63,7 +63,7 @@
 #define S_ISDIR(m) m&_S_IFDIR
 #define mode_t int
 #endif
-#if defined(__borland__)
+#if defined(__BORLANDC__)
 #define mode_t int
 #endif
 #endif

@@ -29,7 +29,7 @@ enum enByteOrder{ littleEndian, bigEndian };
 #define BYTEORDER littleEndian 
 // We have to worry about Intel's compilier as well
 
-#if defined(_MSC_VER) | defined(__INTEL_COMPILER) | defined(__borland__)
+#if defined(_MSC_VER) | defined(__INTEL_COMPILER) | defined(__BORLANDC__)
 
 //PRAGMAS
 

@@ -34,8 +34,8 @@
 
 #define MAXLOOPS 250000
 #define MaxZstep 5
-
-#if defined(__borland__)
+/*
+#if defined(__BORLANDC__)
 #ifndef max
 #define max(a,b)            (((a) > (b)) ? (a) : (b))
 #endif
@@ -45,6 +45,7 @@
 #define min(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 #endif
+*/
 #if defined(__unix__)
 typedef unsigned char BYTE ;
 #define SOCKET_ERROR -1
