@@ -143,6 +143,7 @@ def tocontainer( item, container ):
 			if content.amount + item.amount <= 60000:
 				content.amount = content.amount + item.amount
 				content.update()
+				content.resendtooltip()
 				item.delete()
 				return 1 # Stacked
 

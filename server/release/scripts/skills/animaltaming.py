@@ -74,6 +74,11 @@ def dotame(char, totame):
 		socket.clilocmessage( 502675, "", 0x3b2, 3, totame )
 		return
 
+	# Too Many Followers
+	if len(char.followers) + totame.controlslots > char.maxcontrolslots:
+		socket.clilocmessage( 1049611, "", 0x3b2, 3, totame )
+		return
+
 	# already tamed
 	if totame.tamed:
 		socket.clilocmessage( 502804, "", 0x3b2, 3, totame )
@@ -169,17 +174,24 @@ def callback( char, args ):
 		success = char.checkskill( TAMING, totame.mintaming, 1200 )
 		if success:
 			removetags( totame )
+
+			# Too Many Followers
+			if len(char.followers) + totame.controlslots > char.maxcontrolslots:
+				socket.clilocmessage( 1049611, "", 0x3b2, 3, totame )
+				return
+
 			# set owner
-			totame.tamed = 1
+			totame.tamed = True
 			totame.owner = char
-			# increase follower control slot - will be added
-			# set tamed number
+
+			# A creature can only be tamed a few times
 			num_tamed = 1
 			if totame.hastag( 'num_tamed' ):
 				num_tamed = totame.gettag( 'num_tamed' ) + 1
 			totame.settag( 'num_tamed', num_tamed )
+			
 			# remove "Tame" context menu
-			totame.addscript('speech.pets')
+			totame.addscript('speech.pets') # Only adds if it doesnt exist yet.
 
 			# success msg : 502799
 			char.socket.clilocmessage( 502799, "", 0x3b2, 3, totame )

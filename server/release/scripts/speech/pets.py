@@ -24,7 +24,7 @@ def come(char, pet, all=0):
 	if all:
 		for follower in char.followers:
 			come(char, follower, 0)
-	elif pet and pet.owner == char and pet.distanceto(char) < 18:
+	elif pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
 		stopfight(pet)
 		pet.guarding = None
 		pet.goto(char.pos)
@@ -34,7 +34,7 @@ def stop(char, pet, all=0):
 	if all:
 		for follower in char.followers:
 			stop(char, follower, 0)
-	elif pet and pet.owner == char and pet.distanceto(char) < 18:
+	elif pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
 		stopfight(pet)
 		pet.guarding = None
 		pet.wandertype = 0
@@ -44,7 +44,7 @@ def follow_me(char, pet, all=0):
 	if all:
 		for follower in char.followers:
 			follow_me(char, follower, 0)
-	if pet and pet.owner == char and pet.distanceto(char) < 18:
+	if pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
 		stopfight(pet)
 		pet.follow(char)
 		pet.sound(SND_ATTACK)
@@ -56,7 +56,7 @@ def go_target(char, arguments, target):
 			go_target(char, [follower.serial, 0], target)
 	else:
 		pet = wolfpack.findchar(pet)
-		if pet and pet.owner == char and pet.distanceto(char) < 18:
+		if pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
 			stopfight(pet)
 			pet.guarding = None
 			pet.goto(target.pos)
@@ -80,7 +80,7 @@ def attack_target(char, arguments, target):
 		if target.char == pet:
 			char.socket.sysmessage('Your pet refuses to kill itself.')
 			return
-		if pet and pet.owner == char and pet.distanceto(char) < 18:
+		if pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
 			startfight(pet, target.char)
 			pet.fight(target.char)
 			
@@ -103,15 +103,16 @@ def transfer_target(char, arguments, target):
 
 	pet = wolfpack.findchar(arguments[0])
 
-	if not pet:
-		return
-
-	if len(target.char.followers) + pet.controlslots > 5:
-		char.socket.sysmessage('Your target already controls too many pets.')
-		return
-
-	if pet.owner == char:
+	if pet and (pet.owner == char or char.gm):
+		if len(target.char.followers) + pet.controlslots > target.char.maxcontrolslots:
+			char.socket.sysmessage('Your target already controls too many pets.')
+			return
+	
 		pet.owner = target.char
+		# Tame during transfer if gm
+		if char.gm and not pet.tamed:
+			pet.tamed = True
+			pet.resendtooltip()
 		pet.sound(SND_ATTACK)
 		char.socket.sysmessage('You transfer your pet to %s.' % target.char.name)
 
@@ -132,7 +133,7 @@ def follow_target(char, arguments, target):
 	if all:
 		for follower in char.followers:
 			go_target(char, [follower.serial, 0], target)
-	elif pet and pet.owner == char and pet.distanceto(char) < 18:
+	elif pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
 		#char.socket.sysmessage('Pet following:' + str(target.char.serial))
 		pet.guarding = None
 		pet.follow(target.char)
@@ -153,10 +154,9 @@ def release(char, pet):
 
 	pet.owner = None
 	if pet.tamed:
-		pet.tamed = 0
+		pet.tamed = False
+	pet.removescript('speech.pets') # Remove this script if it was added dynamically
 	pet.sound(SND_ATTACK)
-
-	pet.removescript('speech.pets')
 
 def onSpeech(pet, char, text, keywords):
 	if not char.socket:

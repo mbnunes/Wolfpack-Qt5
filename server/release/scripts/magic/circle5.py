@@ -323,7 +323,7 @@ class SummonCreature (Spell):
 		self.validtarget = TARGET_GROUND
 
 	def cast(self, char, mode, args=[], target=None, item=None):
-		if char.player and char.controlslots + 1 > 5:
+		if char.player and char.controlslots + 1 > char.maxcontrolslots:
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
@@ -332,7 +332,7 @@ class SummonCreature (Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if char.player and char.controlslots + 1 > 5:
+		if char.player and char.controlslots + 1 > char.maxcontrolslots:
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
@@ -351,15 +351,15 @@ class SummonCreature (Spell):
 
 		creature = wolfpack.addnpc(npcid, target)
 		# If the creature is out of our control, delete it.
-		if creature.controlslots + char.controlslots > 5:
+		if creature.controlslots + char.controlslots > char.maxcontrolslots:
 			creature.delete()
 			char.socket.clilocmessage(1049645)
 		else:
-			creature.tamed = 1
-			creature.addscript('speech.pets')
+			creature.tamed = True
+			creature.addscript('speech.pets') # This only adds if NPC doesnt have it anyway
 			creature.owner = char
 			creature.summontime = wolfpack.time.servertime() + int(char.skill[MAGERY] * 400)
-			creature.summoned = 1
+			creature.summoned = True
 			creature.ai = "Animal_Domestic"
 			creature.soundeffect(0x215)
 

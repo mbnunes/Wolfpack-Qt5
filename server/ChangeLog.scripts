@@ -39,7 +39,9 @@ Wolfpack 12.9.10 Beta (CVS)
 		  Remove now gives a warning about deletion of players.
 		  Remove should only delete player characters under the player acl.
 		- New commands: kick, ban, unban.
+		- Fixed bug #0000280. (Tooltip not being resent in wolfpack.utilities.tocontainer)
 	* Misc. Changes:
+		- Fixed bug #0000279. (Memory leak in the npc preview of the gm tool)
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
 		- Spawn regions are incomplete.

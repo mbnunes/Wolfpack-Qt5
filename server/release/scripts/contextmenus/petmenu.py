@@ -13,13 +13,13 @@ def onContextCheckVisible(player, object, tag):
 	if tag == 7 and (object.summoned or not object.tamed):
 		return 0
 	
-	return object.owner == player
+	return (object.owner == player) or player.gm
 
 def onContextEntry(char, target, tag):
 	if not target.hasscript( 'speech.pets' ):
 		return 0
 
-	if target.owner != char or not target.tamed:
+	if (not char.gm and target.owner != char) or not target.tamed:
 		return 0
 
 	if tag == 1: # Command: Kill
