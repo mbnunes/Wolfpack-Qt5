@@ -36,23 +36,16 @@
 
 #define PyFalse PyInt_FromLong( 0 )
 #define PyTrue PyInt_FromLong( 1 )
-#define PyReturnCheck(a) if( a == NULL ) return false; if( !PyInt_Check( a ) ) return false; if( PyInt_AsLong( a ) == 1 ) return true; else return false;
-#define PyMethodCheck(a) if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) return false;
-#define PyMethodCheckVoid(a) if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) return;
 #define PyHasMethod(a) if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return false;
-#define PyHasMethodVoid(a) if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return;
 
-// Setting and getting item properties
-#define setItemIntProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->property = PyInt_AS_LONG( value );
-#define setItemStrProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->property = PyString_AS_STRING( value );
-#define getItemIntProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyInt_FromLong( self->Item->property );
-#define getItemStrProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyString_FromString( self->Item->property );
+// Method Calling Macro!
+#define PyEvalMethod(a) PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( a ) ); if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) return false; PyObject *returnValue = PyObject_CallObject( method, tuple ); PyReportError(); if( returnValue == NULL ) return false; if( !PyInt_Check( returnValue ) ) return false; if( PyInt_AsLong( returnValue ) == 1 ) return true; else return false;
 
-// Setting and getting char properties
-#define setCharIntProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Char->property = PyInt_AS_LONG( value );
-#define setCharStrProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Char->property = PyString_AS_STRING( value );
-#define getCharIntProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyInt_FromLong( self->Char->property );
-#define getCharStrProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyString_FromString( self->Char->property );
+// Setting and getting item/char properties
+#define setIntProperty( identifier, property ) if( !strcmp ( name, identifier ) ) self->property = PyInt_AS_LONG( value );
+#define setStrProperty( identifier, property ) if( !strcmp ( name, identifier ) ) self->property = PyString_AS_STRING( value );
+#define getIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyInt_FromLong( self->property );
+#define getStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyString_FromString( self->property );
 
 // If an error occured, report it
 inline void PyReportError( void )
@@ -136,14 +129,7 @@ bool WPPythonScript::onUse( P_CHAR User, P_ITEM Used )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( User ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Used ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onUse" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	PyEvalMethod( "onUse" )
 }
 
 bool WPPythonScript::onShowItemName( P_ITEM Item, P_CHAR Viewer )
@@ -154,14 +140,7 @@ bool WPPythonScript::onShowItemName( P_ITEM Item, P_CHAR Viewer )
 	PyTuple_SetItem( tuple, 0, PyGetItemObject( Item ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onShowItemName" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	PyEvalMethod( "onShowItemName" )
 }
 
 bool WPPythonScript::onShowCharName( P_CHAR Character, P_CHAR Viewer )
@@ -171,46 +150,30 @@ bool WPPythonScript::onShowCharName( P_CHAR Character, P_CHAR Viewer )
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
-
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onShowCharName" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	
+	PyEvalMethod( "onShowItemName" )
 }
 
-void WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
+bool WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
 {
-	PyHasMethodVoid( "onCollideItem" )
+	PyHasMethod( "onCollideItem" )
 
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Obstacle ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onCollideItem" ) );
-
-	PyMethodCheckVoid( method ) // Checks if the method is callable and exists
-	PyObject_CallObject( method, tuple );
-	PyReportError();
+	PyEvalMethod( "onCollideItem" )
 }
 
-void WPPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
+bool WPPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
 {
-	PyHasMethodVoid( "onCollideChar" )
+	PyHasMethod( "onCollideChar" )
 
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Obstacle ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onCollideChar" ) );
-
-	PyMethodCheckVoid( method ) // Checks if the method is callable and exists
-
-	PyObject_CallObject( method, tuple );
-	PyReportError();
+	PyEvalMethod( "onCollideChar" )
 }
 
 bool WPPythonScript::onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence )
@@ -222,16 +185,8 @@ bool WPPythonScript::onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence )
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Direction ) );
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( Sequence ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onWalk" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	PyEvalMethod( "onWalk" )
 }
-
 
 // if this events returns true (handeled) then we should not display the text
 bool WPPythonScript::onTalk( P_CHAR Character, QString Text )
@@ -241,67 +196,46 @@ bool WPPythonScript::onTalk( P_CHAR Character, QString Text )
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyString_FromString( Text.ascii() ) );
-
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onTalk" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	
+	PyEvalMethod( "onTalk" )
 }
 
 
-void WPPythonScript::onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text )
+bool WPPythonScript::onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text )
 {
-	PyHasMethodVoid( "onTalkToNPC" )
+	PyHasMethod( "onTalkToNPC" )
 
 	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Talker ) );
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 2, PyString_FromString( Text.ascii() ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onTalkToNPC" ) );
-	
-	PyMethodCheckVoid( method ) // Checks if the method is callable and exists
-
-	PyObject_CallObject( method, tuple );
-	PyReportError();
+	PyEvalMethod( "onTalkToNPC" )
 }
 
-void WPPythonScript::onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text )
+bool WPPythonScript::onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text )
 {
-	PyHasMethodVoid( "onTalkToItem" )
+	PyHasMethod( "onTalkToItem" )
 
 	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Talker ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Item ) );
 	PyTuple_SetItem( tuple, 2, PyString_FromString( Text.ascii() ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onTalkToItem" ) );
-
-	PyMethodCheckVoid( method ) // Checks if the method is callable and exists
-
-	PyObject_CallObject( method, tuple );
+	PyEvalMethod( "onTalkToItem" )
 	PyReportError();
 }
 
 
-void WPPythonScript::onWarModeToggle( P_CHAR Character, bool War )
+bool WPPythonScript::onWarModeToggle( P_CHAR Character, bool War )
 {
-	PyHasMethodVoid( "onWarModeToggle" )
+	PyHasMethod( "onWarModeToggle" )
 
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, ( War ? PyInt_FromLong( 1 ) : PyInt_FromLong( 0 ) ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onWarModeToggle" ) );
-
-	PyMethodCheckVoid( method ) // Checks if the method is callable and exists
-
-	PyObject_CallObject( method, tuple );
-	PyReportError();
+	PyEvalMethod( "onWarModeToggle" )
 }
 
 
@@ -321,19 +255,14 @@ bool WPPythonScript::onDisconnect( UOXSOCKET Socket, QString IP )
 }
 
 
-void WPPythonScript::onEnterWorld( P_CHAR Character )
+bool WPPythonScript::onEnterWorld( P_CHAR Character )
 {
-	PyHasMethodVoid( "onEnterWorld" )
+	PyHasMethod( "onEnterWorld" )
 
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onEnterWorld" ) );
-
-	PyMethodCheckVoid( method ) // Checks if the method is callable and exists
-
-	PyObject_CallObject( method, tuple );
-	PyReportError();
+	PyEvalMethod( "onEnterWorld" )
 }
 
 
@@ -344,14 +273,7 @@ bool WPPythonScript::onHelp( P_CHAR Character )
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onHelp" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	PyEvalMethod( "onHelp" )
 }
 
 
@@ -362,14 +284,7 @@ bool WPPythonScript::onChat( P_CHAR Character )
 	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onChat" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	PyEvalMethod( "onChat" )
 }
 
 
@@ -381,14 +296,7 @@ bool WPPythonScript::onSkillUse( P_CHAR Character, UI08 Skill )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Skill ) );
 
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onSkillUse" ) );
-
-	PyMethodCheck( method ) // Checks if the method is callable and exists
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple );
-	PyReportError();
-
-	PyReturnCheck( returnValue ) // Checks the return value
+	PyEvalMethod( "onSkillUse" )
 }
 
 //========================== Initialize Python extensions
@@ -576,22 +484,22 @@ PyObject* PyWPMovement_accept( PyObject* self, PyObject* args )
 
 PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 {
-	getItemStrProperty( "name", name.c_str() )
-	else getItemIntProperty( "id", id() )
-	else getItemStrProperty( "name", name.c_str() )
-	else getItemStrProperty( "name2", name2.c_str() )
-	else getItemIntProperty( "color", color )
-	else getItemIntProperty( "amount", amount )
-	else getItemIntProperty( "amount2", amount2 )
-	else getItemIntProperty( "serial", serial )
-	else getItemIntProperty( "x", pos.x )
-	else getItemIntProperty( "y", pos.y )
-	else getItemIntProperty( "z", pos.z )
-	else getItemIntProperty( "plane", pos.plane )
-	else getItemIntProperty( "layer", layer )
-	else getItemIntProperty( "itemhand", itmhand )
-	else getItemIntProperty( "type", type )
-	else getItemIntProperty( "type2", type2 )
+	getStrProperty( "name", Item->name.c_str() )
+	else getIntProperty( "id", Item->id() )
+	else getStrProperty( "name", Item->name.c_str() )
+	else getStrProperty( "name2", Item->name2.c_str() )
+	else getIntProperty( "color", Item->color )
+	else getIntProperty( "amount", Item->amount )
+	else getIntProperty( "amount2", Item->amount2 )
+	else getIntProperty( "serial", Item->serial )
+	else getIntProperty( "x", Item->pos.x )
+	else getIntProperty( "y", Item->pos.y )
+	else getIntProperty( "z", Item->pos.z )
+	else getIntProperty( "plane", Item->pos.plane )
+	else getIntProperty( "layer", Item->layer )
+	else getIntProperty( "itemhand", Item->itmhand )
+	else getIntProperty( "type", Item->type )
+	else getIntProperty( "type2", Item->type2 )
 	
 	// What we're contained in
 	else if( !strcmp( "container", name ) )
@@ -612,67 +520,67 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 		return (PyObject*)returnVal;
 	}
 
-	else getItemIntProperty( "oldx", oldpos.x )
-	else getItemIntProperty( "oldy", oldpos.y )
-	else getItemIntProperty( "oldz", oldpos.z )
-	else getItemIntProperty( "oldplane", oldpos.plane )
-	else getItemIntProperty( "oldlayer", oldlayer )
-	else getItemIntProperty( "weight", weight )
-	else getItemIntProperty( "more1", more1 )
-	else getItemIntProperty( "more2", more2 )
-	else getItemIntProperty( "more3", more3 )
-	else getItemIntProperty( "more4", more4 )
-	else getItemIntProperty( "moreb1", moreb1 )
-	else getItemIntProperty( "moreb2", moreb2 )
-	else getItemIntProperty( "moreb3", moreb3 )
-	else getItemIntProperty( "moreb4", moreb4 )
-	else getItemIntProperty( "morex", morex )
-	else getItemIntProperty( "morey", morey )
-	else getItemIntProperty( "morez", morez )
-	else getItemIntProperty( "doordir", doordir )
-	else getItemIntProperty( "dooropen", dooropen )
+	else getIntProperty( "oldx", Item->oldpos.x )
+	else getIntProperty( "oldy", Item->oldpos.y )
+	else getIntProperty( "oldz", Item->oldpos.z )
+	else getIntProperty( "oldplane", Item->oldpos.plane )
+	else getIntProperty( "oldlayer", Item->oldlayer )
+	else getIntProperty( "weight", Item->weight )
+	else getIntProperty( "more1", Item->more1 )
+	else getIntProperty( "more2", Item->more2 )
+	else getIntProperty( "more3", Item->more3 )
+	else getIntProperty( "more4", Item->more4 )
+	else getIntProperty( "moreb1", Item->moreb1 )
+	else getIntProperty( "moreb2", Item->moreb2 )
+	else getIntProperty( "moreb3", Item->moreb3 )
+	else getIntProperty( "moreb4", Item->moreb4 )
+	else getIntProperty( "morex", Item->morex )
+	else getIntProperty( "morey", Item->morey )
+	else getIntProperty( "morez", Item->morez )
+	else getIntProperty( "doordir", Item->doordir )
+	else getIntProperty( "dooropen", Item->dooropen )
 	// PILEABLE
-	else getItemIntProperty( "dye", dye )
-	else getItemIntProperty( "corpse", corpse )
-	else getItemIntProperty( "defense", def )
-	else getItemIntProperty( "lodamage", lodamage )
-	else getItemIntProperty( "hidamage", hidamage )
-	else getItemIntProperty( "weaponskill", wpsk )
-	else getItemIntProperty( "health", hp )
-	else getItemIntProperty( "maxhealth", maxhp )
-	else getItemIntProperty( "strength", st )
-	else getItemIntProperty( "dexterity", dx )
-	else getItemIntProperty( "intelligence", in )
-	else getItemIntProperty( "strength2", st2 )
-	else getItemIntProperty( "dexterity2", dx2 )
-	else getItemIntProperty( "intelligence2", in2 )
-	else getItemIntProperty( "speed", spd )
-	else getItemIntProperty( "smelt", smelt )
-	else getItemIntProperty( "secureIt", secureIt )
-	else getItemIntProperty( "moveable", magic )
-	else getItemIntProperty( "gatetime", gatetime )
-	else getItemIntProperty( "gatenumber", gatenumber )
-	else getItemIntProperty( "decaytime", decaytime )
+	else getIntProperty( "dye", Item->dye )
+	else getIntProperty( "corpse", Item->corpse )
+	else getIntProperty( "defense", Item->def )
+	else getIntProperty( "lodamage", Item->lodamage )
+	else getIntProperty( "hidamage", Item->hidamage )
+	else getIntProperty( "weaponskill", Item->wpsk )
+	else getIntProperty( "health", Item->hp )
+	else getIntProperty( "maxhealth", Item->maxhp )
+	else getIntProperty( "strength", Item->st )
+	else getIntProperty( "dexterity", Item->dx )
+	else getIntProperty( "intelligence", Item->in )
+	else getIntProperty( "strength2", Item->st2 )
+	else getIntProperty( "dexterity2", Item->dx2 )
+	else getIntProperty( "intelligence2", Item->in2 )
+	else getIntProperty( "speed", Item->spd )
+	else getIntProperty( "smelt", Item->smelt )
+	else getIntProperty( "secureIt", Item->secureIt )
+	else getIntProperty( "moveable", Item->magic )
+	else getIntProperty( "gatetime", Item->gatetime )
+	else getIntProperty( "gatenumber", Item->gatenumber )
+	else getIntProperty( "decaytime", Item->decaytime )
 	// ownserial
-	else getItemIntProperty( "visible", visible )
+	else getIntProperty( "visible", Item->visible )
 	// spanserial
-	else getItemIntProperty( "dir", dir ) // lightsource type
-	else getItemIntProperty( "priv", priv ) 
-	else getItemIntProperty( "value", value ) 
-	else getItemIntProperty( "restock", restock )
-	else getItemIntProperty( "value", value ) 
-	else getItemIntProperty( "disabled", disabled )
-	else getItemStrProperty( "disabledmsg", disabledmsg.c_str() ) 
-	else getItemIntProperty( "poisoned", poisoned ) 
-	else getItemStrProperty( "murderer", murderer.c_str() ) 
-	else getItemIntProperty( "murdertime", murdertime ) 
-	else getItemIntProperty( "rank", rank ) 
-	else getItemStrProperty( "creator", creator.c_str() ) 
-	else getItemIntProperty( "good", good ) 
-	else getItemIntProperty( "madewith", madewith ) 
-	else getItemStrProperty( "desc", desc.c_str() ) 
-	else getItemIntProperty( "carve", carve ) 
-	else getItemIntProperty( "spawnregion", spawnregion )
+	else getIntProperty( "dir", Item->dir ) // lightsource type
+	else getIntProperty( "priv", Item->priv ) 
+	else getIntProperty( "value", Item->value ) 
+	else getIntProperty( "restock", Item->restock )
+	else getIntProperty( "value", Item->value ) 
+	else getIntProperty( "disabled", Item->disabled )
+	else getStrProperty( "disabledmsg", Item->disabledmsg.c_str() ) 
+	else getIntProperty( "poisoned", Item->poisoned ) 
+	else getStrProperty( "murderer", Item->murderer.c_str() ) 
+	else getIntProperty( "murdertime", Item->murdertime ) 
+	else getIntProperty( "rank", Item->rank ) 
+	else getStrProperty( "creator", Item->creator.c_str() ) 
+	else getIntProperty( "good", Item->good ) 
+	else getIntProperty( "madewith", Item->madewith ) 
+	else getStrProperty( "desc", Item->desc.c_str() ) 
+	else getIntProperty( "carve", Item->carve ) 
+	else getIntProperty( "spawnregion", Item->spawnregion )
 
 	// If no property is found search for a method
 	return Py_FindMethod( Py_WPItemMethods, (PyObject*)self, name );
@@ -683,82 +591,82 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	if( !strcmp( name, "id" ) )
 		self->Item->setId( PyInt_AS_LONG( value ) );
 
-	else setItemStrProperty( "name", name )
-	else setItemStrProperty( "name2", name2 )
-	else setItemIntProperty( "color", color )
-	else setItemIntProperty( "amount", amount )
-	else setItemIntProperty( "amount2", amount2 )
-	else setItemIntProperty( "serial", serial )
-	else setItemIntProperty( "x", pos.x )
-	else setItemIntProperty( "y", pos.y )
-	else setItemIntProperty( "z", pos.z )
-	else setItemIntProperty( "plane", pos.plane )
-	else setItemIntProperty( "layer", layer )
-	else setItemIntProperty( "itemhand", itmhand )
-	else setItemIntProperty( "type", type )
-	else setItemIntProperty( "type2", type2 )
+	else setStrProperty( "name", Item->name )
+	else setStrProperty( "name2", Item->name2 )
+	else setIntProperty( "color", Item->color )
+	else setIntProperty( "amount", Item->amount )
+	else setIntProperty( "amount2", Item->amount2 )
+	else setIntProperty( "serial", Item->serial )
+	else setIntProperty( "x", Item->pos.x )
+	else setIntProperty( "y", Item->pos.y )
+	else setIntProperty( "z", Item->pos.z )
+	else setIntProperty( "plane", Item->pos.plane )
+	else setIntProperty( "layer", Item->layer )
+	else setIntProperty( "itemhand", Item->itmhand )
+	else setIntProperty( "type", Item->type )
+	else setIntProperty( "type2", Item->type2 )
 	// CONTAINER!!
-	else setItemIntProperty( "oldx", oldpos.x )
-	else setItemIntProperty( "oldy", oldpos.y )
-	else setItemIntProperty( "oldz", oldpos.z )
-	else setItemIntProperty( "oldplane", oldpos.plane )
-	else setItemIntProperty( "oldlayer", oldlayer )
-	else setItemIntProperty( "weight", weight )
-	else setItemIntProperty( "more1", more1 )
-	else setItemIntProperty( "more2", more2 )
-	else setItemIntProperty( "more3", more3 )
-	else setItemIntProperty( "more4", more4 )
-	else setItemIntProperty( "moreb1", moreb1 )
-	else setItemIntProperty( "moreb2", moreb2 )
-	else setItemIntProperty( "moreb3", moreb3 )
-	else setItemIntProperty( "moreb4", moreb4 )
-	else setItemIntProperty( "morex", morex )
-	else setItemIntProperty( "morey", morey )
-	else setItemIntProperty( "morez", morez )
-	else setItemIntProperty( "doordir", doordir )
-	else setItemIntProperty( "dooropen", dooropen )
+	else setIntProperty( "oldx", Item->oldpos.x )
+	else setIntProperty( "oldy", Item->oldpos.y )
+	else setIntProperty( "oldz", Item->oldpos.z )
+	else setIntProperty( "oldplane", Item->oldpos.plane )
+	else setIntProperty( "oldlayer", Item->oldlayer )
+	else setIntProperty( "weight", Item->weight )
+	else setIntProperty( "more1", Item->more1 )
+	else setIntProperty( "more2", Item->more2 )
+	else setIntProperty( "more3", Item->more3 )
+	else setIntProperty( "more4", Item->more4 )
+	else setIntProperty( "moreb1", Item->moreb1 )
+	else setIntProperty( "moreb2", Item->moreb2 )
+	else setIntProperty( "moreb3", Item->moreb3 )
+	else setIntProperty( "moreb4", Item->moreb4 )
+	else setIntProperty( "morex", Item->morex )
+	else setIntProperty( "morey", Item->morey )
+	else setIntProperty( "morez", Item->morez )
+	else setIntProperty( "doordir", Item->doordir )
+	else setIntProperty( "dooropen", Item->dooropen )
 	// PILEABLE
-	else setItemIntProperty( "dye", dye )
-	else setItemIntProperty( "corpse", corpse )
-	else setItemIntProperty( "defense", def )
-	else setItemIntProperty( "lodamage", lodamage )
-	else setItemIntProperty( "hidamage", hidamage )
-	else setItemIntProperty( "weaponskill", wpsk )
-	else setItemIntProperty( "health", hp )
-	else setItemIntProperty( "maxhealth", maxhp )
-	else setItemIntProperty( "strength", st )
-	else setItemIntProperty( "dexterity", dx )
-	else setItemIntProperty( "intelligence", in )
-	else setItemIntProperty( "strength2", st2 )
-	else setItemIntProperty( "dexterity2", dx2 )
-	else setItemIntProperty( "intelligence2", in2 )
-	else setItemIntProperty( "speed", spd )
-	else setItemIntProperty( "smelt", smelt )
-	else setItemIntProperty( "secureIt", secureIt )
-	else setItemIntProperty( "moveable", magic )
-	else setItemIntProperty( "gatetime", gatetime )
-	else setItemIntProperty( "gatenumber", gatenumber )
-	else setItemIntProperty( "decaytime", decaytime )
+	else setIntProperty( "dye", Item->dye )
+	else setIntProperty( "corpse", Item->corpse )
+	else setIntProperty( "defense", Item->def )
+	else setIntProperty( "lodamage", Item->lodamage )
+	else setIntProperty( "hidamage", Item->hidamage )
+	else setIntProperty( "weaponskill", Item->wpsk )
+	else setIntProperty( "health", Item->hp )
+	else setIntProperty( "maxhealth", Item->maxhp )
+	else setIntProperty( "strength", Item->st )
+	else setIntProperty( "dexterity", Item->dx )
+	else setIntProperty( "intelligence", Item->in )
+	else setIntProperty( "strength2", Item->st2 )
+	else setIntProperty( "dexterity2", Item->dx2 )
+	else setIntProperty( "intelligence2", Item->in2 )
+	else setIntProperty( "speed", Item->spd )
+	else setIntProperty( "smelt", Item->smelt )
+	else setIntProperty( "secureIt", Item->secureIt )
+	else setIntProperty( "moveable", Item->magic )
+	else setIntProperty( "gatetime", Item->gatetime )
+	else setIntProperty( "gatenumber", Item->gatenumber )
+	else setIntProperty( "decaytime", Item->decaytime )
 	// ownserial
-	else setItemIntProperty( "visible", visible )
+	else setIntProperty( "visible", Item->visible )
 	// spanserial
-	else setItemIntProperty( "dir", dir ) // lightsource type
-	else setItemIntProperty( "priv", priv ) 
-	else setItemIntProperty( "value", value ) 
-	else setItemIntProperty( "restock", restock )
-	else setItemIntProperty( "value", value ) 
-	else setItemIntProperty( "disabled", disabled )
-	else setItemStrProperty( "disabledmsg", disabledmsg ) 
-	else setItemIntProperty( "poisoned", poisoned ) 
-	else setItemStrProperty( "murderer", murderer ) 
-	else setItemIntProperty( "murdertime", murdertime ) 
-	else setItemIntProperty( "rank", rank ) 
-	else setItemStrProperty( "creator", creator ) 
-	else setItemIntProperty( "good", good ) 
-	else setItemIntProperty( "madewith", madewith ) 
-	else setItemStrProperty( "desc", desc ) 
-	else setItemIntProperty( "carve", carve ) 
-	else setItemIntProperty( "spawnregion", spawnregion ) 
+	else setIntProperty( "dir", Item->dir ) // lightsource type
+	else setIntProperty( "priv", Item->priv ) 
+	else setIntProperty( "value", Item->value ) 
+	else setIntProperty( "restock", Item->restock )
+	else setIntProperty( "value", Item->value ) 
+	else setIntProperty( "disabled", Item->disabled )
+	else setStrProperty( "disabledmsg", Item->disabledmsg ) 
+	else setIntProperty( "poisoned", Item->poisoned ) 
+	else setStrProperty( "murderer", Item->murderer ) 
+	else setIntProperty( "murdertime", Item->murdertime ) 
+	else setIntProperty( "rank", Item->rank ) 
+	else setStrProperty( "creator", Item->creator ) 
+	else setIntProperty( "good", Item->good ) 
+	else setIntProperty( "madewith", Item->madewith ) 
+	else setStrProperty( "desc", Item->desc ) 
+	else setIntProperty( "carve", Item->carve ) 
+	else setIntProperty( "spawnregion", Item->spawnregion ) 
 	// incognito
 
 	return 0;
@@ -783,32 +691,32 @@ PyObject* Py_WPItem_delete( Py_WPItem* self, PyObject* args )
 
 PyObject *Py_WPCharGetAttr( Py_WPChar *self, char *name )
 {
-	getCharStrProperty( "name", name.c_str() )
-	else getCharStrProperty( "orgname", orgname.c_str() )
-	else getCharStrProperty( "title", title.c_str() )
-	else getCharIntProperty( "serial", serial )
-	else getCharIntProperty( "body", id() )
-	else getCharIntProperty( "xbody", xid )
-	else getCharIntProperty( "skin", skin )
-	else getCharIntProperty( "xskin", xskin )
+	getStrProperty( "name", Char->name.c_str() )
+	else getStrProperty( "orgname", Char->orgname.c_str() )
+	else getStrProperty( "title", Char->title.c_str() )
+	else getIntProperty( "serial", Char->serial )
+	else getIntProperty( "body", Char->id() )
+	else getIntProperty( "xbody", Char->xid )
+	else getIntProperty( "skin", Char->skin )
+	else getIntProperty( "xskin", Char->xskin )
 	
-	else getCharIntProperty( "health", hp )
-	else getCharIntProperty( "stamina", stm )
-	else getCharIntProperty( "mana", mn )
+	else getIntProperty( "health", Char->hp )
+	else getIntProperty( "stamina", Char->stm )
+	else getIntProperty( "mana", Char->mn )
 
-	else getCharIntProperty( "strength", st )
-	else getCharIntProperty( "dexterity", effDex() )
-	else getCharIntProperty( "intelligence", in )
+	else getIntProperty( "strength", Char->st )
+	else getIntProperty( "dexterity", Char->effDex() )
+	else getIntProperty( "intelligence", Char->in )
 
-	else getCharIntProperty( "x", pos.x )
-	else getCharIntProperty( "y", pos.y )
-	else getCharIntProperty( "z", pos.z )
-	else getCharIntProperty( "plane", pos.plane )
+	else getIntProperty( "x", Char->pos.x )
+	else getIntProperty( "y", Char->pos.y )
+	else getIntProperty( "z", Char->pos.z )
+	else getIntProperty( "plane", Char->pos.plane )
 
-	else getCharIntProperty( "direction", dir )
-	else getCharIntProperty( "flags2", priv2 )
-	else getCharIntProperty( "hidamage", hidamage )
-	else getCharIntProperty( "lodamage", lodamage )
+	else getIntProperty( "direction", Char->dir )
+	else getIntProperty( "flags2", Char->priv2 )
+	else getIntProperty( "hidamage", Char->hidamage )
+	else getIntProperty( "lodamage", Char->lodamage )
 
 	else if( !strcmp( "equipment", name ) )
 	{
@@ -817,28 +725,56 @@ PyObject *Py_WPCharGetAttr( Py_WPChar *self, char *name )
 		return (PyObject*)returnVal;
 	}
 
-	/*else if( !strcmp( name, "incognito" ) )
-		return self->Char->incognito ? PyTrue : PyFalse;
-
-	else if( !strcmp( name, "polymorph" ) )
-		return self->Char->polymorph ? PyTrue : PyFalse;*/
-
 	// If no property is found search for a method
 	return Py_FindMethod( Py_WPCharMethods, (PyObject*)self, name );
 }
 
 int Py_WPCharSetAttr( Py_WPChar *self, char *name, PyObject *value )
 {
+	setStrProperty( "name", Char->name )
+	else setStrProperty( "orgname", Char->orgname )
+	else setStrProperty( "title", Char->title )
+	else setIntProperty( "serial", Char->serial )
+	
+	else if( !strcmp( "body", name ) )
+		self->Char->setId( PyInt_AS_LONG( value ) );
+	
+	else setIntProperty( "xbody", Char->xid )
+	else setIntProperty( "skin", Char->skin )
+	else setIntProperty( "xskin", Char->xskin )
+	
+	else setIntProperty( "health", Char->hp )
+	else setIntProperty( "stamina", Char->stm )
+	else setIntProperty( "mana", Char->mn )
 
+	else setIntProperty( "strength", Char->st )
+	
+	else if( !strcmp( "dexterity", name ) )
+		self->Char->setDex( PyInt_AS_LONG( value ) );
+	
+	else setIntProperty( "intelligence", Char->in )
+
+	else setIntProperty( "x", Char->pos.x )
+	else setIntProperty( "y", Char->pos.y )
+	else setIntProperty( "z", Char->pos.z )
+	else setIntProperty( "plane", Char->pos.plane )
+
+	else setIntProperty( "direction", Char->dir )
+	else setIntProperty( "flags2", Char->priv2 )
+	else setIntProperty( "hidamage", Char->hidamage )
+	else setIntProperty( "lodamage", Char->lodamage )
 
 	return 0;
 }
 
+// Resend the char to all connected players
 PyObject* Py_WPChar_update( Py_WPChar* self, PyObject* args )
 {
+	teleport( self->Char );
 	return PyTrue;
 }
 
+// Send the character a message
 PyObject* Py_WPChar_message( Py_WPChar* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) < 1 )

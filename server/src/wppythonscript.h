@@ -57,24 +57,24 @@ public:
 	virtual bool onShowItemName( P_ITEM Item, P_CHAR Viewer );
 	virtual bool onShowCharName( P_CHAR Character, P_CHAR Viewer );
 
-	virtual void onCollideItem( P_CHAR Character, P_ITEM Obstacle );
-	virtual void onCollideChar( P_CHAR Character, P_CHAR Obstacle );
+	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle );
+	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle );
 	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence );
 
 	// if this events returns true (handeled) then we should not display the text
 	virtual bool onTalk( P_CHAR Character, QString Text );
 
-	virtual void onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text );
-	virtual void onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text );
+	virtual bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text );
+	virtual bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text );
 
-	virtual void onWarModeToggle( P_CHAR Character, bool War );
+	virtual bool onWarModeToggle( P_CHAR Character, bool War );
 
 	// Is the Client version already known to us here ???
 	virtual bool onConnect( UOXSOCKET Socket, const QString &IP, const QString &Username, const QString &Password );
 
 	virtual bool onDisconnect( UOXSOCKET Socket, QString IP );
 
-	virtual void onEnterWorld( P_CHAR Character );
+	virtual bool onEnterWorld( P_CHAR Character );
 
 	virtual bool onHelp( P_CHAR Character );
 

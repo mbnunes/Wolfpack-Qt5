@@ -60,8 +60,8 @@ public:
 	virtual void reload( void ) {};
 
 	// We need an identification value for the scripts
-	void setName( QString Value );
-	QString getName( void );
+	void setName( QString Value ) { Name = Value; };
+	QString getName( void ) { return Name; };
 
 	// This event will be caled in both directions(!!)
 	// That means first onUse for the character is called
