@@ -7,33 +7,28 @@
 
 from wolfpack.consts import *
 import wolfpack
+from wolfpack.gumps import cGump
 
 # Register as a global script
 def onLoad():
     wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.animallore" )
 
 def onSkillUse( char, skill ):
-    if skill != ANIMALLORE:
-	return 0
+	if skill != ANIMALLORE:
+		return 0
 
-    char.socket.clilocmessage( 0x7A268 ) # What animal should I look at?
-    char.socket.attachtarget( "skills.animallore.response" )
-    char.socket.closegump( 0x10101010 )
+	char.socket.clilocmessage( 0x7A268, "", 0x3b2, 3 ) # What animal should I look at?
+	char.socket.attachtarget( "skills.animallore.response" )    
     
-    return 1
+	return 1
 
 def response( char, args, target ):
-
-    if char.canreach( target.char, 13 ):
-        return # no msg sent when you fail los check on OSI, wonder why...
-
-    if not target.char:
-        char.socket.clilocmessage( 0x7A629, "", 0x3b2, 3, char ) # That is not an animal
+    if not target.char or target.char.socket:
+        char.socket.clilocmessage( 0x7A269, "", 0x3b2, 3, char ) # That is not an animal
         return
 
-    if target.char.socket:
-        char.socket.clilocmessage( 0x7A629, "", 0x3b2, 3, char ) # That is not an animal
-        return
+    if not char.canreach( target.char, 13 ):
+		return # no msg sent when you fail los check on OSI, wonder why...
     
     if target.char.totame >= 1100 and not target.char.tamed:
         if char.skill[ ANIMALLORE ] == 1000:
@@ -55,8 +50,9 @@ def response( char, args, target ):
         
     sendGump( char, args, target )
 
+def sendGump( char, args, target ):
 
-def sendGump ( char, args, target ):
+    char.socket.closegump( 0x10101010 )
 
     loreGump = cGump ( 0, 0, 0, 250, 50 )
     #page 1
@@ -71,7 +67,7 @@ def sendGump ( char, args, target ):
     loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, 2 )
     loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, 1 )
 
-    loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></center>" %target.char.name, 0, 0 )
+    loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></div>" %target.char.name, 0, 0 )
     
     loreGump.addGump( 128,152, 2086 )
     loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003F9, 0, 0, 200 ) # Attributes
@@ -206,10 +202,6 @@ def sendGump ( char, args, target ):
         elif target.char.hunger == 0:
             loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
     
-    loreGump.setCallback( "animallore.loreCallback" )
     loreGump.setArgs( [target] )
     loreGump.setType( 0x10101010 )
-    loreGump.send ( char )
-
-def loreCallback ( char, args, target ):
-    return 1
+    loreGump.send( char )
