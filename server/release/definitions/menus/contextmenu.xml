@@ -111,4 +111,10 @@
 		<scripts>daggermenu</scripts>
 		<option tag="5" msgid="5121" />
 	</contextmenu>
+
+	<contextmenu id="stabler_menu">
+		<scripts>contextmenus.stablermenu</scripts>
+		<option tag="200" msgid="6126"/> <!-- Stable -->
+		<option tag="201" msgid="6127"/> <!-- Claim All -->
+	</contextmenu>	
 </definitions>
