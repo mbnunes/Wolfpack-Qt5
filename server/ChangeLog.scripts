@@ -6,6 +6,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed a category error with some champions.
 		- Fixed prices for jewels.
 		- Added data for item flipping for carpentry items.
+		- Added bloodcolor for undeads.
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
@@ -26,6 +27,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bug #0000325. (furniture not showing exceptional mark)
 		- Fixed repairing bows.
 		- Carving now takes bloodcolor into account.
+		- Import now imports multis from WSC files and makes all items non movable.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
