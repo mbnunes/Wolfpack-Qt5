@@ -36,7 +36,7 @@
 #include "zthread/Thread.h"
 #include "zthread/LockedQueue.h"
 
-#include "qmap.h"
+#include <qmap.h>
 
 class QSocketDevice;
 class cAsyncNetIOPrivate;

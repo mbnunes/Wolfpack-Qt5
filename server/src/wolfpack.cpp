@@ -54,6 +54,7 @@
 #include "network.h"
 #include "classes.h"
 #include "gumps.h"
+#include "commands.h"
 #include "spawnregions.h"
 #include "Timing.h"
 #include "tilecache.h"

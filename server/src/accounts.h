@@ -40,18 +40,18 @@
 #include "singleton.h"
 
 // Library Includes
-#include "qstring.h"
-#include "qstringlist.h"
-#include "qdatetime.h"
-#include "qvaluevector.h"
-#include "qmap.h"
+#include <qstring.h>
+#include <qdatetime.h>
+#include <qvaluevector.h>
+#include <qmap.h>
 
 // Wolfpack includes
-#include "commands.h"
+//#include "commands.h"
 
 // Forward Class declarations
 
 class cChar;
+class cAcl;
 
 class AccountRecord : public cSerializable
 {

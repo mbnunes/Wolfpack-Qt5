@@ -35,13 +35,9 @@
 #include "uopacket.h"
 
 // Library Includes
-#include "qsocketdevice.h"
-#include "qptrlist.h"
-#include "qmap.h"
-
-// TEMPORARY
-//#include <iostream>
-
+#include <qsocketdevice.h>
+#include <qptrlist.h>
+#include <qmap.h>
 
 /*!
 	\internal

@@ -109,7 +109,7 @@ void cCommands::loadACLs( void )
 	clConsole.PrepareProgress( tr("Loading Access Control Lists") );
 
 	// make sure it's clean
-	QMap< QString, stAcl* >::iterator itA (_acls.begin());
+	QMap< QString, cAcl* >::iterator itA (_acls.begin());
 	for ( ; itA != _acls.end(); ++itA )
 		delete itA.data();
 	_acls.clear();
@@ -145,7 +145,7 @@ void cCommands::loadACLs( void )
 		}
 		
 		// While we are in this loop we are building an ACL
-		stAcl *acl = new stAcl;
+		cAcl *acl = new cAcl;
 		acl->name = ACLname;
 		QMap< QString, bool > group;
 		QString groupName;

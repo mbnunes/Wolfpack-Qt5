@@ -45,13 +45,12 @@ struct stCommand
 	void (*command)( cUOSocket*, const QString&, QStringList& );	
 };
 
-struct stAcl
+class cAcl
 {
+public:
 	QString name;
 	QMap< QString, QMap< QString, bool > > groups;
 };
-
-typedef stAcl cAcl;
 
 // ACL:
 // Group -> Command -> Permitted
@@ -60,7 +59,7 @@ class cCommands : public QObject
 {
 	Q_OBJECT
 private:
-	QMap< QString, stAcl* > _acls;
+	QMap< QString, cAcl* > _acls;
 	static stCommand commands[];
 public:
 	// Command processing system
@@ -75,7 +74,7 @@ public:
 
 	// Privlevel System
 	void loadACLs( void );
-	stAcl *getACL( const QString& );
+	cAcl *getACL( const QString& );
 };
 
 inline cAcl *cCommands::getACL( const QString& key )

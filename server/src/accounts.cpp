@@ -36,6 +36,7 @@
 #include "pfactory.h"
 #include "network/uosocket.h"
 #include "charsmgr.h"
+#include "commands.h"
 
 
 // ===== AccountRecord Methods ===== //
