@@ -1305,16 +1305,14 @@ void commandInvis( cUOSocket *socket, const QString &command, QStringList &args 
 	Q_UNUSED(command);
 	socket->player()->removeFromView();
 	
-	if( socket->player()->hidden() || ( args.count() > 0 && args[0].toInt() == 0 ) )
+	if( socket->player()->isInvisible() || ( args.count() > 0 && args[0].toInt() == 0 ) )
 	{
-		socket->player()->setHidden( 0 );
-		socket->player()->setPriv2( socket->player()->priv2() & 0xF7 );
+		socket->player()->setInvisible( false );
 		socket->sysMessage( tr( "Invisible is now '0'." ) );
 	}
-	else if( !socket->player()->hidden() || ( args.count() > 0 && args[0].toInt() == 1 ) )
+	else if( !socket->player()->isInvisible() || ( args.count() > 0 && args[0].toInt() == 1 ) )
 	{
-		socket->player()->setHidden( 1 );
-		socket->player()->setPriv2( socket->player()->priv2() | 0x08 );
+		socket->player()->setInvisible( true );
 		socket->sysMessage( tr( "Invisible is now '1'." ) );
 	}
 
