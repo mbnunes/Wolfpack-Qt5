@@ -243,6 +243,8 @@ static PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 
 	cPythonTarget* target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
 
+	Py_DECREF(targetargs);
+
 	if ( timeout )
 	{
 		target->setTimeout( Server::instance()->time() + timeout );
@@ -320,6 +322,9 @@ static PyObject* wpSocket_attachitemtarget( wpSocket* self, PyObject* args )
 	}
 
 	self->pSock->attachTarget( target, targetitems, xoffset, yoffset, zoffset );
+
+	Py_DECREF(targetargs);
+
 	Py_RETURN_NONE;
 }
 
@@ -340,8 +345,8 @@ static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 	}
 
 	targetargs = PyList_AsTuple( targetargs );
-
 	cPythonTarget* target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
+	Py_DECREF(targetargs);
 
 	if ( timeout )
 	{
@@ -421,8 +426,9 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 
 	// Convert py_args to a tuple
 	py_args = PyList_AsTuple( py_args );
-
 	cPythonGump* gump = new cPythonGump( toCall, py_args );
+	Py_DECREF(py_args);
+
 	if ( serial )
 		gump->setSerial( serial );
 

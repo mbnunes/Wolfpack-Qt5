@@ -550,8 +550,8 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	}
 
 	PyObject* py_args = PyList_AsTuple( arguments );
-
 	cPythonEffect* effect = new cPythonEffect( toCall, py_args );
+	Py_DECREF(py_args);
 
 	// Should we save this effect?
 	effect->setSerializable( persistent != 0 );
@@ -1083,10 +1083,10 @@ static PyObject* wpList( PyObject* self, PyObject* args )
 	}
 
 	QStringList list = Definitions::instance()->getList( getArgStr( 0 ) );
-	PyObject* pylist = PyList_New( list.count() );
+	PyObject* pylist = PyTuple_New( list.count() );
 
 	for ( uint i = 0; i < list.count(); ++i )
-		PyList_SetItem( pylist, i, PyString_FromString( list[i].latin1() ) );
+		PyTuple_SetItem( pylist, i, QString2Python( list[i] ) );
 
 	return pylist;
 }
@@ -2097,25 +2097,25 @@ static PyObject* wpAccountsFind( PyObject* self, PyObject* args )
 
 /*
 	\function wolfpack.accounts.list
-	\return A list of strings.
-	\description This function generates a list of all account names and returns it.
+	\return A tuple of strings.
+	\description This function generates a tuple of all account names and returns it.
 */
 static PyObject* wpAccountsList( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	Q_UNUSED( args );
-	PyObject* list = PyList_New( 0 );
-
+	PyObject* tuple = PyTuple_New( Accounts::instance()->count() );
+	
 	cAccounts::const_iterator it = Accounts::instance()->begin();
+	unsigned int i = 0;
 	while ( it != Accounts::instance()->end() )
 	{
 		const QString &login = ( *it )->login();
-		if ( !login.isNull() )
-			PyList_AppendStolen( list, QString2Python( login ) );
+		PyTuple_SetItem( tuple, i++, QString2Python( login ) );
 		++it;
 	}
 
-	return list;
+	return tuple;
 }
 
 /*
@@ -2176,10 +2176,15 @@ static PyObject* wpAccountsAcl( PyObject* self, PyObject* args )
 	{
 		PyObject* dict2 = PyDict_New();
 
-		for ( QMap<QString, bool>::const_iterator it = ( *git ).begin(); it != ( *git ).end(); ++it )
-			PyDict_SetItem( dict2, PyString_FromString( it.key() ), it.data() ? PyTrue() : PyFalse() );
+		for ( QMap<QString, bool>::const_iterator it = ( *git ).begin(); it != ( *git ).end(); ++it ) {
+			PyObject *key = QString2Python(it.key());			
+			PyDict_SetItem( dict2, key, it.data() ? Py_True : Py_False );
+			Py_DECREF(key);
+		}
 
-		PyDict_SetItem( dict, PyString_FromString( git.key() ), dict2 );
+		PyObject *key = QString2Python(git.key());
+		PyDict_SetItem( dict, key, dict2 );
+		Py_DECREF(key);
 	}
 
 	return dict;
@@ -2304,7 +2309,7 @@ static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
 		return 0;
 
 	Config::instance()->setBool( pyGroup, pyKey, pyValue );
-	Py_RETURN_TRUE;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -2345,7 +2350,7 @@ static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
 		return 0;
 
 	Config::instance()->setNumber( pyGroup, pyKey, pyValue );
-	Py_RETURN_TRUE;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -2384,7 +2389,7 @@ static PyObject* wpSettingsSetString( PyObject* self, PyObject* args )
 		return 0;
 
 	Config::instance()->setString( pyGroup, pyKey, pyValue );
-	Py_RETURN_TRUE;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -2396,7 +2401,7 @@ static PyObject* wpSettingsReload( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Config::instance()->reload();
-	Py_RETURN_TRUE;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -2408,7 +2413,7 @@ static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Config::instance()->flush();
-	Py_RETURN_TRUE;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -2475,12 +2480,15 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 */
 static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 {
-	char* query;
+	PyObject *pquery;
+	QString query;
 
-	if ( !PyArg_ParseTuple( args, "es:wolfpack.database.execute(query)", "utf-8", &query ) )
+	if ( !PyArg_ParseTuple( args, "O:wolfpack.database.execute(query)", &pquery ) )
 	{
 		return 0;
 	}
+
+	query = Python2QString(pquery);
 
 	try
 	{
@@ -2488,18 +2496,14 @@ static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 	}
 	catch ( QString& e )
 	{
-		PyMem_Free( query );
 		PyErr_SetString( PyExc_RuntimeError, e.latin1() );
 		return 0;
 	}
 	catch ( ... )
 	{
-		PyMem_Free( query );
 		PyErr_SetString( PyExc_RuntimeError, "An error occured while querying the database." );
 		return 0;
 	}
-
-	PyMem_Free( query );
 
 	Py_RETURN_NONE;
 }
@@ -2546,7 +2550,7 @@ static PyObject* wpClose( PyObject* /*self*/, PyObject* /*args*/ )
 		return 0;
 	}
 
-	Py_RETURN_TRUE;
+	Py_RETURN_NONE;
 }
 
 /*

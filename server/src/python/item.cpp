@@ -659,8 +659,8 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	}
 
 	PyObject* py_args = PyList_AsTuple( arguments );
-
 	cPythonEffect* effect = new cPythonEffect( toCall, py_args );
+	Py_DECREF(py_args);
 
 	// Should we save this effect?
 	effect->setSerializable( persistent != 0 );
@@ -1290,33 +1290,29 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 {
 	// Special Python things
 	/*
-		\rproperty item.content A list of all items inside of the container.
+		\rproperty item.content A tuple of all items inside of the container.
 	*/
 	if ( !strcmp( "content", name ) )
 	{
 		const ContainerContent &content = self->pItem->content();
-		PyObject* list = PyList_New( content.count() );
+		PyObject* list = PyTuple_New( content.count() );
 		unsigned int i = 0;
 		for ( ContainerIterator it( content ); !it.atEnd(); ++it )
-			PyList_SetItem( list, i++, PyGetItemObject( *it ) );
+			PyTuple_SetItem( list, i++, PyGetItemObject( *it ) );
 		return list;
 	}
 	/*
-		\rproperty item.tags A list of all tag names the object currently has.
+		\rproperty item.tags A tuple of all tag names the object currently has.
 	*/
 	else if ( !strcmp( "tags", name ) )
 	{
 		// Return a list with the keynames
-		PyObject* list = PyList_New( 0 );
-
 		QStringList tags = self->pItem->getTags();
+		PyObject *list = PyTuple_New(tags.count());
+		unsigned int i = 0;
 		for ( QStringList::iterator it = tags.begin(); it != tags.end(); ++it )
 		{
-			QString name = *it;
-			if ( !name.isEmpty() )
-			{
-				PyList_AppendStolen( list, PyString_FromString( name.latin1() ) );
-			}
+			PyTuple_SetItem(list, i++, QString2Python(*it));
 		}
 
 		return list;
@@ -1361,9 +1357,9 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 			}
 		}
 
-		PyObject* list = PyList_New( events.count() );
+		PyObject* list = PyTuple_New( events.count() );
 		for ( uint i = 0; i < events.count(); ++i )
-			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
+			PyTuple_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
 	}
 	else

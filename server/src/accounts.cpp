@@ -634,15 +634,16 @@ PyObject* cAccount::getProperty( const QString& name )
 	PY_PROPERTY( "rawpassword", password() );
 	PY_PROPERTY( "flags", flags() );
 	/*
-		\rproperty account.characters A list of <object id="CHAR">char</object> objects.
-		This list contains all characters assigned to this account.
+		\rproperty account.characters A tuple of <object id="CHAR">char</object> objects.
+		This tuple contains all characters assigned to this account.
 	*/
 	if ( name == "characters" )
 	{
-		PyObject* list = PyList_New( characters_.size() );
-		for ( uint i = 0; i < characters_.size(); ++i )
-			PyList_SetItem( list, i, PyGetCharObject( characters_[i] ) );
-		return list;
+		PyObject* tuple = PyTuple_New( characters_.size() );
+		for ( uint i = 0; i < characters_.size(); ++i ) {
+			PyTuple_SetItem( tuple, i, characters_[i]->getPyObject() );
+		}
+		return tuple;
 	}
 	/*
 		\rproperty account.lastlogin The last login date of this account or

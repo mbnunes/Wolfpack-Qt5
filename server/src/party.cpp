@@ -547,36 +547,39 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 		return party->leader()->getPyObject();
 	}
 	/*
-		\rproperty party.members A list of <object id="char">char</object> objects for the members in this party.
+		\rproperty party.members A tuple of <object id="char">char</object> objects for the members in this party.
 	*/
 	else if ( !strcmp( name, "members" ) )
 	{
 		QPtrList<cPlayer> members = party->members();
-		PyObject* list = PyList_New( 0 );
+		PyObject* list = PyTuple_New( members.count() );
+		unsigned int i = 0;
 		for ( P_PLAYER member = members.first(); member; member = members.next() )
-			PyList_AppendStolen( list, member->getPyObject() );
+			PyTuple_SetItem( list, i++, member->getPyObject() );
 		return list;
 	}
 	/*
-		\rproperty party.canidates A list of <object id="char">char</object> objects for the canidates in this party.
+		\rproperty party.canidates A tuple of <object id="char">char</object> objects for the canidates in this party.
 	*/
 	else if ( !strcmp( name, "canidates" ) )
 	{
 		QPtrList<cPlayer> canidates = party->canidates();
 		PyObject* list = PyList_New( 0 );
+		unsigned int i = 0;
 		for ( P_PLAYER canidate = canidates.first(); canidate; canidate = canidates.next() )
-			PyList_AppendStolen( list, canidate->getPyObject() );
+			PyTuple_SetItem( list, i++, canidate->getPyObject() );
 		return list;
 	}
 	/*
-		\rproperty party.lootingallowed A list of <object id="char">char</object> objects for the members of this party who allowed looting their corpse.
+		\rproperty party.lootingallowed A tuple of <object id="char">char</object> objects for the members of this party who allowed looting their corpse.
 	*/
 	else if ( !strcmp( name, "lootingallowed" ) )
 	{
 		QPtrList<cPlayer> lootlist = party->lootingAllowed();
 		PyObject* list = PyList_New( 0 );
+		unsigned int i = 0;
 		for ( P_PLAYER member = lootlist.first(); member; member = lootlist.next() )
-			PyList_AppendStolen( list, member->getPyObject() );
+			PyTuple_SetItem( list, i++, member->getPyObject() );
 		return list;
 	}
 

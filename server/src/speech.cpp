@@ -196,11 +196,11 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 
 		if ( pNpc->canHandleEvent( EVENT_SPEECH ) )
 		{
-			PyObject* pkeywords = PyList_New( keywords.size() );
+			PyObject* pkeywords = PyTuple_New( keywords.size() );
 
 			// Set Items
 			for ( unsigned int i = 0; i < keywords.size(); ++i )
-				PyList_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
+				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
 
 			PyObject* args = Py_BuildValue( "(NNNO)", pNpc->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
 

@@ -186,12 +186,12 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	else if ( !strcmp( name, "items" ) )
 	{
 		QPtrList<cUObject> objects = self->pRegion->spawnedItems();
-		PyObject* list = PyList_New( objects.count() );
+		PyObject* list = PyTuple_New( objects.count() );
 		cUObject *object;
 		int offset = 0;
 
 		for ( object = objects.first(); object; object = objects.next() )
-			PyList_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
+			PyTuple_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
 		return list;
 	}
 	/*
@@ -200,12 +200,12 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	else if ( !strcmp( name, "npcs" ) )
 	{
 		QPtrList<cUObject> objects = self->pRegion->spawnedNpcs();
-		PyObject* list = PyList_New( objects.count() );
+		PyObject* list = PyTuple_New( objects.count() );
 		cUObject *object;
 		int offset = 0;
 
 		for ( object = objects.first(); object; object = objects.next() )
-			PyList_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
+			PyTuple_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
 		return list;
 	}
 	/*

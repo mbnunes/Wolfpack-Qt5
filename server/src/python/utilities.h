@@ -160,7 +160,9 @@ inline QString Python2QString( PyObject* object )
 	else if ( PyUnicode_Check( object ) )
 	{
 #if defined(Py_UNICODE_WIDE)
-		return QString::fromUtf8( PyString_AsString( PyUnicode_AsUTF8String( object ) ) );
+		PyObject *utf8 = PyUnicode_AsUTF8String( object );
+		return QString::fromUtf8( PyString_AsString( object ) );
+		Py_DECREF(object);
 #else
 		return QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
 #endif
@@ -237,6 +239,14 @@ public:
 	{
 		cleanUp();
 		instances.remove(this); // Remove this from the static list of instances
+	}
+
+	// Clean up all instances
+	static void cleanUpAll() {
+		QValueList<PythonFunction*>::iterator it;
+		for (it = instances.begin(); it != instances.end(); ++it) {
+			(*it)->cleanUp();
+		}
 	}
 
 	// Recreate all pythonfunction instances

@@ -1793,8 +1793,8 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	}
 
 	PyObject* py_args = PyList_AsTuple( arguments );
-
 	cPythonEffect* effect = new cPythonEffect( expireCall, py_args );
+	Py_DECREF(py_args);
 
 	// Should we save this effect?
 	effect->setSerializable( persistent != 0 );
@@ -2621,18 +2621,18 @@ static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
 {
 	Q_UNUSED( args ); // Warning Fix
 	QPtrList<cFightInfo> &fights = self->pChar->fights();
-	PyObject *list = PyList_New( fights.count() );
+	PyObject *list = PyTuple_New( fights.count() );
 	unsigned int i = 0;
 
 	for ( cFightInfo*fight = fights.first(); fight; fight = fights.next() )
 	{
 		if ( fight->attacker() == self->pChar )
 		{
-			PyList_SetItem( list, i++, fight->victim()->getPyObject() );
+			PyTuple_SetItem( list, i++, fight->victim()->getPyObject() );
 		}
 		else
 		{
-			PyList_SetItem( list, i++, fight->attacker()->getPyObject() );
+			PyTuple_SetItem( list, i++, fight->attacker()->getPyObject() );
 		}
 	}
 
@@ -2993,9 +2993,9 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 				++it;
 			}
 		}
-		PyObject* list = PyList_New( scripts.count() );
+		PyObject* list = PyTuple_New( scripts.count() );
 		for ( uint i = 0; i < scripts.count(); ++i )
-			PyList_SetItem( list, i, PyString_FromString( scripts[i].latin1() ) );
+			PyTuple_SetItem( list, i, PyString_FromString( scripts[i].latin1() ) );
 		return list;
 	}
 	/*

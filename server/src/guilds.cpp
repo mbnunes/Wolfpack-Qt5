@@ -813,12 +813,12 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	if ( !strcmp( name, "members" ) )
 	{
 		QPtrList<cPlayer>& members = self->guild->members();
-		PyObject* list = PyList_New( members.count() );
+		PyObject* list = PyTuple_New( members.count() );
 		unsigned int i = 0;
 
 		for ( P_PLAYER player = members.first(); player; player = members.next() )
 		{
-			PyList_SetItem( list, i++, player->getPyObject() );
+			PyTuple_SetItem( list, i++, player->getPyObject() );
 		}
 
 		return list;
@@ -829,12 +829,12 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "canidates" ) )
 	{
 		QPtrList<cPlayer>& canidates = self->guild->canidates();
-		PyObject* list = PyList_New( canidates.count() );
+		PyObject* list = PyTuple_New( canidates.count() );
 		unsigned int i = 0;
 
 		for ( P_PLAYER player = canidates.first(); player; player = canidates.next() )
 		{
-			PyList_SetItem( list, i++, player->getPyObject() );
+			PyTuple_SetItem( list, i++, player->getPyObject() );
 		}
 
 		return list;

@@ -66,7 +66,11 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		std::map<unsigned short, QString>::iterator iter = textentries.begin();
 		for ( ; iter != textentries.end(); ++iter )
 		{
-			PyDict_SetItem( dict, PyInt_FromLong( iter->first ), QString2Python( iter->second ) );
+			PyObject *key = PyInt_FromLong( iter->first );
+			PyObject *value = QString2Python( iter->second );
+			PyDict_SetItem( dict, key, value );
+			Py_DECREF(key);
+			Py_DECREF(value);
 		}
 
 		return dict;
@@ -81,9 +85,9 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 	else if ( !strcmp( name, "switches" ) )
 	{
 		// Create a list
-		PyObject* list = PyList_New( self->response->switches.size() );
+		PyObject* list = PyTuple_New( self->response->switches.size() );
 		for ( uint i = 0; i < self->response->switches.size(); ++i )
-			PyList_SetItem( list, i, PyInt_FromLong( self->response->switches[i] ) );
+			PyTuple_SetItem( list, i, PyInt_FromLong( self->response->switches[i] ) );
 		return list;
 	}
 
