@@ -111,6 +111,8 @@ public:
 		cBaseRegion* foundRegion = NULL;
 		if( this->contains( posx, posy ) )
 			foundRegion = this;
+		else
+			return NULL;
 		
 		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
 		while( it != this->subregions_.end() )
@@ -120,7 +122,7 @@ public:
 				foundRegion = currRegion;
 			it++;
 		}
-		return NULL;
+		return foundRegion;
 	}
 
 	UI32							count( void )
