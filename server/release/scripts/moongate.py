@@ -51,6 +51,8 @@ def sendGump( char, item ):
 	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
 	gateGump.addText( 35, 110, "Malas" )
 	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 4 )
+	gateGump.addText( 35, 135, "Tokuno Islands")
+	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
 	# gates
 	gateGump.addText( 225, 40, "Britain" )
 	gateGump.addRadioButton(200, 40, 210, 211, 10 )
@@ -85,6 +87,8 @@ def sendGump( char, item ):
 	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
 	gateGump.addText( 35, 110, "Malas" )
 	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 4 )
+	gateGump.addText( 35, 135, "Tokuno Islands" )
+	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
 	# gates
 	gateGump.addText( 225, 40, "Britain" )
 	gateGump.addRadioButton(200, 40, 210, 211, 18 )
@@ -119,7 +123,9 @@ def sendGump( char, item ):
 	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
 	gateGump.addText( 35, 110, "Malas" )
 	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 4 )
-	# #gates
+	gateGump.addText( 35, 135, "Tokuno Islands" )
+	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )	
+	#gates
 	gateGump.addText( 225, 40, "Compassion" )
 	gateGump.addRadioButton( 200, 40, 210, 211, 26 )
 	gateGump.addText( 225, 65, "Honesty" )
@@ -155,6 +161,8 @@ def sendGump( char, item ):
 	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
 	gateGump.addText( 35, 110, "Malas", 61 )
 	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 4 )
+	gateGump.addText( 35, 110, "Tokuno Islands" )
+	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 5 )
 	# #gates
 	gateGump.addText( 225, 40, "Luna Moongate" )
 	gateGump.addRadioButton( 200, 40, 210, 211, 35 )
@@ -172,6 +180,35 @@ def sendGump( char, item ):
 	gateGump.addRadioButton( 200, 190, 210, 211, 41 )
 	gateGump.addText( 225, 215, "Stables of Umbra" )
 	gateGump.addRadioButton( 200, 215, 210, 211, 42 )
+
+	# tokuno islands
+	gateGump.startPage( 5 )
+	gateGump.addBackground( 9200, 380, 280 )
+	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
+	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
+	gateGump.addText( 45, 235, "CANCEL" )
+	# facets
+	gateGump.addText( 35, 35, "Trammel" )
+	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
+	gateGump.addText( 35, 60, "Felucca" )
+	gateGump.addPageButton( 10, 60, 0x4B9, 0x4BA, 2 )
+	gateGump.addText( 35, 85, "Ilshenar", 61 )
+	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
+	gateGump.addText( 35, 110, "Malas" )
+	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 4 )
+	gateGump.addText( 35, 135, "Tokuno Islands" )
+	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )	
+	#gates
+	gateGump.addText( 225, 40, "Makoto-Jima" )
+	gateGump.addRadioButton( 200, 40, 210, 211, 43 )
+	gateGump.addText( 225, 65, "Isamu-Jima" )
+	gateGump.addRadioButton( 200, 65, 210, 211, 44 )
+	gateGump.addText( 225, 90, "Homare-Jima" )
+	gateGump.addRadioButton( 200, 90, 210, 211, 45 )
+
+
 	# set callback function and its arguments
 	gateGump.setCallback( "moongate.gateCallback" )
 	# send it
@@ -211,6 +248,8 @@ def gateCallback( char, args, target ):
 	elif( ( button > 25 ) and ( button < 35 ) ):
 		numWorld = 2
 	elif( ( button > 34 ) and ( button < 43 ) ):
+		numWorld = 3
+	elif( ( button > 42 ) and ( button < 46 ) ):
 		numWorld = 3
 	else:
 		char.socket.sysmessage( "script error 4. contact GM." )
@@ -270,6 +309,12 @@ def gateCallback( char, args, target ):
 		coord = [ 1941, 1321, -88, 3 ]
 	elif( button == 42 ):
 		coord = [ 1992, 1326, -90, 3 ]
+	elif( button == 43 ):
+		coord = [ 718, 1159, 25, 4 ]
+	elif( button == 44 ):
+		coord = [ 1169, 998, 41, 4 ]
+	elif( button == 45 ):
+		coord = [ 270, 628, 15, 4 ]
 	char.soundeffect( 0x1fc )
 	char.removefromview()
 	char.moveto( coord[0], coord[1], coord[2], coord[3] )
