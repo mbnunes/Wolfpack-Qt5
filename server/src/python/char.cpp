@@ -661,6 +661,8 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		return (PyObject*)( skills );
 	}
 
+	else pGetInt( "direction", beardstyle() )
+
 	/*getStrProperty( "name", pChar->name.c_str() )
 	else getStrProperty( "orgname", pChar->orgname().latin1() )
 	else getStrProperty( "title", pChar->title().latin1() )
