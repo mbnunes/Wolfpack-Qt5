@@ -3970,17 +3970,17 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 // LB
 void cMagic::Heal(UOXSOCKET s)
 {
-//	int cc=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
-	int defender=LongFromCharPtr(buffer[s]+7);
-	int i = calcCharFromSer( defender );
-	if (i!=-1)
+	SERIAL defender=LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc_defender = FindCharBySerial( defender );
+	if (pc_defender != NULL)
 	{
 		playSound( DEREF_P_CHAR(pc_currchar), 4);
-		doStaticEffect(i, 4);
-		chars[i].hp=chars[i].st;
-		updatestats(i,0);
-	} else sysmessage(s,"Not a valid heal target");
+		doStaticEffect(DEREF_P_CHAR(pc_defender), 4);
+		pc_defender->hp = pc_defender->st;
+		updatestats(DEREF_P_CHAR(pc_defender), 0);
+	} else 
+		sysmessage(s,"Not a valid heal target");
 
 }
 

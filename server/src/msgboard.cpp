@@ -638,7 +638,7 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region%d.bbi", chars[calcCharFromSer(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7])].region );
+			sprintf( (char*)temp, "region%d.bbi", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
 		}
 		else
 		{
@@ -1007,7 +1007,7 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region%d.bbp", chars[calcCharFromSer(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7])].region );
+			sprintf( (char*)temp, "region%d.bbp", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
 		}
 		else
 		{
@@ -2044,7 +2044,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// NPC Name
 				case 'n':
 					{
-						strcpy( flagPos, (chars[calcCharFromSer( serial )].name) );
+						strcpy( flagPos, (FindCharBySerial( serial )->name) );
 						strcat( (char*)temp, tempString );
 						break;
 					}

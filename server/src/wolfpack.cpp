@@ -805,7 +805,7 @@ void item_char_test()
 		if (p_pet != NULL)
 		{
 			 stablemaster_serial = p_pet->stablemaster_serial;
-			 if (stablemaster_serial != NULL) // stabled ?
+			 if (stablemaster_serial != INVALID_SERIAL) // stabled ?
 			 {
 				P_CHAR pc_j = FindCharBySerial(stablemaster_serial);
 				if (pc_j != NULL)

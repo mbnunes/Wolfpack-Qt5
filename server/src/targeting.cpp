@@ -1974,40 +1974,40 @@ void cTargets::xBankTarget(int s)
 
 void cTargets::xSpecialBankTarget(int s)//AntiChrist
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		openspecialbank(s, i);
+		openspecialbank(s, DEREF_P_CHAR(pc));
 	}
 }
 
 void cTargets::SellStuffTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		sellstuff(s, i);
+		sellstuff(s, DEREF_P_CHAR(pc));
 	}
 }
 
 void cTargets::ReleaseTarget(int s, int c) 
 { 
-	int i, serial; 
-	
-	if (c==-1) 
+
+	P_CHAR pc_i = NULL;
+	if (c == INVALID_SERIAL) 
 	{ 
-		serial = LongFromCharPtr(buffer[s] + 7); 
-		i = calcCharFromSer(serial); 
+		SERIAL serial = LongFromCharPtr(buffer[s] + 7); 
+		pc_i = FindCharBySerial(serial); 
 	} 
 	else 
 	{ 
-		i = calcCharFromSer(c); 
+		pc_i = FindCharBySerial(c); 
 	} 
-	if (i!=-1) 
+	if (pc_i != NULL) 
 	{ 
-		P_CHAR pc = MAKE_CHARREF_LR(i); 
+		P_CHAR pc = pc_i;
 		if (pc->cell == 0) 
 		{ 
 			sysmessage(s, "That player is not in jail!"); 
@@ -2020,7 +2020,7 @@ void cTargets::ReleaseTarget(int s, int c)
 			pc->priv2 = 0; 
 			pc->jailsecs = 0; 
 			pc->jailtimer = 0; 
-			teleport(i); 
+			teleport(DEREF_P_CHAR(pc)); 
 			soundeffect(c, 1, 0xfd); // Play sound effect for player 
 			sysmessage(c, "You are released.."); 
 			sysmessage(s, "Player %s released.", pc->name); 
@@ -2030,7 +2030,7 @@ void cTargets::ReleaseTarget(int s, int c)
 
 void cTargets::GmOpenTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
 	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
@@ -2048,15 +2048,14 @@ void cTargets::GmOpenTarget(int s)
 
 void cTargets::StaminaTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
-		soundeffect2(i, 0x01, 0xF2);
-		staticeffect(i, 0x37, 0x6A, 0x09, 0x06);
-		pc->stm=pc->effDex();
-		updatestats(i, 2);
+		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
+		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
+		pc->stm = pc->effDex();
+		updatestats(DEREF_P_CHAR(pc), 2);
 		return;
 	}
 	sysmessage(s,"That is not a person.");
@@ -2064,15 +2063,14 @@ void cTargets::StaminaTarget(int s)
 
 void cTargets::ManaTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
-		soundeffect2(i, 0x01, 0xF2);
-		staticeffect(i, 0x37, 0x6A, 0x09, 0x06);
-		pc->mn=pc->in;
-		updatestats(i, 1);
+		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
+		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
+		pc->mn = pc->in;
+		updatestats(DEREF_P_CHAR(pc), 1);
 		return;
 	}
 	sysmessage(s,"That is not a person.");
@@ -2080,12 +2078,12 @@ void cTargets::ManaTarget(int s)
 
 void cTargets::MakeShopTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		Commands->MakeShop(i);
-		teleport(i);
+		Commands->MakeShop(DEREF_P_CHAR(pc));
+		teleport(DEREF_P_CHAR(pc));
 		sysmessage(s, "The buy containers have been added.");
 		return;
 	}
@@ -2151,18 +2149,15 @@ void cTargets::JailTarget(int s, int c)
 
 void cTargets::AttackTarget(int s)
 {
-	int target, target2;
-
-	target=calcCharFromSer(addx[s]);
-	target2=calcCharFromSer(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]);
-	P_CHAR pc = MAKE_CHARREF_LR(target);
-    if (pc->inGuardedArea()) // Ripper..No pet attacking in town.
+	P_CHAR target = FindCharBySerial(addx[s]);
+	P_CHAR target2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
+    if (target->inGuardedArea()) // Ripper..No pet attacking in town.
 	{
         sysmessage(s,"You cant have pets attack in town!");
         return;
 	}
-	if (target2==-1 || target==-1) return;
-	npcattacktarget(target2, target);
+	if (target2 == NULL || target == NULL) return;
+	npcattacktarget(DEREF_P_CHAR(target2), DEREF_P_CHAR(target));
 }
 
 void cTargets::FollowTarget(int s)
@@ -2429,29 +2424,27 @@ void cTargets::CanTrainTarget(int s)
 
 void cTargets::SetSplitTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->split=tempint[s];
 	}
 }
 
 void cTargets::SetSplitChanceTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->splitchnc=tempint[s];
 	}
 }
 
 void cTargets::SetDirTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
 
 	if (isItemSerial(serial))
 	{
@@ -2518,7 +2511,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 			{
 				Items->DeleItem(pj);
 
-				P_ITEM pi=Items->SpawnItem(i,1,"a robe",0,0x1F03,0,0);
+				P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(pc),1,"a robe",0,0x1F03,0,0);
 				if(!pi) return false;
 				pi->SetContSerial(pc->serial);
 				pi->layer=0x16;
@@ -2526,7 +2519,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 				break;
 			}
 		}
-		teleport(i);
+		teleport(DEREF_P_CHAR(pc));
 		return true;
 	}
 
@@ -2625,13 +2618,12 @@ void cTargets::IncYTarget(int s)
 
 void cTargets::Priv3XTarget(int s) // crackerjack's addition, jul.24/99
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		clConsole.send("setpriv3target: %s\n", pc->name);
-		struct cmdtable_s *pct=&command_table[addx[s]];
+		struct cmdtable_s *pct = &command_table[addx[s]];
 		if(addy[s])
 		{
 			pc->priv3[pct->cmd_priv_m] |= (0-0xFFFFFFFF<<pct->cmd_priv_b);
@@ -2647,11 +2639,10 @@ void cTargets::Priv3XTarget(int s) // crackerjack's addition, jul.24/99
 
 void cTargets::ShowPriv3Target(int s) // crackerjack, jul 25/99
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int p=calcCharFromSer(serial);
-	if (p!=-1)
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(p);
 		char priv_info[10248];
 		int i;
 		sprintf(priv_info, "%s can execute the following commands:\n", pc->name);
