@@ -132,7 +132,7 @@ def dotame(char, totame):
 	char.socket.settag('skill_delay', wolfpack.time.currenttime() + TAMING_DELAY)
 
 	# set timer
-	char.addtimer( TAMING_DURATION, "skills.animaltaming.callback", [ havetamed, totame.serial, 0 ] )
+	char.addtimer( TAMING_DURATION, callback, [ havetamed, totame.serial, 0 ] )
 
 def callback( char, args ):
 	if len( args ) < 2:
@@ -226,7 +226,7 @@ def callback( char, args ):
 #		print totame.ai.state
 
 	char.socket.clilocmessage( msgID, "", 0x3b2, 3, char )
-	char.addtimer( TAMING_DURATION, "skills.animaltaming.callback", [ havetamed, totame.serial, num_try ] )
+	char.addtimer( TAMING_DURATION, callback, [ havetamed, totame.serial, num_try ] )
 
 def removetags( char ):
 	if char.hastag( 'taming' ):

@@ -48,7 +48,7 @@ time = int( 24 * 3600000 * 7 ) # Every Week
 def onLoad():
 	if enabled and backup_path:
 		if accountsdriver == 'mysql' or worlddriver == 'mysql':
-			wolfpack.addtimer( time, "system.mysql_backup_db.timer", [ wolfpack.time.currenttime() ] )
+			wolfpack.addtimer( time, timer, [ wolfpack.time.currenttime() ] )
 			wolfpack.registercommand( "backupdb", cmdbackupdb )
 			return True
 	else:
@@ -71,7 +71,7 @@ def timer( timer, args ):
 		if accountsdriver == 'mysql' or worlddriver == 'mysql':
 			# Optimize and restart timer
 			optimize_db()
-			wolfpack.addtimer( time, "system.mysql_backup_db.timer", [] )
+			wolfpack.addtimer( time, timer, [] )
 			return True
 		else:
 			return False

@@ -6,6 +6,7 @@ from wolfpack.consts import *
 from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 from wolfpack import properties
+from magic.utilities import statmodifier_expire
 
 # Agility Potion
 def potion( char, potion, agilitytype ):
@@ -52,7 +53,7 @@ def potion( char, potion, agilitytype ):
 	char.updatestamina()
 	char.updatestats()
 
-	char.addtimer( int( AGILITY_TIME * 1000 ), "magic.utilities.statmodifier_expire", [1, bonus], 1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel" )
+	char.addtimer( int( AGILITY_TIME * 1000 ), statmodifier_expire, [1, bonus], 1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel" )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )

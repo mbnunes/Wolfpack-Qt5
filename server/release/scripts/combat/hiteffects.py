@@ -31,7 +31,7 @@ def hitmagicarrow(attacker, defender):
 	attacker.movingeffect(0x36e4, defender, False, True, 5)
 
 	damage = scaledamage(attacker, 3, 4, 0.01)
-	defender.addtimer(1000, 'combat.hiteffects.damage_callback', [attacker.serial, damage])
+	defender.addtimer(1000, damage_callback, [attacker.serial, damage])
 
 def hitharm(attacker, defender):
 	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden:
@@ -58,7 +58,7 @@ def hitfireball(attacker, defender):
 	attacker.movingeffect(0x36d4, defender, False, True, 7)
 
 	damage = scaledamage(attacker, 6, 9, 0.018)
-	defender.addtimer(1000, 'combat.hiteffects.damage_callback', [attacker.serial, damage])
+	defender.addtimer(1000, damage_callback, [attacker.serial, damage])
 
 def damage_callback(defender, args):
 	(attacker, damage) = (wolfpack.findchar(args[0]), args[1])

@@ -63,7 +63,7 @@ def stroke(char, arguments):
 			char.socket.clilocmessage(502136)
 		return
 
-	char.addtimer(poison[5], "system.poison.stroke", [strokes], 0, 0, "poison_timer")
+	char.addtimer(poison[5], stroke, [strokes], 0, 0, "poison_timer")
 
 #
 # Cure the currently applied poison
@@ -102,7 +102,7 @@ def poison(char, level):
 	else:
 		char.poison = level
 
-	char.addtimer(poison[4], "system.poison.stroke", [0], 0, 0, "poison_timer")
+	char.addtimer(poison[4], stroke, [0], 0, 0, "poison_timer")
 	return True
 
 #
@@ -119,7 +119,7 @@ def onLogin(char):
 		poison = POISONS[char.poison]
 		try:
 			strokes = int(char.gettag('poison_strokes'))
-			char.addtimer(poison[5], "system.poison.stroke", [strokes])
+			char.addtimer(poison[5], stroke, [strokes])
 		except:
 			raise
 

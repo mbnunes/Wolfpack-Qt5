@@ -38,7 +38,7 @@ def boom(socket, command, arguments):
 			
 			if dist <= 12:
 				delay = int(random.random() * 10000)
-				wolfpack.addtimer(delay, 'commands.boom.boom_timer', [pos.x + x, pos.y + y, pos.map])
+				wolfpack.addtimer(delay, boom_timer, [pos.x + x, pos.y + y, pos.map])
 
 def onLoad():
 	wolfpack.registercommand('boom', boom)

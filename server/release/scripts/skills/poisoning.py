@@ -77,7 +77,7 @@ def selecttarget( char, args, target ):
 	# sound / effect
 	char.soundeffect( 0x4F )
 	# apply poison to the item
-	char.addtimer( POISONING_DELAY, "skills.poisoning.poisonit", [ potion.serial, target.item.serial ] )
+	char.addtimer( POISONING_DELAY, poisonit, [ potion.serial, target.item.serial ] )
 	return 1
 
 def poisonit( char, args ):

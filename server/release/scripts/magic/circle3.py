@@ -70,7 +70,7 @@ class WallOfStone(Spell):
 			serials.append(newitem.serial)
 			wolfpack.effect(0x376a, pos, 9, 10)
 
-		wolfpack.addtimer(10000, "magic.utilities.field_expire", serials, 1)
+		wolfpack.addtimer(10000, field_expire, serials, 1)
 
 class Teleport(Spell):
 	def __init__(self):

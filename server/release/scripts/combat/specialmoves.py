@@ -8,6 +8,7 @@ import random
 from math import floor
 import system.poison
 import combat.aos
+from magic.circle5 import paralyze_expire
 
 # Ability registry
 ABILITIES = {}
@@ -427,7 +428,7 @@ class Disarm (BaseAbility):
 			if defender.socket:
 				defender.socket.settag('block_equip', wolfpack.currenttime() + 5000)
 			elif defender.npc:
-				defender.addtimer(random.randint(5000, 7500), 'combat.specialmoves.reequip_weapon', [weapon.serial, layer], True)
+				defender.addtimer(random.randint(5000, 7500), reequip_weapon, [weapon.serial, layer], True)
 				
 def reequip_weapon(npc, args):
 	weapon = wolfpack.finditem(args[0])
@@ -637,10 +638,10 @@ class MortalStrike(BaseAbility):
 
 		if defender.npc:
 			defender.settag('mortalstrike', wolfpack.currenttime() + 12000)
-			defender.addtimer(12000, 'combat.specialmoves.ismortallywounded', [True], False, False, 'MORTALSTRIKE_CHECK')
+			defender.addtimer(12000, ismortallywounded, [True], False, False, 'MORTALSTRIKE_CHECK')
 		else:
 			defender.settag('mortalstrike', wolfpack.currenttime() + 6000)
-			defender.addtimer(6000, 'combat.specialmoves.ismortallywounded', [True], False, False, 'MORTALSTRIKE_CHECK')
+			defender.addtimer(6000, ismortallywounded, [True], False, False, 'MORTALSTRIKE_CHECK')
 
 MortalStrike()
 
@@ -732,7 +733,7 @@ class ParalyzeBlow(BaseAbility):
 		defender.frozen = True
 		defender.resendtooltip()
 		defender.dispel(None, True, "PARALYZE_EXPIRE")
-		defender.addtimer(duration, "magic.circle5.paralyze_expire", [], True, False, "PARALYZE_EXPIRE")
+		defender.addtimer(duration, paralyze_expire, [], True, False, "PARALYZE_EXPIRE")
 
 ParalyzeBlow()
 

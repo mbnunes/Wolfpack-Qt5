@@ -120,7 +120,7 @@ def antimacrocheck( char, skillid, object ):
 		elif count > ANTIMACROALLOWANCE + 1:
 			return False
 		else:
-			object.addtimer( ANTIMACRODELAY, "skills.cleartag", [char.serial, tagname] )
+			object.addtimer( ANTIMACRODELAY, cleartag, [char.serial, tagname] )
 			return False
 	else:
 		object.settag( tagname, "1" )

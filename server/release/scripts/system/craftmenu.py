@@ -437,7 +437,7 @@ class CraftItemAction(CraftItemAction2):
 				else:
 					wrapped.append(arg)
 
-			player.addtimer(self.parent.delay, "system.craftmenu.craft_timer", [self, wrapped])
+			player.addtimer(self.parent.delay, craft_timer, [self, wrapped])
 			return 0
 		elif self.parent.delay == 0:
 			self.playcrafteffect(player, arguments)

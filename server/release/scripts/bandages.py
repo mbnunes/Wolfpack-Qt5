@@ -123,7 +123,7 @@ def startheal(char, target):
 	#char.dispel(None, 1, 'bandage_timer') # Display pending bandage timers
 	socket.settag('bandage_slipped', 0) # Clear the "slipping" property
 	socket.clilocmessage(500956) # Begin applying bandages
-	char.addtimer(delay, 'bandages.endheal', [primary, secondary, target.serial]) # Add a bandage timer
+	char.addtimer(delay, endheal, [primary, secondary, target.serial]) # Add a bandage timer
 	# Show an emote that he is using bandages ?
 
 	return True

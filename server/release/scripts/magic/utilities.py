@@ -173,7 +173,7 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.hitpoints = min(target.hitpoints, target.maxhitpoints)
 		target.updatehealth()
 
-		target.addtimer(duration, "magic.utilities.statmodifier_expire", [0, amount1], \
+		target.addtimer(duration, statmodifier_expire, [0, amount1], \
 			1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
 
 	if stat == 1 or stat == 3:
@@ -185,7 +185,7 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.dexterity += amount2
 		target.stamina = min(target.stamina, target.maxstamina)
 
-		target.addtimer(duration, "magic.utilities.statmodifier_expire", [1, amount2], \
+		target.addtimer(duration, statmodifier_expire, [1, amount2], \
 			1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
 
 	if stat == 2 or stat == 3:
@@ -197,7 +197,7 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.intelligence += amount3
 		target.mana = min(target.mana, target.maxmana)
 
-		target.addtimer(duration, "magic.utilities.statmodifier_expire", [2, amount3], \
+		target.addtimer(duration, statmodifier_expire, [2, amount3], \
 			1, 1, "magic_statmodifier_2", "magic.utilities.statmodifier_dispel")
 
 	target.updatestats()

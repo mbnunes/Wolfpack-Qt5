@@ -74,7 +74,7 @@ def onUse( char, item ):
 	item.soundeffect( 0x33 )
 
 	# Add a timer to reset the id (serializable!)
-	wolfpack.addtimer( random.randint( 2000, 3000 ), "training_dummy.resetid", [ item.serial ], 1 )
+	wolfpack.addtimer( random.randint( 2000, 3000 ), resetid, [ item.serial ], 1 )
 
 	return True
 

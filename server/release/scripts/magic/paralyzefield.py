@@ -1,5 +1,6 @@
 
 import wolfpack
+import magic
 from wolfpack.consts import MAGICRESISTANCE
 
 #
@@ -24,5 +25,5 @@ def onCollide(char, item):
 	if not char.player:
 		duration *= 3
 
-	char.addtimer(duration, "magic.circle5.paralyze_expire", [], 1)
+	char.addtimer(duration, magic.circle5.paralyze_expire, [], 1)
 	return 0

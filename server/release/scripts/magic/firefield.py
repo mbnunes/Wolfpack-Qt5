@@ -16,7 +16,7 @@ def onCollide(char, item):
 
 		char.settag( 'in_firefield', 1)
 		energydamage( char, source, 2, fire=100 )
-		char.addtimer( 350, 'magic.firefield.expire', [] )
+		char.addtimer( 350, expire, [] )
 	return 0
 
 #
@@ -36,7 +36,7 @@ def expire(char, arguments):
 				source = wolfpack.findchar( int( item.gettag('source') ) )
 
 			energydamage(char, source, 2, fire=100)
-			char.addtimer(350, 'magic.firefield.expire', [])
+			char.addtimer(350, expire, [])
 			char.soundeffect(0x208)
 			return
 

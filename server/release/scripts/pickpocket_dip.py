@@ -62,15 +62,15 @@ def onUse( char, item ):
 	char.action( 0x09 )
 
 	# Add a timer to reset the id
-	addtimer( "pickpocket_dip.resetid", 3000, (item.serial,) )
+	item.addtimer( 3000, resetid, [item.serial] )
 
 	return True
 
 # Reset the id of a swinging dummy
-def resetid( iSerial ):
-	item = wolfpack.finditem( iSerial )
+def resetid( char, args ):
+	item = wolfpack.finditem( args[0] )
 
-	if( item ):
+	if item :
 		if( item.id == 0x1EC1 or item.id == 0x1EC4 ):
 			item.id -= 1
 

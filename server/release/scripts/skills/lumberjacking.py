@@ -127,7 +127,7 @@ def hack_logs( char, target, tool, resource ):
 	# So start to respawn
 	if resourcecount <= 0 and not resource.hastag( 'resource_empty' ):
 		resource.settag( 'resource_empty', 'true' )
-		resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [], True )
+		resource.addtimer( woodrespawndelay, respawnvein, [], True )
 		socket.clilocmessage( 500488, '', GRAY )
 		return False
 
@@ -145,9 +145,9 @@ def hack_logs( char, target, tool, resource ):
 	# Let him hack
 	char.action( 0xd )
 	char.soundeffect( 0x13e )
-	char.addtimer( 2000, "skills.lumberjacking.chop_tree", [pos] )
-	char.addtimer( 3500, "skills.lumberjacking.chop_tree", [pos] )
-	char.addtimer( 4000, "skills.lumberjacking.successlumberjacking", [pos, resource.serial, amount, tool.serial, resname, woodtable ] )
+	char.addtimer( 2000, chop_tree, [pos] )
+	char.addtimer( 3500, chop_tree, [pos] )
+	char.addtimer( 4000, successlumberjacking, [pos, resource.serial, amount, tool.serial, resname, woodtable ] )
 	return
 
 # HACK KINDLINGS

@@ -123,7 +123,7 @@ def response( char, args, target ):
 		# stop combat
 		# if npc, do not start combat for the duration while not attacked
 		creature.settag( 'peacemaking', 1 )
-		creature.addtimer( duration, "skills.peacemaking.release", [] )
+		creature.addtimer( duration, release, [] )
 	return 1
 
 def release( char, args ):

@@ -303,7 +303,7 @@ def sendtradepacket( socket, action, partnerserial, box1serial, box2serial, play
 	trade.setint( 4, partnerserial )
 	trade.setint( 8, box1serial )
 	trade.setint( 12, box2serial )
-	trade.send( socket )
+	socket.sendpacket( trade )
 
 	return True
 
@@ -315,5 +315,5 @@ def sendclosetrade( socket, boxserial ):
 	trade.setshort( 1, packetlength )
 	trade.setbyte( 3, action )
 	trade.setint( 4, boxserial )
-	trade.send( socket )
+	socket.sendpacket( trade )
 	return True

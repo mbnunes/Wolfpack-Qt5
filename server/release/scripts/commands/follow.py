@@ -32,7 +32,7 @@ def timer(char, args):
 		char.update()
 		socket.resendworld()
 	
-	char.addtimer(1500, 'commands.follow.timer', [], False, False, 'FOLLOW_TIMER')
+	char.addtimer(1500, timer, [], False, False, 'FOLLOW_TIMER')
 
 def target(player, arguments, target):
 	if not target.char or target.char == player or target.pos.map == 0xFF:
@@ -48,7 +48,7 @@ def target(player, arguments, target):
 	player.socket.log(LOG_MESSAGE, message + "\n")	
 	player.socket.settag('follow_target', target.char.serial)
 	player.dispel(None, True, 'FOLLOW_TIMER')
-	player.addtimer(1500, 'commands.follow.timer', [], False, False, 'FOLLOW_TIMER')
+	player.addtimer(1500, timer, [], False, False, 'FOLLOW_TIMER')
 
 def follow(socket, command, arguments):
 	socket.player.dispel(None, True, 'FOLLOW_TIMER')

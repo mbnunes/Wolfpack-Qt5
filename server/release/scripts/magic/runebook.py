@@ -386,9 +386,9 @@ def callback( char, args, target ):
 		(charges, maxcharges) = getCharges(item)			
 		if charges > 0:
 			char.say( "Kal Ort Por", 5 )
-			char.addtimer( 2000, "magic.runebook.recall0", [ item.serial, target ] )
+			char.addtimer( 2000, recall0, [ item.serial, target ] )
 		elif hasSpell(char, 32):
-			char.addtimer( 0, "magic.runebook.recall1", [item.serial, target] ) # Fall back to the Recall Spell
+			char.addtimer( 0, recall1, [item.serial, target] ) # Fall back to the Recall Spell
 		else:
 			char.socket.clilocmessage(502412) # No charges left
 
@@ -417,11 +417,11 @@ def callback( char, args, target ):
 
 	# recall button - spell : 301 - 316
 	elif( button > 300 and button < 317 ):
-		char.addtimer( 0, "magic.runebook.recall1", [item.serial, target] )
+		char.addtimer( 0, recall1, [item.serial, target] )
 
 	# gate button : 401 - 416
 	elif( button > 400 and button < 417 ):
-		char.addtimer( 0, "magic.runebook.gate", [item.serial, target] )
+		char.addtimer( 0, gate, [item.serial, target] )
 
 # recall using charges
 def recall0( char, args ):

@@ -92,7 +92,7 @@ class Invisibility (CharEffectSpell):
 		duration = int( char.skill[self.skill] * 120)
 		
 		# Add a removal timer
-		target.addtimer(duration, "magic.circle6.reveal_expire", [], 1, 0, "invisibility_reveal")
+		target.addtimer(duration, reveal_expire, [], 1, 0, "invisibility_reveal")
 
 		wolfpack.effect(0x376a, target.pos, 10, 15)
 		target.soundeffect(0x3c4)
@@ -238,7 +238,7 @@ class ParalyzeField(Spell):
 					newitem.callevent(EVENT_COLLIDE, (affected, newitem))
 
 		duration = int((3 + char.skill[MAGERY] / 30.0) * 1000)
-		wolfpack.addtimer(duration, "magic.utilities.field_expire", serials, 1)
+		wolfpack.addtimer(duration, field_expire, serials, 1)
 
 class Reveal (Spell):
 	def __init__(self):

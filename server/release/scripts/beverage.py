@@ -250,7 +250,7 @@ def intoxication(char, args):
 			char.socket.clilocmessage(500850)			
 
 	if intoxication > 0:
-		char.addtimer(3000, 'beverage.intoxication', [], 1, 0, 'intoxication')
+		char.addtimer(3000, intoxication, [], 1, 0, 'intoxication')
 		char.settag('intoxication', intoxication)
 	else:
 		char.deltag('intoxication')
@@ -291,7 +291,7 @@ def drink(char, item):
 			
 			intoxication += fprop[1]
 			char.settag('intoxication', intoxication)
-			char.addtimer(3000, 'beverage.intoxication', [], 1, 0, 'intoxication')
+			char.addtimer(3000, intoxication, [], 1, 0, 'intoxication')
 	
 		# Reduce Quantity
 		quantity -= 1

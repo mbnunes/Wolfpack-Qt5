@@ -195,7 +195,7 @@ class Spell:
 		elif target and type(target).__name__ == 'wpchar':
 			target = target.serial
 
-		char.addtimer(self.calcdelay(char, mode), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
+		char.addtimer(self.calcdelay(char, mode), callback, [self, mode, args, target, item], 0, 0, "cast_delay")
 		return 1
 
 	#
@@ -540,7 +540,7 @@ class DelayedDamageSpell(CharEffectSpell):
 		if not self.delay:
 			self.damage(char, target)
 		else:
-			target.addtimer(self.delay, 'magic.spell.damage_callback', [ self.spellid, char.serial ], 0, 0)
+			target.addtimer(self.delay, damage_callback, [ self.spellid, char.serial ], 0, 0)
 
 #
 # Callback for delayed damage spells

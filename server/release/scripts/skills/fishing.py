@@ -184,8 +184,8 @@ def response( char, args, target ):
 	# You broke your fishing pole.
 
 	socket.settag( 'is_fishing', int( wolfpack.time.currenttime() + 5000 ) ) # Times out after 5000ms
-	char.addtimer( 2500, "skills.fishing.effecttimer", [ pos, deepwater ] )
-	char.addtimer( 5000, "skills.fishing.itemtimer", [ pos, deepwater, args[0] ] )
+	char.addtimer( 2500, effecttimer, [ pos, deepwater ] )
+	char.addtimer( 5000, itemtimer, [ pos, deepwater, args[0] ] )
 
 	pass
 
@@ -301,7 +301,7 @@ def itemtimer( char, args ):
 			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ) * 8, int( floor( pos.y / 8 ) ) * 8, int( pos.z - 5 ), pos.map ) )
 			resource.decay = 0
 			decaytime = random.randint( FISHING_REFILLTIME[0], FISHING_REFILLTIME[1] )
-			resource.addtimer( decaytime, 'skills.fishing.resourceDecayTimer', [], True )
+			resource.addtimer( decaytime, resourceDecayTimer, [], True )
 			resource.update() # Send to GMs
 
 		else:

@@ -19,7 +19,7 @@ def onCollide(char, item):
 		if char.poison < level:
 			char.soundeffect(0x474)
 			poison.poison(char, level)
-		char.addtimer(350, 'magic.poisonfield.expire', [])
+		char.addtimer(350, expire, [])
 	return 0
 
 #
@@ -42,7 +42,7 @@ def expire(char, arguments):
 				char.soundeffect(0x474)
 				poison.poison(char, level)
 
-			char.addtimer(350, 'magic.poisonfield.expire', [])
+			char.addtimer(350, expire, [])
 			return
 
 	char.deltag('in_poisonfield')

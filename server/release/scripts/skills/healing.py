@@ -101,14 +101,14 @@ def response( char, args, target ):
 	start_time = wolfpack.time.servertime()
 	end_time = start_time + delay
 	chance = 1
-	char.addtimer( CHECK_DELAY, "skills.healing.delay_check", [ resto.serial, chance, start_time, end_time, heal_amount + 2 ] )
+	char.addtimer( CHECK_DELAY, delay_check, [ resto.serial, chance, start_time, end_time, heal_amount + 2 ] )
 
 # NOTICE: here, i don't use success/fail result from checkskill for resurrection/cure cases
 def res_char( char, resto, healing, anatomy ):
 	# res chance : 25% at 80/80 skill, max 75% at 100/100
 	chance = 250 + ( healing - RES_HEALING ) + ( anatomy - RES_ANATOMY )
 	end_time = wolfpack.time.currenttime() + RES_DELAY
-	char.addtimer( CHECK_DELAY, "skills.healing.delay_check", [ resto.serial, chance, start_time, end_time, 0 ] )
+	char.addtimer( CHECK_DELAY, delay_check, [ resto.serial, chance, start_time, end_time, 0 ] )
 
 def cure_char( char, cureto, healing, anatomy ):
 	# 80% at skill 60/60, 100% over skill 80/80
@@ -117,7 +117,7 @@ def cure_char( char, cureto, healing, anatomy ):
 		end_time = wolfpack.time.currenttime() + 8400 + 60 * ( 120 - char.dexterity )
 	else:
 		end_time = wolfpack.time.currenttime() + CURE_OTHER_DELAY
-	char.addtimer( CHECK_DELAY, "skills.healing.delay_check", [ cureto.serial, chance, start_time, end_time, 1 ] )
+	char.addtimer( CHECK_DELAY, delay_check, [ cureto.serial, chance, start_time, end_time, 1 ] )
 
 def delay_check( char, args ):
 	if not char:
@@ -193,4 +193,4 @@ def delay_check( char, args ):
 	delay = CHECK_DELAY
 	if ( wolfpack.time.currenttime() + CHECK_DELAY ) > end_time:
 		delay = end_time - current_time
-	char.addtimer( delay, "skills.healing.delay_check", [ healto.serial, chance, start_time, end_time, heal_type ] )
+	char.addtimer( delay, delay_check, [ healto.serial, chance, start_time, end_time, heal_type ] )

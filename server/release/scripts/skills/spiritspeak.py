@@ -40,7 +40,7 @@ def spiritspeak(char, skill):
 	char.say("Anh Mi Sah Ko")
 	char.soundeffect(0x24a)
 	char.action(ANIM_CASTAREA)
-	char.addtimer(1000, "skills.spiritspeak.effect", [skill])
+	char.addtimer(1000, effect, [skill])
 	socket.settag('spiritspeaking', 1)
 	return 1
 

@@ -99,7 +99,7 @@ class EnergyField(Spell):
 			serials.append(newitem.serial)
 
 		duration = int((15 + (char.skill[MAGERY] / 5)) / 0.007)
-		wolfpack.addtimer(duration, "magic.utilities.field_expire", serials, 1)
+		wolfpack.addtimer(duration, field_expire, serials, 1)
 
 class FlameStrike (DelayedDamageSpell):
 	def __init__(self):
@@ -205,7 +205,7 @@ class GateTravel (Spell):
 		gate.soundeffect(0x20e)
 		serials.append(gate.serial)
 
-		wolfpack.addtimer(30000, "magic.utilities.field_expire", serials, 1)
+		wolfpack.addtimer(30000, field_expire, serials, 1)
 
 class ManaVampire (DelayedDamageSpell):
 	def __init__(self):
@@ -412,7 +412,7 @@ class Polymorph (Spell):
 		char.update()
 
 		duration = int(300 + char.skill[MAGERY] * 100)
-		char.addtimer(duration, "magic.circle7.polymorph_expire", [], 1)
+		char.addtimer(duration, polymorph_expire, [], 1)
 
 def onLoad():
 	ChainLightning().register(49)

@@ -110,7 +110,7 @@ def response( char, args, target ):
 						level = 1
 					# level from 1 to 5
 					if skill / 2 >= level:
-						titem.addtimer( DUNGEON_TRAP_REVEAL_DURATION, "skills.detectinghidden.hide_trap", [ titem.visible ] )
+						titem.addtimer( DUNGEON_TRAP_REVEAL_DURATION, hide_trap, [ titem.visible ] )
 						titem.visible = 0
 						titem.update()
 			# faction trap : no idea yet

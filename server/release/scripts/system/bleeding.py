@@ -17,7 +17,7 @@ BLOOD = ['122a', '122b', '122c', '122d', '122e'] # List of blood ids
 def start(player, source):	
 	player.dispel(None, True, TIMERID) # Dispel a previous bleeding wound
 	player.settag('bleeding', 1)
-	player.addtimer(TIMERINTERVAL, "system.bleeding.stroke", [source.serial, 5], False, False, TIMERID)
+	player.addtimer(TIMERINTERVAL, stroke, [source.serial, 5], False, False, TIMERID)
 
 #
 # Checks if the given character is bleeding.
@@ -58,6 +58,6 @@ def stroke(player, arguments):
 
 	# There are still strokes left	
 	if count > 1:
-		player.addtimer(TIMERINTERVAL, "system.bleeding.stroke", [source, count - 1], False, False, TIMERID)
+		player.addtimer(TIMERINTERVAL, stroke, [source, count - 1], False, False, TIMERID)
 	else:
 		end(player)

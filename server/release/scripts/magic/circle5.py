@@ -171,7 +171,7 @@ class Incognito (Spell):
 
 		char.update()
 		char.resendtooltip()
-		char.addtimer(duration, "magic.circle5.incognito_expire", [hairid, haircolor, facialid, facialcolor], 1)
+		char.addtimer(duration, incognito_expire, [hairid, haircolor, facialid, facialcolor], 1)
 
 		char.effect(0x373A, 10, 15)
 		char.soundeffect(0x3bd)
@@ -254,7 +254,7 @@ class Paralyze (CharEffectSpell):
 		if not target.player:
 			duration *= 3
 		target.dispel(None, True, "PARALYZE_EXPIRE")
-		target.addtimer(duration, "magic.circle5.paralyze_expire", [], True, False, "PARALYZE_EXPIRE")
+		target.addtimer(duration, paralyze_expire, [], True, False, "PARALYZE_EXPIRE")
 
 class PoisonField(Spell):
 	def __init__(self):
@@ -318,7 +318,7 @@ class PoisonField(Spell):
 					newitem.callevent(EVENT_COLLIDE, (affected, newitem))
 
 		duration = int((3 + char.skill[MAGERY] / 25.0) * 1000)
-		wolfpack.addtimer(duration, "magic.utilities.field_expire", serials, 1)
+		wolfpack.addtimer(duration, field_expire, serials, 1)
 
 class SummonCreature (Spell):
 	def __init__(self):

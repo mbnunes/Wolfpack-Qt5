@@ -92,7 +92,7 @@ def response( char, args, target ):
 			delay = settings.getnumber('Game Speed', 'Regrow Wool Minutes', 180, 1)
 			delay *= 60000 # Miliseconds per Minute
 			target.char.dispel(None, 1, "regrow_wool", [])
-			target.char.addtimer(delay, "blades.regrow_wool", [], 1, 0, "regrow_wool")
+			target.char.addtimer(delay, regrow_wool, [], 1, 0, "regrow_wool")
 			return
 		elif target.char.baseid == 'sheep':
 			char.socket.clilocmessage( 0x7A2E1 ) # This sheep is not yet ready to be shorn.

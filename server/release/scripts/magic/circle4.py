@@ -100,7 +100,7 @@ class ManaDrain (DelayedDamageSpell):
 			target.mana -= amount
 			target.updatemana()
 			target.propertyflags |= 0x100000
-			target.addtimer(6000, "magic.circle4.manadrain_restore", [amount], 1)
+			target.addtimer(6000, manadrain_restore, [amount], 1)
 
 class Recall (Spell):
 	def __init__(self):
@@ -244,7 +244,7 @@ class FireField(Spell):
 						newitem.callevent( EVENT_COLLIDE, (affected, newitem) )
 
 		duration = int((4 + char.skill[ MAGERY ] * 0.05) * 1000)
-		wolfpack.addtimer(duration, "magic.utilities.field_expire", serials, 1)
+		wolfpack.addtimer(duration, field_expire, serials, 1)
 
 class ArchCure (Spell):
 	def __init__(self):
