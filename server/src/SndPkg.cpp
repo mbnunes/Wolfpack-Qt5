@@ -1918,7 +1918,7 @@ void itemtalk(int s, P_ITEM pi, char *txt) // Item "speech"
 	talk[12]=0;
 	talk[13]=3;
 	Xsend(s, talk, 14);
-	Xsend(s, (void*)pi->name.c_str(), 30);
+	Xsend(s, (void*)pi->name().ascii(), 30);
 	Xsend(s, txt, strlen(txt)+1);
 }
 
@@ -2900,8 +2900,8 @@ int sellstuff(int s, P_CHAR pc)
 					P_ITEM pi_j = FindItemBySerial(vecContainer2[ci1]);
 					if (pi_j != NULL) // LB crashfix
 					{
-						sprintf(ciname,"'%s'",pi_j->name.c_str()); // Added by Magius(CHE)
-						sprintf(cinam2,"'%s'",pi_q->name.c_str()); // Added by Magius(CHE)
+						sprintf(ciname,"'%s'",pi_j->name().ascii()); // Added by Magius(CHE)
+						sprintf(cinam2,"'%s'",pi_q->name().ascii()); // Added by Magius(CHE)
 						strupr(ciname); // Added by Magius(CHE)
 						strupr(cinam2); // Added by Magius(CHE)
 

@@ -1727,7 +1727,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s,"Recall rune marked.");
 							//antichrist
 							calcreg=calcRegionFromXY(pc_currchar->pos.x, pc_currchar->pos.y);
-							pi->name = string("Rune to: ") + string(region[calcreg].name);
+							pi->setName( QString( "Rune to: %1" ).arg( region[calcreg].name ) );
 							
 							cMagic::invisibleItemParticles(pc_currchar, curSpell, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);						
 							
@@ -2778,7 +2778,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	              if (pj != NULL) // Ripper
 				  {
 	                 pj->type=14;
-					 sprintf((char*)temp,"You magically create food in your backpack: %s",pj->name.c_str());
+					 sprintf((char*)temp,"You magically create food in your backpack: %s",pj->name().ascii());
 		             sysmessage(s,(char*)temp);
 	                 RefreshItem(pj);
 				  }

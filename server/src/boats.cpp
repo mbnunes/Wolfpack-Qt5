@@ -126,7 +126,7 @@ bool inmulti(Coord_cl pos, P_ITEM pi)//see if they are in the multi at these cho
 	length=length/sizeof(st_multi);
 	if (length == -1 || length>=17000000)//Too big...
 	{
-		sprintf((char*)temp,"inmulti() - Bad length in multi file. Avoiding stall. (Item Name: %s)\n", pi->name.c_str() );
+		sprintf((char*)temp,"inmulti() - Bad length in multi file. Avoiding stall. (Item Name: %s)\n", pi->name().ascii() );
 		LogError( (char*)temp ); // changed by Magius(CHE) (1)
 		length = 0;
 	}
@@ -282,7 +282,7 @@ void cBoat::OpenPlank(P_ITEM pi_p)//Open, or close the plank (called from keytar
 		case 0x3ED5: pi_p->setId( 0x3EB1 ); break;
 		case 0x3ED4: pi_p->setId( 0x3EB2 ); break;
 		case 0x3E89: pi_p->setId( 0x3E8A ); break;
-		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %x '%s' [%x]\n",pi_p->serial,pi_p->name.c_str(),pi_p->id() ); LogWarning( (char*)temp ); break; }
+		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %x '%s' [%x]\n",pi_p->serial,pi_p->name().ascii(),pi_p->id() ); LogWarning( (char*)temp ); break; }
 	}
 }
 
@@ -348,7 +348,7 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	pBoat->more2=nid2+3;//set MAX id
 	pBoat->type=117;//Boat type
 	pBoat->pos.z=-5;//Z in water
-	pBoat->name = "a mast";//Name is something other than "%s's house"
+	pBoat->setName( "a mast" );//Name is something other than "%s's house"
 	
 	P_ITEM pTiller=Items->SpawnItem(pc_cs,1,"a tiller man",0,0x3E4E,0,0);
 	if( !pTiller ) return false;
@@ -1095,8 +1095,7 @@ char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg mu
 	}
 	else if(msg.find("SET NAME")!=string::npos)
 	{
-		tiller->name = "a ship named ";
-		tiller->name += msg2+8;
+		tiller->setName( QString( "a ship named %1" ).arg( msg.substr( 8, msg.length()-8 ).c_str() ) );
 		return 1;
 	}
 

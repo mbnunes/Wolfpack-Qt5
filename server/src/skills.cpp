@@ -355,7 +355,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		} 
 		// Starting Rank System Addon, Identify Item and Store the Creator Name- by Magius(CHE)
 		if (pi->name2() != "#") 
-			pi->name = pi->name2().ascii(); // Item identified! - }
+			pi->setName( pi->name2() ); // Item identified! -- by Magius(CHE)	
 		//if (SrvParams->rank_system()==1) rank=CalcRank(s,skill);
 		//else if (SrvParams->rank_system()==0) rank=10;
 		rank = 10;
@@ -410,13 +410,13 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 				{
 					char p1[50], p2[50], p3[50], p4[50];
 					unsigned int spaceleft=0;				// for space left in name field
-					if (pi->name == "#")
+					if (pi->name() == "#")
 					{
 						char tmp[100];
-						pi->getName(tmp);				// get the name from tile data
-						pi->name = (char*)tmp;
+						pi->getName( tmp );				// get the name from tile data
+						pi->setName( tmp );
 					}
-					spaceleft = 50 - pi->name.size();
+					spaceleft = 50 - pi->name().length();
 					switch (modifier)
 					{
 					case 10: strcpy(p1, " of high quality"); strcpy(p2," of h.q."); strcpy(p3,"(hQ)"); break;
@@ -426,7 +426,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 					if (strlen(p1) < spaceleft) strcpy(p4, p1);
 					else if (strlen(p2) < spaceleft) strcpy(p4, p2);
 					else if (strlen(p3) < spaceleft) strcpy(p4, p3);
-					pi->name += p4;	// append name extension
+					pi->setName( pi->name() + p4 );	// append name extension
 
 					pi->hp += pi->hp / modifier;
 					pi->maxhp = pi->hp;
@@ -1088,7 +1088,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	if (pi_potion == NULL) 
 		return;
 	
-	pi_potion->name = string(pn) + string(" potion");
+	pi_potion->setName( QString( "%1 potion" ).arg( pn ) );
 	pi_potion->type=19;
 	pi_potion->morex = pi_mortar->morex;
 	pi_potion->morey = pi_mortar->more1;
@@ -1611,7 +1611,7 @@ void cSkills::RandomSteal(int s)
 		return;
 	}
 
-	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.c_str(), item->name.c_str());
+	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.c_str(), item->name().ascii());
 	sysmessage(s, (char*)temp);
 	if (npcinrange(s, pc_npc, 1))
 	{
@@ -1653,10 +1653,10 @@ void cSkills::RandomSteal(int s)
 			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare( pc_currchar, pc_npc )==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild
 			
-			if (item->name != "#")
+			if (item->name() != "#")
 			{
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(),item->name.c_str());
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(), item->name.c_str(), pc_npc->name.c_str());
+				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(),item->name().ascii());
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(), item->name().ascii(), pc_npc->name.c_str());
 			} else {
 				Map->SeekTile(item->id(),&tile);
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(), tile.name);
@@ -2706,8 +2706,8 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 			if (pi != NULL)
 			if (pi->layer>1 && pi->layer < 25)
 			{
-				if (!(strstr(pi->name.c_str(), "leather") || strstr(pi->name.c_str(), "magic") ||
-					strstr(pi->name.c_str(), "boot")|| strstr(pi->name.c_str(), "mask")))
+				if (!(strstr(pi->name().ascii(), "leather") || strstr(pi->name().ascii(), "magic") ||
+					strstr(pi->name().ascii(), "boot")|| strstr(pi->name().ascii(), "mask")))
 					ar += pi->def;
 			}
 		}
@@ -2855,7 +2855,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 			} 
 			char temp[256];
 			sprintf(temp, "a deciphered lvl.%d treasure map", tmap->morez);	// Give it the correct name
-			nmap->name = temp;
+			nmap->setName( temp );
 			nmap->morez = tmap->morez;				// Give it the correct level
 			nmap->creator = pc_currchar->name;	// Store the creator
 			Script *rscript=i_scripts[regions_script];	// Region script

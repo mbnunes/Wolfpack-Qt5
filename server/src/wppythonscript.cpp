@@ -488,9 +488,8 @@ PyObject* PyWPMovement_accept( PyObject* self, PyObject* args )
 
 PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 {
-	getStrProperty( "name", Item->name.c_str() )
+	getStrProperty( "name", Item->name().ascii() )
 	else getIntProperty( "id", Item->id() )
-	else getStrProperty( "name", Item->name.c_str() )
 	else getStrProperty( "name2", Item->name2().ascii() )
 	else getIntProperty( "color", Item->color() )
 	else getIntProperty( "amount", Item->amount() )
@@ -595,7 +594,9 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	if( !strcmp( name, "id" ) )
 		self->Item->setId( PyInt_AS_LONG( value ) );
 
-	else setStrProperty( "name", Item->name )
+	//else setStrProperty( "name", Item->name )
+	else if( !strcmp( "name", name ) )
+		self->Item->setName( PyString_AS_STRING( value ) );
 
 	else if( !strcmp( "name2", name ) )
 		self->Item->setName2( PyString_AS_STRING( value ) );

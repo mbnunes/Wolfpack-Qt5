@@ -296,7 +296,7 @@ void cGump::Input(int s)
 		}
 		switch( index )
 		{
-		case 2:		pj->name = (char*)text;						break;	 // Name
+		case 2:		pj->setName( (char*)text );						break;	 // Name
 		case 3:		k = hex2num( text );	
 					pj->setId(k);
 					break;	 // ID
@@ -1115,7 +1115,7 @@ void ttext(int line, SERIAL serial)
 		if (pj == NULL)
 			return;
 		line--; if( line == 0 ) strcpy( (char*)script1, "Name");
-		line--; if( line == 0 ) strcpy( (char*)script1, pj->name.c_str() );
+		line--; if( line == 0 ) strcpy( (char*)script1, pj->name().ascii() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "ID");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->id(), pj->id());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Hue");

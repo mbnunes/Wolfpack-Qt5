@@ -266,7 +266,7 @@ public:
 		if(addx[s]==1) //rename2 //New -- Zippy
 			pi->setName2( xtext[s] );
 		else
-			pi->name = xtext[s];
+			pi->setName( xtext[s] );
 	}
 };
 
@@ -609,7 +609,7 @@ void cTargets::IstatsTarget(int s)
 				(co&0x000000FF) );
 			sprintf((char*)temp, "Item [Dynamic] Ser [%8x] ID [%4x] Name [%s] Name2 [%s] Color [%4x] Cont %s Layer [%x] Type [%d] Magic [%x] More [%x %x %x %x] Position [%i %i %i] Amount [%i] Priv [%x]",
 				pi->serial, pi->id(),
-				pi->name.c_str(),pi->name2().ascii(),pi->color,
+				pi->name().ascii(),pi->name2().ascii(),pi->color,
 				contstr,
 				pi->layer,pi->type,pi->magic,
 				pi->more1,pi->more2,pi->more3,pi->more4,
@@ -635,11 +635,11 @@ void cTargets::TargIdTarget(int s) // Fraz
 			if (pi && !pi->isLockedDown())
 			{
 				if (pi->name2() != "#")
-					pi->name = pi->name2().ascii();
-				if (pi->name == "#")
+					pi->setName( pi->name2() );
+				if (pi->name() == "#")
 					pi->getName(temp2);
 				else 
-					strcpy((char*)temp2, pi->name.c_str());
+					strcpy((char*)temp2, pi->name().ascii() );
 				sprintf((char*)temp, "You found that this item appears to be called: %s", temp2);
 				sysmessage(s, (char*) temp);
 			}

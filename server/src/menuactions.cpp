@@ -229,7 +229,7 @@ UI32 consumeResources( P_ITEM Container, UI32 Amount, const vector< UI16 > &Matc
 				continue;
 
 		// ======== NAME =======
-		if( CheckName && ( Item->name.c_str() != MatchingName ) )
+		if( CheckName && ( Item->name() != MatchingName ) )
 				continue;			
 
 		// The Item matches our criterias
@@ -328,7 +328,7 @@ UI32 countResources( P_ITEM Container, const vector< UI16 > &MatchingIDs, const 
 				continue;
 
 		// ======== NAME =======
-		if( CheckName && ( Item->name.c_str() != MatchingName ) )
+		if( CheckName && ( Item->name() != MatchingName ) )
 				continue;			
 
 		Amount += Item->amount();

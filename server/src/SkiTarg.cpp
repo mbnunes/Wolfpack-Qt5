@@ -370,13 +370,14 @@ void cSkills::TasteIDTarget(int s)
 			// Identify Item by Antichrist // Changed by MagiusCHE)
 			if (CheckSkill(pc_currchar, TASTEID, 250, 500))
 				if (pi->name2() != "#")
-					pi->name = pi->name2().ascii(); // Item identified! -- by Magius(CHE)
+					pi->setName( pi->name2() ); // Item identified! -- by Magius(CHE)
 				
 				// ANTICHRIST -- FOR THE "#" BUG -- now you see the real name
-				if(pi->name == "#") 
+				if( pi->name() == "#" ) 
 					pi->getName(temp2);
 				else 
-					strcpy((char*)temp2, pi->name.c_str());
+					strcpy( (char*)temp2, pi->name().ascii() );
+
 				sysmessage(s, tr("You found that this item appears to be called: %1").arg(temp2)  );
 				
 				if (CheckSkill(pc_currchar, TASTEID, 250, 500))
@@ -1079,13 +1080,13 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			
 			if (mat==YARN)
 			{
-				pti->name = "#";
+				pti->setName( "#" );
 				pti->setId(0x0E1D);
 				pti->setAmount( pti->amount() * 3 );
 			}
 			else if (mat==THREAD)
 			{
-				pti->name = "#";
+				pti->setName( "#" );
 				pti->setId(0x0FA0);
 				pti->setAmount( pti->amount() * 3 );
 			}
@@ -1140,7 +1141,7 @@ void cSkills::Loom(int s)
 				{
 					sysmessage(s, tr("You have made your cloth.") );
 
-					pti->name = "#";
+					pti->setName( "#" );
 					pti->setId(0x175D);
 					pti->priv |= 0x01;
 					pti->setAmount( static_cast<unsigned short> ( pti->amount() * 0.25 ) );
@@ -1149,7 +1150,7 @@ void cSkills::Loom(int s)
 				{
 					sysmessage(s, tr("You have made a bolt of cloth.") );
 
-					pti->name = "#";
+					pti->setName( "#" );
 					pti->setId(0x0F95);
 					pti->priv |= 1;
 					pti->setAmount( static_cast<unsigned short> ( pti->amount() * 0.25 ) );
@@ -1226,7 +1227,7 @@ void cSkills::MakeDough(int s)
 				const P_ITEM pti=FindItemBySerial(pc_currchar->tailitem);	// on error return
 				if ( pti == NULL)
 					return;
-				pti->name = "#";
+				pti->setName( "#" );
 				
 				pti->setId(0x103D);
 				pti->priv |= 0x01;
@@ -1265,7 +1266,7 @@ void cSkills::MakePizza(int s)
 				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
 				if ( pti == NULL )
 					return;
-				pti->name = "#";
+				pti->setName( "#" );
 				
 				pti->setId(0x1083);
 				pti->priv |= 0x01;
@@ -1869,12 +1870,12 @@ void cSkills::ItemIdTarget(int s)
 			// Identify Item by Antichrist // Changed by MagiusCHE)
 			if (CheckSkill(pc_currchar, ITEMID, 250, 500))
 				if (pi->name2() == "#") 
-					pi->name = pi->name2().ascii(); // Item identified! -- by Magius(CHE)
+					pi->setName( pi->name2() );
 
-			if(pi->name == "#") 
+			if( pi->name() == "#" ) 
 				pi->getName(temp2);
 			else 
-				strcpy((char*)temp2, pi->name.c_str());
+				strcpy((char*)temp2, pi->name().ascii() );
 			sysmessage(s, tr("You found that this item appears to be called: %1").arg(temp2) );
 
 			// Show Creator by Magius(CHE)
@@ -2188,10 +2189,10 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 				if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
 					criminal(pc_currchar);//Blue and not attacker and not guild
 			
-				if (pi->name != "#")
+				if (pi->name() != "#")
 				{
-					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg(pi->name.c_str()) );
-					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg(pi->name.c_str()).arg(pc_npc->name.c_str()) );
+					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg(pi->name()) );
+					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg(pi->name()).arg(pc_npc->name.c_str()) );
 				} else
 				{
 					Map->SeekTile(pi->id(),&tile);
@@ -2380,7 +2381,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	
 	if(pc_currchar->isGM())
 	{
-		sysmessage(s, tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name.c_str()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg(pi->murderer.c_str()) );
+		sysmessage(s, tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg(pi->murderer.c_str()) );
 	}
 	else
 	{
@@ -2389,7 +2390,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2, tr("few") );
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2, tr("many") );
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2, tr("many many"));
-			sysmessage(s, tr("The %1 is %2 seconds old.").arg(pi->name.c_str()).arg(temp2) );
+			sysmessage(s, tr("The %1 is %2 seconds old.").arg(pi->name()).arg(temp2) );
 			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer.empty()) sysmessage(s,tr("You can't say who was the killer.") ); else
 			{
 				sysmessage(s, tr("The killer was %1.").arg(pi->murderer.c_str()) );

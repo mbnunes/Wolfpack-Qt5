@@ -270,7 +270,7 @@ void BuildHouse(UOXSOCKET s, int i)
 			pMulti = dynamic_cast<P_ITEM>( new cHouse );
 			pMulti->Init();
 			pMulti->setId(id);
-			pMulti->name = pc_currchar->name + "'s house";
+			pMulti->setName( QString( "%1's house" ).arg( pc_currchar->name.c_str() ) );
 			Items->GetScriptItemSetting(pMulti);
 			//pMulti->setId(id);
 			RefreshItem( pMulti );
@@ -525,9 +525,9 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 		
 		P_ITEM pDeed = Items->SpawnItemBackpack2(s, pHouse->morex, 0);        // need to make before delete
 		if( pDeed == NULL ) return;
-		sprintf((char*)temp, "Demolishing %s", pHouse->name.c_str());
+		sprintf((char*)temp, "Demolishing %s", pHouse->name().ascii() );
 		sysmessage( s, (char*)temp );
-		sprintf((char*)temp, "Converted into a %s.", pDeed->name.c_str());
+		sprintf((char*)temp, "Converted into a %s.", pDeed->name().ascii() );
 		sysmessage(s, (char*)temp); 
 		// door/sign delete
 		StartGrid=mapRegions->StartGrid(pHouse->pos);
@@ -679,7 +679,7 @@ int check_house_decay()
 			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
 			{          
 				decayed_houses++;
-				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name.c_str(), SrvParams->housedecay_secs());
+				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name().ascii(), SrvParams->housedecay_secs());
 				LogMessage((char*)temp);
 				RemoveHouse(pi);
 			}

@@ -53,7 +53,7 @@
 // constructor
 cItem::cItem( cItem &src )
 {
-	this->name = src.name;
+	this->name_ = src.name_;
 	this->name2_ = src.name2_;
 	this->creator = src.creator;
 	this->incognito = src.incognito;
@@ -584,9 +584,9 @@ static int getname(P_ITEM pi, char* itemname)
 	int j, len, mode, used, ok, namLen;
 	if (pi == NULL)
 		return 1;
-	if (pi->name != "#")
+	if (pi->name() != "#")
 	{
-		strcpy((char*)itemname, pi->name.c_str());
+		strcpy((char*)itemname, pi->name().ascii());
 		return strlen((char*)itemname)+1;
 	}
 	Map->SeekTile(pi->id(), &tile);
@@ -621,12 +621,11 @@ int cItem::getName(char* itemname)
 	return getname(this, itemname);
 }
 
-string cItem::getName(void)
+QString cItem::getName(void)
 {
 	char itemname[256] = {0,};
 	cItem::getName(itemname);
-	string sItemName(itemname);
-	return sItemName;
+	return QString(itemname);
 }
 
 // return the weight of an item. May have to seek it from MUL files
@@ -682,7 +681,7 @@ void cItem::Init(bool mkser)
 		this->SetSerial(INVALID_SERIAL);
 	}
 
-	this->name = "#";
+	this->name_ = "#";
 	this->name2_ = "#";
 	this->incognito=false;//AntiChrist - incognito
 	this->madewith=0; // Added by Magius(CHE)
@@ -1006,7 +1005,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					if (!strcmp("NEWBIE", (char*)script1))
 						pi->priv = pi->priv | 0x02;
 					else if (!strcmp("NAME", (char*)script1))
-						pi->name = (char*)script2;
+						pi->setName( (char*)script2 );
 					else if (!strcmp("NAME2", (char*)script1))
 						pi->setName2( (char*)script2 );
 					break;
@@ -1349,7 +1348,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 
 	pi->Init();
 	if(cName!=NULL)
-		pi->name = cName;
+		pi->setName( cName );
 	pi->setId(id);
 	pi->setColor( color );
 	pi->setAmount( nAmount );
@@ -1500,7 +1499,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				case 'n':
 				case 'O':
 				case 'o':
-					if (!(strcmp("NAME",(char*)script1))) pi->name = script2;
+					if (!(strcmp("NAME",(char*)script1))) pi->setName( script2 );
 					else if (!(strcmp("NAME2",(char*)script1))) pi->setName2( script2 );
 					else if (!(strcmp("NEWBIE",(char*)script1))) pi->priv |= 0x02;
 					else if (!(strcmp("OFFSPELL",(char*)script1))) pi->offspell=str2num(script2);
@@ -1898,10 +1897,10 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 		pi = FindItemBySerial(vecContainer[ci]);
 		if(pi->st>pc_p->st)//if strength required > character's strength
 		{
-			if(pi->name == "#")
+			if(pi->name() == "#")
 				pi->getName(temp2);
 			else
-				strcpy((char*)temp2, pi->name.c_str());
+				strcpy((char*)temp2, pi->name().ascii() );
 			
 			sprintf((char*)temp, "You are not strong enough to keep %s equipped!", temp2);
 			sysmessage(calcSocketFromChar(pc_p), (char*)temp);
@@ -1972,7 +1971,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 			
 		// <name>my Item</name>
 		if( TagName == "name" )
-			Item->name = Value.latin1();
+			Item->setName( Value );
 
 		// <identified>my magic item</identified>
 		else if( TagName == "identified" )

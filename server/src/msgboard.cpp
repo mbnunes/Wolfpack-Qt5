@@ -189,8 +189,8 @@ void MsgBoardOpen(int s)
 	
 	// If the name the item (Bulletin Board) has been defined, display it
 	// instead of the default "Bulletin Board" title.
-	if ( pi_msgBoard->name != "#" )
-		strncpy( (char*)&msgBoardHeader[8], pi_msgBoard->name.c_str(), 20);
+	if ( pi_msgBoard->name() != "#" )
+		strncpy( (char*)&msgBoardHeader[8], pi_msgBoard->name().ascii(), 20);
 	
 	// Send Message Board header to client
 	Xsend(s, msgBoardHeader, (sizeof(msgBoardHeader)-1) );

@@ -832,7 +832,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
 						if (retitem->name2() != "#") 
-							retitem->name = retitem->name2().ascii(); // Item identified! -- by Magius(CHE)					}
+							retitem->setName( retitem->name2() ); // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -890,7 +890,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
 						if (retitem->name2() != "#") 
-							retitem->name = retitem->name2().ascii(); // Item identified! -- by Magius(CHE)					}
+							retitem->setName( retitem->name2() ); // Item identified! -- by Magius(CHE)						}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -931,7 +931,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
 						if (retitem->name2() != "#") 
-							retitem->name = retitem->name2().ascii(); // Item identified! -- by Magius(CHE)					}
+							retitem->setName( retitem->name2() ); // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else

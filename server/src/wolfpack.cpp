@@ -751,21 +751,21 @@ void item_char_test()
 		char tmp[150];
 		if (pi->serial==pi->contserial)
 		{
-			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting",pi->name.c_str(),pi->serial);
+			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting",pi->name().ascii(),pi->serial);
 			LogWarning(tmp);
 			pi->SetContSerial(-1);
 		}
 
 		if (pi->serial==pi->GetOwnSerial())
 		{
-			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous owner value",pi->name.c_str(),pi->serial);
+			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous owner value",pi->name().ascii(),pi->serial);
 			LogWarning(tmp);
 			pi->SetOwnSerial(-1);
 		}
 
 		if (pi->serial==pi->spawnserial)
 		{
-			clConsole.send("\nALERT ! item %s [serial: %i] has dangerous spawn value\n",pi->name.c_str(),pi->serial);
+			clConsole.send("\nALERT ! item %s [serial: %i] has dangerous spawn value\n",pi->name().ascii(),pi->serial);
 			pi->SetSpawnSerial(-1);
 		}
 	}
@@ -1197,7 +1197,7 @@ void deathstuff(P_CHAR pc_player)
 		}
 		if ((pi_j->contserial == pc_player->serial)&& ((pi_j->layer==0x0B)||(pi_j->layer==0x10)))
 		{
-			pi_j->name = "Hair/Beard";
+			pi_j->setName( "Hair/Beard" );
 			pi_j->pos.x=0x47;
 			pi_j->pos.y=0x93;
 			pi_j->pos.z=0;
@@ -6120,7 +6120,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 
 	if (pi->contserial==pi->serial)
 	{
-		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n",pi->name.c_str(),pi->serial);
+		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n",pi->name().ascii(),pi->serial);
 		pi->SetContSerial(-1);
 	}
 

@@ -67,7 +67,7 @@ static bool Item_ToolWearOut(UOXSOCKET s, P_ITEM pi)
 {
 	if(Item_ToolWearOut(pi))	// has item been destroyed ??
 	{	 
-		sprintf((char*)temp,"Your %s has been destroyed",pi->name.c_str());
+		sprintf((char*)temp,"Your %s has been destroyed",pi->name().ascii());
 		sysmessage(s,(char*)temp);
 		return true;
 	}
@@ -764,7 +764,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				}
 				else 
-					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name.c_str(), pi->id());
+					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
 				return;
 				// End of guild stuff
 			case 203: // Open a gumpmenu - Crackerjack 8/9/99
@@ -1561,7 +1561,7 @@ void singleclick(UOXSOCKET s)
 	
 	if (pi->type == 15) // Fraz
 	{
-		if (pi->name2() == pi->name.c_str())
+		if (pi->name2() == pi->name())
 		{
 			sprintf((char*)temp, "%s %i charge", temp, pi->morez);
 			if (pi->morez != 1)
@@ -1570,7 +1570,7 @@ void singleclick(UOXSOCKET s)
 	}
 	else if (pi->type == 404 || pi->type == 181)
 	{
-			if (pi->name2() == pi->name.c_str())
+			if (pi->name2() == pi->name())
 			{
 			sprintf((char*)temp, "%s %i charge", temp, pi->morex);
 			if (pi->morex != 1)

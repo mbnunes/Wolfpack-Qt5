@@ -590,7 +590,7 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			impowncreate(s, pc_target, 1); //Lb, sends the green bar !
 		}
 		
-		if(pi->name == "#")
+		if(pi->name() == "#")
 			pi->getName(temp2);
 		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name.c_str(),temp2);
 		pc_target->emotecolor = 0x0026;
@@ -616,7 +616,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR target = FindCharBySerial(pp->Tserial);
 	// Search for the key word "the head of"
-	if( strstr( pi->name.c_str(), "the head of" ) )
+	if( strstr( pi->name().ascii(), "the head of" ) )
 	{
 		// This is a head of someone, see if the owner has a bounty on them
 		P_CHAR pCharIdx = FindCharBySerial( pi->ownserial );
@@ -1227,10 +1227,10 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				return;
 			}
 			
-			if(pItem->name == "#")
+			if(pItem->name() == "#")
 				pItem->getName(temp2);
 			else
-				strcpy((char*)temp2, pItem->name.c_str());
+				strcpy((char*)temp2, pItem->name().ascii());
 
 			vector<SERIAL> vecContainer = contsp.getData(pCont->serial);
 			for (unsigned int i = 0; i < vecContainer.size(); i++) // antichrist , bugfix for inscribing scrolls
@@ -1238,10 +1238,10 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				P_ITEM pi = FindItemBySerial(vecContainer[i]);
 				if (pi != NULL)
 				{
-					if(pi->name == "#")
+					if(pi->name() == "#")
 						pi->getName(temp);
 					else
-						strcpy((char*)temp, pi->name.c_str());
+						strcpy((char*)temp, pi->name().ascii());
 
 					if(!(strcmp((char*)temp,(char*)temp2)) || !(strcmp((char*)temp,"All-Spell Scroll")))
 					{

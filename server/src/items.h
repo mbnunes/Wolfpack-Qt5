@@ -49,6 +49,7 @@ protected:
 	UI16 amount_; 
 	UI16 amount2_; 
 	QString name2_;
+	QString name_;
 
 public:
 	// Getters
@@ -57,6 +58,7 @@ public:
 	UI16			amount()	const { return amount_; }; // Amount of items in pile
 	UI16			amount2()	const { return amount2_; }; //Used to track things like number of yards left in a roll of cloth
 	const QString	&name2()	const { return name2_; };
+	const QString	&name()		const { return name_; };
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -64,6 +66,7 @@ public:
 	void	setAmount( UI16 nValue ) { amount_ = nValue; }; // Amount of items in pile
 	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
 	void	setName2( const QString nValue ) { name2_ = nValue; };
+	void	setName( const QString nValue ) { name_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -204,8 +207,8 @@ public:
 	int  CountItems(short ID, short col= -1);
 	int  DeleteAmount(int amount, unsigned short _id, unsigned short _color = 0);
 	int getName(char* itemname);
-	string getName(void);
 	int getWeight();
+	QString getName(void);
 	void startDecay();
 	void setAllMovable()		{this->magic=1;} // set it all movable..
 	bool isAllMovable()         {return (magic==1);}

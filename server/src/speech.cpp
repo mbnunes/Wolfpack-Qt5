@@ -77,7 +77,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enRenameRune:
-			pTarget->name = string("Rune to ") + comm;
+			pTarget->setName( QString( "Rune to: %1" ).arg( comm.c_str() ) );
 			sysmessage(s, "Rune renamed to: Rune to %s", comm.c_str());
 			pPlayer->inputmode = cChar::enNone;
 			pPlayer->inputitem = INVALID_SERIAL;
@@ -98,7 +98,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 				//char temp[50] = {0,};
 				//strncpy(temp, comm, 49);
 				//pTarget->name = temp;
-				pTarget->name = comm ;
+				pTarget->setName( comm.c_str() );
 				sysmessage(s, "Renamed to: %s", comm.c_str());
 				pPlayer->inputmode = cChar::enNone;
 				pPlayer->inputitem=INVALID_SERIAL;

@@ -81,7 +81,7 @@ void StonePlacement(UOXSOCKET s)
 		}
 		pStone->Init();
 		pStone->setId(0x0ED5);
-		pStone->name = "Guildstone for an unnamed guild";
+		pStone->setName( "Guildstone for an unnamed guild" );
 		Items->GetScriptItemSetting(pStone);
 		pc->guildstone = pStone->serial;
 		if (pc->id() == 0x0191)	
@@ -407,7 +407,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 					{
 						++gumpnum;
 						P_ITEM pStone = FindItemBySerial(*it);
-						strcpy(mygump[++counter], pStone->name.c_str());
+						strcpy(mygump[++counter], pStone->name().ascii());
 					}
 				}
 			}
@@ -428,7 +428,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 			if ( this->war[i] != INVALID_SERIAL)
 			{
 				P_ITEM pStone = FindItemBySerial( this->war[i] );
-				strcpy(mygump[++counter], pStone->name.c_str());
+				strcpy(mygump[++counter], pStone->name().ascii());
 			}
 		}
 		gmprefix[8] = 15;
@@ -437,7 +437,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	case 16:														// War list 2
 		{
 		gumpnum=1;
-		lentext=sprintf(mygump[0], "Guilds that have decalred war on %s.", this->name.c_str());
+		lentext=sprintf(mygump[0], "Guilds that have decalred war on %s.", this->name().ascii());
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
 		list<SERIAL>::iterator it;
@@ -452,7 +452,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 					{
 						++gumpnum;
 						P_ITEM pStone = FindItemBySerial(*it);
-						strcpy(mygump[++counter], pStone->name.c_str());
+						strcpy(mygump[++counter], pStone->name().ascii() );
 					}
 				}
 			}
@@ -872,7 +872,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 							this->war.push_back(*it);
 							cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(*it));
 							char text[256];
-							sprintf(text,"%s declared war to %s", this->name.c_str(), pStone->name.c_str());
+							sprintf(text,"%s declared war to %s", this->name().ascii(), pStone->name().ascii() );
 							this->Broadcast(text);
 							pStone->Broadcast(text);
 							
@@ -898,7 +898,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 					{
 						char text[256];
 						cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(this->war[i]));
-						sprintf(text,"%s declared peace to %s",this->name.c_str(), pStone->name.c_str());
+						sprintf(text,"%s declared peace to %s",this->name().ascii(), pStone->name().ascii());
 						this->war.erase( this->war.begin() + i );
 						this->Broadcast(text);
 						pStone->Broadcast(text);
@@ -928,15 +928,15 @@ void cGuildStone::ChangeName(UOXSOCKET s, char *text)
 	for (it = guilds.begin(); it != guilds.end(); ++it)
 	{
 		P_ITEM pStone = FindItemBySerial(*it);
-		if (pStone->name == text) 
+		if (pStone->name() == text) 
 		{
 			sysmessage(s,"This name is already taken by another guild.");
 			return;
 		}
 	}
-	this->name = text;
+	this->setName( text );
 	char txt[200];
-	sprintf(txt, "Your guild got renamed to %s", this->name.c_str());
+	sprintf(txt, "Your guild got renamed to %s", this->name().ascii() );
 	this->Broadcast(txt);
 }
 
