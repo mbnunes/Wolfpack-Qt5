@@ -300,18 +300,6 @@ void commandRemove( cUOSocket* socket, const QString& command, const QStringList
 }
 
 /*
-	\command tele
-	\description Transports you directly to the targetted location.
-*/
-void commandTele( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( socket );
-	Q_UNUSED( command );
-	Q_UNUSED( args );
-	socket->attachTarget( new cTeleTarget );
-}
-
-/*
 	\command save
 	\description Forces the world to be saved.
 */
@@ -1103,7 +1091,6 @@ stCommand cCommands::commands[] =
 	{ "SHUTDOWN", commandShutDown },
 	{ "STAFF", commandStaff },
 	{ "SPAWNREGION", commandSpawnRegion },
-	{ "TELE", commandTele },
 	{ "WHO", commandWho },
 	{ NULL, NULL }
 };
