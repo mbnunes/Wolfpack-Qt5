@@ -5,22 +5,31 @@
 	<npc id="exodus_overseer">
 		<name>an exodus overseer</name>
 		<id>0x2f4</id>
-		<category>Monsters\Clockworks\Exodus Overseer </category>
 		<inherit id="monster_base"/>
-		<karma>-10000"</karma>
+		<karma>-10000</karma>
 		<fame>10000</fame>
-		<defense><random min="45" max="55"/></defense>
-		<lodamage>43</lodamage>
-		<hidamage>67</hidamage>
 		<!-- Stats -->
 		<str><random min="551" max="650"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="61" max="90"/></int>
 		<!-- Skills -->
-		<wrestling><random min="802" max="980"/></wrestling>
+		<magicresistance><random min="802" max="980"/></magicresistance>
 		<tactics><random min="802" max="980"/></tactics>
-		<magicresist><random min="802" max="980"/></magicresist>
-		<anatomy><random min="0" max="0"/></anatomy>
+		<wrestling><random min="802" max="980"/></wrestling>
+		<!-- Damage -->
+		<lodamage>13</lodamage>
+		<hidamage>19</hidamage>
+		<energydamage>50</energydamage>
+		<physicaldamage>50</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="45" max="55"/></defense>
+		<coldresist><random min="25" max="35"/></coldresist>
+		<energyresist><random min="25" max="35"/></energyresist>
+		<fireresist><random min="40" max="60"/></fireresist>
+		<physicalresist><random min="45" max="55"/></physicalresist>
+		<poisonresist><random min="25" max="35"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Clockwork\Exodus Overseer</category>
 	</npc>
 
 </definitions>

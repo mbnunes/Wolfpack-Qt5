@@ -5,22 +5,33 @@
 	<npc id="blackthorn_juggernaut">
 		<name>a blackthorn juggernaut</name>
 		<id>0x300</id>
-		<category>Monsters\Clockworks\Blackthorn Juggernaut </category>
 		<inherit id="monster_base"/>
-		<karma>1-2000</karma>
+		<karma>-12000</karma>
 		<fame>12000</fame>
-		<defense><random min="65" max="75"/></defense>
-		<lodamage>37</lodamage>
-		<hidamage>64</hidamage>
 		<!-- Stats -->
 		<str><random min="301" max="400"/></str>
 		<dex><random min="51" max="70"/></dex>
 		<int><random min="51" max="100"/></int>
 		<!-- Skills -->
-		<wrestling><random min="901" max="1000"/></wrestling>
-		<tactics><random min="901" max="1000"/></tactics>
-		<magicresist><random min="1401" max="1500"/></magicresist>
 		<anatomy><random min="901" max="1000"/></anatomy>
+		<magicresistance><random min="1401" max="1500"/></magicresistance>
+		<tactics><random min="901" max="1000"/></tactics>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>12</lodamage>
+		<hidamage>19</hidamage>
+		<energydamage>25</energydamage>
+		<firedamage>25</firedamage>
+		<physicaldamage>50</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="65" max="75"/></defense>
+		<coldresist><random min="35" max="45"/></coldresist>
+		<energyresist><random min="10" max="20"/></energyresist>
+		<fireresist><random min="35" max="45"/></fireresist>
+		<physicalresist><random min="65" max="75"/></physicalresist>
+		<poisonresist><random min="15" max="25"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Clockwork\Blackthorn Juggernaut</category>
 	</npc>
 
 </definitions>

@@ -5,22 +5,29 @@
 	<npc id="exodus_minion">
 		<name>an exodus minion</name>
 		<id>0x2f5</id>
-		<category>Monsters\Clockworks\Exodus Minion</category>
 		<inherit id="monster_base"/>
-		<karma>18000</karma>
+		<karma>-18000</karma>
 		<fame>18000</fame>
-		<defense><random min="60" max="70"/></defense>
-		<lodamage>69</lodamage>
-		<hidamage>98</hidamage>
 		<!-- Stats -->
 		<str><random min="851" max="950"/></str>
 		<dex><random min="71" max="80"/></dex>
 		<int><random min="61" max="90"/></int>
 		<!-- Skills -->
+		<magicresistance><random min="901" max="1000"/></magicresistance>
+		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
-		<tactics><random min="901" max="1000" /></tactics>
-		<magicresist><random min="901" max="1000"/></magicresist>
-		<anatomy><random min="0" max="0"/></anatomy>
+		<!-- Damage -->
+		<lodamage>16</lodamage>
+		<hidamage>22</hidamage>
+		<!-- Resists -->
+		<defense><random min="60" max="70"/></defense>
+		<coldresist><random min="15" max="25"/></coldresist>
+		<energyresist><random min="15" max="25"/></energyresist>
+		<fireresist><random min="40" max="50"/></fireresist>
+		<physicalresist><random min="60" max="70"/></physicalresist>
+		<poisonresist><random min="15" max="25"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Clockwork\Exodus Minion</category>
 	</npc>
 
 </definitions>

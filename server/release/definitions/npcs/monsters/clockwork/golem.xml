@@ -5,23 +5,30 @@
 	<npc id="golem">
 		<name>a golem</name>
 		<id>0x2f0</id>
-		<category>Monsters\Clockworks\Golem</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma>-3500</karma>
 		<fame>3500</fame>
-		<defense><random min="35" max="55" /></defense>
-		<lodamage>31</lodamage>
-		<hidamage>64</hidamage>
 		<!-- Stats -->
-		<str><random min="251" max="350" /></str>
-		<dex><random min="76" max="100" /></dex>
-		<int><random min="101" max="150" /></int>
+		<str><random min="251" max="350"/></str>
+		<dex><random min="76" max="100"/></dex>
+		<int><random min="101" max="150"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="1000" /></wrestling>
-		<tactics><random min="601" max="1000" /></tactics>
-		<magicresist><random min="1501" max="1900" /></magicresist>
-		<anatomy><random min="0" max="0" /></anatomy>
+		<magicresistance><random min="1501" max="1900"/></magicresistance>
+		<tactics><random min="601" max="1000"/></tactics>
+		<wrestling><random min="601" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>13</lodamage>
+		<hidamage>24</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="55" /></defense>
+		<coldresist><random min="10" max="30"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist>100</fireresist>
+		<physicalresist><random min="35" max="55"/></physicalresist>
+		<poisonresist><random min="10" max="25"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Built from metal, these hulking brutes are the resulting abomination of a marriage between machination and magic. Initially created forsinister purposes, these iron men are formidable foes, able to deliver stunning blows that can render their victims immobile. Their hard, metallic exterior protects them from most magic spells, andprovides a stalwart barrier against weapons. They are not invincible, but they are certainly a challenge to defeat. Only the hardiest of adventurers should even attempt to cross a golems path.</desc>
+		<category>Monsters\Clockwork\Golem</category>
 	</npc>
 
 </definitions>
