@@ -15,888 +15,447 @@
 
 	<!--  Alchemy -->
 	<skill id="0">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.5</dexchance>
+		<intchance>0.5</intchance>
+		<gainchance>1</gainchance>
 		<defname>ALCHEMY</defname>
 		<name>Alchemy</name>
 		<title>Alchemist</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Anatomy -->
 	<skill id="1">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0.15</strchance>
+		<dexchance>0.15</dexchance>
+		<intchance>0.7</intchance>
+		<gainchance>1</gainchance>
 		<defname>ANATOMY</defname>
 		<name>Anatomy</name>
-		<title>Physician</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Healer</title>
 	</skill>
 
 	<!--  Animal Lore -->
 	<skill id="2">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>1.0</intchance>
+		<gainchance>1</gainchance>
 		<defname>ANIMALLORE</defname>
 		<name>Animal Lore</name>
-		<title>Beast Master</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Ranger</title>
 	</skill>
 
 	<!--  Item ID -->
 	<skill id="3">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>1.0</intchance>
+		<gainchance>1</gainchance>
 		<defname>ITEMIDENTIFICATION</defname>
 		<name>Item Identification</name>
-		<title>Artificer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Merchant</title>
 	</skill>
 
 	<!--  Arms Lore -->
 	<skill id="4">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0.75</strchance>
+		<dexchance>0.15</dexchance>
+		<intchance>0.1</intchance>
+		<gainchance>1</gainchance>
 		<defname>ARMSLORE</defname>
 		<name>Arms Lore</name>
-		<title>Appraiser</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Warrior</title>
 	</skill>
 
 	<!--  Parrying -->
 	<skill id="5">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0.75</strchance>
+		<dexchance>0.25</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>PARRYING</defname>
 		<name>Parrying</name>
 		<title>Warrior</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Begging -->
 	<skill id="6">
-		<str>0</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>0</gainchance>
 		<defname>BEGGING</defname>
 		<name>Begging</name>
 		<title>Beggar</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Blacksmithing -->
 	<skill id="7">
-		<str>125</str>
-		<dex>0</dex>
-		<int>0</int>
+		<strchance>1.0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>BLACKSMITHING</defname>
 		<name>Blacksmithing</name>
 		<title>Blacksmith</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  BowcraftFletching -->
 	<skill id="8">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0.6</strchance>
+		<dexchance>1.6</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>BOWCRAFTING</defname>
 		<name>Bowcrafting</name>
 		<title>Bowyer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Peacemaking -->
 	<skill id="9">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>PEACEMAKING</defname>
 		<name>Peacemaking</name>
-		<title>Minstrel</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Bard</title>
 	</skill>
 
 	<!--  Camping -->
 	<skill id="10">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>2</strchance>
+		<dexchance>1.5</dexchance>
+		<intchance>1.5</intchance>
+		<gainchance>1</gainchance>
 		<defname>CAMPING</defname>
 		<name>Camping</name>
-		<title>Woodsman</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Ranger</title>
 	</skill>
 
 	<!--  Carpentry -->
 	<skill id="11">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>2.0</strchance>
+		<dexchance>0.5</dexchance>
+		<intchance>0</intchance>
 		<defname>CARPENTRY</defname>
 		<name>Carpentry</name>
 		<title>Carpenter</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Cartography -->
 	<skill id="12">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.75</dexchance>
+		<intchance>0.75</intchance>
+		<gainchance>1</gainchance>
 		<defname>CARTOGRAPHY</defname>
 		<name>Cartography</name>
-		<title>Explorer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Cartographer</title>
 	</skill>
 
 	<!--  Cooking -->
 	<skill id="13">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>2</dexchance>
+		<intchance>3</intchance>
+		<gainchance>1</gainchance>
 		<defname>COOKING</defname>
 		<name>Cooking</name>
-		<title>Cook</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Chef</title>
 	</skill>
 
 	<!--  Detecting Hidden -->
 	<skill id="14">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.4</dexchance>
+		<intchance>0.6</intchance>
+		<gainchance>1</gainchance>
 		<defname>DETECTHIDDEN</defname>
 		<name>Detect Hidden</name>
 		<title>Scout</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Discordance -->
 	<skill id="15">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.25</dexchance>
+		<intchance>0.25</intchance>
+		<gainchance>1</gainchance>
 		<defname>DISCORDANCE</defname>
 		<name>Discordance</name>
 		<title>Bard</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Evaluating Intellect -->
 	<skill id="16">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>1</intchance>
+		<gainchance>1</gainchance>
 		<defname>EVALUATINGINTELLIGENCE</defname>
 		<name>Evaluating Inteligence</name>
-		<title>Mystic</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Scholar</title>
 	</skill>
 
 	<!--  Healing -->
 	<skill id="17">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0.6</strchance>
+		<dexchance>0.6</dexchance>
+		<intchance>0.8</intchance>
+		<gainchance>1</gainchance>
 		<defname>HEALING</defname>
 		<name>Healing</name>
 		<title>Healer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Fishing -->
 	<skill id="18">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0.5</strchance>
+		<dexchance>0.5</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>FISHING</defname>
 		<name>Fishing</name>
 		<title>Fisherman</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Forensic Evaluation -->
 	<skill id="19">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.2</dexchance>
+		<intchance>0.8</intchance>
+		<gainchance>1</gainchance>
 		<defname>FORENSICS</defname>
 		<name>Forensics</name>
-		<title>Coroner</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Detective</title>
 	</skill>
 
 	<!--  Herding -->
 	<skill id="20">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>1.625</strchance>
+		<dexchance>0.625</dexchance>
+		<intchance>0.25</intchance>
+		<gainchance>1</gainchance>
 		<defname>HERDING</defname>
 		<name>Herding</name>
 		<title>Sheperd</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Hiding -->
 	<skill id="21">
-		<str>0</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0</strchance>
+		<dexchance>0.8</dexchance>
+		<intchance>0.2</intchance>
+		<gainchance>1</gainchance>
 		<defname>HIDING</defname>
 		<name>Hiding</name>
-		<title>Ninja</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Rogue</title>
 	</skill>
 
 	<!--  Provocation -->
 	<skill id="22">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.45</dexchance>
+		<intchance>0.55</intchance>
+		<gainchance>1</gainchance>
 		<defname>PROVOCATION</defname>
 		<name>Provocation</name>
 		<title>Bard</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Inscription -->
 	<skill id="23">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.2</dexchance>
+		<intchance>0.8</intchance>
+		<gainchance>1</gainchance>
 		<defname>INSCRIPTION</defname>
 		<name>Inscription</name>
 		<title>Scribe</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Lockpicking -->
 	<skill id="24">
-		<str>0</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0</strchance>
+		<dexchance>2</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>LOCKPICKING</defname>
 		<name>Lockpicking</name>
-		<title>Locksmith</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Rogue</title>
 	</skill>
 
 	<!--  Magery -->
 	<skill id="25">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>1.5</intchance>
+		<gainchance>1</gainchance>
 		<defname>MAGERY</defname>
 		<name>Magery</name>
-		<title>Magus</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Mage</title>
 	</skill>
 
 	<!--  Resisting Spells -->
 	<skill id="26">
-		<str>0</str>
-		<dex>0</dex>
-		<int>0</int>
+		<strchance>0.25</strchance>
+		<dexchance>0.25</dexchance>
+		<intchance>0.5</intchance>
 		<defname>MAGICRESIST</defname>
 		<name>Magic Resist</name>
-		<title>Sorceror</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Mage</title>
 	</skill>
 
 	<!--  Tactics -->
 	<skill id="27">
-		<str>0</str>
-		<dex>0</dex>
-		<int>0</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>TACTICS</defname>
 		<name>Tactics</name>
 		<title>Warrior</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Snooping -->
 	<skill id="28">
-		<str>0</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0</strchance>
+		<dexchance>2.5</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>SNOOPING</defname>
 		<name>Snooping</name>
-		<title>Spy</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Pickpocket</title>
 	</skill>
 
 	<!--  Musicianship -->
 	<skill id="29">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.8</dexchance>
+		<intchance>0.2</intchance>
+		<gainchance>1</gainchance>
 		<defname>MUSICIANSHIP</defname>
 		<name>Musicianship</name>
 		<title>Bard</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Poisoning -->
 	<skill id="30">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0.4</dexchance>
+		<intchance>1.6</intchance>
+		<gainchance>1</gainchance>
 		<defname>POISONING</defname>
 		<name>Poisoning</name>
 		<title>Assassin</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Archery -->
 	<skill id="31">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0.25</strchance>
+		<dexchance>0.75</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>ARCHERY</defname>
 		<name>Archery</name>
 		<title>Archer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Spirit Speak -->
 	<skill id="32">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>1</intchance>
+		<gainchance>1</gainchance>
 		<defname>SPIRITSPEAK</defname>
 		<name>Spirit Speak</name>
 		<title>Medium</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Stealing -->
 	<skill id="33">
-		<str>0</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0</strchance>
+		<dexchance>1</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>STEALING</defname>
 		<name>Stealing</name>
-		<title>Thief</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Rogue</title>
 	</skill>
 
 	<!--  Tailoring -->
 	<skill id="34">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0.38</strchance>
+		<dexchance>1.62</dexchance>
+		<intchance>0.5</intchance>
+		<gainchance>1</gainchance>
 		<defname>TAILORING</defname>
 		<name>Tailoring</name>
 		<title>Tailor</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Animal Taming -->
 	<skill id="35">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>1.4</strchance>
+		<dexchance>0.2</dexchance>
+		<intchance>0.4</intchance>
+		<gainchance>1</gainchance>
 		<defname>ANIMALTAMING</defname>
 		<name>Animal Taming</name>
 		<title>Animal Tamer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Taste Identification -->
 	<skill id="36">
-		<str>125</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0.2</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0.8</intchance>
+		<gainchance>1</gainchance>
 		<defname>TASTEIDENTIFICATION</defname>
 		<name>Taste Identification</name>
-		<title>Food Taster</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Chef</title>
 	</skill>
 
 	<!--  Tinkering -->
 	<skill id="37">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0.5</strchance>
+		<dexchance>0.2</dexchance>
+		<intchance>0.3</intchance>
+		<gainchance>1</gainchance>
 		<defname>TINKERING</defname>
 		<name>Tinkering</name>
 		<title>Tinker</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Tracking -->
 	<skill id="38">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>1.25</dexchance>
+		<intchance>1.25</intchance>
+		<gainchance>1</gainchance>
 		<defname>TRACKING</defname>
 		<name>Tracking</name>
 		<title>Ranger</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Veterinary -->
-	<skill id="39">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+	<skill id="39">0.8</strchance>
+		<dexchance>0.4</dexchance>
+		<intchance>0.8</intchance>
+		<gainchance>1</gainchance>
 		<defname>VETERINARY</defname>
 		<name>Veterinary</name>
 		<title>Veterinarian</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Swordsmanship -->
 	<skill id="40">
 		<strchance>0.75</strchance>
 		<dexchance>0.25</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>SWORDSMANSHIP</defname>
 		<name>Swordsmanship</name>
 		<title>Swordsman</title>
@@ -904,242 +463,123 @@
 
 	<!--  Mace  Fighting -->
 	<skill id="41">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0.9</strchance>
+		<dexchance>0.1</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>MACEFIGHTING</defname>
 		<name>Mace Fighting</name>
-		<title>Macefighter</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Armsman</title>
 	</skill>
 
 	<!--  Fencing -->
 	<skill id="42">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0.45</strchance>
+		<dexchance>0.55</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>FENCING</defname>
 		<name>Fencing</name>
 		<title>Fencer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Wrestling -->
 	<skill id="43">
-		<str>125</str>
-		<dex>0</dex>
-		<int>0</int>
+		<strchance>0.9</strchance>
+		<dexchance>0.1</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>WRESTLING</defname>
 		<name>Wrestling</name>
 		<title>Wrestler</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Lumberjacking -->
 	<skill id="44">
-		<str>125</str>
-		<dex>0</dex>
-		<int>0</int>
+		<strchance>2</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>LUMBERJACKING</defname>
 		<name>Lumberjacking</name>
 		<title>Lumberjack</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Mining -->
 	<skill id="45">
-		<str>125</str>
-		<dex>0</dex>
-		<int>0</int>
+		<strchance>2</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>MINING</defname>
 		<name>Mining</name>
 		<title>Miner</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Meditation -->
 	<skill id="46">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>MEDITATION</defname>
 		<name>Meditation</name>
-		<title>Medium</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Stoic</title>
 	</skill>
 
 	<!--  STEALTH -->
 	<skill id="47">
-		<str>0</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>STEALTH</defname>
 		<name>Stealth</name>
-		<title>Ninja</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Rogue</title>
 	</skill>
 
 	<!--  REMOVE TRAPS -->
 	<skill id="48">
-		<str>0</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>REMOVETRAPS</defname>
 		<name>Remove Traps</name>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Rogue</title>
 	</skill>
 
 	<!-- Necromancy -->
 	<skill id="49">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>NECROMANCY</defname>
 		<name>Necromancy</name>
 		<title>Necromancer</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!-- Focus -->
 	<skill id="50">
-		<str>125</str>
-		<dex>125</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>FOCUS</defname>
 		<name>Focus</name>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
+		<title>Stoic</title>
 	</skill>
 
 	<!-- Chivalry -->
 	<skill id="51">
-		<str>0</str>
-		<dex>0</dex>
-		<int>125</int>
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
 		<defname>CHIVALRY</defname>
 		<name>Chivalry</name>
 		<title>Paladin</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--
@@ -1158,6 +598,6 @@
 		<item>Adept</item>
 		<item>Master</item>
 		<item>Grandmaster</item>
-    <item>Legendary</item>
+		<item>Legendary</item>
 	</list>
 </definitions>
