@@ -296,8 +296,8 @@ static void TeleTarget(int s, PKGx6C *pp)
 	int x=pp->TxLoc; 
 	int y=pp->TyLoc; 
 	signed char z=pp->TzLoc; 
-	
-	if ((line_of_sight( s, chars[cc].pos, Coord_cl(x, y, z),WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)|| 
+	Coord_cl clTemp3(x,y,z) ;
+	if ((line_of_sight( s, chars[cc].pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)|| 
 		(chars[cc].isGM()))) 
 	{ 
 		doGmMoveEff(s); 
@@ -1331,7 +1331,8 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 	int cc=currchar[s];
 
 	// ANTICHRIST -- CHECKS LINE OF SIGHT!
-	if(line_of_sight(s, chars[cc].pos, Coord_cl(x,y,z), WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
+	Coord_cl clTemp4(x,y,z);
+	if(line_of_sight(s, chars[cc].pos, clTemp4, WALLS_CHIMNEYS + DOORS + ROOFING_SLANTED))
 	{
 		P_ITEM pi = FindItemBySerial(calcserial(addid1[s],addid2[s],addid3[s],addid4[s]));
 		if (pi != NULL) // crashfix LB

@@ -61,7 +61,7 @@ extern "C" {
 char *strlwr(char *);
 char *strupr(char *);
 };
-extern unsigned long int oldtime, newtime;
+extern time_t  oldtime, newtime;
 void Writeslot(char *lpszMessage);
 #define SLPMULTI 1000
 #define Sleep(sec) usleep(sec * 1000)

@@ -2238,8 +2238,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			//AntiChrist - location check
 			if (!(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF))
 			{
+				Coord_cl clTemp1(x,y,z) ;
 
-			if ((line_of_sight( s, pc_currchar->pos, Coord_cl(x, y, z),WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+			if ((line_of_sight( s, pc_currchar->pos, clTemp1,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 				(pc_currchar->isGM())))
 			{
 				if( fieldSpell( curSpell ) )
@@ -2277,6 +2278,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				if (curSpell != 33 && curSpell !=58) doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
 
 				cRegion::RegionIterator4Chars ri(pc_currchar->pos);
+				Coord_cl clTemp2(x,y,z) ;
 
 				switch( curSpell )
 				{
@@ -2509,7 +2511,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					//////////// (48) REVEAL ////////////////////
 					case 48:
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
-						if ((line_of_sight(s, pc_currchar->pos, Coord_cl(x, y, z), WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+						
+						if ((line_of_sight(s, pc_currchar->pos, clTemp2, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 							(pc_currchar->isGM())))
 						{
 							j=pc_currchar->skill[MAGERY];
