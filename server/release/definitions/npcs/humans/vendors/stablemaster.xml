@@ -40,6 +40,7 @@
 	<!-- Stablemaster (no real vendor) -->
 	<npc id="stablemaster_male">
 		<inherit>vendor_male</inherit>
+		<ai>Human_Stablemaster</ai>
 		<title context="Vendor Male Titles">the Stablemaster</title>
 		<animallore><random min="640" max="1000"/></animallore>
 		<animaltaming><random min="900" max="1000"/></animaltaming>
@@ -50,6 +51,7 @@
 	
 	<npc id="stablemaster_female">
 		<inherit>vendor_female</inherit>
+		<ai>Human_Stablemaster</ai>
 		<title context="Vendor Female Titles">the Stablemaster</title>
 		<animallore><random min="640" max="1000"/></animallore>
 		<animaltaming><random min="900" max="1000"/></animaltaming>
