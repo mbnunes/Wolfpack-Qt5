@@ -605,7 +605,7 @@ bool WalkHandleBlocking(UOXSOCKET s, CHARACTER c, int sequence, int dir, int old
 	WalkEvaluateBlockers(s, c, &z, &dispz);
 	
 	// check if player is banned from a house - crackerjack 8/12/99
-	int i, j;
+	int j;
 
 	if (pc->isPlayer()) // this is also called for npcs .. LB
 	{

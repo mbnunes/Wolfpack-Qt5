@@ -1526,7 +1526,7 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 
 void cSkills::RandomSteal(int s)
 {
-	int p, i, skill, item,lollypop;
+	int p, i, skill, item;
 	char temp2[512];
 	tile_st tile;
 	int cc=currchar[s];

@@ -2179,7 +2179,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 void cSkills::BeggingTarget(int s)
 {
-	int serhash,serial2,ci,j,gold,p,x,y,realgold;
+	int ci,j,gold,p,x,y,realgold;
 	char abort;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 

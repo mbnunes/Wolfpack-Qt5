@@ -398,7 +398,6 @@ void cCommands::NextCall(int s, int type)
 
 void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 {
-	unsigned int i;
 	int killed=0;
 
 	char temp[512];

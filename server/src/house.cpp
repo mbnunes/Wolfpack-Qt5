@@ -68,7 +68,7 @@ void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt)
 //o---------------------------------------------------------------------------o
 void buildhouse(int s, int i)
 {
-	int ii,x,y,key,loopexit=0;//where they click, and the house/key items
+	int x,y,key,loopexit=0;//where they click, and the house/key items
 	signed char z;
 	int sx=0,sy=0;                                  //space around the house needed
 	int k,l,tmp;                                            //Temps

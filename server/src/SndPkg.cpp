@@ -406,7 +406,6 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 	}
 
 	int ci=0,loopexit=0;
-	P_ITEM pj;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	count = vecContainer.size();
 	bpopen[10]=count>>8;
