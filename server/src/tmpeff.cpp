@@ -595,7 +595,7 @@ void cPythonEffect::Serialize( ISerialization &archive )
 			if( PyInt_Check( PyTuple_GetItem( args, i ) ) )
 			{
 				archive.write( QString( "pt%1" ).arg( i ), QString( "i" ) );
-				archive.write( QString( "pv%1" ).arg( i ), PyInt_AsLong( PyTuple_GetItem( args, i ) ) );
+				archive.write( QString( "pv%1" ).arg( i ), (int)PyInt_AsLong( PyTuple_GetItem( args, i ) ) );
 			}
 			else if( PyString_Check( PyTuple_GetItem( args, i ) ) )
 			{
