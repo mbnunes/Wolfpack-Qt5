@@ -493,7 +493,10 @@ bool WPPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
 
 QString WPPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
 {
-	PyHasMethod( "onShowPaperdollName" )
+	if( codeModule == NULL ) 
+		return (char*)0; 
+	if( !PyObject_HasAttr( codeModule, PyString_FromString( "onShowPaperdollName" ) ) ) 
+		return (char*)0;
 
 	// Create our args for the python function
 	PyObject *tuple = PyTuple_New( 2 );
