@@ -4,6 +4,7 @@ from wolfpack.consts import *
 import random
 from system import poison
 import skills
+from skills.fishing import mapWater, staticWater
 
 # Baseid: ClilocBaseId, MaxQuantity, Empty Item Id, Fillable
 CONTAINERS = {
@@ -11,7 +12,7 @@ CONTAINERS = {
 	0x99f: [1042959, 5, 0, False, ''], # Bottle of Ale
 	0x99b: [1042959, 5, 0, False, ''], # Bottle of Liquor
 	0x9c7: [1042959, 5, 0, False, ''], # Bottle of Wine
-	
+
 	# Ceramic Mugs
 	0x995: [1042982, 1, 0x995, True, ''],
 	0x996: [1042982, 1, 0x995, True, ''],
@@ -19,25 +20,25 @@ CONTAINERS = {
 	0x998: [1042982, 1, 0x995, True, ''],
 	0x999: [1042982, 1, 0x995, True, ''],
 	0x9CA: [1042982, 1, 0x995, True, ''],
-	
+
 	# Skull Mugs
 	0xFFB: [1042988, 1, 0xFFB, True, ''],
 	0xFFC: [1042988, 1, 0xFFC, True, ''],
 	0xFFD: [1042988, 1, 0xFFD, True, ''],
 	0xFFE: [1042988, 1, 0xFFE, True, ''],
-	
+
 	# Pewter Mugs
 	0xFFF: [1042994, 1, 0xFFF, True, ''],
 	0x1000: [1042994, 1, 0x1000, True, ''],
 	0x1001: [1042994, 1, 0x1001, True, ''],
 	0x1002: [1042994, 1, 0x1002, True, ''],
-	
+
 	# Goblet
 	0x99A: [1043000, 1, 0x99A, True, ''],
 	0x9B3: [1043000, 1, 0x9B3, True, ''],
 	0x9BF: [1043000, 1, 0x9BF, True, ''],
 	0x9CB: [1043000, 1, 0x9CB, True, ''],
-	
+
 	# Glass Mug
 	0x1F7D: [1042976, 5, 0x1F81, True, 'cider'], # cider
 	0x1F7E: [1042976, 5, 0x1F82, True, 'cider'], # cider
@@ -65,7 +66,7 @@ CONTAINERS = {
 	0x1F94: [1042976, 5, 0x1F84, True, 'water'], # water
 	0x9EE: [1042976, 5, 0x1F82, True, 'ale'], # ale
 	0x9EF: [1042976, 5, 0x1F83, True, 'ale'], # ale
-	
+
 	# Pitcher
 	0x9a7: [1048128, 5, 0x9a7, True, ''], # empty
 	0x9ad: [1048128, 5, 0x9a7, True, ''], # milk
@@ -99,16 +100,16 @@ def consumeUse(item):
 	quantity = 0
 	if item.hastag('quantity'):
 		quantity = int(item.gettag('quantity'))
-	
+
 	if quantity == 0:
 		if CONTAINERS.has_key(item.id):
 			cprops = CONTAINERS[item.id]
-			
+
 			if cprops[3]:
 				char.socket.clilocmessage(500837)
 				char.socket.attachtarget('beverage.refill_target', [item.serial])
-				return 1
-		return 0
+				return True
+		return False
 
 #
 # Use the item
@@ -116,27 +117,27 @@ def consumeUse(item):
 def onUse(char, item):
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(502946)
-		return 1
-		
+		return True
+
 	# poisoned drink
 	if item.hastag( 'poisoning_char' ):
 		poison.poison( char, item.gettag( 'poisoning_strength' ) )
 		char.socket.clilocmessage( 1010512 )
 		skills.poisoning.wearoff( item )
-	
+
 	quantity = 0
 	if item.hastag('quantity'):
 		quantity = int(item.gettag('quantity'))
-	
+
 	if quantity == 0:
 		if CONTAINERS.has_key(item.id):
 			cprops = CONTAINERS[item.id]
-			
+
 			if cprops[3]:
 				char.socket.clilocmessage(500837)
 				char.socket.attachtarget('beverage.refill_target', [item.serial])
-				return 1
-		return 0
+				return True
+		return False
 	else:
 		return drink(char, item)
 
@@ -146,9 +147,9 @@ def onUse(char, item):
 def updateItemIdFromFluid(item, fluid):
 	if not FLUIDS.has_key(fluid):
 		return
-		
+
 	origid = item.id
-	
+
 	# Search the container list
 	for (key, value) in CONTAINERS.items():
 		# Refillable, EmptyId of the container are we, fluid is the same
@@ -156,7 +157,7 @@ def updateItemIdFromFluid(item, fluid):
 			item.id = key
 			item.update()
 			return True
-			
+
 	return False
 
 #
@@ -166,29 +167,29 @@ def refill_target(char, args, target):
 	item = wolfpack.finditem(args[0])
 	if not item:
 		return
-		
+
 	if not CONTAINERS.has_key(item.id):
 		return
-		
+
 	cprops = CONTAINERS[item.id]
-		
+
+	if not char.canreach(target.pos, 3):
+		char.socket.clilocmessage(1019045)
+		return
+
 	if target.item:
-		if not char.canreach(target.item, 3):
-			char.socket.clilocmessage(1019045)
-			return
-	
 		if CONTAINERS.has_key(target.item.id):
 			quantity = 0
 			if target.item.hastag('quantity'):
 				quantity = int(target.item.gettag('quantity'))
-					
+
 			fluid = ''			
 			if target.item.hastag('fluid'):
 				fluid = str(target.item.gettag('fluid'))
-			
+
 			if quantity > 0 and FLUIDS.has_key(fluid):
 				item.settag('fluid', fluid)
-				
+
 				# How much can we refill?
 				if quantity > cprops[1]:
 					quantity -= cprops[1]
@@ -197,12 +198,12 @@ def refill_target(char, args, target):
 					item.settag('quantity', cprops[1])					
 					updateItemIdFromFluid(item, 'water')
 					item.resendtooltip()
-					
+
 				# The source will be depleted
 				else:
 					item.settag('quantity', quantity)
 					item.resendtooltip()
-					
+
 					cprop = CONTAINERS[target.item.id]										
 					if cprop[2] == 0:
 						target.item.delete()
@@ -212,26 +213,33 @@ def refill_target(char, args, target):
 						target.item.deltag('quantity')
 						target.item.deltag('fluid')
 						target.item.resendtooltip()
-						
+
 				return # We refilled
-		
+
 		# A watersource
 		if target.item.watersource:
 			# Check if its depletable
 			quantity = cprops[1]
 			if target.item.hastag('quantity'):
 				quantity = int(item.gettag('quantity'))
-				
+
 			if quantity > 0:
 				item.settag('fluid', 'water')
 				item.settag('quantity', quantity)
 				updateItemIdFromFluid(item, 'water')
 				item.resendtooltip()
-		
-		# Check if its a water source
-		model = target.item.id
-		
-		# Maybe we should check the baseid of statics here to see if its a watersource
+		return
+
+	# Check map if its a water source
+	elif not target.char:
+		mapTile = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
+		if target.model in staticWater or mapTile[ "id" ] in mapWater:
+			quantity = cprops[1]
+			if quantity > 0:
+				item.settag('fluid', 'water')
+				item.settag('quantity', quantity)
+				updateItemIdFromFluid(item, 'water')
+				item.resendtooltip()
 
 #
 # Intoxication
@@ -240,27 +248,27 @@ def intoxication_func(char, args):
 	intoxication = 0
 	if char.hastag('intoxication'):
 		intoxication = int(char.gettag('intoxication'))
-		
+
 	intoxication -= 1
-		
+
 	# Otherwise no effect
 	if char.socket:	
 		if intoxication >= (char.strength + 9) / 10:
 			if random.randint(0, 3) == 0 and not char.itemonlayer(LAYER_MOUNT):
 				char.direction = random.randint(0, 7)
 				char.update()				
-				
+
 				char.action(ANIM_BOW)
-		
+
 			if random.randint(0, 1) == 0:
 				char.say('*hic*', 0x3B2)
-				
+
 			# Loose Mana and Stamina
 			char.stamina = max(0, char.stamina - intoxication)
 			char.updatestamina()
 			char.mana = max(0, char.mana - intoxication)
 			char.updatemana()
-				
+
 		if intoxication == max(0, ((char.strength + 9) / 10) - 1):
 			char.socket.clilocmessage(500850)			
 
@@ -277,7 +285,7 @@ def consume(item):
 	quantity = 0
 	if item.hastag('quantity'):
 		quantity = int(item.gettag('quantity'))
-		
+
 	if quantity <= 0:
 		return False # Couldn't consume
 
@@ -286,16 +294,16 @@ def consume(item):
 		btype = unicode(item.gettag('fluid'))
 
 	if not FLUIDS.has_key(btype):
-		return 1
-		
+		return True
+
 	if not CONTAINERS.has_key(item.id):
-		return 0
-		
+		return False
+
 	cprop = CONTAINERS[item.id]
 	fprop = FLUIDS[btype]
-	
+
 	quantity -= 1
-	
+
 	# Empty
 	if quantity <= 0:
 		if cprop[2] == 0:
@@ -322,14 +330,14 @@ def drink(char, item):
 	btype = ''
 	if item.hastag('fluid'):
 		btype = unicode(item.gettag('fluid'))
-		
+
 	if not FLUIDS.has_key(btype):
 		char.socket.sysmessage("You shouldn't drink this strange fluid.")
-		return 1
-		
+		return True
+
 	if not CONTAINERS.has_key(item.id):
-		return 0
-		
+		return False
+
 	cprop = CONTAINERS[item.id]
 	fprop = FLUIDS[btype]
 
@@ -337,21 +345,21 @@ def drink(char, item):
 		# Drink
 		char.soundeffect(0x30)
 		char.action(ANIM_FIDGET3)
-		
+
 		# Intoxication
 		if fprop[1] > 0:
 			intoxication = 0
 			if char.hastag('intoxication'):
 				intoxication = int(char.gettag('intoxication'))
 				char.dispel(None, 1, 'intoxication')
-			
+
 			intoxication += fprop[1]
 			char.settag('intoxication', intoxication)
 			char.addtimer(3000, intoxication_func, [], 1, 0, 'intoxication')
-	
+
 		# Reduce Quantity
 		quantity -= 1
-	
+
 	# Empty
 	if quantity == 0:
 		if cprop[2] == 0:
@@ -365,8 +373,8 @@ def drink(char, item):
 	else:
 		item.settag('quantity', int(quantity))
 		item.resendtooltip()
-		
-	return 1	
+
+	return True	
 
 #
 # Show the tooltip for the item
@@ -374,23 +382,23 @@ def drink(char, item):
 def onShowTooltip(player, object, tooltip):
 	if not CONTAINERS.has_key(object.id):
 		return
-		
+
 	cprop = CONTAINERS[object.id]
-	
+
 	btype = ''
 	if object.hastag('fluid'):
 		btype = unicode(object.gettag('fluid'))
-	
+
 	if object.name == '' and FLUIDS.has_key(btype):
 		fprop = FLUIDS[btype]
 
 		tooltip.reset()
 		tooltip.add(cprop[0] + fprop[0], '')
-	
+
 	quantity = 0
 	if object.hastag('quantity'):
 		quantity = int(object.gettag('quantity'))
-		
+
 	perc = (quantity * 100) / cprop[1]
 
 	if perc <= 0:
