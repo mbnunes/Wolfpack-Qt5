@@ -1,0 +1,97 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- plate armor -->
+	<!-- female plate armor -->
+	<item id="verite_armor_plate_female">
+		<inherit id="1c04" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Female Armor (N/S)</category>
+	</item>
+
+	<item id="verite_armor_plate_female_2">
+		<inherit id="1c05" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Female Armor (E/W)</category>
+	</item>
+
+	<!-- male plate armor -->
+	<item id="verite_armor_plate_male">
+		<inherit id="1415" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Male Armor (N/S)</category>
+	</item>
+
+	<item id="verite_armor_plate_male_2">
+		<inherit id="1416" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Male Armor (E/W)</category>
+	</item>
+
+	<!-- plate arms -->
+	<item id="verite_armor_plate_arms">
+		<inherit id="1410" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Arms (N/S)</category>
+	</item>
+
+	<item id="verite_armor_plate_arms_2">
+		<inherit id="1417" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Arms (E/W)</category>
+	</item>
+
+	<!-- plate gloves -->
+	<item id="verite_armor_plate_gloves">
+		<inherit id="1414" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Gloves (N/S)</category>
+	</item>
+
+	<item id="verite_armor_plate_gloves_2">
+		<inherit id="1418" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Gloves (E/W)</category>
+	</item>
+
+	<!-- plate gorget -->
+	<item id="verite_armor_plate_gorget">
+		<inherit id="1413" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Gorget</category>
+	</item>
+
+	<!-- plate helmet -->
+	<item id="verite_armor_plate_helmet">
+		<inherit id="1412" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Helm (N/S)</category>
+	</item>
+
+	<item id="verite_armor_plate_helmet_2">
+		<inherit id="1419" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Helm (E/W)</category>
+	</item>
+
+	<!-- plate leggings -->
+	<item id="verite_armor_plate_leggings">
+		<inherit id="1411" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Legs (N/S)</category>
+	</item>
+
+	<item id="verite_armor_plate_leggings_2">
+		<inherit id="141a" />
+		<verite_armor />
+		<category>Armor\Verite\Platemail\Legs (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,51 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- chainmail armor -->
+	<!-- chainmail coif -->
+	<item id="merkite_armor_chain_coif">
+		<inherit id="13bb" />
+		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Coif (N/S)</category>
+	</item>
+
+	<item id="merkite_armor_chain_coif_2">
+		<inherit id="13c0" />
+		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Coif (E/W)</category>
+	</item>
+
+	<!-- chainmail leggings -->
+	<item id="merkite_armor_chain_leggings">
+		<inherit id="13be" />
+		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="merkite_armor_chain_leggings_2">
+		<inherit id="13c3" />
+		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- chainmail tunic -->
+	<item id="merkite_armor_chain_tunic">
+		<inherit id="13bf" />
+		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="merkite_armor_chain_tunic_2">
+		<inherit id="13c4" />
+		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

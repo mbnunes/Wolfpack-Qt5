@@ -39,8 +39,6 @@
 	<include file="definitions/items/armory/leather/leather_sleeves.xml"/>
 	<include file="definitions/items/armory/leather/leather_tunic.xml"/>
 
-	<!-- Magic  Armor-->
-
 	<!-- Platemail Armor -->
 	<include file="definitions/items/armory/plate/female_plate_armor.xml"/>
 	<include file="definitions/items/armory/plate/plate_helm.xml"/>
@@ -77,7 +75,8 @@
 	<include file="definitions/items/armory/studded/studded_tunic.xml"/>
 
 	<!-- Colored Armor -->
-	<include file="definitions/items/armory/colored.xml"/>
+	<include file="definitions/items/armory/colored/color_defines.xml"/>
+	<include file="definitions/items/armory/colored/colored_list.xml"/>
 
 	<!-- Magic Amor -->
 

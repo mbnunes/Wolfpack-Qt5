@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- ring armor -->
+	<!-- ring gloves -->
+	<item id="iron_armor_ring_gloves">
+		<inherit id="13eb" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Gloves (N/S)</category>
+	</item>
+
+	<item id="iron_armor_ring_gloves_2">
+		<inherit id="13f2" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Gloves (E/W)</category>
+	</item>
+
+	<!-- ring leggings -->
+	<item id="iron_armor_ring_leggings">
+		<inherit id="13f0" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="iron_armor_ring_leggings_2">
+		<inherit id="13f1" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- ring sleeves -->
+	<item id="iron_armor_ring_sleeves">
+		<inherit id="13ee" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Sleeves (N/S)</category>
+	</item>
+
+	<item id="iron_armor_ring_sleeves_2">
+		<inherit id="13ef" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Sleeves (E/W)</category>
+	</item>
+
+	<!-- ring tunic -->
+	<item id="iron_armor_ring_tunic">
+		<inherit id="13ec" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="iron_armor_ring_tunic_2">
+		<inherit id="13ed" />
+		<iron_armor />
+		<category>Armor\Iron\Ringmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

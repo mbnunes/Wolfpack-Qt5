@@ -1,0 +1,92 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- shields -->
+	<!-- buckler -->
+	<item id="copper_shields_buckler">
+		<inherit id="1b73" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Buckler</category>
+	</item>
+
+	<!-- bronze shield -->
+	<item id="copper_shields_bronze_shield">
+		<inherit id="1b72" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Bronze</category>
+	</item>
+
+	<!-- heater -->
+	<item id="copper_shields_heater_shield">
+		<inherit id="1b76" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Heater (N/S)</category>
+	</item>
+
+	<item id="copper_shields_heater_shield_2">
+		<inherit id="1b77" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Heater (E/W)</category>
+	</item>
+
+	<!-- metal shield -->
+	<item id="copper_shields_metal_shield">
+		<inherit id="1b7b" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Metal Shield</category>
+	</item>
+
+	<!-- metal kite shield -->
+	<item id="copper_shields_metal_kite_shield">
+		<inherit id="1b74" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Metal Kite (N/S)</category>
+	</item>
+
+	<item id="copper_shields_metal_kite_shield_2">
+		<inherit id="1b75" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Metal Kite (E/W)</category>
+	</item>
+
+	<!-- wooden kite shield -->
+	<item id="copper_shields_wooden_kite_shield">
+		<inherit id="1b78" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Wooden Kite (N/S)</category>
+	</item>
+
+	<item id="copper_shields_wooden_kite_shield_2">
+		<inherit id="1b79" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Wooden Kite (E/W)</category>
+	</item>
+
+	<!-- chaos shield -->
+	<item id="copper_shields_chaos_shield">
+		<inherit id="1bc3" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Chaos Shield</category>
+	</item>
+
+	<!-- order shield -->
+	<item id="copper_shields_order_shield">
+		<inherit id="1bc4" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Order Shield (N/S)</category>
+	</item>
+
+	<item id="copper_shields_order_shield_2">
+		<inherit id="1bc5" />
+		<copper_armor />
+		<category>Armor\Copper\Shields\Order Shield (E/W)</category>
+	</item>
+
+</definitions>

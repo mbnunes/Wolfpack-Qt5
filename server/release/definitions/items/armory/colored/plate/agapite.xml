@@ -1,0 +1,97 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- plate armor -->
+	<!-- female plate armor -->
+	<item id="agapite_armor_plate_female">
+		<inherit id="1c04" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Female Armor (N/S)</category>
+	</item>
+
+	<item id="agapite_armor_plate_female_2">
+		<inherit id="1c05" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Female Armor (E/W)</category>
+	</item>
+
+	<!-- male plate armor -->
+	<item id="agapite_armor_plate_male">
+		<inherit id="1415" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Male Armor (N/S)</category>
+	</item>
+
+	<item id="agapite_armor_plate_male_2">
+		<inherit id="1416" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Male Armor (E/W)</category>
+	</item>
+
+	<!-- plate arms -->
+	<item id="agapite_armor_plate_arms">
+		<inherit id="1410" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Arms (N/S)</category>
+	</item>
+
+	<item id="agapite_armor_plate_arms_2">
+		<inherit id="1417" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Arms (E/W)</category>
+	</item>
+
+	<!-- plate gloves -->
+	<item id="agapite_armor_plate_gloves">
+		<inherit id="1414" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Gloves (N/S)</category>
+	</item>
+
+	<item id="agapite_armor_plate_gloves_2">
+		<inherit id="1418" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Gloves (E/W)</category>
+	</item>
+
+	<!-- plate gorget -->
+	<item id="agapite_armor_plate_gorget">
+		<inherit id="1413" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Gorget</category>
+	</item>
+
+	<!-- plate helmet -->
+	<item id="agapite_armor_plate_helmet">
+		<inherit id="1412" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Helm (N/S)</category>
+	</item>
+
+	<item id="agapite_armor_plate_helmet_2">
+		<inherit id="1419" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Helm (E/W)</category>
+	</item>
+
+	<!-- plate leggings -->
+	<item id="agapite_armor_plate_leggings">
+		<inherit id="1411" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Legs (N/S)</category>
+	</item>
+
+	<item id="agapite_armor_plate_leggings_2">
+		<inherit id="141a" />
+		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Legs (E/W)</category>
+	</item>
+
+</definitions>

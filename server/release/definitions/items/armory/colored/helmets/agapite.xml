@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="agapite_helmets_bascinet">
+		<inherit id="140d" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="agapite_helmets_bascinet_2">
+		<inherit id="140c" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="agapite_helmets_nose">
+		<inherit id="140f" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="agapite_helmets_nose_2">
+		<inherit id="140e" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="agapite_helmets_helmet">
+		<inherit id="140b" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="agapite_helmets_helmet">
+		<inherit id="140a" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="agapite_helmets_close">
+		<inherit id="1409" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="agapite_helmets_close">
+		<inherit id="1408" />
+		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,97 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- plate armor -->
+	<!-- female plate armor -->
+	<item id="shadow_armor_plate_female">
+		<inherit id="1c04" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Female Armor (N/S)</category>
+	</item>
+
+	<item id="shadow_armor_plate_female_2">
+		<inherit id="1c05" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Female Armor (E/W)</category>
+	</item>
+
+	<!-- male plate armor -->
+	<item id="shadow_armor_plate_male">
+		<inherit id="1415" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Male Armor (N/S)</category>
+	</item>
+
+	<item id="shadow_armor_plate_male_2">
+		<inherit id="1416" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Male Armor (E/W)</category>
+	</item>
+
+	<!-- plate arms -->
+	<item id="shadow_armor_plate_arms">
+		<inherit id="1410" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Arms (N/S)</category>
+	</item>
+
+	<item id="shadow_armor_plate_arms_2">
+		<inherit id="1417" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Arms (E/W)</category>
+	</item>
+
+	<!-- plate gloves -->
+	<item id="shadow_armor_plate_gloves">
+		<inherit id="1414" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Gloves (N/S)</category>
+	</item>
+
+	<item id="shadow_armor_plate_gloves_2">
+		<inherit id="1418" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Gloves (E/W)</category>
+	</item>
+
+	<!-- plate gorget -->
+	<item id="shadow_armor_plate_gorget">
+		<inherit id="1413" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Gorget</category>
+	</item>
+
+	<!-- plate helmet -->
+	<item id="shadow_armor_plate_helmet">
+		<inherit id="1412" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Helm (N/S)</category>
+	</item>
+
+	<item id="shadow_armor_plate_helmet_2">
+		<inherit id="1419" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Helm (E/W)</category>
+	</item>
+
+	<!-- plate leggings -->
+	<item id="shadow_armor_plate_leggings">
+		<inherit id="1411" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Legs (N/S)</category>
+	</item>
+
+	<item id="shadow_armor_plate_leggings_2">
+		<inherit id="141a" />
+		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Legs (E/W)</category>
+	</item>
+
+</definitions>

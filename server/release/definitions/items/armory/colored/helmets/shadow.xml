@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="shadow_helmets_bascinet">
+		<inherit id="140d" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="shadow_helmets_bascinet_2">
+		<inherit id="140c" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="shadow_helmets_nose">
+		<inherit id="140f" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="shadow_helmets_nose_2">
+		<inherit id="140e" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="shadow_helmets_helmet">
+		<inherit id="140b" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="shadow_helmets_helmet">
+		<inherit id="140a" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="shadow_helmets_close">
+		<inherit id="1409" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="shadow_helmets_close">
+		<inherit id="1408" />
+		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

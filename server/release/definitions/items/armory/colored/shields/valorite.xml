@@ -1,0 +1,92 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- shields -->
+	<!-- buckler -->
+	<item id="valorite_shields_buckler">
+		<inherit id="1b73" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Buckler</category>
+	</item>
+
+	<!-- bronze shield -->
+	<item id="valorite_shields_bronze_shield">
+		<inherit id="1b72" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Bronze</category>
+	</item>
+
+	<!-- heater -->
+	<item id="valorite_shields_heater_shield">
+		<inherit id="1b76" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Heater (N/S)</category>
+	</item>
+
+	<item id="valorite_shields_heater_shield_2">
+		<inherit id="1b77" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Heater (E/W)</category>
+	</item>
+
+	<!-- metal shield -->
+	<item id="valorite_shields_metal_shield">
+		<inherit id="1b7b" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Metal Shield</category>
+	</item>
+
+	<!-- metal kite shield -->
+	<item id="valorite_shields_metal_kite_shield">
+		<inherit id="1b74" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Metal Kite (N/S)</category>
+	</item>
+
+	<item id="valorite_shields_metal_kite_shield_2">
+		<inherit id="1b75" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Metal Kite (E/W)</category>
+	</item>
+
+	<!-- wooden kite shield -->
+	<item id="valorite_shields_wooden_kite_shield">
+		<inherit id="1b78" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Wooden Kite (N/S)</category>
+	</item>
+
+	<item id="valorite_shields_wooden_kite_shield_2">
+		<inherit id="1b79" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Wooden Kite (E/W)</category>
+	</item>
+
+	<!-- chaos shield -->
+	<item id="valorite_shields_chaos_shield">
+		<inherit id="1bc3" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Chaos Shield</category>
+	</item>
+
+	<!-- order shield -->
+	<item id="valorite_shields_order_shield">
+		<inherit id="1bc4" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Order Shield (N/S)</category>
+	</item>
+
+	<item id="valorite_shields_order_shield_2">
+		<inherit id="1bc5" />
+		<valorite_armor />
+		<category>Armor\Valorite\Shields\Order Shield (E/W)</category>
+	</item>
+
+</definitions>

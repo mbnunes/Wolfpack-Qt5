@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="iron_helmets_bascinet">
+		<inherit id="140d" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="iron_helmets_bascinet_2">
+		<inherit id="140c" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="iron_helmets_nose">
+		<inherit id="140f" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="iron_helmets_nose_2">
+		<inherit id="140e" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="iron_helmets_helmet">
+		<inherit id="140b" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="iron_helmets_helmet">
+		<inherit id="140a" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="iron_helmets_close">
+		<inherit id="1409" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="iron_helmets_close">
+		<inherit id="1408" />
+		<iron_armor />
+		<category>Armor\Iron\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="dull_copper_helmets_bascinet">
+		<inherit id="140d" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="dull_copper_helmets_bascinet_2">
+		<inherit id="140c" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="dull_copper_helmets_nose">
+		<inherit id="140f" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="dull_copper_helmets_nose_2">
+		<inherit id="140e" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="dull_copper_helmets_helmet">
+		<inherit id="140b" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="dull_copper_helmets_helmet">
+		<inherit id="140a" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="dull_copper_helmets_close">
+		<inherit id="1409" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="dull_copper_helmets_close">
+		<inherit id="1408" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

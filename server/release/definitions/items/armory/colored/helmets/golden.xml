@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="golden_helmets_bascinet">
+		<inherit id="140d" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="golden_helmets_bascinet_2">
+		<inherit id="140c" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="golden_helmets_nose">
+		<inherit id="140f" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="golden_helmets_nose_2">
+		<inherit id="140e" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="golden_helmets_helmet">
+		<inherit id="140b" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="golden_helmets_helmet">
+		<inherit id="140a" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="golden_helmets_close">
+		<inherit id="1409" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="golden_helmets_close">
+		<inherit id="1408" />
+		<golden_armor />
+		<category>Armor\Golden\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

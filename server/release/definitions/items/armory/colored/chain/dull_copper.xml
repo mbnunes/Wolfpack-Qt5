@@ -1,0 +1,51 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- chainmail armor -->
+	<!-- chainmail coif -->
+	<item id="dull_copper_armor_chain_coif">
+		<inherit id="13bb" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Chainmail\Coif (N/S)</category>
+	</item>
+
+	<item id="dull_copper_armor_chain_coif_2">
+		<inherit id="13c0" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Chainmail\Coif (E/W)</category>
+	</item>
+
+	<!-- chainmail leggings -->
+	<item id="dull_copper_armor_chain_leggings">
+		<inherit id="13be" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Chainmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="dull_copper_armor_chain_leggings_2">
+		<inherit id="13c3" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Chainmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- chainmail tunic -->
+	<item id="dull_copper_armor_chain_tunic">
+		<inherit id="13bf" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Chainmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="dull_copper_armor_chain_tunic_2">
+		<inherit id="13c4" />
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Chainmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

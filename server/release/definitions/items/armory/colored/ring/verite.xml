@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- ring armor -->
+	<!-- ring gloves -->
+	<item id="verite_armor_ring_gloves">
+		<inherit id="13eb" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Gloves (N/S)</category>
+	</item>
+
+	<item id="verite_armor_ring_gloves_2">
+		<inherit id="13f2" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Gloves (E/W)</category>
+	</item>
+
+	<!-- ring leggings -->
+	<item id="verite_armor_ring_leggings">
+		<inherit id="13f0" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="verite_armor_ring_leggings_2">
+		<inherit id="13f1" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- ring sleeves -->
+	<item id="verite_armor_ring_sleeves">
+		<inherit id="13ee" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Sleeves (N/S)</category>
+	</item>
+
+	<item id="verite_armor_ring_sleeves_2">
+		<inherit id="13ef" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Sleeves (E/W)</category>
+	</item>
+
+	<!-- ring tunic -->
+	<item id="verite_armor_ring_tunic">
+		<inherit id="13ec" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="verite_armor_ring_tunic_2">
+		<inherit id="13ed" />
+		<verite_armor />
+		<category>Armor\Verite\Ringmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

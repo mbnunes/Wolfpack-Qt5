@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="bronze_helmets_bascinet">
+		<inherit id="140d" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="bronze_helmets_bascinet_2">
+		<inherit id="140c" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="bronze_helmets_nose">
+		<inherit id="140f" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="bronze_helmets_nose_2">
+		<inherit id="140e" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="bronze_helmets_helmet">
+		<inherit id="140b" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="bronze_helmets_helmet">
+		<inherit id="140a" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="bronze_helmets_close">
+		<inherit id="1409" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="bronze_helmets_close">
+		<inherit id="1408" />
+		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

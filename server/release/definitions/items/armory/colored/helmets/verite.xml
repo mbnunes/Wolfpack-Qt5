@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="verite_helmets_bascinet">
+		<inherit id="140d" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<item id="verite_helmets_bascinet_2">
+		<inherit id="140c" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Bascinet (E/W)</category>
+	</item>
+
+	<!-- nose helmet -->
+	<item id="verite_helmets_nose">
+		<inherit id="140f" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Nose (N/S)</category>
+	</item>
+
+	<item id="verite_helmets_nose_2">
+		<inherit id="140e" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Nose (E/W)</category>
+	</item>
+
+	<!-- normal helmet -->
+	<item id="verite_helmets_helmet">
+		<inherit id="140b" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Helmet (N/S)</category>
+	</item>
+
+	<item id="verite_helmets_helmet">
+		<inherit id="140a" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Helmet (E/W)</category>
+	</item>
+
+	<!-- close helmet -->
+	<item id="verite_helmets_close">
+		<inherit id="1409" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="verite_helmets_close">
+		<inherit id="1408" />
+		<verite_armor />
+		<category>Armor\Verite\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>
