@@ -1084,7 +1084,7 @@ void deathstuff(int i)
 	}
 
 	P_ITEM pi_backpack = Packitem(pc_player);
-	z=calcSocketFromChar(DEREF_P_CHAR(pc_player));
+	z=calcSocketFromChar(pc_player);
 	if (z != -1) 
 		unmounthorse(z);
 

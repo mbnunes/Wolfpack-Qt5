@@ -312,7 +312,7 @@ char cMagic::GateCollision(PLAYER s)
 					// Set the characters destination
 					pc_player->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
 					teleport(pc_player);
-					soundeffect( calcSocketFromChar( DEREF_P_CHAR(pc_player) ), 0x01, 0xFE );
+					soundeffect( calcSocketFromChar( pc_player ), 0x01, 0xFE );
 					staticeffect( DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06 );
 				}
 			}
@@ -1019,7 +1019,7 @@ void cMagic::NPCHeal(CHARACTER s)
 
 	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
 	{
-		UOXSOCKET ss=calcSocketFromChar(DEREF_P_CHAR(pc));
+		UOXSOCKET ss=calcSocketFromChar(pc);
 		if (ss>-1)
 		{
 			SpellFail(ss);
@@ -1043,7 +1043,7 @@ void cMagic::NPCCure(CHARACTER s)
 	P_CHAR pc = MAKE_CHARREF_LR(s);
 	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
 	{
-		UOXSOCKET ss=calcSocketFromChar(DEREF_P_CHAR(pc));
+		UOXSOCKET ss=calcSocketFromChar(pc);
 		if (ss>-1)
 		{
 			SpellFail(ss);
@@ -1167,7 +1167,7 @@ char cMagic::CheckParry(CHARACTER player, int circle)
 	char i=Skills->CheckSkill(pc_player, PARRYING, 80*circle, 800+(80*circle));
 	if(i)
 	{
-		UOXSOCKET s = calcSocketFromChar(DEREF_P_CHAR(pc_player));
+		UOXSOCKET s = calcSocketFromChar(pc_player);
 		if (s!=-1)
 		{
 			sysmessage(s, "You have dodged the cannon blast, and have taken less damage.");

@@ -95,7 +95,7 @@ static void reverseIncognito(P_CHAR pc)
 		
 		//only refresh once, when poly finished
 		teleport(pc);
-		int socket=calcSocketFromChar(DEREF_P_CHAR(pc));//calculate only once
+		int socket=calcSocketFromChar(pc);//calculate only once
 		if (socket!=-1)
 		{
 			wornitems(socket, DEREF_P_CHAR(pc));//send update to current socket

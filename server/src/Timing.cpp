@@ -254,7 +254,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 						{
 							if (pc->med)
 							{
-								int s = calcSocketFromChar(DEREF_P_CHAR(pc));
+								int s = calcSocketFromChar(pc);
 								sysmessage(s, "You are at peace.");
 								pc->med = 0;
 							}

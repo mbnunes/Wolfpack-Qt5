@@ -374,7 +374,7 @@ void advancementobjects(int s, int x, int allways)
 			while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
 			closescript();
 	}
-	else sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_s)),"You have already used an advancement object with this character.");
+	else sysmessage(calcSocketFromChar(pc_s),"You have already used an advancement object with this character.");
 }
 
 void monstergate(int s, int x)

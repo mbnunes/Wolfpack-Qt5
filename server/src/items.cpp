@@ -1065,7 +1065,7 @@ P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)
 		return NULL;
 	}
 
-	UOXSOCKET s = calcSocketFromChar((pc_ch));          // Don't check if s == -1, it's ok if it is.
+	UOXSOCKET s = calcSocketFromChar(pc_ch);          // Don't check if s == -1, it's ok if it is.
 	P_ITEM pi = CreateScriptItem(s, nItem, 1);
 	if (pi == NULL)
 		return NULL;
@@ -1681,8 +1681,8 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 				strcpy((char*)temp2,pi->name);
 			
 			sprintf((char*)temp, "You are not strong enough to keep %s equipped!", temp2);
-			sysmessage(calcSocketFromChar((pc_p)), (char*)temp);
-			itemsfx(calcSocketFromChar((pc_p)), pi->id());
+			sysmessage(calcSocketFromChar(pc_p), (char*)temp);
+			itemsfx(calcSocketFromChar(pc_p), pi->id());
 			
 			//Subtract stats bonus and poison
 			pc_p->removeItemBonus(pi);

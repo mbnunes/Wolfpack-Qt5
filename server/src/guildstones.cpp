@@ -993,9 +993,9 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 								if (guilds[guildnumber].type!=0) pc->guildtoggle = 1;
 								sysmessage(s, "This candidate is now a guildmember.");
 								if ( guilds[guildnumber].type == 1 )
-									Items->SpawnItemBackpack2( calcSocketFromChar( DEREF_P_CHAR(pc) ), 29, 1 );
+									Items->SpawnItemBackpack2( calcSocketFromChar( pc ), 29, 1 );
 						        else if ( guilds[guildnumber].type == 2 )
-									Items->SpawnItemBackpack2( calcSocketFromChar( DEREF_P_CHAR(pc) ), 28, 1 );
+									Items->SpawnItemBackpack2( calcSocketFromChar( pc ), 28, 1 );
 							}
 							else sysmessage(s, "This guild is full, maximum amount of members reached!" );
 						}
@@ -1247,7 +1247,7 @@ void cGuilds::SetType(int guildnumber, int type)
                 if (holding != NULL) 
 				{
 					RemoveShields(DEREF_P_CHAR(holding));
-					Items->SpawnItemBackpack2( calcSocketFromChar( DEREF_P_CHAR( holding ) ), 29, 1 );	// will not work for offline chars (Duke)
+					Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 29, 1 );	// will not work for offline chars (Duke)
 				}
 			}
 			Guilds->Broadcast( guildnumber, "Your guild is now an Order guild." );
@@ -1260,7 +1260,7 @@ void cGuilds::SetType(int guildnumber, int type)
                 if ( holding != NULL ) 
 				{
 					RemoveShields( DEREF_P_CHAR( holding ) );
-					Items->SpawnItemBackpack2( calcSocketFromChar( DEREF_P_CHAR( holding ) ), 28, 1 );
+					Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 28, 1 );
 				}
 			}
 			Guilds->Broadcast( guildnumber, "Your guild is now a Chaos guild." );

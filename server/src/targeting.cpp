@@ -682,7 +682,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 	P_CHAR pc_c = MAKE_CHAR_REF(c);
 	if (pPack == NULL)
 	{
-		pPack = Items->SpawnItem(calcSocketFromChar(DEREF_P_CHAR(pc_c)),pc_c,1,"#",0,0x0E,0x75,0,0,0,0);
+		pPack = Items->SpawnItem(calcSocketFromChar(pc_c),pc_c,1,"#",0,0x0E,0x75,0,0,0,0);
 		if (pPack == NULL)
 			return;
 		pc->packitem = pPack->serial; 
@@ -886,7 +886,7 @@ void cTargets::CloseTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if(pc != NULL)
 	{
-		UOXSOCKET j = calcSocketFromChar(DEREF_P_CHAR(pc));
+		UOXSOCKET j = calcSocketFromChar(pc);
 		if(j>-1)
 		{
 			sysmessage(s, "Kicking player");
@@ -1056,7 +1056,7 @@ void cTargets::AllSetTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if(pc != NULL)
 	{
-		UOXSOCKET k = calcSocketFromChar(DEREF_P_CHAR(pc));
+		UOXSOCKET k = calcSocketFromChar(pc);
 		if (addx[s]<TRUESKILLS)
 		{
 			pc->baseskill[addx[s]]=addy[s];
@@ -1366,7 +1366,7 @@ void cTargets::SquelchTarg(int s)//Squelch
 		{
 			pc->squelched=0;
 			sysmessage(s, "Un-squelching...");
-			sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)), "You have been unsquelched!");
+			sysmessage(calcSocketFromChar(pc), "You have been unsquelched!");
 			pc->mutetime=-1;
 		}
 		else
@@ -1374,7 +1374,7 @@ void cTargets::SquelchTarg(int s)//Squelch
 			pc->mutetime=-1;
 			pc->squelched=1;
 			sysmessage(s, "Squelching...");
-			sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)), "You have been squelched!");
+			sysmessage(calcSocketFromChar(pc), "You have been squelched!");
 			
 			if (addid1[s]!=255 || addid1[s]!=0)
 		
@@ -2350,7 +2350,7 @@ void cTargets::SetPoisonedTarget(int s)
 	{
 		pc->poisoned=tempint[s];
 		pc->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
-		impowncreate(calcSocketFromChar(DEREF_P_CHAR(pc)),DEREF_P_CHAR(pc),1); //Lb, sends the green bar !
+		impowncreate(calcSocketFromChar(pc),DEREF_P_CHAR(pc),1); //Lb, sends the green bar !
 	}
 }
 

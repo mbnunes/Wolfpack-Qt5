@@ -156,7 +156,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		return;
 	}
 
-    UOXSOCKET socket = calcSocketFromChar(DEREF_P_CHAR(pc));
+    UOXSOCKET socket = calcSocketFromChar(pc);
     
     if (!VerifySequence(pc, socket, sequence))
         return;
@@ -1628,7 +1628,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 						if( ( !pc_target->dead ) && ( pc_i->questDestRegion == pc_i->region ) )
 						{
 							// Pay the Escortee and free the NPC
-							MsgBoardQuestEscortArrive( DEREF_P_CHAR(pc_i), calcSocketFromChar( DEREF_P_CHAR(pc_target) ) );
+							MsgBoardQuestEscortArrive( DEREF_P_CHAR(pc_i), calcSocketFromChar( pc_target ) );
 						}
 					// End - Dupois
 	                }

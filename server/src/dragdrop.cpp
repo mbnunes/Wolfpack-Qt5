@@ -736,7 +736,7 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	if( pi->id() ==0x0EED )
 	{ // They gave the NPC gold
 		char sk=pc_t->trainingplayerin;
-		npctalk(s, DEREF_P_CHAR(pc_t), "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!",0);
+		npctalk(s, pc_t, "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!",0);
 
 		int sum = pc_currchar->getSkillSum();
 		int delta = pc_t->getTeachingDelta(pc_currchar, sk, sum);
@@ -768,7 +768,7 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	}
 	else // Did not give gold
 	{
-		npctalk(s, DEREF_P_CHAR(pc_t), "I am sorry, but I can only accept gold.",0);
+		npctalk(s, pc_t, "I am sorry, but I can only accept gold.",0);
 		Sndbounce5(s);
 		if (ps->IsDragging())
 		{
@@ -879,7 +879,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				//This crazy training stuff done by Anthracks (fred1117@tiac.net)
 				if(pc_currchar->trainer!=pTC->serial)
 				{
-					npctalk(s, DEREF_P_CHAR(pTC), "Thank thee kindly, but I have done nothing to warrant a gift.",0);
+					npctalk(s, pTC, "Thank thee kindly, but I have done nothing to warrant a gift.",0);
 					Sndbounce5(s);
 					if (ps->IsDragging())
 					{

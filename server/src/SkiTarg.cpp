@@ -2234,7 +2234,7 @@ void cSkills::BeggingTarget(int s)
 		{
 			if (pc->begging_timer>=uiCurrentTime)
 			{
-				npctalk(s,DEREF_P_CHAR(pc),"Annoy someone else !",1);
+				npctalk(s,pc,"Annoy someone else !",1);
 				return;
 			}
 
@@ -2295,7 +2295,7 @@ void cSkills::BeggingTarget(int s)
 								
 				if (gold<=0)
 				{				
-					npctalk(s,DEREF_P_CHAR(pc),"Thou dost not look trustworthy... no gold for thee today! ",1);
+					npctalk(s,pc,"Thou dost not look trustworthy... no gold for thee today! ",1);
 					return;
 				}
 				npctalkall(pc,"I feel sorry for thee... here have a gold coin .",0);

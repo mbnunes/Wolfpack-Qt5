@@ -158,7 +158,7 @@ void cRaces::LoadRaceFile()
 
 void cRaces::SetRace(P_CHAR pc, int race)
 {
-	int so = calcSocketFromChar(DEREF_P_CHAR(pc));
+	int so = calcSocketFromChar(pc);
 	short colorlist = addrandomcolor(DEREF_P_CHAR(pc),(char*)Races[race]->HairBeardList.c_str());
 
 	pc->race=race;
