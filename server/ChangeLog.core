@@ -30,6 +30,8 @@ Wolfpack 12.9.8 Beta (4. August 2004)
 	- Began binary save feature. (Incomplete)
 	- Fixes for mul and diff files.
 		Haven should now work.
+	- Database Change:
+		items.magic is now items.movable
 
 Wolfpack 12.9.7 Beta (4. July 2004)
 	- Region/Spawn Region Updates:
