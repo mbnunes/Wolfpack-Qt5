@@ -244,6 +244,9 @@ float Monster_Aggr_MoveToTarget::postCondition()
 
 void Monster_Aggr_MoveToTarget::execute()
 {
+	if( !m_npc->isAtWar() )
+		m_npc->toggleCombat();
+
 	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
 	if( !pAI || !pAI->currentVictim() )
 		return;
@@ -309,6 +312,9 @@ float Monster_Aggr_Fight::postCondition()
 
 void Monster_Aggr_Fight::execute()
 {
+	if( !m_npc->isAtWar() )
+		m_npc->toggleCombat();
+
 	// the execution of combat is handled somewhere else ;)
 	// nothing to do
 }

@@ -920,7 +920,7 @@ void cNPC::attackTarget( P_CHAR defender )
 void cNPC::toggleCombat()
 {
 	setAtWar( !isAtWar() );
-	Movement::instance()->CombatWalk( this );
+	update();
 }
 
 void cNPC::processNode( const cElement *Tag )

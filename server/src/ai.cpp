@@ -442,6 +442,9 @@ float Action_Wander::postCondition()
 
 void Action_Wander::execute()
 {
+	if( m_npc->isAtWar() )
+		m_npc->toggleCombat();
+
 	switch( m_npc->wanderType() )
 	{
 	case enFreely:
