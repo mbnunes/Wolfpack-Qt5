@@ -29,7 +29,7 @@ class Webserver( HTTPServer ):
     self.socket.setblocking( 0 )
     self.server_bind()
     self.server_activate()
-  
+
     self.htdocs = htdocs
 
   def handle_request(self):
@@ -52,10 +52,10 @@ class Webserver( HTTPServer ):
       traceback.print_exc( None, dummy )
       dummy.close()
       return
-  
+
     print  '-'*40
     print  'Exception happened during processing of request from ' + str( client_address )
-    
+
     traceback.print_exc() # XXX But this goes to stderr!
     print '-'*40
 
@@ -65,36 +65,36 @@ class WebserverHandler( CGIHTTPRequestHandler ):
   # CGIs are allowed everywhere
   def is_cgi( self ):
     path = self.path
-  
+
     # Extract directory and stuff behind query sign (?)
     i = path.rfind( '?' )
-      
+
     if i >= 0:
       scriptpath, query = path[:i], path[i+1:]
     else:
       scriptpath = path
       query = ''
-  
+
     if self.is_python( scriptpath ):
       path = posixpath.dirname( scriptpath )
       script = posixpath.basename( scriptpath ) + '?' + query
       self.cgi_info = path, script
       return 1
-  
+
     return 0
 
   def translate_path(self, uri):
     """ Translate a /-separated PATH to the local filename syntax.
-  
+
     Components that mean special things to the local file system
     (e.g. drive or directory names) are ignored.
-    
+
     """
     file = urllib.unquote(uri)
     file.replace("\\", '/')
     words = file.split('/')
     words = filter(None, words)
-  
+
     path = self.server.htdocs
     bad_uri = 0
     for word in words:
@@ -106,10 +106,10 @@ class WebserverHandler( CGIHTTPRequestHandler ):
         bad_uri = 1
         continue
       path = os.path.join(path, word)
-  
+
     if bad_uri:
       self.log_error("Detected bad request URI '%s', translated to '%s'" % (uri, path,))
-    
+
     return path
 
   def run_cgi(self):
@@ -135,7 +135,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
     if not os.path.isfile(scriptfile):
       self.send_error(403, "CGI script is not a plain file (%s)" % `scriptname`)
       return
-    
+
     ispy = self.is_python(scriptname)
     if not ispy:
       self.send_error(403, "CGI script is not a Python script (%s)" % `scriptname`)
@@ -221,11 +221,11 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 
   def log_message( self, format, *args ):
     try:
-      file = open( 'web.log', 'a' )
+      file = open( 'logs/web.log', 'a' )
       file.write( "%s - - [%s] %s\n" % ( self.address_string(), self.log_date_time_string(), format%args ) )
       file.close()
     except:
-      print "Could not write to logfile: web.log\n"
+      print "Could not write to logfile: logs/web.log\n"
 
 class WebserverThread(Thread):
   def __init__( self, port=REMOTEADMIN_PORT ):
@@ -233,43 +233,43 @@ class WebserverThread(Thread):
     self.port = port
     self.stopped = Event()
     self.httpd = None
-  
+
   def cancel( self ):
     self.stopped.set()
 
   def run( self ):
     # Wait with binding the webserver for 5 Seconds
     server_address = ('', self.port)
-    
+
     # Starting up
     if not wolfpack.isreloading():
       wolfpack.console.log(LOG_MESSAGE, "Starting remote admin on port %u.\n" % self.port)
-    
+
     try:
       filepath = os.path.normpath(os.path.abspath('web/'))
       self.httpd = Webserver(('', self.port), filepath)
     except:
       traceback.print_exc()
       return
-    
+
     while not self.stopped.isSet():
       self.httpd.handle_request()
       self.stopped.wait(0.05)
-  
+
     if wolfpack.isreloading():
       wolfpack.console.log(LOG_MESSAGE, "Restarting remote admin.\n")
     else:
       wolfpack.console.log(LOG_MESSAGE, "Stopping remote admin.\n")
-  
+
 thread = None
-  
+
 def onServerStart():
   web.sessions.clear_sessions()
 
   global thread
   thread = WebserverThread( REMOTEADMIN_PORT )
   thread.start()
-  
+
 def onLoad():
   # Not on ServerStart
   if not wolfpack.isstarting():
@@ -280,7 +280,7 @@ def onLoad():
     thread.start()
 
 def onUnload():
-  
+
   # Stop the Thread
   global thread
   if thread:
