@@ -114,7 +114,7 @@ void cCorpse::save()
 	}
 
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-		persistentBroker->executeQuery( QString( "INSERT INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it->first ).arg( it->second ) );
+		persistentBroker->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it->first ).arg( it->second ) );
 
 	cItem::save();
 }

@@ -102,7 +102,7 @@ public:
 		{
 			cPage *page = *it;
 
-			QString sql( "INSERT INTO pages SET charserial = '%1', pagetype = '%2', pagetime = '%3', pagepos = '%4', content = '%5', category = '%6', pageorder = '%7'" );
+			QString sql( "REPLACE INTO pages SET charserial = '%1', pagetype = '%2', pagetime = '%3', pagepos = '%4', content = '%5', category = '%6', pageorder = '%7'" );
 			sql = sql.arg( page->charSerial() ).arg( page->pageType() ).arg( persistentBroker->quoteString( page->pageTime() ) ).arg( QString( "%1,%2,%3,%4" ).arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().map ) ).arg( persistentBroker->quoteString( page->content() ) ).arg( page->pageCategory() ).arg( i++ );
 			persistentBroker->executeQuery( sql );
 

@@ -123,7 +123,7 @@ public:
 	} \
 	else \
 	{ \
-		persistentBroker->executeQuery( QString( "INSERT INTO %1 VALUES(%3)" ).arg( table )/*.arg( fields.join( "," ) )*/.arg( values.join( "," ) ) ); \
+		persistentBroker->executeQuery( QString( "REPLACE INTO %1 VALUES(%3)" ).arg( table )/*.arg( fields.join( "," ) )*/.arg( values.join( "," ) ) ); \
 	}
 
 #endif // __PERSISTENTBROKER_H__

@@ -708,7 +708,7 @@ void cCustomTags::save( SERIAL key )
 		QString type = it.data().typeName();
 		QString value = it.data().toString();		
 
-		persistentBroker->executeQuery( QString( "INSERT INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( persistentBroker->quoteString( name ) ).arg( type ).arg( persistentBroker->quoteString( value ) ) );
+		persistentBroker->executeQuery( QString( "REPLACE INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( persistentBroker->quoteString( name ) ).arg( type ).arg( persistentBroker->quoteString( value ) ) );
 	}
 
 	changed = false;
