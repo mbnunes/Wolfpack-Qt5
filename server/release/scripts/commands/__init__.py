@@ -1,6 +1,7 @@
 
 import wolfpack
 from wolfpack import time
+from wolfpack.utilities import hex2dec
 
 def season( socket, command, arguments ):
 	packet = [ 0xbc, int(arguments), 0x01 ]
@@ -116,6 +117,67 @@ def multigems(socket, command, arguments):
 		
 	socket.resendworld()
 
+"""
+	\command gouid
+	\usage - <code>gouid serial</code>
+	\description Find an object with the given serial and move to it.
+"""
+def gouid(socket, command, arguments):
+	try:
+		uid = hex2dec(arguments)
+	except:
+		socket.symsessage('Usage: gouid <serial>')
+		return
+	
+	if uid > 0x40000000:
+		item = wolfpack.finditem(uid)
+		if item:
+			container = item.getoutmostitem()
+			if container.container:
+				container = container.container
+			
+			# Going to container
+			socket.sysmessage('Going to item 0x%x [Top: 0x%x].' % (uid, container.serial))
+			pos = container.pos
+			socket.player.removefromview()
+			socket.player.moveto(pos)
+			socket.player.update()
+			socket.resendworld()
+		else:
+			socket.sysmessage('No item with the serial 0x%x could be found.' % uid)		
+		return
+	elif uid > 0:
+		char = wolfpack.findchar(uid)
+		if char:
+			socket.sysmessage('Going to char 0x%x.' % (uid))
+			pos = char.pos
+			socket.player.removefromview()
+			socket.player.moveto(pos)
+			socket.player.update()
+			socket.resendworld()
+		else:
+			socket.sysmessage('No char with the serial 0x%x could be found.' % uid)		
+		return
+		
+	socket.sysmessage('You specified an invalid serial: 0x%x.' % uid)
+		
+"""
+	\command followers
+	\description Show the names and serials of the followers of the
+	targetted character.
+"""
+def followers_target(player, arguments, target):
+	if not target.char or not target.char.player:
+		player.socket.sysmessage('You have to target a player.')
+		return
+	followers = target.char.followers
+	for follower in followers:
+		player.socket.sysmessage('Follower: %s [0x%x, %u slot(s)]' % (follower.name, follower.serial, follower.controlslots))
+
+def followers(socket, command, arguments):	
+	socket.sysmessage('Whose followers do you want to see?')
+	socket.attachtarget("commands.followers_target", [])
+
 def onLoad():
 	wolfpack.registercommand("resendtooltip", resendtooltip)
 	wolfpack.registercommand("season", season)
@@ -125,6 +187,8 @@ def onLoad():
 	wolfpack.registercommand("nudgedown", nudgedown)
 	wolfpack.registercommand("nightsight", nightsight)
 	wolfpack.registercommand("multigems", multigems)
+	wolfpack.registercommand("followers", followers)
+	wolfpack.registercommand("gouid", gouid)
 	
 """
 	\command nightsight

@@ -26,32 +26,25 @@ TAMING_DELAY = 10000
 
 # Button for AnimalTaming pressed on skill gump
 def animaltaming( char, skill ):
-	# We only handle animaltaming
-	if skill != TAMING:
-		return 0
-
 	socket = char.socket
-	if char.hastag( 'skill_delay' ):
+	if char.hastag('skill_delay'):
 		cur_time = servertime()
-		if cur_time < char.gettag( 'skill_delay' ):
-			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+		if cur_time < char.gettag('skill_delay'):
+			socket.clilocmessage(500118, "", 0x3b2, 3)
 			return 1
 		else:
-			char.deltag( 'skill_delay' )
+			char.deltag('skill_delay')
 
 	# Assign the target request
 	socket.clilocmessage( 502789, "", 0x3b2, 3 )
-	socket.attachtarget( "skills.animaltaming.response" )
-
+	socket.attachtarget("skills.animaltaming.response")
 	return 1
 
-def response( char, args, target ):
-    dotame( char, target.char )
-    char.socket.sysmessage("Testing")
+def response(char, args, target):
+    dotame(char, target.char)
     return 1
 
-def dotame( char, totame ):
-
+def dotame(char, totame):
 	socket = char.socket
 
 	# you cannot use skill while dead
@@ -65,15 +58,15 @@ def dotame( char, totame ):
 		return
 
 	# it's a player
-	if totame.socket:
+	if not totame.npc:
 		socket.clilocmessage( 502469, "", 0x3b2, 3, char )
 		return
 
 	# You can't reach that (too far away, no los, wrong map)
-	if char.distanceto( totame ) > TAMING_RANGE:
+	if char.distanceto(totame) > TAMING_RANGE:
 		socket.clilocmessage( 502803, "", 0x3b2, 3, totame )
 		return
-	if not char.canreach( totame, TAMING_RANGE ):
+	if not char.canreach(totame, TAMING_RANGE):
 		socket.clilocmessage( 502800, "", 0x3b2, 3, totame )
 		return
 
@@ -195,6 +188,7 @@ def callback( char, args ):
 			bindmenus.remove('tame_menu')
 			bindmenus.append('pet_menu')
 			totame.bindmenu = ", ".join(bindmenus)
+			totame.addevent('speech.pets')
 			
 			# success msg : 502799
 			char.socket.clilocmessage( 502799, "", 0x3b2, 3, totame )

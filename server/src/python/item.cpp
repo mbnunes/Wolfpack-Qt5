@@ -1220,17 +1220,18 @@ static int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 			val = cVariant( getWpChar( value ) );
 		else if( checkWpCoord( value ) )
 			val = cVariant( getWpCoord( value ) );
-		else if( PyFloat_Check( value ) )
+		else if( PyFloat_Check( value ) ) {
 			val = cVariant( PyFloat_AsDouble( value ) );
-
-		if( !val.isValid() )
-		{
-			if( value->ob_type )
-				PyErr_Format( PyExc_TypeError, "Unsupported object type: %s", value->ob_type->tp_name );
-			else
-				PyErr_Format( PyExc_TypeError, "Unknown object type" );
-			return 0;
 		}
+
+		//if( !val.isValid() )
+		//{
+		//	if( value->ob_type )
+		//		PyErr_Format( PyExc_TypeError, "Unsupported object type: %s", value->ob_type->tp_name );
+		//	else
+		//		PyErr_Format( PyExc_TypeError, "Unknown object type" );
+		//	return 0;
+		//}
 
 		stError *error = self->pItem->setProperty( name, val );
 

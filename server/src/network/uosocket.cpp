@@ -2661,6 +2661,8 @@ void cUOSocket::handleRename( cUORxRename* packet )
 				pChar->setName( pChar->name().left( 29 ) );
 				sysMessage( tr( "This name was too long, i truncated it to 29 characters." ) );
 			}
+
+			pChar->resendTooltip();
 		}
 		else
 			sysMessage( tr( "You can't rename this." ) );
