@@ -347,7 +347,6 @@ signed char cMapStuff::MultiHeight(P_ITEM pi, short int x, short int y, signed c
 	{                                                                                                                             
 		length = 0;                                                                                                           
 	}
-	//clConsole.send("Doing multitile for #%x\n", items[i].serial);                                                                                                                             
 	//Check for height at and above
 	
 	for (int j=0;j<length;j++)
@@ -409,13 +408,12 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 }
 
 
-int cMapStuff::MultiTile(int i, short int x, short int y, signed char oldz)
+int cMapStuff::MultiTile(P_ITEM pi, short int x, short int y, signed char oldz)
 {
-	P_ITEM pi = MAKE_ITEM_REF(i);
 	SI32 length = 0;
 	st_multi multi;
 	UOXFile *mfile = NULL;
-	SeekMulti(items[i].id()-0x4000, &mfile, &length);
+	SeekMulti(pi->id()-0x4000, &mfile, &length);
 	length=length/MultiRecordSize;
 	if (length == -1 || length>=17000000)//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
 	{
@@ -454,7 +452,7 @@ int cMapStuff::DynTile(short int x, short int y, signed char oldz)
 		if (mapitem != NULL)
 		{
 			if(mapitem->isMulti())
-				return MultiTile(DEREF_P_ITEM(mapitem), x ,y, oldz);
+				return MultiTile(mapitem, x ,y, oldz);
 			else if ((mapitem->pos.x == x) && (mapitem->pos.y == y))
 				return mapitem->id();
         }    

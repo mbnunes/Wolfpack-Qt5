@@ -1251,9 +1251,8 @@ void deathstuff(int i)
 	if (pc_player->isPlayer())
 	{
 		strcpy((char*)temp,"a Death Shroud");
-		c=Items->SpawnItem(z, DEREF_P_CHAR(pc_player), 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0, 0);
-		if(c==-1) return;//AntiChrist to preview crashes
-		const P_ITEM pi_c=MAKE_ITEMREF_LR(c);	// on error return
+		const P_ITEM pi_c = Items->SpawnItem(z, DEREF_P_CHAR(pc_player), 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0, 0);
+		if(pi_c == NULL) return;
 		pc_player->robe = pi_c->serial; 
 		pi_c->SetContSerial(pc_player->serial);
 		pi_c->layer=0x16;
@@ -1884,9 +1883,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	if (validhair(buffer[s][0x52],buffer[s][0x53]))
 	{
-		n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x52], buffer[s][0x53], buffer[s][0x54], buffer[s][0x55],0,0);
-		if(n==-1) return;//AntiChrist to preview crashes
-		const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+		const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x52], buffer[s][0x53], buffer[s][0x54], buffer[s][0x55],0,0);
+		if(pi == NULL) return;
 		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
 			(((pi->color1<<8)+pi->color2)>0x04AD) )
 		{
@@ -1899,9 +1897,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	if ( (validbeard(buffer[s][0x56],buffer[s][0x57])) && (pc->id2==0x90) )
 	{
-		n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x56], buffer[s][0x57], buffer[s][0x58], buffer[s][0x59],0,0);
-		if(n==-1) return;//AntiChrist to preview crashes
-		const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+		const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, buffer[s][0x56], buffer[s][0x57], buffer[s][0x58], buffer[s][0x59],0,0);
+		if(pi == NULL) return;//AntiChrist to preview crashes
 		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
 			(((pi->color1<<8)+pi->color2)>0x04AD) )
 		{
@@ -1914,7 +1911,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	{	// just to limit the scope of pi
 	// - create the backpack
-	P_ITEM pi = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, 0x0E, 0x75, 0, 0,0,0));
+	P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
 	if (pi == NULL)
 		return;
 	pc->packitem = pi->serial;
@@ -1925,9 +1922,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	n = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0);
-	if(n==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0);
+	if(pi == NULL) return;//AntiChrist to preview crashes
 
 	switch (RandomNum(0, 1))
 	{
@@ -1965,9 +1961,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0); // spawn pants
-	if(n==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x09,0x15,0,0,0,0); // spawn pants
+	if(pi == NULL) return;//AntiChrist to preview crashes
 	if (!(rand()%2))
 	{
 		pi->setId(0x1EFD);
@@ -1988,9 +1983,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
-	if(n==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
+	if(pi == NULL) return;//AntiChrist to preview crashes
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x03;
 	pi->dye=1;
@@ -2000,9 +1994,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	n=Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x0F,0x51,0,0,0,0); // dagger
-	if(n==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+	const P_ITEM pi = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,"#",0,0x0F,0x51,0,0,0,0); // dagger
+	if(pi == NULL) return;
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x01;
 	//pi->att=5;
@@ -3795,9 +3788,8 @@ void openbank(int s, int i)
 	} // end of !=-1
 
 	sprintf((char*)temp, "%s's bank box.", chars[i].name);
-	c=Items->SpawnItem(s,i,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
-	if(c==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pic=MAKE_ITEMREF_LR(c);	// on error return
+	const P_ITEM pic = Items->SpawnItem(s,i,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
+	if ( pic == NULL ) return;
 	pic->layer=0x1d;
 	pic->SetOwnSerial(chars[i].serial);
 	pic->SetContSerial(chars[i].serial);
@@ -3852,9 +3844,8 @@ void openspecialbank(int s, int i)
 	} // end of !=-1
 
 	sprintf((char*)temp, "%s's items bank box.", chars[i].name);
-	c=Items->SpawnItem(s,i,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
-	if(c==-1) return;//AntiChrist to preview crashes
-	const P_ITEM pic=MAKE_ITEMREF_LR(c);	// on error return
+	const P_ITEM pic = Items->SpawnItem(s,i,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
+	if(pic == NULL) return;
 	pic->layer=0x1d;
 	pic->SetOwnSerial(chars[i].serial);
 	pic->SetContSerial(chars[i].serial);
@@ -4091,8 +4082,7 @@ void playmonstersound(int monster, int id1, int id2, int sfx)
 
 void addgold(int s, int totgold)
 {
-	int c;
-	c=Items->SpawnItem(s,currchar[s],totgold,"#",1,0x0E,0xED,0,0,1,1);
+	Items->SpawnItem(s,currchar[s],totgold,"#",1,0x0E,0xED,0,0,1,1);
 }
 
 void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist

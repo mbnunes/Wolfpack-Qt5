@@ -1193,7 +1193,7 @@ cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
         */
         // what fur said about the assert only partially applies to this version. Duke
        
-int cAllItems::SpawnItem(UOXSOCKET nSocket,
+P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 					int nAmount, char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
 					unsigned char cColorId1, unsigned char cColorId2,
@@ -1202,7 +1202,7 @@ int cAllItems::SpawnItem(UOXSOCKET nSocket,
 	if (nSocket < 0)
 	{
 		clConsole.send("ERROR: SpawnItem called with bad socket\n");
-		return -1;
+		return NULL;
 	}
 	else
 	{
@@ -1211,17 +1211,17 @@ int cAllItems::SpawnItem(UOXSOCKET nSocket,
 	}
 }
 
-int cAllItems::SpawnItem(UOXSOCKET nSocket, CHARACTER ch,
+P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, CHARACTER ch,
 					int nAmount, char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
 					unsigned char cColorId1, unsigned char cColorId2,
 					int nPack, int nSend)
 {
 	P_ITEM pi=SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
-	if (pi==NULL) return -1;
+	if (pi==NULL) return NULL;
 	if (nSend && nSocket>=0)
 		statwindow(nSocket,ch);
-	return DEREF_P_ITEM(pi);
+	return pi;
 }
 
 P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)

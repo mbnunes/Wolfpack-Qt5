@@ -82,8 +82,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			else
 				amt1=50; 
 			Items->DeleItem(pi_bolts); //-Fraz- delete the bolts when ready 
-			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
-			const P_ITEM npi=MAKE_ITEMREF_LR(c);	// on error return
+			const P_ITEM npi = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
 			if(npi == NULL) return;// crash check
 			npi->weight = 10;
 			npi->amount = amt1;
@@ -817,7 +816,7 @@ void cSkills::TreeTarget(int s)
 		} else
 		{//normal mining skill
 			
-			P_ITEM pi_c = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc),10,"#",1,0x1B,0xE0,0,0,1,1));
+			P_ITEM pi_c = Items->SpawnItem(s,DEREF_P_CHAR(pc),10,"#",1,0x1B,0xE0,0,0,1,1);
 			if(pi_c == NULL) return;//AntiChrist to prevent crashes
 			if (pi_c->amount > 10) sysmessage(s,"You place more logs in your pack.");
 			else sysmessage(s,"You place some logs in your pack.");
@@ -1177,7 +1176,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 					else
 					{
 						sprintf(tmpmsg,"You have cooked the %s,and it smells great.",matname);
-						P_ITEM pi_c = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),piRaw->amount,"#",1,id1,id2,0,0,1,1));
+						P_ITEM pi_c = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),piRaw->amount,"#",1,id1,id2,0,0,1,1);
 						if(pi_c == NULL) return;
 						pi_c->type = 14;
 						RefreshItem(DEREF_P_ITEM(pi_c));
@@ -1553,8 +1552,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			amt=pi->amount;  //-Frazurbluu- changed to reflect current OSI 
 			soundeffect(s,0x02,0x48);
 			sysmessage(s,"You cut some cloth into bandages, and put it in your backpack");
-			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),amt,"#",0,0x0E,0x21,col1,col2,1,1);
-			P_ITEM pi_c = MAKE_ITEM_REF(c);
+			P_ITEM pi_c = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),amt,"#",0,0x0E,0x21,col1,col2,1,1);
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
 			pi_c->weight=10;
@@ -1574,8 +1572,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			else
 				amt=50;
 			soundeffect(s,0x02,0x48);
-			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
-			P_ITEM pi_c = MAKE_ITEM_REF(c);
+			P_ITEM pi_c = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
 			if(pi_c == NULL) return;
 			pi_c->weight=10;
 			pi_c->pileable=1;
@@ -1590,8 +1587,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		{
 			amt=pi->amount;
 			soundeffect(s,0x02,0x48);
-			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"leather piece",0,0x10,0x67,col1,col2,1,1);
-			P_ITEM pi_c = MAKE_ITEM_REF(c);
+			P_ITEM pi_c = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"leather piece",0,0x10,0x67,col1,col2,1,1);
 			if(pi_c == NULL) return;
 			pi_c->weight=100;
 			pi_c->pileable=1;
@@ -2702,8 +2698,7 @@ public:
 	}
 	virtual void createIt(int s)
 	{
-		int c=Items->SpawnItem(s,currchar[s],1,"an axle with gears",1,0x10,0x51,0,0,1,1);
-		if( c == -1 ) return;
+		Items->SpawnItem(s,currchar[s],1,"an axle with gears",1,0x10,0x51,0,0,1,1);
 	}
 };
 
@@ -2734,8 +2729,7 @@ public:
 		//#else
 		//char *pn = (id2==0x4F) ? "clock parts" : "sextant parts";
 		//#endif
-		int c=Items->SpawnItem(s,currchar[s],1,pn,1,0x10,id2,0,0,1,1);
-		if( c == -1 ) return;
+		Items->SpawnItem(s,currchar[s],1,pn,1,0x10,id2,0,0,1,1);
 	}
 };
 
@@ -2751,8 +2745,7 @@ public:
 	virtual bool decide()   {minskill=600; return cTinkerCombine::decide();}
 	virtual void createIt(int s)
 	{
-		int c=Items->SpawnItem(s,currchar[s],1,"clock",0,0x10,0x4B,0,0,1,1);
-		if( c == -1 ) return;
+		Items->SpawnItem(s,currchar[s],1,"clock",0,0x10,0x4B,0,0,1,1);
 	}
 };
 

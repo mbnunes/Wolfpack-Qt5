@@ -233,12 +233,12 @@ public:
 	P_ITEM CreateFromScript(UOXSOCKET s, int itemnum);
 	int  CreateScriptItem(int s, int itemnum, int nSpawned);
 	int  CreateRandomItem(char *sItemList);
-	int  SpawnItem(UOXSOCKET nSocket,
+	P_ITEM  SpawnItem(UOXSOCKET nSocket,
 				int nAmount, char* cName, int nStackable,
 				unsigned char cItemId1, unsigned char cItemId2,
 				unsigned char cColorId1, unsigned char cColorId2,
 				int nPack, int nSend);
-    int  SpawnItem(UOXSOCKET nSocket, CHARACTER ch,
+    P_ITEM  SpawnItem(UOXSOCKET nSocket, CHARACTER ch,
 				int nAmount, char* cName, int nStackable,
 				unsigned char cItemId1, unsigned char cItemId2,
 				unsigned char cColorId1, unsigned char cColorId2,

@@ -98,7 +98,7 @@ public:
 private:
 	char VerLand(int landnum, land_st *land);
 	signed char MultiHeight(P_ITEM pi, short int x, short int y, signed char oldz);
-	int MultiTile(int i, short int x, short int y, signed char oldz);
+	int MultiTile(P_ITEM pi, short int x, short int y, signed char oldz);
 	SI32 VerSeek(SI32 file, SI32 block);
 	char VerTile(int tilenum, tile_st *tile);
 	bool IsTileWet(int tilenum);

@@ -1851,8 +1851,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								for (n=0;n<2;n++)
 								{
 									strcpy((char*)temp,"a blue moongate");
-									c=Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0);
-									P_ITEM pi_c = MAKE_ITEM_REF(c);
+									P_ITEM pi_c = Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0);
 									if(pi_c != NULL)	//AntiChrist - to prevent crashes
 									{
 										pi_c->type=51+n;
@@ -2885,11 +2884,13 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		{
 			//////////// (2) CREATE FOOD ////////////////
 			case 2:
-				j=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x09, 0xD3, 0x00, 0x00, 1, 1 );
-				if(j>-1)//AntiChrist - to prevent crashes
 				{
-					items[j].type=14;
-					RefreshItem(j);
+				P_ITEM pi_j = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x09, 0xD3, 0x00, 0x00, 1, 1 );
+				if(pi_j != NULL)//AntiChrist - to prevent crashes
+				{
+					pi_j->type=14;
+					RefreshItem(pi_j);
+				}
 				}
 				break; // LB crashfix
 			//////////// (3) SUMMON MONSTER ////////////
@@ -4074,7 +4075,7 @@ void cMagic::BuildCannon(int s)
 	soundeffect(s, 0x02, 0x45);
 	soundeffect(s, 0x02, 0x46);
 	
-	P_ITEM pi_k = MAKE_ITEM_REF(Items->SpawnItem(-1,s,1,"#",0,0x0E,0x91,0,0,0,1));
+	P_ITEM pi_k = Items->SpawnItem(-1,s,1,"#",0,0x0E,0x91,0,0,0,1);
 	pi_k->type=15;
 	pi_k->morex=8;
 	pi_k->morey=10;
@@ -4115,7 +4116,7 @@ void cMagic::Gate(UOXSOCKET s)
 			for (n=0;n<2;n++)
 			{
 				strcpy((char*)temp,"a blue moongate");
-				P_ITEM pi_c = MAKE_ITEM_REF(Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0));
+				P_ITEM pi_c = Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0);
 				if(pi_c != NULL)//AntiChrist - to prevent crashes
 				{
 					pi_c->type=51+n;

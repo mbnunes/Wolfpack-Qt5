@@ -284,9 +284,9 @@ void cHouseManager::AddHome(int s, int i)
 		House[houseSize]->LockAmount=lockamount;
 		House[houseSize]->SecureAmount=secureamount;
 	
-		if (id2>=112&&id2<=115) pKey = MAKE_ITEM_REF(Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1));//iron key for tents
-		else if(id2<=0x18) pKey = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1));//Boats -Rusty Iron Key
-		else pKey = MAKE_ITEM_REF(Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1));//gold key for everything else;
+		if (id2>=112&&id2<=115) pKey = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
+		else if(id2<=0x18) pKey = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
+		else pKey = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
 		
 		pKey->more1=pMulti->ser1;//use the house's serial for the more on the key to keep it unique
 		pKey->more2=pMulti->ser2;
@@ -295,7 +295,7 @@ void cHouseManager::AddHome(int s, int i)
 		pKey->type=7;
 		pKey->priv=2; // Newbify key..Ripper
         
-		P_ITEM pKey2 = MAKE_ITEM_REF(Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1));
+		P_ITEM pKey2 = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);
 		P_ITEM bankbox = pc_currchar->GetBankBox();
 		pKey2->more1=pMulti->ser1;
 		pKey2->more2=pMulti->ser2;
@@ -416,7 +416,7 @@ void cHouseManager::AddHome(int s, int i)
 void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 {
 	P_ITEM pHouse = MAKE_ITEM_REF(i);
-	int ii,loopexit=0;
+	int loopexit=0;
 	int x1, y1, x2, y2;
 	unsigned char ser1, ser2, ser3, ser4;
 	int playerCont;
@@ -428,8 +428,8 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 	{
 		Map->MultiArea(pHouse, &x1,&y1,&x2,&y2);
 		
-		ii=Items->SpawnItemBackpack2(s, pHouse->morex, 0);        // need to make before delete
-		if( ii == -1 ) return;
+		P_ITEM pDeed = MAKE_ITEM_REF(Items->SpawnItemBackpack2(s, pHouse->morex, 0));        // need to make before delete
+		if( pDeed == NULL ) return;
 		sprintf((char*)temp, "Demolishing House %s", pHouse->name);
 		sysmessage( s, (char*)temp );
 		ser1 = pHouse->ser1;
@@ -437,12 +437,11 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 		ser3 = pHouse->ser3;
 		ser4 = pHouse->ser4;
 		Items->DeleItem(pHouse);
-		sprintf((char*)temp, "Converted into a %s.", items[ii].name);
+		sprintf((char*)temp, "Converted into a %s.", pDeed->name);
 		sysmessage(s, (char*)temp); 
 		// door/sign delete
 		StartGrid=mapRegions->StartGrid(pc->pos.x, pc->pos.y);
 		getcell=mapRegions->GetCell(pc->pos.x, pc->pos.y);
-		
 		increment=0;
 		ab=0;
 		for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
@@ -466,8 +465,8 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 								pPvDeed->type = 217;
 								pPvDeed->value = 2000;
 								RefreshItem( pPvDeed );
-								Npcs->DeleteChar( DEREF_P_CHAR(mapchar) );
 								sysmessage(s, "Packed up vendor %s.", mapchar->name);
+								Npcs->DeleteChar( DEREF_P_CHAR(mapchar) );
 							}
 						}
 					}

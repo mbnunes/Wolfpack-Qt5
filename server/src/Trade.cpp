@@ -420,8 +420,7 @@ int tradestart(int s, int i)
 		return 0;
 	}
 
-	c = Items->SpawnItem(s2, DEREF_P_CHAR(pc_currchar), 1, "#", 0, 0x1E, 0x5E, 0, 0, 0, 0);
-	P_ITEM pi_ps = MAKE_ITEM_REF(c);
+	P_ITEM pi_ps = Items->SpawnItem(s2, DEREF_P_CHAR(pc_currchar), 1, "#", 0, 0x1E, 0x5E, 0, 0, 0, 0);
 	if(pi_ps == NULL) 
 		return 0;
 	pi_ps->pos = Coord_cl(26, 0, 0);
@@ -433,8 +432,7 @@ int tradestart(int s, int i)
 	if (s2 != INVALID_UOXSOCKET) 
 		sendbpitem(s2, DEREF_P_ITEM(pi_ps));
 
-	c = Items->SpawnItem(s2,i,1,"#",0,0x1E,0x5E,0,0,0,0);
-	P_ITEM pi_pi = MAKE_ITEM_REF(c);
+	P_ITEM pi_pi = Items->SpawnItem(s2,i,1,"#",0,0x1E,0x5E,0,0,0,0);
 	if (pi_pi == NULL) 
 		return 0;
 	pi_pi->pos = Coord_cl(26, 0, 0);
@@ -518,21 +516,24 @@ void clearalltrades()
 
 void trademsg(int s)
 {
-	int cont1, cont2;
+	P_ITEM cont1, cont2;
 	switch(buffer[s][3])
 	{
 	case 0://Start trade - Never happens, sent out by the server only.
 		break;
 	case 2://Change check marks. Possibly conclude trade
-		cont1=calcItemFromSer(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
-		if (cont1>-1) cont2=calcItemFromSer(items[cont1].moreb1, items[cont1].moreb2, items[cont1].moreb3, items[cont1].moreb4); else cont2=-1;
-		if (cont2>-1) // lb crashfix
+		cont1 = FindItemBySerPtr(&buffer[s][4]);
+		if (cont1 != NULL) 
+			cont2 = FindItemBySerial(calcserial(cont1->moreb1, cont1->moreb2, cont1->moreb3, cont1->moreb4)); 
+		else 
+			cont2 = NULL;
+		if (cont2 != NULL) // lb crashfix
 		{
-			items[cont1].morez=buffer[s][11];
-			sendtradestatus(cont1, cont2);
-			if (items[cont1].morez && items[cont2].morez)
+			cont1->morez=buffer[s][11];
+			sendtradestatus(DEREF_P_ITEM(cont1), DEREF_P_ITEM(cont2));
+			if (cont1->morez && cont2->morez)
 			{
-				dotrade(cont1, cont2);
+				dotrade(DEREF_P_ITEM(cont1), DEREF_P_ITEM(cont2));
 				endtrade(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
 			}
 		}

@@ -261,7 +261,7 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 3, 0);
 		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 6, 0);
 		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 9, 0);
-		pItem = MAKE_ITEM_REF(Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"bone powder",1,0x0F,0x8F,0,0,1,1));
+		pItem = Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"bone powder",1,0x0F,0x8F,0,0,1,1);
 		if(pItem == NULL) return;//AntiChrist to preview crashes
 		pItem->morex = 666;
 		pItem->more1=1; // this will fill more with info to tell difference between ash and bone
@@ -272,14 +272,14 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 	{
 		if(pMat->more1==1)
 		{
-			pItem = MAKE_ITEM_REF(Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x82,0,0,1,1));
+			pItem = Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x82,0,0,1,1);
 			if(pItem==NULL) return;//AntiChrist to preview crashes
 			pItem->value=15;
 			pItem->morex=666;
 		}
 		else
 		{
-			pItem = MAKE_ITEM_REF(Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x7D,0,0,1,1));
+			pItem = Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x7D,0,0,1,1);
 			if(pItem==NULL) return;//AntiChrist to preview crashes
 			pItem->value=10;
 			pItem->morex=666;

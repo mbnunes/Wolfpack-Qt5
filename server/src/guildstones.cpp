@@ -770,16 +770,16 @@ void cGuilds::StoneMove(int s)
 	int stone = calcItemFromSer( guilds[guildnumber].stone );
 	if (stone==-1) return;
 															// Get stone
-	int newstone;											// For the new stone
+	P_ITEM newstone;										// For the new stone
 	char stonename[80];                                     // And for its name
 
 	sprintf(stonename,"a guildstone teleporter for %s",guilds[guildnumber].name);
 															// Give it a name
 	newstone = Items->SpawnItem(s, currchar[s], 1, stonename, 0, 0x18, 0x69, 0, 0, 1, 1);	// Spawn the stone in the masters backpack
-	if (newstone==-1) return; //AntiChrist
-	items[newstone].type=202;								// Set Guildstone to Type 'Guild Related'
-	guilds[guildnumber].stone=items[newstone].serial;		// Remember its serial number
-	Items->DeleItem(stone);										// Remove the guildstone
+	if (newstone == NULL) return; //AntiChrist
+	newstone->type=202;										// Set Guildstone to Type 'Guild Related'
+	guilds[guildnumber].stone=newstone->serial;				// Remember its serial number
+	Items->DeleItem(stone);									// Remove the guildstone
 	sysmessage(s,"Take care of that stone!");				// And tell him also
 	return;													// Bye bye
 }

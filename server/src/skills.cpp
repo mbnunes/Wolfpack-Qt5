@@ -1044,8 +1044,7 @@ void cSkills::PotionToBottle(CHARACTER s, int mortar)
 		return;
 	}
 	
-	int i = Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0, id1, id2,0,0,1,0);
-	P_ITEM pi_potion = MAKE_ITEM_REF(i);
+	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0, id1, id2,0,0,1,0);
 	if (pi_potion == NULL) 
 		return;
 	
@@ -2303,21 +2302,21 @@ void cSkills::TDummy(int s)
 
 void CollectAmmo(int s, int a, int b)
 {
-	int c; 
 	
 	if (a)
 	{
-		c=Items->SpawnItem(s,currchar[s],a,"#",1,0x0F,0x3F,0,0,1,1);
-		items[c].att=0;
-		sysmessage(s,"You collect the arrows.");
+		P_ITEM pi = Items->SpawnItem(s,currchar[s],a,"#",1,0x0F,0x3F,0,0,1,1);
+		if(pi == NULL) return;
+		pi->att=0;
+		sysmessage(s, "You collect the arrows.");
 	}
 	
 	if (b)
 	{
-		c=Items->SpawnItem(s,currchar[s],b,"#",1,'\x1B','\xFB',0,0,1,1);
-		if(c==-1) return;//AntiChrist to preview crashes
-		items[c].att=0;
-		sysmessage(s,"You collect the bolts.");
+		P_ITEM pi = Items->SpawnItem(s,currchar[s],b,"#",1,'\x1B','\xFB',0,0,1,1);
+		if(pi == NULL) return;
+		pi->att=0;
+		sysmessage(s, "You collect the bolts.");
 	}
 }
 
@@ -2344,16 +2343,16 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 	{
 		if(pButte->more1>0)
 		{
-			c=Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more1/2,"#",1,0x0F,0x3F,0,0,1,0);
-			if(c==-1) return;
-			RefreshItem(c);
+			P_ITEM pi = Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more1/2,"#",1,0x0F,0x3F,0,0,1,0);
+			if(pi == NULL) return;
+			RefreshItem(pi);
 		}
 		
 		if(pButte->more2>0)
 		{
-			c=Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more2/2,"#",1,0x1B,0xFB,0,0,1,0);
-			if(c==-1) return;
-			RefreshItem(c);
+			P_ITEM pi = Items->SpawnItem(s1,DEREF_P_CHAR(pc_currchar),pButte->more2/2,"#",1,0x1B,0xFB,0,0,1,0);
+			if(pi == NULL) return;
+			RefreshItem(pi);
 		}
 		
 		i=0;

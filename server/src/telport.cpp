@@ -411,7 +411,7 @@ void monstergate(int s, int x)
 			if (pBackpack == NULL)
 			{
 				scpMark m=pScp->Suspend();
-				pBackpack = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(DEREF_P_CHAR(pc_s)),s,1,"#",0,0x0E,0x75,0,0,0,0));
+				pBackpack = Items->SpawnItem(calcSocketFromChar(DEREF_P_CHAR(pc_s)),s,1,"#",0,0x0E,0x75,0,0,0,0);
 				if (pBackpack == NULL)
 					return;
 				pc_s->packitem = pBackpack->serial;
@@ -477,7 +477,7 @@ void monstergate(int s, int x)
 			if (!(strcmp("GOLD", (char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				pRetitem = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(s),s,1,"#",1,0x0E,0xED,0,0,1,0));
+				pRetitem = Items->SpawnItem(calcSocketFromChar(s),s,1,"#",1,0x0E,0xED,0,0,1,0);
 				if(pRetitem == NULL) return;
 				pScp->Resume(m);
 

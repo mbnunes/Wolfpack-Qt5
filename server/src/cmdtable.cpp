@@ -2170,8 +2170,7 @@ void command_tilew(UOXSOCKET s)
 					{
                       for (int y=makenumber(5);y<=makenumber(6);y++)
 					  {
-                         int a=Items->SpawnItem(-1,s, 1, "#", pile, addid1[s], addid2[s], 0, 0, 0,0);
-						 P_ITEM pi_a = MAKE_ITEM_REF(a);
+                         P_ITEM pi_a = Items->SpawnItem(-1,s, 1, "#", pile, addid1[s], addid2[s], 0, 0, 0,0);
 						 if(pi_a != NULL) //AntiChrist - to preview crashes
 						 {
 							 pi_a->priv=0; //Make them not decay

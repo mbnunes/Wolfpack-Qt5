@@ -704,7 +704,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 	P_ITEM pPack = Packitem(pc);
 	if (pPack == NULL)
 	{
-		pPack = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(c),c,1,"#",0,0x0E,0x75,0,0,0,0));
+		pPack = Items->SpawnItem(calcSocketFromChar(c),c,1,"#",0,0x0E,0x75,0,0,0,0);
 		if (pPack == NULL)
 			return;
 		pc->packitem = pPack->serial; 
@@ -1463,31 +1463,31 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 	pi1->startDecay();
 	RefreshItem(pi1);
 
-	int c;
+//	int c;
 	if (feat)
 	{
-		c=Items->SpawnItem(s,cc,feat,"feather",1,0x1B,0xD1,0,0,1,1);
-		if(c==-1) return;
+		P_ITEM pi = Items->SpawnItem(s,cc,feat,"feather",1,0x1B,0xD1,0,0,1,1);
+		if(pi == NULL) return;
 		sysmessage(s,"You pluck the bird and get some feathers.");
 	}
 	if (ribs)
 	{
-		c=Items->SpawnItem(s,cc,ribs,"raw rib",1,0x09,0xF1,0,0,1,1);
-		if(c==-1) return;
+		P_ITEM pi = Items->SpawnItem(s,cc,ribs,"raw rib",1,0x09,0xF1,0,0,1,1);
+		if(pi == NULL) return;
 		sysmessage(s,"You carve away some meat.");
 	}
 
 	if (hides)
 	{
-		c=Items->SpawnItem(s,cc,hides,"hide",1,0x10,0x78,0,0,1,1);
-		if(c==-1) return;
+		P_ITEM pi = Items->SpawnItem(s,cc,hides,"hide",1,0x10,0x78,0,0,1,1);
+		if(pi == NULL) return;
 		sysmessage(s,"You skin the corpse and get the hides.");
 	}
 
 	if (fur)
 	{	// animals with fur now yield hides (OSI). Duke, 7/17/00
-		c=Items->SpawnItem(s,cc,fur,"hide",1,0x10,0x78,0,0,1,1);
-		if(c==-1) return;
+		P_ITEM pi = Items->SpawnItem(s,cc,fur,"hide",1,0x10,0x78,0,0,1,1);
+		if(pi == NULL) return;
 		sysmessage(s,"You skin the corpse and get the hides.");
 /*		c=Items->SpawnItem(s,fur,"fur",1,0x11,0xFA,0,0,1,1);
 		if(c==-1) return;
@@ -1496,14 +1496,14 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 
 	if (wool)
 	{
-		c=Items->SpawnItem(s,cc,wool,"unspun wool",1,0x0D,0xF8,0,0,1,1);
-		if(c==-1) return;
+		P_ITEM pi = Items->SpawnItem(s,cc,wool,"unspun wool",1,0x0D,0xF8,0,0,1,1);
+		if(pi == NULL) return;
 		sysmessage(s, "You skin the corpse and get some unspun wool.");
 	}
 	if (bird)
 	{
-		c=Items->SpawnItem(s,cc,bird,"raw bird",1,0x09,0xB9,0,0,1,1);
-		if(c==-1) return;
+		P_ITEM pi = Items->SpawnItem(s,cc,bird,"raw bird",1,0x09,0xB9,0,0,1,1);
+		if(pi == NULL) return;
 		sysmessage(s, "You carve away some raw bird.");
 	}
 	Weight->NewCalc(cc);
@@ -1538,9 +1538,8 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		criminal(cc);
 		//create the Head
 		sprintf((char*)temp,"the head of %s",pi3->name2);
-		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
-		P_ITEM pi=MAKE_ITEMREF_LR(c);
-		if(c==-1) return;
+		P_ITEM pi = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
+		if(pi == NULL) return;
 		pi->SetContSerial(pi3->serial);
 		pi->layer=0x01;
 		pi->att=5;
@@ -1551,9 +1550,8 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 
 		//create the Body
 		sprintf((char*)temp,"the heart of %s",pi3->name2);
-		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1C,0xED,0,0,0,0);
-		P_ITEM pi4=MAKE_ITEMREF_LR(c);
-		if(c==-1) return;
+		P_ITEM pi4 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1C,0xED,0,0,0,0);
+		if(pi4 == NULL) return;
 		pi4->SetContSerial(pi3->serial);
 		pi4->layer=0x01;
 		pi4->att=5;
@@ -1561,9 +1559,8 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 
 		//create the Heart
 		sprintf((char*)temp,"the body of %s",pi3->name2);
-		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
-		P_ITEM pi5=MAKE_ITEMREF_LR(c);
-		if(c==-1) return;
+		P_ITEM pi5 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
+		if(pi5 == NULL) return;
 		pi5->SetContSerial(pi3->serial);
 		pi5->layer=0x01;
 		pi5->att=5;
@@ -1571,9 +1568,8 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 
 		//create the Left Arm
 		sprintf((char*)temp,"the left arm of %s",pi3->name2);
-		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
-		P_ITEM pi6=MAKE_ITEMREF_LR(c);
-		if(c==-1) return;
+		P_ITEM pi6 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
+		if(pi6==NULL) return;
 		pi6->SetContSerial(pi3->serial);
 		pi6->layer=0x01;
 		pi6->att=5;
@@ -1581,9 +1577,8 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 
 		//create the Right Arm
 		sprintf((char*)temp,"the right arm of %s",pi3->name2);
-		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
-		P_ITEM pi7=MAKE_ITEMREF_LR(c);
-		if(c==-1) return;//AntiChrist to preview crashes
+		P_ITEM pi7 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
+		if(pi7==NULL) return;//AntiChrist to preview crashes
 		pi7->SetContSerial(pi3->serial);
 		pi7->layer=0x01;
 		pi7->att=5;
@@ -1591,9 +1586,8 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 
 		//create the Left Leg
 		sprintf((char*)temp,"the left leg of %s",pi3->name2);
-		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
-		P_ITEM pi8=MAKE_ITEMREF_LR(c);
-		if(c==-1) return;//AntiChrist to preview crashes
+		P_ITEM pi8 = Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
+		if(pi8 == NULL) return;//AntiChrist to preview crashes
 		pi8->SetContSerial(pi3->serial);
 		pi8->layer=0x01;
 		pi8->att=5;
@@ -1601,9 +1595,8 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 
 		//create the Rigth Leg
 		sprintf((char*)temp,"the right leg of %s",pi3->name2);
-		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA4,0,0,0,0);
-		P_ITEM pi9=MAKE_ITEMREF_LR(c);
-		if(c==-1) return;
+		P_ITEM pi9=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA4,0,0,0,0);
+		if(pi9==NULL) return;
 		
 		pi9->SetContSerial(pi3->serial);
 		pi9->layer=0x01;
@@ -2736,9 +2729,8 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	P_ITEM pi3=NULL;
 	if(os!=-1)
 	{
-		key=Items->SpawnItem(os, own, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else
-		if(key==-1) return;
-		pi3=MAKE_ITEMREF_LR(key);
+		pi3 = Items->SpawnItem(os, own, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else
+		if(pi3 == NULL) return;
 	}
 	else
 	{
@@ -3134,8 +3126,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi1->color1=c<<8; // set new color to yellow
 	pi1->color2=c%256;
 
-	c=Items->SpawnItem(s,cc,1,"glower",0,0x16,0x47,0,0,0,1); // new client 1.26.2 glower object
-	P_ITEM pi2=MAKE_ITEM_REF(c);
+	P_ITEM pi2 = Items->SpawnItem(s,cc,1,"glower",0,0x16,0x47,0,0,0,1); // new client 1.26.2 glower object
 
 	if(pi2 == NULL) return;
 	pi2->dir=29; // set light radius maximal
@@ -3150,7 +3141,8 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 		pi2->pos.x=pi1->pos.x;
 		pi2->pos.y=pi1->pos.y;
 		pi2->pos.z=pi1->pos.z;
-	} else // if equipped -> place lightsource at player ( height= approx hand level )
+	} 
+	else // if equipped -> place lightsource at player ( height= approx hand level )
 	{
 		pi2->pos.x=pc_currchar->pos.x;
 		pi2->pos.y=pc_currchar->pos.y;

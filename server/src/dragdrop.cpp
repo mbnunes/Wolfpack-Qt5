@@ -702,9 +702,8 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	
 	if (pi->id() == 0x14F0 && pi->type == 1000)
 	{
-		 int n=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),value,"#",1,0x0E,0xED,0,0,0,0);
-	     if(n==-1) return false;
-	     const P_ITEM pi_n=MAKE_ITEMREF_LRV(n,false);
+		 const P_ITEM pi_n = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar),value,"#",1,0x0E,0xED,0,0,0,0);
+	     if(pi_n == NULL) return false;
 		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name, value);
 		 npctalk(s,t,(char*)temp,0);
 		 bankbox->AddItem(pi_n);
