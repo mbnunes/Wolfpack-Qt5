@@ -70,6 +70,8 @@ public:
 
 	// Getters
 	bool	deleteSource()	const { return deletesource_; }
+	QValueVector< resourcespec_st > resourceSpecs() const { return resourcespecs_; }
+	QString	name()	const { return name_; }
 
 	bool	hasArtId( UINT16 id );
 	bool	hasMapId( UINT16 id );

@@ -42,6 +42,7 @@
 #include "qstringlist.h"
 #include "qdom.h"
 #include "qptrlist.h"
+#include "qvaluevector.h"
 
 // Forward declaration
 class cMakeMenu;
@@ -77,24 +78,23 @@ class cUseItem : public cDefinable
 {
 public:
 	cUseItem( const QDomElement &Tag );
+	cUseItem( QString name, QValueVector< UINT16 > ids, QValueVector< UINT16 > colors, UINT16 amount );
 	~cUseItem() {}
 
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	QValueList< UINT16 >	id()		{ return id_; }
+	QValueVector< UINT16 >	id()		{ return id_; }
 	QString		name()		{ return name_; }
-	UINT16		colormin()	{ return colormin_; }
-	UINT16		colormax()	{ return colormax_; }
+	QValueVector< UINT16 >	colors()	{ return colors_; }
 	UINT16		amount()	{ return amount_; }
 
 	bool		hasEnough( cItem* pBackpack );
 private:
-	QValueList< UINT16 >	id_;
+	QValueVector< UINT16 >	id_;
 	QString		name_;
-	UINT16		colormin_;
-	UINT16		colormax_;
+	QValueVector< UINT16 >	colors_;
 	UINT16		amount_;
 };
 
@@ -155,6 +155,7 @@ public:
 
 	// Setters
 	void		setName( QString data )		{ name_ = data; }
+	void		appendUseItem( cUseItem* pui ) { useitems_.append( pui ); }
 
 	void		execute( cUOSocket* socket );
 

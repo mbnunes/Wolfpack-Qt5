@@ -36,6 +36,7 @@
 #include "targetrequests.h"
 #include "wpdefmanager.h"
 #include "charsmgr.h"
+#include "resources.h"
 
 #include "debug.h"
 
@@ -104,14 +105,20 @@ cUseItem::cUseItem( const QDomElement &Tag )
 		}
 	}
 	amount_ = hex2dec( Tag.attribute( "amount" ) ).toUShort();
-	colormin_ = 0;
-	colormax_ = 0;
 	if( Tag.hasAttribute( "inherit" ) )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_USEITEM, Tag.attribute( "inherit" ) );
 		applyDefinition( *DefSection );
 	}
 	applyDefinition( Tag );
+}
+
+cUseItem::cUseItem( QString name, QValueVector< UINT16 > ids, QValueVector< UINT16 > colors, UINT16 amount )
+{
+	this->amount_ = amount;
+	this->colors_ = colors;
+	this->id_ = ids;
+	name_ = name;
 }
 
 void cUseItem::processNode( const QDomElement &Tag )
@@ -158,15 +165,55 @@ void cUseItem::processNode( const QDomElement &Tag )
 
 	else if( TagName == "color" )
 	{
-		QString color = Tag.nodeValue();
-		if( color.contains( "-" ) )
+		QString Value = Tag.text();
+		QDomNode chNode = Tag.firstChild();
+		while( !chNode.isNull() )
 		{
-			QStringList colors = QStringList::split( "-", color );
-			colormin_ = hex2dec( colors[0] ).toUShort();
-			colormax_ = hex2dec( colors[1] ).toUShort();
+			if( chNode.isElement() )
+			{
+				QDomElement chTag = chNode.toElement();
+				QString chTagName = chTag.nodeName();
+				QString chValue = getNodeValue( chTag );
+				if( chTagName == "getlist" && chTag.hasAttribute( "id" ) )
+				{
+					QStringList list = DefManager->getList( chTag.attribute( "id" ) );
+					QStringList::const_iterator it = list.begin();
+					while( it != list.end() )
+					{
+						colors_.push_back( hex2dec((*it)).toUShort() );
+						++it;
+					}
+				}
+			}
+			chNode = chNode.nextSibling();
+		}
+
+		QStringList colstr;
+		if( Value.contains( "," ) )
+		{
+			colstr = QStringList::split( ",", Value );
 		}
 		else
-			colormin_ = Value.toUShort();
+			colstr.push_back( Value );
+		
+		QStringList::const_iterator it = colstr.begin();
+		while( it != colstr.end() )
+		{
+			if( (*it).contains( "-" ) )
+			{
+				QStringList cols = QStringList::split( "-", (*it) );
+				UINT16 mincol = hex2dec(cols[0]).toUShort();
+				UINT16 maxcol = hex2dec(cols[1]).toUShort();
+				while( mincol <= maxcol )
+				{
+					colors_.push_back( mincol );
+					++mincol;
+				}
+			}
+			else
+				colors_.push_back( hex2dec((*it)).toUShort() );
+			++it;
+		}
 	}
 }
 
@@ -175,19 +222,19 @@ bool cUseItem::hasEnough( cItem* pBackpack )
 	// the next loop will search for a the item in a range of colors.
 	// it is a do-while, cause it shall run once through the loop if
 	// colormin holds the one color and colormax == 0!
-	UINT16 color = this->colormin();
+	QValueVector< UINT16 >::iterator color = colors_.begin();
 	UINT16 amount = 0;
-	do
+	while( color != colors_.end() )
 	{
-		QValueList< UINT16 > ids = this->id();
-		QValueListIterator< UINT16 > it = ids.begin();
+		QValueVector< UINT16 > ids = this->id();
+		QValueVector< UINT16 >::iterator it = ids.begin();
 		while( it != ids.end() )
 		{
-			amount += pBackpack->CountItems( (*it), color );
+			amount += pBackpack->CountItems( (*it), (*color) );
 			++it;
 		}
 		++color;
-	} while( color <= this->colormax() );
+	}
 
 	return ( amount >= this->amount() );
 }
@@ -243,7 +290,7 @@ void cMakeSection::processNode( const QDomElement &Tag )
 	QString Value = getNodeValue( Tag );
 	cMakeAction::WPACTIONTYPE type = baseAction()->type();
 
-	if( TagName == "makeitem" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::AMOUNT_SECTIONS ) )
+	if( TagName == "makeitem" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::AMOUNT_SECTIONS || type == cMakeAction::RESOURCE_SECTIONS ) )
 	{
 		cMakeItem* pMakeItem = new cMakeItem( Tag );
 		makeitems_.append( pMakeItem );
@@ -302,26 +349,27 @@ void	cMakeSection::useResources( cItem* pBackpack )
 		// the next loop will use the items up in a range of colors.
 		// it is a do-while, cause it shall run once through the loop if
 		// colormin holds the one color and colormax == 0!
-		UINT16 color = uiit.current()->colormin();
+		QValueVector< UINT16 > colors = uiit.current()->colors();
+		QValueVector< UINT16 >::iterator color = colors.begin();
 		UINT16 amount = uiit.current()->amount();
 		UINT16 curramount = 0;
-		do
+		while( color != colors.end() && amount > 0 )
 		{
-			QValueList< UINT16 > ids = uiit.current()->id();
-			QValueListIterator< UINT16 > it = ids.begin();
+			QValueVector< UINT16 > ids = uiit.current()->id();
+			QValueVector< UINT16 >::iterator it = ids.begin();
 			while( it != ids.end() && amount > 0 )
 			{
 				// remove all available items or just the amount thats left
-				curramount = pBackpack->CountItems( (*it), color );
+				curramount = pBackpack->CountItems( (*it), (*color) );
 				if( curramount > amount )
 				curramount = amount;
-				pBackpack->DeleteAmount( curramount, (*it), color );
+				pBackpack->DeleteAmount( curramount, (*it), (*color) );
 
 				amount -= curramount;
 				++it;
 			}
 			++color;
-		} while( color <= uiit.current()->colormax() && amount > 0 );
+		}
 
 		++uiit;
 	}
@@ -455,7 +503,6 @@ void cMakeSection::execute( cUOSocket* socket )
 	if( baseaction_->sound() > 0 )
 		pChar->soundEffect( baseaction_->sound() );
 
-	// TODO rank messages
 	QString Message;
 
 	switch( rank )
@@ -575,6 +622,62 @@ void cMakeAction::processNode( const QDomElement &Tag )
 					}
 				}
 				++it;
+			}
+		}
+		else if( type_ == RESOURCE_SECTIONS && Tag.hasAttribute( "resource" ) )
+		{
+			cAllResources::iterator found = cAllResources::getInstance()->find( Tag.attribute( "resource" ) );
+			if( found != cAllResources::getInstance()->end() )
+			{
+				cResource* pResource = found->second;
+				if( pResource )
+				{
+					QValueVector< cResource::resourcespec_st > resourcespecs = pResource->resourceSpecs();
+					QValueVector< cResource::resourcespec_st >::iterator it = resourcespecs.begin();
+					while( it != resourcespecs.end() )
+					{
+						cResource::resourcespec_st item = (*it);
+						QString name;
+						UINT16 amount = 1;
+						QDomNode childNode = Tag.firstChild();
+						while( !childNode.isNull() )
+						{
+							if( childNode.isElement() )
+							{
+								QDomElement childTag = childNode.toElement(); 
+								if( childTag.nodeName() == "useitem" )
+									amount = hex2dec( childTag.attribute( "amount" ) ).toUShort();
+							}
+							childNode = childNode.nextSibling();
+						}
+
+						if( item.name.isNull() )
+							name = pResource->name();
+						else
+							name = QString("%1 %2").arg( item.name ).arg( pResource->name() );
+
+						cUseItem* pUseItem = new cUseItem( name, item.ids, item.colors, amount );
+						cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+						if( pMakeSection )
+						{
+							if( !pUseItem )
+								delete pMakeSection;
+							else
+							{
+								pMakeSection->setName( item.name );
+								pMakeSection->appendUseItem( pUseItem );
+							}
+						}
+						else
+						{
+							if( pUseItem )
+								delete pUseItem;
+						}
+
+
+						++it;
+					}
+				}
 			}
 		}
 	}
