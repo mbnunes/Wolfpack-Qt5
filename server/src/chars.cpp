@@ -2243,26 +2243,28 @@ void cChar::kill()
 		}
 	}
 	
-	// Put objects on corpse
-	ContainerContent::const_iterator it = content_.begin();
-	bool resetShop = false;
+	std::vector< P_ITEM > equipment;
 
-	for ( ; it != content_.end(); ++it )
+	// Check the Equipment and Unequip if neccesary
+	ContainerContent::const_iterator iter;
+	for ( iter = content_.begin(); iter != content_.end(); iter++ )
 	{
-		pi_j = *it;
-		// for BONUS ITEMS - remove bonus
-		removeItemBonus( pi_j );
+		P_ITEM pi_j = iter.data();
+
+		if( pi_j )
+			equipment.push_back( pi_j );
+	}
+
+	for( std::vector< P_ITEM >::iterator it = equipment.begin(); it != equipment.end(); ++it )
+	{
+		P_ITEM pi_j = *it;
+
+		if( !pi_j->newbie() )
+			removeItemBonus( pi_j );
 
 		// unequip trigger...
-		if( ( pi_j->container() == this ) && ( pi_j->layer() != 0x0B ) && ( pi_j->layer() != 0x10 ) )
+		if( pi_j->layer() != 0x0B && pi_j->layer() != 0x10 )
 		{	// Let's check all items, except HAIRS and BEARD
-			// Ripper...so order/chaos shields disappear when on corpse backpack.
-			if( pi_j->id() == 0x1BC3 || pi_j->id() == 0x1BC4 )
-			{
-				soundEffect( 0x01FE );
-				staticeffect( this, 0x37, 0x2A, 0x09, 0x06 );
-				Items->DeleItem( pi_j );
-			}
 
 			if( pi_j->type() == 1 && pi_j->layer() != 0x1A && pi_j->layer() != 0x1B && pi_j->layer() != 0x1C && pi_j->layer() != 0x1D )
 			{   // if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
@@ -2291,13 +2293,6 @@ void cChar::kill()
 					}
 				}
 			}
-			// if it's a NPC vendor special container
-			else if( pi_j->layer() == 0x1A )
-			{
-				// This seems odd to me
-				// but i converted it from the old version
-				resetShop = true;
-			}
 			// if it's a normal item but ( not newbie and not bank items )
 			else if ( !pi_j->newbie() && pi_j->layer() != 0x1D )
 			{
@@ -2322,9 +2317,6 @@ void cChar::kill()
 	dAction.setSerial( serial );
 	dAction.setCorpse( corpse->serial );
 
-	cUOTxClearBuy rShop;
-	rShop.setSerial( serial );
-
 	cUOTxRemoveObject rObject;
 	rObject.setSerial( serial );
 
@@ -2335,9 +2327,6 @@ void cChar::kill()
 				mSock->send( &dAction );
 
 			mSock->send( &rObject );
-
-			if( resetShop )
-				mSock->send( &rShop );
 		}
 	
 	corpse->update();
