@@ -40,21 +40,21 @@ if action == 1:
 	wolfpack.queueaction( RELOAD_SCRIPTS )
 	sys.exit()
 elif action == 2:
-        print "Content-type: text/html\n\n"
-        print "Server is reloading Python scripts, you will have to re-login after reloading is done."
-        wolfpack.queueaction( RELOAD_PYTHON )
-        sys.exit()
+	print "Content-type: text/html\n\n"
+	print "Server is reloading Python scripts, you will have to re-login after reloading is done."
+	wolfpack.queueaction( RELOAD_PYTHON )
+	sys.exit()
 elif action == 3:
-        wolfpack.queueaction( RELOAD_ACCOUNTS )
+	wolfpack.queueaction( RELOAD_ACCOUNTS )
 elif action == 4:
-        wolfpack.queueaction( RELOAD_CONFIGURATION )
+	wolfpack.queueaction( RELOAD_CONFIGURATION )
 elif action == 5:
-        wolfpack.queueaction( SAVE_WORLD )
+	wolfpack.queueaction( SAVE_WORLD )
 elif action == 6:
-        print "Content-type: text/html\n\n"
-        print "Server is shutting down, remote admin stopped."
-        _wolfpack.console.shutdown()
-        sys.exit()
+	print "Content-type: text/html\n\n"
+	print "Server is shutting down, remote admin stopped."
+	_wolfpack.console.shutdown()
+	sys.exit()
 
 content = """
 <p>
