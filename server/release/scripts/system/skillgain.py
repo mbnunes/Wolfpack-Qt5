@@ -256,7 +256,7 @@ def onSkillGain(char, skill, lower, higher, success):
 
 	# Introduce a new "Gain Factor"
 	# There is also a 1% minimum chance for gain
-	gainchance = gainchance * info[SKILL_GAINFACTOR])
+	gainchance = gainchance * info[SKILL_GAINFACTOR]
 	
 	# Multiply with another gainfactor
 	gainchance = gainchance * GLOBAL_FACTOR
