@@ -94,12 +94,12 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 			// <lock />
 			else if( TagName == "lock" )
 			{
-				this->magic = 4;
+				nItem->magic = 4;
 			}
 
 			// <secure />
 			else if( TagName == "secure" )
-				this->magic = 3;
+				nItem->magic = 3;
 
 			// <position x="1" y="5" z="20" />
 			else if( TagName == "position" )

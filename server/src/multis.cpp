@@ -281,14 +281,20 @@ bool cMulti::isFriend(P_CHAR pc)
 
 void cMulti::addBan(P_CHAR pc)
 {
-	bans_.push_back(pc->serial);
-	sort(bans_.begin(), bans_.end());
+	if( find(bans_.begin(), bans_.end(), pc->serial) == bans_.end() )
+	{
+		bans_.push_back(pc->serial);
+		sort(bans_.begin(), bans_.end());
+	}
 }
 
 void cMulti::addFriend(P_CHAR pc)
 {	
-	friends_.push_back(pc->serial);
-	sort(friends_.begin(), friends_.end());
+	if( find(friends_.begin(), friends_.end(), pc->serial) == friends_.end() )
+	{
+		friends_.push_back(pc->serial);
+		sort(friends_.begin(), friends_.end());
+	}
 }
 
 void cMulti::removeBan(P_CHAR pc)
@@ -491,6 +497,86 @@ public:
 	}
 };
 
+class cMultiAddToListTarget: public cTargetRequest
+{
+private:
+	SERIAL	multi_;
+	bool	banlist_;
+public:
+	cMultiAddToListTarget( SERIAL multiserial, bool banlist = false ) 
+	{ 
+		multi_ = multiserial;
+		banlist_ = banlist; 
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
+		if( !pMulti || !socket->player() )
+		{
+			socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
+			return true;
+		}
+
+		if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
+			return true;
+
+		P_CHAR pc = FindCharBySerial( target->serial() );
+		if( !pc || !pc->socket() )
+		{
+			socket->sysMessage( tr( "This is not a valid target!" ) );
+			return false;
+		}
+		
+		if( banlist_ )
+		{
+			pMulti->addBan( pc );
+		}
+		else
+		{
+			pMulti->addFriend( pc );
+		}
+		socket->sysMessage( tr("Select another char to add to the %1!").arg( banlist_ ? tr("list of banned") : tr("list of friends") ) );
+		return false;
+	}
+};
+
+class cMultiChangeLockTarget: public cTargetRequest
+{
+private:
+	SERIAL multi_;
+public:
+	cMultiChangeLockTarget( SERIAL multiserial ) { multi_ = multiserial; }
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
+		if( !pMulti || !socket->player() )
+		{
+			socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
+			return true;
+		}
+
+		if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
+			return true;
+
+		P_ITEM pi = FindItemBySerial( target->serial() );
+		if( !pi )
+		{
+			socket->sysMessage( tr( "This is not a valid target!" ) );
+			return false;
+		}
+		
+		if( pi->multis == pMulti->serial && pi->type() != 117 )
+		{
+			pi->magic = (pi->magic == 4 && pi->type() != 222) ? 0 : 4;
+			pi->update();
+		}
+		socket->sysMessage( tr("Select another item to lock/unlock!") );
+		return false;
+	}
+};
+
 cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 {
 	P_CHAR pChar = FindCharBySerial( charSerial );
@@ -666,7 +752,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			register unsigned int i = (page_-banpages-2) * 10;
 			while( i < (page_-banpages-1) * 10 && i < friends.size() )
 			{
-				UI32 offset = i - (page_-2) * 10;
+				UI32 offset = i - (page_-banpages-2) * 10;
 				addText( 60, 140+offset*20, QString(friends[ i ]->name.c_str()), 0x834 );
 				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i+bans.size() ); 
 				++i;
@@ -675,6 +761,13 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			addText( 60, 370, tr("Add friend"), 0x834 );
 			addButton( 20, 370, 0xFA5, 0xFA7, 8 );
 		}
+		addText( 310, 400, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// prev page
+		if( page_ > 1 )
+			addPageButton( 270, 400, 0x0FC, 0x0FC, page_-1 );
+		// next page
+		if( page_ < pages )
+			addPageButton( 290, 400, 0x0FA, 0x0FA, page_+1 );
 		++page_;
 	}
 }
@@ -719,29 +812,44 @@ void cMultiGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 	else if( choice.button == 3 || choice.button == 4 )
 	{
-		socket->sysMessage( tr("Select a person to make %1 of this house").arg( choice.button == 3 ? tr("owner") : tr("co-owner") ) );
+		socket->sysMessage( tr("Select a person to make %1 of this house!").arg( choice.button == 3 ? tr("owner") : tr("co-owner") ) );
 		cSetMultiOwnerTarget* pTargetRequest = new cSetMultiOwnerTarget( multi_, choice.button == 4 );
 		socket->attachTarget( pTargetRequest );
 	}	
 	else if( choice.button == 5 )
 	{
-		// call lock/unlock target request cMultiChangeLockRequest
-
+		socket->sysMessage( tr("Select an item to lock / unlock!") );
+		cMultiChangeLockTarget* pTargetRequest = new cMultiChangeLockTarget( multi_ );
+		socket->attachTarget( pTargetRequest );
 	}
 	else if( choice.button == 6 )
 	{
 		pMulti->toDeed( socket );
 	}
-
+	else if( choice.button == 7 )
+	{
+		socket->sysMessage( tr("Select a char to add to the list of banned!" ) );
+		cMultiAddToListTarget* pTargetRequest = new cMultiAddToListTarget( multi_, true );
+		socket->attachTarget( pTargetRequest );
+	}
+	else if( choice.button == 8 )
+	{
+		socket->sysMessage( tr("Select a char to add to the list of friends!" ) );
+		cMultiAddToListTarget* pTargetRequest = new cMultiAddToListTarget( multi_ );
+		socket->attachTarget( pTargetRequest );
+	}
 	else if( choice.button >= 10 )
 	{
 		if( choice.button < 10 + bans.size() )
 		{
-			// ban button pressed
+			pMulti->removeBan( bans[ choice.button - 10 ] );
 		}
 		else if( choice.button < 10 + bans.size() + friends.size() )
 		{
-			// friends button pressed
+			pMulti->removeFriend( friends[ choice.button - 10 - bans.size() ] );
 		}
+		cMultiGump* pGump = new cMultiGump( char_, multi_ );
+		socket->send( pGump );
+		return;
 	}
 }
