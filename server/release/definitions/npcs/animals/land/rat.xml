@@ -11,39 +11,38 @@
 	<!-- Rat -->
 	<npc id="rat" inherit="animal_base">
 		<name>rat</name>
-		<id>238</id>
+		<id value="238" />
 		<ai>Animal_Wild</ai>
-		<skin><random list="SKINS_ANIMAL" /></skin>
+		<skin list="SKINS_ANIMAL" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str>9</str>
-		<dex>35</dex>
-		<int>5</int>
+		<str value="9" />
+		<dex value="35" />
+		<int value="5" />
 		<!-- Status -->
-		<maxhitpoints>6</maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints value="6" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>1</mindamage>
-		<maxdamage>2</maxdamage>
+		<mindamage value="1" />
+		<maxdamage value="2" />
 		<!-- Defense -->
 		<tag name="res_physical" value="5,10" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling>40</wrestling>
-		<tactics>40</tactics>
-		<magicresistance>40</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" value="40" />
+		<skill id="tactics" value="40" />
+		<skill id="magicresist" value="40" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
 		<!-- Missing:  -->
-		<controlslots>1</controlslots>
+		<controlslots value="1" />
 		<lootpacks>lootpack_poor</lootpacks>
-		<mintaming>0</mintaming>
-		<food>1</food>
+		<mintaming value="0" />
+		<food value="1" />
 		<carve>carve_rat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rats\Rat</category>
-		
 		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_slow" />
 	</npc>

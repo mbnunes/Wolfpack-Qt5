@@ -13,7 +13,7 @@
 		<name>cat</name>
 		<id value="201" />
 		<ai>Animal_Domestic</ai>
-		<skin><random list="SKINS_ANIMAL" /></skin>
+		<skin list="SKINS_ANIMAL" />
 		<inherit id="KARMA_NL0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->

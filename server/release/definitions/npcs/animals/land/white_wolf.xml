@@ -16,15 +16,15 @@
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="56" max="80" /></str>
-		<dex><random min="56" max="75" /></dex>
-		<int><random min="31" max="55" /></int>
+		<str min="56" max="80" />
+		<dex min="56" max="75" />
+		<int min="31" max="55" />
 		<!-- Status -->
-		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="34" max="48" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>10</maxdamage>
+		<mindamage value="4" />
+		<maxdamage value="10" />
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="10,15" type="int" />
@@ -32,32 +32,30 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="451" max="600" /></wrestling>
-		<tactics><random min="451" max="600" /></tactics>
-		<magicresistance><random min="201" max="350" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="451" max="600" />
+		<skill id="tactics" min="451" max="600" />
+		<skill id="magicresist" min="201" max="350" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>651</mintaming>
-		<food>1</food>
-		<!--<carve></carve>-->
+		<controlslots value="1" />
+		<mintaming value="651" />
+		<food value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Canine\White Wolf (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 	<npc id="white_wolf_1" inherit="white_wolf">
-		<baseid>white_wolf</baseid>
-		<id>34</id>
+		<baseid value="white_wolf" />
+		<id value="34" />
 		<category>Animals\Canine\White Wolf 1</category>
 	</npc>
 
 	<npc id="white_wolf_2" inherit="white_wolf">
-		<baseid>white_wolf</baseid>
-		<id>37</id>
+		<baseid value="white_wolf" />
+		<id value="37" />
 		<category>Animals\Canine\White Wolf 2</category>
 	</npc>
 

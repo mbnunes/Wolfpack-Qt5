@@ -11,20 +11,20 @@
 	<!-- Walrus -->
 	<npc id="walrus" inherit="animal_base">
 		<name>walrus</name>
-		<id>221</id>
+		<id value="221" />
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="21" max="29" /></str>
-		<dex><random min="46" max="55" /></dex>
-		<int><random min="16" max="20" /></int>
+		<str min="21" max="29" />
+		<dex min="46" max="55" />
+		<int min="16" max="20" />
 		<!-- Status -->
-		<maxhitpoints><random min="14" max="17" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="14" max="17" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>12</maxdamage>
+		<mindamage value="5" />
+		<maxdamage value="12" />
 		<!-- Defense -->
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
@@ -32,20 +32,19 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="192" max="290" /></wrestling>
-		<tactics><random min="192" max="290" /></tactics>
-		<magicresistance><random min="151" max="200" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="192" max="290" />
+		<skill id="tactics" min="192" max="290" />
+		<skill id="magicresist" min="151" max="200" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>351</mintaming>
-		<food>2</food>
+		<controlslots value="1" />
+		<mintaming value="351" />
+		<food value="2" />
 		<carve>carve_walrus</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Walrus</category>
-		
 		<!-- Carve -->
-		<intproperty name="carve_hides" value="12" />		
+		<intproperty name="carve_hides" value="12" />
 		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_slow" />
 	</npc>

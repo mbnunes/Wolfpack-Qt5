@@ -12,35 +12,34 @@
 	<npc id="hind" inherit="animal_base">
 		<name>hind</name>
 		<ai>Animal_Wild</ai>
-		<id>237</id>
+		<id value="237" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="21" max="51" /></str>
-		<dex><random min="47" max="77" /></dex>
-		<int><random min="17" max="47" /></int>
+		<str min="21" max="51" />
+		<dex min="47" max="77" />
+		<int min="17" max="47" />
 		<!-- Status -->
-		<maxhitpoints><random min="15" max="29" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="15" max="29" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>5</maxdamage>
+		<mindamage value="4" />
+		<maxdamage value="5" />
 		<!-- Defense -->
 		<tag name="res_physical" value="5,15" type="int" />
 		<tag name="res_cold" value="5" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="260" max="260" /></wrestling>
-		<tactics>190</tactics>
-		<magicresistance>150</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="260" max="260" />
+		<skill id="tactics" value="190" />
+		<skill id="magicresist" value="150" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>231</mintaming>
-		<food>6</food>
+		<controlslots value="1" />
+		<mintaming value="231" />
+		<food value="6" />
 		<carve>carve_deer</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Forest\Hind</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<intproperty name="carve_meat" value="5" />

@@ -48,12 +48,14 @@
 	<!-- Bull (black & white) -->
 	<npc id="bull_black" inherit="bull">
 		<id value="233" />
+		<baseid value="bull" />
 		<category>Animals\Land\Bull (Black)</category>
 	</npc>
 
 	<!-- Bull brown -->
 	<npc id="bull_brown" inherit="bull">
 		<id value="232" />
+		<baseid value="bull" />
 		<category>Animals\Land\Bull (Brown)</category>
 	</npc>
 
