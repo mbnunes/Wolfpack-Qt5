@@ -52,9 +52,7 @@ struct server_st
 {
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
-	char archivepath[256];
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
-	int usespecialbank; //special bank - AntiChrist
 	char msgboardpath[256];   // Dupois - Added April 4, 1999 for msgboard.cpp - path to store BB* files (ie C:\POSTS\)
 	int  msgpostaccess;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to post messages (0=GM only, 1 = everyone)
 	int  msgpostremove;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to remove post messages (0=GM only, 1 = everyone)

@@ -88,7 +88,6 @@ void loadserverdefaults(void)
 {
     clientsAllowed.push_back("SERVER_DEFAULT");
 	strcpy(server_data.specialbanktrigger,"WARE"); //AntiChrist - Special Bank word trigger
-	server_data.usespecialbank=0;	//AntiChrist - 1= Special Bank enabled
 
 	// Should we check character age for delete?
 
@@ -100,8 +99,6 @@ void loadserverdefaults(void)
 
     server_data.eclipsemode=0; // Light to dark..
 
-	cwmWorldState->SetLoopSaveAmt(-1);
-		
 	begging_data.range=3;
 	begging_data.timer=300;
 	strcpy(begging_data.text[0],"Could thou spare a few coins?");
@@ -118,22 +115,18 @@ void loadserver()
 		readw2();
 	
 
-		if(!(strcmp((char*)script1,"USESPECIALBANK"))) server_data.usespecialbank=str2num(script2); //AntiChrist - Special Bank
-		else if(!(strcmp((char*)script1,"SPECIALBANKTRIGGER")))  //AntiChrist - Special Bank
+		if(!(strcmp((char*)script1,"SPECIALBANKTRIGGER")))  //AntiChrist - Special Bank
 		{
 			strcpy(server_data.specialbanktrigger,script2);
 			for(int unsigned i = 0; i < strlen(server_data.specialbanktrigger); i++)
 				server_data.specialbanktrigger[i] = toupper(server_data.specialbanktrigger[i]);
 		}
-		else if(!(strcmp((char*)script1,"ARCHIVEPATH"))) strcpy(server_data.archivepath,(char*)script2);
-	
+
 		else if(!(strcmp((char*)script1,"MSGBOARDPATH"))) strcpy(server_data.msgboardpath,(char*)script2);               // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGPOSTACCESS"))) server_data.msgpostaccess=str2num(script2);            // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGPOSTREMOVE"))) server_data.msgpostremove=str2num(script2);            // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGRETENTION"))) server_data.msgretention=str2num(script2);              // Dupois - Added Dec 20, 1999 for message boards
 
-	 
-		else if(!(strcmp((char*)script1,"LOOPSAVE"))) cwmWorldState->SetLoopSaveAmt( str2num( script2 ) );
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
@@ -173,7 +166,6 @@ void loadtime_light()
 		else if(!(strcmp((char*)script1,"WORLDCURLEVEL"))) worldcurlevel=str2num(script2);
 		else if(!(strcmp((char*)script1,"WORLDBRIGHTLEVEL"))) worldbrightlevel=str2num(script2);
 		else if(!(strcmp((char*)script1,"WORLDDARKLEVEL"))) worlddarklevel=str2num(script2);
-		else if(!(strcmp((char*)script1,"SECONDSPERUOMINUTE"))) secondsperuominute=str2num(script2);
 		else if(!(strcmp((char*)script1,"SEASON"))) season=str2num(script2);
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS));
@@ -234,16 +226,13 @@ void saveserverscript(void)
 	fprintf(file, "SECTION SERVER\n");
 	fprintf(file, "{\n");
 
-	fprintf(file, "USESPECIALBANK %i\n",server_data.usespecialbank);	//AntiChrist - specialbank
 	fprintf(file, "SPECIALBANKTRIGGER %s\n",server_data.specialbanktrigger);
-	fprintf(file, "ARCHIVEPATH %s\n",server_data.archivepath);
     
 	fprintf(file, "MSGBOARDPATH %s\n",server_data.msgboardpath);              // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGPOSTACCESS %i\n",server_data.msgpostaccess);            // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGPOSTREMOVE %i\n",server_data.msgpostremove);            // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGRETENTION %i\n",server_data.msgretention);              // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	
-	fprintf(file, "LOOPSAVE %i\n",cwmWorldState->LoopSaveAmt());
 	fprintf(file, "}\n\n");
 	
 	fprintf(file, "SECTION BEGGING\n");
@@ -271,7 +260,6 @@ void saveserverscript(void)
 	fprintf(file, "WORLDCURLEVEL %i\n", worldcurlevel);
 	fprintf(file, "WORLDBRIGHTLEVEL %i\n", worldbrightlevel);
 	fprintf(file, "WORLDDARKLEVEL %i\n", worlddarklevel);
-	fprintf(file, "SECONDSPERUOMINUTE %i\n", secondsperuominute); // lb
 	fprintf(file, "SEASON %i\n", season); // lb
 	fprintf(file, "}\n\n");
 	

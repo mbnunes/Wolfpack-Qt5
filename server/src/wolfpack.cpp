@@ -3700,7 +3700,7 @@ void openbank(int s, P_CHAR pc_i)
 			if (pj->GetOwnSerial()==serial &&
 				pj->type==1 && pj->morex==1)
 			{
-				if(SrvParms->usespecialbank)//if using specialbank
+				if(SrvParams->useSpecialBank())//if using specialbank
 				{
 					if(pj->morey==0 && pj->morez==0) //if not initialized yet for the special bank
 						pj->morey=123;//convert to new special bank
@@ -3728,7 +3728,7 @@ void openbank(int s, P_CHAR pc_i)
 	pic->SetOwnSerial(pc_i->serial);
 	pic->SetContSerial(pc_i->serial);
 	pic->morex=1;
-	if(SrvParms->usespecialbank)//AntiChrist - Special Bank
+	if(SrvParams->useSpecialBank())//AntiChrist - Special Bank
 		pic->morey=123;//gold only bank
 	pic->type=1;
 	wearIt(s,pic);
@@ -4127,7 +4127,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		break;
 	case 5: // Night Sight Potion
 		staticeffect(pc_p, 0x37, 0x6A, 0x09, 0x06);
-		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*secondsperuominute*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
+		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
 		soundeffect2(pc_p, 0x01E3);
 		break;
 	case 6: // Poison Potion

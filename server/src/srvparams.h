@@ -102,7 +102,9 @@ protected:
 	unsigned char showCVCS_;
 	unsigned int spiritspeaktimer_;
 	unsigned int spawnRegionCheckTime_;
+	unsigned int secondsPerUOMinute_;
 	bool cacheMulFiles_;
+	bool useSpecialBank_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -244,6 +246,9 @@ public:
 	unsigned int spiritspeaktimer() const;
 	bool cacheMulFiles() const;
 	unsigned int spawnRegionCheckTime() const;
+	unsigned int secondsPerUOMinute() const;
+	void setSecondsPerUOMinute( unsigned int );
+	bool useSpecialBank() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -903,6 +908,16 @@ inline bool cSrvParams::cacheMulFiles() const
 inline unsigned int cSrvParams::spawnRegionCheckTime() const
 {
 	return spawnRegionCheckTime_;
+}
+
+inline unsigned int cSrvParams::secondsPerUOMinute() const
+{
+	return secondsPerUOMinute_;
+}
+
+inline bool cSrvParams::useSpecialBank() const
+{
+	return useSpecialBank_;
 }
 
 #endif //__SRVPARAMS_H___

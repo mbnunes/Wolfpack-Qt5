@@ -1795,7 +1795,7 @@ void command_secondsperuominute(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		secondsperuominute=makenumber(1);
+		SrvParams->setSecondsPerUOMinute( makenumber(1) );
 		sysmessage(s, tr("Seconds per UO minute set."));
 	}
 	return;

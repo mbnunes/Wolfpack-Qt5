@@ -338,9 +338,9 @@ P_ITEM cChar::GetBankBox( short banktype )
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->type == 1 && pi->morex == 1)
-			if ( banktype == 1 && pi->morez == 123 && SrvParms->usespecialbank) 
+			if ( banktype == 1 && pi->morez == 123 && SrvParams->useSpecialBank()) 
 				return pi;
-			else if ( banktype != 1 || !SrvParms->usespecialbank)
+			else if ( banktype != 1 || !SrvParams->useSpecialBank())
 				return pi;
 	}
 	// If we reach this point, bankbox wasn't found == wasn't created yet.
@@ -354,7 +354,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 	pi->SetOwnSerial(this->serial);
 	pi->SetContSerial(this->serial);
 	pi->morex=1;
-	if(SrvParms->usespecialbank && banktype == 1)//AntiChrist - Special Bank
+	if(SrvParams->useSpecialBank() && banktype == 1)//AntiChrist - Special Bank
 		pi->morey=123;//gold only bank
 	pi->type=1;
 	if (s != -1)

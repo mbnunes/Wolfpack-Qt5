@@ -1064,19 +1064,6 @@ void CWorldMain::announce(int choice)
 		DisplayWorldSaves=1;
 }
 
-void CWorldMain::SetLoopSaveAmt( long toSet )
-{
-	if ( toSet <= 0 )
-		PerLoop = -1;
-	else
-		PerLoop = toSet;
-}
-
-long CWorldMain::LoopSaveAmt( void )
-{
-	return PerLoop;
-}
-
 bool CWorldMain::Saving( void )
 {
 	return isSaving;

@@ -945,7 +945,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				if (!ampm) day++;
 			}
 		}
-		uotickcount=currenttime+secondsperuominute*MY_CLOCKS_PER_SEC;
+		uotickcount = currenttime + SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC;
 		if (minute%8==0)
 			moon1=(moon1+1)%8;
 		if (minute%3==0)

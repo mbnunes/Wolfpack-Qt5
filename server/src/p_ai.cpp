@@ -567,7 +567,7 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 	string search3("WITHDRAW") ;
 	string search4("CHECK") ;
 
-	if (SrvParms->usespecialbank)
+	if (SrvParams->useSpecialBank())
 	{
 		search1 = SrvParms->specialbanktrigger ;
 		if ((comm.find(search1)!= string::npos) &&(!(pc_currchar->dead)))

@@ -1144,7 +1144,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	//
 	//if morey==123  - gold only bank	
 	//
-	if(SrvParms->usespecialbank)//only if special bank is activated
+	if(SrvParams->useSpecialBank())//only if special bank is activated
 	{
 		if(pCont->morey==123 && pCont->morex==1 && pCont->type==1)
 		{

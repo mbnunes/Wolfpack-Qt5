@@ -47,7 +47,8 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	default_jail_time_	    = getNumber("Game Speed", "Default Jail Time", 86400, true);
 	spiritspeaktimer_	    = getNumber("Game Speed", "Spirit Speak Timer", 60, true);
 	spawnRegionCheckTime_   = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
-	decayTime_              = getNumber("Game Speed", "Decay Time", 300, true);
+	decayTime_				= getNumber("Game Speed", "Decay Time", 300, true);
+	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -241,3 +242,8 @@ void cSrvParams::setDefaultServerList()
 	flush(); // save.
 }
 
+void cSrvParams::setSecondsPerUOMinute( unsigned int data )
+{
+	secondsPerUOMinute_ = data;
+	flush();
+}

@@ -41,5 +41,7 @@ ISerialization* cPluginFactory::serializationArchiver( const QString& name )
 		return new serBinFile;
 	else if ( name == "xml")
 		return new serXmlFile;
+	else
+		return new serBinFile; // return default.
 }
 

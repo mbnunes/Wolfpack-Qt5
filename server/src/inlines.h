@@ -38,6 +38,9 @@
 // library Includes
 #include "qapplication.h"
 
+// Wolfpack includes
+#include "globals.h" // uiCurrentTime
+
 inline void SetTimerSec(unsigned int *timer, const short seconds)
 {
 	*timer=seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;

@@ -70,8 +70,6 @@ public:
 	CWorldMain();
 	virtual ~CWorldMain();
 
-	void SetLoopSaveAmt( long toSet );
-	long LoopSaveAmt( void );
 	bool Saving( void );
 	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
 private:

@@ -84,7 +84,6 @@ extern unsigned char fly_steps_max;
 extern int gatecount;
 //Time variables
 extern int day, hour, minute, ampm; //Initial time is noon.
-extern int secondsperuominute; //Number of seconds for a UO minute.
 extern int uotickcount;
 extern int moon1update;
 extern int moon2update;
