@@ -38,7 +38,6 @@
 #include "network/network.h"
 #include "territories.h"
 #include "network/uosocket.h"
-#include "pagesystem.h"
 #include "skills.h"
 #include "pythonscript.h"
 #include "items.h"
@@ -104,46 +103,6 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 		socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
 		pChar->setInputMode( cPlayer::enNone );
 		pChar->setInputItem( INVALID_SERIAL );
-		break;
-
-		// Paging a GM
-	case cPlayer::enPageGM:
-		{
-			cPage* pPage = new cPage( pChar->serial(), PT_GM, speech, pChar->pos() );
-			cPagesManager::getInstance()->push_back( pPage );
-			notification = tr( "GM Page from %1: %2" ).arg( pChar->name() ).arg( speech );
-
-			for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
-				if ( mSock->player() && mSock->player()->isGM() )
-					mSock->sysMessage( notification );
-
-			if ( Network::instance()->count() > 0 )
-				socket->sysMessage( tr( "Available Game Masters have been notified of your request." ) );
-			else
-				socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
-
-			pChar->setInputMode( cPlayer::enNone );
-		}
-		break;
-
-		// Paging a Counselor
-	case cPlayer::enPageCouns:
-		{
-			cPage* pPage = new cPage( pChar->serial(), PT_COUNSELOR, speech, pChar->pos() );
-			cPagesManager::getInstance()->push_back( pPage );
-			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name() ).arg( speech );
-
-			for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
-				if ( mSock->player() && ( socket->player()->isCounselor() || socket->player()->isGM() ) )
-					mSock->sysMessage( notification );
-
-			if ( Network::instance()->count() > 0 )
-				socket->sysMessage( tr( "Available Counselors have been notified of your request." ) );
-			else
-				socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
-
-			pChar->setInputMode( cPlayer::enNone );
-		}
 		break;
 
 	default:

@@ -91,7 +91,6 @@ HEADERS += \
 	md5.h \
 	multi.h \
 	npc.h \
-	pagesystem.h \
 	party.h \
 	persistentbroker.h \
 	persistentobject.h \

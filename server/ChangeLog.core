@@ -34,6 +34,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Added several logging features.
 	- Added the ability to sell items from subpacks.
 	- Fixed a bug (Exploit) related to consumeResource.
+	- Removed old page system from core.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

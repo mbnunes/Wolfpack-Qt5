@@ -420,9 +420,6 @@
 				RelativePath=".\npc.h">
 			</File>
 			<File
-				RelativePath=".\pagesystem.h">
-			</File>
-			<File
 				RelativePath=".\party.cpp">
 			</File>
 			<File

@@ -40,7 +40,6 @@
 #include "console.h"
 #include "definitions.h"
 #include "scriptmanager.h"
-#include "pagesystem.h"
 #include "sectors.h"
 #include "contextmenu.h"
 #include "pythonscript.h"
@@ -457,29 +456,6 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 
 			socket->send( pGump );
 		}
-	}
-}
-
-/*
-	\command pages
-	\description Manage support tickets.
-*/
-void commandPages( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( args );
-	Q_UNUSED( command );
-	// Pages
-	if ( socket->player() )
-	{
-		cPagesGump* pGump = NULL;
-
-		if ( socket->player()->isGM() )
-			pGump = new cPagesGump( 1, PT_GM );
-		else if ( socket->player()->isCounselor() )
-			pGump = new cPagesGump( 1, PT_COUNSELOR );
-
-		if ( pGump )
-			socket->send( pGump );
 	}
 }
 
@@ -1562,7 +1538,6 @@ stCommand cCommands::commands[] =
 { "BROADCAST", commandBroadcast },
 { "DOORGEN", commandDoorGenerator },
 { "GMTALK", commandGmtalk },
-{ "PAGES", commandPages },
 { "PAGENOTIFY", commandPageNotify },
 { "RELOAD", commandReload },
 { "RESTOCK", commandRestock },

@@ -253,43 +253,4 @@ public:
 	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
-class cPagesGump : public cGump
-{
-	OBJECTDEF(cPagesGump)
-private:
-	uint page_;
-	WPPAGE_TYPE ptype_;
-
-	std::vector<cPage*> pagequeue_;
-
-public:
-	cPagesGump( uint page, WPPAGE_TYPE ptype );
-
-	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
-};
-
-class cPageInfoGump : public cGump
-{
-	OBJECTDEF(cPageInfoGump)
-private:
-	cPage* page_;
-
-public:
-	cPageInfoGump( cPage* page_ );
-
-	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
-};
-
-class cHelpGump : public cGump
-{
-	OBJECTDEF(cHelpGump)
-private:
-	SERIAL char_;
-
-public:
-	cHelpGump( SERIAL charSerial );
-
-	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
-};
-
 #endif
