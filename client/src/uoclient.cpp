@@ -37,6 +37,8 @@
 
 
 cUoClient::cUoClient() {
+	running_ = true;
+
 	UoSocket = new cUoSocket();
 
 	Random = new MTRand();
