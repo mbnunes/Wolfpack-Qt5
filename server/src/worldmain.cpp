@@ -127,9 +127,9 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	
 	QStringList types = UObjectFactory::instance()->objectTypes();
 
-	for( UINT8 i = 0; i < types.count(); ++i )
+	for( INT32 j = 0; j < types.count(); ++j )
 	{
-		QString = types.item( i );
+		QString type = types[j];
 
 		QSqlQuery query( UObjectFactory::instance()->findSqlQuery( type ) );
 	
