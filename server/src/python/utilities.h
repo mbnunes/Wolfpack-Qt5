@@ -41,9 +41,11 @@ class Coord_cl;
 class AccountRecord;
 class cTerritory;
 class cUOTxTooltipList;
+class cMulti;
 
 typedef cItem* P_ITEM;
 typedef cChar* P_CHAR;
+typedef cMulti* P_MULTI;
 
 /*!
 	Things commonly used in other python-definition
@@ -101,6 +103,10 @@ AccountRecord* getWpAccount( PyObject* );
 bool checkWpRegion( PyObject *object );
 PyObject* PyGetRegionObject( cTerritory* );
 cTerritory* getWpRegion( PyObject* );
+
+bool checkWpMulti( PyObject *object );
+PyObject* PyGetMultiObject( P_MULTI );
+P_MULTI getWpMulti( PyObject* );
 
 // Argument checks
 #define checkArgObject( id ) ( PyTuple_Size( args ) > id && ( checkWpItem( PyTuple_GetItem( args, id ) ) || checkWpChar( PyTuple_GetItem( args, id ) ) ) )
