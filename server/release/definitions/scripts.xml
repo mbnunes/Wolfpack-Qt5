@@ -48,7 +48,8 @@
 	<script id="skills.fishing"	type="python" module="skills.fishing" />
 	<script id="skills.armslore"	type="python" module="skills.armslore" />
 	<script id="skills.animaltaming" type="python" module="skills.animaltaming" />
-	<<script id="skills.begging" type="python" module="skills.begging" />
+	<script id="skills.begging" type="python" module="skills.begging" />
+	<script id="skills.bowcraft" type="python" module="skills.bowcraft" />
 	<!--script id="alchemy" type="python" module="skills.alchemy" /-->
 
 	<!-- Load *LAST* thats important -->
