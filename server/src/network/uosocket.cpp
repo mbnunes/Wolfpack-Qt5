@@ -633,6 +633,14 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
 	send( &confirmLogin );
 
+	// Enable Sta+Map Diffs
+	cUOTxMapDiffs diffs;
+	diffs.addEntry(Maps::instance()->mapPatches(0), Maps::instance()->staticPatches(0));
+	diffs.addEntry(Maps::instance()->mapPatches(1), Maps::instance()->staticPatches(1));
+	diffs.addEntry(Maps::instance()->mapPatches(2), Maps::instance()->staticPatches(2));
+	diffs.addEntry(Maps::instance()->mapPatches(3), Maps::instance()->staticPatches(3));
+	send(&diffs);
+
 	// Which map are we on
 	cUOTxChangeMap changeMap;
 	changeMap.setMap( pChar->pos().map );

@@ -801,3 +801,46 @@ const char* cPythonScriptable::className() const
 {
 	return "pythonscriptable";
 }
+
+// Conversion Routines
+bool cPythonScriptable::convertPyObject(PyObject *object, P_CHAR &pChar) {
+	if (checkWpChar(object)) {
+		pChar = getWpChar(object);
+		return true;
+	} else if (object == Py_None) {
+		pChar = 0;
+		return true;
+	} else if (PyInt_Check(object)) {
+		pChar = World::instance()->findChar(PyInt_AsLong(object));
+		return true;
+	}
+	return false;
+}
+
+bool cPythonScriptable::convertPyObject(PyObject *object, P_ITEM &pItem) {
+	return false;
+}
+
+bool cPythonScriptable::convertPyObject(PyObject *object, Coord_cl &pos) {
+	return false;
+}
+
+bool cPythonScriptable::convertPyObject(PyObject *object, QString &string) {
+	return false;
+}
+
+bool cPythonScriptable::convertPyObject(PyObject *object, QCString &string) {
+	return false;
+}
+
+bool cPythonScriptable::convertPyObject(PyObject *object, unsigned int &data) {
+	return false;
+}
+
+bool cPythonScriptable::convertPyObject(PyObject *object, int &data) {
+	return false;
+}
+
+bool cPythonScriptable::setPropety(const QString &name, PyObject *value) {
+	return true;
+}

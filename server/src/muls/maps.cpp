@@ -601,7 +601,11 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 
 	QValueVector<staticrecord>* p = mapRecord->staticsCache.find( cachePos );
 
+#if !defined(_DEBUG)	
 	if ( !p )
+#else
+	if ( true )
+#endif
 	{
 		// Well, unfortunally we will be forced to read the file :(
 #pragma pack (1)

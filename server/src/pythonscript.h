@@ -238,6 +238,7 @@ public:
 		\returns A python object with the value or None.
 	*/
 	virtual PyObject *getProperty(const QString &name);
+	virtual bool setPropety(const QString &name, PyObject *value);
 
 	// Functions for creating python representations of objects
 	inline PyObject *createPyObject(cPythonScriptable *object) {
@@ -300,6 +301,16 @@ public:
 	inline PyObject *createPyObject(double value) {
 		return PyFloat_FromDouble(value);
 	}
+
+	// Method for converting python objects into normal objects
+	// Functions for creating python representations of objects
+	bool convertPyObject(PyObject *object, P_CHAR &pChar);
+	bool convertPyObject(PyObject *object, P_ITEM &pItem);
+    bool convertPyObject(PyObject *object, Coord_cl &pos);
+	bool convertPyObject(PyObject *object, QString &string);
+	bool convertPyObject(PyObject *object, QCString &string);
+	bool convertPyObject(PyObject *object, unsigned int &data);
+	bool convertPyObject(PyObject *object, int &data);
 
 #define PY_PROPERTY(namestr, getter) if ((namestr == name)) { \
 		return createPyObject((getter)); \

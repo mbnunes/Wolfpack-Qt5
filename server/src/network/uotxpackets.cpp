@@ -207,8 +207,8 @@ void cUOTxMapDiffs::addEntry( unsigned int mappatches, unsigned int staticpatche
 
 	resize( size + 8 );
 	setShort( 1, size + 8 );
-	setInt( size, mappatches );
-	setInt( size + 4, staticpatches );
+	setInt( size, staticpatches );
+	setInt( size + 4, mappatches );	
 	setInt( 5, num + 1 );
 }
 
