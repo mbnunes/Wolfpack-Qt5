@@ -137,9 +137,6 @@ enum enWanderTypes
 	enFreely,
 	enRectangle,
 	enCircle,
-	enFollowTarget,
-	enGoToPosition,
-	enCombatTarget,
 	enNumberOfWanderTypes
 };
 

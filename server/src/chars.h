@@ -50,7 +50,7 @@ namespace cCharStuff
 	void DeleteChar(P_CHAR pc_k);
 	P_CHAR MemCharFree();
 	void Split(P_CHAR pc_k);
-	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
+//	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
 	P_NPC createScriptNpc( const QString &section, const Coord_cl &pos );
 };
 

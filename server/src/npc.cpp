@@ -50,6 +50,7 @@
 #include "combat.h"
 #include "walking.h"
 #include "skills.h"
+#include "ai.h"
 
 cNPC::cNPC()
 {
@@ -68,6 +69,9 @@ cNPC::cNPC()
 	stablemasterSerial_	= INVALID_SERIAL;
 	wanderType_			= stWanderType();
 //	lootList_			= (char*)0;
+	ai_					= new Monster_Aggressive_L0( this );
+	aiCheckTime_		= uiCurrentTime + SrvParams->checkAITime() * MY_CLOCKS_PER_SEC;
+#pragma note( "TODO: saving of ai and aichecktime!" )
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -76,6 +80,7 @@ cNPC::cNPC(const cNPC& right)
 
 cNPC::~cNPC()
 {
+	delete ai_;
 }
 
 cNPC& cNPC::operator=(const cNPC& right)
@@ -1059,16 +1064,6 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		setWanderType( (enWanderTypes)value.toInt() );
 		return 0;
 	}
-	else if( name == "following" )
-	{
-		setWanderFollowTarget( value.toInt() );
-		return 0;
-	}
-	else if( name == "destination" )
-	{
-		setWanderDestination( value.toCoord() );
-		return 0;
-	}
 	else if( name == "fx1" || name == "wanderx1" )
 	{
 		setWanderX1( value.toInt() );
@@ -1133,8 +1128,6 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "nextmovetime", (int)nextMoveTime_ )
 	else GET_PROPERTY( "npcmovetime", (int)nextMoveTime_ )
 	else GET_PROPERTY( "wandertype", (int)wanderType() )
-	else GET_PROPERTY( "following", FindCharBySerial( wanderFollowTarget() ) )
-	else GET_PROPERTY( "destination", wanderDestination() )
 	else GET_PROPERTY( "wanderx1", wanderX1() )
 	else GET_PROPERTY( "fx1", wanderX1() )
 	else GET_PROPERTY( "wanderx2", wanderX2() )

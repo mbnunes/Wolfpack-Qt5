@@ -62,6 +62,7 @@ public:
 	void NpcMovement( unsigned int currenttime, P_NPC pc_i );
 	bool canLandMonsterMoveHere( const Coord_cl& ) const;
 	bool CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos );
+	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 private:
 	inline bool isValidDirection( Q_UINT8 dir );
 
@@ -81,14 +82,13 @@ private:
 	short int CheckMovementType(P_CHAR pc);
 
 	void randomNpcWalk( P_NPC pChar, Q_UINT8 dir, Q_UINT8 type );
-	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 
 	bool consumeStamina( P_PLAYER pChar, bool running );
 	bool checkObstacles( P_CHAR pChar, const Coord_cl &newPos, bool running );
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
 	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
 	void checkStealth( P_CHAR );
-	void sendWalkToOther( P_PLAYER pChar, P_PLAYER pWalker, const Coord_cl& oldpos );
+	void sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos );
 
 	void handleItemCollision( P_CHAR pChar );
 	void HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos);

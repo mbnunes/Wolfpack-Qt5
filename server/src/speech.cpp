@@ -553,8 +553,9 @@ bool PetCommand( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pPet, const QString&
 	{
 		if( comm.contains( " ME" ) )
 		{
-			pPet->setWanderFollowTarget( pPlayer->serial() );
-			pPet->setWanderType( enFollowTarget );
+#pragma note( "TODO: implement state change here" )
+//			pPet->setWanderFollowTarget( pPlayer->serial() );
+//			pPet->setWanderType( enFollowTarget );
 			playmonstersound( pPet, pPet->bodyID(), SND_STARTATTACK );
 		}
 		else
@@ -589,8 +590,9 @@ bool PetCommand( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pPet, const QString&
 	else if( comm.contains( " COME" ) )
 	{
 		//pPlayer->setGuarded( false );
-		pPet->setWanderFollowTarget( pPlayer->serial() );
-		pPet->setWanderType( enFollowTarget );
+#pragma note( "TODO: implement state change here" )
+//		pPet->setWanderFollowTarget( pPlayer->serial() );
+//		pPet->setWanderType( enFollowTarget );
 		pPet->setNextMoveTime();
 		pPlayer->message( tr( "Your pet begins following you." ) );
 		bReturn = true;
@@ -611,7 +613,8 @@ bool PetCommand( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pPet, const QString&
 	else if( ( comm.contains( " STOP" ) ) || ( comm.contains(" STAY") ) )
 	{
 		//pPlayer->setGuarded( false );
-		pPet->setWanderFollowTarget( INVALID_SERIAL );
+#pragma note( "TODO: implement state change here" )
+//		pPet->setWanderFollowTarget( INVALID_SERIAL );
 		pPet->setCombatTarget( INVALID_SERIAL );
 
 		if (pPet->isAtWar()) 
@@ -636,7 +639,8 @@ bool PetCommand( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pPet, const QString&
 		if( pPet->summonTime() > uiCurrentTime )
 			pPet->setSummonTime( uiCurrentTime );
 
-		pPet->setWanderFollowTarget( INVALID_SERIAL );
+#pragma note( "TODO: implement state change here" )
+//		pPet->setWanderFollowTarget( INVALID_SERIAL );
 		pPet->setWanderType( enFreely );
 		pPet->setOwner( NULL );
 		pPet->setTamed( false );

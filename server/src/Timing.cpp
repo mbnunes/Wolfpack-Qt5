@@ -52,6 +52,7 @@
 #include "npc.h"
 #include "player.h"
 #include "chars.h"
+#include "ai.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -533,8 +534,14 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 	int pcalc;
 	char t[120];
 
-	cCharStuff::CheckAI( currenttime, pc );
-	Movement::instance()->NpcMovement( currenttime, pc );
+	if( currenttime >= pc->aiCheckTime() )
+	{
+		pc->setAICheckTime( uiCurrentTime + SrvParams->checkAITime() * MY_CLOCKS_PER_SEC );
+		if( pc->ai() )
+			pc->ai()->eventHandler();
+	}
+//	cCharStuff::CheckAI( currenttime, pc );
+//	Movement::instance()->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
 	// We are at war and want to prepare a new swing
@@ -681,7 +688,7 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 				//pet release code here
 				if(pc->isTamed())
 				{
-					pc->setWanderFollowTarget( INVALID_SERIAL );
+//					pc->setWanderFollowTarget( INVALID_SERIAL );
 					pc->setWanderType( enFreely );
 					pc->setTamed( false );
 

@@ -372,7 +372,7 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		pChar->soundEffect( 0x1FE );
 		pChar->effect( 0x372A, 0x09, 0x06 );
 
-		// Teleport pets
+/*		// Teleport pets
 		RegionIterator4Chars iter( pChar->pos() );
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
@@ -386,7 +386,7 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 					pPet->resend( false );
 				}
 			}
-		}
+		}*/
 		return true;
 	};
 
@@ -510,16 +510,18 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos() );
 
 		// Check if the stamina parameters
-		if( !consumeStamina( player, running ) )
+		if( player && !consumeStamina( player, running ) )
 		{
-			player->socket()->denyMove( sequence );
+			if( player->socket() )
+				player->socket()->denyMove( sequence );
 			return;
 		}
 	
 		// Check for Characters in our way
 		if( !checkObstacles( pChar, newCoord, running ) )
 		{
-			player->socket()->denyMove( sequence );
+			if( player && player->socket() )
+				player->socket()->denyMove( sequence );
 			return;
 		}
 
@@ -574,10 +576,9 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		player->socket()->allowMove( sequence );
 
 
-	P_PLAYER pPChar = dynamic_cast<P_PLAYER>(pChar);
-	if( pPChar )
+	if( player )
 	{
-		RegionIterator4Chars ri( pPChar->pos() );
+		RegionIterator4Chars ri( player->pos() );
 		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
 			P_PLAYER pChar_vis = dynamic_cast<P_PLAYER>(ri.GetData());
@@ -585,13 +586,27 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			if( !pChar_vis )
 				continue;
 
-			if( ( pChar_vis != pPChar ) &&
-				( !pPChar->isDead() || pPChar->isAtWar() || pPChar->isGM() ) && 
-				( !pPChar->isHidden() || pPChar->isGM() ) )
-				sendWalkToOther( pChar_vis, pPChar, oldpos );
+			if( ( pChar_vis != player ) &&
+				( !player->isDead() || player->isAtWar() || player->isGM() ) && 
+				( !player->isHidden() || player->isGM() ) )
+				sendWalkToOther( pChar_vis, player, oldpos );
 		}
 	}
-	
+	else
+	{
+		RegionIterator4Chars ri( pChar->pos() );
+		for( ri.Begin(); !ri.atEnd(); ri++ )
+		{
+			P_PLAYER pChar_vis = dynamic_cast<P_PLAYER>(ri.GetData());
+
+			if( !pChar_vis )
+				continue;
+
+			if( ( !pChar->isDead() || pChar->isAtWar() ) && ( !pChar->isHidden() ) )
+				sendWalkToOther( pChar_vis, pChar, oldpos );
+		}
+	}
+
 	// keep on checking this even if we just turned, because if you are taking damage
 	// for standing here, lets keep on dishing it out. if we pass whether we actually
 	// moved or not we can optimize things some
@@ -920,7 +935,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 	}
 } //- end of itemcount for loop
 
-void cMovement::sendWalkToOther( P_PLAYER pChar, P_PLAYER pWalker, const Coord_cl& oldpos )
+void cMovement::sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord_cl& oldpos )
 {
 	// What we need to decide here is if we
 	// Need to UPDATE the player (so it's walking on the screen)
@@ -929,11 +944,15 @@ void cMovement::sendWalkToOther( P_PLAYER pChar, P_PLAYER pWalker, const Coord_c
 	if( !pWalker || !pChar )
 		return;
 
-	cUOSocket *socket = pWalker->socket();
+
+	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pWalker);
+	cUOSocket *socket = NULL;
+	if( pPlayer )
+		socket = pPlayer->socket();
 	cUOSocket *visSocket = pChar->socket();
 
 	// If both are not connected it's useless to send updates
-	if( !socket && !visSocket )
+	if( !visSocket )
 		return;
 
 	// We can see the target and didn't see it before
@@ -941,11 +960,13 @@ void cMovement::sendWalkToOther( P_PLAYER pChar, P_PLAYER pWalker, const Coord_c
 	Q_UINT32 oldDistance = pChar->pos().distance( oldpos );
 	
 	// We dont see him, he doesn't see us
-	if( ( newDistance > pChar->visualRange() ) && ( newDistance > pWalker->visualRange() ) )
+	if( pPlayer && ( newDistance > pChar->visualRange() ) && ( newDistance > pPlayer->visualRange() ) )
+		return;
+	else if( !pPlayer && ( newDistance > pChar->visualRange() ) )
 		return;
 
 	// Someone got into our range
-	if( socket && ( newDistance <= pWalker->visualRange() ) && ( oldDistance > pWalker->visualRange() ) )
+	if( socket && ( newDistance <= pPlayer->visualRange() ) && ( oldDistance > pPlayer->visualRange() ) )
 		socket->sendChar( pChar );
 
 	// This guy is already known to us
@@ -1210,7 +1231,7 @@ void cMovement::randomNpcWalk( P_NPC pChar, Q_UINT8 dir, Q_UINT8 type )
 // This processes a NPC movement poll
 void cMovement::NpcMovement( unsigned int currenttime, P_NPC pc_i )
 {
-    int dnpctime=0;
+/*    int dnpctime=0;
     if( !pc_i || ( pc_i->nextMoveTime() > currenttime ) )
 		return;
 
@@ -1382,7 +1403,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_NPC pc_i )
 		}
 		break;*/
 	// Try to find your way to a specified position
-	case enGoToPosition:
+/*	case enGoToPosition:
 #pragma note("Implement pathfinding for this!")
 		if( pc_i->pos().map != pc_i->wanderDestination().map )
 		{
@@ -1406,7 +1427,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_NPC pc_i )
 		}		
 	}
 
-	pc_i->setNextMoveTime();
+	pc_i->setNextMoveTime();*/
 }
 
 // Function      : cMovement::CanCharWalk()

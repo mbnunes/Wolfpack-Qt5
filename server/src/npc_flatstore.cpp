@@ -110,7 +110,7 @@ void cNPC::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( maxDamage() )
 		output->chunkData( NPC_MAXDAMAGE, (int)maxDamage() );
 	
-	if( wanderType() == enFreely || wanderType() == enCombatTarget )
+	if( wanderType() == enFreely )
 		output->chunkData( NPC_WANDERTYPE, (unsigned char)wanderType() );
 	else if( wanderType() == enRectangle )
 	{
@@ -126,19 +126,6 @@ void cNPC::save( FlatStore::OutputFile *output, bool first ) throw()
 		output->chunkData( NPC_WANDERX1, wanderX1() );
 		output->chunkData( NPC_WANDERY1, wanderY1() );
 		output->chunkData( NPC_WANDERRADIUS, wanderRadius() );
-	}
-	else if( wanderType() == enFollowTarget )
-	{
-		output->chunkData( NPC_WANDERTYPE, (unsigned char)wanderType() );
-		output->chunkData( NPC_WANDERFOLLOWTARGET, wanderFollowTarget() );
-	}
-	else if( wanderType() == enGoToPosition )
-	{
-		output->chunkData( NPC_WANDERTYPE, (unsigned char)wanderType() );
-		output->chunkData( NPC_WANDERDEST_X, wanderDestination().x );
-		output->chunkData( NPC_WANDERDEST_Y, wanderDestination().y );
-		output->chunkData( NPC_WANDERDEST_Z, wanderDestination().z );
-		output->chunkData( NPC_WANDERDEST_MAP, wanderDestination().map );
 	}
 
 	if( !carve().isNull() && !carve().isEmpty() )
@@ -246,54 +233,6 @@ bool cNPC::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::I
 			unsigned short tmp;
 			input->readUShort( tmp );
 			setWanderRadius( tmp );
-			break;
-		}
-
-	case NPC_WANDERFOLLOWTARGET:
-		{
-			unsigned int tmp;
-			input->readUInt( tmp );
-			setWanderFollowTarget( tmp );
-			break;
-		}
-
-	case NPC_WANDERDEST_X:
-		{
-			unsigned short tmp;
-			input->readUShort( tmp );
-			Coord_cl tmppos = wanderDestination();
-			tmppos.x = tmp;
-			setWanderDestination( tmppos );
-			break;
-		}
-
-	case NPC_WANDERDEST_Y:
-		{
-			unsigned short tmp;
-			input->readUShort( tmp );
-			Coord_cl tmppos = wanderDestination();
-			tmppos.y = tmp;
-			setWanderDestination( tmppos );
-			break;
-		}
-
-	case NPC_WANDERDEST_Z:
-		{
-			char tmp;
-			input->readChar( tmp );
-			Coord_cl tmppos = wanderDestination();
-			tmppos.z = tmp;
-			setWanderDestination( tmppos );
-			break;
-		}
-
-	case NPC_WANDERDEST_MAP:
-		{
-			unsigned char tmp;
-			input->readUChar( tmp );
-			Coord_cl tmppos = wanderDestination();
-			tmppos.map = tmp;
-			setWanderDestination( tmppos );
 			break;
 		}
 

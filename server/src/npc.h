@@ -40,6 +40,8 @@
 // wolfpack includes
 #include "basechar.h"
 
+class cNPC_AI;
+
 // Class for Non Player Characters. Implements cBaseChar.
 class cNPC : public cBaseChar
 {
@@ -62,8 +64,6 @@ public:
 			x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ ), type( enRectangle ) {}
 		stWanderType( UINT16 x_, UINT16 y_, UINT16 radius_ ) : 
 			x1( x_ ), y1( y_ ), radius( radius_ ), type( enCircle ) {}
-		stWanderType( SERIAL object_ ) : type( enFollowTarget ), object( object_ ) {}
-		stWanderType( const Coord_cl pos_ ) : type( enGoToPosition ), pos( pos_ ) {}
 		
 		// attributes
 		enWanderTypes type;
@@ -73,10 +73,6 @@ public:
 		UINT16 y1;
 		UINT16 y2;
 		UINT16 radius;
-		// follow object
-		SERIAL object;
-		// destination position
-		Coord_cl pos;
 	};
 
 	// implementation of interfaces
@@ -125,6 +121,8 @@ public:
 	QString			spawnregion() const;
 	SERIAL			stablemasterSerial() const;
 	QString			lootList() const;
+	cNPC_AI*		ai() const;
+	UINT32			aiCheckTime() const;
 	// bit flag getters
 	// advanced getters for data structures
 	// path finding
@@ -139,8 +137,6 @@ public:
 	UINT16			wanderY1() const;
 	UINT16			wanderY2() const;
 	UINT16			wanderRadius() const;
-	SERIAL			wanderFollowTarget() const;
-	Coord_cl		wanderDestination() const;
 
 	// setters
     void setMaxDamage(UINT16 data);
@@ -158,6 +154,8 @@ public:
 	void setStablemasterSerial(SERIAL data);
 	void setLootList(const QString &data);
     void setGuarding(P_PLAYER data);
+	void setAI( cNPC_AI* ai );
+	void setAICheckTime( UINT32 data );
 	// bit flag setters
 	// advanced setters for data structures
 	// path finding
@@ -173,8 +171,6 @@ public:
 	void setWanderY1(UINT16 data);
 	void setWanderY2(UINT16 data);
 	void setWanderRadius(UINT16 data);
-	void setWanderFollowTarget(SERIAL data);
-	void setWanderDestination(const Coord_cl &data);
 
 protected:
 	// interface implementation
@@ -245,6 +241,12 @@ protected:
 
 	// A* calculated path which the NPC walks on.
 	std::deque< Coord_cl > path_;
+
+	// NPC AI State Machine interface
+	cNPC_AI* ai_;
+
+	// NPC AI check timer
+	UINT32	aiCheckTime_;
 };
 
 inline UINT32 cNPC::additionalFlags() const
@@ -393,6 +395,28 @@ inline void cNPC::setLootList(const QString &data)
 	changed( SAVE );
 }
 
+inline cNPC_AI* cNPC::ai() const
+{
+	return ai_;
+}
+
+inline void cNPC::setAI( cNPC_AI* ai )
+{
+	ai_ = ai;
+	changed( SAVE );
+}
+
+inline UINT32 cNPC::aiCheckTime() const
+{
+	return aiCheckTime_;
+}
+
+inline void cNPC::setAICheckTime( UINT32 data )
+{
+	aiCheckTime_ = data;
+	changed( SAVE );
+}
+
 inline enCharTypes cNPC::objectType()
 {
 	return enNPC;
@@ -428,16 +452,6 @@ inline UINT16 cNPC::wanderRadius() const
 	return wanderType_.radius;
 }
 
-inline SERIAL cNPC::wanderFollowTarget() const
-{
-	return wanderType_.object;
-}
-
-inline Coord_cl cNPC::wanderDestination() const
-{
-	return wanderType_.pos;
-}
-
 inline void cNPC::setWanderType(enWanderTypes data)
 {
 	wanderType_.type = data;
@@ -466,16 +480,6 @@ inline void cNPC::setWanderY2(UINT16 data)
 inline void cNPC::setWanderRadius(UINT16 data)
 {
 	wanderType_.radius = data;
-}
-
-inline void cNPC::setWanderFollowTarget(SERIAL data)
-{
-	wanderType_.object = data;
-}
-
-inline void cNPC::setWanderDestination(const Coord_cl &data)
-{
-	wanderType_.pos = data;
 }
 
 

@@ -239,7 +239,8 @@ enum enDirection
 #define BOAT 1
 #define CUSTOMHOUSE 2
 
-// Maximum Search Steps: Iterations to calculate
+#define ARCHERY_RANGE 10
+
 #endif
 ///////////////////////  End Defines
 

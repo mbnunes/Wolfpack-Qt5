@@ -1367,7 +1367,7 @@ namespace Combat
 			pGuard->setAttackFirst( true );
 			pGuard->setAttackerSerial(pOffender->serial());
 			pGuard->setCombatTarget(pOffender->serial());
-			pGuard->setWanderType( enCombatTarget );
+//			pGuard->setWanderType( enCombatTarget );
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
 			pGuard->setSummonTime( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );    
