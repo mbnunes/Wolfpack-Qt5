@@ -956,7 +956,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 	{
 		if (pi->priv&0x01 && pi->isInWorld() && !pi->free)
 		{  // decaytime = 5 minutes, * 60 secs per min, * MY_CLOCKS_PER_SEC
-			if (pi->decaytime==0) 
+			if (pi->decaytime()==0) 
 			{
 				pi->startDecay();
 			}
