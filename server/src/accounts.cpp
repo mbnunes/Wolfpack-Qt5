@@ -379,7 +379,7 @@ void cAccounts::load()
 			if( result.getInt( 5 ) != 0 )
 				account->blockUntil.setTime_t( result.getInt( 5  ) );
 
-			accounts.insert( account->login_, account );
+			accounts.insert( account->login_.lower(), account );
 		}
 	}
 	catch( QString &error )
@@ -440,7 +440,7 @@ void cAccounts::reload()
 cAccount* cAccounts::createAccount( const QString& login, const QString& password )
 {
 	cAccount* d = new cAccount;
-	d->login_ = login;
+	d->login_ = login.lower();
 	d->password_ = password;
 	accounts.insert(d->login(), d);
 	if ( accounts.count() == 1 ) // first account, it must be admin!
