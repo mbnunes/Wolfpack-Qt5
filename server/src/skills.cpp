@@ -92,6 +92,85 @@ inline void SetSkillDelay(P_CHAR pc)
 	SetTimerSec(&pc->skilldelay,SrvParams->skillDelay());
 }
 
+// This is the target-request for Anatomy
+class cSkAnatomy: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = socket->player();
+
+		if( !pChar )
+			return;
+
+		P_CHAR aChar = FindCharBySerial( target->serial() );
+
+		if( !aChar )
+		{
+			socket->sysMessage( tr( "You need to examine that" ) );
+			return;
+		}
+
+		// Examination on yourself 
+		if( pChar == aChar )
+		{
+			pChar->message( tr( "You know yourself well enough." ) );
+			return;
+		}
+
+		// Are we in range?
+		if( !pChar->inRange( aChar, 9 ) )
+		{
+			pChar->message( tr( "You are too far away to examine that." ) );
+			return;
+		}
+
+		// Check the Skill
+		if( !Skills->CheckSkill( pChar, ANATOMY, 0, 1000 ) ) 
+		{
+			pChar->message( tr( "You are not certain." ) );
+			return;
+		}
+
+		register UINT16 dex = aChar->effDex();
+		register UINT16 str = aChar->st;
+
+		// No Str & no Dex = Not living
+		if( !str && !dex )
+		{
+			socket->showSpeech( aChar, tr( "It does not appear to be a living being." ) );
+			return;
+		}
+
+		QString part1, part2;
+		if		(str <= 10)	part1 = tr( "like they would have trouble lifting small objects" );
+		else if (str <= 20)	part1 = tr( "rather feeble" );
+		else if (str <= 30)	part1 = tr( "somewhat weak" );
+		else if (str <= 40)	part1 = tr( "to be of normal strength" );
+		else if (str <= 50)	part1 = tr( "somewhat strong" );
+		else if (str <= 60)	part1 = tr( "very strong" );
+		else if (str <= 70)	part1 = tr( "extremely strong" );
+		else if (str <= 80)	part1 = tr( "extraordinarily strong" );
+		else if (str <= 90)	part1 = tr( "strong as an ox" );
+		else if (str <= 99)	part1 = tr( "one of the strongest people you have ever seen" );
+		else if (str >=100) part1 = tr( "superhumanly strong" );
+
+		if		(dex <= 10)	part2 = tr( "like they barely manage to stay standing" );
+		else if (dex <= 20)	part2 = tr( "very clumsy" );
+		else if (dex <= 30)	part2 = tr( "somewhat uncoordinated" );
+		else if (dex <= 40)	part2 = tr( "moderately dextrous" );
+		else if (dex <= 50)	part2 = tr( "somewhat agile" );
+		else if (dex <= 60)	part2 = tr( "very agile" );
+		else if (dex <= 70)	part2 = tr( "extremely agile" );
+		else if (dex <= 80)	part2 = tr( "extraordinarily agile" );
+		else if (dex <= 90)	part2 = tr( "moves like quicksilver" );
+		else if (dex <= 99) part2 = tr( "one of the fastest people you have ever seen" );
+		else if (dex >=100) part2 = tr( "superhumanly agile" );
+		
+		socket->showSpeech( aChar, tr( "This person looks %1 and %2." ).arg( part1 ).arg( part2 ) );
+	}
+};
+
 // This is the target-request for ArmsLore
 class cSkArmsLore: public cTargetRequest
 {
@@ -1644,7 +1723,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 
 	if( pChar->cell > 0 )
 	{
-		socket->sysMessage( tr( "You are in jail and cant gain skills here!" ) );
+		socket->sysMessage( tr( "You are in jail and cant use skills here!" ) );
 		return;
 	}
 
@@ -1681,7 +1760,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		break;
 	case ANATOMY:
 		message = "Whom shall I examine?";
-		//target(s, 0, 1, 0, 37, );
+		targetRequest = new cSkAnatomy;
 		break;
 	case ITEMID:
 		message = "What do you wish to appraise and identify?";

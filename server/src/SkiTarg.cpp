@@ -1892,56 +1892,6 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 
 void cSkills::AnatomyTarget(int s)
 {
-	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-
-	if (pc == NULL || pc_currchar == NULL)
-		return;
-
-	if( pc->pos.distance( pc_currchar->pos ) >= 10 )
-	{
-		sysmessage( s, tr("You need to be closer to find out more about them" ) );
-		return;
-	}
-	
-	if (!Skills->CheckSkill(pc_currchar,ANATOMY, 0, 1000)) 
-	{
-		sysmessage(s, tr("You are not certain..") );
-		return;
-	}
-
-	short dx = pc->effDex();
-	if (pc->st == 0 && dx == 0) 
-		sysmessage(s, tr("That does not appear to be a living being.") );
-	else
-	{
-		char *ps1,*ps2;
-		if		(pc->st <= 10)	ps1="like they would have trouble lifting small objects ";
-		else if (pc->st <= 20)	ps1="Rather Feeble";
-		else if (pc->st <= 30)	ps1="Somewhat weak";
-		else if (pc->st <= 40)	ps1="To be of normal strength";
-		else if (pc->st <= 50)	ps1="Somewhat strong";
-		else if (pc->st <= 60)	ps1="Very strong"; 
-		else if (pc->st <= 70)	ps1="Extremely strong";
-		else if (pc->st <= 80)	ps1="Extraordinarily strong";
-		else if (pc->st <= 90)	ps1="Strong as an ox";
-		else if (pc->st <= 99)	ps1="One of the strongest people you have ever seen";
-		else if (pc->st >=100)  ps1="Superhumanly strong";
-
-		if		(dx <= 10)	ps2="like they barely manage to stay standing";
-		else if (dx <= 20)	ps2="Very clumsy";
-		else if (dx <= 30)	ps2="Somewhat uncoordinated";
-		else if (dx <= 40)	ps2="Moderately dextrous";
-		else if (dx <= 50)	ps2="Somewhat agile";
-		else if (dx <= 60)	ps2="Very agile";
-		else if (dx <= 70)	ps2="Extremely agile";
-		else if (dx <= 80)	ps2="Extraordinarily agile";
-		else if (dx <= 90)	ps2="Moves like quicksilver";
-		else if (dx <= 99) 	ps2="One of the fastest people you have ever seen";
-		else if (dx >=100)  ps2="Superhumanly agile";
-		sprintf((char*)temp,"That person looks %s and %s.", ps1, ps2); 
-		sysmessage(s, (char*)temp);
-	}
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
