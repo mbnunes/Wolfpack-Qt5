@@ -144,7 +144,10 @@ def domining(char, args):
 	pos = args[1]
 	socket = char.socket
 	socket.deltag( 'is_mining' )
-
+	
+	if not tool:
+		return False
+		
 	# Recheck distance
 	#if not char.canreach(pos, MINING_MAX_DISTANCE):
 	#	socket.clilocmessage(501867)

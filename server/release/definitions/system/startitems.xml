@@ -36,7 +36,7 @@
 	<!--  Animallore -->
 	<startitems id="animallore">
 		<!--Robe --><equipment id="1f03"></equipment>
-		<!--Sheperd crook --><equipment id="e81"></equipment>
+		<!--Sheperd crook --><equipment id="13f5"></equipment>
 	</startitems>
 
 	<!--  Itemid -->
@@ -140,7 +140,7 @@
 
 	<!--  Herding -->
 	<startitems id="herding">
-		<!--Sheperd crook --><equipment id="e81"></equipment>
+		<!--Sheperd crook --><equipment id="13f5"></equipment>
 	</startitems>
 
 	<!--  Hiding -->
@@ -232,7 +232,7 @@
 
 	<!--  Taming -->
 	<startitems id="taming">
-		<!--Sheperd crook --><equipment id="e81"></equipment>
+		<!--Sheperd crook --><equipment id="13f5"></equipment>
 	</startitems>
 
 	<!--  Tasteid -->

@@ -35,6 +35,9 @@ def response( char, args, target ):
 		# It looks smarter than a rock, but dumber than a piece of wood
 		char.socket.clilocmessage( 0x7A4AC, "", 0x3b2, 3, target.item )
 		return False
+		
+	if not target.char:
+		return False
 
 	if not char.canreach( target.char, 8 ):
 		# No Cliloc when failing LoS or Distance Check

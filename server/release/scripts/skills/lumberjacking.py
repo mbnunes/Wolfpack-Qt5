@@ -179,6 +179,9 @@ def successlumberjacking( char, args ):
 	tool = wolfpack.finditem(args[3])
 	resname = args[4]
 	table = args[5]
+	
+	if not tool:
+		return False
 
 	# Lets make sure we stayed next to the tree
 	# Player can reach that ?

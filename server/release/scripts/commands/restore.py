@@ -20,7 +20,7 @@
 """
 
 import wolfpack
-from wolfpack.consts import LOG_MESSAGE
+from wolfpack.consts import LOG_MESSAGE, GRAY
 
 def onLoad():
 	wolfpack.registercommand( "restore", restore )
