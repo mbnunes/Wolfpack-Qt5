@@ -1854,6 +1854,9 @@ void cChar::update( void )
 // Resend the char to all sockets in range
 void cChar::resend( bool clean )
 {
+	if( socket_ )
+		socket_->resendPlayer();
+
 	// We are stabled and therefore we arent visible to others
 	if( stablemaster_serial() != INVALID_SERIAL )
 		return;
@@ -1883,9 +1886,6 @@ void cChar::resend( bool clean )
 		drawChar.setHighlight( notority( pChar ) );
 		pChar->socket()->send( &drawChar );
 	}
-
-	if( socket_ )
-		socket_->resendPlayer();
 }
 
 QString cChar::fullName( void )
@@ -2335,8 +2335,12 @@ void cChar::kill()
 
 			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) ) 
 			//	pi_j->setLayer( 0x1A );
+			pi_j->removeFromView( false );
+			pi_j->update();
 		}
 	}
+
+	pi_c->update();
 
 	cUOTxDeathAction dAction;
 	dAction.setSerial( serial );
@@ -2354,22 +2358,17 @@ void cChar::kill()
 			if( SrvParams->showDeathAnim() )
 				mSock->send( &dAction );
 
-			if( mSock != socket_ )
-			{
-				mSock->send( &rObject );
-			}
-			else
-			{
-				cUOTxCharDeath cDeath;
-				socket_->resendPlayer();
-				socket_->send( &cDeath );
-			}
-
 			if( resetShop )
 				mSock->send( &rShop );
 		}
 
-	pi_c->update();
+	resend( true );
+
+	if( socket_ )
+	{
+		cUOTxCharDeath cDeath;
+		socket_->send( &cDeath );
+	}
 
 	if( isPlayer() )
 	{
