@@ -30,7 +30,7 @@
 //==================================================================================
 
 // Wolfpack includes
-#include "getopts.h"
+#include "../getopts.h"
 
 // Library Includes
 #include <stdio.h>
