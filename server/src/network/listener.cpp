@@ -64,6 +64,11 @@ cListener::cListener( Q_UINT16 port )
 	listenningSocket.listen( 20 );
 }
 
+cListener::~cListener()
+{
+	listenningSocket.close();
+}
+
 void cListener::run() throw()
 {
 	while ( !canceled() )

@@ -231,10 +231,6 @@ SOURCE=.\mapstuff.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\MenuActions.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\msgboard.cpp
 # End Source File
 # Begin Source File
@@ -540,10 +536,6 @@ SOURCE=.\makemenus.h
 # Begin Source File
 
 SOURCE=.\mapcache.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\MenuActions.h
 # End Source File
 # Begin Source File
 

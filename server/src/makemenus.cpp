@@ -214,14 +214,15 @@ void cMakeSection::processNode( const QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();
 	QString Value = getNodeValue( Tag );
+	cMakeAction::WPACTIONTYPE type = baseAction()->type();
 
-	if( TagName == "makeitem" )
+	if( TagName == "makeitem" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::AMOUNT_SECTIONS ) )
 	{
 		cMakeItem* pMakeItem = new cMakeItem( Tag );
 		makeitems_.append( pMakeItem );
 	}
 
-	else if( TagName == "useitem" )
+	else if( TagName == "useitem" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::AMOUNT_SECTIONS ) )
 	{
 		cUseItem* pUseItem = new cUseItem( Tag );
 		useitems_.append( pUseItem );
@@ -233,10 +234,10 @@ void cMakeSection::processNode( const QDomElement &Tag )
 		skillchecks_.append( pSkillCheck );
 	}
 
-	else if( TagName == "name" )
+	else if( TagName == "name" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::NPC_SECTION ) )
 		name_ = Value;
 
-	else if( TagName == "makenpc" )
+	else if( TagName == "makenpc" && type == cMakeAction::NPC_SECTION )
 	{
 		makenpc_.name = Tag.attribute( "name" );
 		makenpc_.section = Tag.attribute( "id" );
@@ -491,6 +492,16 @@ void cMakeSection::execute( cUOSocket* socket )
 	socket->sysMessage( Message );
 }
 
+void cMakeSection::setMakeItemAmounts( UINT16 amount )
+{
+	QPtrListIterator< cMakeItem > it( makeitems_ );
+	while( it.current() )
+	{
+		it.current()->setAmount( amount );
+		++it;
+	}
+}
+
 cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 {
 	basemenu_ = basemenu;
@@ -500,6 +511,19 @@ cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 	succmsg_ = (char*)0;
 	charaction_ = 0;
 	sound_ = 0;
+	type_ = CUSTOM_SECTIONS;
+	if( Tag.hasAttribute( "type" ) )
+	{
+		QString Value = Tag.attribute( "type" );
+		if( Value == "resource" || Value.toUShort() == 1 )
+			type_ = RESOURCE_SECTIONS;
+		else if( Value == "amount" || Value.toUShort() == 2 )
+			type_ = AMOUNT_SECTIONS;
+		else if( Value == "npc" || Value.toUShort() == 3 )
+			type_ = NPC_SECTION;
+		else if( Value == "delayed" || Value.toUShort() == 4 )
+			type_ = DELAYED_SECTIONS;
+	}
 	if( Tag.hasAttribute( "inherit" ) )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_ACTION, Tag.attribute( "inherit" ) );
@@ -516,9 +540,34 @@ void cMakeAction::processNode( const QDomElement &Tag )
 
 	if( TagName == "make" )
 	{
-		cMakeSection* pMakeSection = new cMakeSection( Tag, this );
-		if( pMakeSection )
-			makesections_.push_back( pMakeSection );
+		if( type_ == CUSTOM_SECTIONS || type_ == NPC_SECTION )
+		{
+			cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+			if( pMakeSection )
+				makesections_.push_back( pMakeSection );
+		}
+		else if( type_ == AMOUNT_SECTIONS && Tag.hasAttribute( "amounts" ) )
+		{
+			QString amountstr = Tag.attribute("amounts");
+			QStringList amounts = QStringList::split( ",", amountstr );
+			QStringList::const_iterator it = amounts.begin();
+			while( it != amounts.end() )
+			{
+				if( (*it).toUShort() > 0 )
+				{
+					cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+					if( pMakeSection )
+					{
+						pMakeSection->setMakeItemAmounts( (*it).toUShort() );
+						pMakeSection->setName( QString("(%1)").arg( (*it).toUShort() ) );
+						makesections_.push_back( pMakeSection );
+					}
+				}
+				++it;
+
+
+			}
+		}
 	}
 
 	else if( TagName == "fail" )

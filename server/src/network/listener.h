@@ -48,6 +48,7 @@ private:
 
 public:
 	cListener(Q_UINT16 port);
+	~cListener();
 
 
 	QSocketDevice* getNewConnection();

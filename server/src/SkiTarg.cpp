@@ -165,6 +165,7 @@ void cSkills::Fletching(int s)
 
 void cSkills::BowCraft(int s)
 {
+
 /*	P_CHAR pc_currchar = currchar[s];
 
 	action(s,pc_currchar->onHorse() ? 0x1C : 0x0D);
@@ -1401,7 +1402,7 @@ void cSkills::AlchemyTarget(int s)
 	
 	switch (pi->id())
 	{
-	case 0x0F7B: ShowMenu( s, 991 );break;	// Agility,
+/*	case 0x0F7B: ShowMenu( s, 991 );break;	// Agility,
 	case 0x0F84: ShowMenu( s, 992 );break;	// Cure, Garlic
 	case 0x0F8C: ShowMenu( s, 993 );break;	// Explosion, Sulfurous Ash
 	case 0x0F85: ShowMenu( s, 994 );break;	// Heal, Ginseng
@@ -1409,7 +1410,7 @@ void cSkills::AlchemyTarget(int s)
 	case 0x0F88: ShowMenu( s, 996 );break;	// Poison, Nightshade
 	case 0x0F7A: ShowMenu( s, 997 );break;	// Refresh, 
 	case 0x0F86: ShowMenu( s, 998 );break;	// Strength,
-	case 0x0E9B: break;	// Mortar
+	case 0x0E9B: break;	// Mortar*/
 	default:
 		if ( pi->id()>=0x1B11 && pi->id()<=0x1B1C )
 		{

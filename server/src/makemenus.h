@@ -64,6 +64,9 @@ public:
 	QString			section()	const	{ return section_; }
 	UINT16			amount()	const	{ return amount_; }
 
+	// Setters
+	void			setAmount( UINT16 amount ) { amount_ = amount; }
+
 private:
 	QString			name_;
 	QString			section_;
@@ -148,6 +151,9 @@ public:
 	cMakeAction*				baseAction()	const { return baseaction_; }
 	makenpcprops_st				makenpc()		const { return makenpc_; }
 
+	// Setters
+	void		setName( QString data )		{ name_ = data; }
+
 	void		execute( cUOSocket* socket );
 
 	// execute helper methods
@@ -157,6 +163,9 @@ public:
 	bool	skilledEnough( cChar* pChar );
 	// calcRank checks the skill and may raise it! (==0) => failed, (>0) => success
 	UINT32	calcRank( cChar* pChar );
+
+	// action type specific methods
+	void	setMakeItemAmounts( UINT16 amount );
 private:
 	QPtrList< cMakeItem >		makeitems_;
 	QPtrList< cUseItem >		useitems_;
@@ -170,6 +179,15 @@ private:
 class cMakeAction : public cDefinable
 {
 public:
+	enum WPACTIONTYPE
+	{
+		CUSTOM_SECTIONS = 0,// define makesections with <make> tag
+		RESOURCE_SECTIONS,	// define makesections by a resource's types (ores, woods)
+		AMOUNT_SECTIONS,	// define makesections by a list of amounts
+		NPC_SECTION,		// define a makesection by an npc section
+		DELAYED_SECTIONS,	//define a makesection by several actions to be executed in a delayed action queue (alchemy)
+	};
+
 	cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu = NULL );
 	~cMakeAction() 
 	{
@@ -185,14 +203,15 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	QString		name()			{ return name_; }
-	UINT16		model()			{ return model_; }
-	QString		description()	{ return description_; }
-	cMakeMenu*	baseMenu()		{ return basemenu_; }
-	QString		failMsg()		const { return failmsg_; }
-	QString		succMsg()		const { return succmsg_; }
-	UINT8		charAction()	const { return charaction_; }
-	UINT16		sound()			const { return sound_; }
+	QString			name()			{ return name_; }
+	UINT16			model()			{ return model_; }
+	QString			description()	{ return description_; }
+	cMakeMenu*		baseMenu()		{ return basemenu_; }
+	QString			failMsg()		const { return failmsg_; }
+	QString			succMsg()		const { return succmsg_; }
+	UINT8			charAction()	const { return charaction_; }
+	UINT16			sound()			const { return sound_; }
+	WPACTIONTYPE	type()			const { return type_; }
 
 	// Setters
 	void		setName( QString data )		{ name_ = data; }
@@ -207,6 +226,7 @@ private:
 	UINT16							model_;
 	QString							description_;
 	cMakeMenu*						basemenu_;
+	WPACTIONTYPE					type_;
 
 	std::vector< cMakeSection* >		makesections_;
 	QString								failmsg_;
