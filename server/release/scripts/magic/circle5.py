@@ -209,8 +209,9 @@ class MindBlast (DelayedDamageSpell):
 		energydamage(target, char, damage, cold=100)
 
 def paralyze_expire(char, arguments):
-	char.frozen = 0
-	char.resendtooltip()
+	if char:
+		char.frozen = 0
+		char.resendtooltip()
 
 class Paralyze (CharEffectSpell):
 	def __init__(self):

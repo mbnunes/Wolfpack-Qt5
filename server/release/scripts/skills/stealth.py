@@ -10,15 +10,13 @@ from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
 import skills
+from math import ceil
 
 STEALTH_DELAY = 5000
 # the hiding skill before you can use the stealth skill
 MIN_HIDING = 800
 
 def stealth( char, skill ):
-	if skill != STEALTH:
-		return 0
-
 	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
 		if cur_time < char.socket.gettag( 'skill_delay' ):
@@ -46,10 +44,13 @@ def stealth( char, skill ):
 
 	if success:
 		char.socket.clilocmessage( 502730, "", 0x3b2, 3 )
-		char.stealth = 0
+		char.stealthedsteps = 5
+		#char.stealthedsteps = int(ceil(char.skill[STEALTH] / 50.0))
+		#char.message(str(int(ceil(char.skill[STEALTH] / 50.0))))
 	else:
 		char.socket.clilocmessage( 502731, "", 0x3b2, 3 )
 		char.hidden = 0
+		char.update()
 	
 	cur_time = servertime()
 	char.socket.settag( 'skill_delay', ( cur_time + STEALTH_DELAY ) )
