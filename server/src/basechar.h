@@ -145,6 +145,7 @@ public:
 	virtual bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
 	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
+	virtual bool onShowSkillGump(); //Show Skillgump
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	virtual bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 	bool onDropOnChar( P_ITEM pItem );

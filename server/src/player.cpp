@@ -1262,7 +1262,7 @@ bool cPlayer::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 	// We can only advance when doing things which aren't below our ability
 	if( skillValue( skill ) < max )
 	{
-		if( advance && Skills->advanceSkill( this, skill, success ) )
+		if( advance && Skills->advanceSkill( this, skill, min, max, success ) )
 		{
 			if( socket_ )
 				socket_->sendSkill( skill );
@@ -1306,6 +1306,25 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 		pPet->setOwner( NULL );
 		pPet->setTamed( false );
 	}
+}
+
+bool cPlayer::onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success )
+{
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onSkillGain( this, Skill, min, max, success ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SKILLGAIN );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onSkillGain( this, Skill, min, max, success ) )
+			return true;
+
+	return false;
 }
 
 bool cPlayer::onPickup( P_ITEM pItem )

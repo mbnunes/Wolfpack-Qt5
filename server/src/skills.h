@@ -94,7 +94,7 @@ public:
 	const QString &getSkillDef( UINT16 skill ) const;
 	INT16 findSkillByDef( const QString &defname ) const; // -1 = Not Found
 
-	bool advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const;
+	bool advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool success ) const;
 	bool advanceStats( P_CHAR pChar, UINT16 skill ) const;
 
 	// Skill Usage methods

@@ -888,7 +888,10 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 	{
 		if( ( pChar != _player ) && !_player->isGM() )
 			return;
-
+		
+		if( pChar->onShowSkillGump() )
+			return;
+		
 		// Send a full skill update
 		cUOTxSendSkills skillList;
 		skillList.fromChar( pChar );

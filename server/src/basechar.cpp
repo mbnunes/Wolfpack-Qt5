@@ -1092,6 +1092,24 @@ bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 	return false;
 }
 
+bool cBaseChar::onShowSkillGump()
+{
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowSkillGump( this ) )
+			return true;
+	
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWSKILLGUMP );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onShowSkillGump( this ) )
+			return true;
+
+	return false;	
+}
+
 // The character uses %Skill
 bool cBaseChar::onSkillUse( UI08 Skill ) 
 {

@@ -1545,12 +1545,15 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 	return gained;
 }
 
-bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
+bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool success ) const
 {
 	if( !pChar )
 		return false;
 
 	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
+
+	if (pPlayer->onSkillGain(skill, min, max, success ) ) 
+		return true;
 
 	// For GMs there is no LockState
 	UINT8 lockState = ( pPlayer && pPlayer->isGM() ) ? 0 : pChar->skillLock( skill );

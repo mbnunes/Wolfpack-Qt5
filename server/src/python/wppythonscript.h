@@ -71,7 +71,9 @@ public:
 	bool onHelp( P_CHAR Character );
 	bool onChat( P_CHAR Character );
 	bool onSkillUse( P_CHAR Character, UI08 Skill );
+	bool onSkillGain( P_CHAR Character, UI08 Skill, SI32 min, SI32 max, bool success);
 	bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin );
+	bool onShowSkillGump( P_CHAR pChar );
 	QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin );
 
 	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );

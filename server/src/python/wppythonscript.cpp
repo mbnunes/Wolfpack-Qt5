@@ -268,6 +268,20 @@ bool WPPythonScript::onSkillUse( P_CHAR Character, UI08 Skill )
 	PyEvalMethod( "onSkillUse" )
 }
 
+bool WPPythonScript::onSkillGain( P_CHAR Character, UI08 Skill, SI32 min, SI32 max, bool success )
+{
+	PyHasMethod( "onSkillGain" )
+
+	PyObject *tuple = PyTuple_New( 5 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Skill ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( min ) );
+	PyTuple_SetItem( tuple, 3, PyInt_FromLong( max ) );
+	PyTuple_SetItem( tuple, 4, PyInt_FromLong( success ) );
+
+	PyEvalMethod( "onSkillGain" )
+}
+
 bool WPPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
 {
 	PyHasMethod( "onContextEntry" )
@@ -487,6 +501,17 @@ bool WPPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
 	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
 
 	PyEvalMethod( "onShowPaperdoll" )
+}
+
+bool WPPythonScript::onShowSkillGump( P_CHAR pChar )
+{
+	PyHasMethod( "onShowSkillGump" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 1 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+
+	PyEvalMethod( "onShowSkillGump" )
 }
 
 QString WPPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )

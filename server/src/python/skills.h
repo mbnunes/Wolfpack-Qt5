@@ -28,7 +28,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-class cChar;
+class cBaseChar;
 
 #include "../defines.h"
 #include "../skills.h"

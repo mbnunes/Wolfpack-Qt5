@@ -111,10 +111,12 @@ public:
 	virtual bool onHelp( P_PLAYER Character ) { Q_UNUSED(Character); return false; }
 	virtual bool onChat( P_PLAYER Character ) { Q_UNUSED(Character); return false; }
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { Q_UNUSED(Character); Q_UNUSED(Skill); return false; }
+	virtual bool onSkillGain( P_CHAR Character, UI08 Skill, SI32 min, SI32 max, bool success ) { Q_UNUSED(Character); Q_UNUSED(Skill); Q_UNUSED(min); Q_UNUSED(max); Q_UNUSED(success); return false; }
 	virtual bool onContextEntry( P_PLAYER pChar, cUObject *pObject, UINT16 id ) { Q_UNUSED(pChar); Q_UNUSED(pObject); Q_UNUSED(id); return false; }
 	virtual bool onShowContextMenu( P_PLAYER pChar, cUObject *pObject ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 	virtual bool onShowToolTip( P_PLAYER pChar, cUObject *pObject, cUOTxTooltipList* tooltip ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 	virtual bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return false; }
+	virtual bool onShowSkillGump( P_CHAR pChar ) { Q_UNUSED( pChar ); return false; }
 	virtual QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return (char*)0; }
 
 	// Drop/Pickup Events
