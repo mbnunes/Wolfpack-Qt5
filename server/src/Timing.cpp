@@ -109,17 +109,6 @@ void checkRegeneration(P_CHAR pc, unsigned int currenttime)
 	// Regeneration stuff
 	if( !pc->dead() )
 	{
-		// Eventually this stuff should be removed
-		// But I am not sure about it.
-		if( pc->hp() > pc->st() )
-			pc->setHp( pc->st() );
-
-		if( pc->stm() > pc->effDex() )
-			pc->setStm( pc->effDex() );
-
-		if (pc->mn()>pc->in())
-			pc->setMn( pc->in() );
-
 		// Health regeneration
 		if( pc->regen() <= currenttime )
 		{
@@ -227,15 +216,21 @@ void checkRegeneration(P_CHAR pc, unsigned int currenttime)
 	if( pc->hp() <= 0 && !pc->dead() )
 		pc->kill();
 
+	if( pc->hp() > pc->st() )
+		pc->setHp( pc->st() );
+
+	if( pc->stm() > pc->effDex() )
+		pc->setStm( pc->effDex() );
+
+	if (pc->mn()>pc->in())
+		pc->setMn( pc->in() );
+
 	// Now check if our Health, Stamina or Mana has changed
 	if( oldHealth != pc->hp() )
 		pc->updateHealth();
 
 	if( pc->socket() )
 	{
-		if( oldHealth != pc->hp() )
-			pc->socket()->updateHealth();
-
 		if( oldStamina != pc->stm() )
 			pc->socket()->updateStamina();
 
