@@ -6,7 +6,7 @@
 import wolfpack
 import wolfpack.gumps
 from wolfpack.utilities import tobackpack
-from wolfpack.consts import ALLSKILLS, SKILLNAMES, LOG_MESSAGE, skillnamesids
+from wolfpack.consts import *
 from math import ceil, floor
 from commands.info import iteminfo
 
@@ -59,7 +59,7 @@ def callback(player, arguments, target):
 	dialog.addGump(1, 12, 10421, 0)
 	dialog.addGump(30, -1, 10420, 0)
 	dialog.addResizeGump(66, 40, 9200, 405, 65)
-	dialog.addText(108, 52, "Wolfpack Skillinfo Command", 2100)
+	dialog.addText(108, 52, unicode("Wolfpack Skillinfo Command"), 2100)
 	dialog.addTiledGump(90, 11, 164, 17, 10250, 0)
 	dialog.addGump(474, 12, 10431, 0)
 	dialog.addGump(439, -1, 10430, 0)
@@ -77,39 +77,39 @@ def callback(player, arguments, target):
 
 	# 80 pixel diameter
 	pages = int(ceil(ALLSKILLS / 5.0))
-
-	for page in range(1, pages + 1):
+	page = 0
+	while page <= pages:
+		page += 1
 		dialog.startPage(page)
-
 		if page > 1:
 			dialog.addPageButton(60, 444, 9909, 9911, page - 1)
-			dialog.addText(88, 444, "Previous Page", 2100)
-
+			dialog.addText(88, 444, unicode("Previous Page"), 2100)
 		if page < pages:
 			dialog.addPageButton(448, 444, 9903, 9905, page + 1)
-			dialog.addText(376, 448, "Next Page", 2100)
+			dialog.addText(376, 448, unicode("Next Page"), 2100)
 
 		yoffset = 0
-
 		for i in range(0, 5):
-			skill = (page - 1) * 5 + i
+			skill = int(((page - 1) * 5) + i)
 
 			if skill >= ALLSKILLS:
 				break
 
 			skillname = SKILLNAMES[skill]
-			skillname = skillname[0].upper() + skillname[1:]
+			skillname = str( skillname[0].upper() + skillname[1:] )
+			skillvalue = ( target.char.skill[skill] / 10.0 )
+			skillcapvalue = ( target.char.skillcap[skill] / 10.0 )
 
 			dialog.addResizeGump(65, 109 + yoffset, 9200, 405, 62)
-			dialog.addText(76, 115 + yoffset, "Skill: %s (%u)" % (skillname, skill), 2100)
+			dialog.addText(76, 115 + yoffset, unicode( "Skill: %s (%i)" % (skillname, skill) ), 2100)
 			dialog.addResizeGump(123, 135 + yoffset, 9300, 63, 26)
-			dialog.addText(76, 137 + yoffset, "Value:", 2100)
-			dialog.addText(187, 138 + yoffset, "%", 2100)
-			dialog.addInputField(128, 138 + yoffset, 50, 20, 2100, 0x1000 | skill, "%0.01f" % (target.char.skill[skill] / 10.0))
-			dialog.addText(232, 138 + yoffset, "Cap:", 2100)
-			dialog.addText(329, 139 + yoffset, "%", 2100)
+			dialog.addText(76, 137 + yoffset, unicode( "Value:" ), 2100)
+			dialog.addText(187, 138 + yoffset, unicode( "%" ), 2100)
+			dialog.addInputField(128, 138 + yoffset, 50, 20, 2100, 0x1000 | skill, unicode( "%0.1f" % skillvalue ) )
+			dialog.addText(232, 138 + yoffset, unicode( "Cap:" ), 2100)
+			dialog.addText(329, 139 + yoffset, unicode( "%" ), 2100)
 			dialog.addResizeGump(264, 135 + yoffset, 9300, 63, 26)
-			dialog.addInputField(268, 139 + yoffset, 53, 20, 2100, 0x2000 | skill, "%0.01f" % (target.char.skillcap[skill] / 10.0))
+			dialog.addInputField(268, 139 + yoffset, 53, 20, 2100, 0x2000 | skill, unicode( "%0.1f" % skillcapvalue ) )
 
 			yoffset += 65
 
