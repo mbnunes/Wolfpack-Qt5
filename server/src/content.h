@@ -126,7 +126,8 @@ public:
 
 		size_t count = this->count(); // If there is no content, this will always be zero
 	
-		for (int i = 2; i < count + 2; ++i) {
+		for( unsigned int i = 2; i < count + 2; ++i )
+		{
 			if (content[i] == item) {
 				result = true;
 				break;
@@ -144,7 +145,8 @@ public:
 		size_t count = this->count();
 
 		// Iterate trough all items.
-		for (int i = 2; i < 2 + count; ++i) {			
+		for( unsigned int i = 2; i < 2 + count; ++i )
+		{
 			if (content[i] != item) {
 				continue; // Skip this item
 			}
@@ -152,7 +154,8 @@ public:
 			// We found the item we want to remove here
 			// What we do now is seek ahead and write all following items in the array
 			// one index downwards
-			for (int j = i + 1; j < 2 + count; ++j) {
+			for( unsigned int j = i + 1; j < 2 + count; ++j )
+			{
 				content[j - 1] = content[j]; // Swap Values
 			}
 

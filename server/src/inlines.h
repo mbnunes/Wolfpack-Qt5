@@ -93,7 +93,8 @@ inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
 inline QString makeAscii(const QString &input) {
 	QString result;
 	
-	for (int i = 0; i < input.length(); ++i) {
+	for( unsigned int i = 0; i < input.length(); ++i )
+	{
 		QChar c = input.at(i);
 
 		// German umlauts can be represented differently
