@@ -38,7 +38,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	flush(); // if any key created, save it.
 }
 
-std::vector<ServerList_st>& const cSrvParams::serverList()
+std::vector<ServerList_st>& cSrvParams::serverList()
 {
 	if ( serverList_.empty() ) // Empty? Try to load
 	{
@@ -67,7 +67,7 @@ std::vector<ServerList_st>& const cSrvParams::serverList()
 	return serverList_;
 }
 
-std::vector<StartLocation_st>& const cSrvParams::startLocation()
+std::vector<StartLocation_st>& cSrvParams::startLocation()
 {
 	if ( startLocation_.empty() ) // Empty? Try to load
 	{

@@ -81,6 +81,7 @@ HEADERS         = Client.h \
 		  scriptc.h \
 		  speech.h \
 		  sregions.h \
+                  srvparams.h \
                   sertextfile.h \
                   serbinfile.h \
 		  stl_headers_end.h \
@@ -166,6 +167,7 @@ SOURCES         = Client.cpp \
 		  skills.cpp \
 		  speech.cpp \
 		  sregions.cpp \
+                  srvparams.cpp \
 		  storage.cpp \
 		  targeting.cpp \
 		  telport.cpp \
