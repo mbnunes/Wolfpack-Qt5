@@ -284,7 +284,7 @@ void cTargets::IstatsTarget(int s)
 				pi->serial, pi->id(),
 				pi->name().ascii(),pi->name2().ascii(),pi->color(),
 				contstr,
-				pi->layer(),pi->type(),pi->magic,
+				pi->layer(),pi->type(),pi->magic(),
 				pi->more1(),pi->more2(),pi->more3(),pi->more4(),
 				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount(), pi->priv);
 			sysmessage(s, (char*)temp);
