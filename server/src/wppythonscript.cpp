@@ -1253,7 +1253,9 @@ void cPythonTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 	Py_INCREF( target );
 	PyTuple_SetItem( arguments, 0, target );
 
-	for( UI32 i = 1; i <= PyTuple_Size( arguments_ ); i++ )
+	UI32 i = 0;
+
+	for( i = 1; i <= PyTuple_Size( arguments_ ); i++ )
 	{
 		PyTuple_SetItem( arguments, i, PyTuple_GetItem( arguments_, i-1 ) );
 	}
@@ -1261,7 +1263,7 @@ void cPythonTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 	PyObject_CallObject( callback_, arguments );
 
 	// DECREF as the arguments are no longer needed
-	for( UI32 i = 0; i < PyTuple_Size( arguments ); i++ )
+	for( i = 0; i < PyTuple_Size( arguments ); i++ )
 		Py_DECREF( PyTuple_GetItem( arguments, i ) );
 
 	if( PyErr_Occurred() )
