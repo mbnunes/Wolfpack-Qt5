@@ -46,6 +46,9 @@ HITSOUND = 18
 PROJECTILE = 19
 PROJECTILEHUE = 20
 AMMUNITION = 21
+REQSTR = 22
+REQDEX = 23
+REQINT = 24
 
 # Checks for certain item types
 ITEM_ARMOR = 1 # Armor

@@ -1232,3 +1232,26 @@ const char *cNPC::className() const {
 bool cNPC::inWorld() {
 	return stablemasterSerial() == INVALID_SERIAL;
 }
+
+void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
+	cUObject::createTooltip(tooltip, player);
+
+	QString affix = " ";
+
+	// Append NPC titles
+	if (!title_.isEmpty()) {
+		affix.append(title_);
+	}
+
+	// Append the (frozen) tag
+	if (isFrozen()) {
+		if (affix.length() != 1) {
+			affix.append(" " + tr("(frozen)"));
+		} else {
+			affix.append(tr("(frozen)"));
+		}
+	}	
+
+	tooltip.addLine(1050045, QString(" \t%1\t%2").arg(name_).arg(affix));
+	onShowTooltip(player, &tooltip);
+}

@@ -79,28 +79,19 @@ PyObject* PyGetSocketObject( cUOSocket *socket )
 	return Py_None;
 }
 
-/*!
-	Disconnects the socket.
-*/
-static PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
-{
+static PyObject* wpSocket_disconnect(wpSocket* self, PyObject* args) {
 	Q_UNUSED(args);
-	if( !self->pSock )
-		return PyFalse;
-
 	self->pSock->socket()->close();
 	return PyTrue;
 }
 
-/*!
-	Sends a system message to the socket
-*/
 static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
 	char *message;
 	unsigned short color = 0x3b2;
 	unsigned short font = 3;
 
-	if (!PyArg_ParseTuple(args, "es|HH:socket.sysmessage(message, color, font)", "utf-8", &message, &color, &font)) {
+	if (!PyArg_ParseTuple(args, "es|HH:socket.sysmessage(message, color, font)",
+		"utf-8", &message, &color, &font)) {
 		return 0;
 	}
 
@@ -110,214 +101,109 @@ static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
 	return PyTrue;
 }
 
-/*!
-	Sends a localized message to the socket
-*/
-static PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
-{
-	if( !self->pSock )
-		return PyFalse;
+static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
+	unsigned int clilocid;
+	char *params = 0;
+	unsigned short color = 0x3b2;
+	unsigned short font = 3;
+	cUObject *source = 0;
+	char *affix = 0;
+	unsigned char dontmove = 0;
+	unsigned char prepend = 0;
 
-	if( !checkArgInt( 0 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
+	if (!PyArg_ParseTuple(args, "I|esHHO&esBB:socket.clilocmessage"
+		"(messageid, [params], [color], [font], [source], [affix], [dontmove], [prepend])",
+		&clilocid, "utf-8", &params, &color, &font, PyConvertObject, &source, 
+		"utf-8", &affix, &dontmove, &prepend)) {
+		return 0;
 	}
 
-	UINT16 color = 0x37;
-	UINT16 font = 3;
-
-	QString params( "" );
-
-	if( checkArgStr( 1 ) )
-	{
-		params = getArgStr( 1 );
-	}
-	else if( checkArgUnicode( 1 ) )
-	{
-		params.setUnicodeCodes( (unsigned short*)getArgUnicode( 1 ), getUnicodeSize( 1 ) ) ;
+	if (affix != 0) {
+		self->pSock->clilocMessageAffix(clilocid, QString::fromUtf8(params), 
+			QString::fromUtf8(affix), color, font, source, dontmove, prepend);
+		PyMem_Free(affix);
+	} else {
+		self->pSock->clilocMessage(clilocid, QString::fromUtf8(params), color, font, source);
 	}
 
-	if( checkArgInt( 2 ) )
-		color = getArgInt( 2 );
-
-	if( checkArgInt( 3 ) )
-		font = getArgInt( 3 );
-
-	// Object
-	cUObject *object = 0;
-
-	if( checkArgChar( 4 ) )
-		object = getArgChar( 4 );
-	else if( checkArgItem( 4 ) )
-		object = getArgItem( 4 );
-
-	if( checkArgStr( 5 ) )
-	{
-		bool dontmove = false;
-		bool prepend = false;
-
-		if( checkArgInt( 6 ) && getArgInt( 6 ) == 1 )
-			dontmove = true;
-
-		if( checkArgInt( 7 ) && getArgInt( 7 ) == 1 )
-			prepend = true;
-
-		// Message Affix
-		QString affix = getArgStr( 5 );
-		self->pSock->clilocMessageAffix( getArgInt( 0 ), params, affix, color, font, object, dontmove, prepend );
-	}
-	else
-	{
-		self->pSock->clilocMessage( getArgInt( 0 ), params, color, font, object );
+	if (params != 0) {
+		PyMem_Free(params);
 	}
 
 	return PyTrue;
 }
 
-/*!
-	Sends speech of a given object to the socket
-*/
-static PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
-{
-	// Needed/Allowed arugments:
-	// First Argument: Source
-	// Second Argument: Speech
-	// optional:
-	// Third Argument: Color
-	// Fourth Argument: SpeechType
-	if( !self->pSock || !checkArgStr( 1 ) || !checkArgObject( 0 ) ) 
-	{
-		PyErr_BadArgument();
-		return NULL;
+static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
+	cUObject *object;
+	char *message;
+	unsigned short color = 0x3b2;
+	unsigned short font = 3;
+	unsigned char type = 0;
+	
+	if (!PyArg_ParseTuple(args, "O&es|HHB:socket.showspeech"
+		"(source, message, [color], [font], [type])", 
+		PyConvertObject, &object, "utf-8", &message, &color, &font, &type)) {
+		return 0;
 	}
 
-	cUObject *object = NULL;
-	QString speech( PyString_AsString( PyTuple_GetItem( args, 1 ) ) );
-	UINT16 color = 0x3b2;
-	UINT16 font = 3;
-	UINT8 type = 0;
-	cUOTxUnicodeSpeech::eSpeechType eType;
-
-	object = getWpItem( PyTuple_GetItem( args, 0 ) );
-
-	if( !object )
-		object = getWpChar( PyTuple_GetItem( args, 0 ) );
-
-	if( !object )
-		return PyFalse;
-
-	if( PyTuple_Size( args ) > 2 && checkArgInt( 2 ) )
-		color = getArgInt( 2 );
-
-	if( PyTuple_Size( args ) > 3 && checkArgInt( 3 ) )
-		font = getArgInt( 3 );
-
-	if( PyTuple_Size( args ) > 4 && checkArgInt( 4 ) )
-		type = getArgInt( 4 );
-
-	switch( type )
-	{
-	case 1:		eType = cUOTxUnicodeSpeech::Broadcast;		break;
-	case 2:		eType = cUOTxUnicodeSpeech::Emote;			break;
-	case 6:		eType = cUOTxUnicodeSpeech::System;			break;
-	case 8:		eType = cUOTxUnicodeSpeech::Whisper;		break;
-	case 9:		eType = cUOTxUnicodeSpeech::Yell;			break;
-	case 0:
-	default:
-				eType = cUOTxUnicodeSpeech::Regular;		break;
-	};
-
-	self->pSock->showSpeech( object, speech, color, font, eType );
-
+	self->pSock->showSpeech(object, QString::fromUtf8(message), color, font, 
+		(cUOTxUnicodeSpeech::eSpeechType)type);
+	PyMem_Free(message);
 	return PyTrue;
 }
 
-/*!
-	Attachs a target request to the socket.
-*/
-static PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
-{
-	if( !self->pSock )
-		return PyFalse;
-
-	if( !checkArgStr( 0 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
-
-	// Collect Data
-	QString responsefunc = getArgStr( 0 );
-	QString cancelfunc, timeoutfunc;
-	UINT16 timeout = 0;
+static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
+	char *responsefunc;
 	PyObject *targetargs = 0;
+	char *cancelfunc = 0;
+	char *timeoutfunc = 0;
+	unsigned int timeout = 0;	
 
-	// If Second argument is present, it has to be a tuple
-	if( PyTuple_Size( args ) > 1 && PyList_Check( PyTuple_GetItem( args, 1 ) ) )
-		targetargs = PyList_AsTuple( PyTuple_GetItem( args, 1 ) );
-
-	if( !targetargs )
-		targetargs = PyTuple_New( 0 );
-
-	if( checkArgStr( 2 ) )
-		cancelfunc = getArgStr( 2 );
-
-	if( checkArgStr( 3 ) && checkArgInt( 4 ) )
-	{
-		timeoutfunc = getArgStr( 3 );
-		timeout = getArgInt( 4 );
+	if (!PyArg_ParseTuple(args, "s|O!ssI:socket.attachtarget"
+		"(callback, [args], [cancelcallback], [timeoutcallback], [timeout])", 
+		&responsefunc, &PyList_Type, &targetargs, &cancelfunc, &timeoutfunc, &timeout)) {
+		return 0;
+	}
+	
+	if (targetargs) {
+		targetargs = PyList_AsTuple(targetargs);
+	} else {
+		targetargs = PyTuple_New(0);
 	}
 
-	cPythonTarget *target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
-	if( timeout != 0 )
-		target->setTimeout( uiCurrentTime + timeout );
-	self->pSock->attachTarget( target );
+	cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
+	
+	if (timeout) {
+		target->setTimeout(uiCurrentTime + timeout);
+	}
 
+	self->pSock->attachTarget(target);
 	return PyTrue;
 }
-/*!
-	Attachs a multi target request to the socket.
-*/
-static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
-{
-	if( !self->pSock )
-		return PyFalse;
 
-	if( !checkArgStr( 0 ) && !checkArgInt( 1 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
+static PyObject* wpSocket_attachmultitarget(wpSocket* self, PyObject* args) {
+	char *responsefunc;
+	unsigned short multiid;
+	PyObject *targetargs;
+	char *cancelfunc = 0;
+	char *timeoutfunc = 0;
+	unsigned int timeout = 0;	
+
+	if (!PyArg_ParseTuple(args, "sHO!|ssI:socket.attachmultitarget"
+		"(callback, multi, args, [cancelcallback], [timeoutcallback], [timeout])", 
+		&responsefunc, &multiid, &PyList_Type, &targetargs, &cancelfunc, &timeoutfunc, &timeout)) {
+		return 0;
+	}
+	
+	targetargs = PyList_AsTuple(targetargs);
+
+	cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
+	
+	if (timeout) {
+		target->setTimeout(uiCurrentTime + timeout);
 	}
 
-	// Collect Data
-	QString responsefunc = getArgStr( 0 );
-	UINT16 multiid = getArgInt( 1 );
-	QString cancelfunc, timeoutfunc;
-	UINT16 timeout = 0;
-	PyObject *targetargs = 0;
-
-	// If Third argument is present, it has to be a tuple
-	if( PyTuple_Size( args ) > 2 && PyList_Check( PyTuple_GetItem( args, 2 ) ) )
-		targetargs = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
-
-	if( !targetargs )
-		targetargs = PyTuple_New( 0 );
-
-	if( checkArgStr( 2 ) )
-		cancelfunc = getArgStr( 2 );
-
-	if( checkArgStr( 3 ) && checkArgInt( 4 ) )
-	{
-		timeoutfunc = getArgStr( 3 );
-		timeout = getArgInt( 4 );
-	}
-
-	cPythonTarget *target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
-	if( timeout != 0 )
-		target->setTimeout( uiCurrentTime + timeout );
-	self->pSock->attachTarget( target, multiid + 0x4000 );
-
+	self->pSock->attachTarget(target, 0x4000 + multiid);
 	return PyTrue;
 }
 

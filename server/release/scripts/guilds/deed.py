@@ -43,6 +43,7 @@ def response(player, args, target):
 
         deed.delete()
         player.socket.sysmessage('You place the guildstone and your deed vanishes.')
+        player.resendtooltip()
 
 # Allow the player to place a guildstone
 def onUse(player, deed):

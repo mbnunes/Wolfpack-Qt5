@@ -657,9 +657,7 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 			socket->bounceItem( socket->dragging(), BR_NO_REASON );
 
 		return;
-	}
-	else if( pCont->onDropOnItem( pItem ) )
-	{
+	} else if(pCont->onDropOnItem(pItem)) {
 		if( pItem->free )
 			return;
 
@@ -737,45 +735,38 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 
 	// We may also drop into *any* locked chest
 	// So we can have post-boxes ;o)
-	if( pCont->type() == 1 || pCont->type() == 8 || pCont->type() == 63 || pCont->type() == 65 || pCont->type() == 66 )
-	{
+	if (pCont->type() == 1) {
 		// If we're dropping it onto the closed container
-		if( dropPos.x == 0xFFFF && dropPos.y == 0xFFFF )
-		{
-			pCont->addItem( pItem );
-		}
-		else
-		{
-			pCont->addItem( pItem, false );
-			pItem->setPos( dropPos );
+		if (dropPos.x == 0xFFFF && dropPos.y == 0xFFFF) {
+			pCont->addItem(pItem);
+		} else {
+			pCont->addItem(pItem, false);
+			pItem->setPos(dropPos);
 		}
 
 		// Dropped on another Container/in another Container
-		pChar->soundEffect( 0x57 );
+		pChar->soundEffect(0x57);
 		pItem->update();
 		return;
 	}
 	// Item matching needs to be extended !!! at least Color! (for certain types)
-	else if ( pCont->isPileable() && pItem->isPileable() && ( pCont->id() == pItem->id() ) )
-	{
+	else if ( pCont->isPileable() && pItem->isPileable() 
+		&& (pCont->baseid() == pItem->baseid() && pCont->color() == pItem->color())) {
 		if( pCont->amount() + pItem->amount() <= 60000 )
 		{
 			pCont->setAmount( pCont->amount() + pItem->amount() );
 			
 			pItem->remove();
 			pCont->update(); // Need to update the amount
-			return;
-		}
-		// We have to *keep* our current item
-		else
-		{
+		} else {
 			// The delta between 60000 and pCont->amount() sub our Amount is the
 			// new amount
-			pItem->setAmount( pItem->amount() - ( 60000 - pCont->amount() ) );
+			pItem->setAmount(pItem->amount() - (60000 - pCont->amount()));
 
-			pCont->setAmount( 60000 ); // Max out the amount
+			pCont->setAmount(60000); // Max out the amount
 			pCont->update();
 		}
+		return;
 	}
 
 	// We dropped the item NOT on a container
@@ -795,13 +786,6 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 	}
 
 	pItem->update();
-
-/*	// This needs to be checked
-	// It annoyingly shows the spellbook
-	// whenever you add a scroll
-	// << could it be that addItemToContainer is enough?? >>
-	if( pCont->type() == 9 )
-		Magic->openSpellBook( pChar, pCont );*/
 }
 
 void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )

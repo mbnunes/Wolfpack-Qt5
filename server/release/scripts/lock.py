@@ -205,3 +205,21 @@ def onUse(char, item):
 		char.socket.clilocmessage(501746)
 
 	return 1
+
+#
+# Show a special tooltip
+#
+def onShowTooltip(viewer, object, tooltip):
+  # If the character is a gm and the targetted item has a lock, display the lock id
+  if viewer.gm:
+    lock = 'None'
+  
+    if object.hastag('lock'):
+      lock = str(object.gettag('lock'))
+  
+    if object.hastag('locked') and int(object.gettag('locked')) != 0:
+      suffix = ' (Locked)'
+    else:
+      suffix = ' (Unlocked)'
+  
+    tooltip.add(1050045, " \tLock: " + lock + suffix + "\t ")

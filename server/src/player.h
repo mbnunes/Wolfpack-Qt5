@@ -107,6 +107,7 @@ public:
 	virtual bool inWorld();
 	void giveNewbieItems( Q_UINT8 skill = 0xFF );
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true ); // override
+	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 
 	// Wrapper events
 	virtual bool onLogin( void ); // The character enters the world

@@ -108,6 +108,7 @@ public:
 	void vendorBuy( P_PLAYER player );
 	void vendorSell( P_PLAYER player );
 	virtual bool isInnocent();
+	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );

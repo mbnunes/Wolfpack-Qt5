@@ -1703,3 +1703,16 @@ void init_wolfpack_globals()
 
 	Py_DECREF(module);*/
 }
+
+int PyConvertObject(PyObject *object, cUObject **uoobject) {
+	if (checkWpChar(object)) {
+		*uoobject = getWpChar(object);
+	} else if(checkWpItem(object)) {
+		*uoobject = getWpItem(object);
+	} else {
+		PyErr_SetString(PyExc_TypeError, "Object expected.");
+		return 0;
+	}   
+	
+	return 1;
+}

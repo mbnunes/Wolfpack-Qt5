@@ -680,7 +680,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	gameTime.setTime( uoTime.time().hour(), uoTime.time().minute(), uoTime.time().second() );
 	send( &gameTime );
 
-	pChar->sendTooltip( this );
+	pChar->sendTooltip(this);
 
 	// Request a viewrange from the client
 	cUOPacket packet(0xc8, 2);
@@ -1399,19 +1399,16 @@ void cUOSocket::resendPlayer( bool quick )
 	cBaseChar::ItemContainer content = _player->content();
 	cBaseChar::ItemContainer::const_iterator it;
 
-	for( it = content.begin(); it != content.end(); it++ )
-	{	
+	for (it = content.begin(); it != content.end(); it++) {	
 		P_ITEM pItem = *it;
 
-		if( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
-			continue;
-
-		pItem ->sendTooltip( this );
+		if (pItem->layer() < 0x19) {
+			pItem->sendTooltip(this);
+		}
 	}
 
 	// Set the warmode status
-	if( !quick )
-	{
+	if (!quick) {
 		cUOTxWarmode warmode;
 		warmode.setStatus( _player->isAtWar() );
 		send( &warmode );
@@ -1443,7 +1440,7 @@ void cUOSocket::sendChar( P_CHAR pChar )
 		cUOTxDrawChar drawChar;
 		drawChar.fromChar( pChar );
 		drawChar.setHighlight( pChar->notoriety( _player ) );
-		pChar->sendTooltip( this );
+		pChar->sendTooltip(this);
 		send( &drawChar );
 	}
 }

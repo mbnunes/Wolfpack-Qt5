@@ -261,6 +261,7 @@ void cGuild::removeMember(P_PLAYER member) {
 	canidates_.remove(member);
 	members_.remove(member);
 	member->setGuild(0);
+	memberinfo_.remove(member);
 
   if (leader_ == member) {
     leader_ = 0;

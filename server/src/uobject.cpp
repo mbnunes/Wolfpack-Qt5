@@ -214,7 +214,6 @@ void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QString
 	conditions.push_back( "uobjectmap.serial = uobject.serial" );
 }
 
-
 /*!
 	Clears the script-chain
 */
@@ -253,36 +252,33 @@ bool cUObject::hasEvent( const QString& name ) const
 /*!
 	Adds an event handler to this object
 */
-void cUObject::addEvent( cPythonScript *Event )
-{
-	if( hasEvent( Event->name() ) )
+void cUObject::addEvent(cPythonScript *event) {
+	if(hasEvent(event->name())) {
 		return;
+	}
 
 	// Reallocate the ScriptChain
-	if( scriptChain )
-	{
-		unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
+	if (scriptChain) {
+		unsigned int count = reinterpret_cast<unsigned int>(*scriptChain);
 
-		// i is the count of real elements in the old array
-		cPythonScript **newScriptChain = new cPythonScript* [ count + 1 ];
-		memcpy( newScriptChain, scriptChain, (count+1) * sizeof( cPythonScript* ) );
-		newScriptChain[ count+1 ] = Event;
-		newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
+		cPythonScript **newScriptChain = new cPythonScript* [count + 2];
+		memcpy(newScriptChain, scriptChain, (count + 1) * sizeof(cPythonScript*));		
+		newScriptChain[0] = reinterpret_cast<cPythonScript*>(count + 1);
+		newScriptChain[count + 1] = event;
 
 		delete [] scriptChain;
 		scriptChain = newScriptChain;
-	}
-	else
-	{
+	} else {
 		scriptChain = new cPythonScript*[2];
-		scriptChain[0] = reinterpret_cast< cPythonScript* >( 1 );
-		scriptChain[1] = Event;
+		scriptChain[0] = reinterpret_cast<cPythonScript*>(1);
+		scriptChain[1] = event;
 	}
 
-	if( eventList_ == QString::null )
-		eventList_ = Event->name();
-	else
-		eventList_.append( "," + Event->name() );
+	if (eventList_.isEmpty()) {
+		eventList_ = event->name();
+	} else {
+		eventList_.append("," + event->name());
+	}
 
 	changed_ = true;
 }
@@ -335,44 +331,19 @@ void cUObject::removeEvent( const QString& name )
 void cUObject::recreateEvents()
 {
 	// clearEvents() would flag us as changed, but we didn't
-	if( eventList_ == QString::null )
-		return;
+	if (!eventList_.isEmpty()) {
+		delete [] scriptChain;
+		scriptChain = 0;
 
-	delete [] scriptChain;
-	scriptChain = 0;
+		// Walk the eventList and recreate
+		QStringList::const_iterator myIter;
+		QStringList eventList = QStringList::split(",", eventList_);
 
-	// Walk the eventList and recreate
-	QStringList::const_iterator myIter;
-	QStringList eventList = QStringList::split( ",", eventList_ );
+		for (myIter = eventList.begin(); myIter != eventList.end(); ++myIter) {
+			cPythonScript *event = ScriptManager::instance()->find((*myIter).latin1());
 
-	for( myIter = eventList.begin(); myIter != eventList.end(); ++myIter )
-	{
-		cPythonScript *Event = ScriptManager::instance()->find( (*myIter).latin1() );
-
-		if( Event )
-		{
-			if( !hasEvent( Event->name() ) )
-			{
-				// Reallocate the ScriptChain
-				if( scriptChain )
-				{
-					unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
-
-					// i is the count of real elements in the old array
-					cPythonScript **newScriptChain = new cPythonScript* [ count + 2 ];
-					memcpy( newScriptChain, scriptChain, (count+1) * sizeof( cPythonScript* ) );
-					newScriptChain[ count+1 ] = Event;
-					newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
-
-					delete [] scriptChain;
-					scriptChain = newScriptChain;
-				}
-				else
-				{
-					scriptChain = new cPythonScript*[2];
-					scriptChain[0] = reinterpret_cast< cPythonScript* >( 1 );
-					scriptChain[1] = Event;
-				}
+			if (event) {
+				addEvent(event);
 			}
 		}
 	}
@@ -822,20 +793,12 @@ bool cUObject::onCreate( const QString &definition )
 	return result;
 }
 
-bool cUObject::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
-{
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
+bool cUObject::onShowTooltip(P_PLAYER sender, cUOTxTooltipList* tooltip) {
 	bool result = false;
 
-	if( scriptChain || global )
-	{
-		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetObjectObject, this, PyGetTooltipObject, tooltip );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
-
-		if( !result && global )
-			result = global->callEventHandler( EVENT_SHOWTOOLTIP, args );
-
+	if(scriptChain) {
+		PyObject *args = Py_BuildValue("NNN", PyGetCharObject(sender), PyGetObjectObject(this), PyGetTooltipObject(tooltip));
+		result = cPythonScript::callChainedEventHandler(EVENT_SHOWTOOLTIP, scriptChain, args);
 		Py_DECREF( args );
 	}
 
@@ -843,7 +806,10 @@ bool cUObject::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 }
 
 void cUObject::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
-	tooltip.resize(19); // Resize to the original size
+	if (tooltip.size() != 19) {
+		tooltip.resize(19); // Resize to the original size
+	}
+
 	tooltip.setSerial(serial_);
 	tooltip.setId(tooltip_);
 }

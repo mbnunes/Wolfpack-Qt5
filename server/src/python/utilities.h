@@ -71,6 +71,8 @@ inline void wpDealloc( PyObject* self )
 
 PyObject *PyGetTooltipObject( cUOTxTooltipList* );
 
+int PyConvertObject(PyObject *object, cUObject **uobject);
+
 bool checkWpSocket( PyObject *object );
 PyObject *PyGetSocketObject( cUOSocket* );
 cUOSocket *getWpSocket( PyObject* object );

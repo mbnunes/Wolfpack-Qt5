@@ -177,3 +177,9 @@ def onUse( char, item ):
 	packet.send( char.socket )
 
 	return 1
+
+#
+# Create the special tooltip
+#
+def onShowTooltip(viewer, object, tooltip):
+  tooltip.add(1042886, str(object.spellscount()))

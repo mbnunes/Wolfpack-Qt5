@@ -75,66 +75,20 @@ static PyObject *wpTooltip_send( wpTooltip *self, PyObject *args );
 
 static PyMethodDef wpTooltipMethods[] = 
 {
-	{ "add", (getattrofunc)wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet" },
-  	{ "send", (getattrofunc)wpTooltip_send, METH_VARARGS, "Sends tooltip packet" },
+	{"add", (getattrofunc)wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet."},
     { NULL, NULL, 0, NULL }
 };
 
-static PyObject *wpTooltip_send( wpTooltip *self, PyObject *args )
-{
-	if( !self->list )
-		return false;
+static PyObject *wpTooltip_add(wpTooltip *self, PyObject *args) {
+	char *params;
+	unsigned int id;
 
-	if( !checkArgChar( 0 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
-	
-	P_PLAYER player = dynamic_cast<P_PLAYER>( getArgChar( 0 ) ); 
-	if ( !player )
-		return PyFalse;
-	player->socket()->send( self->list );
-
-    return PyTrue;
-}
-
-static PyObject *wpTooltip_add( wpTooltip *self, PyObject *args )
-{
-	if( !self->list )
-		return false;
-
-//	( !checkArgStr( 1 ) ) || ( !checkArgUnicode( 1 ) ) )
-
-	UINT32 listid;
-	QString params;
-
-	if( checkArgInt( 0 ) )
-	{
-		listid = getArgInt( 0 );
-	}
-	else
-	{
-		PyErr_BadArgument();
-		return NULL;
+	if (!PyArg_ParseTuple(args, "Ies:tooltip.add(id, params)", &id, "utf-8", &params)) {
+		return 0;
 	}
 
-	if( checkArgUnicode( 1 ) )
-	{
-		params.setUnicodeCodes( (unsigned short*)getArgUnicode( 1 ), getUnicodeSize( 1 ) ) ;
-	}
-	else if( checkArgStr( 1 ) )
-	{
-		params = getArgStr( 1 );
-	}
-	else
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
-
-	self->list->addLine( listid, params );
-
+	self->list->addLine(id, QString::fromUtf8(params));
+	PyMem_Free(params);
 	return PyTrue;
 }
 
@@ -152,23 +106,24 @@ PyObject* PyGetTooltipObject( cUOTxTooltipList *tooltip )
 
 static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name )
 {
-	if( !strcmp( name, "id" ) )
+	if (!strcmp(name, "id"))
 		return PyInt_FromLong( self->list->getInt( 11 ) );
-	else if( !strcmp( name, "serial" ) )
+	else if(!strcmp(name, "serial"))
 		return PyInt_FromLong( self->list->getInt( 5 ) );
 	else
 		return Py_FindMethod( wpTooltipMethods, (PyObject*)self, name );
 }
 
-static int wpTooltip_setAttr( wpTooltip *self, char *name, PyObject *value )
-{
-	if( !PyInt_Check( value ) )
+static int wpTooltip_setAttr(wpTooltip *self, char *name, PyObject *value) {
+	if(!PyInt_Check(value)) {
 		return 1;
+	}
 
-	if( !strcmp( name, "id" ) )
+	if (!strcmp(name, "id")) {
 		self->list->setInt( 11, PyInt_AsLong( value ) );
-	else if( !strcmp( name, "serial" ) )
-		self->list->setInt( 5, PyInt_AsLong( value ) );
+	} else if(!strcmp(name, "serial")) {
+		self->list->setInt(5, PyInt_AsLong(value));
+	}
 
 	return 0;
 }

@@ -1958,14 +1958,6 @@ bool cBaseChar::onStatGain( unsigned char stat )
 	return result;
 }
 
-void cBaseChar::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
-	cUObject::createTooltip(tooltip, player);
-
-	if (!onShowTooltip(player, &tooltip)) {
-		tooltip.addLine( 0x1005bd, " \t" + name_ + "\t " );
-	}
-}
-
 bool cBaseChar::kill(cUObject *source) {
 	if (free || isDead()) {
 		return false;

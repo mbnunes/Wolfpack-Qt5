@@ -1144,9 +1144,6 @@ def onShowTooltip(sender, target, tooltip):
   else:
     tooltip.add(1060847, "Abandoned\t\n")
 
-  tooltip.send(sender)
-  return 1
-
 # The guildstone is being deleted
 def onDelete(item):
   pass

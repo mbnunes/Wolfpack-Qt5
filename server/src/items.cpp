@@ -810,27 +810,6 @@ bool cItem::onDropOnChar( P_CHAR pChar )
 
 	return result;
 }
-/*
-bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
-{
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
-	bool result = false;
-
-	if( scriptChain || global )
-	{
-		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetItemObject, this, PyGetTooltipObject, tooltip );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
-
-		if( !result && global )
-			result = global->callEventHandler( EVENT_SHOWTOOLTIP, args );
-
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-*/
 
 void cItem::processNode( const cElement *Tag )
 {
@@ -1581,30 +1560,51 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 			pItem->SetRandPosInCont( this ); // not piled, random pos
 	}
 
-	if ( handleWeight )
+	if (handleWeight) {
 		setTotalweight( this->totalweight() + pItem->totalweight() );
+	}
+
+	// If the Server is running and this happens, resend the tooltip of us and
+	// all our parent containers.
+	if (serverState == RUNNING) {
+		P_ITEM cont = this;
+
+		while (cont) {
+			cont->resendTooltip();
+			cont = dynamic_cast<P_ITEM>(cont->container());
+		}
+	}
 }
 
 void cItem::removeItem( cItem* pItem, bool handleWeight )
 {
 	//ContainerContent::iterator it = std::find(content_.begin(), content_.end(), pItem);
 	ContainerContent::iterator it = content_.begin();
-	while( it != content_.end() )
-	{
-		if( (*it) == pItem )
-		{
+	while (it != content_.end()) {
+		if ((*it) == pItem) {
 			content_.erase(it);
-			if (handleWeight)
-				setTotalweight(	this->totalweight() - pItem->totalweight() );
+			if (handleWeight) {
+				setTotalweight(this->totalweight() - pItem->totalweight());
+			}
 			break;
 		}
-
 		++it;
 	}
 
 	pItem->container_ = 0;
 	pItem->flagChanged();
 	pItem->setLayer( 0 );
+
+	// If the Server is running and this happens, resend the tooltip of us and
+	// all our parent containers.
+	if (serverState == RUNNING) {
+		P_ITEM cont = this;
+
+		while (cont) {
+			cont->resendTooltip();
+			cont = dynamic_cast<P_ITEM>(cont->container());
+		}
+	}
 }
 
 cItem::ContainerContent cItem::content() const
@@ -1940,8 +1940,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else return cUObject::getProperty( name, value );
 }
 
-void cItem::sendTooltip( cUOSocket* mSock )
-{
+void cItem::sendTooltip(cUOSocket* mSock) {
 	// There is a list of statically overridden items in the client (@50A1C0 for 4.0.0o)
 	unsigned short id = this->id();
 
@@ -1952,10 +1951,10 @@ void cItem::sendTooltip( cUOSocket* mSock )
 		( id >= 0xed4 && id <= 0xede ) ||	// Graves and Guildstones
 		( id >= 0x1165 && id <= 0x1184 ) ||	// More Gravestones
 		( id == 0x2006 ) ||
-		!name_.isNull()						// Non Default Name
+		!name_.isEmpty()						// Non Default Name
 		)
 	{
-		cUObject::sendTooltip( mSock );
+		cUObject::sendTooltip(mSock);
 		return;
 	}
 
@@ -1964,13 +1963,13 @@ void cItem::sendTooltip( cUOSocket* mSock )
 
 	// If the item is not movable for the client, the item should not have a tooltip
 	// Exceptions are noted above and containers
-	if( tile.weight == 255 && !isAllMovable() )
-	{
-		if( tile.flag3 & 0x20 == 0 )
+	if (tile.weight == 255 && !isAllMovable()) {
+		if (tile.flag3 & 0x20 == 0) {
 			return;
+		}
 	}
 
-	cUObject::sendTooltip( mSock );
+	cUObject::sendTooltip(mSock);
 }
 
 /*!
@@ -2026,25 +2025,39 @@ P_ITEM cItem::createFromId( unsigned short id )
 void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	cUObject::createTooltip(tooltip, player);
 
-	if (!onShowTooltip(player, &tooltip)) {
-		if (name_.isNull() || name_.isEmpty()) {
-			if (amount_ > 1) {
-				//tooltip.addLine(0x1005bd, " \t#" + QString::number( 0xF9060 + id_ ) + "\t: " + QString::number(amount_));
-				tooltip.addLine(1050039, QString::number(amount_) + "\t#" + QString::number(0xf9060 + id_));
-			} else {
-				//tooltip.addLine(0xF9060 + id_, "");
-				tooltip.addLine(1050039, " \t#" + QString::number(0xf9060 + id_));
-			}
+	// Add the object name.
+	if (amount_ > 1) {
+		if (name_.isEmpty()) {
+			tooltip.addLine(1050039, QString("%1\t#%2").arg(amount_).arg(1020000 + id_));
+		} else {
+			tooltip.addLine(1050039, QString("%1\t%2").arg(amount_).arg(name_));
 		}
-		else
-			if (amount_ > 1) {
-				//tooltip.addLine(0x1005bd, " \t#" + QString::number( 0xF9060 + id_ ) + "\t: " + QString::number(amount_));
-				tooltip.addLine(1050039, QString::number(amount_) + "\t" + name_);
-			} else {
-				//tooltip.addLine(0xF9060 + id_, "");
-				tooltip.addLine(1050039, " \t" + name_);
-			}
+	} else {
+		if (name_.isEmpty()) {
+			tooltip.addLine(1042971, QString("#%2").arg(1020000 + id_));
+		} else {
+			tooltip.addLine(1042971, name_);
+		}
 	}
+
+	// For containers (hardcoded type), add count of items and total weight.
+	if (type_ == 1) {
+		unsigned int count = content_.size();
+		unsigned int weight = (unsigned int)floor(totalweight_);
+		tooltip.addLine(1050044, QString("%1\t%2").arg(count).arg(weight));
+	}
+
+	// Newbie Items
+	if (newbie()) {
+		tooltip.addLine(1038021, "");
+	}
+
+	// Invisible to others
+	if (player->isGM() && visible() > 0) {
+		tooltip.addLine(3000507, "");
+	}     
+
+	onShowTooltip(player, &tooltip);
 }
 
 // Python implementation

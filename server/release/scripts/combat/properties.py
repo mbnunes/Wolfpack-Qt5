@@ -152,7 +152,7 @@ def itemcheck(item, check):
 
   # No real check for this yet
   if check == ITEM_ARMOR:
-    return 1
+    return item.type == 1009
 
   # Only type check yet.
   if check == ITEM_SHIELD:

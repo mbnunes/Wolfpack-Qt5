@@ -1479,3 +1479,40 @@ cBaseChar::FightStatus cPlayer::fight(P_CHAR enemy) {
 
 	return status;
 }
+
+void cPlayer::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
+	cUObject::createTooltip(tooltip, player);
+
+	QString affix = " ";
+
+	// Append the (frozen) tag
+	if (isFrozen()) {
+		affix = " (frozen)";
+	}
+
+	// Don't miss lord and lady titles
+	if (fame_ >= 1000) {
+		if (gender()) {
+			tooltip.addLine(1050045, tr(" \tLady %1\t%2").arg(name_).arg(affix));
+		} else {
+			tooltip.addLine(1050045, tr(" \tLord %1\t%2").arg(name_).arg(affix));
+		}
+	} else {
+		tooltip.addLine(1050045, QString(" \t%1\t%2").arg(name_).arg(affix));
+	}	
+
+	// Append guild title and name
+	if (guild_) {
+		cGuild::MemberInfo *info = guild_->getMemberInfo(this);
+
+		if (info) {
+			if (!info->guildTitle().isEmpty()) {
+				tooltip.addLine(1042971, QString("%1, %2").arg(info->guildTitle()).arg(guild_->name()));
+			} else {
+				tooltip.addLine(1042971, guild_->name());
+			}
+		}
+	}
+
+	onShowTooltip(player, &tooltip);
+}
