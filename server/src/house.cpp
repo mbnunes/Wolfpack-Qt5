@@ -621,7 +621,7 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 
 	P_ITEM pMulti = FindItemBySerial(pc_currchar->multis);
 		
-	if ( ishouse(pMulti->id()) )
+	if ( pMulti && ishouse(pMulti->id()) )
 	{
 		cHouse* pHouse = dynamic_cast<cHouse*>(pMulti);
 		if ( !(pc_currchar->Owns(pHouse) || pHouse->isFriend(pc_currchar)))
