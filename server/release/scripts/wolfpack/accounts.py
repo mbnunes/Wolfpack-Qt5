@@ -8,6 +8,7 @@ import _wolfpack.accounts
 
 find = _wolfpack.accounts.find
 list = _wolfpack.accounts.list
+count = _wolfpack.accounts.count
 acls = _wolfpack.accounts.acls
 acl = _wolfpack.accounts.acl
 add = _wolfpack.accounts.add
