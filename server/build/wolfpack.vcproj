@@ -441,6 +441,12 @@
 				RelativePath="..\src\party.h">
 			</File>
 			<File
+				RelativePath="..\src\pathfinding.cpp">
+			</File>
+			<File
+				RelativePath="..\src\pathfinding.h">
+			</File>
+			<File
 				RelativePath="..\src\persistentbroker.cpp">
 			</File>
 			<File

@@ -102,6 +102,7 @@ HEADERS += \
 	../src/multi.h \
 	../src/npc.h \
 	../src/party.h \
+	../src/pathfinding.h \
 	../src/persistentbroker.h \
 	../src/persistentobject.h \
 	../src/platform.h \
@@ -158,7 +159,8 @@ SOURCES += \
 	../src/md5.cpp \
 	../src/multi.cpp \
 	../src/npc.cpp \
-	../src/party.cpp \
+	../src/party.cpp
+	../src/pathfinding.h \ \
 	../src/persistentbroker.cpp \
 	../src/persistentobject.cpp \
 	../src/player.cpp \
