@@ -1448,14 +1448,15 @@ void explodeitem(int s, unsigned int nItem)
 		{
 			if (pc->isInvul() || pc->npcaitype==17)		// don't affect vendors
 				continue;
-			c=DEREF_P_CHAR(pc);
+			if(pc->isGM() || (pc->isPlayer() && !online(c)))
+				continue;
 			dx=abs(pc->pos.x-pi->pos.x);
 			dy=abs(pc->pos.y-pi->pos.y);
 			dz=abs(pc->pos.z-pi->pos.z);
 			if ((dx<=len)&&(dy<=len)&&(dz<=len))
 			{
-				if(!(pc->isGM() || (pc->isPlayer() && !online(c)) ))
-					pc->hp-=dmg+(2-min(dx,dy));
+				c=DEREF_P_CHAR(pc);
+				pc->hp-=dmg+(2-min(dx,dy));
 				updatestats(c, 0);
 				if (pc->hp<=0)
 				{

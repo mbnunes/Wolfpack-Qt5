@@ -1028,9 +1028,9 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'w':
 					if (!strcmp("WEIGHT", (char*)script1))
 					{
-						int anum = 3;
+						//int anum = 3;
 						// anum=4;
-						anum = str2num(script2); // Ison 2-20-99
+						int anum = str2num(script2); // Ison 2-20-99
 						pi->weight = anum;
 					}
 					break;
@@ -1502,9 +1502,9 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 					else if (!(strcmp("WEIGHT",(char*)script1)))
 					{
-						int anum=3;
+						//int anum=3;
 						//anum=4;
-						anum=str2num(script2); // Ison 2-20-99
+						int anum=str2num(script2); // Ison 2-20-99
 						pi->weight=anum;
 						//clConsole.send("SETTING WEIGTH TO %i\n",pi->weight);
 					}

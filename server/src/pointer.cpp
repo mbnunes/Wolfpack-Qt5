@@ -59,13 +59,17 @@ void setptr(lookuptr_st *ptr, int item) //set item in pointer array
 
 	//resize(ptr->pointer, ptr->max, ptr->max+25);
 	// Must be out of slots, so reallocate some and set item
-	if ((ptr->pointer = (int *)realloc(ptr->pointer, (ptr->max+25)*sizeof(int)))==NULL)
+	//if ((ptr->pointer = (int *)realloc(ptr->pointer, (ptr->max+25)*sizeof(int)))==NULL)
+	int* ti = (int *)realloc(ptr->pointer, (ptr->max+25)*sizeof(int));
+	if (!ti)
 	{
-		clConsole.send("Error reallocating memory!\n");
+		LogCritical("Error reallocating pointer memory!");
 		error=1;
 		//keeprun=0;  //shutdown
 		return;
 	}
+	else
+		ptr->pointer = ti;
 
 	for (i=ptr->max;i<(ptr->max+25);i++) ptr->pointer[i]=-1;
 	ptr->pointer[ptr->max]=item;

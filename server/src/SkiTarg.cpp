@@ -952,8 +952,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 //
 static void SmeltOre2(	int s,					// current char's socket #
 						int minskill,			// minimum skill required for ore color
-						unsigned char id1, unsigned char id2,		// item ID of ingot to be created
-						unsigned char col1,unsigned char col2,	// color
+						short id,short color,	// item ID & color of ingot to be created
 						char *orename)
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
@@ -987,9 +986,12 @@ static void SmeltOre2(	int s,					// current char's socket #
 		int numore=pi->amount*2;			// one ore gives two ingots
 		sprintf(tmp,"%s Ingot",orename);
 		
-		Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),numore,tmp,1,	// socket #, char index, amount, name, stackable
-						id1,id2, col1, col2,	// ID, color
-						1,1);					// create in Backpack, no more modifications
+		cItem* Ingot=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),numore,tmp,1,id, color,1);
+		if (Ingot)
+		{
+			Ingot->weight = 20;	// that's 0.2 stone
+			RefreshItem(Ingot);
+		}
 
 		sysmessage(s,"You have smelted your ore");
 		sprintf(tmp,"You place some %c%s ingots in your pack.",tolower(*orename), orename+1);
@@ -1022,20 +1024,19 @@ void cSkills::SmeltOre(int s)
 				sysmessage(s,"You cant smelt here.");
 			else
 			{
-				const PC_ITEM pix=MAKE_ITEMREF_LR(pc_currchar->smeltitem);	// on error return
-				int color = (pix->color1<<8)+pix->color2;
-				switch (color)
+				cItem* pix=MAKE_ITEMREF_LR(pc_currchar->smeltitem);	// on error return
+				switch (pix->color())
 				{
-					case 0x0000:	SmeltOre2(s,   0, 0x1B, 0xF2, 0x09, 0x61,"Iron");break;
-					case 0x0466:	SmeltOre2(s, 850, 0x1B, 0xF2, 0x04, 0x66,"Golden");break;
-					case 0x046E:	SmeltOre2(s, 750, 0x1B, 0xF2, 0x04, 0x6E,"Copper");break;
-					case 0x0961:	SmeltOre2(s, 790, 0x1B, 0xF2, 0x00, 0x00,"Silver");break;
-					case 0x0150:	SmeltOre2(s, 900, 0x1B, 0xF2, 0x01, 0x50,"Agapite");break;
-					case 0x0386:	SmeltOre2(s, 650, 0x1B, 0xF2, 0x03, 0x86,"Shadow");break;
-					case 0x022f:	SmeltOre2(s, 950, 0x1B, 0xF2, 0x02, 0x2F,"Verite");break;
-					case 0x02e7:	SmeltOre2(s, 800, 0x1B, 0xF2, 0x02, 0xE7,"Bronze");break;
-					case 0x02c3:	SmeltOre2(s, 700, 0x1B, 0xF2, 0x02, 0xC3,"Merkite");break;
-					case 0x0191:	SmeltOre2(s, 990, 0x1B, 0xF2, 0x01, 0x91,"Mythril");break;
+					case 0x0000:	SmeltOre2(s,   0, 0x1BF2, 0x0961,"Iron");	break;
+					case 0x0466:	SmeltOre2(s, 850, 0x1BF2, 0x0466,"Golden");	break;
+					case 0x046E:	SmeltOre2(s, 750, 0x1BF2, 0x046E,"Copper");	break;
+					case 0x0961:	SmeltOre2(s, 790, 0x1BF2, 0x0000,"Silver");	break;
+					case 0x0150:	SmeltOre2(s, 900, 0x1BF2, 0x0150,"Agapite");break;
+					case 0x0386:	SmeltOre2(s, 650, 0x1BF2, 0x0386,"Shadow");	break;
+					case 0x022f:	SmeltOre2(s, 950, 0x1BF2, 0x022F,"Verite");	break;
+					case 0x02e7:	SmeltOre2(s, 800, 0x1BF2, 0x02E7,"Bronze");	break;
+					case 0x02c3:	SmeltOre2(s, 700, 0x1BF2, 0x02C3,"Merkite");break;
+					case 0x0191:	SmeltOre2(s, 990, 0x1BF2, 0x0191,"Mythril");break;
 					default:		
 						LogError("switch reached default");
 				}
@@ -2839,119 +2840,68 @@ void cSkills::RepairTarget(UOXSOCKET s)
 	}
 }
 
+//////////////////////////////////
+// name:	SmeltItemTarget
+// history: by Ripper
+//			revamped by Duke, 30.11.2001
+// Purpose: Smelting items.
+//			Only items crafted by a (player-)Blacksmith can be smelted
+//
 void cSkills::SmeltItemTarget(UOXSOCKET s)
-{ // Ripper..Smelting items.
+{
 	unsigned short int sk=MINING;
-	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
 
-	P_ITEM pi_pack = Packitem(pc);
-	if (pi_pack == NULL) {sysmessage(s,"Time to buy a backpack"); return; }
+	CHARACTER cc=currchar[s];
+	P_CHAR pc = MAKE_CHARREF_LR(cc);
 
+	cItem* pi=FindItemBySerPtr(buffer[s]+7);
+	if (!pi) return; 
+	if (!CheckInPack(s,pi)) return;
 
-	if (pc->baseskill[sk] < 300)
+	int a=1+pi->weight/100;	// number of ingots you get depends on the weight (Duke)
+
+	if (pi->magic==4 || pi->rank!=30 || (pi->smelt < 1 || pi->smelt > 10 ))
 	{
-		sysmessage(s,"* Your not skilled enough to smelt items.*");
+		sysmessage(s,"You cant smelt that item!");
 		return;
 	}
-
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_ITEM pi_target = FindItemBySerial(serial);
-	if (pi_target == NULL) return;
-	if (pi_target->isInWorld()) return;
-	unsigned char col1 = pi_target->color1;
-	unsigned char col2 = pi_target->color2;
-//	int c=itemmake[s].needs/2;
-	int c=1+pi_target->weight/100;	// number of ingots you get depends on the weight (Duke)
-	int sm= pi_target->smelt;
-
-	if (pi_target->magic!=4)
+	if(!ForgeInRange(s))
 	{
-	   if(pi_target->rank!=30)
-	   {
-		  sysmessage(s,"You cant smelt that item!");
-		  return;
-	   }
-	   if(!ForgeInRange(s))
-	   {
-	      sysmessage(s," Must be closer to the forge.");
-		  return;
-	   }
-	   if (pi_target->contserial!=pi_pack->serial)
-	   {
-		  sysmessage(s,"The item must be in your backpack");
-		  return;
-	   }
-	   if(pc->skill[sk]>300 && pc->skill[sk]<500 && sm==1)
-	   {
-		  if (Skills->CheckSkill(DEREF_P_CHAR(pc),sk, 0, 1000))
-		  {
-			  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
-			  sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			  Items->DeleItem(pi_target);
-			  return;
-		  }
-	   }
-	   if(pc->skill[sk]>=500)
-	   {
-		   if (Skills->CheckSkill(DEREF_P_CHAR(pc),sk, 0, 1000))
-		  {
-		      switch(sm)
-			  {
-			      case 1:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"#",1,0x1B,0xF2,0x09,0x61,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-		          case 2:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"silver ingot",1,0x1B,0xF2,0x00,0x00,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 3:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"golden ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 4:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"agapite ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 5:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"shadow ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 6:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"mythril ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 7:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"bronze ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 8:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"verite ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 9:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"merkite ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  case 10:
-					  Items->SpawnItem(-1,DEREF_P_CHAR(pc),c,"copper ingot",1,0x1B,0xF2,col1,col2,1,1);
-			          sysmessage(s,"you smelt the item and place some ingots in your pack.");
-			          Items->DeleItem(pi_target);
-			          break;
-				  default:
-					  break;
-			  }
-		   }
-	   }
+		sysmessage(s," Must be closer to the forge.");
+		return;
+	}
+	if(pc->skill[sk]< 300 || ( pc->skill[sk]<500 && pi->smelt!=1 ) )
+	{
+		sysmessage(s,"You aren't skilled enough to even try that!");
+		return;
+	}
+	if (Skills->CheckSkill(cc,sk, 0, 1000))
+	{
+		char* Name = NULL;
+		switch(pi->smelt)
+		{
+		case 1:	Name="#";			 	break;
+		case 2:	Name="silver ingot"; 	break;
+		case 3:	Name="golden ingot"; 	break;
+		case 4:	Name="agapite ingot";	break;
+		case 5:	Name="shadow ingot"; 	break;
+		case 6:	Name="mythril ingot";	break;
+		case 7:	Name="bronze ingot"; 	break;
+		case 8:	Name="verite ingot"; 	break;
+		case 9:	Name="merkite ingot";	break;
+		case 10:Name="copper ingot"; 	break;
+		default:
+			LogError("switch reached default");
+			return;
+		}
+		cItem* Ingot=Items->SpawnItem(cc,a,Name,1,0x1BF2,pi->color(),1);
+		if (Ingot)
+		{
+			Ingot->weight = 20;	// that is 0.2 stone
+			RefreshItem(Ingot);
+			sysmessage(s,"you smelt the item and place some ingots in your pack.");
+			Items->DeleItem(pi);
+		}
 	}
 }
 

@@ -329,26 +329,58 @@ void get_item(P_CLIENT ps) // Client grabs an item
 					pi->amount = amount;
 				}
 				
+				int amt = 0, wgt; bool tooheavy=false;				
+				wgt = (int)Weight->LockeddownWeight(pi, &amt, 0);
+				if (( (pc_currchar->weight+wgt) > (pc_currchar->st*WEIGHT_PER_STR)+30)) // LB -> added: drop item if too heavy
+				{
+		          float res=float( (pc_currchar->weight+wgt) - ((pc_currchar->st*WEIGHT_PER_STR)+30))*2;
+		          int diff = pc_currchar->st;
+				  diff -= (int)res;
+		          if (diff<=0 && !pc_currchar->isGM() )					   
+				  {
+				     tooheavy=true;						 						 
+
+				     bounce[1] = 0;
+			         Xsend(s, bounce, 2);
+					 if (ps->IsDragging()) // only restore item if it got dragged before !!!
+					 {
+					   ps->ResetDragging();
+					   item_bounce4(s, pi);
+					 }
+					 
+				     sysmessage(s, "you can't pick this up, this is too heavy");					 
+					 return;
+				 }
+				}
+
+                if (!tooheavy) pc_currchar->weight+=wgt;				   
+				update = 1;					
+
+				// LB remark: drop item if too heavy is a good solution,
+				// but there's still a small bug remaining.
+				// added weight from items picked up, but not put to bp, pd,  in other words hold in ones hand, 
+				// is NOT subtracted when being dropped again to ground/other chars/other chars' bp's.
+				// but this bug doesnt show up becasue weight is re-calculated automatically all 10 secs.
+				// without adding weight of the item curently carrying in hand.
+				// a correct solutions need the weight of item in hand being stored
+				// , added to auto-re-calculation all x-secs code, and being subtracted if dropped.
+				// because it's now only happening for leight weight items, because heavy weight itms cant be picke up anymore
+				// I haven't corrected this yet. 			
+				
 				// Tauriel remove item from world mapcells
-				mapRegions->Remove(pi); // remove this item from a map cell
+				mapRegions->Remove(pi); // remove this item from a map cell				
 				pi->pos.x = 0;
 				pi->pos.y = 0;
 				pi->pos.z = 0;
 				
 				pi->flags.isBeeingDragged=true;
 				pi->SetContSerial(-1);
-				if (pi != NULL) // Ripper...adds weight to the players cursor when carrying a item.
-				{
-					int amt = 0, wgt;
-					wgt = (int)Weight->LockeddownWeight(pi, &amt, 0);
-					pc_currchar->weight += wgt;
-					update = 1;
-				}
+			
+			
 			}
 		}
 	} // end of if i!=-1
-	if (update)
-		statwindow(s, DEREF_P_CHAR(pc_currchar));
+	if (update) statwindow(s, DEREF_P_CHAR(pc_currchar));
 }
 
 void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
@@ -369,6 +401,7 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 	
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+1);
 	if (!pi) return;
+	pi->flags.isBeeingDragged=false;
 
 //	if (clientDimension[s]==3)
 //	{
