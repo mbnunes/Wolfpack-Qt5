@@ -101,7 +101,12 @@ public:
 	virtual void resend( bool clean = true, bool excludeself = false ) = 0; 
 	// other methods
 	virtual uchar notority( P_CHAR pChar ) = 0; // Gets the notority towards another char
-	virtual void kill() = 0;
+
+	/*!
+		Kills the character.
+		\returns True if the character was really killed and false if nothing changed.
+	*/
+	virtual bool kill();
 	virtual void showName( cUOSocket *socket ) = 0;
 	virtual void fight(P_CHAR pOpponent) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;

@@ -1658,16 +1658,13 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		return 0;
 
 	// Would we die?
-	if( amount >= hitpoints_ )
-	{
-		this->kill();
-	}
-	else
-	{
+	if( amount >= hitpoints_ ) {
+		kill();
+	} else {
 		hitpoints_ -= amount;
 		updateHealth();
-		Combat::playGetHitSoundEffect( this );
-		Combat::playGetHitAnimation( this );
+		Combat::playGetHitSoundEffect(this);
+		Combat::playGetHitAnimation(this);
 	}
 
 	return amount;
@@ -2052,4 +2049,8 @@ void cBaseChar::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	if (!onShowTooltip(player, &tooltip)) {
 		tooltip.addLine( 0x1005bd, " \t" + name_ + "\t " );
 	}
+}
+
+bool cBaseChar::kill() {
+	return false;
 }

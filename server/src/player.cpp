@@ -384,14 +384,14 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 	return result;
 }
 
-void cPlayer::kill()
+bool cPlayer::kill()
 {
 	changed( TOOLTIP );
 	changed_ = true;
 	int ele;
 
 	if (free || isDead() || isInvulnerable()) {
-		return;
+		return false;
 	}
 
 	// Do this in the beginning
@@ -649,6 +649,7 @@ void cPlayer::kill()
 
 	// trigger the event now
 	onDeath();
+	return true;
 }
 
 void cPlayer::turnTo( cUObject *object )

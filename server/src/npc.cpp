@@ -443,17 +443,17 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 	return result;
 }
 
-void cNPC::kill()
+bool cNPC::kill()
 {
 	changed( TOOLTIP );
 	changed_ = true;
 	int ele;
 
 	if( free )
-		return;
+		return false;
 
 	if( isDead() || isInvulnerable() )
-		return;
+		return false;
 
 	// Do this in the beginning
 	setDead( true );
@@ -619,11 +619,11 @@ void cNPC::kill()
 	{
 		P_ITEM pi_j = *iit;
 
-		if( pi_j->layer() != 0x0B && pi_j->layer() != 0x10 )
+		if( pi_j->layer() <= 0x18 && pi_j->layer() != 0x0B && pi_j->layer() != 0x10 )
 		{	// Let's check all items, except HAIRS and BEARD
 
-			if( pi_j->type() == 1 && pi_j->layer() != 0x1A && pi_j->layer() != 0x1B && pi_j->layer() != 0x1C && pi_j->layer() != 0x1D )
-			{   // if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
+			// if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
+			if (pi_j->type() == 1) {				
 				cItem::ContainerContent container = pi_j->content();
 				cItem::ContainerContent::const_iterator it2 = container.begin();
 				for ( ; it2 != container.end(); ++it2 )
@@ -637,29 +637,17 @@ void cNPC::kill()
 					if( !pi_k->newbie() && ( pi_k->type() != 9 ) )
 					{
 						corpse->addItem( pi_k );
-
-						// Ripper...so order/chaos shields disappear when on corpse backpack.
-						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
-						{
-							soundEffect( 0x01FE );
-							this->effect( 0x372A, 0x09, 0x06 );
-							pi_k->remove();
-						}
 					}
 				}
-			}
+			
 			// if it's a normal item but ( not newbie and not bank items )
-			else if ( !pi_j->newbie() && pi_j->layer() != 0x1D )
-			{
-				if( pi_j != pi_backpack )
-				{
+			} else if (!pi_j->newbie()) {
+				if (pi_j != pi_backpack) {
 					pi_j->removeFromView();
-					corpse->addEquipment( pi_j->layer(), pi_j->serial() );
-					corpse->addItem( pi_j );
+					corpse->addEquipment(pi_j->layer(), pi_j->serial());
+					corpse->addItem(pi_j);
 				}
-			}
-			else if( ( pi_j != pi_backpack ) && ( pi_j->layer() != 0x1D ) )
-			{
+			} else if (pi_j != pi_backpack) {
 				// else if the item is newbie put it into char's backpack
 				pi_j->removeFromView();
 				pi_backpack->addItem( pi_j );
@@ -690,6 +678,7 @@ void cNPC::kill()
 	onDeath();
 
 	cCharStuff::DeleteChar( this );
+	return true;
 }
 
 /*!

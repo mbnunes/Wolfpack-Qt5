@@ -447,6 +447,10 @@ void cUObject::processNode( const cElement *Tag )
 	}
 	else
 	{
+		if (Tag->text().isNull()) {
+			Value = "1";
+		}
+
 		cVariant variant( Value );
 		setProperty( TagName, variant );
 	}
