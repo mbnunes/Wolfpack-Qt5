@@ -613,8 +613,8 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		}
 	}
 
-	setseason[1] = SrvParams->season();
-	Xsend(s,setseason,3);
+	setseason[ 1 ] = SrvParams->season();
+	Xsend( s, setseason, 3 );
 
 	if (SrvParams->joinMsg())
 	{
@@ -636,12 +636,12 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		QString message;
 		if (SrvParams->clientsAllowed().contains("ALL"))
 		{
-			sysmessage(s, 0x37, "There is NO client version checking active on this shard. The recommanded-dev-team-supported client version for this server version is client version %s though", wp_version.clientsupportedstring.latin1() );
+			sysmessage(s, 0x37, "The recommanded client version for this shard is: %s.", wp_version.clientsupportedstring.latin1() );
 			return;
 		}
 		else if (SrvParams->clientsAllowed().contains("SERVER_DEFAULT"))
 		{
-			sysmessage(s, 0x37, "This shard requires the recommanded-dev-team-supported client version for this server version client version %s", wp_version.clientsupportedstring.latin1() );
+			sysmessage(s, 0x37, "The recommanded client version for this shard is: %s.", wp_version.clientsupportedstring.latin1() );
 			return;
 		}
 		else
@@ -662,7 +662,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 				message += wp_version.clientsupportedstring;
 		}
 		
-		message += " The Wolfpack team recommanded client is ";
+		message += " The recommanded version is: ";
 		message += wp_version.clientsupportedstring;
 		
 		sysmessage(s, 0x37, (char*)message.latin1());
