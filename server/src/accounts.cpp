@@ -253,6 +253,7 @@ void cAccounts::unload()
 	iterator it = accounts.begin();
 	for (; it != accounts.end(); ++it)
 		delete it.data();
+	accounts.clear();
 
 	cComponent::unload();
 }

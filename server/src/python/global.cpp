@@ -1452,11 +1452,10 @@ static PyObject *wpAccountsList( PyObject* self, PyObject* args )
 	PyObject *list = PyList_New( 0 );
 
 	cAccounts::const_iterator it = Accounts::instance()->begin();
-	while( it != Accounts::instance()->end() )
-	{
+	while (it != Accounts::instance()->end()) {
 		QString login = (*it)->login();
-		if( login != QString::null )
-			PyList_Append( list, PyString_FromString( login.latin1() ) );
+		if (login != QString::null)
+			PyList_Append( list, PyString_FromString(login.latin1()));
 		++it;
 	}
 
