@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="f51_dull_copper" inherit="f51">
+		<dull_copper_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Dull Copper\Fencing\Dagger 1</category>
+	</item>
+
+	<item id="f52_dull_copper" inherit="f52">
+		<dull_copper_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Dull Copper\Fencing\Dagger 2</category>
+	</item>
+
+	<item id="26c9_dull_copper" inherit="26c9">
+		<dull_copper_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Dull Copper\Fencing\Double Bladed Staff 1</category>
+	</item>
+
+	<item id="26bf_dull_copper" inherit="26bf">
+		<dull_copper_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Dull Copper\Fencing\Double Bladed Staff 2</category>
+	</item>
+
+	<item id="1401_dull_copper" inherit="1401">
+		<dull_copper_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Dull Copper\Fencing\Kryss 1</category>
+	</item>
+
+	<item id="1400_dull_copper" inherit="1400">
+		<dull_copper_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Dull Copper\Fencing\Kryss 2</category>
+	</item>
+
+	<item id="26ca_dull_copper" inherit="26ca">
+		<dull_copper_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Dull Copper\Fencing\Lance 1</category>
+	</item>
+
+	<item id="26c0_dull_copper" inherit="26c0">
+		<dull_copper_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Dull Copper\Fencing\Lance 2</category>
+	</item>
+
+	<item id="26be_dull_copper" inherit="26be">
+		<dull_copper_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Dull Copper\Fencing\Pike 1</category>
+	</item>
+
+	<item id="26c8_dull_copper" inherit="26c8">
+		<dull_copper_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Dull Copper\Fencing\Pike 2</category>
+	</item>
+
+	<item id="e87_dull_copper" inherit="e87">
+		<dull_copper_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Dull Copper\Fencing\Pitchfork 1</category>
+	</item>
+
+	<item id="e88_dull_copper" inherit="e88">
+		<dull_copper_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Dull Copper\Fencing\Pitchfork 2</category>
+	</item>
+
+	<item id="1403_dull_copper" inherit="1403">
+		<dull_copper_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Dull Copper\Fencing\Short Spear 1</category>
+	</item>
+
+	<item id="1402_dull_copper" inherit="1402">
+		<dull_copper_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Dull Copper\Fencing\Short Spear 2</category>
+	</item>
+
+	<item id="f62_dull_copper" inherit="f62">
+		<dull_copper_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Dull Copper\Fencing\Spear 1</category>
+	</item>
+
+	<item id="f63_dull_copper" inherit="f63">
+		<dull_copper_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Dull Copper\Fencing\Spear 2</category>
+	</item>
+
+	<item id="1405_dull_copper" inherit="1405">
+		<dull_copper_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Dull Copper\Fencing\War Fork 1</category>
+	</item>
+
+	<item id="1404_dull_copper" inherit="1404">
+		<dull_copper_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Dull Copper\Fencing\War Fork 2</category>
+	</item>
+
+</definitions>

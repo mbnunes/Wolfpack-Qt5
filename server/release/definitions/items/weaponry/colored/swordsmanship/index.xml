@@ -1,0 +1,14 @@
+
+<definitions>
+
+	<include file="definitions/items/weaponry/colored/swordsmanship/agapite.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/bronze.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/copper.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/dull_copper.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/golden.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/iron.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/shadow.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/valorite.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/verite.xml"/>
+
+</definitions>

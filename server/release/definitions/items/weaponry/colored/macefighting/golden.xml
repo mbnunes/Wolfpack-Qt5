@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_gold" inherit="143d">
+		<gold_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Gold\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_gold" inherit="143c">
+		<gold_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Gold\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_gold" inherit="f5c">
+		<gold_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Gold\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_gold" inherit="f5d">
+		<gold_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Gold\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_gold" inherit="143b">
+		<gold_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Gold\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_gold" inherit="143a">
+		<gold_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Gold\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_gold" inherit="26c6">
+		<gold_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Gold\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_gold" inherit="26bc">
+		<gold_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Gold\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_gold" inherit="fb4">
+		<gold_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Gold\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_gold" inherit="fb5">
+		<gold_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Gold\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_gold" inherit="13e3">
+		<gold_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Gold\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_gold" inherit="13e4">
+		<gold_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Gold\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_gold" inherit="13b0">
+		<gold_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Gold\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_gold" inherit="13af">
+		<gold_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Gold\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_gold" inherit="1439">
+		<gold_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Gold\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_gold" inherit="1438">
+		<gold_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Gold\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_gold" inherit="1407">
+		<gold_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Gold\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_gold" inherit="1406">
+		<gold_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Gold\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

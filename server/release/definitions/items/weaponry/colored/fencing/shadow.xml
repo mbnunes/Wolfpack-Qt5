@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="f51_shadow" inherit="f51">
+		<shadow_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Dagger 1</category>
+	</item>
+
+	<item id="f52_shadow" inherit="f52">
+		<shadow_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Dagger 2</category>
+	</item>
+
+	<item id="26c9_shadow" inherit="26c9">
+		<shadow_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Double Bladed Staff 1</category>
+	</item>
+
+	<item id="26bf_shadow" inherit="26bf">
+		<shadow_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Double Bladed Staff 2</category>
+	</item>
+
+	<item id="1401_shadow" inherit="1401">
+		<shadow_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Kryss 1</category>
+	</item>
+
+	<item id="1400_shadow" inherit="1400">
+		<shadow_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Kryss 2</category>
+	</item>
+
+	<item id="26ca_shadow" inherit="26ca">
+		<shadow_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Lance 1</category>
+	</item>
+
+	<item id="26c0_shadow" inherit="26c0">
+		<shadow_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Lance 2</category>
+	</item>
+
+	<item id="26be_shadow" inherit="26be">
+		<shadow_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Pike 1</category>
+	</item>
+
+	<item id="26c8_shadow" inherit="26c8">
+		<shadow_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Pike 2</category>
+	</item>
+
+	<item id="e87_shadow" inherit="e87">
+		<shadow_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Pitchfork 1</category>
+	</item>
+
+	<item id="e88_shadow" inherit="e88">
+		<shadow_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Pitchfork 2</category>
+	</item>
+
+	<item id="1403_shadow" inherit="1403">
+		<shadow_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Short Spear 1</category>
+	</item>
+
+	<item id="1402_shadow" inherit="1402">
+		<shadow_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Short Spear 2</category>
+	</item>
+
+	<item id="f62_shadow" inherit="f62">
+		<shadow_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Spear 1</category>
+	</item>
+
+	<item id="f63_shadow" inherit="f63">
+		<shadow_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Spear 2</category>
+	</item>
+
+	<item id="1405_shadow" inherit="1405">
+		<shadow_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Shadow Iron\Fencing\War Fork 1</category>
+	</item>
+
+	<item id="1404_shadow" inherit="1404">
+		<shadow_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Shadow Iron\Fencing\War Fork 2</category>
+	</item>
+
+</definitions>

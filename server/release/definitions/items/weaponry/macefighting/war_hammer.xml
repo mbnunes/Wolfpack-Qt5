@@ -20,7 +20,7 @@
 		<weight>10.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Maces\War Hammer (N/S)</category>
+		<category>Base Weapons\Maces\War Hammer (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="95" />
@@ -32,7 +32,7 @@
 	<item id="1438" inherit="1439">
 		<id>0x1438</id>
 		<baseid>1439</baseid>
-		<category>Weapons\Maces\War Hammer (E/W)</category>
+		<category>Base Weapons\Maces\War Hammer (E/W)</category>
 	</item>
 
 </definitions>

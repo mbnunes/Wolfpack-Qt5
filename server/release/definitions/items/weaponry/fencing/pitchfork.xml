@@ -20,7 +20,7 @@
 		<weight>10.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1005</type>
-		<category>Weapons\Fencing\Pitchfork (N/S)</category>
+		<category>Base Weapons\Fencing\Pitchfork (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="50" />
@@ -32,7 +32,7 @@
 	<item id="e88" inherit="e87">
 		<id>0xe88</id>
 		<baseid>e87</baseid>
-		<category>Weapons\Fencing\Pitchfork (E/W)</category>
+		<category>Base Weapons\Fencing\Pitchfork (E/W)</category>
 	</item>
 
 </definitions>

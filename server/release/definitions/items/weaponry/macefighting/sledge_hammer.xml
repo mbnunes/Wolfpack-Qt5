@@ -20,7 +20,7 @@
 		<weight>5.0</weight>
 		<durability><random min="30" max="40" /></durability>
 		<basescripts>skills.blacksmithing,equipment</basescripts>
-		<category>Weapons\Maces\Sledge Hammer (W/E)</category>
+		<category>Base Weapons\Maces\Sledge Hammer (W/E)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<tag name="remaining_uses" type="int" value="45" />
@@ -34,7 +34,7 @@
 	<item id="fb5" inherit="fb4">
 		<id>0xfb5</id>
 		<baseid>fb4</baseid>
-		<category>Weapons\Maces\Sledge Hammer (N/S)</category>
+		<category>Base Weapons\Maces\Sledge Hammer (N/S)</category>
 	</item>
 
 </definitions>

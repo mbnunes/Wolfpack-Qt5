@@ -1,0 +1,115 @@
+
+<definitions>
+
+	<!-- Swordsmanship -->
+	<item id="27a8_valorite" inherit="27a8">
+		<valorite_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\Bokuto 1</category>
+	</item>
+
+	<item id="27f3_valorite" inherit="27f3">
+		<valorite_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\Bokuto 2</category>
+	</item>
+
+	<item id="27a9_valorite" inherit="27a9">
+		<valorite_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\Daisho 1</category>
+	</item>
+
+	<item id="27f4_valorite" inherit="27f4">
+		<valorite_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\Daisho 2</category>
+	</item>
+
+	<item id="27a2_valorite" inherit="27a2">
+		<valorite_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\No-Dachi 1</category>
+	</item>
+
+	<item id="27ed_valorite" inherit="27ed">
+		<valorite_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\No-Dachi 2</category>
+	</item>
+
+	<item id="27a4_valorite" inherit="27a4">
+		<valorite_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\Wakizashi 1</category>
+	</item>
+
+	<item id="27ef_valorite" inherit="27ef">
+		<valorite_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Valorite\Samurai\Swordsmanship\Wakizashi 2</category>
+	</item>
+
+	<!-- Fencing -->
+	<item id="27ad_valorite" inherit="27ad">
+		<valorite_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Kama 1</category>
+	</item>
+
+	<item id="27f8_valorite" inherit="27f8">
+		<valorite_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Kama 2</category>
+	</item>
+
+	<item id="27a7_valorite" inherit="27a7">
+		<valorite_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Lajatang 1</category>
+	</item>
+
+	<item id="27f2_valorite" inherit="27f2">
+		<valorite_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Lajatang 2</category>
+	</item>
+
+	<item id="27af_valorite" inherit="27af">
+		<valorite_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Sai 1</category>
+	</item>
+
+	<item id="27fa_valorite" inherit="27fa">
+		<valorite_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Sai 2</category>
+	</item>
+
+	<item id="27ab_valorite" inherit="27ab">
+		<valorite_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Tekagi 1</category>
+	</item>
+
+	<item id="27f6_valorite" inherit="27f6">
+		<valorite_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Valorite\Samurai\Fencing\Tekagi 2</category>
+	</item>
+
+	<!-- Macefighting -->
+	<item id="27a3_valorite" inherit="27a3">
+		<valorite_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Valorite\Samurai\Macefighting\Tessen 1</category>
+	</item>
+
+	<item id="27ee_valorite" inherit="27ee">
+		<valorite_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Valorite\Samurai\Macefighting\Tessen 2</category>
+	</item>
+
+</definitions>

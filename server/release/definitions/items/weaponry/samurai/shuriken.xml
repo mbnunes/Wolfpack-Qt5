@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing ??? -->
+	<!-- Unknown -->
 	<!-- Shuriken -->
 	<item id="27ac">
 		<id>0x27ac</id>
@@ -21,19 +21,21 @@
 		<weight>4.0</weight>
 		<!--<basescripts>equipment,blades</basescripts>-->
 		<!--<type>1001</type>-->
-		<category>Weapons\Samurai\Shuriken</category>
+		<category>Base Weapons\Samurai\Unknown\Shuriken 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
+		<!--
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="37" />
 		<intproperty name="mindamage" value="14" />
 		<intproperty name="maxdamage" value="16" />
+		-->
 	</item>
 
 	<item id="27f7" inherit="27ac">
 		<id>0x27f7</id>
 		<baseid>27ac</baseid>
-		<category>Weapons\Samurai\Shuriken 2</category>
+		<category>Base Weapons\Samurai\Unknown\Shuriken 2</category>
 	</item>
 
 </definitions>

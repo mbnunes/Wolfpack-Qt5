@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_agapite" inherit="143d">
+		<agapite_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Agapite\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_agapite" inherit="143c">
+		<agapite_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Agapite\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_agapite" inherit="f5c">
+		<agapite_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Agapite\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_agapite" inherit="f5d">
+		<agapite_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Agapite\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_agapite" inherit="143b">
+		<agapite_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Agapite\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_agapite" inherit="143a">
+		<agapite_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Agapite\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_agapite" inherit="26c6">
+		<agapite_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Agapite\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_agapite" inherit="26bc">
+		<agapite_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Agapite\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_agapite" inherit="fb4">
+		<agapite_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Agapite\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_agapite" inherit="fb5">
+		<agapite_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Agapite\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_agapite" inherit="13e3">
+		<agapite_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Agapite\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_agapite" inherit="13e4">
+		<agapite_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Agapite\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_agapite" inherit="13b0">
+		<agapite_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Agapite\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_agapite" inherit="13af">
+		<agapite_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Agapite\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_agapite" inherit="1439">
+		<agapite_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Agapite\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_agapite" inherit="1438">
+		<agapite_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Agapite\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_agapite" inherit="1407">
+		<agapite_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Agapite\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_agapite" inherit="1406">
+		<agapite_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Agapite\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

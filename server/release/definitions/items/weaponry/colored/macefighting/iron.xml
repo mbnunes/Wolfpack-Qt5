@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_iron" inherit="143d">
+		<iron_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Iron\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_iron" inherit="143c">
+		<iron_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Iron\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_iron" inherit="f5c">
+		<iron_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Iron\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_iron" inherit="f5d">
+		<iron_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Iron\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_iron" inherit="143b">
+		<iron_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Iron\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_iron" inherit="143a">
+		<iron_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Iron\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_iron" inherit="26c6">
+		<iron_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Iron\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_iron" inherit="26bc">
+		<iron_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Iron\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_iron" inherit="fb4">
+		<iron_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Iron\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_iron" inherit="fb5">
+		<iron_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Iron\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_iron" inherit="13e3">
+		<iron_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Iron\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_iron" inherit="13e4">
+		<iron_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Iron\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_iron" inherit="13b0">
+		<iron_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Iron\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_iron" inherit="13af">
+		<iron_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Iron\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_iron" inherit="1439">
+		<iron_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Iron\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_iron" inherit="1438">
+		<iron_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Iron\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_iron" inherit="1407">
+		<iron_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Iron\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_iron" inherit="1406">
+		<iron_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Iron\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

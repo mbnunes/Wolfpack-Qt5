@@ -20,7 +20,7 @@
 		<basescripts>equipment</basescripts>
 		<type>1003</type>
 		<twohanded />
-		<category>Weapons\Staves\Black Staff (N/S)</category>
+		<category>Base Weapons\Staves\Black Staff (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="39" />
@@ -31,7 +31,7 @@
 	<item id="df0" inherit="df1">
 		<id>0xdf0</id>
 		<baseid>df1</baseid>
-		<category>Weapons\Staves\Black Staff (E/W)</category>
+		<category>Base Weapons\Staves\Black Staff (E/W)</category>
 	</item>
 
 </definitions>

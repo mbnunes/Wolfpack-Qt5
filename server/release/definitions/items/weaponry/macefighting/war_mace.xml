@@ -20,7 +20,7 @@
 		<weight>17.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Maces\War Mace (N/S)</category>
+		<category>Base Weapons\Maces\War Mace (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="80" />
@@ -32,7 +32,7 @@
 	<item id="1406" inherit="1407">
 		<id>0x1406</id>
 		<baseid>1407</baseid>
-		<category>Weapons\Maces\War Mace (E/W)</category>
+		<category>Base Weapons\Maces\War Mace (E/W)</category>
 	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<weight>7.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1006</type>
-		<category>Weapons\Bows\Bow (N/S)</category>
+		<category>Base Weapons\Bows\Bow (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="projectile" value="0xf42" />
 		<strproperty name="ammunition" value="f3f" />
@@ -34,7 +34,7 @@
 	<item id="13b2" inherit="13b1">
 		<id>0x13b2</id>
 		<baseid>13b1</baseid>
-		<category>Weapons\Bows\Bow (E/W)</category>
+		<category>Base Weapons\Bows\Bow (E/W)</category>
 	</item>
 
  </definitions>

@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
-		<category>Weapons\Samurai\Lajatang</category>
+		<category>Base Weapons\Samurai\Fencing\Lajatang 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="65" />
@@ -33,7 +33,7 @@
 	<item id="27f2" inherit="27a7">
 		<id>0x27f2</id>
 		<baseid>27a7</baseid>
-		<category>Weapons\Samurai\Lajatang 2</category>
+		<category>Base Weapons\Samurai\Fencing\Lajatang 2</category>
 	</item>
 
 </definitions>

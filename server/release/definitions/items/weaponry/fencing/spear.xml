@@ -20,7 +20,7 @@
 		<weight>7.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1005</type>
-		<category>Weapons\Fencing\Spear (N/S)</category>
+		<category>Base Weapons\Fencing\Spear (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="50" />
@@ -32,7 +32,7 @@
 	<item id="f63" inherit="f62">
 		<id>0xf63</id>
 		<baseid>f62</baseid>
-		<category>Weapons\Fencing\Spear (E/W)</category>
+		<category>Base Weapons\Fencing\Spear (E/W)</category>
 	</item>
 
 </definitions>

@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="f51_gold" inherit="f51">
+		<gold_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Gold\Fencing\Dagger 1</category>
+	</item>
+
+	<item id="f52_gold" inherit="f52">
+		<gold_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Gold\Fencing\Dagger 2</category>
+	</item>
+
+	<item id="26c9_gold" inherit="26c9">
+		<gold_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Gold\Fencing\Double Bladed Staff 1</category>
+	</item>
+
+	<item id="26bf_gold" inherit="26bf">
+		<gold_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Gold\Fencing\Double Bladed Staff 2</category>
+	</item>
+
+	<item id="1401_gold" inherit="1401">
+		<gold_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Gold\Fencing\Kryss 1</category>
+	</item>
+
+	<item id="1400_gold" inherit="1400">
+		<gold_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Gold\Fencing\Kryss 2</category>
+	</item>
+
+	<item id="26ca_gold" inherit="26ca">
+		<gold_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Gold\Fencing\Lance 1</category>
+	</item>
+
+	<item id="26c0_gold" inherit="26c0">
+		<gold_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Gold\Fencing\Lance 2</category>
+	</item>
+
+	<item id="26be_gold" inherit="26be">
+		<gold_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Gold\Fencing\Pike 1</category>
+	</item>
+
+	<item id="26c8_gold" inherit="26c8">
+		<gold_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Gold\Fencing\Pike 2</category>
+	</item>
+
+	<item id="e87_gold" inherit="e87">
+		<gold_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Gold\Fencing\Pitchfork 1</category>
+	</item>
+
+	<item id="e88_gold" inherit="e88">
+		<gold_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Gold\Fencing\Pitchfork 2</category>
+	</item>
+
+	<item id="1403_gold" inherit="1403">
+		<gold_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Gold\Fencing\Short Spear 1</category>
+	</item>
+
+	<item id="1402_gold" inherit="1402">
+		<gold_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Gold\Fencing\Short Spear 2</category>
+	</item>
+
+	<item id="f62_gold" inherit="f62">
+		<gold_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Gold\Fencing\Spear 1</category>
+	</item>
+
+	<item id="f63_gold" inherit="f63">
+		<gold_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Gold\Fencing\Spear 2</category>
+	</item>
+
+	<item id="1405_gold" inherit="1405">
+		<gold_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Gold\Fencing\War Fork 1</category>
+	</item>
+
+	<item id="1404_gold" inherit="1404">
+		<gold_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Gold\Fencing\War Fork 2</category>
+	</item>
+
+</definitions>

@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Samurai\Nunchaku</category>
+		<category>Base Weapons\Samurai\Nunchaku</category>
 		<!-- Properties -->
 		<!--<tag name="resname" value="iron" />-->
 		<intproperty name="req_strength" value="15" />
@@ -33,7 +33,7 @@
 	<item id="27f9" inherit="27ae">
 		<id>0x27f9</id>
 		<baseid>27ae</baseid>
-		<category>Weapons\Samurai\Nunchaku 2</category>
+		<category>Base Weapons\Samurai\Nunchaku 2</category>
 	</item>
 
 </definitions>

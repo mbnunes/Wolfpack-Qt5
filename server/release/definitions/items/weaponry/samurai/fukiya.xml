@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing Macefighting -->
+	<!-- Unknown -->
 	<!-- Fukiya -->
 	<item id="27aa">
 		<id>0x27aa</id>
@@ -19,20 +19,22 @@
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
-		<type>1004</type>
-		<category>Weapons\Samurai\Fukiya</category>
+		<!--<type>1004</type>-->
+		<category>Base Weapons\Samurai\Unknown\Fukiya 1</category>
 		<!-- Properties -->
+		<!--
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="37" />
 		<intproperty name="mindamage" value="14" />
 		<intproperty name="maxdamage" value="16" />
+		-->
 	</item>
 
 	<item id="27f5" inherit="27aa">
 		<id>0x27f5</id>
 		<baseid>27aa</baseid>
-		<category>Weapons\Samurai\Fukiya 2</category>
+		<category>Base Weapons\Samurai\Unknown\Fukiya 2</category>
 	</item>
 
 </definitions>

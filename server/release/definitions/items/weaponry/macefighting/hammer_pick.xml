@@ -20,7 +20,7 @@
 		<weight>9.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Maces\Hammer Pick (N/S)</category>
+		<category>Base Weapons\Maces\Hammer Pick (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="45" />
@@ -32,7 +32,7 @@
 	<item id="143c" inherit="143d">
 		<id>0x143c</id>
 		<baseid>143d</baseid>
-		<category>Weapons\Maces\Hammer Pick (E/W)</category>
+		<category>Base Weapons\Maces\Hammer Pick (E/W)</category>
 	</item>
 
 </definitions>

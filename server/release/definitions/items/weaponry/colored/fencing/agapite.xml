@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="f51_agapite" inherit="f51">
+		<agapite_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Agapite\Fencing\Dagger 1</category>
+	</item>
+
+	<item id="f52_agapite" inherit="f52">
+		<agapite_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Agapite\Fencing\Dagger 2</category>
+	</item>
+
+	<item id="26c9_agapite" inherit="26c9">
+		<agapite_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Agapite\Fencing\Double Bladed Staff 1</category>
+	</item>
+
+	<item id="26bf_agapite" inherit="26bf">
+		<agapite_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Agapite\Fencing\Double Bladed Staff 2</category>
+	</item>
+
+	<item id="1401_agapite" inherit="1401">
+		<agapite_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Agapite\Fencing\Kryss 1</category>
+	</item>
+
+	<item id="1400_agapite" inherit="1400">
+		<agapite_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Agapite\Fencing\Kryss 2</category>
+	</item>
+
+	<item id="26ca_agapite" inherit="26ca">
+		<agapite_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Agapite\Fencing\Lance 1</category>
+	</item>
+
+	<item id="26c0_agapite" inherit="26c0">
+		<agapite_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Agapite\Fencing\Lance 2</category>
+	</item>
+
+	<item id="26be_agapite" inherit="26be">
+		<agapite_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Agapite\Fencing\Pike 1</category>
+	</item>
+
+	<item id="26c8_agapite" inherit="26c8">
+		<agapite_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Agapite\Fencing\Pike 2</category>
+	</item>
+
+	<item id="e87_agapite" inherit="e87">
+		<agapite_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Agapite\Fencing\Pitchfork 1</category>
+	</item>
+
+	<item id="e88_agapite" inherit="e88">
+		<agapite_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Agapite\Fencing\Pitchfork 2</category>
+	</item>
+
+	<item id="1403_agapite" inherit="1403">
+		<agapite_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Agapite\Fencing\Short Spear 1</category>
+	</item>
+
+	<item id="1402_agapite" inherit="1402">
+		<agapite_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Agapite\Fencing\Short Spear 2</category>
+	</item>
+
+	<item id="f62_agapite" inherit="f62">
+		<agapite_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Agapite\Fencing\Spear 1</category>
+	</item>
+
+	<item id="f63_agapite" inherit="f63">
+		<agapite_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Agapite\Fencing\Spear 2</category>
+	</item>
+
+	<item id="1405_agapite" inherit="1405">
+		<agapite_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Agapite\Fencing\War Fork 1</category>
+	</item>
+
+	<item id="1404_agapite" inherit="1404">
+		<agapite_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Agapite\Fencing\War Fork 2</category>
+	</item>
+
+</definitions>

@@ -20,7 +20,7 @@
 		<basescripts>equipment</basescripts>
 		<type>1003</type>
 		<twohanded />
-		<category>Weapons\Staves\Grarled Staff (N/S)</category>
+		<category>Base Weapons\Staves\Grarled Staff (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="20" />
 		<intproperty name="speed" value="33" />
@@ -31,7 +31,7 @@
 	<item id="13f9" inherit="13f8">
 		<id>0x13f9</id>
 		<baseid>13f8</baseid>
-		<category>Weapons\Staves\Grarled Staff (E/W)</category>
+		<category>Base Weapons\Staves\Grarled Staff (E/W)</category>
 	</item>
 
 </definitions>

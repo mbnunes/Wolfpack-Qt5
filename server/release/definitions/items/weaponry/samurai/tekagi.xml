@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1005</type>
-		<category>Weapons\Samurai\Tekagi</category>
+		<category>Base Weapons\Samurai\Fencing\Tekagi 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="10" />
@@ -33,7 +33,7 @@
 	<item id="27f6" inherit="27ab">
 		<id>0x27f6</id>
 		<baseid>27ab</baseid>
-		<category>Weapons\Samurai\Tekagi 2</category>
+		<category>Base Weapons\Samurai\Fencing\Tekagi 2</category>
 	</item>
 
 </definitions>

@@ -8,11 +8,10 @@
 -->
 <definitions>
 
-	<!-- Guessing Swords -->
+	<!-- Swords -->
 	<!-- Bokuto -->
 	<item id="27a8">
 		<id>0x27a8</id>
-		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>120</sellprice>
@@ -21,19 +20,19 @@
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1001</type>
-		<category>Weapons\Samurai\Bokuto</category>
+		<category>Base Weapons\Samurai\Swordsmanship\Bokuto 1</category>
 		<!-- Properties -->
 		<!--<tag name="resname" value="iron" />-->
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="9" />
+		<intproperty name="maxdamage" value="11" />
 	</item>
 
 	<item id="27f3" inherit="27a8">
 		<id>0x27f3</id>
 		<baseid>27a8</baseid>
-		<category>Weapons\Samurai\Bokuto 2</category>
+		<category>Base Weapons\Samurai\Swordsmanship\Bokuto 2</category>
 	</item>
 
 </definitions>

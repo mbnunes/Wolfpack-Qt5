@@ -1,0 +1,115 @@
+
+<definitions>
+
+	<!-- Swordsmanship -->
+	<item id="27a8_gold" inherit="27a8">
+		<gold_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\Bokuto 1</category>
+	</item>
+
+	<item id="27f3_gold" inherit="27f3">
+		<gold_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\Bokuto 2</category>
+	</item>
+
+	<item id="27a9_gold" inherit="27a9">
+		<gold_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\Daisho 1</category>
+	</item>
+
+	<item id="27f4_gold" inherit="27f4">
+		<gold_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\Daisho 2</category>
+	</item>
+
+	<item id="27a2_gold" inherit="27a2">
+		<gold_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\No-Dachi 1</category>
+	</item>
+
+	<item id="27ed_gold" inherit="27ed">
+		<gold_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\No-Dachi 2</category>
+	</item>
+
+	<item id="27a4_gold" inherit="27a4">
+		<gold_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\Wakizashi 1</category>
+	</item>
+
+	<item id="27ef_gold" inherit="27ef">
+		<gold_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Gold\Samurai\Swordsmanship\Wakizashi 2</category>
+	</item>
+
+	<!-- Fencing -->
+	<item id="27ad_gold" inherit="27ad">
+		<gold_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Kama 1</category>
+	</item>
+
+	<item id="27f8_gold" inherit="27f8">
+		<gold_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Kama 2</category>
+	</item>
+
+	<item id="27a7_gold" inherit="27a7">
+		<gold_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Lajatang 1</category>
+	</item>
+
+	<item id="27f2_gold" inherit="27f2">
+		<gold_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Lajatang 2</category>
+	</item>
+
+	<item id="27af_gold" inherit="27af">
+		<gold_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Sai 1</category>
+	</item>
+
+	<item id="27fa_gold" inherit="27fa">
+		<gold_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Sai 2</category>
+	</item>
+
+	<item id="27ab_gold" inherit="27ab">
+		<gold_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Tekagi 1</category>
+	</item>
+
+	<item id="27f6_gold" inherit="27f6">
+		<gold_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Gold\Samurai\Fencing\Tekagi 2</category>
+	</item>
+
+	<!-- Macefighting -->
+	<item id="27a3_gold" inherit="27a3">
+		<gold_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Gold\Samurai\Macefighting\Tessen 1</category>
+	</item>
+
+	<item id="27ee_gold" inherit="27ee">
+		<gold_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Gold\Samurai\Macefighting\Tessen 2</category>
+	</item>
+
+</definitions>

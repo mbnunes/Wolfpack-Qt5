@@ -1,0 +1,115 @@
+
+<definitions>
+
+	<!-- Swordsmanship -->
+	<item id="27a8_shadow" inherit="27a8">
+		<shadow_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\Bokuto 1</category>
+	</item>
+
+	<item id="27f3_shadow" inherit="27f3">
+		<shadow_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\Bokuto 2</category>
+	</item>
+
+	<item id="27a9_shadow" inherit="27a9">
+		<shadow_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\Daisho 1</category>
+	</item>
+
+	<item id="27f4_shadow" inherit="27f4">
+		<shadow_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\Daisho 2</category>
+	</item>
+
+	<item id="27a2_shadow" inherit="27a2">
+		<shadow_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\No-Dachi 1</category>
+	</item>
+
+	<item id="27ed_shadow" inherit="27ed">
+		<shadow_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\No-Dachi 2</category>
+	</item>
+
+	<item id="27a4_shadow" inherit="27a4">
+		<shadow_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\Wakizashi 1</category>
+	</item>
+
+	<item id="27ef_shadow" inherit="27ef">
+		<shadow_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Swordsmanship\Wakizashi 2</category>
+	</item>
+
+	<!-- Fencing -->
+	<item id="27ad_shadow" inherit="27ad">
+		<shadow_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Kama 1</category>
+	</item>
+
+	<item id="27f8_shadow" inherit="27f8">
+		<shadow_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Kama 2</category>
+	</item>
+
+	<item id="27a7_shadow" inherit="27a7">
+		<shadow_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Lajatang 1</category>
+	</item>
+
+	<item id="27f2_shadow" inherit="27f2">
+		<shadow_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Lajatang 2</category>
+	</item>
+
+	<item id="27af_shadow" inherit="27af">
+		<shadow_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Sai 1</category>
+	</item>
+
+	<item id="27fa_shadow" inherit="27fa">
+		<shadow_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Sai 2</category>
+	</item>
+
+	<item id="27ab_shadow" inherit="27ab">
+		<shadow_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Tekagi 1</category>
+	</item>
+
+	<item id="27f6_shadow" inherit="27f6">
+		<shadow_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Fencing\Tekagi 2</category>
+	</item>
+
+	<!-- Macefighting -->
+	<item id="27a3_shadow" inherit="27a3">
+		<shadow_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Macefighting\Tessen 1</category>
+	</item>
+
+	<item id="27ee_shadow" inherit="27ee">
+		<shadow_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Shadow Iron\Samurai\Macefighting\Tessen 2</category>
+	</item>
+
+</definitions>

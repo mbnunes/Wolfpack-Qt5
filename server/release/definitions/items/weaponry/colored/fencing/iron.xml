@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="f51_iron" inherit="f51">
+		<iron_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Iron\Fencing\Dagger 1</category>
+	</item>
+
+	<item id="f52_iron" inherit="f52">
+		<iron_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Iron\Fencing\Dagger 2</category>
+	</item>
+
+	<item id="26c9_iron" inherit="26c9">
+		<iron_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Iron\Fencing\Double Bladed Staff 1</category>
+	</item>
+
+	<item id="26bf_iron" inherit="26bf">
+		<iron_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Iron\Fencing\Double Bladed Staff 2</category>
+	</item>
+
+	<item id="1401_iron" inherit="1401">
+		<iron_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Iron\Fencing\Kryss 1</category>
+	</item>
+
+	<item id="1400_iron" inherit="1400">
+		<iron_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Iron\Fencing\Kryss 2</category>
+	</item>
+
+	<item id="26ca_iron" inherit="26ca">
+		<iron_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Iron\Fencing\Lance 1</category>
+	</item>
+
+	<item id="26c0_iron" inherit="26c0">
+		<iron_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Iron\Fencing\Lance 2</category>
+	</item>
+
+	<item id="26be_iron" inherit="26be">
+		<iron_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Iron\Fencing\Pike 1</category>
+	</item>
+
+	<item id="26c8_iron" inherit="26c8">
+		<iron_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Iron\Fencing\Pike 2</category>
+	</item>
+
+	<item id="e87_iron" inherit="e87">
+		<iron_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Iron\Fencing\Pitchfork 1</category>
+	</item>
+
+	<item id="e88_iron" inherit="e88">
+		<iron_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Iron\Fencing\Pitchfork 2</category>
+	</item>
+
+	<item id="1403_iron" inherit="1403">
+		<iron_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Iron\Fencing\Short Spear 1</category>
+	</item>
+
+	<item id="1402_iron" inherit="1402">
+		<iron_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Iron\Fencing\Short Spear 2</category>
+	</item>
+
+	<item id="f62_iron" inherit="f62">
+		<iron_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Iron\Fencing\Spear 1</category>
+	</item>
+
+	<item id="f63_iron" inherit="f63">
+		<iron_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Iron\Fencing\Spear 2</category>
+	</item>
+
+	<item id="1405_iron" inherit="1405">
+		<iron_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Iron\Fencing\War Fork 1</category>
+	</item>
+
+	<item id="1404_iron" inherit="1404">
+		<iron_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Iron\Fencing\War Fork 2</category>
+	</item>
+
+</definitions>

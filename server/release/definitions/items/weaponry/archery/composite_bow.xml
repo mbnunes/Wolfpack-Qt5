@@ -21,7 +21,7 @@
 		<weight>5.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1006</type>
-		<category>Weapons\Bows\Composite Bow (N/S)</category>
+		<category>Base Weapons\Bows\Composite Bow (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="projectile" value="0xf42" />
 		<strproperty name="ammunition" value="f3f" />
@@ -35,7 +35,7 @@
 	<item id="26cc" inherit="26c2">
 		<id>0x26cc</id>
 		<baseid>26c2</baseid>
-		<category>Weapons\Bows\Composite Bow (E/W)</category>
+		<category>Base Weapons\Bows\Composite Bow (E/W)</category>
 	</item>
 
  </definitions>

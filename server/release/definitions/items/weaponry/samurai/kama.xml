@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
-		<category>Weapons\Samurai\Kama</category>
+		<category>Base Weapons\Samurai\Fencing\Kama 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="15" />
@@ -33,7 +33,7 @@
 	<item id="27f8" inherit="27ad">
 		<id>0x27f8</id>
 		<baseid>27ad</baseid>
-		<category>Weapons\Samurai\Kama 2</category>
+		<category>Base Weapons\Samurai\Fencing\Kama 2</category>
 	</item>
 
 </definitions>

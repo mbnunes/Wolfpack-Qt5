@@ -1,0 +1,115 @@
+
+<definitions>
+
+	<!-- Swordsmanship -->
+	<item id="27a8_verite" inherit="27a8">
+		<verite_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\Bokuto 1</category>
+	</item>
+
+	<item id="27f3_verite" inherit="27f3">
+		<verite_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\Bokuto 2</category>
+	</item>
+
+	<item id="27a9_verite" inherit="27a9">
+		<verite_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\Daisho 1</category>
+	</item>
+
+	<item id="27f4_verite" inherit="27f4">
+		<verite_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\Daisho 2</category>
+	</item>
+
+	<item id="27a2_verite" inherit="27a2">
+		<verite_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\No-Dachi 1</category>
+	</item>
+
+	<item id="27ed_verite" inherit="27ed">
+		<verite_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\No-Dachi 2</category>
+	</item>
+
+	<item id="27a4_verite" inherit="27a4">
+		<verite_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\Wakizashi 1</category>
+	</item>
+
+	<item id="27ef_verite" inherit="27ef">
+		<verite_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Verite\Samurai\Swordsmanship\Wakizashi 2</category>
+	</item>
+
+	<!-- Fencing -->
+	<item id="27ad_verite" inherit="27ad">
+		<verite_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Kama 1</category>
+	</item>
+
+	<item id="27f8_verite" inherit="27f8">
+		<verite_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Kama 2</category>
+	</item>
+
+	<item id="27a7_verite" inherit="27a7">
+		<verite_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Lajatang 1</category>
+	</item>
+
+	<item id="27f2_verite" inherit="27f2">
+		<verite_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Lajatang 2</category>
+	</item>
+
+	<item id="27af_verite" inherit="27af">
+		<verite_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Sai 1</category>
+	</item>
+
+	<item id="27fa_verite" inherit="27fa">
+		<verite_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Sai 2</category>
+	</item>
+
+	<item id="27ab_verite" inherit="27ab">
+		<verite_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Tekagi 1</category>
+	</item>
+
+	<item id="27f6_verite" inherit="27f6">
+		<verite_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Verite\Samurai\Fencing\Tekagi 2</category>
+	</item>
+
+	<!-- Macefighting -->
+	<item id="27a3_verite" inherit="27a3">
+		<verite_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Verite\Samurai\Macefighting\Tessen 1</category>
+	</item>
+
+	<item id="27ee_verite" inherit="27ee">
+		<verite_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Verite\Samurai\Macefighting\Tessen 2</category>
+	</item>
+
+</definitions>

@@ -23,4 +23,7 @@
 	<!-- Samurai Empire New Weapons -->
 	<include file="definitions/items/weaponry/samurai/index.xml"/>
 
+	<!-- Colored Weapons -->
+	<include file="definitions/items/weaponry/colored/index.xml"/>
+
 </definitions>

@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_valorite" inherit="143d">
+		<valorite_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Valorite\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_valorite" inherit="143c">
+		<valorite_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Valorite\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_valorite" inherit="f5c">
+		<valorite_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Valorite\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_valorite" inherit="f5d">
+		<valorite_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Valorite\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_valorite" inherit="143b">
+		<valorite_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Valorite\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_valorite" inherit="143a">
+		<valorite_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Valorite\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_valorite" inherit="26c6">
+		<valorite_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Valorite\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_valorite" inherit="26bc">
+		<valorite_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Valorite\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_valorite" inherit="fb4">
+		<valorite_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Valorite\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_valorite" inherit="fb5">
+		<valorite_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Valorite\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_valorite" inherit="13e3">
+		<valorite_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Valorite\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_valorite" inherit="13e4">
+		<valorite_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Valorite\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_valorite" inherit="13b0">
+		<valorite_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Valorite\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_valorite" inherit="13af">
+		<valorite_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Valorite\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_valorite" inherit="1439">
+		<valorite_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Valorite\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_valorite" inherit="1438">
+		<valorite_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Valorite\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_valorite" inherit="1407">
+		<valorite_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Valorite\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_valorite" inherit="1406">
+		<valorite_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Valorite\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,10 @@
+
+<definitions>
+
+	<include file="definitions/items/weaponry/colored/archery/index.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/index.xml"/>
+	<include file="definitions/items/weaponry/colored/macefighting/index.xml"/>
+	<include file="definitions/items/weaponry/colored/swordsmanship/index.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/index.xml"/>
+
+</definitions>

@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_verite" inherit="143d">
+		<verite_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Verite\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_verite" inherit="143c">
+		<verite_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Verite\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_verite" inherit="f5c">
+		<verite_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Verite\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_verite" inherit="f5d">
+		<verite_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Verite\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_verite" inherit="143b">
+		<verite_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Verite\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_verite" inherit="143a">
+		<verite_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Verite\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_verite" inherit="26c6">
+		<verite_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Verite\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_verite" inherit="26bc">
+		<verite_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Verite\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_verite" inherit="fb4">
+		<verite_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Verite\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_verite" inherit="fb5">
+		<verite_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Verite\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_verite" inherit="13e3">
+		<verite_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Verite\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_verite" inherit="13e4">
+		<verite_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Verite\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_verite" inherit="13b0">
+		<verite_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Verite\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_verite" inherit="13af">
+		<verite_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Verite\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_verite" inherit="1439">
+		<verite_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Verite\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_verite" inherit="1438">
+		<verite_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Verite\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_verite" inherit="1407">
+		<verite_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Verite\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_verite" inherit="1406">
+		<verite_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Verite\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

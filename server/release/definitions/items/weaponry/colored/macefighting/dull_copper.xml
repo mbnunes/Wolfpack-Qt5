@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_dull_copper" inherit="143d">
+		<dull_copper_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_dull_copper" inherit="143c">
+		<dull_copper_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_dull_copper" inherit="f5c">
+		<dull_copper_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_dull_copper" inherit="f5d">
+		<dull_copper_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_dull_copper" inherit="143b">
+		<dull_copper_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_dull_copper" inherit="143a">
+		<dull_copper_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_dull_copper" inherit="26c6">
+		<dull_copper_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_dull_copper" inherit="26bc">
+		<dull_copper_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_dull_copper" inherit="fb4">
+		<dull_copper_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_dull_copper" inherit="fb5">
+		<dull_copper_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_dull_copper" inherit="13e3">
+		<dull_copper_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_dull_copper" inherit="13e4">
+		<dull_copper_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Dull Copper\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_dull_copper" inherit="13b0">
+		<dull_copper_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Dull Copper\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_dull_copper" inherit="13af">
+		<dull_copper_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Dull Copper\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_dull_copper" inherit="1439">
+		<dull_copper_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Dull Copper\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_dull_copper" inherit="1438">
+		<dull_copper_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Dull Copper\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_dull_copper" inherit="1407">
+		<dull_copper_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Dull Copper\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_dull_copper" inherit="1406">
+		<dull_copper_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Dull Copper\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

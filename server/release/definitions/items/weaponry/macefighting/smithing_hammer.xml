@@ -16,7 +16,7 @@
 		<nodye />
 		<basescripts>skills.blacksmithing,equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Maces\Smith's Hammer (W/E)</category>
+		<category>Base Weapons\Maces\Smith's Hammer (W/E)</category>
 		<sellprice>4</sellprice>
 		<buyprice>4</buyprice>
 		<weight>5.0</weight>
@@ -33,7 +33,7 @@
 	<item id="13e4" inherit="13e3">
 		<id>0x13e4</id>
 		<baseid>13e3</baseid>
-		<category>Weapons\Maces\Smith's Hammer (N/S)</category>
+		<category>Base Weapons\Maces\Smith's Hammer (N/S)</category>
 	</item>
 
 </definitions>

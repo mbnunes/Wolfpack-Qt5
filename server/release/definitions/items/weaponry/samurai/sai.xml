@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1005</type>
-		<category>Weapons\Samurai\Sai</category>
+		<category>Base Weapons\Samurai\Fencing\Sai 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="15" />
@@ -33,7 +33,7 @@
 	<item id="27fa" inherit="27af">
 		<id>0x27fa</id>
 		<baseid>27af</baseid>
-		<category>Weapons\Samurai\Sai 2</category>
+		<category>Base Weapons\Samurai\Fencing\Sai 2</category>
 	</item>
 
 </definitions>

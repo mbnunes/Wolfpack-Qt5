@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment,blades</basescripts>
 		<type>1001</type>
-		<category>Weapons\Samurai\Daisho</category>
+		<category>Base Weapons\Samurai\Swordsmanship\Daisho 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -33,7 +33,7 @@
 	<item id="27f4" inherit="27a9">
 		<id>0x27f4</id>
 		<baseid>27a9</baseid>
-		<category>Weapons\Samurai\Daisho 2</category>
+		<category>Base Weapons\Samurai\Swordsmanship\Daisho 2</category>
 	</item>
 
 </definitions>

@@ -21,7 +21,7 @@
 		<tag name="resname" value="iron" />
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
-		<category>Weapons\Fencing\Kryss (N/S)</category>
+		<category>Base Weapons\Fencing\Kryss (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="10" />
@@ -33,7 +33,7 @@
 	<item id="1400" inherit="1401">
 		<id>0x1400</id>
 		<baseid>1401</baseid>
-		<category>Weapons\Fencing\Kryss (E/W)</category>
+		<category>Base Weapons\Fencing\Kryss (E/W)</category>
 	</item>
 
 </definitions>

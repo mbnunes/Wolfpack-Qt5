@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="f51_verite" inherit="f51">
+		<verite_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Verite\Fencing\Dagger 1</category>
+	</item>
+
+	<item id="f52_verite" inherit="f52">
+		<verite_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Verite\Fencing\Dagger 2</category>
+	</item>
+
+	<item id="26c9_verite" inherit="26c9">
+		<verite_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Verite\Fencing\Double Bladed Staff 1</category>
+	</item>
+
+	<item id="26bf_verite" inherit="26bf">
+		<verite_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Verite\Fencing\Double Bladed Staff 2</category>
+	</item>
+
+	<item id="1401_verite" inherit="1401">
+		<verite_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Verite\Fencing\Kryss 1</category>
+	</item>
+
+	<item id="1400_verite" inherit="1400">
+		<verite_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Verite\Fencing\Kryss 2</category>
+	</item>
+
+	<item id="26ca_verite" inherit="26ca">
+		<verite_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Verite\Fencing\Lance 1</category>
+	</item>
+
+	<item id="26c0_verite" inherit="26c0">
+		<verite_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Verite\Fencing\Lance 2</category>
+	</item>
+
+	<item id="26be_verite" inherit="26be">
+		<verite_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Verite\Fencing\Pike 1</category>
+	</item>
+
+	<item id="26c8_verite" inherit="26c8">
+		<verite_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Verite\Fencing\Pike 2</category>
+	</item>
+
+	<item id="e87_verite" inherit="e87">
+		<verite_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Verite\Fencing\Pitchfork 1</category>
+	</item>
+
+	<item id="e88_verite" inherit="e88">
+		<verite_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Verite\Fencing\Pitchfork 2</category>
+	</item>
+
+	<item id="1403_verite" inherit="1403">
+		<verite_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Verite\Fencing\Short Spear 1</category>
+	</item>
+
+	<item id="1402_verite" inherit="1402">
+		<verite_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Verite\Fencing\Short Spear 2</category>
+	</item>
+
+	<item id="f62_verite" inherit="f62">
+		<verite_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Verite\Fencing\Spear 1</category>
+	</item>
+
+	<item id="f63_verite" inherit="f63">
+		<verite_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Verite\Fencing\Spear 2</category>
+	</item>
+
+	<item id="1405_verite" inherit="1405">
+		<verite_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Verite\Fencing\War Fork 1</category>
+	</item>
+
+	<item id="1404_verite" inherit="1404">
+		<verite_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Verite\Fencing\War Fork 2</category>
+	</item>
+
+</definitions>

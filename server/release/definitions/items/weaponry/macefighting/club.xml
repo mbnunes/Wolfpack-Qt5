@@ -20,7 +20,7 @@
 		<weight>14.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Maces\Club (N/S)</category>
+		<category>Base Weapons\Maces\Club (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="40" />
 		<intproperty name="speed" value="44" />
@@ -31,7 +31,7 @@
 	<item id="13b3" inherit="13b4">
 		<id>0x13b3</id>
 		<baseid>13b4</baseid>
-		<category>Weapons\Maces\Club (E/W)</category>
+		<category>Base Weapons\Maces\Club (E/W)</category>
 	</item>
 
 </definitions>

@@ -12,7 +12,6 @@
 	<!-- Wakizashi -->
 	<item id="27a4">
 		<id>0x27a4</id>
-		<!--<twohanded />-->
 		<decay />
 		<nodye />
 		<sellprice>120</sellprice>
@@ -21,7 +20,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment,blades</basescripts>
 		<type>1001</type>
-		<category>Weapons\Samurai\Wakizashi</category>
+		<category>Base Weapons\Samurai\Swordsmanship\Wakizashi 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="20" />
@@ -33,7 +32,7 @@
 	<item id="27ef" inherit="27a4">
 		<id>0x27ef</id>
 		<baseid>27a4</baseid>
-		<category>Weapons\Samurai\Wakizashi 2</category>
+		<category>Base Weapons\Samurai\Swordsmanship\Wakizashi 2</category>
 	</item>
 
 </definitions>

@@ -21,7 +21,7 @@
 		<weight>9.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1007</type>
-		<category>Weapons\Bows\Heavy Crossbow (N/S)</category>
+		<category>Base Weapons\Bows\Heavy Crossbow (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="projectile" value="0x1bfe" />
 		<strproperty name="ammunition" value="1bfb" />
@@ -35,7 +35,7 @@
 	<item id="13fc" inherit="13fd">
 		<id>0x13fc</id>
 		<baseid>13fd</baseid>
-		<category>Weapons\Bows\Heavy Crossbow (E/W)</category>
+		<category>Base Weapons\Bows\Heavy Crossbow (E/W)</category>
 	</item>
 
 </definitions>

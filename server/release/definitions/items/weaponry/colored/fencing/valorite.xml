@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="f51_valorite" inherit="f51">
+		<valorite_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Valorite\Fencing\Dagger 1</category>
+	</item>
+
+	<item id="f52_valorite" inherit="f52">
+		<valorite_weapon />
+		<baseid>f51</baseid>
+		<category>Weapons\Valorite\Fencing\Dagger 2</category>
+	</item>
+
+	<item id="26c9_valorite" inherit="26c9">
+		<valorite_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Valorite\Fencing\Double Bladed Staff 1</category>
+	</item>
+
+	<item id="26bf_valorite" inherit="26bf">
+		<valorite_weapon />
+		<baseid>26c9</baseid>
+		<category>Weapons\Valorite\Fencing\Double Bladed Staff 2</category>
+	</item>
+
+	<item id="1401_valorite" inherit="1401">
+		<valorite_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Valorite\Fencing\Kryss 1</category>
+	</item>
+
+	<item id="1400_valorite" inherit="1400">
+		<valorite_weapon />
+		<baseid>1401</baseid>
+		<category>Weapons\Valorite\Fencing\Kryss 2</category>
+	</item>
+
+	<item id="26ca_valorite" inherit="26ca">
+		<valorite_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Valorite\Fencing\Lance 1</category>
+	</item>
+
+	<item id="26c0_valorite" inherit="26c0">
+		<valorite_weapon />
+		<baseid>26ca</baseid>
+		<category>Weapons\Valorite\Fencing\Lance 2</category>
+	</item>
+
+	<item id="26be_valorite" inherit="26be">
+		<valorite_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Valorite\Fencing\Pike 1</category>
+	</item>
+
+	<item id="26c8_valorite" inherit="26c8">
+		<valorite_weapon />
+		<baseid>26be</baseid>
+		<category>Weapons\Valorite\Fencing\Pike 2</category>
+	</item>
+
+	<item id="e87_valorite" inherit="e87">
+		<valorite_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Valorite\Fencing\Pitchfork 1</category>
+	</item>
+
+	<item id="e88_valorite" inherit="e88">
+		<valorite_weapon />
+		<baseid>e87</baseid>
+		<category>Weapons\Valorite\Fencing\Pitchfork 2</category>
+	</item>
+
+	<item id="1403_valorite" inherit="1403">
+		<valorite_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Valorite\Fencing\Short Spear 1</category>
+	</item>
+
+	<item id="1402_valorite" inherit="1402">
+		<valorite_weapon />
+		<baseid>1403</baseid>
+		<category>Weapons\Valorite\Fencing\Short Spear 2</category>
+	</item>
+
+	<item id="f62_valorite" inherit="f62">
+		<valorite_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Valorite\Fencing\Spear 1</category>
+	</item>
+
+	<item id="f63_valorite" inherit="f63">
+		<valorite_weapon />
+		<baseid>f62</baseid>
+		<category>Weapons\Valorite\Fencing\Spear 2</category>
+	</item>
+
+	<item id="1405_valorite" inherit="1405">
+		<valorite_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Valorite\Fencing\War Fork 1</category>
+	</item>
+
+	<item id="1404_valorite" inherit="1404">
+		<valorite_weapon />
+		<baseid>1405</baseid>
+		<category>Weapons\Valorite\Fencing\War Fork 2</category>
+	</item>
+
+</definitions>

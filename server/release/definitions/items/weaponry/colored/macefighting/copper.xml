@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_copper" inherit="143d">
+		<copper_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Copper\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_copper" inherit="143c">
+		<copper_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Copper\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_copper" inherit="f5c">
+		<copper_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Copper\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_copper" inherit="f5d">
+		<copper_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Copper\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_copper" inherit="143b">
+		<copper_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Copper\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_copper" inherit="143a">
+		<copper_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Copper\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_copper" inherit="26c6">
+		<copper_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Copper\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_copper" inherit="26bc">
+		<copper_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Copper\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_copper" inherit="fb4">
+		<copper_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Copper\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_copper" inherit="fb5">
+		<copper_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Copper\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_copper" inherit="13e3">
+		<copper_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Copper\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_copper" inherit="13e4">
+		<copper_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Copper\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_copper" inherit="13b0">
+		<copper_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Copper\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_copper" inherit="13af">
+		<copper_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Copper\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_copper" inherit="1439">
+		<copper_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Copper\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_copper" inherit="1438">
+		<copper_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Copper\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_copper" inherit="1407">
+		<copper_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Copper\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_copper" inherit="1406">
+		<copper_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Copper\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

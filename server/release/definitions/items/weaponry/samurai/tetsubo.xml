@@ -21,9 +21,9 @@
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Samurai\Tetsubo</category>
+		<category>Base Weapons\Samurai\Tetsubo</category>
 		<!-- Properties -->
-		<tag name="resname" value="iron" />
+		<!--<tag name="resname" value="iron" />-->
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="45" />
 		<intproperty name="mindamage" value="12" />
@@ -33,7 +33,7 @@
 	<item id="27f1" inherit="27a6">
 		<id>0x27f1</id>
 		<baseid>27a6</baseid>
-		<category>Weapons\Samurai\Tetsubo 2</category>
+		<category>Base Weapons\Samurai\Tetsubo 2</category>
 	</item>
 
 </definitions>

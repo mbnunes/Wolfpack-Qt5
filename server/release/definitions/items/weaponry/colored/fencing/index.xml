@@ -1,0 +1,14 @@
+
+<definitions>
+
+	<include file="definitions/items/weaponry/colored/fencing/agapite.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/bronze.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/copper.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/dull_copper.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/golden.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/iron.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/shadow.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/valorite.xml"/>
+	<include file="definitions/items/weaponry/colored/fencing/verite.xml"/>
+
+</definitions>

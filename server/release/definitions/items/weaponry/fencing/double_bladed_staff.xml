@@ -20,7 +20,7 @@
 		<weight>7.0</weight>
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
-		<category>Weapons\Fencing\Double Bladed Staff (N/S)</category>
+		<category>Base Weapons\Fencing\Double Bladed Staff (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="50" />
@@ -32,7 +32,7 @@
 	<item id="26bf" inherit="26c9">
 		<id>0x26bf</id>
 		<baseid>26c9</baseid>
-		<category>Weapons\Fencing\Double Bladed Staff (E/W)</category>
+		<category>Base Weapons\Fencing\Double Bladed Staff (E/W)</category>
 	</item>
 
 </definitions>

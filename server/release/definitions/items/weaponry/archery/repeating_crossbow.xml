@@ -21,7 +21,7 @@
 		<weight>7.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1007</type>
-		<category>Weapons\Bows\Repeating Crossbow (N/S)</category>
+		<category>Base Weapons\Bows\Repeating Crossbow (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="projectile" value="0x1bfe" />
 		<strproperty name="ammunition" value="1bfb" />
@@ -35,7 +35,7 @@
 	<item id="26c3" inherit="26cd">
 		<id>0x26c3</id>
 		<baseid>26cd</baseid>
-		<category>Weapons\Bows\Repeating Crossbow (E/W)</category>
+		<category>Base Weapons\Bows\Repeating Crossbow (E/W)</category>
 	</item>
 
 </definitions>

@@ -1,0 +1,115 @@
+
+<definitions>
+
+	<!-- Swordsmanship -->
+	<item id="27a8_dull_copper" inherit="27a8">
+		<dull_copper_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\Bokuto 1</category>
+	</item>
+
+	<item id="27f3_dull_copper" inherit="27f3">
+		<dull_copper_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\Bokuto 2</category>
+	</item>
+
+	<item id="27a9_dull_copper" inherit="27a9">
+		<dull_copper_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\Daisho 1</category>
+	</item>
+
+	<item id="27f4_dull_copper" inherit="27f4">
+		<dull_copper_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\Daisho 2</category>
+	</item>
+
+	<item id="27a2_dull_copper" inherit="27a2">
+		<dull_copper_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\No-Dachi 1</category>
+	</item>
+
+	<item id="27ed_dull_copper" inherit="27ed">
+		<dull_copper_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\No-Dachi 2</category>
+	</item>
+
+	<item id="27a4_dull_copper" inherit="27a4">
+		<dull_copper_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\Wakizashi 1</category>
+	</item>
+
+	<item id="27ef_dull_copper" inherit="27ef">
+		<dull_copper_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Dull Copper\Samurai\Swordsmanship\Wakizashi 2</category>
+	</item>
+
+	<!-- Fencing -->
+	<item id="27ad_dull_copper" inherit="27ad">
+		<dull_copper_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Kama 1</category>
+	</item>
+
+	<item id="27f8_dull_copper" inherit="27f8">
+		<dull_copper_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Kama 2</category>
+	</item>
+
+	<item id="27a7_dull_copper" inherit="27a7">
+		<dull_copper_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Lajatang 1</category>
+	</item>
+
+	<item id="27f2_dull_copper" inherit="27f2">
+		<dull_copper_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Lajatang 2</category>
+	</item>
+
+	<item id="27af_dull_copper" inherit="27af">
+		<dull_copper_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Sai 1</category>
+	</item>
+
+	<item id="27fa_dull_copper" inherit="27fa">
+		<dull_copper_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Sai 2</category>
+	</item>
+
+	<item id="27ab_dull_copper" inherit="27ab">
+		<dull_copper_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Tekagi 1</category>
+	</item>
+
+	<item id="27f6_dull_copper" inherit="27f6">
+		<dull_copper_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Dull Copper\Samurai\Fencing\Tekagi 2</category>
+	</item>
+
+	<!-- Macefighting -->
+	<item id="27a3_dull_copper" inherit="27a3">
+		<dull_copper_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Dull Copper\Samurai\Macefighting\Tessen 1</category>
+	</item>
+
+	<item id="27ee_dull_copper" inherit="27ee">
+		<dull_copper_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Dull Copper\Samurai\Macefighting\Tessen 2</category>
+	</item>
+
+</definitions>

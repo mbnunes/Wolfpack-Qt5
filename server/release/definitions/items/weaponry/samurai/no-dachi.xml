@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment,blades</basescripts>
 		<type>1001</type>
-		<category>Weapons\Samurai\No-Dachi</category>
+		<category>Base Weapons\Samurai\Swordsmanship\No-Dachi 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -33,7 +33,7 @@
 	<item id="27ed" inherit="27a2">
 		<id>0x27ed</id>
 		<baseid>27a2</baseid>
-		<category>Weapons\Samurai\No-Dachi 2</category>
+		<category>Base Weapons\Samurai\Swordsmanship\No-Dachi 2</category>
 	</item>
 
 </definitions>

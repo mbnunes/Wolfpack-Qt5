@@ -20,7 +20,7 @@
 		<basescripts>equipment</basescripts>
 		<type>1003</type>
 		<twohanded />
-		<category>Weapons\Staves\Quarter Staff (N/S)</category>
+		<category>Base Weapons\Staves\Quarter Staff (N/S)</category>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="48" />
@@ -31,7 +31,7 @@
 	<item id="e8a" inherit="e89">
 		<id>0xe8a</id>
 		<baseid>e89</baseid>
-		<category>Weapons\Staves\Quarter Staff (E/W)</category>
+		<category>Base Weapons\Staves\Quarter Staff (E/W)</category>
 	</item>
 
 </definitions>

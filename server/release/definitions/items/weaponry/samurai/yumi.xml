@@ -20,7 +20,7 @@
 		<weight>7.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1006</type>
-		<category>Weapons\Samurai\Yumi</category>
+		<category>Base Weapons\Samurai\Archery\Yumi 1</category>
 		<!-- Properties -->
 		<intproperty name="projectile" value="0xf42" />
 		<strproperty name="ammunition" value="f3f" />
@@ -34,7 +34,7 @@
 	<item id="27f0" inherit="27a5">
 		<id>0x27f0</id>
 		<baseid>27a5</baseid>
-		<category>Weapons\Samurai\Yumi 2</category>
+		<category>Base Weapons\Samurai\Archery\Yumi 2</category>
 	</item>
 
 </definitions>

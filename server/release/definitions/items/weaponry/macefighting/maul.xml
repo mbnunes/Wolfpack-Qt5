@@ -20,7 +20,7 @@
 		<weight>14.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Maces\Maul (N/S)</category>
+		<category>Base Weapons\Maces\Maul (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="45" />
@@ -32,7 +32,7 @@
 	<item id="143a" inherit="143b">
 		<id>0x143a</id>
 		<baseid>143b</baseid>
-		<category>Weapons\Maces\Mau (E/W)</category>
+		<category>Base Weapons\Maces\Mau (E/W)</category>
 	</item>
 
 </definitions>

@@ -1,0 +1,112 @@
+
+<definitions>
+
+	<item id="143d_shadow" inherit="143d">
+		<shadow_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Hammer Pick 1</category>
+	</item>
+
+	<item id="143c_shadow" inherit="143c">
+		<shadow_weapon />
+		<baseid>143d</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Hammer Pick 2</category>
+	</item>
+
+	<item id="f5c_shadow" inherit="f5c">
+		<shadow_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Mace 1</category>
+	</item>
+
+	<item id="f5d_shadow" inherit="f5d">
+		<shadow_weapon />
+		<baseid>f5c</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Mace 2</category>
+	</item>
+
+	<item id="143b_shadow" inherit="143b">
+		<shadow_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Maul 1</category>
+	</item>
+
+	<item id="143a_shadow" inherit="143a">
+		<shadow_weapon />
+		<baseid>143b</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Maul 2</category>
+	</item>
+
+	<item id="26c6_shadow" inherit="26c6">
+		<shadow_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Scepter 1</category>
+	</item>
+
+	<item id="26bc_shadow" inherit="26bc">
+		<shadow_weapon />
+		<baseid>26c6</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Scepter 2</category>
+	</item>
+
+	<item id="fb4_shadow" inherit="fb4">
+		<shadow_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Sledge Hammer 1</category>
+	</item>
+
+	<item id="fb5_shadow" inherit="fb5">
+		<shadow_weapon />
+		<baseid>fb4</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Sledge Hammer 2</category>
+	</item>
+
+	<item id="13e3_shadow" inherit="13e3">
+		<shadow_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Smithing Hammer 1</category>
+	</item>
+
+	<item id="13e4_shadow" inherit="13e4">
+		<shadow_weapon />
+		<baseid>13e3</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\Smithing Hammer 2</category>
+	</item>
+
+	<item id="13b0_shadow" inherit="13b0">
+		<shadow_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\War Axe 1</category>
+	</item>
+
+	<item id="13af_shadow" inherit="13af">
+		<shadow_weapon />
+		<baseid>13b0</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\War Axe 2</category>
+	</item>
+
+	<item id="1439_shadow" inherit="1439">
+		<shadow_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\War Hammer 1</category>
+	</item>
+
+	<item id="1438_shadow" inherit="1438">
+		<shadow_weapon />
+		<baseid>1439</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\War Hammer 2</category>
+	</item>
+
+	<item id="1407_shadow" inherit="1407">
+		<shadow_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\War Mace 1</category>
+	</item>
+
+	<item id="1406_shadow" inherit="1406">
+		<shadow_weapon />
+		<baseid>1407</baseid>
+		<category>Weapons\Shadow Iron\Macefighting\War Mace 2</category>
+	</item>
+
+</definitions>

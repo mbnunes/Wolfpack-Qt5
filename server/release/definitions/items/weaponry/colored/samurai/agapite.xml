@@ -1,0 +1,115 @@
+
+<definitions>
+
+	<!-- Swordsmanship -->
+	<item id="27a8_agapite" inherit="27a8">
+		<agapite_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\Bokuto 1</category>
+	</item>
+
+	<item id="27f3_agapite" inherit="27f3">
+		<agapite_weapon />
+		<baseid>27a8</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\Bokuto 2</category>
+	</item>
+
+	<item id="27a9_agapite" inherit="27a9">
+		<agapite_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\Daisho 1</category>
+	</item>
+
+	<item id="27f4_agapite" inherit="27f4">
+		<agapite_weapon />
+		<baseid>27a9</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\Daisho 2</category>
+	</item>
+
+	<item id="27a2_agapite" inherit="27a2">
+		<agapite_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\No-Dachi 1</category>
+	</item>
+
+	<item id="27ed_agapite" inherit="27ed">
+		<agapite_weapon />
+		<baseid>27a2</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\No-Dachi 2</category>
+	</item>
+
+	<item id="27a4_agapite" inherit="27a4">
+		<agapite_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\Wakizashi 1</category>
+	</item>
+
+	<item id="27ef_agapite" inherit="27ef">
+		<agapite_weapon />
+		<baseid>27a4</baseid>
+		<category>Weapons\Agapite\Samurai\Swordsmanship\Wakizashi 2</category>
+	</item>
+
+	<!-- Fencing -->
+	<item id="27ad_agapite" inherit="27ad">
+		<agapite_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Kama 1</category>
+	</item>
+
+	<item id="27f8_agapite" inherit="27f8">
+		<agapite_weapon />
+		<baseid>27ad</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Kama 2</category>
+	</item>
+
+	<item id="27a7_agapite" inherit="27a7">
+		<agapite_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Lajatang 1</category>
+	</item>
+
+	<item id="27f2_agapite" inherit="27f2">
+		<agapite_weapon />
+		<baseid>27a7</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Lajatang 2</category>
+	</item>
+
+	<item id="27af_agapite" inherit="27af">
+		<agapite_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Sai 1</category>
+	</item>
+
+	<item id="27fa_agapite" inherit="27fa">
+		<agapite_weapon />
+		<baseid>27af</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Sai 2</category>
+	</item>
+
+	<item id="27ab_agapite" inherit="27ab">
+		<agapite_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Tekagi 1</category>
+	</item>
+
+	<item id="27f6_agapite" inherit="27f6">
+		<agapite_weapon />
+		<baseid>27ab</baseid>
+		<category>Weapons\Agapite\Samurai\Fencing\Tekagi 2</category>
+	</item>
+
+	<!-- Macefighting -->
+	<item id="27a3_agapite" inherit="27a3">
+		<agapite_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Agapite\Samurai\Macefighting\Tessen 1</category>
+	</item>
+
+	<item id="27ee_agapite" inherit="27ee">
+		<agapite_weapon />
+		<baseid>27a3</baseid>
+		<category>Weapons\Agapite\Samurai\Macefighting\Tessen 2</category>
+	</item>
+
+</definitions>

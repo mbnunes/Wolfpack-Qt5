@@ -1,0 +1,14 @@
+
+<definitions>
+
+	<include file="definitions/items/weaponry/colored/samurai/agapite.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/bronze.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/copper.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/dull_copper.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/golden.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/iron.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/shadow.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/valorite.xml"/>
+	<include file="definitions/items/weaponry/colored/samurai/verite.xml"/>
+
+</definitions>

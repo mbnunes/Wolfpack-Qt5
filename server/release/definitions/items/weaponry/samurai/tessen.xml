@@ -21,7 +21,7 @@
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
-		<category>Weapons\Samurai\Tessen</category>
+		<category>Base Weapons\Samurai\Macefighting\Tessen 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="10" />
@@ -33,7 +33,7 @@
 	<item id="27ee" inherit="27a3">
 		<id>0x27ee</id>
 		<baseid>27a3</baseid>
-		<category>Weapons\Samurai\Tessen 2</category>
+		<category>Base Weapons\Samurai\Macefighting\Tessen 2</category>
 	</item>
 
 </definitions>
