@@ -234,7 +234,7 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 */
 void cUOSocket::disconnect( void )
 {
-	_socket->close();
+	//_socket->close();
 }
 
 /*!
@@ -395,7 +395,10 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 		{
 		case cAccounts::LoginNotFound:
 			if ( SrvParams->autoAccountCreate() )
+			{
 				authRet = Accounts->createAccount( username, password );
+				error = cAccounts::NoError;
+			}
 			else
 				denyPacket.setReason( DL_NOACCOUNT );
 			break;
@@ -406,13 +409,14 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			denyPacket.setReason( DL_BLOCKED ); break;
 		};
 
-		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
-		send( &denyPacket );
+		if( error != cAccounts::NoError )
+		{
+			clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
+			send( &denyPacket );
+		}
 	}
-	else
-	{
-		_account = authRet;
-	}
+
+	_account = authRet;
 
 	return ( error == cAccounts::NoError );
 }
