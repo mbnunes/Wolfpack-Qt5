@@ -11,12 +11,12 @@
     <!-- Consumables -->
     <fletch definition="de1" name="Kindling">
       <bowcraft min="0" max="0" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards & Logs" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards &amp; Logs" />
       <nomark />
     </fletch>
     <fletch definition="1bd4" name="Shaft">
       <bowcraft min="0" max="400" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards & Logs" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards &amp; Logs" />
       <stackable />
       <nomark />
     </fletch>
@@ -38,23 +38,23 @@
     <!-- Weapon -->
     <fletch definition="13b1" name="Bow">
       <bowcraft min="300" max="700" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards & Logs" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards &amp; Logs" />
     </fletch>
     <fletch definition="f4f" name="Crossbow">
       <bowcraft min="600" max="1000" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards & Logs" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards &amp; Logs" />
     </fletch>
     <fletch definition="13fd" name="Heavy Crossbow">
       <bowcraft min="800" max="1200" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards & Logs" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
     </fletch>
     <fletch definition="26c2" name="Composite Bow">
       <bowcraft min="700" max="1100" penalty="80" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards & Logs" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
     </fletch>
     <fletch definition="26cd" name="Repeating Crossbow">
       <bowcraft min="900" max="1300" penalty="55" />
-      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards & Logs" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
     </fletch>
   </menu>
 </definitions>
