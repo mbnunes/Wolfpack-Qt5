@@ -92,7 +92,7 @@ static PyTypeObject wpGumpResponseType = {
     0,
 };
 
-PyObject *PyGetGumpResponse( gumpChoice_st &response )
+PyObject *PyGetGumpResponse( const gumpChoice_st &response )
 {
 	wpGumpResponse *returnVal = PyObject_New( wpGumpResponse, &wpGumpResponseType );
 	returnVal->response = new gumpChoice_st;
@@ -119,7 +119,7 @@ public:
 		Py_INCREF( args );
 	}
 	
-	void handleResponse( cUOSocket* socket, gumpChoice_st choice )
+	void handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 	{
 		// Call the response function (and pass it a response-object)
 		// Try to call the python function

@@ -368,20 +368,24 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
+	char* pKey = 0, *pTag = 0;
+	int iTag;
+	cVariant tag;
+	if( PyArg_ParseTuple( args, "ss:item.settag( key, tag )", &pKey, &pTag ) )
 	{
-		PyErr_BadArgument();
-		return NULL;
+		tag = cVariant( QString( pTag ) );
 	}
-
-	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	else if ( PyArg_ParseTuple( args, "si:item.settag( key, tag )", &pKey, &iTag ) )
+	{
+		tag = cVariant( iTag );
+	}else
+		return 0;
+	
+	QString key = pKey;
 
 	self->pItem->removeTag( key );
 
-	if( checkArgStr( 1 ) )
-		self->pItem->setTag( key, cVariant( QString( getArgStr( 1 ) ) ) );
-	else if( checkArgInt( 1 ) )
-		self->pItem->setTag( key, cVariant( (int)getArgInt( 1 ) ) );
+	self->pItem->setTag( key, tag );
 
 	return PyTrue;
 }
@@ -394,13 +398,11 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
+	char* pKey = 0;
+	if ( !PyArg_ParseTuple( args, "s:item.hastag( key )", &pKey ) )
+		return 0;
 
-	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	QString key = pKey;
 	
 	return self->pItem->getTag( key ).isValid() ? PyTrue : PyFalse;
 }
