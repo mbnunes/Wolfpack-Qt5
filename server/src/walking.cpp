@@ -184,9 +184,9 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 		else
 			staticBlock.walkable = checkWalkable( pChar, staIter->itemid );
 
-		// If we are a stair only the half height counts
+		// If we are a stair only the half height counts (round up)
 		if ( tTile.flag2 & 0x04 )
-			staticBlock.height = ( UINT8 ) ( tTile.height / 2 );
+			staticBlock.height = ( UINT8 ) ( tTile.height + 1 / 2 );
 		else
 			staticBlock.height = tTile.height;
 
