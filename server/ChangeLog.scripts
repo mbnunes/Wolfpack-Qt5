@@ -9,6 +9,7 @@ Wolfpack 12.9.9 Beta (CVS)
 
 Wolfpack 12.9.8 Beta (4. August, 2004)
 	* Core Changes:
+		- Save fixes
 		- Cleanups and general fixes.
 		- Gump Responses are now passed on as Unicode rather than in the
 			local codepage.
@@ -70,11 +71,14 @@ Wolfpack 12.9.8 Beta (4. August, 2004)
 			This overrides the core region change messages.
 		- New script: system.hunger
 			This allows players to suffer from hunger once again.
-		- New Script: system.players
+		- New script: system.players
 			This has basic onLogin() onLogout() hooks for players.
 		- New script: wolfpack.locales
 			This will be an index with messages in many languages for easy
 			configuration for the server's non-cliloc messages.
+		- Removed script: commands.addtree
+		- New script: commands.adddecor
+			This replaces addtree and expands the usage.
 		- Script Fixes:
 			Eating food no longer animates a character if on a mount.
 			Carving was fixed.
