@@ -67,12 +67,18 @@
 
 PyObject* PyGetObjectObject( cUObject* object )
 {
+	if (!object) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+
 	if ( dynamic_cast<P_ITEM>( object ) )
 		return PyGetItemObject( ( P_ITEM ) object );
 	else if ( dynamic_cast<P_CHAR>( object ) )
 		return PyGetCharObject( ( P_CHAR ) object );
 
-	return 0;
+	Py_INCREF(Py_None);
+        return Py_None;
 }
 
 static QStringList getFlagNames( unsigned char flag1, unsigned char flag2, unsigned char flag3, unsigned char flag4 )
