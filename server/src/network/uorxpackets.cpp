@@ -116,7 +116,42 @@ QString cUORxSpeechRequest::message()
 		if( skipCount % 8 > 0 )
 			skipBytes++;
 
-		return getAsciiString(12 + skipBytes, getShort(1) - (12 + skipBytes) );
+		QString speech = getAsciiString(12 + skipBytes, getShort(1) - (12 + skipBytes) );
+		// Sadly we are not finished yet
+		// The UO client encodes the UNICODE speech in a rather strange... format.
+		// So we need to iterate trough the speech
+		QString uSpeech;
+		const char *c_string = speech.latin1();
+
+		INT32 i = 0;
+		while( c_string[i] != 0 )
+		{
+			// We found one of the encoded unicode strings.
+			// The first byte is 0xC3 for encoded strings
+			// Then the "combined" short needs to be reduced
+			// by 0xC2C0
+			UINT8 one = c_string[i];
+			UINT8 two = c_string[i+1];
+
+			if( one == 0xC3 && two )
+			{
+				UINT16 cCode = one << 8;
+				cCode += two;
+
+				cCode -= 0xC2C0;
+				uSpeech.append( QChar( cCode ) );
+
+				++i; // Skip the second byte as well
+			}
+			else
+			{
+				uSpeech.append( c_string[i] );
+			}
+
+			++i;
+		}
+
+		return uSpeech;
 	}
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );
