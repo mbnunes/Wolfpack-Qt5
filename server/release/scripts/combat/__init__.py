@@ -27,13 +27,26 @@ def onSwing(attacker, defender, time):
   if AGEOFSHADOWS:
     weapon = attacker.getweapon()
 
-    try:      
-      combat.utilities.playswinganimation(attacker, defender, weapon)
-  
-      if combat.aos.checkhit(attacker, defender, time):
-        combat.aos.hit(attacker, defender, weapon, time)
-      else:
-        combat.aos.miss(attacker, defender, weapon, time)
+    try:
+      # Ranged weapons need shooting first
+      if weapon and (weapon.type == 1007 or weapon.type == 1006):
+        # We have to be standing for >= 1000 ms, otherwise try again later
+        if attacker.lastmovement + 1000 > wolfpack.currenttime():
+          attacker.nextswing = attacker.lastmovement + 1000
+          return
+
+        # See if we can fire the weapon.
+        # if not, wait until the next normal swing.
+        if combat.aos.fireweapon(attacker, defender, weapon):
+          if combat.aos.checkhit(attacker, defender, time):
+            combat.aos.hit(attacker, defender, weapon, time)
+          else:
+            combat.aos.miss(attacker, defender, weapon, time)
+      elif combat.aos.checkhit(attacker, defender, time):
+          combat.aos.hit(attacker, defender, weapon, time)
+      else:          
+          combat.aos.miss(attacker, defender, weapon, time)
+
     except:
       # Try again in 10 seconds
       attacker.nextswing = time + 10000

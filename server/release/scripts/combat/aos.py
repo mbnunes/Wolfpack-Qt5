@@ -1,6 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import *
+from wolfpack.utilities import consumeresources
 import combat.properties
 import combat.utilities
 import random
@@ -18,6 +19,30 @@ def checkskill(char, skill, chance):
   return chance >= random.random()
 
 #
+# Fire a ranged weapon and consume the
+# ammunition. If the ammunition is not available
+# return false.
+#
+def fireweapon(attacker, defender, weapon):
+  ammo = combat.properties.fromitem(weapon, AMMUNITION)
+
+  # Only consume ammo if this weapon requires it
+  if len(ammo) != 0:
+    if not consumeresources(attacker.getbackpack(), ammo, 1):
+      if attacker.socket:
+        attacker.socket.sysmessage('You are out of ammo.')
+      return 0
+
+  projectile = combat.properties.fromitem(weapon, PROJECTILE)
+
+  # Fire a projectile if applicable.
+  if projectile:
+    hue = combat.properties.fromitem(weapon, PROJECTILEHUE)
+    attacker.movingeffect(projectile, defender, 0, 0, 14, hue)
+
+  return 1
+
+#
 # Checks if the character hits his target or misses instead
 # Returns 1 if the character hits and 0 if the character misses.
 #
@@ -27,6 +52,8 @@ def checkhit(attacker, defender, time):
   defenderWeapon = defender.getweapon()
   attackerSkill = combat.utilities.weaponskill(attacker, attackerWeapon, 1)
   defenderSkill = combat.utilities.weaponskill(defender, defenderWeapon)
+
+  combat.utilities.playswinganimation(attacker, defender, attackerWeapon)
 
   # Retrieve the skill values
   attackerValue = attacker.skill[attackerSkill] / 10

@@ -173,3 +173,6 @@ def playhitsound(attacker, defender):
   else:
     # A standard monster defend sound
     defender.sound(SND_DEFEND)
+
+
+

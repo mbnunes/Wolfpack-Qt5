@@ -365,3 +365,51 @@ def cleartag( self, args ):
 def rusmsg( player, locmsg ):
 	player.socket.sysmessage( unicode( locmsg, 'cp1251') )
 	return OK
+
+#
+# Internal function for resource searches
+#
+def checkresources(container, baseid, amount):
+  for item in container.content:
+    if item.baseid == baseid:
+      amount -= item.amount
+    else:
+      amount = checkresources(item, baseid, amount)
+
+    # Don't count negative values
+    if amount <= 0:
+      amount = 0
+      break
+
+  return amount
+
+#
+# Internal Recursive function for consuming resources.
+# Return the amount left to consume.
+#
+def consumeresourcesinternal(container, baseid, amount):
+  for item in container.content:
+    if item.baseid == baseid:
+      # Enough to statisfy our consumption
+      if item.amount > amount:
+        item.amount -= amount
+        item.update()
+        return 0
+      
+      amount -= item.amount
+      item.delete()
+    else:
+      amount = consumeresourcesinternal(item, baseid, amount)
+
+  return amount
+
+#
+# Consume a certain amount of a certain resource.
+# Return true if the resources have been consumed
+# correctly.
+#
+def consumeresources(container, baseid, amount):
+  if checkresources(container, baseid, amount) == 0:
+    return consumeresourcesinternal(container, baseid, amount) == 0
+  
+  return 0

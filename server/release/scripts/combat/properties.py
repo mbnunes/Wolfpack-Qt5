@@ -8,13 +8,7 @@ from combat.weaponinfo import WEAPONINFO
 # The return value is in miliseconds.
 #
 def getdelay(attacker, weapon):
-  if not weapon or not weapon.hastag('speed'):
-    speed = 50
-  else:
-    speed = int(weapon.gettag('speed'))
-
-  attacker.log(LOG_PYTHON, "Weapon Speed: " + str(speed) + "\n")
-
+  speed = fromitem(weapon, SPEED)
   value = max(1, (attacker.stamina + 100) * speed)
 
   # Scale value according to bonus
@@ -55,8 +49,9 @@ PROPERTIES = {
   SPEED: ['speed', 50, 0],
   HITSOUND: ['hitsound', [0x135, 0x137, 0x13b], 0],
   MISSSOUND: ['misssound', [0x238, 0x23a], 0],
-  AMMUNITION: ['ammunition', 0, 0],
+  AMMUNITION: ['ammunition', '', 0],
   PROJECTILE: ['projectile', 0, 0],
+  PROJECTILEHUE: ['projectilehue', 0, 0],
 }
 
 #

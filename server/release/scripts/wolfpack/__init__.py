@@ -184,3 +184,4 @@ findguild = _wolfpack.findguild
 queueaction = _wolfpack.queueaction
 charbase = _wolfpack.charbase
 registerpackethook = _wolfpack.registerpackethook
+currenttime = _wolfpack.currenttime
