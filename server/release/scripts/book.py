@@ -28,6 +28,17 @@ def sendPage(socket, serial, page, lines):
 
 def onUse(char, item):
 	char.objectdelay = 0
+	protected = False
+
+	# If it's within another characters pack. This is true for player vendors for
+	# instance.
+	outmost = item.getoutmostchar()
+	
+	if outmost and outmost != char:
+		protected = True
+		
+	if item.hastag('protected'):
+		protected = True
 
 	# Send BookOpen packet
 	# Author / Title
@@ -47,17 +58,15 @@ def onUse(char, item):
 	packet.setshort(1, packetlength)		 # Packet length
 	packet.setint(3, item.serial)			 # Book Serial
 
-	if not item.hastag('protected'):
+	if not protected:
 		packet.setbyte(7, 1) # Flag Writeable
 		packet.setbyte(8, 1) # dito
-		pass
 
 	pages = 64
 	if item.hastag('pages'):
 		pages = int(item.gettag('pages'))
 
 	packet.setshort(9, pages)
-
 
 	packet.setshort(11, len(title) + 1)
 	packet.setascii(13, title)
@@ -67,9 +76,9 @@ def onUse(char, item):
 
 	packet.send(char.socket)
 
-	if item.hastag('protected'):
+	if protected:
 		return 1
-
+		
 	# Send a packet for each page !!
 	# We could easily create packets bigger than 65k otherwise...
 	for page in range(1, pages+1):
@@ -106,13 +115,19 @@ def handlepage(socket, packet):
 		else:
 			content = []
 
-		sendPage(socket, item.serial, page)
+		sendPage(socket, item.serial, page, content)
 
 	# The client wants to update the page.
 	else:
 		if item.hastag('protected'):
 			socket.sysmessage('This book is read only.')
 			return 1
+			
+		outmost = item.getoutmostchar()
+		
+		if outmost and outmost != socket.player:
+			socket.sysmessage('This book is read only.')
+			return 1 # Not writeable
 
 		if item.hastag('pages'):
 			pages = int(item.gettag('pages'))
@@ -172,6 +187,12 @@ def updatebook(socket, packet):
 	if item.hastag('protected'):
 		char.message('This book is read only.')
 		return 1
+		
+	outmost = item.getoutmostchar()
+	
+	if outmost and outmost != socket.player:
+		socket.sysmessage('This book is read only.')
+		return 1 # Not writeable
 
 	if len(author) == 0:
 		item.deltag('author')

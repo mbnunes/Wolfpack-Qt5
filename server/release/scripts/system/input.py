@@ -13,6 +13,7 @@
 import wolfpack
 from wolfpack import console
 from wolfpack.consts import *
+from wolfpack import tr
 
 #
 # Send an input line request to the client
