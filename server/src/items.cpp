@@ -915,6 +915,16 @@ void cAllItems::DeleItem(P_ITEM pi)
 				DeleItem(pContent);
 		}
 
+		// if it is within a multi, delete it from the multis vector
+		if( pi->multis != INVALID_SERIAL )
+		{
+			cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+			if( pMulti )
+			{
+				pMulti->removeItem( pi );
+			}
+		}
+
 		// Queue for later delete.
 		cItemsManager::getInstance()->deleteItem(pi);
 	}
@@ -1156,10 +1166,9 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 					pi_multi = cMulti::findMulti( pi->pos );
 					if ( pi_multi )
 					{
-						if( pi_multi->more4==0 ) //JustMichael -- set more to 1 and stuff can decay in the building
+						if( pi_multi->itemsdecay() ) //JustMichael -- set more to 1 and stuff can decay in the building
 						{
 							pi->startDecay();
-							pi_multi->addItem( pi );
 							return;
 						}
 					}
@@ -2236,7 +2245,7 @@ void cItem::update( cUOSocket *mSock )
 				sendItem.setFlags( 0x20 );
 			else if( pChar->canMoveAll() )
 				sendItem.setFlags( 0x20 );
-			else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
+			else if( isOwnerMovable() && pChar->Owns( this ) )
 				sendItem.setFlags( 0x20 );
 
 			if( ( visible > 0 ) && !pChar->Owns( this ) )

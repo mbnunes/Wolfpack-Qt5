@@ -42,6 +42,7 @@ cMulti::cMulti()
 {
 	cItem::Init( false );
 	deedsection_ = (char*)0;
+	itemsdecay_ = false;
 }
 
 void cMulti::Serialize( ISerialization &archive )
@@ -125,6 +126,10 @@ void cMulti::processNode( const QDomElement &Tag )
 	// <name>balbalab</name>
 	else if( TagName == "name" )
 		this->setName( Value );
+
+	// <itemsdecay />
+	else if( TagName == "itemsdecay" )
+		this->itemsdecay_ = true;
 }
 
 
@@ -313,15 +318,19 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 		else
 			pBankbox->AddItem( pKey );
 	}
-        
-	pKey = Items->createScriptItem( "100f" );
-	if( pKey )
+
+	// just create 3 additional keys...
+	for( register int i = 0; i < 3; ++i )
 	{
-		pKey->tags.set( "linkserial", this->serial );
-		pKey->setType( 7 );
-		pKey->priv = 2;
-		pKey->setName( name );
-		pBankbox->AddItem( pKey );
+		pKey = Items->createScriptItem( "100f" );
+		if( pKey )
+		{
+			pKey->tags.set( "linkserial", this->serial );
+			pKey->setType( 7 );
+			pKey->priv = 2;
+			pKey->setName( name );
+			pBankbox->AddItem( pKey );
+		}
 	}
 }
 
@@ -374,3 +383,8 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 		return NULL;
 }
 
+
+bool cMulti::authorized( P_CHAR pc )
+{
+	return ( pc->isGMorCounselor() || ownserial == pc->serial || findKey( pc ) || isFriend( pc ) );
+}

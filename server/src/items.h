@@ -298,7 +298,6 @@ public:
 
 
 //forward declaration
-class cHouseItem;
 class QDomElement;
 
 class cAllItems

@@ -78,6 +78,17 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 		Items->DeleItem( pItem );
 	}
 
+	// multi check
+	if( pc_k->multis != INVALID_SERIAL )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pc_k->multis ) );
+		if( pMulti )
+		{
+			pMulti->removeChar( pc_k );
+		}
+	}
+	
+
 	pc_k->removeFromView( false ); // Remove the character from all in-range sockets view
 	mapRegions->Remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
 

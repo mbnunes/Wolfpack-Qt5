@@ -874,6 +874,12 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 	if( !pc_currchar )
 		return;
 
+	if( !authorized( pc_currchar ) )
+	{
+		socket->sysMessage( tr("You are not allowed to enter this boat!") );
+		return;
+	}
+
 	bool charonboat = false;
 
 	QValueList< SERIAL >::iterator it = chars_.begin();
@@ -1105,9 +1111,9 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 	if ( tiller == NULL ) 
 		return 0;
 
-	if( ownserial != pc->serial && !findKey( pc ) && !isFriend( pc ) )
+	if( !authorized( pc ) )
 	{
-		tiller->talk( tr("You are not my master.") );
+		tiller->talk( tr("You are not my master."), 0x481, 0 );
 		return 1;
 	}
 

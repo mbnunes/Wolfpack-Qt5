@@ -54,6 +54,8 @@ public:
 //	virtual QString objectID( void ) const { return "MULTI"; }
 
 	QString deedSection( void ) { return deedsection_; }
+	bool	itemsdecay( void ) { return itemsdecay_; }
+
 	void	addItem( P_ITEM pi );
 	void	removeItem( P_ITEM pi );
 	void	checkItems();
@@ -72,7 +74,9 @@ public:
 	void	createKeys( P_CHAR pc, const QString &name );
 	void	removeKeys( void );
 
-	bool inMulti( const Coord_cl &srcpos );
+	bool	authorized( P_CHAR pc );
+
+	bool	inMulti( const Coord_cl &srcpos );
 
 	static cMulti*	findMulti( const Coord_cl &pos );
 	static bool		inMulti( const Coord_cl &srcpos, const Coord_cl &multipos, UI16 id );
@@ -82,6 +86,7 @@ protected:
 
 protected:
 	QString deedsection_;
+	bool	itemsdecay_;
 	std::vector<SERIAL>	friends_;
 	std::vector<SERIAL>	bans_;
 	QValueList< SERIAL >	items_;

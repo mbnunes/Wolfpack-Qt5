@@ -41,34 +41,7 @@
 //#include <vector>
 
 // Forward Class declaration
-class ISerialization;
-
-class cHouseItem : public cItem
-{
-public:
-	cHouseItem() {;}
-	virtual ~cHouseItem() {;}
-	virtual void Serialize( ISerialization &archive )
-	{
-		if( archive.isReading() )
-		{
-			archive.read( "locked", locked_ );
-		}
-		else
-		{
-			archive.write( "locked", locked_ );
-		}
-		cItem::Serialize( archive );
-	}
-	virtual QString objectID() const { return "HOUSE_ITEM"; }
-
-	bool	isLocked( void ) { return locked_; }
-
-protected:
-	virtual void processNode( const QDomElement &Tag );
-
-	bool	locked_;
-};
+class cUOSocket;
 
 class cHouse : public cMulti
 {
@@ -82,11 +55,8 @@ public:
 
 		contserial = INVALID_SERIAL;
 		deedsection_ = (char*)0;
-		lockdownamount_ = 0;
-		secureamount_ = 0;
 		nokey_ = false;
-		itemsdecay_ = false;
-		space_.x = space_.y = charpos_.x = charpos_.y = charpos_.z = 0;
+		charpos_.x = charpos_.y = charpos_.z = 0;
 	}
 	virtual ~cHouse() {}
 	virtual void Serialize( ISerialization &archive );
@@ -96,27 +66,19 @@ public:
 	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
 	void remove( void );
 
-	P_ITEM toDeed( UOXSOCKET s );
+	P_ITEM toDeed( cUOSocket* socket );
 
 
 	QString	deedSection( void ) { return deedsection_; }
 	void	setDeedSection( QString data ) { deedsection_ = data; }
-	bool	itemsdecay( void ) { return itemsdecay_; }
 
 protected:
 	virtual void processNode( const QDomElement &Tag );
+	void processHouseItemNode( const QDomElement &Tag );
 
 	QString deedsection_;
-	int lockdownamount_;
-	int secureamount_;
-	bool nokey_, itemsdecay_;
+	bool nokey_;
 	
-	struct posxy_st
-	{
-		int x;
-		int y;
-	};
-
 	struct posxyz_st
 	{
 		int x;
@@ -124,7 +86,6 @@ protected:
 		int z;
 	};
 
-	posxy_st	space_;
 	posxyz_st	charpos_;
 };
 

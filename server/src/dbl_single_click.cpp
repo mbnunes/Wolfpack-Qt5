@@ -447,23 +447,41 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		return;
 	case 13: // locked door
 		{
-			P_ITEM pPack = pc_currchar->getBackpack();
-			if( pPack )
+			if( pi->multis != INVALID_SERIAL )
 			{
-				vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
-				for( UINT32 j = 0; j < vecContainer.size(); ++j )
+				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+				if( pMulti )
 				{
-					P_ITEM pj = FindItemBySerial(vecContainer[j]);
-					if( pj && pj->type() == 7 )
-						if( ( ( pj->more1 == pi->more1 ) &&( pj->more2 == pi->more2 ) && (pj->more3 == pi->more3) &&(pj->more4 == pi->more4)))
+					if( pMulti->authorized( pc_currchar ) )
+					{
+						socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
+						pc_currchar->objectdelay = 0;
+						dooruse( socket, pi );
+						return;
+					}
+				}
+			}
+			else
+			{
+				P_ITEM pPack = pc_currchar->getBackpack();
+				if( pPack )
+				{
+					vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
+					for( UINT32 j = 0; j < vecContainer.size(); ++j )
+					{
+						P_ITEM pj = FindItemBySerial(vecContainer[j]);
+						if( pj && pj->type() == 7 && 
+							pj->tags.get( "linkserial" ).isValid() && pj->tags.get( "linkserial" ).toUInt() == pi->serial )
 						{
 							socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
 							pc_currchar->objectdelay = 0;
 							dooruse( socket, pi );
 							return;
 						}
+					}
 				}
 			}
+
 			socket->sysMessage( tr( "This door is locked." ) );
 			return;
 		}

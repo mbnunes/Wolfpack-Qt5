@@ -85,6 +85,7 @@
 #define P_M_MAX_Z_CLIMB		14
 #define P_M_MAX_Z_INFLUENCE	15
 #define P_M_MAX_Z_FALL		20 // You can fall 20 tiles ofcourse !!
+#define P_M_MAX_Z_BLOCKS	15
 
 // These are the debugging defines
 
@@ -225,7 +226,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 					stBlockItem blockItem;
 					blockItem.height = tTile.height;
-					blockItem.z = pItem->pos.z;
+					blockItem.z = pItem->pos.z + multi.z;
 
 					if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 						blockItem.walkable = true;
@@ -316,15 +317,15 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 
 		// Does the top of the item looms into our space
 		// Like before 15 is the assumed height of ourself
-		if( ( itemTop > pos.z ) && ( itemTop < pos.z + 15 ) )
+		if( ( itemTop > pos.z ) && ( itemTop < pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// Or the bottom ?
-		if( ( item.z > pos.z ) && ( item.z < pos.z + 15 ) )
+		if( ( item.z > pos.z ) && ( item.z < pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// Or does it spread the whole range ?
-		if( ( item.z <= pos.z ) && ( itemTop >= pos.z + 15 ) )
+		if( ( item.z <= pos.z ) && ( itemTop >= pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// If the Item Tops are already below our current position exit the
@@ -542,7 +543,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		}
 
 		// Lets check if we entered or left a multi
-		cMulti* pOldMulti = cMulti::findMulti( pChar->pos );
+		cMulti* pOldMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis ) );
 		cMulti* pNewMulti = cMulti::findMulti( newCoord );
 		if( pOldMulti != pNewMulti )
 		{

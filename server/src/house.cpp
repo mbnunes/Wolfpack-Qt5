@@ -41,6 +41,7 @@
 #include "tilecache.h"
 #include "utilsys.h"
 #include "network.h"
+#include "network/uosocket.h"
 
 #include "customtags.h"
 #include "territories.h"
@@ -54,34 +55,64 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "house.cpp"
 
-void cHouseItem::processNode( const QDomElement &Tag )
+void cHouse::processHouseItemNode( const QDomElement &Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
-	P_CHAR pOwner = FindCharBySerial( this->GetOwnSerial() );
+	P_CHAR pOwner = FindCharBySerial( ownserial );
+	P_ITEM nItem = Items->MemItemFree();
 
-	// <pack />
-	if( TagName == "pack" )
+	if( !nItem )
+		return;
+	
+	nItem->Init( true );
+	cItemsManager::getInstance()->registerItem( nItem );
+
+	nItem->applyDefinition( Tag );
+
+	nItem->SetOwnSerial( this->ownserial );
+	addItem( nItem );
+	nItem->pos = this->pos;
+
+	QDomNode childNode = Tag.firstChild();
+	while( !childNode.isNull() )
 	{
-		P_ITEM pBackpack = Packitem( pOwner );
-		if( pBackpack != NULL )
-			this->setContSerial( pBackpack->serial );
+		if( childNode.isElement() )
+		{
+			QDomElement childTag = childNode.toElement();
+			QString TagName = childTag.nodeName();
+			QString Value = this->getNodeValue( childTag );
+
+			// <pack />
+			if( TagName == "pack" && pOwner )
+			{
+				P_ITEM pBackpack = Packitem( pOwner );
+				if( pBackpack )
+					pBackpack->AddItem( nItem );
+			}
+
+			// <lock />
+			else if( TagName == "lock" )
+			{
+				this->magic = 4;
+			}
+
+			// <secure />
+			else if( TagName == "secure" )
+				this->magic = 3;
+
+			// <position x="1" y="5" z="20" />
+			else if( TagName == "position" )
+			{
+				nItem->pos.x = nItem->pos.x + childTag.attribute( "x" ).toShort();
+				nItem->pos.y = nItem->pos.y + childTag.attribute( "y" ).toShort();
+				nItem->pos.z = nItem->pos.z + childTag.attribute( "z" ).toShort();
+			}
+		}
+		
+		childNode = childNode.nextSibling();
 	}
 
-	// <lock />
-	else if( TagName == "lock" )
-		this->locked_ = true;
-
-	// <position x="1" y="5" z="20" />
-	else if( TagName == "position" )
-	{
-		this->pos.x = this->pos.x + Tag.attribute( "x" ).toUShort();
-		this->pos.y = this->pos.y + Tag.attribute( "y" ).toUShort();
-		this->pos.z = this->pos.z + Tag.attribute( "z" ).toUShort();
-	}
-
-	else
-		cItem::processNode( Tag );
+	nItem->MoveTo( nItem->pos.x, nItem->pos.y, nItem->pos.z );
+	nItem->update();
 }
 
 bool cHouse::onValidPlace()
@@ -100,7 +131,7 @@ bool cHouse::onValidPlace()
 	length=length/sizeof(st_multi);
 	if (length == -1 || length>=17000000)//Too big...
 	{
-		clConsole.log( QString( "cBoat::isValidPlace: Bad length in multi file. Avoiding stall." ).latin1() );
+		clConsole.log( tr( "cHouse::onValidPlace: Bad length in multi file. Avoiding stall.\n" ).latin1() );
 		length = 0;
 	}
 
@@ -133,7 +164,7 @@ bool cHouse::onValidPlace()
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
-			if( pi != NULL )
+			if( pi && pi->multis != serial )
 			{
 				tile = cTileCache::instance()->getTile( pi->id() );
 				if( multi.z > pi->pos.z && multi.z < ( pi->pos.z + tile.height ) )
@@ -153,13 +184,6 @@ void cHouse::processNode( const QDomElement &Tag )
 	if( TagName == "id" )
 		this->setId( Value.toUShort() );
 
-	// <space x="3" y="3" />
-	else if( TagName == "space" )
-	{
-		space_.x = Tag.attribute( "x" ).toInt();
-		space_.y = Tag.attribute( "y" ).toInt();
-	}
-
 	// <movechar x="0" y="0" z="8" />
 	else if( TagName == "movechar" )
 	{
@@ -168,61 +192,42 @@ void cHouse::processNode( const QDomElement &Tag )
 		charpos_.z = Tag.attribute( "z" ).toInt();
 	}
 
-	// <itemsdecay />
-	else if( TagName == "itemsdecay" )
-		this->itemsdecay_ = true;
-
-	// <houseitem>
+	// <item>
 	//     <inherit id="houseitem_a" />
-	// </houseitem>
-	else if( TagName == "houseitem" )
+	// </item>
+	else if( TagName == "item" )
 	{
-		cHouseItem* phi = new cHouseItem;
-		if( phi != NULL )
-		{
-			cItemsManager::getInstance()->registerItem( phi );
-			phi->SetOwnSerial( this->ownserial );
-			addItem( phi );
-			phi->applyDefinition( Tag );
-
-			if (phi->isInWorld()) 
-				mapRegions->Add(phi);  //add to mapRegions
-		}
+		processHouseItemNode( Tag );
 	}
 
 	// <nokey />
 	else if( TagName == "nokey" )
 		nokey_ = true;
 
-	// <lockdownamount>3</lockdownamount>
-	else if( TagName == "lockdownamount" )
-		this->lockdownamount_ = Value.toInt();
-
-	// <secureamount>5</secureamount>
-	else if( TagName == "secureamount" )
-		this->secureamount_ = Value.toInt();
+	else
+		cMulti::processNode( Tag );
 }
 
 void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
 	P_CHAR pc_currchar = FindCharBySerial( senderserial );
-	UOXSOCKET s = calcSocketFromChar( pc_currchar );
+	cUOSocket* socket = pc_currchar->socket();
 
-	this->applyDefinition( Tag );
-	this->MoveTo( posx, posy, posz );
 	this->serial = cItemsManager::getInstance()->getUnusedSerial();
 	cItemsManager::getInstance()->registerItem( this );
-	if( !this->onValidPlace() )
-	{
-		if( s != -1 )
-			sysmessage(s,"Can not build a house at that location!");
-		cItemsManager::getInstance()->unregisterItem( this );
-		cItemsManager::getInstance()->deleteItem( this );
-		return;
-	}
 	this->SetOwnSerial( senderserial );
 	this->priv = 0;
-	this->setName( QString( "%1's house" ).arg( pc_currchar->name.c_str() ) );
+	this->MoveTo( posx, posy, posz );
+
+	this->applyDefinition( Tag );
+	if( !this->onValidPlace() )
+	{
+		if( socket )
+			socket->sysMessage( tr("Can not build a house at this location!") );
+		this->remove();
+		Items->DeleItem( this );
+		return;
+	}
 	this->update();
 
 	P_ITEM pDeed = FindItemBySerial( deedserial );
@@ -241,13 +246,12 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 		si->update();
 	}
 		
-	pc_currchar->MoveTo( pc_currchar->pos.x + charpos_.x, pc_currchar->pos.y + charpos_.y, pc_currchar->pos.z + charpos_.z );
+	pc_currchar->MoveTo( this->pos.x + charpos_.x, this->pos.y + charpos_.y, this->pos.z + charpos_.z );
+	pc_currchar->resend();
 }
 
 void cHouse::remove( void )
 {
-	this->removeKeys();
-
 	cRegion::RegionIterator4Chars ri(this->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
@@ -256,29 +260,37 @@ void cHouse::remove( void )
 			Npcs->DeleteChar(pc);
 	}
 	cRegion::RegionIterator4Items rii(this->pos);
-	for(rii.Begin(); !rii.atEnd(); ri++)
+	for(rii.Begin(); !rii.atEnd(); rii++)
 	{
 		P_ITEM pi = rii.GetData();
 		if(pi->multis == this->serial && pi->type() != 202)
 			Items->DeleItem(pi);
 	}
+	removeKeys();
 }
 
-P_ITEM cHouse::toDeed( UOXSOCKET s )
+P_ITEM cHouse::toDeed( cUOSocket* socket )
 {
-	P_CHAR pc_currchar = currchar[ s ];
+	P_CHAR pc_currchar = socket->player();
+	if( !pc_currchar )
+		return NULL;
+	P_ITEM pBackpack = pc_currchar->getBackpack();
 
 	cRegion::RegionIterator4Chars ri(this->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
-		if(pc->npcaitype() == 17 && pc->multis == this->serial)
+		if( pBackpack && pc->npcaitype() == 17 && pc->multis == this->serial )
 		{
-			P_ITEM pPvDeed = Items->SpawnItem(pc_currchar, 1, (char*)QString("A vendor deed for %1").arg( pc->name.c_str() ).latin1(), 0, 0x14F0, 0, true);
-			pPvDeed->setType( 217 );
-			pPvDeed->value = 2000;
-			pPvDeed->update();
-			sysmessage(s, QString("Packed up vendor %1.").arg(pc->name.c_str()) );
+			P_ITEM pPvDeed = Items->createScriptItem( "14f0" );
+			if( pPvDeed )
+			{
+				pPvDeed->setName( tr("A vendor deed for %1").arg( pc->name.c_str() ) );
+				pPvDeed->setType( 217 );
+				pPvDeed->value = 2000;
+				pPvDeed->update();
+				socket->sysMessage( tr("Packed up vendor %1.").arg(pc->name.c_str()) );
+			}
 		}
 	}
 
@@ -286,14 +298,13 @@ P_ITEM cHouse::toDeed( UOXSOCKET s )
 	this->remove();
 
 	
-	if( this->deedsection_.isNull() || this->deedsection_.isEmpty() )
+	if( this->deedsection_.isNull() || this->deedsection_.isEmpty() || !pBackpack )
 		return NULL;
+
 	P_ITEM pDeed = Items->createScriptItem( this->deedsection_ );
-	if( pDeed == NULL ) 
-		return NULL;
-	else
+	if( pDeed ) 
 	{
-		pDeed->setContSerial( pc_currchar->packitem );
+		pBackpack->AddItem( pDeed );
 		pDeed->update();
 	}
 
@@ -304,22 +315,14 @@ void cHouse::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
-		archive.read( "lockdownamt", lockdownamount_ );
-		archive.read( "secureamt", secureamount_ );
 		archive.read( "nokey", nokey_ );
-		archive.read( "space.x", space_.x );
-		archive.read( "space.y", space_.y );
 		archive.read( "charpos.x", charpos_.x );
 		archive.read( "charpos.y", charpos_.y );
 		archive.read( "charpos.z", charpos_.z );
 	}
 	else if ( archive.isWritting())
 	{
-		archive.write( "lockdownamt", lockdownamount_ );
-		archive.write( "secureamt", secureamount_ );
 		archive.write( "nokey", nokey_ );
-		archive.write( "space.x", space_.x );
-		archive.write( "space.y", space_.y );
 		archive.write( "charpos.x", charpos_.x );
 		archive.write( "charpos.y", charpos_.y );
 		archive.write( "charpos.z", charpos_.z );
