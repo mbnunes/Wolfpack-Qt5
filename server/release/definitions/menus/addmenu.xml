@@ -5,10 +5,8 @@
 		<menu inherit="ADD_equipment" />
 		<menu inherit="ADD_magic" />
 		
-		<menu>
-			<name>Combat items</name>
-		</menu>
-		
+		<menu inherit="ADD_combatitems" />
+	
 		<menu>
 			<name>Decoration</name>
 		</menu>
@@ -57,8 +55,268 @@
 	<menu id="ADD_magic">
 		<name>Magic</name>
 	</menu>
+
+	<menu id="ADD_combatitems">	
+		<name>Combat items</name>
+		
+		<menu inherit="ADD_armor" />
+		<menu inherit="ADD_METAL_shields" />
+		<menu inherit="ADD_weapons" />
+	</menu>
 	
+	<menu id="ADD_armor">
+		<name>Armor</name>
+		
+		<menu inherit="ADD_ARMOR_chain" />
+		<menu inherit="ADD_ARMOR_ring" />
+		<menu inherit="ADD_ARMOR_plate" />
+		<menu inherit="ADD_helmets" />
+	</menu>
 	
+	<menu id="ADD_ARMOR_chain">
+		<name>Chainmail Armor</name>
+
+		<action type="resource">
+			<name>Coif</name>
+			<model>0x13BB</model>
+			<description>a chainmail coif</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_chain_coif" amount="1" />
+			</make>
+		</action>
+				
+		<action type="resource">
+			<name>Leggings</name>
+			<model>0x13C3</model>
+			<description>chainmail leggings</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_chain_leggings" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Tunic</name>
+			<model>0x13C4</model>
+			<description>a chainmail tunic</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_chain_tunic" amount="1" />
+			</make>
+		</action>
+	</menu>
+	
+	<menu id="ADD_ARMOR_ring">
+		<name>Ringmail Armor</name>
+
+		<action type="resource">
+			<name>Gloves</name>
+			<model>0x13F2</model>
+			<description>ringmail gloves</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_ring_gloves" amount="1" />
+			</make>
+		</action>
+				
+		<action type="resource">
+			<name>Leggings</name>
+			<model>0x13F1</model>
+			<description>ringmail leggings</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_ring_leggings" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Sleeves</name>
+			<model>0x13EF</model>
+			<description>ringmail sleeves</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_ring_sleeves" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Tunic</name>
+			<model>0x13ED</model>
+			<description>a ringmail tunic</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_ring_tunic" amount="1" />
+			</make>
+		</action>
+	</menu>
+
+	<menu id="ADD_ARMOR_plate">
+		<name>Plate Armor</name>
+
+		<action type="resource">
+			<name>Female Brustpiece</name>
+			<model>0x1C04</model>
+			<description>female plate brustpiece</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_plate_female" amount="1" />
+			</make>
+		</action>
+				
+		<action type="resource">
+			<name>Male Chest</name>
+			<model>0x1416</model>
+			<description>a male plate chest</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_plate_male" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Arms</name>
+			<model>0x1410</model>
+			<description>plate arms</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_plate_arms" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Gloves</name>
+			<model>0x1414</model>
+			<description>plate gloves</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_plate_gloves" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Gorget</name>
+			<model>0x1413</model>
+			<description>plate gorget</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_plate_gorget" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Helmet</name>
+			<model>0x1412</model>
+			<description>plate helmet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_plate_helmet" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Leggings</name>
+			<model>0x141A</model>
+			<description>plate leggings</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_plate_leggings" amount="1" />
+			</make>
+		</action>
+	</menu>
+	
+	<menu id="ADD_helmets">
+		<name>Helmets</name>
+		
+		<action type="resource">
+			<name>Bascinet</name>
+			<model>0x140D</model>
+			<description>a bascinet helmet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_helmets_bascinet" amount="1" />
+			</make>
+		</action>
+				
+		<action type="resource">
+			<name>Nose Helmet</name>
+			<model>0x140F</model>
+			<description>a nose helmet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_helmets_nose" amount="1" />
+			</make>
+		</action>		
+				
+		<action type="resource">
+			<name>Helmet</name>
+			<model>0x140B</model>
+			<description>a helmet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_helmets_helmet" amount="1" />
+			</make>
+		</action>		
+				
+		<action type="resource">
+			<name>Close Helmet</name>
+			<model>0x1408</model>
+			<description>a close helmet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_helmets_close" amount="1" />
+			</make>
+		</action>		
+	</menu>
+		
+	<menu id="ADD_METAL_shields">
+		<name>Shields</name>
+
+		<action type="resource">
+			<name>Buckler</name>
+			<model>0x1B73</model>
+			<description>a buckler shield</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_shields_buckler" amount="1" />
+			</make>
+		</action>
+
+		<action type="resource">
+			<name>Heater</name>
+			<model>0x1B76</model>
+			<description>a heater shield</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_shields_heater" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Shield</name>
+			<model>0x1B7B</model>
+			<description>a shield</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_shields_shield" amount="1" />
+			</make>
+		</action>
+		
+		<action type="resource">
+			<name>Kite Shield</name>
+			<model>0x1B74</model>
+			<description>a kite shield</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="0" />
+				<makeitem section="armor_shields_kite" amount="1" />
+			</make>
+		</action>
+	</menu>
+
+	<menu id="ADD_weapons">
+		<name>Weapons</name>
+	</menu>
+
 	<menu id="ADD_deeds">
 		<name>Deeds</name>
 
@@ -94,6 +352,7 @@
 		
 		<menu inherit="ADD_SKILLITEMS_BLACKSMITHING_resources" />
 		<menu inherit="ADD_SKILLITEMS_BLACKSMITHING_tools" />
+		<menu inherit="ADD_SKILLITEMS_BLACKSMITHING_products" />
 	</menu>
 	
 	<menu id="ADD_SKILLITEMS_BLACKSMITHING_resources">
@@ -111,6 +370,75 @@
 
 	<menu id="ADD_SKILLITEMS_BLACKSMITHING_tools">
 		<name>Blacksmithing Tools</name>
+		
+		<action>
+			<name>Hammer</name>
+			<model>0x102A</model>
+			<description>A standard hammer for blacksmithing</description>
+			<make name="left aligned">
+				<makeitem section="102a" amount="1" />
+			</make>
+			<make name="right aligned">
+				<makeitem section="102b" amount="1" />
+			</make>
+		</action>
+
+		<action>
+			<name>Tongues</name>
+			<model>0xFBB</model>
+			<description>A standard tongue for blacksmithing</description>
+			<make name="left aligned">
+				<makeitem section="fbb" amount="1" />
+			</make>
+			<make name="right aligned">
+				<makeitem section="fbc" amount="1" />
+			</make>
+		</action>		
+
+		<action>
+			<name>Smithy Hammer</name>
+			<model>0x13E3</model>
+			<description>A standard smithy hammer for blacksmithing</description>
+			<make name="left aligned">
+				<makeitem section="13e3" amount="1" />
+			</make>
+			<make name="right aligned">
+				<makeitem section="13e4" amount="1" />
+			</make>
+		</action>		
+
+		<action>
+			<name>Sledge Hammer</name>
+			<model>0x0FB4</model>
+			<description>A standard sledge hammer for blacksmithing</description>
+			<make name="left aligned">
+				<makeitem section="fb4" amount="1" />
+			</make>
+			<make name="right aligned">
+				<makeitem section="fb5" amount="1" />
+			</make>
+		</action>		
+
+		<action>
+			<name>Anvil</name>
+			<model>0x0FAF</model>
+			<description>A standard anvil for blacksmithing</description>
+			<make name="left aligned">
+				<makeitem section="faf" amount="1" />
+			</make>
+			<make name="right aligned">
+				<makeitem section="fb0" amount="1" />
+			</make>
+		</action>		
+	</menu>
+	
+	<menu id="ADD_SKILLITEMS_BLACKSMITHING_products">
+		<name>Blacksmithing Products</name>
+		<menu inherit="ADD_ARMOR_chain" />
+		<menu inherit="ADD_ARMOR_ring" />
+		<menu inherit="ADD_ARMOR_plate" />
+		<menu inherit="ADD_helmets" />
+		<menu inherit="ADD_METAL_shields" />
 	</menu>
 
 	<menu id="ADD_SKILLITEMS_carpentry">

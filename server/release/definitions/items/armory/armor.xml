@@ -1,3 +1,11 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+=================================================================
+-->
 <definitions>
 	<!-- the following define sections are for application on all types of armor -->
 	<define id="iron_armor">
@@ -97,7 +105,7 @@
 	
 	<!-- chainmail armor -->
 	<!-- chainmail coif -->
-	<item id="base_ARMOR_CHAIN_COIF">
+	<item id="13bb">
 		<name>chain coif</name>
 		<category>armor\chain\coif</category>
 		<decay />
@@ -114,58 +122,58 @@
 		<value>300</value>
 	</item>
 	
-	<item id="iron_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="iron_armor_chain_coif">
+		<inherit id="13bb" />
 		<iron_armor />
 	</item>
 
-	<item id="shadow_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="shadow_armor_chain_coif">
+		<inherit id="13bb" />
 		<shadow_armor />
 	</item>
 
-	<item id="merkite_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="merkite_armor_chain_coif">
+		<inherit id="13bb" />
 		<merkite_armor />
 	</item>
 	
-	<item id="copper_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="copper_armor_chain_coif">
+		<inherit id="13bb" />
 		<copper_armor />
 	</item>
 
-	<item id="silver_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="silver_armor_chain_coif">
+		<inherit id="13bb" />
 		<silver_armor />
 	</item>
 
-	<item id="bronze_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="bronze_armor_chain_coif">
+		<inherit id="13bb" />
 		<bronze_armor />
 	</item>
 
-	<item id="golden_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="golden_armor_chain_coif">
+		<inherit id="13bb" />
 		<golden_armor />
 	</item>
 
-	<item id="agapite_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="agapite_armor_chain_coif">
+		<inherit id="13bb" />
 		<agapite_armor />
 	</item>
 
-	<item id="verite_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="verite_armor_chain_coif">
+		<inherit id="13bb" />
 		<verite_armor />
 	</item>
 
-	<item id="mythril_ARMOR_CHAIN_COIF">
-		<inherit id="base_ARMOR_CHAIN_COIF" />
+	<item id="mythril_armor_chain_coif">
+		<inherit id="13bb" />
 		<mythril_armor />
 	</item>
 
 	<!-- chainmail leggings -->
-	<item id="base_ARMOR_CHAIN_LEGGINGS">
+	<item id="13c3">
 		<category>armor\chain\leggings</category>
 		<decay />
 		<defense>20</defense>
@@ -182,58 +190,58 @@
 		<value>400</value>
 	</item>
 
-	<item id="iron_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="iron_armor_chain_leggings">
+		<inherit id="13c3" />
 		<iron_armor />
 	</item>
 
-	<item id="shadow_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="shadow_armor_chain_leggings">
+		<inherit id="13c3" />
 		<shadow_armor />
 	</item>
 
-	<item id="merkite_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="merkite_armor_chain_leggings">
+		<inherit id="13c3" />
 		<merkite_armor />
 	</item>
 
-	<item id="copper_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="copper_armor_chain_leggings">
+		<inherit id="13c3" />
 		<copper_armor />
 	</item>
 
-	<item id="silver_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="silver_armor_chain_leggings">
+		<inherit id="13c3" />
 		<silver_armor />
 	</item>
 
-	<item id="bronze_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="bronze_armor_chain_leggings">
+		<inherit id="13c3" />
 		<bronze_armor />
 	</item>
 
-	<item id="golden_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="golden_armor_chain_leggings">
+		<inherit id="13c3" />
 		<golden_armor />
 	</item>
 
-	<item id="agapite_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="agapite_armor_chain_leggings">
+		<inherit id="13c3" />
 		<agapite_armor />
 	</item>
 
-	<item id="verite_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="verite_armor_chain_leggings">
+		<inherit id="13c3" />
 		<verite_armor />
 	</item>
 
-	<item id="mythril_ARMOR_CHAIN_LEGGINGS">
-		<inherit id="base_ARMOR_CHAIN_LEGGINGS" />
+	<item id="mythril_armor_chain_leggings">
+		<inherit id="13c3" />
 		<mythril_armor />
 	</item>
 
 	<!-- chainmail tunic -->
-	<item id="base_ARMOR_CHAIN_TUNIC">
+	<item id="13c4">
 		<category>armor\chain\tunic</category>
 		<decay />
 		<defense>20</defense>
@@ -250,3474 +258,1349 @@
 		<value>400</value>
 	</item>
 
-	<item id="iron_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="iron_armor_chain_tunic">
+		<inherit id="13c4" />
 		<iron_armor />
 	</item>
 
-	<item id="shadow_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="shadow_armor_chain_tunic">
+		<inherit id="13c4" />
 		<shadow_armor />
 	</item>
 
-	<item id="merkite_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="merkite_armor_chain_tunic">
+		<inherit id="13c4" />
 		<merkite_armor />
 	</item>
 
-	<item id="copper_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="copper_armor_chain_tunic">
+		<inherit id="13c4" />
 		<copper_armor />
 	</item>
 
-	<item id="silver_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="silver_armor_chain_tunic">
+		<inherit id="13c4" />
 		<silver_armor />
 	</item>
 
-	<item id="bronze_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="bronze_armor_chain_tunic">
+		<inherit id="13c4" />
 		<bronze_armor />
 	</item>
 
-	<item id="golden_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="golden_armor_chain_tunic">
+		<inherit id="13c4" />
 		<golden_armor />
 	</item>
 
-	<item id="agapite_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="agapite_armor_chain_tunic">
+		<inherit id="13c4" />
 		<agapite_armor />
 	</item>
 
-	<item id="verite_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="verite_armor_chain_tunic">
+		<inherit id="13c4" />
 		<verite_armor />
 	</item>
 
-	<item id="mythril_ARMOR_CHAIN_TUNIC">
-		<inherit id="base_ARMOR_CHAIN_TUNIC" />
+	<item id="mythril_armor_chain_tunic">
+		<inherit id="13c4" />
 		<mythril_armor />
 	</item>
 
-<item id="iron_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x0961</color>
-<decay />
-<defense>25</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>2</layer>
-<modifier type='dex'>-25</modifier>
-<name>iron plate armor female</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>500</weight>
-<value>500</value>
-</item>
-
-<item id="shadow_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x0386</color>
-<decay />
-<defense>26</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>19</layer>
-<modifier type='dex'>-25</modifier>
-<name>shadow plate armor female</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>550</weight>
-<value>600</value>
-</item>
-
-<item id="merkite_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x02C3</color>
-<decay />
-<defense>27</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>13</layer>
-<modifier type='dex'>-25</modifier>
-<name>merkite plate armor female</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>600</weight>
-<value>700</value>
-</item>
-
-<item id="copper_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x046E</color>
-<decay />
-<defense>28</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>2</layer>
-<modifier type='dex'>-25</modifier>
-<name>copper plate armor female</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>650</weight>
-<value>800</value>
-</item>
-
-<item id="silver_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x0965</color>
-<decay />
-<defense>29</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>10</layer>
-<modifier type='dex'>-25</modifier>
-<name>silver plate armor female</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>700</weight>
-<value>900</value>
-</item>
-
-<item id="bronze_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x02E7</color>
-<decay />
-<defense>30</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>6</layer>
-<modifier type='dex'>-25</modifier>
-<name>bronze plate armor female</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>750</weight>
-<value>1000</value>
-</item>
-
-<item id="golden_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x0466</color>
-<decay />
-<defense>31</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>2</layer>
-<modifier type='dex'>-25</modifier>
-<name>golden plate armor female</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>800</weight>
-<value>1100</value>
-</item>
-
-<item id="agapite_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x0150</color>
-<decay />
-<defense>32</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>4</layer>
-<modifier type='dex'>-25</modifier>
-<name>agapite plate armor female</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>850</weight>
-<value>1200</value>
-</item>
-
-<item id="verite_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x022F</color>
-<decay />
-<defense>33</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>24</layer>
-<modifier type='dex'>-25</modifier>
-<name>verite plate armor female</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>900</weight>
-<value>1300</value>
-</item>
-
-<item id="mythril_ARMOR_PLATE_ARMOR_FEMALE">
-<category>armor\plate\armor\female</category>
-<color>0x0191</color>
-<decay />
-<defense>34</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1C04</id>
-<layer>13</layer>
-<modifier type='dex'>-25</modifier>
-<name>mythril plate armor female</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>950</weight>
-<value>1400</value>
-</item>
-
-<item id="iron_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x0961</color>
-<decay />
-<defense>25</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1416</id>
-<layer>6</layer>
-<modifier type='dex'>-25</modifier>
-<name>iron plate armor male</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>250</weight>
-<value>500</value>
-</item>
-
-<item id="shadow_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x0386</color>
-<decay />
-<defense>26</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1416</id>
-<layer>6</layer>
-<modifier type='dex'>-25</modifier>
-<name>shadow plate armor male</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>300</weight>
-<value>600</value>
-</item>
-
-<item id="merkite_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x02C3</color>
-<decay />
-<defense>27</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1416</id>
-<layer>19</layer>
-<modifier type='dex'>-25</modifier>
-<name>merkite plate armor male</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>350</weight>
-<value>700</value>
-</item>
-
-<item id="copper_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x046E</color>
-<decay />
-<defense>28</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1416</id>
-<layer>2</layer>
-<modifier type='dex'>-25</modifier>
-<name>copper plate armor male</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>400</weight>
-<value>800</value>
-</item>
-
-<item id="silver_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x0965</color>
-<decay />
-<defense>29</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1416</id>
-<layer>10</layer>
-<modifier type='dex'>-25</modifier>
-<name>silver plate armor male</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>450</weight>
-<value>900</value>
-</item>
-
-<item id="bronze_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x02E7</color>
-<decay />
-<defense>30</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1416</id>
-<layer>7</layer>
-<modifier type='dex'>-25</modifier>
-<name>bronze plate armor male</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>500</weight>
-<value>1000</value>
-</item>
-
-<item id="golden_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x0466</color>
-<decay />
-<defense>31</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1416</id>
-<layer>13</layer>
-<modifier type='dex'>-25</modifier>
-<name>golden plate armor male</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>550</weight>
-<value>1100</value>
-</item>
-
-<item id="agapite_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x0150</color>
-<decay />
-<defense>32</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1416</id>
-<layer>13</layer>
-<modifier type='dex'>-25</modifier>
-<name>agapite plate armor male</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>600</weight>
-<value>1200</value>
-</item>
-
-<item id="verite_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x022F</color>
-<decay />
-<defense>33</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1416</id>
-<layer>19</layer>
-<modifier type='dex'>-25</modifier>
-<name>verite plate armor male</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>650</weight>
-<value>1300</value>
-</item>
-
-<item id="mythril_ARMOR_PLATE_ARMOR_MALE">
-<category>armor\plate\armor\male</category>
-<color>0x0191</color>
-<decay />
-<defense>34</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1416</id>
-<layer>24</layer>
-<modifier type='dex'>-25</modifier>
-<name>mythril plate armor male</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>53</smelt>
-<weight>700</weight>
-<value>1400</value>
-</item>
-
-<item id="iron_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x0961</color>
-<decay />
-<defense>15</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1410</id>
-<layer>13</layer>
-<modifier type='dex'>-25</modifier>
-<name>iron plate arms</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>477</weight>
-<value>300</value>
-</item>
-
-<item id="shadow_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x0386</color>
-<decay />
-<defense>16</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1410</id>
-<layer>19</layer>
-<modifier type='dex'>-25</modifier>
-<name>shadow plate arms</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>527</weight>
-<value>400</value>
-</item>
-
-<item id="merkite_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x02C3</color>
-<decay />
-<defense>17</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1410</id>
-<layer>4</layer>
-<modifier type='dex'>-25</modifier>
-<name>merkite plate arms</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>577</weight>
-<value>500</value>
-</item>
-
-<item id="copper_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x046E</color>
-<decay />
-<defense>18</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1410</id>
-<layer>2</layer>
-<modifier type='dex'>-25</modifier>
-<name>copper plate arms</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>627</weight>
-<value>600</value>
-</item>
-
-<item id="silver_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x0965</color>
-<decay />
-<defense>19</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1410</id>
-<layer>10</layer>
-<modifier type='dex'>-25</modifier>
-<name>silver plate arms</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>677</weight>
-<value>700</value>
-</item>
-
-<item id="bronze_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x02E7</color>
-<decay />
-<defense>20</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1410</id>
-<layer>6</layer>
-<modifier type='dex'>-25</modifier>
-<name>bronze plate arms</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>727</weight>
-<value>800</value>
-</item>
-
-<item id="golden_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x0466</color>
-<decay />
-<defense>21</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1410</id>
-<layer>24</layer>
-<modifier type='dex'>-25</modifier>
-<name>golden plate arms</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>777</weight>
-<value>900</value>
-</item>
-
-<item id="agapite_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x0150</color>
-<decay />
-<defense>22</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1410</id>
-<layer>4</layer>
-<modifier type='dex'>-25</modifier>
-<name>agapite plate arms</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>827</weight>
-<value>1000</value>
-</item>
-
-<item id="verite_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x022F</color>
-<decay />
-<defense>23</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1410</id>
-<layer>4</layer>
-<modifier type='dex'>-25</modifier>
-<name>verite plate arms</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>877</weight>
-<value>1100</value>
-</item>
-
-<item id="mythril_ARMOR_PLATE_ARMS">
-<category>armor\plate\arms</category>
-<color>0x0191</color>
-<decay />
-<defense>24</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1410</id>
-<layer>13</layer>
-<modifier type='dex'>-25</modifier>
-<name>mythril plate arms</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>927</weight>
-<value>1200</value>
-</item>
-
-<item id="iron_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x0961</color>
-<decay />
-<defense>10</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1414</id>
-<layer>10</layer>
-<modifier type='dex'>-5</modifier>
-<name>iron plate gloves</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>99</weight>
-<value>200</value>
-</item>
-
-<item id="shadow_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x0386</color>
-<decay />
-<defense>11</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1414</id>
-<layer>19</layer>
-<modifier type='dex'>-5</modifier>
-<name>shadow plate gloves</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>149</weight>
-<value>300</value>
-</item>
-
-<item id="merkite_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x02C3</color>
-<decay />
-<defense>12</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1414</id>
-<layer>7</layer>
-<modifier type='dex'>-5</modifier>
-<name>merkite plate gloves</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>199</weight>
-<value>400</value>
-</item>
-
-<item id="copper_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x046E</color>
-<decay />
-<defense>13</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1414</id>
-<layer>2</layer>
-<modifier type='dex'>-5</modifier>
-<name>copper plate gloves</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>249</weight>
-<value>500</value>
-</item>
-
-<item id="silver_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x0965</color>
-<decay />
-<defense>14</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1414</id>
-<layer>10</layer>
-<modifier type='dex'>-5</modifier>
-<name>silver plate gloves</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>299</weight>
-<value>600</value>
-</item>
-
-<item id="bronze_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x02E7</color>
-<decay />
-<defense>15</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1414</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>bronze plate gloves</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>349</weight>
-<value>700</value>
-</item>
-
-<item id="golden_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x0466</color>
-<decay />
-<defense>16</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1414</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>golden plate gloves</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>399</weight>
-<value>800</value>
-</item>
-
-<item id="agapite_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x0150</color>
-<decay />
-<defense>17</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1414</id>
-<layer>4</layer>
-<modifier type='dex'>-5</modifier>
-<name>agapite plate gloves</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>449</weight>
-<value>900</value>
-</item>
-
-<item id="verite_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x022F</color>
-<decay />
-<defense>18</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1414</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>verite plate gloves</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>499</weight>
-<value>1000</value>
-</item>
-
-<item id="mythril_ARMOR_PLATE_GLOVES">
-<category>armor\plate\gloves</category>
-<color>0x0191</color>
-<decay />
-<defense>19</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1414</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>mythril plate gloves</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>549</weight>
-<value>1100</value>
-</item>
-
-<item id="iron_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x0961</color>
-<decay />
-<defense>5</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1413</id>
-<layer>7</layer>
-<modifier type='dex'>-5</modifier>
-<name>iron plate gorget</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>63</weight>
-<value>100</value>
-</item>
-
-<item id="shadow_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x0386</color>
-<decay />
-<defense>6</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1413</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>shadow plate gorget</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>113</weight>
-<value>200</value>
-</item>
-
-<item id="merkite_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x02C3</color>
-<decay />
-<defense>7</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1413</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>merkite plate gorget</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>163</weight>
-<value>300</value>
-</item>
-
-<item id="copper_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x046E</color>
-<decay />
-<defense>8</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1413</id>
-<layer>2</layer>
-<modifier type='dex'>-5</modifier>
-<name>copper plate gorget</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>213</weight>
-<value>400</value>
-</item>
-
-<item id="silver_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x0965</color>
-<decay />
-<defense>9</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1413</id>
-<layer>10</layer>
-<modifier type='dex'>-5</modifier>
-<name>silver plate gorget</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>263</weight>
-<value>500</value>
-</item>
-
-<item id="bronze_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x02E7</color>
-<decay />
-<defense>10</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1413</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>bronze plate gorget</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>313</weight>
-<value>600</value>
-</item>
-
-<item id="golden_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x0466</color>
-<decay />
-<defense>11</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1413</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>golden plate gorget</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>363</weight>
-<value>700</value>
-</item>
-
-<item id="agapite_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x0150</color>
-<decay />
-<defense>12</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1413</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>agapite plate gorget</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>413</weight>
-<value>800</value>
-</item>
-
-<item id="verite_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x022F</color>
-<decay />
-<defense>13</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1413</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>verite plate gorget</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>463</weight>
-<value>900</value>
-</item>
-
-<item id="mythril_ARMOR_PLATE_GORGET">
-<category>armor\plate\gorget</category>
-<color>0x0191</color>
-<decay />
-<defense>14</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1413</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>mythril plate gorget</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>513</weight>
-<value>1000</value>
-</item>
-
-<item id="iron_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x0961</color>
-<decay />
-<defense>15</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1412</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>iron plate helm</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>72</weight>
-<value>300</value>
-</item>
-
-<item id="shadow_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x0386</color>
-<decay />
-<defense>16</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1412</id>
-<layer>6</layer>
-<modifier type='dex'>-10</modifier>
-<name>shadow plate helm</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>122</weight>
-<value>400</value>
-</item>
-
-<item id="merkite_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x02C3</color>
-<decay />
-<defense>17</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1412</id>
-<layer>6</layer>
-<modifier type='dex'>-10</modifier>
-<name>merkite plate helm</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>172</weight>
-<value>500</value>
-</item>
-
-<item id="copper_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x046E</color>
-<decay />
-<defense>18</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1412</id>
-<layer>2</layer>
-<modifier type='dex'>-10</modifier>
-<name>copper plate helm</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>222</weight>
-<value>600</value>
-</item>
-
-<item id="silver_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x0965</color>
-<decay />
-<defense>19</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1412</id>
-<layer>10</layer>
-<modifier type='dex'>-10</modifier>
-<name>silver plate helm</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>272</weight>
-<value>700</value>
-</item>
-
-<item id="bronze_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x02E7</color>
-<decay />
-<defense>20</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1412</id>
-<layer>19</layer>
-<modifier type='dex'>-10</modifier>
-<name>bronze plate helm</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>322</weight>
-<value>800</value>
-</item>
-
-<item id="golden_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x0466</color>
-<decay />
-<defense>21</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1412</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>golden plate helm</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>372</weight>
-<value>900</value>
-</item>
-
-<item id="agapite_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x0150</color>
-<decay />
-<defense>22</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1412</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>agapite plate helm</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>422</weight>
-<value>1000</value>
-</item>
-
-<item id="verite_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x022F</color>
-<decay />
-<defense>23</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1412</id>
-<layer>6</layer>
-<modifier type='dex'>-10</modifier>
-<name>verite plate helm</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>472</weight>
-<value>1100</value>
-</item>
-
-<item id="mythril_ARMOR_PLATE_HELM">
-<category>armor\plate\helm</category>
-<color>0x0191</color>
-<decay />
-<defense>24</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1412</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>mythril plate helm</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>522</weight>
-<value>1200</value>
-</item>
-
-<item id="iron_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x0961</color>
-<decay />
-<defense>20</defense>
-<durability>100</durability>
-<nodye />
-<id>0x141A</id>
-<layer>24</layer>
-<modifier type='dex'>-10</modifier>
-<name>iron plate legs</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>63</weight>
-<value>400</value>
-</item>
-
-<item id="shadow_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x0386</color>
-<decay />
-<defense>21</defense>
-<durability>110</durability>
-<nodye />
-<id>0x141A</id>
-<layer>6</layer>
-<modifier type='dex'>-10</modifier>
-<name>shadow plate legs</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>113</weight>
-<value>500</value>
-</item>
-
-<item id="merkite_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x02C3</color>
-<decay />
-<defense>22</defense>
-<durability>120</durability>
-<nodye />
-<id>0x141A</id>
-<layer>6</layer>
-<modifier type='dex'>-10</modifier>
-<name>merkite plate legs</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>163</weight>
-<value>600</value>
-</item>
-
-<item id="copper_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x046E</color>
-<decay />
-<defense>23</defense>
-<durability>130</durability>
-<nodye />
-<id>0x141A</id>
-<layer>2</layer>
-<modifier type='dex'>-10</modifier>
-<name>copper plate legs</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>213</weight>
-<value>700</value>
-</item>
-
-<item id="silver_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x0965</color>
-<decay />
-<defense>24</defense>
-<durability>140</durability>
-<nodye />
-<id>0x141A</id>
-<layer>10</layer>
-<modifier type='dex'>-10</modifier>
-<name>silver plate legs</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>263</weight>
-<value>800</value>
-</item>
-
-<item id="bronze_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x02E7</color>
-<decay />
-<defense>25</defense>
-<durability>150</durability>
-<nodye />
-<id>0x141A</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>bronze plate legs</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>313</weight>
-<value>900</value>
-</item>
-
-<item id="golden_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x0466</color>
-<decay />
-<defense>26</defense>
-<durability>160</durability>
-<nodye />
-<id>0x141A</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>golden plate legs</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>363</weight>
-<value>1000</value>
-</item>
-
-<item id="agapite_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x0150</color>
-<decay />
-<defense>27</defense>
-<durability>170</durability>
-<nodye />
-<id>0x141A</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>agapite plate legs</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>413</weight>
-<value>1100</value>
-</item>
-
-<item id="verite_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x022F</color>
-<decay />
-<defense>28</defense>
-<durability>180</durability>
-<nodye />
-<id>0x141A</id>
-<layer>6</layer>
-<modifier type='dex'>-10</modifier>
-<name>verite plate legs</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>463</weight>
-<value>1200</value>
-</item>
-
-<item id="mythril_ARMOR_PLATE_LEGS">
-<category>armor\plate\legs</category>
-<color>0x0191</color>
-<decay />
-<defense>29</defense>
-<durability>190</durability>
-<nodye />
-<id>0x141A</id>
-<layer>13</layer>
-<modifier type='dex'>-10</modifier>
-<name>mythril plate legs</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>513</weight>
-<value>1300</value>
-</item>
-
-<item id="iron_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x0961</color>
-<decay />
-<defense>10</defense>
-<durability>100</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>4</layer>
-<modifier type='dex'>-3</modifier>
-<name>iron ring gloves</name>
-<requires type='str'>50</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>63</weight>
-<value>200</value>
-</item>
-
-<item id="shadow_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x0386</color>
-<decay />
-<defense>11</defense>
-<durability>110</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>shadow ring gloves</name>
-<requires type='str'>55</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>113</weight>
-<value>300</value>
-</item>
-
-<item id="merkite_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x02C3</color>
-<decay />
-<defense>12</defense>
-<durability>120</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>merkite ring gloves</name>
-<requires type='str'>60</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>163</weight>
-<value>400</value>
-</item>
-
-<item id="copper_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x046E</color>
-<decay />
-<defense>13</defense>
-<durability>130</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>2</layer>
-<modifier type='dex'>-3</modifier>
-<name>copper ring gloves</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>213</weight>
-<value>500</value>
-</item>
-
-<item id="silver_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x0965</color>
-<decay />
-<defense>14</defense>
-<durability>140</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>silver ring gloves</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>263</weight>
-<value>600</value>
-</item>
-
-<item id="bronze_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x02E7</color>
-<decay />
-<defense>15</defense>
-<durability>150</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>bronze ring gloves</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>313</weight>
-<value>700</value>
-</item>
-
-<item id="golden_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x0466</color>
-<decay />
-<defense>16</defense>
-<durability>160</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>13</layer>
-<modifier type='dex'>-3</modifier>
-<name>golden ring gloves</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>363</weight>
-<value>800</value>
-</item>
-
-<item id="agapite_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x0150</color>
-<decay />
-<defense>17</defense>
-<durability>170</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>13</layer>
-<modifier type='dex'>-3</modifier>
-<name>agapite ring gloves</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>413</weight>
-<value>900</value>
-</item>
-
-<item id="verite_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x022F</color>
-<decay />
-<defense>18</defense>
-<durability>180</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>verite ring gloves</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>463</weight>
-<value>1000</value>
-</item>
-
-<item id="mythril_ARMOR_RING_GLOVES">
-<category>armor\ring\gloves</category>
-<color>0x0191</color>
-<decay />
-<defense>19</defense>
-<durability>190</durability>
-<nodye />
-<id>0x13F2</id>
-<layer>24</layer>
-<modifier type='dex'>-3</modifier>
-<name>mythril ring gloves</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>513</weight>
-<value>1100</value>
-</item>
-
-<item id="iron_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x0961</color>
-<decay />
-<defense>10</defense>
-<durability>100</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>13</layer>
-<modifier type='dex'>-7</modifier>
-<name>iron ring leggings</name>
-<requires type='str'>50</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>126</weight>
-<value>200</value>
-</item>
-
-<item id="shadow_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x0386</color>
-<decay />
-<defense>11</defense>
-<durability>110</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>6</layer>
-<modifier type='dex'>-7</modifier>
-<name>shadow ring leggings</name>
-<requires type='str'>55</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>176</weight>
-<value>300</value>
-</item>
-
-<item id="merkite_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x02C3</color>
-<decay />
-<defense>12</defense>
-<durability>120</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>10</layer>
-<modifier type='dex'>-7</modifier>
-<name>merkite ring leggings</name>
-<requires type='str'>60</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>226</weight>
-<value>400</value>
-</item>
-
-<item id="copper_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x046E</color>
-<decay />
-<defense>13</defense>
-<durability>130</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>2</layer>
-<modifier type='dex'>-7</modifier>
-<name>copper ring leggings</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>276</weight>
-<value>500</value>
-</item>
-
-<item id="silver_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x0965</color>
-<decay />
-<defense>14</defense>
-<durability>140</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>2</layer>
-<modifier type='dex'>-7</modifier>
-<name>silver ring leggings</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>326</weight>
-<value>600</value>
-</item>
-
-<item id="bronze_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x02E7</color>
-<decay />
-<defense>15</defense>
-<durability>150</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>4</layer>
-<modifier type='dex'>-7</modifier>
-<name>bronze ring leggings</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>376</weight>
-<value>700</value>
-</item>
-
-<item id="golden_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x0466</color>
-<decay />
-<defense>16</defense>
-<durability>160</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>13</layer>
-<modifier type='dex'>-7</modifier>
-<name>golden ring leggings</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>426</weight>
-<value>800</value>
-</item>
-
-<item id="agapite_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x0150</color>
-<decay />
-<defense>17</defense>
-<durability>170</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>6</layer>
-<modifier type='dex'>-7</modifier>
-<name>agapite ring leggings</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>476</weight>
-<value>900</value>
-</item>
-
-<item id="verite_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x022F</color>
-<decay />
-<defense>18</defense>
-<durability>180</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>10</layer>
-<modifier type='dex'>-7</modifier>
-<name>verite ring leggings</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>526</weight>
-<value>1000</value>
-</item>
-
-<item id="mythril_ARMOR_RING_LEGGINGS">
-<category>armor\ring\leggings</category>
-<color>0x0191</color>
-<decay />
-<defense>19</defense>
-<durability>190</durability>
-<nodye />
-<id>0x13F1</id>
-<layer>24</layer>
-<modifier type='dex'>-7</modifier>
-<name>mythril ring leggings</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>576</weight>
-<value>1100</value>
-</item>
-
-<item id="iron_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x0961</color>
-<decay />
-<defense>10</defense>
-<durability>100</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>19</layer>
-<modifier type='dex'>-3</modifier>
-<name>iron ring sleeves</name>
-<requires type='str'>50</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>126</weight>
-<value>200</value>
-</item>
-
-<item id="shadow_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x0386</color>
-<decay />
-<defense>11</defense>
-<durability>110</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>shadow ring sleeves</name>
-<requires type='str'>55</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>176</weight>
-<value>300</value>
-</item>
-
-<item id="merkite_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x02C3</color>
-<decay />
-<defense>12</defense>
-<durability>120</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>7</layer>
-<modifier type='dex'>-3</modifier>
-<name>merkite ring sleeves</name>
-<requires type='str'>60</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>226</weight>
-<value>400</value>
-</item>
-
-<item id="copper_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x046E</color>
-<decay />
-<defense>13</defense>
-<durability>130</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>2</layer>
-<modifier type='dex'>-3</modifier>
-<name>copper ring sleeves</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>276</weight>
-<value>500</value>
-</item>
-
-<item id="silver_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x0965</color>
-<decay />
-<defense>14</defense>
-<durability>140</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>2</layer>
-<modifier type='dex'>-3</modifier>
-<name>silver ring sleeves</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>326</weight>
-<value>600</value>
-</item>
-
-<item id="bronze_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x02E7</color>
-<decay />
-<defense>15</defense>
-<durability>150</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>bronze ring sleeves</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>376</weight>
-<value>700</value>
-</item>
-
-<item id="golden_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x0466</color>
-<decay />
-<defense>16</defense>
-<durability>160</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>23</layer>
-<modifier type='dex'>-3</modifier>
-<name>golden ring sleeves</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>426</weight>
-<value>800</value>
-</item>
-
-<item id="agapite_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x0150</color>
-<decay />
-<defense>17</defense>
-<durability>170</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>19</layer>
-<modifier type='dex'>-3</modifier>
-<name>agapite ring sleeves</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>476</weight>
-<value>900</value>
-</item>
-
-<item id="verite_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x022F</color>
-<decay />
-<defense>18</defense>
-<durability>180</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>7</layer>
-<modifier type='dex'>-3</modifier>
-<name>verite ring sleeves</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>526</weight>
-<value>1000</value>
-</item>
-
-<item id="mythril_ARMOR_RING_SLEEVES">
-<category>armor\ring\sleeves</category>
-<color>0x0191</color>
-<decay />
-<defense>19</defense>
-<durability>190</durability>
-<nodye />
-<id>0x13EF</id>
-<layer>24</layer>
-<modifier type='dex'>-3</modifier>
-<name>mythril ring sleeves</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>7</smelt>
-<weight>576</weight>
-<value>1100</value>
-</item>
-
-<item id="iron_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x0961</color>
-<decay />
-<defense>15</defense>
-<durability>100</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>19</layer>
-<modifier type='dex'>-20</modifier>
-<name>iron ring tunic</name>
-<requires type='str'>50</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>126</weight>
-<value>300</value>
-</item>
-
-<item id="shadow_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x0386</color>
-<decay />
-<defense>16</defense>
-<durability>110</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>6</layer>
-<modifier type='dex'>-20</modifier>
-<name>shadow ring tunic</name>
-<requires type='str'>55</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>176</weight>
-<value>400</value>
-</item>
-
-<item id="merkite_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x02C3</color>
-<decay />
-<defense>17</defense>
-<durability>120</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>13</layer>
-<modifier type='dex'>-20</modifier>
-<name>merkite ring tunic</name>
-<requires type='str'>60</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>226</weight>
-<value>500</value>
-</item>
-
-<item id="copper_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x046E</color>
-<decay />
-<defense>18</defense>
-<durability>130</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>2</layer>
-<modifier type='dex'>-20</modifier>
-<name>copper ring tunic</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>276</weight>
-<value>600</value>
-</item>
-
-<item id="silver_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x0965</color>
-<decay />
-<defense>19</defense>
-<durability>140</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>2</layer>
-<modifier type='dex'>-20</modifier>
-<name>silver ring tunic</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>326</weight>
-<value>700</value>
-</item>
-
-<item id="bronze_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x02E7</color>
-<decay />
-<defense>20</defense>
-<durability>150</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>6</layer>
-<modifier type='dex'>-20</modifier>
-<name>bronze ring tunic</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>376</weight>
-<value>800</value>
-</item>
-
-<item id="golden_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x0466</color>
-<decay />
-<defense>21</defense>
-<durability>160</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>13</layer>
-<modifier type='dex'>-20</modifier>
-<name>golden ring tunic</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>426</weight>
-<value>900</value>
-</item>
-
-<item id="agapite_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x0150</color>
-<decay />
-<defense>22</defense>
-<durability>170</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>6</layer>
-<modifier type='dex'>-20</modifier>
-<name>agapite ring tunic</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>476</weight>
-<value>1000</value>
-</item>
-
-<item id="verite_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x022F</color>
-<decay />
-<defense>23</defense>
-<durability>180</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>13</layer>
-<modifier type='dex'>-20</modifier>
-<name>verite ring tunic</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>526</weight>
-<value>1100</value>
-</item>
-
-<item id="mythril_ARMOR_RING_TUNIC">
-<category>armor\ring\tunic</category>
-<color>0x0191</color>
-<decay />
-<defense>24</defense>
-<durability>190</durability>
-<nodye />
-<id>0x13ED</id>
-<layer>24</layer>
-<modifier type='dex'>-20</modifier>
-<name>mythril ring tunic</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>11</smelt>
-<weight>576</weight>
-<value>1200</value>
-</item>
-
-<item id="iron_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x0961</color>
-<decay />
-<defense>7</defense>
-<durability>100</durability>
-<nodye />
-<id>0x140D</id>
-<layer>4</layer>
-<modifier type='dex'>-3</modifier>
-<name>iron bascinet</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>99</weight>
-<value>140</value>
-</item>
-
-<item id="shadow_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x0386</color>
-<decay />
-<defense>8</defense>
-<durability>110</durability>
-<nodye />
-<id>0x140D</id>
-<layer>19</layer>
-<modifier type='dex'>-3</modifier>
-<name>shadow bascinet</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>149</weight>
-<value>240</value>
-</item>
-
-<item id="merkite_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x02C3</color>
-<decay />
-<defense>9</defense>
-<durability>120</durability>
-<nodye />
-<id>0x140D</id>
-<layer>24</layer>
-<modifier type='dex'>-3</modifier>
-<name>merkite bascinet</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>199</weight>
-<value>340</value>
-</item>
-
-<item id="copper_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x046E</color>
-<decay />
-<defense>10</defense>
-<durability>130</durability>
-<nodye />
-<id>0x140D</id>
-<layer>2</layer>
-<modifier type='dex'>-3</modifier>
-<name>copper bascinet</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>249</weight>
-<value>440</value>
-</item>
-
-<item id="silver_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x0965</color>
-<decay />
-<defense>11</defense>
-<durability>140</durability>
-<nodye />
-<id>0x140D</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>silver bascinet</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>299</weight>
-<value>540</value>
-</item>
-
-<item id="bronze_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x02E7</color>
-<decay />
-<defense>12</defense>
-<durability>150</durability>
-<nodye />
-<id>0x140D</id>
-<layer>13</layer>
-<modifier type='dex'>-3</modifier>
-<name>bronze bascinet</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>349</weight>
-<value>640</value>
-</item>
-
-<item id="golden_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x0466</color>
-<decay />
-<defense>13</defense>
-<durability>160</durability>
-<nodye />
-<id>0x140D</id>
-<layer>2</layer>
-<modifier type='dex'>-3</modifier>
-<name>golden bascinet</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>399</weight>
-<value>740</value>
-</item>
-
-<item id="agapite_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x0150</color>
-<decay />
-<defense>14</defense>
-<durability>170</durability>
-<nodye />
-<id>0x140D</id>
-<layer>6</layer>
-<modifier type='dex'>-3</modifier>
-<name>agapite bascinet</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>449</weight>
-<value>840</value>
-</item>
-
-<item id="verite_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x022F</color>
-<decay />
-<defense>15</defense>
-<durability>180</durability>
-<nodye />
-<id>0x140D</id>
-<layer>24</layer>
-<modifier type='dex'>-3</modifier>
-<name>verite bascinet</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>499</weight>
-<value>940</value>
-</item>
-
-<item id="mythril_HELMS_BASCINET">
-<category>helms\bascinet</category>
-<color>0x0191</color>
-<decay />
-<defense>16</defense>
-<durability>190</durability>
-<nodye />
-<id>0x140D</id>
-<layer>7</layer>
-<modifier type='dex'>-3</modifier>
-<name>mythril bascinet</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>549</weight>
-<value>1040</value>
-</item>
-
-<item id="iron_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x0961</color>
-<decay />
-<defense>11</defense>
-<durability>100</durability>
-<nodye />
-<id>0x140F</id>
-<layer>13</layer>
-<modifier type='dex'>-6</modifier>
-<name>iron helm nose</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>162</weight>
-<value>220</value>
-</item>
-
-<item id="shadow_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x0386</color>
-<decay />
-<defense>12</defense>
-<durability>110</durability>
-<nodye />
-<id>0x140F</id>
-<layer>19</layer>
-<modifier type='dex'>-6</modifier>
-<name>shadow helm nose</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>212</weight>
-<value>320</value>
-</item>
-
-<item id="merkite_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x02C3</color>
-<decay />
-<defense>13</defense>
-<durability>120</durability>
-<nodye />
-<id>0x140F</id>
-<layer>19</layer>
-<modifier type='dex'>-6</modifier>
-<name>merkite helm nose</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>262</weight>
-<value>420</value>
-</item>
-
-<item id="copper_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x046E</color>
-<decay />
-<defense>14</defense>
-<durability>130</durability>
-<nodye />
-<id>0x140F</id>
-<layer>2</layer>
-<modifier type='dex'>-6</modifier>
-<name>copper helm nose</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>312</weight>
-<value>520</value>
-</item>
-
-<item id="silver_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x0965</color>
-<decay />
-<defense>15</defense>
-<durability>140</durability>
-<nodye />
-<id>0x140F</id>
-<layer>10</layer>
-<modifier type='dex'>-6</modifier>
-<name>silver helm nose</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>362</weight>
-<value>620</value>
-</item>
-
-<item id="bronze_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x02E7</color>
-<decay />
-<defense>16</defense>
-<durability>150</durability>
-<nodye />
-<id>0x140F</id>
-<layer>6</layer>
-<modifier type='dex'>-6</modifier>
-<name>bronze helm nose</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>412</weight>
-<value>720</value>
-</item>
-
-<item id="golden_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x0466</color>
-<decay />
-<defense>17</defense>
-<durability>160</durability>
-<nodye />
-<id>0x140F</id>
-<layer>2</layer>
-<modifier type='dex'>-6</modifier>
-<name>golden helm nose</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>462</weight>
-<value>820</value>
-</item>
-
-<item id="agapite_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x0150</color>
-<decay />
-<defense>18</defense>
-<durability>170</durability>
-<nodye />
-<id>0x140F</id>
-<layer>4</layer>
-<modifier type='dex'>-6</modifier>
-<name>agapite helm nose</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>512</weight>
-<value>920</value>
-</item>
-
-<item id="verite_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x022F</color>
-<decay />
-<defense>19</defense>
-<durability>180</durability>
-<nodye />
-<id>0x140F</id>
-<layer>6</layer>
-<modifier type='dex'>-6</modifier>
-<name>verite helm nose</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>562</weight>
-<value>1020</value>
-</item>
-
-<item id="mythril_HELMS_HELM_NOSE">
-<category>helms\helm\nose</category>
-<color>0x0191</color>
-<decay />
-<defense>20</defense>
-<durability>190</durability>
-<nodye />
-<id>0x140F</id>
-<layer>13</layer>
-<modifier type='dex'>-6</modifier>
-<name>mythril helm nose</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>9</smelt>
-<weight>612</weight>
-<value>1120</value>
-</item>
-
-<item id="iron_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x0961</color>
-<decay />
-<defense>10</defense>
-<durability>100</durability>
-<nodye />
-<id>0x140B</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>iron helmet</name>
-<requires type='str'>45</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>99</weight>
-<value>200</value>
-</item>
-
-<item id="shadow_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x0386</color>
-<decay />
-<defense>11</defense>
-<durability>110</durability>
-<nodye />
-<id>0x140B</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>shadow helmet</name>
-<requires type='str'>50</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>149</weight>
-<value>300</value>
-</item>
-
-<item id="merkite_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x02C3</color>
-<decay />
-<defense>12</defense>
-<durability>120</durability>
-<nodye />
-<id>0x140B</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>merkite helmet</name>
-<requires type='str'>55</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>199</weight>
-<value>400</value>
-</item>
-
-<item id="copper_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x046E</color>
-<decay />
-<defense>13</defense>
-<durability>130</durability>
-<nodye />
-<id>0x140B</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>copper helmet</name>
-<requires type='str'>60</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>249</weight>
-<value>500</value>
-</item>
-
-<item id="silver_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x0965</color>
-<decay />
-<defense>14</defense>
-<durability>140</durability>
-<nodye />
-<id>0x140B</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>silver helmet</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>299</weight>
-<value>600</value>
-</item>
-
-<item id="bronze_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x02E7</color>
-<decay />
-<defense>15</defense>
-<durability>150</durability>
-<nodye />
-<id>0x140B</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>bronze helmet</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>349</weight>
-<value>700</value>
-</item>
-
-<item id="golden_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x0466</color>
-<decay />
-<defense>16</defense>
-<durability>160</durability>
-<nodye />
-<id>0x140B</id>
-<layer>6</layer>
-<modifier type='dex'>-5</modifier>
-<name>golden helmet</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>399</weight>
-<value>800</value>
-</item>
-
-<item id="agapite_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x0150</color>
-<decay />
-<defense>17</defense>
-<durability>170</durability>
-<nodye />
-<id>0x140B</id>
-<layer>4</layer>
-<modifier type='dex'>-5</modifier>
-<name>agapite helmet</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>449</weight>
-<value>900</value>
-</item>
-
-<item id="verite_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x022F</color>
-<decay />
-<defense>18</defense>
-<durability>180</durability>
-<nodye />
-<id>0x140B</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>verite helmet</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>499</weight>
-<value>1000</value>
-</item>
-
-<item id="mythril_HELMS_HELMET">
-<category>helms\helmet</category>
-<color>0x0191</color>
-<decay />
-<defense>19</defense>
-<durability>190</durability>
-<nodye />
-<id>0x140B</id>
-<layer>13</layer>
-<modifier type='dex'>-5</modifier>
-<name>mythril helmet</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>8</smelt>
-<weight>549</weight>
-<value>1100</value>
-</item>
-
-<item id="iron_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x0961</color>
-<decay />
-<defense>12</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1408</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>iron helmet close</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>72</weight>
-<value>240</value>
-</item>
-
-<item id="shadow_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x0386</color>
-<decay />
-<defense>13</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1408</id>
-<layer>19</layer>
-<modifier type='dex'>-8</modifier>
-<name>shadow helmet close</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>122</weight>
-<value>340</value>
-</item>
-
-<item id="merkite_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x02C3</color>
-<decay />
-<defense>14</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1408</id>
-<layer>13</layer>
-<modifier type='dex'>-8</modifier>
-<name>merkite helmet close</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>172</weight>
-<value>440</value>
-</item>
-
-<item id="copper_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x046E</color>
-<decay />
-<defense>15</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1408</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>copper helmet close</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>222</weight>
-<value>540</value>
-</item>
-
-<item id="silver_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x0965</color>
-<decay />
-<defense>16</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1408</id>
-<layer>10</layer>
-<modifier type='dex'>-8</modifier>
-<name>silver helmet close</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>272</weight>
-<value>640</value>
-</item>
-
-<item id="bronze_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x02E7</color>
-<decay />
-<defense>17</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1408</id>
-<layer>7</layer>
-<modifier type='dex'>-8</modifier>
-<name>bronze helmet close</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>322</weight>
-<value>740</value>
-</item>
-
-<item id="golden_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x0466</color>
-<decay />
-<defense>18</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1408</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>golden helmet close</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>372</weight>
-<value>840</value>
-</item>
-
-<item id="agapite_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x0150</color>
-<decay />
-<defense>19</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1408</id>
-<layer>6</layer>
-<modifier type='dex'>-8</modifier>
-<name>agapite helmet close</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>422</weight>
-<value>940</value>
-</item>
-
-<item id="verite_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x022F</color>
-<decay />
-<defense>20</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1408</id>
-<layer>24</layer>
-<modifier type='dex'>-8</modifier>
-<name>verite helmet close</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>472</weight>
-<value>1040</value>
-</item>
-
-<item id="mythril_HELMS_HELMET_CLOSE">
-<category>helms\helmet\close</category>
-<color>0x0191</color>
-<decay />
-<defense>21</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1408</id>
-<layer>13</layer>
-<modifier type='dex'>-8</modifier>
-<name>mythril helmet close</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>10</smelt>
-<weight>522</weight>
-<value>1140</value>
-</item>
-
-<item id="iron_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x0961</color>
-<decay />
-<defense>5</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>iron buckler</name>
-<requires type='str'>45</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>27</weight>
-<value>100</value>
-</item>
-
-<item id="shadow_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x0386</color>
-<decay />
-<defense>6</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>shadow buckler</name>
-<requires type='str'>50</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>77</weight>
-<value>200</value>
-</item>
-
-<item id="merkite_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x02C3</color>
-<decay />
-<defense>7</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>merkite buckler</name>
-<requires type='str'>55</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>127</weight>
-<value>300</value>
-</item>
-
-<item id="copper_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x046E</color>
-<decay />
-<defense>8</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>copper buckler</name>
-<requires type='str'>60</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>177</weight>
-<value>400</value>
-</item>
-
-<item id="silver_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x0965</color>
-<decay />
-<defense>9</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>silver buckler</name>
-<requires type='str'>65</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>227</weight>
-<value>500</value>
-</item>
-
-<item id="bronze_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x02E7</color>
-<decay />
-<defense>10</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>bronze buckler</name>
-<requires type='str'>70</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>277</weight>
-<value>600</value>
-</item>
-
-<item id="golden_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x0466</color>
-<decay />
-<defense>11</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>golden buckler</name>
-<requires type='str'>75</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>327</weight>
-<value>700</value>
-</item>
-
-<item id="agapite_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x0150</color>
-<decay />
-<defense>12</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>agapite buckler</name>
-<requires type='str'>80</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>377</weight>
-<value>800</value>
-</item>
-
-<item id="verite_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x022F</color>
-<decay />
-<defense>13</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>verite buckler</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>427</weight>
-<value>900</value>
-</item>
-
-<item id="mythril_SHIELD_BUCKLER">
-<category>shield\buckler</category>
-<color>0x0191</color>
-<decay />
-<defense>14</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1B73</id>
-<layer>6</layer>
-<modifier type='dex'>-2</modifier>
-<name>mythril buckler</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>4</smelt>
-<weight>477</weight>
-<value>1000</value>
-</item>
-
-<item id="iron_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x0961</color>
-<decay />
-<defense>15</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>iron heater</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>36</weight>
-<value>300</value>
-</item>
-
-<item id="shadow_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x0386</color>
-<decay />
-<defense>16</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>shadow heater</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>86</weight>
-<value>400</value>
-</item>
-
-<item id="merkite_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x02C3</color>
-<decay />
-<defense>17</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>merkite heater</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>136</weight>
-<value>500</value>
-</item>
-
-<item id="copper_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x046E</color>
-<decay />
-<defense>18</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>copper heater</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>186</weight>
-<value>600</value>
-</item>
-
-<item id="silver_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x0965</color>
-<decay />
-<defense>19</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>silver heater</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>236</weight>
-<value>700</value>
-</item>
-
-<item id="bronze_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x02E7</color>
-<decay />
-<defense>20</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>bronze heater</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>286</weight>
-<value>800</value>
-</item>
-
-<item id="golden_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x0466</color>
-<decay />
-<defense>21</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>golden heater</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>336</weight>
-<value>900</value>
-</item>
-
-<item id="agapite_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x0150</color>
-<decay />
-<defense>22</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>agapite heater</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>386</weight>
-<value>1000</value>
-</item>
-
-<item id="verite_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x022F</color>
-<decay />
-<defense>23</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>verite heater</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>436</weight>
-<value>1100</value>
-</item>
-
-<item id="mythril_SHIELD_HEATER">
-<category>shield\heater</category>
-<color>0x0191</color>
-<decay />
-<defense>24</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1B76</id>
-<layer>13</layer>
-<modifier type='dex'>-15</modifier>
-<name>mythril heater</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>18</smelt>
-<weight>486</weight>
-<value>1200</value>
-</item>
-
-<item id="iron_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x0961</color>
-<decay />
-<defense>18</defense>
-<durability>100</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>iron shield</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>126</weight>
-<value>360</value>
-</item>
-
-<item id="shadow_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x0386</color>
-<decay />
-<defense>19</defense>
-<durability>110</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>shadow shield</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>176</weight>
-<value>460</value>
-</item>
-
-<item id="merkite_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x02C3</color>
-<decay />
-<defense>20</defense>
-<durability>120</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>merkite shield</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>226</weight>
-<value>560</value>
-</item>
-
-<item id="copper_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x046E</color>
-<decay />
-<defense>21</defense>
-<durability>130</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>copper shield</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>276</weight>
-<value>660</value>
-</item>
-
-<item id="silver_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x0965</color>
-<decay />
-<defense>22</defense>
-<durability>140</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>silver shield</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>326</weight>
-<value>760</value>
-</item>
-
-<item id="bronze_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x02E7</color>
-<decay />
-<defense>23</defense>
-<durability>150</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>6</layer>
-<modifier type='dex'>-8</modifier>
-<name>bronze shield</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>376</weight>
-<value>860</value>
-</item>
-
-<item id="golden_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x0466</color>
-<decay />
-<defense>24</defense>
-<durability>160</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>golden shield</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>426</weight>
-<value>960</value>
-</item>
-
-<item id="agapite_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x0150</color>
-<decay />
-<defense>25</defense>
-<durability>170</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>agapite shield</name>
-<requires type='str'>135</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>476</weight>
-<value>1060</value>
-</item>
-
-<item id="verite_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x022F</color>
-<decay />
-<defense>26</defense>
-<durability>180</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>verite shield</name>
-<requires type='str'>140</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>526</weight>
-<value>1160</value>
-</item>
-
-<item id="mythril_SHIELD_SHIELD">
-<category>shield\shield</category>
-<color>0x0191</color>
-<decay />
-<defense>27</defense>
-<durability>190</durability>
-<nodye />
-<id>0x1B7B</id>
-<layer>2</layer>
-<modifier type='dex'>-8</modifier>
-<name>mythril shield</name>
-<requires type='str'>145</requires> 
-<restock>10</restock>
-<smelt>6</smelt>
-<weight>576</weight>
-<value>1260</value>
-</item>
-
-<item id="iron_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x0961</color>
-<decay />
-<defense>25</defense>
-<durability>100</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>iron shield kite</name>
-<requires type='str'>85</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>54</weight>
-<value>500</value>
-</item>
-
-<item id="shadow_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x0386</color>
-<decay />
-<defense>26</defense>
-<durability>110</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>shadow shield kite</name>
-<requires type='str'>90</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>104</weight>
-<value>600</value>
-</item>
-
-<item id="merkite_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x02C3</color>
-<decay />
-<defense>27</defense>
-<durability>120</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>merkite shield kite</name>
-<requires type='str'>95</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>154</weight>
-<value>700</value>
-</item>
-
-<item id="copper_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x046E</color>
-<decay />
-<defense>28</defense>
-<durability>130</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>copper shield kite</name>
-<requires type='str'>100</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>204</weight>
-<value>800</value>
-</item>
-
-<item id="silver_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x0965</color>
-<decay />
-<defense>29</defense>
-<durability>140</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>silver shield kite</name>
-<requires type='str'>105</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>254</weight>
-<value>900</value>
-</item>
-
-<item id="bronze_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x02E7</color>
-<decay />
-<defense>30</defense>
-<durability>150</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>bronze shield kite</name>
-<requires type='str'>110</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>304</weight>
-<value>1000</value>
-</item>
-
-<item id="golden_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x0466</color>
-<decay />
-<defense>31</defense>
-<durability>160</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>golden shield kite</name>
-<requires type='str'>115</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>354</weight>
-<value>1100</value>
-</item>
-
-<item id="agapite_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x0150</color>
-<decay />
-<defense>32</defense>
-<durability>170</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>agapite shield kite</name>
-<requires type='str'>120</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>404</weight>
-<value>1200</value>
-</item>
-
-<item id="verite_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x022F</color>
-<decay />
-<defense>33</defense>
-<durability>180</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>verite shield kite</name>
-<requires type='str'>125</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>454</weight>
-<value>1300</value>
-</item>
-
-<item id="mythril_SHIELD_SHIELD_KITE">
-<category>shield\shield\kite</category>
-<color>0x0191</color>
-<decay />
-<defense>34</defense>
-<durability>190</durability>
-<dye />
-<id>0x1B74</id>
-<layer>24</layer>
-<modifier type='dex'>-12</modifier>
-<name>mythril shield kite</name>
-<requires type='str'>130</requires> 
-<restock>10</restock>
-<smelt>14</smelt>
-<weight>504</weight>
-<value>1400</value>
-</item>
+	<!-- plate armor -->
+	<!-- female plate armor -->
+	<item id="1c04">
+		<category>armor\plate\female</category>
+		<decay />
+		<defense>25</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1C04</id>
+		<layer>2</layer>
+		<modifier type='dex'>-25</modifier>
+		<name>plate armor</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>53</smelt>
+		<weight>500</weight>
+		<value>500</value>
+	</item>
+
+	<item id="iron_armor_plate_female">
+		<inherit id="1c04" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_plate_female">
+		<inherit id="1c04" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_plate_female">
+		<inherit id="1c04" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_plate_female">
+		<inherit id="1c04" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_plate_female">
+		<inherit id="1c04" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_plate_female">
+		<inherit id="1c04" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_plate_female">
+		<inherit id="1c04" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_plate_female">
+		<inherit id="1c04" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_plate_female">
+		<inherit id="1c04" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_plate_female">
+		<inherit id="1c04" />
+		<mythril_armor />
+	</item>
+
+	<!-- male plate armor -->
+	<item id="1416">
+		<category>armor\plate\male</category>
+		<decay />
+		<defense>25</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1416</id>
+		<layer>6</layer>
+		<modifier type='dex'>-25</modifier>
+		<name>plate chest</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>53</smelt>
+		<weight>250</weight>
+		<value>500</value>
+	</item>
+
+	<item id="iron_armor_plate_male">
+		<inherit id="1416" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_plate_male">
+		<inherit id="1416" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_plate_male">
+		<inherit id="1416" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_plate_male">
+		<inherit id="1416" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_plate_male">
+		<inherit id="1416" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_plate_male">
+		<inherit id="1416" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_plate_male">
+		<inherit id="1416" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_plate_male">
+		<inherit id="1416" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_plate_male">
+		<inherit id="1416" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_plate_male">
+		<inherit id="1416" />
+		<mythril_armor />
+	</item>
+
+	<!-- plate arms -->
+	<item id="1410">
+		<category>armor\plate\arms</category>
+		<decay />
+		<defense>15</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1410</id>
+		<layer>13</layer>
+		<modifier type='dex'>-25</modifier>
+		<name>plate arms</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>477</weight>
+		<value>300</value>
+	</item>
+
+	<item id="iron_armor_plate_arms">
+		<inherit id="1410" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_plate_arms">
+		<inherit id="1410" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_plate_arms">
+		<inherit id="1410" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_plate_arms">
+		<inherit id="1410" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_plate_arms">
+		<inherit id="1410" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_plate_arms">
+		<inherit id="1410" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_plate_arms">
+		<inherit id="1410" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_plate_arms">
+		<inherit id="1410" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_plate_arms">
+		<inherit id="1410" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_plate_arms">
+		<inherit id="1410" />
+		<mythril_armor />
+	</item>
+
+	<!-- plate gloves -->
+	<item id="1414">
+		<category>armor\plate\gloves</category>
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1414</id>
+		<layer>10</layer>
+		<modifier type='dex'>-5</modifier>
+		<name>plate gloves</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>7</smelt>
+		<weight>99</weight>
+		<value>200</value>
+	</item>
+
+	<item id="iron_armor_plate_gloves">
+		<inherit id="1414" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_plate_gloves">
+		<inherit id="1414" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_plate_gloves">
+		<inherit id="1414" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_plate_gloves">
+		<inherit id="1414" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_plate_gloves">
+		<inherit id="1414" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_plate_gloves">
+		<inherit id="1414" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_plate_gloves">
+		<inherit id="1414" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_plate_gloves">
+		<inherit id="1414" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_plate_gloves">
+		<inherit id="1414" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_plate_gloves">
+		<inherit id="1414" />
+		<mythril_armor />
+	</item>
+
+	<!-- plate gorget -->
+	<item id="1413">
+		<category>armor\plate\gorget</category>
+		<decay />
+		<defense>5</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1413</id>
+		<layer>7</layer>
+		<modifier type='dex'>-5</modifier>
+		<name>plate gorget</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>4</smelt>
+		<weight>63</weight>
+		<value>100</value>
+	</item>
+
+	<item id="iron_armor_plate_gorget">
+		<inherit id="1413" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_plate_gorget">
+		<inherit id="1413" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_plate_gorget">
+		<inherit id="1413" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_plate_gorget">
+		<inherit id="1413" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_plate_gorget">
+		<inherit id="1413" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_plate_gorget">
+		<inherit id="1413" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_plate_gorget">
+		<inherit id="1413" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_plate_gorget">
+		<inherit id="1413" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_plate_gorget">
+		<inherit id="1413" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_plate_gorget">
+		<inherit id="1413" />
+		<mythril_armor />
+	</item>
+
+	<!-- plate helmet -->
+	<item id="1412">
+		<category>armor\plate\helmet</category>
+		<decay />
+		<defense>15</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1412</id>
+		<layer>13</layer>
+		<modifier type='dex'>-10</modifier>
+		<name>plate helmet</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>72</weight>
+		<value>300</value>
+	</item>
+
+	<item id="iron_armor_plate_helmet">
+		<inherit id="1412" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_plate_helmet">
+		<inherit id="1412" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_plate_helmet">
+		<inherit id="1412" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_plate_helmet">
+		<inherit id="1412" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_plate_helmet">
+		<inherit id="1412" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_plate_helmet">
+		<inherit id="1412" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_plate_helmet">
+		<inherit id="1412" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_plate_helmet">
+		<inherit id="1412" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_plate_helmet">
+		<inherit id="1412" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_plate_helmet">
+		<inherit id="1412" />
+		<mythril_armor />
+	</item>
+
+	<!-- plate leggings -->
+	<item id="141a">
+		<category>armor\plate\leggings</category>
+		<decay />
+		<defense>20</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x141A</id>
+		<layer>24</layer>
+		<modifier type='dex'>-10</modifier>
+		<name>plate leggings</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>63</weight>
+		<value>400</value>
+	</item>
+
+	<item id="iron_armor_plate_leggings">
+		<inherit id="141a" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_plate_leggings">
+		<inherit id="141a" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_plate_leggings">
+		<inherit id="141a" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_plate_leggings">
+		<inherit id="141a" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_plate_leggings">
+		<inherit id="141a" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_plate_leggings">
+		<inherit id="141a" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_plate_leggings">
+		<inherit id="141a" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_plate_leggings">
+		<inherit id="141a" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_plate_leggings">
+		<inherit id="141a" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_plate_leggings">
+		<inherit id="141a" />
+		<mythril_armor />
+	</item>
+
+	<!-- ring gloves -->
+	<item id="13f2">
+		<category>armor\ring\gloves</category>
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13F2</id>
+		<layer>4</layer>
+		<modifier type='dex'>-3</modifier>
+		<name>ring gloves</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>7</smelt>
+		<weight>63</weight>
+		<value>200</value>
+	</item>
+
+	<item id="iron_armor_ring_gloves">
+		<inherit id="13f2" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_ring_gloves">
+		<inherit id="13f2" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_ring_gloves">
+		<inherit id="13f2" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_ring_gloves">
+		<inherit id="13f2" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_ring_gloves">
+		<inherit id="13f2" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_ring_gloves">
+		<inherit id="13f2" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_ring_gloves">
+		<inherit id="13f2" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_ring_gloves">
+		<inherit id="13f2" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_ring_gloves">
+		<inherit id="13f2" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_ring_gloves">
+		<inherit id="13f2" />
+		<mythril_armor />
+	</item>
+
+	<!-- ring leggings -->
+	<item id="13f1">
+		<category>armor\ring\leggings</category>
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13F1</id>
+		<layer>13</layer>
+		<modifier type='dex'>-7</modifier>
+		<name>ring leggings</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>7</smelt>
+		<weight>126</weight>
+		<value>200</value>
+	</item>
+
+	<item id="iron_armor_ring_leggings">
+		<inherit id="13f1" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_ring_leggings">
+		<inherit id="13f1" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_ring_leggings">
+		<inherit id="13f1" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_ring_leggings">
+		<inherit id="13f1" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_ring_leggings">
+		<inherit id="13f1" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_ring_leggings">
+		<inherit id="13f1" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_ring_leggings">
+		<inherit id="13f1" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_ring_leggings">
+		<inherit id="13f1" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_ring_leggings">
+		<inherit id="13f1" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_ring_leggings">
+		<inherit id="13f1" />
+		<mythril_armor />
+	</item>
+
+	<!-- ring sleeves -->
+	<item id="13ef">
+		<category>armor\ring\sleeves</category>
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13EF</id>
+		<layer>19</layer>
+		<modifier type='dex'>-3</modifier>
+		<name>ring sleeves</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>7</smelt>
+		<weight>126</weight>
+		<value>200</value>
+	</item>
+
+	<item id="iron_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_ring_sleeves">
+		<inherit id="13ef" />
+		<mythril_armor />
+	</item>
+
+	<!-- ring tunic -->
+	<item id="13ed">
+		<category>armor\ring\tunic</category>
+		<decay />
+		<defense>15</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13ED</id>
+		<layer>19</layer>
+		<modifier type='dex'>-20</modifier>
+		<name>ring tunic</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>126</weight>
+		<value>300</value>
+	</item>
+
+	<item id="iron_armor_ring_tunic">
+		<inherit id="13ed" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_armor_ring_tunic">
+		<inherit id="13ed" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_armor_ring_tunic">
+		<inherit id="13ed" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_armor_ring_tunic">
+		<inherit id="13ed" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_armor_ring_tunic">
+		<inherit id="13ed" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_armor_ring_tunic">
+		<inherit id="13ed" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_armor_ring_tunic">
+		<inherit id="13ed" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_armor_ring_tunic">
+		<inherit id="13ed" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_armor_ring_tunic">
+		<inherit id="13ed" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_armor_ring_tunic">
+		<inherit id="13ed" />
+		<mythril_armor />
+	</item>
+
+	<!-- helmets -->
+	<!-- bascinet helmet -->
+	<item id="140d">
+		<category>helmets\bascinet</category>
+		<decay />
+		<defense>7</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x140D</id>
+		<layer>4</layer>
+		<modifier type='dex'>-3</modifier>
+		<name>bascinet</name>
+		<requires type='str'>65</requires> 
+		<restock>10</restock>
+		<smelt>6</smelt>
+		<weight>99</weight>
+		<value>140</value>
+	</item>
+
+	<item id="iron_helmets_bascinet">
+		<inherit id="140d" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_helmets_bascinet">
+		<inherit id="140d" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_helmets_bascinet">
+		<inherit id="140d" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_helmets_bascinet">
+		<inherit id="140d" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_helmets_bascinet">
+		<inherit id="140d" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_helmets_bascinet">
+		<inherit id="140d" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_helmets_bascinet">
+		<inherit id="140d" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_helmets_bascinet">
+		<inherit id="140d" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_helmets_bascinet">
+		<inherit id="140d" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_helmets_bascinet">
+		<inherit id="140d" />
+		<mythril_armor />
+	</item>
+
+	<!-- nose helmet -->
+	<item id="140f">
+		<category>helmets\nose</category>
+		<decay />
+		<defense>11</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x140F</id>
+		<layer>13</layer>
+		<modifier type='dex'>-6</modifier>
+		<name>nose helmet</name>
+		<requires type='str'>65</requires> 
+		<restock>10</restock>
+		<smelt>9</smelt>
+		<weight>162</weight>
+		<value>220</value>
+	</item>
+
+	<item id="iron_helmets_nose">
+		<inherit id="140f" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_helmets_nose">
+		<inherit id="140f" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_helmets_nose">
+		<inherit id="140f" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_helmets_nose">
+		<inherit id="140f" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_helmets_nose">
+		<inherit id="140f" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_helmets_nose">
+		<inherit id="140f" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_helmets_nose">
+		<inherit id="140f" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_helmets_nose">
+		<inherit id="140f" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_helmets_nose">
+		<inherit id="140f" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_helmets_nose">
+		<inherit id="140f" />
+		<mythril_armor />
+	</item>
+
+	<!-- normal helmet -->
+	<item id="140b">
+		<category>helmets\helmet</category>
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x140B</id>
+		<layer>6</layer>
+		<modifier type='dex'>-5</modifier>
+		<name>helmet</name>
+		<requires type='str'>45</requires> 
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>99</weight>
+		<value>200</value>
+	</item>
+
+	<item id="iron_helmets_helmet">
+		<inherit id="140b" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_helmets_helmet">
+		<inherit id="140b" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_helmets_helmet">
+		<inherit id="140b" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_helmets_helmet">
+		<inherit id="140b" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_helmets_helmet">
+		<inherit id="140b" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_helmets_helmet">
+		<inherit id="140b" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_helmets_helmet">
+		<inherit id="140b" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_helmets_helmet">
+		<inherit id="140b" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_helmets_helmet">
+		<inherit id="140b" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_helmets_helmet">
+		<inherit id="140b" />
+		<mythril_armor />
+	</item>
+
+	<!-- close helmet -->
+	<item id="1408">
+		<category>helmets\close</category>
+		<decay />
+		<defense>12</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1408</id>
+		<layer>2</layer>
+		<modifier type='dex'>-8</modifier>
+		<name>close helmet</name>
+		<requires type='str'>85</requires> 
+		<restock>10</restock>
+		<smelt>10</smelt>
+		<weight>72</weight>
+		<value>240</value>
+	</item>
+
+	<item id="iron_helmets_close">
+		<inherit id="1408" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_helmets_close">
+		<inherit id="1408" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_helmets_close">
+		<inherit id="1408" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_helmets_close">
+		<inherit id="1408" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_helmets_close">
+		<inherit id="1408" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_helmets_close">
+		<inherit id="1408" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_helmets_close">
+		<inherit id="1408" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_helmets_close">
+		<inherit id="1408" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_helmets_close">
+		<inherit id="1408" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_helmets_close">
+		<inherit id="1408" />
+		<mythril_armor />
+	</item>
+
+	<!-- shields -->
+	<!-- buckler -->
+	<item id="1b73">
+		<category>shields\buckler</category>
+		<decay />
+		<defense>5</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1B73</id>
+		<layer>6</layer>
+		<modifier type='dex'>-2</modifier>
+		<name>buckler</name>
+		<requires type='str'>45</requires> 
+		<restock>10</restock>
+		<smelt>4</smelt>
+		<weight>27</weight>
+		<value>100</value>
+	</item>
+
+	<item id="iron_shields_buckler">
+		<inherit id="1b73" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_shields_buckler">
+		<inherit id="1b73" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_shields_buckler">
+		<inherit id="1b73" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_shields_buckler">
+		<inherit id="1b73" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_shields_buckler">
+		<inherit id="1b73" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_shields_buckler">
+		<inherit id="1b73" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_shields_buckler">
+		<inherit id="1b73" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_shields_buckler">
+		<inherit id="1b73" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_shields_buckler">
+		<inherit id="1b73" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_shields_buckler">
+		<inherit id="1b73" />
+		<mythril_armor />
+	</item>
+
+	<!-- heater -->
+	<item id="1b76">
+		<category>shields\heater</category>
+		<decay />
+		<defense>15</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1B76</id>
+		<layer>13</layer>
+		<modifier type='dex'>-15</modifier>
+		<name>heater</name>
+		<requires type='str'>95</requires> 
+		<restock>10</restock>
+		<smelt>18</smelt>
+		<weight>36</weight>
+		<value>300</value>
+	</item>
+
+	<item id="iron_shields_heater">
+		<inherit id="1b76" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_shields_heater">
+		<inherit id="1b76" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_shields_heater">
+		<inherit id="1b76" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_shields_heater">
+		<inherit id="1b76" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_shields_heater">
+		<inherit id="1b76" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_shields_heater">
+		<inherit id="1b76" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_shields_heater">
+		<inherit id="1b76" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_shields_heater">
+		<inherit id="1b76" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_shields_heater">
+		<inherit id="1b76" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_shields_heater">
+		<inherit id="1b76" />
+		<mythril_armor />
+	</item>
+
+	<!-- normal shield -->
+	<item id="1b7b">
+		<category>shields\shield</category>
+		<decay />
+		<defense>18</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x1B7B</id>
+		<layer>2</layer>
+		<modifier type='dex'>-8</modifier>
+		<name>shield</name>
+		<requires type='str'>100</requires> 
+		<restock>10</restock>
+		<smelt>6</smelt>
+		<weight>126</weight>
+		<value>360</value>
+	</item>
+
+	<item id="iron_shields_shield">
+		<inherit id="1b7b" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_shields_shield">
+		<inherit id="1b7b" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_shields_shield">
+		<inherit id="1b7b" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_shields_shield">
+		<inherit id="1b7b" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_shields_shield">
+		<inherit id="1b7b" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_shields_shield">
+		<inherit id="1b7b" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_shields_shield">
+		<inherit id="1b7b" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_shields_shield">
+		<inherit id="1b7b" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_shields_shield">
+		<inherit id="1b7b" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_shields_shield">
+		<inherit id="1b7b" />
+		<mythril_armor />
+	</item>
+
+	<!-- kite shield -->
+	<item id="1b74">
+		<category>shields\kite</category>
+		<decay />
+		<defense>25</defense>
+		<durability>100</durability>
+		<dye />
+		<id>0x1B74</id>
+		<layer>24</layer>
+		<modifier type='dex'>-12</modifier>
+		<name>shield kite</name>
+		<requires type='str'>85</requires> 
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>54</weight>
+		<value>500</value>
+	</item>
+
+	<item id="iron_shields_kite">
+		<inherit id="1b74" />
+		<iron_armor />
+	</item>
+	
+	<item id="shadow_shields_kite">
+		<inherit id="1b74" />
+		<shadow_armor />
+	</item>
+
+	<item id="merkite_shields_kite">
+		<inherit id="1b74" />
+		<merkite_armor />
+	</item>
+
+	<item id="copper_shields_kite">
+		<inherit id="1b74" />
+		<copper_armor />
+	</item>
+
+	<item id="silver_shields_kite">
+		<inherit id="1b74" />
+		<silver_armor />
+	</item>
+
+	<item id="bronze_shields_kite">
+		<inherit id="1b74" />
+		<bronze_armor />
+	</item>
+
+	<item id="golden_shields_kite">
+		<inherit id="1b74" />
+		<golden_armor />
+	</item>
+
+	<item id="agapite_shields_kite">
+		<inherit id="1b74" />
+		<agapite_armor />
+	</item>
+
+	<item id="verite_shields_kite">
+		<inherit id="1b74" />
+		<verite_armor />
+	</item>
+
+	<item id="mythril_shields_kite">
+		<inherit id="1b74" />
+		<mythril_armor />
+	</item>
 
 </definitions>
