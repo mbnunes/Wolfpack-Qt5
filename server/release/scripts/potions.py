@@ -2,6 +2,7 @@
 import wolfpack
 import wolfpack.time
 import math
+import time
 from random import randint, random
 from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
 from system import poison
@@ -404,15 +405,15 @@ def healPotion( char, potion, healtype ):
 	# Compare
 	if socket.hastag('heal_pot_timer'):
 		elapsed = int( socket.gettag( "heal_pot_timer" ) )
-		if elapsed > wolfpack.time.currenttime():
+		if elapsed > time.time():
 			# Broken Timer
-			if wolfpack.time.currenttime() - elapsed > HEAL_POT_DELAY:
+			if time.time() - elapsed > HEAL_POT_DELAY:
 				socket.deltag('heal_pot_timer')
 			else:		
 				socket.clilocmessage( 500235 ) # You must wait 10 seconds before using another healing potion.
 				return False
 
-	socket.settag( "heal_pot_timer", wolfpack.time.currenttime() + HEAL_POT_DELAY)
+	socket.settag( "heal_pot_timer", time.time() + HEAL_POT_DELAY)
 	amount = 0
 
 	# Lesser Heal
@@ -498,26 +499,29 @@ def agilityPotion( char, potion, agilitytype ):
 	else:
 		return False
 
-	if not char.hastag( "dex_pot_timer" ):
-		char.settag( "dex_pot_timer", (wolfpack.time.currenttime() + AGILITY_TIME) )
+	if char.hastag( "dex_pot_timer" ):
+		# Compare
+		elapsed = int( char.gettag( "dex_pot_timer" ) )
+		
+		# Some bug occured
+		if elapsed - time.time() > AGILITY_TIME:
+			char.deltag('dex_pot_timer')
+		elif elapsed > time.time():
+				socket.clilocmessage(502173) # You are already under a similar effect.
+				return False
 
-	# Compare
-	elapsed = int( char.gettag( "dex_pot_timer" ) )
-	if elapsed > wolfpack.time.currenttime():
-		socket.clilocmessage(502173) # You are already under a similar effect.
-		return False
-	else:
-		char.settag( 'dex_pot_timer', (wolfpack.time.currenttime() + AGILITY_TIME) )
+	char.settag('dex_pot_timer', time.time() + AGILITY_TIME)
 
 	if char.dexterity + bonus < 1:
 		bonus = -(char.strength - 1)
+
 	char.dexterity2 += bonus
 	char.dexterity += bonus
 	char.stamina = min(char.stamina, char.maxstamina)
 	char.updatestamina()
 	char.updatestats()
 
-	char.addtimer( AGILITY_TIME, "magic.utilities.statmodifier_expire", [1, bonus], 1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel" )
+	char.addtimer( int(AGILITY_TIME * 1000), "magic.utilities.statmodifier_expire", [1, bonus], 1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel" )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
@@ -545,16 +549,17 @@ def strengthPotion( char, potion, strengthtype ):
 	else:
 		return False
 
-	if not char.hastag( "str_pot_timer" ):
-		char.settag( "str_pot_timer", (wolfpack.time.currenttime() + STRENGTH_TIME) )
-
-	# Compare
-	elapsed = int( char.gettag( "str_pot_timer" ) )
-	if elapsed > wolfpack.time.currenttime():
-		socket.clilocmessage(502173) # You are already  under a similar effect
-		return False
-	else:
-		char.settag( 'str_pot_timer', (wolfpack.time.currenttime() + STRENGTH_TIME) )
+	if char.hastag( "str_pot_timer" ):
+		# Compare
+		elapsed = int( char.gettag( "str_pot_timer" ) )
+		
+		if elapsed - time.time() > STRENGTH_TIME:
+			char.deltag('str_pot_timer')
+		elif elapsed > time.time():
+			socket.clilocmessage(502173) # You are already  under a similar effect
+			return False
+		
+	char.settag( "str_pot_timer", time.time() + STRENGTH_TIME )
 
 	if char.strength + bonus < 1:
 		bonus = -(char.strength - 1)
@@ -564,7 +569,7 @@ def strengthPotion( char, potion, strengthtype ):
 	char.updatehealth()
 	char.updatestats()
 
-	char.addtimer( STRENGTH_TIME, "magic.utilities.statmodifier_expire", [0, bonus], 1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel" )
+	char.addtimer( int(STRENGTH_TIME * 1000.0), "magic.utilities.statmodifier_expire", [0, bonus], 1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel" )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
