@@ -239,7 +239,7 @@ static void AddTarget(int s, PKGx6C *pp)
 	Map->SeekTile(id, &tile);
 	if (tile.flag2&0x08) pileable=1;
 
-	P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", pileable, id, 0,0);
+	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0,0);
 	if(!pi) return;
 	pi->priv=0;	//Make them not decay
 	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+Map->TileHeight(pp->model));
@@ -659,7 +659,7 @@ void cTargets::TargIdTarget(int s) // Fraz
 static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 {
 	UOXSOCKET s = ps->GetSocket();
-	CHARACTER c = DEREF_P_CHAR(pc);
+//	CHARACTER c = DEREF_P_CHAR(pc);
 
 	sprintf((char*)temp, "Ser [%x %x %x %x] ID [%x %x] Name [%s] Skin [%x] Account [%x] Priv [%x %x] Position [%i %i %i] CTimeout [%i] Fame [%i] Karma [%i] Deaths [%i] Kills [%i] NPCAI [%x] NPCWANDER [%d] WEIGHT [%.2f]",
 		pc->ser1,pc->ser2,pc->ser3,pc->ser4,pc->id1,pc->id2,
@@ -672,8 +672,8 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
 		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
-	Gumps->Open(s, c, 0, 8);
-	statwindow(s, c);
+	Gumps->Open(s, DEREF_P_CHAR(pc), 0, 8);
+	statwindow(s, pc);
 }
 
 static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
@@ -725,7 +725,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 static void GMTarget(P_CLIENT ps, P_CHAR pc)
 {
 	UOXSOCKET s = ps->GetSocket();
-	CHARACTER c = DEREF_P_CHAR(pc);
+	//CHARACTER c = DEREF_P_CHAR(pc);
 	int i;	
 	if (SrvParms->gm_log)
 	{
@@ -733,7 +733,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 		sprintf((char*)temp2, "%s has made %s a GM.\n",currchar[s]->name,pc->name);
 		savelog((char*)temp2, (char*)temp);
 	}
-	unmounthorse(calcSocketFromChar(c));	//AntiChrist bugfix
+	unmounthorse(calcSocketFromChar(pc));	//AntiChrist bugfix
 	
 	pc->id1=0x03;
 	pc->id2='\xDB';
@@ -775,7 +775,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 		sprintf((char*)temp, "GM %s", pc->name);
 		strcpy(pc->name,(char*)temp);
 	}
-	MoveBelongingsToBp(pc,c);
+	MoveBelongingsToBp(pc, DEREF_P_CHAR(pc));
 }
 
 static void CnsTarget(P_CLIENT ps, P_CHAR pc)
@@ -837,7 +837,7 @@ void cTargets::GhostTarget(int s)
 			P_CHAR pc_currchar = currchar[s];
 			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
 			bolteffect(DEREF_P_CHAR(pc), true);
-			soundeffect2(DEREF_P_CHAR(pc), 0x00, 0x29);
+			soundeffect2(pc, 0x0029);
 			deathstuff(DEREF_P_CHAR(pc));
 		}
 		else
@@ -854,7 +854,7 @@ public:
 		if (w_anim[0]==0 && w_anim[1]==0)
 		{
 			bolteffect(DEREF_P_CHAR(pc), true);
-			soundeffect2(DEREF_P_CHAR(pc), 0x00, 0x29);
+			soundeffect2(pc, 0x0029);
 		}
 		else
 		{
@@ -1080,7 +1080,8 @@ void cTargets::AllSetTarget(int s)
 				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
 				if (k!=-1) updateskill(k,j);
 			}
-			if (k!=-1) statwindow(k,DEREF_P_CHAR(pc));
+			if (k!=-1) 
+				statwindow(k, pc);
 		}
 		else if (addx[s]==DEX)
 		{
@@ -1090,7 +1091,8 @@ void cTargets::AllSetTarget(int s)
 				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
 				if (k!=-1) updateskill(k,j);
 			}
-			if (k!=-1) statwindow(k,DEREF_P_CHAR(pc));
+			if (k!=-1) 
+				statwindow(k, pc);
 		}
 		else if (addx[s]==INT)
 		{
@@ -1100,7 +1102,8 @@ void cTargets::AllSetTarget(int s)
 				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
 				if (k!=-1) updateskill(k,j);
 			}
-			if (k!=-1) statwindow(k,DEREF_P_CHAR(pc));
+			if (k!=-1) 
+				statwindow(k, pc);
 		}
 		else if (addx[s]==FAME)
 		{
@@ -1249,7 +1252,7 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 	for (x=x1;x<=x2;x++)
 		for (y=y1;y<=y2;y++)
 		{
-			P_ITEM pi = Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", pileable, id, 0, 0);
+			P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0, 0);
 			if(!pi) return;
 			pi->priv=0;	//Make them not decay
 			pi->MoveTo(x,y,pp->TzLoc+Map->TileHeight(pp->model));
@@ -1438,7 +1441,7 @@ static void TeleStuff(int s, PKGx6C *pp)
 void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bird)
 {
 	P_CHAR pc_currchar = currchar[s];
-	P_ITEM pi1=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),1,"#",0,0x122A,0,0);	//add the blood puddle
+	P_ITEM pi1 = Items->SpawnItem(pc_currchar, 1, "#", 0, 0x122A, 0, 0);	//add the blood puddle
 	P_ITEM pi2=FindItemBySerial(npcshape[0]);
 	if(!pi1) return;
 	pi1->pos.x=pi2->pos.x;
@@ -1505,8 +1508,8 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 	char sect[512];
 	long int pos;
 
-	P_ITEM pi1=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),1,"#",0,0x122A,0,0);	//add the blood puddle
-	P_ITEM pi2=FindItemBySerial(npcshape[0]);
+	P_ITEM pi1 = Items->SpawnItem(pc_currchar, 1, "#", 0, 0x122A, 0, 0);	//add the blood puddle
+	P_ITEM pi2 = FindItemBySerial(npcshape[0]);
 	if (pi3 == NULL)
 		return;
 	if(!pi1) return;
@@ -1827,7 +1830,7 @@ static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
 		else
 			amt=4; 
 		soundeffect(s,0x00,0x50);
-		P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(pC->getPlayer()),amt,"#",1,0x097A,0,1);
+		P_ITEM pi = Items->SpawnItem(pC->getPlayer(), amt, "#", 1, 0x097A, 0, 1);
 		if(!pi)
 			return;
 		RefreshItem(pi);
@@ -1847,7 +1850,7 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 		if (!pc->onhorse) action(s,0x0D);
 		else action(s,0x1d);
 		soundeffect(s,0x01,0x3E);
-		P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(pc),1,"#",1,0x0DE1,0,0); //Kindling
+		P_ITEM pi = Items->SpawnItem(pc,1,"#",1,0x0DE1,0,0); //Kindling
 		if(!pi)
 			return;
 		pi->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
@@ -2043,7 +2046,7 @@ void cTargets::StaminaTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
+		soundeffect2(pc, 0x01F2);
 		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
 		pc->stm = pc->effDex();
 		updatestats(pc, 2);
@@ -2058,7 +2061,7 @@ void cTargets::ManaTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
+		soundeffect2(pc, 0x01F2);
 		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
 		pc->mn = pc->in;
 		updatestats(pc, 1);
@@ -2225,7 +2228,7 @@ int cTargets::BuyShop(int s, int c)
 	sendshopinfo(s, c, pCont1); // Send normal shop items
 	sendshopinfo(s, c, pCont2); // Send items sold to shop by players
 	SndShopgumpopen(s,pc->serial);
-	statwindow(s,DEREF_P_CHAR(currchar[s])); // Make sure the gold total has been sent.
+	statwindow(s, currchar[s]); // Make sure the gold total has been sent.
 	return 1;
 }
 
@@ -2250,7 +2253,7 @@ void cTargets::permHideTarget(int s)
 		pc->priv2 |= 8; 
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
-		soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x08); 
+		soundeffect2(pc, 0x0208); 
 		tempeffect(pc, pc, 33, 1, 0, 0); 
 		return; 
 	} 
@@ -2284,7 +2287,7 @@ void cTargets::unHideTarget(int s)
 		// which takes the char coords. 
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
-		soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x08); 
+		soundeffect2(pc, 0x0208); 
 		tempeffect(pc, pc, 34, 1, 0, 0); 
 		return; 
 	} 
@@ -2357,7 +2360,7 @@ void cTargets::FullStatsTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
+		soundeffect2(pc, 0x01F2);
 		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
 		pc->mn=pc->in;
 		pc->hp=pc->st;
@@ -2459,7 +2462,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 	if (pc->dead)
 	{//Shouldn' be a validNPCMove inside a door, might fix house break in. -- from zippy code
 		Fame(i,0);
-		soundeffect2(i, 0x02, 0x14);
+		soundeffect2(pc, 0x0214);
 		pc->id1=pc->xid1;
 		pc->id2=pc->xid2;
 		pc->skin = pc->xskin;
@@ -2489,7 +2492,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 			{
 				Items->DeleItem(pj);
 
-				P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(pc),1,"a robe",0,0x1F03,0,0);
+				P_ITEM pi = Items->SpawnItem(pc, 1, "a robe", 0, 0x1F03, 0, 0);
 				if(!pi) return false;
 				pi->SetContSerial(pc->serial);
 				pi->layer=0x16;
@@ -2686,7 +2689,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	}
 	else
 	{
-		pi3=Items->SpawnItem(DEREF_P_CHAR(pc), 1, "a house key", 0, 0x100F,0,0);//gold key for everything else
+		pi3 = Items->SpawnItem(pc, 1, "a house key", 0, 0x100F,0,0);//gold key for everything else
 		if(!pi3) return;
 		pi3->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
 		RefreshItem(pi3);

@@ -271,7 +271,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 		pc->pos.z=Races[race]->startpos.z;
 
 	updatechar(DEREF_P_CHAR(pc));
-	statwindow(so, DEREF_P_CHAR(pc));
+	statwindow(so, pc);
 	teleport(pc);
 }
 

@@ -80,7 +80,7 @@ void cGuilds::StonePlacement(int s)
 			return;
 		}
 		pc->guildnumber=guildnumber;
-		pStone=Items->SpawnItem(DEREF_P_CHAR(currchar[s]),1,"Guildstone for an unnamed guild",0,0x0ED5,0,0);
+		pStone = Items->SpawnItem(currchar[s],1,"Guildstone for an unnamed guild",0,0x0ED5,0,0);
 		if (!pStone)
 		{//AntiChrist - to prevent crashes
 			sysmessage(s,"Cannot create guildstone");
@@ -125,7 +125,7 @@ void cGuilds::StonePlacement(int s)
 			pc->isGM() )
 		{
 			sprintf(stonename, "Guildstone for %s", guilds[guildnumber].name);
-			pStone = Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, stonename, 0, 0x0ED5, 0, 0);
+			pStone = Items->SpawnItem(currchar[s], 1, stonename, 0, 0x0ED5, 0, 0);
 			if (!pStone)
 			{
 				sysmessage(s,"Cannot create guildstone");

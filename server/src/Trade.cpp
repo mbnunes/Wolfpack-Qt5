@@ -227,7 +227,7 @@ void cTrade::buyaction(int s)
 		Xsend(s, clearmsg, 8);
 	}
 	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
-	statwindow(s, DEREF_P_CHAR(pc_currchar));
+	statwindow(s, pc_currchar);
 }
 
 void cTrade::restock(int s)

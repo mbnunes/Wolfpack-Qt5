@@ -193,7 +193,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 				if (bowtype==1)
 					id=0x0F3F;		// arrows
 
-				P_ITEM pAmmo=Items->SpawnItem(DEREF_P_CHAR(pc_deffender),1,"#",1,id,0,0);
+				P_ITEM pAmmo=Items->SpawnItem(pc_deffender,1,"#",1,id,0,0);
 				if(pAmmo)
 				{
 					pAmmo->MoveTo(pc_deffender->pos.x,pc_deffender->pos.y,pc_deffender->pos.z);
@@ -484,7 +484,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 				   else if (damage>40) id=0x122d;
 	               else if (damage>30) id=0x122e;
 	               else if (damage>20) id=0x122b;
-				   P_ITEM pBlood=Items->SpawnItem(DEREF_P_CHAR(pc_deffender), 1, "#", 0, id, 0, 0);
+				   P_ITEM pBlood = Items->SpawnItem(pc_deffender, 1, "#", 0, id, 0, 0);
 				   if (pBlood)
 				   {
 					  pBlood->MoveTo(pc_deffender->pos.x, pc_deffender->pos.y, pc_deffender->pos.z);
@@ -803,8 +803,10 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 						{
 							int arrowsquant;
 							bowtype=Combat->GetBowType(DEREF_P_CHAR(pc_attacker));
-							if (bowtype==1) arrowsquant=getamount(DEREF_P_CHAR(pc_attacker), 0x0F3F);
-							else arrowsquant=getamount(DEREF_P_CHAR(pc_attacker), 0x1BFB);
+							if (bowtype==1) 
+								arrowsquant=getamount(pc_attacker, 0x0F3F);
+							else 
+								arrowsquant=getamount(pc_attacker, 0x1BFB);
 							if (arrowsquant>0)
 								x=1;
 							//else
@@ -1067,7 +1069,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				sysmessage(k,(char*)temp);
 				Items->DeleItem(pj);		 
 			}
-			statwindow(k, DEREF_P_CHAR(currchar[k]));
+			statwindow(k, currchar[k]);
 		}
 	}
 	if (total < 2) total = 2;
@@ -1203,14 +1205,16 @@ void cCombat::CombatOnFoot(int c)
 
 
 //s: char#
-void cCombat::SpawnGuard(CHARACTER s, CHARACTER i, int x, int y, signed char z)
+void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z)
 {
 	int t;
 //	if (i < 0 || i >= cmem || s < 0 || s >= cmem)
 //		return;
 	
-	P_CHAR pc_offender = MAKE_CHARREF_LR(s);
-	P_CHAR pc_caller   = MAKE_CHARREF_LR(i);
+//	P_CHAR pc_offender = MAKE_CHARREF_LR(s);
+//	P_CHAR pc_caller   = MAKE_CHARREF_LR(i);
+	if ( pc_offender == NULL || pc_caller == NULL)
+		return;
 	
 	if (!pc_caller->inGuardedArea())
 		return;
@@ -1221,7 +1225,7 @@ void cCombat::SpawnGuard(CHARACTER s, CHARACTER i, int x, int y, signed char z)
 	if (SrvParms->guardsactive && !pc_offender->isInvul())
 	{
         t = region[pc_caller->region].guardnum[(rand()%10)];
-		CHARACTER c = Npcs->AddNPCxyz(calcSocketFromChar(s), t, 0, x, y, z);
+		CHARACTER c = Npcs->AddNPCxyz(calcSocketFromChar(pc_offender), t, 0, x, y, z);
 		P_CHAR pc_guard = MAKE_CHARREF_LR(c);
 		
 		pc_guard->npcaitype = 4; // CITY GUARD, LB, bugfix, was 0x40 -> not existing

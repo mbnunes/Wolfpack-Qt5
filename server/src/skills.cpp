@@ -47,7 +47,10 @@
 //1=iron, 2=golden, 3=agapite, 4=shadow, 5=mythril, 6=bronze, 7=verite, 8=merkite, 9=copper, 10=silver
 int ingottype=0;//will hold number of ingot type to be deleted
 
-inline void SetSkillDelay(CHARACTER cc) { 	P_CHAR pc = MAKE_CHARREF_LR(cc); SetTimerSec(&pc->skilldelay,SrvParms->skilldelay);}
+inline void SetSkillDelay(P_CHAR pc) 
+{ 	
+	SetTimerSec(&pc->skilldelay,SrvParms->skilldelay);
+}
 
 //////////////////////////
 // Function:	CalcRank
@@ -246,7 +249,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 	
 	// exploit fix - detects if they took the material out of their
 	// backpack while the makemenu was active (Duke, 25.11.2000)
-	int amt=getamount(DEREF_P_CHAR(pc_currchar), itemmake[s].Mat1id);
+	int amt=getamount(pc_currchar, itemmake[s].Mat1id);
 	if ( amt < itemmake[s].needs && !pc_currchar->isGM() )
 	{
 		sysmessage(s,"You do not have enough resources anymore!!");
@@ -414,7 +417,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		if(!pc_currchar->making) sysmessage(s,"You create the item and place it in your backpack.");
 //		itemmake[s].has=0;
 //		itemmake[s].has2=0;
-		statwindow(s,DEREF_P_CHAR(pc_currchar));
+		statwindow(s, pc_currchar);
 		Zero_Itemmake(s);
 		/*		
 		Code added by Polygon
@@ -689,7 +692,7 @@ void cSkills::Hide(int s)
 		// 
 		// 
 		staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x09, 0x09, 0x19); 
-		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x02, 0x08); 
+		soundeffect2(pc_currchar, 0x0208); 
 		tempeffect(pc_currchar, pc_currchar, 33, 1, 0, 0); 
 		// immediate hiding overwrites the effect. 
 		// so lets hide after 4 secs. 
@@ -782,13 +785,13 @@ void cSkills::PlayInstrumentWell(int s, P_ITEM pi)
 {
 	switch(pi->id())
 	{
-	case 0x0E9C:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x38);	break;
+	case 0x0E9C:	soundeffect2(currchar[s], 0x0038);	break;
 	case 0x0E9D:
-	case 0x0E9E:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x52);	break;
+	case 0x0E9E:	soundeffect2(currchar[s], 0x0052);	break;
 	case 0x0EB1:
-	case 0x0EB2:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x45);	break;
+	case 0x0EB2:	soundeffect2(currchar[s], 0x0045);	break;
 	case 0x0EB3:
-	case 0x0EB4:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4C);	break;
+	case 0x0EB4:	soundeffect2(currchar[s], 0x004C);	break;
 	default:
 		LogError("switch reached default");
 	}
@@ -798,13 +801,13 @@ void cSkills::PlayInstrumentPoor(int s, P_ITEM pi)
 {
 	switch(pi->id())
 	{
-	case 0x0E9C:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x39);	break;
+	case 0x0E9C:	soundeffect2(currchar[s], 0x0039);	break;
 	case 0x0E9D:
-	case 0x0E9E:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x53);	break;
+	case 0x0E9E:	soundeffect2(currchar[s], 0x0053);	break;
 	case 0x0EB1:
-	case 0x0EB2:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x46);	break;
+	case 0x0EB2:	soundeffect2(currchar[s], 0x0046);	break;
 	case 0x0EB3:
-	case 0x0EB4:	soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4D);	break;
+	case 0x0EB4:	soundeffect2(currchar[s], 0x004D);	break;
 	default:
 		LogError("switch reached default");
 	}
@@ -837,7 +840,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 {
 	bool success=false;
 
-	if (getamount(DEREF_P_CHAR(currchar[s]),regid) >= regamount)
+	if (getamount(currchar[s], regid) >= regamount)
 	{
 		success=true;
 		sprintf((char*)temp, "*%s starts grinding some %s in the mortar.*", currchar[s]->name, regname);
@@ -949,9 +952,9 @@ void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 	pi_mortar->more2=sub;
 	pi_mortar->morex=pc->skill[ALCHEMY];
 	
-	if (!(getamount(s, 0x0F0E)>=1))
+	if (!(getamount(pc, 0x0F0E)>=1))
 	{
-		target(calcSocketFromChar(s), 0, 1, 0, 109, "Where is an empty bottle for your potion?");
+		target(calcSocketFromChar(pc), 0, 1, 0, 109, "Where is an empty bottle for your potion?");
 	}
 	else
 	{
@@ -1314,7 +1317,7 @@ void cSkills::AdvanceStats(CHARACTER s, int sk)
 	so=calcSocketFromChar(DEREF_P_CHAR(pc));
 	if (update && (so!=-1))
 	{
-		statwindow(so, DEREF_P_CHAR(pc));				// update client's status window
+		statwindow(so, pc);				// update client's status window
 		for (i=0; i<ALLSKILLS; i++)
 		{
 			updateSkillLevel(DEREF_P_CHAR(pc), i);		// update client's skill window
@@ -1410,57 +1413,57 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 	{
 	case ARMSLORE:
 		target(s, 0, 1, 0, 29, "What item do you wish to get information about?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case ANATOMY:
 		target(s, 0, 1, 0, 37, "Whom shall I examine?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case ITEMID:
 		target(s, 0, 1, 0, 40, "What do you wish to appraise and identify?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case EVALUATINGINTEL:
 		target(s, 0, 1, 0, 41, "What would you like to evaluate?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case TAMING:
 		target(s, 0, 1, 0, 42, "Tame which animal?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case HIDING:
 		Skills->Hide(s);
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case STEALTH:
 		Skills->Stealth(s);
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case DETECTINGHIDDEN:
 		target(s, 0, 1, 0, 77, "Where do you wish to search for hidden characters?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case PEACEMAKING:
 		Skills->PeaceMaking(s);
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case PROVOCATION:
 		target(s, 0, 1, 0, 79, "Whom do you wish to incite?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case ENTICEMENT:
 		target(s, 0, 1, 0, 81, "Whom do you wish to entice?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case SPIRITSPEAK:
 		Skills->SpiritSpeak(s);
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case STEALING:
 		if (SrvParms->rogue)
 		{
 			target(s,0,1,0,205, "What do you wish to steal?");
-			SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+			SetSkillDelay(pc_currchar);
 			return;
 		} else {
 			sysmessage(s, "That skill has been disabled.");
@@ -1468,39 +1471,39 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 		}
 	case INSCRIPTION:
 		target(s, 0, 1, 0, 160, "What do you wish to place a spell on?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case TRACKING:
 		Skills->TrackingMenu(s,TRACKINGMENUOFFSET);
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case BEGGING:
 		target(s, 0, 1, 0, 152, "Whom do you wish to annoy?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case ANIMALLORE:
 		target(s, 0, 1, 0, 153, "What animal do you wish to get information about?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case FORENSICS:
 		target(s, 0, 1, 0, 154, "What corpse do you want to examine?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 	case POISONING:
 		target(s, 0, 1, 0, 155, "What poison do you want to apply?");
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 
 	case TASTEID:
          target(s, 0, 1, 0, 70, "What do you want to taste?");
-         SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+         SetSkillDelay(pc_currchar);
          return;
 
 	case MEDITATION:  //Morrolan - Meditation
 		if(SrvParms->armoraffectmana)
 		{
 			Skills->Meditation(s);
-			SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+			SetSkillDelay(pc_currchar);
 		}
 		else sysmessage(s, "Meditation is turned off.  Tell your GM to enable ARMOR_AFFECT_MANA_REGEN in server.scp to enable it.");
 		return;
@@ -1510,7 +1513,7 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 */
 	case CARTOGRAPHY:
 		Skills->Cartography(s);
-		SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+		SetSkillDelay(pc_currchar);
 		return;
 //	END OF: By Polygon
 	default:
@@ -1979,7 +1982,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	{
 		itemmake[s].Mat1id=0x0E34; 
 		itemmake[s].needs=1; 
-		itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), 0x0E34); 
+		itemmake[s].has = getamount(pc_currchar, 0x0E34); 
 		itemmake[s].minskill=(cir-1)*100;	//set range values based on scroll level
 		itemmake[s].maxskill=(cir+2)*100;
 
@@ -2381,8 +2384,10 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 			sysmessage(s1, "You should empty the butte first!");
 			return;
 		}
-		if (type==1) arrowsquant=getamount(DEREF_P_CHAR(pc_currchar), 0x0F3F);
-		else arrowsquant=getamount(DEREF_P_CHAR(pc_currchar), 0x1BFB);
+		if (type==1) 
+			arrowsquant=getamount(pc_currchar, 0x0F3F);
+		else 
+			arrowsquant=getamount(pc_currchar, 0x1BFB);
 		if (arrowsquant==0) 
 		{
 			sysmessage(s1, "You have nothing to fire!");
@@ -2513,7 +2518,7 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 			updatestats(target,1);//update
 			sysmessage(s,"Your spiritual forces disturb the enemy!");
 			sysmessage(calcSocketFromChar(target),"A damned soul is disturbing your mind!");
-			SetSkillDelay(DEREF_P_CHAR(pc_currchar));
+			SetSkillDelay(pc_currchar);
 
 			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name);
 					
@@ -2673,11 +2678,11 @@ int cSkills::GetAntiMagicalArmorDefence(int p)
 void cSkills::Snooping(P_CHAR player, P_ITEM container)
 {
 
-	UOXSOCKET s = calcSocketFromChar(DEREF_P_CHAR(player));
+	UOXSOCKET s = calcSocketFromChar(player);
 	P_CHAR pc_owner = GetPackOwner(container);
 	if (pc_owner->isGMorCounselor())
 	{
-		UOXSOCKET owner_sock = calcSocketFromChar(DEREF_P_CHAR(pc_owner));
+		UOXSOCKET owner_sock = calcSocketFromChar(pc_owner);
 		sysmessage(s, "You can't peek into that container or you'll be jailed.");// AntiChrist
 		sprintf((char*)temp, "%s is trying to snoop you!", player->name);
 		sysmessage(owner_sock, (char*)temp);
@@ -2687,14 +2692,12 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 	{
 		backpack(s, container->serial);
 		sysmessage(s, "You successfully peek into that container.");
-		// Karma(currchar[s],-1,-2000);//AntiChrist
-		// criminal(currchar[s]);//AntiChrist
 	}
 	else
 	{
 		sysmessage(s, "You failed to peek into that container.");
 		if (player->isNpc())
-			npctalk(s, DEREF_P_CHAR(player), "Art thou attempting to disturb my privacy?", 0);
+			npctalk(s, player, "Art thou attempting to disturb my privacy?", 0);
 		else
 		{
 			sprintf((char*)temp, "You notice %s trying to peek into your pack!", player->name);

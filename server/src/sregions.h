@@ -73,7 +73,7 @@ extern cRespawn	*Respawn;
 bool doregionspawn(int r);
 void loadspawnregions();//Zippy
 void loadregions();
-void checkregion(int i);
+void checkregion(P_CHAR pc_i);
 unsigned char calcRegionFromXY(int x, int y);
 
 #endif

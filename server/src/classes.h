@@ -73,7 +73,7 @@ public:
 	void CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime);
 	void CombatHit(int a, int d, unsigned int currenttime, short los);
 	void DoCombat(int a, unsigned int currenttime);
-	void SpawnGuard( CHARACTER s, CHARACTER i, int x, int y, signed char z);
+	void SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z);
 };
 
 class cCommands
@@ -313,7 +313,6 @@ public:
 	void BuildCannon(int s);
 	bool CheckMagicReflect(CHARACTER i);
 	P_CHAR CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender);
-	void MagicDamage(int p, int amount);
 	void MagicDamage(P_CHAR pc, int amount);
 	void SpellFail(int s);
 	char SubtractMana(P_CHAR pc, int mana);

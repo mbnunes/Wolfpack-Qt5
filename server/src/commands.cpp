@@ -280,7 +280,7 @@ void cCommands::MakeShop(int c)
 	pc_c->shop=1;
 	if (pc_c->GetItemOnLayer(0x1A) == NULL)
 	{
-		P_ITEM p1A=Items->SpawnItem(c,1,"#",0,0x2AF8,0,0);
+		P_ITEM p1A = Items->SpawnItem(pc_c,1,"#",0,0x2AF8,0,0);
 		if(p1A)
 		{
 			p1A->SetContSerial(pc_c->serial);
@@ -292,7 +292,7 @@ void cCommands::MakeShop(int c)
 	
 	if (pc_c->GetItemOnLayer(0x1B) == NULL)
 	{
-		P_ITEM p1B=Items->SpawnItem(c,1,"#",0,0x2AF8,0,0);
+		P_ITEM p1B = Items->SpawnItem(pc_c,1,"#",0,0x2AF8,0,0);
 		if(p1B)
 		{
 			p1B->SetContSerial(pc_c->serial);
@@ -304,7 +304,7 @@ void cCommands::MakeShop(int c)
 	
 	if (pc_c->GetItemOnLayer(0x1C) == NULL)
 	{
-		P_ITEM p1C=Items->SpawnItem(c,1,"#",0,0x2AF8,0,0);
+		P_ITEM p1C=Items->SpawnItem(pc_c,1,"#",0,0x2AF8,0,0);
 		if(p1C)
 		{
 			p1C->SetContSerial(pc_c->serial);
@@ -771,7 +771,7 @@ void cCommands::AddHere(int s, char z)
 	Map->SeekTile(id, &tile);
 	if (tile.flag2&0x08) pileable=1;
 	
-	P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", pileable, id, 0, 0);
+	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0, 0);
 	if(pi)
 	{
 		P_CHAR pc_currchar = currchar[s];

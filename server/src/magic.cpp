@@ -703,12 +703,6 @@ char cMagic::CheckResist(CHARACTER attacker, CHARACTER defender, int circle)
 // History:	Unknown
 // Purpose:	Calculate and inflict magic damage.
 //
-void cMagic::MagicDamage(CHARACTER p, int amount)
-{
-	P_CHAR pc = MAKE_CHAR_REF(p);
-	MagicDamage(pc, amount);
-}
-
 void cMagic::MagicDamage(P_CHAR pc, int amount)
 {
 	if ( pc->priv2&0x02  &&  pc->effDex() > 0 )
@@ -798,10 +792,10 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timec
 					if (mapitem->id()==0x3996 || mapitem->id()==0x398C)
 					{
 						if (!CheckResist(-1, DEREF_P_CHAR(pc), 4))
-							MagicDamage(DEREF_P_CHAR(pc), mapitem->morex/100);
+							MagicDamage(pc, mapitem->morex/100);
 						else
-							MagicDamage(DEREF_P_CHAR(pc), mapitem->morex/200);
-						soundeffect2(DEREF_P_CHAR(pc), 2, 8);
+							MagicDamage(pc, mapitem->morex/200);
+						soundeffect2(pc, 0x0208);
 						return; //Ripper
 					} else if (mapitem->id()==0x3915 || mapitem->id()==0x3920)
 					{//Poison Field
@@ -813,13 +807,13 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timec
 								PoisonDamage(DEREF_P_CHAR(pc),3); // gm mages can cast greater poison field, LB
 						} else PoisonDamage(DEREF_P_CHAR(pc),1); // cant be completly resited
 						
-						soundeffect2(DEREF_P_CHAR(pc), 2, 8);
+						soundeffect2(pc, 0x0208);
 						return; //Ripper
 					} else if (mapitem->id()==0x3979 || mapitem->id()==0x3967)
 					{//Para Field
 						if (!CheckResist(-1, DEREF_P_CHAR(pc), 6))
 							tempeffect(pc, pc, 1, 0, 0, 0);
-						soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x04);
+						soundeffect2(pc, 0x0204);
 						return; //Ripper
 					}
 					break;
@@ -860,12 +854,13 @@ void cMagic::BoxSpell(UOXSOCKET s, int& x1, int& x2, int& y1, int& y2, int& z1, 
 void cMagic::MagicTrap(PLAYER s, P_ITEM pTrap)
 {
 	if (!pTrap) return;
+	P_CHAR pc = MAKE_CHAR_REF(s);
 	staticeffect(s, 0x36, 0xB0, 0x09, 0x09);
-	soundeffect2(s, 0x02, 0x07);
+	soundeffect2(pc, 0x0207);
 	if(CheckResist(-1, s, 4)) 
-		MagicDamage(s,pTrap->moreb2);
+		MagicDamage(pc,pTrap->moreb2);
 	else 
-		MagicDamage(s,pTrap->moreb2/2);
+		MagicDamage(pc,pTrap->moreb2/2);
 	pTrap->moreb1=0;
 	pTrap->moreb2=0;
 	pTrap->moreb3=0;
@@ -879,29 +874,30 @@ void cMagic::MagicTrap(PLAYER s, P_ITEM pTrap)
 char cMagic::CheckReagents(CHARACTER s, reag_st reagents)
 {
 	reag_st failmsg;
+	P_CHAR pc = MAKE_CHAR_REF(s);
 
-	if (chars[s].priv2&0x80) return 1;
+	if (pc->priv2&0x80) return 1;
 
 	memset(&failmsg,0,sizeof(reag_st)); // set all members to 0
 
-	if (reagents.ash!=0 && getamount(s, 0x0F8C)<reagents.ash)
+	if (reagents.ash!=0 && getamount(pc, 0x0F8C)<reagents.ash)
 		failmsg.ash=1;
-	if (reagents.drake!=0 && getamount(s, 0x0F86)<reagents.drake)
+	if (reagents.drake!=0 && getamount(pc, 0x0F86)<reagents.drake)
 		failmsg.drake=1;
-	if (reagents.garlic!=0 && getamount(s, 0x0F84)<reagents.garlic)
+	if (reagents.garlic!=0 && getamount(pc, 0x0F84)<reagents.garlic)
 		failmsg.garlic=1;
-	if (reagents.ginseng!=0 && getamount(s, 0x0F85)<reagents.ginseng)
+	if (reagents.ginseng!=0 && getamount(pc, 0x0F85)<reagents.ginseng)
 		failmsg.ginseng=1;
-	if (reagents.moss!=0 && getamount(s, 0x0F7B)<reagents.moss)
+	if (reagents.moss!=0 && getamount(pc, 0x0F7B)<reagents.moss)
 		failmsg.moss=1;
-	if (reagents.pearl!=0 && getamount(s, 0x0F7A)<reagents.pearl)
+	if (reagents.pearl!=0 && getamount(pc, 0x0F7A)<reagents.pearl)
 		failmsg.pearl=1;
-	if (reagents.shade!=0 && getamount(s, 0x0F88)<reagents.shade)
+	if (reagents.shade!=0 && getamount(pc, 0x0F88)<reagents.shade)
 		failmsg.shade=1;
-	if (reagents.silk!=0 && getamount(s, 0x0F8D)<reagents.silk)
+	if (reagents.silk!=0 && getamount(pc, 0x0F8D)<reagents.silk)
 		failmsg.silk=1;
 
-	int fail = RegMsg(s,failmsg);
+	int fail = RegMsg(DEREF_P_CHAR(pc),failmsg);
 
 	return fail;
 }
@@ -949,12 +945,13 @@ int cMagic::RegMsg(CHARACTER s, reag_st failmsg)
 void cMagic::PFireballTarget(int i, int k, int j) //j = % dammage
 {
 	int dmg;
+	P_CHAR pc = MAKE_CHAR_REF(k);
 	movingeffect(i, k, 0x36, 0xD5, 0x05, 0x00, 0x01);
 	soundeffect2(i, 0x1, 0x5E);
 	// do we have to calculate attacker hp percentage,
 	// or defender hp percentage?!?!?!
-	dmg=(int)(((float)chars[k].hp/100) * j);
-	MagicDamage(k, dmg);
+	dmg=(int)(((float)pc->hp/100) * j);
+	MagicDamage(pc, dmg);
 }
 
 ///////////////////
@@ -973,7 +970,7 @@ void cMagic::SpellFail(UOXSOCKET s)
 	//disappearing from the other clients. solarin
 	
 	if ( rand()%5==2 ) doStaticEffect(DEREF_P_CHAR(pc_currchar), 99); else staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x35, 0, 30);
-	soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x5C);
+	soundeffect2(pc_currchar, 0x005C);
 	npcemote(s, DEREF_P_CHAR(pc_currchar), "The spell fizzles.",0);
 }
 
@@ -999,7 +996,7 @@ void cMagic::NPCLightningTarget(CHARACTER nAttacker, CHARACTER nDefender)
 	CHARACTER trg = DEREF_P_CHAR(pc_trg);
 	SubtractMana(pc_Attacker, 11);
 	bolteffect(trg, true);
-	soundeffect2(trg, 0x00, 0x29);
+	soundeffect2(pc_trg, 0x0029);
 
 	if (CheckResist(nAttacker, trg, 4))
 	{
@@ -1071,7 +1068,7 @@ void cMagic::NPCDispel(CHARACTER s, CHARACTER i)
 	P_CHAR pc_s = MAKE_CHARREF_LR(s);
 	if (!Skills->CheckSkill(pc_s, MAGERY, loskill, hiskill))
 	{
-		UOXSOCKET ss=calcSocketFromChar(DEREF_P_CHAR(pc_s));
+		UOXSOCKET ss=calcSocketFromChar(pc_s);
 		if (ss>-1)
 		{
 			SpellFail(ss);
@@ -1107,7 +1104,7 @@ void cMagic::NPCEBoltTarget(CHARACTER s, CHARACTER t)
 
 	SubtractMana(pc_attacker, 20);
 	doMoveEffect(trg, t, 42);
-	soundeffect2(trg, 0x2, 0x0A);
+	soundeffect2(pc_target, 0x020A);
 
 	if (CheckResist(s, t, 6))
 	{
@@ -1147,11 +1144,11 @@ void cMagic::NPCCannonTarget(CHARACTER s, CHARACTER t)
 			{
 				if (CheckParry(DEREF_P_CHAR(mapchar), 6))
 				{
-					MagicDamage(DEREF_P_CHAR(mapchar), chars[s].skill[TACTICS]/50);
+					MagicDamage(mapchar, chars[s].skill[TACTICS]/50);
 				}
 				else
 				{
-					MagicDamage(DEREF_P_CHAR(mapchar), chars[s].skill[TACTICS]/25);
+					MagicDamage(mapchar, chars[s].skill[TACTICS]/25);
 				}
 			}
 		}//if mapitem
@@ -1194,7 +1191,7 @@ void cMagic::NPCFlameStrikeTarget(CHARACTER s, CHARACTER t)
 
 	SubtractMana(pc_attacker, 40);
 	doStaticEffect(trg, 51);
-	soundeffect2(trg, 0x02, 0x08);
+	soundeffect2(pc_target, 0x0208);
 
 	if (CheckResist(s, t, 7))
 	{
@@ -1233,7 +1230,7 @@ void cMagic::MagicArrow(CHARACTER attacker, CHARACTER defender, bool usemana)
 	CHARACTER trg = DEREF_P_CHAR(pc_target);
 
 	doMoveEffect(trg, defender, 5);
-	soundeffect2(trg, 0x1, 0xE5);
+	soundeffect2(pc_target, 0x01E5);
 	if (usemana)
 		SubtractMana(pc_attacker, 4);
 	if (CheckResist(attacker, trg, 1))
@@ -1264,7 +1261,7 @@ void cMagic::ClumsySpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 		SubtractMana(pc_attacker, 4);
 
 	doStaticEffect(defender, 1);
-	soundeffect2(defender, 0x01, 0xDF);
+	soundeffect2(pc_defender, 0x01DF);
 	if (CheckResist(attacker, defender, 1)) return;
 	tempeffect(pc_attacker, pc_defender, 3, pc_attacker->skill[MAGERY]/100, 0, 0);
 	return;
@@ -1285,7 +1282,7 @@ void cMagic::FeebleMindSpell(CHARACTER attacker, CHARACTER defender, bool useman
 		SubtractMana(pc_attacker, 4);
 
 	doStaticEffect(DEREF_P_CHAR(pc_target), 3);
-	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xE4);
+	soundeffect2(pc_target, 0x01E4);
 	if (CheckResist(attacker, DEREF_P_CHAR(pc_target), 1)) return;
 	tempeffect(pc_attacker, pc_target, 4, pc_attacker->skill[MAGERY]/100, 0, 0);
 	return;
@@ -1306,7 +1303,7 @@ void cMagic::WeakenSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 		SubtractMana(pc_attacker, 4);
 	
 	doStaticEffect(DEREF_P_CHAR(pc_target), 8);
-	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xE6);
+	soundeffect2(pc_target, 0x01E6);
 	if(CheckResist(attacker, DEREF_P_CHAR(pc_target), 1)) return;
 	tempeffect(pc_attacker, pc_target, 5, pc_attacker->skill[MAGERY]/100, 0, 0);
 	return;
@@ -1327,14 +1324,14 @@ void cMagic::HarmSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 		SubtractMana(pc_attacker, 6);
 
 	doStaticEffect(DEREF_P_CHAR(pc_target), 12);
-	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xF1);
+	soundeffect2(pc_target, 0x01F1);
 	if (CheckResist(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_target), 2))
 	{
-		MagicDamage(defender, pc_attacker->skill[MAGERY]/500+1);
+		MagicDamage(pc_defender, pc_attacker->skill[MAGERY]/500+1);
 	}
 	else
 	{
-		MagicDamage(defender, pc_attacker->skill[MAGERY]/250+RandomNum(1,2));
+		MagicDamage(pc_defender, pc_attacker->skill[MAGERY]/250+RandomNum(1,2));
 	}
 	return;
 }
@@ -1357,7 +1354,7 @@ void cMagic::FireballSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 		SubtractMana(pc_attacker, 9);
 
 	doMoveEffect(attacker, trg, 18);
-	soundeffect2(attacker, 0x1, 0x5E);
+	soundeffect2(pc_attacker, 0x015E);
 	if (CheckResist(attacker, trg, 3)) 
 		MagicDamage(pc_target, pc_attacker->skill[MAGERY]/280+1);
 	else 
@@ -1382,7 +1379,7 @@ void cMagic::CurseSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 		SubtractMana(pc_attacker, 11);
 
 	doStaticEffect(DEREF_P_CHAR(pc_target), 27);
-	soundeffect2(DEREF_P_CHAR(pc_target), 0x01, 0xE1);
+	soundeffect2(pc_target, 0x01E1);
 	if(CheckResist(attacker, DEREF_P_CHAR(pc_target), 1)) return;
 	j = pc_attacker->skill[MAGERY]/100;
 	tempeffect(pc_attacker, pc_target, 12, j, j, j);
@@ -1396,6 +1393,7 @@ void cMagic::CurseSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 //
 void cMagic::LightningSpellItem(CHARACTER attaker, CHARACTER defender)
 {
+	P_CHAR pc_defender = MAKE_CHAR_REF(defender);
 	if (CheckMagicReflect(defender))
 	{//AntiChrist
 			int t=defender;
@@ -1403,14 +1401,14 @@ void cMagic::LightningSpellItem(CHARACTER attaker, CHARACTER defender)
 			attaker=t;
 	}
 	bolteffect(defender, true);
-	soundeffect2(defender, 0x00, 0x29);
+	soundeffect2(pc_defender, 0x0029);
 	if (CheckResist(attaker, defender, 4))
 	{
-		MagicDamage(defender, chars[attaker].skill[MAGERY]/180+RandomNum(1,2));
+		MagicDamage(pc_defender, chars[attaker].skill[MAGERY]/180+RandomNum(1,2));
 	}
 	else
 	{
-		MagicDamage(defender, chars[attaker].skill[MAGERY]/90+RandomNum(1,5));
+		MagicDamage(pc_defender, chars[attaker].skill[MAGERY]/90+RandomNum(1,5));
 	}
 	return;
 }
@@ -1434,7 +1432,7 @@ void cMagic::MindBlastSpell(CHARACTER attacker, CHARACTER defender, bool usemana
 		SubtractMana(pc_attacker, 14);
 
 	doStaticEffect(trg, 37);
-	soundeffect2(trg, 0x02, 0x13);
+	soundeffect2(pc_target, 0x0213);
 	if (pc_attacker->in>pc_target->in)
 	{
 		if (CheckResist(attacker, trg, 5))
@@ -1477,7 +1475,7 @@ void cMagic::ParalyzeSpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 
 	if (CheckResist(attacker, DEREF_P_CHAR(pc_target), 5)) return;
 	doStaticEffect(DEREF_P_CHAR(pc_target), 38);
-	soundeffect2(DEREF_P_CHAR(pc_target), 0x02, 0x04);
+	soundeffect2(pc_target, 0x0204);
 	tempeffect(pc_attacker, pc_target, 1, 0, 0, 0);
 	return;
 }
@@ -1501,7 +1499,7 @@ void cMagic::ExplosionSpell(CHARACTER attacker, CHARACTER defender, bool usemana
 
 	
 	doStaticEffect(trg, 43);
-	soundeffect2(trg, 0x02, 0x07);
+	soundeffect2(pc_target, 0x0207);
 	if (CheckResist(attacker, trg, 6))
 	{
 		MagicDamage(pc_target, pc_attacker->skill[MAGERY]/120+RandomNum(1,5));
@@ -1520,6 +1518,7 @@ void cMagic::ExplosionSpell(CHARACTER attacker, CHARACTER defender, bool usemana
 //
 void cMagic::FlameStrikeSpellItem(CHARACTER attaker, CHARACTER defender)
 {
+	P_CHAR pc_defender = MAKE_CHAR_REF(defender);
 	if (CheckMagicReflect(defender))
 	{//AntiChrist
 			int t=defender;
@@ -1527,9 +1526,9 @@ void cMagic::FlameStrikeSpellItem(CHARACTER attaker, CHARACTER defender)
 			attaker=t;
 	}
 	doStaticEffect(defender, 51);
-	soundeffect2(defender, 0x02, 0x08);
+	soundeffect2(pc_defender, 0x0208);
 
-	MagicDamage(defender, chars[attaker].skill[MAGERY]/40+RandomNum(1,25));
+	MagicDamage(pc_defender, chars[attaker].skill[MAGERY]/40+RandomNum(1,25));
 	return;
 }
 
@@ -1714,7 +1713,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 {
 	// for LocationTarget spell like ArchCure, ArchProtection etc...
 	int	j, x1, x2, y1, y2, z1, z2, range, distx, disty;
-	unsigned int ii;
 	int	StartGrid;
 	int	getcell;
 	int dmg, dmgmod;
@@ -1727,11 +1725,10 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	int curSpell = pc_currchar->spell;
 	short xo,yo;
 	signed char zo;
-	bool b;
 	
 	int calcreg;
 	int defender;
-	unsigned long loopexit=0;
+	unsigned long loopexit = 0;
 	int a;
 	double d;
 	bool recalled;
@@ -1742,7 +1739,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	int snr;
 	bool char_selected, item_selected, terrain_selected;
 	
-	if (pc_currchar->dead==1) return;
+	if (pc_currchar->dead) 
+		return;
 	if (currentSpellType[s]==0)
 	{
 		loskill=spells[curSpell].loskill;
@@ -1787,8 +1785,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							{
 								sysmessage(s, "You are too heavy to do that!");
 								sysmessage(s, "You feel drained from the attempt.");
-								statwindow(s, DEREF_P_CHAR(pc_currchar));
-								recalled=false;
+								statwindow(s, pc_currchar);
+								recalled = false;
 							}
 							else
 							{										
@@ -1802,7 +1800,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								teleport((pc_currchar));
 								doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
 								sysmessage(s,"You have recalled from the rune.");
-								recalled=true;
+								recalled = true;
 							}
 							break;
 							//////////// (45) MARK //////////////////
@@ -1961,7 +1959,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										break;
 										//////////// (5) MAGIC ARROW ////////////
 					case 5:
-						MagicDamage(DEREF_P_CHAR(pc_defender), (1+(rand()%1)+1)*(pc_currchar->skill[MAGERY]/2000+1));
+						MagicDamage(pc_defender, (1+(rand()%1)+1)*(pc_currchar->skill[MAGERY]/2000+1));
 						break;
 						//////////// (6) NIGHT SIGHT ////////////
 					case 6:
@@ -1998,9 +1996,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (12) HARM //////////////////
 					case 12:
 						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2))
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/500+1);
+							MagicDamage(pc_defender, pc_currchar->skill[MAGERY]/500+1);
 						else
-							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(249+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,2));
+							MagicDamage(pc_defender, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(249+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,2));
 						break;
 						//////////// (15) PROTECTION ////////////
 					case 15:
@@ -2023,9 +2021,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (18) FIREBALL //////////////
 					case 18:
 						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3))
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/280+1);
+							MagicDamage(pc_defender, pc_currchar->skill[MAGERY]/280+1);
 						else
-							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(139+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,4));
+							MagicDamage(pc_defender, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(139+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,4));
 						break;
 						//////////// (20) POISON ////////////////
 					case 20:
@@ -2061,9 +2059,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					case 30:
 						bolteffect(DEREF_P_CHAR(pc_defender), true);
 						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4))
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/180+RandomNum(1,2));
+							MagicDamage(pc_defender, pc_currchar->skill[MAGERY]/180+RandomNum(1,2));
 						else
-							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(89+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,5));
+							MagicDamage(pc_defender, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(89+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,5));
 						break;
 						//////////// (31) MANA DRAIN ////////////
 					case 31:
@@ -2079,16 +2077,16 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if (pc_currchar->in>pc_defender->in)
 						{
 							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5))
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/4);
+								MagicDamage(pc_defender, (pc_currchar->in-pc_defender->in)/4);
 							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/2);
+								MagicDamage(pc_defender, (pc_currchar->in-pc_defender->in)/2);
 						}
 						else
 						{
 							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 5))
-								MagicDamage(DEREF_P_CHAR(pc_currchar), (pc_defender->in-pc_currchar->in)/4);
+								MagicDamage(pc_currchar, (pc_defender->in-pc_currchar->in)/4);
 							else
-								MagicDamage(DEREF_P_CHAR(pc_currchar), (pc_defender->in-pc_currchar->in)/2);
+								MagicDamage(pc_currchar, (pc_defender->in-pc_currchar->in)/2);
 						}
 						cMagic::afterParticles(37, DEREF_P_CHAR(pc_currchar));
 						break;
@@ -2110,17 +2108,17 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (42) ENERGY BOLT ///////////
 					case 42:
 						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120);
+							MagicDamage(pc_defender, pc_currchar->skill[MAGERY]/120);
 						else
-							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));						
+							MagicDamage(pc_defender, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));						
 						
 						break;
 						//////////// (43) EXPLOSION /////////////
 					case 43:
 						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120+RandomNum(1,5));
+							MagicDamage(pc_defender, pc_currchar->skill[MAGERY]/120+RandomNum(1,5));
 						else
-							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));
+							MagicDamage(pc_defender, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));
 						break;
 						//////////// (44) INVISIBILITY //////////
 					case 44:						
@@ -2134,9 +2132,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (51) FLAMESTRIKE ///////////
 					case 51:
 						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/80);
+							MagicDamage(pc_defender, pc_currchar->skill[MAGERY]/80);
 						else
-							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,25));
+							MagicDamage(pc_defender, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,25));
 						break;
 						//////////// (53) MANA VAMPIRE //////////
 					case 53:
@@ -2152,8 +2150,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								pc_defender->mn-=40;
 								pc_currchar->mn+=40;
 							}
-							updatestats((pc_defender), 1);
-							updatestats((pc_currchar), 1);
+							updatestats(pc_defender, 1);
+							updatestats(pc_currchar, 1);
 						}
 						break;
 						//////////// (59) RESURRECTION //////////
@@ -2161,7 +2159,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if (pc_defender->dead && online(pc_defender))
 						{
 							cMagic::doStaticEffect(DEREF_P_CHAR(pc_defender), curSpell);
-							b=Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_defender));		
+							Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_defender));		
 							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z);
 							return;
 						}
@@ -2171,9 +2169,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (66) CANNON FIRING /////////
 					case 66:
 						if (CheckParry(DEREF_P_CHAR(pc_defender), 6))
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/50);
+							MagicDamage(pc_defender, pc_currchar->skill[TACTICS]/50);
 						else
-							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/25);
+							MagicDamage(pc_defender, pc_currchar->skill[TACTICS]/25);
 						break;
 					default:
 						clConsole.send("MAGIC-ERROR: Unknown CharacterTarget spell %i, magic.cpp\n", curSpell );
@@ -2314,7 +2312,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									{
 										cMagic::doStaticEffect(DEREF_P_CHAR(mapchar), 25);										
 										// tempeffect(DEREF_P_CHAR(pc_currchar), ii, 2, 0, 0, 0); // lb bugfix ?? why does this cll night-sight effect
-										soundeffect2(DEREF_P_CHAR(mapchar), 0x01, 0xE9);
+										soundeffect2(mapchar, 0x01E9);
 										mapchar->poisoned=0;
 									}
 									else
@@ -2445,7 +2443,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										if (mapchar->isNpc()) 
 											npcattacktarget(DEREF_P_CHAR(mapchar), DEREF_P_CHAR(pc_currchar));
 										doStaticEffect(DEREF_P_CHAR(mapchar), curSpell);
-										soundeffect2(DEREF_P_CHAR(mapchar), 0x01, 0xFB);
+										soundeffect2(mapchar, 0x01FB);
 										if(CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 6)) j=pc_currchar->skill[MAGERY]/200;
 										else j=pc_currchar->skill[MAGERY]/75;
 										tempeffect(pc_currchar, mapchar, 12, j, j, j);
@@ -2548,25 +2546,25 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										if (mapchar->isNpc()) 
 											npcattacktarget(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar));
 										bolteffect(DEREF_P_CHAR(mapchar),true);
-										soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x29); //Homey fix for chainlightning sound
+										soundeffect2(pc_currchar, 0x0029); //Homey fix for chainlightning sound
 										
-										int def, att, ii;
+										P_CHAR pc_defender = NULL, pc_attacker = NULL, pc_ii = NULL;
 										if(CheckMagicReflect(DEREF_P_CHAR(mapchar)))//AntiChrist
 										{
-											def=DEREF_P_CHAR(pc_currchar);
-											att = ii = DEREF_P_CHAR(mapchar);
+											pc_defender = pc_currchar;
+											pc_attacker = pc_ii = mapchar;
 										} else
 										{
-											def = ii = DEREF_P_CHAR(mapchar);
-											att=DEREF_P_CHAR(pc_currchar);
+											pc_defender = pc_ii = mapchar;
+											pc_attacker = pc_currchar;
 										}
-										if (CheckResist(att, def, 7))
+										if (CheckResist(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_defender), 7))
 										{
-											MagicDamage(def, chars[att].skill[MAGERY]/70);
+											MagicDamage(pc_defender, pc_attacker->skill[MAGERY]/70);
 										}
 										else
 										{
-											MagicDamage(def, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(49+1*(chars[ii].skill[MAGICRESISTANCE]/30)));
+											MagicDamage(pc_defender, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(49+1*(pc_ii->skill[MAGICRESISTANCE]/30)));
 										}
 									}
 									else
@@ -2623,7 +2621,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											return;
 										}
 										if (mapchar->isNpc()) deathstuff(DEREF_P_CHAR(mapchar)); // LB !!!!
-										soundeffect2(DEREF_P_CHAR(mapchar), 0x02, 0x04);
+										soundeffect2(mapchar, 0x0204);
 										doStaticEffect(DEREF_P_CHAR(mapchar), curSpell);
 									}
 								}
@@ -2645,7 +2643,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
 							{
-								ii = DEREF_P_CHAR(mapchar);
 								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 								(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
@@ -2659,7 +2656,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											return;
 										}
 										if (mapchar->isNpc()) npcattacktarget(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(mapchar));
-										soundeffect2(DEREF_P_CHAR(mapchar), 0x1, 0x60); //sound fix for swarm--Homey
+										soundeffect2(mapchar, 0x0160); //sound fix for swarm--Homey
 										cMagic::doMoveEffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), curSpell);
 										cMagic::doStaticEffect(DEREF_P_CHAR(mapchar), curSpell);
 										if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 7))
@@ -2711,7 +2708,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}
 						for( j=0; j<=j2; j++ )
 						{
-							P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(currchar[s]),1,"#",0,(id1<<8)+id2,0,0);
+							P_ITEM pi=Items->SpawnItem(currchar[s],1,"#",0,(id1<<8)+id2,0,0);
 							if(pi)
 							{
 								pi->priv |= 0x05;
@@ -2941,7 +2938,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								}	
 								else
 								{ 
-									if (pc->hp<=0) deathstuff(DEREF_P_CHAR(pc)); 
+									if (pc->hp<=0) 
+										deathstuff(DEREF_P_CHAR(pc)); 
 									else
 									{ 
 										if (pc->isNpc())
@@ -3662,8 +3660,9 @@ void cMagic::invisibleItemParticles(CHARACTER c, int spellNum, short x, short y,
 {
 	P_ITEM it;
 
+	P_CHAR pc = MAKE_CHAR_REF(c);
     // create a dummy item for the effect on old location 
-    it=Items->SpawnItem(c, 1, "bugalert, plz let the devteam know", 0, 0x1, 0x00, 0);					
+    it = Items->SpawnItem(pc, 1, "bugalert, plz let the devteam know", 0, 0x1, 0x00, 0);					
     it->pos.x=x;
 	it->pos.y=y;
 	it->pos.z=z;					

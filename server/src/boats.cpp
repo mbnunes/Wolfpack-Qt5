@@ -351,12 +351,12 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	pBoat->pos.z=-5;//Z in water
 	strcpy(pBoat->name,"a mast");//Name is something other than "%s's house"
 	
-	P_ITEM pTiller=Items->SpawnItem(DEREF_P_CHAR(pc_cs),1,"a tiller man",0,0x3E4E,0,0);
+	P_ITEM pTiller=Items->SpawnItem(pc_cs,1,"a tiller man",0,0x3E4E,0,0);
 	if( !pTiller ) return false;
 	pTiller->pos.z=-5;
 	pTiller->priv=0;
 
-	P_ITEM pPlankR=Items->SpawnItem(DEREF_P_CHAR(pc_cs),1,"#",0,0x3EB2,0,0);//Plank2 is on the RIGHT side of the boat
+	P_ITEM pPlankR=Items->SpawnItem(pc_cs,1,"#",0,0x3EB2,0,0);//Plank2 is on the RIGHT side of the boat
 	if( !pPlankR ) return false;
 	pPlankR->type=117;
 	pPlankR->type2=3;
@@ -367,7 +367,7 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	pPlankR->pos.z=-5;
 	pPlankR->priv=0;//Nodecay
 
-	P_ITEM pPlankL=Items->SpawnItem(DEREF_P_CHAR(pc_cs),1,"#",0,0x3EB1,0,0);//Plank1 is on the LEFT side of the boat
+	P_ITEM pPlankL=Items->SpawnItem(pc_cs,1,"#",0,0x3EB1,0,0);//Plank1 is on the LEFT side of the boat
 	if( !pPlankL ) return false;
 	pPlankL->type=117;//Boat type
 	pPlankL->type2=3;//Plank sub type
@@ -378,7 +378,7 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	pPlankL->pos.z=-5;
 	pPlankL->priv=0;
 
-	P_ITEM pHold=Items->SpawnItem(DEREF_P_CHAR(pc_cs),1,"#",0,0x3EAE,0,0);
+	P_ITEM pHold=Items->SpawnItem(pc_cs,1,"#",0,0x3EAE,0,0);
 	if( !pHold ) return false;
 	pHold->more1=pBoat->ser1;//Lock this too :-)
 	pHold->more2=pBoat->ser2;

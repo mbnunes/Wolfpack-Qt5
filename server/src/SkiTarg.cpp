@@ -90,9 +90,9 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			RefreshItem(npi);
 			Items->DeleItem(pi_bolts);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
-			statwindow(s,DEREF_P_CHAR(pc_currchar));
+			statwindow(s, pc_currchar);
 			if (!npi) return;
-			amt=itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), npi->id());
+			amt=itemmake[s].has=getamount(pc_currchar, npi->id());
 				if(amt<1)
 				{ 
 					sysmessage(s,"You don't have enough material to make anything.");
@@ -109,7 +109,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 		{
 			if (CheckInPack(s,pi_bolts))
 			{
-				int amt=itemmake[s].has = getamount(DEREF_P_CHAR(pc_currchar), pi_bolts->id());
+				int amt=itemmake[s].has = getamount(pc_currchar, pi_bolts->id());
 				if(amt<1)
 				{ 
 					sysmessage(s,"You don't have enough material to make anything.");
@@ -141,8 +141,8 @@ void cSkills::Fletching(int s)
 			if (CheckInPack(s,pi))
 			{
 				itemmake[s].Mat2id=pi->id();	// 2nd material
-				itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), itemmake[s].Mat1id);		// count both materials
-				itemmake[s].has2=getamount(DEREF_P_CHAR(pc_currchar), itemmake[s].Mat2id);
+				itemmake[s].has=getamount(pc_currchar, itemmake[s].Mat1id);		// count both materials
+				itemmake[s].has2=getamount(pc_currchar, itemmake[s].Mat2id);
 				MakeMenu(s,60,BOWCRAFT);
 			}
 			return;
@@ -165,7 +165,7 @@ void cSkills::BowCraft(int s)
 		{
 			if (CheckInPack(s,pi))
 			{
-				if((itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), pi->id())) < 2)
+				if((itemmake[s].has=getamount(pc_currchar, pi->id())) < 2)
 					sysmessage(s,"You don't have enough material to make anything.");
 				else 
 				{
@@ -198,7 +198,7 @@ void cSkills::Carpentry(int s)
 		   if (CheckInPack(s,pi))
 		   {
 			  itemmake[s].Mat1id = pi->id();
-			  itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar),pi->id());
+			  itemmake[s].has=getamount(pc_currchar,pi->id());
 			  short mm = IsLog(pi->id()) ? 19 : 20; // 19 = Makemenu to create boards from logs
 			  MakeMenu(s,mm,CARPENTRY);
 		   }
@@ -988,7 +988,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		int numore=pi->amount*2;			// one ore gives two ingots
 		sprintf(tmp,"%s Ingot",orename);
 		
-		cItem* Ingot=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),numore,tmp,1,id, color,1);
+		cItem* Ingot = Items->SpawnItem(pc_currchar, numore, tmp, 1, id, color, 1);
 		if (Ingot)
 		{
 			Ingot->weight = 20;	// that's 0.2 stone
@@ -1049,7 +1049,7 @@ void cSkills::SmeltOre(int s)
 	}
 	pc_currchar->smeltitem = INVALID_SERIAL;
 	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
-	statwindow(s, DEREF_P_CHAR(pc_currchar));		// Ison 2-20-99
+	statwindow(s, pc_currchar);		// Ison 2-20-99
 }
 
 void cSkills::Wheel(int s, int mat)//Spinning wheel
@@ -1476,7 +1476,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		if (CheckSkill((Player), PROVOCATION, 0, 1000))
 		{
 			if (Player->inGuardedArea())
-				Combat->SpawnGuard(DEREF_P_CHAR(Player), DEREF_P_CHAR(Player), Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
+				Combat->SpawnGuard(Player, Player, Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
 			sysmessage(s, "Your music succeeds as you start a fight.");
 		}
 		else 
@@ -1567,7 +1567,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
-			statwindow(s,DEREF_P_CHAR(pc_currchar));
+			statwindow(s, pc_currchar);
 			return;
 		}	
 		if( IsBoltOfCloth(pi->id()) )
@@ -1585,7 +1585,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
-			statwindow(s,DEREF_P_CHAR(pc_currchar));
+			statwindow(s, pc_currchar);
 			return;
 		}
 		if( IsHide(pi->id()) )
@@ -1600,7 +1600,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
-			statwindow(s,DEREF_P_CHAR(pc_currchar));
+			statwindow(s, pc_currchar);
 			return;
 		}
 		sysmessage(s,"You cannot cut anything from that item.");
@@ -2069,8 +2069,8 @@ void cSkills::TameTarget(int s)
 			{
 				switch(rand()%4)
 				{
-				case 0: npctalkall(DEREF_P_CHAR(pc_currchar), "I've always wanted a pet like you.",0); break;
-				case 1: npctalkall(DEREF_P_CHAR(pc_currchar), "Will you be my friend?",0); break;
+				case 0: npctalkall(pc_currchar, "I've always wanted a pet like you.",0); break;
+				case 1: npctalkall(pc_currchar, "Will you be my friend?",0); break;
 				case 2: sprintf((char*)temp, "Here %s.",pc->name); npctalkall(DEREF_P_CHAR(pc_currchar), (char*)temp,0); break;
 				case 3: sprintf((char*)temp, "Good %s.",pc->name); npctalkall(DEREF_P_CHAR(pc_currchar), (char*)temp,0); break;
 				default: 
@@ -2083,7 +2083,7 @@ void cSkills::TameTarget(int s)
 				sysmessage(s,"You were unable to tame it.");
 				return;
 			}
-			npctalk(s, DEREF_P_CHAR(pc_currchar), "It seems to accept you as it's master!",0);
+			npctalk(s, pc_currchar, "It seems to accept you as it's master!",0);
 			tamed=1;
 			pc->SetOwnSerial(pc_currchar->serial);
 			pc->npcWander=0;
@@ -2176,7 +2176,8 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 			
 			if (pc_npc != NULL) //lb
 			{
-				if (pc_npc->isNpc()) npctalkall(DEREF_P_CHAR(pc_npc), "Guards!! A thief is amoung us!",0);
+				if (pc_npc->isNpc()) 
+					npctalkall(pc_npc, "Guards!! A thief is amoung us!", 0);
 
 				criminal( DEREF_P_CHAR(pc_currchar) );
 
@@ -2905,7 +2906,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 			LogError("switch reached default");
 			return;
 		}
-		cItem* Ingot = Items->SpawnItem(DEREF_P_CHAR(pc),a,Name,1,0x1BF2,Color,1);
+		cItem* Ingot = Items->SpawnItem(pc, a, Name, 1, 0x1BF2, Color, 1);
 		if (Ingot)
 		{
 			Ingot->weight = 20;	// that is 0.2 stone

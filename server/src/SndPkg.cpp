@@ -1460,7 +1460,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		goxyz[18]=pc->dispz;
 		Xsend(k, goxyz, 19);
 		Weight->NewCalc(DEREF_P_CHAR(pc));	// Ison 2-20-99
-		statwindow(k, DEREF_P_CHAR(pc));	// Ison 2-20-99
+		statwindow(k, pc);	// Ison 2-20-99
 		walksequence[k]=-1;
 	}
 	for (i=0;i<now;i++) // Send the update to all players.
@@ -1507,16 +1507,17 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		}
 		if (perm[k]) dolight(k, worldcurlevel);
 	}
-	checkregion(DEREF_P_CHAR(pc));
+	checkregion(pc);
 }
 
 void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can find their corpses
 {
 	int i;
 	P_CHAR pc = MAKE_CHARREF_LR(s)
-	UOXSOCKET k = calcSocketFromChar(pc);
-
+		UOXSOCKET k = calcSocketFromChar(pc);
+	
 	for (i=0;i<now;i++)
+	{
 		if ((perm[i])&&(i!=k))
 		{
 			removeitem[1]=pc->ser1;
@@ -1525,56 +1526,59 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 			removeitem[4]=pc->ser4;
 			Xsend(i, removeitem, 5);
 		}
-		if (k!=-1)	// If a player, move them to the appropriate XYZ
-		{
-			goxyz[1]=pc->ser1;
-			goxyz[2]=pc->ser2;
-			goxyz[3]=pc->ser3;
-			goxyz[4]=pc->ser4;
-			goxyz[5]=pc->id1;
-			goxyz[6]=pc->id2;
-			ShortToCharPtr(pc->skin, &goxyz[8]);
-			goxyz[10]=0;
-			if (pc->isHidden()) goxyz[10]=0x80;
-			goxyz[11]=pc->pos.x>>8;
-			goxyz[12]=pc->pos.x%256;
-			goxyz[13]=pc->pos.y>>8;
-			goxyz[14]=pc->pos.y%256;
-			goxyz[17]=pc->dir|0x80;
-			goxyz[18]=pc->dispz;
-			Xsend(k, goxyz, 19);
-			all_items(k);
-			Weight->NewCalc(DEREF_P_CHAR(pc));	// Ison 2-20-99
-			statwindow(k, DEREF_P_CHAR(pc));	// Ison 2-20-99
-			walksequence[k]=-1;
-		}
-		for (i=0;i<now;i++) // Send the update to all players.
-		{
-			 // Dupois - had to remove the && (k!=i)), doesn update the client
-			 // Added Oct 08, 1998
-			if (perm[i])
-			{			 
-			   if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i])))
-			   {
-				 impowncreate(i, DEREF_P_CHAR(pc), 1);
-			   }
+	}
+	if (k!=-1)	// If a player, move them to the appropriate XYZ
+	{
+		goxyz[1]=pc->ser1;
+		goxyz[2]=pc->ser2;
+		goxyz[3]=pc->ser3;
+		goxyz[4]=pc->ser4;
+		goxyz[5]=pc->id1;
+		goxyz[6]=pc->id2;
+		ShortToCharPtr(pc->skin, &goxyz[8]);
+		goxyz[10]=0;
+		if (pc->isHidden()) 
+			goxyz[10]=0x80;
+		goxyz[11]=pc->pos.x>>8;
+		goxyz[12]=pc->pos.x%256;
+		goxyz[13]=pc->pos.y>>8;
+		goxyz[14]=pc->pos.y%256;
+		goxyz[17]=pc->dir|0x80;
+		goxyz[18]=pc->dispz;
+		Xsend(k, goxyz, 19);
+		all_items(k);
+		Weight->NewCalc(DEREF_P_CHAR(pc));	// Ison 2-20-99
+		statwindow(k, pc);	// Ison 2-20-99
+		walksequence[k]=-1;
+	}
+	for (i=0;i<now;i++) // Send the update to all players.
+	{
+		// Dupois - had to remove the && (k!=i)), doesn update the client
+		// Added Oct 08, 1998
+		if (perm[i])
+		{			 
+			if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i])))
+			{
+				impowncreate(i, DEREF_P_CHAR(pc), 1);
 			}
 		}
-
-		if (k!=-1)
-		{
-			AllCharsIterator iter_char;
-			for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
-			{ //Tauriel only send inrange people (walking takes care of out of view)
-				P_CHAR pc_i = iter_char.GetData();
-				if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(s, DEREF_P_CHAR(pc_i))))
-				{
-					impowncreate(k, DEREF_P_CHAR(pc_i), 1);
-				}
+	}
+	
+	if (k!=-1)
+	{
+		AllCharsIterator iter_char;
+		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+		{ //Tauriel only send inrange people (walking takes care of out of view)
+			P_CHAR pc_i = iter_char.GetData();
+			if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(s, DEREF_P_CHAR(pc_i))))
+			{
+				impowncreate(k, DEREF_P_CHAR(pc_i), 1);
 			}
-			if (perm[k]) dolight(k, worldcurlevel);
 		}
-		checkregion(DEREF_P_CHAR(pc));
+		if (perm[k]) 
+			dolight(k, worldcurlevel);
+	}
+	checkregion(pc);
 }
 
 
@@ -1585,6 +1589,7 @@ void updatechar(CHARACTER c) // If character status has been changed (Polymorph)
 	setcharflag(pc);//AntiChrist - bugfix for highlight color not being updated
 
 	for (i=0;i<now;i++)
+	{
 		if (perm[i] && inrange1p(currchar[i], c))
 		{
 			removeitem[1]=pc->ser1;
@@ -1601,8 +1606,12 @@ void updatechar(CHARACTER c) // If character status has been changed (Polymorph)
 				goxyz[5]=pc->id1;
 				goxyz[6]=pc->id2;
 				ShortToCharPtr(pc->skin, &goxyz[8]);
-				if(pc->poisoned) goxyz[10]=0x04; else goxyz[10]=0x00;	//AntiChrist -- thnx to SpaceDog
-				if (pc->isHidden()) goxyz[10]=goxyz[10]|0x80;
+				if(pc->poisoned) 
+					goxyz[10]=0x04; 
+				else 
+					goxyz[10]=0x00;	//AntiChrist -- thnx to SpaceDog
+				if (pc->isHidden()) 
+					goxyz[10] |= 0x80;
 				goxyz[11]=pc->pos.x>>8;
 				goxyz[12]=pc->pos.x%256;
 				goxyz[13]=pc->pos.y>>8;
@@ -1617,6 +1626,7 @@ void updatechar(CHARACTER c) // If character status has been changed (Polymorph)
 				impowncreate(i, DEREF_P_CHAR(pc), 0);			
 			}
 		}
+	}
 }
 
 
@@ -1708,15 +1718,14 @@ void updatestats( P_CHAR pc, char x )
 	}
 }
 
-void statwindow(int s, int i) // Opens the status window
+void statwindow(int s, P_CHAR pc) // Opens the status window
 {
 	int x;
 	unsigned char statstring[67]="\x11\x00\x42\x00\x05\xA8\x90XYZ\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x34\xFF\x01\x00\x00\x5F\x00\x60\x00\x61\x00\x62\x00\x63\x00\x64\x00\x65\x00\x00\x75\x30\x01\x2C\x00\x00";
 	bool ghost;
 	
-	if (s<0 || s>=MAXCLIENT || i<0 || i>cmem) return; // lb, fixes a few (too few) -1 crashes ...
+	if (s<0 || s>=MAXCLIENT || pc == NULL) return; // lb, fixes a few (too few) -1 crashes ...
 
-	P_CHAR pc = MAKE_CHARREF_LR(i);
 	P_CHAR pc_currchar = currchar[s];
 
 	if ((pc->id1==0x01 && pc->id2==0x92) || (pc->id1==0x01 && pc->id2==0x93)) ghost = true; else ghost = false;

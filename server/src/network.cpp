@@ -651,7 +651,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	sysmessage(s, 0x37, "Programmed by: %s",wp_version.codersstring.c_str() );
 
 	pc_currchar->region=255;
-	checkregion(DEREF_P_CHAR(pc_currchar));
+	checkregion(pc_currchar);
 	//Tauriel set packitem at login
 	serial=pc_currchar->serial;
 

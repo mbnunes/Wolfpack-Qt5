@@ -1118,7 +1118,7 @@ void deathstuff(int i)
 	pc_player->poison = 0;	//AntiChrist
 	// Make the corpse
 	sprintf((char*)temp,"corpse of %s",pc_player->name);
-	const P_ITEM pi_c = Items->SpawnItem(DEREF_P_CHAR(pc_player), 1, (char*)temp, 0, 0x2006, pc_player->xskin, 0);
+	const P_ITEM pi_c = Items->SpawnItem(pc_player, 1, (char*)temp, 0, 0x2006, pc_player->xskin, 0);
 	if(pi_c==NULL) return;//AntiChrist to preview crashes
 	// Corpse highlighting.. Ripper
 	if(pc_player->isPlayer())
@@ -1172,7 +1172,7 @@ void deathstuff(int i)
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
 			if( pi_j->id1 == 0x1B && ( pi_j->id2 == 0xC3 || pi_j->id2 == 0xC4 ) )
 			{
-				soundeffect2(DEREF_P_CHAR(pc_player), 0x01, 0xFE);
+				soundeffect2(pc_player, 0x01FE);
 				staticeffect(DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06);
 				Items->DeleItem( pi_j );
 			}
@@ -1192,7 +1192,7 @@ void deathstuff(int i)
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id1 == 0x1B && ( pi_k->id2 == 0xC3 || pi_k->id2 == 0xC4 ) )
 						{
-							soundeffect2(DEREF_P_CHAR(pc_player), 0x01, 0xFE);
+							soundeffect2(pc_player, 0x01FE);
 							staticeffect(DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06);
 							Items->DeleItem( pi_k );
 						}
@@ -1412,7 +1412,7 @@ void explodeitem(int s, P_ITEM pi)
 		pi->pos.y=pc_currchar->pos.y;
 		pi->pos.z=pc_currchar->pos.z;
 		npcaction(DEREF_P_CHAR(pc_currchar),0x15);
-		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x02, 0x07);
+		soundeffect2(pc_currchar, 0x0207);
 	}
 	else
 	{
@@ -1508,7 +1508,7 @@ void explodeitem(int s, P_ITEM pi)
 
 void srequest(int s)
 {
-	if (buffer[s][5]==4) statwindow(s, DEREF_P_CHAR(FindCharBySerial(calcserial(buffer[s][6], buffer[s][7], buffer[s][8], buffer[s][9]))));
+	if (buffer[s][5]==4) statwindow(s, FindCharBySerial(calcserial(buffer[s][6], buffer[s][7], buffer[s][8], buffer[s][9])));
 	if (buffer[s][5]==5) skillwindow(s);
 }
 
@@ -2413,7 +2413,7 @@ void callguards( int p )
 			{
 				if( !pc->dead && !pc->isInnocent() )
 				{
-					Combat->SpawnGuard( DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), pc->pos.x, pc->pos.y, pc->pos.z );
+					Combat->SpawnGuard( pc, pc, pc->pos.x, pc->pos.y, pc->pos.z );
 				}
 			}
 		}
@@ -2423,7 +2423,6 @@ void callguards( int p )
 void mounthorse(int s, int x1) // Remove horse char and give player a horse item 
 { 
 	int j; 
-//	int cc = currchar[s];
 	P_CHAR pc_mount = MAKE_CHARREF_LR(x1);
 	P_CHAR pc_currchar = currchar[s];
 	
@@ -2438,7 +2437,7 @@ void mounthorse(int s, int x1) // Remove horse char and give player a horse item
 		}
 		strcpy((char*)temp, pc_mount->name); 
 		pc_currchar->onhorse = true; 
-		const P_ITEM pi = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0); 
+		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0); 
 		if(!pi) return;
 		
 		pi->id1 = 0x3E; 
@@ -3839,9 +3838,10 @@ int getsubamount(int serial, short id)
 	return total;
 }
 
-int getamount(int c, short id)
+int getamount(P_CHAR pc, short id)
 {
-	P_CHAR pc=MAKE_CHARREF_LRV(c,0);
+	if (pc == NULL) 
+		return 0;
 	P_ITEM pi=Packitem(pc);
 	if (pi==NULL)
 		return 0;
@@ -4018,7 +4018,8 @@ void playmonstersound(int monster, int id1, int id2, int sfx)
 			break;
 		}
 		basesound=basesound+offset;
-		if (offset!=-1) soundeffect2(monster, basesound>>8, basesound%256);
+		if (offset!=-1) 
+			soundeffect2(monster, basesound>>8, basesound%256);
 		return;
 	}
 }
@@ -4066,7 +4067,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE7);
+		soundeffect2(pc_p, 0x01E7);
 		if (s!=-1) updatestats(pc_p, 2);
 		break;
 
@@ -4105,7 +4106,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			if (pc_p->poisoned) sysmessage(s,"The potion was not able to cure this poison."); else
 			{
 				staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3A, 0, 15);
-				soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE0); //cure sound - SpaceDog
+				soundeffect2(pc_p, 0x01E0); //cure sound - SpaceDog
 				sysmessage(s,"The poison was cured.");
 			}
 		}
@@ -4151,19 +4152,19 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		}
 		if (s!=-1) updatestats(pc_p, 0);
 		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xF2); //Healing Sound - SpaceDog
+		soundeffect2(pc_p, 0x01F2); //Healing Sound - SpaceDog
 		break;
 	case 5: // Night Sight Potion
 		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06);
 		tempeffect(currchar[s], pc_p, 2, 0, 0, 0,(720*secondsperuominute*MY_CLOCKS_PER_SEC)); // should last for 12 UO-hours
-		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE3);
+		soundeffect2(pc_p, 0x01E3);
 		break;
 	case 6: // Poison Potion
 		if(pc_p->poisoned < pi->morez) pc_p->poisoned=pi->morez;
 		if(pi->morez>4) pi->morez=4;
 		pc_p->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // lb, poison wear off timer setting
 		impowncreate(calcSocketFromChar(pc_p),DEREF_P_CHAR(pc_p),1); //Lb, sends the green bar !
-		soundeffect2(DEREF_P_CHAR(pc_p), 0x02, 0x46); //poison sound - SpaceDog
+		soundeffect2(pc_p, 0x0246); //poison sound - SpaceDog
 		sysmessage(s, "You poisoned yourself! *sigh*"); //message -SpaceDog
 		break;
 	case 7: // Refresh Potion
@@ -4183,7 +4184,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		}
 		if (s!=-1) updatestats(pc_p, 2);
 		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xF2); //Healing Sound
+		soundeffect2(pc_p, 0x01F2); //Healing Sound
 		break;
 	case 8: // Strength Potion
 		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x3a, 0, 15);
@@ -4201,7 +4202,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xEE);
+		soundeffect2(pc_p, 0x01EE);
 		break;
 
 	case 9: // Mana Potion
@@ -4223,7 +4224,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		}
 		if (s!=-1) updatestats(pc_p, 1);
 		staticeffect(DEREF_P_CHAR(pc_p), 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
-		soundeffect2(DEREF_P_CHAR(pc_p), 0x01, 0xE7); //agility sound - SpaceDog
+		soundeffect2(pc_p, 0x01E7); //agility sound - SpaceDog
 		break;
 
 	case 10: //LB's LSD potion, 5'th november 1999
@@ -4243,7 +4244,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 		return;
 	}
-	soundeffect2(DEREF_P_CHAR(pc_p), 0x00, 0x30);
+	soundeffect2(pc_p, 0x0030);
 	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0) 
 		npcaction(DEREF_P_CHAR(pc_p), 0x22);
 	//empty bottle after drinking - Tauriel
@@ -5240,7 +5241,7 @@ void criminal(int c)//Repsys ....Ripper
 		 sysmessage(calcSocketFromChar(c),"You are now a criminal!");
 		 setcharflag(pc);
 		 if(pc->inGuardedArea() && SrvParms->guardsactive)//guarded
-			Combat->SpawnGuard( DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), pc->pos.x,pc->pos.y,pc->pos.z); // LB bugfix
+			Combat->SpawnGuard( pc, pc, pc->pos.x,pc->pos.y,pc->pos.z); // LB bugfix
 	}
 }
 

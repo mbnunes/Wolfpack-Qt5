@@ -816,7 +816,7 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	if (strstr( comm, "PACKUP"))
 	{
-		P_ITEM pDeed = Items->SpawnItem(DEREF_P_CHAR(pPlayer), 1, "employment deed", 0, 0x14F0, 0, 1);
+		P_ITEM pDeed = Items->SpawnItem(pPlayer, 1, "employment deed", 0, 0x14F0, 0, 1);
 		if (pDeed)
 		{
 			pDeed->type = 217;

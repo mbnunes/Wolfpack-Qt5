@@ -357,7 +357,7 @@ void cFishing::Fish(CHARACTER i)
 	/**** end of exotic fish stuff stuff */
 
 	// Spawn in his backpack
-	Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2, true);
+	Items->SpawnItem(pc_i, 1, "#", 1, 0x0900+idnum, (c1<<8)+c2, true);
 	if(c2>0)
 	{
 		sysmessage(s,"You pull out an exotic fish!");

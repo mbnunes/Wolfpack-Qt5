@@ -999,30 +999,30 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;// archery butte
 				case 0x0E9C:
 					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x38);
+						soundeffect2(currchar[s], 0x0038);
 					else 
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x39);
+						soundeffect2(currchar[s], 0x0039);
 					return;
 				case 0x0E9D:
 				case 0x0E9E:
 					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x52);
+						soundeffect2(currchar[s], 0x0052);
 					else 
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x53);
+						soundeffect2(currchar[s], 0x0053);
 					return;
 				case 0x0EB1:
 				case 0x0EB2:
 					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x45);
+						soundeffect2(currchar[s], 0x0045);
 					else 
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x46);
+						soundeffect2(currchar[s], 0x0046);
 					return;
 				case 0x0EB3:
 				case 0x0EB4:
 					if (Skills->CheckSkill(currchar[s], MUSICIANSHIP, 0, 1000))
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4C);
+						soundeffect2(currchar[s], 0x004C);
 					else 
-						soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x4D);
+						soundeffect2(currchar[s], 0x004D);
 					return;
 				case 0x0F43:// Axe, Double Axe and Bardiche
 				case 0x0F44:
@@ -1186,7 +1186,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0DE2: // camping
 					if (Skills->CheckSkill(currchar[s], CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
 					{
-						P_ITEM pFire = Items->SpawnItem(DEREF_P_CHAR(currchar[s]), 1, "#", 0, 0x0DE3, 0, 0);
+						P_ITEM pFire = Items->SpawnItem(currchar[s], 1, "#", 0, 0x0DE3, 0, 0);
 						if (pFire)
 						{
 							pFire->type = 45;
@@ -1681,7 +1681,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 	{//char
 		if (target->npcaitype==17)//PlayerVendors
 		{
-			npctalk(s,DEREF_P_CHAR(target),"Take a look at my goods.",0);
+			npctalk(s, target,"Take a look at my goods.",0);
 			if (target->packitem != INVALID_SERIAL) backpack(s, target->packitem); // rippers bugfix for vendor bags not opening !!!
 			return;
 		}

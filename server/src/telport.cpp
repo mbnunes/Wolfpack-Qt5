@@ -139,7 +139,7 @@ void advancementobjects(int s, int x, int allways)
 	if ((pc_s->advobj==0)||(allways==1))
 	{
 		staticeffect(s, 0x37, 0x3A, 0, 15);
-		soundeffect2(s, 0x01, 0xE9);
+		soundeffect2(pc_s, 0x01E9);
 		pc_s->advobj=x;
 		openscript("advance.scp");
 		sprintf(sect, "ADVANCEMENT %i", x);
@@ -381,20 +381,20 @@ void monstergate(int s, int x)
 {
 	int tmp, z, lovalue, hivalue;
 	char sect[512];
-
+	
 	P_CHAR pc_s = MAKE_CHARREF_LR(s);
 	P_ITEM pBackpack = NULL;
 	P_ITEM pRetitem = NULL;
-
+	
 	if (pc_s->isNpc()) return;
-
+	
 	sprintf(sect, "NPC %i", x);
 	Script *pScpBase=i_scripts[npc_script];
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp) return;
-
+	
 	pc_s->title[0] = 0;
-
+	
 	AllItemsIterator iterItem;
 	for(iterItem.Begin(); !iterItem.atEnd(); iterItem++)
 	{
@@ -416,7 +416,7 @@ void monstergate(int s, int x)
 					return;
 				pc_s->packitem = pBackpack->serial;
 				pScp->Resume(m);
-
+				
 				pBackpack->SetContSerial(pc_s->serial);
 				pBackpack->layer=0x15;
 				pBackpack->type=1;
@@ -428,7 +428,7 @@ void monstergate(int s, int x)
 			pi->pos.z=9;
 			pi->SetContSerial(pBackpack->serial);
 			pi->layer=0x00;
-
+			
 			SndRemoveitem(pi->serial);
 			RefreshItem(pi);//AntiChrist
 		}
@@ -438,12 +438,12 @@ void monstergate(int s, int x)
 			Items->DeleItem(pi);
 		}
 	}
-
+	
 	unsigned long loopexit=0;
 	do
 	{
 		pScp->NextLineSplitted();
-
+		
 		if (script1[0]!='}')
 		{
 			if (!(strcmp("NAME",(char*)script1)))
@@ -455,7 +455,7 @@ void monstergate(int s, int x)
 				scpMark m=pScp->Suspend();
 				setrandomname(s,(char*)script2);
 				pScp->Resume(m);
-
+				
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
 			if (!(strcmp("TITLE",(char*)script1))) strcpy(pc_s->title,(char*)script2);
@@ -473,14 +473,14 @@ void monstergate(int s, int x)
 			{
 				pc_s->skin = pc_s->xskin = hex2num(script2);
 			}
-
+			
 			if (!(strcmp("GOLD", (char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
 				pRetitem = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",1,0x0E,0xED,0,0,1,0);
 				if(pRetitem == NULL) return;
 				pScp->Resume(m);
-
+				
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 				gettokennum((char*)script2, 0);
 				lovalue=str2num(gettokenstr);
@@ -496,7 +496,7 @@ void monstergate(int s, int x)
 					if ((hivalue-lovalue)!=0) pRetitem->amount=lovalue + (rand()%(hivalue-lovalue));
 					else pRetitem->amount=lovalue;
 				}
-
+				
 			}
 			if (!(strcmp("LOOT",(char*)script1)))
 			{
@@ -521,7 +521,7 @@ void monstergate(int s, int x)
 				}
 				strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 			}
-
+			
 			if (!(strcmp("PACKITEM",(char*)script1)))
 			{
 				int storeval=str2num(script2);
@@ -536,7 +536,7 @@ void monstergate(int s, int x)
 					pRetitem->pos.z=9;
 				}
 				strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
-
+				
 			}
 			if (!(strcmp("COLOR",(char*)script1)))
 			{
@@ -547,7 +547,7 @@ void monstergate(int s, int x)
 				}
 			}
 			if (!(strcmp("POISON",(char*)script1))) pc_s->poison=str2num(script2);
-
+			
 			//--------------------- NEW STAT & SKILL FORMAT ----------------
 			//Handle Stats
 			if ((!(strcmp("STR",(char*)script1)))||(!(strcmp("STRENGTH",(char*)script1))))
@@ -568,7 +568,7 @@ void monstergate(int s, int x)
 				pc_s->mn = pc_s->in;
 			}
 			//Done Handling Stats
-
+			
 			//Handle Skills
 			if ((!(strcmp("ALCHEMY",(char*)script1)))||(!(strcmp("SKILL0",(char*)script1))))
 				pc_s->baseskill[ALCHEMY] = getstatskillvalue((char*)script2);
@@ -666,7 +666,7 @@ void monstergate(int s, int x)
 				pc_s->baseskill[LUMBERJACKING] = getstatskillvalue((char*)script2);
 			if ((!(strcmp("MINING",(char*)script1)))||(!(strcmp("SKILL45",(char*)script1))))
 				pc_s->baseskill[MINING] = getstatskillvalue((char*)script2);
-
+			
 			// lb, new skills
 			if ((!(strcmp("MEDITATION",(char*)script1)))||(!(strcmp("SKILL46",(char*)script1))))
 				pc_s->baseskill[MEDITATION] = getstatskillvalue((char*)script2);
@@ -675,7 +675,7 @@ void monstergate(int s, int x)
 			if ((!(strcmp("REMOVETRAPS",(char*)script1)))||(!(strcmp("SKILL48",(char*)script1))))
 				pc_s->baseskill[REMOVETRAPS] = getstatskillvalue((char*)script2);
 			//Done Handling Skills
-
+			
 			//Handle Extras
 			if ((!(strcmp("DAMAGE",(char*)script1)))||(!(strcmp("ATT",(char*)script1))))
 			{
@@ -689,7 +689,7 @@ void monstergate(int s, int x)
 			}
 			if (!(strcmp("DEF",(char*)script1))) pc_s->def = getstatskillvalue((char*)script2);
 			//Done Handling Extras
-
+			
 			//Handle Obsolete Stuff
 			if (!(strcmp("LODAMAGE",(char*)script1))) pc_s->lodamage=str2num(script2);
 			if (!(strcmp("HIDAMAGE",(char*)script1))) pc_s->hidamage=str2num(script2);
@@ -714,7 +714,7 @@ void monstergate(int s, int x)
  }
  updatechar(s);
  staticeffect(s, 0x37, 0x3A, 0, 15);
- soundeffect2(s, 0x01, 0xE9);
+ soundeffect2(pc_s, 0x01E9);
 }
 
 // new function 
@@ -768,7 +768,7 @@ void polycolorgate(int s, int x)
   
 	updatechar(s); 
 	staticeffect(s, 0x37, 0x3A, 0, 15); 
-	soundeffect2(s, 0x01, 0xE9); 
+	soundeffect2(pc_s, 0x01E9); 
 } 
 // 
 // 

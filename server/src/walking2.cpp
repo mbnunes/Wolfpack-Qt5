@@ -305,7 +305,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	
 	// again, don't know if we need to check when turning or not
 	if( !amTurning )
-		checkregion(DEREF_P_CHAR(pc)); // doesn't change physical coords, so no point in making a change
+		checkregion(pc); // doesn't change physical coords, so no point in making a change
 	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",pc->name,pc->region,region[pc->region].name);
 
 }
@@ -1151,7 +1151,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 							{                                               
 								Magic->MagicDamage(pc, mapitem->morex/300);
 							}
-							soundeffect2(DEREF_P_CHAR(pc), 2, 8);
+							soundeffect2(pc, 0x0208);
 						}
 					}
 					
@@ -1163,7 +1163,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 							{                                               
 								Magic->PoisonDamage(DEREF_P_CHAR(pc),1);
 							}
-							soundeffect2(DEREF_P_CHAR(pc), 2, 8);
+							soundeffect2(pc, 0x0208);
 						}
 					}
 					
@@ -1175,7 +1175,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 							{
 								tempeffect(pc, pc, 1, 0, 0, 0);
 							}
-							soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x04);
+							soundeffect2(pc, 0x0204);
 						}
 					}
 					else if (mapitem->id1<0x40)

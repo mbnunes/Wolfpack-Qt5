@@ -1160,7 +1160,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				if (pBackpack != NULL)
 				{ 
 					scpMark m=pScp->Suspend();
-					P_ITEM pGold=Items->SpawnItem(DEREF_P_CHAR(pc_c),1,"#",1,0x0EED,0,1);
+					P_ITEM pGold = Items->SpawnItem(pc_c,1,"#",1,0x0EED,0,1);
 					if(!pGold)
 					{
 						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
@@ -1781,7 +1781,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 
 	sprintf((char*)temp, "%s's bank box.", name);
 	UOXSOCKET s = calcSocketFromChar(DEREF_P_CHAR(this));
-	pi = Items->SpawnItem(DEREF_P_CHAR(this),1,(char*)temp,0,0x09AB,0,0);
+	pi = Items->SpawnItem(this, 1, (char*)temp, 0, 0x09AB, 0, 0);
 	if(pi == NULL) 
 		return NULL;
 	pi->layer=0x1d;

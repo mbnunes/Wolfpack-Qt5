@@ -83,7 +83,7 @@ void UpdateStatusWindow(UOXSOCKET s, P_ITEM pi)
 {
 	P_ITEM packnum = packitem(DEREF_P_CHAR(currchar[s]));
 	if (CheckWhereItem(packnum, pi, s))
-		statwindow(s, DEREF_P_CHAR(currchar[s]));
+		statwindow(s, currchar[s]);
 }
 
 static void Sndbounce5(UOXSOCKET s)
@@ -305,7 +305,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 						pi_c->SetOwnSerial(pi_c->ownserial);
 						pi_c->SetSpawnSerial(pi_c->spawnserial);
 						
-						statwindow(s,DEREF_P_CHAR(pc_currchar));
+						statwindow(s, pc_currchar);
 						RefreshItem(pi_c);//AntiChrist
 					}
 					
@@ -374,7 +374,8 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 			}
 		}
 	} // end of if i!=-1
-	if (update) statwindow(s, DEREF_P_CHAR(pc_currchar));
+	if (update) 
+		statwindow(s, pc_currchar);
 }
 
 void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
@@ -562,7 +563,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details	// Added Oct 09, 1998
 		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
-		statwindow(s,DEREF_P_CHAR(pc_currchar));
+		statwindow(s, pc_currchar);
 		
 		if (pi->glow>0)
 		{
@@ -581,11 +582,11 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 
 	if( pc_target->hunger < 6 && pi->type == 14 )//AntiChrist new hunger code for npcs
 	{
-		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x3A+(rand()%3));	//0x3A - 0x3C three different sounds
+		soundeffect2(pc_currchar, 0x003A+(rand()%3));	//0x3A - 0x3C three different sounds
 
 		if((pi->poisoned)&&(pc_target->poisoned<pi->poisoned)) 
 		{
-			soundeffect2(DEREF_P_CHAR(pc_target), 0x02, 0x46); //poison sound - SpaceDog
+			soundeffect2(pc_target, 0x0246); //poison sound - SpaceDog
 			pc_target->poisoned=pi->poisoned;
 			pc_target->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_target->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 			pc_target->poisonwearofftime=pc_target->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
@@ -700,7 +701,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name, value);
 		 npctalk(s,target,(char*)temp,0);
 		 bankbox->AddItem(pi_n);
-	     statwindow(s, DEREF_P_CHAR(pc_currchar));
+	     statwindow(s, pc_currchar);
 		 return true;
 	}
     else if (pi->id() == 0x0EED)
@@ -708,7 +709,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		sprintf((char*)temp,"%s you have deposited %i gold.",pc_currchar->name, amt);
 		npctalk(s,target,(char*)temp,0);
 		bankbox->AddItem(pi);
-	    statwindow(s, DEREF_P_CHAR(pc_currchar));
+	    statwindow(s, pc_currchar);
 		return true;
 	}
     else
@@ -811,7 +812,7 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		pack->AddItem(pi); // player has a pack, put it in there
 		
 		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));//AntiChrist bugfixes
-		statwindow(s,DEREF_P_CHAR(pc_currchar));
+		statwindow(s, pc_currchar);
 		itemsfx(s, pi->id());
 	}
 	return true;
@@ -958,13 +959,13 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 	}
 
 	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
-	statwindow(s,DEREF_P_CHAR(pc_currchar));
+	statwindow(s, pc_currchar);
 	pi->flags.isBeeingDragged = false;
 	
 	//Ripper...so order/chaos shields disappear when on ground.
 	if( pi->id1 == 0x1B && ( pi->id2 == 0xC3 || pi->id2 == 0xC4 ) )
 	{
-		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x01, 0xFE);
+		soundeffect2(pc_currchar, 0x01FE);
 		staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x2A, 0x09, 0x06);
 		Items->DeleItem( pi );
 		return;
@@ -1001,7 +1002,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 		ItemDroppedOnChar(ps, pp, pi);
 		
 		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));  // Ison 2-20-99
-		statwindow(s,DEREF_P_CHAR(pc_currchar));
+		statwindow(s, pc_currchar);
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details// Added Oct 09, 1998
 		
 		//Boats !
@@ -1205,7 +1206,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		pCont->AddItem(pItem,xx,yy);
 		
 		itemsfx(s, pItem->id());// see itemsfx() for details - Dupois Added Oct 09, 1998
-		statwindow(s,DEREF_P_CHAR(pc_currchar));
+		statwindow(s, pc_currchar);
 	}
 	// end of player run vendors
 	

@@ -512,7 +512,7 @@ unsigned char calcRegionFromXY(int x, int y)
 
 }
 
-void checkregion(int i)
+void checkregion(P_CHAR pc_i)
 {
 	int calcreg, s, j;
 
@@ -524,15 +524,15 @@ void checkregion(int i)
 	//// you can change 0x37 to your liking, but not to 0
 	/////////////////////////////////////////////////////////////////////
 
-	calcreg=calcRegionFromXY(chars[i].pos.x, chars[i].pos.y);
-	if (calcreg!=chars[i].region)
+	calcreg=calcRegionFromXY(pc_i->pos.x, pc_i->pos.y);
+	if (calcreg!=pc_i->region)
 	{
-		s=calcSocketFromChar(i);
+		s = calcSocketFromChar(pc_i);
 		if (s!=-1)
 		{
-			if (region[chars[i].region].name[0]!=0)
+			if (region[pc_i->region].name[0]!=0)
 			{
-				sprintf((char*)temp, "You have left %s, race owner %s.",region[chars[i].region].name, Races[region[chars[i].region].RaceOwner]->RaceName.c_str());
+				sprintf((char*)temp, "You have left %s, race owner %s.",region[pc_i->region].name, Races[region[pc_i->region].RaceOwner]->RaceName.c_str());
 				sysmessage(s, 0x37, (char*)temp);
 			}
 			if (region[calcreg].name[0]!=0)
@@ -540,8 +540,8 @@ void checkregion(int i)
 				sprintf((char*)temp, "You have entered %s,race owner %s.",region[calcreg].name, Races[region[calcreg].RaceOwner]->RaceName.c_str());
 				sysmessage(s, 0x37, (char*)temp);
 			}
-			j=strcmp(region[calcreg].guardowner, region[chars[i].region].guardowner);
-			if ( (region[calcreg].priv&0x01)!=(region[chars[i].region].priv&0x01) ||
+			j=strcmp(region[calcreg].guardowner, region[pc_i->region].guardowner);
+			if ( (region[calcreg].priv&0x01)!=(region[pc_i->region].priv&0x01) ||
 				(region[calcreg].priv&0x01 && j))
 			{
 				if (region[calcreg].priv&0x01)
@@ -558,21 +558,21 @@ void checkregion(int i)
 				}
 				else
 				{
-					if (region[chars[i].region].guardowner[0]==0)
+					if (region[pc_i->region].guardowner[0]==0)
 					{
 						sysmessage(s, 0x37, "You are no longer under the protection of the guards.");
 					}
 					else
 					{
-						sprintf((char*)temp, "You are no longer under the protection of %s guards.", region[chars[i].region].guardowner);
+						sprintf((char*)temp, "You are no longer under the protection of %s guards.", region[pc_i->region].guardowner);
 						sysmessage(s, 0x37, (char*)temp);
 					}
 				}
 			}
 		}
-		chars[i].region=calcreg;
+		pc_i->region=calcreg;
 		if (s!=-1) dosocketmidi(s);
-		if (indungeon(i)) dolight(s,dungeonlightlevel);
+		if (indungeon(DEREF_P_CHAR(pc_i))) dolight(s,dungeonlightlevel);
 	}
 }
 

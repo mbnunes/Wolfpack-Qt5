@@ -1043,10 +1043,11 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 					unsigned char cColorId1, unsigned char cColorId2,
 					int nPack, int nSend)
 {
-	P_ITEM pi = SpawnItem(DEREF_P_CHAR(ch), nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
-	if (pi==NULL) return NULL;
+	P_ITEM pi = SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
+	if (pi == NULL) 
+		return NULL;
 	if (nSend && nSocket>=0)
-		statwindow(nSocket, DEREF_P_CHAR(ch));
+		statwindow(nSocket, ch);
 	return pi;
 }
 
@@ -1070,16 +1071,14 @@ P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)
 		return NULL;
 	GetScriptItemSetting(pi); 
 	bankbox->AddItem(pi);
-	statwindow(s, DEREF_P_CHAR(pc_ch));
+	statwindow(s, pc_ch);
 	return pi;
 }
 
-P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable, short id, short color, bool bPack)
+P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, char pileable, short id, short color, bool bPack)
 {
-	if (ch < 0) 
+	if (pc_ch == NULL) 
 		return NULL;
-
-	P_CHAR pc_ch = MAKE_CHAR_REF(ch);
 
 	P_ITEM pPack=Packitem(pc_ch);
 	char pile = 0;
@@ -1375,7 +1374,7 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Ad
 	backpack->AddItem(pi);
 	RefreshItem(pi);
 	
-	statwindow(s, DEREF_P_CHAR(currchar[s]));
+	statwindow(s, currchar[s]);
 	return pi;
 }
 

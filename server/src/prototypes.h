@@ -149,7 +149,7 @@ unsigned char npcinrange (int s, int i, int distance);  //check for horse distan
 void openbank(int s, int i);
 void openspecialbank(int s, int i);//AntiChrist
 char inbankrange(int i);
-int getamount(int s, short id);
+int getamount(P_CHAR pc, short id);
 void delequan(int s, short id, int amount, int *not_deleted = NULL);
 void gettokennum(char * s, int num);
 void setrandomname(int s, char * namelist);

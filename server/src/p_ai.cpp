@@ -42,7 +42,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 	unsigned int chance;
 	// unsigned int StartGrid, getcell, increment, a, checkgrid;
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	if (i < 0 || i>cmem)
+	if ( pc_i == NULL )
 		return;
 	
 	if (!(nextnpcaitime <= currenttime || (overflow)))
@@ -92,40 +92,40 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
 							continue;
 						if (pc->isMurderer()) 
 						{
-							npctalkall(i, "I will nay give life to a scoundrel like thee!", 1);
+							npctalkall(DEREF_P_CHAR(pc_i), "I will nay give life to a scoundrel like thee!", 1);
 							return;
 						}
 						else if (pc->isCriminal()) 
 						{
-							npctalkall(i, "I will nay give life to thee for thou art a criminal!", 1);
+							npctalkall(DEREF_P_CHAR(pc_i), "I will nay give life to thee for thou art a criminal!", 1);
 							return;
 						}
 						else if (pc->isInnocent())
 						{
-							npcaction(i, 0x10);
+							npcaction(DEREF_P_CHAR(pc_i), 0x10);
 							Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
 							staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
 							switch (RandomNum(0, 4)) 
 							{
 							case 0: 
-								npctalkall(i, "Thou art dead, but 'tis within my power to resurrect thee.  Live!", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Thou art dead, but 'tis within my power to resurrect thee.  Live!", 1);
 								break;
 							case 1: 
-								npctalkall(i, "Allow me to resurrect thee ghost.  Thy time of true death has not yet come.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Allow me to resurrect thee ghost.  Thy time of true death has not yet come.", 1);
 								break;
 							case 2: 
-								npctalkall(i, "Perhaps thou shouldst be more careful.  Here, I shall resurrect thee.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Perhaps thou shouldst be more careful.  Here, I shall resurrect thee.", 1);
 								break;
 							case 3: 
-								npctalkall(i, "Live again, ghost!  Thy time in this world is not yet done.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Live again, ghost!  Thy time in this world is not yet done.", 1);
 								break;
 							case 4: 
-								npctalkall(i, "I shall attempt to resurrect thee.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "I shall attempt to resurrect thee.", 1);
 								break;
 							}
 						}
@@ -143,9 +143,9 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						chance = RandomNum(1, 100);
-						if (DEREF_P_CHAR(pc) == i)
+						if (DEREF_P_CHAR(pc) == DEREF_P_CHAR(pc_i))
 							continue;
 						if (d>SrvParms->attack_distance)
 							continue;
@@ -161,21 +161,21 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						{
 							if (pc_i->hp <(pc_i->st/2))
 							{
-								npctalkall(i, "In Vas Mani", 0);
-								Magic->NPCHeal(i);
+								npctalkall(DEREF_P_CHAR(pc_i), "In Vas Mani", 0);
+								Magic->NPCHeal(DEREF_P_CHAR(pc_i));
 							}
 							if (pc_i->poisoned)
 							{
-								npctalkall(i, "An Nox", 0);
-								Magic->NPCCure(i);
+								npctalkall(DEREF_P_CHAR(pc_i), "An Nox", 0);
+								Magic->NPCCure(DEREF_P_CHAR(pc_i));
 							}
 							if (pc->priv2&0x20)
 							{
-								npctalkall(i, "An Ort", 0);
-								Magic->NPCDispel(i, DEREF_P_CHAR(pc));
+								npctalkall(DEREF_P_CHAR(pc_i), "An Ort", 0);
+								Magic->NPCDispel(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 							}
 						}
-						npcattacktarget(i, DEREF_P_CHAR(pc));
+						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						return;
 					}
 				}
@@ -191,35 +191,35 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
 							continue;
 						if (pc->isInnocent())
 						{
-							npctalkall(i, "I dispise all things good. I shall not give thee another chance!", 1);
+							npctalkall(DEREF_P_CHAR(pc_i), "I dispise all things good. I shall not give thee another chance!", 1);
 							return;
 						}
 						else
 						{
-							npcaction(i, 0x10);
+							npcaction(DEREF_P_CHAR(pc_i), 0x10);
 							Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
 							staticeffect(DEREF_P_CHAR(pc), 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
 							switch (RandomNum(0, 4)) 
 							{
 							case 0: 
-								npctalkall(i, "Fellow minion of Mondain, Live!!", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Fellow minion of Mondain, Live!!", 1);
 								break;
 							case 1: 
-								npctalkall(i, "Thou has evil flowing through your vains, so I will bring you back to life.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Thou has evil flowing through your vains, so I will bring you back to life.", 1);
 								break;
 							case 2: 
-								npctalkall(i, "If I res thee, promise to raise more hell!.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "If I res thee, promise to raise more hell!.", 1);
 								break;
 							case 3: 
-								npctalkall(i, "From hell to Britannia, come alive!.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "From hell to Britannia, come alive!.", 1);
 								break;
 							case 4: 
-								npctalkall(i, "Since you are Evil, I will bring you back to consciouness.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Since you are Evil, I will bring you back to consciouness.", 1);
 								break;
 							}
 						}
@@ -260,7 +260,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 3 || pc->isInvul() || pc->isNpc() || pc->dead || !onl || !pc->isInnocent())
 							continue;
 						int beg= RandomNum(0, 2);
@@ -268,15 +268,15 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							switch (beg)
 							{
 							case 0: 
-								npctalkall(i, "Could thou spare a few coins?", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Could thou spare a few coins?", 1);
 								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 								break;
 							case 1: 
-								npctalkall(i, "Hey buddy can you spare some gold?", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "Hey buddy can you spare some gold?", 1);
 								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 								break;
 							case 2: 
-								npctalkall(i, "I have a family to feed, think of the children.", 1);
+								npctalkall(DEREF_P_CHAR(pc_i), "I have a family to feed, think of the children.", 1);
 								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 								break;
 							default:
@@ -304,19 +304,19 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
-						if (i == DEREF_P_CHAR(pc) || d > 3 || pc->isInvul() || pc->dead || !onl)
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						if (DEREF_P_CHAR(pc_i) == DEREF_P_CHAR(pc) || d > 3 || pc->isInvul() || pc->dead || !onl)
 							continue;
 						if ((pc->isPlayer() && pc->crimflag > 0) || (Races.CheckRelation(pc,pc_i)!=1))
 						{
 							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name);
-							npctalkall(i, (char*)temp, 1);
+							npctalkall(DEREF_P_CHAR(pc_i), (char*)temp, 1);
 							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && !pc->dead)
 						{
 							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name, region[pc->region].name);
-							npctalkall(i, (char*)temp, 1);
+							npctalkall(DEREF_P_CHAR(pc_i), (char*)temp, 1);
 							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 						}
 						else if (d <= 10 &&(
@@ -327,10 +327,10 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
 							pc_i->pos.y = pc->pos.y;
 							pc_i->pos.z = pc->pos.z;
-							soundeffect2(i, 0x01, 0xFE); // crashfix, LB
-							staticeffect(i, 0x37, 0x2A, 0x09, 0x06);
-							npcattacktarget(i, DEREF_P_CHAR(pc));
-							npctalkall(i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+							soundeffect2(pc_i, 0x01FE); // crashfix, LB
+							staticeffect(DEREF_P_CHAR(pc_i), 0x37, 0x2A, 0x09, 0x06);
+							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+							npctalkall(DEREF_P_CHAR(pc_i), "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
 							return;
 						}
 					}
@@ -348,10 +348,10 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isPlayer() || pc->npcaitype != 61)
 							continue;
-						npcattacktarget(i, DEREF_P_CHAR(pc));
+						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						return;
 					}
 				}
@@ -367,14 +367,14 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead)
 							continue;
 						if (!(pc->npcaitype == 2 || pc->isCriminal() || pc->isMurderer()))
 							continue;
 						if (pc->isPlayer() && !onl)
 							continue;
-						npcattacktarget(i, DEREF_P_CHAR(pc));
+						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 					}
 				}
 			}
@@ -391,12 +391,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 				if (pc != NULL)
 				{
 				    onl = online(pc);
-				    d = chardist(i, DEREF_P_CHAR(pc));
+				    d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 				    if (d > 10 || pc->isNpc() || pc->isInvul() || pc->dead || (pc->isPlayer() && !onl))
 					    continue;
 
 				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", region[pc_i->questDestRegion].name);
-				    npctalkall(i,(char*)temp,1);
+				    npctalkall(DEREF_P_CHAR(pc_i),(char*)temp,1);
 				    pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
 				    return;
 				}
@@ -413,10 +413,10 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead || pc->npcaitype != 2 || !onl)
 							continue;
-						npcattacktarget(i, DEREF_P_CHAR(pc));
+						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						return;
 					}
 				}
@@ -455,12 +455,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					if (pc != NULL)
 					{
 						onl = online(pc);
-						d = chardist(i, DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead || !onl)
 							continue;
 						if (Races.CheckRelation(pc,pc_i)==1)
 							continue;
-						npcattacktarget(i, DEREF_P_CHAR(pc));
+						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 						return;
 					}
 				}
@@ -469,13 +469,13 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 			// Case 60-70 is Skyfires new AI
 		case 96:
 		case 60: // Skyfire - Dragon AI
-			DragonAI->DoAI(i, currenttime);
+			DragonAI->DoAI(DEREF_P_CHAR(pc_i), currenttime);
 			break;
 		case 97:
 		case 61:// Skyfire - Banker AI
 			break;
 		default:
-			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc %i (%x %x %x %x) has invalid AI type %i\n", i, pc_i->ser1, pc_i->ser2, pc_i->ser3, pc_i->ser4, pc_i->npcaitype); // Morrolan
+			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%x %x %x %x) has invalid AI type %i\n", pc_i->ser1, pc_i->ser2, pc_i->ser3, pc_i->ser4, pc_i->npcaitype); // Morrolan
 			return;
 	}// switch
 }// void checknpcai
@@ -727,7 +727,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
 			DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount);
 			P_ITEM bankbox = pc_currchar->GetBankBox();
 			bankbox->AddItem(pi);
-			statwindow(c, DEREF_P_CHAR(pc_currchar));
+			statwindow(c, pc_currchar);
 			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name, goldcount);
 			npctalk(c, i, temp, 1);
 			return true;

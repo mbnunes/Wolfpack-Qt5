@@ -119,12 +119,12 @@ void RcvAttack(P_CLIENT ps)
 			if (pc_i->isPlayer() && pc_i->isInnocent() && Guilds->Compare( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_i) )==0) //REPSYS
 			{
 				criminal( DEREF_P_CHAR(pc_currchar) );
-				Combat->SpawnGuard(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_i) ,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+				Combat->SpawnGuard(pc_currchar, pc_i ,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			}
 			else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype!=4 )
 			{
 				criminal( DEREF_P_CHAR(pc_currchar) );
-				Combat->SpawnGuard(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_i), pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+				Combat->SpawnGuard(pc_currchar, pc_i, pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			}
 			else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype!=4 )
 			{

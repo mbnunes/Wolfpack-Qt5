@@ -130,7 +130,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 			// and item has to be added in player's backpack
 			pPack->AddItem(pi_i);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
-			statwindow(ts, DEREF_P_CHAR(pc_currchar));
+			statwindow(ts, pc_currchar);
 		}
 	}// if player has backpack
 	// else leave it where it is (on the ground)
@@ -322,7 +322,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						P_ITEM pi_temp = Targ->AddMenuTarget(ts, 1, str2num(script2));
 						pi->AddItem(pi_temp);
 						Weight->NewCalc(DEREF_P_CHAR(pc_ts));
-						statwindow(ts, DEREF_P_CHAR(pc_ts));
+						statwindow(ts, pc_ts);
 					}
 					else if (!(strcmp("CMSG", (char*)script1)))  // Set Token Completed message
 					{
@@ -1119,8 +1119,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							cline = &script2[0];
 							splitline();
 							itemmake[ts].Mat1id = ((hexnumber(2)) << 8) + hexnumber(3);
-							itemmake[ts].has = getamount(DEREF_P_CHAR(currchar[ts]), itemmake[ts].Mat1id); 
-							itemmake[ts].has2 = getamount(DEREF_P_CHAR(currchar[ts]), itemmake[ts].Mat2id);
+							itemmake[ts].has = getamount(currchar[ts], itemmake[ts].Mat1id); 
+							itemmake[ts].has2 = getamount(currchar[ts], itemmake[ts].Mat2id);
 							itemmake[ts].coloring = coloring; // Magius(CHE) §
 							if (coloring>-1)
 							{
@@ -2687,8 +2687,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							cline = &script2[0];
 							splitline();
 							itemmake[ts].Mat1id = ((hexnumber(2)) << 8) + hexnumber(3);
-							itemmake[ts].has = getamount(DEREF_P_CHAR(pc_ts), itemmake[ts].Mat1id); 
-							itemmake[ts].has2 = getamount(DEREF_P_CHAR(pc_ts), itemmake[ts].Mat2id);
+							itemmake[ts].has = getamount(pc_ts, itemmake[ts].Mat1id); 
+							itemmake[ts].has2 = getamount(pc_ts, itemmake[ts].Mat2id);
 							itemmake[ts].coloring = coloring; // Magius(CHE) §
 							if (coloring>-1)
 							{

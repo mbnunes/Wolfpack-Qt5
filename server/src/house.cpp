@@ -231,7 +231,7 @@ void cHouseManager::AddHome(int s, int i)
 		
 		if (othername) strcpy((char*)temp,name);
 		
-		P_ITEM pMulti = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1,(char*)temp,0,(id1<<8)+id2,0,0);
+		P_ITEM pMulti = Items->SpawnItem(pc_currchar, 1,(char*)temp,0,(id1<<8)+id2,0,0);
 		if (!pMulti) return;		
 		pMulti->MoveTo(x,y,z);
 		pMulti->priv=0;
@@ -459,7 +459,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 							if( mapchar->npcaitype == 17 ) // player vendor in right place
 							{
 								sprintf( (char*)temp, "A vendor deed for %s", mapchar->name );
-								P_ITEM pPvDeed = Items->SpawnItem(DEREF_P_CHAR(pc), 1, (char*)temp, 0, 0x14F0, 0, 1);
+								P_ITEM pPvDeed = Items->SpawnItem(pc, 1, (char*)temp, 0, 0x14F0, 0, 1);
 								pPvDeed->type = 217;
 								pPvDeed->value = 2000;
 								RefreshItem( pPvDeed );
