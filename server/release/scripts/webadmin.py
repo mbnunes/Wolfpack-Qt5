@@ -89,7 +89,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 
 class WebserverThread(Thread):
 	def __init__( self, port=2594 ):
-		Thread.__init__( self, name="WebserverThread" )
+		Thread.__init__( self )
 		self.finished = Event()
 		self.port = port
 
@@ -97,29 +97,17 @@ class WebserverThread(Thread):
 		self.finished.set()
 
 	def run( self ):
-		server_address = ('', self.port)
+		# Wait with binding the webserver for 5 Seconds
+		server_address = ( '', self.port )
+		time.sleep( 5 )	
+
 		httpd = Webserver( server_address, WebserverHandler )
 
 		while not self.finished.isSet():
-#			stderr = sys.stderr # Change default stderr
-#			sys.stderr = cStringIO.StringIO()
-
-#			try:
 			httpd.handle_request()
+			time.sleep( 0.001 )
 
-			# Ignore errors
-#			except:
-#				pass
-
-			# Exceptions or Errors?
-#			errors = sys.stderr.getvalue()
-
-#			if len( errors ) > 0:
-#				print "ERRORS OCCURED: '%s'" % errors
-
-#			sys.stderr.close()
-#			sys.stderr = stderr
-			
+		self.finished.clear()
 
 		httpd.server_close()
 
