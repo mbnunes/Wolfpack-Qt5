@@ -38,21 +38,32 @@
 typedef struct
 {
 	PyObject_HEAD;
-	cAccounts::const_iterator it;
+	cAccounts::const_iterator *it;
 } wpAccountsIter;
 
 static PyObject *wpAccountsIter_First(wpAccountsIter *self) {
-	self->it = Accounts::instance()->begin();
+	delete self->it;
+	self->it = new cAccounts::const_iterator(Accounts::instance()->begin());
 	return (PyObject*)self;
 }
 
 static PyObject *wpAccountsIter_Next(wpAccountsIter *self) {
-	if (self->it == Accounts::instance()->end()) {		
+	if (!self->it) {
+		PyErr_SetNone(PyExc_StopIteration);
+		return 0;
+	}
+
+	if ((*self->it) == Accounts::instance()->end()) {		
 		PyErr_SetNone(PyExc_StopIteration);
 		return 0;
 	} else {		
-		return PyGetAccountObject(*(self->it++));
+		return PyGetAccountObject(*((*self->it)++));
 	}
+}
+
+void wpAccountsIterDealloc( wpAccountsIter* self ) {
+	delete self->it;
+	wpDealloc((PyObject*)self);
 }
 
 static PyTypeObject wpAccountsIterType =
@@ -62,7 +73,7 @@ PyObject_HEAD_INIT( NULL )
 "wpAccountsIter",
 sizeof( wpAccountsIterType ),
 0,
-wpDealloc,
+(destructor)wpAccountsIterDealloc,
 0,
 0,
 0,

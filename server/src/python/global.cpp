@@ -2051,6 +2051,7 @@ static PyObject* wpAccountsIterator( PyObject* self, PyObject* args )
 	Q_UNUSED( args );
 	
 	wpAccountsIter *obj = PyObject_New(wpAccountsIter, &wpAccountsIterType);
+	obj->it = 0;
 	return (PyObject*)obj;
 }
 
