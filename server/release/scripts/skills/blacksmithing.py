@@ -49,7 +49,6 @@ def checkanvilandforge(char):
 		return True
 	
 	# Check dynamic items.
-	# We should later check for statics too
 	forge = 0
 	anvil = 0
 	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 5)

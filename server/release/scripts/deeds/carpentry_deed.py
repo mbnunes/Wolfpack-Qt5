@@ -40,7 +40,9 @@ deeds = {
 	'flour_mill_s':[ 1015152, 1, "192d", "192f" ],
 	'water_trough_e':[ 1015153, 2, "b43", "b44" ],
 	'water_trough_s':[ 1015154, 1, "b41", "b42" ],
-	'bulletin_board':[ 1027774, 0, "1e5e" ]
+	'bulletin_board':[ 1027774, 0, "1e5e" ],
+	'dresser_e': [ 1022620, 2, "a3d", "a3c" ],
+	'dresser_s': [ 1022620, 1, "a45", "a44" ]
 }
 
 def onShowToolTip( sender, target, tooltip ):

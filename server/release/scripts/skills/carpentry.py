@@ -9,42 +9,9 @@ import random
 import skills.blacksmithing
 
 #
-# Check if the character is using the right tool
-#
-def checktool(char, item, wearout = 0):
-	if not item:
-		return False
-
-	# Has to be in our posession
-	if item.getoutmostchar() != char:
-		char.socket.clilocmessage(500364)
-		return False
-
-	# We do not allow "invulnerable" tools.
-	if not item.hastag('remaining_uses'):
-		char.socket.clilocmessage(1044038)
-		item.delete()
-		return False
-
-	if wearout:
-		uses = int(item.gettag('remaining_uses'))
-		if uses <= 1:
-			char.socket.clilocmessage(1044038)
-			item.delete()
-			return False
-		else:
-			item.settag('remaining_uses', uses - 1)
-			item.resendtooltip()
-
-	return True
-
-#
 # Bring up the carpentry menu
 #
 def onUse(char, item):
-	if not checktool(char, item):
-		return True
-
 	menu = findmenu('CARPENTRY')
 	if menu:
 		menu.send(char, [item.serial])
@@ -171,6 +138,14 @@ class CarpentryMenu(MakeMenu):
 		self.submaterial1missing = 1042081 # Ingots
 		self.submaterial1noskill = 500586
 		self.gumptype = 0x4f6ba469 # This should be unique
+		self.requiretool = True
+
+	#
+	# Check for an anvil too when checking for the tool
+	#
+	def checktool(self, player, item, wearout = False):
+		if not MakeMenu.checktool(self, player, item, wearout):
+			return False
 
 	#
 	# Get the material used by the character from the tags
