@@ -93,6 +93,8 @@
 #	include <conio.h>
 #endif
 
+#include "python/utilities.h"
+
 
 using namespace std;
 
@@ -1022,7 +1024,7 @@ int main( int argc, char *argv[] )
 	consoleThread.start();
 
 	serverState = RUNNING;
-
+	
 	QWaitCondition niceLevel;
 	// This is our main loop
 	while( keeprun )

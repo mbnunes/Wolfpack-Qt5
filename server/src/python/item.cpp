@@ -123,50 +123,28 @@ PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) == 1 && checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
-	{
-		self->pItem->moveTo( getWpCoord( PyTuple_GetItem( args, 0 ) ) );
-		return PyTrue;
-	}
-
 	// Gather parameters
 	Coord_cl pos = self->pItem->pos();
+	char noRemove = 0;
 
-	if( PyTuple_Size( args ) <= 1 )
+	if( PyTuple_Size( args ) == 1 )
 	{
-		PyErr_BadArgument();
-		return NULL;
-	}
+		if( !PyArg_ParseTuple( args, "O&|b:item.moveto( coord )", &PyConvertCoord, &pos, &noRemove ) )
+			return 0;
 
-	// X,Y
-	if( PyTuple_Size( args ) >= 2 )
+		self->pItem->moveTo( pos, noRemove ? true : false );
+	}
+	else
 	{
-		if( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-			return PyFalse;
+		int x,y;
+		int z = self->pItem->pos().z;
+		int map = self->pItem->pos().map;
 
-		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-	}
+		if( !PyArg_ParseTuple( args, "ii|iib:item.moveto( x, y, [z], [map] )", &x, &y, &z, &map,  &noRemove ) )
+			return 0;
 
-	// Z
-	if( PyTuple_Size( args ) >= 3 )
-	{
-		if( !PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
-			return PyFalse;
-
-		pos.z = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
-	}
-
-	// MAP
-	if( PyTuple_Size( args ) >= 4 )
-	{
-		if( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
-			return PyFalse;
-
-		pos.map = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
-	}
-
-	self->pItem->moveTo( pos );
+		self->pItem->moveTo( Coord_cl( (unsigned short)x, (unsigned short)y, (char)z, (unsigned char)map ), noRemove ? true : false );
+	}	
 
 	return PyTrue;
 }

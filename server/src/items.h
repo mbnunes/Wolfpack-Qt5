@@ -103,6 +103,7 @@ class cItem : public cUObject
 
 public:
 	typedef QValueVector<cItem*> ContainerContent;
+
 public:
 
 	virtual void	talk( const QString &message, ushort color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );

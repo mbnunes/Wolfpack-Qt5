@@ -84,14 +84,17 @@ bool cSectorMap::addItem( unsigned short x, unsigned short y, cUObject *object )
 	if( !grid[block] )
 	{
 		grid[block] = new stSector;
-		grid[block]->count = 0;
-		grid[block]->data = new cUObject*[0];
+		grid[block]->count = 1;
+		grid[block]->data = new cUObject*[1];
+		grid[block]->data[0] = object;
 	}
-
-	// Append our item to the array
-	grid[block]->count++;
-	grid[block]->data = (cUObject**)realloc( grid[block]->data, grid[block]->count * sizeof( cUObject* ) );
-	grid[block]->data[ grid[block]->count - 1 ] = object;
+	else
+	{
+		// Append our item to the array
+		grid[block]->count++;
+		grid[block]->data = (cUObject**)realloc( grid[block]->data, grid[block]->count * sizeof( cUObject* ) );
+		grid[block]->data[ grid[block]->count - 1 ] = object;
+	}
 
 	return true;
 }

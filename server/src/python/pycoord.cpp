@@ -46,7 +46,7 @@ int wpCoord_setAttr( wpCoord *self, char *name, PyObject *value );
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpCoordType = {
+PyTypeObject wpCoordType = {
     PyObject_HEAD_INIT(NULL)
     0,
     "WPCoord",
@@ -109,6 +109,18 @@ int wpCoord_setAttr( wpCoord *self, char *name, PyObject *value )
 		self->coord.map = PyInt_AsLong( value );
 
 	return 0;
+}
+
+int PyConvertCoord( PyObject *object, Coord_cl* pos )
+{
+	if( object->ob_type != &wpCoordType )
+	{
+		PyErr_BadArgument();		
+		return 0;
+	}
+
+	*pos = ((wpCoord*)object)->coord;
+	return 1;
 }
 
 bool checkWpCoord( PyObject *object )

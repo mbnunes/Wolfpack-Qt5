@@ -87,6 +87,7 @@ PyObject *PyGetSocketObject( cUOSocket* );
 cUOSocket *getWpSocket( PyObject* object );
 
 bool checkWpCoord( PyObject *object );
+int PyConvertCoord( PyObject *object, Coord_cl* pos );
 PyObject *PyGetCoordObject( const Coord_cl& coord );
 Coord_cl getWpCoord( PyObject* object );
 

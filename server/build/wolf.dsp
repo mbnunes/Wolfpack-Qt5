@@ -278,6 +278,10 @@ SOURCE=.\resources.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\sectors.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\serbinfile.cpp
 # End Source File
 # Begin Source File
@@ -1072,10 +1076,6 @@ InputName=resources
 
 !ENDIF 
 
-# End Source File
-# Begin Source File
-
-SOURCE=.\sectors.cpp
 # End Source File
 # Begin Source File
 

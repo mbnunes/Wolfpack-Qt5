@@ -80,11 +80,15 @@ void cUObject::init()
 {
 }
 
-void cUObject::moveTo( const Coord_cl& newpos )
+void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 {
-	MapObjects::instance()->remove( this );
+	if( !noRemove )
+		MapObjects::instance()->remove( this );
+
 	pos_ = newpos;
+
 	MapObjects::instance()->add( this );
+
 	changed( SAVE );
 }
 

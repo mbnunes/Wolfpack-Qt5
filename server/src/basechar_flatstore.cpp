@@ -185,7 +185,7 @@ void cBaseChar::save( FlatStore::OutputFile *output, bool first ) throw()
 		output->chunkData( CHAR_NUTRIMENT, (unsigned int)nutriment() );
 
 	if( propertyFlags_ )
-		output->chunkData( CHAR_PROPFLAGS, propertyFlags() );
+		output->chunkData( CHAR_PROPFLAGS, (unsigned int)propertyFlags() );
 
 	if( gender_ )
 		output->startChunk( CHAR_GENDER );
