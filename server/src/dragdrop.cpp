@@ -51,6 +51,8 @@
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"
+#include "newmagic.h"
+#include "spellbook.h"
 
 #undef  DBGFILE
 #define DBGFILE "dragdrop.cpp"
@@ -759,20 +761,31 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// Spell Book
 	if( pCont->type() == 9 )
 	{
-		SI16 spellId = Magic->calcSpellId( pItem->id() );
+		cSpellBook *pBook = dynamic_cast< cSpellBook* >( pCont );
 
-		if( spellId < 0 )
+		if( pBook )
 		{
-			socket->sysMessage( tr( "You can only put scrolls into a spellbook" ) );
-			socket->bounceItem( pItem, BR_NO_REASON );
-			return;
-		}		
+			SI08 spellId = NewMagic->calcSpellId( pItem->id() );
 
-		if( Magic->hasSpell( pCont, spellId )  )
-		{
-			socket->sysMessage( tr( "That spellbook already contains this spell" ) );
-			socket->bounceItem( pItem, BR_NO_REASON );
-			return;
+			if( spellId < 0 )
+			{
+				socket->sysMessage( tr( "You can only put scrolls into a spellbook" ) );
+				socket->bounceItem( pItem, BR_NO_REASON );
+				return;
+			}		
+
+			if( pBook->hasSpell( spellId ) )
+			{
+				socket->sysMessage( tr( "That spellbook already contains this spell" ) );
+				socket->bounceItem( pItem, BR_NO_REASON );
+				return;
+			}
+			else
+			{
+				pBook->addSpell( spellId );
+				Items->DeleItem( pItem );
+				return;
+			}
 		}
 	}
 

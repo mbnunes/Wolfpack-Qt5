@@ -130,6 +130,10 @@ void cSpellBook::processNode( const QDomElement &Tag )
 
 bool cSpellBook::onUse( cUObject *Target )
 {
+	// Check existing scripts first
+	if( cItem::onUse( Target ) )
+		return true;
+
 	// We assume that target is a character here
 	P_CHAR pChar = dynamic_cast< P_CHAR >( Target );
 

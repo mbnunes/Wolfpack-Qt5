@@ -73,6 +73,7 @@
 #include "wptargetrequests.h"
 #include "Python.h"
 #include "python/engine.h"
+#include "newmagic.h"
 
 // Library Includes
 #include "qapplication.h"
@@ -1511,6 +1512,7 @@ int main( int argc, char *argv[] )
 	init_creatures(); // This initializes *fixed* data that should DEFINETLY be swaped out to the scripts !!!
 
 	Magic->load(); // Load the new magic system
+	NewMagic->load();
 
 	clConsole.PrepareProgress( "Loading IP Blocking rules" );
 	cNetwork::instance()->load();
@@ -1668,6 +1670,7 @@ int main( int argc, char *argv[] )
 
 	// No need for progress bar
 	Magic->unload();
+	NewMagic->unload();
 	
 	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
@@ -4080,6 +4083,7 @@ void StartClasses(void)
 	ScriptManager	= NULL;
 	DefManager		= NULL;
 	SrvParams		= NULL;
+	NewMagic		= NULL;
 
 	// Classes nulled now, lets get them set up :)
 	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
@@ -4101,6 +4105,7 @@ void StartClasses(void)
 	// DarkStorm's ScriptManager
 	ScriptManager	= new WPScriptManager;
 	DefManager		= new WPDefManager;
+	NewMagic		= new cNewMagic;
 	
 	clConsole.ProgressDone();
 }
@@ -4121,6 +4126,7 @@ void DeleteClasses()
 	delete BankerAI;
 	delete ScriptManager;
 	delete DefManager;
+	delete NewMagic;
 	//delete Weather;
 }
 
