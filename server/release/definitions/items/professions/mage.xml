@@ -978,5 +978,30 @@
 		<basescripts>skills.inscription</basescripts>
 		<weight>1.0</weight>
 	</item>
+	
+	<!-- Blue Moongates -->
+	<item id="f6c">
+		<id>0xf6c</id>
+		<lightsource>9</lightsource>
+	</item>
 
+	<item id="f6d">
+		<id>0xf6d</id>
+		<lightsource>9</lightsource>
+	</item>
+
+	<item id="f6e">
+		<id>0xf6e</id>
+		<lightsource>9</lightsource>
+	</item>
+
+	<item id="f6f">
+		<id>0xf6f</id>
+		<lightsource>9</lightsource>
+	</item>
+
+	<item id="f70">
+		<id>0xf70</id>
+		<lightsource>9</lightsource>
+	</item>
 </definitions>
