@@ -591,7 +591,7 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 	if (!pc)
 		return true;
 	
-	if(online(pc))
+	if(pc->online())
 	{
 		socket->sysMessage( tr("Maybe you should just ask.") );
 		return true;

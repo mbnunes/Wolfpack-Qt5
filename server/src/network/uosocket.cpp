@@ -1813,7 +1813,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		{
 			pc_i->talk( tr("Help! Guards! I've been attacked!") );
 			_player->criminal();
-			callguards(pc_i);
+			pc_i->callGuards();
 		}
 		else if( pc_i->isNpc() && pc_i->npcaitype() == 4 )
 		{

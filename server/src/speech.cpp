@@ -1044,7 +1044,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &lang, const QString &speech,
 		UINT16 keyword = *iter;
 
 		if( keyword == 0x07 )
-			callguards( pChar );
+			pChar->callGuards();
 	}
 	
 	// well,i had a strange problem with duplicate speech input

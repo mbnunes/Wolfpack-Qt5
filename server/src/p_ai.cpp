@@ -69,7 +69,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						d = pc_i->dist( pc );
 						if (d > 3)
 							continue;
-						if (pc->isNpc() || !online(pc))
+						if (pc->isNpc() || !pc->online())
 							continue;
 						if (pc->isInvul() || pc->dead() || !pc->isInnocent())
 							continue;
@@ -151,7 +151,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					chance = RandomNum(1, 100);
 					UI32 d = pc_i->dist( pc );
 					
-					if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+					if( ( !pc->isNpc() ) && ( !pc->online() ) )
 						continue;
 
 					if ( pc->isInvul() || pc->isHidden() || pc->dead() )
@@ -213,7 +213,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						d = pc_i->dist( pc );
 						if (d > 3)
 							continue;
-						if (pc->isNpc() || !online(pc))
+						if (pc->isNpc() || !pc->online())
 							continue;
 						if (!pc->dead())
 							continue;
@@ -256,7 +256,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					{
 						d = pc->dist( pc_i );
 
-						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						if( ( !pc->isNpc() ) && ( !pc->online() ) )
 						    continue;
 						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead())
 							continue;
@@ -308,7 +308,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						d = pc->dist( pc_i );
 						if (d > 3)
 							continue;
-						if (pc->isNpc() || !online(pc))
+						if (pc->isNpc() || !pc->online())
 							continue;
 						if (pc->isInvul() || pc->dead() || !pc->isInnocent())
 							continue;
@@ -345,7 +345,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					{
 						d = pc->dist( pc_i );
 
-						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						if( ( !pc->isNpc() ) && ( !pc->online() ) )
 						    continue;
 						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead())
 							continue;
@@ -418,7 +418,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						d = pc->dist( pc_i );
 						if (d > SrvParams->attack_distance())
 							continue;
-						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						if( ( !pc->isNpc() ) && ( !pc->online() ) )
 						    continue;
 						if (pc->isInvul() || pc->dead())
 							continue;
@@ -443,7 +443,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 //				    d = pc->dist( pc_i );
 //					if (d > 10)
 //					    continue;
-//					if( ( pc->isNpc() ) && ( !online( pc ) ) )
+//					if( ( pc->isNpc() ) && ( !pc->online() ) )
 //						    continue;
 //				    if (pc->dead())
 //					    continue;
@@ -485,7 +485,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						d = pc->dist(pc_i);
 						if (d > SrvParams->attack_distance())
 							continue;
-						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						if( ( !pc->isNpc() ) && ( !pc->online() ) )
 						    continue;
 						if (pc->isInvul() || pc->dead())
 							continue;

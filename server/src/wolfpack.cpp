@@ -125,7 +125,7 @@ inline bool inRange(int x1, int y1, int x2, int y2, int range)
 //================================================================================
 //
 // signal handlers
-#if defined(__unix__)
+#if defined( Q_OS_UNIX )
 void signal_handler(int signal)
 {
 	cCharIterator iter;
@@ -158,7 +158,7 @@ void signal_handler(int signal)
 		Accounts::instance()->reload();
 		break ;
 	case SIGUSR2:
-//		cwmWorldState->savenewworld(SrvParams->worldSaveModule());
+		World->instance()->save();
 		SrvParams->flush();
 		break ;
 	case SIGTERM:
@@ -170,13 +170,6 @@ void signal_handler(int signal)
 }
 	
 #endif
-
-bool online(P_CHAR pc) // Is the player owning the character c online
-{
-	if ( pc->socket() && pc->socket()->state() == cUOSocket::InGame )
-		return true;
-	return false;
-}
 
 void savelog(const char *msg, char *logfile)
 {
@@ -483,34 +476,6 @@ void endmessage(int x) // If shutdown is initialized
 	clConsole.send( message );
 }
 
-//taken from 6904t2(5/10/99) - AntiChrist
-void callguards( P_CHAR pc_player )
-{
-	if( pc_player == NULL ) return;
-
-	//AntiChrist - anti "GUARDS" spawn timer
-	if(pc_player->antiguardstimer()<uiCurrentTime)
-	{
-		pc_player->setAntiguardstimer( uiCurrentTime+(MY_CLOCKS_PER_SEC*10) );
-	} else return;
-
-	if (!pc_player->inGuardedArea() || !SrvParams->guardsActive() )
-		return;
-
-	RegionIterator4Chars ri(pc_player->pos());
-	for( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		P_CHAR pc = ri.GetData();
-		if( pc )
-		{
-			if( !pc->dead() && !pc->isInnocent() && pc_player->inRange( pc, 14 ) )
-			{
-				Combat::spawnGuard( pc, pc, pc->pos() );
-			}
-		}
-	}
-}
-
 void reloadScripts()
 {
 	clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
@@ -753,6 +718,31 @@ static void freeClasses( void )
 	delete NewMagic;
 }
 
+void SetGlobalVars()
+{
+	keeprun=1;
+	error=0;
+	secure=1;
+	autosaved = 0;
+	dosavewarning = 0;
+}
+
+static void InitMultis()
+{
+	cItemIterator iter_items;
+	P_ITEM pItem;
+
+	for( pItem = iter_items.first(); pItem; pItem = iter_items.next() )
+	{
+		cMulti *pMulti = dynamic_cast< cMulti* >( pItem );
+		if( pMulti )
+		{
+			pMulti->checkChars();
+			pMulti->checkItems();
+		}
+	}
+}
+
 //#if defined(_DEBUG)
 //#include <crash.h>
 //#endif
@@ -777,13 +767,13 @@ int main( int argc, char *argv[] )
 		parseParameter( QString( argv[ i ] ) );
 	
 	// Unix Signal Handling
-	#if defined( __unix__ )	
+#if defined( Q_OS_UNIX )	
 	signal( SIGHUP,  &signal_handler ); // Reload Scripts
 	signal( SIGUSR1, &signal_handler ); // Save World
 	signal( SIGUSR2, &signal_handler ); // Reload Accounts
 	signal( SIGTERM, &signal_handler ); // Terminate Server
 	signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
-	#endif	
+#endif	
 
 	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); exit( -1 ); }
 
@@ -2893,12 +2883,12 @@ void setcharflag( P_CHAR pc )
 		}
 		else if (pc->crimflag()>0)
 		{
-			pc->setCriminal();
+			pc->criminal();
 			return;
 		}		
 		else
 		{
-			pc->setCriminal();
+			pc->criminal();
 		}
 	}
 	else if (pc->isNpc() && ((pc->npcaitype() == 2) || // bad npc
@@ -2907,7 +2897,7 @@ void setcharflag( P_CHAR pc )
 	{
 		if (SrvParams->badNpcsRed()== 0)
 		{
-			pc->setCriminal();
+			pc->criminal();
 		}
 		else
 		{
@@ -2947,79 +2937,17 @@ void setcharflag( P_CHAR pc )
 					if (pc->inGuardedArea())	// in a guarded region, with guarded animals, animals == blue
 						pc->setInnocent();
 					else				// if the region's not guarded, they're gray
-						pc->setCriminal();
+						pc->criminal();
 				}
 				else if( pc->owner() && !pc->isHuman() )
 				{
 						pc->setFlag( pc->owner()->flag() );
 				}
 				else
-					pc->setCriminal();
+					pc->criminal();
 				break;
 		}
 	}
 }
 
-void SetGlobalVars()
-{
-	keeprun=1;
-	error=0;
-	secure=1;
-	autosaved = 0;
-	dosavewarning = 0;
-}
 
-void InitMultis()
-{
-	cItemIterator iter_items;
-	P_ITEM pItem;
-
-	for( pItem = iter_items.first(); pItem; pItem = iter_items.next() )
-	{
-		cMulti *pMulti = dynamic_cast< cMulti* >( pItem );
-		if( pMulti )
-		{
-			pMulti->checkChars();
-			pMulti->checkItems();
-		}
-	}
-}
-
-int check_house_decay()
-{
-	int houses=0;   
-	int decayed_houses=0;
-	unsigned long int timediff;
-	unsigned long int ct=getNormalizedTime();
-	
-	cItemIterator iter_items;
-	P_ITEM pi;
-	for( pi = iter_items.first(); pi; pi = iter_items.next() )
-	{   
-		if (!pi->free && IsHouse(pi->id()))
-		{
-			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
-			{          
-				decayed_houses++;
-				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name().ascii(), SrvParams->housedecay_secs());
-				LogMessage((char*)temp);
-				(dynamic_cast< cHouse* >(pi))->remove();
-			}
-			else // house ok -> update unused-time-attribute
-			{
-				timediff=(ct-pi->timeused_last)/MY_CLOCKS_PER_SEC;
-				pi->time_unused+=timediff; // might be over limit now, but it will be cought next check anyway
-				
-				pi->timeused_last=ct;	// if we don't do that and housedecay is checked every 11 minutes,
-				// it would add 11,22,33,... minutes. So now timeused_last should in fact
-				// be called timeCHECKED_last. but as there is a new timer system coming up
-				// that will make things like this much easier, I'm too lazy now to rename
-				// it (Duke, 16.2.2001)
-			}
-			
-			houses++;			
-		}		
-	}
-	
-	return decayed_houses;
-}

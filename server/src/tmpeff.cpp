@@ -106,7 +106,7 @@ void explodeitem(cUOSocket* s, P_ITEM pi)
 		{
 			if (pc->isInvul() || pc->npcaitype()==17)		// don't affect vendors
 				continue;
-			if(pc->isGM() || (pc->isPlayer() && !online(pc)))
+			if(pc->isGM() || (pc->isPlayer() && !pc->online()))
 				continue;
 			dx=abs(pc->pos().x-pi->pos().x);
 			dy=abs(pc->pos().y-pi->pos().y);

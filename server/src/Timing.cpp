@@ -40,16 +40,16 @@
 #include "mapobjects.h"
 #include "srvparams.h"
 #include "classes.h"
-#include "network/uosocket.h"
 #include "network.h"
 #include "spawnregions.h"
 #include "territories.h"
 #include "skills.h"
 #include "msgboard.h"
 #include "boats.h"
+#include "house.h"
 
 // Library Includes
-#include "qdatetime.h"
+#include <qdatetime.h>
 #include <math.h>
 
 using namespace std;
@@ -217,6 +217,46 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 			pc->socket()->updateMana();
 	}
 }
+
+static int check_house_decay()
+{
+	int houses=0;   
+	int decayed_houses=0;
+	unsigned long int timediff;
+	unsigned long int ct=getNormalizedTime();
+	
+	cItemIterator iter_items;
+	P_ITEM pi;
+	for( pi = iter_items.first(); pi; pi = iter_items.next() )
+	{   
+		if (!pi->free && IsHouse(pi->id()))
+		{
+			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
+			{          
+				decayed_houses++;
+				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name().ascii(), SrvParams->housedecay_secs());
+				LogMessage((char*)temp);
+				(dynamic_cast< cHouse* >(pi))->remove();
+			}
+			else // house ok -> update unused-time-attribute
+			{
+				timediff=(ct-pi->timeused_last)/MY_CLOCKS_PER_SEC;
+				pi->time_unused+=timediff; // might be over limit now, but it will be cought next check anyway
+				
+				pi->timeused_last=ct;	// if we don't do that and housedecay is checked every 11 minutes,
+				// it would add 11,22,33,... minutes. So now timeused_last should in fact
+				// be called timeCHECKED_last. but as there is a new timer system coming up
+				// that will make things like this much easier, I'm too lazy now to rename
+				// it (Duke, 16.2.2001)
+			}
+			
+			houses++;			
+		}		
+	}
+	
+	return decayed_houses;
+}
+
 
 void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInstance()
 {
@@ -726,7 +766,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	if( ( SrvParams->html() > 0 ) && ( htmltime <= currenttime ) )
 	{
-			updatehtml();
+//			updatehtml();
 			htmltime = currenttime + ( SrvParams->html() * MY_CLOCKS_PER_SEC );
 	}
 

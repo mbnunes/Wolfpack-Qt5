@@ -267,7 +267,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	// User cannot wear the item
 	if( tile.layer == 0 )
 	{
-		if( online( wearer ) )
+		if( wearer->online() )
 			wearer->socket()->sysMessage( tr( "You cannot wear that item.") );
 
 		item->toBackpack( wearer );
@@ -579,7 +579,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	}
 
 	// Open a secure trading window
-	if( !pOtherChar->isNpc() && online( pOtherChar ) )
+	if( !pOtherChar->isNpc() && pOtherChar->online() )
 	{
 		// Check if we're already trading, 
 		// if not create a new window

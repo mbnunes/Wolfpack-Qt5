@@ -313,7 +313,7 @@ public:
 	void updateHealth( void );
 	void restock(); // Restocks this Vendor
 	void action( UINT8 id ); // Do an action
-	P_ITEM getWeapon();
+	P_ITEM getWeapon() const;
 	QString fullName( void );
 	UINT16 bestSkill();
 	QString reputationTitle();
@@ -672,12 +672,13 @@ public:
 	void resurrect();
 	void turnTo( cUObject *object );
 	void turnTo( const Coord_cl &pos );
+	void callGuards();
 	P_CHAR unmount();
 	void mount( P_CHAR pMount );
-	bool	canMoveAll( void ) { return priv2_&0x01; }
-	bool	isFrozen( void ) { return priv2_&0x02; }	
-	bool	viewHouseIcons( void ) { return priv2_&0x04; }	
-	bool	isHiddenPermanently( void ) { return priv2_&0x08; }
+	bool	canMoveAll( void ) const { return priv2_&0x01; }
+	bool	isFrozen( void ) const { return priv2_&0x02; }	
+	bool	viewHouseIcons( void ) const { return priv2_&0x04; }	
+	bool	isHiddenPermanently( void ) const { return priv2_&0x08; }
 	void wear( P_ITEM );
 	void updateWornItems();
 	void updateWornItems( cUOSocket* );
@@ -716,7 +717,6 @@ public:
 	void makeVulnerable();
 	void setMurderer();
 	void setInnocent();
-	void setCriminal();
 	void criminal();
 	void setAttackFirst()		{this->attackfirst_ = true; changed( SAVE );}
 	void resetAttackFirst()		{this->attackfirst_ = false; changed( SAVE );}
@@ -754,6 +754,7 @@ public:
 	UINT32 takeGold( UINT32 amount, bool useBank = false );
 	void emote( const QString &emote, UI16 color = 0xFFFF );
 	void message( const QString &message, UI16 color = 0x3B2 );
+	bool online() const;
 
 	// Wrapper events! - darkstorm
 	virtual bool onSingleClick( P_CHAR Viewer ); // Shows the name of a character to someone else
@@ -783,8 +784,8 @@ public:
 	void toggleCombat();
 	UI16 calcDefense( enBodyParts bodypart, bool wearout = false );
 
-	P_ITEM rightHandItem();
-	P_ITEM leftHandItem();
+	P_ITEM rightHandItem() const;
+	P_ITEM leftHandItem() const;
 
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
 	void setSkillDelay();
@@ -810,7 +811,7 @@ public:
 	void removeGuard( P_CHAR pPet, bool noGuardingChange = false );
 	Followers guardedby() const;
 	
-	bool Owns( P_ITEM pi );
+	bool Owns( P_ITEM pi ) const;
 
 	// Effect System
 	void addEffect( cTempEffect *effect );
@@ -861,7 +862,6 @@ inline void cChar::makeInvulnerable()		{priv |= 4; changed( SAVE );}
 inline void cChar::makeVulnerable()			{priv &= 0xFB; changed( SAVE );}
 inline void cChar::setMurderer()			{flag_ = 0x01; changed( SAVE );}
 inline void cChar::setInnocent()			{flag_ = 0x04; changed( SAVE );}
-inline void cChar::setCriminal()			{flag_ = 0x02; changed( SAVE );}
 
 
 // Getters

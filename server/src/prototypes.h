@@ -44,8 +44,6 @@ class Coord_cl;
 // Function Declarations
 //
 void endScrn() ;
-void updatehtml();
-void offlinehtml();
 
 QString hex2dec( const QString& value );
 extern void init_creatures(void);
@@ -54,13 +52,8 @@ void savelog(const char *msg, char *logfile);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void Fame(P_CHAR pc_toChange, int nFame);
 
-int check_house_decay();
 int ishuman(P_CHAR pc);
-void StartClasses();
-void SetGlobalVars();
 void InitMultis();
-void InitServerSettings();
-void DeleteClasses();
 int chardir(P_CHAR a, P_CHAR b);
 int fielddir(P_CHAR pc, int x, int y, int z);
 
@@ -83,7 +76,6 @@ void trademsg(int s);
 void dotrade(P_ITEM cont1, P_ITEM cont2);
 
 bool inVisRange(int x1, int y1, int x2, int y2);
-bool online(P_CHAR pc);
 
 int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt );
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
@@ -96,7 +88,6 @@ void reloadScripts();
 
 // Guildstone related functions
 int chardirxyz(P_CHAR pc, int x, int y);	// direction from character a to char b
-void callguards( P_CHAR pc_player );
 bool inrange1p (PC_CHAR pca, P_CHAR pcb);
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
 unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);

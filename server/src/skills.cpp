@@ -689,7 +689,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		{
 			pVictim->talk( tr( "Guards! A thief is amoung us!" ), -1, 0x09 );
 			if( pVictim->region() && pVictim->region()->isGuarded() )
-				callguards( pChar );
+				pChar->callGuards();
 		}
 		
 		if( pVictim->isInnocent() && pChar->attacker() != pVictim->serial() && GuildCompare( pChar, pVictim ) == 0)

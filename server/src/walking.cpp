@@ -650,7 +650,7 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
 		P_CHAR pc_i = ri.GetData();
 		if (pc_i != NULL)
 		{
-			if (pc_i != pc && (online(pc_i) || pc_i->isNpc()))
+			if (pc_i != pc && (pc_i->online() || pc_i->isNpc()))
 			{
 				// x=x,y=y, and distance btw z's <= MAX STEP
 				if ((pc_i->pos().x == pos.x) && (pc_i->pos().y == pos.y) && (abs(pc_i->pos().z-pos.z) <= P_M_MAX_Z_CLIMB))
@@ -972,7 +972,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 	{
 		P_CHAR mapChar = ri.GetData();
 
-		if( !mapChar || mapChar == pChar || ( !online( mapChar ) && !mapChar->isNpc() ) )
+		if( !mapChar || mapChar == pChar || ( !mapChar->online() && !mapChar->isNpc() ) )
 			continue;
 
 		// If it's not on the same position it's useless to check

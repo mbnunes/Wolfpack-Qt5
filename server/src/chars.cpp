@@ -465,7 +465,7 @@ void cChar::Init( bool createSerial )
 	this->setGuildfealty(INVALID_SERIAL);		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	this->GuildTraitor=false; 
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
-	this->setCriminal(); //flags = 0x2; 1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
+	this->criminal(); //flags = 0x2; 1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
 	this->setTempflagtime(0);
 	// End of Guild Related Character information
 	this->setMurderrate(0); //# of ticks till murder decays.
@@ -3441,12 +3441,12 @@ void cChar::toggleCombat()
 	Movement::instance()->CombatWalk( this );
 }
 
-P_ITEM cChar::rightHandItem()
+P_ITEM cChar::rightHandItem() const
 {
-	return GetItemOnLayer( SingleHandedWeapon );
+	return atLayer( SingleHandedWeapon );
 }
 
-P_ITEM cChar::leftHandItem()
+P_ITEM cChar::leftHandItem() const
 {
 	return atLayer( DualHandedWeapon );
 }
@@ -3916,7 +3916,7 @@ void cChar::removeGuard( P_CHAR pPet, bool noGuardingChange )
 		pPet->setGuardingOnly( 0 );
 }
 
-bool cChar::Owns( P_ITEM pItem )
+bool cChar::Owns( P_ITEM pItem ) const
 {
 	if( !pItem )
 		return false;
@@ -3924,7 +3924,7 @@ bool cChar::Owns( P_ITEM pItem )
 	return ( pItem->owner() == this );
 }
 
-P_ITEM cChar::getWeapon()
+P_ITEM cChar::getWeapon() const
 {
 	// Check if we have something on our right hand
 	P_ITEM rightHand = rightHandItem(); 
@@ -3991,7 +3991,7 @@ void cChar::restock()
 /*!
 	Make someone criminal.
 */
-void cChar::criminal( )
+void cChar::criminal()
 {
 	if( this->isGMorCounselor() )
 		return;
@@ -4006,6 +4006,7 @@ void cChar::criminal( )
 
 		 // Update the highlight flag.
 		 setcharflag( this );
+		 changed( SAVE );
 	}
 }
 
@@ -4585,4 +4586,44 @@ void cChar::setBeardStyle( unsigned short d)
 	}
 	pBeard->update();
 	resend();
+}
+
+/*!
+	If this character is in a guarded area, it checks the surroundings for criminals
+	or murderers and spawns a guard if one is found.
+*/
+void cChar::callGuards()
+{
+	if( antiguardstimer() < uiCurrentTime )
+	{
+		setAntiguardstimer( uiCurrentTime + (MY_CLOCKS_PER_SEC*10) );
+	} else 
+		return;
+
+	if (!inGuardedArea() || !SrvParams->guardsActive() )
+		return;
+
+	// Is there a criminal around?
+	RegionIterator4Chars ri(pos());
+	for( ri.Begin(); !ri.atEnd(); ri++ )
+	{
+		P_CHAR pc = ri.GetData();
+		if( pc )
+		{
+			if( !pc->dead() && !pc->isInnocent() && inRange( pc, 14 ) )
+			{
+				Combat::spawnGuard( pc, pc, pc->pos() );
+			}
+		}
+	}
+}
+
+/*!
+	Queries if the character is an online player
+*/
+bool cChar::online() const
+{
+	if ( socket() && socket()->state() == cUOSocket::InGame )
+		return true;
+	return false;
 }
