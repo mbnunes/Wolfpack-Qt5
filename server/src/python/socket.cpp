@@ -300,21 +300,20 @@ static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 */
 static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 {
-	if( !self->pSock )
-		return PyFalse;
-	
-	if( !checkArgInt( 0 ) )
-	{
-		PyErr_BadArgument();
+	unsigned int type;
+	unsigned int button = 0;
+
+	if (!PyArg_ParseTuple(args, "i|i:socket.closegump(type, [button])", &type, &button)) {
 		return 0;
 	}
 
 	cUOTxCloseGump closeGump;
-	closeGump.setButton( 0 );
-	closeGump.setType( getArgInt( 0 ) );
-	self->pSock->send( &closeGump );
-
-	return PyTrue;
+	closeGump.setButton(button);
+	closeGump.setType(type);
+	self->pSock->send(&closeGump);
+	
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!

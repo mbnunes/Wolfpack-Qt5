@@ -671,7 +671,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				StaticsIterator msi = Map->staticsIterator( *pit );
 				if( (map1.id != 2) && (map2.id != 2) ) 
 				{
-					if( ( map1.z >= zmin ) && ( map1.z <= zmax ) )
+					if( ( map1.z > zmin ) && ( map1.z < zmax ) )
 					{
 						//its just in our way
 						//Console::instance()->send( QString( "try3" ) );
@@ -842,6 +842,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			double z2_up = -300;
 			double z1_down = -300;
 			double z2_down = -300;
+			bool targetpos = false;
 			//Console::instance()->send( QString( "dz_down:%3,dz_up:%4\n" ).arg( dz_down ).arg( dz_up ) );
 
 			if( (sgn_x == 0) && (sgn_y == 0) )
@@ -897,6 +898,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 
 				if( (*pit).y == target.y )
 				{
+					targetpos = true;
 					if( (dz_up >= 0) && (dz_down >= 0) )
 					{
 						if( zmin < target.z )
@@ -977,6 +979,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 
 				if( (*pit).x == target.x )
 				{
+					targetpos = true;
 					if( (dz_up >= 0) && (dz_down >= 0) )
 					{
 						if( zmin < target.z )
@@ -1103,7 +1106,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 
 				//Console::instance()->send( QString( "ergebnis: z1_up:%1,z1_down:%2,z2_up:%3,z2_down:%4\n" ).arg( z1_up ).arg( z1_down ).arg( z2_up ).arg( z2_down ) );
 
-				if( z2_up = -300 )
+				if( z2_up == -300 )
 				{
 					zmin = floor( z1_down );
 					zmax = ceil( z1_up );
@@ -1113,6 +1116,8 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					zmin = QMIN( floor( z1_down ), floor( z2_down ) );
 					zmax = QMAX( ceil( z1_up ), ceil( z2_up ) );
 				}
+
+				//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
 
 				if( dz_up > 0 )
 				{
@@ -1136,6 +1141,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 
 				if( ((*pit).x == target.x) && ((*pit).y == target.y) )
 				{
+					targetpos = true;
 					if( (dz_up >= 0) && (dz_down >= 0) )
 					{
 						if( zmin < target.z )
@@ -1191,7 +1197,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			StaticsIterator msi = Map->staticsIterator( *pit );
 			if( (map1.id != 2) && (map2.id != 2) ) 
 			{
-				if( ( map1.z >= zmin ) && ( map1.z <= zmax ) )
+				if( ( map1.z > zmin ) && ( map1.z < zmax ) )
 				{
 					//its just in our way
 					//Console::instance()->send( QString( "map cut 1\n" ) );
@@ -1203,8 +1209,8 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				//in this case, both dont cut our line, but the mapconnection between them
 				//should do
 				land_st tile = TileCache::instance()->getLand( map1.id );
-				if( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax+dz_down ) ) ||						// 1) lineofsight collides with a map "wall"
-					( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmin+dz_down ) ) ||
+				if( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax+dz_down ) && !targetpos ) ||						// 1) lineofsight collides with a map "wall"
+					( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmin+dz_down ) && !targetpos ) ||
 					( tile.isBlocking() && posHigherThanMap && msi.atEnd() ) )
 				{
 					//Console::instance()->send( QString( "map1:%1,map2:%2,map1id:%3\n" ).arg( map1.z ).arg( map2.z ).arg( map1.id ) );
@@ -1241,7 +1247,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				{
 					if( tile.isBlocking() || tile.isRoofOrFloorTile() )
 					{
-						return false;
+						if( !( (tile.flag2 & 0x2) && (tile.height > 1) ) )
+						{
+							return false;
+						}
 					}
 				}
 			
@@ -1261,8 +1270,11 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					{
 						if( tile.isBlocking() || tile.isRoofOrFloorTile() )
 						{
-							//Console::instance()->send( QString( "Item:%1,Z:%2,Height:%3\n" ).arg( pi->id() ).arg( pi->pos().z ).arg( tile.height ) );
-							return false;
+							if( !( (tile.flag2 & 0x2) && (tile.height > 1) ) )
+							{
+								//Console::instance()->send( QString( "Item:%1,Z:%2,Height:%3\n" ).arg( pi->id() ).arg( pi->pos().z ).arg( tile.height ) );
+								return false;
+							}
 						}
 					}	
 				}
@@ -1292,7 +1304,10 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						{
 							if( tile.isBlocking() || tile.isRoofOrFloorTile() )
 							{
-								return false;
+								if( !( (tile.flag2 & 0x2) && (tile.height > 1) ) )
+								{
+									return false;
+								}							
 							}
 						}	
 					}
