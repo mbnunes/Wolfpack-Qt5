@@ -1569,7 +1569,7 @@ void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can fin
 	if (k!=-1)
 	{
 		AllCharsIterator iter_char;
-		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 		{ //Tauriel only send inrange people (walking takes care of out of view)
 			P_CHAR pc_i = iter_char.GetData();
 			if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(pc, pc_i)))

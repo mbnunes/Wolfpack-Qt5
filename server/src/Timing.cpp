@@ -865,7 +865,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 		AllCharsIterator iter_char;
 		   
-		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 		{
 			P_CHAR pc = iter_char.GetData();
 			if (pc->npc_type == 1)

@@ -104,7 +104,7 @@ void RcvAttack(P_CLIENT ps)
 		if( pc_i->guarded )
 		{
 			AllCharsIterator iter_char;
-			for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+			for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 			{
 				P_CHAR toCheck = iter_char.GetData();
 				if (pc_i->Owns(toCheck) && toCheck->npcaitype == 32 && chardist( pc_currchar, toCheck )<= 10 )

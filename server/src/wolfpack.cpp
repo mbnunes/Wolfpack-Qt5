@@ -803,7 +803,7 @@ void item_char_test()
 	P_CHAR p_pet;
 	int stablemaster_serial;
 	AllCharsIterator iter_char;
-	for ( iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for ( iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		p_pet = iter_char.GetData();
 		if (p_pet != NULL)
@@ -1012,7 +1012,7 @@ void deathstuff(P_CHAR pc_player)
 		murderername[0]=0;
 
 	AllCharsIterator iter_char;
-	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR pc_t = iter_char.GetData();
 		if (pc_t->targ == pc_player->serial && !pc_t->free)
@@ -2247,7 +2247,7 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 			totaltotal++; 
 		}
 		AllCharsIterator iter_char;
-		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++) 
+		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++) 
 		{ 
 			P_CHAR pc = iter_char.GetData();
 			if (!pc->free) 
@@ -5452,7 +5452,7 @@ void InitMultis()
 	P_ITEM pi_multi;
 
 	AllCharsIterator iter_char;
-	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR pc = iter_char.GetData();
 		if (!pc->free)

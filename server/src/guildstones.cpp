@@ -1716,7 +1716,7 @@ void cGuilds::CheckConsistancy(void )
    //////////////// now check all characters for still being in a deleted guild
 
    AllCharsIterator iter_char;
-   for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+   for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
    {
      ok=1;
 	 pc_a = iter_char.GetData();	

@@ -409,7 +409,7 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 	sysmessage(s,"Killing spawn, this may cause lag...");
 
 	AllCharsIterator iter_char;
-	for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
 		if(toCheck->spawnregion==r && !toCheck->free)
@@ -422,7 +422,7 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 	}
 
 	AllItemsIterator iter_item;
-	for(iter_item.Begin(); iter_item.GetData() != NULL; iter_item++)
+	for(iter_item.Begin(); !iter_item.atEnd(); iter_item++)
 	{
 		P_ITEM toCheck = iter_item.GetData();
 		if(toCheck->spawnregion == r && !toCheck->free)
@@ -507,7 +507,7 @@ void cCommands::KillAll(int s, int percent, const char* sysmsg)
 	sysmessage(s,"Killing all characters, this may cause some lag...");
 	sysbroadcast(sysmsg);
 	AllCharsIterator iter_char;
-	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR pc = iter_char.GetData();
 		if(!pc->isGM())

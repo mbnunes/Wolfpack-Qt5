@@ -873,7 +873,7 @@ void command_gochar(UOXSOCKET s)
 	if (tnum == 5) 
 	{ 
 		AllCharsIterator iter_char;
-		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++) 
+		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++) 
 		{ 
 			pc_i = iter_char.GetData(); 
 			
@@ -1106,7 +1106,7 @@ void command_zerokills(UOXSOCKET s)
 {
 	sysmessage(s,"Zeroing all player kills...");
 	AllCharsIterator iter_char;
-	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR pc = iter_char.GetData();
 		pc->kills=0;
@@ -2371,7 +2371,7 @@ void command_wipenpcs(UOXSOCKET s)
 	
 	
 	AllCharsIterator iter_char;
-	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
         if(toCheck->isNpc() && toCheck->npcaitype!=17 && !toCheck->tamed) // Ripper

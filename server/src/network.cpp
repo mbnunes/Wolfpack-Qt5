@@ -217,7 +217,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	if (SrvParms->server_log) savelog((char*)temp,"server.log");
 
 
-	if ((currchar[s]->account==acctno[s])&&(SrvParms->partmsg)&& perm[s]) 
+	if (perm[s] && (currchar[s]->account==acctno[s])&&(SrvParms->partmsg)) 
 		if (currchar[s]->isPlayer()) // bugfix lb, removes lamas that leave the realm :)
 		{
 			sprintf((char*)temp,"%s has left the realm",currchar[s]->name);
@@ -441,7 +441,7 @@ void cNetworkStuff::GoodAuth(int s)
 	vector<P_CHAR> accounts_chars;
 	accounts_chars.clear(); // Just to make sure we get a clean vector.
 	AllCharsIterator iter_char;
-	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
 		if ( toCheck->account == acctno[s] && !toCheck->free )			
@@ -546,7 +546,7 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 		j=0;
 
 		AllCharsIterator iter_char;
-		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 		{
 			P_CHAR toCheck = iter_char.GetData();
 			if ((toCheck->account == acctno[s])&&(toCheck->isPlayer())&&(!toCheck->free))

@@ -634,7 +634,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	
 	k=0;
 	AllCharsIterator iter_char;
-	for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
 		if (toCheck->account!=-1 && !toCheck->free)
@@ -701,7 +701,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 			whomenudata[x++]=currchar[i]->serial;
 		}
 	}		
-	for(iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
+	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
 		if (toCheck->account!=-1 && !toCheck->free && !online(toCheck)) { 
