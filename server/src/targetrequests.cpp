@@ -33,7 +33,7 @@
 #include "territories.h"
 #include "items.h"
 //#include "muls/tilecache.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "skills.h"
 #include "combat.h"
 #include "scriptmanager.h"

@@ -28,7 +28,7 @@
 #include "multiscache.h"
 #include "../defines.h"
 #include "../exceptions.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 // Library Includes
 #include <qvaluevector.h>

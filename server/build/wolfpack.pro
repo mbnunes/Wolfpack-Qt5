@@ -38,7 +38,7 @@ RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-INCLUDEPATH += sqlite 
+INCLUDEPATH += sqlite
 win32:DEFINES -= UNICODE
 
 # Include configure's settings
@@ -59,7 +59,7 @@ HEADERS = \
 	basics.h \
 	combat.h \
 	commands.h \
-	config.h \
+	serverconfig.h \
 	console.h \
 	contextmenu.h \
 	coord.h \
@@ -123,7 +123,7 @@ SOURCES = \
 	basics.cpp \
 	combat.cpp \
 	commands.cpp \
-	config.cpp \
+	serverconfig.cpp \
 	console.cpp \
 	contextmenu.cpp \
 	coord.cpp \
@@ -167,7 +167,7 @@ SOURCES = \
 	uobject.cpp \
 	walking.cpp \
 	world.cpp
-	
+
 # Twofish Module
 SOURCES += twofish/twofish2.c
 

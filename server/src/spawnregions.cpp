@@ -38,7 +38,7 @@
 #include "basics.h"
 #include "console.h"
 #include "sectors.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "inlines.h"
 #include "scriptmanager.h"
 #include "python/pyspawnregion.h"
@@ -61,7 +61,7 @@ void cSpawnRegion::init( void )
 	nextTime_ = 0;
 }
 
-void cSpawnRegion::add(cUObject *object) 
+void cSpawnRegion::add(cUObject *object)
 {
 	if (object->isItem()) {
 		items_.append(object);
@@ -203,7 +203,7 @@ void cSpawnRegion::processNode( const cElement* Tag )
 
 bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
 	// Try up to 100 times.
-	for(unsigned int i = 0; i < 100; ++i) 
+	for(unsigned int i = 0; i < 100; ++i)
 	{
 		int rndRectNum = RandomNum( 0, this->rectangles_.size() - 1 );
 		pos.x = RandomNum( this->rectangles_[rndRectNum].x1, this->rectangles_[rndRectNum].x2 );
@@ -250,7 +250,7 @@ bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
 			}
 
 			return true;
-		}	
+		}
 	}
 
 	Console::instance()->log( LOG_WARNING, tr( "A problem has occured in spawnregion %1. Couldn't find valid spot." ).arg( this->name_ ) );
@@ -434,7 +434,7 @@ void cAllSpawnRegions::load()
 
 void cAllSpawnRegions::reload()
 {
-	// Save a list of all objects and their spawnregions 
+	// Save a list of all objects and their spawnregions
 	// So the references can be recreated later.
 	QMap<QString, QPtrList<cUObject> > objects;
 
@@ -443,7 +443,7 @@ void cAllSpawnRegions::reload()
 		cSpawnRegion *region = pItem->spawnregion();
 		if (region)
 		{
-			if (!objects.contains(region->name())) 
+			if (!objects.contains(region->name()))
 			{
 				objects[region->name()].setAutoDelete(false);
 			}
@@ -458,7 +458,7 @@ void cAllSpawnRegions::reload()
 		cSpawnRegion *region = pChar->spawnregion();
 		if (region)
 		{
-			if (!objects.contains(region->name())) 
+			if (!objects.contains(region->name()))
 			{
 				objects[region->name()].setAutoDelete(false);
 			}

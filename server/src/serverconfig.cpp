@@ -25,7 +25,7 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#include "config.h"
+#include "serverconfig.h"
 
 #include "verinfo.h"
 #include "preferences.h"

@@ -36,7 +36,7 @@
 #include "network/uotxpackets.h"
 #include "basics.h"
 #include "muls/maps.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "world.h"
 #include "definitions.h"
 #include "corpse.h"
@@ -1232,7 +1232,7 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 }
 
 PyObject *cPlayer::getProperty(const QString& name) {
-	PY_PROPERTY("account", account_)	
+	PY_PROPERTY("account", account_)
 	/*
 	\rproperty controlslots The amount of controlslots currently used for this
 	player.

@@ -44,7 +44,7 @@
 #include "../muls/maps.h"
 #include "../speech.h"
 #include "../commands.h"
-#include "../config.h"
+#include "../serverconfig.h"
 #include "../definitions.h"
 #include "../scriptmanager.h"
 #include "../walking.h"
@@ -105,7 +105,7 @@ cUOSocket::cUOSocket( QSocketDevice* sDevice ) : _walkSequence( 0 ), lastPacket(
 // Initialize all packet handlers to zero
 PyObject* cUOSocket::handlers[255] =
 {
-	0, 
+	0,
 };
 
 void cUOSocket::registerPacketHandler( unsigned char packet, PyObject* handler )
@@ -262,7 +262,7 @@ void cUOSocket::recieve()
 
 	// This is always checked before anything else
 	if (packetId == 0x02 && Config::instance()->antiSpeedHack()) {
-		if (_player && !_player->isGM()) {			
+		if (_player && !_player->isGM()) {
 			// There are two different delays for mounted and unmounted players
 			unsigned int delay;
 			if (!_player->atLayer(cBaseChar::Mount)) {
@@ -271,7 +271,7 @@ void cUOSocket::recieve()
 				delay = Config::instance()->antiSpeedHackDelayMounted();
 			}
 
-			// If the last movement of our player was not X ms in the past, 
+			// If the last movement of our player was not X ms in the past,
 			// requeue the walk request until we can fullfil it.
 			//unsigned int time = getNormalizedTime();
 			unsigned int time = Server::instance()->time();

@@ -32,7 +32,7 @@
 
 #include "world.h"
 #include "network/network.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "player.h"
 #include "accounts.h"
 #include "inlines.h"

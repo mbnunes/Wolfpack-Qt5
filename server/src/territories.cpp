@@ -30,7 +30,7 @@
 
 #include "network/uosocket.h"
 #include "defines.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "network/network.h"
 #include "basics.h"
 #include "console.h"

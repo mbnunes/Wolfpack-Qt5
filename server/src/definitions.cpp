@@ -41,7 +41,7 @@
 #include "items.h"
 #include "world.h"
 #include "skills.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "basechar.h"
 #include "network/network.h"
 

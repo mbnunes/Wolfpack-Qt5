@@ -28,7 +28,7 @@
 #include "asyncnetio.h"
 #include "uorxpackets.h"
 #include "uopacket.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 #include "../basics.h"
 

@@ -33,7 +33,7 @@
 #include "timers.h"
 #include "items.h"
 
-#include "config.h"
+#include "serverconfig.h"
 #include "network/network.h"
 #include "definitions.h"
 #include "network/uosocket.h"

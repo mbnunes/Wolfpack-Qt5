@@ -34,7 +34,7 @@
 
 #include "sectors.h"
 #include "uotime.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "network/network.h"
 #include "territories.h"
 #include "network/uosocket.h"

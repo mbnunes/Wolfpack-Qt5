@@ -31,7 +31,7 @@
 #include "../skills.h"
 #include "../party.h"
 #include "../combat.h"
-#include "../config.h"
+#include "../serverconfig.h"
 #include "../walking.h"
 #include "../commands.h"
 #include "../scriptmanager.h"
@@ -399,7 +399,7 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 	\method char.action
 	\description Play an animation for the character.
 	The animation id is automatically translated if the character is on a horse or
-	if the current body id of the character doesn't	support the animation. 	
+	if the current body id of the character doesn't	support the animation.
 	\param id The id of the animation that should be played.
 	See the "Animation Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for a list.
 */
@@ -2087,7 +2087,7 @@ static PyObject* wpChar_vendorsell( wpChar* self, PyObject* args )
 }
 
 /*
-	\method char.aiengine	
+	\method char.aiengine
 	\description Get the ai engine associated with this NPC.
 	This only works for NPCs and returns None otherwise
 	\return The <object id="ai">ai</object> object used by this npc.
@@ -2203,7 +2203,7 @@ static PyObject* wpChar_hasevent( wpChar* self, PyObject* args )
 
 /*
 	\method char.showname
-	\description Show the name of this character over the characters head for a given socket. 
+	\description Show the name of this character over the characters head for a given socket.
 	This looks like the "Show Incoming Names" option in the client.
 	\param socket The <object id="SOCKET">socket</object> object of the receiving socket.
 */

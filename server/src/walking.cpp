@@ -31,7 +31,7 @@
 // Wolfpack Includes
 #include "walking.h"
 #include "sectors.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "network/network.h"
 #include "muls/maps.h"
 #include "muls/tilecache.h"

@@ -29,7 +29,7 @@
 #include "muls/tilecache.h"
 #include "speech.h"
 #include "sectors.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "skills.h"
 #include "muls/maps.h"
 #include "network/network.h"
@@ -169,8 +169,8 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 			if ( pContainer )
 				pContainer->addItem( splitItem, false );
 			splitItem->SetOwnSerial( pItem->ownSerial() );
-			
-			splitItem->setSpawnregion(pItem->spawnregion());			
+
+			splitItem->setSpawnregion(pItem->spawnregion());
 
 			// He needs to see the new item
 			splitItem->update();

@@ -27,7 +27,7 @@
 
 #include "engine.h"
 
-#include "../config.h"
+#include "../serverconfig.h"
 #include "../console.h"
 
 #include "../log.h"

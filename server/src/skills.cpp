@@ -32,7 +32,7 @@
 #include "combat.h"
 #include "targetrequests.h"
 #include "sectors.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "scriptmanager.h"
 #include "skills.h"
 #include "network/network.h"

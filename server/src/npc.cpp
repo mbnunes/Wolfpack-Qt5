@@ -40,7 +40,7 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "sectors.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "log.h"
 #include "console.h"
 #include "corpse.h"

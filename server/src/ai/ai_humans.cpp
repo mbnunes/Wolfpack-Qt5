@@ -33,7 +33,7 @@
 #include "../speech.h"
 #include "../targetrequests.h"
 #include "../timers.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 #include "../sectors.h"
 #include "../world.h"

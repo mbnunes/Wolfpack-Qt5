@@ -27,7 +27,7 @@
 
 #include "trade.h"
 #include "inlines.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "typedefs.h"
 #include "basechar.h"
 #include "player.h"
@@ -314,7 +314,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			if ( !( *it ) )
 				continue;
 
-			if ( ( *it )->id() == pItem->id() && ( *it )->color() == pItem->color() && 
+			if ( ( *it )->id() == pItem->id() && ( *it )->color() == pItem->color() &&
 				//					(*it)->amount() >= pItem->amount() &&
 				( *it )->eventList() == pItem->eventList() )
 			{

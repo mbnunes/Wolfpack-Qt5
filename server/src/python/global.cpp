@@ -48,7 +48,7 @@
 #include "../verinfo.h"
 
 #include "../items.h"
-#include "../config.h"
+#include "../serverconfig.h"
 #include "../basechar.h"
 #include "../player.h"
 #include "../npc.h"
@@ -354,7 +354,7 @@ static PyMethodDef wpTime[] =
 	\function wolfpack.additem
 	\param definition The id of the item definition to create the item from.
 	\return An <object id="item">item</object> object or None.
-	\description Creates a new item from a given definition id and assigns a new serial to it.	
+	\description Creates a new item from a given definition id and assigns a new serial to it.
 */
 static PyObject* wpAdditem( PyObject* self, PyObject* args )
 {
@@ -430,7 +430,7 @@ static PyObject* wpGuilds( PyObject* self, PyObject* args )
 	\function wolfpack.findguild
 	\param id The guild id to look for, an integer value.
 	\return A <object id="guild">guild</object> object or None.
-	\description Tries to find a guild with the given id and returns a guild object for it. 
+	\description Tries to find a guild with the given id and returns a guild object for it.
 	Returns None if no guild could be found.
 */
 static PyObject* wpFindguild( PyObject* self, PyObject* args )
@@ -503,9 +503,9 @@ static PyObject* wpFindmulti( PyObject* self, PyObject* args )
 	\param expiretime The delay in miliseconds after which this timer should be triggered.
 	\param function The name of the function that should be called when this timer is triggered.
 	Please note that this is a string containing the full name of the function including the full
-	module name (i.e. <code>"mymodule.mytimer"</code> if the <code>mytimer</code> function is in the 
-	<code>mymodule.py</code> file). 
-	
+	module name (i.e. <code>"mymodule.mytimer"</code> if the <code>mytimer</code> function is in the
+	<code>mymodule.py</code> file).
+
 	The function should have the following prototype:
 	<code>def expire(object, args):
 	&nbsp;&nbsp;pass</code>
@@ -513,7 +513,7 @@ static PyObject* wpFindmulti( PyObject* self, PyObject* args )
 	None when you use <code>wolfpack.addtimer</code> to add the timer.
 	\param args This should be a list of custom arguments that will be passed on to the timer expire function.
 	If you don't want the timer to be saved you can pass on any type of obejcts. However. You should not pass
-	character, item or guild objects directly but their serials instead. Use finditem, findguild and findchar to 
+	character, item or guild objects directly but their serials instead. Use finditem, findguild and findchar to
 	get a new object in the expirefunction afterwards.
 	\param serializable Defaults to false. If this boolean parameter is true, the timer will be saved on worldsaves
 	and will be triggered even if the server is restarted in between.
@@ -589,15 +589,15 @@ static PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 	\param x The x component of the coordinate.
 	\param y The y component of the coordinate.
 	\param map The map of the coordinate.
-	\param exact Defaults to false. If this boolean parameter is true, 
-	not the entire 8x8 static block matching the coordinate is returned, 
+	\param exact Defaults to false. If this boolean parameter is true,
+	not the entire 8x8 static block matching the coordinate is returned,
 	but only the tiles that are exactly at the given coordinate.
-	\return A list of dictionaries. Each dictionary included in the list has the 
+	\return A list of dictionaries. Each dictionary included in the list has the
 	following keys:
 	- <code>id</code> The art tile id of the static item as an integer value.
 	- <code>x</code> The absolute x component of the coordinate of the static tile. (Not relative to the
 	upper left block corner).
-	- <code>y</code> The absolute y component of the coordinate of the static tile. (Not relative to the 
+	- <code>y</code> The absolute y component of the coordinate of the static tile. (Not relative to the
 	upper left block corner).
 	- <code>z</code> The z position of the static tile.
 	\description This function searches for static tiles at the given coordinate and returns
@@ -665,11 +665,11 @@ static PyObject* wpAllCharsIterator(PyObject* self, PyObject* args) {
 	\param x The x component of the coordinate.
 	\param y The y component of the coordinate.
 	\param map The map to look on.
-	\param range Defaults to 1. 
-	This is the range in which the server should search for items. Please remember that this is not 
+	\param range Defaults to 1.
+	This is the range in which the server should search for items. Please remember that this is not
 	a circle.
 	\return A list of <object id="item">item</object> objects.
-	\description This function searches for dynamic items (no static items) at the given 
+	\description This function searches for dynamic items (no static items) at the given
 	coordinate and in the given range and returns a list of found item objects.
 */
 static PyObject* wpItems( PyObject* self, PyObject* args )
@@ -703,11 +703,11 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 	\param x The x component of the coordinate.
 	\param y The y component of the coordinate.
 	\param map The map to look on.
-	\param range Defaults to 1. 
-	This is the range in which the server should search for characters. Please remember that this is not 
+	\param range Defaults to 1.
+	This is the range in which the server should search for characters. Please remember that this is not
 	a circle.
 	\return A list of <object id="char">char</object> objects.
-	\description This function searches for characters at the given 
+	\description This function searches for characters at the given
 	coordinate and in the given range and returns a list of found objects.
 */
 static PyObject* wpChars( PyObject* self, PyObject* args )
@@ -743,7 +743,7 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	\param duration The duration of the effect. This is an integer value.
 	\param speed This integer value indicates the animation speed that should be used.
 	\description This function shows a graphical effect at a given position to all players in range.
-	The exact scale of the duration and speed parameters are unknown and passed on directly to the client. 
+	The exact scale of the duration and speed parameters are unknown and passed on directly to the client.
 	You'll have to experiment to find suitable values.
 */
 static PyObject* wpEffect( PyObject* self, PyObject* args )
@@ -784,7 +784,7 @@ static PyObject* wpEffect( PyObject* self, PyObject* args )
 	\return A dictionary with the following keys:
 	- <code>id</code> The landtile art id for the maptile.
 	- <code>z</code> The height of the map at the given position. Please note that this
-	is the height stored in the datafile and not the real height which is also influenced by 
+	is the height stored in the datafile and not the real height which is also influenced by
 	the surrounding maptiles.
 	\description This function returns a dictionary with information about a tile of the map
 	at the given coordinate.
@@ -882,7 +882,7 @@ static PyObject* wpLanddata( PyObject* self, PyObject* args )
 	\return A dictionary with the following keys:
 	- <code>name</code> The name of the tile.
 	- <code>height</code> The height of the tile.
-	- <code>weight</code> The weight of the tile. This value is not used internally but can be used to check if the item is movable by the client. 
+	- <code>weight</code> The weight of the tile. This value is not used internally but can be used to check if the item is movable by the client.
 	Items with a weight of 255 are not movable by default.
 	- <code>layer</code> The layer this item will be equipped on if equippable.
 	- <code>animation</code> The id of the animation that will be shown when this item is equipped.
@@ -986,7 +986,7 @@ static PyObject* wpList( PyObject* self, PyObject* args )
 	Take a look at the "Event Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for details.
 	\param script The name of a script that should be notified about the given event.
 	\description This function registers a script as a global hook for one given event type. Whenever the
-	event is triggered, the given script will be called first. Please note that there can only be one 
+	event is triggered, the given script will be called first. Please note that there can only be one
 	hook per event at a time, but a script can hook more than one event to itself.
 */
 static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
@@ -1020,7 +1020,7 @@ static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
 	\function wolfpack.registercommand
 	\param command The name of the command as a string.
 	\param function The function that should handle the command. This is not a string but a callable
-	python function object. The function should have the following prototype:	
+	python function object. The function should have the following prototype:
 	<code>
 	def mycommand(socket, command, arguments):
 	&nbsp;&nbsp;pass
@@ -1028,7 +1028,7 @@ static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
 	Where socket is the <object id="socket">socket</object> object the command was issued from,
 	command is the name of the command that has been issued if you want to use a single function
 	for multiple commands and arguments is a string containing the full list of arguments passed
-	to the command.		
+	to the command.
 	\description This function registers a python handler for the given command name. Using this function
 	you can implement custom ingame commands.
 */
@@ -1048,7 +1048,7 @@ static PyObject* wpRegisterCommand( PyObject* self, PyObject* args )
 
 	Py_INCREF( function );
 	ScriptManager::instance()->setCommandHook( command, function );
-	
+
 	Py_RETURN_NONE;
 }
 
@@ -1059,7 +1059,7 @@ static PyObject* wpRegisterCommand( PyObject* self, PyObject* args )
 	python function object. The function should have the following prototype:
 	<code>
 	def mycommand(socket, packet):
-	&nbsp;&nbsp;pass	
+	&nbsp;&nbsp;pass
 	</code>
 	Where socket is the <object id="socket">socket</object> object the packet was sent from,
 	packet is a <object id="packet">packet</object> object representing the received packet.
@@ -1117,7 +1117,7 @@ static PyObject* wpCoord( PyObject* self, PyObject* args )
 	\function wolfpack.addmulti
 	\param definition The id of the multi definition.
 	\return An <object id="item">item</object> object or None.
-	\description Creates a new multi from a given definition id and assigns a new serial to it.	
+	\description Creates a new multi from a given definition id and assigns a new serial to it.
 	Please note that multis are represented by the item object.
 */
 static PyObject* wpAddMulti( PyObject* self, PyObject* args )
@@ -1349,7 +1349,7 @@ static PyObject* wpNewPlayer( PyObject* self, PyObject* args )
 	\description This function calculates the current normalized time and returns it.
 	It is often faster to use the currenttime function instead, but if you need
 	an accurate value for timing or similar tasks, use this function instead.
-*/ 
+*/
 static PyObject* wpTickcount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1361,7 +1361,7 @@ static PyObject* wpTickcount( PyObject* self, PyObject* args )
 	\function wolfpack.charcount
 	\return An integer value.
 	\description This function returns the number of registered characters in the world.
-*/ 
+*/
 static PyObject* wpCharCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1373,7 +1373,7 @@ static PyObject* wpCharCount( PyObject* self, PyObject* args )
 	\function wolfpack.npccount
 	\return An integer value.
 	\description This function returns the number of registered NPCs in the world.
-*/ 
+*/
 static PyObject* wpNpcCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1385,7 +1385,7 @@ static PyObject* wpNpcCount( PyObject* self, PyObject* args )
 	\function wolfpack.playercount
 	\return An integer value.
 	\description This function returns the number of registered player characters in the world.
-*/ 
+*/
 static PyObject* wpPlayerCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1397,7 +1397,7 @@ static PyObject* wpPlayerCount( PyObject* self, PyObject* args )
 	\function wolfpack.itemcount
 	\return An integer value.
 	\description This function returns the number of registered items in the world.
-*/ 
+*/
 static PyObject* wpItemCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1411,7 +1411,7 @@ static PyObject* wpItemCount( PyObject* self, PyObject* args )
 	\param size The packet size in byte.
 	\return A <object id="packet">packet</object> object.
 	\description This function creates a new packet object with the given size and sets the first byte of the packet to the given packet id.
-*/ 
+*/
 static PyObject* wpPacket( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1429,7 +1429,7 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 	\param action The action you want to queue.
 	Take a look at the "Action Constants" in the <module id="wolfpack.consts">wolfpack.consts</module> module.
 	\description This function queues an action to be executed in the next iteration of the mainloop.
-*/ 
+*/
 static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1446,7 +1446,7 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 
 /*
 	\function wolfpack.getdefinition
-	\param type The definition type. 
+	\param type The definition type.
 	Use one of the "Definition Constants" from <module id="wolfpack.consts">wolfpack.consts</module>.
 	\param id A string representing the id of the desired definition section.
 	\return None if the section could not be found or an <object id="element">element</object> object otherwise.
@@ -1479,7 +1479,7 @@ static PyObject* wpGetDefinition( PyObject* self, PyObject* args )
 
 /*
 	\function wolfpack.getdefinitions
-	\param type The definition type. 
+	\param type The definition type.
 	Use one of the "Definition Constants" from <module id="wolfpack.consts">wolfpack.consts</module>.
 	\return A tuple of strings.
 	\description This function will compile the ids of all sections of a given type.
@@ -1727,7 +1727,7 @@ static PyObject* wpCharBase(PyObject* self, PyObject* args) {
 		return 0;
 	}
 
-	cCharBaseDef *basedef = CharBaseDefs::instance()->get(baseid);	
+	cCharBaseDef *basedef = CharBaseDefs::instance()->get(baseid);
 
 	if (!basedef) {
 		return PyErr_Format(PyExc_RuntimeError, "An error occured while retrieving the character basedefinition %s.", baseid);
@@ -1871,7 +1871,7 @@ static PyObject *wpAccountsCount( PyObject *self, PyObject *args ) {
 /*
 	\function wolfpack.accounts.find
 	\param name A string containing the account name.
-	\return An <object id="account">account</object> object if an account was found. 
+	\return An <object id="account">account</object> object if an account was found.
 	None otherwise.
 	\description This function tries to find an account with the given name and returns it.
 */
@@ -2306,7 +2306,7 @@ static PyObject* wpExecute( PyObject* self, PyObject* args )
 /*
 	\function wolfpack.database.driver
 	\param database The id of the database you want to query. See the "Database Constants" in this module.
-	\return A string.	
+	\return A string.
 	\description This function returns the name of the database driver in use for the given database.
 */
 static PyObject* wpDriver( PyObject* self, PyObject* args )

@@ -28,7 +28,7 @@
 #include "ai.h"
 #include "../npc.h"
 #include "../player.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 #include "../sectors.h"
 #include "../basics.h"

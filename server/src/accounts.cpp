@@ -27,7 +27,7 @@
 
 // Wolfpack Includes
 #include "accounts.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "network/uosocket.h"
 #include "dbdriver.h"
 #include "console.h"

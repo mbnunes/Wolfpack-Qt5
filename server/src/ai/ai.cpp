@@ -31,7 +31,7 @@
 #include "../npc.h"
 #include "../sectors.h"
 #include "../player.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 #include "../basics.h"
 #include "../walking.h"
@@ -503,12 +503,12 @@ void Action_Wander::execute()
                 if (!region->contains(newpos.x, newpos.y, newpos.map))
 				{
 					unsigned char newdir = RandomNum(0, 7);
-					// Make sure we're not trying to walk in the same 
-					// direction or the directions directly beneath if we met the border of a 
+					// Make sure we're not trying to walk in the same
+					// direction or the directions directly beneath if we met the border of a
 					// spawnregion. But we don't want to turn around exactly either. (Looks
 					// to mechanically)
-					while (newdir == dir 
-						|| newdir == ((dir == 0) ? 7 : dir - 1) 
+					while (newdir == dir
+						|| newdir == ((dir == 0) ? 7 : dir - 1)
 						|| newdir == ((dir == 7) ? 0 : dir + 1) )
 					{
 						newdir += RandomNum(0, 1) ? -1 : 1;

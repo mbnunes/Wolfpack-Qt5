@@ -31,7 +31,7 @@
 #include "../console.h"
 #include "../defines.h"
 #include "../exceptions.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 #include <qfile.h>
 #include <qdatastream.h>

@@ -29,7 +29,7 @@
 #include "world.h"
 #include "console.h"
 
-#include "config.h"
+#include "serverconfig.h"
 #include "dbdriver.h"
 #include "progress.h"
 #include "uotime.h"

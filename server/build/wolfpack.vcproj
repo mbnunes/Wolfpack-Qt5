@@ -273,10 +273,10 @@
 				RelativePath=".\commands.h">
 			</File>
 			<File
-				RelativePath=".\config.cpp">
+				RelativePath=".\serverconfig.cpp">
 			</File>
 			<File
-				RelativePath=".\config.h">
+				RelativePath=".\serverconfig.h">
 			</File>
 			<File
 				RelativePath=".\win\config_win.cpp">

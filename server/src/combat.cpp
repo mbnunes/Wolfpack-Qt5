@@ -30,7 +30,7 @@
 #include "basechar.h"
 #include "npc.h"
 #include "basics.h"
-#include "config.h"
+#include "serverconfig.h"
 #include <qstring.h>
 
 /*!

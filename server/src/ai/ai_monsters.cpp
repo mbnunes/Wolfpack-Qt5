@@ -30,7 +30,7 @@
 #include "../factory.h"
 #include "../sectors.h"
 #include "../player.h"
-#include "../config.h"
+#include "../serverconfig.h"
 #include "../basics.h"
 #include "../items.h"
 

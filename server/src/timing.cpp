@@ -34,7 +34,7 @@
 #include "timers.h"
 #include "combat.h"
 #include "sectors.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "network/network.h"
 #include "spawnregions.h"
 #include "territories.h"
@@ -102,7 +102,7 @@ void cTiming::poll()
 			}
 			++it;
 		}
-		
+
 		QValueVector<SERIAL>::iterator sit;
 		for (sit = toRemove.begin(); sit != toRemove.end(); ++sit) {
 			P_ITEM item = FindItemBySerial(*sit);

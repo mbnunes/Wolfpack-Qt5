@@ -53,7 +53,7 @@
 #include "log.h"
 #include "skills.h"
 #include "definitions.h"
-#include "config.h"
+#include "serverconfig.h"
 
 cBaseChar::cBaseChar()
 {

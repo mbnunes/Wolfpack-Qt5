@@ -35,7 +35,7 @@
 #include "network/uotxpackets.h"
 #include "items.h"
 #include "muls/tilecache.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "definitions.h"
 #include "pythonscript.h"
 #include "muls/maps.h"
@@ -51,7 +51,6 @@
 #include "basechar.h"
 #include "player.h"
 #include "basics.h"
-#include "config.h"
 
 #include "inlines.h"
 #include "console.h"
@@ -2067,7 +2066,7 @@ PyObject* cItem::getProperty(const QString& name) {
 		This property is inherited from the base id of this item.
 	*/
 	PY_PROPERTY( "watersource", isWaterSource() )
-	
+
 	return cUObject::getProperty( name );
 }
 

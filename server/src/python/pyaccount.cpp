@@ -34,7 +34,7 @@
 #include "../accounts.h"
 #include "../basechar.h"
 #include "../md5.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 #include "../player.h"
 
@@ -308,7 +308,7 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 			Py_RETURN_FALSE;
 	}
 	/*
-		\rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of 
+		\rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of
 		this account.
 	*/
 	else if ( !strcmp( name, "rank" ) )
@@ -330,7 +330,7 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 		self->account->setAcl( PyString_AsString( value ) );
 	/*
 		\property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
-	*/		
+	*/
 	else if ( !strcmp( name, "multigems" ) )
 	{
 		if ( PyObject_IsTrue( value ) )
@@ -344,9 +344,9 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 	}
 	/*
 		\property account.password The password of this account. Please note that if MD5 hashing is activated,
-		this property will only return the hashed password. But when setting this property you don't need to 
+		this property will only return the hashed password. But when setting this property you don't need to
 		specify the MD5 hashed password as it will be automatically converted.
-	*/		
+	*/
 	else if ( !strcmp( name, "password" ) && PyString_Check( value ) )
 		self->account->setPassword( PyString_AsString( value ) );
 	/*

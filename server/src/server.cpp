@@ -45,7 +45,7 @@
 #include "sectors.h"
 #include "skills.h"
 #include "spawnregions.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "territories.h"
 #include "muls/tilecache.h"
 #include "timing.h"

@@ -110,7 +110,7 @@ check_version ()
 				cat >&2 <<-EOF
 				Python version is ${VERSION}, but should be 2.3.x!
 				Please install the appropriate version from:
-				    http://www.python.org/2.3.3/
+				    http://www.python.org/2.3.4/
 				or use ${0} --help for help with specifying the correct path.
 				EOF
 				exit 1;

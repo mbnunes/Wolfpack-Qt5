@@ -31,7 +31,7 @@
 #include "multiscache.h"
 #include "../defines.h"
 #include "../items.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 // Library Includes
 #include <qstring.h>
@@ -143,8 +143,8 @@ void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
 	stadifdata.setName( basepath + QString( "stadif%1.mul" ).arg( id ) );
 	stadifdata.open( IO_ReadOnly );
 
-	QFile stadiflist( basepath + QString( "stadifl%1.mul" ).arg( id ) );	
-	QFile stadifindex( basepath + QString( "stadifi%1.mul" ).arg( id ) );	
+	QFile stadiflist( basepath + QString( "stadifl%1.mul" ).arg( id ) );
+	QFile stadifindex( basepath + QString( "stadifi%1.mul" ).arg( id ) );
 
 	if (stadifindex.open(IO_ReadOnly) && stadiflist.open(IO_ReadOnly)) {
 		QDataStream listinput(&stadiflist);
@@ -156,7 +156,7 @@ void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
 		while (!listinput.atEnd()) {
 			unsigned int id;
 			listinput >> id;
-            
+
 			indexinput >> record.offset;
 			indexinput >> record.blocklength;
 			indexinput >> record.extra;
@@ -164,7 +164,7 @@ void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
 			if (!staticpatches.contains(id)) {
                 staticpatches.insert( id, record );
 			}
-		}		
+		}
 	}
 
 	if (stadiflist.isOpen()) {
@@ -622,7 +622,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 
 	QValueVector<staticrecord>* p = mapRecord->staticsCache.find( cachePos );
 
-#if !defined(_DEBUG)	
+#if !defined(_DEBUG)
 	if ( !p )
 #else
 	if ( true )
@@ -646,7 +646,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		}
 		else
 		{
-			stIndexRecord indexStructure; 
+			stIndexRecord indexStructure;
 			mapRecord->idxfile.at( indexPos );
 			mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
 

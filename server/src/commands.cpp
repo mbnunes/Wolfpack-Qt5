@@ -33,7 +33,7 @@
 #include "scriptmanager.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "targetrequests.h"
 #include "territories.h"
 #include "muls/tilecache.h"

@@ -28,7 +28,7 @@
 #include "accounts.h"
 
 #include "gumps.h"
-#include "config.h"
+#include "serverconfig.h"
 #include "definitions.h"
 #include "network/network.h"
 #include "network/uosocket.h"

@@ -30,7 +30,7 @@
 
 //Wolfpack Includes
 #include "network.h"
-#include "../config.h"
+#include "../serverconfig.h"
 
 #include "../console.h"
 #include "../inlines.h"
