@@ -69,10 +69,6 @@ static void FreeCharObject( PyObject *obj )
 	CharCache::instance()->freeObj( obj );
 }
 
-// Forward Declarations
-#define pGetInt( a, b ) if( !strcmp( name, a ) ) return PyInt_FromLong( self->pChar->b );
-#define pGetStr( a, b ) if( !strcmp( name, a ) ) return PyString_FromString( self->pChar->b );
-
 PyObject *wpChar_getAttr( wpChar *self, char *name );
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value );
 int wpChar_compare( PyObject*, PyObject* );
@@ -113,7 +109,7 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 /*!
 	Resends the character.
 */
-PyObject* wpChar_update( wpChar* self, PyObject* args )
+static PyObject* wpChar_update( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -127,7 +123,7 @@ PyObject* wpChar_update( wpChar* self, PyObject* args )
 /*!
 	Removes the character from view.
 */
-PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
+static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -143,7 +139,7 @@ PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 /*!
 	Displays a message to the character if connected.
 */
-PyObject* wpChar_message( wpChar* self, PyObject* args )
+static PyObject* wpChar_message( wpChar* self, PyObject* args )
 {
 	P_PLAYER player = dynamic_cast<P_PLAYER>(self->pChar);
 	if( !self->pChar || self->pChar->free || !player )
@@ -172,7 +168,7 @@ PyObject* wpChar_message( wpChar* self, PyObject* args )
 /*!
 	Moves the char to the specified location
 */
-PyObject* wpChar_moveto( wpChar* self, PyObject* args )
+static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -228,7 +224,7 @@ PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 /*!
 	Plays a creature specific sound.
 */
-PyObject* wpChar_sound( wpChar* self, PyObject* args )
+static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -246,7 +242,7 @@ PyObject* wpChar_sound( wpChar* self, PyObject* args )
 /*!
 	Plays a soundeffect originating from the char
 */
-PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
+static PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -268,7 +264,7 @@ PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 /*!
 	Returns the distance towards a given object or position
 */
-PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
+static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyInt_FromLong( -1 );
@@ -310,7 +306,7 @@ PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 /*!
 	Lets the character perform an action
 */
-PyObject* wpChar_action( wpChar* self, PyObject* args )
+static PyObject* wpChar_action( wpChar* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
@@ -326,7 +322,7 @@ PyObject* wpChar_action( wpChar* self, PyObject* args )
 	Returns the direction of a character 
 	toward some object or position
 */
-PyObject* wpChar_directionto( wpChar* self, PyObject* args )
+static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyInt_FromLong( -1 );
@@ -372,7 +368,7 @@ PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 	Performs a skillcheck using the given skill
 	and minimum and maximum arguments.
 */
-PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
+static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
 		return PyFalse;
@@ -393,7 +389,7 @@ PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 	on the specified layer. If there is no item
 	it returns Py_None.
 */
-PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
+static PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -410,7 +406,7 @@ PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 /*!
 	Returns the combat skill currently used by the character
 */
-PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
+static PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -430,7 +426,7 @@ PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 	It consumes the items and amount specified
 	and returns how much have been really consumed.
 */
-PyObject* wpChar_useresource( wpChar* self, PyObject* args )
+static PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyInt_FromLong( 0 );
@@ -460,7 +456,7 @@ PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 /*!
 	Resurrects the current character
 */
-PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
+static PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -474,7 +470,7 @@ PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 /*!
 	Kills the current character
 */
-PyObject* wpChar_kill( wpChar* self, PyObject* args )
+static PyObject* wpChar_kill( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	
@@ -490,7 +486,7 @@ PyObject* wpChar_kill( wpChar* self, PyObject* args )
 	Deals damage to the character
 	This cannot be used for healing!
 */
-PyObject* wpChar_damage( wpChar* self, PyObject* args )
+static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
 		return PyFalse;
@@ -519,7 +515,7 @@ PyObject* wpChar_damage( wpChar* self, PyObject* args )
 /*!
 	Shows an emote above the chars head
 */
-PyObject* wpChar_emote( wpChar* self, PyObject* args )
+static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -538,7 +534,7 @@ PyObject* wpChar_emote( wpChar* self, PyObject* args )
 /*!
 	The character says something.
 */
-PyObject* wpChar_say( wpChar* self, PyObject* args )
+static PyObject* wpChar_say( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -564,7 +560,7 @@ PyObject* wpChar_say( wpChar* self, PyObject* args )
 	It returns the amount of a resource
 	available
 */
-PyObject* wpChar_countresource( wpChar* self, PyObject* args )
+static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -590,14 +586,14 @@ PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 	return PyInt_FromLong( avail );
 }
 
-PyObject* wpChar_isitem( wpChar* self, PyObject* args )
+static PyObject* wpChar_isitem( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
 	return PyFalse;
 }
 
-PyObject* wpChar_ischar( wpChar* self, PyObject* args )
+static PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
@@ -607,7 +603,7 @@ PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 /*!
 	Returns the custom tag passed
 */
-PyObject* wpChar_gettag( wpChar* self, PyObject* args )
+static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 	{
@@ -638,7 +634,7 @@ PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 /*!
 	Sets a custom tag
 */
-PyObject* wpChar_settag( wpChar* self, PyObject* args )
+static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
 		return PyFalse;
@@ -671,7 +667,7 @@ PyObject* wpChar_settag( wpChar* self, PyObject* args )
 /*!
 	Checks if a certain tag exists
 */
-PyObject* wpChar_hastag( wpChar* self, PyObject* args )
+static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -690,7 +686,7 @@ PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 /*!
 	Deletes a given tag
 */
-PyObject* wpChar_deltag( wpChar* self, PyObject* args )
+static PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -710,7 +706,7 @@ PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 /*!
  * Sends MakeMenu defined as xml file to this character
  */
-PyObject* wpChar_sendmakemenu( wpChar* self, PyObject* args )
+static PyObject* wpChar_sendmakemenu( wpChar* self, PyObject* args )
 {
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	if( !self->pChar || self->pChar->free || !player )
@@ -732,7 +728,7 @@ PyObject* wpChar_sendmakemenu( wpChar* self, PyObject* args )
 /*!
 	Adds a follower
 */
-PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
+static PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -760,7 +756,7 @@ PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 /*!
 	Removes a follower
 */
-PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
+static PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -789,7 +785,7 @@ PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 /*!
 	Checks if the Char has a follower
 */
-PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
+static PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -819,7 +815,7 @@ PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 /*!
 	Resends the healthbar to the environment.
 */
-PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
+static PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -832,7 +828,7 @@ PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 /*!
 	Resends the mana to this character.
 */
-PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
+static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -854,7 +850,7 @@ PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 /*!
 	Resends the Stamina to this character.
 */
-PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
+static PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -876,7 +872,7 @@ PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 /*!
 	Resends all stats to this character.
 */
-PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
+static PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -899,7 +895,7 @@ PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 /*!
 	What weapon is the character currently wearing?
 */
-PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
+static PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -911,7 +907,7 @@ PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 /*!
 	Turns towards a specific object.
 */
-PyObject* wpChar_turnto( wpChar* self, PyObject* args )
+static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -945,7 +941,7 @@ PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 /*!
 	Mounts this character on a specific mount.
 */
-PyObject* wpChar_mount( wpChar* self, PyObject* args )
+static PyObject* wpChar_mount( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -974,7 +970,7 @@ PyObject* wpChar_mount( wpChar* self, PyObject* args )
 /*!
 	Unmounts this character and returns the old mount.
 */
-PyObject* wpChar_unmount( wpChar* self, PyObject* args )
+static PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -990,7 +986,7 @@ PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 /*!
 	Equips a given item on this character.
 */
-PyObject* wpChar_equip( wpChar* self, PyObject* args )
+static PyObject* wpChar_equip( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1012,7 +1008,7 @@ PyObject* wpChar_equip( wpChar* self, PyObject* args )
 /*!
 	Gets or Autocreates a bankbox for the character.
 */
-PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
+static PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -1029,7 +1025,7 @@ PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 /*!
 	Gets or Autocreates a backpack for the character.
 */
-PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
+static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -1041,7 +1037,7 @@ PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 /*!
 	Shows a moving effect moving toward a given object or coordinate.
 */
-PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
+static PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1096,7 +1092,7 @@ PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
 /*!
 	Shows an effect staying with this character.
 */
-PyObject* wpChar_effect( wpChar* self, PyObject* args )
+static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1135,7 +1131,7 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 /*!
 	Adds a temp effect to this character.
 */
-PyObject* wpChar_dispel( wpChar* self, PyObject* args )
+static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1207,7 +1203,7 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 /*!
 	Adds a temp effect to this character.
 */
-PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
+static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1255,7 +1251,7 @@ PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 /*!
 	Checks if we can stand at a certain point.
 */
-PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
+static PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1282,7 +1278,7 @@ PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 /*!
 	Are we criminal.
 */
-PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
+static PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -1294,7 +1290,7 @@ PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 /*!
 	Are we a murderer.
 */
-PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
+static PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -1306,7 +1302,7 @@ PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
 /*!
 	Make this character criminal.
 */
-PyObject* wpChar_criminal( wpChar* self, PyObject* args )
+static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -1325,7 +1321,7 @@ PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 /*!
 	Let's this character attack someone else.
 */
-PyObject* wpChar_attack( wpChar* self, PyObject* args )
+static PyObject* wpChar_attack( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1349,7 +1345,7 @@ PyObject* wpChar_attack( wpChar* self, PyObject* args )
 /*!
 	The character should follow someone else.
 */
-PyObject* wpChar_follow( wpChar* self, PyObject* args )
+static PyObject* wpChar_follow( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1378,7 +1374,7 @@ PyObject* wpChar_follow( wpChar* self, PyObject* args )
 /*!
 	Disturbs whatever this character is doing right now.
 */
-PyObject* wpChar_disturb( wpChar* self, PyObject* args )
+static PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -1397,7 +1393,7 @@ PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 /*!
 	The character should follow someone else.
 */
-PyObject* wpChar_goto( wpChar* self, PyObject* args )
+static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
@@ -1432,7 +1428,7 @@ PyObject* wpChar_goto( wpChar* self, PyObject* args )
 	Please note that you have to do a socket.resendplayer in addition
 	to this if you want to update the socket itself.
 */
-PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
+static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free )
@@ -1447,7 +1443,7 @@ PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 	Checks if a certain character is able to reach another object. 
 	The second parameter specifies the range the character needs to be in.
 */
-PyObject* wpChar_canreach( wpChar* self, PyObject* args )
+static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pChar || self->pChar->free || ( !checkArgObject( 0 ) && !checkArgCoord( 0 ) ) || !checkArgInt( 1 ) )
@@ -1490,81 +1486,81 @@ PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 
 static PyMethodDef wpCharMethods[] = 
 {
-	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
-	{ "resurrect",		(getattrofunc)wpChar_resurrect, METH_VARARGS, "Resurrects the character." },
-	{ "kill",			(getattrofunc)wpChar_kill, METH_VARARGS, "This kills the character." },
-	{ "damage",			(getattrofunc)wpChar_damage, METH_VARARGS, "This damages the current character." },
-    { "update",			(getattrofunc)wpChar_update, METH_VARARGS, "Resends the char to all clients in range." },
-	{ "updateflags",	(getattrofunc)wpChar_updateflags, METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
-	{ "removefromview", (getattrofunc)wpChar_removefromview, METH_VARARGS, "Removes the char from all surrounding clients." },
-	{ "message",		(getattrofunc)wpChar_message, METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
-	{ "soundeffect",	(getattrofunc)wpChar_soundeffect, METH_VARARGS, "Plays a soundeffect for the character." },
-	{ "distanceto",		(getattrofunc)wpChar_distanceto, METH_VARARGS, "Distance to another object or a given position." },
-	{ "action",			(getattrofunc)wpChar_action, METH_VARARGS, "Lets the char perform an action." },
-	{ "directionto",	(getattrofunc)wpChar_directionto, METH_VARARGS, "Distance to another object or a given position." },
-	{ "checkskill",		(getattrofunc)wpChar_checkskill, METH_VARARGS, "Performs a skillcheck for the character." },
-	{ "itemonlayer",	(getattrofunc)wpChar_itemonlayer, METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
-	{ "combatskill",	(getattrofunc)wpChar_combatskill, METH_VARARGS, "Returns the combat skill the character would currently use." },
-	{ "getweapon",		(getattrofunc)wpChar_getweapon, METH_VARARGS, "What weapon does the character currently wear." },
-	{ "useresource",	(getattrofunc)wpChar_useresource, METH_VARARGS, "Consumes a resource posessed by the char." },
-	{ "countresource",	(getattrofunc)wpChar_countresource, METH_VARARGS, "Counts the amount of a certain resource the user has." },
-	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Shows an emote above the character." },
-	{ "say",			(getattrofunc)wpChar_say, METH_VARARGS, "The character begins to talk." },
-	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
-	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
-	{ "maywalk",		(getattrofunc)wpChar_maywalk, METH_VARARGS, "Checks if this character may walk to a specific cell." },
-	{ "sound",			(getattrofunc)wpChar_sound, METH_VARARGS, "Play a creature specific sound." },
-	{ "disturb",		(getattrofunc)wpChar_disturb, METH_VARARGS, "Disturbs whatever this character is doing right now." },
-	{ "canreach",		(getattrofunc)wpChar_canreach, METH_VARARGS, "Checks if this character can reach a certain object." },
+	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
+	{ "resurrect",		(getattrofunc)wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
+	{ "kill",			(getattrofunc)wpChar_kill,				METH_VARARGS, "This kills the character." },
+	{ "damage",			(getattrofunc)wpChar_damage,			METH_VARARGS, "This damages the current character." },
+    { "update",			(getattrofunc)wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
+	{ "updateflags",	(getattrofunc)wpChar_updateflags,		METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
+	{ "removefromview", (getattrofunc)wpChar_removefromview,	METH_VARARGS, "Removes the char from all surrounding clients." },
+	{ "message",		(getattrofunc)wpChar_message,			METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
+	{ "soundeffect",	(getattrofunc)wpChar_soundeffect,		METH_VARARGS, "Plays a soundeffect for the character." },
+	{ "distanceto",		(getattrofunc)wpChar_distanceto,		METH_VARARGS, "Distance to another object or a given position." },
+	{ "action",			(getattrofunc)wpChar_action,			METH_VARARGS, "Lets the char perform an action." },
+	{ "directionto",	(getattrofunc)wpChar_directionto,		METH_VARARGS, "Distance to another object or a given position." },
+	{ "checkskill",		(getattrofunc)wpChar_checkskill,		METH_VARARGS, "Performs a skillcheck for the character." },
+	{ "itemonlayer",	(getattrofunc)wpChar_itemonlayer,		METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
+	{ "combatskill",	(getattrofunc)wpChar_combatskill,		METH_VARARGS, "Returns the combat skill the character would currently use." },
+	{ "getweapon",		(getattrofunc)wpChar_getweapon,			METH_VARARGS, "What weapon does the character currently wear." },
+	{ "useresource",	(getattrofunc)wpChar_useresource,		METH_VARARGS, "Consumes a resource posessed by the char." },
+	{ "countresource",	(getattrofunc)wpChar_countresource,		METH_VARARGS, "Counts the amount of a certain resource the user has." },
+	{ "emote",			(getattrofunc)wpChar_emote,				METH_VARARGS, "Shows an emote above the character." },
+	{ "say",			(getattrofunc)wpChar_say,				METH_VARARGS, "The character begins to talk." },
+	{ "turnto",			(getattrofunc)wpChar_turnto,			METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
+	{ "equip",			(getattrofunc)wpChar_equip,				METH_VARARGS, "Equips a given item on this character." },
+	{ "maywalk",		(getattrofunc)wpChar_maywalk,			METH_VARARGS, "Checks if this character may walk to a specific cell." },
+	{ "sound",			(getattrofunc)wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
+	{ "disturb",		(getattrofunc)wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
+	{ "canreach",		(getattrofunc)wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
 	
 	// Mostly NPC functions
-	{ "attack",			(getattrofunc)wpChar_attack, METH_VARARGS, "Let's the character attack someone else." },
-	{ "goto",			(getattrofunc)wpChar_goto, METH_VARARGS, "The character should go to a coordinate." },
-	{ "follow",			(getattrofunc)wpChar_follow, METH_VARARGS, "The character should follow someone else." },
+	{ "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },
+	{ "goto",			(getattrofunc)wpChar_goto,				METH_VARARGS, "The character should go to a coordinate." },
+	{ "follow",			(getattrofunc)wpChar_follow,			METH_VARARGS, "The character should follow someone else." },
 
-	{ "addtimer",		(getattrofunc)wpChar_addtimer, METH_VARARGS, "Adds a timer to this character." },
-	{ "dispel",			(getattrofunc)wpChar_dispel, METH_VARARGS, "Dispels this character (with special options)." },
+	{ "addtimer",		(getattrofunc)wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
+	{ "dispel",			(getattrofunc)wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
 
 	// Update Stats
-	{ "updatestats",	(getattrofunc)wpChar_updatestats, METH_VARARGS, "Resends other stats to this character." },
-	{ "updatemana",		(getattrofunc)wpChar_updatemana, METH_VARARGS, "Resends the manabar to this character." },
-	{ "updatestamina",	(getattrofunc)wpChar_updatestamina, METH_VARARGS, "Resends the stamina bar to this character." },
-	{ "updatehealth",	(getattrofunc)wpChar_updatehealth, METH_VARARGS, "Resends the healthbar to the environment." },
+	{ "updatestats",	(getattrofunc)wpChar_updatestats,		METH_VARARGS, "Resends other stats to this character." },
+	{ "updatemana",		(getattrofunc)wpChar_updatemana,		METH_VARARGS, "Resends the manabar to this character." },
+	{ "updatestamina",	(getattrofunc)wpChar_updatestamina,		METH_VARARGS, "Resends the stamina bar to this character." },
+	{ "updatehealth",	(getattrofunc)wpChar_updatehealth,		METH_VARARGS, "Resends the healthbar to the environment." },
 
 	// Mount/Unmount
-	{ "unmount",		(getattrofunc)wpChar_unmount, METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
-	{ "mount",			(getattrofunc)wpChar_mount, METH_VARARGS, "Mounts this on a specific mount." },
+	{ "unmount",		(getattrofunc)wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
+	{ "mount",			(getattrofunc)wpChar_mount,				METH_VARARGS, "Mounts this on a specific mount." },
 
 	// Effects
-	{ "movingeffect",	(getattrofunc)wpChar_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
-	{ "effect",			(getattrofunc)wpChar_effect, METH_VARARGS, "Shows an effect staying with this character." },
+	{ "movingeffect",	(getattrofunc)wpChar_movingeffect,		METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
+	{ "effect",			(getattrofunc)wpChar_effect,			METH_VARARGS, "Shows an effect staying with this character." },
 
 	// Bank/Backpack
-	{ "getbankbox",		(getattrofunc)wpChar_getbankbox, METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
-	{ "getbackpack",	(getattrofunc)wpChar_getbackpack, METH_VARARGS, "Gets and autocreates a backpack for the character." },
+	{ "getbankbox",		(getattrofunc)wpChar_getbankbox,		METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
+	{ "getbackpack",	(getattrofunc)wpChar_getbackpack,		METH_VARARGS, "Gets and autocreates a backpack for the character." },
 
 	// Follower System
-	{ "addfollower",	(getattrofunc)wpChar_addfollower, METH_VARARGS, "Adds a follower to the user." },
-	{ "removefollower",	(getattrofunc)wpChar_removefollower, METH_VARARGS, "Removes a follower from the user." },
-	{ "hasfollower",	(getattrofunc)wpChar_hasfollower, METH_VARARGS, "Checks if a certain character is a follower of this." },
+	{ "addfollower",	(getattrofunc)wpChar_addfollower,		METH_VARARGS, "Adds a follower to the user." },
+	{ "removefollower",	(getattrofunc)wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
+	{ "hasfollower",	(getattrofunc)wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
 
 	// Tag System
-	{ "gettag",			(getattrofunc)wpChar_gettag, METH_VARARGS, "Gets a tag assigned to a specific char." },
-	{ "settag",			(getattrofunc)wpChar_settag, METH_VARARGS, "Sets a tag assigned to a specific char." },
-	{ "hastag",			(getattrofunc)wpChar_hastag, METH_VARARGS, "Checks if a certain char has the specified tag." },
-	{ "deltag",			(getattrofunc)wpChar_deltag, METH_VARARGS, "Deletes the specified tag." },
+	{ "gettag",			(getattrofunc)wpChar_gettag,			METH_VARARGS, "Gets a tag assigned to a specific char." },
+	{ "settag",			(getattrofunc)wpChar_settag,			METH_VARARGS, "Sets a tag assigned to a specific char." },
+	{ "hastag",			(getattrofunc)wpChar_hastag,			METH_VARARGS, "Checks if a certain char has the specified tag." },
+	{ "deltag",			(getattrofunc)wpChar_deltag,			METH_VARARGS, "Deletes the specified tag." },
 
 	// Crafting Menu
-	{ "sendmakemenu",		(getattrofunc)wpChar_sendmakemenu, METH_VARARGS, "Sends MakeMenu to this character." },
+	{ "sendmakemenu",	(getattrofunc)wpChar_sendmakemenu,		METH_VARARGS, "Sends MakeMenu to this character." },
 
 	// Reputation System
-	{ "iscriminal",		(getattrofunc)wpChar_iscriminal, METH_VARARGS, "Is this character criminal.." },
-	{ "ismurderer",		(getattrofunc)wpChar_ismurderer, METH_VARARGS, "Is this character a murderer." },
-	{ "criminal",		(getattrofunc)wpChar_criminal, METH_VARARGS, "Make this character criminal." },
+	{ "iscriminal",		(getattrofunc)wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
+	{ "ismurderer",		(getattrofunc)wpChar_ismurderer,		METH_VARARGS, "Is this character a murderer." },
+	{ "criminal",		(getattrofunc)wpChar_criminal,			METH_VARARGS, "Make this character criminal." },
 
 	// Is*? Functions
-	{ "isitem",			(getattrofunc)wpChar_isitem, METH_VARARGS, "Is this an item." },
-	{ "ischar",			(getattrofunc)wpChar_ischar, METH_VARARGS, "Is this a char." },
+	{ "isitem",			(getattrofunc)wpChar_isitem,			METH_VARARGS, "Is this an item." },
+	{ "ischar",			(getattrofunc)wpChar_ischar,			METH_VARARGS, "Is this a char." },
     { NULL, NULL, 0, NULL }
 };
 
