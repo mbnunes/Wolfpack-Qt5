@@ -420,7 +420,7 @@ void Action_Wander::execute()
 		UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
 		UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 		
-		UINT8 dir = chardirxyz( m_npc, rndx, rndy );
+		UINT8 dir = m_npc->pos().direction( Coord_cl( rndx, rndy ) );
 		m_npc->setDirection( dir );
 		Movement::instance()->Walking( m_npc, dir, 0xFF );
 		break;
@@ -438,7 +438,7 @@ void Action_Wander::execute()
 		pos.x = pos.x + (INT16)floor( cos( rndphi ) * rnddist );
 		pos.y = pos.y + (INT16)floor( sin( rndphi ) * rnddist );
 
-		UINT8 dir = chardirxyz( m_npc, pos.x, pos.y );
+		UINT8 dir = m_npc->pos().direction( pos );
 		m_npc->setDirection( dir );
 		Movement::instance()->Walking( m_npc, dir, 0xFF );
 		break;	
@@ -476,7 +476,7 @@ void Action_Wander::execute()
 void Action_Wander::moveTo( const Coord_cl &pos )
 {
 	// simply move towards the target
-	UINT8 dir = chardirxyz( m_npc, pos.x, pos.y );
+	UINT8 dir = m_npc->pos().direction( pos );
 	Coord_cl newPos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 	if( !mayWalk( m_npc, newPos ) )
 	{
@@ -529,7 +529,7 @@ void Action_Wander::movePath( const Coord_cl &pos )
 	{
 		waitForPathCalculation = 0;
 		Coord_cl nextmove = m_npc->nextMove();
-		UINT8 dir = chardirxyz( m_npc, nextmove.x, nextmove.y );
+		UINT8 dir = m_npc->pos().direction( nextmove );
 		m_npc->setDirection( dir );
 		Movement::instance()->Walking( m_npc, dir, 0xFF );
 		m_npc->popMove();

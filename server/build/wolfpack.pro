@@ -148,7 +148,6 @@ SOURCES         = \
 		iserialization.cpp \
 		itemid.cpp \
 		items.cpp \
-		LoS.cpp \
 		makemenus.cpp \
 		maps.cpp \
 		multis.cpp \

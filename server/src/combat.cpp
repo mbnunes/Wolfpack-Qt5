@@ -306,7 +306,7 @@ namespace Combat
 
 		// Can we see our target. 
 		// I don't know what the +z 13 means...
-		bool los = lineOfSight( pAttacker->pos() + Coord_cl( 0, 0, 13 ), pDefender->pos(), WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
+		bool los = pAttacker->pos().lineOfSight( pDefender->pos(), true );
 
 		hit( pAttacker, pDefender, los );
 	}
@@ -938,7 +938,7 @@ namespace Combat
 		if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )		
 		{
 			// Only shot if our "head" can see the opponent
-			if( !lineOfSight( pAttacker->pos() + Coord_cl( 0, 0, 13 ), pDefender->pos(), WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+			if( !pAttacker->pos().lineOfSight( pDefender->pos() ) )
 				mayAttack = false;
 		}
 		// For other Combat Skills it's enough to stand near the opponent

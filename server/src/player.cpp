@@ -454,8 +454,8 @@ void cPlayer::kill()
 			if( ( pc_t->objectType() == enPlayer ) && !pc_t->inGuardedArea() )
 			{
 				P_PLAYER pp_t = dynamic_cast<P_PLAYER>(pc_t);
-				Karma( pp_t, this, ( 0 - ( karma_ ) ) );
-				Fame( pp_t, fame_ );
+				pp_t->awardKarma( this, ( 0 - ( karma_ ) ) );
+				pp_t->awardFame( fame_ );
 
 				if( isInnocent() && pp_t->attackFirst() )
 				{
@@ -1637,3 +1637,138 @@ stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 	return cBaseChar::getProperty( name, value );
 }
 
+void cPlayer::awardFame( short amount )
+{
+	int nCurFame, nChange=0;
+	bool gain = false;
+
+	setFame( QMIN( 10000, fame() ) );
+
+	nCurFame = fame();
+
+	// We already have more than that.
+	if( nCurFame > amount )
+		return;
+
+	// Loose Fame when we died
+	if( isDead() )
+	{
+		// Fame / 25 is our loss
+		nChange = nCurFame / 25;
+		setFame( QMAX( 0, nCurFame - nChange ) );
+		setDeaths( deaths() + 1 );
+		gain = false;
+	}
+	else
+	{
+		nChange = ( amount - nCurFame ) / 75;
+		setFame( nCurFame+nChange );
+		gain = true;
+	}
+
+	// Nothing changed or we can't recieve the message
+	if( !nChange || !socket() )
+		return;
+
+	uint message;
+
+	if( nChange <= 25 )
+	{
+		if( gain )
+			message = 1019051; //"You have gained a little fame."
+		else
+			message = 1019055; //"You have lost a little fame."
+	}
+	else if( nChange <= 75 )
+	{
+		if( gain )
+			message = 1019052; //"You have gained some fame."
+		else
+			message = 1019056; //"You have lost some fame."
+	}
+	else if( nChange <= 100 )
+	{
+		if( gain )
+			message = 1019053; // You have gained a good amount of fame.
+		else
+			message = 1019057; // You have lost a good amount of fame.
+	}
+	else if( nChange > 100 )
+	{
+		if( gain )
+			message = 1019054; //"You have gained alot of fame."
+		else
+			message = 1019058; //"You have lost alot of fame."
+	}
+
+	socket()->clilocMessage( message );
+}
+
+void cPlayer::awardKarma( P_CHAR pKilled, short amount )
+{
+	int nCurKarma = 0, nChange = 0, nEffect = 0;
+
+	nCurKarma = karma();
+
+	if( nCurKarma < amount && amount > 0 )
+	{
+		nChange=((amount-nCurKarma)/75);
+		setKarma(nCurKarma+nChange);
+		nEffect=1;
+	}
+
+	if( ( nCurKarma > amount ) && ( !pKilled ) )
+	{
+		nChange = ( ( nCurKarma - amount ) / 50 );
+		setKarma( nCurKarma - nChange );
+		nEffect = 0;
+	}
+	else if( ( nCurKarma > amount ) && ( pKilled->karma() > 0 ) )
+	{
+		nChange= ( ( nCurKarma - amount ) / 50 );
+		setKarma( nCurKarma - nChange );
+		nEffect=0;
+	}
+
+	// Cap at 10000 or -10000
+	if( karma_ > 10000 )
+		karma_ = 10000;
+	else if( karma_ < -10000 )
+		karma_ = -10000;
+
+	if( !nChange || !socket() )
+		return;
+
+	UINT32 message;
+
+	if( nChange <= 25 )
+	{
+		if( nEffect )
+			message = 0xF8CB3; // You have gained a little karma.
+		else
+			message = 0xF8CB7; // You have lost a little karma.
+	}
+	else if( nChange <= 75 )
+	{
+		if( nEffect )
+			message = 0xF8CB4; // You have gained some karma.
+		else
+			message = 0xF8CB8; // You have lost some karma.
+	}
+	else if( nChange <= 100 )
+	{
+		if( nEffect )
+			message = 0xF8CB5; // You have gained a good amount of karma.
+		else
+			message = 0xF8CB9; // You have lost a good amount of karma.
+	}
+	else if( nChange > 100 )
+	{
+		if( nEffect )
+			message = 0xF8CB6; // You have gained a lot of karma.
+		else
+			message = 0xF8CBA; // You have lost a lot of karma.
+	}
+
+	socket()->clilocMessage( message );
+}

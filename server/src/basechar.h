@@ -145,6 +145,8 @@ public:
 	bool Owns( P_ITEM pi ) const;
 	virtual void callGuards();
 	virtual void flagUnchanged();
+	virtual void awardFame( short amount ) = 0;
+	virtual void awardKarma( P_CHAR pKilled, short amount ) = 0;
 
 	// Wrapper events
 	virtual bool onSingleClick( P_PLAYER Viewer ); // Shows the name of a character to someone else

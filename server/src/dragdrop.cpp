@@ -515,16 +515,16 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		pItem->toBackpack( pChar );
 		return;
 	}
-
+	
 	// Are we in range of our target
-	if( !inrange1p( pChar, pOtherChar ) )
+	if( !pChar->inRange( pOtherChar, 3 ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_REACH );
 		return;
 	}
 
 	// Can wee see our target
-	if( !lineOfSight( pChar->pos(), pOtherChar->pos(), TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	if( !pChar->pos().lineOfSight( pOtherChar->pos() ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
@@ -591,7 +591,7 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	P_PLAYER pChar = socket->player();
 
 	// Check if the destination is in line of sight
-	if( !lineOfSight( pChar->pos(), pos, WALLS_CHIMNEYS|DOORS|LAVA_WATER ) )
+	if( !pChar->pos().lineOfSight( pos, false ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;

@@ -356,13 +356,13 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 		if( checkWpCoord( pObj ) )
 		{
 			Coord_cl pos = getWpCoord( pObj );
-			return PyInt_FromLong( chardirxyz( self->pChar, pos.x, pos.y ) );
+			return PyInt_FromLong( self->pChar->pos().direction( Coord_cl( pos.x, pos.y ) ) );
 		}
 
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
 		if( pItem )
-			return PyInt_FromLong( chardirxyz( self->pChar, pItem->pos().x, pItem->pos().y ) );
+			return PyInt_FromLong( self->pChar->pos().direction( pItem->pos() ) );
 
 		P_CHAR pChar = getWpChar( pObj );
         if( pChar )
@@ -378,7 +378,7 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );  
 
-		return PyInt_FromLong( chardirxyz( self->pChar, pos.x, pos.y ) );
+		return PyInt_FromLong( self->pChar->pos().direction( pos ) );
 	}
 
 	PyErr_BadArgument();
@@ -1500,7 +1500,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	if( self->pChar->pos().distance( pos ) > range )
 		return PyFalse;
 
-	if( !lineOfSight( self->pChar->pos(), pos, WALLS_CHIMNEYS|DOORS|FLOORS_FLAT_ROOFING ) )
+	if( !self->pChar->pos().lineOfSight( pos ) )
 		return PyFalse;
 
 	return PyTrue;

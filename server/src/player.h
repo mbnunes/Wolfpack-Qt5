@@ -79,6 +79,8 @@ public:
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 	virtual void flagUnchanged();
+	void awardFame( short amount );
+	void awardKarma( P_CHAR pKilled, short amount );
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );

@@ -198,7 +198,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					return;
 				}
 
-				else if( !lineOfSight( pc_currchar->pos(), pi->pos(), WALLS_CHIMNEYS|DOORS|FLOORS_FLAT_ROOFING ) )
+				else if( !pc_currchar->pos().lineOfSight( pi->pos(), true ) )
 				{
 					socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 					return;

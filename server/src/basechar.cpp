@@ -544,7 +544,7 @@ void cBaseChar::resurrect()
 
 	changed( TOOLTIP );
 	changed_ = true;
-	Fame( this, 0 );
+	awardFame( 0 );
 	soundEffect( 0x0214 );
 	setBodyID( orgBodyID_ );
 	setSkin( orgSkin_ );

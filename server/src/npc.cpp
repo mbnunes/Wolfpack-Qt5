@@ -465,8 +465,8 @@ void cNPC::kill()
 
 			if( pc_t->objectType() == enPlayer && !pc_t->inGuardedArea() )
 			{
-				Karma( pc_t, this, ( 0 - ( karma_ ) ) );
-				Fame( pc_t, fame_ );
+				pc_t->awardKarma( this, ( 0 - ( karma_ ) ) );
+				pc_t->awardFame( fame_ );
 			}
 
 			if( pc_t->objectType() == enNPC && pc_t->isAtWar() )
@@ -1489,5 +1489,62 @@ void cNPC::makeShop()
 	}
 }
 
+void cNPC::awardKarma( P_CHAR pKilled, short amount )
+{
+	int nCurKarma = 0, nChange = 0, nEffect = 0;
 
+	nCurKarma = karma();
 
+	if( nCurKarma < amount && amount > 0 )
+	{
+		nChange=((amount-nCurKarma)/75);
+		setKarma(nCurKarma+nChange);
+		nEffect=1;
+	}
+
+	if( ( nCurKarma > amount ) && ( !pKilled ) )
+	{
+		nChange = ( ( nCurKarma - amount ) / 50 );
+		setKarma( nCurKarma - nChange );
+		nEffect = 0;
+	}
+	else if( ( nCurKarma > amount ) && ( pKilled->karma() > 0 ) )
+	{
+		nChange= ( ( nCurKarma - amount ) / 50 );
+		setKarma( nCurKarma - nChange );
+		nEffect=0;
+	}
+
+	// Cap at 10000 or -10000
+	if( karma_ > 10000 )
+		karma_ = 10000;
+	else if( karma_ < -10000 )
+		karma_ = -10000;
+}
+
+void cNPC::awardFame( short amount )
+{
+	int nCurFame, nChange=0;
+
+	setFame( QMIN( 10000, fame() ) );
+
+	nCurFame = fame();
+
+	// We already have more than that.
+	if( nCurFame > amount )
+		return;
+
+	// Loose Fame when we died
+	if( isDead() )
+	{
+		// Fame / 25 is our loss
+		nChange = nCurFame / 25;
+		setFame( QMAX( 0, nCurFame - nChange ) );
+		setDeaths( deaths() + 1 );
+	}
+	else
+	{
+		nChange = ( amount - nCurFame ) / 75;
+		setFame( nCurFame+nChange );
+	}
+}
