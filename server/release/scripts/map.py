@@ -2,6 +2,41 @@
 import wolfpack
 
 #
+# Table for preset maps
+#
+MAP_PRESETS = {
+	# Width, Height, xtop, ytop, xbottom, ybottom
+	'britain': [200, 200, 1092, 1396, 1736, 1924], # map of Britain
+	'britaintoskarabrae': [200, 200, 256, 1792, 1736, 2560], # map of Britain to Skara Brae
+	'britaintotrinsic': [200, 200, 1024, 1280, 2304, 3072], # map of Britain to Trinsic
+	'bucsden': [200, 200, 2500, 1900, 3000, 2400], # map of Buccaneer's Den
+	'bucsdentomagincia': [200, 200, 2560, 1792, 3840, 2560], # map of Buccaneer's Den to Magincia
+	'bucsdentoocllo': [200, 200, 2560, 1792, 3840, 3072], # map of Buccaneer's Den to Ocllo
+	'jhelom': [200, 200, 1088, 3572, 1528, 4056], # map of Jhelom
+	'magincia': [200, 200, 3530, 2022, 3818, 2298], # map of Magincia
+	'maginciatoocllo': [200, 200, 3328, 1792, 3840, 2304], # map of Magincia to Ocllo
+	'minoc': [200, 200, 2360, 356, 2706, 702], # map of Minoc
+	'minoctoyew': [200, 200, 0, 256, 2304, 3072], # map of Minoc to Yew
+	'minoctovesper': [200, 200, 2467, 572, 2878, 746], # map of Minoc to Vesper
+	'moonglow': [200, 200, 4156, 808, 4732, 1528], # map of Moonglow
+	'moonglowtonujelm': [200, 200, 3328, 768, 4864, 1536], # map of Moonglow to Nujelm
+	'nujelm': [200, 200, 3446, 1030, 3832, 1424], # map of Nujelm
+	'nujelmtomagincia': [200, 200, 3328, 1024, 3840, 2304], # map of Nujelm to Magincia
+	'occlo': [200, 200, 3582, 2456, 3770, 2742], # map of Ocllo
+	'serpentshold': [200, 200, 2714, 3329, 3100, 3639], # map of Serpent's Hold
+	'serpentsholdtoocllo': [200, 200, 2560, 2560, 3840, 3840], # map of Serpent's Hold to Ocllo
+	'skarabrae': [200, 200, 524, 2064, 960, 2452], # map of Skara Brae
+	'world': [200, 200, 0, 0, 5199, 4095], # map of The World
+	'trinsic': [200, 200, 1792, 2630, 2118, 2952], # map of Trinsic
+	'trinsictobucsden': [200, 200, 1792, 1792, 3072, 3072], # map of Trinsic to Buccaneer's Den
+	'trinsictojhelom': [200, 200, 256, 1792, 2304, 4095], # map of Trinsic to Jhelom
+	'vesper': [200, 200, 2636, 592, 3064, 1012], # map of Vesper
+	'vespertonujelm': [200, 200, 2636, 592, 3840, 1536], # map of Vesper to Nujelm
+	'yew': [200, 200, 236, 741, 766, 1269], # map of Yew
+	'yewtobritain': [200, 200, 0, 512, 1792, 2048], # map of Yew to Britain
+}
+
+#
 # Send a map command
 #
 def sendmapcommand(socket, item, command, plotting=0, x=0, y=0):
@@ -95,12 +130,31 @@ def onLoad():
 # Send a map to the client
 #
 def sendmap(player, item, maptype):
-	xtop = 0
-	ytop = 0
-	xbottom = 768 * 8
-	ybottom = 512 * 8
-	width = 500
-	height = 330
+	if maptype == 'preset' and item.hastag('preset'):
+		preset = item.gettag('preset')
+		if not MAP_PRESETS.has_key(preset):
+			player.socket.sysmessage('Unknown map preset: %s.' % preset)
+			return
+		(width, height, xtop, ytop, xbottom, ybottom) = MAP_PRESETS[preset]
+	elif maptype == 'world':
+		(width, height, xtop, ytop, xbottom, ybottom) = (400, 400, 0, 0, 5119, 4095)
+	elif maptype == 'custom':
+		(width, height, xtop, ytop, xbottom, ybottom) = (200, 200, 0, 0, 5119, 4095)
+		if item.hastag('width'):
+			width = int(item.gettag('width'))
+		if item.hastag('height'):
+			height = int(item.gettag('height'))			
+		if item.hastag('xtop'):
+			xtop = int(item.gettag('xtop'))
+		if item.hastag('xbottom'):
+			xbottom = int(item.gettag('xbottom'))
+		if item.hastag('ytop'):
+			ytop = int(item.gettag('ytop'))
+		if item.hastag('ybottom'):
+			ybottom = int(item.gettag('ybottom'))						
+	else:
+		player.socket.sysmessage('Unknown map type: %s.' % maptype)
+		return
 	
 	# Send a map detail packet
 	details = wolfpack.packet(0x90, 19)

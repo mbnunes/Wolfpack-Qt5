@@ -137,7 +137,7 @@ def export( char, args, choice ):
 	item = iterator.first
 	i = 0
 	while item:
-		if not item.baseid in nonsaves and len( item.spawnregion ) == 0
+		if not item.baseid in nonsaves and len( item.spawnregion ) == 0:
 			# Build our string
 			if format == 1: # Sphere 51a
 				output.write( "[WORLDITEM 0%x]%s" % ( item.id, newline ) )
@@ -183,7 +183,7 @@ def export( char, args, choice ):
 				warnings += 'Item %i has events (%s) assigned to it. It wont be usable when made static.<br><br>' % ( hex( item.serial ), eventlist )
 
 			if item.type != 0:
-			warnings += 'Item %i is of type %i. It wont be usable when made static.<br><br>' % ( hex( item.serial ), item.type )
+				warnings += 'Item %i is of type %i. It wont be usable when made static.<br><br>' % ( hex( item.serial ), item.type )
 
 			i += 1
 
