@@ -122,7 +122,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		// TODO: Add a XML option for this
 		if( !pc_currchar->Owns( pi ) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
 		{
-			if( pi->more2() == 1 ) 
+			// Innocent Corpse?
+			if( pi->tags().has( "notority" ) && pi->tags().get( "notority" ).asInt() == 1 ) 
 			{
 				pc_currchar->makeCriminal();
 			}
@@ -391,13 +392,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			socket->sysMessage( tr( "You can't eat that!" ) );
 		}
 		return;
-	
-		// Teleport object
-		case 104: 
-			pc_currchar->removeFromView( false );
-			pc_currchar->MoveTo( pi->morex(), pi->morey(), pi->morez() );
-			pc_currchar->resend( false );
-			return;
 		
 		// Drinks (This needs some other effects as well)
 		case 105:  
@@ -454,31 +448,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
                 pi->reduceAmount(1); 
                 return; 
 			}
-		case 404: // Fraz'z ID wand
-			{
-				P_ITEM pBackpack = pc_currchar->getBackpack();
-				if ( pBackpack != NULL )
-				{
-					if ((pi->container() == pBackpack) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
-					{
-						if (pi->morex() <= 0)
-						{
-							socket->sysMessage( tr("That is out of charges.") );
-							return;
-						}
-						pi->setMoreX((tempuint=pi->morex())--);
-						//pi->morex--;
-						socket->sysMessage( tr("Your wand now has %1 charges left").arg( pi->morex()) );
-//						target(s, 0, 1, 0, 75, "What do you wish to identify?");
-					}
-					else
-					{
-						socket->sysMessage(tr("If you wish to use this, it must be equipped or in your backpack."));
-					}
-				}
-				return;
-			}
-
+		
 		// Dyes
 		case 405:
 			{

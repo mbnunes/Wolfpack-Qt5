@@ -503,131 +503,14 @@ P_ITEM Trade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 
 void Trade::clearalltrades()
 {
-	qWarning("cTrade::clearalltrades() disabled");
-/*	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
-	{
-		P_ITEM pi = iterItems.GetData();
-		if( pi->type() == 1 && pi->pos.x == 26 && pi->pos.y == 0 && pi->pos.z == 0 && pi->id() == 0x1E5E )
-		{
-			P_CHAR pc = FindCharBySerial(pi->contserial);
-			P_ITEM pBackpack = Packitem(pc);
-			SERIAL serial = pi->serial();
-			unsigned int ci;
-			vector<SERIAL> vecContainer = contsp.getData(serial);
-			for (ci = 0; ci < vecContainer.size(); ci++)
-			{
-				P_ITEM pj = FindItemBySerial(vecContainer[ci]);
-				if (pj != NULL)
-					if ((pj->contserial==serial))
-					{
-						if(pBackpack != NULL)
-						{
-							pBackpack->addItem(pj);
-						}
-					}
-			}
-			//iterItems++; // Iterator will became invalid when deletting.
-			pi->remove();
-			clConsole.send("Trade cleared\n");
-		}
-	}
-*/
 }
 
 void Trade::trademsg(int s)
 {
-/*	P_ITEM cont1, cont2;
-	cont1 = cont2 = NULL ;
-	switch(buffer[s][3])
-	{
-	case 0://Start trade - Never happens, sent out by the server only.
-		break;
-	case 2://Change check marks. Possibly conclude trade
-		cont1 = FindItemBySerPtr(&buffer[s][4]);
-		if (cont1 != NULL)
-			cont2 = FindItemBySerial(calcserial(cont1->moreb1(), cont1->moreb2(), cont1->moreb3(), cont1->moreb4()));
-		else
-			cont2 = NULL;
-		if (cont2 != NULL) // lb crashfix
-		{
-			cont1->setMoreZ(buffer[s][11]);
-			sendtradestatus(cont1, cont2);
-			if (cont1->morez() && cont2->morez())
-			{
-				dotrade(cont1, cont2);
-				endtrade(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
-			}
-		}
-		break;
-	case 1://Cancel trade. Send each person cancel messages, move items.
-		endtrade(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
-		break;
-	default:
-		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, trademsg()\n"); //Morrolan
-	}
-*/
 }
 
 void Trade::dotrade(P_ITEM cont1, P_ITEM cont2)
 {
-	qWarning("cTrade::dotrade() is disabled");
-/*	int serial;
-
-	P_CHAR p1 = FindCharBySerial(cont1->contserial);
-	if(p1 == NULL) return;
-	P_CHAR p2 = FindCharBySerial(cont2->contserial);
-	if(p2 == NULL) return;
-	if(cont1->morez==0 || cont2->morez==0)
-	{//not checked - give items to previous owners - AntiChrist
-		P_CHAR t;
-		t  = p1;
-		p1 = p2;
-		p2 = t;
-	}
-	P_ITEM bp1 = Packitem(p1);
-	if(bp1 == NULL) return;
-	P_ITEM bp2 = Packitem(p2);
-	if(bp2 == NULL) return;
-	UOXSOCKET s1 = calcSocketFromChar(p1);
-	if (s1 ==-1)
-		cout << "Error getting socket in trade, calcSocketFromChar for s1" << endl;
-	UOXSOCKET s2 = calcSocketFromChar(p2);
-    if (s2 ==-1)
-		cout << "Error getting socket in trade, calcSocketFromChar for si" << endl;
-	serial = cont1->serial();
-	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for (ci = 0; ci < vecContainer.size(); ++ci)
-	{
-		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL)
-			if ((pi->contserial==serial))
-			{
-				bp2->addItem(pi);
-				if (s1!=-1)
-					pi->update();//AntiChrist
-				if (s2!=-1) sendbpitem(s2, pi);
-					pi->update();//AntiChrist
-			}
-	}
-	serial = cont2->serial();
-	vecContainer.clear();
-	vecContainer = contsp.getData(serial);
-	for (ci = 0; ci < vecContainer.size(); ++ci)
-	{
-		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL)
-			if ((pi->contserial==serial))
-			{
-				bp1->addItem(pi);
-				if (s2 != INVALID_UOXSOCKET)
-					pi->update();//AntiChrist
-				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, pi);
-					pi->update();//AntiChrist
-			}
-	}
-*/
 }
 
 }

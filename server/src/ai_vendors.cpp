@@ -97,14 +97,11 @@ Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : AbstractAI( npc )
 {
 	m_actions.append( new Action_Wander( npc, this ) );
 	m_actions.append( new Action_FleeAttacker( npc, this ) );
-	if( npc )
-		TempEffects::instance()->insert( new cStablemasterRefreshTimer( npc, this, SrvParams->stablemasterRefreshTime() ) );
 }
 
 void Human_Stablemaster::init( P_NPC npc )
 {
 	AbstractAI::init( npc );
-	TempEffects::instance()->insert( new cStablemasterRefreshTimer( npc, this, SrvParams->stablemasterRefreshTime() ) );
 }
 
 static AbstractAI* productCreator_HS()
@@ -132,7 +129,6 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 		else if( message.contains( tr(" RELEASE") ) )
 		{
 			int gold = pTalker->CountBankGold() + pTalker->CountGold();
-			int topay = 0;
 			P_ITEM pPack = m_npc->getBackpack();
 			cItem::ContainerContent stableitems;
 			if( pPack )
@@ -141,27 +137,23 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 				cItem::ContainerContent::const_iterator it( content.begin() );
 				while( it != content.end() )
 				{
-					if( (*it) && (*it)->id() == 0x1ea7 && (*it)->morey() == pTalker->serial() )
-					{
-						topay += (int)floor( (float)(*it)->morez() * SrvParams->stablemasterGoldPerRefresh() );
+					if( !(*it)->tags().has( "player" ) || !(*it)->tags().has( "pet" ) )
+						continue;
+
+					if( (*it) && (*it)->id() == 0x1ea7 && (*it)->tags().get( "player" ).asInt() == pTalker->serial() )
 						stableitems.push_back( (*it) );
-					}
 					++it;
 				}
 			}
+
 			if( !stableitems.empty() )
 			{
-				if( topay > gold )
-				{
-					m_npc->talk( tr("You do not possess enough gold. Come later if you have more!") );
-					return;
-				}
 				cItem::ContainerContent::const_iterator it( stableitems.begin() );
 				while( it != stableitems.end() )
 				{
 					if( (*it) )
 					{
-						P_NPC pPet = dynamic_cast<P_NPC>(World::instance()->findChar( (*it)->morex() ));
+						P_NPC pPet = dynamic_cast<P_NPC>(World::instance()->findChar( (*it)->tags().get( "pet" ).asInt() ));
 						if( pPet )
 						{
 							pPet->free = false;
@@ -172,14 +164,9 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 					}
 					++it;
 				}
+
 				pPack->update();
-				if( topay > 0 )
-				{
-					pTalker->takeGold( topay, true );
-					m_npc->talk( tr("Here you are! That costs %1 gold. Farewell!").arg( topay ) );
-				}
-				else
-					m_npc->talk( tr("Here's your pet back!") );
+				m_npc->talk( tr("Here's your pet back!") );
 			}
 		}
 	}
@@ -187,24 +174,6 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 
 void Human_Stablemaster::refreshStock()
 {
-	// let's increase the refresh times of the gems in the 
-	// stablemaster's backpack
-	P_ITEM pPack = m_npc->getBackpack();
-	if( pPack )
-	{
-		cItem::ContainerContent content = pPack->content();
-		cItem::ContainerContent::const_iterator it( content.begin() );
-		while( it != content.end() )
-		{
-			if( (*it) && (*it)->id() == 0x1ea7 )
-			{
-				(*it)->setMoreZ( (*it)->morez() + 1 );
-			}
-			++it;
-		}
-	}
-
-	TempEffects::instance()->insert( new cStablemasterRefreshTimer( m_npc, this, SrvParams->stablemasterRefreshTime() ) );
 }
 
 void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target )
@@ -236,9 +205,8 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target
 	// but will still be saved.
 	P_ITEM pGem = new cItem();
 	pGem->Init( false );
-	pGem->setMoreX( pPet->serial() );
-	pGem->setMoreY( player->serial() );
-	pGem->setMoreZ( 0 );
+	pGem->tags().set( "player", cVariant( player->serial() ) );
+	pGem->tags().set( "pet", cVariant( pPet->serial() ) );
 	pGem->setId( 0x1ea7 );
 	pGem->setName( tr("petitem: %1").arg(pPet->name()) );
 	pGem->setVisible( 2 ); // gm visible

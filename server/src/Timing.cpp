@@ -695,16 +695,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 				switch( pItem->type() )
 				{
-				// If it is a sound-item there is a 1%*item->morez chance that
-				// It "emits" a sound to this character.
-				// This is a rather stupid method...
-				// Only one character is hearing the sound at once
-				case 88:
-					if( pItem->dist( socket->player() ) < pItem->morey() )
-						if( RandomNum( 1, 100 ) <= pItem->morez() )
-							socket->soundEffect( pItem->morex(), pItem );
-					break;
-
 				// Move Boats
 				case 117:
 					{

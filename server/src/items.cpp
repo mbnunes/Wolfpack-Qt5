@@ -95,13 +95,6 @@ cItem::cItem( const cItem &src )
 	this->type_ = src.type_;
 	this->type2_ = src.type2_;
 	this->weight_ = src.weight_;
-	this->more1_ = src.more1_;
-	this->more2_ = src.more2_;
-	this->more3_ = src.more3_;
-	this->more4_ = src.more4_;
-	this->morex_ = src.morex_;
-	this->morey_ = src.morey_;;
-	this->morez_ = src.morez_;
 	this->amount_ = src.amount_;
 	this->def_ = src.def_;
 	this->lodamage_=src.lodamage_;
@@ -448,13 +441,6 @@ void cItem::save()
 		addField("layer",		layer_);
 		addField("type",		type_);
 		addField("type2",		type2_);
-		addField("more1",		more1_);
-		addField("more2",		more2_);
-		addField("more3",		more3_);
-		addField("more4",		more4_);
-		addField("morex",		morex_);
-		addField("morey",		morey_);
-		addField("morez",		morez_);
 		addField("amount",		amount_);
 		addField("decaytime",	(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
 		addField("def",			def_);
@@ -577,13 +563,6 @@ void cItem::Init( bool createSerial )
 	this->type_=0; // For things that do special things on doubleclicking
 	this->type2_=0;
 	this->weight_ = 0;
-	this->more1_=0; // For various stuff
-	this->more2_=0;
-	this->more3_=0;
-	this->more4_=0;
-	this->morex_=0;
-	this->morey_=0;
-	this->morez_=0;
 	this->amount_ = 1; // Amount of items in pile
 	this->def_=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
@@ -1191,42 +1170,6 @@ void cItem::processNode( const cElement *Tag )
 	else if( TagName == "lightsource" )
 		this->dir_ = Value.toUShort();
 
-	// <more1>10</more1>
-	else if( TagName == "more1" )
-		this->more1_ = Value.toInt();
-
-	// <more>10</more> <<<<< alias for more1
-	else if( TagName == "more" )
-		this->more1_ = Value.toInt();
-
-	// <more2>10</more2>
-	else if( TagName == "more2" )
-		this->more2_ = Value.toInt();
-
-	// <morex>10</morex>
-	else if( TagName == "morex" )
-		this->morex_ = Value.toInt();
-
-	// <morey>10</morey>
-	else if( TagName == "morey" )
-		this->morey_ = Value.toInt();
-
-	// <morez>10</morez>
-	else if( TagName == "morez" )
-		this->morez_ = Value.toInt();
-
-	// <morexyz>10</morexyz>
-	else if( TagName == "morexyz" )
-	{
-		QStringList Elements = QStringList::split( ",", Value );
-		if( Elements.count() == 3 )
-		{
-			this->morex_ = Elements[ 0 ].toInt();
-			this->morey_ = Elements[ 1 ].toInt();
-			this->morez_ = Elements[ 2 ].toInt();
-		}
-	}
-
 	// <movable />
 	// <ownermovable />
 	// <immovable />
@@ -1517,12 +1460,6 @@ void cItem::showName( cUOSocket *socket )
 			itemname.append( tr( " [pages: %1]" ).arg( pBook->pages() ) );
 	}
 
-	// Show charges for wands only if they are identified
-	if( type() == 15 && !tags().has( "identified" ) )
-			itemname.append( tr( " [%1 charge%2]" ).arg( morez_ ).arg( ( morez_ > 1 ) ? "s" : "" ) );
-	else if( type() == 404 || type() == 181 )
-		itemname.append( tr( " [%1 charge%2]" ).arg( morex_ ).arg( ( morex_ > 1 ) ? "s" : "" ) );
-
 	// Try a localized Message
 	if( name_.isNull() )
 		socket->clilocMessageAffix( 0xF9060 + id_, "", itemname, 0x3B2, 3, this );
@@ -1539,13 +1476,15 @@ void cItem::showName( cUOSocket *socket )
 	}*/
 
 	// Show RepSys Settings of Victim when killed
-	if( corpse() )
+	if( corpse() && tags_.has( "notority" ) )
 	{
-		if( more2_ == 1 )
+		int notority = tags_.get( "notority" ).asInt();
+
+		if( notority == 1 )
 			socket->showSpeech( this, tr( "[Innocent]" ), 0x005A );
-		else if( more2_ == 2 )
+		else if( notority == 2 )
 			socket->showSpeech( this, tr( "[Criminal]" ), 0x03B2 );
-		else if( more2_ == 3 )
+		else if( notority == 3 )
 			socket->showSpeech( this, tr( "[Murderer]" ), 0x0026 );
 	}
 
@@ -1979,13 +1918,6 @@ void cItem::load( char **result, UINT16 &offset )
 	layer_ = atoi( result[offset++] );
 	type_ = atoi( result[offset++] );
 	type2_ = atoi( result[offset++] );
-	more1_ = atoi( result[offset++] );
-	more2_ = atoi( result[offset++] );
-	more3_ = atoi( result[offset++] );
-	more4_ = atoi( result[offset++] );
-	morex_ = atoi( result[offset++] );
-	morey_ = atoi( result[offset++] );
-	morez_ = atoi( result[offset++] );
 	amount_ = atoi( result[offset++] );
 	decaytime_ = atoi( result[offset++] );
 	if( decaytime_ > 0 ) 
@@ -2017,7 +1949,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2268,13 +2200,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		}
 	}
 
-	else SET_INT_PROPERTY( "more1", more1_ )
-	else SET_INT_PROPERTY( "more2", more2_ )
-	else SET_INT_PROPERTY( "more3", more3_ )
-	else SET_INT_PROPERTY( "more4", more4_ )
-	else SET_INT_PROPERTY( "morex", morex_ )
-	else SET_INT_PROPERTY( "morey", morey_ )
-	else SET_INT_PROPERTY( "morez", morez_ )
 	else SET_INT_PROPERTY( "defense", def_ )
 	else SET_INT_PROPERTY( "decaytime", decaytime_ )
 
@@ -2407,13 +2332,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 		return 0;
 	}
 
-	else GET_PROPERTY( "more1", more1_ )
-	else GET_PROPERTY( "more2", more2_ )
-	else GET_PROPERTY( "more3", more3_ )
-	else GET_PROPERTY( "more4", more4_ )
-	else GET_PROPERTY( "morex", (int)morex_ )
-	else GET_PROPERTY( "morey", (int)morey_ )
-	else GET_PROPERTY( "morez", (int)morez_ )
 	else GET_PROPERTY( "defense", (int)def_ )
 	else GET_PROPERTY( "decaytime", (int)decaytime_ )
 

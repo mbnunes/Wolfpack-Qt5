@@ -187,42 +187,6 @@ public:
 
 	bool poisonItem( cUOSocket* socket, cUORxTarget* target )
 	{
-		
-		P_ITEM pi = FindItemBySerial( target->serial() );
-		if ( !pi )
-			return true;
-		
-		P_CHAR pc = socket->player();
-		int success=0;
-		switch(pPoison->morez())
-		{
-		case 1:	success=pc->checkSkill( POISONING, 0, 500);		break;//lesser poison
-		case 2:	success=pc->checkSkill( POISONING, 151, 651);		break;//poison
-		case 3:	success=pc->checkSkill( POISONING, 551, 1051);		break;//greater poison
-		case 4:	success=pc->checkSkill( POISONING, 901, 1401);		break;//deadly poison
-		default:
-//			LogError("cSkPoisoning::poisonItem(..): switch reached default\n");
-			return true;
-		}
-
-		pc->soundEffect( 0x0247 ); //poisoning effect
-
-		if(success)
-		{
-			
-			if(pi->poisoned()<pPoison->morez()) pi->setPoisoned( pPoison->morez() );
-			socket->sysMessage( tr("You successfully poison that item.") );
-		} 
-		else
-			socket->sysMessage( tr("You fail to apply the poison.") );
-		
-		//empty bottle after poisoning
-		pPoison->remove();
-		pPoison = new cItem;
-		pPoison->Init(true);
-		pPoison->setId(0x0F0E);
-		pPoison->moveTo(pc->pos());
-		pPoison->update();
 		return true;
 	}
 

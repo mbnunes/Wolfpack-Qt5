@@ -188,7 +188,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 
 bool cSkLockpicking::responsed( cUOSocket *socket, cUORxTarget *target )
 {
- 	const P_ITEM pi = FindItemBySerial( target->serial() );
+/* 	const P_ITEM pi = FindItemBySerial( target->serial() );
 	P_CHAR pc_currchar = socket->player();
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
@@ -233,7 +233,7 @@ bool cSkLockpicking::responsed( cUOSocket *socket, cUORxTarget *target )
 				socket->sysMessage( tr("That cannot be unlocked without a key.") );
 			}
 		}
-	}
+	}*/
 	return true;
 }
 

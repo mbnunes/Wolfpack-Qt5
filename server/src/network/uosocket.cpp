@@ -1544,11 +1544,6 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		case 0x0A35:					// Dresser
 			gump = 0x51; break;
 
-		case 0x0Ab2: 
-			if( pCont->morex() == 1 ) 
-				gump = 0x4a;
-			break;
-
 		default:
 			if( ( ( pCont->id() & 0xFF00 ) >> 8 ) == 0x3E )
 				gump = 0x4C;

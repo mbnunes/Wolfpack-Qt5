@@ -658,6 +658,9 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		}
 	}
 
+	if( pResItem && !( pResItem->tags().has( "vein" ) || pResItem->tags().has( "amount" ) ) )
+		pResItem = 0;
+
 	resourcespec_st item;
 	QMap< UINT32, resourcespec_st > possible_resspecs;
 	QMap< UINT32, resourcespec_st >::iterator mit;
@@ -778,8 +781,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		}
 	}
 
-	// the amount is stored in morex, vein in morey!
-	amount = pResItem->morex();
+	amount = pResItem->tags().get( "amount" ).asInt();
 	if( amount == 0 )
 	{
 		pc->action( charaction_ );
@@ -793,7 +795,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			socket->sysMessage( emptymsg_ );
 		return;
 	}
-	vein = pResItem->morey();
+	vein = pResItem->tags().get( "vein" ).asInt();
 
 
 	if( vein > 0 && vein <= resourcespecs_.size() && possible_resspecs.find( vein-1 ) != possible_resspecs.end() )
@@ -878,7 +880,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	}
 	
 	amount -= spawnamount;
-	pResItem->setMoreX(amount);
+	pResItem->tags().set( "amount", cVariant( (int)amount ) );
 	if( amount == 0 )
 	{
 		pResItem->setDecayTime( uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC );
@@ -1185,8 +1187,10 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 	{
 		setDecayTime(uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC );
 	}
-	setMoreX(amount);
-	setMoreY(vein);
+
+	tags().set( "amount", cVariant( (int)amount ) );
+	tags().set( "vein", cVariant( (int)vein ) );
+
 	this->setId( 0x1ea7 );
 	this->amount_ = 1;
 	this->setName( QString( "resitem: %1" ).arg( resource ) );

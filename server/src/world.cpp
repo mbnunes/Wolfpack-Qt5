@@ -535,7 +535,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( it != p->items.end() )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register an item with the Serial 0x%08x which is already in use." ).arg( serial ) );
+			clConsole.log( LOG_ERROR, QString( "Trying to register an item with the Serial 0x%1 which is already in use." ).arg( serial, 16 ) );
 			return;
 		}
 
@@ -544,7 +544,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( !pItem )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register an object with an item serial (0x%08x) which is no item." ).arg( serial ) );
+			clConsole.log( LOG_ERROR, QString( "Trying to register an object with an item serial (0x%1) which is no item." ).arg( serial, 16 ) );
 			return;
 		}
 

@@ -349,46 +349,6 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 	if( pItem->onCollide( pChar ) )
 		return true;
 
-	// Decide what to do on type first.
-	switch( pItem->type() )
-	{
-	// Gate
-	case 51:
-	case 52:
-		dPos.x = pItem->morex();
-		dPos.y = pItem->morey();
-		dPos.z = pItem->morez();
-
-		// Soundeffect before teleport
-		pChar->soundEffect( 0x1FE );
-
-		// Teleport us
-		pChar->removeFromView( false );
-		pChar->moveTo( dPos );
-		pChar->resend( false );
-
-		// And soundeffect after
-		pChar->soundEffect( 0x1FE );
-		pChar->effect( 0x372A, 0x09, 0x06 );
-
-/*		// Teleport pets
-		RegionIterator4Chars iter( pChar->pos() );
-		for( iter.Begin(); !iter.atEnd(); iter++ )
-		{
-			P_NPC pPet = dynamic_cast<P_NPC>(iter.GetData());
-			if( pPet->wanderFollowTarget() == pChar->serial() )
-			{
-				if( pPet->inRange( pItem, 4 ) )
-				{
-					pPet->removeFromView( false );
-					pPet->moveTo( dPos );
-					pPet->resend( false );
-				}
-			}
-		}*/
-		return true;
-	};
-
 	return false;
 }
 

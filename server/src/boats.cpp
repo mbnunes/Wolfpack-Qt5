@@ -1015,48 +1015,6 @@ void cBoat::switchPlankState( P_ITEM pplank ) //Open, or close the plank (called
 		pplank->setId( this->itemids[ shortboatdir ][STAR_P_C] ); 
 }
 
-/*
-// khpae : initial setup for auto sailing
-void cBoat::setAutoSail (UOXSOCKET s, P_ITEM pMap, P_ITEM pTiller) {
-	P_CHAR pc = currchar[s];
-	if (pc == NULL) {
-		return;
-	}
-
-	if( !pTiller->tags().get( "boatserial" ).isValid() )
-		return;
-
-	if (!pMap->mapNumPin) {
-		itemtalk (s, pTiller, "Sir, there's no ship course.");
-		return;
-	}
-	if (pc->multis == INVALID_SERIAL) {
-		sysmessage (s, "You must be on the boat to do that.");
-		return;
-	}
-	SERIAL bserial = pTiller->tags().get( "boatserial" ).toUInt();
-	if (bserial != pc->multis) {
-		sysmessage (s, "You must be on the boat to do that.");
-		return;
-	}
-	int x0 = (pMap->more1<<8) | pMap->more2;
-	int y0 = (pMap->more3<<8) | pMap->more4;
-	int x1 = (pMap->moreb1<<8) | pMap->moreb2;
-	int y1 = (pMap->moreb3<<8) | pMap->moreb4;
-	int width = 134 * (pMap->morez + 1);
-	int i, posx, posy;
-	for (i=0; i<pMap->mapNumPin; i++) {
-		posx = x0 + pMap->mapPinXY[i][0]*(x1-x0) / width;
-		posy = y0 + pMap->mapPinXY[i][1]*(y1-y0) / width;
-		this->mapPinXY[i][0] = (unsigned short)posx;
-		this->mapPinXY[i][1] = (unsigned short)posy;
-	}
-	itemtalk (s, pTiller, "Aye, Sir.");
-	this->autosail_ = this->boatdir + 1;
-	this->mapNumPin = pMap->mapNumPin;
-}
-*/
-
 char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they said a command. msg must already be capitalized
 {
 	SERIAL serial;

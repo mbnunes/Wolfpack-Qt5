@@ -123,21 +123,6 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 	P_ITEM outmostCont = pItem->getOutmostItem();
 
-	// If it's a trade-window, reset the ack-status
-	if( outmostCont && ( outmostCont->container() == pChar ) && ( outmostCont->layer() == 0 ) && ( outmostCont->id() == 0x1E5E ) )
-	{
-		// Get the other sides tradewindow
-		P_ITEM tradeWindow = 0;//FindItemBySerial( calcserial( outmostCont->moreb1(), outmostCont->moreb2(), outmostCont->moreb3(), outmostCont->moreb4() ) );
-
-		// If one of the trade-windows has the ack-status reset it
-		if( tradeWindow && ( tradeWindow->morez() || outmostCont->morez() ) )
-		{
-			tradeWindow->setMoreZ(0);
-			outmostCont->setMoreZ(0);
-//			sendtradestatus( tradeWindow, outmostCont );
-		}
-	}
-
 	// If the top-most container ( thats important ) is a corpse 
 	// and looting is a crime, flag the character criminal.
 	if( !pChar->isGM() && outmostCont && outmostCont->corpse() )
@@ -146,7 +131,8 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		// if the corpse is innocent and not in our guild
 		bool sameGuild = ( GuildCompare( pChar, outmostCont->owner() ) != 0 );
 
-		if( ( outmostCont->more2() == 1 ) && !pChar->Owns( outmostCont ) && !sameGuild )
+		if( outmostCont->tags().has( "notority" ) && outmostCont->tags().get( "notority" ).asInt() == 1 && 
+			!pChar->Owns( outmostCont ) && !sameGuild )
 		{
 //			pChar->karma -= 5;
 			pChar->setKarma( pChar->karma() - 5 );
@@ -709,22 +695,6 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			socket->sysMessage( tr("You cannot put that into the belongings of another player") );
 			socket->bounceItem( pItem, BR_NO_REASON );
 			return;
-		}
-	}
-
-	// If we put the item into a trade-window
-	// Reset the trade-status for both players
-	if( pCont->layer() == 0 && pCont->id() == 0x1E5E &&	pChar->Wears( pCont ) )
-	{
-		// Trade window???
-		P_ITEM tradeWindow = 0;//FindItemBySerial( calcserial( pCont->moreb1(), pCont->moreb2(), pCont->moreb3(), pCont->moreb4() ) );
-
-		// If it *IS* a trade-window, replace the status
-		if( tradeWindow && ( pCont->morez() || tradeWindow->morez() ) )
-		{
-			tradeWindow->setMoreZ(0);
-			pCont->setMoreZ(0);
-//			sendtradestatus( tradeWindow, pCont );
 		}
 	}
 	

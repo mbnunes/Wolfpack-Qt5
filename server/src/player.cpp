@@ -547,11 +547,11 @@ void cPlayer::kill()
 	// So a singleclick on the corpse
 	// Will display the right color
 	if( isInnocent() )
-		corpse->setMore2(1);
+		corpse->tags().set( "notority", cVariant( 1 ) );
 	else if( isCriminal() )
-		corpse->setMore2(2);
+		corpse->tags().set( "notority", cVariant( 2 ) );
 	else if( isMurderer() )
-		corpse->setMore2(3);
+		corpse->tags().set( "notority", cVariant( 3 ) );
 
     corpse->setOwner( this );
 
@@ -688,20 +688,20 @@ void cPlayer::turnTo( const Coord_cl &pos )
 P_NPC cPlayer::unmount()
 {
 	P_ITEM pi = atLayer(Mount);
-	if( pi && !pi->free)
+	if( pi && !pi->free )
 	{
-		P_NPC pMount = dynamic_cast<P_NPC>(FindCharBySerial( pi->morex() ));
+		P_NPC pMount = dynamic_cast<P_NPC>( FindCharBySerial( pi->tags().get( "pet" ).asInt() ) );
 		if( pMount )
 		{
 			pMount->setWanderType( enHalt );
 			pMount->setWanderX1( pi->pos().x );
 			pMount->setWanderY1( pi->pos().y );
 			pMount->setWanderRadius( pi->pos().z );
-			pMount->setBodyID( pi->morey() );
+			pMount->setBodyID( pi->tags().get( "body" ).asInt() );
 			pMount->setDirection( direction() );
-			pMount->setStrength( pi->tags().get("strength").toInt() );
-			pMount->setDexterity( pi->tags().get("dexterity").toInt() );
-			pMount->setIntelligence( pi->tags().get("intelligence").toInt() );
+			pMount->setStrength( pi->tags().get( "strength" ).toInt() );
+			pMount->setDexterity( pi->tags().get( "dexterity" ).toInt() );
+			pMount->setIntelligence( pi->tags().get( "intelligence" ).toInt() );
 			pMount->setHitpoints( pi->hp() );
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
@@ -788,8 +788,8 @@ void cPlayer::mount( P_NPC pMount )
 		position.z = pMount->wanderRadius();
 		pMountItem->setPos( position );
 		
-		pMountItem->setMoreX(pMount->serial());
-		pMountItem->setMoreY(pMount->bodyID());
+		pMountItem->tags().set( "pet", cVariant( pMount->serial() ) );
+		pMountItem->tags().set( "body", cVariant( pMount->bodyID() ) );
 
 		pMountItem->tags().set( "wanderType",	(int)pMount->wanderType() );
 		pMountItem->tags().set( "strength",		pMount->strength() );
@@ -816,7 +816,7 @@ void cPlayer::mount( P_NPC pMount )
 		
 		pMount->setBodyID(0);
 		MapObjects::instance()->remove( pMount );
-		pMount->setPos( Coord_cl(0, 0, 0) );
+		pMount->setPos( Coord_cl( 0, 0, 0 ) );
 		
 		pMount->setAtWar( false );
 		pMount->setAttackerSerial(INVALID_SERIAL);
@@ -989,8 +989,7 @@ P_ITEM cPlayer::getBankBox( void )
 	pi = new cItem;
 	pi->Init();
 	pi->setId( 0x9ab );
-	pi->SetOwnSerial(this->serial());
-	pi->setMoreX(1);
+	pi->SetOwnSerial( this->serial() );
 	pi->setType( 1 );
 	pi->setName( tr( "%1's bank box" ).arg( name() ) );
 	addItem( BankBox, pi, true, true );

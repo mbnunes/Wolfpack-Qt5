@@ -100,13 +100,6 @@ public:
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
 
-	uchar			more1()			const { return more1_; }
-	uchar			more2()			const { return more2_; }
-	uchar			more3()			const { return more3_; }
-	uchar			more4()			const { return more4_; }
-	uint			morex()			const { return morex_; }
-	uint			morey()			const { return morey_; }
-	uint			morez()			const { return morez_; }		
 	uint			def()			const { return def_; }
 	uchar			magic()			const { return magic_; }
 	uint			decaytime()		const { return decaytime_; }
@@ -149,13 +142,6 @@ public:
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
 //*****************************************ADDED SETTERS ***************
-	void	setMore1( uchar data ) { more1_ = data; flagChanged();}
-	void	setMore2( uchar data ) { more2_ = data; flagChanged();}
-	void	setMore3( uchar data ) { more3_ = data; flagChanged();}
-	void	setMore4( uchar data ) { more4_ = data; flagChanged();}
-	void	setMoreX( uint data ) { morex_ = data; flagChanged();}
-	void	setMoreY( uint data ) { morey_ = data; flagChanged();}
-	void	setMoreZ( uint data ) { morez_ = data; flagChanged();}
 	void	setDef( uint data ) { def_ = data; 	flagChanged(); changed( TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setDecayTime( uint data ) { decaytime_ = data; }
@@ -271,16 +257,8 @@ protected:
 	int			sellprice_;
 	int			buyprice_;
 
-	// More values
 	ContainerContent content_;
 	cUObject*	container_;
-	uchar		more1_; // For various stuff
-	uchar		more2_;
-	uchar		more3_;
-	uchar		more4_;
-	uint		morex_;
-	uint		morey_;
-	uint		morez_;
 	uint		def_; // Item defense
 	uchar		magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	uint		decaytime_;

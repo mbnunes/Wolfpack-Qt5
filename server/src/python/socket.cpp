@@ -343,7 +343,7 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 	P_ITEM signpost = getArgItem( 0 );
 
 	cUOTxStartCustomHouse custom;
-	custom.setSerial( signpost->morex() ); // Morex of signpost contain serial of house
+	custom.setSerial( signpost->tags().get( "house" ).asInt() ); // Morex of signpost contain serial of house
 	self->pSock->send( &custom );
 	return PyTrue;
 }
