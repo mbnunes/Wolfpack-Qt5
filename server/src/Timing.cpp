@@ -102,29 +102,23 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 	if( !pc )
 		return;
 
-	signed short tempshort;
+	INT32 oldHealth = pc->hp();
+	INT32 oldStamina = pc->stm();
+	INT32 oldMana = pc->mn();
 
+	// Regeneration stuff
 	if( !pc->dead() )
 	{
+		// Eventually this stuff should be removed
+		// But I am not sure about it.
 		if( pc->hp() > pc->st() )
-		{
 			pc->setHp( pc->st() );
-			if( pc->socket() )
-				pc->updateHealth();
-		}
 
 		if( pc->stm() > pc->effDex() )
-		{
 			pc->setStm( pc->effDex() );
-			if( pc->socket() )
-				pc->socket()->updateStamina();
-		}
+
 		if (pc->mn()>pc->in())
-		{
 			pc->setMn( pc->in() );
-			if( pc->socket() )
-				pc->socket()->updateMana();
-		}
 
 		// Health regeneration
 		if( pc->regen() <= currenttime )
@@ -139,17 +133,11 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 					if( pc->regen() + ( c * interval ) <= currenttime && pc->hp() <= pc->st() )
 					{
 						if( pc->skill( HEALING ) < 500 )
-//							pc->hp++;
-						{	
-							tempshort = pc->hp();
-							pc->setHp( ++tempshort );
-						}
+							pc->setHp( pc->hp() + 1 );
 					
 						else if (pc->skill( HEALING ) < 800)
-//							pc->hp += 2;
 							pc->setHp( pc->hp() + 2 );
 						else 
-//							pc->hp += 3;
 							pc->setHp( pc->hp() + 3 );
 
 						if( pc->hp() > pc->st() )
@@ -159,8 +147,6 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 						}
 					}
 				}
-
-				pc->updateHealth();
 			}
 
 			pc->setRegen( currenttime + interval );
@@ -174,15 +160,12 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 			{
 				if (pc->regen2() + (c*interval) <= currenttime && pc->stm() <= pc->effDex())
 				{
-//					pc->stm++;
-					tempshort = pc->stm();
-					pc->setStm(++tempshort);
-					if (pc->stm()>pc->effDex())
+					pc->setStm( pc->stm() + 1 );
+					if( pc->stm() > pc->effDex() )
 					{
-						pc->setStm(pc->effDex());
+						pc->setStm( pc->effDex() );
 						break;
 					}
-					pc->socket()->updateStamina();
 				}
 			}
 			pc->setRegen2( currenttime + interval );			
@@ -197,15 +180,12 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 			{
 				if (pc->regen3() + (c*interval) <= currenttime && pc->mn() <= pc->in())
 				{
-//				pc->mn++;
-				tempshort = pc->mn();
-				pc->setMn(++tempshort);
-				if (pc->med() && pc->mn() <= pc->mn2())
-//						pc->mn += 5;
-						
+				pc->setMn( pc->mn() + 1 );
+				if( pc->med() && pc->mn() <= pc->mn2() )
+				
 					if (pc->mn()>pc->in())
 					{
-						if (pc->med())
+						if ( pc->med() )
 						{
 							pc->socket()->sysMessage( tr("You are at peace." ) );
 							pc->setMed( false );
@@ -213,11 +193,9 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 						pc->setMn( pc->in() );
 						break;
 					}
-					if( pc->socket() )
-						pc->socket()->updateMana();
 				}
 			}
-			if (SrvParams->armoraffectmana())
+			if( SrvParams->armoraffectmana() )
 			{
 				int ratio = ( ( 100 + 50 ) / SrvParams->manarate() );
 				// 100 = Maximum skill (GM)
@@ -248,6 +226,22 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 	// Check if the character died
 	if( pc->hp() <= 0 && !pc->dead() )
 		pc->kill();
+
+	// Now check if our Health, Stamina or Mana has changed
+	if( oldHealth != pc->hp() )
+		pc->updateHealth();
+
+	if( pc->socket() )
+	{
+		if( oldHealth != pc->hp() )
+			pc->socket()->updateHealth();
+
+		if( oldStamina != pc->stm() )
+			pc->socket()->updateStamina();
+
+		if( oldMana != pc->mn() )
+			pc->socket()->updateMana();
+	}
 }
 
 void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInstance()
