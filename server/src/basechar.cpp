@@ -2806,22 +2806,6 @@ bool cBaseChar::lineOfSight(Coord_cl target, bool touch)
 }
 
 double cBaseChar::getHitpointRate() {
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_GETHITPOINTRATE);
-
-	if (global && global->canHandleEvent(EVENT_GETHITPOINTRATE)) {
-		PyObject *args = Py_BuildValue("(N)", getPyObject());
-		PyObject *result = global->callEvent(EVENT_GETHITPOINTRATE, args);
-		Py_DECREF(args);
-		if (result) {
-			if (PyFloat_Check(result)) {
-				double rate = PyFloat_AS_DOUBLE(result);
-				Py_DECREF(result);
-				return rate;
-			}
-			Py_DECREF(result);
-		}
-	}
-
 	// Do the math
 	int points = 0;
 

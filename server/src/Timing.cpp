@@ -239,8 +239,7 @@ void cTiming::poll() {
 void cTiming::checkRegeneration(P_CHAR character, unsigned int time) 
 {
 	// Dead characters dont regenerate
-	if (character->isDead()) 
-	{
+	if (character->isDead()) {
 		return;
 	}
 
