@@ -61,17 +61,33 @@ cUObject::cUObject() :
 	bindmenu_( QString::null ),
 	changed_(true),
 	tooltip_( 0xFFFFFFFF ),
-	eventList_( QString::null ),
 	name_( QString::null ),
 	scriptChain( 0 )
 {
 }
 
-cUObject::cUObject( const cUObject &src ) {
+cUObject::~cUObject() {
+	if (isScriptChainFrozen() && scriptChain) {
+		unsigned int count = reinterpret_cast<unsigned int>(scriptChain[0]);
+		for (unsigned int i = 1; i <= count; ++i) {
+			QCString *str = reinterpret_cast<QCString*>(scriptChain[i]);
+			delete str;
+		}
+	}
+
+	delete [] scriptChain;
+}
+
+cUObject::cUObject(const cUObject &src) {
 	// Copy Events
-	scriptChain = 0;
-	eventList_ = src.eventList_;
-	recreateEvents();
+	if (src.scriptChain) {
+		unsigned int count = reinterpret_cast<unsigned int>(src.scriptChain[0]);
+		scriptChain = new cPythonScript*[count+1];
+		memcpy(scriptChain, src.scriptChain, (count + 1) * sizeof(cPythonScript*));
+	} else {
+		scriptChain = 0;
+	}
+
 	if (src.multi_) {
 		src.multi_->addObject(this);
 	}
@@ -124,12 +140,10 @@ unsigned int cUObject::dist(cUObject* d) const
 	return pos_.distance(d->pos_);
 }
 
-
 /*!
 	Performs persistency layer loads.
 */
-void cUObject::load( char **result, UINT16 &offset )
-{
+void cUObject::load(char **result, UINT16 &offset) {
 	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
 	serial_ = atoi(result[offset++]);
@@ -139,12 +153,12 @@ void cUObject::load( char **result, UINT16 &offset )
 	pos_.y = atoi(result[offset++]);
 	pos_.z = atoi(result[offset++]);
 	pos_.map = atoi(result[offset++]);
-	eventList_ = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
+	QString eventList = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
 	offset++;
 	bindmenu_ = result[offset++];
 	bool havetags_ = atoi( result[offset++] );
 
-	recreateEvents();
+	setEventList(eventList);
 
 	if( havetags_ )
 		tags_.load( serial_ );
@@ -178,19 +192,20 @@ void cUObject::save()
 	if ( changed_ )
 	{
 		initSave;
-		setTable( "uobject" );
-		addStrField( "name", name_ );
-		addField( "serial", serial_ );
-		addField( "multis", multi_ ? multi_->serial() : INVALID_SERIAL );
-		addField( "direction", dir_);
-		addField( "pos_x", pos_.x );
-		addField( "pos_y", pos_.y );
-		addField( "pos_z", pos_.z );
-		addField( "pos_map", pos_.map );
-		addStrField( "events", eventList_ == QString::null ? QString( "" ) : eventList_ );
-		addStrField( "bindmenu", bindmenu_ );
-		addCondition( "serial", serial_ );
-		addField( "havetags", havetags_ );
+		setTable("uobject" );
+		addStrField("name", name_ );
+		addField("serial", serial_ );
+		addField("multis", multi_ ? multi_->serial() : INVALID_SERIAL );
+		addField("direction", dir_);
+		addField("pos_x", pos_.x );
+		addField("pos_y", pos_.y );
+		addField("pos_z", pos_.z );
+		addField("pos_map", pos_.map );
+		QString eventList = this->eventList();
+		addStrField("events", eventList == QString::null ? QString("") : eventList);
+		addStrField("bindmenu", bindmenu_);
+		addCondition("serial", serial_);
+		addField("havetags", havetags_);
 		saveFields;
 	}
 	if( havetags_ )
@@ -235,21 +250,26 @@ void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QString
 /*!
 	Clears the script-chain
 */
-void cUObject::clearEvents()
-{
-	if( scriptChain )
-	{
+void cUObject::clearEvents() {
+	if (scriptChain) {
 		cPythonScript **myChain = scriptChain;
+		bool frozen = isScriptChainFrozen();
 		scriptChain = 0;
-		eventList_ = QString::null;
 		changed_ = true;
 
-		if (cPythonScript::canChainHandleEvent(EVENT_DETACH, myChain)) {
-			PyObject *args = Py_BuildValue("(N)", getPyObject());
-			cPythonScript::callChainedEventHandler(EVENT_DETACH, myChain, args);
-			Py_DECREF(args);
+		if (frozen && myChain) {
+			unsigned int count = reinterpret_cast<unsigned int>(myChain[0]);
+			for (unsigned int i = 1; i <= count; ++i) {
+				QCString *str = reinterpret_cast<QCString*>(myChain[i]);
+				delete str;
+			}
+		} else if (!frozen) {
+			if (cPythonScript::canChainHandleEvent(EVENT_DETACH, myChain)) {
+				PyObject *args = Py_BuildValue("(N)", getPyObject());
+				cPythonScript::callChainedEventHandler(EVENT_DETACH, myChain, args);
+				Py_DECREF(args);
+			}
 		}
-
 		delete [] myChain;
 	}
 }
@@ -260,9 +280,8 @@ void cUObject::clearEvents()
 */
 bool cUObject::hasEvent( const QString& name ) const
 {
-	if( scriptChain )
-	{
-		unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
+	if (scriptChain) {
+		unsigned int count = reinterpret_cast<unsigned int>(scriptChain[0]);
 
 		for( unsigned int i = 1; i <= count; ++i )
 		{
@@ -278,6 +297,10 @@ bool cUObject::hasEvent( const QString& name ) const
 	Adds an event handler to this object
 */
 void cUObject::addEvent(cPythonScript *event) {
+	if (isScriptChainFrozen()) {
+		return;
+	}
+
 	if(hasEvent(event->name())) {
 		return;
 	}
@@ -299,12 +322,6 @@ void cUObject::addEvent(cPythonScript *event) {
 		scriptChain[1] = event;
 	}
 
-	if (eventList_.isEmpty()) {
-		eventList_ = event->name();
-	} else {
-		eventList_.append("," + event->name());
-	}
-
 	changed_ = true;
 
 	if (event->canHandleEvent(EVENT_ATTACH)) {
@@ -317,8 +334,11 @@ void cUObject::addEvent(cPythonScript *event) {
 /*!
 	Removes an event handler from the object
 */
-void cUObject::removeEvent( const QString& name )
-{
+void cUObject::removeEvent(const QString& name) {
+	if (isScriptChainFrozen()) {
+		return;
+	}
+
 	cPythonScript *event = 0;
 
 	if( scriptChain && hasEvent( name ) )
@@ -350,63 +370,12 @@ void cUObject::removeEvent( const QString& name )
 		}
 	}
 
-	if( eventList_ != QString::null )
-	{
-		QStringList eventList = QStringList::split( ",", eventList_ );
-		eventList.remove( name );
-		eventList_ = eventList.join( "," );
-
-		if( eventList_.isEmpty() )
-			eventList_ = QString::null;
-	}
-
 	changed_ = true;
 
 	if (event && event->canHandleEvent(EVENT_ATTACH)) {
 		PyObject *args = Py_BuildValue("(N)", getPyObject());
 		event->callEvent(EVENT_ATTACH, args);
 		Py_DECREF(args);
-	}
-}
-
-// If the scripts are reloaded call that for each and every existing object
-void cUObject::recreateEvents() {
-	// Destroy the old one
-	if (eventList_.isEmpty()) {
-		delete scriptChain;
-		scriptChain = 0;
-	} else {
-		QStringList events = QStringList::split(",", eventList_);
-		QString newevents;
-
-		delete [] scriptChain;
-		scriptChain = new cPythonScript*[events.size() + 1];
-		unsigned int count = 0;
-
-		QStringList::const_iterator it;
-		for (it = events.begin(); it != events.end(); ++it) {
-			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
-			if (!script) {
-				Console::instance()->log(LOG_ERROR, QString("Unknown event '%1' for object 0x%2").arg(*it).arg(serial_, 0, 16));
-			} else {
-				scriptChain[++count] = script;
-				if (newevents.length() == 0) {
-					newevents.append(script->name());
-				} else {
-					newevents.append(",");
-					newevents.append(script->name());
-				}
-			}
-		}
-
-		eventList_ = newevents;
-		scriptChain[0] = reinterpret_cast<cPythonScript*>(count);
-
-		if (scriptChain && cPythonScript::canChainHandleEvent(EVENT_ATTACH, scriptChain)) {
-			PyObject *args = Py_BuildValue("(N)", getPyObject());
-			cPythonScript::callChainedEventHandler(EVENT_ATTACH, scriptChain, args);
-			Py_DECREF(args);
-		}
 	}
 }
 
@@ -498,12 +467,7 @@ void cUObject::processNode( const cElement *Tag )
 	// <events>a,b,c</events>
 	else if( TagName == "events" )
 	{
-		if( Value.isEmpty() && eventList_.isEmpty() )
-			eventList_ = QString::null;
-		else
-			eventList_ = eventList_.isEmpty() ? Value : eventList_ + "," + Value;
-
-		recreateEvents();
+		setEventList(Value);
 	}
 	else
 	{
@@ -727,7 +691,7 @@ stError *cUObject::getProperty( const QString &name, cVariant &value )
 	else GET_PROPERTY( "free", free ? 1 : 0 )
 	else GET_PROPERTY( "name", this->name() )
 	else GET_PROPERTY( "pos", pos() )
-	else GET_PROPERTY( "eventlist", eventList_ == QString::null ? QString( "" ) : eventList_ )
+	else GET_PROPERTY( "eventlist", eventList() )
 	else GET_PROPERTY( "direction", dir_ )
 	// \rproperty object.multi This item property contains the multi this object is contained in.
 	else GET_PROPERTY( "multi", multi_ )
@@ -842,8 +806,7 @@ void cUObject::resendTooltip() {
  * Scripting events
  *
  ****************************/
-bool cUObject::onCreate( const QString &definition )
-{
+bool cUObject::onCreate(const QString &definition) {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
 	bool result = false;
 
@@ -885,4 +848,94 @@ void cUObject::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 void cUObject::remove() {
 	// Queue up for deletion from worldfile
 	World::instance()->deleteObject(this);
+}
+
+void cUObject::freezeScriptChain() {
+	if (isScriptChainFrozen() || !scriptChain) {
+		return;
+	}
+
+	unsigned int count = reinterpret_cast<unsigned int>(scriptChain[0]);
+	for (unsigned int i = 1; i <= count; ++i) {
+		QCString *name = new QCString(scriptChain[i]->name().latin1());
+		scriptChain[i] = reinterpret_cast<cPythonScript*>(name);
+	}
+	scriptChain[0] = reinterpret_cast<cPythonScript*>(count | 0x80000000);
+}
+
+void cUObject::unfreezeScriptChain() {
+	if (!isScriptChainFrozen() || !scriptChain) {
+		return;
+	}
+
+	unsigned int count = reinterpret_cast<unsigned int>(scriptChain[0]) & ~0x80000000;
+	unsigned int pos = 1;
+	
+	scriptChain[0] = 0;	
+	for (unsigned int i = 1; i <= count; ++i) {
+		QCString *name = reinterpret_cast<QCString*>(scriptChain[i]);
+		cPythonScript *script = ScriptManager::instance()->find(*name);
+		if (script) {
+			scriptChain[0] = reinterpret_cast<cPythonScript*>(pos);
+			scriptChain[pos++] = script;
+		}
+		delete name;
+	}
+
+	if (scriptChain && cPythonScript::canChainHandleEvent(EVENT_ATTACH, scriptChain)) {
+		PyObject *args = Py_BuildValue("(N)", getPyObject());
+		cPythonScript::callChainedEventHandler(EVENT_ATTACH, scriptChain, args);
+		Py_DECREF(args);
+	}
+}
+
+bool cUObject::isScriptChainFrozen() {
+	if (!scriptChain) {
+		return false;
+	}
+
+	unsigned int count = reinterpret_cast<unsigned int>(scriptChain[0]);
+	return (count & 0x80000000) != 0;
+}
+
+QString cUObject::eventList() const {
+	if (!scriptChain) {
+		return QString::null;
+	}
+
+	QString result;
+	unsigned int count = reinterpret_cast<unsigned int>(scriptChain[0]);
+	for (unsigned int i = 1; i <= count; ++i) {
+		if (i != count) {
+			result.append(scriptChain[i]->name());
+			result.append(",");			
+		} else {
+			result.append(scriptChain[i]->name());			
+		}
+	}
+
+	return result;
+}
+
+void cUObject::setEventList(const QString &eventlist) {
+	if (isScriptChainFrozen()) {
+		return;
+	}
+
+	QStringList events = QStringList::split(",", eventlist);
+	unsigned int i = 1;
+	QStringList::iterator it;
+
+	clearEvents();
+	scriptChain = new cPythonScript*[1 + events.count()];
+	scriptChain[0] = reinterpret_cast<cPythonScript*>(0);
+
+	for (it = events.begin(); it != events.end(); ++it) {
+		cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
+
+		if (script) {
+			scriptChain[0] = reinterpret_cast<cPythonScript*>(i);
+			scriptChain[i++] = script;
+		}
+	}
 }

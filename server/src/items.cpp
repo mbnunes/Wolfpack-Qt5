@@ -74,13 +74,12 @@ buyprice_( 0 ), restock_( 1 ), baseid_(QString::null)
 	Init( false );
 };
 
-cItem::cItem( const cItem &src ): container_(0), totalweight_(0), sellprice_( 0 ),
+cItem::cItem(const cItem &src): container_(0), totalweight_(0), sellprice_( 0 ),
 buyprice_( 0 ), restock_( 1 ), baseid_(QString::null) {
 	Init(false);
 	// Copy Events
 	scriptChain = 0;
-	eventList_ = src.eventList_;
-	recreateEvents();
+	setEventList(src.eventList());
 	this->name_ = src.name_;
 	this->tags_ = src.tags_;
 	//cItem properties setting

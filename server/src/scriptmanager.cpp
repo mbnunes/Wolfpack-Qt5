@@ -67,6 +67,15 @@ cPythonScript* cScriptManager::find( const QCString &name )
 }
 
 void cScriptManager::reload() {
+	cItemIterator iter_items;
+	cCharIterator iter_chars;
+
+	for( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
+		pItem->freezeScriptChain();
+
+	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
+		pChar->freezeScriptChain();
+
 	// First unload, then reload
 	unload();
 
@@ -76,18 +85,11 @@ void cScriptManager::reload() {
 
 	load();
 
-	// After reloading all scripts we *need* to recreate all script-pointers
-	// assigned to scripted items and characters
-	// because all of them got invalidated while relaoding
-	cItemIterator iter_items;
-
 	for( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
-		pItem->recreateEvents();
-
-	cCharIterator iter_chars;
+		pItem->unfreezeScriptChain();
 
 	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
-		pChar->recreateEvents();
+		pChar->unfreezeScriptChain();
 }
 
 // Unload all scripts

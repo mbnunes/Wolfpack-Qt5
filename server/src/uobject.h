@@ -62,8 +62,8 @@ class cMulti;
 	a) Make bindmenu() a pure virtual function and have the
 	basedef system of cBaseChar and cItem handle the property.
 
-	b) Move direction to cBaseChar and make it lightsource (a basedef property)
-	for cItem.
+	b) Move direction to cBaseChar and cItem where it should be called lightsource 
+	and should be a basedef property.
 */
 class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable {
 private:
@@ -78,12 +78,10 @@ protected:
 	SERIAL serial_;
 	cMulti *multi_; // If we're in a Multi
 	uchar dir_;
+	cPythonScript **scriptChain; // NULL Terminated Array
 
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-
-	cPythonScript **scriptChain; // NULL Terminated Array
-	QString eventList_; // Important for recreating the scriptChain on reloading
 	void init();
 
 	enum eChanged {
@@ -92,7 +90,6 @@ protected:
 		UNUSED = 4,
 		UNUSED2 = 8
 	};
-
 	void changed(uint);
 public:
 	// Indicates whether the object was deleted already.
@@ -115,13 +112,14 @@ public:
 	void addEvent( cPythonScript *Event );
 	void removeEvent( const QString& Name );
 	bool hasEvent( const QString& Name ) const;
-	void recreateEvents();
+	void freezeScriptChain();
+	void unfreezeScriptChain();
+	bool isScriptChainFrozen();
+	void setEventList(const QString &events);
+	QString eventList() const;
 	inline cPythonScript **getEvents() {
 		return scriptChain;
-	}
-	inline const QString &eventList() const {
-		return eventList_;
-	}
+	}	
 
 	// Serialization Methods
 	void load( char **, UINT16& );
@@ -154,7 +152,7 @@ public:
 	// Constructors And Destructors
 	cUObject();
 	cUObject(const cUObject&);
-	virtual ~cUObject() {};
+	virtual ~cUObject();
 
 	// Getter Methods
 	QString bindmenu() const { return bindmenu_; }
