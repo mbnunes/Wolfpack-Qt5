@@ -35,4 +35,7 @@
 #include <qvaluevector.h>
 #include <qmap.h>
 
+// Wolfpack Specific
+#include "singleton.h"
+
 #endif

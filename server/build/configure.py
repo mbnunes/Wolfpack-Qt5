@@ -134,7 +134,7 @@ def checkMySQL(options):
 	if sys.platform == "win32":
 		MySQL_LIBSEARCHPATH = [ sys.prefix + "\Libs\mysqlclient*.lib" ]
 		MySQL_INCSEARCHPATH = [ sys.prefix + "\include\mysql.h" ]
-	elif sys.platform == "linux2" or sys.platform == "freebsd4" or sys.platform == "freebsd5":
+	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
 		MySQL_LIBSEARCHPATH = [ \
 			"/usr/local/lib/libmysqlclient*.so", \
 			"/usr/local/lib/mysql/libmysqlclient*.so", \
@@ -198,7 +198,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
 		PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
 	# Linux and BSD Search Paths
-	elif sys.platform == "linux2" or sys.platform == "freebsd4" or sys.platform == "freebsd5":
+	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
 		PYTHONLIBSEARCHPATH += [ \
 			# Python 2.4 - Look for this first
 			"/usr/local/lib/libpython2.4*.so", \
@@ -308,7 +308,7 @@ def main():
 	DEFINES = ""
 	CONFIG = ""
 	# Setup command line parser
-	parser = OptionParser(version="%prog 0.2")
+	parser = OptionParser(version="%prog 0.4")
 	parser.add_option("--dsp", action="store_true", dest="dsp", help="also Generate Visual Studio project files")
 	parser.add_option("--nocolor", action="store_true", dest="nocolor", help="disable color output support on this script")
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include path")
