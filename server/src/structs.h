@@ -32,14 +32,16 @@
 #if !defined(__STRUCTS_H__)
 #define __STRUCTS_H__
 
+// Platform Specifics
+#include "platform.h"
 
 // System Headers
 #include <string>
 
 
 // Wolfpack Headers
-#include "platform.h"
 #include "defines.h"
+#include "typedefs.h"
 #include "coord.h"
 
 using namespace std;
@@ -364,6 +366,40 @@ struct ServerList_st
 	UI16 uiPort;
 };
 
+#include "start_pack.h"
+struct tile_st
+{
+	SI32 unknown1;  // longs must go at top to avoid bus errors - fur
+	SI32 animation;
+	unsigned char flag1;
+	unsigned char flag2;
+	unsigned char flag3;
+	unsigned char flag4;
+	unsigned char weight;
+	signed char layer;
+	signed char unknown2;
+	signed char unknown3;
+	signed char height;
+	signed char name[23];	// manually padded to long to avoid bus errors - fur | There is no negative letter.
+} PACK ;
+#include "end_pack.h"
+
+struct land_st
+{
+	char flag1;
+	char flag2;
+	char flag3;
+	char flag4;
+	char unknown1;
+	char unknown2;
+	char name[20];
+};
+
+struct map_st
+{
+	short int id;
+	signed char z;
+};
 
 #endif
 

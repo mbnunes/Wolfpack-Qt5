@@ -2552,20 +2552,21 @@ void command_password(UOXSOCKET s)
 {
 	if ( tnum > 1 )
 	{
+		P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 		char pwd[200] = {0,};
 		strncpy(pwd, &tbuffer[Commands->cmd_offset+9], 198);
 		if ((!isalpha(pwd[0]))&&(!isdigit(pwd[0]))) {
 			sysmessage(s, "Passwords must start with a letter or a number\n");
 			return;
 		}
-		if (Accounts->ChangePassword(chars[currchar[s]].account, pwd)) 
+		if (Accounts->ChangePassword( pc_currchar->account, pwd )) 
 			sysmessage(s, "Password changed to %s", &tbuffer[Commands->cmd_offset+9]);
 		else 
 			sysmessage(s, "Some Error occured while changing password!");
 
 	}
 	else 
-		sysmessage(s, "You must digit 'PASSWORD <newpassword>");
+		sysmessage(s, "You must type 'PASSWORD <newpassword>");
 
 	return;
 }

@@ -31,6 +31,7 @@
 
 #if !defined(__JUNK_H__)
 #define __JUNK_H__
+
 #include "admin.h"
 #include "targeting.h"
 /*
@@ -51,6 +52,8 @@ struct statcap_st
 #include "network.h"
 #include "TmpEff.h"
 #include "walking2.h"
+#include "mapstuff.h"
+
 extern cItemArray *ItemArray;
 extern cCharArray *CharArray;
 #include "books.h"
@@ -84,7 +87,6 @@ extern cCharStuff::cBankerAI	*BankerAI;
 #define MIN(arga, argb) (arga<argb?arga:argb)
 #endif
 extern int *contcache;
-extern int *loscache;
 extern int *itemids;
 
 extern int escortRegions;

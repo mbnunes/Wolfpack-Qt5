@@ -29,6 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#include "mapstuff.h"
+
 #include "wolfpack.h"
 #include "debug.h"
 #include <assert.h>
@@ -103,9 +105,6 @@ void cMapStuff::Load()
 		sprintf((char*)temp,"ERROR: Map %s not found...\n",mapname);
 		LogCritical((char*)temp);
 		keeprun=0;
-		#ifndef __unix__
-		MessageBeep(0xffffffff);
-		#endif 
 		return;
     }
 	clConsole.send("	%s\n", sidxname);
@@ -167,8 +166,8 @@ void cMapStuff::Load()
 	CacheVersion();
 	if( Cache )
     {
-		if( Cache != 1 )
-			Cache = 1; // Make sure this is only 1 or 0
+		if( !Cache )
+			Cache = true; // Make sure this is only 1 or 0
 		CacheTiles(); // has to be exactly here, or loadnewlorld cant access correct tiles ... LB
 		CacheStatics();
     }
@@ -300,6 +299,11 @@ bool cMapStuff::DoesTileBlock(int tilenum)
 	
 	SeekTile(tilenum, &tile);
 	
+	return DoesTileBlock(tile);
+}
+
+bool cMapStuff::DoesTileBlock( tile_st &tile )
+{
 	return (tile.flag1&0x40) == 0x40;
 }
 
@@ -555,15 +559,15 @@ signed char cMapStuff::MapElevation(short int x, short int y)
 signed char cMapStuff::AverageMapElevation(short int x, short int y, int &id)
 {
 	// first thing is to get the map where we are standing
-	map_st map1 = Map->SeekMap0( x, y );
+	map_st map1 = SeekMap0( x, y );
 	id = map1.id;
 	// if this appears to be a valid land id, <= 2 is invalid
 	if (map1.id > 2 && illegal_z != MapElevation(x, y))
 	{
 		// get three other nearby maps to decide on an average z?
-		signed char map2z = Map->MapElevation( x + 1, y );
-		signed char map3z = Map->MapElevation( x, y + 1);
-		signed char map4z = Map->MapElevation( x + 1, y + 1);
+		signed char map2z = MapElevation( x + 1, y );
+		signed char map3z = MapElevation( x, y + 1);
+		signed char map4z = MapElevation( x + 1, y + 1);
 		
 		signed char testz = 0;
 		if (abs(map1.z - map4z) <= abs(map2z - map3z))
@@ -763,7 +767,7 @@ void cMapStuff::SeekTile(int tilenum, tile_st *tile)
 void cMapStuff::CacheTiles()
 {
 	// temp disable caching so we can fill the cache
-	Cache = 0;
+	Cache = false;
 	clConsole.send("Caching tiledata"); fflush(stdout);
 	TileMem = 0x4000 * sizeof( tile_st );
 	memset(tilecache, 0, TileMem);
@@ -779,7 +783,7 @@ void cMapStuff::CacheTiles()
 		}
     }
 	clConsole.send(" Done.\n");
-	Cache = 1;
+	Cache = true;
 	
 #ifdef DEBUG_TILE_BITS
 	for (int bit = 0x01; bit <= 0x0080; bit = bit << 1)

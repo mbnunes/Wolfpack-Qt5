@@ -42,6 +42,82 @@
 #define DBGFILE "LoS.cpp"
 
 
+#define CORREA_LOS_OPTIMIZATION
+
+bool isTree_Bushe(int id)
+{
+	if ((id==0xCA8)||(id==0xCAA)||((id>=0xC8F)&&(id<=0xC92))||
+		((id>=0xCC8)&&(id<=0xCD0))||(id==0xCD3)||(id==0xCD6)||
+		(id==0xCD8)||(id==0xCDA)||(id==0xCDD)||(id==0xCE0)||
+		(id==0xCE3)||(id==0xCE6)||(id==0xCE9)||(id==0xCEA)||
+		(id==0xCF8)||(id==0xCFB)||(id==0xCFE)||(id==0xD01)||
+		(id==0xD35)||(id==0xD37)||(id==0xD38)||(id==0xD42)||
+		(id==0xD43)||((id>=0xD58)&&(id<=0xD5A))||
+		(id==0xD70)||(id==0xD85)||(id==0xD94)||(id==0xD98)||
+		(id==0xD9C)||(id==0xDA0)||(id==0xDA4)||(id==0xDA8)||
+		(id==0xDB8)||(id==0xDB9)||((id>=0x12B8)&&(id<=0x12BB)))
+	{
+		return true;
+	}
+	else 
+		return false;
+
+}
+
+bool isWall_Chimney(int id)
+{
+	if (((id>=0x6)&&(id<=0x2EC))||((id>=0x2F9)&&(id<=0x371))||
+		((id>=0x37F)&&(id<=0x3EE))||((id>=0x421)&&(id<=0x425))||
+		(id==0x430)||(id==0x431)||((id>=0x438)&&(id<=0x48E))||
+		((id>=0x92B)&&(id<=0x96C))||((id>=0x3EF2)&&(id<=0x3F06))||
+		((id>=0x215A)&&(id<=0x2169))||((id>=0x253F)&&(id<=0x2553))||
+		(id == 0x3127))
+	{
+		return true;
+	}
+	else 
+		return false;
+
+}
+
+bool isDoor(int id)
+{
+	if (((id>=0x675)&&(id<=0x6F6))||((id>=0x1FED)&&(id<=0x1FFC)))
+		return true;
+	else
+		return false;
+}
+
+bool isRoofing_Slanted(int id)
+{
+	if (((id>=1414)&&(id<=1578))||((id>=1587)&&(id<=1590))||
+		((id>=1608)&&(id<=1617))||((id>=1630)&&(id<=1652))||
+		((id>=1789)&&(id<=1792)))
+		return true;
+	else
+		return false;
+}
+
+bool isFloor_Flat_Roofing(int id)
+{
+	 if (((id>=1169)&&(id<=1413))||((id>=1508)&&(id<=1514))||
+		 ((id>=1579)&&(id<=1586))||((id>=1591)&&(id<=1598)))
+		 return true;
+	 else
+		 return false;
+
+}
+
+bool isLavaWater(int id)
+{
+	if (((id>=0x12EE)&&(id<=0x134D))||((id>=0x1796)&&(id<=0x17B2))||
+		((id>=0x3286)&&(id<=0x32B1))||((id>=0x343B)&&(id<=0x346C))||
+		((id>=0x346E)&&(id<=0x3546))||((id>=0x3547)&&(id<=0x3561)))
+		return true;
+	else
+		return false;
+}
+
 int line_of_sight(int s, Coord_cl &source, Coord_cl &target, int checkfor)
 {
 /*
@@ -96,7 +172,7 @@ the line of sight.
 	int checkthistotal;
 	int itemtype;
 	/////item cahcing until item lookup is implimented
-	int loscachecount=0;
+	vector<P_ITEM> loscache;
 	if( ( source.x <= 200 && source.y<= 200 ) || ( target.x <= 200 && target.y <= 200 ) ) return not_blocked;
 	if( source.distance(target) > 18 ) return blocked;
 	///////////////////////////////////////////////////////////
@@ -127,8 +203,7 @@ the line of sight.
 				(mapitem->pos.y>= source.y -20)
 				)
 			{
-				loscache[loscachecount] = DEREF_P_ITEM(mapitem);
-				loscachecount++;
+				loscache.push_back(mapitem);
 			}
 		}
 	}
@@ -302,36 +377,54 @@ the line of sight.
 			while ( (stat = msi.Next()) && (++loopexit < MAXLOOPS) )
 			{
 				msi.GetTile(&tile);
-				if (	(zcheck>=stat->zoff)&&
-					(zcheck<=(stat->zoff+tile.height)))
+				if ( (zcheck >= stat->zoff ) && ( zcheck <= ( stat->zoff + tile.height ) ) )
 				{
+#ifdef CORREA_LOS_OPTIMIZATION
+					if (cMapStuff::DoesTileBlock( tile ))
+						return blocked;
+					else
+					{
+						itemids[checkitemcount]=stat->itemid;
+						checkitemcount++;
+					}
+#else
 					itemids[checkitemcount]=stat->itemid;
 					checkitemcount++;
+#endif
 				}// if
 			}
 			
 			// Items
-			for (i=0;i<loscachecount;i++)
+			for (i = 0; i < loscache.size(); i++)
 			{
-				dyncount=loscache[i];
-				if (items[dyncount].id1<0x40)
+				P_ITEM pi = loscache[i];
+				if (pi->id1<0x40)
 				{ // Dynamic items
-					Map->SeekTile(items[dyncount].id(), &tile);
-					if ((items[dyncount].pos.x==xcheck)&&
-						(items[dyncount].pos.y==ycheck)&&
-						(zcheck>=items[dyncount].pos.z)&&
-						(zcheck<=(items[dyncount].pos.z+tile.height))&&
-						(items[dyncount].visible==0))
+					if ( (pi->pos.x==xcheck) && (pi->pos.y==ycheck) && (zcheck >= pi->pos.z) && (pi->visible==0)) // Seek file only when necessary
 					{
-						itemids[checkitemcount]=items[dyncount].id();
-						checkitemcount++;
+						Map->SeekTile(pi->id(), &tile);
+						if ( ( zcheck <= ( pi->pos.z + tile.height ) ) )
+						{
+#ifdef CORREA_LOS_OPTIMIZATION
+							if (cMapStuff::DoesTileBlock( tile ))
+								return blocked;
+							else
+							{
+								itemids[checkitemcount] = pi->id();
+								checkitemcount++;
+							}
+#else
+							itemids[checkitemcount] = pi->id();
+							checkitemcount++;
+#endif
+						}
 					}
 				}
 				else
 				{// Multi's
 					if ((abs(source.x-target.x)<=BUILDRANGE)&&(abs(source.y-target.y)<=BUILDRANGE))
 					{
-						Map->SeekMulti(items[dyncount].id()-0x4000, &mfile, &length);
+						Map->SeekMulti(pi->id()-0x4000, &mfile, &length);
 						length=length/sizeof(st_multi);
 						if (length == -1 || length>=17000000)//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
 							//							if (length == -1)
@@ -343,14 +436,14 @@ the line of sight.
 						{
 							mfile->get_st_multi(&multi);
 							if ((multi.visible)&&
-								(items[dyncount].pos.x+multi.x == xcheck)&&
-								(items[dyncount].pos.y+multi.y == ycheck))
+								(pi->pos.x+multi.x == xcheck)&&
+								(pi->pos.y+multi.y == ycheck))
 							{
 								//pos=mfile->tell();
 								Map->SeekTile(multi.tile, &tile);
 								//mfile->seek(pos, SEEK_SET);
-								if ((zcheck>=items[dyncount].pos.z+multi.z)&&
-									(zcheck<=(items[dyncount].pos.z+multi.z + tile.height)))
+								if ((zcheck>=pi->pos.z+multi.z)&&
+									(zcheck<=(pi->pos.z+multi.z + tile.height)))
 								{
 									itemids[checkitemcount]=multi.tile;
 									checkitemcount++;
@@ -377,56 +470,35 @@ the line of sight.
 			switch(checkthis[j])
 			{
 			case 1 : // Trees, Shrubs, bushes
-				if ((itemids[i]==3240)||(itemids[i]==3242)||((itemids[i]>=3215)&&(itemids[i]<=3218))||
-					((itemids[i]>=3272)&&(itemids[i]<=3280))||(itemids[i]==3283)||(itemids[i]==3286)||
-					(itemids[i]==3288)||(itemids[i]==3290)||(itemids[i]==3293)||(itemids[i]==3296)||
-					(itemids[i]==3299)||(itemids[i]==3302)||(itemids[i]==3305)||(itemids[i]==3306)||
-					(itemids[i]==3320)||(itemids[i]==3323)||(itemids[i]==3326)||(itemids[i]==3329)||
-					(itemids[i]==3381)||(itemids[i]==3383)||(itemids[i]==3384)||(itemids[i]==3394)||
-					(itemids[i]==3395)||((itemids[i]>=3416)&&(itemids[i]<=3418))||
-					(itemids[i]==3440)||(itemids[i]==3461)||(itemids[i]==3476)||(itemids[i]==3480)||
-					(itemids[i]==3484)||(itemids[i]==3488)||(itemids[i]==3492)||(itemids[i]==3496)||
-					(itemids[i]==3512)||(itemids[i]==3513)||((itemids[i]>=4792)&&(itemids[i]<=4795)))
+				if (isTree_Bushe(itemids[i]))
 				{
-					//			sprintf(temp, "You can't see the forest for the trees!");
-					//			sysmessage(s, temp);
+//					sysmessage(s, "You can't see the forest for the trees!");
 					return blocked;
 				}
 				break;
 			case 2 : // Walls, Chimneys, ovens, not fences
-				if (((itemids[i]>=6)&&(itemids[i]<=748))||((itemids[i]>=761)&&(itemids[i]<=881))||
-					((itemids[i]>=895)&&(itemids[i]<=1006))||((itemids[i]>=1057)&&(itemids[i]<=1061))||
-					(itemids[i]==1072)||(itemids[i]==1073)||((itemids[i]>=1080)&&(itemids[i]<=1166))||
-					((itemids[i]>=2347)&&(itemids[i]<=2412))||((itemids[i]>=16114)&&(itemids[i]<=16134))||
-					((itemids[i]>=8538)&&(itemids[i]<=8553))||((itemids[i]>=9535)&&(itemids[i]<=9555))||
-					(itemids[i]==12583))
+				if (isWall_Chimney(itemids[i]))
 				{
-					//			sprintf(temp, "There seems to be some sort of wall in the way!");
-					//			sysmessage(s, temp);
+//					sysmessage(s, "There seems to be some sort of wall in the way!");
 					return blocked;
 				}
 				break;
 			case 4 : // Doors, not gates
-				if (((itemids[i]>=1653)&&(itemids[i]<=1782))||((itemids[i]>=8173)&&(itemids[i]<=8188)))
+				if (isDoor(itemids[i]))
 				{
-					//			sprintf(temp, "Only ghosts do things through doors!");
-					//			sysmessage(s, temp);
+//					sysmessage(s, "Only ghosts do things through doors!");
 					return blocked;
 				}
 				break;
 			case 8 : // Roofing Slanted
-				if (((itemids[i]>=1414)&&(itemids[i]<=1578))||((itemids[i]>=1587)&&(itemids[i]<=1590))||
-					((itemids[i]>=1608)&&(itemids[i]<=1617))||((itemids[i]>=1630)&&(itemids[i]<=1652))||
-					((itemids[i]>=1789)&&(itemids[i]<=1792)))
+				if (isRoofing_Slanted(itemids[i]))
 				{
-					//			sprintf(temp, "The roof is too steep!");
-					//			sysmessage(s, temp);
+//					sysmessage(s, "The roof is too steep!");
 					return blocked;
 				}
 				break;
 			case 16 : // Floors & Flat Roofing (Attacking through floors Roofs)
-				if (((itemids[i]>=1169)&&(itemids[i]<=1413))||((itemids[i]>=1508)&&(itemids[i]<=1514))||
-					((itemids[i]>=1579)&&(itemids[i]<=1586))||((itemids[i]>=1591)&&(itemids[i]<=1598)))
+				if (isFloor_Flat_Roofing(itemids[i]))
 				{
 					if (source.z==target.z) // in case of char and target on same roof
 					{
@@ -434,24 +506,20 @@ the line of sight.
 					}
 					else
 					{
-						//	sprintf(temp, "You would love to do that, but the is a floor in the way!");
-						//	sysmessage(s, temp);
+//						sysmessage(s, "You would love to do that, but the is a floor in the way!");
 						return blocked;
 					}
 				}
 				break;
 			case 32 :	// Lava, water
-				if (((itemids[i]>=4846)&&(itemids[i]<=4941))||((itemids[i]>=6038)&&(itemids[i]<=6066))||
-					((itemids[i]>=12934)&&(itemids[i]<=12977))||((itemids[i]>=13371)&&(itemids[i]<=13420))||
-					((itemids[i]>=13422)&&(itemids[i]<=13638))||((itemids[i]>=13639)&&(itemids[i]<=13665)))
+				if (isLavaWater(itemids[i]))
 				{
-					//	sprintf(temp, "Yah, you wish!");
-					//	sysmessage(s, temp);
+//					sysmessage(s, "Yah, you wish!");
 					return blocked;
 				}
 				break;
 			default:
-				//clConsole.send("ERROR: Fallout of switch statement without default. uox3.cpp, line_of_sight()"); //Morrolan
+				clConsole.send("ERROR: Fallout of switch statement without default. LoS.cpp, line_of_sight()"); //Morrolan
 				return not_blocked;
 			} // switch
 		} //for

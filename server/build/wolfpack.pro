@@ -59,6 +59,7 @@ HEADERS		= CharWrap.h \
 		  itemid.h \
 		  items.h \
 		  junk.h \
+		  mapstuff.h \
 		  msgboard.h \
 		  mstring.h \
 		  netsys.h \

@@ -446,8 +446,6 @@ bool cAllItems::AllocateMemory(int NumberOfItems)
 		memerr=true;
 	else if ((contcache = (int *) malloc(imem*sizeof(int)))==NULL)
 		memerr=true;
-	else if ((loscache = (int *) malloc(imem*sizeof(int)))==NULL)
-		memerr=true;
 	else if ((itemids = (int *) malloc(imem*sizeof(int)))==NULL)
 		memerr=true;
 
@@ -479,8 +477,6 @@ bool cAllItems::ResizeMemory()
 	if ((realitems = (cItem *)realloc(realitems, (imem + slots)*sizeof(cItem)))==NULL)
 		memerr=1;
 	else if ((contcache = (int *)realloc(contcache, (imem + slots)*sizeof(int)))==NULL)
-		memerr=1;
-	else if ((loscache = (int *)realloc(loscache, (imem + slots)*sizeof(int)))==NULL)
 		memerr=1;
 	else if ((itemids = (int *)realloc(itemids, (imem + slots)*sizeof(int)))==NULL)
 		memerr=1;

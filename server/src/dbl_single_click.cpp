@@ -1361,10 +1361,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					else 
 						action(s, 0x1d);
 					soundeffect(s, 0x01, 0x3E);
-					c = Items->SpawnItem(-1, currchar[s], 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1);
+					c = Items->SpawnItem(-1, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1);
 					if (c < 0)
 						return;
-					items[c].SetContSerial(items[packitem(currchar[s])].serial);
+					items[c].SetContSerial(Packitem(pc_currchar)->serial);
 					sysmessage(s, "You reach down and pick some cotton.");
 					return; // cotton
 				case 0x105B:

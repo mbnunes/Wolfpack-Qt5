@@ -292,17 +292,17 @@ public:
 static void TeleTarget(int s, PKGx6C *pp) 
 { 
 	if(pp->TxLoc==-1 || pp->TyLoc==-1) return; 
-	int cc=currchar[s]; 
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]); 
 	int x=pp->TxLoc; 
 	int y=pp->TyLoc; 
 	signed char z=pp->TzLoc; 
 	Coord_cl clTemp3(x,y,z) ;
-	if ((chars[cc].isGM()) || (line_of_sight( s, chars[cc].pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) 
+	if ((pc_currchar->isGM()) || (line_of_sight( s, pc_currchar->pos, clTemp3,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) 
 	{ 
 		doGmMoveEff(s); 
 		
-		chars[cc].MoveTo(x,y,z+Map->TileHeight(pp->model)); 
-		teleport(cc); 
+		pc_currchar->MoveTo(x,y,z+Map->TileHeight(pp->model)); 
+		teleport(DEREF_P_CHAR(pc_currchar)); 
 		
 		doGmMoveEff(s); 
 	} 
@@ -1139,11 +1139,6 @@ static void InfoTarget(int s, PKGx6C *pp) // rewritten to work also with map-til
 	signed char z;
 	unsigned long int pos;
 	tile_st tile;
-	struct map_st
-	{
-		short int id;
-		signed char z;
-	};
 	map_st map1;
 	land_st land;
 

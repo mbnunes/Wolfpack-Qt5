@@ -197,7 +197,6 @@ int xycount;
 // - item's serial, owner's serial, char's serial, and container's serial
 
 int *contcache;
-int *loscache;
 int *itemids;
 
 

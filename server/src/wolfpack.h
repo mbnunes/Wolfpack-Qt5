@@ -41,7 +41,6 @@
 
 #if defined (__unix__)
 #include <termios.h>
- 
 #include <fcntl.h>
 #else
 
