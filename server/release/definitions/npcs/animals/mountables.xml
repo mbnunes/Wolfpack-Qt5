@@ -7,1084 +7,576 @@
 =================================================================
 -->
 <definitions>
-	<!-- a beetle weak-->
-	<npc id="beetle_weak">
-		<name>a beetle</name>
-		<id>0x0317</id>
-		<category>npcs\animals\mountables\beetle\weak</category>
-		<inherit id="animals_base" />
+	<!-- Stats and Skills for a weak ridable animal -->
+	<npc id="ridable_weak_base">
 		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a beetle medium-->
-	<npc id="beetle_medium">
-		<name>a beetle</name>
-		<id>0x0317</id>
-		<category>npcs\animals\mountables\beetle\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a beetle hard-->
-	<npc id="beetle_hard">
-		<name>a beetle</name>
-		<id>0x0317</id>
-		<category>npcs\animals\mountables\beetle\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a dragon swamp 1 weak-->
-	<npc id="dragon_swamp_1_weak">
-		<name>a dragon swamp 1</name>
-		<id>0x031a</id>
-		<category>npcs\animals\mountables\dragon\swamp\1\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a dragon swamp 1 medium-->
-	<npc id="dragon_swamp_1_medium">
-		<name>a dragon swamp 1</name>
-		<id>0x031a</id>
-		<category>npcs\animals\mountables\dragon\swamp\1\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a dragon swamp 1 hard-->
-	<npc id="dragon_swamp_1_hard">
-		<name>a dragon swamp 1</name>
-		<id>0x031a</id>
-		<category>npcs\animals\mountables\dragon\swamp\1\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a dragon swamp 2 weak-->
-	<npc id="dragon_swamp_2_weak">
-		<name>a dragon swamp 2</name>
-		<id>0x031f</id>
-		<category>npcs\animals\mountables\dragon\swamp\2\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a dragon swamp 2 medium-->
-	<npc id="dragon_swamp_2_medium">
-		<name>a dragon swamp 2</name>
-		<id>0x031f</id>
-		<category>npcs\animals\mountables\dragon\swamp\2\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a dragon swamp 2 hard-->
-	<npc id="dragon_swamp_2_hard">
-		<name>a dragon swamp 2</name>
-		<id>0x031f</id>
-		<category>npcs\animals\mountables\dragon\swamp\2\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a horse 1 weak-->
-	<npc id="horse_1_weak">
-		<name>a horse 1</name>
-		<id>0x00e2</id>
-		<category>npcs\animals\mountables\horse\1\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a horse 1 medium-->
-	<npc id="horse_1_medium">
-		<name>a horse 1</name>
-		<id>0x00e2</id>
-		<category>npcs\animals\mountables\horse\1\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a horse 1 hard-->
-	<npc id="horse_1_hard">
-		<name>a horse 1</name>
-		<id>0x00e2</id>
-		<category>npcs\animals\mountables\horse\1\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a horse 2 weak-->
-	<npc id="horse_2_weak">
-		<name>a horse 2</name>
-		<id>0x00e4</id>
-		<category>npcs\animals\mountables\horse\2\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a horse 2 medium-->
-	<npc id="horse_2_medium">
-		<name>a horse 2</name>
-		<id>0x00e4</id>
-		<category>npcs\animals\mountables\horse\2\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a horse 2 hard-->
-	<npc id="horse_2_hard">
-		<name>a horse 2</name>
-		<id>0x00e4</id>
-		<category>npcs\animals\mountables\horse\2\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a horse 3 weak-->
-	<npc id="horse_3_weak">
-		<name>a horse 3</name>
-		<id>0x00c8</id>
-		<category>npcs\animals\mountables\horse\3\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a horse 3 medium-->
-	<npc id="horse_3_medium">
-		<name>a horse 3</name>
-		<id>0x00c8</id>
-		<category>npcs\animals\mountables\horse\3\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a horse 3 hard-->
-	<npc id="horse_3_hard">
-		<name>a horse 3</name>
-		<id>0x00c8</id>
-		<category>npcs\animals\mountables\horse\3\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a horse 4 weak-->
-	<npc id="horse_4_weak">
-		<name>a horse 4</name>
-		<id>0x00cc</id>
-		<category>npcs\animals\mountables\horse\4\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a horse 4 medium-->
-	<npc id="horse_4_medium">
-		<name>a horse 4</name>
-		<id>0x00cc</id>
-		<category>npcs\animals\mountables\horse\4\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a horse 4 hard-->
-	<npc id="horse_4_hard">
-		<name>a horse 4</name>
-		<id>0x00cc</id>
-		<category>npcs\animals\mountables\horse\4\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a horse sea weak-->
-	<npc id="horse_sea_weak">
-		<name>a horse sea</name>
-		<id>0x0090</id>
-		<category>npcs\animals\mountables\horse\sea\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a horse sea medium-->
-	<npc id="horse_sea_medium">
-		<name>a horse sea</name>
-		<id>0x0090</id>
-		<category>npcs\animals\mountables\horse\sea\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a horse sea hard-->
-	<npc id="horse_sea_hard">
-		<name>a horse sea</name>
-		<id>0x0090</id>
-		<category>npcs\animals\mountables\horse\sea\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a kirin weak-->
-	<npc id="kirin_weak">
-		<name>a kirin</name>
-		<id>132</id>
-		<category>npcs\animals\mountables\kirin\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a kirin medium-->
-	<npc id="kirin_medium">
-		<name>a kirin</name>
-		<id>132</id>
-		<category>npcs\animals\mountables\kirin\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a kirin hard-->
-	<npc id="kirin_hard">
-		<name>a kirin</name>
-		<id>132</id>
-		<category>npcs\animals\mountables\kirin\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a llama ridable weak-->
-	<npc id="llama_ridable_weak">
-		<name>a llama ridable</name>
-		<id>0x00dc</id>
-		<category>npcs\animals\mountables\llama\ridable\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a llama ridable medium-->
-	<npc id="llama_ridable_medium">
-		<name>a llama ridable</name>
-		<id>0x00dc</id>
-		<category>npcs\animals\mountables\llama\ridable\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a llama ridable hard-->
-	<npc id="llama_ridable_hard">
-		<name>a llama ridable</name>
-		<id>0x00dc</id>
-		<category>npcs\animals\mountables\llama\ridable\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a mount skeletal weak-->
-	<npc id="mount_skeletal_weak">
-		<name>a mount skeletal</name>
-		<id>793</id>
-		<category>npcs\animals\mountables\mount\skeletal\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a mount skeletal medium-->
-	<npc id="mount_skeletal_medium">
-		<name>a mount skeletal</name>
-		<id>793</id>
-		<category>npcs\animals\mountables\mount\skeletal\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a mount skeletal hard-->
-	<npc id="mount_skeletal_hard">
-		<name>a mount skeletal</name>
-		<id>793</id>
-		<category>npcs\animals\mountables\mount\skeletal\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a nightmare 1 weak-->
-	<npc id="nightmare_1_weak">
-		<name>a nightmare 1</name>
-		<id>0x0074</id>
-		<category>npcs\animals\mountables\nightmare\1\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a nightmare 1 medium-->
-	<npc id="nightmare_1_medium">
-		<name>a nightmare 1</name>
-		<id>0x0074</id>
-		<category>npcs\animals\mountables\nightmare\1\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a nightmare 1 hard-->
-	<npc id="nightmare_1_hard">
-		<name>a nightmare 1</name>
-		<id>0x0074</id>
-		<category>npcs\animals\mountables\nightmare\1\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a nightmare 2 weak-->
-	<npc id="nightmare_2_weak">
-		<name>a nightmare 2</name>
-		<id>0x00b1</id>
-		<category>npcs\animals\mountables\nightmare\2\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a nightmare 2 medium-->
-	<npc id="nightmare_2_medium">
-		<name>a nightmare 2</name>
-		<id>0x00b1</id>
-		<category>npcs\animals\mountables\nightmare\2\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a nightmare 2 hard-->
-	<npc id="nightmare_2_hard">
-		<name>a nightmare 2</name>
-		<id>0x00b1</id>
-		<category>npcs\animals\mountables\nightmare\2\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a nightmare 3 weak-->
-	<npc id="nightmare_3_weak">
-		<name>a nightmare 3</name>
-		<id>0x00b2</id>
-		<category>npcs\animals\mountables\nightmare\3\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a nightmare 3 medium-->
-	<npc id="nightmare_3_medium">
-		<name>a nightmare 3</name>
-		<id>0x00b2</id>
-		<category>npcs\animals\mountables\nightmare\3\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a nightmare 3 hard-->
-	<npc id="nightmare_3_hard">
-		<name>a nightmare 3</name>
-		<id>0x00b2</id>
-		<category>npcs\animals\mountables\nightmare\3\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a nightmare 4 weak-->
-	<npc id="nightmare_4_weak">
-		<name>a nightmare 4</name>
-		<id>0x00b3</id>
-		<category>npcs\animals\mountables\nightmare\4\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a nightmare 4 medium-->
-	<npc id="nightmare_4_medium">
-		<name>a nightmare 4</name>
-		<id>0x00b3</id>
-		<category>npcs\animals\mountables\nightmare\4\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a nightmare 4 hard-->
-	<npc id="nightmare_4_hard">
-		<name>a nightmare 4</name>
-		<id>0x00b3</id>
-		<category>npcs\animals\mountables\nightmare\4\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a ostard desert weak-->
-	<npc id="ostard_desert_weak">
-		<name>a ostard desert</name>
-		<id>0x00d2</id>
-		<category>npcs\animals\mountables\ostard\desert\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a ostard desert medium-->
-	<npc id="ostard_desert_medium">
-		<name>a ostard desert</name>
-		<id>0x00d2</id>
-		<category>npcs\animals\mountables\ostard\desert\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a ostard desert hard-->
-	<npc id="ostard_desert_hard">
-		<name>a ostard desert</name>
-		<id>0x00d2</id>
-		<category>npcs\animals\mountables\ostard\desert\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a ostard forest weak-->
-	<npc id="ostard_forest_weak">
-		<name>a ostard forest</name>
-		<id>0x00db</id>
-		<category>npcs\animals\mountables\ostard\forest\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a ostard forest medium-->
-	<npc id="ostard_forest_medium">
-		<name>a ostard forest</name>
-		<id>0x00db</id>
-		<category>npcs\animals\mountables\ostard\forest\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a ostard forest hard-->
-	<npc id="ostard_forest_hard">
-		<name>a ostard forest</name>
-		<id>0x00db</id>
-		<category>npcs\animals\mountables\ostard\forest\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a ostard frenzied weak-->
-	<npc id="ostard_frenzied_weak">
-		<name>a ostard frenzied</name>
-		<id>0x00da</id>
-		<category>npcs\animals\mountables\ostard\frenzied\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a ostard frenzied medium-->
-	<npc id="ostard_frenzied_medium">
-		<name>a ostard frenzied</name>
-		<id>0x00da</id>
-		<category>npcs\animals\mountables\ostard\frenzied\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a ostard frenzied hard-->
-	<npc id="ostard_frenzied_hard">
-		<name>a ostard frenzied</name>
-		<id>0x00da</id>
-		<category>npcs\animals\mountables\ostard\frenzied\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a ridgeback weak-->
-	<npc id="ridgeback_weak">
-		<name>a ridgeback</name>
-		<id>187</id>
-		<category>npcs\animals\mountables\ridgeback\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a ridgeback medium-->
-	<npc id="ridgeback_medium">
-		<name>a ridgeback</name>
-		<id>187</id>
-		<category>npcs\animals\mountables\ridgeback\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a ridgeback hard-->
-	<npc id="ridgeback_hard">
-		<name>a ridgeback</name>
-		<id>187</id>
-		<category>npcs\animals\mountables\ridgeback\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a ridgeback savage weak-->
-	<npc id="ridgeback_savage_weak">
-		<name>a ridgeback savage</name>
-		<id>188</id>
-		<category>npcs\animals\mountables\ridgeback\savage\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
-	</npc>
-	<!-- a ridgeback savage medium-->
-	<npc id="ridgeback_savage_medium">
-		<name>a ridgeback savage</name>
-		<id>188</id>
-		<category>npcs\animals\mountables\ridgeback\savage\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
-	</npc>
-	<!-- a ridgeback savage hard-->
-	<npc id="ridgeback_savage_hard">
-		<name>a ridgeback savage</name>
-		<id>188</id>
-		<category>npcs\animals\mountables\ridgeback\savage\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
-	</npc>
-	<!-- a steed dark weak-->
-	<npc id="steed_dark_weak">
-		<name>a steed dark</name>
-		<id>0x0074</id>
-		<category>npcs\animals\mountables\steed\dark\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="0" max="42" /></str>
+		<str><random min="25" max="42" /></str>
 		<dex><random min="25" max="42" /></dex>
-		<int><random min="25" max="8" /></int>
+		<int>8</int>
+
 		<!-- Skills -->
-		<wrestling><random min="21" max="21" /></wrestling>
-		<tactics><random min="29" max="29" /></tactics>
-		<magicresistance><random min="0" max="0" /></magicresistance>
+		<wrestling>290</wrestling>
+		<tactics>250</tactics>
+		<magicresistance>210</magicresistance>
+
+		<events>speech_pets</events>
 	</npc>
-	<!-- a steed dark medium-->
-	<npc id="steed_dark_medium">
-		<name>a steed dark</name>
-		<id>0x0074</id>
-		<category>npcs\animals\mountables\steed\dark\medium</category>
-		<inherit id="animals_base" />
+
+	<!-- Stats and Skills for a medium ridable animal -->
+	<npc id="ridable_medium_base">
 		<!-- Stats -->
-		<str><random min="0x0075" max="50" /></str>
+		<str><random min="30" max="50" /></str>
 		<dex><random min="30" max="50" /></dex>
-		<int><random min="30" max="10" /></int>
+		<int>10</int>
+
 		<!-- Skills -->
-		<wrestling><random min="25.0" max="25.0" /></wrestling>
-		<tactics><random min="35.0" max="35.0" /></tactics>
-		<magicresistance><random min="" max="" /></magicresistance>
+		<wrestling>350</wrestling>
+		<tactics>300</tactics>
+		<magicresistance>250</magicresistance>
+
+		<events>speech_pets</events>
 	</npc>
-	<!-- a steed dark hard-->
-	<npc id="steed_dark_hard">
-		<name>a steed dark</name>
-		<id>0x0074</id>
-		<category>npcs\animals\mountables\steed\dark\hard</category>
-		<inherit id="animals_base" />
+
+	<!-- Stats and Skills for a hard ridable animal -->
+	<npc id="ridable_hard_base">
 		<!-- Stats -->
-		<str><random min="0" max="57" /></str>
+		<str><random min="34" max="57" /></str>
 		<dex><random min="34" max="57" /></dex>
-		<int><random min="34" max="11" /></int>
+		<int>11</int>
+
 		<!-- Skills -->
-		<wrestling><random min="28" max="28" /></wrestling>
-		<tactics><random min="40" max="40" /></tactics>
-		<magicresistance><random min="0" max="0" /></magicresistance>
+		<wrestling>400</wrestling>
+		<tactics>340</tactics>
+		<magicresistance>280</magicresistance>
+
+		<events>speech_pets</events>
 	</npc>
-	<!-- a steed fire weak-->
+
+	<!-- Beetles -->
+	<npc id="beetle_weak">
+		<name>beetle</name>
+		<id>0x0317</id>
+		<category>Animals\Ridables\Beetle (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="beetle_medium">
+		<name>beetle</name>
+		<id>0x0317</id>
+		<category>Animals\Ridables\Beetle (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="beetle_hard">
+		<name>beetle</name>
+		<id>0x0317</id>
+		<category>Animals\Ridables\Beetle (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Swamp Dragons -->
+	<npc id="swampdragon_1_weak">
+		<name>swampdragon</name>
+		<id>0x031a</id>
+		<category>Animals\Ridables\Swamp Dragon (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="swampdragon_1_medium">
+		<name>swampdragon</name>
+		<id>0x031a</id>
+		<category>Animals\Ridables\Swamp Dragon (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="swampdragon_1_hard">
+		<name>swampdragon</name>
+		<id>0x031a</id>
+		<category>Animals\Ridables\Swamp Dragon (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Armored Swamp Dragons -->
+	<npc id="swampdragon_2_weak">
+		<name>swampdragon</name>
+		<id>0x031f</id>
+		<category>Animals\Ridables\Armored Swamp Dragon (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="swampdragon_2_medium">
+		<name>swampdragon</name>
+		<id>0x031f</id>
+		<category>Animals\Ridables\Armored Swamp Dragon (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="swampdragon_2_hard">
+		<name>swampdragon</name>
+		<id>0x031f</id>
+		<category>Animals\Ridables\Armored Swamp Dragon (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Gray Horses -->
+	<npc id="horse_gray_weak">
+		<name>horse</name>
+		<id>0x00e2</id>
+		<category>Animals\Ridables\Gray Horse (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="horse_gray_medium">
+		<name>horse</name>
+		<id>0x00e2</id>
+		<category>Animals\Ridables\Gray Horse (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="horse_gray_hard">
+		<name>horse</name>
+		<id>0x00e2</id>
+		<category>Animals\Ridables\Gray Horse (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Gray Brown Horses -->
+	<npc id="horse_graybrown_weak">
+		<name>horse</name>
+		<id>0x00e4</id>
+		<category>Animals\Ridables\Gray-brown Horse (Hard)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="horse_graybrown_medium">
+		<name>horse</name>
+		<id>0x00e4</id>
+		<category>Animals\Ridables\Gray-brown Horse (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="horse_graybrown_hard">
+		<name>horse</name>
+		<id>0x00e4</id>
+		<category>Animals\Ridables\Gray-brown Horse (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Light Brown Horses -->
+	<npc id="horse_lightbrown_weak">
+		<name>horse</name>
+		<id>0x00c8</id>
+		<category>Animals\Ridables\Light-brown Horse (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="horse_lightbrown_medium">
+		<name>horse</name>
+		<id>0x00c8</id>
+		<category>Animals\Ridables\Light-brown Horse (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="horse_lightbrown_hard">
+		<name>horse</name>
+		<id>0x00c8</id>
+		<category>Animals\Ridables\Light-brown Horse (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Brown Horses -->
+	<npc id="horse_brown_weak">
+		<name>horse</name>
+		<id>0x00cc</id>
+		<category>Animals\Ridables\Brown Horse (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="horse_brown_medium">
+		<name>horse</name>
+		<id>0x00cc</id>
+		<category>Animals\Ridables\Brown Horse (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="horse_brown_hard">
+		<name>horse</name>
+		<id>0x00cc</id>
+		<category>Animals\Ridables\Brown Horse (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Sea Horse -->
+	<npc id="seahorse_weak">
+		<name>seahorse</name>
+		<id>0x0090</id>
+		<category>Animals\Ridables\Seahorse (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="seahorse_medium">
+		<name>seahorse</name>
+		<id>0x0090</id>
+		<category>Animals\Ridables\Seahorse (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="seahorse_hard">
+		<name>seahorse</name>
+		<id>0x0090</id>
+		<category>Animals\Ridables\Seahorse (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Kirins -->
+	<npc id="kirin_weak">
+		<name>kirin</name>
+		<id>0x84</id>
+		<category>Animals\Ridables\Kirin (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="kirin_medium">
+		<name>kirin</name>
+		<id>0x84</id>
+		<category>Animals\Ridables\Kirin (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="kirin_hard">
+		<name>kirin</name>
+		<id>0x84</id>
+		<category>Animals\Ridables\Kirin (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Llamas -->
+	<npc id="llama_weak">
+		<name>llama</name>
+		<id>0x00dc</id>
+		<category>Animals\Ridables\Llama (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="llama_medium">
+		<name>llama</name>
+		<id>0x00dc</id>
+		<category>Animals\Ridables\Llama (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="llama_hard">
+		<name>llama</name>
+		<id>0x00dc</id>
+		<category>Animals\Ridables\Llama (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Skeletal Horse -->
+	<npc id="skeletalhorse_weak">
+		<name>skeletal horse</name>
+		<id>793</id>
+		<category>Animals\Ridables\Skeletal Horse (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="skeletalhorse_medium">
+		<name>skeletal horse</name>
+		<id>793</id>
+		<category>Animals\Ridables\Skeletal Horse (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="skeletalhorse_hard">
+		<name>skeletal horse</name>
+		<id>793</id>
+		<category>Animals\Ridables\Skeletal Horse (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Nightmares 1 -->
+	<npc id="nightmare_1_weak">
+		<name>nightmare</name>
+		<id>0x0074</id>
+		<category>Animals\Ridables\Nightmare 1 (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="nightmare_1_medium">
+		<name>nightmare</name>
+		<id>0x0074</id>
+		<category>Animals\Ridables\Nightmare 1 (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="nightmare_1_hard">
+		<name>nightmare</name>
+		<id>0x0074</id>
+		<category>Animals\Ridables\Nightmare 1 (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Nightmares 2 -->
+	<npc id="nightmare_2_weak">
+		<name>nightmare</name>
+		<id>0x00b1</id>
+		<category>Animals\Ridables\Nightmare 2 (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="nightmare_2_medium">
+		<name>nightmare</name>
+		<id>0x00b1</id>
+		<category>Animals\Ridables\Nightmare 2 (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="nightmare_2_hard">
+		<name>nightmare</name>
+		<id>0x00b1</id>
+		<category>Animals\Ridables\Nightmare 2 (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Nightmares 3 -->
+	<npc id="nightmare_3_weak">
+		<name>nightmare</name>
+		<id>0x00b2</id>
+		<category>Animals\Ridables\Nightmare 3 (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="nightmare_3_medium">
+		<name>nightmare</name>
+		<id>0x00b2</id>
+		<category>Animals\Ridables\Nightmare 3 (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="nightmare_3_hard">
+		<name>nightmare</name>
+		<id>0x00b2</id>
+		<category>Animals\Ridables\Nightmare 3 (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Nightmares 4 -->
+	<npc id="nightmare_4_weak">
+		<name>nightmare</name>
+		<id>0x00b3</id>
+		<category>Animals\Ridables\Nightmare 4 (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="nightmare_4_medium">
+		<name>nightmare</name>
+		<id>0x00b3</id>
+		<category>Animals\Ridables\Nightmare 4 (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="nightmare_4_hard">
+		<name>nightmare</name>
+		<id>0x00b3</id>
+		<category>Animals\Ridables\Nightmare 4 (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Desert Ostards -->
+	<npc id="ostard_desert_weak">
+		<name>desert ostard</name>
+		<id>0x00d2</id>
+		<category>Animals\Ridables\Desert Ostard (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="ostard_desert_medium">
+		<name>desert ostard</name>
+		<id>0x00d2</id>
+		<category>Animals\Ridables\Desert Ostard (Medium)</category>
+		<inherit id="ridable_Medium_base" />
+	</npc>
+
+	<npc id="ostard_desert_hard">
+		<name>desert ostard</name>
+		<id>0x00d2</id>
+		<category>Animals\Ridables\Desert Ostard (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Forest Ostards -->
+	<npc id="ostard_forest_weak">
+		<name>forest ostard</name>
+		<id>0x00db</id>
+		<category>Animals\Ridables\Forest Ostard (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="ostard_forest_medium">
+		<name>forest ostard</name>
+		<id>0x00db</id>
+		<category>Animals\Ridables\Forest Ostard (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="ostard_forest_hard">
+		<name>forest ostard</name>
+		<id>0x00db</id>
+		<category>Animals\Ridables\Forest Ostard (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Frenzied Ostard -->
+	<npc id="ostard_frenzied_weak">
+		<name>frenzied ostard</name>
+		<id>0x00da</id>
+		<category>Animals\Ridables\Frenzied Ostard (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="ostard_frenzied_medium">
+		<name>frenzied ostard</name>
+		<id>0x00da</id>
+		<category>Animals\Ridables\Frenzied Ostard (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="ostard_frenzied_hard">
+		<name>frenzied ostard</name>
+		<id>0x00da</id>
+		<category>Animals\Ridables\Frenzied Ostard (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Ridgebacks -->
+	<npc id="ridgeback_weak">
+		<name>ridgeback</name>
+		<id>187</id>
+		<category>Animals\Ridables\Ridgeback (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="ridgeback_medium">
+		<name>ridgeback</name>
+		<id>187</id>
+		<category>Animals\Ridables\Ridgeback (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="ridgeback_hard">
+		<name>ridgeback</name>
+		<id>187</id>
+		<category>Animals\Ridables\Ridgeback (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Savage Ridgebacks -->
+	<npc id="ridgeback_savage_weak">
+		<name>savage ridgeback</name>
+		<id>188</id>
+		<category>Animals\Ridables\Savage Ridgeback (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="ridgeback_savage_medium">
+		<name>savage ridgeback</name>
+		<id>188</id>
+		<category>Animals\Ridables\Savage Ridgeback (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="ridgeback_savage_hard">
+		<name>savage ridgeback</name>
+		<id>188</id>
+		<category>Animals\Ridables\Savage Ridgeback (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Dark Steeds -->
+	<npc id="steed_dark_weak">
+		<name>dark steed</name>
+		<id>0x0074</id>
+		<category>Animals\Ridables\Dark Steed (Weak)</category>
+		<inherit id="ridable_weak_base" />
+	</npc>
+
+	<npc id="steed_dark_medium">
+		<name>dark steed</name>
+		<id>0x0074</id>
+		<category>Animals\Ridables\Dark Steed (Medium)</category>
+		<inherit id="ridable_medium_base" />
+	</npc>
+
+	<npc id="steed_dark_hard">
+		<name>dark steed</name>
+		<id>0x0074</id>
+		<category>Animals\Ridables\Dark Steed (Hard)</category>
+		<inherit id="ridable_hard_base" />
+	</npc>
+
+	<!-- Fire Steed -->
 	<npc id="steed_fire_weak">
-		<name>a steed fire</name>
+		<name>fire steed</name>
 		<id>0x00be</id>
-		<category>npcs\animals\mountables\steed\fire\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
+		<category>Animals\Ridables\Fire Steed (Weak)</category>
+		<inherit id="ridable_weak_base" />
 	</npc>
-	<!-- a steed fire medium-->
+
 	<npc id="steed_fire_medium">
-		<name>a steed fire</name>
+		<name>fire steed</name>
 		<id>0x00be</id>
-		<category>npcs\animals\mountables\steed\fire\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
+		<category>Animals\Ridables\Fire Steed (Medium)</category>
+		<inherit id="ridable_medium_base" />
 	</npc>
-	<!-- a steed fire hard-->
+
 	<npc id="steed_fire_hard">
-		<name>a steed fire</name>
+		<name>fire steed</name>
 		<id>0x00be</id>
-		<category>npcs\animals\mountables\steed\fire\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
+		<category>Animals\Ridables\Fire Steed (Hard)</category>
+		<inherit id="ridable_hard_base" />
 	</npc>
-	<!-- a steed silver weak-->
+
+	<!-- Silver Steeds -->
 	<npc id="steed_silver_weak">
-		<name>a steed silver</name>
+		<name>silver steed</name>
 		<id>0x0075</id>
-		<category>npcs\animals\mountables\steed\silver\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
+		<category>Animals\Ridables\Silver Steed (Weak)</category>
+		<inherit id="ridable_weak_base" />
 	</npc>
-	<!-- a steed silver medium-->
+
 	<npc id="steed_silver_medium">
-		<name>a steed silver</name>
+		<name>silver steed</name>
 		<id>0x0075</id>
-		<category>npcs\animals\mountables\steed\silver\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
+		<category>Animals\Ridables\Silver Steed (Medium)</category>
+		<inherit id="ridable_medium_base" />
 	</npc>
-	<!-- a steed silver hard-->
+
 	<npc id="steed_silver_hard">
-		<name>a steed silver</name>
+		<name>silver steed</name>
 		<id>0x0075</id>
-		<category>npcs\animals\mountables\steed\silver\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
+		<category>Animals\Ridables\Silver Steed (Hard)</category>
+		<inherit id="ridable_hard_base" />
 	</npc>
-	<!-- a unicorn weak-->
+
+	<!-- Unicorns -->
 	<npc id="unicorn_weak">
-		<name>a unicorn</name>
+		<name>unicorn</name>
 		<id>0x007a</id>
-		<category>npcs\animals\mountables\unicorn\weak</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="42" max="25" /></str>
-		<dex><random min="42" max="25" /></dex>
-		<int><random min="8" max="8" /></int>
-		<!-- Skills -->
-		<wrestling><random min="29" max="29" /></wrestling>
-		<tactics><random min="25" max="25" /></tactics>
-		<magicresistance><random min="21" max="21" /></magicresistance>
+		<category>Animals\Ridables\Unicorn (Weak)</category>
+		<inherit id="ridable_weak_base" />
 	</npc>
-	<!-- a unicorn medium-->
+
 	<npc id="unicorn_medium">
-		<name>a unicorn</name>
+		<name>unicorn</name>
 		<id>0x007a</id>
-		<category>npcs\animals\mountables\unicorn\medium</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="50" max="30" /></str>
-		<dex><random min="50" max="30" /></dex>
-		<int><random min="10" max="10" /></int>
-		<!-- Skills -->
-		<wrestling><random min="35.0" max="35.0" /></wrestling>
-		<tactics><random min="30.0" max="30.0" /></tactics>
-		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
+		<category>Animals\Ridables\Unicorn (Medium)</category>
+		<inherit id="ridable_medium_base" />
 	</npc>
-	<!-- a unicorn hard-->
+
 	<npc id="unicorn_hard">
-		<name>a unicorn</name>
+		<name>unicorn</name>
 		<id>0x007a</id>
-		<category>npcs\animals\mountables\unicorn\hard</category>
-		<inherit id="animals_base" />
-		<!-- Stats -->
-		<str><random min="57" max="34" /></str>
-		<dex><random min="57" max="34" /></dex>
-		<int><random min="11" max="11" /></int>
-		<!-- Skills -->
-		<wrestling><random min="40" max="40" /></wrestling>
-		<tactics><random min="34" max="34" /></tactics>
-		<magicresistance><random min="28" max="28" /></magicresistance>
+		<category>Animals\Ridables\Unicorn (Hard)</category>
+		<inherit id="ridable_hard_base" />
 	</npc>
 </definitions>
