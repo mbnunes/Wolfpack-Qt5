@@ -692,9 +692,6 @@ void cNPC::showName( cUOSocket *socket )
 	if( !socket->player() )
 		return;
 
-	if( onSingleClick( socket->player() ) )
-		return;
-
 	QString charName = name();
 
 	// apply titles

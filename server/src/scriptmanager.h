@@ -35,83 +35,44 @@
 // System Includes
 #include <qmap.h>
 #include <qvaluevector.h>
+#include <qstring.h>
 
-// Forward definitions
-class cPythonScript;
-class QString;
-
-#define OBJECT_OBJECT	1
-#define OBJECT_ITEM		2
-#define OBJECT_CHAR		3
-
-#define EVENT_USE					1
-#define EVENT_SINGLECLICK			2
-#define EVENT_COLLIDE				3
-#define EVENT_WORLDSAVE				4
-#define EVENT_WORLDLOAD				5
-#define EVENT_WALK					6
-#define EVENT_CREATE				7
-#define EVENT_LOGIN					8
-#define EVENT_LOGOUT				9
-#define EVENT_TALK					10
-#define EVENT_WARMODETOGGLE			11
-#define EVENT_HELP					12
-#define EVENT_CHAT					13
-#define EVENT_SKILLUSE				14
-#define EVENT_SELECTCONTEXTMENU		15
-#define EVENT_REQUESTCONTEXTMENU	16
-#define EVENT_DROPONCHAR			17
-#define EVENT_DROPONITEM			18
-#define EVENT_DROPONGROUND			19
-#define EVENT_PICKUP				20
-#define EVENT_SPEECH				21
-#define EVENT_BEGINCAST				22
-#define EVENT_ENDCAST				23
-#define EVENT_SPELLCHECKTARGET		24
-#define EVENT_SPELLSUCCESS			25
-#define EVENT_SPELLFAILURE			26
-#define EVENT_SHOWTOOLTIP			27
-#define EVENT_SKILLGAIN				28
-#define EVENT_DAMAGE				29
-#define EVENT_SHOWPAPERDOLL			30
-#define EVENT_SHOWSKILLGUMP			31
-#define EVENT_STATGAIN				32
-#define EVENT_CASTSPELL				33
-#define EVENT_CHLEVELCHANGE			34
+// Wolfpack Includes
+#include "pythonscript.h"
+#include "singleton.h"
 
 class cScriptManager  
 {
-private:
-	QMap< QString, cPythonScript* > Scripts;
+protected:
+	QMap< QCString, cPythonScript* > scripts;
+	cPythonScript *hooks[EVENT_COUNT];
+	QMap< QCString, PyObject* > commandhooks;
 
-	// map< OBJECT, map< EVENT, vector< cPythonScript
-	QMap< UINT32, QMap< UINT32, QValueVector< cPythonScript* > > > globalhooks;
-
-	// map< QString, cPythonScript >
-	QMap< QString, cPythonScript* > commandhooks;
-
+	// These are for internal use only
+	void clearGlobalHooks();
+	void clearCommandHooks();
 public:
-	typedef QMap< QString, cPythonScript* >::iterator iterator;
+	typedef QMap< QCString, cPythonScript* >::iterator iterator;
 
+	cScriptManager();
 	virtual ~cScriptManager();
 
-	cPythonScript* find( const QString& Name ) const;
-	void add( const QString& Name, cPythonScript *Script );
-	void remove( const QString& Name );
+	cPythonScript* find( const QCString& name );
 
-	void load( void );
-	void reload( void );
-	void unload( void );
+	void load();
+	void reload();
+	void unload();
 
-	void onServerStart(); // Call the onServerStart Event
-	void onServerStop(); // Call the onServerEnd Event
+	void onServerStart(); // Call the onServerStart Event for all registered scripts
+	void onServerStop(); // Call the onServerEnd Event for all registered scripts
 
-	void addCommandHook( const QString &command, cPythonScript *script );
-	void addGlobalHook( UINT32 object, UINT32 event, cPythonScript *script );
-	void clearGlobalHooks() { globalhooks.clear(); }
-	void clearCommandHooks() { commandhooks.clear(); }
-	cPythonScript *getCommandHook( const QString &command );
-	const QValueVector< cPythonScript* > getGlobalHooks( UINT32 object, UINT32 event ) const;
+	void setCommandHook( const QCString &command, PyObject *object );
+	void setGlobalHook( ePythonEvent event, cPythonScript *script );
+	
+	PyObject *getCommandHook( const QCString &command );
+	cPythonScript *getGlobalHook( ePythonEvent event );
 };
+
+typedef SingletonHolder< cScriptManager > ScriptManager;
 
 #endif

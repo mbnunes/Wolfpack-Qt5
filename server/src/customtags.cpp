@@ -719,13 +719,13 @@ void cCustomTags::load( SERIAL key )
 	if( tags_ )
 		tags_->clear();
 
-	cDBResult result = persistentBroker->query( QString( "SELECT serial,name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
+	cDBResult result = persistentBroker->query( QString( "SELECT name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
 
 	while( result.fetchrow() )
 	{
-		QString name = result.getString( 1 );
-		QString type = result.getString( 2 );
-		QString value = result.getString( 3 );
+		QString name = result.getString( 0 );
+		QString type = result.getString( 1 );
+		QString value = result.getString( 2 );
 
 		if( !tags_ )
 			tags_ = new QMap< QString, cVariant >;

@@ -997,7 +997,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advStrength[i].base <= realStr && ( advStrength[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				if( !pChar->onStatGain(0, 1) ) 
+				if( !pChar->onStatGain(0) ) 
 				{
 					pChar->setStrength( pChar->strength() + 1 );
 					pChar->setMaxHitpoints( pChar->maxHitpoints() + 1 );
@@ -1014,7 +1014,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advDexterity[i].base <= realDex && ( advDexterity[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				if( !pChar->onStatGain(1, 1) ) 
+				if( !pChar->onStatGain(1) ) 
 				{
 					pChar->setDexterity( pChar->dexterity() + 1 );
 					pChar->setMaxStamina( pChar->maxStamina() + 1 );
@@ -1031,7 +1031,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advIntelligence[i].base <= realInt && ( advIntelligence[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				if( !pChar->onStatGain(2, 1) ) 
+				if( !pChar->onStatGain(2) ) 
 				{
 					pChar->setIntelligence( pChar->intelligence() + 1 );
 					pChar->setMaxMana( pChar->maxMana() + 1 );

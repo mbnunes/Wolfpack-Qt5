@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="wolf" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** DO NOT EDIT **
+# ** NICHT BEARBEITEN **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=wolf - Win32 Debug
-!MESSAGE This is not a valid makefile. To build this project using NMAKE,
-!MESSAGE use the Export Makefile command and run
+!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
+!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
 !MESSAGE 
-!MESSAGE You can specify a configuration when running NMAKE
-!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
+!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
 !MESSAGE 
-!MESSAGE Possible choices for configuration are:
+!MESSAGE Für die Konfiguration stehen zur Auswahl:
 !MESSAGE 
-!MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -68,7 +68,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MD /Gm /GR /GX /ZI /Od /I "sqlite" /I "lib\bugreport" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "MYSQL_DRIVER" /FR /FD /GZ /c
+# ADD CPP /nologo /MD /Gm /GR /GX /Zi /Od /I "sqlite" /I "lib\bugreport" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "MYSQL_DRIVER" /Fr /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -76,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /version:12.9 /subsystem:windows /map /debug /machine:I386 /out:"C:\Software Engineering\wolfpack\wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /pdb:"..\wolfpack.pdb" /map /debug /machine:I386 /out:"..\wolfpack.exe" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -344,14 +344,6 @@ SOURCE=.\wptargetrequests.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Group "Skills No. 1"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\tracking.h
-# End Source File
-# End Group
 # Begin Source File
 
 SOURCE=.\accounts.h
@@ -873,6 +865,10 @@ InputName=TmpEff
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\tracking.h
 # End Source File
 # Begin Source File
 

@@ -462,7 +462,7 @@ bool cAddEventTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 	
-	cPythonScript *script = ScriptManager->find( _event );
+	cPythonScript *script = ScriptManager::instance()->find( _event.latin1() );
 	
 	if( !script )
 	{

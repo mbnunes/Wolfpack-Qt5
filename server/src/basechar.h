@@ -158,20 +158,19 @@ public:
 	virtual void awardKarma( P_CHAR pKilled, short amount ) = 0;
 
 	// Wrapper events
-	virtual bool onSingleClick( P_PLAYER Viewer ); // Shows the name of a character to someone else
-	virtual bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
-	virtual bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
+	virtual bool onWalk( unsigned char dir, unsigned char sequence ); // Walks in a specific Direction
+	virtual bool onTalk( unsigned char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
 	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	virtual bool onShowSkillGump(); //Show Skillgump
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
-	bool onDeath();
-	bool onDropOnChar( P_ITEM pItem );
-	QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
+	virtual bool onDeath();
+	virtual bool onDropOnChar( P_ITEM pItem );
+	virtual QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels
-	bool onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success );
-	bool onStatGain( UI08 stat, SI08 amount );
+	virtual bool onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success );
+	virtual bool onStatGain( unsigned char stat );
 
 	// getters
     SERIAL			attackerSerial() const;

@@ -85,6 +85,8 @@ bool checkWpItem( PyObject *object );
 PyObject* PyGetItemObject( P_ITEM );
 P_ITEM getWpItem( PyObject* );
 
+PyObject *PyGetObjectObject( cUObject* );
+
 bool checkWpChar( PyObject *object );
 PyObject* PyGetCharObject( P_CHAR );
 P_CHAR getWpChar( PyObject* );

@@ -48,7 +48,6 @@
 
 // Forward Class Declaration
 class QDateTime;
-class cScriptManager;
 class WPDefManager;
 
 // Global Variables
@@ -81,7 +80,6 @@ extern cSrvParams				*SrvParams;
 extern Maps						*Map;
 extern cSkills					*Skills;
 extern cSpeech					*Speech;
-extern cScriptManager			*ScriptManager;
 extern WPDefManager				*DefManager;
 extern PersistentBroker			*persistentBroker;
 

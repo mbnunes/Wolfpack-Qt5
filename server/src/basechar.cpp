@@ -1012,266 +1012,6 @@ void cBaseChar::removeEffect( cTempEffect *effect )
 	}	
 }
 
-// Shows the name of a character to someone else
-bool cBaseChar::onSingleClick( P_PLAYER Viewer ) 
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onSingleClick( (P_PLAYER)this, (P_CHAR)Viewer ) )
-				return true;
-			
-			++i;
-		}
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SINGLECLICK );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onSingleClick( (P_PLAYER)this, (P_CHAR)Viewer ) )
-			return true;
-
-	return false;
-}
-
-// Walks in a specific Direction
-bool cBaseChar::onWalk( UI08 Direction, UI08 Sequence )
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onWalk( (P_CHAR)this, Direction, Sequence ) )
-				return true;
-			++i;
-		}
-	}
-
-	return false;
-}
-
-// The character says something
-bool cBaseChar::onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang )
-{
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onTalk( (P_CHAR)this, speechType, speechColor, speechFont, Text, Lang ) )
-				return true;
-			++i;
-		}
-	}
-
-	return false;
-}
-
-// The character switches warmode
-bool cBaseChar::onWarModeToggle( bool War )
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onWarModeToggle( this, War ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	return false;
-}
-
-// The paperdoll of this character has been requested
-bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
-{
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onShowPaperdoll( this, pOrigin ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	return false;
-}
-
-bool cBaseChar::onShowSkillGump()
-{
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onShowSkillGump( this ) )
-				return true;
-
-			++i;
-		}
-	}
-	
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWSKILLGUMP );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onShowSkillGump( this ) )
-			return true;
-
-	return false;	
-}
-
-// The character uses %Skill
-bool cBaseChar::onSkillUse( UI08 Skill ) 
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onSkillUse( this, Skill ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SKILLUSE );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onSkillUse( this, Skill ) )
-			return true;
-
-	return false;
-}
-
-bool cBaseChar::onDropOnChar( P_ITEM pItem )
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onDropOnChar( this, pItem ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	return false;
-}
-
-QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
-{
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			QString result = scriptChain[ i ]->onShowPaperdollName( this, pOrigin );
-		
-			if( !result.isNull() )
-				return result;
-
-			++i;
-		}
-	}
-
-	return QString::null;
-}
-
-bool cBaseChar::onDeath()
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onDeath( this ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	return false;
-}
-bool cBaseChar::onCHLevelChange( uint level )
-{
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onCHLevelChange( this, level  ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CHLEVELCHANGE );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onCHLevelChange( this, level ) ) 
-			return true;
-
-	
-	return false;
-}
-bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
-{
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWTOOLTIP );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onShowToolTip( sender, this, tooltip ) ) 
-			return true;
-
-	return false;
-}
-
 void cBaseChar::processNode( const cElement *Tag )
 {
 	changed_ = true;
@@ -1892,83 +1632,33 @@ void cBaseChar::callGuards()
 	}
 }
 
-bool cBaseChar::onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success )
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onSkillGain( this, Skill, min, max, success ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SKILLGAIN );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onSkillGain( this, Skill, min, max, success ) )
-			return true;
-
-	return false;
-}
-
-bool cBaseChar::onStatGain( UI08 stat, SI08 amount )
-{
-	// If we got ANY events process them in order
-	if( scriptChain )
-	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onStatGain( this, stat, amount ) )
-				return true;
-
-			++i;
-		}
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_STATGAIN );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onStatGain( this, stat,amount ) )
-			return true;
-
-	return false;
-}
-
 unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject *source )
 {
 	//
 	// First of all, call onDamage with the damage-type, amount and source
 	// to modify the damage if needed
 	//
-
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
+		PyObject *args;
+		
+		if( dynamic_cast< P_CHAR >( source ) != 0 )
+			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetCharObject, source );
+		else if( dynamic_cast< P_ITEM >( source ) )
+			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetItemObject, source );
+		
+		PyObject *result = cPythonScript::callChainedEvent( EVENT_DAMAGE, scriptChain, args );
+
+		if( result )
 		{
-			amount = scriptChain[ i ]->onDamage( this, type, amount, source );
-			++i;
+			if( PyInt_Check( result ) )
+				amount = PyInt_AsLong( result );
+
+			Py_DECREF( result );
 		}
+
+		Py_DECREF( args );
 	}
-
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_DAMAGE );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		amount = (*it)->onDamage( this, type, amount, source );
 
 	// Invulnerable Targets don't take any damage at all
 	if( isInvulnerable() )
@@ -2127,4 +1817,225 @@ void cBaseChar::showPaperdoll( cUOSocket *source, bool hotkey )
 		if( objectType() == enNPC && dynamic_cast<P_NPC>(this)->owner() == pChar )
 				source->sendContainer( getBackpack() );
 	};
+}
+
+/*
+	Event Wrappers
+ */
+
+bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
+{
+	bool result = false;
+	
+	if( scriptChain )
+	{
+		PyObject *args = Py_BuildValue( "O&bb", PyGetCharObject, this, direction, sequence );
+		result = cPythonScript::callChainedEventHandler( EVENT_WALK, scriptChain, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short font, const QString &text, const QString &lang )
+{
+	bool result = false;
+	
+	if( scriptChain )
+	{
+		PyObject *args = Py_BuildValue( "O&bhhuu", PyGetCharObject, this, type, color, font, text.ucs2(), lang.ucs2() );
+		result = cPythonScript::callChainedEventHandler( EVENT_TALK, scriptChain, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onWarModeToggle( bool war )
+{
+	bool result = false;
+	
+	if( scriptChain )
+	{
+		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, war ? 1 : 0 );
+		result = cPythonScript::callChainedEventHandler( EVENT_WARMODETOGGLE, scriptChain, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
+{
+	bool result = false;
+	
+	if( scriptChain )
+	{
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWPAPERDOLL, scriptChain, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onShowSkillGump()
+{
+	return cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain );
+}
+
+bool cBaseChar::onSkillUse( unsigned char skill ) 
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLUSE );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "O&b", PyGetCharObject, this, skill );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_SKILLUSE, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_SKILLUSE, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onDropOnChar( P_ITEM pItem )
+{
+	bool result = false;
+	
+	if( scriptChain )
+	{
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
+		result = cPythonScript::callChainedEventHandler( EVENT_DROPONCHAR, scriptChain, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
+{
+	// I hate this event by the way (DarkStorm)
+	QString name = QString::null;
+
+	if( scriptChain )
+	{
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
+
+		PyObject *result = cPythonScript::callChainedEvent( EVENT_SHOWPAPERDOLLNAME, scriptChain, args );
+
+		if( result )
+		{
+			// Strings and Unicode Objects gladly accepted
+			if( PyString_Check( result ) )
+				name = PyString_AsString( result );
+
+			if( PyUnicode_Check( result ) )
+				name = QString::fromUcs2( PyUnicode_AS_UNICODE( result ) );
+		}
+
+		Py_XDECREF( result );
+
+		Py_DECREF( args );
+	}
+
+	return name;
+}
+
+bool cBaseChar::onDeath()
+{
+	bool result = false;
+	
+	if( scriptChain )
+	{
+		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
+		result = cPythonScript::callChainedEventHandler( EVENT_DEATH, scriptChain, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+bool cBaseChar::onCHLevelChange( unsigned int level )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CHLEVELCHANGE );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, level );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_CHLEVELCHANGE, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_CHLEVELCHANGE, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetCharObject, this, PyGetTooltipObject, tooltip );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_SHOWTOOLTIP, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLGAIN );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "O&bhhi", PyGetCharObject, this, skill, min, max, success ? 1 : 0 );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_SKILLGAIN, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_SKILLGAIN, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cBaseChar::onStatGain( unsigned char stat )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_STATGAIN );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "O&b", PyGetCharObject, this, stat );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_STATGAIN, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_STATGAIN, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
 }

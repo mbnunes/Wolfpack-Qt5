@@ -45,48 +45,31 @@
 
 using namespace std;
 
-cScriptManager::~cScriptManager()
+cScriptManager::cScriptManager()
 {
-	QMap< QString, cPythonScript* >::iterator ScriptIterator;
-
-	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
-	{
-		delete( ScriptIterator.data() );
-	}
+	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
+		hooks[i] = 0;
 }
 
-
-cPythonScript* cScriptManager::find( const QString& Name ) const
+cScriptManager::~cScriptManager()
 {
-	QMap< QString, cPythonScript* >::const_iterator it = Scripts.find( Name );
-	if ( it != Scripts.end() )
+	unload();
+}
+
+cPythonScript* cScriptManager::find( const QCString &name )
+{
+	cScriptManager::iterator it = scripts.find( name );
+	
+	if ( it != scripts.end() )
 		return it.data();
 	else
 		return 0;
 }
 
-void cScriptManager::add( const QString& Name, cPythonScript *Script )
-{
-	remove( Name );
-
-	Script->setName( Name );
-
-	Scripts.insert( Name, Script );
-}
-
-void cScriptManager::remove( const QString& Name )
-{
-	iterator it = Scripts.find( Name );
-	if( it != Scripts.end() )
-	{
-		delete it.data();
-		Scripts.erase( it );
-	}
-}
-
 void cScriptManager::reload( void )
 {
 	serverState = SCRIPTRELOAD;
+	
 	// First unload, then reload
 	unload();
 
@@ -99,8 +82,6 @@ void cScriptManager::reload( void )
 	// After reloading all scripts we *need* to recreate all script-pointers 
 	// assigned to scripted items and characters
 	// because all of them got invalidated while relaoding
-	Console::instance()->PrepareProgress( "Recreating assigned Script-pointers" );
-
 	cItemIterator iter_items;
 	
 	for( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
@@ -111,32 +92,40 @@ void cScriptManager::reload( void )
 	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->recreateEvents();
 
-	Console::instance()->ProgressDone();
 	serverState = RUNNING;
 }
 
 // Unload all scripts
-void cScriptManager::unload( void )
+void cScriptManager::unload()
 {
-	cScriptManager::iterator myIter;
-
-	for( myIter = Scripts.begin(); myIter != Scripts.end(); ++myIter )
+	cScriptManager::iterator it;
+	
+	for( it = scripts.begin(); it != scripts.end(); ++it )
 	{
-		myIter.data()->unload();
-		delete myIter.data();
+		it.data()->unload();
+		delete it.data();
 	}
 
-	Scripts.clear();
-	globalhooks.clear();
+	scripts.clear();
+
+	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
+	{
+		hooks[i] = 0;
+	}
+
+	QMap< QCString, PyObject* >::iterator itc;
+
+	for( itc = commandhooks.begin(); itc != commandhooks.end(); ++itc )
+	{
+		Py_XDECREF( itc.data() );
+	}
+
 	commandhooks.clear();
 }
 
 void cScriptManager::load()
 {
-	Console::instance()->PrepareProgress( "Loading Script Manager" );
-
-	// Load the XML Script
-	UI32 ScriptsLoaded = 0;
+	Console::instance()->PrepareProgress( "Loading ScriptManager" );
 
 	// Each Section is a Script identifier
 	const QValueVector< cElement* > &sections = DefManager->getDefinitions( WPDT_SCRIPT );
@@ -144,63 +133,81 @@ void cScriptManager::load()
 	for( unsigned int i = 0; i < sections.size(); ++i )
 	{
 		const cElement *element = sections[i];
+		
+		if( scripts.contains( element->text().latin1() ) )
+		{
+			Console::instance()->ProgressFail();
+			Console::instance()->PrepareProgress( "Continuing..." );
+			Console::instance()->log( LOG_WARNING, QString( "Duplicate Script: %1" ).arg( element->text().utf8() ) );
+			continue;			
+		}
 
+		
 		cPythonScript *script = new cPythonScript;
-		add( element->text(), script );
+		scripts.replace( element->text().utf8(), script );
 		script->load( element );
-
-		++ScriptsLoaded;
 	}
 
 	Console::instance()->ProgressDone();
-	Console::instance()->send( QString("%1 Script(s) loaded\n").arg(ScriptsLoaded) );
-}
-
-void cScriptManager::addCommandHook( const QString &command, cPythonScript *script )
-{
-	commandhooks[ command.upper() ] = script;
-}
-
-void cScriptManager::addGlobalHook( UINT32 object, UINT32 event, cPythonScript *script )
-{
-	// Find first
-	QValueVector< cPythonScript* > &vec = globalhooks[ object ][ event ];
-	QValueVector< cPythonScript* >::const_iterator it = vec.begin();
-
-	for( ; it != vec.end(); ++it )
-	{
-		if( *it == script )
-			return;
-	}	
-
-	globalhooks[ object ][ event ].push_back( script );
-}
-
-cPythonScript *cScriptManager::getCommandHook( const QString &command )
-{
-	QMap< QString, cPythonScript* >::const_iterator it( commandhooks.find( command ) );
-
-	if( it == commandhooks.end() )
-		return 0;
-
-	return *it;
-}
-
-const QValueVector< cPythonScript* > cScriptManager::getGlobalHooks( UINT32 object, UINT32 event ) const
-{
-	return globalhooks[ object ][ event ];  
+	Console::instance()->send( QString( "%1 Script(s) loaded\n" ).arg( i ) );
 }
 
 void cScriptManager::onServerStart()
 {
-	QMap< QString, cPythonScript* >::iterator ScriptIterator;
+	cScriptManager::iterator it;
 
-	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
+	for( it = scripts.begin(); it != scripts.end(); ++it )
 	{
-		ScriptIterator.data()->onServerstart();
-	}	
+		it.data()->callEventHandler( "onServerStart" );
+	}
 }
 
 void cScriptManager::onServerStop()
 {
+	cScriptManager::iterator it;
+
+	for( it = scripts.begin(); it != scripts.end(); ++it )
+	{
+		it.data()->callEventHandler( "onServerStop" );
+	}
+}
+
+PyObject *cScriptManager::getCommandHook( const QCString &command )
+{
+	PyObject *result = 0;
+
+	if( commandhooks.contains( command.lower() ) )
+	{
+		result = commandhooks[ command.lower() ];
+	}
+
+	return result;
+}
+
+cPythonScript *cScriptManager::getGlobalHook( ePythonEvent event )
+{
+	cPythonScript *result = 0;
+
+	if( event < EVENT_COUNT )
+	{
+		result = hooks[ event ];
+	}
+
+	return result;
+}
+
+void cScriptManager::setCommandHook( const QCString &command, PyObject *object )
+{
+	if( commandhooks.contains( command.lower() ) )
+	{
+		Py_DECREF( commandhooks[ command.lower() ] );
+	}
+
+	commandhooks.replace( command.lower(), object );
+}
+
+void cScriptManager::setGlobalHook( ePythonEvent event, cPythonScript *script )
+{
+	if( event < EVENT_COUNT )
+		hooks[event] = script;
 }

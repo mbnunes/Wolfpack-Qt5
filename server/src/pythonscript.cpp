@@ -49,91 +49,46 @@
 #include "python/utilities.h"
 #include "python/target.h"
 
-void cPythonScript::addKeyword( UINT16 data )
+cPythonScript::cPythonScript()
 {
-	speechKeywords_.push_back( data );
+	codeModule = 0;
+	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
+		events[i] = 0;
 }
 
-void cPythonScript::addWord( const QString &data )
+cPythonScript::~cPythonScript()
 {
-	speechWords_.push_back( data );
-}
-
-void cPythonScript::addRegexp( const QRegExp &data )
-{
-	speechRegexp_.push_back( data );
-}
-
-bool cPythonScript::canHandleSpeech( const QString &text, const QValueVector< UINT16 >& keywords )
-{
-	// Check keywords first.
-	for( QValueVector< UINT16 >::const_iterator iter1 = keywords.begin(); iter1 != keywords.end(); ++iter1 )
-		for( QValueVector< UINT16 >::const_iterator iter2 = speechKeywords_.begin(); iter2 != speechKeywords_.end(); ++iter2 )
-		{
-			if( *iter1 == *iter2 )
-				return true;
-		}
-
-	for( QValueVector< QString >::const_iterator iter3 = speechWords_.begin(); iter3 != speechWords_.end(); ++iter3 )
-		if( text.contains( *iter3 ) )
-			return true;
-
-	for( QValueVector< QRegExp >::const_iterator iter4 = speechRegexp_.begin(); iter4 != speechRegexp_.end(); ++iter4 )
-		if( text.contains( *iter4 ) )
-			return true;
-
-	return false;
 }
 
 void cPythonScript::unload( void )
 {
-	if( !codeModule )
-		return;
-
-	PyObject* method = PyObject_GetAttrString( codeModule, "onUnload" ); 
-		
-	if( !method )
+	// Free Cached Events
+	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
 	{
-		PyErr_Clear();
-		Py_DECREF( codeModule );
-		codeModule = 0;
-		return;
+		if( events[ i ] )
+		{
+			Py_XDECREF( events[ i ] );
+			events[ i ] = 0;
+		}
 	}
 
-	if ( !PyCallable_Check( method ) )
-	{
-		Py_DECREF( method );
-		Py_DECREF( codeModule );
-		codeModule = 0;
-	}
-		
-	PyObject* result = PyObject_CallObject( method, NULL );
-	reportPythonError( name_ );
-	Py_XDECREF( result ); // void
-	Py_DECREF( method );
-	Py_DECREF( codeModule );
+	callEventHandler( "onUnload" );	
+
+	Py_XDECREF( codeModule );
 	codeModule = 0;
-
 }
 
 // Find our module name
 bool cPythonScript::load( const cElement *element )
 {
-	// Initialize it
-	codeModule = NULL;
-	catchAllSpeech_ = false;
-
 	QString name = element->text();
 
-	if( name.isNull() )
+	if( name.isEmpty() )
 		return false;
 
 	setName( name );
 
-	if( name.isNull() || name.isEmpty() )
-		return false;
-
-	codeModule = PyImport_ImportModule( const_cast<char*>(name.latin1()) );
+	codeModule = PyImport_ImportModule( const_cast< char* >( name.latin1() ) );
 
 	if( !codeModule )
 	{
@@ -143,579 +98,183 @@ bool cPythonScript::load( const cElement *element )
 		return false;
 	}
 
-	// Call the load Function
-	PyObject* method = PyObject_GetAttrString( codeModule, "onLoad" ); 
-		
-	if ( method )
+	// Call the onLoad event
+	callEventHandler( "onLoad", 0, true );
+
+	if( PyErr_Occurred() )
 	{
-		if ( PyCallable_Check( method ) )
-		{
-			PyObject* result = PyObject_CallObject( method, NULL );
-			if( PyErr_Occurred() )
-			{
-				Console::instance()->ProgressFail();
-				reportPythonError( name );
-				Console::instance()->PrepareProgress( "Continuing loading" );
-			}
-			Py_XDECREF( result );
-		}
-		Py_DECREF( method );
+		Console::instance()->ProgressFail();
+		reportPythonError( name_ );
+		Console::instance()->PrepareProgress( "Continuing loading" );
 	}
-		
-	handleSpeech_ = PyObject_HasAttrString( codeModule, "onSpeech" );
+
+	// Cache Event Functions
+	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
+	{
+		if( !PyObject_HasAttrString( codeModule, eventNames[ i ] ) )
+			continue;
+
+		events[i] = PyObject_GetAttrString( codeModule, eventNames[ i ] );
+
+		if( events[i] && !PyCallable_Check( events[i] ) )
+		{
+			Console::instance()->ProgressFail();
+			Console::instance()->log( LOG_ERROR, QString( "Script %1 has non callable event: %1" ).arg( eventNames[ i ] ) );
+			Console::instance()->PrepareProgress( "Continuing loading" );
+
+			Py_DECREF( events[i] );
+			events[i] = 0;
+		}
+	}
+
 	return true;
 }
 
-//========================== OVERRIDDEN DEFAULT EVENTS
-bool cPythonScript::onServerstart()
+PyObject *cPythonScript::callEvent( ePythonEvent event, PyObject *args, bool ignoreErrors )
 {
-	PyHasMethod( "onServerstart" )
-	return PyEvalMethod( "onServerstart", PyTuple_New( 0 ) );
-}
+	PyObject *result = 0;
 
-bool cPythonScript::onUse( P_CHAR User, P_ITEM Used )
-{
-	PyHasMethod( "onUse" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( User ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( Used ) );
-
-	return PyEvalMethod( "onUse", tuple );
-}
-
-bool cPythonScript::onSingleClick( P_ITEM Item, P_CHAR Viewer )
-{
-	PyHasMethod( "onSingleClick" )
-	
-	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetItemObject( Item ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
-
-	return PyEvalMethod( "onSingleClick", tuple );
-}
-
-bool cPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
-{
-	PyHasMethod( "onSingleClick" )
-
-	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( Viewer ) );
-	
-	return PyEvalMethod( "onSingleClick", tuple );
-}
-
-bool cPythonScript::onLogout( P_CHAR Character )
-{
-	PyHasMethod( "onLogout" )
-
-	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-
-	return PyEvalMethod( "onLogout", tuple );
-}
-
-bool cPythonScript::onLogin( P_CHAR Character )
-{
-	PyHasMethod( "onLogin" )
-
-	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-
-	return PyEvalMethod( "onLogin", tuple );
-}
-
-bool cPythonScript::onCollide( P_CHAR Character, P_ITEM Obstacle )
-{
-	PyHasMethod( "onCollide" )
-
-	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( Obstacle ) );
-
-	return PyEvalMethod( "onCollide", tuple );
-}
-
-bool cPythonScript::onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence )
-{
-	PyHasMethod( "onWalk" )
-
-	PyObject *tuple = PyTuple_New( 3 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Direction ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( Sequence ) );
-
-	return PyEvalMethod( "onWalk", tuple );
-}
-
-// if this events returns true (handeled) then we should not display the text
-bool cPythonScript::onTalk( P_CHAR Character, char speechType, UINT16 speechColor, UINT16 speechFont, const QString &Text, const QString &Lang )
-{
-	PyHasMethod( "onTalk" )
-
-	PyObject *tuple = PyTuple_New( 6 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( speechType ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( speechColor ) );
-	PyTuple_SetItem( tuple, 3, PyInt_FromLong( speechFont ) );
-	PyTuple_SetItem( tuple, 4, PyString_FromString( Text.ascii() ) );
-	PyTuple_SetItem( tuple, 5, PyString_FromString( Lang.ascii() ) );
-	
-	return PyEvalMethod( "onTalk", tuple );
-}
-
-bool cPythonScript::onWarModeToggle( P_CHAR Character, bool War )
-{
-	PyHasMethod( "onWarModeToggle" )
-
-	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, ( War ? PyInt_FromLong( 1 ) : PyInt_FromLong( 0 ) ) );
-
-	return PyEvalMethod( "onWarModeToggle", tuple );
-}
-
-bool cPythonScript::onHelp( P_CHAR Character )
-{
-	PyHasMethod( "onHelp" )
-
-	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-
-	return PyEvalMethod( "onHelp", tuple );
-}
-
-
-bool cPythonScript::onChat( P_CHAR Character )
-{
-	PyHasMethod( "onChat" )
-
-	PyObject *tuple = PyTuple_New( 1 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-
-	return PyEvalMethod( "onChat", tuple );
-}
-
-
-bool cPythonScript::onSkillUse( P_CHAR Character, UINT8 Skill )
-{
-	PyHasMethod( "onSkillUse" )
-
-	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Skill ) );
-
-	return PyEvalMethod( "onSkillUse", tuple );
-}
-
-bool cPythonScript::onSkillGain( P_CHAR Character, UINT8 Skill, INT32 min, INT32 max, bool success )
-{
-	PyHasMethod( "onSkillGain" )
-
-	PyObject *tuple = PyTuple_New( 5 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( Skill ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( min ) );
-	PyTuple_SetItem( tuple, 3, PyInt_FromLong( max ) );
-	PyTuple_SetItem( tuple, 4, PyInt_FromLong( success ) );
-
-	return PyEvalMethod( "onSkillGain", tuple );
-}
-
-bool cPythonScript::onStatGain( P_CHAR Character, UINT8 stat, INT8 amount )
-{
-	PyHasMethod( "onStatGain" )
-
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( stat ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( amount ) );
-
-	return PyEvalMethod( "onStatGain", tuple );
-}
-
-bool cPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
-{
-	PyHasMethod( "onContextEntry" )
-
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	
-	if( isItemSerial( pObject->serial() ) )
-		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( isCharSerial( pObject->serial() ) )
-		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
-
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( id ) );
-
-	return PyEvalMethod( "onContextEntry", tuple );
-}
-
-bool cPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
-{
-	PyHasMethod( "onShowContextMenu" )
-	
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	
-	if( isItemSerial( pObject->serial() ) )
-		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( isCharSerial( pObject->serial() ) )
-		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
-
-	return PyEvalMethod( "onShowContextMenu", tuple );
-}
-
-bool cPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip )
-{
-	PyHasMethod( "onShowToolTip" )
-	
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-
-	if( isItemSerial( pObject->serial() ) )
-		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( isCharSerial( pObject->serial() ) )
-		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
-
-	PyTuple_SetItem( tuple, 2, PyGetTooltipObject( tooltip ) );
-
-	return PyEvalMethod( "onShowToolTip", tuple );
-}
-
-bool cPythonScript::onCHLevelChange( P_CHAR pChar, uint level )
-{
-	PyHasMethod( "onCHLevelChange" )
-	
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( level ) );
-
-	return PyEvalMethod( "onCHLevelChange", tuple );
-}
-
-
-unsigned int cPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source )
-{
-	if( !codeModule )
-		return amount;
-
-	PyObject *method = PyObject_GetAttrString( codeModule, "onDamage" );
-	
-	if( !method )
-		return amount;
-
-	if ( !PyCallable_Check( method ) )
+	if( event < EVENT_COUNT && events[ event ] )
 	{
-		Py_DECREF( method );
-		return amount;
+		result = PyObject_CallObject( events[ event ], args );
+
+		if( !ignoreErrors )
+			reportPythonError( name_ );
 	}
 
-	PyObject *args = PyTuple_New( 4 );
-	
-	PyTuple_SetItem( args, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( args, 1, PyInt_FromLong( type ) );
-	PyTuple_SetItem( args, 2, PyInt_FromLong( amount ) );
-	
-	if( source && source->isItem() )
-		PyTuple_SetItem( args, 3, PyGetItemObject( dynamic_cast< P_ITEM >( source ) ) );
-	else
-		PyTuple_SetItem( args, 3, PyGetCharObject( dynamic_cast< P_CHAR >( source ) ) );
-
-
-	PyObject *returnValue = PyObject_CallObject( method, args ); 
-	
-	reportPythonError( name_ );
-	Py_DECREF( args );
-	Py_DECREF( method );
-	
-	if( !returnValue ) 
-		return amount; 
-	if ( !PyInt_Check( returnValue ) )
-	{
-		Py_DECREF( returnValue );
-		return amount;
-	}
-
-	amount = PyInt_AsLong( returnValue );
-	Py_DECREF( returnValue );
-	return amount;	
-}
-
-bool cPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
-{
-	PyHasMethod( "onCastSpell" )
-
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( player) );
-	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-
-	return PyEvalMethod( "onCastSpell", tuple );
-}
-
-bool cPythonScript::onCreate( cUObject *object, const QString &definition )
-{
-	PyHasMethod( "onCreate" )
-	
-	PyObject *tuple = PyTuple_New( 2 );
-
-	if( object->isChar() )
-		PyTuple_SetItem( tuple, 0, PyGetCharObject( (P_CHAR)object ) );
-	else if( object->isItem() )
-		PyTuple_SetItem( tuple, 0, PyGetItemObject( (P_ITEM)object ) );
-
-	PyTuple_SetItem( tuple, 1, PyString_FromString( definition.latin1() ) );
-	
-	return PyEvalMethod( "onCreate", tuple );
-}
-
-bool cPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords )
-{
-	PyHasMethod( "onSpeech" )
-
-	PyObject *tuple = PyTuple_New( 4 ); // Create our args for the python function
-	if( isItemSerial( listener->serial() ) )
-		PyTuple_SetItem( tuple, 0, PyGetItemObject( (P_ITEM)listener ) );
-	else 
-		PyTuple_SetItem( tuple, 0, PyGetCharObject( (P_CHAR)listener ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( talker ) );
-	PyTuple_SetItem( tuple, 2, PyString_FromString( text.latin1() ) );
-	
-	// Convert the keywords into a list
-	PyObject *list = PyList_New( 0 );
-	for( QValueVector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
-		PyList_Append( list, PyInt_FromLong( *iter ) );
-
-
-	PyTuple_SetItem( tuple, 3, list );
-
-	return PyEvalMethod( "onSpeech", tuple );
-}
-
-bool cPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
-{
-	PyHasMethod( "onDropOnChar" )
-	
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
-
-	return PyEvalMethod( "onDropOnChar", tuple );
-}
-
-bool cPythonScript::onDropOnItem( P_ITEM pCont, P_ITEM pItem )
-{
-	PyHasMethod( "onDropOnItem" )
-	
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetItemObject( pCont ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
-
-	return PyEvalMethod( "onDropOnItem", tuple );
-}
-
-bool cPythonScript::onDropOnGround( P_ITEM pItem, const Coord_cl &pos )
-{
-	PyHasMethod( "onDropOnGround" )
-	
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetItemObject( pItem ) );
-	PyTuple_SetItem( tuple, 1, PyGetCoordObject( pos ) );
-
-	return PyEvalMethod( "onDropOnGround", tuple );
-}
-
-bool cPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
-{
-	PyHasMethod( "onPickup" )
-	
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
-
-	return PyEvalMethod( "onPickup", tuple );
-}
-
-bool cPythonScript::onCommand( cUOSocket *socket, const QString &name, const QString &args )
-{
-	PyHasMethod( "onCommand" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetSocketObject( socket ) );
-	PyTuple_SetItem( tuple, 1, PyString_FromString( name.latin1() ) );
-	PyTuple_SetItem( tuple, 2, PyString_FromString( args.latin1() ) );
-
-	return PyEvalMethod( "onCommand", tuple );
-}
-
-bool cPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
-{
-	PyHasMethod( "onShowPaperdoll" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
-
-	return PyEvalMethod( "onShowPaperdoll", tuple );
-}
-
-bool cPythonScript::onDeath( P_CHAR pChar )
-{
-	PyHasMethod( "onDeath" )
-	
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 1 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	return PyEvalMethod( "onDeath", tuple );
-}
-
-bool cPythonScript::onShowSkillGump( P_CHAR pChar )
-{
-	PyHasMethod( "onShowSkillGump" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 1 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-
-	return PyEvalMethod( "onShowSkillGump", tuple );
-}
-
-bool cPythonScript::onWorldSave( cDBDriver *connection )
-{
-	PyHasMethod( "onWorldSave" )
-	PyObject *tuple = PyTuple_New( 0 );
-	return PyEvalMethod( "onWorldSave", tuple );
-}
-
-bool cPythonScript::onWorldLoad( cDBDriver *connection )
-{
-	PyHasMethod( "onWorldLoad" )
-	PyObject *tuple = PyTuple_New( 0 );
-	return PyEvalMethod( "onWorldSave", tuple );
-}
-
-bool cPythonScript::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, P_ITEM pItem, unsigned char layer )
-{
-	PyHasMethod( "onWearItem" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 4 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pPlayer ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 2, PyGetItemObject( pItem ) );
-	PyTuple_SetItem( tuple, 3, PyInt_FromLong( layer ) );
-
-	return PyEvalMethod( "onWearItem", tuple );
-}
-
-bool cPythonScript::onEquip( P_CHAR pChar, P_ITEM pItem, unsigned char layer )
-{
-	PyHasMethod( "onEquip" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( layer ) );
-
-	return PyEvalMethod( "onEquip", tuple );
-}
-
-bool cPythonScript::onUnequip( P_CHAR pChar, P_ITEM pItem, unsigned char layer )
-{
-	PyHasMethod( "onUnequip" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( layer ) );
-
-	return PyEvalMethod( "onUnequip", tuple );
-}
-
-bool cPythonScript::onBookUpdateInfo( P_CHAR pChar, P_ITEM pBook, const QString &author, const QString &title )
-{
-	PyHasMethod( "onBookUpdateInfo" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 4 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pBook ) );
-	PyTuple_SetItem( tuple, 2, PyString_FromString( author.latin1() ) );
-	PyTuple_SetItem( tuple, 3, PyString_FromString( title.latin1() ) );
-
-	return PyEvalMethod( "onBookUpdateInfo", tuple );
-}
-
-bool cPythonScript::onBookRequestPage( P_CHAR pChar, P_ITEM pBook, unsigned short page )
-{
-	PyHasMethod( "onBookRequestPage" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 3 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pBook ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( page ) );
-
-	return PyEvalMethod( "onBookRequestPage", tuple );
-}
-
-bool cPythonScript::onBookUpdatePage( P_CHAR pChar, P_ITEM pBook, unsigned short page, const QString &content )
-{
-	PyHasMethod( "onBookUpdatePage" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 4 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetItemObject( pBook ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( page ) );
-	PyTuple_SetItem( tuple, 3, PyString_FromString( content.latin1() ) );
-
-	return PyEvalMethod( "onBookUpdatePage", tuple );
-}
-
-QString cPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
-{
-	if( !codeModule ) 
-		return QString::null; 
-
-	PyObject* method = PyObject_GetAttrString( codeModule, "onShowPaperdollName" ); 
-	
-	if ( !method )
-		return QString::null;
-	
-	if( !PyCallable_Check( method ) ) 
-	{
-		Py_DECREF( method );
-		return QString::null; 
-	}
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 2 );
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
-
-	PyObject *returnValue = PyObject_CallObject( method, tuple ); 
-	reportPythonError( name_ );
-	Py_DECREF( tuple );
-	Py_DECREF( method );
-
-	if( !returnValue ) 
-		return QString::null; 
-	if( !PyString_Check( returnValue ) ) 
-	{
-		Py_DECREF( returnValue );
-		return QString::null;
-	}
-	
-	QString result = PyString_AsString( returnValue );
-	Py_DECREF( returnValue );
 	return result;
 }
 
+PyObject *cPythonScript::callEvent( const QString &name, PyObject *args, bool ignoreErrors )
+{
+	PyObject *result = 0;
 
+	if( codeModule && !name.isEmpty() && PyObject_HasAttrString( codeModule, const_cast< char* >( name.latin1() ) ) )
+	{
+		PyObject *event = PyObject_GetAttrString( codeModule, const_cast< char* >( name.latin1() ) );
+
+		if( event && PyCallable_Check( event ) )
+		{
+			result = PyObject_CallObject( event, args );
+
+			if( !ignoreErrors )
+				reportPythonError( name_ );
+		}
+	}
+
+	return result;
+}
+
+bool cPythonScript::callEventHandler( ePythonEvent event, PyObject *args, bool ignoreErrors )
+{
+	PyObject *result = callEvent( event, args, ignoreErrors );
+	bool handled = false;
+
+	if( result )
+	{
+		handled = PyObject_IsTrue( result ) == 0 ? false : true;
+		Py_DECREF( result );					
+	}
+
+	return handled;
+}
+
+bool cPythonScript::callEventHandler( const QString &name, PyObject *args, bool ignoreErrors )
+{
+	PyObject *result = callEvent( name, args, ignoreErrors );
+	bool handled = false;
+
+	if( result )
+	{
+		handled = PyObject_IsTrue( result ) == 0 ? false : true;
+		Py_DECREF( result );					
+	}
+
+	return handled;
+}
+
+
+// Standard Handler for Python ScriptChains assigned to objects
+bool cPythonScript::callChainedEventHandler( ePythonEvent event, cPythonScript **chain, PyObject *args )
+{
+	bool handled = false;
+
+	if( chain )
+	{
+		// Measure
+		unsigned int count = reinterpret_cast< unsigned int >( chain[0] );
+		cPythonScript **copy = new cPythonScript*[ count ];
+		for( unsigned int j = 0; j < count; ++j )
+			copy[j] = chain[j+1];
+
+		// Find a valid handler function
+		for( unsigned int i = 0; i < count; ++i )
+		{
+			PyObject *result = copy[i]->callEvent( event, args );
+			
+			if( result )
+			{
+				if( PyObject_IsTrue( result ) )
+				{
+					handled = true;
+					Py_DECREF( result );
+					break;
+				}
+
+				Py_DECREF( result );
+			}
+		}
+
+		delete [] copy;
+	}
+
+	return handled;
+}
+
+PyObject *cPythonScript::callChainedEvent( ePythonEvent event, cPythonScript **chain, PyObject *args )
+{
+	PyObject *result = 0;
+
+	if( chain )
+	{
+		// Measure
+		unsigned int count = reinterpret_cast< unsigned int >( chain[0] );
+		cPythonScript **copy = new cPythonScript*[ count ];
+		for( unsigned int j = 0; j < count; ++j )
+			copy[j] = chain[j+1];
+
+		// Find a valid handler function
+		for( unsigned int i = 0; i < count; ++i )
+		{
+			result = copy[i]->callEvent( event, args );
+			
+			if( result )
+				break;
+		}
+
+		delete [] copy;
+	}
+
+	return result;
+}
+
+bool cPythonScript::canChainHandleEvent( ePythonEvent event, cPythonScript **chain )
+{
+	bool result = false;
+
+	if( event < EVENT_COUNT )
+	{
+		unsigned int count = reinterpret_cast< unsigned int >( *(chain++) );
+		
+		for( unsigned int i = 0; i < count; ++i )
+		{
+			if( chain[i]->canHandleEvent( event ) )
+			{
+				result = true;
+				break;
+			}
+		}
+	}
+
+	return result;
+}

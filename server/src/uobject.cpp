@@ -236,13 +236,12 @@ bool cUObject::hasEvent( const QString& name ) const
 {
 	if( scriptChain )
 	{
-		unsigned int i = 0;
+		unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
 		
-		while( scriptChain[i] )
+		for( unsigned int i = 1; i <= count; ++i )
 		{
 			if( scriptChain[i]->name() == name )
 				return true;
-			i++;
 		}
 	}
 
@@ -257,26 +256,22 @@ void cUObject::addEvent( cPythonScript *Event )
 	// Reallocate the ScriptChain
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			i++;
-		}
+		unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
 
 		// i is the count of real elements in the old array
-		cPythonScript **newScriptChain = new cPythonScript* [ i + 2 ];
-		memcpy( newScriptChain, scriptChain, i * sizeof( cPythonScript* ) );
-		newScriptChain[ i ] = Event;
-		newScriptChain[ i + 1 ] = 0;
-
+		cPythonScript **newScriptChain = new cPythonScript* [ count + 1 ];
+		memcpy( newScriptChain, scriptChain, count * sizeof( cPythonScript* ) );
+		newScriptChain[ count ] = Event;
+		newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
+		
 		delete [] scriptChain;
 		scriptChain = newScriptChain;
 	}
 	else
 	{
 		scriptChain = new cPythonScript*[2];
-		scriptChain[0] = Event;
-		scriptChain[1] = 0;
+		scriptChain[0] = reinterpret_cast< cPythonScript* >( 1 );
+		scriptChain[1] = Event;
 	}
 
 	if( eventList_ == QString::null )
@@ -289,43 +284,41 @@ void cUObject::addEvent( cPythonScript *Event )
 
 void cUObject::removeEvent( const QString& name )
 {
-	if( !hasEvent( name ) )
-		return;
-
-	if( scriptChain )
+	if( scriptChain && hasEvent( name ) )
 	{
-		unsigned int i = 0;	
-		unsigned int pos;
+		unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
 
-		while( scriptChain[i] )
+		if( count == 1 )
 		{
-			// Found it
-			if( scriptChain[i]->name() == name )
-				pos = i;
-
-			i++;
+			clearEvents();
 		}
+		else
+		{
+			unsigned int pos = 1;
 
-		// i = Count of New Array
-		cPythonScript **newScriptChain = new cPythonScript*[ i ];
+			cPythonScript **newScriptChain = new cPythonScript*[ count - 1 ];
+			newScriptChain[0] = reinterpret_cast< cPythonScript* >( count - 1 );
 
-		// Copy over the first part
-		memcpy( newScriptChain, scriptChain, pos * sizeof( cPythonScript* ) );
+			for( unsigned int i = 1; i <= count; ++i )
+			{
+				if( scriptChain[i]->name() != name )
+					newScriptChain[pos++] = scriptChain[i];
+			}
 
-		// Dont miss the final 0 for the last part
-		memcpy( newScriptChain + ( pos * sizeof( cPythonScript* ) ), scriptChain + ( ( pos + 1 ) * sizeof( cPythonScript* ) ), ( i - pos ) * sizeof( cPythonScript* ) );
-
-		delete [] scriptChain;
-		scriptChain = newScriptChain;
+			delete [] scriptChain;
+			scriptChain = newScriptChain;
+		}
 	}
- 
-	// I hope this works
-	QStringList eventList = QStringList::split( ",", eventList_ );
-	eventList.remove( name );
-	eventList_ = eventList.join( "," );
 
-	if( eventList_.isEmpty() )
-		eventList_ = QString::null;
+	if( eventList_ != QString::null )
+	{
+		QStringList eventList = QStringList::split( ",", eventList_ );
+		eventList.remove( name );
+		eventList_ = eventList.join( "," );
+	
+		if( eventList_.isEmpty() )
+			eventList_ = QString::null;
+	}
 
 	changed_ = true;
 }
@@ -337,48 +330,22 @@ void cUObject::removeEvent( const QString& name )
  ****************************/
 bool cUObject::onCreate( const QString &definition )
 {
-	// If we got ANY events process them in order
-	if( scriptChain )
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
+	bool result = false;
+	
+	if( scriptChain || global )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			// If we're the Character pass us as the second param
-			// if not as the first
-			bool Handeled = false;
-	
-			Handeled = scriptChain[ i ]->onCreate( this, definition );
-	
-			if( Handeled )
-				return true;
-	
-			i++;
-		}
+		PyObject *args = Py_BuildValue( "O&s", PyGetObjectObject, this, definition.latin1() );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_CREATE, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_CREATE );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		(*it)->onCreate( this, definition );
-
-	if( isChar() )
-	{
-		hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CREATE );
-		for( it = hooks.begin(); it != hooks.end(); ++it )
-			(*it)->onCreate( this, definition );
-	}
-	
-	if( isItem() )
-	{
-		hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_CREATE );
-		for( it = hooks.begin(); it != hooks.end(); ++it )
-			(*it)->onCreate( this, definition );
-	}
-
-	return false;
+	return result;
 }
 
 // If the scripts are reloaded call that for each and every existing object
@@ -397,37 +364,32 @@ void cUObject::recreateEvents()
 
 	for( myIter = eventList.begin(); myIter != eventList.end(); ++myIter )
 	{
-		cPythonScript *Event = ScriptManager->find( *myIter );
+		cPythonScript *Event = ScriptManager::instance()->find( (*myIter).latin1() );
 
-		// Script not found
 		if( Event )
 		{
-			if( hasEvent( Event->name() ) )
-				return;
-
-			// Reallocate the ScriptChain
-			if( scriptChain )
+			if( !hasEvent( Event->name() ) )
 			{
-				unsigned int i = 0;
-				while( scriptChain[i] )
+				// Reallocate the ScriptChain
+				if( scriptChain )
 				{
-					i++;
+					unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
+
+					// i is the count of real elements in the old array
+					cPythonScript **newScriptChain = new cPythonScript* [ count + 1 ];
+					memcpy( newScriptChain, scriptChain, count * sizeof( cPythonScript* ) );
+					newScriptChain[ count ] = Event;
+					newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
+					
+					delete [] scriptChain;
+					scriptChain = newScriptChain;
 				}
-
-				// i is the count of real elements in the old array
-				cPythonScript **newScriptChain = new cPythonScript* [ i + 2 ];
-				memcpy( newScriptChain, scriptChain, i * sizeof( cPythonScript* ) );
-				newScriptChain[ i ] = Event;
-				newScriptChain[ i + 1 ] = 0;
-
-				delete [] scriptChain;
-				scriptChain = newScriptChain;
-			}
-			else
-			{
-				scriptChain = new cPythonScript*[2];
-				scriptChain[0] = Event;
-				scriptChain[1] = 0;
+				else
+				{
+					scriptChain = new cPythonScript*[2];
+					scriptChain[0] = reinterpret_cast< cPythonScript* >( 1 );
+					scriptChain[1] = Event;
+				}
 			}
 		}
 	}
@@ -650,7 +612,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 		QStringList list = QStringList::split( ",", value.toString() );
 		for( QStringList::const_iterator it = list.begin(); it != list.end(); ++it )
 		{
-			cPythonScript *script = ScriptManager->find( *it );
+			cPythonScript *script = ScriptManager::instance()->find( (*it).latin1() );
 			if( script )
 				addEvent( script );
 			else

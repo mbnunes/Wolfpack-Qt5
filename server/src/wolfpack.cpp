@@ -148,7 +148,7 @@ void reloadScripts()
 	AllTerritories::instance()->reload();
 	Resources::instance()->reload();
 	MakeMenus::instance()->reload();
-	ScriptManager->reload(); // Reload Scripts
+	ScriptManager::instance()->reload(); // Reload Scripts
 	ContextMenus::instance()->reload();
 	Skills->reload();
 
@@ -231,7 +231,6 @@ static void startClasses()
 {
 	Map				 = 0;
 	Skills			 = 0;
-	ScriptManager	 = 0;
 	DefManager		 = 0;
 	SrvParams		 = 0;
 	persistentBroker = 0;
@@ -239,7 +238,6 @@ static void startClasses()
 	SrvParams		 = new cSrvParams( "wolfpack.xml", "Wolfpack", "1.0" );
 	Map				 = new Maps ( SrvParams->mulPath() );
 	Skills			 = new cSkills;
-	ScriptManager	 = new cScriptManager;
 	DefManager		 = new WPDefManager;
 	persistentBroker = new PersistentBroker;
 }
@@ -252,7 +250,6 @@ static void freeClasses( void )
 	delete SrvParams;
 	delete Map;
 	delete Skills;
-	delete ScriptManager;
 	delete DefManager;
 }
 
@@ -374,7 +371,7 @@ int main( int argc, char *argv[] )
 
 	// Scriptmanager can't be in the try{} block because it sometimes throws firstchance exceptions
 	// we don't like
-	ScriptManager->load();
+	ScriptManager::instance()->load();
 	Console::instance()->send( "\n" );
 
 	// Try to load several data files
@@ -515,7 +512,7 @@ int main( int argc, char *argv[] )
 
 	PyThreadState *_save;
 
-	ScriptManager->onServerStart();
+	ScriptManager::instance()->onServerStart();
 
 	serverState = RUNNING;
 
@@ -558,7 +555,7 @@ int main( int argc, char *argv[] )
 
 	serverState = SHUTDOWN;
 
-	ScriptManager->onServerStop();
+	ScriptManager::instance()->onServerStop();
 
 	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
 
@@ -572,7 +569,7 @@ int main( int argc, char *argv[] )
 	DefManager->unload();
 
 	// Stop Python Interpreter.
-	ScriptManager->unload();
+	ScriptManager::instance()->unload();
 	stopPython();
 
 	Console::instance()->stop(); // Stop the Console

@@ -93,7 +93,7 @@ void cConMenu::recreateEvents( void )
 	QStringList::const_iterator myIter( eventList_.begin() );
 	for( ; myIter != eventList_.end(); ++myIter )
 	{
-		cPythonScript *myScript = ScriptManager->find( *myIter );
+		cPythonScript *myScript = ScriptManager::instance()->find( (*myIter).latin1() );
 
 		// Script not found
 		if( myScript == NULL )
@@ -109,10 +109,12 @@ bool cConMenu::onContextEntry( cPlayer *Caller, cUObject *Target, Q_UINT16 Tag )
 	if( scriptChain.empty() )
 		return false;
 
+	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, Caller, PyGetObjectObject, Target, Tag );
+
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
-		if ( scriptChain[ i ]->onContextEntry( Caller, Target, Tag ) )
+		if ( scriptChain[ i ]->callEventHandler( EVENT_CONTEXTENTRY, args ) )
 			return true;
 	}
 

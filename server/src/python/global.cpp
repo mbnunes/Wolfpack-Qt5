@@ -71,6 +71,16 @@
 #include <qdatetime.h>
 #include <qmutex.h>
 
+PyObject *PyGetObjectObject( cUObject *object )
+{
+	if( dynamic_cast< P_ITEM >( object ) )
+		return PyGetItemObject( (P_ITEM)object );
+	else if( dynamic_cast< P_CHAR >( object ) )
+		return PyGetCharObject( (P_CHAR)object );
+
+	return 0;
+}
+
 static QStringList getFlagNames( const tile_st &tile )
 {
 #define FLAG_STUB( a, b, c ) if( tile.a & b ) flags.push_back( tr( c ) )
@@ -737,17 +747,13 @@ static PyObject *wpList( PyObject* self, PyObject* args )
 */
 static PyObject *wpRegisterGlobal( PyObject* self, PyObject* args )
 {
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgStr( 2 ) )
-	{
-		PyErr_BadArgument();
+	unsigned int event;
+	const char *scriptName;
+
+	if( !PyArg_ParseTuple( args, "is:wolfpack.registerglobal", &event, &scriptName ) )
 		return 0;
-	}
 
-	UINT32 object = getArgInt( 0 );
-	UINT32 event = getArgInt( 1 );
-	QString scriptName = getArgStr( 2 );
-
-	cPythonScript *script = ScriptManager->find( scriptName );
+	cPythonScript *script = ScriptManager::instance()->find( scriptName );
 
 	if( script == 0 )
 	{
@@ -755,7 +761,13 @@ static PyObject *wpRegisterGlobal( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	ScriptManager->addGlobalHook( object, event, script );
+	if( event >= EVENT_COUNT )
+	{
+		PyErr_SetString( PyExc_RuntimeError, "Unknown script." );
+		return 0;
+	}
+
+	ScriptManager::instance()->setGlobalHook( (ePythonEvent)event, script );
 	return PyTrue;
 }
 
@@ -764,24 +776,20 @@ static PyObject *wpRegisterGlobal( PyObject* self, PyObject* args )
 */
 static PyObject *wpRegisterCommand( PyObject* self, PyObject* args )
 {
-	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
+	const char *command;
+	PyObject *function;
+
+	if( !PyArg_ParseTuple( args, "sO:wolfpack.registercommand", &command, &function ) )
+		return 0;
+
+	if( !PyCallable_Check( function ) )
 	{
-		PyErr_BadArgument();
+		PyErr_SetString( PyExc_TypeError, "wolfpack.registercommand( command, function ): function has to be a callable object" );
 		return 0;
 	}
 
-	QString command = getArgStr( 0 );
-	QString scriptName = getArgStr( 1 );
-
-	cPythonScript *script = ScriptManager->find( scriptName );
-
-	if( script == 0 )
-	{
-		PyErr_SetString( PyExc_RuntimeError, "Unknown script." );
-		return 0;
-	}
-
-	ScriptManager->addCommandHook( command, script );
+	Py_INCREF( function );
+	ScriptManager::instance()->setCommandHook( command, function );
 	return PyTrue;
 }
 
@@ -1143,120 +1151,6 @@ static PyMethodDef wpSockets[] =
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
-
-/*!
-	Adds a speech keyword to a wolfpack script object.
-*/
-static PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);
-	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-
-	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
-
-	if( !script )
-	{
-		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
-		return PyFalse;
-	}
-	
-	script->addKeyword( getArgInt( 1 ) );
-
-	return PyTrue;
-}
-
-/*!
-	Adds a speech trigger-word to a wolfpack script object.
-*/
-static PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);
-	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-
-	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
-
-	if( !script )
-	{
-		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
-		return PyFalse;
-	}
-	
-	script->addWord( getArgStr( 1 ) );
-
-	return PyTrue;
-}
-
-/*!
-	Adds a speech regular expression to a wolfpack script object.
-*/
-static PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);
-	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-
-	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
-
-	if( !script )
-	{
-		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
-		return PyFalse;
-	}
-	
-	script->addRegexp( QRegExp( getArgStr( 1 ) ) );
-
-	return PyTrue;
-}
-
-/*!
-	Specifies if a speech script should fetch all speech events and not just one case.
-*/
-static PyObject *wpSpeechSetCatchAll( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);
-	if( !checkArgStr( 0 ) || !checkArgInt( 1 ) )
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-
-	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
-
-	if( !script )
-	{
-		PyErr_Warn( PyExc_Warning, "Use of unknown script-id." );
-		return PyFalse;
-	}
-	
-	script->setCatchAllSpeech( getArgInt( 1 ) != 0 );
-
-	return PyTrue;
-}
-
-/*!
-	wolfpack.speech
-	speech related functions
-*/
-static PyMethodDef wpSpeech[] = 
-{
-    { "addKeyword",		wpSpeechAddKeyword,		METH_VARARGS, "Adds a keyword to a specific speech script." },
-	{ "addWord",		wpSpeechAddWord,		METH_VARARGS, "Adds a triggerword to a specific speech script." },
-	{ "addRegexp",		wpSpeechAddRegexp,		METH_VARARGS, "Adds a regular expression to a specific speech script." },
-	{ "setCatchAll",	wpSpeechSetCatchAll,	METH_VARARGS, "Specifies if a speech script should fetch all speech events and not just one case." },
-	{ NULL, NULL, 0, NULL } // Terminator
-};
-
 /*!
 	Finds an Account object.
  */
@@ -1568,9 +1462,6 @@ void init_wolfpack_globals()
 
 	PyObject *mConsole = Py_InitModule( "_wolfpack.console", wpConsole );
     PyObject_SetAttrString( wpNamespace, "console", mConsole );
-
-	PyObject *mSpeech = Py_InitModule( "_wolfpack.speech", wpSpeech );
-    PyObject_SetAttrString( wpNamespace, "speech", mSpeech );
 
 	PyObject *mAccounts = Py_InitModule( "_wolfpack.accounts", wpAccounts );
     PyObject_SetAttrString( wpNamespace, "accounts", mAccounts );

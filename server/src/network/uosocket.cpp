@@ -931,8 +931,7 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 		if( !pChar )
 			return;
 
-		if( !pChar->onSingleClick( _player ) )
-			pChar->showName( this );
+		pChar->showName( this );
 	}
 	else
 	{
@@ -941,8 +940,7 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 		if( !pItem )
 			return;
 
-		if( !pItem->onSingleClick( _player ) )
-			pItem->showName( this );
+		pItem->showName( this );
 	}
 }
 

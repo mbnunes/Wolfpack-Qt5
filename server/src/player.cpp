@@ -841,9 +841,6 @@ void cPlayer::showName( cUOSocket *socket )
 	if( !socket->player() )
 		return;
 
-	if( onSingleClick( socket->player() ) )
-		return;
-
 	QString charName = name();
 
 	// Lord & Lady Title
@@ -1303,193 +1300,148 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 
 bool cPlayer::onPickup( P_ITEM pItem )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onPickup( this, pItem ) )
-				return true;
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
 
-			++i;
-		}
+		result = cPythonScript::callChainedEventHandler( EVENT_PICKUP, scriptChain, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_PICKUP );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onPickup( this, pItem ) )
-			return true;
-
-	return false;
+	return result;
 }
 
 bool cPlayer::onLogin( void )
 {
-	if( scriptChain )
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_LOGIN );
+	bool result = false;
+	
+	if( scriptChain || global )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onLogin( this ) )
-				return true;
+		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
 
-			++i;
-		}
+		result = cPythonScript::callChainedEventHandler( EVENT_LOGIN, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_LOGIN, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_LOGIN );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		(*it)->onLogin( this );
-
-	return false;
+	return result;
 }
 
 bool cPlayer::onCastSpell( unsigned int spell )
 {
-	if( scriptChain )
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CASTSPELL );
+	bool result = false;
+	
+	if( scriptChain || global )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onCastSpell( this, spell ) )
-				return true;
+		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, spell );
 
-			++i;
-		}
+		result = cPythonScript::callChainedEventHandler( EVENT_CASTSPELL, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_CASTSPELL, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CASTSPELL );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		(*it)->onCastSpell( this, spell );
-
-	return false;
+	return result;
 }
 
 bool cPlayer::onLogout( void )
 {
-	if( scriptChain )
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_LOGOUT );
+	bool result = false;
+	
+	if( scriptChain || global )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onLogout( this ) )
-				return true;
+		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
 
-			++i;
-		}
+		result = cPythonScript::callChainedEventHandler( EVENT_LOGOUT, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_LOGOUT, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_LOGOUT );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		(*it)->onLogout( this );
-
-	return false;
+	return result;
 }
 
 // The character wants help
 bool cPlayer::onHelp( void )
 {
-	// If we got ANY events process them in order
-	if( scriptChain )
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_HELP );
+	bool result = false;
+	
+	if( scriptChain || global )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onHelp( this ) )
-				return true;
+		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
 
-			++i;
-		}
+		result = cPythonScript::callChainedEventHandler( EVENT_HELP, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_HELP, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_HELP );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onHelp( this ) )
-			return true;
-
-	return false;
+	return result;
 }
 
 // The character wants to chat
 bool cPlayer::onChat( void )
 {
-	// If we got ANY events process them in order
-	if( scriptChain )
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CHAT );
+	bool result = false;
+	
+	if( scriptChain || global )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onChat( this ) )
-				return true;
+		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
 
-			++i;
-		}
+		result = cPythonScript::callChainedEventHandler( EVENT_CHAT, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_CHAT, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CHAT );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onChat( this ) )
-			return true;
-
-	return false;
+	return result;
 }
 
 bool cPlayer::onShowContext( cUObject *object )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onShowContextMenu( this, object ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetObjectObject, object );
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWCONTEXTMENU, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cPlayer::onUse( P_ITEM pItem )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onUse( this, pItem ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
+		result = cPythonScript::callChainedEventHandler( EVENT_USE, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 void cPlayer::processNode( const cElement *Tag )

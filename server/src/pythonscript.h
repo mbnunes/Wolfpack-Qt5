@@ -28,11 +28,12 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#ifndef __WPPYTHONSCRIPT_H__
-#define __WPPYTHONSCRIPT_H__
+#ifndef __PYTHONSCRIPT_H__
+#define __PYTHONSCRIPT_H__
 
 // Wolfpack Includes
 #include "python/engine.h"
+#include "python/utilities.h"
 #include "typedefs.h"
 
 // Library Includes
@@ -40,140 +41,127 @@
 #include <qregexp.h>
 #include <qvaluevector.h>
 
-class cUORxTarget;
-class cUOTxTooltipList;
-class cUOSocket;
+// Script Based Events
+enum ePythonEvent
+{
+	EVENT_USE = 0,
+	EVENT_SINGLECLICK,
+	EVENT_COLLIDE,
+	EVENT_WALK,
+	EVENT_CREATE,
+	EVENT_TALK,
+	EVENT_WARMODETOGGLE,
+	EVENT_LOGIN,
+	EVENT_LOGOUT,
+	EVENT_HELP,
+	EVENT_CHAT,
+	EVENT_SKILLUSE,
+	EVENT_SKILLGAIN,
+	EVENT_STATGAIN,
+	EVENT_SHOWPAPERDOLL,
+	EVENT_SHOWSKILLGUMP,
+	EVENT_DEATH,
+	EVENT_SHOWPAPERDOLLNAME,
+	EVENT_CONTEXTENTRY,
+	EVENT_SHOWCONTEXTMENU,
+	EVENT_SHOWTOOLTIP,
+	EVENT_CHLEVELCHANGE,
+	EVENT_SPEECH,
+	EVENT_WEARITEM,
+	EVENT_EQUIP,
+	EVENT_UNEQUIP,
+	EVENT_DROPONCHAR,
+	EVENT_DROPONITEM,
+	EVENT_DROPONGROUND,
+	EVENT_PICKUP,
+	EVENT_COMMAND,
+	EVENT_BOOKUPDATEINFO,
+	EVENT_BOOKREQUESTPAGE,
+	EVENT_BOOKUPDATEPAGE,
+	EVENT_DAMAGE,
+	EVENT_CASTSPELL,
+	EVENT_COUNT
+};
+
+// Keep this in Synch with the Enum above
+static char *eventNames[] =
+{
+	"onUse",
+	"onSingleClick",
+	"onCollide",
+	"onWalk",
+	"onCreate",
+	"onTalk",
+	"onWarModeToggle",
+	"onLogin",
+	"onLogout",
+	"onHelp",
+	"onChat",
+	"onSkillUse",
+	"onSkillGain",
+	"onStatGain",
+	"onShowPaperdoll",
+	"onShowSkillGump",
+	"onDeath",
+	"onShowPaperdollName",
+	"onContextEntry",
+	"onShowContextMenu",
+	"onShowTooltip",
+	"onCHLevelChange",
+	"onSpeech",
+	"onWearItem",
+	"onEquip",
+	"onUnequip",
+	"onDropOnChar",
+	"onDropOnItem",
+	"onDropOnGround",
+	"onPickup",
+	"onCommand",
+	"onBookUpdateInfo",
+	"onBookRequestPage",
+	"onBookUpdatePage",
+	"onDamage",
+	"onCastSpell",
+	0
+};
+
 class cElement;
-class Coord_cl;
+class cUOTxTooltipList;
 
 class cPythonScript  
 {
 protected:
 	QString name_; // Important!
-	bool handleSpeech_;
-	bool catchAllSpeech_;
-
-	QValueVector< UINT16 > speechKeywords_;
-	QValueVector< QString > speechWords_;
-	QValueVector< QRegExp > speechRegexp_;
 	PyObject *codeModule; // This object stores the compiled Python Module
+	PyObject *events[EVENT_COUNT];
 
 public:
-	cPythonScript(): catchAllSpeech_( false ), handleSpeech_( false ), codeModule( 0 ) {}
-	virtual ~cPythonScript() {};
-
-	void addKeyword( UINT16 data );	
-	void addWord( const QString &data );
-	void addRegexp( const QRegExp &data );
-	
-	bool handleSpeech() const { return handleSpeech_; }
-	bool catchAllSpeech() const { return catchAllSpeech_; }
-	void setHandleSpeech( bool data ) { handleSpeech_ = data; }
-	void setCatchAllSpeech( bool data ) { catchAllSpeech_ = data; }
-	bool canHandleSpeech( const QString &text, const QValueVector< UINT16 >& keywords );
+	cPythonScript();
+	~cPythonScript();
 
 	// We need an identification value for the scripts
 	void setName( const QString &value ) { name_ = value; }
 	QString name() const { return name_; }
-
+	
 	bool load( const cElement *element );
 	void unload( void );
 
-	// Normal Events
-	bool onServerstart();
+	static bool canChainHandleEvent( ePythonEvent event, cPythonScript **chain );
+	static bool callChainedEventHandler( ePythonEvent, cPythonScript **chain, PyObject *args = 0 );
+	static PyObject *callChainedEvent( ePythonEvent, cPythonScript **chain, PyObject *args = 0 );
 
-	bool onUse( P_CHAR User, P_ITEM Used );
-	bool onSingleClick( P_ITEM Item, P_CHAR Viewer );
-	bool onSingleClick( P_CHAR Character, P_CHAR Viewer );
-
-	bool onCollide( P_CHAR Character, P_ITEM Obstacle );
-	bool onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence );
-	bool onCreate( cUObject *object, const QString &definition );
-
-	// if this events returns true (handeled) then we should not display the text
-	bool onTalk( P_CHAR Character, char speechType, UINT16 speechColor, UINT16 speechFont, const QString &Text, const QString &Lang );
-	bool onWarModeToggle( P_CHAR Character, bool War );
-	bool onLogin( P_CHAR pChar );
-	bool onLogout( P_CHAR pChar );
-	bool onHelp( P_CHAR Character );
-	bool onChat( P_CHAR Character );
-	bool onSkillUse( P_CHAR Character, UINT8 Skill );
-	bool onSkillGain( P_CHAR Character, UINT8 Skill, INT32 min, INT32 max, bool success);
-	bool onStatGain( P_CHAR Character, UINT8 stat, INT8 amount);
-	bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin );
-	bool onShowSkillGump( P_CHAR pChar );
-	bool onDeath( P_CHAR pChar );
-
-	QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin );
-
-	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
-	bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
-
-	bool onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip );
-
-	bool onCHLevelChange( P_CHAR pChar, uint level );
-
-	bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords );
-
-	bool onWearItem( P_PLAYER pPlayer, P_CHAR pChar, P_ITEM pItem, unsigned char layer );
-	bool onEquip( P_CHAR pChar, P_ITEM pItem, unsigned char layer );
-	bool onUnequip( P_CHAR pChar, P_ITEM pItem, unsigned char layer );
-
-	// Drop/Pickup events
-	bool onDropOnChar( P_CHAR pChar, P_ITEM pItem );
-	bool onDropOnItem( P_ITEM pCont, P_ITEM pItem );
-	bool onDropOnGround( P_ITEM pItem, const Coord_cl &pos );
-	bool onPickup( P_CHAR pChar, P_ITEM pItem );
-
-	bool onCommand( cUOSocket *socket, const QString &name, const QString &args );
-
-	// RecvPacket Handler
-	bool onBookUpdateInfo( P_CHAR pChar, P_ITEM pBook, const QString &author, const QString &title );
-	bool onBookRequestPage( P_CHAR pChar, P_ITEM pBook, unsigned short page );
-	bool onBookUpdatePage( P_CHAR pChar, P_ITEM pBook, unsigned short page, const QString &content );
-
-	unsigned int onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source );
-
-	// WorldSave
-	class cDBDriver;
-	bool onWorldSave( cDBDriver* );
-	bool onWorldLoad( cDBDriver* );
-
-	// Magic System (This should be reduced eventually. It's a bit much)
-	// But as soon as the flag-system is introduced for python-script 
-	// It shouldn't be that much.
-	bool onCastSpell( cPlayer *player, unsigned int spell );
-
-	// Method Calling Macro!
-	inline bool PyEvalMethod( char* a, PyObject* tuple )
+	PyObject *callEvent( ePythonEvent, PyObject *args = 0, bool ignoreErrors = false );
+	PyObject *callEvent( const QString &event, PyObject *args = 0, bool ignoreErrors = false );
+	bool callEventHandler( ePythonEvent, PyObject *args = 0, bool ignoreErrors = false );
+	bool callEventHandler( const QString &event, PyObject *args = 0, bool ignoreErrors = false );
+	
+	bool canHandleEvent( ePythonEvent event )
 	{
-		PyObject* method = PyObject_GetAttrString( codeModule, a ); 
-		if ( !method )
-		{
-			Py_XDECREF( tuple );
+		if( event >= EVENT_COUNT )
 			return false;
-		}
-		
-		PyObject *returnValue = PyObject_CallObject( method, tuple );
-		
-		Py_XDECREF( tuple );
-		Py_DECREF( method );
 
-		reportPythonError( name_ );
-
-		if( !returnValue ) 
-			return false;
-		int isTrue = PyObject_IsTrue( returnValue );
-		Py_DECREF( returnValue );
-		switch ( isTrue )
-		{
-		case -1:
-		case 0: return false;
-		case 1:
-		default: return true;
-		}
+		return events[event] != 0;
 	}
-
 };
 
 #endif // __WPPYTHONSCRIPT_H__

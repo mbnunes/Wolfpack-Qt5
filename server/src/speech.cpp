@@ -667,19 +667,21 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 
 		if( events )
 		{
-			unsigned int i = 0;
+			PyObject *pkeywords = PyList_New( keywords.size() );
 
-			while( events[i] )
-			{
-				if( events[i]->handleSpeech() )
-				{
-					if( events[i]->catchAllSpeech() || events[i]->canHandleSpeech( comm, keywords ) )
-						if( events[i]->onSpeech( pNpc, pPlayer, comm, keywords ) )
-							return true;
-				}
-				
-				++i;
-			}
+			// Set Items
+			for( unsigned int i = 0; i < keywords.size(); ++i )
+				PyList_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
+
+			PyObject *args = Py_BuildValue( "O&O&uO", PyGetCharObject, pNpc, PyGetCharObject, pPlayer, comm.ucs2(), pkeywords );
+
+			bool result = cPythonScript::callChainedEventHandler( EVENT_SPEECH, events, args );
+
+			Py_DECREF( args );
+			Py_DECREF( pkeywords );
+
+			if( result )
+				return true;
 		}
 
 		if( pNpc->ai() )

@@ -77,6 +77,7 @@ cItem::cItem(): container_(0), totalweight_(0), incognito(false),
 timeused_last(0), sellprice_( 0 ), 
 buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 {
+	spawnregion_ = QString::null;
 	Init( false );
 };
 
@@ -548,8 +549,6 @@ void cItem::Init( bool createSerial )
 	this->decaytime_ = 0;
 	this->setOwnSerialOnly(-1);
 	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
-	this->spawnregion_=(char*)0;
-	// Everything decays by default.
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
 	this->time_unused = 0;
@@ -569,7 +568,7 @@ void cItem::remove()
 	removeFromView( false );
 
 	// Update Top Objects
-	setSpawnRegion( (char*)0 );
+	setSpawnRegion( QString::null );
 	SetOwnSerial( -1 );
 
 	// - remove from cMapObjects if a world item
@@ -861,262 +860,205 @@ P_ITEM cItem::createFromScript( const QString& Section )
 // Added by DarkStorm
 bool cItem::onSingleClick( P_PLAYER Viewer )
 {
-
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onSingleClick( this, Viewer ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetItemObject, this, PyGetCharObject, Viewer );
+		result = cPythonScript::callChainedEventHandler( EVENT_SINGLECLICK, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onDropOnItem( P_ITEM pItem )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			// we are the item being dragged
-			if( layer_ == 0x1E )
-			{
-				if( scriptChain[ i ]->onDropOnItem( pItem, this ) )
-					return true;
-			}
-			else
-			{
-				if( scriptChain[ i ]->onDropOnItem( this, pItem ) )
-					return true;
-			}
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetItemObject, layer_ == 0x1E ? pItem : this, PyGetItemObject, layer_ == 0x1E ? this : pItem );
+		result = cPythonScript::callChainedEventHandler( EVENT_DROPONITEM, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onDropOnGround( const Coord_cl &pos )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onDropOnGround( this, pos ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&N", PyGetItemObject, this, PyGetCoordObject( pos ) );
+		result = cPythonScript::callChainedEventHandler( EVENT_DROPONGROUND, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onPickup( P_CHAR pChar )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onPickup( pChar, this ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
+		result = cPythonScript::callChainedEventHandler( EVENT_PICKUP, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onEquip( pChar, this, layer ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
+		result = cPythonScript::callChainedEventHandler( EVENT_EQUIP, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onBookUpdateInfo( P_CHAR pChar, const QString &author, const QString &title )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onBookUpdateInfo( pChar, this, author, title ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&uu", PyGetCharObject, pChar, PyGetItemObject, this, author.ucs2(), title.ucs2() );
+		result = cPythonScript::callChainedEventHandler( EVENT_BOOKUPDATEINFO, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onBookRequestPage( P_CHAR pChar, unsigned short page )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onBookRequestPage( pChar, this, page ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, pChar, PyGetItemObject, this, page );
+		result = cPythonScript::callChainedEventHandler( EVENT_BOOKREQUESTPAGE, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onBookUpdatePage( P_CHAR pChar, unsigned short page, const QString &content )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onBookUpdatePage( pChar, this, page, content ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&hu", PyGetCharObject, pChar, PyGetItemObject, this, page, content.ucs2() );
+		result = cPythonScript::callChainedEventHandler( EVENT_BOOKUPDATEPAGE, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onUnequip( pChar, this, layer ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
+		result = cPythonScript::callChainedEventHandler( EVENT_UNEQUIP, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, unsigned char layer )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onWearItem( pPlayer, pChar, this, layer ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&O&b", PyGetCharObject, pPlayer, PyGetCharObject, pChar, PyGetItemObject, this, layer );
+		result = cPythonScript::callChainedEventHandler( EVENT_WEARITEM, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onUse( P_CHAR pChar )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onUse( pChar, this ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
+		result = cPythonScript::callChainedEventHandler( EVENT_USE, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 
 bool cItem::onCollide( P_CHAR pChar )
 {
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onCollide( pChar, this ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
+		result = cPythonScript::callChainedEventHandler( EVENT_COLLIDE, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onDropOnChar( P_CHAR pChar )
 {
-	// If we got ANY events process them in order
+	bool result = false;
+	
 	if( scriptChain )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onDropOnChar( pChar, this ) )
-				return true;
-
-			++i;
-		}
+		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
+		result = cPythonScript::callChainedEventHandler( EVENT_DROPONCHAR, scriptChain, args );
+		Py_DECREF( args );
 	}
 
-	return false;
+	return result;
 }
 
 bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
-
-	if( scriptChain )
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
+	bool result = false;
+	
+	if( scriptChain || global )
 	{
-		unsigned int i = 0;
-		while( scriptChain[i] )
-		{
-			if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip ) )
-				return true;
+		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetItemObject, this, PyGetTooltipObject, tooltip );
 
-			++i;
-		}
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_SHOWTOOLTIP, args );
+
+		Py_DECREF( args );
 	}
 
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_SHOWTOOLTIP );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onShowToolTip( sender, this, tooltip ) ) 
-			return true;
-
-	return false;
+	return result;
 }
 
 
@@ -1869,10 +1811,7 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 	World::instance()->registerObject( pi );
 
 	// Set the outside indices
-	pi->setSpawnRegion( pi->spawnregion() );
-	pi->SetOwnSerial( pi->ownSerial() );
-
-	if( pi->maxhp() == 0) 
+	if( pi->maxhp() == 0 )
 		pi->setMaxhp( pi->hp() );
 }
 

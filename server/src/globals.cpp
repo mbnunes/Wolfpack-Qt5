@@ -33,7 +33,6 @@
 
 #include "verinfo.h"
 #include "walking.h"
-#include "scriptmanager.h"
 #include "wpdefmanager.h"
 #include "wptargetrequests.h"
 #include "typedefs.h"
@@ -64,7 +63,6 @@ cSrvParams		*SrvParams;
 Maps			*Map;
 cSkills			*Skills;
 cSpeech	        *Speech;
-cScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;
 

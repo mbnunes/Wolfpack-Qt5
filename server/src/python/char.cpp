@@ -1788,7 +1788,7 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 			if( !PyString_Check( PyList_GetItem( value, i ) ) )
 				continue;
 
-			cPythonScript *script = ScriptManager->find( PyString_AsString( PyList_GetItem( value, i ) ) );
+			cPythonScript *script = ScriptManager::instance()->find( PyString_AsString( PyList_GetItem( value, i ) ) );
 			if( script )
 				self->pChar->addEvent( script );
 		}

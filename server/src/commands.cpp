@@ -96,15 +96,23 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 		return;
 
 	// Check for custom commands
-	cPythonScript *script = ScriptManager->getCommandHook( command );
+	PyObject *function = ScriptManager::instance()->getCommandHook( command.latin1() );
 
-	if( script )
+	if( function )
 	{
 		QString argString = arguments.join( " " );
+
 		if( argString.isNull() )
 			argString = "";
 
-		script->onCommand( socket, command, argString );
+		PyObject *args = Py_BuildValue( "O&uu", PyGetSocketObject, socket, command.ucs2(), argString.ucs2() );
+		
+		PyObject *result = PyObject_CallObject( function, args );
+		Py_XDECREF( result );
+		reportPythonError();
+
+		Py_DECREF( args );
+
 		return;
 	}	
 
@@ -870,7 +878,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	if( subCommand == "python" )
 	{
 		Console::instance()->send( "Reloading python scripts\n" );
-		ScriptManager->reload();
+		ScriptManager::instance()->reload();
 		ContextMenus::instance()->reload();
 	}
 	if( subCommand == "scripts" )
@@ -888,7 +896,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		AllTerritories::instance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
-		ScriptManager->reload(); // Reload Scripts
+		ScriptManager::instance()->reload(); // Reload Scripts
 		Skills->reload();
 		ContextMenus::instance()->reload();
 
@@ -919,7 +927,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		AllTerritories::instance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
-		ScriptManager->reload(); // Reload Scripts
+		ScriptManager::instance()->reload(); // Reload Scripts
 		ContextMenus::instance()->reload();
 
 		// Update the Regions
@@ -962,7 +970,7 @@ void commandAddEvent( cUOSocket *socket, const QString &command, QStringList &ar
     QString event = args.join( " " );
 
 	// No such event
-	if( !ScriptManager->find( event ) )
+	if( !ScriptManager::instance()->find( event.latin1() ) )
 	{
 		socket->sysMessage( tr( "Invalid event: '%1'" ).arg( event ) );
 		return;
