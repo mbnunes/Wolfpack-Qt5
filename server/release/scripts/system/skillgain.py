@@ -17,6 +17,8 @@ SKILL_STRCHANCE = 5
 SKILL_DEXCHANCE = 6
 SKILL_INTCHANCE = 7
 
+GLOBAL_FACTOR = 0.5
+
 #
 # Skill data registry
 #
@@ -254,7 +256,10 @@ def onSkillGain(char, skill, lower, higher, success):
 
 	# Introduce a new "Gain Factor"
 	# There is also a 1% minimum chance for gain
-	gainchance = max(0.01, gainchance * info[SKILL_GAINFACTOR])
+	gainchance = gainchance * info[SKILL_GAINFACTOR])
+	
+	# Multiply with another gainfactor
+	gainchance = gainchance * GLOBAL_FACTOR
 
 	# Tamed creatures get a * 2 bonus for their gain.
 	if char.npc and char.tamed:
