@@ -45,6 +45,15 @@ def onShowTooltip( sender, target, tooltip ):
 					tooltip.add( 1050045, " \t" + name + "\t " )
 	
 			modifiers( target, tooltip )
+
+			# If the character is a gm and the targetted item has a lock, display the lock id
+			if sender.gm and 'lock' in target.events:
+				lock = 'None'
+        
+				if target.hastag('lock'):
+					lock = str(target.gettag('lock'))
+        
+				tooltip.add(1050045, " \t" + "Lock: " + lock + "\t ")
 		
 			if isspellbook( target ):
 				tooltip.add( 1042886, str( target.spellscount() ) )
@@ -53,7 +62,6 @@ def onShowTooltip( sender, target, tooltip ):
 		tooltip.add( 1050045, " \t" + name + "\t " )
 
 	tooltip.send( sender )
-
 	return 1
 
 def armor( target, tooltip ):
@@ -125,6 +133,6 @@ def modifiers( target, tooltip ):
 			if modifiers[ tagname ][1]:
 				params = str( target.gettag( tagname ) )
 			tooltip.add( modifiers[ tagname ][0], params )
-	
+
 
 

@@ -149,18 +149,21 @@
 		<id>0x100e</id>
 		<type>7</type>
 		<category>Misc\Keys\Copper Key</category>
+    <events>key</events>
 	</item>
 
 	<item id="100f">
 		<id>0x100f</id>
 		<type>7</type>
 		<category>Misc\Keys\Gold Key</category>
+    <events>key</events>
 	</item>
 
 	<item id="1010">
 		<id>0x1010</id>
 		<type>7</type>
 		<category>Misc\Keys\Iron Key</category>
+    <events>key</events>
 	</item>
 
 	<item id="1011">
@@ -187,12 +190,14 @@
 		<id>0x1012</id>
 		<type>7</type>
 		<category>Misc\Keys\Magic Key</category>
+    <events>key</events>
 	</item>
 
 	<item id="1013">
 		<id>0x1013</id>
 		<type>7</type>
 		<category>Misc\Keys\Rusty Iron Key</category>
+    <events>key</events>
 	</item>
 
 	<!-- Training Dummy -->
