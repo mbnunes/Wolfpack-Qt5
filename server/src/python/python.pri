@@ -27,6 +27,4 @@ SOURCES += $$PYTHON_CPP/char.cpp \
            $$PYTHON_CPP/region.cpp \
            $$PYTHON_CPP/socket.cpp \
            $$PYTHON_CPP/worlditerator.cpp \
-           $$PYTHON_CPP/pypacket.cpp \
-           $$PYTHON_CPP/pyspawnregion.cpp
 

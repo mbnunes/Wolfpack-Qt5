@@ -163,7 +163,7 @@ def checkMySQL(options):
 
 	return True
 
-def checkPython( options, lookForHeaders = True, lookForLib = True ):
+def checkPython( options, lookForHeaders, lookForLib ):
 	PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
 	if distutils.sysconfig.get_config_vars().has_key("DESTSHARED"):
 		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
@@ -236,29 +236,29 @@ def checkPython( options, lookForHeaders = True, lookForLib = True ):
 	if sys.byteorder != 'little':
 		sys.stdout.write(yellow("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work\n" )
 
-		if lookForLib:
-			sys.stdout.write( "Searching for Python library... " )
+	if lookForLib:
+		sys.stdout.write( "Searching for Python library... " )
 
-			global py_libpath
-			global py_libfile
+		global py_libpath
+		global py_libfile
 
-			py_libfile, py_libpath = findFile( PYTHONLIBSEARCHPATH )
-			if ( py_libfile ):
-				sys.stdout.write("%s\n" % os.path.join( py_libpath, py_libfile ) )
-			else:
-				sys.stdout.write(red("Not Found!") + "\n")
-				sys.exit()
+		py_libfile, py_libpath = findFile( PYTHONLIBSEARCHPATH )
+		if ( py_libfile ):
+			sys.stdout.write("%s\n" % os.path.join( py_libpath, py_libfile ) )
+		else:
+			sys.stdout.write(red("Not Found!") + "\n")
+			sys.exit()
 
-		if lookForHeaders:
-			global py_incpath
-			py_incfile = None
-			sys.stdout.write( "Searching for Python includes... " )
-			py_incfile, py_incpath = findFile( PYTHONINCSEARCHPATH )
-			if ( py_incfile ):
-				sys.stdout.write( "%s\n" % py_incpath )
-			else:
-				sys.stdout.write(red("Not Found!") + "\n")
-				sys.exit()
+	if lookForHeaders:
+		global py_incpath
+		py_incfile = None
+		sys.stdout.write( "Searching for Python includes... " )
+		py_incfile, py_incpath = findFile( PYTHONINCSEARCHPATH )
+		if ( py_incfile ):
+			sys.stdout.write( "%s\n" % py_incpath )
+		else:
+			sys.stdout.write(red("Not Found!") + "\n")
+			sys.exit()
 
 	return True
 
