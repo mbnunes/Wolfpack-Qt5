@@ -112,7 +112,8 @@ void cResource::processNode( const QDomElement &Tag )
 		item.makeuseamountmod = 1.0f;
 		item.maxamount_per_attempt = 1;
 		item.minamount_per_attempt = 1;
-		item.name = (char*)0;
+		item.name = QString::null;
+		item.definition = QString::null;
 		item.quota = 0;
 		item.vein_maxamount = 0;
 		item.vein_minamount = 0;
@@ -129,6 +130,9 @@ void cResource::processNode( const QDomElement &Tag )
 
 				if( chTagName == "name" )
 					item.name = chValue;
+				
+				else if( chTagName == "definition" )
+					item.definition = chValue;
 
 				else if( chTagName == "amount" )
 				{
@@ -732,7 +736,21 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( failmsg_ );
+		if( failmsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = failmsg_.right( failmsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", failmsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( failmsg_ );
 		return;
 	}
 
@@ -796,7 +814,21 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( emptymsg_ );
+		if( emptymsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = emptymsg_.right( emptymsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", emptymsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( emptymsg_ );
 		return;
 	}
 	vein = pResItem->morey();
@@ -845,7 +877,21 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( failmsg_ );
+		if( failmsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = failmsg_.right( failmsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", failmsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( failmsg_ );
 		return;
 	}
 
@@ -867,7 +913,21 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( failmsg_ );
+		if( failmsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = failmsg_.right( failmsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", failmsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( failmsg_ );
 		return;
 	}
 	
@@ -880,23 +940,52 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		pResItem->update();
 	}
 
-	if( !item.name.isNull() || !item.name.isEmpty() )
-		socket->sysMessage( tr("%5 %1 %2 %3%4 !").arg( spawnamount ).arg( item.name ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+	if( succmsg_.left( 7 ) == "cliloc:" )
+	{
+		QString id = succmsg_.right( succmsg_.length() - 7 );
+		QStringList parts = QStringList::split( ",", succmsg_ );
+
+		if( parts.count() == 2 )
+		{
+			INT32 file = parts[0].toInt();
+			INT32 id = parts[1].toInt();
+
+			socket->clilocMessage( file, id );
+		}
+	}
 	else
-		socket->sysMessage( tr("%4 %1 %2%3 !").arg( spawnamount ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+	{
+		if( !item.name.isNull() || !item.name.isEmpty() )
+			socket->sysMessage( tr("%5 %1 %2 %3%4 !").arg( spawnamount ).arg( item.name ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+		else
+			socket->sysMessage( tr("%4 %1 %2%3 !").arg( spawnamount ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+	}
 
 	pc->action( charaction_ );
 	pc->soundEffect( sound_, true );
 
 	P_ITEM pi;
+	P_ITEM pBackpack = pc->getBackpack();
+
+	if( !pBackpack )
+		return;
+
 	while( spawnamount > 0 )
 	{
 		UINT16 id = item.ids[ RandomNum( 0, item.ids.size()-1 ) ];
 		UINT16 color = item.colors[ RandomNum( 0, item.colors.size()-1 ) ];
-		if( !item.name.isNull() )
-			pi = Items->SpawnItem( pc, 1, (char*)QString("%1 %2").arg( item.name ).arg( name_ ).latin1(), true, id, color, true );
-		else
-			pi = Items->SpawnItem( pc, 1, (char*)QString("%1").arg( name_ ).latin1(), true, id, color, true );
+
+		if( !item.definition.isNull() )
+		{
+			pi = Items->createScriptItem( item.definition );
+			pi->setId( id );
+			pi->setColor( color );
+
+			if( !item.name.isNull() )
+				pi->setName( item.name );
+
+			pBackpack->addItem( pi );
+		}
 
 		spawnamount -= 1;
 	}
@@ -911,7 +1000,21 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	std::set< UINT16 >::iterator sit = sourceids_.find( pSource->id() );
 	if( sit == sourceids_.end() )
 	{
-		socket->sysMessage( emptymsg_ );
+		if( emptymsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = emptymsg_.right( emptymsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", emptymsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( emptymsg_ );
 		return;
 	}
 	else
@@ -919,7 +1022,21 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		sit = sourcecolors_.find( pSource->color() );
 		if( sit == sourcecolors_.end() )
 		{
-			socket->sysMessage( emptymsg_ );
+			if( emptymsg_.left( 7 ) == "cliloc:" )
+			{
+				QString id = emptymsg_.right( emptymsg_.length() - 7 );
+				QStringList parts = QStringList::split( ",", emptymsg_ );
+
+				if( parts.count() == 2 )
+				{
+					INT32 file = parts[0].toInt();
+					INT32 id = parts[1].toInt();
+
+					socket->clilocMessage( file, id );
+				}
+			}
+			else
+				socket->sysMessage( emptymsg_ );
 			return;
 		}
 	}
@@ -1012,7 +1129,21 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 
 	if( possible_resspecs.size() == 0 )
 	{
-		socket->sysMessage( emptymsg_ );
+		if( emptymsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = emptymsg_.right( emptymsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", emptymsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( emptymsg_ );
 		return;
 	}
 
@@ -1057,7 +1188,21 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 			Items->DeleItem( pSource );
 		else
 			pSource->setAmount( pSource->amount() - delamount );
-		socket->sysMessage( failmsg_ );
+		if( failmsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = failmsg_.right( failmsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", failmsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( failmsg_ );
 		return;
 	}
 
@@ -1077,16 +1222,46 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
 		Items->DeleItem( pSource );
-		socket->sysMessage( failmsg_ );
+		if( failmsg_.left( 7 ) == "cliloc:" )
+		{
+			QString id = failmsg_.right( failmsg_.length() - 7 );
+			QStringList parts = QStringList::split( ",", failmsg_ );
+
+			if( parts.count() == 2 )
+			{
+				INT32 file = parts[0].toInt();
+				INT32 id = parts[1].toInt();
+
+				socket->clilocMessage( file, id );
+			}
+		}
+		else
+			socket->sysMessage( failmsg_ );
 		return;
 	}
 	
 	Items->DeleItem( pSource );
 	
-	if( !item.name.isNull() || !item.name.isEmpty() )
-		socket->sysMessage( tr("%5 %1 %2 %3%4 !").arg( spawnamount ).arg( item.name ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+	if( succmsg_.left( 7 ) == "cliloc:" )
+	{
+		QString id = succmsg_.right( succmsg_.length() - 7 );
+		QStringList parts = QStringList::split( ",", succmsg_ );
+
+		if( parts.count() == 2 )
+		{
+			INT32 file = parts[0].toInt();
+			INT32 id = parts[1].toInt();
+
+			socket->clilocMessage( file, id );
+		}
+	}
 	else
-		socket->sysMessage( tr("%4 %1 %2%3 !").arg( spawnamount ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+	{
+		if( !item.name.isNull() || !item.name.isEmpty() )
+			socket->sysMessage( tr("%5 %1 %2 %3%4 !").arg( spawnamount ).arg( item.name ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+		else
+			socket->sysMessage( tr("%4 %1 %2%3 !").arg( spawnamount ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+	}
 
 	P_ITEM pi;
 	while( spawnamount > 0 )

@@ -62,6 +62,7 @@ public:
 	struct resourcespec_st
 	{
 		QString name;
+		QString definition;
 		UINT32 minamount_per_attempt;
 		UINT32 maxamount_per_attempt;
 		QValueVector< UINT16 > ids;
