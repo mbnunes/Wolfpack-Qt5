@@ -168,6 +168,10 @@ def go(socket, command, arguments):
 			if len(parts) >= 4:
 				pos.map = int(parts[3])
 
+			if not isValidPosition( pos ):
+				socket.sysmessage( "Error: Destination invalid!" )
+				return False
+
 			player.removefromview()
 			player.moveto(pos)
 			player.update()
@@ -183,6 +187,9 @@ def go(socket, command, arguments):
 	if location:
 		(x,y,z,map) = location.text.split(',')
 		pos = wolfpack.coord(int(x), int(y), int(z), int(map))
+		if not isValidPosition( pos ):
+			socket.sysmessage( "Error: Destination invalid!" )
+			return False
 		player.removefromview()
 		player.moveto(pos)
 		player.update()

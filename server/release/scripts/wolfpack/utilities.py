@@ -878,6 +878,10 @@ def testenemy(socket, c, a):
 def isValidPosition( pos ):
 	# Check if the map is valid.
 	if wolfpack.hasmap( pos.map ):
+		# Z Checking
+		if pos.z > 127 or pos.z < -127 ):
+			return False
+		# X & Y Checking
 		# Felucca & Trammel
 		if pos.map == 0 or pos.map == 1:
 			if pos.x >= 6144 or pos.x < 0:
@@ -902,8 +906,6 @@ def isValidPosition( pos ):
 				return False
 			if pos.y >= 1448 or pos.y < 0:
 				return False
-		if not ( pos.z < 128 and pos.z > -128 ):
-			return False
 	else:
 		return False
 
