@@ -279,6 +279,21 @@ protected:
 	virtual void selectVictim();
 };
 
+class Normal_Base : public AbstractAI {
+protected:
+	Normal_Base() : AbstractAI() {
+	}
+
+public:
+	Normal_Base(P_NPC npc) : AbstractAI(npc) {
+		m_actions.append(new Action_Wander(npc, this));
+		m_actions.append(new Action_FleeAttacker(npc, this));
+	} 
+
+	static void registerInFactory();
+	virtual QString name() {return "Normal_Base";}
+};
+
 class Human_Vendor : public AbstractAI
 {
 protected:

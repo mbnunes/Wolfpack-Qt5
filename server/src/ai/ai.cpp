@@ -730,3 +730,10 @@ void Action_Defend::execute()
 	// combat is handled somewhere else
 }
 
+static AbstractAI* productCreator_NB() {
+	return new Normal_Base(0);
+}
+
+void Normal_Base::registerInFactory() {
+	AIFactory::instance()->registerType("Normal_Base", productCreator_NB);
+}

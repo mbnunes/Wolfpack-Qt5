@@ -70,6 +70,8 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 	cPythonScript::callChainedEventHandler(EVENT_DELETE, pc_k->getEvents(), args);
 	Py_DECREF(args);
 
+	pc_k->free = false;
+
 	P_NPC pn_k = dynamic_cast<P_NPC>(pc_k);
 
 	if(pn_k) {

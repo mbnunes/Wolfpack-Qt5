@@ -427,9 +427,7 @@ void cPlayer::mount( P_NPC pMount )
 		P_ITEM pMountItem = new cItem;
 		pMountItem->Init();
 		pMountItem->setId(0x915);
-
-		if( !pMountItem )
-			return;
+		pMountItem->setColor(pMount->skin());
 
 		switch( static_cast< unsigned short >(pMount->bodyID() & 0x00FF) )
 		{

@@ -425,6 +425,7 @@ int main( int argc, char **argv )
 	Human_Stablemaster::registerInFactory();
 	Human_Guard::registerInFactory();
 	Human_Guard_Called::registerInFactory();
+	Normal_Base::registerInFactory();
 	Animal_Wild::registerInFactory();
 	Animal_Domestic::registerInFactory();
 	// Script NPC AI types

@@ -528,6 +528,14 @@ void cItem::remove()
 		return;
 	}
 	
+	if (cPythonScript::canChainHandleEvent(EVENT_DELETE, scriptChain)) {
+		PyObject *args = Py_BuildValue("(N)", getPyObject());
+		cPythonScript::callChainedEventHandler(EVENT_DELETE, scriptChain, args);
+		Py_DECREF(args);
+	}
+
+	free = false;
+
 	clearEvents();
 
 	removeFromView(false); // Remove it from all clients in range

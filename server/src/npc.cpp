@@ -775,7 +775,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "antiguardstimer", (int)nextGuardCallTime_ )
 	else GET_PROPERTY( "carve", carve_ )
 	else GET_PROPERTY( "spawnregion", spawnregion_ )
-	else GET_PROPERTY( "stablemaster", FindCharBySerial( stablemasterSerial_ ) )
+	else GET_PROPERTY( "stablemaster", stablemasterSerial_ )
 	else GET_PROPERTY( "lootlist", lootList_ )
 	else GET_PROPERTY( "loot", lootList_ )
 	else GET_PROPERTY( "maxdamage", maxDamage_ )

@@ -457,8 +457,72 @@ void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 		}
 	}
 
-	if (bodyID_ == 0x22) {
-		return;
+	if (bodyID_ < 0x190 && bodyID_ >= 0xc8) {
+		// Animal specific translation
+		switch (id) {
+		case ANIM_WALK_UNARM:
+		case ANIM_WALK_ARM:
+		case ANIM_WALK_WAR:
+			id = ANIM_ANI_WALK;
+			break;
+		case ANIM_RUN_UNARM:
+		case ANIM_RUN_ARMED:
+			id = ANIM_ANI_RUN;
+			break;
+		case ANIM_STAND:
+		case ANIM_STAND_WAR_1H:
+		case ANIM_STAND_WAR_2H:
+		default:
+			id = ANIM_ANI_STAND;
+			break;
+		case ANIM_FIDGET1:
+			id = ANIM_ANI_FIDGET1;
+			break;
+		case ANIM_FIDGET_YAWN:
+			id = ANIM_ANI_FIDGET2;
+			break;
+		case ANIM_CAST_DIR:
+			id = ANIM_ANI_ATTACK1;
+			break;
+		case ANIM_CAST_AREA:
+			id = ANIM_ANI_EAT;
+			break;
+		case ANIM_GET_HIT:
+			id = ANIM_ANI_GETHIT;
+			break;
+		case ANIM_ATTACK_1H_WIDE:
+		case ANIM_ATTACK_1H_JAB:
+		case ANIM_ATTACK_1H_DOWN:
+		case ANIM_ATTACK_2H_DOWN:
+		case ANIM_ATTACK_2H_JAB:
+		case ANIM_ATTACK_2H_WIDE:
+		case ANIM_ATTACK_BOW:
+		case ANIM_ATTACK_XBOW:
+		case ANIM_ATTACK_UNARM:
+			switch(RandomNum(0, 1)) {
+			case 0:
+				id = ANIM_ANI_ATTACK1;
+				break;
+			case 1:
+				id = ANIM_ANI_ATTACK2;
+				break;
+			}
+			break;
+		case ANIM_DIE_BACK:
+			id = ANIM_ANI_DIE1;
+			break;
+		case ANIM_DIE_FORWARD:
+			id = ANIM_ANI_DIE2;
+			break;
+		case ANIM_BLOCK:
+		case ANIM_BOW:
+		case ANIM_SALUTE:
+			id = ANIM_ANI_SLEEP;
+			break;
+		case ANIM_EAT:
+			id = ANIM_ANI_EAT;
+			break;
+		}
 	}
 
 	cUOTxAction action;

@@ -300,6 +300,10 @@ PyObject *cPythonScript::callChainedEvent( ePythonEvent event, cPythonScript **c
 
 bool cPythonScript::canChainHandleEvent( ePythonEvent event, cPythonScript **chain )
 {
+	if (!chain) {
+		return false;
+	}
+
 	bool result = false;
 
 	if( event < EVENT_COUNT )

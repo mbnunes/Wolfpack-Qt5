@@ -145,6 +145,22 @@ enum enAnimations {
 	ANIM_HORSE_ATTACK_BOW	= 0x1b,
 	ANIM_HORSE_ATTACK_XBOW	= 0x1c,
 	ANIM_HORSE_SLAP			= 0x1d,
+
+	// These animations are used by animals
+	// animals. (Most All animals have all anims)
+	ANIM_ANI_WALK		= 0x00,
+	ANIM_ANI_RUN		= 0x01,
+	ANIM_ANI_STAND		= 0x02,
+	ANIM_ANI_EAT		= 0x03,
+	ANIM_ANI_ALERT		= 0x04,
+	ANIM_ANI_ATTACK1	= 0x05,
+	ANIM_ANI_ATTACK2	= 0x06,
+	ANIM_ANI_GETHIT 	= 0x07,
+	ANIM_ANI_DIE1 		= 0x08,
+	ANIM_ANI_FIDGET1	= 0x09,
+	ANIM_ANI_FIDGET2	= 0x0a,
+	ANIM_ANI_SLEEP		= 0x0b,
+	ANIM_ANI_DIE2		= 0x0c,
 };
 
 enum enServerState { STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN };

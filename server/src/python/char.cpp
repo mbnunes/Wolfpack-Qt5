@@ -35,6 +35,7 @@
 #include "../party.h"
 #include "../combat.h"
 #include "../srvparams.h"
+#include "../chars.h"
 #include "../walking.h"
 #include "../commands.h"
 #include "../scriptmanager.h"
@@ -1322,6 +1323,16 @@ static PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 	return self->pChar->isCriminal() ? PyTrue : PyFalse;
 }
 
+static PyObject* wpChar_delete( wpChar* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	
+	cCharStuff::DeleteChar(self->pChar);
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
 /*!
 	Are we a murderer.
 */
@@ -1814,6 +1825,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "iscriminal",		(getattrofunc)wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
 	{ "ismurderer",		(getattrofunc)wpChar_ismurderer,		METH_VARARGS, "Is this character a murderer." },
 	{ "criminal",		(getattrofunc)wpChar_criminal,			METH_VARARGS, "Make this character criminal." },
+	{ "delete",			(getattrofunc)wpChar_delete,			METH_VARARGS, 0 },
 
 	// Is*? Functions
 	{ "isitem",			(getattrofunc)wpChar_isitem,			METH_VARARGS, "Is this an item." },

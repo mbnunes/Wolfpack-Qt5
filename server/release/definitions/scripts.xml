@@ -41,6 +41,7 @@
 	<script>bulletinboard</script>
 	<script>food</script>
 	<script>shrine</script>
+	<script>figurine</script>
 
 	<!-- Combat -->
 	<script>combat</script>
