@@ -214,11 +214,14 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			if (pc_deffender->xid2==0x90) soundeffect2(DEREF_P_CHAR(pc_deffender),0x01,0x56);
 			playmonstersound(DEREF_P_CHAR(pc_deffender), pc_deffender->id1, pc_deffender->id2, SND_DEFEND);
 			//AntiChrist -- for poisoned weapons
-			if((!pWeapon) && (pWeapon->poisoned>0))
+			if(pWeapon != NULL)
 			{
-				pc_deffender->poisoned=pWeapon->poisoned;
-				pc_deffender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-				pc_deffender->poisonwearofftime=pc_deffender->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
+				if (pWeapon->poisoned>0)
+				{
+				   pc_deffender->poisoned=pWeapon->poisoned;
+				   pc_deffender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+			       pc_deffender->poisonwearofftime=pc_deffender->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
+				}
 			}
 			CheckPoisoning(s2, pc_attacker, pc_deffender);	// attacker poisons defender
 			CheckPoisoning(s1, pc_deffender, pc_attacker); // and vice versa
