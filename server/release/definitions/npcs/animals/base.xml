@@ -12,7 +12,7 @@
 	<npc id="animal_base">
 		<name>unknown animal</name>
 		<wandertype>1</wandertype>
-		<direction><random min="0" max="18" /></direction>
+		<direction><random min="0" max="7" /></direction>
 		<anatomy>0</anatomy>
 		<mindamage>1</mindamage>
 		<maxdamage>3</maxdamage>

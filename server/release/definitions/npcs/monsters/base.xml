@@ -29,9 +29,7 @@
 		<!-- Misc -->
 		<mintaming>1100</mintaming>
 		<wandertype>1</wandertype>
-		<direction>
-			<random min="0" max="7"/>
-		</direction>
+		<direction><random min="0" max="7"/></direction>
 		<mintaming>2000</mintaming>
 		<basescripts>speech.pets</basescripts>
 	</npc>
