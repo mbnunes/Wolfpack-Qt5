@@ -11,16 +11,41 @@ def mysql_update_7():
 	sql = "ALTER TABLE players ADD `maxcontrolslots` tinyint(4) NOT NULL default '5' AFTER intlock;"
 	database.execute(sql)
 	return True
-
 #
 # MySQL Database Updates
 #
+
+def sqlite_update_8():
+
+	sql = "CREATE TABLE tmp_players7 ( serial bigint, account varchar(16), additionalflags bigint, visualrange tinyint(3), profile longtext, fixedlight tinyint(3), strlock smallint, dexlock smallint, intlock smallint);"
+	database.execute(sql)
+	sql = "insert into tmp_players7 select * from players;"
+	database.execute(sql)
+	sql = "drop table players;"
+	database.execute(sql)
+	
+	sql = "CREATE TABLE players ( serial bigint NOT NULL default '0', account varchar(16) default NULL, additionalflags bigint NOT NULL default '0', visualrange tinyint(3) NOT NULL default '0', profile longtext, fixedlight tinyint(3) NOT NULL default '0',	strlock smallint NOT NULL default '0', dexlock smallint NOT NULL default '0', intlock smallint NOT NULL default '0', maxcontrolslots tinyint(4) NOT NULL default '5', PRIMARY KEY  (serial) );"
+	database.execute(sql)
+
+	sql = "insert into players select *, 5 from tmp_players7"
+	database.execute(sql)
+	sql = "drop table tmp_players7;"
+	database.execute(sql)
+
+	sql = "replace into settings (option, value) values ('db_version',8)"
+	database.execute(sql)
+
+	sql = "VACUUM"
+	database.execute(sql)
+
+	return True
+
 MYSQL_UPDATES = {
 	7: mysql_update_7,
 }
 
 SQLITE_UPDATES = {
-	# 7: sqlite_update_8,
+	7: sqlite_update_8,
 }
 
 #
