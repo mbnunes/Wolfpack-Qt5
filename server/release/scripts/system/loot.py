@@ -32,7 +32,7 @@ PACKS = {
 	],
 	'gold_good': [
 		[1.0, 'eed', '3d20+100', 1] # 103 - 160
-	]
+	],
 	'gold_rich': [
 		[1.0, 'eed', '10d10+150', 1] # 160 - 250
 	],
@@ -361,9 +361,9 @@ PACKS = {
 	# Monster Specific
 	'mummy_pack': [
 		[0.9, 'eed', random.randint(190,220), 1] # 190 - 220 Gold
-		[1.0, '', 5, 1], # 5 Garlic
+		[1.0, 'f84', 5, 1], # 5 Garlic
 		[1.0, DEF_BASEGEMS, 1, 1], # One Gem
-		[1.0, '', 10, 1] # 10 Bandages
+		[1.0, ['e21','ee9'], 10, 1] # 10 Bandages
 	]
 }
 
