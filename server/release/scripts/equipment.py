@@ -340,10 +340,10 @@ def onUse(player, item):
 		return 0
 
 	tile = wolfpack.tiledata(item.id)
-	
+
 	if not tile.has_key('layer'):
 		return 0
-		
+
 	layer = tile['layer']
 
 	if layer == 0 or not (tile['flag3'] & 0x40):
@@ -384,6 +384,7 @@ def onUse(player, item):
 	player.additem(layer, item)
 	item.update()
 	item.soundeffect(0x57)
+	player.updatestats()
 
 	for script in scripts[scripts.index("equipment")+1:]:
 		if wolfpack.hasevent(script, EVENT_USE):
