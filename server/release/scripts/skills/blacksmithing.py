@@ -67,7 +67,7 @@ def checkanvilandforge(char):
 			statics = wolfpack.statics(char.pos.x + x, char.pos.y + y, char.pos.map, True)
 			
 			for tile in statics:
-				dispid = tile['id']
+				dispid = tile[0]
 				if dispid == 0xFAF or dispid == 0xFB0:
 					anvil = True
 				elif dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):

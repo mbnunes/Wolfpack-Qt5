@@ -554,7 +554,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 		QPtrList<cPlayer> members = party->members();
 		PyObject* list = PyList_New( 0 );
 		for ( P_PLAYER member = members.first(); member; member = members.next() )
-			PyList_Append( list, member->getPyObject() );
+			PyList_AppendStolen( list, member->getPyObject() );
 		return list;
 	}
 	/*
@@ -565,7 +565,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 		QPtrList<cPlayer> canidates = party->canidates();
 		PyObject* list = PyList_New( 0 );
 		for ( P_PLAYER canidate = canidates.first(); canidate; canidate = canidates.next() )
-			PyList_Append( list, canidate->getPyObject() );
+			PyList_AppendStolen( list, canidate->getPyObject() );
 		return list;
 	}
 	/*
@@ -576,7 +576,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 		QPtrList<cPlayer> lootlist = party->lootingAllowed();
 		PyObject* list = PyList_New( 0 );
 		for ( P_PLAYER member = lootlist.first(); member; member = lootlist.next() )
-			PyList_Append( list, member->getPyObject() );
+			PyList_AppendStolen( list, member->getPyObject() );
 		return list;
 	}
 

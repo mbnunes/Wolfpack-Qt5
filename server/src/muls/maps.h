@@ -90,6 +90,11 @@ public:
 	void reset();
 	const staticrecord& data() const;
 
+	// return the number of elements in this iterator
+	inline unsigned int count() {
+		return staticArray.size();
+	}
+
 	// prefix Operators
 	StaticsIterator& operator++();
 	StaticsIterator& operator--();

@@ -678,7 +678,6 @@ void cPythonScript::unload( void )
 	{
 		if ( events[i] )
 		{
-			Py_DECREF( events[i] );
 			events[i] = 0;
 		}
 	}

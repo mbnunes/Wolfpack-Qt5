@@ -263,4 +263,17 @@ public:
 	}
 };
 
+// Helper functions for managing stealed references in lists and dictionaries
+// NOTE: THIS FUNCTION DECREFS THE GIVEN PYOBJECT!!!
+inline void PyDict_SetStolenItem(PyObject *dict, const char *key, PyObject *object) {
+	PyDict_SetItemString(dict, key, object);
+	Py_DECREF(object);
+}
+
+// NOTE: THIS FUNCTION STEALS THE REFERENCE FROM OBJECT!
+inline void PyList_AppendStolen(PyObject *list, PyObject *object) {
+	PyList_Append(list, object);
+	Py_DECREF(object);
+}
+
 #endif

@@ -129,7 +129,7 @@ def response( char, args, target ):
 
 	if not validspot:
 		for item in staticitems:
-			if item[ 'id' ] in staticWater and item[ 'z' ] == pos.z:
+			if item[0] in staticWater and item[3] == pos.z:
 				validspot = 1
 				deepwater = 0
 				break

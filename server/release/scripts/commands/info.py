@@ -137,8 +137,8 @@ def statictileinfo( socket, model, pos, tile ):
 	color = 0
 	
 	for stile in statics:	
-		if stile['id'] == model and stile['z'] == pos.z:
-			color = stile['color']
+		if stile[0] == model and stile[3] == pos.z:
+			color = stile[4]
 	
 	gump = cGump( 0, 0, 0, 0, 40 )
 

@@ -634,12 +634,11 @@ PyObject* wpGuild_getmemberinfo( wpGuild* self, PyObject* args )
 		return 0;
 	}
 
-	// Return a dictionary with two elements
+	// Return a dictionary with three elements
 	PyObject* result = PyDict_New();
-	PyDict_SetItemString( result, "showsign", PyInt_FromLong( info->showSign() ? 1 : 0 ) );
-	PyDict_SetItemString( result, "joined", PyInt_FromLong( info->joined() ) );
-	PyDict_SetItemString( result, "guildtitle", QString2Python( info->guildTitle() ) );
-
+	PyDict_SetStolenItem( result, "showsign", PyInt_FromLong( info->showSign() ? 1 : 0 ) );
+	PyDict_SetStolenItem( result, "joined", PyInt_FromLong( info->joined() ) );
+	PyDict_SetStolenItem( result, "guildtitle", QString2Python( info->guildTitle() ) );
 	return result;
 }
 

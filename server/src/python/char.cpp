@@ -2777,7 +2777,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 			QString name = *it;
 			if ( !name.isEmpty() )
 			{
-				PyList_Append( list, PyString_FromString( name.latin1() ) );
+				PyList_AppendStolen( list, PyString_FromString( name.latin1() ) );
 			}
 		}
 

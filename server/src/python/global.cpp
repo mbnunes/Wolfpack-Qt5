@@ -417,7 +417,7 @@ static PyObject* wpGuilds( PyObject* /*self*/, PyObject* /*args*/ )
 	PyObject* list = PyList_New( 0 );
 
 	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
-		PyList_Append( list, it.data()->getPyObject() );
+		PyList_AppendStolen( list, it.data()->getPyObject() );
 
 	return list;
 }
@@ -625,17 +625,14 @@ static PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 	\param exact Defaults to false. If this boolean parameter is true,
 	not the entire 8x8 static block matching the coordinate is returned,
 	but only the tiles that are exactly at the given coordinate.
-	\return A list of dictionaries. Each dictionary included in the list has the
-	following keys:
-	- <code>id</code> The art tile id of the static item as an integer value.
-	- <code>color</code> The color of the tile.
-	- <code>x</code> The absolute x component of the coordinate of the static tile. (Not relative to the
-	upper left block corner).
-	- <code>y</code> The absolute y component of the coordinate of the static tile. (Not relative to the
-	upper left block corner).
-	- <code>z</code> The z position of the static tile.
-	\description This function searches for static tiles at the given coordinate and returns
-	a list of dictionaries describing the properties of the static tiles found.
+	\return Returns a tuple of found static items.
+	The static items are represented by 5-tuples containing the following items:
+	<code>0: The item id of the static item.
+	1: The absolute x coordinate of the static item.
+	2: The absolute y coordinate of the static item.
+	3: The z position of the static item.
+	4: The color of the static item.</code>
+	\description This function searches for static tiles at the given coordinate and returns its findings.
 */
 static PyObject* wpStatics( PyObject* self, PyObject* args )
 {
@@ -648,9 +645,10 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii|b:wolfpack.statics", &x, &y, &map, &exact ) )
 		return 0;
 
-	if ( !Maps::instance()->hasMap( map ) )
+	if ( map == 0xff || !Maps::instance()->hasMap( map ) )
 	{
 		PyErr_Format( PyExc_RuntimeError, "Unable to access unknown map %u.", map );
+		return 0;
 	}
 
 	int maxX = Maps::instance()->mapTileWidth( map ) * 8;
@@ -667,25 +665,33 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 
 	StaticsIterator iter = Maps::instance()->staticsIterator( Coord( x, y, 0, map ), exact );
 
-	PyObject* list = PyList_New( 0 );
-	Q_UINT32 xBlock = x / 8;
-	Q_UINT32 yBlock = y / 8;
+	PyObject* tuple = PyTuple_New( iter.count() ); // Create a tuple instead of a list (faster)!
+	const Q_UINT32 xBlockStart = (x / 8) * 8;
+	const Q_UINT32 yBlockStart = (y / 8) * 8;
 
-	for ( ; !iter.atEnd(); ++iter )
+	unsigned int i = 0; // The offset within the tuple
+	unsigned int count = iter.count();
+
+	// Make absolutly sure, that we'll never store more objects
+	// than allowed in a tuple
+	for ( ; !iter.atEnd() && i < count; ++iter, ++i )
 	{
-		// Create a Dictionary
-		PyObject* dict = PyDict_New();
-
-		PyDict_SetItemString( dict, "id", PyInt_FromLong( iter->itemid ) );
-		PyDict_SetItemString( dict, "x", PyInt_FromLong( ( xBlock * 8 ) + iter->xoff ) );
-		PyDict_SetItemString( dict, "y", PyInt_FromLong( ( yBlock * 8 ) + iter->yoff ) );
-		PyDict_SetItemString( dict, "z", PyInt_FromLong( iter->zoff ) );
-		PyDict_SetItemString( dict, "color", PyInt_FromLong( iter->color ) );
-
-		PyList_Append( list, dict );
+		// Create a tuple with the following keys:
+		// 1. The id of the static item.
+		// 2. The absolute x coordinate of the static item.
+		// 3. The absolute y coordinate of the static item.
+		// 4. The z position of the static item.
+		// 5. The color of the static item.
+		PyObject* item = PyTuple_New(5);
+        PyTuple_SetItem(item, 0, PyInt_FromLong( iter->itemid ) );        
+		PyTuple_SetItem(item, 1, PyInt_FromLong( xBlockStart + iter->xoff ) );
+		PyTuple_SetItem(item, 2, PyInt_FromLong( yBlockStart + iter->yoff ) );
+		PyTuple_SetItem(item, 3, PyInt_FromLong( iter->zoff ) );
+		PyTuple_SetItem(item, 4, PyInt_FromLong( iter->color ) );
+		PyTuple_SetItem(tuple, i, item );
 	}
 
-	return list;
+	return tuple;
 }
 
 /*
@@ -756,7 +762,7 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 	PyObject* list = PyList_New( 0 );
 	for ( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
 	{
-		PyList_Append( list, PyGetItemObject( pItem ) );
+		PyList_AppendStolen( list, PyGetItemObject( pItem ) );
 	}
 
 	return list;
@@ -799,7 +805,7 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	PyObject* list = PyList_New( 0 );
 	for ( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
 	{
-		PyList_Append( list, pChar->getPyObject() );
+		PyList_AppendStolen( list, pChar->getPyObject() );
 	}
 
 	return list;
@@ -917,8 +923,8 @@ static PyObject* wpMap( PyObject* self, PyObject* args )
 	map_st mTile = Maps::instance()->seekMap( Coord( x, y, 0, map ) );
 
 	PyObject* dict = PyDict_New();
-	PyDict_SetItemString( dict, "id", PyInt_FromLong( mTile.id ) );
-	PyDict_SetItemString( dict, "z", PyInt_FromLong( mTile.z ) );
+	PyDict_SetStolenItem( dict, "id", PyInt_FromLong( mTile.id ) );
+	PyDict_SetStolenItem( dict, "z", PyInt_FromLong( mTile.z ) );
 	return dict;
 }
 
@@ -967,25 +973,25 @@ static PyObject* wpLanddata( PyObject* self, PyObject* args )
 	land_st tile = TileCache::instance()->getLand( tileid );
 
 	PyObject* dict = PyDict_New();
-	PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
-	PyDict_SetItemString( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
-	PyDict_SetItemString( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
-	PyDict_SetItemString( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
-	PyDict_SetItemString( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
-	PyDict_SetItemString( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
-	PyDict_SetItemString( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
-	PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
-	PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
-	PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
+	PyDict_SetStolenItem( dict, "name", PyString_FromString( tile.name ) );
+	PyDict_SetStolenItem( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
+	PyDict_SetStolenItem( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
+	PyDict_SetStolenItem( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
+	PyDict_SetStolenItem( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
+	PyDict_SetStolenItem( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
+	PyDict_SetStolenItem( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
+	PyDict_SetStolenItem( dict, "wet", PyInt_FromLong( tile.isWet() ) );
+	PyDict_SetStolenItem( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
+	PyDict_SetStolenItem( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
 
 	QString flags = getFlagNames( tile.flag1, tile.flag2, tile.flag3, tile.flag4 ).join( "," );
 	if ( flags.isNull() )
 	{
-		PyDict_SetItemString( dict, "flagnames", PyString_FromString( "" ) );
+		PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( "" ) );
 	}
 	else
 	{
-		PyDict_SetItemString( dict, "flagnames", PyString_FromString( flags.latin1() ) );
+		PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.latin1() ) );
 	}
 
 	return dict;
@@ -1030,41 +1036,41 @@ static PyObject* wpTiledata( PyObject* self, PyObject* args )
 	// test if item is defined
 	if ( !strlen( tile.name ) )
 	{
-		PyDict_SetItemString( dict, "name", PyString_FromString( "unknown" ) );
-		PyDict_SetItemString( dict, "flag1", PyInt_FromLong( 0 ) );
-		PyDict_SetItemString( dict, "flag2", PyInt_FromLong( 0 ) );
-		PyDict_SetItemString( dict, "flag3", PyInt_FromLong( 0 ) );
-		PyDict_SetItemString( dict, "flag4", PyInt_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "name", PyString_FromString( "unknown" ) );
+		PyDict_SetStolenItem( dict, "flag1", PyInt_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "flag2", PyInt_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "flag3", PyInt_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "flag4", PyInt_FromLong( 0 ) );
 	}
 	else
 	{
-		PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
-		PyDict_SetItemString( dict, "height", PyInt_FromLong( tile.height ) );
-		PyDict_SetItemString( dict, "weight", PyInt_FromLong( tile.weight ) );
-		PyDict_SetItemString( dict, "layer", PyInt_FromLong( tile.layer ) );
-		PyDict_SetItemString( dict, "animation", PyInt_FromLong( tile.animation ) );
-		PyDict_SetItemString( dict, "quantity", PyInt_FromLong( tile.quantity ) );
-		PyDict_SetItemString( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
-		PyDict_SetItemString( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
-		PyDict_SetItemString( dict, "unknown3", PyInt_FromLong( tile.unknown3 ) );
-		PyDict_SetItemString( dict, "unknown4", PyInt_FromLong( tile.unknown4 ) );
-		PyDict_SetItemString( dict, "unknown5", PyInt_FromLong( tile.unknown5 ) );
-		PyDict_SetItemString( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
-		PyDict_SetItemString( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
-		PyDict_SetItemString( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
-		PyDict_SetItemString( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
-		PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
-		PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
-		PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
+		PyDict_SetStolenItem( dict, "name", PyString_FromString( tile.name ) );
+		PyDict_SetStolenItem( dict, "height", PyInt_FromLong( tile.height ) );
+		PyDict_SetStolenItem( dict, "weight", PyInt_FromLong( tile.weight ) );
+		PyDict_SetStolenItem( dict, "layer", PyInt_FromLong( tile.layer ) );
+		PyDict_SetStolenItem( dict, "animation", PyInt_FromLong( tile.animation ) );
+		PyDict_SetStolenItem( dict, "quantity", PyInt_FromLong( tile.quantity ) );
+		PyDict_SetStolenItem( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
+		PyDict_SetStolenItem( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
+		PyDict_SetStolenItem( dict, "unknown3", PyInt_FromLong( tile.unknown3 ) );
+		PyDict_SetStolenItem( dict, "unknown4", PyInt_FromLong( tile.unknown4 ) );
+		PyDict_SetStolenItem( dict, "unknown5", PyInt_FromLong( tile.unknown5 ) );
+		PyDict_SetStolenItem( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
+		PyDict_SetStolenItem( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
+		PyDict_SetStolenItem( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
+		PyDict_SetStolenItem( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
+		PyDict_SetStolenItem( dict, "wet", PyInt_FromLong( tile.isWet() ) );
+		PyDict_SetStolenItem( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
+		PyDict_SetStolenItem( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
 
 		QString flags = getFlagNames( tile.flag1, tile.flag2, tile.flag3, tile.flag4 ).join( "," );
 		if ( flags.isNull() )
 		{
-			PyDict_SetItemString( dict, "flagnames", PyString_FromString( "" ) );
+			PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( "" ) );
 		}
 		else
 		{
-			PyDict_SetItemString( dict, "flagnames", PyString_FromString( flags.latin1() ) );
+			PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.latin1() ) );
 		}
 	}
 
@@ -1887,12 +1893,12 @@ static PyObject* wpBodyInfo( PyObject* /*self*/, PyObject* args )
 	const stBodyInfo &info = CharBaseDefs::instance()->getBodyInfo( body );
 
 	PyObject *dict = PyDict_New();
-	PyDict_SetItemString( dict, "basesound", PyInt_FromLong( info.basesound ) );
-	PyDict_SetItemString( dict, "body", PyInt_FromLong( info.body ) );
-	PyDict_SetItemString( dict, "figurine", PyInt_FromLong( info.figurine ) );
-	PyDict_SetItemString( dict, "mountid", PyInt_FromLong( info.mountid ) );
-	PyDict_SetItemString( dict, "flags", PyInt_FromLong( info.flags ) );
-	PyDict_SetItemString( dict, "type", PyInt_FromLong( info.type ) );
+	PyDict_SetStolenItem( dict, "basesound", PyInt_FromLong( info.basesound ) );
+	PyDict_SetStolenItem( dict, "body", PyInt_FromLong( info.body ) );
+	PyDict_SetStolenItem( dict, "figurine", PyInt_FromLong( info.figurine ) );
+	PyDict_SetStolenItem( dict, "mountid", PyInt_FromLong( info.mountid ) );
+	PyDict_SetStolenItem( dict, "flags", PyInt_FromLong( info.flags ) );
+	PyDict_SetStolenItem( dict, "type", PyInt_FromLong( info.type ) );
 	return dict;
 }
 
@@ -2125,7 +2131,7 @@ static PyObject* wpAccountsList( PyObject* self, PyObject* args )
 	{
 		const QString &login = ( *it )->login();
 		if ( !login.isNull() )
-			PyList_Append( list, QString2Python( login ) );
+			PyList_AppendStolen( list, QString2Python( login ) );
 		++it;
 	}
 
@@ -2148,7 +2154,7 @@ static PyObject* wpAccountsAcls( PyObject* self, PyObject* args )
 	{
 		QString name = it.key();
 		if ( !name.isEmpty() )
-			PyList_Append( list, PyString_FromString( name ) );
+			PyList_AppendStolen( list, PyString_FromString( name ) );
 	}
 
 	return list;
