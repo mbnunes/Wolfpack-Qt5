@@ -102,6 +102,14 @@ protected:
 	int attackstamina_;
 	unsigned char attack_distance_;
 
+	// Vendor
+	unsigned int sellbyname_;
+	unsigned int sellmaxitem_;
+	unsigned int trade_system_;
+	unsigned int rank_system_;
+	short checkBank_;
+	unsigned int vendorGreet_;
+
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
 	std::vector<ServerList_st>& serverList(); // read-only
@@ -179,6 +187,14 @@ public:
 	unsigned int npc_base_reattackat() const;
 	int attackstamina() const;
 	unsigned char attack_distance() const;
+
+	// Vendor
+	unsigned int sellbyname() const;
+	unsigned int sellmaxitem() const;
+	unsigned int trade_system() const;
+	unsigned int rank_system() const;
+	short checkBank() const;
+	unsigned int vendorGreet() const;
 
 private:
 	void setDefaultStartLocation();
@@ -532,6 +548,36 @@ inline unsigned int cSrvParams::npc_base_reattackat() const
 inline unsigned char cSrvParams::attack_distance() const
 {
 	return attack_distance_;
+}
+
+inline unsigned int cSrvParams::sellbyname() const
+{
+	return sellbyname_;
+}
+
+inline unsigned int cSrvParams::sellmaxitem() const
+{
+	return sellmaxitem_;
+}
+
+inline unsigned int cSrvParams::trade_system() const
+{
+	return trade_system_;
+}
+
+inline unsigned int cSrvParams::rank_system() const
+{
+	return rank_system_;
+}
+
+inline short cSrvParams::checkBank() const
+{
+	return checkBank_;
+}
+
+inline unsigned int cSrvParams::vendorGreet() const
+{
+	return vendorGreet_;
 }
 
 #endif __SRVPARAMS_H___

@@ -104,11 +104,11 @@ void cSkills::ApplyRank(int s, P_ITEM pi, int rank)
 {
 	char tmpmsg[512];
 	*tmpmsg='\0';
-	if(SrvParms->rank_system==0) return;
+	if(SrvParams->rank_system()==0) return;
 	if (pi == NULL)
 		return;
 
-	if (SrvParms->rank_system==1)
+	if (SrvParams->rank_system()==1)
 	{
 		pi->rank=rank;
 		// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
@@ -321,8 +321,8 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		// Starting Rank System Addon, Identify Item and Store the Creator Name- by Magius(CHE)
 		if (pi->name2 != "#") 
 			pi->name = pi->name2; // Item identified! - }
-		if (SrvParms->rank_system==1) rank=CalcRank(s,skill);
-		else if (SrvParms->rank_system==0) rank=10;
+		if (SrvParams->rank_system()==1) rank=CalcRank(s,skill);
+		else if (SrvParams->rank_system()==0) rank=10;
 		ApplyRank(s, pi, rank);
 
 		if(!pc_currchar->isGM())		//AntiChrist - do this only if not a GM! bugfix - to avoid "a door mixed by GM..."
@@ -343,7 +343,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		pi->setAllMovable(); // JM's bugfix
 
 		if (skill == BLACKSMITHING			// let's see if we can make exceptional quality
-			&& SrvParms->rank_system==0)	// this would interfer with the rank system
+			&& SrvParams->rank_system()==0)	// this would interfer with the rank system
 		{
 			pi->rank=30; // Ripper..used for item smelting
 			if(pi->color == 0x00 && pi->smelt == 2) pi->smelt=2; //Silver
@@ -617,7 +617,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 				imk->minrank=10;
 				imk->maxrank=10;
 			}
-			if (SrvParms->rank_system==0)
+			if (SrvParams->rank_system()==0)
 			{
 				imk->minrank=10;
 				imk->maxrank=10;

@@ -85,7 +85,14 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	npc_base_reattackat_	= getNumber("Combat", "Npc Base Reattack At", 40, true );
 	attackstamina_	        = getNumber("Combat", "Attack Stamina", -2, true );
 	attack_distance_	    = getNumber("Combat", "Attack Distance", 13, true );
-	
+
+	// Vendor
+	sellbyname_	            = getNumber("Vendor", "Sell By Name", 1, true );
+	sellmaxitem_	        = getNumber("Vendor", "Sell Max Item", 5, true );
+	trade_system_	        = getNumber("Vendor", "Trade System", 0, true );
+	rank_system_	        = getNumber("Vendor", "Rank System", 0, true );
+	checkBank_	            = getNumber("Vendor", "Check Bank", 2000, true );
+	vendorGreet_	        = getNumber("Vendor", "Vendor Greet", 2000, true );
 
 	flush(); // if any key created, save it.
 }

@@ -2838,7 +2838,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 				m1t=m1t+19;
 				value=pi_j->value;
 				value=calcValue(pi_j, value);
-				if (SrvParms->trade_system==1) value=calcGoodValue(currchar[s], pi_j, value, 0); // by Magius(CHE)
+				if (SrvParams->trade_system()==1) value=calcGoodValue(currchar[s], pi_j, value, 0); // by Magius(CHE)
 				m2[m2t+0]=value>>24;// Item value/price
 				m2[m2t+1]=value>>16;//Item value/price
 				m2[m2t+2]=value>>8; // Item value/price
@@ -2939,7 +2939,7 @@ int sellstuff(int s, P_CHAR pc)
 						if (pi_j->contserial==serial1 &&
 							pi_j->id()==pi_q->id()  &&
 							pi_j->type==pi_q->type && (m1[8]<60) &&
-							((SrvParms->sellbyname==0)||(SrvParms->sellbyname==1 && (!strcmp(ciname,cinam2))))) // If the names are the same! --- Magius(CHE)
+							((SrvParams->sellbyname()==0)||(SrvParams->sellbyname()==1 && (!strcmp(ciname,cinam2))))) // If the names are the same! --- Magius(CHE)
 						{
 							LongToCharPtr(pi_j->serial,m1+m1t+0);
 							ShortToCharPtr(pi_j->id(),m1+m1t+4);
@@ -2947,7 +2947,7 @@ int sellstuff(int s, P_CHAR pc)
 							ShortToCharPtr(pi_j->amount,m1+m1t+8);
 							value=pi_q->value;
 							value=calcValue(pi_j, value);
-							if (SrvParms->trade_system==1) value=calcGoodValue(pc, pi_j, value, 1); // by Magius(CHE)
+							if (SrvParams->trade_system()==1) value=calcGoodValue(pc, pi_j, value, 1); // by Magius(CHE)
 							m1[m1t+10]=value>>8;
 							m1[m1t+11]=value%256;
 							m1[m1t+12]=0;// Unknown... 2nd length byte for string?

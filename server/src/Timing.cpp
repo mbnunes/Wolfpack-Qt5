@@ -161,7 +161,7 @@ void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 								pic->restock -= tmp;
 							}
 							// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
-							if (SrvParms->trade_system==1)
+							if (SrvParams->trade_system()==1)
 								StoreItemRandomValue(pic, calcRegionFromXY(pc_i->pos.x, pc_i->pos.y));// Magius(CHE) (2)
 						}
 					}// for b

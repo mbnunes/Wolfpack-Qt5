@@ -37,6 +37,7 @@
 #include "SndPkg.h"
 #include "gumps.h"
 #include "guildstones.h"
+#include "srvparams.h"
 
 #include "debug.h"
 
@@ -1484,7 +1485,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 			{ // Set maximum rank if the item is not ranked!
 				itemmake[s].minrank=itemmake[s].maxrank=10;
 			}
-			if (SrvParms->rank_system==0)
+			if (SrvParams->rank_system()==0)
 			{
 				itemmake[s].minrank=itemmake[s].maxrank=10;
 			}			

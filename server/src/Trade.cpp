@@ -38,6 +38,7 @@
 
 #include "Trade.h"
 #include "inlines.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
@@ -81,7 +82,7 @@ void cTrade::buyaction(int s)
 			// Fixed for adv trade system -- Magius(CHE) §
 			tmpvalue = buyit[i]->value;
 			tmpvalue = calcValue(buyit[i], tmpvalue);
-			if (SrvParms->trade_system==1)
+			if (SrvParams->trade_system()==1)
 				tmpvalue = calcGoodValue(pc_currchar, buyit[i], tmpvalue,0);
 			goldtotal += (amount[i]*tmpvalue);
 			// End Fix for adv trade system -- Magius(CHE) §
@@ -89,7 +90,7 @@ void cTrade::buyaction(int s)
 	}
 
 	bool useBank;
-	useBank = (goldtotal >= SrvParms->CheckBank );
+	useBank = (goldtotal >= SrvParams->checkBank() );
 
 	if( useBank )
 		playergoldtotal = GetBankCount( pc_currchar, 0x0EED );
@@ -269,7 +270,7 @@ void cTrade::restock(int s)
 			}
 		}
 		// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
-		if (SrvParms->trade_system==1) StoreItemRandomValue(pi,-1);// Magius(CHE) (2)
+		if (SrvParams->trade_system()==1) StoreItemRandomValue(pi,-1);// Magius(CHE) (2)
 	}
 }
 
@@ -318,10 +319,10 @@ void cTrade::sellaction(int s)
 			amt=ShortFromCharPtr(buffer[s]+9+(6*i)+4);
 			maxsell+=amt;
 		}
-		if (maxsell>SrvParms->sellmaxitem)
+		if (maxsell>SrvParams->sellmaxitem())
 		{
 			char tmpmsg[256];
-			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",currchar[s]->name.c_str(),SrvParms->sellmaxitem);
+			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",currchar[s]->name.c_str(),SrvParams->sellmaxitem());
 			npctalkall(pc_n, tmpmsg,0);
 			return;
 		}
@@ -362,7 +363,7 @@ void cTrade::sellaction(int s)
 				{
 					value=pi->value;
 					value=calcValue(pSell, value);
-					if (SrvParms->trade_system==1)
+					if (SrvParams->trade_system()==1)
 						value=calcGoodValue(currchar[s], pSell, value, 1); // Fixed for adv trade --- by Magius(CHE) §
 					break;	// let's take the first match
 				}

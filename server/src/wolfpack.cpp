@@ -4281,7 +4281,7 @@ int calcValue(P_ITEM pi, int value)
 	}
 
 	// Lines added for Rank System by Magius(CHE)
-	if (pi->rank>0 && pi->rank<10 && SrvParms->rank_system==1)
+	if (pi->rank>0 && pi->rank<10 && SrvParams->rank_system()==1)
 	{
 		value=(int) (pi->rank*value)/10;
 	}
@@ -4290,7 +4290,7 @@ int calcValue(P_ITEM pi, int value)
 
 	// Lines added for Trade System by Magius(CHE) (2)
 	if (pi->rndvaluerate<0) pi->rndvaluerate=0;
-	if (pi->rndvaluerate!=0 && SrvParms->trade_system==1) {
+	if (pi->rndvaluerate!=0 && SrvParams->trade_system()==1) {
 		value+=(int) (value*pi->rndvaluerate)/1000;
 	}
 	if (value<1) value=1;

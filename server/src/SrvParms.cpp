@@ -96,9 +96,6 @@ void loadserverdefaults(void)
 	server_data.staminarate=REGENRATE2;
 	server_data.manarate=REGENRATE3;
 	server_data.minecheck=2;
-	server_data.sellbyname=1;		// Values= 0(Disabled) or 1(Enabled) - The NPC Vendors buy from you if your item has the same name of his item! --- Magius(CHE)
-	server_data.sellmaxitem=5;		// Set maximum amount of items that one player can sell at one time (5 is standard OSI) --- Magius(CHE)
-	server_data.rank_system=1;		// Rank system to make various type of a single intem based on the creator's skill! - Magius(CHE)
 	server_data.errors_to_console=0;
 
 	server_data.quittime=300;//Instalog
@@ -115,10 +112,6 @@ void loadserverdefaults(void)
 		
 	server_data.bountysactive=1;           // Dupois - Added July 18, 2000 for bountys (1-Active)
 	server_data.bountysexpire=0;           // Dupois - Added July 18, 2000 for bountys (0-Never - in days)
-
-
-	server_data.CheckBank = 2000; // Ripper..2000 default
-	server_data.VendorGreet = 1; // Ripper..do greet by default.
 
 	server_data.housedecay_secs=604800; // LB, one week
 
@@ -188,37 +181,6 @@ void loadregenerate() // by Magius(CHE)
 		else if(!(strcmp((char*)script1,"STAMINA_REGENRATE"))) server_data.staminarate=str2num(script2);
 		else if(!(strcmp((char*)script1,"MANA_REGENRATE"))) server_data.manarate=str2num(script2);
 		else if(!(strcmp((char*)script1,"ARMOR_AFFECT_MANA_REGEN"))) server_data.armoraffectmana=str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-void loadvendor() // by Magius(CHE)
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"SELLBYNAME"))) {
-			server_data.sellbyname=str2num(script2);
-			if (server_data.sellbyname!=0) server_data.sellbyname=1;  //MAgius(CHE)
-		}
-		else if(!(strcmp((char*)script1,"SELLMAXITEM"))) {
-			server_data.sellmaxitem=str2num(script2); 
-		}
-		else if(!(strcmp((char*)script1,"TRADESYSTEM"))) {
-			server_data.trade_system=str2num(script2); //Magius(CHE)
-			if (server_data.trade_system!=0) server_data.trade_system=1; // Magiu(CHE)
-		}
-		else if(!(strcmp((char*)script1,"RANKSYSTEM"))) {
-			server_data.rank_system=str2num(script2);
-			if (server_data.rank_system!=0) server_data.rank_system=1; //Magius(CHE)
-		}
-		else if(!(strcmp( (char*)script1,"CHECKBANK"))) {
-            server_data.CheckBank=str2num(script2);
-		}
-		else if(!(strcmp( (char*)script1,"VENDORGREET"))) {
-            server_data.VendorGreet=str2num(script2);
-		}
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
@@ -430,7 +392,6 @@ void loadserverscript(char *fn) // Load a server script
 			else if(!(strcmp((char*)script2, "SPIRITSPEAK"))) loadspiritspeak();
 			else if(!(strcmp((char*)script2, "TIME_LIGHT"))) loadtime_light();
 			// added by Magius(CHE)
-			else if(!(strcmp((char*)script2, "VENDOR"))) loadvendor();
 			else if(!(strcmp((char*)script2, "REGENERATE"))) loadregenerate();
 			else if(!(strcmp((char*)script2, "REMOTE_ADMIN"))) loadremote_admin();
 			// end addons by Magius(CHE)
@@ -512,15 +473,6 @@ void saveserverscript(void)
 	fprintf(file, "CACHE_MUL %i\n",Map->Cache);
 	fprintf(file, "}\n\n");
 
-	fprintf(file, "SECTION VENDOR\n");
-	fprintf(file, "{\n");
-	fprintf(file, "SELLBYNAME %i\n",server_data.sellbyname);	// Magius(CHE)
-	fprintf(file, "SELLMAXITEM %i\n",server_data.sellmaxitem);	// Magius(CHE)
-	fprintf(file, "TRADESYSTEM %i\n",server_data.trade_system);	// Magius(CHE)
-	fprintf(file, "RANKSYSTEM %i\n",server_data.rank_system);// Moved by Magius(CHE)
-	fprintf(file, "CHECKBANK %i\n",server_data.CheckBank); // Ripper
-	fprintf(file, "VENDORGREET %i\n",server_data.VendorGreet); // Ripper
-	fprintf(file, "}\n\n");
 
 	fprintf(file, "SECTION REGENERATE\n");
 	fprintf(file, "{\n");

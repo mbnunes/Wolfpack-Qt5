@@ -1819,7 +1819,7 @@ void cSkills::ArmsLoreTarget(int s)
 		}
 		sysmessage(s, (char*)temp);
 
-		if (!(pi->rank<1 || pi->rank>10 || SrvParms->rank_system==0))
+		if (!(pi->rank<1 || pi->rank>10 || SrvParams->rank_system()==0))
 		{
 			if (Skills->CheckSkill(pc_currchar,ARMSLORE, 250, 500))
 			{

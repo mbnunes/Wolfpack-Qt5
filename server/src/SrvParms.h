@@ -69,17 +69,11 @@ struct server_st
 	unsigned int manarate;
 	unsigned int minecheck;
 	char archivepath[256];
-	unsigned int sellbyname; // Magius(CHE)
-	unsigned int sellmaxitem; // Magius(CHE)
 	unsigned int skilllevel; // Magius(CHE)
-	unsigned int trade_system; // Magius(CHE)
-	unsigned int rank_system; // Magius(CHE)
 	char armoraffectmana; // Should armor slow mana regen ?
 	unsigned short int quittime;//Instalog
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
 	int usespecialbank; //special bank - AntiChrist
-	short CheckBank; // Vendors check bank for gold- Ripper
-	unsigned int VendorGreet; // shop keepers greet - Ripper
 	char errors_to_console; // LB
 	unsigned long int housedecay_secs;
 	unsigned int ra_port;
