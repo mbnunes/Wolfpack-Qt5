@@ -63,6 +63,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed animals not moving to target when attacked with ranged weapons.
   - More tag documentation in the code.
   - Definitoin Tag Cleanups.
+  - Using skills no longer unhides by default, unhide moved to python.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
