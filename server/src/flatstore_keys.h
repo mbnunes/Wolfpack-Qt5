@@ -13,6 +13,8 @@ enum eObjectTypes
 	CHUNK_CHAR = 0x0002,
 	CHUNK_SKILLS = 0x0003,
 	CHUNK_BOOK = 0x0004,
+	CHUNK_NPC = 0x0005,
+	CHUNK_PLAYER = 0x0006
 };
 
 #endif

@@ -25,7 +25,7 @@ CFG=wolf - Win32 Debug
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "wolf"
 # PROP Scc_LocalPath "."
-CPP=xicl6.exe
+CPP=cl.exe
 RSC=rc.exe
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -48,7 +48,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=xilink6.exe
+LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /subsystem:console /machine:I386 /nodefaultlib:"libcmt MSVCRTD" /out:"C:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
@@ -73,7 +73,7 @@ LINK32=xilink6.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=xilink6.exe
+LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"C:\Wolfpack\Wolfpack.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none
@@ -94,6 +94,10 @@ SOURCE=.\accounts.cpp
 # Begin Source File
 
 SOURCE=.\basechar.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\basechar_flatstore.cpp
 # End Source File
 # Begin Source File
 
@@ -249,6 +253,10 @@ SOURCE=.\npc.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\npc_flatstore.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\p_ai.cpp
 # End Source File
 # Begin Source File
@@ -266,6 +274,10 @@ SOURCE=.\pfactory.cpp
 # Begin Source File
 
 SOURCE=.\player.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\player_flatstore.cpp
 # End Source File
 # Begin Source File
 

@@ -334,7 +334,7 @@ protected:
 
     // The original body id, when the char is affected by magic.
     // cOldChar::xid_
-    INT16 orgBodyID_;
+    UINT16 orgBodyID_;
 
     // The gender of the character. cOldChar::sex_
     bool gender_;
@@ -472,7 +472,7 @@ protected:
     UINT32 murdererTime_;
 
     // Time, till criminal flag wears off. value -1 indicates not criminal!
-    long int criminalTime_;
+    UINT32 criminalTime_;
 
     // Time till a combat hit times out.
     UINT32 nextHitTime_;

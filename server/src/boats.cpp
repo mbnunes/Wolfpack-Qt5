@@ -550,14 +550,15 @@ void cBoat::turn( SI08 turn )
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar( pc );
 
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
 			{
 				iter_sock.current()->removeObject( pc );
-				if( iter_sock.current() == pc->socket() )
+				if( pp && iter_sock.current() == pp->socket() )
 					iter_sock.current()->resendPlayer();
-				if( !( ( pc->isHidden() || ( pc->dead() && !pc->war() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
+				else if( !( ( pc->isHidden() || ( pc->isDead() && !pc->isAtWar() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
 					drawChar.setHighlight( pc->notority( iter_sock.current()->player() ) );
 					sendTooltip( iter_sock.current() );
@@ -734,8 +735,8 @@ bool cBoat::move( void )
 	RegionIterator4Chars ri( pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
-		P_CHAR pc = ri.GetData();
-		if( pc != NULL ) 
+		P_PLAYER pc = dynamic_cast<P_PLAYER>(ri.GetData());
+		if( pc ) 
 		{
 			cUOSocket* socket = pc->socket();
 			if( socket )
@@ -774,16 +775,17 @@ bool cBoat::move( void )
 
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar( pc );
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
 			{
 				iter_sock.current()->removeObject( pc );
-				if( iter_sock.current() == pc->socket() )
+				if( pp && iter_sock.current() == pp->socket() )
 				{
 					iter_sock.current()->resendPlayer();
 				}
-				if( !( ( pc->isHidden() || ( pc->dead() && !pc->war() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
+				if( !( ( pc->isHidden() || ( pc->isDead() && !pc->isAtWar() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
 					drawChar.setHighlight( pc->notority( iter_sock.current()->player() ) );
 					sendTooltip( iter_sock.current() );
@@ -852,7 +854,7 @@ bool cBoat::move( void )
 
 void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 {
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 	if( !pc_currchar )
 		return;
 
@@ -874,10 +876,10 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 
 	if( !charonboat )
 	{
-		cChar::Followers followers = pc_currchar->followers();
+		cBaseChar::CharContainer pets = pc_currchar->pets();
 
 		// Move surrounding Chars on the boat as well
-		for( cChar::Followers::iterator iter = followers.begin(); iter != followers.end(); ++iter )
+		for( cBaseChar::CharContainer::iterator iter = pets.begin(); iter != pets.end(); ++iter )
 		{
 			P_CHAR pChar = (*iter);
 
@@ -930,7 +932,7 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 
 bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 {
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 	if( !pc_currchar )
 		return false;
 
@@ -997,10 +999,10 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	if( !check ) 
 		return false;
 
-	cChar::Followers followers = pc_currchar->followers();
+	cBaseChar::CharContainer pets = pc_currchar->pets();
 
 	// Move surrounding Chars on the boat as well
-	for( cChar::Followers::iterator iter = followers.begin(); iter != followers.end(); ++iter )
+	for( cBaseChar::CharContainer::iterator iter = pets.begin(); iter != pets.end(); ++iter )
 	{
 		P_CHAR pChar = (*iter);
 
