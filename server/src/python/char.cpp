@@ -458,7 +458,15 @@ PyObject* wpChar_damage( wpChar* self, PyObject* args )
 		return PyFalse;
 	}
 
+	if( getArgInt( 0 ) == 0 )
+		return PyTrue;
+
+	// Play take-damage animation
+	Combat::playGetHitSoundEffect( self->pChar );
+	
+
 	self->pChar->setHp( self->pChar->hp() - getArgInt( 0 ) );
+	self->pChar->updateHealth();
 
 	if( self->pChar->hp() <= 0 )
 		self->pChar->kill();
@@ -702,6 +710,55 @@ PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 }
 
 /*!
+	Resends the mana to this character.
+*/
+PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !self->pChar->socket() )
+		return PyFalse;
+	
+	self->pChar->socket()->updateMana();
+
+	return PyTrue;
+}
+
+/*!
+	Resends the Stamina to this character.
+*/
+PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !self->pChar->socket() )
+		return PyFalse;
+	
+	self->pChar->socket()->updateStamina();
+
+	return PyTrue;
+}
+
+/*!
+	Resends all stats to this character.
+*/
+PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !self->pChar->socket() )
+		return PyFalse;
+	
+	self->pChar->socket()->sendStatWindow();
+
+	return PyTrue;
+}
+
+
+/*!
 	What weapon is the character currently wearing?
 */
 PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
@@ -932,9 +989,14 @@ static PyMethodDef wpCharMethods[] =
 	{ "useresource",	(getattrofunc)wpChar_useresource, METH_VARARGS, "Consumes a resource posessed by the char." },
 	{ "countresource",	(getattrofunc)wpChar_countresource, METH_VARARGS, "Counts the amount of a certain resource the user has." },
 	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Shows an emote above the character." },
-	{ "updatehealth",	(getattrofunc)wpChar_updatehealth, METH_VARARGS, "Resends the healthbar to the environment." },
 	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
 	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
+
+	// Update Stats
+	{ "updatestats",	(getattrofunc)wpChar_updatemana, METH_VARARGS, "Resends other stats to this character." },
+	{ "updatemana",		(getattrofunc)wpChar_updatemana, METH_VARARGS, "Resends the manabar to this character." },
+	{ "updatestamina",	(getattrofunc)wpChar_updatestamina, METH_VARARGS, "Resends the stamina bar to this character." },
+	{ "updatehealth",	(getattrofunc)wpChar_updatehealth, METH_VARARGS, "Resends the healthbar to the environment." },
 
 	// Mount/Unmount
 	{ "unmount",		(getattrofunc)wpChar_unmount, METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },

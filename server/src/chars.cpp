@@ -30,12 +30,6 @@
 //========================================================================================
 
 // Platform include
-#if !defined(__unix__)
-#include <limits>
-#else
-#include <limits.h>
-#endif
-
 #include "platform.h"
 
 // Wolfpack includes
@@ -1880,7 +1874,7 @@ void cChar::resend( bool clean )
 		if( clean )
 			pChar->socket()->removeObject( this );
 
-		if( !isNpc() && !socket_ && !pChar->account()->isAllShow() )
+		if( !isNpc() && !socket_  && !pChar->account()->isAllShow() )
 			continue;
 
 		if( ( isHidden() || ( dead_ && !war_ ) ) && !pChar->isGMorCounselor() )
@@ -2003,6 +1997,8 @@ void cChar::action( UINT8 id )
 		id = 0x1b;
 	else if( mounted && ( id == 0x0D ) )
 		id = 0x1D;
+	else if( mounted && ( id == 0x09 ) )
+		id = 0x1A;
 	else if( mounted && ( id == 0x20 ) )
 		id = 0x1c; 
 	else if( ( mounted || this->id() < 0x190 ) && ( id == 0x22 ) )

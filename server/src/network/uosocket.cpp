@@ -1063,7 +1063,10 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	if( !_player || !_player->account() )
 		return;
 
-	if( ( pChar->isHidden() || ( pChar->dead() && !pChar->war() ) ) && !_player->account()->isAllShow() )
+	if( !pChar->isNpc() && !pChar->socket() && !_player->account()->isAllShow() )
+		return;
+
+	if( ( pChar->isHidden() || ( pChar->dead() && !pChar->war() ) ) && !_player->isGMorCounselor() )
 		return;
 	
 	// Then completely resend it
