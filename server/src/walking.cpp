@@ -159,10 +159,12 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	if( !(mapTile.flag1 & 0x40) )
 		mapBlock.walkable = true;
 	else
-		mapBlock.walkable = checkWalkable( pChar, Map->seekMap( pos ).id );
+		mapBlock.walkable = checkWalkable( pChar, mapCell.id );
 
-	blockList.push_back( mapBlock );
-	push_heap( blockList.begin(), blockList.end(), compareTiles() );
+	if (mapCell.id != 0x02) {
+		blockList.push_back( mapBlock );
+		push_heap( blockList.begin(), blockList.end(), compareTiles() );
+	}
 
     // Now for the static-items
 	StaticsIterator staIter = Map->staticsIterator( pos, true );
@@ -1483,21 +1485,12 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 {
 	if( pos.x >= ( Map->mapTileWidth(pos.map) * 8 ) || pos.y >= ( Map->mapTileHeight(pos.map) * 8 ) )
 		return false;
+
     const signed char elev = Map->mapElevation( pos );
 	Coord_cl target = pos;
 	target.z = elev;
 	if (ILLEGAL_Z == elev)
 		return false;
-
-	// is it too great of a difference z-value wise?
-	if (pos.z != ILLEGAL_Z)
-	{
-		// you can climb MaxZstep, but fall up to 15
-		if (elev - pos.z > MaxZstep)
-			return false;
-		else if (pos.z - elev > 15)
-			return false;
-	}
 
     // get the tile id of any dynamic tiles at this spot
 	Coord_cl mPos = pos;
