@@ -181,10 +181,6 @@ SOURCE=.\house.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\html.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\iserialization.cpp
 # End Source File
 # Begin Source File
@@ -222,10 +218,6 @@ SOURCE=.\maps.cpp
 # Begin Source File
 
 SOURCE=.\msgboard.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\python\multi.cpp
 # End Source File
 # Begin Source File
 
@@ -1439,6 +1431,10 @@ SOURCE=.\python\gump.h
 # Begin Source File
 
 SOURCE=.\python\item.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\multi.cpp
 # End Source File
 # Begin Source File
 
