@@ -104,7 +104,6 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	// (Logged out while dragging an item)
 	if( socket->dragging() )
 	{
-		// TODO: Reason for dropping the item
 		socket->bounceItem( socket->dragging(), BR_ALREADY_DRAGGING );
 		return;
 	}
@@ -182,7 +181,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	// ==== Grabbing the Item is allowed here ====
 	
 	// Remove eventual item-bonusses if we're unequipping something
-	if( pItem->layer() > 0 ) 
+	if( pItem->container() && pItem->container()->isChar() ) 
 	{
 		P_CHAR wearer = dynamic_cast<P_CHAR>( pItem->container() );
 
@@ -226,15 +225,21 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		}
 	}
 	
+	// *normally* we should exclude the dragging socket here. but it works so as well.
 	pItem->removeFromView( true );
-	cMapObjects::getInstance()->remove( pItem );
+
+	// Remove it from the World if it is in world, otherwise remove it from it's current container
+	if( pItem->isInWorld() )
+		cMapObjects::getInstance()->remove( pItem );
+	else
+		pItem->removeFromCont( true );
+
+	// The item was in a multi
 	if( pItem->multis != INVALID_SERIAL )
 	{
 		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pItem->multis ) );
 		if( pMulti )
-		{
 			pMulti->removeItem( pItem );
-		}
 	}
 	
 	pChar->addItem( cChar::Dragging, pItem );
@@ -645,10 +650,10 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	if( pItem->isMulti() )
 	{
 		socket->sysMessage( tr( "You cannot put houses in containers" ) );
-		Items->DeleItem( pItem );
 		cUOTxBounceItem bounce;
 		bounce.setReason( BR_NO_REASON );
 		socket->send( &bounce );
+		Items->DeleItem( pItem );
 		return;
 	}
 	
@@ -794,7 +799,6 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			pCont->setAmount( pCont->amount() + pItem->amount() );
 			
 			Items->DeleItem( pItem );
-
 			pCont->update(); // Need to update the amount
 			return;
 		}

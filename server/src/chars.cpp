@@ -3379,6 +3379,7 @@ void cChar::removeItem( cChar::enLayer layer, bool handleWeight )
 	{
 		pi->contserial = INVALID_SERIAL;
 		pi->container_ = 0;
+		pi->setLayer( 0 );
 		content_.remove((ushort)(layer));
 
 		if( handleWeight )

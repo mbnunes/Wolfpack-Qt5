@@ -2406,30 +2406,40 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		pItem->removeFromCont( handleWeight );
 
 	content_.push_back( pItem );
+	pItem->layer_ = 0;
+	pItem->container_ = this;
+	pItem->contserial = this->serial;
+	
 	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile
 	{
 		if (randomPos)
 			pItem->SetRandPosInCont( this ); // not piled, random pos
 	}
+
 	if ( handleWeight )
 		setTotalweight( this->totalweight() + pItem->totalweight() );
-
-	pItem->layer_ = 0;
-	pItem->container_ = this;
-	pItem->contserial = this->serial;
 }
 
 void cItem::removeItem( cItem* pItem, bool handleWeight )
 {
-	ContainerContent::iterator it = std::find(content_.begin(), content_.end(), pItem);
-	if ( it != content_.end() )
+	//ContainerContent::iterator it = std::find(content_.begin(), content_.end(), pItem);
+	ContainerContent::iterator it = content_.begin();
+	while( it != content_.end() )
 	{
-		content_.erase(it);
-		if (handleWeight)
-			setTotalweight(	this->totalweight() - pItem->totalweight() );
+		if( (*it) == pItem )
+		{
+			content_.erase(it);
+			if (handleWeight)
+				setTotalweight(	this->totalweight() - pItem->totalweight() );		
+			break;
+		}
+
+		++it;
 	}
+
 	pItem->container_ = 0;
 	pItem->contserial = INVALID_SERIAL;
+	pItem->setLayer( 0 );
 }
 
 cItem::ContainerContent cItem::content() const
