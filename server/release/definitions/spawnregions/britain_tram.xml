@@ -7,7 +7,7 @@
 =================================================================
 -->
 <definitions>
-	<spawnregion id="bank1">
+	<spawnregion id="tram_bank1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -16,9 +16,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1425" x2="1428" y1="1687" y2="1690" map="0" />
+		<rectangle x1="1425" x2="1428" y1="1687" y2="1690" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_bank2">
+	<spawnregion id="tram_bank2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -27,9 +27,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1434" x2="1440" y1="1683" y2="1687" map="0" />
+		<rectangle x1="1434" x2="1440" y1="1683" y2="1687" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_bank3">
+	<spawnregion id="tram_bank3">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -38,9 +38,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1425" x2="1428" y1="1677" y2="1679" map="0" />
+		<rectangle x1="1425" x2="1428" y1="1677" y2="1679" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_bank4">
+	<spawnregion id="tram_bank4">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -49,9 +49,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1648" x2="1653" y1="1601" y2="1614" map="0" />
+		<rectangle x1="1648" x2="1653" y1="1601" y2="1614" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_blacksmith1">
+	<spawnregion id="tram_blacksmith1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -60,9 +60,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1417" x2="1420" y1="1544" y2="1550" map="0" />
+		<rectangle x1="1417" x2="1420" y1="1544" y2="1550" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_mage1">
+	<spawnregion id="tram_mage1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -71,9 +71,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1486" x2="1491" y1="1547" y2="1550" map="0" />
+		<rectangle x1="1486" x2="1491" y1="1547" y2="1550" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_mage2">
+	<spawnregion id="tram_mage2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -82,9 +82,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1569" x2="1574" y1="1703" y2="1714" map="0" />
+		<rectangle x1="1569" x2="1574" y1="1703" y2="1714" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_mage3">
+	<spawnregion id="tram_mage3">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -93,9 +93,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1594" x2="1598" y1="1648" y2="1654" map="0" />
+		<rectangle x1="1594" x2="1598" y1="1648" y2="1654" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_herbalist1">
+	<spawnregion id="tram_herbalist1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -104,9 +104,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1491" x2="1496" y1="1548" y2="1554" map="0" />
+		<rectangle x1="1491" x2="1496" y1="1548" y2="1554" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_stablemaster1">
+	<spawnregion id="tram_stablemaster1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -115,9 +115,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1509" x2="1526" y1="1546" y2="1550" map="0" />
+		<rectangle x1="1509" x2="1526" y1="1546" y2="1550" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_stablemaster2">
+	<spawnregion id="tram_stablemaster2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -126,9 +126,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1289" x2="1298" y1="1757" y2="1771" map="0" />
+		<rectangle x1="1289" x2="1298" y1="1757" y2="1771" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_guard1">
+	<spawnregion id="tram_guard1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -137,9 +137,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1510" x2="1516" y1="1611" y2="1616" map="0" />
+		<rectangle x1="1510" x2="1516" y1="1611" y2="1616" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_guard2">
+	<spawnregion id="tram_guard2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -148,9 +148,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1409" x2="1414" y1="1714" y2="1718" map="0" />
+		<rectangle x1="1409" x2="1414" y1="1714" y2="1718" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_guard3">
+	<spawnregion id="tram_guard3">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -159,9 +159,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1616" x2="1622" y1="1762" y2="1766" map="0" />
+		<rectangle x1="1616" x2="1622" y1="1762" y2="1766" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_healer1">
+	<spawnregion id="tram_healer1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -170,9 +170,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1470" x2="1477" y1="1608" y2="1614" map="0" />
+		<rectangle x1="1470" x2="1477" y1="1608" y2="1614" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_armorer1">
+	<spawnregion id="tram_armorer1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -181,9 +181,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1480" x2="1484" y1="1583" y2="1589" map="0" />
+		<rectangle x1="1480" x2="1484" y1="1583" y2="1589" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_armorer2">
+	<spawnregion id="tram_armorer2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -192,9 +192,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1445" x2="1450" y1="1646" y2="1651" map="0" />
+		<rectangle x1="1445" x2="1450" y1="1646" y2="1651" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_armorer3">
+	<spawnregion id="tram_armorer3">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -203,9 +203,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1340" x2="1345" y1="1731" y2="1735" map="0" />
+		<rectangle x1="1340" x2="1345" y1="1731" y2="1735" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_armorer4">
+	<spawnregion id="tram_armorer4">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -214,9 +214,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1632" x2="1634" y1="1689" y2="1691" map="0" />
+		<rectangle x1="1632" x2="1634" y1="1689" y2="1691" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_baker1">
+	<spawnregion id="tram_baker1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -225,9 +225,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1449" x2="1454" y1="1609" y2="1618" map="0" />
+		<rectangle x1="1449" x2="1454" y1="1609" y2="1618" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_carpenter1">
+	<spawnregion id="tram_carpenter1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -236,9 +236,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1429" x2="1432" y1="1593" y2="1598" map="0" />
+		<rectangle x1="1429" x2="1432" y1="1593" y2="1598" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_architect1">
+	<spawnregion id="tram_architect1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -247,9 +247,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1434" x2="1438" y1="1593" y2="1598" map="0" />
+		<rectangle x1="1434" x2="1438" y1="1593" y2="1598" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_jeweler1">
+	<spawnregion id="tram_jeweler1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -258,9 +258,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1417" x2="1423" y1="1576" y2="1582" map="0" />
+		<rectangle x1="1417" x2="1423" y1="1576" y2="1582" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_jeweler2">
+	<spawnregion id="tram_jeweler2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -269,9 +269,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1451" x2="1456" y1="1679" y2="1688" map="0" />
+		<rectangle x1="1451" x2="1456" y1="1679" y2="1688" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_jeweler3">
+	<spawnregion id="tram_jeweler3">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -280,9 +280,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1648" x2="1653" y1="1641" y2="1643" map="0" />
+		<rectangle x1="1648" x2="1653" y1="1641" y2="1643" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_tinker1">
+	<spawnregion id="tram_tinker1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -291,9 +291,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1422" x2="1429" y1="1648" y2="1663" map="0" />
+		<rectangle x1="1422" x2="1429" y1="1648" y2="1663" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_butcher1">
+	<spawnregion id="tram_butcher1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -302,9 +302,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1449" x2="1454" y1="1721" y2="1726" map="0" />
+		<rectangle x1="1449" x2="1454" y1="1721" y2="1726" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_provisioner1">
+	<spawnregion id="tram_provisioner1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -313,9 +313,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1465" x2="1470" y1="1672" y2="1674" map="0" />
+		<rectangle x1="1465" x2="1470" y1="1672" y2="1674" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_provisioner2">
+	<spawnregion id="tram_provisioner2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -324,9 +324,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1604" x2="1606" y1="1712" y2="1715" map="0" />
+		<rectangle x1="1604" x2="1606" y1="1712" y2="1715" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_tailor1">
+	<spawnregion id="tram_tailor1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -335,9 +335,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1467" x2="1471" y1="1684" y2="1689" map="0" />
+		<rectangle x1="1467" x2="1471" y1="1684" y2="1689" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_tailor2">
+	<spawnregion id="tram_tailor2">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -346,9 +346,9 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1547" x2="1552" y1="1657" y2="1662" map="0" />
+		<rectangle x1="1547" x2="1552" y1="1657" y2="1662" map="1" />
 	</spawnregion>
-	<spawnregion id="fel_cook1">
+	<spawnregion id="tram_cook1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
@@ -357,6 +357,6 @@
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1610" x2="1612" y1="1584" y2="1586" map="0" />
+		<rectangle x1="1610" x2="1612" y1="1584" y2="1586" map="1" />
 	</spawnregion>
 </definitions>
