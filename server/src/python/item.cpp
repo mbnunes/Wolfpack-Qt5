@@ -640,6 +640,10 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 /*!
 	Gets the outmost item this item is contained in.
 */
+/*
+	\method item.getoutmostitem
+	\description Returns the outmost item this item is contained in.
+*/
 static PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -651,6 +655,10 @@ static PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 
 /*!
 	Gets the outmost character this item is contained in.
+*/
+/*
+	\method item.getoutmostchar
+	\description Returns the outmost character this item is contained in.
 */
 static PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 {
