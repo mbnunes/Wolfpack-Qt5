@@ -241,7 +241,7 @@ void advancementobjects(int s, int x, int allways)
 						}
 						if (hairobject>-1)
 						{
-							x=hstr2num(script2);
+							x=hex2num(script2);
 							items[hairobject].color1=x>>8;
 							items[hairobject].color2=x%256;
 							RefreshItem(hairobject);//AntiChrist
@@ -267,7 +267,7 @@ void advancementobjects(int s, int x, int allways)
 						}
 						if (beardobject>-1)
 						{
-							x=hstr2num(script2);
+							x=hex2num(script2);
 							items[beardobject].color1=x>>8;
 							items[beardobject].color2=x%256;
 							RefreshItem(beardobject);//AntiChrist
@@ -359,13 +359,13 @@ void advancementobjects(int s, int x, int allways)
 
 					if (!(strcmp((char*)script1,"SKIN")))
 					{
-						pc_s->skin = pc_s->xskin = static_cast<UI16>(hstr2num(script2));
+						pc_s->skin = pc_s->xskin = static_cast<UI16>(hex2num(script2));
 						teleport(s);
 					}
 
 					if (!(strcmp("POLY",(char*)script1)))
 					{
-						x=hstr2num(script2);
+						x=hex2num(script2);
 						pc_s->id1=x>>8;
 						pc_s->xid1=x>>8;
 						pc_s->id2=x%256;
@@ -476,7 +476,7 @@ void monstergate(int s, int x)
 			if (!(strcmp("FAME",(char*)script1))) pc_s->fame=str2num(script2);
 			if (!(strcmp("ID",(char*)script1)))
 			{
-				tmp=hstr2num(script2);
+				tmp=hex2num(script2);
 				pc_s->id1=tmp>>8;
 				pc_s->id2=tmp%256;
 				pc_s->xid1=pc_s->id1;
@@ -484,7 +484,7 @@ void monstergate(int s, int x)
 			}
 			if (!(strcmp("SKIN",(char*)script1)))
 			{
-				pc_s->skin = pc_s->xskin = hstr2num(script2);
+				pc_s->skin = pc_s->xskin = hex2num(script2);
 			}
 
 			if (!(strcmp("GOLD", (char*)script1)))
@@ -555,8 +555,8 @@ void monstergate(int s, int x)
 			{
 				if (retitem>-1)
 				{
-					items[retitem].color1=(hstr2num(script2))>>8;
-					items[retitem].color2=(hstr2num(script2))%256;
+					items[retitem].color1=(hex2num(script2))>>8;
+					items[retitem].color2=(hex2num(script2))%256;
 				}
 			}
 			if (!(strcmp("POISON",(char*)script1))) pc_s->poison=str2num(script2);
@@ -764,7 +764,7 @@ void polycolorgate(int s, int x)
 		{ 
 			if (!(strcmp("ID", (char*)script1))) 
 			{ 
-				tmp = hstr2num(script2); 
+				tmp = hex2num(script2); 
 				pc_s->id1 = tmp >> 8; 
 				pc_s->id2 = tmp%256; 
 				pc_s->xid1 = pc_s->id1; 
@@ -772,7 +772,7 @@ void polycolorgate(int s, int x)
 			} 
 			else if (!(strcmp("SKIN", (char*)script1))) 
 			{ 
-				pc_s->skin = pc_s->xskin = static_cast<UI16>(hstr2num(script2));
+				pc_s->skin = pc_s->xskin = static_cast<UI16>(hex2num(script2));
 			} 
 		} 
 	} 

@@ -105,7 +105,7 @@ void cHouseManager::AddHome(int s,int i)
 			{
 				if (!(strcmp((char*)script1,"ID")))
 				{
-					tmp=hstr2num(script2);
+					tmp=hex2num(script2);
 					id1 = (unsigned char)(tmp>>8);
 					id2 = (unsigned char)(tmp%256);
 				}

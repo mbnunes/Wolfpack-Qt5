@@ -95,7 +95,7 @@ int addrandomcolor(int s, char *colorlist)
 				j++;
 				if(j==i)
 				{
-					storeval=hstr2num(script1);
+					storeval=hex2num(script1);
 				}
 			}
 		}
@@ -151,7 +151,7 @@ static int addrandomhaircolor(int s, char *colorlist)
 				j++;
 				if(j==i)
 				{
-					haircolor=hstr2num(script1);
+					haircolor=hex2num(script1);
 				}
 			}
 		}
@@ -1063,8 +1063,8 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			if (!strcmp("COLOR",(char*)script1)) {
 				if (retitem>-1)
 				{
-					items[retitem].color1=(hstr2num(script2))>>8;
-					items[retitem].color2=(hstr2num(script2))%256;
+					items[retitem].color1=(hex2num(script2))>>8;
+					items[retitem].color2=(hex2num(script2))%256;
 				}
 			}
 			else if (!strcmp("CARVE",(char*)script1)) pc_c->carve=str2num(script2);
@@ -1132,8 +1132,8 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			case 'e':
 
 			if (!(strcmp("EMOTECOLOR",(char*)script1))) {
-				pc_c->emotecolor1=(hstr2num(script2))>>8;
-				pc_c->emotecolor2=(hstr2num(script2))%256;
+				pc_c->emotecolor1=(hex2num(script2))>>8;
+				pc_c->emotecolor2=(hex2num(script2))%256;
 			}
 			else if (!strcmp("ENTICEMENT",(char*)script1)) pc_c->baseskill[ENTICEMENT] = getstatskillvalue((char*)script2);
 			else if (!strcmp("EVALUATINGINTEL",(char*)script1)) pc_c->baseskill[EVALUATINGINTEL] = getstatskillvalue((char*)script2);
@@ -1219,7 +1219,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			case 'i':
 
 			if (!strcmp("ID",(char*)script1)) {
-				tmp=hstr2num(script2);
+				tmp=hex2num(script2);
 				pc_c->id1=tmp>>8;
 				pc_c->id2=tmp%256;
 				pc_c->xid1=pc_c->id1;
@@ -1301,7 +1301,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			}
 			else if (!(strcmp((char*)script1, "NOTRAIN"))) pc_c->cantrain=false;
 			else if (!(strcmp("NPCWANDER",(char*)script1))) pc_c->npcWander=str2num(script2);
-			else if (!(strcmp("NPCAI",(char*)script1))) pc_c->npcaitype=hstr2num(script2);
+			else if (!(strcmp("NPCAI",(char*)script1))) pc_c->npcaitype=hex2num(script2);
 			break;
 
 			case 'O':
@@ -1395,7 +1395,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			case 's':
 
 			if (!(strcmp("SKIN",(char*)script1))) {
-				pc_c->skin = pc_c->xskin = hstr2num(script2);
+				pc_c->skin = pc_c->xskin = hex2num(script2);
 			}
 			else if (!(strcmp("SHOPKEEPER", (char*)script1))) {
 				scpMark m=pScp->Suspend();
@@ -1485,7 +1485,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				pc_c->hp  = pc_c->st;
 			}
 			else if (!(strcmp("SPLITCHANCE",(char*)script1))) pc_c->splitchnc=str2num(script2);
-			else if (!(strcmp("SAYCOLOR",(char*)script1))) 			pc_c->saycolor = static_cast<UI16>(hstr2num(script2));
+			else if (!(strcmp("SAYCOLOR",(char*)script1))) 			pc_c->saycolor = static_cast<UI16>(hex2num(script2));
 			else if (!(strcmp("SPADELAY",(char*)script1))) pc_c->spadelay=str2num(script2);
 			else if ((!(strcmp("SPIRITSPEAK",(char*)script1)))||(!(strcmp("SKILL32",(char*)script1)))) pc_c->baseskill[SPIRITSPEAK] = getstatskillvalue((char*)script2);
 			else if ((!(strcmp("STEALTH",(char*)script1)))||(!(strcmp("SKILL47",(char*)script1)))) pc_c->baseskill[STEALTH] = getstatskillvalue((char*)script2);

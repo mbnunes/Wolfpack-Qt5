@@ -560,7 +560,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 			char tmp[99];
 			gmnumber++;
 			tmpgmnumber++; // Magius(CHE)
-			gmid[gmnumber]=hstr2num(script1);
+			gmid[gmnumber]=hex2num(script1);
 			strcpy(gmtext[gmnumber], script2);
 
 			pScp->NextLineSplitted();
@@ -1817,7 +1817,7 @@ void cSkills::TrackingMenu(int s,int gmindex)
 		if (script1[0]!='}')
 		{
 			gmnumber++;
-			gmid[gmnumber]=hstr2num(script1);
+			gmid[gmnumber]=hex2num(script1);
 			strcpy(gmtext[gmnumber], script2);
 			read1();
 		}

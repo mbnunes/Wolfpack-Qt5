@@ -132,10 +132,10 @@ void cAdmin::ReadIni()
 	if (temp[0]=='1') heartbeat=true;
 	ReadString();
 	strcpy((char*)defaultpriv1str, temp);
-	defaultpriv1=hstr2num(defaultpriv1str);
+	defaultpriv1=hex2num(defaultpriv1str);
 	ReadString();
 	strcpy((char*)defaultpriv2str, temp);
-	defaultpriv2=hstr2num(defaultpriv2str);
+	defaultpriv2=hex2num(defaultpriv2str);
 
 	// name resovling of server-address, LB 7-JULY 2000
 

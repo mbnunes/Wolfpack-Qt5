@@ -826,7 +826,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'c':
 					if (!strcmp("COLOR", (char*)script1))
 					{
-						tmp = hstr2num(script2);
+						tmp = hex2num(script2);
 						pi->color1 = tmp >> 8;
 						pi->color2 = tmp%256;
 					}
@@ -887,7 +887,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'i':
 					if (!(strcmp("ID", (char*)script1)))
 					{
-						tmp = hstr2num(script2);
+						tmp = hex2num(script2);
 						pi->setId(tmp);
 					}
 					else if (!strcmp("ITEMLIST", (char*)script1))
@@ -1384,7 +1384,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
  					if (!(strcmp("CREATOR", (char*)script1))) strcpy(pi->creator, script2); // by Magius(CHE)
 					else if (!(strcmp("COLOR",(char*)script1)))
 					{
-						tmp=hstr2num(script2);
+						tmp=hex2num(script2);
 						pi->color1=tmp>>8;
 						pi->color2=tmp%256;
 					}

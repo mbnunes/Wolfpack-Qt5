@@ -1844,7 +1844,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		pc->menupriv=-1; // lb, menu priv
 	}
 
-	pc->MoveTo(makenum2(start[buffer[s][0x5B]][2]), makenum2(start[buffer[s][0x5B]][3]), makenum2(start[buffer[s][0x5B]][4]));
+	pc->MoveTo(str2num(start[buffer[s][0x5B]][2]), str2num(start[buffer[s][0x5B]][3]), str2num(start[buffer[s][0x5B]][4]));
 
 	pc->dir=4;
 
@@ -2304,7 +2304,7 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 	}
 	if (!(strcmp("POLY", (char*)script1)))
 	{
-		tmp = hstr2num(script2);
+		tmp = hex2num(script2);
 		pc_currchar->id1=tmp>>8;
 		pc_currchar->xid1=tmp>>8;
 		pc_currchar->id2=tmp%256;
@@ -2314,12 +2314,12 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 	}
 	if (!(strcmp("SKIN", (char*)script1)))
 	{
-		pc_currchar->skin = pc_currchar->xskin = static_cast<UI16>(hstr2num(script2));
+		pc_currchar->skin = pc_currchar->xskin = static_cast<UI16>(hex2num(script2));
 		return;
 	}
 	if (!(strcmp("LIGHT", (char*)script1)))
 	{
-		worldfixedlevel=hstr2num(script2);
+		worldfixedlevel=hex2num(script2);
 		if (worldfixedlevel!=255) setabovelight(worldfixedlevel);
 		else setabovelight(worldcurlevel);
 		return;

@@ -92,7 +92,7 @@ int cMagic::InitSpells(void)
 		else if (!strcmp("SCLO", (char*)script1))		spells[curspell].sclo = str2num(script2);
 		else if (!strcmp("SCHI", (char*)script1))		spells[curspell].schi = str2num(script2);
 		else if (!strcmp("MANTRA", (char*)script1))		strcpy(spells[curspell].mantra, (char*)script2);
-		else if (!strcmp("ACTION", (char*)script1))		spells[curspell].action = hstr2num(script2);
+		else if (!strcmp("ACTION", (char*)script1))		spells[curspell].action = hex2num(script2);
 		else if (!strcmp("DELAY", (char*)script1))		spells[curspell].delay = str2num(script2);
 		else if (!strcmp("ASH", (char*)script1))		spells[curspell].reagents.ash = str2num(script2);
 		else if (!strcmp("DRAKE", (char*)script1))		spells[curspell].reagents.drake = str2num(script2);
@@ -3882,7 +3882,7 @@ void cMagic::PolymorphMenu(int s,int gmindex)
 		if (script1[0]!='}' && strcmp("POLYMORPHID",(char*)script1))
 		{
 			gmnumber++;
-			gmid[gmnumber]=hstr2num(script1);
+			gmid[gmnumber]=hex2num(script1);
 			strcpy(gmtext[gmnumber],(char*)script2);
 			read1();
 		}
@@ -3967,7 +3967,7 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 	while ( (script1[0]!='}') && (i<creaturenumber) && (++loopexit < MAXLOOPS) );
 
 	read2();
-	k=hstr2num(script2);
+	k=hex2num(script2);
 
 	closescript();
 

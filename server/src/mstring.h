@@ -74,7 +74,7 @@ public:
 	//	will grow to do it for us.  Anyway, just convert the character representation to high byte
 	//	of 0.
 
-	char* unicode() ;
+	char* unicode();
 	
 	///The reverse, take in a unicode character array
 	void unicode(const char* szBuffer, UI32 uiLen) ;
@@ -115,14 +115,14 @@ public:
 	SI16 toSI16(UI16 uiBase=10);
 	SI08 toSI08(UI16 uiBase=10);
 
-	string lower() ;
+	string lower();
 
-	string upper() ;
+	string upper();
 
-	bool  compare(string) ;
+	bool  compare(string);
 
-	string pop(char*  szSep) ;
-	string pop(string sSep) ;
+	string pop(char*  szSep);
+	string pop(string sSep);
 
 	//Static members
 	static vector<mstring> split(const mstring & clSep, const mstring & clString,const UI16 uiAmount=0) ;

@@ -37,25 +37,32 @@
 
 #include "basics.h"
 
-int makenum2(char *s) // Converts string to integer
-{
-	unsigned int i;
-	int n=0;
-	unsigned int length=strlen(s);
-	for(i=0;i<length;i++)
-	{
-		n*=10; // Multiply by 10
-		if (isdigit(s[i])) n=n+(s[i])-48; // Convert char to number from 0 to 9
-	}
-	if (s[0]=='-') n=-n;
-	return n;
-}
-
 int RandomNum(int nLowNum, int nHighNum)
 {
 	if (nHighNum - nLowNum + 1)
 		return ((rand() % (nHighNum - nLowNum + 1)) + nLowNum);
 	else
 		return nLowNum;
+}
+
+int str2num(char *s, int base) // Convert string to integer
+{
+	char* dummy; // ignore the stop pointer
+	return strtol(s, &dummy, base);
+/*	unsigned int i;
+	int n=0;
+	int neg=0;
+	unsigned int length=strlen((char*)s);
+	for(i=0;i<length;i++)
+	{
+		if (s[i]==' ') continue;
+		if (s[i]=='-') neg=1;
+		n*=10; // Multiply by 10
+		if (isdigit(s[i]))
+			n=n+(s[i])-48; // Convert char to number from 0 to 9
+	}
+	if (neg) n=-n;
+	return n;
+*/
 }
 

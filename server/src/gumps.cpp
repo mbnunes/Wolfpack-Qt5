@@ -302,10 +302,10 @@ void cGump::Input(int s)
 		switch( index )
 		{
 		case 2:		strcpy( items[j].name, (char*)text );	break;	 // Name
-		case 3:		k = hstr2num( text );	
+		case 3:		k = hex2num( text );	
 					items[j].setId(k);
 					break;	 // ID
-		case 4:		k = hstr2num( text );	
+		case 4:		k = hex2num( text );	
 					items[j].color1 = (unsigned char)(k>>8);
 					items[j].color2 = (unsigned char)(k%256); 
 					break;	// Hue
@@ -316,13 +316,13 @@ void cGump::Input(int s)
 		case 9:		k = str2num( text );	items[j].itmhand = k;	break;	// Itemhand - added by Xuri
 		case 10:	k = str2num( text );	items[j].layer = k;	break;	// Layer
 		case 11:	k = str2num( text );	items[j].amount = k;	break;	// Amount
-		case 12:	k = hstr2num( text );	// More
+		case 12:	k = hex2num( text );	// More
 					items[j].more1 = (unsigned char)(k>>24);
 					items[j].more2 = (unsigned char)(k>>16);
 					items[j].more3 = (unsigned char)(k>>8);
 					items[j].more4 = (unsigned char)(k%256);
 					break;
-		case 13: 	k = hstr2num( text );	// MoreB
+		case 13: 	k = hex2num( text );	// MoreB
 					items[j].moreb1 = (unsigned char)(k>>24);
 					items[j].moreb2 = (unsigned char)(k>>16);
 					items[j].moreb3 = (unsigned char)(k>>8);
@@ -368,7 +368,7 @@ void cGump::Input(int s)
 		case 6:		k = str2num( text ); 	pc_j->pos.z = k;	pc_j->dispz = k;	break;	// Z
 		case 7:		k = str2num( text );	pc_j->dir = k&0x0F;	break;// make sure the high-bits are clear // Dir
 		case 8: // Body
-			k = hstr2num( text );
+			k = hex2num( text );
 			if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client			                       
 			{ 
 		       pc_j->xid1=pc_j->id1=k>>8; // allow only non crashing ones
@@ -386,7 +386,7 @@ void cGump::Input(int s)
 			   }			
 			}
 			break;
-		case 9:		k = hstr2num( text );		// Skin
+		case 9:		k = hex2num( text );		// Skin
 					body=(pc_j->id1<<8)+pc_j->id2;
 
                     b=k&0x4000; // Lord binary --> that touchy transparency bit ! 
@@ -1637,7 +1637,7 @@ void itemmenu(int s, int m) // Menus for item creation
 		if (script1[0]!='}')
 		{
 			gmnumber++;
-			gmid[gmnumber]=hstr2num(script1);
+			gmid[gmnumber]=hex2num(script1);
 			strcpy(gmtext[gmnumber], script2);
 			read1();
 		}

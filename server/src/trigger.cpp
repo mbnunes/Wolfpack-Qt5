@@ -1597,7 +1597,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							// comm[0] contains the id of the out-items!
 							p = makenumber(1);
 							
-							// int tmp=hstr2num(comm[0]);
+							// int tmp=hex2num(comm[0]);
 							// int id1=tmp>>8;
 							// int id2=tmp%256;
 							c=-1;

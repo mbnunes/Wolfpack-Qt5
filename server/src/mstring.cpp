@@ -1,5 +1,5 @@
 //========================================================================
-//FILE: mstring.cpp
+// FILE: mstring.cpp
 //========================================================================
 //	Copyright (c) 2001 by Sheppard Norfleet and Charles Kerr
 //  All Rights Reserved
@@ -24,554 +24,551 @@
 //========================================================================
 #include "mstring.h"
 //========================================================================
-//Begin Constructor
+// Begin Constructor
 mstring::mstring() : string()
 {
 }
-//End of Constructor
+// End of Constructor
 //========================================================================
-//Begin Constructor (const string&)
-mstring::mstring(const string& sStr) : string(static_cast<string> (sStr))
+// Begin Constructor (const string&)
+mstring::mstring(const string& sStr) : string(static_cast<string>(sStr))
 { 
 }
-//End of Constructor (const string&)
+// End of Constructor (const string&)
 //========================================================================
-//Constructor that is populated from the null terminated char string
+// Constructor that is populated from the null terminated char string
 mstring::mstring(char* szStr) : string(szStr)
 {
 }
-//End of Constructor
+// End of Constructor
 //========================================================================
-//Begin Constructor (char*, UI32)
-mstring::mstring(char* szStr,UI32 uiLen) : string(szStr,uiLen)
+// Begin Constructor (char*, UI32)
+mstring::mstring(char* szStr, UI32 uiLen) : string(szStr, uiLen)
 {
-	//Creates a string  using the char string and the number of characters specified
+	// Creates a string  using the char string and the number of characters specified
 }
-//End of Constructor (char *, UI32)
+// End of Constructor (char *, UI32)
 //========================================================================
-//Begin Constructor (const string&, UI32, UI32)
-mstring::mstring(const string& clString, UI32 uiIdx, UI32 uiLength)  : string(static_cast<string> (clString), uiIdx, uiLength)
+// Begin Constructor (const string&, UI32, UI32)
+mstring::mstring(const string& clString, UI32 uiIdx, UI32 uiLength)  : string(static_cast<string>(clString), uiIdx, uiLength)
 {
 }
-//End of Constructor (const string&, UI32, UI32)
+// End of Constructor (const string&, UI32, UI32)
 //========================================================================
-//Begin Destructor
+// Begin Destructor
 mstring::~mstring()
 {
 }
-//End of Destrcutor
+// End of Destrcutor
 //========================================================================
-//Begin appendNum (UI08,UI16)
+// Begin appendNum (UI08,UI16)
 mstring& mstring::appendNum(UI08 uiValue, UI16 uiBase) 
 {
-	//Convert a byte	
-	return appendNum( static_cast<UI32> (uiValue) , uiBase);
+	// Convert a byte	
+	return appendNum(static_cast<UI32>(uiValue) , uiBase);
 }
-//End of appendNum (UI08,UI16)
+// End of appendNum (UI08,UI16)
 //========================================================================
-//Begin appendNum (UI16, UI16)
+// Begin appendNum (UI16, UI16)
 mstring& mstring::appendNum(UI16 uiValue, UI16 uiBase)
 {
-	//Convert a 16 bit integer
-	return appendNum(static_cast<UI32> (uiValue), uiBase);
+	// Convert a 16 bit integer
+	return appendNum(static_cast<UI32>(uiValue), uiBase);
 }
-//End of appendNum (UI16,UI16)
+// End of appendNum (UI16,UI16)
 //========================================================================
-//Begin appendNum(UI32,UI16)
+// Begin appendNum(UI32,UI16)
 mstring& mstring::appendNum(UI32 uiValue, UI16 uiBase)
 {
-	//Convert a 32 bit integer
-	//Basically we make a stream, pop the value onto it, and pop it back off
-	//We have to use the older strstream as gcc doesn't support the new ones
+	// Convert a 32 bit integer
+	// Basically we make a stream, pop the value onto it, and pop it back off
+	// We have to use the older strstream as gcc doesn't support the new ones
 	// Ok, gcc 3 does use sstream, so we will conver it over
-
-	stringstream   strmQueue ;
-	mstring sTemp;
-
-	// I belive this could be done cleaner with STL algorithms!!!!
-	//Put it into the stream
-	strmQueue <<  (uiValue);
 	
-	//Ok, now read it back from the stream into our string
-	switch(uiBase)
+	stringstream   strmQueue;
+	mstring sTemp;
+	
+	// I belive this could be done cleaner with STL algorithms!!!!
+	// Put it into the stream
+	strmQueue <<(uiValue);
+	
+	// Ok, now read it back from the stream into our string
+	switch (uiBase)
 	{
-		//Decimal case
+			// Decimal case
 		case 10:
 			strmQueue >> dec>> sTemp;
 			append(sTemp);
 			break;
-		//Hex case	
+			// Hex case	
 		case 16:
 			strmQueue >> hex >> sTemp;
 			append(sTemp);
 			break;
-		//Octal case
+			// Octal case
 		case 8:
 			strmQueue >> oct >> sTemp;
 			append(sTemp);
 			break;
-		//We dont support anything else
+			// We dont support anything else
 		default:
 			break;
 	}
-	//Return our object
-	(*this) = (*this) + sTemp ;
+	// Return our object
+	(*this) = (*this) + sTemp;
 	return *this;
 }
-//End of appendNum (UI32,UI16)
+// End of appendNum (UI32,UI16)
 //========================================================================
-//Begin appendNum(SI08,UI16)
+// Begin appendNum(SI08,UI16)
 mstring & mstring::appendNum(SI08 siValue, UI16 uiBase) 
 {
-	//Set a signed eight bit value
-	return appendNum( static_cast<SI32> (siValue) , uiBase);
+	// Set a signed eight bit value
+	return appendNum(static_cast<SI32>(siValue) , uiBase);
 }
-//End of setNum (SI08,UI16)
+// End of setNum (SI08,UI16)
 //========================================================================
-//Begin appendNum (SI16, UI16)
+// Begin appendNum (SI16, UI16)
 mstring & mstring::appendNum(SI16 siValue, UI16 uiBase) 
 {
-	//Set a signed 16 bit value
-	return appendNum( static_cast<SI32> (siValue), uiBase);
+	// Set a signed 16 bit value
+	return appendNum(static_cast<SI32>(siValue), uiBase);
 }
-//End of appendNum (SI16, UI16)
+// End of appendNum (SI16, UI16)
 //========================================================================
-//Begi appendNum (SI32,UI16)
+// Begi appendNum (SI32,UI16)
 mstring & mstring::appendNum(SI32 siValue, UI16 uiBase)
 {
-	//Set a signed 32 bit value
-	//Basically we make a stream, pop the value onto it, and pop it back off
-	//We have to use the older strstream as gcc doesn't support the new ones (will with 3.0)
+	// Set a signed 32 bit value
+	// Basically we make a stream, pop the value onto it, and pop it back off
+	// We have to use the older strstream as gcc doesn't support the new ones (will with 3.0)
 	// Ok, gcc 3 does use sstream, so we will conver it over
-
-	stringstream   strmQueue ;
+	
+	stringstream   strmQueue;
 	
 	
-	//Put in into the stream
-	strmQueue <<  (siValue);
+	// Put in into the stream
+	strmQueue <<(siValue);
 	mstring sTemp;
 	
-	//Ok, now read it back from the stream into our string
-	switch(uiBase)
+	// Ok, now read it back from the stream into our string
+	switch (uiBase)
 	{
-		//Decimal case
+			// Decimal case
 		case 10:
-			strmQueue >> dec >> sTemp;// >> *this;
+			strmQueue >> dec >> sTemp;
+			// >> *this;
 			append(sTemp);
 			break;
-		//Hex case	
+			// Hex case	
 		case 16:
 			strmQueue >> hex >> sTemp;
 			append(sTemp);
-			break ;
-		//Octal case
+			break;
+			// Octal case
 		case 8:
 			strmQueue >> oct >> sTemp;
 			append(sTemp);
 			break;
-		// We dont support anything else
+			// We dont support anything else
 		default:
 			break;
 	}
 	// Return our object
 	return *this;
 }
-//End of appendNum (SI32,UI16)
+// End of appendNum (SI32,UI16)
 //========================================================================
-//Begin setNum (UI08,UI16)
+// Begin setNum (UI08,UI16)
 mstring& mstring::setNum(UI08 uiValue, UI16 uiBase) 
 {
-	//Convert a byte	
-	return setNum( static_cast<UI32> (uiValue) , uiBase);
+	// Convert a byte	
+	return setNum(static_cast<UI32>(uiValue) , uiBase);
 }
-//End of setNum (UI08,UI16)
+// End of setNum (UI08,UI16)
 //========================================================================
-//Begin setNum (UI16, UI16)
+// Begin setNum (UI16, UI16)
 mstring& mstring::setNum(UI16 uiValue, UI16 uiBase)
 {
-	//Convert a 16 bit integer
-	return setNum(static_cast<UI32> (uiValue), uiBase);
+	// Convert a 16 bit integer
+	return setNum(static_cast<UI32>(uiValue), uiBase);
 }
-//End of setNum (UI16,UI16)
+// End of setNum (UI16,UI16)
 //========================================================================
-//Begin setNum(UI32,UI16)
+// Begin setNum(UI32,UI16)
 mstring& mstring::setNum(UI32 uiValue, UI16 uiBase)
 {
-	//Convert a 32 bit integer
-	//Basically we make a stream, pop the value onto it, and pop it back off
-	//We have to use the older strstream as gcc doesn't support the new ones
+	// Convert a 32 bit integer
+	// Basically we make a stream, pop the value onto it, and pop it back off
+	// We have to use the older strstream as gcc doesn't support the new ones
 	// Ok, gcc 3 does use sstream, so we will conver it over
-	stringstream   strmQueue ;
+	stringstream   strmQueue;
 	
-	//Put it into the stream
-	strmQueue <<  (uiValue);
+	// Put it into the stream
+	strmQueue <<(uiValue);
 	
-	//Ok, now read it back from the stream into our string
-	switch(uiBase)
+	// Ok, now read it back from the stream into our string
+	switch (uiBase)
 	{
-		//Decimal case
+			// Decimal case
 		case 10:
 			strmQueue >> dec>> *this;
 			break;
-		//Hex case	
+			// Hex case	
 		case 16:
 			strmQueue >> hex >> *this;
-			break ;
-		//Octal case
+			break;
+			// Octal case
 		case 8:
 			strmQueue >> oct >> *this;
 			break;
-		//We dont support anything else
-		default:
-			break;
-	}
-	//Return our object
-	return *this;
-}
-//End of setNum (UI32,UI16)
-//========================================================================
-//Begin setNum(SI08,UI16)
-mstring & mstring::setNum(SI08 siValue, UI16 uiBase) 
-{
-	//Set a signed eight bit value
-	return setNum( static_cast<SI32> (siValue) , uiBase);
-}
-//End of setNum (SI08,UI16)
-//========================================================================
-//Begin setNum (SI16, UI16)
-mstring & mstring::setNum(SI16 siValue, UI16 uiBase) 
-{
-	//Set a signed 16 bit value
-	return setNum( static_cast<SI32> (siValue), uiBase);
-}
-//End of setNum (SI16, UI16)
-//========================================================================
-//Begi setNum (SI32,UI16)
-mstring & mstring::setNum(SI32 siValue, UI16 uiBase)
-{
-	//Set a signed 32 bit value
-	//Basically we make a stream, pop the value onto it, and pop it back off
-	//We have to use the older strstream as gcc doesn't support the new ones (will with 3.0)
-	// Ok, gcc 3 does use sstream, so we will conver it over
-	stringstream   strmQueue ;
-	
-	//Put in into the stream
-	strmQueue <<  (siValue);
-	
-	//Ok, now read it back from the stream into our string
-	switch(uiBase)
-	{
-		//Decimal case
-		case 10:
-			strmQueue >> dec >> *this;
-		
-			break;
-		//Hex case	
-		case 16:
-			strmQueue >> hex >> *this;
-			break ;
-		//Octal case
-		case 8:
-			strmQueue >> oct >> *this;
-			break;
-		// We dont support anything else
+			// We dont support anything else
 		default:
 			break;
 	}
 	// Return our object
 	return *this;
 }
-//End of setNum (SI32,UI16)
+// End of setNum (UI32,UI16)
 //========================================================================
-//Begin toUI32
-UI32 mstring::toUI32(UI16 uiBase)
+// Begin setNum(SI08,UI16)
+mstring & mstring::setNum(SI08 siValue, UI16 uiBase) 
 {
-	//Make a stream for our conversion
-	stringstream strmQueue;
-	//Our return value
-	UI32 uiReturn =0;
-	//Take our value and put it into the stream
-	strmQueue << (*this);
-	//Pull it out
+	// Set a signed eight bit value
+	return setNum(static_cast<SI32>(siValue) , uiBase);
+}
+// End of setNum (SI08,UI16)
+//========================================================================
+// Begin setNum (SI16, UI16)
+mstring & mstring::setNum(SI16 siValue, UI16 uiBase) 
+{
+	// Set a signed 16 bit value
+	return setNum(static_cast<SI32>(siValue), uiBase);
+}
+// End of setNum (SI16, UI16)
+//========================================================================
+// Begi setNum (SI32,UI16)
+mstring & mstring::setNum(SI32 siValue, UI16 uiBase)
+{
+	// Set a signed 32 bit value
+	// Basically we make a stream, pop the value onto it, and pop it back off
+	// We have to use the older strstream as gcc doesn't support the new ones (will with 3.0)
+	// Ok, gcc 3 does use sstream, so we will conver it over
+	stringstream   strmQueue;
+	
+	// Put in into the stream
+	strmQueue <<(siValue);
+	
+	// Ok, now read it back from the stream into our string
 	switch (uiBase)
 	{
-		//Decimal case
+			// Decimal case
 		case 10:
-			strmQueue >>dec>> uiReturn;
+			strmQueue >> dec >> *this;
+			
 			break;
-		//Hex case
+			// Hex case	
 		case 16:
-			strmQueue >> hex>> uiReturn;
+			strmQueue >> hex >> *this;
 			break;
-		//Octal case
+			// Octal case
 		case 8:
-			strmQueue >> oct >> uiReturn;
+			strmQueue >> oct >> *this;
 			break;
-		//We dont support anything else
+			// We dont support anything else
 		default:
 			break;
 	}
-
-	//Convert the value in the a 32 bit unsigned integer
+	// Return our object
+	return *this;
+}
+// End of setNum (SI32,UI16)
+//========================================================================
+// Begin toUI32
+UI32 mstring::toUI32(UI16 uiBase)
+{
+	// Make a stream for our conversion
+	stringstream strmQueue;
+	// Our return value
+	UI32 uiReturn =0;
+	// Take our value and put it into the stream
+	strmQueue <<(*this);
+	// Pull it out
+	switch (uiBase)
+	{
+			// Decimal case
+		case 10:
+			strmQueue >>dec>> uiReturn;
+			break;
+			// Hex case
+		case 16:
+			strmQueue >> hex>> uiReturn;
+			break;
+			// Octal case
+		case 8:
+			strmQueue >> oct >> uiReturn;
+			break;
+			// We dont support anything else
+		default:
+			break;
+	}
+	
+	// Convert the value in the a 32 bit unsigned integer
 	return uiReturn;
 }
-//End of toUI32
+// End of toUI32
 //========================================================================
-//Begin toUI16
+// Begin toUI16
 UI16 mstring::toUI16(UI16 uiBase)
 {
-	//Return a 16 bit unsigned
-	return static_cast<UI16> (toUI32(uiBase));
+	// Return a 16 bit unsigned
+	return static_cast<UI16>(toUI32(uiBase));
 }
-//End of toUI16
+// End of toUI16
 //========================================================================
-//Begin toUI08
+// Begin toUI08
 UI08 mstring::toUI08(UI16 uiBase)
 {
-	return static_cast<UI08> (toUI32(uiBase));
+	return static_cast<UI08>(toUI32(uiBase));
 }
-//End of toUI08
+// End of toUI08
 //========================================================================
-//Begin toSI32
+// Begin toSI32
 SI32 mstring::toSI32(UI16 uiBase)
 {
 	// Make a stream for our conversion
 	// Ok, gcc 3 does use sstream, so we will conver it over
-	stringstream   strmQueue ;
+	stringstream   strmQueue;
 	// Our return value
 	SI32 siReturn =0;
 	// Take our value and put it into the stream
-	strmQueue << (*this);
+	strmQueue <<(*this);
 	// Pull it out
 	switch (uiBase)
 	{
-		// Decimal case
+			// Decimal case
 		case 10:
-			strmQueue >>dec>> siReturn;
+			strmQueue >> dec >> siReturn;
 			break;
-		// Hex case
+			// Hex case
 		case 16:
 			strmQueue >> hex>> siReturn;
 			break;
-		// Octal case
+			// Octal case
 		case 8:
 			strmQueue >> oct >> siReturn;
 			break;
-		// We dont support anything else
+			// We dont support anything else
 		default:
 			break;
 	}
 	return siReturn;
 }
-//End of toSI32
+// End of toSI32
 //========================================================================
-//Begin toSI16
+// Begin toSI16
 SI16 mstring::toSI16(UI16 uiBase)
 {
 	return static_cast<SI16>(toSI32(uiBase));
 }
-//End of toSI16
+// End of toSI16
 //========================================================================
-//Begin toSI08
+// Begin toSI08
 SI08 mstring::toSI08(UI16 uiBase)
 {
 	return static_cast<SI08>(toSI32(uiBase));
 }
-//End of toSI08
+// End of toSI08
 //========================================================================
 // Begin local split
-vector<mstring> mstring::split(const mstring& sSep,const UI16 uiAmount)
+vector<mstring> mstring::split(const mstring& sSep, const UI16 uiAmount)
 {
-	return split(sSep,*this,uiAmount) ;
+	return split(sSep, *this, uiAmount);
 }
 //========================================================================
-//Begin split (const mstring&, const mstring&)
-vector<mstring> mstring::split(const mstring & clSep,  const mstring & clString,const UI16 uiAmount)
+// Begin split (const mstring&, const mstring&)
+vector<mstring> mstring::split(const mstring & clSep,  const mstring & clString, const UI16 uiAmount)
 {
 	vector<mstring> vecStrings;
-
+	
 	mstring myString;
-	myString = clString ;
+	myString = clString;
 	myString = trim(myString);
-	UI32 uiCount =1 ;
-	//Search for the sperator, keep taking out substrings
+	UI32 uiCount =1;
+	// Search for the sperator, keep taking out substrings
 	UI32 uiStart = 0;
-	UI32 uiStop = 0 ;
-
-	if (uiAmount!=0)
-		vecStrings.reserve(uiAmount) ;
-
-	while ((uiStop = myString.find(clSep,uiStart)) != string::npos)
+	UI32 uiStop = 0;
+	
+	if (uiAmount != 0)
+		vecStrings.reserve(uiAmount);
+	
+	while ((uiStop = myString.find(clSep, uiStart)) != string::npos)
 	{
 		if ((uiCount < uiAmount)  || (uiAmount == 0))
 		{
-			mstring sTemp ;
-			if (uiStart!=uiStop)
+			mstring sTemp;
+			if (uiStart != uiStop)
 			{
-				sTemp = myString.substr(uiStart,uiStop - uiStart) ;
-				sTemp = trim(sTemp) ;
+				sTemp = myString.substr(uiStart, uiStop - uiStart);
+				sTemp = trim(sTemp);
 			}
-			vecStrings.push_back(sTemp) ;
-			uiCount++ ;
-			uiStart = uiStop +clSep.size() ;
+			vecStrings.push_back(sTemp);
+			uiCount++;
+			uiStart = uiStop +clSep.size();
 			if (uiStart == myString.size())
-				break ;
-
-
+				break;
 		}
 		else
-			break ;
+			break;
 	}
 	// ok, we have to push our remaining back on
 	if (uiStart != myString.size())
-		myString = myString.substr(uiStart) ;
+		myString = myString.substr(uiStart);
 	else
-		myString.erase() ;
-
-	myString = trim(myString) ;
-	vecStrings.push_back(myString) ;
+		myString.erase();
+	
+	myString = trim(myString);
+	vecStrings.push_back(myString);
 	if (uiAmount !=0)
 	{
-		for (UI32 uiPatch = vecStrings.size(); uiPatch < uiAmount ; uiPatch++)
+		for (UI32 uiPatch = vecStrings.size(); uiPatch < uiAmount; uiPatch++)
 		{
-			mstring sPatch ;
-			vecStrings.push_back(sPatch) ;
+			mstring sPatch;
+			vecStrings.push_back(sPatch);
 		}
 	}
 	return vecStrings;
 }
-//End of split (const mstring&, const mstring&)
+// End of split (const mstring&, const mstring&)
 //========================================================================
 // Begin local split
-vector<mstring> mstring::split(char* ptrSep,const UI16 uiAmount)
+vector<mstring> mstring::split(char* ptrSep, const UI16 uiAmount)
 {
-	return split(ptrSep,*this, uiAmount) ;
+	return split(ptrSep, *this, uiAmount);
 }
-//End of local split
+// End of local split
 //========================================================================
-//Begin split (char *, const mstring)
-vector<mstring> mstring::split( char * ptrSep,  const mstring clString,const UI16 uiAmount)
+// Begin split (char *, const mstring)
+vector<mstring> mstring::split(char * ptrSep,  const mstring clString, const UI16 uiAmount)
 {
 	mstring clSep(ptrSep);
-	return split(clSep,clString,uiAmount);
+	return split(clSep, clString, uiAmount);
 }
-//End of split (char *, const mstring)
+// End of split (char *, const mstring)
 
 
 //========================================================================
 // Begin local split
-vector<mstring> mstring::splitAny(const mstring& sSep,const UI16 uiAmount)
+vector<mstring> mstring::splitAny(const mstring& sSep, const UI16 uiAmount)
 {
-	return splitAny(sSep,*this,uiAmount) ;
+	return splitAny(sSep, *this, uiAmount);
 }
 //========================================================================
-//Begin split (const mstring&, const mstring&)
-vector<mstring> mstring::splitAny(const mstring & clSep,  const mstring & clString,const UI16 uiAmount)
+// Begin split (const mstring&, const mstring&)
+vector<mstring> mstring::splitAny(const mstring & clSep,  const mstring & clString, const UI16 uiAmount)
 {
 	vector<mstring> vecStrings;
-
+	
 	mstring myString;
-	myString = clString ;
+	myString = clString;
 	myString = trim(myString);
-	UI32 uiCount =1 ;
-	//Search for the sperator, keep taking out substrings
+	UI32 uiCount =1;
+	// Search for the sperator, keep taking out substrings
 	UI32 uiStart = 0;
-	UI32 uiStop = 0 ;
-
-	if (uiAmount!=0)
-		vecStrings.reserve(uiAmount) ;
-
-	while ((uiStop = myString.find_first_of(clSep,uiStart)) != string::npos)
+	UI32 uiStop = 0;
+	
+	if (uiAmount != 0)
+		vecStrings.reserve(uiAmount);
+	
+	while ((uiStop = myString.find_first_of(clSep, uiStart)) != string::npos)
 	{
 		if ((uiCount < uiAmount)  || (uiAmount == 0))
 		{
-			mstring sTemp ;
-			if (uiStart!=uiStop)
+			mstring sTemp;
+			if (uiStart != uiStop)
 			{
-				sTemp = myString.substr(uiStart,uiStop) ;
-				sTemp = trim(sTemp) ;
+				sTemp = myString.substr(uiStart, uiStop);
+				sTemp = trim(sTemp);
 			}
-			vecStrings.push_back(sTemp) ;
-			uiCount++ ;
-			uiStart = myString.find_first_not_of(clSep,uiStop) ;
+			vecStrings.push_back(sTemp);
+			uiCount++;
+			uiStart = myString.find_first_not_of(clSep, uiStop);
 			if (uiStart == string::npos)
-				break ;
-
-
+				break;
 		}
 		else
-			break ;
+			break;
 	}
 	// ok, we have to push our remaining back on
 	if (uiStart != string::npos)
-		myString = myString.substr(uiStart) ;
+		myString = myString.substr(uiStart);
 	else
-		myString.erase() ;
-
-	myString = trim(myString) ;
-	vecStrings.push_back(myString) ;
+		myString.erase();
+	
+	myString = trim(myString);
+	vecStrings.push_back(myString);
 	if (uiAmount !=0)
 	{
-		for (UI32 uiPatch = vecStrings.size() -1; uiPatch < uiAmount ; uiPatch++)
+		for (UI32 uiPatch = vecStrings.size() -1; uiPatch < uiAmount; uiPatch++)
 		{
-			mstring sPatch ;
-			vecStrings.push_back(sPatch) ;
+			mstring sPatch;
+			vecStrings.push_back(sPatch);
 		}
 	}
 	return vecStrings;
 }
-//End of split (const mstring&, const mstring&)
+// End of split (const mstring&, const mstring&)
 //========================================================================
 // Begin local split
-vector<mstring> mstring::splitAny(char* ptrSep,const UI16 uiAmount)
+vector<mstring> mstring::splitAny(char* ptrSep, const UI16 uiAmount)
 {
-	return splitAny(ptrSep,*this,uiAmount) ;
+	return splitAny(ptrSep, *this, uiAmount);
 }
-//End of local split
+// End of local split
 //========================================================================
-//Begin split (char *, const mstring)
-vector<mstring> mstring::splitAny( char * ptrSep,  const mstring clString,const UI16 uiAmount)
+// Begin split (char *, const mstring)
+vector<mstring> mstring::splitAny(char * ptrSep,  const mstring clString, const UI16 uiAmount)
 {
 	mstring clSep(ptrSep);
-	return splitAny(clSep,clString,uiAmount);
+	return splitAny(clSep, clString, uiAmount);
 }
-//End of split (char *, const mstring)
+// End of split (char *, const mstring)
 
 //========================================================================
-//Begin unicode (const char*, UI32)
+// Begin unicode (const char*, UI32)
 void mstring::unicode(const char* szBuffer, UI32 uiLen)
 {
-	//right now we throw away the top byte of each value, assume latin8
-	char* ptrBuffer ;
-
+	// right now we throw away the top byte of each value, assume latin8
+	char* ptrBuffer;
+	
 	ptrBuffer = new char[uiLen/2];
-
-	//Ok, now just loop through and copy them over.
-	for(UI32 uiIndex=0; uiIndex < uiLen; uiIndex++)
+	
+	// Ok, now just loop through and copy them over.
+	for (UI32 uiIndex = 0; uiIndex < uiLen; uiIndex++)
 	{
 		ptrBuffer[uiIndex] = szBuffer[uiIndex*2];
 	}
-		
-	//We now have the buffer, have to assign to the internal string
+	
+	// We now have the buffer, have to assign to the internal string
 	erase();
-
+	
 	assign(ptrBuffer, uiLen/2);
 	
 	delete ptrBuffer;
-	ptrBuffer = NULL ;
+	ptrBuffer = NULL;
 }
-//End of unicode (const char *,UI32)
+// End of unicode (const char *,UI32)
 //========================================================================
-//Begin unicode
+// Begin unicode
 char* mstring::unicode()
 {
-	//We return a unicode character array, just add zero to the top byte
+	// We return a unicode character array, just add zero to the top byte
 	UI32 uiSize = size();
 	char* ptrBuffer;
 	
-	 ptrBuffer = new char[uiSize*2];
-
-	for(UI32 uiIndex=0; uiIndex < uiSize ; uiIndex++)
+	ptrBuffer = new char[uiSize*2];
+	
+	for (UI32 uiIndex = 0; uiIndex < uiSize; uiIndex++)
 	{
 		ptrBuffer[uiIndex*2] = c_str()[uiIndex];
 		ptrBuffer[uiIndex*2 + 1] = 0;
@@ -579,92 +576,91 @@ char* mstring::unicode()
 	
 	return ptrBuffer;
 }
-//End of unicode
+// End of unicode
 //========================================================================
 // local trim
 void mstring::trim()
 {
-	trim(*this) ;
+	trim(*this);
 }
 //========================================================================
-//Begin trim
+// Begin trim
 mstring mstring::trim(mstring& clInput)
 {
 	SI32 siStart = clInput.find_first_not_of(MYWHITESPACE);
 	SI32 siStop = clInput.find_last_not_of(MYWHITESPACE);
 	if ((siStart != string::npos) && (siStop != string::npos))
 	{
-		clInput = clInput.substr(siStart,(siStop - siStart) + 1) ;
+		clInput = clInput.substr(siStart, (siStop - siStart) + 1);
 	}
 	
 	return clInput;
 }
-//End of trim
+// End of trim
 //========================================================================
-//Begin cleanup
+// Begin cleanup
 void mstring::cleanup()
 {
-	(*this) = cleanup(*this) ;
+	(*this) = cleanup(*this);
 }
 
 //========================================================================
-//Begin cleanup
+// Begin cleanup
 mstring mstring::cleanup(mstring clInput)
 {
-	//First thing is get rid of trailing/leading blanks
+	// First thing is get rid of trailing/leading blanks
 	clInput = trim(clInput);
 	
-	SI32 siStart=0;
+	SI32 siStart = 0;
 	SI32 siStop;
 	
-	while((siStart = clInput.find_first_of(MYWHITESPACE,siStart))!= string::npos)
+	while ((siStart = clInput.find_first_of(MYWHITESPACE, siStart))!= string::npos)
 	{
-		siStop  = clInput.find_first_not_of(MYWHITESPACE,siStart) ;
+		siStop  = clInput.find_first_not_of(MYWHITESPACE, siStart);
 		if (siStop == string::npos)
-			siStop = clInput.size() - siStart ;
-		clInput = clInput.replace(siStart,siStop," ") ;
-		siStart++ ;
+			siStop = clInput.size() - siStart;
+		clInput = clInput.replace(siStart, siStop, " ");
+		siStart++;
 	}
-
+	
 	return clInput;
 }
-//End of cleanup
+// End of cleanup
 
 //========================================================================
 string mstring::pop(char* szSep)
 {
-	string sSep(szSep) ;
-	return pop(sSep) ;
+	string sSep(szSep);
+	return pop(sSep);
 }
 //========================================================================
 string mstring::pop(string sSep)
 {
 	// find a sperator, return the porting in front, and reset the string
-
-	SI32 siFind = 0 ;
-	string sReturn ;
-	if ((siFind=(*this).find(sSep)) != string::npos)
+	
+	SI32 siFind = 0;
+	string sReturn;
+	if ((siFind = (*this).find(sSep)) != string::npos)
 	{
 		// Found it
-		sReturn = (*this).substr(0,siFind) ;
+		sReturn = (*this).substr(0, siFind);
 		// reset ourselves
-		if ((siFind+1) < (*this).size())
+		if ((siFind + 1) < (*this).size())
 		{
-			(*this) = (*this).substr(siFind+1);
+			(*this) = (*this).substr(siFind + 1);
 		}
 		else
-			(*this).erase() ;
+			(*this).erase();
 	}
 	else
-		sReturn.erase() ;
-
-	return sReturn ;
+		sReturn.erase();
+	
+	return sReturn;
 }
 //========================================================================
 // Begin lower()
 string mstring::lower()
 {
-
 	return lower((*this));
 }
 
@@ -672,7 +668,6 @@ string mstring::lower()
 // Begin upper()
 string mstring::upper()
 {
-
 	return upper((*this));
 }
 
@@ -680,35 +675,35 @@ string mstring::upper()
 // Begin static lower
 string mstring::lower(string& sTemp)
 {
-	string sReturn ; 
-	sReturn = sTemp ;
-	transform(sReturn.begin(), sReturn.end(), sReturn.begin(), ::tolower) ;
-
-	return sReturn ;
+	string sReturn; 
+	sReturn = sTemp;
+	transform(sReturn.begin(), sReturn.end(), sReturn.begin(), ::tolower);
+	
+	return sReturn;
 }
 
 //=========================================================================
 // Begin static upper
 string mstring::upper(string& sTemp)
 {
-	string sReturn ;
-	sReturn = sTemp ;
-	transform(sReturn.begin(), sReturn.end(), sReturn.begin(), ::toupper) ;
-	return sReturn ;
+	string sReturn;
+	sReturn = sTemp;
+	transform(sReturn.begin(), sReturn.end(), sReturn.begin(), ::toupper);
+	return sReturn;
 }
 
 //=======================================================================
 bool mstring::compare(string sTemp)
 {
-	string sTemp1 ;
-	sTemp1 = (*this) ;
-	return equal(sTemp.begin(), sTemp.end(), sTemp1.begin(), nocase_compare) ;
+	string sTemp1;
+	sTemp1 = (*this);
+	return equal(sTemp.begin(), sTemp.end(), sTemp1.begin(), nocase_compare);
 }
 
 //=======================================================================
 bool nocase_compare(SI08 szA, SI08 szB)
 {
-	return toupper(szA) == toupper(szB) ;
+	return toupper(szA) == toupper(szB);
 }
 
 //========================================================================
