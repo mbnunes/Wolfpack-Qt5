@@ -205,7 +205,7 @@ P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 up
 	if (s>=0)
 		if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
 
-	P_ITEM pi = Items->createScriptItem(s, QString("%1").arg(addmitem), 0);
+	P_ITEM pi = Items->createScriptItem(QString::number(addmitem));
 	if (pi == NULL) return NULL;
 	if (x)
 		pi->update();

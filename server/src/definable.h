@@ -34,8 +34,7 @@
 
 // Library includes
 class QDomElement;
-
-#include <qstring.h>
+class QString;
 
 class cDefinable
 {

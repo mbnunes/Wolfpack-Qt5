@@ -108,6 +108,12 @@ void cCommands::loadACLs( void )
 {
 	clConsole.PrepareProgress( tr("Loading Access Control Lists") );
 
+	// make sure it's clean
+	QMap< QString, stAcl* >::iterator itA (_acls.begin());
+	for ( ; itA != _acls.end(); ++itA )
+		delete itA.data();
+	_acls.clear();
+
 	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
 	
 	if( ScriptSections.isEmpty() )
@@ -181,6 +187,7 @@ void cCommands::loadACLs( void )
 
 		_acls.insert( ACLname, acl );	
 	}
+	DefManager->unload( WPDT_PRIVLEVEL );
 	clConsole.ProgressDone();
 }
 
@@ -904,7 +911,6 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	}
 
 	QString subCommand = args[0].lower();
-	AllCharsIterator iter;
 
 	// accounts
 	if( subCommand == "accounts" )
@@ -929,14 +935,13 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cAllTerritories::getInstance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
-
 		cCommands::instance()->loadACLs();
-
 		ScriptManager->reload(); // Reload Scripts
 		NewMagic->load();
 		ContextMenus::instance()->reload();
 
 		// Update the Regions
+		AllCharsIterator iter;
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
 			P_CHAR pChar = iter.GetData();
@@ -963,12 +968,12 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
 		cCommands::instance()->loadACLs();
-
 		ScriptManager->reload(); // Reload Scripts
 		ContextMenus::instance()->reload();
 		NewMagic->load();
 
 		// Update the Regions
+		AllCharsIterator iter;
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
 			P_CHAR pChar = iter.GetData();

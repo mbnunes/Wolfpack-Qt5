@@ -37,6 +37,9 @@
 #include <fstream>
 #include <cstdio>
 
+// Forward declarations
+class QString;
+
 /*!
 CLASS
     

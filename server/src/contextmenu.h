@@ -33,16 +33,17 @@
 #define __CONTEXTMENU_H__
 
 #include "definable.h"
-#include "wpdefmanager.h"
-#include "wpdefaultscript.h"
-#include "wpscriptmanager.h"
-#include "uobject.h"
 #include "globals.h"
 #include "singleton.h"
 
+// Qt Includes
 #include <qvaluevector.h>
 #include <qmap.h>
+#include <qstringlist.h>
 
+// Forward Definitions
+class cUObject;
+class WPDefaultScript;
 
 class cConSingleOption
 {

@@ -29,15 +29,18 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_)
-#define AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_
+#if !defined(__WPDEFMANAGER_H__)
+#define __WPDEFMANAGER_H__
 
 // Library Includes
-#include "qdom.h"
-#include "qmap.h"
-#include "qstring.h"
-#include "qstringlist.h"
+#include <qdom.h>
+#include <qmap.h>
+#include <qstring.h>
 
+// Foward declarations
+class QStringList;
+
+// Typedefs
 typedef QMap< QString, QDomElement > DefSections;
 
 enum WPDEF_TYPE 
@@ -102,14 +105,15 @@ public:
 	void reload( void );
 	void load( void );
 	void unload( void );
+	void unload( WPDEF_TYPE );
 
 	void ProcessNode( const QDomElement& Node );
 
-	const QDomElement*	getSection( WPDEF_TYPE Type, QString Section ) const;
+	const QDomElement*	getSection( WPDEF_TYPE Type, const QString& Section ) const;
 	QStringList			getSections( WPDEF_TYPE Type ) const;
 	QString				getRandomListEntry( const QString& ListSection ) const;
 	QStringList			getList( const QString& ListSection ) const;
 	QString				getText( const QString& TextSection ) const;
 };
 
-#endif // !defined(AFX_WPDEFMANAGER_H__59377C90_C75A_4AC7_8B5B_517354DC8E76__INCLUDED_)
+#endif // __WPDEFMANAGER_H__

@@ -405,8 +405,7 @@ private:
 	
 public:
 	// Added by DarkStorm
-	P_ITEM createScriptItem( QString Section ); // Creates an item from an item-section
-	P_ITEM createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned ); // Creates an item from an item-section
+	P_ITEM createScriptItem( const QString& Section ); // Creates an item from an item-section
 	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
 
 	cAllItems() {}

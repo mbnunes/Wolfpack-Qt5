@@ -37,6 +37,7 @@
 
 // Qt Includes
 #include <qdom.h>
+#include <qstringlist.h>
 
 void cDefinable::applyDefinition( const QDomElement& sectionNode )
 {
@@ -44,9 +45,7 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 	{
 		WPDEF_TYPE wpType = WPDT_ITEM;
 
-		if( sectionNode.nodeName() == "item" )
-			wpType = WPDT_ITEM;
-		else if( sectionNode.nodeName() == "npc" )
+		if( sectionNode.nodeName() == "npc" )
 			wpType = WPDT_NPC;
 		else if( sectionNode.nodeName() == "region" )
 			wpType = WPDT_REGION;
@@ -61,9 +60,7 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 	{
 		WPDEF_TYPE wpType = WPDT_ITEM;
 
-		if( sectionNode.nodeName() == "item" )
-			wpType = WPDT_ITEM;
-		else if( sectionNode.nodeName() == "npc" )
+		if( sectionNode.nodeName() == "npc" )
 			wpType = WPDT_NPC;
 
 		QString iSection = DefManager->getRandomListEntry( sectionNode.attribute( "inheritlist", "" ) );
@@ -156,5 +153,4 @@ QString cDefinable::getNodeValue( const QDomElement &Tag ) const
 void cDefinable::processModifierNode( const QDomElement &Tag )
 {
 	Q_UNUSED(Tag);
-#pragma note("This is a good candidate for pure virtual")
 };

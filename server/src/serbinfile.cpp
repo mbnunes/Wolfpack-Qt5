@@ -37,9 +37,8 @@
 #include "srvparams.h"
 
 // Library Includes
-#include "qfile.h"
-#include "qstring.h"
-#include "qmap.h"
+#include <qfile.h>
+#include <qstring.h>
 
 using namespace std;
 

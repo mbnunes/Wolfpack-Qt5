@@ -815,8 +815,7 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
 	
 	P_ITEM bankbox = pc_ch->getBankBox();
 
-	UOXSOCKET s = calcSocketFromChar(pc_ch);          // Don't check if s == -1, it's ok if it is.
-	P_ITEM pi = createScriptItem(s, nItem, 1);
+	P_ITEM pi = createScriptItem(nItem);
 	if (pi == NULL)
 		return NULL;
 	GetScriptItemSetting(pi); 
@@ -905,7 +904,7 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) /
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM backpack = pc_currchar->getBackpack();
 	
-	P_ITEM pi = createScriptItem(s, nItem, 1);
+	P_ITEM pi = createScriptItem(nItem);
 	if (pi == NULL || backpack == NULL)
 		return NULL;
 
@@ -1185,7 +1184,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 	if (pItem == NULL)
 		return;
 
-	P_ITEM pi = createScriptItem(-1, itemSect, 1); // lb, bugfix
+	P_ITEM pi = createScriptItem(itemSect); // lb, bugfix
 	if (pi == NULL) return;
 	
 	if( !spawnInItem )
@@ -1250,14 +1249,9 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 */
 }
 
-P_ITEM cAllItems::createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned )
-{
-	return NULL;
-}
-
 // Retrieves the Item Information stored in Section
 // And creates an item based on it
-P_ITEM cAllItems::createScriptItem( QString Section )
+P_ITEM cAllItems::createScriptItem( const QString& Section )
 {
 	if( Section.length() == 0 )
 		return NULL;

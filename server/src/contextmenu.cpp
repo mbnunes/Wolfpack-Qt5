@@ -29,7 +29,12 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 #include "platform.h"
+
 #include "contextmenu.h"
+#include "wpdefaultscript.h"
+#include "uobject.h"
+#include "wpdefmanager.h"
+#include "wpscriptmanager.h"
 
 #include "debug.h"
 #undef  DBGFILE

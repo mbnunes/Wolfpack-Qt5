@@ -40,6 +40,8 @@
 #include <qdom.h>
 #include <qfile.h>
 #include <qregexp.h>
+#include <qstringlist.h>
+
 
 // Method for processing one node
 void WPDefManager::ProcessNode( const QDomElement& Node )
@@ -188,43 +190,69 @@ bool WPDefManager::ImportSections( const QString& FileName )
 // Clears nodes within the specified nodeMap
 void clearNodes( DefSections &nodeMap )
 {
-/*	DefSections::iterator myIter;
-
-	for( myIter = nodeMap.begin(); myIter != nodeMap.end(); ++myIter )
-	{
-		QDomElement node = myIter.data();
-		node.clear(); // Delete all subnodes - i'm unsure if this delets all data
-	}
-*/
 	nodeMap.clear(); // Delete it's contents
 }
 
 void WPDefManager::unload( void )
 {
 	// Clear all nodes inside our local tree
-	clearNodes( Items );
-	clearNodes( Scripts );
-	clearNodes( NPCs );
-	clearNodes( StringLists );
-	clearNodes( Menus );
-	clearNodes( Spells );
-	clearNodes( PrivLevels );
-	clearNodes( SpawnRegions );
-	clearNodes( Regions );
-	clearNodes( Multis );
-	clearNodes( Texts );
-	clearNodes( StartItems );
-	clearNodes( Locations );
-	clearNodes( Skills );
-	clearNodes( Actions );
-	clearNodes( MakeSections );
-	clearNodes( MakeItems );
-	clearNodes( UseItems );
-	clearNodes( SkillChecks );
-	clearNodes( Defines );
-	clearNodes( Resources );
- 	clearNodes( ContextMenus );
+	clearNodes( this->Items );
+	clearNodes( this->Scripts );
+	clearNodes( this->NPCs );
+	clearNodes( this->StringLists );
+	clearNodes( this->Menus );
+	clearNodes( this->Spells );
+	clearNodes( this->PrivLevels );
+	clearNodes( this->SpawnRegions );
+	clearNodes( this->Regions );
+	clearNodes( this->Multis );
+	clearNodes( this->Texts );
+	clearNodes( this->StartItems );
+	clearNodes( this->Locations );
+	clearNodes( this->Skills );
+	clearNodes( this->Actions );
+	clearNodes( this->MakeSections );
+	clearNodes( this->MakeItems );
+	clearNodes( this->UseItems );
+	clearNodes( this->SkillChecks );
+	clearNodes( this->Defines );
+	clearNodes( this->Resources );
+ 	clearNodes( this->ContextMenus );
 
+}
+
+void WPDefManager::unload( WPDEF_TYPE t )
+{
+	DefSections *ListPointer;
+
+	switch( t )
+	{
+	case WPDT_ITEM:			ListPointer = &Items;			break;
+	case WPDT_SCRIPT:		ListPointer = &Scripts;			break;
+	case WPDT_NPC:			ListPointer = &NPCs;			break;
+	case WPDT_LIST:			ListPointer = &StringLists;		break;
+	case WPDT_MENU:			ListPointer = &Menus;			break;
+	case WPDT_SPELL:		ListPointer = &Spells;			break;
+	case WPDT_PRIVLEVEL:	ListPointer = &PrivLevels;		break;
+	case WPDT_SPAWNREGION:	ListPointer = &SpawnRegions;	break;
+	case WPDT_REGION:		ListPointer = &Regions;			break;
+	case WPDT_MULTI:		ListPointer = &Multis;			break;
+	case WPDT_TEXT:			ListPointer = &Texts;			break;
+	case WPDT_STARTITEMS:	ListPointer = &StartItems;		break;
+	case WPDT_LOCATION:		ListPointer = &Locations;		break;
+	case WPDT_SKILL:		ListPointer = &Skills;			break;
+	case WPDT_ACTION:		ListPointer = &Actions;			break;
+	case WPDT_MAKESECTION:	ListPointer = &MakeSections;	break;
+	case WPDT_MAKEITEM:		ListPointer = &MakeItems;		break;
+	case WPDT_USEITEM:		ListPointer = &UseItems;		break;
+	case WPDT_SKILLCHECK:	ListPointer = &SkillChecks;		break;
+	case WPDT_DEFINE:		ListPointer = &Defines;			break;
+	case WPDT_RESOURCE:		ListPointer = &Resources;		break;
+	case WPDT_CONTEXTMENU:	ListPointer = &ContextMenus;	break;
+	default:				return ;
+	};
+
+	clearNodes( *ListPointer );
 }
 
 void WPDefManager::reload( void )
@@ -243,7 +271,7 @@ void WPDefManager::load( void )
 }
 
 // Returns one Section
-const QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section ) const
+const QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, const QString& Section ) const
 {
 	const DefSections *ListPointer;
 
