@@ -11,7 +11,7 @@ from wolfpack.time import *
 import wolfpack
 import skills
 
-ARMSLORE_DELAY = 5000
+ARMSLORE_DELAY = 1000
 
 def armslore( char, skill ):
 	# only handle armslore

@@ -11,7 +11,7 @@ from wolfpack.time import *
 import wolfpack
 import skills
 
-TASTEID_DELAY = 5000
+TASTEID_DELAY = 1000
 TASTE_RANGE = 4
 potion_keg = [ 0x0e7f, 0x1ad6, 0x1ad7 ]
 

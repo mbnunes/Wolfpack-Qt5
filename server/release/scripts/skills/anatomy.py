@@ -11,7 +11,7 @@ import skills
 from wolfpack.time import *
 from math import floor
 
-ANATOMY_DELAY = 5000
+ANATOMY_DELAY = 1000
 
 # Button for Anatomy pressed on skill gump
 def anatomy( char, skill ):

@@ -11,7 +11,7 @@ from wolfpack.time import *
 import wolfpack
 import skills
 
-ITEMID_DELAY = 5000
+ITEMID_DELAY = 1000
 
 def itemid( char, skill ):
 	if skill != ITEMID:

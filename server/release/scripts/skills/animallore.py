@@ -11,7 +11,7 @@ from wolfpack.time import *
 from wolfpack.gumps import cGump
 import skills
 
-ANIMALLORE_DELAY = 5000
+ANIMALLORE_DELAY = 1000
 
 def animallore( char, skill ):
 	if skill != ANIMALLORE:
