@@ -22,17 +22,19 @@
 
 ask_path()
 {
-	echo "not found.";
+	echo "not found." >&2;
 	SUPPLIED_PATH="";
 	while ! [ -d "$SUPPLIED_PATH" ];
 	do
-		echo -en "\nor just press enter to skip.";
-		echo -en "\e[A\rPlease enter the correct include directory: ";
+		echo -en "\nor just press enter to skip." >&2;
+		echo -en "\e[A\rPlease enter the correct include directory: " >&2;
 		read SUPPLIED_PATH;
 		if [ ! "$SUPPLIED_PATH" ]; then
 			break;
 		fi
 	done;
+
+	echo "$SUPPLIED_PATH";
 }
 
 print_usage()
@@ -114,9 +116,9 @@ fi;
 echo -n "Searching for Python includes... ";
 
 for py_incpath in \
-	/usr/include/[Pp]ython*/Python.h \
-	/usr/local/include/[Pp]ython*/Python.h \
-	;
+		/usr/include/[Pp]ython*/Python.h \
+		/usr/local/include/[Pp]ython*/Python.h \
+		;
 do
 	if [ -e "$py_incpath" ];
 	then
@@ -124,12 +126,13 @@ do
 	fi;
 done;
 
-PYTHON_INC="$(echo -e "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+py_pathes="$(echo -e "$py_pathes")";
 
-if ! [ "$PYTHON_INC" ];
+[ "$py_pathes" ] && PYTHON_INC="$(echo "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+
+if [ ! "$PYTHON_INC" ];
 then
-	ask_path;
-	PYTHON_INC="$SUPPLIED_PATH";
+	PYTHON_INC="$(ask_path)";
 else
 	echo "( $PYTHON_INC )";
 fi;
@@ -149,11 +152,13 @@ do
 	fi;
 done;
 
-PYTHON_LIB="$(echo -e "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+py_libs="$(echo -e "$py_libs")";
 
-if ! [ "PYTHON_LIB" ];
+[ "$py_libs" ] && PYTHON_LIB="$(echo "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+
+if [ ! "$PYTHON_LIB" ];
 then
-	echo -n "Not found :((";
+	PYTHON_LIB="$(ask_path)";
 else
 	echo "( $PYTHON_LIB )";
 fi;
