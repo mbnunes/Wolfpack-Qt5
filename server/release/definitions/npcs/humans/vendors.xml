@@ -12,7 +12,7 @@
 	<npc id="banker_male">
 		<inherit>base_male</inherit>
 		<title>the Banker</title>
-		<events>speech_banker</events>
+		<events>speech.banker</events>
 		<bindmenu>banker_menu</bindmenu>
 		<ai>Human_Vendor</ai>
 		<equipped>
@@ -24,7 +24,7 @@
 	<npc id="banker_female">
 		<inherit>base_female</inherit>
 		<title>the Banker</title>
-		<events>speech_banker</events>
+		<events>speech.banker</events>
 		<bindmenu>banker_menu</bindmenu>
 		<ai>Human_Vendor</ai>
 		<equipped>
@@ -37,13 +37,13 @@
 	<npc id="barber_male">
 		<inherit>base_male</inherit>
 		<title>the Barber</title>
-		<events>speech_barber</events>
+		<events>speech.barber</events>
 		<category>Vendors\Barber (Male)</category>
 	</npc>
 	<npc id="barber_female">
 		<inherit>base_female</inherit>
 		<title>the Barber</title>
-		<events>speech_barber</events>
+		<events>speech.barber</events>
 		<category>Vendors\Barber (Female)</category>
 	</npc>
 	<!-- A tanner vendor -->
