@@ -118,6 +118,7 @@ class cSpawnCircle : public cSpawnPosition {
 private:
 	int x,y;
 	int radius;
+	int radius2;
 	bool fixedZ;
 	signed char z;
 	unsigned char map;
@@ -126,6 +127,7 @@ public:
 		this->x = center.x;
 		this->y = center.y;
 		this->radius = radius;
+		this->radius2 = radius * radius; // Square of the radius for speeding up pythagoras
 		this->map = map;
 		this->fixedZ = fixedZ;
 		this->z = z;
@@ -136,15 +138,11 @@ public:
 		points_ = (int)(pi * (float)radius * (float)radius);
 	}
 
+	// Calculate the distance to the center and check if it's smaller than the radius
 	bool inBounds(const Coord &pos) {
-		// Calculate the distance to the center and
-		// check if it's smaller than the radius
-		float xDiff = (float)abs(pos.x - x);
-		float yDiff = (float)abs(pos.y - y);
-
-		float distance = sqrt(xDiff * xDiff + yDiff * yDiff);
-
-		return distance <= (float)radius;
+		int xDiff = pos.x - x;
+		int yDiff = pos.y - y;
+		return (xDiff * xDiff + yDiff * yDiff) <= radius2;
 	}
 
 	Coord findSpot() {
@@ -184,6 +182,7 @@ cSpawnRegion::cSpawnRegion(const cElement *tag) {
 	nextTime_ = 0;
 	id_ = tag->getAttribute("id");
 	positions_.setAutoDelete(true);
+	exceptions_.setAutoDelete(true);
 	checkFreeSpot_ = false;
 	npcNodesTotal_ = 0;
 	itemNodesTotal_ = 0;
@@ -368,7 +367,11 @@ void cSpawnRegion::processNode( const cElement *tag )
 			fixedZ = true;
 		}
 
-		positions_.append(new cSpawnRectangle(from, to, map, fixedZ, z)); // Append to position
+		if (tag->getAttribute("exception", "false").lower() == "true") {
+			exceptions_.append(new cSpawnRectangle(from, to, map, fixedZ, z)); // Append to position
+		} else {
+			positions_.append(new cSpawnRectangle(from, to, map, fixedZ, z)); // Append to position
+		}
 	}
 
 	// <point pos="x,y,z,map" />
@@ -379,7 +382,11 @@ void cSpawnRegion::processNode( const cElement *tag )
 			return;
 		}
 
-		positions_.append(new cSpawnPoint(pos));
+		if (tag->getAttribute("exception", "false").lower() == "true") {
+			exceptions_.append(new cSpawnPoint(pos));
+		} else {
+			positions_.append(new cSpawnPoint(pos));
+		}
 	}
 
 	// <circle center="x,y" radius="" map="" [z=""] />
@@ -423,7 +430,11 @@ void cSpawnRegion::processNode( const cElement *tag )
 			}
 		}
 
-		positions_.append(new cSpawnCircle(center, radius, map, fixedZ, z)); // Append to position
+		if (tag->getAttribute("exception", "false").lower() == "true") {
+			exceptions_.append(new cSpawnCircle(center, radius, map, fixedZ, z)); // Append to position
+		} else {
+			positions_.append(new cSpawnCircle(center, radius, map, fixedZ, z)); // Append to position
+		}
 	}
 
 	// Inherit from another spawnregion
@@ -493,6 +504,13 @@ bool cSpawnRegion::findValidSpot(Coord& result, int tries) {
 					if (pChar->pos() == rndPos) {
 						return findValidSpot(result, tries - 1); // Invalid spot, search for another one
 					}
+				}
+			}
+
+			// This checks if the point is within one of the exempt areas
+			for (cSpawnPosition *exception = exceptions_.first(); exception; exception = exceptions_.next()) {
+				if (exception->inBounds(rndPos)) {
+					return findValidSpot(result, tries - 1); // Invalid spot, search for another one
 				}
 			}
 

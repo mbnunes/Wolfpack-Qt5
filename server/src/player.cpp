@@ -313,9 +313,10 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 	textSpeech->setText( message );
 
 	QString ghostSpeech;
+	bool gmSpiritSpeak = skillValue(SPIRITSPEAK) >= 1000;
 
 	// Generate the ghost-speech *ONCE*
-	if ( isDead() )
+	if ( isDead() && !gmSpiritSpeak )
 	{
 		for ( Q_UINT32 gI = 0; gI < message.length(); ++gI )
 		{
@@ -329,8 +330,8 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 	if ( socket )
 	{
 		// Take the dead-status into account
-		if ( isDead() )
-			if ( !socket->player()->isDead() && !socket->player()->isGMorCounselor() )
+		if ( isDead() && !gmSpiritSpeak )
+			if ( !socket->player()->isDead() && !socket->player()->isGMorCounselor() && socket->player()->skillValue(SPIRITSPEAK) < 1000 )
 				textSpeech->setText( ghostSpeech );
 			else
 				textSpeech->setText( message );
@@ -345,8 +346,8 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
 				// Take the dead-status into account
-				if ( isDead() )
-					if ( !mSock->player()->isDead() && !mSock->player()->isGMorCounselor() )
+				if ( isDead() && !gmSpiritSpeak )
+					if ( !mSock->player()->isDead() && !mSock->player()->isGMorCounselor() && mSock->player()->skillValue(SPIRITSPEAK) < 1000 )
 						textSpeech->setText( ghostSpeech );
 					else
 						textSpeech->setText( message );

@@ -42,6 +42,10 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Added onConnect/onDisconnect (socket attaching/detaching to/from a player).
 	- It's no longer possible to login with a char if another char in the same account is still online.
 	- Fixed a bug that would cause onLogout not to be called.
+	- A skill of 100% or more in Spirit Speaking now allows you to talk freely as a ghost and hear
+	  everything dead players have to say.
+	- All geometrical bodies for spawnregions now support the except="true" tag that makes the rectangle, circle or
+	  point not be included in finding a random position within the region.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

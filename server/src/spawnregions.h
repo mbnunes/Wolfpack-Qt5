@@ -45,7 +45,7 @@ public:
 	}
 
 	virtual Coord findSpot() = 0;
-	virtual bool inBounds(const Coord &pos) = 0;
+	virtual bool inBounds(const Coord &pos) = 0;	
 };
 
 class cSpawnRegion : public cDefinable {
@@ -136,6 +136,7 @@ private:
 	bool active_; // Is this spawnregion active?
 
 	QPtrList<cSpawnPosition> positions_; // Spawn positions
+	QPtrList<cSpawnPosition> exceptions_; // Spawn positions (doesnt reduce point count (beware))
 
 	bool checkFreeSpot_; // The target spot has to be free.
 
