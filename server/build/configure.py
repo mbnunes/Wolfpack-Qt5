@@ -13,12 +13,18 @@ import fnmatch
 import dircache
 import string
 import distutils.sysconfig
+
+# Older Python lib work arounds...
 try:
     from optparse import OptionParser
 except:
     sys.path.append( './tools/scripts' )
     from optparse import OptionParser
-    
+
+try:
+    osHasPathDotSep = sys.path.sep
+except:
+    sys.path.sep = '/'
 
 # These are the variables we are trying to figure out
 py_libpath = ""
