@@ -107,6 +107,10 @@ SOURCE=.\ai\ai.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ai\ai_mage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ai\ai_animals.cpp
 # End Source File
 # Begin Source File
@@ -344,6 +348,10 @@ SOURCE=.\action.h
 # Begin Source File
 
 SOURCE=.\ai\ai.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ai\ai_mage.h
 # End Source File
 # Begin Source File
 
