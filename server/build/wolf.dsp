@@ -807,6 +807,10 @@ SOURCE=.\python\char.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\content.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\engine.cpp
 # End Source File
 # Begin Source File

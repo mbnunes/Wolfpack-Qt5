@@ -46,13 +46,12 @@
 #include "defines.h"
 #include "uobject.h"
 #include "accounts.h"
+#include "makemenus.h"
 
 // Forward class declaration
 class QString;
 class cUOSocket;
 class cGuildStone;
-class cMakeSection;
-class cMakeMenu;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
