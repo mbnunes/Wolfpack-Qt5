@@ -17,7 +17,7 @@ import wolfpack
 # Loads the command
 def onLoad():
 	wolfpack.registercommand( 'fix', commandFix )
-	wolfpack.registercommand( 'resend' commandFix )
+	wolfpack.registercommand( 'resend', commandFix )
 	return
 
 def commandFix( socket, cmd, args ):
