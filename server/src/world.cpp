@@ -954,7 +954,7 @@ void cWorld::getOption( const QString& name, QString& value, const QString fallb
 		}
 	}
 
-	cDBResult res = PersistentBroker::instance()->query( QString( "SELECT `value` FROM `settings` WHERE `option` = '%1'" ).arg( PersistentBroker::instance()->quoteString( name ) ) );
+	cDBResult res = PersistentBroker::instance()->query( QString( "SELECT option,value FROM settings WHERE option='%1' LIMIT 1;" ).arg( PersistentBroker::instance()->quoteString( name ) ) );
 
 	if ( !res.fetchrow() )
 	{
@@ -962,7 +962,7 @@ void cWorld::getOption( const QString& name, QString& value, const QString fallb
 	}
 	else
 	{
-		value = res.getString( 0 );
+		value = res.getString( 1 );
 	}
 	res.free();
 
@@ -1000,13 +1000,9 @@ void cWorld::setOption( const QString& name, const QString& value, bool newconne
 	}
 
 	// check if the option already exists
-	PersistentBroker::instance()->executeQuery( QString( "DELETE FROM `settings` WHERE `option` = '%1'" ).arg( PersistentBroker::instance()->quoteString( name ) ) );
+	PersistentBroker::instance()->addToDeleteQueue( "settings", QString( "option = '%1'" ).arg( name ) );
 
-	QString sql;
-	sql = "INSERT INTO `settings` VALUES('%1','%2')";
-	sql = sql.arg( PersistentBroker::instance()->quoteString( name ), PersistentBroker::instance()->quoteString( value ) );
-
-	PersistentBroker::instance()->executeQuery( sql );
+	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO settings VALUES( '%1', '%2' );" ).arg( PersistentBroker::instance()->quoteString( name ), PersistentBroker::instance()->quoteString( value ) ) );
 
 	if ( newconnection )
 	{
