@@ -164,6 +164,9 @@
 	<script>speech.banker</script>
 	<script>speech.pets</script>
 	<script>speech.stablemaster</script>
+	<script>speech.ratman</script>
+	<script>speech.orc</script>
+	<script>speech.lizardman</script>
 
 	<!-- System Scripts -->
 	<script>system.dbupdate</script>

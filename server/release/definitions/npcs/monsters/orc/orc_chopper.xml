@@ -10,6 +10,7 @@
 
 	<!-- orc chopper -->
 	<npc id="orc_chopper" inherit="monster_base">
+		<basescripts>speech.orc</basescripts>
 		<name>orc chopper</name>
 		<id>139</id>
 		<karma><random list="KARMA_L2" /></karma>

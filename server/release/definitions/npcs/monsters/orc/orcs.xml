@@ -9,6 +9,7 @@
 <definitions>
 
 	<npc id="orc" inherit="monster_base">
+		<basescripts>speech.orc</basescripts>
 		<name><random list="NAMES_ORC" /></name>
 		<id><random list="NPCIDS_ORC" /></id>
 		<karma><random list="KARMA_L2" /></karma>

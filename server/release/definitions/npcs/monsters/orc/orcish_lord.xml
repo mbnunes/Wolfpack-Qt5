@@ -11,6 +11,7 @@
 	<!-- orcish lord -->
 	<npc id="orcish_lord" inherit="monster_base">
 		<name>orcish lord</name>
+		<basescripts>speech.orc</basescripts>
 		<id>138</id>
 		<karma><random list="KARMA_L3" /></karma>
 		<fame><random list="FAME_L3" /></fame>

@@ -10,6 +10,7 @@
 
 	<!-- Lizardman -->
 	<npc id="lizardman"  inherit="monster_base">
+		<basescripts>speech.lizardman</basescripts>
 		<name><random list="NAMES_LIZARDMAN" /></name>
 		<id><random list="NPCIDS_LIZARDMAN" /></id>
 		<karma><random list="KARMA_L2" /></karma>
