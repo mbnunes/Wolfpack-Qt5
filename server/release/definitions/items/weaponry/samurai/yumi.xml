@@ -25,7 +25,7 @@
 		<intproperty name="projectile" value="0xf42" />
 		<strproperty name="ammunition" value="f3f" />
 		<intproperty name="req_strength" value="35" />
-		<intproperty name="range" value="12" />
+		<intproperty name="range" value="10" />
 		<intproperty name="speed" value="25" />
 		<intproperty name="mindamage" value="18" />
 		<intproperty name="maxdamage" value="20" />

@@ -27,7 +27,7 @@
 		<strproperty name="ammunition" value="1bfb" />
 		<intproperty name="req_strength" value="30" />
 		<intproperty name="speed" value="41" />
-		<intproperty name="range" value="12" />
+		<intproperty name="range" value="10" />
 		<intproperty name="mindamage" value="10" />
 		<intproperty name="maxdamage" value="12" />
 	</item>
