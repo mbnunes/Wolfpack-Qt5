@@ -1,9 +1,33 @@
 Microsoft Developer Studio Workspace File, Format Version 6.00
-# WARNUNG: DIESE ARBEITSBEREICHSDATEI DARF NICHT BEARBEITET ODER GELÖSCHT WERDEN!
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
 
 ###############################################################################
 
 Project: "ZTHREAD_2_0_5_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "_socket"=.\lib\Python\PCbuild\_socket.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "pythoncore"=.\lib\Python\PCbuild\pythoncore.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -28,6 +52,12 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name ZTHREAD_2_0_5_static
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name _socket
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name pythoncore
     End Project Dependency
 }}}
 
