@@ -36,6 +36,11 @@
 #include <qglobal.h>
 #include <qstring.h>
 
+// Stupid Python developers
+#if defined(_POSIX_C_SOURCE)
+#	undef _POSIX_C_SOURCE
+#endif
+
 //#define DEBUG_PYTHON
 #undef slots
 #if defined(_DEBUG) && defined(Q_CC_MSVC) && !defined(DEBUG_PYTHON)

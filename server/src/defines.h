@@ -132,7 +132,7 @@ enum eSkills
 #define DEFAULTWEBPAGE "http://www.wpdev.org/"
 
 #define MY_CLOCKS_PER_SEC 1000
-#define INVALID_SERIAL (~0)
+#define INVALID_SERIAL static_cast<unsigned int>(~0)
 
 #define CONN_MAIN 1
 #define CONN_SECOND 2
