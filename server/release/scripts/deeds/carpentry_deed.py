@@ -47,7 +47,7 @@ def onShowToolTip( sender, target, tooltip ):
 	if not target.hastag( 'carpentry_type' ):
 		return
 	name = target.gettag( 'carpentry_type' )
-	if not deeds.haskey( name ):
+	if not deeds.has_key( name ):
 		return
 	tooltip_id = deeds[ name ][ 0 ]
 	tooltip.add( tooltip_id, "" )
@@ -57,18 +57,26 @@ def onShowToolTip( sender, target, tooltip ):
 
 def onUse( char, item ):
 	if not char or not item:
-		return
+		return True
+
 	# check if this char is in it's own house
-	if char.multi == -1:
-		# msg
-		return 1
-	multi = wolfpack.finditem( char.multi )
+	if not( char.multi ):
+		#You can only build this in a house.
+		char.socket.clilocmessage(500275)
+		return True
+
 	if not multi or multi.ownserial != char.serial:
-		# msg
-		return 1
+		#You must own the house to do this.
+		char.socket.clilocmessage(502096)
+		return True
+
+	#Where would you like to place this decoration?
+	char.socket.clilocmessage( 1049780, "", 0x3b2 )
+
 	# send target cursor
-	char.socket.clilocmessage( 0xF55DA, "", 0x3b2, 3 )
 	char.socket.attachtarget( "deeds.carpentry_deed.response", [ item ] )
+
+	return True
 
 def response( char, args, target ):
 	item = args[0]
@@ -79,8 +87,14 @@ def response( char, args, target ):
 		return
 	if not target.pos:
 		return
-	if char.distanceto( pos ) > 3:
-		char.socket.clilocmessage( 500251, "", 0x3b2, 3 )
+	if( target.item ):
+		#we don't want to target items in containers
+		if( target.item.getoutmostchar() ):
+			# msg
+			return
+	if not( char.canreach( target, 3 ) ):
+		#That location is too far away.
+		char.socket.clilocmessage( 500251, "", 0x3b2 )
 		return
 	# check if there is sufficient room for the item
 	if not check_room( item, target.pos ):
@@ -92,33 +106,33 @@ def response( char, args, target ):
 def check_room( item, pos ):
 	# check valid item
 	if not item.hastag( 'carpentry_type' ):
-		return 0
+		return False
 	name = item.gettag( 'carpentry_type' )
-	if not deeds.haskey( name ):
-		return 0
+	if not deeds.has_key( name ):
+		return False
 	dir = deeds[ name ][ 1 ]
 	items = deeds[ name ][ 2: ]
 	if not items:
-		return 0
+		return False
 	num_item = len( items )
 	if not num_item:
-		return 0
+		return False
 
 	# check the spots
 	ret0 = 0
 	ret1 = 0
 	ret2 = 0
 	if num_item == 1:
-		return check_spot( pos )
+		return check_spot( pos.x, pos.y, pos.map )
 	elif num_item == 2:
-		ret0 = check_spot( pos )
+		ret0 = check_spot( pos.x, pos.y, pos.map )
 		if dir == 1:
 			ret1 = check_spot( pos.x, pos.y + 1, pos.map )
 		else:
 			ret1 = check_spot( pos.x + 1, pos.y, pos.map )
 		return ret0 & ret1
 	elif num_item == 3:
-		ret0 = check_spot( pos )
+		ret0 = check_spot( pos.x, pos.y, pos.map )
 		if dir == 1:
 			ret1 = check_spot( pos.x, pos.y + 1, pos.map )
 			ret2 = check_spot( pos.x, pos.y - 1, pos.map )
@@ -132,91 +146,78 @@ def check_room( item, pos ):
 			for y in range( pos.y, pos.y + 2 ):
 				ret0 = check_spot( x, y, pos.map )
 				if not ret0:
-					return 0
-		return 1
+					return False
+		return True
 	# pentagram
 	elif num_item == 9:
 		ret0 = wolfpack.items( pos.x, pos.y, pos.map, 2 )
 		if not ret0:
-			return 0
-		return 1
+			return False
+		return True
 	# no other case : error
-	return 0
-
-def check_spot( pos ):
-	if len( wolfpack.items( pos.x, pos.y, pos.map ) ):
-		return 0
-	return 1
+	return False
 
 def check_spot( x, y, map ):
+	#TODO: needs check for z value too
 	if len( wolfpack.items( x, y, map ) ):
-		return 0
-	return 1
+		return False
+	return True
 
 def setup_item( item, pos ):
 	# check valid item
 	if not item.hastag( 'carpentry_type' ):
 		return
 	name = item.gettag( 'carpentry_type' )
-	if not deeds.haskey( name ):
+	if not deeds.has_key( name ):
 		return
 	dir = deeds[ name ][ 1 ]
 	items = deeds[ name ][ 2: ]
 	if not items:
 		return
 	num_item = len( items )
-	if not num_items:
+	if not num_item:
 		return
 
 	# put items
 	if num_item == 1:
-		put_item( items[ 0 ] )
+		put_item( items[ 0 ], pos.x, pos.y, pos.z, pos.map )
 	elif num_item == 2:
-		put_item( items[ 0 ] )
+		put_item( items[ 0 ], pos.x, pos.y, pos.z, pos.map )
 		if dir == 1:
 			x1 = pos.x
 			y1 = pos.y + 1
 		else:
 			x1 = pos.x + 1
 			y1 = pos.y
-		put_item( items[ 1 ], x1, y1, pos.map )
+		put_item( items[ 1 ], x1, y1, pos.z, pos.map )
 	elif num_item == 3:
-		put_item( items[ 1 ], pos.x, pos.y, pos.map )
+		put_item( items[ 1 ], pos.x, pos.y, pos.z, pos.map )
 		if dir == 1:
-			put_item( items[ 0 ], pos.x, pos.y - 1, pos.map )
-			put_item( items[ 2 ], pos.x, pos.y + 1, pos.map )
+			put_item( items[ 0 ], pos.x, pos.y - 1, pos.z, pos.map )
+			put_item( items[ 2 ], pos.x, pos.y + 1, pos.z, pos.map )
 		else:
-			put_item( items[ 0 ], pos.x - 1, pos.y, pos.map )
-			put_item( items[ 2 ], pos.x + 1, pos.y, pos.map )
+			put_item( items[ 0 ], pos.x - 1, pos.y, pos.z, pos.map )
+			put_item( items[ 2 ], pos.x + 1, pos.y, pos.z, pos.map )
 	elif num_item == 4:
 		i = 0
 		for x in range( pos.x, pos.x + 2 ):
 			for y in range( pos.y, pos.y + 2 ):
-				put_item( items[ i ], x, y, pos.map )
+				put_item( items[ i ], x, y, pos.z, pos.map )
 				i += 1
 	elif num_item == 9:
 		i = 0
 		for y in range( pos.x - 1, pos.x + 2 ):
 			for x in range( pos.y - 1, pos.y + 2 ):
-				put_item( items[ i ], x, y, pos.map )
+				put_item( items[ i ], x, y, pos.z, pos.map )
 				i += 1
 
-def put_item( str, pos ):
+def put_item( str, x, y, z, map ):
 	item = wolfpack.additem( str )
 	if not item:
-		return 0
-	item.moveto( pos )
+		return False
+	item.moveto( x, y, z, map )
 	# locked down
 	item.movable = 3
+	item.decay = 0
 	item.update()
-	return 1
-
-def put_item( str, x, y, map ):
-	item = wolfpack.additem( str )
-	if not item:
-		return 0
-	item.moveto( x, y, map )
-	# locked down
-	item.movable = 3
-	item.update()
-	return 1
+	return True
