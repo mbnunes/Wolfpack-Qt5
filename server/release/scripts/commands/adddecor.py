@@ -65,16 +65,6 @@ logs = \
 # Ground Decorations
 
 forest_decor = [
-	'c84', # Foxglove Flowers
-	'c85', # Orfluer Flowers
-	'c87', # Champion Flowers
-	'c88', # Snowdrops
-	'c89', # Champion Flowers
-	'c8a', # Foxglove Flowers
-	'c8b', # White Flowers
-	'c8c', # White Flowers
-	'cdd', # White Poppies
-	'c8e', # Snowdrops
 	'cac', # Grasses
 	'cad', # Grasses
 	'cae', # Grasses
@@ -86,28 +76,9 @@ forest_decor = [
 	'cb4', # Grasses
 	'cb5', # Grasses
 	'cb6', # Grasses
-	'cb7', # Cattails
-	'cb8', # Cattails
-	'cb9', # Grasses
-	'cba', # Grasses
-	'cbe', # Poppies
-	'cbf', # Poppies
-	'cc0', # Orfluer Flowers
-	'cc1', # Orfluer Flowers
-	'cc3', # Muck
 	'cc5', # Grasses
 	'cc6', # Grasses
-	'cc7', # Weed
-	'cc8', # Juniper Bush
-	'cc9', # Spider Tree
-	'd3f', # Brambles
-	'd40', # Brambles
-	'c9e', # O'hii Tree
-	'd29', # Flowers
-	'd2b', # Flowers
-	'd2d', # Flowers
-	'd36', # Flowers
-	'd2f' # Flowers
+	'cc7' # Weed
 ]
 plains_decor = [
 	'c84', # Foxglove Flowers
@@ -143,12 +114,7 @@ plains_decor = [
 	'cc5', # Grasses
 	'cc6', # Grasses
 	'cc7', # Weed
-	'c9e', # O'hii Tree
-	'd29', # Flowers
-	'd2b', # Flowers
-	'd2d', # Flowers
-	'd36', # Flowers
-	'd2f' # Flowers
+	'c9e' # O'hii Tree
 ]
 desert_decor = [
 	'd25', # Cactus
@@ -239,6 +205,41 @@ jungle_decor = [
 	'cbd', # Grasses
 	'cc3', # Muck
 	'cc5' # Grasses
+]
+flowers_decor = [
+	'c37', 'c38', 'c45', 'c46', 'c47', 'c48', 'c49', 'c4a', 'c4b', 'c4c', 'c4d', 'c4e', # Small Flowers
+	'c84', # Foxglove Flowers
+	'c85', # Orfluer Flowers
+	'c87', # Champion Flowers
+	'c88', # Snowdrops
+	'c89', # Champion Flowers
+	'c8a', # Foxglove Flowers
+	'c8b', # White Flowers
+	'c8c', # White Flowers
+	'c8d', # White Popies
+	'c8e', # Snowdrops
+	'cbe', # Poppies
+	'cbf', # Poppies
+	'cc0', # Orfluer Flowers
+	'cc1' # Orfluer Flowers
+]
+smallflowers_decor = [ 'c37', 'c38', 'c45', 'c46', 'c47', 'c48', 'c49', 'c4a', 'c4b', 'c4c', 'c4d', 'c4e' ]
+
+bigflowers_decor = [
+	'c84', # Foxglove Flowers
+	'c85', # Orfluer Flowers
+	'c87', # Champion Flowers
+	'c88', # Snowdrops
+	'c89', # Champion Flowers
+	'c8a', # Foxglove Flowers
+	'c8b', # White Flowers
+	'c8c', # White Flowers
+	'c8d', # White Popies
+	'c8e', # Snowdrops
+	'cbe', # Poppies
+	'cbf', # Poppies
+	'cc0', # Orfluer Flowers
+	'cc1' # Orfluer Flowers
 ]
 
 # Constants
@@ -544,6 +545,7 @@ def adddecor( socket, command, args ):
 					return True
 				# Tree Logs log1, log2
 				elif value in [ 'log1', 'log2' ]: #added by Jim 20040814
+					item = value
 					socket.sysmessage( "Where do you want to place the fallen log [%s]?" % ( item ) )
 					socket.attachtarget( 'commands.adddecor.createlog', [ item ] )
 					return True
@@ -641,6 +643,26 @@ def adddecor( socket, command, args ):
 					else:
 						item = random.choice( desert_decor )
 						socket.settag( 'last_ground_desert', str( item ) )
+					socket.attachtarget( 'commands.adddecor.createground', [ item ] )
+					return True
+				# Random Ground Flowers
+				elif value in [ "flowers", "smallflowers", "bigflowers" ]:
+					if value == "flowers":
+						flowers = flowers_decor
+					elif value == "smallflowers":
+						flowers = smallflowers_decor
+					elif value == "bigflowers":
+						flowers = bigflowers_decor
+					if socket.hastag( 'last_ground_flowers' ):
+						templist = []
+						for choice in flowers:
+							if choice != str( socket.gettag( 'last_ground_flowers' ) ):
+								templist += [ choice ]
+						item = random.choice( templist )
+						socket.settag( 'last_ground_flowers', str( item ) )
+					else:
+						item = random.choice( flowers )
+						socket.settag( 'last_ground_flowers', str( item ) )
 					socket.attachtarget( 'commands.adddecor.createground', [ item ] )
 					return True
 				# Nothing
