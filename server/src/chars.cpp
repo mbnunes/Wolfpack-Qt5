@@ -2685,7 +2685,12 @@ void cChar::mount( P_CHAR pMount )
 	{
 		unmount();
 
-		P_ITEM pMountItem = Items->SpawnItem( this, 1, pMount->name.latin1(), 0, 0x0915, pMount->skin(), 0 );
+		P_ITEM pMountItem = new cItem;
+		pMountItem->Init();
+		pMountItem->setId( 0x915 );
+		pMountItem->setName( pMount->name );
+		pMountItem->setColor( pMount->skin() );
+
 		if( !pMountItem )
 			return;
 
@@ -2731,7 +2736,7 @@ void cChar::mount( P_CHAR pMount )
 		npos.x = pMount->fx1();
 		npos.y = pMount->fy1();
 		npos.z = pMount->fz1();
-		pMountItem->moveTo(npos);
+		//pMountItem->moveTo(npos);
 		
 		pMountItem->setMoreX(pMount->serial);
 		pMountItem->setMoreY(pMount->id());
@@ -2759,11 +2764,11 @@ void cChar::mount( P_CHAR pMount )
 		}
 		
 		// remove it from screen!
+		pMount->removeFromView( true );
+		
 		pMount->setId(0);
 		cMapObjects::getInstance()->remove( pMount );
 		pMount->pos = Coord_cl(0, 0, 0);
-		
-		pMount->removeFromView( true );
 		
 		pMount->setWar( false );
 		pMount->setAttacker(INVALID_SERIAL);
