@@ -426,7 +426,7 @@ void BuildHouse(UOXSOCKET s, int i)
 				closescript();
 			}
 		}
-		cRegion::RegionIterator4Items ri(pHouseItem->pos);
+		cRegion::RegionIterator4Items ri(pMulti->pos);
 		for(ri.Begin();ri.GetData() != ri.End(); ri++)
 		{
 			P_ITEM si = ri.GetData();
