@@ -1,637 +1,1 @@
-<!--
-=================================================================
-|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
-=================================================================
-| Stuff not yet Sorted                                          |
-=================================================================
--->
-<definitions>
-
-	<!-- Third Dawn Weapons -->
-
-	<!-- daemon sword -->
-	<item id="2554">
-		<id>0x2554</id>
-	</item>
-
-	<!-- ettin hammer -->
-	<item id="2555">
-		<id>0x2555</id>
-	</item>
-
-	<!-- liche's staff -->
-	<item id="2556">
-		<id>0x2556</id>
-	</item>
-
-	<!-- lizardman's mace -->
-	<item id="2557">
-		<id>0x2557</id>
-	</item>
-
-	<!-- lizardman's spea -->
-	<item id="2558">
-		<id>0x2558</id>
-	</item>
-
-	<!-- ogre's club -->
-	<item id="2559">
-		<id>0x2559</id>
-	</item>
-
-	<!-- ophidian staff -->
-	<item id="255a">
-		<id>0x255a</id>
-	</item>
-
-	<!-- ophidian bardich -->
-	<item id="255b">
-		<id>0x255b</id>
-	</item>
-
-	<!-- orc club -->
-	<item id="255c">
-		<id>0x255c</id>
-	</item>
-
-	<!-- ratman axe -->
-	<item id="255d">
-		<id>0x255d</id>
-	</item>
-
-	<!-- ratman sword -->
-	<item id="255e">
-		<id>0x255e</id>
-	</item>
-
-	<!-- skeleton axe -->
-	<item id="255f">
-		<id>0x255f</id>
-	</item>
-
-	<!-- skeleton scimita -->
-	<item id="2560">
-		<id>0x2560</id>
-	</item>
-
-	<!-- terathan staff -->
-	<item id="2561">
-		<id>0x2561</id>
-	</item>
-
-	<!-- terathan spear -->
-	<item id="2562">
-		<id>0x2562</id>
-	</item>
-
-	<!-- terathan mace -->
-	<item id="2563">
-		<id>0x2563</id>
-	</item>
-
-	<!-- troll axe -->
-	<item id="2564">
-		<id>0x2564</id>
-	</item>
-
-	<!-- troll maul -->
-	<item id="2565">
-		<id>0x2565</id>
-	</item>
-
-	<!-- frost troll club -->
-	<item id="2566">
-		<id>0x2566</id>
-	</item>
-
-	<!-- orc lord battleaxe -->
-	<item id="2567">
-		<id>0x2567</id>
-	</item>
-
-	<!-- orc mage staff -->
-	<item id="2568">
-		<id>0x2568</id>
-	</item>
-
-	<!-- bone mage staff -->
-	<item id="2569">
-		<id>0x2569</id>
-	</item>
-
-	<!-- magic staff -->
-	<item id="256b">
-		<id>0x256b</id>
-	</item>
-
-	<!-- magic staff -->
-	<item id="256c">
-		<id>0x256c</id>
-	</item>
-
-	<!-- magic staff -->
-	<item id="256d">
-		<id>0x256d</id>
-	</item>
-
-	<!-- magic staff -->
-	<item id="256e">
-		<id>0x256e</id>
-	</item>
-
-        <!-- smyth hammer -->
-	<item id="256f">
-		<id>0x256f</id>
-	</item>
-
-	<!-- hatchet -->
-	<item id="2570">
-		<id>0x2570</id>
-	</item>
-
-	<!-- horseman's bow -->
-	<item id="2571">
-		<id>0x2571</id>
-	</item>
-
-	<!-- javelin -->
-	<item id="2572">
-		<id>0x2572</id>
-	</item>
-
-	<!-- magic sword -->
-	<item id="2573">
-		<id>0x2573</id>
-	</item>
-
-	<!-- magic sword -->
-	<item id="2574">
-		<id>0x2574</id>
-	</item>
-
-	<!-- magic sword -->
-	<item id="2575">
-		<id>0x2575</id>
-	</item>
-
-	<!-- magic sword -->
-	<item id="2576">
-		<id>0x2576</id>
-	</item>
-
-	<!-- naginata -->
-	<item id="2577">
-		<id>0x2577</id>
-	</item>
-
-	<!-- no-dachi -->
-	<item id="2578">
-		<id>0x2578</id>
-	</item>
-
-	<!-- pick -->
-	<item id="2579">
-		<id>0x2579</id>
-	</item>
-
-	<!-- spear -->
-	<item id="257a">
-		<id>0x257a</id>
-	</item>
-
-	<!-- spear -->
-	<item id="257b">
-		<id>0x257b</id>
-	</item>
-
-	<!-- sword -->
-	<item id="257c">
-		<id>0x257c</id>
-	</item>
-
-	<!-- longsword -->
-	<item id="257d">
-		<id>0x257d</id>
-	</item>
-
-	<!-- shortsword -->
-	<item id="257e">
-		<id>0x257e</id>
-	</item>
-
-	<!-- war mace -->
-	<item id="257f">
-		<id>0x257f</id>
-	</item>
-
-
-
-	<!-- Third Dawn Clothes & Armor -->
-	<item id="25e4">
-		<id>0x25e4</id>
-	</item>
-
-	<item id="25e5">
-		<id>0x25e5</id>
-	</item>
-
-	<item id="25e6">
-		<id>0x25e6</id>
-	</item>
-
-	<item id="25e7">
-		<id>0x25e7</id>
-	</item>
-
-	<item id="25e8">
-		<id>0x25e8</id>
-	</item>
-
-	<item id="25e9">
-		<id>0x25e9</id>
-	</item>
-
-	<item id="25ea">
-		<id>0x25ea</id>
-	</item>
-
-	<item id="25eb">
-		<id>0x25eb</id>
-	</item>
-
-	<item id="25ec">
-		<id>0x25ec</id>
-	</item>
-
-	<item id="25ed">
-		<id>0x25ed</id>
-	</item>
-
-	<item id="25ee">
-		<id>0x25ee</id>
-	</item>
-
-	<item id="25ef">
-		<id>0x25ef</id>
-	</item>
-
-	<item id="25f0">
-		<id>0x25f0</id>
-	</item>
-
-	<item id="25f1">
-		<id>0x25f1</id>
-	</item>
-
-	<item id="25f2">
-		<id>0x25f2</id>
-	</item>
-
-	<item id="25f3">
-		<id>0x25f3</id>
-	</item>
-
-	<item id="2641">
-		<id>0x2641</id>
-	</item>
-
-	<item id="2642">
-		<id>0x2642</id>
-	</item>
-
-	<item id="2643">
-		<id>0x2643</id>
-	</item>
-
-	<item id="2644">
-		<id>0x2644</id>
-	</item>
-
-	<item id="2645">
-		<id>0x2645</id>
-	</item>
-
-	<item id="2646">
-		<id>0x2646</id>
-	</item>
-
-	<item id="2647">
-		<id>0x2647</id>
-	</item>
-
-	<item id="2648">
-		<id>0x2648</id>
-	</item>
-
-	<item id="2649">
-		<id>0x2649</id>
-	</item>
-
-	<item id="264a">
-		<id>0x264a</id>
-	</item>
-
-	<item id="264b">
-		<id>0x264b</id>
-	</item>
-
-	<item id="264c">
-		<id>0x264c</id>
-	</item>
-
-	<item id="264d">
-		<id>0x264d</id>
-	</item>
-
-	<item id="264e">
-		<id>0x264e</id>
-	</item>
-
-	<item id="264f">
-		<id>0x264f</id>
-	</item>
-
-	<item id="2650">
-		<id>0x2650</id>
-	</item>
-
-	<item id="2651">
-		<id>0x2651</id>
-	</item>
-
-	<item id="2652">
-		<id>0x2652</id>
-	</item>
-
-	<item id="2653">
-		<id>0x2653</id>
-	</item>
-
-	<item id="2654">
-		<id>0x2654</id>
-	</item>
-
-	<item id="2655">
-		<id>0x2655</id>
-	</item>
-
-	<item id="2656">
-		<id>0x2656</id>
-	</item>
-
-	<item id="2657">
-		<id>0x2657</id>
-	</item>
-
-	<item id="2658">
-		<id>0x2658</id>
-	</item>
-
-	<item id="2659">
-		<id>0x2659</id>
-	</item>
-
-	<item id="265a">
-		<id>0x265a</id>
-	</item>
-
-	<item id="265b">
-		<id>0x265b</id>
-	</item>
-
-	<item id="265c">
-		<id>0x265c</id>
-	</item>
-
-	<item id="265d">
-		<id>0x265d</id>
-	</item>
-
-	<item id="265e">
-		<id>0x265e</id>
-	</item>
-
-	<item id="265f">
-		<id>0x265f</id>
-	</item>
-
-	<item id="2660">
-		<id>0x2660</id>
-	</item>
-
-	<item id="2661">
-		<id>0x2661</id>
-	</item>
-
-	<item id="2662">
-		<id>0x2662</id>
-	</item>
-
-	<item id="2663">
-		<id>0x2663</id>
-	</item>
-
-	<item id="2664">
-		<id>0x2664</id>
-	</item>
-
-	<item id="2665">
-		<id>0x2665</id>
-	</item>
-
-	<item id="2666">
-		<id>0x2666</id>
-	</item>
-
-	<item id="2667">
-		<id>0x2667</id>
-	</item>
-
-	<item id="2668">
-		<id>0x2668</id>
-	</item>
-
-	<item id="266b">
-		<id>0x266b</id>
-	</item>
-
-	<item id="266c">
-		<id>0x266c</id>
-	</item>
-
-	<item id="266d">
-		<id>0x266d</id>
-	</item>
-
-	<item id="266e">
-		<id>0x266e</id>
-	</item>
-
-	<item id="2671">
-		<id>0x2671</id>
-	</item>
-
-	<item id="2672">
-		<id>0x2672</id>
-	</item>
-
-	<item id="2673">
-		<id>0x2673</id>
-	</item>
-
-	<item id="2674">
-		<id>0x2674</id>
-	</item>
-
-	<item id="2677">
-		<id>0x2677</id>
-	</item>
-
-	<item id="2678">
-		<id>0x2678</id>
-	</item>
-
-	<item id="2679">
-		<id>0x2679</id>
-	</item>
-
-	<item id="267a">
-		<id>0x267a</id>
-	</item>
-
-	<item id="267b">
-		<id>0x267b</id>
-	</item>
-
-	<item id="267c">
-		<id>0x267c</id>
-	</item>
-
-	<item id="267d">
-		<id>0x267d</id>
-	</item>
-
-	<item id="267e">
-		<id>0x267e</id>
-	</item>
-
-	<item id="267f">
-		<id>0x267f</id>
-	</item>
-
-	<item id="2680">
-		<id>0x2680</id>
-	</item>
-
-	<item id="2681">
-		<id>0x2681</id>
-	</item>
-
-	<item id="2682">
-		<id>0x2682</id>
-	</item>
-
-	<item id="2683">
-		<id>0x2683</id>
-	</item>
-
-	<item id="2684">
-		<id>0x2684</id>
-	</item>
-
-	<item id="2685">
-		<id>0x2685</id>
-	</item>
-
-	<item id="2686">
-		<id>0x2686</id>
-	</item>
-
-	<item id="2689">
-		<id>0x2689</id>
-	</item>
-
-	<item id="268a">
-		<id>0x268a</id>
-	</item>
-
-	<item id="268b">
-		<id>0x268b</id>
-	</item>
-
-	<item id="268c">
-		<id>0x268c</id>
-	</item>
-
-	<item id="268d">
-		<id>0x268d</id>
-	</item>
-
-	<item id="268e">
-		<id>0x268e</id>
-	</item>
-
-	<item id="268f">
-		<id>0x268f</id>
-	</item>
-
-	<item id="2690">
-		<id>0x2690</id>
-	</item>
-
-	<item id="2691">
-		<id>0x2691</id>
-	</item>
-
-	<item id="2692">
-		<id>0x2692</id>
-	</item>
-
-	<item id="269d">
-		<id>0x269d</id>
-	</item>
-
-	<item id="269e">
-		<id>0x269e</id>
-	</item>
-
-	<item id="26a1">
-		<id>0x26a1</id>
-	</item>
-
-	<item id="26a2">
-		<id>0x26a2</id>
-	</item>
-
-	<item id="26a3">
-		<id>0x26a3</id>
-	</item>
-
-	<item id="26a4">
-		<id>0x26a4</id>
-	</item>
-
-	<item id="26ac">
-		<id>0x26ac</id>
-	</item>
-
-	<item id="26ad">
-		<id>0x26ad</id>
-	</item>
-
-	<item id="26ae">
-		<id>0x26ae</id>
-	</item>
-
-	<item id="26af">
-		<id>0x26af</id>
-	</item>
-
-	<item id="26b0">
-		<id>0x26b0</id>
-	</item>
-
-</definitions>
+<!--=================================================================|   )      (\_     | WOLFPACK 13.0.0 Scripts                    ||  ((    _/{  "-;  | Created by: DarkStorm                      ||   )).-' {{ ;'`   | Revised by: olafk                          ||  ( (  ;._ \\ ctr | Last Modification: item names added        |=================================================================| Stuff not yet Sorted                                          |=================================================================--><definitions>	<!-- Third Dawn Weapons -->	<!-- daemon sword -->	<item id="2554">		<id>0x2554</id>	</item>	<!-- ettin hammer -->	<item id="2555">		<id>0x2555</id>	</item>	<!-- liche's staff -->	<item id="2556">		<id>0x2556</id>	</item>	<!-- lizardman's mace -->	<item id="2557">		<id>0x2557</id>	</item>	<!-- lizardman's spea -->	<item id="2558">		<id>0x2558</id>	</item>	<!-- ogre's club -->	<item id="2559">		<id>0x2559</id>	</item>	<!-- ophidian staff -->	<item id="255a">		<id>0x255a</id>	</item>	<!-- ophidian bardich -->	<item id="255b">		<id>0x255b</id>	</item>	<!-- orc club -->	<item id="255c">		<id>0x255c</id>	</item>	<!-- ratman axe -->	<item id="255d">		<id>0x255d</id>	</item>	<!-- ratman sword -->	<item id="255e">		<id>0x255e</id>	</item>	<!-- skeleton axe -->	<item id="255f">		<id>0x255f</id>	</item>	<!-- skeleton scimita -->	<item id="2560">		<id>0x2560</id>	</item>	<!-- terathan staff -->	<item id="2561">		<id>0x2561</id>	</item>	<!-- terathan spear -->	<item id="2562">		<id>0x2562</id>	</item>	<!-- terathan mace -->	<item id="2563">		<id>0x2563</id>	</item>	<!-- troll axe -->	<item id="2564">		<id>0x2564</id>	</item>	<!-- troll maul -->	<item id="2565">		<id>0x2565</id>	</item>	<!-- frost troll club -->	<item id="2566">		<id>0x2566</id>	</item>	<!-- orc lord battleaxe -->	<item id="2567">		<id>0x2567</id>	</item>	<!-- orc mage staff -->	<item id="2568">		<id>0x2568</id>	</item>	<!-- bone mage staff -->	<item id="2569">		<id>0x2569</id>	</item>	<!-- magic staff -->	<item id="256b">		<id>0x256b</id>	</item>	<!-- magic staff -->	<item id="256c">		<id>0x256c</id>	</item>	<!-- magic staff -->	<item id="256d">		<id>0x256d</id>	</item>	<!-- magic staff -->	<item id="256e">		<id>0x256e</id>	</item>	<!-- smyth hammer -->	<item id="256f">		<id>0x256f</id>	</item>	<!-- hatchet -->	<item id="2570">		<id>0x2570</id>	</item>	<!-- horseman's bow -->	<item id="2571">		<id>0x2571</id>	</item>	<!-- javelin -->	<item id="2572">		<id>0x2572</id>	</item>	<!-- magic sword -->	<item id="2573">		<id>0x2573</id>	</item>	<!-- magic sword -->	<item id="2574">		<id>0x2574</id>	</item>	<!-- magic sword -->	<item id="2575">		<id>0x2575</id>	</item>	<!-- magic sword -->	<item id="2576">		<id>0x2576</id>	</item>	<!-- naginata -->	<item id="2577">		<id>0x2577</id>	</item>	<!-- no-dachi -->	<item id="2578">		<id>0x2578</id>	</item>	<!-- pick -->	<item id="2579">		<id>0x2579</id>	</item>	<!-- spear -->	<item id="257a">		<id>0x257a</id>	</item>	<!-- spear -->	<item id="257b">		<id>0x257b</id>	</item>	<!-- sword -->	<item id="257c">		<id>0x257c</id>	</item>	<!-- longsword -->	<item id="257d">		<id>0x257d</id>	</item>	<!-- shortsword -->	<item id="257e">		<id>0x257e</id>	</item>	<!-- war mace -->	<item id="257f">		<id>0x257f</id>	</item>	<!-- Third Dawn Clothes & Armor -->	<!-- spiked shorts -->	<item id="25e4">		<id>0x25e4</id>	</item>	<!-- spiked shorts -->	<item id="25e5">		<id>0x25e5</id>	</item>	<!-- amazon harness -->	<item id="25e6">		<id>0x25e6</id>	</item>	<!-- amazon harness -->	<item id="25e7">		<id>0x25e7</id>	</item>	<!-- elite harness -->	<item id="25e8">		<id>0x25e8</id>	</item>	<!-- elite harness -->	<item id="25e9">		<id>0x25e9</id>	</item>	<!-- checkered shirt -->	<item id="25ea">		<id>0x25ea</id>	</item>	<!-- checkered shirt -->	<item id="25eb">		<id>0x25eb</id>	</item>	<!-- robe -->	<item id="25ec">		<id>0x25ec</id>	</item>	<!-- robe -->	<item id="25ed">		<id>0x25ed</id>	</item>	<!-- robe -->	<item id="25ee">		<id>0x25ee</id>	</item>	<!-- robe -->	<item id="25ef">		<id>0x25ef</id>	</item>	<!-- death shroud -->	<item id="25f0">		<id>0x25f0</id>	</item>	<!-- death shroud -->	<item id="25f1">		<id>0x25f1</id>	</item>	<!-- knee skirt -->	<item id="25f2">		<id>0x25f2</id>	</item>	<!-- knee skirt -->	<item id="25f3">		<id>0x25f3</id>	</item>	<!-- dragon breastplate -->	<item id="2641">		<id>0x2641</id>	</item>	<!-- dragon breastplate -->	<item id="2642">		<id>0x2642</id>	</item>	<!-- dragon gloves -->	<item id="2643">		<id>0x2643</id>	</item>	<!-- dragon gloves -->	<item id="2644">		<id>0x2644</id>	</item>	<!-- dragon helm -->	<item id="2645">		<id>0x2645</id>	</item>	<!-- dragon helm -->	<item id="2646">		<id>0x2646</id>	</item>	<!-- dragon leggings -->	<item id="2647">		<id>0x2647</id>	</item>	<!-- dragon leggings -->	<item id="2648">		<id>0x2648</id>	</item>	<!-- jester pants -->	<item id="2649">		<id>0x2649</id>	</item>	<!-- jester pants -->	<item id="264a">		<id>0x264a</id>	</item>	<!-- plate gorget -->	<item id="264b">		<id>0x264b</id>	</item>	<!-- plate gorget -->	<item id="264c">		<id>0x264c</id>	</item>	<!-- haidate -->	<item id="264d">		<id>0x264d</id>	</item>	<!-- haidate -->	<item id="264e">		<id>0x264e</id>	</item>	<!-- kobakama -->	<item id="264f">		<id>0x264f</id>	</item>	<!-- kobakama -->	<item id="2650">		<id>0x2650</id>	</item>	<!-- ninja pants -->	<item id="2651">		<id>0x2651</id>	</item>	<!-- ninja pants -->	<item id="2652">		<id>0x2652</id>	</item>	<!-- waraji -->	<item id="2653">		<id>0x2653</id>	</item>	<!-- waraji -->	<item id="2654">		<id>0x2654</id>	</item>	<!-- jester shoes -->	<item id="2655">		<id>0x2655</id>	</item>	<!-- jester shoes -->	<item id="2656">		<id>0x2656</id>	</item>	<!-- dragon sleeves -->	<item id="2657">		<id>0x2657</id>	</item>	<!-- dragon sleeves -->	<item id="2658">		<id>0x2658</id>	</item>	<!-- amazon armor -->	<item id="2659">		<id>0x2659</id>	</item>	<!-- amazon armor -->	<item id="265a">		<id>0x265a</id>	</item>	<!-- amazon armor -->	<item id="265b">		<id>0x265b</id>	</item>	<!-- amazon armor -->	<item id="265c">		<id>0x265c</id>	</item>	<!-- amazon armor -->	<item id="265d">		<id>0x265d</id>	</item>	<!-- amazon armor -->	<item id="265e">		<id>0x265e</id>	</item>	<!-- shirt -->	<item id="265f">		<id>0x265f</id>	</item>	<!-- shirt -->	<item id="2660">		<id>0x2660</id>	</item>	<!-- shirt -->	<item id="2661">		<id>0x2661</id>	</item>	<!-- shirt -->	<item id="2662">		<id>0x2662</id>	</item>	<!-- shirt -->	<item id="2663">		<id>0x2663</id>	</item>	<!-- shirt -->	<item id="2664">		<id>0x2664</id>	</item>	<!-- shirt -->	<item id="2665">		<id>0x2665</id>	</item>	<!-- shirt -->	<item id="2666">		<id>0x2666</id>	</item>	<!-- ninja shirt -->	<item id="2667">		<id>0x2667</id>	</item>	<!-- ninja shirt -->	<item id="2668">		<id>0x2668</id>	</item>	<!-- kote sleeves -->	<item id="266b">		<id>0x266b</id>	</item>	<!-- kote sleeves -->	<item id="266c">		<id>0x266c</id>	</item>	<!-- kote sleeves -->	<item id="266d">		<id>0x266d</id>	</item>	<!-- kote sleeves -->	<item id="266e">		<id>0x266e</id>	</item>	<!-- do-maru -->	<item id="2671">		<id>0x2671</id>	</item>	<!-- do-maru -->	<item id="2672">		<id>0x2672</id>	</item>	<!-- haramaki-do -->	<item id="2673">		<id>0x2673</id>	</item>	<!-- haramaki-do -->	<item id="2674">		<id>0x2674</id>	</item>	<!-- kote gloves -->	<item id="2677">		<id>0x2677</id>	</item>	<!-- kote gloves -->	<item id="2678">		<id>0x2678</id>	</item>	<!-- kote gloves -->	<item id="2679">		<id>0x2679</id>	</item>	<!-- kote gloves -->	<item id="267a">		<id>0x267a</id>	</item>	<!-- fancy dress -->	<item id="267b">		<id>0x267b</id>	</item>	<!-- fancy dress -->	<item id="267c">		<id>0x267c</id>	</item>	<!-- fancy dress -->	<item id="267d">		<id>0x267d</id>	</item>	<!-- fancy dress -->	<item id="267e">		<id>0x267e</id>	</item>	<!-- long dress -->	<item id="267f">		<id>0x267f</id>	</item>	<!-- long dress -->	<item id="2680">		<id>0x2680</id>	</item>	<!-- kimono -->	<item id="2681">		<id>0x2681</id>	</item>	<!-- kimono -->	<item id="2682">		<id>0x2682</id>	</item>	<!-- hooded shroud -->	<item id="2683">		<id>0x2683</id>	</item>	<!-- hooded shroud -->	<item id="2684">		<id>0x2684</id>	</item>	<!-- death shroud -->	<item id="2685">		<id>0x2685</id>	</item>	<!-- death shroud -->	<item id="2686">		<id>0x2686</id>	</item>	<!-- winged helmet -->	<item id="2689">		<id>0x2689</id>	</item>	<!-- winged helmet -->	<item id="268a">		<id>0x268a</id>	</item>	<!-- hachimaki -->	<item id="268b">		<id>0x268b</id>	</item>	<!-- hachimaki -->	<item id="268c">		<id>0x268c</id>	</item>	<!-- kabuto -->	<item id="268d">		<id>0x268d</id>	</item>	<!-- kabuto -->	<item id="268e">		<id>0x268e</id>	</item>	<!-- kabuto mempo -->	<item id="268f">		<id>0x268f</id>	</item>	<!-- kabuto mempo -->	<item id="2690">		<id>0x2690</id>	</item>	<!-- leather cap -->	<item id="2691">		<id>0x2691</id>	</item>	<!-- leather cap -->	<item id="2692">		<id>0x2692</id>	</item>	<!-- robin hood cap -->	<item id="269d">		<id>0x269d</id>	</item>	<!-- robin hood cap -->	<item id="269e">		<id>0x269e</id>	</item>	<!-- feathered mask -->	<item id="26a1">		<id>0x26a1</id>	</item>	<!-- feathered mask -->	<item id="26a2">		<id>0x26a2</id>	</item>	<!-- ninja mask -->	<item id="26a3">		<id>0x26a3</id>	</item>	<!-- ninja mask -->	<item id="26a4">		<id>0x26a4</id>	</item>	<!-- bolas -->	<item id="26ac">		<id>0x26ac</id>	</item>	<!-- Arcane Cloak -->	<item id="26ad">		<id>0x26ad</id>	</item>	<!-- Arcane Cloak -->	<item id="26ae">		<id>0x26ae</id>	</item>	<!-- Arcane Thigh Boots -->	<item id="26af">		<id>0x26af</id>	</item>	<!-- Arcane Gloves -->	<item id="26b0">		<id>0x26b0</id>	</item></definitions>

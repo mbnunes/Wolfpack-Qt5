@@ -43,7 +43,6 @@
 	<include file="definitions/npcs/animals/land/polar_bear.xml"/>
 	<include file="definitions/npcs/animals/land/rabbit.xml"/>
 	<include file="definitions/npcs/animals/land/rat.xml"/>
-	<include file="definitions/npcs/animals/land/sewer_rat.xml"/>
 	<include file="definitions/npcs/animals/land/sheep.xml"/>
 	<include file="definitions/npcs/animals/land/snake.xml"/>
 	<include file="definitions/npcs/animals/land/snow_leopard.xml"/>
