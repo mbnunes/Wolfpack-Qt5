@@ -26,6 +26,7 @@
  */
 
 #if !defined(__AI_MAGE_H__)
+#define __AI_MAGE_H__
 
 class Monster_Mage : public Monster_Aggressive
 {
