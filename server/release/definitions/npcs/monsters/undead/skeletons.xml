@@ -52,7 +52,7 @@
   <!-- skeleton (with sword) -->
 	<npc id="skeleton_sword" inherit="skeleton_base">
 		<id>0x39</id>
-		<category>Monsters\Undead\Skeleton (with Axe)</category>
+		<category>Monsters\Undead\Skeleton (with Sword)</category>
 	</npc>
 
 </definitions>

@@ -11,7 +11,7 @@
 	<!-- a terathan drone -->
 	<npc id="terathan_drone" inherit="monster_base">
 		<name>terathan drone</name>
-		<id>72</id>
+		<id>71</id>
 		<karma><random list="KARMA_L2" /></karma>
 		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
