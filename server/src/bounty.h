@@ -47,28 +47,31 @@
 using namespace std ;
 
 // Forward Class Declaration
+class cBounty;
 
 
 // Wolfpack includes
 #include "wolfpack.h"
 #include "bounty.h"
 
+class cBounty
+{
+public:
+     // Ask victim if they want to post a bounty on the
+     // murderer, and if so, then return the amount of the
+     // reward they want to place on the murderers head.
+     void BountyAskVictim  ( int nVictimSerial,
+                             int nMurdererSerial );
+     // Create the bounty on the murderer
+     bool BountyCreate     ( int nMurdererSerial,
+                             int nRewardAmount );
+     // Remove the bounty from the murderer
+     bool BountyDelete     ( int nMurdererSerial );
+     // Check and then withdraw the bounty amount
+     bool BountyWithdrawGold( P_CHAR pVictim, int nAmount );
+};
 
-// Ask victim if they want to post a bounty on the
-// murderer, and if so, then return the amount of the
-// reward they want to place on the murderers head.
-void BountyAskVictim  ( int nVictimSerial,
-                        int nMurdererSerial );
-
-// Create the bounty on the murderer
-bool BountyCreate     ( int nMurdererSerial,
-                        int nRewardAmount );
-
-// Remove the bounty from the murderer
-bool BountyDelete     ( int nMurdererSerial );
-
-// Check and then withdraw the bounty amount
-bool BountyWithdrawGold( P_CHAR pVictim, int nAmount );
+extern cBounty    *Bounty;
 
 #endif
 

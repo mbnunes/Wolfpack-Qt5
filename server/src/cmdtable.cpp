@@ -445,9 +445,9 @@ void command_bounty(UOXSOCKET s)
 	if( tnum == 2 )
 	{
 		int nAmount = makenumber(1);
-		if( BountyWithdrawGold( pc_cs, nAmount ) )
+		if( Bounty->BountyWithdrawGold( pc_cs, nAmount ) )
 		{
-			if( BountyCreate( pc_cs->murdererSer, nAmount ) )
+			if( Bounty->BountyCreate( pc_cs->murdererSer, nAmount ) )
 			{
 				sprintf((char*) temp,
 					"You have placed a bounty of %d gold coins on %s.",

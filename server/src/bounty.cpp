@@ -50,7 +50,7 @@
 //
 // RETURNS:     void
 //////////////////////////////////////////////////////////////////////////////
-void BountyAskVictim( int nVictimSerial, int nMurdererSerial )
+void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 {
   int nAmount     = 0;
   int nVictimIdx  = calcCharFromSer( nVictimSerial );
@@ -106,7 +106,7 @@ void BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 // RETURNS:     TRUE  Bounty post successfully created
 //              FALSE Bounty post could not be created
 //////////////////////////////////////////////////////////////////////////////
-bool BountyCreate( int nMurdererSerial, int nRewardAmount )
+bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 {
   int   nIndex      = calcCharFromSer( nMurdererSerial );
   int   nPostSerial = 0;
@@ -152,7 +152,7 @@ bool BountyCreate( int nMurdererSerial, int nRewardAmount )
 } // BountyCreate()
 
 
-bool BountyDelete( int nMurdererSerial )
+bool cBounty::BountyDelete( int nMurdererSerial )
 {
   bool  bReturn = true;
   int   nIndex  = calcCharFromSer( nMurdererSerial );
@@ -174,7 +174,7 @@ bool BountyDelete( int nMurdererSerial )
 } // BountyDelete()
 
 
-bool BountyWithdrawGold( P_CHAR pVictim, int nAmount )
+bool cBounty::BountyWithdrawGold( P_CHAR pVictim, int nAmount )
 {
 	int has = pVictim->CountBankGold();
 	if (has < nAmount)

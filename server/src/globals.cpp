@@ -304,6 +304,7 @@ cSpeech	        *Speech;
 cTrigger	    *Trig;
 cDragdrop       *Drag;
 cTrade	        *Trade;
+cBounty         *Bounty;
 cRaces			Races;
 // Sky's AI
 cCharStuff::cDragonAI	*DragonAI;
