@@ -2740,6 +2740,9 @@ bool cBaseChar::kill( cUObject* source )
 			{
 				pPlayer->makeCriminal();
 				pPlayer->setKills( pPlayer->kills() + 1 );
+				if (pPlayer->kills() == Config::instance()->maxkills() + 1) {
+					pPlayer->resend(); // Just became a murderer
+				}
 				pPlayer->setMurdererTime( Server::instance()->time() );
 				setMurdererSerial( pPlayer->serial() );
 
