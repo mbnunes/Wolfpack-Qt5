@@ -55,7 +55,6 @@
 		<group name="command">
 			<action name="any" permit="true" />
 			<action name="ACCOUNT" permit="false" />
-			<action name="ALLMOVE" permit="false" />
 			<action name="ALLSHOW" permit="false" />
 			<action name="DECORATION" permit="false" />
 			<action name="DOORGEN" permit="false" />
@@ -67,14 +66,11 @@
 			<action name="IMPORT" permit="false" />
 			<action name="INFO" permit="false" />
 			<action name="INVUL" permit="false" />
-			<action name="NUKE" permit="false" />
-			<action name="WIPE" permit="false" />
 			<action name="OPTIMIZEDB" permit="false" />
 			<action name="SAVE" permit="false" />
 			<action name="SEASON" permit="false" />
 			<action name="SET" permit="false" />
 			<action name="SHUTDOWN" permit="false" />
-			<action name="TILE" permit="false" />
 		</group>
 		<group name="multi"></group>
 	</acl>
