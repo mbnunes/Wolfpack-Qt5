@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "WPPythonScript.h"
+#include "wppythonscript.h"
 #include "worldmain.h"
 #include "globals.h"
 #include "junk.h"
@@ -49,9 +49,6 @@ inline PyObject* PyGetCharObject( P_CHAR Char )
 	return (PyObject*)returnVal;
 }
 
-//////////////////////////////////////////////////////////////////////
-// Konstruktion/Destruktion
-//////////////////////////////////////////////////////////////////////
 
 // Find our module name
 void WPPythonScript::load( const QDomElement &Data )

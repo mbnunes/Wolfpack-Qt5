@@ -134,8 +134,8 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value );
 PyObject* Py_WPItembySerial( PyObject* self, PyObject* args );
 
 // WPItem
-PyObject* Py_WPItem_update( PyObject* self, PyObject* args );
-PyObject* Py_WPItem_delete( PyObject* self, PyObject* args );
+PyObject* Py_WPItem_update( Py_WPItem* self, PyObject* args );
+PyObject* Py_WPItem_delete( Py_WPItem* self, PyObject* args );
 
 static PyTypeObject Py_WPItemType = {
     PyObject_HEAD_INIT(NULL)

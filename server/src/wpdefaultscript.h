@@ -5,10 +5,6 @@
 #if !defined(__WPDEFAULTSCRIPT_H_)
 #define __WPDEFAULTSCRIPT_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
 //#include "wolfpack.h"
 #include "typedefs.h"
 #include "platform.h"
@@ -24,10 +20,9 @@ public:
 	// Scripting Type (i.e. Python or "Default")
 	virtual const QString Type( void ) {
 		return "default";
-	};
+	}
 
-	WPDefaultScript();
-	virtual ~WPDefaultScript();
+	virtual ~WPDefaultScript() {}
 
 	// Methods for loading, unloading and reloading the scripts
 	// these methods are unused for the default script
@@ -75,4 +70,4 @@ public:
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill );
 };
 
-#endif // !defined(AFX_WPDEFAULTSCRIPT_H__FDB3420A_822D_4D37_8D60_1ED584CC02DF__INCLUDED_)
+#endif

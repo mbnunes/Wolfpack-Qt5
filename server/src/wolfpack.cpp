@@ -305,7 +305,6 @@ void init_deamon()
 #endif
 }
 
-
 unsigned int dist(Coord_cl &a, Coord_cl &b) // Distance between position a and b
 {
 /*	int c;
