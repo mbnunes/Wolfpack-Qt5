@@ -115,12 +115,12 @@
 		</craft>
 		<craft definition="potion_cure" name="Cure Potion">
 			<alchemy min="250" max="750" />
-			<material id="f84" amount="1" name="Garlic" />
+			<material id="f84" amount="3" name="Garlic" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 		<craft definition="potion_greatercure" name="Greater Cure Potion">
 			<alchemy min="650" max="1150" />
-			<material id="f84" amount="1" name="Garlic" />
+			<material id="f84" amount="6" name="Garlic" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
 	</menu>

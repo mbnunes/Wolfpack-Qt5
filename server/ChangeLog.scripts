@@ -14,6 +14,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Allowed more cloth resource types for tailoring.
 		- Loot fixes for daemons.
 		- Added carve information to all npcs.
+		- Fixed reagent requirements for cure potions.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
