@@ -41,6 +41,7 @@
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Elementals\Water Elemental</category>
 		<strproperty name="slayer_group" value="waterelementals" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

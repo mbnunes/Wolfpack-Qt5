@@ -41,6 +41,7 @@
 		<category>Monsters\Daemonic\Succubus</category>
 		<intproperty name="carve_meat" value="1" />
 		<strproperty name="slayer_group" value="daemons" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 	<npc id="succubus_2" inherit="succubus">

@@ -41,6 +41,7 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<mintaming>939</mintaming>
 		<strproperty name="slayer_group" value="dragons" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 	<!-- a dragon (gray) -->

@@ -43,6 +43,7 @@
 		<category>Monsters\Daemonic\Fire Gargoyle</category>
 		
 		<intproperty name="carve_meat" value="1" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

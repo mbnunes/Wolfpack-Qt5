@@ -47,6 +47,7 @@
 		<strproperty name="carve_hides_type" value="barbed" />
 		<intproperty name="carve_meat" value="19" />
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

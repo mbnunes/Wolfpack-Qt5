@@ -42,6 +42,7 @@
 		<category>Monsters\Daemonic\Ice Fiend</category>
 		<strproperty name="slayer_group" value="daemons" />
 		<intproperty name="carve_meat" value="1" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

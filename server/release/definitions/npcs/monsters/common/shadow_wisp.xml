@@ -39,6 +39,7 @@
 		<!-- Missing: Bone or Body Parts -->
 		<!--<lootpacks></lootpacks>-->
 		<category>Monsters\Common\Shadow Wisp</category>
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

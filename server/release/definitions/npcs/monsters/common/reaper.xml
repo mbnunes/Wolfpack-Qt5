@@ -42,6 +42,7 @@
 		<!-- Missing: 10 Log, 5 Mandrake Root -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Common\Reaper</category>
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

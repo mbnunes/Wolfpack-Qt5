@@ -42,6 +42,7 @@
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Elementals\Ice Elemental</category>
 		<strproperty name="slayer_group" value="snowelementals" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

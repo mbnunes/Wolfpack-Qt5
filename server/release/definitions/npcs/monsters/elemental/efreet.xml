@@ -42,6 +42,7 @@
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Efreet</category>
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -41,6 +41,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_filthy_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Common\Elder Gazer</category>
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -46,6 +46,7 @@
 		<category>Monsters\Daemonic\Daemon (Random)</category>
 		<strproperty name="slayer_group" value="daemons" />
 		<intproperty name="carve_meat" value="1" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 	<npc id="daemon_1" inherit="daemon">

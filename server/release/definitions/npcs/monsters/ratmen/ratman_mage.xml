@@ -46,6 +46,8 @@
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="1" />
+		
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

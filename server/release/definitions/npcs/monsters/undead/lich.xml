@@ -45,6 +45,7 @@
 		<category>Monsters\Undead\Lich</category>
 		<strproperty name="slayer_group" value="undeads" />
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

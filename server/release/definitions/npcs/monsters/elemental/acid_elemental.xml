@@ -42,6 +42,7 @@
 		<!-- Missing: Potions, Arrows, Level 3 Map -->
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Acid Elemental</category>
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -41,6 +41,7 @@
 		<category>Monsters\Daemonic\Gargoyle</category>
 		<strproperty name="slayer_group" value="gargoyles" />
 		<intproperty name="carve_meat" value="1" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -44,6 +44,7 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Elementals\Blood Elemental</category>
 		<strproperty name="slayer_group" value="bloodelementals" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 	<npc id="lesser_blood_elemental" inherit="blood_elemental">
@@ -78,5 +79,6 @@
 
 		<!-- Missing: Reagents, Level 5 Map -->
 		<lootpacks>lootpack_filthy_rich</lootpacks>
+		<ai>Monster_Mage</ai>
 	</npc>
 </definitions>

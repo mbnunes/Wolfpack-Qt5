@@ -42,6 +42,7 @@
 		<category>Monsters\Common\Gazer</category>
 		
 		<intproperty name="carve_meat" value="1" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -43,6 +43,7 @@
 		<category>Monsters\Giants\Titan</category>
 		
 		<intproperty name="carve_meat" value="4" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -42,6 +42,7 @@
 		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<category>Monsters\Common\Wisp</category>
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

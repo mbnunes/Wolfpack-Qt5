@@ -43,6 +43,7 @@
 		<category>Monsters\Insects\Dread Spider</category>
 		<strproperty name="slayer_group" value="spiders" />
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

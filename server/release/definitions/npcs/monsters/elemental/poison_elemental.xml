@@ -44,6 +44,7 @@
 		<category>Monsters\Elementals\Poison Elemental</category>
 		<strproperty name="slayer_group" value="poisonelementals" />
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>
