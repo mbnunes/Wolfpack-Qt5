@@ -34,7 +34,6 @@
 
 #include "coord.h"
 #include "debug.h"
-#include "chars.h"
 #include "network.h"
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"

@@ -860,7 +860,7 @@ void cSkills::Meditation( cUOSocket *socket )
 		pc_currchar->setMed(false);
 		return;
 	}
-	else if (pc_currchar->hasWeapon() || pc_currchar->hasShield())
+	else if (pc_currchar->getWeapon() || pc_currchar->getShield())
 	{
 		socket->sysMessage( tr("You cannot meditate with a weapon or shield equipped!"));
 		pc_currchar->setMed( false );
@@ -1359,7 +1359,7 @@ void cSkills::unload()
 // For the Paperdoll
 QString cSkills::getSkillTitle( P_CHAR pChar ) const
 {
-	QString skillTitle( "" );
+/*	QString skillTitle( "" );
 
 	// Two ways of getting an empty title:
 	// a) Configuration says we don't want Skill Titles
@@ -1396,6 +1396,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 	skillTitle.append( skills[skill].title );
 
 	return skillTitle;
+	*/
 }
 
 const QString &cSkills::getSkillName( UINT16 skill ) const

@@ -151,19 +151,3 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 	return pChar;
 }
 
-////////////
-// Name:	inGuardedArea
-// history:	by Duke, 13.1.2002
-// Purpose:	checks if the char is in a guarded region
-// Remark:	the recalculation of the region is necessary because it is not maintained properly :(
-//			I think it is better to do this only when needed
-//
-bool cChar::inGuardedArea()
-{
-	cTerritory* Region = AllTerritories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
-	if( Region )
-		return Region->isGuarded();
-	else
-		return false;
-}
-

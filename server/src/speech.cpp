@@ -436,7 +436,7 @@ bool BankerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pBanker, const QStr
 
 bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QString& comm ) 
 {
-	if( pPlayer->dist( pTrainer ) > 3 || !pTrainer->isHuman() )
+/*	if( pPlayer->dist( pTrainer ) > 3 || !pTrainer->isHuman() )
 		return false;
 
 	if( !comm.contains( "TRAIN" ) && !comm.contains( "TEACH" ) && !comm.contains( "LEARN" ) )
@@ -518,8 +518,8 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 		pTrainer->talk( tr( "I can teach thee the following skills: %1." ).arg( skillList.join( ", " ) ) );
 	else
 		pTrainer->talk( tr( "I am sorry, but I have nothing to teach thee" ) );
-
-	return true;
+*/
+	return false;
 }
 
 bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& comm )

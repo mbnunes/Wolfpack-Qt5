@@ -31,7 +31,6 @@
 #include "utilities.h"
 
 #include "../network/uotxpackets.h"
-#include "../chars.h"
 #include "../network/uosocket.h"
 
 

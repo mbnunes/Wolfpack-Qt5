@@ -73,7 +73,7 @@ private:
 	QSocketDevice *_socket;
 	UINT32 _rxBytes, _txBytes, _uniqueId, _tempInt;
 	AccountRecord* _account;
-	P_CHAR _player;
+	P_PLAYER _player;
 	eSocketState _state;
 	UINT8 lastPacket, _viewRange, _walkSequence;
 	cTargetRequest *targetRequest;
@@ -117,7 +117,7 @@ public:
 	QString lang( void ) const;
 	QString ip( void ) const;
 
-	P_CHAR player( void ) const;
+	P_PLAYER player( void ) const;
 	P_ITEM dragging() const;
 	AccountRecord* account( void ) const { return _account; }
 	void setAccount( AccountRecord* data ) { _account = data; }
@@ -177,7 +177,7 @@ public:
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037, UINT16 font = 3 ) const;
 	void sendCharList();
 	void removeObject( cUObject *object );
-	void setPlayer( P_CHAR pChar = NULL ); // Updates the current player
+	void setPlayer( P_PLAYER pChar = NULL ); // Updates the current player
 	void disconnect( void ); // Call this whenever the socket should disconnect
 	bool isT2A()	{ return true; } // ???
 	void sendPaperdoll( P_CHAR pChar );
@@ -272,7 +272,7 @@ inline QString cUOSocket::ip( void ) const
 	return _ip;
 }
 
-inline P_CHAR cUOSocket::player( void ) const
+inline P_PLAYER cUOSocket::player( void ) const
 { 
 	return _player; 
 }

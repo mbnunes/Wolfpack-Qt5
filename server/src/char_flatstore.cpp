@@ -30,7 +30,6 @@
 
 #include "accounts.h"
 #include "globals.h"
-#include "chars.h"
 #include "srvparams.h"
 #include "flatstore/flatstore.h"
 #include "flatstore_keys.h"

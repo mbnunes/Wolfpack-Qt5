@@ -44,8 +44,6 @@
 #include "items.h"
 #include "gumps.h"
 
-#include "chars.h"
-
 // Forward Declaration
 class cChar;
 

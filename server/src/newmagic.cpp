@@ -35,7 +35,6 @@
 
 // Wolfpack Includes
 #include "newmagic.h"
-#include "chars.h"
 #include "inlines.h"
 #include "network/uosocket.h"
 #include "srvparams.h"

@@ -50,7 +50,7 @@
 
 // Forward Class declarations
 
-class cChar;
+class cPlayer;
 class cAcl;
 
 class AccountRecord : public cSerializable
@@ -61,7 +61,7 @@ private:
 	QString password_;
 	cAcl *acl_;
 	QString aclName_;
-	QValueVector<cChar*> characters_;
+	QValueVector<P_PLAYER> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
 
@@ -83,10 +83,10 @@ public:
 	QString password() const;
 	void remove();
 	void setPassword( const QString& );
-	QValueVector<cChar*> caracterList() const;
+	QValueVector<P_PLAYER> caracterList() const;
 	bool authorized( const QString& action, const QString& value ) const;
-	bool addCharacter( cChar* );
-	bool removeCharacter( cChar* );
+	bool addCharacter( P_PLAYER );
+	bool removeCharacter( P_PLAYER );
 	bool inUse() const;
 	void resetLoginAttempts() { attempts_ = 0; };
 	void loginAttemped() { ++attempts_; }
@@ -170,7 +170,7 @@ inline void AccountRecord::setPassword( const QString& data )
 	password_ = data;
 }
 
-inline QValueVector<cChar*> AccountRecord::caracterList() const
+inline QValueVector<P_PLAYER> AccountRecord::caracterList() const
 {
 	return characters_;
 }

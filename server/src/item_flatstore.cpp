@@ -29,7 +29,6 @@
 //==================================================================================
 
 #include "items.h"
-#include "chars.h"
 #include "flatstore/flatstore.h"
 #include "flatstore_keys.h"
 #include "globals.h"

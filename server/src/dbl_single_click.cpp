@@ -653,7 +653,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 						}
 						
 						pc_vendor->setNpcAIType( 17 );
-						pc_vendor->makeInvulnerable();
+						pc_vendor->setInvulnerable( true );
 						pc_vendor->setHidden( 0 );
 						pc_vendor->setStealth(-1);
 						pc_vendor->setDir( pc_currchar->dir() );

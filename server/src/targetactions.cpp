@@ -34,7 +34,6 @@
 #include "prototypes.h"
 #include "TmpEff.h"
 #include "items.h"
-#include "chars.h"
 #include "basics.h"
 #include "inlines.h"
 #include "network/uorxpackets.h"

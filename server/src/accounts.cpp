@@ -36,7 +36,7 @@
 #include "network/uosocket.h"
 
 #include "commands.h"
-#include "chars.h"
+#include "player.h"
 #include "network.h"
 #include "exceptions.h"
 #include "globals.h"
@@ -104,7 +104,7 @@ uint AccountRecord::secsToUnblock() const
 	return 0;
 }
 
-bool AccountRecord::addCharacter( cChar* d )
+bool AccountRecord::addCharacter( P_PLAYER d )
 {
 	if( qFind( characters_.begin(), characters_.end(), d ) == characters_.end() )
 	{
@@ -114,9 +114,9 @@ bool AccountRecord::addCharacter( cChar* d )
 	return false;
 }
 
-bool AccountRecord::removeCharacter( cChar* d )
+bool AccountRecord::removeCharacter( P_PLAYER d )
 {
-	QValueVector<cChar*>::iterator it = qFind( characters_.begin(), characters_.end(), d );
+	QValueVector<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
 	if ( it != characters_.end() )
 	{
 		characters_.erase(it);
@@ -259,9 +259,10 @@ void cAccounts::reload()
 	P_CHAR pc;
 	for( pc = iterChars.first(); pc; pc = iterChars.next() )
 	{
-		if( pc->account() )
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
+		if( pp && pp->account() )
 		{
-			characcnames.insert( pc->serial(), pc->account()->login() );
+			characcnames.insert( pp->serial(), pp->account()->login() );
 		}
 	}
 
@@ -280,9 +281,9 @@ void cAccounts::reload()
 	QMap< SERIAL, QString >::Iterator it = characcnames.begin();
 	while( it != characcnames.end() )
 	{
-		P_CHAR pc = FindCharBySerial( it.key() );
-		if( pc )
-			pc->setAccount( getRecord( it.data() ), false );
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(FindCharBySerial( it.key() ));
+		if( pp )
+			pp->setAccount( getRecord( it.data() ), false );
 		++it;
 	}
 

@@ -33,7 +33,6 @@
 #include "uotxpackets.h"
 #include "asyncnetio.h"
 #include "../network.h"
-#include "../chars.h"
 
 // Wolfpack Includes
 #include "../corpse.h"
@@ -62,6 +61,7 @@
 #include "../dragdrop.h"
 #include "../Trade.h"
 #include "../uobject.h"
+#include "../player.h"
 #include "../multis.h"
 
 
@@ -1243,7 +1243,7 @@ void cUOSocket::handleSetLanguage( cUORxSetLanguage* packet )
 	_lang = packet->language();
 }
 
-void cUOSocket::setPlayer( P_CHAR pChar )
+void cUOSocket::setPlayer( P_PLAYER pChar )
 {
 	// If we're already playing a char and chaning reset the socket status of that
 	// player
@@ -1995,13 +1995,13 @@ void cUOSocket::updateStamina( P_CHAR pChar )
 
 	if( pChar == _player )
 	{
-		update.setMaximum( pChar->effDex() );
-		update.setCurrent( pChar->stm() );
+		update.setMaximum( pChar->maxStamina() );
+		update.setCurrent( pChar->stamina() );
 	}
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( (UINT16)((pChar->stm()/pChar->effDex())*100) );
+		update.setCurrent( (UINT16)((pChar->stamina()/pChar->dexterity())*100) );
 	}
 
 	send( &update );

@@ -30,7 +30,6 @@
 
 #include "uotxpackets.h"
 #include "uopacket.h"
-#include "../chars.h"
 #include "../items.h"
 #include "../coord.h"
 

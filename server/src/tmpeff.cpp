@@ -37,7 +37,6 @@
 
 // Wolfpack Includes
 #include "TmpEff.h"
-#include "chars.h"
 #include "items.h"
 #include "globals.h"
 #include "debug.h"

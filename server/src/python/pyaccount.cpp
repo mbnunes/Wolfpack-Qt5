@@ -33,7 +33,6 @@
 #include "Python.h"
 #include "utilities.h"
 #include "../accounts.h"
-#include "../chars.h"
 #include "qvaluevector.h"
 
 /*!

@@ -47,7 +47,6 @@
 #include "globals.h"
 #include "prototypes.h"
 #include "inlines.h"
-#include "chars.h"
 #include "items.h"
 #include "basics.h"
 #include "network.h"

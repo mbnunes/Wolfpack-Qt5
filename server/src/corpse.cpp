@@ -36,7 +36,6 @@
 #include "persistentbroker.h"
 #include "globals.h"
 #include "prototypes.h"
-#include "chars.h"
 #include "world.h"
 
 #include <functional>

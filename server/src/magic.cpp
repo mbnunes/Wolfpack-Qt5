@@ -30,7 +30,6 @@
 //==================================================================================
 
 #include "magic.h"
-#include "chars.h"
 #include "items.h"
 #include "multis.h"
 #include "itemid.h"

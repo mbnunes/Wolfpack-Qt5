@@ -52,7 +52,6 @@
 // Objects ( => Factory later on )
 #include "uobject.h"
 #include "items.h"
-#include "chars.h"
 #include "multis.h"
 
 // Python Includes

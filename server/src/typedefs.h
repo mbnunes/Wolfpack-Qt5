@@ -41,7 +41,9 @@
 // Forward Base Classes declaration
 
 class cItem;
-class cChar;
+class cBaseChar;
+class cNPC;
+class cPlayer;
 class cUObject;
 
 // Typedefs
@@ -57,8 +59,12 @@ typedef int					ITEM;
 typedef int					SERIAL;
 typedef	cItem *				P_ITEM;
 typedef const cItem *		PC_ITEM;
-typedef cChar *				P_CHAR;
-typedef const cChar *		PC_CHAR;
+typedef cBaseChar *			P_CHAR;
+typedef const cBaseChar *	PC_CHAR;
+typedef cNPC *				P_NPC;
+typedef const cNPC *		PC_NPC;
+typedef cPlayer *			P_PLAYER;
+typedef const cPlayer *		PC_PLAYER;
 typedef cUObject *			P_OBJECT;
 
 struct gumpChoice_st 
@@ -116,6 +122,24 @@ enum enFoodTypes
 	VEGETABLES,		//	vegetables
 	OTHER,			//  all other foods (cheese i.e.)
 	enNumberOfFood
+};
+
+enum enCharTypes
+{
+	enNPC = 0,		// Non Player Characters (cNPC)
+	enPlayer,		// Player Characters (cPlayer)
+	enNumberOfCharTypes
+};
+
+enum enWanderTypes
+{
+	enNone = 0,
+	enFreely,
+	enRectangle,
+	enCircle,
+	enFollowTarget,
+	enGoToPosition,
+	enNumberOfWanderTypes
 };
 
 #endif

@@ -33,7 +33,6 @@
 #include "content.h"
 #include "tempeffect.h"
 
-#include "../chars.h"
 #include "../territories.h"
 #include "../prototypes.h"
 #include "../wolfpack.h"

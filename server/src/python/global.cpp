@@ -48,7 +48,6 @@
 #include "../verinfo.h"
 #include "../globals.h"
 #include "../items.h"
-#include "../chars.h"
 #include "../network.h"
 #include "../multis.h"
 #include "../house.h"

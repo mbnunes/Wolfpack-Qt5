@@ -39,7 +39,6 @@ II. make sure to hold the map up to date !
 #include "spawnregions.h"
 #include "wpdefmanager.h"
 #include "globals.h"
-#include "chars.h"
 #include "items.h"
 #include "defines.h"
 #include "maps.h"

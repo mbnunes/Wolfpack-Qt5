@@ -93,6 +93,10 @@ SOURCE=.\accounts.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\basechar.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\basics.cpp
 # End Source File
 # Begin Source File
@@ -229,6 +233,10 @@ SOURCE=.\newmagic.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\npc.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\npcs.cpp
 # End Source File
 # Begin Source File
@@ -246,6 +254,10 @@ SOURCE=.\persistentobject.cpp
 # Begin Source File
 
 SOURCE=.\pfactory.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\player.cpp
 # End Source File
 # Begin Source File
 
@@ -390,6 +402,10 @@ SOURCE=.\tracking.h
 # Begin Source File
 
 SOURCE=.\accounts.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\basechar.h
 # End Source File
 # Begin Source File
 
@@ -869,6 +885,10 @@ SOURCE=.\newmagic.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\npc.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\pagesystem.h
 # End Source File
 # Begin Source File
@@ -935,6 +955,10 @@ SOURCE=.\pfactory.h
 # Begin Source File
 
 SOURCE=.\platform.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\player.h
 # End Source File
 # Begin Source File
 

@@ -34,7 +34,6 @@
 #include "globals.h"
 #include "prototypes.h"
 #include "wpdefmanager.h"
-#include "chars.h"
 #include "network/uosocket.h"
 #include "maps.h"
 #include "mapobjects.h"

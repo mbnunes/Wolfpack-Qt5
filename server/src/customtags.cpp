@@ -31,7 +31,6 @@
 
 #include "customtags.h"
 #include "wolfpack.h"
-#include "chars.h"
 #include "items.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"

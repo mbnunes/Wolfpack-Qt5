@@ -1028,7 +1028,7 @@ void cDragItems::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 
 void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )
 {
-	P_CHAR pChar = socket->player();
+/*	P_CHAR pChar = socket->player();
 
 	if( pItem->id() != 0xEED )
 	{
@@ -1060,4 +1060,5 @@ void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer
 	socket->sendSkill( skill );
 
 	// we will not reset the trainer id here because he may want to give him more money
+	*/
 }

@@ -38,7 +38,6 @@
 #include "globals.h"
 #include "wpconsole.h"
 #include "inlines.h"
-#include "chars.h"
 #include "network/asyncnetio.h"
 #include "network/uosocket.h"
 #include "network/listener.h"
