@@ -19,6 +19,8 @@
 
 ***************************************************************************/
 
+#include <qglobal.h>
+
 /* use intrinsic rotate if possible */
 #define ROL( x, y ) ( ( (x) << (y) ) | ( (x) >> ( 32 - (y) ) ) )
 #define ROR( x, y ) ( ( (x) >> (y) ) | ( (x) << ( 32 - (y) ) ) )
@@ -33,7 +35,9 @@
 #endif
 
 // Change this to compile on a BigEndian machine
+#if !defined(Q_OS_MAC)
 #define LittleEndian 1
+#endif
 #define ALIGN32 1
 
 #if LittleEndian

@@ -87,7 +87,7 @@ wpItemIteratorDealloc,
 0,
 0,
 0,
-
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 static PyObject* PyGetItemRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
@@ -163,7 +163,7 @@ wpCharIteratorDealloc,
 0,
 0,
 0,
-
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 static PyObject* PyGetCharRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )

@@ -358,7 +358,7 @@ static PyMethodDef wpTime[] =
 	\return An <object id="item">item</object> object or None.
 	\description Creates a new item from a given definition id and assigns a new serial to it.
 */
-static PyObject* wpAdditem( PyObject* self, PyObject* args )
+static PyObject* wpAdditem( PyObject* /*self*/, PyObject* args )
 {
 	char* definition;
 
@@ -379,7 +379,7 @@ static PyObject* wpAdditem( PyObject* self, PyObject* args )
 	\return A <object id="char">char</object> object for the newly created npc.
 	\description Creates a new npc from the given definition and moves it to the given position.
 */
-static PyObject* wpAddnpc( PyObject* self, PyObject* args )
+static PyObject* wpAddnpc( PyObject* /*self*/, PyObject* args )
 {
 	char* definition;
 	Coord_cl pos;
@@ -417,9 +417,8 @@ static PyObject* wpFinditem( PyObject* self, PyObject* args )
 	\return A list of <object id="guild">guild</object> objects.
 	\description Returns a list of all registered guilds in the world.
 */
-static PyObject* wpGuilds( PyObject* self, PyObject* args )
+static PyObject* wpGuilds( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	Q_UNUSED( args );
 	PyObject* list = PyList_New( 0 );
 
 	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
@@ -479,7 +478,7 @@ static PyObject* wpFindchar( PyObject* self, PyObject* args )
 	\return An <object id="item">item</object> object or None.
 	\description Tries to find a multi at the given position. Returns None if none can be found.
 */
-static PyObject* wpFindmulti( PyObject* self, PyObject* args )
+static PyObject* wpFindmulti( PyObject* /*self*/, PyObject* args )
 {
 	Coord_cl coord;
 
@@ -993,7 +992,7 @@ static PyObject* wpList( PyObject* self, PyObject* args )
 	event is triggered, the given script will be called first. Please note that there can only be one
 	hook per event at a time, but a script can hook more than one event to itself.
 */
-static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
+static PyObject* wpRegisterGlobal( PyObject* /*self*/, PyObject* args )
 {
 	unsigned int event;
 	const char* scriptName;
@@ -1036,7 +1035,7 @@ static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
 	\description This function registers a python handler for the given command name. Using this function
 	you can implement custom ingame commands.
 */
-static PyObject* wpRegisterCommand( PyObject* self, PyObject* args )
+static PyObject* wpRegisterCommand( PyObject* /*self*/, PyObject* args )
 {
 	const char* command;
 	PyObject* function;
@@ -1071,7 +1070,7 @@ static PyObject* wpRegisterCommand( PyObject* self, PyObject* args )
 	want the core to handle the packet after your handling function was called, you have to return
 	True in your function, otherwise return False.
 */
-static PyObject* wpRegisterPacketHook( PyObject* self, PyObject* args )
+static PyObject* wpRegisterPacketHook( PyObject* /*self*/, PyObject* args )
 {
 	unsigned char packet;
 	PyObject* function;
@@ -1124,7 +1123,7 @@ static PyObject* wpCoord( PyObject* self, PyObject* args )
 	\description Creates a new multi from a given definition id and assigns a new serial to it.
 	Please note that multis are represented by the item object.
 */
-static PyObject* wpAddMulti( PyObject* self, PyObject* args )
+static PyObject* wpAddMulti( PyObject* /*self*/, PyObject* args )
 {
 	char* definition;
 
@@ -1270,7 +1269,7 @@ static PyObject* wpItemRegion( PyObject* self, PyObject* args )
 	\description This function will create a new item object without using a definition.
 	Please use this function wisely. It is better to use the additem function whenever possible instead.
 */
-static PyObject* wpNewItem( PyObject* self, PyObject* args )
+static PyObject* wpNewItem( PyObject* /*self*/, PyObject* args )
 {
 	char createSerial = 1;
 
@@ -1294,7 +1293,7 @@ static PyObject* wpNewItem( PyObject* self, PyObject* args )
 	\description This function will create a new npc without using a definition.
 	Please use this function wisely. It is better to use the addnpc function whenever possible instead.
 */
-static PyObject* wpNewNpc( PyObject* self, PyObject* args )
+static PyObject* wpNewNpc( PyObject* /*self*/, PyObject* args )
 {
 	char createSerial = 1;
 
@@ -1314,9 +1313,8 @@ static PyObject* wpNewNpc( PyObject* self, PyObject* args )
 	\return A <object id="guild">guild</object> object.
 	\description This function will create a new guild.
 */
-static PyObject* wpNewguild( PyObject* self, PyObject* args )
+static PyObject* wpNewguild( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	Q_UNUSED( args );
 	cGuild* guild = new cGuild( true );
 	Guilds::instance()->registerGuild( guild );
 	return guild->getPyObject();
@@ -1332,7 +1330,7 @@ static PyObject* wpNewguild( PyObject* self, PyObject* args )
 	Please use this function wisely, it is better to let the server handle the creation of new player
 	characters.
 */
-static PyObject* wpNewPlayer( PyObject* self, PyObject* args )
+static PyObject* wpNewPlayer( PyObject* /*self*/, PyObject* args )
 {
 	char createSerial = 1;
 
@@ -1457,7 +1455,7 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 	\description This function tries to find a section with the given type and id in the definitions and returns
 	an element object to access its data.
 */
-static PyObject* wpGetDefinition( PyObject* self, PyObject* args )
+static PyObject* wpGetDefinition( PyObject* /*self*/, PyObject* args )
 {
 	unsigned int type;
 	char* name;
@@ -1488,11 +1486,11 @@ static PyObject* wpGetDefinition( PyObject* self, PyObject* args )
 	\return A tuple of strings.
 	\description This function will compile the ids of all sections of a given type.
 */
-static PyObject* wpGetDefinitions( PyObject* self, PyObject* args )
+static PyObject* wpGetDefinitions( PyObject* /*self*/, PyObject* args )
 {
 	unsigned int type;
 
-	if ( !PyArg_ParseTuple( args, "I:getdefinitions(type)", &type ) )
+	if ( !PyArg_ParseTuple( args, "I:wolfpack.getdefinitions(type)", &type ) )
 	{
 		return 0;
 	}
@@ -1526,7 +1524,7 @@ static PyObject* wpGetDefinitions( PyObject* self, PyObject* args )
 	\return The return value from the event handler is passed trough.
 	\description This function calls an event handler in the given script.
 */
-static PyObject* wpCallEvent( PyObject* self, PyObject* args )
+static PyObject* wpCallEvent( PyObject* /*self*/, PyObject* args )
 {
 	char* script;
 	unsigned int event;
@@ -1563,7 +1561,7 @@ static PyObject* wpCallEvent( PyObject* self, PyObject* args )
 	\return True or false.
 	\description This function checks if the given script can handle an event of the given type and returns true if it can.
 */
-static PyObject* wpHasEvent( PyObject* self, PyObject* args )
+static PyObject* wpHasEvent( PyObject* /*self*/, PyObject* args )
 {
 	char* script;
 	unsigned int event;
@@ -1603,7 +1601,7 @@ static PyObject* wpHasEvent( PyObject* self, PyObject* args )
 	\return The return value from the event handler is passed trough.
 	\description This function calls an event handler in the given script.
 */
-static PyObject* wpCallNamedEvent( PyObject* self, PyObject* args )
+static PyObject* wpCallNamedEvent( PyObject* /*self*/, PyObject* args )
 {
 	char* script;
 	char* event;
@@ -1639,7 +1637,7 @@ static PyObject* wpCallNamedEvent( PyObject* self, PyObject* args )
 	\return True or false.
 	\description This function checks if the given script can handle an event with the given name and returns true if it can.
 */
-static PyObject* wpHasNamedEvent( PyObject* self, PyObject* args )
+static PyObject* wpHasNamedEvent( PyObject* /*self*/, PyObject* args )
 {
 	char* script;
 	char* event;
@@ -1678,9 +1676,8 @@ static PyObject* wpHasNamedEvent( PyObject* self, PyObject* args )
 	\return A string with the value of the option.
 	\description This function retrieves an option from the world database.
 */
-static PyObject* wpGetOption( PyObject* self, PyObject* args )
+static PyObject* wpGetOption( PyObject* /*self*/, PyObject* args )
 {
-	Q_UNUSED( self );
 	QString arg_key = getArgStr( 0 );
 	QString arg_def = getArgStr( 1 );
 	QString value;
@@ -1694,10 +1691,8 @@ static PyObject* wpGetOption( PyObject* self, PyObject* args )
 	\param value A string containing the value of the option.
 	\description This function sets a given option in the world database.
 */
-static PyObject* wpSetOption( PyObject* self, PyObject* args )
+static PyObject* wpSetOption( PyObject* /*self*/, PyObject* args )
 {
-	Q_UNUSED( self );
-
 	QString arg_key = getArgStr( 0 );
 	QString arg_val = getArgStr( 1 );
 
@@ -1725,7 +1720,7 @@ static PyObject* wpSetOption( PyObject* self, PyObject* args )
 	</code>
 	\description Retrieve information about a given character baseid.
 */
-static PyObject* wpCharBase( PyObject* self, PyObject* args )
+static PyObject* wpCharBase( PyObject* /*self*/, PyObject* args )
 {
 	char *baseid;
 	if ( !PyArg_ParseTuple( args, "s:wolfpack.charbase(baseid)", &baseid ) )
@@ -1821,10 +1816,8 @@ static PyMethodDef wpGlobal[] =
 	\description This function resets the iterator to the first available socket
 	and returns it.
 */
-static PyObject* wpSocketsFirst( PyObject* self, PyObject* args )
+static PyObject* wpSocketsFirst( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	return PyGetSocketObject( Network::instance()->first() );
 }
 
@@ -1834,10 +1827,8 @@ static PyObject* wpSocketsFirst( PyObject* self, PyObject* args )
 	\description This function sets the iterator to the next available socket
 	and returns it. If there is no socket available, None is returned.
 */
-static PyObject* wpSocketsNext( PyObject* self, PyObject* args )
+static PyObject* wpSocketsNext( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	return PyGetSocketObject( Network::instance()->next() );
 }
 
@@ -1871,7 +1862,7 @@ static PyMethodDef wpSockets[] =
 	\return An integer value.
 	\description This function returns the number of accounts on the server.
 */
-static PyObject* wpAccountsCount( PyObject* self, PyObject* args )
+static PyObject* wpAccountsCount( PyObject* /*self*/, PyObject* /*args*/ )
 {
 	return PyInt_FromLong( Accounts::instance()->count() );
 }
@@ -2236,7 +2227,7 @@ static PyMethodDef wpSettings[] =
 	\return A <object id="dbresult">dbresult</object> object.
 	\description This function executes the given SQL query in the currently connected database and returns the result.
 */
-static PyObject* wpQuery( PyObject* self, PyObject* args )
+static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 {
 	char* query;
 
@@ -2274,7 +2265,7 @@ static PyObject* wpQuery( PyObject* self, PyObject* args )
 	\param query A string containing the SQL statement.
 	\description This function executes the given SQL query in the currently connected database and discards the result if there is any.
 */
-static PyObject* wpExecute( PyObject* self, PyObject* args )
+static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 {
 	char* query;
 
@@ -2287,7 +2278,7 @@ static PyObject* wpExecute( PyObject* self, PyObject* args )
 	{
 		PersistentBroker::instance()->executeQuery( query );
 	}
-	catch ( QString e )
+	catch ( QString& e )
 	{
 		PyMem_Free( query );
 		PyErr_SetString( PyExc_RuntimeError, e.latin1() );
@@ -2335,9 +2326,8 @@ static PyObject* wpDriver( PyObject* self, PyObject* args )
 	\param database The id of the database you want to close. See the "Database Constants" in this module.
 	\description This function closes the connection to the given database.
 */
-static PyObject* wpClose( PyObject* self, PyObject* args )
+static PyObject* wpClose( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	Q_UNUSED( args );
 	try
 	{
 		PersistentBroker::instance()->disconnect();
@@ -2356,7 +2346,7 @@ static PyObject* wpClose( PyObject* self, PyObject* args )
 	\param database The id of the database you want to open. See the "Database Constants" in this module.
 	\description This function opens the connection to the given database.
 */
-static PyObject* wpOpen( PyObject* self, PyObject* args )
+static PyObject* wpOpen( PyObject* /*self*/, PyObject* args )
 {
 	unsigned int database;
 
@@ -2376,7 +2366,7 @@ static PyObject* wpOpen( PyObject* self, PyObject* args )
 			PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
 		}
 	}
-	catch ( QString e )
+	catch ( QString& e )
 	{
 		PyErr_SetString( PyExc_RuntimeError, e.latin1() );
 		return 0;

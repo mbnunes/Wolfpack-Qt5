@@ -168,7 +168,7 @@ SOURCES += \
 	world.cpp
 
 # Twofish Module
-SOURCES += twofish/twofish2.c
+SOURCES += twofish/twofish2.cpp
 
 INTERFACES =
 TRANSLATIONS = \
