@@ -41,6 +41,7 @@
 AccountRecord::AccountRecord()
 {
 	acl_ = cCommands::instance()->getACL("");
+	blocked_ = false;
 }
 
 void AccountRecord::Serialize( ISerialization& archive )
