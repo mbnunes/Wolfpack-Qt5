@@ -35,46 +35,19 @@ PersistentObject::PersistentObject() : isPersistent(false)
 {
 }
 
-void PersistentObject::save( const QString& /* = QString::null  */ )
-{
-	isPersistent = true;
-}
-
-void PersistentObject::load( const QString& /* = QString::null  */ )
-{
-	isPersistent = true;
-}
-
-bool PersistentObject::del( const QString& /* = QString::null */ )
+bool PersistentObject::del()
 {
 	isPersistent = false;
 	return true;
 }
 
-void PersistentObject::save( QStringList *tables, QStringList *fields, QStringList *conditions )
+void PersistentObject::load( char **result, UINT16 &offset )
 {
-	if( !fields || !conditions )
-		return;
+	isPersistent = true;
+}
 
-	// Otherwise check if we are updating or inserting
-	if( isPersistent )
-	{
-		// Update
-		QString sql( "UPDATE " + tables->join(",") + " SET " + fields->join( "," ) + " WHERE " + conditions->join( "," ) );
-		cDBDriver query;
-		if( !query.execute( sql ) )
-			throw query.error().latin1();
-	}
-	else
-	{
-		// Insert
-		QString sql( "INSERT INTO " + tables->join(",") + " SET " + fields->join( "," ) );
-		cDBDriver query;
-		if( !query.execute( sql ) )
-			throw query.error().latin1();
-	}
-
-	delete fields;
-	delete conditions;
+void PersistentObject::save()
+{
+	isPersistent = true;
 }
 

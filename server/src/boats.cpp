@@ -40,9 +40,7 @@
 #include "territories.h"
 #include "multiscache.h"
 #include "classes.h" // only for the illegal_z!
-#include "worldmain.h"
-
-#include <mysql.h>
+#include "dbdriver.h"
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 
@@ -1283,14 +1281,15 @@ void cBoat::load( char **result, UINT16 &offset )
 
 	// Load the other tables
 	QString sql = "SELECT boats_itemids.a,boats_itemids.b,boats_itemids.id FROM boats_itemids WHERE serial = '" + QString::number( serial ) + "'";
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
-
-	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+	cDBDriver driver;
+	if( !driver.query( sql ) )
+		throw driver.error();
 
 	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	while( driver.fetchrow() )
 	{
+		char** row = driver.data();
+
 		// row[0] -> a
 		// row[1] -> b
 		// row[2] -> id
@@ -1299,19 +1298,19 @@ void cBoat::load( char **result, UINT16 &offset )
 		itemids[a][b] = atoi( row[2] );
 	}
 
-	mysql_free_result( mResult );
+	driver.free();
 
 	sql = "SELECT boats_itemoffsets.a,boats_itemoffsets.b,boats_itemoffsets.c,boats_itemoffsets.offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial ) + "'";
 
 	// Error Checking		
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
-
-	mResult = mysql_use_result( cwmWorldState->mysql );
+	if( !driver.query( sql ) )
+		throw driver.error();
 
 	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	while( driver.fetchrow() )
 	{
+		char** row = driver.data();
+
 		// row[0] -> a
 		// row[1] -> b
 		// row[2] -> c
@@ -1322,18 +1321,23 @@ void cBoat::load( char **result, UINT16 &offset )
 		itemoffsets[a][b][c] = atoi( row[3] );
 	}
 
-	mysql_free_result( mResult );
+	driver.free();
 }
 
-void cBoat::save( const QString &s  )
+void cBoat::save()
 {
-	// Not decided how to do that yet
+	cMulti::save();
 }
 
-bool cBoat::del( const QString &s )
+/*void cBoat::save( const QString &s  )
 {
 	// Not decided how to do that yet
-	return cMulti::del( s );
+}*/
+
+bool cBoat::del()
+{
+	// Not decided how to do that yet
+	return cMulti::del();
 }
 
 /*void cBoat::Serialize( ISerialization &archive )

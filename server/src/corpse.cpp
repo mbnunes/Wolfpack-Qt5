@@ -30,7 +30,7 @@
 #include "corpse.h"
 #include "network.h"
 #include "network/uotxpackets.h"
-#include "worldmain.h"
+#include "dbdriver.h"
 #include "network/uosocket.h"
 
 #include <functional>
@@ -68,28 +68,28 @@ void cCorpse::load( char **result, UINT16 &offset )
 
 	// Get the corpse equipment
 	QString sql = "SELECT corpses_equipment.layer,corpses_equipment.item FROM corpses_equipment WHERE serial = '" + QString::number( serial ) + "'";
+	
+	cDBDriver driver;
 
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
-
-	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+	if( !driver.query( sql ) )
+		throw driver.error();
 
 	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
-		equipment_.insert( make_pair( atoi( row[0] ), atoi( row[1] ) ) );
+	while( driver.fetchrow() )
+		equipment_.insert( make_pair( driver.getInt( 0 ), driver.getInt( 1 ) ) );
 
-	mysql_free_result( mResult );
+	driver.free();
 }
 
-void cCorpse::save( const QString &s  )
+void cCorpse::save()
 {
-	// Not decided how to do that yet
+	cItem::save();
 }
 
-bool cCorpse::del ( const QString &s )
+bool cCorpse::del()
 {
 	// Not decided how to do that yet
-	return cItem::del( s );
+	return cItem::del();
 }
 
 // abstract cSerializable

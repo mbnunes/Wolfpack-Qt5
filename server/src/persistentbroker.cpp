@@ -71,12 +71,12 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 
 bool PersistentBroker::saveObject( PersistentObject* object )
 {
-	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
+/*	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
 	if ( hasTransaction )
-		connection->transaction();
+		connection->transaction();*/
 	object->save();
-	if ( hasTransaction )
-		connection->commit();
+/*	if ( hasTransaction )
+		connection->commit();*/
 	return true;
 }
 

@@ -50,6 +50,7 @@
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "network/uopacket.h"
+#include "dbdriver.h"
 
 // Library Includes
 #include <qsqlcursor.h>
@@ -57,7 +58,6 @@
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
-
 
 // Items Saver thread
 void CWorldMain::cItemsSaver::run() throw()
@@ -121,16 +121,10 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 
 	clConsole.send( "Loading World...\n" );
 
-	mysql_init( mysql );
+	cDBDriver driver;
 
-	// This should be in SrvParams
-	//mysql_options(mysql,MYSQL_OPT_COMPRESS,0);
-	
-	if( !mysql_real_connect( mysql, SrvParams->databaseHost().latin1(), SrvParams->databaseUsername().latin1(),SrvParams->databasePassword().latin1(), SrvParams->databaseName().latin1(), 0, NULL, 0 ) )
-	{
-		fprintf( stderr, "Failed to connect to database: Error: %s\n", mysql_error(mysql) );
-		return;
-	}
+	if( !driver.connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
+		throw driver.error();
 
 	QStringList types = UObjectFactory::instance()->objectTypes();
 
@@ -139,23 +133,18 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		QString type = types[j];
 
 		// Find out how many objects of this type are available		
-		if( mysql_query( mysql, QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '" + type + "'" ).latin1() ) )
-			throw mysql_error( mysql );
+		if( !driver.query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) ) )
+			throw driver.error();			
 
-		MYSQL_RES *result = mysql_use_result( mysql );
-		MYSQL_ROW row = mysql_fetch_row( result );
-
-		UINT32 count = atoi( row[0] );
-
-		mysql_free_result( result );
+		driver.fetchrow();
+		UINT32 count = driver.getInt( 0 );
+		driver.free();
 
 		clConsole.send( "Loading " + QString::number( count ) + " objects of type " + type + "\n" );
 
 		// Error Checking		
-		if( mysql_query( mysql, UObjectFactory::instance()->findSqlQuery( type ).latin1() ) )
-			throw mysql_error( mysql );
-
-		result = mysql_use_result( mysql );
+		if( !driver.query( UObjectFactory::instance()->findSqlQuery( type ) ) )
+			throw driver.error();
 
 		UINT32 sTime = getNormalizedTime();
 		UINT16 offset;
@@ -164,8 +153,10 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		progress_display progress( count );
 
 		// Fetch row-by-row
-		while( ( row = mysql_fetch_row( result ) ) )
+		while( driver.fetchrow() )
 		{
+			char **row = driver.data();
+
 			// do something with data
 			object = UObjectFactory::instance()->createObject( type );
 			offset = 2; // Skip the first two fields
@@ -174,14 +165,12 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 			++progress;
 		}
 
-		mysql_free_result( result );
+		driver.free();
 
 		clConsole.send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
 	}
 
-	mysql_close( mysql );
-
-//	clConsole.send( "Loaded %i in %i msecs\n", i, getNormalizedTime() - sTime );
+	driver.disconnect();
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);
@@ -247,25 +236,41 @@ void CWorldMain::savenewworld(QString module)
 		isSaving = true;
 	}
 
-
-	cItemsSaver ItemsThread(module);
-	ItemsThread.run(); // thread disabled for now.
-
 	SrvParams->flush();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
-	ISerialization* archive = cPluginFactory::serializationArchiver( module );
-	archive->prepareWritting( "chars" );
-	AllCharsIterator iterChars;
-	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
-	{
-//		archive->writeObject( iterChars.GetData() );
-		persistentBroker->saveObject(iterChars.GetData());
-	}
-	archive->close();
-	delete archive;
+	cDBDriver driver;
+	if( !driver.connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
+		throw driver.error();
 
-	archive = cPluginFactory::serializationArchiver( module );
+	try
+	{
+		AllItemsIterator iterItems;
+		for( iterItems.Begin(); !iterItems.atEnd(); ++iterItems )
+			persistentBroker->saveObject( iterItems.GetData() );
+
+		AllCharsIterator iterChars;
+		for( iterChars.Begin(); !iterChars.atEnd(); ++iterChars )
+			persistentBroker->saveObject( iterChars.GetData() );
+	}
+	catch( QString error )
+	{
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( "\nERROR" );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( ": " + error + "\n" );
+	}
+	catch( ... )
+	{
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( "\nERROR" );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( ": Unhandled Exception\n" );
+	}
+
+	driver.disconnect();
+
+	ISerialization *archive = cPluginFactory::serializationArchiver( module );
 	archive->prepareWritting( "effects" );
 	TempEffects::instance()->serialize( *archive );
 	archive->close();

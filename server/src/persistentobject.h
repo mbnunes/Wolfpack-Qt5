@@ -43,11 +43,10 @@ protected:
 public:
 	PersistentObject();
 	virtual ~PersistentObject() {}
-	virtual void save( const QString& = QString::null );
-	virtual void load( const QString& = QString::null );
-	virtual bool del( const QString& = QString::null);
+	virtual bool del();
 
-	virtual void save( QStringList *tables = 0, QStringList *fields = 0, QStringList *conditions = 0 );
+	virtual void load( char **, UINT16& );
+	virtual void save();
 };
 
 

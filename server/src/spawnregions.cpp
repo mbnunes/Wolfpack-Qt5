@@ -381,7 +381,8 @@ void cSpawnRegion::checkTimer( void )
 // cAllSpawnRegions
 cAllSpawnRegions::~cAllSpawnRegions( void )
 {
-	delete topregion_;
+	if( topregion_ )
+		delete topregion_;
 	// the destructor of cBaseRegion contains the deletion of its subregion!
 	// so the regions will be deleted recursively from the stack by this one
 	// operation!
@@ -485,7 +486,7 @@ cSpawnRegion*	cAllSpawnRegions::region( QString regName )
 
 cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy )
 {
-	if( this->topregion_ != NULL )
+	if( this->topregion_ )
 		return dynamic_cast< cSpawnRegion* >(this->topregion_->region( posx, posy ));
 	return NULL;
 }

@@ -81,9 +81,9 @@ public:
 
 	// DB Serialization
 	static void registerInFactory();
-	virtual void load( char **, UINT16& );
-	void save( const QString& = QString::null );
-	bool del ( const QString& = QString::null );
+	void load( char **, UINT16& );
+	void save();
+	bool del();
 
 	void addMember(P_CHAR);
 	bool isMember(P_CHAR);

@@ -44,6 +44,7 @@
 #include "debug.h"
 #include "wolfpack.h"
 #include "iserialization.h"
+#include "dbdriver.h"
 #include "worldmain.h"
 #include "gumps.h"
 #include "network.h"
@@ -184,53 +185,48 @@ void cGuildStone::load( char **result, UINT16 &offset )
 	// Query wars, members and recruits
 	QString sql = "SELECT guildstones_members.member FROM guildstones_members WHERE serial = '" + QString::number( serial ) + "'";
 
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
+	cDBDriver driver;
+	
+	if( !driver.query( sql ) )
+		throw driver.error();
 
-	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+	while( driver.fetchrow() )
+		member.push_back( driver.getInt( 0 ) );
 
-	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
-		member.push_back( atoi( row[0] ) );
+	driver.free();
 
-	mysql_free_result( mResult );
-
+	// Guilds we are at war with
 	sql = "SELECT guildstones_war.enemy FROM guildstones_war WHERE serial = '" + QString::number( serial ) + "'";
 
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
+	if( !driver.query( sql ) )
+		throw driver.error();
 
-	mResult = mysql_use_result( cwmWorldState->mysql );
+	while( driver.fetchrow() )
+		war.push_back( driver.getInt( 0 ) );
 
-	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
-		war.push_back( atoi( row[0] ) );
+	driver.free();
 
-	mysql_free_result( mResult );
-
+	// People being recruited into the guild
 	sql = "SELECT guildstones_recruits.recruit FROM guildstones_recruits WHERE serial = '" + QString::number( serial ) + "'";
 
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
+	if( !driver.query( sql ) )
+		throw driver.error();
 
-	mResult = mysql_use_result( cwmWorldState->mysql );
+	while( driver.fetchrow() )
+		recruit.push_back( driver.getInt( 0 ) );
 
-	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
-		recruit.push_back( atoi( row[0] ) );
-
-	mysql_free_result( mResult );
+	driver.free();
 }
 
-void cGuildStone::save( const QString &s  )
+void cGuildStone::save()
 {
-	// Not decided how to do that yet
+	cItem::save();
 }
 
-bool cGuildStone::del ( const QString &s )
+bool cGuildStone::del()
 {
 	// Not decided how to do that yet
-	return cItem::del( s );
+	return cItem::del();
 }
 
 // guildstonemenu() : Opens the guild menu for a player

@@ -31,8 +31,6 @@
 
 // Wolfpack Includes
 #include "dbdriver.h"
-#include "worldmain.h"
-#include "junk.h"
 
 // Library Includes
 #ifdef WIN32
@@ -42,11 +40,11 @@
 #include <qstring.h>
 #include <mysql.h>
 
+static MYSQL *mysql = 0;
+
 // Executes a query
 bool cDBDriver::query( const QString &query )
 {
-	MYSQL *mysql = cwmWorldState->mysql;
-
 	if( mysql_query( mysql, query.latin1() ) )
 		return false;
 
@@ -57,19 +55,19 @@ bool cDBDriver::query( const QString &query )
 // Just execute some SQL code, no result!
 bool cDBDriver::execute( const QString &query )
 {
-	MYSQL *mysql = cwmWorldState->mysql;
+	qWarning( "SQL: " + query );
 
-	return ( mysql_query( mysql, query.latin1() ) == 0 );
+	return !mysql_query( mysql, query.latin1() );
 }
 
 // Returns an error (if there is one)
 QString cDBDriver::error()
 {
-	MYSQL *mysql = cwmWorldState->mysql;
+	char *error = mysql_error( mysql );
 
-	if( mysql_error( mysql ) )
+	if( error != 0 )
 	{
-		return mysql_error( mysql );
+		return error;
 	}
 	else
 	{
@@ -99,6 +97,9 @@ char** cDBDriver::data()
 // Get an integer with a specific offset
 INT32 cDBDriver::getInt( UINT32 offset )
 {
+	if( !row )
+		throw QString( "Trying to access non-selected row!" );
+
 	return atoi( row[offset] );
 }
 
@@ -106,6 +107,29 @@ INT32 cDBDriver::getInt( UINT32 offset )
 QString cDBDriver::getString( UINT32 offset )
 {
 	return row[offset];
+}
+
+bool cDBDriver::connect( const QString &host, const QString &database, const QString &username, const QString &password )
+{
+	// If we are already connected, try to disconnect
+	if( mysql != 0 )
+		disconnect();
+
+	mysql = mysql_init( 0 );
+
+	// This should be enabled/disabled via some SrvParam option ?!
+	//mysql_options(mysql,MYSQL_OPT_COMPRESS,0);
+	
+	return mysql_real_connect( mysql, host.latin1(), username.latin1(), password.latin1(), database.latin1(), 0, NULL, 0 );
+}
+
+void cDBDriver::disconnect()
+{
+	if( mysql )
+	{
+		mysql_close( mysql );
+		mysql = 0;
+	}	
 }
 
 

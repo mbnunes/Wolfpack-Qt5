@@ -670,10 +670,33 @@ bool cChar::canPickUp(cItem* pi)
 void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "characters.name,characters.title,characters.account,characters.creationday,characters.guildtype,characters.guildtraitor,characters.cell,characters.dir,characters.body,characters.xbody,characters.skin,characters.xskin,characters.priv,characters.stablemaster,characters.npctype,characters.time_unused,characters.allmove,characters.font,characters.say,characters.emote,characters.strength,characters.strength2,characters.dexterity,characters.dexterity2,characters.intelligence,characters.intelligence2,characters.hitpoints,characters.spawnregion,characters.stamina,characters.mana,characters.npc,characters.holdgold,characters.shop,characters.own,characters.robe,characters.karma,characters.fame,characters.kills,characters.deaths,characters.dead,characters.fixedlight,characters.speech,characters.disablemsg,characters.cantrain,characters.def,characters.lodamage,characters.hidamage,characters.war,characters.npcwander,characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1,characters.fx2,characters.fy2,characters.spawn,characters.hidden,characters.hunger,characters.npcaitype,characters.spattack,characters.spadelay,characters.taming,characters.summontimer,characters.advobj,characters.poison,characters.poisoned,characters.fleeat,characters.reattackat,characters.split,characters.splitchance,characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty,characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion,characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer,characters.jailsecs,characters.lootlist,characters.food" );
+	fields.push_back( "characters.name,characters.title,characters.account,characters.creationday" );
+	fields.push_back( "characters.guildtype,characters.guildtraitor,characters.cell" );
+	fields.push_back( "characters.dir,characters.body,characters.xbody,characters.skin" );
+	fields.push_back( "characters.xskin,characters.priv,characters.stablemaster,characters.npctype" );
+	fields.push_back( "characters.time_unused,characters.allmove,characters.font,characters.say" );
+	fields.push_back( "characters.emote,characters.strength,characters.strength2,characters.dexterity" );
+	fields.push_back( "characters.dexterity2,characters.intelligence,characters.intelligence2" );
+	fields.push_back( "characters.hitpoints,characters.spawnregion,characters.stamina" );
+	fields.push_back( "characters.mana,characters.npc,characters.holdgold,characters.shop" );
+	fields.push_back( "characters.own,characters.robe,characters.karma,characters.fame" );
+	fields.push_back( "characters.kills,characters.deaths,characters.dead,characters.fixedlight" );
+	fields.push_back( "characters.speech,characters.disablemsg,characters.cantrain,characters.def" );
+	fields.push_back( "characters.lodamage,characters.hidamage,characters.war,characters.npcwander" );
+	fields.push_back( "characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1" );
+	fields.push_back( "characters.fx2,characters.fy2,characters.spawn,characters.hidden,characters.hunger" );
+	fields.push_back( "characters.npcaitype,characters.spattack,characters.spadelay,characters.taming" );
+	fields.push_back( "characters.summontimer,characters.advobj,characters.poison,characters.poisoned" );
+	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
+	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
+	fields.push_back( "characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion" );
+	fields.push_back( "characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer" );
+	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
+
+static void characterRegisterAfterLoading( P_CHAR pc );
 
 void cChar::load( char **result, UINT16 &offset )
 {
@@ -681,7 +704,6 @@ void cChar::load( char **result, UINT16 &offset )
 
 	orgname_ = result[offset++];
 	title_ = result[offset++];
-	QString login = result[offset++];
 	setAccount( Accounts::instance()->getRecord( result[offset++] ) );
 	creationday_ = atoi( result[offset++] );
 	GuildType = atoi( result[offset++] );
@@ -776,7 +798,7 @@ void cChar::load( char **result, UINT16 &offset )
 	SetSpawnSerial( spawnserial_ );
 
 	// Query the Skills for this character
-	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial ) + "'";
+	/*QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial ) + "'";
 
 	cDBDriver query;
 	if( !query.query( sql ) )
@@ -794,284 +816,133 @@ void cChar::load( char **result, UINT16 &offset )
 		lockSkill_[i] = query.getInt( 2 );
 	}
 
-	query.free();
+	query.free();*/
+
+	characterRegisterAfterLoading( this );
 }
 
-void cChar::save( const QString &s  )
+void cChar::save()
 {
-	// Not decided how to do that yet
-}
+	// characters fields
+	initSave; // Once per function only !
 
-bool cChar::del ( const QString &s )
-{
-	// Not decided how to do that yet
-	return cUObject::del( s );
-}
+	setTable( "characters" );
 
-/*void cChar::save( const QString& s )
-{
-	startSaveSqlStatement("characters");
-	savePersistentIntValue("serial",		serial); // never forget we have serials on each table
-	if (incognito())
-	{
-		savePersistentStrValue("name",		name);
-	}
-	else
-	{
-		savePersistentStrValue("name",		orgname() );
-	}
-	savePersistentStrValue("title",			title_);
-	if ( account_ )
-	{
-		savePersistentStrValue("account",	account_->login() );
-	}
-	savePersistentIntValue("creationday",	creationday_);
-	savePersistentIntValue("gmmoveeff",		gmMoveEff_);
-	savePersistentIntValue("guildtype",		GuildType);
-	savePersistentIntValue("guildtraitor",	GuildTraitor);
-	savePersistentIntValue("cell",			cell_);
-	
-	savePersistentIntValue("dir",			dir_);
+	addField( "serial", serial );
+	addStrField( "name", incognito() ? name : orgname() );
+	addStrField( "title", title_ );
 
-	if(incognito() || polymorph())
-	{//if under incognito spell, don't save BODY but the original XBODY
-		savePersistentIntValue("body",		xid_);
-	} 
-	else
-	{//else backup body normally
-		savePersistentIntValue("body",		id());
-	}
-	savePersistentIntValue("xbody",			xid_);
-	//AntiChrist - incognito spell special stuff - 12/99
-	if(incognito())
-	{//if under incognito spell, don't save SKIN but the original XSKIN
-		savePersistentIntValue("skin",		xskin_);
-	} 
-	else
-	{//else backup skin normally
-		savePersistentIntValue("skin",		skin_);
-	}
-	
-	savePersistentIntValue("xskin",			xskin_);
-	savePersistentIntValue("priv",			priv);
-	
-	savePersistentIntValue("stablemaster",	stablemaster_serial_);
-	savePersistentIntValue("npctype",		npc_type_);
-	savePersistentIntValue("time_unused",	time_unused_);
-	
-	savePersistentIntValue("allmove",		priv2_);
-	savePersistentIntValue("font",			fonttype_);
-	savePersistentIntValue("say",			saycolor_);
-	savePersistentIntValue("emote",			emotecolor_);
-	savePersistentIntValue("strength",		st_);
-	savePersistentIntValue("strength2",		st2_);
-	savePersistentIntValue("dexterity",		dx);
-	savePersistentIntValue("dexterity2",	dx2);
-	savePersistentIntValue("intelligence",	in_);
-	savePersistentIntValue("intelligence2",	in2_);
-	savePersistentIntValue("hitpoints",		hp_);
-	savePersistentIntValue("spawnregion",	spawnregion_);
-	savePersistentIntValue("stamina",		stm_);
-	savePersistentIntValue("mana",			mn_);
-	savePersistentIntValue("npc",			npc_);
-	savePersistentIntValue("holdgold",		holdg_);
-	savePersistentIntValue("shop",			shop_);
-	savePersistentIntValue("own",			ownserial_);
-	savePersistentIntValue("robe",			robe_);
-	savePersistentIntValue("karma",			karma_);
-	savePersistentIntValue("fame",			fame_);
-	savePersistentIntValue("kills",			kills_);
-	savePersistentIntValue("deaths",		deaths_);
-	savePersistentIntValue("dead",			dead_);
-//	savePersistentIntValue("packitem",		packitem_);
-	savePersistentIntValue("fixedlight",	fixedlight_);
-	savePersistentIntValue("speech",		speech_);
-	savePersistentStrValue("disablemsg",	disabledmsg_);
-	unsigned int j = 0;
-	for( ; j < TRUESKILLS; j++ )
-	{// Currently we save all.
-		startSaveSqlStatement("skills");
-		savePersistentIntValue("serial", serial);
-		savePersistentIntValue("skill", j);
-		savePersistentIntValue( "value", baseSkill_[j] );
-		savePersistentIntValue( "locktype", lockSkill_[j] );
-		endSaveSqlStatement(QString("serial='%1' AND skill='%2'").arg(serial).arg(j));
-	}
-	savePersistentIntValue("cantrain", cantrain_);
-	
-	savePersistentIntValue("def",			def_);
-	savePersistentIntValue("lodamage",		lodamage_);
-	savePersistentIntValue("hidamage",		hidamage_);
-	savePersistentIntValue("war",			war_);
-	savePersistentIntValue("npcwander",		npcWander_);
-	savePersistentIntValue("oldnpcwander",	oldnpcWander_);
-	savePersistentIntValue("carve",			carve_);
-	savePersistentIntValue("fx1",			fx1_);
-	savePersistentIntValue("fy1",			fy1_);
-	savePersistentIntValue("fz1",			fz1_);
-	savePersistentIntValue("fx2",			fx2_);
-	savePersistentIntValue("fy2",			fy2_);
-	savePersistentIntValue("spawn",			spawnserial_);
-	savePersistentIntValue("hidden",		hidden_);
-	savePersistentIntValue("hunger",		hunger_);
-	savePersistentIntValue("npcaitype",		npcaitype_);
-	savePersistentIntValue("spattack",		spattack_);
-	savePersistentIntValue("spadelay",		spadelay_);
-	savePersistentIntValue("taming",		taming_);
+	if( account_ )
+		addStrField( "account", account_->login() );
+
+	addField( "creationday", creationday_ );
+	addField( "guildtype", GuildType );
+	addField( "guildtraitor", GuildTraitor );
+	addField( "cell", cell_ );
+	addField( "dir", dir_ );
+
+	addField( "body", (incognito() || polymorph()) ? xid_ : id_ );
+	addField( "xbody", xid_ );
+	addField( "skin", incognito() ? xskin_ : skin_ );
+	addField( "xskin", xskin_ );
+	addField( "priv", priv );
+	addField( "stablemaster", stablemaster_serial_ );
+	addField( "npctype", npc_type_ );
+	addField( "time_unused", time_unused_ );
+
+	addField( "allmove", priv2_);
+	addField( "font", fonttype_);
+	addField( "say", saycolor_);
+	addField( "emote", emotecolor_);
+	addField( "strength", st_);
+	addField( "strength2", st2_);
+	addField( "dexterity", dx);
+	addField( "dexterity2", dx2);
+	addField( "intelligence", in_);
+	addField( "intelligence2", in2_);
+	addField( "hitpoints", hp_);
+	addField( "spawnregion", spawnregion_);
+	addField( "stamina", stm_);
+	addField( "mana", mn_);
+	addField( "npc", npc_);
+	addField( "holdgold", holdg_);
+	addField( "shop", shop_);
+	addField( "own", ownserial_);
+	addField( "robe", robe_);
+	addField( "karma", karma_);
+	addField( "fame", fame_);
+	addField( "kills", kills_);
+	addField( "deaths", deaths_);
+	addField( "dead", dead_);
+	addField( "fixedlight", fixedlight_);
+	addField( "speech", speech_);
+	addStrField( "disablemsg", disabledmsg_ );
+	addField( "cantrain", cantrain_);
+	addField( "def", def_);
+	addField( "lodamage", lodamage_);
+	addField( "hidamage", hidamage_);
+	addField( "war", war_);
+	addField( "npcwander", npcWander_);
+	addField( "oldnpcwander", oldnpcWander_);
+	addField( "carve", carve_);
+	addField( "fx1", fx1_);
+	addField( "fy1", fy1_);
+	addField( "fz1", fz1_);
+	addField( "fx2", fx2_);
+	addField( "fy2", fy2_);
+	addField( "spawn", spawnserial_);
+	addField( "hidden", hidden_);
+	addField( "hunger", hunger_);
+	addField( "npcaitype", npcaitype_);
+	addField( "spattack", spattack_);
+	addField( "spadelay", spadelay_);
+	addField( "taming", taming_);
 	unsigned int summtimer = summontimer_ - uiCurrentTime;
-	savePersistentIntValue("summonremainingseconds", summtimer);
-	
-	savePersistentIntValue("advobj",		advobj_);
-	savePersistentIntValue("poison",		poison_);
-	savePersistentIntValue("poisoned",		poisoned_);
-	savePersistentIntValue("fleeat",		fleeat_);
-	savePersistentIntValue("reattackat",	reattackat_);
-	savePersistentIntValue("split",			split_);
-	savePersistentIntValue("splitchance",	splitchnc_);
-	// Begin of Guild related things (DasRaetsel)
-	savePersistentIntValue("guildtoggle",	guildtoggle_);  
-	savePersistentIntValue("guildstone",	guildstone_);  
-	savePersistentIntValue("guildtitle",	guildtitle_);  
-	savePersistentIntValue("guildfealty",	guildfealty_);  
-	savePersistentIntValue("murderrate",	murderrate_);
-	savePersistentIntValue("menupriv",		menupriv_);
-	savePersistentIntValue("questtype",		questType_);
-	savePersistentIntValue("questdestregion",questDestRegion_);
-	savePersistentIntValue("questorigregion",questOrigRegion_);
-	savePersistentIntValue("questbountypostserial", questBountyPostSerial_);
-	savePersistentIntValue("questbountyreward", questBountyReward_);
+	addField( "summonremainingseconds", summtimer);
+	addField( "poison", poison_);
+	addField( "poisoned", poisoned_);
+	addField( "fleeat", fleeat_);
+	addField( "reattackat", reattackat_);
+	addField( "split", split_);
+	addField( "splitchance",	splitchnc_);
+	addField( "guildtoggle",	guildtoggle_);  
+	addField( "guildstone", guildstone_);  
+	addField( "guildtitle", guildtitle_);  
+	addField( "guildfealty", guildfealty_);  
+	addField( "murderrate", murderrate_);
+	addField( "menupriv", menupriv_);
+	addField( "questtype", questType_);
+	addField( "questdestregion", questDestRegion_);
+	addField( "questorigregion", questOrigRegion_);
+	addField( "questbountypostserial", questBountyPostSerial_);
+	addField( "questbountyreward", questBountyReward_);
 	unsigned int jtimer = jailtimer_-uiCurrentTime;
-	savePersistentIntValue("jailtimer",		jtimer); 
-	savePersistentIntValue("jailsecs",		jailsecs_); 
-	savePersistentIntValue("lootlist",		loot_);
-	savePersistentIntValue("food",			food_);
-	
-	endSaveSqlStatement(QString("serial='%1'").arg(serial));
-	// Save base class
-	cUObject::save(s);
-}*/
+	addField( "jailtimer", jtimer); 
+	addField( "jailsecs", jailsecs_); 
+	addField( "lootlist", loot_);
+	addField( "food", food_);
+	addCondition( "serial", serial );
+	saveFields;
 
-static void characterRegisterAfterLoading( P_CHAR pc );
-
-/*void cChar::load( const QString& s )
-{
-	cChar::Init( false ); // initialize
-	startLoadSqlStatement("characters", "serial", s)
+	for( UINT32 j = 0; j < TRUESKILLS; ++j )
 	{
-		loadPersistentStrValue("name",			orgname_);
-		loadPersistentStrValue("title",			title_);
-		QString login;
-		loadPersistentStrValue("account",		login);
-		setAccount( Accounts::instance()->getRecord( login ) );
-		loadPersistentIntValue("creationday",	creationday_);
-		loadPersistentIntValue("gmmoveeff",		gmMoveEff_);
-		loadPersistentIntValue("guildtype",		GuildType);
-		loadPersistentIntValue("guildtraitor",	GuildTraitor);
-		loadPersistentIntValue("cell",			cell_);
-		loadPersistentIntValue("dir",			dir_);
-		loadPersistentIntValue("body",			xid_);	setId(xid_);
-		loadPersistentIntValue("xbody",			xid_);
-		loadPersistentIntValue("skin",			skin_);	
-		loadPersistentIntValue("xskin",			xskin_);
-		loadPersistentIntValue("priv",			priv);
-		
-		loadPersistentIntValue("stablemaster",	stablemaster_serial_);
-		loadPersistentIntValue("npctype",		npc_type_);
-		loadPersistentIntValue("time_unused",	time_unused_);
-		
-		loadPersistentIntValue("allmove",		priv2_);
-		loadPersistentIntValue("font",			fonttype_);
-		loadPersistentIntValue("say",			saycolor_);
-		loadPersistentIntValue("emote",			emotecolor_);
-		loadPersistentIntValue("strength",		st_);
-		loadPersistentIntValue("strength2",		st2_);
-		loadPersistentIntValue("dexterity",		dx);
-		loadPersistentIntValue("dexterity2",	dx2);
-		loadPersistentIntValue("intelligence",	in_);
-		loadPersistentIntValue("intelligence2",	in2_);
-		loadPersistentIntValue("hitpoints",		hp_);
-		loadPersistentStrValue("spawnregion",	spawnregion_);
-		loadPersistentIntValue("stamina",		stm_);
-		loadPersistentIntValue("mana",			mn_);
-		loadPersistentIntValue("npc",			npc_);
-		loadPersistentIntValue("holdgold",		holdg_);
-		loadPersistentIntValue("shop",			shop_);
-		loadPersistentIntValue("own",			ownserial_);
-		loadPersistentIntValue("robe",			robe_);
-		loadPersistentIntValue("karma",			karma_);
-		loadPersistentIntValue("fame",			fame_);
-		loadPersistentIntValue("kills",			kills_);
-		loadPersistentIntValue("deaths",		deaths_);
-		loadPersistentIntValue("dead",			dead_);
-//		loadPersistentIntValue("packitem",		packitem_);
-		loadPersistentIntValue("fixedlight",	fixedlight_);
-		loadPersistentIntValue("speech",		speech_);
-
-		loadPersistentStrValue("disablemsg",	disabledmsg_);
-		QSqlCursor skills("Skills");
-		skills.select(QString("serial='%1'").arg(s));
-		while( skills.next() )
-		{
-			const uint i = skills.value("skill").toUInt();
-			baseSkill_[i] = skills.value("value").toInt();
-			lockSkill_[i] = skills.value("locktype").toInt();
-		}
-		loadPersistentIntValue("cantrain",		cantrain_);
-		loadPersistentIntValue("def",			def_);
-		loadPersistentIntValue("lodamage",		lodamage_);
-		loadPersistentIntValue("hidamage",		hidamage_);
-		loadPersistentIntValue("war",			war_);
-		loadPersistentIntValue("npcwander",		npcWander_);
-		loadPersistentIntValue("oldnpcwander",	oldnpcWander_);
-		loadPersistentStrValue("carve",			carve_);
-		loadPersistentIntValue("fx1",			fx1_);
-		loadPersistentIntValue("fy1",			fy1_);
-		loadPersistentIntValue("fz1",			fz1_);
-		loadPersistentIntValue("fx2",			fx2_);
-		loadPersistentIntValue("fy2",			fy2_);
-		loadPersistentIntValue("spawn",			spawnserial_);
-		loadPersistentIntValue("hidden",		hidden_);
-		loadPersistentIntValue("hunger",		hunger_);
-		loadPersistentIntValue("npcaitype",		npcaitype_);
-		loadPersistentIntValue("spattack",		spattack_);
-		loadPersistentIntValue("spadelay",		spadelay_);
-		loadPersistentIntValue("taming",		taming_);
-		loadPersistentIntValue("summontimer",	summontimer_);
-		if (summontimer_ != 0)
-			summontimer_ += uiCurrentTime;
-		loadPersistentIntValue("advobj",		advobj_);
-		loadPersistentIntValue("poison",		poison_);
-		loadPersistentIntValue("poisoned",		poisoned_);
-		loadPersistentIntValue("fleeat",		fleeat_);
-		loadPersistentIntValue("reattackat",	reattackat_);
-		loadPersistentIntValue("split",			split_);
-		loadPersistentIntValue("splitchance",	splitchnc_);
-		// Begin of Guild related things (DasRaetsel)
-		loadPersistentIntValue("guildtoggle",	guildtoggle_);  
-		loadPersistentIntValue("guildstone",	guildstone_);  
-		loadPersistentStrValue("guildtitle",	guildtitle_);  
-		loadPersistentIntValue("guildfealty",	guildfealty_);  
-		loadPersistentIntValue("murderrate",	murderrate_);
-		loadPersistentIntValue("menupriv",		menupriv_);
-		loadPersistentIntValue("questtype",		questType_);
-		loadPersistentIntValue("questdestregion",	questDestRegion_);
-		loadPersistentIntValue("questorigregion",	questOrigRegion_);
-		loadPersistentIntValue("questbountypostserial", questBountyPostSerial_);
-		loadPersistentIntValue("questbountyreward", questBountyReward_);
-		loadPersistentIntValue("jailtimer",		jailtimer_);
-		if (jailtimer_ != 0)
-			jailtimer_ += uiCurrentTime;
-		loadPersistentIntValue("jailsecs",		jailsecs_); 
-		loadPersistentStrValue("lootlist",		loot_ );
-		loadPersistentIntValue("food",			food_ );
-		SetOwnSerial(ownserial_);
-		SetSpawnSerial(spawnserial_);
-		setAccount( account_ );
+		clearFields;
+		setTable( "skills" );
+		addField( "serial", serial );
+		addField( "skill", j );
+		addField( "value", baseSkill_[j] );
+		addField( "locktype", lockSkill_[j] );
+		saveFields;
 	}
-	endLoadSqlStatement(s);
-	cUObject::load(s);
-	characterRegisterAfterLoading( this ); // post processing/checking/registering
-}*/
+
+	cUObject::save();
+}
+
+bool cChar::del()
+{
+	// Not decided how to do that yet
+	return cUObject::del();
+}
 
 /*bool cChar::del( const QString& s )
 {

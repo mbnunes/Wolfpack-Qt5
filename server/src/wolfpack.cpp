@@ -1405,12 +1405,20 @@ int main( int argc, char *argv[] )
 	{
 		cwmWorldState->loadnewworld( "binary" );
 	}
-	catch( char *error )
+	catch( QString error )
 	{
 		clConsole.ChangeColor( WPC_RED );
 		clConsole.send( "\nERROR" );
 		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": " + QString( error ) + "\n" );
+		clConsole.send( ": " + error + "\n" );
+		return 1;
+	}
+	catch( ... )
+	{
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( "\nERROR" );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( ": Unhandeled Exception caught!\n" );
 		return 1;
 	}
 

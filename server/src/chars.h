@@ -273,9 +273,9 @@ public:
 	cChar();
 	virtual QString objectID() const;
 	static void registerInFactory();
-	virtual void load( char **, UINT16& );
-	void save( const QString& = QString::null );
-	bool del ( const QString& = QString::null );
+	void load( char **, UINT16& );
+	void save();
+	bool del();
     
 	// A typical sequence for the following could be:
 	// Remove from View( clean = false )

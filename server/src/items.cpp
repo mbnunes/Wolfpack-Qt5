@@ -52,9 +52,7 @@
 #include "multis.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
-#include "worldmain.h"
-
-#include <qsqlcursor.h>
+#include "dbdriver.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
@@ -474,162 +472,81 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 	return rest;
 }
 
-void cItem::save( const QString& s/* = QString::null  */ )
+void cItem::save()
 {
-	startSaveSqlStatement("items");
-	savePersistentIntValue("serial",		serial);
-	savePersistentIntValue("id",			id());
-	savePersistentStrValue("name",			name_); // warning: items do not use cUObject name!
-	savePersistentStrValue("name2",			name2_);
-	savePersistentStrValue("creator",		creator);
-	savePersistentIntValue("sk_name",		madewith);
-	savePersistentIntValue("color",			color());
-	savePersistentIntValue("cont",			contserial);
-	savePersistentIntValue("layer",			layer_);
-	savePersistentIntValue("type",			type_);
-	savePersistentIntValue("type2",			type2_);
-	savePersistentIntValue("offspell",		offspell_);
-	savePersistentIntValue("more1",			more1_);
-	savePersistentIntValue("more2",			more2_);
-	savePersistentIntValue("more3",			more3_);
-	savePersistentIntValue("more4",			more4_);
-	savePersistentIntValue("moreb1",		moreb1_);
-	savePersistentIntValue("moreb2",		moreb2_);
-	savePersistentIntValue("moreb3",		moreb3_);
-	savePersistentIntValue("moreb4",		moreb4_);
-	savePersistentIntValue("morex",			morex);
-	savePersistentIntValue("morey",			morey);
-	savePersistentIntValue("morez",			morez);
-	savePersistentIntValue("amount",		amount_);
-	savePersistentIntValue("doordir",		doordir);
-	savePersistentIntValue("dye",			dye);
-	savePersistentIntValue("decaytime",		decaytime > 0 ? decaytime - uiCurrentTime : 0);
-	savePersistentIntValue("att",			att);
-	savePersistentIntValue("def",			def);
-	savePersistentIntValue("hidamage",		hidamage_);
-	savePersistentIntValue("lodamage",		lodamage_);
-	savePersistentIntValue("st",			st);
-	savePersistentIntValue("time_unused",	time_unused);
-	savePersistentIntValue("weight",		weight_);
-	savePersistentIntValue("hp",			hp_);
-	savePersistentIntValue("maxhp",			maxhp_);
-	savePersistentIntValue("rank",			rank);
-	savePersistentIntValue("st2",			st2);
-	savePersistentIntValue("dx",			dx);
-	savePersistentIntValue("dx2",			dx2);
-	savePersistentIntValue("intelligence",	in);
-	savePersistentIntValue("intelligence2",	in2);
-	savePersistentIntValue("speed",			speed_);
-	savePersistentIntValue("poisoned",		poisoned);
-	savePersistentIntValue("magic",			magic);
-	savePersistentIntValue("owner",			ownserial);
-	savePersistentIntValue("visible",		visible);
-	savePersistentIntValue("spawn",			spawnserial);
-	savePersistentIntValue("dir",			dir);
-	savePersistentIntValue("priv",			priv);
-	savePersistentIntValue("value",			value);
-	savePersistentIntValue("restock",		restock);
-	savePersistentIntValue("disabled",		disabled);
-	savePersistentStrValue("spawnregion",	spawnregion_);
-	savePersistentIntValue("good",			good);
-	savePersistentStrValue("desc",			desc);
-	savePersistentStrValue("carve",			carve_);
-	savePersistentIntValue("accuracy",		accuracy_);
-	endSaveSqlStatement(QString("serial='%1'").arg(serial));
-	cUObject::save(s);
+	initSave;
+	setTable( "items" );
+	
+	addField("serial",		serial);
+	addField("id",			id());
+	addStrField("name",			name_); // warning: items do not use cUObject name!
+	addStrField("name2",			name2_);
+	addStrField("creator",		creator);
+	addField("sk_name",		madewith);
+	addField("color",			color());
+	addField("cont",			contserial);
+	addField("layer",			layer_);
+	addField("type",			type_);
+	addField("type2",			type2_);
+	addField("offspell",		offspell_);
+	addField("more1",			more1_);
+	addField("more2",			more2_);
+	addField("more3",			more3_);
+	addField("more4",			more4_);
+	addField("moreb1",		moreb1_);
+	addField("moreb2",		moreb2_);
+	addField("moreb3",		moreb3_);
+	addField("moreb4",		moreb4_);
+	addField("morex",			morex);
+	addField("morey",			morey);
+	addField("morez",			morez);
+	addField("amount",		amount_);
+	addField("doordir",		doordir);
+	addField("dye",			dye);
+	addField("decaytime",		decaytime > 0 ? decaytime - uiCurrentTime : 0);
+	addField("att",			att);
+	addField("def",			def);
+	addField("hidamage",		hidamage_);
+	addField("lodamage",		lodamage_);
+	addField("st",			st);
+	addField("time_unused",	time_unused);
+	addField("weight",		weight_);
+	addField("hp",			hp_);
+	addField("maxhp",			maxhp_);
+	addField("rank",			rank);
+	addField("st2",			st2);
+	addField("dx",			dx);
+	addField("dx2",			dx2);
+	addField("intelligence",	in);
+	addField("intelligence2",	in2);
+	addField("speed",			speed_);
+	addField("poisoned",		poisoned);
+	addField("magic",			magic);
+	addField("owner",			ownserial);
+	addField("visible",		visible);
+	addField("spawn",			spawnserial);
+	addField("dir",			dir);
+	addField("priv",			priv);
+	addField("value",			value);
+	addField("restock",		restock);
+	addField("disabled",		disabled);
+	addStrField("spawnregion",	spawnregion_);
+	addField("good",			good);
+	addStrField("desc",			desc);
+	addStrField("carve",			carve_);
+	addField("accuracy",		accuracy_);
+	
+	addCondition( "serial", serial );
+	saveFields;
+
+	cUObject::save();
 }
 
 static void itemRegisterAfterLoading( P_ITEM pi );
 
-// s = serial (key)
-void cItem::load( const QString& s/* = QString::null  */ )
+bool cItem::del()
 {
-	QSqlQuery query( QString( "SELECT * FROM items WHERE serial = '%1'" ).arg( s ) );
-	query.first();	
-
-	/*startLoadSqlStatement("items", "serial", s)
-	{
-		unsigned short temp;
-		loadPersistentIntValue("id",			temp);			setId(temp);
-		loadPersistentStrValue("name",			name_);
-		loadPersistentStrValue("name2",			name2_);
-		loadPersistentStrValue("creator",		creator);
-		loadPersistentIntValue("sk_name",		madewith);
-		loadPersistentIntValue("color",			color_);
-		loadPersistentIntValue("cont",			contserial);
-		loadPersistentIntValue("layer",			layer_);
-		loadPersistentIntValue("type",			type_ );
-		loadPersistentIntValue("type2",			type2_);
-		loadPersistentIntValue("offspell",		offspell_);
-		loadPersistentIntValue("more1",			more1);
-		loadPersistentIntValue("more2",			more2);
-		loadPersistentIntValue("more3",			more3);
-		loadPersistentIntValue("more4",			more4);
-		loadPersistentIntValue("moreb1",		moreb1_);
-		loadPersistentIntValue("moreb2",		moreb2_);
-		loadPersistentIntValue("moreb3",		moreb3_);
-		loadPersistentIntValue("moreb4",		moreb4_);
-		loadPersistentIntValue("morex",			morex);
-		loadPersistentIntValue("morey",			morey);
-		loadPersistentIntValue("morez",			morez);
-		loadPersistentIntValue("amount",		amount_);
-		loadPersistentIntValue("doordir",		doordir);
-		loadPersistentIntValue("dye",			dye);
-		loadPersistentIntValue("decaytime",		decaytime);
-		if ( decaytime > 0 )
-			decaytime += uiCurrentTime;
-		loadPersistentIntValue("att",			att);
-		loadPersistentIntValue("def",			def);
-		loadPersistentIntValue("hidamage",		hidamage_);
-		loadPersistentIntValue("lodamage",		lodamage_);
-		loadPersistentIntValue("st",			st);
-		loadPersistentIntValue("time_unused",	time_unused);
-		loadPersistentIntValue("weight",		weight_);
-		loadPersistentIntValue("hp",			hp_);
-		loadPersistentIntValue("maxhp",			maxhp_);
-		loadPersistentIntValue("rank",			rank);
-		loadPersistentIntValue("st2",			st2);
-		loadPersistentIntValue("dx",			dx);
-		loadPersistentIntValue("dx2",			dx2);
-		loadPersistentIntValue("intelligence",	in);
-		loadPersistentIntValue("intelligence2",	in2);
-		loadPersistentIntValue("speed",			speed_);
-		loadPersistentUIntValue("poisoned",		poisoned);
-		loadPersistentIntValue("magic",			magic);
-		loadPersistentIntValue("owner",			ownserial);
-		loadPersistentIntValue("visible",		visible);
-		loadPersistentIntValue("spawn",			spawnserial);
-		loadPersistentIntValue("dir",			dir);
-		loadPersistentIntValue("priv",			priv);
-		loadPersistentIntValue("value",			value);
-		loadPersistentIntValue("restock",		restock);
-		loadPersistentUIntValue("disabled",		disabled);
-		loadPersistentIntValue("spawnregion",	spawnregion_);
-		loadPersistentIntValue("good",			good);
-		loadPersistentStrValue("desc",			desc);
-		loadPersistentStrValue("carve",			carve_);
-		loadPersistentIntValue("accuracy",		accuracy_);
-	}
-	endLoadSqlStatement(s);*/
-	cUObject::load(s);
-	itemRegisterAfterLoading( this ); // Check/Register items after loading
-}
-
-bool cItem::del( const QString& s/* = QString::null  */ )
-{
-	QSqlCursor cursor("items");
-	cursor.select(QString("serial='%1'").arg(serial));
-	while ( cursor.next() )
-	{
-		cursor.primeDelete();
-		if ( cursor.del() > 1 )
-		{
-			qWarning("More than one record was deleted in table Items when only 1 was expected, delete criteria was:");
-			qWarning(cursor.filter());
-		}
-
-	}
-	return cUObject::del( s );
+	return cUObject::del();
 }
 
 static int getname(P_ITEM pi, char* itemname)

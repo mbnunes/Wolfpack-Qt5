@@ -255,15 +255,15 @@ void cSpellBook::load( char **result, UINT16 &offset )
 	spells2_ = atoi( result[offset++] );
 }
 
-void cSpellBook::save( const QString &s  )
+void cSpellBook::save()
 {
-	// Not decided how to do that yet
+	cItem::save();
 }
 
-bool cSpellBook::del ( const QString &s )
+bool cSpellBook::del()
 {
 	// Not decided how to do that yet
-	return cItem::del( s );
+	return cItem::del();
 }
 
 

@@ -184,23 +184,34 @@ public:
 
 	void reload( void )
 	{
-		delete this->topregion_;
+		if( this->topregion_ )
+			delete this->topregion_;
+
 		this->load();
 	}
 
 	cBaseRegion*	region( QString regName )
 	{
-		return topregion_->region( regName );
+		if( topregion_ )
+			return topregion_->region( regName );
+		else
+			return 0;
 	}
 
 	cBaseRegion*	region( UI16 posx, UI16 posy )
 	{
-		return topregion_->region( posx, posy );
+		if( topregion_ )
+			return topregion_->region( posx, posy );
+		else
+			return 0;
 	}
 
 	UI32			count( void )
 	{
-		return topregion_->count();
+		if( topregion_ )
+			return topregion_->count();
+		else
+			return 0;
 	}
 protected:
 	cBaseRegion* topregion_;

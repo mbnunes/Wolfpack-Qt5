@@ -56,12 +56,12 @@ class CWorldMain ;
 
 #include <zthread/Thread.h>
 #include <zthread/FastMutex.h>
+#include <zthread/LockedQueue.h>
 #include <qstring.h>
 #include <qmap.h>
 #ifdef WIN32
 #include <winsock.h>
 #endif
-#include <mysql.h>
 
 class CWorldMain  
 {
@@ -75,15 +75,12 @@ public:
 
 	bool Saving( void );
 	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
-
-	MYSQL *mysql;
 private:
 	bool isSaving;
 	int DisplayWorldSaves;
 	FILE *iWsc, *cWsc;
 	unsigned long Cur, Max;
 	long PerLoop;
-
 	void SaveChar( P_CHAR );
 	void SaveItem( P_ITEM pi, P_ITEM pDefault );
 

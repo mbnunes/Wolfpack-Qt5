@@ -36,7 +36,7 @@
 #include "maps.h"
 #include "network/uosocket.h"
 #include "multiscache.h"
-#include "worldmain.h"
+#include "dbdriver.h"
 
 #undef DBGFILE
 #define DBGFILE "multis.cpp" 
@@ -67,54 +67,49 @@ void cMulti::load( char **result, UINT16 &offset )
 	// Load from two additional tables here
 	QString sql = "SELECT multis_bans.serial,multis_bans.ban FROM multis_bans WHERE multis_bans.serial = '" + QString::number( serial ) + "'";
 
-	// Error Checking		
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
+	cDBDriver driver;
+	
+	if( !driver.query( sql ) )
+		throw driver.error();
 
-	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
-
-	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	while( driver.fetchrow() )
 	{
 		// row[1] is our serial
-		SERIAL banned = atoi( row[1] );
+		SERIAL banned = driver.getInt( 1 );
 		P_CHAR pChar = FindCharBySerial( banned );
 
 		if( pChar )
 			addBan( pChar );
 	}
 
-	mysql_free_result( mResult );
+	driver.free();
 
 	sql = "SELECT multis_friends.serial,multis_friends.friend FROM multis_friends WHERE multis_friends.serial = '" + QString::number( serial ) + "'";
 
-	// Error Checking		
-	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
-		throw mysql_error( cwmWorldState->mysql );
+	if( !driver.query( sql ) )
+		throw driver.error();
 
-	mResult = mysql_use_result( cwmWorldState->mysql );
-
-	// Fetch row-by-row
-	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+	while( driver.fetchrow() )
 	{
 		// row[1] is our serial
-		SERIAL friendserial = atoi( row[1] );
+		SERIAL friendserial = driver.getInt( 1 );
 		P_CHAR pChar = FindCharBySerial( friendserial );
 
 		if( pChar )
 			addFriend( pChar );
 	}
 
-	mysql_free_result( mResult );
+	driver.free();
 }
 
-void cMulti::save( const QString&  )
+void cMulti::save()
 {
+	cItem::save();
 }
 
-bool cMulti::del ( const QString& )
+bool cMulti::del()
 {
-	return true;
+	return cItem::del();
 }
 
 /*void cMulti::Serialize( ISerialization &archive )

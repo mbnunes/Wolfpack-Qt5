@@ -46,6 +46,8 @@ public:
 	cDBDriver(): result( 0 ), row( 0 ) {}
 	virtual ~cDBDriver() {}
 
+	bool connect( const QString &host, const QString &database, const QString &username, const QString &password );
+	void disconnect();
 	bool execute( const QString &query ); // Just execute some SQL code, no return!
 	bool query( const QString &query ); // Executes a query
 	QString error(); // Returns an error (if there is one)

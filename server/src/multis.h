@@ -58,9 +58,9 @@ public:
 	virtual void toDeed( cUOSocket* socket ) = 0;
 
 	// DB Serialization
-	virtual void load( char **, UINT16& );
-	void save( const QString& = QString::null );
-	bool del ( const QString& = QString::null );
+	void load( char **, UINT16& );
+	void save();
+	bool del();
 
 	QString deedSection( void ) { return deedsection_; }
 	bool	itemsdecay( void ) { return itemsdecay_; }

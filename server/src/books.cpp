@@ -83,15 +83,15 @@ void cBook::load( char **result, UINT16 &offset )
 	
 }
 
-void cBook::save( const QString &s  )
+void cBook::save()
 {
-	// Not decided how to do that yet
+	cItem::save();
 }
 
-bool cBook::del ( const QString &s )
+bool cBook::del()
 {
 	// Not decided how to do that yet
-	return cItem::del( s );
+	return cItem::del();
 }
 
 /*void cBook::Serialize( ISerialization &archive )

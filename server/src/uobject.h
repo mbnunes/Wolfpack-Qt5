@@ -79,13 +79,11 @@ public:
 	void removeEvent( QString Name );
 	void removeFromView( bool clean = true );
 	bool hasEvent( QString Name );
-
-	void save( const QString& = QString::null );
-	void load( const QString& = QString::null );
-	bool del ( const QString& = QString::null );
 	
 	// New Load (Query: result, offset: current field offset)
-	virtual void load( char **, UINT16& );
+	void load( char **, UINT16& );
+	void save();
+	bool del();
 
 	QString eventList( void ); // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object

@@ -324,15 +324,15 @@ void cHouse::load( char **result, UINT16 &offset )
 	charpos_.z = atoi( result[offset++] );
 }
 
-void cHouse::save( const QString &s  )
+void cHouse::save()
 {
-	// Not decided how to do that yet
+	cMulti::save();
 }
 
-bool cHouse::del( const QString &s )
+bool cHouse::del()
 {
 	// Not decided how to do that yet
-	return cMulti::del( s );
+	return cMulti::del();
 }
 
 /*void cHouse::Serialize(ISerialization &archive)

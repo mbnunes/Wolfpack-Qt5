@@ -105,7 +105,7 @@ private:
 class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >
 {
 public:
-	cAllSpawnRegions() {;}
+	cAllSpawnRegions() { this->topregion_ = 0; }
 	~cAllSpawnRegions();
 
 	virtual void	load( void );

@@ -46,10 +46,9 @@
 #include "network/uosocket.h"
 #include "wpdefmanager.h"
 #include "persistentbroker.h"
+#include "dbdriver.h"
 
 // Library Includes
-#include <qsqlcursor.h>
-
 
 // Debug includes and defines
 #undef  DBGFILE
@@ -86,10 +85,45 @@ void cUObject::moveTo( const Coord_cl& newpos )
 	cMapObjects::getInstance()->add( this );
 }
 
+void cUObject::save()
+{
+	// uobjectmap fields
+	initSave;
+
+	// If the type is changed somewhere in the code
+	// That part needs to take care of delete/recreate
+	// So we never update the type EVER here..
+	if( !isPersistent )
+	{
+		setTable( "uobjectmap" );
+		addField( "uobjectmap.serial", serial );
+		addStrField( "uobjectmap.type", objectID() );
+		addCondition( "uobjectmap.serial", serial );
+		saveFields;
+		clearFields;
+	}
+	
+	// uobject fields
+	setTable( "uobject" );	
+	addStrField( "uobject.name", name );
+	addField( "uobject.serial", serial );
+	addField( "uobject.multis", multis );
+	addField( "uobject.pos_x", pos.x );
+	addField( "uobject.pos_y", pos.y );
+	addField( "uobject.pos_z", pos.z );
+	addField( "uobject.pos_map", pos.map );
+	addStrField( "uobject.events", eventList_.join( "," ) );
+	addStrField( "uobject.bindmenu", bindmenu_ );
+	addCondition( "uobject.serial", serial );
+	saveFields;
+
+	PersistentObject::save();
+}
+
 /*!
 	Performs persistency layer saves.
 */
-void cUObject::save( const QString& )
+/*void cUObject::save( const QString& )
 {
 	startSaveSqlStatement("uobject");
 	savePersistentStrValue("name",		name);
@@ -110,9 +144,9 @@ void cUObject::save( const QString& )
 	}
 
 	PersistentObject::save();
-}
+}*/
 
-void cUObject::load( const QString& s )
+/*void cUObject::load( const QString& s )
 {
 	QSqlQuery query( QString( "SELECT * FROM uobject WHERE serial = '%1'" ).arg( s ) );
 	query.first();
@@ -130,7 +164,7 @@ void cUObject::load( const QString& s )
 	eventList_ = QStringList::split( ",", events );
 	bindmenu_ = query.value( 8 ).toString();
 
-	/*startLoadSqlStatement("uobject", "serial", s)
+	startLoadSqlStatement("uobject", "serial", s)
 	{
 		loadPersistentStrValue("name",		name);
 		loadPersistentIntValue("serial",	serial);
@@ -144,13 +178,13 @@ void cUObject::load( const QString& s )
 		eventList_ = QStringList::split(",", events);
 		loadPersistentStrValue("bindmenu",	bindmenu_);
 	}
-	endLoadSqlStatement(s);*/
+	endLoadSqlStatement(s);
 	PersistentObject::load(s);
-}
+}*/
 
-bool cUObject::del( const QString& s/* = QString::null  */ )
+bool cUObject::del()
 {
-	QSqlCursor cursor("uobject");
+/*	QSqlCursor cursor("uobject");
 	cursor.select(QString("serial='%1'").arg(serial));
 	while ( cursor.next() )
 	{
@@ -172,8 +206,8 @@ bool cUObject::del( const QString& s/* = QString::null  */ )
 			qWarning("More than one record was deleted in table uobjectmap when only 1 was expected, delete criteria was:");
 			qWarning(cursor.filter());
 		}
-	}
-	return PersistentObject::del( s );
+	}*/
+	return PersistentObject::del();
 }
 
 /*!
@@ -417,17 +451,6 @@ void cUObject::load( char **result, UINT16 &offset )
 	pos.map = atoi(result[offset++]);
 	eventList_ = QStringList::split( ",", result[offset++] );
 	bindmenu_ = result[offset++];
-
-	/*name	= result->value( offset++ ).toString();
-	serial	= result->value( offset++ ).toInt();
-	multis	= result->value( offset++ ).toInt();
-	pos.x	= result->value( offset++ ).toInt();
-	pos.y	= result->value( offset++ ).toInt();
-	pos.z	= result->value( offset++ ).toInt();
-	pos.map = result->value( offset++ ).toInt();
-	QString events = result->value( offset++ ).toString();
-	eventList_	= QStringList::split( ",", events );
-	bindmenu_	= result->value( offset++ ).toString();*/
 }
 
 void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )

@@ -71,9 +71,9 @@ public:
 
 	// DB Serialization
 	static void registerInFactory();
-	virtual void load( char **, UINT16& );
-	void save( const QString& = QString::null );
-	bool del ( const QString& = QString::null );
+	void load( char **, UINT16& );
+	void save();
+	bool del();
 
 	QString	deedSection( void ) { return deedsection_; }
 	void	setDeedSection( QString data ) { deedsection_ = data; }

@@ -75,9 +75,9 @@ public:
 
 	// PersistentObject
 	static void registerInFactory();
-	virtual void load( char **, UINT16& );
-	void save( const QString& = QString::null );
-	bool del ( const QString& = QString::null );
+	void load( char **, UINT16& );
+	void save();
+	bool del();
 
 	virtual QString objectID( void ) const { return "cBoat"; }
 

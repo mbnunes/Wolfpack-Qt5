@@ -96,10 +96,9 @@ protected:
 public:
 
 	virtual void	talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	void save( const QString& = QString::null );
-	void load( const QString& = QString::null );
-	virtual void load( char **, UINT16& );
-	bool del ( const QString& = QString::null );
+	void load( char **, UINT16& );
+	void save();
+	bool del();
 
 	void	processContainerNode( const QDomElement &Tag );
 	virtual void update( cUOSocket *mSock = NULL );

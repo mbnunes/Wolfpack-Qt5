@@ -114,7 +114,11 @@ public:
 	P_CHAR Begin()								
 	{
 		iterChars = CharsManager::instance()->begin();
-		return GetData();
+
+		if( atEnd() )
+			return 0;
+		else
+			return GetData();
 	}
 	P_CHAR Next()
 	{
