@@ -31,7 +31,7 @@
 
 // Platform Includes
 #ifndef __unix__
-
+#include <conio.h>
 #endif
 
 #if defined(__unix__)
@@ -83,7 +83,6 @@
 #include <qdatetime.h>
 #include <zthread/Thread.h>
 #include <zthread/FastMutex.h>
-#include <conio.h>
 #include <fstream>
 
 #undef DBGFILE
