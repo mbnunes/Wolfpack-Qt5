@@ -208,17 +208,23 @@ def goitem(socket, command, arguments):
 	if len(found) == 0:
 		socket.sysmessage('A item with the given name was not found.')
 	else:
-		container = found[i].getoutmostitem()
+		item = found[i]
+		container = item.getoutmostitem()
 		
 		if container.container:
 			container = container.container
-			
-		socket.sysmessage("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (found[i].name, found[i].serial, container.serial))
-		pos = found[i].pos
+
+		socket.sysmessage("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (item.name, item.serial, container.serial))
+		pos = container.pos
 		socket.player.removefromview()
 		socket.player.moveto(pos)
 		socket.player.update()
 		socket.resendworld()
+		
+		if item.container:
+			socket.sendobject(item.container)
+			socket.sendcontainer(item.container)
+
 	
 """
 	\command gouid
@@ -248,7 +254,7 @@ def gouid(socket, command, arguments):
 			socket.player.update()
 			socket.resendworld()
 			
-			if item.container.isitem():
+			if item.container:
 				socket.sendobject(item.container)
 				socket.sendcontainer(item.container)
 		else:
