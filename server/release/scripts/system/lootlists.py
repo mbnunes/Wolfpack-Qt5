@@ -55,7 +55,7 @@ DEF_DRINKS_ALCOHOL = ['98d', '98e', '99b', '99c', '99d', '99e', '99f', '9a0', '9
 	'1f7e', '1f7f', '1f80', '1f85', '1f86', '1f87', '1f88', '1f8d', '1f8e', '1f8f', '1f90', '1f95', '1f96', '1f97', '1f98', '1f99',
 	'1f9a', '1f9b', '1f9c', '1f9d', '1f9e']
 DEF_ALLDRINKS = DEF_DRINKS_NORMAL + DEF_DRINKS_ALCOHOL
-DEF_ALLFOOD = DEF_FOOD_MEATS + DEF_FOOD_GREENS + DEF_FOODS_MISC
+DEF_ALLFOOD = DEF_FOOD_MEATS + DEF_FOOD_GREENS + DEF_FOOD_MISC
 
 # Clothes
 DEF_SHIRTS = ['230f', '2310', '1517', '1518', '1efd', '1efe', '1f9f', '1fa0', '1fa1', '1fa2', '1f7b', '1f7c', '1ffd', '1ffe']

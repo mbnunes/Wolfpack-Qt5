@@ -20,7 +20,7 @@ PACKS = {
 	# Gold Packs
 	'verypoor': [
 		[0.9, 'eed', '1d10', 1] # 1 - 10
-	]
+	],
 	'poor': [
 		[1.0, 'eed', '1d10+10', 1]
 	],
@@ -127,7 +127,7 @@ PACKS = {
 	],
 	'weapons_low_bows': [
 		[0.25, DEF_WEAPONS_BOWS, 1, 0]
-	]
+	],
 	# Armor Packs
 
 	# Reagent Packs
