@@ -77,9 +77,7 @@ def onLoad():
 
 # Does the Spellbook have a specific spell?
 def hasspell( item, spell ):
-	if item and ( item.hasscript( 'magic.spellbook' ) or item.hasscript( 'magic.necrospellbook' ) ):
-		if item.hasscript( 'magic.necrospellbook' ):
-			spell = spell - 100
+	if item and item.hasscript( 'magic.spellbook' ):
 
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 		spell = spell % 8
@@ -205,7 +203,7 @@ def onUse( char, item ):
 	# once its already open.
 	#char.socket.removeobject(item)
 	if item.container and item.container.isitem():
-		char.socket.sendobject(item.container)	
+		char.socket.sendobject(item.container)
 	char.socket.sendobject(item)
 
 	packet = wolfpack.packet( 0x24, 7 )

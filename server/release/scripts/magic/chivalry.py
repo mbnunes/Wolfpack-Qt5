@@ -5,18 +5,6 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from wolfpack.consts import *
 from magic.utilities import *
 
-def onLoad():
-	CloseWounds().register(81)
-	CleanseByFire().register(82)
-	RemoveCurse().register(83)
-	ConsecrateWeapon().register(84)
-	SacredJourney().register(85)
-	DivineFury().register(86)
-	DispelEvil().register(87)
-	EnemyOfOne().register(88)
-	HolyLight().register(89)
-	NobleSacrifice().register(90)
-
 class CloseWounds(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
@@ -106,3 +94,16 @@ class NobleSacrifice(Spell):
 		self.mana = 0
 		#self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_GINSENG: 1, REAGENT_SULFURASH: 1}
 		self.mantra = ''
+
+
+def onLoad():
+	CloseWounds().register(101)
+	CleanseByFire().register(102)
+	RemoveCurse().register(103)
+	ConsecrateWeapon().register(104)
+	SacredJourney().register(105)
+	DivineFury().register(106)
+	DispelEvil().register(107)
+	EnemyOfOne().register(108)
+	HolyLight().register(109)
+	NobleSacrifice().register(110)

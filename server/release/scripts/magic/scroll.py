@@ -10,7 +10,6 @@
 import wolfpack
 import magic
 from magic.utilities import MODE_SCROLL
-from magic.spellbook import addspell, hasspell
 
 # calculate the spell-id of a scroll
 def calcSpellId( item ):
@@ -24,7 +23,7 @@ def calcSpellId( item ):
 
 def onUse( char, item ):
 	try:
-		spell = calcSpellId(item)		
+		spell = calcSpellId(item)
 	except:
 		char.socket.sysmessage('This scroll seems to be broken.')
 		return False
@@ -53,14 +52,50 @@ def onDropOnItem( cont, item ):
 		if spell >= 64:
 			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
 		else:
-			if not hasspell( cont, spell ):
-				addspell( cont, spell )
+			if not magic.spellbook.hasspell( cont, spell ):
+				magic.spellbook.addspell( cont, spell )
 
 				if item.amount > 1:
 					item.amount -= 1
 					if not wolfpack.utilities.tobackpack(item, char):
 						item.update()
-					
+
+				else:
+					item.delete() # Consume the scroll
+				return True # Do nothing else.
+			else:
+				return False
+
+	elif cont.hasscript( 'magic.chivalryspellbook' ):
+		if spell >= 110:
+			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
+		else:
+			if not magic.chivalryspellbook.hasspell( cont, spell ):
+				magic.chivalryspellbook.addspell( cont, spell )
+
+				if item.amount > 1:
+					item.amount -= 1
+					if not wolfpack.utilities.tobackpack(item, char):
+						item.update()
+
+				else:
+					item.delete() # Consume the scroll
+				return True # Do nothing else.
+			else:
+				return False
+
+	elif cont.hasscript( 'magic.necrospellbook' ):
+		if spell >= 216:
+			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
+		else:
+			if not magic.necrospellbook.hasspell( cont, spell ):
+				magic.necrospellbook.addspell( cont, spell )
+
+				if item.amount > 1:
+					item.amount -= 1
+					if not wolfpack.utilities.tobackpack(item, char):
+						item.update()
+
 				else:
 					item.delete() # Consume the scroll
 				return True # Do nothing else.

@@ -13,24 +13,6 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from wolfpack.consts import *
 from magic.utilities import *
 
-def onLoad():
-	CurseWeapon().register(65)
-	PainSpike().register(66)
-	CorpseSkin().register(67)
-	EvilOmen().register(68)
-	BloodOath().register(69)
-	WraithForm().register(70)
-	MindRot().register(71)
-	HorrificBeast().register(72)
-	AnimateDead().register(73)
-	PoisonStrike().register(74)
-	Strangle().register(75)
-	SummonFamiliar().register(76)
-	Wither().register(77)
-	LichForm().register(78)
-	VengefulSpirit().register(79)
-	VampiricEmbrace().register(80)
-
 class CurseWeapon(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
@@ -105,7 +87,7 @@ class HorrificBeast(Spell):
 
 class AnimateDead(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
@@ -133,7 +115,7 @@ class AnimateDead(Spell):
 
 class PoisonStrike(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
@@ -142,7 +124,7 @@ class PoisonStrike(Spell):
 
 class Strangle(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
@@ -151,7 +133,7 @@ class Strangle(Spell):
 
 class SummonFamiliar(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
@@ -160,7 +142,7 @@ class SummonFamiliar(Spell):
 
 class Wither(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
@@ -169,7 +151,7 @@ class Wither(Spell):
 
 class LichForm(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
@@ -178,7 +160,7 @@ class LichForm(Spell):
 
 class VengefulSpirit(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
@@ -187,9 +169,27 @@ class VengefulSpirit(Spell):
 
 class VampiricEmbrace(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Rel Xen An Sanct'
+
+def onLoad():
+	CurseWeapon().register(201)
+	PainSpike().register(202)
+	CorpseSkin().register(203)
+	EvilOmen().register(204)
+	BloodOath().register(205)
+	WraithForm().register(206)
+	MindRot().register(207)
+	HorrificBeast().register(208)
+	AnimateDead().register(209)
+	PoisonStrike().register(210)
+	Strangle().register(211)
+	SummonFamiliar().register(212)
+	Wither().register(213)
+	LichForm().register(214)
+	VengefulSpirit().register(215)
+	VampiricEmbrace().register(216)
