@@ -771,12 +771,12 @@ def charinfo_response( player, args, choice ):
 			if ( textentries[key] ) == "female":				
 				value = 1
 			elif ( textentries[key] ) == "male":
-				value = None
+				value = 0
 			elif ( textentries[key] ) == "none":
 				value = None
 			elif len(textentries[key]) == 1:
 				if ( int( textentries[ key ] ) < 0 ) or ( int( textentries[ key ] ) > 1 ):
-					value = None
+					value = char.gender
 				else:
 					value = int( textentries[ key ] )
 					
