@@ -2541,9 +2541,9 @@ void cChar::kill()
 				unsigned int ci1;
 				cItem::ContainerContent container = pi_j->content();
 				cItem::ContainerContent::const_iterator it2 = container.begin();
-				for ( ; it2 != container.end(); ++it )
+				for ( ; it2 != container.end(); ++it2 )
 				{
-					P_ITEM pi_k = *it;
+					P_ITEM pi_k = *it2;
 
 					if( !pi_k )
 						continue;
@@ -2832,43 +2832,37 @@ void cChar::wear( P_ITEM pi )
 
 P_CHAR cChar::unmount()
 {
-	ContainerContent container = this->content();
-	ContainerContent::const_iterator it  = container.begin();
-	ContainerContent::const_iterator end = container.end();
-	for ( ; it != end; ++it )
+	P_ITEM pi = atLayer(Mount);
+	if( pi && !pi->free)
 	{
-		P_ITEM pi = *it;
-		if( pi && pi->layer() == 0x19 && !pi->free)
+		setOnHorse( false );
+		
+		P_CHAR pMount = FindCharBySerial( pi->morex );
+		if( pMount )
 		{
-			setOnHorse( false );
-
-			P_CHAR pMount = FindCharBySerial( pi->morex );
-			if( pMount )
-			{
-				pMount->setFx1( pi->pos.x );
-				pMount->setFy1( pi->pos.y );
-				pMount->setFz1( pi->pos.z );
-				pMount->setId( pi->morey );
-				pMount->setNpcWander(pi->moreb1());
-				pMount->setSt( pi->moreb2() );
-				pMount->setDex( pi->moreb3() );
-				pMount->setIn( pi->moreb4() );
-				pMount->setFx2( pi->att );
-				pMount->setFy2( pi->def );
-				pMount->setHp( pi->hp() );
-				pMount->setFame( pi->lodamage() );
-				pMount->setKarma( pi->hidamage() );
-				pMount->setPoisoned( pi->poisoned );
-				pMount->setSummonTimer( pi->decaytime );
-
-				pMount->moveTo( pos );
-				pMount->resend( false );
-			}
-			Items->DeleItem( pi );
-			resend( false );
-			return pMount;
+			pMount->setFx1( pi->pos.x );
+			pMount->setFy1( pi->pos.y );
+			pMount->setFz1( pi->pos.z );
+			pMount->setId( pi->morey );
+			pMount->setNpcWander(pi->moreb1());
+			pMount->setSt( pi->moreb2() );
+			pMount->setDex( pi->moreb3() );
+			pMount->setIn( pi->moreb4() );
+			pMount->setFx2( pi->att );
+			pMount->setFy2( pi->def );
+			pMount->setHp( pi->hp() );
+			pMount->setFame( pi->lodamage() );
+			pMount->setKarma( pi->hidamage() );
+			pMount->setPoisoned( pi->poisoned );
+			pMount->setSummonTimer( pi->decaytime );
+			
+			pMount->moveTo( pos );
+			pMount->resend( false );
 		}
-		++it;
+		Items->DeleItem( pi );
+		removeItem( Mount );
+		resend( false );
+		return pMount;
 	}
 	return NULL;
 }

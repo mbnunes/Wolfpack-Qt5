@@ -791,6 +791,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 
 		// Dropped on another Container/in another Container
 		pChar->soundEffect( 0x57 );
+		pItem->update();
 		return;
 	}
 	// Item matching needs to be extended !!! at least Color! (for certain types)

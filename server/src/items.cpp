@@ -920,7 +920,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	if (pc_ch == NULL) 
 		return NULL;
 
-	P_ITEM pPack = pc_ch->getBackpack();
+	P_ITEM pPack = pc_ch->atLayer(cChar::Backpack);
 	bool pile = false;
 	
 	if (pileable)

@@ -299,7 +299,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				socket->sendContainer( pi );
 				return;
 			}
-			if (pi->container()->isItem())
+			if (pi->container() && pi->container()->isItem())
 			{
 				P_ITEM pio = GetOutmostCont(pi);
 				if( !pio ) 
