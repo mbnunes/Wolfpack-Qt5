@@ -1,6 +1,20 @@
 Wolfpack 13.0.0 ChangeLog
 
-Wolfpack 12.9.7 Beta (CVS)
+Wolfpack 12.9.8 Beta (CVS)
+	* Core Changes:
+	* Definition Changes:
+	* Python Script Changes:
+	* Misc. Changes:
+	* Known Issues, Bugs, and Missing Features:
+		- Some skills are still incomplete.
+		- Spawn regions are incomplete.
+		- Town/World regions are incomplete.
+		- Teleport Scripts are incomplete.
+		- Possible that a few monsters are missing.
+		- Reloading python too many times crashes the server.
+		- There are still some memory leaks.
+
+Wolfpack 12.9.7 Beta
 	* Core Changes:
 		* Region/Spawn Region Updates:
 			- Fixed bugs that caused segfaults.
@@ -45,6 +59,8 @@ Wolfpack 12.9.7 Beta (CVS)
 		* Magic:
 			- Updated summoned monsters, balance fix.
 			- Spell casting delay adjustments.
+		* Skill Changes:
+			- Inscription Skill Updated
 		* System:
 			- SQLite database optimization added.
 			- Script system.debugging created to set different debugging options.
@@ -53,7 +69,8 @@ Wolfpack 12.9.7 Beta (CVS)
 		- FAQ.html included in the documentaiton.
 		- ChangeLog.wolfpack included in the documentaiton.
 		- Massive Documentation Update
-	* Known Issues, Bugs, and Missing Features.
+	* Known Issues, Bugs, and Missing Features:
+		- Some skills are still incomplete.
 		- Spawn regions are incomplete.
 		- Town/World regions are incomplete.
 		- Teleport Scripts are incomplete.
