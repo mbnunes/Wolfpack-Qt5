@@ -83,8 +83,8 @@ private:
 	void randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type );
 	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 
-	bool consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running );
-	bool checkObstacles( cUOSocket *socket, P_CHAR pChar, const Coord_cl &newPos, bool running );
+	bool consumeStamina( P_PLAYER pChar, bool running );
+	bool checkObstacles( P_CHAR pChar, const Coord_cl &newPos, bool running );
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
 	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
 	void checkStealth( P_CHAR );

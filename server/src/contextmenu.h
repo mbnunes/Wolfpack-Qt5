@@ -86,7 +86,7 @@ public:
 	const cConMenuOptions*	getOptionsByAcl( const QString& acl ) const;
     void					recreateEvents( void );
 	
-	bool					onContextEntry( cChar *Caller, cUObject *Target, Q_UINT16 Tag ) const;
+	bool					onContextEntry( cPlayer *Caller, cUObject *Target, Q_UINT16 Tag ) const;
 
 private:
 	QMap< QString, cConMenuOptions >	options_;

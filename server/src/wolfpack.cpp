@@ -80,6 +80,9 @@
 #include "Trade.h"
 #include "network/uotxpackets.h"
 #include "magic.h"
+#include "basechar.h"
+#include "player.h"
+#include "npc.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -192,7 +195,7 @@ void savelog(const char *msg, char *logfile)
 		fclose( file );
 }
 
-int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt )
+int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt )
 {
 	if( pc == NULL )
 		return amt;
@@ -929,7 +932,8 @@ int main( int argc, char *argv[] )
 	}
 
 	// Registers our Built-in types into factory.
-	cChar::registerInFactory();
+	cPlayer::registerInFactory();
+	cNPC::registerInFactory();
 	cItem::registerInFactory();
 	cBook::registerInFactory();
 	cSpellBook::registerInFactory();
@@ -1059,7 +1063,7 @@ int main( int argc, char *argv[] )
 
 		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-			P_CHAR player = mSock->player();
+			P_PLAYER player = mSock->player();
 			if ( player && !player->isGM() && player->clientidletime() && player->clientidletime() < uiCurrentTime )
 			{
 				clConsole.send( tr("Player %1 disconnected due to inactivity !\n").arg( player->name() ) );
@@ -1139,11 +1143,11 @@ int main( int argc, char *argv[] )
 	return 0;
 }
 
-int ishuman(P_CHAR pc)
+bool ishuman(P_CHAR pc)
 {
 	// Check if the Player or Npc is human! -- by Magius(CHE)
-	if (pc->xid()==0x0190 || pc->xid()==0x0191) return 1;
-	else return 0;
+	if (pc->orgBodyID()==0x0190 || pc->orgBodyID()==0x0191) return true;
+	else return false;
 }
 
 int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b
@@ -1205,7 +1209,7 @@ int fielddir(P_CHAR pc, int x, int y, int z)
 	case 5:
 	case 7:
 	case -1:
-		switch(pc->dir()) //crashfix, LB
+		switch(pc->direction()) //crashfix, LB
 		{
 		case 0:
 		case 4:

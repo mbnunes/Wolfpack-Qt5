@@ -42,7 +42,7 @@
 #include "targetrequests.h"
 #include "territories.h"
 #include "tilecache.h"
-
+#include "chars.h"
 #include "wpconsole.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
@@ -63,7 +63,7 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 	if( !socket->player() )
 		return;
 
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	QStringList pArgs = QStringList::split( " ", command, true );
 	
 	// No Command? No Processing
@@ -268,7 +268,7 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	if( !pChar )
 		return;
@@ -466,7 +466,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		else
 		{
 			AccountRecord *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
-			QValueVector<cChar*> characters = account->caracterList();
+			QValueVector<P_PLAYER> characters = account->caracterList();
 			Accounts::instance()->remove( account );
 			UINT32 i = 0;
 			for(; i < characters.size(); ++i )
@@ -589,7 +589,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			else if( key == "chars" )
 			{
 				QStringList sCharList;
-				QValueVector< P_CHAR > pCharList = account->caracterList();
+				QValueVector< P_PLAYER > pCharList = account->caracterList();
 
 				for( UINT32 i = 0; i < pCharList.size(); ++i )
 					if( pCharList[i] )
@@ -1277,7 +1277,7 @@ void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &a
 		return;
 	}
 
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	UINT32 value = args[0].toInt();
 
 	if( pChar )

@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -36,6 +35,7 @@
 #include "uobject.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
+#include "player.h"
 
 #include "debug.h"
 #undef  DBGFILE
@@ -101,7 +101,7 @@ void cConMenu::recreateEvents( void )
 	}
 }
 
-bool cConMenu::onContextEntry( cChar *Caller, cUObject *Target, Q_UINT16 Tag ) const
+bool cConMenu::onContextEntry( cPlayer *Caller, cUObject *Target, Q_UINT16 Tag ) const
 {
 	// If we dont have any events assigned just skip processing
 	if( scriptChain.empty() )

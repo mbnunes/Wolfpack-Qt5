@@ -48,6 +48,9 @@
 #include "tilecache.h"
 #include "multis.h"
 #include "magic.h"
+#include "basechar.h"
+#include "npc.h"
+#include "player.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -373,8 +376,8 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		RegionIterator4Chars iter( pChar->pos() );
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
-			P_CHAR pPet = iter.GetData();
-			if( pPet->isNpc() && ( pPet->ftarg() == pChar->serial() ) )
+			P_NPC pPet = dynamic_cast<P_NPC>(iter.GetData());
+			if( pPet->wanderFollowTarget() == pChar->serial() )
 			{
 				if( pPet->inRange( pItem, 4 ) )
 				{
@@ -424,8 +427,7 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 */
 void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 {
-	cUOSocket *socket = pChar->socket();
-
+	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 //	teleporters( pChar );
 
 	RegionIterator4Items iter( pChar->pos() );
@@ -445,15 +447,15 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 		}
 
 		// If we are a connected player then send new items
-		if( socket )
+		if( player && player->socket() )
 		{
 			UI32 oldDist = oldpos.distance( pItem->pos() );
 			UI32 newDist = pChar->pos().distance( pItem->pos() );
 
 			// Was out of range before and now is in range
-			if( ( oldDist >= pChar->VisRange() ) && ( newDist <= pChar->VisRange() ) )
+			if( ( oldDist >= player->visualRange() ) && ( newDist <= player->visualRange() ) )
 			{
-				pItem->update( socket );
+				pItem->update( player->socket() );
 			}
 		}
 	}
@@ -477,17 +479,17 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		return;
 	}*/
 
-	cUOSocket *socket = pChar->socket();
+	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 
 	// Is the sequence in order ?
-	if( socket && !verifySequence( socket, sequence ) )
+	if( player && player->socket() && !verifySequence( player->socket(), sequence ) )
 		return;
 
 	// If checking for weight is more expensive, shouldn't we check for frozen first?
 	if( pChar->isFrozen() )
 	{
-		if( socket )
-			socket->denyMove( sequence );
+		if( player && player->socket() )
+			player->socket()->denyMove( sequence );
 		return;
 	}
 
@@ -502,22 +504,22 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	dir = dir & 0x7F; // Remove the running flag
 
 	// This happens if we're moving
-	if( dir == pChar->dir() )
+	if( dir == pChar->direction() )
 	{
 		// Note: Do NOT use the copy constructor as it'll create a reference
 		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos() );
 
 		// Check if the stamina parameters
-		if( !consumeStamina( socket, pChar, running ) )
+		if( !consumeStamina( player, running ) )
 		{
-			socket->denyMove( sequence );
+			player->socket()->denyMove( sequence );
 			return;
 		}
 	
 		// Check for Characters in our way
-		if( !checkObstacles( socket, pChar, newCoord, running ) )
+		if( !checkObstacles( pChar, newCoord, running ) )
 		{
-			socket->denyMove( sequence );
+			player->socket()->denyMove( sequence );
 			return;
 		}
 
@@ -527,15 +529,19 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		// It is going to automatically calculate the new coords (!)
 		if( !mayWalk( pChar, newCoord ) )
 		{
-			if( socket )
-				socket->denyMove( sequence );
+			if( player && player->socket() )
+				player->socket()->denyMove( sequence );
 			return;
 		}
         
 		// Check if we're going to collide with characters
-		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord ) )
+		if( !player && CheckForCharacterAtXYZ( pChar, newCoord ) )
 		{
-			pChar->clearPath();
+			P_NPC npc = dynamic_cast<P_NPC>( pChar );
+			if ( npc )
+			{
+				npc->clearPath();
+			}
 			return;
 		}
 
@@ -562,10 +568,10 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 	// do all of the following regardless of whether turning or moving i guess
 	// set the player direction to contain only the cardinal direction bits
-	pChar->setDir(dir);
+	pChar->setDirection(dir);
 	
-	if( socket )
-		socket->allowMove( sequence );
+	if( player && player->socket() )
+		player->socket()->allowMove( sequence );
 
 	RegionIterator4Chars ri( pChar->pos() );
 
@@ -1534,10 +1540,10 @@ Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
   Calculates the amount of Stamina needed for a move of the
   passed character.
 */
-bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
+bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 {
 	// TODO: Stamina loss is disabled for now -- Weight system needs to be rediscussed
-	return true;
+//	return true;
 
 	// Weight percent
 	UINT32 allowedWeight = ( pChar->st() * WEIGHT_PER_STR ) + 30;
@@ -1549,7 +1555,7 @@ bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
 	// 200% load is too much
 	if( load >= 200 )
 	{
-		socket->sysMessage( tr( "You are too overloaded to move." ) );
+		pChar->socket()->sysMessage( tr( "You are too overloaded to move." ) );
 		return false;
 	}
 
@@ -1562,7 +1568,7 @@ bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
 
 	INT32 requiredStamina = (INT32)((double)( (double)overweight * 0.10f ) * (double)pChar->weight());
 	
-	if( pChar->stm() < requiredStamina ) 
+	if( pChar->stamina() < requiredStamina ) 
 	{
 		pChar->talk( tr( "You are too exhausted to move" ) );
 		return false;
@@ -1573,7 +1579,7 @@ bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
   This checks the new tile we're moving to
   for Character we could eventually bump into.
 */
-bool cMovement::checkObstacles( cUOSocket *socket, P_CHAR pChar, const Coord_cl &newPos, bool running )
+bool cMovement::checkObstacles( P_CHAR pChar, const Coord_cl &newPos, bool running )
 {
 	// TODO: insert code here
 	return true;

@@ -32,6 +32,7 @@
 #include "customtags.h"
 #include "wolfpack.h"
 #include "items.h"
+#include "basechar.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "basics.h"
@@ -577,7 +578,7 @@ bool cVariant::canCast( Type t ) const
 		return TRUE;
     if ( t == String && ( d->typ == BaseChar || d->typ == Item || d->typ == Long || d->typ == Int || d->typ == Double ) )
 		return TRUE;
-	if ( t == Char && ( d->typ == BaseChar || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
+	if ( t == BaseChar && ( d->typ == BaseChar || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
 		return TRUE;
 	if ( t == Item && ( d->typ == Item || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
 		return TRUE;

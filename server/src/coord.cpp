@@ -34,6 +34,7 @@
 
 #include "coord.h"
 #include "debug.h"
+#include "player.h"
 #include "network.h"
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"
@@ -132,7 +133,7 @@ void Coord_cl::lightning( UINT8 speed, UINT8 duration, UINT16 hue, UINT16 render
 	cUOSocket *mSock = 0;
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && ( mSock->player()->pos().distance( (*this) ) <= mSock->player()->VisRange() ) )
+		if( mSock->player() && ( mSock->player()->pos().distance( (*this) ) <= mSock->player()->visualRange() ) )
 			mSock->send( &effect );
 	}
 }
@@ -151,7 +152,7 @@ void Coord_cl::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 	cUOSocket *mSock = 0;
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && ( mSock->player()->pos().distance( (*this) ) <= mSock->player()->VisRange() ) )
+		if( mSock->player() && ( mSock->player()->pos().distance( (*this) ) <= mSock->player()->visualRange() ) )
 			mSock->send( &effect );
 	}
 }
