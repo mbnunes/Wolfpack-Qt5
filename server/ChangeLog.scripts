@@ -43,6 +43,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New function: wolfpack.playercount()
 		- New function: wolfpack.npccount()
 		- New function: wolfpack.accounts.count()
+		- New function: wolfpack.socket.address()
 		- Export command updates.
 			Checks for doors and corpses.
 			Doesn't save spawnregion items.
