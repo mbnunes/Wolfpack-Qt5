@@ -1396,12 +1396,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						i=4;
 						while ( (buffer[s][i]!=' ') && (++loopexit < MAXLOOPS) ) i++;
 						buffer[s][i]=0;
-						if(false == Races[pc_currchar->race]->CheckSkillUse(str2num((char*)&buffer[s][4]))) // RACE skill check!
-						{
-							sysmessage(s,"Your race can not use this skill!");
-						}
-						else
-							Skills->SkillUse(s, str2num((char*)&buffer[s][4]));
+						Skills->SkillUse(s, str2num((char*)&buffer[s][4]));
 						break;
 					
 					case 0x56:

@@ -1807,11 +1807,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			// IF TARGET VALID
 			if (pc_defender != NULL)				// we have to have targetted a person to kill them :)
 			{
-				if(true == Races[pc_defender->race]->CheckSpellImune(curSpell))
-				{
-					sysmessage(s,"He seems unaffected by your spell!");
-					return;
-				}
 				if( chardist( pc_defender, pc_currchar ) > SrvParams->attack_distance() )
 				{
 					sysmessage( s, "You can't cast on someone that far away!" );
@@ -1822,7 +1817,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					if( aggressiveSpell( curSpell ) )
 					{
-						if ((pc_defender->isInnocent()) && (pc_defender != pc_currchar)&& !pc_currchar->Owns(pc_defender)&&(!GuildCompare(pc_defender, pc_currchar))&&(!Races.CheckRelation(pc_currchar, pc_defender)) )
+						if ((pc_defender->isInnocent()) && (pc_defender != pc_currchar)&& !pc_currchar->Owns(pc_defender)&&(!GuildCompare(pc_defender, pc_currchar)) )
 						{
 							criminal(pc_currchar);
 						}

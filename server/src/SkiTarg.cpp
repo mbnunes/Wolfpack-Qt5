@@ -1298,7 +1298,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 	
 	j=pc_currchar->skill[DETECTINGHIDDEN];
 	
-	range = (j*j/1.0E6)*Races[pc_currchar->race]->VisRange;	// this seems like an ok formula
+	range = (j*j/1.0E6)*VISRANGE;	// this seems like an ok formula
 	
 	cRegion::RegionIterator4Chars ri(pc_currchar->pos);
 	for (ri.Begin(); !ri.atEnd(); ri++)
@@ -1312,7 +1312,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 				dy=abs(pc->pos.y-y);
 
 				c=hypot(dx, dy);
-				low = (int)(pc->skill[HIDING]*pc->skill[HIDING]/1E3 - (range*50/Races[pc->race]->VisRange)*(range-c)/range);
+				low = (int)(pc->skill[HIDING]*pc->skill[HIDING]/1E3 - (range*50/VISRANGE)*(range-c)/range);
 				if (low<0) low=0;
 				else if (low>1000) low=1000;
 				

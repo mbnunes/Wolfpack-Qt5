@@ -854,11 +854,6 @@ void objTeleporters(P_CHAR pc_s)
 									if (RandomNum(1, 100) <= pmi->morez)
 										soundeffect3(pmi, (pmi->morex << 8) + pmi->morey);
 								}
-
-								if(pmi->type == 88)
-								{
-									Races.SetRace(pc_s,pmi->morex);
-								}
 					}
 				}
 			}

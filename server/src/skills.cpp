@@ -1289,12 +1289,6 @@ void cSkills::AdvanceStats(P_CHAR pc, int sk)
 
 	if(pc->isGM())		// a GM ?
 		isGM=true;
-	if(Races[pc->race]->StrCap<=pc->st)
-		atCap = true;
-	if(Races[pc->race]->IntCap<=pc->in)
-		atCap = true;
-	if(Races[pc->race]->DexCap<=pc->realDex())
-		atCap = true;
 	
 	i=skill[sk].advance_index;
 	int mod = SrvParams->statsAdvanceModifier();

@@ -530,12 +530,12 @@ void checkregion(P_CHAR pc_i)
 		{
 			if (region[pc_i->region].name[0]!=0)
 			{
-				sprintf((char*)temp, "You have left %s, race owner %s.",region[pc_i->region].name, Races[region[pc_i->region].RaceOwner]->RaceName.c_str());
+				sprintf((char*)temp, "You have left %s.",region[pc_i->region].name);
 				sysmessage(s, 0x37, (char*)temp);
 			}
 			if (region[calcreg].name[0]!=0)
 			{
-				sprintf((char*)temp, "You have entered %s,race owner %s.",region[calcreg].name, Races[region[calcreg].RaceOwner]->RaceName.c_str());
+				sprintf((char*)temp, "You have entered %s.",region[calcreg].name);
 				sysmessage(s, 0x37, (char*)temp);
 			}
 			j=strcmp(region[calcreg].guardowner, region[pc_i->region].guardowner);

@@ -1350,13 +1350,12 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 	talk[8]=1;
 	talk[9]=6; // Mode: "You see"
 	guild = GuildCompare(currchar[s], pc);
-	race = Races.CheckRelation(pc, pc_currchar);
-	if (guild == 1 || race == 1) //Same guild (Green)
+	if (guild == 1) //Same guild (Green)
 	{
 		talk[10]=0x00;
 		talk[11]=0x43;
 	}
-	else if (guild==2 || race == 2) //enemy (Orange)
+	else if (guild==2) //enemy (Orange)
 	{
 		talk[10]=0x00;
 		talk[11]=0x30;
@@ -1451,7 +1450,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 							impowncreate(k, mapchar, 1);
 						}
 					} else if (mapitem != NULL) {
-						if(iteminrange(k, mapitem,Races[pc->race]->VisRange))
+						if(iteminrange(k, mapitem,VISRANGE))
 						{
 							senditem(k, mapitem);
 						}
@@ -2603,11 +2602,7 @@ void dolight(int s, char level)
 	P_CHAR pc_currchar = currchar[s];
 
 	light[1]=level;
-	if(Races[pc_currchar->race]->NightSight)
-	{
-		light[1]=pc_currchar->fixedlight;
-		Xsend(s, light, 2);
-	}
+	
 	if (worldfixedlevel!=255)
 	{
 		light[1]=worldfixedlevel;
@@ -2726,10 +2721,9 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	k=19;
 	int guild,race;
 	guild = GuildCompare( currchar[s], pc );
-	race = Races.CheckRelation(pc_currchar, pc);
-	if (guild == 1 || race == 1)//Same guild (Green)
+	if (guild == 1)//Same guild (Green)
 		oc[18]=2;
-	else if (guild==2 || race == 2) // Enemy guild.. set to orange
+	else if (guild==2) // Enemy guild.. set to orange
 		oc[18]=5;
 	else
 		switch(pc->flag)

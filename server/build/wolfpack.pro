@@ -73,7 +73,6 @@ HEADERS         = Client.h \
                   pfactory.h \
 		  platform.h \
 		  prototypes.h \
-                  races.h \
                   rcvpkg.h \
 		  regions.h \
 		  remadmin.h \
@@ -157,7 +156,6 @@ SOURCES         = Client.cpp \
                   pfactory.cpp \
 		  pointer.cpp \
 		  qsf.cpp \
-                  races.cpp \
                   rcvpkg.cpp \
 		  regions.cpp \
 		  remadmin.cpp \

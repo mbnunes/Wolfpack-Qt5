@@ -212,7 +212,7 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 {
 	
 	P_CHAR pc_currchar = currchar[s];
-	int vr=Races[pc_currchar->race]->VisRange;
+	int vr=VISRANGE;
 	if (pi == NULL) // blackwind Crash fix
 		return 0;
 
@@ -683,11 +683,11 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 			strcpy((char*)temp,tempstr);
 			if (pc->title.size()>0)
 			{//Titled & Skill
-				sprintf(tempstr, "%s %s %s, %s %s", temp, Races[pc->race]->RaceName.c_str(), pc->title.c_str(), title1(pc), title2(pc));
+				sprintf(tempstr, "%s %s, %s %s", temp, pc->title.c_str(), title1(pc), title2(pc));
 			}
 			else
 			{//Just skilled
-				sprintf(tempstr, "%s %s, %s %s", Races[pc->race]->RaceName.c_str(), temp, title1(pc), title2(pc));
+				sprintf(tempstr, "%s, %s %s", temp, title1(pc), title2(pc));
 			}
 		}
 	}
@@ -1055,7 +1055,7 @@ void deathstuff(P_CHAR pc_player)
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
-					if(pc_player->isInnocent() && (Races.CheckRelation(pc_t,pc_player)==1) && GuildCompare( pc_t, pc_player ) == 0 && pc_t->attackfirst == 1)
+					if(pc_player->isInnocent() && GuildCompare( pc_t, pc_player ) == 0 && pc_t->attackfirst == 1)
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
@@ -3056,9 +3056,6 @@ int main(int argc, char *argv[])
 
 	item_char_test(); //LB
 	//Guilds->CheckConsistancy(); // LB
-	clConsole.send("Loading Races!\n");
-	Races.LoadRaceFile();
-	clConsole.send("Races Loaded!\n");
 	//Weather->run() ;
 	//Network->InitConnThread();
 

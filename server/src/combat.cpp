@@ -886,7 +886,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 				
 				if ((pc_attacker->isPlayer())&&(pc_defender->isPlayer()))//Player vs Player
 				{
-					if(pc_defender->isInnocent() && GuildCompare(pc_attacker, pc_defender )==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
+					if(pc_defender->isInnocent() && GuildCompare(pc_attacker, pc_defender )==0 )
 					{
 						++pc_attacker->kills;
 						UOXSOCKET attacker_socket = calcSocketFromChar(pc_attacker);
@@ -954,9 +954,6 @@ int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
 		}
 	}
 	if (total<1) total=1;
-	unsigned short fightskill = Skills->GetCombatSkill(pc_p);
-	if(fightskill==Races[pc_p->race]->BestFightSkill)
-		total+=5;
 	return total;
 }
 

@@ -996,11 +996,10 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, int dir, short int 
 			int guild, race;
 			//chars[i].flag=0x04;       // everyone should be blue on default
 			guild = GuildCompare( pc, us );
-			race = Races.CheckRelation(pc,us);
 			if( us->kills > SrvParams->maxkills() ) extmove[16]=6;
-			else if (guild==1 || race==1)//Same guild (Green)
+			else if (guild==1)//Same guild (Green)
 				extmove[16]=2;
-			else if (guild==2 || race==2) // Enemy guild.. set to orange
+			else if (guild==2) // Enemy guild.. set to orange
 				extmove[16]=5;
 			else
 			{
@@ -1118,8 +1117,9 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 	if (socket!=INVALID_UOXSOCKET)
 	{
 		// lets cache these vars in advance
-		const int visibleRange = Races[pc->race]->VisRange; //Races->getVisRange( pc->race );
 
+
+        const int visibleRange = VISRANGE;
 		const int newx=pc->pos.x;
 		const int newy=pc->pos.y;
 
@@ -1203,7 +1203,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 		return;
 
 	// lets cache these vars in advance
-	const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
+	const int visibleRange = VISRANGE;
 	const short int newx = pc->pos.x;
 	const short int newy = pc->pos.y;
 	const short int oldx = GetXfromDir(pc->dir + 4, newx);
@@ -1447,13 +1447,12 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             if (pc->hidden) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
             const int guild = GuildCompare( pc, currchar[i] );
-            const int race = Races.CheckRelation(pc,pc_check);
             if (pc->kills > SrvParams->maxkills() ) extmove[16]=6; // ripper
             //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
             //chars[i].flag=0x04;       // everyone should be blue on default
-            else if (guild==1  || race==1)//Same guild (Green)
+            else if (guild==1)//Same guild (Green)
                 extmove[16]=2;
-            else if (guild==2 || race==2) // Enemy guild.. set to orange
+            else if (guild==2) // Enemy guild.. set to orange
                 extmove[16]=5;
             //                  else if( !chars[i].npc && ( chars[i].priv&1 || chars[i].priv&80 ) )
             //                          extmove[16] = 7;
