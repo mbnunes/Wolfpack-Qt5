@@ -110,7 +110,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 									*/
 			pTalker->socket()->attachTarget( new cStableTarget( m_npc ) );
 		}
-		else if ( message.contains( " RELEASE" ) )
+		else if ( message.contains( " CLAIM" ) )
 		{
 			P_ITEM pPack = m_npc->getBankbox();
 			
