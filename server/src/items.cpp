@@ -131,7 +131,7 @@ cItem::cItem( cItem &src )
 	this->disabledmsg = src.disabledmsg;
 	this->tuses=src.tuses;
 	this->poisoned=src.poisoned;
-	this->murderer=src.murderer;
+	this->murderer_ = src.murderer_;
  	this->murdertime=src.murdertime;
     this->glow=src.glow;
     this->glow_effect=src.glow_effect;

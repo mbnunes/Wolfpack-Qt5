@@ -52,6 +52,7 @@ protected:
 	QString name_;
 	SI08 layer_;
 	UI08 itemhand_;
+	QString murderer_;
 
 public:
 	// Getters
@@ -63,6 +64,7 @@ public:
 	const QString	&name()		const { return name_; };
 	UI08			layer()		const { return layer_; }; // Layer if equipped on paperdoll
 	UI08			itemhand()	const { return itemhand_; };
+	const QString	&murderer() const { return murderer_; }; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -73,6 +75,7 @@ public:
 	void	setName( const QString nValue ) { name_ = nValue; };
 	void	setLayer( SI08 nValue ) { layer_ = nValue; };
 	void	setItemhand( UI08 nValue ) { itemhand_ = nValue; };
+	void	setMurderer( const QString nValue ) { murderer_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -149,7 +152,6 @@ public:
 	string disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
 	int tuses;    //Number of uses for trigger
 	unsigned int poisoned; //AntiChrist -- for poisoning skill
-	string murderer; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
 	long int murdertime; //AntiChrist -- for corpse -- when the people has been killed
 	int rank; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
 	// for example: RANK 5 ---> 5*10=50% of malus

@@ -1114,7 +1114,7 @@ void deathstuff(P_CHAR pc_player)
 	}
 
 	//AntiChrist -- stores the time and the murderer's name
-	pi_c->murderer = murderername;
+	pi_c->setMurderer( murderername );
 	pi_c->murdertime = uiCurrentTime;
 	// Put objects on corpse
 

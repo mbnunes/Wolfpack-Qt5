@@ -2381,7 +2381,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	
 	if(pc_currchar->isGM())
 	{
-		sysmessage(s, tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg(pi->murderer.c_str()) );
+		sysmessage(s, tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg( pi->murderer() ) );
 	}
 	else
 	{
@@ -2391,9 +2391,12 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2, tr("many") );
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2, tr("many many"));
 			sysmessage(s, tr("The %1 is %2 seconds old.").arg(pi->name()).arg(temp2) );
-			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer.empty()) sysmessage(s,tr("You can't say who was the killer.") ); else
+			
+			if ( !Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer() == "" ) 
+				sysmessage(s, tr("You can't say who was the killer.") ); 
+			else
 			{
-				sysmessage(s, tr("The killer was %1.").arg(pi->murderer.c_str()) );
+				sysmessage(s, tr("The killer was %1.").arg( pi->murderer() ) );
 			}
 		}
 	}
