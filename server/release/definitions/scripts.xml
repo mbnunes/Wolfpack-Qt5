@@ -48,6 +48,10 @@
 	<script>wolfpack.magic</script>
 	<script>runebook</script>
 
+	<!-- Multis -->
+	<script>multideed</script>
+	<script>signpost</script>
+	
 	<!-- Moongate -->
 	<script>moongate</script>
 
