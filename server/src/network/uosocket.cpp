@@ -1138,6 +1138,10 @@ void cUOSocket::resendPlayer( bool quick )
 	resume.resume();
 	send( &resume );
 
+	// Start the game!
+	cUOTxStartGame startGame;
+	send( &startGame );
+
 	// Reset the walking sequence
 	_walkSequence = 0xFF;
 }

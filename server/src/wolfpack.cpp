@@ -1107,6 +1107,7 @@ int main( int argc, char *argv[] )
 #if defined(_DEBUG)
 //	InstallCrashHandler( HANDLE_HTTPREPORT, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
 //	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
+//	SetVersion(wp_version.verstring.c_str());
 #endif
 
 	QApplication app( argc, argv, false ); // we need one instance
