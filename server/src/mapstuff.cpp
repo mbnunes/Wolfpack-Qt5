@@ -677,7 +677,7 @@ void cMapStuff::SeekTile(int tilenum, tile_st *tile)
 	{
 
 		tile_st* temp = TileCache->find(tilenum);
-		if ( tile_st )
+		if ( temp )
 		{
 			*tile = *temp;
 			return; // found, just return
