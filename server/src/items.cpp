@@ -2053,7 +2053,7 @@ void cItem::update( cUOSocket *mSock )
 				if( isAllMovable() )
 					sockSendItem.setFlags( 0x20 );
 				else if( pChar->account()->isAllMove() )
-					sendItem->setFlags( 0x20 );
+					sockSendItem.setFlags( 0x20 );
 				else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
 					sockSendItem.setFlags( 0x20 );
 	
