@@ -3348,7 +3348,7 @@ double cBaseChar::getManaRate()
 	// Grant a bonus for the char if present
 	if ( hasTag( "regenmana" ) )
 	{
-		points = getTag( "regenmana" ).toInt();
+		points += getTag( "regenmana" ).toInt();
 	}
 
 	return 1.0 / ( 0.1 * points );
