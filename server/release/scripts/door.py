@@ -61,7 +61,7 @@ doors = [
 			[ 0x6bD, 0x6bE, 1, 1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
 			[ 0x6bF, 0x6c0, 1, -1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
 			[ 0x6c1, 0x6c2, 0, 0, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
-			[ 0x6c3, 0x6c4, 0, -1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],		
+			[ 0x6c3, 0x6c4, 0, -1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
 			
 			[ 0x6c5, 0x6c6, -1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
 			[ 0x6c7, 0x6c8, 1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
@@ -98,7 +98,7 @@ doors = [
 			[ 0x82c, 0x82d, 1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
 			[ 0x82e, 0x82f, 1, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
 			[ 0x830, 0x831, 0, 0, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x832, 0x833, 0, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],			
+			[ 0x832, 0x833, 0, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
 			
 			# Wooden Gate 1
 			[ 0x839, 0x83a, -1, 1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
@@ -128,7 +128,7 @@ doors = [
 			[ 0x86e, 0x86f, 1, 1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
 			[ 0x870, 0x871, 1, -1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
 			[ 0x872, 0x873, 0, 0, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
-			[ 0x874, 0x875, 0, -1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],	
+			[ 0x874, 0x875, 0, -1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
 			
 			# Barred Metal Door
 			[ 0x1fed, 0x1fee, -1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
@@ -148,7 +148,7 @@ doors = [
 			[ 0xF0, 0xF1, 1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0xF2, 0xF3, 1, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0xF4, 0xF5, 0, 0, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
-			[ 0xF6, 0xF7, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],			
+			[ 0xF6, 0xF7, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			
 			[ 0x314, 0x315, -1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x316, 0x317, 1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
@@ -166,7 +166,7 @@ doors = [
 			[ 0x32C, 0x32D, 1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x32E, 0x32F, 1, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x330, 0x331, 0, 0, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
-			[ 0x332, 0x333, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],			
+			[ 0x332, 0x333, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			
 			[ 0x334, 0x335, -1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x336, 0x337, 1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
@@ -184,7 +184,7 @@ doors = [
 			[ 0x34C, 0x34D, 1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x34E, 0x34F, 1, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x350, 0x351, 0, 0, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
-			[ 0x352, 0x353, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],			
+			[ 0x352, 0x353, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			
 			[ 0x354, 0x355, -1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x356, 0x357, 1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
@@ -193,7 +193,7 @@ doors = [
 			[ 0x35C, 0x35D, 1, 1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x35E, 0x35F, 1, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 			[ 0x360, 0x361, 0, 0, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
-			[ 0x362, 0x363, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],			
+			[ 0x362, 0x363, 0, -1, SOUND_OPENSECRET, SOUND_CLOSESECRET ],
 		]
 		
 def searchkey( container, lock ):
@@ -234,10 +234,8 @@ def opendoor( char, item ):
 			
 			if not item.hastag('opened'):
 				item.settag( 'opened', 'true' )
-			else:
-				item.deltag( 'opened' )
 			
-			# Add an autoclose tempeffect			
+			# Add an autoclose tempeffect
 			item.addtimer( CLOSEDOOR_DELAY, "door.autoclose", [ opencount ], 1 )
 			
 			# Refresh a House if we opened it
@@ -256,8 +254,9 @@ def opendoor( char, item ):
 			# Change the door id and update the clients around it
 			item.id = door[0]
 			item.moveto( pos.x - door[2], pos.y - door[3] )
+			if item.hastag('opened'):
+				item.deltag( 'opened' )
 			item.update()
-			
 			# Soundeffect (close)			
 			char.soundeffect( door[5] )
 
@@ -274,13 +273,8 @@ def autoclose( item, args ):
 	
 	# We are not supposed to close this door
 	if opencount != args[0]:
-		return
-
-	item.deltag( 'opencount' )
+		return 
 	
-	if item.hastag( 'opened' ):
-		item.deltag( 'opened' )
-		
 	# Find the door definition for this item	
 	for door in doors:
 		if door[1] == item.id:
@@ -289,6 +283,8 @@ def autoclose( item, args ):
 			# Change the door id and update the clients around it
 			item.id = door[0]
 			item.moveto( pos.x - door[2], pos.y - door[3] )
+			if item.hastag( 'opened' ):
+				item.deltag( 'opened' )
 			item.update()
 			
 			# Soundeffect (close)			
@@ -299,9 +295,11 @@ def onUse( char, item ):
 	# Using doors doesnt count against the object-delay
 	char.objectdelay = 0
 
-	if item.hastag('link') and not item.gettag('opened'):
+	# Do we have a linked door, is this door not open?
+	if item.hastag('link') and not item.hastag('opened'):
 		doubledoor = wolfpack.finditem( hex2dec(item.gettag('link')) )
-		if not doubledoor.gettag('opened'):
+		# Double check to make sure either door isn't open.
+		if not item.hastag('opened') and not doubledoor.hastag('opened'):
 			opendoor( char, doubledoor )
 	
 	# In Range?
