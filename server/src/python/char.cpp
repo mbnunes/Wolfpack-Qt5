@@ -2527,6 +2527,30 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 }
 
 /*
+	\method char.walk
+	\description Forces a npc to walk into the given direction. Please note that this should not be called
+	for player characters although it will not be blocked.
+	\param direction The direction the npc should walk to. The 8th bit from the right indicates that the npc
+	should run. (0x80).
+	\return Returns True if the movement was successful.
+*/
+static PyObject* wpChar_walk( wpChar* self, PyObject* args )
+{
+	unsigned char direction;
+
+	if ( !PyArg_ParseTuple( args, "b:char.walk(direction)", &direction) )
+	{
+		return 0;
+	}
+
+	if (Movement::instance()->Walking(self->pChar, direction, 0xFF)) {
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}
+}
+
+/*
 	\method char.getopponents
 	\description This method returns a list of characters this character is fighting with.
 	\return A list of char objects.
@@ -2633,6 +2657,7 @@ static PyMethodDef wpCharMethods[] =
 { "addfollower",	( getattrofunc ) wpChar_addfollower,		METH_VARARGS, "Adds a follower to the user." },
 { "removefollower",	( getattrofunc ) wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
 { "hasfollower",	( getattrofunc ) wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
+
 { "reveal", ( getattrofunc ) wpChar_reveal, METH_VARARGS, 0 },
 { "showname", ( getattrofunc ) wpChar_showname, METH_VARARGS, 0 },
 
@@ -2641,6 +2666,8 @@ static PyMethodDef wpCharMethods[] =
 { "settag",			( getattrofunc ) wpChar_settag,			METH_VARARGS, "Sets a tag assigned to a specific char." },
 { "hastag",			( getattrofunc ) wpChar_hastag,			METH_VARARGS, "Checks if a certain char has the specified tag." },
 { "deltag",			( getattrofunc ) wpChar_deltag,			METH_VARARGS, "Deletes the specified tag." },
+
+{ "walk",			( getattrofunc ) wpChar_walk,			METH_VARARGS, 0 },
 
 // Reputation System
 { "iscriminal",		( getattrofunc ) wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
