@@ -29,6 +29,13 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+
+/*
+BE AWARE, the cAllSpawnRegion object is a hybrid of cAllBaseObject and std::map !
+I. make sure you establish the recursive structure of the topregion/subregions
+and
+II. make sure to hold the map up to date !
+*/
 #include "spawnregions.h"
 #include "wpdefmanager.h"
 #include "globals.h"
@@ -181,6 +188,14 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 			this->z_.push_back( 255 );
 	}
 	
+	else if( TagName == "region" )
+	{
+		cSpawnRegion* toinsert_ = new cSpawnRegion( Tag );
+		this->subregions_.push_back( toinsert_ );
+		pair< QString, cSpawnRegion* > toInsert( Tag.attribute( "id" ), toinsert_ );
+		cAllSpawnRegions::getInstance()->insert( toInsert );
+	}
+
 	else
 		cBaseRegion::processNode( Tag );
 }
@@ -442,7 +457,9 @@ cSpawnRegion*	cAllSpawnRegions::region( QString regName )
 
 cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy )
 {
-	return dynamic_cast< cSpawnRegion* >(this->topregion_->region( posx, posy ));
+	if( this->topregion_ != NULL )
+		return dynamic_cast< cSpawnRegion* >(this->topregion_->region( posx, posy ));
+	return NULL;
 }
 
 // Singleton

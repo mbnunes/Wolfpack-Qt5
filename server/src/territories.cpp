@@ -233,8 +233,16 @@ void cAllTerritories::load( void )
 	QStringList DefSections = DefManager->getSections( WPDT_REGION );
 	clConsole.PrepareProgress( "Loading regions..." );
 
+	if( DefSections.size() == 0 )
+	{
+		clConsole.ProgressFail();
+		clConsole.error( "no regions defined! you need one region at last!" );
+		error = 1;
+		return;
+	}
+	
 	QStringList::iterator it = DefSections.begin();
-	while( it != DefSections.end() && this->topregion_ == NULL )
+	while( it != DefSections.end() )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
 		this->topregion_ = new cTerritory( *DefSection );

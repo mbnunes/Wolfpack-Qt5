@@ -97,7 +97,9 @@ public:
 			std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
 			while( it != this->subregions_.end() )
 			{
-				cBaseRegion* currRegion = (*it)->region( regName );
+				cBaseRegion* currRegion = NULL;
+				if( *it != NULL )
+					currRegion = (*it)->region( regName );
 				if( currRegion != NULL )
 					return currRegion;
 				it++;
@@ -117,7 +119,9 @@ public:
 		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
 		while( it != this->subregions_.end() )
 		{
-			cBaseRegion* currRegion = (*it)->region( posx, posy );
+			cBaseRegion* currRegion = NULL;
+			if( *it != NULL )
+				currRegion = (*it)->region( posx, posy );
 			if( currRegion != NULL )
 				foundRegion = currRegion;
 			it++;
@@ -131,7 +135,8 @@ public:
 		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
 		while( it != this->subregions_.end() )
 		{
-			result += (*it)->count();
+			if( *it != NULL )
+				result += (*it)->count();
 			it++;
 		}
 		return result;
