@@ -1656,6 +1656,7 @@ cBaseChar::FightStatus cPlayer::fight( P_CHAR enemy )
 			if ( fight && fight->attacker() == this && !fight->legitimate() )
 			{
 				makeCriminal();
+				log(LOG_TRACE, tr("Started fight with character %1 (0x%2).\n").arg(enemy->orgName()).arg(enemy->serial(), 0, 16));
 			}
 		}
 
