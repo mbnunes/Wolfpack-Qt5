@@ -16,7 +16,7 @@
 		<shopkeeper>
 			<restockable>
 				<item id="e21">
-					<amount>10</amount>
+					<amount>200</amount>
 				</item>
 				<item id="f07">
 					<amount>10</amount>
