@@ -16,6 +16,25 @@ import os
 import posixpath
 import urllib
 import sys
+import socket
+import cStringIO
+import traceback
+
+# Just override handle_error for nicer error handling
+class Webserver( HTTPServer ):
+    def handle_error(self, request, client_address):
+		# Ignore Socket Errors
+		if sys.exc_type == socket.error:
+			dummy = cStringIO.StringIO()
+			traceback.print_exc( None, dummy )
+			dummy.close()
+			return
+
+		print  '-'*40
+		print  'Exception happened during processing of request from ' + str( client_address )
+		
+		traceback.print_exc() # XXX But this goes to stderr!
+		print '-'*40
 
 # Custom Request Handler
 class WebserverHandler( CGIHTTPRequestHandler ):
@@ -78,10 +97,28 @@ class WebserverThread(Thread):
 
 	def run( self ):
 		server_address = ('', self.port)
-		httpd = HTTPServer( server_address, WebserverHandler )
+		httpd = Webserver( server_address, WebserverHandler )
 
 		while not self.finished.isSet():
+#			stderr = sys.stderr # Change default stderr
+#			sys.stderr = cStringIO.StringIO()
+
+#			try:
 			httpd.handle_request()
+
+			# Ignore errors
+#			except:
+#				pass
+
+			# Exceptions or Errors?
+#			errors = sys.stderr.getvalue()
+
+#			if len( errors ) > 0:
+#				print "ERRORS OCCURED: '%s'" % errors
+
+#			sys.stderr.close()
+#			sys.stderr = stderr
+			
 
 		httpd.server_close()
 
