@@ -16,12 +16,24 @@
 	\description Change the skills of a character.
 """
 
+"""
+	\command allskills
+	\description Sets all skills of your character.
+	\usage - <code>allskills [value]</code>
+	Value is the value all skills should be set to. It's multiplied by 10 (100.0% = 1000).
+"""
+
 import wolfpack
 import string
-from wolfpack.consts import YELLOW, NORMAL
+from wolfpack.consts import YELLOW, NORMAL, skillnamesids, SKILLNAMES
 
 usage =   'Usage: skill <skill-name> <value*10>'
 example = 'Example: skill mining 1000'
+
+
+def onLoad():
+	wolfpack.registercommand( "skill", skill )
+	wolfpack.registercommand( "allskills", allskills )
 
 def skill( socket, command, args ):
 	args = args.strip()   # Remove trailing and leading whitespaces
@@ -63,23 +75,29 @@ def callback( char, args, target ):
 		socket.clilocmessage( 500931, "", YELLOW, NORMAL ) # Invalid mobile
 		return True
 
-	# Is target not your own char ?
-	if not ( char == target.char ):
-	    if target.char.rank >= char.rank:
-		socket.clilocmessage( 1005213, "", YELLOW, NORMAL ) # You can't do that
-		return True
-
 	# check for rank
-	#if target.char.rank >= char.rank and not char == target.char:
-	#	socket.sysmessage( "You are not very skilled, are you?" )
-	#	return True
-
+	if target.char.rank > char.rank and not char == target.char:
+		socket.clilocmessage( 1005213, "", YELLOW, NORMAL ) # You can't do that
+		return False
 
 	( skill, value ) = args
-
 	target.char.skill[ skillnamesids[ skill.lower() ] ] = value
 
 	return True
 
-def onLoad():
-	wolfpack.registercommand( "skill", skill )
+def allskills( socket, command, args ):
+	args = args.strip()   # Remove trailing and leading whitespaces
+	char = socket.player
+	try:
+		if len( args ) > 0:
+			value = int( args )
+			for skillid in range( 0, 52 ):
+				char.skill[ skillid ] = value
+			char.update()
+			return True
+		else:
+			socket.sysmessage( "Usage: allskills [value]" )
+			return False
+	except:
+		socket.sysmessage( "Usage: allskills [value]" )
+		return False

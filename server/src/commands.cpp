@@ -251,18 +251,6 @@ void commandSet( cUOSocket* socket, const QString& command, const QStringList& a
 }
 
 /*
-	\command remove
-	\description Delete an item or character.
-*/
-void commandRemove( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( socket );
-	Q_UNUSED( command );
-	Q_UNUSED( args );
-	socket->attachTarget( new cRemoveTarget );
-}
-
-/*
 	\command save
 	\description Forces the world to be saved.
 */
@@ -578,46 +566,6 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 }
 
 /*
-	\command move
-	\description Move an object relatively to its current position.
-	\usage - <code>move [x]</code>
-	- <code>move [x],[y]</code>
-	- <code>move [x],[y],[z]</code>
-	X, y and z are the offsets the object should be moved by.
-*/
-void commandMove( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	if ( args.size() < 1 )
-	{
-		socket->sysMessage( "Usage: move <x,y,z>" );
-		return;
-	}
-
-	// Our first argument should be the relative position
-	QStringList relPos = QStringList::split( ",", args[0] );
-
-	if ( relPos.count() < 1 )
-	{
-		socket->sysMessage( "Usage: move <x,y,z>" );
-		return;
-	}
-
-	if ( relPos.count() < 2 )
-		relPos.push_back( "0" );
-
-	if ( relPos.count() < 3 )
-		relPos.push_back( "0" );
-
-	INT16 x = relPos[0].toInt();
-	INT16 y = relPos[1].toInt();
-	INT16 z = relPos[2].toInt();
-
-	socket->sysMessage( tr( "Please select a target to 'move %1,%2,%3'." ).arg( x ).arg( y ).arg( z ) );
-	socket->attachTarget( new cMoveTarget( x, y, z ) );
-}
-
-/*
 	\command allshow
 	\description Toggles the allshow flag of your account.
 	\notes The allshow flag determines whether you can see logged out characters.
@@ -680,37 +628,6 @@ void commandRestock( cUOSocket* socket, const QString& command, const QStringLis
 	Q_UNUSED( command );
 	socket->sysMessage( tr( "Please select the vendor you want to restock." ) );
 	socket->attachTarget( new cRestockTarget );
-}
-
-/*
-	\command allskills
-	\description Sets all skills of your character.
-	\usage - <code>allskills [value]</code>
-	Value is the value all skills should be set to. It's multiplied by 10 (100.0% = 1000).
-*/
-void commandAllSkills( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	if ( args.count() < 1 )
-	{
-		socket->sysMessage( tr( "Usage: allskills <value>" ) );
-		return;
-	}
-
-	P_PLAYER pChar = socket->player();
-	UINT32 value = args[0].toInt();
-
-	if ( pChar )
-	{
-		for ( int i = 0; i < ALLSKILLS; ++i )
-		{
-			pChar->setSkillValue( i, value );
-
-
-			if ( pChar->socket() )
-				pChar->socket()->sendSkill( i );
-		}
-	}
 }
 
 /*
@@ -1011,15 +928,12 @@ stCommand cCommands::commands[] =
 {
 	{ "ALLMOVE", commandAllMove },
 	{ "ALLSHOW", commandAllShow },
-	{ "ALLSKILLS", commandAllSkills },
 	{ "BROADCAST", commandBroadcast },
 	{ "DOORGEN", commandDoorGenerator },
 	{ "GMTALK", commandGmtalk },
-	{ "MOVE", commandMove },
 	{ "PAGES", commandPages },
 	{ "PAGENOTIFY", commandPageNotify },
 	{ "RELOAD", commandReload },
-	{ "REMOVE", commandRemove },
 	{ "RESTOCK", commandRestock },
 	{ "SAVE", commandSave },
 	{ "SERVERTIME", commandServerTime },
