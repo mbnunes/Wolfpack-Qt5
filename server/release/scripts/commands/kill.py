@@ -11,6 +11,7 @@
 """
 
 import wolfpack
+from wolfpack.consts import LOG_MESSAGE
 
 def onLoad():
 	wolfpack.registercommand( "kill", commandKill )
@@ -28,5 +29,6 @@ def dokill( char, args, target ):
 			return False
 		else:
 			target.char.lightning()
+			char.log( LOG_MESSAGE, "Used kill on 0x%x.\n" % target.char.serial )
 			target.char.kill()
 			return True

@@ -20,8 +20,7 @@
 """
 
 import wolfpack
-from wolfpack.consts import *
-from wolfpack.utilities import *
+from wolfpack.consts import LOG_MESSAGE
 
 def onLoad():
 	wolfpack.registercommand( "restore", restore )
@@ -42,6 +41,7 @@ def dorestore( char, args, target ):
 		target.char.stamina = int( target.char.maxstamina )
 		target.char.mana = int( target.char.maxmana )
 		target.char.updatestats()
+		char.log( LOG_MESSAGE, "Restored 0x%x.\n" % target.char.serial )
 
 def heal( socket, command, arguments ):
 	try:
@@ -56,3 +56,4 @@ def doheal( char, args, target ):
 	elif target.char:
 		target.char.hitpoints = int( target.char.maxhitpoints )
 		target.char.updatestats()
+		char.log( LOG_MESSAGE, "Healed 0x%x.\n" % target.char.serial )

@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack.consts import *
+from wolfpack.consts import LOG_MESSAGE, EVENT_USE
 
 def addevent_response(player, arguments, target):
 	event = arguments[0]
@@ -12,12 +12,12 @@ def addevent_response(player, arguments, target):
 		if target.char.rank >= player.rank and player != target.char:
 			player.socket.sysmessage("You've burnt your fingers!")
 			return
-	
+
 		object = target.char
 	else:
 		player.socket.sysmessage('You have to target a character or item.')
 		return
-		
+
 	player.log(LOG_MESSAGE, "Adds event '%s' to object 0x%x.\n" % (event, object.serial))
 	object.addevent(event)
 	object.resendtooltip()
@@ -33,10 +33,10 @@ def commandAddevent(socket, command, arguments):
 	if len(arguments) == 0:
 		socket.sysmessage('Usage: addevent <identifier>')
 		return
-		
+
 	event = arguments.strip()
-		
-	try:	
+
+	try:
 		wolfpack.hasevent(event, EVENT_USE)
 	except:
 		socket.sysmessage('No such event: %s.' % event)
@@ -44,7 +44,7 @@ def commandAddevent(socket, command, arguments):
 
 	socket.sysmessage("Please select the object you want to add the event '%s' to." % event)
 	socket.attachtarget('commands.events.addevent_response', [event])
-	
+
 def removeevent_response(player, arguments, target):
 	event = arguments[0]
 	object = None
@@ -55,12 +55,12 @@ def removeevent_response(player, arguments, target):
 		if target.char.rank >= player.rank and player != target.char:
 			player.socket.sysmessage("You've burnt your fingers!")
 			return
-	
+
 		object = target.char
 	else:
 		player.socket.sysmessage('You have to target a character or item.')
 		return
-		
+
 	if object.hasevent(event):
 		player.log(LOG_MESSAGE, "Removes event '%s' from object 0x%x.\n" % (event, object.serial))
 		object.removeevent(event)
@@ -79,9 +79,9 @@ def commandRemoveevent(socket, command, arguments):
 	if len(arguments) == 0:
 		socket.sysmessage('Usage: removeevent <identifier>')
 		return
-		
+
 	event = arguments.strip()
-		
+
 	try:
 		wolfpack.hasevent(event, EVENT_USE)
 	except:

@@ -18,7 +18,7 @@
 
 import wolfpack
 import string
-from wolfpack.consts import *
+from wolfpack.consts import YELLOW, NORMAL
 
 usage =   'Usage: skill <skill-name> <value*10>'
 example = 'Example: skill mining 1000'

@@ -13,7 +13,6 @@
 
 import wolfpack
 import wolfpack.accounts
-from wolfpack.consts import *
 from wolfpack.gumps import *
 from wolfpack.time import *
 from wolfpack.sockets import *

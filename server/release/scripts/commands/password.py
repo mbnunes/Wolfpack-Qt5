@@ -9,7 +9,7 @@
 import wolfpack
 import wolfpack.accounts
 import string
-from wolfpack.consts import *
+from wolfpack.consts import LOG_MESSAGE
 
 # Loads the command
 def onLoad():

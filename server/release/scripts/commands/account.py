@@ -48,6 +48,7 @@ import wolfpack.accounts
 import wolfpack.settings
 import string
 from wolfpack.utilities import hex2dec
+from wolfpack.consts import LOG_MESSAGE
 
 usage0 = "Account Command Usage:"
 usage1 = "- account create username password"
@@ -84,12 +85,12 @@ def commandAccount( socket, cmd, args ):
 				action = action.lower()
 				# Reload Accounts
 				if action == 'reload':
-					char.log( LOG_MESSAGE, "0x%x reloaded accounts.\n" % char.serial )
+					char.log( LOG_MESSAGE, "Reloaded accounts.\n" % char.serial )
 					wolfpack.accounts.reload()
 					return True
 				# Save Accounts
 				elif action == 'save':
-					char.log( LOG_MESSAGE, "0x%x saved accounts.\n" % char.serial )
+					char.log( LOG_MESSAGE, "Saved accounts.\n" % char.serial )
 					wolfpack.accounts.save()
 					return True
 				else:
@@ -168,8 +169,8 @@ def accountRemove( socket, username ):
 				return False
 			else:
 				account.delete()
-				socket.sysmessage( "Success: Account %s removed!" % username )
-				char.log( LOG_MESSAGE, "0x%x removed account: %s\n" % ( char.serial, username ) )
+				socket.sysmessage( "Success: Account %s removed!" % account.name )
+				char.log( LOG_MESSAGE, "Removed account: %s\n" % account.name )
 				return True
 		# Failure
 		else:
@@ -197,14 +198,14 @@ def accountCreate( socket, username, password ):
 	# Check if the account exists
 	else:
 		if account:
-			socket.sysmessage( "Error: Account %s exists!" % username )
+			socket.sysmessage( "Error: Account %s exists!" % account.name )
 			return False
 		# Create the Account
 		elif not account:
 		 	newaccount = wolfpack.accounts.add( username, password )
 			newaccount.acl = 'player'
 			socket.sysmessage( "You created the account successfully!" )
-			char.log( LOG_MESSAGE, "0x%x created account: %s\n" % ( char.serial, username ) )
+			char.log( LOG_MESSAGE, "Created account: %s\n" % account.name )
 			return True
 		# Failure
 		else:
@@ -232,39 +233,39 @@ def accountShow( socket, username, key ):
 				return False
 			if key == 'acl':
 				socket.sysmessage( "%s.acl = %s" % ( account.name, account.acl ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.acl.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.acl.\n" % account.name )
 				return True
 			elif key == 'characters':
 				socket.sysmessage( "%s.characters = %s" % ( account.name, account.characters ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.characters.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.characters.\n" % account.name )
 				return True
 			elif key == 'flags':
 				socket.sysmessage( "%s.flags = %s" % ( account.name, account.flags ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.flags.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.flags.\n" % account.name )
 				return True
 			elif key == 'inuse':
 				socket.sysmessage( "%s.inuse = %s" % ( account.name, account.inuse ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.inuse.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.inuse.\n" % account.name )
 				return True
 			elif key == 'lastlogin':
 				socket.sysmessage( "%s.lastlogin = %s" % ( account.name, account.lastlogin ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.lastlogin.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.lastlogin.\n" % account.name )
 				return True
 			elif key == 'multigems':
 				socket.sysmessage( "%s.multigems = %s" % ( account.name, account.multigems ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.multigems.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.multigems.\n" % account.name )
 				return True
 			elif key == 'name':
 				socket.sysmessage( "%s.name = %s" % ( account.name, account.name ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.name.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.name.\n" % account.name )
 				return True
 			elif key == 'password' and ( account.name == characcount.name or characcount.rank == 100 ):
 				socket.sysmessage( "%s.password = %s" % ( account.name, account.password ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.password.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.password.\n" % account.name )
 				return True
 			elif key == 'rank':
 				socket.sysmessage( "%s.rank = %i" % ( account.name, account.rank ) )
-				char.log( LOG_MESSAGE, "0x%x requested %s.rank.\n" % ( char.serial, account.name ) )
+				char.log( LOG_MESSAGE, "Requested %s.rank.\n" % account.name )
 				return True
 			else:
 				socket.sysmessage( "Error: Unknown account key!" )
@@ -300,8 +301,7 @@ def accountSet( socket, username, key, value ):
 						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.acl ) )
 						account.acl == value
 						socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.acl ) )
-						char.log( LOG_MESSAGE, "0x%x modified %s.acl.\n" % ( char.serial, account.name ) )
-						char.log( LOG_MESSAGE, "%s.acl = %s :: %s.flags = %s\n" % ( account.name, oldvalue, account.name, value  ) )
+						char.log( LOG_MESSAGE, "Modified %s.acl ( %s :: %s ).\n" % ( account.name, oldvale, value ) )
 						return True
 					else:
 						socket.sysmessage( "Error: %s is not a valid account.acl!" % value )
@@ -312,8 +312,7 @@ def accountSet( socket, username, key, value ):
 					socket.sysmessage( "Previous: %s.flags = %s" % ( account.name, account.flags ) )
 					account.flags = hex2dec(value)
 					socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.flags ) )
-					char.log( LOG_MESSAGE, "0x%x modified %s.flags.\n" % ( char.serial, account.name ) )
-					char.log( LOG_MESSAGE, "%s.flags = 0x%x :: %s.flags = 0x%x\n" % ( account.name, oldvalue, account.name, value  ) )
+					char.log( LOG_MESSAGE, "Modified %s.flags ( %s :: %s ).\n" % ( account.name, oldvalue, value ) )
 					return True
 				# MultiGems
 				elif key == 'multigems':
@@ -322,8 +321,7 @@ def accountSet( socket, username, key, value ):
 						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.acl ) )
 						account.multigems == value
 						socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.acl ) )
-						char.log( LOG_MESSAGE, "0x%x modified %s.multigems.\n" % ( char.serial, account.name ) )
-						char.log( LOG_MESSAGE, "%s.multigems = %s :: %s.multigems = %s\n" % ( account.name, oldvalue, account.name, value  ) )
+						char.log( LOG_MESSAGE, "Modified %s.multigems ( %s :: %s ).\n" % ( account.name, oldvalue, value ) )
 						return True
 					else:
 						socket.sysmessage( "Error: The account.multigems property must be boolean!" )
@@ -340,11 +338,11 @@ def accountSet( socket, username, key, value ):
 						oldvalue = key
 						account.password = key
 						socket.sysmessage( "Changed: %s.password" % ( account.name, account.password ) )
-						char.log( LOG_MESSAGE, "0x%x modified %s.password.\n" % ( char.serial, account.name ) )
+						char.log( LOG_MESSAGE, "Modified %s.password.\n" % ( char.serial, account.name ) )
 						return True
 				# READ ONLY VALUES
 				elif key == 'name' or key == 'lastlogin' or key == 'inuse' or key == 'characters' or key == 'rank':
-					char.log( LOG_MESSAGE, "0x%x attempted modification of read only value %s.%s.\n" % ( char.serial, account.name, key ) )
+					char.log( LOG_MESSAGE, "Attempted modification of read-only value %s.%s.\n" % ( char.serial, account.name, key ) )
 					socket.sysmessage( "Error: The account.%s property is read only!" % key )
 					return False
 				# Unknown

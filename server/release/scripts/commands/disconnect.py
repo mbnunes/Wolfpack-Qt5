@@ -1,10 +1,10 @@
-import wolfpack
-
 """
 	\command disconnect
 	\description Disconnect the client of the chosen char.
 	\usage - <code>disconnect</code>
 """
+
+import wolfpack
 
 def disconnect( socket, command, argstring):
 	socket.sysmessage( "Which client do you want to disconnect?" )

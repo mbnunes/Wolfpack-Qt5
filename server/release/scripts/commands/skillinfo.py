@@ -3,11 +3,10 @@
 	\command skillinfo
 	\description Show a dialog to modify the skill values and caps of a character.
 """
-
-from wolfpack.utilities import tobackpack
 import wolfpack
-from wolfpack.consts import *
 import wolfpack.gumps
+from wolfpack.utilities import tobackpack
+from wolfpack.consts import ALLSKILLS, SKILLNAMES, LOG_MESSAGE
 from math import ceil, floor
 from commands.info import iteminfo
 

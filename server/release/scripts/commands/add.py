@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack.consts import *
+from wolfpack.consts import WPDT_NPC, WPDT_ITEM, WPDT_MULTI
 from wolfpack import console
 from system.makemenus import MakeItemAction, MakeMenu, MakeAction, findmenu
 

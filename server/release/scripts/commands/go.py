@@ -30,7 +30,6 @@
 import wolfpack
 from wolfpack.consts import *
 from system.makemenus import MakeMenu, MakeAction, findmenu
-
 from wolfpack.console import *
 
 generated = 0
@@ -131,13 +130,13 @@ def go(socket, command, arguments):
 	player = socket.player
 
 	if len(arguments) == 0:
-        	global generated
-        	if not generated:
-        		socket.sysmessage('Generating go menu.')
-        		socket.sysmessage('Please wait...')
-        		generateGoMenu()
-        		generated = 1
-            
+		global generated
+		if not generated:
+			socket.sysmessage('Generating go menu.')
+			socket.sysmessage('Please wait...')
+			generateGoMenu()
+			generated = 1
+
 		menu = findmenu('GOMENU')
 		if menu:
 			socket.sysmessage('Bringing up the travel gump.')
@@ -262,5 +261,5 @@ def onLoad():
 	wolfpack.registercommand('send', send)
 
 def onUnload():
-        global generated
-        generated = 0
+	global generated
+	generated = 0

@@ -14,7 +14,7 @@
 """
 
 import wolfpack
-from wolfpack.utilities import *
+from wolfpack.utilities import booleantoggle
 
 def freeze( socket, command, arguments ):
 	try:
@@ -24,10 +24,7 @@ def freeze( socket, command, arguments ):
 
 def response( char, args, target ):
 	if target.char:
-		if target.char.frozen == 0:
-			target.char.frozen = 1
-		elif target.char.frozen == 1:
-			target.char.frozen = 0
+		target.char.frozen = booleantoggle( target.char.frozen )
 	else:
 		char.socket.sysmessage( 'That was not a valid object.', GRAY )
 

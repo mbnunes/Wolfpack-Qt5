@@ -15,7 +15,7 @@
 """
 
 import wolfpack
-from wolfpack.utilities import *
+from wolfpack.utilities import hex2dec
 
 def sound( socket, command, arguments ):
 	try:

@@ -8,7 +8,7 @@
 #===============================================================#
 
 import wolfpack
-from wolfpack.consts import *
+from wolfpack.consts import WPDT_ITEM
 from wolfpack.utilities import hex2dec
 from wolfpack import console
 from random import randint
