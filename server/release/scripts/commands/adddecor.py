@@ -395,7 +395,7 @@ def createground( player, args, target ):
 	return True
 
 def adddecor( socket, command, args ):
-	if len(arguments) > 0:
+	if len(args) > 0:
 		args= str( args.strip() )
 		args = args.split( ' ' )
 		if len( args ) == 2:
@@ -564,7 +564,7 @@ def adddecor( socket, command, args ):
 					socket.attachtarget( 'commands.adddecor.createground', [ item ] )
 					return True
 				# Desert Ground Decoration
-				elif value ==  "desert":
+				elif value == "desert":
 					if socket.hastag( 'last_ground_desert' ):
 						templist = []
 						for choice in desert_decor:
@@ -581,10 +581,20 @@ def adddecor( socket, command, args ):
 				else:
 					socket.sysmessage( "Usage: adddecor ground [ forest, swamp, plains, jungle, desert ]" )
 					return False
+			# No Args
+			else:
+				socket.sysmessage( "Usage: adddecor [ tree, ground ]" )
+				socket.sysmessage( "Usage: adddecor tree [ id, yew, jungle, random, forest, fruit, swamp, log[1-2] ]" )
+				socket.sysmessage( "Usage: adddecor ground [ forest, swamp, plains, jungle, desert ]" )
+				return False
 		# No Args
 		else:
 			socket.sysmessage( "Usage: adddecor [ tree, ground ]" )
 			return False
+	# No Args
+	else:
+		socket.sysmessage( "Usage: adddecor [ tree, ground ]" )
+		return False
 	return False
 
 def onLoad():
