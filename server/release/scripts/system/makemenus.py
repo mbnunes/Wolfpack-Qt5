@@ -345,7 +345,7 @@ class CraftItemAction(MakeItemAction):
 			
 			# Check if the pile is used by the secondary material	
 			if item.baseid in submaterial2baseids:
-				submaterial1amount -= item.amount
+				submaterial2amount -= item.amount
 				continue
 				
 			for material in materials:
