@@ -638,9 +638,17 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	Xsend(s, techstuff, 20);
 	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
 
-	sysmessage(s,"Welcome to %s !",serv[0].sServer.c_str()); 
-	sysmessage(s,"Running on %s %s %s ", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() ); 
-	sysmessage(s,"Programmed by: %s",wp_version.codersstring.c_str() );
+	////////////////////////////////////////
+	/// "UNKOWNDIMENSION sysmessages"
+	//// using color (!=0) is essential within entire function 
+	///  if not 3d clients >=3.0.6g die
+	///  sysmessage(s, "xxx") does use color 0 !
+	/// you can change 0x37 to your liking, but not to 0
+	/////////////////////////////////////////////////////////////////////
+
+	sysmessage(s, 0x37, "Welcome to %s !",serv[0].sServer.c_str()); 
+	sysmessage(s, 0x37, "Running on %s %s %s ", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() ); 
+	sysmessage(s, 0x37, "Programmed by: %s",wp_version.codersstring.c_str() );
 
 	pc_currchar->region=255;
 	checkregion(DEREF_P_CHAR(pc_currchar));
@@ -688,12 +696,12 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		
 		if (!(strcmp(temp, "ALL")))
 		{
-			sysmessage(s, "There is NO client version checking active on this shard. The recommanded-dev-team-supported client version for this server version is client version %s though", wp_version.clientsupportedstring.c_str() );
+			sysmessage(s, 0x37, "There is NO client version checking active on this shard. The recommanded-dev-team-supported client version for this server version is client version %s though", wp_version.clientsupportedstring.c_str() );
 			return;
 		}
 		else if (!(strcmp(temp, "SERVER_DEFAULT")))
 		{
-			sysmessage(s, "This shard requires the recommanded-dev-team-supported client version for this server version client version %s", wp_version.clientsupportedstring.c_str() );
+			sysmessage(s, 0x37, "This shard requires the recommanded-dev-team-supported client version for this server version client version %s", wp_version.clientsupportedstring.c_str() );
 			return;
 		}
 		else
@@ -718,7 +726,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		strcat(idname, " The Wolfpack team recommanded client is ");
 		strcat(idname, wp_version.clientsupportedstring.c_str() );
 		
-		sysmessage(s, idname);
+		sysmessage(s, 0x37, idname);
 	}
 }
 

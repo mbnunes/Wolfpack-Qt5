@@ -516,6 +516,14 @@ void checkregion(int i)
 {
 	int calcreg, s, j;
 
+	////////////////////////////////////////
+	/// "UNKOWNDIMENSION sysmessages"
+	//// using color (!=0) is essential within entire function 
+	///  if not 3d clients >=3.0.6g die
+	///  sysmessage(s, "xxx") does use color 0 !
+	//// you can change 0x37 to your liking, but not to 0
+	/////////////////////////////////////////////////////////////////////
+
 	calcreg=calcRegionFromXY(chars[i].pos.x, chars[i].pos.y);
 	if (calcreg!=chars[i].region)
 	{
@@ -525,12 +533,12 @@ void checkregion(int i)
 			if (region[chars[i].region].name[0]!=0)
 			{
 				sprintf((char*)temp, "You have left %s, race owner %s.",region[chars[i].region].name, Races[region[chars[i].region].RaceOwner]->RaceName.c_str());
-				sysmessage(s, (char*)temp);
+				sysmessage(s, 0x37, (char*)temp);
 			}
 			if (region[calcreg].name[0]!=0)
 			{
 				sprintf((char*)temp, "You have entered %s,race owner %s.",region[calcreg].name, Races[region[calcreg].RaceOwner]->RaceName.c_str());
-				sysmessage(s, (char*)temp);
+				sysmessage(s, 0x37, (char*)temp);
 			}
 			j=strcmp(region[calcreg].guardowner, region[chars[i].region].guardowner);
 			if ( (region[calcreg].priv&0x01)!=(region[chars[i].region].priv&0x01) ||
@@ -540,24 +548,24 @@ void checkregion(int i)
 				{
 					if (region[calcreg].guardowner[0]==0)
 					{
-						sysmessage(s, "You are now under the protection of the guards.");
+						sysmessage(s, 0x37, "You are now under the protection of the guards.");
 					}
 					else
 					{
 						sprintf((char*)temp, "You are now under the protection of %s guards.", region[calcreg].guardowner);
-						sysmessage(s,(char*) temp);
+						sysmessage(s, 0x37, (char*) temp);
 					}
 				}
 				else
 				{
 					if (region[chars[i].region].guardowner[0]==0)
 					{
-						sysmessage(s, "You are no longer under the protection of the guards.");
+						sysmessage(s, 0x37, "You are no longer under the protection of the guards.");
 					}
 					else
 					{
 						sprintf((char*)temp, "You are no longer under the protection of %s guards.", region[chars[i].region].guardowner);
-						sysmessage(s, (char*)temp);
+						sysmessage(s, 0x37, (char*)temp);
 					}
 				}
 			}

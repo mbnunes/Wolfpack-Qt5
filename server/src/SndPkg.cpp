@@ -317,11 +317,20 @@ void sysmessage(UOXSOCKET s, char *txt, ...) // System message (In lower left co
 	talk[6]=1;
 	talk[7]=1;
 	talk[8]=1;
-	talk[9]=0;
+	talk[9]=0x0;
 	talk[10]=0x00;	//Color1  - Previous default was 0x0040
 	talk[11]=0x00;  //Color2
 	talk[12]=0;     
 	talk[13]=3;
+
+	// problem1: 3d clietns crash if color set to 0 since 3.0.6g 
+	// workaround: set it to non 0 if 3d client
+	// but a mean pitfall remaining: there are a couple sysmessages BEFORE client dimension is known
+	// hence 3d clients are recognized as 2d clients for those sysmessages
+	// it's important that those sysmessages are called with color != 0 ...
+	// it've tagged them with "UNKOWNDIMENSION sysmessages" in comment
+	if ( clientDimension[s]==3 && talk[10]==0 && talk[11]==0) { talk[10]=0; talk[11]=0x37; }
+
 	Xsend(s, talk, 14);
 	Xsend(s, sysname, 30);
 	Xsend(s, msg, strlen((char*)msg)+1);
@@ -349,6 +358,9 @@ void sysmessage(UOXSOCKET s, short color, char *txt, ...) // System message (In 
 	talk[11]=color%256;			 
 	talk[12]=0;
 	talk[13]=3;
+
+	if ( clientDimension[s]==3 && color==0) { talk[10]=0; talk[11]=0x37; }
+
 	Xsend(s, talk, 14);
 	Xsend(s, sysname, 30);
 	Xsend(s, msg, strlen((char*)msg)+1);
@@ -370,6 +382,8 @@ void itemmessage(UOXSOCKET s, char *txt, int serial, short color)
 	    else
 			if(!(pi->corpse == 1))
 		color = 0x0481;
+
+		if ( clientDimension[s]==3 && color==0) { talk[10]=0; talk[11]=0x37; }
 
 	int tl=44+strlen(txt)+1;
 	talk[1]=tl>>8;
