@@ -59,12 +59,19 @@ bool PersistentBroker::openDriver( const QString& driver )
 	}
 
 	if( driver == "sqlite" )
+	{
 		connection = new cSQLiteDriver();
+		sqlite = true;
+	}
 	else
+	{
 		connection = new cDBDriver;
+		sqlite = false;
+	}
 
 	if ( !connection )
 		return false;
+
 	return true;
 }
 
@@ -82,6 +89,10 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 	if( !connection->open() )
 		return false;
 
+	// Disable fsynch for sqlite
+	if( sqlite )
+		connection->exec( "PRAGMA synchronous = OFF;" );
+
 	return true;
 }
 
@@ -93,13 +104,25 @@ void PersistentBroker::disconnect()
 
 bool PersistentBroker::saveObject( PersistentObject* object )
 {
-/*	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
-	if ( hasTransaction )
+	// Start Transaction
+	if( sqlite )
+		connection->exec( "BEGIN TRANSACTION;" );
 
-		connection->transaction();*/
-	object->save();
-/*	if ( hasTransaction )
-		connection->commit();*/
+	try
+	{
+		object->save();
+	}
+	catch( ... )
+	{
+		// Rollback
+		if( sqlite )
+			connection->exec( "ROLLBACK TRANSACTION;" );
+		throw;
+	}
+
+	// Commit
+	if( sqlite )
+		connection->exec( "COMMIT TRANSACTION;" );
 
 	return true;
 }

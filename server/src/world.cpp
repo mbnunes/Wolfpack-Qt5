@@ -452,7 +452,7 @@ void cWorld::save()
 	}
 	catch( QString &e )
 	{
-		clConsole.log( LOG_FATAL, QString( "An error occured while connecting to the database: %1\n" ).arg( e ) );
+		clConsole.log( LOG_FATAL, QString( "Couldn't open the database: %1\n" ).arg( e ) );
 		return;
 	}
 
@@ -466,8 +466,8 @@ void cWorld::save()
 	
 	p->purgePendingObjects();
 
-//	try
-//	{
+	try
+	{
 		cItemIterator iItems;
 		for( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
 			persistentBroker->saveObject( pItem );
@@ -475,28 +475,23 @@ void cWorld::save()
 		cCharIterator iChars;
 		for( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
 			persistentBroker->saveObject( pChar );
-/*	}
-	catch( QString& error )
-	{
-		clConsole.log( LOG_ERROR, error );
 	}
-	catch( ... )
+	catch( QString &e )
 	{
 		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
+		clConsole.send( " Failed" );
 		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": Unhandled Exception\n" );
+
+		clConsole.log( LOG_ERROR, "Saving failed: " + e );
+		return;
 	}
-*/
+
 	ISerialization *archive = cPluginFactory::serializationArchiver( "xml" );
 	archive->prepareWritting( "effects" );
 	TempEffects::instance()->serialize( *archive );
 	archive->close();
 	delete archive;
 
-	// Save The pages
-	// cPagesManager::getInstance()->save();
-	
 	// Save the accounts
 	Accounts::instance()->save();
 
@@ -509,6 +504,7 @@ void cWorld::save()
 	persistentBroker->disconnect();
 
 	clConsole.send( QString( " [%1ms]\n" ).arg( getNormalizedTime() - startTime ) );
+
 }
 
 void cWorld::registerObject( cUObject *object )

@@ -50,6 +50,7 @@ struct stDeleteItem
 class PersistentBroker
 {
 	cDBDriver* connection;
+	bool sqlite;
 	std::vector< stDeleteItem > deleteQueue;
 
 public:
@@ -65,6 +66,13 @@ public:
 	void flushDeleteQueue();
 	void clearDeleteQueue();
 	void addToDeleteQueue( const QString &tables, const QString &conditions );
+	QString quoteString( const QString &d )
+	{
+		if( sqlite )
+			return QString(d).replace( QRegExp("'"), "''" );
+		else
+			return QString(d).replace( QRegExp("'"), "\\'" );
+	}
 
 	void lockTable( const QString& table ) const;
 	void unlockTable( const QString& table ) const;
@@ -75,21 +83,12 @@ public:
 	cDBDriver* driver() const;
 };
 
-// Pseudo helper functions.
-// We should consider inline templates in future.
-
-inline QString __escapeReservedCharacters( const QString& d )
-{
-	//return QString(d).replace( QRegExp("'"), "\\'" );
-	return QString(d).replace( QRegExp("'"), "''" );
-}
-
 #define savePersistentIntValue(field, value) \
 	SqlStatement += QString("%1='%2',").arg(field).arg(value)
 
 #define savePersistentStrValue(field, value) \
 	if ( !value.isNull() ) \
-		SqlStatement += QString("%1='%2',").arg(field).arg(__escapeReservedCharacters(value))
+		SqlStatement += QString("%1='%2',").arg(field).arg(persistentBroker->quoteString(value))
 
 #define startSaveSqlStatement(table)	\
 	QString SqlStatement; \
@@ -151,13 +150,34 @@ inline QString __escapeReservedCharacters( const QString& d )
 // Check here if we are updating or inserting
 // for inserting we use the faster VALUES() method
 
-#define addField( name, value ) fields.push_back( name ); values.push_back( QString::number( value ) );
-#define addStrField( name, value ) fields.push_back( name ); values.push_back( "'" + ( value.isNull() ? QString( "" ) : __escapeReservedCharacters( value ) ) + "'" );
-#define addCondition( name, value ) conditions.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( value ) );
+#define addField( name, value ) \
+	if( isPersistent ) \
+		fields.push_back( QString( "%1='%2'" ).arg( name ).arg( QString::number( value ) ) ); \
+	else \
+	{ \
+		fields.push_back( name ); \
+		values.push_back( QString::number( value ) ); \
+	}
+
+#define addStrField( name, value ) \
+	if( isPersistent ) \
+		fields.push_back( QString( "%1='%2'" ).arg( name ).arg( persistentBroker->quoteString( value ) ) ); \
+	else \
+	{ \
+		fields.push_back( name ); \
+		values.push_back( "'" + ( value.isNull() ? QString( "" ) : persistentBroker->quoteString( value ) ) + "'" ); \
+	}
+
+#define addCondition( name, value ) conditions.push_back( QString( "%1 = '%2'" ).arg( name ).arg( value ) );
+
 #define saveFields \
 	if( isPersistent ) \
-		persistentBroker->executeQuery( QString( "UPDATE %1 (%2) VALUES(%3) WHERE %4" ).arg( table ).arg( fields.join( "," ) ).arg( values.join( "," ) ).arg( conditions.join( " AND " ) ) ); \
+	{ \
+		persistentBroker->executeQuery( QString( "UPDATE %1 SET %2 WHERE %3" ).arg( table ).arg( fields.join( "," ) ).arg( conditions.join( " AND " ) ) ); \
+	} \
 	else \
-		persistentBroker->executeQuery( QString( "INSERT INTO %1 (%2) VALUES(%3)" ).arg( table ).arg( fields.join( "," ) ).arg( values.join( "," ) ) );
+	{ \
+		persistentBroker->executeQuery( QString( "INSERT INTO %1 (%2) VALUES(%3)" ).arg( table ).arg( fields.join( "," ) ).arg( values.join( "," ) ) ); \
+	}
 
 #endif // __PERSISTENTBROKER_H__

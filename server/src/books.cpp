@@ -141,7 +141,7 @@ void cBook::save()
 		UINT32 i = 0;
 		for ( QStringList::iterator it = content_.begin(); it != content_.end(); ++it )
 		{
-			persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( i ).arg( __escapeReservedCharacters( *it ) ) );
+			persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( i ).arg( persistentBroker->quoteString( *it ) ) );
 			++i;
 		}
 	}

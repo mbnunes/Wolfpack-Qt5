@@ -695,7 +695,7 @@ void cCustomTags::save( SERIAL key )
 		QString value = it.data().toString();
 		QString name = it.key();
 
-		persistentBroker->executeQuery( QString( "INSERT INTO tags SET serial = '%1', type = '%2', value = '%3', name = '%4'" ).arg( key ).arg( type ).arg( __escapeReservedCharacters( value ) ).arg( __escapeReservedCharacters( name ) ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO tags SET serial = '%1', type = '%2', value = '%3', name = '%4'" ).arg( key ).arg( type ).arg( persistentBroker->quoteString( value ) ).arg( persistentBroker->quoteString( name ) ) );
 	}
 	if ( tags_.count() > 6 )
 		persistentBroker->unlockTable("tags");

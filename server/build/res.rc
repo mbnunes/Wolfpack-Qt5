@@ -1,7 +1,17 @@
 //Microsoft Developer Studio generated resource script.
 //
-#include "resource.h"
+#include "resrc1.h"
 
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "resource.h"
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 12,9,1,0
@@ -40,4 +50,11 @@ BEGIN
     END
 END
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
 IDI_ICON2               ICON    DISCARDABLE     "icon2.ico"
