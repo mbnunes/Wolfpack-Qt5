@@ -68,7 +68,8 @@ def onCreate( item, defstr ):
 	item.settag( "charges", 0 )
 	item.settag( "default", 0 )
 	# max charge calc will be added later
-	item.settag( "maxcharges", 10 )
+	if not item.hastag( 'maxcharges' ):
+		item.settag( "maxcharges", 5 )
 	# initialize rune serials to -1
 	for i in range( 0, 16 ):
 		item.settag( "rune %i" % i, -1 )

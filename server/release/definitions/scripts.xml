@@ -17,6 +17,7 @@
 	<script id="commoditydeed" type="python" module="commoditydeed" />
 	<script id="clothing_bless_deed" type="python" module="clothing_bless_deed" />
 	<script id="item_bless_deed"	type="python" module="item_bless_deed" />
+	<script id="carpentry_deed" type="python" module="carpentry_deed" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
@@ -53,6 +54,11 @@
 	<script id="skills.cooking" type="python" module="skills.cooking" />
 	<script id="skills.alchemy" type="python" module="skills.alchemy" />
 	<script id="skills.tinkering" type="python" module="skills.tinkering" />
+	<script id="skills.carpentry" type="python" module="skills.carpentry" />
+	<script id="skills.blacksmithing" type="python" module="skills.blacksmithing" />
+	<script id="skills.healing" type="python" module="skills.healing" />
+	<script id="skills.hiding" type="python" module="skills.hiding" />
+	<script id="skills.inscription" type="python" module="skills.inscription" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />

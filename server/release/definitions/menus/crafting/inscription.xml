@@ -1,0 +1,535 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: khpae                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<menu id="CRAFTMENU_INSCRIPTION">
+		<name>Inscription</name>
+		
+		<menu inherit="INSCRIPTION_1st" />
+		<menu inherit="INSCRIPTION_2nd" />
+		<menu inherit="INSCRIPTION_3rd" />
+		<menu inherit="INSCRIPTION_4th" />
+		<menu inherit="INSCRIPTION_5th" />
+		<menu inherit="INSCRIPTION_6th" />
+		<menu inherit="INSCRIPTION_7th" />
+		<menu inherit="INSCRIPTION_8th" />
+		<menu inherit="INSCRIPTION_other" />
+	</menu>
+	
+	<!-- 
+	All of the inscription needs to have the coresponding spell in spellbook.
+	and uses mana.
+	: we will go to python script
+	-->
+	<menu id="INSCRIPTION_1st">
+		<name>1st Circle</name>
+		
+		<action type="script">
+			<name>Clumsy</name>
+			<model>0x1f2e</model>
+			<description>a clumsy scroll</description>
+			<make script="skills.inscription.clumsy" />
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="script">
+			<name>Create Food</name>
+			<model>0x1f2f</model>
+			<description>a create food scroll</description>
+			<make script="skills.inscription.createfood" />
+		</action>
+
+		<action type="script">
+			<name>Feeble Mind</name>
+			<model>0x1f30</model>
+			<description>a feeble mind scroll</description>
+			<make script="skills.inscription.feeblemind" />
+		</action>
+
+		<action type="script">
+			<name>Heal</name>
+			<model>0x1f31</model>
+			<description>a heal scroll</description>
+			<make script="skills.inscription.heal" />
+		</action>
+
+		<action type="script">
+			<name>Magic Arrow</name>
+			<model>0x1f32</model>
+			<description>a magic arrow scroll</description>
+			<make script="skills.inscription.magicarrow" />
+		</action>
+
+		<action type="script">
+			<name>Nightsight</name>
+			<model>0x1f33</model>
+			<description>a nightsight scroll</description>
+			<make script="skills.inscription.nightsight" />
+		</action>
+
+		<action type="script">
+			<name>Reactive Armor</name>
+			<model>0x1f2d</model>
+			<description>a reactive armor scroll</description>
+			<make script="skills.inscription.reactivearmor" />
+		</action>
+
+		<action type="script">
+			<name>Weaken</name>
+			<model>0x1f34</model>
+			<description>a weaken scroll</description>
+			<make script="skills.inscription.weaken" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_2nd">
+		<name>2nd Circle</name>
+
+		<action type="script">
+			<name>Agility</name>
+			<model>0x1f35</model>
+			<description>a agility scroll</description>
+			<make script="skills.inscription.agility" />
+		</action>
+
+		<action type="script">
+			<name>Cunning</name>
+			<model>0x1f36</model>
+			<description>a cunning scroll</description>
+			<make script="skills.inscription.cunning" />
+		</action>
+
+		<action type="script">
+			<name>Cure</name>
+			<model>0x1f37</model>
+			<description>a cure scroll</description>
+			<make script="skills.inscription.cure" />
+		</action>
+
+		<action type="script">
+			<name>Harm</name>
+			<model>0x1f38</model>
+			<description>a harm scroll</description>
+			<make script="skills.inscription.harm" />
+		</action>
+
+		<action type="script">
+			<name>Magic Trap</name>
+			<model>0x1f39</model>
+			<description>a magic trap scroll</description>
+			<make script="skills.inscription.magictrap" />
+		</action>
+
+		<action type="script">
+			<name>Magic Untrap</name>
+			<model>0x1f3a</model>
+			<description>a magic untrap scroll</description>
+			<make script="skills.inscription.magicuntrap" />
+		</action>
+
+		<action type="script">
+			<name>Protection</name>
+			<model>0x1f3b</model>
+			<description>a protection scroll</description>
+			<make script="skills.inscription.protection" />
+		</action>
+
+		<action type="script">
+			<name>Strength</name>
+			<model>0x1f3c</model>
+			<description>a strength scroll</description>
+			<make script="skills.inscription.strength" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_3rd">
+		<name>3rd Circle</name>
+
+		<action type="script">
+			<name>Bless</name>
+			<model>0x1f3d</model>
+			<description>a bless scroll</description>
+			<make script="skills.inscription.bless" />
+		</action>
+
+		<action type="script">
+			<name>Fireball</name>
+			<model>0x1f3e</model>
+			<description>a fireball scroll</description>
+			<make script="skills.inscription.fireball" />
+		</action>
+
+		<action type="script">
+			<name>Magic Lock</name>
+			<model>0x1f3f</model>
+			<description>a magic lock scroll</description>
+			<make script="skills.inscription.magiclock" />
+		</action>
+
+		<action type="script">
+			<name>Poison</name>
+			<model>0x1f40</model>
+			<description>a poison scroll</description>
+			<make script="skills.inscription.poison" />
+		</action>
+
+		<action type="script">
+			<name>Telekinesis</name>
+			<model>0x1f41</model>
+			<description>a telekinesis scroll</description>
+			<make script="skills.inscription.telekinesis" />
+		</action>
+
+		<action type="script">
+			<name>Teleport</name>
+			<model>0x1f42</model>
+			<description>a teleport scroll</description>
+			<make script="skills.inscription.teleport" />
+		</action>
+
+		<action type="script">
+			<name>Unlock</name>
+			<model>0x1f43</model>
+			<description>an unlock scroll</description>
+			<make script="skills.inscription.unlock" />
+		</action>
+
+		<action type="script">
+			<name>Wall of Stone</name>
+			<model>0x1f44</model>
+			<description>a wall of stone scroll</description>
+			<make script="skills.inscription.wallofstone" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_4th">
+		<name>4th Circle</name>
+
+		<action type="script">
+			<name>Arch Cure</name>
+			<model>0x1f45</model>
+			<description>an arch cure scroll</description>
+			<make script="skills.inscription.archcure" />
+		</action>
+
+		<action type="script">
+			<name>Arch Protection</name>
+			<model>0x1f46</model>
+			<description>an arch protection scroll</description>
+			<make script="skills.inscription.archprotection" />
+		</action>
+
+		<action type="script">
+			<name>Curse</name>
+			<model>0x1f47</model>
+			<description>a curse scroll</description>
+			<make script="skills.inscription.curse" />
+		</action>
+
+		<action type="script">
+			<name>Fire Field</name>
+			<model>0x1f48</model>
+			<description>a fire field scroll</description>
+			<make script="skills.inscription.firefield" />
+		</action>
+
+		<action type="script">
+			<name>Greater Heal</name>
+			<model>0x1f49</model>
+			<description>a greater heal scroll</description>
+			<make script="skills.inscription.greaterheal" />
+		</action>
+
+		<action type="script">
+			<name>Lightning</name>
+			<model>0x1f4a</model>
+			<description>a lightning scroll</description>
+			<make script="skills.inscription.lightning" />
+		</action>
+
+		<action type="script">
+			<name>Mana Drain</name>
+			<model>0x1f4b</model>
+			<description>a mana drain scroll</description>
+			<make script="skills.inscription.manadrain" />
+		</action>
+
+		<action type="script">
+			<name>Recall</name>
+			<model>0x1f4c</model>
+			<description>a recall scroll</description>
+			<make script="skills.inscription.recall" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_5th">
+		<name>5th Circle</name>
+
+		<action type="script">
+			<name>Blade Spirits</name>
+			<model>0x1f4d</model>
+			<description>a blade spirits scroll</description>
+			<make script="skills.inscription.bladespirits" />
+		</action>
+
+		<action type="script">
+			<name>Dispel Field</name>
+			<model>0x1f4e</model>
+			<description>a dispel field scroll</description>
+			<make script="skills.inscription.dispelfield" />
+		</action>
+
+		<action type="script">
+			<name>Incognito</name>
+			<model>0x1f4f</model>
+			<description>an incognito scroll</description>
+			<make script="skills.inscription.incognito" />
+		</action>
+
+		<action type="script">
+			<name>Magic Reflection</name>
+			<model>0x1f50</model>
+			<description>a magic reflection scroll</description>
+			<make script="skills.inscription.magicreflection" />
+		</action>
+
+		<action type="script">
+			<name>Mind Blast</name>
+			<model>0x1f51</model>
+			<description>a mind blast scroll</description>
+			<make script="skills.inscription.mindblast" />
+		</action>
+
+		<action type="script">
+			<name>Paralyze</name>
+			<model>0x1f52</model>
+			<description>a paralyze scroll</description>
+			<make script="skills.inscription.paralyze" />
+		</action>
+
+		<action type="script">
+			<name>Poison Field</name>
+			<model>0x1f53</model>
+			<description>a poison field scroll</description>
+			<make script="skills.inscription.poisonfield" />
+		</action>
+
+		<action type="script">
+			<name>Summon Creature</name>
+			<model>0x1f54</model>
+			<description>a summon creature scroll</description>
+			<make script="skills.inscription.summoncreature" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_6th">
+		<name>6th Circle</name>
+
+		<action type="script">
+			<name>Dispel</name>
+			<model>0x1f55</model>
+			<description>a dispel scroll</description>
+			<make script="skills.inscription.dispel" />
+		</action>
+
+		<action type="script">
+			<name>Energy Bolt</name>
+			<model>0x1f56</model>
+			<description>an energy bolt scroll</description>
+			<make script="skills.inscription.energybolt" />
+		</action>
+
+		<action type="script">
+			<name>Explosion</name>
+			<model>0x1f57</model>
+			<description>an explosion scroll</description>
+			<make script="skills.inscription.explosion" />
+		</action>
+
+		<action type="script">
+			<name>Invisibility</name>
+			<model>0x1f58</model>
+			<description>an invisibility scroll</description>
+			<make script="skills.inscription.invisibility" />
+		</action>
+
+		<action type="script">
+			<name>Mark</name>
+			<model>0x1f59</model>
+			<description>a mark scroll</description>
+			<make script="skills.inscription.mark" />
+		</action>
+
+		<action type="script">
+			<name>Mass Curse</name>
+			<model>0x1f5a</model>
+			<description>a mass curse scroll</description>
+			<make script="skills.inscription.masscurse" />
+		</action>
+
+		<action type="script">
+			<name>Paralyze Field</name>
+			<model>0x1f5b</model>
+			<description>a paralyze field scroll</description>
+			<make script="skills.inscription.paralyzefield" />
+		</action>
+
+		<action type="script">
+			<name>Reveal</name>
+			<model>0x1f5c</model>
+			<description>a reveal scroll</description>
+			<make script="skills.inscription.reveal" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_7th">
+		<name>7th Circle</name>
+
+		<action type="script">
+			<name>Chain Lightning</name>
+			<model>0x1f5d</model>
+			<description>a chain lightning scroll</description>
+			<make script="skills.inscription.chainlightning" />
+		</action>
+
+		<action type="script">
+			<name>Energy Field</name>
+			<model>0x1f5e</model>
+			<description>an energy field scroll</description>
+			<make script="skills.inscription.energyfield" />
+		</action>
+
+		<action type="script">
+			<name>Flamestrike</name>
+			<model>0x1f5f</model>
+			<description>a flamestrike scroll</description>
+			<make script="skills.inscription.flamestrike" />
+		</action>
+
+		<action type="script">
+			<name>Gate Travel</name>
+			<model>0x1f60</model>
+			<description>a gate travel scroll</description>
+			<make script="skills.inscription.gatetravel" />
+		</action>
+
+		<action type="script">
+			<name>Mana Vampire</name>
+			<model>0x1f61</model>
+			<description>a mana vampire scroll</description>
+			<make script="skills.inscription.manavampire" />
+		</action>
+
+		<action type="script">
+			<name>Mass Dispel</name>
+			<model>0x1f62</model>
+			<description>a mass dispel scroll</description>
+			<make script="skills.inscription.massdispel" />
+		</action>
+
+		<action type="script">
+			<name>Meteor Swarm</name>
+			<model>0x1f63</model>
+			<description>a meteor swarm scroll</description>
+			<make script="skills.inscription.meteorswarm" />
+		</action>
+
+		<action type="script">
+			<name>Polymorph<name>
+			<model>0x1f64</model>
+			<description>a polymorph scroll</description>
+			<make script="skills.inscription.polymorph" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_8th">
+		<name>8th Circle</name>
+
+		<action type="script">
+			<name>Earthquake</name>
+			<model>0x1f65</model>
+			<description>an earthquake scroll</description>
+			<make script="skills.inscription.earthquake" />
+		</action>
+
+		<action type="script">
+			<name>Energy Vortex</name>
+			<model>0x1f66</model>
+			<description>an energy vortex scroll</description>
+			<make script="skills.inscription.energyvortex" />
+		</action>
+
+		<action type="script">
+			<name>Resurrection</name>
+			<model>0x1f67</model>
+			<description>a resurrection scroll</description>
+			<make script="skills.inscription.resurrection" />
+		</action>
+
+		<action type="script">
+			<name>Summon Air Elemental</name>
+			<model>0x1f68</model>
+			<description>a summon air elemental scroll</description>
+			<make script="skills.inscription.airelemental" />
+		</action>
+
+		<action type="script">
+			<name>Summon Daemon</name>
+			<model>0x1f69</model>
+			<description>a summon daemon scroll</description>
+			<make script="skills.inscription.summondaemon" />
+		</action>
+		
+		<action type="script">
+			<name>Summon Earth Elemental</name>
+			<model>0x1f6a</model>
+			<description>a summon earth elemental scroll</description>
+			<make script="skills.inscription.earthelemental" />
+		</action>
+
+		<action type="script">
+			<name>Summon Fire Elemental</name>
+			<model>0x1f6b</model>
+			<description>a summon fire elemental scroll</description>
+			<make script="skills.inscription.fireelemental" />
+		</action>
+
+		<action type="script">
+			<name>Summon Water Elemental</name>
+			<model>0x1f6c</model>
+			<description>a summon water elemental scroll</description>
+			<make script="skills.inscription.waterelemental" />
+		</action>
+	</menu>
+
+	<menu id="INSCRIPTION_other">
+		<name>Others</name>
+		
+		<!--
+		the 'charge' is not calculated at python script : going to python script
+		-->
+		<action type="script">
+			<name>Runebook</name>
+			<model>0x22c5</model>
+			<description>a runebook</description>
+			<make script="skills.inscription.runebook" />
+			<!--
+				<useitem itemid="0xe34,0xef3" name="empty scroll" amount="8" />
+				<useitem itemid="0x1f14-0x1f17" name="recall rune" amount="1" />
+				<useitem itemid="0x1f4c" name="recall scroll" amount="1" />
+				<useitem itemid="0x1f60" name="gate travel scroll" amount="1" />
+				<makeitem section="22c5" amount="1" />
+				<skillcheck skillid="25" min="450" max="451" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+			-->
+		</action>
+	</menu>
+</definitions>
