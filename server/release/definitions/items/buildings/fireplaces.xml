@@ -258,4 +258,25 @@
 		<id>0x0967</id>
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (N/S) (2/2)</category>
 	</item>
+	
+	<!-- Small Stone Fireplace -->
+	<item id="11ec">
+		<id>0x11ec</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (W/E) (1/2)</category>
+	</item>
+
+	<item id="11ed">
+		<id>0x11ed</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (W/E) (2/2)</category>
+	</item>
+
+	<item id="11ee">
+		<id>0x11ee</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (N/S) (1/2)</category>
+	</item>
+
+	<item id="11ef">
+		<id>0x11ef</id>
+		<category>Decoration\Fireplaces &amp; Ovens\Small Stone Fireplace (N/S) (2/2)</category>
+	</item>
 </definitions>

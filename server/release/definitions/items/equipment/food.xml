@@ -1207,6 +1207,7 @@ Food subtypes:
 		<type>14</type>
 		<decay/>
 		<value>10</value>
+		<category>Equipment\Food\Raw Leg of Lamb</category>
 	</item>
 	
 	<!-- Raw Chicken Leg -->
@@ -1215,12 +1216,56 @@ Food subtypes:
 		<type>14</type>
 		<decay/>
 		<value>10</value>
+		<category>Equipment\Food\Raw Chicken Leg</category>
 	</item>
 	
-	<!-- Sack of Flour -->
-	<item id="1039">
-		<id>0x1039</id>
+	<item id="103f">
+		<id>0x103f</id>
+		<type>14</type>
 		<decay/>
 		<value>10</value>
+		<category>Equipment\Food\Cookie Mix</category>
+	</item>
+
+	<item id="1040">
+		<id>0x1040</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Pizza</category>
+	</item>
+
+	<item id="1041">
+		<id>0x1041</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Baked Pie</category>
+	</item>
+
+	<item id="1042">
+		<id>0x1042</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Unbaked Pie</category>
+	</item>
+
+	<item id="1083">
+		<id>0x1083</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Unbaked Pizza</category>
+	</item>
+
+	<item id="10e8">
+		<id>0x10e8</id>
+		<category>Decoration\Kitchen\Small Wooden Spoon</category>
+	</item>
+
+	<item id="10e9">
+		<id>0x10e9</id>
+		<category>Decoration\Kitchen\Large Wooden Spoon</category>
 	</item>
 </definitions>

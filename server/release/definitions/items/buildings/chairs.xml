@@ -251,4 +251,58 @@
 		<id>0x0b94</id>
 		<category>Decoration\Chairs\Bench (N/S) (2/2)</category>
 	</item>
+
+	<!-- Loom Bench -->
+	<item id="1049">
+		<id>0x1049</id>
+		<category>Decoration\Chairs\Loom Bench (W/E)</category>
+	</item>
+
+	<item id="104a">
+		<id>0x104a</id>
+		<category>Decoration\Chairs\Loom Bench (N/S)</category>
+	</item>
+
+	<!-- Bamboo Stool -->
+	<item id="11fc">
+		<id>0x11fc</id>
+		<category>Decoration\Chairs\Bamboo Stool</category>
+	</item>
+
+	<!-- Stone Bench -->
+	<item id="1207">
+		<id>0x1207</id>
+		<category>Decoration\Chairs\Stone Bench 1 (W/E) (1/3)</category>
+	</item>
+
+	<item id="1208">
+		<id>0x1208</id>
+		<category>Decoration\Chairs\Stone Bench 1 (W/E) (2/3)</category>
+	</item>
+
+	<item id="1209">
+		<id>0x1209</id>
+		<category>Decoration\Chairs\Stone Bench 1 (W/E) (3/3)</category>
+	</item>
+
+	<!-- Stone Throne -->
+	<item id="1218">
+		<id>0x1218</id>
+		<category>Decoration\Chairs\Stone Throne 1</category>
+	</item>
+
+	<item id="1219">
+		<id>0x1219</id>
+		<category>Decoration\Chairs\Stone Throne 2</category>
+	</item>
+
+	<item id="121a">
+		<id>0x121a</id>
+		<category>Decoration\Chairs\Stone Throne 3</category>
+	</item>
+
+	<item id="121b">
+		<id>0x121b</id>
+		<category>Decoration\Chairs\Stone Throne 4</category>
+	</item>
 </definitions>

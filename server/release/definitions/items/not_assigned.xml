@@ -2,6 +2,73 @@
 	These items are not available ingame.
 -->
 <definitions>
+	<!-- TD/LBR specific Lava tiles -->
+	<item id="136e">
+		<id>0x136e</id>
+	</item>
+
+	<item id="137e">
+		<id>0x137e</id>
+	</item>
+
+	<item id="1380">
+		<id>0x1380</id>
+	</item>
+
+	<item id="1382">
+		<id>0x1382</id>
+	</item>
+
+	<!-- Yew Tree Duplicate -->
+	<item id="12b5">
+		<id>0x12b5</id>
+	</item>
+
+	<!-- In UOTD/UOLBR and up exact duplicate of items before -->
+	<item id="120a">
+		<id>0x120a</id>
+	</item>
+
+	<item id="120b">
+		<id>0x120b</id>
+	</item>
+
+	<item id="120c">
+		<id>0x120c</id>
+	</item>
+
+	<!-- Memorials are nothing to be played with -->
+	<item id="1186">
+		<id>0x1186</id>
+	</item>
+
+	<item id="1187">
+		<id>0x1187</id>
+	</item>
+
+	<item id="1188">
+		<id>0x1188</id>
+	</item>
+
+	<item id="1189">
+		<id>0x1189</id>
+	</item>
+
+	<!-- Tile Called "empty Tile" -->
+	<item id="1018">
+		<id>0x1018</id>
+	</item>
+
+	<!-- Blank Tile called Unlabled -->
+	<item id="1014">
+		<id>0x1014</id>
+	</item>
+
+	<!-- Broken Fireball Animation -->
+	<item id="f53">
+		<id>0x0f53</id>
+	</item>
+	
 	<!-- Arrow used for "flying" animation -->
 	<item id="f42">
 		<id>0x0f42</id>

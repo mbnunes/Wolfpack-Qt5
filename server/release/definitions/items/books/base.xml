@@ -58,4 +58,16 @@
 		<category>Equipment\Books\Book 6</category>
 		<id>0x0ff4</id>
 	</item>
+
+	<item id="fbd" type="book">
+		<inherit id="base_book" />
+		<id>0x0fbd</id>
+		<category>Equipment\Books\Book 7 (N/S)</category>
+	</item>
+
+	<item id="fbe" type="book">
+		<inherit id="base_book" />
+		<id>0x0fbe</id>
+		<category>Equipment\Books\Book 7 (W/E)</category>
+	</item>
 </definitions>

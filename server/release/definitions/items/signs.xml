@@ -628,4 +628,49 @@
 		<id>0x0c44</id>
 		<category>Signs\Vendor Signs\Beekeper (W/E)</category>
 	</item>
+
+	<item id="1296">
+		<id>0x1296</id>
+		<category>Signs\Road Signs\Post</category>
+	</item>
+
+	<item id="1297">
+		<id>0x1297</id>
+		<category>Signs\Road Signs\Road Sign 1</category>
+	</item>
+
+	<item id="1298">
+		<id>0x1298</id>
+		<category>Signs\Road Signs\Road Sign 2</category>
+	</item>
+
+	<item id="1299">
+		<id>0x1299</id>
+		<category>Signs\Road Signs\Road Sign 3</category>
+	</item>
+
+	<item id="129a">
+		<id>0x129a</id>
+		<category>Signs\Road Signs\Road Sign 4</category>
+	</item>
+
+	<item id="129b">
+		<id>0x129b</id>
+		<category>Signs\Road Signs\Road Sign 5</category>
+	</item>
+
+	<item id="129c">
+		<id>0x129c</id>
+		<category>Signs\Road Signs\Road Sign 6</category>
+	</item>
+
+	<item id="129d">
+		<id>0x129d</id>
+		<category>Signs\Road Signs\Road Sign 7</category>
+	</item>
+
+	<item id="129e">
+		<id>0x129e</id>
+		<category>Signs\Road Signs\Road Sign 8</category>
+	</item>
 </definitions>

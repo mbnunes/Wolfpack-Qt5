@@ -1,11 +1,45 @@
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: sereg                          |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
 <definitions>
+	<item id="f5e">
+		<id>0x0f5e</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Broadsword (N/S)</category>
+	</item>
 
+	<item id="f5f">
+		<inherit id="f5e" />
+		<id>0x0f5f</id>
+		<category>Weapons\Swords\Broadsword (W/E)</category>
+	</item>
+
+	<item id="f60">
+		<id>0x0f60</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Longsword (W/E)</category>
+	</item>
+
+	<item id="f61">
+		<inherit id="f60" />
+		<id>0x0f61</id>
+		<category>Weapons\Swords\Longsword (N/S)</category>
+	</item>
+
+	<item id="f62">
+		<id>0x0f62</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Spear (N/S)</category>
+	</item>
+
+	<item id="f63">
+		<inherit id="f62" />
+		<id>0x0f63</id>
+		<category>Weapons\Swords\Spear (W/E)</category>
+	</item>
 </definitions>

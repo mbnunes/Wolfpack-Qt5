@@ -210,4 +210,9 @@
 		<id>0x0e83</id>
 		<category>Equipment\Containers\Empty Tub</category>
 	</item>
+
+	<item id="fae">
+		<id>0x0fae</id>
+		<category>Equipment\Containers\Barrel 2</category>
+	</item>
 </definitions>

@@ -1225,4 +1225,25 @@
 		<id>0x0918</id>
 		<category>Buildings\Stairs\Stone Step\Stone Step 4</category>
 	</item>
+
+	<!-- Dungeon Ramp -->
+	<item id="11bc">
+		<id>0x11bc</id>
+		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (W/E)</category>
+	</item>
+
+	<item id="11bd">
+		<id>0x11bd</id>
+		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (N/S)</category>
+	</item>
+
+	<item id="11be">
+		<id>0x11be</id>
+		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (E/W)</category>
+	</item>
+
+	<item id="11bf">
+		<id>0x11bf</id>
+		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (S/N)</category>
+	</item>
 </definitions>

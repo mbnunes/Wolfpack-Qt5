@@ -16,6 +16,11 @@
 		<value>40</value>
 	</item>
 
+	<item id="108b">
+		<id>0x108b</id>
+		<category>Clothes\Accessories\Beads</category>
+	</item>
+
 	<!-- Skirt n/s -->
 	<item id="1516">
 		<category>Clothes\Legs\Skirt (N/S)</category>

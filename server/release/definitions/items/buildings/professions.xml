@@ -50,6 +50,16 @@
 		<category>Decoration\Professions\Stablemaster\Hay 2</category>
 	</item>
 
+	<item id="1036">
+		<id>0x1036</id>
+		<category>Decoration\Professions\Stablemaster\Hay 3</category>
+	</item>
+
+	<item id="1037">
+		<id>0x1037</id>
+		<category>Decoration\Professions\Stablemaster\Hay 4</category>
+	</item>
+
 	<item id="f36">
 		<id>0x0f36</id>
 		<category>Decoration\Professions\Stablemaster\Sheaf of Hay 1</category>
@@ -63,6 +73,76 @@
 	<item id="f38">
 		<id>0x0f38</id>
 		<category>Decoration\Professions\Stablemaster\Saddle (W/E)</category>
+	</item>
+
+	<item id="f3b">
+		<id>0x0f3b</id>
+		<category>Decoration\Professions\Stablemaster\Horse Dung 1</category>
+	</item>
+
+	<item id="f3c">
+		<id>0x0f3c</id>
+		<category>Decoration\Professions\Stablemaster\Horse Dung 2</category>
+	</item>
+
+	<item id="100c">
+		<id>0x100c</id>
+		<category>Decoration\Professions\Stablemaster\Sheaf of Hay 2</category>
+	</item>
+
+	<item id="100d">
+		<id>0x100d</id>
+		<category>Decoration\Professions\Stablemaster\Sheaf of Hay 3</category>
+	</item>
+
+	<item id="1370">
+		<id>0x1370</id>
+		<category>Decoration\Professions\Stablemaster\Brush 1 (W/E)</category>
+	</item> 
+
+	<item id="1371">
+		<id>0x1371</id>
+		<category>Decoration\Professions\Stablemaster\Brush 1 (N/S)</category>
+	</item>
+
+	<item id="1372">
+		<id>0x1372</id>
+		<category>Decoration\Professions\Stablemaster\Brush 2 (N/S)</category>
+	</item>
+
+	<item id="1373">
+		<id>0x1373</id>
+		<category>Decoration\Professions\Stablemaster\Brush 2 (W/E)</category>
+	</item>
+
+	<item id="1374">
+		<id>0x1374</id>
+		<category>Decoration\Professions\Stablemaster\Bridle (N/S)</category>
+	</item>
+
+	<item id="1375">
+		<id>0x1375</id>
+		<category>Decoration\Professions\Stablemaster\Bridle (W/E)</category>
+	</item>
+
+	<item id="1376">
+		<id>0x1376</id>
+		<category>Decoration\Professions\Stablemaster\Horse Barding (W/E) (1/2)</category>
+	</item>
+
+	<item id="1377">
+		<id>0x1377</id>
+		<category>Decoration\Professions\Stablemaster\Horse Barding (W/E) (2/2)</category>
+	</item>
+
+	<item id="1378">
+		<id>0x1378</id>
+		<category>Decoration\Professions\Stablemaster\Horse Barding (N/S) (1/2)</category>
+	</item>
+
+	<item id="1379">
+		<id>0x1379</id>
+		<category>Decoration\Professions\Stablemaster\Horse Barding (N/S) (2/2)</category>
 	</item>
 
 	<!-- Fishing Decoration -->
@@ -182,6 +262,77 @@
 		<category>Decoration\Professions\Tailorer\Dress Form (W/E)</category>
 	</item>
 
+	<item id="1069">
+		<id>0x1069</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 1 (W/E)</category>
+	</item>
+
+	<item id="106a">
+		<id>0x106a</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 2 (W/E)</category>
+	</item>
+
+	<item id="106b">
+		<id>0x106b</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 3 (W/E)</category>
+	</item>
+
+	<item id="106c">
+		<id>0x106c</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 4 (W/E) (1/2)</category>
+	</item>
+
+	<item id="106d">
+		<id>0x106d</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 4 (W/E) (2/2)</category>
+	</item>
+
+	<item id="106e">
+		<id>0x106e</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 5 (W/E) (1/2)</category>
+	</item>
+
+	<item id="106f">
+		<id>0x106f</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 5 (W/E) (2/2)</category>
+	</item>
+
+
+	<item id="107a">
+		<id>0x107a</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 1 (N/S)</category>
+	</item>
+
+	<item id="107b">
+		<id>0x107b</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 2 (N/S)</category>
+	</item>
+
+	<item id="107c">
+		<id>0x107c</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 3 (N/S)</category>
+	</item>
+
+	<item id="107d">
+		<id>0x107d</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 4 (N/S) (1/2)</category>
+	</item>
+
+	<item id="107e">
+		<id>0x107e</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 4 (N/S) (2/2)</category>
+	</item>
+
+	<item id="107f">
+		<id>0x107f</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 5 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1080">
+		<id>0x1080</id>
+		<category>Decoration\Professions\Tailorer\Stretched Hide 5 (N/S) (2/2)</category>
+	</item>
+
 	<!-- Fletcher -->
 	<item id="dfa">
 		<id>0x0dfa</id>
@@ -191,6 +342,46 @@
 	<item id="dfb">
 		<id>0x0dfb</id>
 		<category>Decoration\Professions\Fletcher\Feathers 2</category>
+	</item>
+
+	<item id="f40">
+		<id>0x0f40</id>
+		<category>Decoration\Professions\Fletcher\Arrows 1</category>
+	</item>
+
+	<item id="f41">
+		<id>0x0f41</id>
+		<category>Decoration\Professions\Fletcher\Arrows 2</category>
+	</item>
+
+	<item id="1020">
+		<id>0x1020</id>
+		<category>Decoration\Professions\Fletcher\Feathers 3</category>
+	</item>
+
+	<item id="1021">
+		<id>0x1021</id>
+		<category>Decoration\Professions\Fletcher\Feathers 4</category>
+	</item>
+
+	<item id="1022">
+		<id>0x1022</id>
+		<category>Decoration\Professions\Fletcher\Arrow Fletching 1</category>
+	</item>
+
+	<item id="1023">
+		<id>0x1023</id>
+		<category>Decoration\Professions\Fletcher\Arrow Fletching 2</category>
+	</item>
+
+	<item id="1024">
+		<id>0x1024</id>
+		<category>Decoration\Professions\Fletcher\Arrow Shafts 1</category>
+	</item>
+
+	<item id="1025">
+		<id>0x1025</id>
+		<category>Decoration\Professions\Fletcher\Arrow Shafts 2</category>
 	</item>
 
 	<!-- Barber -->
@@ -342,7 +533,47 @@
 
 	<item id="e1c">
 		<id>0x0e1c</id>
-		<category>Decoration\Professions\Barkeeper\Backgammon Board</category>
+		<category>Decoration\Professions\Barkeeper\Backgammon Board 1</category>
+	</item>
+
+	<item id="fa2">
+		<id>0x0fa2</id>
+		<category>Decoration\Professions\Barkeeper\Cards 6</category>
+	</item>
+
+	<item id="fa3">
+		<id>0x0fa3</id>
+		<category>Decoration\Professions\Barkeeper\Cards 7</category>
+	</item>
+
+	<item id="fa4">
+		<id>0x0fa4</id>
+		<category>Decoration\Professions\Barkeeper\Checkers 3</category>
+	</item>
+
+	<item id="fa5">
+		<id>0x0fa5</id>
+		<category>Decoration\Professions\Barkeeper\Checkers 4</category>
+	</item>
+
+	<item id="fa6">
+		<id>0x0fa6</id>
+		<category>Decoration\Professions\Barkeeper\Game Board</category>
+	</item>
+
+	<item id="fa7">
+		<id>0x0fa7</id>
+		<category>Decoration\Professions\Barkeeper\Dice and Cup</category>
+	</item>
+
+	<item id="fa8">
+		<id>0x0fa8</id>
+		<category>Decoration\Professions\Barkeeper\Chessmen 4</category>
+	</item>
+
+	<item id="fad">
+		<id>0x0fad</id>
+		<category>Decoration\Professions\Barkeeper\Backgammon Board 2</category>
 	</item>
 
 	<!-- Healer -->
@@ -359,6 +590,16 @@
 	<item id="e23">
 		<id>0x0e23</id>
 		<category>Decoration\Professions\Healer\Bloody Water</category>
+	</item>
+
+	<item id="1008">
+		<id>0x1008</id>
+		<category>Decoration\Professions\Healer\Wash Basin</category>
+	</item>
+
+	<item id="1009">
+		<id>0x1009</id>
+		<category>Decoration\Professions\Healer\Basin</category>
 	</item>
 
 	<!-- Alchemist -->
@@ -517,6 +758,21 @@
 		<category>Decoration\Professions\Alchemist\Bottle 18</category>
 	</item>
 
+	<item id="1005">
+		<id>0x1005</id>
+		<category>Decoration\Professions\Alchemist\Empty Jar</category>
+	</item>
+
+	<item id="1006">
+		<id>0x1006</id>
+		<category>Decoration\Professions\Alchemist\Full Jar</category>
+	</item>
+
+	<item id="1007">
+		<id>0x1007</id>
+		<category>Decoration\Professions\Alchemist\Half Full Jar</category>
+	</item>
+
 	<!-- Gipsy -->
 	<item id="e2d">
 		<id>0x0e2d</id>
@@ -536,6 +792,46 @@
 	<item id="e30">
 		<id>0x0e30</id>
 		<category>Decoration\Professions\Gipsy\Crystal Ball 4</category>
+	</item>
+
+	<item id="12a5">
+		<id>0x12a5</id>
+		<category>Decoration\Professions\Gipsy\Tarot 1</category>
+	</item>
+
+	<item id="12a6">
+		<id>0x12a6</id>
+		<category>Decoration\Professions\Gipsy\Tarot 2</category>
+	</item>
+
+	<item id="12a7">
+		<id>0x12a7</id>
+		<category>Decoration\Professions\Gipsy\Tarot 3</category>
+	</item>
+
+	<item id="12a8">
+		<id>0x12a8</id>
+		<category>Decoration\Professions\Gipsy\Tarot 4</category>
+	</item>
+
+	<item id="12a9">
+		<id>0x12a9</id>
+		<category>Decoration\Professions\Gipsy\Tarot 5</category>
+	</item>
+
+	<item id="12aa">
+		<id>0x12aa</id>
+		<category>Decoration\Professions\Gipsy\Tarot 6</category>
+	</item>
+
+	<item id="12ab">
+		<id>0x12ab</id>
+		<category>Decoration\Professions\Gipsy\Tarot 7</category>
+	</item>
+
+	<item id="12ac">
+		<id>0x12ac</id>
+		<category>Decoration\Professions\Gipsy\Tarot 8</category>
 	</item>
 
 	<!-- Musician -->
@@ -768,5 +1064,332 @@
 	<item id="f30">
 		<id>0x0f30</id>
 		<category>Decoration\Professions\Jeweler\Diamond 5</category>
+	</item>
+
+	<!-- Artist -->
+	<item id="f65">
+		<id>0x0f65</id>
+		<category>Decoration\Professions\Artist\Canvas 1</category>
+	</item>
+
+	<item id="f66">
+		<id>0x0f66</id>
+		<category>Decoration\Professions\Artist\Canvas 2</category>
+	</item>
+
+	<item id="f67">
+		<id>0x0f67</id>
+		<category>Decoration\Professions\Artist\Canvas 3</category>
+	</item>
+
+	<item id="f68">
+		<id>0x0f68</id>
+		<category>Decoration\Professions\Artist\Canvas 4</category>
+	</item>
+
+	<item id="f69">
+		<id>0x0f69</id>
+		<category>Decoration\Professions\Artist\Canvas 5</category>
+	</item>
+
+	<item id="f6a">
+		<id>0x0f6a</id>
+		<category>Decoration\Professions\Artist\Canvas 6</category>
+	</item>
+
+	<item id="f71">
+		<id>0x0f71</id>
+		<category>Decoration\Professions\Artist\Rack of Canvases 1</category>
+	</item>
+
+	<item id="f72">
+		<id>0x0f72</id>
+		<category>Decoration\Professions\Artist\Rack of Canvases 2</category>
+	</item>
+
+	<item id="f73">
+		<id>0x0f73</id>
+		<category>Decoration\Professions\Artist\Rack of Canvases 3</category>
+	</item>
+
+	<item id="f74">
+		<id>0x0f74</id>
+		<category>Decoration\Professions\Artist\Rack of Canvases 4</category>
+	</item>
+
+	<item id="f75">
+		<id>0x0f75</id>
+		<category>Decoration\Professions\Artist\Rack of Canvases 5</category>
+	</item>
+
+	<item id="f76">
+		<id>0x0f76</id>
+		<category>Decoration\Professions\Artist\Rack of Canvases 6</category>
+	</item>
+	
+	<item id="fbf">
+		<id>0x0fbf</id>
+		<category>Decoration\Professions\Artist\Pen &amp; Ink (W/E)</category>
+	</item>
+
+	<item id="fc0">
+		<id>0x0fc0</id>
+		<category>Decoration\Professions\Artist\Pen &amp; Ink (N/S)</category>
+	</item>
+
+	<item id="fc1">
+		<id>0x0fc1</id>
+		<category>Decoration\Professions\Artist\Paints and Brush</category>
+	</item>
+
+	<item id="12b3">
+		<id>0x12b3</id>
+		<category>Decoration\Professions\Artist\Mallet and Chisel</category>
+	</item>
+
+	<!-- Blacksmith -->
+	<item id="faf">
+		<id>0x0faf</id>
+		<category>Decoration\Professions\Blacksmith\Anvil (N/S)</category>
+	</item>
+
+	<item id="fb0">
+		<id>0x0fb0</id>
+		<category>Decoration\Professions\Blacksmith\Anvil (W/E)</category>
+	</item>
+
+	<item id="fb1">
+		<id>0x0fb1</id>
+		<category>Decoration\Professions\Blacksmith\Small Forge</category>
+	</item>
+
+	<item id="fb6">
+		<id>0x0fb6</id>
+		<category>Decoration\Professions\Blacksmith\Horse Shoes</category>
+	</item>
+
+	<item id="fb7">
+		<id>0x0fb7</id>
+		<category>Decoration\Professions\Blacksmith\Forged Metal (W/E)</category>
+	</item>
+
+	<item id="fb8">
+		<id>0x0fb8</id>
+		<category>Decoration\Professions\Blacksmith\Forged Metal (N/S)</category>
+	</item>
+
+	<item id="fbb">
+		<id>0x0fbb</id>
+		<category>Decoration\Professions\Blacksmith\Tongs (W/E)</category>
+	</item>
+
+	<item id="fbc">
+		<id>0x0fbc</id>
+		<category>Decoration\Professions\Blacksmith\Tongs (N/S)</category>
+	</item>
+
+	<item id="10e1">
+		<id>0x10e1</id>
+		<category>Decoration\Professions\Blacksmith\Barrel Hoops 1</category>
+	</item>
+
+	<item id="10e2">
+		<id>0x10e2</id>
+		<category>Decoration\Professions\Blacksmith\Barrel Hoops 2</category>
+	</item>
+
+	<!-- Carpenter -->
+	<item id="1038">
+		<id>0x1038</id>
+		<category>Decoration\Professions\Carpenter\Wood Curls</category>
+	</item>
+
+	<!-- Baker -->
+	<item id="1039">
+		<id>0x1039</id>
+		<category>Decoration\Professions\Baker\Sack of Flour (W/E)</category>
+	</item>
+
+	<item id="103a">
+		<id>0x103a</id>
+		<category>Decoration\Professions\Baker\Open Sack of Flour (W/E)</category>
+	</item>
+
+	<item id="1045">
+		<id>0x1045</id>
+		<category>Decoration\Professions\Baker\Sack of Flour (N/S)</category>
+	</item>
+
+	<item id="1046">
+		<id>0x1046</id>
+		<category>Decoration\Professions\Baker\Open Sack of Flour (N/S)</category>
+	</item>
+
+	<item id="103d">
+		<id>0x103d</id>
+		<category>Decoration\Professions\Baker\Dough</category>
+	</item>
+
+	<item id="103e">
+		<id>0x103e</id>
+		<category>Decoration\Professions\Baker\Flour Sifter</category>
+	</item>
+
+	<item id="1043">
+		<id>0x1043</id>
+		<category>Decoration\Professions\Baker\Rolling Pin</category>
+	</item>
+
+	<item id="1044">
+		<id>0x1044</id>
+		<category>Decoration\Professions\Baker\Spam</category>
+	</item>
+
+	<!-- Mapmaker -->
+	<item id="1047">
+		<id>0x1047</id>
+		<category>Decoration\Professions\Mapmaker\Globe 1</category>
+	</item>
+
+	<item id="1048">
+		<id>0x1048</id>
+		<category>Decoration\Professions\Mapmaker\Globe 2</category>
+	</item>
+
+	<!-- Tinker -->
+	<item id="104b">
+		<id>0x104b</id>
+		<category>Decoration\Professions\Tinker\Clock (W/E)</category>
+	</item>
+
+	<item id="104c">
+		<id>0x104c</id>
+		<category>Decoration\Professions\Tinker\Clock (N/S)</category>
+	</item>
+
+	<item id="104d">
+		<id>0x104d</id>
+		<category>Decoration\Professions\Tinker\Clock Frame (W/E)</category>
+	</item>
+
+	<item id="104e">
+		<id>0x104e</id>
+		<category>Decoration\Professions\Tinker\Clock Frame (N/S)</category>
+	</item>
+
+	<item id="104f">
+		<id>0x104f</id>
+		<category>Decoration\Professions\Tinker\Clock Parts (W/E)</category>
+	</item>
+
+	<item id="1050">
+		<id>0x1050</id>
+		<category>Decoration\Professions\Tinker\Clock Parts (N/S)</category>
+	</item>
+
+	<item id="1051">
+		<id>0x1051</id>
+		<category>Decoration\Professions\Tinker\Axle with Gears (W/E)</category>
+	</item>
+
+	<item id="1052">
+		<id>0x1052</id>
+		<category>Decoration\Professions\Tinker\Axle with Gears (N/S)</category>
+	</item>
+
+	<item id="1053">
+		<id>0x1053</id>
+		<category>Decoration\Professions\Tinker\Gears (W/E)</category>
+	</item>
+
+	<item id="1054">
+		<id>0x1054</id>
+		<category>Decoration\Professions\Tinker\Gears (N/S)</category>
+	</item>
+
+	<item id="1055">
+		<id>0x1055</id>
+		<category>Decoration\Professions\Tinker\Hinge (W/E)</category>
+	</item>
+
+	<item id="1056">
+		<id>0x1056</id>
+		<category>Decoration\Professions\Tinker\Hinge (W/E)</category>
+	</item>
+
+	<item id="1057">
+		<id>0x1057</id>
+		<category>Decoration\Professions\Tinker\Sextant (W/E)</category>
+	</item>
+
+	<item id="1058">
+		<id>0x1058</id>
+		<category>Decoration\Professions\Tinker\Sextant (N/S)</category>
+	</item>
+
+	<item id="1059">
+		<id>0x1059</id>
+		<category>Decoration\Professions\Tinker\Sextant Parts (W/E)</category>
+	</item>
+
+	<item id="105a">
+		<id>0x105a</id>
+		<category>Decoration\Professions\Tinker\Sextant Parts (N/S)</category>
+	</item>
+
+	<item id="105b">
+		<id>0x105b</id>
+		<category>Decoration\Professions\Tinker\Axle (W/E)</category>
+	</item>
+
+	<item id="105c">
+		<id>0x105c</id>
+		<category>Decoration\Professions\Tinker\Axle (N/S)</category>
+	</item>
+
+	<item id="105d">
+		<id>0x105d</id>
+		<category>Decoration\Professions\Tinker\Springs (W/E)</category>
+	</item>
+
+	<item id="105e">
+		<id>0x105e</id>
+		<category>Decoration\Professions\Tinker\Springs (N/S)</category>
+	</item>
+
+	<item id="10e3">
+		<id>0x10e3</id>
+		<category>Decoration\Professions\Tinker\Dough Bowl</category>
+	</item>
+
+	<!-- Cook -->
+	<item id="10ee">
+		<id>0x10ee</id>
+		<category>Decoration\Professions\Cook\Garbage 1</category>
+	</item>
+
+	<item id="10ef">
+		<id>0x10ef</id>
+		<category>Decoration\Professions\Cook\Garbage 2</category>
+	</item>
+
+	<item id="10f0">
+		<id>0x10f0</id>
+		<category>Decoration\Professions\Cook\Garbage 3</category>
+	</item>
+
+	<item id="10f1">
+		<id>0x10f1</id>
+		<category>Decoration\Professions\Cook\Garbage 4</category>
+	</item>
+
+	<item id="10f2">
+		<id>0x10f2</id>
+		<category>Decoration\Professions\Cook\Pile of Garbage (W/E)</category>
+	</item>
+
+	<item id="10f3">
+		<id>0x10f3</id>
+		<category>Decoration\Professions\Cook\Pile of Garbage (N/S)</category>
 	</item>
 </definitions>

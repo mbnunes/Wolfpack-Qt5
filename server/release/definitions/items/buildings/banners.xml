@@ -8,14 +8,6 @@
 | Banners                                                       |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items (insgesamt 154) gelöscht werden:
-1586 bis 1596
-1598 bis 159d
-15a0 bis 15f5
-160f bis 1633
-426, 427
-42a bis 42f
--->
 <definitions>
         <!-- Banners -->
         <item id="1586">
@@ -736,47 +728,6 @@
         <item id="15f5">
                 <id>0x15f5</id>
                 <category>Decoration\Banners\Banner 51 (N/S)</category>
-        </item>
-
-        <!-- Tattered Banners -->
-        <item id="426">
-                <id>0x426</id>
-                <category>Decoration\Banners\Tattered Banner 1 (W/E) 2</category>
-        </item>
-
-        <item id="427">
-                <id>0x427</id>
-                <category>Decoration\Banners\Tattered Banner 1 (W/E) 1</category>
-        </item>
-
-        <item id="42a">
-                <id>0x42a</id>
-                <category>Decoration\Banners\Tattered Banner 1 (N/S) 2</category>
-        </item>
-
-        <item id="42b">
-                <id>0x42b</id>
-                <category>Decoration\Banners\Tattered Banner 1 (N/S) 1</category>
-        </item>
-
-        <item id="42c">
-                <id>0x42c</id>
-                <category>Decoration\Banners\Tattered Banner 2 (W/E) 2</category>
-        </item>
-
-        <item id="42d">
-                <id>0x42d</id>
-                <category>Decoration\Banners\Tattered Banner 2 (W/E) 1</category>
-        </item>
-
-        <item id="42e">
-                <id>0x42e</id>
-                <category>Decoration\Banners\Tattered Banner 2 (N/S) 1</category>
-        </item>
-
-        <item id="42f">
-                <id>0x42f</id>
-                <category>Decoration\Banners\Tattered Banner 2 (N/S) 2</category>
         </item>
 
         <!-- Banner Hanger -->

@@ -7,52 +7,17 @@
 =================================================================
 -->
 <definitions>
-	<!-- Tongs -->
-	<item id="fbb">
-		<id>0x0FBB</id>
-		<durability>20</durability>
-	</item>
-	
-	<!-- Tongs -->
-	<item id="fbc">
-		<id>0x0FBC</id>
-		<durability>20</durability>
-	</item>
-	
-	<!-- Smithy Hammer -->
-	<item id="13e4">
-		<id>0x13e4</id>
-		<durability>20</durability>
-	</item>
-	
-	<!-- Smithy Hammer -->
-	<item id="13e3">
-		<id>0x13e3</id>
-		<durability>20</durability>
-	</item>
-	
 	<!-- Sledge Hammer -->
 	<item id="fb4">
 		<id>0x0FB4</id>
-		<durability>20</durability>
+		<category>Skill Items\Blacksmithing\Sledge Hammer (W/E)</category>
 	</item>
 	
 	<!-- Sledge Hammer -->
 	<item id="fb5">
+		<inherit id="fb4" />
 		<id>0x0FB5</id>
-		<durability>20</durability>
-	</item>
-	
-	<!-- Anvil -->
-	<item id="faf">
-		<id>0x0FAF</id>
-		<nodecay />
-	</item>
-	
-	<!-- Anvil -->
-	<item id="fb0">
-		<id>0x0FB0</id>
-		<nodecay />
+		<category>Skill Items\Blacksmithing\Sledge Hammer (N/S)</category>
 	</item>
 	
 	<!-- Ingot -->
@@ -62,7 +27,6 @@
 		<value>10</value>
 		<weight>.20</weight>
 	</item>
-
 	
 <!-- 
 =================================================================

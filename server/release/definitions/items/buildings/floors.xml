@@ -820,6 +820,26 @@
             <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 9</category>
 		</item>
 	
+	<item id="1383">
+		<id>0x1383</id>
+            <category>Buildings\Floors\Sandstone Floor\Sandstone Corner 1</category>
+	</item>
+
+	<item id="1384">
+		<id>0x1384</id>
+            <category>Buildings\Floors\Sandstone Floor\Sandstone Corner 2</category>
+	</item>
+
+	<item id="1385">
+		<id>0x1385</id>
+            <category>Buildings\Floors\Sandstone Floor\Sandstone Corner 3</category>
+	</item>
+
+	<item id="1386">
+		<id>0x1386</id>
+            <category>Buildings\Floors\Sandstone Floor\Sandstone Corner 4</category>
+	</item>
+
 		<!-- Dark Dark Sandstone Floor -->
         <item id="52f">
                 <id>0x052f</id>

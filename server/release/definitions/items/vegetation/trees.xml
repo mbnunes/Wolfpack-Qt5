@@ -1052,4 +1052,14 @@
 		<id>0x0d3d</id>
                 <category>Vegetation\Trees\Fallen Branch 3</category>
 	</item>
+
+        <item id="11C8">
+                <id>0x11C8</id>
+                <category>Vegetation\Trees\Potted Tree 1</category>
+        </item>
+
+        <item id="11C9">
+                <id>0x11C9</id>
+                <category>Vegetation\Trees\Potted Tree 2</category>
+        </item>
 </definitions>

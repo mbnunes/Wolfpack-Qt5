@@ -455,6 +455,11 @@
 		<category>Decoration\Campfire\Burned Wood</category>
 	</item>
 
+	<item id="fac">
+		<id>0x0fac</id>
+		<category>Decoration\Campfire\Fire Pit</category>
+	</item>
+
 	<!-- Glowing Runes -->
 	<item id="e5c">
 		<id>0x0e5c</id>
@@ -540,96 +545,737 @@
 	<!-- Paintings & Tapestry -->
 	<item id="e9f">
 		<id>0x0e9f</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 1</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 1</category> 
 	</item>
 
 	<item id="ea0">
 		<id>0x0ea0</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 2</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 2</category> 
 	</item>
 
 	<item id="ea1">
 		<id>0x0ea1</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 3</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 3</category> 
 	</item>
 
 	<item id="ea2">
 		<id>0x0ea2</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 4</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 4</category> 
 	</item>
 
 	<item id="ea3">
 		<id>0x0ea3</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 5</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 5</category> 
 	</item>
 
 	<item id="ea4">
 		<id>0x0ea4</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 6</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 6</category> 
 	</item>
 
 	<item id="ea5">
 		<id>0x0ea5</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 7</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 7</category> 
 	</item>
 
 	<item id="ea6">
 		<id>0x0ea6</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 8</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 8</category> 
 	</item>
 
 	<item id="ea7">
 		<id>0x0ea7</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 9</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 9</category> 
 	</item>
 
 	<item id="ea8">
 		<id>0x0ea8</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 10</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 10</category> 
 	</item>
 
 	<item id="eaa">
 		<id>0x0eaa</id>
-		<category>Buildings\Paintings &amp; Tapestry\Tapestry 1 (1/2)</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 1 (1/2)</category> 
 	</item>
 
 	<item id="eab">
 		<id>0x0eab</id>
-		<category>Buildings\Paintings &amp; Tapestry\Tapestry 1 (2/2)</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 1 (2/2)</category> 
 	</item>
 
 	<item id="eac">
 		<id>0x0eac</id>
-		<category>Buildings\Paintings &amp; Tapestry\Tapestry 2 (1/2)</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 2 (1/2)</category> 
 	</item>
 
 	<item id="ead">
 		<id>0x0ead</id>
-		<category>Buildings\Paintings &amp; Tapestry\Tapestry 2 (2/2)</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 2 (2/2)</category> 
 	</item>
 
 	<item id="eae">
 		<id>0x0eae</id>
-		<category>Buildings\Paintings &amp; Tapestry\Tapestry 3 (1/2)</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 3 (1/2)</category> 
 	</item>
 
 	<item id="eaf">
 		<id>0x0eaf</id>
-		<category>Buildings\Paintings &amp; Tapestry\Tapestry 3 (2/2)</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 3 (2/2)</category> 
 	</item>
 
 	<item id="ec8">
 		<id>0x0ec8</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 11</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 11</category> 
 	</item>
 
 	<item id="ec9">
 		<id>0x0ec9</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 12</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category> 
 	</item>
 
    <item id="EE7">
         <id>0xEE7</id>
-		<category>Buildings\Paintings &amp; Tapestry\Painting 12</category> 
+		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category> 
     </item>
+
+	<item id="fd5">
+		<id>0x0fd5</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 4 (1/2)</category> 
+	</item>
+
+	<item id="fd6">
+		<id>0x0fd6</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 4 (2/2)</category> 
+	</item>
+
+	<item id="fd7">
+		<id>0x0fd7</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 5 (1/2)</category> 
+	</item>
+
+	<item id="fd8">
+		<id>0x0fd8</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 5 (2/2)</category> 
+	</item>
+
+	<item id="fd9">
+		<id>0x0fd9</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 6 (1/2)</category> 
+	</item>
+
+	<item id="fda">
+		<id>0x0fda</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 6 (2/2)</category> 
+	</item>
+
+	<item id="fdb">
+		<id>0x0fdb</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 7 (1/2)</category> 
+	</item>
+
+	<item id="fdc">
+		<id>0x0fdc</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 7 (2/2)</category> 
+	</item>
+
+	<item id="fdd">
+		<id>0x0fdd</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 8 (1/2)</category> 
+	</item>
+
+	<item id="fde">
+		<id>0x0fde</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 8 (2/2)</category> 
+	</item>
+
+	<item id="fdf">
+		<id>0x0fdf</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 9 (1/2)</category> 
+	</item>
+
+	<item id="fe0">
+		<id>0x0fe0</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 9 (2/2)</category> 
+	</item>
+
+	<item id="fe1">
+		<id>0x0fe1</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 10 (1/2)</category> 
+	</item>
+
+	<item id="fe2">
+		<id>0x0fe2</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 10 (2/2)</category> 
+	</item>
+
+	<item id="fe3">
+		<id>0x0fe3</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 11 (1/2)</category> 
+	</item>
+
+	<item id="fe4">
+		<id>0x0fe4</id>
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 11 (2/2)</category> 
+	</item>
+
+	<!-- Shells -->
+	<item id="fc4">
+		<id>0x0fc4</id>
+		<category>Decoration\Shells\Shell 1</category> 
+	</item>
+
+	<item id="fc5">
+		<id>0x0fc5</id>
+		<category>Decoration\Shells\Shell 2</category> 
+	</item>
+
+	<item id="fc6">
+		<id>0x0fc6</id>
+		<category>Decoration\Shells\Shell 3</category> 
+	</item>
+
+	<item id="fc7">
+		<id>0x0fc7</id>
+		<category>Decoration\Shells\Shell 4</category> 
+	</item>
+
+	<item id="fc8">
+		<id>0x0fc8</id>
+		<category>Decoration\Shells\Shell 5</category> 
+	</item>
+
+	<item id="fc9">
+		<id>0x0fc9</id>
+		<category>Decoration\Shells\Shell 6</category> 
+	</item>
+
+	<item id="fca">
+		<id>0x0fca</id>
+		<category>Decoration\Shells\Shell 7</category> 
+	</item>
+
+	<item id="fcb">
+		<id>0x0fcb</id>
+		<category>Decoration\Shells\Shell 8</category> 
+	</item>
+
+	<item id="fcc">
+		<id>0x0fcc</id>
+		<category>Decoration\Shells\Shell 9</category> 
+	</item>
+
+	<item id="fcd">
+		<id>0x0fcd</id>
+		<category>Decoration\Shells\String of Shells 1</category> 
+	</item>
+
+	<item id="fce">
+		<id>0x0fce</id>
+		<category>Decoration\Shells\String of Shells 2</category> 
+	</item>
+
+	<item id="fcf">
+		<id>0x0fcf</id>
+		<category>Decoration\Shells\String of Shells 3</category> 
+	</item>
+
+	<item id="fd0">
+		<id>0x0fd0</id>
+		<category>Decoration\Shells\String of Shells 4</category> 
+	</item>
+
+	<item id="fd1">
+		<id>0x0fd1</id>
+		<category>Decoration\Shells\String of Shells 5</category> 
+	</item>
+
+	<item id="fd2">
+		<id>0x0fd2</id>
+		<category>Decoration\Shells\String of Shells 6</category> 
+	</item>
+
+	<item id="fd3">
+		<id>0x0fd3</id>
+		<category>Decoration\Shells\String of Shells 7</category> 
+	</item>
+
+	<item id="fd4">
+		<id>0x0fd4</id>
+		<category>Decoration\Shells\String of Shells 8</category> 
+	</item>
+
+	<!-- Mats & Furs -->
+	<item id="11e2">
+		<id>0x11e2</id>
+		<category>Decoration\Mats &amp; Furs\Grass Mat (N/S) (1/2)</category> 
+	</item>
+
+	<item id="11e3">
+		<id>0x11e3</id>
+		<category>Decoration\Mats &amp; Furs\Grass Mat (N/S) (2/2)</category> 
+	</item>
+
+	<item id="11e4">
+		<id>0x11e4</id>
+		<category>Decoration\Mats &amp; Furs\Grass Mat (W/E) (1/2)</category> 
+	</item>
+
+	<item id="11e5">
+		<id>0x11e5</id>
+		<category>Decoration\Mats &amp; Furs\Grass Mat (W/E) (2/2)</category> 
+	</item>
+
+	<item id="11e6">
+		<id>0x11e6</id>
+		<category>Decoration\Mats &amp; Furs\Woven Mat (N/S) (1/2)</category> 
+	</item>
+
+	<item id="11e7">
+		<id>0x11e7</id>
+		<category>Decoration\Mats &amp; Furs\Woven Mat (N/S) (2/2)</category> 
+	</item>
+
+	<item id="11e8">
+		<id>0x11e8</id>
+		<category>Decoration\Mats &amp; Furs\Woven Mat (W/E) (1/2)</category> 
+	</item>
+
+	<item id="11e9">
+		<id>0x11e9</id>
+		<category>Decoration\Mats &amp; Furs\Woven Mat (W/E) (2/2)</category> 
+	</item>
+
+	<item id="11ea">
+		<id>0x11ea</id>
+		<category>Decoration\Mats &amp; Furs\Straw Pillow (W/E)</category> 
+	</item>
+
+	<item id="11eb">
+		<id>0x11eb</id>
+		<category>Decoration\Mats &amp; Furs\Straw Pillow (N/S)</category> 
+	</item>
+
+	<item id="11f4">
+		<id>0x11f4</id>
+		<category>Decoration\Mats &amp; Furs\Fur 1 (W/E)</category> 
+	</item>
+
+	<item id="11f5">
+		<id>0x11f5</id>
+		<category>Decoration\Mats &amp; Furs\Fur 2 (W/E)</category> 
+	</item>
+
+	<item id="11f6">
+		<id>0x11f6</id>
+		<category>Decoration\Mats &amp; Furs\Fur 3 (W/E)</category> 
+	</item>
+
+	<item id="11f7">
+		<id>0x11f7</id>
+		<category>Decoration\Mats &amp; Furs\Fur 4 (W/E)</category> 
+	</item>
+
+	<item id="11f8">
+		<id>0x11f8</id>
+		<category>Decoration\Mats &amp; Furs\Fur 1 (N/S)</category> 
+	</item>
+
+	<item id="11f9">
+		<id>0x11f9</id>
+		<category>Decoration\Mats &amp; Furs\Fur 2 (N/S)</category> 
+	</item>
+
+	<item id="11fa">
+		<id>0x11fa</id>
+		<category>Decoration\Mats &amp; Furs\Fur 3 (N/S)</category> 
+	</item>
+
+	<item id="11fb">
+		<id>0x11fb</id>
+		<category>Decoration\Mats &amp; Furs\Fur 4 (N/S)</category> 
+	</item>
+
+	<!-- Hammock &amp; Cots -->
+	<item id="11f0">
+		<id>0x11f0</id>
+		<category>Decoration\Hammock &amp; Cot\Hammock (W/E) (1/2)</category> 
+	</item>
+
+	<item id="11f1">
+		<id>0x11f1</id>
+		<category>Decoration\Hammock &amp; Cot\Hammock (W/E) (2/2)</category> 
+	</item>
+
+	<item id="11f2">
+		<id>0x11f2</id>
+		<category>Decoration\Hammock &amp; Cot\Hammock (N/S) (1/2)</category> 
+	</item>
+
+	<item id="11f3">
+		<id>0x11f3</id>
+		<category>Decoration\Hammock &amp; Cot\Hammock (N/S) (2/2)</category> 
+	</item>
+
+	<item id="11fd">
+		<id>0x11fd</id>
+		<category>Decoration\Hammock &amp; Cot\Cot (W/E) (1/2)</category> 
+	</item>
+
+	<item id="11fe">
+		<id>0x11fe</id>
+		<category>Decoration\Hammock &amp; Cot\Cot (W/E) (2/2)</category> 
+	</item>
+
+	<item id="11ff">
+		<id>0x11ff</id>
+		<category>Decoration\Hammock &amp; Cot\Cot (N/S) (1/2)</category> 
+	</item>
+
+	<item id="1200">
+		<id>0x1200</id>
+		<category>Decoration\Hammock &amp; Cot\Cot (N/S) (2/2)</category> 
+	</item>	
+
+	<!-- Wall Carvings -->
+	<item id="121d">
+		<id>0x121d</id>
+		<category>Decoration\Wall Carvings\Wall Carving 1 (1/3)</category>
+	</item>
+
+	<item id="121e">
+		<id>0x121e</id>
+		<category>Decoration\Wall Carvings\Wall Carving 1 (2/3)</category>
+	</item>
+
+	<item id="121f">
+		<id>0x121f</id>
+		<category>Decoration\Wall Carvings\Wall Carving 1 (3/3)</category>
+	</item>
+
+	<item id="1220">
+		<id>0x1220</id>
+		<category>Decoration\Wall Carvings\Wall Carving 2 (1/3)</category>
+	</item>
+
+	<item id="1221">
+		<id>0x1221</id>
+		<category>Decoration\Wall Carvings\Wall Carving 2 (2/3)</category>
+	</item>
+
+	<item id="1222">
+		<id>0x1222</id>
+		<category>Decoration\Wall Carvings\Wall Carving 2 (3/3)</category>
+	</item>
+
+	<item id="1231">
+		<id>0x1231</id>
+		<category>Decoration\Wall Carvings\Wall Carving 3 (N/S) (1/3)</category>
+	</item>
+
+	<item id="1232">
+		<id>0x1232</id>
+		<category>Decoration\Wall Carvings\Wall Carving 3 (N/S) (2/3)</category>
+	</item>
+
+	<item id="1233">
+		<id>0x1233</id>
+		<category>Decoration\Wall Carvings\Wall Carving 3 (N/S) (3/3)</category>
+	</item>
+
+	<item id="1234">
+		<id>0x1234</id>
+		<category>Decoration\Wall Carvings\Wall Carving 4 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1235">
+		<id>0x1235</id>
+		<category>Decoration\Wall Carvings\Wall Carving 4 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1237">
+		<id>0x1237</id>
+		<category>Decoration\Wall Carvings\Wall Carving 5 (N/S) (1/3)</category>
+	</item>
+
+	<item id="1238">
+		<id>0x1238</id>
+		<category>Decoration\Wall Carvings\Wall Carving 5 (N/S) (2/3)</category>
+	</item>
+
+	<item id="1239">
+		<id>0x1239</id>
+		<category>Decoration\Wall Carvings\Wall Carving 5 (N/S) (3/3)</category>
+	</item>
+
+	<item id="123a">
+		<id>0x123a</id>
+		<category>Decoration\Wall Carvings\Wall Carving 5 (W/E) (1/3)</category>
+	</item>
+
+	<item id="123b">
+		<id>0x123b</id>
+		<category>Decoration\Wall Carvings\Wall Carving 5 (W/E) (2/3)</category>
+	</item>
+
+	<item id="123c">
+		<id>0x123c</id>
+		<category>Decoration\Wall Carvings\Wall Carving 5 (W/E) (3/3)</category>
+	</item>
+
+	<item id="123d">
+		<id>0x123d</id>
+		<category>Decoration\Wall Carvings\Wall Carving 3 (W/E) (1/3)</category>
+	</item>
+
+	<item id="123e">
+		<id>0x123e</id>
+		<category>Decoration\Wall Carvings\Wall Carving 3 (W/E) (2/3)</category>
+	</item>
+
+	<item id="1240">
+		<id>0x1240</id>
+		<category>Decoration\Wall Carvings\Wall Carving 3 (W/E) (3/3)</category>
+	</item>
+
+	<item id="1241">
+		<id>0x1241</id>
+		<category>Decoration\Wall Carvings\Wall Carving 4 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1242">
+		<id>0x1242</id>
+		<category>Decoration\Wall Carvings\Wall Carving 4 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1243">
+		<id>0x1243</id>
+		<category>Decoration\Wall Carvings\Wall Carving 6 (W/E)</category>
+	</item>
+
+	<item id="1244">
+		<id>0x1244</id>
+		<category>Decoration\Wall Carvings\Wall Carving 6 (N/S)</category>
+	</item>
+
+	<item id="1265">
+		<id>0x1265</id>
+		<category>Decoration\Wall Carvings\Wall Carving 7 (1/3)</category>
+	</item>
+
+	<item id="1266">
+		<id>0x1266</id>
+		<category>Decoration\Wall Carvings\Wall Carving 7 (2/3)</category>
+	</item>
+
+	<item id="1267">
+		<id>0x1267</id>
+		<category>Decoration\Wall Carvings\Wall Carving 7 (3/3)</category>
+	</item>
+
+	<item id="12cc">
+		<id>0x12cc</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (1/5)</category>
+	</item>
+
+	<item id="12cd">
+		<id>0x12cd</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (2/5)</category>
+	</item>
+
+	<item id="12ce">
+		<id>0x12ce</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (3/5)</category>
+	</item>
+
+	<item id="12cf">
+		<id>0x12cf</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (4/5)</category>
+	</item>
+
+	<item id="12d0">
+		<id>0x12d0</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (5/5)</category>
+	</item>
+
+	<item id="12d1">
+		<id>0x12d1</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (1/4)</category>
+	</item>
+
+	<item id="12d2">
+		<id>0x12d2</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (2/4)</category>
+	</item>
+
+	<item id="12d3">
+		<id>0x12d3</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (3/4)</category>
+	</item>
+
+	<item id="12d4">
+		<id>0x12d4</id>
+		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (4/4)</category>
+	</item>
+
+	<!-- Statues -->
+	<item id="1223">
+		<id>0x1223</id>
+		<category>Decoration\Statues\Small Statues\Pedestal</category>
+	</item>
+
+	<item id="1224">
+		<id>0x1224</id>
+		<category>Decoration\Statues\Small Statues\Statue 1 (W/E)</category>
+	</item>
+
+	<item id="1225">
+		<id>0x1225</id>
+		<category>Decoration\Statues\Small Statues\Statue 5</category>
+	</item>
+
+	<item id="1226">
+		<id>0x1226</id>
+		<category>Decoration\Statues\Small Statues\Statue 2 (W/E)</category>
+	</item>
+
+	<item id="1227">
+		<id>0x1227</id>
+		<category>Decoration\Statues\Small Statues\Statue 3 (W/E)</category>
+	</item>
+
+	<item id="139a">
+		<id>0x139a</id>
+		<category>Decoration\Statues\Small Statues\Statue 1 (N/S)</category>
+	</item>
+
+	<item id="139b">
+		<id>0x139b</id>
+		<category>Decoration\Statues\Small Statues\Statue 2 (N/S)</category>
+	</item>
+
+	<item id="139c">
+		<id>0x139c</id>
+		<category>Decoration\Statues\Small Statues\Statue 3 (N/S)</category>
+	</item>
+
+	<item id="139d">
+		<id>0x139d</id>
+		<category>Decoration\Statues\Small Statues\Statue 4 (N/S)</category>
+	</item>
+
+	<item id="1228">
+		<id>0x1228</id>
+		<category>Decoration\Statues\Small Statues\Statue 4 (W/E)</category>
+	</item>
+
+	<item id="12ca">
+		<id>0x12ca</id>
+		<category>Decoration\Statues\Small Statues\Bust (W/E)</category>
+	</item>
+
+	<item id="12cb">
+		<id>0x12cb</id>
+		<category>Decoration\Statues\Small Statues\Bust (N/S)</category>
+	</item>
+
+	<item id="129f">
+		<id>0x129f</id>
+		<category>Decoration\Statues\Statue 1 (N/S) (2/3)</category>
+	</item>
+
+	<item id="12a0">
+		<id>0x12a0</id>
+		<category>Decoration\Statues\Statue 1 (N/S) (3/3)</category>
+	</item>
+
+	<item id="12a1">
+		<id>0x12a1</id>
+		<category>Decoration\Statues\Statue 1 (N/S) (1/3)</category>
+	</item>
+
+	<item id="12a2">
+		<id>0x12a2</id>
+		<category>Decoration\Statues\Statue 2 (N/S) (2/3)</category>
+	</item>
+
+	<item id="12a3">
+		<id>0x12a3</id>
+		<category>Decoration\Statues\Statue 2 (N/S) (3/3)</category>
+	</item>
+
+	<item id="12a4">
+		<id>0x12a4</id>
+		<category>Decoration\Statues\Statue 2 (N/S) (1/3)</category>
+	</item>
+
+	<item id="12ae">
+		<id>0x12ae</id>
+		<category>Decoration\Statues\Statue 3 (2/3)</category>
+	</item>
+
+	<item id="12af">
+		<id>0x12af</id>
+		<category>Decoration\Statues\Statue 3 (3/3)</category>
+	</item>
+
+	<item id="12b0">
+		<id>0x12b0</id>
+		<category>Decoration\Statues\Statue 3 (1/3)</category>
+	</item>
+
+	<item id="12d5">
+		<id>0x12d5</id>
+		<category>Decoration\Statues\Statue 4 (1/3)</category>
+	</item>
+
+	<item id="12d6">
+		<id>0x12d6</id>
+		<category>Decoration\Statues\Statue 4 (3/3)</category>
+	</item>
+
+	<item id="12d7">
+		<id>0x12d7</id>
+		<category>Decoration\Statues\Statue 4 (2/3)</category>
+	</item>
+
+	<item id="12d8">
+		<id>0x12d8</id>
+		<category>Decoration\Statues\Statue 5 (W/E)</category>
+	</item>
+
+	<item id="12d9">
+		<id>0x12d9</id>
+		<category>Decoration\Statues\Statue 5 (N/S)</category>
+	</item>
+
+	<item id="139e">
+		<id>0x139e</id>
+		<category>Decoration\Statues\Statue 1 (W/E) (2/3)</category>
+	</item>
+
+	<item id="139f">
+		<id>0x139f</id>
+		<category>Decoration\Statues\Statue 1 (W/E) (1/3)</category>
+	</item>
+
+	<item id="13a0">
+		<id>0x13a0</id>
+		<category>Decoration\Statues\Statue 1 (W/E) (3/3)</category>
+	</item>
+
+	<item id="13a1">
+		<id>0x13a1</id>
+		<category>Decoration\Statues\Statue 2 (W/E) (2/3)</category>
+	</item>
+
+	<item id="13a2">
+		<id>0x13a2</id>
+		<category>Decoration\Statues\Statue 2 (W/E) (1/3)</category>
+	</item>
+
+	<item id="13a3">
+		<id>0x13a3</id>
+		<category>Decoration\Statues\Statue 2 (W/E) (3/3)</category>
+	</item>
+
 </definitions>

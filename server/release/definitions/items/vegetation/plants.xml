@@ -807,4 +807,29 @@ dc1 bis dc3
 		<id>0x0c7e</id>
 		<category>Vegetation\Growing\Corn Stalk 2</category>
 	</item>
+
+        <item id="11C6">
+                <id>0x11C6</id>
+                <category>Vegetation\Flowers\Empty Flower Pot 1</category>
+        </item>
+
+        <item id="11C7">
+                <id>0x11C7</id>
+                <category>Vegetation\Flowers\Empty Flower Pot 2</category>
+        </item>
+
+	<item id="11ca">
+		<id>0x11ca</id>
+                <category>Vegetation\Flowers\Flower Pot 1</category>
+	</item>
+
+	<item id="11cb">
+		<id>0x11cb</id>
+                <category>Vegetation\Flowers\Flower Pot 2</category>
+	</item>
+
+	<item id="11cc">
+		<id>0x11cc</id>
+                <category>Vegetation\Flowers\Flower Pot 3</category>
+	</item>
 </definitions>

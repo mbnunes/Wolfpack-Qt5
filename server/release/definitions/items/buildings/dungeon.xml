@@ -523,6 +523,11 @@
         </item>
 
         <!-- Traps -->
+	<item id="1004">
+		<id>0x1004</id>
+		<category>Dungeon\Traps\Barrel Trap</category>
+	</item>
+
         <item id="10F5">
                 <id>0x10F5</id>
                 <category>Dungeon\Traps\Stone Face (small) 1</category>
@@ -1213,26 +1218,6 @@
                 <category>Dungeon\Traps\Crumbling Floor 6</category>
         </item>
 
-        <item id="11C6">
-                <id>0x11C6</id>
-                <category>Dungeon\Traps\Crumbling Floor 7</category>
-        </item>
-
-        <item id="11C7">
-                <id>0x11C7</id>
-                <category>Dungeon\Traps\Crumbling Floor 8</category>
-        </item>
-
-        <item id="11C8">
-                <id>0x11C8</id>
-                <category>Dungeon\Traps\Crumbling Floor 9</category>
-        </item>
-
-        <item id="11C9">
-                <id>0x11C9</id>
-                <category>Dungeon\Traps\Crumbling Floor 10</category>
-        </item>
-
         <item id="1D99">
                 <id>0x1D99</id>
                 <category>Dungeon\Traps\Spike Trap 1</category>
@@ -1505,6 +1490,16 @@
                 <id>0x1247</id>
                 <category>Dungeon\Torture\Guillotine 4</category>
         </item>
+
+	<item id="1268">
+		<id>0x1268</id>
+		<category>Dungeon\Torture\Guillotine 5</category>
+	</item>
+
+	<item id="1269">
+		<id>0x1269</id>
+		<category>Dungeon\Torture\Guillotine 6</category>
+	</item>
 
         <item id="1248">
                 <id>0x1248</id>
@@ -3870,4 +3865,50 @@
                 <id>0x1184</id>
                 <category>Dungeon\Graveyard\Gravestone 43</category>
         </item>
+
+	<!-- Pentagram -->
+		<item id="fe6">
+		<id>0x0fe6</id>
+                <category>Dungeon\Pentagram\Pentagram 1</category>
+	</item>
+
+	<item id="fe7">
+		<id>0x0fe7</id>
+                <category>Dungeon\Pentagram\Pentagram 2</category>
+	</item>
+
+	<item id="fe8">
+		<id>0x0fe8</id>
+                <category>Dungeon\Pentagram\Pentagram 3</category>
+	</item>
+
+	<item id="fe9">
+		<id>0x0fe9</id>
+                <category>Dungeon\Pentagram\Pentagram 4</category>
+	</item>
+
+	<item id="fea">
+		<id>0x0fea</id>
+                <category>Dungeon\Pentagram\Pentagram 5</category>
+	</item>
+
+	<item id="feb">
+		<id>0x0feb</id>
+                <category>Dungeon\Pentagram\Pentagram 6</category>
+	</item>
+
+	<item id="fec">
+		<id>0x0fec</id>
+                <category>Dungeon\Pentagram\Pentagram 7</category>
+	</item>
+
+	<item id="fed">
+		<id>0x0fed</id>
+                <category>Dungeon\Pentagram\Pentagram 8</category>
+	</item>
+
+	<item id="fee">
+		<id>0x0fee</id>
+                <category>Dungeon\Pentagram\Pentagram 9</category>
+	</item>
 </definitions>

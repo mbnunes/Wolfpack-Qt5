@@ -44,14 +44,14 @@
 		<weight>4.0</weight>
 		<requires type="dex">30</requires>
 		<requires type="str">20</requires>
-		<category>Weapons\Bows\Crossbow W/E</category>		
+		<category>Weapons\Bows\Crossbow (W/E)</category>		
 	</item>
 
 	<!-- Cross Bow right -->
 	<item id="f50">
 		<inherit id="f4f" />
 		<id>0xf50</id>
-		<category>Weapons\Bows\Crossbow N/S</category>
+		<category>Weapons\Bows\Crossbow (N/S)</category>
 	</item>
 
 	<!-- Heavy Cross Bow left -->

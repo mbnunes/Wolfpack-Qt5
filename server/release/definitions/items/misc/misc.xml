@@ -146,4 +146,147 @@
 		<id>0x35a1</id>
 	</item>
 
+	<!-- Archery Butte -->	
+	<item id="100a">
+		<id>0x100a</id>
+		<nodecay />
+		<events>archery_butte</events>
+		<category>Misc\Archery Butte\Archery Butte (W/E)</category>
+	</item>
+
+	<item id="100b">
+		<inherit id="100a" />
+		<id>0x100b</id>
+		<category>Misc\Archery Butte\Archery Butte (N/S)</category>
+	</item>
+
+	<!-- Keys -->
+	<item id="100e">
+		<id>0x100e</id>
+		<type>7</type>
+		<category>Misc\Keys\Copper Key</category>
+	</item>
+
+	<item id="100f">
+		<id>0x100f</id>
+		<type>7</type>
+		<category>Misc\Keys\Gold Key</category>
+	</item>
+
+	<item id="1010">
+		<id>0x1010</id>
+		<type>7</type>
+		<category>Misc\Keys\Iron Key</category>
+	</item>
+
+	<item id="1011">
+		<id>0x1011</id>
+		<category>Misc\Keys\Keyring</category>
+	</item>
+
+	<item id="1012">
+		<id>0x1012</id>
+		<type>7</type>
+		<category>Misc\Keys\Magic Key</category>
+	</item>
+
+	<item id="1013">
+		<id>0x1013</id>
+		<type>7</type>
+		<category>Misc\Keys\Rusty Iron Key</category>
+	</item>
+
+	<!-- Training Dummy -->
+	<item id="1070">
+		<id>0x1070</id>
+		<category>Misc\Training Dummy\Training Dummy (N/S)</category>
+	</item>
+
+	<item id="1071">
+		<id>0x1071</id>
+		<category>Misc\Training Dummy\Training Dummy (N/S) (Swinging)</category>
+	</item>
+
+	<item id="1074">
+		<id>0x1074</id>
+		<category>Misc\Training Dummy\Training Dummy (W/E)</category>
+	</item>
+
+	<item id="1075">
+		<id>0x1075</id>
+		<category>Misc\Training Dummy\Training Dummy (W/E) (Swinging)</category>
+	</item>
+
+	<!-- Levers & Switches -->
+	<item id="108c">
+		<id>0x108c</id>
+		<category>Misc\Switches &amp; Levers\Lever 1 (W/E)</category>
+	</item>
+
+	<item id="108d">
+		<id>0x108d</id>
+		<category>Misc\Switches &amp; Levers\Lever 2 (W/E)</category>
+	</item>
+
+	<item id="108e">
+		<id>0x108e</id>
+		<category>Misc\Switches &amp; Levers\Lever 3 (W/E)</category>
+	</item>
+
+	<item id="108f">
+		<id>0x108f</id>
+		<category>Misc\Switches &amp; Levers\Switch (W/E) (Off)</category>
+	</item>
+
+	<item id="1090">
+		<id>0x1090</id>
+		<category>Misc\Switches &amp; Levers\Switch (W/E) (On)</category>
+	</item>
+
+	<item id="1091">
+		<id>0x1091</id>
+		<category>Misc\Switches &amp; Levers\Switch (N/S) (On)</category>
+	</item>
+
+	<item id="1092">
+		<id>0x1092</id>
+		<category>Misc\Switches &amp; Levers\Switch (N/S) (Off)</category>
+	</item>
+
+	<item id="1093">
+		<id>0x1093</id>
+		<category>Misc\Switches &amp; Levers\Lever 1 (N/S)</category>
+	</item>
+
+	<item id="1094">
+		<id>0x1094</id>
+		<category>Misc\Switches &amp; Levers\Lever 2 (N/S)</category>
+	</item>
+
+	<item id="1095">
+		<id>0x1095</id>
+		<category>Misc\Switches &amp; Levers\Lever 3 (N/S)</category>
+	</item>
+
+	<!-- Scaffolds -->
+	<item id="12b1">
+		<id>0x12b1</id>
+		<category>Misc\Scaffold\Scaffold (N/S) (1/2)</category>
+	</item>
+
+	<item id="12b2">
+		<id>0x12b2</id>
+		<category>Misc\Scaffold\Scaffold (N/S) (2/2)</category>
+	</item>
+
+	<item id="12c8">
+		<id>0x12c8</id>
+		<category>Misc\Scaffold\Scaffold (W/E) (1/2)</category>
+	</item>
+
+	<item id="12c9">
+		<id>0x12c9</id>
+		<category>Misc\Scaffold\Scaffold (W/E) (2/2)</category>
+	</item>
+
 </definitions>

@@ -2,7 +2,7 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg	                        |
-|   )).-' {{ ;'`   | Revised by: 	                        |
+|   )).-' {{ ;'`   | Revised by: 	                       		|
 |  ( (  ;._ \\ ctr | Last Modification: created	                |
 =================================================================
 -->
@@ -25,7 +25,7 @@
 	
 	<!-- arrows -->
 	<item id="f3f">
-		<id>0xf3f</id>
+		<id>0x0f3f</id>
 		<decay />
 		<value>3</value>
 		<durability>10</durability>

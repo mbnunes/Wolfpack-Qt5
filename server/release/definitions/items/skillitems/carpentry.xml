@@ -1,112 +1,110 @@
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: sereg	                        |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
-
 <definitions>
-    <!-- Draw Knife -->
-	<item id="10e4">
-		<name>draw knife</name>
-		<id>0x10e4</id>
-		<decay/>
-		<value>5</value>
-		<type>1103</type>
+	<!-- Tools -->
+	<item id="1026">
+		<id>0x1026</id>
+		<category>Skill Items\Carpentry\Chisels (N/S)</category>
 	</item>
-	
-	<!-- Dovetail Saw -->
+
+	<item id="1027">
+		<id>0x1027</id>
+		<category>Skill Items\Carpentry\Chisels (W/E)</category>
+	</item>
+
 	<item id="1028">
-		<name>dovetail saw</name>
 		<id>0x1028</id>
-		<decay/>
-		<value>15</value>
-		<type>1103</type>
+		<category>Skill Items\Carpentry\Dovetail Saw (N/S)</category>
 	</item>
-	
-	<!-- saw -->
-	<item id="1034">
-		<name>saw</name>
-		<id>0x1034</id>
-		<value>20</value>
-		<type>1103</type>
+
+	<item id="1029">
+		<id>0x1029</id>
+		<category>Skill Items\Carpentry\Dovetail Saw (W/E)</category>
 	</item>
-	
-	<!-- Carpenter Hammer -->
+
 	<item id="102a">
-		<name>carpenter hammer</name>
 		<id>0x102a</id>
-		<value>15</value>
-		<type>1103</type>
+		<category>Skill Items\Carpentry\Hammer 1</category>
 	</item>
-	
-	<!-- Carpenter Hammer -->
+
 	<item id="102b">
-		<name>carpenter hammer</name>
-		<id>0x102a</id>
-		<value>15</value>
-		<type>1103</type>
-	</item>	
-	
-	<!-- Jointing Plane -->
-	<item id="1030">
-		<name>jointing plane</name>
-		<id>0x1030</id>
-		<value>15</value>
-		<type>1103</type>
+		<id>0x102b</id>
+		<category>Skill Items\Carpentry\Hammer 2</category>
 	</item>
-	
-	<!-- Smoothing Plane -->
-	<item id="1032">
-		<name>smoothing plane</name>
-		<id>0x1032</id>
-		<value>15</value>
-		<type>1103</type>
-	</item>
-	
-	<!-- Scorp -->
-	<item id="10e7">
-		<name>scorp</name>
-		<id>0x10e7</id>
-		<value>10</value>
-		<type>1103</type>
-	</item>
-	
-	<!-- Inshave -->
-	<item id="10e6">
-		<name>inshave</name>
-		<id>0x10e6</id>
-		<value>10</value>
-		<type>1103</type>
-	</item>
-	
-	<!-- Moulding Plane -->
+
 	<item id="102c">
-		<name>moulding plane</name>
 		<id>0x102c</id>
-		<value>15</value>
-		<type>1103</type>
+		<category>Skill Items\Carpentry\Moulding Planes (N/S)</category>
 	</item>
-	
-	<!-- Nails -->
+
+	<item id="102d">
+		<id>0x102d</id>
+		<category>Skill Items\Carpentry\Moulding Planes (W/E)</category>
+	</item>
+
 	<item id="102e">
-		<name>nails</name>
 		<id>0x102e</id>
-		<value>5</value>
+		<category>Skill Items\Carpentry\Nails (W/E)</category>
 	</item>
-	
-	<!-- Froe -->
+
+	<item id="102f">
+		<id>0x102f</id>
+		<category>Skill Items\Carpentry\Nails (N/S)</category>
+	</item>
+
+	<item id="1030">
+		<id>0x1030</id>
+		<category>Skill Items\Carpentry\Jointing Plane (N/S)</category>
+	</item>
+
+	<item id="1031">
+		<id>0x1031</id>
+		<category>Skill Items\Carpentry\Jointing Plane (W/E)</category>
+	</item>
+
+	<item id="1032">
+		<id>0x1032</id>
+		<category>Skill Items\Carpentry\Smoothing Plane (N/S)</category>
+	</item>
+
+	<item id="1033">
+		<id>0x1033</id>
+		<category>Skill Items\Carpentry\Smoothing Plane (W/E)</category>
+	</item>
+
+	<item id="1034">
+		<id>0x1034</id>
+		<category>Skill Items\Carpentry\Saw (N/S)</category>
+	</item>
+
+	<item id="1035">
+		<id>0x1035</id>
+		<category>Skill Items\Carpentry\Saw (W/E)</category>
+	</item>
+
+	<item id="10e4">
+		<id>0x10e4</id>
+		<category>Skill Items\Carpentry\Draw Knife</category>
+	</item>
+
 	<item id="10e5">
-		<name>froe</name>
 		<id>0x10e5</id>
-		<value>10</value>
+		<category>Skill Items\Carpentry\Froe</category>
 	</item>
-	
-	<!-- board -->
-	<item id="1bd7">
-		<name>board</name>
-		<id>0x1BD7</id>
+
+	<item id="10e6">
+		<id>0x10e6</id>
+		<category>Skill Items\Carpentry\Inshave</category>
+	</item>
+
+	<item id="10e7">
+		<id>0x10e7</id>
+		<category>Skill Items\Carpentry\Scorp</category>
 	</item>
 </definitions>
