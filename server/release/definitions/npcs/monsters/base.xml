@@ -10,6 +10,7 @@
 	<!-- monster base -->
 	<npc id="monster_base">
 		<ai>Monster_Aggressive_L1</ai>
+		<name>an unknown monster</name>
 		<totame>1100</totame>
 		<wandertype>1</wandertype>
 		<direction>
