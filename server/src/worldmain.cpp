@@ -931,6 +931,9 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		}
 		clConsole.send("Done.\n"); // Magius(CHE)
 		clConsole.send("World Loaded.\n"); // Changed by MAgius(CHE) (1)
+		clConsole.send("Loading Houses.\n");
+		HouseManager->LoadHouses();
+		clConsole.send("Done!\n");
 		return;
 	}
 	if (! Items->AllocateMemory(100)) return;
@@ -1077,7 +1080,17 @@ void CWorldMain::savenewworld(char x)
 		iWsc = cWsc = NULL;
 
 	}
-
+	if( announce() )
+	{
+		sysbroadcast("Saving Houses....");
+		clConsole.send("Saving Houses....");
+	}
+	HouseManager->SaveHouses();
+	if( announce() )
+	{
+		sysbroadcast("Done!\n");
+		clConsole.send("Done!\n");
+	}
 	AllTmpEff->On();
 	uiCurrentTime = getNormalizedTime();
 }

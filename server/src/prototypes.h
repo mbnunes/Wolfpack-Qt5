@@ -222,7 +222,6 @@ void buildhouse(int s, int i);
 void deedhouse(UOXSOCKET s, int i); //crackerjack 8/9/99
 void killkeys(SERIAL serial); // crackerjack 8/11/99
 // house list functions - cj 8/12/99
-int on_hlist(int h, unsigned char s1, unsigned char s2, unsigned char s3, unsigned char s4, int *li);
 int add_hlist(int c, int h, int t);
 int del_hlist(int c, int h);
 //

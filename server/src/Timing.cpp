@@ -861,7 +861,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		///// check_houses
 		/////////////////////
 		if(SrvParms->housedecay_secs!=-1)
-			check_house_decay();
+			HouseManager->CheckDecayStatus();
 
 		////////////////////
 		// check stabling

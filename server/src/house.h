@@ -8,19 +8,25 @@ public:
 	cHouseManager()
 	{
 		printf("House Manager succesfully started!\n");
+		HouseFile=NULL;
 	};
 	~cHouseManager()
 	{
 		printf("House Manager succesfully shutdown!\n");
+		HouseFile=NULL;
 	};
 	void AddHome(int s, int i);
 	void HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);
 	bool HomeBuildSite(int x, int y, int z, int sx, int sy);
-	void RemoveHouse(ITEM i);
-	void RemoveKeys();
+	void RemoveHouse(int i);
+	void RemoveKeys(int serial);
+	int CheckDecayStatus();
 	int GetHouseNum(P_CHAR pc);
+	int GetHouseNum(P_ITEM pi);
 	void SaveHouses();
 	void LoadHouses();
+private:
+	FILE *HouseFile;
 };
 class cHouse
 {
@@ -29,11 +35,6 @@ public:
 	{
 		id1=0;
 		id2=0;
-		x1=0;
-		x2=0;
-		y1=0;
-		y2=0;
-		z=0;
 		SecureAmount=0;
 		SecureTotal=0;
 		LockAmount=0;
@@ -48,11 +49,6 @@ public:
 	{
 		id1=0;
 		id2=0;
-		x1=0;
-		x2=0;
-		y1=0;
-		y2=0;
-		z=0;
 		SecureAmount=0;
 		SecureTotal=0;
 		LockAmount=0;
@@ -60,25 +56,19 @@ public:
 		serial=0;
 		OwnerAccount=0;
 		OwnerSerial=0;
-		FriendList.resize(0);
-		BanList.resize(0);
+		FriendList.clear();
+		BanList.clear();
 	};
-	void CheckDecayStatus();
-	void AddHouseItem(P_ITEM i);
-	void RemoveHouseItem(P_ITEM i);
 	int AddFriend(P_CHAR pc);
 	bool RemoveFriend(P_CHAR pc);
 	int FindFriend(P_CHAR pc);
 	int AddBan(P_CHAR pc);
 	bool RemoveBan(P_CHAR pc);
 	int FindBan(P_CHAR pc);
+	Coord_cl pos;
+	Coord_cl pos2;
 	int id1;
 	int id2;
-	int x1;
-	int x2;
-	int y1;
-	int y2;
-	int z;
 	int SecureAmount;
 	int SecureTotal;
 	int LockAmount;
@@ -86,6 +76,8 @@ public:
 	int serial;
 	int OwnerAccount;
 	int OwnerSerial;
+	int LastUsed;
+	int TimeUnused;
 	vector<int> FriendList;
 	vector<int> BanList;
 };

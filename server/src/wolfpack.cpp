@@ -1725,39 +1725,29 @@ void dooruse(UOXSOCKET s, ITEM item)
 	if (changed)
 	{
 		// house refreshment when a house owner or friend of a houe opens the house door
-		
+		int h=-1, hf=-1;
+		int ds=0;
 		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
-		int j, houseowner_serial,ds;
-		P_ITEM house_item = findmulti(pi->pos);
-		if(house_item != NULL)
+
+		h=HouseManager->GetHouseNum(pc_currchar);
+		if(h>=0)
 		{
-			if ( ishouse(house_item) )
+			hf=House[h]->FindFriend(pc_currchar);
+			if(hf<0 && (House[h]->OwnerAccount!=pc_currchar->account))
+				return;
+			if (SrvParms->housedecay_secs!=0)
+				 ds=((House[h]->TimeUnused)*100)/(SrvParms->housedecay_secs);
+			else ds=-1;	
+			if (ds>=50) // sysmessage iff decay status >=50%
 			{
-				houseowner_serial=house_item->GetOwnSerial();
-				j=on_hlist(DEREF_P_ITEM(house_item), pc_currchar->ser1, pc_currchar->ser2, pc_currchar->ser3, pc_currchar->ser4, NULL);
-				if ( j==H_FRIEND || pc_currchar->Owns(house_item) ) // house_refresh stuff, LB, friends of the house can do.
-				{
-					if (s!=-1)
-					{
-						if (SrvParms->housedecay_secs!=0)
-							ds=((house_item->time_unused)*100)/(SrvParms->housedecay_secs);
-						else ds=-1;
-						
-						if (ds>=50) // sysmessage iff decay status >=50%
-						{
-							if (!pc_currchar->Owns(house_item))
-								sysmessage(s,"You refreshed your friend's house");
-							else
-								sysmessage(s,"You refreshed the house");
-						}
-					}
-					
-					house_item->time_unused=0;
-					house_item->timeused_last=getNormalizedTime();
-				}
-				//clConsole.send("house name: %s\n",house_item->name);
-			} // end of is_house
-		} // end of is_multi
+				if (hf)
+					sysmessage(s,"You refreshed your friend's house");
+				else
+					sysmessage(s,"You refreshed the house");
+			}
+			House[h]->TimeUnused=0;
+			House[h]->LastUsed=getNormalizedTime();
+		}
 	}
 	if (changed==0 && s>-1) sysmessage(s, "This doesnt seem to be a valid door type. Contact a GM.");
 }

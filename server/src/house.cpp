@@ -241,7 +241,12 @@ void cHouseManager::AddHome(int s,int i)
 		if (!hitem[0] && !boat)
 		{
 			teleport(DEREF_P_CHAR(pc_currchar));
-			all_items(s);
+			cRegion::RegionIterator4Items rii(pHouse->pos);
+			for(rii.Begin();rii.GetData() != rii.End(); rii++)
+			{
+				P_ITEM sii = rii.GetData();
+				senditem(s, DEREF_P_ITEM(sii));
+			}
 			return;//If there's no extra items, we don't really need a key, or anything else do we? ;-)
 		}
 		
@@ -265,16 +270,18 @@ void cHouseManager::AddHome(int s,int i)
 		int houseSize=House.size();
 		House.resize(House.size()+1);
 		House[houseSize]=new cHouse;
-		House[houseSize]->x1=x-sx;
-		House[houseSize]->x2=x+sx;
-		House[houseSize]->y1=y-sy;
-		House[houseSize]->y2=y+sy;
-		House[houseSize]->z=z;
+		House[houseSize]->pos.x=x-sx;
+		House[houseSize]->pos2.x=x+sx;
+		House[houseSize]->pos.y=y-sy;
+		House[houseSize]->pos2.y=y+sy;
+		House[houseSize]->pos.z=z;
 		House[houseSize]->id1=id1;
 		House[houseSize]->id2=id2;
 		House[houseSize]->serial=pHouse->serial;
 		House[houseSize]->OwnerSerial=pc_currchar->serial;
 		House[houseSize]->OwnerAccount=pc_currchar->account;
+		House[houseSize]->LockAmount=lockamount;
+		House[houseSize]->SecureAmount=secureamount;
 	
 		if (id2>=112&&id2<=115) key=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
 		else if(id2<=0x18) key=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
@@ -382,8 +389,12 @@ void cHouseManager::AddHome(int s,int i)
 				closescript();
 			}
 		}
-		all_items(s);//make sure they have all the items Sent....
-
+		cRegion::RegionIterator4Items ri(pHouse->pos);
+		for(ri.Begin();ri.GetData() != ri.End(); ri++)
+		{
+			P_ITEM si = ri.GetData();
+			senditem(s, DEREF_P_ITEM(si));
+		}
 		if (!(norealmulti))
 		{
 			pc_currchar->pos.x=x+cx; //move char inside house
@@ -470,7 +481,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 				} 
 			}
 		}
-		killkeys(items[i].serial);
+		HouseManager->RemoveKeys(items[i].serial);
 		sysmessage(s,"All house items and keys removed.");
 		
 		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos.x, pc->pos.y);
@@ -481,45 +492,27 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 
 // removes houses - without regions. slow but necassairy for house decay
 // LB 19-September 2000
-void killhouse(ITEM i)
+void cHouseManager::RemoveHouse(int h)
 {
-	P_ITEM pi;
-	P_CHAR pc;
-	int x1, y1, x2, y2;
-	Map->MultiArea(i, &x1, &y1, &x2, &y2);
-	
-	pi = MAKE_ITEM_REF(i);
-	SERIAL serial = pi->serial;
-	
-	unsigned int a;
-	for (a = 0; a < charcount; a++) // deleting npc-vendors attched to the decying house
+	cRegion::RegionIterator4Chars ri(House[h]->pos);
+	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
-		pc = MAKE_CHARREF_LR(a);
-		if (pc->pos.x >= x1 && pc->pos.y >= y1 && pc->pos.x <= x2 && pc->pos.y <= y2 && !pc->free)
-		{
-			if (pc->npcaitype == 17) // player vendor in right place, delete !
-			{
-				Npcs->DeleteChar(a);
-			}
-		}                                           
+		P_CHAR pc = ri.GetData();
+		if(GetHouseNum(pc)==h)
+			if(pc->npcaitype == 17)
+				Npcs->DeleteChar(DEREF_P_CHAR(pc));
 	}
-	
-	for (a = 0; a < itemcount; a++) // deleting itmes inside house
+	cRegion::RegionIterator4Items rii(House[h]->pos);
+	for(rii.Begin(); rii.GetData() != rii.End(); ri++)
 	{
-		pi = MAKE_ITEM_REF(a);
-		if (pi->pos.x >= x1 && pi->pos.y >= y1 && pi->pos.x <= x2 && pi->pos.y <= y2 && !pi->free)
-		{
-			if (pi->type != 202) // dont delete guild stones !
-			{
-				Items->DeleItem(a);        
-			}
-		}
+		P_ITEM pi = rii.GetData();
+		if(GetHouseNum(pi))
+			if(pi->type != 202)
+				Items->DeleItem(DEREF_P_ITEM(pi));
 	}
-	
-	// deleting house keys
-	killkeys(serial);   
+	House.erase(House.begin() + h);
+	RemoveKeys(House[h]->serial);
 }
-
 // helper functiion for houde-decay.
 // cause houses have no special type or more value we have to check all
 // house item'ids
@@ -584,56 +577,39 @@ bool ishouse(int id1, int id2)
 // checks all items if they are houses 
 // if so, check its time stamp. if its too old remove it
 // LB 19-September 2000
-int check_house_decay()
+int cHouseManager::CheckDecayStatus()
 {
-   bool is_house;
    int houses=0;   
    int decayed_houses=0;
    unsigned long int timediff;
    unsigned long int ct=getNormalizedTime();
    
-   AllItemsIterator iter_items;
-   for (iter_items.Begin(); iter_items.GetData() != iter_items.End(); iter_items++) 
-   {   
-	 P_ITEM pi = iter_items.GetData(); // there shouldnt be an error here !		 
-     is_house = ishouse(pi);	 
-	 if (is_house && !pi->free)
-	 {
-       
-		// its a house -> check its unused time
-
-		//clConsole.send("id2: %x time_unused: %i max: %i\n",pi->id2,pi->time_unused,server_data.housedecay_secs);
-
-		if (pi->time_unused>SrvParms->housedecay_secs) // not used longer than max_unused time ? delete the house
-		{          
-			decayed_houses++;
-            sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name,SrvParms->housedecay_secs);
+   for(int h=0;h!=House.size();h++)
+   {
+	    if(House[h]->TimeUnused>SrvParms->housedecay_secs)
+		{
+		    decayed_houses++;
+            sprintf((char*)temp,"House decayed! not refreshed for > %i seconds!\n",SrvParms->housedecay_secs);
 			LogMessage((char*)temp);
-			killhouse(DEREF_P_ITEM(pi));
+			HouseManager->RemoveHouse(h);
 		}
 		else // house ok -> update unused-time-attribute
 		{
-           timediff=(ct-pi->timeused_last)/MY_CLOCKS_PER_SEC;
-		   pi->time_unused+=timediff; // might be over limit now, but it will be cought next check anyway
+           timediff=(ct-House[h]->LastUsed)/MY_CLOCKS_PER_SEC;
+		   House[h]->TimeUnused+=timediff; // might be over limit now, but it will be cought next check anyway
 
-		   pi->timeused_last=ct;	// if we don't do that and housedecay is checked every 11 minutes,
+		   House[h]->LastUsed=ct;	// if we don't do that and housedecay is checked every 11 minutes,
 									// it would add 11,22,33,... minutes. So now timeused_last should in fact
 									// be called timeCHECKED_last. but as there is a new timer system coming up
 									// that will make things like this much easier, I'm too lazy now to rename
 									// it (Duke, 16.2.2001)
-		}
-	
-		houses++;
-       
-	 }
-	 
+		}	
+		houses++; 
    }
-  
-   //delete Watch;
    return decayed_houses;
 }
 
-void killkeys(SERIAL serial) // Crackerjack 8/11/99
+void cHouseManager::RemoveKeys(int serial) // Crackerjack 8/11/99
 {
 	if (serial == INVALID_SERIAL)
 		return;
@@ -649,159 +625,35 @@ void killkeys(SERIAL serial) // Crackerjack 8/11/99
 	return;
 }
 
-// Crackerjack 8/12/99 - House List Functions
-
-// Checks if somebody is on the house list.
-// on_hlist(int h (items[] index for house), unsigned char s1, s2, s3, s4 (char serial),
-//		int *li (pointer to variable to put items[] index of list item in or NULL))
-// Returns:
-// 0 - Character is not on house list
-// Anything else - Character is on house list, type # is returned.
-int on_hlist(int h, unsigned char s1, unsigned char s2, unsigned char s3, unsigned char s4, int *li)
-{
-	if(h<0)
-		return 0;
-	int  StartGrid=mapRegions->StartGrid(items[h].pos.x,items[h].pos.y);
-	unsigned int increment=0;
-	for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
-	{
-		for (int a=0;a<3;a++)
-		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
-			{
-				P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
-				if (mapitem != NULL)
-				{
-				   	if((mapitem->morey==items[h].serial)&&
-				       (mapitem->more1==s1)&&(mapitem->more2==s2)&&
-				       (mapitem->more3==s3)&&(mapitem->more4==s4)) 
-					{
-						if(li!=NULL) *li = DEREF_P_ITEM(mapitem);
-						return mapitem->morex;
-					}		          
-				}								
-			}
-		}
-	}// end of mapregions loop
-	
-	return 0;
-
-}
-/*
-int on_hlist(int h, unsigned char s1, unsigned char s2, unsigned char s3, unsigned char s4, int *li)
-{
-	int cc;
-	int cl=-1;
-	int ci=-1;
-
-	cc=mapRegions->GetCell(items[h].x,items[h].y);
-	do {
-		cl=mapRegions->GetNextItem(cc, cl);
-		if(cl==-1) break;
-		ci=mapRegions->GetItem(cc, cl);
-		if(ci<1000000) {
-			if((items[ci].contserial==items[h].serial)&&
-				(items[ci].more1==s1)&&(items[ci].more2==s2)&&
-				(items[ci].more3==s3)&&(items[ci].more4==s4)) 
-			{
-				if(li!=NULL) *li=ci;
-				return items[ci].morex;
-			}
-		}
-	} while(ci!=-1);
-	return 0;
-}
-*/
-// Adds somebody to a house list.
-// add_hlist(int c (chars[] index), int h (items[] index for house), int t (list type))
-// Returns:
-// 1 - Successful addition to house list
-// 2 - Character is already on a house list
-// 3 - Character is not on property
-int add_hlist(int c, int h, int t)
-{
-	int sx, sy, ex, ey;
-	
-	P_CHAR pc = MAKE_CHAR_REF(c);
-
-	if(on_hlist(h, pc->ser1, pc->ser2, pc->ser3, pc->ser4, NULL))
-		return 2;
-
-	Map->MultiArea(h, &sx,&sy,&ex,&ey);
-	// Make an object with the character's serial & the list type
-	// and put it "inside" the house item.
-	if(pc->pos.x>=sx&&pc->pos.y>=sy&&pc->pos.x<=ex&&pc->pos.y<=ey)
-	{
-		ITEM i = Items->MemItemFree();	
-		P_ITEM pi = MAKE_ITEM_REF(i);
-		pi->Init();
-
-		pi->morex=t;
-		pi->more1 = pc->ser1;
-		pi->more2 = pc->ser2;
-		pi->more3 = pc->ser3;
-		pi->more4 = pc->ser4;
-		pi->morey=items[h].serial;
-
-		pi->priv=0; // no decay !!
-		pi->visible=0;
-		strcpy(pi->name,"friend of house");
-
-		pi->pos.x=items[h].pos.x;
-		pi->pos.y=items[h].pos.y;
-		pi->pos.z=items[h].pos.z;
-
-		mapRegions->Add(pi);
-		return 1;
-	}
-
-	return 3;
-}
-// Removes somebody from a house list.
-// del_hlist(int c (chars[] index), int h (items[] index for house))
-// Returns:
-// 0 - Player was not on a list
-// # - What list the player was on if any.
-int del_hlist(int c, int h)
-{
-	int hl, li;
-
-	hl=on_hlist(h, chars[c].ser1, chars[c].ser2, chars[c].ser3, chars[c].ser4, &li);
-	if(hl) {
-		mapRegions->Remove(&items[li]);
-		Items->DeleItem(li);
-	}
-	return(hl);
-}
-
 // Handles house commands from friends of the house. - Crackerjack 8/12/99
 void house_speech(int s, char *msg)	// msg must already be capitalized
 {
-	int fr;
-	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
-	if(s<0 || s>MAXCLIENT) return;
-	P_ITEM pi_multi = findmulti(pc_currchar->pos);
-	if(pi_multi == NULL) return; // not in a house, so we don't care.
-	fr=on_hlist(DEREF_P_ITEM(pi_multi), pc_currchar->ser1, pc_currchar->ser2,
-		pc_currchar->ser3, pc_currchar->ser4, NULL);
+	int h=-1;
+	int hf=-1;
 
-	if(fr!=H_FRIEND && !pc_currchar->Owns(pi_multi) )
-		return; // not a friend or owner, so we don't care.
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+
+	h=HouseManager->GetHouseNum(pc_currchar);
+	if(h==-1)
+		return;
+
+	hf=House[h]->FindFriend(pc_currchar);
+	if(hf==-1 && (House[h]->OwnerAccount!=pc_currchar->account))
+		return;
 
 	if(strstr(msg, "I BAN THEE")) { // house ban
-		addid1[s] = pi_multi->ser1;
-		addid2[s] = pi_multi->ser2;
-		addid3[s] = pi_multi->ser3;
-		addid4[s] = pi_multi->ser4;
+		addid1[s] = House[h]->serial>>24;
+		addid2[s] = House[h]->serial>>16;
+		addid3[s] = House[h]->serial>>8;
+		addid4[s] = House[h]->serial%256;
 		target(s, 0, 1, 0, 229, "Select person to ban from house.");
 		return;
 	}
 	if(strstr(msg, "REMOVE THYSELF")) { // kick out of house
-		addid1[s] = pi_multi->ser1;
-		addid2[s] = pi_multi->ser2;
-		addid3[s] = pi_multi->ser3;
-		addid4[s] = pi_multi->ser4;
+		addid1[s] = House[h]->serial>>24;
+		addid2[s] = House[h]->serial>>16;
+		addid3[s] = House[h]->serial>>8;
+		addid4[s] = House[h]->serial%256;
 		target(s, 0, 1, 0, 228, "Select person to eject from house.");
 		return;
 	}
@@ -856,10 +708,169 @@ int cHouseManager::GetHouseNum(P_CHAR pc)
 {
 	int i;
 	for(i=0;i!=House.size();i++)
-		if((pc->pos.x>House[i]->x1) && (pc->pos.x<House[i]->x2))
-			if((pc->pos.y>House[i]->y1) && (pc->pos.y<House[i]->y2))
+		if((pc->pos.x>=House[i]->pos.x) && (pc->pos.x<=House[i]->pos2.x))
+			if((pc->pos.y>=House[i]->pos.y) && (pc->pos.y<=House[i]->pos2.y))
 				return i;
 	return -1;
+}
+
+int cHouseManager::GetHouseNum(P_ITEM pi)
+{
+	int i;
+	for(i=0;i!=House.size();i++)
+		if((pi->pos.x>=House[i]->pos.x) && (pi->pos.x<=House[i]->pos2.x))
+			if((pi->pos.y>=House[i]->pos.y) && (pi->pos.y<=House[i]->pos2.y))
+				return i;
+	return -1;
+}
+
+void cHouseManager::SaveHouses()
+{
+	HouseFile=fopen("wphouses.wsc", "w");
+	if (HouseFile == NULL) 
+	{
+		clConsole.send("Error, couldn't open wphouses.wsc for writing. Check file permissions.\n");
+		return;
+	}
+	
+	fprintf(HouseFile, "// Wolfpack World Script (WSC)[TEXT]\n");
+	fprintf(HouseFile, "// Generated by %s Version %s\n",  wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
+	fprintf(HouseFile, "// Wolfpack Houses.\n");
+	for(int h=0;h!=House.size();h++)
+	{
+		fprintf(HouseFile, "SECTION HOUSE %i\n", h);
+		fprintf(HouseFile, "{\n");
+		if(House[h]->id1>0)
+			fprintf(HouseFile, "ID1 %i\n", House[h]->id1);
+		if(House[h]->id1>0)
+			fprintf(HouseFile, "ID2 %i\n", House[h]->id2);
+		if(House[h]->serial>0)
+			fprintf(HouseFile, "SERIAL %i\n", House[h]->serial);
+		if(House[h]->pos.x>0)
+			fprintf(HouseFile, "X1 %i\n", House[h]->pos.x);
+		if(House[h]->pos2.x>0)
+			fprintf(HouseFile, "X2 %i\n", House[h]->pos2.x);
+		if(House[h]->pos.y>0)
+			fprintf(HouseFile, "Y1 %i\n", House[h]->pos.y);
+		if(House[h]->pos2.y>0)
+			fprintf(HouseFile, "Y2 %i\n", House[h]->pos2.y);
+		if(House[h]->pos.z!=illegal_z)
+			fprintf(HouseFile, "Z %i\n", House[h]->pos.z);
+		if(House[h]->LockAmount>=0)
+			fprintf(HouseFile, "LOCKAMT %i\n", House[h]->LockAmount);
+		if(House[h]->SecureAmount>=0)
+			fprintf(HouseFile, "SECUREAMT %i\n", House[h]->SecureAmount);
+		if(House[h]->LockTotal>=0)
+			fprintf(HouseFile, "LOCKTOTAL %i\n", House[h]->LockTotal);
+		if(House[h]->SecureTotal>=0)
+			fprintf(HouseFile, "SECURETOTAL %i\n", House[h]->SecureTotal);
+		if(House[h]->OwnerSerial>0)
+			fprintf(HouseFile, "OWNERSERIAL %i\n", House[h]->OwnerSerial);
+		if(House[h]->OwnerAccount>=0)
+			fprintf(HouseFile, "OWNERACCOUNT %i\n", House[h]->OwnerAccount);
+		for(int f=0;f!=House[h]->FriendList.size();f++)
+			fprintf(HouseFile, "FRIEND %i\n",House[h]->FriendList[f]);
+		for(int b=0;b!=House[h]->BanList.size();b++)
+			fprintf(HouseFile, "BANNED %i\n",House[h]->BanList[b]);
+		fprintf(HouseFile, "}\n");
+	}
+	fclose(HouseFile);
+	return;
+}
+
+void cHouseManager::LoadHouses()
+{
+	int bancount=0, friendcount=0, housecount=0;
+	wscfile=fopen("wphouses.wsc", "r");
+	if (wscfile == NULL) 
+	{
+		return;
+	}
+	do
+	{
+		readw2();
+		if(!(strcmp((char*)script1,"SECTION")))
+		{
+			housecount=House.size();
+			House.resize(House.size()+1);
+			House[housecount]=new cHouse;
+		}
+		else
+		{
+			switch(script1[0])
+			{
+			case 'B':
+			case 'b':
+				if (!strcmp((char*)script1, "BANNED"))	
+				{
+					bancount=House[housecount]->BanList.size();
+					House[housecount]->BanList[bancount]=str2num(script2);
+					House[housecount]->BanList.resize(House[housecount]->BanList.size()+1);
+				}
+				break;
+			case 'F':
+			case 'f':
+				if (!strcmp((char*)script1, "FRIEND"))	
+				{
+					friendcount=House[housecount]->FriendList.size();
+					House[housecount]->FriendList[friendcount]=str2num(script2);
+					House[housecount]->FriendList.resize(House[housecount]->FriendList.size()+1);
+				}
+				break;
+			case 'I':
+			case 'i':
+				if(!strcmp((char*)script1, "ID1"))
+					House[housecount]->id1=str2num(script2);
+				if(!strcmp((char*)script1, "ID2"))
+					House[housecount]->id2=str2num(script2);
+				break;
+			case 'L':
+			case 'l':
+				if(!strcmp((char*)script1, "LOCKAMT"))
+					House[housecount]->LockAmount=str2num(script2);
+				if(!strcmp((char*)script1, "LOCKTOTAL"))
+					House[housecount]->LockTotal=str2num(script2);
+				break;
+			case 'O':
+			case 'o':
+				if(!strcmp((char*)script1, "OWNERSERIAL"))
+					House[housecount]->OwnerSerial=str2num(script2);
+				if(!strcmp((char*)script1, "OWNERACCOUNT"))
+					House[housecount]->OwnerAccount=str2num(script2);
+				break;
+			case 'S':
+			case 's':
+				if(!strcmp((char*)script1, "SERIAL"))
+					House[housecount]->serial=str2num(script2);
+				if(!strcmp((char*)script1, "SECUREAMT"))
+					House[housecount]->SecureAmount=str2num(script2);
+				if(!strcmp((char*)script1, "SECURETOTAL"))
+					House[housecount]->SecureTotal=str2num(script2);
+				break;
+			case 'X':
+			case 'x':
+				if(!strcmp((char*)script1, "X1"))
+					House[housecount]->pos.x=str2num(script2);
+				if(!strcmp((char*)script1, "X2"))
+					House[housecount]->pos2.x=str2num(script2);
+				break;
+			case 'Y':
+			case 'y':
+				if(!strcmp((char*)script1, "Y1"))
+					House[housecount]->pos.y=str2num(script2);
+				if(!strcmp((char*)script1, "Y2"))
+					House[housecount]->pos2.y=str2num(script2);
+				break;
+			case 'Z':
+			case 'z':
+				if(!strcmp((char*)script1, "Z"))
+					House[housecount]->pos.z=str2num(script2);
+				break;
+			}
+		}
+	} while (strcmp((char*)script1,"EOF") && !feof(wscfile));
+	fclose(wscfile);
+	return;
 }
 
 int cHouse::FindFriend(P_CHAR pc)

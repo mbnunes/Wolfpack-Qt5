@@ -733,8 +733,8 @@ bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 			int i=House[h]->FindBan(pc);
 			if(i>=0)
 			{
-				pc->pos.x = House[h]->x2+1;
-                pc->pos.y = House[h]->y2+1;
+				pc->pos.x = House[h]->pos2.x+1;
+                pc->pos.y = House[h]->pos2.y+1;
                 teleport(DEREF_P_CHAR(pc));
                 if (socket!=INVALID_UOXSOCKET)
 				{

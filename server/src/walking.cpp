@@ -609,30 +609,22 @@ bool WalkHandleBlocking(UOXSOCKET s, CHARACTER c, int sequence, int dir, int old
 
 	if (pc->isPlayer()) // this is also called for npcs .. LB
 	{
-		P_ITEM pi_multi = findmulti(pc->pos);
-		if(pi_multi != NULL) 
+		j=HouseManager->GetHouseNum(pc);
+		if(j>=0)
 		{
-			if ( ishouse(pi_multi) )
+			int b=House[j]->FindBan(pc)
+			if(b>=0) 
 			{
-				int sx, sy, ex, ey;		
-				j=on_hlist(DEREF_P_ITEM(pi_multi), pc->ser1, pc->ser2, pc->ser3, pc->ser4, NULL);
-				
-				if(j==H_BAN) 
-				{
-					Map->MultiArea(DEREF_P_ITEM(pi_multi),&sx,&sy,&ex,&ey);
-					if(s!=-1) sysmessage(s, "You are banned from that location.");
-					pc->pos.x=ex;
-					pc->pos.y=ey+1;
-					teleport(c);
-					return false;
-				}
-				
-				// house refreshment code moved to dooruse()
-				
-			} // end of is_house
-		} // end of is_multi
-	} // end of is player
-	
+				sysmessage(s, "You are banned from that location.");
+				pc->pos.x=House[j]->x2+1;
+				pc->pos.y=House[j]->y2+1;
+				teleport(c);
+				return false;
+			}
+		}
+	} // end of is_house
+	 // end of is_multi
+	// end of is player
 	if (z==-128)
 	{
 		pc->pos.x=oldx;

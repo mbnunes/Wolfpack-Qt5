@@ -2726,7 +2726,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	
 	pHouse->SetOwnSerial(o_serial);
 	
-	killkeys(pHouse->serial);
+	HouseManager->RemoveKeys(pHouse->serial);
 	
 	os=-1;
 	for(i=0;i<now && os==-1;i++)
