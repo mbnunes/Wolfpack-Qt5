@@ -245,6 +245,7 @@
 	<body id="208" basesound="0x6e" figurine="0x20d1" type="3" /> <!-- TODO: Unknown -->
 	<body id="209" basesound="0x99" figurine="0x20e6" type="3" /> <!-- TODO: Unknown -->
 	
+	<body id="210" basesound="0x270" figurine="0x2135" mountid="0x3EA3" type="3" />
 	<!-- d2 type=3 --> <!-- TODO: Unknown -->
 	
 	<body id="211" basesound="163" figurine="0x20cf" type="3" /> <!-- Blackbear -->
