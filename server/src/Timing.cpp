@@ -390,12 +390,9 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 	}
 
 	// Give the AI time to process events
-	if (npc->aiCheckTime() <= time) {
-		npc->setAICheckTime(uiCurrentTime + npc->aiCheckInterval());
-
-		if (npc->ai()) {
-			npc->ai()->check();
-		}
+	if (npc->ai() && npc->aiCheckTime() <= time) {
+		npc->setAICheckTime(time + npc->aiCheckInterval() + RandomNum(0, npc->aiCheckInterval() / 10));
+		npc->ai()->check();
 	}
 
 	// Hunger for npcs

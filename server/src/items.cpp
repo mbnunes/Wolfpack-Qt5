@@ -1054,10 +1054,6 @@ void cItem::processContainerNode( const cElement *tag )
 				Console::instance()->log( LOG_ERROR, QString( "Content element lacking id and list attribute in item definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 			}
 		}
-		else
-		{
-			Console::instance()->log( LOG_ERROR, QString( "Unknown content element '%1' in item definition '%2'." ).arg( element->name() ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
-		}
 	}
 }
 

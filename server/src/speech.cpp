@@ -103,14 +103,6 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
-	// Renaming a rune
-	case cPlayer::enRenameRune:
-		pItem->setName( tr( "Rune to: %1" ).arg( speech ) );
-		socket->sysMessage( tr( "Rune renamed to: Rune to: %1" ).arg( speech ) );
-		pChar->setInputMode(cPlayer::enNone);
-		pChar->setInputItem(INVALID_SERIAL);
-		break;
-
 	// Renaming ourself
 	case cPlayer::enNameDeed: 
 		pChar->setName( speech );
@@ -644,8 +636,9 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 //			This is especially usefull in crowded places.
 bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm, QValueVector< UINT16 > &keywords )
 {
-    if( !pPlayer->socket() || pPlayer->isDead() )
+	if (!pPlayer->socket() || pPlayer->isDead()) {
 		return false;
+	}
 
 	QString speechUpr = comm.upper();
 
@@ -671,9 +664,9 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 			for( unsigned int i = 0; i < keywords.size(); ++i )
 				PyList_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
 
-			PyObject *args = Py_BuildValue( "O&O&uO", PyGetCharObject, pNpc, PyGetCharObject, pPlayer, comm.ucs2(), pkeywords );
+			PyObject *args = Py_BuildValue("(O&O&uO)", PyGetCharObject, pNpc, PyGetCharObject, pPlayer, comm.ucs2(), pkeywords);
 
-			bool result = cPythonScript::callChainedEventHandler( EVENT_SPEECH, events, args );
+			bool result = cPythonScript::callChainedEventHandler(EVENT_SPEECH, events, args);
 
 			Py_DECREF( args );
 			Py_DECREF( pkeywords );
@@ -717,28 +710,28 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 
 	cUOSocket *socket = pChar->socket();
 
-	if( InputSpeech( socket, pChar, speech ) )	
+	if (InputSpeech(socket, pChar, speech))	
 		return;
 
 	pChar->unhide();
 		
 	// Check for Bogus Color
-	if( !isNormalColor( color ) )
+	if (!isNormalColor(color))
 		color = 0x2;
 
-	if( type == 0 || type == 2)
+	if (type == 0 || type == 2)
 		pChar->setSaycolor( color );
 
-	if( pChar->onTalk( type, color, font, speech, lang ) )
+	if (pChar->onTalk( type, color, font, speech, lang))
 		return;
 
-	if( ( type == 0x09 ) && ( pChar->mayBroadcast() ) )
+	if ((type == 0x09) && (pChar->mayBroadcast()))
 	{
 		pChar->talk( speech, color, type );
 		return;
 	}
 
-	pChar->talk( speech, color, type );
+	pChar->talk(speech, color, type);
 		
 	QString speechUpr = speech.upper();
 	if( response( socket, pChar, speech, keywords ) )
