@@ -334,11 +334,7 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 	// Bring up the Add-menu
 	if( args.count() < 1 )
 	{
-		cMakeMenu* pMakeMenu = cAllMakeMenus::getInstance()->getMenu( "ADD_MENU" );
-		if( !pMakeMenu )
-			socket->sysMessage( "Addmenu undefined!" );
-		else
-			socket->send( new cMakeMenuGump( pMakeMenu, socket ) );
+		cAllMakeMenus::getInstance()->callMakeMenu( socket, "ADD_MENU" );
 		return;
 	}
 
@@ -1681,6 +1677,19 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	}
 }
 
+void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Makemenu <menusection>
+
+	if( args.count() == 0 )
+	{
+		socket->sysMessage( tr( "Usage: makemenu <menusection>" ) );
+		return;
+	}
+
+	cAllMakeMenus::getInstance()->callMakeMenu( socket, args[0] );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1694,6 +1703,7 @@ stCommand cCommands::commands[] =
 	{ "GO",				commandGo },
 	{ "INFO",			commandInfo },
 	{ "KILL",			commandKill },
+	{ "MAKEMENU",		commandMakeMenu },
 	{ "PAGES",			commandPages },
 	{ "RELOAD",			commandReload },
 	{ "REMOVE",			commandRemove },

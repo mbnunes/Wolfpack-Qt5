@@ -170,6 +170,28 @@ void cUseItem::processNode( const QDomElement &Tag )
 	}
 }
 
+bool cUseItem::hasEnough( cItem* pBackpack )
+{
+	// the next loop will search for a the item in a range of colors.
+	// it is a do-while, cause it shall run once through the loop if
+	// colormin holds the one color and colormax == 0!
+	UINT16 color = this->colormin();
+	UINT16 amount = 0;
+	do
+	{
+		QValueList< UINT16 > ids = this->id();
+		QValueListIterator< UINT16 > it = ids.begin();
+		while( it != ids.end() )
+		{
+			amount += pBackpack->CountItems( (*it), color );
+			++it;
+		}
+		++color;
+	} while( color <= this->colormax() );
+
+	return ( amount >= this->amount() );
+}
+
 cSkillCheck::cSkillCheck( const QDomElement &Tag )
 {
 	skillid_ = hex2dec( Tag.attribute( "skillid" ) ).toUShort();
@@ -196,6 +218,11 @@ void cSkillCheck::processNode( const QDomElement &Tag )
 
 	else if( TagName == "max" )
 		max_ = Value.toUShort();
+}
+
+bool cSkillCheck::skilledEnough( cChar* pChar )
+{
+	return ( pChar->skill( skillid() ) >= min() );
 }
 
 cMakeSection::cMakeSection( const QDomElement &Tag, cMakeAction* baseaction )
@@ -252,27 +279,12 @@ bool	cMakeSection::hasEnough( cItem* pBackpack )
 	{
 		// this one is in here because a GM doesnt need a backpack if he uses the add menu!
 		if( !pBackpack )
-			hasEnough = false;
-
-		// the next loop will search for a the item in a range of colors.
-		// it is a do-while, cause it shall run once through the loop if
-		// colormin holds the one color and colormax == 0!
-		UINT16 color = uiit.current()->colormin();
-		UINT16 amount = 0;
-		do
 		{
-			QValueList< UINT16 > ids = uiit.current()->id();
-			QValueListIterator< UINT16 > it = ids.begin();
-			while( it != ids.end() )
-			{
-				amount += pBackpack->CountItems( (*it), color );
-				++it;
-			}
-			++color;
-		} while( color <= uiit.current()->colormax() );
-
-		if( amount < uiit.current()->amount() )
 			hasEnough = false;
+			break;
+		}
+
+		hasEnough = uiit.current()->hasEnough( pBackpack );
 
 		++uiit;
 	}
@@ -322,8 +334,7 @@ bool	cMakeSection::skilledEnough( cChar* pChar )
 	QPtrListIterator< cSkillCheck > skit( skillchecks_ );
 	while( skit.current() && skilledEnough )
 	{
-		if( pChar->skill( skit.current()->skillid() ) < skit.current()->min() )
-			skilledEnough = false;
+		skilledEnough = skit.current()->skilledEnough( pChar );
 		++skit;
 	}
 	return skilledEnough;
@@ -564,8 +575,6 @@ void cMakeAction::processNode( const QDomElement &Tag )
 					}
 				}
 				++it;
-
-
 			}
 		}
 	}
@@ -628,7 +637,9 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 	if( TagName == "menu" )
 	{
 		cMakeMenu* pMakeMenu = new cMakeMenu( Tag, this );
-		submenus_.push_back( pMakeMenu );
+
+		if( pMakeMenu )
+			submenus_.push_back( pMakeMenu );
 	}
 
 	else if( TagName == "action" )
@@ -870,6 +881,38 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	if( page == 1 )
 	{
 		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( QString("%1").arg(action->name()) ) );
+		if( sections.size() > 0 )
+		{
+			QString content = "";
+			QPtrList< cSkillCheck > skillchecks = sections[0]->skillchecks();
+			QPtrListIterator< cSkillCheck > sit( skillchecks );
+			while( sit.current() )
+			{
+				if( pChar && sit.current()->skilledEnough( pChar ) )
+					content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->min() / 10.0f, 'f', 1 ).lower() );
+				else
+					content += QString("<basefont color=\"#FF0000\">%2% %1<br><basefont color=\"#FFFFFF\">").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->min() / 10.0f, 'f', 1 ).lower() );
+
+				++sit;
+			}
+			content = htmlmask.arg( content );
+			addHtmlGump( 170, 132, 345, 76, content, false, (skillchecks.count() > 4) );
+
+			content = "";
+			QPtrList< cUseItem > useitems = sections[0]->useitems();
+			QPtrListIterator< cUseItem > uit( useitems );
+			while( uit.current() )
+			{
+				if( pBackpack && uit.current()->hasEnough( pBackpack ) )
+					content += QString("%2 %1<br>").arg( uit.current()->name() ).arg( uit.current()->amount() );
+				else
+					content += QString("<basefont color=\"#FF0000\">%2 %1<br><basefont color=\"#FFFFFF\">").arg( uit.current()->name() ).arg( uit.current()->amount() );
+
+				++uit;
+			}
+			content = htmlmask.arg( content );
+			addHtmlGump( 170, 217, 345, 76, content, false, (useitems.count() > 4) );
+		}	
 	}
 }
 
@@ -928,16 +971,29 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			return;
 		cItem* pBackpack = FindItemBySerial( pChar->packitem );
 		std::vector< cMakeSection* > sections = actions[ choice.button - submenus.size() - 4 ]->makesections();
-		if( sections[0]->hasEnough( pBackpack ) )
+		if( sections.empty() )
 		{
-			cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
-			cMakeSection* section = action->makesections()[0];
-			cMakeMenu* basemenu = menu_->baseMenu();
-			pChar->setLastSection( basemenu, section );
-			section->execute( socket );
+			socket->send( new cMakeMenuGump( menu_, socket, tr("There is nothing to make") ) );
+		}
+		else if( sections[0]->hasEnough( pBackpack ) )
+		{
+			if( sections[0]->skilledEnough( pChar ) )
+			{
+				cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
+				cMakeSection* section = action->makesections()[0];
+				cMakeMenu* basemenu = menu_->baseMenu();
+				pChar->setLastSection( basemenu, section );
+				section->execute( socket );
+			}
+			else
+			{
+				socket->send( new cMakeMenuGump( menu_, socket, tr("You are not skilled enough to make this item") ) );
+			}
 		}
 		else
+		{
 			socket->send( new cMakeMenuGump( menu_, socket, tr("You do not have enough resources to make this item") ) );
+		}
 	}
 	else if( choice.button < (actions.size()+submenus.size()+4+1000) )
 	{
@@ -947,13 +1003,16 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		cMakeAction* action = actions[ choice.button - submenus.size() - 4 - 1000 ];
 		std::vector< UINT32 > switches = choice.switches;
 		std::vector< UINT32 >::iterator it = switches.begin();
-		cMakeSection* section = action->makesections()[0];
-		cMakeMenu* basemenu = menu_->baseMenu();
-		while( it != switches.end() )
+		if( !action->makesections().empty() )
 		{
-			if( (*it) == 1 )
-				pChar->setLastSection( basemenu, section );
-			it++;
+			cMakeMenu* basemenu = menu_->baseMenu();
+			cMakeSection* section = action->makesections()[0];
+			while( it != switches.end() )
+			{
+				if( (*it) == 1 )
+					pChar->setLastSection( basemenu, section );
+				it++;
+			}
 		}
 		socket->send( new cMakeMenuGump( action, socket ) );
 	}

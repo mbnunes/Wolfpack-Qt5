@@ -89,6 +89,7 @@ public:
 	UINT16		colormax()	{ return colormax_; }
 	UINT16		amount()	{ return amount_; }
 
+	bool		hasEnough( cItem* pBackpack );
 private:
 	QValueList< UINT16 >	id_;
 	QString		name_;
@@ -111,6 +112,7 @@ public:
 	UINT16		min()		{ return min_; }
 	UINT16		max()		{ return max_; }
 
+	bool		skilledEnough( cChar* pChar );
 private:
 	UINT8		skillid_;
 	UINT16		min_;
