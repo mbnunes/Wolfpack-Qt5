@@ -32,6 +32,8 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Overweight prevents walking now.
 	- Walking is denied if stamina is 0.  
 	- Fixed an issue with account names containing foreign characters on save.
+	- Fixed an issue with walking/running not being sent to other cliens.
+	- Added wolfpack.queuecode to queue a python function for the next mainloop iteration.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

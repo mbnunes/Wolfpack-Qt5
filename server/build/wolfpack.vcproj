@@ -685,6 +685,12 @@
 				RelativePath=".\python\pyaccount.cpp">
 			</File>
 			<File
+				RelativePath=".\python\pyaction.cpp">
+			</File>
+			<File
+				RelativePath=".\python\pyaction.h">
+			</File>
+			<File
 				RelativePath=".\python\pyai.cpp">
 			</File>
 			<File

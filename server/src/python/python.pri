@@ -5,6 +5,7 @@ HEADERS += $$PYTHON_H/content.h \
            $$PYTHON_H/engine.h \
            $$PYTHON_H/gump.h \
            $$PYTHON_H/objectcache.h \
+           $$PYTHON_H/pyaction.h \
            $$PYTHON_H/pypacket.h \
            $$PYTHON_H/pyspawnregion.h \
            $$PYTHON_H/regioniterator.h \
@@ -18,7 +19,8 @@ SOURCES += $$PYTHON_CPP/char.cpp \
            $$PYTHON_CPP/global.cpp \
            $$PYTHON_CPP/item.cpp \
            $$PYTHON_CPP/pyaccount.cpp \
-           $$PYTHON_CPP/pyai.cpp \
+           $$PYTHON_CPP/pyaction.cpp \
+           $$PYTHON_CPP/pyai.cpp \           
            $$PYTHON_CPP/pycoord.cpp \
            $$PYTHON_CPP/pypacket.cpp \
            $$PYTHON_CPP/pyregion.cpp \

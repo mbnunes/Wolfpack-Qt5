@@ -55,6 +55,7 @@
 #include "../targetrequests.h"
 #include "../basedef.h"
 
+#include "pyaction.h"
 #include "pypacket.h"
 #include "regioniterator.h"
 #include "utilities.h"
@@ -1443,7 +1444,30 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 
 	Server::instance()->queueAction( ( enActionType ) type );
 
-	return PyInt_FromLong( 1 );
+	Py_RETURN_NONE;
+}
+
+/*
+	\function wolfpack.queuecode
+	\param function A python code object.
+	\param arguments A tuple.	
+	\description This function queues a python code object to be executed in the main thread.
+	This funciton is useful if you want to access wolfpack internals from within another
+	python thread. Use this function to queue code that should be executed synchronized with the
+	main thread.
+*/
+static PyObject* wpQueueCode( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self );
+
+	PyObject *code, *pargs;
+
+	if ( !PyArg_ParseTuple( args, "OO!:wolfpack.queuecode( code, args )", &code, &PyTuple_Type, &pargs ) )
+		return 0;
+
+	Server::instance()->queueAction( new cActionPythonCode( code, pargs ) );
+
+	Py_RETURN_NONE;
 }
 
 /*
@@ -1804,6 +1828,7 @@ static PyMethodDef wpGlobal[] =
 { "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" },
 { "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
 { "queueaction",		wpQueueAction,					METH_VARARGS, NULL },
+{ "queuecode",			wpQueueCode,					METH_VARARGS, NULL },
 { "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
 { "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" },
 { NULL, NULL, 0, NULL } // Terminator

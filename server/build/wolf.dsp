@@ -483,6 +483,10 @@ SOURCE=.\python\objectcache.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\pyaction.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\pagesystem.h
 # End Source File
 # Begin Source File
@@ -701,6 +705,10 @@ SOURCE=.\network\uotxpackets.h
 # Begin Source File
 
 SOURCE=.\python\char.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\pyaction.cpp
 # End Source File
 # Begin Source File
 
