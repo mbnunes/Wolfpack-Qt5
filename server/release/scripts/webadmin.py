@@ -19,12 +19,13 @@ import sys
 import socket
 import cStringIO
 import traceback
+import web.sessions
 
 # Just override handle_error for nicer error handling
 class Webserver( HTTPServer ):
     def handle_error(self, request, client_address):
-		# Ignore Socket Errors
-		if sys.exc_type == socket.error:
+		# Ignore Socket Errors && IOErrors
+		if sys.exc_type == socket.error or sys.exc_type == IOError:
 			dummy = cStringIO.StringIO()
 			traceback.print_exc( None, dummy )
 			dummy.close()
@@ -125,6 +126,8 @@ class WebserverThread(Thread):
 thread = None
 
 def onLoad():
+	web.sessions.clear_sessions()
+
 	# Start the Thread
 	global thread
 	thread = WebserverThread( 2594 )
@@ -133,3 +136,5 @@ def onLoad():
 def onUnload():
 	# Stop the Thread
 	thread.cancel()
+
+	web.sessions.clear_sessions()
