@@ -29,7 +29,6 @@ unix {
 	INCLUDEPATH += $$STLPORT_INC
 
 	LIBS  += -L/usr/local/lib -L/usr/lib -ldl -lutil
-	INCLUDEPATH += sqlite network
 
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
@@ -48,14 +47,8 @@ RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-win32:DEFINES  += WIN32
-win32-msvc:DEFINES +=  _CONSOLE _MBCS
-win32:INCLUDEPATH += lib/Python/PC C:/mysql/include/
-win32-g++:LIBS= -lwsock32
-win32-msvc:LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib
-win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
-win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
-win32-borland:LIBS += ws2_32.lib
+INCLUDEPATH += sqlite network
+win32:DEFINES -= UNICODE
 
 # Common files
 

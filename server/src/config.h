@@ -722,3 +722,4 @@ inline bool cConfig::overwriteDefinitions() const {
 typedef SingletonHolder<cConfig> Config;
 
 #endif //__SRVPARAMS_H___
+
