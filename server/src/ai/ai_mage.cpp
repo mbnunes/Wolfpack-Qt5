@@ -305,6 +305,10 @@ public:
 	Monster_Mage_MoveToTarget(P_NPC npc, AbstractAI* ai) : Monster_Aggr_Wander(npc, ai) {}
 
 	virtual float preCondition() {
+		if (m_npc->nextMoveTime() > Server::instance()->time()) {
+			return 0.0f; // We can't move yet.
+		}
+
 		Monster_Aggressive *ai = static_cast<Monster_Aggressive*>(m_ai);
 
 		if (ai->currentVictim()) {
@@ -319,6 +323,8 @@ public:
 
 		if (!currentVictim || m_npc->isFrozen())
 			return;
+
+		m_npc->setNextMoveTime();
 
 		// If we're not casting a spell and waiting for a new one, move toward the target
 		if (!m_npc->hasScript("magic")) {
