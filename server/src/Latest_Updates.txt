@@ -1,5 +1,5 @@
 -----------------------------------------------------------
-                        Wolfpack 12.7
+                        Wolfpack pre-12.7
 ----------------------------------------------------------
 
 1) Added: password command allows players to change their passwords in-game (Correa)
