@@ -897,10 +897,10 @@ int main( int argc, char *argv[] )
 		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
 
 		// For each map we register, register a GridMap as well
-		SectorMaps::instance()->addMap( 0, 768, 512 );
-		SectorMaps::instance()->addMap( 1, 768, 512 );
-		SectorMaps::instance()->addMap( 2, 288, 200 );
-		SectorMaps::instance()->addMap( 3, 320, 256 );
+		MapObjects::instance()->addMap( 0, 6144, 4096 );
+		MapObjects::instance()->addMap( 1, 6144, 4096 );
+		MapObjects::instance()->addMap( 2, 2304, 1600 );
+		MapObjects::instance()->addMap( 3, 2560, 2048 );
 
 		clConsole.send( "\n" );
 	}

@@ -309,7 +309,7 @@ void commandAddItem( cUOSocket *socket, const QString &command, QStringList &arg
 
 	if( node && !node->isNull() )
 	{
-		socket->sysMessage( tr( "Where do you want to add the item '%1'" ).arg( param ) );
+		socket->sysMessage( tr( "Where do you want to add the item '%1'?" ).arg( param ) );
 		socket->attachTarget( new cAddItemTarget( param ) );
 	}
 

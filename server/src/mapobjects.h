@@ -29,7 +29,10 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#if !defined(__MAPOBJECTS_H__)
+#include "sectors.h"
+
+//#if !defined(__MAPOBJECTS_H__)
+#if 0
 #define __MAPOBJECTS_H__
 
 // Platform specifics

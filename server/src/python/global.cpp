@@ -962,6 +962,16 @@ static PyObject* wpNewPlayer( PyObject *self, PyObject *args )
 	return PyGetCharObject( pPlayer );
 }
 
+static PyObject* wpTickcount( PyObject* self )
+{
+	Q_UNUSED(self);
+#if defined( Q_OS_WIN32 )
+	return PyInt_FromLong( GetTickCount() );
+#else
+	return PyInt_FromLong( 0 );
+#endif
+}
+
 /*!
 	wolfpack
 	Initializes wolfpack
@@ -1001,6 +1011,7 @@ static PyMethodDef wpGlobal[] =
 	{ "isrunning",			(PyCFunction)wpIsRunning,		METH_NOARGS, "Returns if the server is in running state" },
 	{ "isreloading",		(PyCFunction)wpIsReloading,		METH_NOARGS, "Returns if the server is in reload state" },
 	{ "isclosing",			(PyCFunction)wpIsClosing,		METH_NOARGS, "Returns if the server is in closing state" },
+	{ "tickcount",			(PyCFunction)wpTickcount,		METH_NOARGS, "Returns the current Tickcount on Windows" },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

@@ -28,6 +28,11 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+/*
+ * Parts of cGameEncryption are based on work done in injection
+ * injection.sf.net
+ */
+
 #include <qstring.h>
 #include <qdatastream.h>
 
@@ -125,14 +130,25 @@ void cLoginEncryption::clientDecrypt( char *buffer, unsigned int length )
 	Initializes the gameserver encryption using the given seed
 */
 void cGameEncryption::init( unsigned int seed )
-{
-	
-	for( unsigned int i = 0; i < 256; ++i )
-		cipherTable[i] = i;
+{	
+#if defined( REFERENCE_TWOFISH )
+    makeKey( &ki, DIR_DECRYPT, 0x80, NULL );
+    cipherInit( &ci, MODE_ECB, NULL );
 
+	ki.key32[0] = ki.key32[1] = ki.key32[2] = ki.key32[3] = seed;
+	reKey( &ki );
+
+	unsigned char tmpBuffer[256];
+	blockEncrypt( &ci, &ki, cipherTable, 256*8, tmpBuffer );
+    memcpy( cipherTable, tmpBuffer, 256 );
+#else
 	memset( key, 0xFF, 16 );
 	keySched( key, 128, &S, K, &k );
 	fullKey( S, k, QF );
+#endif
+	
+	for( unsigned int i = 0; i < 256; ++i )
+		cipherTable[i] = i;
 	
 	recvPos = 256;
 	sendPos = 0x00;
@@ -146,8 +162,11 @@ void cGameEncryption::decryptByte( unsigned char &byte )
 	// Recalculate table
 	if( recvPos >= 256 )
 	{
-		UINT8 tempBuffer[256];
-		
+#if defined( REFERENCE_TWOFISH )
+		unsigned char tmpBuffer[256];
+		blockEncrypt( &ci, &ki, cipherTable, 256*8, tmpBuffer );
+		memcpy( cipherTable, tmpBuffer, 256 );
+#else		
 		// just for little speedup I don't use for loop
 		encrypt( K, QF, &cipherTable [0]  );  // 1 
 		encrypt( K, QF, &cipherTable[16]  );  // 2
@@ -165,6 +184,8 @@ void cGameEncryption::decryptByte( unsigned char &byte )
 		encrypt( K, QF, &cipherTable[208] );  // 14
 		encrypt( K, QF, &cipherTable[224] );  // 15
 		encrypt( K, QF, &cipherTable[240] );  // 16 
+#endif
+
 		recvPos = 0;
 	}
 
@@ -194,7 +215,6 @@ void cGameEncryption::serverEncrypt( char *buffer, unsigned int length )
 		//0x05, 0x92, 0x66, 0x23, 0x67, 0x14, 0xE3, 0x62, 0xDC, 0x60, 0x8C, 0xD6, 0xFE, 0x7C, 0x25, 0x69 
 		
 		// Seed: FFFFFFFF
-		// Sniffed using a memory debugger
 		0xa9, 0xd5, 0x7d, 0xa4, 0x3e, 0x0c, 0x22, 0xda, 0xde, 0x15, 0xe9, 0x92, 0xdd, 0x99, 0x98, 0x4d
 	};
 

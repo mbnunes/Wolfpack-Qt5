@@ -93,10 +93,10 @@ public:
 	// and afterwards it's called for the item
 	// That way you can add special behaviour
 	virtual bool onServerstart() { return false; }
-	virtual bool onUse( P_PLAYER User, P_ITEM Used ) { Q_UNUSED(User); Q_UNUSED(Used); return false; }
+	virtual bool onUse( P_CHAR User, P_ITEM Used ) { Q_UNUSED(User); Q_UNUSED(Used); return false; }
 
 	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer ) { Q_UNUSED(Item); Q_UNUSED(Viewer); return false; }
-	virtual bool onSingleClick( P_PLAYER Character, P_CHAR Viewer ) { Q_UNUSED(Character); Q_UNUSED(Viewer); return false; }
+	virtual bool onSingleClick( P_CHAR Character, P_CHAR Viewer ) { Q_UNUSED(Character); Q_UNUSED(Viewer); return false; }
 
 	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle ) { Q_UNUSED(Character); Q_UNUSED(Obstacle); return false; }
 	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle ) { Q_UNUSED(Character); Q_UNUSED(Obstacle); return false; }

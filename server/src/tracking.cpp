@@ -116,16 +116,13 @@ public:
 		// 2: Monsters
 		// 3: Humans
 		// 4: Players
-		RegionIterator4Chars iter( player->pos() );
-		for( iter.Begin(); !iter.atEnd(); iter++ )
-		{
-			P_CHAR pChar = iter.GetData();
-			
-			if( !pChar )
-				continue;
+		cCharSectorIterator *iter = SectorMaps::instance()->findChars( player->pos(), 18 );
 
+		for( P_CHAR pChar = iter->first(); pChar; pChar = iter->next() )
+		{
 			// Do the neccesary checks
 			bool passed = true;
+
 			switch( type )
 			{
 			// Animals
@@ -172,6 +169,8 @@ public:
 
 			++pAmount;
 		}
+
+		delete iter;
 	}
 };
 

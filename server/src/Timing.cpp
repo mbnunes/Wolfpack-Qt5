@@ -280,7 +280,7 @@ static int check_house_decay()
 }
 
 
-void checkPC( P_PLAYER pc, unsigned int currenttime ) //Char cMapObjects::getInstance()
+void checkPC( P_PLAYER pc, unsigned int currenttime )
 {
 	cUOSocket *socket = pc->socket();
 

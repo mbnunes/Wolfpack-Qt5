@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="lib/Python/PC,lib/Python/include,lib\bugreport,lib\ZThread\include,$(QTDIR)\include,c:\mysql\include"
-				PreprocessorDefinitions="_CONSOLE;ZTHREAD_STATIC;PY_NOSOCKETS;_DEBUG;WIN32;QT_DLL;WP_DONT_USE_HASH_MAP;QT_THREAD_SUPPORT"
+				PreprocessorDefinitions="_CONSOLE;ZTHREAD_STATIC;PY_NOSOCKETS;_DEBUG;WIN32;QT_DLL;QT_THREAD_SUPPORT"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="TRUE"
@@ -96,7 +96,7 @@
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="lib/Python/PC,lib/Python/include,lib\ZThread\include,$(QTDIR)\include"
-				PreprocessorDefinitions="NDEBUG,WIN32,_CONSOLE,ZTHREAD_SHARED,QT_DLL,WP_DONT_USE_HASH_MAP"
+				PreprocessorDefinitions="NDEBUG;WIN32;_CONSOLE;QT_THREAD_SUPPORT;QT_DLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -114,8 +114,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt311.lib odbc32.lib odbccp32.lib libmysql.lib Flatstore\Release\Flatstore.lib"
-				OutputFile="C:\wolfpack\wolfpack.exe"
+				AdditionalDependencies="ws2_32.lib $(QTDIR)lib\qt-mt312.lib odbc32.lib odbccp32.lib libmysql.lib Flatstore\Release\Flatstore.lib"
+				OutputFile="D:\wolfpack\wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="lib\ZThread\lib,lib\Python\lib"
@@ -253,9 +253,6 @@
 			</File>
 			<File
 				RelativePath=".\makemenus.cpp">
-			</File>
-			<File
-				RelativePath=".\mapobjects.cpp">
 			</File>
 			<File
 				RelativePath=".\maps.cpp">
@@ -681,9 +678,6 @@
 "
 						Outputs="$(InputDir)moc_$(InputName).cpp"/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\mapobjects.h">
 			</File>
 			<File
 				RelativePath=".\maps.h">

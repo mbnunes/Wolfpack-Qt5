@@ -31,11 +31,20 @@
 #if !defined(__ENCRYPTION_H__)
 #define __ENCRYPTION_H__
 
-#include "twofish/twofish.h"
-
 #include <vector>
 #include <qstring.h>
 #include "singleton.h"
+
+#define REFERENCE_TWOFISH
+
+#if defined( REFERENCE_TWOFISH )
+extern "C" {
+#include "twofish/aes.h"
+#undef CONST
+}
+#else
+#include "twofish/twofish.h"
+#endif
 
 struct stLoginKey
 {
@@ -89,11 +98,16 @@ private:
 	unsigned char sendPos; // Offset in our XOR Table (Send)
 	unsigned char cipherTable[256];
 
+#if defined( REFERENCE_TWOFISH )
+    keyInstance ki;
+    cipherInstance ci;
+#else
 	uchar key[16];
 	UINT32 *S;
 	UINT32 K[40];
 	int k;
 	UINT32 QF[4][256];
+#endif
 
 	void decryptByte( unsigned char &byte );
 
