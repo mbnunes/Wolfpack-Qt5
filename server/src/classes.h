@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://www.wpdev.sf.net/
 //========================================================================================
 
 //---Classes code by Zippy Started 7/29/99---//

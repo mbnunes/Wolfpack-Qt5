@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://www.wpdev.sf.net/
 //========================================================================================
 
 #if !defined(__BOOKS_H__)

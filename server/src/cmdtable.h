@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://www.wpdev.sf.net/
 //========================================================================================
 
 /* cmdtable.h - Crackerjack <crackerjack@crackerjack.net> July 24/99

@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://www.wpdev.sf.net/
 //========================================================================================
 #if !defined(__MAPCACHE_H__)
 #define __MAPCACHE_H__
