@@ -40,7 +40,7 @@ def end(player, message = True):
 def stroke(player, arguments):
 	(source, count) = arguments
 
-	if player.dead:
+	if player.dead or player.pos.map == 0xff:
 		end(player, False) # End bleeding if dead, but dont message
 	else:
 		amount = random.randint(count, count * 2)
@@ -50,14 +50,15 @@ def stroke(player, arguments):
 		player.soundeffect(0x133)
 		player.damage(DAMAGE_GODLY, amount, wolfpack.findchar(source)) 
 
-		blood = wolfpack.additem(random.choice(BLOOD))
-		blood.movable = 3 # Not movable
-		blood.decay = True # Make it decay
-		blood.moveto(player.pos)
-		blood.update()
+		if player.pos.map != 0xff:
+			blood = wolfpack.additem(random.choice(BLOOD))
+			blood.movable = 3 # Not movable
+			blood.decay = True # Make it decay
+			blood.moveto(player.pos)
+			blood.update()
 
 	# There are still strokes left	
-	if count > 1:
+	if count > 1 and not player.dead and player.map != 0xff:
 		player.addtimer(TIMERINTERVAL, stroke, [source, count - 1], False, False, TIMERID)
 	else:
 		end(player)
