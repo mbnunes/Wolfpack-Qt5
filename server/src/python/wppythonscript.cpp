@@ -496,6 +496,16 @@ bool WPPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
 	PyEvalMethod( "onShowPaperdoll" )
 }
 
+bool WPPythonScript::onDeath( P_CHAR pChar )
+{
+	PyHasMethod( "onDeath" )
+	
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 1 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyEvalMethod( "onDeath" )
+}
+
 bool WPPythonScript::onShowSkillGump( P_CHAR pChar )
 {
 	PyHasMethod( "onShowSkillGump" )

@@ -650,6 +650,8 @@ void cPlayer::kill()
 		cUOTxCharDeath cDeath;
 		socket_->send( &cDeath );
 	}
+	// trigger the event now
+	onDeath();
 }
 
 void cPlayer::turnTo( cUObject *object )

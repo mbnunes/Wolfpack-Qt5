@@ -1161,6 +1161,16 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 	return (char*)0;
 }
 
+bool cBaseChar::onDeath()
+{
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onDeath( this ) )
+			return true;
+
+	return false;
+}
+
 bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )

@@ -35,7 +35,6 @@
 #include "typedefs.h"
 #include "platform.h"
 #include "coord.h"
-#include "network/uotxpackets.h"
 
 // Library Includes
 #include <qstring.h>
@@ -46,8 +45,9 @@
 #include <vector>
 
 class cUObject;
-class cUORxTarget;
 class cUOSocket;
+class cUOTxTooltipList;
+class cUORxTarget;
 
 class WPDefaultScript  
 {
@@ -119,6 +119,7 @@ public:
 	virtual bool onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 	virtual bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return false; }
 	virtual bool onShowSkillGump( P_CHAR pChar ) { Q_UNUSED( pChar ); return false; }
+	virtual bool onDeath( P_CHAR pChar ) { Q_UNUSED( pChar ); return false; }
 	virtual QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return (char*)0; }
 
 	// Drop/Pickup Events

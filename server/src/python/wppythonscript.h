@@ -75,6 +75,8 @@ public:
 	bool onStatGain( P_CHAR Character, UI08 stat, SI08 amount);
 	bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin );
 	bool onShowSkillGump( P_CHAR pChar );
+	bool onDeath( P_CHAR pChar );
+
 	QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin );
 
 	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );

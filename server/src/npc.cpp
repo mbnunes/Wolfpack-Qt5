@@ -638,6 +638,9 @@ void cNPC::kill()
 
 	resend( true );
 
+	// trigger the event
+	onDeath();
+
 	cCharStuff::DeleteChar( this );
 }
 
