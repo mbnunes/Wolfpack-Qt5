@@ -26,7 +26,7 @@ def onUse( char, item ):
 	return 1
 
 def regrow_wool(char, arguments):
-	if char:
+	if char.npc:
 		char.baseid = 'sheep_unsheered'
 		char.id = 207
 		char.update()
@@ -64,7 +64,7 @@ def response( char, args, target ):
 			return
 
 	# This is for sheering only
-	elif target.char:
+	elif target.char and target.char.npc:
 		if target.char.baseid == 'sheep_unsheered':
 			target.char.id = 223
 			target.char.baseid = 'sheep_sheered'
