@@ -169,6 +169,7 @@
 	<script>contextmenus.paperdollmenu</script>
 	<script>contextmenus.petmenu</script>
 	<script>contextmenus.tamemenu</script>
+	<script>contextmenus.stablermenu</script>
 	<script>contextmenus.trainmenu</script>
 	<script>contextmenus.vendormenu</script>
 
