@@ -1331,6 +1331,41 @@ unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char m
 	return cTempEffects::getInstance()->add(source, piDest, num, more1, more2, more3);
 }
 
+// cDelayedHideChar
+cDelayedHideChar::cDelayedHideChar( SERIAL serial )
+{
+	if( !isCharSerial( serial ) || !FindCharBySerial( serial ) )
+	{
+		character = INVALID_SERIAL;
+		return;
+	}
+	character = serial;
+	setSerializable( true );
+}
+
+void cDelayedHideChar::Serialize( ISerialization &archive )
+{
+	if( archive.isReading() )
+	{
+		archive.read( "charserial", character );
+	}
+	else
+	{
+		archive.write( "charserial", character );
+	}
+	cTempEffect::Serialize( archive );
+}
+
+void cDelayedHideChar::Expire()
+{
+	P_CHAR pc = FindCharBySerial( character );
+	if( !pc )
+		return;
+
+	pc->setHidden( 1 );
+	pc->resend( true );
+}
+
 // cTimedSpellAction
 cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
 {
@@ -1342,6 +1377,11 @@ cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
 
 	// Display the animation once
 	P_CHAR pc = FindCharBySerial( serial );
+	if( !pc )
+	{
+		character = INVALID_SERIAL;
+		return;
+	}
 	pc->action( nAction );
 
 	// Save our data

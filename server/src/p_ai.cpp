@@ -155,11 +155,9 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						continue;
 
 					chance = RandomNum(1, 100);
+					UI32 d = pc_i->pos.distance( pc->pos );
 					
 					if( ( !pc->isNpc() ) && ( !online( pc ) ) )
-						continue;
-
-					if ( d > SrvParams->attack_distance() )
 						continue;
 
 					if ( pc->isInvul() || pc->isHidden() || pc->dead() )
@@ -175,10 +173,10 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						continue;
 
 					// If the distance is below the minimal distance we found
-					if( ( Victim == NULL ) || ( minDist > pc_i->pos.distance( pc->pos ) ) )
+					if( ( Victim == NULL ) || ( minDist > d ) )
 					{
 						Victim = pc;
-						minDist = pc_i->pos.distance( pc->pos );
+						minDist = d;
 					}
 
 				}

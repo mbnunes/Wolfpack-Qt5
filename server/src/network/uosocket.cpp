@@ -59,6 +59,7 @@
 #include "../gumps.h"
 #include "../skills.h"
 #include "../contextmenu.h"
+#include "../tmpeff.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -344,7 +345,17 @@ void cUOSocket::disconnect( void )
 	_socket->close();
 
 	if( _player )
+	{
+		if( _player->region && _player->region->isGuarded() )
+			_player->setHidden( 1 );
+		else
+		{
+			cDelayedHideChar* pTmpEff = new cDelayedHideChar( _player->serial );
+			pTmpEff->setExpiretime_s( SrvParams->quittime() );
+			cTempEffects::getInstance()->insert( pTmpEff );
+		}
 		_player->resend( true );
+	}
 }
 
 /*!
@@ -511,6 +522,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	send( &gameTime );
 
 	// We're now playing this char:
+	pChar->setHidden( 0 );
 	setPlayer( pChar );
 	resendWorld( false );
 	pChar->resend( true ); // Send us to others

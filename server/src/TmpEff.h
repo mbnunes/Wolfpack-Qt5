@@ -128,8 +128,18 @@ public:
 	void Reverse();
 	void On(P_CHAR pc);
 	void Off(P_CHAR pc);
-	void Expire();
+	virtual void Expire();
 	virtual void Serialize(ISerialization &archive);
+};
+
+class cDelayedHideChar : public cTempEffect
+{
+public:
+	cDelayedHideChar( SERIAL serial );
+	virtual void Expire();
+	virtual void Serialize(ISerialization &archive);
+	virtual QString		objectID() const  { return "HIDECHAR";}
+	SERIAL character;
 };
 
 class cTimedSpellAction : public cTempEffect
@@ -140,7 +150,7 @@ private:
 public:
 	// Do that as long as we're casting
 	cTimedSpellAction( SERIAL serial, UI08 nAction );
-	void Expire();
+	virtual void Expire();
 };
 
 class cPythonEffect : public cTempEffect
