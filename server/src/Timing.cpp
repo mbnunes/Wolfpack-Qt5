@@ -679,6 +679,9 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	static unsigned int housedecaytimer = 0;
 	static unsigned int freeUnusedMemory = 0;
 
+	if( shoprestocktime == 0 )
+		shoprestocktime = currenttime + MY_CLOCKS_PER_SEC * 60 * 20;
+
 	//static unsigned int repairworldtimer=0;
 
 	if (housedecaytimer<=currenttime)
@@ -945,6 +948,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if( checktamednpcs <= currenttime ) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTammedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
 	if( checknpcfollow <= currenttime ) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
 	if( checkitemstime <= currenttime ) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
+	if( shoprestocktime <= currenttime )
+		shoprestocktime = currenttime + MY_CLOCKS_PER_SEC * 60 * 20;
 
 	// Update the delay for the next field-effect (every 500ms)
 	if( nextfieldeffecttime <= currenttime )

@@ -154,8 +154,9 @@ cItem::cItem( cItem &src )
 	this->timeused_last=getNormalizedTime();
 	this->setSpawnRegion( src.spawnregion() );
 	this->desc = src.desc;
-	setTotalweight( src.totalweight() );
-
+	// We're *NOT* copying the contents over
+	setTotalweight( amount_ * weight_ );
+	
 	this->tags = src.tags;
 	this->accuracy_ = 100;
 	this->container_ = src.container_;
@@ -687,7 +688,8 @@ void cItem::Init( bool mkser )
 	this->visible=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->spawnserial=-1;
 	this->dir=0; // Direction, or light source type.
-	this->priv=0; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
+	// Everything decays by default.
+	this->priv=1; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->disabled = 0; //Item is disabled, cant trigger.
 	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
 	this->poisoned = 0; //AntiChrist -- for poisoning skill
@@ -1988,7 +1990,7 @@ void cItem::showName( cUOSocket *socket )
 		if( weight_ == 255 )
 			tWeight -= 255;
 
-		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( tWeight );
+		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( ceil( tWeight/10 ) );
 
 		socket->showSpeech( this, message, 0x3B2 );
 	}
@@ -2165,9 +2167,9 @@ void cItem::soundEffect( UINT16 sound )
 // Update the top-containers
 void cItem::setWeight( SI16 nValue )
 {
-	setTotalweight( totalweight_ - weight_ );
+	setTotalweight( totalweight_ - ( amount_ * weight_ ) );
 	weight_ = nValue;
-	setTotalweight( totalweight_ + weight_ );
+	setTotalweight( totalweight_ + ( amount_ * weight_ ) );
 }
 
 // This subtracts the weight of the top-container
@@ -2449,6 +2451,9 @@ void cItem::load( char **result, UINT16 &offset )
 	carve_ = result[offset++];
 	accuracy_ = atoi( result[offset++] );
 
+	// Their own weight should already be set.
+	totalweight_ = amount_ * weight_;
+
 	itemRegisterAfterLoading( this );
 }
 
@@ -2578,8 +2583,8 @@ P_CHAR cItem::getOutmostChar()
 // If we change the amount, the weight changes as well
 void cItem::setAmount( UI16 nValue )
 {
-	amount_ = nValue;
 	setTotalweight( totalweight_ + ( ( nValue - amount_ ) * weight_ ) );
+	amount_ = nValue;	
 }
 
 UINT16 cItem::getWeaponSkill()

@@ -171,15 +171,15 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 	for( map< SERIAL,  UINT16 >::iterator iter = items.begin(); iter != items.end(); ++iter )
 	{
 		P_ITEM pItem = FindItemBySerial( iter->first );
-		UINT16 amount = iter->second;
+		UINT16 amount = min( iter->second, pItem->restock() );
 
 		pItem->setRestock( pItem->restock() - amount ); // Reduce the items in stock
 		P_ITEM pSold;
 
-
 		if( pItem->isPileable() )
 		{
 			pSold = pItem->dupe();
+			pSold->setAmount( iter->second );
 			pPack->addItem( pSold );
 			pSold->update();
 		}
@@ -188,6 +188,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 			for( UINT16 j = 0; j < amount; ++j )
 			{
 				pSold = pItem->dupe();
+				pSold->setAmount( 1 );
 				pPack->addItem( pSold );
 				pSold->update();
 			}
