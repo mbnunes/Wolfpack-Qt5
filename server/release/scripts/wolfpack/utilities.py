@@ -327,10 +327,10 @@ def istree( tile ):
 
 def iswater( tile ):
 	return tile in range( 168, 172 ) + \
-			range( 6038, 6067 ) + \
-			range( 13422, 13446 ) + \ 
-			range( 13456, 13484 ) + \
-			range( 13493, 13256 )
+		range( 6038, 6067 ) + \
+		range( 13422, 13446 ) + \
+		range( 13456, 13484 ) + \
+		range( 13493, 13526 )
 
 def isdirt( tile ):
 	return tile in range( 113, 125 ) + \
