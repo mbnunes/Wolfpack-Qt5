@@ -18,7 +18,7 @@ def onShowToolTip( sender, target, tooltip ):
 		unfilled( target, tooltip)
 
 	tooltip.send ( sender )
-	return 1
+	return True
 
 def filled( target, tooltip ):
 
@@ -39,12 +39,12 @@ def onUse ( char, item ):
 
 	if not item.getoutmostitem() == bank:
 		char.socket.clilocmessage( 0xFF9F2, "", 0x3b2, 3 ) # That must be in your bankbox to use it.
-		return 0
+		return True
 
 	if not item.hastag ( "filled" ):
 		char.socket.clilocmessage( 0xFF9F5, "", 0x3b2, 3 )
 		char.socket.attachtarget( "deeds.commoditydeed.response", [item.serial] )
-		return 1
+		return True
 
 	amount = item.gettag( "amount" )
 	commodity = item.gettag( "commodity" )
@@ -59,7 +59,7 @@ def onUse ( char, item ):
 	item.delete()
 	char.socket.sendcontainer( bank )
 	char.socket.clilocmessage( 0xFF9F7, "", 0x3b2, 3 )
-	return 1
+	return True
 
 def response ( char, args, target ):
 
@@ -75,13 +75,16 @@ def response ( char, args, target ):
 			"1079", "f3f", "1bd4", "1be0", "f7a", "f7b", "f84", "f85", \
 			"f86", "f88", "f8c", "f8d" ]
 
+	if not target.item:
+		return False
+		
 	if not target.item.getoutmostitem() == bank:
 		char.socket.clilocmessage( 0xFF9F2, "", 0x3b2, 3 ) # That must be in your bankbox to use it.
-		return 0
+		return False
 
 	if not target.item.id in commodities:
 		char.socket.clilocmessage( 0xFF9F3, "", 0x3b2, 3 ) # That is not a commodity the bankers will fill a commodity deed with.
-		return 0
+		return False
 
 	num = commodities.index( target.item.id )
 	amount = target.item.amount
@@ -99,4 +102,4 @@ def response ( char, args, target ):
 	char.socket.clilocmessage( 0xFF9F0, "", 0x3b2, 3 )
 	deed.update()
 
-	return 1
+	return True
