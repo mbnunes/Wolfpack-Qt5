@@ -263,7 +263,6 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		SendMessage( bmpLogo, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hLogo );
 
 		lblUptime = CreateWindow( "STATIC", 0, WS_CHILD|WS_VISIBLE, 400, 15, 250, 25, hwnd, 0, appInstance, 0 );
-			
 		// Set up our timer to refresh the nice Uptime Counter
 		uptimeTimer = SetTimer( NULL, 0, 500, 0 );
 
@@ -508,7 +507,14 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		else if( msg.message == WM_TIMER )
 		{
 			char message[512];
-			sprintf( message, "Uptime: %02u:%02u:%02u", ( uiCurrentTime / 1000 / 3600 ), ( uiCurrentTime / 1000 / 60 ) % 60, ( uiCurrentTime / 1000 ) % 3600 );
+
+			unsigned int msecs, seconds, minutes, hours, days;
+			days = uiCurrentTime / 86400000;
+			hours = (uiCurrentTime % 86400000) / 3600000;
+			minutes = (( uiCurrentTime % 86400000 ) % 3600000 ) / 60000;
+			seconds = ((( uiCurrentTime % 86400000 ) % 3600000 ) % 60000 ) / 1000;
+
+			sprintf( message, "Uptime: %u:%02u:%02u:%02u", days, hours, minutes, seconds );
 			SetWindowText( lblUptime, message );
 		}
 
