@@ -108,7 +108,7 @@ def gainskill(char, skill, totalskill, totalcap):
 	lock = char.skilllock[skill]
 	cap = char.skillcap[skill] / 10.0
 	info = SKILLS[skill]
-	
+
 	if lock == 0 and value < cap:
 		# Skills lower than 10.0% will gain 0.1% - 0.5% at once
 		if value < 10.0:
@@ -126,13 +126,13 @@ def gainskill(char, skill, totalskill, totalcap):
 					try:
 						if char.hastag('skillbonus_%u' % i):
 							value = int(char.gettag('skillbonus_%u' % i))
-							
+
 							# Skip this skill if reducing it wouldn't work
 							if char.skill[i] - int(points * 10) < value:
 								continue
 					except:
 						pass
-				
+
 					char.skill[i] -= int(points * 10)
 					totalskill -= points
 
@@ -151,9 +151,9 @@ def gainskill(char, skill, totalskill, totalcap):
 			totalskill += points
 			if DEBUG_SKILLS == 1:
 				char.log(LOG_TRACE, u'Character [%(serial)x] gained %(points).01f%% %(name)s [%(value).01f%%].\n' % { \
-					'serial': char.serial, 
+					'serial': char.serial,
 					'points': points,
-					'name': info[SKILL_NAME], 
+					'name': info[SKILL_NAME],
 					'value': (char.skill[skill] / 10.0)
 					})
 
@@ -225,10 +225,10 @@ def onSkillGain(char, skill, lower, higher, success):
 	# Introduce a new "Gain Factor"
 	# There is also a 1% minimum chance for gain
 	gainchance = gainchance * info[SKILL_GAINFACTOR]
-	
+
 	# Multiply with another gainfactor
 	gainchance = gainchance * GLOBAL_FACTOR
-	
+
 	char.log(LOG_TRACE, 'Gainchance for skill %s is %f.\n' % (SKILLNAMES[skill], gainchance))
 
 	# Tamed creatures get a * 2 bonus for their gain.
@@ -252,7 +252,7 @@ def onSkillGain(char, skill, lower, higher, success):
 		realdex = char.dexterity - char.dexterity2
 		realint = char.intelligence - char.intelligence2
 
-		if (char.npc or char.strengthlock != 0 or realstr >= char.strengthcap:
+		if (char.npc or char.strengthlock != 0) or realstr >= char.strengthcap:
 			strchance = 0.0
 		else:
 			strchance /= 33.3
@@ -273,7 +273,7 @@ def onSkillGain(char, skill, lower, higher, success):
 		elif dexchance > random():
 			gainstat(char, 1)
 		elif intchance > random():
-			gainstat(char, 2)		
+			gainstat(char, 2)
 
 #
 # Register our hook and load the skills.xml data.
