@@ -48,6 +48,7 @@
 #include "../classes.h"
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
+#include "../wpscriptmanager.h"
 #include "../walking.h"
 #include "../guildstones.h"
 #include "../combat.h"
@@ -573,7 +574,9 @@ void cUOSocket::playChar( P_CHAR pChar )
 	cUOTxGameTime gameTime;
 	gameTime.setTime( uoTime.time().hour(), uoTime.time().minute(), uoTime.time().second() );
 	send( &gameTime );
-	
+
+	pChar->sendTooltip( this );
+
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
 			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name() ), 0x48 );

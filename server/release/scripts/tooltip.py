@@ -14,12 +14,14 @@ def onLoad():
    wolfpack.registerglobal( HOOK_ITEM, EVENT_SHOWTOOLTIP, "tooltip" )
 
 def onShowToolTip( sender, target, tooltip ):  
-   if( target.isitem ):
+   if( target.isitem() ):
       if( target.amount > 1 ):
          multiitem( target, tooltip )
       else:
          tooltip.add( 1050045, " \t" + target.getname() + "\t " )
-      
+   else:
+      tooltip.add( 1050045, " \t" + target.name + "\t " ) 
+
    tooltip.send( sender )
 
    return 1

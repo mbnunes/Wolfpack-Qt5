@@ -2081,7 +2081,11 @@ void cChar::resend( bool clean, bool excludeself )
 	{
 		// Don't send such a packet to ourself
 		if( mSock == socket_ )
+		{
+			sendTooltip( mSock );		
 			continue;
+		}
+
 
 		P_CHAR pChar = mSock->player();
 
