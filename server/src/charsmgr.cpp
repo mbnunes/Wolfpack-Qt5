@@ -55,7 +55,10 @@ struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar
 void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
+	{
 		insert(make_pair(pc->serial, pc));
+		lastUsedSerial = max(lastUsedSerial, pc->serial);
+	}
 	else
 	{
 		throw wp_exceptions::bad_ptr("Invalid argument pc at cCharsManager::registerChar");
@@ -73,8 +76,8 @@ void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 SERIAL cCharsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cChar*> max_serialPred;
-	map<SERIAL, cChar*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
-	return max(1, temp->first+1); // no serial 0
+//	map<SERIAL, cChar*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
+	return max(1, lastUsedSerial+1); // no serial 0
 }
 
 void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)

@@ -695,9 +695,8 @@ void gcollect () // Remove items which were in deleted containers
 	int removed = 0, rtotal = 0;
 	bool bdelete;
 	LogMessage("Performing Garbage Collection...");
-	int debug = 0;
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++, debug++)
+	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
 	{
 		P_ITEM pi = iter_items.GetData();
 		if (pi->free || pi->isInWorld()) 
@@ -718,7 +717,7 @@ void gcollect () // Remove items which were in deleted containers
 		}
 		if (bdelete)
 		{
-			iter_items--; // Go back for a little.
+			--iter_items; // Go back for a little.
 			Items->DeleItem( pi ); // Warning, iterator became invalid!
 			removed++;
 		}
@@ -894,7 +893,7 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 	pc->onhorse = false;
 	unsigned int ci=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
+	vector<SERIAL> vecContainer(contsp.getData(pc->serial));
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -910,10 +909,11 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 void all_items(int s) // Send ALL items to player
 {
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
+	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 	{
 		P_ITEM pi = iterItems.GetData();
-		if (!pi->free) senditem(s, pi);
+		if (!pi->free) 
+			senditem(s, pi);
 	}
 }
 
@@ -1091,7 +1091,7 @@ void deathstuff(P_CHAR pc_player)
 
 	unsigned int ci=0;
 	P_ITEM pi_j;
-	vector<SERIAL> vecContainer = contsp.getData(pc_player->serial);
+	vector<SERIAL> vecContainer(contsp.getData(pc_player->serial));
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi_j = FindItemBySerial(vecContainer[ci]);
@@ -1401,7 +1401,7 @@ void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object nu
 
 void explodeitem(int s, P_ITEM pi)
 {
-	unsigned int dmg=0,len=0,c;
+	unsigned int dmg=0,len=0;
 	unsigned int dx,dy,dz;
 //	int cc=currchar[s];
 
@@ -1796,8 +1796,7 @@ int validbeard(int a, int b) // Is selected beard type valid
 
 void charcreate( UOXSOCKET s ) // All the character creation stuff
 {
-	unsigned int i ;
-	signed int ii ;
+	signed int ii;
 	int totalstats,totalskills;
 	P_CHAR pc = Npcs->MemCharFree();
 	if ( pc == NULL )
@@ -3823,7 +3822,7 @@ void openspecialbank(int s, P_CHAR pc)
 // streamlined by Duke 01.06.2000
 int getsubamount(int serial, short id)
 {
-	unsigned long loopexit=0,total=0;
+	unsigned long total=0;
 	unsigned int ci;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);

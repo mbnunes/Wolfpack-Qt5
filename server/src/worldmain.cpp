@@ -64,7 +64,7 @@ void loadchar(int x) // Load a character from WSC
 {
 	unsigned long k,b,c1 ;
 	int i ;
-	int j,a=0, loops=0;
+	int j, loops=0;
 
 	P_CHAR pc = Npcs->MemCharFree();
 	if ( pc == NULL )
@@ -946,7 +946,6 @@ void CWorldMain::savenewworld(char x)
 //	unsigned int del=0;
 //	unsigned int currenttime=uiCurrentTime;
 	static unsigned long ocCount, oiCount;
-	static char curAmount = 0;
 
 	AllTmpEff->Off();
 
@@ -1117,7 +1116,7 @@ void CWorldMain::SaveChar( P_CHAR pc )
 			//AntiChrist - special incognito related stuff - 12/99
 			if(pc->incognito)
 			{//save original name
-				fprintf(cWsc, "NAME %s\n", pc->orgname);
+				fprintf(cWsc, "NAME %s\n", pc->orgname.c_str());
 			} 
 			else
 			{
@@ -1422,11 +1421,11 @@ void CWorldMain::SaveChar( P_CHAR pc )
 static void decay1(P_ITEM pi, P_ITEM pItem)
 {
 	long serial;
-	int ci;
 	if (pi->corpse==1)
 	{
 		serial=pi->serial;
-		vector<SERIAL> vecContainer = contsp.getData(pi->serial);
+		unsigned int ci;
+		vector<SERIAL> vecContainer( contsp.getData(pi->serial) );
 		for (ci=0;ci<vecContainer.size();ci++)
 		{
 			P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
@@ -1450,7 +1449,7 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 	}
 	else
 	{
-		if ( pi->multis == -1 )
+		if ( pi->multis == INVALID_SERIAL )
 		{
 			P_ITEM pi_multi = findmulti( pi->pos );
 			if( pi_multi == NULL )

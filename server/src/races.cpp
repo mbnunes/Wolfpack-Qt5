@@ -334,7 +334,7 @@ bool cRace::CheckSkillUse(int skillnum)
 {
 	unsigned int skillcount;
 	for(skillcount = 0; skillcount != CanUseSkill.size(); skillcount++)
-		if(CanUseSkill[skillcount] = skillnum)
+		if(CanUseSkill[skillcount] == skillnum)
 			return true;
 	return false;
 }

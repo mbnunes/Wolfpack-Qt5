@@ -858,7 +858,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		// check stabling
 		///////////////////
 
-		int ci,serial;
 		unsigned long int diff;
 
 		//char * t;
@@ -867,13 +866,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 		AllCharsIterator iter_char;
 		   
-		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
+		for (iter_char.Begin(); !iter_char.atEnd(); ++iter_char)
 		{
 			P_CHAR pc = iter_char.GetData();
 			if (pc->npc_type == 1)
 			{
-				serial = pc->serial;
-				vector<SERIAL> pets = stablesp.getData(serial);
+				vector<SERIAL> pets( stablesp.getData(pc->serial) );
+				unsigned int ci;
 				for (ci = 0; ci < pets.size();ci++)
 				{
 					P_CHAR pc_pet = FindCharBySerial(pets[ci]);
@@ -886,7 +885,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				}
 			}
 		}
-
 		housedecaytimer=uiCurrentTime+MY_CLOCKS_PER_SEC*60*30; // check only each 30 minutes
 	}
 
@@ -979,7 +977,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	{
        itemlooptime = currenttime+5*MY_CLOCKS_PER_SEC;
 	   AllItemsIterator iterItems;
-       for( iterItems.Begin(); !iterItems.atEnd(); iterItems++ ) // Ripper...so spawners get set to nodecay.
+       for( iterItems.Begin(); !iterItems.atEnd(); ++iterItems ) // Ripper...so spawners get set to nodecay.
 	   {
 			P_ITEM pi = iterItems.GetData();
 			if(pi != NULL)
@@ -1009,7 +1007,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			{
 				for (int a=0;a<3;a++)
 				{
-					vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid + a);
+					vector<SERIAL> vecEntries( mapRegions->GetCellEntries(checkgrid + a) );
 					for ( unsigned int k = 0; k < vecEntries.size(); k++)
 					{
 						P_CHAR mapchar = FindCharBySerial(vecEntries[k]);

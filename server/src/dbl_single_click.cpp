@@ -776,7 +776,6 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					sysmessage(s, "That item is locked down.");
 					return; 
 				} // added by ripper, bugfixed by LB
-				int m;
 				P_ITEM pi_multi = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
 				if (pi_multi != NULL && iteminrange(s, pi_multi, 18))
 				{	
@@ -1521,7 +1520,7 @@ void singleclick(UOXSOCKET s)
 			if (pc_j->npcaitype == 17)
 			{
 				if (pi->creator.size() > 0 && pi->madewith>0)
-					sprintf((char*)temp2, "%s %s by %s", pi->desc, skill[pi->madewith - 1].madeword, pi->creator); 
+					sprintf((char*)temp2, "%s %s by %s", pi->desc, skill[pi->madewith - 1].madeword, pi->creator.c_str()); 
 				else
 					strcpy((char*)temp2, pi->desc); // LB bugfix
 				

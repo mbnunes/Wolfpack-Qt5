@@ -77,8 +77,6 @@ bool doregionspawn(int r)//Regionspawns
 {
 	//clConsole.send("doregionspawn: %i start current: %i\n",r,spawnregion[r].current);
 
-	spawnregion_st debug = spawnregion[r];
-
 	if (spawnregion[r].current<=0) spawnregion[r].current=0;
 	if (spawnregion[r].current >= spawnregion[r].max || spawnregion[r].max == 0) return false;
 
@@ -581,15 +579,14 @@ void cRespawn::Continue()
 {
 
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
+	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 	{
 		P_ITEM pi = iterItems.GetData();
-		int k, serial, ci;
+		unsigned int k, ci;
 		if (pi->type == 61)
 		{
 			k = 0;
-			serial = pi->serial;
-			vector<SERIAL> vecSpawn = spawnsp.getData(pi->serial);
+			vector<SERIAL> vecSpawn(spawnsp.getData(pi->serial));
 			for (ci = 0; ci < vecSpawn.size(); ci++)
 			{
 				P_ITEM pj = FindItemBySerial(vecSpawn[ci]);
@@ -615,14 +612,13 @@ void cRespawn::Continue()
 		if ( pi->type == 62 || pi->type == 69 || pi->type == 125 )	// NPC Spawner / Escort Quest spawner(125)
 		{
 			k=0;
-			serial=pi->serial;
-			vector<SERIAL> vecSpawned = cspawnsp.getData(pi->serial);
+			vector<SERIAL> vecSpawned(cspawnsp.getData(pi->serial));
 			for (ci = 0; ci < vecSpawned.size(); ci++)
 			{
 				P_CHAR pc_j = FindCharBySerial(vecSpawned[ci]);
 				if (pc_j != NULL)
 				{
-					if (pi->serial==pc_j->spawnserial)
+					if (pi->serial == pc_j->spawnserial)
 					{
 						k++;
 					}
@@ -638,7 +634,7 @@ void cRespawn::Continue()
 		}
 	}
 	unsigned int i;
-	for( i=currentSpawnRegion;i<spawnregion.size();i++) //New -- Zippy region spawner
+	for( i = currentSpawnRegion; i < spawnregion.size(); ++i) //New -- Zippy region spawner
 	{
 		doregionspawn(i);
 		currentSpawnRegion++;

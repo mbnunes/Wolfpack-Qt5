@@ -49,6 +49,7 @@ class cCharsManager : public std::map<SERIAL, cChar*>
 protected:
 	// Data Members
 	std::list<cChar*> deletedChars;
+	SERIAL	lastUsedSerial;
 protected:
 	cCharsManager() {} // Unallow anyone to instantiate.
 	cCharsManager(cCharsManager& _it) {} // Unallow copy constructor
@@ -94,7 +95,8 @@ public:
 	bool atEnd()									{ return (iterChars == cCharsManager::getCharsManager().end()); }
 	AllCharsIterator& operator++(int)				{ iterChars++; return *this; }
 	AllCharsIterator& operator--(int)				{ iterChars--; return *this; }
-	
+	void operator++()								{ ++iterChars;				 }
+	void operator--()								{ --iterChars;				 }
 };
 
 #endif // __CHARSMGR_H__

@@ -352,7 +352,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 	}
 	// If we reach this point, bankbox wasn't found == wasn't created yet.
 
-	sprintf((char*)temp, "%s's bank box.", name);
+	sprintf((char*)temp, "%s's bank box.", name.c_str());
 	UOXSOCKET s = calcSocketFromChar(this);
 	pi = Items->SpawnItem(this, 1, (char*)temp, 0, 0x09AB, 0, 0);
 	if(pi == NULL) 
