@@ -81,7 +81,17 @@ a:hover {
   <tr>
 	<td width="520"><strong>Connected Accounts:</strong> <%=wolfpack.sockets.count()%> of <%=wolfpack.accounts.count()%><br />
 	  <br />
-	  <strong>Player Characters:</strong> <%=wolfpack.playercount()%> <br />
+<%
+socket = wolfpack.sockets.first()
+nextsocket = wolfpack.sockets.next()
+count_players = 0
+while socket:
+	if( socket.player and not socket.player.invisible ):
+		count_players+=1
+	socket = nextsocket
+	nextsocket = wolfpack.sockets.next()
+%>
+	  <strong>Player Characters:</strong> <%=count_players%> <br />
 	  <strong>NPCs:</strong> <%=wolfpack.npccount()%> <br />
 	  <strong>Items:</strong> <%=wolfpack.itemcount()%> <br />
 	  <strong>Ingame Time:</strong> Day <%=wolfpack.time.days()%>, <%=wolfpack.time.hour()%>:<%="%02u" % wolfpack.time.minute()%> <br /> <br />
@@ -91,7 +101,7 @@ a:hover {
 socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
 while socket:
-	if socket.player:
+	if( socket.player and not socket.player.invisible ):
 		%>
 		<tr>
 		<%
@@ -130,7 +140,7 @@ while socket:
 	  	print '</td></tr>'
 		%></tr>
 <%
-		if nextsocket and nextsocket.player:
+		if( nextsocket and nextsocket.player and not nextsocket.player.invisible ):
 			%>
 		<tr><td colspan="2" bgcolor="#DDDDDD"><img src="spacer.gif" width="1" height="1"></td></tr>
 			

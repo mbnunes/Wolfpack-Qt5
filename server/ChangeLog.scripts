@@ -67,6 +67,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Implemented item enhancement via tailoring and blacksmithing.
 		- Fixed hunger for players.
 		- Fixed a bug in trainmenus (training above skillcap)
+		- Invis GMs are not shown on server status anymore.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
