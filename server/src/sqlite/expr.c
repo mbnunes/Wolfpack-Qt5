@@ -12,7 +12,7 @@
 ** This file contains routines used for analyzing expressions and
 ** for generating VDBE code that evaluates expressions in SQLite.
 **
-** $Id: expr.c,v 1.4 2004/03/19 16:36:19 thiagocorrea Exp $
+** $Id$
 */
 #include "sqliteInt.h"
 #include <ctype.h>

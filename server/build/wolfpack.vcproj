@@ -21,7 +21,7 @@
 				AdditionalOptions="/GR
 "
 				Optimization="0"
-				AdditionalIncludeDirectories="sqlite"
+				AdditionalIncludeDirectories="..\src\sqlite;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT;CRASHHANDLER"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -37,13 +37,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qt-mt331.lib ws2_32.lib comctl32.lib"
-				OutputFile="../wolfpack.exe"
+				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="..\wolfpack.pdb"
+				ProgramDatabaseFile="wolfpack.pdb"
 				GenerateMapFile="TRUE"
-				MapFileName="..\wolfpack.map"
+				MapFileName="wolfpack.map"
 				MapExports="FALSE"
 				SubSystem="2"
 				TargetMachine="1"/>
@@ -85,7 +85,7 @@
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="0"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="sqlite;qt;C:\MySQL\include"
+				AdditionalIncludeDirectories=".;..\src\sqlite;qt;C:\MySQL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER;MYSQL_DRIVER"
 				StringPooling="TRUE"
 				MinimalRebuild="TRUE"
@@ -107,7 +107,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qt-mt331.lib ws2_32.lib comctl32.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
-				OutputFile="../wolfpack.exe"
+				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="C:\MySQL\lib\opt"
@@ -164,7 +164,7 @@
 				FavorSizeOrSpeed="2"
 				OptimizeForProcessor="0"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="sqlite;STLPort\stlport;msvcrt\include;qt;C:\MySQL\include"
+				AdditionalIncludeDirectories=".;..\src\sqlite;..\STLPort\stlport;..\msvcrt\include;qt;C:\MySQL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER;MYSQL_DRIVER"
 				StringPooling="TRUE"
 				MinimalRebuild="TRUE"
@@ -186,10 +186,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qt-mt331.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
-				OutputFile="../wolfpack.exe"
+				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="msvcrt\lib;C:\MySQL\lib\opt"
+				AdditionalLibraryDirectories="..\msvcrt\lib;C:\MySQL\lib\opt"
 				IgnoreAllDefaultLibraries="TRUE"
 				GenerateDebugInformation="TRUE"
 				GenerateMapFile="TRUE"
@@ -234,175 +234,175 @@
 			Name="Server"
 			Filter="">
 			<File
-				RelativePath=".\accounts.cpp">
+				RelativePath="..\src\accounts.cpp">
 			</File>
 			<File
-				RelativePath=".\accounts.h">
+				RelativePath="..\src\accounts.h">
 			</File>
 			<File
-				RelativePath=".\action.cpp">
+				RelativePath="..\src\action.cpp">
 			</File>
 			<File
-				RelativePath=".\action.h">
+				RelativePath="..\src\action.h">
 			</File>
 			<File
-				RelativePath=".\basechar.cpp">
+				RelativePath="..\src\basechar.cpp">
 			</File>
 			<File
-				RelativePath=".\basechar.h">
+				RelativePath="..\src\basechar.h">
 			</File>
 			<File
-				RelativePath=".\basedef.cpp">
+				RelativePath="..\src\basedef.cpp">
 			</File>
 			<File
-				RelativePath=".\basedef.h">
+				RelativePath="..\src\basedef.h">
 			</File>
 			<File
-				RelativePath=".\baseregion.h">
+				RelativePath="..\src\baseregion.h">
 			</File>
 			<File
-				RelativePath=".\basics.cpp">
+				RelativePath="..\src\basics.cpp">
 			</File>
 			<File
-				RelativePath=".\basics.h">
+				RelativePath="..\src\basics.h">
 			</File>
 			<File
-				RelativePath=".\combat.cpp">
+				RelativePath="..\src\combat.cpp">
 			</File>
 			<File
-				RelativePath=".\combat.h">
+				RelativePath="..\src\combat.h">
 			</File>
 			<File
-				RelativePath=".\commands.cpp">
+				RelativePath="..\src\commands.cpp">
 			</File>
 			<File
-				RelativePath=".\commands.h">
+				RelativePath="..\src\commands.h">
 			</File>
 			<File
-				RelativePath=".\win\config_win.cpp">
+				RelativePath="..\src\win\config_win.cpp">
 			</File>
 			<File
-				RelativePath=".\console.cpp">
+				RelativePath="..\src\console.cpp">
 			</File>
 			<File
-				RelativePath=".\console.h">
+				RelativePath="..\src\console.h">
 			</File>
 			<File
-				RelativePath=".\win\console_win.cpp">
+				RelativePath="..\src\win\console_win.cpp">
 			</File>
 			<File
-				RelativePath=".\content.cpp">
+				RelativePath="..\src\content.cpp">
 			</File>
 			<File
-				RelativePath=".\content.h">
+				RelativePath="..\src\content.h">
 			</File>
 			<File
-				RelativePath=".\contextmenu.cpp">
+				RelativePath="..\src\contextmenu.cpp">
 			</File>
 			<File
-				RelativePath=".\contextmenu.h">
+				RelativePath="..\src\contextmenu.h">
 			</File>
 			<File
-				RelativePath=".\coord.cpp">
+				RelativePath="..\src\coord.cpp">
 			</File>
 			<File
-				RelativePath=".\coord.h">
+				RelativePath="..\src\coord.h">
 			</File>
 			<File
-				RelativePath=".\corpse.cpp">
+				RelativePath="..\src\corpse.cpp">
 			</File>
 			<File
-				RelativePath=".\corpse.h">
+				RelativePath="..\src\corpse.h">
 			</File>
 			<File
-				RelativePath=".\customtags.cpp">
+				RelativePath="..\src\customtags.cpp">
 			</File>
 			<File
-				RelativePath=".\customtags.h">
+				RelativePath="..\src\customtags.h">
 			</File>
 			<File
-				RelativePath=".\dbdriver.cpp">
+				RelativePath="..\src\dbdriver.cpp">
 			</File>
 			<File
-				RelativePath=".\dbdriver.h">
+				RelativePath="..\src\dbdriver.h">
 			</File>
 			<File
-				RelativePath=".\definable.cpp">
+				RelativePath="..\src\definable.cpp">
 			</File>
 			<File
-				RelativePath=".\definable.h">
+				RelativePath="..\src\definable.h">
 			</File>
 			<File
-				RelativePath=".\defines.h">
+				RelativePath="..\src\defines.h">
 			</File>
 			<File
-				RelativePath=".\definitions.cpp">
+				RelativePath="..\src\definitions.cpp">
 			</File>
 			<File
-				RelativePath=".\definitions.h">
+				RelativePath="..\src\definitions.h">
 			</File>
 			<File
-				RelativePath=".\dragdrop.cpp">
+				RelativePath="..\src\dragdrop.cpp">
 			</File>
 			<File
-				RelativePath=".\dragdrop.h">
+				RelativePath="..\src\dragdrop.h">
 			</File>
 			<File
-				RelativePath=".\exceptions.h">
+				RelativePath="..\src\exceptions.h">
 			</File>
 			<File
-				RelativePath=".\factory.h">
+				RelativePath="..\src\factory.h">
 			</File>
 			<File
-				RelativePath=".\getopts.cpp">
+				RelativePath="..\src\getopts.cpp">
 			</File>
 			<File
-				RelativePath=".\getopts.h">
+				RelativePath="..\src\getopts.h">
 			</File>
 			<File
-				RelativePath=".\win\getopts_win.cpp">
+				RelativePath="..\src\win\getopts_win.cpp">
 			</File>
 			<File
-				RelativePath=".\guilds.cpp">
+				RelativePath="..\src\guilds.cpp">
 			</File>
 			<File
-				RelativePath=".\guilds.h">
+				RelativePath="..\src\guilds.h">
 			</File>
 			<File
-				RelativePath=".\gumps.cpp">
+				RelativePath="..\src\gumps.cpp">
 			</File>
 			<File
-				RelativePath=".\gumps.h">
+				RelativePath="..\src\gumps.h">
 			</File>
 			<File
-				RelativePath=".\inlines.h">
+				RelativePath="..\src\inlines.h">
 			</File>
 			<File
-				RelativePath=".\items.cpp">
+				RelativePath="..\src\items.cpp">
 			</File>
 			<File
-				RelativePath=".\items.h">
+				RelativePath="..\src\items.h">
 			</File>
 			<File
-				RelativePath=".\log.cpp">
+				RelativePath="..\src\log.cpp">
 			</File>
 			<File
-				RelativePath=".\log.h">
+				RelativePath="..\src\log.h">
 			</File>
 			<File
-				RelativePath=".\mapobjects.cpp">
+				RelativePath="..\src\mapobjects.cpp">
 			</File>
 			<File
-				RelativePath=".\mapobjects.h">
+				RelativePath="..\src\mapobjects.h">
 			</File>
 			<File
-				RelativePath=".\md5.cpp">
+				RelativePath="..\src\md5.cpp">
 			</File>
 			<File
-				RelativePath=".\md5.h">
+				RelativePath="..\src\md5.h">
 			</File>
 			<File
-				RelativePath=".\multi.cpp">
+				RelativePath="..\src\multi.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -423,221 +423,218 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\multi.h">
+				RelativePath="..\src\multi.h">
 			</File>
 			<File
-				RelativePath=".\npc.cpp">
+				RelativePath="..\src\npc.cpp">
 			</File>
 			<File
-				RelativePath=".\npc.h">
+				RelativePath="..\src\npc.h">
 			</File>
 			<File
-				RelativePath=".\party.cpp">
+				RelativePath="..\src\party.cpp">
 			</File>
 			<File
-				RelativePath=".\party.h">
+				RelativePath="..\src\party.h">
 			</File>
 			<File
-				RelativePath=".\persistentbroker.cpp">
+				RelativePath="..\src\persistentbroker.cpp">
 			</File>
 			<File
-				RelativePath=".\persistentbroker.h">
+				RelativePath="..\src\persistentbroker.h">
 			</File>
 			<File
-				RelativePath=".\persistentobject.cpp">
+				RelativePath="..\src\persistentobject.cpp">
 			</File>
 			<File
-				RelativePath=".\persistentobject.h">
+				RelativePath="..\src\persistentobject.h">
 			</File>
 			<File
-				RelativePath=".\platform.h">
+				RelativePath="..\src\platform.h">
 			</File>
 			<File
-				RelativePath=".\player.cpp">
+				RelativePath="..\src\player.cpp">
 			</File>
 			<File
-				RelativePath=".\player.h">
+				RelativePath="..\src\player.h">
 			</File>
 			<File
-				RelativePath=".\preferences.cpp">
+				RelativePath="..\src\preferences.cpp">
 			</File>
 			<File
-				RelativePath=".\preferences.h">
+				RelativePath="..\src\preferences.h">
 			</File>
 			<File
-				RelativePath=".\profile.cpp">
+				RelativePath="..\src\profile.cpp">
 			</File>
 			<File
-				RelativePath=".\profile.h">
+				RelativePath="..\src\profile.h">
 			</File>
 			<File
-				RelativePath=".\progress.h">
+				RelativePath="..\src\progress.h">
 			</File>
 			<File
-				RelativePath=".\pythonscript.cpp">
+				RelativePath="..\src\pythonscript.cpp">
 			</File>
 			<File
-				RelativePath=".\pythonscript.h">
+				RelativePath="..\src\pythonscript.h">
 			</File>
 			<File
-				RelativePath=".\resource.h">
+				RelativePath="..\src\scriptmanager.cpp">
 			</File>
 			<File
-				RelativePath=".\scriptmanager.cpp">
+				RelativePath="..\src\scriptmanager.h">
 			</File>
 			<File
-				RelativePath=".\scriptmanager.h">
+				RelativePath="..\src\server.cpp">
 			</File>
 			<File
-				RelativePath=".\server.cpp">
+				RelativePath="..\src\server.h">
 			</File>
 			<File
-				RelativePath=".\server.h">
+				RelativePath="..\src\serverconfig.cpp">
 			</File>
 			<File
-				RelativePath=".\serverconfig.cpp">
+				RelativePath="..\src\serverconfig.h">
 			</File>
 			<File
-				RelativePath=".\serverconfig.h">
+				RelativePath="..\src\singleton.h">
 			</File>
 			<File
-				RelativePath=".\singleton.h">
+				RelativePath="..\src\skills.cpp">
 			</File>
 			<File
-				RelativePath=".\skills.cpp">
+				RelativePath="..\src\skills.h">
 			</File>
 			<File
-				RelativePath=".\skills.h">
+				RelativePath="..\src\spawnregions.cpp">
 			</File>
 			<File
-				RelativePath=".\spawnregions.cpp">
+				RelativePath="..\src\spawnregions.h">
 			</File>
 			<File
-				RelativePath=".\spawnregions.h">
+				RelativePath="..\src\speech.cpp">
 			</File>
 			<File
-				RelativePath=".\speech.cpp">
+				RelativePath="..\src\speech.h">
 			</File>
 			<File
-				RelativePath=".\speech.h">
+				RelativePath="..\src\targetrequest.h">
 			</File>
 			<File
-				RelativePath=".\targetrequest.h">
+				RelativePath="..\src\targetrequests.cpp">
 			</File>
 			<File
-				RelativePath=".\targetrequests.cpp">
+				RelativePath="..\src\targetrequests.h">
 			</File>
 			<File
-				RelativePath=".\targetrequests.h">
+				RelativePath="..\src\territories.cpp">
 			</File>
 			<File
-				RelativePath=".\territories.cpp">
+				RelativePath="..\src\territories.h">
 			</File>
 			<File
-				RelativePath=".\territories.h">
+				RelativePath="..\src\timers.cpp">
 			</File>
 			<File
-				RelativePath=".\timers.cpp">
+				RelativePath="..\src\timers.h">
 			</File>
 			<File
-				RelativePath=".\timers.h">
+				RelativePath="..\src\Timing.cpp">
 			</File>
 			<File
-				RelativePath=".\Timing.cpp">
+				RelativePath="..\src\Timing.h">
 			</File>
 			<File
-				RelativePath=".\Timing.h">
+				RelativePath="..\src\tracking.cpp">
 			</File>
 			<File
-				RelativePath=".\tracking.cpp">
+				RelativePath="..\src\tracking.h">
 			</File>
 			<File
-				RelativePath=".\tracking.h">
+				RelativePath="..\src\Trade.cpp">
 			</File>
 			<File
-				RelativePath=".\Trade.cpp">
+				RelativePath="..\src\Trade.h">
 			</File>
 			<File
-				RelativePath=".\Trade.h">
+				RelativePath="..\src\typedefs.h">
 			</File>
 			<File
-				RelativePath=".\typedefs.h">
+				RelativePath="..\src\uobject.cpp">
 			</File>
 			<File
-				RelativePath=".\uobject.cpp">
+				RelativePath="..\src\uobject.h">
 			</File>
 			<File
-				RelativePath=".\uobject.h">
+				RelativePath="..\src\uotime.h">
 			</File>
 			<File
-				RelativePath=".\uotime.h">
+				RelativePath="..\src\verinfo.h">
 			</File>
 			<File
-				RelativePath=".\verinfo.h">
+				RelativePath="..\src\walking.cpp">
 			</File>
 			<File
-				RelativePath=".\walking.cpp">
+				RelativePath="..\src\walking.h">
 			</File>
 			<File
-				RelativePath=".\walking.h">
+				RelativePath="..\src\world.cpp">
 			</File>
 			<File
-				RelativePath=".\world.cpp">
-			</File>
-			<File
-				RelativePath=".\world.h">
+				RelativePath="..\src\world.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Network"
 			Filter="">
 			<File
-				RelativePath=".\network\asyncnetio.cpp">
+				RelativePath="..\src\network\asyncnetio.cpp">
 			</File>
 			<File
-				RelativePath=".\network\asyncnetio.h">
+				RelativePath="..\src\network\asyncnetio.h">
 			</File>
 			<File
-				RelativePath=".\network\encryption.cpp">
+				RelativePath="..\src\network\encryption.cpp">
 			</File>
 			<File
-				RelativePath=".\network\encryption.h">
+				RelativePath="..\src\network\encryption.h">
 			</File>
 			<File
-				RelativePath=".\network\listener.cpp">
+				RelativePath="..\src\network\listener.cpp">
 			</File>
 			<File
-				RelativePath=".\network\listener.h">
+				RelativePath="..\src\network\listener.h">
 			</File>
 			<File
-				RelativePath=".\network\network.cpp">
+				RelativePath="..\src\network\network.cpp">
 			</File>
 			<File
-				RelativePath=".\network\network.h">
+				RelativePath="..\src\network\network.h">
 			</File>
 			<File
-				RelativePath=".\network\uopacket.cpp">
+				RelativePath="..\src\network\uopacket.cpp">
 			</File>
 			<File
-				RelativePath=".\network\uopacket.h">
+				RelativePath="..\src\network\uopacket.h">
 			</File>
 			<File
-				RelativePath=".\network\uorxpackets.cpp">
+				RelativePath="..\src\network\uorxpackets.cpp">
 			</File>
 			<File
-				RelativePath=".\network\uorxpackets.h">
+				RelativePath="..\src\network\uorxpackets.h">
 			</File>
 			<File
-				RelativePath=".\network\uosocket.cpp">
+				RelativePath="..\src\network\uosocket.cpp">
 			</File>
 			<File
-				RelativePath=".\network\uosocket.h">
+				RelativePath="..\src\network\uosocket.h">
 			</File>
 			<File
-				RelativePath=".\network\uotxpackets.cpp">
+				RelativePath="..\src\network\uotxpackets.cpp">
 			</File>
 			<File
-				RelativePath=".\network\uotxpackets.h">
+				RelativePath="..\src\network\uotxpackets.h">
 			</File>
 		</Filter>
 		<Filter
@@ -645,243 +642,246 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
-				RelativePath=".\data\AUTHORS.txt">
+				RelativePath=".\AUTHORS.txt">
 			</File>
 			<File
-				RelativePath=".\data\icon2.ico">
+				RelativePath=".\icon2.ico">
 			</File>
 			<File
-				RelativePath=".\data\icon_green.ico">
+				RelativePath=".\icon_green.ico">
 			</File>
 			<File
-				RelativePath=".\data\icon_red.ico">
+				RelativePath=".\icon_red.ico">
 			</File>
 			<File
-				RelativePath=".\data\logo.bmp">
+				RelativePath=".\logo.bmp">
 			</File>
 			<File
 				RelativePath=".\res.rc">
+			</File>
+			<File
+				RelativePath=".\resource.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Python"
 			Filter="">
 			<File
-				RelativePath=".\python\char.cpp">
+				RelativePath="..\src\python\char.cpp">
 			</File>
 			<File
-				RelativePath=".\python\engine.cpp">
+				RelativePath="..\src\python\engine.cpp">
 			</File>
 			<File
-				RelativePath=".\python\engine.h">
+				RelativePath="..\src\python\engine.h">
 			</File>
 			<File
-				RelativePath=".\python\global.cpp">
+				RelativePath="..\src\python\global.cpp">
 			</File>
 			<File
-				RelativePath=".\python\gump.h">
+				RelativePath="..\src\python\gump.h">
 			</File>
 			<File
-				RelativePath=".\python\item.cpp">
+				RelativePath="..\src\python\item.cpp">
 			</File>
 			<File
-				RelativePath=".\python\objectcache.h">
+				RelativePath="..\src\python\objectcache.h">
 			</File>
 			<File
-				RelativePath=".\python\pyaccount.cpp">
+				RelativePath="..\src\python\pyaccount.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pyaction.cpp">
+				RelativePath="..\src\python\pyaction.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pyaction.h">
+				RelativePath="..\src\python\pyaction.h">
 			</File>
 			<File
-				RelativePath=".\python\pyai.cpp">
+				RelativePath="..\src\python\pyai.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pycontent.h">
+				RelativePath="..\src\python\pycontent.h">
 			</File>
 			<File
-				RelativePath=".\python\pycoord.cpp">
+				RelativePath="..\src\python\pycoord.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pypacket.cpp">
+				RelativePath="..\src\python\pypacket.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pypacket.h">
+				RelativePath="..\src\python\pypacket.h">
 			</File>
 			<File
-				RelativePath=".\python\pyregion.cpp">
+				RelativePath="..\src\python\pyregion.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pyspawnregion.cpp">
+				RelativePath="..\src\python\pyspawnregion.cpp">
 			</File>
 			<File
-				RelativePath=".\python\pytooltip.cpp">
+				RelativePath="..\src\python\pytooltip.cpp">
 			</File>
 			<File
-				RelativePath=".\python\region.cpp">
+				RelativePath="..\src\python\region.cpp">
 			</File>
 			<File
-				RelativePath=".\python\regioniterator.h">
+				RelativePath="..\src\python\regioniterator.h">
 			</File>
 			<File
-				RelativePath=".\python\skills.h">
+				RelativePath="..\src\python\skills.h">
 			</File>
 			<File
-				RelativePath=".\python\socket.cpp">
+				RelativePath="..\src\python\socket.cpp">
 			</File>
 			<File
-				RelativePath=".\python\target.cpp">
+				RelativePath="..\src\python\target.cpp">
 			</File>
 			<File
-				RelativePath=".\python\target.h">
+				RelativePath="..\src\python\target.h">
 			</File>
 			<File
-				RelativePath=".\python\tempeffect.h">
+				RelativePath="..\src\python\tempeffect.h">
 			</File>
 			<File
-				RelativePath=".\python\utilities.h">
+				RelativePath="..\src\python\utilities.h">
 			</File>
 			<File
-				RelativePath=".\python\worlditerator.cpp">
+				RelativePath="..\src\python\worlditerator.cpp">
 			</File>
 			<File
-				RelativePath=".\python\worlditerator.h">
+				RelativePath="..\src\python\worlditerator.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="SQLite"
 			Filter="">
 			<File
-				RelativePath=".\sqlite\attach.c">
+				RelativePath="..\src\sqlite\attach.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\auth.c">
+				RelativePath="..\src\sqlite\auth.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\btree.c">
+				RelativePath="..\src\sqlite\btree.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\btree_rb.c">
+				RelativePath="..\src\sqlite\btree_rb.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\build.c">
+				RelativePath="..\src\sqlite\build.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\copy.c">
+				RelativePath="..\src\sqlite\copy.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\date.c">
+				RelativePath="..\src\sqlite\date.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\delete.c">
+				RelativePath="..\src\sqlite\delete.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\expr.c">
+				RelativePath="..\src\sqlite\expr.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\func.c">
+				RelativePath="..\src\sqlite\func.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\hash.c">
+				RelativePath="..\src\sqlite\hash.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\insert.c">
+				RelativePath="..\src\sqlite\insert.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\main.c">
+				RelativePath="..\src\sqlite\main.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\opcodes.c">
+				RelativePath="..\src\sqlite\opcodes.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\os.c">
+				RelativePath="..\src\sqlite\os.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\pager.c">
+				RelativePath="..\src\sqlite\pager.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\parse.c">
+				RelativePath="..\src\sqlite\parse.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\pragma.c">
+				RelativePath="..\src\sqlite\pragma.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\printf.c">
+				RelativePath="..\src\sqlite\printf.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\random.c">
+				RelativePath="..\src\sqlite\random.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\select.c">
+				RelativePath="..\src\sqlite\select.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\table.c">
+				RelativePath="..\src\sqlite\table.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\tokenize.c">
+				RelativePath="..\src\sqlite\tokenize.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\trigger.c">
+				RelativePath="..\src\sqlite\trigger.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\update.c">
+				RelativePath="..\src\sqlite\update.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\util.c">
+				RelativePath="..\src\sqlite\util.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\vacuum.c">
+				RelativePath="..\src\sqlite\vacuum.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\vdbe.c">
+				RelativePath="..\src\sqlite\vdbe.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\vdbeaux.c">
+				RelativePath="..\src\sqlite\vdbeaux.c">
 			</File>
 			<File
-				RelativePath=".\sqlite\where.c">
+				RelativePath="..\src\sqlite\where.c">
 			</File>
 		</Filter>
 		<Filter
 			Name="Encryption"
 			Filter="">
 			<File
-				RelativePath=".\twofish\twofish2.cpp">
+				RelativePath="..\src\twofish\twofish2.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="MulReading"
 			Filter="">
 			<File
-				RelativePath=".\muls\maps.cpp">
+				RelativePath="..\src\muls\maps.cpp">
 			</File>
 			<File
-				RelativePath=".\muls\maps.h">
+				RelativePath="..\src\muls\maps.h">
 			</File>
 			<File
-				RelativePath=".\muls\multiscache.cpp">
+				RelativePath="..\src\muls\multiscache.cpp">
 			</File>
 			<File
-				RelativePath=".\muls\multiscache.h">
+				RelativePath="..\src\muls\multiscache.h">
 			</File>
 			<File
-				RelativePath=".\muls\tilecache.cpp">
+				RelativePath="..\src\muls\tilecache.cpp">
 			</File>
 			<File
-				RelativePath=".\muls\tilecache.h">
+				RelativePath="..\src\muls\tilecache.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Bug Report"
 			Filter="">
 			<File
-				RelativePath=".\bugreport\crashhandler.cpp">
+				RelativePath="..\src\bugreport\crashhandler.cpp">
 			</File>
 			<File
-				RelativePath=".\bugreport\crashhandler.h">
+				RelativePath="..\src\bugreport\crashhandler.h">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
@@ -894,7 +894,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\bugreport\internal.h">
+				RelativePath="..\src\bugreport\internal.h">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
@@ -907,10 +907,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\bugreport\nt4processinfo.cpp">
+				RelativePath="..\src\bugreport\nt4processinfo.cpp">
 			</File>
 			<File
-				RelativePath=".\bugreport\util.cpp">
+				RelativePath="..\src\bugreport\util.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -935,57 +935,27 @@
 			Name="AI"
 			Filter="">
 			<File
-				RelativePath=".\ai\ai.cpp">
+				RelativePath="..\src\ai\ai.cpp">
 			</File>
 			<File
-				RelativePath=".\ai\ai.h">
+				RelativePath="..\src\ai\ai.h">
 			</File>
 			<File
-				RelativePath=".\ai\ai_animals.cpp">
+				RelativePath="..\src\ai\ai_animals.cpp">
 			</File>
 			<File
-				RelativePath=".\ai\ai_humans.cpp">
+				RelativePath="..\src\ai\ai_humans.cpp">
 			</File>
 			<File
-				RelativePath=".\ai\ai_mage.cpp">
+				RelativePath="..\src\ai\ai_mage.cpp">
 			</File>
 			<File
-				RelativePath=".\ai\ai_mage.h">
+				RelativePath="..\src\ai\ai_mage.h">
 			</File>
 			<File
-				RelativePath=".\ai\ai_monsters.cpp">
+				RelativePath="..\src\ai\ai_monsters.cpp">
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ftol2.obj">
-			<FileConfiguration
-				Name="Debug|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath=".\sehprolg.obj">
-			<FileConfiguration
-				Name="Debug|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

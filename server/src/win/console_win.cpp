@@ -34,7 +34,7 @@
 // Wolfpack Includes
 #include "../accounts.h"
 #include "../console.h"
-#include "../resource.h"
+#include "resource.h"
 #include "../python/engine.h"
 #include "../network/network.h"
 #include "../network/uosocket.h"

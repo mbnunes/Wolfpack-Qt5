@@ -3,36 +3,11 @@
 #include "resource.h"
 #define RCDATA 10
 
-IDB_LOGO                BITMAP                  "data/logo.bmp"
-IDI_ICON1               ICON                    "data/icon2.ico"
-IDI_ICONGREEN           ICON                    "data/icon_green.ico"
-IDI_ICONRED             ICON                    "data/icon_red.ico"
-IDD_CREDITS             RCDATA                  "data/AUTHORS.txt"
-
-IDR_MAINMENU MENU
-{
-    POPUP "&File"
-    {
-        MENUITEM "E&xit",                       IDC_EXIT
-    }
-    POPUP "&Reload"
-    {
-        MENUITEM "&Accounts",                   ID_RELOAD_ACCOUNTS
-        MENUITEM "&Configuration",              ID_RELOAD_CONFIGURATION
-        MENUITEM "&Python",                     ID_RELOAD_PYTHON
-        MENUITEM "&Scripts",                    ID_RELOAD_SCRIPTS
-    }
-    POPUP "&Server"
-    {
-        MENUITEM "&Save World",                 ID_SERVER_SAVEWORLD
-        MENUITEM "&List Users",                 ID_SERVER_LISTUSERS
-    }
-    POPUP "&Help"
-    {
-        MENUITEM "Wolfpack &Homepage",          ID_HELP_WOLFPACKHOMEPAGE
-        MENUITEM "&About",                      ID_HELP_ABOUT
-    }
-}
+IDB_LOGO                BITMAP                  "logo.bmp"
+IDI_ICON1               ICON                    "icon2.ico"
+IDI_ICONGREEN           ICON                    "icon_green.ico"
+IDI_ICONRED             ICON                    "icon_red.ico"
+IDD_CREDITS             RCDATA                  "AUTHORS.txt"
 
 1 VERSIONINFO
  FILEVERSION 12,9,13,0

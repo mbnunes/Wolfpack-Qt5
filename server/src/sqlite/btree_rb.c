@@ -9,7 +9,7 @@
 **    May you share freely, never taking more than you give.
 **
 *************************************************************************
-** $Id: btree_rb.c,v 1.4 2004/03/19 16:36:19 thiagocorrea Exp $
+** $Id$
 **
 ** This file implements an in-core database using Red-Black balanced
 ** binary trees.
