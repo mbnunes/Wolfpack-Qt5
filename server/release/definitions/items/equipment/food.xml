@@ -389,17 +389,6 @@ Food subtypes:
 		<weight>0.1</weight>
 	</item>
 
-	<!-- Milk -->
-	<!-- NOTE: Needs to create an empty pitcher when drunk -->
-	<item id="9f0">
-		<inherit id="drinks_base" />
-		<category>Equipment\Drinks\Pitcher of Milk 2</category>
-		<id>0x9f0</id>
-		<buyprice>8</buyprice>
-		<sellprice>4</sellprice>
-		<weight>2</weight>
-	</item>
-
 	<!-- Cut of Raw Rips -->
 	<item id="9f1">
 		<category>Equipment\Food\Cut of Raw Ribs</category>

@@ -159,7 +159,15 @@
 		<weight>0.5</weight>
 		<category>Equipment\Drinks\Pitcher of Milk 1</category>
 	</item>
-
+	
+	<!-- Milk -->
+	<item id="9f0" inherit="9ad">
+		<id>0x9f0</id>
+		<category>Equipment\Drinks\Pitcher of Milk 2</category>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+	</item>
+	
 	<!-- Bucket of Water -->
 	<item id="ffa">
 		<id>0xffa</id>
