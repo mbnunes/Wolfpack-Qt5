@@ -2075,6 +2075,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 						impowncreate(ch, p_pet, 0); 
 				} 
 			} 
+			pi->pos = p_petowner->pos; // to satisfy iteminrange() call from DeleItem.
 			Items->DeleItem(pi); 
 			return 0; 
 		} 
