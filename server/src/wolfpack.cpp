@@ -4024,7 +4024,7 @@ void playmonstersound(int monster, int id1, int id2, int sfx)
 	}
 }
 
-void addgold(int s, int totgold)
+void addgold(UOXSOCKET s, int totgold)
 {
 	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,0,1,1);
 }
@@ -5228,9 +5228,8 @@ void enlist(int s, int listnum) // listnum is stored in items morex
 	closescript();//AntiChrist
 }
 
-void criminal(int c)//Repsys ....Ripper
+void criminal(P_CHAR pc)//Repsys ....Ripper
 {
-	P_CHAR pc = MAKE_CHARREF_LR(c);
 	if (pc == NULL)
 		return;
 	if ((pc->isPlayer())&&(!pc->isCriminal() || !pc->isMurderer()))
@@ -5238,7 +5237,7 @@ void criminal(int c)//Repsys ....Ripper
 		
 		 pc->crimflag=(repsys.crimtime*MY_CLOCKS_PER_SEC)+uiCurrentTime;
 		 //printw(" Seeting Crimflag to %d \n",chars[c].crimflag) ;
-		 sysmessage(calcSocketFromChar(c),"You are now a criminal!");
+		 sysmessage(calcSocketFromChar(pc),"You are now a criminal!");
 		 setcharflag(pc);
 		 if(pc->inGuardedArea() && SrvParms->guardsactive)//guarded
 			Combat->SpawnGuard( pc, pc, pc->pos.x,pc->pos.y,pc->pos.z); // LB bugfix

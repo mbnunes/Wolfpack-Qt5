@@ -129,7 +129,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 		{
 			// and item has to be added in player's backpack
 			pPack->AddItem(pi_i);
-			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			Weight->NewCalc(pc_currchar);
 			statwindow(ts, pc_currchar);
 		}
 	}// if player has backpack
@@ -321,7 +321,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 					{
 						P_ITEM pi_temp = Targ->AddMenuTarget(ts, 1, str2num(script2));
 						pi->AddItem(pi_temp);
-						Weight->NewCalc(DEREF_P_CHAR(pc_ts));
+						Weight->NewCalc(pc_ts);
 						statwindow(ts, pc_ts);
 					}
 					else if (!(strcmp("CMSG", (char*)script1)))  // Set Token Completed message

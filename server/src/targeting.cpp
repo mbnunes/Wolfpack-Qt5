@@ -1494,7 +1494,7 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 		if(pi == NULL) return;
 		sysmessage(s, "You carve away some raw bird.");
 	}
-	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+	Weight->NewCalc(pc_currchar);
 }
 
 //AntiChrist - new carving system - 3/11/99
@@ -1524,7 +1524,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pc_currchar->fame-=100; // Ripper..lose fame and karma and criminal.
 		pc_currchar->karma-=100;
 		sysmessage(s,"You lost some fame and karma!");
-		criminal(DEREF_P_CHAR(pc_currchar));
+		criminal( pc_currchar );
 		//create the Head
 		sprintf((char*)temp,"the head of %s",pi3->name2);
 		P_ITEM pi = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
@@ -2454,14 +2454,15 @@ void cTargets::SetDirTarget(int s)
 // history:		by UnKnown (Touched tabstops by Tauriel Dec 28, 1998)
 // Purpose:		Resurrects a character
 //
-bool cTargets::NpcResurrectTarget(CHARACTER i)
+bool cTargets::NpcResurrectTarget(P_CHAR pc)
 {
 	unsigned int j ;
-	P_CHAR pc = MAKE_CHARREF_LRV(i,true);
+	if ( pc == NULL)
+		return true;
 
 	if (pc->dead)
 	{//Shouldn' be a validNPCMove inside a door, might fix house break in. -- from zippy code
-		Fame(i,0);
+		Fame(DEREF_P_CHAR(pc),0);
 		soundeffect2(pc, 0x0214);
 		pc->id1=pc->xid1;
 		pc->id2=pc->xid2;
@@ -2504,7 +2505,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 		return true;
 	}
 
-	UOXSOCKET k = calcSocketFromChar(i);
+	UOXSOCKET k = calcSocketFromChar(pc);
 	if (k <= -1) return false;
 
 	sysmessage(k,"That person isn't dead");
@@ -3270,7 +3271,7 @@ void cTargets::ResurrectionTarget( UOXSOCKET s )
 	{
 		if (pc->dead)
 		{
-			Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
+			Targ->NpcResurrectTarget(pc);
 			return;
 		}
 	}
@@ -3634,7 +3635,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 55: Skills->CookOnFire(s,0x16,0x0A,"lamb"); break;
 		case 56: Targ->NpcTarget(s); break;
 		case 57: Targ->NpcTarget2(s); break;
-		case 58: Targ->NpcResurrectTarget(DEREF_P_CHAR(currchar[s])); break;
+		case 58: Targ->NpcResurrectTarget(currchar[s]); break;
 		case 59: Targ->NpcCircleTarget(s); break;
 		case 60: Targ->NpcWanderTarget(s); break;
 		case 61: Targ->VisibleTarget(s); break;

@@ -181,7 +181,7 @@ public:
 	void MultiTarget(P_CLIENT ps);
 	void Wiping(int s);
 	int NpcMenuTarget(int s);
-	bool NpcResurrectTarget(int s);
+	bool NpcResurrectTarget(P_CHAR pc);
 	void JailTarget(int s, int c);
 	void ReleaseTarget(int s, int c);
 	P_ITEM AddMenuTarget(int s, int x, int addmitem);

@@ -184,7 +184,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		{
 			if (pi->more2==1)
 			{
-				criminal(DEREF_P_CHAR(pc_currchar));
+				criminal(pc_currchar);
 			}
 		}
 	}
@@ -288,7 +288,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
 		if (pc_currchar->dead)
 		{
-			Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_currchar));
+			Targ->NpcResurrectTarget(pc_currchar);
 			sysmessage(s, "You have been resurrected.");
 			return;
 		} 

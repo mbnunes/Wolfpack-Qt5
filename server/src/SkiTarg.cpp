@@ -89,7 +89,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			npi->pileable = 1;
 			RefreshItem(npi);
 			Items->DeleItem(pi_bolts);
-			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			Weight->NewCalc(pc_currchar);
 			statwindow(s, pc_currchar);
 			if (!npi) return;
 			amt=itemmake[s].has=getamount(pc_currchar, npi->id());
@@ -878,7 +878,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		else
 		{ // Create between 1 and 15 goldpieces and place directly in backpack
 			nAmount=1+(rand()%15);
-			addgold(DEREF_P_CHAR(pc),nAmount);
+			addgold(s,nAmount);
 			goldsfx(s,nAmount);
 			if (nAmount==1)
 				sprintf((char*)temp,"You unearthed %i gold coin.", nAmount);
@@ -1048,7 +1048,7 @@ void cSkills::SmeltOre(int s)
 		}
 	}
 	pc_currchar->smeltitem = INVALID_SERIAL;
-	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
+	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 	statwindow(s, pc_currchar);		// Ison 2-20-99
 }
 
@@ -1566,7 +1566,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			pi_c->amount=amt;
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			Weight->NewCalc(pc_currchar);
 			statwindow(s, pc_currchar);
 			return;
 		}	
@@ -1584,7 +1584,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			pi_c->amount=amt;
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			Weight->NewCalc(pc_currchar);
 			statwindow(s, pc_currchar);
 			return;
 		}
@@ -1599,7 +1599,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			pi_c->amount=amt;
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			Weight->NewCalc(pc_currchar);
 			statwindow(s, pc_currchar);
 			return;
 		}
@@ -1637,7 +1637,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		{
 	       if ((pp->crimflag>0) ||(pp->isMurderer()))
 		   {
-		       criminal(DEREF_P_CHAR(ph));
+		       criminal(ph);
 		   }
 		}
 		
@@ -1655,7 +1655,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 					sysmessage(s,"You failed to resurrect the ghost");
 				else
 				{
-					Targ->NpcResurrectTarget(DEREF_P_CHAR(ph));
+					Targ->NpcResurrectTarget(ph);
 					sysmessage(s,"Because of your skill, you were able to resurrect the ghost.");
 				}
 			}
@@ -2179,10 +2179,10 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 				if (pc_npc->isNpc()) 
 					npctalkall(pc_npc, "Guards!! A thief is amoung us!", 0);
 
-				criminal( DEREF_P_CHAR(pc_currchar) );
+				criminal( pc_currchar );
 
 				if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
-					criminal(DEREF_P_CHAR(pc_currchar));//Blue and not attacker and not guild
+					criminal(pc_currchar);//Blue and not attacker and not guild
 			
 				if (pi->name!="#")
 				{

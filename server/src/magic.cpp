@@ -1905,7 +1905,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					{
 						if ((pc_defender->isInnocent())&&(DEREF_P_CHAR(pc_defender) != DEREF_P_CHAR(pc_currchar))&& !pc_currchar->Owns(pc_defender)&&(!Guilds->Compare(DEREF_P_CHAR(pc_defender),DEREF_P_CHAR(pc_currchar)))&&(!Races.CheckRelation(pc_currchar,pc_defender)) )
 						{
-							criminal(DEREF_P_CHAR(pc_currchar));
+							criminal(pc_currchar);
 						}
 						if (pc_defender->npcaitype==17) // Ripper 11-14-99
 						{
@@ -1942,7 +1942,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						{
 							if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
 							{
-								criminal(DEREF_P_CHAR(pc_currchar));
+								criminal(pc_currchar);
 							}
 						}
 						
@@ -2048,7 +2048,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						{
 							if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
 							{
-								criminal(DEREF_P_CHAR(pc_currchar));
+								criminal(pc_currchar);
 							}
 						}
 						j=pc_defender->hp+(pc_currchar->skill[MAGERY]/30+RandomNum(1,12));
@@ -2159,7 +2159,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if (pc_defender->dead && online(pc_defender))
 						{
 							cMagic::doStaticEffect(DEREF_P_CHAR(pc_defender), curSpell);
-							Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_defender));		
+							Targ->NpcResurrectTarget(pc_defender);		
 							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z);
 							return;
 						}
@@ -2917,7 +2917,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							disty=abs(pc->pos.y - pc_currchar->pos.y);
 							if(distx<=15 && disty<=15 && (pc->isNpc() || online(pc)))
 							{
-								if(pc->isInnocent()) criminal(DEREF_P_CHAR(currchar[s]));
+								if(pc->isInnocent()) criminal(currchar[s]);
 								
 								if (!pc->isGM() && pc->account!=0)
 									dmgmod = min(distx,disty);

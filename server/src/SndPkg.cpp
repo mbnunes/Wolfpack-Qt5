@@ -802,7 +802,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 		Xsend(s, display3, 1);
 		Xsend(s, bpitem, 19);
 	}
-	Weight->NewCalc(DEREF_P_CHAR(currchar[s]));	// Ison 2-20-99
+	Weight->NewCalc(currchar[s]);	// Ison 2-20-99
 }
 
 
@@ -1459,7 +1459,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		goxyz[17]=pc->dir|0x80;
 		goxyz[18]=pc->dispz;
 		Xsend(k, goxyz, 19);
-		Weight->NewCalc(DEREF_P_CHAR(pc));	// Ison 2-20-99
+		Weight->NewCalc(pc);	// Ison 2-20-99
 		statwindow(k, pc);	// Ison 2-20-99
 		walksequence[k]=-1;
 	}
@@ -1547,7 +1547,7 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 		goxyz[18]=pc->dispz;
 		Xsend(k, goxyz, 19);
 		all_items(k);
-		Weight->NewCalc(DEREF_P_CHAR(pc));	// Ison 2-20-99
+		Weight->NewCalc(pc);	// Ison 2-20-99
 		statwindow(k, pc);	// Ison 2-20-99
 		walksequence[k]=-1;
 	}

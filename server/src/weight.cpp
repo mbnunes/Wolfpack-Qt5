@@ -53,10 +53,10 @@ void newcalcweight(int);
 
 **************************************************************************************************************************/
 
-void cWeight::NewCalc(int p)
+void cWeight::NewCalc(P_CHAR pc)
 {
 	float totalweight=0.0;
-	P_CHAR pc = MAKE_CHAR_REF(p);
+	//P_CHAR pc = MAKE_CHAR_REF(p);
 
 	//get weight for items on players
 	unsigned int ci = 0;

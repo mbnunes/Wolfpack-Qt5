@@ -1604,7 +1604,7 @@ void cSkills::RandomSteal(int s)
 			if (pc_npc->isNpc()) npctalkall(DEREF_P_CHAR(pc_npc), "Guards!! A thief is amoung us!",0);
 			
 			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
-				criminal(DEREF_P_CHAR(pc_currchar));//Blue and not attacker and not guild
+				criminal( pc_currchar );//Blue and not attacker and not guild
 			
 			if (item->name[0] != '#')
 			{

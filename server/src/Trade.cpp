@@ -226,7 +226,7 @@ void cTrade::buyaction(int s)
 		clearmsg[7]=0x00;
 		Xsend(s, clearmsg, 8);
 	}
-	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
+	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 	statwindow(s, pc_currchar);
 }
 

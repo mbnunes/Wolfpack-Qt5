@@ -170,7 +170,7 @@ void who(int s);
 void gms(int s);
 void playmonstersound(int monster, int id1, int id2, int sfx);
 void sellaction(int s);
-void addgold(int s, int totgold);
+void addgold(UOXSOCKET s, int totgold);
 int calcValue(P_ITEM pi, int value);
 int calcGoodValue(P_CHAR npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
 void StoreItemRandomValue(P_ITEM pi,int tmpreg); // by Magius(CHE) (2) for trade system
@@ -287,7 +287,7 @@ void readw3();
 
 
 //void selectspell2cast(int s, int num); //Socket, Spell Number
-void criminal(int c);
+void criminal(P_CHAR pc);
 void callguards( int p );
 int recursestatcap(int chr); //Morrolan - stat/skill cap
 void skillfreq(int chr, int skill); //Morrolan - stat/skill cap

@@ -118,23 +118,23 @@ void RcvAttack(P_CLIENT ps)
 		{
 			if (pc_i->isPlayer() && pc_i->isInnocent() && Guilds->Compare( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_i) )==0) //REPSYS
 			{
-				criminal( DEREF_P_CHAR(pc_currchar) );
+				criminal( pc_currchar );
 				Combat->SpawnGuard(pc_currchar, pc_i ,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			}
 			else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype!=4 )
 			{
-				criminal( DEREF_P_CHAR(pc_currchar) );
+				criminal( pc_currchar );
 				Combat->SpawnGuard(pc_currchar, pc_i, pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			}
 			else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype!=4 )
 			{
 				npctalkall(DEREF_P_CHAR(pc_i), "Help! Guards! I've been attacked!", 1);
-				criminal( DEREF_P_CHAR(pc_currchar) );
+				criminal( pc_currchar );
 				callguards(DEREF_P_CHAR(pc_i));
 			}
 			else if( pc_i->isNpc() && pc_i->npcaitype==4)
 			{
-				criminal( DEREF_P_CHAR(pc_currchar) );
+				criminal( pc_currchar );
 				npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_currchar));
 			}
 			else if ((pc_i->isNpc() || pc_i->tamed) && !pc_i->war && pc_i->npcaitype!=4) // changed from 0x40 to 4, cauz 0x40 was removed LB
@@ -165,16 +165,16 @@ void RcvAttack(P_CLIENT ps)
 			{
 				if (pc_i->isPlayer() && Guilds->Compare( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_i) )==0)
 				{
-					criminal(DEREF_P_CHAR(pc_currchar));
+					criminal( pc_currchar );
 				}
 				else if (pc_i->isNpc() && pc_i->tamed)
 				{
-					criminal(DEREF_P_CHAR(pc_currchar));
+					criminal( pc_currchar );
 					npcattacktarget(DEREF_P_CHAR(pc_i),DEREF_P_CHAR(pc_currchar));
 				}
 				else if (pc_i->isNpc())
 				{
-					criminal(DEREF_P_CHAR(pc_currchar));
+					criminal( pc_currchar );
 					npcattacktarget(DEREF_P_CHAR(pc_i),DEREF_P_CHAR(pc_currchar));
 					if (pc_i->isHuman() )
 					{

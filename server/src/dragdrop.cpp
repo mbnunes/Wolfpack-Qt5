@@ -208,7 +208,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 						if (px->more2 == 1 && Guilds->Compare(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(co)) == 0) 
 						{ 
 							pc_currchar->karma -= 5; 
-							criminal(DEREF_P_CHAR(pc_currchar));
+							criminal(pc_currchar);
 							sysmessage(s, "You lost some karma!"); 
 						} 
 						npc = 0;
@@ -562,7 +562,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		}
 		
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details	// Added Oct 09, 1998
-		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
+		Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 		statwindow(s, pc_currchar);
 		
 		if (pi->glow>0)
@@ -811,7 +811,7 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	{
 		pack->AddItem(pi); // player has a pack, put it in there
 		
-		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));//AntiChrist bugfixes
+		Weight->NewCalc(pc_currchar);//AntiChrist bugfixes
 		statwindow(s, pc_currchar);
 		itemsfx(s, pi->id());
 	}
@@ -906,7 +906,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				if (pack != NULL)	// Valid pack?
 				{
 					pack->AddItem(pi);	// Add it
-					Weight->NewCalc(DEREF_P_CHAR(pTC));
+					Weight->NewCalc(pTC);
 				}
 				else	// No pack, give it back to the GM
 				{
@@ -914,7 +914,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 					if (pack != NULL)	// Valid pack?
 					{
 						pack->AddItem(pi);	// Add it
-						Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+						Weight->NewCalc(pc_currchar);
 					}
 					else	// Even GM has no pack?
 					{
@@ -958,7 +958,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 		return;
 	}
 
-	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+	Weight->NewCalc(pc_currchar);
 	statwindow(s, pc_currchar);
 	pi->flags.isBeeingDragged = false;
 	
@@ -1001,7 +1001,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 	{
 		ItemDroppedOnChar(ps, pp, pi);
 		
-		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));  // Ison 2-20-99
+		Weight->NewCalc(pc_currchar);  // Ison 2-20-99
 		statwindow(s, pc_currchar);
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details// Added Oct 09, 1998
 		

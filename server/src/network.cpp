@@ -636,7 +636,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	Xsend(s, modeset, 5);
 	impowncreate(s, DEREF_P_CHAR(pc_currchar), 0);
 	Xsend(s, techstuff, 20);
-	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
+	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 
 	////////////////////////////////////////
 	/// "UNKOWNDIMENSION sysmessages"
