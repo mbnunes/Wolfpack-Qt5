@@ -388,7 +388,7 @@ then
 	do
 		if [ -e "$py_libpath" ];
 		then
-			if [ "${py_libpath%%*.a}" ];
+			if [ "${py_libpath%%*.so}" ];
 			then
 				STATIC_PRESENT="y";
 			else
