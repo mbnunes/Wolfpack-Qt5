@@ -99,9 +99,6 @@ inline QString makeAscii(const QString &input) {
 
 		// German umlauts can be represented differently
 		switch (c) {
-			case '':
-				result.append("ue");
-				continue;
 			case 'ü':
 				result.append("ue");
 				continue;
