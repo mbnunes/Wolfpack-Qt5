@@ -215,7 +215,8 @@ void cAccount::setStaff( bool data )
 		flags_ &= 0xFFFFFFDF;
 }
 
-unsigned int cAccount::rank() const {
+unsigned int cAccount::rank() const 
+{
 	if (acl_)
 		return acl_->rank;
 	else
@@ -458,8 +459,6 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 	accounts.insert(d->login(), d);
 	if ( accounts.count() == 1 ) // first account, it must be admin!
 		d->setAcl( "admin" );
-	else
-		d->setAcl( "player" );
 	d->refreshAcl();
 	save(); //make sure to save it.
 	return d;
