@@ -50,6 +50,10 @@ MOC_DIR = obj
 
 INCLUDEPATH += sqlite 
 win32:DEFINES -= UNICODE
+#CONFIG += precompile_header
+# Precompiled header
+precompile_header:PRECOMPILED_HEADER = wolfpack_pch.h
+
 
 # Common files
 
