@@ -222,7 +222,6 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	
 	pItem->removeFromView( true );
 	cMapObjects::getInstance()->remove( pItem );
-	pItem->setContSerial( pChar->serial );
 	if( pItem->multis != INVALID_SERIAL )
 	{
 		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pItem->multis ) );
@@ -386,38 +385,53 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// Checks for equipment on the same layer
 	// If there is any it tries to unequip it
 	// If that fails it cancels
-	UI08 layer = pItem->layer();
-	vector< SERIAL > equipment = contsp.getData( pWearer->serial );
+	// we also need to check if there is a twohanded weapon if we want to equip another weapon.
+	UI08 layer = pTile.layer;
 
-	for( UI32 i = 0; i < equipment.size(); i++ )
+	std::vector< SERIAL > equipment = contsp.getData( pWearer->serial );
+	std::vector< SERIAL >::iterator it = equipment.begin();
+	bool twohanded = false;
+	P_ITEM equippedLayerItem = NULL;
+
+	while( it != equipment.end() )
 	{
-		P_ITEM pEquip = FindItemBySerial( equipment[ i ] );
+		P_ITEM pEquip = FindItemBySerial( *it );
 
-		if( pEquip )
-			continue;
-
-		// We found an item which is on the same layer (!)
-		// Unequip it if we can 
-		bool twoHanded = false;
-
-		if( pEquip->twohanded() && ( layer == 1 || layer == 2 ) )
-			twoHanded = true;
-
-		if( pItem->twohanded() && ( pEquip->layer() == 1 || pEquip->layer() == 2 ) )
-			twoHanded = true;
-			
-		if( ( pEquip->layer() == layer ) || twoHanded )
+		if( !pEquip )
 		{
-			if( pChar->canPickUp( pEquip ) ) // we're equipping so we do the check
-				pEquip->toBackpack( pWearer );
+			++it;
+			continue;
+		}
 
-			// If it's still on the char: cancel equipment
-			if( pEquip->contserial == pWearer->serial )
-			{
-				socket->sysMessage( tr( "You already have an item on that layer." ) );
-				socket->bounceItem( pItem, BR_NO_REASON );
-				return;
-			}
+		if( pEquip->twohanded() )
+			twohanded = true;
+
+		if( pEquip->layer() == layer && pEquip != pItem )
+		{
+			equippedLayerItem = pEquip;
+		}
+		++it;
+	}
+
+	if( twohanded && ( layer == 1 || layer == 2 ) )
+	{
+		socket->sysMessage( tr("You can't hold another item while wearing a twohanded weapon!") );
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
+
+	// we're equipping so we do the check
+	if( equippedLayerItem )
+	{ 
+		if( pChar->canPickUp( equippedLayerItem ) )
+		{
+			equippedLayerItem->toBackpack( pWearer );
+		}
+		else
+		{
+			socket->sysMessage( tr( "You can't wear another item there!" ) );
+			socket->bounceItem( pItem, BR_NO_REASON );
+			return;
 		}
 	}
 

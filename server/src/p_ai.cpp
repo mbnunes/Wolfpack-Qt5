@@ -140,6 +140,10 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 2 : // Monsters, PK's - (stupid NPCs)
+			if( pc_i->targ == INVALID_SERIAL && pc_i->war() )
+			{
+				pc_i->toggleCombat();
+			}
 			if (!pc_i->war())
 			{
 				// Get the one with the least distance!

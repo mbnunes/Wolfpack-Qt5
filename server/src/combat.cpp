@@ -204,7 +204,47 @@ namespace Combat
 				maxskill = pItem->hidamage() * 10;
 			}
 
-			if( !Skills->CheckSkill( pAttacker, fightskill, minskill, maxskill ) )
+			UI16 deffightskill = WRESTLING;
+			UI32 defminsk = 0;
+			UI32 defmaxsk = 1000;
+			P_ITEM pDefWeapon = pDefender->rightHandItem();
+			if( pDefWeapon )
+			{
+				deffightskill = weaponSkill( pDefWeapon );
+			}
+			else
+			{
+				pDefWeapon = pDefender->leftHandItem();
+				deffightskill = weaponSkill( pDefWeapon );
+			}
+			if( deffightskill == ARCHERY )
+				deffightskill = WRESTLING;
+			if( pDefWeapon )
+			{
+				defminsk = pDefWeapon->lodamage() * 10;
+				if( defminsk > 990 )
+					defminsk = 990;
+				defmaxsk = pDefWeapon->hidamage() * 10;
+			}
+
+			// skillchecks for attacker and defender
+			Skills->CheckSkill( pAttacker, fightskill, minskill, maxskill );
+			Skills->CheckSkill( pDefender, deffightskill, defminsk, defmaxsk );
+			Skills->CheckSkill( pAttacker, TACTICS, minskill, maxskill );
+			Skills->CheckSkill( pAttacker, ANATOMY, minskill, maxskill );
+			Skills->CheckSkill( pDefender, TACTICS, defminsk, defmaxsk );
+
+			// Hit Evasion = (Evaluate Intelligence + Anatomy + 20) / 2 (with a maximum of 120) 
+			SI32 evasionchance = ( pDefender->skill( EVALUATINGINTEL ) + pDefender->skill( ANATOMY ) + 200 ) / 20;
+			if( evasionchance > 120 )
+				evasionchance = 120;
+			else if( evasionchance < 0 )
+				evasionchance = 0;
+
+			// Hit Chance = ( Attacker's Combat Ability + 50 ) ÷ ( [Defender's Combat Ability + 50] x 2 )
+			SI32 hitchance = (SI32)floor( ( (float)pAttacker->skill( fightskill ) + 500.0f ) / ( ( (float)pDefender->skill( deffightskill ) + 500.0f ) * 2.0f ) * 100.0f );
+			
+			if( RandomNum( 0, 100 ) <= evasionchance && RandomNum( 0, 100 ) >= hitchance )
 			{
 				// Display a message to both players that the 
 				// swing didn't hit
@@ -231,6 +271,7 @@ namespace Combat
 						}
 					}
 				}
+				playMissedSoundEffect( pAttacker );
 				return;
 			}
 
@@ -265,9 +306,9 @@ namespace Combat
 				// modify basedamage by skill value of attacker
 				damage = (SI32)floor( (float)damage * (float)pAttacker->skill( fightskill ) / 1000.0f );
 			}
-			else if( ( pAttacker->skill( WRESTLING ) / 100 ) > 0 )
+			else if( ( pAttacker->skill( WRESTLING ) / 50 ) > 0 )
 			{
-				damage = RandomNum( 0, pAttacker->skill( WRESTLING ) / 100 );
+				damage = RandomNum( 0, pAttacker->skill( WRESTLING ) / 50 );
 			}
 			else 
 				damage = RandomNum( 0, 1 );
@@ -275,28 +316,28 @@ namespace Combat
 			// Now lets calculate the boni on damage and accuracy
 			// Attacker:
 
-			// Tactics influences damage
-			if( Skills->CheckSkill( pAttacker, TACTICS, minskill, maxskill ) )
-			{
-				damage = (SI32)floor( (float)damage * ( ( (float)pAttacker->skill( TACTICS ) + 500.0f ) / 1000.0f ) );
-			}
+			// % of Base Damage that is Dealt= Tactics + 50
+			damage = (SI32)floor( (float)damage * ( ( (float)pAttacker->skill( TACTICS ) + 500.0f ) / 1000.0f ) );
+
 			// Strength influences damage, 100 str equals +1/5 damage
 			damage += (SI32)floor( (float)damage * ( (float)pAttacker->st() / 500.0f ) );
 			// Dexterity influences accuracy, 100 dex equals +1/5 acc%
 			accuracy += (SI32)floor( (float)accuracy * ( (float)pAttacker->effDex() / 500.0f ) );
 			
-			// Anatomy influences accuracy, 20% bonus for 100% anatomy
-			if( Skills->CheckSkill( pAttacker, ANATOMY, minskill, maxskill ) )
-			{
-				float multiplier=(((float)pAttacker->skill(ANATOMY)*20.0f)/100000.0f)+1.0f;
-				accuracy=(SI32)floor((float)accuracy * multiplier);
-			}
+			//  Anatomy % Bonus = Anatomy ÷ 5, GM Anatomy gives an extra bonus of 10%, hence 30% instead of 20%
+			float multiplier = (float)pAttacker->skill( ANATOMY ) / 5000.0f;
+			if( pAttacker->skill( ANATOMY ) >= 1000 )
+				multiplier += 0.1f;
+			accuracy += (SI32)floor( (float)accuracy * multiplier );
 
+			
 			// Defender:
 
-			// Tactics: 100 -> Bonus -20% Damage
-			float multiplier=1-(((float)pDefender->skill(TACTICS)*20.0f)/100000.0f);
-			damage = (SI32)floor((float)damage * multiplier);
+			//  Tactics % Malus = Tactics ÷ 10, GM Tactics gives an extra bonus of 10%, hence 30% instead of 20%
+			multiplier = (float)pDefender->skill( TACTICS ) / 10000.0f;
+			if( pDefender->skill( TACTICS ) >= 1000 )
+				multiplier += 0.1f;
+			damage -= (SI32)floor( (float)damage * multiplier );
 
 			// Dexterity influences accuracy, 100 dex equals +1/5 acc%
 			accuracy -= (SI32)floor( (float)accuracy * ( (float)pDefender->effDex() / 500.0f ) );
@@ -305,9 +346,9 @@ namespace Combat
 			P_ITEM pShield = pDefender->leftHandItem();
 			if( pShield && IsShield( pShield->id() ) )
 			{
-				// chance to block with shield depends on accuracy of the attackers move
-				// and of the attacker's skill.
-				if( Skills->CheckSkill(pDefender, PARRYING, 0, (int)floor( ( (float)accuracy / 100.0f) * (float)pAttacker->skill( fightskill ) ) ) )
+				Skills->CheckSkill(pDefender, PARRYING, (int)floor( ( (float)accuracy / 100.0f) * (float)pAttacker->skill( fightskill ) ), 1000 );
+				// % Chance of Blocking= Parrying Skill ÷ 2
+				if( pDefender->skill( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
 				{
 					// damage absorbed by shield
 					if( pShield->def != 0 )
@@ -328,20 +369,22 @@ namespace Combat
 			if( bodyhit > 100 )
 				bodyhit = 100;
 
-			if( bodyhit <= 25 )
+			if( bodyhit <= 14 )
 				bodypart = LEGS;
-			else if( bodyhit <= 50 )
+			else if( bodyhit <= 58 )
 				bodypart = BODY;
-			else if( bodyhit <= 70 )
+			else if( bodyhit <= 72 )
 				bodypart = ARMS;
-			else if( bodyhit <= 80 )
+			else if( bodyhit <= 79 )
 				bodypart = HANDS;
-			else if( bodyhit <= 90 )
+			else if( bodyhit <= 86 )
 				bodypart = NECK;
 			else if( bodyhit <= 100 )
 				bodypart = HEAD;
 
-			damage -= pDefender->calcDefense( bodypart, true );
+			// Damage Absorbed= Random value between of 1/2 AR to full AR of Hit Location's piece of armor.
+			SI32 ar = pDefender->calcDefense( bodypart, true );
+			damage -= RandomNum( ar / 2, ar );
 			/*
 			When we reached this point, nothing will affect the damage anymore.
 			If damage is <= 0, the defender was successful, so lets break this iteration here...
@@ -352,6 +395,7 @@ namespace Combat
 					pAttacker->socket()->sysMessage( tr("Your attack has been parried!") );
 				if( pDefender->socket() )
 					pDefender->socket()->sysMessage( tr("You parried the blow!") );
+				playMissedSoundEffect( pAttacker );
 				++it;
 				continue;
 			}
@@ -911,8 +955,8 @@ namespace Combat
 			if( pWeapon->speed() == 0 ) 
 				pWeapon->setSpeed( 35 );
 
-			// Calculate combat delay
-			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->effDex()+100) * pWeapon->speed() ); 
+			// Attack Speed= 15,000 ÷ ( [Stamina +100] x Weapon Speed )
+			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stm()+100) * pWeapon->speed() ); 
 		}
 		else 
 		{
