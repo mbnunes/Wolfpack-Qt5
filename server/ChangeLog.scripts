@@ -4,6 +4,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	* Definition Changes:
 		- Made leather armors and hats auto mage armors.
 		- Fixed a category error with some champions.
+		- Fixed prices for jewels.
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
