@@ -441,13 +441,14 @@ def hit(attacker, defender, weapon, time):
 
 	# Give the defender a chance to absorb damage
 	damage = absorbdamage(defender, damage)
+	blocked = damage <= 0
 	
 	# If the attack was parried, the ability was wasted
-	if damage == 0 and ability:
-		ability.use(attacker)
-		if attacker.socket:
-			attacker.socket.clilocmessage(1061140) # Your attack was parried
-		ability = None # Reset ability
+	#if damage == 0 and ability:
+	#	#ability.use(attacker)
+	#	if attacker.socket:
+	#		attacker.socket.clilocmessage(1061140) # Your attack was parried
+	#	ability = None # Reset ability
 
 	ignorephysical = False
 	if ability:
@@ -460,43 +461,40 @@ def hit(attacker, defender, weapon, time):
 	# Wear out the weapon
 	if weapon:
 		# Leeching
-		leech = properties.fromitem(weapon, LIFELEECH)
-		if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.hitpoints:
-			amount = (damagedone * 30) / 100 # Leech 30% Health
-			if amount > 0:
-				attacker.hitpoints = min(attacker.maxhitpoints, attacker.hitpoints + amount)
-				attacker.updatehealth()
-			
-		leech = properties.fromitem(weapon, STAMINALEECH)
-		if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.stamina:
-			amount = (damagedone * 100) / 100 # Leech 100% Stamina
-			if amount > 0:
-				attacker.stamina = min(attacker.maxstamina, attacker.stamina + amount)
-				attacker.updatehealth()
-
-		leech = properties.fromitem(weapon, MANALEECH)
-		if leech and leech > random.randint(0, 99) and attacker.maxmana > attacker.mana:
-			amount = (damagedone * 40) / 100 # Leech 40% Mana
-			if amount > 0:
-				attacker.mana = min(attacker.maxmana, attacker.mana + amount)
-				attacker.updatemana()
-
-		# Splash Damage
-		for effectid in [SPLASHPHYSICAL, SPLASHFIRE, SPLASHCOLD, SPLASHPOISON, SPLASHENERGY]:
-			effect = properties.fromitem(weapon, effectid)
-			if effect and effect > random.randint(0, 99):
-				splashdamage(attacker, effectid)
+		if not blocked:
+			leech = properties.fromitem(weapon, LIFELEECH)
+			if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.hitpoints:
+				amount = (damagedone * 30) / 100 # Leech 30% Health
+				if amount > 0:
+					attacker.hitpoints = min(attacker.maxhitpoints, attacker.hitpoints + amount)
+					attacker.updatehealth()
 				
-		# Hit Spell effects
-		for (effectid, callback) in combat.hiteffects.EFFECTS.items():
-			effect = properties.fromitem(weapon, effectid)
-			if effect and effect > random.randint(0, 99):
-				callback(attacker, defender)
+			leech = properties.fromitem(weapon, STAMINALEECH)
+			if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.stamina:
+				amount = (damagedone * 100) / 100 # Leech 100% Stamina
+				if amount > 0:
+					attacker.stamina = min(attacker.maxstamina, attacker.stamina + amount)
+					attacker.updatehealth()
+	
+			leech = properties.fromitem(weapon, MANALEECH)
+			if leech and leech > random.randint(0, 99) and attacker.maxmana > attacker.mana:
+				amount = (damagedone * 40) / 100 # Leech 40% Mana
+				if amount > 0:
+					attacker.mana = min(attacker.maxmana, attacker.mana + amount)
+					attacker.updatemana()
+	
+			# Splash Damage
+			for effectid in [SPLASHPHYSICAL, SPLASHFIRE, SPLASHCOLD, SPLASHPOISON, SPLASHENERGY]:
+				effect = properties.fromitem(weapon, effectid)
+				if effect and effect > random.randint(0, 99):
+					splashdamage(attacker, effectid)
+					
+			# Hit Spell effects
+			for (effectid, callback) in combat.hiteffects.EFFECTS.items():
+				effect = properties.fromitem(weapon, effectid)
+				if effect and effect > random.randint(0, 99):
+					callback(attacker, defender)
 
-		# poisoning doesn't work that way anymore
-		#if weapon.hastag( 'poisoning_uses' ):
-		#	poisoning.hitEffect( defender, weapon )
-		
 		# 4% chance for losing one hitpoint
 		if 0.04 >= random.random():
 			# If it's a self repairing item, grant health instead of reducing it
@@ -515,7 +513,7 @@ def hit(attacker, defender, weapon, time):
 				attacker.socket.clilocmessage(500645)
 	
 	# Notify the weapon ability
-	if ability:
+	if not blocked and ability:
 		ability.hit(attacker, defender, damage)
 
 #

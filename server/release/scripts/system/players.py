@@ -26,7 +26,12 @@ def onLogout( player ):
 def onDamage(char, type, amount, source):
 	socket = char.socket
 
-	if socket and amount > 25 and socket.hastag('bandage_slipped'):
+	if source and source.player:
+		slip_amount = 18
+	else:
+		slip_amount = 25
+
+	if socket and amount > slip_amount and socket.hastag('bandage_slipped'):
 		socket.settag('bandage_slipped', int(socket.gettag('bandage_slipped')) + 1)
 		socket.clilocmessage(500961)
 

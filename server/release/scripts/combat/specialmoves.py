@@ -148,9 +148,15 @@ class BaseAbility:
 	#
 	def checkmana(self, player, weapon, use = False):
 		mana = self.getmana(player, weapon)
-		
+
 		if mana == 0:
 			return True # This ability does not require mana
+			
+		if player.socket and player.socket.hastag('last_special_ability'):
+			if player.socket.gettag('last_special_ability') + 3000 > wolfpack.currenttime():
+				mana *= 2
+			else:
+				player.socket.deltag('last_special_ability')
 			
 		# Check if there is enough mana
 		if player.mana < mana:
@@ -193,6 +199,8 @@ class BaseAbility:
 		weapon = player.getweapon() # Get the used weapon
 		self.checkmana(player, weapon, True) # Consume the mana
 		clearability(player) # Clear the ability
+		if player.socket:
+			player.socket.settag('last_special_ability', wolfpack.currenttime())		
 
 #
 # An ability was selected

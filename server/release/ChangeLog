@@ -6,7 +6,13 @@ Wolfpack 12.9.14 Beta (SVN)
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
  * Python Script Changes:
   - Added a follow command.
-  - Tinkers can now choose a second material
+  - Tinkers can now choose a second material.
+  - Swingspeed is now limited to 1 swing per second.
+  - Implemented several item property caps.
+  - Archers now only need to stand still for 500 ms before they can fire.
+  - Parried special abilities don't consume mana anymore.
+  - Using a special ability 3 seconds after the last special ability consumes twice
+    the mana.
   - Fixed an issue with the spell Telekinesis
   - Fix for Detecting Hidden
   - fixed bug #0000380 (potionkeg was not usable with nightsight potion)

@@ -27,7 +27,8 @@ def getdelay(attacker, weapon):
 	if value <= 0:
 		value = 1
 
-	return floor(40000.0 / float(value)) * 500
+	# At most one swing per second.
+	return max(1000, floor(40000.0 / float(value)) * 500)
 
 #
 # Known item properties and the tags they are stored in.
@@ -280,10 +281,26 @@ def fromchar(char, property):
 				value = max(0, value - (25 - char.skill[INSCRIPTION] / 200))
 			else:
 				value += 10
-
+			
 		if value > 70:
-			value = 70
+			value = 70 # Cap
 
+	# Lower Mana Cost capped at 40%
+	if property == LOWERMANACOST and value > 40:
+		value = 40
+		
+	# Hit Chance Increase at 45%
+	if property == HITBONUS and value > 45:
+		value = 45
+		
+	# Defense Chance Increase at 45%
+	if property == DEFENSEBONUS and value > 45:
+		value = 45
+		
+	# Damage Increase at 100%
+	if property == DAMAGEBONUS and value > 100:
+		value = 100
+		
 	return value
 
 #

@@ -217,12 +217,15 @@ class Spell:
 			return 0
 
 		# Get the AOS bonus from all items the character wears
-		castspeed = 3 - properties.fromchar(char, CASTSPEEDBONUS)
+		castspeed = 3
 
 		# Under the influence of the protection spell
 		# spells are cast more slowly
 		if char.propertyflags & 0x20000:
 			castspeed += 2
+			
+		# Cast Speed Bonus is capped at 2
+		castspeed -= min(2, properties.fromchar(char, CASTSPEEDBONUS))
 
 		castspeed += self.circle
 
@@ -392,7 +395,13 @@ class Spell:
 
 		bonus = char.skill[INSCRIPTION] / 100.0
 		bonus += char.intelligence / 10.0
-		bonus += properties.fromchar(char, SPELLDAMAGEBONUS)
+		spelldamagebonus = properties.fromchar(char, SPELLDAMAGEBONUS)
+		
+		# Spell Damage Bonus is capped at 15% against players
+		if target and target.player and spelldamagebonus > 15:
+			spelldamagebonus = 15
+		
+		bonus += spelldamagebonus
 
 		damage *= 1.0 + bonus / 100.0
 

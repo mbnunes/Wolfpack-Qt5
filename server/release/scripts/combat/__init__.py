@@ -54,9 +54,9 @@ def onSwing(attacker, defender, time):
 			if weapon and (weapon.type == 1007 or weapon.type == 1006):
 				ability = getability(attacker)				
 				
-				# We have to be standing for >= 1000 ms, otherwise try again later
-				if (not ability or not ability.movingshot) and attacker.lastmovement + 1000 > wolfpack.time.currenttime():
-					attacker.nextswing = attacker.lastmovement + 1000
+				# We have to be standing for >= 500 ms, otherwise try again later
+				if (not ability or not ability.movingshot) and attacker.lastmovement + 500 > wolfpack.time.currenttime():
+					attacker.nextswing = attacker.lastmovement + 500
 					return
 
 				# See if we can fire the weapon.
