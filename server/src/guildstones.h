@@ -33,7 +33,7 @@
 #define __GUILDSTONES_H__
 
 // System Includes
-#include <cstdio>
+#include <stdio.h>
 
 // Wolfpack Includes
 #include "typedefs.h"
