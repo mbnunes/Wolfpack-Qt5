@@ -211,7 +211,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	stablesp.insert(pMaster->serial, p_pet->serial);
 //    setptr(&stablesp[stablemaster_serial%HASHMAX], pet);
 
-	sprintf(temp,"Your pet is now stabled, say claim %s to claim your pet",p_pet->name);
+	sprintf(temp,"Your pet is now stabled, say retrieve or claim %s to claim your pet",p_pet->name);
 	npctalk(s,pMaster,temp,0);
 
 	return 1;
@@ -222,7 +222,7 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (pMaster->npc_type!=1)	// is it a stablemaster ?
 		return 0;
 
-    if (!strstr( comm, "CLAIM"))	// lets check if the keyword CLAIM is in the commandstring, if not return !
+    if (!(strstr( comm, "CLAIM") || strstr( comm, "RETRIEVE")))	// lets check if the keyword CLAIM is in the commandstring, if not return !
 		return 0;
 
 	/////////////////////////////////////////////////////////////////////

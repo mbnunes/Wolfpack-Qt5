@@ -67,3 +67,4 @@ screen away to open bank. helps to open from outsidebank. (Ripper)
 56) Fixed: when loading a jailed char, the cell# wasn't set correctly (potentially severe damage) (Lonewolf)
 57) Added: More commands for player vendors, now you can say vendor buy,purchase,gold,
 collect,get,look,view,browse and packup. A little code change for them also. (Ripper)
+58) Added: You can now say retrieve or claim with pets name to a stablemaster. (Ripper)
