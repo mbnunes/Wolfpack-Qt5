@@ -9,6 +9,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Added bloodcolor for undeads.
 		- Made leather containers dyable.
 		- Fixed categories for curtains.
+		- Added index.xml files to armor categories.
+		- Began to add new Samurai armor and weapons (not complete).
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
