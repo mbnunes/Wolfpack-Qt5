@@ -120,7 +120,7 @@ bool cDBDriver::execute( const QString &query )
 QString cDBDriver::error()
 {
 	MYSQL *mysql = getConnection();
-	char *error = mysql_error( mysql );
+	const char *error = mysql_error( mysql );
 
 	if( error != 0 )
 	{
