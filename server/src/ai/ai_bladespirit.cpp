@@ -55,7 +55,7 @@ static P_CHAR findBestTarget( P_NPC npc )
 		{
 			// See if it's a target we want
 			unsigned int dist = npc->dist(victim);
-			int attract = (victim->strength() + victim->skillValue(TACTICS) / 10) / (wpMax<unsigned int>(65535, dist) + 1);
+			int attract = (victim->strength() + victim->skillValue(TACTICS) / 10) / (wpMin<unsigned int>(65535, dist) + 1);
 			if ( attract > targetAttract && validTarget( npc, victim, dist ) ) {
 				target = victim;
 				targetAttract = attract;
@@ -82,7 +82,7 @@ static P_CHAR findBestTarget( P_NPC npc )
 			{
 				// See if it's a target we want
 				unsigned int dist = npc->dist(victim);
-				int attract = (victim->strength() + victim->skillValue(TACTICS) / 10) / (wpMax<unsigned int>(65535, dist) + 1);
+				int attract = (victim->strength() + victim->skillValue(TACTICS) / 10) / (wpMin<unsigned int>(65535, dist) + 1);
 				if ( attract > targetAttract && validTarget( npc, victim, dist ) ) {
 					target = victim;
 					targetAttract = attract;
@@ -92,7 +92,7 @@ static P_CHAR findBestTarget( P_NPC npc )
 			{
 				// See if it's a target we want
 				unsigned int dist = npc->dist(victim);
-				int attract = (npcVictim->strength() + npcVictim->skillValue(TACTICS) / 10) / (wpMax<unsigned int>(65535, dist) + 1);
+				int attract = (npcVictim->strength() + npcVictim->skillValue(TACTICS) / 10) / (wpMin<unsigned int>(65535, dist) + 1);
 				if ( attract > targetAttract && validTarget( npc, npcVictim, dist ) ) {
 					target = npcVictim;
 					targetAttract = attract;
