@@ -68,7 +68,7 @@ def allitemsserials():
 	return _wolfpack.allitemsserials()
 
 def allcharsserials():
-	return _wolfpack.allitemsserials()
+	return _wolfpack.allcharsserials()
 
 
 
