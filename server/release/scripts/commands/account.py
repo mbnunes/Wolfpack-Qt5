@@ -1,3 +1,9 @@
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts
+#  ((    _/{  "-;  | Created by: Dreoth
+#   )).-' {{ ;'`   | Revised by:
+#  ( (  ;._ \\ ctr | Last Modification: Created
+#===============================================================#
 """
 	\command account
 	\description This command will modify account information.
@@ -41,7 +47,6 @@ import wolfpack
 import wolfpack.accounts
 import wolfpack.settings
 import string
-from wolfpack.consts import *
 from wolfpack.utilities import hex2dec
 
 usage0 = "Account Command Usage:"

@@ -1,6 +1,9 @@
-
-import wolfpack
-
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts
+#  ((    _/{  "-;  | Created by: ???
+#   )).-' {{ ;'`   | Revised by: Dreoth
+#  ( (  ;._ \\ ctr | Last Modification: Tweaks
+#===============================================================#
 """
 	\command invul
 	\description Toggle or change your invulnerability flag.
@@ -14,16 +17,15 @@ import wolfpack
 	If no argument is given, the flag is toggled.
 """
 
+import wolfpack
+from wolfpack.utilities import booleantoggle
+
 def invul(socket, command, arguments):
-	arguments = arguments.lower()
-	if len(arguments) and arguments == '1' or arguments == 'on' or arguments == 'true':
-		socket.player.invulnerable = 1
-	elif len(arguments) and arguments == '0' or arguments == 'off' or arguments == 'false':
-		socket.player.invulnerable = 0
-	else:
-		socket.player.invulnerable = not socket.player.invulnerable
-	socket.sysmessage("'invul' is now '%u'" % socket.player.invulnerable)
+	socket.player.invulnerable = booleantoggle( socket.player.invulnerable )
+	socket.sysmessage( "Invulnerable is now '%i'." % socket.player.invulnerable )
 	socket.player.resendtooltip()
+	return True
 
 def onLoad():
-	wolfpack.registercommand('invul', invul)
+	wolfpack.registercommand( 'invul', invul )
+	return
