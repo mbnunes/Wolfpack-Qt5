@@ -104,7 +104,7 @@ class Mark (Spell):
 				char.socket.clilocmessage(501802)
 			return
 
-		return Spell.cast(self, char, mode)
+		return Spell.cast(self, char, mode, args, target, item)
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)

@@ -50,7 +50,7 @@ def callback(char, args):
 			fizzle(char)
 			return
 	else:
-		target = None
+		target = args[3]
 
 	# item
 	if args[4] and (type(args[4]) is int):
@@ -63,7 +63,7 @@ def callback(char, args):
 	else:
 		item = None
 
-	args[0].cast(char, args[1], args[2], args[3], item)
+	args[0].cast(char, args[1], args[2], target, item)
 
 # Basic Spell Class
 class Spell:
@@ -178,6 +178,11 @@ class Spell:
 		else:
 			char.log(LOG_MESSAGE, "Casting spell %s from %s.\n" % (self.__class__.__name__, source))
 
+		if target and type(target).__name__ == 'wpitem':
+			target = target.serial
+		elif target and type(target).__name__ == 'wpchar':
+			target = target.serial
+			
 		char.addtimer(self.calcdelay(char, mode), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
 		return 1
 
@@ -430,7 +435,8 @@ class Spell:
 				wolfpack.console.log(LOG_ERROR, "A NPC is trying to cast a spell.")
 		# A target has been supplied
 		else:
-			char.message('target has been supplied')
+			targetwrapper = TargetWrapper(target)
+			magic.target_response(char, [self, mode, args, item], targetwrapper)
 
 	def target(self, char, mode, targettype, target, args, item):
 		raise Exception, "Spell without target method: " + str(self.__class__.__name__)
@@ -440,6 +446,24 @@ class Spell:
 	#
 	def harmchar(self, char, victim):
 		pass
+
+class TargetWrapper:
+	def __init__(self, obj):
+		if type(obj).__name__ == 'wpitem':
+			self.item = obj
+			self.char = None
+			self.pos = obj.pos
+			self.model = obj.id
+		elif type(obj).__name__ == 'wpchar':
+			self.item = None
+			self.char = obj
+			self.pos = obj.pos
+			self.model = 0
+		else:
+			self.item = None
+			self.char = None
+			self.pos = obj
+			self.model = 0
 
 class CharEffectSpell (Spell):
 	def __init__(self, circle):

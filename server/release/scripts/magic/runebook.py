@@ -6,12 +6,14 @@
 #################################################################
 
 import wolfpack
+from wolfpack import tr
 import magic
 import magic.spell
 from wolfpack.gumps import cGump
+import magic
 from magic.rune import isrune
-from magic.utilities import fizzle, MODE_BOOK
-import magic.utilities
+import magic.scroll
+from magic.utilities import fizzle, MODE_BOOK, hasSpell
 import whrandom
 import wolfpack.utilities
 
@@ -36,37 +38,70 @@ def onUse( char, item ):
 	return True
 
 def onDropOnItem( book, item ):
-	if not isrunebook( book ):
-		return False
-	if not isrune( item ):
-		return False
-	if( item.hastag( "marked" ) != 1 ):
-		return False
-
-	# initialize rune serials to -1 if there's no rune
-	# should not occur - will be removed later
-	for i in range( 0, 16 ):
-		if not book.hastag( "rune %i" % i ):
-			book.settag( "rune %i" % i, -1 )
-
-	# rune serials
-	runes = [ -1 ] * 16
-	for i in range( 0, 16 ):
-		runes[ i ] = int( book.gettag( "rune %i" % i ) )
-	i = 0
-	while( runes[ i ] > -1 and i < 16 ):
-		i = i + 1
-	# runebook is full
-	if( i > 15 ):
-		# can we access the char.socket ?
-		# "This runebook is full."
-		#char.socket.clilocmessage( 502401 )
-		return False
-	book.settag( "rune %i" % i, int( item.serial ) )
-	# insert rune - is runebook a container ?
-	if book.type == 1:
-		wolfpack.utilities.tocontainer( item, book )
-		item.update()
+	char = item.container
+	
+	if isrunebook( book ):		
+		if isrune(item) and item.hastag('marked'):
+			# initialize rune serials to -1 if there's no rune
+			# should not occur - will be removed later
+			for i in range( 0, 16 ):
+				if not book.hastag( "rune %i" % i ):
+					book.settag( "rune %i" % i, -1 )
+		
+			# rune serials
+			runes = [ -1 ] * 16
+			for i in range( 0, 16 ):
+				runes[ i ] = int( book.gettag( "rune %i" % i ) )
+			i = 0
+			while( runes[ i ] > -1 and i < 16 ):
+				i = i + 1
+			# runebook is full
+			if( i > 15 ):
+				# can we access the char.socket ?
+				# "This runebook is full."
+				if char.socket:
+					char.socket.clilocmessage( 502401 )
+				char.getbackpack().additem(item)
+				item.pos = book.pos
+				item.pos.z += 1
+				item.update()
+				return True
+		
+			book.settag( "rune %i" % i, int( item.serial ) )
+			
+			# insert rune - is runebook a container ?
+			wolfpack.utilities.tocontainer( item, book )
+			item.update()
+			return True
+		
+		# Recall Scrolls for recharging
+		elif item.hasscript('magic.scroll'):
+			try:				
+				spellid = magic.scroll.calcSpellId(item)				
+				
+				# Recall Scroll
+				if spellid + 1 == 32:
+					charges = item.amount
+					maxcharges = book.gettag('maxcharges') - book.gettag('charges')
+					
+					if maxcharges > 0:		
+						charges = min(charges, maxcharges)		
+						book.settag('charges', book.gettag('charges') + charges)
+						
+						if charges >= item.amount:
+							item.delete()
+							return True	
+						else:
+							item.amount -= charges
+							item.update()
+							item.resendtooltip()						
+			except:
+				pass
+	
+	char.getbackpack().additem(item)
+	item.pos = book.pos
+	item.pos.z += 1
+	item.update()
 	return True
 
 def onCreate( item, defstr ):
@@ -155,8 +190,8 @@ def sendGump( char, item ):
 	runebook.startPage( 1 )
 
 	# rename button return code = 1000
-	runebook.addButton( 130, 20, 2472, 2473, 1000 )
-	runebook.addText( 158, 22, "Rename Book" )
+	#runebook.addButton( 130, 20, 2472, 2473, 1000 )
+	#runebook.addText( 158, 22, "Rename Book" )
 
 	# next page - top right corner
 	runebook.addPageButton( 393, 14, 2206, 2206, 2 )
@@ -343,6 +378,18 @@ def recall0( self, args ):
 	if not rune:
 		char.socket.sysmessage( "runebook script error." )
 		return False
+		
+	if not char.gm:
+		if char.iscriminal():
+			if char.socket:
+				char.socket.clilocmessage(1005561)
+			return False
+
+		if char.attacktarget:
+			if char.socket:
+				char.socket.clilocmessage(1005564)
+			return False
+		
 	location = rune.gettag('location')
 	location = location.split(",")
 	location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
@@ -373,64 +420,29 @@ def recall0( self, args ):
 
 # recall spell to the selected rune
 def recall1( self, args ):
-	if( len( args ) < 2 ):
-		return 1
 	char = wolfpack.findchar( args[ 0 ] )
 	rune = wolfpack.finditem( args[ 1 ] )
 
 	if not char:
 		return False
+
 	if not rune:
-		char.socket.sysmessage( "runebook script error." )
-		return False
-	# Check for Recall
-	if not magic.utilities.hasSpell(char, 32):
+		char.socket.sysmessage( "Missing recall rune." )
 		return False
 
-	location = rune.gettag( 'location' )
-	location = location.split(",")
-	location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
-
-	region = None
-	region = wolfpack.region(char.pos.x, char.pos.y, char.pos.map)
-
-	if region and region.norecallout:
-		char.message(501802)
-		fizzle(char)
-		return False
-		region = None
-		region = wolfpack.region(location.x, location.y, location.map)
-
-	if not location.validspawnspot():
-			char.message(501942)
-			fizzle(char)
-			return False
-
-	if region and region.norecallin:
-			char.message(1019004)
-			fizzle(char)
-			return False
-
-	# cast spell
-	if( char.mana < 11 ):
-		char.socket.sysmessage( "You lack the mana to recall." )
-		return False
-
-	# Insert link to Recall Spell!
-	char.socket.sysmessage( "not implemented yet" )
-
+	magic.castSpell( char, 32, MODE_BOOK, args = [], target = rune )
 	return True
 
 def gate( self, args ):
-	if( len( args ) < 2 ):
-		return 1
 	char = wolfpack.findchar( args[ 0 ] )
 	rune = wolfpack.finditem( args[ 1 ] )
+
 	if not char:
-		return 1
+		return False
+
 	if not rune:
-		char.socket.sysmessage( "runebook script error." )
-		return 1
-	# Insert link to Gate Travel Spell!
-	char.socket.sysmessage( "not implemented yet" )
-	return 1
+		char.socket.sysmessage( "Missing recall rune." )
+		return False
+
+	magic.castSpell( char, 52, MODE_BOOK, args = [], target = rune )
+	return True

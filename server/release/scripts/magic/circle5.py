@@ -19,7 +19,7 @@ class BladeSpirits (Spell):
 			char.socket.clilocmessage(1049645)
 			return
 		else:
-			return Spell.cast(self, char, mode)
+			return Spell.cast(self, char, mode, args, target, item)
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
@@ -328,7 +328,7 @@ class SummonCreature (Spell):
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
-		return Spell.cast(self, char, mode)
+		return Spell.cast(self, char, mode, args, target, item)
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
