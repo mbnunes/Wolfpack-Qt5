@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="wolf" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** DO NOT EDIT **
+# ** NICHT BEARBEITEN **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=wolf - Win32 Debug
-!MESSAGE This is not a valid makefile. To build this project using NMAKE,
-!MESSAGE use the Export Makefile command and run
+!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
+!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
 !MESSAGE 
-!MESSAGE You can specify a configuration when running NMAKE
-!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
+!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
 !MESSAGE 
-!MESSAGE Possible choices for configuration are:
+!MESSAGE Für die Konfiguration stehen zur Auswahl:
 !MESSAGE 
-!MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -111,6 +111,18 @@ SOURCE=..\src\ai\ai_animals.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\ai\ai_bladespirit.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_commoner.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_energyvortex.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\ai\ai_humans.cpp
 # End Source File
 # Begin Source File
@@ -191,6 +203,10 @@ SOURCE=..\src\dragdrop.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\exportdefinitions.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\getopts.cpp
 # End Source File
 # Begin Source File
@@ -240,6 +256,10 @@ SOURCE=..\src\npc.cpp
 # Begin Source File
 
 SOURCE=..\src\party.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\pathfinding.cpp
 # End Source File
 # Begin Source File
 
@@ -355,6 +375,18 @@ SOURCE=..\src\ai\ai.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\ai\ai_bladespirit.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_commoner.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_energyvortex.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\ai\ai_mage.h
 # End Source File
 # Begin Source File
@@ -435,6 +467,10 @@ SOURCE=..\src\exceptions.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\exportdefinitions.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\factory.h
 # End Source File
 # Begin Source File
@@ -496,6 +532,10 @@ SOURCE=..\src\objectdef.h
 # Begin Source File
 
 SOURCE=..\src\party.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\pathfinding.h
 # End Source File
 # Begin Source File
 
