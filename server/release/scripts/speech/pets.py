@@ -156,6 +156,7 @@ def release(char, pet):
 	if pet.tamed:
 		pet.tamed = False
 	pet.removescript('speech.pets') # Remove this script if it was added dynamically
+	pet.wandertype = 1
 	pet.sound(SND_ATTACK)
 
 def onSpeech(pet, char, text, keywords):
