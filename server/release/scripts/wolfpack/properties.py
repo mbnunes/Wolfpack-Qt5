@@ -14,11 +14,14 @@ from system.lootlists import *
 # The return value is in miliseconds.
 #
 def getdelay(attacker, weapon):
-	speed = fromitem(weapon, SPEED)
+	speed = fromitem(weapon, SPEED)	
+	
 	value = (attacker.stamina + 100) * speed
 
-	# Scale value according to bonus
-	# value += bonus * value / 100
+	bonus = fromchar(attacker, SPEEDBONUS)
+
+	# Scale value according to bonus		
+	value += bonus * value / 100
 
 	if value <= 0:
 		value = 1
@@ -78,6 +81,7 @@ PROPERTIES = {
 	# Misc
 	LUCK: ['luck', 0, 1],
 	SELFREPAIR: ['selfrepair', 0, 0],
+	ENHANCEPOTIONS: ['enhancepotions', 0, True],
 
 	# Requirements
 	REQSTR: ['req_strength', 0, 0],
@@ -85,6 +89,8 @@ PROPERTIES = {
 	REQINT: ['req_intelligence', 0, 0],
 
 	# Regular Combat Properties
+	BESTSKILL: ['bestskill', 0, 0],
+	MAGEWEAPON: ['mageweapon', 0, 0],
 	MINDAMAGE: ['mindamage', 1, 0],
 	MAXDAMAGE: ['maxdamage', 4, 0],
 	SPEED: ['speed', 50, 0],
@@ -493,17 +499,147 @@ def applyShieldRandom(item, props, minintensity, maxintensity, luckchance):
 
 	item.resendtooltip()
 
+# List of allowed properties
+JUWEL_PROPERTIES = {
+	# PROPERT KEY, min value, max value, factor, accumulate
+	RESISTANCE_PHYSICAL: [1, 15, 1, False],
+	RESISTANCE_FIRE: [1, 15, 1, False],
+	RESISTANCE_COLD: [1, 15, 1, False],
+	RESISTANCE_POISON: [1, 15, 1, False],
+	RESISTANCE_ENERGY: [1, 15, 1, False],	
+	DAMAGEBONUS: [1, 25, 1, False],
+	DEFENSEBONUS: [1, 15, 1, False],
+	HITBONUS: [1, 15, 1, False],
+	BONUSSTRENGTH: [1, 8, 1, False],
+	BONUSDEXTERITY: [1, 8, 1, False],
+	BONUSINTELLIGENCE: [1, 8, 1, False],
+	ENHANCEPOTIONS: [5, 25, 5, False],
+	CASTSPEEDBONUS: [1, 1, 1, False],
+	CASTRECOVERYBONUS: [1, 3, 1, False],
+	LOWERMANACOST: [1, 8, 1, False],
+	LOWERREAGENTCOST: [1, 20, 1, False],
+	LUCK: [1, 100, 1, False],
+	SPELLDAMAGEBONUS: [1, 12, 1, False],
+	#SKILLBONUS1: [1, 15, 1, False],
+	#SKILLBONUS1: [1, 15, 1, False],
+	#SKILLBONUS1: [1, 15, 1, False],
+	#SKILLBONUS1: [1, 15, 1, False],
+	#SKILLBONUS1: [1, 15, 1, False],
+}
+
+def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
+	properties = JUWEL_PROPERTIES.keys()
+
+	# Select unique properties
+	for i in range(0, props):
+		property = random.choice(properties)
+		properties.remove(property)
+		
+		if not PROPERTIES.has_key(property):
+			continue
+
+		# Scale the value for the property
+		info = JUWEL_PROPERTIES[property]
+		value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
+
+		# Resistances are cummulative
+		if info[3]:
+			value += fromitem(item, property)		
+		
+		item.settag(PROPERTIES[property][0], value)
+
+	item.resendtooltip()
+
+# List of allowed properties
+WEAPON_PROPERTIES = {
+	# PROPERT KEY, min value, max value, factor, accumulate
+	#SPLASH_PHYSICAL: [2, 50, 2, False],
+	#SPLASH_FIRE: [2, 50, 2, False],
+	#SPLASH_COLD: [2, 50, 2, False],
+	#SPLASH_POISON: [2, 50, 2, False],
+	#SPLASH_ENERGY: [2, 50, 2, False],
+	
+	#HIT_MAGICARROW: [2, 50, 2, False],
+	#HIT_HARM: [2, 50, 2, False],
+	#HIT_FIREBALL: [2, 50, 2, False],
+	#HIT_LIGHTNING: [2, 50, 2, False],
+	
+	#HIT_DISPEL: [2, 50, 2, False],
+	#HIT_LEECHHITS: [2, 50, 2, False],
+	#HIT_LEECHSTAMINA: [2, 50, 2, False],
+	#HIT_LEECHMANA: [2, 50, 2, False],
+	#HIT_LOWERATTACK: [2, 50, 2, False],
+	#HIT_LOWERDEFEND: [2, 50, 2, False],
+	
+	BESTSKILL: [1, 1, 1, False],
+	#MAGEWEAPON: [29, 20, 1, False],
+
+	RESISTANCE_PHYSICAL: [1, 15, 1, True],
+	RESISTANCE_FIRE: [1, 15, 1, True],
+	RESISTANCE_COLD: [1, 15, 1, True],
+	RESISTANCE_POISON: [1, 15, 1, True],
+	RESISTANCE_ENERGY: [1, 15, 1, True],	
+	DAMAGEBONUS: [1, 25, 1, True],
+	DEFENSEBONUS: [1, 15, 1, True],
+	HITBONUS: [1, 15, 1, True],
+	CASTSPEEDBONUS: [1, 1, 1, False],
+	LUCK: [1, 100, 1, False],
+	SPEEDBONUS: [5, 30, 5, False],
+	SPELLCHANNELING: [1, 1, 1, False],
+	SPELLDAMAGEBONUS: [1, 12, 1, False],
+	DURABILITYBONUS: [10, 100, 10, True],
+	LOWERREQS: [10, 100, 10, True],
+}
+
+def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
+	properties = WEAPON_PROPERTIES.keys()
+	
+	# No bestskill property for ranged weapons
+	if itemcheck(item, ITEM_RANGED):
+		properties.remove(BESTSKILL)
+
+	# Select unique properties
+	for i in range(0, props):
+		property = random.choice(properties)
+		properties.remove(property)
+		
+		if not PROPERTIES.has_key(property):
+			continue
+
+		# Scale the value for the property
+		info = WEAPON_PROPERTIES[property]
+		value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
+
+		# Some special handling for special boni
+		if property == DURABILITYBONUS:
+			bonus = int(ceil(item.maxhealth * (value / 100.0)))
+			item.maxhealth = max(1, item.maxhealth + bonus)
+			item.health = item.maxhealth
+
+		# Set cast speed to -1
+		elif property == SPELLCHANNELING:
+			item.settag(PROPERTIES[CASTSPEEDBONUS][0], -1)				
+			
+		# MageWeapon and BestSkill are exclusive
+		elif property == BESTSKILL:
+			if MAGEWEAPON in properties:
+				properties.remove(MAGEWEAPON)
+		elif property == MAGEWEAPON:
+			if BESTSKILL in properties:
+				properties.remove(BESTSKILL)
+
+		# Resistances are cummulative
+		if info[3]:
+			value += fromitem(item, property)		
+		
+		item.settag(PROPERTIES[property][0], value)	
+
+	item.resendtooltip()
+
 #
 # Apply random properties to the given items.
 #
-def applyRandom(item, maxprops, minintensity, maxintensity, luck=0 ):
-	if luck < 0:
-		luck = 0
-	if luck > 1200:
-		luck = 1200
-		
-	luckchance = LUCKTABLE[luck]
-
+def applyRandom(item, maxprops, minintensity, maxintensity, luckchance=0 ):
 	props = 1 + bonusProps(maxprops, luckchance)
 	
 	if itemcheck(item, ITEM_ARMOR):
@@ -518,14 +654,17 @@ def applyRandom(item, maxprops, minintensity, maxintensity, luck=0 ):
 	else:
 		applyJuwelRandom(item, props, minintensity, maxintensity, luckchance)
 
-# List of random armors for magic
-# item generation
-def testarmor(container):
-	DEF_ARMOR = DEF_LEATHER + DEF_STUDDED + DEF_CHAINMAIL + DEF_RINGMAIL + DEF_BONEMAIL + DEF_PLATEMAIL + DEF_HELMS + DEF_SHIELDS
-	id = random.choice(DEF_ARMOR)
+#
+# Get the luckchance for a char
+#
+def luckchance(char):
+	luck = fromchar(char, LUCK)
 	
-	item = wolfpack.additem(id)
-	container.additem(item)
-	applyRandom(item, random.randint(1, 5), 50, 100, 0)
-	item.update()
+	if luck < 0:
+		luck = 0
 
+	if luck > 1200:
+		luck = 1200
+		
+	return LUCKTABLE[luck]
+	

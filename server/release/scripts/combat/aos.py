@@ -82,7 +82,7 @@ def checkhit(attacker, defender, time):
 	# Retrieve the skill values
 	attackerValue = attacker.skill[attackerSkill] / 10
 	defenderValue = defender.skill[defenderSkill] / 10
-
+	
 	# Calculate the hit chance
 	bonus = 0 # Get the weapon "accuracy" status
 	bonus += properties.fromchar(attacker, HITBONUS) # Get the attackers AttackChance bonus

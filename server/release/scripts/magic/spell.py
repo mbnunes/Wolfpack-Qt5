@@ -4,9 +4,7 @@ import random
 import wolfpack.console
 from wolfpack import properties, utilities
 from magic.utilities import *
-from wolfpack.consts import MAGICRESISTANCE, EVALUATINGINTEL, INSCRIPTION, \
-	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING, SPELLCHANNELING, \
-	BODY_HUMAN
+from wolfpack.consts import *
 import time
 
 # Recursive Function for counting reagents
@@ -184,6 +182,16 @@ class Spell:
 		return 1
 
 	#
+	# Scale Mana
+	#
+	def scalemana(self, char, mode, mana):
+		if mode == MODE_SCROLL:
+			mana = (mana + 1) / 2
+		
+		percent = properties.fromchar(char, LOWERMANACOST) / 100.0
+		return max(0, mana - int(percent * float(mana)))
+
+	#
 	# Calculate the time required to cast this spell
 	#
 	def calcdelay(self, char, mode):
@@ -305,17 +313,22 @@ class Spell:
 		# Consume Mana
 		if mode == MODE_BOOK:
 			if self.mana != 0:
-				char.mana = max(0, char.mana - self.mana)
+				mana = self.scalemana(char, MODE_BOOK, self.mana)
+				char.mana = max(0, char.mana - mana)
 				char.updatemana()
 
 			# Consume Reagents
 			if len(self.reagents) > 0:
-				consumeReagents(char.getbackpack(), self.reagents.copy())
+				lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
+				
+				if lowerreagentcost == 0 or lowerreagentcost > random.randint(0, 99):								
+					consumeReagents(char.getbackpack(), self.reagents.copy())
 
 		# Reduced Skill, Reduced Mana, No Reagents
 		elif mode == MODE_SCROLL:
 			if self.mana != 0:
-				char.mana = max(0, char.mana - (self.mana + 1) / 2)
+				mana = self.scalemana(char, MODE_SCROLL, self.mana)
+				char.mana = max(0, char.mana - mana)
 				char.updatemana()
 
 			# Remove one of the scrolls

@@ -87,6 +87,6 @@ def onShowStatus(char, packet):
 	packet.setshort(72, properties.fromchar(char, RESISTANCE_COLD)) # Cold Resistance
 	packet.setshort(74, properties.fromchar(char, RESISTANCE_POISON)) # Poison Resistance
 	packet.setshort(76, properties.fromchar(char, RESISTANCE_ENERGY)) # Energy Resistance
-	packet.setshort(78, 0) # Luck
+	packet.setshort(78, properties.fromchar(char, LUCK)) # Luck
 	packet.setshort(80, mindamage) # Min. Damage
 	packet.setshort(82, maxdamage) # Max. Damage

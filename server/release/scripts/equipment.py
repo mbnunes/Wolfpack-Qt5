@@ -20,6 +20,23 @@ def modifiers(object, tooltip):
 	for (tag, cliloc) in modifiers.items():
 		if object.hastag(tag):
 			tooltip.add(cliloc, str(object.gettag(tag)))
+			
+	speedbonus = properties.fromitem(object, SPEEDBONUS)
+	if speedbonus != 0:
+		tooltip.add(1060486, str(speedbonus))
+
+
+	hitbonus = properties.fromitem(object, HITBONUS)
+	if hitbonus != 0:
+		tooltip.add(1060415, str(hitbonus))
+		
+	defensebonus = properties.fromitem(object, DEFENSEBONUS)
+	if defensebonus != 0:
+		tooltip.add(1060408, str(defensebonus))
+		
+	enhancepotions = properties.fromitem(object, ENHANCEPOTIONS)
+	if enhancepotions != 0:
+		tooltip.add(1060411, str(enhancepotions))
 
 	reflectphysical = properties.fromitem(object, REFLECTPHYSICAL)
 
@@ -40,6 +57,10 @@ def modifiers(object, tooltip):
 	
 	if spelldamagebonus:
 		tooltip.add(1060483, str(spelldamagebonus))	
+
+	luck = properties.fromitem(object, LUCK)
+	if luck != 0:
+		tooltip.add(1060436, str(luck))
 
 	bonus = properties.fromitem(object, BONUSSTRENGTH)
 	if bonus != 0:
@@ -77,8 +98,12 @@ def modifiers(object, tooltip):
 	if regenmana:
 		tooltip.add(1060440, str(regenmana))
 
-	if object.hastag("bestskill"):
+	if properties.fromitem(object, BESTSKILL):
 		tooltip.add(1060400, "")
+		
+	mageweapon = properties.fromitem(object, MAGEWEAPON)
+	if mageweapon != 0:
+		tooltip.add(1060438, str(mageweapon))		
 
 	if properties.fromitem(object, MAGEARMOR):
 		tooltip.add(1060437, "")
@@ -368,27 +393,45 @@ def onEquip(char, item, layer):
 
 	# Bonus Str
 	bonus = properties.fromitem(item, BONUSSTRENGTH)
-	value = max(0, char.strength + bonus)
-	if value != char.strength:
-		char.strength = value
-		char.strength2 = max(0, char.strength2 + bonus)
+	if char.strength + bonus < 1:
+		bonus = 1 - char.strength
+	if char.strength + bonus > char.strengthcap:
+		bonus = max(0, char.strengthcap - char.strength)
+	if bonus != 0:
+		char.strength += bonus
+		char.strength2 += bonus
+		item.settag('real_strength_bonus', bonus)
 		changed = True
+	else:
+		item.deltag('real_strength_bonus')
 
 	# Bonus Dex
 	bonus = properties.fromitem(item, BONUSDEXTERITY)
-	value = max(0, char.dexterity + bonus)
-	if value != char.dexterity:
-		char.dexterity = value
-		char.dexterity2 = max(0, char.dexterity2 + bonus)
+	if char.dexterity + bonus < 1:
+		bonus = 1 - char.dexterity
+	if char.dexterity + bonus > char.dexteritycap:
+		bonus = max(0, char.dexteritycap - char.dexterity)
+	if bonus != 0:
+		char.dexterity += bonus
+		char.dexterity2 += bonus
+		item.settag('real_dexterity_bonus', bonus)
 		changed = True
+	else:
+		item.deltag('real_dexterity_bonus')
 
 	# Bonus Int
 	bonus = properties.fromitem(item, BONUSINTELLIGENCE)
-	value = max(0, char.intelligence + bonus)
-	if value != char.intelligence:
-		char.intelligence = value
-		char.intelligence2 = max(0, char.intelligence2 + bonus)
+	if char.intelligence + bonus < 1:
+		bonus = 1 - char.intelligence
+	if char.intelligence + bonus > char.intelligencecap:
+		bonus = max(0, char.intelligencecap - char.intelligence)
+	if bonus != 0:
+		char.intelligence += bonus
+		char.intelligence2 += bonus
+		item.settag('real_intelligence_bonus', bonus)
 		changed = True
+	else:
+		item.deltag('real_intelligence_bonus')
 
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
@@ -443,28 +486,28 @@ def onUnequip(char, item, layer):
 	changed = 0
 	
 	# Bonus Str
-	bonus = properties.fromitem(item, BONUSSTRENGTH)
-	value = max(0, char.strength - bonus)
-	if value != char.strength:
-		char.strength = value
-		char.strength2 = max(0, char.strength2 - bonus)
+	if item.hastag('real_strength_bonus'):
+		value = int(item.gettag('real_strength_bonus'))
+		char.strength = max(1, char.strength - value)
+		char.strength2 -= value
 		changed = True
+		item.deltag('real_strength_bonus')
 
 	# Bonus Dex
-	bonus = properties.fromitem(item, BONUSDEXTERITY)
-	value = max(0, char.dexterity - bonus)
-	if value != char.dexterity:
-		char.dexterity = value
-		char.dexterity2 = max(0, char.dexterity2 - bonus)
+	if item.hastag('real_dexterity_bonus'):
+		value = int(item.gettag('real_dexterity_bonus'))
+		char.dexterity = max(1, char.dexterity - value)
+		char.dexterity2 -= value
 		changed = True
+		item.deltag('real_dexterity_bonus')
 
 	# Bonus Int
-	bonus = properties.fromitem(item, BONUSINTELLIGENCE)
-	value = max(0, char.intelligence - bonus)
-	if value != char.intelligence:
-		char.intelligence = value
-		char.intelligence2 = max(0, char.intelligence2 - bonus)
+	if item.hastag('real_intelligence_bonus'):
+		value = int(item.gettag('real_intelligence_bonus'))
+		char.intelligence = max(1, char.intelligence - value)
+		char.intelligence2 -= value
 		changed = True
+		item.deltag('real_intelligence_bonus')
 
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
@@ -522,7 +565,10 @@ def onUnequip(char, item, layer):
 # Remove boni
 #
 def onDelete(item):
-	char = item.container
+	if not item.container or not item.container.ischar():
+		return
+	
+	char = item.container	
 	onUnequip(char, item, item.layer)
 
 # Try to equip an item after calling onWearItem for it

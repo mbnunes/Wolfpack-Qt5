@@ -2,7 +2,7 @@
 import wolfpack
 from wolfpack.consts import *
 from system.lootlists import *
-from wolfpack import console, utilities
+from wolfpack import console, utilities, properties
 import random
 
 # Indices
@@ -10,6 +10,9 @@ PACK_CHANCE = 0
 PACK_ITEM = 1
 PACK_AMOUNT = 2
 PACK_STACKABLE = 3
+PACK_MAXPROPERTIES = 4
+PACK_MININTENSITY = 5
+PACK_MAXINTENSITY = 6
 
 # Lootpacks
 # [Chance (of 1.0), Item/Item List, Amount, Stackable]
@@ -26,59 +29,59 @@ PACKS = {
 	# Common Loot Packs
 	'lootpack_poor': [
 		[1.0, 'eed', [11, 20], 1], # Gold
-		[0.0002, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
-		#[0.0002, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
+		[0.0002, DEF_INSTRUMENTS, 1, 0 ], # Slayer Instruments
+		[0.0002, 'RANDOM_MAGIC_ITEM', 1, 0 , 5, 0, 90]
 	],
 	'lootpack_meager': [
 		[1.0, 'eed', [11, 20], 1], # Gold
-		[0.001, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
-		#[0.01, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 10%] 2 max properties
-		#[0.002, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
+		[0.001, DEF_INSTRUMENTS, 1, 0 ], # Slayer Instruments
+		[0.01, 'RANDOM_MAGIC_ITEM', 1, 0, 2, 0, 10 ], # [0% -> 10%] 2 max properties
+		[0.002, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 0, 90 ] # [0% -> 90%] 5 max properties
 	],
 	'lootpack_average': [
 		[1.0, 'eed', [55, 100], 1], # Gold
-		[0.004, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
-		#[0.05, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 20%] 4 max properties
-		#[0.02, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 50%] 3 max properties
-		#[0.005, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
+		[0.004, DEF_INSTRUMENTS, 1, 0 ], # Slayer Instruments
+		[0.05, 'RANDOM_MAGIC_ITEM', 1, 0, 4, 0, 20 ], # [0% -> 20%] 4 max properties
+		[0.02, 'RANDOM_MAGIC_ITEM', 1, 0, 3, 0, 50 ], # [0% -> 50%] 3 max properties
+		[0.005, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 0, 90 ] # [0% -> 90%] 5 max properties
 	],
 	'lootpack_rich': [
 		[1.0, 'eed', [160, 250], 1], # Gold
-		[0.01, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
-		#[0.2, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 40%] 4 max properties
-		#[0.1, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 60%] 5 max properties
-		#[0.01, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
+		[0.01, DEF_INSTRUMENTS, 1, 0 ], # Slayer Instruments
+		[0.2, 'RANDOM_MAGIC_ITEM', 1, 0, 4, 0, 40 ], # [0% -> 40%] 4 max properties
+		[0.1, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 0, 60 ], # [0% -> 60%] 5 max properties
+		[0.01, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 0, 90 ] # [0% -> 90%] 5 max properties
 	],
 	'lootpack_filthy_rich': [
 		[1.0, 'eed', [202, 400], 1], # Gold
-		[0.02, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
-		#[0.33, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 50%] 4 max properties
-		#[0.33, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 60%] 4 max properties
-		#[0.2, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 75%] 5 max properties
-		#[0.05, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 100%] 5 max properties
+		[0.02, DEF_INSTRUMENTS, 1, 0 ], # Slayer Instruments
+		[0.33, 'RANDOM_MAGIC_ITEM', 1, 0, 4, 0, 50 ], # [0% -> 50%] 4 max properties
+		[0.33, 'RANDOM_MAGIC_ITEM', 1, 0, 4, 0, 60 ], # [0% -> 60%] 4 max properties
+		[0.2, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 0, 75 ], # [0% -> 75%] 5 max properties
+		[0.05, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 0, 100 ] # [0% -> 100%] 5 max properties
 	],
 	'lootpack_ultra_rich': [
 		[1.0, 'eed', [505, 1000], 1], # Gold
-		[0.02, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [35% -> 100%] 5 max properties
+		[0.02, DEF_INSTRUMENTS, 1, 0 ], # Slayer Instruments
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 35, 100 ] # [35% -> 100%] 5 max properties
 	],
 	'lootpack_super_boss': [
 		[1.0, 'eed', [505, 1000], 1], # Gold
-		[0.02, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [35% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [35% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [35% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [35% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [50% -> 100%] 5 max properties
-		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [50% -> 100%] 5 max properties
+		[0.02, DEF_INSTRUMENTS, 1, 0 ], # Slayer Instruments
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 25, 100 ], # [25% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 35, 100 ], # [35% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 35, 100 ], # [35% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 35, 100 ], # [35% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 35, 100 ], # [35% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 50, 100 ], # [50% -> 100%] 5 max properties
+		[1.0, 'RANDOM_MAGIC_ITEM', 1, 0, 5, 50, 100 ] # [50% -> 100%] 5 max properties
 	],
 	# Gold Packs
 	'gold_very_poor': [
@@ -465,6 +468,11 @@ def dropitem(item, char, container):
 # Create a specific loot pack
 #
 def createpack(char, killer, corpse, pack):
+	if killer:
+		luckChance = properties.luckchance(killer)
+	else:
+		luckChance = 0
+
 	# A pack is actually a list of lists
 	for item in pack:
 		packchance = item[ PACK_CHANCE ]
@@ -472,8 +480,17 @@ def createpack(char, killer, corpse, pack):
 		packamount = item[ PACK_AMOUNT ]
 		packitem = item[ PACK_ITEM ]
 
+		spawn = False
 
 		if packchance >= random.random():
+			spawn = True
+			
+		# There is a chance that the item will spawn anyway if the luck check
+		# succeeds
+		if not spawn:
+			spawn = luckChance > random.randint(0, 9999)
+			
+		if spawn:
 			if type( packamount ) == str:
 				amount = utilities.rolldice( packamount )
 			elif type( packamount ) == list:
@@ -497,8 +514,16 @@ def createpack(char, killer, corpse, pack):
 						itemid = random.choice( packitem )
 					elif type( packitem ) == str:
 						itemid = str( packitem )
-
-					item = wolfpack.additem(itemid)
+					
+					if itemid == 'RANDOM_MAGIC_ITEM':
+						maxproperties = item[ PACK_MAXPROPERTIES ]
+						minintensity = item[ PACK_MININTENSITY ]
+						maxintensity = item[ PACK_MAXINTENSITY ]						
+						item = wolfpack.additem(random.choice(RANDOM_MAGIC_ITEMS))
+						properties.applyRandom(item, maxproperties, minintensity, maxintensity, luckChance)
+					else:
+						item = wolfpack.additem(itemid)
+					
 					dropitem(item, char, corpse)
 
 #
