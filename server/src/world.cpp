@@ -438,7 +438,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 	{
 		CharMap::iterator it = p->chars.find( serial );
 
-		if( it != p->chars.end() )
+		if( it == p->chars.end() )
 		{
 			clConsole.log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%08x which is already in use." ).arg( serial ) );
 			return;

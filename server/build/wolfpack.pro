@@ -7,9 +7,11 @@
 PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE        = app
-CONFIG         += qt console debug thread
+CONFIG         += qt console debug thread exceptions rtti
 INCLUDEPATH     = lib/ZThread/include lib/Python/include
 DEFINES        += REENTRANT ZTHREAD_STATIC WP_DONT_USE_HASH_MAP
+
+
 win32:DEFINES  += WIN32 
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
