@@ -43,12 +43,15 @@
 		<id>0x1022</id>
 		<buyprice>20</buyprice>
 		<sellprice>10</sellprice>
-		<category>Professions\Fletcher\Arrow Fletching 1</category>
+		<category>Professions\Fletcher\Fletching Tools 1</category>
+    <weight>2.0</weight>
+    <events>skills.bowcraft,equipment</events>
+    <tag name="remaining_uses" type="int" value="35" />
 	</item>
 
-	<item id="1023">
+	<item id="1023" inherit="1022">
 		<id>0x1023</id>
-		<category>Professions\Fletcher\Arrow Fletching 2</category>
+		<category>Professions\Fletcher\Fletching Tools 2</category>
 	</item>
 
 	<item id="1024">
@@ -65,20 +68,14 @@
 	<!-- arrows -->
 	<item id="f3f">
 		<id>0x0f3f</id>
-		<decay />
-		<value>3</value>
-		<durability>10</durability>
-		<rank>5</rank>
+    <weight>0.1</weight>
 		<category>Professions\Fletcher\Arrow</category>
 	</item>
 
 	<!-- crossbow bolts -->
 	<item id="1bfb">
 		<id>0x1bfb</id>
-		<decay />
-		<value>5</value>
-		<durability>15</durability>
-		<rank>5</rank>
+    <weight>0.1</weight>
 		<category>Professions\Fletcher\Crossbow Bolt</category>		
 	</item>
 
@@ -92,10 +89,10 @@
 		<category>Professions\Fletcher\Crossbow Bolts 2</category>
 	</item>
 
-
 	<item id="1bd1">
 		<id>0x1bd1</id>
 		<category>Professions\Fletcher\Feather</category>		
+    <weight>0.1</weight>
 	</item>
 
 	<item id="1bd2">

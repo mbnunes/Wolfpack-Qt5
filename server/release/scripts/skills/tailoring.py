@@ -147,20 +147,6 @@ class TailoringMenu(MakeMenu):
     self.gumptype = 0x4f1ba411 # This should be unique
 
   #
-  # Try to find a craftitem for a certain definition id
-  #
-  def findcraftitem(self, definition):
-    for item in self.subactions:
-      if isinstance(item, TailorItemAction) and item.definition == definition:
-        return item
-    for menu in self.submenus:
-      if isinstance(menu, TailoringMenu):
-        item = menu.findcraftitem(definition)
-        if item:
-          return item
-    return None
-
-  #
   # Repair an item
   #
   def repair(self, player, arguments, target):

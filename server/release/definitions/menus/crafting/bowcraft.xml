@@ -7,101 +7,54 @@
 =================================================================
 -->
 <definitions>
-	<menu id="CRAFTMENU_BOWCRAFT">
-		<name>Bowcraft</name>
-		
-		<menu inherit="BOWCRAFT_resources" />
-		<menu inherit="BOWCRAFT_arrow" />
-		<menu inherit="BOWCRAFT_weapon" />
-	</menu>
-	
-	<menu id="BOWCRAFT_resources">
-		<name>Resources</name>
-		
-		<action>
-			<name>Kindling</name>
-			<model>0x0de1</model>
-			<description>a kindling</description>
-			<make>
-				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="1" />
-				<makeitem section="kindling" amount="1" />
-				<skillcheck skillid="8" min="0" max="1" />
-			</make>
-			<fail>You failed</fail>
-			<success>You succeeded</success>
-		</action>
+  <menu id="BOWCRAFT">
+    <!-- Consumables -->
+    <fletch definition="de1" name="Kindling">
+      <bowcraft min="0" max="0" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="1" />
+      <nomark />
+    </fletch>
+    <fletch definition="1bd4" name="Shaft">
+      <bowcraft min="0" max="400" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="1" />
+      <stackable />
+      <nomark />
+    </fletch>
+    <fletch definition="f3f" name="Arrows">
+      <bowcraft min="0" max="400" />
+      <material id="1bd4" amount="1" /> <!-- Shaft -->
+      <material id="1bd1" amount="1" /> <!-- Feather -->
+      <stackable />
+      <nomark />
+    </fletch>
+    <fletch definition="1bfb" name="Crossbow Bolts">      
+      <bowcraft min="0" max="400" />
+      <material id="1bd4" amount="1" /> <!-- Shaft -->
+      <material id="1bd1" amount="1" /> <!-- Feather -->
+      <stackable />
+      <nomark />
+    </fletch>
 
-		<action type="script">
-			<name>Shaft</name>
-			<model>0x1bd4</model>
-			<description>shafts</description>
-			<make script="skills.bowcraft.makeshaft" />
-		</action>
-	</menu>
-
-	<menu id="BOWCRAFT_arrow">
-		<name>Arrow / Crossbow Bolt</name>
-
-		<action type="script">
-			<name>Arrow</name>
-			<model>0x0f3f</model>
-			<description>arrows</description>
-			<make script="skills.bowcraft.makearrow" />
-		</action>
-
-		<action type="script">
-			<name>Crossbow Bolt</name>
-			<model>0x1bfb</model>
-			<description>crossbow bolts</description>
-			<make script="skills.bowcraft.makebolt" />
-		</action>
-	</menu>
-
-	<menu id="BOWCRAFT_weapon">
-		<name>Bow / Crossbow</name>
-		
-		<action>
-			<name>Bow</name>
-			<model>0x13b2</model>
-			<description>a bow</description>
-			<make>
-				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="7" />
-				<makeitem section="13b2" amount="1" />
-				<skillchek skillid="8" min="300" max="599" />
-			</make>
-			<fail>You failed</fail>
-			<success>You succeeded</success>
-		</action>
-
-		<action>
-			<name>Crossbow</name>
-			<model>0x0f4f</model>
-			<description>a crossbow</description>
-			<make>
-				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="7" />
-				<makeitem section="f4f" amount="1" />
-				<skillchek skillid="8" min="600" max="899" />
-			</make>
-			<fail>You failed</fail>
-			<success>You succeeded</success>
-		</action>
-
-		<action>
-			<name>Heavy Crossbow</name>
-			<model>0x13fc</model>
-			<description>a heavy crossbow</description>
-			<make>
-				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="10" />
-				<makeitem section="13fc" amount="1" />
-				<skillcheck skillid="8" min="900" max="1200" />
-			</make>
-			<fail>You failed</fail>
-			<success>You succeeded</success>
-		</action>
-
-	<!-- TODO :
-	composite bow
-	repeating crossbow
-	-->
-	</menu>
+    <!-- Weapon -->
+    <fletch definition="13b1" name="Bow">
+      <bowcraft min="300" max="700" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="7" />
+    </fletch>
+    <fletch definition="f4f" name="Crossbow">
+      <bowcraft min="600" max="1000" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="7" />
+    </fletch>
+    <fletch definition="13fd" name="Heavy Crossbow">
+      <bowcraft min="800" max="1200" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" />
+    </fletch>
+    <fletch definition="26c2" name="Composite Bow">
+      <bowcraft min="700" max="1100" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" />
+    </fletch>
+    <fletch definition="26cd" name="Repeating Crossbow">
+      <bowcraft min="900" max="1300" />
+      <material id="1bdd;1be0;1bd7;1bda" amount="10" />
+    </fletch>
+  </menu>
 </definitions>

@@ -190,6 +190,274 @@ class MakeItemAction(MakeAction):
     gump.send(player)
 
 #
+# Action for crafting an item. 
+# This takes materials and skills into account.
+#
+class CraftItemAction(MakeItemAction):
+  def __init__(self, parent, title, itemid, definition, amount = 1):
+    MakeItemAction.__init__(self, parent, title, itemid, definition, amount)
+    self.skills = {} # SKILL: [min, max]
+    self.submaterial1 = 0 # The amount of submaterial1 required
+    self.submaterial2 = 0 # The amount of submaterial2 required
+    self.materials = [] # [baseids], [amount]
+    self.markable = 0
+    # Sysmessage sent if you don't have enough material. 
+    # Integer or String allowed
+    self.lackmaterial = "You don't have enough material to make that."
+
+  #
+  # Make invisible if we dont have the minimum
+  # skill requirements yet
+  #
+  def visible(self, player, arguments):
+    return self.checkskills(player, arguments, 0)
+
+  #
+  # Returns true if the player has the required material.
+  #
+  def checkmaterial(self, player, arguments, silent = 0):
+    backpack = player.getbackpack()
+
+    # See if we have enough of the two 
+    # user selectable materials and check if we
+    # can even craft them too
+    if self.submaterial1 > 0:
+      materials = self.parent.submaterials1
+      material = self.parent.getsubmaterial1used(player, arguments)
+      if material >= len(materials):
+        if not silent:
+          player.socket.sysmessage("You try to craft with an invalid material.")
+        return 0
+      material = materials[material]
+      # Check the skill requirement of the material.
+      if material[2] and player.skill[material[1]] < material[2]:
+        if not silent:
+          if self.parent.submaterial1noskill != 0:
+            player.socket.clilocmessage(self.parent.submaterial1noskill)
+          else:
+            player.socket.clilocmessage(1044153)
+        return 0
+
+      # Check the required amount of the material
+      count = backpack.countitems(material[3])
+      if count < self.submaterial1:
+        if not silent:
+          if self.parent.submaterial1missing != 0:
+            player.socket.clilocmessage(self.parent.submaterial1missing)
+          else:
+            player.socket.sysmessage(self.lackmaterial)
+        return 0
+
+    if self.submaterial2 > 0:
+      materials = self.parent.submaterials2
+      material = self.parent.getsubmaterial2used(player, arguments)
+      if material >= len(materials):
+        if not silent:
+          player.socket.sysmessage("You try to craft with an invalid material.")
+        return 0
+      material = materials[material]
+      # Check the skill requirement of the material.
+      if material[2] and player.skill[material[1]] < material[2]:
+        if not silent:
+          if self.parent.submaterial2noskill != 0:
+            player.socket.clilocmessage(self.parent.submaterial2noskill)
+          else:
+            player.socket.clilocmessage(1044153)
+        return 0
+
+      # Check the required amount of the material
+      count = backpack.countitems(material[3])
+      if count < self.submaterial1:
+        if not silent:
+          if self.parent.submaterial2missing != 0:
+            player.socket.clilocmessage(self.parent.submaterial2missing)
+          else:
+            player.socket.sysmessage(self.lackmaterial)
+        return 0
+
+    for material in self.materials:
+      (baseids, amount) = material
+      count = backpack.countitems(baseids)
+      if count < amount:
+        if not silent:
+          player.socket.sysmessage(self.lackmaterial)
+        return 0    
+
+    return 1
+
+  #
+  # Consume material to make the item.
+  #
+  def consumematerial(self, player, arguments, half = 0):
+    backpack = player.getbackpack()
+
+    if self.submaterial1 > 0:
+      materials = self.parent.submaterials1
+      material = self.parent.getsubmaterial1used(player, arguments)
+      if half:
+        amount = int(math.ceil(self.submaterial1 * 0.5))
+      else:
+        amount = self.submaterial1
+      count = backpack.removeitems(materials[material][3], amount)
+      if count != 0:
+        return 0
+
+    if self.submaterial2 > 0:
+      materials = self.parent.submaterials2
+      material = self.parent.getsubmaterial2used(player, arguments)
+      if half:
+        amount = int(math.ceil(self.submaterial2 * 0.5))
+      else:
+        amount = self.submaterial2
+      count = backpack.removeitems(materials[material][3], amount)
+      if count != 0:
+        return 0
+
+    for material in self.materials:
+      (baseids, amount) = material
+      if half:
+        amount = int(math.ceil(amount * 0.5))
+      count = backpack.removeitems(baseids, amount)
+      if count != 0:
+        return 0
+    return 1
+
+  #
+  # Sees if the player has all the required skills to make
+  # this item.
+  #
+  def checkskills(self, player, arguments, check = 0):
+    success = 1
+    for (skill, values) in self.skills.items():
+      if player.skill[skill] < values[0]:
+        return 0
+      if check:
+        success = player.checkskill(skill, values[0], values[1])
+    return success
+
+  #
+  # Play a craft effect.
+  #
+  def playcrafteffect(self, player, arguments):
+    pass
+
+  #
+  # Apply any special properties to the created item.
+  #
+  def applyproperties(self, player, arguments, item, exceptional):
+    pass
+
+  #
+  # Generate the HTML used on the skills field on the details gump
+  #
+  def getskillshtml(self, player, arguments):
+    skillshtml = ''
+    for (skill, values) in self.skills.items():
+      skillshtml += '%s required: %0.01f%%<br>' % (skillnames[skill], values[0] / 10.0)
+    return skillshtml
+
+  #
+  # Generate the HTML used on the other field on the details gump
+  #
+  def getotherhtml(self, player, arguments):
+    chance = self.getexceptionalchance(player, arguments) * 100
+    return 'Chance to create an exceptional item: %0.02f%%.<br>' % chance
+
+  #
+  # Generates the HTML used on the materials field of the details gump
+  #
+  def getmaterialshtml(self, player, arguments):    
+    materialshtml = ''
+    if self.submaterial1 > 0:
+      materials = self.parent.submaterials1
+      material = self.parent.getsubmaterial1used(player, arguments)
+      materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial1)
+
+    if self.submaterial2 > 0:
+      materials = self.parent.submaterials2
+      material = self.parent.getsubmaterial2used(player, arguments)
+      materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial2)
+
+    return materialshtml
+
+  #
+  # Generate the list of skills and materials required
+  # to make this item and then process it normally.
+  #
+  def details(self, player, arguments):
+    self.materialshtml = self.getmaterialshtml(player, arguments)
+    self.skillshtml = self.getskillshtml(player, arguments)
+    self.otherhtml = self.getotherhtml(player, arguments)
+    MakeItemAction.details(self, player, arguments)
+
+  #
+  # Check if we did an exceptional job.
+  #
+  def getexceptionalchance(self, player, arguments):
+    return 0
+
+  #
+  # Try to make the item and consume the resources.
+  #
+  def make(self, player, arguments):
+    # See if we have enough skills to attempt
+    if not self.checkskills(player, arguments):     
+      player.socket.clilocmessage(1044153)
+      return 0
+
+    # See if we have enough material first
+    if not self.checkmaterial(player, arguments):      
+      self.parent.send(player, arguments)
+      return 0
+
+    success = 0
+    success = self.checkskills(player, arguments, 1)
+
+    self.playcrafteffect(player, arguments)
+
+    # 50% chance to loose half of the material
+    if not success:
+      if 0.5 >= random.random():
+        self.consumematerial(player, arguments, 1)
+        player.socket.clilocmessage(1044043)
+      else:
+        player.socket.clilocmessage(1044157)
+      self.parent.send(player, arguments)
+    else:
+      self.consumematerial(player, arguments, 0)
+      
+      # Calculate if we did an exceptional job
+      exceptional = self.getexceptionalchance(player, arguments) >= random.random()
+
+      # Create the item
+      item = wolfpack.additem(self.definition)
+
+      if not item:
+        console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % \
+          (self.parent.subactions.index(self), self.parent.id))
+      else:
+        self.applyproperties(player, arguments, item, exceptional)
+
+        if exceptional:
+          if self.parent.allowmark and self.markable and player.hastag('markitem'):
+            item.settag('exceptional', int(player.serial))
+            player.socket.clilocmessage(1044156)
+          else:
+            item.settag('exceptional', 0)
+            player.socket.clilocmessage(1044155)
+        else:
+          player.socket.clilocmessage(1044154)
+     
+        if self.amount > 0:
+          item.amount = self.amount
+        if not tobackpack(item, player):
+          item.update()
+  
+    # Register in make history  
+    MakeAction.make(self, player, arguments)
+    return success
+
+#
 # Internal function for sorting a list of 
 # objects with a title property.
 #
@@ -293,6 +561,20 @@ class MakeMenu:
     for action in self.subactions:
       if not isinstance(menu, MakeAction):
         raise TypeError, "MakeMenu %s has an invalid subaction of type %s." % (self.id, type(action).__name__)
+
+  #
+  # Try to find a craftitem for a certain definition id
+  #
+  def findcraftitem(self, definition):
+    for item in self.subactions:
+      if isinstance(item, CraftItemAction) and item.definition == definition:
+        return item
+    for menu in self.submenus:
+      if isinstance(menu, MakeMenu):
+        item = menu.findcraftitem(definition)
+        if item:
+          return item
+    return None
 
   #
   # Get the submaterial1 used by the character.
@@ -723,270 +1005,3 @@ class MakeMenu:
     gump.send(player)
 
 
-#
-# Action for crafting an item. 
-# This takes materials and skills into account.
-#
-class CraftItemAction(MakeItemAction):
-  def __init__(self, parent, title, itemid, definition, amount = 1):
-    MakeItemAction.__init__(self, parent, title, itemid, definition, amount)
-    self.skills = {} # SKILL: [min, max]
-    self.submaterial1 = 0 # The amount of submaterial1 required
-    self.submaterial2 = 0 # The amount of submaterial2 required
-    self.materials = [] # [baseids], [amount]
-    self.markable = 0
-    # Sysmessage sent if you don't have enough material. 
-    # Integer or String allowed
-    self.lackmaterial = "You don't have enough material to make that."
-
-  #
-  # Make invisible if we dont have the minimum
-  # skill requirements yet
-  #
-  def visible(self, player, arguments):
-    return self.checkskills(player, arguments, 0)
-
-  #
-  # Returns true if the player has the required material.
-  #
-  def checkmaterial(self, player, arguments, silent = 0):
-    backpack = player.getbackpack()
-
-    # See if we have enough of the two 
-    # user selectable materials and check if we
-    # can even craft them too
-    if self.submaterial1 > 0:
-      materials = self.parent.submaterials1
-      material = self.parent.getsubmaterial1used(player, arguments)
-      if material >= len(materials):
-        if not silent:
-          player.socket.sysmessage("You try to craft with an invalid material.")
-        return 0
-      material = materials[material]
-      # Check the skill requirement of the material.
-      if material[2] and player.skill[material[1]] < material[2]:
-        if not silent:
-          if self.parent.submaterial1noskill != 0:
-            player.socket.clilocmessage(self.parent.submaterial1noskill)
-          else:
-            player.socket.clilocmessage(1044153)
-        return 0
-
-      # Check the required amount of the material
-      count = backpack.countitems(material[3])
-      if count < self.submaterial1:
-        if not silent:
-          if self.parent.submaterial1missing != 0:
-            player.socket.clilocmessage(self.parent.submaterial1missing)
-          else:
-            player.socket.sysmessage(self.lackmaterial)
-        return 0
-
-    if self.submaterial2 > 0:
-      materials = self.parent.submaterials2
-      material = self.parent.getsubmaterial2used(player, arguments)
-      if material >= len(materials):
-        if not silent:
-          player.socket.sysmessage("You try to craft with an invalid material.")
-        return 0
-      material = materials[material]
-      # Check the skill requirement of the material.
-      if material[2] and player.skill[material[1]] < material[2]:
-        if not silent:
-          if self.parent.submaterial2noskill != 0:
-            player.socket.clilocmessage(self.parent.submaterial2noskill)
-          else:
-            player.socket.clilocmessage(1044153)
-        return 0
-
-      # Check the required amount of the material
-      count = backpack.countitems(material[3])
-      if count < self.submaterial1:
-        if not silent:
-          if self.parent.submaterial2missing != 0:
-            player.socket.clilocmessage(self.parent.submaterial2missing)
-          else:
-            player.socket.sysmessage(self.lackmaterial)
-        return 0
-
-    for material in self.materials:
-      (baseids, amount) = material
-      count = backpack.countitems(baseids)
-      if count < amount:
-        if not silent:
-          player.socket.sysmessage(self.lackmaterial)
-        return 0    
-
-    return 1
-
-  #
-  # Consume material to make the item.
-  #
-  def consumematerial(self, player, arguments, half = 0):
-    backpack = player.getbackpack()
-
-    if self.submaterial1 > 0:
-      materials = self.parent.submaterials1
-      material = self.parent.getsubmaterial1used(player, arguments)
-      if half:
-        amount = int(math.ceil(self.submaterial1 * 0.5))
-      else:
-        amount = self.submaterial1
-      count = backpack.removeitems(materials[material][3], amount)
-      if count != 0:
-        return 0
-
-    if self.submaterial2 > 0:
-      materials = self.parent.submaterials2
-      material = self.parent.getsubmaterial2used(player, arguments)
-      if half:
-        amount = int(math.ceil(self.submaterial2 * 0.5))
-      else:
-        amount = self.submaterial2
-      count = backpack.removeitems(materials[material][3], amount)
-      if count != 0:
-        return 0
-
-    for material in self.materials:
-      (baseids, amount) = material
-      if half:
-        amount = int(math.ceil(amount * 0.5))
-      count = backpack.removeitems(baseids, amount)
-      if count != 0:
-        return 0
-    return 1
-
-  #
-  # Sees if the player has all the required skills to make
-  # this item.
-  #
-  def checkskills(self, player, arguments, check = 0):
-    success = 1
-    for (skill, values) in self.skills.items():
-      if player.skill[skill] < values[0]:
-        return 0
-      if check:
-        success = player.checkskill(skill, values[0], values[1])
-    return success
-
-  #
-  # Play a craft effect.
-  #
-  def playcrafteffect(self, player, arguments):
-    pass
-
-  #
-  # Apply any special properties to the created item.
-  #
-  def applyproperties(self, player, arguments, item, exceptional):
-    pass
-
-  #
-  # Generate the HTML used on the skills field on the details gump
-  #
-  def getskillshtml(self, player, arguments):
-    skillshtml = ''
-    for (skill, values) in self.skills.items():
-      skillshtml += '%s required: %0.01f%%<br>' % (skillnames[skill], values[0] / 10.0)
-    return skillshtml
-
-  #
-  # Generate the HTML used on the other field on the details gump
-  #
-  def getotherhtml(self, player, arguments):
-    chance = self.getexceptionalchance(player, arguments) * 100
-    return 'Chance to create an exceptional item: %0.02f%%.<br>' % chance
-
-  #
-  # Generates the HTML used on the materials field of the details gump
-  #
-  def getmaterialshtml(self, player, arguments):    
-    materialshtml = ''
-    if self.submaterial1 > 0:
-      materials = self.parent.submaterials1
-      material = self.parent.getsubmaterial1used(player, arguments)
-      materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial1)
-
-    if self.submaterial2 > 0:
-      materials = self.parent.submaterials2
-      material = self.parent.getsubmaterial2used(player, arguments)
-      materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial2)
-
-    return materialshtml
-
-  #
-  # Generate the list of skills and materials required
-  # to make this item and then process it normally.
-  #
-  def details(self, player, arguments):
-    self.materialshtml = self.getmaterialshtml(player, arguments)
-    self.skillshtml = self.getskillshtml(player, arguments)
-    self.otherhtml = self.getotherhtml(player, arguments)
-    MakeItemAction.details(self, player, arguments)
-
-  #
-  # Check if we did an exceptional job.
-  #
-  def getexceptionalchance(self, player, arguments):
-    return 0
-
-  #
-  # Try to make the item and consume the resources.
-  #
-  def make(self, player, arguments):
-    # See if we have enough skills to attempt
-    if not self.checkskills(player, arguments):     
-      player.socket.clilocmessage(1044153)
-      return 0
-
-    # See if we have enough material first
-    if not self.checkmaterial(player, arguments):      
-      self.parent.send(player, arguments)
-      return 0
-
-    success = 0
-    success = self.checkskills(player, arguments, 1)
-
-    self.playcrafteffect(player, arguments)
-
-    # 50% chance to loose half of the material
-    if not success:
-      if 0.5 >= random.random():
-        self.consumematerial(player, arguments, 1)
-        player.socket.clilocmessage(1044043)
-      else:
-        player.socket.clilocmessage(1044157)
-      self.parent.send(player, arguments)
-    else:
-      self.consumematerial(player, arguments, 0)
-      
-      # Calculate if we did an exceptional job
-      exceptional = self.getexceptionalchance(player, arguments) >= random.random()
-
-      # Create the item
-      item = wolfpack.additem(self.definition)
-
-      if not item:
-        console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % \
-          (self.parent.subactions.index(self), self.parent.id))
-      else:
-        self.applyproperties(player, arguments, item, exceptional)
-
-        if exceptional:
-          if self.parent.allowmark and self.markable and player.hastag('markitem'):
-            item.settag('exceptional', int(player.serial))
-            player.socket.clilocmessage(1044156)
-          else:
-            item.settag('exceptional', 0)
-            player.socket.clilocmessage(1044155)
-        else:
-          player.socket.clilocmessage(1044154)
-     
-        if self.amount > 0:
-          item.amount = self.amount
-        if not tobackpack(item, player):
-          item.update()
-  
-    # Register in make history  
-    MakeAction.make(self, player, arguments)
-    return success

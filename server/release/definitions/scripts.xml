@@ -53,6 +53,8 @@
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
   <script>wolfpack.commands.edit</script>
+  <script>wolfpack.commands.tags</script>
+  <script>wolfpack.commands.tile</script>
 	<script>wolfpack.commands.action</script>
   <script>wolfpack.commands.add</script>
 	<script>wolfpack.commands.bank</script>

@@ -1779,6 +1779,18 @@
 
 	<!-- Trophies -->
 
+	<item id="2234">
+		<id>0x2234</id>
+		<nodecay />
+		<category>Decoration\Trophies\Dragon (N/S)</category>
+	</item>
+
+	<item id="2235">
+		<id>0x2235</id>
+		<nodecay />
+		<category>Decoration\Trophies\Dragon (W/E)</category>
+	</item>
+
 	<item id="1e60">
 		<id>0x1e60</id>
 		<nodecay />
