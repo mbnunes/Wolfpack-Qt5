@@ -2398,6 +2398,10 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 			case 0x90: pi->setId(0x3EB3); break; // Seahorse
 			case 0xAB: pi->setId(0x3EAC); break; // Etheral Ostard
 			case 0xBB: pi->setId(0x3EB8); break; // Ridgeback
+			case 0x17: pi->setId(0x3EBC); break; // giant beetle
+			case 0x19: pi->setId(0x3EBB); break; // skeletal mount
+			case 0x1a: pi->setId(0x3EBD); break;// swamp dragon
+			case 0x1f: pi->setId(0x3EBE); break;// armor dragon
 		}
 		
 		pi->SetContSerial(pc_currchar->serial);

@@ -1636,7 +1636,11 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		(target->id() == 0x00DC)||
 		(target->id() == 0x00D2)||
 		(target->id() == 0x00DA)||
-		(target->id() == 0x00DB))
+		(target->id() == 0x00DB)||
+		(target->id() == 0x0317)||
+		(target->id() == 0x0319)||
+		(target->id() == 0x031A)||
+		(target->id() == 0x031F))
 	{//if mount
 		if (chardist( pc_currchar, target )<2 || pc_currchar->isGM())
 		{
