@@ -408,35 +408,35 @@ void cItem::save()
 		initSave;
 		setTable( "items" );
 		
-		addField("serial",		serial());
-		addField("id",			id());
-		addField("color",		color());
+		addField("serial",			serial() );
+		addField("id",				id() );
+		addField("color",			color() );
 		SERIAL contserial = INVALID_SERIAL;
 		if ( container_ )
 			contserial = container_->serial();
-		addField("cont",		contserial);
-		addField("layer",		layer_);
-		addField("type",		type_);
-		addField("type2",		type2_);
-		addField("amount",		amount_);
-		addField("decaytime",	(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
-		addField("def",			def_);
+		addField("cont",			contserial);
+		addField("layer",			layer_);
+		addField("type",			type_);
+		addField("type2",			type2_);
+		addField("amount",			amount_);
+		addField("decaytime",		(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
+		addField("def",				def_);
 		addField("hidamage",		hidamage_);
 		addField("lodamage",		lodamage_);
-		addField("time_unused",	time_unused);
-		addField("weight",		weight_);
-		addField("hp",			hp_);
-		addField("maxhp",			maxhp_);
-		addField("speed",			speed_);
-		addField("poisoned",		poisoned_);
-		addField("magic",			magic_);
-		addField("owner",			ownserial_);
-		addField("visible",		visible_);
-		addStrField("spawnregion",			spawnregion_);
-		addField("priv",			priv_);
-		addField("sellprice",			sellprice_);
-		addField("buyprice",			buyprice_);
-		addField("restock",		restock_);
+		addField("time_unused",		time_unused);
+		addField("weight",			weight_);
+		addField("hp",				hp_ );
+		addField("maxhp",			maxhp_ );
+		addField("speed",			speed_ );
+		addField("poisoned",		poisoned_ );
+		addField("magic",			magic_ );
+		addField("owner",			ownserial_ );
+		addField("visible",			visible_ );
+		addStrField("spawnregion",	spawnregion_ );
+		addField("priv",			priv_ );
+		addField("sellprice",		sellprice_ );
+		addField("buyprice",		buyprice_ );
+		addField("restock",			restock_ );
 		
 		addCondition( "serial", serial() );
 		saveFields;
@@ -1856,7 +1856,13 @@ void cItem::load( char **result, UINT16 &offset )
 	magic_ = atoi( result[offset++] );
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
-	spawnregion_ = atoi( result[offset++] );
+	
+	if( strlen( result[offset] ) == 0 )
+		spawnregion_ = QString::null;
+	else 
+		spawnregion_ = QString::fromUtf8( result[offset] );
+	offset++;
+
 	priv_ = atoi( result[offset++] );
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );

@@ -160,20 +160,18 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 	else if( checkArgInt( 0 ) )
 	{
 		// Affix?
-		QString clilocargs = QString::null;
-		QString affix = QString::null;
+		unsigned int id;
+		char *clilocargs = 0;
+		char *affix = 0;
 
-		if( checkArgStr( 1 ) )
-			clilocargs = getArgStr( 1 );
-
-		if( checkArgStr( 2 ) )
-			affix = getArgStr( 2 );
+		if( !PyArg_ParseTuple( args, "i|ss:char.message( clilocid, [args], [affix] )", &id, &clilocargs, &affix ) )
+			return 0;		
 
 		// Cliloc Message
-		if( !affix.isNull() )
-			player->socket()->clilocMessageAffix( getArgInt( 0 ), clilocargs, affix, 0x3b2, 3, player, false, false );
+		if( affix )
+			player->socket()->clilocMessageAffix( id, clilocargs, affix, 0x3b2, 3, player, false, false );
 		else
-			player->socket()->clilocMessage( getArgInt( 0 ), clilocargs, 0x3b2, 3, player );
+			player->socket()->clilocMessage( id, clilocargs, 0x3b2, 3, player );
 	}
 	else
 	{

@@ -105,12 +105,16 @@ public:
 					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
 					PyTuple_SetItem( p_args, 3, disp_args );
 
-					PyEval_CallObject( pFunc, p_args );
-					
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					PyObject *result = PyEval_CallObject( pFunc, p_args );
+					Py_XDECREF( result );
+
+					reportPythonError( sModule );
+					Py_DECREF( p_args );
 				}
+
+				Py_XDECREF( pFunc );
 			}
+			Py_XDECREF( pModule );
 		}
 
 		Py_DECREF( args );
@@ -144,12 +148,15 @@ public:
 
 					PyTuple_SetItem( p_args, 1, args );
 
-					PyEval_CallObject( pFunc, p_args );
-					
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					PyObject *result = PyEval_CallObject( pFunc, p_args );
+					Py_XDECREF( result );
+					reportPythonError( sModule );
+
+					Py_DECREF( p_args );
 				}
+				Py_DECREF( pFunc );
 			}
+			Py_XDECREF( pModule );
 		}
 
 		Py_DECREF( args );

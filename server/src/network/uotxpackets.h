@@ -1080,7 +1080,7 @@ public:
 			resize( PacketLen + data.length()*2+2 );
 			QString tmpData = data; // go around the const stuff.
 			this->setUnicodeString( PacketLen, tmpData, data.length()*2 );
-			setShort ( 1, PacketLen+data.length()*2 );
+			setShort ( 1, PacketLen+data.length()*2+2 );
 			setShort ( PacketLen+data.length()*2, 0 );
 		}
 	}

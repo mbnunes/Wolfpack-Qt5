@@ -237,8 +237,11 @@ bool PersistentBroker::tableExists( const QString &table )
 
 QString PersistentBroker::quoteString( QString s )
 {
+	if( s == QString::null )
+		return "";
+	
 	if( d->sqlite )
-		return s.replace( QRegExp("'"), "''" );
+		return s.replace( QRegExp("'"), "''" ).utf8().data();
 	else
-		return s.replace( QRegExp("'"), "\\'" );
+		return s.replace( QRegExp("'"), "\\'" ).utf8().data();
 }

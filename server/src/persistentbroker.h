@@ -56,7 +56,7 @@ public:
 	void flushDeleteQueue();
 	void clearDeleteQueue();
 	void addToDeleteQueue( const QString &tables, const QString &conditions );
-	
+
 	QString quoteString( QString d );
 
 	void lockTable( const QString& table ) const;
@@ -95,7 +95,7 @@ public:
 	else \
 	{ \
 		/* fields.push_back( name ); */ \
-		values.push_back( "'" + ( value.isNull() ? QString( "" ) : persistentBroker->quoteString( value ) ) + "'" ); \
+		values.push_back( "'" + persistentBroker->quoteString( value ) + "'" ); \
 	}
 
 #define addCondition( name, value ) conditions.push_back( QString( "%1 = '%2'" ).arg( name ).arg( value ) );
