@@ -214,7 +214,7 @@ def sendGump( char, item ):
 		else:
 			runes[ i ] = int( item.gettag( "rune %i" % i ) )
 	runenum = 0
-	while( runes[ runenum ] > -1 ):
+	while( runenum < 16 and runes[ runenum ] > -1 ):
 		runenum = runenum + 1
 	runenames = [ "Empty" ] * 16
 	for i in range( 0, runenum ):
