@@ -35,7 +35,8 @@
 	<script id="commands"		type="python" module="commands" />
 
 	<!-- Skills -->
-	<script id="anatomy"		type="python" module="skills.anatomy" />
+	<script id="skills.anatomy"			type="python" module="skills.anatomy" />
+	<script id="skills.animallore"		type="python" module="skills.animallore" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />
