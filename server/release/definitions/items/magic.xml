@@ -38,6 +38,12 @@
 		<category>Misc\Moongates\Summon Red Moongate 2</category>
 	</item>
 
+	<item id="1af3">
+		<id>0x1af3</id>
+		<lightsource>0x2</lightsource>
+		<category>Misc\Moongates\Summon Blue Moongate 1</category>
+	</item>
+
 	<item id="1af7">
 		<id>0x1af7</id>
 		<lightsource>0x2</lightsource>
