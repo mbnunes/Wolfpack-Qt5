@@ -106,6 +106,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - implemented Orneriness for pets (There is now a chance, that a pet do not follow their orders, based
     on animal taming and animal lore of the owner)
   - Implemented glassblowing.
+  - Fixed .kick / .ban commands.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

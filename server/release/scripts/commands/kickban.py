@@ -23,7 +23,7 @@ def commandKick( socket, cmd, args ):
 		return
 	else:
 		socket.sysmessage( "Please select the character to kick." )
-		socket.attachtarget( "commands.remove.doKick", [] )
+		socket.attachtarget( "commands.kickban.doKick", [] )
 	return True
 
 def commandBan( socket, cmd, args ):
@@ -34,7 +34,7 @@ def commandBan( socket, cmd, args ):
 		return
 	else:
 		socket.sysmessage( "Please select the character to kick-ban." )
-		socket.attachtarget( "commands.remove.doBan", [] )
+		socket.attachtarget( "commands.kickban.doBan", [] )
 	return False
 
 def doKick( char, args, target ):
