@@ -7,11 +7,18 @@
 =================================================================
 -->
 <definitions>
+	<!--
+		<defname>...</defname>
+		Specifies the internal name for the skill (used in .set and several other places, i.e. newbieitems)
+		This needs to be uppercase! So take care when modifying it.
+	-->
+
 	<!--  Alchemy -->
 	<skill id="0">
 		<str>0</str>
 		<dex>50</dex>
 		<int>50</int>
+		<defname>ALCHEMY</defname>
 		<name>Alchemy</name>
 		<title>Alchemist</title>
 		<advancement base="0" failure="50" success="75" />
@@ -33,6 +40,7 @@
 		<str>10</str>
 		<dex>10</dex>
 		<int>80</int>
+		<defname>ANATOMY</defname>
 		<name>Anatomy</name>
 		<title>Physician</title>
 		<advancement base="0" failure="50" success="75" />
@@ -54,6 +62,7 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<defname>ANIMALLORE</defname>
 		<name>Animal Lore</name>
 		<title>Beast Master</title>
 		<advancement base="0" failure="50" success="75" />
@@ -75,6 +84,7 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<defname>ITEMIDENTIFICATION</defname>
 		<name>Item Identification</name>
 		<title>Artificer</title>
 		<advancement base="0" failure="50" success="75" />
@@ -96,6 +106,7 @@
 		<str>80</str>
 		<dex>10</dex>
 		<int>10</int>
+		<defname>ARMSLORE</defname>
 		<name>Arms Lore</name>
 		<title>Appraiser</title>
 		<advancement base="0" failure="50" success="75" />
@@ -117,6 +128,7 @@
 		<str>75</str>
 		<dex>25</dex>
 		<int>0</int>
+		<defname>PARRYING</defname>
 		<name>Parrying</name>
 		<title>Warrior</title>
 		<advancement base="0" failure="50" success="75" />
@@ -138,6 +150,7 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>0</int>
+		<defname>BEGGING</defname>
 		<name>Begging</name>
 		<title>Beggar</title>
 		<advancement base="0" failure="50" success="75" />
@@ -159,6 +172,7 @@
 		<str>100</str>
 		<dex>0</dex>
 		<int>0</int>
+		<defname>BLACKSMITHING</defname>
 		<name>Blacksmithing</name>
 		<title>Blacksmith</title>
 		<advancement base="0" failure="50" success="75" />
@@ -180,6 +194,7 @@
 		<str>40</str>
 		<dex>60</dex>
 		<int>0</int>
+		<defname>BOWCRAFTING</defname>
 		<name>Bowcrafting</name>
 		<title>Bowyer</title>
 		<advancement base="0" failure="50" success="75" />
@@ -201,6 +216,7 @@
 		<str>0</str>
 		<dex>50</dex>
 		<int>50</int>
+		<defname>PEACEMAKING</defname>
 		<name>Peacemaking</name>
 		<title>Minstrel</title>
 		<advancement base="0" failure="50" success="75" />
@@ -222,6 +238,9 @@
 		<str>60</str>
 		<dex>20</dex>
 		<int>20</int>
+		<defname>CAMPING</defname>
+		<name>Camping</name>
+		<title>Woodsman</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -241,6 +260,9 @@
 		<str>75</str>
 		<dex>25</dex>
 		<int>0</int>
+		<defname>CARPENTRY</defname>
+		<name>Carpentry</name>
+		<title>Carpenter</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -260,6 +282,9 @@
 		<str>0</str>
 		<dex>50</dex>
 		<int>50</int>
+		<defname>CARTOGRAPHY</defname>
+		<name>Cartography</name>	
+		<title>Explorer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -279,6 +304,9 @@
 		<str>0</str>
 		<dex>40</dex>
 		<int>60</int>
+		<defname>COOKING</defname>
+		<name>Cooking</name>
+		<title>Cook</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -298,6 +326,9 @@
 		<str>0</str>
 		<dex>40</dex>
 		<int>60</int>
+		<defname>DETECTHIDDEN</defname>
+		<name>Detect Hidden</name>
+		<title>Scout</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -312,11 +343,14 @@
 		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
-	<!--  Enticement -->
+	<!--  Discordance -->
 	<skill id="15">
 		<str>0</str>
 		<dex>50</dex>
 		<int>50</int>
+		<defname>DISCORDANCE</defname>
+		<name>Discordance</name>
+		<title>Bard</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -336,6 +370,9 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<defname>EVALUATINGINTELLIGENCE</defname>
+		<name>Evaluating Inteligence</name>
+		<title>Mystic</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -355,6 +392,9 @@
 		<str>35</str>
 		<dex>40</dex>
 		<int>25</int>
+		<defname>HEALING</defname>
+		<name>Healing</name>
+		<title>Healer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -374,6 +414,9 @@
 		<str>50</str>
 		<dex>50</dex>
 		<int>0</int>
+		<defname>FISHING</defname>
+		<name>Fishing</name>
+		<title>Fisherman</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -393,6 +436,9 @@
 		<str>0</str>
 		<dex>20</dex>
 		<int>80</int>
+		<defname>FORENSICS</defname>
+		<name>Forensics</name>
+		<title>Coroner</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -412,6 +458,9 @@
 		<str>10</str>
 		<dex>50</dex>
 		<int>40</int>
+		<defname>HERDING</defname>
+		<name>Herding</name>
+		<title>Sheperd</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -431,6 +480,9 @@
 		<str>0</str>
 		<dex>80</dex>
 		<int>20</int>
+		<defname>HIDING</defname>
+		<name>Hiding</name>
+		<title>Ninja</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -450,6 +502,9 @@
 		<str>0</str>
 		<dex>75</dex>
 		<int>25</int>
+		<defname>PROVOCATION</defname>
+		<name>Provocation</name>
+		<title>Bard</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -469,6 +524,9 @@
 		<str>0</str>
 		<dex>20</dex>
 		<int>80</int>
+		<defname>INSCRIPTION</defname>
+		<name>Inscription</name>
+		<title>Scribe</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -488,6 +546,9 @@
 		<str>20</str>
 		<dex>40</dex>
 		<int>40</int>
+		<defname>LOCKPICKING</defname>
+		<name>Lockpicking</name>
+		<title>Locksmith</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -507,6 +568,9 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>150</int>
+		<defname>MAGERY</defname>
+		<name>Magery</name>
+		<title>Magus</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -526,6 +590,9 @@
 		<str>25</str>
 		<dex>25</dex>
 		<int>50</int>
+		<defname>MAGICRESIST</defname>
+		<name>Magic Resist</name>
+		<title>Sorceror</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -545,6 +612,9 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>0</int>
+		<defname>TACTICS</defname>
+		<name>Tactics</name>
+		<title>Soldier</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -564,6 +634,9 @@
 		<str>0</str>
 		<dex>100</dex>
 		<int>0</int>
+		<defname>SNOOPING</defname>
+		<name>Snooping</name>
+		<title>Spy</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -583,6 +656,9 @@
 		<str>0</str>
 		<dex>80</dex>
 		<int>20</int>
+		<defname>MUSICIANSHIP</defname>
+		<name>Musicianship</name>
+		<title>Bard</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -602,6 +678,9 @@
 		<str>0</str>
 		<dex>40</dex>
 		<int>60</int>
+		<defname>POISONING</defname>
+		<name>Poisoning</name>
+		<title>Assassin</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -618,9 +697,12 @@
 
 	<!--  Archery -->
 	<skill id="31">
-		<str>25</str>
-		<dex>75</dex>
+		<str>75</str>
+		<dex>100</dex>
 		<int>0</int>
+		<defname>ARCHERY</defname>
+		<name>Archery</name>
+		<title>Archer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -640,6 +722,9 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<defname>SPIRITSPEAK</defname>
+		<name>Spirit Speak</name>
+		<title>Medium</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -659,6 +744,9 @@
 		<str>0</str>
 		<dex>100</dex>
 		<int>0</int>
+		<defname>STEALING</defname>
+		<name>Stealing</name>
+		<title>Thief</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -678,6 +766,9 @@
 		<str>10</str>
 		<dex>60</dex>
 		<int>30</int>
+		<defname>TAILORING</defname>
+		<name>Tailoring</name>
+		<title>Tailor</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -697,6 +788,9 @@
 		<str>40</str>
 		<dex>20</dex>
 		<int>40</int>
+		<defname>ANIMALTAMING</defname>
+		<name>Animal Taming</name>
+		<title>Animal Tamer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -716,6 +810,9 @@
 		<str>20</str>
 		<dex>0</dex>
 		<int>80</int>
+		<defname>TASTEIDENTIFICATION</defname>
+		<name>Taste Identification</name>
+		<title>Food Taster</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -735,6 +832,9 @@
 		<str>40</str>
 		<dex>20</dex>
 		<int>40</int>
+		<defname>TINKERING</defname>
+		<name>Tinkering</name>
+		<title>Tinker</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -754,6 +854,9 @@
 		<str>0</str>
 		<dex>50</dex>
 		<int>50</int>
+		<defname>TRACKING</defname>
+		<name>Tracking</name>
+		<title>Ranger</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -773,6 +876,9 @@
 		<str>80</str>
 		<dex>10</dex>
 		<int>10</int>
+		<defname>VETERINARY</defname>
+		<name>Veterinary</name>
+		<title>Veterinarian</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -792,6 +898,9 @@
 		<str>75</str>
 		<dex>25</dex>
 		<int>0</int>
+		<defname>SWORDSMANSHIP</defname>
+		<name>Swordsmanship</name>
+		<title>Swordsman</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -811,6 +920,9 @@
 		<str>90</str>
 		<dex>10</dex>
 		<int>0</int>
+		<defname>MACEFIGHTING</defname>
+		<name>Mace Fighting</name>
+		<title>Macefighter</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -830,6 +942,9 @@
 		<str>50</str>
 		<dex>50</dex>
 		<int>0</int>
+		<defname>FENCING</defname>
+		<name>Fencing</name>
+		<title>Fencer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -849,6 +964,9 @@
 		<str>90</str>
 		<dex>10</dex>
 		<int>0</int>
+		<defname>WRESTLING</defname>
+		<name>Wrestling</name>
+		<title>Wrestler</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -868,6 +986,9 @@
 		<str>100</str>
 		<dex>0</dex>
 		<int>0</int>
+		<defname>LUMBERJACKING</defname>
+		<name>Lumberjacking</name>
+		<title>Lumberjack</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -887,6 +1008,9 @@
 		<str>100</str>
 		<dex>0</dex>
 		<int>0</int>
+		<defname>MINING</defname>
+		<name>Mining</name>
+		<title>Miner</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -906,6 +1030,9 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<defname>MEDITATION</defname>
+		<name>Meditation</name>
+		<title>Medium</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -925,6 +1052,9 @@
 		<str>0</str>
 		<dex>100</dex>
 		<int>0</int>
+		<defname>STEALTH</defname>
+		<name>Stealth</name>
+		<title>Ninja</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -944,6 +1074,8 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<defname>REMOVETRAPS</defname>
+		<name>Remove Traps</name>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -963,6 +1095,9 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>150</int>
+		<defname>NECROMANCY</defname>
+		<name>Necromancy</name>
+		<title>Necromancer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -982,6 +1117,8 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<defname>FOCUS</defname>
+		<name>Focus</name>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -1001,6 +1138,9 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>150</int>
+		<defname>CHIVALRY</defname>
+		<name>Chivalry</name>
+		<title>Paladin</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -1015,31 +1155,54 @@
 		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
+	<!--
+		The Chance for Statgain is "success" out of 10000.
+		That means if success is 1 every 10 000th use of a
+		stat dependent skill will result in a gain.
+	-->
+
 	<!--  Strength -->
 	<skill id="strength">
-		<advancement base="0" failure="5" success="20" />
-		<advancement base="50" failure="5" success="10" />
-		<advancement base="90" failure="0" success="10" />
-		<advancement base="99" failure="0" success="5" />
-		<advancement base="100" failure="0" success="0" />
+		<advancement base="0" success="200" />
+		<advancement base="50" success="100" />
+		<advancement base="90" success="100" />
+		<advancement base="99" success="50" />
+		<advancement base="120" success="0" />
 	</skill>
 
 	<!--  Dexterity -->
 	<skill id="dexterity">
-		<advancement base="0" failure="5" success="20" />
-		<advancement base="50" failure="5" success="10" />
-		<advancement base="90" failure="0" success="10" />
-		<advancement base="99" failure="0" success="5" />
-		<advancement base="100" failure="0" success="0" />
+		<advancement base="0" success="200" />
+		<advancement base="50" success="100" />
+		<advancement base="90" success="100" />
+		<advancement base="99" success="50" />
+		<advancement base="120" success="0" />
 	</skill>
 
 	<!--  Intelligence -->
 	<skill id="intelligence">
-		<advancement base="0" failure="5" success="20" />
-		<advancement base="50" failure="5" success="10" />
-		<advancement base="90" failure="0" success="10" />
-		<advancement base="99" failure="0" success="5" />
-		<advancement base="100" failure="0" success="0" />
+		<advancement base="0" success="200" />
+		<advancement base="50" success="100" />
+		<advancement base="90" success="100" />
+		<advancement base="99" success="50" />
+		<advancement base="120" success="0" />
 	</skill>
 
+	<!--
+		This list represents the "rank" of a player in a
+		specific skill. It's ordered from the lowest to the
+		highest rank. If you don't want them, simply make the 
+		list empty.
+	-->
+	<list id="SKILL_RANKS">
+		<item>Idiot</item>
+		<item>Neophyte</item>
+		<item>Novice</item>
+		<item>Apprentice</item>
+		<item>Journeyman</item>
+		<item>Expert</item>
+		<item>Adept</item>
+		<item>Master</item>
+		<item>Grandmaster</item>
+	</list>
 </definitions>

@@ -9,6 +9,81 @@
 <definitions>
 	<!-- This is a simple list which goes Right To Left / Top To Bottom -->
 	<list id="REPUTATION_TITLES">
-		
+		<!-- 10.000+ Karma -->
+		<item>Trustworthy</item>
+		<item>Estimable</item>
+		<item>Great</item>
+		<item>Glorious</item>
+		<item>Glorious</item>
+
+		<!-- 5.000+ Karma -->
+		<item>Honest</item>
+		<item>Commendable</item>
+		<item>Famed</item>
+		<item>Illustrious</item>
+		<item>Illustrious</item>
+
+		<!-- 2.500+ Karma -->
+		<item>Good</item>
+		<item>Honorable</item>
+		<item>Admirable</item>
+		<item>Noble</item>
+		<item>Noble</item>
+
+		<!-- 1.250+ Karma -->
+		<item>Kind</item>
+		<item>Respectable</item>
+		<item>Proper</item>
+		<item>Eminent</item>
+		<item>Eminent</item>
+
+		<!-- 625+ Karma -->
+		<item>Fair</item>
+		<item>Upstanding</item>
+		<item>Reputable</item>
+		<item>Distinguished</item>
+		<item>Distinguished</item>
+
+		<!-- 0 Karma -->
+		<item></item> <!-- No Title -->
+		<item>Notable</item>
+		<item>Prominent</item>
+		<item>Renowed</item>
+		<item></item>
+
+		<!-- 625- Karma -->
+		<item>Rude</item>
+		<item>Disreputable</item>
+		<item>Notorious</item>
+		<item>Infamous</item>
+		<item>Dishonored</item>
+
+		<!-- 1.250- Karma -->
+		<item>Unsavory</item>
+		<item>Dishonorable</item>
+		<item>Ignoble</item>
+		<item>Sinister</item>
+		<item>Sinister</item>
+
+		<!-- 2.500- Karma -->
+		<item>Scoundrel</item>
+		<item>Malicious</item>
+		<item>Vile</item>
+		<item>Villainous</item>
+		<item>Dark</item>
+
+		<!-- 5.000- Karma -->
+		<item>Despicable</item>
+		<item>Dastardly</item>
+		<item>Wicked</item>
+		<item>Evil</item>
+		<item>Evil</item>
+
+		<!-- 10.000- Karma -->
+		<item>Outcast</item>
+		<item>Wretched</item>
+		<item>Nefarious</item>
+		<item>Dread</item>
+		<item>Dread</item>
 	</list>
 </definitions>
