@@ -1005,6 +1005,9 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 } 
 void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
 {
+	SERIAL serial = packet->serial();
+	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( serial ) );
+	pMulti->sendCH( this );
 }
 
 void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )

@@ -1304,8 +1304,9 @@ public:
 		setShort( 3, 0x20 );
 		(*this)[9] = 4; // start, 5 - finish
 		setShort( 10, 0 );
-		setInt( 12, 0xFF );
-		(*this)[16] = 0xFF;
+		setShort( 12, 0xFFFF );
+		setShort( 14, 0xFFFF );
+		setShort( 15, 0xFFFF );
 	}
 	void setSerial( UINT32 data ) { setInt( 5, data ); }
 };

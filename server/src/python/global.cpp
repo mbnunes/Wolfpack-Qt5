@@ -356,14 +356,25 @@ PyObject* wpFindchar( PyObject* self, PyObject* args )
 PyObject* wpFindmulti( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	if( PyTuple_Size( args ) < 1 || !checkArgCoord( 0 ) )
+	if( PyTuple_Size( args ) < 1 )
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
-	Coord_cl pos = getArgCoord( 0 );
-	P_MULTI pMulti = cMulti::findMulti( pos );
+	P_MULTI pMulti = NULL;
+	if(  !checkArgCoord( 0 ) )
+		if( !checkArgInt( 0 ) )
+		{
+			PyErr_BadArgument();
+			return NULL;
+		}
+		else
+			pMulti = dynamic_cast< cMulti* >( FindItemBySerial( getArgInt( 0 ) ) );
+	else
+		pMulti = cMulti::findMulti( getArgCoord( 0 ) );
+
 	return PyGetMultiObject( pMulti );
+
 }
 
 /*!
