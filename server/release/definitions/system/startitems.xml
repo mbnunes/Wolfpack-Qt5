@@ -7,283 +7,425 @@
 =================================================================
 -->
 <definitions>
-	<!--  default, will be called ONCE from within the code -->
+	<!-- default, will be called ONCE from within the code -->
 	<startitems id="default">
-		<item id="eed"><amount>1000</amount></item><!--Gold -->
-		<item id="f51"></item><!--Dagger -->
-		<item id="a0f"></item><!--Candle -->
-		<item id="ff1"></item><!--Book -->
-		<equipment id="170f"></equipment><!--Shoes -->
+		<!--Gold -->
+		<item id="eed">
+			<amount value="1000" />
+		</item>
+		<!--Dagger -->
+		<item id="f51" />
+		<!--Candle -->
+		<item id="a0f" />
+		<!--Book -->
+		<item id="ff1" />
+		<!--Shoes -->
+		<equipment id="170f" />
 	</startitems>
 
-	<!--  Alchemy -->
+	<!-- Alchemy -->
 	<startitems id="alchemy">
-		<equipment id="1f03"></equipment><!--Robe -->
-		<item id="e9b"></item><!--Mortar & pestle -->
-		<item id="f0e"><amount>4</amount></item><!--Bottle -->
-		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
-		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
-		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
-		<item list="REAGENTS"><amount>3</amount></item><!--Random Reagents-->
+		<!--Robe -->
+		<equipment id="1f03" />
+		<!--Mortar & pestle -->
+		<item id="e9b" />
+		<!--Bottle -->
+		<item id="f0e">
+			<amount value="4" />
+		</item>
+		<!--Random Reagents-->
+		<item list="REAGENTS">
+			<amount value="3" />
+		</item>
+		<!--Random Reagents-->
+		<item list="REAGENTS">
+			<amount value="3" />
+		</item>
+		<!--Random Reagents-->
+		<item list="REAGENTS">
+			<amount value="3" />
+		</item>
+		<!--Random Reagents-->
+		<item list="REAGENTS">
+			<amount value="3" />
+		</item>
 	</startitems>
 
-	<!--  Anatomy -->
+	<!-- Anatomy -->
 	<startitems id="anatomy">
-		<equipment id="1f03"></equipment><!--Robe -->
-		<item id="e21"><amount>3</amount></item><!--Bandages -->
+		<!--Robe -->
+		<equipment id="1f03" />
+		<!--Bandages -->
+		<item id="e21">
+			<amount value="3" />
+		</item>
 	</startitems>
 
-	<!--  Animallore -->
+	<!-- Animallore -->
 	<startitems id="animallore">
-		<!--Robe --><equipment id="1f03"></equipment>
-		<!--Sheperd crook --><equipment id="13f5"></equipment>
+		<!--Robe -->
+		<equipment id="1f03" />
+		<!--Sheperd crook -->
+		<equipment id="13f5" />
 	</startitems>
 
-	<!--  Itemid -->
+	<!-- Itemid -->
 	<startitems id="itemid">
-		<!--Gnarled Staff --><equipment id="13f9"></equipment>
+		<!--Gnarled Staff -->
+		<equipment id="13f9" />
 	</startitems>
 
-	<!--  Armslore -->
+	<!-- Armslore -->
 	<startitems id="armslore">
 	</startitems>
 
-	<!--  Parrying -->
+	<!-- Parrying -->
 	<startitems id="parrying">
-		<!--Wooden Shield --><equipment id="1b7a"></equipment>
+		<!--Wooden Shield -->
+		<equipment id="1b7a" />
 	</startitems>
 
-	<!--  Begging -->
+	<!-- Begging -->
 	<startitems id="begging">
-		<!--Gnarled Staff --><equipment id="13f9" />
+		<!--Gnarled Staff -->
+		<equipment id="13f9" />
 	</startitems>
 
-	<!--  Blacksmithing -->
+	<!-- Blacksmithing -->
 	<startitems id="blacksmithing">
-		<!--Half Apron --><equipment id="153b" />
-		<!--Ingots --><item id="iron_ingot"><amount>50</amount></item>
-		<!--Random Mining Tool--><item list="MININGTOOLS" />
-		<!--Random Blacksmith Tool--><item list="BLACKSMITHTOOLS"/>
+		<!--Half Apron -->
+		<equipment id="153b" />
+		<!--Ingots -->
+		<item id="iron_ingot">
+			<amount value="50" />
+		</item>
+		<!--Random Mining Tool-->
+		<item list="MININGTOOLS" />
+		<!--Random Blacksmith Tool-->
+		<item list="BLACKSMITHTOOLS"/>
 	</startitems>
 
-	<!--  Bowcraft -->
+	<!-- Bowcraft -->
 	<startitems id="bowcraft">
-		<!--Boards --><item id="1bd7"><amount>14</amount></item>
-		<!--Feathers --><item id="1bd1"><amount>5</amount></item>
-		<!--Shafts --><item id="1bd4"><amount>5</amount></item>
+		<!--Boards -->
+		<item id="1bd7">
+			<amount value="14" />
+		</item>
+		<!--Feathers -->
+		<item id="1bd1">
+			<amount value="5" />
+		</item>
+		<!--Shafts -->
+		<item id="1bd4">
+			<amount value="5" />
+		</item>
 	</startitems>
 
-	<!--  Peacemaking -->
+	<!-- Peacemaking -->
 	<startitems id="peacemaking">
-		<!--Random Instrument--><item list="INSTRUMENTS" />
+		<!--Random Instrument-->
+		<item list="INSTRUMENTS" />
 	</startitems>
 
-	<!--  Camping -->
+	<!-- Camping -->
 	<startitems id="camping">
-		<!--Bedroll --><item id="a58"></item>
-		<!--Kindling --><item id="de1"><amount>5</amount></item>
+		<!--Bedroll -->
+		<item id="a58" />
+		<!--Kindling -->
+		<item id="de1">
+			<amount value="5" />
+		</item>
 	</startitems>
 
-	<!--  Carpentry -->
+	<!-- Carpentry -->
 	<startitems id="carpentry">
-		<!--Half Apron --><equipment id="153b"></equipment>
-		<!--Boards --><item id="1bd7"><amount>10</amount></item>
-		<!--Random Carpentry Tool--><item list="CARPENTRYTOOLS" />
+		<!--Half Apron -->
+		<equipment id="153b" />
+		<!--Boards -->
+		<item id="1bd7">
+			<amount value="10" />
+		</item>
+		<!--Random Carpentry Tool-->
+		<item list="CARPENTRYTOOLS" />
 	</startitems>
 
-	<!--  Cartography -->
+	<!-- Cartography -->
 	<startitems id="cartography">
-		<!--Maps --><item id="14eb"><amount>4</amount></item>
-		<!--Sextant --><item id="1057"></item>
+		<!--Maps -->
+		<item id="14eb">
+			<amount value="4" />
+		</item>
+		<!--Sextant -->
+		<item id="1057" />
 	</startitems>
 
-	<!--  Cooking -->
+	<!-- Cooking -->
 	<startitems id="cooking">
-		<!--Kindling --><item id="de1"><amount>2</amount></item>
-		<!--Raw Leg of Lamb --><item id="1609"></item>
-		<!--Raw Chicken Leg --><item id="1607"></item>
-		<!--Raw Fish Steak --><item id="97a"></item>
-		<!--Sack of Flour --><item id="1039"></item>
-		<!--Pitcher of Water --><item id="ff9"></item>
+		<!--Kindling -->
+		<item id="de1">
+			<amount value="2" />
+		</item>
+		<!--Raw Leg of Lamb -->
+		<item id="1609" />
+		<!--Raw Chicken Leg -->
+		<item id="1607" />
+		<!--Raw Fish Steak -->
+		<item id="97a" />
+		<!--Sack of Flour -->
+		<item id="1039" />
+		<!--Pitcher of Water -->
+		<item id="ff9" />
 	</startitems>
 
-	<!--  Detecting Hidden -->
+	<!-- Detecting Hidden -->
 	<startitems id="detectinghidden">
-		<!--Cloak --><equipment id="1515"></equipment>
+		<!--Cloak -->
+		<equipment id="1515" />
 	</startitems>
 
-	<!--  Discordance -->
+	<!-- Discordance -->
 	<startitems id="enticement">
 		<!--Random Instrument-->
 		<item list="INSTRUMENTS" />
 	</startitems>
 
-	<!--  Evaluating Intelligence -->
+	<!-- Evaluating Intelligence -->
 	<startitems id="evaluatingintel">
 	</startitems>
 
-	<!--  Healing -->
+	<!-- Healing -->
 	<startitems id="healing">
-		<!--Bandages --><item id="e21"><amount>50</amount></item>
-		<!--Scissors --><item id="f9e"></item>
+		<!--Bandages -->
+		<item id="e21">
+			<amount value="50" />
+		</item>
+		<!--Scissors -->
+		<item id="f9e" />
 	</startitems>
 
-	<!--  Fishing -->
+	<!-- Fishing -->
 	<startitems id="fishing">
-		<!--Floppy Hat --><equipment id="1713"></equipment>
-		<!--Fishing Pole --><equipment id="dbf"></equipment>
+		<!--Floppy Hat -->
+		<equipment id="1713" />
+		<!--Fishing Pole -->
+		<equipment id="dbf" />
 	</startitems>
 
-	<!--  Forensics -->
+	<!-- Forensics -->
 	<startitems id="forensics">
 	</startitems>
 
-	<!--  Herding -->
+	<!-- Herding -->
 	<startitems id="herding">
-		<!--Sheperd crook --><equipment id="13f5"></equipment>
+		<!--Sheperd crook -->
+		<equipment id="13f5" />
 	</startitems>
 
-	<!--  Hiding -->
+	<!-- Hiding -->
 	<startitems id="hiding">
-		<!--Cloak --><equipment id="1515"></equipment>
+		<!--Cloak -->
+		<equipment id="1515" />
 	</startitems>
 
-	<!--  Provocation -->
+	<!-- Provocation -->
 	<startitems id="provocation">
 		<!--Random Instrument-->
 		<item list="INSTRUMENTS" />
 	</startitems>
 
-	<!--  Inscription -->
+	<!-- Inscription -->
 	<startitems id="inscription">
-	        <!--Book --><item id="ff1"></item>
-	        <!--Blank Scrolls --><item id="e34"><amount>2</amount></item>
+		<!--Book -->
+		<item id="ff1" />
+		<!--Blank Scrolls -->
+		<item id="e34">
+			<amount value="2" />
+		</item>
 	</startitems>
 
-	<!--  Lockpicking -->
+	<!-- Lockpicking -->
 	<startitems id="lockpicking">
-	        <!--Lockpicks --><item id="14fb"><amount>20</amount></item>
+		<!--Lockpicks -->
+		<item id="14fb">
+			<amount value="20" />
+		</item>
 	</startitems>
 
-	<!--  Magery -->
+	<!-- Magery -->
 	<startitems id="magery">
-		<!--Spellbook --><equipment id="efa"></equipment>
-		<!--Wizards Hat --><equipment id="1718"></equipment>
-		<!--Robe --><equipment id="1f03"></equipment>
-		<!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
-		<!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
-		<!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
+		<!--Spellbook -->
+		<equipment id="efa" />
+		<!--Wizards Hat -->
+		<equipment id="1718" />
+		<!--Robe -->
+		<equipment id="1f03" />
+		<!--Random 1-4 Circle Scrolls-->
+		<item list="1_THRU_4_CIRCLE" />
+		<!--Random 1-4 Circle Scrolls-->
+		<item list="1_THRU_4_CIRCLE" />
+		<!--Random 1-4 Circle Scrolls-->
+		<item list="1_THRU_4_CIRCLE" />
 		<!--Bag-->
 		<item id="e76">
 			<content>
-				<!--Black Pearl --><item id="f7a"><amount>50</amount></item>
-				<!--Bloodmoss --><item id="f7b"><amount>50</amount></item>
-				<!--Garlic --><item id="f84"><amount>50</amount></item>
-				<!--Gensing --><item id="f85"><amount>50</amount></item>
-				<!--Mandrake Root --><item id="f86"><amount>50</amount></item>
-				<!--Nightshade --><item id="f88"><amount>50</amount></item>
-				<!--Sulfurous Ash --><item id="f8c"><amount>50</amount></item>
-				<!--Spider Silk --><item id="f8d"><amount>50</amount></item>
+				<!--Black Pearl -->
+				<item id="f7a">
+					<amount value="50" />
+				</item>
+				<!--Bloodmoss -->
+				<item id="f7b">
+					<amount value="50" />
+				</item>
+				<!--Garlic -->
+				<item id="f84">
+					<amount value="50" />
+				</item>
+				<!--Gensing -->
+				<item id="f85">
+					<amount value="50" />
+				</item>
+				<!--Mandrake Root -->
+				<item id="f86">
+					<amount value="50" />
+				</item>
+				<!--Nightshade -->
+				<item id="f88">
+					<amount value="50" />
+				</item>
+				<!--Sulfurous Ash -->
+				<item id="f8c">
+					<amount value="50" />
+				</item>
+				<!--Spider Silk -->
+				<item id="f8d">
+					<amount value="50" />
+				</item>
 			</content>
 		</item>
 	</startitems>
 
-	<!--  Magic Resistance -->
+	<!-- Magic Resistance -->
 	<startitems id="magicresistance">
 	</startitems>
 
-	<!--  Tactics -->
+	<!-- Tactics -->
 	<startitems id="tactics">
-		<!--Katana --><equipment id="13ff"></equipment>
+		<!--Katana -->
+		<equipment id="13ff" />
 	</startitems>
 
-	<!--  Snooping -->
+	<!-- Snooping -->
 	<startitems id="snooping">
-		<!--Lockpicks --><item id="14fb"><amount>20</amount></item>
+		<!--Lockpicks -->
+		<item id="14fb">
+			<amount value="20" />
+		</item>
 	</startitems>
 
-	<!--  Musicianship -->
+	<!-- Musicianship -->
 	<startitems id="musicianship">
-		<!--Random Instrument--><item list="INSTRUMENTS" />
+		<!--Random Instrument-->
+		<item list="INSTRUMENTS" />
 	</startitems>
 
-	<!--  Poisoning -->
+	<!-- Poisoning -->
 	<startitems id="poisoning">
-		<!--Poison Potion --><item id="f0a"><amount>2</amount></item>
+		<!--Poison Potion -->
+		<item id="f0a">
+			<amount value="2" />
+		</item>
 	</startitems>
 
-	<!--  Archery -->
+	<!-- Archery -->
 	<startitems id="archery">
 	</startitems>
 
-	<!--  Spiritspeak -->
+	<!-- Spiritspeak -->
 	<startitems id="spiritspeak">
-		<!--Cloak --><equipment id="1515"></equipment>
+		<!--Cloak -->
+		<equipment id="1515" />
 	</startitems>
 
-	<!--  Stealing -->
+	<!-- Stealing -->
 	<startitems id="stealing">
-		<!--Lockpicks --><item id="14fb"><amount>20</amount></item>
+		<!--Lockpicks -->
+		<item id="14fb">
+			<amount value="20" />
+		</item>
 	</startitems>
 
-	<!--  Tailoring -->
+	<!-- Tailoring -->
 	<startitems id="tailoring">
 	</startitems>
 
-	<!--  Taming -->
+	<!-- Taming -->
 	<startitems id="taming">
-		<!--Sheperd crook --><equipment id="13f5"></equipment>
+		<!--Sheperd crook -->
+		<equipment id="13f5" />
 	</startitems>
 
-	<!--  Tasteid -->
+	<!-- Tasteid -->
 	<startitems id="tasteid">
-		<!--Random Potion--><item list="POTIONS" />
-		<!--Random Potion--><item list="POTIONS" />
-		<!--Random Potion--><item list="POTIONS" />
+		<!--Random Potion-->
+		<item list="POTIONS" />
+		<!--Random Potion-->
+		<item list="POTIONS" />
+		<!--Random Potion-->
+		<item list="POTIONS" />
 	</startitems>
 
-	<!--  Tinkering -->
+	<!-- Tinkering -->
 	<startitems id="tinkering">
-		 <!--Tinker Tools --><item id="1ebc"></item>
+		<!--Tinker Tools -->
+		<item id="1ebc" />
 	</startitems>
 
-	<!--  Tracking -->
+	<!-- Tracking -->
 	<startitems id="tracking">
-		<!--Boots --><equipment id="170b"></equipment>
-		<!--Skinning Knife --><equipment id="ec4"></equipment>
+		<!--Boots -->
+		<equipment id="170b" />
+		<!--Skinning Knife -->
+		<equipment id="ec4" />
 	</startitems>
 
-	<!--  Veterinary -->
+	<!-- Veterinary -->
 	<startitems id="veterinary">
-		<!--Bandages --><item id="1f03"><amount>5</amount></item>
-		<!--Scissors --><item id="f9e"></item>
+		<!--Bandages -->
+		<item id="1f03">
+			<amount value="5" />
+		</item>
+		<!--Scissors -->
+		<item id="f9e" />
 	</startitems>
 
-	<!--  Swordsmanship -->
+	<!-- Swordsmanship -->
 	<startitems id="swordsmanship">
-		<!--Katana --><equipment id="13ff"></equipment>
+		<!--Katana -->
+		<equipment id="13ff" />
 	</startitems>
 
-	<!--  Macefighting -->
+	<!-- Macefighting -->
 	<startitems id="macefighting">
 	</startitems>
 
-	<!--  Fencing -->
+	<!-- Fencing -->
 	<startitems id="fencing">
 	</startitems>
 
-	<!--  Wrestling -->
+	<!-- Wrestling -->
 	<startitems id="wrestling">
 	</startitems>
 
-	<!--  Lumberjacking -->
+	<!-- Lumberjacking -->
 	<startitems id="lumberjacking">
-		<!--Hatchet --><equipment id="f43"></equipment>
+		<!--Hatchet -->
+		<equipment id="f43" />
 	</startitems>
 
-	<!--  Mining -->
+	<!-- Mining -->
 	<startitems id="mining">
-		<!--Random Mining Tool--><item list="MININGTOOLS" />
+		<!--Random Mining Tool-->
+		<item list="MININGTOOLS" />
 	</startitems>
 
 </definitions>
