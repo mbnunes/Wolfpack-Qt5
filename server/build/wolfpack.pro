@@ -197,7 +197,9 @@ SOURCES		+= python/char.cpp \
 		   python/engine.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
+		   python/pyaccount.cpp \
 		   python/pycoord.cpp \
+		   python/pyregion.cpp \
 		   python/socket.cpp \
 		   python/wppythonscript.cpp
 
