@@ -130,7 +130,9 @@ void cScriptManager::load()
 	// Each Section is a Script identifier
 	const QValueVector< cElement* > &sections = DefManager->getDefinitions( WPDT_SCRIPT );
 
-	for( unsigned int i = 0; i < sections.size(); ++i )
+	unsigned int i;
+
+	for( i = 0; i < sections.size(); ++i )
 	{
 		const cElement *element = sections[i];
 		

@@ -79,7 +79,7 @@ protected:
     // serialization
     void readData();
     void writeData();
-    void processGroup(QDomElement& group);
+    void processGroup( const QDomElement& group );
 
 private:
 	PreferencesPrivate* d;

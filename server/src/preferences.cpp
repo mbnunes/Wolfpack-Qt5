@@ -276,13 +276,13 @@ void Preferences::readData()
     QDomNodeList options;
     for ( uint n = 0; n < nodes.count(); ++n ) {
         if ( nodes.item(n).isElement() ) {
-            processGroup(nodes.item(n).toElement());
+            processGroup( nodes.item(n).toElement() );
         }
     }
     d->formatstate_ = true;
 }
 
-void Preferences::processGroup( QDomElement& group)
+void Preferences::processGroup( const QDomElement& group)
 {
     QDomElement elem;
     QDomNodeList options;

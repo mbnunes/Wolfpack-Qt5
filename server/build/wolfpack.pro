@@ -157,6 +157,7 @@ SOURCES         = \
 		accounts.cpp \
 		ai.cpp \
 		ai_animals.cpp \
+		ai_humans.cpp \
 		ai_monsters.cpp \
 		basechar.cpp \
 		basedef.cpp \

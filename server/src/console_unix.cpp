@@ -177,7 +177,7 @@ QString cb = "\e[0m";
 		case WPC_WHITE:	cb = "\e[1;37m";
 			break;
 		case WPC_BROWN: cb = "\e[0;33m";
-			break
+			break;
 		default: cb = "\e[0m";
 
 		}

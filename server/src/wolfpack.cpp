@@ -103,7 +103,7 @@ void signal_handler(int signal)
                 AllTerritories::instance()->reload();
                 Resources::instance()->reload();
                 MakeMenus::instance()->reload();
-                ScriptManager->reload();
+                ScriptManager::instance()->reload();
 				ContextMenus::instance()->reload();
 				Skills->reload();
 
