@@ -601,11 +601,6 @@ class InfectiousStrike(BaseAbility):
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
 		
-		if attacker.socket:
-			attacker.socket.clilocmessage(1060090) # You have delivered a crushing blow!
-		if defender.socket:
-			defender.socket.clilocmessage(1060091) # You take extra damage from the crushing attack!
-
 		poisoning_uses -= 1
 		if poisoning_uses <= 0:
 			weapon.deltag('poisoning_uses')

@@ -282,7 +282,7 @@ def generateMenu():
 			spell = magic.spells[spellid + 1]
 			
 			global scrolls
-			action = ScribeItemAction(circle, (1044381 + spellid), scrolls[spellid][0], scrolls[spellid][1])
+			action = ScribeItemAction(circle, (1044381 + scrolls[spellid][0] - 0x1f2d), scrolls[spellid][0], scrolls[spellid][1])
 			action.index = j # We don't want to sort the circle
 			action.mana = spell.mana
 			action.materials.append([["ef3", "e34"], 1, tr('Blank Scrolls')])

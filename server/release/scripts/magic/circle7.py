@@ -302,6 +302,9 @@ class MeteorSwarm (Spell):
 			energydamage(target, char, damage, fire=100)
 
 def polymorph_expire(char, arguments):
+	# Remove all timers from this char
+	char.dispel(None, True, 'POLYMORPH_EXPIRE')	
+	
 	# Hidden beard?
 	if char.hastag('polymorph_beard_id'):
 		current = char.itemonlayer(LAYER_BEARD)
@@ -379,7 +382,7 @@ class Polymorph (Spell):
 		char.update()
 
 		duration = int(300 + char.skill[MAGERY] * 100)
-		char.addtimer(duration, polymorph_expire, [], 1)
+		char.addtimer(duration, polymorph_expire, [], True, False, 'POLYMORPH_EXPIRE')
 
 def onLoad():
 	ChainLightning().register(49)
