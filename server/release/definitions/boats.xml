@@ -1,0 +1,52 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.x.x Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<multi id="smallboat" type="boat">
+		<name>small test boat</name>
+		<ids north="0x4000" east="0x4001" south="0x4002" west="0x4003" />
+		<special_items>
+			<tillerman>
+				<offsets>
+					<x north="1" east="-4" south="0" west="4" />
+					<y north="4" east="0" south="-4" west="0" />
+				</offsets>
+			</tillerman>
+			<hold>
+				<offsets>
+					<x north="0" east="4" south="0" west="-4" />
+					<y north="-4" east="0" south="4" west="0" />
+				</offsets>
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets>
+						<x north="-2" east="0" south="2" west="0" />
+						<y north="0" east="-2" south="0" west="2" />
+					</offsets>
+				</port_closed>
+				<star_closed>
+					<offsets>
+						<x north="2" east="0" south="-2" west="0" />
+						<y north="0" east="2" south="0" west="-2" />
+					</offsets>
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>deed_smallboat</deedsection>
+	</multi>
+	
+	<item id="deed_smallboat">
+		<id>0x14F0</id>
+		<name>small boat deed</name>
+		<tag type="string">
+			<key>multisection</key>
+			<value>smallboat</value>
+		</tag>
+	</item>
+</definitions>

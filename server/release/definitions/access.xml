@@ -1,0 +1,35 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.x.x Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Default Player privs -->
+	<acl id="player">
+		<group id="commands"></group>
+	</acl>
+	
+	<!-- Admin privs -->
+	<acl id="admin">
+		<group id="commands">
+			<action name="any" permit="true" />
+		</group>
+	</acl>
+	
+	<!-- GameMaster privs -->
+	<acl id="gm">
+		<group id="commands">
+			<action name="any" permit="true" />
+		</group>
+	</acl>
+
+	<!-- Counselor privs -->
+	<acl id="counselor">
+		<group id="commands">
+			<action name="any" permit="true" />
+		</group>		
+	</acl>
+</definitions>
