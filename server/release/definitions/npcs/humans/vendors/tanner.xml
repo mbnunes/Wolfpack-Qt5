@@ -35,6 +35,12 @@
 				<item id="1c06"><amount>20</amount></item> <!-- Female Leather Chest -->
 				<item id="9b2"><amount>20</amount></item> <!-- Backpack -->
 			</restockable>
+			<sellable>
+				<item id="1078"/>
+				<item id="1081"/>
+				<item id="leather_cut"/>
+				<item id="leather_hides"/>		
+			</sellable>
 		</shopkeeper>
 	</npc>
 

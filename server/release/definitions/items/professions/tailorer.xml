@@ -492,6 +492,8 @@
 		<id>0x1067</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Cut Up Leather (N/S)</category>
+		<buyprice>4</buyprice>
+		<sellprice>2</sellprice>
 		<weight>1.0</weight>
 	</item>
 
@@ -499,6 +501,8 @@
 		<id>0x1068</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Cut Up Leather (W/E)</category>
+		<buyprice>4</buyprice>
+		<sellprice>2</sellprice>
 		<weight>1.0</weight>
 	</item>
 
@@ -507,6 +511,7 @@
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 1 (W/E)</category>
 		<buyprice>4</buyprice>
+		<sellprice>2</sellprice>
 		<weight>5.0</weight>
 	</item>
 
@@ -514,6 +519,8 @@
 		<id>0x1079</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 1 (N/S)</category>
+		<buyprice>4</buyprice>
+		<sellprice>2</sellprice>
 		<weight>5.0</weight>
 	</item>
 
@@ -521,7 +528,8 @@
 		<id>0x1081</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 2 (W/E)</category>
-		<buyprice>6</buyprice>
+		<buyprice>4</buyprice>
+		<sellprice>2</sellprice>
 		<weight>5.0</weight>
 	</item>
 
