@@ -12,6 +12,7 @@
 	<item id="172e">
 		<id value="0x172e" />
 		<dye />
+		<color list="COLORS_RANDOM" />
 		<durability min="20" max="25" />
 		<type value="1009" />
 		<basescripts>equipment</basescripts>

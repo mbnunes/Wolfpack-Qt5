@@ -10,15 +10,15 @@
 
 	<!-- Studded Armor -->
 	<item id="1c02">
-		<id>0x1c02</id>
+		<id value="0x1c02" />
 		<decay />
 		<nodye />
-		<durability><random min="35" max="45" /></durability>
-		<restock>10</restock>
-		<weight>6.0</weight>
-		<buyprice>142</buyprice>
-		<sellprice>71</sellprice>
-		<type>1009</type>
+		<durability min="35" max="45" />
+		<restock value="10" />
+		<weight value="6" />>
+		<buyprice value="142" />
+		<sellprice value="71" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Studded Leather\Female Armor (N/S)</category>
 		<!-- Properties -->
@@ -32,8 +32,8 @@
 	</item>
 
 	<item id="1c03" inherit="1c02">
-		<id>0x1c03</id>
-		<baseid>1c02</baseid>
+		<id value="0x1c03" />
+		<baseid value="1c02" />
 		<category>Base Armor\Studded Leather\Female Armor (E/W)</category>
 	</item>
 

@@ -9,16 +9,16 @@
 <definitions>
 
 	<item id="13ee">
-		<id>0x13ee</id>
+		<id value="0x13ee" />
 		<decay />
 		<nodye />
-		<durability><random min="40" max="50" /></durability>
-		<restock>10</restock>
-		<smelt>11</smelt>
-		<weight>15</weight>
-		<buyprice>127</buyprice>
-		<sellprice>56</sellprice>
-		<type>1009</type>
+		<durability min="40" max="50" />
+		<restock value="10" />
+		<smelt value="11" />
+		<weight value="15" />
+		<buyprice value="127" />
+		<sellprice value="56" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Ringmail\Sleeves (N/S)</category>
 		<!-- Properties -->
@@ -32,8 +32,8 @@
 	</item>
 
 	<item id="13ef" inherit="13ee">
-		<id>0x13ef</id>
-		<baseid>13ee</baseid>
+		<id value="0x13ef" />
+		<baseid value="13ee" />
 		<category>Base Armor\Ringmail\Sleeves (E/W)</category>
 	</item>
 

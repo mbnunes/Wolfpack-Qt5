@@ -10,16 +10,16 @@
 
 	<!-- Ring Gloves -->
 	<item id="13eb">
-		<id>0x13eb</id>
+		<id value="0x13eb" />
 		<decay />
 		<nodye />
-		<durability><random min="40" max="50" /></durability>
-		<restock>10</restock>
-		<smelt>8</smelt>
-		<weight>2</weight>
-		<buyprice>122</buyprice>
-		<sellprice>66</sellprice>
-		<type>1009</type>
+		<durability min="40" max="50" />
+		<restock value="10" />
+		<smelt value="8" />
+		<weight value="2" />
+		<buyprice value="122" />
+		<sellprice value="66" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Ringmail\Gloves (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="13f2" inherit="13eb">
-		<id>0x13f2</id>
-		<baseid>13eb</baseid>
+		<id value="0x13f2" />
+		<baseid value="13eb" />
 		<category>Base Armor\Ringmail\Gloves (E/W)</category>
 	</item>
 

@@ -12,6 +12,7 @@
 	<item id="1717">
 		<id value="0x1717" />
 		<dye />
+		<color list="COLORS_RANDOM" />
 		<durability min="20" max="25" />
 		<buyprice value="25" />
 		<sellprice value="12" />

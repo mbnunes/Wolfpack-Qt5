@@ -10,16 +10,16 @@
 
 	<!-- Buckler -->
 	<item id="1b73">
-		<id>0x1b73</id>
+		<id value="0x1b73" />
 		<decay />
 		<nodye />
-		<durability><random min="40" max="50" /></durability>
-		<restock>10</restock>
-		<smelt>8</smelt>
-		<weight>5</weight>
-		<buyprice>66</buyprice>
-		<sellprice>33</sellprice>
-		<type>1008</type>
+		<durability min="40" max="50" />
+		<restock value="10" />
+		<smelt value="8" />
+		<weight value="5" />
+		<buyprice value="66" />
+		<sellprice value="33" />
+		<type value="1008" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Buckler</category>
 		<!-- Properties -->

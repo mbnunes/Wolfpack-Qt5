@@ -10,15 +10,15 @@
 
 	<!-- Studded Tunic -->
 	<item id="13db">
-		<id>0x13db</id>
+		<id value="0x13db" />
 		<decay />
 		<nodye />
-		<durability><random min="35" max="45" /></durability>
-		<restock>10</restock>
-		<weight>5.0</weight>
-		<buyprice>128</buyprice>
-		<sellprice>64</sellprice>
-		<type>1009</type>
+		<durability min="35" max="45" />
+		<restock value="10" />
+		<weight value="5" />
+		<buyprice value="128" />
+		<sellprice value="64" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Studded Leather\Tunic (N/S)</category>
 		<!-- Properties -->
@@ -32,8 +32,8 @@
 	</item>
 
 	<item id="13e2" inherit="13db">
-		<id>0x13e2</id>
-		<baseid>13db</baseid>
+		<id value="0x13e2" />
+		<baseid value="13db" />
 		<category>Base Armor\Studded Leather\Tunic (E/W)</category>
 	</item>
 

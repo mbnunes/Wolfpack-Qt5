@@ -10,16 +10,16 @@
 
 	<!-- metal kite shield -->
 	<item id="1b74">
-		<id>0x1b74</id>
+		<id value="0x1b74" />
 		<decay />
 		<dye />
-		<durability><random min="45" max="60" /></durability>
-		<restock>10</restock>
-		<smelt>13</smelt>
-		<weight>7</weight>
-		<buyprice>135</buyprice>
-		<sellprice>67</sellprice>
-		<type>1008</type>
+		<durability min="45" max="60" />
+		<restock value="10" />
+		<smelt value="13" />
+		<weight value="7" />
+		<buyprice value="135" />
+		<sellprice value="67" />
+		<type value="1008" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Metal Kite (N/S)</category>
 		<!-- Properties -->
@@ -29,8 +29,8 @@
 	</item>
 
 	<item id="1b75" inherit="1b74">
-		<id>0x1b75</id>
-		<baseid>1b74</baseid>
+		<id value="0x1b75" />
+		<baseid value="1b74" />
 		<category>Base Armor\Shields\Metal Kite (E/W)</category>
 	</item>
 

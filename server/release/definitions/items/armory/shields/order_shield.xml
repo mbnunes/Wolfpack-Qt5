@@ -10,15 +10,15 @@
 
 	<!-- order shield -->
 	<item id="1bc4">
-		<id>0x1bc4</id>
+		<id value="0x1bc4" />
 		<decay />
 		<nodye />
-		<durability><random min="100" max="125" /></durability>
-		<restock>0</restock>
-		<weight>7</weight>
-		<buyprice>0</buyprice>
-		<sellprice>0</sellprice>
-		<type>1008</type>
+		<durability min="100" max="125" />
+		<restock value="0" />
+		<weight value="7.0" />
+		<buyprice value="0" />
+		<sellprice value="0" />
+		<type value="1008" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Shields\Order Shield (N/S)</category>
 		<!-- Properties -->
@@ -28,8 +28,8 @@
 	</item>
 
 	<item id="1bc5" inherit="1bc4">
-		<id>0x1bc5</id>
-		<baseid>1bc4</baseid>
+		<id value="0x1bc5" />
+		<baseid value="1bc4" />
 		<category>Base Armor\Shields\Order Shield (E/W)</category>
 	</item>
 

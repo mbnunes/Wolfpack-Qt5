@@ -10,16 +10,16 @@
 
 	<!-- Ring Leggings -->
 	<item id="13f0">
-		<id>0x13f0</id>
+		<id value="0x13f0" />
 		<decay />
 		<nodye />
-		<durability><random min="40" max="50" /></durability>
-		<restock>10</restock>
-		<smelt>13</smelt>
-		<weight>15</weight>
-		<buyprice>147</buyprice>
-		<sellprice>62</sellprice>
-		<type>1009</type>
+		<durability min="40" max="50" />
+		<restock value="10" />
+		<smelt value="13" />
+		<weight value="15" />
+		<buyprice value="147" />
+		<sellprice value="62" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Ringmail\Leggings (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="13f1" inherit="13f0">
-		<id>0x13f1</id>
-		<baseid>13f0</baseid>
+		<id value="0x13f1" />
+		<baseid value="13f0" />
 		<category>Base Armor\Ringmail\Leggings (E/W)</category>
 	</item>
 

@@ -5,7 +5,7 @@
 	<item id="1543">
 		<id value="0x1543" />
 		<dye />
-		<color><random list="COLORS_RANDOM" /></color>
+		<color list="COLORS_RANDOM" />
 		<durability min="6" max="10" />
 		<buyprice value="12" />
 		<sellprice value="6" />

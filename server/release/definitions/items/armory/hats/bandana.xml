@@ -12,7 +12,7 @@
 	<item id="153f">
 		<id value="0x153f" />
 		<dye />
-		<color><random list="COLORS_RANDOM" /></color>
+		<color list="COLORS_RANDOM" />
 		<durability min="20" max="25" />
 		<buyprice value="14" />
 		<sellprice value="6" />

@@ -11,6 +11,7 @@
 	<!-- Tribal Mask Horned n/s -->
 	<item id="1549">
 		<id value="0x1549" />
+		<color list="COLORS_RANDOM" />
 		<durability min="20" max="25" />
 		<weight value="4.0" />
 		<type value="1009" />
