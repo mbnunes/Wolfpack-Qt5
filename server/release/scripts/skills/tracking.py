@@ -114,21 +114,20 @@ def trackWhatResponse( char, args, target ):
 	charcible = iterator.first
 	while charcible:
 		# NEVER track invisible staff members
-		if charcible.invisible or charcible.dead:
-			continue
-	
-		if target.button == 4 : #have to exit non-players and exit self
-			if charcible.player and char.serial != charcible.serial :
-				liste.append(charcible)
-		if target.button == 3 : #have to exit non-PNJ humans
-			if charcible.bodytype==4 and charcible.npc:
-				liste.append(charcible)
-		if target.button == 2 : #have to exit non-Monsters
-			if charcible.bodytype==1 and charcible.npc:
-				liste.append(charcible)
-		if target.button == 1 : #have to exit non-animals
-			if charcible.bodytype==3 and charcible.npc:
-				liste.append(charcible)
+		if not charcible.invisible and not charcible.dead:
+			if target.button == 4 : #have to exit non-players and exit self
+				if charcible.player and char.serial != charcible.serial :
+					liste.append(charcible)
+			if target.button == 3 : #have to exit non-PNJ humans
+				if charcible.bodytype==4 and charcible.npc:
+					liste.append(charcible)
+			if target.button == 2 : #have to exit non-Monsters
+				if charcible.bodytype==1 and charcible.npc:
+					liste.append(charcible)
+			if target.button == 1 : #have to exit non-animals
+				if charcible.bodytype==3 and charcible.npc:
+					liste.append(charcible)
+				
 		charcible = iterator.next
 	#Answer to the player
 	if liste==[]: #nothing to find
