@@ -223,11 +223,11 @@ class FireField(Spell):
 			serials.append(newitem.serial)
 
 			# Affect chars who are occupying the field cells
-			chars = wolfpack.chars(newitem.pos.x, newitem.pos.y, newitem.pos.map)
+			chars = wolfpack.chars( newitem.pos.x, newitem.pos.y, newitem.pos.map, 0 )
 			if len(chars) > 0 :
 				for affected in chars:
 					if affected.pos.z >= newitem.pos.z - 10 and affected.pos.z <= newitem.pos.z + 10:
-						newitem.callevent(EVENT_COLLIDE, (affected, newitem))
+						newitem.callevent( EVENT_COLLIDE, (affected, newitem) )
 
 		duration = int((4 + char.skill[ MAGERY ] * 0.05) * 1000)
 		wolfpack.addtimer(duration, "magic.utilities.field_expire", serials, 1)

@@ -7,7 +7,7 @@ from system import poison
 # Attach a tag to the character to note that he entered a poisonfield.
 #
 def onCollide(char, item):
-	if char.dead:
+	if char.dead or char.invulnerable:
 		return
 
 	if not char.hastag('in_poisonfield'):
@@ -26,6 +26,10 @@ def onCollide(char, item):
 # See if we're still in a poisonfield.
 #
 def expire(char, arguments):
+	if char.dead:
+		char.deltag('in_poisonfield')
+		return
+
 	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
 
 	for item in items:

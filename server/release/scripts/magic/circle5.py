@@ -162,9 +162,9 @@ class Incognito (Spell):
 
 		hair.update()
 		beard.update()
-		
+
 		char.incognito = 1
-		
+
 		char.update()
 		char.resendtooltip()
 		char.addtimer(duration, "magic.circle5.incognito_expire", [hairid, haircolor, facialid, facialcolor], 1)
@@ -307,7 +307,7 @@ class PoisonField(Spell):
 			serials.append(newitem.serial)
 
 			# Affect chars who are occupying the field cells
-			chars = wolfpack.chars(newitem.pos.x, newitem.pos.y, newitem.pos.map)
+			chars = wolfpack.chars( newitem.pos.x, newitem.pos.y, newitem.pos.map, 0 )
 			for affected in chars:
 				if affected.pos.z >= newitem.pos.z - 10 and affected.pos.z <= newitem.pos.z + 10:
 					newitem.callevent(EVENT_COLLIDE, (affected, newitem))
