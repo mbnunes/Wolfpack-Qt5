@@ -566,11 +566,23 @@ public:
 };
 
 // 0xBF Subcommand: 0x14
-class cUOTxContextMenu: public cUOPacket
-{
-public:
-	cUOTxContextMenu(): cUOPacket( 0xBF, 8 ) { setShort( 1, 8 ); setShort( 3, 0x14 ); setShort( 5, 0x0001 ); }
-	void addEntry( Q_UINT16 textId, Q_UINT16 returnVal );
+class cUOTxContextMenu: public cUOPacket 
+{ 
+public: 
+	
+	cUOTxContextMenu(): cUOPacket( 0xBF, 13 ) 
+	{ 
+		setShort( 1, 12 ); 
+		setShort( 3, 0x14 ); 
+		setShort( 5, 0x0001 ); 
+	} 
+	
+	enum { Poplocked = 0x01, Poparrow = 0x02, Popcolor = 0x20 }; 
+	
+	void setSerial ( Q_UINT32 data ) { setInt( 7, data ); } 
+	void setEntNum ( Q_UINT8 data ) { setShort ( 11, data ); } 
+	void addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags=Popcolor, Q_UINT16 color=0x7FE0 );
+
 };
 
 // 0x21 DenyMove
@@ -725,19 +737,6 @@ public:
 	}
 };
 
-// 0xBF.0x14
-class cUOTxPopupMenu: public cUOPacket
-{
-public:
-	cUOTxPopupMenu(): cUOPacket( 0xBF, 12 ) { 
-		setShort( 1, 7 ); // p length
-		setShort( 3, 0x14 ); // subcommand 
-		setShort( 5, 0x01 ); // unknown bytes
-	}
-
-	void setSerial( UINT32 data ) { setInt( 7, data ); }
-	void addEntry( UINT16 entryId, UINT16 stringId, bool flagged = false );
-};
 
 // 0x27 BounceItem
 /*

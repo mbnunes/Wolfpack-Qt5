@@ -544,7 +544,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	}
 
 	// Can wee see our target
-	if( lineOfSight( pChar->pos, pOtherChar->pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	if( !lineOfSight( pChar->pos, pOtherChar->pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;

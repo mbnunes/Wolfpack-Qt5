@@ -58,6 +58,7 @@
 #include "../books.h"
 #include "../gumps.h"
 #include "../skills.h"
+#include "../contextmenu.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -912,50 +913,76 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
   This method handles cUORxMultiPorpuse packet types.
   \sa cUORxMultiPorpuse
 */
-void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
-{
-	cUOPacket *mPacket = packet->packet();
+void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet ) 
+{ 
+	cUOPacket *mPacket = packet->packet(); 
+	
+	switch( packet->subCommand() ) 
+	{ 
+	case 0x0B: 
+		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( mPacket ) ); break; 
+	case 0x13: 
+		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( mPacket ) ); break; 
+	case 0x15: 
+		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( mPacket ) ); break; 
+	default: 
+		packet->print( &cout ); // Dump the packet 
+	}; 
+} 
 
-	switch( packet->subCommand() )
-	{
-	case 0x0B:
-		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( mPacket ) ); break;
-	case 0x13:
-		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( mPacket ) ); break;
-	default:
-		packet->print( &cout ); // Dump the packet
-	};
-}
+void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet ) 
+{ 
+	
+	Q_UINT16 Tag = packet->EntryTag();
+
+	
+} 
 
 // Show a context menu
 /*!
   This method handles cUORxContextMenuRequest packet types.
   \sa cUORxContextMenuRequest
 */
-void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
-{
-	// The dumps below didn't have ANY effect so it's removed for now
-
-	// Send a dummy popup menu
-	/*cUOTxContextMenu menu;
-	menu.addEntry( 0x17EB, 0x0001 );
-	send( &menu );*/
-
-	/*const char *pData = "\xbf\x00\x2c\x00\x14\x00\x01\x00\x20\x65\xb9\x05\x00\x0a\x17\xeb\x00\x20\xff\xff\x01\x93\x18\x08\x00\x00\x00\x6e\x17\xd7\x00\x00\x00\x6f\x17\xd8\x00\x00\x00\xcf\x17\x77\x00\x01";
-	//const char *pData = "\xbf\x00\x1a\x00\x14\x00\x01\x01\x88\xad\x4b\x02\x00\x0a\x17\xeb\x00\x20\xff\xff\x01\x2e\x18\x01\x00\x00";
-	QByteArray data( 0x2c );
-	memcpy( data.data(), pData, 0x2c );
-	cUOPacket cPacket( data );
-	send( &cPacket );*/
-
-	//0000: bf 00 2c 00 14 00 01 00 20 65 b9 05 00 0a 17 eb : ..,..... e......
-	//0010: 00 20 ff ff 01 93 18 08 00 00 00 6e 17 d7 00 00 : . .........n....
-	//0020: 00 6f 17 d8 00 00 00 cf 17 77 00 01 -- -- -- -- : .o.......w..
-
-	//0000: bf 00 1a 00 14 00 01 01 88 ad 4b 02 00 0a 17 eb : ..........K.....
-	//0010: 00 20 ff ff 01 2e 18 01 00 00 -- -- -- -- -- -- : . ........
-
-}
+void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet ) 
+{ 
+	
+	cUOTxContextMenu menu; 
+	
+	
+	cUObject *clicked = FindItemBySerial( packet->serial() );
+	if ( clicked == 0 ) clicked = FindCharBySerial( packet->serial() );
+	
+	if (!clicked || clicked->bindmenu.isEmpty() )
+		return;
+	
+	if( !cAllConMenus::getInstance()->MenuExist( clicked->bindmenu ) ) 
+	{
+		clicked->bindmenu = "";
+		return;
+	}
+	
+	QString acl = this->account()->acl(); 
+	QString bindmenu = clicked->bindmenu;
+	
+	menu.setSerial ( packet->serial() ); 
+	
+	cConMenuOptions *tOptions =	cAllConMenus::getInstance()->getMenu( bindmenu, acl );
+	
+	if ( !tOptions )
+		return;
+	
+	Q_UINT16 Tag, IntlocID, MsgID;
+	
+	for (int i = 0; i < tOptions->getOptions().size(); i++) 
+	{
+		Tag = tOptions->getOptions()[i].getTag();
+		IntlocID = tOptions->getOptions()[i].getIntlocID();
+		MsgID = tOptions->getOptions()[i].getMsgID();
+		
+		menu.addEntry ( Tag, IntlocID, MsgID ); 
+	}
+	send( &menu ); 
+} 
 
 /*!
   This method prints \a message on top of \a object using the given \a color and \a speechType

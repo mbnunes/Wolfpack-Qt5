@@ -1170,6 +1170,10 @@ void cChar::processNode( const QDomElement &Tag )
 	QString Value = this->getNodeValue( Tag );
 	QDomNodeList ChildTags;
 
+	if( TagName == "bindmenu" )
+		if( !Tag.attribute( "id" ).isNull() )
+			this->bindmenu = Tag.attribute( "id" );
+
 	//<name>my this</name>
 	if( TagName == "name" )
 		this->name = Value;

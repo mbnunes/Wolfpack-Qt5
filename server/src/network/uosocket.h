@@ -121,6 +121,7 @@ public:
 	void handleRequestLook( cUORxRequestLook *packet );
 	void handleMultiPurpose( cUORxMultiPurpose *packet );
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
+ 	void handleContextMenuSelection( cUORxContextMenuSelection *packet ); 
 	void handleWalkRequest( cUORxWalkRequest* packet );
 	void handleSetLanguage( cUORxSetLanguage* packet );
 	void handleSpeechRequest( cUORxSpeechRequest* packet );

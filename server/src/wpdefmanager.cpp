@@ -112,6 +112,9 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		Defines.insert( NodeID, Node );
 	else if( NodeName == "resource" )
 		Resources.insert( NodeID, Node );
+ 	else if( NodeName == "contextmenu" )	
+ 		ContextMenus.insert( NodeID, Node );
+
 }
 
 // Recursive Function for Importing Script Sections
@@ -205,6 +208,8 @@ void WPDefManager::unload( void )
 	clearNodes( SkillChecks );
 	clearNodes( Defines );
 	clearNodes( Resources );
+ 	clearNodes( ContextMenus );
+
 }
 
 void WPDefManager::reload( void )
@@ -313,6 +318,10 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &Resources;
 		break;
 
+	case WPDT_CONTEXTMENU:
+ 		ListPointer = &ContextMenus;
+ 		break;
+
 	default:
 		return 0;
 	};
@@ -412,6 +421,10 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 	case WPDT_RESOURCE:
 		ListPointer = &Resources;
 		break;
+
+	case WPDT_CONTEXTMENU:
+ 		ListPointer = &ContextMenus;
+ 		break;
 
 	default:
 		// Return an empty list

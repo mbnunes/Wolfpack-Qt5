@@ -1578,6 +1578,10 @@ void cItem::processNode( const QDomElement& Tag )
 	QString Value = this->getNodeValue( Tag );
 	QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
 
+	if( TagName == "bindmenu" )
+		if( !Tag.attribute( "id" ).isNull() ) 
+			this->bindmenu = Tag.attribute( "id" );
+
 	// <name>my Item</name>
 	if( TagName == "name" )
 		this->setName( Value );

@@ -180,32 +180,30 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 		addSkill( i+1, pChar->skill( i ), pChar->baseSkill( i ), cUOTxSendSkills::Up );
 }
 
-void cUOTxContextMenu::addEntry( Q_UINT16 textId, Q_UINT16 returnVal )
-{
-	Q_UINT32 offset = rawPacket.count();
+void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 TextID, Q_UINT16 flags, Q_UINT16 color ) 
+{ 
+	Q_UINT32 size = rawPacket.count(); 
 	
-	if( rawPacket.count() > 8 )
-	{
-		// Not the first entry anymore
-		rawPacket.resize( offset + 6 );
-		setShort( offset, returnVal );
-		setShort( offset+2, textId );
-		setShort( offset+4, 0x0000 );
-	}
-	else
-	{
-		// First entry
-		rawPacket.resize( offset + 8 );
-		setShort( offset, returnVal );
-		setShort( offset+2, textId );
-		setShort( offset+4, 0x0020 );
-		setShort( offset+6, 0xFFFF );
-	}
+	rawPacket[ 11 ]++; 
 	
-	// Increase the item-count + the menu-length
-    rawPacket[ 7 ]++;
-	setShort( 1, rawPacket.count() );
-}
+	
+	if ( flags & Popcolor ) 
+	{ 
+		rawPacket.resize( size + 8 ); 
+		setShort( size+5, color ); 
+		setShort( 1, size + 7 ); 
+	} 
+	else 
+	{ 
+		rawPacket.resize( size + 6 ); 
+		setShort( 1, size + 5 ); 
+	} 
+	
+	setShort( size-1, RetVal ); 
+	setShort( size+1, FileID*1000+TextID ); 
+	setShort( size+3, flags ); 
+	
+} 
 
 void cUOTxDenyMove::setCoord( Coord_cl coord )
 {
@@ -347,22 +345,6 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 	setY( pItem->pos.y );
 	setContainer( pItem->contserial );
 	setColor( pItem->color() );
-}
-
-void cUOTxPopupMenu::addEntry( UINT16 entryId, UINT16 stringId, bool flagged )
-{
-	rawPacket[ 11 ]++;
-
-	UINT32 offset = rawPacket.size();
-	rawPacket.resize( rawPacket.size() + ( flagged ? 8 : 6 ) );
-
-	setShort( offset, entryId );
-	setShort( offset+2, stringId );
-	setShort( offset+4, flagged ? 0x20 : 0x00 );
-	if( flagged )
-		setShort( offset+6, 0xFFFF );
-
-	setShort( 1, rawPacket.count() );
 }
 
 void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )

@@ -68,6 +68,7 @@
 #include "makemenus.h"
 #include "skills.h"
 #include "resources.h"
+#include "contextmenu.h"
 
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
@@ -219,6 +220,7 @@ void signal_handler(int signal)
 		cAllTerritories::getInstance()->reload();
 		cAllResources::getInstance()->reload();
 		cAllMakeMenus::getInstance()->reload();
+		cAllConMenus::getInstance()->reload();
 		cCommands::instance()->loadACLs();
 		ScriptManager->reload();
 		break ;
@@ -1678,6 +1680,7 @@ void checkkey ()
 				cAllTerritories::getInstance()->reload();
 				cAllResources::getInstance()->reload();
 				cAllMakeMenus::getInstance()->reload();
+				cAllConMenus::getInstance()->reload();
 				cCommands::instance()->loadACLs();
 
 				ScriptManager->reload(); // Reload Scripts
@@ -1913,6 +1916,7 @@ int main( int argc, char *argv[] )
 	cAllSpawnRegions::getInstance()->load();
 	cAllResources::getInstance()->load();
 	cAllMakeMenus::getInstance()->load();
+	cAllConMenus::getInstance()->reload();
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;
@@ -3005,20 +3009,24 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		return;
 	if (pi->good<0) return;
 
-	cTerritory* Region = NULL;
 	if (tmpreg == "none" )
 	{
 		P_ITEM pio=GetOutmostCont(pi);
 		if (!pio) return;
+		cTerritory* Region;
 		if (pio->isInWorld())
 		{
 			Region = cAllTerritories::getInstance()->region( pio->pos.x, pio->pos.y );
+			if( Region != NULL )
+				tmpreg = Region->name();
 		}
 		else
 		{
 			P_CHAR pc=FindCharBySerial(pio->contserial);
 			if (!pc) return;
 			Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
+			if( Region != NULL )
+				tmpreg = Region->name();
 		}
 		return;
 	}
@@ -3026,11 +3034,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 	if( pi->good<0 || pi->good>255 ) 
 		return;
 
-	if( !Region )
-		Region = cAllTerritories::getInstance()->region( tmpreg );
-
-	if( !Region )
-		return;
+	cTerritory* Region = cAllTerritories::getInstance()->region( tmpreg );
 
 	min=Region->tradesystem_[pi->good].rndmin;
 	max=Region->tradesystem_[pi->good].rndmax;

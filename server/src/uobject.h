@@ -79,6 +79,8 @@ public:
 	SERIAL multis;
 	bool free;
 
+ 	QString bindmenu;
+
 	std::string name;
 	Coord_cl pos;
 	cCustomTags tags;

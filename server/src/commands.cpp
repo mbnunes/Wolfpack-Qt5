@@ -48,6 +48,7 @@
 #include "pagesystem.h"
 #include "makemenus.h"
 #include "resources.h"
+#include "contextmenu.h"
 
 // System Includes
 #include <functional>
@@ -208,7 +209,6 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 				// only from the sockets in range and then resend it to only the new sockets in range
 				pChar->removeFromView( false );
 				pChar->moveTo( newPos );
-				cAllTerritories::getInstance()->check( pChar );
 				pChar->resend( false );
 				socket->resendPlayer();
 				socket->resendWorld();
@@ -223,7 +223,6 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 		{
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
-			cAllTerritories::getInstance()->check( pChar );
 			pChar->resend( false );
 			socket->resendPlayer();
 			socket->resendWorld();
@@ -837,8 +836,6 @@ public:
 		newPos.y = target->y();
 		newPos.z = target->z();
 		socket->player()->moveTo( newPos );
-
-		cAllTerritories::getInstance()->check( socket->player() );
 
 		socket->player()->resend( false );
 		socket->resendWorld();
@@ -1667,6 +1664,8 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cAllTerritories::getInstance()->reload();
 		cAllResources::getInstance()->reload();
 		cAllMakeMenus::getInstance()->reload();
+		cAllConMenus::getInstance()->reload();
+
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts
@@ -1685,6 +1684,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cAllTerritories::getInstance()->reload();
 		cAllResources::getInstance()->reload();
 		cAllMakeMenus::getInstance()->reload();
+		cAllConMenus::getInstance()->reload();
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts

@@ -84,19 +84,21 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	};	
 }
 
-cUOPacket *cUORxMultiPurpose::packet( void )
-{
-	// Switch the Subcommand
-	switch( getShort( 3 ) )
-	{
-	case 0x0b:
-		return new cUORxSetLanguage( rawPacket ); break;
-	case 0x13:
-		return new cUORxContextMenuRequest( rawPacket ); break;
-	default:
-		return new cUOPacket( (*this) );
-	};
-}
+cUOPacket *cUORxMultiPurpose::packet( void ) 
+{ 
+	// Switch the Subcommand 
+	switch( getShort( 3 ) ) 
+	{ 
+	case 0x0b: 
+		return new cUORxSetLanguage( rawPacket ); break; 
+	case 0x13: 
+		return new cUORxContextMenuRequest( rawPacket ); break; 
+	case 0x15: 
+		return new cUORxContextMenuSelection( rawPacket ); break; 
+	default: 
+		return new cUOPacket( (*this) ); 
+	}; 
+} 
 
 QString cUORxSpeechRequest::message()
 {

@@ -335,27 +335,56 @@ bool IsMetalArmour(short id)
 
 bool IsHouse(unsigned short id)
 {
-	if (id < 0x4000) return false;
-	register unsigned short id2 = id&0x00FF;
-	if ( id2 >= 0x64 && id2 <= 0x7f ) 
-		return true;
+	return ( id >= 0x4064 );
+}
 
-	switch(id2)
-	{
-		case 0x87:
-		case 0x8c:
-		case 0x8d:
-		case 0x96:
-		case 0x98:
-		case 0x9a:
-		case 0x9c:
-		case 0x9e:
-		case 0xa0:
-		case 0xa2:
-		case 0xbb8:
-		case 0x1388: return true;
-	}  
-	return false;
+bool IsTree_Bush( int id )
+{
+	return ((id==0xCA8)||(id==0xCAA)||((id>=0xC8F)&&(id<=0xC92))||
+		((id>=0xCC8)&&(id<=0xCD0))||(id==0xCD3)||(id==0xCD6)||
+		(id==0xCD8)||(id==0xCDA)||(id==0xCDD)||(id==0xCE0)||
+		(id==0xCE3)||(id==0xCE6)||(id==0xCE9)||(id==0xCEA)||
+		(id==0xCF8)||(id==0xCFB)||(id==0xCFE)||(id==0xD01)||
+		(id==0xD35)||(id==0xD37)||(id==0xD38)||(id==0xD42)||
+		(id==0xD43)||((id>=0xD58)&&(id<=0xD5A))||
+		(id==0xD70)||(id==0xD85)||(id==0xD94)||(id==0xD98)||
+		(id==0xD9C)||(id==0xDA0)||(id==0xDA4)||(id==0xDA8)||
+		(id==0xDB8)||(id==0xDB9)||((id>=0x12B8)&&(id<=0x12BB)));
+}
+
+bool IsWall_Chimney( int id )
+{
+	return (((id>=0x6)&&(id<=0x2EC))||((id>=0x2F9)&&(id<=0x371))||
+		((id>=0x37F)&&(id<=0x3EE))||((id>=0x421)&&(id<=0x425))||
+		(id==0x430)||(id==0x431)||((id>=0x438)&&(id<=0x48E))||
+		((id>=0x92B)&&(id<=0x96C))||((id>=0x3EF2)&&(id<=0x3F06))||
+		((id>=0x215A)&&(id<=0x2169))||((id>=0x253F)&&(id<=0x2553))||
+		(id == 0x3127));
+}
+
+bool IsDoor( int id )
+{
+	return (((id>=0x675)&&(id<=0x6F6))||((id>=0x1FED)&&(id<=0x1FFC)));
+}
+
+bool IsRoofing_Slanted( int id )
+{
+	return (((id>=1414)&&(id<=1578))||((id>=1587)&&(id<=1590))||
+		((id>=1608)&&(id<=1617))||((id>=1630)&&(id<=1652))||
+		((id>=1789)&&(id<=1792)));
+}
+
+bool IsFloor_Flat_Roofing( int id )
+{
+	 return (((id>=1169)&&(id<=1413))||((id>=1508)&&(id<=1514))||
+		 ((id>=1579)&&(id<=1586))||((id>=1591)&&(id<=1598)));
+}
+
+bool IsLavaWater( int id )
+{
+	return (((id>=0x12EE)&&(id<=0x134D))||((id>=0x1796)&&(id<=0x17B2))||
+		((id>=0x3286)&&(id<=0x32B1))||((id>=0x343B)&&(id<=0x346C))||
+		((id>=0x346E)&&(id<=0x3546))||((id>=0x3547)&&(id<=0x3561)));
 }
 
 

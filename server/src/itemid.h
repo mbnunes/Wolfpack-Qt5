@@ -93,6 +93,13 @@ bool IsMetalArmour	(short id);
 
 bool IsHouse		(unsigned short id);
 
+bool IsTree_Bush	( int id );
+bool IsWall_Chimney	( int id );
+bool IsDoor			( int id );
+bool IsRoofing_Slanted( int id );
+bool IsFloor_Flat_Roofing( int id );
+bool IsLavaWater	( int id );
+
 inline bool isHair( Q_UINT16 model )
 {
 	return	( ( ( model >= 0x203B ) && ( model <= 0x203D ) ) || ( ( model >= 0x2044 ) && ( model <= 0x204A ) ) ) ? true : false;

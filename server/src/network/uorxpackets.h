@@ -248,6 +248,15 @@ public:
 	UINT32 serial( void ) { return getInt( 5 ); }
 };
 
+class cUORxContextMenuSelection: public cUOPacket 
+{ 
+public: 
+	cUORxContextMenuSelection( const QByteArray &data ): cUOPacket( data ) {} 
+	
+	Q_UINT32 CharID( void ) { return getInt( 5 ); } 
+	Q_UINT16 EntryTag( void ) { return getShort( 9 ); } 
+}; 
+
 // 0xBF 0x0B Set Client Language
 class cUORxSetLanguage: public cUOPacket
 {

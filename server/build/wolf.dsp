@@ -141,6 +141,10 @@ SOURCE=.\commands.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\contextmenu.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\coord.cpp
 # End Source File
 # Begin Source File
@@ -453,6 +457,10 @@ SOURCE=.\cmdtable.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\contextmenu.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\coord.h
 # End Source File
 # Begin Source File
@@ -546,10 +554,6 @@ SOURCE=.\magic.h
 # Begin Source File
 
 SOURCE=.\makemenus.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\mapcache.h
 # End Source File
 # Begin Source File
 

@@ -62,7 +62,8 @@ enum WPDEF_TYPE
 	WPDT_USEITEM,
 	WPDT_SKILLCHECK,
 	WPDT_DEFINE,
-	WPDT_RESOURCE
+	WPDT_RESOURCE,
+ 	WPDT_CONTEXTMENU
 };
 
 class WPDefManager  
@@ -90,6 +91,7 @@ private:
 	DefSections SkillChecks;
 	DefSections Defines;
 	DefSections Resources;
+ 	DefSections ContextMenus;
 
 	bool ImportSections( const QString& FileName );
 

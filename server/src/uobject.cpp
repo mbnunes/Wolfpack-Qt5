@@ -103,6 +103,7 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.read("events", events );
 		eventList_ = QStringList::split( ",", events );
 		recreateEvents();
+		archive.read( "bindmenu",	bindmenu );
 
 		QString objectID;
 		archive.readObjectID( objectID );
@@ -121,6 +122,7 @@ void cUObject::Serialize(ISerialization &archive)
 
 		events = eventList_.join( "," );
 		archive.write( "events", events );
+		archive.write( "bindmenu", bindmenu );
 
 		archive.writeObject( &tags );
 	}
