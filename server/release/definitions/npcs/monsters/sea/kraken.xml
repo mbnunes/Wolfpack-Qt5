@@ -21,9 +21,9 @@
 		<maxmana>0</maxmana>
 		<maxhitpoints><random min="454" max="468"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="151" max="200"/></magicresistance>
-		<tactics><random min="451" max="600"/></tactics>
-		<wrestling><random min="451" max="600"/></wrestling>
+		<skill id="magicresistance"><random min="151" max="200"/></skill>
+		<skill id="tactics"><random min="451" max="600"/></skill>
+		<skill id="wrestling"><random min="451" max="600"/></skill>
 		<!-- Damage -->
 		<mindamage>73</mindamage>
 		<maxdamage>121</maxdamage>

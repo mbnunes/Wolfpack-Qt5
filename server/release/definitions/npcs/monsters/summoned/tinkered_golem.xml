@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- tinker's golem -->
+	<!-- Crafted Tinker Golem -->
 	<npc id="summoned_golem" inherit="golem">
 		<karma>0</karma>
 		<fame>0</fame>
@@ -17,10 +17,10 @@
 		<dex><random min="76" max="100" /></dex>
 		<int><random min="101" max="150" /></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="1000" /></wrestling>
-		<tactics><random min="601" max="1000" /></tactics>
-		<magicresist><random min="1501" max="1900" /></magicresist>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="601" max="1000" /></skill>
+		<skill id="tactics"><random min="601" max="1000" /></skill>
+		<skill id="magicresist"><random min="1501" max="1900" /></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Misc. -->
 		<controlslots>4</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

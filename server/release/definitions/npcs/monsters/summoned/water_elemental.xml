@@ -18,9 +18,11 @@
 		<int>100</int>
 		<maxhitpoints>165</maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="" max=""/></magicresistance>
-		<tactics><random min="" max=""/></tactics>
-		<wrestling><random min="" max=""/></wrestling>
+		<!-- Inherit from water elemental
+		<magicresistance><random min="500" max="900"/></magicresistance>
+		<tactics><random min="500" max="900"/></tactics>
+		<wrestling><random min="500" max="900"/></wrestling>
+		-->
 		<!-- Damage -->
 		<mindamage>27</mindamage>
 		<maxdamage>38</maxdamage>

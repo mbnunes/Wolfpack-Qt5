@@ -21,11 +21,11 @@
 		<int>150</int>
 		<maxhitpoints>200</maxhitpoints>
 		<!-- Skills -->
-		<magicresistance>1200</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>0</wrestling>
-		<anatomy>0</anatomy>
-		<swordsmanship>1000</swordsmanship>
+		<skill id="magicresistance">1200</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">0</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="swordsmanship">1000</skill>
 		<!-- Damage -->
 		<mindamage>42</mindamage>
 		<maxdamage>45</maxdamage>

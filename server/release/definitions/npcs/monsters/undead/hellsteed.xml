@@ -28,10 +28,10 @@
 		<tag name="res_fire" value="90" type="int" />
 		<tag name="res_poison" value="100" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="901" max="1100" /></wrestling>
-		<tactics>500</tactics>
-		<magicresistance><random min="901" max="1100" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="901" max="1100" /></skill>
+		<skill id="tactics">500</skill>
+		<skill id="magicresistance"><random min="901" max="1100" /></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Misc. -->
 		<mintaming>1100</mintaming>
 		<category>Animals\Undead\Hellsteed</category>

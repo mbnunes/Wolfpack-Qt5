@@ -19,10 +19,10 @@
 		<maxhitpoints>180</maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<magicresistance>650</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>900</wrestling>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance">650</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">900</skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>31</mindamage>
 		<maxdamage>49</maxdamage>

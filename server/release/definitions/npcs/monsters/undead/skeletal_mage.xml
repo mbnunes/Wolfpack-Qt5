@@ -20,13 +20,13 @@
 		<int><random min="186" max="210"/></int>
 		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="601" max="700"/></evaluatingintelligence>
-		<magery><random min="601" max="700"/></magery>
-		<magicresistance><random min="551" max="700"/></magicresistance>
-		<tactics><random min="451" max="600"/></tactics>
-		<wrestling><random min="451" max="550"/></wrestling>
-		<anatomy>0</anatomy>
-		<meditation>0</meditation>
+		<skill id="evaluatingintelligence"><random min="601" max="700"/></skill>
+		<skill id="magery"><random min="601" max="700"/></skill>
+		<skill id="magicresistance"><random min="551" max="700"/></skill>
+		<skill id="tactics"><random min="451" max="600"/></skill>
+		<skill id="wrestling"><random min="451" max="550"/></skill>
+		<skill id="anatomy">0</skill>
+		<skill id="meditation">0</skill>
 		<!-- Damage -->
 		<mindamage>4</mindamage>
 		<maxdamage>11</maxdamage>
@@ -42,7 +42,6 @@
 		<desc>A dying mage who has chooses to perform the ceremony to become a lich and fails, will often become a Skeleton Mage. Still armed with a formidable repertoire of the dark arts, skeletal mages should not be underestimated. Burning with the power of the damned, the skeleton mage appears as the color of flame.</desc>
 		<category>Monsters\Undead\Skeletal Mage</category>
 		<ai>Monster_Mage</ai>
-		
 		<intproperty name="poison_immunity" value="1" />
 	</npc>
 

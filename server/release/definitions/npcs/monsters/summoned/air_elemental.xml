@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- Summoned Air Elemental -->
 	<npc id="summoned_air_elemental" inherit="air_elemental">
 		<karma>0</karma>
 		<fame>0</fame>
@@ -19,13 +19,13 @@
 		<maxhitpoints>150</maxhitpoints>
 		<maxstamina>50</maxstamina>
 		<!-- Skills -->
-		<magicresistance>600</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>800</wrestling>
-		<anatomy>0</anatomy>
-		<magery>700</magery>
-		<evaluatingintelligence>700</evaluatingintelligence>
-		<meditation>700</meditation>
+		<skill id="magicresistance">600</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">800</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="magery">700</skill>
+		<skill id="evaluatingintelligence">700</skill>
+		<skill id="meditation">700</skill>
 		<!-- Damage -->
 		<mindamage>13</mindamage>
 		<maxdamage>20</maxdamage>

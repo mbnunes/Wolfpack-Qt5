@@ -13,7 +13,6 @@
 		<!-- Monsterspeech -->
 		<strproperty name="monsterspeech" value="ratman" />
 		<basescript>speech.monster</basescript>
-		
 		<name><random list="NAMES_RATMAN" /></name>
 		<id><random list="NPCIDS_RATMAN" /></id>
 		<inherit id="KARMA_L2" />
@@ -24,9 +23,9 @@
 		<int><random min="36" max="60"/></int>
 		<maxhitpoints><random min="58" max="72" /></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="351" max="600"/></magicresistance>
-		<tactics><random min="501" max="750"/></tactics>
-		<wrestling><random min="501" max="750"/></wrestling>
+		<skill id="magicresistance"><random min="351" max="600"/></skill>
+		<skill id="tactics"><random min="501" max="750"/></skill>
+		<skill id="wrestling"><random min="501" max="750"/></skill>
 		<!-- Damage -->
 		<mindamage>7</mindamage>
 		<maxdamage>9</maxdamage>
@@ -41,7 +40,6 @@
 		<!-- Missing: Weapon, Misc -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Ratmen\Ratman (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />

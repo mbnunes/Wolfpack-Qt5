@@ -18,10 +18,10 @@
 		<int><random min="16" max="40"/></int>
 		<maxhitpoints><random min="34" max="48"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="451" max="600"/></magicresistance>
-		<tactics><random min="451" max="600"/></tactics>
-		<wrestling><random min="451" max="550"/></wrestling>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance"><random min="451" max="600"/></skill>
+		<skill id="tactics"><random min="451" max="600"/></skill>
+		<skill id="wrestling"><random min="451" max="550"/></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>5</mindamage>
 		<maxdamage>11</maxdamage>
@@ -37,7 +37,6 @@
 		<desc>The animated bones of the dead are terrible to behold, but truth to tell they are not formidable warriors, being able to overcome awell-trained fighter only in large groups. Like ghouls, they appear to ingest meat in some supernatural fashion. The bones of a formerly animated skeleton are desired for certain dark magicks.</desc>
 		<strproperty name="slayer_group" value="undeads" />
 		<inherit id="speed_slow" />
-		
 		<intproperty name="poison_immunity" value="0" />
 	</npc>
 

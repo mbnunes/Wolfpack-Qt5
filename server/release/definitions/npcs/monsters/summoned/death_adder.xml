@@ -22,11 +22,11 @@
 		<maxhitpoints>50</maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<magicresistance>0</magicresistance>
-		<tactics>500</tactics>
-		<wrestling>900</wrestling>
-		<anatomy>0</anatomy>
-		<poisoning>1500</poisoning>
+		<skill id="magicresistance">0</skill>
+		<skill id="tactics">500</skill>
+		<skill id="wrestling">900</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="poisoning">1500</skill>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>4</maxdamage>

@@ -20,10 +20,10 @@
 		<int><random min="26" max="40"/></int>
 		<maxhitpoints><random min="28" max="42"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="151" max="400"/></magicresistance>
-		<tactics><random min="351" max="500"/></tactics>
-		<wrestling><random min="351" max="500"/></wrestling>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance"><random min="151" max="400"/></skill>
+		<skill id="tactics"><random min="351" max="500"/></skill>
+		<skill id="wrestling"><random min="351" max="500"/></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>5</mindamage>
 		<maxdamage>10</maxdamage>
@@ -39,7 +39,7 @@
 		<category>Monsters\Undead\Zombie</category>
 		<strproperty name="slayer_group" value="undeads" />
 		<inherit id="speed_slow" />
-		
+
 		<intproperty name="poison_immunity" value="1" />
 	</npc>
 

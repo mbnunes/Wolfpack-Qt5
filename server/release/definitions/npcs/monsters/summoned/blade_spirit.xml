@@ -25,10 +25,10 @@
 		<maxstamina>250</maxstamina>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<magicresistance>700</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>900</wrestling>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance">700</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">900</skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>20</mindamage>
 		<maxdamage>32</maxdamage>
@@ -44,11 +44,9 @@
 		<controlslots>1</controlslots>
 		<category>Summoned\Blade Spirit</category>
 		<inherit id="speed_fast" />
-
 		<!-- Dispel Difficulty -->
 		<intproperty name="dispelfocus" value="20" />
 		<intproperty name="dispeldifficulty" value="0" />
-		
 		<!-- Poison immunity -->
 		<intproperty name="poison_immunity" value="4" />
 	</npc>

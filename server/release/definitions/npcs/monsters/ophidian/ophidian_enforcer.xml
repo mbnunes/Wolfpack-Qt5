@@ -21,9 +21,9 @@
 		<maxhitpoints><random min="128" max="155"/></maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<magicresistance><random min="701" max="850"/></magicresistance>
-		<swordsmanship><random min="601" max="850"/></swordsmanship>
-		<tactics><random min="751" max="900"/></tactics>
+		<skill id="magicresistance"><random min="701" max="850"/></skill>
+		<skill id="swordsmanship"><random min="601" max="850"/></skill>
+		<skill id="tactics"><random min="751" max="900"/></skill>
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>24</maxdamage>

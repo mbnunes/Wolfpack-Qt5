@@ -22,11 +22,11 @@
 		<maxstamina>150</maxstamina>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<poisoning>1200</poisoning>
-		<magicresistance>2500</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling><random min="901" max="1000"/></wrestling>
-		<anatomy>0</anatomy>
+		<skill id="poisoning">1200</skill>
+		<skill id="magicresistance">2500</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>21</mindamage>
 		<maxdamage>26</maxdamage>
@@ -45,7 +45,6 @@
 		<category>Monsters\Undead\Rotting Corpse</category>
 		<strproperty name="slayer_group" value="undeads" />
 		<inherit id="speed_slow" />
-		
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 		<intproperty name="poison_immunity" value="4" />

@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- Summoned Vampire Bat -->
 	<npc id="summoned_vampire_bat" inherit="vampire_bat">
 		<karma>0</karma>
 		<fame>0</fame>
@@ -19,10 +19,10 @@
 		<maxhitpoints>90</maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<magicresistance>0</magicresistance>
-		<tactics>500</tactics>
-		<wrestling><random min="901" max="990"/></wrestling>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance">0</skill>
+		<skill id="tactics">500</skill>
+		<skill id="wrestling"><random min="901" max="990"/></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>7</mindamage>
 		<maxdamage>21</maxdamage>

@@ -22,11 +22,11 @@
 		<int><random min="116" max="140"/></int>
 		<maxhitpoints><random min="88" max="108"/></maxhitpoints>
 		<!-- Skills -->
-		<anatomy><random min="602" max="1000"/></anatomy>
-		<magicresistance><random min="651" max="900"/></magicresistance>
-		<tactics><random min="501" max="750"/></tactics>
-		<wrestling><random min="501" max="750"/></wrestling>
-		<archery><random min="801" max="900"/></archery>
+		<skill id="anatomy"><random min="602" max="1000"/></skill>
+		<skill id="magicresistance"><random min="651" max="900"/></skill>
+		<skill id="tactics"><random min="501" max="750"/></skill>
+		<skill id="wrestling"><random min="501" max="750"/></skill>
+		<skill id="archery"><random min="801" max="900"/></skill>
 		<!-- Damage -->
 		<mindamage>36</mindamage>
 		<maxdamage>42</maxdamage>
@@ -48,7 +48,7 @@
 		</equipped>
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ratmen\Ratman Archer</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />

@@ -22,10 +22,10 @@
 		<maxhitpoints>60</maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<anatomy>0</anatomy>
-		<magicresistance>0</magicresistance>
-		<tactics>500</tactics>
-		<wrestling><random min="851" max="900"/></wrestling>
+		<skill id="anatomy">0</skill>
+		<skill id="magicresistance">0</skill>
+		<skill id="tactics">500</skill>
+		<skill id="wrestling"><random min="851" max="900"/></skill>
 		<!-- Damage -->
 		<mindamage>15</mindamage>
 		<maxdamage>33</maxdamage>

@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- Summoned Fire Elemental -->
 	<npc id="summoned_fire_elemental" inherit="fire_elemental">
 		<karma>0</karma>
 		<fame>0</fame>
@@ -18,10 +18,10 @@
 		<int>100</int>
 		<maxhitpoints>200</maxhitpoints>
 		<!-- Skills -->
-		<magicresistance>850</magicresistance>
-		<tactics>1000</tactics>
-		<wrestling>920</wrestling>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance">850</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">920</skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>20</mindamage>
 		<maxdamage>32</maxdamage>

@@ -22,12 +22,12 @@
 		<int><random min="186" max="210"/></int>
 		<maxhitpoints><random min="88" max="108"/></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="701" max="800"/></evaluatingintelligence>
-		<magery><random min="701" max="800"/></magery>
-		<magicresistance><random min="651" max="900"/></magicresistance>
-		<tactics><random min="501" max="750"/></tactics>
-		<wrestling><random min="501" max="750"/></wrestling>
-		<meditation>0</meditation>
+		<skill id="evaluatingintelligence"><random min="701" max="800"/></skill>
+		<skill id="magery"><random min="701" max="800"/></skill>
+		<skill id="magicresistance"><random min="651" max="900"/></skill>
+		<skill id="tactics"><random min="501" max="750"/></skill>
+		<skill id="wrestling"><random min="501" max="750"/></skill>
+		<skill id="meditation">0</skill>
 		<!-- Damage -->
 		<mindamage>19</mindamage>
 		<maxdamage>28</maxdamage>
@@ -41,12 +41,12 @@
 		<!-- Missing: 1-7CS, LNS, Reagent, Statue -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ratmen\Ratman Mage</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="1" />
-		
+
 		<ai>Monster_Mage</ai>
 	</npc>
 
