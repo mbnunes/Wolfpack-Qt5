@@ -69,13 +69,14 @@ enum enByteOrder{ littleEndian, bigEndian };
 #define max(x,y) _MAX(x,y)
 #endif
 */
+#define OBSOLETETIME
 #endif
 #if !defined(vsnprintf)
 #define vsnprintf _vsnprintf
 #endif
 
 #define PACK
-#define OBSOLETETIME
+
 
 
 #endif

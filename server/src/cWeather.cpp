@@ -126,7 +126,7 @@ void cWeather::WTimer()
 		if(CurTime>(StartTime[x]+Duration[x]) && Active[x])
 		{
 			Active[x]=false;
-			StartTime[x]=uiCurrentTime+Check[x]*CLOCKS_PER_SEC;
+			StartTime[x]=uiCurrentTime+Check[x]*MY_CLOCKS_PER_SEC;
 			Type[x]=-1;
 		}
 		else if(CurTime>StartTime[x] && StartTime[x]>0 && Active[x]==false)

@@ -694,7 +694,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 
 
 //Don't regenerate stamina while running
-		pc->regen2=uiCurrentTime+(server_data.staminarate*CLOCKS_PER_SEC);
+		pc->regen2=uiCurrentTime+(server_data.staminarate*MY_CLOCKS_PER_SEC);
 		pc->running++;
 		// if all these things
 		if(!pc->dead && !pc->onhorse && pc->running>(server_data.runningstaminasteps)*2)
@@ -706,7 +706,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 		}
 		if( pc->war && pc->targ != INVALID_SERIAL )
 		{
-			pc->timeout=uiCurrentTime+CLOCKS_PER_SEC*2;
+			pc->timeout=uiCurrentTime+MY_CLOCKS_PER_SEC*2;
 		}
 
 	} else {
@@ -1742,7 +1742,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
                 //printf("ERROR: Fallout of switch statement without default [%i]. walking.cpp, npcMovement2()\n",chars[i].npcWander); //Morrolan
 			} // break; //Morrolan unnecessary ?
 		}
-		pc_i->npcmovetime=(unsigned int)(currenttime+double((NPCSPEED*CLOCKS_PER_SEC)/5)); //reset move timer
+		pc_i->npcmovetime=(unsigned int)(currenttime+double((NPCSPEED*MY_CLOCKS_PER_SEC)/5)); //reset move timer
         //pc_i->npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*CLOCKS_PER_SEC*(1+dnpctime))); //reset move timer
     }
 }
