@@ -5,20 +5,28 @@
 	<npc id="lizardman_base" >
 		<inherit id="monster_base" />
 		<name><random list="NAMES_LIZARDMAN" /></name>
-		<karma><random min="-1250" max="-2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="25" max="23" /></defense>
-		<lodamage>8</lodamage>
-		<hidamage>12</hidamage>
+		<karma>-1500</karma>
+		<fame>1500</fame>
 		<gold><random min="25" max="50" /></gold>
 		<!-- Stats -->
-		<str><random min="96" max="120" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="36" max="60" /></int>
+		<str><random min="96" max="120"/></str>
+		<dex><random min="86" max="105"/></dex>
+		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="700" /></wrestling>
-		<tactics><random min="551" max="800" /></tactics>
-		<magicresistance><random min="351" max="600" /></magicresistance>
+		<magicresistance><random min="351" max="600"/></magicresistance>
+		<tactics><random min="551" max="800"/></tactics>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>7</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="23" /></defense>
+		<tag name="coldresist" value="5,10" />
+		<tag name="fireresist" value="5,10" />
+		<tag name="physicalresist" value="25,30" />
+		<tag name="poisonresist" value="10,20" />
+		<!-- Misc. -->
+		<desc>These reptilian creatures are savage, but very Intelligent - perhaps equal in intellect to humanity, though without the moderating influences of civilization. They love gold, and will play the brigandon parties that are insufficiently protected.</desc>
 		<carve>carve_lizard_man_medium</carve>
 	</npc>
 
@@ -39,7 +47,7 @@
 	<!-- Lizardman 3 -->
 	<npc id="lizardman_3">
 		<inherit id="lizardman_base" />
-		<id>0x024</id>
+		<id>0x24</id>
 		<category>Monsters\Lizardmen\Lizardman 3</category>
 	</npc>
 
