@@ -88,7 +88,6 @@ def onUse( char, item ):
 	return 1
 
 def onDropOnItem( container, item ):
-
 	dropper = item.container
 
 	# Turn off the lightsource
