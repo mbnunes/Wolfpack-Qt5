@@ -926,7 +926,7 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 	case cUORxMultiPurpose::setLanguage: 
 		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( packet ) ); break; 
 	case cUORxMultiPurpose::contextMenuRequest: 
-		//handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break; 
+		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break; 
 		break;
 	case cUORxMultiPurpose::contextMenuSelection: 
 		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( packet ) ); break; 

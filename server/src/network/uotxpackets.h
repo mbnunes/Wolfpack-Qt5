@@ -582,7 +582,7 @@ class cUOTxContextMenu: public cUOPacket
 { 
 public: 
 	
-	cUOTxContextMenu(): cUOPacket( 0xBF, 13 ) 
+	cUOTxContextMenu(): cUOPacket( 0xBF, 12 ) 
 	{ 
 		setShort( 1, 12 ); 
 		setShort( 3, 0x14 ); 

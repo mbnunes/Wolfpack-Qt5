@@ -192,18 +192,18 @@ void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 Tex
 	if ( flags & Popcolor ) 
 	{ 
 		resize( size + 8 ); 
-		setShort( size+5, color ); 
-		setShort( 1, size + 7 ); 
+		setShort( size+6, color ); 
+		setShort( 1, size + 8 ); 
 	} 
 	else 
 	{ 
-		resize( size + 6 ); 
-		setShort( 1, size + 5 ); 
+		resize( size + 4 ); 
+		setShort( 1, size + 4 ); 
 	} 
 	
-	setShort( size-1, RetVal ); 
-	setShort( size+1, FileID*1000+TextID ); 
-	setShort( size+3, flags ); 
+	setShort( size, RetVal ); 
+	setShort( size+2, FileID*1000+TextID ); 
+	setShort( size+4, flags ); 
 	
 } 
 
