@@ -846,16 +846,20 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 
 bool cPlayer::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 {
-	if ( isDead() )
-	{
-		if ( socket_ )
-			socket_->clilocMessage( 0x7A12C ); // You cannot use skills while dead.
-		return false;
+	if ( !isJailed() ) {
+		if ( isDead() )
+		{
+			if ( socket_ )
+				socket_->clilocMessage( 0x7A12C ); // You cannot use skills while dead.
+			return false;
+		}
+	
+		bool success = cBaseChar::checkSkill( skill, min, max, advance );
+	
+		return success;
+	} else {
+		return false; // In jail, there is no skillgain or skillcheck.
 	}
-
-	bool success = cBaseChar::checkSkill( skill, min, max, advance );
-
-	return success;
 }
 
 void cPlayer::addPet( P_NPC pPet, bool noOwnerChange )
@@ -1064,11 +1068,17 @@ bool cPlayer::onUse( P_ITEM pItem )
 
 bool cPlayer::onCastSpell( unsigned int spell )
 {
+	// In jail we can't cast spells
+	if (isJailed()) {
+		sysmessage(tr("You cannot cast spells while you are in jail."));
+		return false;
+	}
+
 	bool result = false;
 
 	if ( canHandleEvent( EVENT_CASTSPELL ) )
 	{
-		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, spell );
+		PyObject* args = Py_BuildValue( "(O&i)", PyGetCharObject, this, spell );
 		result = callEventHandler( EVENT_CASTSPELL, args );
 		Py_DECREF( args );
 	}
@@ -1181,6 +1191,26 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 		return 0;
 	}
 
+	/*
+	\property char.squelched If this property is true, speech sent by the client will be rejected.
+	This property is exclusive to player characters.
+	*/
+	else if ( name == "squelched" ) {
+		setSquelched(value.toInt() != 0);
+		return 0;
+	}
+
+	/*
+	\property char.jailed If this property is True, no items can be used by the player,
+	no skills can be used by the player, no skillgain is possible, no spells can be cast by the player,
+	no combat is possible and no items can be used.
+	This property is exclusive to player characters.
+	*/
+	else if ( name == "jailed" ) {
+		setJailed(value.toInt() != 0);
+		return 0;
+	}
+
 	else if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
@@ -1248,6 +1278,8 @@ PyObject* cPlayer::getProperty( const QString& name )
 	PY_PROPERTY( "intelligencelock", intelligenceLock_ )
 	PY_PROPERTY( "maxcontrolslots", maxControlSlots_ )
 	PY_PROPERTY( "karmalock", karmaLock() )
+	PY_PROPERTY( "squelched", isSquelched() )
+	PY_PROPERTY( "jailed", isJailed() )
 
 	// Forward the property to the account
 	if ( name.startsWith( "account." ) && account_ )
@@ -1606,6 +1638,11 @@ bool cPlayer::sysmessage( unsigned int message, const QString& params, unsigned 
 
 cBaseChar::FightStatus cPlayer::fight( P_CHAR enemy )
 {
+	// Jailed players cannot fight.
+	if (isJailed()) {
+		return FightDenied;
+	}
+
 	FightStatus status = cBaseChar::fight( enemy );
 
 	// We have player dependant actions if the fight started

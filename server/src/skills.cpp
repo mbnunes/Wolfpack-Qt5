@@ -55,13 +55,10 @@ void cSkills::SkillUse( cUOSocket* socket, Q_UINT16 id ) // Skill is clicked on 
 	if ( !pChar )
 		return;
 
-	/* TODO: reimplementation of jail system
-		if( pChar->cell() > 0 )
-		{
-			socket->sysMessage( tr( "You are in jail and cant use skills here!" ) );
-			return;
-		}
-	*/
+	if ( pChar->isJailed() ) {
+		socket->sysMessage( tr("You cannot use skills while you are in jail.") );
+		return;
+	}
 
 	if ( pChar->isDead() )
 	{

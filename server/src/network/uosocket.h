@@ -100,6 +100,11 @@ public:
 	*/
 	bool useItem( P_ITEM item );
 
+	// 3d client stuff
+	inline bool is3dClient() const {
+		return flags_ & 0x100 != 0;
+	}
+
 	inline unsigned short screenWidth() const
 	{
 		return _screenWidth;
@@ -143,6 +148,7 @@ public:
 	eSocketState state( void ) const;
 	void setState( eSocketState data );
 
+	unsigned int flags() const;
 	QString version( void ) const;
 	QString lang( void ) const;
 	QString ip( void ) const;
@@ -163,14 +169,16 @@ public:
 	unsigned int lastActivity() const;
 	unsigned int rxBytes() const;
 	unsigned int txBytes() const;
+	unsigned int txBytesRaw() const;
 	unsigned char viewRange() const;
 	void setRxBytes( unsigned int data );
 	void setTxBytes( unsigned int data );
+	void setTxBytesRaw( unsigned int data );
 
 	Q_UINT32 uniqueId( void ) const;
 
 	void recieve(); // Tries to recieve one packet and process it
-	void send( cUOPacket* packet ) const;
+	void send( cUOPacket* packet );
 	void send( cGump* gump );
 
 	// Handler
@@ -228,8 +236,8 @@ public:
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
-	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, Q_UINT8 speechType = 0x00 ) const;
-	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, Q_UINT16 font = 3 ) const;
+	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, Q_UINT8 speechType = 0x00 );
+	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, Q_UINT16 font = 3 );
 	void sendCharList();
 	void removeObject( cUObject* object );
 	void disconnect(); // Call this whenever the socket should disconnect
@@ -290,6 +298,7 @@ private:
 	P_PLAYER _player;
 	unsigned int _rxBytes;
 	unsigned int _txBytes;
+	unsigned int _txBytesRaw;
 	QSocketDevice* _socket;
 	unsigned short _screenWidth;
 	unsigned short _screenHeight;
@@ -300,6 +309,7 @@ private:
 	QBitArray* tooltipscache_;
 	QPtrList<cContextMenu> contextMenu_;
 	QMap<SERIAL, cGump*> gumps;
+	unsigned int flags_;
 
 	bool authenticate( const QString& username, const QString& password );
 
@@ -376,6 +386,11 @@ inline Q_UINT32 cUOSocket::txBytes( void ) const
 	return _txBytes;
 }
 
+inline Q_UINT32 cUOSocket::txBytesRaw( void ) const
+{
+	return _txBytesRaw;
+}
+
 inline Q_UINT8 cUOSocket::viewRange( void ) const
 {
 	return _viewRange;
@@ -391,10 +406,18 @@ inline void cUOSocket::setTxBytes( Q_UINT32 data )
 	_txBytes = data;
 }
 
+inline void cUOSocket::setTxBytesRaw( Q_UINT32 data )
+{
+	_txBytesRaw = data;
+}
+
 inline Q_UINT32 cUOSocket::uniqueId( void ) const
 {
 	return _uniqueId;
 }
 
+inline unsigned int cUOSocket::flags() const {
+	return flags_;
+}
 
 #endif

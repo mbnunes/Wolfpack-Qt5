@@ -1003,6 +1003,57 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	{
 		return PyInt_FromLong( self->pSock->uniqueId() );
 	}
+	/*
+		\rproperty socket.version The client version string sent by the client.
+	*/
+	else if ( !strcmp( name, "version" ) ) {
+		return QString2Python( self->pSock->version() );
+	}
+	/*
+		\rproperty socket.3dclient indicates that this is a 3d client.
+	*/
+	else if ( !strcmp( name, "3dclient" ) ) {
+		if (self->pSock->is3dClient()) {
+			Py_RETURN_TRUE;
+		} else {
+			Py_RETURN_FALSE;
+		}
+	}
+	/*
+		\rproperty socket.flags This is the bitfield sent by the client on character selection.
+		Propable flags:
+		<code>0x100 - 3d Client
+		0x10 - Samurai Empire
+		0x08 - Age of Shadows
+		0x04 - Lord Blackthornes Revenge
+		0x02 - Third Dawn
+		0x01 - Renaissance
+		0x00 - The Second Age</code>
+	*/
+	else if ( !strcmp( name, "flags" ) ) {
+		return PyInt_FromLong(self->pSock->flags());
+	}
+	/*
+		\rproperty socket.rxbytes The number of bytes received by this socket.
+	*/
+	else if ( !strcmp( name, "rxbytes" ) ) {
+		return PyInt_FromLong( self->pSock->rxBytes() );
+	}
+
+	/*
+		\rproperty socket.txbytes The number of bytes sent by this socket.
+	*/
+	else if ( !strcmp( name, "txbytes" ) ) {
+		return PyInt_FromLong( self->pSock->txBytes() );
+	}
+
+	/*
+		\rproperty socket.txbytesraw The number of bytes sent by this socket before compression.
+	*/
+	else if ( !strcmp( name, "txbytesraw" ) ) {
+		return PyInt_FromLong( self->pSock->txBytesRaw() );
+	}
+
 	else
 	{
 		return Py_FindMethod( wpSocketMethods, ( PyObject * ) self, name );

@@ -124,13 +124,13 @@ public:
 		while ( !elements.isEmpty() )
 		{
 			cElement *parent;
-			while ( elements.current() != NULL )
+			while ( !elements.isEmpty() && elements.current() != NULL )
 			{
 				parent = elements.pop();
 			}
 			delete parent;
 
-			while ( elements.current() == NULL )
+			while ( !elements.isEmpty() && elements.current() == NULL )
 			{
 				elements.pop();
 			}
@@ -300,19 +300,19 @@ public:
 	// error handling
 	bool warning( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_WARNING, tr( "%1\n[File: %2, Line: %3, Column: %4" )
+		Console::instance()->log( LOG_WARNING, tr( "%1\n[File: %2, Line: %3, Column: %4]" )
 			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool error( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" )
+		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4]" )
 			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool fatalError( const QXmlParseException& exception )
 	{
-		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" )
+		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4]" )
 			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}

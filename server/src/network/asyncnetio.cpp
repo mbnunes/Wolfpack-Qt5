@@ -789,17 +789,17 @@ void cAsyncNetIO::pushfrontPacket( QSocketDevice* socket, cUOPacket* packet )
 */
 void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool compress )
 {
-	iterator it = buffers.find( socket );
-	QMutexLocker lock( &it.data()->wmutex );
+	QByteArray data;
 	if ( compress )
 	{
-		QByteArray data = packet->compressed();
-		it.data()->writeBlock( data );
+		data = packet->compressed();
+	} else {
+		data = packet->uncompressed();
 	}
-	else
-	{
-		it.data()->writeBlock( packet->uncompressed() );
-	}
+
+	iterator it = buffers.find( socket );
+	QMutexLocker lock( &it.data()->wmutex );
+	it.data()->writeBlock( data );
 }
 
 /*!

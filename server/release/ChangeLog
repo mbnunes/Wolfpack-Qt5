@@ -14,6 +14,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - GMs can now drop items everywhere without a LOS check.
   - Added a property flag for hiding the reputation titles and white underwear per character.
   - Added lists of enemy and allied guilds to the core and added the appropriate python interfaces.
+  - Added several socket properties and ignored packet 0xbb.
+  - Fatal XML parsing errors no longer crash the server.
+  - Added a squelched and a jailed property to player objects.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
@@ -61,6 +64,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added playervendors from Ancient-Realms.org
   - Added isValidPosition to wolfpack.utilities to check if a coord is valid.
   - Applied isValidPosition to moongates and go menu.
+  - Extended the who menu.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

@@ -497,10 +497,13 @@ public:
 	{
 		return this->getAsciiString( 5, 30 );
 	}
-	QString password( void ) const
+
+	// the client now uses a certain part of this packet to transmit flags
+	uint flags( void ) const
 	{
-		return this->getAsciiString( 35, 30 );
+		return getInt( 37 );
 	}
+
 	uint slot( void ) const
 	{
 		return getInt( 65 );

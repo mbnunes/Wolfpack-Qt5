@@ -163,6 +163,8 @@ public:
 	bool mayBroadcast() const;
 	bool showSerials() const;
 	bool karmaLock() const;
+	bool isJailed() const;
+	bool isSquelched() const;
 	// advanced getters for data structures
 	// pets
 	CharContainer pets() const;
@@ -190,6 +192,8 @@ public:
 	void setMayBroadcast( bool data );
 	void setShowSerials( bool data );
 	void setKarmaLock( bool data );
+	void setJailed( bool data );
+	void setSquelched( bool data );
 	void setParty( cParty* data );
 	void setGuild( cGuild* data );
 
@@ -266,6 +270,8 @@ protected:
 	// 03 - may broadcast, cOldChar::priv Bit 2
 	// 04 - show serials, cOldChar::priv Bit 4
 	// 05 - lock karma (0x10)
+	// 06 - jailed (0x20)
+	// 07 - squelched (0x40)	
 	Q_UINT32 additionalFlags_;
 
 	// The pets that follow the char.
@@ -446,9 +452,37 @@ inline bool cPlayer::showSerials() const
 	return additionalFlags_ & 0x0008;
 }
 
+inline bool cPlayer::isJailed() const
+{
+	return additionalFlags_ & 0x0020;
+}
+
+inline bool cPlayer::isSquelched() const
+{
+	return additionalFlags_ & 0x0040;
+}
+
 inline bool cPlayer::karmaLock() const
 {
 	return additionalFlags_ & 0x0010;
+}
+
+inline void cPlayer::setJailed( bool data )
+{
+	if ( data )
+		additionalFlags_ |= 0x0020;
+	else
+		additionalFlags_ &= ~0x0020;
+	changed_ = true;
+}
+
+inline void cPlayer::setSquelched( bool data )
+{
+	if ( data )
+		additionalFlags_ |= 0x0040;
+	else
+		additionalFlags_ &= ~0x0040;
+	changed_ = true;
 }
 
 inline void cPlayer::setMaySnoop( bool data )

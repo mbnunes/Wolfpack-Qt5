@@ -95,6 +95,8 @@ using namespace std;
 */
 cUOSocket::cUOSocket( QSocketDevice* sDevice ) : _walkSequence( 0 ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ), targetRequest( 0 ), _account( 0 ), _player( 0 ), _rxBytes( 0 ), _txBytes( 0 ), _socket( sDevice ), _screenWidth( 640 ), _screenHeight( 480 )
 {
+	_txBytesRaw = 0;
+	flags_ = 0;
 	_socket->resetStatus();
 	_ip = _socket->peerAddress().toString();
 	_uniqueId = sDevice->socket();
@@ -163,11 +165,20 @@ cUOSocket::~cUOSocket( void )
 /*!
   Sends \a packet to client.
 */
-void cUOSocket::send( cUOPacket* packet ) const
+void cUOSocket::send( cUOPacket* packet )
 {
 	// Don't send when we're already disconnected
 	if ( !_socket || !_socket->isOpen() )
 		return;
+
+	// Since the compressed packet will be cached anyway, there
+	// is no problem calling it here.
+	_txBytesRaw += packet->size();
+	if ( _state != LoggingIn ) {
+		_txBytes += packet->compressed().size();
+	} else {
+		_txBytes += packet->size();
+	}
 
 	Network::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
 
@@ -235,6 +246,9 @@ void cUOSocket::recieve()
 
 	if ( !packet )
 		return;
+
+	// Increase rx counter
+	_rxBytes += packet->size();
 
 	unsigned char packetId = ( *packet )[0];
 
@@ -429,6 +443,8 @@ void cUOSocket::recieve()
 			handleAosMultiPurpose( dynamic_cast<cUORxAosMultiPurpose*>( packet ) );
 			break;
 		case 0xB6:
+			break; // Completely ignore the packet.
+		case 0xBB:
 			break; // Completely ignore the packet.
 		default:
 			Console::instance()->send( packet->dump( packet->uncompressed() ) );
@@ -693,6 +709,9 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 		send( &denyLogin );
 		return;
 	}
+
+	// Save the flags
+	flags_ = packet->flags();
 
 	// the char we want to login with
 	P_PLAYER pChar = characters.at( packet->slot() );
@@ -1184,8 +1203,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
   This method sends a system \a message at the botton of the screen
   \sa cUOTxUnicodeSpeech
 */
-void cUOSocket::sysMessage( const QString& message, Q_UINT16 color, Q_UINT16 font ) const
-{
+void cUOSocket::sysMessage( const QString& message, Q_UINT16 color, Q_UINT16 font ) {
 	if ( message.isEmpty() )
 		return;
 	// Color: 0x0037
@@ -1497,6 +1515,10 @@ void cUOSocket::handleCastSpell( cUORxCastSpell* packet )
 
 void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection* packet )
 {
+	if (_player->isJailed()) {
+		return; // Don't show context menus to jailed players
+	}
+
 	P_CHAR pChar;
 	P_ITEM pItem;
 
@@ -1561,6 +1583,10 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip* packet )
 */
 void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
 {
+	if (_player->isJailed()) {
+		return; // Don't show context menus to jailed players
+	}
+
 	cUObject* clicked = FindItemBySerial( packet->serial() );
 	if ( clicked == 0 )
 		clicked = FindCharBySerial( packet->serial() );
@@ -1619,7 +1645,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
   This method prints \a message on top of \a object using the given \a color and \a speechType
   \sa cUObject, cUOTxUnicodeSpeech, cUOTxUnicodeSpeech::eSpeechType
 */
-void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UINT16 color, Q_UINT16 font, Q_UINT8 speechType ) const
+void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UINT16 color, Q_UINT16 font, Q_UINT8 speechType )
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial() );
@@ -1869,19 +1895,14 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
   This method handles cUORxDoubleClick packet types.
   \sa cUORxDoubleClick
 */
-void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
-{
+void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet ) {
 	P_CHAR pChar = World::instance()->findChar( packet->serial() );
 
-	if ( pChar )
-	{
+	if ( pChar ) {
 		pChar->showPaperdoll( this, packet->keyboard() );
-	}
-	else
-	{
+	} else {
 		P_ITEM item = World::instance()->findItem( packet->serial() );
-		if ( item )
-		{
+		if ( item ) {
 			useItem( item );
 		}
 	}
@@ -2326,7 +2347,11 @@ void cUOSocket::handleTarget( cUORxTarget* packet )
 */
 void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 {
-	_player->fight( World::instance()->findChar( packet->serial() ) );
+	if (_player->isJailed()) {
+		sysMessage(tr("You cannot fight while you are in jail."));
+	} else {
+		_player->fight( World::instance()->findChar( packet->serial() ) );
+	}
 }
 
 void cUOSocket::soundEffect( Q_UINT16 soundId, cUObject* source )
@@ -3360,6 +3385,11 @@ void cUOSocket::handleChat( cUOPacket* packet )
 
 bool cUOSocket::useItem( P_ITEM item )
 {
+	if (_player->isJailed()) {
+		sysMessage(tr("You cannot use items while you are in jail."));
+		return false;
+	}
+
 	P_ITEM outmostItem = item->getOutmostItem();
 
 	cMulti *multi = outmostItem->multi();

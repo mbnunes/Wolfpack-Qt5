@@ -74,6 +74,13 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 		return;
 	}
 
+	// No Drag & Drop possible while in jail
+	if (pChar->isJailed()) {
+		socket->sysMessage( tr("While you are jailed, you cannot pick up items.") );
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
+
 	// Check if the item can be reached
 	if ( !pChar->isGM() && pItem->getOutmostChar() != pChar && !pChar->lineOfSight( pItem ) ) {
 		socket->bounceItem( pItem, BR_OUT_OF_REACH );
