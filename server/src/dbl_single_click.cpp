@@ -33,7 +33,7 @@
 #include "platform.h"
 
 // Wolfpack Includes
-#include "dbl_single_click.h"
+#include "books.h"
 #include "globals.h"
 #include "guildstones.h"
 #include "srvparams.h"
@@ -140,7 +140,7 @@ bool isInLockedItem( P_ITEM pItem )
 		return false;
 }
 
-void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
+void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 {
 	unsigned int tempuint;
 

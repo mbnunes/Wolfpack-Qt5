@@ -483,3 +483,8 @@ bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	return true;
 }
+
+bool cItem::postload() throw()
+{
+	return cUObject::postload(); 
+}

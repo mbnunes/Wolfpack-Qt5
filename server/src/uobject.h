@@ -151,6 +151,7 @@ public:
 	bool del();
 	virtual void save( FlatStore::OutputFile*, bool first = false ) throw();
 	virtual bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
+	virtual bool postload() throw();
 
 	QString eventList( void ) const; // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object

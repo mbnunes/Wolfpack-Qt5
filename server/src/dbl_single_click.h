@@ -32,23 +32,10 @@
 #if !defined(__DBL_SINGLE_CLICK_H__)
 #define __DBL_SINGLE_CLICK_H__
 
-// Platform specifics
-#include "platform.h"
+#include "typedefs.h"
 
-// system includes
+class cUOSocket;
 
-
-
-// Forward Declaration
-
-
-
-//Wolfpack includes
-#include "debug.h"
-#include "books.h"
-//#include "wolfpack.h"
-#include "itemid.h"
-#include "utilsys.h"
-
+void dbl_click_item( cUOSocket* socket, SERIAL target_serial ) throw();
 
 #endif

@@ -37,6 +37,7 @@
 
 // Wolfpack Includes
 #include "../corpse.h"
+#include "../dbl_single_click.h" // Deprecated
 #include "../accounts.h"
 #include "../globals.h"
 #include "../wolfpack.h"

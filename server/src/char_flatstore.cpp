@@ -656,3 +656,12 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	return true;
 }
+
+
+bool cChar::postload() throw()
+{
+	// if we are not bound to a stablemaster, register us with the map objects
+	
+
+	return cUObject::postload();
+}

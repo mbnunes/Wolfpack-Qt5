@@ -42,10 +42,16 @@
 #include "accounts.h"
 #include "inlines.h"
 
-// Objects
+// Postprocessing stuff, can be deleted later on
+#include "maps.h"
+#include "mapobjects.h"
+#include "territories.h"
+
+// Objects ( => Factory later on )
 #include "uobject.h"
 #include "items.h"
 #include "chars.h"
+#include "multis.h"
 
 // Python Includes
 #include "python/utilities.h"
@@ -273,7 +279,36 @@ void cWorld::loadFlatstore( const QString &prefix )
 		}
 	}
 
+	// postload the objects
+
 	input.finishRead();	
+}
+
+static void quickdelete( P_ITEM pi ) throw()
+{
+	// Minimal way of deleting an item
+	pi->SetSpawnSerial( -1 );
+	pi->SetOwnSerial( -1 );
+
+	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( pi->serial() ) );
+
+	// Also delete all items inside if it's a container.
+	cItem::ContainerContent container(pi->content());
+	cItem::ContainerContent::const_iterator it ( container.begin() );
+	cItem::ContainerContent::const_iterator end( container.end() );
+	for ( ; it != end; ++it )
+		quickdelete( *it );
+
+	// if it is within a multi, delete it from the multis vector
+	if( pi->multis() != INVALID_SERIAL )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
+		if( pMulti )
+			pMulti->removeItem( pi );
+	}
+
+	MapObjects::instance()->remove( pi );
+	World::instance()->unregisterObject( pi );
 }
 
 void cWorld::load( QString basepath, QString prefix, QString module )
@@ -307,6 +342,158 @@ void cWorld::load( QString basepath, QString prefix, QString module )
 	clConsole.ChangeColor( WPC_GREEN );
 	clConsole.send( " Done\n" );
 	clConsole.ChangeColor( WPC_NORMAL );
+
+	clConsole.PrepareProgress( tr("Postprocessing") );
+
+	P_ITEM pi;	
+	QPtrList< cItem > deleteItems;
+
+	cItemIterator iter;
+	for( pi = iter.first(); pi; pi = iter.next() )
+	{
+		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
+
+		// 1. Handle the Container Value
+		if( isItemSerial( contserial ) )
+		{
+			P_ITEM pCont = FindItemBySerial( contserial );
+
+			if( pCont )
+			{
+				pCont->addItem( pi, false, false, true );
+			}
+			else
+			{
+				// Queue this item up for deletion
+				deleteItems.append( pi );
+				continue; // Skip further processing
+			}
+		}
+		else if( isCharSerial( contserial ) )
+		{
+			P_CHAR pCont = FindCharBySerial( contserial );
+
+			if( pCont )
+			{
+				pCont->addItem( (cChar::enLayer)pi->layer(), pi, false, true );
+			}
+			else
+			{
+				deleteItems.append( pi );
+				continue; // Skip further processing
+			}
+		}
+		else // Add to Map Regions
+		{
+			int max_x = Map->mapTileWidth(pi->pos().map) * 8;
+			int max_y = Map->mapTileHeight(pi->pos().map) * 8;
+			if ( pi->pos().x > max_x || pi->pos().y > max_y ) 
+			{
+				// these are invalid locations, delete them!
+				deleteItems.append( pi );
+			}
+			else
+				MapObjects::instance()->add(pi);
+			continue;
+		}
+
+		// If this item has a multiserial then add it to the multi
+		if( isItemSerial( pi->multis() ) )
+		{
+			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
+
+			if( pMulti )
+				pMulti->addItem( pi );
+		}
+
+		// "Store Random value", whatever it does...
+		if( pi->container() && pi->container()->isItem() )
+			StoreItemRandomValue(pi, "none");
+
+		// effect on dex ? like plate eg.
+		if( pi->dx2() && pi->container() && pi->container()->isChar() )
+		{
+			P_CHAR pChar = dynamic_cast< P_CHAR >( pi->container() );
+
+			if( pChar )
+				pChar->chgDex( pi->dx2() );
+		}
+		pi->flagUnchanged(); // We've just loaded, nothing changes.
+	}
+
+	// Post Process Characters
+	cCharIterator charIter;
+	P_CHAR pChar;
+	for( pChar = charIter.first(); pChar; pChar = charIter.next() )
+	{
+		// Find Owner
+		if( pChar->owner() )
+		{
+			SERIAL owner = (SERIAL)pChar->owner();
+			
+			P_CHAR pOwner = FindCharBySerial( owner );
+			if( pOwner )
+			{
+				pChar->setOwnerOnly( pOwner );
+				pOwner->addFollower( pChar, true );
+			}
+			else
+			{
+				clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( owner, 16 ) );
+				pChar->setOwnerOnly( 0 );
+			}
+		}
+
+		// Find Guarding
+		if( pChar->guarding() )
+		{
+			SERIAL guarding = (SERIAL)pChar->guarding();
+
+			P_CHAR pGuarding = FindCharBySerial( guarding );
+			if( pGuarding )
+			{
+				pChar->setGuardingOnly( pGuarding );
+				pGuarding->addGuard( pChar, true );
+			}
+			else
+			{
+				clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
+				pChar->setGuardingOnly( 0 );
+			}
+		}
+
+		if( isItemSerial( pChar->multis() ) )
+		{
+			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
+
+			if( pMulti )
+				pMulti->addChar( pChar );
+		}
+
+		cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		pChar->setRegion( region );
+
+		// Now that we have our owner set correctly
+		// do the charflags
+		setcharflag( pChar );
+		pChar->flagUnchanged(); // We've just loaded, nothing changes
+	}
+
+	clConsole.ProgressDone();
+
+	clConsole.PrepareProgress( "Deleting lost items" );
+
+	// Do we have to delete items?
+	for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
+		quickdelete( pItem );
+
+	clConsole.ProgressDone();
+
+	if( deleteItems.count() > 0 )
+	{
+		clConsole.send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
+		deleteItems.clear();
+	}
 }
 
 void cWorld::saveSql()

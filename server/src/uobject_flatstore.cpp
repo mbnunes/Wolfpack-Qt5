@@ -99,3 +99,9 @@ bool cUObject::load( unsigned char chunkGroup, unsigned char chunkType, FlatStor
 	
 	return true;
 }
+
+bool cUObject::postload() throw()
+{
+	// Nothing to do here (yet).
+	return true;
+}

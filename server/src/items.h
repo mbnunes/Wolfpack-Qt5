@@ -110,6 +110,7 @@ public:
 	void save();
 	void save( FlatStore::OutputFile*, bool first = false ) throw();
 	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* ) throw();
+	bool postload() throw();
 	bool del();
 
 	void	processContainerNode( const QDomElement &Tag );
