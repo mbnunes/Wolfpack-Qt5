@@ -773,7 +773,7 @@ void objTeleporters(P_CHAR pc_s)
 
 	int x = pc_s->pos.x, y = pc_s->pos.y;
 	
-	int	StartGrid = mapRegions->StartGrid(pc_s->pos.x, pc_s->pos.y);
+	int	StartGrid = mapRegions->StartGrid(pc_s->pos);
 	//	int	getcell=mapRegions->GetCell(pc_s->x,pc_s->y);
 	
 	unsigned int increment = 0;

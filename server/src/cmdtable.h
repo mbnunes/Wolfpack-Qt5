@@ -250,6 +250,7 @@ CMD_HANDLER(command_jail);
 CMD_HANDLER(command_eclipse);
 CMD_HANDLER(command_sysm);
 CMD_HANDLER(command_password);
+CMD_HANDLER(command_debug);
 
 
 /* all defined target commands */

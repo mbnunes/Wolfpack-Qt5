@@ -267,7 +267,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 	return 0;
 
 	// - Tauriel's region stuff 3/6/99
-	int getcell = mapRegions->GetCell(pc_player->pos.x,pc_player->pos.y);
+	int getcell = mapRegions->GetCell(pc_player->pos);
 
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
@@ -2416,8 +2416,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							//5 tiles, if magery is maxed out at 100.0 (except for gms I suppose), range is 20
 							
 							//Char mapRegions
-							StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
-							getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
+							StartGrid=mapRegions->StartGrid(pc_currchar->pos);
+							getcell=mapRegions->GetCell(pc_currchar->pos);
 							
 							increment=0;
 							cRegion::RegionIterator4Chars ri(pc_currchar->pos);
@@ -2828,8 +2828,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			
 			//Char mapRegions
 			loopexit=0;
-			StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
-			getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
+			StartGrid=mapRegions->StartGrid(pc_currchar->pos);
+			getcell=mapRegions->GetCell(pc_currchar->pos);
 			increment=0;
 			for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 			{

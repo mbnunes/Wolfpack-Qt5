@@ -529,8 +529,8 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 		sprintf((char*)temp, "Converted into a %s.", pDeed->name.c_str());
 		sysmessage(s, (char*)temp); 
 		// door/sign delete
-		StartGrid=mapRegions->StartGrid(pHouse->pos.x, pHouse->pos.y);
-		getcell=mapRegions->GetCell(pHouse->pos.x, pHouse->pos.y);
+		StartGrid=mapRegions->StartGrid(pHouse->pos);
+		getcell=mapRegions->GetCell(pHouse->pos);
 		increment=0;
 		ab=0;
 		for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))

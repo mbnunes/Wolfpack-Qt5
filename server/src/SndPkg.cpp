@@ -1424,7 +1424,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 	if (k!=-1)
 	{
 		//Char mapRegions
-		int	StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
+		int	StartGrid=mapRegions->StartGrid(pc->pos);
 		unsigned int increment=0;
 		for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 		{

@@ -869,7 +869,8 @@ void cNetworkStuff::sockInit()
 	// time from the select and accept, we would block (accept is blocking).  So, set it non blocking
 	
 #if defined(__unix__)
-	ioctl(a_socket,FIONBIO,0) ;
+	int iocltmp = 0;
+	ioctl(a_socket,FIONBIO, &iocltmp);
 #else
 	ioctlsocket(a_socket,FIONBIO,0) ;
 #endif

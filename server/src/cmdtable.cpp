@@ -390,12 +390,12 @@ CMDTABLE_S command_table[] = {
 	{"SETSEASON",	2,	13,	CMD_FUNC,	(CMD_DEFINE)&command_setseason},
 	{"ECLIPSE",     1,  10, CMD_FUNC,   (CMD_DEFINE)&command_eclipse}, 
 	{"SYSM",        5,  8,  CMD_FUNC,   (CMD_DEFINE)&command_sysm},
-	{"SETHOME", 0, 14, CMD_TARGETXYZ, (CMD_DEFINE)&target_sethome},
-	{"SETWORK", 0, 14, CMD_TARGETXYZ, (CMD_DEFINE)&target_setwork},
-	{"SETFOOD", 0, 14, CMD_TARGETXYZ, (CMD_DEFINE)&target_setfood},	
+	{"SETHOME",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_sethome},
+	{"SETWORK",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_setwork},
+	{"SETFOOD",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_setfood},	
 	{"PASSWORD",	5,	19,	CMD_FUNC,	(CMD_DEFINE)&command_password},
-	
-	{NULL,		0,	0,	0,		NULL}			// Tseramed, cleaner
+	{"DEBUG",  		255, 0, CMD_FUNC,   (CMD_DEFINE)&command_debug},
+	{NULL,			0,	0,	0,		NULL}			// Tseramed, cleaner
 };
 
 static char *ch="abcdefg";
@@ -962,7 +962,7 @@ void command_showids(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	
 	//Char mapRegions
-	int getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
+	int getcell=mapRegions->GetCell(pc_currchar->pos);
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
 	{
@@ -2596,4 +2596,16 @@ void command_password(UOXSOCKET s)
 		sysmessage(s, "You must type 'PASSWORD <newpassword>");
 	
 	return;
+}
+
+void command_debug( UOXSOCKET s )
+{
+	int temppunt = 0;
+	cRegion::RegionIterator4Chars ri(currchar[s]->pos);
+	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	{
+		P_CHAR pc_vis = ri.GetData();
+		++temppunt;
+	}
+	sysmessage(s, "%i Entries found", temppunt);
 }

@@ -1460,7 +1460,7 @@ void explodeitem(int s, P_ITEM pi)
 	P_ITEM piMap;
 	loopexit=0;
 
-	int StartGrid=mapRegions->StartGrid(pi->pos.x, pi->pos.y);
+	int StartGrid = mapRegions->StartGrid(pi->pos);
 	int increment=0;
 	int checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))

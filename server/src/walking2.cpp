@@ -470,7 +470,7 @@ short int cMovement::CheckMovementType(P_CHAR pc)
 
 bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz)
 {
-	unsigned int StartGrid=mapRegions->StartGrid(cx, cy);
+	unsigned int StartGrid=mapRegions->StartGrid(Coord_cl(cx, cy, cz));
 	unsigned int increment=0, checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{
@@ -913,7 +913,7 @@ void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int 
 	// i'm trying a new optimization here, if we end up in the same map cell
 	// as we started, i'm sure there's no real reason to remove and readd back
 	// to the same spot..
-	if (mapRegions->GetCell(oldx, oldy) != mapRegions->GetCell(nowx, nowy))
+	if (mapRegions->GetCell(Coord_cl(oldx, oldy, 0)) != mapRegions->GetCell(Coord_cl(nowx, nowy, 0)))
 	{
 		// restore our original location and remove ourself
 		pc->pos.x = oldx;
@@ -1230,7 +1230,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 
 	
 	// - Tauriel's region stuff 3/6/99
-	const int StartGrid = mapRegions->StartGrid(newx, newy);
+	const int StartGrid = mapRegions->StartGrid(pc->pos);
 
 	int checkgrid = 0;
 	for (int increment = 0; increment < 3; increment++)
@@ -2258,7 +2258,7 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 //##ModelId=3C5D92AD0130
 int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s )
 {
-	const int getcell=mapRegions->GetCell(x,y);
+	const int getcell=mapRegions->GetCell(Coord_cl(x,y, z));
 
 	if ( pc_s == NULL ) return 0;
 

@@ -217,7 +217,7 @@ static bool ForgeInRange(int s)
 	P_CHAR pc = currchar[s];
 	bool rc = false;
 
-	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
+	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
 	unsigned int increment=0, checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{
@@ -242,7 +242,7 @@ static bool AnvilInRange(int s)
 	P_CHAR pc = currchar[s];
 	bool rc = false;
 
-	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
+	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
 	unsigned int increment=0, checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{

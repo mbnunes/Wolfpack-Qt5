@@ -378,7 +378,7 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 {
 	//int z = illegal_z;
 	signed char z = illegal_z;
-	const int getcell = mapRegions->GetCell(x,y);
+	const int getcell = mapRegions->GetCell(Coord_cl(x,y, oldz));
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
@@ -444,7 +444,7 @@ int cMapStuff::MultiTile(P_ITEM pi, short int x, short int y, signed char oldz)
 //##ModelId=3C5D92DF0100
 int cMapStuff::DynTile(short int x, short int y, signed char oldz)
 {
-	const int getcell = mapRegions->GetCell(x,y);
+	const int getcell = mapRegions->GetCell(Coord_cl(x,y, oldz));
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
     {

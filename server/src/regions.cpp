@@ -43,14 +43,12 @@
 
 
 // Private Add.
-//##ModelId=3C5D92D203C9
 bool cRegion::Add(UI32 cell, SERIAL serial)
 {
 	MapCells.insert(make_pair(cell, serial));
 	return true;
 }
 
-//##ModelId=3C5D92D30009
 bool cRegion::Remove(UI32 cell, SERIAL serial)
 {
 	bool bStatus = false ;
@@ -70,13 +68,12 @@ bool cRegion::Remove(UI32 cell, SERIAL serial)
 }
 
 // - Adds the item to a cell
-//##ModelId=3C5D92D3008B
 bool cRegion::Add(P_ITEM pi) 
 {
 	unsigned int uiCell;
 	if (pi == NULL) 
 		return false;
-	uiCell = GetCell(pi->pos.x, pi->pos.y);
+	uiCell = GetCell(pi->pos);
 
     if (uiCell<=32999) 
 	{
@@ -85,31 +82,31 @@ bool cRegion::Add(P_ITEM pi)
 	} else return false;
 }
 
-//##ModelId=3C5D92D3009F
 bool cRegion::Add(P_CHAR pc) 
 {
 	unsigned int uiCell;
 	if (pc == NULL) 
 		return false;
-	uiCell = GetCell(pc->pos.x, pc->pos.y);
+	uiCell = GetCell(pc->pos);
 
-    if (uiCell<=32999) 
+    if (uiCell <= 32999) 
 	{
 		Add(uiCell, pc->serial); //set item in pointer array
 		return true;
-	} else return false;
+	} 
+	else 
+		return false;
 }
 
 // - Removes the item from a cell
-//##ModelId=3C5D92D300B3
 bool cRegion::Remove(P_ITEM pi)
 {
 	unsigned int uiCell;
 	if (pi == NULL)
 		return false;
-	uiCell = GetCell(pi->pos.x, pi->pos.y);
+	uiCell = GetCell(pi->pos);
 
-	if(uiCell<=32999)
+	if(uiCell <= 32999)
 	{
 		// clConsole.send("item# %i removed from mapcell %i [%i,%i,%i]\n", nItem, uiCell, items[nItem].x, items[nItem].y, items[nItem].z);
 		Remove(uiCell, pi->serial);
@@ -120,15 +117,14 @@ bool cRegion::Remove(P_ITEM pi)
 }
 
 // - Removes the item from a cell
-//##ModelId=3C5D92D300C7
 bool cRegion::Remove(P_CHAR pc)
 {
 	unsigned int uiCell;
 	if (pc == NULL)
 		return false;
-	uiCell = GetCell(pc->pos.x, pc->pos.y);
+	uiCell = GetCell(pc->pos);
 
-	if(uiCell<=32999)
+	if(uiCell <= 32999)
 	{
 		// clConsole.send("item# %i removed from mapcell %i [%i,%i,%i]\n", nItem, uiCell, items[nItem].x, items[nItem].y, items[nItem].z);
 		Remove(uiCell, pc->serial);
@@ -140,14 +136,12 @@ bool cRegion::Remove(P_CHAR pc)
 
 
 //- Returns the cell the character/item is in
-//##ModelId=3C5D92D30027
-unsigned int cRegion::GetCell(unsigned int x, unsigned int y)
+unsigned int cRegion::GetCell(const Coord_cl& pos)
 {
-	int cell = myGridx(x) + myGridy(y) + (myGridx(x) * (ColSize-1));
+	int cell = myGridx(pos.x) + myGridy(pos.y) + (myGridx(pos.x) * (ColSize-1));
 	return (unsigned int) ((cell<0) ? 0 : cell);  // - Return 0 if negative otherwise cell #
 }
 
-//##ModelId=3C5D92D300E5
 vector<SERIAL> cRegion::GetCellEntries(UI32 cell, enDomain type)
 {
 	vector<SERIAL> vecValue;
@@ -179,27 +173,24 @@ vector<SERIAL> cRegion::GetCellEntries(UI32 cell, enDomain type)
 
 // - Get starting grid for lookup 96x96 box
 // - (we check the 8 surrounding cells and the cell char/item is in)
-//##ModelId=3C5D92D30045
-unsigned int cRegion::StartGrid(unsigned int x, unsigned int y)
+unsigned int cRegion::StartGrid(const Coord_cl& pos)
 {
-	int gridx=myGridx(x)-1, gridy=myGridy(y)-1;
+	int gridx=myGridx(pos.x)-1, gridy=myGridy(pos.y)-1;
 	if (gridx<0) gridx=0;
 	if (gridy<0) gridy=0;
 	return (unsigned int) (gridx + gridy + (gridx * (ColSize-1)));
 }
 
-//##ModelId=3C5D92D303AC
-cRegion::RegionIterator4Chars::RegionIterator4Chars(const Coord_cl pos)
+cRegion::RegionIterator4Chars::RegionIterator4Chars(const Coord_cl& pos)
 {
-	cell = currentCell = ::cRegion::GetCell(pos.x, pos.y);
+	cell = currentCell = ::cRegion::GetCell(pos);
 	currentIndex = 0;
 	currentCharacter = NULL;
 }
 
-//##ModelId=3C5D92D30398
 P_CHAR cRegion::RegionIterator4Chars::NextCell(void)
 {
-	currentCell++;	//adjacent cell
+	++currentCell;	//adjacent cell
 	if (currentCell%ColSize > cell%ColSize+1)
 		currentCell += ColSize-3;	//next col
 	if (currentCell > cell+ColSize+1)
@@ -209,7 +200,6 @@ P_CHAR cRegion::RegionIterator4Chars::NextCell(void)
 	return NULL;
 }
 
-//##ModelId=3C5D92D4000A
 P_CHAR cRegion::RegionIterator4Chars::GetData(void)
 {
 	if (currentCharacter == NULL && vecEntries.size() == 0)
@@ -227,7 +217,6 @@ P_CHAR cRegion::RegionIterator4Chars::GetData(void)
 	return currentCharacter;
 }
 
-//##ModelId=3C5D92D303C0
 P_CHAR cRegion::RegionIterator4Chars::Begin(void)
 {
 	currentCell = cell;
@@ -236,14 +225,12 @@ P_CHAR cRegion::RegionIterator4Chars::Begin(void)
 	return GetData();
 }
 
-//##ModelId=3C5D92D303DE
 P_CHAR cRegion::RegionIterator4Chars::End(void)
 {
 	return NULL;
 }
 
-//##ModelId=3C5D92D4001E
-cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator ++(int)
+cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator++ (int)
 {
 	++currentIndex;
 	if (currentIndex > vecEntries.size())
@@ -251,29 +238,23 @@ cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator ++(int)
 	return *this;
 }
 
-//##ModelId=3C5D92D40032
-cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator =(Coord_cl pos)
+cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator= (const Coord_cl& pos)
 {
-	cell = currentCell = ::cRegion::GetCell(pos.x, pos.y);
+	cell = currentCell = ::cRegion::GetCell(pos);
 	currentIndex = 0;
 	return *this;
 }
 
-
-
-
-//##ModelId=3C5D92D401CD
-cRegion::RegionIterator4Items::RegionIterator4Items(const Coord_cl pos)
+cRegion::RegionIterator4Items::RegionIterator4Items(const Coord_cl& pos)
 {
-	cell = currentCell = ::cRegion::GetCell(pos.x, pos.y);
+	cell = currentCell = ::cRegion::GetCell(pos);
 	currentIndex = 0;
 	currentItem = NULL;
 }
 
-//##ModelId=3C5D92D401B9
 P_ITEM cRegion::RegionIterator4Items::NextCell(void)
 {
-	currentCell++;	//adjacent cell
+	++currentCell;	//adjacent cell
 	if (currentCell%ColSize > cell%ColSize+1)
 		currentCell += ColSize-3;	//next col
 	if (currentCell > cell+ColSize+1)
@@ -283,7 +264,6 @@ P_ITEM cRegion::RegionIterator4Items::NextCell(void)
 	return NULL;
 }
 
-//##ModelId=3C5D92D40209
 P_ITEM cRegion::RegionIterator4Items::GetData(void)
 {
 	if (currentItem == NULL && vecEntries.size() == 0)
@@ -301,7 +281,6 @@ P_ITEM cRegion::RegionIterator4Items::GetData(void)
 	return currentItem;
 }
 
-//##ModelId=3C5D92D401E1
 P_ITEM cRegion::RegionIterator4Items::Begin(void)
 {
 	currentCell = cell;
@@ -310,13 +289,11 @@ P_ITEM cRegion::RegionIterator4Items::Begin(void)
 	return GetData();
 }
 
-//##ModelId=3C5D92D401F5
 P_ITEM cRegion::RegionIterator4Items::End(void)
 {
 	return NULL;
 }
 
-//##ModelId=3C5D92D4021D
 cRegion::RegionIterator4Items& cRegion::RegionIterator4Items::operator ++(int)
 {
 	++currentIndex;
@@ -325,10 +302,9 @@ cRegion::RegionIterator4Items& cRegion::RegionIterator4Items::operator ++(int)
 	return *this;
 }
 
-//##ModelId=3C5D92D4023B
-cRegion::RegionIterator4Items& cRegion::RegionIterator4Items::operator =(Coord_cl pos)
+cRegion::RegionIterator4Items& cRegion::RegionIterator4Items::operator =(const Coord_cl& pos)
 {
-	cell = currentCell = ::cRegion::GetCell(pos.x, pos.y);
+	cell = currentCell = ::cRegion::GetCell(pos);
 	currentIndex = 0;
 	return *this;
 }
