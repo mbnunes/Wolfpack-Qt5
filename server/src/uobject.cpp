@@ -382,14 +382,20 @@ void cUObject::removeEvent( const QString& name )
 		return;
 	}
 
+	if ( !hasEvent( event->name() ) )
+	{
+		return;
+	}
+
 	cPythonScript* event = 0;
 
-	if ( scriptChain && hasEvent( name ) )
+	if ( scriptChain )
 	{
 		unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
 
 		if ( count == 1 )
 		{
+			event = scriptChain[1];
 			clearEvents();
 		}
 		else
