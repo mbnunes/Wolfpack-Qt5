@@ -35,7 +35,8 @@
 #include "iserialization.h"
 
 #include <fstream>
-
+#include <cstdio>
+using namespace std;
 /*!
 CLASS
     
