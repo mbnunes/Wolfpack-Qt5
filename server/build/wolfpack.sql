@@ -4,7 +4,7 @@
 # http://www.phpmyadmin.net/ (download page)
 #
 # Host: localhost:3306
-# Generation Time: Jun 03, 2003 at 12:37 AM
+# Generation Time: Jun 11, 2003 at 03:32 PM
 # Server version: 4.00.12
 # PHP Version: 4.3.1
 # Database : `wolfpack`
@@ -130,9 +130,9 @@ CREATE TABLE characters (
   stealthsteps int(11) unsigned NOT NULL default '0',
   gender tinyint(1) unsigned NOT NULL default '0',
   propertyflags int(11) unsigned NOT NULL default '0',
-  attacker int(11) unsigned NOT NULL default '0',
-  combattarget int(11) unsigned NOT NULL default '0',
-  murderer int(11) unsigned NOT NULL default '0',
+  attacker int(11) NOT NULL default '-1',
+  combattarget int(11) NOT NULL default '-1',
+  murderer int(11) NOT NULL default '-1',
   guarding int(11) NOT NULL default '-1',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
@@ -345,10 +345,10 @@ CREATE TABLE npcs (
   tamingminskill smallint(6) unsigned NOT NULL default '0',
   summontime int(11) unsigned NOT NULL default '0',
   additionalflags int(11) unsigned NOT NULL default '0',
-  owner int(11) unsigned NOT NULL default '0',
+  owner int(11) NOT NULL default '-1',
   carve varchar(255) default NULL,
   spawnregion varchar(255) default NULL,
-  stablemaster int(11) unsigned NOT NULL default '0',
+  stablemaster int(11) NOT NULL default '-1',
   lootlist varchar(255) default NULL,
   ai varchar(255) default NULL,
   PRIMARY KEY  (serial),
