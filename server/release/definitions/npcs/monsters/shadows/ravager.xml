@@ -12,8 +12,8 @@
 	<npc id="ravager" inherit="monster_base">
 		<name>ravager</name>
 		<id>314</id>
-		<karma>-7000</karma>
-		<fame>7000</fame>
+		<karma><random list="KARMA_L4" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="251" max="275"/></str>
 		<dex><random min="101" max="125"/></dex>

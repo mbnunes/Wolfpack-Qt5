@@ -12,8 +12,8 @@
 	<npc id="darknight_creeper" inherit="monster_base">
 		<name>darknight creeper</name>
 		<id>313</id>
-		<karma>-25000</karma>
-		<fame>25000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="301" max="330"/></str>
 		<dex><random min="101" max="110"/></dex>

@@ -12,8 +12,8 @@
 	<npc id="devourer_of_souls" inherit="monster_base">
 		<name>devourer of souls</name>
 		<id>303</id>
-		<karma>-19000</karma>
-		<fame>19500</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="801" max="950"/></str>
 		<dex><random min="126" max="175"/></dex>

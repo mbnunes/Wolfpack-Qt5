@@ -12,8 +12,8 @@
 	<npc id="sphynx" inherit="monster_base">
 		<name>Sphynx</name>
 		<id>788</id>
-		<karma>0</karma>
-		<fame>25000</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="1001" max="1200"/></str>
 		<dex><random min="176" max="195"/></dex>

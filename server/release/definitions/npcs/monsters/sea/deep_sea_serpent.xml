@@ -12,19 +12,23 @@
 	<npc id="deep_sea_serpent" inherit="monster_base">
 		<name>deep sea serpent</name>
 		<id>150</id>
-		<karma>-6000</karma>
-		<fame>6000</fame>
+		<karma><random list="KARMA_L4" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="251" max="425"/></str>
 		<dex><random min="87" max="135"/></dex>
 		<int><random min="87" max="155"/></int>
+		<maxhitpoints><random min="151" max="255"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="601" max="750"/></magicresistance>
 		<tactics><random min="601" max="700"/></tactics>
 		<wrestling><random min="601" max="700"/></wrestling>
+		<magery>0</magery>
+		<meditation>0</meditation>
+		<evaluatingintel>0</evaluatingintel>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>14</maxdamage>
+		<mindamage>15</mindamage>
+		<maxdamage>37</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_energy" value="15,20" type="int" />

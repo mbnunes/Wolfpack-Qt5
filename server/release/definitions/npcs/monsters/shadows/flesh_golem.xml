@@ -12,8 +12,8 @@
 	<npc id="flesh_golem" inherit="monster_base">
 		<name>flesh golem</name>
 		<id>304</id>
-		<karma>-1700</karma>
-		<fame>2500</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="176" max="200"/></str>
 		<dex><random min="51" max="75"/></dex>

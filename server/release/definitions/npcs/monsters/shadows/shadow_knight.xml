@@ -12,8 +12,8 @@
 	<npc id="shadow_knight" inherit="monster_base">
 		<name>shadow knight</name>
 		<id>311</id>
-		<karma>-25000</karma>
-		<fame>25000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str>250</str>
 		<dex>100</dex>

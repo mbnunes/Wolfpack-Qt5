@@ -12,19 +12,21 @@
 	<npc id="kraken" inherit="monster_base">
 		<name>kraken</name>
 		<id>8</id>
-		<karma>-11000</karma>
-		<fame>11000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="756" max="780"/></str>
 		<dex><random min="226" max="245"/></dex>
 		<int><random min="26" max="40"/></int>
+		<maxmana>0</maxmana>
+		<maxhitpoints><random min="454" max="468"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="151" max="200"/></magicresistance>
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="600"/></wrestling>
 		<!-- Damage -->
-		<mindamage>19</mindamage>
-		<maxdamage>33</maxdamage>
+		<mindamage>73</mindamage>
+		<maxdamage>121</maxdamage>
 		<tag name="dmg_cold" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="30,40" type="int" />

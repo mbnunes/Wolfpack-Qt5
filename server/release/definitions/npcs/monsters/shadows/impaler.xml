@@ -12,8 +12,8 @@
 	<npc id="impaler" inherit="monster_base">
 		<name>impaler</name>
 		<id>306</id>
-		<karma>-25000</karma>
-		<fame>25000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str>190</str>
 		<dex>45</dex>

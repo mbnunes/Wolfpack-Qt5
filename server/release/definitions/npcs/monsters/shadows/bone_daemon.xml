@@ -12,8 +12,8 @@
 	<npc id="bone_daemon" inherit="monster_base">
 		<name>bone daemon</name>
 		<id>308</id>
-		<karma>-15000</karma>
-		<fame>15000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str>1000</str>
 		<dex><random min="151" max="175"/></dex>

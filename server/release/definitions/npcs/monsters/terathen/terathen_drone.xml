@@ -12,20 +12,22 @@
 	<npc id="terathan_drone" inherit="monster_base">
 		<name>terathan drone</name>
 		<id>72</id>
-		<karma>-2000</karma>
-		<fame>2000</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="36" max="65"/></str>
 		<dex><random min="96" max="145"/></dex>
 		<int><random min="21" max="45"/></int>
+		<maxhitpoints><random min="22" max="39"/></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<poisoning><random min="401" max="600"/></poisoning>
 		<magicresistance><random min="301" max="450"/></magicresistance>
 		<tactics><random min="301" max="500"/></tactics>
 		<wrestling><random min="401" max="500"/></wrestling>
 		<!-- Damage -->
-		<mindamage>6</mindamage>
-		<maxdamage>12</maxdamage>
+		<mindamage>9</mindamage>
+		<maxdamage>16</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="15,25" type="int" />
