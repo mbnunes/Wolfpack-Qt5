@@ -51,6 +51,8 @@
 #include "accounts.h"
 #include "makemenus.h"
 #include "itemid.h"
+#include "npc.h"
+#include "chars.h"
 
 
 // System Includes
@@ -130,14 +132,9 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 
 	// Otherwise create our character here
-	P_CHAR pChar = new cChar;
+	P_NPC pChar = new cNPC;
 	pChar->Init();
-//	World::instance()->registerObject( pChar );
-//	Have been already registered by Init()
 
-#pragma note("Show skill titles, implement with flag holder in new cChar")
-//	pChar->setPriv( 0x10 ); // No skill titles
-	pChar->setNpc(1);
 	Coord_cl newPos = socket->player()->pos();
 	newPos.x = target->x();
 	newPos.y = target->y();
@@ -152,8 +149,8 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	else
 	{
 		pChar->setName("Character");
-		pChar->setId( hex2dec( npc_ ).toULong() );
-		pChar->setXid( pChar->id() );
+		pChar->setBodyID( hex2dec( npc_ ).toULong() );
+		pChar->setOrgBodyID( pChar->bodyID() );
 	}
 
 	// Send the char to it's surroundings
@@ -189,7 +186,7 @@ bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	
 	if( !pChar )
 		return true;
@@ -200,7 +197,7 @@ bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 	dPos.z = target->z();
 	
 	// If its out of the characters visrange cancel (How could he've clicked there??)
-	if( dPos.distance( pChar->pos() ) > pChar->VisRange() )
+	if( dPos.distance( pChar->pos() ) > pChar->visualRange() )
 		return true;
 	
 	UINT16 dSkill = pChar->skillValue( DETECTINGHIDDEN );		
@@ -214,7 +211,7 @@ bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 		P_CHAR hChar = ri.GetData();
 		if( hChar )
 		{
-			if( hChar->hidden() && !hChar->isHiddenPermanently() ) // do not detect invis people only hidden ones
+			if( hChar->isHidden() && !hChar->isInvisible() ) // do not detect invis people only hidden ones
 			{
 				UINT16 dx = abs( hChar->pos().x - dPos.x );
 				UINT16 dy = abs( hChar->pos().y - dPos.y );
@@ -229,7 +226,9 @@ bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 				if( ( pChar->checkSkill( DETECTINGHIDDEN, low, 1000 ) ) && ( c <= range ) )
 				{
 					hChar->unhide();
-					hChar->message( tr( "You have been revealed!" ) );
+					if( hChar->objectType() == enPlayer )
+						dynamic_cast<P_PLAYER>(hChar)->message( tr( "You have been revealed!" ) );
+
 					found = true;
 				}
 			}
@@ -351,21 +350,21 @@ bool cSkIntEval::responsed( cUOSocket *socket, cUORxTarget *target )
 		socket->sysMessage( tr("You are not certain..") );
 		return true;
 	}
-	if( !pc->in() )
+	if( !pc->intelligence() )
 		socket->sysMessage( tr("It looks smarter than a rock, but dumber than a piece of wood.") );
 	else
 	{
-		if		(pc->in() <= 10)	socket->sysMessage( tr("That person looks slightly less intelligent than a rock.") );
-		else if (pc->in() <= 20)	socket->sysMessage( tr("That person looks fairly stupid.") );
-		else if (pc->in() <= 30)	socket->sysMessage( tr("That person looks not the brightest.") );
-		else if (pc->in() <= 40)	socket->sysMessage( tr("That person looks about average.") );
-		else if (pc->in() <= 50)	socket->sysMessage( tr("That person looks moderately intelligent.") );
-		else if (pc->in() <= 60)	socket->sysMessage( tr("That person looks very intelligent.") );
-		else if (pc->in() <= 70)	socket->sysMessage( tr("That person looks extremely intelligent.") );
-		else if (pc->in() <= 80)	socket->sysMessage( tr("That person looks extraordinarily intelligent.") );
-		else if (pc->in() <= 90)	socket->sysMessage( tr("That person looks like a formidable intellect, well beyond the ordinary.") );
-		else if (pc->in() <= 99)	socket->sysMessage( tr("That person looks like a definite genius.") );
-		else if (pc->in() >=100)	socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
+		if		(pc->intelligence() <= 10)	socket->sysMessage( tr("That person looks slightly less intelligent than a rock.") );
+		else if (pc->intelligence() <= 20)	socket->sysMessage( tr("That person looks fairly stupid.") );
+		else if (pc->intelligence() <= 30)	socket->sysMessage( tr("That person looks not the brightest.") );
+		else if (pc->intelligence() <= 40)	socket->sysMessage( tr("That person looks about average.") );
+		else if (pc->intelligence() <= 50)	socket->sysMessage( tr("That person looks moderately intelligent.") );
+		else if (pc->intelligence() <= 60)	socket->sysMessage( tr("That person looks very intelligent.") );
+		else if (pc->intelligence() <= 70)	socket->sysMessage( tr("That person looks extremely intelligent.") );
+		else if (pc->intelligence() <= 80)	socket->sysMessage( tr("That person looks extraordinarily intelligent.") );
+		else if (pc->intelligence() <= 90)	socket->sysMessage( tr("That person looks like a formidable intellect, well beyond the ordinary.") );
+		else if (pc->intelligence() <= 99)	socket->sysMessage( tr("That person looks like a definite genius.") );
+		else if (pc->intelligence() >=100)	socket->sysMessage( tr("That person looks superhumanly intelligent in a manner you cannot comprehend.") );
 	}
 	return true;
 }
@@ -376,67 +375,68 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 	P_CHAR pc = FindCharBySerial(target->serial());
 	if ( pc == NULL ) 
 		return true; 
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 	
 	if( !lineOfSight( pc_currchar->pos(), pc->pos(), WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
 		return true;
 	
 	bool tamed = false;
-	if ((pc->isNpc() && ( pc_currchar->dist( pc ) ) <= 3)) //Ripper
+	if ((pc->objectType() == enNPC) && ( pc_currchar->dist( pc ) <= 3))
 	{
-		if (pc->taming()>1200||pc->taming() == 0 )//Morrolan default is now no tame
+		P_NPC pn = dynamic_cast<P_NPC>(pc);
+		if (pn->tamingMinSkill()>1200||pn->tamingMinSkill() == 0 )//Morrolan default is now no tame
 		{
 			socket->sysMessage( tr("You can't tame that creature.") );
 			return true;
 		}
 		
 		// Below... can't tame if you already have!
-		if( pc_currchar->owner() == pc_currchar )
+		if( pn->owner() == pc_currchar )
 		{
 			socket->sysMessage( tr("You already control that creature!" ) );
 			return true;
 		}
 		
 		// This creature is owned by someone else
-		if( pc->owner() )
+		if( pn->owner() )
 		{
 			socket->sysMessage( tr("That creature looks tame already." ) );
 			return true;
 		}
 		
-		sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name().latin1(),pc->name().latin1());
+		sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name().latin1(),pn->name().latin1());
 		for(int a=0;a<3;a++)
 		{
 			switch( RandomNum( 0, 3 ) )
 			{
 			case 0: pc_currchar->talk( tr("I've always wanted a pet like you."), -1 ,0);		break;
 			case 1: pc_currchar->talk( tr("Will you be my friend?"), -1 ,0);					break;
-			case 2: pc_currchar->talk( tr("Here %1.").arg(pc->name()), -1 ,0);			break;
-			case 3: pc_currchar->talk( tr("Good %1.").arg(pc->name()), -1 ,0);			break;
+			case 2: pc_currchar->talk( tr("Here %1.").arg(pn->name()), -1 ,0);			break;
+			case 3: pc_currchar->talk( tr("Good %1.").arg(pn->name()), -1 ,0);			break;
 			}
 		}
 		if ((!pc_currchar->checkSkill(TAMING, 0, 1000))||
-			(pc_currchar->skillValue(TAMING)<pc->taming())) 
+			(pc_currchar->skillValue(TAMING)<pn->tamingMinSkill())) 
 		{
 			socket->sysMessage( tr("You were unable to tame it.") );
 			return true;
 		}
 		socket->showSpeech( pc, tr("It seems to accept you as it's master!"));
 		tamed = true;
-		pc->setOwner( pc_currchar );
-		pc->setTamed(true);
-		pc->setNpcWander(0);
-		if( pc->id() == 0x000C || pc->id() == 0x003B )
+		pn->setOwner( pc_currchar );
+		pn->setTamed(true);
+		pn->setWanderType(enHalt);
+		if( pn->bodyID() == 0x000C || pn->bodyID() == 0x003B )
 		{
-			if(pc->skin() != 0x0481)
+			if(pn->skin() != 0x0481)
 			{
-				pc->setNpcAIType( 10 );
-				pc->resend();
+//				pn->setNpcAIType( 10 );
+				pn->resend();
 			}
 			else
 			{
-				pc->setNpcAIType( 0 );
-				pc->resend();
+//				pn->setNpcAIType( 0 );
+				pn->resend();
 			}
 		}
 	}
@@ -450,7 +450,7 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 bool cSkArmsLore::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	P_ITEM pItem = FindItemBySerial( target->serial() );
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	
 	if( !pChar )
 		return true;
@@ -586,17 +586,19 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	int gold,x,y,realgold;
 	char abort;
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 	
-	P_CHAR pc = FindCharBySerial( target->serial() );
-	if (!pc)
+	P_CHAR pChar = FindCharBySerial( target->serial() );
+	if (!pChar)
 		return true;
 	
-	if(pc->online())
+	if(pChar->objectType() == enPlayer)
 	{
 		socket->sysMessage( tr("Maybe you should just ask.") );
 		return true;
 	}
+
+	P_NPC pc = dynamic_cast<P_NPC>(pChar);
 	
 	if(pc->dist(pc)>=5)
 	{
@@ -604,9 +606,9 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 	
-	if(pc->isHuman() && (pc->in() != 0)) //Used on human
+	if(pc->isHuman() && (pc->intelligence() != 0)) //Used on human
 	{
-		if (pc->begging_timer()>=uiCurrentTime)
+		if (pc->nextBeggingTime()>=uiCurrentTime)
 		{
 			pc->talk(tr("Annoy someone else !"));
 			return true;
@@ -625,7 +627,7 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 		}
 		else
 		{
-			pc->setBegging_timer( SrvParams->beggingTime() * MY_CLOCKS_PER_SEC + uiCurrentTime); 
+			pc->setNextBeggingTime( SrvParams->beggingTime() * MY_CLOCKS_PER_SEC + uiCurrentTime); 
 			x=pc->skillValue(BEGGING)/50;
 			
 			if (x<1) x=1; 
@@ -700,7 +702,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	int i, skill;
 	char temp2[512];
 	tile_st tile;
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 	int cansteal = QMAX( 1, pc_currchar->skillValue( STEALING ) / 10 );
 	cansteal = cansteal * 10;
 	
@@ -732,11 +734,11 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	P_CHAR pc_npc = pi->getOutmostChar();
 	
-	if (pc_npc->npcaitype() == 17)
+/*	if (pc_npc->npcaitype() == 17)
 	{
 		socket->sysMessage( tr("You cannot steal that.") );
 		return true;
-	}
+	}*/
 	
 	if (pc_npc == pc_currchar)
 	{
@@ -765,13 +767,13 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			
 			if (pc_npc != NULL) //lb
 			{
-				if (pc_npc->isNpc()) 
+				if (pc_npc->objectType() == enNPC) 
 					pc_npc->talk( tr("Guards!! A thief is amoung us!"), -1, 0x09 );
 				
-				pc_currchar->criminal();
+				pc_currchar->isCriminal();
 				
-				if (pc_npc->isInnocent() && pc_currchar->attacker() != pc_npc->serial() && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
-					pc_currchar->criminal();//Blue and not attacker and not guild
+				if (pc_npc->isInnocent() && pc_currchar->attackerSerial() != pc_npc->serial() && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
+					pc_currchar->isCriminal();//Blue and not attacker and not guild
 				
 				if (pi->name() != "#")
 				{
@@ -788,7 +790,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			}
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 			{
-				if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in() >= pc_currchar->in()))) 
+				if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->intelligence() >= pc_currchar->intelligence()))) 
 					mSock->sysMessage(temp2);
 			}
 		}
@@ -812,12 +814,12 @@ bool cSkProvocation::acquireFirst( cUOSocket* socket, cUORxTarget* target )
 		socket->sysMessage( tr("You do not have an instrument to play on!") );
 		return true; // cancel the skill
 	}
-	if ( pc->isInvul() || pc->shop() || // invul or shopkeeper
-		pc->npcaitype()==0x01 || // healer
+	if ( pc->isInvulnerable() ) // invul
+/*		pc->npcaitype()==0x01 || // healer
 		pc->npcaitype()==0x04 || // tele guard
 		pc->npcaitype()==0x06 || // chaos guard
 		pc->npcaitype()==0x07 || // order guard
-		pc->npcaitype()==0x09)   // city guard
+		pc->npcaitype()==0x09)   // city guard*/
 	{
 		socket->sysMessage( tr(" You cant entice that npc!") );
 		return true;
@@ -828,7 +830,7 @@ bool cSkProvocation::acquireFirst( cUOSocket* socket, cUORxTarget* target )
 		return true;
 	}
 	
-	if (pc->isPlayer())
+	if (pc->objectType() == enPlayer)
 		socket->sysMessage( tr("You cannot provoke other players.") );
 	else
 	{
@@ -843,11 +845,11 @@ bool cSkProvocation::acquireFirst( cUOSocket* socket, cUORxTarget* target )
 
 bool cSkProvocation::selectVictim( cUOSocket* socket, cUORxTarget* target )
 {
-	cChar* Victim = FindCharBySerial( target->serial() );
+	P_CHAR Victim = FindCharBySerial( target->serial() );
 	if (!Victim)
 		return true;
 	
-	P_CHAR Player = socket->player();
+	P_PLAYER Player = socket->player();
 	
 	if (Victim->inGuardedArea())
 	{
@@ -887,10 +889,10 @@ bool cSkProvocation::selectVictim( cUOSocket* socket, cUORxTarget* target )
 		}
 		
 		attacker->fight(Victim);
-		attacker->setAttackFirst();
+		attacker->setAttackFirst( true );
 		
 		Victim->fight(attacker);
-		Victim->resetAttackFirst();
+		Victim->setAttackFirst( false );
 		
 		QString temp(tr("* You see %1 attacking %2 *").arg(attacker->name()).arg(Victim->name()) );
 		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
@@ -1030,15 +1032,20 @@ bool cRemoveTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	if( pChar )
 	{
-		if( pChar->socket() )
+		if( pChar->objectType() == enPlayer )
 		{
-			socket->sysMessage( tr("You cannot delete logged in characters") );
-			return true;
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
+			if( pp->socket() )
+			{
+				pp->socket()->sysMessage( tr("You cannot delete logged in characters") );
+				return true;
+			}
+
+			if( pp->account() )
+				pp->account()->removeCharacter( pp );
+
+			cCharStuff::DeleteChar( pChar );
 		}
-		
-		if( pChar->account() )
-			pChar->account()->removeCharacter( pChar );
-		cCharStuff::DeleteChar( pChar );
 	}
 	else if( pItem )
 	{
@@ -1368,8 +1375,8 @@ bool cSetMultiOwnerTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
 		return true;
 	
-	P_CHAR pc = FindCharBySerial( target->serial() );
-	if( !pc || !pc->socket() )
+	P_PLAYER pc = dynamic_cast<P_PLAYER>(FindCharBySerial( target->serial() ));
+	if( !pc )
 	{
 		socket->sysMessage( tr( "This is not a valid target!" ) );
 		return false;
@@ -1402,8 +1409,8 @@ bool cMultiAddToListTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
 		return true;
 	
-	P_CHAR pc = FindCharBySerial( target->serial() );
-	if( !pc || !pc->socket() )
+	P_PLAYER pc = dynamic_cast<P_PLAYER>(FindCharBySerial( target->serial() ));
+	if( !pc )
 	{
 		socket->sysMessage( tr( "This is not a valid target!" ) );
 		return false;
@@ -1449,7 +1456,7 @@ bool cMultiChangeLockTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	return false;
 }
 
-cSpellTarget::cSpellTarget( P_CHAR pMage, UINT8 _spell, UINT8 _type )
+cSpellTarget::cSpellTarget( P_PLAYER pMage, UINT8 _spell, UINT8 _type )
 {
 	spell = _spell;
 	type = _type;
@@ -1465,7 +1472,7 @@ cSpellTarget::cSpellTarget( P_CHAR pMage, UINT8 _spell, UINT8 _type )
 
 bool cSpellTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( !socket->player() || !socket->player()->casting() )
+	if( !socket->player() || !socket->player()->isCasting() )
 		return true;
 	
 	stNewSpell *sInfo = NewMagic->findSpell( spell );

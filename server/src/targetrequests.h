@@ -37,6 +37,7 @@
 #include "items.h"
 #include "gumps.h"
 #include "world.h"
+#include "player.h"
 
 class cAddItemTarget: public cTargetRequest
 {
@@ -170,7 +171,7 @@ public:
 	{
 		int curtim=uiCurrentTime;
 		const PC_ITEM pi = FindItemBySerial(target->serial());
-		P_CHAR pc_currchar = socket->player();
+		P_PLAYER pc_currchar = socket->player();
 		
 		if( !pi || !pi->corpse() )
 		{
@@ -242,7 +243,7 @@ public:
 		case 3:	success=pc->checkSkill( POISONING, 551, 1051);		break;//greater poison
 		case 4:	success=pc->checkSkill( POISONING, 901, 1401);		break;//deadly poison
 		default:
-			LogError("cSkPoisoning::poisonItem(..): switch reached default\n");
+//			LogError("cSkPoisoning::poisonItem(..): switch reached default\n");
 			return true;
 		}
 
@@ -877,7 +878,7 @@ public:
 
 		if( pChar )
 		{
-			pChar->restock();
+//			pChar->restock();
 			socket->sysMessage( tr( "This vendor's inventar has been restocked." ) );
 		}
 		else
@@ -895,7 +896,7 @@ class cSpellTarget : public cTargetRequest
 	UINT8 spell;
 	UINT8 type;
 public:
-	cSpellTarget( P_CHAR pMage, UINT8 _spell, UINT8 _type );
+	cSpellTarget( P_PLAYER pMage, UINT8 _spell, UINT8 _type );
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 	virtual void timedout( cUOSocket *socket );
 	virtual void canceled( cUOSocket *socket );
