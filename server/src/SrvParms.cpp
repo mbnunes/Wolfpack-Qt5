@@ -498,6 +498,7 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"HOUSEDECAY_SECS"))) server_data.housedecay_secs=str2num( script2 ); // LB
 		else if(!(strcmp((char*)script1,"SHOW_CVCS_INFO_AT_LOGIN"))) server_data.showCVCS=str2num(script2); //blackwind 
 		else if(!(strcmp((char*)script1,"DEFAULT_JAIL_TIME"))) server_data.default_jail_time=str2num(script2);// blackwind 
+		else if(!(strcmp((char*)script1,"BADNPCSRED"))) server_data.BadNpcsRed=str2num(script2); //Ripper
 		else if(!(strcmp((char*)script1,"PORT"))) wp_port = (short) str2num(script2);
 		else if(!(strcmp((char*)script1,"PACKETSENDSTYLE:"))) 
 		{
@@ -780,6 +781,7 @@ void saveserverscript(void)
 	fprintf(file, "HOUSEDECAY_SECS %i\n",server_data.housedecay_secs);
 	fprintf(file, "SHOW_CVCS_INFO_AT_LOGIN %i\n",server_data.showCVCS); // blackwind 
 	fprintf(file, "DEFAULT_JAIL_TIME %i\n",server_data.default_jail_time);
+	fprintf(file, "BADNPCSRED %i\n",server_data.BadNpcsRed); // Ripper
 
 	
 	fprintf(file, "}\n\n");

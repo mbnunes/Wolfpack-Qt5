@@ -2060,10 +2060,18 @@ void npctalk(int s, int npc, char *txt,char antispam) // NPC speech
 		talk[12]=0;
 		talk[13]=pc_currchar->fonttype;
 
-		if (pc_npc->npcaitype==2) //bad npcs speech (red)..Ripper
+		if (pc_npc->npcaitype==2 && server_data.BadNpcsRed == 0) //bad npcs speech (red)..Ripper
+		{
+			talk[10]=pc_npc->saycolor = 0x03B2;
+		}
+		else if (pc_npc->npcaitype==2 && server_data.BadNpcsRed == 1)
+		{
 			talk[10]=pc_npc->saycolor = 0x0026;
+		}
 		else if(pc_npc->isNpc() && !pc_npc->tamed && !pc_npc->guarded && !pc_npc->war)
+		{
 			pc_npc->saycolor = 0x005b;
+		}
 
 		ShortToCharPtr(pc_npc->saycolor, &talk[10]);
 		Xsend(s, talk, 14);

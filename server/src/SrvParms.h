@@ -156,6 +156,7 @@ struct server_st
 
 	short CheckBank; // Vendors check bank for gold- Ripper
 	unsigned int VendorGreet; // shop keepers greet - Ripper
+	unsigned int BadNpcsRed; // bad npcs red=1 or grey=0 - Ripper
 
 	int cutscrollreq;//AntiChrist - cut skill requirements for scrolls
 

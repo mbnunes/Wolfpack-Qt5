@@ -3663,9 +3663,9 @@ void npcattacktarget(int target2, int target)
 		{
 		 if (inrange1p(currchar[i], DEREF_P_CHAR(pc_target))&&perm[i])
 		 {
-			pc_target->emotecolor1=0x00;
-			pc_target->emotecolor2=0x26;
-			npcemote(i, DEREF_P_CHAR(pc_target2), (char*)temp,1);
+			  pc_target->emotecolor1=0x00;
+			  pc_target->emotecolor2=0x26;
+			  npcemote(i, DEREF_P_CHAR(pc_target2), (char*)temp,1);
 		 }
 	}
 }
@@ -5337,6 +5337,22 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 		else
 		{
 			pc->setCriminal();
+		}
+	}
+	if (pc->isNpc())
+	{
+		if ((pc->npcaitype == 0x02) || // bad npc
+			(pc->npcaitype == 0x03) ||  // bad healer
+			(pc->npcaitype == 0x50))   // EV & BS
+		{
+			if (server_data.BadNpcsRed == 0)
+			{
+			    pc->setCriminal();
+			}
+		   else if (server_data.BadNpcsRed == 1)
+		   {
+			  pc->setMurderer();
+		   }
 		}
 	}
 	else
