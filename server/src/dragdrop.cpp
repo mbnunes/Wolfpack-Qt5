@@ -521,20 +521,6 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 				return;
 			} 
 		}
-		// - AntiChrist (5) - ITEMHAND CHECKS END -
-		// probably these next checks could be removed with the ITEMHAND thing - AntiChrist
-		/*if ( pc_currchar->getShield() && (buffer[s][5]==2) ) //Morrolan test
-		{
-			sysmessage(s, "You already have a shield equiped! You must unequip it to use this.");
-			item_bounce6(ps,pi);
-			return;
-		}
-		if ( pc_currchar->getWeapon() && (buffer[s][5]==1) )//Morrolan test
-		{
-			sysmessage(s, "You already have a weapon equiped!");
-			item_bounce6(ps,pi);
-			return;
-		}*/
 		if (!(pc_currchar->isGM())) //Ripper..players cant equip items on other players or npc`s paperdolls.
 		{
 			if ((k != cc) && (!chars[k].isNpc()))
