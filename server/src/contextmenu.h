@@ -43,7 +43,7 @@
 
 // Forward Definitions
 class cUObject;
-class WPDefaultScript;
+class cPythonScript;
 
 class cConSingleOption
 {
@@ -91,7 +91,7 @@ public:
 private:
 	QMap< QString, cConMenuOptions >	options_;
 	QStringList							eventList_;
-	std::vector<WPDefaultScript*>		scriptChain;
+	std::vector<cPythonScript*>		scriptChain;
 
 };
 

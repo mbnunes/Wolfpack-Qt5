@@ -37,7 +37,7 @@
 #include <qmap.h>
 
 // Forward definitions
-class WPDefaultScript;
+class cPythonScript;
 class QString;
 
 #define OBJECT_OBJECT	1
@@ -77,24 +77,24 @@ class QString;
 #define EVENT_STATGAIN				0x40000000
 #define EVENT_CASTSPELL				0x80000000
 
-class WPScriptManager  
+class cScriptManager  
 {
 private:
-	std::map< QString, WPDefaultScript* > Scripts;
+	std::map< QString, cPythonScript* > Scripts;
 
-	// map< OBJECT, map< EVENT, vector< WPDefaultScript
-	QMap< UINT32, QMap< UINT32, QValueVector< WPDefaultScript* > > > globalhooks;
+	// map< OBJECT, map< EVENT, vector< cPythonScript
+	QMap< UINT32, QMap< UINT32, QValueVector< cPythonScript* > > > globalhooks;
 
-	// map< QString, WPDefaultScript >
-	QMap< QString, WPDefaultScript* > commandhooks;
+	// map< QString, cPythonScript >
+	QMap< QString, cPythonScript* > commandhooks;
 
 public:
-	typedef std::map< QString, WPDefaultScript* >::iterator iterator;
+	typedef std::map< QString, cPythonScript* >::iterator iterator;
 
-	virtual ~WPScriptManager();
+	virtual ~cScriptManager();
 
-	WPDefaultScript* find( const QString& Name ) const;
-	void add( const QString& Name, WPDefaultScript *Script );
+	cPythonScript* find( const QString& Name ) const;
+	void add( const QString& Name, cPythonScript *Script );
 	void remove( const QString& Name );
 
 	void load( void );
@@ -104,12 +104,12 @@ public:
 	void onServerStart(); // Call the onServerStart Event
 	void onServerStop(); // Call the onServerEnd Event
 
-	void addCommandHook( const QString &command, WPDefaultScript *script );
-	void addGlobalHook( UINT32 object, UINT32 event, WPDefaultScript *script );
+	void addCommandHook( const QString &command, cPythonScript *script );
+	void addGlobalHook( UINT32 object, UINT32 event, cPythonScript *script );
 	void clearGlobalHooks() { globalhooks.clear(); }
 	void clearCommandHooks() { commandhooks.clear(); }
-	WPDefaultScript *getCommandHook( const QString &command );
-	const QValueVector< WPDefaultScript* > getGlobalHooks( UINT32 object, UINT32 event );
+	cPythonScript *getCommandHook( const QString &command );
+	const QValueVector< cPythonScript* > getGlobalHooks( UINT32 object, UINT32 event );
 };
 
 #endif

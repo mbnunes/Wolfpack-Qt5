@@ -46,7 +46,7 @@
 #include "tilecache.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
-#include "wpdefaultscript.h"
+#include "pythonscript.h"
 #include "maps.h"
 #include "network.h"
 #include "multis.h"
@@ -54,7 +54,7 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "world.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "itemid.h"
 #include "basechar.h"
 #include "player.h"
@@ -1304,8 +1304,8 @@ bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_SHOWTOOLTIP );
 	for( it = hooks.begin(); it != hooks.end(); ++it )

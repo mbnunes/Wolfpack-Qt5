@@ -47,7 +47,7 @@
 
 // Forward class declaration
 class WPConsole_cl;
-class WPDefaultScript;
+class cPythonScript;
 
 // Wolfpack Includes
 

@@ -32,9 +32,6 @@
 #if !defined( __COMMANDS_H__ )
 #define __COMMANDS_H__
 
-// Wolfpack Includes
-#include "wpdefaultscript.h"
-
 // Library Includes
 #include <qmap.h>
 #include <qstring.h>

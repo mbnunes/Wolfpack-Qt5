@@ -34,7 +34,7 @@
 #include "wolfpack.h"
 #include "verinfo.h"
 #include "walking.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "wpdefmanager.h"
 #include "wptargetrequests.h"
 #include "typedefs.h"
@@ -123,7 +123,7 @@ Maps			*Map;
 cSkills			*Skills;
 cSpeech	        *Speech;
 cBounty         *Bounty;
-WPScriptManager	*ScriptManager;
+cScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;
 

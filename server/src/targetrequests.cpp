@@ -41,8 +41,8 @@
 #include "skills.h"
 #include "guildstones.h"
 #include "combat.h"
-#include "wpscriptmanager.h"
-#include "wpdefaultscript.h"
+#include "scriptmanager.h"
+#include "pythonscript.h"
 #include "spellbook.h"
 #include "books.h"
 #include "house.h"
@@ -1128,7 +1128,7 @@ bool cAddEventTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 	
-	WPDefaultScript *script = ScriptManager->find( _event );
+	cPythonScript *script = ScriptManager->find( _event );
 	
 	if( !script )
 	{

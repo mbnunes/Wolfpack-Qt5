@@ -49,7 +49,7 @@
 //Forward Class Declaration
 
 class QDateTime;
-class WPScriptManager;
+class cScriptManager;
 class WPDefManager;
 class WPConsole_cl;
 //Wolfpack Includes
@@ -154,7 +154,7 @@ extern Maps						*Map;
 extern cSkills					*Skills;
 extern cSpeech					*Speech;
 extern cBounty					*Bounty;
-extern WPScriptManager			*ScriptManager;
+extern cScriptManager			*ScriptManager;
 extern WPDefManager				*DefManager;
 extern PersistentBroker			*persistentBroker;
 // END

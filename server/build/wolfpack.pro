@@ -93,8 +93,10 @@ HEADERS         = \
 		  persistentobject.h \
 		  preferences.h \
 		  player.h \
+		  pythonscript.h \
 		  resource.h \
 		  resources.h \
+		  scriptmanager.h \
 		  sectors.h \
 		  spawnregions.h \
 		  speech.h \
@@ -116,88 +118,86 @@ HEADERS         = \
 		  tilecache.h \
 		  walking.h \
 		  world.h \
-		  wpdefaultscript.h \
 		  wpdefmanager.h \
-		  wpscriptmanager.h \
 		  wptargetrequests.h \
 		  corpse.h \
 		  spellbook.h
 		  
 SOURCES         = \
-		  LoS.cpp \
-		  corpse.cpp \
-		  Timing.cpp \
-		  tmpeff.cpp \
-		  Trade.cpp \
-		  accounts.cpp \
-		  basics.cpp \
-		  basechar.cpp \
-		  basechar_flatstore.cpp \
-		  boats.cpp \
-		  books.cpp \
-                  chars.cpp \
-		  combat.cpp \
-		  commands.cpp \
-		  contextmenu.cpp \
-		  coord.cpp \
-		  tilecache.cpp \
-		  customtags.cpp \
-		  dbl_single_click.cpp \
-		  dbdriver.cpp \
-		  debug.cpp \
-		  definable.cpp \
-		  dragdrop.cpp \
-		  globals.cpp \
-		  guildstones.cpp \
-		  gumps.cpp \
-		  house.cpp \
-                  iserialization.cpp \
-	   	  item_flatstore.cpp \
-		  itemid.cpp \
-		  items.cpp \
-		  makemenus.cpp \
-		  maps.cpp \
-		  multis.cpp \
-		  multiscache.cpp \
-		  network.cpp \
-		  npc.cpp \
-		  npc_flatstore.cpp \
-		  encryption.cpp \
-		  ai.cpp \
-		  ai_animals.cpp \
-		  ai_vendors.cpp \
-		  ai_monsters.cpp \
-                  pfactory.cpp \
-  		  persistentbroker.cpp \
-		  persistentobject.cpp \
-		  preferences.cpp \
-		  player.cpp \
-		  player_flatstore.cpp \
-		  resources.cpp \
-		  sectors.cpp \
-                  serxmlfile.cpp \
-                  serbinfile.cpp \
-		  skills.cpp \
-		  speech.cpp \
-		  spawnregions.cpp \
-                  srvparams.cpp \
-		  storage.cpp \
-		  targetactions.cpp \
-		  targetrequests.cpp \
-                  territories.cpp \
-                  tracking.cpp \
-		  uobject.cpp \
-		  uobject_flatstore.cpp \
-		  utilsys.cpp \
-		  wolfpack.cpp \
-		  wpconsole.cpp \
-		  walking.cpp \
-		  world.cpp \
-		  wpdefmanager.cpp \
-		  wpdefaultscript.cpp \
-		  wpscriptmanager.cpp \
-		  wptargetrequests.cpp \
-		  spellbook.cpp
+		accounts.cpp \
+		ai.cpp \
+		ai_animals.cpp \
+		ai_monsters.cpp \
+		ai_vendors.cpp \
+		basechar.cpp \
+		basechar_flatstore.cpp \
+		basics.cpp \
+		boats.cpp \
+		books.cpp \
+		chars.cpp \
+		combat.cpp \
+		commands.cpp \
+		contextmenu.cpp \		  		  
+		coord.cpp \
+		corpse.cpp \
+		customtags.cpp \
+		dbl_single_click.cpp \
+		dbdriver.cpp \
+		debug.cpp \
+		definable.cpp \
+		dragdrop.cpp \
+		globals.cpp \
+		guildstones.cpp \
+		gumps.cpp \
+		house.cpp \
+		iserialization.cpp \
+		item_flatstore.cpp \
+		itemid.cpp \
+		items.cpp \
+		LoS.cpp \
+		makemenus.cpp \
+		maps.cpp \
+		multis.cpp \
+		multiscache.cpp \
+		network.cpp \
+		npc.cpp \
+		npc_flatstore.cpp \
+		encryption.cpp \
+		pfactory.cpp \
+		persistentbroker.cpp \
+		persistentobject.cpp \
+		preferences.cpp \
+		player.cpp \
+		player_flatstore.cpp \
+		pythonscript.cpp \
+		resources.cpp \
+		sectors.cpp \
+		serxmlfile.cpp \
+		serbinfile.cpp \
+		scriptmanager.cpp \
+		skills.cpp \
+		speech.cpp \
+		spawnregions.cpp \
+		srvparams.cpp \
+		storage.cpp \
+		targetactions.cpp \
+		targetrequests.cpp \
+		territories.cpp \
+		tilecache.cpp \
+		Timing.cpp \
+		tmpeff.cpp \
+		tracking.cpp \
+		Trade.cpp \                  
+		uobject.cpp \
+		uobject_flatstore.cpp \
+		utilsys.cpp \
+		wolfpack.cpp \
+		wpconsole.cpp \
+		walking.cpp \
+		world.cpp \
+		wpdefmanager.cpp \
+		wptargetrequests.cpp \
+		spellbook.cpp
 
 # Twofish Module
 SOURCES		+= twofish/twofish2.c
@@ -229,7 +229,6 @@ SOURCES		+= python/char.cpp \
 		   python/pyregion.cpp \
 		   python/pytooltip.cpp \	
 		   python/socket.cpp \
-		   python/wppythonscript.cpp
 
 HEADERS		+= python/content.h
 

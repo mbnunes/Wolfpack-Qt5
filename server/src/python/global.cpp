@@ -41,9 +41,9 @@
 #include "../tilecache.h"
 #include "../accounts.h"
 #include "../commands.h"
-#include "../wpscriptmanager.h"
+#include "../scriptmanager.h"
 #include "../wpdefmanager.h"
-#include "../wpdefaultscript.h"
+#include "../pythonscript.h"
 #include "../verinfo.h"
 #include "../globals.h"
 #include "../items.h"
@@ -693,7 +693,7 @@ PyObject *wpRegisterGlobal( PyObject* self, PyObject* args )
 	UINT32 event = getArgInt( 1 );
 	QString scriptName = getArgStr( 2 );
 
-	WPDefaultScript *script = ScriptManager->find( scriptName );
+	cPythonScript *script = ScriptManager->find( scriptName );
 
 	if( script == 0 )
 	{
@@ -719,7 +719,7 @@ PyObject *wpRegisterCommand( PyObject* self, PyObject* args )
 	QString command = getArgStr( 0 );
 	QString scriptName = getArgStr( 1 );
 
-	WPDefaultScript *script = ScriptManager->find( scriptName );
+	cPythonScript *script = ScriptManager->find( scriptName );
 
 	if( script == 0 )
 	{
@@ -1058,7 +1058,7 @@ static PyObject *wpSpeechAddKeyword( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
 
 	if( !script )
 	{
@@ -1083,7 +1083,7 @@ static PyObject *wpSpeechAddWord( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
 
 	if( !script )
 	{
@@ -1108,7 +1108,7 @@ static PyObject *wpSpeechAddRegexp( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
 
 	if( !script )
 	{
@@ -1133,7 +1133,7 @@ static PyObject *wpSpeechSetCatchAll( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	WPDefaultScript *script = ScriptManager->find( getArgStr( 0 ) );
+	cPythonScript *script = ScriptManager->find( getArgStr( 0 ) );
 
 	if( !script )
 	{

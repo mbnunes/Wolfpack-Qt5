@@ -41,8 +41,8 @@
 #include "mapobjects.h"
 #include "wolfpack.h"
 #include "defines.h"
-#include "wpdefaultscript.h"
-#include "wpscriptmanager.h"
+#include "pythonscript.h"
+#include "scriptmanager.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "wpdefmanager.h"
@@ -223,8 +223,8 @@ void cUObject::clearEvents()
 	changed( SAVE );
 }
 
-// Method for setting a list of WPDefaultScripts
-void cUObject::setEvents( std::vector< WPDefaultScript* > List )
+// Method for setting a list of cPythonScripts
+void cUObject::setEvents( std::vector< cPythonScript* > List )
 {
 	scriptChain.clear();
 	eventList_ = QString::null;
@@ -240,21 +240,16 @@ void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 			scriptChain.push_back( List[ i ] );
 
 			if( eventList_ == QString::null )
-				eventList_ = List[ i ]->getName();
+				eventList_ = List[ i ]->name();
 			else 
-				eventList_.append( "," + List[ i ]->getName() );
+				eventList_.append( "," + List[ i ]->name() );
 		}
 	changed( SAVE );
 }
 
 // Gets a vector of all assigned events
-const std::vector< WPDefaultScript* > &cUObject::getEvents( void )
+const std::vector< cPythonScript* > &cUObject::getEvents( void )
 {
-	/*std::vector< WPDefaultScript* > List;
-
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		List.push_back( scriptChain[ i ] );*/
-
 	return scriptChain;
 }
 
@@ -266,28 +261,28 @@ bool cUObject::hasEvent( const QString& Name ) const
 	return eventList.find( Name ) != eventList.end();
 }
 
-void cUObject::addEvent( WPDefaultScript *Event )
+void cUObject::addEvent( cPythonScript *Event )
 {
-	if( hasEvent( Event->getName() ) )
+	if( hasEvent( Event->name() ) )
 		return;
 
 	scriptChain.push_back( Event );
 
 	if( eventList_ == QString::null )
-		eventList_ = Event->getName();
+		eventList_ = Event->name();
 	else
-		eventList_.append( "," + Event->getName() );
+		eventList_.append( "," + Event->name() );
 
 	changed( SAVE );
 }
 
 void cUObject::removeEvent( const QString& Name )
 {
-	std::vector< WPDefaultScript* >::iterator myIterator;
+	std::vector< cPythonScript* >::iterator myIterator;
 
 	for( myIterator = scriptChain.begin(); myIterator != scriptChain.end(); ++myIterator )
 	{
-		if( (*myIterator)->getName() == Name )
+		if( (*myIterator)->name() == Name )
 		{
 			scriptChain.erase( myIterator );
 			break;
@@ -330,8 +325,8 @@ bool cUObject::onUse( cUObject *Target )
 	}
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_USE );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -375,8 +370,8 @@ bool cUObject::onCreate( const QString &definition )
 	}
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_CREATE );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -418,8 +413,8 @@ bool cUObject::onCollide( cUObject* Obstacle )
 	}
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_COLLIDE );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -479,7 +474,7 @@ void cUObject::recreateEvents( void )
 
 	for( myIter = eventList.begin(); myIter != eventList.end(); ++myIter )
 	{
-		WPDefaultScript *myScript = ScriptManager->find( *myIter );
+		cPythonScript *myScript = ScriptManager->find( *myIter );
 
 		// Script not found
 		if( myScript == NULL )
@@ -685,7 +680,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 		QStringList list = QStringList::split( ",", value.toString() );
 		for( QStringList::const_iterator it = list.begin(); it != list.end(); ++it )
 		{
-			WPDefaultScript *script = ScriptManager->find( *it );
+			cPythonScript *script = ScriptManager->find( *it );
 			if( script )
 				addEvent( script );
 			else

@@ -41,7 +41,7 @@
 #include "../srvparams.h"
 #include "../walking.h"
 #include "../commands.h"
-#include "../wpscriptmanager.h"
+#include "../scriptmanager.h"
 #include "../makemenus.h"
 #include "../npc.h"
 #include "../basechar.h"
@@ -1707,7 +1707,7 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 			if( !PyString_Check( PyList_GetItem( value, i ) ) )
 				continue;
 
-			WPDefaultScript *script = ScriptManager->find( PyString_AsString( PyList_GetItem( value, i ) ) );
+			cPythonScript *script = ScriptManager->find( PyString_AsString( PyList_GetItem( value, i ) ) );
 			if( script )
 				self->pChar->addEvent( script );
 		}

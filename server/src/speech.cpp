@@ -46,7 +46,7 @@
 #include "skills.h"
 #include "house.h"
 #include "boats.h"
-#include "wpdefaultscript.h"
+#include "pythonscript.h"
 #include "itemid.h"
 #include "player.h"
 #include "npc.h"
@@ -714,10 +714,10 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 		// Check if the NPC has a script that can handle 
 		// speech events and then check if it can handle everything
 		// or just certain things
-		std::vector< WPDefaultScript* > events = pNpc->getEvents();
-		for( std::vector< WPDefaultScript* >::const_iterator iter = events.begin(); iter != events.end(); ++iter )
+		std::vector< cPythonScript* > events = pNpc->getEvents();
+		for( std::vector< cPythonScript* >::const_iterator iter = events.begin(); iter != events.end(); ++iter )
 		{
-			WPDefaultScript *script = *iter;
+			cPythonScript *script = *iter;
 			if( !script->handleSpeech() )
 				continue;
 

@@ -34,7 +34,7 @@
 #include "../tilecache.h"
 #include "../prototypes.h"
 #include "../wolfpack.h"
-#include "../wpscriptmanager.h"
+#include "../scriptmanager.h"
 #include "../itemid.h"
 #include "../spellbook.h"
 #include "../books.h"
@@ -857,7 +857,7 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 			if( !PyString_Check( PyList_GetItem( value, i ) ) )
 				continue;
 
-			WPDefaultScript *script = ScriptManager->find( PyString_AsString( PyList_GetItem( value, i ) ) );
+			cPythonScript *script = ScriptManager->find( PyString_AsString( PyList_GetItem( value, i ) ) );
 			if( script )
 				self->pItem->addEvent( script );
 		}

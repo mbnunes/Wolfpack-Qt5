@@ -52,7 +52,7 @@
 // Forward class declarations
 class QDomElement;
 class Coord_cl;
-class WPDefaultScript;
+class cPythonScript;
 class cUOSocket;
 class QSqlQuery;
 class cItem;
@@ -137,10 +137,10 @@ protected:
 	};
 
 public:
-	const std::vector< WPDefaultScript* > &getEvents( void );
-	void setEvents( std::vector< WPDefaultScript* > List );
+	const std::vector< cPythonScript* > &getEvents( void );
+	void setEvents( std::vector< cPythonScript* > List );
 	void clearEvents( void );
-	void addEvent( WPDefaultScript *Event );
+	void addEvent( cPythonScript *Event );
 	void removeEvent( const QString& Name );
 	void removeFromView( bool clean = true );
 	bool hasEvent( const QString& Name ) const;
@@ -210,7 +210,7 @@ protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;
 
 
-	std::vector< WPDefaultScript* > scriptChain;
+	std::vector< cPythonScript* > scriptChain;
 	QString eventList_; // Important for recreating the scriptChain on reloading
 	void init();
 };

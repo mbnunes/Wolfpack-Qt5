@@ -29,21 +29,21 @@
 //==================================================================================
 
 #include "wolfpack.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "wpdefmanager.h"
-#include "wpdefaultscript.h"
 #include "basechar.h"
-#include "python/wppythonscript.h"
+#include "pythonscript.h"
 #include "python/engine.h"
 
 // Library Includes
 #include <qstring.h>
+#include <qregexp.h>
 
 using namespace std;
 
-WPScriptManager::~WPScriptManager()
+cScriptManager::~cScriptManager()
 {
-	map< QString, WPDefaultScript* >::iterator ScriptIterator;
+	map< QString, cPythonScript* >::iterator ScriptIterator;
 
 	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
 	{
@@ -52,16 +52,16 @@ WPScriptManager::~WPScriptManager()
 }
 
 
-WPDefaultScript* WPScriptManager::find( const QString& Name ) const
+cPythonScript* cScriptManager::find( const QString& Name ) const
 {
-	map< QString, WPDefaultScript* >::const_iterator it = Scripts.find( Name );
+	map< QString, cPythonScript* >::const_iterator it = Scripts.find( Name );
 	if ( it != Scripts.end() )
 		return (*it).second;
 	else
 		return 0;
 }
 
-void WPScriptManager::add( const QString& Name, WPDefaultScript *Script )
+void cScriptManager::add( const QString& Name, cPythonScript *Script )
 {
 	remove( Name );
 
@@ -70,7 +70,7 @@ void WPScriptManager::add( const QString& Name, WPDefaultScript *Script )
 	Scripts.insert( make_pair(Name, Script) );
 }
 
-void WPScriptManager::remove( const QString& Name )
+void cScriptManager::remove( const QString& Name )
 {
 	iterator it = Scripts.find( Name );
 	if( it != Scripts.end() )
@@ -80,7 +80,7 @@ void WPScriptManager::remove( const QString& Name )
 	}
 }
 
-void WPScriptManager::reload( void )
+void cScriptManager::reload( void )
 {
 	serverState = SCRIPTRELOAD;
 	// First unload, then reload
@@ -112,9 +112,9 @@ void WPScriptManager::reload( void )
 }
 
 // Unload all scripts
-void WPScriptManager::unload( void )
+void cScriptManager::unload( void )
 {
-	WPScriptManager::iterator myIter;
+	cScriptManager::iterator myIter;
 
 	for( myIter = Scripts.begin(); myIter != Scripts.end(); ++myIter )
 	{
@@ -127,7 +127,7 @@ void WPScriptManager::unload( void )
 	commandhooks.clear();
 }
 
-void WPScriptManager::load()
+void cScriptManager::load()
 {
 	clConsole.PrepareProgress( "Loading Script Manager" );
 
@@ -146,13 +146,13 @@ void WPScriptManager::load()
 
 		QString ScriptType = NodePtr->attributes().namedItem( QString( "type" ) ).nodeValue();
 
-		WPDefaultScript *Script = 0;
+		cPythonScript *Script = 0;
 
 		// Decide upon the Constructor based on the script-type
 		if( ScriptType == "default" )
-			Script = new WPDefaultScript;
+			Script = new cPythonScript;
 		else if( ScriptType == "python" )
-			Script = new WPPythonScript;
+			Script = new cPythonScript;
 		else
 			continue;
 	
@@ -165,16 +165,16 @@ void WPScriptManager::load()
 	clConsole.send( QString("%1 Script(s) loaded successfully\n").arg(ScriptsLoaded) );
 }
 
-void WPScriptManager::addCommandHook( const QString &command, WPDefaultScript *script )
+void cScriptManager::addCommandHook( const QString &command, cPythonScript *script )
 {
 	commandhooks[ command.upper() ] = script;
 }
 
-void WPScriptManager::addGlobalHook( UINT32 object, UINT32 event, WPDefaultScript *script )
+void cScriptManager::addGlobalHook( UINT32 object, UINT32 event, cPythonScript *script )
 {
 	// Find first
-	QValueVector< WPDefaultScript* > &vec = globalhooks[ object ][ event ];
-	QValueVector< WPDefaultScript* >::const_iterator it = vec.begin();
+	QValueVector< cPythonScript* > &vec = globalhooks[ object ][ event ];
+	QValueVector< cPythonScript* >::const_iterator it = vec.begin();
 
 	for( ; it != vec.end(); ++it )
 	{
@@ -185,9 +185,9 @@ void WPScriptManager::addGlobalHook( UINT32 object, UINT32 event, WPDefaultScrip
 	globalhooks[ object ][ event ].push_back( script );
 }
 
-WPDefaultScript *WPScriptManager::getCommandHook( const QString &command )
+cPythonScript *cScriptManager::getCommandHook( const QString &command )
 {
-	QMap< QString, WPDefaultScript* >::const_iterator it( commandhooks.find( command ) );
+	QMap< QString, cPythonScript* >::const_iterator it( commandhooks.find( command ) );
 
 	if( it == commandhooks.end() )
 		return 0;
@@ -195,14 +195,14 @@ WPDefaultScript *WPScriptManager::getCommandHook( const QString &command )
 	return *it;
 }
 
-const QValueVector< WPDefaultScript* > WPScriptManager::getGlobalHooks( UINT32 object, UINT32 event )
+const QValueVector< cPythonScript* > cScriptManager::getGlobalHooks( UINT32 object, UINT32 event )
 {
 	return globalhooks[ object ][ event ];  
 }
 
-void WPScriptManager::onServerStart()
+void cScriptManager::onServerStart()
 {
-	map< QString, WPDefaultScript* >::iterator ScriptIterator;
+	map< QString, cPythonScript* >::iterator ScriptIterator;
 
 	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
 	{
@@ -210,6 +210,6 @@ void WPScriptManager::onServerStart()
 	}	
 }
 
-void WPScriptManager::onServerStop()
+void cScriptManager::onServerStop()
 {
 }

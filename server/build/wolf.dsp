@@ -1,31 +1,31 @@
 # Microsoft Developer Studio Project File - Name="wolf" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** DO NOT EDIT **
+# ** NICHT BEARBEITEN **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=wolf - Win32 Debug
-!MESSAGE This is not a valid makefile. To build this project using NMAKE,
-!MESSAGE use the Export Makefile command and run
+!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
+!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
 !MESSAGE 
-!MESSAGE You can specify a configuration when running NMAKE
-!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
+!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
 !MESSAGE 
-!MESSAGE Possible choices for configuration are:
+!MESSAGE Für die Konfiguration stehen zur Auswahl:
 !MESSAGE 
-!MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "wolf"
 # PROP Scc_LocalPath "."
-CPP=xicl6.exe
+CPP=cl.exe
 RSC=rc.exe
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -49,7 +49,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=xilink6.exe
+LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /subsystem:console /map /machine:I386 /nodefaultlib:"libcmt MSVCRTD" /out:"D:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
@@ -74,9 +74,9 @@ LINK32=xilink6.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=xilink6.exe
+LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"c:\Wolfpack\Wolfpack.exe" /pdbtype:sept /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
+# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"d:\Wolfpack\Wolfpack.exe" /pdbtype:sept /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -270,7 +270,15 @@ SOURCE=.\preferences.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\pythonscript.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\resources.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\scriptmanager.cpp
 # End Source File
 # Begin Source File
 
@@ -378,15 +386,7 @@ SOURCE=.\wpconsole.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\wpdefaultscript.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\wpdefmanager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\wpscriptmanager.cpp
 # End Source File
 # Begin Source File
 
@@ -1026,6 +1026,10 @@ SOURCE=.\prototypes.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\pythonscript.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\resource.h
 # End Source File
 # Begin Source File
@@ -1060,6 +1064,10 @@ InputName=resources
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\scriptmanager.h
 # End Source File
 # Begin Source File
 
@@ -1328,15 +1336,7 @@ SOURCE=.\wpconsole.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\wpdefaultscript.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\wpdefmanager.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\wpscriptmanager.h
 # End Source File
 # Begin Source File
 
@@ -1539,14 +1539,6 @@ SOURCE=.\python\tempeffect.h
 # Begin Source File
 
 SOURCE=.\python\utilities.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\python\wppythonscript.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\python\wppythonscript.h
 # End Source File
 # End Group
 # Begin Group "Generated"

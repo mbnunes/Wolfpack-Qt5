@@ -43,7 +43,7 @@
 #include "targetrequests.h"
 #include "mapobjects.h"
 #include "srvparams.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "skills.h"
 #include "network.h"
 #include "maps.h"

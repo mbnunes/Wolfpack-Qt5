@@ -47,7 +47,7 @@
 #include "../commands.h"
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
-#include "../wpscriptmanager.h"
+#include "../scriptmanager.h"
 #include "../walking.h"
 #include "../guildstones.h"
 #include "../combat.h"

@@ -36,19 +36,55 @@
 #include <limits> // Python tries to redefine some of this stuff, so include first
 #endif
 
-#include "wppythonscript.h"
-#include "../globals.h"
-#include "../maps.h"
-#include "../network.h"
+#include "pythonscript.h"
+#include "globals.h"
+#include "maps.h"
+#include "network.h"
 
 // Library Includes
-#include "qfile.h"
+#include <qfile.h>
 
 // Extension includes
-#include "utilities.h"
-#include "target.h"
+#include "python/utilities.h"
+#include "python/target.h"
 
-void WPPythonScript::unload( void )
+void cPythonScript::addKeyword( UINT16 data )
+{
+	speechKeywords_.push_back( data );
+}
+
+void cPythonScript::addWord( const QString &data )
+{
+	speechWords_.push_back( data );
+}
+
+void cPythonScript::addRegexp( const QRegExp &data )
+{
+	speechRegexp_.push_back( data );
+}
+
+bool cPythonScript::canHandleSpeech( const QString &text, const QValueVector< UINT16 >& keywords )
+{
+	// Check keywords first.
+	for( QValueVector< UINT16 >::const_iterator iter1 = keywords.begin(); iter1 != keywords.end(); ++iter1 )
+		for( QValueVector< UINT16 >::const_iterator iter2 = speechKeywords_.begin(); iter2 != speechKeywords_.end(); ++iter2 )
+		{
+			if( *iter1 == *iter2 )
+				return true;
+		}
+
+	for( QValueVector< QString >::const_iterator iter3 = speechWords_.begin(); iter3 != speechWords_.end(); ++iter3 )
+		if( text.contains( *iter3 ) )
+			return true;
+
+	for( QValueVector< QRegExp >::const_iterator iter4 = speechRegexp_.begin(); iter4 != speechRegexp_.end(); ++iter4 )
+		if( text.contains( *iter4 ) )
+			return true;
+
+	return false;
+}
+
+void cPythonScript::unload( void )
 {
 	if( codeModule == NULL )
 		return;
@@ -68,7 +104,7 @@ void WPPythonScript::unload( void )
 }
 
 // Find our module name
-void WPPythonScript::load( const QDomElement &Data )
+void cPythonScript::load( const QDomElement &Data )
 {
 	// Initialize it
 	codeModule = NULL;
@@ -113,7 +149,7 @@ void WPPythonScript::load( const QDomElement &Data )
 }
 
 //========================== OVERRIDDEN DEFAULT EVENTS
-bool WPPythonScript::onServerstart()
+bool cPythonScript::onServerstart()
 {
 	PyHasMethod( "onServerstart" )
 
@@ -122,7 +158,7 @@ bool WPPythonScript::onServerstart()
 	PyEvalMethod( "onServerstart" )
 }
 
-bool WPPythonScript::onUse( P_CHAR User, P_ITEM Used )
+bool cPythonScript::onUse( P_CHAR User, P_ITEM Used )
 {
 	PyHasMethod( "onUse" )
 
@@ -134,7 +170,7 @@ bool WPPythonScript::onUse( P_CHAR User, P_ITEM Used )
 	PyEvalMethod( "onUse" )
 }
 
-bool WPPythonScript::onSingleClick( P_ITEM Item, P_CHAR Viewer )
+bool cPythonScript::onSingleClick( P_ITEM Item, P_CHAR Viewer )
 {
 	PyHasMethod( "onSingleClick" )
 	
@@ -145,7 +181,7 @@ bool WPPythonScript::onSingleClick( P_ITEM Item, P_CHAR Viewer )
 	PyEvalMethod( "onSingleClick" )
 }
 
-bool WPPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
+bool cPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
 {
 	PyHasMethod( "onSingleClick" )
 
@@ -156,7 +192,7 @@ bool WPPythonScript::onSingleClick( P_CHAR Character, P_CHAR Viewer )
 	PyEvalMethod( "onSingleClick" )
 }
 
-bool WPPythonScript::onLogout( P_CHAR Character )
+bool cPythonScript::onLogout( P_CHAR Character )
 {
 	PyHasMethod( "onLogout" )
 
@@ -166,7 +202,7 @@ bool WPPythonScript::onLogout( P_CHAR Character )
 	PyEvalMethod( "onLogout" )
 }
 
-bool WPPythonScript::onLogin( P_CHAR Character )
+bool cPythonScript::onLogin( P_CHAR Character )
 {
 	PyHasMethod( "onLogin" )
 
@@ -176,7 +212,7 @@ bool WPPythonScript::onLogin( P_CHAR Character )
 	PyEvalMethod( "onLogin" )
 }
 
-bool WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
+bool cPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
 {
 	PyHasMethod( "onCollideItem" )
 
@@ -187,7 +223,7 @@ bool WPPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
 	PyEvalMethod( "onCollideItem" )
 }
 
-bool WPPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
+bool cPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
 {
 	PyHasMethod( "onCollideChar" )
 
@@ -198,7 +234,7 @@ bool WPPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
 	PyEvalMethod( "onCollideChar" )
 }
 
-bool WPPythonScript::onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence )
+bool cPythonScript::onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence )
 {
 	PyHasMethod( "onWalk" )
 
@@ -211,7 +247,7 @@ bool WPPythonScript::onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence )
 }
 
 // if this events returns true (handeled) then we should not display the text
-bool WPPythonScript::onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang )
+bool cPythonScript::onTalk( P_CHAR Character, char speechType, UINT16 speechColor, UINT16 speechFont, const QString &Text, const QString &Lang )
 {
 	PyHasMethod( "onTalk" )
 
@@ -226,7 +262,7 @@ bool WPPythonScript::onTalk( P_CHAR Character, char speechType, UI16 speechColor
 	PyEvalMethod( "onTalk" )
 }
 
-bool WPPythonScript::onWarModeToggle( P_CHAR Character, bool War )
+bool cPythonScript::onWarModeToggle( P_CHAR Character, bool War )
 {
 	PyHasMethod( "onWarModeToggle" )
 
@@ -237,7 +273,7 @@ bool WPPythonScript::onWarModeToggle( P_CHAR Character, bool War )
 	PyEvalMethod( "onWarModeToggle" )
 }
 
-bool WPPythonScript::onHelp( P_CHAR Character )
+bool cPythonScript::onHelp( P_CHAR Character )
 {
 	PyHasMethod( "onHelp" )
 
@@ -248,7 +284,7 @@ bool WPPythonScript::onHelp( P_CHAR Character )
 }
 
 
-bool WPPythonScript::onChat( P_CHAR Character )
+bool cPythonScript::onChat( P_CHAR Character )
 {
 	PyHasMethod( "onChat" )
 
@@ -259,7 +295,7 @@ bool WPPythonScript::onChat( P_CHAR Character )
 }
 
 
-bool WPPythonScript::onSkillUse( P_CHAR Character, UI08 Skill )
+bool cPythonScript::onSkillUse( P_CHAR Character, UINT8 Skill )
 {
 	PyHasMethod( "onSkillUse" )
 
@@ -270,7 +306,7 @@ bool WPPythonScript::onSkillUse( P_CHAR Character, UI08 Skill )
 	PyEvalMethod( "onSkillUse" )
 }
 
-bool WPPythonScript::onSkillGain( P_CHAR Character, UI08 Skill, SI32 min, SI32 max, bool success )
+bool cPythonScript::onSkillGain( P_CHAR Character, UINT8 Skill, INT32 min, INT32 max, bool success )
 {
 	PyHasMethod( "onSkillGain" )
 
@@ -284,7 +320,7 @@ bool WPPythonScript::onSkillGain( P_CHAR Character, UI08 Skill, SI32 min, SI32 m
 	PyEvalMethod( "onSkillGain" )
 }
 
-bool WPPythonScript::onStatGain( P_CHAR Character, UI08 stat, SI08 amount )
+bool cPythonScript::onStatGain( P_CHAR Character, UINT8 stat, INT8 amount )
 {
 	PyHasMethod( "onStatGain" )
 
@@ -296,7 +332,7 @@ bool WPPythonScript::onStatGain( P_CHAR Character, UI08 stat, SI08 amount )
 	PyEvalMethod( "onStatGain" )
 }
 
-bool WPPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
+bool cPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
 {
 	PyHasMethod( "onContextEntry" )
 
@@ -313,7 +349,7 @@ bool WPPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id 
 	PyEvalMethod( "onContextEntry" )
 }
 
-bool WPPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
+bool cPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
 {
 	PyHasMethod( "onShowContextMenu" )
 	
@@ -328,7 +364,7 @@ bool WPPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
 	PyEvalMethod( "onShowContextMenu" )
 }
 
-bool WPPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip )
+bool cPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip )
 {
 	PyHasMethod( "onShowToolTip" )
 	
@@ -345,7 +381,7 @@ bool WPPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxToolti
 	PyEvalMethod( "onShowToolTip" )
 }
 
-unsigned int WPPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source )
+unsigned int cPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source )
 {
 	if( !codeModule || !PyObject_HasAttr( codeModule, PyString_FromString( "onDamage" ) ) )
 		return amount;
@@ -377,7 +413,7 @@ unsigned int WPPythonScript::onDamage( P_CHAR pChar, unsigned char type, unsigne
 	return PyInt_AsLong( returnValue );	
 }
 
-bool WPPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
+bool cPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
 {
 	PyHasMethod( "onCastSpell" )
 
@@ -388,7 +424,7 @@ bool WPPythonScript::onCastSpell( cPlayer *player, unsigned int spell )
 	PyEvalMethod( "onCastSpell" )
 }
 
-bool WPPythonScript::onCreate( cUObject *object, const QString &definition )
+bool cPythonScript::onCreate( cUObject *object, const QString &definition )
 {
 	PyHasMethod( "onCreate" )
 	
@@ -404,7 +440,7 @@ bool WPPythonScript::onCreate( cUObject *object, const QString &definition )
 	PyEvalMethod( "onCreate" )
 }
 
-bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords )
+bool cPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords )
 {
 	PyHasMethod( "onSpeech" )
 
@@ -427,7 +463,7 @@ bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString 
 	PyEvalMethod( "onSpeech" )
 }
 
-bool WPPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
+bool cPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
 {
 	PyHasMethod( "onDropOnChar" )
 	
@@ -438,7 +474,7 @@ bool WPPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
 	PyEvalMethod( "onDropOnChar" )
 }
 
-bool WPPythonScript::onDropOnItem( P_ITEM pCont, P_ITEM pItem )
+bool cPythonScript::onDropOnItem( P_ITEM pCont, P_ITEM pItem )
 {
 	PyHasMethod( "onDropOnItem" )
 	
@@ -449,7 +485,7 @@ bool WPPythonScript::onDropOnItem( P_ITEM pCont, P_ITEM pItem )
 	PyEvalMethod( "onDropOnItem" )
 }
 
-bool WPPythonScript::onDropOnGround( P_ITEM pItem, const Coord_cl &pos )
+bool cPythonScript::onDropOnGround( P_ITEM pItem, const Coord_cl &pos )
 {
 	PyHasMethod( "onDropOnGround" )
 	
@@ -460,7 +496,7 @@ bool WPPythonScript::onDropOnGround( P_ITEM pItem, const Coord_cl &pos )
 	PyEvalMethod( "onDropOnGround" )
 }
 
-bool WPPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
+bool cPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
 {
 	PyHasMethod( "onPickup" )
 	
@@ -471,7 +507,7 @@ bool WPPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
 	PyEvalMethod( "onPickup" )
 }
 
-bool WPPythonScript::onCommand( cUOSocket *socket, const QString &name, const QString &args )
+bool cPythonScript::onCommand( cUOSocket *socket, const QString &name, const QString &args )
 {
 	PyHasMethod( "onCommand" )
 
@@ -484,7 +520,7 @@ bool WPPythonScript::onCommand( cUOSocket *socket, const QString &name, const QS
 	PyEvalMethod( "onCommand" )
 }
 
-bool WPPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
+bool cPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
 {
 	PyHasMethod( "onShowPaperdoll" )
 
@@ -496,7 +532,7 @@ bool WPPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
 	PyEvalMethod( "onShowPaperdoll" )
 }
 
-bool WPPythonScript::onDeath( P_CHAR pChar )
+bool cPythonScript::onDeath( P_CHAR pChar )
 {
 	PyHasMethod( "onDeath" )
 	
@@ -506,7 +542,7 @@ bool WPPythonScript::onDeath( P_CHAR pChar )
 	PyEvalMethod( "onDeath" )
 }
 
-bool WPPythonScript::onShowSkillGump( P_CHAR pChar )
+bool cPythonScript::onShowSkillGump( P_CHAR pChar )
 {
 	PyHasMethod( "onShowSkillGump" )
 
@@ -517,7 +553,7 @@ bool WPPythonScript::onShowSkillGump( P_CHAR pChar )
 	PyEvalMethod( "onShowSkillGump" )
 }
 
-QString WPPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
+QString cPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
 {
 	if( codeModule == NULL ) 
 		return (char*)0; 
@@ -542,4 +578,5 @@ QString WPPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
 	
 	return PyString_AsString( returnValue );
 }
+
 

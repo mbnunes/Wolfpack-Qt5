@@ -47,8 +47,8 @@
 #include "itemid.h"
 #include "basics.h"
 #include "tilecache.h"
-#include "wpdefaultscript.h"
-#include "wpscriptmanager.h"
+#include "pythonscript.h"
+#include "scriptmanager.h"
 #include "skills.h"
 #include "wpdefmanager.h"
 #include "srvparams.h"
@@ -1036,8 +1036,8 @@ bool cBaseChar::onSingleClick( P_PLAYER Viewer )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SINGLECLICK );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1098,8 +1098,8 @@ bool cBaseChar::onShowSkillGump()
 			return true;
 	
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWSKILLGUMP );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1118,8 +1118,8 @@ bool cBaseChar::onSkillUse( UI08 Skill )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SKILLUSE );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1178,8 +1178,8 @@ bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWTOOLTIP );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1906,8 +1906,8 @@ bool cBaseChar::onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SKILLGAIN );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1925,8 +1925,8 @@ bool cBaseChar::onStatGain( UI08 stat, SI08 amount )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_STATGAIN );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1946,8 +1946,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	for( UINT8 i = 0; i < scriptChain.size(); ++i )
 		amount = scriptChain[ i ]->onDamage( this, type, amount, source );
 
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_DAMAGE );
 	for( it = hooks.begin(); it != hooks.end(); ++it )

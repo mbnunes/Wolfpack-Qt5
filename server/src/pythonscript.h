@@ -31,25 +31,53 @@
 #ifndef __WPPYTHONSCRIPT_H__
 #define __WPPYTHONSCRIPT_H__
 
-#include "../wpdefaultscript.h"
-#include "engine.h"
+// Wolfpack Includes
+#include "python/engine.h"
+#include "typedefs.h"
+
+// Library Includes
+#include <qstring.h>
+#include <qregexp.h>
+#include <qvaluevector.h>
 
 class cUORxTarget;
+class cUOTxTooltipList;
+class cUOSocket;
+class QDomElement;
+class Coord_cl;
 
-class WPPythonScript : public WPDefaultScript  
+class cPythonScript  
 {
-private:
+protected:
+	QString name_; // Important!
+	bool handleSpeech_;
+	bool catchAllSpeech_;
+
+	QValueVector< UINT16 > speechKeywords_;
+	QValueVector< QString > speechWords_;
+	QValueVector< QRegExp > speechRegexp_;
 	PyObject *codeModule; // This object stores the compiled Python Module
 
 public:
-	virtual const QString Type( void ) {
-		return "python";
-	};
+	void addKeyword( UINT16 data );	
+	void addWord( const QString &data );
+	void addRegexp( const QRegExp &data );
 	
-	virtual ~WPPythonScript() {};
+	bool handleSpeech() const { return handleSpeech_; }
+	bool catchAllSpeech() const { return catchAllSpeech_; }
+	void setHandleSpeech( bool data ) { handleSpeech_ = data; }
+	void setCatchAllSpeech( bool data ) { catchAllSpeech_ = data; }
+	bool canHandleSpeech( const QString &text, const QValueVector< UINT16 >& keywords );
 
-	virtual void load( const QDomElement &Data );
-	virtual void unload( void );
+	// We need an identification value for the scripts
+	void setName( const QString &value ) { name_ = value; }
+	const QString &name() { return name_; }
+
+	cPythonScript(): catchAllSpeech_( false ), handleSpeech_( false ), codeModule( 0 ) {}
+	virtual ~cPythonScript() {};
+
+	void load( const QDomElement &Data );
+	void unload( void );
 
 	// Normal Events
 	bool onServerstart();
@@ -60,19 +88,19 @@ public:
 
 	bool onCollideItem( P_CHAR Character, P_ITEM Obstacle );
 	bool onCollideChar( P_CHAR Character, P_CHAR Obstacle );
-	bool onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence );
+	bool onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence );
 	bool onCreate( cUObject *object, const QString &definition );
 
 	// if this events returns true (handeled) then we should not display the text
-	bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang );
+	bool onTalk( P_CHAR Character, char speechType, UINT16 speechColor, UINT16 speechFont, const QString &Text, const QString &Lang );
 	bool onWarModeToggle( P_CHAR Character, bool War );
 	bool onLogin( P_CHAR pChar );
 	bool onLogout( P_CHAR pChar );
 	bool onHelp( P_CHAR Character );
 	bool onChat( P_CHAR Character );
-	bool onSkillUse( P_CHAR Character, UI08 Skill );
-	bool onSkillGain( P_CHAR Character, UI08 Skill, SI32 min, SI32 max, bool success);
-	bool onStatGain( P_CHAR Character, UI08 stat, SI08 amount);
+	bool onSkillUse( P_CHAR Character, UINT8 Skill );
+	bool onSkillGain( P_CHAR Character, UINT8 Skill, INT32 min, INT32 max, bool success);
+	bool onStatGain( P_CHAR Character, UINT8 stat, INT8 amount);
 	bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin );
 	bool onShowSkillGump( P_CHAR pChar );
 	bool onDeath( P_CHAR pChar );

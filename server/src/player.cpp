@@ -46,8 +46,8 @@
 #include "mapobjects.h"
 #include "tilecache.h"
 #include "skills.h"
-#include "wpdefaultscript.h"
-#include "wpscriptmanager.h"
+#include "pythonscript.h"
+#include "scriptmanager.h"
 
 
 cPlayer::cPlayer()
@@ -1303,8 +1303,8 @@ bool cPlayer::onPickup( P_ITEM pItem )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_PICKUP );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1321,8 +1321,8 @@ bool cPlayer::onLogin( void )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_LOGIN );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1338,8 +1338,8 @@ bool cPlayer::onCastSpell( unsigned int spell )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CASTSPELL );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1355,8 +1355,8 @@ bool cPlayer::onLogout( void )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_LOGOUT );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1374,8 +1374,8 @@ bool cPlayer::onHelp( void )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_HELP );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
@@ -1394,8 +1394,8 @@ bool cPlayer::onChat( void )
 			return true;
 
 	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
+	QValueVector< cPythonScript* > hooks;
+	QValueVector< cPythonScript* >::const_iterator it;
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_CHAT );
 	for( it = hooks.begin(); it != hooks.end(); ++it )

@@ -31,10 +31,10 @@
 #include "platform.h"
 
 #include "contextmenu.h"
-#include "wpdefaultscript.h"
+#include "pythonscript.h"
 #include "uobject.h"
 #include "wpdefmanager.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "player.h"
 
 #include "debug.h"
@@ -91,7 +91,7 @@ void cConMenu::recreateEvents( void )
 	QStringList::const_iterator myIter( eventList_.begin() );
 	for( ; myIter != eventList_.end(); ++myIter )
 	{
-		WPDefaultScript *myScript = ScriptManager->find( *myIter );
+		cPythonScript *myScript = ScriptManager->find( *myIter );
 
 		// Script not found
 		if( myScript == NULL )

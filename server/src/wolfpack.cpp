@@ -4,7 +4,7 @@
 //	UO Server Emulation Program
 //
 //	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//      Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -56,7 +56,7 @@
 #include "contextmenu.h"
 #include "maps.h"
 #include "wpdefmanager.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "wptargetrequests.h"
 #include "python/engine.h"
 #include "spellbook.h"
@@ -703,7 +703,7 @@ static void startClasses()
 	Items			 = new cAllItems;
 	Map				 = new Maps ( SrvParams->mulPath() );
 	Skills			 = new cSkills;
-	ScriptManager	 = new WPScriptManager;
+	ScriptManager	 = new cScriptManager;
 	DefManager		 = new WPDefManager;
 	persistentBroker = new PersistentBroker;
 }

@@ -31,7 +31,7 @@
 
 // Wolfpack Includes
 #include "wpconsole.h"
-#include "wpdefaultscript.h"
+#include "pythonscript.h"
 
 // Library Includes
 #include <qstring.h>

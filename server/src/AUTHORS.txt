@@ -1,9 +1,8 @@
 -- Not a complete list, in Alphabetic order --
-Correa
-DarkStorm
-Duke
-Lord_Binary
-Punt
-Ripper
-Sereg
-Skyfire
+
+Thiago Correa (Correa)
+Sebastian Hartte (DarkStorm)
+... ... (Codex)
+... ... (Khpae)
+... ... (Punt)
+... ... (Sereg)

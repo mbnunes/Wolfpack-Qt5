@@ -35,7 +35,7 @@
 #include "commands.h"
 #include "gumps.h"
 #include "maps.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
 #include "srvparams.h"
@@ -45,13 +45,14 @@
 #include "chars.h"
 #include "wpconsole.h"
 #include "wpdefmanager.h"
-#include "wpscriptmanager.h"
+#include "scriptmanager.h"
 #include "pagesystem.h"
 #include "makemenus.h"
 #include "mapobjects.h"
 #include "resources.h"
 #include "contextmenu.h"
 #include "spellbook.h"
+#include "pythonscript.h"
 
 // System Includes
 #include <functional>
@@ -93,7 +94,7 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 		return;
 
 	// Check for custom commands
-	WPDefaultScript *script = ScriptManager->getCommandHook( command );
+	cPythonScript *script = ScriptManager->getCommandHook( command );
 
 	if( script )
 	{
