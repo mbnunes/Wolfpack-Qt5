@@ -248,7 +248,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			{
 				if (pi->tags.get("boatserial").isValid())
 				{
-					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toUInt() ) );
+					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toInt() ) );
 					pBoat->handlePlankClick( socket, pi );
 				}
 				else 
@@ -476,7 +476,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						P_ITEM pj = *it;
 						if( pj && pj->type() == 7 && 
-							pj->tags.get( "linkserial" ).isValid() && pj->tags.get( "linkserial" ).toUInt() == pi->serial )
+							pj->tags.get( "linkserial" ).isValid() && pj->tags.get( "linkserial" ).toInt() == pi->serial )
 						{
 							socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
 							pc_currchar->setObjectDelay( 0 );

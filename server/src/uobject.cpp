@@ -99,6 +99,8 @@ void cUObject::load( char **result, UINT16 &offset )
 	// Get our events
 	recreateEvents();
 
+	tags.load( serial );
+
 	PersistentObject::load( result, offset );
 }
 
@@ -137,6 +139,8 @@ void cUObject::save()
 	addCondition( "serial", serial );
 	saveFields;
 
+	tags.save( serial );
+
 	PersistentObject::save();
 }
 
@@ -150,6 +154,9 @@ bool cUObject::del()
 
 	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial ) );
 	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial ) );
+
+	tags.del( serial );
+
 	return PersistentObject::del();
 }
 

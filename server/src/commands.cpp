@@ -1275,6 +1275,21 @@ public:
 		else if( key == "mana" && pChar )
 			result = QString( "%1" ).arg( pChar->mn() );
 
+		else if( key.left( 4 ) == "tag." )
+		{
+			QString tagName = key.right( key.length() - 4 );
+
+			cVariant value = pObject->tags.get( tagName );
+
+			if( !value.isValid() )
+			{
+				socket->sysMessage( tr( "Unknown tag '%1'" ).arg( tagName ) );
+				return true;
+			}
+
+			result = value.toString();
+		}
+
 		// Check if key was a skillname
 		else 
 		{

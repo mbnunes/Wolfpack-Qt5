@@ -35,7 +35,7 @@
 #include "platform.h"
 #include "typedefs.h"
 #include "defines.h"
-#include "iserialization.h"
+#include "persistentobject.h"
 
 // Library include
 #include <map>
@@ -48,64 +48,32 @@
 class cItem;
 class cChar;
 class QString;
-class QCString;
-class QBitArray;
 class cVariant;
-class ISerialization;
-template <class T> class QValueList;
-template <class T> class QValueListConstIterator;
-template <class T> class QValueListNode;
-template <class Key, class T> class QMap;
-template <class Key, class T> class QMapConstIterator;
 
-class cVariant : public cSerializable
+class cVariant
 {
 public:
-    enum Type {	Invalid,	Map,	List,	String,		StringList,		Int,	UInt,	Bool,
-				Double,		CString,		ByteArray,	BitArray,		Character,		Item
-    };
+    enum Type
+	{
+		Invalid = 0,
+		String,
+		Int,
+		Double
+	};
 
 	cVariant();
 	~cVariant();
 	
 	cVariant( const cVariant& p );
     cVariant( const QString& );
-    cVariant( const QCString& );
-    cVariant( const char* );
-    cVariant( const QStringList& );
-    cVariant( const QByteArray& );
-    cVariant( const QBitArray& );
-    cVariant( const QValueList<cVariant>& );
-    cVariant( const QMap<QString,cVariant>& );
-	cVariant( const P_CHAR );
-	cVariant( const P_ITEM );
-
-    cVariant( int );
-    cVariant( uint );
-    cVariant( bool, int );
+	cVariant( int );
     cVariant( double );
 
     cVariant& operator= ( const cVariant& );
     bool operator==( const cVariant& ) const;
     bool operator!=( const cVariant& ) const;
 
-	// implements cSerializable
-	virtual QString		objectID() const  { return "VARIANT";}
-	virtual void		Serialize(ISerialization &archive)
-	{
-		if( archive.isReading() )
-		{
-			this->load( archive );
-		}
-		else
-		{
-			this->save( archive );
-		}
-		cSerializable::Serialize( archive );
-	}
-	
     Type type() const;
-
     const char* typeName() const;
 
     bool canCast( Type ) const;
@@ -116,52 +84,17 @@ public:
     void clear();
 
     const QString toString() const;
-    const QCString toCString() const;
-    const QStringList toStringList() const;
-    const QByteArray toByteArray() const;
-    const QBitArray toBitArray() const;
     int toInt( bool * ok=0 ) const;
-    uint toUInt( bool * ok=0 ) const;
-    bool toBool() const;
     double toDouble( bool * ok=0 ) const;
-    const QValueList<cVariant> toList() const;
-    const QMap<QString,cVariant> toMap() const;
-	const P_CHAR toCharacter() const;
-	const P_ITEM toItem() const;
 
-    QValueListConstIterator<QString> stringListBegin() const;
-    QValueListConstIterator<QString> stringListEnd() const;
-    QValueListConstIterator<cVariant> listBegin() const;
-    QValueListConstIterator<cVariant> listEnd() const;
-    QMapConstIterator<QString,cVariant> mapBegin() const;
-    QMapConstIterator<QString,cVariant> mapEnd() const;
-    QMapConstIterator<QString,cVariant> mapFind( const QString& ) const;
     QString& asString();
-    QCString& asCString();
-    QStringList& asStringList();
-    QByteArray& asByteArray();
-    QBitArray& asBitArray();
     int& asInt();
-    uint& asUInt();
-    bool& asBool();
     double& asDouble();
-    QValueList<cVariant>& asList();
-    QMap<QString,cVariant>& asMap();
-	P_CHAR		asCharacter( void );
-	P_ITEM		asItem( void );
-	SERIAL		asSerial( void );
 
     static const char* typeToName( Type typ );
     static Type nameToType( const char* name );
 
-    void load( ISerialization& );
-    void save( ISerialization& ) const;
-
 	bool		isString( void );
-	bool		isCharacter( void );
-	bool		isItem( void );
-	bool		isSerial( void );
-
 
 private:
     void detach();
@@ -178,9 +111,7 @@ private:
         Type typ;
         union
         {
-	    uint u;
 	    int i;
-	    bool b;
 	    double d;
 	    void *ptr;
         } value;
@@ -200,102 +131,18 @@ inline bool cVariant::isValid() const
     return (d->typ != Invalid);
 }
 
-inline QValueListConstIterator<QString> cVariant::stringListBegin() const
-{
-    if ( d->typ != StringList )
-	return QValueListConstIterator<QString>();
-    return ((const QStringList*)d->value.ptr)->begin();
-}
-
-inline QValueListConstIterator<QString> cVariant::stringListEnd() const
-{
-    if ( d->typ != StringList )
-	return QValueListConstIterator<QString>();
-    return ((const QStringList*)d->value.ptr)->end();
-}
-
-inline QValueListConstIterator<cVariant> cVariant::listBegin() const
-{
-    if ( d->typ != List )
-	return QValueListConstIterator<cVariant>();
-    return ((const QValueList<cVariant>*)d->value.ptr)->begin();
-}
-
-inline QValueListConstIterator<cVariant> cVariant::listEnd() const
-{
-    if ( d->typ != List )
-	return QValueListConstIterator<cVariant>();
-    return ((const QValueList<cVariant>*)d->value.ptr)->end();
-}
-
-inline QMapConstIterator<QString,cVariant> cVariant::mapBegin() const
-{
-    if ( d->typ != Map )
-	return QMapConstIterator<QString,cVariant>();
-    return ((const QMap<QString,cVariant>*)d->value.ptr)->begin();
-}
-
-inline QMapConstIterator<QString,cVariant> cVariant::mapEnd() const
-{
-    if ( d->typ != Map )
-	return QMapConstIterator<QString,cVariant>();
-    return ((const QMap<QString,cVariant>*)d->value.ptr)->end();
-}
-
-inline QMapConstIterator<QString,cVariant> cVariant::mapFind( const QString& key ) const
-{
-    if ( d->typ != Map )
-	return QMapConstIterator<QString,cVariant>();
-    return ((const QMap<QString,cVariant>*)d->value.ptr)->find( key );
-}
-
-class cCustomTags : public cSerializable
+class cCustomTags : public PersistentObject
 {
 public:
-	cCustomTags() {;}
+	cCustomTags(): changed( false ) {;}
 	~cCustomTags() {;}
 
-	// implements cSerializable
-	virtual QString		objectID() const  { return "CUSTOMTAGS";}
-	virtual void		Serialize(ISerialization &archive)
-	{
-		if( archive.isReading() )
-		{
-			int uiSize = 0;
-			archive.read( "size", uiSize );
-			for( int i = 0; i < uiSize; i++ )
-			{
-				QString key;
-				cVariant val;				
-				
-				archive.read( (char*)QString("key%1").arg(i).latin1(), key );
-				QString objectID;
-				archive.readObjectID( objectID );
-				if( objectID == "VARIANT" )
-					archive.readObject( &val );
+	void del( SERIAL key );
+	void save( SERIAL key );
+	void load( SERIAL key );
 
-				std::pair< QString, cVariant > toInsert( key, val );
-				this->tags_.insert( toInsert );
-			}
-		}
-		else
-		{
-			int uiSize = tags_.size();
-			archive.write( "size", uiSize );
-			std::map< QString, cVariant >::iterator it = this->tags_.begin();
-			int i = 0;
-			while( it != this->tags_.end() )
-			{
-				QString key = it->first;
-				cVariant val = it->second;
-				archive.write( (char*)QString("key%1").arg(i).latin1(), key );
-				archive.writeObject( &val );
-				it++;
-				i++;
-			}
-		}
-		cSerializable::Serialize( archive );
-	}
+	// implements cSerializable
+	virtual QString		objectID() const  { return "cCustomTags";}
 
 	cVariant	get( QString key ) 
 	{ 
@@ -305,19 +152,41 @@ public:
 		else
 			return cVariant();
 	}
+
 	void		set( QString key, cVariant value ) 
 	{
-		if( tags_.find( key ) != tags_.end() )
+		std::map< QString, cVariant >::iterator iter = tags_.find( key );
+
+		if( iter != tags_.end() )
 		{
 			if( !value.isValid() )
-				this->tags_.erase( tags_.find( key ) );
-			else
-				tags_.find( key )->second = value;
+			{
+				tags_.erase( iter );
+				changed = true;
+			}
+			else if( iter->second != value )
+			{
+				iter->second = value;
+				changed = true;
+			}
 		}
 		else
-			this->tags_.insert(std::make_pair(key, value)); 
+		{
+			tags_.insert(std::make_pair(key, value)); 
+			changed = true;
+		}
 	}
-	void		remove( QString key ) { this->tags_.erase( key ); }
+
+	void		remove( QString key )
+	{
+		std::map< QString, cVariant >::iterator iter = tags_.find( key );
+		
+		if( iter != tags_.end() )
+		{
+			tags_.erase( iter );
+			changed = true;
+		}
+	}
 
 	UI32		size( void ) { return this->tags_.size(); }
 
@@ -347,6 +216,7 @@ public:
 
 private:
 	std::map< QString, cVariant > tags_;
+	bool changed;
 };
 
 #endif

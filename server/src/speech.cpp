@@ -1070,7 +1070,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 
 		if( pi->type() == 117 && pi->tags.get( "tiller" ).toInt() == 1 )
 		{
-			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toUInt() ));
+			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toInt() ));
 			if( pBoat )
 				pboats.append( pBoat );
 		}

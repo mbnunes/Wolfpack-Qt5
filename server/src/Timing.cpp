@@ -944,7 +944,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 					if( pItem->tags.get( "tiller" ).isValid() && 
 						( pItem->gatetime <= currenttime ) )
 					{
-						cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->tags.get( "boatserial" ).toUInt() ) );
+						cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->tags.get( "boatserial" ).toInt() ) );
 						if( pBoat )
 						{
 							pBoat->move();

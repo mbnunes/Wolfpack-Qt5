@@ -344,8 +344,8 @@ PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 
 	if( value.type() == cVariant::String )
 		return PyString_FromString( value.asString().latin1() );
-	else if( value.type() == cVariant::UInt )
-		return PyInt_FromLong( value.asUInt() );
+	else if( value.type() == cVariant::Int )
+		return PyInt_FromLong( value.asInt() );
 
 	return Py_None;
 }
@@ -371,7 +371,7 @@ PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	if( checkArgStr( 1 ) )
 		self->pItem->tags.set( key, cVariant( QString( PyString_AsString( PyTuple_GetItem( args, 1 ) ) ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pItem->tags.set( key, cVariant( (UINT32)PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) ) );
+		self->pItem->tags.set( key, cVariant( PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) ) );
 
 	return PyTrue;
 }

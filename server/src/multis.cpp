@@ -384,7 +384,7 @@ void cMulti::removeKeys( void )
 	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
 	{
 		P_ITEM pi = iter_items.GetData();
-		if( pi && pi->type() == 7 && pi->tags.get( "linkserial" ).isValid() && pi->tags.get( "linkserial" ).toUInt() == this->serial )
+		if( pi && pi->type() == 7 && pi->tags.get( "linkserial" ).isValid() && pi->tags.get( "linkserial" ).toInt() == this->serial )
 			todelete.append( pi );
 	}
 	QPtrListIterator< cItem > it( todelete );
@@ -415,7 +415,7 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 		{
 			if( pi->tags.get( "linkserial" ).isValid() )
 			{
-				SERIAL si = pi->tags.get( "linkserial" ).toUInt();
+				SERIAL si = pi->tags.get( "linkserial" ).toInt();
 				if( si == this->serial ) 
 				{
 					found = true;

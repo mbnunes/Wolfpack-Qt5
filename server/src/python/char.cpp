@@ -546,8 +546,8 @@ PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 
 	if( value.type() == cVariant::String )
 		return PyString_FromString( value.asString().latin1() );
-	else if( value.type() == cVariant::UInt )
-		return PyInt_FromLong( value.asUInt() );
+	else if( value.type() == cVariant::Int )
+		return PyInt_FromLong( value.asInt() );
 
 	return Py_None;
 }
