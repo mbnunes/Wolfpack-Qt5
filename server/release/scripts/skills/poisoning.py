@@ -38,7 +38,7 @@ def poisoning( char, skill ):
 def selectpotion(char, args, target):
 	# check if the targetted item is a poison potion
 	potion = target.item
-	if ( not potion or not potion.hastag( 'potiontype' ) ) or ( potion.gettag( 'potiontype' ) < 14  and potion.gettag( 'potiontype' ) > 17 ):
+	if ( not potion or not potion.hasintproperty( 'potiontype' ) ) or ( potion.getintproperty( 'potiontype' ) < 14  and potion.getintproperty( 'potiontype' ) > 17 ):
 		char.socket.clilocmessage( 502139 )
 		return
 
@@ -84,7 +84,7 @@ def poisonit( char, args ):
 	skill = char.skill[ POISONING ]
 
 	# poison strength : lesser(0), normal, greater, deadly(3)
-	strength = int( potion.gettag( 'potiontype' ) ) - 14
+	strength = int( potion.getintproperty( 'potiontype' ) ) - 14
 
 	# consume the potion / add a blank bottle
 	potions.consumePotion(char, potion, True)
