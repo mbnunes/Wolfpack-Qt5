@@ -64,7 +64,7 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 
 	P_PLAYER pChar = socket->player();
 	QStringList pArgs = QStringList::split( " ", command, true );
-	
+
 	// No Command? No Processing
 	if( pArgs.isEmpty() )
 		return;
@@ -105,7 +105,7 @@ bool cCommands::dispatch( cUOSocket *socket, const QString &command, const QStri
 			argString = "";
 
 		PyObject *args = Py_BuildValue( "O&uu", PyGetSocketObject, socket, command.ucs2(), argString.ucs2() );
-		
+
 		PyObject *result = PyObject_CallObject( function, args );
 		Py_XDECREF( result );
 		reportPythonError();
@@ -113,7 +113,7 @@ bool cCommands::dispatch( cUOSocket *socket, const QString &command, const QStri
 		Py_DECREF( args );
 
 		return true;
-	}	
+	}
 
 	for( uint index = 0; commands[index].command; ++index )
 		if( command == commands[index].name )
@@ -135,7 +135,7 @@ void cCommands::loadACLs( void )
 	_acls.clear();
 
 	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
-	
+
 	if( ScriptSections.isEmpty() )
 	{
 		Console::instance()->ChangeColor( WPC_RED );
@@ -154,7 +154,7 @@ void cCommands::loadACLs( void )
 			continue;
 
 		QString ACLname = *it;
-        	
+
 		// While we are in this loop we are building an ACL
 		cAcl *acl = new cAcl;
 		acl->name = ACLname;
@@ -173,7 +173,7 @@ void cCommands::loadACLs( void )
 			if( childTag->name() == "group" )
 			{
 				groupName = childTag->getAttribute( "name" );
-				
+
 				for( unsigned int j = 0; j < childTag->childCount(); ++j )
 				{
 					const cElement *groupTag = childTag->getChild( j );
@@ -194,7 +194,7 @@ void cCommands::loadACLs( void )
 			}
 		}
 
-		_acls.insert( ACLname, acl );	
+		_acls.insert( ACLname, acl );
 	}
 
 	// Renew the ACL pointer for all loaded accounts
@@ -262,7 +262,7 @@ void commandGo( cUOSocket *socket, const QString &command, const QStringList &ar
 			socket->resendPlayer( map == pChar->pos().map );
 			socket->resendWorld();
 			return;
-		}			
+		}
 	}
 
 	// If we reached this end it's definetly an invalid command
@@ -336,7 +336,7 @@ void commandAdd( cUOSocket *socket, const QString &command, const QStringList &a
 	}
 
 	QString param = args.join( " " ).stripWhiteSpace();
-    
+
 	// An item definition with that name exists
 	if( DefManager->getDefinition( WPDT_ITEM, param ) )
 	{
@@ -344,7 +344,7 @@ void commandAdd( cUOSocket *socket, const QString &command, const QStringList &a
 		socket->attachTarget( new cAddItemTarget( param ) );
 		return;
 	}
-	
+
 	// Same for NPCs
 	if( DefManager->getDefinition( WPDT_NPC, param ) )
 	{
@@ -352,7 +352,7 @@ void commandAdd( cUOSocket *socket, const QString &command, const QStringList &a
 		socket->attachTarget( new cAddNpcTarget( param ) );
 		return;
 	}
-	
+
 	socket->sysMessage( tr( "Item or NPC Definition '%1' not found" ).arg( param ) );
 	return;
 }
@@ -364,14 +364,38 @@ void commandSet( cUOSocket *socket, const QString &command, const QStringList &a
 	{
 		socket->sysMessage( "Usage: set <key> <value>" );
 		return;
-	}	
+	}
 
-    QString key = args[0];
-    QString value = args.join( " " );
-	value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
-
-	socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( key ).arg( value ) );
-	socket->attachTarget( new cSetTarget( key, value ) );
+	QString key = args[0];
+	// Alias for speed sake on setting stats.
+	if( key == "str" )
+	{
+		QString value = args.join( " " );
+		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
+		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "strength" ).arg( value ) );
+		socket->attachTarget( new cSetTarget( "strength", value ) );
+	}
+	else if( key == "dex" )
+	{
+		QString value = args.join( " " );
+		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
+		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "strength" ).arg( value ) );
+		socket->attachTarget( new cSetTarget( "strength", value ) );
+	}
+	else if( key == "int" )
+	{
+		QString value = args.join( " " );
+		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
+		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( "intelligence" ).arg( value ) );
+		socket->attachTarget( new cSetTarget( "intelligence", value ) );
+	}
+	else
+	{
+		QString value = args.join( " " );
+		value = value.right( value.length() - key.length() - 1); // -1 because of the join() separator character
+		socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( key ).arg( value ) );
+		socket->attachTarget( new cSetTarget( key, value ) );
+	}
 }
 
 void commandResend( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
@@ -413,7 +437,7 @@ void commandAccount( cUOSocket *socket, const QString &command, const QStringLis
 		if( args.count() < 3 )
 		{
 			socket->sysMessage( tr( "Usage: account create <username> <password>" ) );
-		} 
+		}
 		else if( Accounts::instance()->getRecord( args[1].left( 30 ) ) )
 		{
 			socket->sysMessage( tr( "Account '%1' already exists" ).arg( args[1].left( 30 ) ) );
@@ -431,7 +455,7 @@ void commandAccount( cUOSocket *socket, const QString &command, const QStringLis
 		if( args.count() < 2 )
 		{
 			socket->sysMessage( tr( "Usage: account remove <username>" ) );
-		} 
+		}
 		else if( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
 		{
 			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
@@ -445,7 +469,7 @@ void commandAccount( cUOSocket *socket, const QString &command, const QStringLis
 			for(; i < characters.size(); ++i )
 				if( characters[i] )
 					cCharStuff::DeleteChar( characters[i] );
-			
+
 			socket->sysMessage( tr( "Account '%1' and %2 characters have been removed" ).arg( args[1].left( 30 ) ).arg( i+1 ) );
 		}
 	}
@@ -459,7 +483,7 @@ void commandAccount( cUOSocket *socket, const QString &command, const QStringLis
 		}
 		else if( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
 		{
-				socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) ); 
+				socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
 		}
 		else
 		{
@@ -634,7 +658,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, const QStrin
 		if( args.count() < 2 )
 		{
 			socket->sysMessage( tr( "Usage: spawnregion respawn <region_name>" ) );
-		} 
+		}
 		else if( args[1].lower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
@@ -661,7 +685,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, const QStrin
 		if( args.count() < 2 )
 		{
 			socket->sysMessage( tr( "Usage: spawnregion clear <region_name>" ) );
-		} 
+		}
 		else if( args[1].lower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
@@ -739,14 +763,14 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, const QStrin
 			pGump->addGump( 105, 18, 0x58B ); // Fancy top-bar
 			pGump->addGump( 182, 0, 0x589 ); // "Button" like gump
 			pGump->addTilePic( 202, 23, 0x14eb ); // Type of info menu
-	
+
 			pGump->addText( 160, 90, tr( "Spawnregion Global Info" ), 0x530 );
 
 			// Give information about the spawnregions
 			pGump->addText( 50, 120, tr( "Spawnregions: %1" ).arg( SpawnRegions::instance()->size() ), 0x834 );
 			pGump->addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( SpawnRegions::instance()->npcs() ).arg( SpawnRegions::instance()->maxNpcs() ), 0x834 );
 			pGump->addText( 50, 160, tr( "Items: %1 of %2" ).arg( SpawnRegions::instance()->items() ).arg( SpawnRegions::instance()->maxItems() ), 0x834 );
-			
+
 			// OK button
 			pGump->addButton( 50, 200, 0xF9, 0xF8, 0 ); // Only Exit possible
 
@@ -777,7 +801,7 @@ void commandTags( cUOSocket *socket, const QString &command, const QStringList &
 		if( args.count() < 3 )
 		{
 			socket->sysMessage( tr( "Usage: tags set <key> <value> (as value/string)" ) );
-		} 
+		}
 		else
 		{
 			UINT8 type = 0; // 0 - string, 1 - value
@@ -931,7 +955,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		socket->sysMessage("The configuration, definitions and python scripts have been reloaded.");
 	}
 	if( subCommand == "all" )
-	{		
+	{
 		Console::instance()->send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 		SrvParams->reload(); // Reload wolfpack.xml
@@ -983,7 +1007,7 @@ void commandAddEvent( cUOSocket *socket, const QString &command, const QStringLi
 	{
 		socket->sysMessage( "Usage: addevent <identifier>" );
 		return;
-	}	
+	}
 
     QString event = args.join( " " );
 
@@ -1005,7 +1029,7 @@ void commandRemoveEvent( cUOSocket *socket, const QString &command, const QStrin
 	{
 		socket->sysMessage( "Usage: removeevent <identifier>" );
 		return;
-	}	
+	}
 
     QString event = args.join( " " );
 
@@ -1020,11 +1044,11 @@ void commandMove( cUOSocket *socket, const QString &command, const QStringList &
 	{
 		socket->sysMessage( "Usage: move <x,y,z>" );
 		return;
-	}	
+	}
 
     // Our first argument should be the relative position
 	QStringList relPos = QStringList::split( ",", args[0] );
-	
+
 	if( relPos.count() < 1 )
 	{
 		socket->sysMessage( "Usage: move <x,y,z>" );
@@ -1066,7 +1090,7 @@ void commandTile( cUOSocket *socket, const QString &command, const QStringList &
 			return;
 		}
 	}
-	
+
 	socket->sysMessage( tr( "Please select the first corner." ) );
 	socket->attachTarget( new cTileTarget( z, ids ) );
 }
@@ -1081,13 +1105,13 @@ void commandAllShow( cUOSocket *socket, const QString &command, const QStringLis
 	if( !args.count() )
 		socket->player()->account()->setAllShow( !socket->player()->account()->isAllShow() );
 	// Set
-	else 
+	else
 		socket->player()->account()->setAllShow( args[0].toInt() != 0 );
 
 	if( socket->player()->account()->isAllShow() )
 		socket->sysMessage( tr( "AllShow = '1'" ) );
 	else
-		socket->sysMessage( tr( "AllShow = '0'" ) );	
+		socket->sysMessage( tr( "AllShow = '0'" ) );
 
 	socket->resendWorld( true );
 }
@@ -1102,7 +1126,7 @@ void commandAllMove( cUOSocket *socket, const QString &command, const QStringLis
 	if( !args.count() )
 		socket->player()->account()->setAllMove( !socket->player()->account()->isAllMove() );
 	// Set
-	else 
+	else
 		socket->player()->account()->setAllMove( args[0].toInt() != 0 );
 
 	if( socket->player()->account()->isAllMove() )
@@ -1124,13 +1148,13 @@ void commandShowSerials( cUOSocket *socket, const QString &command, const QStrin
 	if( !args.count() )
 		socket->player()->account()->setShowSerials( !socket->player()->account()->isShowSerials() );
 	// Set
-	else 
+	else
 		socket->player()->account()->setShowSerials( args[0].toInt() != 0 );
 
 	if( socket->player()->account()->isShowSerials() )
 		socket->sysMessage( tr( "ShowSerials = '1'" ) );
 	else
-		socket->sysMessage( tr( "ShowSerials = '0'" ) );	
+		socket->sysMessage( tr( "ShowSerials = '0'" ) );
 }
 
 void commandRestock( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
@@ -1159,7 +1183,7 @@ void commandAllSkills( cUOSocket *socket, const QString &command, const QStringL
 		{
 			pChar->setSkillValue( i, value );
 
-			
+
 			if( pChar->socket() )
 				pChar->socket()->sendSkill( i );
 		}
@@ -1177,7 +1201,7 @@ void commandInvis( cUOSocket *socket, const QString &command, const QStringList 
 {
 	Q_UNUSED(command);
 	socket->player()->removeFromView();
-	
+
 	if( socket->player()->isInvisible() || ( args.count() > 0 && args[0].toInt() == 0 ) )
 	{
 		socket->player()->setInvisible( false );
@@ -1275,7 +1299,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 
 		bool isSouthFrame( int id )
 		{
-			static int SouthFrames[] = { 
+			static int SouthFrames[] = {
 				0x0006,0x0008,0x000B,0x001A,0x001B,0x001F,
 				0x0038,0x0057,0x0059,0x005B,0x005D,0x0080,
 			    0x0081,0x0082,0x0084,0x0090,0x0091,0x0094,
@@ -1290,10 +1314,10 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 				0x0204,0x0206,0x0208,0x020A };
 			return isFrame( id, SouthFrames, sizeof(SouthFrames) );
 		}
-		
+
 		bool isNorthFrame( int id )
 		{
-			static int NorthFrames[] = { 
+			static int NorthFrames[] = {
 				0x0006,0x0008,0x000D,0x001A,0x001B,0x0020,
 				0x003A,0x0057,0x0059,0x005B,0x005D,0x0080,
 				0x0081,0x0082,0x0084,0x0090,0x0091,0x0094,
@@ -1339,7 +1363,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 				0x01FF,0x0200,0x0203,0x0207,0x0209 };
 			return isFrame( id, WestFrames, sizeof( WestFrames ) );
 		}
-		
+
 		bool coordHasEastFrame( int x, int y, int z, int map )
 		{
 			StaticsIterator tiles = Map->staticsIterator( Coord_cl( x, y, z, map ), true );
@@ -1430,7 +1454,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 									}
 								}
 							}
-						} 
+						}
 						else if ( isNorthFrame( id ) )
 						{
 							if ( coordHasSouthFrame( rx, ry + 2, z, map ) )
@@ -1472,7 +1496,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 
 	DoorGenerator generator;
 
-    int BritRegions[][4] = { 
+    int BritRegions[][4] = {
 		{  250,  750,  775, 1330 },
         {  525, 2095,  925, 2430 },
         { 1025, 2155, 1265, 2310 },
@@ -1491,7 +1515,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 		{ 5120, 2300, 6143, 4095 } };
 	int IlshRegions[][4] = { { 0, 0, 288*8, 200*8 } };
 	int MalasRegions[][4] = { { 0, 0, 320*8, 256*8 } };
-    
+
 	socket->sysMessage("Generating doors, please wait ( Slow )");
     int count = 0;
 	if ( Map->hasMap( 0 ) )
@@ -1544,7 +1568,7 @@ stCommand cCommands::commands[] =
 	{ "SPAWNREGION", commandSpawnRegion },
 	{ "TAGS", commandTags },
 	{ "TELE", commandTele },
-	{ "TILE", commandTile },	
+	{ "TILE", commandTile },
 	{ "WHO", commandWho },
 	{ NULL, NULL }
 };
