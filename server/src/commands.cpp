@@ -503,7 +503,7 @@ public:
 
 		// NPC Wander
 		else if( key == "npcwander" && pChar )
-			pChar->npcWander = hex2dec( value ).toInt();
+			pChar->setNpcWander( hex2dec( value ).toInt() );
 
 		// NPC AI Type
 		else if( key == "npcaitype" && pChar )
@@ -1171,7 +1171,7 @@ public:
 		}
 
 		else if( key == "npcwander" && pChar )
-			result = QString( "%1" ).arg( pChar->npcWander );
+			result = QString( "%1" ).arg( pChar->npcWander() );
 
 		else if( key == "npcaitype" && pChar )
 			result = QString( "%1" ).arg( pChar->npcaitype() );

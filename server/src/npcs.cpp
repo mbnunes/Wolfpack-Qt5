@@ -112,7 +112,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	if ( pc_c == NULL ) return;
 //	pc_c->Init();
 	pc_c->setSerial(cCharsManager::getInstance()->getUnusedSerial());
-	pc_c->ftarg = INVALID_SERIAL;
+	pc_c->setFtarg(INVALID_SERIAL);
 	pc_c->moveTo(pc_k->pos + Coord_cl(1, 0, 0) );
 	pc_c->setKills(0);
 	pc_c->setHp( pc_k->st() );

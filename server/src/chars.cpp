@@ -201,14 +201,14 @@ void cChar::Init(bool ser)
 	this->inputitem_ = INVALID_SERIAL;
 	this->attacker_ = INVALID_SERIAL; // Character's serial who attacked this character
 	this->npcmovetime_ = 0; // Next time npc will walk
-	this->npcWander=0; // NPC Wander Mode
-	this->oldnpcWander=0; // Used for fleeing npcs
-	this->ftarg = INVALID_SERIAL; // NPC Follow Target
-	this->fx1=-1; //NPC Wander Point 1 x or Deed's Serial
-	this->fx2=-1; //NPC Wander Point 2 x
-	this->fy1=-1; //NPC Wander Point 1 y
-	this->fy2=-1; //NPC Wander Point 2 y
-	this->fz1=0; //NPC Wander Point 1 z
+	this->npcWander_ = 0; // NPC Wander Mode
+	this->oldnpcWander_ = 0; // Used for fleeing npcs
+	this->ftarg_ = INVALID_SERIAL; // NPC Follow Target
+	this->fx1_ = -1; //NPC Wander Point 1 x or Deed's Serial
+	this->fx2_ = -1; //NPC Wander Point 2 x
+	this->fy1_ = -1; //NPC Wander Point 1 y
+	this->fy2_ = -1; //NPC Wander Point 2 y
+	this->fz1_ = 0; //NPC Wander Point 1 z
 	this->setSpawnSerial( INVALID_SERIAL ); // Spawned by
 	this->setHidden(0); // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	this->setInvisTimeout(0);
@@ -818,14 +818,14 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("lodamage",		lodamage_);
 		archive.read("hidamage",		hidamage_);
 		archive.read("war",				war_);
-		archive.read("npcwander",		npcWander);
-		archive.read("oldnpcwander",	oldnpcWander);
+		archive.read("npcwander",		npcWander_);
+		archive.read("oldnpcwander",	oldnpcWander_);
 		archive.read("carve",			carve_);
-		archive.read("fx1",				fx1);
-		archive.read("fy1",				fy1);
-		archive.read("fz1",				fz1);
-		archive.read("fx2",				fx2);
-		archive.read("fy2",				fy2);
+		archive.read("fx1",				fx1_);
+		archive.read("fy1",				fy1_);
+		archive.read("fz1",				fz1_);
+		archive.read("fx2",				fx2_);
+		archive.read("fy2",				fy2_);
 		archive.read("spawn",			spawnserial_);
 		archive.read("hidden",			hidden_);
 		archive.read("hunger",			hunger_);
@@ -956,14 +956,14 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("lodamage",		lodamage_);
 		archive.write("hidamage",		hidamage_);
 		archive.write("war",			war_);
-		archive.write("npcwander",		npcWander);
-		archive.write("oldnpcwander",	oldnpcWander);
+		archive.write("npcwander",		npcWander_);
+		archive.write("oldnpcwander",	oldnpcWander_);
 		archive.write("carve",			carve_);
-		archive.write("fx1",			fx1);
-		archive.write("fy1",			fy1);
-		archive.write("fz1",			fz1);
-		archive.write("fx2",			fx2);
-		archive.write("fy2",			fy2);
+		archive.write("fx1",			fx1_);
+		archive.write("fy1",			fy1_);
+		archive.write("fz1",			fz1_);
+		archive.write("fx2",			fx2_);
+		archive.write("fy2",			fy2_);
 		archive.write("spawn",			spawnserial_);
 		archive.write("hidden",			hidden_);
 		archive.write("hunger",			hunger_);
@@ -1373,28 +1373,28 @@ void cChar::processNode( const QDomElement &Tag )
 					Tag.attributes().contains("y1") &&
 					Tag.attributes().contains("y2") )
 				{
-					this->npcWander = 3;
-					this->fx1 = this->pos.x + Tag.attribute("x1").toInt();
-					this->fx2 = this->pos.x + Tag.attribute("x2").toInt();
-					this->fy1 = this->pos.y + Tag.attribute("y1").toInt();
-					this->fy2 = this->pos.y + Tag.attribute("y2").toInt();
-					this->fz1 = -1;
+					this->npcWander_ = 3;
+					this->fx1_ = this->pos.x + Tag.attribute("x1").toInt();
+					this->fx2_ = this->pos.x + Tag.attribute("x2").toInt();
+					this->fy1_ = this->pos.y + Tag.attribute("y1").toInt();
+					this->fy2_ = this->pos.y + Tag.attribute("y2").toInt();
+					this->fz1_ = -1 ;
 				}
 			else if( wanderType == "circle" || wanderType == "2" )
 			{
-				this->npcWander = 2;
-				this->fx1 = this->pos.x;
-				this->fy1 = this->pos.y;
-				this->fz1 = this->pos.z;
+				this->npcWander_ = 2;
+				this->fx1_ =  this->pos.x ;
+				this->fy1_ = this->pos.y ;
+				this->fz1_ = this->pos.z ;
 				if( Tag.attributes().contains("radius") )
-					this->fx2 = Tag.attribute("radius").toInt();
+					this->fx2_ =  Tag.attribute("radius").toInt();
 				else
-					this->fx2 = 2;
+					this->fx2_ = 2 ;
 			}
 			else if( wanderType == "free" || wanderType == "1" )
-				this->npcWander = 1;
+				this->npcWander_ = 1;
 			else
-				this->npcWander = 0; //default
+				this->npcWander_ = 0; //default
 		}
 	}
 	//<ai>2</ai>
@@ -2156,7 +2156,7 @@ void cChar::kill()
 			if( pc_t->npcaitype() == 4 )
 			{
 				pc_t->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * 20 ) );
-				pc_t->npcWander = 2;
+				pc_t->setNpcWander(2);
 				pc_t->setNextMoveTime();
 				pc_t->talk( tr( "Thou have suffered thy punishment, scoundrel." ), -1, 0, true );
 			}
@@ -2662,16 +2662,16 @@ P_CHAR cChar::unmount()
 			P_CHAR pMount = FindCharBySerial( pi->morex );
 			if( pMount )
 			{
-				pMount->fx1 = pi->pos.x;
-				pMount->fy1 = pi->pos.y;
-				pMount->fz1 = pi->pos.z;
+				pMount->setFx1( pi->pos.x );
+				pMount->setFy1( pi->pos.y );
+				pMount->setFz1( pi->pos.z );
 				pMount->setId( pi->morey );
-				pMount->npcWander = pi->moreb1();
+				pMount->setNpcWander(pi->moreb1());
 				pMount->setSt( pi->moreb2() );
 				pMount->setDex( pi->moreb3() );
 				pMount->setIn( pi->moreb4() );
-				pMount->fx2 = pi->att;
-				pMount->fy2 = pi->def;
+				pMount->setFx2( pi->att );
+				pMount->setFy2( pi->def );
 				pMount->setHp( pi->hp() );
 				pMount->setFame( pi->lodamage() );
 				pMount->setKarma( pi->hidamage() );
@@ -2753,20 +2753,20 @@ void cChar::mount( P_CHAR pMount )
 		pMountItem->setContSerial( serial );
 		pMountItem->setLayer( 0x19 );
 		Coord_cl npos( pos );
-		npos.x = pMount->fx1;
-		npos.y = pMount->fy1;
-		npos.z = pMount->fz1;
+		npos.x = pMount->fx1();
+		npos.y = pMount->fy1();
+		npos.z = pMount->fz1();
 		pMountItem->moveTo(npos);
 		
 		pMountItem->morex = pMount->serial;
 		pMountItem->morey = pMount->id();
 
-		pMountItem->setMoreb1( pMount->npcWander );
+		pMountItem->setMoreb1( pMount->npcWander() );
 		pMountItem->setMoreb2( pMount->st() );
 		pMountItem->setMoreb3( pMount->realDex() );
 		pMountItem->setMoreb4( pMount->in() );
-		pMountItem->att = pMount->fx2;
-		pMountItem->def = pMount->fy2;
+		pMountItem->att = pMount->fx2();
+		pMountItem->def = pMount->fy2();
 		pMountItem->setHp( pMount->hp() );
 		pMountItem->setLodamage( pMount->fame() );
 		pMountItem->setHidamage( pMount->karma() );

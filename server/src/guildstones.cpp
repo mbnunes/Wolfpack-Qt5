@@ -60,7 +60,7 @@
 void StonePlacement(UOXSOCKET s)
 {
 	P_CHAR pc = currchar[s];
-	P_ITEM pDeed = FindItemBySerial(pc->fx1);
+	P_ITEM pDeed = FindItemBySerial(pc->fx1());
 	cGuildStone* pStone = NULL;
 
 	if (CheckValidPlace(s)!=1)

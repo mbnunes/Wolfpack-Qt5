@@ -2228,7 +2228,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	pc_npc->setQuestType(ESCORTQUEST);
 	
 	// Make sure they don't move until an player accepts the quest
-	pc_npc->npcWander       = 0;                // Don't want our escort quest object to wander off.
+	pc_npc->setNpcWander(0);                // Don't want our escort quest object to wander off.
 	pc_npc->setNpcAIType( 18 );                // set to escort speech so they can yell to all.
 	pc_npc->setQuestOrigRegion(pc_npc->region->name().toInt());  // Store this in order to remeber where the original message was posted
 	
@@ -2300,8 +2300,8 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	sysmessage( k, (char*)temp );
 	
 	// Take the NPC out of quest mode
-	pc_npc->npcWander = 2;						// Wander freely
-	pc_npc->ftarg = INVALID_SERIAL;				// Reset follow target
+	pc_npc->setNpcWander(2);						// Wander freely
+	pc_npc->setFtarg(INVALID_SERIAL);				// Reset follow target
 	pc_npc->setQuestType(0);						// Reset quest type
 	pc_npc->setQuestDestRegion(0);				// Reset quest destination region
 	
@@ -2728,7 +2728,7 @@ void MsgBoardMaintenance( void )
 										if ( (pc_z->questType()==ESCORTQUEST) )
 										{
 											// And it doesn't have a player escorting it yet
-											if ( pc_z->ftarg == INVALID_SERIAL )
+											if ( pc_z->ftarg() == INVALID_SERIAL )
 											{
 												// Lets reset the summontimer to the escortinit
 												pc_z->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortinitexpire() ) );

@@ -646,8 +646,13 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 			return PyGetCharObject( FindCharBySerial( self->pChar->targ() ) );
 	}
 
-	else pGetInt( "npcwander", npcWander )
-	else pGetInt( "oldnpcwander", oldnpcWander )
+//	else pGetInt( "npcwander", npcWander )
+	else if( !strcmp( "npcwander", name ) )
+		return PyInt_FromLong( self->pChar->npcWander() );
+	
+//	else pGetInt( "oldnpcwander", oldnpcWander )
+	else if( !strcmp( "oldnpcwander", name ) )
+		return PyInt_FromLong( self->pChar->oldnpcWander() );
 	
 	// Region object
 	else if( !strcmp( "region", name ) )

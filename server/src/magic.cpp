@@ -828,7 +828,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 						{
 							P_CHAR pc = rg.GetData();
 							// That is following this player character
-							if ( (pc->isNpc()) && (pc->ftarg == pc_player->serial) )
+							if ( (pc->isNpc()) && (pc->ftarg() == pc_player->serial) )
 							{
 								// If the NPC that is following this player character is within 5 paces
 								if ( chardist(pc_player, pc) <= 4 )

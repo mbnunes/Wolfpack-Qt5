@@ -1284,7 +1284,7 @@ namespace Combat
 			pGuard->setAttackFirst();
 			pGuard->setAttacker(pOffender->serial);
 			pGuard->setTarg(pOffender->serial);
-			pGuard->npcWander = 2;  // set wander mode
+			pGuard->setNpcWander(2);  // set wander mode
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
 			pGuard->summontimer = ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) );    

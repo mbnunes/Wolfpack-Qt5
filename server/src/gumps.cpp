@@ -341,17 +341,17 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addResizeGump( 195, 300, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Npc Wander:" ), 0x834 );
-		addInputField( 200, 120, 200, 16, 21, QString( "%1" ).arg( pChar->npcWander ), 0x834 );
+		addInputField( 200, 120, 200, 16, 21, QString( "%1" ).arg( pChar->npcWander() ), 0x834 );
 		addText( 50, 140, tr( "fx1:" ), 0x834 );
-		addInputField( 200, 140, 200, 16, 22, QString( "%1" ).arg( pChar->fx1 ), 0x834 );
+		addInputField( 200, 140, 200, 16, 22, QString( "%1" ).arg( pChar->fx1() ), 0x834 );
 		addText( 50, 160, tr( "fy1:" ), 0x834 );
-		addInputField( 200, 160, 200, 16, 23, QString( "%1" ).arg( pChar->fy1 ), 0x834 );
+		addInputField( 200, 160, 200, 16, 23, QString( "%1" ).arg( pChar->fy1() ), 0x834 );
 		addText( 50, 180, tr( "fx2:" ), 0x834 );
-		addInputField( 200, 180, 200, 16, 24, QString( "%1" ).arg( pChar->fx2 ), 0x834 );
+		addInputField( 200, 180, 200, 16, 24, QString( "%1" ).arg( pChar->fx2() ), 0x834 );
 		addText( 50, 200, tr( "fy2:" ), 0x834 );
-		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pChar->fy2 ), 0x834 );
+		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pChar->fy2() ), 0x834 );
 		addText( 50, 220, tr( "fz:" ), 0x834 );
-		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pChar->fz1 ), 0x834 );
+		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pChar->fz1() ), 0x834 );
 		addText( 50, 240, tr( "Direction:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pChar->dir() ), 0x834 );
 		addText( 50, 260, tr( "Strength modifier:" ), 0x834 );
@@ -491,22 +491,22 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setHunger( hex2dec( it->second ).toInt() );
 				break;
 			case 21:
-				char_->npcWander = hex2dec( it->second ).toUShort();
+				char_->setNpcWander( hex2dec( it->second ).toUShort() );
 				break;
 			case 22:
-				char_->fx1 = hex2dec( it->second ).toInt();
+				char_->setFx1( hex2dec( it->second ).toInt() );
 				break;
 			case 23:
-				char_->fy1 = hex2dec( it->second ).toInt();
+				char_->setFy1( hex2dec( it->second ).toInt() );
 				break;
 			case 24:
-				char_->fx2 = hex2dec( it->second ).toInt();
+				char_->setFx2( hex2dec( it->second ).toInt() );
 				break;
 			case 25:
-				char_->fy2 = hex2dec( it->second ).toInt();
+				char_->setFy2( hex2dec( it->second ).toInt() );
 				break;
 			case 26:
-				char_->fz1 = hex2dec( it->second ).toInt();
+				char_->setFz1( hex2dec( it->second ).toInt() );
 				break;
 			case 27:
 				char_->setDir( hex2dec( it->second ).toUShort() );

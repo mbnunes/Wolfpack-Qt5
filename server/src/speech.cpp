@@ -426,10 +426,10 @@ bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QS
 	
 	if( comm.contains( "I WILL TAKE THEE" ) )
 	{
-		if ( pEscortee->ftarg == INVALID_SERIAL )
+		if ( pEscortee->ftarg() == INVALID_SERIAL )
 		{
-			pEscortee->ftarg = pPlayer->serial;		// Set the NPC to follow the PC
-			pEscortee->npcWander = 1;			// Set the NPC to wander freely
+			pEscortee->setFtarg( pPlayer->serial );		// Set the NPC to follow the PC
+			pEscortee->setNpcWander( 1 );			// Set the NPC to wander freely
 			pEscortee->setNpcAIType( 0 );           // Set AI to 0
 			
 			// Set the expire time if nobody excepts the quest
@@ -453,18 +453,18 @@ bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QS
 	if( ( comm.contains( "DESTINATION" ) ) || onRoute )
 	{
 		// Send out the rant about accepting the escort
-		if ( pEscortee->ftarg == pPlayer->serial )
+		if ( pEscortee->ftarg() == pPlayer->serial )
 			pEscortee->talk( tr( "Lead on to %1. I shall pay thee when we arrive." ).arg( pEscortee->questDestRegion() ) );
 		
 		// If nobody has been accepted for the quest yet
-		else if( pEscortee->ftarg == INVALID_SERIAL )  
+		else if( pEscortee->ftarg() == INVALID_SERIAL )  
 			pEscortee->talk( tr( "I am seeking an escort to %1. Wilt thou take me there?" ).arg( pEscortee->questDestRegion() ) );
 
 		// The must be enroute
 		else 
 		{
 			// Send out a message saying we are already being escorted
-			pPlayer = FindCharBySerial( pEscortee->ftarg );
+			pPlayer = FindCharBySerial( pEscortee->ftarg() );
 			pEscortee->talk( tr( "I being escorted to %1 by %2." ).arg( pEscortee->questDestRegion() ).arg( pPlayer->name.c_str() ) );
 		}
 		return true;
@@ -614,8 +614,8 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 
 		if( comm.contains( " ME" ) )
 		{
-			pPet->ftarg = pPlayer->serial;
-			pPet->npcWander = 1;
+			pPet->setFtarg( pPlayer->serial );
+			pPet->setNpcWander( 1 );
 			playmonstersound( pPet, pPet->id(), SND_STARTATTACK );
 		}
 		else
@@ -650,8 +650,8 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	else if( comm.contains( " COME" ) )
 	{
 		pPlayer->setGuarded( false );
-		pPet->ftarg = pPlayer->serial;
-		pPet->npcWander = 1;
+		pPet->setFtarg( pPlayer->serial );
+		pPet->setNpcWander(1);
 		pPet->setNextMoveTime();
 		pPlayer->message( tr( "Your pet begins following you." ) );
 		bReturn = true;
@@ -672,13 +672,13 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	else if( ( comm.contains( " STOP" ) ) || ( comm.contains(" STAY") ) )
 	{
 		pPlayer->setGuarded( false );
-		pPet->ftarg = INVALID_SERIAL;
+		pPet->setFtarg( INVALID_SERIAL );
 		pPet->setTarg( INVALID_SERIAL );
 
 		if (pPet->war()) 
 			pPet->toggleCombat();
 
-		pPet->npcWander = 0;
+		pPet->setNpcWander(0);
 		bReturn = true;
 	}
 	else if( comm.contains( " TRANSFER" ) )
@@ -697,8 +697,8 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		if( pPet->summontimer )
 			pPet->summontimer = uiCurrentTime;
 
-		pPet->ftarg = INVALID_SERIAL;
-		pPet->npcWander = 2;
+		pPet->setFtarg( INVALID_SERIAL );
+		pPet->setNpcWander( 2 );
 		pPet->SetOwnSerial( -1 );
 		pPet->setTamed( false );
 		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name.c_str() ) );

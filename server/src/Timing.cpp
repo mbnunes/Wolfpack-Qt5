@@ -568,7 +568,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			// too long without every having its quest accepted by a player so we have to remove
 			// its posting from the message board before icing the NPC
 			// Only need to remove the post if the NPC does not have a follow target set
-			if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg == INVALID_SERIAL) )
+			if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg() == INVALID_SERIAL) )
 			{
 				MsgBoardQuestEscortRemovePost( pc );
 				MsgBoardQuestEscortDelete( pc );
@@ -584,19 +584,19 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	}
 
 	// Character is not fleeing but reached the border
-	if( pc->npcWander != 5 && pc->hp() < pc->st()*pc->fleeat() / 100 )
+	if( pc->npcWander() != 5 && pc->hp() < pc->st()*pc->fleeat() / 100 )
 	{
-		pc->oldnpcWander = pc->npcWander;
-		pc->npcWander=5;
+		pc->setOldNpcWander( pc->npcWander() );
+		pc->setNpcWander(5);
 		pc->setNextMoveTime();
 	}
 
     // Character is fleeing and has regenerated
-	if( pc->npcWander == 5 && pc->hp() > pc->st()*pc->reattackat() / 100 )
+	if( pc->npcWander() == 5 && pc->hp() > pc->st()*pc->reattackat() / 100 )
 	{
-		pc->npcWander = pc->oldnpcWander;
+		pc->setNpcWander( pc->oldnpcWander() );
 		pc->setNextMoveTime();
-		pc->oldnpcWander = 0;
+		pc->setOldNpcWander( 0 );
 	}
 
 	// new poisoning code
@@ -703,8 +703,8 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 				//pet release code here
 				if(pc->tamed())
 				{
-					pc->ftarg = INVALID_SERIAL;
-					pc->npcWander = 2;
+					pc->setFtarg( INVALID_SERIAL );
+					pc->setNpcWander( 2 );
 					pc->setTamed( false );
 					if( pc->ownserial() != INVALID_SERIAL ) 
 						pc->SetOwnSerial(INVALID_SERIAL);
@@ -872,7 +872,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			// untamed npcs so they can react faster
 			if( ( !pChar->tamed() && checknpcs <= currenttime ) ||
 				( pChar->tamed() && checktamednpcs <= currenttime ) ||
-				( ( pChar->npcWander == 1 ) && checknpcfollow <= currenttime ) )
+				( ( pChar->npcWander() == 1 ) && checknpcfollow <= currenttime ) )
 			{
 				if( pChar->isNpc() )
 				{

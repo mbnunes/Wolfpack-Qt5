@@ -541,7 +541,7 @@ public:
 			pc_currchar->talk(tr("It seems to accept you as it's master!"));
 			tamed = true;
 			pc->SetOwnSerial(pc_currchar->serial);
-			pc->npcWander = 0;
+			pc->setNpcWander(0);
 			if( pc->id() == 0x000C || pc->id() == 0x003B )
 			{
 				if(pc->skin() != 0x0481)

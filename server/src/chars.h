@@ -86,14 +86,8 @@ public:
 	
 	
 	
-	unsigned char			npcWander; // NPC Wander Mode
-	unsigned char			oldnpcWander; // Used for fleeing npcs
-	SERIAL					ftarg; // NPC Follow Target
-	int						fx1; //NPC Wander Point 1 x
-	int						fx2; //NPC Wander Point 2 x
-	int						fy1; //NPC Wander Point 1 y
-	int						fy2; //NPC Wander Point 2 y
-	signed char				fz1; //NPC Wander Point 1 z
+	
+	
 	//int pagegm; //GM Paging
 	//char region;
 	cTerritory*				region;
@@ -303,6 +297,16 @@ protected:
 	SERIAL					inputitem_;		// serial of item the text is referring to
 	SERIAL					attacker_; // Character's serial who attacked this character
 	unsigned int			npcmovetime_; // Next time npc will walk
+
+	unsigned char			npcWander_; // NPC Wander Mode
+	unsigned char			oldnpcWander_; // Used for fleeing npcs
+	SERIAL					ftarg_; // NPC Follow Target
+
+	int						fx1_; //NPC Wander Point 1 x
+	int						fx2_; //NPC Wander Point 2 x
+	int						fy1_; //NPC Wander Point 1 y
+	int						fy2_; //NPC Wander Point 2 y
+	signed char				fz1_; //NPC Wander Point 1 z
 //END ADDED FROM PUBLIC ******************************************
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -488,6 +492,16 @@ public:
 	SERIAL					inputitem() const { return inputitem_; }
 	SERIAL					attacker() const { return attacker_; }
 	unsigned int			npcmovetime() const { return npcmovetime_; }
+
+	unsigned char			npcWander() const { return npcWander_; }
+	unsigned char			oldnpcWander() const { return oldnpcWander_; }
+	SERIAL					ftarg() const { return ftarg_; }
+
+	int						fx1() const { return fx1_; }
+	int						fx2() const { return fx2_; }
+	int						fy1() const { return fy1_; }
+	int						fy2() const { return fy2_; }
+	signed char				fz1() const { return fz1_; }
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
@@ -656,6 +670,16 @@ public:
 	void					setInputItem( SERIAL data ) { inputitem_ = data; }
 	void					setAttacker( SERIAL data ) { attacker_ = data; }
 	void					setNpcMoveTime( unsigned int data ) { npcmovetime_ = data; }
+
+	void					setNpcWander( unsigned char data ) { npcWander_ = data; }
+	void					setOldNpcWander( unsigned char data ) { oldnpcWander_ = data; }
+	void					setFtarg( SERIAL data ) { ftarg_ = data; }
+
+	void					setFx1( int data ) { fx1_ = data; }
+	void					setFx2( int data ) { fx2_ = data; }
+	void					setFy1( int data ) { fy1_ = data; }
+	void					setFy2( int data ) { fy2_ = data; }
+	void					setFz1( signed char data ) { fz1_ = data; }
 	//END SETTERS********************************************************
 
 	void					clearLastSelections( void );

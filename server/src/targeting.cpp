@@ -827,6 +827,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 	}
 }
 
+
 void cTargets::AttackTarget(int s)
 {
 	P_CHAR target  = FindCharBySerial(addx[s]);
@@ -852,8 +853,8 @@ void cTargets::FollowTarget(int s)
 	if ( !(char1 && char2) ) // They were not found, could be bad formed packet.
 		return;
 
-	char1->ftarg = char2->serial;
-	char1->npcWander = 1;
+	char1->setFtarg( char2->serial );
+	char1->setNpcWander(1);
 }
 
 void cTargets::TransferTarget(int s)
@@ -868,10 +869,10 @@ void cTargets::TransferTarget(int s)
 	if (pc1->ownserial() != -1) 
 		pc1->SetOwnSerial(-1);
 	pc1->SetOwnSerial(pc2->serial);
-	pc1->npcWander=1;
+	pc1->setNpcWander(1);
 
-	pc1->ftarg = INVALID_SERIAL;
-	pc1->npcWander=0;
+	pc1->setFtarg(INVALID_SERIAL);
+	pc1->setNpcWander(0);
 }
 
 void cTargets::BuyShopTarget(int s)
@@ -1752,8 +1753,8 @@ void cTargets::GuardTarget( UOXSOCKET s )
 		return;
 	}
 	pPet->setNpcAIType( 32 ); // 32 is guard mode
-	pPet->ftarg = currchar[s]->serial;
-	pPet->npcWander=1;
+	pPet->setFtarg(currchar[s]->serial);
+	pPet->setNpcWander(1);
 	sysmessage(s, "Your pet is now guarding you.");
 	currchar[s]->setGuarded(true);
 }

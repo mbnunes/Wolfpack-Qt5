@@ -683,13 +683,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		case 202:
 				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
 				{
-					pc_currchar->fx1 = pi->serial;
+					pc_currchar->setFx1( pi->serial );
 					StonePlacement(s);
 					return;
 				}
 				else if (pi->id() == 0x0ED5)	// Check for Guildstone + Guild Type
 				{
-					pc_currchar->fx1 = pi->serial;
+					pc_currchar->setFx1( pi->serial );
 					cGuildStone *pStone = dynamic_cast<cGuildStone*>(pi);
 					if ( pStone != NULL )
 						pStone->Menu(s, 1);
@@ -748,7 +748,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_vendor->setHidden( 0 );
 						pc_vendor->setStealth(-1);
 						pc_vendor->setDir( pc_currchar->dir() );
-						pc_vendor->npcWander = 0;
+						pc_vendor->setNpcWander(0);
 						pc_vendor->setInnocent();
 						pc_vendor->SetOwnSerial(pc_currchar->serial);
 						pc_vendor->setTamed(false);

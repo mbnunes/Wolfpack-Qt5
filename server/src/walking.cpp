@@ -374,7 +374,7 @@ void handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
 			P_CHAR pPet = iter.GetData();
-			if( pPet->isNpc() && ( pPet->ftarg == pChar->serial ) )
+			if( pPet->isNpc() && ( pPet->ftarg() == pChar->serial ) )
 			{
 				if( pPet->inRange( pItem, 4 ) )
 				{
@@ -1294,19 +1294,19 @@ void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )
 	Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
 
 	// When the circle or box is not set yet reset the npcwalking setting
-    if(	( ( type == 1 ) && ( pChar->fx1 == -1 ) || ( pChar->fx2 == -1 ) || ( pChar->fy1 == -1 ) || ( pChar->fy2 == -1 ) ) ||
-		( ( type == 2 ) && ( pChar->fx1 == -1 ) || ( pChar->fx2 == -1 ) || ( pChar->fy1 == -1 ) ) )
+    if(	( ( type == 1 ) && ( pChar->fx1() == -1 ) || ( pChar->fx2() == -1 ) || ( pChar->fy1() == -1 ) || ( pChar->fy2() == -1 ) ) ||
+		( ( type == 2 ) && ( pChar->fx1() == -1 ) || ( pChar->fx2() == -1 ) || ( pChar->fy1() == -1 ) ) )
 	{
-		pChar->npcWander = 0;
+		pChar->setNpcWander( 0 );
 		type = 0;
 	}
     
 	// If we either have to walk in a box or a circle we'll check if the new direction
 	// is outside of our bounds
-	if( ( type == 1 ) && !checkBoundingBox( newCoord, pChar->fx1, pChar->fy1, pChar->fx2, pChar->fy2 ) )
+	if( ( type == 1 ) && !checkBoundingBox( newCoord, pChar->fx1(), pChar->fy1(), pChar->fx2(), pChar->fy2() ) )
 		return;
 
-	if( ( type == 2 ) && !checkBoundingCircle( newCoord, pChar->fx1, pChar->fy1, pChar->fx2 ) )
+	if( ( type == 2 ) && !checkBoundingCircle( newCoord, pChar->fx1(), pChar->fy1(), pChar->fx2() ) )
 		return;
 
 	Walking( pChar, dir&0x07, 0xFF );
@@ -1389,7 +1389,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 		return;
 
 	// If we are fighting and not fleeing move toward our target if neccesary
-	if( pc_i->war() && pc_i->npcWander != 5 )
+	if( pc_i->war() && pc_i->npcWander() != 5 )
     {
         P_CHAR pc_attacker = FindCharBySerial( pc_i->targ() ); // This was wrong - we want to move towards our target not our attacker
 
@@ -1422,11 +1422,11 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 
 	UINT8 j = RandomNum( 0, 32 );
 
-	switch( pc_i->npcWander )
+	switch( pc_i->npcWander() )
     {
     case 1: // Follow the follow target
 		{
-			P_CHAR pc_target = FindCharBySerial( pc_i->ftarg );
+			P_CHAR pc_target = FindCharBySerial( pc_i->ftarg() );
 
 	        if( !pc_target )
 				return;
