@@ -541,10 +541,6 @@ void cUOSocket::playChar( P_CHAR pChar )
 	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
 	send( &confirmLogin );
 
-	// Send us our player and send the rest to us as well.
-	pChar->resend();
-	resendWorld( false );
-
 	// Which map are we on
 	cUOTxChangeMap changeMap;
 	changeMap.setMap( pChar->pos().map );
@@ -554,6 +550,10 @@ void cUOSocket::playChar( P_CHAR pChar )
 	cUOTxChangeSeason season;
 	season.setSeason( ST_SPRING );
 	send( &season );
+
+	// Send us our player and send the rest to us as well.
+	pChar->resend();
+	resendWorld( false );
 
 	cUOTxWarmode warmode;
 	warmode.setStatus( pChar->war() );
@@ -566,7 +566,10 @@ void cUOSocket::playChar( P_CHAR pChar )
 		send( &attack );
 	}
 
-	// Start the game!
+	// This is required to display strength requirements correctly etc.
+	sendStatWindow();
+
+	// Start the game / Resend
 	cUOTxStartGame startGame;
 	send( &startGame );
 
@@ -1150,7 +1153,10 @@ void cUOSocket::resendPlayer( bool quick )
 		cUOTxChangeMap changeMap; 
 		changeMap.setMap( _player->pos().map );
 		send( &changeMap );
+
+		resendWorld( false );
 	}
+
 	// Resend our equipment
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( _player );
@@ -1160,7 +1166,19 @@ void cUOSocket::resendPlayer( bool quick )
 	drawPlayer.fromChar( _player );
 	send( &drawPlayer );
 
+	// Send the equipment Tooltips
+	cChar::ContainerContent content = _player->content();
+	cChar::ContainerContent::const_iterator it;
 
+	for( it = content.begin(); it != content.end(); it++ )
+	{	
+		P_ITEM pItem = *it;
+
+		if( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
+			continue;
+
+		pItem ->sendTooltip( this );
+	}
 
 	// Set the warmode status
 	if( !quick )
@@ -1538,6 +1556,9 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	cItem::ContainerContent container = pCont->content();
 	cItem::ContainerContent::const_iterator it(container.begin());
 	cItem::ContainerContent::const_iterator end(container.end());
+	QPtrList< cItem > tooltipItems;
+	tooltipItems.setAutoDelete( false );
+
 	for( ; it != end; ++it )
 	{
 		P_ITEM pItem = *it;
@@ -1546,7 +1567,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			continue;
 
 		itemContent.addItem( pItem );
-		pItem->sendTooltip( this );
+		tooltipItems.append( pItem );
 		++count;
 	}
 
@@ -1572,7 +1593,12 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 	// Only send if there is content
 	if( count )
+	{
 		send( &itemContent );
+		
+		for( P_ITEM pItem = tooltipItems.first(); pItem; pItem = tooltipItems.next() )
+			pItem->sendTooltip( this );
+	}
 }
 
 void cUOSocket::removeObject( cUObject *object )
@@ -1892,7 +1918,6 @@ void cUOSocket::resendWorld( bool clean )
 	}
 
 	RegionIterator4Chars chIterator( _player->pos(), _player->VisRange() );
-
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
 		P_CHAR pChar = chIterator.GetData();
