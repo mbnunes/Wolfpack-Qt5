@@ -557,7 +557,6 @@ void cMakeCustomSection::execute( cUOSocket* const socket )
 			++miit;
 			continue;
 		}
-		clConsole.send( miit.current()->section()+"\n" );
 		P_ITEM pItem = Items->createScriptItem( miit.current()->section() );
 		if( pItem )
 		{
@@ -1894,6 +1893,8 @@ void cAllMakeMenus::load()
 
 						childNode = childNode.nextSibling();
 					}
+
+					description += "\nDef.-section: "+(*it);
 					
 					if( !category.isNull() && !category.isEmpty() )
 					{
@@ -2006,6 +2007,8 @@ void cAllMakeMenus::load()
 						childNode = childNode.nextSibling();
 					}
 					
+					description += "\nDef.-section: "+(*it);
+
 					if( !category.isNull() && !category.isEmpty() )
 					{
 						cMakeMenu* currentBaseMenu = pNpcMenu;

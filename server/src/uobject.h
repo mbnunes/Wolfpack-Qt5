@@ -123,7 +123,6 @@ protected:
 	SERIAL serial_;
 	SERIAL multis_;
 	cCustomTags tags_;
-	bool havetags_;
 
 protected:
 	bool changed_;
@@ -188,14 +187,12 @@ public:
 	cCustomTags tags() const	{ return tags_;		}
 	cCustomTags& tags()			{ return tags_;		}
 	UINT32 getTooltip() const		{ return tooltip_; }
-	bool havetags() const { return havetags_; }
 
-	void setHavetags( const bool d = true )	{ havetags_ = d; }
 	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed( SAVE );	}
 	void setName( const QString& d )		{ name_ = d; changed( SAVE+TOOLTIP );		}	
 	void setPos( const Coord_cl& d )		{ pos_ = d;	changed( SAVE );		}
 	void setMultis( const SERIAL d )		{ multis_ = d; changed( SAVE );		}
-	void setTags( const cCustomTags& d )	{ tags_ = d; havetags_ = true; changed( SAVE+TOOLTIP );		}
+	void setTags( const cCustomTags& d )	{ tags_ = d; changed( SAVE+TOOLTIP );		}
 	virtual void setSerial( SERIAL d )		{ serial_ = d; changed( SAVE );	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
 	void sendTooltip( cUOSocket* mSock );

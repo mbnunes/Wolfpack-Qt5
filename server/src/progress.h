@@ -76,6 +76,8 @@ private:
 		if ( _count == _expected_count ) {
 			if ( _tic < 51 ) 
 				clConsole.send("*\n");
+			else if( _tic == 51 )
+				clConsole.send("\n");
 		}
 	} // display_tic
 };

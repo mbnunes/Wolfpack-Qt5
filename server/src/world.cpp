@@ -44,6 +44,7 @@
 #include "persistentbroker.h"
 #include "utilsys.h" // What the heck do we need this file for ?!
 #include "accounts.h"
+#include "inlines.h"
 
 #include "python/utilities.h"
 #include "python/tempeffect.h"
@@ -114,12 +115,10 @@ cWorld::~cWorld()
 */
 void cWorld::loadSql()
 {
-/*	ISerialization* archive = cPluginFactory::serializationArchiver( "xml" );
+	ISerialization* archive = cPluginFactory::serializationArchiver( "xml" );
 
 	QString objectID;
 	register unsigned int i = 0;
-
-	cDBDriver driver;
 
 	QStringList types = UObjectFactory::instance()->objectTypes();
 
@@ -127,23 +126,23 @@ void cWorld::loadSql()
 	{
 		QString type = types[j];
 		
-		cDBResult res = driver.query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
+		cDBResult res = persistentBroker->query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
 
 		// Find out how many objects of this type are available		
 		if( !res.isValid() )
-			throw driver.error();			
+			throw persistentBroker->lastError();			
 
 		res.fetchrow();
 		UINT32 count = res.getInt( 0 );
 		res.free();
 
-		clConsole.send( "Loading " + QString::number( count ) + " objects of type " + type + "\n" );
+		clConsole.send( "\n"+tr("Loading ") + QString::number( count ) + tr(" objects of type ") + type );
 
-		res = driver.query( UObjectFactory::instance()->findSqlQuery( type ) );
+		res = persistentBroker->query( UObjectFactory::instance()->findSqlQuery( type ) );
 
 		// Error Checking		
 		if( !res.isValid() )
-			throw driver.error();
+			throw persistentBroker->lastError();
 
 		//UINT32 sTime = getNormalizedTime();
 		UINT16 offset;
@@ -152,6 +151,7 @@ void cWorld::loadSql()
 		progress_display progress( count );
 
 		// Fetch row-by-row
+		persistentBroker->driver()->setActiveConnection( CONN_SECOND );
 		while( res.fetchrow() )
 		{
 			char **row = res.data();
@@ -165,6 +165,7 @@ void cWorld::loadSql()
 		}
 
 		res.free();
+		persistentBroker->driver()->setActiveConnection();
 
 		//clConsole.send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
 	}
@@ -176,7 +177,7 @@ void cWorld::loadSql()
 	archive = cPluginFactory::serializationArchiver( "xml" );
 
 	archive->prepareReading( "effects" );
-	clConsole.send( "Loading Temp. Effects %i...\n", archive->size() );
+	clConsole.send( QString( tr("Loading Temp. Effects %1...")+"\n" ).arg( archive->size() ) );
 	progress_display progress( archive->size() );
 
 	for ( i = 0; i < archive->size(); ++progress, ++i)
@@ -196,7 +197,7 @@ void cWorld::loadSql()
 
 		else
 		{
-			clConsole.log( LOG_FATAL, QString( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
+			clConsole.log( LOG_FATAL, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
 			continue; // Skip the class, not a good habit but at the moment the user couldn't really debug the error
 		}
 
@@ -206,7 +207,6 @@ void cWorld::loadSql()
 
 	archive->close();
 	delete archive;
-	driver.garbageCollect();*/
 }
 
 void cWorld::loadFlatstore( const QString &prefix )
@@ -216,6 +216,8 @@ void cWorld::loadFlatstore( const QString &prefix )
 
 void cWorld::load( QString basepath, QString prefix, QString module )
 {
+	clConsole.send( tr("Loading World...")+"\n" );
+
 	if( module == QString::null )
 		module = SrvParams->getString( "Worldsaves", "Loader", "sql", true );
 
@@ -231,17 +233,15 @@ void cWorld::load( QString basepath, QString prefix, QString module )
 		loadSql();
 	else if( module == "flatstore" )
 		loadFlatstore( prefix );
+
+	clConsole.send( tr("Done!")+"\n" );
 }
 
 void cWorld::saveSql()
 {
-/*	UI32 savestarttime = getNormalizedTime();
+	UI32 savestarttime = getNormalizedTime();
 
 	SrvParams->flush();
-
-	// Check out queued connections
-	cDBDriver driver;
-	driver.ping(); // Keep Alive or reestablish broken connections.
 
 	// Flush old items
 	persistentBroker->flushDeleteQueue();
@@ -293,8 +293,6 @@ void cWorld::saveSql()
 	Accounts::instance()->save();
 
 	uiCurrentTime = getNormalizedTime();
-
-	driver.garbageCollect();*/
 }
 
 void cWorld::saveFlatstore( const QString &prefix )
@@ -348,6 +346,8 @@ void cWorld::saveFlatstore( const QString &prefix )
 
 void cWorld::save( QString basepath, QString prefix, QString module )
 {
+	clConsole.send( tr("Saving World...")+"\n" );
+
 	if( module == QString::null )
 		module = SrvParams->getString( "Worldsaves", "Saver", "sql", true );
 
@@ -363,6 +363,8 @@ void cWorld::save( QString basepath, QString prefix, QString module )
 		saveSql();
 	else if( module == "flatstore" )
 		saveFlatstore( prefix );
+
+	clConsole.send( tr("Done!")+"\n" );
 }
 
 void cWorld::registerObject( cUObject *object )

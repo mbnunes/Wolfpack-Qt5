@@ -56,7 +56,7 @@
 #define DBGFILE "uobject.cpp"
 
 cUObject::cUObject() :
-	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true), tooltip_( 0xFFFFFFFF ), havetags_( false )
+	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true), tooltip_( 0xFFFFFFFF )
 {
 }
 
@@ -108,7 +108,7 @@ void cUObject::load( char **result, UINT16 &offset )
 	pos_.map = atoi(result[offset++]);
 	eventList_ = QStringList::split( ",", result[offset++] );
 	bindmenu_ = result[offset++];
-	havetags_ = atoi( result[offset++] );
+	bool havetags_ = atoi( result[offset++] );
 
 	// Get our events
 	recreateEvents();
@@ -125,6 +125,7 @@ void cUObject::load( char **result, UINT16 &offset )
 */
 void cUObject::save()
 {
+	bool havetags_ = ( tags_.size() > 0 );
 	// uobjectmap fields
 	initSave;
 
@@ -179,8 +180,8 @@ bool cUObject::del()
 
 	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial_ ) );
 	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
-	
-	if( havetags_ )
+
+	if( tags_.size() > 0 )
 		tags_.del( serial_ );
 
 	changed( SAVE );
@@ -493,7 +494,6 @@ void cUObject::processNode( const QDomElement &Tag )
 				this->tags_.set( tkey, cVariant( tvalue.toInt() ) );
 			else
 				this->tags_.set( tkey, cVariant( tvalue ) );
-			havetags_ = true;
 		}
 	}
 	// <events>a,b,c</events>

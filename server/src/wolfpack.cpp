@@ -737,12 +737,9 @@ void interpretCommand( const QString &command )
 				endmessage(0);
 				break;
 			case '#':
-				clConsole.send( "Saving worldfile...");
-				//cwmWorldState->savenewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
 				World::instance()->save();
 				
 				SrvParams->flush();
-				clConsole.send( "Done!\n");
 				break;
 			case 'D':	// Disconnect account 0 (useful when client crashes)
 			case 'd':	
