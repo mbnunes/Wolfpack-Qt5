@@ -542,7 +542,6 @@ float Action_Wander::postCondition()
 	case enWanderSpawnregion:
 	case enHalt:
 		return 1.0f;
-		break;
 
 	case enDestination:
 		if ( m_npc->wanderDestination() == m_npc->pos() )
@@ -555,7 +554,6 @@ float Action_Wander::postCondition()
 		break;
 
 	default:
-		return 0.0f;
 		break;
 	};
 	return 0.0f;
@@ -646,7 +644,6 @@ void Action_Wander::execute()
 
 					Movement::instance()->Walking( m_npc, newdir, 0xFF );
 				}
-
 				break;
 			}
 		}
@@ -671,6 +668,7 @@ void Action_Wander::execute()
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
+
 		case enCircle:
 		{
 			Coord pos = m_npc->pos();
@@ -694,6 +692,7 @@ void Action_Wander::execute()
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
+
 		case enFollowTarget:
 		{
 			if ( Config::instance()->pathfind4Follow() )
@@ -721,6 +720,7 @@ void Action_Wander::execute()
 			}
 			break;
 		}
+
 		case enDestination:
 		{
 			if ( m_npc->pos().distance( m_npc->wanderDestination() ) < 6 )
@@ -733,10 +733,9 @@ void Action_Wander::execute()
 			}
 			break;
 		}
+
 		default:
-		{
 			break;
-		}
 	}
 	return;
 }

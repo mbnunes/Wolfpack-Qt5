@@ -644,8 +644,8 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// set the player direction to contain only the cardinal direction bits
 	pChar->setDirection( dir );
 
-	Coord upperLeft = pChar->pos() + Coord( -( VISRANGE + 1 ), -( VISRANGE + 1 ) );
-	Coord lowerRight = pChar->pos() + Coord( VISRANGE + 1, VISRANGE + 1 );
+	Coord upperLeft = pChar->pos() - Coord( ( VISRANGE + 1 ), ( VISRANGE + 1 ) );
+	Coord lowerRight = pChar->pos() + Coord( ( VISRANGE + 1 ), ( VISRANGE + 1 ) );
 
 	MapCharsIterator ri = MapObjects::instance()->listCharsInRect( upperLeft, lowerRight );
 	for ( P_CHAR observer = ri.first(); observer; observer = ri.next() )

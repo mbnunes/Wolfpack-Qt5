@@ -1308,66 +1308,53 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 				_screenHeight = packet->getShort( 9 );
 			}
 			return;
-			break;
 
 		case 0x0e:
 			return;
-			break;
 
 			// Ignore this packet (Unknown Login Info)
 		case cUORxMultiPurpose::unknownLoginInfo:
 			return;
-			break;
 
 			// Ignore this packet (Status gump closed)
 		case cUORxMultiPurpose::closedStatusGump:
 			return;
-			break;
 
 		case cUORxMultiPurpose::setLanguage:
 			handleSetLanguage( dynamic_cast<cUORxSetLanguage*>( packet ) );
 			return;
-			break;
 
 		case cUORxMultiPurpose::contextMenuRequest:
 			handleContextMenuRequest( dynamic_cast<cUORxContextMenuRequest*>( packet ) );
 			return;
-			break;
 
 		case cUORxMultiPurpose::contextMenuSelection:
 			handleContextMenuSelection( dynamic_cast<cUORxContextMenuSelection*>( packet ) );
 			return;
-			break;
 
 		case cUORxMultiPurpose::castSpell:
 			handleCastSpell( dynamic_cast<cUORxCastSpell*>( packet ) );
 			return;
-			break;
 
 		case cUORxMultiPurpose::toolTip:
 			handleToolTip( dynamic_cast<cUORxRequestToolTip*>( packet ) );
 			return;
-			break;
 
 		case cUORxMultiPurpose::customHouseRequest:
 			handleCustomHouseRequest( dynamic_cast<cUORxCustomHouseRequest*>( packet ) );
 			return;
-			break;
 
 		case cUORxMultiPurpose::extendedStats:
 			handleExtendedStats( dynamic_cast<cUORxExtendedStats*>( packet ) );
 			return;
-			break;
 
 		case cUORxMultiPurpose::partySystem:
 			handleParty( packet );
 			return;
-			break;
 
 			// Unknown Packet
 		case 0x24:
 			return;
-			break;
 
 		default:
 			break;
@@ -2818,7 +2805,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 
 	// If the next restock interval has been reached or if the last restock time is in the future (server restart)
 	// restock the vendor
-	if ( lastRestockTime + restockInterval < Server::instance()->time() || lastRestockTime > Server::instance()->time() )
+	if ( (unsigned int)( lastRestockTime + restockInterval ) < Server::instance()->time() || (unsigned int)( lastRestockTime ) > Server::instance()->time() )
 	{
 		pStock->setTag( "last_restock_time", Server::instance()->time() ); // Set the last restock time
 
@@ -2881,7 +2868,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 
 		// Remove the item from the vendors inventory if its there for more than one hour or if it has been
 		// bought in the future.
-		if ( buy_time + inventoryDecay < Server::instance()->time() || buy_time > Server::instance()->time() )
+		if ( (unsigned int)(buy_time + inventoryDecay ) < Server::instance()->time() || (unsigned int)( buy_time ) > Server::instance()->time() )
 		{
 			( *it2 )->remove();
 			continue;

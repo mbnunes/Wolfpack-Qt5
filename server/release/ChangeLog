@@ -65,6 +65,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - type="3" in bodyinfo.xml is now correctly interpreted by the core.
   - Exploit bugfix for locked containers.
   - The status only shows the gold directly in your backpack now. (performance issues)
+  - Fixed a vision range bug with walking.
+  - Fixed many compiler warnings for GCC 3.4 versions.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
