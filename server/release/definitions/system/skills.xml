@@ -18,7 +18,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.5</dexchance>
 		<intchance>0.5</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.75</gainchance>
 		<defname>ALCHEMY</defname>
 		<name>Alchemy</name>
 		<title>Alchemist</title>
@@ -29,7 +29,7 @@
 		<strchance>0.15</strchance>
 		<dexchance>0.15</dexchance>
 		<intchance>0.7</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>1.0</gainchance>
 		<defname>ANATOMY</defname>
 		<name>Anatomy</name>
 		<title>Healer</title>
@@ -92,10 +92,10 @@
 
 	<!--  Blacksmithing -->
 	<skill id="7">
-		<strchance>1.0</strchance>
+		<strchance>1</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.5</gainchance>
 		<defname>BLACKSMITHING</defname>
 		<name>Blacksmithing</name>
 		<title>Blacksmith</title>
@@ -139,6 +139,7 @@
 		<strchance>2.0</strchance>
 		<dexchance>0.5</dexchance>
 		<intchance>0</intchance>
+		<gainchance>0.75</gainchance>
 		<defname>CARPENTRY</defname>
 		<name>Carpentry</name>
 		<title>Carpenter</title>
@@ -390,7 +391,7 @@
 		<strchance>0.38</strchance>
 		<dexchance>1.62</dexchance>
 		<intchance>0.5</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.5</gainchance>
 		<defname>TAILORING</defname>
 		<name>Tailoring</name>
 		<title>Tailor</title>
@@ -401,7 +402,7 @@
 		<strchance>1.4</strchance>
 		<dexchance>0.2</dexchance>
 		<intchance>0.4</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>2</gainchance>
 		<defname>ANIMALTAMING</defname>
 		<name>Animal Taming</name>
 		<title>Animal Tamer</title>
@@ -423,7 +424,7 @@
 		<strchance>0.5</strchance>
 		<dexchance>0.2</dexchance>
 		<intchance>0.3</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.5</gainchance>
 		<defname>TINKERING</defname>
 		<name>Tinkering</name>
 		<title>Tinker</title>
@@ -500,7 +501,7 @@
 		<strchance>2</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.5</gainchance>
 		<defname>LUMBERJACKING</defname>
 		<name>Lumberjacking</name>
 		<title>Lumberjack</title>
@@ -511,7 +512,7 @@
 		<strchance>2</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.5</gainchance>
 		<defname>MINING</defname>
 		<name>Mining</name>
 		<title>Miner</title>
@@ -522,7 +523,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.5</gainchance>
 		<defname>MEDITATION</defname>
 		<name>Meditation</name>
 		<title>Stoic</title>
@@ -566,7 +567,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainchance>0.5</gainchance>
 		<defname>FOCUS</defname>
 		<name>Focus</name>
 		<title>Stoic</title>
