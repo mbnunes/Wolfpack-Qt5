@@ -682,9 +682,8 @@ void loaditem (int x) // Load an item from WSC
 			else if (!(strcmp((char*)script1, "SPD"))) { pi->spd=str2num(script2); }
 			else if (!(strcmp((char*)script1, "SPAWN")))
 			{
-				pi->spawnserial = str2num(script2);
-				if (pi->spawnserial != -1)
-					setptr(&spawnsp[i%HASHMAX], x); //set item in pointer array
+				i = str2num(script2);
+				pi->SetSpawnSerial(i);
 			}
 			else if (!(strcmp((char*)script1, "SPAWNREGION")))	// new spawnregion recognition, LB
 			{

@@ -2878,23 +2878,24 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	if (Skills->CheckSkill(cc,sk, 0, 1000))
 	{
 		char* Name = NULL;
+		short Color = pi->color();
 		switch(pi->smelt)
 		{
-		case 1:	Name="#";			 	break;
-		case 2:	Name="silver ingot"; 	break;
-		case 3:	Name="golden ingot"; 	break;
-		case 4:	Name="agapite ingot";	break;
-		case 5:	Name="shadow ingot"; 	break;
-		case 6:	Name="mythril ingot";	break;
-		case 7:	Name="bronze ingot"; 	break;
-		case 8:	Name="verite ingot"; 	break;
-		case 9:	Name="merkite ingot";	break;
-		case 10:Name="copper ingot"; 	break;
+		case 1:	Name="#";			 	Color=0x0961;	break;
+		case 2:	Name="silver ingot"; 	Color=0x0000;	break;
+		case 3:	Name="golden ingot"; 					break;
+		case 4:	Name="agapite ingot";					break;
+		case 5:	Name="shadow ingot"; 					break;
+		case 6:	Name="mythril ingot";					break;
+		case 7:	Name="bronze ingot"; 					break;
+		case 8:	Name="verite ingot"; 					break;
+		case 9:	Name="merkite ingot";					break;
+		case 10:Name="copper ingot"; 					break;
 		default:
 			LogError("switch reached default");
 			return;
 		}
-		cItem* Ingot=Items->SpawnItem(cc,a,Name,1,0x1BF2,pi->color(),1);
+		cItem* Ingot=Items->SpawnItem(cc,a,Name,1,0x1BF2,Color,1);
 		if (Ingot)
 		{
 			Ingot->weight = 20;	// that is 0.2 stone

@@ -82,9 +82,9 @@ UI32 Coord_cl::distance(Coord_cl &src)
 	UI32 uiResult = ~0; // Initialize with *infinite*
 	if ((plane == src.plane || plane == COORD_ALL_PLANES || src.plane == COORD_ALL_PLANES) && map == src.map)
 	{
-		RF64 rfResult = sqrt(static_cast<RF64>((x - src.x)*(x - src.x) + (y - src.y)*(y - src.y) + (z - src.z)*(z - src.z)));
+		RF64 rfResult = sqrt(static_cast<RF64>((x - src.x)*(x - src.x) + (y - src.y)*(y - src.y)/* + (z - src.z)*(z - src.z)*/));
 		//		RF64 rfResult = sqrt(static_cast<RF64>((x * src.x + y * src.y + z * src.z)));
-		uiResult = static_cast<UI32>(ceil(rfResult)); // truncate
+		uiResult = static_cast<UI32>(floor(rfResult)); // truncate
 	}
 	return uiResult;
 }

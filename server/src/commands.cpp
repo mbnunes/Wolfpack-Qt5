@@ -976,11 +976,10 @@ void cCommands::DupeItem(int s, int i, int amount)
 	itemcount2++;
 	
 	items[c].SetContSerial(items[p].serial);
+	items[c].SetOwnSerial(items[i].ownserial);
+	items[c].SetSpawnSerial(items[i].spawnserial);
 	items[c].layer=0;	// it's created in a backpack
 	items[c].amount=amount;
-	if (items[c].ownserial!=-1)
-		setptr(&ownsp[items[c].ownserial%HASHMAX],c);
-	if (items[c].spawnserial!=-1) setptr(&spawnsp[items[c].spawnserial%HASHMAX],c);
 	
 	RefreshItem(c);//AntiChrist
 }

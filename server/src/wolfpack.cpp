@@ -801,8 +801,7 @@ void item_char_test()
 		if (pi->serial==pi->spawnserial)
 		{
 			clConsole.send("\nALERT ! item %s [serial: %i] has dangerous spawn value\n",pi->name,pi->serial);
-			pi->spawnserial=-1;
-			removefromptr(&spawnsp[pi->serial%HASHMAX],DEREF_P_ITEM(pi));
+			pi->SetSpawnSerial(-1);
 		}
 	}
 

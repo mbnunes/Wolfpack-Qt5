@@ -734,7 +734,7 @@ void cAllItems::DeleItem(int i)
 
 		// - remove from pointer arrays
 		removefromptr(&itemsp[pi->serial%HASHMAX], i);
-		if (pi->spawnserial!=-1) removefromptr(&spawnsp[pi->spawnserial%HASHMAX], i);
+		pi->SetSpawnSerial(-1);
 		pi->SetOwnSerial(-1);
 		// - remove from mapRegions if a world item
 		if (pi->isInWorld()) 

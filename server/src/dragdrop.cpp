@@ -297,22 +297,15 @@ void get_item(P_CLIENT ps) // Client grabs an item
 					if (amount < pi->amount)
 					{
 						c=Items->MemItemFree();
-						items[c].Init(0);
+						//	items[c].Init(0);
 						memcpy(&items[c], pi, sizeof(cItem));  // Tauriel reduce code faster too
 						items[c].SetSerial(itemcount2);
 						itemcount2++;
 
 						items[c].amount = pi->amount - amount;
-						// Tauriel sorry, there is no way to make this call the item creation stuff
-// Why doing it twice?
-//						setptr(&itemsp[itemcount2%HASHMAX], c);
-//						itemcount2++; // important bugfix for items disappearing, lb
-						if (!items[c].isInWorld())
-							contsp.insert(items[c].contserial, items[c].serial);
-						if (items[c].ownserial!=-1)
-							setptr(&ownsp[items[c].ownserial%HASHMAX], c);
-						if (items[c].spawnserial!=-1)
-							setptr(&spawnsp[items[c].spawnserial%HASHMAX], c);
+						items[c].SetContSerial(items[c].serial);
+						items[c].SetOwnSerial(items[c].ownserial);
+						items[c].SetSpawnSerial(items[c].spawnserial);
 						
 						statwindow(s,cc);
 						RefreshItem(c);//AntiChrist
