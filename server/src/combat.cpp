@@ -41,7 +41,7 @@
 
 int cCombat::GetBowType(int c)
 {
-	int ci=0,loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(chars[c].serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -527,7 +527,6 @@ static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int 
 {
 	if (pc_attacker->spatimer<=currenttime)
 	{
-		int d = DEREF_P_CHAR(pc_defender);
 		int spattacks = numbitsset( pc_attacker->spattack );
 
 		if (!pc_defender->dead && chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))<server_data.attack_distance && spattacks > 0 )
@@ -924,7 +923,7 @@ int cCombat::CalcAtt(int p) // Calculate total attack powerer
 		return(total);
 	}
 	
-	int ci=0,loopexit=0;
+	unsigned int ci = 0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -962,7 +961,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 		total+=5; // gm parry bonus. 
 	if (ishuman(DEREF_P_CHAR(pc))) // Added by Magius(CHE) 
 	{ 
-		int ci=0,loopexit=0; 
+		unsigned int ci=0; 
 		P_ITEM pi; 
 		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -1247,7 +1246,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 	if (Attacker->npc)			// npcs can't use casting weapons right now (Duke)
 		return;
 	currentSpellType[calcSocketFromChar(Attacker)]=2;
-	int ci=0,loopexit=0;
+	unsigned int ci;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(Attacker->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)

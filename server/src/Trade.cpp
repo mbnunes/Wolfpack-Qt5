@@ -297,8 +297,8 @@ void sellaction(int s)
 		n=calcCharFromSer(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]);
 		if (n<0 || n>=cmem) return;
 
-		int ci=0,loopexit=0;
 		P_ITEM pi;
+		unsigned int ci;
 		vector<SERIAL> vecContainer = contsp.getData(chars[n].serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{

@@ -303,9 +303,9 @@ int cItem::CountItems(short ID, short col)
 //
 int cItem::DeleteAmount(int amount, short id, short color)
 {
-	int rest=amount,loopexit=0;
-	int ci=0;
+	int rest=amount;
 	P_ITEM pi;
+	unsigned int ci=0;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -1832,7 +1832,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 	if (pc_p == NULL)
 		return;
 
-	int ci=0, loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)

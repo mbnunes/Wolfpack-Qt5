@@ -161,7 +161,7 @@ void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 	char cmsg[512]; // completed trigger message
 	char clr1;
 	char clr2;
-	int serial, serhash=-1, ci;
+	int serial, ci;
 	unsigned int i, uiTempi, uiCompleted = 0;
 	int tl;
 	int j, c, r;

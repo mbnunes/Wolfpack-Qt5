@@ -618,7 +618,6 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 	unsigned char        msgbbiSegment[20] = "\x00\x00\x00\x00\x0e\x0b\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 	char        maxMsgSN[5]       = "";
 	
-	int         msgBoardSerial    = 0;
 	int         maxSN             = 0;
 	
 	struct tm   timeOfPost;
@@ -945,7 +944,6 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 	int         newMsgSN              = 0;
 	int         maxMsgSN              = 0;
 	int         isReply               = 0;
-	int         msgBoardSerial        = 0;
 	int         x, y, z, pos, offset;
 	
 	char        msgHeader[17]         = "";
@@ -1231,7 +1229,6 @@ void MsgBoardOpenPost( int s )
 	
 	unsigned long loopexit4=0,loopexit2=0;
 	int msgSN           = 0;
-	int msgBoardSerial  = 0;
 	int msgBytes        = 0;
 	int dateBytes       = 0;
 	int authorBytes     = 0;
@@ -1614,7 +1611,6 @@ bool MsgBoardRemoveGlobalPostBySerial( int nPostSerial )
 	FILE *file = NULL;
 	// 50 chars for prefix and 4 for the extension plus the ending NULL
 	char fileName[256] = "";
-	int msgSN      = nPostSerial;
 
 	// GLOBAL post file
 	strcpy( (char*)temp, "global.bbi" );

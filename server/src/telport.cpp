@@ -135,7 +135,7 @@ void advancementobjects(int s, int x, int allways)
 
 	P_CHAR pc_s = MAKE_CHARREF_LR(s);
 
-	int pos,retitem=-1;
+	int pos;
 	if ((pc_s->advobj==0)||(allways==1))
 	{
 		staticeffect(s, 0x37, 0x3A, 0, 15);
@@ -785,7 +785,6 @@ void objTeleporters(int s)
 	//	int	getcell=mapRegions->GetCell(pc_s->x,pc_s->y);
 	
 	unsigned int increment = 0;
-	unsigned long loopexit = 0;
 	for (unsigned int checkgrid = StartGrid + (increment*mapRegions->GetColSize()); increment < 3; increment++, checkgrid = StartGrid + (increment*mapRegions->GetColSize()))
 	{
 		for (int a = 0; a < 3; a++)

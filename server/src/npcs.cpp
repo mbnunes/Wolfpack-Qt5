@@ -1765,7 +1765,7 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 P_ITEM cChar::GetBankBox( short banktype )			
 {
 	P_ITEM pi;
-	int ci=0,loopexit=0;
+	unsigned int ci=0;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -1779,7 +1779,6 @@ P_ITEM cChar::GetBankBox( short banktype )
 	// If we reach this point, bankbox wasn't found == wasn't created yet.
 
 	sprintf((char*)temp, "%s's bank box.", name);
-	CHARACTER i = calcCharFromSer(serial);
 	UOXSOCKET s = calcSocketFromChar(DEREF_P_CHAR(this));
 	pi = Items->SpawnItem(DEREF_P_CHAR(this),1,(char*)temp,0,0x09AB,0,0);
 	if(pi == NULL) 
@@ -1943,7 +1942,7 @@ void cChar::glowHalo(P_ITEM pi)
 //
 P_ITEM cChar::getWeapon()
 {
-	int ci=0,loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -2063,7 +2062,6 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 	if (newx < 1 || newy < 1)
 		return;
 
-	int c = DEREF_P_CHAR(this);
 	mapRegions->Remove(this);
 	pos.x = newx;
 	pos.y = newy;

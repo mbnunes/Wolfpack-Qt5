@@ -61,7 +61,6 @@ void do_lsd(UOXSOCKET s)
 		signed char zz;
 		int StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
 		unsigned int increment=0;
-		unsigned long loopexit=0;
 		for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 		{
 			for (int a=0;a<3;a++)
@@ -1010,7 +1009,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			int	StartGrid=mapRegions->StartGrid(chars[currchar[i]].pos.x,chars[currchar[i]].pos.y);
 
 			unsigned int increment=0;
-			unsigned long loopexit=0;
 			for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 			{
 				for (int a=0;a<3;a++)

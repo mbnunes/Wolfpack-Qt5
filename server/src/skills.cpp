@@ -1347,7 +1347,7 @@ int cSkills::GetCombatSkill(int c)
 {
 	int skillused = WRESTLING;
 	
-	int ci=0,loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(chars[c].serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -1685,7 +1685,6 @@ void cSkills::CreateTrackingMenu(int s,int m)
 	//{
 	
 	//Char mapRegions
-	int	StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
 	
 	cRegion::RegionIterator4Chars ri(pc_currchar->pos);
 	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -1930,7 +1929,6 @@ static int CheckThreeSkills(int s, int low, int high)
 //
 void TellScroll( char *menu_name, int s, long snum )
 {
-	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	unsigned cir,spl;
 	int part;
@@ -2651,7 +2649,7 @@ int cSkills::GetAntiMagicalArmorDefence(int p)
 
 	if (ishuman(p))
 	{
-		int ci = 0, loopexit = 0;
+		unsigned int ci = 0;
 		P_ITEM pi;
 		vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -2790,7 +2788,6 @@ bool cSkills::DelEmptyMap(int cc)	// Delete an empty map from the player's backp
 
 void cSkills::Decipher(P_ITEM tmap, int s)
 {
-	int cc=currchar[s];		// Get the current character
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	char sect[500];			// Needed for script search
 	int regtouse;			// Stores the region-number of the TH-region

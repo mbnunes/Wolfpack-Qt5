@@ -109,7 +109,6 @@ static int  racSocket;
 static int  rac_port = 2594;
 static int raclen_connection_addr;
 static struct sockaddr_in racconnection;
-static struct sockaddr_in racsockets_addr;
 struct sockaddr_in rac_sockets_addr;
 
 static int racnow = 0;

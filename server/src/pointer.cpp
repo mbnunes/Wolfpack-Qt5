@@ -210,10 +210,9 @@ void setserial(int nChild, int nParent, int nType)
 //
 int ContainerCountItems(const int serial, short id, short color)
 {
-	int ci=0; 
+	unsigned int ci=0; 
 	int total=0;
 	P_ITEM pi;
-	unsigned long loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{

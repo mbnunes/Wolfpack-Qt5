@@ -124,7 +124,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
 	if (!pi && pc_currchar->packitem != INVALID_SERIAL)
 	{
-		int ci=0, loopexit=0;
+		unsigned int ci=0;
 		P_ITEM pj;
 		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -140,7 +140,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	}
 	if (!pi)
 	{
-		int ci=0, loopexit=0;
+		unsigned int ci=0;
 		P_ITEM pj;
 		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -177,7 +177,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	int spells[70] = {0,};
 	int i, scount=0;
 
-	int ci=0, loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pj;
 	vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -534,7 +534,7 @@ bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 	if (spellnum>=0 && spellnum<6) spellnum++;
 	if (raflag) spellnum=0;
 
-	int ci=0, loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pj;
 	vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -771,7 +771,6 @@ void cMagic::PoisonDamage(CHARACTER p, int poison) // new functionality, lb !!!
 void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timecheck)//c=character (Not socket) //Lag fix -- Zippy
 
 {
-	unsigned long loopexit=0;
 	// - Tauriel's region stuff 3/6/99
 
 	int j;
@@ -1252,7 +1251,7 @@ void cMagic::ClumsySpell(CHARACTER attacker, CHARACTER defender, bool usemana)
 {
 	P_CHAR pc_attacker = MAKE_CHARREF_LR(attacker);
 	P_CHAR pc_defender = MAKE_CHARREF_LR(defender);
-	P_CHAR pc_target = CheckMagicReflect(pc_attacker, pc_defender);
+	CheckMagicReflect(pc_attacker, pc_defender);
 	
 //	CHARACTER trg = DEREF_P_CHAR(pc_target);
 
@@ -1599,7 +1598,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	// The following loop checks to see if any item is currently equipped (if not a GM)
 	if (!pc_currchar->isGM())
 	{
-		int ci=0, loopexit=0;
+		unsigned int ci=0;
 		P_ITEM pj;
 		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)

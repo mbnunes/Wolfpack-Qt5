@@ -117,7 +117,6 @@ void Script::MakeIndexForFile()
 {
 	FILE *fp;
     char buf[1024], section_name[256];
-    int count = 0;
     
     entries.clear();
     
@@ -133,7 +132,6 @@ void Script::MakeIndexForFile()
     while( (fgets(buf, sizeof(buf), fp)) && (++loopexit < MAXLOOPS) )
         if (sscanf(buf, "SECTION %256[^\n]", section_name) == 1)
 		{
-
 			if (section_name[0] == 'x')
 			{
 				std::string sScript1 = section_name, sToken1;

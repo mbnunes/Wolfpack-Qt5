@@ -135,7 +135,6 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	int v = addx[s];
 	P_CHAR pc = MAKE_CHARREF_LR(v);
 	if (pc->free) return;
-	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 	P_ITEM pBackpack = Packitem(pc_currchar);
@@ -690,7 +689,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 		pPack->dye=1;
 	}
 
-	int ci=0, loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -812,7 +811,7 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 
 static void KillTarget(P_CHAR pc, int ly)
 {
-	int ci=0, loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -961,7 +960,7 @@ static void ContainerEmptyTarget2(P_CLIENT ps, P_ITEM pNewCont)
 	if (pNewCont->type==1)
 	{
 		P_ITEM pi;	// item to move from old container
-		int ci=0,loopexit=0;
+		unsigned int ci = 0;
 		vector<SERIAL> vecContainer = contsp.getData(addx[s]);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
@@ -1631,7 +1630,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 	if(deletecorpse)//if corpse has to be deleted
 	{
 		//let's empty it
-		int ci=0, loopexit=0;
+		int ci = 0;
 		P_ITEM pj;
 		vector<SERIAL> vecContainer = contsp.getData(pi3->serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -2024,7 +2023,7 @@ void cTargets::ReleaseTarget(int s, int c)
 void cTargets::GmOpenTarget(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
-	int ci=0, loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -2212,7 +2211,7 @@ int cTargets::BuyShop(int s, int c)
 
 	P_CHAR pc = MAKE_CHARREF_LRV(c, 0);
 
-	int ci=0, loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)

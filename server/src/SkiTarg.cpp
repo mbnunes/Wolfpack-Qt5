@@ -214,7 +214,6 @@ static bool ForgeInRange(int s)
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
-	unsigned int getcell=mapRegions->GetCell(pc->pos.x,pc->pos.y);
 	unsigned int increment=0, checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{
@@ -240,7 +239,6 @@ static bool AnvilInRange(int s)
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
-	unsigned int getcell=mapRegions->GetCell(pc->pos.x,pc->pos.y);
 	unsigned int increment=0, checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{
@@ -454,6 +452,7 @@ static const Ore* getColorFound(short skill)
 //			There's a *second* CheckSkill done here. It was like this,
 //			so I left it like this. That's a gameplay issue.
 //
+/*
 static bool TryToMine(	int s,					// current char's socket #
 						int minskill,			// minimum skill required for ore color
 						unsigned char id1, unsigned char id2,		// item ID of ingot to be created
@@ -473,6 +472,7 @@ static bool TryToMine(	int s,					// current char's socket #
 	}
 	return false;
 }
+*/
 
 #define max_res_x 610 // max-resource cells x
 #define max_res_y 410 // max-resource cells y
@@ -480,7 +480,6 @@ static bool TryToMine(	int s,					// current char's socket #
 void cSkills::Mine(int s)
 {
 	int x,y,px,py,cx,cy,randnum1;	
-	int mine_item=0;
 	char floor=0;
 	char mountain=0;
 	static unsigned long int oretime[max_res_x][max_res_y]; //610 and 410 were 1000 in LB release
@@ -1298,10 +1297,6 @@ void cSkills::DetectHidden(UOXSOCKET s)
 	
 	range = (j*j/1.0E6)*Races[pc_currchar->race]->VisRange;	// this seems like an ok formula
 	
-	unsigned long loopexit=0;
-	int	StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
-	int	getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
-	
 	cRegion::RegionIterator4Chars ri(pc_currchar->pos);
 	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
@@ -1437,7 +1432,7 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	{
 		CHARACTER target = calcCharFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
 		P_CHAR pc_target = MAKE_CHARREF_LR(target);
-		pc_target->ftarg = ftarg;
+		pc_target->ftarg = DEREF_P_CHAR(pc);
 		pc_target->npcWander = 1;
 		sysmessage(s, "You play your hypnotic music, luring them near your target.");
 		PlayInstrumentWell(s, inst);

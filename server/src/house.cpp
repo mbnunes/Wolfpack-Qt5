@@ -421,7 +421,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 	unsigned char ser1, ser2, ser3, ser4;
 	if( pHouse == NULL ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
-	P_ITEM playerCont = Packitem( pc );
+//	P_ITEM playerCont = Packitem( pc );
 	int a,checkgrid,increment,StartGrid,getcell,ab;		
 	if(pc->Owns(pHouse) || pc->isGM())
 	{
@@ -781,7 +781,7 @@ void cHouseManager::SaveHouses()
 
 void cHouseManager::LoadHouses()
 {
-	int bancount=0, friendcount=0, housecount=0;
+	int housecount=0;
 	wscfile=fopen("wphouses.wsc", "r");
 	if (wscfile == NULL) 
 	{

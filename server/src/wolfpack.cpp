@@ -702,7 +702,7 @@ void gcollect () // Remove items which were in deleted containers
 		else
 		{
 			P_ITEM pContainer = GetOutmostCont(pi);
-			if (pi != NULL)
+			if (pContainer != NULL)
 				bdelete = false;
 		}
 		if (bdelete)
@@ -887,7 +887,7 @@ P_ITEM packitem(int p) // Find packitem (old interface)
 void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
 {
 	chars[j].onhorse=false;
-	int ci=0,loopexit=0;
+	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(chars[j].serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -1316,7 +1316,6 @@ int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int 
 	unsigned char cid1 = (char)(color>>8);
 	unsigned char cid2 = (char)(color%256);
 	SERIAL serial = chars[p].serial;
-	int serhash = serial%HASHMAX;
 	int counter2 = 0;
 	int total = amt;
 	int ci;
@@ -1462,7 +1461,6 @@ void explodeitem(int s, P_ITEM pi)
 	loopexit=0;
 
 	int StartGrid=mapRegions->StartGrid(pi->pos.x, pi->pos.y);
-	int getcell=mapRegions->GetCell(pi->pos.x, pi->pos.y);
 	int increment=0;
 	int checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
@@ -2031,7 +2029,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new horse) 
 { 
 	CHARACTER cc = currchar[s]; 
-	int ci = 0, loopexit = 0; 
+	unsigned int ci = 0;
 	P_ITEM pi; 
 	const P_CHAR p_petowner = MAKE_CHARREF_LRV(cc, -1); 
 

@@ -59,9 +59,8 @@ void cWeight::NewCalc(int p)
 	P_CHAR pc = MAKE_CHAR_REF(p);
 
 	//get weight for items on players
-	int ci=0;
+	unsigned int ci = 0;
 	P_ITEM pi;
-	unsigned long loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -158,9 +157,8 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 		return 0.0;
 	}
 	
-	int ci=0;
+	unsigned int ci = 0;
 	P_ITEM pi;
-	unsigned long loopexit=0;
 	vector<SERIAL> vecContainer = contsp.getData(pItem->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{

@@ -57,7 +57,6 @@ void cWeather::CalcType(int s)
 	int rchance=0;
 	int schance=0;
 	int wchance=0;
-	int i=calcCharFromSer(chars[currchar[s]].serial);
 	rchance=RainChance[chars[currchar[s]].region]; // chance % for it to rain in this region
 	schance=SnowChance[chars[currchar[s]].region]; // chance % for it to snow in this region
 	wchance=rand()%100; // the chance for there to be rain or snow (the lower the bigger chance of weather)
@@ -126,7 +125,7 @@ void cWeather::CTimer()
 	unsigned char r;
 	int player_index;
 	unsigned char s=0,now_old=now;
-	char dry[5]="\x65\x00\x00\x00";
+//	char dry[5]="\x65\x00\x00\x00"; //commented out - unused.
 	for(s=0;s<now_old;s++)
 	{	
 		player_index=currchar[s];

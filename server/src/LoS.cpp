@@ -157,7 +157,7 @@ the line of sight.
 	double a1_incrament= .1;	// the line is checked by this length incrament, can be chenged, the larger the num less checks, more misses
 	double a2_incrament= a1_incrament;
 	double c1_incrament, c2_incrament;	// c/a_divide, this give the length incrament along c
-	double b1_incrament, b2_incrament, aplus=0, bplus=0, a2plus=0, b2plus=0;	// the length of b1 at a1,c1
+	double b1_incrament, b2_incrament, aplus=0, bplus=0, /*a2plus=0,*/ b2plus=0;	// the length of b1 at a1,c1
 	int checkcount;
 	char blocked=0;					// could potentially replace returning a char with a bool... you either see it or you don't (Abaddon)
 	char not_blocked=1;
@@ -186,7 +186,6 @@ the line of sight.
 	entire array each time.
 	*/
 	// - Tauriel's region stuff 3/6/99
-	int StartGrid=mapRegions->StartGrid(source.x,source.y);
 	unsigned long loopexit=0;
 	
 	// - This needs to use a pointer/array to cut down on walking lag...

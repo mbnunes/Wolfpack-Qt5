@@ -459,7 +459,6 @@ short int cMovement::CheckMovementType(P_CHAR pc)
 bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz)
 {
 	unsigned int StartGrid=mapRegions->StartGrid(cx, cy);
-	unsigned int getcell=mapRegions->GetCell(cx,cy);
 	unsigned int increment=0, checkgrid, a;
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{
@@ -637,7 +636,7 @@ bool cMovement::CanFishWalk(unitile_st xyb)
 
 bool cMovement::CanBirdWalk(unitile_st xyb)
 {
-	unsigned short int blockid = xyb.id;
+//	unsigned short int blockid = xyb.id;
 
 	return ( CanNPCWalk(xyb) || CanFishWalk(xyb) );
 }
@@ -1118,7 +1117,6 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 	
 	// - Tauriel's region stuff 3/6/99
 	const int StartGrid = mapRegions->StartGrid(newx, newy);
-	const int getcell = mapRegions->GetCell(newx, newy);
 
 	int checkgrid = 0;
 	for (int increment = 0; increment < 3; increment++)
@@ -1285,7 +1283,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 			//printf("x: %i\n",x);
 			// ah hah! this was a bug waiting to happen if not already, we have overloaded the use of the
 			// variable k, which used to hold the socket
-			int k = noweather[socket];    
+//			int k = noweather[socket];    
 			if (inDungeon || i || x!= illegal_z )
 				noweather[socket] = 1;
 			else
@@ -1399,7 +1397,7 @@ void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (
 
     const short int x = pc_i->pos.x;
     const short int y = pc_i->pos.y;
-    const signed char z = pc_i->pos.z;
+//    const signed char z = pc_i->pos.z;
 
     // if we are walking in an area, and the area is not properly defined, just don't bother with the area anymore
     if( ((1 == type) && ( pc_i->fx1 == -1 || pc_i->fx2 == -1 || pc_i->fy1 == -1 || pc_i->fy2 == -1 ) ) ||
@@ -1521,7 +1519,7 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 	// Thyme 2000.09.21
 	// initial rewrite of pathfinding...
 
-	const signed char z = pc->pos.z;
+//	const signed char z = pc->pos.z;
 	signed int newx, newy;
 	signed char newz;
 	signed int oldx = pc->pos.x;
@@ -2005,9 +2003,9 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 	const signed int oldz = pc->pos.z;
 	bool may_levitate = pc->may_levitate;
 	bool on_ladder = false;
-	bool climbing = false;
+//	bool climbing = false;
 	signed int newz = illegal_z;
-	short int MoveType = CheckMovementType( pc );
+//	short int MoveType = CheckMovementType( pc );
 	bool blocked = false;
 	int ontype = 0;
 

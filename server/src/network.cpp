@@ -827,9 +827,7 @@ int cNetworkStuff::Receive(int s, int x, int a) // Old socket receive function (
 
 void cNetworkStuff::sockInit()
 {
-//	char h1=0, h2=0, h3=0, h4=0;
 	int bcode;
-	int on=1, off=0;
 
 	kr=1;
 	faul=0;
