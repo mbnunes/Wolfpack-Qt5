@@ -127,19 +127,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	if( !pi )
 		return;
 
-	// Eventually we want the users to script things like
-	// "v-cards" and others so we need them to check that
-	// the item is in their range on their own !!
-	//-------
-	// Call both events here
-	if( pc_currchar->onUse( pi ) )
-		return;
-
-	if( pi->onUse( pc_currchar ) )
-		return;
-
-	// -- end - DarkStorm
-
 	if( pi->container() && pi->container()->isItem() && pi->type() != 1 && !pi->isInWorld())
 	{ // Cant use stuff that isn't in your pack.
 		P_CHAR pc_p = pi->getOutmostChar();
@@ -147,13 +134,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				return;
 	}
 	else if( pi->container() && pi->container()->isChar() && pi->type() != 1 && !pi->isInWorld() )
-	{// in a character.
+	{	// in a character.
 		P_CHAR pc_p = dynamic_cast<P_CHAR>(pi->container());
 		if (pc_p != NULL)
 			if( pc_p != pc_currchar && pi->layer() != 15 && pi->type() != 1 )
 				return;
 	}
-	
+
 	// Begin Items/Guildstones Section 
 	int itype = pi->type();
 
@@ -202,8 +189,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			return;
 		}
 	}
+
+	// Call both events here
+	if( pc_currchar->onUse( pi ) )
+		return;
+
+	if( pi->onUse( pc_currchar ) )
+		return;
+
 	// Spell Scroll
-	else if( IsSpellScroll( pi->id() ) && !pi->isLockedDown() )
+	if( IsSpellScroll( pi->id() ) && !pi->isLockedDown() )
 	{
 		P_CHAR owner = pi->getOutmostChar();
 
@@ -745,7 +740,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_vendor->setDir( pc_currchar->dir() );
 						pc_vendor->setNpcWander(0);
 						pc_vendor->setInnocent();
-						pc_vendor->SetOwnSerial(pc_currchar->serial);
+						pc_vendor->setOwner( pc_currchar );
 						pc_vendor->setTamed(false);
 						Items->DeleItem(pi);
 						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name), -1, 0 );
@@ -1371,7 +1366,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		break;
 	case 0x123:
 	case 0x124:
-		if( pChar->Owns( pTarget ) )
+		if( pTarget->owner() == pChar )
 				socket->sendContainer( pTarget->getBackpack() );
 	};
 }

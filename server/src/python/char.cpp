@@ -613,7 +613,9 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	
 	// Owner
 	else if( !strcmp( name, "owner" ) )
-		return PyGetCharObject( FindCharBySerial( self->pChar->ownserial() ) );
+		return PyGetCharObject( self->pChar->owner() );
+
+	// Followers (return a tuple of all "owned" characters
 
 //	else pGetInt( "karma", karma )
 	else if( !strcmp( name, "karma" ) )

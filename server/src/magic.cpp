@@ -891,7 +891,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
  			sysmessage( s, "Contact your shard op to setup the summon list!" );
  			return;
  		}
-		pc_monster->SetOwnSerial(pc_currchar->serial);
+		pc_monster->setOwner( pc_currchar );
 		pc_monster->MoveTo(pc_currchar->pos.x+rand()%2, pc_currchar->pos.y+rand()%2, pc_currchar->pos.z);
  		pc_monster->setSummonTimer( (uiCurrentTime+((pc_currchar->skill(MAGERY)/10)*(MY_CLOCKS_PER_SEC*2))) );
  		updatechar(pc_monster);
@@ -1042,7 +1042,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	pc_monster->setNpc(1);
 
 	if (id!=0x023E && !(id==0x000d && color1==0 && color2==0x75)) // don't own BS or EV.
-		pc_monster->SetOwnSerial(pc_currchar->serial);
+		pc_monster->setOwner( pc_currchar );
 
 	if (x==0)
 	{
@@ -2239,7 +2239,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					if( aggressiveSpell( curSpell ) )
 					{
-						if ((pc_defender->isInnocent()) && (pc_defender != pc_currchar)&& !pc_currchar->Owns(pc_defender)&&(!GuildCompare(pc_defender, pc_currchar)) )
+						if ((pc_defender->isInnocent()) && (pc_defender != pc_currchar)&& pc_defender->owner() != pc_currchar &&(!GuildCompare(pc_defender, pc_currchar)) )
 						{
 							criminal(pc_currchar);
 						}

@@ -70,6 +70,7 @@ private:
 public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	typedef QMap<ushort, cItem*> ContainerContent;
+	typedef QValueVector< cChar* > Followers;
 	//  Chaos/Order Guild Stuff for Ripper
 	enum enLayer { TradeWindow, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
@@ -81,6 +82,9 @@ public:
 protected:
 
 	ContainerContent		content_;
+	Followers				followers_; // NPC owned by this character
+	P_CHAR					owner_;
+
 	SERIAL					trackingTarget_;
 	bool					animated;
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
@@ -222,7 +226,6 @@ protected:
 	unsigned char			cell_; // Reserved for jailing players
 	unsigned int			jailtimer_; // Blackwind - Timer used for crystall ball and jail time.
 	int						jailsecs_;	//             Tweak this value by using command tweak before jailing person 
-	int						ownserial_; // If Char is an NPC, this sets its owner
 	int						robe_; // Serial number of generated death robe (If char is a ghost)
 	int						karma_;
 	signed int				fame_;	
@@ -421,7 +424,6 @@ public:
 	unsigned char			cell() const { return cell_; }
 	unsigned int			jailtimer() const { return jailtimer_; }
 	int						jailsecs() const { return jailsecs_; }
-	int						ownserial() const { return ownserial_; }
 	int						robe() const { return robe_; }
 	int						karma() const { return karma_; }
 	signed int				fame() const { return fame_; }
@@ -468,6 +470,7 @@ public:
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
 	unsigned int			food() const { return food_; }
+	P_CHAR					owner() const { return owner_; }
 	
 	// Setters
 	void					setGuildType(short data);
@@ -600,7 +603,6 @@ public:
 	void					setJailTimer( unsigned int data ) { jailtimer_ = data; }
 	void					setJailSecs( int data ) { jailsecs_ = data; }
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data );
-	void					setOwnSerial( int data ) { ownserial_ = data; }
 	void					setRobe( int data ) { robe_ = data; }
 	void					setKarma( int data ) { karma_ = data; }
 	void					setFame( signed int data ) { fame_ = data; }
@@ -645,7 +647,7 @@ public:
 	void					setSummonTimer( unsigned int data ) { summontimer_ = data; }
 	void					setLockSkill( int index, unsigned char val ) { lockSkill_[index] = val; }
 	void					setVisRange( int data ) { VisRange_ = data; }
-	void					clearLastSelections( void );
+	void					clearLastSelections( void );	
 
 	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
 	void kill();
@@ -718,16 +720,11 @@ public:
 	bool hasWeapon();
 	bool hasShield();
 	P_ITEM getBackpack();
-	void setOwnSerialOnly(long ownser);
-	void SetOwnSerial(long ownser);
-	long GetOwnSerial()	{return ownserial_;}
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	void setSerial(SERIAL ser);
 	void MoveTo(short newx, short newy, signed char newz);
 	void MoveToXY(short newx, short newy);
-	bool Owns(P_CHAR pc)	{return (serial==pc->ownserial());}
-	bool Owns(P_ITEM pi);
 	bool Wears(P_ITEM pi);
 	unsigned int getSkillSum();
 	int getTeachingDelta(cChar* pPlayer, int skill, int sum);
@@ -775,10 +772,19 @@ public:
 	void startRepeatedAction( UINT8 action, UINT16 delay );
 	void stopRepeatedAction();
 
+	// Equipment system
 	void addItem( enLayer layer, cItem*, bool handleWeight = true, bool noRemove = false );
 	void removeItem( enLayer layer, bool handleWeight = true );
 	ContainerContent content() const;
 	cItem* atLayer( enLayer layer ) const;
+
+	// Follower/Owner system
+	void setOwner( P_CHAR owner );
+	void setOwnerOnly( P_CHAR data ) { owner_ = data; }
+	void addFollower( P_CHAR pPet, bool noOwnerChange = false );	
+	void removeFollower( P_CHAR pPet, bool noOwnerChange = false );
+	Followers followers() const;
+	bool Owns( P_ITEM pi );
 
 	// Definition loading - sereg
 protected:

@@ -701,15 +701,17 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			case 2:	pc->emote( tr("* %1 looks extremely hungry *").arg(pc->name.latin1()), 0x0026);		break;
 			case 1:	pc->emote( tr("* %1 looks weak from starvation *",pc->name.latin1()), 0x0026);		break;
 			case 0:
-				//maximum hunger - untame code - AntiChrist
+				//maximum hunger - untame code
 				//pet release code here
 				if(pc->tamed())
 				{
 					pc->setFtarg( INVALID_SERIAL );
 					pc->setNpcWander( 2 );
 					pc->setTamed( false );
-					if( pc->ownserial() != INVALID_SERIAL ) 
-						pc->SetOwnSerial(INVALID_SERIAL);
+
+					if( pc->owner() )
+						pc->setOwner( NULL );
+
 					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name.latin1()), 0x0026 );
 
 					pc->soundEffect( 0x01FE );

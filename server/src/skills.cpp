@@ -507,28 +507,30 @@ public:
 				socket->sysMessage( tr("You can't tame that creature.") );
 				return true;
 			}
+
 			// Below... can't tame if you already have!
-			if( (pc->tamed()) && pc_currchar->Owns(pc) )
+			if( pc_currchar->owner() == pc_currchar )
 			{
 				socket->sysMessage( tr("You already control that creature!" ) );
 				return true;
 			}
-			if( pc->tamed() )
+
+			// This creature is owned by someone else
+			if( pc->owner() )
 			{
 				socket->sysMessage( tr("That creature looks tame already." ) );
 				return true;
 			}
+
 			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.latin1(),pc->name.latin1());
 			for(int a=0;a<3;a++)
 			{
-				switch(rand()%4)
+				switch( RandomNum( 0, 3 ) )
 				{
 				case 0: pc_currchar->talk( tr("I've always wanted a pet like you."), -1 ,0);		break;
 				case 1: pc_currchar->talk( tr("Will you be my friend?"), -1 ,0);					break;
 				case 2: pc_currchar->talk( tr("Here %1.").arg(pc->name), -1 ,0);			break;
 				case 3: pc_currchar->talk( tr("Good %1.").arg(pc->name), -1 ,0);			break;
-				default: 
-					LogError("switch reached default");
 				}
 			}
 			if ((!pc_currchar->checkSkill(TAMING, 0, 1000))||
@@ -537,28 +539,29 @@ public:
 				socket->sysMessage( tr("You were unable to tame it.") );
 				return true;
 			}
-			pc_currchar->talk(tr("It seems to accept you as it's master!"));
+			socket->showSpeech( pc, tr("It seems to accept you as it's master!"));
 			tamed = true;
-			pc->SetOwnSerial(pc_currchar->serial);
+			pc->setOwner( pc_currchar );
+			pc->setTamed(true);
 			pc->setNpcWander(0);
 			if( pc->id() == 0x000C || pc->id() == 0x003B )
 			{
 				if(pc->skin() != 0x0481)
 				{
 					pc->setNpcAIType( 10 );
-					pc->setTamed(true);
-					updatechar(pc);
+					pc->resend();
 				}
 				else
 				{
 					pc->setNpcAIType( 0 );
-					pc->setTamed(true);
-					pc->update();
+					pc->resend();
 				}
 			}
 		}
-		if (!tamed) 
+
+		if( !tamed ) 
 			socket->sysMessage( tr("You can't tame that!") );
+
 		return true;
 	}
 };
@@ -734,17 +737,16 @@ public:
 					else
 						message += tr(" nothing");
 					message += tr(" for food." );
-					pc->talk( message );
+					socket->showSpeech( pc, message );
 
-					if( pc->ownserial() == pc_currchar->serial )
-						pc->talk( tr("It is loyal to you!") );
+					if( pc->owner() == pc_currchar )
+						socket->showSpeech( pc, tr("It is loyal to you!") );
 					else
-					{
-						P_CHAR pOwner = FindCharBySerial( pc->ownserial() );
+					{						
 						QString ownername = "nobody";
-						if( pOwner )
-							ownername = QString( pOwner->name.latin1() );
-						pc->talk( tr("It is loyal to %1!").arg( ownername ) );
+						if( pc->owner() )
+							ownername = pc->owner()->name;
+						socket->showSpeech( pc, tr("It is loyal to %1!").arg( ownername ) );
 					}
 				}
 				return true;

@@ -1579,7 +1579,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		for( cIter.Begin(); !cIter.atEnd(); cIter++ )
 		{
 			P_CHAR toCheck = cIter.GetData();
-			if( pc_i->Owns( toCheck ) && toCheck->npcaitype() == 32 && toCheck->inRange( _player, 10 ) )
+			if( toCheck->owner() == pc_i && toCheck->npcaitype() == 32 && toCheck->inRange( _player, 10 ) )
 				toCheck->attackTarget( _player );
 				// This was: npcattacktarget( _player, toCheck );
 		}
@@ -1830,12 +1830,9 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 
 	// TODO: extended packet information
 	sendStats.setFullMode( pChar == _player, _version.left(1).toInt() == 3 );
-	sendStats.setMaxPets( 5 ); // Set to 5 for now
-	sendStats.setPets( 0 ); // Just so it looks nice ^^
-	sendStats.setStatCap( SrvParams->statcap() );
 
 	// Dont allow rename-self
-	sendStats.setAllowRename( ( _player->Owns( pChar ) || _player->isGM() ) && ( _player != pChar ) );
+	sendStats.setAllowRename( ( pChar->owner() == _player || _player->isGM() ) && ( _player != pChar ) );
 	
 	sendStats.setMaxHp( pChar->st() );
 	sendStats.setHp( pChar->hp() );
@@ -1857,13 +1854,10 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( true );
-		if( _version.left(1).toInt() == 3 )
-		{
-			std::vector< SERIAL > vecContainer = ownsp.getData( pChar->serial );
-			sendStats.setPets( vecContainer.size() );
-			sendStats.setMaxPets( 0xFF );
-			sendStats.setStatCap( SrvParams->statcap() );
-		}
+		
+		sendStats.setPets( _player->followers().size() );
+		sendStats.setMaxPets( 0xFF );
+		sendStats.setStatCap( SrvParams->statcap() );
 	}
 
 	send( &sendStats );

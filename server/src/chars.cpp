@@ -79,14 +79,13 @@ void cChar::registerInFactory()
 	UObjectFactory::instance()->registerSqlQuery( "cChar", sqlString );
 }
 
-bool cChar::Owns(P_ITEM pi)				{	return (serial==pi->ownserial);		}
 bool cChar::Wears(P_ITEM pi)			{	return (this == pi->container());	}
 unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
 unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "cChar";						}
 
 cChar::cChar():
-	socket_(0), account_(0)
+	socket_(0), account_(0), owner_(0)
 {
 	VisRange_ = VISRANGE;
 	Init( false );
@@ -196,7 +195,6 @@ void cChar::Init(bool ser)
 	this->jailtimer_=0; //blackwinds jail system
 	this->jailsecs_=0;
 
-	this->ownserial_=INVALID_SERIAL; // If Char is an NPC, this sets its owner
 	this->setTamed(false); // True if NPC is tamed
 	this->robe_ = -1; // Serial number of generated death robe (If char is a ghost)
 	this->karma_ = 0;
@@ -544,26 +542,6 @@ P_ITEM cChar::getBackpack()
 // history:	by Duke, 2.6.2001
 // Purpose:	encapsulates revoval/adding to the pointer arrays
 
-void cChar::setOwnSerialOnly(long ownser)
-{
-	ownserial_=ownser;
-}
-
-void cChar::SetOwnSerial(long ownser)
-{
-	if (ownserial_ != INVALID_SERIAL)	// if it was set, remove the old one
-		cownsp.remove(ownserial_, serial);
-	
-	setOwnSerialOnly(ownser);
-	if (ownser != serial && ownser != INVALID_SERIAL)
-		tamed_ = true;
-	else
-		tamed_ = false;
-
-	if (ownser != INVALID_SERIAL)		// if there is an owner, add it
-		cownsp.insert(ownserial_, serial);
-}
-
 void cChar::SetSpawnSerial(long spawnser)
 {
 	if (spawnSerial() != INVALID_SERIAL)	// if it was set, remove the old one
@@ -676,7 +654,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.dexterity2,characters.intelligence,characters.intelligence2" );
 	fields.push_back( "characters.hitpoints,characters.spawnregion,characters.stamina" );
 	fields.push_back( "characters.mana,characters.npc,characters.holdgold,characters.shop" );
-	fields.push_back( "characters.own,characters.robe,characters.karma,characters.fame" );
+	fields.push_back( "characters.owner,characters.robe,characters.karma,characters.fame" );
 	fields.push_back( "characters.kills,characters.deaths,characters.dead,characters.fixedlight" );
 	fields.push_back( "characters.speech,characters.disablemsg,characters.cantrain,characters.def" );
 	fields.push_back( "characters.lodamage,characters.hidamage,characters.war,characters.npcwander" );
@@ -732,7 +710,15 @@ void cChar::load( char **result, UINT16 &offset )
 	npc_ = atoi( result[offset++] );
 	holdg_ = atoi( result[offset++] );
 	shop_ = atoi( result[offset++] );
-	ownserial_ = atoi( result[offset++] );
+
+	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it. 
+	//  For load speed and memory conservation, we will store the SERIAL of the container
+	//  here and then right after load is done we replace that value with it's memory address
+	//  as it should be.
+	owner_ = (P_CHAR)atoi( result[offset++] );
+	if( (SERIAL)owner_ == INVALID_SERIAL )
+		owner_ = 0;
+
 	robe_ = atoi( result[offset++] );
 	karma_ = atoi( result[offset++] );
 	fame_ = atoi( result[offset++] );
@@ -791,7 +777,6 @@ void cChar::load( char **result, UINT16 &offset )
 	loot_ = result[offset++];
 	food_ = atoi( result[offset++] );
 	
-	SetOwnSerial( ownserial_ );
 	SetSpawnSerial( spawnserial_ );
 
 	// Query the Skills for this character
@@ -864,7 +849,9 @@ void cChar::save()
 	addField( "npc", npc_);
 	addField( "holdgold", holdg_);
 	addField( "shop", shop_);
-	addField( "own", ownserial_);
+
+	addField( "owner", owner_ ? owner_->serial : INVALID_SERIAL );
+
 	addField( "robe", robe_);
 	addField( "karma", karma_);
 	addField( "fame", fame_);
@@ -1750,7 +1737,7 @@ void cChar::showName( cUOSocket *socket )
 		charName.append( tr(" [guarded]") );
 
 	// Guarding
-	if( tamed() && npcaitype_ == 32 && socket->player()->Owns( this ) && socket->player()->guarded() )
+	if( tamed() && npcaitype_ == 32 && owner_ == socket->player() && socket->player()->guarded() )
 		charName.append( tr(" [guarding]") );
 
 	// Tamed
@@ -2624,7 +2611,7 @@ void cChar::mount( P_CHAR pMount )
 		return;
 	}
 
-	if( Owns( pMount ) || isGM() )
+	if( pMount->owner_ == this || isGM() )
 	{
 		if( onHorse() )
 			unmount();
@@ -2700,7 +2687,7 @@ void cChar::mount( P_CHAR pMount )
 		// if this is a gm lets tame the animal in the process
 		if( isGM() )
 		{
-			pMount->SetOwnSerial( serial );
+			pMount->setOwner( this );
 			pMount->setNpcAIType( 0 );
 		}
 		
@@ -3447,4 +3434,71 @@ cItem* cChar::atLayer( cChar::enLayer layer ) const
 	return 0;
 }
 
+// Remove from current owner
+void cChar::setOwner( P_CHAR data )
+{
+	// We CANT be our own owner
+	if( data == this )
+		return;
+
+	if( owner_ )
+	{
+		owner_->removeFollower( data, true );
+		tamed_ = false;
+	}
+
+	owner_ = data;
+
+	if( owner_ )
+	{
+		owner_->addFollower( data, true );
+		tamed_ = true;
+	}
+}
+
+void cChar::addFollower( P_CHAR pPet, bool noOwnerChange )
+{
+	if( !pPet )
+		return;
+
+	// It may be the follower of someone else already, so 
+	// check that...
+	if( pPet->owner() && pPet->owner() != this )
+		pPet->owner()->removeFollower( pPet, true );
+
+	pPet->setOwnerOnly( this );
+
+	// Check if it already is our follower
+	Followers::iterator it = std::find(followers_.begin(), followers_.end(), pPet);
+	if ( it != followers_.end() )
+		return;
+
+	followers_.push_back( pPet );
+}
+
+void cChar::removeFollower( P_CHAR pPet, bool noOwnerChange )
+{
+	if( !pPet )
+		return;
+
+	Followers::iterator it = std::find(followers_.begin(), followers_.end(), pPet);
+	if ( it != followers_.end() )
+		followers_.erase(it);
+
+	if( !noOwnerChange )
+		pPet->setOwnerOnly( NULL );
+}
+
+cChar::Followers cChar::followers() const
+{
+	return followers_;
+}
+
+bool cChar::Owns( P_ITEM pItem )
+{
+	if( !pItem )
+		return false;
+
+	return ( pItem->ownserial == serial );
+}
 

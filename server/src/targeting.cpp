@@ -77,13 +77,13 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	P_CHAR npc = np->getOutmostChar();				// the vendo
 	if(npc != pc || pc->npcaitype() != 17) return;
 
-	if (pc_currchar->Owns(pc))
+	if( pc->owner() == pc_currchar )
 	{
 		pc->talk( tr("I work for you, you need not buy things from me!"), -1, 0 );
 		return;
 	}
 
-	int gleft=pc_currchar->CountGold();
+	int gleft = pc_currchar->CountGold();
 	if (gleft<pi->value)
 	{
 		pc->talk( tr("You cannot afford that."), -1, 0 );
@@ -818,7 +818,7 @@ void cTargets::FollowTarget(int s)
 
 void cTargets::TransferTarget(int s)
 {
-	P_CHAR pc1 = FindCharBySerial(addx[s]);
+/*	P_CHAR pc1 = FindCharBySerial(addx[s]);
 	P_CHAR pc2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
 	if ( !( pc1 && pc2 ) ) // They were not found, could be bad formed packet.
 		return;
@@ -831,7 +831,7 @@ void cTargets::TransferTarget(int s)
 	pc1->setNpcWander(1);
 
 	pc1->setFtarg(INVALID_SERIAL);
-	pc1->setNpcWander(0);
+	pc1->setNpcWander(0);*/
 }
 
 void cTargets::BuyShopTarget(int s)
@@ -1531,7 +1531,7 @@ void cTargets::GuardTarget( UOXSOCKET s )
 	}
 
 	P_CHAR pToGuard = FindCharBySerPtr(buffer[s]+7);
-	if( !pToGuard || !pToGuard->Owns(pPet) )
+	if( !pToGuard || pPet->owner() != pToGuard )
 	{
 		sysmessage( s, "Currently can't guard anyone but yourself!" );
 		return;

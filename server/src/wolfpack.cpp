@@ -496,98 +496,17 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 	}
 }
 
-int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
-{
-	if( pc == NULL )
-		return 0;
-	SERIAL serial = pc->serial;
-	long int goldCount = 0;
-//	int counter2 = 0;
-	unsigned int ci;
-	vector<SERIAL> vecOwn = ownsp.getData(serial);
-	for( ci = 0; ci < vecOwn.size(); ci++ )
-	{
-		P_ITEM pj =FindItemBySerial(vecOwn[ci]);
-		if( pj != NULL )
-		{
-			if( pj->ownserial == serial && pj->type() == 1 && pj->morex == 1 )
-			{
-				cItem::ContainerContent container(pj->content());
-				cItem::ContainerContent::const_iterator it (container.begin());
-				cItem::ContainerContent::const_iterator end(container.end());
-				for (; it != end; ++it )
-				{
-					P_ITEM pi = *it;
-					if( pi != NULL )
-					{
-						if( pi->contserial == pj->serial )
-						{
-							if( pi->id() == itemid )
-							{
-								if( pi->color() == color )
-									goldCount += pi->amount();
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return goldCount;
-}
-
-
 int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt )
 {
 	if( pc == NULL )
 		return amt;
-	SERIAL serial = pc->serial;
-	//int counter2 = 0;
-	int total = amt;
-	unsigned int ci;
-	vector<SERIAL> vecOwn = ownsp.getData(serial);
-	for( ci = 0; ci < vecOwn.size() && total > 0; ci++ )
-	{
-		P_ITEM pj = FindItemBySerial(vecOwn[ci]);
-		if( pj != NULL )
-		{
-			if( pj->ownserial == serial && pj->type() == 1 && pj->morex == 1 )
-			{
-				cItem::ContainerContent container(pj->content());
-				cItem::ContainerContent::const_iterator it (container.begin());
-				cItem::ContainerContent::const_iterator end(container.end());
-				for (; it != end && total > 0; ++it )
-				{
-					P_ITEM pi = *it;
-					if( pi != NULL )
-					{
-						if( pi->contserial == pj->serial )
-						{
-							if( pi->id() == itemid )
-							{
-								if( pi->color() == color )
-								{
-									if( total >= pi->amount() )
-									{
-										total -= pi->amount();
-										Items->DeleItem( pi );
-									}
-									else
-									{
-										pi->ReduceAmount( total );
-										total = 0;
-										pi->update();
-									}
 
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return total;
+	P_ITEM pBank = pc->getBankBox();
+
+	if( pBank )
+		return pBank->DeleteAmount( amt, itemid, color );
+	else
+		return 0;
 }
 
 void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object number
@@ -1536,6 +1455,19 @@ int main( int argc, char *argv[] )
 
 		if( pChar )
 		{
+			// Find Owner
+			if( pChar->owner() )
+			{
+				SERIAL owner = (SERIAL)pChar->owner();
+				
+				P_CHAR pOwner = FindCharBySerial( owner );
+				if( pOwner )
+				{
+					pChar->setOwnerOnly( pOwner );
+					pOwner->addFollower( pChar, true );
+				}
+			}
+
 			// Set Skills (non-real)
 			for( UINT8 i = 0; i < TRUESKILLS; ++i )
 				Skills->updateSkillLevel( pChar, i );
@@ -3947,13 +3879,9 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					else				// if the region's not guarded, they're gray
 						pc->setCriminal();
 				}
-				else if (pc->ownserial()>-1 && !pc->isHuman() && pc->tamed())
+				else if( pc->owner() && !pc->isHuman() )
 				{
-					P_CHAR pc_owner = FindCharBySerial(pc->ownserial());
-					if (pc_owner != NULL)
-					{
-						pc->setFlag(pc_owner->flag());
-					}
+						pc->setFlag( pc->owner()->flag() );
 				}
 				else
 					pc->setCriminal();

@@ -115,7 +115,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	P_CHAR itemOwner = pItem->getOutmostChar();
 
 	// Try to pick something out of another characters posessions
-	if( itemOwner && ( itemOwner != pChar ) && ( !pChar->Owns( itemOwner ) ) )
+	if( itemOwner && ( itemOwner != pChar ) && ( itemOwner->owner() != pChar ) )
 	{
 		socket->bounceItem( pItem, BR_BELONGS_TO_SOMEONE_ELSE );
 		return;
@@ -661,7 +661,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			}
 		}
 
-		if( !packOwner->isNpc() || ( packOwner->npcaitype() != 17 ) || !pChar->Owns( packOwner ) )
+		if( !packOwner->isNpc() || ( packOwner->npcaitype() != 17 ) || packOwner->owner() != pChar )
 		{
 			socket->sysMessage( "You cannot put that into the belongings of another player" );
 			socket->bounceItem( pItem, BR_NO_REASON );
@@ -731,7 +731,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	}
 
 	// We drop something on the belongings of one of our playervendors
-	if( ( packOwner != NULL ) && ( packOwner->npcaitype() == 17 ) && pChar->Owns( packOwner ) )
+	if( ( packOwner != NULL ) && ( packOwner->npcaitype() == 17 ) && packOwner->owner() == pChar )
 	{
 		socket->sysMessage( tr( "You drop something into your playervendor (unimplemented)" ) );
 		socket->bounceItem( pItem, BR_NO_REASON );

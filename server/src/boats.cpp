@@ -868,21 +868,20 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 
 	if( !charonboat )
 	{
-		vector< SERIAL > vecCown = cownsp.getData( pc_currchar->serial );
-		vector< SERIAL >::iterator vit = vecCown.begin();
-		while( vit != vecCown.end() )
+		cChar::Followers followers = pc_currchar->followers();
+
+		// Move surrounding Chars on the boat as well
+		for( cChar::Followers::iterator iter = followers.begin(); iter != followers.end(); ++iter )
 		{
-			P_CHAR pc = FindCharBySerial( *vit );
-			if( pc != NULL )
+			P_CHAR pChar = (*iter);
+
+			// Max 5 fields away
+			if( pChar && pChar->inRange( pc_currchar, 5 ) )
 			{
-				if( pc->isNpc() && pc_currchar->Owns( pc ) )
-				{
-					pc->moveTo( pos + Coord_cl( 1, 1, 2 ) );
-					addChar( pc );
-					pc->resend();
-				}
+				pChar->moveTo( pos + Coord_cl( 1, 1, 2 ) );
+				addChar( pChar );
+				pChar->resend();
 			}
-			vit++;
 		}
 
 		// khpae
@@ -993,22 +992,22 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	if( !check ) 
 		return false;
 
-	vector< SERIAL > vecCown = cownsp.getData( pc_currchar->serial );
-	vector< SERIAL >::iterator it = vecCown.begin();
-	while( it != vecCown.end() )
+	cChar::Followers followers = pc_currchar->followers();
+
+	// Move surrounding Chars on the boat as well
+	for( cChar::Followers::iterator iter = followers.begin(); iter != followers.end(); ++iter )
 	{
-		P_CHAR pc = FindCharBySerial( *it );
-		if( pc )
+		P_CHAR pChar = (*iter);
+
+		// Max 5 fields away
+		if( pChar && pChar->inRange( pc_currchar, 5 ) )
 		{
-			if( pc->isNpc() && pc_currchar->Owns( pc ) && inrange1p( pc_currchar, pc ) )
-			{
-				pc->MoveTo( x, y, z );
-				removeChar( pc );
-				pc->resend();
-			}
+			pChar->MoveTo( x, y, z );
+			removeChar( pChar );
+			pChar->resend();
 		}
-		it++;
 	}
+
 	pc_currchar->MoveTo( x, y, z );
 	pc_currchar->resend();
 	removeChar( pc_currchar );

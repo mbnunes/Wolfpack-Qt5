@@ -250,13 +250,7 @@ void cItem::setOwnSerialOnly(long ownser)
 
 void cItem::SetOwnSerial(long ownser)
 {
-	if (ownserial != INVALID_SERIAL)	// if it was set, remove the old one
-		ownsp.remove(ownserial, serial);
-	
 	setOwnSerialOnly(ownser);
-
-	if (ownser != INVALID_SERIAL)		// if there is an owner, add it
-		ownsp.insert(ownserial, serial);
 }
 
 void cItem::SetSpawnSerial(long spawnser)

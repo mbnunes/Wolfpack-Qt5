@@ -60,8 +60,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
 		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial);
 
-	if( pc_k->ownserial() != INVALID_SERIAL ) 
-		cownsp.remove( pc_k->ownserial(), pc_k->serial );
+	pc_k->setOwner( NULL );
 	
 	// We need to remove the equipment here.
 	cChar::ContainerContent container(pc_k->content());

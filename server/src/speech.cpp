@@ -183,7 +183,7 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 		p_pet = ri.GetData();
 		if (pPlayer->dist(p_pet) <= 8)
 		{
-			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial()==INVALID_SERIAL) //owner of the pet ? and not already stabled ?
+			if (p_pet->owner() == pPlayer && p_pet->stablemaster_serial()==INVALID_SERIAL) //owner of the pet ? and not already stabled ?
 			{
 				QString pntmp = p_pet->name.latin1();
 				if (speech.contains(pntmp, false))
@@ -251,7 +251,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 		
 		if( pPet )
 		{
-			if( !pPlayer->Owns( pPet ) || !comm.contains( pPet->name.latin1(), false ) )
+			if( pPet->owner() != pPlayer || !comm.contains( pPet->name.latin1(), false ) )
 				pPet = NULL;
 			else
 				break;
@@ -586,7 +586,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 
 bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& comm )
 {
-	if( !pPlayer->Owns( pPet ) && !pPlayer->isGM() )
+	if( pPet->owner() != pPlayer && !pPlayer->isGM() )
 		return false;
 
 	// player vendor
@@ -699,7 +699,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 
 		pPet->setFtarg( INVALID_SERIAL );
 		pPet->setNpcWander( 2 );
-		pPet->SetOwnSerial( -1 );
+		pPet->setOwner( NULL );
 		pPet->setTamed( false );
 		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name.latin1() ) );
 		if( SrvParams->tamedDisappear() ==1 )
@@ -720,7 +720,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 //PlayerVendors
 void PlVGetgold( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor )
 {
-	if( !pPlayer->Owns( pVendor ) )
+	if( pVendor->owner() != pPlayer )
 	{
 		pVendor->talk( tr( "I don't work for you!" ) );
 		return;
@@ -785,7 +785,7 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, cons
 		return true;
 	}
 
-	if( !pPlayer->Owns( pVendor ) )
+	if( pVendor->owner() != pPlayer )
 		return false;
 
 	if( ( comm.contains( " COLLECT" ) ) || ( comm.contains( " GOLD" ) ) || ( comm.contains( " GET" ) ) )

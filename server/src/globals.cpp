@@ -223,7 +223,7 @@ cCharStuff::cBankerAI	*BankerAI;
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-Container_cl stablesp, contsp, ownsp, cspawnsp, spawnsp, cownsp;
+Container_cl stablesp, contsp, cspawnsp, spawnsp;
 
 list<SERIAL> guilds;
 

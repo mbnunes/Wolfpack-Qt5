@@ -489,7 +489,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (!pc->guarded())
 							continue;
-						if (pc->Owns(pc_i))
+						if (pc_i->owner() == pc)
 						{
 							P_CHAR pc_target = FindCharBySerial(pc->attacker());
 							pc_i->attackTarget( pc_target );
