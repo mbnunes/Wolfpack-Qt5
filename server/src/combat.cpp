@@ -78,9 +78,6 @@ void cCombat::ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi)//S=Socket c=Cha
 	
 	if(pi->morez<=0) return;
 	
-//	pc_currchar->skill[MAGERY] = RandomNum(600, 1000);//For damage
-#pragma note("Why are we gambling with his skill?")
-	
 	switch(spellnum)
 	{
 	case 1: Magic->ClumsySpell(cc,c); break; //LB

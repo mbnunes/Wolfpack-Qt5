@@ -227,19 +227,19 @@ static void loadpredefspawnregion(char *name)//Load predefined spawnregion //Reg
 			dummy.npclists[dummy.totalnpclists]=str2num(script2);
 			dummy.totalnpclists++;
 		}
-		if(!(strcmp("NPC",(char*)script1)))
+		else if(!(strcmp("NPC",(char*)script1)))
 		{
 			dummy.npcs[dummy.totalnpcs]=str2num(script2);
 			dummy.totalnpcs++;
 		}
-		if(!(strcmp("ILIST",(char*)script1)))
+		else if(!(strcmp("ILIST",(char*)script1)))
 		{
 			dummy.itemlists[dummy.totalitemlists]=str2num(script2);
 			dummy.totalitemlists++;
 		}
-		if(!(strcmp("MINTIME", (char*)script1))) dummy.mintime=str2num(script2);
-		if(!(strcmp("MAXTIME", (char*)script1))) dummy.maxtime=str2num(script2);
-		if(!(strcmp("MAX", (char*)script1))) dummy.max=str2num(script2);
+		else if(!(strcmp("MINTIME", (char*)script1))) dummy.mintime=str2num(script2);
+		else if(!(strcmp("MAXTIME", (char*)script1))) dummy.maxtime=str2num(script2);
+		else if(!(strcmp("MAX", (char*)script1))) dummy.max=str2num(script2);
 	} while((script1[0]!='}') && (++loopexit < MAXLOOPS) );
 	spawnregion.push_back(dummy);
 	closescript();
@@ -319,35 +319,35 @@ void loadregions()//New -- Zippy spawn regions
 						//clConsole.send( "WOLFPACK: loadregions() %i regions loaded so far\n", escortRegions );
 					}
 				} // End - Dupois
-				if (!(strcmp("GUARDOWNER",(char*)script1)))	strcpy(region[i].guardowner,(char*)script2);
-				if (!(strcmp("MIDILIST",(char*)script1)))		region[i].midilist=str2num(script2);
-				if (!(strcmp("GUARDED",(char*)script1)))
+				else if (!(strcmp("GUARDOWNER",(char*)script1)))	strcpy(region[i].guardowner,(char*)script2);
+				else if (!(strcmp("MIDILIST",(char*)script1)))		region[i].midilist=str2num(script2);
+				else if (!(strcmp("GUARDED",(char*)script1)))
 				{
 					if (str2num(script2)) region[i].priv|=0x01;
 				}
-				if (!(strcmp("MAGICDAMAGE",(char*)script1)))
+				else if (!(strcmp("MAGICDAMAGE",(char*)script1)))
 				{
 					if ((str2num(script2))) region[i].priv|=0x40; // bugfix LB 12-march-
 					// changes from 0=magicdamge,1=no magic damage
 					// to			1=			 0=
 				}
-				if (!(strcmp("NOMAGIC",(char*)script1)))
+				else if (!(strcmp("NOMAGIC",(char*)script1)))
 				{
 					if ((str2num(script2))) region[i].priv|=0x80;
 				}
-				if (!(strcmp("MARK",(char*)script1)))
+				else if (!(strcmp("MARK",(char*)script1)))
 				{
 					if (str2num(script2)) region[i].priv|=0x02;
 				}
-				if (!(strcmp("GATE",(char*)script1)))
+				else if (!(strcmp("GATE",(char*)script1)))
 				{
 					if (str2num(script2)) region[i].priv|=0x04;
 				}
-				if (!(strcmp("RECALL",(char*)script1)))
+				else if (!(strcmp("RECALL",(char*)script1)))
 				{
 					if (str2num(script2)) region[i].priv|=0x08;
 				}
-				if (!(strcmp("SNOWCHANCE", (char*)script1)))
+				else if (!(strcmp("SNOWCHANCE", (char*)script1)))
 				{
 					gettokennum((char*)script2, 0);
 					rnd1=str2num(gettokenstr);
@@ -357,7 +357,7 @@ void loadregions()//New -- Zippy spawn regions
 
 					region[i].snowchance=str2num(script2);
 				}
-				if (!(strcmp("RAINCHANCE", (char*)script1)))
+				else if (!(strcmp("RAINCHANCE", (char*)script1)))
 				{
 					gettokennum((char*)script2, 0);
 					rnd1=str2num(gettokenstr);
@@ -367,7 +367,7 @@ void loadregions()//New -- Zippy spawn regions
 
 					region[i].rainchance=str2num(script2);
 				}
-				if(!(strcmp("WEATHDURATION",(char*)script1)))
+				else if(!(strcmp("WEATHDURATION",(char*)script1)))
 				{
 					gettokennum((char*)script2, 0);
 					rnd1=str2num(gettokenstr);
@@ -375,7 +375,7 @@ void loadregions()//New -- Zippy spawn regions
 					rnd2=str2num(gettokenstr);
 					rnd3=RandomNum(rnd1,rnd2);
 				}
-				if(!(strcmp("WEATHSTART",(char*)script1)))
+				else if(!(strcmp("WEATHSTART",(char*)script1)))
 				{
 					if(str2num(script2)>0)
 					{
@@ -390,21 +390,21 @@ void loadregions()//New -- Zippy spawn regions
 
 					}
 				}
-				if (!(strcmp("GOOD", (char*)script1))) // Magius(CHE)
+				else if (!(strcmp("GOOD", (char*)script1))) // Magius(CHE)
 				{
 					actgood=str2num(script2);
 				}
-				if (!(strcmp("BUYABLE", (char*)script1))) // Magius(CHE)
+				else if (!(strcmp("BUYABLE", (char*)script1))) // Magius(CHE)
 				{
 					if (actgood>-1) region[i].goodbuy[actgood]=str2num(script2);
 					else clConsole.send("WOLFPACK.cpp: ERROR in regions.scp. You must write BUYABLE after GOOD <num>!\n");
 				}
-				if (!(strcmp("SELLABLE", (char*)script1))) // Magius(CHE)
+				else if (!(strcmp("SELLABLE", (char*)script1))) // Magius(CHE)
 				{
 					if (actgood>-1) region[i].goodsell[actgood]=str2num(script2);
 					else clConsole.send("WOLFPACK.cpp: ERROR in regions.scp. You must write SELLABLE after GOOD <num>!\n");
 				}
-				if (!(strcmp("RANDOMVALUE", (char*)script1))) // Magius(CHE) (2)
+				else if (!(strcmp("RANDOMVALUE", (char*)script1))) // Magius(CHE) (2)
 				{
 					if (actgood>-1) {
 						gettokennum((char*)script2, 0);
@@ -419,25 +419,25 @@ void loadregions()//New -- Zippy spawn regions
 					}
 					else clConsole.send("WOLFPACK.cpp: ERROR in regions.scp. You must write RANDOMVALUE after GOOD <num>!\n");
 				}
-				if (!(strcmp("X1", (char*)script1)))
+				else if (!(strcmp("X1", (char*)script1)))
 				{
 					location[l].x1=str2num(script2);
 				}
-				if (!(strcmp("X2", (char*)script1)))
+				else if (!(strcmp("X2", (char*)script1)))
 				{
 					location[l].x2=str2num(script2);
 				}
-				if (!(strcmp("Y1", (char*)script1)))
+				else if (!(strcmp("Y1", (char*)script1)))
 				{
 					location[l].y1=str2num(script2);
 				}
-				if (!(strcmp("Y2", (char*)script1)))
+				else if (!(strcmp("Y2", (char*)script1)))
 				{
 					location[l].y2=str2num(script2);
 					location[l].region=i;
 					l++;
 				}
-				if (!(strcmp("SPAWN", (char*)script1)))
+				else if (!(strcmp("SPAWN", (char*)script1)))
 				{
 					//pos=ftell(scpfile);
 					//closescript();
@@ -475,9 +475,9 @@ void loadregions()//New -- Zippy spawn regions
 		pScp->NextLineSplitted();
 		//read2();
 		if(!(strcmp((char*)script1,"X1"))) logout[logoutcount].x1=str2num(script2);
-		if(!(strcmp((char*)script1,"Y1"))) logout[logoutcount].y1=str2num(script2);
-		if(!(strcmp((char*)script1,"X2"))) logout[logoutcount].x2=str2num(script2);
-		if(!(strcmp((char*)script1,"Y2")))
+		else if(!(strcmp((char*)script1,"Y1"))) logout[logoutcount].y1=str2num(script2);
+		else if(!(strcmp((char*)script1,"X2"))) logout[logoutcount].x2=str2num(script2);
+		else if(!(strcmp((char*)script1,"Y2")))
 		{
 			logout[logoutcount].y2=str2num(script2);
 			logoutcount++;

@@ -1119,36 +1119,6 @@ void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 
 	if (rand()%3==0) oc[18]=rand()%6;
 
-/*	cc1=pc->skin1;
-	cc2=pc->skin2;
-
-	if (1==1)
-	{
-		color=rand()%0x3e9;
-		color+=rand()%8;
-		color=color%0x03E9;
-		c1=color>>8;
-		c2=color%256;
-		if ((((c1<<8)+c2)<0x0002) || (((c1<<8)+c2)>0x03E9) )
-		{
-			c1=0x03;
-			c2=0xE9;
-		}
-		b=((((c1<<8)+c2)&0x4000)>>14)+((((c1<<8)+c2)&0x8000)>>15);
-		if (b)
-		{
-			c1=0x1;
-			c2=rand()%255;
-		}
-
-		oc[15]=c1;
-		oc[16]=c2;
-		cc1=c1;
-		cc2=c2;
-	}
-*/
-#pragma note("Hope this *translation* is correct")
-//	UI16 cc = pc->skin;
 	color = RandomNum(0, 0x03E9);
 	color += RandomNum(0, 8);
 	color %= 0x03E9;
