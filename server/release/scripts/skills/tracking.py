@@ -28,7 +28,7 @@ def tracking( char, skill ):
 		else:
 			char.socket.deltag( 'skill_delay' )
 
-	char.socket.cloclocmessage( 1011350 ) # What do you wish to track?
+	char.socket.cliclocmessage( 1011350 ) # What do you wish to track?
 	char.socket.closegump( 0x87651592 ) # What to track
 	gump = cGump( x = 20, y = 30, callback="skills.tracking.trackWhatResponse", type=0x87651592 )
 
