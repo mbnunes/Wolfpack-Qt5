@@ -311,6 +311,7 @@ int main( int argc, char *argv[] )
 
 	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
 	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring.latin1() ).arg( wp_version.betareleasestring.latin1() ).arg( wp_version.verstring.latin1() ) );
+	Console::instance()->setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
 
 	Console::instance()->send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
 	Console::instance()->send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");
@@ -548,20 +549,8 @@ int main( int argc, char *argv[] )
 		// Process any Network Events
 		cNetwork::instance()->poll();
 
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		{
-			P_PLAYER player = mSock->player();
-			if ( player && !player->isGM() && player->clientIdleTime() && player->clientIdleTime() < uiCurrentTime )
-			{
-				Console::instance()->send( tr("Player %1 disconnected due to inactivity !\n").arg( player->name() ) );
-				cUOTxMessageWarning packet;
-				packet.setReason( cUOTxMessageWarning::Idle );
-				mSock->send( &packet );
-				mSock->disconnect();
-			}
-		}
-
 		checkauto();
+
 		qApp->processEvents( 40 );
 	}
 

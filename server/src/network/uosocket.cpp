@@ -102,6 +102,9 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 	_ip = _socket->peerAddress().toString();
 	_uniqueId = sDevice->socket();
 	tooltipscache_ = new QBitArray;
+
+	// Creation of a new socket counts as activity
+	_lastActivity = getNormalizedTime();
 }
 
 /*!
@@ -190,14 +193,6 @@ void cUOSocket::recieve()
 
 	Q_UINT8 packetId = (*packet)[0];
 
-	// After two pings we idle-disconnect
-	if( lastPacket == 0x73 && packetId == 0x73 )
-	{
-		log( "Disconnected idling socket.\n" );
-		disconnect();
-		return;
-	}
-
 	// Disconnect harmful clients
 	if( ( _account < 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
@@ -215,9 +210,6 @@ void cUOSocket::recieve()
 	// Switch to encrypted mode if one of the advanced packets is recieved
 	if( packetId == 0x91 )
 		_state = LoggedIn;
-
-	if( _player )
-		_player->setClientIdleTime( uiCurrentTime + 120 * MY_CLOCKS_PER_SEC );
 
 	// Relay it to the handler functions
 	switch( packetId )
@@ -300,8 +292,12 @@ void cUOSocket::recieve()
 		handleUpdateBook( dynamic_cast< cUORxBookInfo* >( packet ) ); break;
 	default:
 		Console::instance()->send( packet->dump( packet->uncompressed() ) );
-		break;
+		delete packet;
+		return;
 	}
+
+	// We received a packet we know
+	_lastActivity = getNormalizedTime();
 	
 	delete packet;
 }
@@ -1268,7 +1264,6 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 		_player->setSocket( this );
 	}
 
-	_player->setClientIdleTime( uiCurrentTime + 300 * 1000 );
 	_state = InGame;
 }
 
@@ -1621,13 +1616,20 @@ void cUOSocket::updatePlayer()
 // Do periodic stuff for this socket
 void cUOSocket::poll()
 {
-	// TODO: check for timed out target requests herei
+	// Check for timed out target requests
 	if( targetRequest && targetRequest->timeout() > 1 && targetRequest->timeout() < uiCurrentTime )
 	{
 		targetRequest->timedout( this );
 		delete targetRequest;
 		targetRequest = 0;
 		cancelTarget();
+	}
+
+	// Check for idling/silent sockets
+	if( _lastActivity + 180 * MY_CLOCKS_PER_SEC < uiCurrentTime )
+	{
+		log( QString( "Idle for %1 ms. Disconnecting.\n" ).arg( uiCurrentTime - _lastActivity ) );
+		disconnect();
 	}
 }
 

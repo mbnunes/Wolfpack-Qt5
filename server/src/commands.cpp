@@ -60,6 +60,8 @@
 // Main Command processing function
 void cCommands::process( cUOSocket *socket, const QString &command )
 {
+	socket->log( QString( "Used command '%1'.\n" ).arg( command ) );
+
 	if( !socket->player() )
 		return;
 

@@ -55,7 +55,6 @@ cPlayer::cPlayer()
 {
 	account_			= NULL;
 	logoutTime_			= 0;
-	clientIdleTime_		= 0;
 	muteTime_			= 0;
 	objectDelay_		= 0;
 	additionalFlags_	= 0;
@@ -1578,7 +1577,6 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "logouttime", logoutTime_ )
-	else SET_INT_PROPERTY( "clientidletime", clientIdleTime_ )
 	else if( name == "muted" )
 	{
 		setMuted( value.toInt() );
@@ -1618,7 +1616,6 @@ stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
 	else GET_PROPERTY( "logouttime", (int)logoutTime_ )
-	else GET_PROPERTY( "clientidletime", (int)clientIdleTime_ )
 	else GET_PROPERTY( "muted", isMuted() )
 	else GET_PROPERTY( "mutetime", (int)muteTime_ )
 	else GET_PROPERTY( "npc", false )

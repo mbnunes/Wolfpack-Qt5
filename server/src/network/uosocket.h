@@ -70,7 +70,7 @@ public:
 	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
 private:
 	QSocketDevice *_socket;
-	UINT32 _rxBytes, _txBytes, _uniqueId;
+	unsigned int _rxBytes, _txBytes, _uniqueId, _lastActivity;	
 	cAccount* _account;
 	P_PLAYER _player;
 	eSocketState _state;
@@ -118,11 +118,12 @@ public:
 	void setAccount( cAccount* data ) { _account = data; }
 
 
-	Q_UINT32 rxBytes( void ) const;
-	Q_UINT32 txBytes( void ) const;
-	Q_UINT8 viewRange( void ) const;
-	void setRxBytes( Q_UINT32 data );
-	void setTxBytes( Q_UINT32 data );
+	unsigned int lastActivity() const;
+	unsigned int rxBytes() const;
+	unsigned int txBytes() const;
+	unsigned char viewRange() const;
+	void setRxBytes( unsigned int data );
+	void setTxBytes( unsigned int data );
 
 	Q_UINT32 uniqueId( void ) const;
 
@@ -267,7 +268,12 @@ inline P_PLAYER cUOSocket::player( void ) const
 	return _player; 
 }
 
-inline Q_UINT32 cUOSocket::rxBytes( void ) const
+inline unsigned int cUOSocket::lastActivity() const
+{
+	return _lastActivity;
+}
+
+inline unsigned int cUOSocket::rxBytes( void ) const
 { 
 	return _rxBytes; 
 }

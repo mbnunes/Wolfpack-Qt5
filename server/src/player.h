@@ -117,7 +117,6 @@ public:
 	// getters
     cAccount*			account() const;
     UINT32					additionalFlags() const;
-    UINT32					clientIdleTime() const;
     UINT32					logoutTime() const;
     UINT32					muteTime() const;
     UINT32					objectDelay() const;
@@ -143,7 +142,6 @@ public:
 	// setters
     void setAccount(cAccount* data, bool moveFromAccToAcc = true);
     void setAdditionalFlags(UINT32 data);
-    void setClientIdleTime(UINT32 data);
     void setLogoutTime(UINT32 data);
     void setMuteTime(UINT32 data);
     void setObjectDelay(UINT32 data);
@@ -188,10 +186,6 @@ protected:
     // time till char will be logged out
     // cOldChar::logout_
     UINT32 logoutTime_;
-
-    // time till the char will be handled as idle.
-    // compare with logoutTime! check it!
-    UINT32 clientIdleTime_;
 
     // Time till player will become unmuted again
     // cOldChar::mutetime_
@@ -273,17 +267,6 @@ inline UINT32 cPlayer::additionalFlags() const
 inline void cPlayer::setAdditionalFlags(UINT32 data)
 {
     additionalFlags_ = data;
-	changed_ = true;
-}
-
-inline UINT32 cPlayer::clientIdleTime() const
-{
-    return clientIdleTime_;
-}
-
-inline void cPlayer::setClientIdleTime(UINT32 data)
-{
-    clientIdleTime_ = data;
 	changed_ = true;
 }
 

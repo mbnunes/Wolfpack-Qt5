@@ -149,10 +149,10 @@ void cNetwork::poll( void )
 		}
 		else
 		{
-			if( uiCurrentTime % 100 == 0 ) // Just every 100 ticks
-				uoSocket->poll();
-
 			uoSocket->recieve();
+
+			if( uiCurrentTime % 500 == 0 ) // Once every 0.5 Seconds
+				uoSocket->poll();
 		}
 	}
 

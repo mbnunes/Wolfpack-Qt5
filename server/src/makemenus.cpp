@@ -2066,7 +2066,7 @@ void cAllMakeMenus::callMakeMenu( cUOSocket* socket, const QString& section )
 		socket->send( pGump );
 	}
 	else
-		Console::instance()->send( tr("WARNING: Missing %1 menu definition!").arg(section) );
+		Console::instance()->send( tr( "WARNING: Missing %1 menu definition!" ).arg( section ) );
 }
 
 
