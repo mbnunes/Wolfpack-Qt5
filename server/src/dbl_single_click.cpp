@@ -1599,27 +1599,27 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 
 
 	if ((target->isNpc())&&
-		(target->id() == 0x0334)||
-		(target->id() == 0x034E)||
-		(target->id() == 0x0338)||
-		(target->id() == 0x0350)||
-		(target->id() == 0x033A)||
-		(target->id() == 0x0339)||
-		(target->id() == 0x033B)||
-		(target->id() == 0x0374)||
-		(target->id() == 0x0375)||
-		(target->id() == 0x0372)||
-		(target->id() == 0x037A)||
-		(target->id() == 0x0384)||
-		(target->id() == 0x0373)||
-		(target->id() == 0x0376)||
-		(target->id() == 0x0377)||
-		(target->id() == 0x0378)||
-        (target->id() == 0x0379)||
-		(target->id() == 0x03AA)||
-		(target->id() == 0x03AB)||
-		(target->id() == 0x03BB)||
-		(target->id() == 0x0390)||
+		(target->id() == 0x0034)||
+		(target->id() == 0x004E)||
+		(target->id() == 0x0038)||
+		(target->id() == 0x0050)||
+		(target->id() == 0x003A)||
+		(target->id() == 0x0039)||
+		(target->id() == 0x003B)||
+		(target->id() == 0x0074)||
+		(target->id() == 0x0075)||
+		(target->id() == 0x0072)||
+		(target->id() == 0x007A)||
+		(target->id() == 0x0084)||
+		(target->id() == 0x0073)||
+		(target->id() == 0x0076)||
+		(target->id() == 0x0077)||
+		(target->id() == 0x0078)||
+        (target->id() == 0x0079)||
+		(target->id() == 0x00AA)||
+		(target->id() == 0x00AB)||
+		(target->id() == 0x00BB)||
+		(target->id() == 0x0090)||
 		(target->id() == 0x00C8)||
 		(target->id() == 0x00E2)||
 		(target->id() == 0x00E4)||
