@@ -23,14 +23,14 @@ def timerPass( timer, args ):
 	if trashcan.hastag( 'trash_timer' ) and trashcan.gettag( 'trash_timer' ) <= wolfpack.time.currenttime():
 		trashlist = wolfpack.utilities.itemsincontainer( trashcan.serial )
 		if len( trashlist ) == 0:
-			trashcan.say( "*hungry*" )
+			#trashcan.say( "*hungry*" )
 			return False
 		i = 0
 		for serial in trashlist:
 			trash = wolfpack.finditem( serial )
 			trash.delete()
 			i += 1
-		trashcan.say( "Deleted %i items!" % i )
+		#trashcan.say( "Deleted %i items!" % i )
 		trashcan.deltag( 'trash_timer' )
 		return True
 	return False
