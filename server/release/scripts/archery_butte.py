@@ -38,27 +38,21 @@ def giveAmmo( char, item ):
 
 	if( arrowCount ):
 		if( arrowCount > 1 ):
-			message = "You retrieve " + str( arrowCount ) + " arrows."
-		else:
-			message = "You retrieve an arrow."
-
-		char.message( arrowCount )
-		arrow = wolfpack.additem( "f3f" )
-		arrow.container = char.getbackpack()
-		arrow.amount = arrowCount
-		arrow.update()
+			char.message( arrowCount )
+			arrow = wolfpack.additem( "f3f" )
+			arrow.container = char.getbackpack()
+			arrow.amount = arrowCount
+			arrow.update()
 
 	if( boltCount ):
 		if( boltCount > 1 ):
-			message = "You retrieve " + str( boltCount ) + " bolts."
-		else:
-			message = "You retrieve a bolt."
+			char.message( message )
+			bolt = wolfpack.additem( "1bfb" )
+			bolt.container = char.getbackpack()
+			bolt.amount = boltCount
+			bolt.update()
 
-		char.message( message )
-		bolt = wolfpack.additem( "1bfb" )
-		bolt.container = char.getbackpack()
-		bolt.amount = boltCount
-		bolt.update()
+	char.socket.clilocmessage(500593)
 
 	# Reset the counters
 	item.settag( "arrow_count", 0 )
@@ -77,13 +71,16 @@ def onUse( char, item ):
 	if( char.distanceto( item ) <= 1 ):
 		return giveAmmo( char, item )
 
-	if( char.distanceto( item ) > 10 or char.distanceto( item ) < 5 ):
-		char.message( "You are either too near or far to shoot." )
+	if( char.distanceto( item ) > 10):
+		char.socket.clilocmessage(500603)
+		return True
+	elif( char.distanceto( item ) < 5 ):
+		char.socket.clilocmessage(500604)
 		return True
 
 	# Sanity checks for the line-of-fire
 	if( ( item.id == 0x100b and ( char.pos.x != item.pos.x or char.pos.y <= item.pos.y ) ) or ( item.id == 0x100a and ( char.pos.y != item.pos.y or char.pos.x <= item.pos.x ) ) ):
-		char.message( "You can't shoot from here." )
+		char.socket.clilocmessage(500597)
 		return True
 
 	# TODO: Check line of sight
@@ -100,17 +97,12 @@ def onUse( char, item ):
 	ammo = ammoType( char )
 
 	if( ( weaponskill(char, char.getweapon()) != ARCHERY ) or ( ammo == -1 ) ):
-		char.message( "You only can use crossbows and bows on this butte." )
+		char.socket.clilocmessage(500594)
 		return True
 
 	# If we've already learned all we can > cancel.
 	if( char.skill[ ARCHERY ] >= 300 ):
-		char.message( "You can learn much from a dummy but you have already learned it all." )
-		return True
-
-	# Use ammo (if 0 was used = no ammo)
-	if( not char.useresource( 1, ammo ) ):
-		char.message( "You are out of ammunition." )
+		char.socket.clilocmessage(501829)
 		return True
 
 	# Display the char-action
@@ -122,9 +114,16 @@ def onUse( char, item ):
 	if( ammo == 0xf3f ):
 		ammoname = "arrow"
 		movingeff = 0xf42
+		if( not char.useresource( 1, ammo ) ):
+			char.socket.clilocmessage(500595)
+			return True
 	else:
 		ammoname = "bolt"
 		movingeff = 0x1bfe
+		# Use ammo (if 0 was used = no ammo)
+		if( not char.useresource( 1, ammo ) ):
+			char.socket.clilocmessage(500596)
+			return True
 
 
 	char.movingeffect( movingeff, item, 1, 1, 1, 0, 1 )
