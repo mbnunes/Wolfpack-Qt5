@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Bone Arms North-South -->
+	<item id="144e">
+		<id>0x144e</id>
+		<name>bone arms</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<value>0</value>
+		<tag name="req_str" value="55" type="int" />
+		<events>equipment</events>
+		<category>Armor\Bone\Bone Arms (N/S)</category>
+	</item>
+
+	<!-- Bone Arms East-West -->
+	<item id="1453">
+		<inherit id="144e" />
+		<id>0x1453</id>
+		<category>Armor\Bone\Bone Arms (E/W)</category>
+	</item>
+
+</definitions>

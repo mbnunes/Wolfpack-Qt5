@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- chaos shield -->
+	<item id="1bc3">
+		<id>0x1bc3</id>
+		<name>Chaos shield</name>
+		<decay />
+		<nodye />
+		<defense>1</defense>
+		<durability><random min="100" max="125" /></durability>
+		<requires type='str'>95</requires>
+		<restock>0</restock>
+		<weight>5</weight>
+		<buyprice>0</buyprice>
+		<sellprice>0</sellprice>
+		<category>Armor\Shields\Chaos Shield</category>
+	</item>
+
+</definitions>
+

@@ -1,0 +1,28 @@
+
+<definitions>
+
+<!-- Female Plate Armor -->
+	<item id="1c04">
+		<id>0x1c04</id>
+		<name>plate armor</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>95</requires>
+		<restock>10</restock>
+		<smelt>16</smelt>
+		<weight>4.0</weight>
+		<buyprice>245</buyprice>
+		<sellprice>122</sellprice>
+		<category>Armor\Platemail\Female Armor (N/S)</category>
+	</item>
+
+	<!-- Female Plate Armor -->
+	<item id="1c05">
+		<inherit id="1c04" />
+		<id>0x1c05</id>
+		<category>Armor\Platemail\Female Armor (E/W)</category>
+	</item>
+
+</definitions>

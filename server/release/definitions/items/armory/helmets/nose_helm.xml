@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Nose Helmet North-South -->
+	<item id="140f">
+		<id>0x140f</id>
+		<name>nose helmet</name>
+		<decay />
+		<nodye />
+		<defense>4</defense>
+		<durability><random min="45" max="60" /></durability>
+		<requires type='str'>55</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
+		<category>Armor\Helmets\Nose Helm (N/S)</category>
+	</item>
+
+	<!-- Nose Helmet East-West -->
+	<item id="140e">
+		<inherit id="140f" />
+		<id>0x140e</id>
+		<category>Armor\Helmets\Nose Helm (E/W)</category>
+	</item>
+
+</definitions>

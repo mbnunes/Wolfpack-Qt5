@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Close Helmet North-South -->
+	<item id="1409">
+		<id>0x1409</id>
+		<name>close helmet</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="45" max="60" /></durability>
+		<requires type='str'>55</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
+		<category>Armor\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<!-- Close Helmet East-West -->
+	<item id="1408">
+		<inherit id="1409" />
+		<id>0x1408</id>
+		<category>Armor\Helmets\Close Helm (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Plate Helmet NS -->
+	<item id="1412">
+		<id>0x1412</id>
+		<name>plate helm</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>80</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>7.0</weight>
+		<buyprice>170</buyprice>
+		<sellprice>85</sellprice>
+		<category>Armor\Platemail\Helm (N/S)</category>
+	</item>
+
+	<!-- Plate Helmet EW -->
+	<item id="1419">
+		<inherit id="1412" />
+		<id>0x1419</id>
+		<category>Armor\Platemail\Helm (E/W)</category>
+	</item>
+
+</definitions>

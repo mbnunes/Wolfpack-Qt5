@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- bronze shield -->
+	<item id="1b72">
+		<id>0x1b72</id>
+		<name>bronze shield</name>
+		<decay />
+		<nodye />
+		<defense>0</defense>
+		<durability><random min="25" max="30" /></durability>
+		<requires type='str'>35</requires>
+		<restock>10</restock>
+		<smelt>4</smelt>
+		<weight>27</weight>
+		<buyprice>100</buyprice>
+		<sellprice>50</sellprice>
+		<category>Armor\Shields\Bronze Shield</category>
+	</item>
+
+</definitions>

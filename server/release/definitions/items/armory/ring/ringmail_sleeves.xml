@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<item id="13ee">
+		<id>0x13ee</id>
+		<name>ringmail sleeves</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="40" max="50" /></durability>
+		<requires type='str'>40</requires>
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>15.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
+		<category>Armor\Ringmail\Sleeves (N/S)</category>
+	</item>
+
+	<item id="13ef">
+		<inherit id="13ee" />
+		<id>0x13ff</id>
+		<category>Armor\Ringmail\Sleeves (E/W)</category>
+	</item>
+
+</definitions>

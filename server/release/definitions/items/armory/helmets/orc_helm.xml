@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Orc Helmet North-South -->
+	<item id="1f0b">
+		<id>0x1f0b</id>
+		<name>orc helm</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="30" max="50" /></durability>
+		<requires type='str'>30</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
+		<category>Armor\Helmets\Orc Helm (N/S)</category>
+	</item>
+
+	<!-- Orc Helmet East-West -->
+	<item id="1f0c">
+		<inherit id="1f0b" />
+		<id>0x1f0c</id>
+		<category>Armor\Helmets\Orc Helm (E/W)</category>
+	</item>
+
+</definitions>

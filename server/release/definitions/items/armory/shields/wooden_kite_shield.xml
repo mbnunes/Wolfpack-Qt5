@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- wooden kite shield -->
+	<item id="1b78">
+		<id>0x1b78</id>
+		<name>kite shield</name>
+		<decay />
+		<nodye />
+		<defense>0</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>20</requires>
+		<restock>10</restock>
+		<smelt>6</smelt>
+		<weight>7</weight>
+		<buyprice>121</buyprice>
+		<sellprice>60</sellprice>
+		<category>Armor\Shields\Wooden Kite (N/S)</category>
+	</item>
+
+	<item id="1b79">
+		<inherit id="1b78" />
+		<id>0x1b79</id>
+		<category>Armor\Shields\Wooden Kite (E/W)</category>
+	</item>
+
+</definitions>

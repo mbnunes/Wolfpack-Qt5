@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Helmet North-South -->
+	<item id="140b">
+		<id>0x140b</id>
+		<name>helmet</name>
+		<decay />
+		<nodye />
+		<defense>2</defense>
+		<durability><random min="45" max="60" /></durability>
+		<requires type='str'>45</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>116</buyprice>
+		<sellprice>58</sellprice>
+		<category>Armor\Helmets\Normal Helm (N/S)</category>
+	</item>
+
+	<!-- Helmet East-West -->
+	<item id="140a">
+		<inherit id="140b" />
+		<id>0x140a</id>
+		<category>Armor\Helmets\Normal Helm (E/W)</category>
+	</item>
+
+</definitions>

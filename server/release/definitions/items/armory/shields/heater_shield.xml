@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- heater -->
+	<item id="1b76">
+		<id>0x1b76</id>
+		<name>heater shield</name>
+		<decay />
+		<nodye />
+		<defense>0</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>90</requires>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>8</weight>
+		<buyprice>175</buyprice>
+		<sellprice>87</sellprice>
+		<category>Armor\Shields\Heater (N/S)</category>
+	</item>
+
+	<item id="1b77">
+		<inherit id="1b76" />
+		<id>0x1b77</id>
+		<category>Armor\Shields\Heater (E/W)</category>
+	</item>
+
+</definitions>

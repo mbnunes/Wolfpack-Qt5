@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Bascinet Helmet North-South -->
+	<item id="140d">
+		<id>0x140d</id>
+		<name>bascinet</name>
+		<decay />
+		<nodye />
+		<defense>7</defense>
+		<durability><random min="40" max="50" /></durability>
+		<requires type='str'>40</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
+		<category>Armor\Helmets\Bascinet (N/S)</category>
+	</item>
+
+	<!-- Bascinet Helmet East-West-->
+	<item id="140c">
+		<inherit id="140d" />
+		<id>0x140c</id>
+		<category>Armor\Helmets\Bascinet (E/W)</category>
+	</item>
+
+</definitions>

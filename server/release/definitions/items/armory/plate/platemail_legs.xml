@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Plate Leggings NS -->
+	<item id="1411">
+		<name>platemail legs</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<id>0x1411</id>
+		<requires type='str'>90</requires>
+		<restock>10</restock>
+		<smelt>16</smelt>
+		<weight>7.0</weight>
+		<buyprice>218</buyprice>
+		<sellprice>109</sellprice>
+		<category>Armor\Platemail\Legs (N/S)</category>
+	</item>
+
+	<!-- Plate Leggings EW -->
+	<item id="141a">
+		<inherit id="1411" />
+		<id>0x141a</id>
+		<category>Armor\Platemail\Legs (E/W)</category>
+	</item>
+
+</definitions>

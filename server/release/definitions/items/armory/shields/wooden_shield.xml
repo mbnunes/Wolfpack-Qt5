@@ -1,0 +1,20 @@
+
+ <definitions>
+
+	<!-- Wooden shield -->
+	<item id="1b7a">
+		<id>0x1b7a</id>
+		<name>wooden shield</name>
+		<decay />
+		<nodye />
+		<defense>0</defense>
+		<durability><random min="20" max="25" /></durability>
+		<requires type='str'>20</requires>
+		<restock>10</restock>
+		<weight>5</weight>
+		<buyprice>64</buyprice>
+		<sellprice>32</sellprice>
+		<category>Armor\Shields\Wooden Shield</category>
+	</item>
+
+</definitions>

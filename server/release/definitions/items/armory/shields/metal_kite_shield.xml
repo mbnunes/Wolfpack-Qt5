@@ -1,0 +1,27 @@
+
+ <definitions>
+
+	<!-- metal kite shield -->
+	<item id="1b74">
+		<id>0x1b74</id>
+		<name>kite shield</name>
+		<decay />
+		<dye />
+		<defense>0</defense>
+		<durability><random min="45" max="60" /></durability>
+		<requires type='str'>45</requires>
+		<restock>10</restock>
+		<smelt>13</smelt>
+		<weight>5</weight>
+		<buyprice>135</buyprice>
+		<sellprice>67</sellprice>
+		<category>Armor\Shields\Metal Kite (N/S)</category>
+	</item>
+
+	<item id="1b75">
+		<inherit id="1b74" />
+		<id>0x1b75</id>
+		<category>Armor\Shields\Metal Kite (E/W)</category>
+	</item>
+
+</definitions>

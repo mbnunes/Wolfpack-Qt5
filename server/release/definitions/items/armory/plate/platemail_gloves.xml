@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Plate Gloves NS -->
+	<item id="1414">
+		<id>0x1414</id>
+		<name>platemail gloves</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>70</requires>
+		<restock>10</restock>
+		<smelt>9</smelt>
+		<weight>2.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
+		<category>Armor\Platemail\Gloves (N/S)</category>
+	</item>
+
+	<!-- Plate Gloves EW -->
+	<item id="1418">
+		<inherit id="1414" />
+		<id>0x1418</id>
+		<category>Armor\Platemail\Gloves (E/W)</category>
+	</item>
+
+</definitions>

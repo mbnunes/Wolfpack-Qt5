@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- Buckler -->
+	<item id="1b73">
+		<id>0x1b73</id>
+		<name>buckler</name>
+		<decay />
+		<nodye />
+		<defense>0</defense>
+		<durability><random min="40" max="50" /></durability>
+		<requires type='str'>20</requires>
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>5</weight>
+		<buyprice>66</buyprice>
+		<sellprice>33</sellprice>
+		<category>Armor\Shields\Buckler</category>
+	</item>
+
+</definitions>

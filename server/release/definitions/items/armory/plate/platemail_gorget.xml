@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- Plate Gorget -->
+	<item id="1413">
+		<id>0x1413</id>
+		<name>platemail gorget</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>45</requires>
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>2.0</weight>
+		<buyprice>124</buyprice>
+		<sellprice>62</sellprice>
+		<category>Armor\Platemail\Gorget</category>
+	</item>
+
+</definitions>

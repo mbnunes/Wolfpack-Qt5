@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!--  Chainmail Leggings North-South-->
+	<item id="13be">
+		<id>0x13be</id>
+		<name>chainmail leggings</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="60" type="int" />
+		<events>equipment</events>
+		<defense>4</defense>
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>7.0</weight>
+		<buyprice>166</buyprice>
+		<sellprice>83</sellprice>
+		<category>Armor\Chainmail\Leggings (N/S)</category>
+	</item>
+
+	<!--  Chainmail Leggings East-West -->
+	<item id="13c3">
+		<inherit id="13be" />
+		<id>0x13c3</id>
+		<category>Armor\Chainmail\Leggings (E/W)</category>
+	</item>
+
+</definitions>

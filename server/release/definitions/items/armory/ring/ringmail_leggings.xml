@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Ring Leggings -->
+	<item id="13f0">
+		<id>0x13f0</id>
+		<name>ringmail leggings</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="40" max="50" /></durability>
+		<requires type='str'>40</requires>
+		<restock>10</restock>
+		<smelt>13</smelt>
+		<weight>15.0</weight>
+		<buyprice>147</buyprice>
+		<sellprice>73</sellprice>
+		<category>Armor\Ringmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="13f1">
+		<inherit id="13f0" />
+		<id>0x13f1</id>
+		<category>Armor\Ringmail\Leggings (E/W)</category>
+	</item>
+
+</definitions>

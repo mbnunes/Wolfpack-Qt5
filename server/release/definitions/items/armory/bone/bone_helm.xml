@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Bone Helm North-South -->
+	<item id="1451">
+		<id>0x1451</id>
+		<name>bone helmet</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>3</defense>
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<weight>3.0</weight>
+		<value>0</value>
+		<category>Armor\Bone\Bone Helmet (N/S)</category>
+	</item>
+
+	<!-- Bone Helm East-West -->
+	<item id="1456">
+		<inherit id="1451" />
+		<id>0x1456</id>
+		<category>Armor\Bone\Bone Helmet (E/W)</category>
+	</item>
+
+
+
+</definitions>

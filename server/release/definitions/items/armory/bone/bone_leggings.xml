@@ -1,0 +1,27 @@
+
+ <definitions>
+
+	<!-- Bone Leggings North-South -->
+	<item id="1452">
+		<id>0x1452</id>
+		<name>bone leggings</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="55" type="int" />
+		<events>equipment</events>
+		<defense>3</defense>
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<value>0</value>
+		<category>Armor\Bone\Leggings (N/S)</category>
+	</item>
+
+	<!-- Bone Leggings East-West -->
+	<item id="1457">
+		<inherit id="1452" />
+		<id>0x1452</id>
+		<category>Armor\Bone\Leggings (E/W)</category>
+	</item>
+
+</definitions>

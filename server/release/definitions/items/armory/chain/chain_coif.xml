@@ -1,0 +1,29 @@
+
+ <definitions>
+
+	<!--  Chainmail Coif North-South -->
+	<item id="13bb">
+		<id>0x13bb</id>
+		<name>chainmail coif</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="60" type="int" />
+		<events>equipment</events>
+		<defense>4</defense>
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>7.0</weight>
+		<buyprice>130</buyprice>
+		<sellprice>65</sellprice>
+		<category>Armor\Chainmail\Coif NS</category>
+	</item>
+
+	<!--  Chainmail Coif East-West -->
+	<item id="13c0">
+		<inherit id="13bb" />
+		<id>0x13c0</id>
+		<category>Armor\Chainmail\Coif (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Ring Gloves -->
+	<item id="13eb">
+		<id>0x13eb</id>
+		<name>ringmail gloves</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="40" max="50" /></durability>
+		<requires type='str'>40</requires>
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>2.0</weight>
+		<buyprice>122</buyprice>
+		<sellprice>61</sellprice>
+		<category>Armor\Ringmail\Gloves (N/S)</category>
+	</item>
+
+	<item id="13f2">
+		<inherit id="13eb" />
+		<id>0x13f2</id>
+		<category>Armor\Ringmail\Gloves (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Ring Tunic -->
+	<item id="13ec">
+		<id>0x13ec</id>
+		<name>ringmail tunic</name>
+		<decay />
+		<nodye />
+		<defense>3</defense>
+		<durability><random min="40" max="50" /></durability>
+		<requires type='str'>40</requires>
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>15.0</weight>
+		<buyprice>218</buyprice>
+		<sellprice>109</sellprice>
+		<category>Armor\Ringmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="13ed">
+		<inherit id="13ec" />
+		<id>0x13ed</id>
+		<category>Armor\Ringmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

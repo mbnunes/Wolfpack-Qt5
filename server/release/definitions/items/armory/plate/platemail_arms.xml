@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Plate Arms NS -->
+	<item id="1410">
+		<id>0x1410</id>
+		<name>platemail arms</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>80</requires>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>5.0</weight>
+		<buyprice>181</buyprice>
+		<sellprice>90</sellprice>
+		<category>Armor\Platemail\Arms (N/S)</category>
+	</item>
+
+	<!-- Plate Arms EW -->
+	<item id="1417">
+		<inherit id="1410" />
+		<id>0x1417</id>
+		<category>Armor\Platemail\Arms (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- metal shield -->
+	<item id="1b7b">
+		<id>0x1b7b</id>
+		<name>metal shield</name>
+		<decay />
+		<nodye />
+		<defense>0</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>20</requires>
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>6</weight>
+		<buyprice>98</buyprice>
+		<sellprice>49</sellprice>
+		<category>Armor\Shields\Metal Shield</category>
+	</item>
+
+</definitions>

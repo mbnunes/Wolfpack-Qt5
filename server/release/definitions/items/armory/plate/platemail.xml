@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Male Plate Armor North-South -->
+	<item id="1415">
+		<id>0x1415</id>
+		<name>platemail</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<requires type='str'>95</requires>
+		<restock>10</restock>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<buyprice>273</buyprice>
+		<sellprice>136</sellprice>
+		<category>Armor\Platemail\Male Armor (N/S)</category>
+	</item>
+
+	<!-- Male Plate Armor East-West -->
+	<item id="1416">
+		<inherit id="1415" />
+		<id>0x1416</id>
+		<category>Armor\Platemail\Male Armor (E/W)</category>
+	</item>
+
+</definitions>
