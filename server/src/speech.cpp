@@ -789,6 +789,16 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (!VendorChkName(pVendor,comm))
 		return false;
 
+	if (strstr(comm, " BROWSE") || strstr(comm, " VIEW") || strstr(comm, " LOOK"))
+	{
+		npctalk(s,pVendor,"Take a look at my goods.",1);
+		P_ITEM pi_backpack = Packitem(pVendor);
+		if (pi_backpack != NULL)
+		{
+			backpack(s, pi_backpack->serial);
+		    return true;
+		}
+	}
 	if (strstr(comm, " BUY") || strstr(comm, " PURCHASE"))
 	{
 		addx[s]=vendor;
