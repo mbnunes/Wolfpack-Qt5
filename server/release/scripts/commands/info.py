@@ -137,9 +137,9 @@ def charinfo( socket, char ):
 	# Apply button
 	gump.addButton( 50, 340, 0xEF, 0xF0, 1 ) 
 	# OK button
-	gump.addButton( 120, 340, 0xF9, 0xF8, 0 ) 
+	gump.addButton( 120, 340, 0xF9, 0xF8, -1 ) 
 	# Cancel button
-	gump.addButton( 190, 340, 0xF3, 0xF1, -1 ) 
+	gump.addButton( 190, 340, 0xF3, 0xF1, 0 ) 
 
 	page_ = page_ + 1
 	gump.startPage( page_ )
@@ -376,7 +376,7 @@ def charinfo( socket, char ):
 def charinfo_response( player, args, choice ):
 	socket = player.socket
 	char = args[0]
-	if choice.button == -1 or not char or not socket:
+	if choice.button == 0 or not char or not socket:
 		return 1
 	
 	textentries = choice.text
@@ -526,9 +526,9 @@ def iteminfo( socket, item ):
 	# Apply button
 	gump.addButton( 50, 340, 0xEF, 0xF0, 1 ) 
 	# OK button
-	gump.addButton( 120, 340, 0xF9, 0xF8, 0 ) 
+	gump.addButton( 120, 340, 0xF9, 0xF8, -1 ) 
 	# Cancel button
-	gump.addButton( 190, 340, 0xF3, 0xF1, -1 ) 
+	gump.addButton( 190, 340, 0xF3, 0xF1, 0 ) 
 
 	page_ = page_ + 1
 	gump.startPage( page_ )
@@ -723,7 +723,7 @@ def iteminfo( socket, item ):
 def iteminfo_response( player, args, choice ):
 	socket = player.socket
 	item = args[0]
-	if choice.button == -1 or not item or not socket:
+	if choice.button == 0 or not item or not socket:
 		return 1
 	
 	textentries = choice.text
