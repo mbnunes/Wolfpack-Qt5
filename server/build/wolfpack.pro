@@ -195,8 +195,8 @@ win32:SOURCES += \
 	../src/win/getopts_win.cpp
 
 DISTFILES += \
-	data/AUTHORS.txt \
-	LICENSE.GPL
+	../release/AUTHORS.txt \
+	../release/LICENSE.GPL
 
 # used by tools/translationupdate, our own version of lupdate
 # WPDEFINITIONS is the folder where xml definitons are.
