@@ -20,6 +20,21 @@ def onDetach(object):
 	spawns.unregister(object)
 
 #
+# Tooltips
+#
+# Show a nice tooltip
+def onShowTooltip(sender, target, tooltip):
+	if target.hastag('mininterval') and target.hastag('maxinterval') and target.hastag('area'):
+		area = target.gettag('area')
+		mininterval = target.gettag('mininterval')
+		maxinterval = target.gettag('maxinterval')
+		
+		appendix = 'Radius: %s\nInterval: %s to %s minutes' % (area, mininterval, maxinterval)
+		
+		tooltip.add(1060847, "%s\t\n" % appendix)
+			
+
+#
 # Gump configuration response
 #
 def response(player, arguments, response):
