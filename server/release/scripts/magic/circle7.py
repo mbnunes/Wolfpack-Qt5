@@ -328,6 +328,24 @@ class MeteorSwarm (Spell):
 			energydamage(target, char, damage, fire=100)
 
 def polymorph_expire(char, arguments):
+	# Hidden beard?
+	if char.hastag('polymorph_beard_id'):
+		current = char.itemonlayer(LAYER_BEARD)
+		if current:
+			current.delete()
+		
+		newid = char.gettag('polymorph_beard_id')
+		color = 0
+		if char.hastag('polymorph_beard_color'):
+			color = int(char.gettag('polymorph_beard_color'))
+		item = wolfpack.additem(newid)
+		item.color = color
+		char.additem(LAYER_BEARD, item)
+		item.update()
+		
+		char.deltag('polymorph_beard_id')
+		char.deltag('polymorph_beard_color')
+	
 	char.id = char.orgid
 	char.skin = char.orgskin
 	char.polymorph = 0
@@ -374,6 +392,15 @@ class Polymorph (Spell):
 			char.skin = random.randint(1002, 1059)
 		else:
 			char.skin = 0
+			
+		# Remove the beard if morphing into a female
+		if char.id == 0x191:
+			beard = char.itemonlayer(LAYER_BEARD)
+			if beard:
+				char.settag('polymorph_beard_id', beard.baseid)
+				char.settag('polymorph_beard_color', beard.color)
+				beard.delete()			
+						
 		char.polymorph = 1
 		char.update()
 
