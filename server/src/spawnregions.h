@@ -90,6 +90,8 @@ public:
 	virtual void	Load( void );
 	void	Check( void );
 
+	cSpawnRegion*	region( QString regName );
+
 	void	reSpawn( void );
 	void	reSpawnToMax( void );
 	void	deSpawn( void );

@@ -56,6 +56,21 @@ public:
 		name_ = QString();
 	}
 
+	bool	contains( UI16 posx, UI16 posy )
+	{
+		for( UI32 i = 0; i < this->x1_.size(); i++ )
+		{
+			if( ( ( posx >= x1_[i] && posx <= x2_[i] ) ||
+				( posx >= x2_[i] && posx <= x2_[i] ) ) &&
+				( ( posy >= y1_[i] && posy <= y2_[i] ) ||
+				( posy >= y2_[i] && posy <= y2_[i] ) ) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 protected:
 	virtual void processNode( const QDomElement &Tag )
 	{
@@ -63,9 +78,7 @@ protected:
 		QString Value = this->getNodeValue( Tag );
 	
 		// <rectangle x1="0" x2="1000" y1="0" y2="500" />
-		if( TagName == "rectangle" && 
-			Tag.attributes().contains( "x1" ) && Tag.attributes().contains( "x2" ) && 
-			Tag.attributes().contains( "y1" ) && Tag.attributes().contains( "y2" ) )
+		if( TagName == "rectangle"  )
 		{
 			this->x1_.push_back( Tag.attribute( "x1" ).toUShort() );
 			this->x2_.push_back( Tag.attribute( "x2" ).toUShort() );
@@ -80,12 +93,13 @@ protected:
 	std::vector< UI16 >		x2_;			// vector of Bottom right x
 	std::vector< UI16 >		y1_;			// vector of Top left y
 	std::vector< UI16 >		y2_;			// vector of Bottom right y
+	QStringList				subregions_;		// list of region identifiers of included regions by this one
 };
 
 class cAllBaseRegions : public std::map< QString, cBaseRegion* >
 {
 public:
-	virtual ~cAllBaseRegions() {}
+	virtual ~cAllBaseRegions() = 0 {;}
 
 	virtual void Load( void ) = 0;
 
@@ -100,6 +114,16 @@ public:
 
 		this->Load();
 	}
+
+	cBaseRegion*	region( QString regName )
+	{
+		iterator it = this->find( regName );
+		if( it != this->end() )
+			return it->second;
+		else
+			return NULL;
+	}
+
 };
 
 #endif

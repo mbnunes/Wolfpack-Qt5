@@ -48,7 +48,7 @@ public:
 	cTerritory( const QDomElement &Tag )
 	{
 		this->Init();
-		this->name_ = Tag.parentNode().toElement().attribute( "id" );
+		this->name_ = Tag.attribute( "id" );
 		this->applyDefinition( Tag );
 	}
 	virtual ~cTerritory() {;}
@@ -111,7 +111,20 @@ public:
 	void		Check( P_CHAR pc );
 
 	cTerritory*	region( QString regName );
-	cTerritory* region( UI16 posx, UI16 posy );
+	cTerritory* region( UI16 posx, UI16 posy )
+	{
+		iterator it = this->begin();
+		cTerritory* Region = NULL;
+		while( it != this->end() && Region == NULL )
+		{
+			Region = dynamic_cast< cTerritory* >(it->second);
+			if( Region != NULL && !Region->contains( posx, posy ) )
+				Region = NULL;
+			it++;
+		}
+
+		return Region;
+	}
 
 	QString		getGuardSect( void );
 	

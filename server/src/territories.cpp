@@ -57,6 +57,7 @@ void cTerritory::Init( void )
 	guardowner_ = QString();
 	snowchance_ = 50;
 	rainchance_ = 50;
+	subregions_ = QStringList();
 	guardSections_ = QStringList();
 	guardSections_.push_back( "standard_guard" );
 }
@@ -204,6 +205,16 @@ void cTerritory::processNode( const QDomElement &Tag )
 		}
 	}
 
+	// <region id="Cove Market Place">
+	//		...region nodes...
+	// </region>
+	else if( TagName == "region" && Tag.attributes().contains( "id" ) )
+	{
+		this->subregions_.push_back( Tag.attribute( "id" ) );
+		pair< QString, cTerritory* > toInsert( Tag.attribute( "id" ), new cTerritory( Tag ) );
+		cAllTerritories::getInstance()->insert( toInsert );
+	}
+
 	else
 		cBaseRegion::processNode( Tag );
 }
@@ -215,15 +226,18 @@ QString cTerritory::getGuardSect( void )
 
 bool	cTerritory::contains( UI16 posx, UI16 posy )
 {
-	for( UI32 i = 0; i < this->x1_.size(); i++ )
+	bool containsPos = cBaseRegion::contains( posx, posy );
+	if( containsPos )
 	{
-		if( ( ( posx >= x1_[i] && posx <= x2_[i] ) ||
-			( posx >= x2_[i] && posx <= x2_[i] ) ) &&
-			( ( posy >= y1_[i] && posy <= y2_[i] ) ||
-			( posy >= y2_[i] && posy <= y2_[i] ) ) )
-			return true;
+		QStringList::iterator it = this->subregions_.begin();
+		while( it != this->subregions_.end() )
+		{
+			if( cAllTerritories::getInstance()->region( *it )->contains( posx, posy ) )
+				return false; // if the positions are within a subregion of this region return false!
+			it++;
+		}
 	}
-	return false;
+	return containsPos;
 }
 
 // cAllTerritories
@@ -262,33 +276,19 @@ void cAllTerritories::Load( void )
 
 cTerritory*	cAllTerritories::region( QString regName )
 {
-	iterator it = this->find( regName );
-	if( it != this->end() )
-		return dynamic_cast< cTerritory* >(it->second);
-	else
+	cBaseRegion* Region = cAllBaseRegions::region( regName );
+	if( Region == NULL )
 		return NULL;
-}
-
-cTerritory* cAllTerritories::region( UI16 posx, UI16 posy )
-{
-	iterator it = this->begin();
-	cTerritory* Region = NULL;
-	while( it != this->end() && Region == NULL )
-	{
-		if( dynamic_cast< cTerritory* >(it->second)->contains( posx, posy ) )
-			Region = dynamic_cast< cTerritory* >(it->second);
-		it++;
-	}
-
-	return Region;
+	else
+		return dynamic_cast< cTerritory* >(Region);
 }
 
 void cAllTerritories::Check( P_CHAR pc )
 {
 	UOXSOCKET s = calcSocketFromChar( pc );
 	UI32 j;
-	cTerritory* currRegion = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
-	cTerritory* lastRegion = cAllTerritories::getInstance()->region( pc->region );
+	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y );
+	cTerritory* lastRegion = this->region( pc->region );
 
 	if( currRegion != lastRegion )
 	{

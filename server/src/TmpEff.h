@@ -106,9 +106,9 @@ private:
 	UI08 action;
 	unsigned int duration;
 public:
+	cTimedAction() { objectid= "TimedAction"; }
 	cTimedAction( P_CHAR nChar, UI08 nAction, UI32 nDuration );
 	cTimedAction( SERIAL serial, UI08 nAction, UI32 nDuration );
-	cTimedAction() {}
 
 	virtual void Serialize( ISerialization &archive );
 	void Expire();

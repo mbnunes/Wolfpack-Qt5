@@ -434,5 +434,14 @@ void cAllSpawnRegions::deSpawn( void )
 	}
 }
 
+cSpawnRegion*	cAllSpawnRegions::region( QString regName )
+{
+	cBaseRegion* Region = cAllBaseRegions::region( regName );
+	if( Region == NULL )
+		return NULL;
+	else
+		return dynamic_cast< cSpawnRegion* >(Region);
+}
+
 // Singleton
 cAllSpawnRegions cAllSpawnRegions::instance;
