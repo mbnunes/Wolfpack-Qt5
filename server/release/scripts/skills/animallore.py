@@ -13,8 +13,8 @@ def onLoad():
     wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.animallore" )
 
 def onSkillUse( char, skill ):
-	if skill != ANIMALLORE:
-		return 0
+    if skill != ANIMALLORE:
+	return 0
 
     char.socket.clilocmessage( 0x7A268 ) # What animal should I look at?
     char.socket.attachtarget( "skills.animallore.response" )
