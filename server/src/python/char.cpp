@@ -63,6 +63,7 @@ typedef struct {
 
 PyObject *wpChar_getAttr( wpChar *self, char *name );
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value );
+int wpChar_compare( PyObject*, PyObject* );
 
 /*!
 	The typedef for Wolfpack Python chars
@@ -77,6 +78,7 @@ static PyTypeObject wpCharType = {
     0,
     (getattrfunc)wpChar_getAttr,
     (setattrfunc)wpChar_setAttr,
+	wpChar_compare,
 };
 
 PyObject* PyGetCharObject( P_CHAR pChar )
@@ -1381,4 +1383,16 @@ bool checkWpChar( PyObject *pObj )
 		return false;
 	else
 		return true;
+}
+
+int wpChar_compare( PyObject *a, PyObject *b )
+{
+	// Both have to be characters
+	if( a->ob_type != &wpCharType || b->ob_type != &wpCharType ) 
+		return -1;
+
+	P_CHAR pA = getWpChar( a );
+	P_CHAR pB = getWpChar( b );
+
+	return !( pA == pB );
 }

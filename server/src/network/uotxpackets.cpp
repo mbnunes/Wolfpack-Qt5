@@ -455,14 +455,14 @@ void cUOTxVendorBuy::addItem( UINT32 price, const QString &description )
 void cUOTxGumpDialog::setContent( QString layout, QStringList text )
 {
 //	QString layout = gump->layout().join( "" );
-	setShort( 19, layout.length() );
-	this->setAsciiString( 21, layout.latin1(), layout.length() );
+	setShort( 19, layout.length()+1 );
+	setAsciiString( 21, layout.latin1(), layout.length()+1 );
 
 	// Send the unicode text-lines
 
-	setShort( 21 + layout.length(), text.count() );
+	setShort( 22 + layout.length(), text.count() );
 
-	Q_UINT32 offset = 21 + layout.length() + 2;
+	Q_UINT32 offset = 22 + layout.length() + 2;
 	QStringList::const_iterator it = text.begin();
 	while( it != text.end() )
 	{

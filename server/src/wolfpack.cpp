@@ -159,9 +159,9 @@ void signal_handler(int signal)
                 cAllTerritories::getInstance()->reload();
                 Resources::instance()->reload();
                 MakeMenus::instance()->reload();
-                ContextMenus::instance()->reload();
                 cCommands::instance()->loadACLs();
                 ScriptManager->reload();
+				ContextMenus::instance()->reload();
 				NewMagic->load();
 
 				// Update the Regions
@@ -1123,9 +1123,9 @@ void interpretCommand( const QString &command )
 				cAllTerritories::getInstance()->reload();
 				Resources::instance()->reload();
 				MakeMenus::instance()->reload();
-				ContextMenus::instance()->reload();
 				cCommands::instance()->loadACLs();
 				ScriptManager->reload(); // Reload Scripts
+				ContextMenus::instance()->reload();
 				NewMagic->load();
 
 				// Update the Regions

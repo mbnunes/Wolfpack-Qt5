@@ -157,7 +157,7 @@ void cUOSocket::send( cGump *gump )
 	gumps.insert( gump->serial(), gump );
 
 	QString layout = gump->layout().join( "" );
-	Q_UINT32 gumpsize = 21 + layout.length() + 2;
+	Q_UINT32 gumpsize = 24 + layout.length();
 	QStringList text = gump->text();
 	QStringList::const_iterator it = text.begin();
 	while( it != text.end() )

@@ -1833,6 +1833,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		clConsole.send( "Reloading python scripts\n" );
 		ScriptManager->reload();
 		NewMagic->load();
+		ContextMenus::instance()->reload();
 	}
 	if( subCommand == "scripts" )
 	{
@@ -1844,12 +1845,12 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cAllTerritories::getInstance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
-		ContextMenus::instance()->reload();
 
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts
 		NewMagic->load();
+		ContextMenus::instance()->reload();
 
 		// Update the Regions
 		for( iter.Begin(); !iter.atEnd(); iter++ )
@@ -1877,10 +1878,10 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cAllTerritories::getInstance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
-		ContextMenus::instance()->reload();
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts
+		ContextMenus::instance()->reload();
 		NewMagic->load();
 
 		// Update the Regions
