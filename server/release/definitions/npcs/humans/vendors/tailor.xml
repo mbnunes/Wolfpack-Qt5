@@ -92,24 +92,21 @@
 				<item id="df8"></item> <!-- Wool -->
 			</sellable>
 		</shopkeeper>
+		<tailoring><random min="640" max="1000"/></tailoring>
 	</npc>
 
 	<!-- A Tailor vendor -->
 	<npc id="tailor_male">
 		<inherit>vendor_male</inherit>
 		<title context="Vendor Male Titles">the Tailor</title>
-		
 		<inherit id="tailor_inventory" />
-		<tailoring><random min="640" max="1000"/></tailoring>
 		<category>Vendors\Tailor (Male)</category>
 	</npc>
 
 	<npc id="tailor_female">
 		<inherit>vendor_female</inherit>
 		<title context="Vendor Female Titles">the Tailor</title>
-
 		<inherit id="tailor_inventory" />
-		<tailoring><random min="640" max="1000"/></tailoring>
 		<category>Vendors\Tailor (Female)</category>
 	</npc>
 

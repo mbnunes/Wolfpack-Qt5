@@ -117,13 +117,13 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
-		<skill id="armslore"><random min="360" max="680" /></skill>
-		<skill id="blacksmithing"><random min="650" max="880" /></skill>
-		<skill id="fencing"><random min="600" max="830" /></skill>
-		<skill id="macefighting"><random min="610" max="930" /></skill>
-		<skill id="tactics"><random min="600" max="830" /></skill>
-		<skill id="swordsmanship"><random min="600" max="830" /></skill>
-		<skill id="parrying"><random min="610" max="930" /></skill>
+		<armslore><random min="360" max="680" /></armslore>
+		<blacksmithing><random min="650" max="880" /></blacksmithing>
+		<fencing><random min="600" max="830" /></fencing>
+		<macefighting><random min="610" max="930" /></macefighting>
+		<tactics><random min="600" max="830" /></tactics>
+		<swordsmanship><random min="600" max="830" /></swordsmanship>
+		<parrying><random min="610" max="930" /></parrying>
 	</npc>
 
 	<!-- A blacksmith vendor -->

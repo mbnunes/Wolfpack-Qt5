@@ -34,7 +34,7 @@
 				<item id="ec4" />
 			</sellable>
 		</shopkeeper>
-		<skill id="anatomy"><random min="450" max="680" /></skill>
+		<anatomy><random min="450" max="680" /></anatomy>
 	</npc>
 
 	<!-- A butcher vendor -->

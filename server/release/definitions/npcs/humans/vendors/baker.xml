@@ -40,8 +40,8 @@
 				<item id="9d6"/>
 			</sellable>
 		</shopkeeper>
-		<skill id="cooking"><random min="750" max="980" /></skill>
-		<skill id="tasteidentification"><random min="360" max="680" /></skill>
+		<cooking><random min="750" max="980" /></cooking>
+		<tasteidentification><random min="360" max="680" /></tasteidentification>
 	</npc>
 
 	<!-- A baker vendor -->

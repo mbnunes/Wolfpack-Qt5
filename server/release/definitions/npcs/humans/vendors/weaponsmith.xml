@@ -47,7 +47,13 @@
 				<item id="13b8"><amount>20</amount></item>--> <!-- Thin Longsword -->
 				<item id="13b9"><amount>20</amount></item>--> <!-- Viking Sword -->
 			</restockable>
-		</shopkeeper>	
+		</shopkeeper>
+		<armslore><random min="640" max="1000" /></armslore>
+		<blacksmithing><random min="650" max="880" /></blacksmithing>
+		<fencing><random min="450" max="680" /></fencing>
+		<macefighting><random min="450" max="680" /></macefighting>
+		<tactics><random min="360" max="680" /></tactics>
+		<swordsmanship><random min="450" max="680" /></swordsmanship>
 	</npc>
 
 	<!-- A weaponsmith vendor -->
@@ -57,12 +63,6 @@
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
-		<armslore><random min="640" max="1000" /></armslore>
-		<blacksmithing><random min="650" max="880" /></blacksmithing>
-		<fencing><random min="450" max="680" /></fencing>
-		<macefighting><random min="450" max="680" /></macefighting>
-		<tactics><random min="360" max="680" /></tactics>
-		<swordsmanship><random min="450" max="680" /></swordsmanship>
 		<category>Vendors\Weaponsmith (Male)</category>
 		<inherit id="weaponsmith_inventory" />
 	</npc>
@@ -79,12 +79,6 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
-		<armslore><random min="640" max="1000" /></armslore>
-		<blacksmithing><random min="650" max="880" /></blacksmithing>
-		<fencing><random min="450" max="680" /></fencing>
-		<macefighting><random min="450" max="680" /></macefighting>
-		<tactics><random min="360" max="680" /></tactics>
-		<swordsmanship><random min="450" max="680" /></swordsmanship>
 		<category>Vendors\Weaponsmith (Female)</category>
 		<inherit id="weaponsmith_inventory" />
 	</npc>

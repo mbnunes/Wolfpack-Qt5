@@ -53,15 +53,15 @@
 				<item id="13f6"><amount>20</amount></item> <!-- Butcher Knife -->
 			</restockable>
 		</shopkeeper>
+		<lockpicking><random min="600" max="830"/></lockpicking>
+		<removetraps><random min="750" max="980"/></removetraps>
+		<tinkering><random min="640" max="1000"/></tinkering>
 	</npc>
 
 	<!-- A tinker vendor -->
 	<npc id="tinker_male">
 		<inherit>vendor_male</inherit>
 		<title context="Vendor Male Titles">the Tinker</title>
-		<lockpicking><random min="600" max="830"/></lockpicking>
-		<removetraps><random min="750" max="980"/></removetraps>
-		<tinkering><random min="640" max="1000"/></tinkering>
 		<category>Vendors\Tinker (Male)</category>
 		<inherit id="tinker_inventory" />
 	</npc>
@@ -70,9 +70,6 @@
 	<npc id="tinker_female">
 		<inherit>vendor_female</inherit>
 		<title context="Vendor Female Titles">the Tinker</title>
-		<lockpicking><random min="600" max="830"/></lockpicking>
-		<removetraps><random min="750" max="980"/></removetraps>
-		<tinkering><random min="640" max="1000"/></tinkering>
 		<category>Vendors\Tinker (Female)</category>
 		<inherit id="tinker_inventory" />
 	</npc>
