@@ -155,7 +155,7 @@ inline QString Python2QString( PyObject* object )
 	if ( PyUnicode_Check( object ) )
 	{
 #if defined(Py_UNICODE_WIDE)
-		return QString::fromUtf8( PyUnicode_AsUTF8String( object ) );
+		return QString::fromUtf8( PyString_AsString( PyUnicode_AsUTF8String( object ) ) );
 #else
 		return QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
 #endif
