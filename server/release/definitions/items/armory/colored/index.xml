@@ -1,0 +1,22 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<include file="definitions/items/armory/colored/bone/index.xml"/>
+	<include file="definitions/items/armory/colored/chain/index.xml"/>
+	<include file="definitions/items/armory/colored/helmets/index.xml"/>
+	<include file="definitions/items/armory/colored/plate/index.xml"/>
+	<include file="definitions/items/armory/colored/ring/index.xml"/>
+	<include file="definitions/items/armory/colored/shields/index.xml"/>
+	<include file="definitions/items/armory/colored/dragon/index.xml"/>
+	<include file="definitions/items/armory/colored/leather/index.xml"/>
+	<include file="definitions/items/armory/colored/studded/index.xml"/>
+	<include file="definitions/items/armory/colored/samurai/index.xml"/>
+
+</definitions>

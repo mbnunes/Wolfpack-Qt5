@@ -42,7 +42,6 @@
 	<include file="definitions/items/armory/samurai/index.xml" />
 
 	<!-- Colored Armor -->
-	<include file="definitions/items/armory/colored/color_defines.xml"/>
-	<include file="definitions/items/armory/colored/colored_list.xml"/>
+	<include file="definitions/items/armory/colored/index.xml"/>
 
 </definitions>

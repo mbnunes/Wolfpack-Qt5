@@ -1,0 +1,18 @@
+
+<definitions>
+
+	<!-- Chain -->
+	<include file="definitions/items/armory/colored/chain/iron.xml"/>
+	<include file="definitions/items/armory/colored/chain/dull_copper.xml"/>
+	<include file="definitions/items/armory/colored/chain/shadow.xml"/>
+	<include file="definitions/items/armory/colored/chain/copper.xml"/>
+	<include file="definitions/items/armory/colored/chain/bronze.xml"/>
+	<include file="definitions/items/armory/colored/chain/golden.xml"/>
+	<!--<include file="definitions/items/armory/colored/chain/silver.xml"/>-->
+	<include file="definitions/items/armory/colored/chain/agapite.xml"/>
+	<include file="definitions/items/armory/colored/chain/verite.xml"/>
+	<include file="definitions/items/armory/colored/chain/valorite.xml"/>
+	<!--<include file="definitions/items/armory/colored/chain/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/chain/mythril.xml"/>-->
+
+</definitions>

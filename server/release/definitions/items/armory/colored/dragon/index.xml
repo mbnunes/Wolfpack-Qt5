@@ -1,0 +1,15 @@
+
+<definitions>
+
+	<!-- Dragon Armor -->
+	<include file="definitions/items/armory/colored/dragon/iron.xml"/>
+	<include file="definitions/items/armory/colored/dragon/dull_copper.xml"/>
+	<include file="definitions/items/armory/colored/dragon/shadow.xml"/>
+	<include file="definitions/items/armory/colored/dragon/copper.xml"/>
+	<include file="definitions/items/armory/colored/dragon/bronze.xml"/>
+	<include file="definitions/items/armory/colored/dragon/golden.xml"/>
+	<include file="definitions/items/armory/colored/dragon/agapite.xml"/>
+	<include file="definitions/items/armory/colored/dragon/verite.xml"/>
+	<include file="definitions/items/armory/colored/dragon/valorite.xml"/>
+
+</definitions>

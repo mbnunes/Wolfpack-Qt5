@@ -1,0 +1,18 @@
+
+<definitions>
+
+	<!-- Plate -->
+	<include file="definitions/items/armory/colored/plate/iron.xml"/>
+	<include file="definitions/items/armory/colored/plate/dull_copper.xml"/>
+	<include file="definitions/items/armory/colored/plate/shadow.xml"/>
+	<include file="definitions/items/armory/colored/plate/copper.xml"/>
+	<include file="definitions/items/armory/colored/plate/bronze.xml"/>
+	<include file="definitions/items/armory/colored/plate/golden.xml"/>
+	<!--<include file="definitions/items/armory/colored/plate/silver.xml"/>-->
+	<include file="definitions/items/armory/colored/plate/agapite.xml"/>
+	<include file="definitions/items/armory/colored/plate/verite.xml"/>
+	<include file="definitions/items/armory/colored/plate/valorite.xml"/>
+	<!--<include file="definitions/items/armory/colored/plate/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/plate/mythril.xml"/>-->
+
+</definitions>

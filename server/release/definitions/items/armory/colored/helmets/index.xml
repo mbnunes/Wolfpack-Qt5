@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Helmets -->
+	<include file="definitions/items/armory/colored/helmets/iron.xml"/>
+	<include file="definitions/items/armory/colored/helmets/dull_copper.xml"/>
+	<include file="definitions/items/armory/colored/helmets/shadow.xml"/>
+	<include file="definitions/items/armory/colored/helmets/copper.xml"/>
+	<include file="definitions/items/armory/colored/helmets/bronze.xml"/>
+	<include file="definitions/items/armory/colored/helmets/golden.xml"/>
+	<!--<include file="definitions/items/armory/colored/helmets/silver.xml"/>-->
+	<include file="definitions/items/armory/colored/helmets/agapite.xml"/>
+	<include file="definitions/items/armory/colored/helmets/verite.xml"/>
+	<include file="definitions/items/armory/colored/helmets/valorite.xml"/>
+	<!--<include file="definitions/items/armory/colored/helmets/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/helmets/mythril.xml"/>-->
+
+
+</definitions>

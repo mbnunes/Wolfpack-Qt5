@@ -1,0 +1,18 @@
+
+<definitions>
+
+	<!-- Shields -->
+	<include file="definitions/items/armory/colored/shields/iron.xml"/>
+	<include file="definitions/items/armory/colored/shields/dull_copper.xml"/>
+	<include file="definitions/items/armory/colored/shields/shadow.xml"/>
+	<include file="definitions/items/armory/colored/shields/copper.xml"/>
+	<include file="definitions/items/armory/colored/shields/bronze.xml"/>
+	<include file="definitions/items/armory/colored/shields/golden.xml"/>
+	<!--<include file="definitions/items/armory/colored/shields/silver.xml"/>-->
+	<include file="definitions/items/armory/colored/shields/agapite.xml"/>
+	<include file="definitions/items/armory/colored/shields/verite.xml"/>
+	<include file="definitions/items/armory/colored/shields/valorite.xml"/>
+	<!--<include file="definitions/items/armory/colored/shields/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/shields/mythril.xml"/>-->
+
+</definitions>

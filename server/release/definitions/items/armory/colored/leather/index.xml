@@ -1,0 +1,11 @@
+
+<definitions>
+
+	<!-- Leather Armor -->
+	<include file="definitions/items/armory/colored/leather/leather.xml"/>
+	<include file="definitions/items/armory/colored/leather/spined_leather.xml"/>
+	<include file="definitions/items/armory/colored/leather/horned_leather.xml"/>
+	<include file="definitions/items/armory/colored/leather/barbed_leather.xml"/>
+
+
+</definitions>
