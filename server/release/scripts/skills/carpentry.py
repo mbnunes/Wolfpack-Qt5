@@ -4,8 +4,9 @@ import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
-from combat.properties import itemcheck, fromitem
+from wolfpack.properties import itemcheck, fromitem
 import random
+from skills.blacksmithing import METALS
 
 #
 # Check if the character is using the right tool
@@ -93,6 +94,7 @@ class CarpItemAction(CraftItemAction):
     # See if special ingots were used in the creation of
     # this item. All items crafted by carpenterss gain the
     # color!
+    item.decay = 1
     if self.submaterial1 > 0:
       material = self.parent.getsubmaterial1used(player, arguments)
       material = self.parent.submaterials1[material]
@@ -128,13 +130,16 @@ class CarpentryMenu(MakeMenu):
   def __init__(self, id, parent, title):
     MakeMenu.__init__(self, id, parent, title)
     self.allowmark = 1
-    self.allowrepair = 1
-    #self.allowenhance = 1
-    #self.allowsmelt = 1
-    self.submaterial3missing = 1060884
-    self.submaterial2missing = 1060884
-    self.submaterial1missing = 1044037
-    self.submaterial1noskill = 1044268
+    self.allowrepair = 0
+    self.allowenhance = 0
+    self.allowsmelt = 0
+    self.submaterial3 = METALS
+    self.submaterial4 = CLOTH
+    self.submaterial1missing = 1041524 # Wood
+    self.submaterial2missing = 1042598 # Boards
+    self.submaterial3missing = 1042081 # Ingots
+    self.submaterial4missing = 1042081 # Cloth
+    self.submaterial1noskill = 500586
     self.gumptype = 0x4f1ba410 # This should be unique
 
   #
@@ -260,12 +265,15 @@ def loadMenu(id, parent = None):
           if subchild.name == 'wood':
             action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
 
-          # How much of the secondary resource should be consumed
-          elif subchild.name == 'ingots':
+          if subchild.name == 'boards':
             action.submaterial2 = hex2dec(subchild.getattribute('amount', '0'))
 
-          elif subchild.name == 'cloth':
+          # How much of the secondary resource should be consumed
+          elif subchild.name == 'ingots':
             action.submaterial3 = hex2dec(subchild.getattribute('amount', '0'))
+
+          elif subchild.name == 'cloth':
+            action.submaterial4 = hex2dec(subchild.getattribute('amount', '0'))
 
           # Normal Material
           elif subchild.name == 'material':
@@ -301,12 +309,7 @@ def loadMenu(id, parent = None):
             except:
               console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
 
-            try:
-              penalty = hex2dec(subchild.getattribute('penalty','0'))
-            except:
-              console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
-
-            action.skills[skill] = [minimum, maximum, penalty]
+            action.skills[skill] = [minimum, maximum]
 
   # Sort the menu. This is important for the makehistory to make.
   menu.sort()
