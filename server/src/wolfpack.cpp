@@ -1923,7 +1923,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	switch (RandomNum(0, 1))
 	{
 	case 0:
-		if ((pc->id() == (unsigned char)0x0190) && (pc->xid == (unsigned char)0x0190))
+		if ((pc->id() == 0x0190) && (pc->xid == 0x0190))
 		{
 			pi->setId(0x1539);
 			pi->layer=0x04; // pant
@@ -1934,7 +1934,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		}
 		break;
 	case 1:
-		if ((pc->id()==(unsigned char)0x0190) && (pc->xid==(unsigned char)0x0190))
+		if ((pc->id() == 0x0190) && (pc->xid == 0x0190))
 		{
 			pi->setId(0x152E);
 			pi->layer=0x04;
