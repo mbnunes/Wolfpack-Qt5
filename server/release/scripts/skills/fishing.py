@@ -34,6 +34,17 @@ def onUse( char, item ):
 	return 1
 
 def response( char, args, target ):
+	# First: Check Distance (easiest)
+
+	# Second: Check Map/Static/Dynamic Water and eventual blocking stuff above it
+	
+	# Third: Show Animation/Sound + Show Effect (delayed) + Get Fish (delayed)
+	char.action( 0x0c )
+
+	# Soundeffect together with static effect (delayed 2 seconds)
+	# char.soundeffect( 0x364 )
+	# -- static effect, id: 0x352d, speed: 0x4, duration: 0x10
+
 	# SkillFail: 
 	# SkillSuccess:
 	# Too Far away to do that: ID: 0x7A4F0 (0) / You need to be closer to the water to fish!
