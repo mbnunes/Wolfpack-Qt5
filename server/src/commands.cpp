@@ -818,33 +818,6 @@ void commandPageNotify( cUOSocket* socket, const QString& command, const QString
 }
 
 /*
-	\command password
-	\description Change your current password.
-	\usage - <code>password [value]</code>
-	Value is the new password for your account. Its length is
-	limited to 30 characters.
-*/
-void commandPassword( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	if ( args.count() < 1 )
-	{
-		socket->sysMessage( tr( "Usage: password <newpassword>" ) );
-		return;
-	}
-
-	QString password = args.join( " " );
-	if ( password.length() > 30 )
-	{
-		socket->sysMessage( tr( "Your password can have a maximum of 30 characters." ) );
-		return;
-	}
-
-	socket->account()->setPassword( password );
-	socket->sysMessage( tr( "Your password has been changed." ) );
-}
-
-/*
 	\command gmtalk
 	\description Broadcast a message to connected gamemasters.
 	\usage - <code>gmtalk [message]</code>
@@ -883,7 +856,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 	{
 		enum DoorFacing
 		{
-			WestCW			= 0,
+			WestCW = 0,
 			EastCCW,
 			WestCCW,
 			EastCW,
@@ -1119,7 +1092,6 @@ stCommand cCommands::commands[] =
 	{ "MOVE", commandMove },
 	{ "PAGES", commandPages },
 	{ "PAGENOTIFY", commandPageNotify },
-	{ "PASSWORD", commandPassword },
 	{ "RELOAD", commandReload },
 	{ "REMOVE", commandRemove },
 	{ "RESEND", commandResend },
