@@ -11,59 +11,97 @@
 <definitions>
 	<!-- Nightsight -->
 	<item id="potion_nightsight">
-		<inherit id="0xf06" />
-		<name>Purple Potion</name>
-		<identified>a Nightsight</identified>
+		<inherit id="f06" />
+		<name>Black Potion</name>
+		<identified>Nightsight</identified>
 		<more1>1</more1>
 		<weight>0.5</weight>
-		<event>potions</event>
+		<events>potions</events>
+		<category>Equipment\Potions\Nightsight</category>
+
+		<!-- Pricing information -->
 	</item>
 
-	<!-- Black Potion -->
-	<item id="f06">
-		<id>0xf06</id>
-		<category>Professions\Alchemist\Potions\Black Potion</category>
+	<!-- Lesser Heal -->
+	<item id="potion_lesserheal">
+		<inherit id="f0c" />
+		<name>Yellow Potion</name>
+		<identified>Lesser Heal</identified>
+		<more1>2</more1>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Lesser Heal</category>
+
+		<!-- Pricing information -->
 	</item>
 
-	<!-- Orange Potion -->
+	<!-- Heal -->
+	<item id="potion_heal">
+		<inherit id="f0c" />
+		<name>Yellow Potion</name>
+		<identified>Heal</identified>
+		<more1>3</more1>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Heal</category>
+
+		<!-- Pricing information -->
+	</item>
+
+	<!-- Greater Heal -->
+	<item id="potion_greaterheal">
+		<inherit id="f0c" />
+		<name>Yellow Potion</name>
+		<identified>Greater Heal</identified>
+		<more1>3</more1>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Greater Heal</category>
+
+		<!-- Pricing information -->
+	</item>
+
+<!--
+	 Orange Potion
 	<item id="f07">
 		<id>0xf07</id>
 		<category>Professions\Alchemist\Potions\Orange Potion</category>
 	</item>
 
-	<!-- Blue Potion -->
+	Blue Potion
 	<item id="f08">
 		<id>0xf08</id>
 		<category>Professions\Alchemist\Potions\Blue Potion</category>
 	</item>
 
-	<!-- White Potion -->
+	White Potion
 	<item id="f09">
 		<id>0xf09</id>
 		<category>Professions\Alchemist\Potions\White Potion</category>
 	</item>
 
-	<!-- Green Potion -->
+	Green Potion
 	<item id="f0a">
 		<id>0xf0a</id>
 		<category>Professions\Alchemist\Potions\Green Potion</category>
 	</item>
 
-	<!-- Red Potion -->
+	Red Potion
 	<item id="f0b">
 		<id>0xf0b</id>
 		<category>Professions\Alchemist\Potions\Red Potion</category>
 	</item>
 
-	<!-- Yellow Potion -->
+	Yellow Potion
 	<item id="f0c">
 		<id>0xf0c</id>
 		<category>Professions\Alchemist\Potions\Yellow Potion</category>
 	</item>
 
-	<!-- Purple Potion -->
+	Purple Potion
 	<item id="f0d">
 		<id>0xf0d</id>
 		<category>Professions\Alchemist\Potions\Purple Potion</category>
 	</item>
+	-->
 </definitions>
