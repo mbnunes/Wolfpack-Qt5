@@ -86,6 +86,7 @@ HEADERS         = client.h \
                   targetrequests.h \
 		  telport.h \
                   territories.h \
+                  tracking.h \
 		  typedefs.h \
 		  uobject.h \
 		  utilsys.h \
@@ -168,6 +169,7 @@ SOURCES         = client.cpp \
 		  targetrequests.cpp \
 		  telport.cpp \
                   territories.cpp \
+                  tracking.cpp \
 		  uobject.cpp \
 		  utilsys.cpp \
 		  weight.cpp \
@@ -195,7 +197,8 @@ SOURCES		+= python/char.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
 		   python/pycoord.cpp \
-		   python/socket.cpp
+		   python/socket.cpp \
+		   python/wppythonscript.cpp
 
 INTERFACES	=
 TRANSLATIONS    = \
