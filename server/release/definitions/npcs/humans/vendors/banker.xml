@@ -31,7 +31,7 @@
 	</npc>
 	
 	<npc id="banker_female">
-		<inherit>base_male</inherit>
+		<inherit>base_female</inherit>
 		<ai>Human_Vendor</ai>
 		<bindmenu>banker_menu,vendor_menu</bindmenu>
 		<invulnerable />
