@@ -44,6 +44,8 @@ ORES = {
 }
 
 def mining( char, pos, tool ):
+	if not tool:
+		return False
 	char.addtimer( 1300, "skills.mining.domining", [ tool.serial, pos ] )
 	char.socket.settag( 'is_mining', ( wolfpack.time.currenttime() + miningdelay ) )
 	char.turnto( pos )

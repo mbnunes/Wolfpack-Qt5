@@ -7,10 +7,44 @@
 =================================================================
 -->
 <definitions>
+	<!-- Context Menu for securables -->
+	<contextmenu id="security_menu">
+		<scripts>housing.security</scripts>
+		<option tag="67" msgid="6203" checkvisible="true" color="0" />
+	</contextmenu>
+
+	<item id="housedoor">
+		<nodecay />
+		<movable>3</movable>
+		<basescripts>housing.security,door</basescripts>
+		<bindmenu>security_menu</bindmenu>
+	</item>
+	
+	<item id="housesign">
+		<id>0xbd2</id>
+		<nodecay />
+		<movable>3</movable>
+		<basescripts>housing.sign</basescripts>
+	</item>
+
 	<multi id="4064">
 		<name>Small Stone and Plaster House</name>
 		<id>0x4064</id>
 		<nodecay />
+	</multi>
+	
+	<!-- Base for small houses -->
+	<multi id="smallhouse_items">
+		<door x="0" y="3" z="7" id="0x6a5" /> <!-- Wooden door facing south -->
+		<sign x="2" y="4" z="5" />
+	</multi>
+	
+	<multi id="small_stone_and_plaster_house">
+		<inherit id="smallhouse_items" />
+		<name>Small Stone and Plaster House</name>
+		<id>0x4064</id>
+		<nodecay />
+		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 	</multi>
 
 	<multi id="4065">
