@@ -17,7 +17,7 @@ SKILL_STRCHANCE = 5
 SKILL_DEXCHANCE = 6
 SKILL_INTCHANCE = 7
 
-GLOBAL_FACTOR = 0.5
+GLOBAL_FACTOR = 1.0
 
 #
 # Skill data registry
@@ -260,6 +260,8 @@ def onSkillGain(char, skill, lower, higher, success):
 	
 	# Multiply with another gainfactor
 	gainchance = gainchance * GLOBAL_FACTOR
+	
+	char.log(LOG_TRACE, 'Gainchance for skill %s is %f.\n' % (SKILLNAMES[skill], gainchance))
 
 	# Tamed creatures get a * 2 bonus for their gain.
 	if char.npc and char.tamed:
