@@ -9,15 +9,20 @@ PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE       	+= app
 CONFIG        	+= qt console thread exceptions rtti
-INCLUDEPATH	+= lib/Python/include
+#INCLUDEPATH	+= lib/Python/include
 OPTIONS		+= mysql
 
 unix {
 
 	# Common unix settings
 	# Lets try to figure some paths
+	message("HINT: ./configure script can simplify compilation")
 
-	# MySQL includes first
+	# MySQL includes first. Run configure script to initialize it.
+	!isEmpty($(MYSQLINC))
+	{
+	    INCLUDEPATH += $$(MYSQLINC)
+	}
 	contains( OPTIONS, mysql ) {
 		message("MySQL support specified, trying to locate required files")
 		exists(/usr/include/mysql/mysql.h) {
@@ -48,6 +53,11 @@ unix {
 			}
 			LIBS += -lmysqlclient
 		}
+	}
+	# Python includes. Run configure script to initialize it.
+	!isEmpty($(PYTHONINC))
+	{
+	    INCLUDEPATH += $$(PYTHONINC)
 	}
 	
 	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite lib/Python/Include network

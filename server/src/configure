@@ -1,0 +1,19 @@
+#!/bin/sh
+#################################################################
+#   )      (\_     # Wolfpack 13.0.0 Build Script               #
+#  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
+#   )).-" {{ ;"`   # Revised by: Wolfpack Development Team      #
+#  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
+#################################################################
+
+#Searching Include paths
+#MYSQL
+echo Searching Mysql include...
+MYSQLINC=`mysql_config --cflags|awk '{print(substr($1,4,length($1)-4))}'`
+#PYTHON
+echo Searching Python include searching...
+PYTHONINC=`perl -e 'print (substr(((\`find / -name Python.h\`)[0]),0,length()-10))'`
+export MYSQLINC PYTHONINC
+echo Running qmake...
+$QTDIR/bin/qmake -o Makefile wolfpack.pro
+echo Run make now!
