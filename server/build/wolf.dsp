@@ -144,6 +144,14 @@ SOURCE=.\cweather.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\daemon.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\daemon_win.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\dbl_single_click.cpp
 # End Source File
 # Begin Source File
@@ -453,6 +461,10 @@ SOURCE=.\customtags.h
 # Begin Source File
 
 SOURCE=.\cweather.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\daemon.h
 # End Source File
 # Begin Source File
 
