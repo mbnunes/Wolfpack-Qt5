@@ -2336,6 +2336,10 @@ void cUOSocket::sendSellWindow( P_CHAR pVendor, P_CHAR pSeller )
 void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 {
 	Q_UNUSED(packet);
+
+	if( player()->onHelp() )
+		return;
+
 	cHelpGump* pGump = new cHelpGump( this->player()->serial() );
 	send( pGump );
 }
