@@ -62,5 +62,5 @@ newitem = _wolfpack.newitem
 newplayer = _wolfpack.newplayer
 tickcount = _wolfpack.tickcount
 packet = _wolfpack.packet
-getoption = _wolfpack.getoption
-setoption = _wolfpack.setoption
+#getoption = _wolfpack.getoption
+#setoption = _wolfpack.setoption
