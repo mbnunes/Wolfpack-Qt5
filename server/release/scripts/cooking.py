@@ -52,11 +52,11 @@ ids = {
 def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0, 500, 312 ) # You can't reach...
+		char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 		return 1
 	
 	if ids.has_key( item.id ):
-		char.socket.clilocmessage( 0, 500, 242 )
+		char.socket.clilocmessage( 0x7A1FE ) # What should i cook this on
 		char.socket.attachtarget( "cooking.response", [ item.serial ] )
 		return 1
 
@@ -68,11 +68,11 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
 	
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
-		char.socket.clilocmessage( 0, 500, 295 )
+		char.socket.clilocmessage( 0x7A258 )
 		return 1
 		
 	if abs( char.pos.z - target.pos.z ) > 5:
-		char.socket.clilocmessage( 0, 500, 295 )
+		char.socket.clilocmessage( 0x7A258 )
 		return 1
 	
 	# Check target (only item targets valid)
