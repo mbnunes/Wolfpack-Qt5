@@ -534,7 +534,7 @@ void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 void cCharStuff::cDragonAI::Breath(int i, int currenttime)
 {
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	Magic->PFireballTarget(i, pc_i->targ, 20);
+	Magic->PFireballTarget(i, DEREF_P_CHAR(FindCharBySerial(pc_i->targ)), 20);
 	DoneAI(i, currenttime);
 	return; 
 }
@@ -586,8 +586,8 @@ void cCharStuff::cDragonAI::HealMagic(int i, int currenttime)
 		{
 			Magic->NPCHeal(i);
 		}
-		if (pc_i->targ >= 1)
-			npcattacktarget(i, pc_i->targ);
+		if (pc_i->targ != INVALID_SERIAL)
+			npcattacktarget(i, DEREF_P_CHAR(FindCharBySerial(pc_i->targ)));
 	}
 	DoneAI(i, currenttime);
 }

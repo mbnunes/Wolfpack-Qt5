@@ -2222,11 +2222,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					if( fieldSpell( curSpell ) )
 					{
-					/*
-					int i; i=pc_currchar->targ;
-					if(pc_defender->flag==0x04) criminal(cc);
-					{
-						*/
 						//AntiChrist - fixed the fields missing middle piece - 9/99
 						//(changed the order of fy and fy also!)
 						j=fielddir(DEREF_P_CHAR(pc_currchar), x, y, z); // lb bugfix, socket char# confusion

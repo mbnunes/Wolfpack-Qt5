@@ -172,14 +172,14 @@ public:
 	unsigned int kills; //PvP Kills
 	unsigned int deaths;
 	bool dead; // Is character dead
-	int packitem; // Only used during character creation
+	SERIAL packitem; // Only used during character creation
 	unsigned char fixedlight; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	char speech; // For NPCs: Number of the assigned speech block
 	int weight; //Total weight
 	unsigned int att; // Intrinsic attack (For monsters that cant carry weapons)
 	unsigned int def; // Intrinsic defense
 	char war; // War Mode
-	int targ; // Current combat target
+	SERIAL targ; // Current combat target
 	unsigned int timeout; // Combat timeout (For hitting)
 	unsigned int timeout2; // memory of last shot timeout
 	unsigned int regen, regen2, regen3;//Regeneration times for mana, stamin, and str

@@ -764,7 +764,7 @@ void cSkills::PeaceMaking(int s)
 							sysmessage(j, "You hear some lovely music, and forget about fighting.");
 					if (mapchar->war) 
 						npcToggleCombat(DEREF_P_CHAR(mapchar));
-					mapchar->targ = -1;
+					mapchar->targ = INVALID_SERIAL;
 					mapchar->attacker = INVALID_SERIAL;
 					mapchar->resetAttackFirst();
 				}
@@ -2493,9 +2493,9 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 {
 	P_CHAR pc_currchar = currchar[s];
-	int target = pc_currchar->targ;
+	P_CHAR target = FindCharBySerial(pc_currchar->targ);
 
-	if (chars[target].isGM()) return;
+	if (target->isGM()) return;
 
 	int decrease=(pc_currchar->in/10)+3;
 
@@ -2503,16 +2503,16 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 	{
 		if(((rand()%20)+pc_currchar->in)>45) //not always
 		{
-			if( chars[target].mn <= decrease )
-				chars[target].mn = 0;
+			if( target->mn <= decrease )
+				target->mn = 0;
 			else 
-				chars[target].mn-=decrease;//decrease mana
-			updatestats(target,1);//update
+				target->mn-=decrease;//decrease mana
+			updatestats(DEREF_P_CHAR(target),1);//update
 			sysmessage(s,"Your spiritual forces disturb the enemy!");
 			sysmessage(calcSocketFromChar(target),"A damned soul is disturbing your mind!");
 			SetSkillDelay(DEREF_P_CHAR(pc_currchar));
 
-			sprintf((char*)temp, "%s is persecuted by a ghost!!", chars[target].name);
+			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name);
 					
 			// Dupois pointed out the for loop was changing i which would drive stuff nuts later
 				
@@ -2522,7 +2522,7 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 				{
 					pc_currchar->emotecolor1=0x00;
 					pc_currchar->emotecolor2=0x26;
-					npcemote(j, target, (char*)temp, 1);
+					npcemote(j, DEREF_P_CHAR(target), (char*)temp, 1);
 				}
 			}
 		} else

@@ -404,7 +404,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		if(SrvParms->bg_sounds>10) SrvParms->bg_sounds=10;
 		timer=SrvParms->bg_sounds*100;
 		if (timer==0) timer=1;
-		if( online(DEREF_P_CHAR(pc)) && pc->isPlayer() && !pc->dead && ((rand()%(timer))==(timer/2))) bgsound(DEREF_P_CHAR(pc)); //lb, bgsound uses array positions not sockets !
+		if( online(DEREF_P_CHAR(pc)) && pc->isPlayer() && !pc->dead && ((rand()%(timer))==(timer/2))) bgsound(pc); //lb, bgsound uses array positions not sockets !
 	}
 	if( pc->spiritspeaktimer > 0 && pc->spiritspeaktimer <= uiCurrentTime)
 		pc->spiritspeaktimer = 0;

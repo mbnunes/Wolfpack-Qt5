@@ -81,7 +81,8 @@ void cTrade::buyaction(int s)
 			// Fixed for adv trade system -- Magius(CHE) §
 			tmpvalue = buyit[i]->value;
 			tmpvalue = calcValue(buyit[i], tmpvalue);
-			if (SrvParms->trade_system==1) tmpvalue = calcGoodValue(s, buyit[i], tmpvalue,0);
+			if (SrvParms->trade_system==1) 
+				tmpvalue = calcGoodValue(pc_currchar, buyit[i], tmpvalue,0);
 			goldtotal += (amount[i]*tmpvalue);
 			// End Fix for adv trade system -- Magius(CHE) §
 		}
@@ -362,7 +363,7 @@ void cTrade::sellaction(int s)
 					value=pi->value;
 					value=calcValue(pSell, value);
 					if (SrvParms->trade_system==1)
-						value=calcGoodValue(s, pSell, value, 1); // Fixed for adv trade --- by Magius(CHE) §
+						value=calcGoodValue(currchar[s], pSell, value, 1); // Fixed for adv trade --- by Magius(CHE) §
 					break;	// let's take the first match
 				}
 			}

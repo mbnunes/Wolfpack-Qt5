@@ -2951,13 +2951,10 @@ void impowncreate(int s, int i, int z) //socket, player to send
 
 void sendshopinfo(int s, int c, P_ITEM pi)
 {
-	unsigned char m1[6096];
-	unsigned char m2[6096];
-	char itemname[256];
+	unsigned char m1[6096] = {0,};
+	unsigned char m2[6096] = {0,};
+	char itemname[256] = {0,};
 	char cFoundItems=0;
-	memset(m1,0,6096);
-	memset(m2,0,6096);
-	memset(itemname,0,256);
 	int k, m1t, m2t, value,serial,ci;
                
 	m1[0]=0x3C; // Container content message
@@ -2999,7 +2996,7 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 				m1t=m1t+19;
 				value=pi_j->value;
 				value=calcValue(pi_j, value);
-				if (SrvParms->trade_system==1) value=calcGoodValue(c, pi_j, value, 0); // by Magius(CHE)
+				if (SrvParms->trade_system==1) value=calcGoodValue(currchar[s], pi_j, value, 0); // by Magius(CHE)
 				m2[m2t+0]=value>>24;// Item value/price
 				m2[m2t+1]=value>>16;//Item value/price
 				m2[m2t+2]=value>>8; // Item value/price
@@ -3109,7 +3106,7 @@ int sellstuff(int s, int i)
 							ShortToCharPtr(pi_j->amount,m1+m1t+8);
 							value=pi_q->value;
 							value=calcValue(pi_j, value);
-							if (SrvParms->trade_system==1) value=calcGoodValue(i, pi_j, value, 1); // by Magius(CHE)
+							if (SrvParms->trade_system==1) value=calcGoodValue(pc, pi_j, value, 1); // by Magius(CHE)
 							m1[m1t+10]=value>>8;
 							m1[m1t+11]=value%256;
 							m1[m1t+12]=0;// Unknown... 2nd length byte for string?

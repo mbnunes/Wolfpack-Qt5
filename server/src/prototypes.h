@@ -175,7 +175,7 @@ void playmonstersound(int monster, int id1, int id2, int sfx);
 void sellaction(int s);
 void addgold(int s, int totgold);
 int calcValue(P_ITEM pi, int value);
-int calcGoodValue(int npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
+int calcGoodValue(P_CHAR npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
 void StoreItemRandomValue(P_ITEM pi,int tmpreg); // by Magius(CHE) (2) for trade system
 
 P_ITEM tradestart(int s, int i);
@@ -249,7 +249,7 @@ void loadmenuprivs();
 
 void advancementobjects(CHARACTER s, int x, int always);
 void itemsfx(UOXSOCKET s, short item);
-void bgsound(int s);
+void bgsound(P_CHAR pc);
 void splitline();
 int hexnumber(int countx);
 int makenumber(int countx);

@@ -195,7 +195,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	p_pet->war=0;
 	p_pet->attacker = INVALID_SERIAL;
 	pPlayer->war=0;
-	pPlayer->targ=-1;
+	pPlayer->targ=INVALID_SERIAL;
 	p_pet->pos.x=xx;
 	p_pet->pos.y=yy;
 
@@ -677,7 +677,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	{
 		pPlayer->guarded = false;
 		pPet->ftarg=-1;
-		pPet->targ=-1;
+		pPet->targ = INVALID_SERIAL;
 		if (pPet->war) npcToggleCombat(k);
 		pPet->npcWander=0;
 		return 1;

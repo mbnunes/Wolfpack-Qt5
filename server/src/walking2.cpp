@@ -685,7 +685,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 			pc->stm--;
 			updatestats(DEREF_P_CHAR(pc),2);
 		}
-		if( pc->war && pc->targ != -1 )
+		if( pc->war && pc->targ != INVALID_SERIAL )
 		{
 			pc->timeout=uiCurrentTime+CLOCKS_PER_SEC*2;
 		}
@@ -1381,7 +1381,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             if (!pc->war)
             {
                 //                              pc->attacker=INVALID_SERIAL;
-                pc->targ=-1;
+                pc->targ = INVALID_SERIAL;
             }
             Network->xSend(i, extmove, 17, 0);
         }
@@ -1654,59 +1654,59 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
                 NpcWalk(pc_i,j,2);
                 break;
             case 5: //FLEE!!!!!!
-            {
-                k=pc_i->targ;
-                if (k < 0 || k>=(int)cmem) return;
-
-		if ( chardist(DEREF_P_CHAR(pc_i), k) < P_PF_MFD )
-		{
-			// calculate a x,y to flee towards
-			int mydist = P_PF_MFD - chardist(DEREF_P_CHAR(pc_i), k) + 1;
-			j=chardirxyz(DEREF_P_CHAR(pc_i), chars[k].pos.x, chars[k].pos.y);
-			short int myx = GetXfromDir(j, pc_i->pos.x);
-			short int myy = GetYfromDir(j, pc_i->pos.y);
-
-			short int xfactor = 0;
-			short int yfactor = 0;
-
-			if ( myx != pc_i->pos.x )
-				if ( myx < pc_i->pos.x )
-					xfactor = -1;
-				else
-					xfactor = 1;
-
-			if ( myy != pc_i->pos.y )
-				if ( myy < pc_i->pos.y )
-					yfactor = -1;
-				else
-					yfactor = 1;
-
-			myx += ( xfactor * mydist );
-			myy += ( yfactor * mydist );
-
-			// now, got myx, myy... lets go.
-
-                        PathFind(pc_i, myx, myy);
-                        j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-                        pc_i->pathnum++;
-			Walking(pc_i,j,256);
-		}
-		else
-		{ // wander freely... don't just stop because I'm out of range.
-                	j=rand()%40;
-                	if (j<8 || j>32) dnpctime=5;
-                	if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-        	            j=pc_i->dir;
-	                NpcWalk(pc_i,j,0);
-		}
-                break;
+				{
+					P_CHAR pc_k = FindCharBySerial(pc_i->targ);
+					if (pc_k == NULL) return;
+					
+					if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_k)) < P_PF_MFD )
+					{
+						// calculate a x,y to flee towards
+						int mydist = P_PF_MFD - chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_k)) + 1;
+						j=chardirxyz(DEREF_P_CHAR(pc_i), pc_k->pos.x, pc_k->pos.y);
+						short int myx = GetXfromDir(j, pc_i->pos.x);
+						short int myy = GetYfromDir(j, pc_i->pos.y);
+						
+						short int xfactor = 0;
+						short int yfactor = 0;
+						
+						if ( myx != pc_i->pos.x )
+							if ( myx < pc_i->pos.x )
+								xfactor = -1;
+							else
+								xfactor = 1;
+							
+							if ( myy != pc_i->pos.y )
+								if ( myy < pc_i->pos.y )
+									yfactor = -1;
+								else
+									yfactor = 1;
+								
+								myx += ( xfactor * mydist );
+								myy += ( yfactor * mydist );
+								
+								// now, got myx, myy... lets go.
+								
+								PathFind(pc_i, myx, myy);
+								j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+								pc_i->pathnum++;
+								Walking(pc_i,j,256);
+					}
+					else
+					{ // wander freely... don't just stop because I'm out of range.
+						j=rand()%40;
+						if (j<8 || j>32) dnpctime=5;
+						if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
+							j=pc_i->dir;
+						NpcWalk(pc_i,j,0);
+					}
+				}
+				break;
             default:
                 break;
                 //printf("ERROR: Fallout of switch statement without default [%i]. walking.cpp, npcMovement2()\n",chars[i].npcWander); //Morrolan
-            } // break; //Morrolan unnecessary ?
-            }
-        }
-        pc_i->npcmovetime=(unsigned int)(currenttime+double((NPCSPEED*CLOCKS_PER_SEC)/5)); //reset move timer
+			} // break; //Morrolan unnecessary ?
+		}
+		pc_i->npcmovetime=(unsigned int)(currenttime+double((NPCSPEED*CLOCKS_PER_SEC)/5)); //reset move timer
         //pc_i->npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*CLOCKS_PER_SEC*(1+dnpctime))); //reset move timer
     }
 }

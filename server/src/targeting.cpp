@@ -667,7 +667,7 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 		pc->fame,pc->karma,pc->deaths,pc->kills,
 		pc->npcaitype, pc->npcWander, pc->weight);
 	sysmessage(s, (char*)temp);
-	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target [%i] Carve[%i]", //Changed by Magius(CHE)
+	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
 		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
 	Gumps->Open(s, c, 0, 8);

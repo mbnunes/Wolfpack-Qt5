@@ -317,7 +317,7 @@ void cChar::Init(bool ser)
 	this->att=0; // Intrinsic attack (For monsters that cant carry weapons)
 	this->def=0; // Intrinsic defense
 	this->war=0; // War Mode
-	this->targ=-1; // Current combat target
+	this->targ=INVALID_SERIAL; // Current combat target
 	this->timeout=0; // Combat timeout (For hitting)
 	this->timeout2=0;
 	this->regen=0;
@@ -1852,7 +1852,7 @@ void cChar::setNextMoveTime(short tamediv)
 //
 void cChar::fight(P_CHAR other)
 {
-	this->targ=DEREF_P_CHAR(other);
+	this->targ = other->serial;
 	this->unhide();
 	this->disturbMed();	// Meditation
 	this->attacker = other->serial;

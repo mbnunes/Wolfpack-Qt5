@@ -1253,16 +1253,13 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						}
 						else if (!(strcmp("NEWOWNER", (char*)script1)))  // Set ownership of item
 						{
-							int p;
 							if (pi_itemnum != NULL)
 							{
-								p = DEREF_P_CHAR(currchar[ts]);
-								pi_itemnum->SetOwnSerial(chars[p].serial);
+								pi_itemnum->SetOwnSerial(currchar[ts]->serial);
 							}
 							if (npcnum>-1)
 							{
-								p = DEREF_P_CHAR(currchar[ts]);
-								chars[npcnum].SetOwnSerial(chars[p].serial);
+								chars[npcnum].SetOwnSerial(currchar[ts]->serial);
 								chars[npcnum].tamed = true;// AntiChrist FIX
 							}
 						}

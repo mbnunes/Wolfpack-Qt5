@@ -54,8 +54,8 @@ void RcvAttack(P_CLIENT ps)
 	{
 		if(SrvParms->persecute)
 		{//start persecute stuff - AntiChrist
-			pc_currchar->targ = DEREF_P_CHAR(pc_i);
-			if(pc_currchar->targ==-1) return;
+			pc_currchar->targ = pc_i->serial;
+			if(pc_currchar->targ==INVALID_SERIAL) return;
 			else Skills->Persecute(s);
 			return;
 		} else
@@ -72,7 +72,7 @@ void RcvAttack(P_CLIENT ps)
 
 	if(!pc_currchar->dead)
 	{
-		pc_currchar->targ=calcCharFromSer(serial);
+		pc_currchar->targ = serial;
 		pc_currchar->unhide();
 		pc_currchar->disturbMed(s);
 
@@ -91,7 +91,7 @@ void RcvAttack(P_CLIENT ps)
 		}
 		
 		SndAttackOK(s, pc_i->serial);	//keep the target highlighted       
-		if (!(pc_i->targ==-1))
+		if (!(pc_i->targ == INVALID_SERIAL))
 		{
 			pc_i->attacker = pc_currchar->serial;
 			pc_i->resetAttackFirst();

@@ -1416,7 +1416,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0x72:// Combat Mode			
 					pc_currchar->war=buffer[s][1];
-					pc_currchar->targ=-1;
+					pc_currchar->targ = INVALID_SERIAL;
 					Xsend(s, buffer[s], 5);
 					if (pc_currchar->dead && pc_currchar->war) // Invisible ghost, resend.
 					{

@@ -1020,7 +1020,7 @@ void deathstuff(int i)
 	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
 	{
 		P_CHAR pc_t = iter_char.GetData();
-		if (pc_t->targ == DEREF_P_CHAR(pc_player) && !pc_t->free)
+		if (pc_t->targ == pc_player->serial && !pc_t->free)
 		{
 			if (pc_t->npcaitype==4) //LB change from 0x40 to 4
 			{
@@ -1029,7 +1029,7 @@ void deathstuff(int i)
 				pc_t->setNextMoveTime();
 				npctalkall(DEREF_P_CHAR(pc_t),"Thou have suffered thy punishment, scoundrel.",0);
 			}
-			pc_t->targ=-1;
+			pc_t->targ=INVALID_SERIAL;
 			pc_t->timeout=0;
 			if (pc_t->attacker != INVALID_SERIAL)
 			{
@@ -3571,25 +3571,25 @@ void npcattacktarget(int target2, int target)
 
 	if (pc_target->dead || pc_target2->dead) return;
 
-	if (pc_target->targ!=-1)
-		cdist=chardist(DEREF_P_CHAR(pc_target), pc_target->targ);
+	if (pc_target->targ!=INVALID_SERIAL)
+		cdist = chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(FindCharBySerial(pc_target->targ)));
 	else cdist=30;
 
 	if (cdist>chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(pc_target2)))
 	{
-		pc_target->targ = DEREF_P_CHAR(pc_target2);
+		pc_target->targ = pc_target2->serial;
 		pc_target->attacker = pc_target2->serial;
 		pc_target->setAttackFirst();
 	}
 
-	if (pc_target2->targ!=-1)
-		cdist=chardist(DEREF_P_CHAR(pc_target2), pc_target2->targ);
+	if (pc_target2->targ != INVALID_SERIAL)
+		cdist=chardist(DEREF_P_CHAR(pc_target2), DEREF_P_CHAR(FindCharBySerial(pc_target2->targ)));
 	else cdist=30;
 
 	if ((cdist>chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(pc_target2)))&&
-		((!(pc_target2->npcaitype==4)||(!((pc_target2->targ==-1)))))) // changed from 0x40 to 4, LB
+		((!(pc_target2->npcaitype==4)||(!((pc_target2->targ==INVALID_SERIAL)))))) // changed from 0x40 to 4, LB
 	{
-		pc_target2->targ=DEREF_P_CHAR(pc_target);
+		pc_target2->targ = pc_target->serial;
 		pc_target2->attacker = pc_target->serial;
 		pc_target2->resetAttackFirst();
 	}
@@ -3706,7 +3706,7 @@ void npcsimpleattacktarget(int target2, int target)
 {
 	P_CHAR pc_target  = MAKE_CHARREF_LR(target);
 	P_CHAR pc_target2 = MAKE_CHARREF_LR(target2);
-	if ((pc_target->targ==target2)&&(pc_target2->targ==target)) return;
+	if ((pc_target->targ==pc_target2->serial)&&(pc_target2->targ==pc_target->serial)) return;
 
 	if (pc_target->dead || pc_target2->dead) return;
 
@@ -4319,9 +4319,9 @@ int calcValue(P_ITEM pi, int value)
 	return value;
 }
 
-int calcGoodValue(int npcnum2, P_ITEM pi, int value,int goodtype)
+int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
 { // Function Created by Magius(CHE) for trade System
-	int actreg=calcRegionFromXY(chars[npcnum2].pos.x, chars[npcnum2].pos.y);
+	int actreg=calcRegionFromXY(npcnum2->pos.x, npcnum2->pos.y);
 	int regvalue=0;
 	int x;
 	if (pi == NULL)
@@ -4895,19 +4895,19 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 // history:	improved/completed/rewritten by LB 9-10 August 1999
 //			added griditerator (Duke, 19.11.2000)
 //
-void bgsound (int s)
+void bgsound(P_CHAR pc)
 {
 	int sound;
 	int distance=(VISRANGE+5);
-	int inrange[15];
+	vector<P_CHAR> inrange;
 	int basesound=0;
 	int bigf,xx;
 	char sf,bfs;
 
-	if (s>-1 && s<cmem); else return;
+	if (pc == NULL) return;
 
 	int y=0;
-	cRegion::RegionIterator4Chars ri(chars[s].pos);
+	cRegion::RegionIterator4Chars ri(pc->pos);
 	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
@@ -4917,20 +4917,19 @@ void bgsound (int s)
 			{
 				if (!pc->free) // lb, bugfix !
 				{
-					if (inRange(chars[s].pos.x,chars[s].pos.y,pc->pos.x,pc->pos.y,distance))
+					if (inRange(pc->pos.x, pc->pos.y, pc->pos.x, pc->pos.y, distance))
 					{
-						y++;
-						inrange[y]=DEREF_P_CHAR(pc);
+						inrange.push_back(pc);
 					}
 				}
 			}
 		}
 	}
 
-	if (y>0)
+	if (inrange.size() > 0)
 	{
-		sound=((rand()%(y))+1);
-		xx = chars[inrange[sound]].id();
+		sound=RandomNum(0, inrange.size()-1);
+		xx = inrange[sound]->id();
 		if (xx>-1 && xx<2048)
 		{
 			basesound=creatures[xx].basesound;
@@ -4952,11 +4951,11 @@ void bgsound (int s)
 			{
 				sfx[2]=basesound>>8;
 				sfx[3]=basesound%256;
-				sfx[6]=chars[inrange[sound]].pos.x>>8;
-				sfx[7]=chars[inrange[sound]].pos.x%256;
-				sfx[8]=chars[inrange[sound]].pos.y>>8;
-				sfx[9]=chars[inrange[sound]].pos.y%256;
-				Xsend(calcSocketFromChar(s), sfx, 12); //bugfix, LB
+				sfx[6]=inrange[sound]->pos.x>>8;
+				sfx[7]=inrange[sound]->pos.x%256;
+				sfx[8]=inrange[sound]->pos.y>>8;
+				sfx[9]=inrange[sound]->pos.y%256;
+				Xsend(calcSocketFromChar(DEREF_P_CHAR(pc)), sfx, 12); //bugfix, LB
 			}
 		}
 	}
@@ -4983,11 +4982,11 @@ void bgsound (int s)
 		{
 			sfx[2] = (unsigned char) (basesound>>8);
 			sfx[3] = (unsigned char) (basesound%256);
-			sfx[6] = (unsigned char) (chars[s].pos.x>>8);
-			sfx[7] = (unsigned char) (chars[s].pos.x%256);
-			sfx[8] = (unsigned char) (chars[s].pos.y>>8);
-			sfx[9] = (unsigned char) (chars[s].pos.y%256);
-			Xsend(calcSocketFromChar(s), sfx, 12); //bugfix LB
+			sfx[6] = (unsigned char) (pc->pos.x>>8);
+			sfx[7] = (unsigned char) (pc->pos.x%256);
+			sfx[8] = (unsigned char) (pc->pos.y>>8);
+			sfx[9] = (unsigned char) (pc->pos.y%256);
+			Xsend(calcSocketFromChar(DEREF_P_CHAR(pc)), sfx, 12); //bugfix LB
 		}
 	}
 }
@@ -5237,8 +5236,6 @@ void criminal(int c)//Repsys ....Ripper
 		 setcharflag(pc);
 		 if(pc->inGuardedArea() && SrvParms->guardsactive)//guarded
 			Combat->SpawnGuard( DEREF_P_CHAR(pc), DEREF_P_CHAR(pc), pc->pos.x,pc->pos.y,pc->pos.z); // LB bugfix
-		 //if(region[chars[c].region].priv&0x01 == 1 && SrvParms->guardsactive)
-			//Combat->SpawnGuard( c, currchar[c], chars[currchar[c]].x, chars[currchar[c]].y, chars[currchar[c]].z );
 	}
 }
 

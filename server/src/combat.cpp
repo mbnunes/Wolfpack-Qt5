@@ -732,14 +732,13 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 	if (pc_attacker->free) return;
 	P_ITEM pWeapon=pc_attacker->getWeapon();
 
-	int d = pc_attacker->targ;
-	P_CHAR pc_defender = MAKE_CHAR_REF(d);
+	P_CHAR pc_defender = FindCharBySerial(pc_attacker->targ);
 	if (pc_attacker->priv2&2) //The char is paralyzed 
 	{ 
         sysmessage(calcSocketFromChar(a), "You are frozen and cannot attack."); 
         return; 
 	}
-	if ((d==-1) || (pc_defender->isPlayer() && !online(d) || pc_defender->isHidden()) && pc_attacker->war)
+	if ((pc_defender == NULL) || (pc_defender->isPlayer() && !online(DEREF_P_CHAR(pc_defender)) || pc_defender->isHidden()) && pc_attacker->war)
 	{
 		pc_attacker->war=0; // LB
 		pc_attacker->timeout=0;
@@ -747,29 +746,29 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 		pc_attacker->resetAttackFirst();
 		return;
 	}
-	if (( pc_attacker->isNpc() || online(a) ) && d != -1 )
+	if (( pc_attacker->isNpc() || online(DEREF_P_CHAR(pc_attacker)) ) && pc_defender != NULL )
 	{			
-		if (d<=-1 || d>=cmem) return;
+		if (pc_defender == NULL) return;
 		if (pc_defender->free) return;
 		if (pc_attacker->dispz > (pc_defender->dispz +10)) return;//FRAZAI
 		if (pc_attacker->dispz < (pc_defender->dispz -10)) return;//FRAZAI
 		
-		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(d) && !pc_defender->dead) ) // ripper		
+		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(DEREF_P_CHAR(pc_defender)) && !pc_defender->dead) ) // ripper		
 		{
-			if (chardist(a,d) > SrvParms->attack_distance)
+			if (chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender)) > SrvParms->attack_distance)
 			{
 				if (pc_attacker->npcaitype==4 && pc_attacker->inGuardedArea()) // changed from 0x40 to 4, LB
 				{
 					pc_attacker->MoveTo(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z);
 					
-					teleport(a);
-					soundeffect2(a, 0x01, 0xFE); // crashfix, LB
-					staticeffect(a, 0x37, 0x2A, 0x09, 0x06);
-					npctalkall(a,"Halt, scoundrel!",1);
+					teleport(DEREF_P_CHAR(pc_attacker));
+					soundeffect2(DEREF_P_CHAR(pc_attacker), 0x01, 0xFE); // crashfix, LB
+					staticeffect(DEREF_P_CHAR(pc_attacker), 0x37, 0x2A, 0x09, 0x06);
+					npctalkall(DEREF_P_CHAR(pc_attacker),"Halt, scoundrel!",1);
 				}
 				else 
 				{ // else -> npcaityes != 4
-					pc_attacker->targ=-1;
+					pc_attacker->targ = INVALID_SERIAL;
 					pc_attacker->timeout=0;
 					P_CHAR pc = FindCharBySerial(pc_attacker->attacker);
 					if (pc != NULL)
@@ -780,39 +779,39 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					pc_attacker->attacker=INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
 					if (pc_attacker->isNpc() && pc_attacker->npcaitype!=17 && !pc_attacker->dead && pc_attacker->war)
-						npcToggleCombat(a); // ripper
+						npcToggleCombat(DEREF_P_CHAR(pc_attacker)); // ripper
 				}
 			}
 			else
 			{
-				if (pc_attacker->targ==-1)
+				if (pc_attacker->targ == INVALID_SERIAL)
 				{
-					npcsimpleattacktarget(a,d);
+					npcsimpleattacktarget(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_defender));
 					x=(((100-pc_attacker->effDex())*MY_CLOCKS_PER_SEC)/25)+(1*MY_CLOCKS_PER_SEC); //Yet another attempt.
 					pc_attacker->timeout=currenttime+x;
 					return;
 				}
-				if (Combat->TimerOk(a))
+				if (Combat->TimerOk(DEREF_P_CHAR(pc_attacker)))
 				{
 					int los = line_of_sight(-1, pc_attacker->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);
-					UOXSOCKET s1 = calcSocketFromChar(a);
-					int fightskill=Skills->GetCombatSkill(a);
+					UOXSOCKET s1 = calcSocketFromChar(DEREF_P_CHAR(pc_attacker));
+					int fightskill=Skills->GetCombatSkill(DEREF_P_CHAR(pc_attacker));
 					x=0;
 					if (fightskill==ARCHERY)
 					{
 						if (los)
 						{
 							int arrowsquant;
-							bowtype=Combat->GetBowType(a);
-							if (bowtype==1) arrowsquant=getamount(a, 0x0F3F);
-							else arrowsquant=getamount(a, 0x1BFB);
+							bowtype=Combat->GetBowType(DEREF_P_CHAR(pc_attacker));
+							if (bowtype==1) arrowsquant=getamount(DEREF_P_CHAR(pc_attacker), 0x0F3F);
+							else arrowsquant=getamount(DEREF_P_CHAR(pc_attacker), 0x1BFB);
 							if (arrowsquant>0)
 								x=1;
 							//else
 							//	sysmessage(s1, "You are out of ammunitions!"); //-Fraz- this message can cause problems removed
 						}
 					}
-					if ( chardist(a,d)<2 && fightskill!=ARCHERY ) x=1;
+					if ( chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))<2 && fightskill!=ARCHERY ) x=1;
 					if (x)
 					{
 						// - Do stamina maths - AntiChrist (6) -
@@ -827,24 +826,24 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 							pc_attacker->stm += SrvParms->attackstamina;
 							if (pc_attacker->stm>pc_attacker->effDex()) pc_attacker->stm=pc_attacker->effDex();
 							if (pc_attacker->stm<0) pc_attacker->stm=0;
-							updatestats(a,2); //LB, crashfix, was currchar[a]
+							updatestats(DEREF_P_CHAR(pc_attacker),2); //LB, crashfix, was currchar[a]
 							// --------ATTACK STAMINA END ------
 						}
 						
 						DoCombatAnimations( pc_attacker, pc_defender, fightskill, bowtype, los);
 
-						if (((chardist(a,d)<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype==4)) // changed from 0x40 to 4
+						if (((chardist(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype==4)) // changed from 0x40 to 4
                         {
 							if (los)
 							{
-								npcsimpleattacktarget(a,d);
+								npcsimpleattacktarget(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
 							}
 						}
 						if (pc_attacker->timeout2 > uiCurrentTime) return; //check shotclock memory-BackStab
 						if (fightskill==ARCHERY)
-							Combat->CombatHit(a,d,currenttime,los);
+							Combat->CombatHit(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender),currenttime,los);
 						else
-							pc_attacker->swingtarg=d;
+							pc_attacker->swingtarg = DEREF_P_CHAR(pc_defender);
 					}
 
 					SetWeaponTimeout(pc_attacker, pWeapon);
@@ -855,7 +854,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					}
 					if (fightskill!=ARCHERY)
 					{
-						Combat->CombatHit(a,d,currenttime,los); // LB !!!
+						Combat->CombatHit(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender),currenttime,los); // LB !!!
 						//return; // Ripper	???? (Duke)
 					}
 				}
@@ -864,28 +863,28 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 			{
 				if(pc_attacker->npcaitype==4 && pc_defender->isNpc())
 				{
-					npcaction(d, 0x15);
+					npcaction(DEREF_P_CHAR(pc_defender), 0x15);
 					
-					PlayDeathSound(d);
+					PlayDeathSound(DEREF_P_CHAR(pc_defender));
 					
-					Npcs->DeleteChar(d);//Guards, don't give body
+					Npcs->DeleteChar(DEREF_P_CHAR(pc_defender));//Guards, don't give body
 				}
 				else
 				{
-					deathstuff(d);
+					deathstuff(DEREF_P_CHAR(pc_defender));
 				}
 				//murder count \/
 				
 				if ((pc_attacker->isPlayer())&&(pc_defender->isPlayer()))//Player vs Player
 				{
-					if(pc_defender->isInnocent() && Guilds->Compare(a,d)==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
+					if(pc_defender->isInnocent() && Guilds->Compare(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender))==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
 					{
 						pc_attacker->kills++;
 						sprintf((char*)temp, "You have killed %i innocent people.", pc_attacker->kills);
-						sysmessage(calcSocketFromChar(a),(char*)temp);
+						sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_attacker)),(char*)temp);
 						//clConsole.send("DEBUG %s's kills are now -> %i\n",pc_attacker->name,pc_attacker->kills);
 						if (pc_attacker->kills==repsys.maxkills+1)
-							sysmessage(calcSocketFromChar(a),"You are now a murderer!");
+							sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc_attacker)),"You are now a murderer!");
 					}
 					
 					if (SrvParms->pvp_log)
@@ -895,7 +894,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					}
 					
 				}
-				npcToggleCombat(a);
+				npcToggleCombat(DEREF_P_CHAR(pc_attacker));
 				return; // LB
 			}
 		}
@@ -1228,7 +1227,7 @@ void cCombat::SpawnGuard(CHARACTER s, CHARACTER i, int x, int y, signed char z)
 		pc_guard->npcaitype = 4; // CITY GUARD, LB, bugfix, was 0x40 -> not existing
 		pc_guard->setAttackFirst();
 		pc_guard->attacker = pc_offender->serial;
-		pc_guard->targ = s;
+		pc_guard->targ = pc_offender->serial;
 		pc_guard->npcWander = 2;  // set wander mode Tauriel
 		npcToggleCombat(DEREF_P_CHAR(pc_guard));
 		pc_guard->npcmovetime =(unsigned int)(getNormalizedTime() +(double)((NPCSPEED*MY_CLOCKS_PER_SEC)/5));
