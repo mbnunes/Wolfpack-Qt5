@@ -244,10 +244,32 @@ void commandFix( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandAddItem( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	QString param = args.join( " " ).stripWhiteSpace();
+
+	QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
+
+	if( node && !node->isNull() )
+	{
+		socket->sysMessage( tr( "Where do you want to add the item '%1'" ).arg( param ) );
+		socket->attachTarget( new cAddItemTarget( param ) );
+	}
+
+	return;
 }
 
 void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	QString param = args.join( " " ).stripWhiteSpace();
+
+	QDomElement *node = DefManager->getSection( WPDT_NPC, param );
+
+	if( node && !node->isNull() )
+	{
+		socket->sysMessage( tr( "Where do you want to add the npc '%1'" ).arg( param ) );
+		socket->attachTarget( new cAddNpcTarget( param ) );
+	}
+
+	return;
 }
 
 void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )

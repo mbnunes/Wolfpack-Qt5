@@ -1517,7 +1517,7 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "equipped" )
 	{
 		QDomNode childNode = Tag.firstChild();
-		vector< QDomElement > equipment;
+		std::vector< QDomElement > equipment;
 		
 		while( !childNode.isNull() )
 		{		
@@ -1534,49 +1534,52 @@ void cChar::processNode( const QDomElement &Tag )
 			childNode = childNode.nextSibling();
 		}
 		
-		for( SI32 i = 0; i < equipment.size(); i++ )
+		std::vector< QDomElement >::iterator iter = equipment.begin();
+		while( iter != equipment.end() )
 		{
-				P_ITEM nItem = Items->MemItemFree();
+			P_ITEM nItem = Items->MemItemFree();
 	
-				if( nItem == NULL )
-					continue;
+			if( nItem == NULL )
+				continue;
 	
-				nItem->Init( true );
-				cItemsManager::getInstance()->registerItem( nItem );
+			nItem->Init( true );
+			cItemsManager::getInstance()->registerItem( nItem );
 
-				// Check for auto-inherit
-				QDomElement tItem = equipment[ i ];
-				if( tItem.hasAttribute( "inherit" ) )
-				{
-					QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, tItem.attribute( "inherit", "" ) );
-					if( tInherit && !tInherit->isNull() )
-						nItem->applyDefinition( (*tInherit) );
-				}
+			// Check for auto-inherit
+			QDomElement tItem = (*iter);
+			if( tItem.hasAttribute( "inherit" ) )
+			{
+				QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, tItem.attribute( "inherit", "" ) );
+				if( tInherit && !tInherit->isNull() )
+					nItem->applyDefinition( (*tInherit) );
+			}
 				
-				// Check for random-inherit
-				if( tItem.hasAttribute( "inheritlist" ) )
-				{
-					QString iSection = DefManager->getRandomListEntry( tItem.attribute( "inheritlist", "" ) );
-					QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, iSection );
-					if( tInherit && !tInherit->isNull() )
-						nItem->applyDefinition( (*tInherit) );
-				}
+			// Check for random-inherit
+			if( tItem.hasAttribute( "inheritlist" ) )
+			{
+				QString iSection = DefManager->getRandomListEntry( tItem.attribute( "inheritlist", "" ) );
+				QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, iSection );
+				if( tInherit && !tInherit->isNull() )
+					nItem->applyDefinition( (*tInherit) );
+			}
 
-				nItem->applyDefinition( tItem );
+			nItem->applyDefinition( tItem );
 
-				// Instead of deleting try to get a valid layer instead
-				if( nItem->layer() == 0 )
-				{
-					tile_st tInfo = cTileCache::instance()->getTile( nItem->id() );
-					if( tInfo.layer > 0 )
-						nItem->setLayer( tInfo.layer );
-				}
+			// Instead of deleting try to get a valid layer instead
+			if( nItem->layer() == 0 )
+			{
+				tile_st tInfo = cTileCache::instance()->getTile( nItem->id() );
+				if( tInfo.layer > 0 )
+					nItem->setLayer( tInfo.layer );
+			}
 				
-				// Recheck
-				if( !nItem->layer() )
-					Items->DeleItem( nItem );
-				else
-					nItem->setContSerial( this->serial );
+			// Recheck
+			if( !nItem->layer() )
+				Items->DeleItem( nItem );
+			else
+				nItem->setContSerial( this->serial );
+
+			++iter;
 		}
 	}
 

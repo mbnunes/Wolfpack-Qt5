@@ -371,11 +371,11 @@ QStringList	WPDefManager::getList( QString ListSection )
 			if( childNode.isElement() )
 			{
 				// Using the nodename is a very very bad habit
-				// if the name of the node is "value" then
+				// if the name of the node is "item" then
 				// use the node value instead
 				QDomElement childTag = childNode.toElement();
 				
-				if( childTag.nodeName() == "value" )
+				if( childTag.nodeName() == "item" )
 					data = childTag.text();
 				else
 					data = childTag.nodeName();
