@@ -61,6 +61,8 @@ if form.has_key( 'delete' ):
 		message = "You can't delete your own account."
 	elif not record:
 		message = "The account does not exist."
+	elif record.inuse:
+		message = "The account is currently in use."
 	else:
 		record.delete()
 		wolfpack.accounts.save()
