@@ -44,6 +44,7 @@
 #include "targetrequests.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h"
 #include "resources.h"
 #include "multis.h"
 #include "targetactions.h"

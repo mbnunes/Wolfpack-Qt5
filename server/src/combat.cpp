@@ -45,6 +45,7 @@
 #include "classes.h"
 #include "network.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h"
 #include "territories.h"
 #include "typedefs.h"
 #include "wpdefmanager.h"

@@ -67,19 +67,14 @@ public:
 
 		P_CHAR pTarget = FindCharBySerial( pChar->trackingTarget() );
 
-		cUOTxQuestArrow qArrow;
-
 		// Disable the quest-arrow
 		if( !pTarget )
 		{
-			qArrow.setActive( 0 );
-			pChar->socket()->send( &qArrow );
+			pChar->socket()->sendQuestArrow( false, 0, 0 );
 			return;
 		}
 
-		qArrow.setActive( 1 );
-		qArrow.setPos( pTarget->pos() );
-		pChar->socket()->send( &qArrow );
+		pChar->socket()->sendQuestArrow( true, pTarget->pos().x, pTarget->pos().y );
 		TempEffects::instance()->insert( new cRefreshTracking( pChar->serial() ) );
 	}
 };
@@ -236,9 +231,7 @@ void trackingMenu( cUOSocket *socket )
 	if( !pChar )
 		return;
 
-	cUOTxCloseGump cGump;
-	cGump.setType( 0xFE12ACDE );
-	socket->send( &cGump );
+	socket->closeGump( 0xFE12ACDE, 0 );
 
 	// If we fail a simple check we dont get the menu
 	if( !pChar->checkSkill( TRACKING, 0, 250 ) )

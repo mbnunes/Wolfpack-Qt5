@@ -1244,7 +1244,7 @@ void cSkills::Persecute ( cUOSocket* socket )
 			for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 			{
 				if( socket->inRange( s ) && s != socket && s != target->socket() ) 
-					socket->showSpeech( target, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+					socket->showSpeech( target, message, 0x26, 3, 0x02 );
 			}
 		} 
 		else

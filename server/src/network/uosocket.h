@@ -47,7 +47,6 @@ class cUObject;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
-#include "uotxpackets.h"
 #include "../typedefs.h"
 #include "../wptargetrequests.h"
 #include "../customtags.h"
@@ -162,7 +161,7 @@ public:
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
-	void showSpeech( const cUObject *object, const QString &message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, cUOTxUnicodeSpeech::eSpeechType speechType = cUOTxUnicodeSpeech::Regular ) const;
+	void showSpeech( const cUObject *object, const QString &message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, UINT8 speechType = 0x00 ) const;
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037, UINT16 font = 3 ) const;
 	void sendCharList();
 	void removeObject( cUObject *object );
@@ -172,7 +171,7 @@ public:
 	void sendPaperdoll( P_CHAR pChar );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
-	void bounceItem( P_ITEM pItem, eBounceReason reason );
+	void bounceItem( P_ITEM pItem, UINT8 reason );
 	void updatePlayer();
 	void resendPlayer( bool quick = true );
 	void poll();
@@ -194,6 +193,8 @@ public:
 	void clilocMessage( const UINT32 MsgID, const QString &params = 0, const Q_UINT16 color = 0x37, const Q_UINT16 font = 3, cUObject *object = 0 ); 
 	void clilocMessageAffix( const UINT32 MsgID, const QString &params = 0, const QString &affix = 0, const Q_UINT16 color = 0x37, const Q_UINT16 font = 3, cUObject *object = 0, bool dontMove = false, bool prepend = false ); 
 	void updateLightLevel( UINT8 level );
+	void sendQuestArrow( bool show, UINT16 x, UINT16 y );
+	void closeGump( UINT32 type, UINT32 returnCode );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

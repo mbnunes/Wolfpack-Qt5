@@ -37,6 +37,7 @@
 #include "maps.h"
 #include "srvparams.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h"
 #include "territories.h"
 #include "multiscache.h"
 #include "classes.h" // only for the illegal_z!

@@ -42,6 +42,7 @@
 #include "classes.h"
 #include "network.h"
 #include "network/uorxpackets.h"
+#include "network/uotxpackets.h"
 #include "network/uosocket.h"
 
 // System Includes

@@ -30,6 +30,7 @@
 
 #include "utilities.h"
 #include "../network/uosocket.h"
+#include "../network/uotxpackets.h"
 #include "target.h"
 #include "gump.h"
 

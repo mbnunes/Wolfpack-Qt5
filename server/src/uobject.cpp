@@ -44,6 +44,7 @@
 #include "wpdefaultscript.h"
 #include "wpscriptmanager.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h"
 #include "wpdefmanager.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"

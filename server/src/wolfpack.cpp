@@ -77,6 +77,7 @@
 #include "weight.h"
 #include "multiscache.h"
 #include "Trade.h"
+#include "network/uotxpackets.h"
 
 // Library Includes
 #include <qapplication.h>

@@ -33,6 +33,7 @@
 #include "prototypes.h"
 #include "chars.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h"
 #include "newmagic.h"
 #include "persistentbroker.h"
 

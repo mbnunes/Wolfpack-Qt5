@@ -127,6 +127,7 @@ public:
 	virtual void addTown( Q_UINT8 index, const QString &name, const QString &area );
 	virtual void setCharLimit( Q_INT16 limit = -1 ) { charLimit = limit; }
 	virtual void compile();
+	virtual void setAgeOfShadows( bool data ) { data ? flags |= 0x20 : flags &= 0xFFFFFFDF; }
 };
 
 enum eCharChangeResult

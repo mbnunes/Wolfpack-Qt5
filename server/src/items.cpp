@@ -36,6 +36,7 @@
 #include "wolfpack.h"
 #include "accounts.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h"
 #include "utilsys.h"
 #include "iserialization.h"
 #include "debug.h"

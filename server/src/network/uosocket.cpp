@@ -424,22 +424,23 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 */
 void cUOSocket::sendCharList()
 {
-	cUOTxCharTownList *charList = new cUOTxCharTownList;
+	cUOTxCharTownList charList;
 	QValueVector< cChar* > characters = _account->caracterList();
 
 	// Add the characters
 	Q_UINT8 i = 0;
 	for(; i < characters.size(); ++i )
-		charList->addCharacter( characters.at(i)->name() );
+		charList.addCharacter( characters.at(i)->name() );
 
 	// Add the Starting Locations
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
 	for( i = 0; i < startLocations.size(); ++i )
-		charList->addTown( i, startLocations[i].name, startLocations[i].name );
+		charList.addTown( i, startLocations[i].name, startLocations[i].name );
 
-	charList->compile();
-	send( charList );
-	delete charList;
+	charList.setAgeOfShadows( true );
+
+	charList.compile();
+	send( &charList );
 }
 
 /*!
@@ -518,7 +519,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	cUOTxClientFeatures clientFeatures;
 	clientFeatures.setLbr( true );
 	clientFeatures.setT2a( true );
-	clientFeatures.setShort( 1, 0xFFFF );
+	clientFeatures.setShort( 1, 0x8003 ); // AoS TEST
 	send( &clientFeatures );
 
 	// We're now playing this char
@@ -1034,7 +1035,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
   This method prints \a message on top of \a object using the given \a color and \a speechType
   \sa cUObject, cUOTxUnicodeSpeech, cUOTxUnicodeSpeech::eSpeechType
 */
-void cUOSocket::showSpeech( const cUObject *object, const QString &message, Q_UINT16 color, Q_UINT16 font, cUOTxUnicodeSpeech::eSpeechType speechType ) const
+void cUOSocket::showSpeech( const cUObject *object, const QString &message, Q_UINT16 color, Q_UINT16 font, UINT8 speechType ) const
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial() );
@@ -1042,7 +1043,7 @@ void cUOSocket::showSpeech( const cUObject *object, const QString &message, Q_UI
 	speech.setFont( font );
 	speech.setColor( color );
 	speech.setText( message );
-	speech.setType( speechType );
+	speech.setType( (cUOTxUnicodeSpeech::eSpeechType)speechType );
 	send( &speech );
 }
 
@@ -1895,10 +1896,10 @@ P_ITEM cUOSocket::dragging() const
 	return _player->atLayer( cChar::Dragging );
 }
 
-void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
+void cUOSocket::bounceItem( P_ITEM pItem, UINT8 reason )
 {
 	cUOTxBounceItem bounce;
-	bounce.setReason( reason );
+	bounce.setReason( (eBounceReason)reason );
 	send( &bounce );
 
 	// Only bounce it back if it's on the hand of the char
@@ -2382,4 +2383,20 @@ void cUOSocket::handleRename( cUORxRename* packet )
 		else
 			sysMessage( tr( "You can't rename this." ) );
 	}
+}
+
+void cUOSocket::sendQuestArrow( bool show, UINT16 x, UINT16 y )
+{
+	cUOTxQuestArrow qArrow;
+	qArrow.setActive( show ? 1 : 0 );
+	qArrow.setPos( Coord_cl( x, y, 0, 0 ) );
+	send( &qArrow );
+}
+
+void cUOSocket::closeGump( UINT32 type, UINT32 returnCode )
+{
+	cUOTxCloseGump closegump;
+	closegump.setButton( returnCode );
+	closegump.setType( type );
+	send( &closegump );
 }
