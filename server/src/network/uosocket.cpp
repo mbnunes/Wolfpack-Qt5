@@ -1151,46 +1151,23 @@ void cUOSocket::resendPlayer( bool quick )
 	if( !_player )
 		return;
 
-	// Pause
 	if( !quick )
 	{
-		cUOTxPause pause;
-		pause.pause();
-		send( &pause );
-
 		// Make sure we switch client when this changes
 		cUOTxChangeMap changeMap; 
 		changeMap.setMap( _player->pos().map );
 		send( &changeMap );
-		cUOTxDrawChar drawChar;
-		drawChar.fromChar( _player );
-		send( &drawChar );
 	}
+	// Resend our equipment
+	cUOTxDrawChar drawChar;
+	drawChar.fromChar( _player );
+	send( &drawChar );
+
 	cUOTxDrawPlayer drawPlayer;
 	drawPlayer.fromChar( _player );
 	send( &drawPlayer );
 
-	// Resend our equipment
-	cChar::ContainerContent container(_player->content());
-	cChar::ContainerContent::const_iterator it (container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
-	for (; it != end; ++it )
-	{
-		P_ITEM pItem = *it;
-		if( !pItem )
-			continue;
 
-		// Only send visible layers
-		// 0x19 = horse layer
-		// -> Shop containers need to be send
-		if( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
-			continue;
-
-		cUOTxCharEquipment equipment;
-		equipment.fromItem( pItem );
-		pItem->sendTooltip( this );
-		send( &equipment );
-	}
 
 	// Set the warmode status
 	if( !quick )
@@ -1198,11 +1175,6 @@ void cUOSocket::resendPlayer( bool quick )
 		cUOTxWarmode warmode;
 		warmode.setStatus( _player->war() );
 		send( &warmode );
-	
-		// Resume
-		cUOTxPause resume;
-		resume.resume();
-		send( &resume );
 	}
 
 	// Start the game!
