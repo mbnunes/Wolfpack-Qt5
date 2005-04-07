@@ -5,7 +5,7 @@ Using Microsoft Visual Sutdio .NET
 
 1. You'll need the QT headers and QT library files within your 
 library search path. For information regarding QT, please visit
-http://kdecygwin.sourceforge.net
+http://kde-cygwin.sourceforge.net
 
 2. You'll need SDL 1.2. You can download the headers and library
 here: http://www.libsdl.org/ .
