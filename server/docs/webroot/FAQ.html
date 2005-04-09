@@ -128,13 +128,13 @@
 						<br />
 						For Windows:<br />
 						<ul>
-							<li><a href="http://python.org/2.3.4/">The Latest Python-2.3 Release</a>.</li>
+							<li>The latest <a href="http://python.org/2.3.5/">Python-2.3</a> or <a href="http://python.org/2.4.1/">Python-2.4</a> release.</li>
 						</ul>
 						<br />
 						For Linux/BSD:<br />
 						<ul>
 							<li><a href="http://www.trolltech.com/download/qt/x11.html">The Latest QT-3.3 Release</a>.</li>
-							<li><a href="http://python.org/2.3.4/">The Latest Python-2.3 Release</a>.</li>
+							<li>The latest <a href="http://python.org/2.3.5/">Python-2.3</a> or <a href="http://python.org/2.4.1/">Python-2.4</a> release.</li>
 						</ul>
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
@@ -148,7 +148,7 @@
 								<br />
 								Compile Requirements:<br />
 								<ul>
-									<li><a href="http://python.org/2.3.4/">The Latest Python-2.3 Release</a>.</li>
+									<li>The latest <a href="http://python.org/2.3.5/">Python-2.3</a> or <a href="http://python.org/2.4.1/">Python-2.4</a> release.</li>
 									<li><a href="http://msdn.microsoft.com/visualc/downloads/updates/default.aspx">Service pack 5 for MSVC6</a>.</li>
 									<li><a href="http://sourceforge.net/project/showfiles.php?group_id=38114&#038;package_id=62543">Windows QT Library</a>.</li>
 								</ul>
@@ -181,7 +181,7 @@
 						<ul>
 							<li>Recommended that you use Debian Unstable for latest packages.</li>
 							<li>QT3 Packages: libqt3c102-mt libqt3-mt-dev libqt3-headers qt3-dev-tools</li>
-							<li>Python Packages: python2.3 python2.3-dev</li>
+							<li>Python Packages: python2.3 python2.3-dev or python2.4 python2.4-dev</li>
 							<li>Recommended Packages: python2.3-mysqldb python2.3-sqlite python2.3-xml libsqlite0 libsqlite0-dev sqlite sqlite-doc</li>
 							<li>MySQL Packages: libmysqlclient-dev libmysqlclient12 mysql-client mysql-common mysql-server</li>
 						</ul>
@@ -189,13 +189,13 @@
 						Compiling Instructions:<br />
 						<div class="bash">
 							tar xvfj wolfpack.tar.bz2 -C ./<br />
-							cd wolfpack_source_dir/<br />
+							cd wolfpack_source_dir/build/<br />
 							chmod +x configure.py<br />
 							./configure.py --help<br />
 							# Please read the options and use those that apply to you.<br />
 							# Running configure.py should auto detect most options. <br />
 							./configure.py --enable-debug --enable-mysql<br />
-							# At this point you can edit Makefile and add optional CFLAGS<br />
+							# At this point you can edit Makefile and add optional CXXFLAGS<br />
 							# I personally add -march=athlon -03<br />
 							make<br />
 							# Grab a snack while it compiles.
@@ -209,13 +209,13 @@
 						Compiling Instructions:<br />
 						<div class="bash">
 							tar xvfj wolfpack.tar.bz2 -C ./<br />
-							cd wolfpack_source_dir/<br />
+							cd wolfpack_source_dir/build/<br />
 							chmod +x configure.py<br />
 							./configure.py --help<br />
 							# Please read the options and use those that apply to you.<br />
 							# Running configure.py should auto detect most options. <br />
 							./configure.py --enable-debug --enable-mysql<br />
-							# At this point you can edit Makefile and add optional CFLAGS<br />
+							# At this point you can edit Makefile and add optional CXXFLAGS<br />
 							# I, Dreoth, personally add -march=athlon -03<br />
 							make<br />
 							# Grab a snack while it compiles.
@@ -228,18 +228,12 @@
 					<div class="answer">
 						The simple answer for this is <span style="font-weight:bold;">no</span>.<br />
 						<ul>
-						<li>Wolfpack 13.x.x no longer uses or supports the old WSC save system. This has been replaced with
-						a database save system.</li>
-						<li>Wolfpack 13.x.x will use spawn scripts for filling in NPCs and there are commands available
-						for adding missing world objects.</li>
+						<li>Wolfpack 13.x.x no longer uses or supports the old WSC save system. This has been replaced with a database save system.</li>
+						<li>Wolfpack 13.x.x will use spawn scripts for filling in NPCs and there are commands available for adding missing world objects.</li>
 						</ul>
 						<br />
-						However, if you do wish to try and use it there is an
-						<a href="http://doc.wpdev.org/command_import.html">import</a>
-						command which supports WSC/TXT/Sphere save formats. Please note this will NOT import NPCs!<br />
-						It is recommended that you look into using the
-						<a href="http://doc.wpdev.org/command_decoration.html">decoration</a>
-						command as an alternative to using import.
+						However, if you do wish to try and use it there is an <a href="http://doc.wpdev.org/command_import.html">import</a> command which supports WSC/TXT/Sphere save formats. Please note this will NOT import NPCs!<br />
+						It is recommended that you look into using the <a href="http://doc.wpdev.org/command_decoration.html">decoration</a> command as an alternative to using import.
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
@@ -247,7 +241,7 @@
 				<li><a name="09" class="question">Where can I find documentation?</a><br />
 					<div class="answer">
 						You can find Wolfpack documentation at: <a href="http://doc.wpdev.org/">http://doc.wpdev.org/</a><br />
-						You can find Python documentation at: <a href="http://python.org/doc/2.3.4/">http://python.org/doc/2.3.4/</a>
+						You can find Python documentation at: <a href="http://python.org/doc/2.3.5/">http://python.org/doc/2.3.5/</a> or <a href="http://python.org/doc/2.4.1/">http://python.org/doc/2.4.1/</a>
 					</div>
 				</li>
 				<!-- Answer 10 -->
@@ -255,17 +249,13 @@
 					<div class="answer">
 						<span style="font-weight:bold;">This problem should only occur with versions prior to Wolfpack 12.9.8.</span>
 						<br /><br />
-						This problem is mostly common with Linux/BSD. Python-2.3 on many distributions comes compiled
-						using UCS4 for Unicode. Wolfpack currently requires that Python-2.3 be compiled with UCS2 for
-						Unicode. If this is the case, you will need to download and manually compile Python-2.3 and add the
-						`--enable-unicode=ucs2 --enable-shared` to the ./configure arguments. After this you can install this
-						Python-2.3 to your /usr/local/ directory or anywhere else. Please be sure to put this new python path
+						This problem is mostly common with Linux/BSD. Python on many distributions comes compiled using UCS4 for Unicode. Wolfpack currently requires that Python-2.3 be compiled with UCS2 for Unicode. If this is the case, you will need to download and manually compile Python and add the `--enable-unicode=ucs2 --enable-shared` to the ./configure arguments. After this you can install the custom Python to your /usr/local/ directory or anywhere else you prefer. Please be sure to put this new python path
 						in the Wolfpack configure.py arguments!<br />
 						<br />
 						Python Fix / Compiling Instructions:<br />
 						<div class="bash">
-							# Compiling/Installing Python-2.3.x
-							tar xvjf Python-2.3.4.tar.bz2 -C ./<br />
+							# Compiling/Installing Python-2.3.x or Python-2.4.x
+							tar xvjf Python-2.3.5.tar.bz2 -C ./<br />
 							cd python_source_dir/<br />
 							# Please note the --enable-shared and --enable-unicode=ucs2<br />
 							./configure --prefix=/usr/local --enable-unicode=ucs2 --enable-shared<br />
@@ -300,24 +290,21 @@
 				<!-- Answer 12 -->
 				<li><a name="12" class="question">I wrote some scripts that were missing! What can I do with it?</a><br />
 					<div class="answer">
-					First of all, we are trying to conform to an OSI like world. So please check that your creation(s) are along
-					those requirements.<br />
+					First of all, we are trying to conform to an OSI like world. So please check that your creation(s) are along those requirements.<br />
 					If so, then there are a few things you can do:<br />
 						<ul>
 							<li>You can contact a developer by Email/IRC/IM</li>
 							<li>You can check the sourceforge mailing lists.</li>
 						</ul>
 						<br />
-						We try our best to give credit where it is due. If we receive contributions from non developers we
-						will generally include comments about the author. :)
+						We try our best to give credit where it is due. If we receive contributions from non developers we will generally include comments about the author. :)
 					</div>
 				</li>
 				<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				<!-- Answer 13 -->
 				<li><a name="13" class="question">Where can I find the latest (SVN) source/scripts?</a><br />
 					<div class="answer">
-						Please visit this page:
-						<a href="http://developer.berlios.de/svn/?group_id=2490">http://developer.berlios.de/svn/?group_id=2490</a>
+						Please visit this page: <a href="http://developer.berlios.de/svn/?group_id=2490">http://developer.berlios.de/svn/?group_id=2490</a>
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
@@ -330,14 +317,11 @@
 							;Loginservers for Ultima Online<br />
 							;Do not edit this file or patching will fail!  Always save a backup.<br />
 							;LoginServer=login.owo.com,7775<br />
-							;LoginServer=login.owo.com,7775<br />
-							;LoginServer=login.owo.com,7776<br />
 							;LoginServer=login.owo.com,7776<br />
 							;PLEASE NOTE THAT 192.168.1.100 IS AN EXAMPLE OF YOUR IP!<br />
 							LoginServer=192.168.1.100,2593
 						</div>
-						Now, after you've checked your Client's login configuration, please check your
-						wolfpack.xml file in your Wolfpack director so that it resembles this.<br />
+						Now, after you've checked your Client's login configuration, please check your wolfpack.xml file in your Wolfpack director so that it resembles this.<br />
 						<div class="bash">
 							&#160;&#160;&#060;group name="LoginServer" &#062;<br />
 							&#160;&#160;&#160;&#160;&#060;option key="Shard 1" value="My World=192.168.1.100,2592" /&#062;<br />
@@ -351,21 +335,16 @@
 							&#160;&#160;&#160;&#160;&#060;option key="Loginserver Port" value="2593" /&#062;<br />
 							&#160;&#160;&#060;/group&#062;
 						</div>
-						We support the encryption for the latest clients, so using programs like UOGateway, Ignition, UORice, etc.
-						is completely optional and not required.
+						We support the encryption for the latest clients, so using programs like UOGateway, Ignition, UORice, etc. is completely optional and not required.
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 15 -->
 				<li><a name="15" class="question">Help! I can't login?!</a><br />
 					<div class="answer">
-						First of all, please check out "<a href="./FAQ.html#14">How do I connect to Wolfpack?</a>" to see if that
-						resolves your problem.<br /><br />
-						If not, then this problem usually occurs when players try to connect to Wolfpack using an
-						outdated client. Due to many packet changes over the years, it has become hard to continue
-						supporting clients below the 4.0.0 value. The Age of Shadows Client is the one we continue
-						to support, and the UO:R client may also work as well. So, if you have this problem, please
-						try running uopatch.exe that is in your Ultima Online Installation to upgrade.<br />
+						First of all, please check out "<a href="./FAQ.html#14">How do I connect to Wolfpack?</a>" to see if that resolves your problem.<br />
+						<br />
+						If not, then this problem usually occurs when players try to connect to Wolfpack using an outdated client. Due to many packet changes over the years, it has become hard to continue supporting clients below the 4.0.0 value. The Age of Shadows Client is the one we continue to support, and the UO:R client may also work as well. So, if you have this problem, please try running uopatch.exe that is in your Ultima Online Installation to upgrade.<br />
 						If this fails, you can try finding the free <a href="http://www.google.com/search?q=Download+%22Ultima+Online%22+%22Age+of+Shadows%22+Trial&btnG=Search&hl=en&lr=&ie=UTF-8&safe=off">Age of Shadows Demo Using Google</a>.
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
@@ -388,11 +367,9 @@
 							192.168.1.101 == Your Server's Internal Network IP
 						</div>
 						<br />
-						To route to a server that's on an internal network, you need to have TCP ports 2592 and 2593
-						forwarded to the machines internal IP address.<br />
+						To route to a server that's on an internal network, you need to have TCP ports 2592 and 2593 forwarded to the machines internal IP address.<br />
 						For example, say your server has the Internal address of 192.168.1.101.<br />
-						Login to your router (most home bought routers can be logged into) and find your forwarding/NAT
-						configuration. Once you do that, you want to configure so that:<br />
+						Login to your router (most home bought routers can be logged into) and find your forwarding/NAT configuration. Once you do that, you want to configure so that:<br />
 						<div class="bash">
 							TCP PORT 2592 TO 192.168.1.101<br />
 							TCP PORT 2593 TO 192.168.1.101
@@ -410,19 +387,17 @@
 					<div class="answer">
 						The simple answer to this is, when they get fixed.<br /><br />
 						You should also check the bug tracker to see if your problem is reported before asking.<br /><br />
-						Bugs, features and other issues with Wolfpack will be resolved as soon as humanly possible.
-						But please keep in mind, this work is strictly voluntary. No one is paid for their time working
-						on Wolfpack, and so we do this on our own free time. So please take this into consideration
-						before hassling developers to resolve a bug. We are usually already aware of them, and we will
-						eventually get around to it.
+						Bugs, features and other issues with Wolfpack will be resolved as soon as humanly possible. But please keep in mind, this work is strictly voluntary. No one is paid for their time working on Wolfpack, and so we do this on our own free time. So please take this into consideration before hassling developers to resolve a bug. We are usually already aware of them, and we will eventually get around to it.
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 19 -->
 				<li><a name="19" class="question">Why is _______ feature is not working the same as on Sphere?</a><br />
 					<div class="answer">
-						Wolfpack is <span style="font-weight:bold;">NOT</span> Sphere.<br /><br />
-						Wolfpack's scripts are designed to function similar to how an official UO shard would function.<br /><br />
+						Wolfpack is <span style="font-weight:bold;">NOT</span> Sphere.<br />
+						<br />
+						Wolfpack's scripts are designed to function similar to how an official UO shard would function.<br />
+						<br />
 						If you want the scripts to function similar to those of Sphere, feel free to modify your shard's scripts to make them do so.<br />
 						Please do not ask the developers or file bug reports about this!
 					</div>
@@ -431,20 +406,17 @@
 				<!-- Answer 20 -->
 				<li><a name="20" class="question">I'm using the SVN scripts with a release binary, why do I get errors?</a><br />
 					<div class="answer">
-						This is a common problem we see. People need to understand that SVN scripts are meant to be
-						used with a SVN binary. Using the bleeding edge scripts with a standard Wolfpack release will
-						result in errors. This is because with script changes there are usually core changes to follow
-						with them.<br /><br />
-						Please do not use SVN scripts with a release binary. SVN is for developers or for experienced
-						users and scripters.
+						This is a common problem we see. People need to understand that SVN scripts are meant to be used with a SVN binary. Using the bleeding edge scripts with a standard Wolfpack release will result in errors. This is because with script changes there are usually core changes to follow
+						with them.<br />
+						<br />
+						Please do not use SVN scripts with a release binary. SVN is for developers or for experienced users and scripters.
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
 				<!-- Answer 21 -->
 				<li><a name="21" class="question">Why does nothing (vendors, npcs, items) spawn?</a><br />
 					<div class="answer">
-						By default, spawn scripts are not enabled with the Wolfpack Beta releases.
-						Spawn scripts are incomplete right now, with the exception of most vendors.<br />
+						By default, spawn scripts are not enabled with the Wolfpack Beta releases. Spawn scripts are incomplete right now, with the exception of most vendors.<br />
 						However, if you wish to enable them look in:<br />
 						./definitions/spawnregions/facet_name/index.xml for a list of enabled scripts.<br />
 					</div>
@@ -461,8 +433,7 @@
 						The first, and easiest would be to use the Web Admin control panel.<br />
 						To access Web Admin type in http://127.0.0.1:2594/ into your browser of choice.<br />
 						<br />
-						Substitue 127.0.0.1 for your shard's IP if it is not on your current system.
-						The rest should be obvious.<br />
+						Substitue 127.0.0.1 for your shard's IP if it is not on your current system. The rest should be obvious.<br />
 						<br />
 						The second method would be to login with your UO client, and use the
 						<a href="http://doc.wpdev.org/command_account.html">account command</a> to modify accounts.
@@ -477,8 +448,7 @@
 						The root of the tree is:<br />
 						-&#062; ./definitions/index.xml<br />
 						<br />
-						From this file, you will find a list of included files, and in every sub folder
-						there should be another index.xml file that contains the files within that folder.<br />
+						From this file, you will find a list of included files, and in every sub folder there should be another index.xml file that contains the files within that folder.<br />
 						<br />
 						Example:<br />
 						-&#062; ./definitions/index.xml<br />
@@ -527,17 +497,10 @@
 				<li><a name="25" class="question">What is SVN? What happened to CVS?</a><br />
 					<div class="answer">
 						<p>
-							SVN is a version control system much like CVS, but more functional for
-							our needs. You can learn more about SVN at
-							<a href="http://svnbook.red-bean.com/">this site</a>.
+							SVN is a version control system much like CVS, but more functional for our needs. You can learn more about SVN at <a href="http://svnbook.red-bean.com/">this site</a>.
 						</p>
 						<p>
-							As for what happened to CVS, the archive still exists at
-							<a href="http://sourceforge.net/projects/wpdev/">SourceForge</a>
-							but we have moved to
-							<a href="http://developer.berlios.de/projects/wolfpack/">BerliOS</a>
-							for our new repository. They're a much faster host, and offer the SVN
-							option we prefer.
+							As for what happened to CVS, the archive still exists at <a href="http://sourceforge.net/projects/wpdev/">SourceForge</a> but we have moved to <a href="http://developer.berlios.de/projects/wolfpack/">BerliOS</a> for our new repository. They're a much faster host, and offer the SVN option we prefer.
 						</p>
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
