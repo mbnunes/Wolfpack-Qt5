@@ -607,7 +607,7 @@ static PyObject* wpSpawnregion( PyObject* self, PyObject* args )
 }
 
 /*
-	\function wolfpack.currenttime
+	\function wolfpack.time.currenttime
 	\return An interger value.
 	\description This function returns the current time since the server start in miliseconds.
 */
@@ -684,7 +684,7 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 		// 4. The z position of the static item.
 		// 5. The color of the static item.
 		PyObject* item = PyTuple_New(5);
-        PyTuple_SetItem(item, 0, PyInt_FromLong( iter->itemid ) );        
+        PyTuple_SetItem(item, 0, PyInt_FromLong( iter->itemid ) );
 		PyTuple_SetItem(item, 1, PyInt_FromLong( xBlockStart + iter->xoff ) );
 		PyTuple_SetItem(item, 2, PyInt_FromLong( yBlockStart + iter->yoff ) );
 		PyTuple_SetItem(item, 3, PyInt_FromLong( iter->zoff ) );
@@ -2128,7 +2128,7 @@ static PyObject* wpAccountsList( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	PyObject* tuple = PyTuple_New( Accounts::instance()->count() );
-	
+
 	cAccounts::const_iterator it = Accounts::instance()->begin();
 	unsigned int i = 0;
 	while ( it != Accounts::instance()->end() )
@@ -2200,7 +2200,7 @@ static PyObject* wpAccountsAcl( PyObject* self, PyObject* args )
 		PyObject* dict2 = PyDict_New();
 
 		for ( QMap<QString, bool>::const_iterator it = ( *git ).begin(); it != ( *git ).end(); ++it ) {
-			PyObject *key = QString2Python(it.key());			
+			PyObject *key = QString2Python(it.key());
 			PyDict_SetItem( dict2, key, it.data() ? Py_True : Py_False );
 			Py_DECREF(key);
 		}
