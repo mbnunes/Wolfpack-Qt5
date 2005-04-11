@@ -31,6 +31,7 @@ Wolfpack 12.9.14 Beta (SVN)
     Replaced with <skill id="skillname">value</skill>
   - Fixed a SQL tag loading issue.
   - Fixed a broken else if chain in cAccount::setProperty
+  - Added a define for tracking.h
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

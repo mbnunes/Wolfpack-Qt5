@@ -846,7 +846,7 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 		tooltip.setSerial( serial() );
 		mSock->addTooltip( tooltip_ );
 		mSock->send( &tooltip );
-	}	
+	}
 }
 
 void cUObject::changed( uint state )

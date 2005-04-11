@@ -1,15 +1,42 @@
+/*
+ *     Wolfpack Emu (WP)
+ * UO Server Emulation Program
+ *
+ * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * In addition to that license, if you are running this program or modified
+ * versions of it on a public system you HAVE TO make the complete source of
+ * the version used by you available or provide people with a location to
+ * download it.
+ *
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
+ */
 
 #include "pathfinding.h"
 #include "walking.h"
 
 // This is based on dividing the right field into 9
 // quadrants and chosing the direction based on those
-static unsigned char quick_directions[9] = {	7, 0, 1,
-												6, 0, 2,
-												5, 4, 3};
+static unsigned char quick_directions[9] = {
+	7, 0, 1,
+	6, 0, 2,
+	5, 4, 3 };
 
 // optimized algorithm for getting the direction from two positions
-inline unsigned char getDirection(int x1, int y1, int x2, int y2) {		
+inline unsigned char getDirection(int x1, int y1, int x2, int y2) {
 	int x = x2 + 1 - x1; // Width of the horizontal rectangle
 	int y = y2 + 1 - y1; // Height of the vertical rectangle
 	int v = (y + y + y) + x; // The quadrante index
@@ -20,7 +47,6 @@ inline unsigned char getDirection(int x1, int y1, int x2, int y2) {
 		return quick_directions[v];
 	}
 }
-
 
 cPathfinding::cPathfinding() {
 	nodes = new stPathNode [nodeCount];
@@ -109,7 +135,7 @@ QValueVector<unsigned char> cPathfinding::find(P_CHAR pChar, const Coord &from, 
 	if (from.isInternalMap() || from.distance(to) > (unsigned int)areaSize) {
 		return result;
 	}
-	
+
 	memset(touched, 0, sizeof(bool) * nodeCount); // Clear the touched nodes
 	this->goal = to; // Save the goal
 
@@ -140,7 +166,7 @@ QValueVector<unsigned char> cPathfinding::find(P_CHAR pChar, const Coord &from, 
 	// others can open doors
 	ignoreDoors = false;
 	ignoreMovableImpassables = false;
-    int successors[8]; // List of successor nodes used in subsequent iterations. Never more than 8
+	int successors[8]; // List of successor nodes used in subsequent iterations. Never more than 8
 	int successorCount; // Number of successors found
 
 	while (openlist != -1) {
@@ -156,7 +182,7 @@ QValueVector<unsigned char> cPathfinding::find(P_CHAR pChar, const Coord &from, 
 			break; // We've run into a situation where we'll never find a suitable successor
 		}
 
-        // Follow every possible successor
+		// Follow every possible successor
 		for (i = 0; i < successorCount; ++i) {
 			int successor = successors[i];
 
@@ -197,8 +223,7 @@ QValueVector<unsigned char> cPathfinding::find(P_CHAR pChar, const Coord &from, 
 				while (pathCount != 0) {
 					result[backtrack++] = path[--pathCount];
 				}
-
-                return result; // Immedeately return
+				return result; // Immedeately return
 			}
 		}
 	}

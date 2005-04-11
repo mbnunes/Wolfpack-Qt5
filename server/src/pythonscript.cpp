@@ -723,7 +723,7 @@ bool cPythonScript::load( const QCString& name )
 	PyObject *pDict = PyModule_GetDict(codeModule); // BORROWED REFERENCE
 
 	// Cache Event Functions
-	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {		
+	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {
 		events[i] = PyDict_GetItemString( pDict, eventNames[i] );
 
 		if (events[i] && !PyCallable_Check(events[i])) {
@@ -1002,4 +1002,3 @@ bool cPythonScriptable::setPropety( const QString& /*name*/, PyObject* /*value*/
 {
 	return true;
 }
-

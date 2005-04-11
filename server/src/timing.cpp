@@ -109,7 +109,7 @@ void cTiming::poll()
 				item->remove(); // Auto removes from the decaylist
 			}
 			else
-			{ 
+			{
 				removeDecaySerial( *sit );
 			}
 		}
@@ -513,4 +513,3 @@ void cTiming::removeDecaySerial( SERIAL serial )
 		}
 	}
 }
-

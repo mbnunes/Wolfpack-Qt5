@@ -648,12 +648,12 @@ void cNPC::showName( cUOSocket* socket )
 		default:
 			speechColor = 0x3B2; break; // grey
 		}
-	
+
 		if ( isInvulnerable() )
 		{
 			speechColor = 0x37;
 		}
-	
+
 		// ASCII Packet
 		cUOTxAsciiSpeech speech;
 		speech.setId(body_);
@@ -680,12 +680,12 @@ void cNPC::showName( cUOSocket* socket )
 		default:
 			speechColor = 0x3B2; break; // grey
 		}
-	
+
 		if ( isInvulnerable() )
 		{
 			speechColor = 0x35;
 		}
-	
+
 		// Show it to the socket
 		socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 	}

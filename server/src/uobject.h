@@ -238,9 +238,9 @@ protected:
 	enum eChanged
 	{
 		//SAVE = 1,
-		TOOLTIP				= 2,
-		UNUSED				= 4,
-		UNUSED2				= 8
+		TOOLTIP = 2,
+		UNUSED = 4,
+		UNUSED2 = 8
 	};
 	void changed( uint );
 };

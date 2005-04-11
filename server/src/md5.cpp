@@ -271,7 +271,7 @@ void cMd5::finalize()
 void cMd5::rawDigest( unsigned char* digest )
 {
 	if ( !finalized )
-		return;	
+		return;
 
 	unsigned char *buffer = ( unsigned char * )this->buffer;
 

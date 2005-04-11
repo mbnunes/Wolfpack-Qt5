@@ -53,4 +53,3 @@ void PersistentObject::save()
 void PersistentObject::postload( unsigned int /*version*/ )
 {
 }
-

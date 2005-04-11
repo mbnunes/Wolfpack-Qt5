@@ -875,7 +875,7 @@ void cAllSpawnRegions::check( void )
 			if (it->second->npcs() < it->second->maxNpcs() || it->second->items() < it->second->maxItems()) {
 				respawned++;
 			}
-			
+
 			it->second->reSpawn();
 		}
 		++it;

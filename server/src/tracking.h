@@ -25,6 +25,11 @@
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
+#if !defined(__TRACKING_H__)
+#define __TRACKING_H__
+
 class cUOSocket;
 
 void trackingMenu( cUOSocket* socket );
+
+#endif

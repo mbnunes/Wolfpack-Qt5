@@ -143,7 +143,7 @@ public:
 	Q_UINT32 nextMsgTime() const;
 	Q_UINT32 summonTime() const;
 	P_PLAYER owner() const;
-	SERIAL stablemasterSerial() const;	
+	SERIAL stablemasterSerial() const;
 	AbstractAI* ai() const;
 	Q_UINT32 aiCheckTime() const;
 	Q_UINT16 aiCheckInterval() const;

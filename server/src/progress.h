@@ -11,7 +11,7 @@
 //  20 May 01  Introduce several static_casts<> to eliminate warning messages
 //  		   (Fixed by Beman, reported by Herve Bronnimann)
 //  12 Jan 01  Change to inline implementation to allow use without library
-//  		   builds. See docs for more rationale. (Beman Dawes) 
+//  		   builds. See docs for more rationale. (Beman Dawes)
 //  22 Jul 99  Name changed to .hpp
 //  16 Jul 99  Second beta
 //   6 Jul 99  Initial boost version
@@ -79,7 +79,7 @@ private:
 	{
 		// use of floating point ensures that both large and small counts
 		// work correctly.  static_cast<>() is also used several places
-		// to suppress spurious compiler warnings. 
+		// to suppress spurious compiler warnings.
 		unsigned int tics_needed = static_cast<unsigned int>( ( static_cast<double>( _count ) / _expected_count ) * 50.0 );
 		do
 		{

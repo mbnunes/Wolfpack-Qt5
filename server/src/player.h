@@ -271,7 +271,7 @@ protected:
 	// 04 - show serials, cOldChar::priv Bit 4
 	// 05 - lock karma (0x10)
 	// 06 - jailed (0x20)
-	// 07 - squelched (0x40)	
+	// 07 - squelched (0x40)
 	Q_UINT32 additionalFlags_;
 
 	// The pets that follow the char.

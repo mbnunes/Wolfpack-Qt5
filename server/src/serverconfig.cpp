@@ -513,7 +513,7 @@ QValueVector<ServerList_st> cConfig::serverList()
 						lastIpCheck = Server::instance()->time() + ( MY_CLOCKS_PER_SEC * 30 * 60 );
 
 						server.address = internetAddress();
-						
+
 						// Fall back to localhost
 						if ( !server.address.toIPv4Address() )
 						{

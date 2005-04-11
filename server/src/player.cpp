@@ -588,12 +588,12 @@ void cPlayer::showName( cUOSocket* socket )
 		default:
 			speechColor = 0x3B2; break; // grey
 		}
-	
+
 		if ( isInvulnerable() )
 		{
 			speechColor = 0x37;
 		}
-	
+
 		// ASCII Packet
 		cUOTxAsciiSpeech speech;
 		speech.setId(body_);
@@ -624,12 +624,12 @@ void cPlayer::showName( cUOSocket* socket )
 		default:
 			speechColor = 0x3B2; break; // grey
 		}
-	
+
 		if ( isInvulnerable() )
 		{
 			speechColor = 0x35;
 		}
-	
+
 		// Show it to the socket
 		// socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 		// Names are presented in ASCII speech, Guild titles are not
@@ -682,7 +682,7 @@ bool cPlayer::canPickUp( cItem* pi )
 
 	if ( pi->isLockedDown() )
 		return false;
-	
+
 	else if ( pi->isAllMovable() )
 		return true;
 
@@ -891,9 +891,9 @@ bool cPlayer::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 				socket_->clilocMessage( 0x7A12C ); // You cannot use skills while dead.
 			return false;
 		}
-	
+
 		bool success = cBaseChar::checkSkill( skill, min, max, advance );
-	
+
 		return success;
 	} else {
 		return false; // In jail, there is no skillgain or skillcheck.
