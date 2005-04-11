@@ -269,4 +269,5 @@ void main( void )
 		}
 	printf( "Tests passed" );
 }
+
 #endif /* TEST_2FISH */

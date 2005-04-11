@@ -783,12 +783,12 @@ PyObject* wpGuild_isatwar( wpGuild* self, PyObject* args )
 
 static PyMethodDef wpGuildMethods[] =
 {
-	{"delete", ( getattrofunc ) wpGuild_delete, METH_VARARGS, 0}, 
-	{"addmember", ( getattrofunc ) wpGuild_addmember, METH_VARARGS, 0}, 
-	{"removemember", ( getattrofunc ) wpGuild_removemember, METH_VARARGS, 0}, 
-	{"addcanidate", ( getattrofunc ) wpGuild_addcanidate, METH_VARARGS, 0}, 
-	{"removecanidate", ( getattrofunc ) wpGuild_removecanidate, METH_VARARGS, 0}, 
-	{"getmemberinfo", ( getattrofunc ) wpGuild_getmemberinfo, METH_VARARGS, 0}, 
+	{"delete", ( getattrofunc ) wpGuild_delete, METH_VARARGS, 0},
+	{"addmember", ( getattrofunc ) wpGuild_addmember, METH_VARARGS, 0},
+	{"removemember", ( getattrofunc ) wpGuild_removemember, METH_VARARGS, 0},
+	{"addcanidate", ( getattrofunc ) wpGuild_addcanidate, METH_VARARGS, 0},
+	{"removecanidate", ( getattrofunc ) wpGuild_removecanidate, METH_VARARGS, 0},
+	{"getmemberinfo", ( getattrofunc ) wpGuild_getmemberinfo, METH_VARARGS, 0},
 	{"setmemberinfo", ( getattrofunc ) wpGuild_setmemberinfo, METH_VARARGS, 0},
 	{"addally", ( getattrofunc ) wpGuild_addally, METH_VARARGS, 0},
 	{"addenemy", ( getattrofunc ) wpGuild_addenemy, METH_VARARGS, 0},
@@ -935,7 +935,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 
 		return result;
 	}
-	
+
 	/*
 		\rproperty guild.enemies A tuple of serials of guilds that are at war with this guild.
 	*/
@@ -1163,12 +1163,12 @@ void cGuild::save( cBufferedWriter& writer, unsigned int version )
 void cGuild::addEnemy(cGuild *enemy) {
 	if (enemy != this) {
 		removeAlly(enemy);
-	
+
 		// Add them to our enemy list
 		if (!enemies_.contains(enemy->serial())) {
 			enemies_.append(enemy->serial());
 		}
-	
+
 		// Add us to their enemy list.
 		if (!enemy->enemies_.contains(serial_)) {
 			enemy->enemies_.append(serial_);
@@ -1179,12 +1179,12 @@ void cGuild::addEnemy(cGuild *enemy) {
 void cGuild::addAlly(cGuild *ally) {
 	if (ally != this) {
 		removeEnemy(ally); // Remove them first
-	
+
 		// Add them to our ally list
 		if (!allies_.contains(ally->serial())) {
 			allies_.append(ally->serial());
 		}
-	
+
 		// Add us to their ally list
 		if (!ally->allies_.contains(serial_)) {
 			ally->allies_.append(serial_);

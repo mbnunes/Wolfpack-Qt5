@@ -30,7 +30,6 @@
 #include "content.h"
 #include "items.h"
 
-
 /*
 	Iterate over the content of an item.
 */

@@ -625,7 +625,7 @@ void cUOSocket::sendCharList()
 	if (maxChars == 6) {
 		flags |= 0x8020;
 		flags &= ~ 0x4;
-	}	
+	}
 	clientFeatures.setShort( 1, flags );
 	send( &clientFeatures );
 

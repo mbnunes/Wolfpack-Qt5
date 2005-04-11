@@ -109,9 +109,9 @@ void cUOTxCharTownList::compile( void )
 		setAsciiString( offset + 32, towns[t].area.left( 29 ).latin1(), 30 );
 		offset += 63;
 	}
-	
+
 	unsigned int flags = 0xA8; // Samurai Empire + Context Menus + AOS
-	
+
 	if (charLimit == 6) {
 		flags |= 0x40;
 	} else if (charLimit == 1) {

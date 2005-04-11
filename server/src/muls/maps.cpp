@@ -751,7 +751,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 			p = temp;
 		}
 	}
-	
+
 	if (p) {
 		if (exact) {
 			// Copy only the ones we need

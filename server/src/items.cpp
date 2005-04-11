@@ -955,10 +955,10 @@ void cItem::showName( cUOSocket* socket )
 		{
 			message = 1050039;
 			if ( name_.isEmpty() ) {
-				unsigned int clilocName = this->clilocName();				
-				if (clilocName != 0) {					
+				unsigned int clilocName = this->clilocName();
+				if (clilocName != 0) {
 					params = QString( "%1\t#%2" ).arg( amount_ ).arg( clilocName );
-				} else {			
+				} else {
 					params = QString( "%1\t#%2" ).arg( amount_ ).arg( 1020000 + id_ );
 				}
 			} else {
@@ -1645,7 +1645,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		setBaseid( value.toString().latin1() );
 		return 0;
 	}
-	else if ( name == "lockeddown" ) 
+	else if ( name == "lockeddown" )
 	{
 		setLockedDown( value.toInt() != 0 );
 		return 0;
@@ -2073,7 +2073,7 @@ void cItem::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 			unsigned int clilocName = this->clilocName();
 			if (clilocName != 0) {
 				tooltip.addLine( 1050039, QString( "%1\t#%2" ).arg( amount_ ).arg( clilocName ) );
-			} else {			
+			} else {
 				tooltip.addLine( 1050039, QString( "%1\t#%2" ).arg( amount_ ).arg( 1020000 + id_ ) );
 			}
 		} else {
@@ -2179,7 +2179,7 @@ unsigned int cItem::countItems( short id, short color ) const
 
 	for ( P_ITEM pi = content.first(); pi; pi = content.next() )
 	{
-		if ( !pi || pi->free )			// just to be sure ;-)
+		if ( !pi || pi->free ) // just to be sure ;-)
 			continue;
 		if ( pi->id() == id && ( color == -1 || pi->color() == color ) )
 			total += pi->amount();

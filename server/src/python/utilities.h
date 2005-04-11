@@ -221,7 +221,7 @@ public:
 		// The Python string functions don't like null pointers
 		if (sModule.latin1()) {
 			pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-	
+
 			if ( pModule && sFunc.latin1() )
 			{
 				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.latin1() ) );
@@ -264,7 +264,7 @@ public:
 		// The Python string functions don't like null pointers
 		if (sModule.latin1()) {
 			pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-	
+
 			if ( pModule && sFunc.latin1() )
 			{
 				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.latin1() ) );

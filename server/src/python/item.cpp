@@ -217,12 +217,12 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 			return 0;
 		}
 		pos.z = ( signed char ) z;
-		
+
 		if (pos.isInternalMap()) {
 			PyErr_SetString( PyExc_RuntimeError, "Moving to the internal map using item.moveto() is not supported." );
 			return 0;
 		}
-		
+
 		self->pItem->moveTo( pos );
 	}
 
@@ -643,7 +643,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 		Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
 		toCall = new PythonFunction( func );
 
-		if ( !toCall->isValid() ) 
+		if ( !toCall->isValid() )
 		{
 			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.latin1());
 			return 0;
@@ -652,7 +652,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	else
 		toCall = new PythonFunction( function );
 
-	if ( !toCall->isValid() ) 
+	if ( !toCall->isValid() )
 	{
 		PyErr_SetString(PyExc_RuntimeError, "The function callback you specified was invalid.");
 		return 0;

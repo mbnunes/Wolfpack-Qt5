@@ -551,7 +551,7 @@ void cElement::freeChildren()
 		unsigned int copyCount = childCount_;
 
 		// This prevents removeChild from doing any work
-		children = 0; 
+		children = 0;
 		childCount_ = 0;
 
 		for ( unsigned int i = 0; i < copyCount; ++i )

@@ -124,7 +124,7 @@ enum eSkills
 	FOCUS,
 	CHIVALRY,
 	BUSHIDO,
-	NINJITSU,	
+	NINJITSU,
 	ALLSKILLS
 };
 

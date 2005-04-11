@@ -169,7 +169,7 @@ public:
 			action->setNPC( npc );
 		}
 	}
-	
+
 	P_CHAR currentVictim() const
 	{
 		return World::instance()->findChar( m_currentVictimSer );

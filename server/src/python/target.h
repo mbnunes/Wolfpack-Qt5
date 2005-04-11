@@ -72,5 +72,4 @@ public:
 	void canceled( cUOSocket* socket );
 };
 
-
 #endif

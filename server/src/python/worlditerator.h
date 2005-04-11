@@ -36,5 +36,4 @@ PyObject* PyGetCharIterator();
 PyObject* PyGetItemIterator();
 PyObject* PyGetDefinitionIterator(eDefCategory type);
 
-
 #endif

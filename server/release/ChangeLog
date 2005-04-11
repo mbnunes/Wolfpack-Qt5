@@ -3,12 +3,12 @@ Wolfpack 12.9.14 Beta (SVN)
   - Changed python callbacks to use the function object instead of a string containing hardcoded paths.
     It is backwards compatible with the old scheme, for now.
   - Fixed onDeath being called after the npc was already deleted.
-  - Added a basedef property "min_restock_amount" that is used by the restocking code to never let 
+  - Added a basedef property "min_restock_amount" that is used by the restocking code to never let
   	the restock amount of a specific item type go below the given amount. (Integer property)
   - Added a basedef property "max_restock_amount" that is used by the restocking code to never let
     the restock amount of a specific item type go above the given amount. (Integer property)
   - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
-  - Reimplemented different corpse decay times for players and npcs.  
+  - Reimplemented different corpse decay times for players and npcs.
   - Picking up items from and dropping items into the corpses of other players is logged now in the LOG_TRACE mask.
   - Implemented an onLog event.
   - GMs can now drop items everywhere without a LOS check.
@@ -29,7 +29,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed another major memory leak in definitions reloading.
   - Removed redundant skill tag use:
     Replaced with <skill id="skillname">value</skill>
-  - Fixed an SQL tag loading issue.
+  - Fixed a SQL tag loading issue.
+  - Fixed a broken else if chain in cAccount::setProperty
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -85,7 +86,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Rewrote the inscription menu.
   - Finished a conversion of the plant system from RunUO.
   - Implemented correct logging of changes on the info gump.
-  - Fixed bug #0000382 (pets stayed after released) 
+  - Fixed bug #0000382 (pets stayed after released)
   - Added playervendors from Ancient-Realms.org
   - Added isValidPosition to wolfpack.utilities to check if a coord is valid.
   - Applied isValidPosition to moongates and go menu.
@@ -199,7 +200,7 @@ Wolfpack 12.9.13 Beta (25. December 2004)
   - Implemented an onSelectAbility event for the weapon special moves.
   - Corrected the NINJITSU and BUSHIDO skill ids.
   - Small cleanup to wolfpack.xml: Database options follow the same option
-    names are are given in account options. 
+    names are are given in account options.
   - Implemented a "karmalock" property to player objects. If it's True, the player will not
     gain any positive karma anymore.
   - Added Commoner AI.
@@ -279,7 +280,7 @@ Wolfpack 12.9.13 Beta (25. December 2004)
  * Misc. Changes:
   - FAQ Updates.
   - Now compiling with the KDE Cygwin QT version on Windows. (http://kde-cygwin.sf.net)
-  - Updated the gm tool a little. It now has support for the samurai empire maps. 
+  - Updated the gm tool a little. It now has support for the samurai empire maps.
   	In addition to fixing some bugs, it also has an experimental region rectangle generator
   	on the settings tab.
  * Known Issues, Bugs, and Missing Features:

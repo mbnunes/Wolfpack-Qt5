@@ -97,7 +97,7 @@ private:
 	unsigned char cipherTable[0x100];
 	unsigned char xorData[16]; // This table is used for encrypting the server->client stream
 	/*
-		Note: Thanks to Negr0potence for the hint on uo.elitecoder.net. 
+		Note: Thanks to Negr0potence for the hint on uo.elitecoder.net.
 		Crypting the initial twofish ciphertable... Man... This is typical...
 	*/
 

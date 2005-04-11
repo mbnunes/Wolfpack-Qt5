@@ -53,8 +53,8 @@
 static MTRand mtrand;
 
 /*!
-  Returns a random number between \a nLowNum
-  and \a nHighNum.
+	Returns a random number between \a nLowNum
+	and \a nHighNum.
 */
 int RandomNum( int nLowNum, int nHighNum )
 {

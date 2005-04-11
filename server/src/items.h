@@ -405,7 +405,7 @@ public:
 	{
 		return ( movable_ == 3 );
 	}
-	
+
 	void setLockedDown(bool data)
 	{
 		if (data) {

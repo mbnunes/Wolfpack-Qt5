@@ -91,7 +91,7 @@ inline char cUOPacket::operator[]( unsigned int index ) const
 }
 
 //#define WP_CPU_REQUIRES_DATA_ALIGNMENT
-/* This template safely copies a value in from an untyped byte buffer to a typed value. 
+/* This template safely copies a value in from an untyped byte buffer to a typed value.
 * (Make sure WP_CPU_REQUIRES_DATA_ALIGNMENT is defined if you are on a CPU
 * that doesn't like non-word-aligned data reads and writes)
 */

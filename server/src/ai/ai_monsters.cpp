@@ -45,7 +45,7 @@ bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )
 	{
 		return true;
 	}
-	
+
 	if ( victim == npc )
 	{
 		return true;

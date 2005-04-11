@@ -413,7 +413,7 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 			toCall = new PythonFunction( func );
 
 			// This is optional, if we used the empty string, treat as it was a None object
-			if ( !func.isEmpty() && ( !toCall || !toCall->isValid() ) ) 
+			if ( !func.isEmpty() && ( !toCall || !toCall->isValid() ) )
 			{
 				PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s", func.latin1());
 				return 0;

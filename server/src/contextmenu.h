@@ -54,8 +54,6 @@ class cContextMenuEntry
 	bool checkenabled_;
 
 public:
-
-
 	cContextMenuEntry( ushort cliloc, ushort scriptTag, ushort color = 0, bool checkvisible = false, bool checkenabled = false ) : cliloc_( cliloc ), flags_( 0 ), color_( color ), scriptTag_( scriptTag ), checkvisible_( checkvisible ), checkenabled_( checkenabled )
 	{
 		flags_ |= ( color_ & 0xFFFF ) ? 32 : 0;

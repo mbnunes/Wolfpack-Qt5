@@ -66,7 +66,7 @@ static P_CHAR findBestTarget( P_NPC npc )
 	/*
 		Attack the target with the highest ((Strength + Tactics) / Distance) value.
 	*/
-	
+
 	// If we're not tamed, we attack other players as well.
 	if ( !npc->isTamed() )
 	{

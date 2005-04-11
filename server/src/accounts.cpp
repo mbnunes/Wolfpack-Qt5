@@ -661,16 +661,26 @@ PyObject* cAccount::getProperty( const QString& name )
 
 stError* cAccount::setProperty( const QString& name, const cVariant& value )
 {
-	// \property account.acl The name of the ACL used to check the permissions of this account.
+	/*
+		\property account.acl The name of the ACL used to check the permissions of this account.
+	*/
 	if ( name == "acl" )
 	{
 		setAcl( value.toString() );
 		return 0;
 	}
-	// \property account.email The E-Mail address associated with this account.
-	else
-		SET_STR_PROPERTY( "email", email_ )
-		// \property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
+	/*
+		\property account.email The E-Mail address associated with this account.
+	*/
+	else if ( name == "email" )
+	{
+		//SET_STR_PROPERTY( "email", email_ );
+		SET_INT_PROPERTY( "email", value.toString() );
+		return 0;
+	}
+	/*
+		\property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
+	*/
 	else if ( name == "multigems" )
 	{
 		setMultiGems( value.toInt() != 0 );
@@ -707,7 +717,12 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 		0x00000020 staff - gm mode on/off
 		0x00000040 multigems on/off</code>
 	*/
-	SET_INT_PROPERTY( "flags", flags_ )
+	else if ( name == "flags" )
+	{
+		//SET_INT_PROPERTY( "flags", flags_ );
+		SET_INT_PROPERTY( "flags", value.toInt() );
+		return 0;
+	}
 	/*
 	\property account.blockuntil This is the date and time when this account will be unblocked.
 	The following format for the date and time is used (from the QT documentation):

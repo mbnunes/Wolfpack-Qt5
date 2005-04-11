@@ -143,7 +143,7 @@ void cGameEncryption::init( unsigned int seed )
 	sendPos = 0x00;
 	recvPos = 0;
 
-	// We need to fill the table initially to calculate the MD5 hash of it    
+	// We need to fill the table initially to calculate the MD5 hash of it
 	unsigned char tmpBuffer[0x100];
 	blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
 	memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );

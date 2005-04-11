@@ -1753,7 +1753,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 		Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
 		expireCall = new PythonFunction( func );
 
-		if ( !expireCall->isValid() ) 
+		if ( !expireCall->isValid() )
 		{
 			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.latin1());
 			return 0;
@@ -1762,7 +1762,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	else
 		expireCall = new PythonFunction( expireFunction );
 
-	if ( !expireCall->isValid() ) 
+	if ( !expireCall->isValid() )
 	{
 		PyErr_SetString(PyExc_RuntimeError, "The function callback you specified was invalid.");
 		return 0;
@@ -1782,7 +1782,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 			Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
 			dispelCall = new PythonFunction( func );
 
-			if ( !dispelCall->isValid() ) 
+			if ( !dispelCall->isValid() )
 			{
 				PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.latin1());
 				return 0;
@@ -2599,7 +2599,7 @@ static PyObject* wpChar_walk( wpChar* self, PyObject* args )
 	{
 		return 0;
 	}
-	
+
 	if (self->pChar->pos().isInternalMap()) {
 		PyErr_SetString(PyExc_RuntimeError, "Cannot use .walk on the internal map.");
 		return 0;

@@ -100,7 +100,7 @@ public:
 	{
 		if ( !dispelFunc_ || !dispelFunc_->isValid() )
 			return;
-		
+
 		// Create our Argument list
 		PyObject* p_args = PyTuple_New( 4 );
 
@@ -319,11 +319,17 @@ public:
 				continue;
 
 			if ( type == "string" )
+			{
 				PyTuple_SetItem( args, id, PyString_FromString( value.latin1() ) );
+			}
 			else if ( type == "int" )
+			{
 				PyTuple_SetItem( args, id, PyInt_FromLong( value.toInt() ) );
+			}
 			else if ( type == "float" )
+			{
 				PyTuple_SetItem( args, id, PyFloat_FromDouble( value.toFloat() ) );
+			}
 			else if ( type == "char" )
 			{
 				PyTuple_SetItem( args, id, PyGetCharObject( World::instance()->findChar( value.toInt() ) ) );
@@ -341,4 +347,3 @@ public:
 };
 
 #endif
-

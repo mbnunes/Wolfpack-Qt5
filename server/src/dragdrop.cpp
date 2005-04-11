@@ -92,7 +92,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 		socket->sysMessage(tr( "You cannot grab items in locked containers."));
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
-	}	
+	}
 
 	P_ITEM outmostCont = pItem->getOutmostItem();
 
@@ -172,7 +172,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 
 	// ==== Grabbing the Item is allowed here ====
 
-	// Log that the item has been picked up, 
+	// Log that the item has been picked up,
 	// if we're a gamemaster (This is here because gms tend to be untrusted)
 	if ( pChar->isGM() && itemOwner && itemOwner != pChar ) {
 		P_PLAYER owner = dynamic_cast<P_PLAYER>(itemOwner);
@@ -862,18 +862,23 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 			pItem->moveTo( pCont->pos() + Coord( 0, 0, 2 ) );
 
 			// If the logmask contains LOG_TRACE, log drops
-			if (outmostCont && outmostCont != pItem) {
-				if (outmostCont->corpse()) {
+			if (outmostCont && outmostCont != pItem)
+			{
+				if (outmostCont->corpse())
+				{
 					cCorpse *corpse = static_cast<cCorpse*>(outmostCont);
 					P_PLAYER owner = dynamic_cast<P_PLAYER>(corpse->owner());
-					if (owner && owner != pChar) {
+					if (owner && owner != pChar)
+					{
 						pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) onto corpse of player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->name() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 					}
 				}
 			}
-			if ( pChar->isGM() && packOwner && packOwner != pChar ) {
+			if ( pChar->isGM() && packOwner && packOwner != pChar )
+			{
 				P_PLAYER owner = dynamic_cast<P_PLAYER>(packOwner);
-				if (owner) {
+				if (owner)
+				{
 					pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) to player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 				}
 			}

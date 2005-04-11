@@ -195,4 +195,3 @@ void cConsole::queueCommand( const QString& command )
 	QMutexLocker lock( &commandMutex );
 	commandQueue.push_back( command );
 }
-
