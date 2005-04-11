@@ -674,8 +674,7 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	*/
 	else if ( name == "email" )
 	{
-		//SET_STR_PROPERTY( "email", email_ );
-		SET_INT_PROPERTY( "email", value.toString() );
+		SET_STR_PROPERTY( "email", email_ );
 		return 0;
 	}
 	/*
@@ -719,8 +718,7 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	*/
 	else if ( name == "flags" )
 	{
-		//SET_INT_PROPERTY( "flags", flags_ );
-		SET_INT_PROPERTY( "flags", value.toInt() );
+		SET_INT_PROPERTY( "flags", flags_ );
 		return 0;
 	}
 	/*
