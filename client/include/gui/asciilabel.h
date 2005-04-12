@@ -9,6 +9,7 @@
 #include "texture.h"
 
 class cAsciiLabel : public cControl {
+Q_OBJECT
 private:
 	QCString text_;
 	unsigned short hue_;
@@ -34,25 +35,37 @@ public:
 	inline void setText(const QCString &text) {
 		if (text_ != text) {
 			text_ = text;
-			invalidate();
+			if (texture) {
+				texture->decref();
+				texture = 0;
+			}
 		}
 	}
 	inline void setFont(unsigned char font) {
 		if (font != font_) {
 			font_ = font;
-			invalidate();
+			if (texture) {
+				texture->decref();
+				texture = 0;
+			}
 		}
 	}
 	inline void setHue(unsigned short hue) {
 		if (hue != hue_) {
 			hue_ = hue;
-			invalidate();
+			if (texture) {
+				texture->decref();
+				texture = 0;
+			}
 		}
 	}
 	inline void setAlign(enTextAlign align) {
 		if (align != align_) {
 			align_ = align;
-			invalidate();
+			if (texture) {
+				texture->decref();
+				texture = 0;
+			}
 		}
 	}
 	inline void setAutoSize(bool autoSize) {
@@ -66,7 +79,10 @@ public:
 	inline void setHueAll(bool hueAll) {
 		if (hueAll_ != hueAll) {
 			hueAll_ = hueAll;
-			invalidate();
+			if (texture) {
+				texture->decref();
+				texture = 0;
+			}
 		}
 	}
 

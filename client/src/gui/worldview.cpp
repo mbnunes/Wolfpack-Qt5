@@ -8,6 +8,7 @@
 #include "game/mobile.h"
 #include "uoclient.h"
 #include <math.h>
+#include <qcursor.h>
 
 const unsigned int sysMessageDecay = 10000;
 
@@ -32,7 +33,7 @@ inline void cSysMessage::setCreated(unsigned int data) {
 
 void cWorldView::cleanSysMessages() {
 	QValueList<cControl*> toremove;
-	unsigned int currentTime = SDL_GetTicks();
+	unsigned int currentTime = Utilities::getTicks();
 
 	Iterator it;
 	for (it = controls.begin(); it != controls.end(); ++it) {
@@ -80,7 +81,7 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 	setBounds(x_, y_, width, height);
 
 	ismoving = false;
-	nextSysmessageCleanup = SDL_GetTicks() + 250;
+	nextSysmessageCleanup = Utilities::getTicks() + 250;
 }
 
 cWorldView::~cWorldView() {
@@ -92,23 +93,6 @@ cControl *cWorldView::getControl(int x, int y) {
 	} else {
 		return 0;
 	}
-}
-
-void cWorldView::update() {
-	if (!dirty_) {
-		return; // Nothing to update
-	}
-
-	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
-		cControl *control = *it;
-		if (control->isVisible()) {
-			if (control->isDirty()) {
-				control->update(); // Update the control before drawing it
-			}
-		}
-	}
-
-	dirty_ = false; // Flag as non-dirty
 }
 
 // Stop tracking, otherwise pass to World.
@@ -134,7 +118,7 @@ void cWorldView::onMouseDown(int x, int y, unsigned char button, bool pressed) {
 	if (ctrl == left || ctrl == right || ctrl == top || ctrl == bottom) {
 		tracking = true;
 	} else {
-		if (button == SDL_BUTTON_RIGHT) {
+		if (button & Qt::RightButton) {
 			ismoving = true;
 		}
 	}
@@ -155,12 +139,11 @@ void cWorldView::addSysMessage(const QCString &message, unsigned short hue, unsi
 
 void cWorldView::addSysMessage(const QString &message, unsigned short hue, unsigned char font) {
 	cSysMessage *label = new cSysMessage(message, font, hue);
-	label->refreshSurface(); // Create the surface so the height is known
-	label->setCreated(SDL_GetTicks());
+	label->update(); // Create the surface so the height is known
+	label->setCreated(Utilities::getTicks());
 	label->setPosition(left->width(), bottom->y() - 50 - label->height());
 	moveContent(- label->height() - 4);
 	addControl(label);
-	invalidate();
 }
 
 void cWorldView::moveContent(int yoffset) {
@@ -197,11 +180,11 @@ void cWorldView::moveTick() {
 	// TEMPORARY HACK UNTIL PLAYER OBJECT + NETWORKING EXISTS
 	static unsigned int nextmove = 0;
 
-	if (nextmove > SDL_GetTicks()) {
+	if (nextmove > Utilities::getTicks()) {
 		return;
 	}
 
-	nextmove = SDL_GetTicks() + 75;
+	nextmove = Utilities::getTicks() + 75;
 
 	// Get the direction the cursor is pointing to
 	enCursorType cursor = getCursorType();
@@ -259,8 +242,9 @@ void cWorldView::moveTick() {
 }
 
 enCursorType cWorldView::getCursorType() {
-	int mx, my;
-	SDL_GetMouseState(&mx, &my);
+	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	int mx = pos.x();
+	int my = pos.y();
 
 	// Return a normal cursor if we're outside the worldview
 	if (!ismoving && (mx < x_ + left->width() || mx >= x_ + width_ - right->width() || 
@@ -338,9 +322,9 @@ void cWorldView::getWorldRect(int &x, int &y, int &width, int &height) {
 
 void cWorldView::draw(int xoffset, int yoffset) {
 	// Remove outdated sysmessages
-	if (nextSysmessageCleanup < SDL_GetTicks()) {
+	if (nextSysmessageCleanup < Utilities::getTicks()) {
 		cleanSysMessages();
-		nextSysmessageCleanup = SDL_GetTicks() + 250;	
+		nextSysmessageCleanup = Utilities::getTicks() + 250;	
 	}
 
 	cWindow::draw(xoffset, yoffset);

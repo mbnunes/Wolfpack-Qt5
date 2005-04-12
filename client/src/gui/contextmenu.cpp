@@ -48,7 +48,7 @@ cContextMenu::~cContextMenu() {
 
 void cContextMenu::addEntry(const QString &name, unsigned short hue, int id) {
 	cContextMenuEntry *entry = new cContextMenuEntry(name, hue);
-	entry->refreshSurface();
+	entry->update();
 	entry->setId(id);
 	entries.append(entry);
 	addControl(entry);

@@ -4,10 +4,13 @@
 #include "control.h"
 #include "gui.h"
 #include "enums.h"
+#include <qtimer.h>
 
 typedef void (*fnButtonClickedCallback)(cControl *button);
 
 class cImageButton : public cControl {
+Q_OBJECT
+
 private:
 	// There are a lot of different possibilities for the states
 	cTexture *gumps[3]; // For every state one
@@ -19,7 +22,7 @@ private:
 	bool mouseHolding_; // False by default (is the space key being pressed)
 	bool spaceHolding_; // False by default (is the space key being pressed)
 	unsigned int pressRepeatRate_; // Number of miliseconds a press will be regarded as an onClick event.
-	SDL_TimerID pressRepeatTimer_; // Timer id of the current press repeat timer
+	QTimer *pressRepeatTimer;
 
 	// We need to store some sort of callback here.
 	fnButtonClickedCallback callback;
@@ -59,9 +62,6 @@ public:
 	
 	// Press Repeat Rate
 	inline unsigned int pressRepeatRate() const { return pressRepeatRate_; }
-	inline SDL_TimerID pressRepeatTimer() const { return pressRepeatTimer_; }
-	inline void setPressRepeatTimer(SDL_TimerID data) { pressRepeatTimer_ = data; }
-
 	inline void setPressRepeatRate(unsigned int data) {
 		pressRepeatRate_ = data;
 	}
@@ -71,8 +71,8 @@ public:
 
 	void onMouseLeave(); // Toggle the mouseOver state
 	void onMouseEnter(); // Toggle the mouseOver state
-	void onMouseDown(int x, int y, unsigned char button, bool pressed);
-	void onMouseUp(int x, int y, unsigned char button, bool pressed);
+	void onMouseDown(QMouseEvent *e);
+	void onMouseUp(QMouseEvent *e);
 	void onKeyDown(const SDL_keysym &key);
 	void onKeyUp(const SDL_keysym &key);
 	void onBlur(cControl *newFocus);
@@ -80,6 +80,10 @@ public:
 	virtual void onClick(); // The button has been clicked	
 
 	cControl *getControl(int x, int y);
+
+// Slot for the press repeat 
+private slots:
+	void repeatPress();
 };
 
 #endif

@@ -22,7 +22,6 @@ cControl::cControl() {
 	anchors_ = 0;
 	movable_ = false;
 	moveHandle_ = false;
-	dirty_ = true; // We haven't drawn anything yet
 	canHaveFocus_ = false;
 	wantTabs_ = false;
 	tabIndex_ = 0;
@@ -108,7 +107,6 @@ void cControl::onParentResized(int oldwidth, int oldheight) {
 void cControl::setVisible(bool data) {
 	visible_ = data;
 	requestAlign();
-	invalidate();
 
 	if (!data) {
 		if (Gui->activeWindow() == this) {
@@ -120,10 +118,10 @@ void cControl::setVisible(bool data) {
 	}
 }
 
-void cControl::onMouseDown(int x, int y, unsigned char button, bool pressed) {
+void cControl::onMouseDown(QMouseEvent *e) {
 }
 
-void cControl::onMouseUp(int x, int y, unsigned char button, bool pressed) {
+void cControl::onMouseUp(QMouseEvent *e) {
 }
 
 cControl *cControl::getControl(int x, int y) {
@@ -144,12 +142,6 @@ cControl *cControl::getMovableControl() {
 	}
 }
 
-// This method is called by the mainloop to ensure
-// every control is updated correctly (->valid)
-void cControl::update() {
-	dirty_ = false;
-}
-
 void cControl::onMouseEnter() {
 }
 
@@ -157,17 +149,15 @@ void cControl::onMouseLeave() {
 }
 
 void cControl::onBlur(cControl *newFocus) {
-	invalidate();
 }
 
 void cControl::onFocus(cControl *oldFocus) {
-	invalidate();
 }
 
-void cControl::onKeyDown(const SDL_keysym &key) {
+void cControl::onKeyDown(QKeyEvent *e) {
 }
 
-void cControl::onKeyUp(const SDL_keysym &key) {
+void cControl::onKeyUp(QKeyEvent *e) {
 }
 
 bool cControl::isContainer() const {
@@ -178,11 +168,20 @@ bool cControl::isWindow() const {
 	return false;
 }
 
-void cControl::onMouseMotion(int xrel, int yrel, unsigned char state) {
+void cControl::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 }
 
 void cControl::draw(int xoffset, int yoffset) {
 }
 
-void cControl::draw(IPaintable *target, const SDL_Rect *clipping) {
+QPoint cControl::mapFromGlobal(const QPoint &point) {
+	cControl *parent = parent_;
+	int x = x_, y = y_;
+	while (parent) {
+		x += parent->x();
+		y += parent->y();
+		parent = parent->parent();
+	}
+
+    return QPoint(point.x() - x, point.y() - y);
 }

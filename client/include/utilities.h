@@ -3,6 +3,7 @@
 #define __UTILITIES_H__
 
 #include "SDL.h"
+#include <time.h>
 #include <qstring.h>
 #include <qintcache.h>
 
@@ -27,6 +28,10 @@ namespace Utilities {
 	QString getUoFilename(const QString &filename);
 
 	void launchBrowser(const QCString &url);
+
+	inline unsigned int getTicks() {
+		return (unsigned int)clock();
+	}
 
 	/*
 		Check if two rects do have at least one intersecting pixel

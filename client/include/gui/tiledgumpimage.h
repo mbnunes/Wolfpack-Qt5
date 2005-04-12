@@ -5,6 +5,8 @@
 #include "gui/image.h"
 
 class cTiledGumpImage : public cControl {
+Q_OBJECT
+
 protected:
 	cTexture *texture;
 	unsigned short id_;
@@ -29,7 +31,6 @@ public:
 				texture->decref();
 				texture = 0;
 			}
-			invalidate();
 		}
 	}
 
@@ -40,7 +41,6 @@ public:
 				texture->decref();
 				texture = 0;
 			}
-			invalidate();
 		}
 	}
 
@@ -51,7 +51,6 @@ public:
 				texture->decref();
 				texture = 0;
 			}
-			invalidate();
 		}
 	}
 };

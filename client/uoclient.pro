@@ -2,8 +2,15 @@
 PROJECT = uoclient
 TARGET = uoclient
 TEMPLATE = app
+OBJECTS_DIR = obj
 
 CONFIG += qt thread exceptions release
+
+# On Win32 Only MSVC++.NET is "really" supported
+win32:GUID = {667DA75C-5D17-4F29-89E4-150CE6A077C4}
+win32:MAKEFILE_GENERATOR = MSVC.NET
+win32:TEMPLATE = vcapp
+win32:QMAKE_LIBS_QT_THREAD = qt-mt333.lib
 
 win32:CONFIG += windows
 unix:CONFIG += x11
@@ -18,6 +25,7 @@ OBJECTS_DIR = obj
 MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
+win32:LIBS += libs/SDL.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib
 
 unix:LIBS += -lGL -lGLU -lSDL
 
@@ -62,15 +70,12 @@ HEADERS += include/muls/art.h \
 SOURCES += \
 	src/binkw.cpp \
 	src/config.cpp \
-	src/config_unix.cpp \
 	src/engine.cpp \
 	src/log.cpp \
 	src/paintable.cpp \
-	src/startup_unix.cpp \
 	src/texture.cpp \
 	src/uoclient.cpp \
 	src/utilities.cpp \
-	src/utilities_unix.cpp \
 	src/vector.cpp
 	
 # GUI srcS
@@ -139,6 +144,11 @@ win32:SOURCES += \
 	src/config_win.cpp \
 	src/startup_win.cpp \
 	src/utilities_win.cpp
+	
+unix:SOURCES += \
+	src/config_unix.cpp \
+	src/startup_unix.cpp \
+	src/utilities_unix.cpp
 
 #
 #DISTFILES += \

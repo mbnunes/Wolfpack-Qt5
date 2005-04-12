@@ -6,10 +6,6 @@
 #include "utilities.h"
 #include "gui/container.h"
 
-void cContainer::draw(IPaintable *target, const SDL_Rect *clipping) {
-	target->drawSurface(x_, y_, surface, 0);
-}
-
 void cContainer::draw(int xoffset, int yoffset) {
 	xoffset += x_;
 	yoffset += y_;
@@ -22,48 +18,7 @@ void cContainer::draw(int xoffset, int yoffset) {
 	}
 }
 
-void cContainer::drawPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-	if (surface) {
-		// Convert to screen pixel format
-		SDL_PixelFormat *format = surface->format;
-		unsigned int pixel;
-		if (a != 255) {
-			pixel = SDL_MapRGBA(format, r, g, b, a);
-		} else {
-			pixel = SDL_MapRGB(format, r, g, b);
-		}
-
-		// Calculate the offset
-		unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->BytesPerPixel);
-
-		switch (format->BytesPerPixel) {
-			case 4:
-				*(unsigned int*)ptr = pixel;
-				break;
-			case 2:
-				*(unsigned short*)ptr = pixel;
-				break;
-			default:
-				throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
-		}
-	}
-}
-
-void cContainer::drawSurface(int x, int y, SDL_Surface *surface, SDL_Rect *srcrect) {
-	if (!surface || !this->surface) {
-		return; // Dont draw invalid surfaces
-	}
-
-	SDL_Rect dest;
-	dest.x = x;
-	dest.y = y;
-
-	SDL_BlitSurface(surface, srcrect, this->surface, &dest);
-}
-
 cContainer::cContainer() {
-	surface = 0;
-	alpha_ = SDL_ALPHA_OPAQUE;	 
 }
 
 void cContainer::clear() {
@@ -76,20 +31,10 @@ void cContainer::clear() {
 
 cContainer::~cContainer() {
 	clear();
-
-	if (surface) {
-		SDL_FreeSurface(surface);
-	}
 }
 
 void cContainer::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight) {
 	if (width_ != oldwidth || height_ != oldheight) {
-		if (surface) {
-			SDL_FreeSurface(surface);
-			surface = 0;
-		}
-		invalidate();
-
 		// Notify the child controls that we have resized
 		for (Iterator it = controls.begin(); it != controls.end(); ++it) {
 			(*it)->onParentResized(oldwidth, oldheight);
@@ -98,13 +43,6 @@ void cContainer::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight)
 		alignControl(0);
 	}
 
-	// make sure the parent redraws
-	if (oldx != x_ || oldy != y_) {
-		if (parent_) {
-			parent_->invalidate();
-		}
-	}
-    
 	cControl::onChangeBounds(oldx, oldy, oldwidth, oldheight);
 }
 
@@ -142,7 +80,6 @@ void cContainer::addControl(cControl *control, bool back) {
 
 	control->setParent(this);
 	control->requestAlign();
-	invalidate(); // Flag as dirty
 }
 
 void cContainer::removeControl(cControl *control) {
@@ -159,24 +96,6 @@ void cContainer::removeControl(cControl *control) {
 	}
 
 	control->setParent(0);
-	invalidate(); // Invalidate
-}
-
-void cContainer::setAlpha(unsigned char data) {
-	if (alpha_ == data) {
-		return;
-	}
-
-	alpha_ = data;
-
-	if (surface) {
-		if (alpha_ == SDL_ALPHA_OPAQUE) {
-			SDL_SetAlpha(surface, 0, SDL_ALPHA_OPAQUE);
-		} else {
-			SDL_SetAlpha(surface, SDL_SRCALPHA, alpha_);
-		}
-		invalidate(); // Flag as dirty
-	}
 }
 
 void cContainer::alignControl(cControl *control) {
@@ -363,44 +282,6 @@ cControl *cContainer::getControl(int x, int y) {
 	return result;
 }
 
-void cContainer::update() {
-	if (!dirty_) {
-		return; // Nothing to update
-	}
-
-	// Recreate the container surface
-	if (!surface) {
-		surface = Engine->createSurface(width_, height_, true, false);
-		SDL_FillRect(surface, 0, 0);
-		SDL_SetColorKey(surface, SDL_SRCCOLORKEY, 0);
-
-		if (alpha_ != SDL_ALPHA_OPAQUE) {
-			SDL_SetAlpha(surface, SDL_SRCALPHA, alpha_);
-		}
-	}
-
-	SDL_FillRect(surface, 0, 0); // Clear Background
-
-	// Create a clipping rectangle for this windows surface
-	SDL_Rect clipping;
-	clipping.x = 0;
-	clipping.y = 0;
-	clipping.w = width_;
-	clipping.h = height_;
-
-	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
-		if ((*it)->isVisible()) {
-			if ((*it)->isDirty()) {
-				(*it)->update(); // Update the control before drawing it
-			}
-	
-			(*it)->draw(this, &clipping);
-		}
-	}
-
-	dirty_ = false; // Flag as non-dirty
-}
-
 unsigned int cContainer::getHighestTabIndex() {
 	unsigned int result = 0;
 
@@ -461,44 +342,4 @@ cControl *cContainer::getPreviousFocusControl(cControl *current) {
 
 bool cContainer::isContainer() const {
 	return true;
-}
-
-void cContainer::invertPixel(int x, int y) {
-	if (surface) {
-		// Calculate the offset
-		SDL_PixelFormat *format = surface->format;
-		unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->BytesPerPixel);
-		unsigned char r, g, b;
-
-		switch (format->BytesPerPixel) {
-			case 4:
-				SDL_GetRGB(*(unsigned int*)ptr, format, &r, &g, &b);
-				*(unsigned int*)ptr = SDL_MapRGB(format, - r, - g, - b);
-				break;
-			case 2:
-				*(unsigned short*)ptr = ~(*ptr);
-				break;
-			default:
-				throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
-		}
-	}
-}
-
-void cContainer::getPixel(int x, int y, unsigned char &r, unsigned char &g, unsigned char &b) {
-	if (surface) {
-		// Calculate the offset
-		SDL_PixelFormat *format = surface->format;
-		unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->BytesPerPixel);
-
-		switch (format->BytesPerPixel) {
-			case 4:
-				SDL_GetRGB(*((unsigned int*)ptr), format, &r, &g, &b);
-				break;
-			case 2:
-				SDL_GetRGB(*((unsigned short*)ptr), format, &r, &g, &b);
-				break;
-			default:
-				throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
-		}
-	}
 }

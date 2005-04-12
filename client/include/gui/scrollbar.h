@@ -51,7 +51,6 @@ public:
 		} else if(pos_ > max_) {
 			setPos(max_);
 		}
-		invalidate();
 	}
 
 	inline void setPos(unsigned int data) {
@@ -60,7 +59,6 @@ public:
 			int oldpos = pos_;
 			pos_ = data;
 			handle->setY(getTrackerYFromPos(pos_));
-			invalidate();
 			onScroll(oldpos);
 		}
 	}

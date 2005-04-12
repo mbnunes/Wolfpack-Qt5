@@ -9,6 +9,8 @@
 #include "texture.h"
 
 class cLabel : public cControl {
+Q_OBJECT
+
 private:
 	cTexture *surface;
 	QString text_;
@@ -32,6 +34,7 @@ public:
 	enTextAlign align() const { return align_; }
 	bool autoSize() const { return align_; }
 	bool exactHitTest() const { return exactHitTest_; }
+	void update();
 
 	// Setters
 	inline void setExactHitTest(bool data) {
@@ -41,31 +44,46 @@ public:
 	inline void setText(const QString &text) {
 		if (text_ != text) {
 			text_ = text;
-			invalidate();
+			if (surface) {
+				surface->decref();
+				surface = 0;
+			}
 		}
 	}
 	inline void setFont(unsigned char font) {
 		if (font != font_) {
 			font_ = font;
-			invalidate();
+			if (surface) {
+				surface->decref();
+				surface = 0;
+			}
 		}
 	}
 	inline void setHue(unsigned short hue) {
 		if (hue != hue_) {
 			hue_ = hue;
-			invalidate();
+			if (surface) {
+				surface->decref();
+				surface = 0;
+			}
 		}
 	}
 	inline void setBorder(bool border) {
 		if (border != border_) {
 			border_ = border;
-			invalidate();
+			if (surface) {
+				surface->decref();
+				surface = 0;
+			}
 		}
 	}
 	inline void setAlign(enTextAlign align) {
 		if (align != align_) {
 			align_ = align;
-			invalidate();
+			if (surface) {
+				surface->decref();
+				surface = 0;
+			}
 		}
 	}
 	inline void setAutoSize(bool autoSize) {
@@ -77,7 +95,6 @@ public:
 		}
 	}
 
-    void refreshSurface();
 	void draw(int xoffset, int yoffset);
 };
 

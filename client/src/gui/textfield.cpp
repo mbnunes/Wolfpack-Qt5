@@ -28,6 +28,7 @@ cTextField::cTextField(int x, int y, int width, int height, unsigned char font, 
 	caretXOffset_ = 0;
 	selection_ = 0;
 	password_ = false;
+	dirty = true;
 	
 	for (int i = 0; i < 3; ++i) {
 		surfaces[i] = 0;
@@ -140,10 +141,6 @@ void cTextField::drawSelection(SDL_Surface *surface) {
 }
 
 void cTextField::update() {
-	if (background_) {
-		background_->update();
-	}
-	
 	// Extract the portion of the string we're going to work on
 	QCString substring = text_.right(text_.length() - leftOffset_);
 	
@@ -191,11 +188,11 @@ void cTextField::update() {
 		}*/
 	}
 
-	dirty_ = false;
+	dirty = false;
 }
 
 void cTextField::draw(int xoffset, int yoffset) {
-	if (isDirty()) {
+	if (dirty) {
 		update();
 	}
 
@@ -294,19 +291,18 @@ void cTextField::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight)
 
 void cTextField::onMouseLeave() {
 	mouseOver_ = false;
-	invalidate();
 }
 
 void cTextField::onMouseEnter() {
 	mouseOver_ = true;
-	invalidate();
 }
 
-void cTextField::onKeyDown(const SDL_keysym &key) {
-	unsigned char ch = key.unicode & 0xFF;
+void cTextField::onKeyDown(QKeyEvent *e) {
+	int key = e->key();
+	Qt::ButtonState state = e->state();
 
 	// Handle special chars
-	if (key.sym == SDLK_BACKSPACE) {
+	if (key == Qt::Key_Backspace) {
 		// Replace the selection with an empty string
 		if (selection_ != 0) {
 			replaceSelection("");
@@ -315,17 +311,17 @@ void cTextField::onKeyDown(const SDL_keysym &key) {
 			text_.remove(caret_, 1);
 			invalidateText();
 		}
-	} else if (key.sym == SDLK_DELETE) {
+	} else if (key == Qt::Key_Delete) {
 		if (selection_ != 0) {
 			replaceSelection("");
 		} else if (caret_ < text_.length()) {
  			text_.remove(caret_, 1);
 			invalidateText();
 		}
-	} else if (key.sym == SDLK_LEFT) {
+	} else if (key == Qt::Key_Left) {
 		if (caret_ > 0) {
 			setCaret(caret_ - 1);
-			if (key.mod & KMOD_SHIFT) {
+			if ((state & Qt::ShiftButton) != 0) {
 				selection_++;
 				invalidateText();
 			} else {
@@ -333,13 +329,12 @@ void cTextField::onKeyDown(const SDL_keysym &key) {
 					selection_ = 0;
 					invalidateText();
 				}
-				invalidate();
 			}
 		}
-	} else if (key.sym == SDLK_RIGHT) {
+	} else if (key == Qt::Key_Right) {
 		if (caret_ < text_.length()) {
 			setCaret(caret_ + 1);
-			if (key.mod & KMOD_SHIFT) {
+			if ((state & Qt::ShiftButton) != 0) {
 				selection_--;
 				invalidateText();
 			} else {
@@ -347,32 +342,31 @@ void cTextField::onKeyDown(const SDL_keysym &key) {
 					selection_ = 0;
 					invalidateText();
 				}
-				invalidate();
 			}
 		}
-	} else if (key.sym == SDLK_v && key.mod & KMOD_CTRL) {
-		QClipboard *clipboard = App->clipboard();	
+	} else if (key == Qt::Key_V && (state & Qt::ControlButton) != 0) {
+		QClipboard *clipboard = App->clipboard();
 		QString text = clipboard->text();
 		if (!text.isEmpty()) {
 			QCString ltext = text.latin1();
 			replaceSelection(ltext);
 		}
-	} else if (key.sym == SDLK_c && key.mod & KMOD_CTRL) {
+	} else if (key == Qt::Key_C && (state & Qt::ControlButton) != 0) {
 		QClipboard *clipboard = App->clipboard();
 		QCString text = getSelection();
 		if (!text.isEmpty()) {
 			clipboard->setText(QString(text), QClipboard::Clipboard);
 		}
-	} else if (key.sym == SDLK_x && key.mod & KMOD_CTRL) {
+	} else if (key == Qt::Key_X && (state & Qt::ControlButton) != 0) {
 		QClipboard *clipboard = App->clipboard();
 		QCString text = getSelection();
 		if (!text.isEmpty()) {
 			clipboard->setText(QString(text), QClipboard::Clipboard);
 			replaceSelection("");
 		}
-	} else if (key.sym == SDLK_RETURN) {
+	} else if (key == Qt::Key_Return) {
 		onEnter();
-	} else if (key.sym == SDLK_HOME) {
+	} else if (key == Qt::Key_Home) {
         int oldCaret = caret_;
 		selection_ = 0;
 		setCaret(0);
@@ -385,75 +379,27 @@ void cTextField::onKeyDown(const SDL_keysym &key) {
 				selection_ = 0;
 				invalidateText();
 			}
-			invalidate();
 		}*/
-	} else if (key.sym == SDLK_END) {
+	} else if (key == Qt::Key_End) {
 		setCaret(text_.length());
 		selection_ = 0;		
 		invalidateText();
 	} else if (text_.length() < maxLength_) {	
-		// Translation for the numpad
-		if (key.mod & KMOD_NUM) {
-			switch (key.sym) {
-				case SDLK_KP_DIVIDE:
-					ch = '/';
-					break;
-				case SDLK_KP_MULTIPLY:
-					ch = '*';
-					break;
-				case SDLK_KP_PLUS:
-					ch = '+';
-					break;
-				case SDLK_KP_MINUS:
-					ch = '-';
-					break;
-				case SDLK_KP_PERIOD:
-					ch = ',';
-					break;
-				case SDLK_KP0:
-					ch = '0';
-					break;
-				case SDLK_KP1:
-					ch = '1';
-					break;
-				case SDLK_KP2:
-					ch = '2';
-					break;
-				case SDLK_KP3:
-					ch = '3';
-					break;
-				case SDLK_KP4:
-					ch = '4';
-					break;
-				case SDLK_KP5:
-					ch = '5';
-					break;
-				case SDLK_KP6:
-					ch = '6';
-					break;
-				case SDLK_KP7:
-					ch = '7';
-					break;
-				case SDLK_KP8:
-					ch = '8';
-					break;
-				case SDLK_KP9:
-					ch = '9';
-					break;
-			}
-		}
+		char ch = e->text().at(0).latin1();
 
 		// Check if the character is supported by the current font.
-		SDL_Surface *chs = AsciiFonts->getCharacter(font_, ch);
-		if (chs) {
-			QCString replacement;
-			replacement.insert(0, ch);
-			replaceSelection(replacement);
+		if (ch != 0) {
+			SDL_Surface *chs = AsciiFonts->getCharacter(font_, ch);
+			if (chs) {
+				QCString replacement;
+				replacement.insert(0, ch);
+				replaceSelection(replacement);
+			}
 		}
 	}
 }
 
-void cTextField::onKeyUp(const SDL_keysym &key) {
+void cTextField::onKeyUp(QKeyEvent *e) {
 }
 
 /*
@@ -578,16 +524,17 @@ unsigned int cTextField::getOffset(int x) {
 	return i;
 }
 
-void cTextField::onMouseDown(int x, int y, unsigned char button, bool pressed) {
-	cControl::onMouseDown(x, y, button, pressed);
+void cTextField::onMouseDown(QMouseEvent *e) {
+	cControl::onMouseDown(e);
 
-	int index = getOffset(x);
+	QPoint local = mapFromGlobal(e->pos());
+	int index = getOffset(local.x());
 	selection_ = 0;
 
 	// XXXXXX TODO: Normal windows selection rules with mouse
 
 	// Selection?
-	if (SDL_GetModState() & KMOD_SHIFT) {
+	if ((e->state() & Key_Shift) != 0) {
 		// In which direction do we select?
 		int diff = caret_ - index;
 
@@ -598,8 +545,8 @@ void cTextField::onMouseDown(int x, int y, unsigned char button, bool pressed) {
 	setCaret(index);
 }
 
-void cTextField::onMouseUp(int x, int y, unsigned char button, bool pressed) {
-	cControl::onMouseUp(x, y, button, pressed);
+void cTextField::onMouseUp(QMouseEvent *e) {
+	cControl::onMouseUp(e);
 }
 
 void cTextField::replaceSelection(const QCString &replacement) {

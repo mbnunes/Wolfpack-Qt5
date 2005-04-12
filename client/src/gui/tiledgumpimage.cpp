@@ -10,7 +10,6 @@ void cTiledGumpImage::update() {
 		texture = Gumpart->readTexture(id_, hue_, partialHue_);
 		texture->incref();
 	}
-	dirty_ = false;
 }
 
 cTiledGumpImage::cTiledGumpImage(unsigned short id, unsigned short hue, bool partialHue) {	
@@ -28,7 +27,7 @@ cTiledGumpImage::~cTiledGumpImage() {
 }
 
 void cTiledGumpImage::draw(int xoffset, int yoffset) {
-	if (isDirty()) {
+	if (!texture && id_ != 0) {
 		update();
 	}
 

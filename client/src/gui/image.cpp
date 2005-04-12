@@ -15,26 +15,6 @@ cImage::~cImage() {
 	}
 }
 
-void cImage::draw(IPaintable *target, const SDL_Rect *clipping) {
-	if (surface) {
-		SDL_Surface *surface = this->surface->surface();
-		if (clipping) {
-			int xdiff = clipping->x - x_;
-			int ydiff = clipping->y - y_;
-
-			SDL_Rect srcrect;
-			srcrect.x = QMAX(0, xdiff);
-			srcrect.y = QMAX(0, ydiff);
-			srcrect.w = QMIN(clipping->w, QMIN(surface->w - srcrect.x, clipping->w + xdiff));
-			srcrect.h = QMIN(clipping->h, QMIN(surface->h - srcrect.y, clipping->h + ydiff));
-
-			target->drawSurface(x_ + QMAX(0, xdiff), y_ + QMAX(0, ydiff), surface, &srcrect);
-		} else {
-			target->drawSurface(x_, y_, surface);
-		}
-	}
-}
-
 cControl *cImage::getControl(int x, int y) {
 	cControl *result = 0;
 
@@ -72,20 +52,4 @@ cControl *cImage::getControl(int x, int y) {
 	}
 
 	return result;
-}
-
-cCustomImage::cCustomImage(SharedSurface *surface) {
-	this->surface = surface;
-	if (surface) {
-		surface->incref();
-		SDL_Surface *sdlSurface = surface->surface();
-		setSize(sdlSurface->w, sdlSurface->h);
-	}
-}
-
-void cCustomImage::update() {
-}
-
-void cCustomImage::onMouseDown(int, int, unsigned char, bool) {
-	Utilities::messageBox(message, "Label Information", false);
 }

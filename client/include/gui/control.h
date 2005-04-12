@@ -3,15 +3,18 @@
 #define __CONTROL_H__
 
 #include "SDL.h"
-#include "paintable.h"
 #include "enums.h"
+#include <qevent.h>
+#include <qobject.h>
 
 class cGui;
 
 /*
 	Base class for all gui controls.
 */
-class cControl {
+class cControl : public QObject {
+Q_OBJECT
+
 friend class cGui;
 friend class cContainer;
 friend class cWindow;
@@ -29,18 +32,11 @@ protected:
 	bool visible_; // Default to true
 	bool moveHandle_; // If this control is dragged, is the parent form moved instead? Defaults to false.
 	bool movable_; // If this control mouse-movable? Defaults to false.
-	bool dirty_; // This flag indicates this control needs to be updated
 	bool canHaveFocus_; // The control may have the input focus. Defaults to false.
 	bool wantTabs_; // This property indicates that the TAB key should not switch focus if this control is active. Defaults to false.
 	unsigned int tabIndex_; // The tab index of this control. By defaults it the highest tab index in the parent + 1
 
-	// This is used to draw this control onto another one
-	virtual void draw(IPaintable *target, const SDL_Rect *clipping = 0);
 public:	
-	inline bool isDirty() const {
-		return dirty_;
-	}
-
 	inline cContainer *parent() { return parent_; }
 	// NOTE: This function does not add or remove the control from the parents control array
 	virtual void setParent(cContainer *data);
@@ -54,29 +50,17 @@ public:
 	inline unsigned int tabIndex() const { return tabIndex_; }
 	inline void setTabIndex(unsigned int data) { tabIndex_ = data; }
 
+	// Map a QPoint from the global coordinate space to local
+	QPoint mapFromGlobal(const QPoint &point);
+
 	// Visibility
 	inline bool isVisible() const { return visible_; }
 	void setVisible(bool data);
 
 	virtual cControl *getControl(int x, int y);
 
-	// Invalidate this control 
-	// and also invalidate the controls above it
-	inline void invalidate() {
-		// Use an iterative algorithm here. MUCH faster.
-		cControl *control = this;
-		do {
-			control->dirty_ = true; // Flag the control as dirty
-			control = (cControl*)control->parent();
-		} while (control);
-	}
-
 	// Draw the control using OpenGL
 	virtual void draw(int xoffset, int yoffset);
-
-	// This method is called by the mainloop to ensure
-	// every control is updated correctly (->valid)
-	virtual void update();
 
 	// This replaces RTTI
 	virtual bool isContainer() const;
@@ -160,15 +144,15 @@ public:
 	virtual void onParentMoved(int oldx, int oldy);
 	virtual void onParentResized(int oldwidth, int oldheight);
 	virtual void onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight);
-	virtual void onMouseDown(int x, int y, unsigned char button, bool pressed);
-	virtual void onMouseUp(int x, int y, unsigned char button, bool pressed);
-	virtual void onMouseMotion(int xrel, int yrel, unsigned char buttons);
+	virtual void onMouseDown(QMouseEvent *e);
+	virtual void onMouseUp(QMouseEvent *e);
+	virtual void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
 	virtual void onMouseEnter();
 	virtual void onMouseLeave();
 	virtual void onBlur(cControl *newFocus);
 	virtual void onFocus(cControl *oldFocus);
-	virtual void onKeyDown(const SDL_keysym &key);
-	virtual void onKeyUp(const SDL_keysym &key);
+	virtual void onKeyDown(QKeyEvent *e);
+	virtual void onKeyUp(QKeyEvent *e);
 };
 
 #endif

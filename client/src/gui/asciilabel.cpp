@@ -18,8 +18,6 @@ cAsciiLabel::cAsciiLabel(const QCString &text, unsigned short font, unsigned sho
 	if (autoSize_) {
 		setSize(texture->realWidth(), texture->realHeight());
 	}
-
-	dirty_ = false;
 }
 
 cAsciiLabel::~cAsciiLabel() {
@@ -38,11 +36,13 @@ void cAsciiLabel::update() {
 	if (autoSize_) {
 		setSize(texture->realWidth(), texture->realHeight());
 	}
-
-	dirty_ = false;
 }
 
 void cAsciiLabel::draw(int xoffset, int yoffset) {
+	if (!texture && !text_.isEmpty()) {
+		update();
+	}
+
 	if (texture) {
 		int x = x_;
 		int y = y_;

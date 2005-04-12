@@ -1,8 +1,10 @@
 
 #include "config.h"
 #include "engine.h"
+#include "uoclient.h"
 #include "gui/cursor.h"
 #include "muls/art.h"
+#include <qcursor.h>
 
 cCursor *Cursor = 0;
 
@@ -66,7 +68,10 @@ void cCursor::draw() {
 
 	// Get the mouse position
 	int x, y;
-	SDL_GetMouseState(&x, &y);
+	QPoint pos = QCursor::pos();
+	pos = App->mainWidget()->mapFromGlobal(pos);
+	x = pos.x();
+	y = pos.y();
 
 	// Modify based on x/y offset
 	x -= cursor.xoffset;

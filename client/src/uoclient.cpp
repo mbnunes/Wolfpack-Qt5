@@ -1,6 +1,7 @@
 
 #include <qdatetime.h>
 #include <qdir.h>
+#include <qvbox.h>
 
 #include "uoclient.h"
 #include "utilities.h"
@@ -34,7 +35,6 @@
 #include "network/uosocket.h"
 
 //#include <windows.h>
-
 
 cUoClient::cUoClient() {
 	running_ = true;
@@ -168,7 +168,7 @@ void cUoClient::processSdlEvent(const SDL_Event &event) {
 	static cControl *mouseCapture = 0; // Control which got the last mousedown event
 	static cControl *lastMouseMovement = 0; // Control that got the last movement event
 
-	switch (event.type) {
+/*	switch (event.type) {
 		case SDL_QUIT:
 			quit(); // Signal the client to quit
 			break;
@@ -316,7 +316,7 @@ void cUoClient::processSdlEvent(const SDL_Event &event) {
 
 		default:
 			break; // Do Nothing
-	}
+	}*/
 }
 
 void myMessageOutput( QtMsgType type, const char *msg )
@@ -334,12 +334,22 @@ void myMessageOutput( QtMsgType type, const char *msg )
     }
 }
 
+// Main Widget
+#include "mainwindow.h"
+
 void cUoClient::run(const QStringList &arguments) {
 	qInstallMsgHandler(myMessageOutput); // Install handler
 	int argc = 0;
 	App = new QApplication(argc, 0);
 
 	Config->setFile("config.xml"); // Default Config File
+
+	// INITIALIZE WINDOW - OPENGL INTIAILZATION
+	MainWindow *window = new MainWindow();
+	window->setCaption("Ultima Online");
+	App->setMainWidget(window);	
+	window->show();
+	// END WINDOW INITIALIZATION
 
 	try {
 		load();
@@ -349,8 +359,9 @@ void cUoClient::run(const QStringList &arguments) {
 		unload();
 		return;
 	}
+	
+	LoginDialog->show(PAGE_SHARDLIST); // Set up the login screen
 
-	LoginDialog->show(PAGE_LOGIN); // Set up the login screen
 	//World->changeFacet(ILSHENAR);
 	World->moveCenter(1245, 1758, 0, true);
 	//World->moveCenter(1715, 301, -7, true);
@@ -361,38 +372,15 @@ void cUoClient::run(const QStringList &arguments) {
 	// add the world view
 	WorldView = new cWorldView(800, 600);
 	WorldView->setVisible(false);
-	Gui->addControl(WorldView);	
+	Gui->addControl(WorldView);
 
 	while (running()) {
-		lock();
-		UoSocket->poll();
+		App->processEvents();
+		App->mainWidget()->update();
 
-		SDL_Event event; // An SDL Event
-		while (SDL_PollEvent(&event)) {
-			processSdlEvent(event);
+		if (!App->mainWidget()->isShown()) {
+			running_ = false;
 		}
-
-		glClear(GL_COLOR_BUFFER_BIT); // Clear both. Background and Z Buffer.
-		glLoadIdentity(); // Return to the identity matrix
-
-		// Only bother drawing the world if it's visible
-		if (WorldView->isVisible()) {
-			// Process the WorldView move tick
-			WorldView->moveTick();
-	
-			// Draw the world first
-			int x, y, width, height;
-			WorldView->getWorldRect(x, y, width, height);
-			World->draw(x, y, width, height);
-		}
-
-		Gui->draw(); // Draw the GUI controls
-		Cursor->draw(); // Draw the cursor overlay
-
-		Engine->poll(); // Swap
-		unlock();
-
-		SDL_Delay(5);
 	}
 
 	try {

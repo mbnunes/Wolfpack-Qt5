@@ -10,6 +10,8 @@
 #include "window.h"
 
 class cGui : public cContainer {
+Q_OBJECT
+
 private:
 	cControl *inputFocus_; // Pointer to the control with the input focus
 	cWindow *activeWindow_; // In principle this is the currently active window

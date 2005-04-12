@@ -14,7 +14,6 @@ private:
 	void unload();
 	bool running_; // Indicates whether the client is still running
 	QMutex mutex; // Global client mutex (very dirty)
-
 public:
 	cUoClient();
 	~cUoClient();

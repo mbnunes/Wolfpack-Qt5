@@ -1,4 +1,6 @@
 
+#include "uoclient.h"
+#include <qcursor.h>
 #include "engine.h"
 #include "game/world.h"
 #include "game/groundtile.h"
@@ -280,7 +282,7 @@ void cWorld::smoothMove(int x, int y) {
 
 	// Set the smooth move timeouts, Take 125 ms
 	smoothMoveTime_ = 370;
-	smoothMoveEnd_ = SDL_GetTicks() + smoothMoveTime_;
+	smoothMoveEnd_ = Utilities::getTicks() + smoothMoveTime_;
 	nextSmoothMoveUpdate = 0;
 	currentSmoothMoveFactor = 0.0f;
 }
@@ -295,7 +297,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 
 	// Smooth move handling. 
 	if (smoothMoveEnd_ != 0) {
-		int moveProgress = smoothMoveTime_ - (smoothMoveEnd_ - SDL_GetTicks());
+		int moveProgress = smoothMoveTime_ - (smoothMoveEnd_ - Utilities::getTicks());
 		if (moveProgress < 0 || moveProgress >= (int)smoothMoveTime_) {
 			smoothMoveEnd_ = 0;
 			drawxoffset = 0;
@@ -307,9 +309,9 @@ void cWorld::draw(int x, int y, int width, int height) {
 				centerx -= drawxoffset;
 				centery -= drawyoffset;
 			} else {
-				//if (nextSmoothMoveUpdate < SDL_GetTicks()) {
+				//if (nextSmoothMoveUpdate < Utilities::getTicks()) {
 					currentSmoothMoveFactor = 1.0f - (float)moveProgress / (float)smoothMoveTime_;
-					//nextSmoothMoveUpdate = SDL_GetTicks() + (smoothMoveTime_;
+					//nextSmoothMoveUpdate = Utilities::getTicks() + (smoothMoveTime_;
 					// Limit ups for smooth moving??
 				//}
 				centerx -= (int)(currentSmoothMoveFactor * (float)drawxoffset);
@@ -321,7 +323,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 	// Set Scissor Box
 	glLoadIdentity();
 	glEnable(GL_SCISSOR_TEST);
-	glScissor(x, Engine->height() - (y + height), width, height);
+	glScissor(x, App->mainWidget()->height() - (y + height), width, height);
 
 	// Set up the clipping variables
 	int leftClip = x;
@@ -329,10 +331,11 @@ void cWorld::draw(int x, int y, int width, int height) {
 	int topClip = y;
 	int bottomClip = y + height;
 
-
 	// Get the entity below the mouse
-	int mx, my;
-	SDL_GetMouseState(&mx, &my);
+	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	int mx = pos.x();
+	int my = pos.y();
+
 	cEntity *mouseEntity = 0;
 	bool checkMouse = Gui->getControl(mx, my) == WorldView;
 

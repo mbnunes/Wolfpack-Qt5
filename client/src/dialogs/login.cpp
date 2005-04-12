@@ -17,8 +17,8 @@
 #include "gui/textfield.h"
 #include "gui/scrollbar.h"
 #include "gui/worldview.h"
-
 #include "network/uosocket.h"
+#include "mainwindow.h"
 
 /* A custom cShardLabel class */
 class cShardLabel : public cTextField {
@@ -175,7 +175,6 @@ void cLoginDialog::onScrollShardList(int oldpos, int newpos) {
 	for (cContainer::Iterator it = controls.begin(); it != controls.end(); ++it) {
 		(*it)->setPosition((*it)->x(), (*it)->y() - change);
 	}
-	shardList->invalidate();
 }
 
 void cLoginDialog::buildShardSelectGump() {
@@ -329,10 +328,22 @@ void cLoginDialog::buildStatusGump() {
 }
 
 void cLoginDialog::show(enMenuPage page) {
-	if (Gui->width() != 640 || Gui->height() != 480) {
-		Engine->resize(640, 480);
+	QWidget *mainWindow = App->mainWidget();
+	if (mainWindow) {
+		mainWindow->resize(640, 480);
+
+        SetWindowPos( mainWindow->winId(), 0,
+						0,       // x,
+						0,       // y,
+						640,       // w,
+						480,       // h,
+						SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOSENDCHANGING | SWP_NOREPOSITION );
+
+		/*mainWindow->setMaximumHeight(mainWindow->frameGeometry().height());
+		mainWindow->setMinimumHeight(mainWindow->frameGeometry().height());
+		mainWindow->setMaximumWidth(mainWindow->frameGeometry().width());
+		mainWindow->setMinimumWidth(mainWindow->frameGeometry().width());*/
 	}
-	Engine->setLockSize(true);
 
 	if (!container) {
 		container = new cWindow();
@@ -478,8 +489,6 @@ void cLoginDialog::show(enMenuPage page) {
 	}
 
 	this->page = page;
-
-	container->invalidate();
 }
 
 void cLoginDialog::hide() {
@@ -487,7 +496,10 @@ void cLoginDialog::hide() {
 		Gui->removeControl(container);
 		Gui->invalidate();
 	}
-	Engine->setLockSize(false);
+	
+	App->mainWidget()->resize(Config->engineWidth(), Config->engineHeight());
+	App->mainWidget()->setMaximumHeight(32000);
+	App->mainWidget()->setMaximumWidth(32000);
 }
 
 void cLoginDialog::clearShardList() {
@@ -529,7 +541,6 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 
 void cLoginDialog::onError(const QString &error) {
 	statusLabel->setText(error.latin1());
-	statusLabel->invalidate();
 }
 
 void cLoginDialog::onDnsLookupComplete(const QHostAddress &address, unsigned short port) {

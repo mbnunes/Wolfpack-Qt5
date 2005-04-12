@@ -12,10 +12,13 @@
 	A textfield is just another container for now
 */
 class cTextField : public cControl {
+Q_OBJECT
+
 protected:
 	cBorderGump *background_;
 	unsigned short backgroundId_;
 
+	bool dirty;
 	bool hueAll_;
 	unsigned char font_;
 	unsigned short hue_;
@@ -74,7 +77,7 @@ public:
 				surfaces[i] = 0;
 			}
 		}
-		invalidate();
+		dirty = true;
 	}
 
 	// Setters
@@ -125,7 +128,6 @@ public:
 			backgroundId_ = data;
 			delete background_;
 			background_ = 0;
-			invalidate();
 		}
 	}
 
@@ -146,10 +148,10 @@ public:
 	void onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight);
 	void onMouseLeave(); // Toggle the mouseOver state
 	void onMouseEnter(); // Toggle the mouseOver state
-	void onMouseDown(int x, int y, unsigned char button, bool pressed);
-	void onMouseUp(int x, int y, unsigned char button, bool pressed);
-	void onKeyDown(const SDL_keysym &key);
-	void onKeyUp(const SDL_keysym &key);
+	void onMouseDown(QMouseEvent *e);
+	void onMouseUp(QMouseEvent *e);
+	void onKeyDown(QKeyEvent *e);
+	void onKeyUp(QKeyEvent *e);
 
 	// This is called if enter is pressed
 	void onEnter();

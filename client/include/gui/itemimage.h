@@ -8,6 +8,8 @@
 #include "SDL.h"
 
 class cItemImage : public cControl {
+Q_OBJECT
+
 private:
 	SharedSurface *item;
 	unsigned short id;
@@ -22,7 +24,6 @@ public:
 
 	cControl *getControl(int x, int y);
 	void setItem(unsigned short id, unsigned short hue, bool partialhue, bool stacked, bool translucent, bool landtile);
-	void draw(IPaintable *target, const SDL_Rect *clipping = 0);
 };
 
 #endif

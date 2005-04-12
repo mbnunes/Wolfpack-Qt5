@@ -8,6 +8,8 @@
 #include "gui/cursor.h"
 
 class cWorldView : public cWindow {
+Q_OBJECT
+
 protected:
 	cTiledGumpImage *left, *right, *bottom, *top;
 
@@ -24,7 +26,6 @@ public:
 
 	cWorldView(unsigned short width, unsigned short height);
 	virtual ~cWorldView();
-	virtual void update();
 	cControl *getControl(int x, int y);
 
 	void onMouseEnter();

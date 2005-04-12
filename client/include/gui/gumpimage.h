@@ -5,7 +5,10 @@
 #include "gui/image.h"
 
 class cGumpImage : public cControl {
+Q_OBJECT
+
 protected:
+	bool dirty;
 	cTexture *texture;
 	unsigned short id_;
 	unsigned short hue_;
@@ -38,33 +41,21 @@ public:
 	inline void setId(unsigned short id) {
 		if (id_ != id) {
 			id_ = id;
-			if (texture) {
-				texture->decref();
-				texture = 0;
-			}
-			invalidate();
+			dirty = true;
 		}
 	}
 
 	inline void setHue(unsigned short hue) {
 		if (hue != hue_) {
 			hue_ = hue;
-			if (texture) {
-				texture->decref();
-				texture = 0;
-			}
-			invalidate();
+			dirty = true;
 		}
 	}
 
 	inline void setPartialHue(bool partialhue) {
 		if (partialhue != partialHue_) {
 			partialHue_= partialhue;
-			if (texture) {
-				texture->decref();
-				texture = 0;
-			}
-			invalidate();
+			dirty = true;
 		}
 	}
 };

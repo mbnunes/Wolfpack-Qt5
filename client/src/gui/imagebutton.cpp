@@ -13,7 +13,6 @@ cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down)
 	spaceHolding_ = false;
 	canHaveFocus_ = true; // Buttons can have the input focus
 	pressRepeatRate_ = 0; // There is no press repeat rate by default (normal push buttons)
-	pressRepeatTimer_ = 0; // Defaults to no timer id
 
 	for (int i = 0; i < 4; ++i) {
 		gumphues[i] = 0;
@@ -33,6 +32,8 @@ cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down)
 	}
 
 	callback = 0;
+	pressRepeatTimer = new QTimer(this); // Should be auto freed
+	connect(pressRepeatTimer, SIGNAL(timeout()), this, SLOT(repeatPress())); // Connect the timer to the press repeat slot
 }
 
 cImageButton::~cImageButton() {
@@ -43,20 +44,12 @@ cImageButton::~cImageButton() {
 	}
 }
 
-void cImageButton::update() {
-	// Check for our own dirty flags here
-
-	dirty_ = false;
-}
-
 void cImageButton::onMouseLeave() {
 	mouseOver_ = false;
-	invalidate();
 }
 
 void cImageButton::onMouseEnter() {
 	mouseOver_ = true;
-	invalidate();
 }
 
 void cImageButton::setStateGump(enButtonStates state, unsigned short id, unsigned short hue, bool partialHue) {
@@ -78,10 +71,6 @@ cControl *cImageButton::getControl(int x, int y) {
 }
 
 void cImageButton::draw(int xoffset, int yoffset) {
-	if (isDirty()) {
-		update();
-	}
-
 	cTexture *texture = gumps[getState()];
 
 	if (texture) {
@@ -89,52 +78,36 @@ void cImageButton::draw(int xoffset, int yoffset) {
 	}
 }
 
-static unsigned int pressRepeatCallback(unsigned int interval, cImageButton *button) {    
-	if (button->mouseHolding() && button->pressRepeatRate() != 0) {
-		button->onClick();
-	} else {
-		return 0; // Stop timer?
-	}
-	return interval;
-}
-
-void cImageButton::onMouseDown(int x, int y, unsigned char button, bool pressed) {
-	if (button == SDL_BUTTON_LEFT) {
+void cImageButton::onMouseDown(QMouseEvent *e) {
+	if (e->button() & LeftButton) {
 		mouseHolding_ = true;
-		invalidate();
 
-		// Start a press repeat timer if requested by the owner
+		// The button requests to be auto-pressed every x miliseconds
 		if (pressRepeatRate_ != 0) {
-			// Stop an old repeat timer
-			if (pressRepeatTimer_) {
-				SDL_RemoveTimer(pressRepeatTimer_);
-				pressRepeatTimer_ = 0;
-			}
-			pressRepeatTimer_ = SDL_AddTimer(pressRepeatRate_, (SDL_NewTimerCallback)pressRepeatCallback, this);
+			pressRepeatTimer->start(pressRepeatRate_);
+			onClick();
 		}
-	} else {
-		// Stop an old repeat timer
-		if (pressRepeatTimer_) {
-			SDL_RemoveTimer(pressRepeatTimer_);
-			pressRepeatTimer_ = 0;
-		}
-
-		mouseHolding_ = false;
-		invalidate();
 	}
 }
 
-void cImageButton::onMouseUp(int x, int y, unsigned char button, bool pressed) {
-	if (button = SDL_BUTTON_LEFT) {
-		mouseHolding_ = false;
-		invalidate();
+void cImageButton::repeatPress() {
+	// Send a repeated onClick event if we're above the button
+	// and it's configured to do so
+	if (mouseHolding_ && pressRepeatRate_ && mouseOver_) {
+		onClick();
+	}
+}
 
-		// Stop an old repeat timer
-		if (pressRepeatTimer_) {
-			SDL_RemoveTimer(pressRepeatTimer_);
-			pressRepeatTimer_ = 0;
+void cImageButton::onMouseUp(QMouseEvent *e) {
+	if (e->button() == LeftButton) {
+		mouseHolding_ = false;
+		
+		// If a press-repeat timer is active, stop it. 
+		// Otherwise issue the click event.
+		if (pressRepeatTimer->isActive()) {
+			pressRepeatTimer->stop();
 		} else if (mouseOver_) {
-			onClick(); // Notify the button about the click
+			onClick();
 		}
 	}
 }
@@ -150,14 +123,12 @@ void cImageButton::onKeyDown(const SDL_keysym &key) {
 		onClick(); // Fire the onClick event if return is pressed
 	} else if (key.sym == SDLK_SPACE) {
 		spaceHolding_ = true;
-		invalidate();
 	}
 }
 
 void cImageButton::onKeyUp(const SDL_keysym &key) {
 	if (key.sym == SDLK_SPACE) {
 		spaceHolding_ = false;
-		invalidate();
 		onClick(); // Issue the click event
 	}
 }
@@ -165,7 +136,6 @@ void cImageButton::onKeyUp(const SDL_keysym &key) {
 void cImageButton::onBlur(cControl *newFocus) {
 	if (spaceHolding_) {
 		spaceHolding_ = false;
-		invalidate();
 	}
 	cControl::onBlur(newFocus);
 }

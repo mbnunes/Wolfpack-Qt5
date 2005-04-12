@@ -47,10 +47,6 @@ void cItemImage::setItem(unsigned short id, unsigned short hue, bool partialhue,
 	}
 }
 
-void cItemImage::draw(IPaintable *target, const SDL_Rect *clipping) {
-	target->drawSurface(x_, y_, item->surface());
-}
-
 cControl *cItemImage::getControl(int x, int y) {
 	cControl *result = 0;
 

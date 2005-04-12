@@ -10,6 +10,7 @@ class cTiledGumpImage;
 class cGumpImage;
 
 class cBorderGump : public cContainer {
+Q_OBJECT
 private:
 	unsigned short id; // The id of the background gump
 	unsigned short hue; // The hue of the background gump

@@ -79,7 +79,7 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 
 		if (animation) {
 			frame = 0;
-			nextFrame = SDL_GetTicks() + animation->frameDelay(); // + animation->startDelay();
+			nextFrame = Utilities::getTicks() + animation->frameDelay(); // + animation->startDelay();
 		} else {
 			Log->print(LOG_DEBUG, tr("Unable to load animation for art tile id 0x%1. Pos (%2,%3,%4,%5).\n").arg(id_).arg(x_).arg(y_).arg(z_).arg(facet_));
 			animated = false;
@@ -88,18 +88,18 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 
 	if (animated && animation) {
 		// Check for frame expiry
-		/*if (nextFrame < SDL_GetTicks()) {
+		/*if (nextFrame < Utilities::getTicks()) {
 			if (++frame == animation->frameCount()) {
-				nextFrame = SDL_GetTicks() + animation->frameDelay(); // + animation->startDelay(); // With start delay
+				nextFrame = Utilities::getTicks() + animation->frameDelay(); // + animation->startDelay(); // With start delay
 				frame = 0; // Module framecount
 			} else {
-				nextFrame = SDL_GetTicks() + animation->frameDelay(); // Normal frame delay
+				nextFrame = Utilities::getTicks() + animation->frameDelay(); // Normal frame delay
 			}
 		}*/
 
 		// UO is using a crap algorithm here. ALL animated art tiles are using the same time base.
-		// Just use a modulo of the SDL_GetTicks() here
-		frame = ((SDL_GetTicks() / animation->frameDelay()) % animation->frameCount());
+		// Just use a modulo of the Utilities::getTicks() here
+		frame = ((Utilities::getTicks() / animation->frameDelay()) % animation->frameCount());
 
 		// Save a reference to the frame value
 		const stArtFrame &info = animation->frames()[frame];

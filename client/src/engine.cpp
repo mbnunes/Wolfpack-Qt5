@@ -37,19 +37,27 @@ void cEngine::load() {
 	height_ = Config->engineHeight();
 	windowed_ = Config->engineWindowed();
 
+	return;
+
 	// Log the settings
 	Log->print(LOG_MESSAGE, tr("Setting up engine with size %1x%2 (%3)\n").arg(width_).arg(height_).arg(windowed_ ? tr("Windowed") : tr("FullScreen")));
 
 	const SDL_VideoInfo *videoInfo = SDL_GetVideoInfo();
+
+	// Force Double Buffering
+    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
 	// Erstellen von OPENGL surface
 	unsigned int flags = SDL_OPENGL|SDL_DOUBLEBUF;
 
 	if (!Engine->windowed()) {
 		flags |= SDL_FULLSCREEN;
+	} else {
+		flags |= SDL_RESIZABLE;
 	}
 
 	screen = SDL_SetVideoMode(width_, height_, 0, flags);	
+	screenFlags = flags;
 	pixels = new unsigned char[width_ * height_ * 4]; // Create the temporary buffer for our pixel data
 
 	// Initialize OpenGL
@@ -110,32 +118,6 @@ void cEngine::load() {
 	Gui->setBounds(0, 0, width_, height_); // Full size
 }
 
-void cEngine::resize(unsigned int width, unsigned int height) {
-/*	width_ = width;
-	height_ = height;
-	Config->setEngineHeight(height);
-	Config->setEngineWidth(width);
-
-	// If we're not windowed, re-setup the entire thing
-	if (!windowed_) {
-		reload();
-	} else {
-		screen = SDL_SetVideoMode(width_, height_, 32, SDL_HWSURFACE|SDL_ANYFORMAT|SDL_RESIZABLE|SDL_DOUBLEBUF); // Initialize the Video Engine
-
-		if (screen == 0) {
-			throw Exception(tr("Unable to initialize SDL Video: %1").arg(SDL_GetError()));
-		}
-
-		SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 255, 255, 255));
-	}
-
-	delete [] pixels;
-	pixels = new unsigned char[width_ * height_ * 4]; // Create the temporary buffer for our pixel data
-
-	// Notify the GUI of the change
-	Gui->setBounds(0, 0, width_, height_); // Full size*/
-}
-
 void cEngine::unload() {
 	Log->print(LOG_MESSAGE, "Stopping Engine\n");
 }
@@ -145,35 +127,9 @@ void cEngine::reload() {
 	load();
 }
 
-void cEngine::createScreenshot(const QString &filename) {
-	// Read the framebuffer data
-	glReadPixels(0, 0, width_, height_, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
-	QImage image(width_, height_, 32, 0);
-	
-	unsigned char *ptr = pixels;
 
-	// We have to flip the framebuffer data here
-	for (int y = height_ - 1; y >= 0; --y) {
-		for (unsigned int x = 0; x < width_; ++x) {
-			image.setPixel(x, y, qRgb(ptr[0], ptr[1], ptr[2]));
-			ptr += 4;
-		}
-	}
-
-	// Save the image as JPG
-	if (!image.save(filename, "JPEG")) {
-		if (WorldView) {
-			WorldView->addSysMessage(tr("Unable to save screenshot as %1.").arg(filename));
-		}
-	} else {
-		if (WorldView) {
-			WorldView->addSysMessage(tr("Screenshot saved as %1.").arg(filename));
-		}
-	}
-}
-
-void cEngine::poll() {
+/*void cEngine::poll() {
 	// FPS counter
 	static unsigned int lastswap_start = 0;
 	static unsigned int lastswap_count = 0;
@@ -192,56 +148,42 @@ void cEngine::poll() {
 		screenshot_ = false;
 	}
 
-	if (lastswap_start + 1000 < SDL_GetTicks()) {
+	if (lastswap_start + 1000 < Utilities::getTicks()) {
 		SDL_WM_SetCaption(tr("Ultima Online %1 fps (%1,%2,%3,%4)").arg(lastswap_count).arg(World->x()).arg(World->y()).arg(World->z()).arg(World->facet()).latin1(), 0);
 		lastswap_count = 0;
-		lastswap_start = SDL_GetTicks();
+		lastswap_start = Utilities::getTicks();
 	} else {
 		++lastswap_count;
 	}
-}
+}*/
 
-void cEngine::drawPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-	// Convert to screen pixel format
-	SDL_PixelFormat *format = screen->format;
-	unsigned int pixel;
-	if (a != 255) {
-		pixel = SDL_MapRGBA(format, r, g, b, a);
-	} else {
-		pixel = SDL_MapRGB(format, r, g, b);
+SDL_Surface *cEngine::createSurface(int width, int height, bool colorkey, bool alpha, bool texture) {
+	// Modify w/h
+	if (texture) {
+		int i = 64;
+		while (i < width) {
+			i *= 2;
+		}
+		width = i;
+		i = 64;
+		while (i < height) {
+			i *= 2;
+		}
+		height = i;
 	}
 
-	// Calculate the offset
-	unsigned char *ptr = (unsigned char*)screen->pixels + (screen->pitch * y) + (x * format->BytesPerPixel);
+	unsigned int flags = SDL_SWSURFACE;
+	unsigned int depth = 32;
+	unsigned int rmask = 0x000000ff;
+	unsigned int gmask = 0x0000ff00;
+	unsigned int bmask = 0x00ff0000;
+	unsigned int amask = 0xff000000;
 
-	switch (format->BytesPerPixel) {
-		case 4:
-			*(unsigned int*)ptr = pixel;
-			break;
-		case 2:
-			*(unsigned short*)ptr = pixel;
-			break;
-		default:
-			throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
-	}
-}
-
-void cEngine::drawSurface(int x, int y, SDL_Surface *surface, SDL_Rect *srcrect) {
-	if (!surface) {
-		return; // Dont draw invalid surfaces
+	if (!alpha) {
+		amask = 0;
 	}
 
-	SDL_Rect dest;
-	dest.x = x;
-	dest.y = y;
-
-	SDL_BlitSurface(surface, srcrect, screen, &dest);
+	return SDL_CreateRGBSurface(flags, width, height, depth, rmask, gmask, bmask, amask);
 }
 
-void cEngine::invertPixel(int x, int y) {
-}
-
-void cEngine::getPixel(int x, int y, unsigned char &r, unsigned char &g, unsigned char &b) {
-}
-
-cEngine *Engine;
+cEngine *Engine = 0;

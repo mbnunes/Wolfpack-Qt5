@@ -6,15 +6,17 @@
 #include "gui/gumpimage.h"
 
 void cGumpImage::update() {
-	if (!texture) {
-		texture = Gumpart->readTexture(id_, hue_, partialHue_);
-		if (autoSize_) {
-			width_ = texture->realWidth();
-			height_ = texture->realHeight();
-		}
-		texture->incref();
+	if (texture) {
+		texture->decref();
 	}
-	dirty_ = false;
+
+	texture = Gumpart->readTexture(id_, hue_, partialHue_);
+	if (autoSize_) {
+		width_ = texture->realWidth();
+		height_ = texture->realHeight();
+	}
+
+	dirty = false;
 }
 
 cGumpImage::cGumpImage(unsigned short id, unsigned short hue, bool partialHue, bool autoSize) {	
@@ -22,9 +24,9 @@ cGumpImage::cGumpImage(unsigned short id, unsigned short hue, bool partialHue, b
 	hue_ = hue;
 	partialHue_ = partialHue;
 	autoSize_ = autoSize;
-	texture = 0;
-	update();
+	texture = 0;	
 	moveHandle_ = true;
+	update();
 }
 
 cGumpImage::~cGumpImage() {
@@ -34,7 +36,7 @@ cGumpImage::~cGumpImage() {
 }
 
 void cGumpImage::draw(int xoffset, int yoffset) {
-	if (isDirty()) {
+	if (dirty) {
 		update();
 	}
 

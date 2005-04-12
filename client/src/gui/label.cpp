@@ -23,9 +23,9 @@ cLabel::~cLabel() {
 	}
 }
 
-void cLabel::refreshSurface() {
+void cLabel::update() {
 	if (surface) {
-		throw Exception(tr("Trying to refresh a label surface although there still is an unfreed one."));
+		surface->decref();
 	}
 
 	surface = UnicodeFonts->buildText(font_, text_, hue_, false, border_, align_);
@@ -38,8 +38,8 @@ void cLabel::refreshSurface() {
 }
 
 void cLabel::draw(int xoffset, int yoffset) {
-	if (!surface) {
-		refreshSurface(); // Rebuild the surface
+	if (!surface && !text_.isEmpty()) {
+		update();
 	}
 
 	if (surface) {
