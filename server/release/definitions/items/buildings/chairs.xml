@@ -84,6 +84,8 @@
 	<item id="b2e">
 		<id>0xb2e</id>
 		<nodecay />
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 1</category>
 		<basescripts>furniture</basescripts>
 		<flip>0xb2e;0xb2f;0xb30;0xb31</flip>
@@ -119,6 +121,8 @@
 	<item id="b32">
 		<id>0xb32</id>
 		<nodecay />
+		<buyprice>58</buyprice>
+		<sellprice>24</sellprice>
 		<category>Decoration\Chairs\Wooden Throne\Wooden Throne 1</category>
 		<basescripts>furniture</basescripts>
 		<flip>0xb32;0xb33</flip>
