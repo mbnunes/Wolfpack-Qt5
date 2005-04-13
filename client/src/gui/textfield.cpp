@@ -1,14 +1,13 @@
 
 #include <qglobal.h>
 #include <qclipboard.h>
+#include <qgl.h>
 
 #include "exceptions.h"
 #include "uoclient.h"
 #include "gui/gui.h"
 #include "gui/textfield.h"
 #include "muls/asciifonts.h"
-
-#include "SDL_opengl.h"
 
 cTextField::cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue, unsigned short background, bool hueAll) {
 	font_ = font;
@@ -54,8 +53,8 @@ cTextField::~cTextField() {
 	}
 }
 
-void cTextField::drawSelection(SDL_Surface *surface) {
-	if (!surface) {
+void cTextField::drawSelection(cSurface *surface) {
+	/*if (!surface) {
 		return;
 	}
 
@@ -133,11 +132,7 @@ void cTextField::drawSelection(SDL_Surface *surface) {
 				offset += ch->w;
 			}
 		}
-	}
-
-	if (SDL_MUSTLOCK(surface)) {
-		SDL_UnlockSurface(surface);
-	}
+	}*/
 }
 
 void cTextField::update() {
@@ -389,7 +384,7 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 
 		// Check if the character is supported by the current font.
 		if (ch != 0) {
-			SDL_Surface *chs = AsciiFonts->getCharacter(font_, ch);
+			cSurface *chs = AsciiFonts->getCharacter(font_, ch);
 			if (chs) {
 				QCString replacement;
 				replacement.insert(0, ch);
@@ -418,13 +413,13 @@ void cTextField::setCaret(unsigned int pos) {
 		int width = 0;
 		int count = 0;
 		for (int i = text_.length() - 1; i >= 0; --i) {
-			SDL_Surface *ch = AsciiFonts->getCharacter(font_, translateChar((char)text_.at(i)));
+			cSurface *ch = AsciiFonts->getCharacter(font_, translateChar((char)text_.at(i)));
 			if (ch) {
-				if (width + ch->w > width_ - 14) {
+				if (width + ch->width() > width_ - 14) {
 					break;
 				}
 				++count;
-				width += ch->w;
+				width += ch->width();
 			}
 		}
 		caret_ = text_.length();
@@ -444,9 +439,9 @@ void cTextField::setCaret(unsigned int pos) {
 
 		// Just *change* the xoffset. Don't recalculate.
 		for (unsigned int i = start; i < end; ++i) {
-			SDL_Surface *ch = AsciiFonts->getCharacter(font_, translateChar((char)text_.at(i)));
+			cSurface *ch = AsciiFonts->getCharacter(font_, translateChar((char)text_.at(i)));
 			if (ch) {
-				change += moveLeft ? - ch->w : ch->w;
+				change += moveLeft ? - ch->width() : ch->width();
 			}
 		}
 
@@ -454,9 +449,9 @@ void cTextField::setCaret(unsigned int pos) {
 		if ((int)caretXOffset_ + change < 0) {
 			// Try to get 1/4 of the width_ into view
 			while (leftOffset_ > 0 && (int)caretXOffset_ + change < width_ / 4) {
-				SDL_Surface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(--leftOffset_)));
+				cSurface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(--leftOffset_)));
 				if (chs) {
-					change += chs->w;
+					change += chs->width();
 				}
 			}
 		}
@@ -464,17 +459,17 @@ void cTextField::setCaret(unsigned int pos) {
 		// Modify the change while its too big
 		if ((int)caretXOffset_ + change > width_ - 14) {
 			while (leftOffset_ < text_.length() && (int)caretXOffset_ + change > (width_ - 14) - (width_ - 14) / 4) {
-				SDL_Surface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(leftOffset_++)));
+				cSurface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(leftOffset_++)));
 				if (chs) {
-					change -= chs->w;
+					change -= chs->width();
 				}
 
 				// Which one got trough instead?
 				int totalWidth = 0;
 				for (int i = leftOffset_; totalWidth < width_ - 14 && i < (int)text_.length(); ++i) {
-					SDL_Surface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
+					cSurface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
 					if (chs) {
-						totalWidth += chs->w;
+						totalWidth += chs->width();
 					}
 				}
 
@@ -505,11 +500,11 @@ unsigned int cTextField::getOffset(int x) {
 	int offset  = 0;
 	int i;
 	for (i = leftOffset_; i < (int)text_.length(); ++i) {
-		SDL_Surface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
+		cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
 		if (ch) {
 			// Is it in this character?
-			if (x >= offset && x < offset + ch->w) {
-				if (x - offset >= (ch->w / 2)) {
+			if (x >= offset && x < offset + ch->width()) {
+				if (x - offset >= (ch->width() / 2)) {
 					// Insert caret before
 					return i + 1;
 				} else {
@@ -517,7 +512,7 @@ unsigned int cTextField::getOffset(int x) {
 					return i;
 				}
 			}
-			offset += ch->w;
+			offset += ch->width();
 		}
 	}
 

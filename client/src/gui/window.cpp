@@ -1,7 +1,6 @@
 
 #include "gui/window.h"
 #include "texture.h"
-#include "engine.h"
 
 cWindow::cWindow() : cContainer() {
 	tracking = false;
@@ -38,17 +37,17 @@ cControl *cWindow::getControl(int x, int y) {
 	return control;
 }
 
-void cWindow::onMouseDown(int x, int y, unsigned char button, bool pressed) {
+void cWindow::onMouseDown(QMouseEvent *e) {
 	if (isMovable()) {
 		tracking = true;
 	}
 }
 
-void cWindow::onMouseUp(int x, int y, unsigned char button, bool pressed) {
+void cWindow::onMouseUp(QMouseEvent *e) {
 	tracking = false;
 }
 
-void cWindow::onMouseMotion(int xrel, int yrel, unsigned char button) {
+void cWindow::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	if (tracking) {
 		x_ += xrel;
 		y_ += yrel;

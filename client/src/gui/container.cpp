@@ -1,7 +1,6 @@
 
 #include <qvaluelist.h>
 
-#include "engine.h"
 #include "exceptions.h"
 #include "utilities.h"
 #include "gui/container.h"
@@ -106,12 +105,8 @@ void cContainer::alignControl(cControl *control) {
 	setDisableAlign(true);
 	setNeedsRealign(true);
 
-	SDL_Rect clientRect; // This rectangle will be modified by the code "below"
-	clientRect.x = 0;
-	clientRect.y = 0;
-	clientRect.w = width_;
-	clientRect.h = height_;
-
+	QRect clientRect(0, 0, width_, height_); // This rectangle will be modified by the code "below"
+	
 	//
 	// Check if we need a realignment
 	//
@@ -145,7 +140,7 @@ realign_end:
 	setNeedsRealign(false);
 }
 
-void cContainer::doAlignment(enControlAlign align, cControl *control, SDL_Rect &clientRect) {
+void cContainer::doAlignment(enControlAlign align, cControl *control, QRect &clientRect) {
 	QValueList<cControl*> alignlist; // List of Controls to be aligned
 	QValueList<cControl*>::iterator lit; // List iterator
 
@@ -189,35 +184,33 @@ void cContainer::doAlignment(enControlAlign align, cControl *control, SDL_Rect &
 	}
 }
 
-void cContainer::doPositioning(enControlAlign align, cControl *control, SDL_Rect &clientRect) {
-	int newWidth = clientRect.w; // By default we use up the entire remaining width
+void cContainer::doPositioning(enControlAlign align, cControl *control, QRect &clientRect) {
+	int newWidth = clientRect.width(); // By default we use up the entire remaining width
 	if (align == CA_LEFT || align == CA_RIGHT)
 		newWidth = control->width(); // For the left/right alignment, use the control width instead
 
-	int newHeight = clientRect.h; // By default we use up the entire remaining height
+	int newHeight = clientRect.height(); // By default we use up the entire remaining height
 	if (align == CA_TOP || align == CA_BOTTOM)
 		newHeight = control->height(); // For the bottom/top alignment, use the control height instead
 
-	int newX = clientRect.x; // By default, use the upper left position of the clientrect
-	int newY = clientRect.y; // By default, use the upper left position of the clientrect
+	int newX = clientRect.x(); // By default, use the upper left position of the clientrect
+	int newY = clientRect.y(); // By default, use the upper left position of the clientrect
 
 	// Modify the remaining rect based on the alignment type
 	switch (align) {
 		case CA_TOP:
-			clientRect.y += newHeight; // Reduce the space at the top
-			clientRect.h -= newHeight;
+			clientRect.setY(clientRect.y() + newHeight); // Reduce the space at the top
 			break;
 		case CA_BOTTOM:
-			clientRect.h -= newHeight; // Reduce the space at the bottom
-			newY = clientRect.y + clientRect.h; // The top of the control will be the bottom of the new clientrect
+			clientRect.setHeight(clientRect.height() - newHeight); // Reduce the space at the bottom
+			newY = clientRect.y() + clientRect.height(); // The top of the control will be the bottom of the new clientrect
 			break;
 		case CA_LEFT:
-			clientRect.x += newWidth; // Reduce the space at the left
-			clientRect.w -= newWidth;
+			clientRect.setX(clientRect.x() + newWidth); // Reduce the space at the left			
 			break;
 		case CA_RIGHT:
-			clientRect.w -= newWidth; // Reduce the space at the right
-			newX = clientRect.x + clientRect.w; // The top of the control will be the bottom of the new clientrect
+			clientRect.setWidth(clientRect.width() - newWidth); // Reduce the space at the right
+			newX = clientRect.x() + clientRect.width(); // The top of the control will be the bottom of the new clientrect
 			break;
 	}
 

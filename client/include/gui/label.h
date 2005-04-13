@@ -2,7 +2,6 @@
 #if !defined(__LABEL_H__)
 #define __LABEL_H__
 
-#include "SDL.h"
 #include <qstring.h>
 
 #include "control.h"

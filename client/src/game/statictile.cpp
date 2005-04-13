@@ -1,5 +1,4 @@
 
-#include "engine.h"
 #include "game/statictile.h"
 #include "game/world.h"
 #include "muls/art.h"
@@ -7,6 +6,7 @@
 #include "muls/maps.h"
 #include "gui/worldview.h"
 #include "log.h"
+#include <qgl.h>
 
 cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
 	id_ = 0;
@@ -64,7 +64,7 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 	}
 
 	// If the bottom is out of view, don't even bother to draw
-	if (celly + 22 < leftClip) {
+	if (celly + 22 < topClip) {
 		return;
 	}
 
@@ -187,7 +187,7 @@ bool cStaticTile::hitTest(int x, int y) {
 	}
 }
 
-void cStaticTile::onClick() {
+void cStaticTile::onClick(QMouseEvent *e) {
 	QString message;
 	if (tiledata_->isArticleA()) {
 		message = QString("a %1").arg(tiledata_->name());

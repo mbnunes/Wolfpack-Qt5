@@ -1,6 +1,5 @@
 
 #include "exceptions.h"
-#include "engine.h"
 #include "gui/container.h"
 #include "gui/label.h"
 #include "muls/unicodefonts.h"

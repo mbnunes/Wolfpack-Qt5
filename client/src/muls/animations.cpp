@@ -1,7 +1,8 @@
 
 #include "muls/animations.h"
 #include "log.h"
-#include "engine.h"
+#include "surface.h"
+#include <qgl.h>
 
 cSequence::cSequence(unsigned short body, unsigned char action, unsigned char direction) {
 	refcount = 0;
@@ -62,7 +63,7 @@ void cSequence::load(QDataStream &input) {
 		if (pixel == 0) {
 			palette[i] = 0; // 0 is the color key
 		} else {			
-			palette[i] = SurfacePainter32::color(pixel); // Convert to 32-bit for improved speed
+			palette[i] = cSurface::color(pixel); // Convert to 32-bit for improved speed
 		}
 	}
 
@@ -106,15 +107,13 @@ void cSequence::load(QDataStream &input) {
 	}
 
 	// Create the surface and read the animation
-	SDL_Surface *surface = Engine->createSurface(totalwidth, maxheight, false, false, true);
-	SDL_FillRect(surface, 0, 0); // Make Transparent
-	SurfacePainter32 painter(surface);
+	cSurface *surface = new cSurface(totalwidth, maxheight);
+	surface->clear();
 
 	// Used to speed up texel calculation
-	float twidth = (float)surface->w;
-	float theight = (float)surface->h;
+	float twidth = (float)surface->width();
+	float theight = (float)surface->height();
 
-	painter.lock();
 	int drawx = 0, drawy = 0;
 	for (int i = 0; i < frameCount_; ++i) {
 		input.device()->at(seekOffset + frameLookup[i] + 8); // Seek to the frame data
@@ -150,7 +149,7 @@ void cSequence::load(QDataStream &input) {
 			unsigned char pixel;
 			for (int i = 0; i < length; ++i) {
 				input >> pixel;
-				painter.setPixel(drawx + frame.centerx + xoffset + i, frame.centery + yoffset, palette[pixel]);
+				surface->setPixel(drawx + frame.centerx + xoffset + i, frame.centery + yoffset, palette[pixel]);
 			}
 		} while (true);
 
@@ -162,10 +161,9 @@ void cSequence::load(QDataStream &input) {
 
 		drawx += frame.width;
 	}
-	painter.unlock();
 
 	texture_ = new cTexture(surface);
-	SDL_FreeSurface(surface);
+	delete surface;
 
 	delete [] frameLookup;
 }

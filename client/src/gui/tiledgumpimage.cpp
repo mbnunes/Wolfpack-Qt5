@@ -1,9 +1,9 @@
 
 #include "exceptions.h"
-#include "engine.h"
 #include "utilities.h"
 #include "muls/gumpart.h"
 #include "gui/tiledgumpimage.h"
+#include <qgl.h>
 
 void cTiledGumpImage::update() {
 	if (!texture) {
@@ -18,6 +18,10 @@ cTiledGumpImage::cTiledGumpImage(unsigned short id, unsigned short hue, bool par
 	partialHue_ = partialHue;
 	texture = 0;
 	moveHandle_ = true;
+	update();
+	if (texture) {
+		setSize(texture->realWidth(), texture->realHeight());
+	}
 }
 
 cTiledGumpImage::~cTiledGumpImage() {

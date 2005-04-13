@@ -73,8 +73,8 @@ public:
 	void onMouseEnter(); // Toggle the mouseOver state
 	void onMouseDown(QMouseEvent *e);
 	void onMouseUp(QMouseEvent *e);
-	void onKeyDown(const SDL_keysym &key);
-	void onKeyUp(const SDL_keysym &key);
+	void onKeyDown(QKeyEvent *e);
+	void onKeyUp(QKeyEvent *e);
 	void onBlur(cControl *newFocus);
 
 	virtual void onClick(); // The button has been clicked	

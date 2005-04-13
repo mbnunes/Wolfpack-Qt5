@@ -53,42 +53,22 @@ cControl *cVerticalScrollBar::getControl(int x, int y) {
 	}
 }
 
-void cVerticalScrollBar::onMouseDown(int x, int y, unsigned char button, bool pressed) {
-	SDL_GetMouseState(&x, &y);
+void cVerticalScrollBar::onMouseDown(QMouseEvent *e) {
+	QPoint pos = mapFromGlobal(e->pos());
 
-	// Get x, y relative to our pov
-	cContainer *parent = parent_;
-	while (parent) {
-		// Modify x,y
-		x -= parent->x();
-		y -= parent->y();
-		parent = parent->parent();
-	}
-
-	if (y >= handle->y() && y < handle->y() + handle->height()) {
-		mouseDownY = y - handle->y();
+	if (pos.y() >= handle->y() && pos.y() < handle->y() + handle->height()) {
+		mouseDownY = pos.y() - handle->y();
 		draggingHandle_ = true;
 	}
 }
 
-void cVerticalScrollBar::onMouseUp(int x, int y, unsigned char button, bool pressed) {
+void cVerticalScrollBar::onMouseUp(QMouseEvent *e) {
 	draggingHandle_ = false;
 }
 
-void cVerticalScrollBar::onMouseMotion(int xrel, int yrel, unsigned char buttons) {
+void cVerticalScrollBar::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	if (draggingHandle_) {
-		// Get the mouse state
-		int x, y;
-		SDL_GetMouseState(&x, &y);
-
-		// Get x, y relative to our pov
-		cContainer *parent = parent_;
-		while (parent) {
-			// Modify x,y
-			x -= parent->x();
-			y -= parent->y();
-			parent = parent->parent();
-		}
+		int y = mapFromGlobal(e->pos()).y(); // Get the y position relative to our control
 
 		int newpos = getPosFromTrackerY(y);
 		setPos(newpos);

@@ -8,6 +8,8 @@
 
 #include "gui/cursor.h"
 #include "utilities.h"
+#include "surface.h"
+
 // Structure for the framedata read from animdata.mul
 struct stArtFrame {
 	unsigned short id; // Art id of this frames tile
@@ -143,19 +145,11 @@ protected:
 
 class cArt {
 private:
-	SurfaceCache *cache; // Cache for art surfaces
 	TextureCache *tcache; // Cache for textures (uses same indexing scheme as the normal cache)
 	ArtAnimationCache *acache;
 	QFile data, index; // Input files
 	QDataStream dataStream, indexStream; // Input streams
 	
-	SDL_Surface *getLandArt(unsigned short id, bool texture = false); // Neither hued nor stacked
-	SDL_Surface *getItemArt(unsigned short id, unsigned short hue, bool partialhue, bool stacked, bool texture = false, unsigned int *widthOut = 0, unsigned int *heightOut = 0);
-
-	// Internal read methods
-	SDL_Surface *readUncached(unsigned short id, unsigned short hue, bool partialhue, bool stacked, bool translucent, bool texture = false, unsigned int *widthOut = 0, unsigned int *heightOut = 0);
-	SharedSurface *read(unsigned short id, unsigned short hue, bool partialhue, bool stacked, bool translucent);
-
 	// Private structure for storing information about art animations
 	struct stAnimdata {
 		signed char frames[64]; // Offset from the baseid for each frame
@@ -177,35 +171,21 @@ public:
 	// frame structure. The id is used internally for caching the resulting animation texture.
 	cArtAnimation *readAnimation(unsigned short id, unsigned short hue = 0, bool partialHue = false);
 
-	inline SharedSurface *readLand(unsigned short id, unsigned short hue = 0, bool partialhue = false, bool stacked = false, bool translucent = false) {
-		return read(id, hue, partialhue, stacked, translucent); // Land tiles can neither be translucent nor stacked, so dont even bother...
-	}
-
 	// Read a cursor and fill the given cursor structure with the corresponding data
 	void readCursor(stCursor *cursor, unsigned short id, unsigned short hue = 0, bool partialhue = false);
 
-	cTexture *readItemTexture(unsigned short id, unsigned short hue = 0, bool partialhue = false, bool stacked = false, bool translucent = false);
-	cTexture *readLandTexture(unsigned short id, unsigned short hue = 0);
-
-	inline SharedSurface *readItem(unsigned short id, unsigned short hue = 0, bool partialhue = false, bool stacked = false, bool translucent = false) {
-		return read(id + 0x4000, hue, partialhue, stacked, translucent);
-	}
+	cSurface *readLandSurface(unsigned short id, bool texture = false); // Uncached
+	cTexture *readLandTexture(unsigned short id); // Cached, New Reference
+	cSurface *readItemSurface(unsigned short id, unsigned short hue = 0, bool partialhue = false, bool texture = false); // Uncached
+	cTexture *readItemTexture(unsigned short id, unsigned short hue = 0, bool partialhue = false); // Cached, New Reference
 
 	// Calculates the cache id for the given parameters
 	// Only the lower 12 bit of the hue are valid (0-2999 are valid hue ids)
-	inline unsigned int getCacheId(unsigned short id, unsigned short hue = 0, bool partialhue = false, bool stacked = false, bool translucent = false) {
+	inline unsigned int getCacheId(unsigned short id, unsigned short hue = 0, bool partialhue = false) {
 		unsigned int result = id;
 
 		if (partialhue) {
 			result |= 0x80000000; // 32st bit indicates partial hue
-		}
-
-		if (stacked) {
-			result |= 0x40000000; // 31st bit indicates that the item is stacked
-		}
-
-		if (translucent) {
-			result |= 0x20000000; // 30st bit indicates that the item is translucent (alpha 50%)
 		}
 
 		result |= (hue & 0xFFF) << 16; // Store the hue

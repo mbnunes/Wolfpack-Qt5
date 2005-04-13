@@ -2,7 +2,8 @@
 #if !defined(__GUMPIMAGE_H__)
 #define __GUMPIMAGE_H__
 
-#include "gui/image.h"
+#include "control.h"
+#include "texture.h"
 
 class cGumpImage : public cControl {
 Q_OBJECT

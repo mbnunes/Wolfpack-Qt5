@@ -38,7 +38,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="qt-mt333.lib qtmain.lib libs\SDL.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib"
+				AdditionalDependencies="qt-mt333.lib qtmain.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib"
 				OutputFile="release\uoclient.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -101,7 +101,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="qt-mt333.lib qtmain.lib libs\SDL.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib"
+				AdditionalDependencies="qt-mt333.lib qtmain.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib"
 				OutputFile="release\uoclient_d.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -184,9 +184,6 @@
 				RelativePath="src\network\encryption.cpp">
 			</File>
 			<File
-				RelativePath="src\engine.cpp">
-			</File>
-			<File
 				RelativePath="src\game\entity.cpp">
 			</File>
 			<File
@@ -203,9 +200,6 @@
 			</File>
 			<File
 				RelativePath="src\muls\hues.cpp">
-			</File>
-			<File
-				RelativePath="src\gui\image.cpp">
 			</File>
 			<File
 				RelativePath="src\gui\imagebutton.cpp">
@@ -238,9 +232,6 @@
 				RelativePath="src\dialogs\movecenter.cpp">
 			</File>
 			<File
-				RelativePath="src\paintable.cpp">
-			</File>
-			<File
 				RelativePath="src\gui\scrollbar.cpp">
 			</File>
 			<File
@@ -248,6 +239,9 @@
 			</File>
 			<File
 				RelativePath="src\game\statictile.cpp">
+			</File>
+			<File
+				RelativePath=".\src\surface.cpp">
 			</File>
 			<File
 				RelativePath="src\gui\textfield.cpp">
@@ -302,6 +296,9 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath=".\include\muls\animations.h">
+			</File>
+			<File
 				RelativePath="include\muls\art.h">
 			</File>
 			<File
@@ -327,6 +324,9 @@
 "
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\include\binkw.h">
 			</File>
 			<File
 				RelativePath="include\gui\bordergump.h">
@@ -374,6 +374,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\include\gui\contextmenu.h">
+			</File>
+			<File
 				RelativePath="include\gui\control.h">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -395,13 +398,22 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="include\engine.h">
+				RelativePath=".\include\gui\cursor.h">
+			</File>
+			<File
+				RelativePath=".\include\game\dynamicentity.h">
+			</File>
+			<File
+				RelativePath=".\include\game\entity.h">
 			</File>
 			<File
 				RelativePath="include\enums.h">
 			</File>
 			<File
 				RelativePath="include\exceptions.h">
+			</File>
+			<File
+				RelativePath=".\include\game\groundtile.h">
 			</File>
 			<File
 				RelativePath="include\gui\gui.h">
@@ -450,27 +462,6 @@
 			</File>
 			<File
 				RelativePath="include\muls\hues.h">
-			</File>
-			<File
-				RelativePath="include\gui\image.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="include\gui\imagebutton.h">
@@ -563,13 +554,25 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\include\muls\maps.h">
+			</File>
+			<File
 				RelativePath="include\mersennetwister.h">
+			</File>
+			<File
+				RelativePath=".\include\game\mobile.h">
 			</File>
 			<File
 				RelativePath="include\paintable.h">
 			</File>
 			<File
 				RelativePath=".\include\gui\scrollbar.h">
+			</File>
+			<File
+				RelativePath=".\include\game\statictile.h">
+			</File>
+			<File
+				RelativePath=".\include\surface.h">
 			</File>
 			<File
 				RelativePath="include\gui\textfield.h">
@@ -591,6 +594,15 @@
 "
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\include\texture.h">
+			</File>
+			<File
+				RelativePath=".\include\muls\textures.h">
+			</File>
+			<File
+				RelativePath=".\include\muls\tiledata.h">
 			</File>
 			<File
 				RelativePath="include\gui\tiledgumpimage.h">
@@ -623,7 +635,16 @@
 				RelativePath=".\include\utilities.h">
 			</File>
 			<File
+				RelativePath=".\include\vector.h">
+			</File>
+			<File
 				RelativePath="include\muls\verdata.h">
+			</File>
+			<File
+				RelativePath=".\include\gui\window.h">
+			</File>
+			<File
+				RelativePath=".\include\game\world.h">
 			</File>
 			<File
 				RelativePath="include\gui\worldview.h">
@@ -667,9 +688,6 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_gumpimage.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_image.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_imagebutton.cpp">

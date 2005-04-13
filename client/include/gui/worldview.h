@@ -31,9 +31,9 @@ public:
 	void onMouseEnter();
 	void onMouseLeave();
 
-	void onMouseDown(int x, int y, unsigned char button, bool pressed);
-	void onMouseMotion(int xrel, int yrel, unsigned char button);
-	void onMouseUp(int x, int y, unsigned char button, bool pressed);
+	void onMouseDown(QMouseEvent *e);
+	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
+	void onMouseUp(QMouseEvent *e);
 
 	void addSysMessage(const QCString &message, unsigned short hue = 0, unsigned char font = 3);
 	void addSysMessage(const QString &message, unsigned short hue = 0x3b2, unsigned char font = 0);

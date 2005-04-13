@@ -2,8 +2,6 @@
 #if !defined(__UOCLIENT_H__)
 #define __UOCLIENT_H__
 
-#include "SDL.h"
-
 #include <qapplication.h>
 #include <qstringlist.h>
 #include <qmutex.h>
@@ -22,7 +20,6 @@ public:
 	void unlock();
 
 	void run(const QStringList &arguments);
-	void processSdlEvent(const SDL_Event &event);
 
 	bool running() { return running_; }
 	void quit() { running_ = false; }

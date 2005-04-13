@@ -2,7 +2,8 @@
 #if !defined(__TILEDGUMPIMAGE_H__)
 #define __TILEDGUMPIMAGE_H__
 
-#include "gui/image.h"
+#include "control.h"
+#include "texture.h"
 
 class cTiledGumpImage : public cControl {
 Q_OBJECT

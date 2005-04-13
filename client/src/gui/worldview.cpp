@@ -1,5 +1,4 @@
 
-#include "engine.h"
 #include "gui/worldview.h"
 #include "gui/label.h"
 #include "gui/asciilabel.h"
@@ -96,38 +95,38 @@ cControl *cWorldView::getControl(int x, int y) {
 }
 
 // Stop tracking, otherwise pass to World.
-void cWorldView::onMouseUp(int x, int y, unsigned char button, bool pressed) {
+void cWorldView::onMouseUp(QMouseEvent *e) {
 	if (ismoving) {
 		ismoving = false;
 		Cursor->setCursor(getCursorType());
 	} else {
 		if (!tracking) {
-			World->onClick(x - x_, y - y_, button);
+			World->onClick(e);
 		} else {
-			cWindow::onMouseUp(x, y, button, pressed);
+			cWindow::onMouseUp(e);
 		}
 	}
 }
 
 // Start tracking if we're touching the border. Otherwise pass to world.
-void cWorldView::onMouseDown(int x, int y, unsigned char button, bool pressed) {
+void cWorldView::onMouseDown(QMouseEvent *e) {
 	// Try getting the control at that position
-	cControl *ctrl = cContainer::getControl(x - x_, y - y_);
+	cControl *ctrl = cContainer::getControl(e->x() - x_, e->y() - y_);
 
 	// Start tracking if above border.
 	if (ctrl == left || ctrl == right || ctrl == top || ctrl == bottom) {
 		tracking = true;
 	} else {
-		if (button & Qt::RightButton) {
+		if (e->button() == Qt::RightButton) {
 			ismoving = true;
 		}
 	}
 }
 
 // Move the window around if we're tracking. Otherwise pass to world.
-void cWorldView::onMouseMotion(int xrel, int yrel, unsigned char button) {
+void cWorldView::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	if (tracking) {
-		cWindow::onMouseMotion(xrel, yrel, button);
+		cWindow::onMouseMotion(xrel, yrel, e);
 	} else {
 		// pass to world
 		Cursor->setCursor(getCursorType());

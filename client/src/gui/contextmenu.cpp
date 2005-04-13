@@ -1,7 +1,10 @@
 
 #include "gui/contextmenu.h"
 #include "gui/gui.h"
-#include "engine.h"
+#include "surface.h"
+#include "uoclient.h"
+#include <qcursor.h>
+#include <qgl.h>
 
 // Our custom label
 class cContextMenuEntry : public cLabel {
@@ -55,9 +58,8 @@ void cContextMenu::addEntry(const QString &name, unsigned short hue, int id) {
 }
 
 void cContextMenu::show() {
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-	show(x, y);
+	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	show(pos.x(), pos.y());
 }
 
 void cContextMenu::show(int x, int y) {
@@ -69,29 +71,28 @@ void cContextMenu::show(int x, int y) {
 	}
 
 	if (!checkerboard) {
-		SDL_Surface *surface = Engine->createSurface(64, 64, false, false, true);
-		SurfacePainter32 painter(surface);
-		int black = painter.color(0, 0, 0, 0);
-		int white = painter.color(255, 255, 255, 255);
+		cSurface *surface = new cSurface(64, 64, false);		
+		int black = surface->color(0, 0, 0, 0);
+		int white = surface->color(255, 255, 255, 255);
 		for (int x = 0; x < 64; ++x) {
 			for (int y = 0; y < 64; ++y) {
 				if (y % 2 == 0) {
 					if (x % 2 == 0) {
-						painter.setPixel(x, y, white);
+						surface->setPixel(x, y, white);
 					} else {
-						painter.setPixel(x, y, black);
+						surface->setPixel(x, y, black);
 					}
 				} else {
 					if (x % 2 == 0) {
-						painter.setPixel(x, y, black);
+						surface->setPixel(x, y, black);
 					} else {
-						painter.setPixel(x, y, white);
+						surface->setPixel(x, y, white);
 					}
 				}				
 			}
 		}
 		checkerboard = new cTexture(surface, false);
-		SDL_FreeSurface(surface);
+		delete surface;
 	}
 
 	if (!parent_) {
@@ -174,9 +175,9 @@ void cContextMenu::draw(int xoffset, int yoffset) {
 	glDisable(GL_STENCIL_TEST);
 
 	// Get mouse position
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-
+	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	int x= pos.x();
+	int y = pos.y();
 	x -= xoffset; // Modify mouse coordinates
 	y -= yoffset; // Modify mouse coordinates
 

@@ -6,7 +6,6 @@
 #include "gui/gui.h"
 #include "enums.h"
 #include "uoclient.h"
-#include "engine.h"
 #include "utilities.h"
 #include "gui/tiledgumpimage.h"
 #include "gui/gumpimage.h"
@@ -75,8 +74,8 @@ public:
 		return 0;
 	}
 
-	void onMouseDown(int x, int y, unsigned char button, bool pressed) {
-		if (button == SDL_BUTTON_LEFT) {
+	void onMouseDown(QMouseEvent *e) {
+		if (e->button() == Qt::LeftButton) {
 			// Select this shard
 			Utilities::messageBox("Selected a shard entry.");
 		}

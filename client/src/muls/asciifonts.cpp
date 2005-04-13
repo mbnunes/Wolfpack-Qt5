@@ -4,7 +4,6 @@
 #include <qvaluelist.h>
 
 #include "exceptions.h"
-#include "engine.h"
 #include "log.h"
 #include "utilities.h"
 #include "muls/asciifonts.h"
@@ -53,33 +52,17 @@ void cAsciiFonts::load() {
 					this->height[f] = height;
 				}
 
-				SDL_Surface *surface = Engine->createSurface(width, height, true, false);
-				SDL_PixelFormat *pf = surface->format;
-
-				if (SDL_MUSTLOCK(surface)) {
-					SDL_LockSurface(surface);
-				}
-
+				// Create a non texture surface for caching the character pixel data
+				cSurface *surface = new cSurface(width, height, false);
+				surface->clear();
+			
 				for (int y = 0; y < height; ++y) {
 					for (int x = 0; x < width; ++x) {
 						dataStream >> pixel;
-
-						unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * pf->BytesPerPixel);
-						switch (pf->BytesPerPixel) {
-							case 4:
-								*(unsigned int*)ptr = SDL_MapRGB(pf, (pixel >> 7) & 0xF8, (pixel >> 2) & 0xF8, (pixel << 3) & 0xF8);
-								break;
-							case 2:
-								*(unsigned short*)ptr = SDL_MapRGB(pf, (pixel >> 7) & 0xF8, (pixel >> 2) & 0xF8, (pixel << 3) & 0xF8);
-								break;
-							default:
-								throw Exception(tr("Invalid bytes per pixel value: %1").arg(pf->BytesPerPixel));
+						if (pixel != 0) {
+							surface->setPixel(x, y, surface->color(pixel));
 						}
 					}
-				}
-
-				if (SDL_MUSTLOCK(surface)) {
-					SDL_UnlockSurface(surface);
 				}
 
 				characters[f][c] = surface;
@@ -94,9 +77,7 @@ void cAsciiFonts::load() {
 void cAsciiFonts::unload() {
 	for (int i = 0; i < 5; ++i) {
 		for (int j = 0; j < 224; ++j) {
-			if (characters[i][j]) {
-				SDL_FreeSurface(characters[i][j]);
-			}
+			delete characters[i][j];
 			characters[i][j] = 0;
 		}
 	}
@@ -113,9 +94,9 @@ cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QCString &text
 	QCString wrapped;
 	unsigned int spaceWidth = 0;
 
-	SDL_Surface *sf = getCharacter(font, ' ');
+	cSurface *sf = getCharacter(font, ' ');
 	if (sf) {
-		spaceWidth = sf->w;
+		spaceWidth = sf->width();
 	}
 
 	// Split into words using the spaces
@@ -127,9 +108,9 @@ cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QCString &text
 		unsigned int wordWidth = 0;
 		unsigned int i;
 		for (i = 0; i < word.length(); ++i) {
-			SDL_Surface *sf = getCharacter(font, word.at(i).latin1());
+			cSurface *sf = getCharacter(font, word.at(i).latin1());
 			if (sf) {
-				wordWidth += sf->w;
+				wordWidth += sf->width();
 			}
 		}
 
@@ -179,10 +160,10 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const QCString &text, unsig
 			lineWidths.append(lineWidth);
 			lineWidth = 0;
 		} else {
-			SDL_Surface *ch = getCharacter(font, *it);
+			cSurface *ch = getCharacter(font, *it);
 	
 			if (ch) {
-				lineWidth += ch->w; // Increase the width of the text
+				lineWidth += ch->width(); // Increase the width of the text
 			}
 		}
 	}
@@ -198,26 +179,24 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const QCString &text, unsig
 	unsigned int baseline = height; // Store the baseline
 	height = lines * height; // Increase the height of the text	
 
-	SDL_Surface *surface = 0; // The resulting text line
-	unsigned int black;
+	cSurface *surface = 0; // The resulting text line
 
 	if (width > 0) {
-		surface = Engine->createSurface(width, height, false, true, true);
-		SDL_PixelFormat *pf = surface->format; // Cache the pixel format
-		black = SDL_MapRGBA(pf, 0, 0, 0, 255);
-		SDL_FillRect(surface, 0, black);
+		surface = new cSurface(width, height);
+		surface->clear(); // Clear the background of the surface
 
 		// Start copying the characters over
-		SDL_Rect dest;
+		int destx = 0;
+		int desty = 0;
 		switch (align) {
 			case ALIGN_LEFT:
-				dest.x = 0; // Start on the left border
+				destx = 0; // Start on the left border
 				break;
 			case ALIGN_CENTER:
-				dest.x = (width - lineWidths.front()) >> 1; // Take whats left of the total width and divide it into two
+				destx = (width - lineWidths.front()) >> 1; // Take whats left of the total width and divide it into two
 				break;
 			case ALIGN_RIGHT:
-				dest.x = (width - lineWidths.front()); // Take the right part and use it as an offset
+				destx = (width - lineWidths.front()); // Take the right part and use it as an offset
 				break;
 		}
 		lineWidths.pop_front();
@@ -227,24 +206,29 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const QCString &text, unsig
 				if (!lineWidths.isEmpty()) {
 					switch (align) {
 						case ALIGN_LEFT:
-							dest.x = 0; // Start on the left border
+							destx = 0; // Start on the left border
 							break;
 						case ALIGN_CENTER:
-							dest.x = (width - lineWidths.front()) >> 1; // Take whats left of the total width and divide it into two
+							destx = (width - lineWidths.front()) >> 1; // Take whats left of the total width and divide it into two
 							break;
 						case ALIGN_RIGHT:
-							dest.x = (width - lineWidths.front()); // Take the right part and use it as an offset
+							destx = (width - lineWidths.front()); // Take the right part and use it as an offset
 							break;
 					}
 					lineWidths.pop_front();
 				}
 				baseline += this->height[font];
 			} else {
-				SDL_Surface *ch = getCharacter(font, *it);
+				cSurface *ch = getCharacter(font, *it);
 				if (ch) {
-					dest.y = baseline - ch->h;
-					SDL_BlitSurface(ch, 0, surface, &dest);
-					dest.x += ch->w; // Increase for the next draw
+					desty = baseline - ch->height();
+					// MemCpy Line by Line
+					for (int yl = 0; yl < ch->height(); ++yl) {
+						unsigned char *src = ch->scanline(yl);
+						unsigned char *dest = surface->scanline(yl + desty) + destx * 4;
+						memcpy(dest, src, ch->width() * 4);
+					}
+					destx += ch->width(); // Increase for the next draw
 				}
 			}
 		}
@@ -253,59 +237,33 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const QCString &text, unsig
 	stHue *hue = Hues->get(hueid); // Cache the hue
 
 	// Hueing the character is a per-pixel operation on the entire surface
-	if (surface) {
+	if (surface && hue) {
 		// Iterate over the surface
-		unsigned int x = 0;
-		unsigned int y = 0;
-		unsigned int bpp = surface->format->BytesPerPixel;
 		unsigned char r, g, b;
 		unsigned int pixel;
 		stColor color;
-		SDL_PixelFormat *pf = surface->format;
+	
+		unsigned int swidth = surface->realWidth();
+		unsigned int sheight = surface->realHeight();
 
-		if (SDL_MUSTLOCK(surface)) {
-			SDL_LockSurface(surface);
-		}
-		
-		unsigned char *rowptr = (unsigned char*)surface->pixels; // Pointer used to iterate over rows
-		unsigned char *ptr; // Pointer used within the row to iterate
-
-		unsigned int swidth = surface->w;
-		unsigned int sheight = surface->h;
-
-		while (y++ < sheight) {
-			ptr = rowptr;
-			x = 0;
-			while (x++ < swidth) {
-				// Process Hue
-				pixel = *((unsigned int*)ptr);
-				if (pixel == black) {
-					*((unsigned int*)ptr) = 0;
-				} else if (hue && pixel) {
-					SDL_GetRGB(pixel, pf, &r, &g, &b); // Transform RGB values
-
-					// This is some strange special handling. The border is unhued.							
+		for (int x = 0; x < surface->realWidth(); ++x) {
+			for (int y = 0; y < surface->realHeight(); ++y) {
+				pixel = surface->getPixel(x, y);
+				if (pixel != 0) {
+					r = surface->red(pixel);
+					b = surface->blue(pixel);
+					g = surface->green(pixel);
 					if (hueAll || (r == g && g == b)) {
 						color = hue->colors[r >> 3];
-						*((unsigned int*)ptr) = SDL_MapRGB(pf, color.r, color.g, color.b);
+						surface->setPixel(x, y, surface->color(color.r, color.b, color.g));
 					}
 				}
-				ptr += 4; // Jump to the next pixel in this row
 			}
-			rowptr += surface->pitch; // Jump to the next row
-		}
-
-		if (SDL_MUSTLOCK(surface)) {
-			SDL_UnlockSurface(surface);
 		}
 	}
 
 	cTexture *result = new cTexture(surface);
-	if (surface) {
-		result->setRealWidth(width);
-		result->setRealHeight(height);
-		SDL_FreeSurface(surface);
-	}
+	delete surface;
 
 	return result;
 }

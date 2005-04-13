@@ -2,8 +2,6 @@
 #if !defined(__CURSOR_H__)
 #define __CURSOR_H__
 
-#include "SDL.h"
-
 #include "utilities.h"
 #include "texture.h"
 
@@ -34,7 +32,6 @@ struct stCursor {
 	cTexture *surface;
 	int xoffset;
 	int yoffset;
-	SDL_Rect sourceRect;
 };
 
 /*

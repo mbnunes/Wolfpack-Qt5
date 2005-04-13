@@ -1,5 +1,4 @@
 
-#include "engine.h"
 #include "game/groundtile.h"
 #include "game/world.h"
 #include "muls/art.h"
@@ -7,6 +6,7 @@
 #include "muls/maps.h"
 #include "gui/worldview.h"
 #include "gui/contextmenu.h"
+#include <qgl.h>
 
 cGroundTile::cGroundTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
 	id_ = 0;
@@ -315,7 +315,7 @@ static void STDCALL cmCallback(cContextMenu *menu, int id, cGroundTile *tile) {
 	tile->decref();
 }
 
-void cGroundTile::onRightClick() {
+void cGroundTile::onRightClick(QMouseEvent *e) {
 	ContextMenu->clear();
 	ContextMenu->addEntry("Delete", 0x3b2, 0); // Delete the ground tile
 	incref();
@@ -323,9 +323,9 @@ void cGroundTile::onRightClick() {
 	ContextMenu->show();
 }
 
-void cGroundTile::onClick() {
+void cGroundTile::onClick(QMouseEvent *e) {
 	// SHIFT+Click shows contextmenu
-	if (SDL_GetKeyState(0)[SDLK_LSHIFT]) {
+	if ((e->state() & Qt::ShiftButton) != 0) {
 		ContextMenu->clear();
 		ContextMenu->addEntry("Delete", 0x3b2, 0); // Delete the ground tile
 		incref();

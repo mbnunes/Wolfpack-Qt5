@@ -1,6 +1,5 @@
 
 #include "exceptions.h"
-#include "engine.h"
 #include "muls/art.h"
 #include "muls/hues.h"
 #include "muls/verdata.h"
@@ -19,8 +18,6 @@ cArtAnimation::~cArtAnimation() {
 }
 
 cArt::cArt() {
-	cache = new SurfaceCache(500, 463);
-	cache->setAutoDelete(true);
 	tcache = new TextureCache(500, 463);
 	tcache->setAutoDelete(true);
 	acache = new ArtAnimationCache(100, 17);
@@ -30,14 +27,12 @@ cArt::cArt() {
 cArt::~cArt() {
 	tcache->clear();
 	delete tcache;
-	cache->clear();
-	delete cache;
 	acache->clear();
 	delete acache;
 }
 
 cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool partialhue) {
-	unsigned int cacheid = getCacheId(id, hueid, partialhue, false, false);
+	unsigned int cacheid = getCacheId(id, hueid, partialhue);
 
 	// Cache lookup first
 	cArtAnimation *result = acache->find(cacheid);
@@ -130,8 +125,8 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	}
 
 	// Create the surface now.
-	SDL_Surface *surface = Engine->createSurface(totalwidth, totalheight, false, false, true);
-	SDL_FillRect(surface, 0, 0); // Clear to transparent
+	cSurface *surface = new cSurface(totalwidth, totalheight, true);
+	surface->clear();
 
 	// Pre-allocate the lookup table to save time
 	unsigned short *lookupTable = new unsigned short[totalmaxheight];
@@ -147,8 +142,8 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	}
 
 	// Save float width/height of the texture to prevent unneeded conversions
-	float textureWidth = (float)surface->w;
-	float textureHeight = (float)surface->h;
+	float textureWidth = (float)surface->width();
+	float textureHeight = (float)surface->height();
 
 	for (int i = 0; i < info.count; ++i) {
 		unsigned short width, height;
@@ -166,11 +161,9 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 
 		int offset = dataStream.device()->at(); // Save offset
 
-		SurfacePainter32 painter(surface);
-		painter.lock();
-		for (int y = 0; y < height; ++y) {
+		for (unsigned int y = 0; y < height; ++y) {
 			dataStream.device()->at(offset + lookupTable[y] * 2);
-			int x = 0;
+			unsigned int x = 0;
 
 			while (x < width) {
 				unsigned short xoffset, rlength;
@@ -181,7 +174,6 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 
 				unsigned int xend = x + xoffset + rlength;
 				for( x = x + xoffset; x < xend; ++x ) {
-					unsigned int pixel;
 					unsigned short color;
 					dataStream >> color;
 
@@ -200,19 +192,18 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 							b = hue->colors[index].b;
 						}
 						
-						unsigned int pixel = painter.color(r, g, b);
-						painter.setPixel(currentx + x, currenty + y, pixel);
+						unsigned int pixel = surface->color(r, g, b);
+						surface->setPixel(currentx + x, currenty + y, pixel);
 					} else {				
 						// Calculate the real pixel value
 						if (color != 0) {
-							unsigned int pixel = painter.color((color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8);
-							painter.setPixel(currentx + x, currenty + y, pixel);
+							unsigned int pixel = surface->color(color);
+							surface->setPixel(currentx + x, currenty + y, pixel);
 						}
 					}
 				}
 			}
 		}
-		painter.unlock();
 
 		// Fill the frame structure
 		frames[i].width = width;
@@ -248,7 +239,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	result->setTexture(new cTexture(surface, true));
 
 	// Free the temporary surface
-	SDL_FreeSurface(surface);
+	delete surface;
 
 	delete [] lookupTable;
 	delete [] offsets;
@@ -317,7 +308,6 @@ void cArt::load() {
 }
 
 void cArt::unload() {
-	cache->clear(); // Clear the cache
 	acache->clear();
 	tcache->clear();
 
@@ -330,10 +320,13 @@ void cArt::reload() {
 	load();
 }
 
-SDL_Surface *cArt::getLandArt(unsigned short id, bool texture) {
+/*
+	NOTE: Land art tiles should be cramped into larger textures.
+*/
+cSurface *cArt::readLandSurface(unsigned short id, bool texture) {
 	int offset = -1; // Default to invalid
 	int length = 0; // Length of data record
-	SDL_Surface *surface = 0; // The land surface
+	cSurface *surface = 0; // The land surface
 	QDataStream &dataStream = this->dataStream; // The stream to read the data from
 
 	stVerdataRecord *patch = Verdata->getPatch(VERDATA_ART, id);
@@ -351,14 +344,8 @@ SDL_Surface *cArt::getLandArt(unsigned short id, bool texture) {
 	// Sanity checks
 	if (offset >= 0 && length > 0) {
 		// Create surface and set color key
-		surface = Engine->createSurface(44, 44, false, false, texture);
-
-		if (!surface) {
-			throw Exception(tr("Unable to create new surface."));
-		}
-
-		SurfacePainter32 painter(surface);
-		SDL_FillRect(surface, 0, 0); // Clear transparency
+		surface = new cSurface(44, 44, texture);
+		surface->clear();
 
         dataStream.device()->at(offset);
 
@@ -373,8 +360,6 @@ SDL_Surface *cArt::getLandArt(unsigned short id, bool texture) {
 		int x = 0, y = 0;
 		int span = 2;
 
-		painter.lock();
-
 		for( y = 0; y < 44; ++y ) {
 			x = ( 44 - span ) / 2;
 
@@ -387,9 +372,9 @@ SDL_Surface *cArt::getLandArt(unsigned short id, bool texture) {
 				}
 
 				// Process the color only if its not transparent
-				pixel = painter.color((color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8);
+				pixel = surface->color((color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8);
 
-				painter.setPixel(x + i, y, pixel);
+				surface->setPixel(x + i, y, pixel);
 			}
 
 			if( y < 21 )
@@ -397,19 +382,19 @@ SDL_Surface *cArt::getLandArt(unsigned short id, bool texture) {
 			if( y >= 22 )
 				span -= 2;
 		}
-
-		painter.unlock();
 	}
 
 	return surface;
 }
 
-SDL_Surface *cArt::getItemArt(unsigned short id, unsigned short hueid, bool partialhue, bool stacked, bool texture, unsigned int *widthOut, unsigned int *heightOut) {
+cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool partialhue, bool texture) {
 	int offset = -1; // Default to invalid
 	int length = 0; // Length of data record
 	stHue *hue = Hues->get(hueid); // Retrieve the hue (for hue=0 its null)
-	SDL_Surface *surface = 0; // The land surface
+	cSurface *surface = 0; // The land surface
 	QDataStream &dataStream = this->dataStream; // The stream to read the data from
+
+	id += 0x4000; // Static items start at id 0x4000
 
 	stVerdataRecord *patch = Verdata->getPatch(VERDATA_ART, id);
 	if (patch) {
@@ -430,12 +415,6 @@ SDL_Surface *cArt::getItemArt(unsigned short id, unsigned short hueid, bool part
 		unsigned int header;
 		short width, height;
 		dataStream >> header >> width >> height;
-		if (widthOut) {
-			*widthOut = width;
-		}
-		if (heightOut) {
-			*heightOut = height;
-		}
 		
 		if (width > 0 && height > 0) {
             unsigned short *lookupTable = new unsigned short[height];
@@ -448,30 +427,14 @@ SDL_Surface *cArt::getItemArt(unsigned short id, unsigned short hueid, bool part
 			offset = dataStream.device()->at(); // Save offset
 
 			// Create surface and set color key
-			if (stacked) {
-				surface = Engine->createSurface(width + 5, height + 5, false, true, texture);
-			} else {
-				surface = Engine->createSurface(width, height, false, true, texture);
-			}
-
-			if (!surface) {
-				throw Exception(tr("Unable to create new surface."));
-			}
-
-			SDL_PixelFormat *pf = surface->format; // Cache pixel format
-
-			unsigned int black;
-			black = SDL_MapRGBA(pf, 0, 0, 0, 0);
-			SDL_FillRect(surface, 0, black);
-
-			SurfacePainter32 painter(surface);
-			painter.lock();
+			surface = new cSurface(width, height, texture);
+			surface->clear();
 
 			for (int y = 0; y < height; ++y) {
 				dataStream.device()->at(offset + lookupTable[y] * 2);
-				int x = 0;
+				unsigned int x = 0;
 
-				while (dataStream.device()->at() < offset + length) {
+				while ((int)dataStream.device()->at() < offset + length) {
 					unsigned short xoffset, rlength;
 					dataStream >> xoffset >> rlength;
 
@@ -480,14 +443,17 @@ SDL_Surface *cArt::getItemArt(unsigned short id, unsigned short hueid, bool part
 
 					unsigned int xend = x + xoffset + rlength;
 
-					for( x = x + xoffset; x < xend; ++x )
-					{
+					for( x = x + xoffset; x < xend; ++x ) {
 						unsigned int pixel;
 						unsigned short color;
 						dataStream >> color;
 
+						if ( color == 0 ) {
+							continue; // Skip transparent pixels
+						}
+
 						// Process the color only if its not transparent
-						if( hue && color != 0) {
+						if( hue ) {
 							unsigned char index = (color >> 10) & 0x1F;
 							unsigned char r = index << 3; // Multiply with 8
 							unsigned char g = (color >> 2) & 0xF8;
@@ -500,37 +466,16 @@ SDL_Surface *cArt::getItemArt(unsigned short id, unsigned short hueid, bool part
 								g = hue->colors[index].g;
 								b = hue->colors[index].b;
 							}
-							
-							//pixel = painter.color(r, g, b); // Calculate the real pixel value
-							pixel = SDL_MapRGBA(pf, r, g, b, 255);
-						} else {				
-							// Calculate the real pixel value
-							if (color != 0) {
-								//pixel = painter.color(, , );
-								pixel = SDL_MapRGBA(pf, (color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8, 255);
-							} else {
-								pixel = black;
-							}							
-						}
 
-						// XXX TODO: This is incorrect behaviour. Instead the lower right image should be drawn first
-						// Solutions?
-						if (stacked) {
-							painter.setPixel(x + 5, y + 5, pixel); // Set the stacked portion
-							
-							// Set the pixels for our run
-							// Only override if the pixel isn't painted yet
-							if (painter.getPixel(x, y) != black) {
-								painter.setPixel(x, y, pixel);
-							}
+							pixel = surface->color(r, g, b);
 						} else {
-							painter.setPixel(x, y, pixel);
-						}
+							pixel = surface->color((color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8);
+							surface->setPixel(x, y, pixel);
+						}						
 					}
 				}
 			}
 
-			painter.unlock();
 			delete [] lookupTable;
 		}
 	}
@@ -538,55 +483,17 @@ SDL_Surface *cArt::getItemArt(unsigned short id, unsigned short hueid, bool part
 	return surface;
 }
 
-SDL_Surface *cArt::readUncached(unsigned short id, unsigned short hue, bool partialhue, bool stacked, bool translucent, bool texture, unsigned int *widthOut, unsigned int *heightOut) {
-	SDL_Surface *surface = 0;
-
-	if (id >= 0x8000) {
-		throw Exception(tr("Trying to read an invalid tile with id 0x%1.").arg(id, 0, 16));
-	} else if (id >= 0x4000) {
-		surface = getItemArt(id, hue, partialhue, stacked, texture, widthOut, heightOut);
-
-		if (!surface && id != 0) {
-			surface = getItemArt(0, hue, partialhue, stacked, texture, widthOut, heightOut);
-		}
-	} else {
-		surface = getLandArt(id, texture);
-
-		if (!surface && id != 0) {
-			surface = getLandArt(0, texture);
-		}
-
-		if (surface) {
-			if (widthOut) {
-				*widthOut = 44;
-			}
-			if (heightOut) {
-				*heightOut = 44;
-			}
-		}
-	}
-
-	if (translucent) {
-		SDL_SetAlpha(surface, SDL_SRCALPHA, 127);
-	}
-
-	return surface;
-}
-
-cTexture *cArt::readLandTexture(unsigned short id, unsigned short hue) {
-	unsigned int cacheid = getCacheId(id, hue, false, false, false);
+cTexture *cArt::readLandTexture(unsigned short id) {
+	unsigned int cacheid = getCacheId(id, 0, false);
 	cTexture *result = tcache->find(cacheid);
 
 	if (!result) {
 		// Read a new art tile from the data files
-		unsigned int width, height;
-		SDL_Surface *surface = readUncached(id, hue, false, false, false, true, &width, &height);
+		cSurface *surface = readLandSurface(id, true);
 		
 		if (surface) {
 			result = new cTexture(surface);
-			result->setRealWidth(width);
-			result->setRealHeight(height);
-			SDL_FreeSurface(surface);
+			delete surface;
 			if (tcache->insert(cacheid, result)) {
 				result->incref();
 			}
@@ -598,22 +505,17 @@ cTexture *cArt::readLandTexture(unsigned short id, unsigned short hue) {
 	return result;
 }
 
-cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool partialhue, bool stacked, bool translucent) {
-	id += 0x4000;
-
-	unsigned int cacheid = getCacheId(id, hue, partialhue, stacked, translucent);
+cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool partialhue) {
+	unsigned int cacheid = getCacheId(id + 0x4000, hue, partialhue);
 	cTexture *result = tcache->find(cacheid);
 
 	if (!result) {
 		// Read a new art tile from the data files
-		unsigned int width, height;
-		SDL_Surface *surface = readUncached(id, hue, partialhue, stacked, translucent, true, &width, &height);
+		cSurface *surface = readItemSurface(id, hue, partialhue, true);
 		
 		if (surface) {
 			result = new cTexture(surface);
-			result->setRealWidth(width);
-			result->setRealHeight(height);
-			SDL_FreeSurface(surface);
+			delete surface;
 			if (tcache->insert(cacheid, result)) {
 				result->incref();
 			}			
@@ -625,38 +527,14 @@ cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool part
 	return result;
 }
 
-/*
-	Art reader
-*/
-SharedSurface *cArt::read(unsigned short id, unsigned short hue, bool partialhue, bool stacked, bool translucent) {
-	unsigned int cacheid = getCacheId(id, hue, partialhue, stacked, translucent);
-	SharedSurface *result = cache->find(cacheid);
-
-	if (!result) {
-		// Read a new art tile from the data files
-		SDL_Surface *surface = readUncached(id, hue, partialhue, stacked, translucent);
-		
-		if (surface) {
-			result = new SharedSurface(surface);
-			cache->insert(cacheid, result);
-		}
-	}
-
-	return result;
-}
-
 void cArt::readCursor(stCursor *cursor, unsigned short id, unsigned short hue, bool partialhue) {	
-	unsigned int width, height;
 	// Read the texture compatible surface
-	SDL_Surface *surface = readUncached(0x4000 + id, hue, partialhue, false, false, true, &width, &height);
+	cSurface *surface = readItemSurface(id, hue, partialhue, true);
 
 	// Search for the hotspot of the cursor (x/y offset)
 	// Search for the x/y offset
 	int xoffset = 0, yoffset = 0;
 	int i;
-
-	SurfacePainter32 painter(surface);
-	painter.lock();
 
 	/*
 		The first row and column are used to determine the x and yoffset of the cursor
@@ -664,9 +542,9 @@ void cArt::readCursor(stCursor *cursor, unsigned short id, unsigned short hue, b
 	*/
 
 	// xoffset
-	for (i = 1; i < width; ++i) {
-		unsigned int color = painter.getPixel(i, 0);
-        unsigned char g = painter.green(color);
+	for (i = 1; i < surface->realWidth(); ++i) {
+		unsigned int color = surface->getPixel(i, 0);
+        unsigned char g = surface->green(color);
 
 		if (g != 0) {
 			xoffset = i - 1;
@@ -675,9 +553,9 @@ void cArt::readCursor(stCursor *cursor, unsigned short id, unsigned short hue, b
 	}
 
 	// yoffset
-	for (i = 1; i < height; ++i) {
-		unsigned int color = painter.getPixel(0, i);
-        unsigned char g = painter.green(color);        
+	for (i = 1; i < surface->realHeight(); ++i) {
+		unsigned int color = surface->getPixel(0, i);
+        unsigned char g = surface->green(color);
 
 		if (g != 0) {
 			yoffset = i - 1;
@@ -685,12 +563,8 @@ void cArt::readCursor(stCursor *cursor, unsigned short id, unsigned short hue, b
 		}
 	}
 
-	painter.unlock();
-
 	cTexture *texture = new cTexture(surface);
-	texture->setRealHeight(height);
-	texture->setRealWidth(width);
-	SDL_FreeSurface(surface);
+	delete surface;
 
 	// Write the given cursor structure
 	cursor->surface = texture;

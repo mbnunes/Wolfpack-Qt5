@@ -36,7 +36,7 @@ public:
 	// Do a sophisticated hittest on the internal surface
 	bool hitTest(int x, int y);
 
-	void onClick();
+	void onClick(QMouseEvent *e);
 	
 	// Update the priority of this static tile
 	void updatePriority();

@@ -1,6 +1,5 @@
 
 #include "exceptions.h"
-#include "engine.h"
 #include "utilities.h"
 #include "muls/gumpart.h"
 #include "gui/gumpimage.h"

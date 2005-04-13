@@ -1,10 +1,10 @@
 
 #include "config.h"
-#include "engine.h"
 #include "uoclient.h"
 #include "gui/cursor.h"
 #include "muls/art.h"
 #include <qcursor.h>
+#include <qgl.h>
 
 cCursor *Cursor = 0;
 

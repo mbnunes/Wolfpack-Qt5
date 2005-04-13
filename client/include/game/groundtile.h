@@ -42,8 +42,8 @@ public:
 	// Do a sophisticated hittest on the internal surface
 	bool hitTest(int x, int y);
 
-	void onClick();
-	void onRightClick();
+	void onClick(QMouseEvent *e);
+	void onRightClick(QMouseEvent *e);
 };
 
 inline void cGroundTile::setAveragez(signed char data) {

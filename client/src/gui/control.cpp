@@ -14,10 +14,6 @@ cControl::cControl() {
 	width_ = 0;
 	height_ = 0;
 	parent_ = 0;
-	parentBounds_.x = 0;
-	parentBounds_.y = 0;
-	parentBounds_.w = 0;
-	parentBounds_.h = 0;
 	align_ = CA_NONE;
 	anchors_ = 0;
 	movable_ = false;
@@ -39,28 +35,24 @@ void cControl::setAlign(enControlAlign align) {
 void cControl::setX(int data) {
 	int oldx = x_;	
 	x_ = data;
-	parentBounds_.x += x_ - data;
 	onChangeBounds(oldx, y_, width_, height_);
 }
 
 void cControl::setY(int data) {	
 	int oldy = y_;	
 	y_ = data;
-	parentBounds_.y += y_ - data;
 	onChangeBounds(x_, oldy, width_, height_);
 }
 
 void cControl::setWidth(int data) {
 	int oldwidth = width_;
 	width_ = data;
-	parentBounds_.w = data;
 	onChangeBounds(x_, y_, oldwidth, height_);
 }
 
 void cControl::setHeight(int data) {
 	int oldheight = height_;
 	height_ = data;
-	parentBounds_.h = data;
 	onChangeBounds(x_, y_, width_, oldheight);
 }
 
@@ -73,10 +65,6 @@ void cControl::setBounds(int x, int y, int width, int height) {
 	y_ = y;
 	width_ = width;
 	height_ = height;
-	parentBounds_.h = height;
-	parentBounds_.w = width;
-	parentBounds_.x += x_ - oldx;
-	parentBounds_.y += y_ - oldy;
 	onChangeBounds(oldx, oldy, oldwidth, oldheight);
 }
 

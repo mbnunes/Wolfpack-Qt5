@@ -1,7 +1,6 @@
 
 #include "uoclient.h"
 #include <qcursor.h>
-#include "engine.h"
 #include "game/world.h"
 #include "game/groundtile.h"
 #include "game/statictile.h"
@@ -9,6 +8,7 @@
 #include "gui/gui.h"
 #include "gui/worldview.h"
 #include "muls/maps.h"
+#include <qgl.h>
 
 cWorld::cWorld() : groundCache(2500, 1999) {
 	x_ = 0;
@@ -425,15 +425,18 @@ cEntity *cWorld::getEntity(int x, int y) {
 	return found;
 }
 
-void cWorld::onClick(int x, int y, unsigned char button) {
-	cEntity *found = getEntity(x, y);
+void cWorld::onDoubleClick(QMouseEvent *e) {
+}
+
+void cWorld::onClick(QMouseEvent *e) {
+	cEntity *found = getEntity(e->x(), e->y());
 
 	// Pass the event on to the entity
 	if (found) {
-		if (button == SDL_BUTTON_LEFT) {
-			found->onClick();
-		} else if (button == SDL_BUTTON_RIGHT) {
-			found->onRightClick();
+		if (e->button() == Qt::LeftButton) {
+			found->onClick(e);
+		} else if (e->button() == Qt::RightButton) {
+			found->onRightClick(e);
 		}
 	}
 }

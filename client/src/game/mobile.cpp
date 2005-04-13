@@ -1,6 +1,5 @@
 
 #include "game/mobile.h"
-#include "engine.h"
 
 cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial) : cDynamicEntity(x, y, z, facet, serial) {
 	body_ = 1;

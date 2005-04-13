@@ -1,7 +1,7 @@
 
 #include <qvaluelist.h>
 
-#include "engine.h"
+#include "surface.h"
 #include "log.h"
 #include "exceptions.h"
 #include "utilities.h"
@@ -157,25 +157,23 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 	//lineHeights.pop_front();
 	unsigned int baseline = border ? 1 : 0;
 
-	SDL_Surface *surface = 0; // The resulting text line
+	cSurface *surface = 0; // The resulting text line
 
 	if (width > 0 && height > 0) {
 		int xoffset; // current offset in line
 
-		surface = Engine->createSurface(width, height, false, false, true);
-		SDL_PixelFormat *pf = surface->format;
-		SurfacePainter32 painter(surface);
+		surface = new cSurface(width, height);
 
 		unsigned int background = 0; // cache the background color
 		unsigned int foreground; // cache the foreground color
 		if (!hue) {
-			foreground = painter.color(0xDD, 0xDD, 0xDD);
+			foreground = surface->color(0xDD, 0xDD, 0xDD);
 		} else {
-			foreground = painter.color(hue->colors[31].r, hue->colors[31].g, hue->colors[31].b);
+			foreground = surface->color(hue->colors[31].r, hue->colors[31].g, hue->colors[31].b);
 		}
-		unsigned int bordercolor = painter.color(0, 0, 8); // cache the border color
+		unsigned int bordercolor = surface->color(0, 0, 8); // cache the border color
 
-		SDL_FillRect(surface, 0, background);
+		surface->clear(); // Make the image transparent first
 
 		// Start copying the characters over
 		switch (align) {
@@ -194,8 +192,6 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 		if (border) {
 			++xoffset; // Increase the xoffset if there is a border to make place for it
 		}
-
-		painter.lock();
 
 		for (unsigned int i = 0; i < text.length(); ++i) {
 			QChar ch = text.at(i);			
@@ -248,8 +244,8 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 				// Start reading scalines
 				for (signed char y = 0; y < pheight; ++y) {
 					dataStream.readRawBytes((char*)scanline, pslwidth); // Read in the entire scanline at once
-					unsigned char *ptr = (unsigned char*)(surface->pixels) + (baseline + pyoffset + y) * surface->pitch + (xoffset + pxoffset) * pf->BytesPerPixel;
-					unsigned char *endptr = ptr + pwidth * pf->BytesPerPixel; // Calculate the end of the row so an easy pointer comparison suffices
+					unsigned char *ptr = surface->scanline(baseline + pyoffset + y) + (xoffset + pxoffset) * 4;
+					unsigned char *endptr = ptr + pwidth * 4; // Calculate the end of the row so an easy pointer comparison suffices
 					pslpadding = 0;
 					psloffset = 0;
 
@@ -261,30 +257,21 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 						}
 
 						if (drawpixel) {
-							switch (pf->BytesPerPixel) {
-								case 4:
-									*((unsigned int*)ptr) = foreground;
-									if (border) {
-										for (int bordery = -1; bordery < 2; ++bordery) {
-											unsigned char *borderptr = (ptr + bordery * surface->pitch - 4);
-											unsigned char *borderendptr = borderptr + 12;
-											while (borderptr != borderendptr) {
-												if (*((unsigned int*)borderptr) != foreground) {
-													*((unsigned int*)borderptr) = bordercolor;
-												}
-												borderptr += 4;
-											}
+							*((unsigned int*)ptr) = foreground;
+							if (border) {
+								for (int bordery = -1; bordery < 2; ++bordery) {
+									unsigned char *borderptr = (ptr + bordery * (surface->height() * 4) - 4);
+									unsigned char *borderendptr = borderptr + 12;
+									while (borderptr != borderendptr) {
+										if (*((unsigned int*)borderptr) != foreground) {
+											*((unsigned int*)borderptr) = bordercolor;
 										}
+										borderptr += 4;
 									}
-									break;
-								case 2:
-									*((unsigned short*)ptr) = foreground;
-									break;
-								default:
-									throw Exception(tr("Invalid bytes per pixel value: %1").arg(pf->BytesPerPixel));
+								}
 							}
 						}
-						ptr += pf->BytesPerPixel;
+						ptr += 4;
 					}
 				}
 
@@ -295,16 +282,10 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 				}
 			}
 		}
-
-		painter.unlock();
 	}
 
 	cTexture *result = new cTexture(surface);
-	result->setRealWidth(width);
-	result->setRealHeight(height);
-	if (surface) {
-		SDL_FreeSurface(surface);
-	}
+	delete surface;	
 	return result;
 }
 /*

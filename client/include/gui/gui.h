@@ -3,7 +3,6 @@
 #define __GUI_H__
 
 #include <qvaluevector.h>
-#include "SDL.h"
 
 #include "control.h"
 #include "container.h"

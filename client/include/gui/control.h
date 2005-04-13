@@ -2,7 +2,6 @@
 #if !defined(__CONTROL_H__)
 #define __CONTROL_H__
 
-#include "SDL.h"
 #include "enums.h"
 #include <qevent.h>
 #include <qobject.h>
@@ -25,7 +24,6 @@ protected:
 	int width_, height_; // Height and width of this control, don't need to be writeable
 	cContainer *parent_;
 	enControlAlign align_;
-	SDL_Rect parentBounds_; // This rectangle describes the bounds of this control relative to the parent
 	bool disableAlign_; // If this control is currently being realigned, this flag is set
 	bool needsRealign_; // This flag is used while the control is being realigned
 	unsigned char anchors_; // A bitfield for the anchors of this control
@@ -135,7 +133,6 @@ public:
 	}
 
 	virtual void setAlign(enControlAlign align);
-	inline const SDL_Rect &parentBounds() const { return parentBounds_; }
 
 	cControl();
 	virtual ~cControl();

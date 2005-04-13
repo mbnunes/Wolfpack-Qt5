@@ -3,6 +3,7 @@
 #define __CONTAINER_H__
 
 #include <qvaluelist.h>
+#include <qrect.h>
 
 #include "control.h"
 
@@ -47,8 +48,8 @@ public:
 
 	virtual void alignControl(cControl *control); // Align a control in this container
 private:
-	void doAlignment(enControlAlign align, cControl *control, SDL_Rect &clientRect);
-	void doPositioning(enControlAlign align, cControl *control, SDL_Rect &clientRect);
+	void doAlignment(enControlAlign align, cControl *control, QRect &clientRect);
+	void doPositioning(enControlAlign align, cControl *control, QRect &clientRect);
 	bool canAlignBefore(enControlAlign align, cControl *control1, cControl *control2);
 };
 

@@ -2,7 +2,6 @@
 #if !defined(__ASCIILABEL_H__)
 #define __ASCIILABEL_H__
 
-#include "SDL.h"
 #include <qstring.h>
 
 #include "gui/control.h"

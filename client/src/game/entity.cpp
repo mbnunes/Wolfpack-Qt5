@@ -30,10 +30,10 @@ bool cEntity::hitTest(int x, int y) {
 	return true;
 }
 
-void cEntity::onClick() {
+void cEntity::onClick(QMouseEvent *e) {
 }
 
-void cEntity::onRightClick() {
+void cEntity::onRightClick(QMouseEvent *e) {
 }
 
 void cEntity::updatePriority() {

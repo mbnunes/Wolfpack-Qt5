@@ -1,5 +1,4 @@
 
-#include "engine.h"
 #include "gui/bordergump.h"
 #include "gui/tiledgumpimage.h"
 #include "gui/gumpimage.h"

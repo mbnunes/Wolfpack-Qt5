@@ -4,7 +4,6 @@
 
 #include "control.h"
 #include "container.h"
-#include "SDL.h"
 
 class cTiledGumpImage;
 class cGumpImage;

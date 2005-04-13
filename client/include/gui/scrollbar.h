@@ -72,9 +72,9 @@ public:
 
 	virtual cControl *getControl(int x, int y);
 
-	void onMouseDown(int x, int y, unsigned char button, bool pressed);
-	void onMouseUp(int x, int y, unsigned char button, bool pressed);
-	void onMouseMotion(int xrel, int yrel, unsigned char buttons);
+	void onMouseDown(QMouseEvent *e);
+	void onMouseUp(QMouseEvent *e);
+	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
 
 	virtual void onScroll(int oldpos);
 };

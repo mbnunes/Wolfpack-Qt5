@@ -39,7 +39,7 @@ protected:
 	unsigned int caretXOffset_; // The offset to the left border of the text field in pixels.
 	int selection_; // The number of characters that are selected in relation to the current caret.
 
-    void drawSelection(SDL_Surface *surface);
+    void drawSelection(cSurface *surface);
 	void replaceSelection(const QCString &replacement);
 	QCString getSelection();
 	inline char translateChar(char c) {

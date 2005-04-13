@@ -7,14 +7,8 @@ Using Microsoft Visual Sutdio .NET
 library search path. For information regarding QT, please visit
 http://kde-cygwin.sourceforge.net
 
-2. You'll need SDL 1.2. You can download the headers and library
-here: http://www.libsdl.org/ .
-The binary development version for VC6 will work just fine. 
-Make sure that the SDL.lib file is in the lib/ subdirectory and
-the SDL headers are in the libs/include/ directory (i.e.
-libs/include/SDL.h)
+2. Make sure, that the QTDIR environmental variable is set correctly to your
+QT directory.
 
 3. Open the UoClient.sln with the IDE and press compile. It should work
 out of the box.
-
-

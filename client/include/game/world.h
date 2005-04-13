@@ -2,7 +2,6 @@
 #if !defined(__WORLD_H__)
 #define __WORLD_H__
 
-#include "SDL.h"
 #include "game/entity.h"
 #include "game/dynamicentity.h"
 #include "enums.h"
@@ -11,6 +10,7 @@
 #include <qmap.h>
 #include <qvaluelist.h>
 #include <qintcache.h>
+#include <qevent.h>
 
 // I'm using a class here because of the destructor
 class stGroundInfo {
@@ -97,7 +97,8 @@ public:
 	void clearEntities(); // Clear all entities
 
 	// Notify the world of clicks relative to the upper left corner of the view
-	void onClick(int x, int y, unsigned char button);
+	void onClick(QMouseEvent *e);
+	void onDoubleClick(QMouseEvent *e);
 
 	// Methods for managing dynamics
 	cDynamicEntity *findDynamic(unsigned int serial) const;

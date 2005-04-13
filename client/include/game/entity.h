@@ -2,8 +2,8 @@
 #if !defined(__ENTITY_H__)
 #define __ENTITY_H__
 
-#include "SDL.h"
 #include "enums.h"
+#include <qevent.h>
 
 /*
 	This is the base class for every world object in the game.
@@ -66,8 +66,8 @@ public:
 	virtual void draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip);
 
 	// This entity has been clicked on
-	virtual void onClick();
-	virtual void onRightClick();
+	virtual void onClick(QMouseEvent *e);
+	virtual void onRightClick(QMouseEvent *e);
 
 	// This method should be supplied by the subclass to update the tile priority
 	virtual void updatePriority();

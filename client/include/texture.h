@@ -2,25 +2,25 @@
 #if !defined(__TEXTURE_H__)
 #define __TEXTURE_H__
 
-#include "SDL.h"
-#include "SDL_opengl.h"
 #include "exceptions.h"
+
+class cSurface;
 
 /*
 	This class represents an OpenGL texture.
 */
 class cTexture {
 protected:
-	GLuint id_; // Private texture id
+	unsigned int id_; // Private texture id
 	unsigned int refcount; // Reference count
 	unsigned int width_, height_;
 	unsigned int realWidth_, realHeight_;
 	unsigned int *hitTestArray; // Cache for hit testing
-	void generateHitMap(SDL_Surface *surface);
+	void generateHitMap(cSurface *surface);
 
 public:
 	cTexture();
-	cTexture(SDL_Surface *surface, bool hittest = true);
+	cTexture(cSurface *surface, bool hittest = true);
 	~cTexture();
 
 	// Free the currently assigned texture
@@ -28,7 +28,7 @@ public:
 
 	// Set the content of this texture
 	// Please note that an exception is thrown if t
-	void setData(SDL_Surface *surface, bool hittest = true);
+	void setData(cSurface *surface, bool hittest = true);
 
 	// Bind this texture to the rendering context
 	void bind();
@@ -46,7 +46,7 @@ public:
 	void setRealHeight(unsigned int data);
 
 	// Return the unique integer texture id
-	GLuint id() const;
+	unsigned int id() const;
 
 	// Draw a quad that exactly resembles this texture at the given x/y coordinates
 	void draw(int x, int y);
@@ -65,7 +65,7 @@ inline void cTexture::decref() {
 	}
 }
 
-inline GLuint cTexture::id() const {
+inline unsigned int cTexture::id() const {
 	return id_;
 }
 

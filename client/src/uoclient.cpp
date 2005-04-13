@@ -5,7 +5,6 @@
 
 #include "uoclient.h"
 #include "utilities.h"
-#include "engine.h"
 #include "config.h"
 #include "log.h"
 #include "exceptions.h"
@@ -45,7 +44,6 @@ cUoClient::cUoClient() {
 
 	Config = new cConfig();
 	Log = new cLog();
-	Engine = new cEngine();
 	Gui = new cGui();
 	Cursor = new cCursor();
 
@@ -87,7 +85,6 @@ cUoClient::~cUoClient() {
 	delete Gumpart;
 
 	delete Gui;
-	delete Engine;
 	delete Log;
 	delete Config;
 
@@ -110,16 +107,6 @@ void cUoClient::load() {
 	}
 
 	Log->print(LOG_MESSAGE, tr("Using Ultima Online at: %1\n").arg(Config->uoPath()));
-
-	// Initialize SDL
-	if (SDL_Init(SDL_INIT_AUDIO|SDL_INIT_VIDEO|SDL_INIT_TIMER) < 0) {
-		throw Exception(tr("Unable to initialize SDL: %1").arg(SDL_GetError()));
-    }
-
-	SDL_EnableUNICODE(1); // Enable UNICODE event handling
-	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
-
-	Engine->load(); // Initialize Engine, Open Window
 
 	// Load MulReaders
 	Verdata->load();
@@ -151,10 +138,6 @@ void cUoClient::unload() {
 	Gumpart->unload();
 	Verdata->unload();
 
-	Engine->unload(); // Close Window, Shutdown Engine
-
-	SDL_Quit(); // Quit SDL
-
 	Config->save(); // Save Configuration
 
 	Log->print("\n-----------------------------------------------------------------------------\n", false);
@@ -162,161 +145,6 @@ void cUoClient::unload() {
 	Log->print("-----------------------------------------------------------------------------\n\n", false);
 
 	delete App;
-}
-
-void cUoClient::processSdlEvent(const SDL_Event &event) {
-	static cControl *mouseCapture = 0; // Control which got the last mousedown event
-	static cControl *lastMouseMovement = 0; // Control that got the last movement event
-
-/*	switch (event.type) {
-		case SDL_QUIT:
-			quit(); // Signal the client to quit
-			break;
-
-		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_ESCAPE) {
-				quit(); // Signal the client to quit
-			} else if (event.key.keysym.sym == SDLK_F4) {
-				if (event.key.keysym.mod & KMOD_ALT) {
-					quit();
-				}
-			} else if (event.key.keysym.sym == SDLK_RETURN && event.key.keysym.mod & KMOD_ALT) {
-				Config->setEngineWindowed(!Config->engineWindowed());
-				Engine->reload();
-				Gui->invalidate();
-			} else if (event.key.keysym.sym == SDLK_TAB) {
-				if (!Gui->inputFocus() || !Gui->inputFocus()->wantTabs()) {
-					// Switch to the next Control
-					if (Gui->activeWindow()) {
-						cControl *nextControl;
-						if ((event.key.keysym.mod & KMOD_SHIFT) != 0) {
-							nextControl = Gui->activeWindow()->getPreviousFocusControl(Gui->inputFocus());
-						} else {
-							nextControl = Gui->activeWindow()->getNextFocusControl(Gui->inputFocus());
-						}
-						Gui->setInputFocus(nextControl);
-					}
-				} else if (Gui->inputFocus()) {
-					Gui->inputFocus()->onKeyDown(event.key.keysym);
-				}
-			} else {
-				// Forward it to the control with the input focus. Otherwise go trough all controls.
-				if (Gui->inputFocus()) {
-					Gui->inputFocus()->onKeyDown(event.key.keysym);
-				}
-			}
-			break;
-
-		case SDL_KEYUP:
-			// Forward it to the control with the input focus. Otherwise go trough all controls.
-			if (Gui->inputFocus()) {
-				Gui->inputFocus()->onKeyUp(event.key.keysym);
-			}
-
-			if (event.key.keysym.sym == SDLK_F12) {
-				Engine->screenshot();
-			}
-
-			break;
-
-		case SDL_VIDEORESIZE:
-			if (Engine->lockSize()) {
-				Engine->resize(Engine->width(), Engine->height()); // Resize Engine
-			} else {
-				Engine->resize(event.resize.w, event.resize.h); // Resize Engine
-				Gui->invalidate();
-			}
-			break;
-
-		// TODO:
-		// a) Generate onMouseEnter + onMouseLeave events for hover buttons
-		// b) Generate real onMouseMove events for the controls the mouse is currently being moved over
-		// c) Movement of controls has to be improved so you can't move controls out of the boundaries of their
-		//    containers.
-
-		case SDL_MOUSEBUTTONDOWN:
-			{
-				if (mouseCapture) {
-					mouseCapture->onMouseDown(event.button.x, event.button.y, event.button.button, event.button.state == SDL_PRESSED);
-				} else {
-					cControl *control = Gui->getControl(event.button.x, event.button.y);
-					if (control) {
-						control->onMouseDown(event.button.x, event.button.y, event.button.button, event.button.state == SDL_PRESSED);
-						mouseCapture = control;
-
-						// If the new control wants to have the input focus, it gets it
-						if (control->canHaveFocus()) {
-							Gui->setInputFocus(control);
-						}
-
-						// Get the next control with the gui as its parent above it
-						cContainer *parent = control->parent();
-						while (parent && parent->parent() != Gui) {
-							parent = parent->parent();
-						}
-
-						if (parent && parent->isWindow() && parent != Gui) {
-							Gui->setActiveWindow((cWindow*)parent);
-						} else {
-							Gui->setActiveWindow(0);
-						}
-					}
-
-					// If a contextmenu is open and we click anywhere else -> close the menu
-					if (control != ContextMenu && control->parent() != ContextMenu) {
-						ContextMenu->hide();
-					}
-				}
-			}
-			break;
-
-		case SDL_MOUSEMOTION:
-			{
-				cControl *motionControl = Gui->getControl(event.motion.x, event.motion.y);
-				if (motionControl != lastMouseMovement) {
-					if (lastMouseMovement) {
-						lastMouseMovement->onMouseLeave();
-					}
-					lastMouseMovement = motionControl;
-					if (lastMouseMovement) {
-						lastMouseMovement->onMouseEnter();
-					}
-				}
-
-				cControl *control = mouseCapture;
-				if (control && control->isMoveHandle()) {
-					cControl *movable = control->getMovableControl();
-					if (movable) {
-						movable->setPosition(movable->x() + event.motion.xrel, movable->y() + event.motion.yrel);
-					}
-				}
-
-				if (!control) {
-					control = Gui->getControl(event.motion.x, event.motion.y);
-				}
-
-				if (control) {
-					control->onMouseMotion(event.motion.xrel, event.motion.yrel, event.motion.state);
-				}
-			}
-			break;
-
-		case SDL_MOUSEBUTTONUP:
-			{
-				cControl *control = mouseCapture;
-				if (!control) {
-					control = Gui->getControl(event.button.x, event.button.y);
-				}
-				if (control) {
-					control->onMouseUp(event.button.x, event.button.y, event.button.button, event.button.state == SDL_PRESSED);
-					mouseCapture = 0; // Reset mouse capture
-				}
-			}
-			break;
-
-		default:
-			break; // Do Nothing
-	}*/
 }
 
 void myMessageOutput( QtMsgType type, const char *msg )

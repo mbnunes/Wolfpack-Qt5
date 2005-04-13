@@ -79,7 +79,7 @@ void cImageButton::draw(int xoffset, int yoffset) {
 }
 
 void cImageButton::onMouseDown(QMouseEvent *e) {
-	if (e->button() & LeftButton) {
+	if (e->button() == LeftButton) {
 		mouseHolding_ = true;
 
 		// The button requests to be auto-pressed every x miliseconds
@@ -118,16 +118,16 @@ void cImageButton::onClick() {
 	}
 }
 
-void cImageButton::onKeyDown(const SDL_keysym &key) {
-	if (key.sym == SDLK_RETURN) {
+void cImageButton::onKeyDown(QKeyEvent *e) {
+	if (e->key() == Key_Return) {
 		onClick(); // Fire the onClick event if return is pressed
-	} else if (key.sym == SDLK_SPACE) {
+	} else if (e->key() == Qt::Key_Space) {
 		spaceHolding_ = true;
 	}
 }
 
-void cImageButton::onKeyUp(const SDL_keysym &key) {
-	if (key.sym == SDLK_SPACE) {
+void cImageButton::onKeyUp(QKeyEvent *e) {
+	if (e->key() == Key_Space) {
 		spaceHolding_ = false;
 		onClick(); // Issue the click event
 	}

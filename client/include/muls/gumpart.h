@@ -2,11 +2,19 @@
 #if !defined( __GUMPART_H__ )
 #define __GUMPART_H__
 
-#include "SDL.h"
+#include <qfile.h>
+#include <qdatastream.h>
+
+#include "utilities.h"
+#include "surface.h"
 
 class cGumpart {
-private:
-	class stGumpartPrivateImpl *d;
+protected:
+	TextureCache *tcache;
+	QFile index;
+	QFile data;
+	QDataStream indexStream;
+	QDataStream dataStream;
 
 public:
 	cGumpart();
@@ -16,8 +24,8 @@ public:
 	void unload();
 	void reload();
 
-	cTexture *readTexture(unsigned short id, unsigned short hue = 0, bool partialHue = false);
-	SDL_Surface *read(unsigned short id, unsigned short hue = 0, bool partialHue = false, bool texture = false, unsigned int *outWidth = 0, unsigned int *outHeight = 0);
+	cTexture *readTexture(unsigned short id, unsigned short hue = 0, bool partialHue = false); // Cached
+	cSurface *readSurface(unsigned short id, unsigned short hue = 0, bool partialHue = false, bool texture = false); // Uncached
 };
 
 extern cGumpart *Gumpart;

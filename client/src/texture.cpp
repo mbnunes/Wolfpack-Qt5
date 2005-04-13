@@ -1,6 +1,8 @@
 
 #include "texture.h"
-#include "engine.h"
+#include "surface.h"
+#include "utilities.h"
+#include <qgl.h>
 
 cTexture::cTexture() {
 	id_ = 0;
@@ -11,7 +13,7 @@ cTexture::cTexture() {
 	hitTestArray = 0;
 }
 
-cTexture::cTexture(SDL_Surface *surface, bool hittest) {
+cTexture::cTexture(cSurface *surface, bool hittest) {
 	id_ = 0;
 	glGenTextures(1, &id_); // Create texture
 	width_ = 0;
@@ -35,21 +37,18 @@ void cTexture::free() {
 	}
 }
 
-void cTexture::generateHitMap(SDL_Surface *surface) {
+void cTexture::generateHitMap(cSurface *surface) {
 	unsigned int byteCount = (width_ * height_ + 31) / 32 + 1;
 	hitTestArray = new unsigned int [byteCount + 1];
 	hitTestArray[0] = 0; // Initialize first element
 	unsigned int offset = 0;
 	unsigned int bit = 0;
 
-	SurfacePainter32 painter(surface);
-	painter.lock();
-	for (int x = 0; x < surface->w; ++x) {
-		for (int y = 0; y < surface->h; ++y) {
-			unsigned int pixel = painter.getPixel(x, y);
-			unsigned char alpha = painter.alpha(pixel);
-			
-			if (alpha != 0) {
+	for (int x = 0; x < surface->width(); ++x) {
+		for (int y = 0; y < surface->height(); ++y) {
+			unsigned int pixel = surface->getPixel(x, y);
+		
+			if (pixel != 0) {
 				hitTestArray[offset] |= 1 << bit;
 			} else {
 				hitTestArray[offset] &= ~(1 << bit);
@@ -62,10 +61,9 @@ void cTexture::generateHitMap(SDL_Surface *surface) {
 			}
 		}
 	}
-	painter.unlock();
 }
 
-void cTexture::setData(SDL_Surface *surface, bool hittest) {
+void cTexture::setData(cSurface *surface, bool hittest) {
 	free(); // Free the old texture
 
 	if (!surface) {
@@ -73,21 +71,16 @@ void cTexture::setData(SDL_Surface *surface, bool hittest) {
 	}
 
 	// Make several assumptions
-	if (surface->w < 64 || surface->h < 64) {
-		throw Exception(tr("Trying to create a texture with insufficient dimensions: %1x%2.").arg(surface->w).arg(surface->h));
+	if (surface->width() < 64 || surface->height() < 64) {
+		throw Exception(tr("Trying to create a texture with insufficient dimensions: %1x%2.").arg(surface->width()).arg(surface->height()));
 	}
 
-	SDL_PixelFormat *format = surface->format;
-	if (format->BytesPerPixel != 4) {
-		throw Exception(tr("You have to specify a RGBA 32-bit per pixel surface to create textures."));
-	}
+	width_ = surface->width();
+	realWidth_ = surface->realWidth();
+	height_ = surface->height();
+	realHeight_ = surface->realHeight();
 
-	width_ = surface->w;
-	realWidth_ = surface->w;
-	height_ = surface->h;
-	realHeight_ = surface->h;
-
-	// Generate a hit test map :o
+	// Generate a hit test map
 	if (hittest) {
 		generateHitMap(surface);
 	}
@@ -103,7 +96,7 @@ void cTexture::setData(SDL_Surface *surface, bool hittest) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
 	// Now upload the texture
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, surface->w, surface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->bits());
 }
 
 void cTexture::bind() {

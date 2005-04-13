@@ -8,6 +8,7 @@
 
 #include "enums.h"
 #include "utilities.h"
+#include "surface.h"
 
 class cTexture;
 
@@ -15,7 +16,7 @@ class cAsciiFonts {
 private:
 	// The fonts are all read in at once since 
 	// the file has no indexer and is relatively small (ca. 800kb)
-	SDL_Surface *characters[10][224];
+	cSurface *characters[10][224];
 	unsigned char height[10]; // Font Heights
 public:
 	cAsciiFonts();
@@ -26,7 +27,7 @@ public:
 	void reload();
 
 	// Get a single character with the given properties
-	inline SDL_Surface *getCharacter(unsigned char font, unsigned char ch) {
+	inline cSurface *getCharacter(unsigned char font, unsigned char ch) {
 		if (font < 10) {
 			ch -= 32;
 			if (ch < 224) {

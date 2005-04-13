@@ -1,6 +1,5 @@
 
 #include "exceptions.h"
-#include "engine.h"
 #include "gui/container.h"
 #include "gui/asciilabel.h"
 #include "muls/asciifonts.h"
