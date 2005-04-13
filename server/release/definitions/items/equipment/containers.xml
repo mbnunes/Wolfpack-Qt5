@@ -29,6 +29,8 @@
 		<id>0xe7f</id>
 		<category>Equipment\Containers\Keg</category>
 		<type>1</type>
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
 		<basescripts>furniture</basescripts>
 	</item>
 

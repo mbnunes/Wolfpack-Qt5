@@ -222,6 +222,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Open)</category>
 		<type>1</type>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<basescripts>furniture</basescripts>
 		<flip>0xa4c;0xa4d;0xa50;0xa51</flip>
 	</item>
@@ -231,6 +233,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Closed)</category>
 		<type>1</type>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<basescripts>furniture</basescripts>
 		<flip>0xa4c;0xa4d;0xa50;0xa51</flip>
 	</item>
@@ -240,6 +244,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Open)</category>
 		<type>1</type>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<basescripts>furniture</basescripts>
 		<flip>0xa4e;0xa4f;0xa52;0xa53</flip>
 	</item>
@@ -249,6 +255,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Closed)</category>
 		<type>1</type>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<basescripts>furniture</basescripts>
 		<flip>0xa4e;0xa4f;0xa52;0xa53</flip>
 	</item>
@@ -969,6 +977,8 @@
 	<item id="a9d">
 		<id>0xa9d</id>
 		<type>1</type>
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
 		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (N/S)</category>
 		<basescripts>furniture</basescripts>
@@ -978,6 +988,8 @@
 	<item id="a9e">
 		<id>0xa9e</id>
 		<type>1</type>
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
 		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (W/E)</category>
 		<basescripts>furniture</basescripts>
