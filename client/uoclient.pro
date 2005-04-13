@@ -14,7 +14,7 @@ win32:QMAKE_LIBS_QT_THREAD = qt-mt333.lib
 
 win32:CONFIG += windows
 unix:CONFIG += x11
-unix:INCLUDEPATH += /usr/include/GL /usr/include/SDL
+unix:INCLUDEPATH += /usr/include/GL
 
 # No idea what it does
 # DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
@@ -27,30 +27,30 @@ MOC_DIR = obj
 win32:DEFINES -= UNICODE
 win32:LIBS += libs/SDL.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib
 
-unix:LIBS += -lGL -lGLU -lSDL
+unix:LIBS += -lGL -lGLU
 
 DEPENDPATH += src
 INCLUDEPATH += include;libs/include
 
 # MAIN INCLUDES
-HEADERS += include/config.h \
-	include/engine.h \
+HEADERS += \
+	include/config.h \
 	include/enums.h \
 	include/exceptions.h \
 	include/log.h \
+	include/mainwindow.h \
 	include/mersennetwister.h \
-	include/paintable.h \
 	include/uoclient.h
 	
 # GUI INCLUDES
-HEADERS += include/dialogs/login.h \
+HEADERS += \
+	include/dialogs/login.h \
 	include/gui/asciilabel.h \
 	include/gui/bordergump.h \
 	include/gui/container.h \
 	include/gui/control.h \
 	include/gui/gui.h \
 	include/gui/gumpimage.h \
-	include/gui/image.h \
 	include/gui/imagebutton.h \
 	include/gui/itemimage.h \
 	include/gui/label.h \
@@ -59,30 +59,32 @@ HEADERS += include/dialogs/login.h \
 	include/gui/worldview.h 
 
 # MUL INCLUDES
-HEADERS += include/muls/art.h \
+HEADERS += \
+	include/muls/art.h \
 	include/muls/asciifonts.h \
 	include/muls/gumpart.h \
 	include/muls/hues.h \
 	include/muls/unicodefonts.h \
 	include/muls/verdata.h
 
-# MAIN srcS
+# MAIN src
 SOURCES += \
 	src/binkw.cpp \
 	src/config.cpp \
-	src/engine.cpp \
 	src/log.cpp \
-	src/paintable.cpp \
+	src/mainwindow.cpp \
 	src/texture.cpp \
 	src/uoclient.cpp \
 	src/utilities.cpp \
 	src/vector.cpp
-	
+
 # GUI srcS
-SOURCES += src/dialogs/login.cpp \
+SOURCES += \
+	src/dialogs/login.cpp \
 	src/dialogs/movecenter.cpp 
 
-SOURCES += src/gui/asciilabel.cpp \
+SOURCES += \
+	src/gui/asciilabel.cpp \
 	src/gui/bordergump.cpp \
 	src/gui/container.cpp \
 	src/gui/contextmenu.cpp \
@@ -90,7 +92,6 @@ SOURCES += src/gui/asciilabel.cpp \
 	src/gui/cursor.cpp \
 	src/gui/gui.cpp \
 	src/gui/gumpimage.cpp \
-	src/gui/image.cpp \
 	src/gui/imagebutton.cpp \
 	src/gui/itemimage.cpp \
 	src/gui/label.cpp \
@@ -100,12 +101,14 @@ SOURCES += src/gui/asciilabel.cpp \
 	src/gui/window.cpp \
 	src/gui/worldview.cpp 
 
-SOURCES += src/network/encryption.cpp \
+SOURCES += \
+	src/network/encryption.cpp \
 	src/network/loginpackets.cpp \
 	src/network/uopacket.cpp \
 	src/network/uosocket.cpp
 
-SOURCES += src/game/dynamicentity.cpp \
+SOURCES += \
+	src/game/dynamicentity.cpp \
 	src/game/entity.cpp \
 	src/game/groundtile.cpp \
 	src/game/mobile.cpp \
@@ -113,7 +116,8 @@ SOURCES += src/game/dynamicentity.cpp \
 	src/game/world.cpp
 
 # MUL srcS
-SOURCES += src/muls/art.cpp \
+SOURCES += \
+	src/muls/art.cpp \
 	src/muls/animations.cpp \
 	src/muls/asciifonts.cpp \
 	src/muls/gumpart.cpp \
