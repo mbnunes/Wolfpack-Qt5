@@ -24,6 +24,10 @@ def checkPetControl(pet, char, text, keywords):
 	if pet.mintaming <=291:
 		return True
 		
+	#summoned pets can always be conrolled
+	if pet.summoned:
+		return True
+		
 	diff = pet.mintaming / 10.0
 	taming = char.skill[TAMING]
 	lore = char.skill[ANIMALLORE]
