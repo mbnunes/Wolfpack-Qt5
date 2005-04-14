@@ -552,6 +552,7 @@
 		<bindmenu>pickaxe_menu</bindmenu>
 		<category>Professions\Miner\Tools\Shovel (E/W)</category>
 		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
 		<weight>5.0</weight>
 	</item>
 

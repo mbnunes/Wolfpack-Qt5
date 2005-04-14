@@ -13,6 +13,7 @@
 		<id>0x104b</id>
 		<category>Professions\Tinker\Clock (W/E)</category>
 		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
 	</item>
 
 	<item id="104c" inherit="104b">
@@ -34,6 +35,7 @@
 		<id>0x104f</id>
 		<category>Professions\Tinker\Clock Parts (W/E)</category>
 		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 	<item id="1050" inherit="104f">
@@ -45,6 +47,7 @@
 		<id>0x1051</id>
 		<category>Professions\Tinker\Axle with Gears (W/E)</category>
 		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 	<item id="1052" inherit="1051">
@@ -56,6 +59,7 @@
 		<id>0x1053</id>
 		<category>Professions\Tinker\Gears (W/E)</category>
 		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 	<item id="1054" inherit="1053">
@@ -67,6 +71,7 @@
 		<id>0x1055</id>
 		<category>Professions\Tinker\Hinge (W/E)</category>
 		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 	<item id="1056" inherit="1055">
@@ -79,6 +84,7 @@
 		<category>Professions\Tinker\Sextant (W/E)</category>
 		<basescripts>environment</basescripts>
 		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
 	</item>
 
 	<item id="1058" inherit="1057">
@@ -91,6 +97,7 @@
 		<category>Professions\Tinker\Sextant Parts (W/E)</category>
 		<basescripts>environment</basescripts>
 		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
 	</item>
 
 	<item id="105a" inherit="1059">
@@ -102,6 +109,7 @@
 		<id>0x105b</id>
 		<category>Professions\Tinker\Axle (W/E)</category>
 		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 	<item id="105c" inherit="105b">
@@ -113,6 +121,7 @@
 		<id>0x105d</id>
 		<category>Professions\Tinker\Springs (W/E)</category>
 		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 	<item id="105e" inherit="105d">
@@ -155,6 +164,7 @@
 		<category>Professions\Tinker\Tools\Toolkit 1 (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
 		<basescripts>equipment,skills.tinkering</basescripts>
 	</item>
 
