@@ -41,7 +41,6 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed bug #0000386 (missing tongs sellprice tag)
   - Fixed light radius for certain lightsources.
   - Removed carve tags (and related files) which are no longer used.
-  - Support for client 4.0.8.
   - Added Samurai Empire craftables to the tailoring menu.
   - Added watersource tags (bug #0000399)
   - Converted NPC skill tags to <skill id="skillname">value</skill>
@@ -51,6 +50,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added books to learn special abilities (mining sand/stone; glassblowing; masonry)
   - Added granite and sand definitions
   - Added craftmenu for glassblowing
+  - Support up to client 4.0.10.
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.
