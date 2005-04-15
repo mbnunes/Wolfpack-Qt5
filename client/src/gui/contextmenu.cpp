@@ -2,7 +2,7 @@
 #include "gui/contextmenu.h"
 #include "gui/gui.h"
 #include "surface.h"
-#include "uoclient.h"
+#include "mainwindow.h"
 #include <qcursor.h>
 #include <qgl.h>
 
@@ -58,7 +58,7 @@ void cContextMenu::addEntry(const QString &name, unsigned short hue, int id) {
 }
 
 void cContextMenu::show() {
-	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
 	show(pos.x(), pos.y());
 }
 
@@ -175,7 +175,7 @@ void cContextMenu::draw(int xoffset, int yoffset) {
 	glDisable(GL_STENCIL_TEST);
 
 	// Get mouse position
-	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
 	int x= pos.x();
 	int y = pos.y();
 	x -= xoffset; // Modify mouse coordinates

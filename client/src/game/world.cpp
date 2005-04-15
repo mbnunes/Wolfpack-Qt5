@@ -8,6 +8,7 @@
 #include "gui/gui.h"
 #include "gui/worldview.h"
 #include "muls/maps.h"
+#include "mainwindow.h"
 #include <qgl.h>
 
 cWorld::cWorld() : groundCache(2500, 1999) {
@@ -323,7 +324,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 	// Set Scissor Box
 	glLoadIdentity();
 	glEnable(GL_SCISSOR_TEST);
-	glScissor(x, App->mainWidget()->height() - (y + height), width, height);
+	glScissor(x, GLWidget->height() - (y + height), width, height);
 
 	// Set up the clipping variables
 	int leftClip = x;
@@ -332,7 +333,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 	int bottomClip = y + height;
 
 	// Get the entity below the mouse
-	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
 	int mx = pos.x();
 	int my = pos.y();
 

@@ -10,6 +10,7 @@
 #include <qcursor.h>
 #include <qimage.h>
 #include <qdatetime.h>
+#include <qmenubar.h>
 
 /* XPM */
 static const char * const icon_xpm[] = {
@@ -71,6 +72,22 @@ MainWindow::MainWindow() {
 	QPixmap pixmap((const char**)icon_xpm);
 	setIcon(pixmap);
 
+	// Create the File menu
+	QPopupMenu *file = new QPopupMenu(this);
+	file->insertItem("E&xit", this, SLOT(close()));
+
+	// Create a menu bar at the top of the window
+	QMenuBar *menuBar = new QMenuBar(this);
+	menuBar->insertItem(tr("&File"), file);
+
+	GLWidget = new cGLWidget(this);
+	setCentralWidget(GLWidget);
+}
+
+MainWindow::~MainWindow() {
+}
+
+cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 	// Cursor stuff
 	setCursor(Qt::BlankCursor);
 
@@ -83,10 +100,10 @@ MainWindow::MainWindow() {
 	lastMouseMovement = 0; // Control that got the last movement event
 }
 
-MainWindow::~MainWindow() {
+cGLWidget::~cGLWidget() {
 }
 
-void MainWindow::initializeGL() {
+void cGLWidget::initializeGL() {
 	// Initialize OpenGL
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Fill the screen with a black color
 	glEnable(GL_TEXTURE_2D);
@@ -118,7 +135,7 @@ void MainWindow::initializeGL() {
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 }
 
-void MainWindow::resizeGL( int w, int h ) {
+void cGLWidget::resizeGL( int w, int h ) {
 	// Initialize OpenGL
 	glViewport(0, 0, w, h); // Tell OpenGL the size of our window
 
@@ -139,7 +156,7 @@ void MainWindow::resizeGL( int w, int h ) {
 	Gui->setBounds(0, 0, w, h); // Full size
 }
 
-void MainWindow::paintGL() {
+void cGLWidget::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -158,7 +175,7 @@ void MainWindow::paintGL() {
 	Cursor->draw(); // Draw the Cursor Overlay
 }
 
-void MainWindow::mouseMoveEvent(QMouseEvent *e) {
+void cGLWidget::mouseMoveEvent(QMouseEvent *e) {
 	// Calculate the x/y axis difference from the last time
 	int xrel = e->x() - lastMouseX;
 	int yrel = e->y() - lastMouseY;
@@ -197,15 +214,15 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e) {
 	QGLWidget::mouseMoveEvent(e);
 }
 
-void MainWindow::enterEvent(QEvent *e) {
+void cGLWidget::enterEvent(QEvent *e) {
 	QGLWidget::enterEvent(e);
 }
 
-void MainWindow::leaveEvent(QEvent *e) {
+void cGLWidget::leaveEvent(QEvent *e) {
 	QGLWidget::leaveEvent(e);
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *e) {
+void cGLWidget::keyPressEvent(QKeyEvent *e) {
 	Qt::ButtonState state = e->state();
 	int key = e->key();
 
@@ -239,7 +256,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 	QWidget::keyPressEvent(e);
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent *e) {
+void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 	// Forward it to the control with the input focus. Otherwise go trough all controls.
 	if (Gui->inputFocus()) {
 		Gui->inputFocus()->onKeyUp(e);
@@ -258,7 +275,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e) {
 	QWidget::keyReleaseEvent(e);
 }
 
-void MainWindow::mousePressEvent(QMouseEvent *e) {
+void cGLWidget::mousePressEvent(QMouseEvent *e) {
 	if (mouseCapture) {
 		mouseCapture->onMouseDown(e);
 	} else {
@@ -294,7 +311,7 @@ void MainWindow::mousePressEvent(QMouseEvent *e) {
 	QWidget::mousePressEvent(e);
 }
 
-void MainWindow::mouseReleaseEvent(QMouseEvent *e) {
+void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	cControl *control = mouseCapture;
 	if (!control) {
 		control = Gui->getControl(e->x(), e->y());
@@ -307,7 +324,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e) {
 	QWidget::mouseReleaseEvent(e);
 }
 
-void MainWindow::createScreenshot(const QString &filename) {
+void cGLWidget::createScreenshot(const QString &filename) {
 	// Read the framebuffer data
 	//unsigned char *pixels = new unsigned char[4 * width() * height()];
 
@@ -339,3 +356,6 @@ void MainWindow::createScreenshot(const QString &filename) {
 
 	//delete [] pixels;
 }
+
+cGLWidget *GLWidget = 0;
+

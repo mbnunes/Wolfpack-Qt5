@@ -1,8 +1,8 @@
 
 #include "config.h"
-#include "uoclient.h"
 #include "gui/cursor.h"
 #include "muls/art.h"
+#include "mainwindow.h"
 #include <qcursor.h>
 #include <qgl.h>
 
@@ -69,7 +69,7 @@ void cCursor::draw() {
 	// Get the mouse position
 	int x, y;
 	QPoint pos = QCursor::pos();
-	pos = App->mainWidget()->mapFromGlobal(pos);
+	pos = GLWidget->mapFromGlobal(pos);
 	x = pos.x();
 	y = pos.y();
 

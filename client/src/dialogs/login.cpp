@@ -496,9 +496,9 @@ void cLoginDialog::hide() {
 		Gui->invalidate();
 	}
 	
-	App->mainWidget()->resize(Config->engineWidth(), Config->engineHeight());
-	App->mainWidget()->setMaximumHeight(32000);
-	App->mainWidget()->setMaximumWidth(32000);
+	GLWidget->resize(Config->engineWidth(), Config->engineHeight());
+	GLWidget->setMaximumHeight(32000);
+	GLWidget->setMaximumWidth(32000);
 }
 
 void cLoginDialog::clearShardList() {

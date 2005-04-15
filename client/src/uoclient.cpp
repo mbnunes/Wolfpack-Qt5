@@ -204,9 +204,9 @@ void cUoClient::run(const QStringList &arguments) {
 
 	while (running()) {
 		App->processEvents();
-		App->mainWidget()->update();
+		GLWidget->update();
 
-		if (!App->mainWidget()->isShown()) {
+		if (!window->isShown()) {
 			running_ = false;
 		}
 	}

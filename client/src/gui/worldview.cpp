@@ -6,6 +6,7 @@
 #include "game/world.h"
 #include "game/mobile.h"
 #include "uoclient.h"
+#include "mainwindow.h"
 #include <math.h>
 #include <qcursor.h>
 
@@ -241,7 +242,7 @@ void cWorldView::moveTick() {
 }
 
 enCursorType cWorldView::getCursorType() {
-	QPoint pos = App->mainWidget()->mapFromGlobal(QCursor::pos());
+	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
 	int mx = pos.x();
 	int my = pos.y();
 
