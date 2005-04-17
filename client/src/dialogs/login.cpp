@@ -98,37 +98,10 @@ cLoginDialog::cLoginDialog() {
 cLoginDialog::~cLoginDialog() {
 }
 
-static void quitClicked(cControl *button) {
-	Client->quit();
+void cLoginDialog::backClicked(cControl *sender) {
 }
 
-static void creditsClicked(cControl *button) {
-	LoginDialog->creditsClicked();
-}
-
-void cLoginDialog::creditsClicked() {
-	QString text = QString("Account: %1\nPassword: %2").arg(inpAccount->text()).arg(inpPassword->text());
-	Utilities::messageBox(text);
-	//Utilities::launchBrowser(text);
-}
-
-static void movieClicked(cControl *button) {
-	// Nothing happens here so far
-	Utilities::messageBox("What should we do here...");
-}
-
-static void nextClicked(cControl *button) {
-	LoginDialog->nextClicked();
-}
-
-static void backClicked(cControl *button) {
-	LoginDialog->backClicked();
-}
-
-void cLoginDialog::backClicked() {
-}
-
-void cLoginDialog::nextClicked() {
+void cLoginDialog::nextClicked(cControl *sender) {
 	switch (page) {
 		// Initiate the login
 		case PAGE_LOGIN:
@@ -143,26 +116,6 @@ void cLoginDialog::nextClicked() {
 	}
 }
 
-/*
-	Open Browser for http://support.uo.com/
-*/
-static void helpClicked(cControl *button) {
-	Utilities::launchBrowser("http://support.uo.com");
-}
-
-/*
-	Open Browser for http://ultima-registration.com
-*/
-static void accountClicked(cControl *button) {
-	Utilities::launchBrowser("http://ultima-registration.com");
-}
-
-/*
-	Open Browser for http://my.uo.com/
-*/
-static void myuoClicked(cControl *button) {
-	Utilities::launchBrowser("http://my.uo.com");
-}
 
 static void shardlistScrolled(cVerticalScrollBar *scrollbar, int oldpos) {
 	LoginDialog->onScrollShardList(oldpos, scrollbar->pos());
@@ -369,37 +322,37 @@ void cLoginDialog::show(enMenuPage page) {
 		// Quit Button
 		button = new cImageButton(555, 4, 0x1589, 0x158B);
 		button->setStateGump(BS_HOVER, 0x158A);
-		button->setCallback(quitClicked);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(quitClicked(cControl*)));
 		container->addControl(button);
 
 		// MyUO Button
 		button = new cImageButton(14, 146, 0x158f, 0x1591);
 		button->setStateGump(BS_HOVER, 0x1590);
-		button->setCallback(myuoClicked);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(myUoClicked(cControl*)));
 		container->addControl(button);
 
 		// Account Button
 		button = new cImageButton(14, 205, 0x1592, 0x1594);
 		button->setStateGump(BS_HOVER, 0x1593);
-		button->setCallback(accountClicked);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(accountClicked(cControl*)));
 		container->addControl(button);
 
 		// Movie Button
 		movieButton = new cImageButton(14, 306, 0x1586, 0x1588);
 		movieButton->setStateGump(BS_HOVER, 0x1587);
-		movieButton->setCallback(movieClicked);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(movieClicked(cControl*)));
 		container->addControl(movieButton);
 
 		// Credits Button
 		button = new cImageButton(14, 330, 0x1583, 0x1585);
 		button->setStateGump(BS_HOVER, 0x1584);
-		button->setCallback(::creditsClicked);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(creditsClicked(cControl*)));
 		container->addControl(button);
 
 		// Help Button
 		button = new cImageButton(14, 354, 0x1595, 0x1597);
 		button->setStateGump(BS_HOVER, 0x1596);
-		button->setCallback(helpClicked);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(helpClicked(cControl*)));
 		container->addControl(button);
 
 		// Teen Logo (only on english systems)
@@ -427,13 +380,13 @@ void cLoginDialog::show(enMenuPage page) {
 		// Back Button
 		backButton = new cImageButton(586, 445, 0x15a1, 0x15a3);
 		backButton->setStateGump(BS_HOVER, 0x15a2);
-		backButton->setCallback(::backClicked);
+		connect(backButton, SIGNAL(onClick(cControl*)), this, SLOT(backClicked(cControl*)));
 		container->addControl(backButton);
 
 		// Next Button
 		nextButton = new cImageButton(610, 445, 0x15a4, 0x15a6);
 		nextButton->setStateGump(BS_HOVER, 0x15a5);
-		nextButton->setCallback(::nextClicked);
+		connect(nextButton, SIGNAL(onClick(cControl*)), this, SLOT(nextClicked(cControl*)));		
 		container->addControl(nextButton);
 	}
 
@@ -510,6 +463,38 @@ void cLoginDialog::clearShardList() {
 		shardList->removeControl(*it);
 		delete *it;
 	}
+}
+
+/*
+	Open Browser for http://support.uo.com/
+*/
+void cLoginDialog::helpClicked(cControl *sender) {
+	Utilities::launchBrowser("http://support.uo.com");
+}
+
+/*
+	Open Browser for http://ultima-registration.com
+*/
+void cLoginDialog::accountClicked(cControl *sender) {
+	Utilities::launchBrowser("http://ultima-registration.com");
+}
+
+void cLoginDialog::quitClicked(cControl *sender) {
+	Client->quit();
+}
+
+/*
+	Open Browser for http://my.uo.com/
+*/
+void cLoginDialog::myUoClicked(cControl *sender) {
+	Utilities::launchBrowser("http://my.uo.com");
+}
+
+void cLoginDialog::creditsClicked(cControl *sender) {
+}
+
+void cLoginDialog::movieClicked(cControl *sender) {
+	Utilities::messageBox("What should we do here...");
 }
 
 void cLoginDialog::addShard(const stShardEntry &shard) {

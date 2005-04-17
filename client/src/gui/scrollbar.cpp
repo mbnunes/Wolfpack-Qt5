@@ -1,14 +1,12 @@
 
 #include "gui/scrollbar.h"
 
-static void btnUpPress(cControl *ctrl) {
-	cVerticalScrollBar *scrollbar = (cVerticalScrollBar*)ctrl->parent();
-	scrollbar->setPos(QMAX(0, (int)scrollbar->pos() - 1));
+void cVerticalScrollBar::scrollUp(cControl *sender) {
+	setPos(QMAX(min(), (int)pos() - 1));
 }
 
-static void btnDownPress(cControl *ctrl) {
-	cVerticalScrollBar *scrollbar = (cVerticalScrollBar*)ctrl->parent();
-	scrollbar->setPos(QMIN(scrollbar->max(), scrollbar->pos() + 1));
+void cVerticalScrollBar::scrollDown(cControl *sender) {
+	setPos(QMIN(max(), pos() + 1));
 }
 
 cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) {
@@ -16,13 +14,13 @@ cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) {
 
 	btnUp = new cImageButton(0, 0, 0xFA, 0xFB);
 	setBounds(x, y, btnUp->width(), height); // Set Width before adding another button
-	btnUp->setCallback(btnUpPress);
+	connect(btnUp, SIGNAL(onClick()), this, SLOT(scrollUp()));
 	btnUp->setPressRepeatRate(60);
 	addControl(btnUp);
 
 	btnDown = new cImageButton(0, 0, 0xFC, 0xFD);
 	btnDown->setPosition(0, height - btnDown->height());
-	btnDown->setCallback(btnDownPress);
+	connect(btnDown, SIGNAL(onClick()), this, SLOT(scrollDown()));
 	btnDown->setPressRepeatRate(60);
 	addControl(btnDown);
 	

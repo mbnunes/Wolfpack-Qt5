@@ -4,6 +4,7 @@
 
 #include <qvaluelist.h>
 #include <qhostaddress.h>
+#include <qobject.h>
 
 #include "gui/control.h"
 #include "gui/window.h"
@@ -27,7 +28,9 @@ enum enMenuPage {
 	PAGE_SHARDLIST
 };
 
-class cLoginDialog {
+class cLoginDialog : public QObject {
+Q_OBJECT
+
 private:
 	cWindow *container; // The main container
 	cImageButton *movieButton, *nextButton, *backButton;
@@ -56,9 +59,6 @@ public:
 	void show(enMenuPage page); // Show the login dialog
 	void hide(); // Hide the login dialog
 
-	void nextClicked();
-	void backClicked();
-	void creditsClicked();
 
 	// Callback for the ShardList
 	void clearShardList();
@@ -68,6 +68,17 @@ public:
 	void onError(const QString &error);
 	void onDnsLookupComplete(const QHostAddress &address, unsigned short port);
 	void onConnect();
+
+public slots:
+	// Button callbacks for this page.
+	void quitClicked(cControl *sender);
+	void nextClicked(cControl *sender);
+	void backClicked(cControl *sender);
+	void myUoClicked(cControl *sender);
+	void creditsClicked(cControl *sender);
+	void accountClicked(cControl *sender);
+    void movieClicked(cControl *sender);
+	void helpClicked(cControl *sender);
 };
 
 extern cLoginDialog *LoginDialog; // There is only one LoginDialog instance at a time

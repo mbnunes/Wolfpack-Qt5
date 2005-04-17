@@ -77,6 +77,10 @@ public:
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
 
 	virtual void onScroll(int oldpos);
+
+public slots:
+	void scrollUp(cControl *sender);
+	void scrollDown(cControl *sender);
 };
 
 #endif

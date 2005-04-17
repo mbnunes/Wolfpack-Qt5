@@ -531,6 +531,14 @@
 			</File>
 			<File
 				RelativePath="include\dialogs\login.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\include\mainwindow.h">
@@ -561,6 +569,9 @@
 			</File>
 			<File
 				RelativePath=".\include\game\mobile.h">
+			</File>
+			<File
+				RelativePath=".\include\dialogs\movecenter.h">
 			</File>
 			<File
 				RelativePath="include\paintable.h">
@@ -697,6 +708,9 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_label.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_login.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_mainwindow.cpp">

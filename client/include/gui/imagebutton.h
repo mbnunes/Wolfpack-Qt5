@@ -6,8 +6,6 @@
 #include "enums.h"
 #include <qtimer.h>
 
-typedef void (*fnButtonClickedCallback)(cControl *button);
-
 class cImageButton : public cControl {
 Q_OBJECT
 
@@ -23,9 +21,6 @@ private:
 	bool spaceHolding_; // False by default (is the space key being pressed)
 	unsigned int pressRepeatRate_; // Number of miliseconds a press will be regarded as an onClick event.
 	QTimer *pressRepeatTimer;
-
-	// We need to store some sort of callback here.
-	fnButtonClickedCallback callback;
 
 	inline enButtonStates getState() {
 		if (!mouseHolding_ && !spaceHolding_) {
@@ -50,10 +45,6 @@ public:
 	cImageButton(int x, int y, unsigned short up, unsigned short down);
 	virtual ~cImageButton();
 
-	inline void setCallback(fnButtonClickedCallback callback) {
-		this->callback = callback;
-	}
-
 	void setStateGump(enButtonStates state, unsigned short id, unsigned short hue = 0, bool partialHue = false);
 
 	inline bool mouseOver() const { return mouseOver_; } // Returns true if the mouse is over this button
@@ -76,8 +67,6 @@ public:
 	void onKeyDown(QKeyEvent *e);
 	void onKeyUp(QKeyEvent *e);
 	void onBlur(cControl *newFocus);
-
-	virtual void onClick(); // The button has been clicked	
 
 	cControl *getControl(int x, int y);
 

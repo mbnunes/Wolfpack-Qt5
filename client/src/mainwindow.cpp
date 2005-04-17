@@ -77,8 +77,8 @@ MainWindow::MainWindow() {
 	file->insertItem("E&xit", this, SLOT(close()));
 
 	// Create a menu bar at the top of the window
-	QMenuBar *menuBar = new QMenuBar(this);
-	menuBar->insertItem(tr("&File"), file);
+	/*QMenuBar *menuBar = new QMenuBar(this);
+	menuBar->insertItem(tr("&File"), file);*/
 
 	GLWidget = new cGLWidget(this);
 	setCentralWidget(GLWidget);
