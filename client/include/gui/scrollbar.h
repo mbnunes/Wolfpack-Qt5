@@ -12,6 +12,8 @@ class cVerticalScrollBar;
 typedef void (*fnScrollbarScrolledEvent)(cVerticalScrollBar *scrollbar, int oldpos);
 
 class cVerticalScrollBar : public cContainer {
+Q_OBJECT
+
 protected:
 	cImageButton *btnUp, *btnDown;
 	cGumpImage *handle;

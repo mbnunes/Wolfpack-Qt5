@@ -188,7 +188,7 @@ void cUoClient::run(const QStringList &arguments) {
 		return;
 	}
 	
-	LoginDialog->show(PAGE_SHARDLIST); // Set up the login screen
+	LoginDialog->show(PAGE_LOGIN); // Set up the login screen
 
 	//World->changeFacet(ILSHENAR);
 	World->moveCenter(1245, 1758, 0, true);
@@ -204,8 +204,10 @@ void cUoClient::run(const QStringList &arguments) {
 
 	while (running()) {
 		App->processEvents();
+		UoSocket->poll(); // Poll network connection
 		GLWidget->update();
 
+		// Quit if the main window is hidden
 		if (!window->isShown()) {
 			running_ = false;
 		}

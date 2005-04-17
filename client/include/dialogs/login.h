@@ -59,15 +59,9 @@ public:
 	void show(enMenuPage page); // Show the login dialog
 	void hide(); // Hide the login dialog
 
-
 	// Callback for the ShardList
 	void clearShardList();
 	void addShard(const stShardEntry &shard);
-
-	// External connection callbacks.
-	void onError(const QString &error);
-	void onDnsLookupComplete(const QHostAddress &address, unsigned short port);
-	void onConnect();
 
 public slots:
 	// Button callbacks for this page.
@@ -79,6 +73,11 @@ public slots:
 	void accountClicked(cControl *sender);
     void movieClicked(cControl *sender);
 	void helpClicked(cControl *sender);
+
+	// These are connected to the uoSocket
+	void socketError(const QString &error);
+	void socketHostFound();
+	void socketConnect();
 };
 
 extern cLoginDialog *LoginDialog; // There is only one LoginDialog instance at a time

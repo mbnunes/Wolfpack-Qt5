@@ -10,6 +10,8 @@ class cTexture;
 	This class represents a top level window.
 */
 class cWindow : public cContainer {
+Q_OBJECT
+
 protected:
 	bool movable_;
 	bool closable_;	

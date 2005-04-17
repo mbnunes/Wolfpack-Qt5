@@ -5,6 +5,8 @@
 #include "gui/window.h"
 
 class cMoveCenterDialog : public cWindow {
+Q_OBJECT
+
 public:
 	cMoveCenterDialog();
 	virtual ~cMoveCenterDialog();

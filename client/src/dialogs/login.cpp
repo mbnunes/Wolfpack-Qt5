@@ -93,6 +93,11 @@ cLoginDialog::cLoginDialog() {
 	statusDialog = 0;
 	statusLabel = 0;
 	page = PAGE_LOGIN;
+
+	// Connect to the UoSocket slots
+	connect(UoSocket, SIGNAL(onConnect()), this, SLOT(socketConnect()));
+	connect(UoSocket, SIGNAL(onHostFound()), this, SLOT(socketHostFound()));
+	connect(UoSocket, SIGNAL(onError(const QString&)), this, SLOT(socketError(const QString&)));
 }
 
 cLoginDialog::~cLoginDialog() {
@@ -105,17 +110,14 @@ void cLoginDialog::nextClicked(cControl *sender) {
 	switch (page) {
 		// Initiate the login
 		case PAGE_LOGIN:
-			//UoSocket->connect(Config->loginHost(), Config->loginPort(), 0);
-			//show(PAGE_CONNECTING);
-			hide();
-			WorldView->setVisible(true);
+			UoSocket->connect(Config->loginHost(), Config->loginPort(), 0);
+			show(PAGE_CONNECTING);
 			break;
 
 		case PAGE_SHARDLIST:
 			break;
 	}
 }
-
 
 static void shardlistScrolled(cVerticalScrollBar *scrollbar, int oldpos) {
 	LoginDialog->onScrollShardList(oldpos, scrollbar->pos());
@@ -283,13 +285,6 @@ void cLoginDialog::show(enMenuPage page) {
 	QWidget *mainWindow = App->mainWidget();
 	if (mainWindow) {
 		mainWindow->resize(640, 480);
-
-        SetWindowPos( mainWindow->winId(), 0,
-						0,       // x,
-						0,       // y,
-						640,       // w,
-						480,       // h,
-						SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOSENDCHANGING | SWP_NOREPOSITION );
 
 		/*mainWindow->setMaximumHeight(mainWindow->frameGeometry().height());
 		mainWindow->setMinimumHeight(mainWindow->frameGeometry().height());
@@ -523,26 +518,30 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 	shardEntryOffset += 25;
 }
 
-void cLoginDialog::onError(const QString &error) {
+void cLoginDialog::socketError(const QString &error) {
 	statusLabel->setText(error.latin1());
 }
 
-void cLoginDialog::onDnsLookupComplete(const QHostAddress &address, unsigned short port) {
+void cLoginDialog::socketHostFound() {
 }
 
-void cLoginDialog::onConnect() {
-	show(PAGE_VERIFYING);
+void cLoginDialog::socketConnect() {
+	// If we're connecting to a loginserver
+	if (!UoSocket->isGameServer()) {
+		// Send Login Packet
+		show(PAGE_VERIFYING);
 
-	QByteArray loginPacket(62);
-	loginPacket.fill(0);
-	loginPacket[0] = (unsigned char)0x80;
-	if (!inpAccount->text().isNull()) {
-		strcpy(loginPacket.data() + 1, inpAccount->text().left(30).data());
+		QByteArray loginPacket(62);
+		loginPacket.fill(0);
+		loginPacket[0] = (unsigned char)0x80;
+		if (!inpAccount->text().isNull()) {
+			strcpy(loginPacket.data() + 1, inpAccount->text().left(30).data());
+		}
+		if (!inpPassword->text().isNull()) {
+			strcpy(loginPacket.data() + 31, inpPassword->text().left(30).data());
+		}
+		UoSocket->send(loginPacket);
 	}
-	if (!inpPassword->text().isNull()) {
-		strcpy(loginPacket.data() + 31, inpPassword->text().left(30).data());
-	}
-	UoSocket->send(loginPacket);
 }
 
 cLoginDialog *LoginDialog = 0;

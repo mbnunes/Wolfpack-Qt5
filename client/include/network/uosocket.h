@@ -5,8 +5,7 @@
 #include <qstring.h>
 #include <qcstring.h>
 #include <qvaluelist.h>
-#include <qsocketdevice.h>
-#include <qthread.h>
+#include <qsocket.h>
 
 #include "enums.h"
 #include "network/uopacket.h"
@@ -18,26 +17,17 @@ typedef cIncomingPacket *(*fnIncomingPacketConstructor)(QDataStream &data, unsig
 
 class QSocket;
 
-class cUoSocket {
+class cUoSocket : public QObject {
+Q_OBJECT
+
 protected:
 	// TODO: !External event handlers!
-
 	QSocket *socket;
 
-	// The internal socket state
-	enum eSocketState {
-		SS_DISCONNECTED = 0,
-		SS_DNSLOOKUP = 1,
-		SS_CONNECTING = 2,
-		SS_CONNECTED = 3
-	} socketState;
-
-	QDns *dns;
-	QSocketDevice socketDevice;
 	QByteArray pendingPacket;
 	cStreamEncryption *encryption; // Encryption instance
 	unsigned int seed; // Seed we sent to the server
-	QHostAddress hostname; // The hostname we're connecting to
+	QString hostname; // The hostname we're connecting to
 	bool gameServer; // Are we connecting to a gameserver?
 	unsigned short hostport; // The port we're connecting to
 
@@ -69,12 +59,28 @@ public:
 
 	// Checks if the socket is currently connected
 	bool isConnected();
+	bool isIdle();
+	bool isConnecting();
+	bool isClosing();
+	bool isResolvingHost();
+	bool isGameServer() const;
 
 	// Event handler for errors
+signals:
 	void onError(const QString &error);
-	void onDnsLookupComplete(const QHostAddress &address, unsigned short port);
+	void onHostFound();
 	void onConnect();
 	void onDisconnect();
+
+public slots:
+	// These will be connected to the QSocket signals
+	void hostFound();
+	void connected();
+	void connectionClosed();
+	void delayedCloseFinished();
+	void readyRead();
+	void bytesWritten(int nbytes);
+	void error(int error);
 };
 
 // There is only one instance of the UoSocket class
@@ -87,6 +93,10 @@ public:
 		cUoSocket::registerPacket(id, constructor);
 	}
 };
+
+inline bool cUoSocket::isGameServer() const {
+	return gameServer;
+}
 
 #define AREGPREFIX fnc
 #define AUTO_REGISTER_PACKET(ID, CONSTRUCTOR) static cUoSocketAutoRegisterPacket AREGPREFIX ## ID (ID, CONSTRUCTOR);

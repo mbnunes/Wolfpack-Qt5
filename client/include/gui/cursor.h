@@ -4,6 +4,7 @@
 
 #include "utilities.h"
 #include "texture.h"
+#include <qobject.h>
 
 // This enumeration is only used here. Hence it's not exported to
 // enums.h
@@ -37,7 +38,9 @@ struct stCursor {
 /*
 	This class manages the software cursor.
 */
-class cCursor {
+class cCursor : public QObject {
+Q_OBJECT
+
 protected:
 	stCursor cursors[CURSOR_COUNT];
 	stCursor cursorsWar[CURSOR_COUNT];

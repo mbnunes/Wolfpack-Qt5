@@ -48,42 +48,20 @@ const Q_UINT16 packetLengths[256] = {
 	0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8
 };
 
-inline QString convertError(QSocketDevice::Error error) {
-	switch (error) {
-		case QSocketDevice::NoError:
-			return "NoError";
-		case QSocketDevice::AlreadyBound:
-			return "AlreadyBound";
-		case QSocketDevice::Inaccessible:
-			return "Inaccessible";
-		case QSocketDevice::NoResources:
-			return "NoResources";
-		case QSocketDevice::InternalError:
-			return "InternalError";
-		//case QSocketDevice::Bug:
-		//	return "Bug";
-		case QSocketDevice::Impossible:
-			return "Impossible";
-		case QSocketDevice::NoFiles:
-			return "NoFiles";
-		case QSocketDevice::ConnectionRefused:
-			return "ConnectionRefused";
-		case QSocketDevice::NetworkFailure:
-			return "NetworkFailure";		
-		case QSocketDevice::UnknownError:
-		default:
-			return "UnknownError";
-	};
-}
-
 cUoSocket *UoSocket = 0; // Global cUoSocket instance
 
 cUoSocket::cUoSocket() {
-	socketState = SS_DISCONNECTED;
-	socketDevice.setBlocking(false);
-	socketDevice.setAddressReusable(true);
 	encryption = 0;
-	dns = new QDns;
+	socket = new QSocket(this);
+
+	// Connect the QSocket slots to this class
+	QObject::connect(socket, SIGNAL(hostFound()), this, SLOT(hostFound()));
+	QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
+	QObject::connect(socket, SIGNAL(connectionClosed()), this, SLOT(connectionClosed()));
+	QObject::connect(socket, SIGNAL(delayedCloseFinished()), this, SLOT(delayedCloseFinished()));
+	QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+	QObject::connect(socket, SIGNAL(bytesWritten(int)), this, SLOT(bytesWritten(int)));
+	QObject::connect(socket, SIGNAL(error(int)), this, SLOT(error(int)));
 
 	/*
 	Static -> Already Registered
@@ -93,10 +71,15 @@ cUoSocket::cUoSocket() {
 }
 
 cUoSocket::~cUoSocket() {
-	delete dns;
+	delete socket;
 }
 
 void cUoSocket::connect(const QString &host, unsigned short port, bool gameServer) {
+	if (!isIdle()) {
+		// not yet connected
+		return;
+	}
+
 	/*if (isConnected()) {
 		disconnect(); // Disconnect an existing connection
 	}*/
@@ -106,10 +89,9 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	this->hostname = host;
 	this->hostport = port;
 
-	dns->setRecordType();
-	dns->setLabel(host);
-	socketState = SS_DNSLOOKUP;
-	
+	// Connect to the Socket
+	socket->connectToHost(host, port);
+
 	/*QValueList<QHostAddress> addresses = dns.addresses();
 
 	if (addresses.size() == 0) {
@@ -133,91 +115,75 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 }
 
 void cUoSocket::disconnect() {
-	socketDevice.close();
-
 	// Clear incoming and outgoing queue
 	incomingQueue.clear();
 	outgoingQueue.clear();
 }
 
+bool cUoSocket::isIdle() {
+	return socket->state() == QSocket::Idle;
+}
+bool cUoSocket::isConnecting() {
+	return socket->state() == QSocket::Connecting;
+}
+bool cUoSocket::isClosing() {
+	return socket->state() == QSocket::Closing;
+}
+bool cUoSocket::isResolvingHost() {
+	return socket->state() == QSocket::HostLookup;
+}
+
 bool cUoSocket::isConnected() {
-	return socketDevice.isOpen(); 
+	return socket->state() == QSocket::Connected;
 }
 
 void cUoSocket::poll() {
-	switch (socketState) {
-		case SS_DISCONNECTED:
-			return;
+	QSocket::State state = socket->state();
 
-		case SS_DNSLOOKUP:
-			if (!dns->isWorking()) {
-				// Get the list of addresses.
-				QValueList<QHostAddress> addresses = dns->addresses();
-				if (addresses.isEmpty()) {
-					socketState = SS_DISCONNECTED;
-					onError(tr("Unknown hostname: %1").arg(dns->label()));
-					return;
-				}
+	switch (state) {
+		case QSocket::Idle:
+			break; // Do nothing
 
-				// Get a random DNS A record.
-				QHostAddress address = addresses[Random->randInt(addresses.size())];
-				hostname = address;
+		case QSocket::HostLookup:
+			break; // Do nothing
 
-				if (!socketDevice.connect(hostname, hostport)) {
-					if (socketDevice.error() != QSocketDevice::NoError) {
-						onError(convertError(socketDevice.error()));
-						socketState = SS_DISCONNECTED;
-						return;
-					}
-				}
+		case QSocket::Connecting:
+			break; // Do nothing
 
-				socketState = SS_CONNECTING;				
-				onDnsLookupComplete(address, hostport); // Notify the event handler
+		// Process incoming and outgoing packets if the socket is connected
+		case QSocket::Connected:
+		{
+			while (socket->isWritable() && !outgoingQueue.isEmpty()) {
+				QByteArray data = outgoingQueue.first();
+				socket->writeBlock(data.data(), data.size());
+				outgoingQueue.pop_front();
 			}
-			return;
 
-		case SS_CONNECTING:
-			if (!socketDevice.connect(this->hostname, this->hostport)) {
-				if (socketDevice.error() != QSocketDevice::NoError) {
-					socketState = SS_DISCONNECTED;
-					onError(convertError(socketDevice.error()));
-				}
-			} else {
-				socketState = SS_CONNECTED;
-				onConnect();
+			Q_LONG avail = socket->bytesAvailable();
+			if (avail > 0) {
+				Q_LONG offset = incomingBuffer.size();
+				incomingBuffer.resize(incomingBuffer.size() + avail);
+				socket->readBlock(incomingBuffer.data() + offset, avail);
+				Log->print(LOG_MESSAGE, tr("Read %1 bytes from the server.\n").arg(avail));
 			}
-			return;
 
-		case SS_CONNECTED:
-			{
-				while (socketDevice.isWritable() && !outgoingQueue.isEmpty()) {
-					QByteArray data = outgoingQueue.first();
-					socketDevice.writeBlock(data.data(), data.size());
-					outgoingQueue.pop_front();
-				}
+			buildPackets(); // Try rebuilding incoming packets
 
-				Q_LONG avail = socketDevice.bytesAvailable();
-				if (avail > 0) {
-					Q_LONG offset = incomingBuffer.size();
-					incomingBuffer.resize(incomingBuffer.size() + avail);
-					socketDevice.readBlock(incomingBuffer.data() + offset, avail);
-					Log->print(LOG_MESSAGE, tr("Read %1 bytes from the server.\n").arg(avail));
-				}
-
-				buildPackets(); // Try rebuilding incoming packets
-
-				while (!incomingQueue.isEmpty()) {
-					cIncomingPacket *packet = incomingQueue.front();
-					incomingQueue.pop_front();
-					packet->handle(this);
-					delete packet;
-				}
+			while (!incomingQueue.isEmpty()) {
+				cIncomingPacket *packet = incomingQueue.front();
+				incomingQueue.pop_front();
+				packet->handle(this);
+				delete packet;
 			}
-			break;
+		}
+		break;
+
+		case QSocket::Closing:
+			break; // Do nothing
 
 		default:
-			break;
-	};
+			break; // Do nothing
+	}
 }
 
 void cUoSocket::send(const QByteArray &data) {
@@ -276,7 +242,12 @@ void cUoSocket::buildPackets() {
 	}
 }
 
-void cUoSocket::onConnect() {
+void cUoSocket::hostFound() {
+	emit onHostFound();
+}
+
+void cUoSocket::connected() {
+	// Send the UO header we have to send for every connection type
     QByteArray uoHeader(4);
 	uoHeader[0] = (unsigned char)( (seed >> 24) & 0xff );
 	uoHeader[1] = (unsigned char)( (seed >> 16) & 0xff );
@@ -284,22 +255,44 @@ void cUoSocket::onConnect() {
 	uoHeader[3] = (unsigned char)( seed & 0xff );
 	outgoingQueue.push_back(uoHeader);
 
-	if (!gameServer) {
-		LoginDialog->onConnect();
-	}
+	// Trigger the signal
+	emit onConnect();
 }
 
-void cUoSocket::onDisconnect() {
+void cUoSocket::connectionClosed() {
 }
 
-void cUoSocket::onDnsLookupComplete(const QHostAddress &address, unsigned short port) {
-	if (!gameServer) {
-		LoginDialog->onDnsLookupComplete(address, port);
-	}
+void cUoSocket::delayedCloseFinished() {
+	emit onDisconnect();
 }
 
-void cUoSocket::onError(const QString &error) {
-	if (!gameServer) {
-		LoginDialog->onError(error);
-	}
+void cUoSocket::readyRead() {
 }
+
+void cUoSocket::bytesWritten(int nbytes) {
+}
+
+void cUoSocket::error(int error) {
+	QString message;
+
+	switch (error) {
+		case QSocket::ErrConnectionRefused:
+			message = tr("Connection Refused");
+			break;
+
+		case QSocket::ErrHostNotFound:
+			message = tr("Host not found");
+			break;
+
+		case QSocket::ErrSocketRead:
+			message = tr("Could not read from socket");
+			break;
+
+		default:
+			message = tr("Unknown socket error.");
+			break;
+	};
+
+	emit onError(message);
+}
+
