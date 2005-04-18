@@ -158,23 +158,6 @@ void cUoSocket::poll() {
 				socket->writeBlock(data.data(), data.size());
 				outgoingQueue.pop_front();
 			}
-
-			Q_LONG avail = socket->bytesAvailable();
-			if (avail > 0) {
-				Q_LONG offset = incomingBuffer.size();
-				incomingBuffer.resize(incomingBuffer.size() + avail);
-				socket->readBlock(incomingBuffer.data() + offset, avail);
-				Log->print(LOG_MESSAGE, tr("Read %1 bytes from the server.\n").arg(avail));
-			}
-
-			buildPackets(); // Try rebuilding incoming packets
-
-			while (!incomingQueue.isEmpty()) {
-				cIncomingPacket *packet = incomingQueue.front();
-				incomingQueue.pop_front();
-				packet->handle(this);
-				delete packet;
-			}
 		}
 		break;
 
@@ -267,6 +250,19 @@ void cUoSocket::delayedCloseFinished() {
 }
 
 void cUoSocket::readyRead() {
+	QByteArray data = socket->readAll();
+	size_t offset = incomingBuffer.size();
+	incomingBuffer.resize(incomingBuffer.size() + data.size());
+	memcpy(incomingBuffer.data() + offset, data.data(), data.size());
+
+	buildPackets(); // Try rebuilding incoming packets
+
+	while (!incomingQueue.isEmpty()) {
+		cIncomingPacket *packet = incomingQueue.front();
+		incomingQueue.pop_front();
+		packet->handle(this);
+		delete packet;
+	}
 }
 
 void cUoSocket::bytesWritten(int nbytes) {

@@ -2,7 +2,7 @@
 #if !defined(__CONTAINER_H__)
 #define __CONTAINER_H__
 
-#include <qvaluelist.h>
+#include <qvaluevector.h>
 #include <qrect.h>
 
 #include "control.h"
@@ -47,6 +47,9 @@ public:
 	void onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight);
 
 	virtual void alignControl(cControl *control); // Align a control in this container
+
+	// Fill all non-container controls into the given vector
+	void getContainment(Controls &result);
 private:
 	void doAlignment(enControlAlign align, cControl *control, QRect &clientRect);
 	void doPositioning(enControlAlign align, cControl *control, QRect &clientRect);

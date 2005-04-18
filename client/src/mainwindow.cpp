@@ -98,6 +98,8 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 
 	mouseCapture = 0; // Control which got the last mousedown event
 	lastMouseMovement = 0; // Control that got the last movement event
+
+	setFocusPolicy(WheelFocus);
 }
 
 cGLWidget::~cGLWidget() {

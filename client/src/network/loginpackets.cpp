@@ -3,7 +3,12 @@
 #include "network/uosocket.h"
 #include "dialogs/login.h"
 #include "log.h"
+#include "enums.h"
 
+/*
+	This packet is sent by the server is the login was accepted. Contains the list of possible
+	gameservers.
+*/
 class cShardListPacket : public cDynamicIncomingPacket {
 protected:
 	QValueList<stShardEntry> shards;
@@ -52,3 +57,47 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xa8, cShardListPacket::creator);
+
+/*
+	This packet is receieved when the login has been denied by the server.
+*/
+class cLoginDeniedPacket : public cIncomingPacket {
+protected:
+	unsigned char reason;
+public:
+	cLoginDeniedPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		safetyAssertSize(2); // Exactly 2 byte
+
+		// Get the data from the shardlist
+		input >> reason;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		QString errorMessage;
+		switch (reason) {
+			case 0:
+				errorMessage = tr("Unknown User");
+				break;
+			case 1:
+				errorMessage = tr("Account Already in Use");
+				break;
+			case 2:
+				errorMessage = tr("Account disabled");
+				break;
+			case 3:
+				errorMessage = tr("Password bad");
+				break;
+			default:
+				errorMessage = tr("Communication error");
+				break;
+		}
+
+		LoginDialog->setStatusText(errorMessage);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cLoginDeniedPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x82, cLoginDeniedPacket::creator);

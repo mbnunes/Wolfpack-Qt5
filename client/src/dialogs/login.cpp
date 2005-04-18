@@ -131,6 +131,10 @@ void cLoginDialog::onScrollShardList(int oldpos, int newpos) {
 	}
 }
 
+void cLoginDialog::setStatusText(const QString &text) {
+	statusLabel->setText(text.latin1());
+}
+
 void cLoginDialog::buildShardSelectGump() {
 	if (!shardSelectGump) {
 		shardSelectGump = new cContainer();

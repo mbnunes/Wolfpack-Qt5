@@ -288,6 +288,10 @@ unsigned int cContainer::getHighestTabIndex() {
 }
 
 cControl *cContainer::getNextFocusControl(cControl *current) {
+	// get *all* subcontrols
+	Controls controls;
+	getContainment(controls);
+
 	cControl *result = 0;
 	unsigned int tabindex = current ? current->tabIndex() : 0;
 	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
@@ -305,6 +309,10 @@ cControl *cContainer::getNextFocusControl(cControl *current) {
 }
 
 cControl *cContainer::getPreviousFocusControl(cControl *current) {
+	// get *all* subcontrols
+	Controls controls;
+	getContainment(controls);
+
 	// Try to find the one with the highest id that is smaller than the 
 	// current focus control.
 	cControl *result = 0;
@@ -335,4 +343,14 @@ cControl *cContainer::getPreviousFocusControl(cControl *current) {
 
 bool cContainer::isContainer() const {
 	return true;
+}
+
+void cContainer::getContainment(Controls &result) {
+	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
+		if (!(*it)->isContainer()) {
+			result.append(*it);
+		} else {
+			((cContainer*)*it)->getContainment(result);
+		}
+	}
 }
