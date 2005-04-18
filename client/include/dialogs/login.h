@@ -78,6 +78,7 @@ public slots:
 	void socketError(const QString &error);
 	void socketHostFound();
 	void socketConnect();
+	void selectShard(int id);
 };
 
 extern cLoginDialog *LoginDialog; // There is only one LoginDialog instance at a time

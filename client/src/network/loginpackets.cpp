@@ -101,3 +101,35 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x82, cLoginDeniedPacket::creator);
+
+/*
+	This packet is receieved when the server relays us to a gameserver.
+*/
+class cRelayToServer : public cIncomingPacket {
+protected:
+	unsigned int gameServerIp;
+	unsigned short gameServerPort;
+	unsigned int newCryptKey;
+
+public:
+	cRelayToServer(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		safetyAssertSize(11); // Exactly 11 byte
+
+		// Get the data from the shardlist
+		input >> gameServerIp >> gameServerPort >> newCryptKey;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		LoginDialog->show(PAGE_CONNECTING);
+		LoginDialog->setStatusText("Connecting");
+
+		UoSocket->disconnect();
+		UoSocket->connect(QHostAddress(gameServerIp).toString(), gameServerPort, true);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cRelayToServer(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x8c, cRelayToServer::creator);

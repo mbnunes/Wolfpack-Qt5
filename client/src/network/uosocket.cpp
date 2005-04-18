@@ -85,6 +85,10 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	}*/
 	seed = Random->randInt(); // Set a new seed
 
+	if (gameServer) {
+		seed = 0;
+	}
+
 	this->gameServer = gameServer;
 	this->hostname = host;
 	this->hostport = port;
@@ -118,6 +122,7 @@ void cUoSocket::disconnect() {
 	// Clear incoming and outgoing queue
 	incomingQueue.clear();
 	outgoingQueue.clear();
+	socket->close();
 }
 
 bool cUoSocket::isIdle() {

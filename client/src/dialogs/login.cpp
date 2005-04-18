@@ -24,6 +24,7 @@ class cShardLabel : public cTextField {
 private:
 	cShardLabel *secondary;
 	cShardLabel *tertiary;
+	int id;
 
 public:
 	cShardLabel(int x, int y, const QCString &text) : cTextField(x, y, 350, 25, 5, 0x34f, 0, true) {
@@ -32,6 +33,11 @@ public:
 		setText(text);
 		secondary = 0;
 		tertiary = 0;
+		id = -1;
+	}
+
+	void setId(int data) {
+		id = data;
 	}
 
 	// Forward MoseEnter + MouseLeave to the two other controls
@@ -75,9 +81,9 @@ public:
 	}
 
 	void onMouseDown(QMouseEvent *e) {
+		// Select this shard
 		if (e->button() == Qt::LeftButton) {
-			// Select this shard
-			Utilities::messageBox("Selected a shard entry.");
+			LoginDialog->selectShard(id);
 		}
 	}
 };
@@ -514,10 +520,13 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 	// Set Secondary + Tertiary
 	shardLabel->setSecondary(pingCount);
 	shardLabel->setTertiary(packetLoss);
+	shardLabel->setId(shards.size() - 1);
 	pingCount->setSecondary(shardLabel);
 	pingCount->setTertiary(packetLoss);
+	pingCount->setId(shards.size() - 1);
 	packetLoss->setSecondary(shardLabel);
 	packetLoss->setTertiary(pingCount);
+	packetLoss->setId(shards.size() - 1);
 	
 	shardEntryOffset += 25;
 }
@@ -545,6 +554,29 @@ void cLoginDialog::socketConnect() {
 			strcpy(loginPacket.data() + 31, inpPassword->text().left(30).data());
 		}
 		UoSocket->send(loginPacket);
+	} else {
+		QByteArray loginPacket(65);
+        QDataStream packet(loginPacket, IO_WriteOnly);
+		packet.setByteOrder(QDataStream::BigEndian);
+		packet << (unsigned char)0x91 << (unsigned int)0;
+		if (!inpAccount->text().isNull()) {
+			strcpy(loginPacket.data() + 5, inpAccount->text().left(30).data());
+		}
+		if (!inpPassword->text().isNull()) {
+			strcpy(loginPacket.data() + 35, inpPassword->text().left(30).data());
+		} 
+		UoSocket->send(loginPacket);
+	}
+}
+
+void cLoginDialog::selectShard(int id) {
+	if (id >= 0 && id < (int)shards.size()) {
+		// Send relay packet for shard id
+		QByteArray relayRequest(3);
+		QDataStream packet(relayRequest, IO_WriteOnly);
+		packet.setByteOrder(QDataStream::BigEndian);
+		packet << (unsigned char)0xa0 << (unsigned short)shards[id].id;
+		UoSocket->send(relayRequest);
 	}
 }
 

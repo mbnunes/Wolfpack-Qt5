@@ -1,6 +1,8 @@
 
 #include <qvaluelist.h>
+#include <qgl.h>
 
+#include "mainwindow.h"
 #include "exceptions.h"
 #include "utilities.h"
 #include "gui/container.h"
@@ -9,12 +11,24 @@ void cContainer::draw(int xoffset, int yoffset) {
 	xoffset += x_;
 	yoffset += y_;
 
+	// Save the old scissor test flag
+	glPushAttrib(GL_SCISSOR_BIT|GL_SCISSOR_BIT);
+
+	// And enable the scissor box for this container
+	glEnable(GL_SCISSOR_TEST);
+	
+	// Set the scissor box to the coordinates of this container
+	glScissor(xoffset, GLWidget->height() - (yoffset + height_), width_, height_);
+
 	Iterator it;
 	for (it = controls.begin(); it != controls.end(); ++it) {
 		if ((*it)->isVisible()) {
 			(*it)->draw(xoffset, yoffset);
 		}
 	}
+
+	// Pop the old scissor box/test attribs from the gl stack
+	glPopAttrib();
 }
 
 cContainer::cContainer() {
