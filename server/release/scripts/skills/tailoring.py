@@ -204,6 +204,13 @@ class TailorItemAction(CraftItemAction):
 			item.color = material[4]
 			item.settag('resname', material[5])
 
+		# Apply one-time boni
+		healthbonus = fromitem(item, DURABILITYBONUS)
+		if healthbonus != 0:
+			bonus = int(math.ceil(item.maxhealth * (healthbonus / 100.0)))
+			item.maxhealth = max(1, item.maxhealth + bonus)
+			item.health = item.maxhealth
+
 		# Distribute another 6 points randomly between the resistances an armor alread
 		# has. There are no tailored weapons.
 		if exceptional:
