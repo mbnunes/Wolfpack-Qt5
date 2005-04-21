@@ -13,8 +13,8 @@ win32:TEMPLATE = vcapp
 win32:QMAKE_LIBS_QT_THREAD = qt-mt333.lib
 
 win32:CONFIG += windows
-unix:CONFIG += x11
-unix:INCLUDEPATH += /usr/include/GL
+unix:CONFIG += x11 
+unix:INCLUDEPATH += /usr/include/GL /usr/include/X11 /usr/include
 
 # No idea what it does
 # DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
@@ -34,51 +34,80 @@ INCLUDEPATH += include;libs/include
 
 # MAIN INCLUDES
 HEADERS += \
+	include/binkw.h \
 	include/config.h \
 	include/enums.h \
 	include/exceptions.h \
 	include/log.h \
 	include/mainwindow.h \
 	include/mersennetwister.h \
-	include/uoclient.h
+	include/surface.h \
+	include/texture.h \
+	include/uoclient.h \
+	include/vector.h 
 	
-# GUI INCLUDES
 HEADERS += \
 	include/dialogs/login.h \
+	include/dialogs/movecenter.h
+	
+HEADERS += \
+	include/game/dynamicentity.h \
+	include/game/entity.h \
+	include/game/groundtile.h \
+	include/game/mobile.h \
+	include/game/statictile.h \
+	include/game/world.h
+
+# GUI INCLUDES
+HEADERS += \
 	include/gui/asciilabel.h \
 	include/gui/bordergump.h \
 	include/gui/container.h \
+	include/gui/contextmenu.h \
 	include/gui/control.h \
+	include/gui/cursor.h \
 	include/gui/gui.h \
 	include/gui/gumpimage.h \
 	include/gui/imagebutton.h \
 	include/gui/itemimage.h \
 	include/gui/label.h \
+	include/gui/scrollbar.h \
 	include/gui/textfield.h \
 	include/gui/tiledgumpimage.h \
+	include/gui/window.h \
 	include/gui/worldview.h 
 
 # MUL INCLUDES
 HEADERS += \
+	include/muls/animations.h \
 	include/muls/art.h \
 	include/muls/asciifonts.h \
 	include/muls/gumpart.h \
 	include/muls/hues.h \
+	include/muls/maps.h \
+	include/muls/textures.h \
+	include/muls/tiledata.h \
 	include/muls/unicodefonts.h \
 	include/muls/verdata.h
 
+HEADERS += \
+	include/network/encryption.h \
+	include/network/uopacket.h \
+	include/network/uosocket.h
+
 # MAIN src
+
 SOURCES += \
 	src/binkw.cpp \
 	src/config.cpp \
 	src/log.cpp \
 	src/mainwindow.cpp \
+	src/surface.cpp \
 	src/texture.cpp \
 	src/uoclient.cpp \
 	src/utilities.cpp \
 	src/vector.cpp
 
-# GUI srcS
 SOURCES += \
 	src/dialogs/login.cpp \
 	src/dialogs/movecenter.cpp 
@@ -117,14 +146,14 @@ SOURCES += \
 
 # MUL srcS
 SOURCES += \
-	src/muls/art.cpp \
 	src/muls/animations.cpp \
+	src/muls/art.cpp \
 	src/muls/asciifonts.cpp \
 	src/muls/gumpart.cpp \
 	src/muls/hues.cpp \
 	src/muls/maps.cpp \
-	src/muls/tiledata.cpp \
 	src/muls/textures.cpp \
+	src/muls/tiledata.cpp \
 	src/muls/unicodefonts.cpp \
 	src/muls/verdata.cpp
 

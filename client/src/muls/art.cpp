@@ -46,7 +46,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 
 	// Check if there is an animation record for the given tile
 	it = animdata.find(id);
-	
+
 	if (it == animdata.end()) {
 		return 0; // There is no animation data for this tile
 	}
@@ -60,7 +60,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	const unsigned int lineTreshold = 512; // Try to stay below 512 pixel
 
 	// Measure the total width and height of the resulting texture
-	int totalwidth = 0, totalheight = 0;	
+	int totalwidth = 0, totalheight = 0;
 	int maxwidth = 0, maxheight = 0;
 	int totalmaxheight = 0; // Maximum frameheight
 
@@ -73,13 +73,13 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	for (int i = 0; i < info.count; ++i) {
 		unsigned short frameid = 0x4000 + info.frames[i] + id; // Calculate offset
 		unsigned short width, height;
-		
-		// Read the offset from artidx.mul		
+
+		// Read the offset from artidx.mul
 		stVerdataRecord *patch = Verdata->getPatch(VERDATA_ART, id);
 		if (patch) {
 			dataStream.setDevice(Verdata->getIoDevice());
 			offsets[i] = patch->offset;
-		} else {		
+		} else {
 			indexStream.device()->at(12 * frameid);
 			indexStream >> offsets[i]; // Read index data
 		}
@@ -95,7 +95,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 			}
 
 			// If we would hit the line boundary, wrap around
-			if (width < lineTreshold && maxwidth + width > lineTreshold) {
+			if (((unsigned int)width < lineTreshold) && ((unsigned int)(maxwidth + width) > lineTreshold)) {
 				if (maxwidth > totalwidth) {
 					totalwidth = maxwidth;
 				}
@@ -131,7 +131,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	// Pre-allocate the lookup table to save time
 	unsigned short *lookupTable = new unsigned short[totalmaxheight];
 
-	// Now read the art tiles into the existing surface	
+	// Now read the art tiles into the existing surface
 	int currentx = 0, currenty = 0; // Current draw offset within the texture
 	maxheight = 0; // We need this.
 
@@ -149,12 +149,12 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 		unsigned short width, height;
 		dataStream.device()->at(offsets[i] + 4);
 		dataStream >> width >> height; // Read width / height
-		
+
 		// Skip bogus image
 		if (width < 1 || height < 1) {
 			continue;
 		}
-			
+
 		for (int j = 0; j < height; ++j) {
 			dataStream >> lookupTable[j]; // Read in the offset table for every row
 		}
@@ -183,18 +183,18 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 						unsigned char r = index << 3; // Multiply with 8
 						unsigned char g = (color >> 2) & 0xF8;
 						unsigned char b = (color << 3) & 0xF8;
-							
-						// Hue either everything or if partial hue is set only if 
+
+						// Hue either everything or if partial hue is set only if
 						// its a gray pixel
 						if (!partialhue || r == g && g == b) {
 							r = hue->colors[index].r;
 							g = hue->colors[index].g;
 							b = hue->colors[index].b;
 						}
-						
+
 						unsigned int pixel = surface->color(r, g, b);
 						surface->setPixel(currentx + x, currenty + y, pixel);
-					} else {				
+					} else {
 						// Calculate the real pixel value
 						if (color != 0) {
 							unsigned int pixel = surface->color(color);
@@ -243,7 +243,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 
 	delete [] lookupTable;
 	delete [] offsets;
-	
+
 	// Try to insert it into the cache
 	if (acache->insert(cacheid, result)) {
 		result->incref();
@@ -274,7 +274,7 @@ void cArt::load() {
 
 	// Read animdata.mul
 	QFile animdata(Utilities::getUoFilename("animdata.mul"));
-	
+
 	if (!animdata.open(IO_ReadOnly)) {
 		throw Exception(tr("Unable to open art animation information at %1.").arg(animdata.name()));
 	}
@@ -334,7 +334,7 @@ cSurface *cArt::readLandSurface(unsigned short id, bool texture) {
 		dataStream.setDevice(Verdata->getIoDevice());
 		offset = patch->offset;
 		length = patch->length;
-	} else {		
+	} else {
 		indexStream.device()->at(12 * id);
 		indexStream >> offset >> length; // Read index data
 	}
@@ -401,21 +401,21 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 		dataStream.setDevice(Verdata->getIoDevice());
 		offset = patch->offset;
 		length = patch->length;
-	} else {		
+	} else {
 		indexStream.device()->at(12 * id);
 		indexStream >> offset >> length; // Read index data
 	}
 
-	dataStream.setByteOrder(QDataStream::LittleEndian);	
+	dataStream.setByteOrder(QDataStream::LittleEndian);
 
 	// Sanity checks
 	if (offset >= 0 && length > 0) {
-		dataStream.device()->at(offset); // 
-		
+		dataStream.device()->at(offset); //
+
 		unsigned int header;
 		short width, height;
 		dataStream >> header >> width >> height;
-		
+
 		if (width > 0 && height > 0) {
             unsigned short *lookupTable = new unsigned short[height];
 			int i;
@@ -458,8 +458,8 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 							unsigned char r = index << 3; // Multiply with 8
 							unsigned char g = (color >> 2) & 0xF8;
 							unsigned char b = (color << 3) & 0xF8;
-								
-							// Hue either everything or if partial hue is set only if 
+
+							// Hue either everything or if partial hue is set only if
 							// its a gray pixel
 							if (!partialhue || r == g && g == b) {
 								r = hue->colors[index].r;
@@ -471,7 +471,7 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 						} else {
 							pixel = surface->color((color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8);
 							surface->setPixel(x, y, pixel);
-						}						
+						}
 					}
 				}
 			}
@@ -490,7 +490,7 @@ cTexture *cArt::readLandTexture(unsigned short id) {
 	if (!result) {
 		// Read a new art tile from the data files
 		cSurface *surface = readLandSurface(id, true);
-		
+
 		if (surface) {
 			result = new cTexture(surface);
 			delete surface;
@@ -512,13 +512,13 @@ cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool part
 	if (!result) {
 		// Read a new art tile from the data files
 		cSurface *surface = readItemSurface(id, hue, partialhue, true);
-		
+
 		if (surface) {
 			result = new cTexture(surface);
 			delete surface;
 			if (tcache->insert(cacheid, result)) {
 				result->incref();
-			}			
+			}
 		}
 	} else {
 		result->incref();
@@ -527,7 +527,7 @@ cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool part
 	return result;
 }
 
-void cArt::readCursor(stCursor *cursor, unsigned short id, unsigned short hue, bool partialhue) {	
+void cArt::readCursor(stCursor *cursor, unsigned short id, unsigned short hue, bool partialhue) {
 	// Read the texture compatible surface
 	cSurface *surface = readItemSurface(id, hue, partialhue, true);
 

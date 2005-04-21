@@ -2,7 +2,7 @@
 #include "gui/scrollbar.h"
 
 void cVerticalScrollBar::scrollUp(cControl *sender) {
-	setPos(QMAX(min(), (int)pos() - 1));
+	setPos(QMAX((int)min(), (int)pos() - 1));
 }
 
 void cVerticalScrollBar::scrollDown(cControl *sender) {
@@ -23,7 +23,7 @@ cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) {
 	connect(btnDown, SIGNAL(onClick()), this, SLOT(scrollDown()));
 	btnDown->setPressRepeatRate(60);
 	addControl(btnDown);
-	
+
 	background = new cTiledGumpImage(0x100);
 	background->setBounds(0, btnUp->height(), btnUp->width(), height - btnUp->height() - btnDown->height());
 	addControl(background, true);
@@ -35,7 +35,7 @@ cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) {
 	draggingHandle_ = false;
 
 	pos_ = 0;
-	setRange(0, 0);	
+	setRange(0, 0);
 }
 
 cVerticalScrollBar::~cVerticalScrollBar() {
@@ -75,9 +75,9 @@ void cVerticalScrollBar::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 }
 
 unsigned int cVerticalScrollBar::getTrackerYFromPos(int pos) {
-	if (pos == min_) {
+	if (pos == (int)min_) {
 		return btnUp->height();
-	} else if (pos == max_) {
+	} else if (pos == (int)max_) {
 		return height_ - btnDown->height() - handle->height();
 	} else {
 		return btnUp->height() + (int)(pos * pixelPerStep);

@@ -47,7 +47,7 @@ void cWorld::clearEntities() {
 		while (cit != cell.end()) {
 			(*cit)->decref();
 			++cit;
-		}		
+		}
 	}
 
 	entities.clear();
@@ -58,16 +58,16 @@ void cWorld::cleanupEntities() {
 
 	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
 		Cell &cell = it.data();
-		CellIterator cit = cell.begin();		
+		CellIterator cit = cell.begin();
 		while (cit != cell.end()) {
-			int distance = Utilities::distance((*cit)->x(), (*cit)->y(), x_, y_);			
+			int distance = Utilities::distance((*cit)->x(), (*cit)->y(), x_, y_);
 			if (distance > 18) {
 				(*cit)->decref();
 				cit = cell.remove(cit);
 			}
 			++cit;
 		}
-		
+
 		if (cell.isEmpty()) {
 			toremove.append(it.key());
 		}
@@ -90,7 +90,7 @@ void cWorld::loadCell(unsigned short x, unsigned short y) {
 		int rightz = Maps->getMapCell(facet_, x + 1, y)->z;
 		int bottomz = Maps->getMapCell(facet_, x + 1, y + 1)->z;
 		int leftz = Maps->getMapCell(facet_, x, y + 1)->z;
-		
+
 		if (abs(cell->z - bottomz) >= abs(leftz - rightz)) {
 			ground->setAveragez((cell->z + bottomz) / 2);
 		} else {
@@ -140,7 +140,7 @@ void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool 
 	if (fresh || distance > 12) {
 		// clear all old entities
 		clearEntities();
-	
+
 		// iterate over the rectangle
 		for (x = left; x <= right; ++x) {
 			for (y = top; y <= bottom; ++y) {
@@ -179,7 +179,7 @@ inline bool insertBefore(cEntity *entity, cEntity *next) {
 		return entity->y() < next->y();
 	} else if (entity->x() != next->x()) {
         return entity->x() < next->x();
-	
+
 	} else {*/
 	// Do in-cell sorting
 	int priority = entity->priority() - next->priority();
@@ -218,7 +218,7 @@ void cWorld::addEntity(cEntity *entity) {
 
 	// Update the tile priority of the new entity first
 	entity->updatePriority();
-	
+
 	Cell &cell = entities[cellid];
 	CellIterator it(cell.begin());
 	// Search for an appropiate place in the list
@@ -261,7 +261,7 @@ void cWorld::smoothMove(int x, int y) {
 	// TODO: Write an optimized loading technique for faster loading
 	// and less distance checks
 	moveCenter(oldx + x, oldy + y, newz);
-	
+
 	// Get old drawing coordinates
 	int diffx = oldx - x_;
 	int diffy = oldy - y_;
@@ -270,7 +270,7 @@ void cWorld::smoothMove(int x, int y) {
 	drawyoffset = (diffx + diffy) * 22 - diffz * 4;
 
 	// Calculate new direction for the player
-	int direction = Utilities::direction(oldx, oldy, x_, y_); 
+	int direction = Utilities::direction(oldx, oldy, x_, y_);
 
 	xOffsetDecrease = drawxoffset / 370.0f;
 	yOffsetDecrease = drawyoffset / 370.0f;
@@ -296,7 +296,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 	int centerx = x + (width / 2);
 	int centery = y + (height / 2);
 
-	// Smooth move handling. 
+	// Smooth move handling.
 	if (smoothMoveEnd_ != 0) {
 		int moveProgress = smoothMoveTime_ - (smoothMoveEnd_ - Utilities::getTicks());
 		if (moveProgress < 0 || moveProgress >= (int)smoothMoveTime_) {
@@ -304,8 +304,8 @@ void cWorld::draw(int x, int y, int width, int height) {
 			drawxoffset = 0;
 			drawyoffset = 0;
 		} else {
-			centerx -= (drawxoffset - moveProgress * xOffsetDecrease);
-			centery -= (drawyoffset - moveProgress * yOffsetDecrease);
+			centerx -= (int)(drawxoffset - moveProgress * xOffsetDecrease);
+			centery -= (int)(drawyoffset - moveProgress * yOffsetDecrease);
 			/*if (moveProgress <= 0.0f) {
 				centerx -= drawxoffset;
 				centery -= drawyoffset;
@@ -346,7 +346,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 			unsigned int cellid = getCellId(cx, cy);
 			Iterator it = entities.find(cellid);
 			if (it != entities.end()) {
-				Cell &cell = it.data();				
+				Cell &cell = it.data();
 				for (ConstCellIterator cit = cell.begin(); cit != cell.end(); ++cit) {
 					cEntity *entity = *cit;
 					if (entity->isInWorld() && entity->z() < roofCap_) {
@@ -371,7 +371,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 			}
 		}
 	}
-	
+
 	// Save the mouse over entity
 	mouseOver_ = mouseEntity;
 
@@ -410,11 +410,11 @@ cEntity *cWorld::getEntity(int x, int y) {
 		do {
 			--it;
 			cEntity *entity = *it; // Constant pointer to non const object
-	
+
 			if (!entity->isInWorld()) {
 				continue;
 			}
-	
+
 			// First check the bounding box of the entity
 			if (entity->hitTest(x - entity->drawx(), y - entity->drawy())) {
 					found = entity;
@@ -453,7 +453,7 @@ void cWorld::getGroundInfo(int x, int y, stGroundInfo *info) {
 	if (!ground) {
 		ground = new stGroundInfo; // Create a new ground info item for the cache
 
-		// Get the z offsets of the surrounding tiles (actually only three of the 
+		// Get the z offsets of the surrounding tiles (actually only three of the
 		// surrounding tiles are required)
 		stMapCell *groundCell = Maps->getMapCell(facet_, x, y);
 		int cell = groundCell->z;
@@ -465,7 +465,7 @@ void cWorld::getGroundInfo(int x, int y, stGroundInfo *info) {
 
 		// Water needs a special check
 		cLandTileInfo *landInfo = Tiledata->getLandInfo(groundCell->id);
-		
+
 		// Water never gets stretched
 		if (landInfo->isWet()) {
 			ground->left = 0;

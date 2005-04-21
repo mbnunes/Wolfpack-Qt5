@@ -70,7 +70,7 @@ public:
 	inline void setAutoSize(bool autoSize) {
 		if (autoSize != autoSize_) {
 			autoSize_ = autoSize;
-			if (texture && autoSize && width_ != texture->realWidth() && height_ != texture->realHeight()) {
+			if (texture && autoSize && (unsigned int)width_ != texture->realWidth() && (unsigned int)height_ != texture->realHeight()) {
 				setSize(texture->realWidth(), texture->realHeight());
 			}
 		}

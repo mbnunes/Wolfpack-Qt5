@@ -54,7 +54,7 @@ public:
 	void onMouseLeave() {
 		cTextField::onMouseLeave();
 		if (secondary) {
-			secondary->mouseOver_ = false;	
+			secondary->mouseOver_ = false;
 		}
 		if (tertiary) {
 			tertiary->mouseOver_ = false;
@@ -72,7 +72,7 @@ public:
 			cTexture *texture = surfaces[0];
 
 			x -= 7;
-			if (texture && x >= 0 && y >= 0 && x < texture->realWidth() && y < texture->realHeight()) {
+			if (texture && x >= 0 && y >= 0 && (unsigned int)x < texture->realWidth() && (unsigned int)y < texture->realHeight()) {
 				return this;
 			}
 		}
@@ -150,7 +150,7 @@ void cLoginDialog::buildShardSelectGump() {
 		cLabel *label;
 		cImageButton *button;
 		cGumpImage *image;
-		
+
 		// Select which shard to play on
 		label = new cLabel(tr("Select which shard to play on:"), 1, 0x3e4, false);
 		label->setPosition(0x9e, 0x48);
@@ -307,7 +307,7 @@ void cLoginDialog::show(enMenuPage page) {
 		container->setClosable(false);
 		container->setMovable(false);
 		container->setAlign(CA_CLIENT);
-	
+
 		cTiledGumpImage *tiledgump = new cTiledGumpImage(0xe14);
 		tiledgump->setAlign(CA_CLIENT);
 		container->addControl(tiledgump);
@@ -391,7 +391,7 @@ void cLoginDialog::show(enMenuPage page) {
 		// Next Button
 		nextButton = new cImageButton(610, 445, 0x15a4, 0x15a6);
 		nextButton->setStateGump(BS_HOVER, 0x15a5);
-		connect(nextButton, SIGNAL(onClick(cControl*)), this, SLOT(nextClicked(cControl*)));		
+		connect(nextButton, SIGNAL(onClick(cControl*)), this, SLOT(nextClicked(cControl*)));
 		container->addControl(nextButton);
 	}
 
@@ -453,7 +453,7 @@ void cLoginDialog::hide() {
 		Gui->removeControl(container);
 		Gui->invalidate();
 	}
-	
+
 	GLWidget->resize(Config->engineWidth(), Config->engineHeight());
 	GLWidget->setMaximumHeight(32000);
 	GLWidget->setMaximumWidth(32000);
@@ -507,7 +507,7 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 	shards.append(shard);
 
 	cShardLabel *shardLabel, *pingCount, *packetLoss;
-	
+
 	shardLabel = new cShardLabel(67, shardEntryOffset, shard.name);
 	shardList->addControl(shardLabel);
 
@@ -527,7 +527,7 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 	packetLoss->setSecondary(shardLabel);
 	packetLoss->setTertiary(pingCount);
 	packetLoss->setId(shards.size() - 1);
-	
+
 	shardEntryOffset += 25;
 }
 
@@ -564,7 +564,7 @@ void cLoginDialog::socketConnect() {
 		}
 		if (!inpPassword->text().isNull()) {
 			strcpy(loginPacket.data() + 35, inpPassword->text().left(30).data());
-		} 
+		}
 		UoSocket->send(loginPacket);
 	}
 }

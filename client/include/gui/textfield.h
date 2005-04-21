@@ -27,10 +27,10 @@ protected:
 	short focusHue_;
 	bool password_;
 
-    cTexture *surfaces[3]; // Three States
+	cTexture *surfaces[3]; // Three States
 
 	bool mouseOver_; // False by default (is the mouse over this control)
-    
+
 	void update();
 	void draw(int xoffset, int yoffset);
 	unsigned int caret_; // The offset in characters from the left to the text input positioner.
@@ -39,7 +39,7 @@ protected:
 	unsigned int caretXOffset_; // The offset to the left border of the text field in pixels.
 	int selection_; // The number of characters that are selected in relation to the current caret.
 
-    void drawSelection(cSurface *surface);
+	void drawSelection(cSurface *surface);
 	void replaceSelection(const QCString &replacement);
 	QCString getSelection();
 	inline char translateChar(char c) {
@@ -52,7 +52,7 @@ protected:
 public:
 	cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue = 0, unsigned short background = 0xbb8, bool hueAll = false);
 	virtual ~cTextField();
-    
+
 	// Getters
 	inline bool hueAll() const { return hueAll_; }
 	inline unsigned char font() const { return font_; }

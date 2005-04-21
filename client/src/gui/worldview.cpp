@@ -68,7 +68,7 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 
 	bottom = new cTiledGumpImage(0xa8c);
 	bottom->setHeight(4);
-	bottom->setAlign(CA_BOTTOM);	
+	bottom->setAlign(CA_BOTTOM);
 	bottom->setMoveHandle(true);
 	addControl(bottom);
 
@@ -247,7 +247,7 @@ enCursorType cWorldView::getCursorType() {
 	int my = pos.y();
 
 	// Return a normal cursor if we're outside the worldview
-	if (!ismoving && (mx < x_ + left->width() || mx >= x_ + width_ - right->width() || 
+	if (!ismoving && (mx < x_ + left->width() || mx >= x_ + width_ - right->width() ||
 		my < y_ + top->height() || my >= y_ + height_ - bottom->height())) {
 		return CURSOR_NORMAL;
 	}
@@ -262,11 +262,11 @@ enCursorType cWorldView::getCursorType() {
 	float diffy = (float)(my - centery);
 
 	// Center of the worldview
-	if (abs(diffx) < 10.0f && abs(diffy) < 10.0f) {
+	if (abs((int)diffx) < 10.0f && abs((int)diffy) < 10.0f) {
 		return CURSOR_NORMAL;
 	}
 
-    float diagonal = sqrt(diffx * diffx + diffy * diffy); // Calculate diagonal	
+    float diagonal = sqrt(diffx * diffx + diffy * diffy); // Calculate diagonal
 	float asina = asin(diffy / diagonal); // Calculate the sin of the angle
 
 	const float treshold1 = PI / 8; // Upper treshold
@@ -324,7 +324,7 @@ void cWorldView::draw(int xoffset, int yoffset) {
 	// Remove outdated sysmessages
 	if (nextSysmessageCleanup < Utilities::getTicks()) {
 		cleanSysMessages();
-		nextSysmessageCleanup = Utilities::getTicks() + 250;	
+		nextSysmessageCleanup = Utilities::getTicks() + 250;
 	}
 
 	cWindow::draw(xoffset, yoffset);
