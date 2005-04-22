@@ -179,6 +179,10 @@ public:
 		// Get the data from the shardlist
 		input >> charCount;
 
+		if (charCount < 5) {
+			charCount = 5; // At least 5 characters
+		}
+
 		// Assert that the packet is large enough
 		safetyAssertSize(9 + charCount * 60); // 60 byte per character
 
@@ -186,7 +190,11 @@ public:
             char name[61];
 			name[60] = 0;
 			input.readRawBytes(name, 60);
-			characters.append(name);
+
+			// Only add if the name is non-null
+			if (name[0]) {
+				characters.append(name);
+			}
 		}
 
 		// Read the number of towns
@@ -199,9 +207,9 @@ public:
 			name[31] = 0; exactName[31] = 0;
 			stStartLocation location;
 			
-			input.readRawBytes(name, 31);
-			input.readRawBytes(exactName, 31);
 			input >> location.index;
+			input.readRawBytes(name, 31);
+			input.readRawBytes(exactName, 31);			
 			location.name = name;
 			location.exactName = exactName;
 			

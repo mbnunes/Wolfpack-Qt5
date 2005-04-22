@@ -79,14 +79,10 @@ cUoSocket::~cUoSocket() {
 }
 
 void cUoSocket::connect(const QString &host, unsigned short port, bool gameServer) {
-	if (!isIdle()) {
-		// not yet connected
-		return;
+	if (!isIdle()) {		
+		return; // The client isn't disconnected yet.
 	}
 
-	/*if (isConnected()) {
-		disconnect(); // Disconnect an existing connection
-	}*/
 	seed = Random->randInt(); // Set a new seed
 
 	if (gameServer) {
@@ -99,27 +95,6 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 
 	// Connect to the Socket
 	socket->connectToHost(host, port);
-
-	/*QValueList<QHostAddress> addresses = dns.addresses();
-
-	if (addresses.size() == 0) {
-		onError(tr("Invalid hostname: %1").arg(host));
-		return false;
-	}
-
-	QHostAddress hostAddress = addresses[Random->randInt(addresses.size())];
-
-	if (!socketDevice.connect(hostAddress, port) && socketDevice.error() != QSocketDevice::NoError) {
-		Log->print(tr("Error: %1\n").arg(convertError(socketDevice.error())));
-		return false;
-	}
-
-    QByteArray uoHeader(4);
-	uoHeader[0] = (unsigned char)( (seed >> 24) & 0xff );
-	uoHeader[1] = (unsigned char)( (seed >> 16) & 0xff );
-	uoHeader[2] = (unsigned char)( (seed >> 8) & 0xff );
-	uoHeader[3] = (unsigned char)( seed & 0xff );
-	outgoingQueue.push_back(uoHeader); // Send the uo header in the next iteration*/
 }
 
 void cUoSocket::disconnect() {
@@ -271,7 +246,7 @@ void cUoSocket::readyRead() {
 		int srclen = data.size();
 		int destsize = out.size();
 		decompressor.initialise();
-		decompressor(out.data(), data.data(), srclen, destsize);		
+		decompressor(out.data(), data.data(), destsize, srclen);
 		data = out;
 
 		size_t offset = incomingBuffer.size();
