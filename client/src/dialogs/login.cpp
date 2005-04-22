@@ -558,7 +558,7 @@ void cLoginDialog::socketConnect() {
 		QByteArray loginPacket(65);
         QDataStream packet(loginPacket, IO_WriteOnly);
 		packet.setByteOrder(QDataStream::BigEndian);
-		packet << (unsigned char)0x91 << (unsigned int)0;
+		packet << (unsigned char)0x91 << (unsigned int)0xFFFFFFFF;
 		if (!inpAccount->text().isNull()) {
 			strcpy(loginPacket.data() + 5, inpAccount->text().left(30).data());
 		}

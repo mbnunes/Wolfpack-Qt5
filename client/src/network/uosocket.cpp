@@ -3,9 +3,13 @@
 
 #include "uoclient.h"
 #include "network/encryption.h"
+#include "network/decompress.h"
 #include "network/uosocket.h"
 #include "dialogs/login.h"
 #include "log.h"
+
+// Packet stream decompressor
+static DecompressingCopier decompressor;
 
 //#include <winsock2.h>
 
@@ -208,6 +212,7 @@ void cUoSocket::buildPackets() {
 						incomingQueue.append(packet);
 					}
 				}
+				continue; // See if there's another packet
 			}
 		} else if (size <= incomingBuffer.size()) {
 			// Completed a packet
@@ -224,9 +229,11 @@ void cUoSocket::buildPackets() {
 					incomingQueue.append(packet);
 				}
 			}
+
+			continue; // See if there's another packet waiting
 		}
 
-		break;
+		break; // Didn't receeive a complete packet yet
 	}
 }
 
@@ -256,9 +263,25 @@ void cUoSocket::delayedCloseFinished() {
 
 void cUoSocket::readyRead() {
 	QByteArray data = socket->readAll();
-	size_t offset = incomingBuffer.size();
-	incomingBuffer.resize(incomingBuffer.size() + data.size());
-	memcpy(incomingBuffer.data() + offset, data.data(), data.size());
+
+	// Decompress data if neccesary
+	// TODO: Optimize this
+	if (gameServer) {
+		static QByteArray out(65535); // This has to work out...
+		int srclen = data.size();
+		int destsize = out.size();
+		decompressor.initialise();
+		decompressor(out.data(), data.data(), srclen, destsize);		
+		data = out;
+
+		size_t offset = incomingBuffer.size();
+		incomingBuffer.resize(incomingBuffer.size() + destsize);
+		memcpy(incomingBuffer.data() + offset, out.data(), destsize);
+	} else {
+		size_t offset = incomingBuffer.size();
+		incomingBuffer.resize(incomingBuffer.size() + data.size());
+		memcpy(incomingBuffer.data() + offset, data.data(), data.size());
+	}
 
 	buildPackets(); // Try rebuilding incoming packets
 

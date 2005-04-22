@@ -5,6 +5,8 @@
 #include "log.h"
 #include "enums.h"
 
+#include <qvaluevector.h>
+
 /*
 	This packet is sent by the server is the login was accepted. Contains the list of possible
 	gameservers.
@@ -125,6 +127,7 @@ public:
 
 		UoSocket->disconnect();
 		UoSocket->connect(QHostAddress(gameServerIp).toString(), gameServerPort, true);
+		UoSocket->setSeed(newCryptKey);
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -133,3 +136,87 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x8c, cRelayToServer::creator);
+
+/*
+	This packet enables "locked" client features.
+*/
+class cEnableFeatures : public cIncomingPacket {
+protected:
+	unsigned short flags;
+public:
+	cEnableFeatures(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		safetyAssertSize(3); // Exactly 3 byte
+		input >> flags;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		// Send this to the log for now
+		Log->print(LOG_DEBUG, tr("Server wants to enable client features: 0x%1.\n").arg(flags, 0, 16));
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cEnableFeatures(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xb9, cEnableFeatures::creator);
+
+/*
+	This packet is sent by the server is the login was accepted. Contains the list of possible
+	gameservers.
+*/
+class cCharacterListPacket : public cDynamicIncomingPacket {
+protected:
+	QValueVector<QString> characters;
+	QValueVector<stStartLocation> startLocations;
+	unsigned int flags;
+public:
+	cCharacterListPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(9); // At least 9 byte
+
+		unsigned char charCount, townCount;
+
+		// Get the data from the shardlist
+		input >> charCount;
+
+		// Assert that the packet is large enough
+		safetyAssertSize(9 + charCount * 60); // 60 byte per character
+
+		for (unsigned int i = 0; i < charCount; ++i) {
+            char name[61];
+			name[60] = 0;
+			input.readRawBytes(name, 60);
+			characters.append(name);
+		}
+
+		// Read the number of towns
+		input >> townCount;
+
+		safetyAssertSize(9 + charCount * 60 + townCount * 63); // 63 byte per town
+
+		for (unsigned int i = 0; i < townCount; ++i) {
+            char name[32], exactName[32];
+			name[31] = 0; exactName[31] = 0;
+			stStartLocation location;
+			
+			input.readRawBytes(name, 31);
+			input.readRawBytes(exactName, 31);
+			input >> location.index;
+			location.name = name;
+			location.exactName = exactName;
+			
+			startLocations.append(location);
+		}
+
+		input >> flags; // Read flags
+	}
+
+	virtual void handle(cUoSocket *socket) {
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cCharacterListPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xa9, cCharacterListPacket::creator);

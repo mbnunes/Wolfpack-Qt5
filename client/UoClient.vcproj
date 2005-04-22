@@ -729,6 +729,18 @@
 			Name="network"
 			Filter="">
 			<File
+				RelativePath=".\src\network\btree.cpp">
+			</File>
+			<File
+				RelativePath=".\include\network\btree.h">
+			</File>
+			<File
+				RelativePath=".\src\network\decompress.cpp">
+			</File>
+			<File
+				RelativePath=".\include\network\decompress.h">
+			</File>
+			<File
 				RelativePath=".\src\network\encryption.cpp">
 			</File>
 			<File

@@ -151,7 +151,8 @@ void myMessageOutput( QtMsgType type, const char *msg )
 {
     switch ( type ) {
         case QtDebugMsg:
-			Log->print(LOG_DEBUG, tr("QT Debug: %1\n").arg(msg));
+			// This is crazy...
+			// Log->print(LOG_DEBUG, tr("QT Debug: %1\n").arg(msg));
             break;
         case QtWarningMsg:
 			Log->print(LOG_WARNING, tr("QT Warning: %1\n").arg(msg));

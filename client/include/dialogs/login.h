@@ -21,6 +21,13 @@ struct stShardEntry {
 	unsigned short id;
 };
 
+// This is a starting location
+struct stStartLocation {
+    QCString name;
+	QCString exactName;
+	unsigned char index;
+};
+
 enum enMenuPage {
 	PAGE_LOGIN = 0,
 	PAGE_CONNECTING,

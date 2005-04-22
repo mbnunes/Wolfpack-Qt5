@@ -50,6 +50,7 @@ public:
 	// Initiate connection to a remote server
 	void connect(const QString &host, unsigned short port, bool gameServer = false);
 	void disconnect();
+	void setSeed(unsigned int seed);
 
 	// Poll for new packets and other events.
 	void poll();
@@ -96,6 +97,10 @@ public:
 
 inline bool cUoSocket::isGameServer() const {
 	return gameServer;
+}
+
+inline void cUoSocket::setSeed(unsigned int seed) {
+	this->seed = seed;
 }
 
 #define AREGPREFIX fnc
