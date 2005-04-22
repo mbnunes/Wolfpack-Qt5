@@ -1,6 +1,7 @@
 
 #include <qdatastream.h>
 #include <qfile.h>
+#include <stdlib.h>
 
 #include "exceptions.h"
 #include "utilities.h"

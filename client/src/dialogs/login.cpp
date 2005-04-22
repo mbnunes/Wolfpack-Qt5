@@ -292,7 +292,7 @@ void cLoginDialog::buildStatusGump() {
 }
 
 void cLoginDialog::show(enMenuPage page) {
-	QWidget *mainWindow = App->mainWidget();
+	QWidget *mainWindow = qApp->mainWidget();
 	if (mainWindow) {
 		mainWindow->resize(640, 480);
 

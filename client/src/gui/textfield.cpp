@@ -340,20 +340,20 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 			}
 		}
 	} else if (key == Qt::Key_V && (state & Qt::ControlButton) != 0) {
-		QClipboard *clipboard = App->clipboard();
+		QClipboard *clipboard = qApp->clipboard();
 		QString text = clipboard->text();
 		if (!text.isEmpty()) {
 			QCString ltext = text.latin1();
 			replaceSelection(ltext);
 		}
 	} else if (key == Qt::Key_C && (state & Qt::ControlButton) != 0) {
-		QClipboard *clipboard = App->clipboard();
+		QClipboard *clipboard = qApp->clipboard();
 		QCString text = getSelection();
 		if (!text.isEmpty()) {
 			clipboard->setText(QString(text), QClipboard::Clipboard);
 		}
 	} else if (key == Qt::Key_X && (state & Qt::ControlButton) != 0) {
-		QClipboard *clipboard = App->clipboard();
+		QClipboard *clipboard = qApp->clipboard();
 		QCString text = getSelection();
 		if (!text.isEmpty()) {
 			clipboard->setText(QString(text), QClipboard::Clipboard);

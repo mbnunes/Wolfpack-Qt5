@@ -19,7 +19,7 @@ public:
 	void lock();
 	void unlock();
 
-	void run(const QStringList &arguments);
+	void run();
 
 	bool running() { return running_; }
 	void quit() { running_ = false; }
@@ -34,6 +34,5 @@ inline void cUoClient::unlock() {
 }
 
 extern cUoClient *Client;
-extern QApplication *App;
 
 #endif

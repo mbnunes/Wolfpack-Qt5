@@ -143,8 +143,6 @@ void cUoClient::unload() {
 	Log->print("\n-----------------------------------------------------------------------------\n", false);
 	Log->print(tr("Stopped Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
 	Log->print("-----------------------------------------------------------------------------\n\n", false);
-
-	delete App;
 }
 
 void myMessageOutput( QtMsgType type, const char *msg )
@@ -166,17 +164,16 @@ void myMessageOutput( QtMsgType type, const char *msg )
 // Main Widget
 #include "mainwindow.h"
 
-void cUoClient::run(const QStringList &arguments) {
+void cUoClient::run()
+{
 	qInstallMsgHandler(myMessageOutput); // Install handler
-	int argc = 0;
-	App = new QApplication(argc, 0);
 
 	Config->setFile("config.xml"); // Default Config File
 
 	// INITIALIZE WINDOW - OPENGL INTIAILZATION
 	MainWindow *window = new MainWindow();
 	window->setCaption("Ultima Online");
-	App->setMainWidget(window);	
+	qApp->setMainWidget( window );	
 	window->show();
 	// END WINDOW INITIALIZATION
 
@@ -204,7 +201,7 @@ void cUoClient::run(const QStringList &arguments) {
 	Gui->addControl(WorldView);
 
 	while (running()) {
-		App->processEvents();
+		qApp->processEvents();
 		UoSocket->poll(); // Poll network connection
 		GLWidget->update();
 
@@ -222,4 +219,3 @@ void cUoClient::run(const QStringList &arguments) {
 }
 
 cUoClient *Client = 0; // Global Client Instance
-QApplication *App = 0; // Global QApplication Instance
