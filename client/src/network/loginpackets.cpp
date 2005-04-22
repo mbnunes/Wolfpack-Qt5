@@ -220,6 +220,7 @@ public:
 	}
 
 	virtual void handle(cUoSocket *socket) {
+		LoginDialog->show(PAGE_SELECTCHAR);
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

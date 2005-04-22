@@ -32,7 +32,8 @@ enum enMenuPage {
 	PAGE_LOGIN = 0,
 	PAGE_CONNECTING,
 	PAGE_VERIFYING,
-	PAGE_SHARDLIST
+	PAGE_SHARDLIST,
+	PAGE_SELECTCHAR,
 };
 
 class cLoginDialog : public QObject {
@@ -46,12 +47,14 @@ private:
 	cTextField *inpAccount, *inpPassword;
 	cContainer *shardList;
 	cContainer *statusDialog;
+	cContainer *selectCharDialog;
 	cAsciiLabel *statusLabel;
 	enMenuPage page;
 
 	void buildAccountLoginGump();
 	void buildShardSelectGump();
 	void buildStatusGump();
+	void buildSelectCharGump();
 
 	QValueList<stShardEntry> shards;
 	unsigned int shardEntryOffset;
@@ -80,6 +83,8 @@ public slots:
 	void accountClicked(cControl *sender);
     void movieClicked(cControl *sender);
 	void helpClicked(cControl *sender);
+	void deleteCharClicked(cControl *sender);
+	void createCharClicked(cControl *sender);
 
 	// These are connected to the uoSocket
 	void socketError(const QString &error);

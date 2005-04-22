@@ -98,6 +98,7 @@ cLoginDialog::cLoginDialog() {
 	shardEntryOffset = 0;
 	statusDialog = 0;
 	statusLabel = 0;
+	selectCharDialog = 0;
 	page = PAGE_LOGIN;
 
 	// Connect to the UoSocket slots
@@ -382,6 +383,12 @@ void cLoginDialog::show(enMenuPage page) {
 			statusDialog->setVisible(false);
 		}
 
+		if (!selectCharDialog) {
+			buildSelectCharGump();
+			container->addControl(selectCharDialog);
+			selectCharDialog->setVisible(false);
+		}
+
 		// Back Button
 		backButton = new cImageButton(586, 445, 0x15a1, 0x15a3);
 		backButton->setStateGump(BS_HOVER, 0x15a2);
@@ -414,6 +421,10 @@ void cLoginDialog::show(enMenuPage page) {
 			backButton->setVisible(false);
 			break;
 
+		case PAGE_SELECTCHAR:
+			selectCharDialog->setVisible(false);
+			break;
+
 		// Status Informations
 		case PAGE_VERIFYING:
 		case PAGE_CONNECTING:
@@ -443,9 +454,49 @@ void cLoginDialog::show(enMenuPage page) {
 			statusLabel->setText("Verifying Account...");
 			statusDialog->setVisible(true);
 			break;
+		case PAGE_SELECTCHAR:
+			selectCharDialog->setVisible(true);
+			break;
 	}
 
 	this->page = page;
+}
+
+void cLoginDialog::buildSelectCharGump() {
+	if (!selectCharDialog) {
+		selectCharDialog = new cContainer();
+		selectCharDialog->setBounds(160, 70, 408, 388);
+
+		// Background
+		cBorderGump *border = new cBorderGump(0xa28);
+		border->setAlign(CA_CLIENT);
+		selectCharDialog->addControl(border);
+
+		// Top Label
+		cAsciiLabel *topLabel = new cAsciiLabel(tr("Character Selection").latin1(), 2, 0x34f, ALIGN_CENTER, false);
+		topLabel->setBounds(0, 40, 408, 200);
+		selectCharDialog->addControl(topLabel);
+
+		cImageButton *button;
+
+		// New Character
+        button = new cImageButton(64, 327, 0x159d, 0x159f);
+		button->setStateGump(BS_HOVER, 0x159e);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(createCharClicked(cControl*)));
+		selectCharDialog->addControl(button);
+
+		// Delete Character
+        button = new cImageButton(282, 327, 0x159a, 0x159c);
+		button->setStateGump(BS_HOVER, 0x159b);
+		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(deleteCharClicked(cControl*)));
+		selectCharDialog->addControl(button);
+	}
+}
+
+void cLoginDialog::deleteCharClicked(cControl *sender) {
+}
+
+void cLoginDialog::createCharClicked(cControl *sender) {
 }
 
 void cLoginDialog::hide() {
