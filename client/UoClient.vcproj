@@ -170,6 +170,9 @@
 				RelativePath=".\include\log.h">
 			</File>
 			<File
+				RelativePath=".\src\main.cpp">
+			</File>
+			<File
 				RelativePath=".\src\mainwindow.cpp">
 			</File>
 			<File
@@ -195,9 +198,6 @@
 			</File>
 			<File
 				RelativePath=".\include\mersennetwister.h">
-			</File>
-			<File
-				RelativePath=".\src\startup_win.cpp">
 			</File>
 			<File
 				RelativePath=".\src\surface.cpp">
