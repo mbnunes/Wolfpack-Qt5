@@ -84,6 +84,7 @@ def taginfo_callback(player, tagnames, response):
 				player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), object.serial, unicode(value), type(value).__name__))
 				object.deltag(tagnames[i])
 				object.settag(name, value)
+				object.resendtooltip()
 	return
 
 def taginfo_response(player, arguments, target):
@@ -198,6 +199,7 @@ def settagResponse(player, arguments, target):
 		else:
 			oldvalue = target.item.gettag(name)
 			change = (type(oldvalue) != type(value)) or (oldvalue != value)
+			player.socket.sysmessage( str(value ))
 
 		if change:
 			player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.item.serial, unicode(value), type(value).__name__))
