@@ -199,7 +199,6 @@ def settagResponse(player, arguments, target):
 		else:
 			oldvalue = target.item.gettag(name)
 			change = (type(oldvalue) != type(value)) or (oldvalue != value)
-			player.socket.sysmessage( str(value ))
 
 		if change:
 			player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.item.serial, unicode(value), type(value).__name__))
