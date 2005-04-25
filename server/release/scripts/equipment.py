@@ -761,6 +761,6 @@ def onUse(player, item):
 
 	for script in scripts[scripts.index("equipment")+1:]:
 		if wolfpack.hasevent(script, EVENT_USE):
-			return False
+			return True
 
 	return True
