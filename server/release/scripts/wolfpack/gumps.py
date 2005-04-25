@@ -35,7 +35,7 @@ class cGump:
 	Defaults to 0.
 	\return Gump object
 	\description Creates the initial gump.
-"""
+	"""
 	def __init__(self, noclose=0, nomove=0, nodispose=0, x=50, y=50, callback=None, args=[], type=0, serial=0):
 		self.layout = []
 		self.texts = []
@@ -52,13 +52,13 @@ class cGump:
 		self.typeid = type
 		self.serialid = serial
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.copy
 	\param gump
 	This is the gump which is to be copied.
 	\return Returns a copy of the gump.
 	\description Takes a gump and returns a copy.
-"""
+	"""
 	def copy(othergump):
 		new = cGump()
 		new.layout = othergump.layout
@@ -74,13 +74,13 @@ class cGump:
 		new.serialid = othergump.serialid
 		return new
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.send
 	\param char
 	The character to receive the gump.
 	\return None
 	\description Sends a gump to a character.
-"""
+	"""
 	# Send the gump
 	def send( self, char ):
 		# There are two possibilities
@@ -115,25 +115,25 @@ class cGump:
 		socket.sendgump( self.x, self.y, 0, 0, 0, self.serialid, self.typeid, self.layout, self.texts, self.callback, self.args )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addRawLayout
 	\param data
 	Unknown
 	\return None
 	\description Unknown
-"""
+	"""
 	# For "rawly" modifying the list
 	def addRawLayout( self, data ):
 		self.layout.append( data )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addRawText
 	\param data
 	Unknown
 	\return None
 	\description Unknown
-"""
+	"""
 	def addRawText( self, data ):
 		# Find the text
 		if data in self.texts:
@@ -143,13 +143,13 @@ class cGump:
 			self.texts.append(data)
 			return len(self.texts) - 1
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.setCallback
 	\param callback
 	The callback function to pass the gump to.
 	\return None
 	\description Defines the callback function for the gump.
-"""
+	"""
 	# Sets the Callback function which is going to be called whenever the user
 	# clicks something on the gump
 	def setCallback( self, callback ):
@@ -159,13 +159,13 @@ class cGump:
 			self.callback = callback
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.setArgs
 	\param arguments
 	ListType of arguments.
 	\return None
 	\description Sets a list of arguments to the gump.
-"""
+	"""
 	# Set the arguments you want to pass to the gump-response handler later on
 	def setArgs( self, args ):
 		if not type( args ) is ListType:
@@ -174,25 +174,25 @@ class cGump:
 			self.args = args
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.setType
 	\param typeid
 	An unique id for the gump.
 	\return None
 	\description Sets the gump-type id, used to close it later on.
-"""
+	"""
 	# Set the Gump-Type (this can be used to close it later on)
 	def setType( self, typeid ):
 		self.typeid = typeid
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.setSerial
 	\param serialid
 	An unique serial id for the gump.
 	\return None.
 	\description Assigns a serial id to the gump, used to insure only one gump of this type is open at once.
-"""
+	"""
 	# Set the Gump-Serial (this can be used to only open one gump of the same type at the same moment)
 	# This will auto-close the first gump
 	# 0 means the Gump will automatically choose a serial
@@ -203,13 +203,13 @@ class cGump:
 			self.serialid = serialid
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addTooltip
 	\param id
 	The cliloc id of the tooltip to be added.
 	\return None
 	\description Appends a tooltip cliloc id to the gump.
-"""
+	"""
 	### Here are the helper functions for adding the layout elements
 	def addTooltip(self, id):
 		if not type(id) is IntType:
@@ -217,29 +217,29 @@ class cGump:
 		self.layout.append('{tooltip %d}' % id)
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.startPage
 	\param page
 	The page number to start on.
 	\return None
 	\description Sets the starting page of the gump.
-"""
+	"""
 	def startPage( self, page ):
 		self.layout.append( "{page %u}" % page )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.startGroup
 	\param groupid
 	The group id to start with.
 	\return None
 	\description Sets the starting group id of the gump.
-"""
+	"""
 	def startGroup( self, groupid ):
 		self.layout.append( "{group %u}" % groupid )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addText
 	\param x
 	The x value of the text alignment.
@@ -251,12 +251,12 @@ class cGump:
 	The hue of the text, defaults to 0x0.
 	\return None
 	\description Appends text to the gump.
-"""
+	"""
 	def addText( self, x, y, text, hue=0 ):
 		self.layout.append("{text %i %i %u %u}" % (x, y, hue, self.addRawText(text)))
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addBackground
 	\param id
 	The artwork id of the background.
@@ -266,12 +266,12 @@ class cGump:
 	The height of the background.
 	\return None
 	\description Adds a background to the gump.
-"""
+	"""
 	def addBackground( self, id, width, height ):
 		self.addResizeGump( 0, 0, id, width, height )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addResizeGump
 	\param x
 	The starting x coordinate of the gump.
@@ -285,12 +285,12 @@ class cGump:
 	The height of the gump.
 	\return None
 	\description Resizes a gump to the given coordinates.
-"""
+	"""
 	def addResizeGump( self, x, y, id, width, height ):
 		self.layout.append( "{resizepic %i %i %u %u %u}" % ( x, y, id, width, height ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addCroppedText
 	\param x
 	The x alignment of the text.
@@ -306,12 +306,12 @@ class cGump:
 	The hue of the text.
 	\return None
 	\description Adds cropped text to the gump.
-"""
+	"""
 	def addCroppedText( self, x, y, width, height, text, hue=0 ):
 		self.layout.append( "{croppedtext %i %i %u %u %u %u}" % ( x, y, width, height, hue, self.addRawText( text ) ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addButton
 	\param x
 	The x alignment of the button.
@@ -325,12 +325,12 @@ class cGump:
 	The return code passed to the callback if the button is pressed.
 	\return None
 	\description Adds a button to the gump.
-"""
+	"""
 	def addButton( self, x, y, up, down, returncode ):
 		self.layout.append( "{button %i %i %u %u 1 0 %u}" % ( x, y, up, down, returncode ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addPageButton
 	\param x
 	The x alignment of the button.
@@ -344,12 +344,12 @@ class cGump:
 	The page to turn to.
 	\return None
 	\description Adds a page button to the gump.
-"""
+	"""
 	def addPageButton( self, x, y, up, down, page ):
 		self.layout.append( "{button %i %i %u %u 0 %u 0}" % ( x, y, up, down, page ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addGump
 	\param x
 	The x alignment of the gump.
@@ -361,13 +361,13 @@ class cGump:
 	The optional hue to apply to the gump artwork, defaults to 0x0.
 	\return None
 	\description Adds a gump object to the gump.
-"""
+	"""
 	def addGump( self, x, y, id, hue=0 ):
 		# A non-colored gump
 		self.layout.append( "{gumppic %i %i %u hue=%u}" % ( x, y, id, hue ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addTiledGump
 	\param x
 	The x alignement of the gump.
@@ -383,13 +383,13 @@ class cGump:
 	The optional hue to apply to the gump artwork, defaults to 0x0.
 	\return None
 	\description Adds a tiled gump object.
-"""
+	"""
 	# Seems NOT hueable!
 	def addTiledGump( self, x, y, width, height, id, hue = 0 ):
 		self.layout.append( "{gumppictiled %i %i %u %u %u hue=%u}" % ( x, y, width, height, id, hue ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addTilePic
 	\param x
 	The x alignment of the gump object.
@@ -399,12 +399,12 @@ class cGump:
 	The artwork id to be used.
 	\return None
 	\description Adds an object's artwork id to the gump.
-"""
+	"""
 	def addTilePic( self, x, y, id ):
 		self.layout.append( "{tilepic %i %i %u}" % ( x, y, id ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addInputField
 	\param x
 	\param y
@@ -415,12 +415,12 @@ class cGump:
 	\param starttext
 	\return None
 	\description Adds an input field to the gump.
-"""
+	"""
 	def addInputField( self, x, y, width, height, hue, id, starttext ):
 		self.layout.append( "{textentry %i %i %u %u %u %u %u}" % ( x, y, width, height, hue, id, self.addRawText( starttext ) ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addCheckbox
 	\param x
 	\param y
@@ -431,7 +431,7 @@ class cGump:
 	Defaults to 0 or False.
 	\return None
 	\description Adds a checkbox to the gump.
-"""
+	"""
 	def addCheckbox( self, x, y, off, on, id, checked = 0 ):
 		# Just to prevent errors
 		if( checked != 0 ):
@@ -439,7 +439,7 @@ class cGump:
 		self.layout.append( "{checkbox %i %i %u %u %u %u}" % ( x, y, off, on, checked, id ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addRadioButton
 	\param x
 	\param y
@@ -450,7 +450,7 @@ class cGump:
 	Defaults to 0 or False.
 	\return None
 	\description Adds a readio button to the gump.
-"""
+	"""
 	def addRadioButton( self, x, y, off, on, id, selected = 0 ):
 		# Just to prevent errors
 		if( selected != 0 ):
@@ -458,7 +458,7 @@ class cGump:
 		self.layout.append( "{radio %i %i %u %u %u %u}" % ( x, y, off, on, selected, id ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addHtmlGump
 	\param x
 	\param y
@@ -471,7 +471,7 @@ class cGump:
 	Defaults to 0 or False.
 	\return None
 	\description Adds an HTML text field to the gump.
-"""
+	"""
 	def addHtmlGump(self, x, y, width, height, html, hasBack = 0, canScroll = 0):
 		if( canScroll != 0 ):
 			canScroll = 1
@@ -480,7 +480,7 @@ class cGump:
 		self.layout.append( "{htmlgump %i %i %u %u %u %u %u}" % ( x, y, width, height, self.addRawText( html ), hasBack, canScroll ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addXmfHtmlGump
 	\param x
 	\param y
@@ -495,7 +495,7 @@ class cGump:
 	Defaults to 0x0.
 	\return None
 	\description Unknown
-"""
+	"""
 	def addXmfHtmlGump( self, x, y, width, height, clilocid, hasBack = 0, canScroll = 0, color = 0 ):
 		if( canScroll != 0 ):
 			canScroll = 1
@@ -508,7 +508,7 @@ class cGump:
 			self.layout.append( "{xmfhtmlgump %i %i %u %u %u %u %u}" % ( x, y, width, height, clilocid, hasBack, canScroll ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.addCheckerTrans
 	\param x
 	\param y
@@ -516,29 +516,29 @@ class cGump:
 	\param height
 	\return None
 	\description Adds a commonly used checkered transparency effect to the gump.
-"""
+	"""
 	def addCheckerTrans( self, x, y, width, height ):
 		self.layout.append( "{checkertrans %i %i %u %u}" % ( x, y, width, height ) )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.add
 	\param line
 	\return None
 	\description Unknown
-"""
+	"""
 	def add( self, line ):
 		self.layout.append( line )
 		return
 
-"""
+	"""
 	\function wolfpack.gumps.cGump.dummyCallback
 	\param player
 	\param args
 	\param choice
 	\return None
 	\description A dummy callback.
-"""
+	"""
 	def dummyCallback( player, args, choice ):
 		pass
 

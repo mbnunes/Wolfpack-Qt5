@@ -419,6 +419,7 @@ def help_response(char, arguments, response):
 		page = Page(char)
 
 	page.serial = char.serial
+	page.pos = char.pos
 	page.message = message
 	page.created = created
 	if 1 in response.switches:
