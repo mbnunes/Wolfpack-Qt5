@@ -45,16 +45,23 @@ def response( char, args, target ):
 	socket = char.socket
 	# Check for a valid target
 	if not target.char:
-		socket.clilocmessage( 0x7A263, "", 0x3b2, 3, char ) # Only living things have anatomies
+		# Only living things have anatomies
+		if target.item:
+			socket.clilocmessage( 0x7A263, "", 0x3b2, 3, target.item )
+			return
+		else:
+			socket.clilocmessage( 0x7A263, "", 0x3b2, 3, char )
 		return
 
 	if target.char == char:
-		socket.clilocmessage( 0x7A264, "", 0x3b2, 3, char ) # You know yourself quite well enough already.
+		# You know yourself quite well enough already.
+		socket.clilocmessage( 0x7A264, "", 0x3b2, 3, char )
 		return
 
 	# You can't reach that (too far away, no los, wrong map)
-	if not char.canreach( target.char, 16 ):
-		socket.clilocmessage( 0x7A265, "", 0x3b2, 3, target.char ) # I am too far away to do that.
+	if char.cansee( target.char ) and not char.canreach( target.char, 10 ):
+		# I am too far away to do that.
+		socket.clilocmessage( 0x7A265, "", 0x3b2, 3 )
 		return
 
 	# Turn toward the char we want to look at
