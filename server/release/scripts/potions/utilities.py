@@ -54,9 +54,14 @@ def consumePotion( char, potion, givebottle=True ):
 		bottle = wolfpack.additem( 'f0e' )
 		if not wolfpack.utilities.tocontainer( bottle, char.getbackpack() ):
 			bottle.update()
-	return True;
+	return True
 
-#Throw the potion at something
+# Fill the potion into potionkeg
+# if potion is stackable, fill all into potionkeg
+def fillPotion( char, keg, potion, givebottle=True ):
+	return consumePotion( char, potion, givebottle=True )
+
+# Throw the potion at something
 def targetpotion( char, args, target ):
 	check = 10
 	socket = char.socket

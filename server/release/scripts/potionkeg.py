@@ -2,7 +2,7 @@
 import wolfpack
 from wolfpack import tr
 import wolfpack.utilities
-from potions.utilities import *
+import potions.utilities
 from potions.consts import *
 
 # Pouring a potion.
@@ -154,10 +154,8 @@ def onDropOnItem( keg, potion ):
 			if kegtype >= 0:
 				if potiontype == kegtype:
 					if kegfill < 100 and kegfill >= 0:
-						kegfill += 1
-						keg.settag( 'kegfill', kegfill )
 						char.soundeffect( 0x240 )
-						consumePotion( char, potion )
+						potions.utilities.fillPotion( char, keg, potion )
 						keg.update()
 						keg.resendtooltip()
 						kegfillmessage( char, kegfill )
@@ -175,10 +173,9 @@ def onDropOnItem( keg, potion ):
 				kegtype = getPotionType( potion )
 				if kegtype >= 0:
 					keg.settag( 'potiontype', kegtype )
-					keg.settag( 'kegfill', 1 )
 					keg.name = POTIONS[ kegtype ][ KEG_NAME ]
 					char.soundeffect( 0x240 )
-					consumePotion( char, potion )
+					potions.utilities.fillPotion( char, keg, potion )
 					keg.update()
 					keg.resendtooltip()
 				return True
