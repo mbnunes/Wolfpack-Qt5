@@ -57,7 +57,6 @@ def consumePotion( char, potion, givebottle=True ):
 	return True
 
 # Fill the potion into potionkeg
-# if potion is stackable, fill all into potionkeg
 def fillPotion( char, keg, potion, givebottle=True ):
 	return consumePotion( char, potion, givebottle=True )
 
