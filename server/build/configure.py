@@ -44,6 +44,7 @@ py_libpath = ""
 py_libfile = ""
 py_incpath = ""
 qt_qmake = ""
+qt_dir = ""
 mysql_libpath = ""
 mysql_libfile = ""
 mysql_incpath = ""
@@ -101,25 +102,41 @@ def findFile( searchpath ):
 	return ( None, None )
 
 
-def checkQt():
+def checkQt(options):
 	sys.stdout.write("Checking QT Configuration:\n")
 	if sys.platform == "win32":
 		QMAKE_EXECUTABLE = "qmake.exe"
 	else:
 		QMAKE_EXECUTABLE = "qmake"
+		
+	global qt_dir
 
-	sys.stdout.write( "  Checking QTDIR enviroment variable:   " )
-	if ( os.environ.has_key("QTDIR") and os.path.exists( os.environ["QTDIR"] ) ):
+	sys.stdout.write( "  Checking QT installation:             " )
+	if not options.qt_dir:
+		if ( os.environ.has_key("QTDIR") and os.path.exists( os.environ["QTDIR"] ) ):
+			qt_dir = os.environ["QTDIR"]
+			sys.stdout.write( green("Pass\n") )
+			sys.stdout.write( "  Found value for QTDIR:                %s\n" % qt_dir )
+		else:
+			sys.stdout.write( red("Fail") + "\n" )
+			sys.stdout.write( "  You must properly setup the QTDIR environment variable or use --qt-directory parameter!\n" )
+			sys.exit();
+	else:
+		qt_dir = options.qt_dir
 		sys.stdout.write( green("Pass\n") )
-		sys.stdout.write( "  Found value for QTDIR:                %s\n" % os.environ["QTDIR"] )
+		sys.stdout.write( "  Manually specified value:             %s\n" % qt_dir )
+		
+	sys.stdout.write( "  Verifying QT installation:            " )
+	if ( qt_dir and qt_dir != "" and os.path.exists( qt_dir ) ):
+		sys.stdout.write( green("Pass\n") )
 	else:
 		sys.stdout.write( red("Fail") + "\n" )
-		sys.stdout.write( "  You must properly setup the QTDIR environment variable!\n" )
+		sys.stdout.write( "  You must properly setup the QTDIR environment variable or use --qt-directory parameter!\n" )
 		sys.exit();
 	sys.stdout.write( "  Searching for qmake executable:       " )
 	temp = ""
 
-	QMAKESEARCHPATH = [ os.path.join(os.path.join(os.environ["QTDIR"], "bin"), QMAKE_EXECUTABLE) ]
+	QMAKESEARCHPATH = [ os.path.join(os.path.join(qt_dir, "bin"), QMAKE_EXECUTABLE) ]
 	for dir in string.split( os.environ["PATH"], os.path.pathsep ):
 		QMAKESEARCHPATH.append( os.path.join( dir, QMAKE_EXECUTABLE ) )
 
@@ -340,16 +357,19 @@ def main():
 	#sys.stdout.write( headerbuffer + green( "****************\n" ) )
 
 	# Check QT Settings
-	checkQt()
+	checkQt (options)
 	# Check Python Settings
 	checkPython( options, pyIncSearch, pyLibSearch )
 
+	sys.stdout.write("Checking MySQL Configuration:           ")
 	if options.enable_mysql:
 		CONFIG += "mysql "
 		DEFINES += "MYSQL_DRIVER "
-		sys.stdout.write("Checking MySQL Configuration:\n")
+		sys.stdout.write(green("Enabled") + "\n")
 		checkMySQL(options)
 		sys.stdout.write("\n")
+	else:
+		sys.stdout.write(yellow("Disabled") + "\n  use --enable-mysql parameter to enable MySQL support\n\n")
 
 
 	if not options.enable_translation:
@@ -360,6 +380,7 @@ def main():
 	global py_libfile
 	global py_incpath
 	global qt_qmake
+	global qt_dir
 	global mysql_libpath
 	global mysql_libfile
 	global mysql_incpath
@@ -382,25 +403,35 @@ def main():
 	MySQL_LIBDIR = buildLibLine( mysql_libpath, mysql_libfile )
 	config.write("MySQL_INCDIR = %s\n" % mysql_incpath )
 	config.write("MySQL_LIBDIR = %s\n" % MySQL_LIBDIR )
+	
+	# QT stuff
+	config.write("QTDIR = %s\n" % qt_dir )
 
 	# if --debug
+	sys.stdout.write("Build mode:                             ")
 	if options.enable_debug:
 		DEFINES += "_DEBUG "
 		CONFIG += "debug warn_on "
+		sys.stdout.write("Debug\n")
 	else:
 		CONFIG += "release warn_off "
+		sys.stdout.write("Release\n")
 
 	# if --aidebug
+	sys.stdout.write("AI debugging:                           ")
 	if options.enable_aidebug:
 		DEFINES += "_AIDEBUG "
-
+		sys.stdout.write("Enabled\n")
+	else:
+		sys.stdout.write("Disabled\n")
+		
 	config.write("DEFINES += %s\n" % DEFINES)
 	config.write("CONFIG += %s\n" % CONFIG)
 	config.write("LIBS += $$PY_LIBDIR $$MySQL_LIBDIR \n")
 	config.write("INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR \n")
 	config.close()
 
-	sys.stdout.write("Generating makefile... ")
+	sys.stdout.write("\nGenerating makefile... ")
 	sys.stdout.flush()
 	os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro"])
 	if options.dsp:
