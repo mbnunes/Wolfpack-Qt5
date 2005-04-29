@@ -19,7 +19,6 @@
 		<id>0xeb6</id>
 		<category>Professions\Musician\Music Stand 2</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xe7d;0xeb8</flip>
 	</item>
 
 	<item id="eb7">
@@ -31,7 +30,6 @@
 		<id>0xeb8</id>
 		<category>Professions\Musician\Music Stand 4</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xe7d;0xeb8</flip>
 	</item>
 
 	<item id="eb9">
@@ -48,14 +46,12 @@
 		<id>0xebb</id>
 		<category>Professions\Musician\Music Stand 7</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xebb;0xebc</flip>
 	</item>
 
 	<item id="ebc">
 		<id>0xebc</id>
 		<category>Professions\Musician\Music Stand 8</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xebb;0xebc</flip>
 	</item>
 
 	<item id="ebd">
@@ -94,6 +90,8 @@
 	<item id="e9d">
 		<id>0xe9d</id>
 		<decay/>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Tambourine</category>
 		<basescripts>equipment,environment</basescripts>
@@ -140,8 +138,8 @@
 	<item id="eb3">
 		<id>0xeb3</id>
 		<decay/>
-		<buyprice>40</buyprice>
-		<sellprice>20</sellprice>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Lute (N/S)</category>
 		<basescripts>equipment,environment</basescripts>
@@ -149,13 +147,9 @@
 	</item>
 
 	<!-- Lute -->
-	<item id="eb4">
+	<item id="eb4" inherit="eb3">
 		<id>0xeb4</id>
-		<decay/>
-		<value>25</value>
 		<category>Professions\Musician\Instruments\Lute (W/E)</category>
-		<basescripts>equipment,environment</basescripts>
-		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
 </definitions>

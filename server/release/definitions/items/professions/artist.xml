@@ -14,42 +14,36 @@
 		<id>0xf65</id>
 		<category>Professions\Artist\Canvas 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xf65;0xf67;0xf69</flip>
 	</item>
 
 	<item id="f66">
 		<id>0xf66</id>
 		<category>Professions\Artist\Canvas 2</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xf66;0xf68;0xf6a</flip>
 	</item>
 
 	<item id="f67">
 		<id>0xf67</id>
 		<category>Professions\Artist\Canvas 3</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xf65;0xf67;0xf69</flip>
 	</item>
 
 	<item id="f68">
 		<id>0xf68</id>
 		<category>Professions\Artist\Canvas 4</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xf66;0xf68;0xf6a</flip>
 	</item>
 
 	<item id="f69">
 		<id>0xf69</id>
 		<category>Professions\Artist\Canvas 5</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xf65;0xf67;0xf69</flip>
 	</item>
 
 	<item id="f6a">
 		<id>0xf6a</id>
 		<category>Professions\Artist\Canvas 6</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xf66;0xf68;0xf6a</flip>
 	</item>
 
 	<item id="f71">
@@ -85,9 +79,11 @@
 	<item id="fbf">
 		<id>0xfbf</id>
 		<category>Professions\Artist\Pen &amp; Ink (W/E)</category>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
 	</item>
 
-	<item id="fc0">
+	<item id="fc0" inherit="fbf">
 		<id>0xfc0</id>
 		<category>Professions\Artist\Pen &amp; Ink (N/S)</category>
 	</item>
@@ -102,6 +98,8 @@
 		<basescripts>equipment,skills.masonry</basescripts>
 		<tag name="remaining_uses" type="int" value="50" />
 		<category>Professions\Artist\Mallet and Chisel</category>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 </definitions>

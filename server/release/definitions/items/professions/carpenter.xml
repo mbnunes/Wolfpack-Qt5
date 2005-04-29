@@ -227,7 +227,6 @@
 		<id>0x1eb1</id>
 		<category>Professions\Carpenter\Barrel Staves 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 
@@ -235,7 +234,6 @@
 		<id>0x1eb2</id>
 		<category>Professions\Carpenter\Barrel Staves 2</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 
@@ -243,7 +241,6 @@
 		<id>0x1eb3</id>
 		<category>Professions\Carpenter\Barrel Staves 3</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 
@@ -251,7 +248,6 @@
 		<id>0x1eb4</id>
 		<category>Professions\Carpenter\Barrel Staves 4</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 
@@ -326,6 +322,7 @@
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
 		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<weight>2.0</weight>
 	</item>
 
@@ -421,6 +418,8 @@
 
 	<item id="1bd7">
 		<id>0x1bd7</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<category>Professions\Carpenter\Board (N/S)</category>
 		<weight>1.0</weight>
 	</item>
@@ -437,10 +436,9 @@
 		<weight>1.0</weight>
 	</item>
 
-	<item id="1bda">
+	<item id="1bda" inherit="1bd7">
 		<id>0x1bda</id>
 		<category>Professions\Carpenter\Board (W/E)</category>
-		<weight>1.0</weight>
 	</item>
 
 	<item id="1bdb">
@@ -457,6 +455,7 @@
 
 	<item id="1bdd">
 		<id>0x1bdd</id>
+		<sellprice>1</sellprice>
 		<category>Professions\Carpenter\Log (W/E)</category>
 		<weight>2.0</weight>
 	</item>
@@ -473,11 +472,9 @@
 		<weight>2.0</weight>
 	</item>
 
-	<item id="1be0">
+	<item id="1be0" inherit="1bdd">
 		<id>0x1be0</id>
-		<weight>2.0</weight>
 		<category>Professions\Carpenter\Log (N/S)</category>
-		<weight>2.0</weight>
 	</item>
 
 	<item id="1be1">

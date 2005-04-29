@@ -332,7 +332,7 @@
 		<baseid>13e3</baseid>
 		<id>0x13e3</id>
 		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
-		<weight>8.0</weight>		
+		<weight>8.0</weight>
 	</item>
 
 	<item id="smiths_hammer_2" inherit="smiths_hammer">

@@ -15,6 +15,7 @@
 		<category>Professions\Thieve\Lockpick (W/E)</category>
 		<basescripts>lockpick</basescripts>
 		<buyprice>12</buyprice>
+		<sellprice>7</sellprice>
 	</item>
 
 	<item id="14fc" inherit="14fb">

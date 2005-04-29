@@ -22,6 +22,9 @@
 	<item id="14eb">
 		<id>0x14eb</id>
 		<category>Professions\Mapmaker\Map (N/S)</category>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="14ec">
@@ -72,14 +75,17 @@
 	<item id="14f5">
 		<id>0x14f5</id>
 		<category>Professions\Mapmaker\Spyglass (W/E)</category>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>3.0</weight>
 	</item>
 
-	<item id="14f6">
+	<item id="14f6" inherit="14f5">
 		<id>0x14f6</id>
 		<category>Professions\Mapmaker\Spyglass (N/S)</category>
 	</item>
 
-	<item id="mapmakers_pen">
+	<item id="mapmakers_pen" inherit="fbf">
 		<id>0xfbf</id>
 		<name>#1044167</name>
 		<category>Professions\Mapmaker\Pen &amp; Ink</category>
@@ -90,6 +96,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="britain" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Britain</category>
 	</item>
 
@@ -98,6 +106,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="britaintoskarabrae" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Britain to Skara Brae</category>
 	</item>
 
@@ -106,6 +116,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="britaintotrinsic" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Britain to Trinsic</category>
 	</item>
 
@@ -114,6 +126,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="bucsden" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Buccaneer's Den</category>
 	</item>
 
@@ -122,6 +136,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="bucsdentomagincia" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Buccaneer's Den to Magincia</category>
 	</item>
 
@@ -130,6 +146,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="bucsdentoocllo" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Buccaneer's Den to Ocllo</category>
 	</item>
 
@@ -138,6 +156,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="jhelom" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Jhelom</category>
 	</item>
 
@@ -146,6 +166,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="magincia" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Magincia</category>
 	</item>
 
@@ -154,6 +176,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="maginciatoocllo" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Magincia to Ocllo</category>
 	</item>
 
@@ -162,6 +186,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="minoc" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Minoc</category>
 	</item>
 
@@ -170,6 +196,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="minoctoyew" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Minoc to Yew</category>
 	</item>
 
@@ -178,6 +206,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="minoctovesper" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Minoc to Vesper</category>
 	</item>
 
@@ -186,6 +216,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="moonglow" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Moonglow</category>
 	</item>
 
@@ -194,6 +226,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="moonglowtonujelm" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Moonglow to Nujelm</category>
 	</item>
 
@@ -202,6 +236,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="nujelm" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Nujelm</category>
 	</item>
 
@@ -210,6 +246,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="nujelmtomagincia" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Nujelm to Magincia</category>
 	</item>
 
@@ -218,6 +256,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="occlo" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Ocllo</category>
 	</item>
 
@@ -226,6 +266,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="serpentshold" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Serpent's Hold</category>
 	</item>
 
@@ -234,6 +276,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="serpentsholdtoocllo" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Serpent's Hold to Ocllo</category>
 	</item>
 
@@ -242,6 +286,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="skarabrae" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Skara Brae</category>
 	</item>
 
@@ -250,6 +296,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="world" />
+		<buyprice>75</buyprice>
+		<sellprice>37</sellprice>
 		<category>Professions\Mapmaker\Maps\The World</category>
 	</item>
 
@@ -258,6 +306,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="trinsic" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Trinsic</category>
 	</item>
 
@@ -266,6 +316,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="trinsictobucsden" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Trinsic to Buccaneer's Den</category>
 	</item>
 
@@ -274,6 +326,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="trinsictojhelom" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Trinsic to Jhelom</category>
 	</item>
 
@@ -282,6 +336,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="vesper" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Vesper</category>
 	</item>
 
@@ -290,6 +346,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="vespertonujelm" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Vesper to Nujelm</category>
 	</item>
 
@@ -298,6 +356,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="yew" />
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
 		<category>Professions\Mapmaker\Maps\Yew</category>
 	</item>
 
@@ -306,6 +366,8 @@
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="yewtobritain" />
+		<buyprice>15</buyprice>
+		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Yew to Britain</category>
 	</item>
 </definitions>

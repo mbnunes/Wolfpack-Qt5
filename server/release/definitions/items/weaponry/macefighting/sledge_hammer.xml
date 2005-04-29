@@ -15,8 +15,8 @@
 		<decay />
 		<nodye />
 		<type>1004</type>
-		<sellprice>4</sellprice>
-		<buyprice>9</buyprice>
+		<sellprice>16</sellprice>
+		<buyprice>32</buyprice>
 		<weight>5.0</weight>
 		<durability><random min="30" max="40" /></durability>
 		<basescripts>skills.blacksmithing,equipment</basescripts>

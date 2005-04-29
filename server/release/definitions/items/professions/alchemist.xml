@@ -599,6 +599,8 @@
 		<tag name="remaining_uses" type="int" value="35" />
 		<category>Professions\Glassblower\Blowpipe</category>
 		<basescripts>equipment,skills.glassblowing</basescripts>
+		<buyprice>21</buyprice>
+		<sellprice>10</sellprice>
 		<weight>4.0</weight>
 	</item>
 

@@ -14,6 +14,7 @@
 		<category>Professions\Tinker\Clock (W/E)</category>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="104c" inherit="104b">
@@ -24,9 +25,10 @@
 	<item id="104d">
 		<id>0x104d</id>
 		<category>Professions\Tinker\Clock Frame (W/E)</category>
+		<weight>2.0</weight>
 	</item>
 
-	<item id="104e">
+	<item id="104e" inherit="104d">
 		<id>0x104e</id>
 		<category>Professions\Tinker\Clock Frame (N/S)</category>
 	</item>
@@ -36,6 +38,7 @@
 		<category>Professions\Tinker\Clock Parts (W/E)</category>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1050" inherit="104f">
@@ -48,6 +51,7 @@
 		<category>Professions\Tinker\Axle with Gears (W/E)</category>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1052" inherit="1051">
@@ -60,6 +64,7 @@
 		<category>Professions\Tinker\Gears (W/E)</category>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1054" inherit="1053">
@@ -72,6 +77,7 @@
 		<category>Professions\Tinker\Hinge (W/E)</category>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1056" inherit="1055">
@@ -83,8 +89,9 @@
 		<id>0x1057</id>
 		<category>Professions\Tinker\Sextant (W/E)</category>
 		<basescripts>environment</basescripts>
-		<buyprice>25</buyprice>
-		<sellprice>12</sellprice>
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1058" inherit="1057">
@@ -96,8 +103,9 @@
 		<id>0x1059</id>
 		<category>Professions\Tinker\Sextant Parts (W/E)</category>
 		<basescripts>environment</basescripts>
-		<buyprice>5</buyprice>
-		<sellprice>2</sellprice>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="105a" inherit="1059">
@@ -110,6 +118,7 @@
 		<category>Professions\Tinker\Axle (W/E)</category>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="105c" inherit="105b">
@@ -122,6 +131,7 @@
 		<category>Professions\Tinker\Springs (W/E)</category>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="105e" inherit="105d">
@@ -194,6 +204,9 @@
 		<category>Professions\Tinker\Tools\Tinker Tools</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.tinkering</basescripts>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="26b1">

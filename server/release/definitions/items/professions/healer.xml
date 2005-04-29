@@ -28,8 +28,8 @@
 		<id>0xe21</id>
 		<category>Professions\Healer\Clean Bandages 1</category>
 		<weight>0.1</weight>
-		<sellprice>1</sellprice>
-		<buyprice>3</buyprice>
+		<sellprice>3</sellprice>
+		<buyprice>6</buyprice>
 		<basescripts>bandages</basescripts>
 	</item>
 

@@ -64,6 +64,7 @@
 		<id>0xe1c</id>
 		<category>Professions\Barkeeper\Backgammon Board 1</category>
 		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 
 	<item id="fa2">
@@ -89,12 +90,15 @@
 	<item id="fa6">
 		<id>0xfa6</id>
 		<category>Professions\Barkeeper\Game Board</category>
+		<buyprice>1</buyprice>
+		<sellprice>0</sellprice>
 	</item>
 
 	<item id="fa7">
 		<id>0xfa7</id>
 		<category>Professions\Barkeeper\Dice and Cup</category>
 		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
 		<basescripts>dicecup</basescripts>
 	</item>
 
@@ -103,7 +107,7 @@
 		<category>Professions\Barkeeper\Chessmen 4</category>
 	</item>
 
-	<item id="fad">
+	<item id="fad" inherit="e1c">
 		<id>0xfad</id>
 		<category>Professions\Barkeeper\Backgammon Board 2</category>
 	</item>
