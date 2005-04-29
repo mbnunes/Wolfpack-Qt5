@@ -170,7 +170,7 @@ def onDropOnItem( keg, potion ):
 					socket.clilocmessage( 502236 )
 					return True
 			else:
-				kegtype = getPotionType( potion )
+				kegtype = potions.utilities.getPotionType( potion )
 				if kegtype >= 0:
 					keg.settag( 'potiontype', kegtype )
 					keg.name = POTIONS[ kegtype ][ KEG_NAME ]
