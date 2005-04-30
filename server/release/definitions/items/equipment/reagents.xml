@@ -11,8 +11,8 @@
 	<!-- Reagents -->
 	<item id="f78">
 		<id>0x0f78</id>
-		<buyprice>12</buyprice>
-		<sellprice>6</sellprice>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Batwing</category>
 		<category>Professions\Mage\Reagents\Batwing</category>
 		<category>Equipment\Reagents\Batwing</category>
@@ -44,8 +44,8 @@
 
 	<item id="f7b">
 		<id>0x0f7b</id>
-		<buyprice>3</buyprice>
-		<sellprice>1</sellprice>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Blood Moss</category>
 		<category>Professions\Mage\Reagents\Blood Moss</category>
 		<category>Equipment\Reagents\Blood Moss</category>

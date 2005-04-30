@@ -12,368 +12,368 @@
 
 	<!-- Bones -->
 	<item id="eca">
-		<id>0xECA</id>
+		<id>0xeca</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 1</category>
 	</item>
 
 	<item id="ecb">
-		<id>0xECB</id>
+		<id>0xecb</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 2</category>
 	</item>
 
 	<item id="ecc">
-		<id>0xECC</id>
+		<id>0xecc</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 3</category>
 	</item>
 
 	<item id="ecd">
-		<id>0xECD</id>
+		<id>0xecd</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 4</category>
 	</item>
 
 	<item id="ece">
-		<id>0xECE</id>
+		<id>0xece</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 5</category>
 	</item>
 
 	<item id="ecf">
-		<id>0xECF</id>
+		<id>0xecf</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 6</category>
 	</item>
 
 	<item id="ed0">
-		<id>0xED0</id>
+		<id>0xed0</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 7</category>
 	</item>
 
 	<item id="ed1">
-		<id>0xED1</id>
+		<id>0xed1</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 8</category>
 	</item>
 
 	<item id="ed2">
-		<id>0xED2</id>
+		<id>0xed2</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bones 9</category>
 	</item>
 
 	<item id="1a01">
-		<id>0x1A01</id>
+		<id>0x1a01</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 1</category>
 	</item>
 
 	<item id="1a02">
-		<id>0x1A02</id>
+		<id>0x1a02</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 2</category>
 	</item>
 
 	<item id="1a03">
-		<id>0x1A03</id>
+		<id>0x1a03</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 3</category>
 	</item>
 
 	<item id="1a04">
-		<id>0x1A04</id>
+		<id>0x1a04</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 4</category>
 	</item>
 
 	<item id="1a05">
-		<id>0x1A05</id>
+		<id>0x1a05</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 5</category>
 	</item>
 
 	<item id="1a06">
-		<id>0x1A06</id>
+		<id>0x1a06</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 6</category>
 	</item>
 
 	<item id="1a09">
-		<id>0x1A09</id>
+		<id>0x1a09</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 7</category>
 	</item>
 
 	<item id="1a0a">
-		<id>0x1A0A</id>
+		<id>0x1a0a</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 8</category>
 	</item>
 
 	<item id="1ad8">
-		<id>0x1AD8</id>
+		<id>0x1ad8</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 1</category>
 	</item>
 
 	<item id="1ad9">
-		<id>0x1AD9</id>
+		<id>0x1ad9</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 2</category>
 	</item>
 
 	<item id="1ada">
-		<id>0x1ADA</id>
+		<id>0x1ada</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 3</category>
 	</item>
 
 	<item id="1adb">
-		<id>0x1ADB</id>
+		<id>0x1adb</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 4</category>
 	</item>
 
 	<item id="1adc">
-		<id>0x1ADC</id>
+		<id>0x1adc</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 5</category>
 	</item>
 
 	<item id="1add">
-		<id>0x1ADD</id>
+		<id>0x1add</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 6</category>
 	</item>
 
 	<item id="1ade">
-		<id>0x1ADE</id>
+		<id>0x1ade</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 7</category>
 	</item>
 
 	<item id="1adf">
-		<id>0x1ADF</id>
+		<id>0x1adf</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pile of Skulls 8</category>
 	</item>
 
 	<item id="1ae0">
-		<id>0x1AE0</id>
+		<id>0x1ae0</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skull 1</category>
 	</item>
 
 	<item id="1ae1">
-		<id>0x1AE1</id>
+		<id>0x1ae1</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skull 2</category>
 	</item>
 
 	<item id="1ae2">
-		<id>0x1AE2</id>
+		<id>0x1ae2</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skull 3</category>
 	</item>
 
 	<item id="1ae3">
-		<id>0x1AE3</id>
+		<id>0x1ae3</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skull 4</category>
 	</item>
 
 	<item id="1ae4">
-		<id>0x1AE4</id>
+		<id>0x1ae4</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skull 5</category>
 	</item>
 
 	<item id="1b09">
-		<id>0x1B09</id>
+		<id>0x1b09</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 1</category>
 	</item>
 
 	<item id="1b0a">
-		<id>0x1B0A</id>
+		<id>0x1b0a</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 2</category>
 	</item>
 
 	<item id="1b0b">
-		<id>0x1B0B</id>
+		<id>0x1b0b</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 3</category>
 	</item>
 
 	<item id="1b0c">
-		<id>0x1B0C</id>
+		<id>0x1b0c</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 4</category>
 	</item>
 
 	<item id="1b0d">
-		<id>0x1B0D</id>
+		<id>0x1b0d</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 5</category>
 	</item>
 
 	<item id="1b0e">
-		<id>0x1B0E</id>
+		<id>0x1b0e</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 6</category>
 	</item>
 
 	<item id="1b0f">
-		<id>0x1B0F</id>
+		<id>0x1b0f</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 7</category>
 	</item>
 
 	<item id="1b10">
-		<id>0x1B10</id>
+		<id>0x1b10</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Pile 8</category>
 	</item>
 
 	<item id="1b11">
-		<id>0x1B11</id>
+		<id>0x1b11</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone 1</category>
 	</item>
 
 	<item id="1b12">
-		<id>0x1B12</id>
+		<id>0x1b12</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone 2</category>
 	</item>
 
 	<item id="1b13">
-		<id>0x1B13</id>
+		<id>0x1b13</id>
 		<nodecay />
 		<category>Dungeon\Bones\Jaw Bone 1</category>
 	</item>
 
 	<item id="1b14">
-		<id>0x1B14</id>
+		<id>0x1b14</id>
 		<nodecay />
 		<category>Dungeon\Bones\Jaw Bone 2</category>
 	</item>
 
 	<item id="1b15">
-		<id>0x1B15</id>
+		<id>0x1b15</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pelvis Bone 1</category>
 	</item>
 
 	<item id="1b16">
-		<id>0x1B16</id>
+		<id>0x1b16</id>
 		<nodecay />
 		<category>Dungeon\Bones\Pelvis Bone 2</category>
 	</item>
 
 	<item id="1b17">
-		<id>0x1B17</id>
+		<id>0x1b17</id>
 		<nodecay />
 		<category>Dungeon\Bones\Rib Cage 1</category>
 	</item>
 
 	<item id="1b18">
-		<id>0x1B18</id>
+		<id>0x1b18</id>
 		<nodecay />
 		<category>Dungeon\Bones\Rib Cage 2</category>
 	</item>
 
 	<item id="1b19">
-		<id>0x1B19</id>
+		<id>0x1b19</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Shards 1</category>
 	</item>
 
 	<item id="1b1a">
-		<id>0x1B1A</id>
+		<id>0x1b1a</id>
 		<nodecay />
 		<category>Dungeon\Bones\Bone Shards 2</category>
 	</item>
 
 	<item id="1b1b">
-		<id>0x1B1B</id>
+		<id>0x1b1b</id>
 		<nodecay />
 		<category>Dungeon\Bones\Spine 1</category>
 	</item>
 
 	<item id="1b1c">
-		<id>0x1B1C</id>
+		<id>0x1b1c</id>
 		<nodecay />
 		<category>Dungeon\Bones\Spine 2</category>
 	</item>
 
 	<item id="1b1d">
-		<id>0x1B1D</id>
+		<id>0x1b1d</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skeleton with Meat 1</category>
 	</item>
 
 	<item id="1b1e">
-		<id>0x1B1E</id>
+		<id>0x1b1e</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skeleton with Meat 2</category>
 	</item>
 
 	<item id="1b7c">
-		<id>0x1B7C</id>
+		<id>0x1b7c</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 9</category>
 	</item>
 
 	<item id="1b7d">
-		<id>0x1B7D</id>
+		<id>0x1b7d</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 10</category>
 	</item>
 
 	<item id="1b7f">
-		<id>0x1B7F</id>
+		<id>0x1b7f</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 11</category>
 	</item>
 
 	<item id="1b80">
-		<id>0x1B80</id>
+		<id>0x1b80</id>
 		<nodecay />
 		<category>Dungeon\Bones\Hanging Skeleton 12</category>
 	</item>
 
 	<item id="1d8e">
-		<id>0x1D8E</id>
+		<id>0x1d8e</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skeleton 1</category>
 	</item>
 
 	<item id="1d8f">
-		<id>0x1D8F</id>
+		<id>0x1d8f</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skeleton 2</category>
 	</item>
 
 	<item id="1d90">
-		<id>0x1D90</id>
+		<id>0x1d90</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skeleton 3</category>
 	</item>
 
 	<item id="1d91">
-		<id>0x1D91</id>
+		<id>0x1d91</id>
 		<nodecay />
 		<category>Dungeon\Bones\Skeleton 4</category>
 	</item>
 
 	<!-- Spiderwebs -->
 	<item id="ee3">
-		<id>0xEE3</id>
+		<id>0xee3</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 1</category>
 		<scripts>spiderweb</scripts>
 		<maxhealth>100</maxhealth>
@@ -381,312 +381,312 @@
 	</item>
 
 	<item id="ee4" inherit="ee3">
-		<id>0xEE4</id>
+		<id>0xee4</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 2</category>
 	</item>
 
 	<item id="ee5" inherit="ee3">
-		<id>0xEE5</id>
+		<id>0xee5</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 3</category>
 	</item>
 
 	<item id="ee6" inherit="ee3">
-		<id>0xEE6</id>
+		<id>0xee6</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 4</category>
 	</item>
 
 
 	<item id="10b8">
-		<id>0x10B8</id>
+		<id>0x10b8</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 1 (1/5)</category>
 	</item>
 
 	<item id="10b9">
-		<id>0x10B9</id>
+		<id>0x10b9</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 1 (2/5)</category>
 	</item>
 
 	<item id="10ba">
-		<id>0x10BA</id>
+		<id>0x10ba</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 1 (3/5)</category>
 	</item>
 
 	<item id="10bb">
-		<id>0x10BB</id>
+		<id>0x10bb</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 1 (4/5)</category>
 	</item>
 
 	<item id="10bc">
-		<id>0x10BC</id>
+		<id>0x10bc</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 1 (5/5)</category>
 	</item>
 
 	<item id="10bd">
-		<id>0x10BD</id>
+		<id>0x10bd</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 2 (1/5)</category>
 	</item>
 
 	<item id="10be">
-		<id>0x10BE</id>
+		<id>0x10be</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 2 (2/5)</category>
 	</item>
 
 	<item id="10bf">
-		<id>0x10BF</id>
+		<id>0x10bf</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 2 (3/5)</category>
 	</item>
 
 	<item id="10c0">
-		<id>0x10C0</id>
+		<id>0x10c0</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 2 (4/5)</category>
 	</item>
 
 	<item id="10c1">
-		<id>0x10C1</id>
+		<id>0x10c1</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 2 (5/5)</category>
 	</item>
 
 	<item id="10c2">
-		<id>0x10C2</id>
+		<id>0x10c2</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 3 (1/4)</category>
 	</item>
 
 	<item id="10c3">
-		<id>0x10C3</id>
+		<id>0x10c3</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 3 (2/4)</category>
 	</item>
 
 	<item id="10c4">
-		<id>0x10C4</id>
+		<id>0x10c4</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 3 (3/4)</category>
 	</item>
 
 	<item id="10c5">
-		<id>0x10C5</id>
+		<id>0x10c5</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 3 (4/4)</category>
 	</item>
 
 	<item id="10c6">
-		<id>0x10C6</id>
+		<id>0x10c6</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 4 (1/4)</category>
 	</item>
 
 	<item id="10c7">
-		<id>0x10C7</id>
+		<id>0x10c7</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 4 (2/4)</category>
 	</item>
 
 	<item id="10c8">
-		<id>0x10C8</id>
+		<id>0x10c8</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 4 (3/4)</category>
 	</item>
 
 	<item id="10c9">
-		<id>0x10C9</id>
+		<id>0x10c9</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 4 (4/4)</category>
 	</item>
 
 	<item id="10ca">
-		<id>0x10CA</id>
+		<id>0x10ca</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 5 (1/4)</category>
 	</item>
 
 	<item id="10cb">
-		<id>0x10CB</id>
+		<id>0x10cb</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 5 (2/4)</category>
 	</item>
 
 	<item id="10cc">
-		<id>0x10CC</id>
+		<id>0x10cc</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 5 (3/4)</category>
 	</item>
 
 	<item id="10cd">
-		<id>0x10CD</id>
+		<id>0x10cd</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 5 (4/4)</category>
 	</item>
 
 	<item id="10ce">
-		<id>0x10CE</id>
+		<id>0x10ce</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 6 (1/4)</category>
 	</item>
 
 	<item id="10cf">
-		<id>0x10CF</id>
+		<id>0x10cf</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 6 (2/4)</category>
 	</item>
 
 	<item id="10d0">
-		<id>0x10D0</id>
+		<id>0x10d0</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 6 (3/4)</category>
 	</item>
 
 	<item id="10d1">
-		<id>0x10D1</id>
+		<id>0x10d1</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Spiderweb 6 (4/4)</category>
 	</item>
 
 	<item id="10d2">
-		<id>0x10D2</id>
+		<id>0x10d2</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Small Web 1</category>
 	</item>
 
 	<item id="10d3">
-		<id>0x10D3</id>
+		<id>0x10d3</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Small Web 2</category>
 	</item>
 
 	<item id="10d4">
-		<id>0x10D4</id>
+		<id>0x10d4</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Small Web 3</category>
 	</item>
 
 	<item id="10d5">
-		<id>0x10D5</id>
+		<id>0x10d5</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Small Web 4</category>
 	</item>
 
 	<item id="10d6">
-		<id>0x10D6</id>
+		<id>0x10d6</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Small Web 5</category>
 	</item>
 
 	<item id="10d7">
-		<id>0x10D7</id>
+		<id>0x10d7</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Small Web 6</category>
 	</item>
 
 	<item id="10d8">
-		<id>0x10D8</id>
+		<id>0x10d8</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Egg Case Web</category>
 	</item>
 
 	<item id="10d9">
-		<id>0x10D9</id>
+		<id>0x10d9</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Egg Case</category>
 	</item>
 
 	<item id="10da">
-		<id>0x10DA</id>
+		<id>0x10da</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Cocoon 1</category>
 	</item>
 
 	<item id="10db">
-		<id>0x10DB</id>
+		<id>0x10db</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Cocoon 2</category>
 	</item>
 
 	<item id="10dc">
-		<id>0x10DC</id>
+		<id>0x10dc</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Cocoon 3</category>
 	</item>
 
 	<item id="10dd">
-		<id>0x10DD</id>
+		<id>0x10dd</id>
 		<nodecay />
 		<category>Dungeon\Spiderwebs\Web (Cocoon)</category>
 	</item>
 
 	<!-- Traps -->
 	<item id="10f5">
-		<id>0x10F5</id>
+		<id>0x10f5</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (small) 1</category>
 	</item>
 
 	<item id="10f6">
-		<id>0x10F6</id>
+		<id>0x10f6</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (small) 2</category>
 	</item>
 
 	<item id="10f7">
-		<id>0x10F7</id>
+		<id>0x10f7</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (small w. fire) 1</category>
 	</item>
 
 	<item id="10f8">
-		<id>0x10F8</id>
+		<id>0x10f8</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (small w. fire) 2</category>
 	</item>
 
 	<item id="10f9">
-		<id>0x10F9</id>
+		<id>0x10f9</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (small w. fire) 3</category>
 	</item>
 
 	<item id="10fa">
-		<id>0x10FA</id>
+		<id>0x10fa</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (small w. fire) 4</category>
 	</item>
 
 	<item id="10fb">
-		<id>0x10FB</id>
+		<id>0x10fb</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (small w. fire) 5</category>
 	</item>
 
 	<item id="10fc">
-		<id>0x10FC</id>
+		<id>0x10fc</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (N/S) 1</category>
 	</item>
 
 	<item id="10fd">
-		<id>0x10FD</id>
+		<id>0x10fd</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (N/S) 2</category>
 	</item>
 
 	<item id="10fe">
-		<id>0x10FE</id>
+		<id>0x10fe</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (N/S; w. fire) 1</category>
 	</item>
 
 	<item id="10ff">
-		<id>0x10FF</id>
+		<id>0x10ff</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (N/S; w. fire) 2</category>
 	</item>
@@ -752,37 +752,37 @@
 	</item>
 
 	<item id="110a">
-		<id>0x110A</id>
+		<id>0x110a</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (W/E) 3</category>
 	</item>
 
 	<item id="110b">
-		<id>0x110B</id>
+		<id>0x110b</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (W/E) 4</category>
 	</item>
 
 	<item id="110c">
-		<id>0x110C</id>
+		<id>0x110c</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (W/E) 5</category>
 	</item>
 
 	<item id="110d">
-		<id>0x110D</id>
+		<id>0x110d</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (W/E) 6</category>
 	</item>
 
 	<item id="110e">
-		<id>0x110E</id>
+		<id>0x110e</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (W/E) 7</category>
 	</item>
 
 	<item id="110f">
-		<id>0x110F</id>
+		<id>0x110f</id>
 		<nodecay />
 		<category>Dungeon\Traps\Stone Face (W/E) 1</category>
 	</item>
@@ -848,37 +848,37 @@
 	</item>
 
 	<item id="111a">
-		<id>0x111A</id>
+		<id>0x111a</id>
 		<nodecay />
 		<category>Dungeon\Traps\Saw Trap (W/E) 5</category>
 	</item>
 
 	<item id="111b">
-		<id>0x111B</id>
+		<id>0x111b</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (N/S) 1</category>
 	</item>
 
 	<item id="111c">
-		<id>0x111C</id>
+		<id>0x111c</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (N/S) 2</category>
 	</item>
 
 	<item id="111d">
-		<id>0x111D</id>
+		<id>0x111d</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (N/S) 3</category>
 	</item>
 
 	<item id="111e">
-		<id>0x111E</id>
+		<id>0x111e</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (N/S) 4</category>
 	</item>
 
 	<item id="111f">
-		<id>0x111F</id>
+		<id>0x111f</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap (N/S) 5</category>
 	</item>
@@ -944,37 +944,37 @@
 	</item>
 
 	<item id="112a">
-		<id>0x112A</id>
+		<id>0x112a</id>
 		<nodecay />
 		<category>Dungeon\Traps\Mushroom 6</category>
 	</item>
 
 	<item id="112b">
-		<id>0x112B</id>
+		<id>0x112b</id>
 		<nodecay />
 		<category>Dungeon\Traps\Dart Trap (N/S; fitting) </category>
 	</item>
 
 	<item id="112c">
-		<id>0x112C</id>
+		<id>0x112c</id>
 		<nodecay />
 		<category>Dungeon\Traps\Dart Trap (N/S) 1</category>
 	</item>
 
 	<item id="112d">
-		<id>0x112D</id>
+		<id>0x112d</id>
 		<nodecay />
 		<category>Dungeon\Traps\Dart Trap (N/S) 2</category>
 	</item>
 
 	<item id="112e">
-		<id>0x112E</id>
+		<id>0x112e</id>
 		<nodecay />
 		<category>Dungeon\Traps\Dart Trap (N/S) 3</category>
 	</item>
 
 	<item id="112f">
-		<id>0x112F</id>
+		<id>0x112f</id>
 		<nodecay />
 		<category>Dungeon\Traps\Dart Trap (W/E; fitting) </category>
 	</item>
@@ -1040,37 +1040,37 @@
 	</item>
 
 	<item id="113a">
-		<id>0x113A</id>
+		<id>0x113a</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 1</category>
 	</item>
 
 	<item id="113b">
-		<id>0x113B</id>
+		<id>0x113b</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 2</category>
 	</item>
 
 	<item id="113c">
-		<id>0x113C</id>
+		<id>0x113c</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 3</category>
 	</item>
 
 	<item id="113d">
-		<id>0x113D</id>
+		<id>0x113d</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 4</category>
 	</item>
 
 	<item id="113e">
-		<id>0x113E</id>
+		<id>0x113e</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 5</category>
 	</item>
 
 	<item id="113f">
-		<id>0x113F</id>
+		<id>0x113f</id>
 		<nodecay />
 		<category>Dungeon\Traps\Axe Trap (W/E; falling) 1</category>
 	</item>
@@ -1136,37 +1136,37 @@
 	</item>
 
 	<item id="114a">
-		<id>0x114A</id>
+		<id>0x114a</id>
 		<nodecay />
 		<category>Dungeon\Traps\Axe Trap (N/E; falling) 1</category>
 	</item>
 
 	<item id="114b">
-		<id>0x114B</id>
+		<id>0x114b</id>
 		<nodecay />
 		<category>Dungeon\Traps\Axe Trap (N/E; falling) 2</category>
 	</item>
 
 	<item id="114c">
-		<id>0x114C</id>
+		<id>0x114c</id>
 		<nodecay />
 		<category>Dungeon\Traps\Axe Trap (N/E; falling) 3</category>
 	</item>
 
 	<item id="114d">
-		<id>0x114D</id>
+		<id>0x114d</id>
 		<nodecay />
 		<category>Dungeon\Traps\Axe Trap (N/E; falling) 4</category>
 	</item>
 
 	<item id="114e">
-		<id>0x114E</id>
+		<id>0x114e</id>
 		<nodecay />
 		<category>Dungeon\Traps\Axe Trap (N/E; falling) 5</category>
 	</item>
 
 	<item id="114f">
-		<id>0x114F</id>
+		<id>0x114f</id>
 		<nodecay />
 		<category>Dungeon\Traps\Axe Trap (N/E; falling) 6</category>
 	</item>
@@ -1214,241 +1214,241 @@
 	</item>
 
 	<item id="119a">
-		<id>0x119A</id>
+		<id>0x119a</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (W/E) 1</category>
 	</item>
 
 	<item id="119b">
-		<id>0x119B</id>
+		<id>0x119b</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (W/E) 2</category>
 	</item>
 
 	<item id="119c">
-		<id>0x119C</id>
+		<id>0x119c</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (W/E) 3</category>
 	</item>
 
 	<item id="119d">
-		<id>0x119D</id>
+		<id>0x119d</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (W/E) 4</category>
 	</item>
 
 	<item id="119e">
-		<id>0x119E</id>
+		<id>0x119e</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (W/E) 5</category>
 	</item>
 
 	<item id="119f">
-		<id>0x119F</id>
+		<id>0x119f</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (W/E) 6</category>
 	</item>
 
 	<item id="11a0">
-		<id>0x11A0</id>
+		<id>0x11a0</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (N/S) 1</category>
 	</item>
 
 	<item id="11a1">
-		<id>0x11A1</id>
+		<id>0x11a1</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (N/S) 2</category>
 	</item>
 
 	<item id="11a2">
-		<id>0x11A2</id>
+		<id>0x11a2</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (N/S) 3</category>
 	</item>
 
 	<item id="11a3">
-		<id>0x11A3</id>
+		<id>0x11a3</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (N/S) 4</category>
 	</item>
 
 	<item id="11a4">
-		<id>0x11A4</id>
+		<id>0x11a4</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (N/S) 5</category>
 	</item>
 
 	<item id="11a5">
-		<id>0x11A5</id>
+		<id>0x11a5</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Spikes (N/S) 6</category>
 	</item>
 
 	<item id="11a6">
-		<id>0x11A6</id>
+		<id>0x11a6</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 11</category>
 	</item>
 
 	<item id="11a7">
-		<id>0x11A7</id>
+		<id>0x11a7</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 12</category>
 	</item>
 
 	<item id="11a8">
-		<id>0x11A8</id>
+		<id>0x11a8</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 13</category>
 	</item>
 
 	<item id="11a9">
-		<id>0x11A9</id>
+		<id>0x11a9</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 14</category>
 	</item>
 
 	<item id="11aa">
-		<id>0x11AA</id>
+		<id>0x11aa</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 15</category>
 	</item>
 
 	<item id="11ab">
-		<id>0x11AB</id>
+		<id>0x11ab</id>
 		<nodecay />
 		<category>Dungeon\Traps\Gas Trap 16</category>
 	</item>
 
 	<item id="11ac">
-		<id>0x11AC</id>
+		<id>0x11ac</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (W/E) 1</category>
 	</item>
 
 	<item id="11ad">
-		<id>0x11AD</id>
+		<id>0x11ad</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (W/E) 2</category>
 	</item>
 
 	<item id="11ae">
-		<id>0x11AE</id>
+		<id>0x11ae</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (W/E) 3</category>
 	</item>
 
 	<item id="11af">
-		<id>0x11AF</id>
+		<id>0x11af</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (W/E) 4</category>
 	</item>
 
 	<item id="11b0">
-		<id>0x11B0</id>
+		<id>0x11b0</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (W/E) 5</category>
 	</item>
 
 	<item id="11b1">
-		<id>0x11B1</id>
+		<id>0x11b1</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (N/S) 1</category>
 	</item>
 
 	<item id="11b2">
-		<id>0x11B2</id>
+		<id>0x11b2</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (N/S) 2</category>
 	</item>
 
 	<item id="11b3">
-		<id>0x11B3</id>
+		<id>0x11b3</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (N/S) 3</category>
 	</item>
 
 	<item id="11b4">
-		<id>0x11B4</id>
+		<id>0x11b4</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (N/S) 4</category>
 	</item>
 
 	<item id="11b5">
-		<id>0x11B5</id>
+		<id>0x11b5</id>
 		<nodecay />
 		<category>Dungeon\Traps\Floor Saw (N/S) 5</category>
 	</item>
 
 	<item id="11b6">
-		<id>0x11B6</id>
+		<id>0x11b6</id>
 		<nodecay />
 		<category>Dungeon\Traps\Boulder Trap 1</category>
 	</item>
 
 	<item id="11b7">
-		<id>0x11B7</id>
+		<id>0x11b7</id>
 		<nodecay />
 		<category>Dungeon\Traps\Boulder Trap 2</category>
 	</item>
 
 	<item id="11b8">
-		<id>0x11B8</id>
+		<id>0x11b8</id>
 		<nodecay />
 		<category>Dungeon\Traps\Boulder Trap 3</category>
 	</item>
 
 	<item id="11b9">
-		<id>0x11B9</id>
+		<id>0x11b9</id>
 		<nodecay />
 		<category>Dungeon\Traps\Boulder Trap 4</category>
 	</item>
 
 	<item id="11ba">
-		<id>0x11BA</id>
+		<id>0x11ba</id>
 		<nodecay />
 		<category>Dungeon\Traps\Boulder Trap 5</category>
 	</item>
 
 	<item id="11bb">
-		<id>0x11BB</id>
+		<id>0x11bb</id>
 		<nodecay />
 		<category>Dungeon\Traps\Boulder Trap 6</category>
 	</item>
 
 	<item id="11c0">
-		<id>0x11C0</id>
+		<id>0x11c0</id>
 		<nodecay />
 		<category>Dungeon\Traps\Crumbling Floor 1</category>
 	</item>
 
 	<item id="11c1">
-		<id>0x11C1</id>
+		<id>0x11c1</id>
 		<nodecay />
 		<category>Dungeon\Traps\Crumbling Floor 2</category>
 	</item>
 
 	<item id="11c2">
-		<id>0x11C2</id>
+		<id>0x11c2</id>
 		<nodecay />
 		<category>Dungeon\Traps\Crumbling Floor 3</category>
 	</item>
 
 	<item id="11c3">
-		<id>0x11C3</id>
+		<id>0x11c3</id>
 		<nodecay />
 		<category>Dungeon\Traps\Crumbling Floor 4</category>
 	</item>
 
 	<item id="11c4">
-		<id>0x11C4</id>
+		<id>0x11c4</id>
 		<nodecay />
 		<category>Dungeon\Traps\Crumbling Floor 5</category>
 	</item>
 
 	<item id="11c5">
-		<id>0x11C5</id>
+		<id>0x11c5</id>
 		<nodecay />
 		<category>Dungeon\Traps\Crumbling Floor 6</category>
 	</item>
@@ -1460,50 +1460,50 @@
 	</item>
 
 	<item id="1d99">
-		<id>0x1D99</id>
+		<id>0x1d99</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap 1</category>
 	</item>
 
 	<item id="1d9a">
-		<id>0x1D9A</id>
+		<id>0x1d9a</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap 2</category>
 	</item>
 
 	<item id="1d9b">
-		<id>0x1D9B</id>
+		<id>0x1d9b</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap 3</category>
 	</item>
 
 	<item id="1d9c">
-		<id>0x1D9C</id>
+		<id>0x1d9c</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap 4</category>
 	</item>
 
 	<item id="1d9d">
-		<id>0x1D9D</id>
+		<id>0x1d9d</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap 5</category>
 	</item>
 
 	<item id="1d9e">
-		<id>0x1D9E</id>
+		<id>0x1d9e</id>
 		<nodecay />
 		<category>Dungeon\Traps\Spike Trap 6</category>
 	</item>
 
 	<!-- Altar -->
 	<item id="120e">
-		<id>0x120E</id>
+		<id>0x120e</id>
 		<nodecay />
 		<category>Dungeon\Altar\Altar 1</category>
 	</item>
 
 	<item id="120f">
-		<id>0x120F</id>
+		<id>0x120f</id>
 		<nodecay />
 		<category>Dungeon\Altar\Altar 2</category>
 	</item>
@@ -1552,181 +1552,181 @@
 
 	<!-- Blood -->
 	<item id="122a">
-		<id>0x122A</id>
+		<id>0x122a</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 1</category>
 		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122b">
-		<id>0x122B</id>
+		<id>0x122b</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 2</category>
 		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122c">
-		<id>0x122C</id>
+		<id>0x122c</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 3</category>
 		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122d">
-		<id>0x122D</id>
+		<id>0x122d</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 4</category>
 		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122e">
-		<id>0x122E</id>
+		<id>0x122e</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 5</category>
 		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="122f">
-		<id>0x122F</id>
+		<id>0x122f</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 6</category>
 		<decaydelay>20</decaydelay> <!-- This property indicates that this item will decay after 20 seconds if it is made decayable -->
 	</item>
 
 	<item id="1cc7">
-		<id>0x1CC7</id>
+		<id>0x1cC7</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 7</category>
 	</item>
 
 	<item id="1cc8">
-		<id>0x1CC8</id>
+		<id>0x1cC8</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 8</category>
 	</item>
 
 	<item id="1cc9">
-		<id>0x1CC9</id>
+		<id>0x1cC9</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 9</category>
 	</item>
 
 	<item id="1cca">
-		<id>0x1CCA</id>
+		<id>0x1cCa</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 10</category>
 	</item>
 
 	<item id="1ccb">
-		<id>0x1CCB</id>
+		<id>0x1cCb</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 11</category>
 	</item>
 
 	<item id="1ccc">
-		<id>0x1CCC</id>
+		<id>0x1cCc</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 12</category>
 	</item>
 
 	<item id="1ccd">
-		<id>0x1CCD</id>
+		<id>0x1cCd</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 13</category>
 	</item>
 
 	<item id="1cce">
-		<id>0x1CCE</id>
+		<id>0x1cCe</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 14</category>
 	</item>
 
 	<item id="1ccf">
-		<id>0x1CCF</id>
+		<id>0x1cCf</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 15</category>
 	</item>
 
 	<item id="1cd0">
-		<id>0x1CD0</id>
+		<id>0x1cd0</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 16</category>
 	</item>
 
 	<item id="1cd1">
-		<id>0x1CD1</id>
+		<id>0x1cd1</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 17</category>
 	</item>
 
 	<item id="1cd2">
-		<id>0x1CD2</id>
+		<id>0x1cd2</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 18</category>
 	</item>
 
 	<item id="1cd3">
-		<id>0x1CD3</id>
+		<id>0x1cd3</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 19</category>
 	</item>
 
 	<item id="1cd4">
-		<id>0x1CD4</id>
+		<id>0x1cd4</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 20</category>
 	</item>
 
 	<item id="1cd5">
-		<id>0x1CD5</id>
+		<id>0x1cd5</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 21</category>
 	</item>
 
 	<item id="1cd6">
-		<id>0x1CD6</id>
+		<id>0x1cd6</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 22</category>
 	</item>
 
 	<item id="1cd7">
-		<id>0x1CD7</id>
+		<id>0x1cd7</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 23</category>
 	</item>
 
 	<item id="1cd8">
-		<id>0x1CD8</id>
+		<id>0x1cd8</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 24</category>
 	</item>
 
 	<item id="1cd9">
-		<id>0x1CD9</id>
+		<id>0x1cd9</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 25</category>
 	</item>
 
 	<item id="1cda">
-		<id>0x1CDA</id>
+		<id>0x1cda</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 26</category>
 	</item>
 
 	<item id="1cdb">
-		<id>0x1CDB</id>
+		<id>0x1cdb</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 27</category>
 	</item>
 
 	<item id="1cdc">
-		<id>0x1CDC</id>
+		<id>0x1cdc</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 28</category>
 	</item>
 
 	<item id="1cf1">
-		<id>0x1CF1</id>
+		<id>0x1cf1</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood 29</category>
 	</item>
@@ -1739,31 +1739,31 @@
 	</item>
 
 	<item id="1d92">
-		<id>0x1D92</id>
+		<id>0x1d92</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood on a Wall 1</category>
 	</item>
 
 	<item id="1d93">
-		<id>0x1D93</id>
+		<id>0x1d93</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood on a Wall 2</category>
 	</item>
 
 	<item id="1d94">
-		<id>0x1D94</id>
+		<id>0x1d94</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood on a Wall 3</category>
 	</item>
 
 	<item id="1d95">
-		<id>0x1D95</id>
+		<id>0x1d95</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood on a Wall 4</category>
 	</item>
 
 	<item id="1d96">
-		<id>0x1D96</id>
+		<id>0x1d96</id>
 		<nodecay />
 		<category>Dungeon\Blood\Blood on a Wall 5</category>
 	</item>
@@ -1818,37 +1818,37 @@
 	</item>
 
 	<item id="124a">
-		<id>0x124A</id>
+		<id>0x124a</id>
 		<nodecay />
 		<category>Dungeon\Torture\Iron Maiden 3</category>
 	</item>
 
 	<item id="124b">
-		<id>0x124B</id>
+		<id>0x124b</id>
 		<nodecay />
 		<category>Dungeon\Torture\Iron Maiden 4</category>
 	</item>
 
 	<item id="124c">
-		<id>0x124C</id>
+		<id>0x124c</id>
 		<nodecay />
 		<category>Dungeon\Torture\Iron Maiden 5</category>
 	</item>
 
 	<item id="124d">
-		<id>0x124D</id>
+		<id>0x124d</id>
 		<nodecay />
 		<category>Dungeon\Torture\Iron Maiden 6</category>
 	</item>
 
 	<item id="124e">
-		<id>0x124E</id>
+		<id>0x124e</id>
 		<nodecay />
 		<category>Dungeon\Torture\Rack 1</category>
 	</item>
 
 	<item id="124f">
-		<id>0x124F</id>
+		<id>0x124f</id>
 		<nodecay />
 		<category>Dungeon\Torture\Rack 2</category>
 	</item>
@@ -1914,37 +1914,37 @@
 	</item>
 
 	<item id="125a">
-		<id>0x125A</id>
+		<id>0x125a</id>
 		<nodecay />
 		<category>Dungeon\Torture\Rack 13</category>
 	</item>
 
 	<item id="125b">
-		<id>0x125B</id>
+		<id>0x125b</id>
 		<nodecay />
 		<category>Dungeon\Torture\Rack 14</category>
 	</item>
 
 	<item id="125c">
-		<id>0x125C</id>
+		<id>0x125c</id>
 		<nodecay />
 		<category>Dungeon\Torture\Rack 15</category>
 	</item>
 
 	<item id="125d">
-		<id>0x125D</id>
+		<id>0x125d</id>
 		<nodecay />
 		<category>Dungeon\Torture\Rack 16</category>
 	</item>
 
 	<item id="125e">
-		<id>0x125E</id>
+		<id>0x125e</id>
 		<nodecay />
 		<category>Dungeon\Torture\Guillotine 5</category>
 	</item>
 
 	<item id="125f">
-		<id>0x125F</id>
+		<id>0x125f</id>
 		<nodecay />
 		<category>Dungeon\Torture\Guillotine 6</category>
 	</item>
@@ -1980,37 +1980,37 @@
 	</item>
 
 	<item id="166d">
-		<id>0x166D</id>
+		<id>0x166d</id>
 		<nodecay />
 		<category>Dungeon\Torture\Shackle </category>
 	</item>
 
 	<item id="126b">
-		<id>0x126B</id>
+		<id>0x126b</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 1</category>
 	</item>
 
 	<item id="126c">
-		<id>0x126C</id>
+		<id>0x126c</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 2</category>
 	</item>
 
 	<item id="126d">
-		<id>0x126D</id>
+		<id>0x126d</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 3</category>
 	</item>
 
 	<item id="126e">
-		<id>0x126E</id>
+		<id>0x126e</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 4</category>
 	</item>
 
 	<item id="126f">
-		<id>0x126F</id>
+		<id>0x126f</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 5</category>
 	</item>
@@ -2076,37 +2076,37 @@
 	</item>
 
 	<item id="127a">
-		<id>0x127A</id>
+		<id>0x127a</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 16</category>
 	</item>
 
 	<item id="127b">
-		<id>0x127B</id>
+		<id>0x127b</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 17</category>
 	</item>
 
 	<item id="127c">
-		<id>0x127C</id>
+		<id>0x127c</id>
 		<nodecay />
 		<category>Dungeon\Torture\Block 18</category>
 	</item>
 
 	<item id="127d">
-		<id>0x127D</id>
+		<id>0x127d</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 1</category>
 	</item>
 
 	<item id="127e">
-		<id>0x127E</id>
+		<id>0x127e</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 2</category>
 	</item>
 
 	<item id="127f">
-		<id>0x127F</id>
+		<id>0x127f</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 3</category>
 	</item>
@@ -2172,37 +2172,37 @@
 	</item>
 
 	<item id="128a">
-		<id>0x128A</id>
+		<id>0x128a</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 14</category>
 	</item>
 
 	<item id="128b">
-		<id>0x128B</id>
+		<id>0x128b</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 15</category>
 	</item>
 
 	<item id="128c">
-		<id>0x128C</id>
+		<id>0x128c</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 16</category>
 	</item>
 
 	<item id="128d">
-		<id>0x128D</id>
+		<id>0x128d</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 17</category>
 	</item>
 
 	<item id="128e">
-		<id>0x128E</id>
+		<id>0x128e</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 18</category>
 	</item>
 
 	<item id="128f">
-		<id>0x128F</id>
+		<id>0x128f</id>
 		<nodecay />
 		<category>Dungeon\Torture\Pillory 19</category>
 	</item>
@@ -2244,2138 +2244,2138 @@
 	</item>
 
 	<item id="166e">
-		<id>0x166E</id>
+		<id>0x166e</id>
 		<nodecay />
 		<category>Dungeon\Torture\Whip 1</category>
 	</item>
 
 	<item id="166f">
-		<id>0x166F</id>
+		<id>0x166f</id>
 		<nodecay />
 		<category>Dungeon\Torture\Whip 2</category>
 	</item>
 
 	<item id="1a07">
-		<id>0x1A07</id>
+		<id>0x1a07</id>
 		<nodecay />
 		<category>Dungeon\Torture\Chains 1</category>
 	</item>
 
 	<item id="1a08">
-		<id>0x1A08</id>
+		<id>0x1a08</id>
 		<nodecay />
 		<category>Dungeon\Torture\Chains 2</category>
 	</item>
 
 	<!-- Bodies and Body Parts -->
 	<item id="1cdd">
-		<id>0x1CDD</id>
+		<id>0x1cdd</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Arm 1</category>
 	</item>
 
 	<item id="1ce5">
-		<id>0x1CE5</id>
+		<id>0x1ce5</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Arm 2</category>
 	</item>
 
 	<!-- This is used for human corpses -->
 	<item id="1da1">
-		<id>0x1DA1</id>
+		<id>0x1da1</id>
 		<category>Dungeon\Bodies and Body Parts\Arm (left) 1</category>
 	</item>
 
 	<item id="1db0">
-		<id>0x1DB0</id>
+		<id>0x1db0</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Arm (left) 2</category>
 	</item>
 
 	<!-- This is used for human corpses -->
 	<item id="1da2">
-		<id>0x1DA2</id>
+		<id>0x1da2</id>
 		<category>Dungeon\Bodies and Body Parts\Arm (right) 1</category>
 	</item>
 
 	<item id="1daf">
-		<id>0x1DAF</id>
+		<id>0x1daf</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Arm (right) 2</category>
 	</item>
 
 	<item id="1cf0">
-		<id>0x1CF0</id>
+		<id>0x1cf0</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Brain </category>
 	</item>
 
 	<item id="1cde">
-		<id>0x1CDE</id>
+		<id>0x1cde</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body 1</category>
 	</item>
 
 	<item id="1ce6">
-		<id>0x1CE6</id>
+		<id>0x1ce6</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body 2</category>
 	</item>
 
 	<item id="1dad">
-		<id>0x1DAD</id>
+		<id>0x1dad</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body 3</category>
 	</item>
 
 	<item id="1d8a">
-		<id>0x1D8A</id>
+		<id>0x1d8a</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body 4</category>
 	</item>
 
 	<item id="1d8b">
-		<id>0x1D8B</id>
+		<id>0x1d8b</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body 5</category>
 	</item>
 
 	<item id="1d8c">
-		<id>0x1D8C</id>
+		<id>0x1d8c</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body 6</category>
 	</item>
 
 	<item id="1d8d">
-		<id>0x1D8D</id>
+		<id>0x1d8d</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body 7</category>
 	</item>
 
 	<item id="1ce3">
-		<id>0x1CE3</id>
+		<id>0x1ce3</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body Part 1</category>
 	</item>
 
 	<item id="1cea">
-		<id>0x1CEA</id>
+		<id>0x1cea</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Body Part 2</category>
 	</item>
 
 	<item id="1cef">
-		<id>0x1CEF</id>
+		<id>0x1cef</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Entrails </category>
 	</item>
 
 	<item id="1ced">
-		<id>0x1CED</id>
+		<id>0x1ced</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Heart </category>
 	</item>
 
 	<item id="1cdf">
-		<id>0x1CDF</id>
+		<id>0x1cdf</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Legs 1</category>
 	</item>
 
 	<item id="1ce4">
-		<id>0x1CE4</id>
+		<id>0x1ce4</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Legs 2</category>
 	</item>
 
 	<item id="1ce7">
-		<id>0x1CE7</id>
+		<id>0x1ce7</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Legs 3</category>
 	</item>
 
 	<item id="1ceb">
-		<id>0x1CEB</id>
+		<id>0x1ceb</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Legs 4</category>
 	</item>
 
 	<!-- This is used for human corpses -->
 	<item id="1da3">
-		<id>0x1DA3</id>
+		<id>0x1da3</id>
 		<category>Dungeon\Bodies and Body Parts\Leg (left) 1</category>
 	</item>
 
 	<item id="1db2">
-		<id>0x1DB2</id>
+		<id>0x1db2</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Leg (left) 2</category>
 	</item>
 
 	<!-- This is used for human corpses -->
 	<item id="1da4">
-		<id>0x1DA4</id>
+		<id>0x1da4</id>
 		<category>Dungeon\Bodies and Body Parts\Leg (right) 1</category>
 	</item>
 
 	<item id="1db1">
-		<id>0x1DB1</id>
+		<id>0x1db1</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Leg (right) 2</category>
 	</item>
 
 	<item id="1cee">
-		<id>0x1CEE</id>
+		<id>0x1cee</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Liver </category>
 	</item>
 
 	<item id="1ce0">
-		<id>0x1CE0</id>
+		<id>0x1ce0</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Torso 1</category>
 	</item>
 
 	<item id="1ce8">
-		<id>0x1CE8</id>
+		<id>0x1ce8</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Torso 2</category>
 	</item>
 
 	<!-- This is used for human corpses -->
 	<item id="1d9f">
-		<id>0x1D9F</id>
+		<id>0x1d9f</id>
 		<category>Dungeon\Bodies and Body Parts\Torso 3</category>
 		<weight>2.0</weight>
 	</item>
 
 	<item id="1ce1">
-		<id>0x1CE1</id>
+		<id>0x1ce1</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Head 1</category>
 	</item>
 
 	<item id="1ce9">
-		<id>0x1CE9</id>
+		<id>0x1ce9</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Head 2</category>
 	</item>
 
 	<!-- This is used for human Corpses -->
 	<item id="1da0">
-		<id>0x1DA0</id>
+		<id>0x1da0</id>
 		<category>Dungeon\Bodies and Body Parts\Head 3</category>
 		<weight>1.0</weight>
 	</item>
 
 	<item id="1dae">
-		<id>0x1DAE</id>
+		<id>0x1dae</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Head 4</category>
 	</item>
 
 	<item id="1ce2">
-		<id>0x1CE2</id>
+		<id>0x1ce2</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Leg 1</category>
 	</item>
 
 	<item id="1cec">
-		<id>0x1CEC</id>
+		<id>0x1cec</id>
 		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Leg 2</category>
 	</item>
 
 	<!-- Blood Pentagramm -->
 	<item id="1cf2">
-		<id>0x1CF2</id>
+		<id>0x1cf2</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 1</category>
 	</item>
 
 	<item id="1cf3">
-		<id>0x1CF3</id>
+		<id>0x1cf3</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 2</category>
 	</item>
 
 	<item id="1cf4">
-		<id>0x1CF4</id>
+		<id>0x1cf4</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 3</category>
 	</item>
 
 	<item id="1cf5">
-		<id>0x1CF5</id>
+		<id>0x1cf5</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 4</category>
 	</item>
 
 	<item id="1cf6">
-		<id>0x1CF6</id>
+		<id>0x1cf6</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 5</category>
 	</item>
 
 	<item id="1cf7">
-		<id>0x1CF7</id>
+		<id>0x1cf7</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 6</category>
 	</item>
 
 	<item id="1cf8">
-		<id>0x1CF8</id>
+		<id>0x1cf8</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 7</category>
 	</item>
 
 	<item id="1cf9">
-		<id>0x1CF9</id>
+		<id>0x1cf9</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 8</category>
 	</item>
 
 	<item id="1cfa">
-		<id>0x1CFA</id>
+		<id>0x1cfa</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 9</category>
 	</item>
 
 	<item id="1cfb">
-		<id>0x1CFB</id>
+		<id>0x1cfb</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 10</category>
 	</item>
 
 	<item id="1cfc">
-		<id>0x1CFC</id>
+		<id>0x1cfc</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 11</category>
 	</item>
 
 	<item id="1cfd">
-		<id>0x1CFD</id>
+		<id>0x1cfd</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 12</category>
 	</item>
 
 	<item id="1cfe">
-		<id>0x1CFE</id>
+		<id>0x1cfe</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 13</category>
 	</item>
 
 	<item id="1cff">
-		<id>0x1CFF</id>
+		<id>0x1cff</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 14</category>
 	</item>
 
 	<item id="1d00">
-		<id>0x1D00</id>
+		<id>0x1d00</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 15</category>
 	</item>
 
 	<item id="1d01">
-		<id>0x1D01</id>
+		<id>0x1d01</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 16</category>
 	</item>
 
 	<item id="1d02">
-		<id>0x1D02</id>
+		<id>0x1d02</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 17</category>
 	</item>
 
 	<item id="1d03">
-		<id>0x1D03</id>
+		<id>0x1d03</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 18</category>
 	</item>
 
 	<item id="1d04">
-		<id>0x1D04</id>
+		<id>0x1d04</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 19</category>
 	</item>
 
 	<item id="1d05">
-		<id>0x1D05</id>
+		<id>0x1d05</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 20</category>
 	</item>
 
 	<item id="1d06">
-		<id>0x1D06</id>
+		<id>0x1d06</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 21</category>
 	</item>
 
 	<item id="1d07">
-		<id>0x1D07</id>
+		<id>0x1d07</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 22</category>
 	</item>
 
 	<item id="1d08">
-		<id>0x1D08</id>
+		<id>0x1d08</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 23</category>
 	</item>
 
 	<item id="1d09">
-		<id>0x1D09</id>
+		<id>0x1d09</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 24</category>
 	</item>
 
 	<item id="1d0a">
-		<id>0x1D0A</id>
+		<id>0x1d0a</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 25</category>
 	</item>
 
 	<item id="1d0b">
-		<id>0x1D0B</id>
+		<id>0x1d0b</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 26</category>
 	</item>
 
 	<item id="1d0c">
-		<id>0x1D0C</id>
+		<id>0x1d0c</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 27</category>
 	</item>
 
 	<item id="1d0d">
-		<id>0x1D0D</id>
+		<id>0x1d0d</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 28</category>
 	</item>
 
 	<item id="1d0e">
-		<id>0x1D0E</id>
+		<id>0x1d0e</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 29</category>
 	</item>
 
 	<item id="1d0f">
-		<id>0x1D0F</id>
+		<id>0x1d0f</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 30</category>
 	</item>
 
 	<item id="1d10">
-		<id>0x1D10</id>
+		<id>0x1d10</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 31</category>
 	</item>
 
 	<item id="1d11">
-		<id>0x1D11</id>
+		<id>0x1d11</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 32</category>
 	</item>
 
 	<item id="1d12">
-		<id>0x1D12</id>
+		<id>0x1d12</id>
 		<nodecay />
 		<category>Dungeon\Blood Pentagramm\Blood 33</category>
 	</item>
 
 	<!-- Coffins -->
 	<item id="1d13">
-		<id>0x1D13</id>
+		<id>0x1d13</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d14">
-		<id>0x1D14</id>
+		<id>0x1d14</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d15">
-		<id>0x1D15</id>
+		<id>0x1d15</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d16">
-		<id>0x1D16</id>
+		<id>0x1d16</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d17">
-		<id>0x1D17</id>
+		<id>0x1d17</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d18">
-		<id>0x1D18</id>
+		<id>0x1d18</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d19">
-		<id>0x1D19</id>
+		<id>0x1d19</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d1a">
-		<id>0x1D1A</id>
+		<id>0x1d1a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d1b">
-		<id>0x1D1B</id>
+		<id>0x1d1b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d1c">
-		<id>0x1D1C</id>
+		<id>0x1d1c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d1d">
-		<id>0x1D1D</id>
+		<id>0x1d1d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d1e">
-		<id>0x1D1E</id>
+		<id>0x1d1e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d1f">
-		<id>0x1D1F</id>
+		<id>0x1d1f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d20">
-		<id>0x1D20</id>
+		<id>0x1d20</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d21">
-		<id>0x1D21</id>
+		<id>0x1d21</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d22">
-		<id>0x1D22</id>
+		<id>0x1d22</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 6</category>
 	</item>
 
 	<item id="1d23">
-		<id>0x1D23</id>
+		<id>0x1d23</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d24">
-		<id>0x1D24</id>
+		<id>0x1d24</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d25">
-		<id>0x1D25</id>
+		<id>0x1d25</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d26">
-		<id>0x1D26</id>
+		<id>0x1d26</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d27">
-		<id>0x1D27</id>
+		<id>0x1d27</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d28">
-		<id>0x1D28</id>
+		<id>0x1d28</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 1</category>
 	</item>
 
 	<item id="1d29">
-		<id>0x1D29</id>
+		<id>0x1d29</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 2</category>
 	</item>
 
 	<item id="1d2a">
-		<id>0x1D2A</id>
+		<id>0x1d2a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 3</category>
 	</item>
 
 	<item id="1d2b">
-		<id>0x1D2B</id>
+		<id>0x1d2b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 4</category>
 	</item>
 
 	<item id="1d2c">
-		<id>0x1D2C</id>
+		<id>0x1d2c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 5</category>
 	</item>
 
 	<item id="1d2d">
-		<id>0x1D2D</id>
+		<id>0x1d2d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 6</category>
 	</item>
 
 	<item id="1d2e">
-		<id>0x1D2E</id>
+		<id>0x1d2e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 7</category>
 	</item>
 
 	<item id="1d2f">
-		<id>0x1D2F</id>
+		<id>0x1d2f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 8</category>
 	</item>
 
 	<item id="1d30">
-		<id>0x1D30</id>
+		<id>0x1d30</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d31">
-		<id>0x1D31</id>
+		<id>0x1d31</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d32">
-		<id>0x1D32</id>
+		<id>0x1d32</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d33">
-		<id>0x1D33</id>
+		<id>0x1d33</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d34">
-		<id>0x1D34</id>
+		<id>0x1d34</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d35">
-		<id>0x1D35</id>
+		<id>0x1d35</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d36">
-		<id>0x1D36</id>
+		<id>0x1d36</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d37">
-		<id>0x1D37</id>
+		<id>0x1d37</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d38">
-		<id>0x1D38</id>
+		<id>0x1d38</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d39">
-		<id>0x1D39</id>
+		<id>0x1d39</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d3a">
-		<id>0x1D3A</id>
+		<id>0x1d3a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d3b">
-		<id>0x1D3B</id>
+		<id>0x1d3b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d3c">
-		<id>0x1D3C</id>
+		<id>0x1d3c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d3d">
-		<id>0x1D3D</id>
+		<id>0x1d3d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d3e">
-		<id>0x1D3E</id>
+		<id>0x1d3e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d3f">
-		<id>0x1D3F</id>
+		<id>0x1d3f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d40">
-		<id>0x1D40</id>
+		<id>0x1d40</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d41">
-		<id>0x1D41</id>
+		<id>0x1d41</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d42">
-		<id>0x1D42</id>
+		<id>0x1d42</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d43">
-		<id>0x1D43</id>
+		<id>0x1d43</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d44">
-		<id>0x1D44</id>
+		<id>0x1d44</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 1</category>
 	</item>
 
 	<item id="1d45">
-		<id>0x1D45</id>
+		<id>0x1d45</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 2</category>
 	</item>
 
 	<item id="1d46">
-		<id>0x1D46</id>
+		<id>0x1d46</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 3</category>
 	</item>
 
 	<item id="1d47">
-		<id>0x1D47</id>
+		<id>0x1d47</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 4</category>
 	</item>
 
 	<item id="1d48">
-		<id>0x1D48</id>
+		<id>0x1d48</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 5</category>
 	</item>
 
 	<item id="1d49">
-		<id>0x1D49</id>
+		<id>0x1d49</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 6</category>
 	</item>
 
 	<item id="1d4a">
-		<id>0x1D4A</id>
+		<id>0x1d4a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 7</category>
 	</item>
 
 	<item id="1d4b">
-		<id>0x1D4B</id>
+		<id>0x1d4b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 8</category>
 	</item>
 
 	<item id="1d4c">
-		<id>0x1D4C</id>
+		<id>0x1d4c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d4d">
-		<id>0x1D4D</id>
+		<id>0x1d4d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d4e">
-		<id>0x1D4E</id>
+		<id>0x1d4e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d4f">
-		<id>0x1D4F</id>
+		<id>0x1d4f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d50">
-		<id>0x1D50</id>
+		<id>0x1d50</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d51">
-		<id>0x1D51</id>
+		<id>0x1d51</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 6</category>
 	</item>
 
 	<item id="1d52">
-		<id>0x1D52</id>
+		<id>0x1d52</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d53">
-		<id>0x1D53</id>
+		<id>0x1d53</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d54">
-		<id>0x1D54</id>
+		<id>0x1d54</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d55">
-		<id>0x1D55</id>
+		<id>0x1d55</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d56">
-		<id>0x1D56</id>
+		<id>0x1d56</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d57">
-		<id>0x1D57</id>
+		<id>0x1d57</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 6</category>
 	</item>
 
 	<item id="1d58">
-		<id>0x1D58</id>
+		<id>0x1d58</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 7</category>
 	</item>
 
 	<item id="1d59">
-		<id>0x1D59</id>
+		<id>0x1d59</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d5a">
-		<id>0x1D5A</id>
+		<id>0x1d5a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d5b">
-		<id>0x1D5B</id>
+		<id>0x1d5b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d5c">
-		<id>0x1D5C</id>
+		<id>0x1d5c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d5d">
-		<id>0x1D5D</id>
+		<id>0x1d5d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d5e">
-		<id>0x1D5E</id>
+		<id>0x1d5e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d5f">
-		<id>0x1D5F</id>
+		<id>0x1d5f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d60">
-		<id>0x1D60</id>
+		<id>0x1d60</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d61">
-		<id>0x1D61</id>
+		<id>0x1d61</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d62">
-		<id>0x1D62</id>
+		<id>0x1d62</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d63">
-		<id>0x1D63</id>
+		<id>0x1d63</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 1</category>
 	</item>
 
 	<item id="1d64">
-		<id>0x1D64</id>
+		<id>0x1d64</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 2</category>
 	</item>
 
 	<item id="1d65">
-		<id>0x1D65</id>
+		<id>0x1d65</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 3</category>
 	</item>
 
 	<item id="1d66">
-		<id>0x1D66</id>
+		<id>0x1d66</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 4</category>
 	</item>
 
 	<item id="1d67">
-		<id>0x1D67</id>
+		<id>0x1d67</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 5</category>
 	</item>
 
 	<item id="1d68">
-		<id>0x1D68</id>
+		<id>0x1d68</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 6</category>
 	</item>
 
 	<item id="1d69">
-		<id>0x1D69</id>
+		<id>0x1d69</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 7</category>
 	</item>
 
 	<item id="1d6a">
-		<id>0x1D6A</id>
+		<id>0x1d6a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 8</category>
 	</item>
 
 	<item id="1d6b">
-		<id>0x1D6B</id>
+		<id>0x1d6b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 9</category>
 	</item>
 
 	<item id="1d6c">
-		<id>0x1D6C</id>
+		<id>0x1d6c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d6d">
-		<id>0x1D6D</id>
+		<id>0x1d6d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d6e">
-		<id>0x1D6E</id>
+		<id>0x1d6e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d6f">
-		<id>0x1D6F</id>
+		<id>0x1d6f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d70">
-		<id>0x1D70</id>
+		<id>0x1d70</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d71">
-		<id>0x1D71</id>
+		<id>0x1d71</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d72">
-		<id>0x1D72</id>
+		<id>0x1d72</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d73">
-		<id>0x1D73</id>
+		<id>0x1d73</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d74">
-		<id>0x1D74</id>
+		<id>0x1d74</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d75">
-		<id>0x1D75</id>
+		<id>0x1d75</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d76">
-		<id>0x1D76</id>
+		<id>0x1d76</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 6</category>
 	</item>
 
 	<item id="1d77">
-		<id>0x1D77</id>
+		<id>0x1d77</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d78">
-		<id>0x1D78</id>
+		<id>0x1d78</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d79">
-		<id>0x1D79</id>
+		<id>0x1d79</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d7a">
-		<id>0x1D7A</id>
+		<id>0x1d7a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d7b">
-		<id>0x1D7B</id>
+		<id>0x1d7b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d7c">
-		<id>0x1D7C</id>
+		<id>0x1d7c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d7d">
-		<id>0x1D7D</id>
+		<id>0x1d7d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d7e">
-		<id>0x1D7E</id>
+		<id>0x1d7e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d7f">
-		<id>0x1D7F</id>
+		<id>0x1d7f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d80">
-		<id>0x1D80</id>
+		<id>0x1d80</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d81">
-		<id>0x1D81</id>
+		<id>0x1d81</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 1</category>
 	</item>
 
 	<item id="1d82">
-		<id>0x1D82</id>
+		<id>0x1d82</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 2</category>
 	</item>
 
 	<item id="1d83">
-		<id>0x1D83</id>
+		<id>0x1d83</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 3</category>
 	</item>
 
 	<item id="1d84">
-		<id>0x1D84</id>
+		<id>0x1d84</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 4</category>
 	</item>
 
 	<item id="1d85">
-		<id>0x1D85</id>
+		<id>0x1d85</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 5</category>
 	</item>
 
 	<item id="1d86">
-		<id>0x1D86</id>
+		<id>0x1d86</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 6</category>
 	</item>
 
 	<item id="1d87">
-		<id>0x1D87</id>
+		<id>0x1d87</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 7</category>
 	</item>
 
 	<item id="1d88">
-		<id>0x1D88</id>
+		<id>0x1d88</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 8</category>
 	</item>
 
 	<item id="1d89">
-		<id>0x1D89</id>
+		<id>0x1d89</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 9</category>
 	</item>
 
 	<item id="1c22">
-		<id>0x1C22</id>
+		<id>0x1c22</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1c23">
-		<id>0x1C23</id>
+		<id>0x1c23</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1c24">
-		<id>0x1C24</id>
+		<id>0x1c24</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1c25">
-		<id>0x1C25</id>
+		<id>0x1c25</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1c26">
-		<id>0x1C26</id>
+		<id>0x1c26</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1c27">
-		<id>0x1C27</id>
+		<id>0x1c27</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 6</category>
 	</item>
 
 	<item id="1c28">
-		<id>0x1C28</id>
+		<id>0x1c28</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1c29">
-		<id>0x1C29</id>
+		<id>0x1c29</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1c2a">
-		<id>0x1C2A</id>
+		<id>0x1c2a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1c2b">
-		<id>0x1C2B</id>
+		<id>0x1c2b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1c2c">
-		<id>0x1C2C</id>
+		<id>0x1c2c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1c2d">
-		<id>0x1C2D</id>
+		<id>0x1c2d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 6</category>
 	</item>
 
 	<item id="1c2e">
-		<id>0x1C2E</id>
+		<id>0x1c2e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 7</category>
 	</item>
 
 	<item id="1c2f">
-		<id>0x1C2F</id>
+		<id>0x1c2f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1c30">
-		<id>0x1C30</id>
+		<id>0x1c30</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1c31">
-		<id>0x1C31</id>
+		<id>0x1c31</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1c32">
-		<id>0x1C32</id>
+		<id>0x1c32</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1c33">
-		<id>0x1C33</id>
+		<id>0x1c33</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1c34">
-		<id>0x1C34</id>
+		<id>0x1c34</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 6</category>
 	</item>
 
 	<item id="1c35">
-		<id>0x1C35</id>
+		<id>0x1c35</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1c36">
-		<id>0x1C36</id>
+		<id>0x1c36</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1c37">
-		<id>0x1C37</id>
+		<id>0x1c37</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1c38">
-		<id>0x1C38</id>
+		<id>0x1c38</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1c39">
-		<id>0x1C39</id>
+		<id>0x1c39</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1c3a">
-		<id>0x1C3A</id>
+		<id>0x1c3a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 6</category>
 	</item>
 
 	<item id="1c3b">
-		<id>0x1C3B</id>
+		<id>0x1c3b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 7</category>
 	</item>
 
 	<item id="1c3c">
-		<id>0x1C3C</id>
+		<id>0x1c3c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 1</category>
 	</item>
 
 	<item id="1c3d">
-		<id>0x1C3D</id>
+		<id>0x1c3d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 2</category>
 	</item>
 
 	<item id="1c3e">
-		<id>0x1C3E</id>
+		<id>0x1c3e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 3</category>
 	</item>
 
 	<item id="1c3f">
-		<id>0x1C3F</id>
+		<id>0x1c3f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 4</category>
 	</item>
 
 	<item id="1c40">
-		<id>0x1C40</id>
+		<id>0x1c40</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 5</category>
 	</item>
 
 	<item id="1c41">
-		<id>0x1C41</id>
+		<id>0x1c41</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 6</category>
 	</item>
 
 	<item id="1c42">
-		<id>0x1C42</id>
+		<id>0x1c42</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 7</category>
 	</item>
 
 	<item id="1c43">
-		<id>0x1C43</id>
+		<id>0x1c43</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 8</category>
 	</item>
 
 	<item id="1c44">
-		<id>0x1C44</id>
+		<id>0x1c44</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 9</category>
 	</item>
 
 	<item id="1c45">
-		<id>0x1C45</id>
+		<id>0x1c45</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 10</category>
 	</item>
 
 	<item id="1c46">
-		<id>0x1C46</id>
+		<id>0x1c46</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 11</category>
 	</item>
 
 	<item id="1c47">
-		<id>0x1C47</id>
+		<id>0x1c47</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 12</category>
 	</item>
 
 	<item id="1c48">
-		<id>0x1C48</id>
+		<id>0x1c48</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 13</category>
 	</item>
 
 	<item id="1c49">
-		<id>0x1C49</id>
+		<id>0x1c49</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 14</category>
 	</item>
 
 	<item id="1c4a">
-		<id>0x1C4A</id>
+		<id>0x1c4a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 1</category>
 	</item>
 
 	<item id="1c4b">
-		<id>0x1C4B</id>
+		<id>0x1c4b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 2</category>
 	</item>
 
 	<item id="1c4c">
-		<id>0x1C4C</id>
+		<id>0x1c4c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 3</category>
 	</item>
 
 	<item id="1c4d">
-		<id>0x1C4D</id>
+		<id>0x1c4d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 4</category>
 	</item>
 
 	<item id="1c4e">
-		<id>0x1C4E</id>
+		<id>0x1c4e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 5</category>
 	</item>
 
 	<item id="1c4f">
-		<id>0x1C4F</id>
+		<id>0x1c4f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 6</category>
 	</item>
 
 	<item id="1c50">
-		<id>0x1C50</id>
+		<id>0x1c50</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 7</category>
 	</item>
 
 	<item id="1c51">
-		<id>0x1C51</id>
+		<id>0x1c51</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 8</category>
 	</item>
 
 	<item id="1c52">
-		<id>0x1C52</id>
+		<id>0x1c52</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 9</category>
 	</item>
 
 	<item id="1c53">
-		<id>0x1C53</id>
+		<id>0x1c53</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 10</category>
 	</item>
 
 	<item id="1c54">
-		<id>0x1C54</id>
+		<id>0x1c54</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 11</category>
 	</item>
 
 	<item id="1c55">
-		<id>0x1C55</id>
+		<id>0x1c55</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 12</category>
 	</item>
 
 	<item id="1c56">
-		<id>0x1C56</id>
+		<id>0x1c56</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 13</category>
 	</item>
 
 	<item id="1c57">
-		<id>0x1C57</id>
+		<id>0x1c57</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 14</category>
 	</item>
 
 	<item id="1c58">
-		<id>0x1C58</id>
+		<id>0x1c58</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 1</category>
 	</item>
 
 	<item id="1c59">
-		<id>0x1C59</id>
+		<id>0x1c59</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 2</category>
 	</item>
 
 	<item id="1c5a">
-		<id>0x1C5A</id>
+		<id>0x1c5a</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 3</category>
 	</item>
 
 	<item id="1c5b">
-		<id>0x1C5B</id>
+		<id>0x1c5b</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 4</category>
 	</item>
 
 	<item id="1c5c">
-		<id>0x1C5C</id>
+		<id>0x1c5c</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 1</category>
 	</item>
 
 	<item id="1c5d">
-		<id>0x1C5D</id>
+		<id>0x1c5d</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 2</category>
 	</item>
 
 	<item id="1c5e">
-		<id>0x1C5E</id>
+		<id>0x1c5e</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 3</category>
 	</item>
 
 	<item id="1c5f">
-		<id>0x1C5F</id>
+		<id>0x1c5f</id>
 		<nodecay />
 		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 4</category>
 	</item>
 
 	<!-- Sarcophagus -->
 	<item id="1c60">
-		<id>0x1C60</id>
+		<id>0x1c60</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 1</category>
 	</item>
 
 	<item id="1c61">
-		<id>0x1C61</id>
+		<id>0x1c61</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 2</category>
 	</item>
 
 	<item id="1c62">
-		<id>0x1C62</id>
+		<id>0x1c62</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 3</category>
 	</item>
 
 	<item id="1c63">
-		<id>0x1C63</id>
+		<id>0x1c63</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 4</category>
 	</item>
 
 	<item id="1c64">
-		<id>0x1C64</id>
+		<id>0x1c64</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 5</category>
 	</item>
 
 	<item id="1c65">
-		<id>0x1C65</id>
+		<id>0x1c65</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 6</category>
 	</item>
 
 	<item id="1c69">
-		<id>0x1C69</id>
+		<id>0x1c69</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 7</category>
 	</item>
 
 	<item id="1c6a">
-		<id>0x1C6A</id>
+		<id>0x1c6a</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 8</category>
 	</item>
 
 	<item id="1c6b">
-		<id>0x1C6B</id>
+		<id>0x1c6b</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 9</category>
 	</item>
 
 	<item id="1c6c">
-		<id>0x1C6C</id>
+		<id>0x1c6c</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 10</category>
 	</item>
 
 	<item id="1c6d">
-		<id>0x1C6D</id>
+		<id>0x1c6d</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 11</category>
 	</item>
 
 	<item id="1c6e">
-		<id>0x1C6E</id>
+		<id>0x1c6e</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 12</category>
 	</item>
 
 	<item id="1c6f">
-		<id>0x1C6F</id>
+		<id>0x1c6f</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 13</category>
 	</item>
 
 	<item id="1c70">
-		<id>0x1C70</id>
+		<id>0x1c70</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 14</category>
 	</item>
 
 	<item id="1c71">
-		<id>0x1C71</id>
+		<id>0x1c71</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 15</category>
 	</item>
 
 	<item id="1c72">
-		<id>0x1C72</id>
+		<id>0x1c72</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 16</category>
 	</item>
 
 	<item id="1c73">
-		<id>0x1C73</id>
+		<id>0x1c73</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 17</category>
 	</item>
 
 	<item id="1c74">
-		<id>0x1C74</id>
+		<id>0x1c74</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 18</category>
 	</item>
 
 	<item id="1c75">
-		<id>0x1C75</id>
+		<id>0x1c75</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 19</category>
 	</item>
 
 	<item id="1c76">
-		<id>0x1C76</id>
+		<id>0x1c76</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 20</category>
 	</item>
 
 	<item id="1c77">
-		<id>0x1C77</id>
+		<id>0x1c77</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 21</category>
 	</item>
 
 	<item id="1c78">
-		<id>0x1C78</id>
+		<id>0x1c78</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 22</category>
 	</item>
 
 	<item id="1c79">
-		<id>0x1C79</id>
+		<id>0x1c79</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 23</category>
 	</item>
 
 	<item id="1c7a">
-		<id>0x1C7A</id>
+		<id>0x1c7a</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 24</category>
 	</item>
 
 	<item id="1c7b">
-		<id>0x1C7B</id>
+		<id>0x1c7b</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 25</category>
 	</item>
 
 	<item id="1c7c">
-		<id>0x1C7C</id>
+		<id>0x1c7c</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 26</category>
 	</item>
 
 	<item id="1c80">
-		<id>0x1C80</id>
+		<id>0x1c80</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 27</category>
 	</item>
 
 	<item id="1c81">
-		<id>0x1C81</id>
+		<id>0x1c81</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 28</category>
 	</item>
 
 	<item id="1c82">
-		<id>0x1C82</id>
+		<id>0x1c82</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 29</category>
 	</item>
 
 	<item id="1c83">
-		<id>0x1C83</id>
+		<id>0x1c83</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 30</category>
 	</item>
 
 	<item id="1c84">
-		<id>0x1C84</id>
+		<id>0x1c84</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 31</category>
 	</item>
 
 	<item id="1c85">
-		<id>0x1C85</id>
+		<id>0x1c85</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 32</category>
 	</item>
 
 	<item id="1c86">
-		<id>0x1C86</id>
+		<id>0x1c86</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 33</category>
 	</item>
 
 	<item id="1c87">
-		<id>0x1C87</id>
+		<id>0x1c87</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 34</category>
 	</item>
 
 	<item id="1c88">
-		<id>0x1C88</id>
+		<id>0x1c88</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 35</category>
 	</item>
 
 	<item id="1c89">
-		<id>0x1C89</id>
+		<id>0x1c89</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 36</category>
 	</item>
 
 	<item id="1c8a">
-		<id>0x1C8A</id>
+		<id>0x1c8a</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 37</category>
 	</item>
 
 	<item id="1c8b">
-		<id>0x1C8B</id>
+		<id>0x1c8b</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 38</category>
 	</item>
 
 	<item id="1c8c">
-		<id>0x1C8C</id>
+		<id>0x1c8c</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 39</category>
 	</item>
 
 	<item id="1c8d">
-		<id>0x1C8D</id>
+		<id>0x1c8d</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 40</category>
 	</item>
 
 	<item id="1c8e">
-		<id>0x1C8E</id>
+		<id>0x1c8e</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 41</category>
 	</item>
 
 	<item id="1c8f">
-		<id>0x1C8F</id>
+		<id>0x1c8f</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (W/E) 42</category>
 	</item>
 
 	<item id="1c90">
-		<id>0x1C90</id>
+		<id>0x1c90</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 1</category>
 	</item>
 
 	<item id="1c91">
-		<id>0x1C91</id>
+		<id>0x1c91</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 2</category>
 	</item>
 
 	<item id="1c92">
-		<id>0x1C92</id>
+		<id>0x1c92</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 3</category>
 	</item>
 
 	<item id="1c93">
-		<id>0x1C93</id>
+		<id>0x1c93</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 4</category>
 	</item>
 
 	<item id="1c94">
-		<id>0x1C94</id>
+		<id>0x1c94</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 5</category>
 	</item>
 
 	<item id="1c95">
-		<id>0x1C95</id>
+		<id>0x1c95</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 6</category>
 	</item>
 
 	<item id="1c99">
-		<id>0x1C99</id>
+		<id>0x1c99</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 7</category>
 	</item>
 
 	<item id="1c9a">
-		<id>0x1C9A</id>
+		<id>0x1c9a</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 8</category>
 	</item>
 
 	<item id="1c9b">
-		<id>0x1C9B</id>
+		<id>0x1c9b</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 9</category>
 	</item>
 
 	<item id="1c9c">
-		<id>0x1C9C</id>
+		<id>0x1c9c</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 10</category>
 	</item>
 
 	<item id="1c9d">
-		<id>0x1C9D</id>
+		<id>0x1c9d</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 11</category>
 	</item>
 
 	<item id="1c9e">
-		<id>0x1C9E</id>
+		<id>0x1c9e</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 12</category>
 	</item>
 
 	<item id="1c9f">
-		<id>0x1C9F</id>
+		<id>0x1c9f</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 13</category>
 	</item>
 
 	<item id="1ca0">
-		<id>0x1CA0</id>
+		<id>0x1ca0</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 14</category>
 	</item>
 
 	<item id="1ca1">
-		<id>0x1CA1</id>
+		<id>0x1ca1</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 15</category>
 	</item>
 
 	<item id="1ca2">
-		<id>0x1CA2</id>
+		<id>0x1ca2</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 16</category>
 	</item>
 
 	<item id="1ca3">
-		<id>0x1CA3</id>
+		<id>0x1ca3</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 17</category>
 	</item>
 
 	<item id="1ca4">
-		<id>0x1CA4</id>
+		<id>0x1ca4</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 18</category>
 	</item>
 
 	<item id="1ca5">
-		<id>0x1CA5</id>
+		<id>0x1ca5</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 19</category>
 	</item>
 
 	<item id="1ca6">
-		<id>0x1CA6</id>
+		<id>0x1ca6</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 20</category>
 	</item>
 
 	<item id="1ca7">
-		<id>0x1CA7</id>
+		<id>0x1ca7</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 21</category>
 	</item>
 
 	<item id="1ca8">
-		<id>0x1CA8</id>
+		<id>0x1ca8</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 22</category>
 	</item>
 
 	<item id="1ca9">
-		<id>0x1CA9</id>
+		<id>0x1ca9</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 23</category>
 	</item>
 
 	<item id="1caa">
-		<id>0x1CAA</id>
+		<id>0x1caa</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 24</category>
 	</item>
 
 	<item id="1cab">
-		<id>0x1CAB</id>
+		<id>0x1cab</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 25</category>
 	</item>
 
 	<item id="1cac">
-		<id>0x1CAC</id>
+		<id>0x1cac</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 26</category>
 	</item>
 
 	<item id="1cb0">
-		<id>0x1CB0</id>
+		<id>0x1cb0</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 27</category>
 	</item>
 
 	<item id="1cb1">
-		<id>0x1CB1</id>
+		<id>0x1cb1</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 28</category>
 	</item>
 
 	<item id="1cb2">
-		<id>0x1CB2</id>
+		<id>0x1cb2</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 29</category>
 	</item>
 
 	<item id="1cb3">
-		<id>0x1CB3</id>
+		<id>0x1cb3</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 30</category>
 	</item>
 
 	<item id="1cb4">
-		<id>0x1CB4</id>
+		<id>0x1cb4</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 31</category>
 	</item>
 
 	<item id="1cb5">
-		<id>0x1CB5</id>
+		<id>0x1cb5</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 32</category>
 	</item>
 
 	<item id="1cb6">
-		<id>0x1CB6</id>
+		<id>0x1cb6</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 33</category>
 	</item>
 
 	<item id="1cb7">
-		<id>0x1CB7</id>
+		<id>0x1cb7</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 34</category>
 	</item>
 
 	<item id="1cb8">
-		<id>0x1CB8</id>
+		<id>0x1cb8</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 35</category>
 	</item>
 
 	<item id="1cb9">
-		<id>0x1CB9</id>
+		<id>0x1cb9</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 36</category>
 	</item>
 
 	<item id="1cba">
-		<id>0x1CBA</id>
+		<id>0x1cba</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 37</category>
 	</item>
 
 	<item id="1cbb">
-		<id>0x1CBB</id>
+		<id>0x1cbb</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 38</category>
 	</item>
 
 	<item id="1cbc">
-		<id>0x1CBC</id>
+		<id>0x1cbc</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 39</category>
 	</item>
 
 	<item id="1cbd">
-		<id>0x1CBD</id>
+		<id>0x1cbd</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 40</category>
 	</item>
 
 	<item id="1cbe">
-		<id>0x1CBE</id>
+		<id>0x1cbe</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 41</category>
 	</item>
 
 	<item id="1cbf">
-		<id>0x1CBF</id>
+		<id>0x1cbf</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus (N/S) 42</category>
 	</item>
 
 	<item id="1c66">
-		<id>0x1C66</id>
+		<id>0x1c66</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 1 (W/E) (1/3)</category>
 	</item>
 
 	<item id="1c67">
-		<id>0x1C67</id>
+		<id>0x1c67</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 1 (W/E) (2/3)</category>
 	</item>
 
 	<item id="1c68">
-		<id>0x1C68</id>
+		<id>0x1c68</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 1 (W/E) (3/3)</category>
 	</item>
 
 	<item id="1c7d">
-		<id>0x1C7D</id>
+		<id>0x1c7d</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 2 (W/E) (1/3)</category>
 	</item>
 
 	<item id="1c7e">
-		<id>0x1C7E</id>
+		<id>0x1c7e</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 2 (W/E) (2/3)</category>
 	</item>
 
 	<item id="1c7f">
-		<id>0x1C7F</id>
+		<id>0x1c7f</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 2 (W/E) (3/3)</category>
 	</item>
 
 	<item id="1c96">
-		<id>0x1C96</id>
+		<id>0x1c96</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 1 (N/S) (1/3)</category>
 	</item>
 
 	<item id="1c97">
-		<id>0x1C97</id>
+		<id>0x1c97</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 1 (N/S) (2/3)</category>
 	</item>
 
 	<item id="1c98">
-		<id>0x1C98</id>
+		<id>0x1c98</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 1 (N/S) (3/3)</category>
 	</item>
 
 	<item id="1cad">
-		<id>0x1CAD</id>
+		<id>0x1cad</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 2 (N/S) (1/3)</category>
 	</item>
 
 	<item id="1cae">
-		<id>0x1CAE</id>
+		<id>0x1cae</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 2 (N/S) (2/3)</category>
 	</item>
 
 	<item id="1caf">
-		<id>0x1CAF</id>
+		<id>0x1caf</id>
 		<nodecay />
 		<category>Dungeon\Sarcophagus\Sarcophagus Lid 2 (N/S) (3/3)</category>
 	</item>
 
 	<!-- Graveyard -->
 	<item id="ed3">
-		<id>0xED3</id>
+		<id>0xed3</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Grave 1</category>
 	</item>
 
 	<item id="edf">
-		<id>0xEDF</id>
+		<id>0xedf</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Grave 2</category>
 	</item>
 
 	<item id="ee0">
-		<id>0xEE0</id>
+		<id>0xee0</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Grave 3</category>
 	</item>
 
 	<item id="ee1">
-		<id>0xEE1</id>
+		<id>0xee1</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Grave 4</category>
 	</item>
 
 	<item id="ee2">
-		<id>0xEE2</id>
+		<id>0xee2</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Grave 5</category>
 	</item>
@@ -4387,67 +4387,67 @@
 	</item>
 
 	<item id="ed4">
-		<id>0xED4</id>
+		<id>0xed4</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 1</category>
 	</item>
 
 	<item id="ed5">
-		<id>0xED5</id>
+		<id>0xed5</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 2</category>
 	</item>
 
 	<item id="ed6">
-		<id>0xED6</id>
+		<id>0xed6</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 3</category>
 	</item>
 
 	<item id="ed7">
-		<id>0xED7</id>
+		<id>0xed7</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 4</category>
 	</item>
 
 	<item id="ed8">
-		<id>0xED8</id>
+		<id>0xed8</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 5</category>
 	</item>
 
 	<item id="ed9">
-		<id>0xED9</id>
+		<id>0xed9</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 6</category>
 	</item>
 
 	<item id="eda">
-		<id>0xEDA</id>
+		<id>0xeda</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 7</category>
 	</item>
 
 	<item id="edb">
-		<id>0xEDB</id>
+		<id>0xedb</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 8</category>
 	</item>
 
 	<item id="edc">
-		<id>0xEDC</id>
+		<id>0xedc</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 9</category>
 	</item>
 
 	<item id="edd">
-		<id>0xEDD</id>
+		<id>0xedd</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 10</category>
 	</item>
 
 	<item id="ede">
-		<id>0xEDE</id>
+		<id>0xede</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 11</category>
 	</item>
@@ -4483,37 +4483,37 @@
 	</item>
 
 	<item id="116a">
-		<id>0x116A</id>
+		<id>0x116a</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 17</category>
 	</item>
 
 	<item id="116b">
-		<id>0x116B</id>
+		<id>0x116b</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 18</category>
 	</item>
 
 	<item id="116c">
-		<id>0x116C</id>
+		<id>0x116c</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 19</category>
 	</item>
 
 	<item id="116d">
-		<id>0x116D</id>
+		<id>0x116d</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 20</category>
 	</item>
 
 	<item id="116e">
-		<id>0x116E</id>
+		<id>0x116e</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 21</category>
 	</item>
 
 	<item id="116f">
-		<id>0x116F</id>
+		<id>0x116f</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 22</category>
 	</item>
@@ -4579,37 +4579,37 @@
 	</item>
 
 	<item id="117a">
-		<id>0x117A</id>
+		<id>0x117a</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 33</category>
 	</item>
 
 	<item id="117b">
-		<id>0x117B</id>
+		<id>0x117b</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 34</category>
 	</item>
 
 	<item id="117c">
-		<id>0x117C</id>
+		<id>0x117c</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 35</category>
 	</item>
 
 	<item id="117d">
-		<id>0x117D</id>
+		<id>0x117d</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 36</category>
 	</item>
 
 	<item id="117e">
-		<id>0x117E</id>
+		<id>0x117e</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 37</category>
 	</item>
 
 	<item id="117f">
-		<id>0x117F</id>
+		<id>0x117f</id>
 		<nodecay />
 		<category>Dungeon\Graveyard\Gravestone 38</category>
 	</item>

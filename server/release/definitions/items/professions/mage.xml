@@ -1003,7 +1003,8 @@
 		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
 		<basescripts>skills.inscription</basescripts>
 		<weight>1.0</weight>
-		<buyprice>8</buyprice>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
 	</item>
 
 	<!-- Blue Moongates -->
