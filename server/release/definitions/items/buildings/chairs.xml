@@ -16,15 +16,11 @@
 		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 1 (N/S)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x459;0x45a</flip>
 	</item>
 
-	<item id="45a">
+	<item id="45a" inherit="459">
 		<id>0x45a</id>
-		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 1 (W/E)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x459;0x45a</flip>
 	</item>
 
 	<!-- Sandstone Bench -->
@@ -33,15 +29,11 @@
 		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 1 (N/S)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x45b;0x45c</flip>
 	</item>
 
-	<item id="45c">
+	<item id="45c" inherit="45b">
 		<id>0x45c</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 1 (W/E)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x45b;0x45c</flip>
 	</item>
 
 	<!-- Stool -->
@@ -69,15 +61,11 @@
 		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 1 (W/E)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb2c;0xb2d</flip>
 	</item>
 
-	<item id="b2d">
+	<item id="b2d" inherit="b2c">
 		<id>0xb2d</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 1 (N/S)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb2c;0xb2d</flip>
 	</item>
 
 	<!-- Wooden Chair -->
@@ -88,33 +76,21 @@
 		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb2e;0xb2f;0xb30;0xb31</flip>
 	</item>
 
-	<item id="b2f">
+	<item id="b2f" inherit="b2e">
 		<id>0xb2f</id>
-		<nodecay />
-		<buyprice>12</buyprice>
-		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 2</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb2e;0xb2f;0xb30;0xb31</flip>
 	</item>
 
-	<item id="b30">
+	<item id="b30" inherit="b2e">
 		<id>0xb30</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 3</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb2e;0xb2f;0xb30;0xb31</flip>
 	</item>
 
-	<item id="b31">
+	<item id="b31" inherit="b2e">
 		<id>0xb31</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 4</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb2e;0xb2f;0xb30;0xb31</flip>
 	</item>
 
 	<!-- Wooden Throne -->
@@ -125,17 +101,11 @@
 		<sellprice>24</sellprice>
 		<category>Decoration\Chairs\Wooden Throne\Wooden Throne 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb32;0xb33</flip>
 	</item>
 
-	<item id="b33">
+	<item id="b33" inherit="b32">
 		<id>0xb33</id>
-		<nodecay />
-		<buyprice>58</buyprice>
-		<sellprice>24</sellprice>
 		<category>Decoration\Chairs\Wooden Throne\Wooden Throne 2</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb32;0xb33</flip>
 	</item>
 
 	<!-- Wooden Chair -->
@@ -146,31 +116,21 @@
 		<sellprice>12</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb4e;0xb4f;0xb50;0xb51</flip>
 	</item>
 
-	<item id="b4f">
+	<item id="b4f" inherit="b4e">
 		<id>0xb4f</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 2</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb4e;0xb4f;0xb50;0xb51</flip>
 	</item>
 
-	<item id="b50">
+	<item id="b50" inherit="b4e">
 		<id>0xb50</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 3</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb4e;0xb4f;0xb50;0xb51</flip>
 	</item>
 
-	<item id="b51">
+	<item id="b51" inherit="b4e">
 		<id>0xb51</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 4</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb4e;0xb4f;0xb50;0xb51</flip>
 	</item>
 
 	<item id="b52">
@@ -180,31 +140,21 @@
 		<sellprice>10</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb52;0xb53;0xb54;0xb55</flip>
 	</item>
 
-	<item id="b53">
+	<item id="b53" inherit="b52">
 		<id>0xb53</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 2</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb52;0xb53;0xb54;0xb55</flip>
 	</item>
 
-	<item id="b54">
+	<item id="b54" inherit="b52">
 		<id>0xb54</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 3</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb52;0xb53;0xb54;0xb55</flip>
 	</item>
 
-	<item id="b55">
+	<item id="b55" inherit="b52">
 		<id>0xb55</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 4</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb52;0xb53;0xb54;0xb55</flip>
 	</item>
 
 	<item id="b56">
@@ -214,31 +164,21 @@
 		<sellprice>8</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb56;0xb57;0xb58;0xb59</flip>
 	</item>
 
-	<item id="b57">
+	<item id="b57" inherit="b56">
 		<id>0xb57</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 2</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb56;0xb57;0xb58;0xb59</flip>
 	</item>
 
-	<item id="b58">
+	<item id="b58" inherit="b56">
 		<id>0xb58</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 3</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb56;0xb57;0xb58;0xb59</flip>
 	</item>
 
-	<item id="b59">
+	<item id="b59" inherit="b56">
 		<id>0xb59</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 4</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb56;0xb57;0xb58;0xb59</flip>
 	</item>
 
 	<item id="b5a">
@@ -248,31 +188,21 @@
 		<sellprice>6</sellprice>
 		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb5a;0xb5b;0xb5c;0xb5d</flip>
 	</item>
 
-	<item id="b5b">
+	<item id="b5b" inherit="b5a">
 		<id>0xb5b</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 2</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5a;0xb5b;0xb5c;0xb5d</flip>
 	</item>
 
-	<item id="b5c">
+	<item id="b5c" inherit="b5a">
 		<id>0xb5c</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 3</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5a;0xb5b;0xb5c;0xb5d</flip>
 	</item>
 
-	<item id="b5d">
+	<item id="b5d" inherit="b5a">
 		<id>0xb5d</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 4</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5a;0xb5b;0xb5c;0xb5d</flip>
 	</item>
 
 	<!-- misc -->
@@ -291,23 +221,16 @@
 		<nodecay />
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (W/E) (1/3)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb5f;0xb60;0xb61;0xb65;0xb66;0xb67</flip>
 	</item>
 
-	<item id="b60">
+	<item id="b60" inherit="b5f">
 		<id>0xb60</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (W/E) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5f;0xb60;0xb61;0xb65;0xb66;0xb67</flip>
 	</item>
 
-	<item id="b61">
+	<item id="b61" inherit="b5f">
 		<id>0xb61</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (W/E) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5f;0xb60;0xb61;0xb65;0xb66;0xb67</flip>
 	</item>
 
 	<!-- Sandstone Bench -->
@@ -316,73 +239,48 @@
 		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (W/E) (1/3)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb62;0xb63;0xb64;0xb68;0xb69;0xb6a</flip>
 	</item>
 
-	<item id="b63">
+	<item id="b63" inherit="b62">
 		<id>0xb63</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (W/E) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb62;0xb63;0xb64;0xb68;0xb69;0xb6a</flip>
 	</item>
 
-	<item id="b64">
+	<item id="b64" inherit="b62">
 		<id>0xb64</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (W/E) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb62;0xb63;0xb64;0xb68;0xb69;0xb6a</flip>
 	</item>
 
 	<!-- Wooden Bench -->
-	<item id="b65">
+	<item id="b65" inherit="b5f">
 		<id>0xb65</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (N/S) (1/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5f;0xb60;0xb61;0xb65;0xb66;0xb67</flip>
 	</item>
 
-	<item id="b66">
+	<item id="b66" inherit="b5f">
 		<id>0xb66</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (N/S) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5f;0xb60;0xb61;0xb65;0xb66;0xb67</flip>
 	</item>
 
-	<item id="b67">
+	<item id="b67" inherit="b5f">
 		<id>0xb67</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (N/S) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb5f;0xb60;0xb61;0xb65;0xb66;0xb67</flip>
 	</item>
 
 	<!-- Sandstone Bench -->
-	<item id="b68">
+	<item id="b68" inherit="b62">
 		<id>0xb68</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (N/S) (1/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb62;0xb63;0xb64;0xb68;0xb69;0xb6a</flip>
 	</item>
 
-	<item id="b69">
+	<item id="b69" inherit="b62">
 		<id>0xb69</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (N/S) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb62;0xb63;0xb64;0xb68;0xb69;0xb6a</flip>
 	</item>
 
-	<item id="b6a">
+	<item id="b6a" inherit="b62">
 		<id>0xb6a</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (N/S) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb62;0xb63;0xb64;0xb68;0xb69;0xb6a</flip>
 	</item>
 
 	<!-- Wall Bench -->
@@ -391,31 +289,21 @@
 		<nodecay />
 		<category>Decoration\Chairs\Wall Bench\Bench (N/S) (1/2)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0xb91;0xb92;0xb93;0xb94</flip>
 	</item>
 
-	<item id="b92">
+	<item id="b92" inherit="b91">
 		<id>0xb92</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wall Bench\Bench (N/S) (2/2)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb91;0xb92;0xb93;0xb94</flip>
 	</item>
 
-	<item id="b93">
+	<item id="b93" inherit="b91">
 		<id>0xb93</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wall Bench\Bench (W/E) (1/2)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb91;0xb92;0xb93;0xb94</flip>
 	</item>
 
-	<item id="b94">
+	<item id="b94" inherit="b91">
 		<id>0xb94</id>
-		<nodecay />
 		<category>Decoration\Chairs\Wall Bench\Bench (N/S) (2/2)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0xb91;0xb92;0xb93;0xb94</flip>
 	</item>
 
 	<!-- Loom Bench -->
@@ -424,15 +312,11 @@
 		<nodecay />
 		<category>Decoration\Chairs\Loom Bench\Loom Bench (W/E)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1049;0x104a</flip>
 	</item>
 
-	<item id="104a">
+	<item id="104a" inherit="1049">
 		<id>0x104a</id>
-		<nodecay />
 		<category>Decoration\Chairs\Loom Bench\Loom Bench (N/S)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1049;0x104a</flip>
 	</item>
 
 	<!-- misc -->
@@ -449,23 +333,16 @@
 		<nodecay />
 		<category>Decoration\Chairs\Stone Bench\Stone Bench 1 (W/E) (1/3)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1207;0x1208;0x1209</flip>
 	</item>
 
-	<item id="1208">
+	<item id="1208" inherit="1207">
 		<id>0x1208</id>
-		<nodecay />
 		<category>Decoration\Chairs\Stone Bench\Stone Bench 1 (W/E) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1207;0x1208;0x1209</flip>
 	</item>
 
-	<item id="1209">
+	<item id="1209" inherit="1207">
 		<id>0x1209</id>
-		<nodecay />
 		<category>Decoration\Chairs\Stone Bench\Stone Bench 1 (W/E) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1207;0x1208;0x1209</flip>
 	</item>
 
 	<!-- Stone Throne -->
@@ -474,31 +351,21 @@
 		<nodecay />
 		<category>Decoration\Chairs\Stone Throne\Stone Throne 1</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1218;0x1219;0x121a;0x121b</flip>
 	</item>
 
-	<item id="1219">
+	<item id="1219" inherit="1218">
 		<id>0x1219</id>
-		<nodecay />
 		<category>Decoration\Chairs\Stone Throne\Stone Throne 2</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1218;0x1219;0x121a;0x121b</flip>
 	</item>
 
-	<item id="121a">
+	<item id="121a" inherit="1218">
 		<id>0x121a</id>
-		<nodecay />
 		<category>Decoration\Chairs\Stone Throne\Stone Throne 3</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1218;0x1219;0x121a;0x121b</flip>
 	</item>
 
-	<item id="121b">
+	<item id="121b" inherit="1218">
 		<id>0x121b</id>
-		<nodecay />
 		<category>Decoration\Chairs\Stone Throne\Stone Throne 4</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1218;0x1219;0x121a;0x121b</flip>
 	</item>
 
 	<item id="1526">
@@ -506,15 +373,11 @@
 		<nodecay />
 		<category>Decoration\Chairs\Stone Throne\Lord British Throne (1/2)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1526;0x1527</flip>
 	</item>
 
-	<item id="1527">
+	<item id="1527" inherit="1526">
 		<id>0x1527</id>
-		<nodecay />
 		<category>Decoration\Chairs\Stone Throne\Lord British Throne (2/2)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1526;0x1527</flip>
 	</item>
 
 	<!-- Sandstone Bench -->
@@ -523,47 +386,31 @@
 		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (N/S) (1/3)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1dc7;0x1dc8;0x1dc9;1dca;0x1dcb;0x1dcc</flip>
 	</item>
 
-	<item id="1dc8">
+	<item id="1dc8" inherit="1dc7">
 		<id>0x1dc8</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (N/S) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dc7;0x1dc8;0x1dc9;1dca;0x1dcb;0x1dcc</flip>
 	</item>
 
-	<item id="1dc9">
+	<item id="1dc9" inherit="1dc7">
 		<id>0x1dc9</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (N/S) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dc7;0x1dc8;0x1dc9;1dca;0x1dcb;0x1dcc</flip>
 	</item>
 
-	<item id="1dca">
+	<item id="1dca" inherit="1dc7">
 		<id>0x1dca</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (W/E) (1/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dc7;0x1dc8;0x1dc9;1dca;0x1dcb;0x1dcc</flip>
 	</item>
 
-	<item id="1dcb">
+	<item id="1dcb" inherit="1dc7">
 		<id>0x1dcb</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (W/E) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dc7;0x1dc8;0x1dc9;1dca;0x1dcb;0x1dcc</flip>
 	</item>
 
-	<item id="1dcc">
+	<item id="1dcc" inherit="1dc7">
 		<id>0x1dcc</id>
-		<nodecay />
 		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (W/E) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dc7;0x1dc8;0x1dc9;1dca;0x1dcb;0x1dcc</flip>
 	</item>
 
 	<!-- Marble Bench -->
@@ -572,47 +419,31 @@
 		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (N/S) (1/3)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x1dcd;0x1dce;0x1dcf;0x1dd0;0x1dd1;0x1dd2</flip>
 	</item>
 
-	<item id="1dce">
+	<item id="1dce" inherit="1dcd">
 		<id>0x1dce</id>
-		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (N/S) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dcd;0x1dce;0x1dcf;0x1dd0;0x1dd1;0x1dd2</flip>
 	</item>
 
-	<item id="1dcf">
+	<item id="1dcf" inherit="1dcd">
 		<id>0x1dcf</id>
-		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (N/S) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dcd;0x1dce;0x1dcf;0x1dd0;0x1dd1;0x1dd2</flip>
 	</item>
 
-	<item id="1dd0">
+	<item id="1dd0" inherit="1dcd">
 		<id>0x1dd0</id>
-		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (W/E) (1/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dcd;0x1dce;0x1dcf;0x1dd0;0x1dd1;0x1dd2</flip>
 	</item>
 
-	<item id="1dd1">
+	<item id="1dd1" inherit="1dcd">
 		<id>0x1dd1</id>
-		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (W/E) (3/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dcd;0x1dce;0x1dcf;0x1dd0;0x1dd1;0x1dd2</flip>
 	</item>
 
-	<item id="1dd2">
+	<item id="1dd2" inherit="1dcd">
 		<id>0x1dd2</id>
-		<nodecay />
 		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (W/E) (2/3)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x1dcd;0x1dce;0x1dcf;0x1dd0;0x1dd1;0x1dd2</flip>
 	</item>
 
 	<!-- Stone Bench -->
@@ -621,15 +452,11 @@
 		<nodecay />
 		<category>Decoration\Chairs\Stone Bench\Stone Bench 2 (N/S)</category>
 		<basescripts>furniture</basescripts>
-		<flip>0x3dff;0x3e00</flip>
 	</item>
 
-	<item id="3e00">
+	<item id="3e00" inherit="3dff">
 		<id>0x3e00</id>
-		<nodecay />
 		<category>Decoration\Chairs\Stone Bench\Stone Bench 2 (W/E)</category>
-		<basescripts>furniture</basescripts>
-		<flip>0x3dff;0x3e00</flip>
 	</item>
 
 </definitions>
