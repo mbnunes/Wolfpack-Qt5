@@ -45,10 +45,9 @@ def rolldice(dice, sides=6, bonus=0):
 			(sides, bonus) = sides.split('-')
 			bonus = - int(bonus)
 			sides = int(sides)
-
 	result = 0
 	for i in range(0, dice):
-		result += random.randint(1, sides)
+		result += random.randint(1, int(sides))
 	result += bonus
 	return result
 
