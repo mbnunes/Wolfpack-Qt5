@@ -167,7 +167,7 @@ class TailorItemAction(CraftItemAction):
 	# Check if we did an exceptional job.
 	#
 	def getexceptionalchance(self, player, arguments):
-		# Only works if this item requires blacksmithing
+		# Only works if this item requires tailoring
 		if not self.skills.has_key(TAILORING):
 			return False
 
@@ -356,7 +356,7 @@ def loadMenu(id, parent = None):
 	menu.sort()
 
 #
-# Load the blacksmithing menu.
+# Load the tailoring menu.
 #
 def onLoad():
 	loadMenu('TAILORING')
