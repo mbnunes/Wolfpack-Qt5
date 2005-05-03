@@ -3497,7 +3497,7 @@ bool cUOSocket::useItem( P_ITEM item )
 	// You can only use equipment on your own char
 	if ( !_player->isGM() && item->container() && item->container()->isChar() && item->container() != _player )
 	{
-		if ( item->layer() != 15 || !Config::instance()->stealingEnabled() )
+		if ( item->layer() != 21 || !Config::instance()->stealingEnabled() )
 		{
 			sysMessage( tr( "You cannot use items equipped by other players." ) );
 			return false;
