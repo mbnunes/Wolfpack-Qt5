@@ -21,6 +21,7 @@
 	<script>housing.security</script>
 
 	<script>ankh</script>
+	<script>test</script>
 	<script>leatherdye</script>
 	<script>specialdye</script>
 	<script>runedye</script>
@@ -258,7 +259,9 @@
 	<script>skills.peacemaking</script>
 	<script>skills.poisoning</script>
 	<script>skills.provocation</script>
+	<script>skills.snooping</script>
 	<script>skills.spiritspeak</script>
+	<script>skills.stealing</script>
 	<script>skills.stealth</script>
 	<script>skills.tailoring</script>
 	<script>skills.tasteid</script>

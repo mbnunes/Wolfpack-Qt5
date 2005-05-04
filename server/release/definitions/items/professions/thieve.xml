@@ -37,12 +37,18 @@
 	<item id="1ec0">
 		<id>0x1ec0</id>
 		<category>Professions\Thieve\Pickpocket Dip</category>
+		<basescripts>pickpocket_dip</basescripts>
 	</item>
 
 	<item id="1ec1">
 		<id>0x1ec1</id>
-		<basescripts>pickpocket_dip</basescripts>
 		<category>Professions\Thieve\Pickpocket Dip (Animated)</category>
+	</item>
+
+	<item id="1ec3">
+		<id>0x1ec3</id>
+		<category>Professions\Thieve\Pickpocket Dip 2</category>
+		<basescripts>pickpocket_dip</basescripts>
 	</item>
 
 </definitions>
