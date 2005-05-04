@@ -15,11 +15,11 @@ from wolfpack.consts import STEALING
 def onUse( char, item ):
 	# If we've already learned all we can > cancel.
 	if( char.skill[ STEALING ] >= 600 ):
-		char.message( "Go search for real people." )
+		char.message( 501830 ) # Your ability to steal cannot improve any further by simply practicing on a dummy.
 		return True
 
 	# Either the dummy is swinging or we aren't assigned to a dummy
-	if( item.id != 0x1EC0 and item.id != 0x1EC3 ):
+	if( item.id != 0x1ec0 and item.id != 0x1ec3 ):
 		return True
 
 	# Distance & Direction checks
@@ -46,10 +46,10 @@ def onUse( char, item ):
 		char.message( "You succeed in your try to pickpocket the dip" )
 		return True
 
-	if( item.id == 0x1EC0 ):
-		item.id = 0x1EC1
-	elif( item.id == 0x1EC3 ):
-		item.id = 0x1EC4
+	if( item.id == 0x1ec0 ):
+		item.id = 0x1ec1
+	elif( item.id == 0x1ec3 ):
+		item.id = 0x1ec4
 
 	# Resend the item to surrounding clients after
 	# changing the id and play the soundeffect
@@ -71,7 +71,7 @@ def resetid( char, args ):
 	item = wolfpack.finditem( args[0] )
 
 	if item :
-		if( item.id == 0x1EC1 or item.id == 0x1EC4 ):
+		if( item.id == 0x1ec1 or item.id == 0x1ec4 ):
 			item.id -= 1
 
 		# Resend the item to surrounding clients after
