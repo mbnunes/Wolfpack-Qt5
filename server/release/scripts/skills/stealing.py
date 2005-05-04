@@ -4,6 +4,7 @@
 #   )).-' {{ ;'`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
+# todo: logging, randomsteal
 
 import wolfpack
 import skills
@@ -101,9 +102,9 @@ def char_steal( char, victim ):
 	if not check( char, victim ):
 		return True
 	# check for vendors
-	#elif isvendor( victim ):
-	#	char.socket.clilocmessage( 1005598 ) # You can't steal from shopkeepers.
-	#	return True
+	elif isvendor( victim ):
+		char.socket.clilocmessage( 1005598 ) # You can't steal from shopkeepers.
+		return True
 	elif isplayervendor( victim ):
 		char.socket.clilocmessage( 502709 ) # You can't steal from vendors.
 		return True
@@ -118,7 +119,7 @@ def char_steal( char, victim ):
 		return True
 	#randomsteal( char, victim )
 	char.socket.sysmessage( tr("That skill has not been implemented yet.") )
-	
+
 # if target is char, random steal
 def randomsteal(char, victim):
 	if not victim:
@@ -179,7 +180,7 @@ def dosteal(char, victim, tosteal):
 	else:
 		iw = int(math.ceil( tosteal.weight ))
 		iw *= 10
-		
+
 		if char.checkskill( STEALING, iw - 22.5, iw + 27.5 ):
 			stolen = tosteal
 	if stolen:
@@ -198,6 +199,7 @@ def caught_func( char, victim, tosteal ):
 	# Human being
 	if victim.npc:
 		victim.say(tr( "Guards! A thief is amoung us!" ), 0x09)
+		# we must implement a callguards method available in python
 	if victim.notoriety( char ) == 0x01:
 		char.criminal()
 	if victim.player and victim.player.socket:
