@@ -185,11 +185,12 @@ def dosteal(char, victim, tosteal):
 			stolen = tosteal
 	if stolen:
 		char.socket.clilocmessage( 502724 ) # You succesfully steal the item.
+		char.log(LOG_TRACE, "Stealing 0x%x ('%s'; %s) from '%s'.\n" % (tosteal.serial, tosteal.getname(), tosteal.amount, victim.serial))
 		char.getbackpack().additem(stolen)
 		stolen.update()
 	else:
 		char.socket.clilocmessage( 502723 ) # You fail to steal the item.
-		
+
 	caught = char.skill[STEALING] < random.randint(0, 1000 )
 	if caught:
 		caught_func(char, victim, tosteal)

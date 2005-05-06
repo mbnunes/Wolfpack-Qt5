@@ -43,6 +43,11 @@ ORES = {
 	'valorite': [990, 495, 1007080, 0x8ab, 2, '#1042852', '#1042691']
 }
 
+def canminesand(char):
+	if char.hastag('sandmining'):
+		return True
+	return False
+
 def mining( char, pos, tool, sand = False ):
 	if not tool:
 		return False
@@ -157,7 +162,7 @@ def response( char, args, target ):
 		map = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
 		if ismountainorcave( map['id'] ):
 			mining( char, target.pos, tool, sand = False )
-		elif issand( map['id'] ) and char.hastag('sandmining'):
+		elif issand( map['id'] ) and canminesand(char):
 			mining( char, target.pos, tool, sand = True )
 		else:
 			# You can't mine there.
@@ -242,7 +247,9 @@ def domining(char, args):
 	# Smallest ore only
 	elif resourcecount == 1 or resourcecount == 2:
 		successmining(char, veingem, resname, 1)
+	wearout(char, tool)
 
+def wearout(char, tool):
 	# Remaining Tool Uses
 	if not tool.hastag('remaining_uses'):
 		tool.settag('remaining_uses', tool.health )
@@ -253,8 +260,7 @@ def domining(char, args):
 			tool.resendtooltip()
 		else:
 			tool.delete()
-			socket.clilocmessage(1044038) # You have worn out your tool!
-
+			char.socket.clilocmessage(1044038) # You have worn out your tool!
 	return True
 
 #Sound effect
@@ -295,20 +301,7 @@ def dosandmining(char, args):
 		successsandmining(char, veingem)
 	else:
 		char.socket.clilocmessage(1044630)
-
-	# Remaining Tool Uses
-	if not tool.hastag('remaining_uses'):
-		tool.settag('remaining_uses', tool.health)
-	else:
-		remaining_uses = int(tool.gettag('remaining_uses'))
-		if remaining_uses > 1:
-			tool.settag('remaining_uses', remaining_uses - 1)
-			tool.resendtooltip()
-		else:
-			tool.delete()
-			socket.clilocmessage(1044038) # You have worn out your tool!
-
-	return True
+	wearout(char, tool)
 
 def successsandmining(char, gem):
 	sand = wolfpack.additem("sand")
