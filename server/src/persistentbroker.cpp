@@ -84,6 +84,11 @@ bool cPersistentBroker::openDriver( const QString& driver )
 		d->connection = new cSQLiteDriver();
 		d->sqlite = true;
 	}
+	else if ( driver == "sqlite3" )
+	{
+		d->connection = new cSQLite3Driver();
+		d->sqlite = true;
+	}
 	else if ( driver == "mysql" )
 	{
 #ifdef MYSQL_DRIVER

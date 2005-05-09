@@ -39,6 +39,7 @@
 #include <qptrlist.h>
 #include <stdlib.h>
 #include <sqlite.h>
+#include <sqlite3.h>
 
 #ifdef MYSQL_DRIVER
 # ifdef _MSC_VER
@@ -87,61 +88,6 @@ void cDBDriver::setActiveConnection( int )
 /*****************************************************************************
   cDBResult member functions
  *****************************************************************************/
-
-// Fetchs a new row, returns false if there is no new row
-bool cDBResult::fetchrow()
-{
-	if ( !_result )
-		return false;
-
-	if ( mysql_type )
-	{
-#ifdef MYSQL_DRIVER
-		_row = mysql_fetch_row( ( st_mysql_res * ) _result );
-		return ( _row != 0 );
-#endif
-	}
-	else
-	{
-		int count;
-		const char** columns;
-
-		return ( sqlite_step( ( sqlite_vm * ) _result, &count, ( const char * ** ) &_row, &columns ) == SQLITE_ROW );
-	}
-	return false;
-}
-
-// Call this to free the query
-void cDBResult::free()
-{
-	if ( mysql_type )
-	{
-#ifdef MYSQL_DRIVER
-		mysql_free_result( ( st_mysql_res * ) _result );
-#endif
-	}
-	else
-	{
-		char* error;
-		if ( sqlite_finalize( ( sqlite_vm * ) _result, &error ) != SQLITE_OK )
-		{
-			if ( error )
-			{
-				QString err( error );
-				sqlite_freemem( error );
-				throw err;
-			}
-			else
-			{
-				throw QString( "Unknown SQLite error while finalizing query." );
-			}
-		}
-	}
-
-	_result = 0;
-	_row = 0;
-	_connection = 0;
-}
 
 // Get the data for the current row
 char** cDBResult::data() const
@@ -308,6 +254,40 @@ const char* cDBResult::className() const
   cSQLiteDriver member functions
  *****************************************************************************/
 
+// Fetchs a new row, returns false if there is no new row
+bool cSQLiteDriver::fetchrow ( cDBResult& result ) const
+{
+	if ( !result._result )
+		return false;
+
+	int count;
+	const char** columns;
+
+	return ( sqlite_step( ( sqlite_vm * ) result._result, &count, ( const char * ** ) &result._row, &columns ) == SQLITE_ROW );
+}
+
+void cSQLiteDriver::freeDBResult ( cDBResult& result ) const
+{
+	char* error;
+	if ( sqlite_finalize( ( sqlite_vm * ) result._result, &error ) != SQLITE_OK )
+	{
+		if ( error )
+		{
+			QString err( error );
+			sqlite_freemem( error );
+			throw err;
+		}
+		else
+		{
+			throw QString( "Unknown SQLite error while finalizing query." );
+		}
+	}
+
+	result._result = 0;
+	result._row = 0;
+	result._connection = 0;
+}
+
 int cSQLiteDriver::lastInsertId()
 {
 	return sqlite_last_insert_rowid( ( sqlite * ) connection );
@@ -394,10 +374,134 @@ cDBResult cSQLiteDriver::query( const QString& query )
 		}
 	}
 
-	return cDBResult( result, connection, false );
+	return cDBResult( result, connection, *this );
 }
 
 bool cSQLiteDriver::tableExists( const QString& table )
+{
+	cDBResult result = query( QString( "PRAGMA table_info('%1');" ).arg( table ) );
+
+	bool res = result.fetchrow(); // Every table has at least one field
+
+	result.free();
+
+	return res;
+}
+
+/*****************************************************************************
+  cSQLite3Driver member functions
+ *****************************************************************************/
+
+// Fetchs a new row, returns false if there is no new row
+bool cSQLite3Driver::fetchrow ( cDBResult& result ) const
+{
+	if ( !result._result )
+		return false;
+
+	bool success = ( sqlite3_step( ( sqlite3_stmt * ) result._result ) == SQLITE_ROW );
+	
+	if (success)
+	{
+		int ccount = sqlite3_column_count ( ( sqlite3_stmt * ) result._result );
+		
+		if (result._row) delete [] result._row;
+		result._row = new char* [ccount];
+		
+		for (int c = 0; c < ccount; c++)
+			((char**) result._row)[c] = (char*) sqlite3_column_text ( ( sqlite3_stmt * ) result._result, c );
+	}
+}
+
+void cSQLite3Driver::freeDBResult ( cDBResult& result ) const
+{
+	sqlite3_finalize( ( sqlite3_stmt * ) result._result );
+
+	if (result._row) delete [] result._row;
+	
+	result._result = 0;
+	result._row = 0;
+	result._connection = 0;
+}
+
+int cSQLite3Driver::lastInsertId()
+{
+	return sqlite3_last_insert_rowid( ( sqlite3 * ) connection );
+}
+
+bool cSQLite3Driver::open( int )
+{
+	char* error = NULL;
+
+	close();
+
+	if (sqlite3_open( _dbname.utf8(), (sqlite3**) &connection ) != SQLITE_OK)
+	{
+		QString err( sqlite3_errmsg ((sqlite3*) connection) );
+		
+		throw err;
+	}
+
+	exec( "PRAGMA synchronous = OFF;" );
+	exec( "PRAGMA default_synchronous = OFF;" );
+	exec( "PRAGMA full_column_names = OFF;" );
+	exec( "PRAGMA show_datatypes = OFF;" );
+	exec( "PRAGMA parser_trace = OFF;" );
+
+	return true;
+}
+
+void cSQLite3Driver::close()
+{
+	if ( connection != 0 )
+	{
+		sqlite3_close( ( sqlite3 * ) connection );
+		connection = 0;
+	}
+}
+
+bool cSQLite3Driver::exec( const QString& query )
+{
+	char* error;
+
+	if ( sqlite3_exec( ( sqlite3 * ) connection, query.utf8(), NULL, NULL, &error ) != SQLITE_OK )
+	{
+		if ( error )
+		{
+			QString err( QString( error ) + " (" + query + ")" );
+			throw err;
+		}
+		else
+		{
+			throw QString( "Unknown SQLite error while executing: %1" ).arg( query );
+		}
+	}
+
+	return true;
+}
+
+cDBResult cSQLite3Driver::query( const QString& query )
+{
+	const char* error = NULL;
+	sqlite3_stmt* result;
+
+	// Compile a VM and pass it to cSQLiteResult
+	if ( sqlite3_prepare( ( sqlite3 * ) connection, query.utf8(), NULL, &result, &error ) != SQLITE_OK )
+	{
+		if ( error )
+		{
+			QString err( QString( error ) + " (" + query + ")" );
+			throw err;
+		}
+		else
+		{
+			throw QString( "Unknown SQLite error while querying: %1" ).arg( query );
+		}
+	}
+
+	return cDBResult( result, connection, *this );
+}
+
+bool cSQLite3Driver::tableExists( const QString& table )
 {
 	cDBResult result = query( QString( "PRAGMA table_info('%1');" ).arg( table ) );
 
@@ -413,6 +517,26 @@ bool cSQLiteDriver::tableExists( const QString& table )
  *****************************************************************************/
 
 #ifdef MYSQL_DRIVER
+
+// Fetchs a new row, returns false if there is no new row
+bool cMySQLDriver::fetchrow ( cDBResult& result ) const
+{
+	if ( !result._result )
+		return false;
+
+	result._row = mysql_fetch_row( ( st_mysql_res * ) result._result );
+	
+	return ( result._row != 0 );
+}
+
+void cMySQLDriver::freeDBResult ( cDBResult& result ) const
+{
+	mysql_free_result( ( st_mysql_res * ) result._result );
+
+	result._result = 0;
+	result._row = 0;
+	result._connection = 0;
+}
 
 bool cMySQLDriver::open( int id )
 {
@@ -450,11 +574,11 @@ cDBResult cMySQLDriver::query( const QString& query )
 
 	if ( mysql_query( mysql, query.local8Bit() ) )
 	{
-		return cDBResult(); // Return invalid result
+		return cDBResult ( 0, 0, *this ); // Return invalid result
 	}
 
 	MYSQL_RES* result = mysql_use_result( mysql );
-	return cDBResult( result, mysql );
+	return cDBResult( result, mysql, *this );
 }
 
 bool cMySQLDriver::exec( const QString& query )

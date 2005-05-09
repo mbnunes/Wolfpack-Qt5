@@ -32,6 +32,8 @@ struct st_mysql;
 struct st_mysql_res;
 struct sqlite;
 struct sqlite_vm;
+struct sqlite3;
+struct sqlite3_stmt;
 
 #include <qstring.h>
 #include <map>
@@ -112,6 +114,11 @@ public:
 	{
 		return _password;
 	}
+	
+protected:
+	virtual void freeDBResult ( cDBResult& result ) const = 0;
+	virtual bool fetchrow ( cDBResult& result ) const = 0;
+
 };
 
 class cSQLiteDriver : public cDBDriver
@@ -134,6 +141,36 @@ public:
 	bool exec( const QString& query );
 	cDBResult query( const QString& query );
 	int lastInsertId();
+	
+protected:
+	void freeDBResult ( cDBResult& result ) const;
+	bool fetchrow ( cDBResult& result ) const;
+};
+
+class cSQLite3Driver : public cDBDriver
+{
+public:
+	const char* name() const
+	{
+		return "sqlite3";
+	}
+
+	bool open( int id = CONN_MAIN );
+	void close();
+
+	bool tableExists( const QString& table );
+	QString error()
+	{
+		return QString::null;
+	}
+
+	bool exec( const QString& query );
+	cDBResult query( const QString& query );
+	int lastInsertId();
+	
+protected:
+	void freeDBResult ( cDBResult& result ) const;
+	bool fetchrow ( cDBResult& result ) const;
 };
 
 class cMySQLDriver : public cDBDriver
@@ -155,6 +192,10 @@ public:
 	void setActiveConnection( int id );
 	bool exec( const QString& query );
 	cDBResult query( const QString& query );
+	
+protected:
+	void freeDBResult ( cDBResult& result ) const;
+	bool fetchrow ( cDBResult& result ) const;
 };
 
 class cDBResult : cPythonScriptable
@@ -163,22 +204,28 @@ public:
 	char** _row;
 	void* _result;
 	void* _connection; // Connection occupied by this query
-	bool mysql_type;
+	cDBDriver* _driver;
 public:
-	cDBResult() : _row( 0 ), _result( 0 ), _connection( 0 ), mysql_type( true )
+	cDBResult( cDBDriver& driver ) : _row( 0 ), _result( 0 ), _connection( 0 ), _driver( &driver )
 	{
 	} // Standard Constructor
-	cDBResult( void* result, void* connection, bool mysql_type = true ) : _row( 0 ), _result( result ), _connection( connection )
+	cDBResult( void* result, void* connection, cDBDriver& driver ) : _row( 0 ), _result( result ), _connection( connection ), _driver( &driver )
 	{
-		this->mysql_type = mysql_type;
 	}; // MySQL Constructor
 	virtual ~cDBResult()
 	{
 	}
 
-	void free(); // Call this to free the query
+	void free() // Call this to free the query
+	{
+		_driver->freeDBResult (*this);
+	}
+	
 	char** data() const; // Get the data for the current row
-	bool fetchrow(); // Fetchs a new row, returns false if there is no new row
+	bool fetchrow() // Fetchs a new row, returns false if there is no new row
+	{
+		return _driver->fetchrow (*this);
+	}
 	Q_INT32 getInt( Q_UINT32 offset ) const; // Get an integer with a specific offset
 	QString getString( Q_UINT32 offset ) const; // Get a string with a specific offset
 

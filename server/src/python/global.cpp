@@ -2472,11 +2472,13 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 		return 0;
 	}
 
-	cDBResult result;
-
 	try
 	{
-		result = PersistentBroker::instance()->query( query );
+		cDBResult result = PersistentBroker::instance()->query( query );
+
+		PyMem_Free( query );
+	
+		return ( new cDBResult( result ) )->getPyObject();
 	}
 	catch ( QString& e )
 	{
@@ -2490,10 +2492,9 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 		PyErr_SetString( PyExc_RuntimeError, "An error occured while querying the database." );
 		return 0;
 	}
-
-	PyMem_Free( query );
-
-	return ( new cDBResult( result ) )->getPyObject();
+	
+	// we should never get here
+	return 0;
 }
 
 /*

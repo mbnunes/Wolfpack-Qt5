@@ -233,7 +233,8 @@ LRESULT CALLBACK AboutDialog( HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM
 #else
 			credits += tr( "Python: %1 Static (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
 #endif
-			credits += tr( "Compiled with SQLite %1\n" ).arg( SQLITE_VERSION );
+			credits += tr( "Compiled with SQLite %1\n" ).arg( sqlite_version );
+			credits += tr( "Compiled with SQLite3 %1\n" ).arg( sqlite3_version );
 #if defined (MYSQL_DRIVER)
 			credits += tr( "Compiled for MySQL %1 (Using: %2)\n" ).arg( MYSQL_SERVER_VERSION, mysql_get_client_info() );
 #else

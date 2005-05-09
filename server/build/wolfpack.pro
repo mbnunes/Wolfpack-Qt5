@@ -46,6 +46,8 @@ precompile_header {
 
 SQLITE_CPP = ../src/sqlite
 SQLITE_H = ../src/sqlite
+SQLITE3_CPP = ../src/sqlite3
+SQLITE3_H = ../src/sqlite3
 PYTHON_CPP = ../src/python
 PYTHON_H = ../src/python
 NETWORK_H = ../src/network
@@ -55,13 +57,14 @@ AI_CPP = ../src/ai
 MULS_H = ../src/muls
 MULS_CPP = ../src/muls
 
-DEPENDPATH += ;$$SQLITE_H;$$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
-INCLUDEPATH += $$SQLITE_H;../src
+DEPENDPATH += ;$$SQLITE_H;$$SQLITE3_H;$$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
+INCLUDEPATH += $$SQLITE_H;$$SQLITE3_H;$$SQLITE3_H;../src
 
 
 #modules
 include($$PYTHON_CPP/python.pri)
 include($$SQLITE_CPP/sqlite.pri)
+include($$SQLITE3_CPP/sqlite3.pri)
 include($$NETWORK_CPP/network.pri)
 include($$AI_CPP/ai.pri)
 include($$MULS_CPP/muls.pri)
