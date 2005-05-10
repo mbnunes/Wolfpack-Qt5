@@ -28,7 +28,11 @@ extern "C" {
 /*
 ** The version of the SQLite library.
 */
-#define SQLITE_VERSION         "2.8.15"
+#ifdef SQLITE_VERSION
+# undef SQLITE_VERSION
+#else
+# define SQLITE_VERSION         "2.8.16"
+#endif
 
 /*
 ** The version string is also compiled into the library so that a program
@@ -42,6 +46,7 @@ extern const char sqlite_version[];
 ** UTF-8 encoded data.  The SQLITE_ISO8859 macro is defined if the
 ** iso8859 encoded should be used.
 */
+#undef SQLITE_ISO8859
 #define SQLITE_UTF8 1
 
 /*
@@ -479,8 +484,22 @@ int sqlite_function_type(
   int datatype              /* The datatype for this function */
 );
 #define SQLITE_NUMERIC     (-1)
-#define SQLITE_TEXT        (-2)
+/* #define SQLITE_TEXT     (-2)  // See below */
 #define SQLITE_ARGS        (-3)
+
+/*
+** SQLite version 3 defines SQLITE_TEXT differently.  To allow both
+** version 2 and version 3 to be included, undefine them both if a
+** conflict is seen.  Define SQLITE2_TEXT to be the version 2 value.
+*/
+#ifdef SQLITE_TEXT
+# undef SQLITE_TEXT
+#else
+# define SQLITE_TEXT     (-2)
+#endif
+#define SQLITE2_TEXT     (-2)
+
+
 
 /*
 ** The user function implementations call one of the following four routines
