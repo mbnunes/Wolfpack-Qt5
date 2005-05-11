@@ -22,7 +22,12 @@ def spawn(spawner, spawntype, spawndef, current, area):
 			npc.addscript( 'system.spawns' )
 			npc.update()
 		elif spawntype == 0:
-			pass
+			newitem = wolfpack.additem(spawndef)
+			newitem.pos = spawner.pos
+			newitem.settag('spawner', spawner.serial)
+			newitem.decay = 0
+			newitem.addscript('system.spawns')
+			newitem.update()
 	except:
 		if( spawner ):
 			console.log(LOG_WARNING, "Invalid spawner: 0x%x.\n" % spawner.serial)
@@ -244,7 +249,8 @@ def unregister(spawn):
 #
 # When this script is attached to a
 # npc and he is removed, the current counter
-# of the spawning item is decremented.
+# of the spawning item is decremented
+# the same if an item is picked up
 #
 def onDelete(object):
 	if not object.hastag('spawner'):
@@ -263,4 +269,13 @@ def onDelete(object):
 	except:
 		return 0
 
+	object.removescript('system.spawns')
+	return 0
+
+#
+# If it's an item, trigger for respawn is if it's picked up
+#
+def onPickup(player, item):
+	onDelete(item)
+	item.decay = 1
 	return 0
