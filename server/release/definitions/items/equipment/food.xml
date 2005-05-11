@@ -167,7 +167,7 @@ Food subtypes:
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
-		<basescripts>food</basescripts>
+		<basescripts>cooking</basescripts>
 		<category>Equipment\Food\Eggs</category>
 	</item>
 	
@@ -993,6 +993,71 @@ Food subtypes:
 	<item id="burned_lambleg" inherit="burned_rib">
 		<id>0x160a</id>
 		<category>Equipment\Food\Misc\Burned Lamb Leg</category>
+	</item>
+
+	<!-- Unbaked Quiche -->
+	<item id="baked_quiche">
+		<name>#1041345</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Quiche</category>
+	</item>
+
+	<item id="baked_meatpie">
+		<name>#1041347</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Meat Pie</category>
+	</item>
+
+	<item id="baked_fruitpie">
+		<name>#1041346</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Fruit Pie</category>
+	</item>
+
+	<item id="baked_peachcobbler">
+		<name>#1041344</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Peach Cobbler</category>
+	</item>
+
+	<item id="baked_applepie">
+		<name>#1041343</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Apple Pie</category>
+	</item>
+
+	<item id="baked_pumpkinpie">
+		<name>#1041348</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Pumpkin Pie</category>
+	</item>
+
+	<item id="baked_sausagepizza">
+		<name>#1044517</name>
+		<id>0x1040</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Sausage Pizza</category>
+	</item>
+
+	<item id="baked_cheesepizza">
+		<name>#1044516</name>
+		<id>0x1040</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Cheese Pizza</category>
 	</item>
 
 </definitions>

@@ -476,61 +476,69 @@
 		<category>Professions\Cook\Supplies\Unbaked Pie</category>
 		<basescripts>cooking</basescripts>
 	</item>
-	
+
 	<!-- Unbaked Quiche -->
 	<item id="unbaked_quiche">
 		<name>#1041339</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Quiche</category>
 	</item>
-	
+
 	<item id="unbaked_meatpie">
 		<name>#1041338</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Meat Pie</category>
-	</item>	
-	
+	</item>
+
 	<item id="unbaked_fruitpie">
 		<name>#1041334</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Fruit Pie</category>
 	</item>
-	
+
 	<item id="unbaked_peachcobbler">
 		<name>#1041335</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Peach Cobbler</category>
 	</item>
-	
+
 	<item id="unbaked_applepie">
 		<name>#1041336</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Apple Pie</category>
-	</item>	
-	
+	</item>
+
 	<item id="unbaked_pumpkinpie">
 		<name>#1041342</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Pumpkin Pie</category>
 	</item>
-	
+
 	<item id="unbaked_sausagepizza">
 		<name>#1041337</name>
 		<id>0x1083</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Sausage Pizza</category>
-	</item>	
-	
+	</item>
+
 	<item id="unbaked_cheesepizza">
 		<name>#1041341</name>
 		<id>0x1083</id>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Cheese Pizza</category>
 	</item>
 
