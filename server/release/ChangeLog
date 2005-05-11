@@ -32,6 +32,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed a SQL tag loading issue.
   - Fixed a broken else if chain in cAccount::setProperty
   - Added a define for tracking.h
+  - Fixed snooping.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -109,6 +110,8 @@ Wolfpack 12.9.14 Beta (SVN)
     on animal taming and animal lore of the owner)
   - Implemented glassblowing.
   - Fixed .kick / .ban commands.
+  - Spawngems support items now (patch by ste).
+  - Implemented stealing skill.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
