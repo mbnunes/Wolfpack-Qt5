@@ -117,14 +117,13 @@ def char_steal( char, victim ):
 	elif not char.canreach(victim, 1):
 		char.socket.sysmessage( tr( "You are too far away to steal from that person." ) )
 		return True
-	#randomsteal( char, victim )
-	char.socket.sysmessage( tr("That skill has not been implemented yet.") )
+	randomsteal( char, victim )
+	#char.socket.sysmessage( tr("That skill has not been implemented yet.") )
 
 # if target is char, random steal
 def randomsteal(char, victim):
 	if not victim:
 		return True
-	# this makes problems...
 	bag = victim.getbackpack()
 	if not bag:
 		char.socket.sysmessage( tr( "Bad luck, your victim doesn't have a backpack." ) )
@@ -154,7 +153,6 @@ def dosteal(char, victim, tosteal):
 	stolen = None
 	if not tosteal:
 		return True
-	char.socket.sysmessage(str(maxweight(char)))
 	
 	if tosteal.weight > maxweight(char):
 		char.socket.sysmessage( "That is too heavy to steal." )

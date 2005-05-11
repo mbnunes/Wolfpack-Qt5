@@ -9,14 +9,14 @@ from wolfpack.gumps import cGump
 #
 def onCollide(player, item):
 	if item.hastag('playersonly') and player.npc:
-		return 0
+		return False
 
 	if not item.hastag('target'):
 		if player.socket:
 			player.socket.sysmessage('This gate leads nowhere...')
 		else:
 			console.log(LOG_ERROR, "NPC [%x] using gate [%x] without target.\n" % (player.serial, item.serial))
-		return 0
+		return False
 
 	target = item.gettag('target').split(',')
 
@@ -25,7 +25,7 @@ def onCollide(player, item):
 		target = map(int, target)
 	except:
 		player.socket.sysmessage('This gate leads nowhere...')
-		return 0
+		return False
 
 	# Move the player
 	pos = player.pos
@@ -58,7 +58,7 @@ def onCollide(player, item):
 		utilities.smokepuff(player, pos)
 		utilities.smokepuff(player, item.pos)
 
-	return 1
+	return True
 
 #
 # Here a gump which allows customization.
@@ -106,14 +106,14 @@ def onUse(player, item):
 		gump.setCallback( gate_callback )
 		gump.setArgs( [ item ] )
 		gump.send( player )
-		return 1
+		return True
 
 	else:
-		return 1
+		return True
 
 def gate_callback( char, args, response ):
 	if( response.button == 0 ):
-		return 1
+		return True
 
 	item = args[0]
 
@@ -125,4 +125,4 @@ def gate_callback( char, args, response ):
 	target = "%s,%s,%s,%s" % (posx, posy, posz, posmap)
 	item.settag( "target", target )
 
-	return 1
+	return True

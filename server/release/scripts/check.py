@@ -24,7 +24,7 @@ def onUse( char, item ):
 	if not char.canreach(item, -1):
 		char.socket.clilocmessage(500364)
 		return True
-	
+
 	#D: 0xFE8F0 (0)	
 	#Gold was deposited in your account:
 	bankbox = char.getbankbox()
@@ -35,10 +35,10 @@ def onUse( char, item ):
 			gold = wolfpack.additem( "eed" )
 			gold.amount = min(value, 60000)			
 			value -= gold.amount
-			
+
 			if not wolfpack.utilities.tocontainer(gold, bankbox):
 				gold.update()
-		
+
 		item.delete()
 		char.socket.resendstatus()
 		char.socket.clilocmessage(1042672, "", 0x3b2, 3, None, " %s" % amount)

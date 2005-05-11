@@ -25,35 +25,50 @@ ids_heat = [ 	0xde3, # Campfire
 # we won't use "1eb0" because it is not stackable
 ids = {
 	# raw bird : cooked bird
-	0x9b9 : [ "9b7", "burned_bird" ],
-	0x9ba : [ "9b8", "burned_bird" ],
+	"9b9" : [ "9b7", "burned_bird" ],
+	"9ba" : [ "9b8", "burned_bird" ],
 
 	# raw fish : cooked fish
-	0x97a : [ "97b", "burned_fish" ],
+	"97a" : [ "97b", "burned_fish" ],
 
 	# raw rib : cooked rib
-	0x9f1 : [ "9f2", "burned_rib" ],
+	"9f1" : [ "9f2", "burned_rib" ],
 
 	# dough : bread
-	0x103d : [ "103b", "" ],
+	"103d" : [ "103b", "" ],
 
 	# cookie mix : cookie
-	0x103f : [ "160c", "" ],
+	"103f" : [ "160c", "" ],
 
 	# bowl of flour : cake
-	0xa1e : [ "9e9", "" ],
+	"a1e" : [ "9e9", "" ],
 
 	# raw chickenleg : cooked chickenleg
-	0x1607 : [ "1608", "burned_chickenleg" ],
+	"1607" : [ "1608", "burned_chickenleg" ],
 
 	# raw lamleg : cooked lamleg
-	0x1609 : [ "160a", "burned_lambleg" ],
+	"1609" : [ "160a", "burned_lambleg" ],
 
 	# unbaked pie : baked pie
-	0x1042 : [ "1041", "" ],
+	"1042" : [ "1041", "" ],
 
 	# uncooked pizza : pizza
-	0x1083 : [ "1040", "" ]
+	"1083" : [ "1040", "" ],
+
+	# egg : fried egg
+	"9b5" : [ "9b6", "" ],
+
+	# pies
+	"unbaked_applepie" : [ "baked_applepie", "" ],
+	"unbaked_fruitpie" : [ "baked_fruitpie", "" ],
+	"unbaked_meatpie" : [ "baked_meatpie", "" ],
+	"unbaked_peachcobbler" : [ "baked_peachcobbler", "" ],
+	"unbaked_pumpkinpie" : [ "baked_pumpkinpie", "" ],
+	"unbaked_quiche" : [ "baked_quiche", "" ],
+
+	# pizzas
+	"unbaked_cheesepizza" : [ "baked_cheesepizza", "" ],
+	"unbaked_sausagepizza" : [ "baked_sausagepizza", "" ],
 
 	}
 
@@ -63,7 +78,7 @@ def onUse( char, item ):
 		char.socket.clilocmessage( 0x7A258 ) # That doesnt belong to you
 		return True
 
-	if ids.has_key( item.id ):
+	if ids.has_key( item.baseid ):
 		char.socket.clilocmessage( 0x7A1FE ) # What should i cook this on
 		char.socket.attachtarget( "cooking.response", [ item.serial ] )
 		return True
@@ -78,7 +93,7 @@ def response( char, args, target ):
 		char.update()
 
 	item = wolfpack.finditem( args[0] ) # What we want to cook
-	id = item.id
+	id = item.baseid
 
 	if not item or item.getoutmostchar() != char:
 		char.socket.clilocmessage( 0x7ACA2 ) # That belongs to someone else.
