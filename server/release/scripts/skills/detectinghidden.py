@@ -66,44 +66,46 @@ def response( char, args, target ):
 
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + DETECTHIDDEN_DELAY ) )
 
+	skill = char.skill[ DETECTINGHIDDEN ]
+	reveal_range = int(skill / 100)
+
 	success = char.checkskill( DETECTINGHIDDEN, 0, 1000 )
-	# You can see nothing hidden there
 	if not success:
-		char.socket.clilocmessage( 500817, "", 0x3b2, 3 )
-		return
+		reveal_range /= 2
 
 	pos = None
 	item = None
+	found = False
 	if target.pos:
 		pos = target.pos
-	elif target.item:
+	if target.item:
 		item = target.item
 	# when we target at a position : hidden people, dungeon trap, faction trap
 	if pos:
 		x = pos.x
 		y = pos.y
 		map = pos.map
-		skill = char.skill[ DETECTINGHIDDEN ]
-		reveal_range = 1 + skill / 100
 		# first, we test hidden chars
 		chars = wolfpack.chars( x, y, map, reveal_range )
 		for tchar in chars:
 			if not tchar.gm:
 				# hidden using hiding skill
-				if tchar.hidden == 1:
-					# FIXME : only hidden with lower skill will be revealed
-					if tchar.skill[ HIDING ] <= skill:
+				if tchar.hidden:
+					ss = skill + random.randint(0, 21 ) - 10
+					ts = tchar.skill[HIDING] + random.randint(0, 21 ) - 10
+					if ss >= ts:
 						reveal_char( tchar )
+						found = True
 				# hidden using invisibility spell
-				elif tchar.hidden == 2:
-					# FIXME : only hidden with lower skill will be revealed
-					if tchar.skill[ MAGERY ] <= skill:
-						reveal_char( tchar )
-		# next, dungeon / factoin traps
+				#elif tchar.hasscript('skills.stealth'):
+				#	# FIXME : only hidden with lower skill will be revealed
+				#	if tchar.skill[ MAGERY ] <= skill:
+				#		reveal_char( tchar )
+		# next, dungeon / faction traps
 		items = wolfpack.items( x, y, map, reveal_range )
 		for titem in items:
 			if titem.id in dungeon_traps:
-				if titem.visible:
+				if not titem.visible:
 					if titem.hastag( 'level' ):
 						level = item.gettag( 'level' )
 					else:
@@ -111,17 +113,20 @@ def response( char, args, target ):
 					# level from 1 to 5
 					if skill / 2 >= level:
 						titem.addtimer( DUNGEON_TRAP_REVEAL_DURATION, hide_trap, [ titem.visible ] )
-						titem.visible = 0
+						titem.visible = 1
 						titem.update()
+						found = True
 			# faction trap : no idea yet
 	# now, we deal with the trap boxes - show trap items as color
-	elif item:
+	if item:
 		char.socket.sysmessage( "detecting trap box is not implemented yet." )
+	elif not found:
+		char.socket.clilocmessage( 500817 ) # You can see nothing hidden there.
 
 def reveal_char( char ):
 	if not char or not char.socket:
 		return
-	char.socket.clilocmessage( 500814, "", 0x3b2, 3 )
+	char.socket.clilocmessage( 500814, "", 0x3b2, 3 ) # You have been revealed!
 	char.hidden = 0
 	char.update()
 

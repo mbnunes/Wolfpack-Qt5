@@ -284,7 +284,7 @@ def dosandmining(char, args):
 	success = 0
 	if chance <= 0.0904:
 		success = 1
-	
+
 	resourcecount = veingem.gettag('resourcecount')
 
 	# Refill the resource gem.
@@ -319,7 +319,7 @@ def successsandmining(char, gem):
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 		gem.addtimer( delay, respawnvein, [], True )
 		gem.settag( 'resource_empty', 1 )
-	
+
 	char.socket.clilocmessage(1044631) # You carefully dig up sand of sufficient quality for glassblowing.
 
 def successmining(char, gem, resname, size):
