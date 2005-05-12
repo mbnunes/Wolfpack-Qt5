@@ -95,12 +95,18 @@ def poisonit( char, args ):
 	potions.consumePotion(char, potion, True)
 
 	if not char.checkskill( POISONING, MINSKILLS[strength], MAXSKILLS[strength] ):
-		char.socket.clilocmessage( 1010518 )
+		# 5% of chance of getting poisoned if failed
+		if skill < 800 and random.randint(1,20) == 0:
+			char.socket.clilocmessage( 502148 ) # You make a grave mistake while applying the poison.
+			poison(char, strength)
+		else:				
+			char.socket.clilocmessage( 1010518 )
 		return 1
 
 	char.socket.clilocmessage(1010517)
 
 	# decrease karma / fame
+	char.karma -= 20
 
 	# set poisoning infos as tags
 	item.settag( 'poisoning_char', char.serial )
