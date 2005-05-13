@@ -112,6 +112,10 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed .kick / .ban commands.
   - Spawngems support items now (patch by ste).
   - Implemented stealing skill.
+  - You can use static forges to smelt ore now.
+  - Fixed bug #0000405.
+  - If poisoning fails, there is a 5% chance to poison yourself.
+  - New formula for detecting hidden.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
