@@ -56,7 +56,7 @@ def addPlant(dialog, plant):
 	
 	# Otherwise display the full grown product
 	else:
-		dialog.addTilePic(130 + genus.xoffset, 96 + genus.yoffset, genus.itemid, hue.color)
+		dialog.addTilePic(130 + genus.xoffset, 96 + genus.yoffset, genus.itemid)
 
 	# If it's not a plant yet, don't display the health information
 	if status != STATUS_DIRT:
