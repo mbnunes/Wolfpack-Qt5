@@ -47,7 +47,7 @@ SCALES = [
 def checkanvilandforge(char):
 	if char.gm:
 		return True
-	
+
 	# Check dynamic items.
 	forge = 0
 	anvil = 0
@@ -60,12 +60,12 @@ def checkanvilandforge(char):
 
 		if anvil and forge:
 			return True
-			
+
 	# Check for static items
 	for x in range(-2, 3):
 		for y in range(-2, 3):
 			statics = wolfpack.statics(char.pos.x + x, char.pos.y + y, char.pos.map, True)
-			
+
 			for tile in statics:
 				dispid = tile[0]
 				if dispid == 0xFAF or dispid == 0xFB0:

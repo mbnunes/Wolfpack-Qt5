@@ -55,13 +55,9 @@ def onUse( char, ore ):
 				return True
 
 def response( char, args, target ):
-	if not target.item:
-		char.socket.clilocmessage(501973)
-		return
+	char.turnto(target.pos)
 
-	char.turnto(target.item)
-
-	if not char.canreach(target.item, 4):
+	if not char.canreach(target.pos, 4):
 		char.socket.clilocmessage(500295)
 		return
 
@@ -74,8 +70,29 @@ def response( char, args, target ):
 		return False
 	else:
 		resname = item.gettag( 'resname' )
+	
+	if target.item:
+		targetitem = wolfpack.finditem( target.item.serial )
+	
+	elif target.char:
+		char.socket.clilocmessage(501973)
+		return
+	
+	# Static Forges can be used, too
+	else:
+		statics = wolfpack.statics(target.pos.x, target.pos.y, target.pos.map, True)
+		if char.pos.distance( target.pos ) > 3:
+			char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+			return True
 
-	targetitem = wolfpack.finditem( target.item.serial )
+		for tile in statics:
+			dispid = tile[0]
+			if dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):
+				dosmelt( char, [ item, resname ] )
+				return True
+			else:
+				char.socket.clilocmessage(501973)
+				return
 
 	# We go onto creating ingots here.
 	if target.item.baseid in FORGEIDS:
@@ -84,7 +101,7 @@ def response( char, args, target ):
 				char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 				return True
 			else:
-				dosmelt( char, [ item, targetitem, resname ] )
+				dosmelt( char, [ item, resname ] )
 				return True
 
 	# This is for merging the ore piles
@@ -248,8 +265,7 @@ def response( char, args, target ):
 
 def dosmelt(char, args):
 	ore = args[0]
-	forge = args[1]
-	resname = args[2]
+	resname = args[1]
 
 	if not mining.ORES.has_key(resname):
 		char.socket.sysmessage('You cannot smelt that kind of ore.')
