@@ -53,6 +53,7 @@
 #include "../verinfo.h"
 
 #include "../sqlite/sqlite.h"
+#include "../sqlite3/sqlite3.h"
 #if defined(MYSQL_DRIVER)
 #if defined(Q_OS_WIN32)
 #include <winsock.h>

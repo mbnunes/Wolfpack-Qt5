@@ -110,7 +110,7 @@ void cSkills::SkillUse( cUOSocket* socket, Q_UINT16 id ) // Skill is clicked on 
 	pChar->setSkillDelay( Server::instance()->time() + Config::instance()->skillDelay() * MY_CLOCKS_PER_SEC );
 }
 
-void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
+/*void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 {
 	P_PLAYER pChar = socket->player();
 	P_CHAR pVictim = FindCharBySerial( victim );
@@ -130,7 +130,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 			return;
 		}
 	*/
-	if ( pVictim->objectType() == enPlayer )
+/*	if ( pVictim->objectType() == enPlayer )
 	{
 		P_PLAYER pp = dynamic_cast<P_PLAYER>( pVictim );
 		if ( pp->isGMorCounselor() )
@@ -253,7 +253,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		}
 	}
 }
-
+*/
 void cSkills::Meditation( cUOSocket* socket )
 {
 	P_CHAR pc_currchar = socket->player();

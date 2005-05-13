@@ -879,27 +879,7 @@ SOURCE=..\src\python\worlditerator.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\src\sqlite\attach.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\auth.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\btree.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\sqlite\btree.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\btree_rb.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\build.c
 # End Source File
 # Begin Source File
 
@@ -907,43 +887,7 @@ SOURCE=..\src\sqlite\config.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\sqlite\copy.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\date.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\delete.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\expr.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\func.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\hash.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\sqlite\hash.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\insert.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\main.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\opcodes.c
 # End Source File
 # Begin Source File
 
@@ -951,15 +895,7 @@ SOURCE=..\src\sqlite\opcodes.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\sqlite\os.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\sqlite\os.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\pager.c
 # End Source File
 # Begin Source File
 
@@ -967,27 +903,7 @@ SOURCE=..\src\sqlite\pager.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\sqlite\parse.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\sqlite\parse.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\pragma.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\printf.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\random.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\select.c
 # End Source File
 # Begin Source File
 
@@ -995,35 +911,127 @@ SOURCE=..\src\sqlite\sqlite.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\sqlite\sqlite_attach.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_auth.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_btree.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_btree_rb.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_build.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_copy.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_date.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_expr.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_func.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_hash.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_insert.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_main.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_opcodes.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_os.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_pager.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_parse.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_pragma.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_printf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_random.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_select.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_table.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_tokenize.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_trigger.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_update.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_util.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_vacuum.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_vdbe.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_vdbeaux.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite\sqlite_where.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sqlite\sqliteInt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\table.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\tokenize.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\trigger.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\update.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\util.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\vacuum.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sqlite\vdbe.c
 # End Source File
 # Begin Source File
 
@@ -1031,16 +1039,216 @@ SOURCE=..\src\sqlite\vdbe.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\sqlite\vdbeaux.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\sqlite\vdbeInt.h
 # End Source File
+# End Group
+# Begin Group "SQLite3"
+
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\src\sqlite\where.c
+SOURCE=..\src\sqlite3\alter.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\attach.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\auth.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\btree.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\btree.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\build.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\config.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\date.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\expr.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\func.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\hash.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\hash.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\insert.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\keywordhash.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\legacy.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\main.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\opcodes.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\opcodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\os.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\os_common.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\os_unix.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\os_unix.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\os_win.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\os_win.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\pager.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\pager.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\parse.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\parse.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\pragma.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\printf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\random.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\select.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\sqlite3.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\sqliteInt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\table.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\tokenize.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\trigger.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\update.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\utf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\util.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\vacuum.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\vdbe.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\vdbe.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\vdbeapi.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\vdbeaux.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\vdbeInt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\vdbemem.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sqlite3\where.c
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\icon_green.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\icon_red.ico
+# End Source File
 # End Target
 # End Project

@@ -39,7 +39,7 @@
 #include <qptrlist.h>
 #include <stdlib.h>
 #include <sqlite.h>
-#include <sqlite3.h>
+#include "../sqlite3/sqlite3.h"
 
 #ifdef MYSQL_DRIVER
 # ifdef _MSC_VER
@@ -410,6 +410,7 @@ bool cSQLite3Driver::fetchrow ( cDBResult& result ) const
 		for (int c = 0; c < ccount; c++)
 			((char**) result._row)[c] = (char*) sqlite3_column_text ( ( sqlite3_stmt * ) result._result, c );
 	}
+	return true;
 }
 
 void cSQLite3Driver::freeDBResult ( cDBResult& result ) const

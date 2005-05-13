@@ -69,7 +69,7 @@ public:
 	// Skill Usage methods
 	void Meditation( cUOSocket* s );
 
-	static void RandomSteal( cUOSocket*, SERIAL );
+//	static void RandomSteal( cUOSocket*, SERIAL );
 	void Track( P_CHAR pc_i );
 	void SkillUse( cUOSocket*, Q_UINT16 );
 	void Snooping( P_PLAYER, P_ITEM );
