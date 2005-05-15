@@ -1010,7 +1010,7 @@ class MakeMenu:
 				return False # Fully repaired
 
 			action = self.topmostmenu().findcraftitem(item.baseid)
-			
+
 			if action:
 				mainskill = action.getmainskill()
 			else:
@@ -1018,7 +1018,6 @@ class MakeMenu:
 
 			# We can't craft it, so we can't repair it.
 			if mainskill == -1:
-				player.socket.sysmessage( "Mainskill: %s" % mainskill )
 				player.socket.clilocmessage(1044277)
 				return False # Can't craft the item
 
@@ -1077,27 +1076,27 @@ class MakeMenu:
 	def enhance(self, player, arguments, target):
 		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
 			return		
-		
+
 		if not target.item:
 			self.send(player, arguments)
 			return
-		
+
 		if not player.canreach(target.item, -1):
 			player.socket.clilocmessage(1061005)
 			self.send(player, arguments)
 			return
-			
+
 		# Check if we have a special material selected (not the default one)
 		index = self.getsubmaterial1used(player, arguments)
 		if index == 0:
 			player.socket.clilocmessage(1061010)
 			self.send(player, arguments)
 			return
-			
+
 		# Check if we are skilled enough to use the material
 		minvalue = self.submaterials1[index][2]
 		skillid = self.submaterials1[index][1]
-		
+
 		if player.skill[skillid] < minvalue:
 			if self.submaterial1noskill != 0:
 				player.socket.clilocmessage(self.submaterial1noskill)
