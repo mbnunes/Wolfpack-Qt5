@@ -14,9 +14,6 @@
 	<!-- Python Scripts -->
 	<include file="definitions/scripts.xml"/>
 
-	<!-- Farming System -->
-	<include file="scripts/farming/index.xml"/>
-
 	<!-- Defines Index -->
 	<include file="definitions/defines/index.xml"/>
 
