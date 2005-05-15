@@ -91,7 +91,7 @@
 			<blacksmithing min="83" max="583" penalty="300" />
 			<ingots amount="15" />
 		</smith>
-		<smith definition="1409" name="Close Helmet">
+		<smith definition="1408" name="Close Helmet">
 			<blacksmithing min="379" max="879" penalty="300" />
 			<ingots amount="15" />
 		</smith>

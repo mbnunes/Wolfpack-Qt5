@@ -35,6 +35,7 @@
 	<!-- Plate Gloves EW -->
 	<item id="1418" inherit="1414">
 		<id>0x1418</id>
+		<baseid>1414</baseid>
 		<category>Base Armor\Platemail\Gloves (E/W)</category>
 	</item>
 
