@@ -138,6 +138,7 @@
 		<id>0x9a8</id>
 		<type>1</type>
 		<category>Equipment\Containers\Metal Box (N/S)</category>
+		<basescripts>furniture</basescripts>
 		<weight>5.0</weight>
 	</item>
 
@@ -146,10 +147,13 @@
 		<id>0x9ab</id>
 		<category>Equipment\Containers\Metal Chest (N/S)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<weight>7.0</weight>
 	</item>
 
 	<item id="e7c" inherit="9ab">
 		<id>0xe7c</id>
+		<baseid>9ab</baseid>
 		<category>Equipment\Containers\Metal Chest (W/E)</category>
 	</item>
 
@@ -206,10 +210,13 @@
 		<id>0xe40</id>
 		<type>1</type>
 		<category>Equipment\Containers\Golden Metal Chest (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<weight>5.0</weight>
 	</item>
 
 	<item id="e41" inherit="e40">
 		<id>0xe41</id>
+		<baseid>e40</baseid>
 		<category>Equipment\Containers\Golden Metal Chest (N/S)</category>
 	</item>
 
