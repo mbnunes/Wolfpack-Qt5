@@ -24,7 +24,7 @@ def onUse(char, item):
 class CarpItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
-		self.markable = 1 # All carpentry items are not markable
+		self.markable = 1 # All carpentry items are markable
 		self.stackable = 0
 
 	#

@@ -147,7 +147,7 @@ def target_response( char, args, target ):
 			if char.socket:
 				char.socket.clilocmessage(500446)
 			return False
-		if not char.canreach(target.pos, spell.range, target.model):
+		if not char.canreach(pos, spell.range, target.model):
 			if char.socket:
 				char.socket.clilocmessage(500237)
 			return False
