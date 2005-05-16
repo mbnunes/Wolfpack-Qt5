@@ -4,11 +4,14 @@
 #   )).-' {{ ;'`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
-
+import speech
 def onContextEntry( char, target, tag  ):
 
 	if ( tag == 1 ):
-		target.vendorbuy( char )
+		if target.baseid in [ "barber_male", "barber_female" ]:
+			speech.barber.gump( target, char )
+		else:
+			target.vendorbuy( char )
 	elif ( tag == 2 ):
 		target.vendorsell( char )
 
