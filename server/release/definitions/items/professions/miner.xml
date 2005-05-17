@@ -617,6 +617,7 @@
 		<name>#1044626</name>
 		<weight>1.0</weight>
 		<movable>0</movable>
+		<decay />
 		<category>Professions\Miner\Sand</category>
 	</item>
 </definitions>
