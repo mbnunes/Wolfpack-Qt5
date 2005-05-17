@@ -29,10 +29,11 @@ def onShowPaperdoll(vendor, player):
 # Show the wares of the vendor to a player
 #
 def showInventory(vendor, player):
-	if vendor.owner == player:
-		vendor.say(1010642, "", "", False, 0x3b2, player.socket)
-	else:
-		vendor.say(503208, "", "", False, 0x3b2, player.socket)
+	if not player.gm:
+		if vendor.owner == player:
+			vendor.say(1010642, "", "", False, 0x3b2, player.socket)
+		else:
+			vendor.say(503208, "", "", False, 0x3b2, player.socket)
 	player.socket.sendcontainer(vendor.getbackpack())
 
 #
