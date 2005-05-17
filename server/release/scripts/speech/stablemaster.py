@@ -238,15 +238,11 @@ def addStableButtons( gump, active=0 ):
 	gump.addHtmlGump( 60, 340, 100, 20, 'wooly sheep' )
 
 
-
-
 def getStableTilePic( id ):
 	if stables.has_key( id ):
 		return stables[ id ]
 	else:
 		return False
-
-
 
 
 ### Callback
@@ -260,7 +256,6 @@ def gump_callback( char, args, response ):
 		return
 	if response.button == 0:
 		vendor.say( "Bey!",5 )
-
 		return
 
 	button = int( response.switches[0] )
@@ -276,7 +271,6 @@ def gump_callback( char, args, response ):
 
 	id_npc = idnpc[ id ]
 	id_shrink = idshrink[ id ]
-
 
 	if ( button == 0x0000 ):  	#shrink
 		if not shrinks.has_key( id ):
@@ -302,15 +296,15 @@ def gump_callback( char, args, response ):
 		if not wolfpack.utilities.tocontainer( item, char.getbackpack() ):
 			item.update()
 		return
-	elif ( button == 0x0001 ):  	#tamed
 
+	elif ( button == 0x0001 ):  	#tamed
 		if not tamed.has_key( id ):
 			vendor.say( "They not TAMEABLE...",5 )
 			return
 
 		count = prices[ id ]
 		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enoug gold!",5 )
+			vendor.say( "You don't have enough gold!",5 )
 			return
 		char.useresource( count, 0xeed, 0 )
 		char.soundeffect( 0x37, 0 )
@@ -325,15 +319,15 @@ def gump_callback( char, args, response ):
 		npc.npcwander = 0
 		npc.follow( char )
 		return
-	elif ( button == 0x0002 ):  	#rideable
 
+	elif ( button == 0x0002 ):  	#rideable
 		if ( rideables.has_key( id ) != 1 ):
 			vendor.say( "They not RIDEABLE...",5 )
 			return
 
 		count = prices[ id ]
 		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enoug gold!",5 )
+			vendor.say( "You don't have enough gold!",5 )
 			return
 		char.useresource( count, 0xeed, 0 )
 		char.soundeffect( 0x37, 0 )
@@ -347,5 +341,3 @@ def gump_callback( char, args, response ):
 		return
 	else:
 		return
-
-

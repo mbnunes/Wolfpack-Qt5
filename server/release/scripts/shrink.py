@@ -21,7 +21,7 @@ def onUse( char, item ):
 
 	npcid = item.gettag("npc_id")
 	npc = wolfpack.addnpc(npcid, char.pos)
-	
+
 	if npc:
 		if item.hastag('npc_type') and char.gettag('npc_type') == 'mount':
 			char.mount(npc)
@@ -34,7 +34,6 @@ def onUse( char, item ):
 						
 			npc.sound(SND_IDLE)
 			npc.action(ANIM_CASTDIRECTED)
-		
+
 	item.delete()	
 	return True
-

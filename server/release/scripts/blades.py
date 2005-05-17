@@ -168,9 +168,9 @@ def carve_corpse( char, corpse ):
 	if corpse.hastag('carved'):
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
-	
+
 	basedef = wolfpack.charbase(corpse.charbaseid)
-	
+
 	if not basedef:
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
@@ -183,14 +183,14 @@ def carve_corpse( char, corpse ):
 	scales_type = basedef.getstrproperty('carve_scales_type', 'red')
 	meat = basedef.getintproperty('carve_meat', 0)
 	meat_type = basedef.getstrproperty('carve_meat_type', 'ribs')
-		
+
 	if feathers == 0 and wool == 0 and hides == 0 and scales == 0 and meat == 0:
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
 
 	# See if the corpse has blood
 	bloodcolor = basedef.getintproperty('bloodcolor', 0)
-	
+
 	if bloodcolor != -1:
 		try:
 			if basedef.hasstrproperty('bloodcolor'):

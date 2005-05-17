@@ -22,21 +22,21 @@ def unlockKarma(player, ankh):
 def showTitheGump(player, ankh, amount = 0):
 	if not ankh or not player.canreach(ankh, 2):
 		return
-	
+
 	dialog = cGump(x=100, y=100)
-	
+
 	# Count Gold in Backpack
 	backpack = player.getbackpack()
 	gold = backpack.countitems(['eed'])
-	
+
 	# Normalize the amount of gold to tithe
 	amount = max(0, min(gold, amount))
-	
+
 	# Gump Header
 	dialog.startPage(0)
 	dialog.addGump(30, 30, 102)
 	dialog.addXmfHtmlGump(95, 100, 120, 100, 1060198, False, False)
-	
+
 	# Remaining Gold
 	dialog.addText(57, 274, tr("Gold:"))
 	dialog.addText(87, 274, str(gold - amount), 53)
@@ -50,7 +50,7 @@ def showTitheGump(player, ankh, amount = 0):
 	dialog.addButton(113, 230, 5222, 5222, 2)
 	dialog.addText(108, 228, "<")
 	dialog.addText(112, 228, "<")
-	
+
 	dialog.addButton(127, 230, 5223, 5223, 1)
 	dialog.addText(131, 228, "<")
 
@@ -71,7 +71,7 @@ def showTitheGump(player, ankh, amount = 0):
 
 def titheGoldCallback(player, arguments, response):
 	(amount, ankh) = (arguments[0], wolfpack.finditem(arguments[1]))
-	
+
 	# Count Gold in Backpack
 	backpack = player.getbackpack()
 	gold = backpack.countitems(['eed'])
@@ -93,7 +93,7 @@ def titheGoldCallback(player, arguments, response):
 		tithing_points = player.gettag('tithing_points')
 		if not tithing_points:
 			tithing_points = 0
-		
+
 		# If we would hit the maximum, only consume the remaining points
 		if tithing_points + amount > MAX_TITHING_POINTS:
 			amount = MAX_TITHING_POINTS - tithing_points
@@ -118,11 +118,11 @@ def titheGold(player, ankh):
 def resurrectPlayer(player, ankh):
 	if not player.dead:
 		return False
-		
+
 	if not player.canreach(ankh, 2):
 		player.socket.clilocmessage(500446)
 		return False
-		
+
 	if not player.pos.validspawnspot():
 		player.socket.clilocmessage(502391)
 		return False

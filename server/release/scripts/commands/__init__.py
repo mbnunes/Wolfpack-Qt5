@@ -210,7 +210,7 @@ def goitem(socket, command, arguments):
 	else:
 		item = found[i]
 		container = item.getoutmostitem()
-		
+
 		if container.container:
 			container = container.container
 
@@ -220,12 +220,11 @@ def goitem(socket, command, arguments):
 		socket.player.moveto(pos)
 		socket.player.update()
 		socket.resendworld()
-		
+
 		if item.container:
 			socket.sendobject(item.container)
 			socket.sendcontainer(item.container)
 
-	
 """
 	\command gouid
 	\usage - <code>gouid serial</code>
@@ -297,22 +296,22 @@ def test(socket, command, arguments):
 
 def newlostarget(char, arguments, target):
 	targpos = target.pos
-	
+
 	if target.item:
 		targpos = target.item
 	elif target.char:
 		targpos = target.char
-		
+
 	srcpos = char.pos
 	srcpos.z += 15
-	
+
 	result = char.canreach(targpos, 20, True)
 	char.socket.sysmessage('RESULT: ' + str(result))
 
 def newlos(socket, command, arguments):
 	socket.attachtarget('commands.newlostarget', [])
 	socket.sysmessage('Select NEWLOS target.')
-	
+
 def onLoad():
 	wolfpack.registercommand("test", test)
 	wolfpack.registercommand("resendtooltip", resendtooltip)
