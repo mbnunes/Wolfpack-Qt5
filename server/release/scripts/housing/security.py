@@ -2,6 +2,7 @@
 import wolfpack.gumps
 from housing.house import checkAccess
 from housing.consts import *
+from wolfpack.utilities import hex2dec
 
 #
 # Security settings can only be changed by the house owner
@@ -30,8 +31,9 @@ def onContextEntry(player, item, entry):
 # 3 Anyone
 #
 def getLevel(item):
-	if item.hastag('security_level'):
-		return int(item.gettag('security_level'))
+	house = wolfpack.findmulti(item.pos)
+	if house and house.hastag('security_level'):
+		return int(house.gettag('security_level'))
 	return 0
 
 #
@@ -100,9 +102,10 @@ def showGump(player, item):
 def callback(player, arguments, response):
 	if response.button <= 0 or response.button >= 5:
 		return
-	
+
 	item = wolfpack.finditem(arguments[0])
 	if item and item.hasscript('housing.security'):
+		house = wolfpack.findmulti(item.pos)		
 		level = response.button - 1
 		current_level = getLevel(item)
 		
@@ -110,7 +113,14 @@ def callback(player, arguments, response):
 			player.socket.clilocmessage(1061281)
 		else:				
 			if level == 0:
-				item.deltag('security_level')
+				#item.deltag('security_level')
+				house.deltag('security_level')
 			else:
-				item.settag('security_level', level)
+				#item.settag('security_level', level)
+				house.settag('security_level', level)
 			player.socket.clilocmessage(1061280)
+			
+			# search for the housesign and resend the tooltip
+			for sign in house.objects:
+				if sign.hasscript('housing.sign'):
+					sign.resendtooltip()
