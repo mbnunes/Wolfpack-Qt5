@@ -728,8 +728,9 @@ static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 	\method item.additem
 	\description Adds an item to the container.
 	\param item Item to add.
-	\param randomPos Gives the item a random position in the pack
-	\param autostack Autostacks the item
+	\param randomPos Gives the item a random position in the pack. Defaults to true
+	\param handleWeight Defaults to true.
+	\param autostack Autostacks the item. Defaults to true
 */
 static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 {
