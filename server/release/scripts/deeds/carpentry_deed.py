@@ -61,6 +61,13 @@ def onShowTooltip( sender, target, tooltip ):
 	# blessed
 	tooltip.add( 1038021, "" )
 
+def checkmulti(char):
+	if not char.gm and char.multi and not char.multi.owner == char.serial:
+		#You must own the house to do this.
+		char.socket.clilocmessage(502096)
+		return False
+	return True
+
 def onUse( char, item ):
 	if not char or not item:
 		return True
@@ -72,11 +79,8 @@ def onUse( char, item ):
 		char.socket.clilocmessage(500275)
 		return True
 	
-	# buggy!
-	#if not char.gm and char.multi or char.multi.ownserial != char.serial:
-		#You must own the house to do this.
-	#	char.socket.clilocmessage(502096)
-	#	return True
+	if not checkmulti(char):
+		return True
 
 	#Where would you like to place this decoration?
 	char.socket.clilocmessage( 1049780, "", 0x3b2 )

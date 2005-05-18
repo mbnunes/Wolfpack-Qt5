@@ -27,14 +27,14 @@ capacket.setshort(3, 33)
 def getability(player):
 	if not player.socket or not player.socket.hastag('weaponability'):
 		return None
-		
+
 	ability = player.socket.gettag('weaponability')
-	
+
 	if not ability in ABILITIES:
 		return None
-	
+
 	instance = ABILITIES[ability]
-	
+
 	if not instance.checkuse(player):
 		clearability(player)
 		return None
@@ -48,7 +48,7 @@ def clearability(player):
 	if player.socket:
 		player.socket.deltag('weaponability')
 		capacket.send(player.socket)
-		
+
 #
 # Ability baseclass
 #
@@ -71,7 +71,7 @@ class BaseAbility:
 	#
 	def scaledamage(self, attacker, defender, damage):
 		return damage * self.damage
-		
+
 	#
 	# Scale the accuracy of this attack
 	#
@@ -83,7 +83,7 @@ class BaseAbility:
 	#
 	def hit(self, attacker, defender, damage):
 		pass
-		
+
 	#
 	# This event is called if the player misses an opponent.
 	#
@@ -96,7 +96,7 @@ class BaseAbility:
 	def getmana(self, player, weapon):
 		mana = self.mana
 		skillsum = 0
-				
+
 		# Scale according to skillsum
 		for skill in SKILLS:
 			skillsum += player.skill[skill]
@@ -135,12 +135,12 @@ class BaseAbility:
 	def checkskill(self, player, weapon):
 		skill = self.getskill(player, weapon) # Get the required skill amount
 		skillid = weaponskill(player, weapon, True) # Get the weaponskill used by the player
-		
+
 		result = player.skill[skillid] >= skill
-		
+
 		if not result and player.socket:
 			player.socket.clilocmessage(1060182, '%0.f%%' % (skill / 10.0))
-		
+
 		return result
 
 	#
@@ -152,26 +152,26 @@ class BaseAbility:
 
 		if mana == 0:
 			return True # This ability does not require mana
-			
+
 		if player.socket and player.socket.hastag('last_special_ability'):
 			if player.socket.gettag('last_special_ability') + 3000 > wolfpack.currenttime():
 				mana *= 2
 			else:
 				player.socket.deltag('last_special_ability')
-			
+
 		# Check if there is enough mana
 		if player.mana < mana:
 			if player.socket:
 				player.socket.clilocmessage(1060181, str(mana)) # You need xxx mana.
 			return False
-				
+
 		# Consume the mana
 		if use:
 			player.mana -= mana
 			player.updatemana()
-		
+
 		return True
-	
+
 	#
 	# Checks if this ability can be used with the weapon.
 	#
@@ -192,7 +192,7 @@ class BaseAbility:
 	def checkuse(self, player):
 		weapon = player.getweapon() # Get the used weapon	
 		return self.checkweapon(player, weapon) and self.checkmana(player, weapon) and self.checkskill(player, weapon)
-		
+
 	#
 	# Actively use the ability. It clears the current ability and uses the mana.
 	#
@@ -238,22 +238,22 @@ class ArmorIgnore(BaseAbility):
 		self.primary = ['f43', 'f44', '13af', '13b0', '143c', '143d', '26cc', '26c2', '26bd', '26c7', 'f63', 'f62', '1400', '1401', '13b7', '13b8', 'f60', 'f61']
 		self.secondary = ['f5e', 'f5f', '13fe', '13ff', ]
 		self.ignorephysical = True
-		
+
 	def hit(self, attacker, defender, damage):
 		weapon = attacker.getweapon()
 		if not self.checkuse(attacker):
 			return
-			
+
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060076)
 		if defender.socket:
 			defender.socket.clilocmessage(1060077)
-			
+
 		defender.soundeffect(0x56)
 		defender.effect(0x3728, 200, 25)
 ArmorIgnore()
@@ -269,16 +269,16 @@ class BleedAttack(BaseAbility):
 		self.mana = 30
 		self.primary = ['f47', 'f48', 'f45', 'f46', 'ec2', 'ec3', '26ba', '26c4', 'e87', 'e88', '1404', '1405', '1440', '1441']
 		self.secondary = ['13fa', '13fb', '13af', '13b0', '1406', '1407']
-		
+
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060159) # Your target is bleeding
 		if defender.socket:
@@ -286,7 +286,7 @@ class BleedAttack(BaseAbility):
 
 		defender.soundeffect(0x133)
 		defender.effect(0x377a, 244, 25)
-		
+
 		system.bleeding.start(defender, attacker)
 BleedAttack()
 
@@ -299,16 +299,16 @@ class ConcussionBlow(BaseAbility):
 		self.mana = 25
 		self.primary = ['f5c', 'f5d', 'f4f', 'f50', '13f9', '13f8']
 		self.secondary = ['f47', 'f48', '143a', '143b', '143e', '143f', 'e8a', 'e89', '26c0', '26ca', '13b7', '13b8', 'f60', 'f61']
-		
+
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060165) # You have delivered a concussion!
 		if defender.socket:
@@ -316,7 +316,7 @@ class ConcussionBlow(BaseAbility):
 
 		defender.soundeffect(0x213)
 		defender.effect(0x377a, 1, 32)
-			
+
 		source = defender.pos
 		target = defender.pos
 		source.z += 10
@@ -347,7 +347,7 @@ def sendmovingeffect(source, target, model, hue=0, speed=1, rendermode=0):
 	packet.setbyte(27, 0) # Explode on Impact
 	packet.setint(28, hue) # Hue
 	packet.setint(32, rendermode) # Rendermode
-	
+
 	# Search for sockets at the source location
 	chars = wolfpack.chars(source.x, source.y, source.map, 18)
 	for char in chars:
@@ -363,16 +363,16 @@ class CrushingBlow(BaseAbility):
 		self.mana = 25
 		self.primary = ['f49', 'f4a', '143a', '143b', '26bc', '26c6', '1406', '1407', '13f4', '13f5', 'f5e', 'f5f', '13b9', '13ba']
 		self.secondary = ['1438', '1439']
-		
+
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060090) # You have delivered a crushing blow!
 		if defender.socket:
@@ -380,13 +380,13 @@ class CrushingBlow(BaseAbility):
 
 		defender.soundeffect(0x1e1)
 		#defender.effect(0x377a, 1, 32)
-			
+
 		source = defender.pos
 		target = defender.pos
 		source.z += 50
 		target.z += 20
 		sendmovingeffect(source, target, model = 0xfb4)
-		
+
 		amount = floor(0.5 * damage)
 		if amount != 0:
 			energydamage(defender, attacker, amount, physical=100, damagetype=DAMAGE_PHYSICAL)
@@ -401,19 +401,19 @@ class Disarm (BaseAbility):
 		BaseAbility.__init__(self, 5)
 		self.primary = [None] # Unarmed
 		self.secondary = ['f43', 'f44', 'e85', 'e86', '13f6', '13f7', 'ec4', 'ec5', 'f5c', 'f5d', '1404', '1405', '13f4', '13f5']
-	
+
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
 			return
 
 		# Clear Ability, then check if it really can be used
 		clearability(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		weapon = defender.getweapon()
-		
+
 		# Doesnt have a weapon to disarm
 		if not weapon:
 			if attacker.socket:
@@ -430,21 +430,21 @@ class Disarm (BaseAbility):
 				attacker.socket.clilocmessage(1060092) # You disarm their weapon!
 			if defender.socket:
 				defender.socket.clilocmessage(1060093) # Your weapon has been disarmed!
-	
+
 			defender.soundeffect(0x3b9)
 			defender.effect(0x37be, 232, 25)
-						
+
 			layer = weapon.layer # Save the weapon layer
-						
+
 			if not tobackpack(weapon, defender): # Unequip the weapon
 				weapon.update()
-			
+
 			# Players cannot equip another weapon for 5000 ms
 			if defender.socket:
 				defender.socket.settag('block_equip', wolfpack.currenttime() + 5000)
 			elif defender.npc:
 				defender.addtimer(random.randint(5000, 7500), reequip_weapon, [weapon.serial, layer], True)
-				
+
 def reequip_weapon(npc, args):
 	weapon = wolfpack.finditem(args[0])
 	layer = args[1]
@@ -464,7 +464,7 @@ class Dismount (BaseAbility):
 		BaseAbility.__init__(self, 6)
 		self.primary = ['26c0', '26ca']
 		self.secondary = ['f49', 'f4a', '13b3', '13b4', 'f4d', 'f4e', '13fc', '13fd', '26bd', '26c7', 'e87', 'e88']
-	
+
 	def checkuse(self, attacker):
 		result = BaseAbility.checkuse(self, attacker)
 		if result:
@@ -475,7 +475,7 @@ class Dismount (BaseAbility):
 						attacker.socket.clilocmessage(1061283)
 					return False
 		return result
-	
+
 	# NOTE: Only usable against mounted players
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
@@ -483,10 +483,10 @@ class Dismount (BaseAbility):
 
 		# Clear Ability, then check if it really can be used
 		clearability(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		if not defender.socket or not defender.itemonlayer(LAYER_MOUNT):
 			if attacker.socket:
 				attacker.socket.clilocmessage(1060848)
@@ -496,22 +496,22 @@ class Dismount (BaseAbility):
 		
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060082)
-			
+
 		mounted = attacker.itemonlayer(LAYER_MOUNT)
-		
+
 		if mounted:
 			defender.socket.clilocmessage(1062315)
 		else:
 			defender.socket.clilocmessage(1060083)
-		
+
 		defender.soundeffect(0x140)
 		defender.effect(0x3728, 10, 15)
-		
+
 		defender.unmount()		
 
 		# Make it impossible to mount a horse for 10 seconds
 		defender.socket.settag('block_mount', wolfpack.currenttime() + 10000)
-		
+
 		if not mounted:
 			energydamage(defender, attacker, random.randint(15, 25), physical=100, damagetype=DAMAGE_PHYSICAL)
 
@@ -527,16 +527,16 @@ class DoubleStrike(BaseAbility):
 		self.primary = ['f4c', 'f4b', '13ff', '13fe', 'e85', 'e86', '1442', '1443', '26c3', '26cd', '26bf', '26c9', 'e89', 'e8a', '26c1', '26cb', '13b6', '13b5']
 		self.secondary = []
 		self.damage = 0.9
-		
+
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060084) # You attack with lightning speed!
 		if defender.socket:
@@ -547,18 +547,18 @@ class DoubleStrike(BaseAbility):
 
 		defender.soundeffect(0x3bb)
 		defender.effect(0x37b9, 244, 25)
-			
+
 		# Make sure that the next swing has only 90% of the damage
 		if attacker.socket:
 			attacker.socket.settag('weaponability', 1000)
 		attacker.callevent(EVENT_SWING, (attacker, defender, wolfpack.currenttime())) # Swing again
-			
+
 class DoubleStrikeInternal(BaseAbility):
 	def __init__(self):
 		BaseAbility.__init__(self, 1000)
 		self.mana = 0 # Don't require mana
 		self.damage = 0.9
-		
+
 	def checkuse(self, attacker):
 		return True
 
@@ -590,23 +590,23 @@ class InfectiousStrike(BaseAbility):
 		weapon = attacker.getweapon()
 		if weapon and weapon.hastag('poisoning_uses'):
 			poisoning_uses = int(weapon.gettag('poisoning_uses'))
-		
+
 		if poisoning_uses <= 0:
 			if attacker.socket:
 				attacker.socket.clilocmessage(1061141) # Your weapon has no charges...
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		poisoning_uses -= 1
 		if poisoning_uses <= 0:
 			weapon.deltag('poisoning_uses')
 		else:
 			weapon.settag('poisoning_uses', poisoning_uses)
-		
+
 		poisoning_strength = 0 # Assume lesser unless the tag tells so otherwise
 		if weapon.hastag('poisoning_strength'):
 			poisoning_strength = int(weapon.gettag('poisoning_strength'))
@@ -645,7 +645,7 @@ class MortalStrike(BaseAbility):
 		if not self.checkuse(attacker):
 			return
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
 
@@ -676,7 +676,7 @@ def ismortallywounded(char, args = None):
 		if char.socket:
 			char.socket.clilocmessage(1060208)
 		return False
-	
+
 	if not char.hastag('mortalstrike'):
 		return False
 		
@@ -686,14 +686,14 @@ def ismortallywounded(char, args = None):
 		if char.socket:
 			char.socket.clilocmessage(1060208)
 		return False
-		
+
 	# Wont it expire within 20 seconds? > Server Restart occured
 	if expire + 20000 < wolfpack.currenttime():
 		char.deltag('mortalstrike')
 		if char.socket:
 			char.socket.clilocmessage(1060208)
 		return False
-		
+
 	return True # Character is affected
 
 #
@@ -710,13 +710,13 @@ class MovingShot(BaseAbility):
 
 	def miss(self, attacker, defender):
 		self.use(attacker)
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060089)
-		
+
 	def hit(self, attacker, defender, damage):
 		self.use(attacker)	
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060216)
 MovingShot()
@@ -730,16 +730,16 @@ class ParalyzeBlow(BaseAbility):
 		self.mana = 30
 		self.primary = [None, 'f4d', 'f4e', '13b1', '13b2', '26c8', '26be', '26bb', '26c5']
 		self.secondary = ['26ba', '26c4', 'f62', 'f63', 'df0', 'df1', '13f9', '13f8', '13b5', '13b6', '13ba', '13b9']
-		
+
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060163) # You deliver a paralyzing blow!
 		if defender.socket:
@@ -747,7 +747,7 @@ class ParalyzeBlow(BaseAbility):
 
 		defender.soundeffect(0x204)
 		defender.effect(0x376a, 9, 32)
-			
+
 		if defender.player:
 			duration = 3000
 		else:
@@ -771,7 +771,7 @@ class ShadowStrike(BaseAbility):
 		self.mana = 30
 		self.primary = ['ec4', 'ec5', '13b3', '13b4', '1402', '1403']
 		self.secondary = ['1442', '1443', 'f51', 'f52', '1440', '1441']
-		
+
 	#
 	# Check if the player has the required stealth skill
 	#
@@ -782,21 +782,21 @@ class ShadowStrike(BaseAbility):
 				attacker.socket.clilocmessage(1060183) # You lack the required lalala...
 			return False
 		return result
-		
+
 	def hit(self, attacker, defender, damage):
 		if not self.checkuse(attacker):
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
-		
+
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060078) # You strike and hide in the shadows!
 		if defender.socket:
 			defender.socket.clilocmessage(1060079) # You are dazed by the attack and your attacker vanishes!
-			
+
 		attacker.soundeffect(0x482)
 		attacker.pos.effect(0x376A, 8, 12)
 		defender.effect(0x37be, 20, 25)
@@ -827,13 +827,13 @@ class WhirlwindAttack(BaseAbility):
 			return
 
 		self.use(attacker)
-		
+
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
 
 		attacker.effect(0x3728, 10, 15)
 		attacker.soundeffect(0x2a1)
-		
+
 		# Compile a list of targets
 		targets = []
 		center = attacker.pos
@@ -843,7 +843,7 @@ class WhirlwindAttack(BaseAbility):
 			if char != attacker and char != defender:
 				targets.append(char)
 			char = chariter.next
-			
+
 		# Our own party
 		party = attacker.party
 		guild = attacker.guild
@@ -852,7 +852,7 @@ class WhirlwindAttack(BaseAbility):
 		for target in targets:
 			if not attacker.canreach(target, 1):
 				continue
-		
+
 			if not target.dead and not target.invulnerable and (not party or party != target.party) and (not guild or target.guild != guild):
 				if attacker.socket:
 					attacker.socket.clilocmessage(1060161) # The whirling attack strikes a target!
