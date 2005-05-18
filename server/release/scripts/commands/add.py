@@ -170,6 +170,18 @@ class AddItemAction(MakeItemAction):
 		MakeAction.make(self, player, arguments, nodelay)
 
 #
+# This action creates a multi
+#
+class AddMultiAction(MakeItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		MakeItemAction.__init__(self, parent, title, itemid, definition)
+
+	def make(self, player, arguments, nodelay=0):
+		player.socket.sysmessage("Where do you want to place the multi '%s'?" % self.definition)
+		player.socket.attachtarget("commands.add.addmulti", [self.definition, False])
+		MakeAction.make(self, player, arguments, nodelay)
+
+#
 # Generate a menu structure out of the
 # category tags of our item definitions.
 #
@@ -289,6 +301,62 @@ def generateAddMenu(serial = 0, items = None):
 			addnpc = AddNpcAction(submenus['\\'.join(categories) + '\\'], description, definition)
 		addnpc.description = 'Definition: ' + definition
 		npc = npcs.next
+
+	for menu in submenus.values():
+		menu.sort()
+
+	multis = wolfpack.definitionsiterator(WPDT_MULTI)
+	submenus = {}
+
+	multi = multis.first
+	while multi:
+		if not multi.hasattribute('id'):
+			multi = multi.next
+			continue
+
+		child = multi.findchild('category')
+		if not child:
+			multi = multis.next
+			continue
+
+		categories = ['Multis'] + child.text.split('\\')
+		description = categories[len(categories)-1] # Name of the action
+		categories = categories[:len(categories)-1]
+
+		# Iterate trough the categories and see if they're all there
+		category = ''
+		if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+			for subcategory in categories:
+				if not submenus.has_key(category + subcategory + '\\'):
+					# Category is our parent category
+					parent = None
+					if len(category) == 0:
+						parent = addmenu
+					elif submenus.has_key(category):
+						parent = submenus[category]
+
+					category += subcategory + '\\'
+					menu = MakeMenu('ADDMENU_' + category, parent, subcategory)
+					submenus[category] = menu
+				else:
+					category += subcategory + '\\'
+
+		child = multi.findchild('id')
+		if child:
+			try:
+				id = int(child.value)
+			except:
+				id = 0
+		else:
+			id = 0
+		multi = multi.getattribute('id')
+		# Parse the position of this makemenu entry
+		if len(categories) == 0:
+			addmulti = AddMultiAction(addmenu, description, id, multi)
+		else:
+			addmulti = AddMultiAction(submenus['\\'.join(categories) + '\\'], description, id, multi)
+		addmulti.description = 'Definition: ' + multi
+		multi = multis.next
 
 	for menu in submenus.values():
 		menu.sort()
