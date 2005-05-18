@@ -1,22 +1,17 @@
 """
-	\
-	\
+
+
 	\command removedupes
 	\description removes all (but one) duplicate items from all maps:
-	\
-	\ a duplicate is an item that is in the same location (x,y,z,map) and has the same ID#
-	\ as another.
-	\
-	\ NOTE: this *may* delete things you would rather keep.  this routine is intended to
-	\       clean up after an 'import or 'decoration command is issued on a map in error.
-	\
-	\		this routines does NOT know if an item has had the 'dupe command issued on it
-	\       nor does it detect items duped on the account of exploits or other such nonsense.
-	\
-	\
-	\ DOUBLE NOTE: you should consider disabling this command once your shard is "live".
-	\
-	\
+	a duplicate is an item that is in the same location (x,y,z,map) and has the same ID#
+	as another.
+
+	\notes: this *may* delete things you would rather keep. This routine is intended to
+	clean up after an 'import or 'decoration command is issued on a map in error.
+	This routines does NOT know if an item has had the 'dupe command issued on it
+	nor does it detect items duped on the account of exploits or other such nonsense.
+	<br />
+	<b>You should consider disabling this command once your shard is "live".</b>
 """
 
 import wolfpack

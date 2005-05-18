@@ -20,7 +20,7 @@ def getCoOwners(house):
 		coowners = str(house.gettag('coowners')).split(',')		
 
 	return coowners
-	
+
 #
 # Add a coowner to this house
 #
@@ -34,7 +34,7 @@ def addCoOwner(house, coowner):
 	if serial not in coowners:
 		coowners.append(serial)
 		house.settag('coowners', ','.join(coowners))
-		
+
 #
 # Remove a co-owner from the house
 #
