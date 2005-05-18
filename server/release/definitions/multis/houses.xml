@@ -283,9 +283,9 @@
 		<name>Large Tower</name>
 		<id>0x407a</id>
 		<nodecay />
-		<door x="0" y="6" z="7" id="0x6c5" /> <!-- Iron door facing south -->
-		<door x="1" y="6" z="7" id="0x6c7" /> <!-- Wooden door facing south -->
-		<sign x="4" y="7" z="5" />
+		<door x="0" y="6" z="0" id="0x6c5" /> <!-- Iron door facing south -->
+		<door x="1" y="6" z="0" id="0x6c7" /> <!-- Wooden door facing south -->
+		<sign x="4" y="7" z="5" id="0xbd0" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Large Tower</category>
@@ -310,7 +310,7 @@
 		<nodecay />
 		<door x="0" y="10" z="7" id="0x6c5" /> <!-- Iron door facing south -->
 		<door x="1" y="10" z="7" id="0x6c7" /> <!-- Wooden door facing south -->
-		<sign x="4" y="11" z="5" />
+		<sign x="4" y="11" z="5" id="0xbd0" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Stone Keep</category>
@@ -335,7 +335,7 @@
 		<nodecay />
 		<door x="0" y="15" z="7" id="0x6c5" /> <!-- Iron door facing south -->
 		<door x="1" y="15" z="7" id="0x6c7" /> <!-- Wooden door facing south -->
-		<sign x="4" y="16" z="5" />
+		<sign x="4" y="16" z="5" id="0xbd0" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Castle</category>
@@ -416,7 +416,7 @@
 		<id>0x409a</id>
 		<nodecay />
 		<door x="1" y="4" z="8" id="0x6a5" /> <!-- Wooden door facing south -->
-		<sign x="4" y="7" z="9" />
+		<sign x="4" y="7" z="9" id="0xbd0" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Log Cabin</category>
@@ -453,7 +453,7 @@
 		<nodecay />
 		<door x="3" y="1" z="5" id="0x6a5" /> <!-- Wooden door facing south -->
 		<door x="4" y="1" z="5" id="0x6a7" /> <!-- Wooden door facing south -->
-		<sign x="2" y="7" z="14" />
+		<sign x="2" y="7" z="14" id="0xbd0" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Two-Story Villa</category>

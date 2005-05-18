@@ -12,4 +12,5 @@
 <definitions>
 	<include file="definitions/multis/boats.xml"/>
 	<include file="definitions/multis/houses.xml"/>
+	<include file="definitions/multis/other.xml"/>
 </definitions>
