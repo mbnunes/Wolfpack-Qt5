@@ -25,7 +25,8 @@ def onCHLevelChange( char, level ):
 	return 1
 
 def onUse( char, item ):
-	gump0( char, "signpost.gumpcallback", item )
+	gump0( char, gumpcallback, item )
+	return True
 
 def gumpcallback( char, args, target ):
 	switchgump( char, target, args )
@@ -336,10 +337,12 @@ def switchgump( char, target, args ):
 
 	button = target.button
 	if gumphandler.has_key( button ):
-		gumphandler[ button ]( char, "signpost.gumpcallback", item )
+		gumphandler[ button ]( char, gumpcallback, item )
 	else:
 		if actionhandler.has_key( button ):
 			actionhandler[ button ]( char, item )
+		elif button == 0:
+			return
 		else:
 			char.socket.sysmessage( "Button %i isn't working yet" % button )
 			return 1

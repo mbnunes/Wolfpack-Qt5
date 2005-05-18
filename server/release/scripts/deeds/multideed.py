@@ -115,7 +115,7 @@ button_ok = 1
 button_cancel = 0
 
 def onUse( char, item ):
-	gump0( char, "deeds.multideed.gump0callback" )
+	gump0( char, gump0callback )
 	return 1
 
 #Selection of custom house type ( 2-story / 3-story )
@@ -123,31 +123,39 @@ def gump0callback( char, args, target ):
 	button = target.button
 
 	#Old style houses
-	if button == 1: char.socket.clilocmessage( 1005691 )
+	if button == 1:
+		char.socket.clilocmessage( 1005691 )
 	#2-Story houses
-	if button == 2: gump1( char, "deeds.multideed.gump1callback", ch2story )
+	if button == 2:
+		gump1( char, gump1callback, ch2story )
 	#3-Story houses
-	if button == 3: gump3( char, "deeds.multideed.gump1callback", ch3story )
+	if button == 3:
+		gump3( char, gump1callback, ch3story )
 
 #Selection of 2-story size
 def gump1callback( char, args, target ):
 	button = target.button
-	if button > 0: char.socket.attachmultitarget( "deeds.multideed.response", args[0][button-1][2], args[0][button-1] )
+	if button > 0:
+		char.socket.attachmultitarget( "deeds.multideed.response", args[0][button-1][2], args[0][button-1], 0, 0, 0 )
 
 #CH placement warning gump callback
 def gump2callback( char, args, target ):
 	button = target.button
-	if button == 1: foundation( char, args[1], args[0][0], args[0][1], args[0][2] )
+	if button == 1:
+		foundation( char, args[1], args[0][0], args[0][1], args[0][2] )
 
 def response( char, args, target ):
-	gump2( char, "deeds.multideed.gump2callback", args, target )
+	gump2( char, gump2callback, args, target )
 	return 1
 
 def foundation( char, target, width, height, multiid ):
-	multi = wolfpack.multi( CUSTOMHOUSE )
+	multi = wolfpack.addmulti( str(multiid) )
+	if not multi:
+		char.socket.sysmessage( "Multi '%s' not yet implemented" % multiid )
+		return True
 	char.socket.sysmessage( str( multi.serial ) )
 	multi.id = multiid + 0x4000
-	multi.decay = FALSE
+	multi.decay = False
 	multi.moveto( target.pos )
 
 	left = width/2
@@ -156,38 +164,50 @@ def foundation( char, target, width, height, multiid ):
 	top = bottom - ( height-1 )
 
 	#Draw floor
-	for y in xrange( top+1,bottom+1 ):
-		for x in xrange( right+1,left+1 ):
-			if x == 0 and y == 0:
-				multi.addchtile( 0x1, 0, 0, 0 )
-			multi.addchtile( 0x31f4, x, y, 7 )
+	#for y in xrange( top+1,bottom+1 ):
+	#	for x in xrange( right+1,left+1 ):
+	#		if x == 0 and y == 0:
+	#			multi.addchtile( 0x1, 0, 0, 0 )
+	#		multi.addchtile( 0x31f4, x, y, 7 )
 
 	#Draw corners
-	multi.addchtile( 0x66, right, top, 0 )
-	multi.addchtile( 0x65, left, bottom, 0 )
+	#multi.addchtile( 0x66, right, top, 0 )
+	#multi.addchtile( 0x65, left, bottom, 0 )
 
 	#Draw sides
-	for x in xrange( right+1,left+1 ):
-		multi.addchtile( 0x63, x, top, 0 )
-		if x < left:
-			multi.addchtile( 0x63, x, bottom, 0 )
+	#for x in xrange( right+1,left+1 ):
+	#	multi.addchtile( 0x63, x, top, 0 )
+	#	if x < left:
+	#		multi.addchtile( 0x63, x, bottom, 0 )
 
-	for y in xrange( top+1, bottom+1 ):
-		multi.addchtile( 0x64, right, y, 0 )
-		multi.addchtile( 0x64, left, y, 0 )
+	#for y in xrange( top+1, bottom+1 ):
+		#multi.addchtile( 0x64, right, y, 0 )
+		#multi.addchtile( 0x64, left, y, 0 )
 
 	#Draw stairs
-	for x in xrange( right+1,left+1 ):
-		multi.addchtile( 0x0751, x, bottom+1, 0 )
+	for x1 in xrange( right+1,left+1 ):
+		stairs = wolfpack.additem( "751" )
+		
+		x = multi.pos.x + x1
+		y = multi.pos.y + bottom + 1
+		z = multi.pos.z
+		map = multi.pos.map
+		newpos = wolfpack.coord( x, y, z, map )
+		stairs.moveto( newpos )
+		stairs.movable = 3
+		staris.decay = False
+		stairs.update()
 
+		#multi.addchtile( 0x0751, x, bottom+1, 0 )
 
-	multi.sendcustomhouse( char )
+	#multi.sendcustomhouse( char )
+	multi.update()
 	#woodenpost = wolfpack.additem( "9" )
 	signpost = wolfpack.additem( "b98" )
 	sign = wolfpack.additem( "bd2" )
-	#woodenpost.decay = FALSE
-	signpost.decay = FALSE
-	sign.decay = FALSE
+	#woodenpost.decay = False
+	signpost.decay = False
+	sign.decay = False
 	x = multi.pos.x + right
 	y = multi.pos.y + bottom
 	z = multi.pos.z + 7
@@ -202,7 +222,6 @@ def foundation( char, target, width, height, multiid ):
 	#woodenpost.update()
 	signpost.update()
 	sign.update()
-
 
 
 #House type selection common/2-story/3-story
@@ -956,4 +975,3 @@ def gump2( char, callback, args, target ):
 	mygump.setCallback( callback )
 	mygump.setArgs( [args, target] )
 	mygump.send( char )
-
