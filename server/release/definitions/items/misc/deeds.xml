@@ -268,6 +268,109 @@
 		<category>Buildings\House deed (Classic and Custom)</category>
 	</item>
 
+	<!-- House Deed -->
+	<item id="house_deed">
+		<weight>1.0</weight>
+		<basescripts>housing.deed</basescripts>
+		<id>0x14f0</id>
+		<newbie />
+	</item>
+
+	<item id="small_stone_and_plaster_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_stone_and_plaster_house" />
+	</item>
+
+	<item id="small_fieldstone_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_fieldstone_house" />
+	</item>
+
+	<item id="small_brick_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_brick_house" />
+	</item>
+
+	<item id="small_wood_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_wood_house" />
+	</item>
+
+	<item id="small_wood_and_plaster_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_wood_and_plaster_house" />
+	</item>
+
+	<item id="small_thatched_roof_cottage_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_thatched_roof_cottage" />
+	</item>
+
+	<item id="large_brick_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="large_brick_house" />
+	</item>
+
+	<item id="two_story_wood_and_plaster_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="two_story_wood_and_plaster_house" />
+	</item>
+
+	<item id="large_tower_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="large_tower" />
+	</item>
+
+	<item id="stone_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="stone_keep" />
+	</item>
+
+	<item id="castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="castle" />
+	</item>
+
+	<item id="large_patio_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="large_patio_house" />
+	</item>
+
+	<item id="large_marbel_patio_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="large_marbel_patio_house" />
+	</item>
+
+	<item id="small_tower_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_tower" />
+	</item>
+
+	<item id="log_cabin_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="log_cabin" />
+	</item>
+
+	<item id="sandstone_patio_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="sandstone_patio_house" />
+	</item>
+
+	<item id="two_story_villa_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="two_story_villa" />
+	</item>
+
+	<item id="small_stone_workshop_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_stone_workshop" />
+	</item>
+
+	<item id="small_marble_workshop_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="small_marble_workshop" />
+	</item>
+
 	<item id="commodity_deed" inherit="blank_deed">
 		<color>0x47</color>
 		<buyprice>5</buyprice>

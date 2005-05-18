@@ -7,20 +7,6 @@
 =================================================================
 -->
 <definitions>
-	<!-- House Deed -->
-	<item id="house_deed">
-		<weight>1.0</weight>
-		<basescripts>housing.deed</basescripts>
-		<id>0x14F0</id>
-		<newbie />
-	</item>
-	<item id="housetest_deed">
-		<weight>1.0</weight>
-		<basescripts>housing.deed</basescripts>
-		<id>0x14f0</id>
-		<tag name="section" value="small_wood_house" />
-		<newbie />
-	</item>
 	<!-- Context Menu for securables -->
 	<contextmenu id="security_menu">
 		<scripts>housing.security</scripts>
