@@ -3,6 +3,7 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack import console
 from system.makemenus import MakeItemAction, MakeMenu, MakeAction, findmenu
+from wolfpack.utilities import hex2dec
 
 generated = 0
 
@@ -120,8 +121,14 @@ def add(socket, command, arguments):
 			socket.sysmessage("Where do you want to spawn the npc '%s'?" % arguments)
 			socket.attachtarget("commands.add.addnpc", [arguments])
 		elif wolfpack.getdefinition(WPDT_MULTI, arguments):
+			node = wolfpack.getdefinition(WPDT_MULTI, arguments)
+			count = node.childcount
+			for i in range(0, count):
+				subnode = node.getchild(i)
+				if subnode.name == 'id': # Found the display id
+					dispid = hex2dec(subnode.value)
 			socket.sysmessage("Where do you want to place the multi '%s'?" % arguments)
-			socket.attachtarget("commands.add.addmulti", [arguments, False])
+			socket.attachmultitarget("commands.add.addmulti",  dispid - 0x4000, [arguments, False], 0, 0, 0)
 		else:
 			socket.sysmessage('No Item, NPC or Multi definition by that name found.')
 		return
