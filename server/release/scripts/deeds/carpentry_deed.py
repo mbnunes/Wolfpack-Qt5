@@ -62,7 +62,14 @@ def onShowTooltip( sender, target, tooltip ):
 	tooltip.add( 1038021, "" )
 
 def checkmulti(char):
-	if not char.gm and char.multi and not char.multi.owner == char.serial:
+	if char.gm:
+		return True
+	if not char.multi:
+		#You can only build this in a house.
+		char.socket.clilocmessage(500275)
+		return False
+	# check if this char is in it's own house
+	if not char.multi.owner == char.serial:
 		#You must own the house to do this.
 		char.socket.clilocmessage(502096)
 		return False
@@ -72,17 +79,10 @@ def onUse( char, item ):
 	if not char or not item:
 		return True
 
-	# check if this char is in it's own house
-	# GMs should always be able to use
-	if not char.gm and not( char.multi ):
-		#You can only build this in a house.
-		char.socket.clilocmessage(500275)
-		return True
-	
 	if not checkmulti(char):
 		return True
 
-	#Where would you like to place this decoration?
+	# Where would you like to place this decoration?
 	char.socket.clilocmessage( 1049780, "", 0x3b2 )
 
 	# send target cursor
