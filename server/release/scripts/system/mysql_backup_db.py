@@ -28,7 +28,7 @@ enabled = False
 # MAKE SURE YOU SET THIS!
 backup_path = None
 #backup_path = '/Path/To/Wolfpack/backups'
-#backup_path = 'C:\Wolfpack\backups'
+#backup_path = 'C:/Wolfpack/backups'
 
 database = wolfpack.database
 log = wolfpack.console.log
@@ -88,21 +88,17 @@ def backup_db():
 				if accountsdriver == 'mysql' and worlddriver == 'mysql':
 					log( LOG_MESSAGE, "Doing a backup for the accounts and world databases..." )
 					if not os.path.isdir( accountsdir ):
-						os.mkdirs( accountsdir )
-						os.chmod( accountsdir, 0777)
+						os.mkdir( accountsdir )
 					if not os.path.isdir( worlddir ):
-						os.mkdirs( worlddir )
-						os.chmod( worlddir, 0777)
+						os.mkdir( worlddir )
 				elif accountsdriver == 'mysql' or worlddriver == 'mysql':
 					if accountsdriver == 'mysql':
 						if not os.path.isdir( accountsdir ):
-							os.mkdirs( accountsdir )
-							os.chmod( accountsdir, 0777)
+							os.mkdir( accountsdir )
 						log( LOG_MESSAGE, "Doing a backup for the accounts database..." )
 					elif worlddriver == 'mysql':
 						if not os.path.isdir( worlddir ):
-							os.mkdirs( worlddir )
-							os.chmod( worlddir, 0777)
+							os.mkdir( worlddir )
 						log( LOG_MESSAGE, "Doing a backup for the world database..." )
 				# Time to backup
 				if accountsdriver == 'mysql':

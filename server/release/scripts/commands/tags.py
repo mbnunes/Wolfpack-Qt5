@@ -48,6 +48,7 @@ def taginfo_callback(player, tagnames, response):
 			player.log(LOG_MESSAGE, u"Deleting tag '%s' from object 0x%x. Was: '%s' (%s).\n" % \
 				(tagnames[i], object.serial, unicode(oldvalue), type(oldvalue).__name__))
 			object.deltag(tagnames[i])
+			object.resendtooltip()
 			continue
 
 		if response.text.has_key(i * 2 + 0) and response.text.has_key(i * 2 + 1):
