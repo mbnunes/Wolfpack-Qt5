@@ -52,6 +52,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added granite and sand definitions
   - Added craftmenu for glassblowing
   - Support up to client 4.0.10.
+  - Added Multis and Multi deeds.
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.
@@ -116,6 +117,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed bug #0000405.
   - If poisoning fails, there is a 5% chance to poison yourself.
   - New formula for detecting hidden.
+  - Fixed multis and deeds.
+  - Graphical preview for creating Multis.
+  - Fix for Plants (menu didn't open when they were grown).
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
@@ -124,7 +128,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Town/World regions are incomplete.
     We welcome donated OSI-like region scripts!
   - Possible that a few monsters are missing and/or incomplete.
-  - Multis (Houses/Boats) are not currently supported.
+  - Multis (Houses/Boats) are not completly supported.
 
 Wolfpack 12.9.13 Beta (25. December 2004)
  * Core Changes:
