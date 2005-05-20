@@ -101,8 +101,15 @@ def static(socket, command, arguments):
 			socket.sysmessage("Where do you want to place the item '%s'?" % arguments)
 			socket.attachtarget("commands.add.additem", [arguments, True])
 		elif wolfpack.getdefinition(WPDT_MULTI, arguments):
+			node = wolfpack.getdefinition(WPDT_MULTI, arguments)
+			count = node.childcount
+			for i in range(0, count):
+				subnode = node.getchild(i)
+				if subnode.name == 'id': # Found the display id
+					dispid = hex2dec(subnode.value)
+			socket.sysmessage("tet")
 			socket.sysmessage("Where do you want to place the multi '%s'?" % arguments)
-			socket.attachtarget("commands.add.addmulti", [arguments, True])
+			socket.attachmultitarget("commands.add.addmulti",  dispid - 0x4000, [arguments, True], 0, 0, 0)
 		else:
 			socket.sysmessage('No Item, NPC or Multi definition by that name found.')
 	else:
@@ -184,8 +191,14 @@ class AddMultiAction(MakeItemAction):
 		MakeItemAction.__init__(self, parent, title, itemid, definition)
 
 	def make(self, player, arguments, nodelay=0):
+		node = wolfpack.getdefinition(WPDT_MULTI, self.definition)
+		count = node.childcount
+		for i in range(0, count):
+			subnode = node.getchild(i)
+			if subnode.name == 'id': # Found the display id
+				dispid = hex2dec(subnode.value)
 		player.socket.sysmessage("Where do you want to place the multi '%s'?" % self.definition)
-		player.socket.attachtarget("commands.add.addmulti", [self.definition, False])
+		player.socket.attachmultitarget("commands.add.addmulti",  dispid - 0x4000, [self.definition, False], 0, 0, 0)
 		MakeAction.make(self, player, arguments, nodelay)
 
 #
