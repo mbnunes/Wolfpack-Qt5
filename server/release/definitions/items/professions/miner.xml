@@ -576,9 +576,9 @@
 		<category>Professions\Miner\Granite\Dull Copper Granite</category>
 	</item>
 
-	<item id="shadowiron_granite" inherit="granite">
+	<item id="shadow_granite" inherit="granite">
 		<color>0x966</color>
-		<category>Professions\Miner\Granite\Shadow Iron Granite</category>
+		<category>Professions\Miner\Granite\Shadow Granite</category>
 	</item>
 
 	<item id="copper_granite" inherit="granite">
