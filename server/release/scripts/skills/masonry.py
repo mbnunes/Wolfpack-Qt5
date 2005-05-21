@@ -18,14 +18,14 @@ import random
 # The first four values are required by the makemenu system.
 GRANITES = [
 	['Granite',	BLACKSMITHING, 0, ['granite'], 0x0],
-	['Dull Copper', BLACKSMITHING, 0, ['dullcopper_granite'], 0x973],
-	['Shadow Iron', BLACKSMITHING, 0, ['shadowiron_granite'], 0x966],
-	['Copper',	BLACKSMITHING, 0, ['copper_granite'], 0x96d],
-	['Bronze',	BLACKSMITHING, 0, ['bronze_granite'], 0x972],
-	['Gold',	BLACKSMITHING, 0, ['gold_granite'], 0x8a5],
-	['Agapite',	BLACKSMITHING, 0, ['agapite_granite'], 0x979],
-	['Verite',	BLACKSMITHING, 0, ['verite_granite'], 0x89f],
-	['Valorite',	BLACKSMITHING, 0, ['valorite_granite'], 0x8ab],
+	['Dull Copper Granite', BLACKSMITHING, 0, ['dullcopper_granite'], 0x973],
+	['Shadow Granite', BLACKSMITHING, 0, ['shadow_granite'], 0x966],
+	['Copper Granite',	BLACKSMITHING, 0, ['copper_granite'], 0x96d],
+	['Bronze Granite',	BLACKSMITHING, 0, ['bronze_granite'], 0x972],
+	['Gold Granite',	BLACKSMITHING, 0, ['gold_granite'], 0x8a5],
+	['Agapite Granite',	BLACKSMITHING, 0, ['agapite_granite'], 0x979],
+	['Verite Granite',	BLACKSMITHING, 0, ['verite_granite'], 0x89f],
+	['Valorite Granite',	BLACKSMITHING, 0, ['valorite_granite'], 0x8ab],
 ]
 
 
@@ -57,36 +57,6 @@ class StonecrafterItemAction(CraftItemAction):
 			if rate >= percent:
 				success = 0
 		return success
-
-	#
-	# Check if we did an exceptional job.
-	#
-	#def getexceptionalchance(self, player, arguments):
-	#	# Only works if this item requires blacksmithing
-	#	if not self.skills.has_key(BLACKSMITHING):
-	#		return False
-
-	#	minskill = self.skills[BLACKSMITHING][0]
-	#	maxskill = self.skills[BLACKSMITHING][1]
-	#	penalty = self.skills[BLACKSMITHING][2]
-
-	#	if not penalty:
-	#		penalty = 250
-
-	#	minskill += penalty
-	#	maxskill += penalty
-
-	#	chance = ( player.skill[BLACKSMITHING] - minskill ) / 10
-
-	#	# chance = 0 - 100
-	#	if chance > 100:
-	#		chance = 100
-	#	elif chance < 0:
-	#		chance = chance * -1
-
-	#	# chance range 0.00 - 1.00
-	#	chance = chance * .01
-	#	return chance
 
 	#
 	# Apply color to the item.
@@ -132,7 +102,7 @@ class MasonryMenu(MakeMenu):
 
 	# Check if player has learned masonry
 	def haslearned(self, player, item):
-		if not player.hastag( 'masonry' ):
+		if not player.gm and not player.hastag( 'masonry' ):
 			player.socket.clilocmessage(1044633) # You havent learned masonry.
 			return False
 		return True

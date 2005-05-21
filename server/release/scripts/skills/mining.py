@@ -44,7 +44,12 @@ ORES = {
 }
 
 def canminesand(char):
-	if char.hastag('sandmining'):
+	if char.gm or char.hastag('sandmining'):
+		return True
+	return False
+
+def canminegranite(char):
+	if char.gm or char.hastag('stonemining'):
 		return True
 	return False
 

@@ -11,6 +11,7 @@ import skills
 import whrandom
 import wolfpack.utilities
 from wolfpack.consts import GRAY, LAYER_MOUNT, MINING
+from skills.mining import canminegranite
 
 def onUse( char, tool ):
 	#Already digging ?
@@ -42,9 +43,8 @@ def onUse( char, tool ):
 
 	return True
 
-
 def onContextCheckVisible( char, target, tag ):
-	if char.hastag( 'stonemining' ) and not char.skill[MINING] < 1000:
+	if canminegranite(char) and not char.skill[MINING] < 1000:
 		return True # visible
 
 	return False # not visible
@@ -65,7 +65,7 @@ def onContextEntry( char, target, tag  ):
 			return True
 		char.settag( "mining", "ore" )
 		char.socket.clilocmessage( 1054020 ) # You are now set to mine only ore.
-		
+
 	if tag == 301:
 		if char.hastag( "mining" ) and char.gettag( "mining" ) == "ore,stone":
 			char.socket.clilocmessage( 1054023 ) # You are already set to mine both ore and stone!
