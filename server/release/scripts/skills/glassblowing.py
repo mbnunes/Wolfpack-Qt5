@@ -13,13 +13,37 @@ from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
 from wolfpack.properties import itemcheck, fromitem
 import random
-from skills.blacksmithing import checkanvilandforge
 
 # Sand used by Glassblowing
 # The first four values are required by the makemenu system.
 SAND = [
 	['Sand', ALCHEMY, 0, ['sand'], 0x0]
 ]
+
+#
+# Check for forge
+#
+def checkforge(char):
+	if char.gm:
+		return True
+
+	# Check dynamic items.
+	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 5)
+	for item in items:
+		if item.id == 0xFB1 or (item.id >= 0x197A and item.id <= 0x19A9):
+			return True
+
+	# Check for static items
+	for x in range(-2, 3):
+		for y in range(-2, 3):
+			statics = wolfpack.statics(char.pos.x + x, char.pos.y + y, char.pos.map, True)
+
+			for tile in statics:
+				dispid = tile[0]
+				if dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):
+					return True
+
+	return False
 
 #
 # Bring up the glassblowing menu
@@ -29,7 +53,7 @@ def onUse(char, item):
 	if menu:
 		menu.send(char, [item.serial])
 	return True
-	
+
 #
 # Craft an item.
 #
@@ -128,14 +152,14 @@ class GlassblowingMenu(MakeMenu):
 		if not MakeMenu.checktool(self, player, item, wearout):
 			return False
 
-		if not checkanvilandforge(player):
-			player.socket.clilocmessage(1044267)
+		if not checkforge(player):
+			player.socket.clilocmessage(1044628) # You must be near a forge to blow glass.)
 			return False
 		return True
 
 	# Check if player has learned glassblowing
 	def haslearned(self, player, item):
-		if not player.hastag( 'glassblowing' ):
+		if not player.gm and not player.hastag( 'glassblowing' ):
 			player.socket.clilocmessage(1044634) # You havent learned glassblowing.
 			return False
 		return True
