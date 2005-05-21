@@ -75,47 +75,6 @@ class GlassblowerItemAction(CraftItemAction):
 		return success
 
 	#
-	# Check if we did an exceptional job.
-	#
-	#def getexceptionalchance(self, player, arguments):
-	#	# Only works if this item requires blacksmithing
-	#	if not self.skills.has_key(BLACKSMITHING):
-	#		return False
-
-	#	minskill = self.skills[BLACKSMITHING][0]
-	#	maxskill = self.skills[BLACKSMITHING][1]
-	#	penalty = self.skills[BLACKSMITHING][2]
-
-	#	if not penalty:
-	#		penalty = 250
-
-	#	minskill += penalty
-	#	maxskill += penalty
-
-	#	chance = ( player.skill[BLACKSMITHING] - minskill ) / 10
-
-	#	# chance = 0 - 100
-	#	if chance > 100:
-	#		chance = 100
-	#	elif chance < 0:
-	#		chance = chance * -1
-
-	#	# chance range 0.00 - 1.00
-	#	chance = chance * .01
-	#	return chance
-
-	#
-	# Apply color to the item.
-	#
-	def applyproperties(self, player, arguments, item, exceptional):
-		# See if special granite was used in the creation of
-		# this item. All items crafted gain the color!
-		if self.submaterial1 > 0:
-			material = self.parent.getsubmaterial1used(player, arguments)
-			material = self.parent.submaterials1[material]
-			item.color = material[4]
-
-	#
 	# Play a simple soundeffect
 	#
 	def playcrafteffect(self, player, arguments):
@@ -137,6 +96,7 @@ class GlassblowingMenu(MakeMenu):
 		self.allowmark = False
 		self.allowrepair = False
 		self.allowenhance = False
+		
 		self.allowsmelt = False
 		self.submaterials1 = SAND
 		self.submaterial1missing = 1053098
@@ -163,25 +123,6 @@ class GlassblowingMenu(MakeMenu):
 			player.socket.clilocmessage(1044634) # You havent learned glassblowing.
 			return False
 		return True
-
-	#
-	# Get the material used by the character from the tags
-	#
-	def getsubmaterial1used(self, player, arguments):
-		if not player.hastag('glassblowing_sand'):
-			return False
-		else:
-			material = int(player.gettag('glassblowing_sand'))
-			if material < len(self.submaterials1):
-				return material
-			else:
-				return False
-
-	#
-	# Save the material preferred by the user in a tag
-	#
-	def setsubmaterial1used(self, player, arguments, material):
-		player.settag('glassblowing_sand', material)
 
 #
 # Load a menu with a given id and
