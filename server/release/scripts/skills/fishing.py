@@ -98,12 +98,7 @@ def response( char, args, target ):
 		char.hidden = False
 		char.update()
 
-	# First: Check Distance (easiest)
-	if char.pos.map != pos.map or char.pos.distance( pos ) > FISHING_MAX_DISTANCE:
-		socket.clilocmessage( 0x7a4f0, "", 0x3b2, 3, char ) # You need to be closer to the water to fish!
-		return
-
-	# Second: Check Map/Static/Dynamic Water and eventual blocking stuff above it
+	# Check Map/Static/Dynamic Water and eventual blocking stuff above it
 	validspot   = 0
 	blockedspot = 0
 	deepwater   = 0
@@ -113,6 +108,11 @@ def response( char, args, target ):
 	# Simple check for saving CPU time (trusted-check)
 	if not target.model in staticWater and not mapTile[ "id" ] in mapWater:
 		socket.clilocmessage( 0x7a4f2, "", 0x3b2, 3, char ) # You need water to fish in!
+		return
+
+	# Check Distance
+	if char.pos.map != pos.map or char.pos.distance( pos ) > FISHING_MAX_DISTANCE:
+		socket.clilocmessage( 0x7a4f0, "", 0x3b2, 3, char ) # You need to be closer to the water to fish!
 		return
 
 	# Check dynamics first ( And check if any objects start at z -> z + 13 )
@@ -156,7 +156,7 @@ def response( char, args, target ):
 	# only check if we're not blocked already
 	if not blockedspot:
 		for item in staticitems:
-			if ( not item[ 'id' ] in staticWater ) and ( item[ "z" ] >= pos.z ) and ( item[ "z" ] <= pos.z + FISHING_BLOCK_RANGE ):
+			if ( not item[ 0 ] in staticWater ) and ( item[ 3 ] >= pos.z ) and ( item[ 3 ] <= pos.z + FISHING_BLOCK_RANGE ):
 				tile = wolfpack.tiledata( item.id )
 
 				if tile[ "blocking" ] or tile[ "floor" ]:
