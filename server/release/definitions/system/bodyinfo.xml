@@ -278,7 +278,7 @@
 	<body id="240" type="1" figurine="0x276b" deathsound="0x508" hitsound="0x509" idlesound="0x50a" attacksound="0x50b" gethitsound="0x50c" /> <!-- Kappa -->
 	<body id="241" type="1" figurine="0x276d" deathsound="0x4e0" hitsound="0x4e1" idlesound="0x4e2" attacksound="0x4e3" gethitsound="0x4e4" /> <!-- Oni -->
 	<body id="242" type="1" figurine="0x2765" deathsound="0x4f0" hitsound="0x4f1" idlesound="0x4f2" attacksound="0x4f3" gethitsound="0x4f4" /> <!-- Deathwatch Beetle -->
-	<body id="243" type="3" figurine="0x276a" type="1" mountid="16020" deathsound="0x4fb" hitsound="0x4fc" idlesound="0x4fd" attacksound="0x4fe" gethitsound="0x4ff" /> <!-- Hiryu -->
+	<body id="243" type="3" figurine="0x276a" mountid="16020" deathsound="0x4fb" hitsound="0x4fc" idlesound="0x4fd" attacksound="0x4fe" gethitsound="0x4ff" /> <!-- Hiryu -->
 	<body id="244" type="1" figurine="0x276f" deathsound="0x4e5" hitsound="0x4e6" idlesound="0x4e7" attacksound="0x4e8" gethitsound="0x4e9" /> <!-- Rune Beetle -->
 	<body id="245" type="1" figurine="0x281b" /> <!-- Yomotsu -->
 	<body id="246" type="3" figurine="0x2763" deathsound="0x4db" hitsound="0x4dc" idlesound="0x4dd" attacksound="0x4de" gethitsound="0x4df" /> <!-- Bake Kitsune -->

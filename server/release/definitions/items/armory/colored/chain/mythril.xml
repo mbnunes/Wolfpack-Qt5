@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -6,46 +8,39 @@
 |  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
 =================================================================
 -->
-<definitions>
-
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\items.xsd">
 	<!-- chainmail armor -->
 	<!-- chainmail coif -->
-	<item id="13bb_mythril"  inherit="13bb">
-		<mythril_armor />
+	<item id="13bb_mythril" inherit="13bb">
+		<mythril_armor/>
 		<baseid>13bb</baseid>
 		<category>Armor\Mythril\Chainmail\Coif (N/S)</category>
 	</item>
-
-	<item id="13c0_mythril"  inherit="13c0">
-		<mythril_armor />
+	<item id="13c0_mythril" inherit="13c0">
+		<mythril_armor/>
 		<baseid>13bb</baseid>
 		<category>Armor\Mythril\Chainmail\Coif (E/W)</category>
 	</item>
-
 	<!-- chainmail leggings -->
 	<item id="13be_mythril" inherit="13be">
-		<mythril_armor />
+		<mythril_armor/>
 		<baseid>13be</baseid>
 		<category>Armor\Mythril\Chainmail\Leggings (N/S)</category>
 	</item>
-
 	<item id="13c3_mythril" inherit="13c3">
-		<mythril_armor />
+		<mythril_armor/>
 		<baseid>13be</baseid>
 		<category>Armor\Mythril\Chainmail\Leggings (E/W)</category>
 	</item>
-
 	<!-- chainmail tunic -->
 	<item id="13bf_mythril" inherit="13bf">
-		<mythril_armor />
+		<mythril_armor/>
 		<baseid>13bf</baseid>
 		<category>Armor\Mythril\Chainmail\Tunic (N/S)</category>
 	</item>
-
 	<item id="13c4_mythril" inherit="13c4">
-		<mythril_armor />
+		<mythril_armor/>
 		<baseid>13bf</baseid>
 		<category>Armor\Mythril\Chainmail\Tunic (E/W)</category>
 	</item>
-
 </definitions>

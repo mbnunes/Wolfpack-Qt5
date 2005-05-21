@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -6,23 +7,19 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
-<definitions>
-
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\items.xsd">
 	<item id="bank_check">
 		<id>0x14f0</id>
 		<basescripts>check</basescripts>
 		<color>0x34</color>
 		<name>a bank check</name>
 		<weight>0.1</weight>
-		<newbie />
+		<newbie/>
 	</item>
-
 	<item id="ITEM_NO_DECAY">
-		<nodecay />
+		<nodecay/>
 	</item>
-
 	<!-- This item does not exist! Using the statue 151a -->
 	<item id="1519" inherit="151a">
 	</item>
-
 </definitions>

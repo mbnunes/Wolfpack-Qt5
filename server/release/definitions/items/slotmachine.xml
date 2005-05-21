@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -8,7 +9,6 @@
 -->
 <!-- Prices and the such for the slotmachine -->
 <definitions>
-
 	<!-- The slotmachine itself -->
 	<item id="slotmachine">
 		<id>0x1ea8</id>
@@ -16,46 +16,37 @@
 		<name>a slotmachine</name>
 		<basescripts>slotmachine</basescripts>
 	</item>
-
 	<!-- The Prizes -->
 	<item id="slot_prize_1" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>1</amount>
 	</item>
-
 	<item id="slot_prize_2" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>3</amount>
 	</item>
-
 	<item id="slot_prize_3" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>6</amount>
 	</item>
-
 	<item id="slot_prize_4" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>96</amount>
 	</item>
-
 	<item id="slot_prize_5" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>151</amount>
 	</item>
-
 	<item id="slot_prize_6" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>204</amount>
 	</item>
-
 	<item id="slot_prize_7" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>462</amount>
 	</item>
-
 	<item id="slot_prize_8" inherit="eed">
 		<baseid>eed</baseid>
 		<amount>812</amount>
 	</item>
-
 </definitions>

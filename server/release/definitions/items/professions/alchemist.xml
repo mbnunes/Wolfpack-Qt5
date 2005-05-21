@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -29,7 +30,7 @@
 		<id>0xe27</id>
 		<name>#1041060</name>
 		<category>Professions\Alchemist\Hair Dye 1</category>
-		<basescripts>environment</basescripts>
+		<basescript>environment</basescript>
 	</item>
 
 	<item id="e28">
