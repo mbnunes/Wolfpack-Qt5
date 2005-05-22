@@ -15,7 +15,7 @@
 
 	<item id="housedoor">
 		<nodecay />
-		<movable>3</movable>
+		<immovable />
 		<basescripts>housing.security,door</basescripts>
 		<bindmenu>security_menu</bindmenu>
 	</item>
@@ -23,7 +23,7 @@
 	<item id="housesign">
 		<id>0xbd2</id>
 		<nodecay />
-		<movable>3</movable>
+		<immovable />
 		<basescripts>housing.sign</basescripts>
 	</item>
 

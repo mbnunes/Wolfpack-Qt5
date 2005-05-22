@@ -53,7 +53,7 @@
 				<item id="cef"> <!-- Vines -->
 					<id><random min="3307" max="3314" /></id>
 					<decay />
-					<movable>1</movable>
+					<movable />
 				</item>
 			</content>
 		</backpack>

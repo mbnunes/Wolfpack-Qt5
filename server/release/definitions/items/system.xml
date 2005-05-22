@@ -36,7 +36,7 @@
 		<invisible />
 		<scripts>spawngem</scripts>
 		<nodecay />
-		<movable>3</movable>
+		<immovable />
 	</item>
 
 	<!-- Trash Can -->
@@ -46,7 +46,7 @@
 		<basescripts>trashcan</basescripts>
 		<color>0x430</color>
 		<nodecay />
-		<movable>2</movable>
+		<immovable />
 		<type>1</type>
 		<category>Equipment\Containers\Trashcan</category>
 	</item>
