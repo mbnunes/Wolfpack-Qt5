@@ -102,9 +102,9 @@ def char_steal( char, victim ):
 	if not check( char, victim ):
 		return True
 	# check for vendors
-#	elif isvendor( victim ):
-#		char.socket.clilocmessage( 1005598 ) # You can't steal from shopkeepers.
-#		return True
+	elif isvendor( victim ):
+		char.socket.clilocmessage( 1005598 ) # You can't steal from shopkeepers.
+		return True
 	elif isplayervendor( victim ):
 		char.socket.clilocmessage( 502709 ) # You can't steal from vendors.
 		return True
@@ -118,7 +118,6 @@ def char_steal( char, victim ):
 		char.socket.sysmessage( tr( "You are too far away to steal from that person." ) )
 		return True
 	randomsteal( char, victim )
-	#char.socket.sysmessage( tr("That skill has not been implemented yet.") )
 
 # if target is char, random steal
 def randomsteal(char, victim):
@@ -133,21 +132,13 @@ def randomsteal(char, victim):
 	containment = bag.content
 	chance = len(containment)
 	tosteal = None
-	loop = 0
-	possible = []
-	while tosteal == None:
-		if not chance:
-			break
-		for item in containment:
-			loop += 1
-			if ( item.weight <= maxWeight and not item.lockeddown and not item.newbie and item.type != 9 ):
-				possible.append(item)
-				if random.randint(1, int(chance)) == int(chance):
-					tosteal = item
-					break
-			if loop > chance and not len(possible):
-				chance = 0
-				break
+	if not chance:
+		return
+	for item in containment:
+		if ( item.weight <= maxWeight and not item.lockeddown and not item.newbie and item.type != 9 ):
+			possible.append(item)
+
+	tosteal = random.choice(possible)
 	dosteal( char, victim, tosteal )
 
 # We can steal max. 10 Stones when we are a GM by default
