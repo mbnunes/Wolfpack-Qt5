@@ -6,6 +6,7 @@ from wolfpack.consts import *
 from guilds import *
 from math import ceil, floor
 from time import strftime, localtime
+import wolfpack.console
 
 # Main Menu Constants
 MAINMENU_GENERALPROPERTIES = 1
@@ -869,7 +870,7 @@ def guildMembershipResponse(player, arguments, response):
     player.socket.sysmessage(tr('The guild you try to manage has already been disbanded.'))
     return
 
-  if response.button == 1 and player in guild.members:
+  if response.button == 1 and (player in guild.members or player in guild.canidates):
     # Toggle Guildsign
     if 1 in response.switches:
       if player in guild.members:

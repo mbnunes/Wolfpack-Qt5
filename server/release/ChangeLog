@@ -120,6 +120,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed multis and deeds.
   - Graphical preview for creating Multis.
   - Fix for Plants (menu didn't open when they were grown).
+  - Fix: Candidates could not resign by themselves from their guild
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
