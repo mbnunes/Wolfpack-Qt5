@@ -23,7 +23,7 @@ def onCollide(char, item):
 # See if we're still in a firefield.
 #
 def expire(char, arguments):
-	if char.dead :
+	if char.dead:
 		char.deltag( 'in_firefield' )
 		return
 

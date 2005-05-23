@@ -55,11 +55,11 @@ def commandUnban( socket, cmd, args ):
 		accname = args.lower()
 		account = wolfpack.accounts.find( accname )
 		if account and account.rank <= myrank:
-			if account.rank <= 1 or not playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
+			if account.rank < 1 or not playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
 				socket.sysmessage( "You're not authorized to unban staff members." )
 				return False
 			account.unblock()
-			socket.sysmessage( "You've unban the account %s." % account.name )
+			socket.sysmessage( "You've unban the account '%s'." % account.name )
 			return True
 	else:
 		socket.sysmessage( "You need to specify an account name to unban." )
@@ -73,7 +73,7 @@ def accountAction( socket, account, action ):
 		socket.sysmessage( "Failed to find an account with the given name." )
 		return False
 	elif account and account.rank <= myrank:
-		if account.rank <= 1 or not playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
+		if account.rank < 1 or not playeraccount.authorized( 'Misc', 'May Block Staff Accounts' ):
 			socket.sysmessage( "You're not authorized to kick or ban staff members." )
 			return False
 
@@ -82,7 +82,7 @@ def accountAction( socket, account, action ):
 				if char.socket:
 					char.socket.sysmessage( "You've been kicked from the shard by the staff." )
 					char.socket.disconnect()
-					socket.sysmessage( "You have disconnected %s." % char.name )
+					socket.sysmessage( "You have disconnected '%s'." % char.name )
 			return True
 		elif action == 'ban':
 			account.block()
@@ -90,7 +90,7 @@ def accountAction( socket, account, action ):
 				if char.socket:
 					char.socket.sysmessage( "You've been kick-banned from the shard by the staff." )
 					char.socket.disconnect()
-					socket.sysmessage( "You have kick-banned %s." % char.name )
+			socket.sysmessage( "You have banned account '%s'." % account.name )
 			return True
 	return False
 
