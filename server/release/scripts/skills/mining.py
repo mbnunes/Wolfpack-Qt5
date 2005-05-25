@@ -306,6 +306,8 @@ def dosandmining(char, args):
 		successsandmining(char, veingem)
 	else:
 		char.socket.clilocmessage(1044630)
+		return False
+
 	wearout(char, tool)
 
 def successsandmining(char, gem):
