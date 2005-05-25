@@ -17,9 +17,9 @@ import random
 # Granites used by masonry
 # The first four values are required by the makemenu system.
 GRANITES = [
-	['Granite',	BLACKSMITHING, 0, ['granite'], 0x0],
+	['Granite',		BLACKSMITHING, 0, ['granite'], 0x0],
 	['Dull Copper Granite', BLACKSMITHING, 0, ['dullcopper_granite'], 0x973],
-	['Shadow Granite', BLACKSMITHING, 0, ['shadow_granite'], 0x966],
+	['Shadow Granite', 	BLACKSMITHING, 0, ['shadowiron_granite'], 0x966],
 	['Copper Granite',	BLACKSMITHING, 0, ['copper_granite'], 0x96d],
 	['Bronze Granite',	BLACKSMITHING, 0, ['bronze_granite'], 0x972],
 	['Gold Granite',	BLACKSMITHING, 0, ['gold_granite'], 0x8a5],
@@ -27,7 +27,6 @@ GRANITES = [
 	['Verite Granite',	BLACKSMITHING, 0, ['verite_granite'], 0x89f],
 	['Valorite Granite',	BLACKSMITHING, 0, ['valorite_granite'], 0x8ab],
 ]
-
 
 #
 # Bring up the masonry menu

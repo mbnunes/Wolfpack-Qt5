@@ -44,7 +44,7 @@ def onUse( char, tool ):
 	return True
 
 def onContextCheckVisible( char, target, tag ):
-	if canminegranite(char) and not char.skill[MINING] < 1000:
+	if canminegranite(char):
 		return True # visible
 
 	return False # not visible

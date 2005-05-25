@@ -44,12 +44,12 @@ ORES = {
 }
 
 def canminesand(char):
-	if char.gm or char.hastag('sandmining'):
+	if char.gm or (char.hastag('sandmining') and not char.skill[MINING] < 1000):
 		return True
 	return False
 
 def canminegranite(char):
-	if char.gm or char.hastag('stonemining'):
+	if char.gm or (char.hastag('stonemining') and not char.skill[MINING] < 1000):
 		return True
 	return False
 
@@ -327,6 +327,28 @@ def successsandmining(char, gem):
 
 	char.socket.clilocmessage(1044631) # You carefully dig up sand of sufficient quality for glassblowing.
 
+def minegranite(char, resname, gem):
+	granite = wolfpack.additem('%s_granite' % resname)
+	granite.color = ORES[resname][COLORID]
+	if not tobackpack(granite, char):
+		granite.update()
+	# Resend weight
+	char.socket.resendstatus()
+
+	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
+	gem.settag('resourcecount', resourcecount - 1)
+
+	# Start respawning the ore
+	if not gem.hastag('resource_empty') and resourcecount <= 1:
+		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
+		gem.addtimer( delay, respawnvein, [], True )
+		gem.settag( 'resource_empty', 1 )
+
+	# You carefully extract some workable stone from the ore vein!
+	char.socket.clilocmessage( 1044606, "", GRAY )
+
+	return True
+
 def successmining(char, gem, resname, size):
 	if not char:
 		return False
@@ -335,6 +357,13 @@ def successmining(char, gem, resname, size):
 		char.removefromview()
 		char.hidden = False
 		char.update()
+
+	if canminegranite(char)	and char.hastag( "mining" ) and char.gettag( "mining" ) == "ore,stone":
+		# 50% possibility of mining granite
+		if random.randint(1,100) <= 50:
+			minegranite(char, resname, gem)
+			return True
+			#char.socket.sysmessage("tet")
 
 	# Create the ore and put it into the players backpack
 	if size == 1:
