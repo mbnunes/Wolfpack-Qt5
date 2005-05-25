@@ -1377,7 +1377,7 @@ Byte 1 is a reason:
 0: "You can not pick that up.",
 1: "That is too far away.",
 2: "That is out of sight.",
-3: "That item dose not belong to you. You'll have to steal it.",
+3: "That item does not belong to you. You'll have to steal it.",
 4: "You are already holding an item."
 5: no reason
 */

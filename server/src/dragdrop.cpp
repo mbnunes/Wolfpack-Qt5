@@ -125,7 +125,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	P_CHAR itemOwner = pItem->getOutmostChar();
 
 	// Try to pick something out of another characters posessions
-	if ( !pChar->isGM() && itemOwner && ( itemOwner != pChar ) && ( itemOwner->objectType() == enNPC && dynamic_cast<P_NPC>( itemOwner )->owner() != pChar ) )
+	if ( !pChar->isGM() && itemOwner && ( itemOwner != pChar ) && !( itemOwner->objectType() == enNPC && dynamic_cast<P_NPC>( itemOwner )->owner() == pChar ) )
 	{
 		socket->bounceItem( pItem, BR_BELONGS_TO_SOMEONE_ELSE );
 		return;
