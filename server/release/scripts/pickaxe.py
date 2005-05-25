@@ -44,7 +44,8 @@ def onUse( char, tool ):
 	return True
 
 def onContextCheckVisible( char, target, tag ):
-	if canminegranite(char):
+	# WE must wear the item
+	if canminegranite(char) and target.layer and target.getoutmostchar() == char:
 		return True # visible
 
 	return False # not visible
