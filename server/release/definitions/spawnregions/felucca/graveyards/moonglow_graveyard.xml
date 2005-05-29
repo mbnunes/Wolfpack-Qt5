@@ -1,0 +1,36 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_moonglow_graveyard">
+		<inactive />
+		<maxnpcamount>5</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>moonglow</group>
+		<group>felucca_moonglow_graveyard</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_moonglow_graveyard" id="felucca_moonglow_graveyard_1">
+		<active />
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4528,1297" to="4555,1333" map="0" />
+	</spawnregion>
+
+	<spawnregion id="felucca_moonglow_graveyard_2">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+                <delay min="15" max="20" />
+		<npcspercycle>5</npcspercycle>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4528,1297" to="4555,1333" map="0" />
+	</spawnregion>
+</definitions>

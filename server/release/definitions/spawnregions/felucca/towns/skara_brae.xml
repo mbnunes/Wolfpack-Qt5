@@ -1,0 +1,13 @@
+
+<definitions>
+	<spawnregion id="felucca_animalskare_1">
+		<active />
+		<maxnpcamount>30</maxnpcamount>
+                <delay min="2" max="5" />
+		<npcspercycle>10</npcspercycle>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1321,3661" to="1474,3876" map="0" />
+	</spawnregion>
+
+</definitions>

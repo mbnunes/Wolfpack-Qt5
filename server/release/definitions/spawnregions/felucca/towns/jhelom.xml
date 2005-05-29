@@ -1,0 +1,19 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_animaltown_1">
+		<active />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="2" max="5" />
+		<npcspercycle>10</npcspercycle>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1337,1443" to="893,534" map="0" />
+	</spawnregion>
+</definitions>

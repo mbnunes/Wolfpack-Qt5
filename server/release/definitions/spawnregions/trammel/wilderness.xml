@@ -1,4 +1,1162 @@
-
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by: PuppetMaster                   |
+|  ( (  ;._ \\ ctr | Last Modification: 05/25/05                |
+=================================================================
+-->
 <definitions>
+	<spawnregion id="trammel_Area_Heavy">
+		<inactive />
+		<maxnpcamount>30</maxnpcamount>
+                <delay min="2" max="5" />
+		<npcspercycle>10</npcspercycle>
+		<group>wilderness</group>
+		<group>trammel_Area_Heavy</group>
+		<group>trammel</group>
+	</spawnregion>
 
+	<spawnregion id="trammel_Area_Medium">
+		<inactive />
+		<maxnpcamount>20</maxnpcamount>
+                <delay min="15" max="20" />
+		<npcspercycle>5</npcspercycle>
+		<group>wilderness</group>
+		<group>trammel_Area_Medium</group>
+		<group>trammel</group>
+	</spawnregion>
+
+	<spawnregion id="trammel_Area_Light">
+		<inactive />
+		<maxnpcamount>10</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>2</npcspercycle>
+		<group>wilderness</group>
+		<group>trammel_Area_Light</group>
+		<group>trammel</group>
+	</spawnregion>
+
+	<spawnregion id="trammel_Area_Healer">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>wilderness</group>
+		<group>trammel_Area_Healer</group>
+		<group>trammel</group>
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area1_1">
+		<active />
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="917,274" to="1043,474" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area2_2">
+		<active />
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1337,1443" to="893,534" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area2_3">
+		<active />
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1337,1443" to="893,534" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area2_4">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1337,1443" to="893,534" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area3_5">
+		<active />
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="943,688" to="1023,832" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_Area3_6">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+                <delay min="40" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="943,688" to="1023,832" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area4_7">
+		<active />
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1152,127" to="1474,680" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area4_8">
+		<active />
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="768,863" to="1208,1277" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area4_9">
+		<active />
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="508,1258" to="744,1409" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area4_10">
+		<active />
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1152,127" to="1474,680" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area4_11">
+		<active />
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="768,863" to="1208,1277" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area4_12">
+		<active />
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="508,1258" to="744,1409" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area6_13">
+		<active />
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="244,922" to="479,1071" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area6_14">
+		<active />
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="473,784" to="704,1240" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area7_15">
+		<active />
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="10" /></npc>
+        	<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="114,1315" to="297,1506" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area8_16">
+		<active />
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="619,1473" to="649,1500" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area9_17">
+		<active />
+        	<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="430,1525" to="513,1733" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area10_18">
+		<active />
+        	<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="430,1525" to="513,1733" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area11_19">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="headless"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="929,1263" to="1097,1448" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area11_20">
+		<active />
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="929,1263" to="1097,1448" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area12_21">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="791,1570" to="876,1669" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area12_22">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="803,1667" to="831,1766" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area12_23">
+		<active />
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="791,1570" to="876,1669" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area12_24">
+		<active />
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="803,1667" to="831,1766" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_Area12_25">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+                <delay min="15" max="20" />
+		<npcspercycle>2</npcspercycle>
+		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="837,1672" to="870,1701" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area13_26">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="702,1785" to="924,2015" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area13_27">
+		<active />
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="headless"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="702,1785" to="924,2015" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area14_28">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1003,1900" to="1092,1981" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area15_29">
+		<active />
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="906,1939" to="1001,2072" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_Area16_30">
+		<active />
+		<maxnpcamount>45</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>10</npcspercycle>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1066,2025" to="1394,2135" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area17_31">
+		<active />
+		<npc id="rabbit"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1118,2205" to="1178,2254" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area18_32">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="slime"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1099,2726" to="1243,2851" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area18_33">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="slime"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1088,2866" to="1265,3006" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area19_33">
+		<active />
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1095,3372" to="1198,3522" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area20_34">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2323,3417" to="2407,3528" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area20_35">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2454,3550" to="2549,3642" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area20_36">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2107,3909" to="2199,4007" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area20_37">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2404,3886" to="2532,4032" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area21_38">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2097,3036" to="2197,3142" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area22_39">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1802,2900" to="2133,3043" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area23_40">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="serpent_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="slime"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1808,2242" to="2117,2428" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area24_41">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1388,1888" to="1578,2088" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area24_42">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1388,1888" to="1578,2088" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area26_43">
+		<active />
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1156,1231" to="1499,1428" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area26_44">
+		<active />
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1156,1231" to="1499,1428" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area26_45">
+		<active />
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bull"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cow"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1156,1231" to="1499,1428" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area26_46">
+		<active />
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bull"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cow"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1156,1231" to="1499,1428" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area27_47">
+		<active />
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1296,1051" to="1345,1090" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area28_48">
+		<active />
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1658,1222" to="1945,1520" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area28_49">
+		<active />
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1658,1222" to="1945,1520" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area28_50">
+		<active />
+		<npc id="mongbat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bull"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cow"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1658,1222" to="1945,1520" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area29_51">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cow"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1910,1399" to="2026,1556" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area30_52">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1985,944" to="2085,1066" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area31_53">
+		<active />
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1817,813" to="1969,951" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area31_54">
+		<active />
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="giant_scorpion"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1817,813" to="1969,951" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area32_55">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1585,431" to="1905,714" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area32_56">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1585,431" to="1905,714" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area32_57">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1585,431" to="1905,714" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area32_58">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1585,431" to="1905,714" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area33_59">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1606,200" to="1833,291" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area34_60">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2007,8" to="2073,124" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area34_61">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1873,148" to="1964,225" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area35_62">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1908,41" to="2004,144" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area36_63">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2087,19" to="2204,319" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area37_64">
+		<active />
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="headless"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2317,45" to="2389,221" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area38_65">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="headless"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2437,66" to="2695,214" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area38_66">
+		<active />
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2437,66" to="2695,214" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area39_67">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3298,198" to="3465,515" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area39_68">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3298,198" to="3465,515" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_light" id="trammel_Area40_69">
+		<active />
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3103,633" to="3241,808" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area42_70">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="headless"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2275,629" to="2522,807" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area43_71">
+		<active />
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2456,976" to="2657,1252" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area43_72">
+		<active />
+		<npc id="boar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="10" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2456,976" to="2657,1252" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area45_73">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2147,1318" to="2204,1404" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_74">
+		<active />
+		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3368,2443" to="3515,2762" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_75">
+		<active />
+		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3368,2443" to="3515,2762" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_76">
+		<active />
+		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3368,2443" to="3515,2762" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_77">
+		<active />
+		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3368,2443" to="3515,2762" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area47_78">
+		<active />
+		<npc id="alligator"><npcwander type="circle" radius="10" /></npc>
+		<npc id="serpent_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2948,3529" to="3051,3632" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_light" id="trammel_Area48_79">
+		<active />
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dragon"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4563,3548" to="4633,3622" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_light" id="trammel_Area49_80">
+		<active />
+		<npc id="orc_chopper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4495,3085" to="4768,3522" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_light" id="trammel_Area49_81">
+		<active />
+		<npc id="orc_chopper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4495,3085" to="4768,3522" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_light" id="trammel_Area50_82">
+		<active />
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4448,3091" to="4481,3137" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area51_83">
+		<active />
+		<npc id="hind"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4538,1336" to="4648,1490" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Heavy" id="trammel_Area52_84">
+		<active />
+		<npc id="timber_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4426,1353" to="4539,1495" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area54_85">
+		<active />
+		<npc id="polar_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="10" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="10" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3873,187" to="4264,619" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area54_86">
+		<active />
+		<npc id="polar_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="10" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="10" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3873,187" to="4264,619" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area54_87">
+		<active />
+		<npc id="polar_bear"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="10" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="10" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="4156,616" to="4296,754" map="1" />
+	</spawnregion>
 </definitions>

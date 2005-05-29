@@ -1,0 +1,36 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_britain_graveyard">
+		<inactive />
+		<maxnpcamount>15</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>5</npcspercycle>
+		<group>britain</group>
+		<group>felucca_britain_graveyard</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_britain_graveyard" id="felucca_britain_graveyard_1">
+		<active />
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1337,1443" to="1388,1492" map="0" />
+	</spawnregion>
+
+	<spawnregion id="felucca_britain_graveyard_2">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1337,1443" to="1388,1492" map="0" />
+	</spawnregion>
+</definitions>

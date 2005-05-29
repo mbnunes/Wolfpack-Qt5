@@ -1,0 +1,28 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="trammel_cove_graveyard">
+		<inactive />
+		<maxnpcamount>15</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>5</npcspercycle>
+		<group>cove</group>
+		<group>trammel_cove_graveyard</group>
+		<group>trammel</group>
+	</spawnregion>
+
+	<spawnregion inherit="trammel_cove_graveyard" id="trammel_cove_graveyard_1">
+		<active />
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2424,1082" to="2452,1117" map="1" />
+	</spawnregion>
+</definitions>
