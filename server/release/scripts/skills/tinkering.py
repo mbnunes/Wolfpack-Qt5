@@ -16,19 +16,39 @@ from wolfpack.properties import itemcheck, fromitem
 import random
 from skills import blacksmithing
 
+# last list: [ring, necklace, earrings, bracelet]
 GEMS = [
-		['Star Sapphire', 0, 0, ['f0f', 'f1b', 'f21'], 0x0, 'starsapphire'],
-		['Emerald', 0, 0, ['f10', 'f2f'], 0x0, 'emerald'],
-		['Sapphire', 0, 0, ['f11', 'f12', 'f19', 'f1f'], 0x0, 'sapphire'],
-		['Ruby', 0, 0, ['f13', 'f14', 'f1a', 'f1c', 'f1d', 'f2a', 'f2b'], 0x0, 'ruby'],
-		['Bronze',			0, 0, ['bronze_ingot'], 0x972, 'bronze'],
-		['Gold',				0, 0, ['gold_ingot'], 0x8a5, 'gold'],
-		['Agapite',		 	0, 0, ['agapite_ingot'], 0x979, 'agapite'],
-		['Verite',			0, 0, ['verite_ingot'], 0x89f, 'verite'],
-		['Valorite',		0, 0, ['valorite_ingot'], 0x8ab, 'valorite'],
+		['Star Sapphire', 0, 0, ['f0f', 'f1b', 'f21'], 0x0, 'starsapphire', ["#1044176","#1044194","#1044203","#1044221"]],
+		['Emerald', 0, 0, ['f10', 'f2f'], 0x0, 'emerald', ["#1044177","#1044195","#1044204","#1044222"]],
+		['Sapphire', 0, 0, ['f11', 'f12', 'f19', 'f1f'], 0x0, 'sapphire', ["#1044178","#1044196","#1044205","#1044223"]],
+		['Ruby', 0, 0, ['f13', 'f14', 'f1a', 'f1c', 'f1d', 'f2a', 'f2b'], 0x0, 'ruby', ["#1044179","#1044197","#1044206","#1044224"]]
+		['Citrine', 0, 0, ['f15', 'f23', 'f24', 'f2c'], 0x0, 'citrine', ["#1044180","#1044198","#1044207","#1044225"]]
+		['Amethyst', 0, 0, ['f16', 'f17', 'f22', 'f2e'], 0x0, 'amethyst', ["#1044181","#1044199","#1044208","#1044226"]]
+		['Tourmaline', 0, 0, ['f18', 'f1e', 'f20', 'f2d'], 0x0, 'tourmaline', ["#1044182","#1044200","#1044209","#1044227"]]
+		['Amber', 0, 0, ['f25'], 0x0, 'amber', ["#1044183","#1044201","#1044210","#1044228"]]
+		['Diamond', 0, 0, ['f26','f27','f28','f29','f30'], 0x0, 'diamond', ["#1044184","#1044202","#1044211","#1044229"]]
+
+		#['Bronze',			0, 0, ['bronze_ingot'], 0x972, 'bronze'],
+		#['Gold',				0, 0, ['gold_ingot'], 0x8a5, 'gold'],
+		#['Agapite',		 	0, 0, ['agapite_ingot'], 0x979, 'agapite'],
+		#['Verite',			0, 0, ['verite_ingot'], 0x89f, 'verite'],
+		#['Valorite',		0, 0, ['valorite_ingot'], 0x8ab, 'valorite'],
 ]
 
-#
+def name_item( item, material ):
+	# ring
+	if item.baseid == "1f09":
+		return material[6][0]
+	# Bead Necklace
+	elif item.baseid in [ "1f05", "1f08" ]:
+		return material[6][1]
+	# earrings
+	elif item.baseid == "1f07":
+		return material[6][2]
+	# bracelet
+	elif item.baseid == "1f06":
+		return material[6][3]
+
 # Check if the character is using the right tool
 #
 def checktool(char, item, wearout = 0):
@@ -120,14 +140,14 @@ class TinkerItemAction(CraftItemAction):
 			material = self.parent.submaterials1[material]
 			item.color = material[4]
 			item.settag('resname', material[5])
-			
+
 		# Apply properties of secondary material
 		if self.submaterial2 > 0:
 			material = self.parent.getsubmaterial2used(player, arguments)
 			material = self.parent.submaterials2[material]
 			item.color = material[4]
+			item.name = name_item( item, material )
 			item.settag('resname2', material[5])
-
 
 		# Apply one-time boni
 		healthbonus = fromitem(item, DURABILITYBONUS)
