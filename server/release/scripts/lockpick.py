@@ -35,7 +35,7 @@ def response(char, args, target):
 					target.item.deltag('locked')
 
 					if lockpick.amount == 1:
-						lockpick.remove()
+						lockpick.delete()
 					else:
 						lockpick.amount = lockpick.amount - 1
 						lockpick.update()
@@ -47,7 +47,7 @@ def response(char, args, target):
 					if random.randint(0,1):
 						# Lost the lockpick
 						if lockpick.amount == 1:
-							lockpick.remove()
+							lockpick.delete()
 						else:
 							lockpick.amount = lockpick.amount - 1
 							lockpick.update()
