@@ -36,6 +36,12 @@ class cBaseChar;
 #include "../player.h"
 #include "utilities.h"
 
+/*
+	\object skill
+	\description This object type represents a set of either skills, skill caps or skill locks,
+	depending on how it was created. The reason for returning skill objects from methods is
+	efficiency.
+*/
 typedef struct
 {
 	PyObject_HEAD;
@@ -43,6 +49,11 @@ typedef struct
 	Q_UINT8 type; // 0: Value; 1: Cap; 2: Lock
 } wpSkills;
 
+/*
+	\method skill.length
+	\description Number of avaliable skills.
+	\return Returns the number of skills.
+*/
 int wpSkills_length( wpSkills* self )
 {
 	Q_UNUSED( self );
