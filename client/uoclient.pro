@@ -101,6 +101,7 @@ SOURCES += \
 	src/binkw.cpp \
 	src/config.cpp \
 	src/log.cpp \
+	src/main.cpp \
 	src/mainwindow.cpp \
 	src/surface.cpp \
 	src/texture.cpp \
@@ -175,12 +176,10 @@ INTERFACES =
 
 win32:SOURCES += \
 	src/config_win.cpp \
-	src/startup_win.cpp \
 	src/utilities_win.cpp
 	
 unix:SOURCES += \
 	src/config_unix.cpp \
-	src/startup_unix.cpp \
 	src/utilities_unix.cpp
 
 #

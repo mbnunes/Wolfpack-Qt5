@@ -316,54 +316,54 @@ void DecompressingCopier::initialise ()
 }
 
 void DecompressingCopier::operator   () (char *dest, const char *src,
-                                         int &dest_size, int &src_size)
+										 int &dest_size, int &src_size)
 {
-  unsigned char *pdest = reinterpret_cast < unsigned char *>(dest);
-  const unsigned char *src2 = reinterpret_cast < const unsigned char *>(src);
-  const unsigned char *psrc = src2;
-  int len = src_size;           // len will decrease
-  int dest_index = 0;
+	unsigned char *pdest = reinterpret_cast < unsigned char *>(dest);
+	const unsigned char *src2 = reinterpret_cast < const unsigned char *>(src);
+	const unsigned char *psrc = src2;
+	int len = src_size;           // len will decrease
+	int dest_index = 0;
 
-  while (true)
-      {
-        if (bit_num == 8)
-            {
-              // End of input.
-              if (len == 0)
-                  {
-                    dest_size = dest_index;
-                    src_size = 0;
-                    // src_size is unchanged
-                    return;
-                  }
-              len--;
-              value = *psrc++;
-              bit_num = 0;
-              mask = 0x80;
-            }
-        if (value & mask)
-          treepos = tree[treepos * 2];
-        else
-          treepos = tree[treepos * 2 + 1];
-        mask >>= 1;             // shift on reck
-        bit_num++;
+	while (true)
+	{
+		if (bit_num == 8)
+		{
+			// End of input.
+			if (len == 0)
+			{
+				dest_size = dest_index;
+				src_size = 0;
+				// src_size is unchanged
+				return;
+			}
+			len--;
+			value = *psrc++;
+			bit_num = 0;
+			mask = 0x80;
+		}
+		if (value & mask)
+			treepos = tree[treepos * 2];
+		else
+			treepos = tree[treepos * 2 + 1];
+		mask >>= 1;             // shift on reck
+		bit_num++;
 
-        if (treepos <= 0)       // this is a leaf.
-            {
-              if (treepos == -256)  // special flush character
-                  {
-                    bit_num = 8;    // flush rest of byte
-                    treepos = 0;    // start on tree top again
-                    continue;
-                  }
-              if (dest_index == dest_size)      // Buffer full
-                  {
-                    dest_size = dest_index;
-                    src_size = psrc - src2;
-                    return;
-                  }
-              pdest[dest_index++] = -treepos;   // data is negative value
-              treepos = 0;      // start on tree top again
-            }
-      }
+		if (treepos <= 0)       // this is a leaf.
+		{
+			if (treepos == -256)  // special flush character
+			{
+				bit_num = 8;    // flush rest of byte
+				treepos = 0;    // start on tree top again
+				continue;
+			}
+			if (dest_index == dest_size)      // Buffer full
+			{
+				dest_size = dest_index;
+				src_size = psrc - src2;
+				return;
+			}
+			pdest[dest_index++] = -treepos;   // data is negative value
+			treepos = 0;      // start on tree top again
+		}
+	}
 }
