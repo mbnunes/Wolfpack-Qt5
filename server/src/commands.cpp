@@ -507,6 +507,26 @@ void commandStaff( cUOSocket* socket, const QString& command, const QStringList&
 }
 
 /*
+	\command showserials
+	\description Toggle the show serials flag for your account.
+	\notes It shows you the serials of a char in the tooltip.
+*/
+void commandShowserials( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+{
+	Q_UNUSED( command );
+	if ( socket->account()->isShowSerials || ( args.count() > 0 && args[0].toInt() == 0 ) )
+	{
+		socket->account()->setShowSerials( false );
+		socket->sysMessage( tr( "Show serials is now off." ) );
+	}
+	else if ( !socket->account()->isShowSerials() || ( args.count() > 0 && args[0].toInt() == 1 ) )
+	{
+		socket->account()->setShowSerials( true );
+		socket->sysMessage( tr( "Show serials is now on." ) );
+	}
+}
+
+/*
 	\command reload
 	\description Reload certain aspects of the server.
 	\usage - <code>reload accounts</code>
@@ -1199,6 +1219,7 @@ stCommand cCommands::commands[] =
 { "SHOW", commandShow },
 { "SHUTDOWN", commandShutDown },
 { "STAFF", commandStaff },
+{ "SHOWSERIALS", commandShowserials },
 { "SPAWNREGION", commandSpawnRegion },
 { "WALKTEST", commandWalkTest },
 { "FINDPATH", commandFindPath },

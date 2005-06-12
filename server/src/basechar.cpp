@@ -2742,7 +2742,7 @@ bool cBaseChar::kill( cUObject* source )
 
 	// Only trigger the reputation system if we can find someone responsible
 	// for the murder
-	if ( pKiller && pKiller != this )
+	if ( pKiller && ( pKiller != this ) )
 	{
 		// Only award karma and fame in unguarded areas
 		if ( !pKiller->inGuardedArea() )
@@ -2774,7 +2774,7 @@ bool cBaseChar::kill( cUObject* source )
 				}
 			}
 
-			if ( isInnocent() )
+			if ( isInnocent() && ( this->body_ == 0x190 || this->body_ == 0x191 ) )
 			{
 				pPlayer->makeCriminal();
 				pPlayer->setKills( pPlayer->kills() + 1 );
