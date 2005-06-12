@@ -51,7 +51,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added books to learn special abilities (mining sand/stone; glassblowing; masonry)
   - Added granite and sand definitions
   - Added craftmenu for glassblowing
-  - Support up to client 4.0.10.
+  - Support up to client 4.0.11.
   - Added Multis and Multi deeds.
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
