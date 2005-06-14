@@ -58,6 +58,9 @@ def consumePotion( char, potion, givebottle=True ):
 
 # Fill the potion into potionkeg
 def fillPotion( char, keg, potion, givebottle=True ):
+	kegfill = int( keg.gettag( 'kegfill' ) )
+	kegfill += 1
+	keg.settag( 'kegfill', kegfill )
 	return consumePotion( char, potion, givebottle=True )
 
 # Throw the potion at something
