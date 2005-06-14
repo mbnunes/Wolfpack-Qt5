@@ -554,7 +554,7 @@ void cPlayer::showName( cUOSocket* socket )
 	}
 
 	// Append serial for GMs
-	if ( socket->player()->showSerials() )
+	if ( socket->account()->isShowSerials() )
 		affix.append( QString( "[0x%1]" ).arg( serial(), 4, 16 ) );
 
 	// Append offline flag
