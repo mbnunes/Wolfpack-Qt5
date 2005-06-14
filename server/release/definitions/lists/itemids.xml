@@ -152,6 +152,95 @@
 		<item>10e5</item>
 	</list>
 
+	<!-- IDs of weapons -->
+	<list id="SWORD_WEAPONS">
+		<item>f4d</item>
+		<item>f4e</item>
+		<item>26c7</item>
+		<item>26bd</item>
+		<item>26c5</item>
+		<item>26bb</item>
+		<item>f5e</item>
+		<item>f5f</item>
+		<item>13f6</item>
+		<item>13f7</item>
+		<item>ec3</item>
+		<item>ec2</item>
+		<item>26cb</item>
+		<item>26c1</item>
+		<item>f60</item>
+		<item>f61</item>
+		<item>13b7</item>
+		<item>13b8</item>
+		<item>13fe</item>
+		<item>13ff</item>
+		<item>143e</item>
+		<item>143f</item>
+		<item>1440</item>
+		<item>1441</item>
+		<item>e85</item>
+		<item>e86</item>
+		<item>13b9</item>
+		<item>13ba</item>
+		<item>ec4</item>
+		<item>ec5</item>
+		<item>26c4</item>
+		<item>26ba</item>
+		<item>13b5</item>
+		<item>13b6</item>
+	</list>
+
+	<list id="FENCE_WEAPONS">
+		<item>f51</item>
+		<item>f52</item>
+		<item>26c9</item>
+		<item>26bf</item>
+		<item>1400</item>
+		<item>1401</item>
+		<item>26c0</item>
+		<item>26ca</item>
+		<item>26c8</item>
+		<item>26be</item>
+		<item>e87</item>
+		<item>e88</item>
+		<item>1402</item>
+		<item>1403</item>
+		<item>f62</item>
+		<item>f63</item>
+		<item>1404</item>
+		<item>1405</item>
+	</list>
+
+	<list id="MACE_WEAPONS">
+		<item>df0</item>
+		<item>df1</item>
+		<item>13b3</item>
+		<item>13b4</item>
+		<item>13f8</item>
+		<item>13f9</item>
+		<item>143d</item>
+		<item>143c</item>
+		<item>f5c</item>
+		<item>f5d</item>
+		<item>143a</item>
+		<item>143b</item>
+		<item>e8a</item>
+		<item>26c6</item>
+		<item>26bc</item>
+		<item>13f4</item>
+		<item>13f5</item>
+		<item>fb4</item>
+		<item>fb5</item>
+		<item>13e3</item>
+		<item>13e4</item>
+		<item>13af</item>
+		<item>13b0</item>
+		<item>1438</item>
+		<item>1439</item>
+		<item>1406</item>
+		<item>1407</item>
+	</list> 
+
 	<!-- IDs of First Circle Scrolls -->
 	<list id="FIRSTCIRCLE">
 		<item>1f2e</item>
