@@ -514,7 +514,7 @@ void commandStaff( cUOSocket* socket, const QString& command, const QStringList&
 void commandShowserials( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
 {
 	Q_UNUSED( command );
-	if ( socket->account()->isShowSerials || ( args.count() > 0 && args[0].toInt() == 0 ) )
+	if ( socket->account()->isShowSerials() || ( args.count() > 0 && args[0].toInt() == 0 ) )
 	{
 		socket->account()->setShowSerials( false );
 		socket->sysMessage( tr( "Show serials is now off." ) );
