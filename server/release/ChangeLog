@@ -33,6 +33,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed a broken else if chain in cAccount::setProperty
   - Added a define for tracking.h
   - Fixed snooping.
+  - You only become criminal/a murderer if you kill a human being.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -131,6 +132,7 @@ Wolfpack 12.9.14 Beta (SVN)
     We welcome donated OSI-like region scripts!
   - Possible that a few monsters are missing and/or incomplete.
   - Multis (Houses/Boats) are not completly supported.
+  - For latest information check out: http://bugs.wpdev.org
 
 Wolfpack 12.9.13 Beta (25. December 2004)
  * Core Changes:
