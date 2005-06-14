@@ -330,8 +330,6 @@
                 <rectangle from="803,1667" to="831,1766" map="0" />
 	</spawnregion>
 
-<!--
-   Can't find brigand_male or brigand_female anywere
 	<spawnregion id="felucca_Area12_25">
 		<active />
 		<maxnpcamount>10</maxnpcamount>
@@ -341,7 +339,6 @@
 		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
                 <rectangle from="837,1672" to="870,1701" map="0" />
 	</spawnregion>
--->
 
 	<spawnregion inherit="felucca_Area_Light" id="felucca_Area13_26">
 		<active />
