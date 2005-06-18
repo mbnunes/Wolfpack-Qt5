@@ -34,6 +34,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added a define for tracking.h
   - Fixed snooping.
   - You only become criminal/a murderer if you kill a human being.
+  - Added the command showserials.
+  - Implemented nodecay flag for regions.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -123,6 +125,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fix for Plants (menu didn't open when they were grown).
   - Fix: Candidates could not resign by themselves from their guild
   - Implemented stonemining (50:50 chance for ore:gem if activated through thecontextmenu of tool).
+  - Implemented some new npcs (thx to idget)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
