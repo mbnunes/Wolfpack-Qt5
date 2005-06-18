@@ -11,6 +11,6 @@
 	<!-- Sea Creatures -->
 	<include file="definitions/npcs/monsters/sea/deep_sea_serpent.xml" />
 	<include file="definitions/npcs/monsters/sea/kraken.xml" />
+	<include file="definitions/npcs/monsters/sea/leviathan.xml" />
 	<include file="definitions/npcs/monsters/sea/sea_serpent.xml" />
-
 </definitions>

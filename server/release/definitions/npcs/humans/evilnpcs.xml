@@ -166,4 +166,125 @@
 		<category>Humans\Evil\Brigand Female (Mace)</category>
 	</npc>
 
+	<!-- Evil Mage -->
+	<npc id="evil_mage" inherit="monster_base">
+		<name><random list="NAMES_EVIL_MAGE" /></name>
+		<id>124</id>
+		<ai>Monster_Mage</ai>
+		<karma>-2500</karma>
+		<fame>2500</fame>
+
+		<!-- Stats -->
+		<str><random min="80" max="105"/></str>
+		<dex><random min="90" max="115"/></dex>
+		<int><random min="95" max="120"/></int>
+		<maxhitpoints><random min="50" max="65"/></maxhitpoints>
+		<maxstamina><random min="90" max="115"/></maxstamina>
+		<maxmana><random min="95" max="120"/></maxmana>
+
+		<!-- Skills -->
+		<skill id="wrestling"><random min="200" max="600"/></skill>
+		<skill id="tactics"><random min="650" max="900"/></skill>
+		<skill id="magicresistance"><random min="750" max="980"/></skill>
+		<skill id="anatomy"><random min="0" max="0"/></skill>
+		<skill id="magery"><random min="750" max="1000"/></skill>
+		<skill id="evaluatingintelligence"><random min="750" max="1000"/></skill>
+		<skill id="meditation"><random min="0" max="0"/></skill>
+
+		<!-- Damage -->
+		<mindamage>9</mindamage>
+		<maxdamage>18</maxdamage>
+
+		<!-- Damage Properties -->
+		<!--
+		<tag name="dmg_fire" value="0" type="int" />
+		<tag name="dmg_cold" value="0" type="int" />
+		<tag name="dmg_poison" value="0" type="int" />='=
+		<tag name="dmg_energy" value="0" type="int" />
+		-->
+
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_cold" value="0,0" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<tag name="res_energy" value="5,10" type="int" />
+
+		<backpack>
+			<content>
+				<item list="MAGE_SHOES"><color>0x770</color></item>
+				<item id="1f04"><color>0x774</color></item>
+				<item id="eed"><amount><random min="125" max="175" /></amount></item>
+				<item list="REAGENTS"><amount>6</amount></item>
+			</content>
+		</backpack>
+
+		<lootpacks>scroll_medium</lootpacks>
+
+		<!-- Misc. -->
+		<category>Humans\Evil\Evil mage</category>
+	</npc> 
+
+	<!-- Evil Mage Lord -->
+	<npc id="evil_mage_lord" inherit="monster_base">
+		<name><random list="NAMES_EVIL_MAGE_LORD" /></name>
+		<id>125</id>
+		<ai>Monster_Mage</ai>
+		<karma>-10500</karma>
+		<fame>10500</fame>
+
+		<!-- Stats -->
+		<str><random min="81" max="105"/></str>
+		<dex><random min="190" max="215"/></dex>
+		<int><random min="125" max="150"/></int>
+		<maxhitpoints><random min="45" max="65"/></maxhitpoints>
+		<maxstamina><random min="190" max="215"/></maxstamina>
+		<maxmana><random min="125" max="150"/></maxmana>
+
+		<!-- Skills -->
+		<skill id="wrestling"><random min="200" max="800"/></skill>
+		<skill id="tactics"><random min="650" max="900"/></skill>
+		<skill id="magicresistance"><random min="770" max="1000"/></skill>
+		<skill id="anatomy"><random min="0" max="0"/></skill>
+		<skill id="magery"><random min="950" max="1000"/></skill>
+		<skill id="evaluatingintelligence"><random min="800" max="1000"/></skill>
+		<skill id="meditation"><random min="250" max="500"/></skill>
+
+		<!-- Damage -->
+		<mindamage>9</mindamage>
+		<maxdamage>18</maxdamage>
+
+		<!-- Damage Properties -->
+		<!--
+		<tag name="dmg_fire" value="0" type="int" />
+		<tag name="dmg_cold" value="0" type="int" />
+		<tag name="dmg_poison" value="0" type="int" />='=
+		<tag name="dmg_energy" value="0" type="int" />
+		-->
+
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="35,40" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+
+		<!-- Loot Packs -->
+		<!-- Special: lvl2 treasure map -->
+		<backpack>
+			<content>
+				<item list="MAGE_SHOES"><color>0xb</color></item> # shoes or sandals
+				<item id="1f04"><color>0x55d</color></item> # robe
+				<item id="eed"><amount><random min="175" max="225" /></amount></item> <!-- Gold -->
+				<item list="REAGENTS"><amount>7</amount></item> <!-- random reg -->
+				<item list="REAGENTS"><amount>8</amount></item> <!-- random reg -->
+				<item list="REAGENTS"><amount>8</amount></item> <!-- random reg -->
+			</content>
+		</backpack>
+		<lootpacks>scroll_medium;scroll_medium</lootpacks>
+
+		<!-- Misc. -->
+		<category>Humans\Evil\Evil mage lord</category>
+	</npc>
+
 </definitions>

@@ -241,6 +241,13 @@
 		<item>1407</item>
 	</list> 
 
+	<list id="MAGE_SHOES">
+		<item>170f</item>
+		<item>1710</item>
+		<item>170e</item>
+		<item>170d</item>
+	</list>
+
 	<!-- IDs of First Circle Scrolls -->
 	<list id="FIRSTCIRCLE">
 		<item>1f2e</item>

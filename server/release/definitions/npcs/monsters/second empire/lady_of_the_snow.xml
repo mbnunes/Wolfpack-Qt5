@@ -1,0 +1,61 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: idget
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Lady of the Snow -->
+	<npc id="lady_of_the_snow" inherit="monster_base">
+		<name>Lady of the Snow</name>
+		<ai>Monster_Mage</ai>
+		<id>252</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+
+		<!-- Stats -->
+		<str><random min="275" max="305" /></str>
+		<dex><random min="105" max="125" /></dex>
+		<int><random min="470" max="490" /></int>
+
+		<!-- Status -->
+		<maxhitpoints><random min="595" max="625" /></maxhitpoints>
+
+		<!-- Damage -->
+		<mindamage>32</mindamage>
+		<maxdamage>49</maxdamage>
+		<tag name="dmg_cold" value="80" type="int" />
+
+		<!-- Defense -->
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_fire" value="40,55" type="int" />
+		<tag name="res_cold" value="70,90" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
+		<tag name="res_energy" value="70,85" type="int" />
+
+		<!-- Skills -->
+		<skill id="wrestling"><random min="850" max="1000"/></skill>
+		<skill id="tactics"><random min="850" max="1000"/></skill>
+		<skill id="magicresistance"><random min="900" max="1050"/></skill>
+		<skill id="anatomy"><random min="0" max="0"/></skill>
+		<skill id="magery"><random min="950" max="1100"/></skill>
+		<skill id="evaluatingintelligence"><random min="0" max="0"/></skill>
+		<skill id="meditation"><random min="850" max="900"/></skill>
+
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="800" max="1000" /></amount></item>
+				<item list="REAGENTS"><amount>3</amount></item>
+			</content>
+		</backpack>
+		<lootpacks></lootpacks>
+
+		<!-- Misc. -->
+		<food>1</food>
+		<category>Monsters\SE\Lady of the Snow</category>
+	</npc>
+
+</definitions>

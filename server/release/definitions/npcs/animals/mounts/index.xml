@@ -4,6 +4,7 @@
 	<!-- Mounts -->
 	<include file="definitions/npcs/animals/mounts/dark_steed.xml" />
 	<include file="definitions/npcs/animals/mounts/ethereals.xml" />
+	<include file="definitions/npcs/animals/mounts/fire_beetle.xml" />
 	<include file="definitions/npcs/animals/mounts/fire_steed.xml" />
 	<include file="definitions/npcs/animals/mounts/giant_beetle.xml" />
 	<include file="definitions/npcs/animals/mounts/horse.xml" />

@@ -65,6 +65,9 @@
 	<!-- Shadows -->
 	<include file="definitions/npcs/monsters/shadows/index.xml"/>
 
+	<!-- Second Empire Monsters -->
+	<include file="definitions/npcs/monsters/second empire/index.xml" />
+
 	<!-- Summoned -->
 	<include file="definitions/npcs/monsters/summoned/index.xml"/>
 

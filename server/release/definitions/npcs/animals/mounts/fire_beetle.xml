@@ -1,0 +1,53 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: idget
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+<!-- Fire Beetle -->
+<npc id="fire_beetle" inherit="monster_base">
+	<name>a fire beetle</name>
+	<id>791</id>
+	<skin>0x550</skin>
+	<inherit id="KARMA_L3" />
+	<inherit id="FAME_L3" />
+	<!-- Stats -->
+	<str>300</str>
+	<dex>100</dex>
+	<int>500</int>
+	<!-- Status -->
+	<maxhitpoints>200</maxhitpoints>
+	<!-- Damage -->
+	<mindamage>19</mindamage>
+	<maxdamage>52</maxdamage>
+	<tag name="dmg_fire" value="100" type="int" />
+	<!-- Defense -->
+	<tag name="res_physical" value="40" type="int" />
+	<tag name="res_fire" value="70,75" type="int" />
+	<tag name="res_cold" value="10" type="int" />
+	<tag name="res_poison" value="30" type="int" />
+	<tag name="res_energy" value="30" type="int" />
+	<!-- Skills -->
+	<skill id="wrestling">1000</skill>
+	<skill id="tactics">1000</skill>
+	<skill id="magicresistance">900</skill>
+	<!-- Misc. -->
+	<backpack>
+		<content>
+			<item id="f8c"><amount><random min="15" max="25" /></amount></item>
+			<item id="1bf2"><amount>2</amount></item>
+		</content>
+	</backpack>
+	<controlslots>3</controlslots>
+	<mintaming>93.9</mintaming>
+	<food>1</food>
+	<bindmenu>tame_menu,pet_menu</bindmenu>
+	<category>Animals\Mounts\Fire Beetle</category>
+	<basescript>npc.mount</basescript>
+</npc>
+
+</definitions>

@@ -1,0 +1,62 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: idget
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Kaze Kemono -->
+	<npc id="kaze_kemono" inherit="monster_base">
+		<id>196</id>
+		<name>a kaze kemono</name>
+		<!-- Attributes -->
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+
+		<!-- Stats -->
+		<str><random min="205" max="275"/></str>
+		<dex><random min="100" max="155"/></dex>
+		<int><random min="100" max="110"/></int>
+		<maxhitpoints><random min="250" max="310"/></maxhitpoints>
+
+		<mindamage>33</mindamage>
+		<maxdamage>48</maxdamage>
+		<tag name="dmg_fire" value="10" type="int" />
+		<tag name="dmg_cold" value="10" type="int" />
+		<tag name="dmg_poison" value="10" type="int" />
+
+		<!-- Skills -->
+		<skill id="wrestling"><random min="850" max="950"/></skill>
+		<skill id="tactics"><random min="550" max="650"/></skill>
+		<skill id="magicresistance"><random min="1100" max="1200"/></skill>
+		<skill id="anatomy"><random min="250" max="350"/></skill>
+		<skill id="magery"><random min="950" max="1050"/></skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="meditation">0</skill>
+
+		<!-- Resists -->
+		<tag name="res_physical" value="50,70" type="int" />
+		<tag name="res_fire" value="30,60" type="int" />
+		<tag name="res_cold" value="30,60" type="int" />
+		<tag name="res_poison" value="50,70" type="int" />
+		<tag name="res_energy" value="60,80" type="int" />
+
+		<!-- Misc -->
+		<desc>Tales of this creature might be pried from between the lips of those who have encountered it deep within the dungeon Shame, or venturing across its native plains and mountains. The Air Elemental is awesome and perhaps deceptivein its beauty, as it takes the form of a luminous blue man. It moves with such speed as could hardly be imagined; no sooner is it seen in the distance before it bears down on the unfortunate adventurer. The blue vapor it exudes about its form is but an indication of the foul winds that it uses to fell its opponents. Even those who flee this creature may be hit with an unseen weapon that the creature has thrown. Although the naturally occurring Air Elemental is the strongest, such creatures can be summoned at the behest of the strongest of mages. Be warned, ye Adventurers who make your way through the plains and mountains of Britannia! Prepare yourselves well to meet one of these creatures, should you feel the sting of hJewel, 25 Agapite Ore, Level 1 Mapot wind and grit come from nowhere as you travel!</desc>
+		<!-- Missing: 1-7CS, MNS, Potion, Level 2 Map -->
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="550" max="650" /></amount></item>
+			</content>
+		</backpack>
+		<lootpacks>gems;gems</lootpacks>
+		<category>Monsters\SE\Kaze Kemono</category>
+		<strproperty name="slayer_group" value="elementals" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+	</npc>
+
+</definitions>

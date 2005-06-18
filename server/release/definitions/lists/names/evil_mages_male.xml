@@ -7,6 +7,12 @@
 =================================================================
 -->
 <definitions>
+	<list id="NAMES_EVIL_MAGE_LORD">
+		<item>Kwan Li, Lord of the Mists</item>
+		<item>Bazerion, the Wizard-Lord</item>
+		<item>Ylthallynon, the Insane</item>
+		<item>Xarot, the Black Archmage</item>
+	</list>
 
 	<list id="NAMES_EVIL_MAGE">
 		<item>Aegnor</item>

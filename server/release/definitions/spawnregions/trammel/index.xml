@@ -8,7 +8,7 @@
 -->
 
 <definitions>
-	<include file="definitions/spawnregions/trammel/vendors.xml" />
+	<!-- <include file="definitions/spawnregions/trammel/vendors.xml" /> -->
 	
 	<!-- Town Spawns -->
 	<include file="definitions/spawnregions/trammel/towns/britain.xml" />
