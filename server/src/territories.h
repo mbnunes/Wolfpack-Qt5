@@ -119,6 +119,10 @@ public:
 	{
 		return flags_ & 0x2000;
 	}
+	bool isNoDecay( void ) const
+	{
+		return flags_ & 0x4000;
+	}
 	QString guardOwner( void ) const
 	{
 		return guardowner_;
@@ -235,6 +239,13 @@ private:
 			flags_ |= 0x2000;
 		else
 			flags_ &= ~0x2000;
+	}
+	void setNoDecay( bool data )
+	{
+		if ( data )
+			flags_ |= 0x4000;
+		else
+			flags_ &= ~0x4000;
 	}
 
 	virtual void processNode( const cElement* Tag );

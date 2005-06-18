@@ -53,6 +53,7 @@
 #include "inlines.h"
 #include "basics.h"
 #include "basedef.h"
+#include "accounts.h"
 
 cNPC::cNPC()
 {
@@ -615,7 +616,7 @@ void cNPC::showName( cUOSocket* socket )
 
 	// Append serial for GMs
 	if ( socket->account()->isShowSerials() )
-		charName.append( QString( " [0x%1]" ).arg( serial(), 4, 16 ) );
+		charName.append( QString( " [0x%1]" ).arg( serial(), 3, 16 ) );
 
 	// Frozen
 	if ( isFrozen() )
@@ -1476,26 +1477,18 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 
 	if ( !title_.isEmpty() )
 	{
-		affix = " " + title_;
-	}
-	else
-	{
-		affix = " ";
+		affix = ", " + title_;
 	}
 
 	// Append the (frozen) tag
 	if ( isFrozen() )
 	{
-		if ( affix.endsWith( " " ) )
-		{
-			affix.append( tr( "(frozen)" ) );
-		}
-		else
-		{
-			affix.append( tr( " (frozen)" ) );
-		}
+		affix.append( tr( " (frozen)" ) );
 	}
-
+	if ( player->account()->isShowSerials() )
+	{
+		affix.append( QString( " [0x%1]" ).arg( serial(), 3, 16 ) );
+	}
 	tooltip.addLine( 1050045, QString( " \t%1\t%2" ).arg( name_ ).arg( affix ) );
 	onShowTooltip( player, &tooltip );
 }

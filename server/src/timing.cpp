@@ -101,10 +101,14 @@ void cTiming::poll()
 		}
 
 		QValueVector<SERIAL>::iterator sit;
+
 		for ( sit = toRemove.begin(); sit != toRemove.end(); ++sit )
 		{
 			P_ITEM item = FindItemBySerial( *sit );
-			if ( item && item->isInWorld() && !item->nodecay() && ( item->corpse() || !item->multi() ) && !item->isLockedDown() )
+			Coord point = item->pos();
+			cTerritory *region = Territories::instance()->region( point );
+
+			if ( item && item->isInWorld() && !item->nodecay() && ( item->corpse() || !item->multi() ) && !item->isLockedDown() && ( region && !region->isNoDecay() ) )
 			{
 				item->remove(); // Auto removes from the decaylist
 			}

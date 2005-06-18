@@ -1717,6 +1717,11 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		affix = " (frozen)";
 	}
 
+	if ( player->account()->isShowSerials() )
+	{
+		affix.append( QString( " [0x%1]" ).arg( serial(), 3, 16 ) );
+	}
+
 	if ( !isIncognito() && !isPolymorphed() && guild_ && !guild_->abbreviation().isEmpty() )
 	{
 		cGuild::MemberInfo* info = guild_->getMemberInfo( this );

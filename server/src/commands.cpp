@@ -514,16 +514,23 @@ void commandStaff( cUOSocket* socket, const QString& command, const QStringList&
 void commandShowserials( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
 {
 	Q_UNUSED( command );
-	if ( socket->account()->isShowSerials() || ( args.count() > 0 && args[0].toInt() == 0 ) )
-	{
-		socket->account()->setShowSerials( false );
-		socket->sysMessage( tr( "Show serials is now off." ) );
-	}
-	else if ( !socket->account()->isShowSerials() || ( args.count() > 0 && args[0].toInt() == 1 ) )
-	{
-		socket->account()->setShowSerials( true );
-		socket->sysMessage( tr( "Show serials is now on." ) );
-	}
+	if ( !socket->player() || !socket->player()->account() )
+		return;
+
+	// Switch
+	if ( !args.count() )
+		socket->player()->account()->setShowSerials( !socket->player()->account()->isShowSerials() );
+	// Set
+	else
+		socket->player()->account()->setShowSerials( args[0].toInt() != 0 );
+
+	if ( socket->player()->account()->isShowSerials() )
+		socket->sysMessage( tr( "ShowSerials is [enabled]" ) );
+	else
+		socket->sysMessage( tr( "ShowSerials is [disabled]" ) );
+
+	// Resend the world to us
+	socket->resendWorld( true );
 }
 
 /*
