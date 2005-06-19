@@ -3560,7 +3560,15 @@ bool cUOSocket::useItem( P_ITEM item )
 					P_CHAR pChar = dynamic_cast<P_CHAR>( pOCont->container() );
 					if ( pChar && pChar != _player )
 					{
-						if ( !pChar->inRange( _player, 2 ) )
+						if ( pChar->objectType() == enNPC )
+						{
+							P_NPC npcChar = dynamic_cast<P_NPC>( pOCont->container() );
+							if ( npcChar->owner() && npcChar->owner() == _player )
+							{
+								sendContainer( item );
+							}
+						}
+						else if ( !pChar->inRange( _player, 2 ) )
 							sysMessage( tr( "You must stand nearer to snoop!" ) );
 						else
 							Skills::instance()->Snooping( _player, item );

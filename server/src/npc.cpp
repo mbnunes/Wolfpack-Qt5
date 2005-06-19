@@ -1586,12 +1586,12 @@ unsigned int cNPC::damage( eDamageType type, unsigned int amount, cUObject* sour
 
 bool cNPC::isOverloaded()
 {
-	return false;
+	return weight_ > maxWeight();
 }
 
 unsigned int cNPC::maxWeight()
 {
-	return 0;
+	return ( unsigned int ) ( 40 + strength_ * 3.5 );
 }
 
 void cNPC::moveTo( const Coord& newpos )
