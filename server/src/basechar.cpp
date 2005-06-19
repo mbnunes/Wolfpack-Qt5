@@ -2523,14 +2523,27 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 	}
 
 	P_NPC npc = dynamic_cast<P_NPC>( this );
-
+	cUOSocket* socket = pChar->socket();
 	// Mounting and pack animals
 	if ( npc )
 	{
 		if ( body_ == 0x123 || body_ == 0x124 )
 		{
-			if ( npc->owner() == pChar || pChar->isGM() )
+			if ( pChar->isGM() )
 			{
+				source->sendContainer( getBackpack() );
+			}
+
+			else if ( npc->owner() == pChar )
+			{
+				if ( !pChar->inRange( npc, 2 ) )
+				{
+					if ( socket )
+					{
+						socket->sysMessage( tr( "You are too far away!" ) );
+					}
+					return;
+				}
 				source->sendContainer( getBackpack() );
 			}
 		}
