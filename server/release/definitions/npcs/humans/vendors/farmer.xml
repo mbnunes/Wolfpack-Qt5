@@ -1,0 +1,48 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Naddel                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<npc id="farmer_inventory">
+		<title context="Vendor Male Titles">the Farmer</title>
+		<skill id="lumberjacking"><random min="360" max="680" /></skill>
+		<skill id="tasteidentification"><random min="360" max="680" /></skill>
+		<skill id="cooking"><random min="360" max="680" /></skill>
+	</npc>
+
+	<!-- A farmer vendor -->
+	<npc id="farmer_male" inherit="vendor_male">
+		<inherit id="farmer_inventory" />
+		<category>Vendors\Farmer (Male)</category>
+		<equipped>
+			<item id="1714"> <!-- Wide brim hat -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
+	</npc>
+
+	<npc id="farmer_female" inherit="vendor_female">
+		<inherit id="farmer_inventory" />
+		<category>Vendors\Farmer (Female)</category>
+		<equipped>
+			<item id="1714"> <!-- Wide brim hat -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
+	</npc>
+
+	<npc id="farmer">
+		<inherit><random valuelist="farmer_male,farmer_female" /></inherit>
+		<category>Vendors\Farmer (Random)</category>
+		<equipped>
+			<item id="1714"> <!-- Wide brim hat -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
+	</npc>
+
+</definitions>

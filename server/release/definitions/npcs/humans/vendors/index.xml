@@ -22,6 +22,7 @@
 	<include file="definitions/npcs/humans/vendors/carpenter.xml"/>
 	<include file="definitions/npcs/humans/vendors/cobbler.xml"/>
 	<include file="definitions/npcs/humans/vendors/cook.xml"/>
+	<include file="definitions/npcs/humans/vendors/farmer.xml"/>
 	<include file="definitions/npcs/humans/vendors/fishermen.xml"/>
 	<include file="definitions/npcs/humans/vendors/healer.xml"/>
 	<include file="definitions/npcs/humans/vendors/herbalist.xml"/>
