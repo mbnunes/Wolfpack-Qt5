@@ -1,8 +1,8 @@
 #===============================================================#
-#   )	  (\_	 | WOLFPACK 13.0.0 Scripts					#
-#  ((	_/{  "-;  | Created by: Correa						 #
-#   )).-' {{ ;'`   | Revised by:								#
-#  ( (  ;._ \\ ctr | Last Modification: Created				 #
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  | Created by: Correa                         #
+#   )).-' {{ ;'`   | Revised by:                                #
+#  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
 """
@@ -132,7 +132,7 @@ def decoration( socket, command, arguments ):
 			saveObject = DecorationSaveHandler(socket)
 			socket.sysmessage(tr("Sorting items, please wait..."))
 			saveObject.sort()
-			socket.sysmessage(tr("Writting file..."))
+			socket.sysmessage(tr("Writing file..."))
 			saveObject.save()
 			return
 		
