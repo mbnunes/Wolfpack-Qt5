@@ -120,7 +120,7 @@ class DecorationSaveHandler:
 						file.write("""\t<item id="0x%x">\n""" % id )
 					for item in itemsbyhue[hue]:
 						pos = item.pos
-						file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i">\n""" % (pos.x, pos.y, pos.z, pos.map) )
+						file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
 					file.write("\t</item>\n")
 			file.write("</decoration>\n")
 			file.close()
