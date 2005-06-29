@@ -1,0 +1,14 @@
+This directory is for your custom scripts.
+
+In order to activate your scripts, you must configure wolfpack.xml.
+Open wolfpack.xml and search for the "Definitions" key. Replace it with the following:
+<option key="Definitions" value="myownscripts/preload.xml;definitions/index.xml;myownscripts/index.xml" />
+
+Preload.xml is not neccessary, unless you use only default wolfpack scripts.
+It is used in order to override certain functions. You will put your scripts in there like that:
+<script>myownscripts.override</script>
+
+Index.xml is something like the default index.xml. You can put in there new scripts and definitions.
+For further information check out the HowTo section under http://wpdev.sourceforge.net/cgi-bin/moin.cgi/FrontPage?action=show
+or ask in our forums.
+http://www.wpdev.org

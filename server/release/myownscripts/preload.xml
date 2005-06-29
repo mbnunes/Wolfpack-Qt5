@@ -1,0 +1,8 @@
+<!--
+	This file contains a simple file-list of all scripts
+	you want to load on startup before WP scripts, in order
+	to override some functions e.g.. 
+-->
+
+<definitions>
+</definitions>

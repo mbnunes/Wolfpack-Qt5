@@ -1,0 +1,8 @@
+<!--
+	This file contains a simple file-list of all scripts
+	you want to load on startup. The name between the tags
+	is automatically the script-name used internally (for
+	other scripts or eventlists).
+-->
+<definitions>
+</definitions>
