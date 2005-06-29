@@ -1,0 +1,69 @@
+<!--
+/*=========================================================
+* ) (\_ | WOLFPACK 13.0.0 Scripts
+* (( _/{ "-; | Created by: Idget
+* )).-' {{ ;'` | Revised by:
+* ( ( ;._ \\ | Last modification:
+*=======================================================*/
+-->
+<definitions>
+
+	<!-- yamandon -->
+	<npc id="yamandon" inherit="monster_base">
+		<name>a yamadon</name>
+		<id>249</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+
+		<!-- Stats -->
+		<str><random min="785" max="930"/></str>
+		<dex><random min="250" max="365"/></dex>
+		<int><random min="100" max="120"/></int>
+		<maxhitpoints><random min="1600" max="1800"/></maxhitpoints>
+
+		<!-- Damage -->
+		<mindamage>90</mindamage>
+		<maxdamage>167</maxdamage>
+		<tag name="dmg_poison" value="20" type="int" />
+		<tag name="dmg_energy" value="10" type="int" />
+
+		<!-- Skills -->
+		<skill id="wrestling"><random min="1100" max="1350"/></skill>
+		<skill id="tactics"><random min="1150" max="1350"/></skill>
+		<skill id="magicresistance"><random min="1150" max="1350"/></skill>
+		<skill id="anatomy"><random min="1150" max="1300"/></skill>
+		<skill id="poisoning"><random min="1200" max="1400"/></skill>
+
+		<!-- Resists -->
+		<tag name="res_physical" value="65,85" type="int" />
+		<tag name="res_fire" value="70,90" type="int" />
+		<tag name="res_cold" value="50,70" type="int" />
+		<tag name="res_poison" value="50,70" type="int" />
+		<tag name="res_energy" value="50,70" type="int" />
+
+		<!-- Misc. -->
+		<desc>no desc yet</desc>
+
+		<!-- Loot -->
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="2000" max="2500" /></amount></item>
+				<item id="9b5"><amount>2</amount></item>
+			</content>
+		</backpack>
+		<lootpacks>gems;gems;gems;gems;gems;gems</lootpacks>
+
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
+		<intproperty name="hit_poison_chance" value="50" />
+
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="20" />
+
+		<category>Monsters\SE\Yamandon</category>
+		<strproperty name="slayer_group" value="reptile,snake" />
+		<inherit id="speed_fast" />
+	</npc>
+
+</definitions>

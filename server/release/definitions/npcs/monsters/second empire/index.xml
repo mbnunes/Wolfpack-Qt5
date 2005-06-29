@@ -16,5 +16,13 @@
 	<include file="definitions/npcs/monsters/second empire/kaze_kemono.xml" />
 	<include file="definitions/npcs/monsters/second empire/lady_of_the_snow.xml" />
 	<include file="definitions/npcs/monsters/second empire/oni.xml" />
+	<include file="definitions/npcs/monsters/second empire/raiju.xml" />
+	<include file="definitions/npcs/monsters/second empire/revenant_lion.xml" />
+	<include file="definitions/npcs/monsters/second empire/rune_beetle.xml" />
+	<include file="definitions/npcs/monsters/second empire/tsuki_wolf.xml" />
+	<include file="definitions/npcs/monsters/second empire/yamandon.xml" />
+	<include file="definitions/npcs/monsters/second empire/yomotsu_elder.xml" />
+	<include file="definitions/npcs/monsters/second empire/yomotsu_priest.xml" />
+	<include file="definitions/npcs/monsters/second empire/yomotsu_warrior.xml" />
 
 </definitions>

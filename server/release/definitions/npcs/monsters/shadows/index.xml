@@ -19,6 +19,7 @@
 	<include file="definitions/npcs/monsters/shadows/gore_fiend.xml"/>
 	<include file="definitions/npcs/monsters/shadows/impaler.xml"/>
 	<include file="definitions/npcs/monsters/shadows/ravager.xml"/>
+	<include file="definitions/npcs/monsters/shadows/restless_soul.xml"/>
 	<include file="definitions/npcs/monsters/shadows/shadow_knight.xml"/>
 	<include file="definitions/npcs/monsters/shadows/sphynx.xml"/>
 	<include file="definitions/npcs/monsters/shadows/wanderer_of_the_void.xml"/>
