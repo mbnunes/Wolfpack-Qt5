@@ -124,7 +124,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Graphical preview for creating Multis.
   - Fix for Plants (menu didn't open when they were grown).
   - Fix: Candidates could not resign by themselves from their guild
-  - Implemented stonemining (50:50 chance for ore:gem if activated through thecontextmenu of tool).
+  - Implemented stonemining (50:50 chance for ore:gem if activated through the contextmenu of tool).
   - Implemented some new npcs (thx to idget)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
