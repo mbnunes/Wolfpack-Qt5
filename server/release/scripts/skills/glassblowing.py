@@ -119,7 +119,7 @@ class GlassblowingMenu(MakeMenu):
 
 	# Check if player has learned glassblowing
 	def haslearned(self, player, item):
-		if not player.gm and not player.hastag( 'glassblowing' ):
+		if not player.gm and not (player.hastag( 'glassblowing' ) and player.skill[ALCHEMY] >= 1000):
 			player.socket.clilocmessage(1044634) # You havent learned glassblowing.
 			return False
 		return True

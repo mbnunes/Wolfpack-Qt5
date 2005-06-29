@@ -15,7 +15,7 @@ from wolfpack import console
 from wolfpack.utilities import ismountainorcave, issand, tobackpack
 
 
-#mining calling from pickaxe.py and shovel.py
+#mining called from pickaxe.py and shovel.py
 
 #in seconds
 miningdelay = 1000
