@@ -114,7 +114,7 @@ PACKS = {
 	'gold_super_boss': [
 		[1.0, 'eed', '10d100+1000', 1] # 1010 - 2000
 	],
-	
+
 	# Scroll Packs
 	'scroll_medium': [
 		[1.0, SCROLLS_C4 + SCROLLS_C5 + SCROLLS_C6 + SCROLLS_C7, 1, 1] # 1 Scroll of Circle 4 - 7	
@@ -440,17 +440,22 @@ PACKS = {
 		[1.0, DEF_BASEGEMS, 1, 1], # One Gem
 		[1.0, ['e21','ee9'], 10, 1] # 10 Bandages
 	],
-	
+
 	# Body Parts
 	'bodypart': [
 		[1.0, DEF_BODYPARTS, 1, 0],
 	],
-	
+
+	# Bones
+	'bones': [
+	[1.0, DEF_BODYBONES, 1, 0],
+	],
+
 	# Single Bone
 	'bone': [
 		[1.0, 'f7e', 1, 0],
 	],
-	
+
 	# Vorpal Bunny
 	'vorpal_bunny' : [
 		[1.0, DEF_STATUE, 1, 0], # Statue
@@ -503,13 +508,13 @@ def createpack(char, killer, corpse, pack):
 
 		# Check if the given item should spawn.
 		spawn = packchance >= random.random()
-			
+
 		# This check has been greatly reduced in its power. 
 		# Now there just is a *second* check if you succeed
 		# with your luck check.
 		if not spawn and luckChance > random.randint(0, 9999):
 			spawn = packchance >= random.random()
-			
+
 		if spawn:
 			if type( packamount ) == str:
 				amount = utilities.rolldice( packamount )
@@ -538,7 +543,7 @@ def createpack(char, killer, corpse, pack):
 					if itemid == 'RANDOM_MAGIC_ITEM':
 						# Select the item-id
 						value = random.random()
-						
+
 						# 10% Jewelry
 						if value > 0.90:
 							citem = wolfpack.additem(random.choice(DEF_JEWELERY))
@@ -551,14 +556,14 @@ def createpack(char, killer, corpse, pack):
 						# 40% Weapon
 						else:
 							citem = wolfpack.additem(random.choice(DEF_ALLWEAPONS))
-						
+
 						maxproperties = item[ PACK_MAXPROPERTIES ]
 						minintensity = item[ PACK_MININTENSITY ]
 						maxintensity = item[ PACK_MAXINTENSITY ]						
 						properties.applyRandom(citem, maxproperties, minintensity, maxintensity, luckChance)
 					else:
 						citem = wolfpack.additem(itemid)
-										
+
 					dropitem(citem, char, corpse)
 
 #

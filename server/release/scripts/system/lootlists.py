@@ -118,15 +118,13 @@ RANDOM_MAGIC_ITEMS += DEF_SHIELDS + DEF_JEWELERY
 RANDOM_MAGIC_ITEMS += DEF_ALLWEAPONS + DEF_ALLWEAPONS + DEF_ALLWEAPONS + DEF_ALLWEAPONS
 
 # BodyParts
-DEF_BODYFLESH = []
+DEF_BODYPARTS = []
 for i in range(0x1cdd, 0x1cf1):
-	DEF_BODYFLESH.append('%x' % i)
+	DEF_BODYPARTS.append('%x' % i)
 
 DEF_BODYBONES = []
 for i in range(0x1b09, 0x1b1d):
-	DEF_BODYFLESH.append('%x' % i)
-
-DEF_BODYPARTS = DEF_BODYFLESH + DEF_BODYBONES
+	DEF_BODYBONES.append('%x' % i)
 
 # Statues
 DEF_STATUE = ['12cb', '12ca', '139a', '1224', '139b', '1226', '139c', '1227']
