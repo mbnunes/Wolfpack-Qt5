@@ -473,34 +473,34 @@ def isdirt( tile ):
 	given amount can be found.
 """
 def checkresources(container, baseid, amount):
-  for item in container.content:
-    if item.baseid == baseid:
-      amount -= item.amount
-    else:
-      amount = checkresources(item, baseid, amount)
+	for item in container.content:
+		if item.baseid == baseid:
+			amount -= item.amount
+		else:
+			amount = checkresources(item, baseid, amount)
 
-    # Don't count negative values
-    if amount <= 0:
-      amount = 0
-      break
+		# Don't count negative values
+		if amount <= 0:
+			amount = 0
+			break
 
-  return amount
+	return amount
 
 def consumeresourcesinternal(container, baseid, amount):
-  for item in container.content:
-    if item.baseid == baseid:
-      # Enough to statisfy our consumption
-      if item.amount > amount:
-        item.amount -= amount
-        item.update()
-        return 0
+	for item in container.content:
+		if item.baseid == baseid:
+			# Enough to statisfy our consumption
+			if item.amount > amount:
+				item.amount -= amount
+				item.update()
+				return False
 
-      amount -= item.amount
-      item.delete()
-    else:
-      amount = consumeresourcesinternal(item, baseid, amount)
+			amount -= item.amount
+			item.delete()
+		else:
+			amount = consumeresourcesinternal(item, baseid, amount)
 
-  return amount
+	return amount
 
 """
 	\function wolfpack.utilities.consumeresources
@@ -511,10 +511,10 @@ def consumeresourcesinternal(container, baseid, amount):
 	\description Removes a given amount of items with a given baseid recursively from a given container.
 """
 def consumeresources(container, baseid, amount):
-  if checkresources(container, baseid, amount) == 0:
-    return consumeresourcesinternal(container, baseid, amount) == 0
+	if checkresources(container, baseid, amount) == 0:
+		return consumeresourcesinternal(container, baseid, amount) == 0
 
-  return 0
+	return 0
 
 """
 	\function wolfpack.utilities.energydamage

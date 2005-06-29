@@ -39,7 +39,6 @@ def gump_response(char, args, response):
 	key.resendtooltip()
 
 def rename_key(char, key):
-
 # Build the lock gump
 	gump = cGump(x=100, y=100, callback="key.gump_response")
 	gump.setArgs([key.serial])
