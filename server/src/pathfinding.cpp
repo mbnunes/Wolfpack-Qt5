@@ -91,7 +91,6 @@ int cPathfinding::getSuccessors(int node, P_CHAR pChar, int *successors) {
 	int nodez = nodes[node].z;
 
 	int count = 0;
-	int x, y;
 	int index;
 	Coord coord;
 	coord.map = goal.map;
