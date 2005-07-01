@@ -204,10 +204,12 @@ def callbackSocket( char, args, choice ):
 	elif choice.button == 10:
 		player.resurrect()
 		socket.log( LOG_TRACE, "Resurrected '%s' (0x%x)\n" % ( player.name, player.serial ) )
+		return True
 	# Kill
 	elif choice.button == 9:
 		player.kill()
 		socket.log( LOG_TRACE, "Killed '%s' (0x%x)\n" % ( player.name, player.serial ) )
+		return True
 	# Follow
 	elif choice.button == 8:
 		commands.follow.who_target( char, args, args[0] )
