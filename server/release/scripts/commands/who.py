@@ -17,6 +17,7 @@ import commands.jail
 from wolfpack import tr
 import math
 from wolfpack.gumps import cGump
+from wolfpack.consts import LOG_TRACE
 
 def cmdWho(socket, command, arguments):
 	showWhoGump(socket.player, 0)
@@ -109,13 +110,13 @@ def details(char, player):
 	account = player.account
 	# Socket Information
 	gump = cGump( 0, 0, 0, 50, 50 )
-	gump.addBackground( 0xE10, 440, 340 )
-	gump.addResizeGump( 195, 260, 0xBB8, 205, 20 )
-	gump.addCheckerTrans( 15, 15, 410, 310 )
+	gump.addBackground( 0xE10, 440, 360 )
+	gump.addResizeGump( 195, 280, 0xBB8, 205, 20 )
+	gump.addCheckerTrans( 15, 15, 410, 330 )
 	gump.addGump( 160, 18, 0xFA2 )
 	gump.addText( 195, 20, unicode( "Socket Menu" ), 0x530 )
-	gump.addText( 70, 300, unicode("Close"), 0x834 )
-	gump.addButton( 30, 300, 0xFB1, 0xFB3, 0 )
+	gump.addText( 70, 320, unicode("Close"), 0x834 )
+	gump.addButton( 30, 320, 0xFB1, 0xFB3, 0 )
 	gump.startPage( 1 )
 	gump.addText( 50, 60, unicode( "Char name:" ), 0x834 )
 	gump.addText( 250, 60, unicode( "%s" % player.name ), 0x834 )
@@ -146,13 +147,20 @@ def details(char, player):
 		# Forgive Char
 		gump.addButton( 20, 220, 0xFA5, 0xFA7, 4 )
 		gump.addText( 50, 220, unicode( "Forgive char" ), 0x834 )
+	# Kill/resurrect Char
+	if not player.dead:
+		gump.addButton( 20, 240, 0xFA5, 0xFA7, 9 )
+		gump.addText( 50, 240, unicode( "Kill char" ), 0x834 )
+	else:
+		gump.addButton( 20, 240, 0xFA5, 0xFA7, 10 )
+		gump.addText( 50, 240, unicode( "Resurrect char" ), 0x834 )
 	# Show Char Info Gump
 	gump.addButton( 220, 180, 0xFAB, 0xFAD, 5 )
 	gump.addText( 250, 180, unicode( "Show char info gump" ), 0x834 )
 	# Send Message
-	gump.addButton( 20, 260, 0xFBD, 0xFBF, 6 )
-	gump.addText( 50, 260, unicode( "Send message:" ), 0x834 )
-	gump.addInputField( 200, 260, 190, 16, 0x834, 1, unicode( "<msg>" ) )
+	gump.addButton( 20, 280, 0xFBD, 0xFBF, 6 )
+	gump.addText( 50, 280, unicode( "Send message:" ), 0x834 )
+	gump.addInputField( 200, 280, 190, 16, 0x834, 1, unicode( "<msg>" ) )
 	# Disconnect
 	gump.addButton( 220, 200, 0xFA5, 0xFA7, 7 )
 	gump.addText( 250, 200, unicode( "Disconnect" ), 0x834 )
@@ -176,7 +184,7 @@ def details(char, player):
 		installation = 'The Second Age'
 
 	# Client Version and Installation
-	gump.addText( 150, 300, unicode( "Client: %s (%s)" % (player.socket.version, installation) ), 0x834 )
+	gump.addText( 150, 320, unicode( "Client: %s (%s)" % (player.socket.version, installation) ), 0x834 )
 
 	# Stuff and Send
 	gump.setCallback( callbackSocket )
@@ -192,6 +200,14 @@ def callbackSocket( char, args, choice ):
 	# Cancel
 	if choice.button == 0:
 		return False
+	# Resurrect
+	elif choice.button == 10:
+		player.resurrect()
+		socket.log( LOG_TRACE, "Resurrected '%s' (0x%x)\n" % ( player.name, player.serial ) )
+	# Kill
+	elif choice.button == 9:
+		player.kill()
+		socket.log( LOG_TRACE, "Killed '%s' (0x%x)\n" % ( player.name, player.serial ) )
 	# Follow
 	elif choice.button == 8:
 		commands.follow.who_target( char, args, args[0] )
