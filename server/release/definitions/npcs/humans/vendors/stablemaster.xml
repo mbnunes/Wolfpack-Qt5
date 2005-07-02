@@ -9,8 +9,6 @@
 <definitions>
 
 	<npc id="stablemaster_inventory">
-		<ai>Human_Stablemaster</ai>
-		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
 		<shopkeeper>
 			<restockable>
 				<!-- Horse (Gray) -->
@@ -39,13 +37,17 @@
 
 	<!-- Stablemaster (no real vendor) -->
 	<npc id="stablemaster_male" inherit="vendor_male">
-		<inherit id="stablemaster_inventory" />
+		<inherit id="stablemaster_inventory" />		
+		<ai>Human_Stablemaster</ai>
+		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
 		<title context="Vendor Male Titles">the Stablemaster</title>
 		<category>Vendors\Stablemaster (Male)</category>
 	</npc>
 
 	<npc id="stablemaster_female" inherit="vendor_female">
 		<inherit id="stablemaster_inventory" />
+		<ai>Human_Stablemaster</ai>
+		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
 		<title context="Vendor Female Titles">the Stablemaster</title>
 		<category>Vendors\Stablemaster (Female)</category>
 	</npc>
