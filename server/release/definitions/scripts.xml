@@ -31,6 +31,7 @@
 	<script>book</script>
 	<script>bulletinboard</script>
 	<script>check</script>
+	<script>comcrystals</script>
 	<script>cooking</script>
 	<script>daggermenu</script>
 	<script>dicecup</script>
@@ -189,6 +190,7 @@
 	<script>npc.healer</script>
 	<script>npc.poison</script>
 	<script>npc.mount</script>
+	<script>npc.cow</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>
