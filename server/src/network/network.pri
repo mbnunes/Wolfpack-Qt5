@@ -1,20 +1,20 @@
 # Wolfpack network module
 
 # Input
-HEADERS += $$NETWORK_H/asyncnetio.h \
-	$$NETWORK_H/encryption.h \
-	$$NETWORK_H/listener.h \
-	$$NETWORK_H/network.h \
-	$$NETWORK_H/uopacket.h \
-	$$NETWORK_H/uorxpackets.h \
-	$$NETWORK_H/uosocket.h \
-	$$NETWORK_H/uotxpackets.h
+HEADERS += $$PWD/asyncnetio.h \
+	$$PWD/encryption.h \
+	$$PWD/listener.h \
+	$$PWD/network.h \
+	$$PWD/uopacket.h \
+	$$PWD/uorxpackets.h \
+	$$PWD/uosocket.h \
+	$$PWD/uotxpackets.h
 
-SOURCES += $$NETWORK_CPP/asyncnetio.cpp \
-	$$NETWORK_CPP/encryption.cpp \
-	$$NETWORK_CPP/listener.cpp \
-	$$NETWORK_CPP/network.cpp \
-	$$NETWORK_CPP/uopacket.cpp \
-	$$NETWORK_CPP/uorxpackets.cpp \
-	$$NETWORK_CPP/uosocket.cpp \
-	$$NETWORK_CPP/uotxpackets.cpp 
+SOURCES += $$PWD/asyncnetio.cpp \
+	$$PWD/encryption.cpp \
+	$$PWD/listener.cpp \
+	$$PWD/network.cpp \
+	$$PWD/uopacket.cpp \
+	$$PWD/uorxpackets.cpp \
+	$$PWD/uosocket.cpp \
+	$$PWD/uotxpackets.cpp 
