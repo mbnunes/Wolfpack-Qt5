@@ -110,7 +110,6 @@ def response_sender( char, args, target ):
 				char.socket.clilocmessage( 500673 ) # You turn the crystal on.
 			else:
 				char.socket.clilocmessage( 500676 ) # This crystal is out of charges.
-		#item.resendtooltip()
 
 	elif target.item and target.item.baseid == "comcrystal_receiver":
 		if receivers(item) >= 10:
@@ -127,11 +126,7 @@ def response_sender( char, args, target ):
 			item.resendtooltip()
 
 	elif target.char:
-		for i in item.tags:
-			if i.startswith( "receiver_" ):
-				item.deltag(i)
-				receiver = wolfpack.finditem( int(i.split("_")[1]) )
-				receiver.deltag( "sender" )
+		deltags_receiver( item )
 		char.socket.clilocmessage( 1010046 ) # You unlink the broadcast crystal from all of its receivers.
 		item.resendtooltip()
 
@@ -202,9 +197,12 @@ def onShowTooltip(player, object, tooltip):
 
 def onContextEntry(player, object, entry):
 	if entry == 400:
-		object.settag( "active", 0 )
+		if object.baseid == "comcrystal_receiver" :
+			activate_receiver( object )
+		else:
+			activate_sender( object )
 	if entry == 401:
-		object.deltag( "active" )
+		deactivate( object )
 	object.resendtooltip()
 	return True
 
