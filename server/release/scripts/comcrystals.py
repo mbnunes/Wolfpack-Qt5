@@ -203,7 +203,6 @@ def onContextEntry(player, object, entry):
 			activate_sender( object )
 	if entry == 401:
 		deactivate( object )
-	object.resendtooltip()
 	return True
 
 def onContextCheckVisible(player, object, tag):
