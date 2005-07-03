@@ -58,14 +58,11 @@ def deactivate( item ):
 	item.update()
 
 def deltags_receiver( item ):
-	try:
-		for i in item.tags:
-			if i.startswith( "receiver_" ):
-				item.deltag(i)
-				receiver = wolfpack.finditem( int(i.split("_")[1]) )
-				receiver.deltag( "sender" )
-	except:
-		pass
+	for i in item.tags:
+		if i.startswith( "receiver_" ):
+			item.deltag(i)
+			receiver = wolfpack.finditem( int(i.split("_")[1]) )
+			receiver.deltag( "sender" )
 	return
 
 def deltags_sender( item ):
@@ -171,7 +168,6 @@ def response_receiver( char, args, target ):
 			char.socket.clilocmessage( 1010044 ) # You unlink the receiver crystal.
 		else:
 			char.socket.clilocmessage( 1010045 ) # That receiver crystal is not linked.
-		#item.resendtooltip()
 
 	else:
 		if getname(target.item.baseid) in recharges.keys():
