@@ -2030,6 +2030,24 @@
 		<category>Misc\Comm. Crystals\Red Communication Crystal</category>
 	</item>
 
+	<!-- Communication Crystal -->
+	<item id="comcrystal_sender">
+		<id>0x1ed0</id>
+		<name>#1060740</name>
+		<category>Misc\Comm. Crystals\Green Communication Crystal</category>
+		<bindmenu>comcrystal_menu</bindmenu>
+		<basescripts>comcrystals</basescripts>
+		<tag name="charges" type="int" value="2000" />
+	</item>
+
+	<item id="comcrystal_receiver">
+		<id>0x1ed0</id>
+		<name>#1060740</name>
+		<category>Misc\Comm. Crystals\Red Communication Crystal</category>
+		<bindmenu>comcrystal_menu</bindmenu>
+		<basescripts>comcrystals</basescripts>
+	</item>
+
 	<!-- Serpent Pillar -->
 	<item id="233c">
 		<id>0x233c</id>
