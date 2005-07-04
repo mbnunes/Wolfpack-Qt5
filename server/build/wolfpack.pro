@@ -10,6 +10,7 @@ TARGET = wolfpack
 TEMPLATE = app
 
 CONFIG += qt thread exceptions rtti 
+QT += network xml qt3support
 
 unix {
 	CONFIG += console
