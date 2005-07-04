@@ -3,7 +3,7 @@
     <name>@default</name>
     <message>
         <source>Usage: set &lt;key&gt; &lt;value&gt;</source>
-        <translation></translation>
+        <translation>Uso: set &lt;chave&gt; &lt;valor&gt;</translation>
     </message>
     <message>
         <source>Please select a target to &apos;set %1 %2&apos; </source>
@@ -19,11 +19,11 @@
     </message>
     <message>
         <source>Usage: spawnregion &lt;respawn|clear|fill&gt;</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Usage: spawnregion respawn &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Spawnregion %1 does not exist</source>
@@ -31,15 +31,15 @@
     </message>
     <message>
         <source>Usage: spawnregion clear &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Usage: spawnregion fill &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Usage: spawnregion info &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Spawnregion Global Info</source>
@@ -95,7 +95,7 @@
     </message>
     <message>
         <source>You cannot wear that item.</source>
-        <translation>Voce nao pode desgastar este item.</translation>
+        <translation>Você não pode vestir este item.</translation>
     </message>
     <message>
         <source>Enter a description for this item.</source>
@@ -852,7 +852,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>a %s spawn</source>
         <comment>C:/wolfpack/server/release/scripts/commands/spawn.py</comment>
-        <translation>a %s spawn</translation>
+        <translation>um %s spawn</translation>
     </message>
     <message>
         <source>Usage: spawn npc radius mintime maxtime</source>
@@ -3336,7 +3336,7 @@ This is very usefull for new shards without account policy
     <message>
         <source>Done
 </source>
-        <translation>Feito
+        <translation>Pronto
 </translation>
     </message>
     <message>
