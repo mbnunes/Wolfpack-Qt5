@@ -125,7 +125,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fix for Plants (menu didn't open when they were grown).
   - Fix: Candidates could not resign by themselves from their guild
   - Implemented stonemining (50:50 chance for ore:gem if activated through the contextmenu of tool).
-  - Implemented some new npcs (thx to idget)
+  - Implemented some new npcs (thx to idget).
+  - Implemented ballot box.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

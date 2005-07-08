@@ -2195,4 +2195,12 @@
 		<category>Misc\Games\Mahjong Game</category>
 	</item>
 
+	<!-- Ballot Box -->
+	<item id="ballot_box">
+		<name>#1015129</name>
+		<id>0x9a8</id>
+		<category>Misc\Ballot Box</category>
+		<basescripts>ballotbox</basescripts>
+	</item>
+
 </definitions>

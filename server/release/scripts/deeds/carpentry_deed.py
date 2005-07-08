@@ -18,7 +18,7 @@ deeds = {
 	'large_bed_e':[ 1015126, 0, "a73", "a70", "a72", "a71" ],
 	'dart_board_e':[ 1015128, 0, "1e2f" ],
 	'dart_board_s':[ 1015127, 0, "1e2e" ],
-	'ballot_box':[ 1015129, 0, "9a8" ],
+	'ballot_box':[ 1015129, 0, "ballot_box" ],
 	'pentagram':[ 1015130, 0, "fe6", "fe7", "fe8", "fe9", "fea", "feb", "fec", "fed", "fee" ],
 	'abattoir':[ 1015131, 0, "120e", "120f", "1210", "1211", "1212", "1213", "1214", "1215", "1216" ],
 	'small_forge':[ 1015133, 0, "fb1" ],
