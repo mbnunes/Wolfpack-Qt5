@@ -602,6 +602,7 @@
 		<id>0xde3</id>
 		<nodecay />
 		<decaytime>120000</decaytime>
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Campfire\Campfire</category>
 	</item>
 
