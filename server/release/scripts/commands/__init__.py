@@ -206,7 +206,7 @@ def goitem(socket, command, arguments):
 		i = 0
 
 	if len(found) == 0:
-		socket.sysmessage('A item with the given name was not found.')
+		socket.sysmessage('An item with the given name was not found.')
 	else:
 		item = found[i]
 		container = item.getoutmostitem()
@@ -223,7 +223,66 @@ def goitem(socket, command, arguments):
 
 		if item.container:
 			socket.sendobject(item.container)
-			socket.sendcontainer(item.container)
+			if item.container.isitem():
+				socket.sendcontainer(item.container)
+
+"""
+	\command gobaseid
+	\usage - <code>gobaseid baseid</code>
+	\description Go to the item found with the given baseid.
+	\notes Use the command twice to go to the next item with the same baseid etc.
+"""
+def gobaseid(socket, command, arguments):
+	if len(arguments) == 0:
+		socket.sysmessage('Usage: gobaseid <baseid>')
+		return
+
+	items = wolfpack.itemiterator()
+
+	item = items.first
+	baseid = hash(arguments.lower())
+
+	found = []
+	while item:
+		if hash(item.baseid.lower()) == baseid:
+			found.append( item )
+
+		item = items.next
+
+	if socket.hastag( "gobaseid" ):
+		i = socket.gettag( "gobaseid" ) + 1
+		if i >= len(found):
+			# No more items with the same baseid, start from the beginning
+			i = 0
+		socket.settag( "gobaseid", i )
+	else:
+		socket.settag( "gobaseid", 0 )
+		i = 0
+
+	if len(found) == 0:
+		socket.sysmessage('An item with the given baseid was not found.')
+	else:
+		item = found[i]
+		container = item.getoutmostitem()
+
+		if container.container:
+			container = container.container
+
+		if item.name != '':
+			socket.sysmessage("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (item.name, item.serial, container.serial))
+		else:
+			socket.sysmessage("Going to item [Serial: 0x%x; Top: 0x%x]." % (item.serial, container.serial))
+			
+		pos = container.pos
+		socket.player.removefromview()
+		socket.player.moveto(pos)
+		socket.player.update()
+		socket.resendworld()
+
+		if item.container:
+			socket.sendobject(item.container)
+			if item.container.isitem():
+				socket.sendcontainer(item.container)
 
 """
 	\command gouid
@@ -255,7 +314,8 @@ def gouid(socket, command, arguments):
 			
 			if item.container:
 				socket.sendobject(item.container)
-				socket.sendcontainer(item.container)
+				if item.container.isitem():
+					socket.sendcontainer(item.container)
 		else:
 			socket.sysmessage('No item with the serial 0x%x could be found.' % uid)
 		return
@@ -327,6 +387,7 @@ def onLoad():
 	wolfpack.registercommand("goname", goname)
 	wolfpack.registercommand("newlos", newlos)
 	wolfpack.registercommand("goitem", goitem)
+	wolfpack.registercommand("gobaseid", gobaseid)
 
 """
 	\command nightsight
