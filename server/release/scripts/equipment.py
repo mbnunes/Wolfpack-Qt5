@@ -177,7 +177,8 @@ def onShowTooltip(viewer, object, tooltip):
 		crafter = wolfpack.findchar(serial)
 		if crafter:
 			tooltip.add(1050043, crafter.name)
-
+	if object.hastag('arcane'):
+		tooltip.add(1061837, "%s\t%s" % (object.gettag('arcane'), object.gettag('maxArcaneCharges')) ) # arcane charges: ~1_val~ / ~2_val~
 	# Only Armors and Weapons have durability
 	if weapon or armor or shield:
 		tooltip.add(1060639, "%u\t%u" % (object.health, object.maxhealth))

@@ -2252,4 +2252,12 @@
 		<basescripts>ballotbox</basescripts>
 	</item>
 
+	<item id="arcanegem">
+		<id>0x1ea7</id>
+		<name>arcane gem</name>
+		<weight>1.0</weight>
+		<basescripts>arcanegem</basescripts>
+		<category>Misc\Arcane Gem</category>
+	</item>
+
 </definitions>
