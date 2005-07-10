@@ -2190,6 +2190,55 @@
 		<nodecay/>
 	</item>
 
+	<!-- Gozas -->
+	<item id="28a4">
+		<id>0x28a4</id>
+	</item>
+
+	<item id="28a5">
+		<id>0x28a5</id>
+	</item>
+
+	<item id="28a6">
+		<id>0x28a6</id>
+	</item>
+
+	<item id="28a7">
+		<id>0x28a7</id>
+	</item>
+
+	<item id="28a8">
+		<id>0x28a8</id>
+	</item>
+
+	<item id="28a9">
+		<id>0x28a9</id>
+	</item>
+
+	<item id="28aa">
+		<id>0x28aa</id>
+	</item>
+
+	<item id="28ab">
+		<id>0x28ab</id>
+	</item>
+
+	<item id="28ac">
+		<id>0x28ac</id>
+	</item>
+
+	<item id="28ad">
+		<id>0x28ad</id>
+	</item>
+
+	<item id="28ae">
+		<id>0x28ae</id>
+	</item>
+
+	<item id="28af">
+		<id>0x28af</id>
+	</item>
+
 	<item id="faa">
 		<id>0xfaa</id>
 		<category>Misc\Games\Mahjong Game</category>

@@ -394,4 +394,59 @@
 		<buyprice>12450</buyprice>
 	</item>
 
+	<item id="goza_east_deed" inherit="blank_deed">
+		<name>Goza East Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="goza_east" />
+		<category>Professions\Tailorer\Deeds\Goza (east)</category>
+	</item>
+
+	<item id="goza_south_deed" inherit="blank_deed">
+		<name>Goza South Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="goza_south" />
+		<category>Professions\Tailorer\Deeds\Goza (south)</category>
+	</item>
+
+	<item id="square_goza_east_deed" inherit="blank_deed">
+		<name>Square Goza East Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="square_goza_east" />
+		<category>Professions\Tailorer\Deeds\Square goza (east)</category>
+	</item>
+
+	<item id="square_goza_south_deed" inherit="blank_deed">
+		<name>Square Goza South Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="square_goza_south" />
+		<category>Professions\Tailorer\Deeds\Square goza (south)</category>
+	</item>
+
+	<item id="brocade_goza_east_deed" inherit="blank_deed">
+		<name>Brocade Goza East Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="brocade_goza_east" />
+		<category>Professions\Tailorer\Deeds\Brocade goza (east)</category>
+	</item>
+
+	<item id="brocade_goza_south_deed" inherit="blank_deed">
+		<name>Brocade Goza South Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="brocade_goza_south" />
+		<category>Professions\Tailorer\Deeds\Brocade goza (south)</category>
+	</item>
+
+	<item id="brocade_square_goza_east_deed" inherit="blank_deed">
+		<name>Brocade Square Goza East Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="brocade_square_goza_east" />
+		<category>Professions\Tailorer\Deeds\Brocade square goza (east)</category>
+	</item>
+
+	<item id="brocade_square_goza_south_deed" inherit="blank_deed">
+		<name>Brocade Square Goza South Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="brocade_square_goza_south" />
+		<category>Professions\Tailorer\Deeds\Brocade square goza (south)</category>
+	</item>
 </definitions>

@@ -224,35 +224,35 @@
 			<cloth amount="6" />
 		</setailor>
 		
-		<!-- <setailor definition="" name="Goza Mat East Deed">
+		<setailor definition="goza_east_deed" name="Goza Mat East Deed">
 			<tailoring min="550" max="800" />
 			<cloth amount="25" />
 		</setailor>
 		
-		<setailor definition="" name="Goza Mat South Deed">
+		<setailor definition="goza_south_deed" name="Goza Mat South Deed">
 			<tailoring min="550" max="800" />
 			<cloth amount="25" />
 		</setailor>
 		
-		<setailor definition="" name="Square Goza Mat East Deed">
+		<setailor definition="square_goza_east_deed" name="Square Goza Mat East Deed">
 			<tailoring min="550" max="800" />
 			<cloth amount="25" />
 		</setailor>
 
-		<setailor definition="" name="Square Goza Mat South Deed">
+		<setailor definition="square_goza_south_deed" name="Square Goza Mat South Deed">
 			<tailoring min="550" max="800" />
 			<cloth amount="25" />
 		</setailor>
 		
-		<setailor definition="" name="Brocade Square Goza Mat East Deed">
+		<setailor definition="brocade_square_goza_east_deed" name="Brocade Square Goza Mat East Deed">
 			<tailoring min="550" max="800" />
 			<cloth amount="25" />
 		</setailor>
 		
-		<setailor definition="" name="Brocade Square Goza Mat South Deed">
+		<setailor definition="brocade_square_goza_south_deed" name="Brocade Square Goza Mat South Deed">
 			<tailoring min="550" max="800" />
 			<cloth amount="25" />
-		</setailor> -->
+		</setailor>
 	</menu>
 
 	<menu id="TAILORING_FOOTWEAR" name="Footwear">

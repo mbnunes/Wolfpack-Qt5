@@ -47,6 +47,14 @@ deeds = {
 	'stonetable_medium_s': [ 1044509, 2, "1205", "1204" ],
 	'stonetable_large_e': [ 1044511, 1, "1202", "1203", "1201" ],
 	'stonetable_large_s': [ 1044512, 2, "1205", "1206", "1204" ],
+	'goza_east': [ 1030404, 2, "28a4", "28a5" ],
+	'goza_south': [ 1030405, 1, "28a6", "28a7" ],
+	'square_goza_east': [ 1030407, 0, "28a8" ],
+	'square_goza_south': [ 1030406, 0, "28a9" ],
+	'brocade_goza_east': [ 1030408, 2, "28ab", "28aa" ],
+	'brocade_goza_south': [ 1030409, 1, "28ad", "28ac" ],
+	'brocade_square_goza_east': [ 1030411, 0, "28ae" ],
+	'brocade_square_goza_south': [ 1030410, 0, "28af" ]
 }
 
 def onShowTooltip( sender, target, tooltip ):
