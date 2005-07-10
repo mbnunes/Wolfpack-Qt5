@@ -8,6 +8,7 @@ from magic.utilities import *
 import magic.utilities
 from wolfpack.consts import *
 import time
+import arcanegem
 
 # Recursive Function for counting reagents
 def countReagents(item, items):
@@ -320,6 +321,8 @@ class Spell:
 
 			for item in items.keys():
 				if items[item] > 0:
+					if arcanegem.ConsumeCharges( char, items[item] ):
+						return True
 					char.message(502630)
 					return False
 

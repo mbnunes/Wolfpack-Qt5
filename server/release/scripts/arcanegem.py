@@ -84,17 +84,18 @@ def ConsumeCharges( char, amount ):
 	avail = 0
 	for i in range( 1, 25 ):
 		item = char.itemonlayer( i )
-		if item.hastag( "arcane" ):
+		if item and item.hastag( "arcane" ):
 			avail += CurArcaneCharges(item)
 	if avail < amount:
 		return False
 	for i in range( 1, 25 ):
 		item = char.itemonlayer( i )
-		if item.hastag( "arcane" ):
+		if item and item.hastag( "arcane" ):
 			if CurArcaneCharges(item) > amount:
 				item.settag( "arcane", CurArcaneCharges( item ) - amount)
 				break
 			else:
 				amount -= CurArcaneCharges( item )
 				item.settag( "arcane", 0 )
+		item.resendtooltip()
 	return True
