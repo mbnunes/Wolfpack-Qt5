@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Staff of the Magi -->
+	<item id="staff_of_the_magi">
+		<id>0xdf0</id>
+		<name>#1061600</name>
+		<decay />
+		<nodye />
+		<color>0x481</color>
+		<weight>1.0</weight>
+		<durability>255</durability>
+		<type>1004</type>
+		<basescripts>equipment</basescripts>
+		<category>Weapons\Artifacts\Staff of the Magi</category>
+		<!-- Properties -->
+		<intproperty name="spellchanneling" value="1" />
+		<!-- <intproperty name="Mage Weapon -0 Skill" value="15" /> -->
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="dmg_energy" value="100" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="16" />
+		<intproperty name="speed" value="39" />
+		<intproperty name="req_strength" value="35" />
+		<twohanded />
+	</item>
+
+</definitions>

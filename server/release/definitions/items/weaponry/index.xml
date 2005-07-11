@@ -8,6 +8,8 @@
  *=======================================================*/
 -->
 <definitions>
+	<!-- Artifacts -->
+	<include file="definitions/items/weaponry/artifacts/index.xml"/>
 
 	<!-- Archery -->
 	<include file="definitions/items/weaponry/archery/index.xml"/>

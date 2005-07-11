@@ -8,6 +8,8 @@
 =================================================================
 -->
 <definitions>
+	<!-- Artifacts -->
+	<include file="definitions/items/armory/artifacts/index.xml"/>
 
 	<!-- Hats -->
 	<include file="definitions/items/armory/hats/index.xml"/>
@@ -44,5 +46,4 @@
 
 	<!-- Colored Armor -->
 	<include file="definitions/items/armory/colored/index.xml"/>
-
 </definitions>

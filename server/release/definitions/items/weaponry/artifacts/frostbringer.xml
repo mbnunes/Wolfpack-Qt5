@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Frostbringer -->
+	<item id="frostbringer">
+		<id>0x13b6</id>
+		<name>#1061111</name>
+		<decay />
+		<nodye />
+		<color>0x4f2</color>
+		<weight>6.0</weight>
+		<durability>255</durability>
+		<type>1006</type>
+		<basescripts>equipment</basescripts>
+		<category>Weapons\Artifacts\Frostbringer</category>
+		<!-- Properties -->
+		<intproperty name="hitdispel" value="50" />
+		<intproperty name="regenstamina" value="10" />
+		<intproperty name="spelldamagebonus" value="5" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="dmg_cold" value="100" />
+		<intproperty name="maxdamage" value="16" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="range" value="10" />
+		<twohanded />
+	</item>
+
+</definitions>
