@@ -11,23 +11,23 @@
 	<include file="definitions/spawnregions/felucca/vendors.xml" />
 	
 	<!-- Town Spawns -->
-	<include file="definitions/spawnregions/felucca/Towns/britain.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/buccaneers_den.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/cove.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/delucia.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/jhelom.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/magincia.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/minoc.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/moonglow.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/nujelm.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/ocllo.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/papua.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/serpents_hold.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/skara_brae.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/trinsic.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/vesper.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/wind.xml" />
-	<include file="definitions/spawnregions/felucca/Towns/yew.xml" />
+	<include file="definitions/spawnregions/felucca/towns/britain.xml" />
+	<include file="definitions/spawnregions/felucca/towns/buccaneers_den.xml" />
+	<include file="definitions/spawnregions/felucca/towns/cove.xml" />
+	<include file="definitions/spawnregions/felucca/towns/delucia.xml" />
+	<include file="definitions/spawnregions/felucca/towns/jhelom.xml" />
+	<include file="definitions/spawnregions/felucca/towns/magincia.xml" />
+	<include file="definitions/spawnregions/felucca/towns/minoc.xml" />
+	<include file="definitions/spawnregions/felucca/towns/moonglow.xml" />
+	<include file="definitions/spawnregions/felucca/towns/nujelm.xml" />
+	<include file="definitions/spawnregions/felucca/towns/ocllo.xml" />
+	<include file="definitions/spawnregions/felucca/towns/papua.xml" />
+	<include file="definitions/spawnregions/felucca/towns/serpents_hold.xml" />
+	<include file="definitions/spawnregions/felucca/towns/skara_brae.xml" />
+	<include file="definitions/spawnregions/felucca/towns/trinsic.xml" />
+	<include file="definitions/spawnregions/felucca/towns/vesper.xml" />
+	<include file="definitions/spawnregions/felucca/towns/wind.xml" />
+	<include file="definitions/spawnregions/felucca/towns/yew.xml" />
 	<!-- Graveyard Spawns -->
 	<include file="definitions/spawnregions/felucca/graveyards/britain_graveyard.xml" />
 	<include file="definitions/spawnregions/felucca/graveyards/vesper_graveyard.xml" />
@@ -35,21 +35,21 @@
 	<include file="definitions/spawnregions/felucca/graveyards/yew_graveyard.xml" />
 	<include file="definitions/spawnregions/felucca/graveyards/cove_graveyard.xml" />
 	<!-- Dungeon Spawns -->
-	<include file="definitions/spawnregions/felucca/Dungeons/britain_passage.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/covetous.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/deceit.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/despise.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/destard.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/fire_dungeon.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/hythloth.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/ice_dungeon.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/khaldun.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/orc_caves.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/shame.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/solen_hive.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/terathan_keep.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/trinsic_passage.xml" />
-	<include file="definitions/spawnregions/felucca/Dungeons/wrong.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/britain_passage.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/covetous.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/deceit.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/despise.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/destard.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/fire_dungeon.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/hythloth.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/ice_dungeon.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/khaldun.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/orc_caves.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/shame.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/solen_hive.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/terathan_keep.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/trinsic_passage.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/wrong.xml" />
 	<!-- Wilderness Spawns -->
 	<include file="definitions/spawnregions/felucca/wilderness.xml" />
 </definitions>
