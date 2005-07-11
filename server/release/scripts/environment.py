@@ -5,11 +5,11 @@ import wolfpack
 import wolfpack.time
 import random
 from wolfpack.consts import COTTONPLANTS_REGROW, ANIM_ATTACK5, TINKERING, \
-	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, SYSLOCALE, LOG_MESSAGE
+	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, LOG_MESSAGE
 from wolfpack.utilities import tobackpack
 from wolfpack.gumps import cGump
 from math import floor
-from wolfpack.locales import localemsg
+from wolfpack import tr
 
 def cotton( char, item ):
 
@@ -17,7 +17,7 @@ def cotton( char, item ):
 		lastpick = item.gettag( 'lastpick' )
 
 		if lastpick + COTTONPLANTS_REGROW > wolfpack.time.currenttime():
-			char.message( localemsg( 4 ) )
+			char.message( tr("You cannot pick cotton here yet.") )
 			return 1
 
 	char.action( ANIM_ATTACK5 )
@@ -28,7 +28,7 @@ def cotton( char, item ):
 	if cotton and not tobackpack( cotton, char ):
 		cotton.update()
 
-	char.message( localemsg( 5 ) )
+	char.message( tr("You reach down and pick some cotton.") )
 
 	# Set a timer for the cotton plant
 	item.settag( 'lastpick', wolfpack.time.currenttime() )
@@ -37,7 +37,7 @@ def cotton( char, item ):
 def sextant_parts( char, item ):
 	if not char.checkskill( TINKERING, 0, 500 ):
 		if random.randint( 1, 100 ) <= 25:
-			additional = localemsg( 15 )
+			additional = tr(" and break the parts.")
 
 			if item.amount > 1:
 				item.amount -= 1
@@ -45,9 +45,9 @@ def sextant_parts( char, item ):
 			else:
 				item.delete()
 		else:
-			additional = localemsg( 16 )
+			additional = "."
 
-		char.message( "%s%s" % ( localemsg( 14 ), additional ) )
+		char.message( "%s%s" % ( tr("You fail to create the sextant"), additional ) )
 	else:
 		if item.amount > 1:
 			item.amount -= 1
@@ -62,12 +62,12 @@ def sextant_parts( char, item ):
 
 		char.getbackpack().additem( item, 1, 1, 0 )
 		item.update()
-		char.message( localemsg( 17 ) )
+		char.message( tr("You put the sextant into your backpack") )
 
 	return 1
 
 def sextant( char, item ):
-	char.message( localemsg( 0 ) )
+	char.message( tr("Sorry but this feature is not implemented yet!") )
 	return 1
 
 def drum( char, item ):
@@ -116,7 +116,7 @@ hairdye_groups = 	[
 
 def hairdye( char, item ):
 	if item.container != char.getbackpack():
-		char.message( localemsg( 3 ) )
+		char.message( 1042001 ) # That must be in your pack for you to use it.
 		return 1
 
 	gump = cGump( x=50, y=50, callback=hairdye_callback )
@@ -166,12 +166,12 @@ def hairdye_callback( char, args, response ):
 	item = wolfpack.finditem( args[0] )
 
 	if not item or item.container != char.getbackpack():
-		char.message( localemsg( 3 ) )
+		char.message( 1042001 ) # That must be in your pack for you to use it.
 		return
 
 	# Check if it's a valid color
 	if len( response.switches ) != 1:
-		char.message( localemsg( 13 ) )
+		char.message( tr("You have to choose a hair color.") )
 		return
 
 	color = response.switches[0]
@@ -194,15 +194,15 @@ def hairdye_callback( char, args, response ):
 
 			return
 
-	char.message( localemsg( 12 ) )
+	char.message( tr("That is an invalid color.") )
 
 # Dying Tub
 def dyingtub( char, item ):
 	if not char.canreach( item, 2 ):
-		char.socket.sysmessage( localemsg( 6 ) )
+		char.socket.clilocmessage( 1019045 ) # I can't reach that.
 		return 1
 
-	char.socket.sysmessage( localemsg( 18 ) )
+	char.socket.sysmessage( tr("Please select the object you wish to dye.") )
 	char.socket.attachtarget( 'environment.dyingtub_response', [ item.serial ] )
 	return 1
 
@@ -210,21 +210,21 @@ def dyingtub_response( char, args, target ):
 	dyetub = wolfpack.finditem( args[0] )
 
 	if not dyetub or not char.canreach( dyetub, 2 ):
-		char.message( localemsg( 6 ) )
+		char.message( 1019045 ) # I can't reach that.
 		return
 
 	if not target.item:
-		char.message( localemsg( 8 ) )
+		char.message( tr("You must target an item.") )
 		return
 
 	# Valid Target?
 	if not char.gm:
 		if target.item.getoutmostchar() != char:
-			char.socket.sysmessage( localemsg( 10 ) )
+			char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
 			return
 
 		if not target.item.dye:
-			char.socket.sysmessage( localemsg( 11 ) )
+			char.socket.clilocmessage( 1042083 ) # You cannot dye that.
 			return
 
 	char.log( LOG_MESSAGE, "Dying item (%x,%x) using tub (%x,%x)\n" % ( target.item.serial, target.item.color, dyetub.serial, dyetub.color ) )

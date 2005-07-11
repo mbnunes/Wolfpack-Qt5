@@ -827,20 +827,6 @@ WPDT_AI = 22
 	\end
 """
 
-"""
-	\constants wolfpack.consts Locale Consts
-	These constants represent the different locale values that can be used with
-	wolfpack.locales.syslocalemsg( locale, msgnumber )
-"""
-LOCALE_EN = 0
-LOCALE_DE = 1
-"""
-	\end
-"""
-
-# Define your system locale here.
-SYSLOCALE = LOCALE_EN
-
 # Constants for body types
 BODY_UNKNOWN  = 0
 BODY_MONSTER = 1

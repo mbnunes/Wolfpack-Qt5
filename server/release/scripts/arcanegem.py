@@ -1,12 +1,22 @@
-# ToDo: Change ids of items when they become arcane
-
 import wolfpack
 from wolfpack.consts import *
 
 DefaultArcaneHue = 2117
 
 # leather gloves, cloaks, robe, tigh boots
-arcaneequip = ["13c6", "1515", "1f04", "1711"]
+arcaneequip = [
+		[0x13c6, 0x26b0], 
+		[0x1515, 0x26ad],
+		[0x1f04, 0x26ae],
+		[0x1711, 0x1712]
+	]
+
+def possible():
+	p = []
+	for i in arcaneequip:
+		for item in i:
+			p.append(item)
+	return p
 
 def getCharges( char ):
 	charges = char.skill[TAILORING] / 5
@@ -17,6 +27,7 @@ def getCharges( char ):
 	return charges
 
 def onUse( char, item ):
+	char.socket.sysmessage( str(possible()) )
 	if not item.getoutmostchar() == char:
 		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
 		return True
@@ -44,7 +55,7 @@ def response( char, args, target ):
 	if target.item and not target.item.layer == 0 and target.item.getoutmostchar() == char:
 		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
 		return False
-	if target.item and target.item.baseid in arcaneequip:
+	if target.item and target.item.id in possible():
 		if isarcane( target.item ):
 			if CurArcaneCharges( target.item ) >= MaxArcaneCharges( target.item ):
 				char.socket.sysmessage( "That item is already fully charged." )
@@ -71,6 +82,10 @@ def response( char, args, target ):
 				target.item.color = DefaultArcaneHue
 				char.socket.sysmessage( "You enhance the item with your gem." )
 				item.delete()
+				# new art look...
+				for equipment in arcaneequip:
+					if equipment[0] == target.item.id:
+						target.item.id = equipment[1]
 				target.item.update()
 			else:
 				char.socket.sysmessage( "Only exceptional items can be enhanced with the gem." )
@@ -93,9 +108,16 @@ def ConsumeCharges( char, amount ):
 		if item and item.hastag( "arcane" ):
 			if CurArcaneCharges(item) > amount:
 				item.settag( "arcane", CurArcaneCharges( item ) - amount)
+				item.resendtooltip()
 				break
 			else:
 				amount -= CurArcaneCharges( item )
 				item.settag( "arcane", 0 )
-		item.resendtooltip()
+				# back to normal look...
+				for equipment in arcaneequip:
+					if equipment[1] == item.id:
+						item.id = equipment[0]
+						item.color = 0
+						item.update()
+				item.resendtooltip()
 	return True
