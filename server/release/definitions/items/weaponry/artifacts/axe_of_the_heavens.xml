@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Axe of the Heavens</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="hitlightning" value="50" />
 		<intproperty name="aos_defense_chance" value="15" />
 		<intproperty name="aos_boni_hit_chance" value="15" />

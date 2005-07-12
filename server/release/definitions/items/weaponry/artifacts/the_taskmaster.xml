@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\The Taskmaster</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="10" />
 		<intproperty name="splashpoison" value="100" />
 		<intproperty name="bonusdexterity" value="5" />
 		<intproperty name="aos_boni_hit_chance" value="15" />

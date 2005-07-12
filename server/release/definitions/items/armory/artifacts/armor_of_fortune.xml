@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Armor of Fortune</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="luck" value="200" />
 		<intproperty name="aos_defense_chance" value="15" />
 		<intproperty name="lowerreagentcost" value="40" />

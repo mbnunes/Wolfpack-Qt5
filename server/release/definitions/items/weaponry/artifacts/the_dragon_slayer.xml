@@ -22,7 +22,8 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\The Dragon Slayer</category>
 		<!-- Properties -->
-		<intproperty name="slayer" value="dragonslaying" />
+		<intproperty name="artifact_rarity" value="11" />
+		<strproperty name="slayer" value="dragonslaying" />
 		<intproperty name="luck" value="110" />
 		<intproperty name="aos_boni_damage" value="50" />
 		<intproperty name="res_fire" value="20" />

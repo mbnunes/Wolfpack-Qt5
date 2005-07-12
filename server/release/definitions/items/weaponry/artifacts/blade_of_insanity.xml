@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Blade of Insanity</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="staminaleech" value="100" />
 		<intproperty name="regenstamina" value="2" />
 		<intproperty name="aos_boni_speed" value="30" />

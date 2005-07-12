@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Breath of the Dead</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="hitharm" value="25" />
 		<intproperty name="lifeleech" value="100" />
 		<intproperty name="spelldamagebonus" value="5" />

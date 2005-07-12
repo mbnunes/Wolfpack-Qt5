@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Titan's Hammer</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="10" />
 		<intproperty name="splashenergy" value="100" />
 		<intproperty name="bonusstrength" value="15" />
 		<intproperty name="aos_boni_hit_chance" value="50" />

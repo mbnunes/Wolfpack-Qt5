@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Helm of Insight</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="bonusintelligence" value="8" />
 		<intproperty name="bonusmana" value="15" />
 		<intproperty name="regenmana" value="2" />

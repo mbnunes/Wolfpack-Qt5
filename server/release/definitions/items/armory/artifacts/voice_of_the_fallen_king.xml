@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Voice of the Fallen King</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="bonusstrength" value="8" />
 		<intproperty name="regenhitpoints" value="5" />
 		<intproperty name="regenstamina" value="3" />

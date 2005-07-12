@@ -22,7 +22,8 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Zyronic Claw</category>
 		<!-- Properties -->
-		<intproperty name="slayer" value="elementalban" />
+		<intproperty name="artifact_rarity" value="10" />
+		<strproperty name="slayer" value="elementalban" />
 		<intproperty name="manaleech" value="50" />
 		<intproperty name="aos_boni_hit_chance" value="30" />
 		<intproperty name="aos_boni_damage" value="50" />

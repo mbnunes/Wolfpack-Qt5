@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Legacy of the Dread Lord</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="10" />
 		<intproperty name="spellchanneling" value="1" />
 		<intproperty name="castrecoverybonus" value="3" />
 		<intproperty name="aos_boni_speed" value="30" />

@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Tunic of Fire</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="selfrepair" value="5" />
 		<intproperty name="nightsight" value="1" />
 		<intproperty name="reflectphysical" value="15" />

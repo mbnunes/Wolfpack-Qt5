@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Staff of the Magi</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="spellchanneling" value="1" />
 		<!-- <intproperty name="Mage Weapon -0 Skill" value="15" /> -->
 		<intproperty name="castspeedbonus" value="1" />

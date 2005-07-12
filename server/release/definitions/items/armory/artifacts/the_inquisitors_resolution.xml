@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\The Inquisitor's Resolution</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="10" />
 		<intproperty name="castrecoverybonus" value="3" />
 		<intproperty name="lowermanacost" value="8" />
 		<intproperty name="res_physical" value="5" />

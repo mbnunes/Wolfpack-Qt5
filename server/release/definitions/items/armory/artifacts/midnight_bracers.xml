@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Midnight Bracers</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="skillbonus_NECROMANCY" value="20" />
 		<intproperty name="spelldamagebonus" value="10" />
 		<intproperty name="res_physical" value="23" />

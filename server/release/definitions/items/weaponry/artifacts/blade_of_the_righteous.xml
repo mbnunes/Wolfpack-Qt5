@@ -22,7 +22,8 @@
 		<basescripts>equipment</basescripts>
 		<category>Weapons\Artifacts\Blade of the Righteous</category>
 		<!-- Properties -->
-		<intproperty name="slayer" value="daemondismissal" />
+		<intproperty name="artifact_rarity" value="11" />
+		<strproperty name="slayer" value="daemondismissal" />
 		<intproperty name="lifeleech" value="50" />
 		<intproperty name="bonushitpoints" value="10" />
 		<intproperty name="aos_boni_damage" value="50" />

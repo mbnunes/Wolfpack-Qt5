@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Divine Countenance</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="bonusintelligence" value="8" />
 		<intproperty name="regenmana" value="2" />
 		<intproperty name="reflectphysical" value="15" />

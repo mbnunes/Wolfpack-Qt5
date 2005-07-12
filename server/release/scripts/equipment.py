@@ -182,6 +182,8 @@ def onShowTooltip(viewer, object, tooltip):
 			tooltip.add(1050043, crafter.name)
 	if object.hastag('arcane'):
 		tooltip.add(1061837, "%s\t%s" % (object.gettag('arcane'), object.gettag('maxArcaneCharges')) ) # arcane charges: ~1_val~ / ~2_val~
+	if object.hasintproperty('artifact_rarity'):
+		tooltip.add(1061078, "%s" % object.getintproperty('artifact_rarity') )
 	# Only Armors and Weapons have durability
 	if weapon or armor or shield:
 		tooltip.add(1060639, "%u\t%u" % (object.health, object.maxhealth))

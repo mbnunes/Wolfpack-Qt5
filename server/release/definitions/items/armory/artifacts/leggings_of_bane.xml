@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Leggings of Bane</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="durabilitybonus" value="100" />
 		<intproperty name="bonusstamina" value="8" />
 		<intproperty name="aos_boni_hit_chance" value="20" />

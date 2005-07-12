@@ -22,6 +22,7 @@
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Artifacts\Hunter's Headdress</category>
 		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
 		<intproperty name="bonusstrength" value="20" />
 		<intproperty name="reflectphysical" value="15" />
 		<intproperty name="aos_boni_hit_chance" value="15" />
