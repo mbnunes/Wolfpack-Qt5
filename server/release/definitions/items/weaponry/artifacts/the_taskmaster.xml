@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- The Taskmaster -->
+	<item id="the_taskmaster">
+		<id>0x1405</id>
+		<name>#1061110</name>
+		<decay />
+		<nodye />
+		<color>0x4f8</color>
+		<weight>9.0</weight>
+		<durability>255</durability>
+		<type>1005</type>
+		<basescripts>equipment</basescripts>
+		<category>Weapons\Artifacts\The Taskmaster</category>
+		<!-- Properties -->
+		<intproperty name="splashpoison" value="100" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="dmg_poison" value="100" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="13" />
+		<intproperty name="speed" value="43" />
+		<intproperty name="req_strength" value="45" />
+		<onehanded />
+	</item>
+
+</definitions>

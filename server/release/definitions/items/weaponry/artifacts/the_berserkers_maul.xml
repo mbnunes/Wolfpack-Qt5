@@ -9,29 +9,26 @@
 -->
 <definitions>
 
-	<!-- Blade of the Righteous -->
-	<item id="blade_of_the_righteous">
-		<id>0xf61</id>
-		<name>#1061088</name>
+	<!-- The Berserker's Maul -->
+	<item id="the_berserkers_maul">
+		<id>0x143b</id>
+		<name>#1061108</name>
 		<decay />
 		<nodye />
-		<color>0x47e</color>
-		<weight>7.0</weight>
+		<color>0x21</color>
+		<weight>10.0</weight>
 		<durability>255</durability>
-		<type>1001</type>
+		<type>1004</type>
 		<basescripts>equipment</basescripts>
-		<category>Weapons\Artifacts\Blade of the Righteous</category>
+		<category>Weapons\Artifacts\The Berserker's Maul</category>
 		<!-- Properties -->
-		<intproperty name="slayer" value="daemondismissal" />
-		<intproperty name="lifeleech" value="50" />
-		<intproperty name="bonushitpoints" value="10" />
+		<intproperty name="aos_boni_speed" value="75" />
 		<intproperty name="aos_boni_damage" value="50" />
-		<intproperty name="bestskill" value="1" />
 		<intproperty name="dmg_physical" value="100" />
-		<intproperty name="mindamage" value="15" />
+		<intproperty name="mindamage" value="14" />
 		<intproperty name="maxdamage" value="16" />
-		<intproperty name="speed" value="30" />
-		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="32" />
+		<intproperty name="req_strength" value="45" />
 		<onehanded />
 	</item>
 

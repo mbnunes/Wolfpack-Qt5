@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- The Dragon Slayer -->
+	<item id="the_dragon_slayer">
+		<id>0x26ca</id>
+		<name>#1061248</name>
+		<decay />
+		<nodye />
+		<color>0x530</color>
+		<weight>12.0</weight>
+		<durability>255</durability>
+		<type>1005</type>
+		<basescripts>equipment</basescripts>
+		<category>Weapons\Artifacts\The Dragon Slayer</category>
+		<!-- Properties -->
+		<intproperty name="slayer" value="dragonslaying" />
+		<intproperty name="luck" value="110" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="res_fire" value="20" />
+		<intproperty name="bestskill" value="1" />
+		<intproperty name="dmg_energy" value="100" />
+		<intproperty name="mindamage" value="17" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="24" />
+		<intproperty name="req_strength" value="95" />
+		<onehanded />
+	</item>
+
+</definitions>

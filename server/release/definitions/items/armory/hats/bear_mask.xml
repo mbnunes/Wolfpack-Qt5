@@ -12,6 +12,7 @@
 	<!-- Bear Mask n/s -->
 	<item id="1545">
 		<id>0x1545</id>
+		<weight>5.0</weight>
 		<nodye />
 		<durability><random min="20" max="25" /></durability>
 		<decay />

@@ -1,4 +1,18 @@
 <definitions>
 	<include file="definitions/items/armory/artifacts/arcane_shield.xml"/>
 	<include file="definitions/items/armory/artifacts/armor_of_fortune.xml"/>
+	<include file="definitions/items/armory/artifacts/gauntlets_of_nobility.xml"/>
+	<include file="definitions/items/armory/artifacts/helm_of_insight.xml"/>
+	<include file="definitions/items/armory/artifacts/holy_knights_breastplate.xml"/>
+	<include file="definitions/items/armory/artifacts/jackals_collar.xml"/>
+	<include file="definitions/items/armory/artifacts/leggings_of_bane.xml"/>
+	<include file="definitions/items/armory/artifacts/midnight_bracers.xml"/>
+	<include file="definitions/items/armory/artifacts/ornate_crown_of_the_harrower.xml"/>
+	<include file="definitions/items/armory/artifacts/shadow_dancer_leggings.xml"/>
+	<include file="definitions/items/armory/artifacts/the_inquisitors_resolution"/>
+	<include file="definitions/items/armory/artifacts/tunic_of_fire.xml"/>
+	<include file="definitions/items/armory/artifacts/voice_of_the_fallen_king.xml"/>
+	<include file="definitions/items/armory/artifacts/divine_countenance.xml"/>
+	<include file="definitions/items/armory/artifacts/hat_of_the_magi.xml"/>
+	<include file="definitions/items/armory/artifacts/hunters_headdress.xml"/>
 </definitions>

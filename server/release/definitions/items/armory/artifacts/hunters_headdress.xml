@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Hunter's Headdress -->
+	<item id="hunters_headdress">
+		<id>0x1545</id>
+		<name>#1061595</name>
+		<decay />
+		<nodye />
+		<color>0x594</color>
+		<weight>5.0</weight>
+		<durability>255</durability>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Hunter's Headdress</category>
+		<!-- Properties -->
+		<intproperty name="bonusstrength" value="20" />
+		<intproperty name="reflectphysical" value="15" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="res_physical" value="20" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="req_strength" value="10" />
+	</item>
+
+</definitions>

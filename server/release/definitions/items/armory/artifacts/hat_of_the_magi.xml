@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Hat of the Magi -->
+	<item id="hat_of_the_magi">
+		<id>0x1718</id>
+		<name>#1061597</name>
+		<decay />
+		<nodye />
+		<color>0x481</color>
+		<weight>1.0</weight>
+		<durability>255</durability>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Hat of the Magi</category>
+		<!-- Properties -->
+		<intproperty name="bonusintelligence" value="8" />
+		<intproperty name="regenmana" value="4" />
+		<intproperty name="spelldamagebonus" value="10" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="9" />
+		<intproperty name="res_poison" value="20" />
+		<intproperty name="res_energy" value="20" />
+		<intproperty name="req_strength" value="10" />
+	</item>
+
+</definitions>

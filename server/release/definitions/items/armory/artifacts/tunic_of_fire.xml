@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Tunic of Fire -->
+	<item id="tunic_of_fire">
+		<id>0x13bf</id>
+		<name>#1061099</name>
+		<decay />
+		<nodye />
+		<color>0x54f</color>
+		<weight>7.0</weight>
+		<durability>255</durability>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Tunic of Fire</category>
+		<!-- Properties -->
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="nightsight" value="1" />
+		<intproperty name="reflectphysical" value="15" />
+		<intproperty name="res_physical" value="24" />
+		<intproperty name="res_fire" value="34" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="1" />
+		<intproperty name="res_energy" value="2" />
+		<intproperty name="req_strength" value="60" />
+	</item>
+
+</definitions>
