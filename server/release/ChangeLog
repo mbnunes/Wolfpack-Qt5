@@ -129,6 +129,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented ballot box.
   - Added a gobaseid command.
   - Implemented arcane gem.
+  - Added NIGHTSIGHT property for armory and jewelery.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
