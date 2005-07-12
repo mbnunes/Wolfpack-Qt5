@@ -9,7 +9,7 @@
 	<include file="definitions/items/armory/artifacts/midnight_bracers.xml"/>
 	<include file="definitions/items/armory/artifacts/ornate_crown_of_the_harrower.xml"/>
 	<include file="definitions/items/armory/artifacts/shadow_dancer_leggings.xml"/>
-	<include file="definitions/items/armory/artifacts/the_inquisitors_resolution"/>
+	<include file="definitions/items/armory/artifacts/the_inquisitors_resolution.xml"/>
 	<include file="definitions/items/armory/artifacts/tunic_of_fire.xml"/>
 	<include file="definitions/items/armory/artifacts/voice_of_the_fallen_king.xml"/>
 	<include file="definitions/items/armory/artifacts/divine_countenance.xml"/>
