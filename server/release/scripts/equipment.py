@@ -94,6 +94,9 @@ def modifiers(object, tooltip):
 	if properties.fromitem(object, MAGEARMOR) and not object.allowmeditation:
 		tooltip.add(1060437, "")
 
+	if properties.fromitem(object, NIGHTSIGHT):
+		tooltip.add(1060441, "")
+
 	selfrepair = properties.fromitem(object, SELFREPAIR)
 	if selfrepair != 0:
 		tooltip.add(1060450, str(selfrepair))
@@ -573,6 +576,13 @@ def onEquip(char, item, layer):
 
 		char.settag('regenmana', regenmana)
 
+	# Add nightsight
+	nightsight = properties.fromitem(item, NIGHTSIGHT)
+	if nightsight:
+		char.settag('nightsight', 255)
+		char.lightbonus = 255
+		char.socket.updatelightlevel()
+
 	# Update Stats
 	if changed:
 		char.updatestats()
@@ -686,6 +696,14 @@ def onUnequip(char, item, layer):
 			char.deltag('regenmana')
 		else:
 			char.settag('regenmana', value)
+
+	# Add nightsight
+	nightsight = properties.fromitem(item, NIGHTSIGHT)
+	if nightsight:
+		bonus = char.gettag('nightsight')
+		char.lightbonus = max(0, char.lightbonus - bonus)
+		char.deltag('nightsight')
+		char.socket.updatelightlevel()
 
 	# Update Stats
 	if changed:

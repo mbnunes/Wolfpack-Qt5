@@ -54,6 +54,7 @@ PROPERTIES = {
 	# Flags (Weapons):
 	SPELLCHANNELING: ['spellchanneling', 0, 0],
 	MAGEARMOR: ['magearmor', 0, 0],
+	NIGHTSIGHT: ['nightsight', 0, 0],
 
 	# % Boni
 	LOWERREQS: ['lower_reqs', 0, 1],
@@ -131,6 +132,8 @@ PROPERTIES = {
 #
 def fromitem(item, property):
 	if property == MAGEARMOR and item.allowmeditation:
+		return True
+	if property == NIGHTSIGHT:
 		return True
 
 	if not PROPERTIES.has_key(property):
@@ -466,6 +469,7 @@ ARMOR_PROPERTIES = {
 	SELFREPAIR: [1, 5, 1, False],
 	DURABILITYBONUS: [10, 100, 10, True],
 	MAGEARMOR: [1, 1, 1, False],
+	NIGHTSIGHT: [1, 1, 1, False],
 	REGENHITPOINTS: [1, 2, 1, False],
 	REGENSTAMINA: [1, 3, 1, False],
 	REGENMANA: [1, 2, 1, False],
@@ -596,6 +600,7 @@ JUWEL_PROPERTIES = {
 	LOWERREAGENTCOST: [1, 20, 1, False],
 	LUCK: [1, 100, 1, False],
 	SPELLDAMAGEBONUS: [1, 12, 1, False],
+	NIGHTSIGHT: [1, 1, 1, False],
 	SKILLBONUS1: [1, 15, 1, False],
 	SKILLBONUS2: [1, 15, 1, False],
 	SKILLBONUS3: [1, 15, 1, False],
