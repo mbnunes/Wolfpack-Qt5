@@ -786,7 +786,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	if ( pCont->type() == 1 )
 	{
 		// Check if we can carry the item or if it's too heavy
-		if (packOwner && ( pItem->totalweight() > packOwner->maxWeight() ))
+		if (packOwner && ( pItem->totalweight() > packOwner->maxWeight() ) && !pChar->isGM())
 		{
 			pItem->removeFromCont();
 			pItem->moveTo( packOwner->pos() );
