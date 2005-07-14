@@ -94,7 +94,8 @@ def modifiers(object, tooltip):
 	if properties.fromitem(object, MAGEARMOR) and not object.allowmeditation:
 		tooltip.add(1060437, "")
 
-	if properties.fromitem(object, NIGHTSIGHT):
+	nightsight = properties.fromitem(object, NIGHTSIGHT)
+	if nightsight:
 		tooltip.add(1060441, "")
 
 	selfrepair = properties.fromitem(object, SELFREPAIR)

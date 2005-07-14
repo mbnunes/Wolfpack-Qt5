@@ -133,8 +133,6 @@ PROPERTIES = {
 def fromitem(item, property):
 	if property == MAGEARMOR and item.allowmeditation:
 		return True
-	if property == NIGHTSIGHT:
-		return True
 
 	if not PROPERTIES.has_key(property):
 		raise Exception, "Unknown property value %u" % property
