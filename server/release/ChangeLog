@@ -56,6 +56,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added craftmenu for glassblowing
   - Support up to client 4.0.11.
   - Added Multis and Multi deeds.
+  - Implemented some new npcs (thx to idget).
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.
@@ -125,7 +126,6 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fix for Plants (menu didn't open when they were grown).
   - Fix: Candidates could not resign by themselves from their guild
   - Implemented stonemining (50:50 chance for ore:gem if activated through the contextmenu of tool).
-  - Implemented some new npcs (thx to idget).
   - Implemented ballot box.
   - Added a gobaseid command.
   - Implemented arcane gem.
