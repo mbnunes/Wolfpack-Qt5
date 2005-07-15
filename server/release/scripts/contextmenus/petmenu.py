@@ -7,24 +7,25 @@
 
 from speech.pets import *
 
-def onContextCheckVisible(player, object, tag):
+def onContextCheckVisible(char, object, tag):
 	# All entries are invisible if we're not the owner of this NPC
 	# In Addition Transfer is invisible if the target is untamed
-	if tag == 7 and (object.summoned or not object.tamed):
-		return 0
+	if (not char.gm) and (tag == 7) and (object.summoned or not object.tamed):
+		return False
 	
-	return (object.owner == player) or player.gm
+	return (object.owner == char) or char.gm
 
 def onContextEntry(char, target, tag):
-	if not target.hasscript( 'speech.pets' ):
-		return 0
+	if (not char.gm) and (not target.hasscript('speech.pets')):
+		return False
 
-	if (not char.gm and target.owner != char) or not target.tamed:
-		return 0
+	#it has to be our pet or we have to be gm
+	if (not char.gm) and ((target.owner != char) or (not target.tamed)):
+		return False
 
 	#check if can be controlled
 	if not checkPetControl(target, char, "", ""):
-		return 1
+		return True
 		
 	if tag == 1: # Command: Kill
 		attack(char, target, 0)
@@ -45,4 +46,4 @@ def onContextEntry(char, target, tag):
 	#elif ( tag == 6 ): # Add Friend
 	#		ai.onSpeechInput( char, target.name + " ADD FRIEND" )
 
-	return 1
+	return True
