@@ -1473,7 +1473,7 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 {
 	cUObject::createTooltip( tooltip, player );
 
-	QString affix;
+	QString affix( " " );
 
 	if ( !title_.isEmpty() )
 	{
