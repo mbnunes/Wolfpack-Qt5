@@ -36,6 +36,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - You only become criminal/a murderer if you kill a human being.
   - Added the command showserials.
   - Implemented nodecay flag for regions.
+  - Fixed kills (it was not possible to become a murderer).
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
