@@ -2794,7 +2794,7 @@ bool cBaseChar::kill( cUObject* source )
 				if (pPlayer->kills() == Config::instance()->maxkills() + 1) {
 					pPlayer->resend(); // Just became a murderer
 				}
-				pPlayer->setMurdererTime( Server::instance()->time() );
+				pPlayer->setMurdererTime( getNormalizedTime() + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC );
 				setMurdererSerial( pPlayer->serial() );
 
 				// Report the number of slain people to the player
@@ -2804,8 +2804,6 @@ bool cBaseChar::kill( cUObject* source )
 				// The player became a murderer
 				if ( pPlayer->kills() >= Config::instance()->maxkills() )
 				{
-					pPlayer->setMurdererTime( getNormalizedTime() + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC );
-
 					if ( pPlayer->socket() )
 						pPlayer->socket()->clilocMessage( 502134 );
 				}
