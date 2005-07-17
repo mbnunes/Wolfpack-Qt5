@@ -4,6 +4,9 @@
 #include "gui/container.h"
 #include "gui/control.h"
 #include "gui/gui.h"
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QKeyEvent>
 
 cControl::cControl() {
 	visible_ = true;

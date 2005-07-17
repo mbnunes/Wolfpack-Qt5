@@ -9,6 +9,10 @@
 #include "mainwindow.h"
 #include <math.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <Q3ValueList>
+#include <Q3CString>
 
 const unsigned int sysMessageDecay = 10000;
 
@@ -32,7 +36,7 @@ inline void cSysMessage::setCreated(unsigned int data) {
 }
 
 void cWorldView::cleanSysMessages() {
-	QValueList<cControl*> toremove;
+	Q3ValueList<cControl*> toremove;
 	unsigned int currentTime = Utilities::getTicks();
 
 	Iterator it;
@@ -46,7 +50,7 @@ void cWorldView::cleanSysMessages() {
 		}
 	}
 
-	QValueList<cControl*>::iterator it2;
+	Q3ValueList<cControl*>::iterator it2;
 	for (it2 = toremove.begin(); it2 != toremove.end(); ++it2) {
 		removeControl(*it2);
 		delete *it2;
@@ -134,7 +138,7 @@ void cWorldView::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	}
 }
 
-void cWorldView::addSysMessage(const QCString &message, unsigned short hue, unsigned char font) {
+void cWorldView::addSysMessage(const Q3CString &message, unsigned short hue, unsigned char font) {
 }
 
 void cWorldView::addSysMessage(const QString &message, unsigned short hue, unsigned char font) {
@@ -147,7 +151,7 @@ void cWorldView::addSysMessage(const QString &message, unsigned short hue, unsig
 }
 
 void cWorldView::moveContent(int yoffset) {
-	QValueList<cControl*> toremove;
+	Q3ValueList<cControl*> toremove;
 
 	cContainer::Iterator it;
 	for (it = controls.begin(); it != controls.end(); ++it) {
@@ -164,7 +168,7 @@ void cWorldView::moveContent(int yoffset) {
 	}
 
 	// Remove controls that came out of view
-	QValueList<cControl*>::iterator it2;
+	Q3ValueList<cControl*>::iterator it2;
 	for (it2 = toremove.begin(); it2 != toremove.end(); ++it2) {
 		removeControl(*it2);
 		delete *it2;

@@ -4,9 +4,9 @@
 
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qintcache.h>
+#include <q3intcache.h>
 #include <qstring.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 #include "enums.h"
 
@@ -24,14 +24,14 @@ struct stStaticItem {
 	signed char z;
 };
 
-typedef QValueVector<stStaticItem> StaticBlock;
+typedef Q3ValueVector<stStaticItem> StaticBlock;
 
 class cFacet {
 private:	
 	QFile mapData, staticData, staticIndex; // Input files
 	QDataStream mapDataStream, staticDataStream, staticIndexStream; // Input streams
-	QIntCache<stMapCell> mapCache; // This is actually a block cache for 64 cells at once
-	QIntCache<StaticBlock> staticCache; // This is actually a block cache for all static items in a block
+	Q3IntCache<stMapCell> mapCache; // This is actually a block cache for 64 cells at once
+	Q3IntCache<StaticBlock> staticCache; // This is actually a block cache for all static items in a block
 	stMapCell emptyCell;
 
 protected:

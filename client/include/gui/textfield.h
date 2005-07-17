@@ -2,7 +2,10 @@
 #if !defined(__TEXTFIELD_H__)
 #define __TEXTFIELD_H__
 
-#include <qcstring.h>
+#include <q3cstring.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QKeyEvent>
 
 #include "control.h"
 #include "bordergump.h"
@@ -22,7 +25,7 @@ protected:
 	bool hueAll_;
 	unsigned char font_;
 	unsigned short hue_;
-	QCString text_;
+	Q3CString text_;
 	short mouseOverHue_;
 	short focusHue_;
 	bool password_;
@@ -40,8 +43,8 @@ protected:
 	int selection_; // The number of characters that are selected in relation to the current caret.
 
 	void drawSelection(cSurface *surface);
-	void replaceSelection(const QCString &replacement);
-	QCString getSelection();
+	void replaceSelection(const Q3CString &replacement);
+	Q3CString getSelection();
 	inline char translateChar(char c) {
 		if (password_) {
 			return '*';
@@ -57,7 +60,7 @@ public:
 	inline bool hueAll() const { return hueAll_; }
 	inline unsigned char font() const { return font_; }
 	inline unsigned short hue() const { return hue_; }
-	inline const QCString &text() const { return text_; }
+	inline const Q3CString &text() const { return text_; }
 	inline unsigned short background() const { return backgroundId_; }
 	inline unsigned int leftOffset() const { return leftOffset_; }
 	inline bool password() const { return password_; }
@@ -116,7 +119,7 @@ public:
 		}
 	}
 
-	inline void setText(const QCString &data) {
+	inline void setText(const Q3CString &data) {
 		if (text_ != data) {
 			text_ = data;
 			invalidateText();

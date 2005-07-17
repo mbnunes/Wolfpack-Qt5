@@ -6,6 +6,8 @@
 #include "imagebutton.h"
 #include "tiledgumpimage.h"
 #include "gumpimage.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 class cVerticalScrollBar;
 
@@ -65,6 +67,8 @@ public:
 		}
 	}
 
+	#undef min
+	#undef max
 	inline unsigned int pos() const { return pos_; }
 	inline unsigned int min() const { return min_; }
 	inline unsigned int max() const { return max_; }

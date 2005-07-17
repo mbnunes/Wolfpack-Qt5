@@ -132,9 +132,9 @@ inline void cArtAnimation::decref() {
 	}
 }
 
-class ArtAnimationCache : public QIntCache< cArtAnimation> {
+class ArtAnimationCache : public Q3IntCache< cArtAnimation> {
 public:
-	ArtAnimationCache(int a, int b) : QIntCache< cArtAnimation > (a, b) {
+	ArtAnimationCache(int a, int b) : Q3IntCache< cArtAnimation > (a, b) {
 	}
 
 protected:

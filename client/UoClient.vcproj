@@ -1,908 +1,125 @@
-<?xml version="1.0" encoding="Windows-1252"?>
-<VisualStudioProject
-	ProjectType="Visual C++"
-	Version="7.10"
-	Name="uoclient"
-	ProjectGUID="{667DA75C-5D17-4F29-89E4-150CE6A077C4}"
-	RootNamespace="uoclient">
-	<Platforms>
-		<Platform
-			Name="Win32"/>
-	</Platforms>
-	<Configurations>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="."
-			IntermediateDirectory="obj\"
-			ConfigurationType="1"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE">
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200 -EHsc -GX"
-				Optimization="1"
-				AdditionalIncludeDirectories="include,libs\include,$(QTDIR)\include,C:\Documents and Settings\Sebastian Hartte\Desktop\uoclient,obj\,C:\QT\mkspecs\win32-msvc"
-				PreprocessorDefinitions="QT_NO_DEBUG,NDEBUG,_WINDOWS,QT_THREAD_SUPPORT,NDEBUG"
-				GeneratePreprocessedFile="0"
-				ExceptionHandling="TRUE"
-				RuntimeLibrary="2"
-				BufferSecurityCheck="FALSE"
-				AssemblerListingLocation="obj\"
-				ObjectFile="obj\"
-				ProgramDataBaseFileName=".\"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="0"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="qt-mt333.lib qtmain.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib"
-				OutputFile="release\uoclient.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(QTDIR)\lib"
-				DelayLoadDLLs="comdlg32.dll,oleaut32.dll,winmm.dll,wsock32.dll,winspool.dll"
-				GenerateDebugInformation="FALSE"
-				ProgramDatabaseFile=""
-				SubSystem="0"/>
-			<Tool
-				Name="VCMIDLTool"
-				WarningLevel="0"
-				DefaultCharType="0"
-				EnableErrorChecks="1"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory="."
-			IntermediateDirectory="Debug\"
-			ConfigurationType="1"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE">
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200 -EHsc -GX"
-				Optimization="0"
-				AdditionalIncludeDirectories="include,libs\include,$(QTDIR)\include,C:\Documents and Settings\Sebastian Hartte\Desktop\uoclient,obj\,C:\QT\mkspecs\win32-msvc"
-				PreprocessorDefinitions="_WINDOWS,QT_THREAD_SUPPORT"
-				GeneratePreprocessedFile="0"
-				ExceptionHandling="TRUE"
-				RuntimeLibrary="2"
-				BufferSecurityCheck="FALSE"
-				AssemblerListingLocation="Debug\"
-				ObjectFile="Debug\"
-				ProgramDataBaseFileName=".\"
-				BrowseInformation="1"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/qt-mt334.lib $(QTDIR)/lib/qtmain.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib"
-				OutputFile="release\uoclient_d.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(QTDIR)\lib"
-				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=""
-				SubSystem="2"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"
-				WarningLevel="0"
-				DefaultCharType="0"
-				EnableErrorChecks="1"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-	</Configurations>
-	<References>
-	</References>
-	<Files>
-		<Filter
-			Name="src"
-			Filter="">
-			<File
-				RelativePath=".\src\binkw.cpp">
-			</File>
-			<File
-				RelativePath=".\include\binkw.h">
-			</File>
-			<File
-				RelativePath=".\src\config.cpp">
-			</File>
-			<File
-				RelativePath=".\include\config.h">
-			</File>
-			<File
-				RelativePath=".\src\config_win.cpp">
-			</File>
-			<File
-				RelativePath=".\include\enums.h">
-			</File>
-			<File
-				RelativePath=".\include\exceptions.h">
-			</File>
-			<File
-				RelativePath=".\src\log.cpp">
-			</File>
-			<File
-				RelativePath=".\include\log.h">
-			</File>
-			<File
-				RelativePath=".\src\main.cpp">
-			</File>
-			<File
-				RelativePath=".\src\mainwindow.cpp">
-			</File>
-			<File
-				RelativePath=".\include\mainwindow.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\include\mersennetwister.h">
-			</File>
-			<File
-				RelativePath=".\src\surface.cpp">
-			</File>
-			<File
-				RelativePath=".\include\surface.h">
-			</File>
-			<File
-				RelativePath=".\src\texture.cpp">
-			</File>
-			<File
-				RelativePath=".\include\texture.h">
-			</File>
-			<File
-				RelativePath=".\src\uoclient.cpp">
-			</File>
-			<File
-				RelativePath=".\include\uoclient.h">
-			</File>
-			<File
-				RelativePath=".\src\utilities.cpp">
-			</File>
-			<File
-				RelativePath=".\include\utilities.h">
-			</File>
-			<File
-				RelativePath=".\src\utilities_win.cpp">
-			</File>
-			<File
-				RelativePath=".\src\vector.cpp">
-			</File>
-			<File
-				RelativePath=".\include\vector.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="game"
-			Filter="">
-			<File
-				RelativePath=".\src\game\dynamicentity.cpp">
-			</File>
-			<File
-				RelativePath=".\include\game\dynamicentity.h">
-			</File>
-			<File
-				RelativePath=".\src\game\entity.cpp">
-			</File>
-			<File
-				RelativePath=".\include\game\entity.h">
-			</File>
-			<File
-				RelativePath=".\src\game\groundtile.cpp">
-			</File>
-			<File
-				RelativePath=".\include\game\groundtile.h">
-			</File>
-			<File
-				RelativePath=".\src\game\mobile.cpp">
-			</File>
-			<File
-				RelativePath=".\include\game\mobile.h">
-			</File>
-			<File
-				RelativePath=".\src\game\statictile.cpp">
-			</File>
-			<File
-				RelativePath=".\include\game\statictile.h">
-			</File>
-			<File
-				RelativePath=".\src\game\world.cpp">
-			</File>
-			<File
-				RelativePath=".\include\game\world.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Generated MOC Files"
-			Filter="cpp;c;cxx;moc">
-			<File
-				RelativePath=".\obj\moc_asciilabel.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_bordergump.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_container.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_contextmenu.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_control.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_cursor.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_gui.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_gumpimage.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_imagebutton.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_itemimage.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_label.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_login.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_mainwindow.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_movecenter.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_scrollbar.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_textfield.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_tiledgumpimage.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_uosocket.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_window.cpp">
-			</File>
-			<File
-				RelativePath=".\obj\moc_worldview.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="gui"
-			Filter="">
-			<File
-				RelativePath=".\src\gui\asciilabel.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\asciilabel.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\bordergump.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\bordergump.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\container.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\container.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\contextmenu.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\contextmenu.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\control.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\control.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\cursor.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\cursor.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\gui.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\gui.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\gumpimage.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\gumpimage.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\imagebutton.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\imagebutton.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\itemimage.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\itemimage.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\label.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\label.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\scrollbar.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\scrollbar.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\textfield.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\textfield.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\tiledgumpimage.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\tiledgumpimage.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\window.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\window.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\gui\worldview.cpp">
-			</File>
-			<File
-				RelativePath=".\include\gui\worldview.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<Filter
-			Name="network"
-			Filter="">
-			<File
-				RelativePath=".\src\network\btree.cpp">
-			</File>
-			<File
-				RelativePath=".\include\network\btree.h">
-			</File>
-			<File
-				RelativePath=".\src\network\decompress.cpp">
-			</File>
-			<File
-				RelativePath=".\include\network\decompress.h">
-			</File>
-			<File
-				RelativePath=".\src\network\encryption.cpp">
-			</File>
-			<File
-				RelativePath=".\include\network\encryption.h">
-			</File>
-			<File
-				RelativePath=".\src\network\loginpackets.cpp">
-			</File>
-			<File
-				RelativePath=".\src\network\uopacket.cpp">
-			</File>
-			<File
-				RelativePath=".\include\network\uopacket.h">
-			</File>
-			<File
-				RelativePath=".\src\network\uosocket.cpp">
-			</File>
-			<File
-				RelativePath=".\include\network\uosocket.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<Filter
-			Name="muls"
-			Filter="">
-			<File
-				RelativePath=".\src\muls\animations.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\animations.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\art.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\art.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\asciifonts.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\asciifonts.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\gumpart.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\gumpart.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\hues.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\hues.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\maps.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\maps.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\textures.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\textures.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\tiledata.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\tiledata.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\unicodefonts.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\unicodefonts.h">
-			</File>
-			<File
-				RelativePath=".\src\muls\verdata.cpp">
-			</File>
-			<File
-				RelativePath=".\include\muls\verdata.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="dialogs"
-			Filter="">
-			<File
-				RelativePath=".\src\dialogs\login.cpp">
-			</File>
-			<File
-				RelativePath=".\include\dialogs\login.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\dialogs\movecenter.cpp">
-			</File>
-			<File
-				RelativePath=".\include\dialogs\movecenter.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<File
-			RelativePath=".\resource.h">
-		</File>
-		<File
-			RelativePath=".\uoclient.rc">
-		</File>
-	</Files>
-	<Globals>
-	</Globals>
-</VisualStudioProject>
+#############################################################################
+# Makefile for building: uoclient
+# Generated by qmake (2.00a) (Qt 4.0.0) on: Sun Jul 17 12:16:55 2005
+# Project:  uoclient.pro
+# Template: vcapp
+# Command: qmake -tp vc -o uoclient.vcproj uoclient.pro
+#############################################################################
+
+first: release
+install: release-install
+uninstall: release-uninstall
+MAKEFILE      = uoclient.vcproj
+QMAKE         = qmake
+DEL_FILE      = del
+CHK_DIR_EXISTS= if not exist
+MKDIR         = mkdir
+COPY          = copy /y
+COPY_FILE     = 
+COPY_DIR      = xcopy /s /q /y /i
+INSTALL_FILE  = 
+INSTALL_DIR   = 
+DEL_FILE      = del
+SYMLINK       = 
+DEL_DIR       = rmdir
+MOVE          = move
+CHK_DIR_EXISTS= if not exist
+MKDIR         = mkdir
+SUBTARGETS    =  \
+		release \
+		debug
+
+release: $(MAKEFILE).Release FORCE
+	$(MAKE) -f $(MAKEFILE).Release
+release-make_first: $(MAKEFILE).Release FORCE
+	$(MAKE) -f $(MAKEFILE).Release first
+release-all: $(MAKEFILE).Release FORCE
+	$(MAKE) -f $(MAKEFILE).Release all
+release-clean: $(MAKEFILE).Release FORCE
+	$(MAKE) -f $(MAKEFILE).Release clean
+release-distclean: $(MAKEFILE).Release FORCE
+	$(MAKE) -f $(MAKEFILE).Release distclean
+release-install: $(MAKEFILE).Release FORCE
+	$(MAKE) -f $(MAKEFILE).Release install
+release-uninstall: $(MAKEFILE).Release FORCE
+	$(MAKE) -f $(MAKEFILE).Release uninstall
+debug: $(MAKEFILE).Debug FORCE
+	$(MAKE) -f $(MAKEFILE).Debug
+debug-make_first: $(MAKEFILE).Debug FORCE
+	$(MAKE) -f $(MAKEFILE).Debug first
+debug-all: $(MAKEFILE).Debug FORCE
+	$(MAKE) -f $(MAKEFILE).Debug all
+debug-clean: $(MAKEFILE).Debug FORCE
+	$(MAKE) -f $(MAKEFILE).Debug clean
+debug-distclean: $(MAKEFILE).Debug FORCE
+	$(MAKE) -f $(MAKEFILE).Debug distclean
+debug-install: $(MAKEFILE).Debug FORCE
+	$(MAKE) -f $(MAKEFILE).Debug install
+debug-uninstall: $(MAKEFILE).Debug FORCE
+	$(MAKE) -f $(MAKEFILE).Debug uninstall
+
+uoclient.vcproj: uoclient.pro  C:\qt-4\mkspecs\win32-msvc.net\qmake.conf C:/qt-4/mkspecs/qconfig.pri \
+		..\..\..\..\qt-4\mkspecs\features\qt_config.prf \
+		..\..\..\..\qt-4\mkspecs\features\exclusive_builds.prf \
+		..\..\..\..\qt-4\mkspecs\features\default_pre.prf \
+		..\..\..\..\qt-4\mkspecs\features\win32\default_pre.prf \
+		..\..\..\..\qt-4\mkspecs\features\release.prf \
+		..\..\..\..\qt-4\mkspecs\features\debug_and_release.prf \
+		..\..\..\..\qt-4\mkspecs\features\default_post.prf \
+		..\..\..\..\qt-4\mkspecs\features\win32\windows.prf \
+		..\..\..\..\qt-4\mkspecs\features\win32\exceptions.prf \
+		..\..\..\..\qt-4\mkspecs\features\win32\thread.prf \
+		..\..\..\..\qt-4\mkspecs\features\qt.prf \
+		..\..\..\..\qt-4\mkspecs\features\win32\opengl.prf \
+		..\..\..\..\qt-4\mkspecs\features\moc.prf \
+		..\..\..\..\qt-4\mkspecs\features\win32\rtti.prf \
+		..\..\..\..\qt-4\mkspecs\features\win32\stl.prf \
+		..\..\..\..\qt-4\mkspecs\features\shared.prf \
+		..\..\..\..\qt-4\mkspecs\features\warn_on.prf \
+		..\..\..\..\qt-4\mkspecs\features\resources.prf \
+		..\..\..\..\qt-4\mkspecs\features\uic.prf
+	$(QMAKE) -tp vc -o uoclient.vcproj uoclient.pro
+C:/qt-4/mkspecs/qconfig.pri:
+..\..\..\..\qt-4\mkspecs\features\qt_config.prf:
+..\..\..\..\qt-4\mkspecs\features\exclusive_builds.prf:
+..\..\..\..\qt-4\mkspecs\features\default_pre.prf:
+..\..\..\..\qt-4\mkspecs\features\win32\default_pre.prf:
+..\..\..\..\qt-4\mkspecs\features\release.prf:
+..\..\..\..\qt-4\mkspecs\features\debug_and_release.prf:
+..\..\..\..\qt-4\mkspecs\features\default_post.prf:
+..\..\..\..\qt-4\mkspecs\features\win32\windows.prf:
+..\..\..\..\qt-4\mkspecs\features\win32\exceptions.prf:
+..\..\..\..\qt-4\mkspecs\features\win32\thread.prf:
+..\..\..\..\qt-4\mkspecs\features\qt.prf:
+..\..\..\..\qt-4\mkspecs\features\win32\opengl.prf:
+..\..\..\..\qt-4\mkspecs\features\moc.prf:
+..\..\..\..\qt-4\mkspecs\features\win32\rtti.prf:
+..\..\..\..\qt-4\mkspecs\features\win32\stl.prf:
+..\..\..\..\qt-4\mkspecs\features\shared.prf:
+..\..\..\..\qt-4\mkspecs\features\warn_on.prf:
+..\..\..\..\qt-4\mkspecs\features\resources.prf:
+..\..\..\..\qt-4\mkspecs\features\uic.prf:
+qmake: qmake_all FORCE
+	@$(QMAKE) -tp vc -o uoclient.vcproj uoclient.pro
+
+qmake_all: FORCE
+
+make_first: release-make_first debug-make_first FORCE
+all: release-all debug-all FORCE
+clean: release-clean debug-clean FORCE
+distclean: release-distclean debug-distclean FORCE
+	-$(DEL_FILE) uoclient.vcproj
+
+release-mocclean: $(MAKEFILE).Release
+	$(MAKE) -f $(MAKEFILE).Release mocclean
+debug-mocclean: $(MAKEFILE).Debug
+	$(MAKE) -f $(MAKEFILE).Debug mocclean
+mocclean: release-mocclean debug-mocclean
+
+release-mocables: $(MAKEFILE).Release
+	$(MAKE) -f $(MAKEFILE).Release mocables
+debug-mocables: $(MAKEFILE).Debug
+	$(MAKE) -f $(MAKEFILE).Debug mocables
+mocables: release-mocables debug-mocables
+FORCE:
+

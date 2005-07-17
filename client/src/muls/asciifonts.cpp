@@ -1,7 +1,9 @@
 
 #include <qmap.h>
 #include <qstringlist.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include "exceptions.h"
 #include "log.h"
@@ -26,7 +28,7 @@ void cAsciiFonts::load() {
 	QFile data(Utilities::getUoFilename("fonts.mul"));
 
 	// Open files
-	if (!data.open(IO_ReadWrite)) {
+	if (!data.open(QIODevice::ReadWrite)) {
 		throw Exception(tr("Unable to open ascii font data at %1.").arg(data.name()));
 	}
 
@@ -88,10 +90,10 @@ void cAsciiFonts::reload() {
 	load();
 }
 
-cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QCString &text, unsigned short maxWidth, unsigned short hue, bool shaded, enTextAlign align) {
+cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const Q3CString &text, unsigned short maxWidth, unsigned short hue, bool shaded, enTextAlign align) {
 	// Insert Newslines if the word would exceed the maxWidth boundary
 	unsigned int lineLength = 0;
-	QCString wrapped;
+	Q3CString wrapped;
 	unsigned int spaceWidth = 0;
 
 	cSurface *sf = getCharacter(font, ' ');
@@ -138,7 +140,7 @@ cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QCString &text
 	return buildText(font, wrapped, hue, shaded, align);
 }
 
-cTexture *cAsciiFonts::buildText(unsigned char font, const QCString &text, unsigned short hueid, bool shaded, enTextAlign align, bool hueAll) {
+cTexture *cAsciiFonts::buildText(unsigned char font, const Q3CString &text, unsigned short hueid, bool shaded, enTextAlign align, bool hueAll) {
 	if (font > 9) {
 		font = 3; // Default back to font 3 if the font is invalid
 	}
@@ -147,10 +149,10 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const QCString &text, unsig
 	unsigned int height = this->height[font]; // Total height of the text
 	unsigned int lineWidth = 0; // Length of the current line
 	unsigned int lines = 1; // Number of lines
-	QValueList<unsigned int> lineWidths; // Vector with the lengths of lines
+	Q3ValueList<unsigned int> lineWidths; // Vector with the lengths of lines
 	
 	// Iterate over the string once to get the width of the string
-	QCString::ConstIterator it;
+	Q3CString::ConstIterator it;
 	for (it = text.begin(); it != text.end(); ++it) {
 		if (*it == '\n') {
 			lines += 1;

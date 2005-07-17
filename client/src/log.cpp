@@ -3,6 +3,9 @@
 #include <qdir.h>
 #include <qfile.h>
 
+#include <QByteArray>
+#include <QString>
+
 #include "log.h"
 #include "config.h"
 #include "utilities.h"
@@ -53,7 +56,7 @@ bool cLog::checkLogFile()
 
 		logfile->setName( path + filename );
 
-		if ( !logfile->open( IO_WriteOnly | IO_Append | IO_Translate ) )
+		if ( !logfile->open( QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text ) )
 		{
 			// This is problematic
 			Utilities::messageBox( tr( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
@@ -77,8 +80,8 @@ void cLog::print( eLogLevel loglevel, const QString& string, bool timestamp )
 	// Timestamp the data
 	QTime now = QTime::currentTime();
 
-	QCString utfdata = string.utf8();
-	QCString prelude;
+	QString output = string.toUtf8();
+	QString prelude;
 
 	if ( timestamp )
 	{
@@ -100,7 +103,8 @@ void cLog::print( eLogLevel loglevel, const QString& string, bool timestamp )
 		}
 	}
 
-	utfdata.prepend( prelude );
+	output.prepend( prelude );
+	QByteArray utfdata = output.toUtf8();
 
 	logfile->writeBlock( utfdata.data(), utfdata.length() );
 	logfile->flush();

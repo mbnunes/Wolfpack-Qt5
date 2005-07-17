@@ -4,7 +4,7 @@
 
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 
 #include "enums.h"
 #include "utilities.h"

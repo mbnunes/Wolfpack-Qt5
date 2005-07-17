@@ -1,5 +1,8 @@
 
 #include <qglobal.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QKeyEvent>
 
 #include "gui/imagebutton.h"
 #include "muls/gumpart.h"
@@ -78,7 +81,7 @@ void cImageButton::draw(int xoffset, int yoffset) {
 }
 
 void cImageButton::onMouseDown(QMouseEvent *e) {
-	if (e->button() == LeftButton) {
+	if (e->button() == Qt::LeftButton) {
 		mouseHolding_ = true;
 
 		// The button requests to be auto-pressed every x miliseconds
@@ -98,7 +101,7 @@ void cImageButton::repeatPress() {
 }
 
 void cImageButton::onMouseUp(QMouseEvent *e) {
-	if (e->button() == LeftButton) {
+	if (e->button() == Qt::LeftButton) {
 		mouseHolding_ = false;
 		
 		// If a press-repeat timer is active, stop it. 
@@ -112,7 +115,7 @@ void cImageButton::onMouseUp(QMouseEvent *e) {
 }
 
 void cImageButton::onKeyDown(QKeyEvent *e) {
-	if (e->key() == Key_Return) {
+	if (e->key() == Qt::Key_Return) {
 		emit onClick(this); // Fire the onClick event if return is pressed
 	} else if (e->key() == Qt::Key_Space) {
 		spaceHolding_ = true;
@@ -120,7 +123,7 @@ void cImageButton::onKeyDown(QKeyEvent *e) {
 }
 
 void cImageButton::onKeyUp(QKeyEvent *e) {
-	if (e->key() == Key_Space) {
+	if (e->key() == Qt::Key_Space) {
 		spaceHolding_ = false;
 		emit onClick(this); // Issue the click event
 	}

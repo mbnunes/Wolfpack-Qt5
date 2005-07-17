@@ -2,15 +2,17 @@
 #if !defined(__CONTAINER_H__)
 #define __CONTAINER_H__
 
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 #include <qrect.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "control.h"
 
 class cContainer : public cControl {
 Q_OBJECT
 public:
-	typedef QValueList<cControl*> Controls;
+	typedef Q3ValueList<cControl*> Controls;
 	typedef Controls::iterator Iterator;
 protected:
 	Controls controls;

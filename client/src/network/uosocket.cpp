@@ -1,5 +1,5 @@
 
-#include <qdns.h>
+#include <q3dns.h>
 
 #include "uoclient.h"
 #include "network/encryption.h"
@@ -56,7 +56,7 @@ cUoSocket *UoSocket = 0; // Global cUoSocket instance
 
 cUoSocket::cUoSocket() {
 	encryption = 0;
-	socket = new QSocket(this);
+	socket = new Q3Socket(this);
 
 	// Connect the QSocket slots to this class
 	QObject::connect(socket, SIGNAL(hostFound()), this, SLOT(hostFound()));
@@ -105,37 +105,37 @@ void cUoSocket::disconnect() {
 }
 
 bool cUoSocket::isIdle() {
-	return socket->state() == QSocket::Idle;
+	return socket->state() == Q3Socket::Idle;
 }
 bool cUoSocket::isConnecting() {
-	return socket->state() == QSocket::Connecting;
+	return socket->state() == Q3Socket::Connecting;
 }
 bool cUoSocket::isClosing() {
-	return socket->state() == QSocket::Closing;
+	return socket->state() == Q3Socket::Closing;
 }
 bool cUoSocket::isResolvingHost() {
-	return socket->state() == QSocket::HostLookup;
+	return socket->state() == Q3Socket::HostLookup;
 }
 
 bool cUoSocket::isConnected() {
-	return socket->state() == QSocket::Connected;
+	return socket->state() == Q3Socket::Connected;
 }
 
 void cUoSocket::poll() {
-	QSocket::State state = socket->state();
+	Q3Socket::State state = socket->state();
 
 	switch (state) {
-		case QSocket::Idle:
+		case QAbstractSocket::UnconnectedState:
 			break; // Do nothing
 
-		case QSocket::HostLookup:
+		case QAbstractSocket::HostLookupState:
 			break; // Do nothing
 
-		case QSocket::Connecting:
+		case Q3Socket::Connecting:
 			break; // Do nothing
 
 		// Process incoming and outgoing packets if the socket is connected
-		case QSocket::Connected:
+		case Q3Socket::Connected:
 		{
 			while (socket->isWritable() && !outgoingQueue.isEmpty()) {
 				QByteArray data = outgoingQueue.first();
@@ -145,7 +145,7 @@ void cUoSocket::poll() {
 		}
 		break;
 
-		case QSocket::Closing:
+		case Q3Socket::Closing:
 			break; // Do nothing
 
 		default:
@@ -154,7 +154,7 @@ void cUoSocket::poll() {
 }
 
 void cUoSocket::send(const QByteArray &data) {
-	QByteArray data2 = data.copy();
+	QByteArray data2(data.data(), data.size());
 	
 	if (encryption) {
 		encryption->encryptOutgoing(data2.data(), data2.size());
@@ -179,7 +179,7 @@ void cUoSocket::buildPackets() {
 				memcpy(incomingBuffer.data(), incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
 				incomingBuffer.resize(incomingBuffer.size() - dynamicSize);
 				
-				QDataStream inputData(packetData, IO_ReadOnly);
+				QDataStream inputData(&packetData, QIODevice::ReadOnly);
 				inputData.setByteOrder(QDataStream::BigEndian);
 				if (incomingPacketConstructors[packetId]) {
 					cIncomingPacket *packet = incomingPacketConstructors[packetId](inputData, dynamicSize);
@@ -196,7 +196,7 @@ void cUoSocket::buildPackets() {
 			memcpy(incomingBuffer.data(), incomingBuffer.data() + size, incomingBuffer.size() - size);
 			incomingBuffer.resize(incomingBuffer.size() - size);
 
-			QDataStream inputData(packetData, IO_ReadOnly);
+			QDataStream inputData(&packetData, QIODevice::ReadOnly);
 			inputData.setByteOrder(QDataStream::BigEndian);
 			if (incomingPacketConstructors[packetId]) {
 				cIncomingPacket *packet = incomingPacketConstructors[packetId](inputData, size);
@@ -275,15 +275,15 @@ void cUoSocket::error(int error) {
 	QString message;
 
 	switch (error) {
-		case QSocket::ErrConnectionRefused:
+		case Q3Socket::ErrConnectionRefused:
 			message = tr("Connection Refused");
 			break;
 
-		case QSocket::ErrHostNotFound:
+		case Q3Socket::ErrHostNotFound:
 			message = tr("Host not found");
 			break;
 
-		case QSocket::ErrSocketRead:
+		case Q3Socket::ErrSocketRead:
 			message = tr("Could not read from socket");
 			break;
 

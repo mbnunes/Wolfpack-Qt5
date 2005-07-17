@@ -1,5 +1,5 @@
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qgl.h>
 
 #include "mainwindow.h"
@@ -155,8 +155,8 @@ realign_end:
 }
 
 void cContainer::doAlignment(enControlAlign align, cControl *control, QRect &clientRect) {
-	QValueList<cControl*> alignlist; // List of Controls to be aligned
-	QValueList<cControl*>::iterator lit; // List iterator
+	Q3ValueList<cControl*> alignlist; // List of Controls to be aligned
+	Q3ValueList<cControl*>::iterator lit; // List iterator
 
 	/*
 		The to-be-aligned control is included in the list if its non-null and if it

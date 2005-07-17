@@ -4,6 +4,8 @@
 #include "log.h"
 #include "muls/verdata.h"
 
+#include <QtCore>
+
 cVerdata *Verdata = 0; // Global cVerdata Instance
 
 cVerdata::cVerdata() {
@@ -24,7 +26,7 @@ void cVerdata::load() {
 	// Read the verdata data.
 	data.setName(filename);
 
-	if (!data.open(IO_ReadOnly)) {
+	if (!data.open(QIODevice::ReadOnly)) {
 		Log->print(LOG_DEBUG, tr("Ignoring verdata.mul because it doesn't exist at %1.\n").arg(filename));
 		return;
 	}

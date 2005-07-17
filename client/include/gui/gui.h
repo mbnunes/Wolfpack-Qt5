@@ -2,7 +2,7 @@
 #if !defined(__GUI_H__)
 #define __GUI_H__
 
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 #include "control.h"
 #include "container.h"

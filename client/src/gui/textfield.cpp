@@ -2,6 +2,10 @@
 #include <qglobal.h>
 #include <qclipboard.h>
 #include <qgl.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <Q3CString>
 
 #include "exceptions.h"
 #include "uoclient.h"
@@ -137,11 +141,11 @@ void cTextField::drawSelection(cSurface *surface) {
 
 void cTextField::update() {
 	// Extract the portion of the string we're going to work on
-	QCString substring = text_.right(text_.length() - leftOffset_);
+	Q3CString substring = text_.right(text_.length() - leftOffset_);
 	
 	if (password_) {
 		for (unsigned int i = 0; i < substring.length(); ++i) {
-			substring.at(i) = '*';
+			substring[i] = '*';
 		}
 	}
 
@@ -343,18 +347,18 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 		QClipboard *clipboard = qApp->clipboard();
 		QString text = clipboard->text();
 		if (!text.isEmpty()) {
-			QCString ltext = text.latin1();
+			Q3CString ltext = text.latin1();
 			replaceSelection(ltext);
 		}
 	} else if (key == Qt::Key_C && (state & Qt::ControlButton) != 0) {
 		QClipboard *clipboard = qApp->clipboard();
-		QCString text = getSelection();
+		Q3CString text = getSelection();
 		if (!text.isEmpty()) {
 			clipboard->setText(QString(text), QClipboard::Clipboard);
 		}
 	} else if (key == Qt::Key_X && (state & Qt::ControlButton) != 0) {
 		QClipboard *clipboard = qApp->clipboard();
-		QCString text = getSelection();
+		Q3CString text = getSelection();
 		if (!text.isEmpty()) {
 			clipboard->setText(QString(text), QClipboard::Clipboard);
 			replaceSelection("");
@@ -386,7 +390,7 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 		if (ch != 0) {
 			cSurface *chs = AsciiFonts->getCharacter(font_, ch);
 			if (chs) {
-				QCString replacement;
+				Q3CString replacement;
 				replacement.insert(0, ch);
 				replaceSelection(replacement);
 			}
@@ -529,7 +533,7 @@ void cTextField::onMouseDown(QMouseEvent *e) {
 	// XXXXXX TODO: Normal windows selection rules with mouse
 
 	// Selection?
-	if ((e->state() & Key_Shift) != 0) {
+	if ((e->state() & Qt::Key_Shift) != 0) {
 		// In which direction do we select?
 		int diff = caret_ - index;
 
@@ -544,7 +548,7 @@ void cTextField::onMouseUp(QMouseEvent *e) {
 	cControl::onMouseUp(e);
 }
 
-void cTextField::replaceSelection(const QCString &replacement) {
+void cTextField::replaceSelection(const Q3CString &replacement) {
 	// Delete the selection, reposition caret_, then reinsert
 	if (selection_ != 0) {
 		if (selection_ < 0) {
@@ -566,7 +570,7 @@ void cTextField::replaceSelection(const QCString &replacement) {
 	setCaret(caret_ + i);
 }
 
-QCString cTextField::getSelection() {
+Q3CString cTextField::getSelection() {
 	if (selection_ < 0) {
 		return text_.mid(caret_ + selection_, - selection_);
 	} else if (selection_ > 0) {

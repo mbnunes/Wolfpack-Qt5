@@ -3,6 +3,8 @@
 #define __WINDOW_H__
 
 #include "gui/container.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 class cTexture;
 

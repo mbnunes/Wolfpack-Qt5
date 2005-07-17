@@ -7,6 +7,8 @@
 #include "gui/worldview.h"
 #include "log.h"
 #include <qgl.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 
 cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
 	id_ = 0;
@@ -190,9 +192,9 @@ bool cStaticTile::hitTest(int x, int y) {
 void cStaticTile::onClick(QMouseEvent *e) {
 	QString message;
 	if (tiledata_->isArticleA()) {
-		message = QString("a %1").arg(tiledata_->name());
+		message = QString("a %1").arg(tiledata_->name().data());
 	} else if (tiledata_->isArticleAn()) {
-		message = QString("an %1").arg(tiledata_->name());
+		message = QString("an %1").arg(tiledata_->name().data());
 	} else {
 		message = tiledata_->name();
 	}

@@ -2,7 +2,7 @@
 #if !defined(__TILEDATA_H__)
 #define __TILEDATA_H__
 
-#include <qcstring.h>
+#include <q3cstring.h>
 
 // Utility defines
 #define FLAG_GETTER(MASK, NAME) inline bool NAME() const { return (flags_ & MASK) != 0; }
@@ -17,7 +17,7 @@ friend class cTiledata;
 protected:
 	unsigned int refcount; // Simple reference count
 	unsigned int flags_;
-	QCString name_;
+	Q3CString name_;
 
 public:
 	cTileInfo();
@@ -27,7 +27,7 @@ public:
 	void decref(); // Decrement reference count (this delete the item if refcount <= 0)
 
 	unsigned int flags() const;
-    const QCString &name() const;
+    const Q3CString &name() const;
 
 	// These are convenient getters for certain properties
 	FLAG_GETTER(0x00000001, isBackground)
@@ -78,7 +78,7 @@ inline unsigned int cTileInfo::flags() const {
 	return flags_;
 }
 
-inline const QCString &cTileInfo::name() const {
+inline const Q3CString &cTileInfo::name() const {
 	return name_;
 }
 

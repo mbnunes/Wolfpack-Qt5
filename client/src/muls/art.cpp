@@ -258,11 +258,11 @@ void cArt::load() {
 	index.setName(Utilities::getUoFilename("artidx.mul"));
 
 	// Open files
-	if (!data.open(IO_ReadOnly)) {
+	if (!data.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open art data at %1.").arg(data.name()));
 	}
 
-	if (!index.open(IO_ReadOnly)) {
+	if (!index.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open the art index at %1.").arg(index.name()));
 	}
 
@@ -275,7 +275,7 @@ void cArt::load() {
 	// Read animdata.mul
 	QFile animdata(Utilities::getUoFilename("animdata.mul"));
 
-	if (!animdata.open(IO_ReadOnly)) {
+	if (!animdata.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open art animation information at %1.").arg(animdata.name()));
 	}
 

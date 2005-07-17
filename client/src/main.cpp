@@ -1,10 +1,6 @@
 
-#include <windows.h>
-#include <qstringlist.h>
-#include <qvaluevector.h>
-#include <qfileinfo.h>
-#include <stdio.h>
-#include <qapplication.h>
+#include <QtCore>
+#include <QPlastiqueStyle>
 
 #include "uoclient.h"
 
@@ -13,8 +9,9 @@
 	Please notice that the mainloop is inside cUoClient::run()
 */
 int main( int argc, char** argv )
-{
-	QApplication app( argc, argv );
+{    	
+	QApplication app( argc, argv );	
+	QApplication::setStyle(new QPlastiqueStyle);
 	Client = new cUoClient; // Initialize UoClient
 	Client->run(); // Run UoClient
 	delete Client; // Free UoClient Instance

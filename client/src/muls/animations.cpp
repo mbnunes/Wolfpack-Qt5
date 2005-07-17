@@ -210,11 +210,11 @@ void cAnimations::load() {
 	dataFile[0].setName(Utilities::getUoFilename("anim.mul"));
 	indexFile[0].setName(Utilities::getUoFilename("anim.idx"));
 
-	if (!dataFile[0].open(IO_ReadOnly)) {
+	if (!dataFile[0].open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open animation data from %1.").arg(dataFile[0].name()));
 	}
 
-	if (!indexFile[0].open(IO_ReadOnly)) {
+	if (!indexFile[0].open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open animation index data from %1.").arg(indexFile[0].name()));
 	}
 
@@ -228,12 +228,12 @@ void cAnimations::load() {
 		dataFile[i].setName(Utilities::getUoFilename(QString("anim%1.mul").arg(i+1)));
 		indexFile[i].setName(Utilities::getUoFilename(QString("anim%1.idx").arg(i+1)));
 
-		if (!dataFile[i].open(IO_ReadOnly)) {
+		if (!dataFile[i].open(QIODevice::ReadOnly)) {
 			Log->print(LOG_WARNING, tr("Unable to find %1. Skipping.\n").arg(dataFile[i].name()));
 			continue;
 		}
 
-		if (!indexFile[i].open(IO_ReadOnly)) {
+		if (!indexFile[i].open(QIODevice::ReadOnly)) {
 			dataFile[i].close();
 			Log->print(LOG_WARNING, tr("Unable to find %1. Skipping.\n").arg(indexFile[i].name()));
 			continue;

@@ -8,9 +8,11 @@
 #include "vector.h"
 
 #include <qmap.h>
-#include <qvaluelist.h>
-#include <qintcache.h>
+#include <q3valuelist.h>
+#include <q3intcache.h>
 #include <qevent.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 
 // I'm using a class here because of the destructor
 class stGroundInfo {
@@ -27,13 +29,13 @@ protected:
 	int roofCap_; // Only tiles with a z value smaller than this will be drawn
 	enFacet facet_;
 	cEntity *mouseOver_;
-	QIntCache<stGroundInfo> groundCache;
+	Q3IntCache<stGroundInfo> groundCache;
 
 	// Calculate a cell id for the cell map
 	unsigned int getCellId(unsigned short x, unsigned short y) const;
 
 	// Typedef for the entity map.
-	typedef QValueList<cEntity*> Cell;
+	typedef Q3ValueList<cEntity*> Cell;
 	typedef Cell::iterator CellIterator;
 	typedef Cell::const_iterator ConstCellIterator;
 	typedef QMap<unsigned int, Cell> Container;

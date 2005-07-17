@@ -7,7 +7,7 @@
 #include <qdatastream.h>
 #include <qfile.h>
 #include <qmap.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 #define ANIMATION_FILES 4
 
@@ -31,7 +31,7 @@ protected:
 	};
 
 	unsigned short frameCount_;
-	QValueVector<stFrame> frames;
+	Q3ValueVector<stFrame> frames;
 
     cTexture *texture_;
 	unsigned int refcount;
@@ -93,9 +93,9 @@ inline void cSequence::incref() {
 }
 
 // A cache for reference counted cAnimation objects.
-class SequenceCache : public QIntCache< cSequence > {
+class SequenceCache : public Q3IntCache< cSequence > {
 public:
-	SequenceCache(int a, int b) : QIntCache< cSequence > (a, b) {
+	SequenceCache(int a, int b) : Q3IntCache< cSequence > (a, b) {
 	}
 
 protected:

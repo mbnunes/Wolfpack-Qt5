@@ -7,6 +7,8 @@
 #include "utilities.h"
 #include "texture.h"
 #include "muls/art.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 class cStaticTile : public cEntity {
 protected:

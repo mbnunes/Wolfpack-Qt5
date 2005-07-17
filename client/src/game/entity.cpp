@@ -1,5 +1,7 @@
 
 #include "game/entity.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet facet) {
 	refcount = 1;

@@ -2,9 +2,12 @@
 #if !defined(__LOGIN_H__)
 #define __LOGIN_H__
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qhostaddress.h>
 #include <qobject.h>
+#include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include "gui/control.h"
 #include "gui/window.h"
@@ -14,7 +17,7 @@
 
 // Structure used for the shardlist
 struct stShardEntry {
-	QCString name;
+	Q3CString name;
 	QHostAddress pingAddress;
 	unsigned char percentFull;
 	unsigned char timezone;
@@ -23,8 +26,8 @@ struct stShardEntry {
 
 // This is a starting location
 struct stStartLocation {
-    QCString name;
-	QCString exactName;
+    Q3CString name;
+	Q3CString exactName;
 	unsigned char index;
 };
 
@@ -36,10 +39,13 @@ enum enMenuPage {
 	PAGE_SELECTCHAR,
 };
 
+class cCharSelection;
+
 class cLoginDialog : public QObject {
 Q_OBJECT
 
 private:
+	cCharSelection *charSelectWidget;
 	cWindow *container; // The main container
 	cImageButton *movieButton, *nextButton, *backButton;
 	cContainer *accountLoginGump;
@@ -56,7 +62,7 @@ private:
 	void buildStatusGump();
 	void buildSelectCharGump();
 
-	QValueList<stShardEntry> shards;
+	Q3ValueList<stShardEntry> shards;
 	unsigned int shardEntryOffset;
 public:
 	void onScrollShardList(int oldpos, int newpos);
@@ -72,6 +78,7 @@ public:
 	// Callback for the ShardList
 	void clearShardList();
 	void addShard(const stShardEntry &shard);
+	void setCharacterList(const QStringList &characters);
 
 public slots:
 	// Button callbacks for this page.

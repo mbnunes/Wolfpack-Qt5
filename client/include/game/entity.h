@@ -4,6 +4,8 @@
 
 #include "enums.h"
 #include <qevent.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 
 /*
 	This is the base class for every world object in the game.

@@ -22,7 +22,7 @@ void cFacet::load() {
 		staticIndex.setName(Utilities::getUoFilename(QString("staidx%1.mul").arg(id_)));
 	}
 
-	if (!mapData.open(IO_ReadOnly)) {
+	if (!mapData.open(QIODevice::ReadOnly)) {
 		if (optional_) {
 			enabled_ = false; // Disable the map if it's optional
 			return;
@@ -31,7 +31,7 @@ void cFacet::load() {
 		}
 	}
 
-	if (!staticData.open(IO_ReadOnly)) {
+	if (!staticData.open(QIODevice::ReadOnly)) {
 		if (optional_) {
 			enabled_ = false; // Disable the map if it's optional
 			return;
@@ -40,7 +40,7 @@ void cFacet::load() {
 		}
 	}
 
-	if (!staticIndex.open(IO_ReadOnly)) {
+	if (!staticIndex.open(QIODevice::ReadOnly)) {
 		if (optional_) {
 			enabled_ = false; // Disable the map if it's optional
 			return;

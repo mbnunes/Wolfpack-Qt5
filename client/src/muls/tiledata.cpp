@@ -19,7 +19,7 @@ void cTiledata::load() {
 	QFile data(Utilities::getUoFilename("tiledata.mul"));
 
 	// Open files
-	if (!data.open(IO_ReadOnly)) {
+	if (!data.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open tile data at %1.").arg(data.name()));
 	}
 

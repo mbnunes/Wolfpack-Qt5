@@ -6,6 +6,8 @@
 #include "muls/tiledata.h"
 #include "vector.h"
 #include "texture.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 class cGroundTile : public cEntity {
 protected:

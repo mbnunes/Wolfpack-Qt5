@@ -37,11 +37,11 @@ void cTextures::load() {
 	QFile index(Utilities::getUoFilename("texidx.mul"));
 
 	// Open files
-	if (!data.open(IO_ReadOnly)) {
+	if (!data.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open texture data at %1.").arg(data.name()));
 	}
 
-	if (!index.open(IO_ReadOnly)) {
+	if (!index.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open texture index at %1.").arg(index.name()));
 	}
 

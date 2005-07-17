@@ -28,7 +28,7 @@
 #if !defined(__CONFIG_H__)
 #define __CONFIG_H__
 
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qstring.h>
 
 class QDomElement;
@@ -50,7 +50,7 @@ private:
 	unsigned int encryptionLoginKey1_;
 	unsigned int encryptionLoginKey2_;
 
-	QCString loginHost_;
+	Q3CString loginHost_;
 	unsigned short loginPort_;
 public:
 	const QString &uoPath();
@@ -87,8 +87,8 @@ public:
 	const unsigned int encryptionLoginKey2() { return encryptionLoginKey2_; }
 	void setEncryptionLoginKey2(unsigned int data) { encryptionLoginKey2_ = data; setString("Encryption", "Login Key 2", QString("0x%1").arg(data, 0, 16)); }
 
-	const QCString &loginHost() { return loginHost_; }
-	void setLoginHost(const QCString data) { loginHost_ = data; setString("Login", "Host", data); }
+	const Q3CString &loginHost() { return loginHost_; }
+	void setLoginHost(const Q3CString data) { loginHost_ = data; setString("Login", "Host", data); }
 
 	const unsigned short loginPort() { return loginPort_; }
 	void setLoginPort(unsigned short data) { loginPort_ = data; setNumber("Login", "Port", data); }

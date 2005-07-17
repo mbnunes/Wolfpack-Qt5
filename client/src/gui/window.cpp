@@ -1,6 +1,8 @@
 
 #include "gui/window.h"
 #include "texture.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 cWindow::cWindow() : cContainer() {
 	tracking = false;

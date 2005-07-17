@@ -1,4 +1,3 @@
-
 PROJECT = uoclient
 TARGET = uoclient
 TEMPLATE = app
@@ -7,10 +6,10 @@ OBJECTS_DIR = obj
 CONFIG += qt thread exceptions release
 
 # On Win32 Only MSVC++.NET is "really" supported
-win32:GUID = {667DA75C-5D17-4F29-89E4-150CE6A077C4}
-win32:MAKEFILE_GENERATOR = MSVC.NET
-win32:TEMPLATE = vcapp
-win32:QMAKE_LIBS_QT_THREAD = qt-mt333.lib
+#win32:GUID = {667DA75C-5D17-4F29-89E4-150CE6A077C4}
+#win32:MAKEFILE_GENERATOR = MSVC.NET
+#win32:TEMPLATE = vcapp
+#win32:QMAKE_LIBS_QT_THREAD = qt-mt333.lib
 
 win32:CONFIG += windows
 unix:CONFIG += x11 
@@ -25,7 +24,7 @@ OBJECTS_DIR = obj
 MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
-win32:LIBS += libs/SDL.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib
+win32:LIBS += advapi32.lib shell32.lib
 
 unix:LIBS += -lGL -lGLU
 
@@ -101,13 +100,13 @@ SOURCES += \
 	src/binkw.cpp \
 	src/config.cpp \
 	src/log.cpp \
-	src/main.cpp \
 	src/mainwindow.cpp \
 	src/surface.cpp \
 	src/texture.cpp \
 	src/uoclient.cpp \
 	src/utilities.cpp \
-	src/vector.cpp
+	src/vector.cpp \
+	src/main.cpp
 
 SOURCES += \
 	src/dialogs/login.cpp \
@@ -135,7 +134,8 @@ SOURCES += \
 	src/network/encryption.cpp \
 	src/network/loginpackets.cpp \
 	src/network/uopacket.cpp \
-	src/network/uosocket.cpp
+	src/network/uosocket.cpp \
+	src/network/decompress.cpp
 
 SOURCES += \
 	src/game/dynamicentity.cpp \
@@ -187,3 +187,5 @@ unix:SOURCES += \
 #	../release/AUTHORS.txt \
 #	../release/LICENSE.GPL
 #
+#The following line was inserted by qt3to4
+QT += core gui network  xml opengl qt3support 

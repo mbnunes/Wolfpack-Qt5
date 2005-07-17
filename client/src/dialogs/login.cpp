@@ -1,5 +1,8 @@
 
 #include <qapplication.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <Q3CString>
 
 #include "config.h"
 #include "dialogs/login.h"
@@ -27,7 +30,7 @@ private:
 	int id;
 
 public:
-	cShardLabel(int x, int y, const QCString &text) : cTextField(x, y, 350, 25, 5, 0x34f, 0, true) {
+	cShardLabel(int x, int y, const Q3CString &text) : cTextField(x, y, 350, 25, 5, 0x34f, 0, true) {
 		canHaveFocus_ = false; // These are only clickable
 		setMouseOverHue(0x23);
 		setText(text);
@@ -88,7 +91,45 @@ public:
 	}
 };
 
+class cCharSelection : public cContainer {
+protected:
+	QStringList characters;
+	Q3ValueVector<cAsciiLabel*> labels;
+public:
+	void setCharacters(const QStringList &characters);
+	void onMouseDown(QMouseEvent *e);
+	cControl *getControl(int x, int y);
+};
+
+void cCharSelection::setCharacters(const QStringList &characters) {
+	controls.clear();
+	cContainer::clear(); // Clear all controls
+
+	// Re-create the characterlist
+	cAsciiLabel *label = new cAsciiLabel("AscqwdASd");
+	label->setPosition(0, 0);
+	labels.append(label);
+	addControl(label);
+}
+
+void cCharSelection::onMouseDown(QMouseEvent *e) {
+	if (!labels.isEmpty()) {
+		labels[0]->setHue(0x480);
+	}
+}
+
+cControl *cCharSelection::getControl(int x, int y) {
+	cControl *control = cContainer::getControl(x, y);
+
+	if (control != 0 && control != this) {
+		return this; // be greedy
+	} else {
+		return 0; // Don't hog
+	}
+}
+
 cLoginDialog::cLoginDialog() {
+	charSelectWidget = 0;
 	container = 0;
 	movieButton = 0;
 	accountLoginGump = 0;
@@ -490,6 +531,11 @@ void cLoginDialog::buildSelectCharGump() {
 		button->setStateGump(BS_HOVER, 0x159b);
 		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(deleteCharClicked(cControl*)));
 		selectCharDialog->addControl(button);
+
+		// LAST: Char select widget
+		charSelectWidget = new cCharSelection;
+		charSelectWidget->setAlign(CA_CLIENT);
+		selectCharDialog->addControl(charSelectWidget);
 	}
 }
 
@@ -607,7 +653,7 @@ void cLoginDialog::socketConnect() {
 		UoSocket->send(loginPacket);
 	} else {
 		QByteArray loginPacket(65);
-        QDataStream packet(loginPacket, IO_WriteOnly);
+        QDataStream packet(&loginPacket, QIODevice::WriteOnly);
 		packet.setByteOrder(QDataStream::BigEndian);
 		packet << (unsigned char)0x91 << (unsigned int)0xFFFFFFFF;
 		if (!inpAccount->text().isNull()) {
@@ -624,11 +670,15 @@ void cLoginDialog::selectShard(int id) {
 	if (id >= 0 && id < (int)shards.size()) {
 		// Send relay packet for shard id
 		QByteArray relayRequest(3);
-		QDataStream packet(relayRequest, IO_WriteOnly);
+		QDataStream packet(&relayRequest, QIODevice::WriteOnly);
 		packet.setByteOrder(QDataStream::BigEndian);
 		packet << (unsigned char)0xa0 << (unsigned short)shards[id].id;
 		UoSocket->send(relayRequest);
 	}
+}
+
+void cLoginDialog::setCharacterList(const QStringList &characters) {
+	charSelectWidget->setCharacters(characters);
 }
 
 cLoginDialog *LoginDialog = 0;

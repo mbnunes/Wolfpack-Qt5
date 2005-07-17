@@ -3,26 +3,26 @@
 #define __UOSOCKET_H__
 
 #include <qstring.h>
-#include <qcstring.h>
-#include <qvaluelist.h>
-#include <qsocket.h>
+#include <q3cstring.h>
+#include <q3valuelist.h>
+#include <q3socket.h>
 
 #include "enums.h"
 #include "network/uopacket.h"
 
 class cStreamEncryption;
-class QDns;
+class Q3Dns;
 
 typedef cIncomingPacket *(*fnIncomingPacketConstructor)(QDataStream &data, unsigned short size);
 
-class QSocket;
+class Q3Socket;
 
 class cUoSocket : public QObject {
 Q_OBJECT
 
 protected:
 	// TODO: !External event handlers!
-	QSocket *socket;
+	Q3Socket *socket;
 
 	QByteArray pendingPacket;
 	cStreamEncryption *encryption; // Encryption instance
@@ -31,8 +31,8 @@ protected:
 	bool gameServer; // Are we connecting to a gameserver?
 	unsigned short hostport; // The port we're connecting to
 
-	QValueList<QByteArray> outgoingQueue;
-	QValueList<cIncomingPacket*> incomingQueue;
+	Q3ValueList<QByteArray> outgoingQueue;
+	Q3ValueList<cIncomingPacket*> incomingQueue;
 	QByteArray incomingBuffer;
 
 	void buildPackets();

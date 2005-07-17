@@ -1,5 +1,7 @@
 
 #include "gui/scrollbar.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 void cVerticalScrollBar::scrollUp(cControl *sender) {
 	setPos(QMAX((int)min(), (int)pos() - 1));

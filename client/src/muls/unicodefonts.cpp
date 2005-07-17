@@ -1,5 +1,5 @@
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 #include "surface.h"
 #include "log.h"
@@ -24,7 +24,7 @@ void cUnicodeFonts::load() {
 	unsigned int f;
 	for (f = 0; f < 3; ++f) {
 		data[f].setName(filename[f]); // Try to open the unicode font file
-		if (!data[f].open(IO_ReadOnly)) {
+		if (!data[f].open(QIODevice::ReadOnly)) {
 			throw Exception(tr("Unable to open the unicode font %1 at %2.").arg(f).arg(filename[f]));
 		}
 
@@ -66,8 +66,8 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 	unsigned int lineHeight = 0; // Height of the current line
 	unsigned int lines = 1; // Number of lines
 	unsigned int i;
-	QValueList<unsigned int> lineWidths; // Vector with the lengths of lines
-	QValueList<unsigned int> lineHeights; // List with the heights of every line
+	Q3ValueList<unsigned int> lineWidths; // Vector with the lengths of lines
+	Q3ValueList<unsigned int> lineHeights; // List with the heights of every line
 	QDataStream &dataStream = this->dataStream[font];
 
 	/*

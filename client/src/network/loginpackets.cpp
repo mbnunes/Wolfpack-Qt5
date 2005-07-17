@@ -5,7 +5,10 @@
 #include "log.h"
 #include "enums.h"
 
-#include <qvaluevector.h>
+#include <q3valuevector.h>
+#include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 /*
 	This packet is sent by the server is the login was accepted. Contains the list of possible
@@ -13,7 +16,7 @@
 */
 class cShardListPacket : public cDynamicIncomingPacket {
 protected:
-	QValueList<stShardEntry> shards;
+	Q3ValueList<stShardEntry> shards;
 	unsigned char listFlag;
 public:
 	cShardListPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
@@ -45,7 +48,7 @@ public:
 	virtual void handle(cUoSocket *socket) {
 		LoginDialog->clearShardList();
 
-		QValueList<stShardEntry>::iterator it;
+		Q3ValueList<stShardEntry>::iterator it;
 		for (it = shards.begin(); it != shards.end(); ++it) {
 			LoginDialog->addShard(*it);
 		}
@@ -167,8 +170,8 @@ AUTO_REGISTER_PACKET(0xb9, cEnableFeatures::creator);
 */
 class cCharacterListPacket : public cDynamicIncomingPacket {
 protected:
-	QValueVector<QString> characters;
-	QValueVector<stStartLocation> startLocations;
+	QStringList characters;
+	Q3ValueVector<stStartLocation> startLocations;
 	unsigned int flags;
 public:
 	cCharacterListPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
@@ -221,6 +224,7 @@ public:
 
 	virtual void handle(cUoSocket *socket) {
 		LoginDialog->show(PAGE_SELECTCHAR);
+		LoginDialog->setCharacterList(characters);
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

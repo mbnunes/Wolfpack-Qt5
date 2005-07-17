@@ -1,7 +1,7 @@
 
 #include <qdatetime.h>
 #include <qdir.h>
-#include <qvbox.h>
+#include <q3vbox.h>
 
 #include "uoclient.h"
 #include "utilities.h"

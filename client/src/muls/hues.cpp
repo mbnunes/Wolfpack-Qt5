@@ -11,7 +11,7 @@ void cHues::load() {
 	QFile data(Utilities::getUoFilename("hues.mul"));
 
 	// Open files
-	if (!data.open(IO_ReadOnly)) {
+	if (!data.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open hues data at %1.").arg(data.name()));
 	}
 

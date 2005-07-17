@@ -4,7 +4,7 @@
 
 #include <time.h>
 #include <qstring.h>
-#include <qintcache.h>
+#include <Q3IntCache>
 
 #include "exceptions.h"
 #include "mersennetwister.h"
@@ -26,7 +26,7 @@ namespace Utilities {
 
 	QString getUoFilename(const QString &filename);
 
-	void launchBrowser(const QCString &url);
+	void launchBrowser(const QString &url);
 
 	inline unsigned int getTicks() {
 		return (unsigned int)clock();
@@ -80,9 +80,9 @@ namespace Utilities {
 };
 
 // Please note that this cache does steal reference counts
-class TextureCache : public QIntCache< cTexture > {
+class TextureCache : public Q3IntCache< cTexture > {
 public:
-	TextureCache(int a, int b) : QIntCache< cTexture > (a, b) {
+	TextureCache(int a, int b) : Q3IntCache< cTexture > (a, b) {
 	}
 
 protected:

@@ -4,7 +4,7 @@
 
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 
 #include "enums.h"
 #include "utilities.h"
@@ -38,8 +38,8 @@ public:
 	}
 
 	// Build a text string
-	cTexture *buildText(unsigned char font, const QCString &text, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT, bool hueAll = false);
-	cTexture *buildTextWrapped(unsigned char font, const QCString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT);
+	cTexture *buildText(unsigned char font, const Q3CString &text, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT, bool hueAll = false);
+	cTexture *buildTextWrapped(unsigned char font, const Q3CString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT);
 };
 
 extern cAsciiFonts *AsciiFonts;

@@ -11,6 +11,11 @@
 #include <qimage.h>
 #include <qdatetime.h>
 #include <qmenubar.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QErrorMessage>
 
 /* XPM */
 static const char * const icon_xpm[] = {
@@ -73,12 +78,12 @@ MainWindow::MainWindow() {
 	setIcon(pixmap);
 
 	// Create the File menu
-	QPopupMenu *file = new QPopupMenu(this);
-	file->insertItem("E&xit", this, SLOT(close()));
+	QMenu *file = new QMenu(this);
+	file->addAction("E&xit", this, SLOT(close()));
 
 	// Create a menu bar at the top of the window
-	/*QMenuBar *menuBar = new QMenuBar(this);
-	menuBar->insertItem(tr("&File"), file);*/
+	QMenuBar *menuBar = new QMenuBar(this);
+	menuBar->insertItem(tr("&File"), file);
 
 	GLWidget = new cGLWidget(this);
 	setCentralWidget(GLWidget);
@@ -99,7 +104,7 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 	mouseCapture = 0; // Control which got the last mousedown event
 	lastMouseMovement = 0; // Control that got the last movement event
 
-	setFocusPolicy(WheelFocus);
+	setFocusPolicy(Qt::WheelFocus);
 }
 
 cGLWidget::~cGLWidget() {

@@ -3,7 +3,11 @@
 #define __MAINWINDOW_H__
 
 #include <qgl.h>
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QEvent>
 
 class cControl;
 
@@ -36,7 +40,7 @@ protected:
 	void createScreenshot(const QString &filename);
 };
 
-class MainWindow : public QMainWindow {
+class MainWindow : public Q3MainWindow {
 	Q_OBJECT
 
 public:

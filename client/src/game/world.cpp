@@ -1,6 +1,8 @@
 
 #include "uoclient.h"
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 #include "game/world.h"
 #include "game/groundtile.h"
 #include "game/statictile.h"
@@ -54,7 +56,7 @@ void cWorld::clearEntities() {
 }
 
 void cWorld::cleanupEntities() {
-	QValueVector<unsigned int> toremove; // Cells that are now empty
+	Q3ValueVector<unsigned int> toremove; // Cells that are now empty
 
 	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
 		Cell &cell = it.data();
@@ -74,7 +76,7 @@ void cWorld::cleanupEntities() {
 	}
 
 	// Remove empty cells
-	for (QValueVector<unsigned int>::const_iterator it = toremove.begin(); it != toremove.end(); ++it) {
+	for (Q3ValueVector<unsigned int>::const_iterator it = toremove.begin(); it != toremove.end(); ++it) {
 		entities.remove(*it);
 	}
 }

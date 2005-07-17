@@ -2,9 +2,11 @@
 #include <windows.h>
 
 #include "utilities.h"
+//Added by qt3to4:
+#include <QString>
 
 namespace Utilities {
-	void launchBrowser(const QCString &url) {
-		ShellExecuteA(0, "open", url.data(), "", "", SW_NORMAL);
+	void launchBrowser(const QString &url) {
+		ShellExecuteA(0, "open", url.toLatin1(), "", "", SW_NORMAL);
 	}
 };
