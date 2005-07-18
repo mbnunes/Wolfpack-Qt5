@@ -40,6 +40,9 @@ def onUse(char, item):
 	if item.hastag('protected'):
 		protected = True
 
+	if char.gm:
+		protected = False
+
 	# Send BookOpen packet
 	# Author / Title
 	author = ''
