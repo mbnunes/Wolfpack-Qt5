@@ -23,8 +23,8 @@
 		<category>Base Armor\Artifacts\Shadow Dancer Leggings</category>
 		<!-- Properties -->
 		<intproperty name="artifact_rarity" value="11" />
-		<intproperty name="skillbonus_STEALING" value="20" />
-		<intproperty name="skillbonus_STEALTH" value="20" />
+		<tag name="skillbonus_0" value="33,200" /> <!-- Stealing -->
+		<tag name="skillbonus_1" value="47,200" /> <!-- Stealth -->
 		<intproperty name="res_physical" value="17" />
 		<intproperty name="res_fire" value="4" />
 		<intproperty name="res_cold" value="3" />
