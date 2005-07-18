@@ -3438,6 +3438,11 @@ bool cUOSocket::useItem( P_ITEM item )
 		{
 			allowed = true;
 		}
+		// GMs can use all things
+		if ( _player->isGM() )
+		{
+			allowed = true;
+		}
 
 		Py_DECREF( args );
 
