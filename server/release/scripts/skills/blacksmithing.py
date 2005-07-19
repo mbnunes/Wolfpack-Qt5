@@ -1,8 +1,8 @@
 #################################################################
-#	 )			(\_		 # WOLFPACK 13.0.0 Scripts										#
-#	((		_/{	"-;	# Created by: DarkStorm											#
-#	 )).-' {{ ;'`	 # Revised by:																#
-#	( (	;._ \\ ctr # Last Modification: Created								 #
+#   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  # Created by: Darkstorm                      #
+#   )).-' {{ ;'`   # Revised by:                                #
+#  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
 from wolfpack import console
@@ -191,7 +191,7 @@ class SeSmithItemAction(SmithItemAction):
 			return False
 		else:
 			return SmithItemAction.visible(self, char, arguments)
-			
+
 	def checkmaterial(self, player, arguments, silent = 0):
 		if player.socket and player.socket.flags & 0x10 == 0:
 			return False
@@ -224,11 +224,11 @@ class BlacksmithingMenu(MakeMenu):
 	def checktool(self, player, item, wearout = False):
 		if not MakeMenu.checktool(self, player, item, wearout):
 			return False
-		
+
 		if not checkanvilandforge(player):
 			player.socket.clilocmessage(1044267)
 			return False
-			
+
 		return True
 
 	#
