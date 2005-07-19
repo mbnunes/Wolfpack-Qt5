@@ -351,7 +351,7 @@ def loadMenu(id, parent = None):
 				for j in range(0, child.childcount):
 					subchild = child.getchild(j)
 					action.processnode(subchild, menu)
-					
+
 	# Sort the menu. This is important for the makehistory to make.
 	menu.sort()
 

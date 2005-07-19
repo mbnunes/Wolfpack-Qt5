@@ -180,6 +180,25 @@ class SmithItemAction(CraftItemAction):
 		player.soundeffect(0x2a)
 
 #
+# The user has to have Samurai Empire installed
+#
+class SeSmithItemAction(SmithItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		SmithItemAction.__init__(self, parent, title, itemid, definition)
+
+	def visible(self, char, arguments):
+		if char.socket and char.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return SmithItemAction.visible(self, char, arguments)
+			
+	def checkmaterial(self, player, arguments, silent = 0):
+		if player.socket and player.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return SmithItemAction.checkmaterial(self, player, arguments, silent)
+
+#
 # A blacksmith menu. The most notable difference is the
 # button for selecting another ore.
 #
@@ -335,7 +354,7 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'smith':
+		elif child.name in ['smith', 'sesmith']:
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
 				console.log(LOG_ERROR, "Smith action without definition or name in menu %s.\n" % menu.id)
 			else:
@@ -350,9 +369,14 @@ def loadMenu(id, parent = None):
 							itemchild = item.findchild('id')
 							if itemchild:
 								itemid = itemchild.value
+						else:
+							console.log(LOG_ERROR, "Smith action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-					action = SmithItemAction(menu, name, int(itemid), itemdef)
+					if child.name == 'sesmith':
+						action = SeSmithItemAction(menu, name, int(itemid), itemdef)
+					else:
+						action = SmithItemAction(menu, name, int(itemid), itemdef)
 				except:
 					console.log(LOG_ERROR, "Smith action with invalid item id in menu %s.\n" % menu.id)
 

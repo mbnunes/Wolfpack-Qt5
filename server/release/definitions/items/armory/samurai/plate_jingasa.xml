@@ -19,7 +19,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Base Armor\Samurai\Headwear\Plate\Jingasa 1-1</category>
+		<category>Base Armor\Samurai\Headwear\Plate\Heavy Platemail Jingasa 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="95" />
@@ -33,7 +33,7 @@
 	<item id="27c2" inherit="2777">
 		<id>0x27c2</id>
 		<baseid>2777</baseid>
-		<category>Base Armor\Samurai\Headwear\Plate\Jingasa 1-2</category>
+		<category>Base Armor\Samurai\Headwear\Plate\Heavy Platemail Jingasa 2</category>
 	</item>
 
 	<!-- Plate Jingasa 2 -->
@@ -46,7 +46,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Base Armor\Samurai\Headwear\Plate\Jingasa 2-1</category>
+		<category>Base Armor\Samurai\Headwear\Plate\Light Platemail Jingasa 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="95" />
@@ -60,7 +60,7 @@
 	<item id="27cc" inherit="2781">
 		<id>0x27cc</id>
 		<baseid>2781</baseid>
-		<category>Base Armor\Samurai\Headwear\Plate\Jingasa 2-2</category>
+		<category>Base Armor\Samurai\Headwear\Plate\Light Platemail Jingasa 2</category>
 	</item>
 
 	<!-- Plate Jingasa 3 -->
@@ -73,7 +73,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Base Armor\Samurai\Headwear\Plate\Jingasa 3-1</category>
+		<category>Base Armor\Samurai\Headwear\Plate\Small Platemail Jingasa 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="95" />
@@ -87,7 +87,7 @@
 	<item id="27cf" inherit="2784">
 		<id>0x27cf</id>
 		<baseid>2784</baseid>
-		<category>Base Armor\Samurai\Headwear\Plate\Jingasa 3-2</category>
+		<category>Base Armor\Samurai\Headwear\Plate\Small Platemail Jingasa 2</category>
 	</item>
 
 </definitions>

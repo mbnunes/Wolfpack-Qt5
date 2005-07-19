@@ -83,6 +83,32 @@
 			<blacksmithing min="441" max="941" penalty="264" />
 			<ingots amount="20" />
 		</smith>
+		<!--
+		<sesmith definition="" name="Dragon Barding Deed">
+			<blacksmithing min="725" max="1225" penalty="264" />
+			<ingots amount="750" />
+		</sesmith>
+		-->
+		<sesmith definition="2779" name="Platemail Mempo">
+			<blacksmithing min="800" max="1300" penalty="264" />
+			<ingots amount="18" />
+		</sesmith>
+		<sesmith definition="277d" name="Platemail Do">
+			<blacksmithing min="870" max="1370" penalty="264" />
+			<ingots amount="28" />
+		</sesmith>
+		<sesmith definition="2780" name="Platemail Hiro Sode">
+			<blacksmithing min="800" max="1300" penalty="264" />
+			<ingots amount="16" />
+		</sesmith>
+		<sesmith definition="2788" name="Platemail Suneate">
+			<blacksmithing min="650" max="1150" penalty="264" />
+			<ingots amount="20" />
+		</sesmith>
+		<sesmith definition="278d" name="Platemail Haidate">
+			<blacksmithing min="650" max="1150" penalty="264" />
+			<ingots amount="20" />
+		</sesmith>
 	</menu>
 
 	<!-- Helmets -->
@@ -107,6 +133,42 @@
 			<blacksmithing min="626" max="1126" penalty="300" />
 			<ingots amount="15" />
 		</smith>
+		<sesmith definition="2774" name="Chainmail Hatsuburi">
+			<blacksmithing min="300" max="800" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+		<sesmith definition="2775" name="Platemail Hatsuburi">
+			<blacksmithing min="450" max="950" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+		<sesmith definition="2777" name="Heavy Platemail Jingasa">
+			<blacksmithing min="450" max="950" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+		<sesmith definition="2781" name="Light Platemail Jingasa">
+			<blacksmithing min="450" max="950" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+		<sesmith definition="2784" name="Small Platemail Jingasa">
+			<blacksmithing min="450" max="950" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+
+		<!--
+		<sesmith definition="" name="Decorative Platemail Kabuto">
+			<blacksmithing min="900" max="1400" penalty="300" />
+			<ingots amount="25" />
+		</sesmith>
+		<sesmith definition="" name="Platemail Battle Kabuto">
+			<blacksmithing min="900" max="1400" penalty="300" />
+			<ingots amount="25" />
+		</sesmith>
+		-->
+
+		<sesmith definition="236d" name="Standard Platemail Kabuto">
+			<blacksmithing min="900" max="1400" penalty="300" />
+			<ingots amount="25" />
+		</sesmith>
 	</menu>
 
 	<!-- Shields -->
@@ -187,6 +249,44 @@
 			<blacksmithing min="243" max="843" penalty="300" />
 			<ingots amount="14" />
 		</smith>
+		<sesmith definition="27a2" name="No-Dachi">
+			<blacksmithing min="750" max="1350" penalty="300" />
+			<ingots amount="18" />
+		</sesmith>
+		<sesmith definition="27a4" name="Wakizashi">
+			<blacksmithing min="500" max="1100" penalty="300" />
+			<ingots amount="8" />
+		</sesmith>
+
+		<sesmith definition="27a7" name="Lajatang">
+			<blacksmithing min="800" max="1400" penalty="300" />
+			<ingots amount="25" />
+		</sesmith>
+
+		<sesmith definition="27a9" name="Daisho">
+			<blacksmithing min="600" max="1200" penalty="300" />
+			<ingots amount="15" />
+		</sesmith>
+
+		<sesmith definition="27ab" name="Tekagi">
+			<blacksmithing min="550" max="1150" penalty="300" />
+			<ingots amount="12" />
+		</sesmith>
+
+		<sesmith definition="27ac" name="Shuriken">
+			<blacksmithing min="450" max="1050" penalty="300" />
+			<ingots amount="5" />
+		</sesmith>
+
+		<sesmith definition="27ad" name="Kama">
+			<blacksmithing min="400" max="1000" penalty="300" />
+			<ingots amount="14" />
+		</sesmith>
+
+		<sesmith definition="27af" name="Sai">
+			<blacksmithing min="500" max="1100" penalty="300" />
+			<ingots amount="12" />
+		</sesmith>
 	</menu>
 
 	<!-- Axe Weapons -->
@@ -291,6 +391,12 @@
 			<blacksmithing min="342" max="942" penalty="300" />
 			<ingots amount="16" />
 		</smith>
+		<sesmith definition="27a3" name="Tessen">
+			<blacksmithing min="850" max="1450" penalty="300" />
+			<tailoring min="500" max="1100" penalty="300" />
+			<ingots amount="16" />
+			<cloth amount="10" />
+		</sesmith>
 	</menu>
 
 	<!-- Dragon Scale Armor -->
