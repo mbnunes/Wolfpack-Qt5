@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Necromancy Spellbook                                          #
+# Chivalry Spellbook                                            #
 #===============================================================#
 import wolfpack
 from magic.spellbook import countspells

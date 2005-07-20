@@ -72,7 +72,7 @@ def callback(char, args):
 class Spell:
 	# We affect another character
 	def affectchar(self, char, mode, target, args=[], item=None):
-		return 1
+		return True
 
 	def register(self, id):
 		self.spellid = id
@@ -82,6 +82,7 @@ class Spell:
 		# Set Mana
 		self.mana = 0
 		self.reagents = {}
+		self.tithingpoints = 0
 		self.validtarget = TARGET_IGNORE
 		self.spellid = None
 		self.mantra = None
@@ -139,7 +140,7 @@ class Spell:
 				socket.clilocmessage(502643)
 			else:
 				npc_debug(char, 'Trying to cast while being frozen.')
-			return 0
+			return False
 
 		# We are already casting a spell
 		if char.hasscript('magic') or (socket and socket.hastag('cast_target')):
@@ -147,15 +148,15 @@ class Spell:
 				socket.clilocmessage(502642)
 			else:
 				npc_debug(char, 'Trying to cast spell while already casting a spell.')
-			return 0
+			return False
 
 		# If we are using a spellbook to cast, check if we do have
 		# the spell in our spellbook (0-based index)
 		if not self.inherent and mode == MODE_BOOK and not magic.utilities.hasSpell(char, self.spellid - 1, False):
-			return 0
+			return False
 
 		if not self.checkrequirements(char, mode, args, target, item):
-			return 0
+			return False
 
 		# Unhide the Caster
 		char.reveal()
@@ -195,7 +196,7 @@ class Spell:
 			target = target.serial
 
 		char.addtimer(self.calcdelay(char, mode), callback, [self, mode, args, target, item], 0, 0, "cast_delay")
-		return 1
+		return True
 
 	#
 	# Scale Mana
@@ -213,7 +214,7 @@ class Spell:
 	def calcdelay(self, char, mode):
 		# Wands and commands don't have a delay
 		if mode == MODE_WAND or mode == MODE_CMD:
-			return 0
+			return False
 
 		# Get the AOS bonus from all items the character wears
 		castspeed = 3
@@ -282,37 +283,40 @@ class Spell:
 		if mode == MODE_BOOK:
 			if not self.checkweapon(char):
 				char.message(502626)
-				return 0
+				return False
 
 			# Check for Mana
 			if char.mana < self.mana:
 				char.message(502625)
-				return 0
+				return False
 
 			if not self.checkreagents(char, mode, args):
+				return False
+			
+			if not self.checktithingpoints(char, mode, args):
 				return False
 
 		elif mode == MODE_SCROLL:
 			if not self.checkweapon(char):
 				char.message(502626)
-				return 0
+				return False
 
 			# Check if the scroll is allright
 			if not item or item.getoutmostchar() != char:
 				char.message(501625)
-				return 0
+				return False
 
 			# Check for Mana
 			if char.mana < (self.mana + 1) / 2:
 				char.message(502625)
-				return 0
+				return False
 
 		elif mode == MODE_WAND:
 			# Check if the wand is allright
 			if not item or item.getoutmostchar() != char:
-				return 0
+				return False
 
-		return 1
+		return True
 
 	# Check for Reagents
 	def checkreagents(self, char, mode, args=[]):
@@ -328,6 +332,13 @@ class Spell:
 
 		return True
 
+	# Check for Tithing Points
+	def checktithingpoints(self, char, mode, args=[]):
+		if not char.npc and self.tithingpoints > 0:
+			points = char.gettag('tithing_points')
+			if points and points < self.tithingpoints:
+				char.socket.clilocmessage(1060173, self.tithingpoints ) # You must have at least ~1_TITHE_REQUIREMENT~ Tithing Points to use this ability,
+
 	# Consume Reagents
 	def consumereagents(self, char, mode, args=[]):
 		if not char.npc and len(self.reagents) > 0:
@@ -336,6 +347,12 @@ class Spell:
 			if lowerreagentcost == 0 or lowerreagentcost < random.randint(0, 99):
 				consumeReagents(char.getbackpack(), self.reagents.copy())
 
+	# Consume Tithing Points (Paladins)
+	def consumetithingpoints(self, char, mode, args=[]):
+		if not char.npc and self.tithingpoints > 0:
+			points = char.gettag('tithing_points')
+			char.settag('tithing_points', points - self.tithingpoints)
+
 	def consumerequirements(self, char, mode, args=[], target=None, item=None):
 		if char.gm:
 			return True
@@ -343,7 +360,7 @@ class Spell:
 		# Check Basic Requirements before proceeding (Includes Death of Caster etc.)
 		if not self.checkrequirements(char, mode, args, target, item):
 			fizzle(char)
-			return 0
+			return False
 
 		# Check Skill
 		if self.skill != None:
@@ -357,7 +374,7 @@ class Spell:
 			if not char.checkskill(self.skill, minskill, maxskill):
 				char.message(502632)
 				fizzle(char)
-				return 0
+				return False
 
 		# Consume Mana
 		if mode == MODE_BOOK:
@@ -367,6 +384,7 @@ class Spell:
 				char.updatemana()
 
 			self.consumereagents(char, mode, args)
+			self.consumetithinpoints(char, mode, args)
 
 		# Reduced Skill, Reduced Mana, No Reagents
 		elif mode == MODE_SCROLL:
@@ -389,11 +407,11 @@ class Spell:
 		# Set the next spell delay
 		self.setspelldelay(char, mode)
 
-		return 1
+		return True
 
 	# Not implemented yet
 	def checkreflect(self, char, mode, targettype, target, args, item):
-		return 0
+		return False
 
 	#
 	# bonus Fixed bonus to the throw.
@@ -442,10 +460,10 @@ class Spell:
 
 		# No chance to resist
 		if chance <= 0.0:
-			return 0
+			return False
 
 		if chance >= 1.0:
-			return 1
+			return True
 
 		maxskill = self.circle * 100
 		maxskill += (1 + ((self.circle - 1) / 6)) * 250
