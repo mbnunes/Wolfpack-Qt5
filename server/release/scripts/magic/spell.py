@@ -270,7 +270,6 @@ class Spell:
 				castrecovery = 0
 
 			delay = float(castrecovery) / 4.0
-			#char.message(str(delay))
 
 			char.socket.settag('spell_delay', time.time() + delay)
 
@@ -339,6 +338,8 @@ class Spell:
 			points = char.gettag('tithing_points')
 			if points and points < self.tithingpoints:
 				char.socket.clilocmessage(1060173, self.tithingpoints ) # You must have at least ~1_TITHE_REQUIREMENT~ Tithing Points to use this ability,
+				return False
+		return True
 
 	# Consume Reagents
 	def consumereagents(self, char, mode, args=[]):
