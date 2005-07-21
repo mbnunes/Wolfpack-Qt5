@@ -72,7 +72,6 @@ def hasSpell(char, spell, silent = True):
 	book = char.itemonlayer(1)
 	
 	if magic.spellbook.hasspell(book, spell):
-		char.socket.sysmessage( "gg" )
 		return True
 
 	for book in char.getbackpack().content:

@@ -32,7 +32,7 @@ def hasspell( item, spell ):
 
 			return spells & ( 0x01 << spell )
 
-	return 0
+	return False
 
 def addspell( item, spell ):
 	if not item or not item.hasscript( 'magic.necrospellbook' ):
@@ -47,13 +47,20 @@ def addspell( item, spell ):
 	item.settag( 'circle' + str( circle ), spells )
 	item.resendtooltip()
 
-	return 1
+	return True
 
 
 def onUse(char, item):
 	if item.getoutmostchar() != char:
 		char.socket.sysmessage('The book has to be in your belongings to be used.')
-		return 1
+		return True
+
+	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook
+	# once its already open.
+	#char.socket.removeobject(item)
+	if item.container and item.container.isitem():
+		char.socket.sendobject(item.container)
+	char.socket.sendobject(item)
 
 	packet = wolfpack.packet( 0x24, 7 )
 	packet.setint( 1, item.serial )
@@ -75,7 +82,7 @@ def onUse(char, item):
 			packet.setbyte( 15 + i, int( item.gettag( 'circle' + str( i + 1 ) ) ) )
 
 	packet.send( char.socket )
-	return 1
+	return True
 
 def onShowTooltip(viewer, object, tooltip):
 	tooltip.add(1042886, str(countspells(object)))
