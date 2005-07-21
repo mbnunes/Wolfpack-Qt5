@@ -79,7 +79,7 @@ def hasSpell(char, spell, silent = True):
 			return True
 
 	if not silent and char.socket:
-		char.socket.clilocmessage(1042404) # You don't know that spell.
+		char.socket.clilocmessage(1042404) # You don't have that spell.
 
 	return False
 
