@@ -391,7 +391,7 @@ class Spell:
 				char.updatemana()
 
 			self.consumereagents(char, mode, args)
-			self.consumetithinpoints(char, mode, args)
+			self.consumetithingpoints(char, mode, args)
 
 		# Reduced Skill, Reduced Mana, No Reagents
 		elif mode == MODE_SCROLL:

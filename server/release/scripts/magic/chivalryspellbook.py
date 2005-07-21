@@ -8,11 +8,54 @@
 #===============================================================#
 import wolfpack
 from magic.spellbook import countspells
+from math import floor
+
+# spellcount
+def countspells(item):
+	count = 0
+
+	for i in range( 1, 3 ):
+		if item.hastag('circle' + str(i)):
+			spells = int(item.gettag('circle' + str(i)))
+			for j in range(0, 9):
+				if (spells >> j) & 0x01:
+					count += 1
+	return count
+
+def hasspell( item, spell ):
+	if item and item.hasscript( 'magic.chivalryspellbook' ):
+		spell = spell - 200
+
+		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
+		spell = spell % 8
+		if item.hastag( 'circle' + str( circle ) ):
+			spells = int( item.gettag( 'circle' + str( circle ) ) )
+
+			return spells & ( 0x01 << spell )
+
+	return False
+
+def addspell( item, spell ):
+	if not item or not item.hasscript( 'magic.chivalryspellbook' ):
+		return 0
+
+	spell = spell - 200
+	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
+	item.say("zirkel= " + str(circle))
+	spell = spell % 8
+	spells = 0
+	if item.hastag( 'circle' + str( circle ) ):
+		spells = int( item.gettag( 'circle' + str( circle ) ) )
+	spells |= 0x01 << spell
+	item.settag( 'circle' + str( circle ), spells )
+	item.resendtooltip()
+
+	return 1
 
 def onUse(char, item):
 	if item.getoutmostchar() != char:
 		char.socket.sysmessage('The book has to be in your belongings to be used.')
-		return 1
+		return True
 
 	packet = wolfpack.packet( 0x24, 7 )
 	packet.setint( 1, item.serial )
@@ -34,7 +77,7 @@ def onUse(char, item):
 			packet.setbyte( 15 + i, int( item.gettag( 'circle' + str( i + 1 ) ) ) )
 
 	packet.send( char.socket )
-	return 1
+	return True
 
 def onShowTooltip(viewer, object, tooltip):
 	tooltip.add(1042886, str(countspells(object)))

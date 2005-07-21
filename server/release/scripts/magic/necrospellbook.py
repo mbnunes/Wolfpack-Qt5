@@ -7,12 +7,12 @@
 # Necromancy Spellbook                                          #
 #===============================================================#
 import wolfpack
-from math import floor,ceil
+from math import floor
 
 def countspells(item):
 	count = 0
 
-	for i in range( 1, 2 ):
+	for i in range( 1, 3 ):
 		if item.hastag('circle' + str(i)):
 			spells = int(item.gettag('circle' + str(i)))
 			for j in range(0, 9):
@@ -22,10 +22,10 @@ def countspells(item):
 
 def hasspell( item, spell ):
 	if item and item.hasscript( 'magic.necrospellbook' ):
-		spell = spell - 200
+		spell = spell - 100
 
-		circle = int( floor( spell / 2 ) ) + 1 # 0 for first circle
-		spell = spell % 2
+		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
+		spell = spell % 8
 
 		if item.hastag( 'circle' + str( circle ) ):
 			spells = int( item.gettag( 'circle' + str( circle ) ) )
@@ -37,8 +37,9 @@ def hasspell( item, spell ):
 def addspell( item, spell ):
 	if not item or not item.hasscript( 'magic.necrospellbook' ):
 		return 0
-	circle = int( floor( spell / 2 ) ) + 1 # 0 for first circle
-	spell = spell % 2
+	spell = spell - 100
+	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
+	spell = spell % 8
 	spells = 0
 	if item.hastag( 'circle' + str( circle ) ):
 		spells = int( item.gettag( 'circle' + str( circle ) ) )
@@ -65,7 +66,7 @@ def onUse(char, item):
 	packet.setshort( 5, 1	 )	 # Unknown. Maybe it's a subsubcommand ?
 	packet.setint( 7, item.serial ) # Spellbook serial
 	packet.setshort( 11, item.id ) # Item id
-	packet.setshort( 13, 101 ) # Scroll offset (1 = regular, 101 = necro, 201 =paladin)
+	packet.setshort( 13, 101 ) # Scroll offset (1 = regular, 101 = necro, 201 = paladin)
 
 	for i in range( 0, 2 ):
 		if not item.hastag( 'circle' + str( i + 1 ) ):

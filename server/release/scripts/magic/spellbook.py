@@ -78,7 +78,6 @@ def onLoad():
 # Does the Spellbook have a specific spell?
 def hasspell( item, spell ):
 	if item and item.hasscript( 'magic.spellbook' ):
-
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 		spell = spell % 8
 
@@ -87,7 +86,7 @@ def hasspell( item, spell ):
 
 			return spells & ( 0x01 << spell )
 
-	return 0
+	return False
 
 # spellcount
 def countspells(item):
@@ -104,28 +103,24 @@ def countspells(item):
 # Adds the specified spell to the specified spellbook
 def addspell( item, spell ):
 	if not item or not item.hasscript( 'magic.spellbook' ):
-		return 0
+		return False
 
 	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 	spell = spell % 8
-
 	spells = 0
-
 	if item.hastag( 'circle' + str( circle ) ):
 		spells = int( item.gettag( 'circle' + str( circle ) ) )
 
 	spells |= 0x01 << spell
-
 	item.settag( 'circle' + str( circle ), spells )
-
 	item.resendtooltip()
 
-	return 1
+	return True
 
 # Removes the specified spell from the specified spellbook
 def removespell( item, spell ):
 	if not item or not item.hasscript( 'magic.spellbook' ):
-		return 0
+		return False
 
 	# Circle
 	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
@@ -138,7 +133,7 @@ def removespell( item, spell ):
 
 	item.resendtooltip()
 
-	return 1
+	return True
 
 """
 	Add a spell to a spellbook
@@ -197,7 +192,7 @@ def removespelltarget( char, args, target ):
 def onUse( char, item ):
 	if item.getoutmostchar() != char:
 		char.socket.sysmessage('The book has to be in your belongings to be used.')
-		return 1
+		return True
 
 	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook
 	# once its already open.
@@ -227,7 +222,7 @@ def onUse( char, item ):
 
 	packet.send( char.socket )
 
-	return 1
+	return True
 
 #
 # Create the special tooltip

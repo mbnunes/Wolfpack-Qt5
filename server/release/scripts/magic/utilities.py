@@ -70,13 +70,21 @@ def hasSpell(char, spell, silent = True):
 		return True
 
 	book = char.itemonlayer(1)
-
+	
 	if magic.spellbook.hasspell(book, spell):
+		char.socket.sysmessage( "gg" )
 		return True
 
 	for book in char.getbackpack().content:
-		if magic.spellbook.hasspell(book, spell):
-			return True
+		if book.hasscript('magic.spellbook'):
+			if magic.spellbook.hasspell(book, spell):
+				return True
+		elif book.hasscript('magic.necrospellbook'):
+			if magic.necrospellbook.hasspell(book, spell):
+				return True
+		elif book.hasscript('magic.chivalryspellbook'):
+			if magic.chivalryspellbook.hasspell(book, spell):
+				return True
 
 	if not silent and char.socket:
 		char.socket.clilocmessage(1042404) # You don't have that spell.

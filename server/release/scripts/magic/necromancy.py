@@ -13,78 +13,6 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from wolfpack.consts import *
 from magic.utilities import *
 
-class CurseWeapon(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_PIGIRON: 1}
-		self.mantra = 'An Sanct Gra Char'
-
-class PainSpike(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_PIGIRON: 1, REAGENT_GRAVEDUST: 1}
-		self.mantra = 'In Sar'
-
-class CorpseSkin(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_BATWING: 1}
-		self.mantra = 'In Agle Corp Ylem'
-
-class EvilOmen(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1}
-		self.mantra = 'Pas Tym An Sanct'
-
-class BloodOath(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_DAEMONBLOOD: 1}
-		self.mantra = 'In Jux Mani Xen'
-
-class WraithForm(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
-		self.mantra = 'Rel Xen Um'
-
-class MindRot(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_BATWING: 1, REAGENT_DAEMONBLOOD: 1, REAGENT_PIGIRON: 1}
-		self.mantra = 'Wis An Ben'
-
-class HorrificBeast(Spell):
-	def __init__(self):
-		Spell.__init__(self, 0)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_BATWING: 1, REAGENT_DAEMONBLOOD: 1}
-		self.mantra = 'Rel Xen Vas Bal'
-
 class AnimateDead(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
@@ -113,6 +41,78 @@ class AnimateDead(Spell):
 
 		char.socket.sysmessage('Not yet implented')
 
+class BloodOath(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_DAEMONBLOOD: 1}
+		self.mantra = 'In Jux Mani Xen'
+
+class CorpseSkin(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_BATWING: 1}
+		self.mantra = 'In Agle Corp Ylem'
+
+class CurseWeapon(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_PIGIRON: 1}
+		self.mantra = 'An Sanct Gra Char'
+
+class EvilOmen(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1}
+		self.mantra = 'Pas Tym An Sanct'
+
+class HorrificBeast(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_BATWING: 1, REAGENT_DAEMONBLOOD: 1}
+		self.mantra = 'Rel Xen Vas Bal'
+
+class LichForm(Spell):
+	def __init__(self):
+		Spell.__init__(self, 1)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1, REAGENT_NOXCRYSTAL: 1}
+		self.mantra = 'Rel Xen Corp Ort'
+
+class MindRot(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_BATWING: 1, REAGENT_DAEMONBLOOD: 1, REAGENT_PIGIRON: 1}
+		self.mantra = 'Wis An Ben'
+
+class PainSpike(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_PIGIRON: 1, REAGENT_GRAVEDUST: 1}
+		self.mantra = 'In Sar'
+
 class PoisonStrike(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
@@ -140,23 +140,14 @@ class SummonFamiliar(Spell):
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Kal Xen Bal'
 
-class Wither(Spell):
+class VampiricEmbrace(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
-		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
-		self.mantra = 'Kal Vas An Flam'
-
-class LichForm(Spell):
-	def __init__(self):
-		Spell.__init__(self, 1)
-		self.skill = NECROMANCY
-		self.damageskill = SPIRITSPEAK
-		self.mana = 0
-		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1, REAGENT_NOXCRYSTAL: 1}
-		self.mantra = 'Rel Xen Corp Ort'
+		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
+		self.mantra = 'Rel Xen An Sanct'
 
 class VengefulSpirit(Spell):
 	def __init__(self):
@@ -167,29 +158,38 @@ class VengefulSpirit(Spell):
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_GRAVEDUST: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Kal Xen Bal Beh'
 
-class VampiricEmbrace(Spell):
+class Wither(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.damageskill = SPIRITSPEAK
 		self.mana = 0
-		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
-		self.mantra = 'Rel Xen An Sanct'
+		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
+		self.mantra = 'Kal Vas An Flam'
+
+class WraithForm(Spell):
+	def __init__(self):
+		Spell.__init__(self, 0)
+		self.skill = NECROMANCY
+		self.damageskill = SPIRITSPEAK
+		self.mana = 0
+		self.reagents = {REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
+		self.mantra = 'Rel Xen Um'
 
 def onLoad():
-	CurseWeapon().register(101)
-	PainSpike().register(102)
+	AnimateDead().register(101)
+	BloodOath().register(102)
 	CorpseSkin().register(103)
-	EvilOmen().register(104)
-	BloodOath().register(105)
-	WraithForm().register(106)
-	MindRot().register(107)
-	HorrificBeast().register(108)
-	AnimateDead().register(109)
+	CurseWeapon().register(104)
+	EvilOmen().register(105)
+	HorrificBeast().register(106)
+	LichForm().register(107)
+	MindRot().register(108)
+	PainSpike().register(109)
 	PoisonStrike().register(110)
 	Strangle().register(111)
 	SummonFamiliar().register(112)
-	Wither().register(113)
-	LichForm().register(114)
-	VengefulSpirit().register(115)
-	VampiricEmbrace().register(116)
+	VampiricEmbrace().register(113)
+	VengefulSpirit().register(114)
+	Wither().register(115)
+	WraithForm().register(116)

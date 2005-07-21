@@ -17,6 +17,48 @@ def ComputePowerValue( char, div ):
 	v = math.sqrt( char.karma + 20000 + (char.skill[CHIVALRY] * 10) )
 	return v / div
 
+class CleanseByFire(CharEffectSpell):
+	def __init__(self):
+		CharEffectSpell.__init__(self, 5)
+		self.skill = CHIVALRY
+		self.requiredskill = 50
+		self.damageskill = FOCUS
+		self.mana = 10
+		self.tithingpoints = 10
+		self.mantra = 'Expor Flamus'
+
+	def effect(self, char, target, mode, args, item):
+		if target.poison == -1:
+			char.socket.clilocmessage(1060176) # That creature is not poisoned!
+		else:
+			# Cures the target of poisons, but causes the caster to be burned by fire damage for 13-55 hit points.
+			# The amount of fire damage is lessened if the caster has high Karma.
+			chanceToCure = 10000 + char.skill[CHIVALRY] * 75 - ((target.poison + 1) * 2000);
+			chanceToCure /= 100
+			if chanceToCure > random.randint(0, 101):
+				poison.cure( target )
+				if not char == target and char.socket:
+					char.socket.clilocmessage(1010058) # You have cured the target of all poisons!
+				if target.socket:
+					target.socket.clilocmessage( 1010059 ) # You have been cured of all poisons.
+			else:
+				char.socket.clilocmessage(1010060) # You have failed to cure your target!
+				
+			target.soundeffect( 0x1e0 );
+			target.effect(0x373a, 1, 15)
+			target.effect(0x374b, 5, 10) # should move from feet to head...
+			char.soundeffect( 0x208 );
+			char.effect(0x3709, 1, 30)
+
+			damage = 50 - ComputePowerValue( char, 4 )
+
+			if damage < 13:
+				damage = 13
+			elif damage > 55:
+				damage = 55
+
+			char.damage(1, damage, char)
+
 class CloseWounds(CharEffectSpell):
 	def __init__(self):
 		CharEffectSpell.__init__(self, 7)
@@ -61,58 +103,6 @@ class CloseWounds(CharEffectSpell):
 			target.effect( 0x376A, 1, 62 )
 			target.effect( 0x3779, 1, 46 )
 
-class CleanseByFire(CharEffectSpell):
-	def __init__(self):
-		CharEffectSpell.__init__(self, 5)
-		self.skill = CHIVALRY
-		self.requiredskill = 50
-		self.damageskill = FOCUS
-		self.mana = 10
-		self.tithingpoints = 10
-		self.mantra = 'Expor Flamus'
-
-	def effect(self, char, target, mode, args, item):
-		if target.poison == -1:
-			char.socket.clilocmessage(1060176) # That creature is not poisoned!
-		else:
-			# Cures the target of poisons, but causes the caster to be burned by fire damage for 13-55 hit points.
-			# The amount of fire damage is lessened if the caster has high Karma.
-			chanceToCure = 10000 + char.skill[CHIVALRY] * 75 - ((target.poison + 1) * 2000);
-			chanceToCure /= 100
-			if chanceToCure > random.randint(0, 101):
-				poison.cure( target )
-				if not char == target and char.socket:
-					char.socket.clilocmessage(1010058) # You have cured the target of all poisons!
-				if target.socket:
-					target.socket.clilocmessage( 1010059 ) # You have been cured of all poisons.
-			else:
-				char.socket.clilocmessage(1010060) # You have failed to cure your target!
-				
-			target.soundeffect( 0x1e0 );
-			target.effect(0x373a, 1, 15)
-			target.effect(0x374b, 5, 10) # should move from feet to head...
-			char.soundeffect( 0x208 );
-			char.effect(0x3709, 1, 30)
-
-			damage = 50 - ComputePowerValue( char, 4 )
-
-			if damage < 13:
-				damage = 13
-			elif damage > 55:
-				damage = 55
-
-			char.damage(1, damage, char)
-
-class RemoveCurse(Spell):
-	def __init__(self):
-		Spell.__init__(self, 7)
-		self.skill = CHIVALRY
-		self.requiredskill = 50
-		self.damageskill = FOCUS
-		self.mana = 20
-		self.tithingpoints = 10
-		self.mantra = 'Extermo Vomica'
-
 class ConsecrateWeapon(Spell):
 	def __init__(self):
 		Spell.__init__(self, 3)
@@ -123,15 +113,15 @@ class ConsecrateWeapon(Spell):
 		self.tithingpoints = 10
 		self.mantra = 'Consecrus Arma'
 
-class SacredJourney(Spell):
+class DispelEvil(Spell):
 	def __init__(self):
-		Spell.__init__(self, 7)
+		Spell.__init__(self, 2)
 		self.skill = CHIVALRY
-		self.requiredskill = 150
+		self.requiredskill = 350
 		self.damageskill = FOCUS
 		self.mana = 10
-		self.tithingpoints = 15
-		self.mantra = 'Sanctum Viatas'
+		self.tithingpoints = 10
+		self.mantra = 'Dispiro Malas'
 
 class DivineFury(Spell):
 	def __init__(self):
@@ -143,15 +133,6 @@ class DivineFury(Spell):
 		self.tithingpoints = 10
 		self.mantra = 'Divinum Furis'
 
-class DispelEvil(Spell):
-	def __init__(self):
-		Spell.__init__(self, 2)
-		self.skill = CHIVALRY
-		self.requiredskill = 350
-		self.damageskill = FOCUS
-		self.mana = 10
-		self.tithingpoints = 10
-		self.mantra = 'Dispiro Malas'
 
 class EnemyOfOne(Spell):
 	def __init__(self):
@@ -214,15 +195,35 @@ class NobleSacrifice(Spell):
 		self.tithingpoints = 30
 		self.mantra = 'Dium Prostra'
 
+class RemoveCurse(Spell):
+	def __init__(self):
+		Spell.__init__(self, 7)
+		self.skill = CHIVALRY
+		self.requiredskill = 50
+		self.damageskill = FOCUS
+		self.mana = 20
+		self.tithingpoints = 10
+		self.mantra = 'Extermo Vomica'
+
+class SacredJourney(Spell):
+	def __init__(self):
+		Spell.__init__(self, 7)
+		self.skill = CHIVALRY
+		self.requiredskill = 150
+		self.damageskill = FOCUS
+		self.mana = 10
+		self.tithingpoints = 15
+		self.mantra = 'Sanctum Viatas'
+
 
 def onLoad():
-	CloseWounds().register(201)
-	CleanseByFire().register(202)
-	RemoveCurse().register(203)
-	ConsecrateWeapon().register(204)
-	SacredJourney().register(205)
-	DivineFury().register(206)
-	DispelEvil().register(207)
-	EnemyOfOne().register(208)
-	HolyLight().register(209)
-	NobleSacrifice().register(210)
+	CleanseByFire().register(201)
+	CloseWounds().register(202)
+	ConsecrateWeapon().register(203)
+	DispelEvil().register(204)
+	DivineFury().register(205)
+	EnemyOfOne().register(206)
+	HolyLight().register(207)
+	NobleSacrifice().register(208)
+	RemoveCurse().register(209)
+	SacredJourney().register(210)
