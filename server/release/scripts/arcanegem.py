@@ -27,7 +27,6 @@ def getCharges( char ):
 	return charges
 
 def onUse( char, item ):
-	char.socket.sysmessage( str(possible()) )
 	if not item.getoutmostchar() == char:
 		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
 		return True

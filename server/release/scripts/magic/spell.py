@@ -83,6 +83,7 @@ class Spell:
 		self.mana = 0
 		self.reagents = {}
 		self.tithingpoints = 0
+		self.requiredskill = 0
 		self.validtarget = TARGET_IGNORE
 		self.spellid = None
 		self.mantra = None
@@ -377,8 +378,8 @@ class Spell:
 				return False
 
 			# Required skill for Chivalry
-			if char.skill[self.requiredskill] < self.requiredskill:
-				char.socket.clilocmessage( 1060172, self.requiredskill ) # You must have at least ~1_SKILL_REQUIREMENT~ Chivalry to use this ability,
+			if char.skill[self.skill] < self.requiredskill:
+				char.socket.clilocmessage( 1060172, str(self.requiredskill/10) ) # You must have at least ~1_SKILL_REQUIREMENT~ Chivalry to use this ability,
 				return False
 
 		# Consume Mana

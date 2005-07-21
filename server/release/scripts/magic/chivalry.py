@@ -8,6 +8,7 @@ from magic.utilities import *
 from system import poison
 import random
 import math
+from wolfpack.utilities import energydamage, mayAreaHarm
 
 def ComputePowerValue( char, div ):
 	if not char:
@@ -18,7 +19,7 @@ def ComputePowerValue( char, div ):
 
 class CloseWounds(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 7)
+		CharEffectSpell.__init__(self, 7)
 		self.skill = CHIVALRY
 		self.requiredskill = 0
 		self.damageskill = FOCUS
@@ -62,7 +63,7 @@ class CloseWounds(CharEffectSpell):
 
 class CleanseByFire(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 5)
+		CharEffectSpell.__init__(self, 5)
 		self.skill = CHIVALRY
 		self.requiredskill = 50
 		self.damageskill = FOCUS
@@ -171,6 +172,37 @@ class HolyLight(Spell):
 		self.mana = 10
 		self.tithingpoints = 10
 		self.mantra = 'Augus Luminos'
+		self.harmful = 1
+
+	def cast(self, char, mode, args=[], target=None, item=None):
+		if not self.consumerequirements(char, mode, args, target, item):
+			return
+
+		targets = []
+
+		chars = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, 3)
+		for target in chars:
+			if not mayAreaHarm(char, target):
+				continue
+
+			if not char.canreach(target, 3):
+				continue
+
+			targets.append(target)
+
+		char.soundeffect( 0x212 )
+		char.soundeffect( 0x206 )
+		char.effect(0x376A, 1, 29)
+		char.effect(0x37C4, 1, 29)
+		
+		damage = ComputePowerValue( char, 10 ) + random.randint( 0, 3 )
+		if damage < 8:
+			damage = 8
+		elif damage > 24:
+			damage = 24
+
+		for target in targets:
+			energydamage(target, char, damage, 0, 0, 0, 0, 100)
 
 class NobleSacrifice(Spell):
 	def __init__(self):
