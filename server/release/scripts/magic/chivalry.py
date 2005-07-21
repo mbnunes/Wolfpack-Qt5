@@ -112,6 +112,8 @@ class ConsecrateWeapon(Spell):
 		self.mana = 10
 		self.tithingpoints = 10
 		self.mantra = 'Consecrus Arma'
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.socket.sysmessage( tr("Not yet implemented.") )
 
 class DispelEvil(Spell):
 	def __init__(self):
@@ -122,6 +124,8 @@ class DispelEvil(Spell):
 		self.mana = 10
 		self.tithingpoints = 10
 		self.mantra = 'Dispiro Malas'
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.socket.sysmessage( tr("Not yet implemented.") )
 
 class DivineFury(Spell):
 	def __init__(self):
@@ -132,7 +136,8 @@ class DivineFury(Spell):
 		self.mana = 15
 		self.tithingpoints = 10
 		self.mantra = 'Divinum Furis'
-
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.socket.sysmessage( tr("Not yet implemented.") )
 
 class EnemyOfOne(Spell):
 	def __init__(self):
@@ -143,6 +148,8 @@ class EnemyOfOne(Spell):
 		self.mana = 20
 		self.tithingpoints = 10
 		self.mantra = 'Forul Solum'
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.socket.sysmessage( tr("Not yet implemented.") )
 
 class HolyLight(Spell):
 	def __init__(self):
@@ -195,6 +202,88 @@ class NobleSacrifice(Spell):
 		self.tithingpoints = 30
 		self.mantra = 'Dium Prostra'
 
+	def cast(self, char, mode, args=[], target=None, item=None):
+		if not self.consumerequirements(char, mode, args, target, item):
+			return
+
+		targets = []
+
+		chars = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, 3)
+		for target in chars:
+			if target.npc:
+				continue
+			
+			if not char == target:
+				targets.append(target)
+
+		char.soundeffect( 0x244 )
+		char.effect( 0x3709, 1, 30 )
+		char.effect( 0x376A, 1, 30 )
+
+		# Attempts to Resurrect, Cure and Heal all targets in a radius around the caster.
+		# If any target is successfully assisted, the Paladin's current
+		# Hit Points, Mana and Stamina are set to 1.
+		# Amount of damage healed is affected by the Caster's Karma, from 8 to 24 hit points.
+
+		sacrifice = False
+
+		# TODO: Is there really a resurrection chance?
+		resChance = 0.1 + (0.9 * (double(char.karma / 10000)))
+
+		for target in targets:
+			if char.dead:
+				if char.region and char.region.name == "Khaldun":
+					char.socket.clilocmessage( 1010395 ) # The veil of death in this area is too strong and resists thy efforts to restore life.
+				elif resChance > Utility.RandomDouble():
+					target.effect( 0x375A, 1, 15 )
+					# we need a resurrect gump here...
+					#target.SendGump( new ResurrectGump( m, Caster ) )
+					sacrifice = True
+			else:
+				sendEffect = false
+				if target.poison and :
+					if not target == char:
+						char.socket.clilocmessage( 1010058 ) # You have cured the target of all poisons!
+					if target.socket:
+						target.socket.clilocmessage( 1010059 ) # You have been cured of all poisons.
+					sendEffect = True
+					sacrifice = True
+				if target.hitpoints < target.maxhitpoints:
+					toHeal = ComputePowerValue( 10 ) + random.randint( 0, 3 )
+					if toHeal < 8:
+						toHeal = 8
+					elif toHeal > 24:
+						toHeal = 24
+
+					if (char.hitpoints + toHeal) > char.maxhitpoints:
+						char.hitpoints = char.maxhitpoints
+					else:
+						char.hitpoints += toHeal
+					char.updatehealth()
+					sendEffect = true
+
+				# negative stat modifiers should be removed from the target
+
+				if target.frozen:
+					target.frozen = False
+					target.resendtooltip()
+
+				# ToDo:
+				# remove from char:
+				# EvilOmenSpell
+				# StrangleSpell
+				# CorpseSkinSpell
+
+				if sendEffect:
+					target.effect( 0x375A, 1, 15 )
+					sacrifice = True
+		if sacrifice:
+			char.soundeffect( 0x423 );
+			char.hitpoints = 1
+			char.stamina = 1
+			char.mana = 1
+			char.updatestats()
+
 class RemoveCurse(Spell):
 	def __init__(self):
 		Spell.__init__(self, 7)
@@ -204,6 +293,8 @@ class RemoveCurse(Spell):
 		self.mana = 20
 		self.tithingpoints = 10
 		self.mantra = 'Extermo Vomica'
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.socket.sysmessage( tr("Not yet implemented.") )
 
 class SacredJourney(Spell):
 	def __init__(self):
@@ -214,6 +305,8 @@ class SacredJourney(Spell):
 		self.mana = 10
 		self.tithingpoints = 15
 		self.mantra = 'Sanctum Viatas'
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.socket.sysmessage( tr("Not yet implemented.") )
 
 
 def onLoad():
