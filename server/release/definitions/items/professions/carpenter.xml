@@ -490,4 +490,12 @@
 		<weight>2.0</weight>
 	</item>
 
+	<item id="taxidermy_kit">
+		<id>0x1eba</id>
+		<name>#1041279</name>
+		<weight>1.0</weight>
+		<category>Professions\Carpenter\Tools\Taxidermy Kit</category>
+		<basescripts>equipment,taxidermykit</basescripts>
+	</item>
+
 </definitions>

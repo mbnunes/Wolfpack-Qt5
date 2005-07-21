@@ -376,6 +376,11 @@ class Spell:
 				fizzle(char)
 				return False
 
+			# Required skill for Chivalry
+			if char.skill[self.requiredskill] < self.requiredskill:
+				char.socket.clilocmessage( 1060172, self.requiredskill ) # You must have at least ~1_SKILL_REQUIREMENT~ Chivalry to use this ability,
+				return False
+
 		# Consume Mana
 		if mode == MODE_BOOK:
 			if self.mana != 0:

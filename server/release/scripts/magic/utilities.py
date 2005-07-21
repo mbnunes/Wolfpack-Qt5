@@ -84,7 +84,7 @@ def hasSpell(char, spell, silent = True):
 	return False
 
 #
-# A general purpose function for chaning some users stats
+# A general purpose function for changing some users stats
 # This is shared among: curse, bless, all single stat modifying spells
 #
 def statmodifier_dispel(char, args, source, dispelargs):

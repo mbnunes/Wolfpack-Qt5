@@ -23,6 +23,7 @@
 	<include file="definitions/items/professions/miner.xml" />
 	<include file="definitions/items/professions/musician.xml" />
 	<include file="definitions/items/professions/necromancer.xml" />
+	<include file="definitions/items/professions/paladin.xml" />
 	<include file="definitions/items/professions/peasant.xml" />
 	<include file="definitions/items/professions/stablemaster.xml" />
 	<include file="definitions/items/professions/tailorer.xml" />
