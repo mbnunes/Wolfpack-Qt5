@@ -240,8 +240,9 @@ class NobleSacrifice(Spell):
 					#target.SendGump( new ResurrectGump( m, Caster ) )
 					sacrifice = True
 			else:
-				sendEffect = false
-				if target.poison and :
+				sendEffect = False
+				if target.poison:
+					poison.cure( target )
 					if not target == char:
 						char.socket.clilocmessage( 1010058 ) # You have cured the target of all poisons!
 					if target.socket:

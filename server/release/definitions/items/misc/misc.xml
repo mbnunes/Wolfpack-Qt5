@@ -2260,13 +2260,20 @@
 		<category>Misc\Arcane Gem</category>
 	</item>
 
-	<!--
 	<!-- bolas -->
 	<item id="26ac">
 		<id>0x26ac</id>
 		<weight>4.0</weight>
 		<basescripts>equipment,bola</basescripts>
+		<category>Misc\Bola</category>
 	</item>
-	-->
+
+	<item id="bola_ball">
+		<id>0xe73</id>
+		<weight>4.0</weight>
+		<color>0x8ac</color>
+		<decay />
+		<category>Misc\Bola Ball</category>
+	</item>
 
 </definitions>
