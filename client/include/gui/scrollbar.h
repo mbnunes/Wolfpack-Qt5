@@ -6,8 +6,7 @@
 #include "imagebutton.h"
 #include "tiledgumpimage.h"
 #include "gumpimage.h"
-//Added by qt3to4:
-#include <QMouseEvent>
+#include <QtCore>
 
 class cVerticalScrollBar;
 

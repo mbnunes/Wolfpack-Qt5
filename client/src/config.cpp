@@ -416,6 +416,7 @@ void cConfig::load() {
 	// Login
 	loginHost_ = getString("Login", "Host", "127.0.0.1");
 	loginPort_ = getNumber("Login", "Port", 2593);
+	lastUsername_ = getString("Login", "Last Username", "");
 }
 
 void cConfig::reload() {

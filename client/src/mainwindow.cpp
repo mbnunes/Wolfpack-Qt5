@@ -9,6 +9,7 @@
 #include <qpixmap.h>
 #include <qcursor.h>
 #include <qimage.h>
+#include <qlayout.h>
 #include <qdatetime.h>
 #include <qmenubar.h>
 //Added by qt3to4:
@@ -82,8 +83,8 @@ MainWindow::MainWindow() {
 	file->addAction("E&xit", this, SLOT(close()));
 
 	// Create a menu bar at the top of the window
-	QMenuBar *menuBar = new QMenuBar(this);
-	menuBar->insertItem(tr("&File"), file);
+	m_menuBar = new QMenuBar(this);
+	m_menuBar->insertItem(tr("&File"), file);
 
 	GLWidget = new cGLWidget(this);
 	setCentralWidget(GLWidget);
@@ -331,25 +332,17 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	QWidget::mouseReleaseEvent(e);
 }
 
+void cGLWidget::mouseDoubleClickEvent(QMouseEvent * e) {
+	cControl *control = control = Gui->getControl(e->x(), e->y());
+	if (control) {
+		control->processDoubleClick(e);
+	}
+	QWidget::mouseDoubleClickEvent(e);
+}
+
 void cGLWidget::createScreenshot(const QString &filename) {
-	// Read the framebuffer data
-	//unsigned char *pixels = new unsigned char[4 * width() * height()];
-
-	//glReadPixels(0, 0, width(), height(), GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-
-	//QImage image(width(), height(), 32, 0);
 	QImage image = grabFrameBuffer();
 	
-	/*unsigned char *ptr = pixels;
-
-	// We have to flip the framebuffer data here
-	for (int y = height() - 1; y >= 0; --y) {
-		for (int x = 0; x < width(); ++x) {
-			image.setPixel(x, y, qRgb(ptr[0], ptr[1], ptr[2]));
-			ptr += 4;
-		}
-	}*/
-
 	// Save the image as JPG
 	if (!image.save(filename, "JPEG")) {
 		if (WorldView) {
@@ -360,9 +353,26 @@ void cGLWidget::createScreenshot(const QString &filename) {
 			WorldView->addSysMessage(tr("Screenshot saved as %1.").arg(filename));
 		}
 	}
+}
 
-	//delete [] pixels;
+void MainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool locked)  {
+	int mheight = m_menuBar->height();
+
+	if (m_menuBar->isHidden()) {
+		mheight = 0;
+	}
+       
+	resize(width, height + mheight);
+
+	if (locked) {
+		layout()->setResizeMode( QLayout::FreeResize );
+		setMaximumSize(size());
+		setMinimumSize(size());
+	} else {
+		layout()->setResizeMode( QLayout::FreeResize );
+		setMaximumSize(65535, 65535);
+		setMinimumSize(100, 100);
+	}
 }
 
 cGLWidget *GLWidget = 0;
-

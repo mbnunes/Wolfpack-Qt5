@@ -52,6 +52,7 @@ private:
 
 	Q3CString loginHost_;
 	unsigned short loginPort_;
+	QString lastUsername_;
 public:
 	const QString &uoPath();
 	void setUoPath(const QString &data) { uoPath_ = data; setString("General", "Ultima Online Path", data); }
@@ -92,6 +93,9 @@ public:
 
 	const unsigned short loginPort() { return loginPort_; }
 	void setLoginPort(unsigned short data) { loginPort_ = data; setNumber("Login", "Port", data); }
+
+	const QString &lastUsername() const { return lastUsername_; }
+	void setLastUsername(const QString &data) { lastUsername_ = data; setString("Login", "Last Username", data); }
 
 	// constructor
 	cConfig();

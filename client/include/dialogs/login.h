@@ -7,7 +7,7 @@
 #include <qobject.h>
 #include <qstringlist.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <qstring.h>
 
 #include "gui/control.h"
 #include "gui/window.h"
@@ -17,7 +17,7 @@
 
 // Structure used for the shardlist
 struct stShardEntry {
-	Q3CString name;
+	QString name;
 	QHostAddress pingAddress;
 	unsigned char percentFull;
 	unsigned char timezone;
@@ -37,6 +37,7 @@ enum enMenuPage {
 	PAGE_VERIFYING,
 	PAGE_SHARDLIST,
 	PAGE_SELECTCHAR,
+	PAGE_CONFIRMDELETE,
 };
 
 class cCharSelection;
@@ -52,11 +53,17 @@ private:
 	cContainer *shardSelectGump;
 	cTextField *inpAccount, *inpPassword;
 	cContainer *shardList;
+	cContainer *confirmDeleteDialog;
+	cAsciiLabel *confirmDeleteText;
 	cContainer *statusDialog;
 	cContainer *selectCharDialog;
 	cAsciiLabel *statusLabel;
 	enMenuPage page;
+	cImageButton *statusCancel, *statusOk;
+	cBorderGump *selectCharBorder[6];
+	QStringList characterNames;
 
+	void buildConfirmDeleteGump();
 	void buildAccountLoginGump();
 	void buildShardSelectGump();
 	void buildStatusGump();
@@ -64,6 +71,7 @@ private:
 
 	Q3ValueList<stShardEntry> shards;
 	unsigned int shardEntryOffset;
+	bool errorStatus;
 public:
 	void onScrollShardList(int oldpos, int newpos);
 
@@ -71,6 +79,7 @@ public:
 	~cLoginDialog();
 
 	void setStatusText(const QString &text);
+	void setErrorStatus(bool error);
 
 	void show(enMenuPage page); // Show the login dialog
 	void hide(); // Hide the login dialog
@@ -92,6 +101,9 @@ public slots:
 	void helpClicked(cControl *sender);
 	void deleteCharClicked(cControl *sender);
 	void createCharClicked(cControl *sender);
+	void statusCancelClicked(cControl *sender);
+	void statusOkClicked(cControl *sender);
+	void charSelected(cControl *sender);
 
 	// These are connected to the uoSocket
 	void socketError(const QString &error);

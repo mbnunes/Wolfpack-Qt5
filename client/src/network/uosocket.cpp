@@ -1,10 +1,12 @@
 
 #include <q3dns.h>
+#include <q3socket.h>
 
 #include "uoclient.h"
 #include "network/encryption.h"
 #include "network/decompress.h"
 #include "network/uosocket.h"
+#include "network/outgoingpacket.h"
 #include "dialogs/login.h"
 #include "log.h"
 
@@ -153,7 +155,7 @@ void cUoSocket::poll() {
 	}
 }
 
-void cUoSocket::send(const QByteArray &data) {
+void cUoSocket::sendRaw(const QByteArray &data) {
 	QByteArray data2(data.data(), data.size());
 	
 	if (encryption) {
@@ -161,6 +163,10 @@ void cUoSocket::send(const QByteArray &data) {
 	}
 
 	outgoingQueue.push_back(data2);
+}
+
+void cUoSocket::send(const cOutgoingPacket &packet) {
+    sendRaw(packet.data());
 }
 
 void cUoSocket::buildPackets() {

@@ -10,6 +10,7 @@
 #include <QEvent>
 
 class cControl;
+class QMenuBar;
 
 class cGLWidget : public QGLWidget {
 	Q_OBJECT
@@ -34,6 +35,7 @@ protected:
 	void keyReleaseEvent(QKeyEvent *e);
 	void mousePressEvent(QMouseEvent *e);
 	void mouseReleaseEvent(QMouseEvent *e);
+	void mouseDoubleClickEvent(QMouseEvent * e);
 
 	cControl *mouseCapture; // Control which got the last mousedown event
 	cControl *lastMouseMovement; // Control that got the last movement event
@@ -43,11 +45,20 @@ protected:
 class MainWindow : public Q3MainWindow {
 	Q_OBJECT
 
+	QMenuBar *m_menuBar;
 public:
     MainWindow();
     ~MainWindow();
+
+	QMenuBar *menuBar() const;
+
+	void resizeGameWindow(unsigned int width, unsigned int height, bool locked = false);
 };
 
 extern cGLWidget *GLWidget;
+
+inline QMenuBar *MainWindow::menuBar() const {
+	return m_menuBar;
+}
 
 #endif

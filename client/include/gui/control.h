@@ -140,6 +140,8 @@ public:
 	cControl();
 	virtual ~cControl();
 
+	void processDoubleClick(QMouseEvent *e);
+
 	// The parent of this control has moved
 	virtual void onParentMoved(int oldx, int oldy);
 	virtual void onParentResized(int oldwidth, int oldheight);

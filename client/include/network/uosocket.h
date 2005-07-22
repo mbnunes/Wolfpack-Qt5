@@ -2,20 +2,21 @@
 #if !defined(__UOSOCKET_H__)
 #define __UOSOCKET_H__
 
-#include <qstring.h>
-#include <q3cstring.h>
 #include <q3valuelist.h>
-#include <q3socket.h>
+#include <qbytearray.h>
 
 #include "enums.h"
 #include "network/uopacket.h"
 
 class cStreamEncryption;
 class Q3Dns;
+class cOutgoingPacket;
+class Q3Socket;
 
 typedef cIncomingPacket *(*fnIncomingPacketConstructor)(QDataStream &data, unsigned short size);
 
-class Q3Socket;
+// Array with packet lengths.
+extern const Q_UINT16 packetLengths[256];
 
 class cUoSocket : public QObject {
 Q_OBJECT
@@ -56,7 +57,8 @@ public:
 	void poll();
 
 	// Queue a given byte array for sending it to the server
-	void send(const QByteArray &data);
+	void sendRaw(const QByteArray &data);
+	void send(const cOutgoingPacket &packet);
 
 	// Checks if the socket is currently connected
 	bool isConnected();

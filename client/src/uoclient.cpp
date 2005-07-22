@@ -33,6 +33,8 @@
 
 #include "network/uosocket.h"
 
+#include <QErrorMessage>
+
 //#include <windows.h>
 
 cUoClient::cUoClient() {
@@ -216,6 +218,14 @@ void cUoClient::run()
 	} catch(const Exception &e) {
 		Log->print(LOG_ERROR, e.message() + "\n");
 	}
+}
+
+void cUoClient::errorMessage(const QString &message) {
+	QWidget *mainWindow = (MainWindow*)qApp->mainWidget();
+
+	QErrorMessage *msgWindow = QErrorMessage::qtHandler();
+	msgWindow->setWindowTitle(tr("Error"));
+	msgWindow->message(message);
 }
 
 cUoClient *Client = 0; // Global Client Instance

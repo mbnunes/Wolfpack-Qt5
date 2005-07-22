@@ -133,6 +133,10 @@ cControl *cControl::getMovableControl() {
 	}
 }
 
+void cControl::processDoubleClick(QMouseEvent *e) {
+	emit onDoubleClick(this);
+}
+
 void cControl::onMouseEnter() {
 }
 

@@ -44,11 +44,4 @@ public:
 	virtual ~cDynamicIncomingPacket();
 };
 
-/*
-	Abstract base class for outgoing packets.
-*/
-class cOutgoingPacket {
-public:
-};
-
 #endif

@@ -20,7 +20,10 @@
 #include "gui/scrollbar.h"
 #include "gui/worldview.h"
 #include "network/uosocket.h"
+#include "network/outgoingpackets.h"
 #include "mainwindow.h"
+
+#include <QMenuBar>
 
 /* A custom cShardLabel class */
 class cShardLabel : public cTextField {
@@ -95,32 +98,79 @@ class cCharSelection : public cContainer {
 protected:
 	QStringList characters;
 	Q3ValueVector<cAsciiLabel*> labels;
+	int selectedCharacter_;
 public:
+	cCharSelection();
 	void setCharacters(const QStringList &characters);
 	void onMouseDown(QMouseEvent *e);
 	cControl *getControl(int x, int y);
+	int selectedCharacter() const;
 };
 
+cCharSelection::cCharSelection() {
+	selectedCharacter_ = -1;
+}
+
+inline int cCharSelection::selectedCharacter() const {
+	return selectedCharacter_;
+}
+
 void cCharSelection::setCharacters(const QStringList &characters) {
+	selectedCharacter_ = -1;
 	controls.clear();
 	cContainer::clear(); // Clear all controls
 
 	// Re-create the characterlist
-	cAsciiLabel *label = new cAsciiLabel("AscqwdASd");
-	label->setPosition(0, 0);
-	labels.append(label);
-	addControl(label);
+	for (int i = 0; i < characters.size(); ++i) {
+		cAsciiLabel *label = new cAsciiLabel(characters[i].toLatin1(), 5, 0x34f);
+		label->setHueAll(true);
+		label->update(); // Get width/height for it
+		label->setPosition(64 + (287 - label->width()) / 2, 80 + 40 * i + 2);		
+		labels.append(label);
+		addControl(label);
+	}
 }
 
 void cCharSelection::onMouseDown(QMouseEvent *e) {
-	if (!labels.isEmpty()) {
-		labels[0]->setHue(0x480);
+	int selected = -1;
+
+	// Which control is under the mouse
+	QPoint local = mapFromGlobal(e->pos());
+	if (local.x() > 64 && local.x() < 64 + 287) {
+        int id = (local.y() - 80) / 40;
+        int offset = (local.y() - 80) % 40;
+
+		if (id >= 0 && id < labels.size() && offset < 31) {
+			selected = id;
+		}
+	}
+
+	// selection changed
+	if (selected > -1) {
+		for (int i = 0; i < labels.size(); ++i) {
+			if (i == selected) {
+				labels[i]->setHue(0x23);
+			} else {
+				labels[i]->setHue(0x34f);
+			}
+		}
+
+		selectedCharacter_ = selected;
 	}
 }
 
 cControl *cCharSelection::getControl(int x, int y) {
-	cControl *control = cContainer::getControl(x, y);
+	cControl *control = 0;
 
+	// Which control is under the mouse	
+	if (x > 64 && x < 64 + 287) {
+        int id = (y - 80) / 40;
+        int offset = (y - 80) % 40;
+
+		if (id >= 0 && id < labels.size() && offset < 31) {
+			control = labels[id];
+		}
+	}
 	if (control != 0 && control != this) {
 		return this; // be greedy
 	} else {
@@ -129,8 +179,13 @@ cControl *cCharSelection::getControl(int x, int y) {
 }
 
 cLoginDialog::cLoginDialog() {
+	errorStatus = false;
+	confirmDeleteText = 0;
+	statusCancel = 0;
+	statusOk = 0;
 	charSelectWidget = 0;
 	container = 0;
+	confirmDeleteDialog = 0;
 	movieButton = 0;
 	accountLoginGump = 0;
 	shardSelectGump = 0;
@@ -152,12 +207,21 @@ cLoginDialog::~cLoginDialog() {
 }
 
 void cLoginDialog::backClicked(cControl *sender) {
+	switch (page) {
+		case PAGE_SHARDLIST:
+		case PAGE_SELECTCHAR:
+			UoSocket->disconnect();
+			show(PAGE_LOGIN);
+			break;
+	}
 }
 
 void cLoginDialog::nextClicked(cControl *sender) {
 	switch (page) {
 		// Initiate the login
 		case PAGE_LOGIN:
+			// Save username in the configuration
+			Config->setLastUsername(inpAccount->text());
 			UoSocket->connect(Config->loginHost(), Config->loginPort(), 0);
 			show(PAGE_CONNECTING);
 			break;
@@ -301,6 +365,7 @@ void cLoginDialog::buildAccountLoginGump() {
 		inpAccount->setMouseOverHue(0x2b8);
 		inpAccount->setFocusHue(0x23);
 		inpAccount->setMaxLength(16);
+		inpAccount->setText(Config->lastUsername().toLatin1());
 		container->addControl(inpAccount);
 
 		label = new cAsciiLabel(tr("Password").latin1(), 2, 0x34f);
@@ -330,18 +395,25 @@ void cLoginDialog::buildStatusGump() {
 		statusLabel = new cAsciiLabel("Status", 2, 0x34f, ALIGN_CENTER, false);
 		statusLabel->setBounds(116, 150, 408, 200);
 		statusDialog->addControl(statusLabel);
+
+		statusCancel = new cImageButton(306, 296, 0x47e, 0x480);
+		statusCancel->setStateGump(BS_HOVER, 0x47f);
+		statusDialog->addControl(statusCancel);
+		connect(statusCancel, SIGNAL(onClick(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
+
+		statusOk = new cImageButton(306, 296, 0x481, 0x483);
+		statusOk->setStateGump(BS_HOVER, 0x482);
+		statusDialog->addControl(statusOk);
+		connect(statusOk, SIGNAL(onClick(cControl*)), this, SLOT(statusOkClicked(cControl*)));
 	}
 }
 
 void cLoginDialog::show(enMenuPage page) {
-	QWidget *mainWindow = qApp->mainWidget();
-	if (mainWindow) {
-		mainWindow->resize(640, 480);
+	setErrorStatus(false); // Reset error status when changing pages
 
-		/*mainWindow->setMaximumHeight(mainWindow->frameGeometry().height());
-		mainWindow->setMinimumHeight(mainWindow->frameGeometry().height());
-		mainWindow->setMaximumWidth(mainWindow->frameGeometry().width());
-		mainWindow->setMinimumWidth(mainWindow->frameGeometry().width());*/
+	MainWindow *mainWindow = (MainWindow*)qApp->mainWidget();
+	if (mainWindow) {
+		mainWindow->resizeGameWindow(640, 480, true);
 	}
 
 	if (!container) {
@@ -417,7 +489,7 @@ void cLoginDialog::show(enMenuPage page) {
 			container->addControl(shardSelectGump);
 			shardSelectGump->setVisible(false);
 		}
-
+	
 		if (!statusDialog) {
 			buildStatusGump();
 			container->addControl(statusDialog);
@@ -428,6 +500,12 @@ void cLoginDialog::show(enMenuPage page) {
 			buildSelectCharGump();
 			container->addControl(selectCharDialog);
 			selectCharDialog->setVisible(false);
+		}
+
+		if (!confirmDeleteDialog) {
+			buildConfirmDeleteGump();
+			container->addControl(confirmDeleteDialog);
+			confirmDeleteDialog->setVisible(false);
 		}
 
 		// Back Button
@@ -464,6 +542,8 @@ void cLoginDialog::show(enMenuPage page) {
 
 		case PAGE_SELECTCHAR:
 			selectCharDialog->setVisible(false);
+			nextButton->setVisible(false);
+			backButton->setVisible(false);
 			break;
 
 		// Status Informations
@@ -472,6 +552,10 @@ void cLoginDialog::show(enMenuPage page) {
 			statusDialog->setVisible(false);
 			nextButton->setVisible(false);
 			backButton->setVisible(false);
+			break;
+
+		case PAGE_CONFIRMDELETE:
+			confirmDeleteDialog->setVisible(false);
 			break;
 	}
 
@@ -490,17 +574,51 @@ void cLoginDialog::show(enMenuPage page) {
 		case PAGE_CONNECTING:
 			statusLabel->setText("Connecting...");
 			statusDialog->setVisible(true);
+			statusOk->setVisible(false);
+			statusCancel->setVisible(true);
 			break;
 		case PAGE_VERIFYING:
 			statusLabel->setText("Verifying Account...");
 			statusDialog->setVisible(true);
+			statusOk->setVisible(false);
+			statusCancel->setVisible(true);
 			break;
 		case PAGE_SELECTCHAR:
 			selectCharDialog->setVisible(true);
+			nextButton->setVisible(true);
+			backButton->setVisible(true);
+			break;
+		case PAGE_CONFIRMDELETE:
+			confirmDeleteDialog->setVisible(true);
+			nextButton->setVisible(false);
+			backButton->setVisible(false);
 			break;
 	}
 
 	this->page = page;
+}
+
+void cLoginDialog::buildConfirmDeleteGump() {
+	confirmDeleteDialog = new cContainer();
+	confirmDeleteDialog->setBounds(0, 0, 640, 480);
+
+	cBorderGump *background = new cBorderGump(0xa28);
+	background->setBounds(166, 96, 308, 188);
+	confirmDeleteDialog->addControl(background);
+
+	confirmDeleteText = new cAsciiLabel("Status", 2, 0x34f, ALIGN_CENTER, false);
+	confirmDeleteText->setBounds(116, 150, 408, 200);
+	confirmDeleteDialog->addControl(confirmDeleteText);
+
+	cImageButton *statusCancel = new cImageButton(356, 225, 0x47e, 0x480);
+	statusCancel->setStateGump(BS_HOVER, 0x47f);
+	confirmDeleteDialog->addControl(statusCancel);
+	connect(statusCancel, SIGNAL(onClick(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
+
+	cImageButton *statusOk = new cImageButton(256, 225, 0x481, 0x483);
+	statusOk->setStateGump(BS_HOVER, 0x482);
+	confirmDeleteDialog->addControl(statusOk);
+	connect(statusOk, SIGNAL(onClick(cControl*)), this, SLOT(statusOkClicked(cControl*)));
 }
 
 void cLoginDialog::buildSelectCharGump() {
@@ -532,28 +650,46 @@ void cLoginDialog::buildSelectCharGump() {
 		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(deleteCharClicked(cControl*)));
 		selectCharDialog->addControl(button);
 
+		// add 6 char selection backgrounds
+		for (int i = 0; i < 6; ++i) {
+			selectCharBorder[i] = new cBorderGump(3000);
+			selectCharBorder[i]->setBounds(64, 80 + 40 * i, 287, 31);
+			selectCharDialog->addControl(selectCharBorder[i]);
+		}
+
 		// LAST: Char select widget
 		charSelectWidget = new cCharSelection;
 		charSelectWidget->setAlign(CA_CLIENT);
 		selectCharDialog->addControl(charSelectWidget);
+		connect(charSelectWidget, SIGNAL(onDoubleClick(cControl*)), this, SLOT(charSelected(cControl*)));
 	}
 }
 
 void cLoginDialog::deleteCharClicked(cControl *sender) {
+	int selected = charSelectWidget->selectedCharacter();
+    
+	if (selected != -1) {
+		// TODO: Show the Confirm Dialog
+		confirmDeleteText->setText(tr("Permanently delete\n%1?").arg(characterNames[selected]).toLatin1());
+		show(PAGE_CONFIRMDELETE);
+	}
 }
 
 void cLoginDialog::createCharClicked(cControl *sender) {
 }
 
 void cLoginDialog::hide() {
+	setErrorStatus(false); // Reset error status when changing pages
+
 	if (container->parent() == Gui) {
 		Gui->removeControl(container);
 		Gui->invalidate();
 	}
 
-	GLWidget->resize(Config->engineWidth(), Config->engineHeight());
-	GLWidget->setMaximumHeight(32000);
-	GLWidget->setMaximumWidth(32000);
+	MainWindow *mainWindow = (MainWindow*)qApp->mainWidget();
+	if (mainWindow) {
+		mainWindow->resizeGameWindow(Config->engineWidth(), Config->engineHeight(), false);
+	}
 }
 
 void cLoginDialog::clearShardList() {
@@ -605,7 +741,7 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 
 	cShardLabel *shardLabel, *pingCount, *packetLoss;
 
-	shardLabel = new cShardLabel(67, shardEntryOffset, shard.name);
+	shardLabel = new cShardLabel(67, shardEntryOffset, shard.name.toLatin1());
 	shardList->addControl(shardLabel);
 
 	pingCount = new cShardLabel(67 + 186, shardEntryOffset, "-");
@@ -641,44 +777,72 @@ void cLoginDialog::socketConnect() {
 		// Send Login Packet
 		show(PAGE_VERIFYING);
 
-		QByteArray loginPacket(62);
-		loginPacket.fill(0);
-		loginPacket[0] = (unsigned char)0x80;
-		if (!inpAccount->text().isNull()) {
-			strcpy(loginPacket.data() + 1, inpAccount->text().left(30).data());
-		}
-		if (!inpPassword->text().isNull()) {
-			strcpy(loginPacket.data() + 31, inpPassword->text().left(30).data());
-		}
-		UoSocket->send(loginPacket);
+		cLoginPacket packet(inpAccount->text(), inpPassword->text());
+		UoSocket->send(packet);
 	} else {
-		QByteArray loginPacket(65);
-        QDataStream packet(&loginPacket, QIODevice::WriteOnly);
-		packet.setByteOrder(QDataStream::BigEndian);
-		packet << (unsigned char)0x91 << (unsigned int)0xFFFFFFFF;
-		if (!inpAccount->text().isNull()) {
-			strcpy(loginPacket.data() + 5, inpAccount->text().left(30).data());
-		}
-		if (!inpPassword->text().isNull()) {
-			strcpy(loginPacket.data() + 35, inpPassword->text().left(30).data());
-		}
-		UoSocket->send(loginPacket);
+		cGameLoginPacket packet(0xFFFFFFFF, inpAccount->text(), inpPassword->text());
+		UoSocket->send(packet);
 	}
 }
 
 void cLoginDialog::selectShard(int id) {
 	if (id >= 0 && id < (int)shards.size()) {
-		// Send relay packet for shard id
-		QByteArray relayRequest(3);
-		QDataStream packet(&relayRequest, QIODevice::WriteOnly);
-		packet.setByteOrder(QDataStream::BigEndian);
-		packet << (unsigned char)0xa0 << (unsigned short)shards[id].id;
-		UoSocket->send(relayRequest);
+		cRequestRelayPacket packet(id);
+		UoSocket->send(packet);
 	}
 }
 
 void cLoginDialog::setCharacterList(const QStringList &characters) {
 	charSelectWidget->setCharacters(characters);
+	characterNames = characters;
+
+	for (int i = 0; i < 6; ++i) {
+		selectCharBorder[i]->setVisible(i < characters.size());
+	}
+}
+
+void cLoginDialog::setErrorStatus(bool error) {
+	switch (page) {
+		case PAGE_VERIFYING:
+		case PAGE_CONNECTING:
+			if (statusCancel) {
+				statusCancel->setVisible(!error);
+			}
+			if (statusOk) {
+				statusOk->setVisible(error);
+			}
+			break;
+	}
+}
+
+void cLoginDialog::statusCancelClicked(cControl *sender) {
+	switch (page) {
+		case PAGE_VERIFYING:
+		case PAGE_CONNECTING:
+			UoSocket->disconnect();
+			show(PAGE_LOGIN);
+			break;
+		case PAGE_CONFIRMDELETE:
+			show(PAGE_SELECTCHAR);
+			break;
+	}
+}
+
+void cLoginDialog::statusOkClicked(cControl *sender) {
+	switch (page) {
+		case PAGE_VERIFYING:
+		case PAGE_CONNECTING:
+			UoSocket->disconnect();
+			show(PAGE_LOGIN);
+			break;
+		case PAGE_CONFIRMDELETE:
+			// Send delete packet and wait for answer?
+			break;
+	}	
+}
+
+void cLoginDialog::charSelected(cControl *sender) {
+	Client->errorMessage("Character selected: " + QString::number(charSelectWidget->selectedCharacter()));
 }
 
 cLoginDialog *LoginDialog = 0;

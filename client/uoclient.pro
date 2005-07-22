@@ -3,13 +3,9 @@ TARGET = uoclient
 TEMPLATE = app
 OBJECTS_DIR = obj
 
-CONFIG += qt thread exceptions release
+QT += core gui network  xml opengl qt3support 
 
-# On Win32 Only MSVC++.NET is "really" supported
-#win32:GUID = {667DA75C-5D17-4F29-89E4-150CE6A077C4}
-#win32:MAKEFILE_GENERATOR = MSVC.NET
-#win32:TEMPLATE = vcapp
-#win32:QMAKE_LIBS_QT_THREAD = qt-mt333.lib
+CONFIG += qt thread exceptions release
 
 win32:CONFIG += windows
 unix:CONFIG += x11 
@@ -18,9 +14,9 @@ unix:INCLUDEPATH += /usr/include/GL /usr/include/X11 /usr/include
 # No idea what it does
 # DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
 
-# not yet
-#RC_FILE = res.rc
-OBJECTS_DIR = obj
+RC_FILE = uoclient.rc
+CONFIG(release, debug|release):OBJECTS_DIR = obj/release
+CONFIG(debug, debug|release):OBJECTS_DIR = obj/debug
 MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
@@ -188,4 +184,3 @@ unix:SOURCES += \
 #	../release/LICENSE.GPL
 #
 #The following line was inserted by qt3to4
-QT += core gui network  xml opengl qt3support 

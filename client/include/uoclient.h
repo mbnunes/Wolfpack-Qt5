@@ -23,6 +23,8 @@ public:
 
 	bool running() { return running_; }
 	void quit() { running_ = false; }
+
+	void errorMessage(const QString &message);
 };
 
 inline void cUoClient::lock() {

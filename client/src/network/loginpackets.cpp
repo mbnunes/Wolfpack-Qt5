@@ -29,14 +29,15 @@ public:
 
 		// Assert that the packet is large enough
 		safetyAssertSize(6 + count * 40); // 40 byte per server
+		char shardname[33];
+		shardname[32] = 0;
 
 		for (unsigned int i = 0; i < count; ++i) {
 			unsigned int pingIp;
 			stShardEntry shard;
-			input >> shard.id;
-			shard.name.resize(33);
-			shard.name[32] = 0;
-			input.readRawBytes(shard.name.data(), 32);
+			input >> shard.id;			
+			input.readRawBytes(shardname, 32);
+			shard.name = QString::fromLatin1(shardname);
 			input >> shard.percentFull >> shard.timezone >> pingIp;
 			shard.pingAddress.setAddress(pingIp);
             shards.append(shard);
@@ -90,7 +91,7 @@ public:
 				errorMessage = tr("Account disabled");
 				break;
 			case 3:
-				errorMessage = tr("Password bad");
+				errorMessage = tr("Bad password");
 				break;
 			default:
 				errorMessage = tr("Communication error");
@@ -98,6 +99,7 @@ public:
 		}
 
 		LoginDialog->setStatusText(errorMessage);
+		LoginDialog->setErrorStatus(true);
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
