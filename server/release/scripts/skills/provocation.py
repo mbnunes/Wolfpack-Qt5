@@ -124,9 +124,7 @@ def response2( char, args, target ):
 		return False
 
 	if skills.skilltable[ PROVOCATION ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	# Remaining Instrument Uses
 	if not instrument.hastag('remaining_uses'):

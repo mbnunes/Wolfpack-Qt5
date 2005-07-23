@@ -72,9 +72,7 @@ def response( char, args, target ):
 		return False
 
 	if skills.skilltable[ PEACEMAKING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	char.socket.deltag( 'peacemaking_instrument' )
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + PEACE_DELAY ) )

@@ -33,9 +33,7 @@ def spiritspeak(char, skill):
 		return 1
 
 	if skills.skilltable[ SPIRITSPEAK ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	char.say("Anh Mi Sah Ko")
 	char.soundeffect(0x24a)

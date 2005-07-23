@@ -36,9 +36,7 @@ def response( char, args, target ):
 		return False
 
 	if skills.skilltable[ EVALUATINGINTEL ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	if target.item:
 		# It looks smarter than a rock, but dumber than a piece of wood

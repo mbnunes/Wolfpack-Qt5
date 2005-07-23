@@ -32,9 +32,7 @@ def onUse( char, item ):
 		return 0
 
 	if skills.skilltable[ MUSICIANSHIP ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	# first introduction of GGS
 	success = 0

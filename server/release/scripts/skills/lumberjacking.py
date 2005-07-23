@@ -183,9 +183,7 @@ def successlumberjacking( char, args ):
 		return False
 
 	if skills.skilltable[ LUMBERJACKING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	socket = char.socket
 	pos = args[0] # Target POS

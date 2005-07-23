@@ -356,9 +356,7 @@ def successmining(char, gem, resname, size):
 		return False
 
 	if skills.skilltable[ MINING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	if canminegranite(char)	and char.hastag( "mining" ) and char.gettag( "mining" ) == "ore,stone":
 		# 50% possibility of mining granite

@@ -70,9 +70,7 @@ def selecttarget( char, args, target ):
 		return
 
 	if skills.skilltable[ POISONING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	# sound / effect
 	char.soundeffect( 0x4F )

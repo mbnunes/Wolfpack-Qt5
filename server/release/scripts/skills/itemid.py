@@ -32,9 +32,7 @@ def response(char, args, target):
 		return False
 
 	if skills.skilltable[ ITEMID ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	socket = char.socket
 	socket.settag('skill_delay', int( wolfpack.time.currenttime() + ITEMID_DELAY ) )

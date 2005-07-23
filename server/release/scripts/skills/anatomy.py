@@ -38,9 +38,7 @@ def anatomy( char, skill ):
 
 def response( char, args, target ):
 	if skills.skilltable[ ANATOMY ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	socket = char.socket
 	# Check for a valid target

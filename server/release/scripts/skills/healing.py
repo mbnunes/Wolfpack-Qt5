@@ -49,9 +49,7 @@ def response( char, args, target ):
 		return False
 
 	if skills.skilltable[ HEALING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	if not target.char:
 		char.socket.clilocmessage( 500970, "", 0x3b2, 3 )

@@ -45,9 +45,7 @@ def response( char, args, target ):
 		return
 
 	if skills.skilltable[ DETECTINGHIDDEN ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	# if we are in our house : reveal all hidden chars in this house
 	# w/o checking skill

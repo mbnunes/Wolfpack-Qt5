@@ -94,9 +94,7 @@ def response( char, args, target ):
 	pos = target.pos
 
 	if skills.skilltable[ FISHING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
 	# Check Map/Static/Dynamic Water and eventual blocking stuff above it
 	validspot   = 0

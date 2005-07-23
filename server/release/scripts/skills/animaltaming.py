@@ -42,9 +42,8 @@ def animaltaming( char, skill ):
 
 def response(char, args, target):
 	if skills.skilltable[ TAMING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
+
 	dotame(char, target.char)
 	return True
 
