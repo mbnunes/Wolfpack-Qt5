@@ -88,7 +88,9 @@ HEADERS += \
 HEADERS += \
 	include/network/encryption.h \
 	include/network/uopacket.h \
-	include/network/uosocket.h
+	include/network/uosocket.h \
+	include/network/outgoingpacket.h \
+	include/network/outgoingpackets.h
 
 # MAIN src
 
@@ -131,7 +133,10 @@ SOURCES += \
 	src/network/loginpackets.cpp \
 	src/network/uopacket.cpp \
 	src/network/uosocket.cpp \
-	src/network/decompress.cpp
+	src/network/decompress.cpp \
+	src/network/outgoingpacket.cpp \
+	src/network/outgoingpackets.cpp \
+	src/network/gamepackets.cpp
 
 SOURCES += \
 	src/game/dynamicentity.cpp \
