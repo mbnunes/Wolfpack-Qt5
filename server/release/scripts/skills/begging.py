@@ -36,8 +36,6 @@ def begging( char, skill ):
 
 	char.socket.clilocmessage( 500397, "", 0x3b2, 3 )
 
-	# decrease karma
-
 	char.socket.attachtarget( "skills.begging.response" )
 	return True
 
@@ -45,63 +43,99 @@ def response( char, args, target ):
 	if not char:
 		return
 
-	# you can only try to npc
-	if not target.char or not target.char.npc:
-		return
-
 	if skills.skilltable[ BEGGING ][ skills.UNHIDE ] and char.hidden:
-		char.removefromview()
-		char.hidden = False
-		char.update()
+		char.reveal()
 
-	npc = target.char
-	# check if this npc is a 'human' ?
-
-	# You are too far away...
-	if not char.canreach( npc, BEGGING_RANGE ):
-		# male npc
-		if not npc.gender:
-			char.socket.clilocmessage( 500401, "", 0x3b2, 3 )
-		# female npc
+	message = 0
+	if target.char:
+		# can't beg from players
+		if target.char.player:
+			message = 500398 # Perhaps just asking would work better.
+		# Make sure the npc is human
+		elif not target.char.bodytype == 4:
+			message = 500399 # There is little chance of getting money from that!
+		# You are too far away...
+		elif not char.canreach( target.char, BEGGING_RANGE ):
+			# male npc
+			if not target.char.gender:
+				char.socket.clilocmessage( 500401, "", 0x3b2, 3 ) # You are too far away to beg from him.
+			# female npc
+			else:
+				char.socket.clilocmessage( 500402, "", 0x3b2, 3 ) # You are too far away to beg from her.
+		# If we're on a mount, who would give us money?
+		elif char.itemonlayer( 25 ):
+			message = 500404 # They seem unwilling to give you any money.
 		else:
-			char.socket.clilocmessage( 500402, "", 0x3b2, 3 )
-		return
+			# Face each other
+			char.turnto( target.char )
+			target.char.turnto( char )
+			char.action( 32 ) # Bow
+			char.addtimer( 2000, getmoney, [target.char.serial] )
+	else: # not a char
+		message = 500399 # There is little chance of getting money from that!
 
-	# town cryer : I feel sorry for thee... Thou dost not look trustworthy... no gold for thee today! : 500405 + 500406
-	gold = npc.countresource( wolfpack.utilities.hex2dec( 0xeed ) )
-	if not gold or gold < 10:
-		# Thou dost not look trustworthy... no gold for thee today!
-		char.socket.clilocmessage( 500406, "", 0x3b2, 3, npc )
-		return
+	if message:
+		char.socket.clilocmessage( message )
 
-	success = char.checkskill( BEGGING, 0, 1200 )
+	return True
+
+def getmoney( char, args ):
+	npc = wolfpack.findchar( args[0] )
+	if not npc:
+		return False
+
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + BEGGING_DELAY ) )
 
-	# npc who has more than 100gp will give you 10gp
-	if gold < 100:
-		gold_beg = gold / 10
-	else:
-		gold_beg = 10
+	theirPack = npc.getbackpack()
+	badKarmaChance = 0.5 - float(char.karma / 8570)
 
-	# success msg : I feel sorry for thee... here have a gold coin : 500405 + 1010012
-	# fail msg : They seem unwilling to give you any money : 500404
+	if not theirPack:
+		char.socket.clilocmessage( 500404 ) # They seem unwilling to give you any money.
+	elif char.karma < 0 and badKarmaChance > random.random():
+		npc.say( 500406, "" ) # Thou dost not look trustworthy... no gold for thee today!
+	elif char.checkskill( BEGGING, 0, 1000 ):
+		toConsume = npc.countresource( wolfpack.utilities.hex2dec( 0xeed ) ) / 10
+		max = 10 + (char.fame / 2500)
+		if max > 14:
+			max = 14
+		elif max < 10:
+			max = 10
 
-	if success:
-		char.socket.clilocmessage( 500405, "", 0x3b2, 3, npc )
-		char.socket.clilocmessage( 1010012, "", 0x3b2, 3, npc )
-		npc.useresource( gold_beg, 0x0eed )
-		backpack = char.getbackpack()
-		if not backpack:
-			return
-		coins = wolfpack.additem( GOLD_COIN1 )
-		if not coins:
-			return
-		coins.amount = gold_beg
-		if not tobackpack(coins, player):
-			item.update()
-		coins.update()
+		if toConsume > max:
+			toConsume = max
+		if toConsume > 0:
+			consumed = npc.useresource( toConsume, 0x0eed )
+			if consumed > 0:
+				npc.say( 500405 ) # I feel sorry for thee...
+				coins = wolfpack.additem( GOLD_COIN1 )
+				coins.amount = toConsume
+				if not tobackpack(coins, char):
+					item.update()
+				coins.update()
+				sound = 0
+				if toConsume <= 1:
+					sound = 0x2e4
+				elif toConsume <= 5:
+					sound = 0x2e5
+				else:
+					sound = 0x2e6
+				char.soundeffect(sound)
+				if char.karma > -3000:
+					toLose = char.karma + 3000
+
+					if toLose > 40:
+						toLose = 40
+					# we need sth. like char.awardKarma( amount )
+					#char.awardKarma( char, -toLose, true )
+					char.karma -= toLose
+			else:
+				npc.say( 500407 ) # I have not enough money to give thee any!
+		else: 
+			npc.say( 500407 ) # I have not enough money to give thee any!
 	else:
-		char.socket.clilocmessage( 500404, "", 0x3b2, 3, npc )
+		npc.say( 500404 ) # They seem unwilling to give you any money.
+
+	return True
 
 def onLoad():
 	skills.register( BEGGING, begging )
