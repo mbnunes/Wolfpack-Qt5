@@ -870,7 +870,7 @@ def isValidPosition( pos ):
 		# X & Y Checking
 		# Felucca & Trammel
 		if pos.map == 0 or pos.map == 1:
-			if pos.x >= 6144 or pos.x < 0:
+			if pos.x >= 7167 or pos.x < 0:
 				return False
 			if pos.y >= 4096 or pos.y < 0:
 				return False
