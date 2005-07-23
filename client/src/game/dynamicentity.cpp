@@ -8,7 +8,7 @@ cDynamicEntity::cDynamicEntity(unsigned short x, unsigned short y, signed char z
 }
 
 cDynamicEntity::~cDynamicEntity() {
-	World->unregisterDynamic(this);
+	World->unregisterDynamic(this);	
 }
 
 void cDynamicEntity::move(unsigned short x, unsigned short y, signed char z) {

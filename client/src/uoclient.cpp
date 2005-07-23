@@ -195,6 +195,7 @@ void cUoClient::run()
 	//World->moveCenter(1715, 301, -7, true);
 	//Player = new cMobile(1715, 301, -7, ILSHENAR, 1);
 	Player = new cMobile(1245, 1758, 0, TRAMMEL, 1);
+	Player->incref(); // Always keep one reference
 	World->addEntity(Player);
 
 	// add the world view

@@ -74,6 +74,8 @@ static const char * const icon_xpm[] = {
 };
 
 MainWindow::MainWindow() {
+	resize(640, 480); // Default size
+
 	// Window Icon
 	QPixmap pixmap((const char**)icon_xpm);
 	setIcon(pixmap);

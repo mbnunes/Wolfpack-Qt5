@@ -11,6 +11,7 @@ protected:
 	unsigned short hue_;
 	unsigned char direction_;
 	bool partialHue_;
+	unsigned int serial_;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
@@ -48,11 +49,17 @@ public:
 	unsigned char currentAction() const;
 	unsigned int currentActionEnd() const;
 	cSequence *sequence() const;
+	unsigned int serial() const;
+	void setSerial(unsigned int serial); // Only use this on the player
 
 	void playAction(unsigned char action, unsigned int duration = 0);
 
 	void smoothMove(int xoffset, int yoffset, unsigned int duration);
 };
+
+inline unsigned int cMobile::serial() const {
+	return serial_;
+}
 
 inline unsigned short cMobile::body() const {
 	return body_;
@@ -76,6 +83,11 @@ inline void cMobile::setBody(unsigned short data) {
 }
 
 inline void cMobile::setHue(unsigned short data) {
+	// Set partial hue flag
+	if (data & 0x8000) {
+		partialHue_ = true;
+		data &= ~ 0x8000; // Clear the flag
+	}
 	hue_ = data;
 	freeSequence();
 }

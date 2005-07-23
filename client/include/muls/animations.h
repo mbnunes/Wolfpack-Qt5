@@ -39,8 +39,10 @@ protected:
 	unsigned short body_;
 	unsigned char action_;
 	unsigned char direction_;
+	unsigned short hue_;
+	bool partialHue_;
 public:
-	cSequence(unsigned short body, unsigned char action, unsigned char direction);
+	cSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue = 0, bool partialHue_ = false);
 	virtual ~cSequence();
 
 	cTexture *texture() const;
@@ -48,6 +50,8 @@ public:
 	unsigned char action() const;
 	unsigned char direction() const;
 	unsigned short frameCount() const;
+	unsigned short hue() const;
+	bool partialHue() const;
 
 	// Draw the given frame at the given base
 	void draw(int frame, int cellx, int celly, bool flip);
@@ -64,8 +68,16 @@ inline cTexture *cSequence::texture() const {
 	return texture_;
 }
 
+inline bool cSequence::partialHue() const {
+	return partialHue_;
+}
+
 inline unsigned short cSequence::body() const {
 	return body_;
+}
+
+inline unsigned short cSequence::hue() const {
+	return hue_;
 }
 
 inline unsigned char cSequence::action() const {

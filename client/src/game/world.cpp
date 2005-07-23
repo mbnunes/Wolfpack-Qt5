@@ -278,10 +278,12 @@ void cWorld::smoothMove(int x, int y) {
 	yOffsetDecrease = drawyoffset / 370.0f;
 
 	// Move the player
-	Player->smoothMove(drawxoffset, drawyoffset, 370);
-	Player->setDirection(direction);
-	Player->move(x_, y_, z_);
-	Player->playAction(0, 370); // Play walk for the time of move
+	if (Player) {
+		Player->smoothMove(drawxoffset, drawyoffset, 370);
+		Player->setDirection(direction);
+		Player->move(x_, y_, z_);
+		Player->playAction(0, 370); // Play walk for the time of move
+	}
 
 	// Set the smooth move timeouts, Take 125 ms
 	smoothMoveTime_ = 370;

@@ -741,6 +741,9 @@
 				RelativePath=".\include\network\encryption.h">
 			</File>
 			<File
+				RelativePath=".\src\network\gamepackets.cpp">
+			</File>
+			<File
 				RelativePath=".\src\network\loginpackets.cpp">
 			</File>
 			<File

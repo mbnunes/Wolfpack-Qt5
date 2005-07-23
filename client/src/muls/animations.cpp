@@ -1,15 +1,18 @@
 
 #include "muls/animations.h"
+#include "muls/hues.h"
 #include "log.h"
 #include "surface.h"
 #include <qgl.h>
 
-cSequence::cSequence(unsigned short body, unsigned char action, unsigned char direction) {
+cSequence::cSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue, bool partialHue) {
 	refcount = 0;
 	body_ = body;
 	action_ = action;
 	direction_ = direction;
 	texture_ = 0;
+	hue_ = hue;
+	partialHue_ = partialHue;
 }
 
 cSequence::~cSequence() {
@@ -57,13 +60,37 @@ void cSequence::load(QDataStream &input) {
 	unsigned int palette[256];
 	unsigned short pixel;
 
+	stHue *hue = 0;
+
+	if (hue_ != 0) {
+		hue = Hues->get(hue_);
+	}
+
     // Read the 265 color palette first
 	for (int i = 0; i < 256; ++i) {
 		input >> pixel; // Read color value		
 		if (pixel == 0) {
 			palette[i] = 0; // 0 is the color key
-		} else {			
-			palette[i] = cSurface::color(pixel); // Convert to 32-bit for improved speed
+		} else {
+			// Process the color only if its not transparent
+			if (hue && pixel != 0) {
+				unsigned char index = (pixel >> 10) & 0x1F;
+				unsigned char r = index << 3; // Multiply with 8
+				unsigned char g = (pixel >> 2) & 0xF8;
+				unsigned char b = (pixel << 3) & 0xF8;
+
+				// Hue either everything or if partial hue is set only if
+				// its a gray pixel
+				if (!partialHue_ || r == g && g == b) {
+					r = hue->colors[index].r;
+					g = hue->colors[index].g;
+					b = hue->colors[index].b;
+				}
+
+				palette[i] = cSurface::color(r, g, b);
+			} else {
+				palette[i] = cSurface::color(pixel);
+			}
 		}
 	}
 
@@ -383,7 +410,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 
 		// Now that we have the valid offset and length, seek to the data position
 		// and return a new animation
-		result = new cSequence(body, action, direction);
+		result = new cSequence(body, action, direction, hue, partialhue);
 		dataFile[file].at(offset);
 		result->load(dataStream[file]);
 	}

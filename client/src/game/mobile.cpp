@@ -1,5 +1,6 @@
 
 #include "game/mobile.h"
+#include "game/world.h"
 
 cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial) : cDynamicEntity(x, y, z, facet, serial) {
 	body_ = 1;
@@ -13,6 +14,12 @@ cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet face
 	nextFrame = 0;
 	frame = 0;
 	smoothMoveEnd = 0;
+}
+
+void cMobile::setSerial(unsigned int serial) {
+	World->unregisterDynamic(this);
+	serial_ = serial;
+	World->registerDynamic(this);
 }
 
 void cMobile::smoothMove(int xoffset, int yoffset, unsigned int duration) {
