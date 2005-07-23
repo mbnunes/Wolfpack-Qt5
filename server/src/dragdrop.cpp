@@ -785,8 +785,12 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	// So we can have post-boxes ;o)
 	if ( pCont->type() == 1 )
 	{
+		//if ( pCont->layer() == 29 )
+		//{
+		//	pCont->addItem(pItem)
+		//}
 		// Check if we can carry the item or if it's too heavy
-		if (packOwner && ( pItem->totalweight() > packOwner->maxWeight() ) && !pChar->isGM())
+		if (packOwner && ( pItem->totalweight() > packOwner->maxWeight() ) && !pChar->isGM() && !(pCont->getOutmostItem()->layer() == 29))
 		{
 			pItem->removeFromCont();
 			pItem->moveTo( packOwner->pos() );
