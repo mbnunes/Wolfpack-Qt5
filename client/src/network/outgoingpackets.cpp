@@ -22,3 +22,11 @@ cDeleteCharacter::cDeleteCharacter(unsigned int id) : cOutgoingPacket(0x83, 39) 
 	m_Stream << id;
 	fill(4, 0); // "client-ip"
 }
+
+cPlayMobilePacket::cPlayMobilePacket(unsigned char id) : cOutgoingPacket(0x5d, 73) {
+	m_Stream << 0xedededed; // "pattern"
+	fill(60, 0); // name+password are blank since unused
+	fill(3, 0); // Unknown. Maybe just the integer slot
+	m_Stream << id;
+	fill(4, 0); // "client-ip" but absolutly unneccesary
+}

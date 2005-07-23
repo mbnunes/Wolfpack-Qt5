@@ -235,3 +235,43 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xa9, cCharacterListPacket::creator);
+
+class cCharacterListUpdatePacket : public cDynamicIncomingPacket {
+protected:
+	QStringList characters;
+public:
+	cCharacterListUpdatePacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(4); // At least 4 byte
+
+		unsigned char charCount;
+
+		// Get the data from the shardlist
+		input >> charCount;
+
+		// Assert that the packet is large enough
+		safetyAssertSize(4 + charCount * 60); // 60 byte per character
+
+		for (unsigned int i = 0; i < charCount; ++i) {
+            char name[60];
+			input.readRawBytes(name, 60);
+			name[30] = 0; // ENSURE null termination
+
+			// Only add if the name is non-null
+			if (name[0]) {
+				characters.append(name);
+			}
+		}
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		LoginDialog->show(PAGE_SELECTCHAR);
+		LoginDialog->setCharacterList(characters);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cCharacterListUpdatePacket(input, size);
+	}
+};
+
+
+AUTO_REGISTER_PACKET(0x86, cCharacterListUpdatePacket::creator);

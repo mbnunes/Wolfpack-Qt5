@@ -32,4 +32,10 @@ public:
 	cDeleteCharacter(unsigned int id);
 };
 
+// 0x5d Play Character
+class cPlayMobilePacket : public cOutgoingPacket {
+public:
+	cPlayMobilePacket(unsigned char id);
+};
+
 #endif

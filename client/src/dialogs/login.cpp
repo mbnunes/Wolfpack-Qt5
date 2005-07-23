@@ -119,6 +119,7 @@ void cCharSelection::setCharacters(const QStringList &characters) {
 	selectedCharacter_ = -1;
 	controls.clear();
 	cContainer::clear(); // Clear all controls
+	labels.clear();
 
 	// Re-create the characterlist
 	for (int i = 0; i < characters.size(); ++i) {
@@ -227,6 +228,12 @@ void cLoginDialog::nextClicked(cControl *sender) {
 			break;
 
 		case PAGE_SHARDLIST:
+			break;
+
+		case PAGE_SELECTCHAR:
+			if (charSelectWidget->selectedCharacter() != -1) {
+				charSelected(sender);
+			}
 			break;
 	}
 }
@@ -549,6 +556,8 @@ void cLoginDialog::show(enMenuPage page) {
 		// Status Informations
 		case PAGE_VERIFYING:
 		case PAGE_CONNECTING:
+		case PAGE_DELETING:
+		case PAGE_ENTERING:
 			statusDialog->setVisible(false);
 			nextButton->setVisible(false);
 			backButton->setVisible(false);
@@ -592,6 +601,18 @@ void cLoginDialog::show(enMenuPage page) {
 			confirmDeleteDialog->setVisible(true);
 			nextButton->setVisible(false);
 			backButton->setVisible(false);
+			break;
+		case PAGE_DELETING:
+			statusLabel->setText(tr("Deleting character...").toLatin1());
+			statusDialog->setVisible(true);
+			statusOk->setVisible(false);
+			statusCancel->setVisible(false);
+			break;
+		case PAGE_ENTERING:
+			statusLabel->setText(tr("Entering Britannia...").toLatin1());
+			statusDialog->setVisible(true);
+			statusOk->setVisible(false);
+			statusCancel->setVisible(false);
 			break;
 	}
 
@@ -836,13 +857,21 @@ void cLoginDialog::statusOkClicked(cControl *sender) {
 			show(PAGE_LOGIN);
 			break;
 		case PAGE_CONFIRMDELETE:
-			// Send delete packet and wait for answer?
+			{
+				show(PAGE_DELETING);
+				cDeleteCharacter delchar(charSelectWidget->selectedCharacter());
+				UoSocket->send(delchar);				
+			}
 			break;
 	}	
 }
 
 void cLoginDialog::charSelected(cControl *sender) {
-	Client->errorMessage("Character selected: " + QString::number(charSelectWidget->selectedCharacter()));
+	int selected = charSelectWidget->selectedCharacter();
+
+	show(PAGE_ENTERING);
+	cPlayMobilePacket packet(selected);
+	UoSocket->send(packet);
 }
 
 cLoginDialog *LoginDialog = 0;

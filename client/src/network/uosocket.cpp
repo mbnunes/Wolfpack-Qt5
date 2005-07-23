@@ -96,7 +96,7 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	this->hostport = port;
 
 	// Connect to the Socket
-	socket->connectToHost(host, port);
+	socket->connectToHost(host, port);	
 }
 
 void cUoSocket::disconnect() {
@@ -183,7 +183,7 @@ void cUoSocket::buildPackets() {
 				QByteArray packetData(dynamicSize);
 				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
 				memcpy(incomingBuffer.data(), incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
-				incomingBuffer.resize(incomingBuffer.size() - dynamicSize);
+				incomingBuffer.chop(dynamicSize);
 				
 				QDataStream inputData(&packetData, QIODevice::ReadOnly);
 				inputData.setByteOrder(QDataStream::BigEndian);
@@ -243,27 +243,22 @@ void cUoSocket::delayedCloseFinished() {
 }
 
 void cUoSocket::readyRead() {
-	QByteArray data = socket->readAll();
+	QByteArray data(socket->bytesAvailable());
+	socket->read(data.data(), socket->bytesAvailable());
 
 	// Decompress data if neccesary
 	// TODO: Optimize this
 	if (gameServer) {
-		static QByteArray out(65535); // This has to work out...
+		static char out[65535]; // This has to work out...
 		int srclen = data.size();
-		int destsize = out.size();
+		int destsize = 65535;
 		decompressor.initialise();
-		decompressor(out.data(), data.data(), destsize, srclen);
-		data = out;
-
-		size_t offset = incomingBuffer.size();
-		incomingBuffer.resize(incomingBuffer.size() + destsize);
-		memcpy(incomingBuffer.data() + offset, out.data(), destsize);
-	} else {
-		size_t offset = incomingBuffer.size();
-		incomingBuffer.resize(incomingBuffer.size() + data.size());
-		memcpy(incomingBuffer.data() + offset, data.data(), data.size());
+		decompressor(out, data.data(), destsize, srclen);
+		data = QByteArray(out, destsize);
 	}
 
+	incomingBuffer.append(data);
+	
 	buildPackets(); // Try rebuilding incoming packets
 
 	while (!incomingQueue.isEmpty()) {

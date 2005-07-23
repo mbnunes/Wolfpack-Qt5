@@ -38,6 +38,8 @@ enum enMenuPage {
 	PAGE_SHARDLIST,
 	PAGE_SELECTCHAR,
 	PAGE_CONFIRMDELETE,
+	PAGE_DELETING,
+	PAGE_ENTERING,
 };
 
 class cCharSelection;
