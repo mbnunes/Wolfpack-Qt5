@@ -9,6 +9,7 @@ from wolfpack.consts import *
 import wolfpack
 import wolfpack.time
 import wolfpack.utilities
+import environment
 
 # GGS : skill can be gained every 15 min
 MUSICIANSHIP_GAIN_DELAY = 15 * 60 * 1000
@@ -67,7 +68,8 @@ def play_instrument( char, item, success ):
 	item.settag( 'last_musicianship_use', wolfpack.time.currenttime() )
 	char.socket.settag( 'instrument', item.serial )
 	if success:
-		sound = sounds[ item.id ]
+		if environment.wearout( char, item ):
+			sound = sounds[ item.id ]
 	else:
 		sound = sounds[ item.id ] + 1
 	char.soundeffect( sound )

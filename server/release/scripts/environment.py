@@ -5,7 +5,7 @@ import wolfpack
 import wolfpack.time
 import random
 from wolfpack.consts import COTTONPLANTS_REGROW, ANIM_ATTACK5, TINKERING, \
-	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, LOG_MESSAGE
+	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, LOG_MESSAGE, LAYER_RIGHTHAND
 from wolfpack.utilities import tobackpack
 from wolfpack.gumps import cGump
 from math import floor
@@ -33,6 +33,24 @@ def cotton( char, item ):
 	# Set a timer for the cotton plant
 	item.settag( 'lastpick', wolfpack.time.currenttime() )
 	return 1
+
+# reduce the remaining uses
+def wearout( player, item ):
+	# We do not allow "invulnerable" tools.
+	if not item.hastag('remaining_uses'):
+		player.socket.clilocmessage(1044038)
+		item.delete()
+		return False
+
+	uses = int(item.gettag('remaining_uses'))
+	if uses <= 1:
+		player.socket.clilocmessage(1044038)
+		item.delete()
+		return False
+	else:
+		item.settag('remaining_uses', uses - 1)
+		item.resendtooltip()
+	return True
 
 def sextant_parts( char, item ):
 	if not char.checkskill( TINKERING, 0, 500 ):
@@ -72,28 +90,32 @@ def sextant( char, item ):
 
 def drum( char, item ):
 	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		char.soundeffect(0x38)
+		if wearout( char, item ):
+			char.soundeffect(0x38)
 	else:
 		char.soundeffect(0x39)
 	return 1
 
 def tambourine( char, item ):
 	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		char.soundeffect(0x52)
+		if wearout( char, item ):
+			char.soundeffect(0x52)
 	else:
 		char.soundeffect(0x53)
 	return 1
 
 def harp(char, item):
 	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		char.soundeffect(0x45)
+		if wearout( char, item ):
+			char.soundeffect(0x45)
 	else:
 		char.soundeffect(0x46)
 	return 1
 
 def lute(char, item):
 	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		char.soundeffect(0x4c)
+		if wearout( char, item ):
+			char.soundeffect(0x4c)
 	else:
 		char.soundeffect(0x4d)
 	return 1

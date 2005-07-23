@@ -56,7 +56,7 @@ def selecttarget( char, items ):
 		instrument = items[ 0 ]
 
 	char.socket.settag( 'peacemaking_instrument', instrument.serial )
-	char.socket.clilocmessage( 1049525, "", 0x3b2, 3 )
+	char.socket.clilocmessage( 1049525, "", 0x3b2, 3 ) # Whom do you wish to calm?
 	char.socket.attachtarget( "skills.peacemaking.response" )
 	return True
 
@@ -65,6 +65,7 @@ def response( char, args, target ):
 		return False
 	# you can only target chars
 	if not target.char:
+		char.socket.clilocmessage( 1049528 ) # You cannot calm that!
 		return True
 	instrument = wolfpack.finditem( char.socket.gettag( 'peacemaking_instrument' ) )
 	if not instrument:
@@ -86,12 +87,12 @@ def response( char, args, target ):
 		skills.musicianship.play_instrument( char, instrument, result )
 		# fail to play well
 		if not result:
-			char.socket.clilocmessage( 500612, "", 0x3b2, 3 )
+			char.socket.clilocmessage( 500612, "", 0x3b2, 3 ) # You play poorly, and there is no effect.
 			return True
 		result = char.checkskill( PEACEMAKING, 0, 1000 )
 		# fail on peacemaking
 		if not result:
-			char.socket.clilocmessage( 500613, "", 0x3b2, 3 )
+			char.socket.clilocmessage( 500613, "", 0x3b2, 3 ) # You attempt to calm everyone, but fail.
 			return True
 		char.socket.clilocmessage( 500615, "", 0x3b2, 3 )
 		creatures = wolfpack.chars( char.pos.x, char.pos.y, char.pos.map, peace_range )
@@ -100,32 +101,44 @@ def response( char, args, target ):
 				# stop combat
 				# player chars
 				if creature.socket:
-					creature.socket.clilocmessage( 500616, "", 0x3b2, 3 )
-	# target on an npc - effect will go some duration
+					creature.socket.clilocmessage( 500616, "", 0x3b2, 3 ) # You hear lovely music, and forget to continue battling!
+	# target another player or - effect will go some duration
 	else:
-		if char.canreach( target.char, peace_range ):
+		if not target.char:
+			return False
+		creature = target.char
+		char.socket.sysmessage( str(peace_range) )
+		if not char.canreach( target.char, peace_range ):
 			char.socket.clilocmessage( 500618, "", 0x3b2, 3 )
-			return True
-		if not target.char.npc:
-			return True
-		# bard difficulty - later, we should get these from the xml defs.
-		loskill = 0
-		hiskill = 1000
-		result = char.checkskill( MUSICIANSHIP, loskill, hiskill )
-		skills.musicianship.play_instrument( char, instrument, result )
-		if not result:
-			char.socket.clilocmessage( 500612, "", 0x3b2, 3 )
-			return True
-		result = char.checkskill( PEACEMAKING, loskill, hiskill )
-		if not result:
-			char.socket.clilocmessage( 500613, "", 0x3b2, 3 )
-			return True
-		# FIXME : duration ( 5 sec ~ 65 sec )
-		duration = 5000 + char.skill[ PEACEMAKING ] * 60
-		# stop combat
-		# if npc, do not start combat for the duration while not attacked
-		creature.settag( 'peacemaking', 1 )
-		creature.addtimer( duration, release, [] )
+		elif creature.npc and creature.hasscript( 'skills.peacemaking' ):
+			char.socket.clilocmessage( 1049527 ) # That creature is already being calmed.
+		elif not char.checkskill( MUSICIANSHIP, 0, 1000 ):
+			skills.musicianship.play_instrument( char, instrument, False )
+			char.socket.clilocmessage( 500612, "", 0x3b2, 3 ) # You play poorly, and there is no effect.
+		else:
+			# bard difficulty - later, we should get these from the xml defs.
+			result = char.checkskill( PEACEMAKING, 0, 1000 )
+			skills.musicianship.play_instrument( char, instrument, result )
+			if not result:
+				char.socket.clilocmessage( 1049531, "", 0x3b2, 3 ) # You attempt to calm your target, but fail.
+				return True
+
+			char.socket.clilocmessage( 1049532 ) # You play hypnotic music, calming your target.
+
+			# FIXME : duration in relation to opponent
+			duration = 5000 + char.skill[ PEACEMAKING ] * 60
+			# NPC
+			if creature.npc:			
+				# stop combat
+				# do not start combat for the duration while not attacked
+				creature.addscript( 'skills.peacemaking' )
+				creature.addtimer( duration, release, [] )
+			# Player chars
+			else:
+				creature.socket.clilocmessage( 500616 ) # You hear lovely music, and forget to continue battling!
+				creature.war = False
+				creature.attacktarget = None
+				creature.updateflags() # war is a flag, isn't it?
 	return True
 
 def selectinstrument( char, args, target ):
@@ -142,10 +155,21 @@ def selectinstrument( char, args, target ):
 	else:
 		char.socket.sysmessage( "You need an instrument." )
 	return True
-	
+
 def release( char, args ):
-	if char.socket.hastag( 'peacemaking' ):
-		char.socket.deltag( 'peacemaking' )
+	# check if died
+	if not char:
+		return False
+	if char.hasscript( 'skills.peacemaking' ):
+		char.removescript( 'skills.peacemaking' )
+
+def onCheckVictim( npc, victim, dist ):	
+	npc.war = False
+	npc.attacktarget = None
+	return False
+
+def onDamage( char, type, amount, source ):
+	release( char, [] )
 
 def onLoad():
 	skills.register( PEACEMAKING, peacemaking )
