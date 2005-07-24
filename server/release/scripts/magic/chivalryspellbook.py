@@ -41,7 +41,6 @@ def addspell( item, spell ):
 
 	spell = spell - 200
 	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
-	item.say("zirkel= " + str(circle))
 	spell = spell % 8
 	spells = 0
 	if item.hastag( 'circle' + str( circle ) ):
