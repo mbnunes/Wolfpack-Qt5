@@ -932,7 +932,7 @@ void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar 
 {
 	int tempint;
 
-	if ( ( pBeggar->hunger() < 6 ) && pItem->type() == 14 )
+	if ( ( pBeggar->hunger() < 6 ) && pItem->hasScript( 'food' ) )
 	{
 		pBeggar->talk( tr( "*cough* Thank thee!" ) );
 		pBeggar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
@@ -977,7 +977,8 @@ void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar 
 	socket->sysMessage( tr( "You have gained some karma!" ) );
 
 	if ( pItem->amount() <= 100 )
-		socket->player()->setKarma( socket->player()->karma() + 10 );
+		socket->player()->awardKarma( socket->player(), pItem->amount() );
+		//socket->player()->setKarma( socket->player()->karma() + 10 );
 	else
 		socket->player()->setKarma( socket->player()->karma() + 50 );
 
