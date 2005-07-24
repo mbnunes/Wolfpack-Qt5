@@ -186,6 +186,11 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	else if ( !strcmp( name, "cave" ) )
 		return PyInt_FromLong( self->pRegion->isCave() ? 1 : 0 );
 	/*
+		\rproperty region.nodecay This boolean flag indicates that items do not decay in this region.
+	*/
+	else if ( !strcmp( name, "nodecay" ) )
+		return PyInt_FromLong( self->pRegion->isNoDecay() ? 1 : 0 );
+	/*
 		\rproperty region.nomusic This boolean flag indicates that no music should be played in this region.
 	*/
 	else if ( !strcmp( name, "nomusic" ) )
