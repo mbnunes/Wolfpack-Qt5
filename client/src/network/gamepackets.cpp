@@ -8,6 +8,8 @@
 #include "log.h"
 #include "enums.h"
 
+#include <qlist.h>
+
 class cLoginConfirmPacket : public cIncomingPacket {
 protected:
 	unsigned int serial;
@@ -97,7 +99,7 @@ public:
 
 AUTO_REGISTER_PACKET(0x20, cUpdatePlayerPacket::creator);
 
-class cAddMobile : public cIncomingPacket {
+class cAddMobile : public cDynamicIncomingPacket {
 protected:
 	unsigned int serial;
 	unsigned short body;
@@ -106,13 +108,85 @@ protected:
 	unsigned short posx, posy;
 	signed char posz;
 	unsigned char direction;
-public:
-	cAddMobile(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+	unsigned char notoriety;
 
+	struct stEquipInfo {
+		unsigned int serial;
+		unsigned short id;
+		unsigned short hue;
+		unsigned char layer;
+	};
+
+	QList<stEquipInfo> equipment;
+public:
+	cAddMobile(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		input >> serial >> body;
+		
+		if (serial & 0x80000000) {
+			unsigned short corpse; // or amount!
+			input >> corpse;
+			serial &= ~ 0x80000000; // Clear the flag
+		}
+
+		input >> posx >> posy;
+
+		if (posx & 0x8000) {
+			input >> direction;
+			posx &= ~ 0x8000; // Clear the flag
+		} else {
+			direction = 0;
+		}
+
+		input >> posz >> direction >> hue >> flags >> notoriety;
+
+		// Check for items
+		stEquipInfo info;
+		input >> info.serial;
+
+		// Read until the serial is 0
+		while (info.serial != 0) {
+			input >> info.id >> info.layer;
+			if (info.id & 0x8000) {
+				input >> info.hue;
+				info.id &= ~ 0x8000; // Clear the flag
+			} else {
+				info.hue = 0;
+			}
+
+            equipment.append(info);
+			input >> info.serial; // Read next item serial
+		}
 	}
 
 	virtual void handle(cUoSocket *socket) {
+		// Normally we'd have to check if we have to create the mobile here
+		cDynamicEntity *entity = World->findDynamic(serial);
+		cMobile *mobile = 0;
 
+		if (!entity) {
+			return; // TODO: Object creation
+		}
+
+		if (entity->type() == MOBILE) {
+			mobile = (cMobile*)entity;
+			mobile->setHue(hue);
+			mobile->setDirection(direction);
+			mobile->setBody(body);
+
+			if (posx != mobile->x() || posy != mobile->y() || posz != mobile->z()) {
+				if (Player == mobile) {
+					World->moveCenter(posx, posy, posz, false);
+				}
+				mobile->move(posx, posy, posz);
+			}			
+		}
+
+		if (mobile) {
+			QList<stEquipInfo>::const_iterator it;
+			for (it = equipment.begin(); it != equipment.end(); ++it) {
+				mobile->addEquipment(it->serial, it->id, it->hue, (enLayer)it->layer);
+			}
+		}
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

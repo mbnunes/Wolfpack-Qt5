@@ -38,7 +38,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/Qt3Support4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/QtSql4.lib $(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/qtmain.lib"
+				AdditionalDependencies="$(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/Qt3Support4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/QtSql4.lib $(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/qtmain.lib opengl32.lib glu32.lib"
 				OutputFile="release\uoclient.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -46,7 +46,7 @@
 				DelayLoadDLLs="comdlg32.dll,oleaut32.dll,winmm.dll,wsock32.dll,winspool.dll"
 				GenerateDebugInformation="FALSE"
 				ProgramDatabaseFile=""
-				SubSystem="0"/>
+				SubSystem="2"/>
 			<Tool
 				Name="VCMIDLTool"
 				WarningLevel="0"

@@ -2,6 +2,9 @@
 #if !defined(__MOBILE_H__)
 #define __MOBILE_H__
 
+#include <qlist.h>
+
+#include "enums.h"
 #include "muls/animations.h"
 #include "game/dynamicentity.h"
 
@@ -11,13 +14,22 @@ protected:
 	unsigned short hue_;
 	unsigned char direction_;
 	bool partialHue_;
-	unsigned int serial_;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
 	unsigned int nextFrame;
 	unsigned int frame;
 	cSequence *sequence_; // Current sequence
+	cSequence *equipmentSequences[LAYER_VISIBLECOUNT]; // For every layer a possible sequence
+
+	// UNFINISHED
+	struct stEquipInfo {
+        unsigned int serial;
+		unsigned short hue;
+		unsigned short id;
+		unsigned char layer;
+	};
+	QList<stEquipInfo> equipment;
 
 	void freeSequence();
 	void refreshSequence();
@@ -49,17 +61,14 @@ public:
 	unsigned char currentAction() const;
 	unsigned int currentActionEnd() const;
 	cSequence *sequence() const;
-	unsigned int serial() const;
 	void setSerial(unsigned int serial); // Only use this on the player
 
 	void playAction(unsigned char action, unsigned int duration = 0);
 
 	void smoothMove(int xoffset, int yoffset, unsigned int duration);
-};
 
-inline unsigned int cMobile::serial() const {
-	return serial_;
-}
+	void addEquipment(unsigned int serial, unsigned short id, unsigned short hue, enLayer layer);
+};
 
 inline unsigned short cMobile::body() const {
 	return body_;
