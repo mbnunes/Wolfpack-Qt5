@@ -1588,6 +1588,17 @@ public:
 	}
 };
 
+// 0xA5 Weblink
+class cUOTxWeblink : public cUOPacket
+{
+public:
+	cUOTxWeblink() : cUOPacket( 0xA5, 3 )
+	{
+		setShort( 1, 3 );
+	}
+	void setUrl( const QString& data );
+};
+
 // 0x89 CorpseEquipment
 class cUOTxCorpseEquipment : public cUOPacket
 {

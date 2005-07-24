@@ -946,6 +946,28 @@ static PyObject* wpSocket_denymove( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
+/*
+	\method socket.sendweblink
+	\description Send an url to the client and open it in the players webbrowser.
+	\param url The url that should be sent.
+*/
+static PyObject* wpSocket_sendweblink( wpSocket* self, PyObject* args )
+{
+	if ( !self->pSock )
+		return PyFalse();
+
+	if ( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	QString url = getArgStr( 0 );
+	self->pSock->sendWeblink( url );
+
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef wpSocketMethods[] =
 {
 { "useitem",			( getattrofunc ) wpSocket_useitem, METH_VARARGS, NULL },
@@ -978,6 +1000,7 @@ static PyMethodDef wpSocketMethods[] =
 { "updatelightlevel",   ( getattrofunc ) wpSocket_updatelightlevel, METH_VARARGS, NULL },
 { "denymove",			( getattrofunc ) wpSocket_denymove, METH_VARARGS, NULL },
 { "sendtooltip",		( getattrofunc ) wpSocket_sendtooltip, METH_VARARGS, NULL },
+{ "sendweblink",		( getattrofunc ) wpSocket_sendweblink, METH_VARARGS, NULL },
 { NULL, NULL, 0, NULL }
 };
 

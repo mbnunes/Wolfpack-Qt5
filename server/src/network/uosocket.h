@@ -269,6 +269,7 @@ public:
 	void clilocMessageAffix( const Q_UINT32 MsgID, const QString& params = 0, const QString& affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
 	void updateLightLevel();
 	void sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y );
+	void sendWeblink( const QString& url );
 	void closeGump( Q_UINT32 type, Q_UINT32 returnCode );
 	void log( eLogLevel loglevel, const QString& message );
 	void log( const QString& message );

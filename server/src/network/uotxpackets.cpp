@@ -607,6 +607,14 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	setFlag(flags);
 }
 
+void cUOTxWeblink::setUrl( const QString& data )
+{
+	resize( 4 + data.length() );
+	setShort( 1, 4 + data.length() );
+	setAsciiString( 3, data.latin1(), data.length() + 1 );
+	( *this )[3 + data.length()] = 0; // Null Termination
+}
+
 void cUOTxCorpseEquipment::addItem( unsigned char layer, unsigned int serial )
 {
 	int offset = count() - 1;

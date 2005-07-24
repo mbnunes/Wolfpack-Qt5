@@ -3259,6 +3259,15 @@ void cUOSocket::sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y )
 	send( &qArrow );
 }
 
+void cUOSocket::sendWeblink( const QString& url )
+{
+	if ( url.isEmpty() )
+		return;
+	cUOTxWeblink weblink;
+	weblink.setUrl( url );
+	send( &weblink );
+}
+
 void cUOSocket::closeGump( Q_UINT32 type, Q_UINT32 returnCode )
 {
 	cUOTxCloseGump closegump;
