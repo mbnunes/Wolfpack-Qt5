@@ -1930,6 +1930,14 @@
 		<id>0x2a4a</id>
 	</item>
 
+	<item id="2a4b">
+		<id>0x2a4a</id>
+	</item>
+
+	<item id="2a4c">
+		<id>0x2a4a</id>
+	</item>
+
 	<!-- End Sword Displays -->
 
 	<item id="2886">
@@ -2063,5 +2071,278 @@
 	</item>
 
 	<!-- End Fire Pits -->
+
+	<!-- Evil Home Decor -->
+	<!-- Begin Bone Furniture -->
+
+	<item id="2a58">
+		<id>0x2a58</id>
+	</item>
+
+	<item id="2a59">
+		<id>0x2a59</id>
+	</item>
+
+	<item id="2a5a">
+		<id>0x2a5a</id>
+	</item>
+
+	<item id="2a5b">
+		<id>0x2a5b</id>
+	</item>
+
+	<item id="2a5c">
+		<id>0x2a5c</id>
+	</item>
+
+	<item id="2a7f">
+		<id>0x2a7f</id>
+	</item>
+
+	<item id="2a80">
+		<id>0x2a80</id>
+	</item>
+
+	<!-- End Bone Furniture -->
+
+	<!-- Begin Disturbing Portrai -->
+
+	<item id="2a5d">
+		<id>0x2a5d</id>
+	</item>
+
+	<item id="2a5e">
+		<id>0x2a5e</id>
+	</item>
+
+	<item id="2a5f">
+		<id>0x2a5f</id>
+	</item>
+
+	<item id="2a60">
+		<id>0x2a60</id>
+	</item>
+
+	<item id="2a61">
+		<id>0x2a61</id>
+	</item>
+
+	<item id="2a62">
+		<id>0x2a62</id>
+	</item>
+
+	<item id="2a63">
+		<id>0x2a63</id>
+	</item>
+
+	<item id="2a64">
+		<id>0x2a64</id>
+	</item>
+	
+	<!-- End Disturbing Portrai -->
+
+	<!-- Begin Unsettling Portrai -->
+
+	<item id="2a65">
+		<id>0x2a65</id>
+	</item>
+
+	<item id="2a66">
+		<id>0x2a66</id>
+	</item>
+
+	<item id="2a67">
+		<id>0x2a67</id>
+	</item>
+
+	<item id="2a68">
+		<id>0x2a68</id>
+	</item>
+
+	<!-- End Unsettling Portrai -->
+
+	<!-- Begin Creepy Portrai -->
+
+	<item id="2a69">
+		<id>0x2a69</id>
+	</item>
+
+	<item id="2a6a">
+		<id>0x2a6a</id>
+	</item>
+
+	<item id="2a6b">
+		<id>0x2a6b</id>
+	</item>
+
+	<item id="2a6c">
+		<id>0x2a6c</id>
+	</item>
+
+	<item id="2a6d">
+		<id>0x2a6d</id>
+	</item>
+
+	<item id="2a6e">
+		<id>0x2a6e</id>
+	</item>
+
+	<item id="2a6f">
+		<id>0x2a6f</id>
+	</item>
+
+	<!-- End Creepy Portrai -->
+
+	<!-- Begin Mounted Pixie -->
+
+	<item id="2a71">
+		<id>0x2a71</id>
+	</item>
+
+	<item id="2a72">
+		<id>0x2a72</id>
+	</item>
+
+	<item id="2a73">
+		<id>0x2a73</id>
+	</item>
+
+	<item id="2a74">
+		<id>0x2a74</id>
+	</item>
+
+	<item id="2a75">
+		<id>0x2a75</id>
+	</item>
+
+	<item id="2a76">
+		<id>0x2a76</id>
+	</item>
+
+	<item id="2a77">
+		<id>0x2a77</id>
+	</item>
+
+	<item id="2a78">
+		<id>0x2a78</id>
+	</item>
+
+	<item id="2a79">
+		<id>0x2a79</id>
+	</item>
+
+	<item id="2a7a">
+		<id>0x2a7a</id>
+	</item>
+
+	<!-- End Mounted Pixie -->
+
+	<!-- Begin Haunted Mirror -->
+
+	<item id="2a7b">
+		<id>0x2a7b</id>
+	</item>
+
+	<item id="2a7c">
+		<id>0x2a7c</id>
+	</item>
+
+	<item id="2a7d">
+		<id>0x2a7d</id>
+	</item>
+
+	<item id="2a7e">
+		<id>0x2a7e</id>
+	</item>
+
+	<!-- End Haunted Mirror -->
+
+	<!-- Begin Bed Of Nails -->
+
+	<item id="2a81">
+		<id>0x2a81</id>
+	</item>
+
+	<item id="2a82">
+		<id>0x2a82</id>
+	</item>
+
+	<item id="2a83">
+		<id>0x2a83</id>
+	</item>
+
+	<item id="2a84">
+		<id>0x2a84</id>
+	</item>
+
+	<item id="2a85">
+		<id>0x2a85</id>
+	</item>
+
+	<item id="2a86">
+		<id>0x2a86</id>
+	</item>
+
+	<item id="2a87">
+		<id>0x2a87</id>
+	</item>
+
+	<item id="2a88">
+		<id>0x2a88</id>
+	</item>
+
+	<item id="2a89">
+		<id>0x2a89</id>
+	</item>
+
+	<item id="2a8a">
+		<id>0x2a8a</id>
+	</item>
+
+	<item id="2a8b">
+		<id>0x2a8b</id>
+	</item>
+
+	<item id="2a8c">
+		<id>0x2a8c</id>
+	</item>
+
+	<item id="2a8d">
+		<id>0x2a8d</id>
+	</item>
+
+	<item id="2a8e">
+		<id>0x2a8e</id>
+	</item>
+
+	<item id="2a8f">
+		<id>0x2a8f</id>
+	</item>
+
+	<item id="2a90">
+		<id>0x2a90</id>
+	</item>
+
+	<!-- End Bed Of Nails -->
+
+	<!-- Begin Sacrificial Altar -->
+
+	<item id="2a9a">
+		<id>0x2a9a</id>
+	</item>
+
+	<item id="2a9b">
+		<id>0x2a9b</id>
+	</item>
+
+	<item id="2a9c">
+		<id>0x2a9c</id>
+	</item>
+
+	<item id="2a9d">
+		<id>0x2a9d</id>
+	</item>
+
+	<!-- End Sacrificial Altar -->
 
 </definitions>
