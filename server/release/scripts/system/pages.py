@@ -432,7 +432,8 @@ def help_response(char, arguments, response):
 		page.category = tr('BUILD')
 
 	pages.add(page, True)
-	char.socket.sysmessage('Your page has been queued.', 0x846)
+	char.socket.clilocmessage(501233, "", 0x846) # Your help request has been entered.
+	char.socket.clilocmessage(501234, "", 0x846) # The next available Counselor/Game Master will respond as soon as possible. Please check your Journal for messages every few minutes.
 
 #
 # The global onHelp event

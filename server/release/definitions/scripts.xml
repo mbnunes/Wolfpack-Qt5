@@ -150,6 +150,7 @@
 	<script>commands.sound</script>
 	<script>commands.spawn</script>
 	<script>commands.stat</script>
+	<script>commands.sysmessage</script>
 	<script>commands.tags</script>
 	<script>commands.tele</script>
 	<script>commands.testlos</script>
