@@ -103,6 +103,11 @@ class CloseWounds(CharEffectSpell):
 			target.effect( 0x376A, 1, 62 )
 			target.effect( 0x3779, 1, 46 )
 
+def isConsecrated( item ):
+	if item.hastag( 'consecrated' ):
+		return True
+	return False
+
 class ConsecrateWeapon(Spell):
 	def __init__(self):
 		Spell.__init__(self, 3)
@@ -112,8 +117,52 @@ class ConsecrateWeapon(Spell):
 		self.mana = 10
 		self.tithingpoints = 10
 		self.mantra = 'Consecrus Arma'
+
 	def cast(self, char, mode, args=[], target=None, item=None):
-		char.socket.sysmessage( tr("Not yet implemented.") )
+		weapon = char.getweapon()
+		if not weapon:
+			char.socket.clilocmessage( 501078 ) # You must be holding a weapon.
+			return False
+
+		# timer dispel is not possible, so make sure there aren't 2 timers at once
+		if isConsecrated( weapon ):
+			return False
+
+		if not self.consumerequirements(char, mode, args, target, item):
+			return False
+
+		# Temporarily enchants the weapon the caster is currently wielding.
+		# The type of damage the weapon inflicts when hitting a target will
+		# be converted to the target's worst Resistance type.
+		# Duration of the effect is affected by the caster's Karma and lasts for 3 to 11 seconds.
+
+		itemID = 0xF5F
+		soundID = 0x56
+		
+		if weapon.type in [1003, 1004]:
+			itemID = 0xFB4
+			soundID = 0x232
+		elif weapon.type in [1006, 1007]:
+			itemID = 0x13B1
+			soundID = 0x145
+
+		seconds = ComputePowerValue( char, 20 )
+		if seconds < 3.0:
+			seconds = 3.0
+		elif seconds > 11.0:
+			seconds = 11.0
+
+		weapon.settag( "consecrated", 1 )
+		weapon.addtimer( seconds * 1000, expire_consecrate, [] )
+		char.effect( itemID, 1 )
+		weapon.soundeffect( soundID )
+
+def expire_consecrate( weapon, args ):
+	if not weapon:
+		return False
+	if isConsecrated(weapon):
+		weapon.deltag( 'consecrated' )
+		weapon.soundeffect(0x1F8)
 
 class DispelEvil(Spell):
 	def __init__(self):

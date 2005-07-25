@@ -176,10 +176,47 @@ def scaledamage(char, damage, checkskills = True, checkability = False):
 	
 	return max(1, floor(damage))
 
+def consecratedweapon( defender ):
+	physical = properties.fromchar(defender, RESISTANCE_PHYSICAL)
+	fire = properties.fromchar(defender, RESISTANCE_FIRE)
+	cold = properties.fromchar(defender, RESISTANCE_COLD)
+	poison = properties.fromchar(defender, RESISTANCE_POISON)
+	energy = properties.fromchar(defender, RESISTANCE_ENERGY)
+
+	low = physical
+	type = 0
+
+	if fire < low:
+		low = fire
+		type = 1
+	if cold < low:
+		low = cold
+		type = 2
+	if poison < low:
+		low = poison
+		type = 3
+	if energy < low:
+		low = energy
+		type = 4
+	physical = fire = cold = poison = energy = 0
+
+	if type == 0:
+		physical = 100
+	elif type == 1:
+		fire = 100
+	elif type == 2:
+		cold = 100
+	elif type == 3:
+		poison = 100
+	elif type == 4:
+		energy = 100
+
+	return (physical, fire, cold, poison, energy)
+
 #
 # Get the energy distribution values for a given character.
 #
-def damagetypes(char):
+def damagetypes(char, defender):
 	fire = 0
 	cold = 0
 	poison = 0
@@ -205,22 +242,26 @@ def damagetypes(char):
 		if char.hastag('dmg_energy'):
 			energy = int(char.gettag('dmg_energy'))
 	elif weapon:
-		# Physical Damage Distribution
-		fire = weapon.getintproperty( 'dmg_fire', 0 )
-		if weapon.hastag( 'dmg_fire' ):
-			fire = int( weapon.gettag( 'dmg_fire' ) )
+		if magic.chivalry.isConsecrated(weapon):
+			(physical, fire, cold, poison, energy) = consecratedweapon( defender )
 
-		cold = weapon.getintproperty( 'dmg_cold', 0 )
-		if weapon.hastag( 'dmg_cold' ):
-			cold = int( weapon.gettag( 'dmg_cold' ) )
+		else:
+			# Physical Damage Distribution
+			fire = weapon.getintproperty( 'dmg_fire', 0 )
+			if weapon.hastag( 'dmg_fire' ):
+				fire = int( weapon.gettag( 'dmg_fire' ) )
 
-		poison = weapon.getintproperty( 'dmg_poison', 0 )
-		if weapon.hastag( 'dmg_poison' ):
-			poison = int( weapon.gettag( 'dmg_poison' ) )
+			cold = weapon.getintproperty( 'dmg_cold', 0 )
+			if weapon.hastag( 'dmg_cold' ):
+				cold = int( weapon.gettag( 'dmg_cold' ) )
 
-		energy = weapon.getintproperty( 'dmg_energy', 0 )
-		if weapon.hastag( 'dmg_energy' ):
-			energy = int( weapon.gettag( 'dmg_energy' ) )
+			poison = weapon.getintproperty( 'dmg_poison', 0 )
+			if weapon.hastag( 'dmg_poison' ):
+				poison = int( weapon.gettag( 'dmg_poison' ) )
+
+			energy = weapon.getintproperty( 'dmg_energy', 0 )
+			if weapon.hastag( 'dmg_energy' ):
+				energy = int( weapon.gettag( 'dmg_energy' ) )
 
 	# See if the energy distribution is correct
 	if fire + cold + poison + energy > 100:
@@ -454,7 +495,7 @@ def hit(attacker, defender, weapon, time):
 		ignorephysical = ability.ignorephysical
 
 	# Get the damage distribution of the attackers weapon
-	(physical, fire, cold, poison, energy) = damagetypes(attacker)
+	(physical, fire, cold, poison, energy) = damagetypes(attacker, defender)
 	damagedone = energydamage(defender, attacker, damage, physical, fire, cold, poison, energy, 0, DAMAGE_PHYSICAL, ignorephysical=ignorephysical)
 
 	# Wear out the weapon
