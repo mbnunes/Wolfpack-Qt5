@@ -134,6 +134,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added NIGHTSIGHT property for armory and jewelery.
   - Gave GMs the ability to command npcs with "All .." commands.
   - Music instruments do wear out.
+  - Added a sysmessage command.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
