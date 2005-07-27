@@ -11,6 +11,7 @@ from skills import poisoning
 import system.slayer
 from combat.specialmoves import getability
 import combat.hiteffects
+import magic.chivalry
 
 #
 # Check if the given weapon can slay the given
