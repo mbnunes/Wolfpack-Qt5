@@ -160,6 +160,7 @@ class ConsecrateWeapon(Spell):
 def expire_consecrate( weapon, args ):
 	if not weapon:
 		return False
+
 	if isConsecrated(weapon):
 		weapon.deltag( 'consecrated' )
 		weapon.soundeffect(0x1F8)
@@ -173,6 +174,7 @@ class DispelEvil(Spell):
 		self.mana = 10
 		self.tithingpoints = 10
 		self.mantra = 'Dispiro Malas'
+
 	def cast(self, char, mode, args=[], target=None, item=None):
 		char.socket.sysmessage( tr("Not yet implemented.") )
 
@@ -185,7 +187,19 @@ class DivineFury(Spell):
 		self.mana = 15
 		self.tithingpoints = 10
 		self.mantra = 'Divinum Furis'
+
 	def cast(self, char, mode, args=[], target=None, item=None):
+		if not self.consumerequirements(char, mode, args, target, item):
+			return False
+
+		char.soundeffect( 0x20F )
+		sound = 0x44A
+		if char.gender:
+			sound = 0x338
+		char.soundeffect( sound  )
+		char.effect( 0x376A, 1, 31 )
+		char.effect( 0x37C4, 1, 31 )
+
 		char.socket.sysmessage( tr("Not yet implemented.") )
 
 class EnemyOfOne(Spell):
@@ -197,7 +211,15 @@ class EnemyOfOne(Spell):
 		self.mana = 20
 		self.tithingpoints = 10
 		self.mantra = 'Forul Solum'
+
 	def cast(self, char, mode, args=[], target=None, item=None):
+		if not self.consumerequirements(char, mode, args, target, item):
+			return False
+
+		char.soundeffect( 0x0F5 )
+		char.soundeffect( 0x1ED )
+		char.effect( 0x375A, 1, 30 )
+		char.effect( 0x37B9, 1, 30 )
 		char.socket.sysmessage( tr("Not yet implemented.") )
 
 class HolyLight(Spell):
@@ -343,6 +365,7 @@ class RemoveCurse(Spell):
 		self.mana = 20
 		self.tithingpoints = 10
 		self.mantra = 'Extermo Vomica'
+
 	def cast(self, char, mode, args=[], target=None, item=None):
 		char.socket.sysmessage( tr("Not yet implemented.") )
 
@@ -355,6 +378,7 @@ class SacredJourney(Spell):
 		self.mana = 10
 		self.tithingpoints = 15
 		self.mantra = 'Sanctum Viatas'
+
 	def cast(self, char, mode, args=[], target=None, item=None):
 		char.socket.sysmessage( tr("Not yet implemented.") )
 

@@ -156,20 +156,6 @@ class TinkerItemAction(CraftItemAction):
 			item.maxhealth = max(1, item.maxhealth + bonus)
 			item.health = item.maxhealth
 
-		# Reduce the uses remain count
-		checktool(player, wolfpack.finditem(arguments[0]), 1)
-
-	#
-	# First check if we are near an anvil and forge.
-	#
-	def make(self, player, arguments, nodelay=0):
-		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
-
-		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return False
-
-		return CraftItemAction.make(self, player, arguments, nodelay)
-
 	#
 	# Play a simple soundeffect
 	#
@@ -187,6 +173,7 @@ class TinkeringMenu(MakeMenu):
 		self.submaterial1noskill = 1044268
 		self.submaterial2missing = 1044240
 		self.gumptype = 0x41afb410 # This should be unique
+		self.requiretool = True
 
 	#
 	# Get the material used by the character from the tags
@@ -200,7 +187,7 @@ class TinkeringMenu(MakeMenu):
 				return material
 			else:
 				return False
-	
+
 	#
 	# Get the material used by the character from the tags
 	#
@@ -219,7 +206,7 @@ class TinkeringMenu(MakeMenu):
 	#
 	def setsubmaterial1used(self, player, arguments, material):
 		player.settag('blacksmithing_ore', material)
-	
+
 	#
 	# Save the material preferred by the user in a tag
 	#
