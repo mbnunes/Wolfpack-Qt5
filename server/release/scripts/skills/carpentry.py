@@ -135,14 +135,6 @@ class CarpentryMenu(MakeMenu):
 		self.requiretool = True
 
 	#
-	# Check for the tool
-	#
-	def checktool(self, player, item, wearout = False):
-		if not MakeMenu.checktool(self, player, item, wearout):
-			return False
-		return True
-
-	#
 	# Get the material used by the character from the tags
 	#
 	def getsubmaterial1used(self, player, arguments):

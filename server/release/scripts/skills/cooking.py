@@ -1,6 +1,6 @@
 #################################################################
 #   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  # Created by: khpae							#
+#  ((    _/{  "-;  # Created by: khpae				#
 #   )).-' {{ ;'`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
@@ -12,7 +12,7 @@ from wolfpack import console
 from wolfpack.consts import COOKING, LOG_ERROR, WPDT_MENU, WPDT_ITEM, skillnamesids
 from wolfpack import properties, tr
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
-from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
+from wolfpack.utilities import hex2dec, tobackpack
 import beverage
 
 #
@@ -30,7 +30,6 @@ def onUse(char, item):
 class CookItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
-		self.requiretool = True # Require a tool
 		self.needheat = False
 		self.needoven = False
 		self.water = False
@@ -111,6 +110,7 @@ class CookingMenu(MakeMenu):
 		self.allowmark = False
 		self.delay = 1250
 		self.gumptype = 0xb10cae72 # This should be unique
+		self.requiretool = True # Require a tool
 
 #
 # Load a menu with a given id and

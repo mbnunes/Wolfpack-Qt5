@@ -93,14 +93,6 @@ class MasonryMenu(MakeMenu):
 		self.requiretool = True
 		self.checklearned = True
 
-	#
-	# Check for the tool and if the player has learned stonecraft
-	#
-	def checktool(self, player, item, wearout = False):
-		if not MakeMenu.checktool(self, player, item, wearout):
-			return False			
-		return True
-
 	# Check if player has learned masonry
 	def haslearned(self, player, item):
 		if not player.gm and not (player.hastag( 'masonry' ) and player.skill[MINING] >= 1000):

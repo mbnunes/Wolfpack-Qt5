@@ -49,42 +49,10 @@ def name_item( item, material ):
 	elif item.baseid == "1f06":
 		return material[6][3]
 
-# Check if the character is using the right tool
-#
-def checktool(char, item, wearout = 0):
-	if not item:
-		return False
-
-	# Has to be in our posession
-	if item.getoutmostchar() != char:
-		char.socket.clilocmessage(500364)
-		return False
-
-	# We do not allow "invulnerable" tools.
-	if not item.hastag('remaining_uses'):
-		char.socket.clilocmessage(1044038)
-		item.delete()
-		return False
-
-	if wearout:
-		uses = int(item.gettag('remaining_uses'))
-		if uses <= 1:
-			char.socket.clilocmessage(1044038)
-			item.delete()
-			return False
-		else:
-			item.settag('remaining_uses', uses - 1)
-			item.resendtooltip()
-
-	return True
-
 #
 # Bring up the tinkering menu
 #
 def onUse(char, item):
-	if not checktool(char, item):
-		return True
-
 	menu = findmenu('TINKERING')
 	if menu:
 		menu.send(char, [item.serial])

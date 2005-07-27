@@ -18,42 +18,9 @@ import random
 # Display fletching craftmenu.
 #
 def onUse(player, item):
-	if not checktool(player, item):
-		return True
-
 	menu = findmenu('BOWCRAFT')
 	if menu:
 		menu.send(player, [item.serial])
-	return True
-
-#
-# Check if the character is using the right tool
-#
-def checktool(char, item, wearout = 0):
-	if not item:
-		return False
-
-	# Has to be in our posession
-	if item.getoutmostchar() != char:
-		char.socket.clilocmessage(500364)
-		return False
-
-	# We do not allow "invulnerable" tools.
-	if not item.hastag('remaining_uses'):
-		char.socket.clilocmessage(1044038)
-		item.delete()
-		return False
-
-	if wearout:
-		uses = int(item.gettag('remaining_uses'))
-		if uses <= 1:
-			char.socket.clilocmessage(1044038)
-			item.delete()
-			return False
-		else:
-			item.settag('remaining_uses', uses - 1)
-			item.resendtooltip()
-
 	return True
 
 #
@@ -139,21 +106,6 @@ class FletchItemAction(CraftItemAction):
 				bonus += 20
 				item.settag('aos_boni_damage', bonus)
 
-
-		# Reduce the uses remain count
-		checktool(player, wolfpack.finditem(arguments[0]), 1)
-
-	#
-	# Check for the used tool.
-	#
-	def make(self, player, arguments, nodelay=0):
-		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
-
-		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return False
-
-		return CraftItemAction.make(self, player, arguments, nodelay)
-
 	#
 	# Play a simple soundeffect
 	#
@@ -169,14 +121,12 @@ class BowcraftMenu(MakeMenu):
 		self.allowmark = 1
 		self.allowrepair = 1
 		self.gumptype = 0x4f1ba412 # This should be unique
+		self.requiretool = True
 
 	#
 	# Repair an item
 	#
 	def repair(self, player, arguments, target):
-		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return
-
 		if not target.item:
 			player.socket.clilocmessage(500426)
 			return

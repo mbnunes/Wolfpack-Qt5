@@ -43,8 +43,8 @@ def checktool(char, item, wearout = 0):
 # Bring up the alchemy menu
 #
 def onUse(char, item):
-	if not checktool(char, item):
-		return True
+#	if not checktool(char, item):
+#		return True
 
 	menu = findmenu('ALCHEMY')
 	if menu:
@@ -58,7 +58,7 @@ def onUse(char, item):
 class BrewItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
-		self.markable = 1 # All alchemy items are not markable
+		self.markable = 0 # All alchemy items are not markable
 		self.bottled = True # Whatever we produce comes in bottles
 		self.successmessage = 500279 # Custom Success Message
 		self.failmessage = 500287 # Custom Fail Message
@@ -95,24 +95,6 @@ class BrewItemAction(CraftItemAction):
 			player.socket.sysmessage(self.successmessage)
 
 	#
-	# There are no special properties
-	# but we need to wear out the tool
-	#
-	def applyproperties(self, player, arguments, item, exceptional):
-		checktool(player, wolfpack.finditem(arguments[0]), 1)
-
-	#
-	# Check for the used tool.
-	#
-	def make(self, player, arguments, nodelay=0):
-		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
-
-		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return False
-
-		return CraftItemAction.make(self, player, arguments, nodelay)
-
-	#
 	# Play a simple soundeffect
 	#
 	def playcrafteffect(self, player, arguments):
@@ -127,6 +109,7 @@ class AlchemyMenu(MakeMenu):
 		self.allowmark = 0
 		self.delay = 2000
 		self.gumptype = 0x9ca51fca # This should be unique
+		self.requiretool = True
 
 #
 # Load a menu with a given id and
