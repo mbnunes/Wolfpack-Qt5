@@ -26,14 +26,8 @@ firefield = [ 0x398c, 0x3996 ]
 fires = ovens + campfire, firefield
 
 def onUse( char, item ):
-	if not item.getoutchar() == char:
+	if not item.getoutmostchar() == char:
 		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
-		return True
-
-	if not actions.has_key( item.baseid ):
-		menu = findmenu('COOKING')
-		if menu:
-			menu.send(char, [item.serial])
 		return True
 
 	# simply open the sack
@@ -41,7 +35,13 @@ def onUse( char, item ):
 		item.id += 0x1
 		item.baseid = 1046
 		item.update()
-		return 
+		return True
+
+	if not actions.has_key( item.baseid ):
+		menu = findmenu('COOKING')
+		if menu:
+			menu.send(char, [item.serial])
+		return True
 
 	char.socket.attachtarget( "skills.cooking.%s" % actions[ item.baseid ], [item.serial] )
 	return True
@@ -85,10 +85,11 @@ def Dough( char, args, target ):
 		unbaked_peachcobbler = wolfpack.additem( "unbaked_peachcobbler" )
 		if not tobackpack( unbaked_peachcobbler, char ):
 			unbaked_peachcobbler.update()
+	else:
+		return False
 
 	dough.delete()
 	target.item.delete()
-	return
 
 def SweetDough( char, args, target ):
 	dough = wolfpack.finditem( args[0] ) 
@@ -110,6 +111,8 @@ def SweetDough( char, args, target ):
 	elif target.item.baseid == "de3":
 		char.soundeffect( 0x225 )
 		char.addtimer( 5000, delay_campfire, [target.item.serial] )
+	else:
+		return False
 
 	dough.delete()
 
@@ -151,6 +154,8 @@ def JarHoney( char, args, target ):
 		cookie_mix = wolfpack.additem( "103f" )
 		if not tobackpack( cookie_mix, char ):
 			cookie_mix.update()
+	else:
+		return False
 
 	honey.delete()
 	target.item.delete()
@@ -180,6 +185,8 @@ def SackFlourOpen( char, args, target ):
 			char.socket.clilocmessage( 1042002 ) # You combine the berry and the flour into the tribal paint worn by the savages.
 		else:
 			char.socket.clilocmessage( 1042003 ) # You don't have the cooking skill to create the body paint.
+	else:
+		return False
 
 	item.delete()
 	target.item.delete()
