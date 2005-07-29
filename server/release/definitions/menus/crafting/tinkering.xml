@@ -174,12 +174,10 @@
 			<ingots amount="2" />
 			<nomark />
 		</tinker>
-	<!--
-		<tinker definition="" name="Bola Ball">
+		<tinker definition="bola_ball" name="Bola Ball">
 			<tinkering min="450" max="950" />
 			<ingots amount="10" />
 		</tinker>
-	-->
 	</menu>
 
 	<menu id="TINKERING_UTENSILS" name="Utensils">
@@ -280,6 +278,11 @@
 		</tinker>
 		<tinker definition="1057" name="Sextant">
 			<material id="1059;105a" amount="1" name="Sextant Parts" /> <!-- Sextant Parts -->
+		</tinker>
+		<tinker definition="26ac" name="Bola">
+			<tinkering min="600" max="1100" />
+			<material id="leather_cut" amount="3" name="Leather" />
+			<material id="bola_ball" amount="4" name="Bola Balls" />
 		</tinker>
 		<tinker definition="potion_keg_empty" name="Potion Keg" itemid="0x1940">
 			<tinkering min="750" max="1000" />

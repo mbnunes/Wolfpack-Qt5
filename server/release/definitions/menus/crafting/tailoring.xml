@@ -217,8 +217,11 @@
 			<tailoring min="290" max="540" />
 			<cloth amount="10" />
 		</tailor>
-		<!-- Oil Cloth -->
-		
+		<tailor definition="oil_cloth" name="Oil Cloth">
+			<tailoring min="746" max="1046" />
+			<cloth amount="1" />
+		</tailor>
+
 		<setailor definition="27a0" name="Obi">
 			<tailoring min="200" max="450" />
 			<cloth amount="6" />
