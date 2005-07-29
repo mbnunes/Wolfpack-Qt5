@@ -407,7 +407,6 @@
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<weight>0.4</weight>
-		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Skull Mugs -->
@@ -475,7 +474,6 @@
 		<id>0x1042</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Unbaked Pie</category>
-		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Unbaked Quiche -->
@@ -483,7 +481,6 @@
 		<name>#1041339</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Quiche</category>
 	</item>
 
@@ -491,7 +488,6 @@
 		<name>#1041338</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Meat Pie</category>
 	</item>
 
@@ -499,7 +495,6 @@
 		<name>#1041334</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Fruit Pie</category>
 	</item>
 
@@ -507,7 +502,6 @@
 		<name>#1041335</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Peach Cobbler</category>
 	</item>
 
@@ -515,7 +509,6 @@
 		<name>#1041336</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Apple Pie</category>
 	</item>
 
@@ -523,7 +516,6 @@
 		<name>#1041342</name>
 		<id>0x1042</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Pumpkin Pie</category>
 	</item>
 
@@ -531,7 +523,6 @@
 		<name>#1041337</name>
 		<id>0x1083</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Sausage Pizza</category>
 	</item>
 
@@ -539,7 +530,6 @@
 		<name>#1041341</name>
 		<id>0x1083</id>
 		<weight>1.0</weight>
-		<basescripts>cooking</basescripts>
 		<category>Professions\Cook\Supplies\Unbaked Cheese Pizza</category>
 	</item>
 
@@ -547,7 +537,6 @@
 		<id>0x1083</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Unbaked Pizza</category>
-		<basescripts>cooking</basescripts>
 	</item>
 
 	<item id="15f8">
@@ -598,7 +587,6 @@
 		<sellprice>2</sellprice>
 		<weight>0.2</weight>
 		<category>Professions\Cook\Supplies\Raw Leg of Lamb</category>
-		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Raw Chicken Leg -->
@@ -608,7 +596,6 @@
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Raw Chicken Leg</category>
-		<basescripts>cooking</basescripts>
 	</item>
 
 	<item id="10e8">
@@ -633,5 +620,11 @@
 		<category>Professions\Cook\Decoration\Bar\Glass Pitcher 2</category>
 	</item>
 
-
+	<item id="tribal_berry">
+		<id>0x9d0</id>
+		<name>#1040001</name>
+		<weight>1.0</weight>
+		<color>6</color>
+		<category>Professions\Cook\Supplies\Tribal Berry</category>
+	</item>
 </definitions>

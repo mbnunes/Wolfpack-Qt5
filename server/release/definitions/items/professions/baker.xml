@@ -14,21 +14,25 @@
 	<item id="1039">
 		<id>0x1039</id>
 		<category>Professions\Baker\Sack of Flour (W/E)</category>
+		<basescripts>skills.cooking</basescripts>
 	</item>
 
 	<item id="103a">
 		<id>0x103a</id>
 		<category>Professions\Baker\Open Sack of Flour (W/E)</category>
+		<basescripts>skills.cooking</basescripts>
 	</item>
 
 	<item id="1045">
 		<id>0x1045</id>
 		<category>Professions\Baker\Sack of Flour (N/S)</category>
+		<basescripts>skills.cooking</basescripts>
 	</item>
 
 	<item id="1046">
 		<id>0x1046</id>
 		<category>Professions\Baker\Open Sack of Flour (N/S)</category>
+		<basescripts>skills.cooking</basescripts>
 	</item>
 
 	<item id="103e">

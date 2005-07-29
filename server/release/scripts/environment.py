@@ -286,8 +286,7 @@ actions =	{
 			0xeff: hairdye,
 
 			# Dye Tub
-			0xfab: dyingtub,
-
+			0xfab: dyingtub
 		}
 
 def onUse( char, item ):

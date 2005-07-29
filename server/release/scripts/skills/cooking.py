@@ -1,6 +1,6 @@
 #################################################################
 #   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  # Created by: khpae				#
+#  ((    _/{  "-;  # Created by: Naddel				#
 #   )).-' {{ ;'`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
@@ -9,20 +9,202 @@ import wolfpack
 import math
 import random
 from wolfpack import console
-from wolfpack.consts import COOKING, LOG_ERROR, WPDT_MENU, WPDT_ITEM, skillnamesids
-from wolfpack import properties, tr
+from wolfpack.consts import COOKING, LOG_ERROR, WPDT_MENU, WPDT_ITEM
+from wolfpack import tr
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
 import beverage
 
-#
-# Bring up the cooking menu
-#
-def onUse(char, item):
-	menu = findmenu('COOKING')
-	if menu:
-		menu.send(char, [item.serial])
+ovens1 = range( 0x045d, 0x048f )
+ovens2 = range( 0x08cf, 0x08e0 )
+ovens3 = range( 0x092b, 0x096d )
+ovens4 = range( 0x11ec, 0x11f0 )
+ovens = ovens1 + ovens2 + ovens3 + ovens4
+
+campfire = range( 0x0de3, 0x0de9 )
+firefield = [ 0x398c, 0x3996 ]
+fires = ovens + campfire, firefield
+
+def onUse( char, item ):
+	if not item.getoutchar() == char:
+		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
+		return True
+
+	if not actions.has_key( item.baseid ):
+		menu = findmenu('COOKING')
+		if menu:
+			menu.send(char, [item.serial])
+		return True
+
+	# simply open the sack
+	if item.baseid in ["1039", "1045"]:
+		item.id += 0x1
+		item.baseid = 1046
+		item.update()
+		return 
+
+	char.socket.attachtarget( "skills.cooking.%s" % actions[ item.baseid ], [item.serial] )
 	return True
+
+def Dough( char, args, target ):
+	dough = wolfpack.finditem( args[0] ) 
+	if not dough or not target.item:
+		return False
+	backpack = char.getbackpack()
+
+	if not target.item.getoutmostchar() == char:
+		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
+		return True
+
+	# Eggs
+	if target.item.baseid == "9b5":
+		eggshells = wolfpack.additem( "9b4" )
+		unbaked_quiche = wolfpack.additem( "unbaked_quiche" )
+		if not tobackpack( eggshells, char ):
+			eggshells.update()
+		if not tobackpack( unbaked_quiche, char ):
+			unbaked_quiche.update()
+
+	# Cheese Wheel
+	elif target.item.baseid == "97e":
+		unbaked_cheesepizza = wolfpack.additem( "unbaked_cheesepizza" )
+		if not tobackpack( unbaked_cheesepizza, char ):
+			unbaked_cheesepizza.update()
+	# Sausage
+	elif target.item.baseid in ["9c0", "9c1"]:
+		unbaked_sausagepizza = wolfpack.additem( "unbaked_sausagepizza" )
+		if not tobackpack( unbaked_sausagepizza, char ):
+			unbaked_sausagepizza.update()
+	# Apple
+	elif target.item.baseid == "9d0":
+		unbaked_applepie = wolfpack.additem( "unbaked_applepie" )
+		if not tobackpack( unbaked_applepie, char ):
+			unbaked_applepie.update()
+	# Peach
+	elif target.item.baseid in ["9d2", "172c"]:
+		unbaked_peachcobbler = wolfpack.additem( "unbaked_peachcobbler" )
+		if not tobackpack( unbaked_peachcobbler, char ):
+			unbaked_peachcobbler.update()
+
+	dough.delete()
+	target.item.delete()
+	return
+
+def SweetDough( char, args, target ):
+	dough = wolfpack.finditem( args[0] ) 
+	if not dough or not target.item:
+		return False
+
+	if not target.item.getoutmostchar() == char:
+		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
+		return True
+
+	backpack = char.getbackpack()
+	# Bowl Flour
+	if target.item.baseid == "a1e":
+		target.item.delete()
+		cake_mix = wolfpack.additem( "cake_mix" )
+		if not tobackpack( cake_mix, char ):
+			cake_mix.update()
+	# Campfire
+	elif target.item.baseid == "de3":
+		char.soundeffect( 0x225 )
+		char.addtimer( 5000, delay_campfire, [target.item.serial] )
+
+	dough.delete()
+
+def delay_campfire( char, args ):
+	campfire = wolfpack.finditem( args[0] )
+	if not char.socket or not campfire:
+		return False
+
+	#if ( m_From.GetDistanceToSqrt( m_Campfire ) > 3 ):
+	#	char.socket.clilocmessage( 500686 ) # You burn the food to a crisp! It's ruined.
+	#	return
+
+	if char.checkskill( COOKING, 0, 100 ):
+		muffins = wolfpack.additem( "9eb" )
+		if not tobackpack( muffins, char ):
+			muffins.update()
+		char.soundeffect( 0x57 )
+	else:
+		char.socket.clilocmessage( 500686 ) # You burn the food to a crisp! It's ruined.
+	return True
+
+def JarHoney( char, args, target ):
+	honey = wolfpack.finditem( args[0] ) 
+	if not honey or not target.item:
+		return False
+
+	if not target.item.getoutmostchar() == char:
+		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
+		return True
+
+	backpack = char.getbackpack()
+	# Dough
+	if target.item.baseid == "103d":
+		sweet_dough = wolfpack.additem( "sweet_dough" )
+		if not tobackpack( sweet_dough, char ):
+			sweet_dough.update()
+	# Bowl Flour
+	if target.item.baseid == "a1e":
+		cookie_mix = wolfpack.additem( "103f" )
+		if not tobackpack( cookie_mix, char ):
+			cookie_mix.update()
+
+	honey.delete()
+	target.item.delete()
+
+def SackFlourOpen( char, args, target ):
+	item = wolfpack.finditem( args[0] ) 
+	if not item or not target.item:
+		return False
+
+	if not target.item.getoutmostchar() == char:
+		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
+		return True
+
+	backpack = char.getbackpack()
+	# wooden bowl
+	if target.item.baseid == "15f8":
+		bowl_flour = wolfpack.additem( "a1e" )
+		if not tobackpack( bowl_flour, char ):
+			bowl_flour.update()
+	# tribal berry
+	elif target.item.baseid == "tribal_berry":
+		if char.skill[COOKING] >= 800:
+			tribal_paint = wolfpack.additem( "tribal_paint" )
+			if not tobackpack( tribal_paint, char ):
+				tribal_paint.update()
+
+			char.socket.clilocmessage( 1042002 ) # You combine the berry and the flour into the tribal paint worn by the savages.
+		else:
+			char.socket.clilocmessage( 1042003 ) # You don't have the cooking skill to create the body paint.
+
+	item.delete()
+	target.item.delete()
+
+# Table of IDs mapped to handler functions
+actions =	{
+			"103d": "Dough",
+
+			"sweet_dough": "SweetDough",
+
+			"9ec": "JarHoney",
+
+			"1046": "SackFlourOpen",
+			"103a": "SackFlourOpen"
+		}
+
+def find( char, object = None ):
+	# check for dynamic items
+	items = wolfpack.items( char.pos.x, char.pos.y, char.pos.map, 2 )
+	for item in items:
+		if item.id in object:
+			return item
+
+	# statics are not possible
+	return False
 
 #
 # Cook an item
@@ -33,7 +215,9 @@ class CookItemAction(CraftItemAction):
 		self.needheat = False
 		self.needoven = False
 		self.water = False
-		
+		self.useallres = False
+		self.markable = 1 # All cooking items are markable, exceptions handled through <nomark /> tag
+
 	#
 	# Process special options
 	#
@@ -44,9 +228,13 @@ class CookItemAction(CraftItemAction):
 			self.needheat = True
 		elif node.name == 'water':
 			self.water = True
+		elif node.name == 'nomark':
+			self.markable = 0
+		elif node.name == 'useallres':
+			self.useallres = True
 		else:
 			CraftItemAction.processnode(self, node, menu)
-			
+
 	#
 	# Add our water to the materials list
 	#
@@ -59,11 +247,19 @@ class CookItemAction(CraftItemAction):
 		return materialshtml
 			
 	#
-	# Check for water
+	# Check for water and oven or heat source
 	#
 	def checkmaterial(self, player, arguments, silent = 0):
 		result = CraftItemAction.checkmaterial(self, player, arguments, silent)
-		
+
+		if self.needheat and not find( player, fires ):
+				player.socket.clilocmessage(1044487) # You must be near a fire source to cook.
+				return False
+
+		if self.needoven and not find( player, ovens ):
+			player.socket.clilocmessage(1044493) # You must be near an oven to bake that.
+			return False
+
 		# Check if we have enough water in our backpack
 		if result and self.water:
 			found = False # Found at laest one unit of water?
@@ -74,20 +270,20 @@ class CookItemAction(CraftItemAction):
 					if quantity > 0:
 						found = True
 						break
-						
+
 			if not found:
 				if not silent:
 					player.socket.clilocmessage(1044253) # You don't have the components needed to make that.
 				return False
 
 		return result
-		
+
 	#
 	# Consume material
 	#
 	def consumematerial(self, player, arguments, half = 0):
 		result = CraftItemAction.consumematerial(self, player, arguments, half)
-		
+
 		# Check if we have enough water in our backpack
 		if result and self.water:
 			content = player.getbackpack().content
@@ -95,19 +291,31 @@ class CookItemAction(CraftItemAction):
 				if item.hasscript('beverage') and item.gettag('fluid') == 'water' and item.hastag('quantity'):
 					if beverage.consume(item):
 						return True
-						
+
 			player.socket.clilocmessage(1044253) # You don't have the components needed to make that.
 			return False
 
 		return result
 
+	def make(self, player, arguments, nodelay=0):
+		if self.useallres:
+			for item in player.getbackpack().content:
+				if item.baseid == self.materials[0][0][0]:
+					player.socket.sysmessage( "2r" )
+					nodelay = True
+					# stop if making fails
+					if not CraftItemAction.make(self, player, arguments, nodelay):
+						break
+
+		else:
+			return CraftItemAction.make(self, player, arguments, nodelay)
 #
 # Cooking Menu
 #
 class CookingMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
-		self.allowmark = False
+		self.allowmark = True # generally allow marking, but not all items are markable
 		self.delay = 1250
 		self.gumptype = 0xb10cae72 # This should be unique
 		self.requiretool = True # Require a tool
@@ -166,7 +374,7 @@ def loadMenu(id, parent = None):
 				for j in range(0, child.childcount):
 					subchild = child.getchild(j)
 					action.processnode(subchild, menu)
-					
+
 	# Sort the menu. This is important for the makehistory to make.
 	menu.sort()
 
@@ -203,240 +411,6 @@ fires = ovens1 + ovens2 + ovens3 + ovens4 + campfire, firefield
 
 #def onLoad():
 #	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.cooking" )
-
-def onUse( char, item ):
-	# Needs to be on ourself
-	if item.getoutmostchar() != char:
-		char.socket.clilocmessage( 0x7A258 )
-		return 1
-
-	# cooking menu gump
-	char.sendmakemenu( "CRAFTMENU_COOKING" )
-
-	# set response function
-
-	return 1
-
-# sheaf of wheat + mill -> flour
-def makeflour( char ):
-	if not char:
-		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
-
-	# he/she has a wheat sheaf
-	if not backpack.countresource( 0x1ebd ):
-		return
-
-	# check if there is a flour mill around
-	if not checkmill( char.pos ):
-		return
-
-	backpack.useresource( 1, 0x1ebd )
-	flour = wolfpack.additem( "1039" )
-	if not flour:
-		return
-	backpack.additem( flour )
-	flour.update()
-
-# flour + water -> dough
-def makedough( char ):
-	if not char:
-		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
-
-	# check the contents of the backpack : flour, pitcher of water
-	flour = None
-	water = None
-	contents = backpack.content
-	for content in contents:
-		if content.id in flours:
-			flour = content
-		if content.id in waters1:
-			water = content
-		if flour and water:
-			break
-	# we don't have any flour
-	if not flour:
-		return
-	# if we have no water in backpack, check around
-	if not water:
-		items = wolfpack.items( char.pos.x + i, char.pos.y + j, char.pos.map, WATER_RANGE )
-		for item in items:
-			if item.id in waters2:
-				water = item
-				break
-	# we don't have any water
-	if not water:
-		return
-
-	if not flour.hastag( 'amount' ):
-		f_amount = FLOUR_AMOUNT
-	else:
-		f_amount = flour.gettag( 'amount' )
-	# we only check the water amount for pitcher of waters
-	if water.id in waters2:
-		if not water.hastag( 'amount' ):
-			w_amount = WATER_AMOUNT
-		else:
-			w_amount = water.gettag( 'amount' )
-
-	# useup the resources
-	f_amount -= 1
-	if not f_amount:
-		flour.delte()
-	else:
-		flour.settag( 'amount', f_amount )
-	if water.id in waters2:
-		w_amount -= 1
-		if not w_amount:
-			if water.id == 0x0ff9:
-				pitcher = "ff6"
-			else:
-				pitcher = "ff7"
-			water.delete()
-			new_pitcher = wolfpack.additem( pitcher )
-			if not new_pitcher:
-				return
-			backpack.additem( new_pitcher )
-			new_pitcher.update()
-		else:
-			water.settag( 'amount', w_amount )
-
-	success = char.checkskill( COOKING, 0, 1000 )
-	if not success:
-		return
-	# make a dough
-	dough = wolfpack.additem( "103d" )
-	if not dough:
-		return
-	backpack.additem( dough )
-	dough.update()
-
-# now all of these are needed 'fire's
-# dough + fire -> bread
-def makebread( char ):
-	if not char:
-		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
-
-	# firstly, we check a dough
-	if not backpack.countresource( 0x103d, 0x0 ):
-		return
-	# second, check the fires to bake
-	if not checkfire( char.pos ):
-		return
-
-	# useup a dough
-	backpack.useresource( 1, 0x103d, 0x0 )
-	success = char.checkskill( COOKING, 0, 1000 )
-	if not success:
-		return
-	# make a bread
-	bread = wolfpack.additem( "103c" )
-	if not bread:
-		return
-	backpack.additem( bread )
-	bread.update()
-
-# cookie mix + fire -> a pan of cookie
-def makecookiepan( char ):
-	if not char:
-		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
-
-	if not backpack.countresource( 0x103f ):
-		return
-	if not checkfire( char.pos ):
-		return
-
-	# useup a cookie mix
-	backpack.useresource( 1, 0x103f )
-	success = char.checkskill( COOKING, 0, 1000 )
-	if not success:
-		return
-	# make a pan of cookie
-	cookiepan = wolfpack.additem( "160b" )
-	if not cookiepan:
-		return
-	backpack.additem( cookiepan )
-	cookiepan.update()
-
-# cake mix + fire -> cake
-#def makecake( char ):
-
-# sweat dough + fire -> muffin
-#def makemuffin( char ):
-
-# unbaked cheese bacon pie + fire -> baked cheese bacon pie
-def makecheesebaconpie( char ):
-	makepie( char, "a cheese bacon pie" )
-
-def makemeatpie( char ):
-	makepie( char, "a meat pie" )
-
-def makepie( char, name ):
-	if not char:
-		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
-
-	if not backpack.countresource( 0x1042 ):
-		return
-	if not checkfire( char.pos ):
-		return
-
-	backpack.useresource( 1, 0x1042 )
-	success = char.checkskill( COOKING, 0, 1000 )
-	if not success:
-		return
-	pie = wolfpack.additem( "1041" )
-	if not pie:
-		return
-	pie.name = name
-	backpack.additem( pie )
-	pie.update()
-
-# unbaked sausage pizza + fire -> sausage pizza
-def makesausagepizza( char ):
-	makepizza_( char, "a sausage pizza" )
-
-# unbaked pizza + fire -> pizza
-def makepizza( char ):
-	makepizza_( char, "a pizza" )
-
-def makepizza_( char, name ):
-	if not char:
-		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
-
-	if not backpack.countresource( 0x1083 ):
-		return
-
-	if not checkfire( char.pos ):
-		return
-
-	backpack.useresource( 1, 0x1083 )
-
-	success = char.checkskill( COOKING, 0, 1000 )
-	if not success:
-		return
-	pizza = wolfpack.additem( "1040" )
-	if not pizza:
-		return
-	pizza.name = name
-	backpack.additem( pizza )
-	pizza.update()
 
 def checkmill( pos ):
 	found = 0

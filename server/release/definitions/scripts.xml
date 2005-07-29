@@ -55,6 +55,7 @@
 	<script>lock</script>
 	<script>lockpick</script>
 	<script>moongate</script>
+	<script>oil_cloth</script>
 	<script>ore</script>
 	<script>pickaxe</script>
 	<script>beverage</script>
@@ -70,6 +71,7 @@
 	<script>spiderweb</script>
 	<script>training_dummy</script>
 	<script>trashcan</script>
+	<script>tribal_paint</script>
 	<script>wall_clock</script>
 	<script>wool</script>
 <!--	<script>xmlconfig</script> -->

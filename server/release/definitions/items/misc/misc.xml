@@ -2276,4 +2276,23 @@
 		<category>Misc\Bola Ball</category>
 	</item>
 
+	<item id="tribal_paint">
+		<id>0x9ec</id>
+		<name>#1040000</name>
+		<weight>2.0</weight>
+		<color>2101</color>
+		<decay />
+		<basescripts>tribal_paint</basescripts>
+		<category>Misc\Tribal Paint</category>
+	</item>
+
+	<item id="oil_cloth">
+		<id>0x175d</id>
+		<name>#1041498</name>
+		<weight>1.0</weight>
+		<color>2001</color>
+		<decay />
+		<basescripts>oil_cloth</basescripts>
+		<category>Misc\Oil Cloth</category>
+	</item>
 </definitions>

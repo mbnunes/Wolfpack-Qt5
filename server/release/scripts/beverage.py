@@ -5,6 +5,7 @@ import random
 from system import poison
 import skills
 from skills.fishing import mapWater, staticWater
+from wolfpack.utilities import tobackpack
 
 # Baseid: ClilocBaseId, MaxQuantity, Empty Item Id, Fillable
 CONTAINERS = {
@@ -138,8 +139,33 @@ def onUse(char, item):
 				char.socket.attachtarget('beverage.refill_target', [item.serial])
 				return True
 		return False
+	# pitcher filled with water
+	elif item.baseid in ["1f9d", "1f9e"] and CONTAINERS[item.id][4] == 'water':
+		char.socket.attachtarget('beverage.water', [item.serial])
 	else:
 		return drink(char, item)
+	return True
+
+def water(char, args, target):
+	item = wolfpack.finditem( args[0] )
+	if not item:
+		return False
+	if target.char and target.char == char:
+		return drink(char, item)
+	# Bowl Flour -> make dough
+	elif target.item and target.item.baseid == 'a1e':
+		if not target.item.getoutmostchar() == char:
+			char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
+			return True
+		dough = wolfpack.additem( "103d" )
+		if not tobackpack( dough, char ):
+			dough.update()
+		wooden_bowl = wolfpack.additem( "15f8" )
+		if not tobackpack( wooden_bowl, char ):
+			wooden_bowl.update()
+		target.item.delete()
+		consume(item)
+	return True
 
 #
 # Find a valid container item id for the given fluid

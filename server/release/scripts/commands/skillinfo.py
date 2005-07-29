@@ -5,7 +5,6 @@
 """
 import wolfpack
 import wolfpack.gumps
-from wolfpack.utilities import tobackpack
 from wolfpack.consts import *
 from math import ceil, floor
 from commands.info import iteminfo
