@@ -15,24 +15,22 @@
 		<id>0x1039</id>
 		<category>Professions\Baker\Sack of Flour (W/E)</category>
 		<basescripts>skills.cooking</basescripts>
+		<tag name="quantity" type="int" value="20" />
 	</item>
 
-	<item id="103a">
+	<item id="103a" inherit="1039">
 		<id>0x103a</id>
 		<category>Professions\Baker\Open Sack of Flour (W/E)</category>
-		<basescripts>skills.cooking</basescripts>
 	</item>
 
-	<item id="1045">
+	<item id="1045" inherit="1039">
 		<id>0x1045</id>
 		<category>Professions\Baker\Sack of Flour (N/S)</category>
-		<basescripts>skills.cooking</basescripts>
 	</item>
 
-	<item id="1046">
+	<item id="1046" inherit="1039">
 		<id>0x1046</id>
 		<category>Professions\Baker\Open Sack of Flour (N/S)</category>
-		<basescripts>skills.cooking</basescripts>
 	</item>
 
 	<item id="103e">

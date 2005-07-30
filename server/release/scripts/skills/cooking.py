@@ -203,6 +203,24 @@ actions =	{
 			"103a": "SackFlourOpen"
 		}
 
+def consume( item ):
+	quantity = 0
+	if item.hastag('quantity'):
+		quantity = int(item.gettag('quantity'))
+
+	if quantity <= 0:
+		return False # Couldn't consume
+
+	quantity -= 1
+
+	# Empty
+	if quantity <= 0:
+		item.delete()
+	else:
+		item.settag('quantity', int(quantity))
+		item.resendtooltip()
+	return True
+
 def find( char, object = None ):
 	# check for dynamic items
 	items = wolfpack.items( char.pos.x, char.pos.y, char.pos.map, 2 )
@@ -231,6 +249,7 @@ class CookItemAction(CraftItemAction):
 		self.needoven = False
 		self.water = False
 		self.useallres = False
+		self.flour = False
 		self.markable = 1 # All cooking items are markable, exceptions handled through <nomark /> tag
 
 	#
@@ -247,6 +266,9 @@ class CookItemAction(CraftItemAction):
 			self.markable = 0
 		elif node.name == 'useallres':
 			self.useallres = True
+		elif node.name == 'flour':
+			self.flour = True
+
 		else:
 			CraftItemAction.processnode(self, node, menu)
 
@@ -258,9 +280,11 @@ class CookItemAction(CraftItemAction):
 		
 		if self.water:
 			materialshtml += tr("Water: 1<br>")
+		if self.flour:
+			materialshtml += tr("Flour: 1<br>")
 
 		return materialshtml
-			
+
 	#
 	# Check for water and oven or heat source
 	#
@@ -269,13 +293,19 @@ class CookItemAction(CraftItemAction):
 		if not result:
 			return False
 
-		if self.needheat and not find( player, fires ):
-				player.socket.clilocmessage(1044487) # You must be near a fire source to cook.
+		if self.flour:
+			found = False
+			backpack = player.getbackpack()
+			for item in backpack.content:
+				if item.baseid in ['1045', '1046', '1039', '103a'] and item.hastag('quantity'):
+					quantity = int(item.gettag('quantity'))
+					if quantity > 0:
+						found = True
+						break
+			if not found:
+				if not silent:
+					player.socket.clilocmessage(1044253) # You don't have the components needed to make that.
 				return False
-
-		if self.needoven and not find( player, ovens ):
-			player.socket.clilocmessage(1044493) # You must be near an oven to bake that.
-			return False
 
 		# Check if we have enough water in our backpack
 		if self.water:
@@ -293,6 +323,14 @@ class CookItemAction(CraftItemAction):
 					player.socket.clilocmessage(1044253) # You don't have the components needed to make that.
 				return False
 
+		if self.needheat and not find( player, fires ):
+				player.socket.clilocmessage(1044487) # You must be near a fire source to cook.
+				return False
+
+		if self.needoven and not find( player, ovens ):
+			player.socket.clilocmessage(1044493) # You must be near an oven to bake that.
+			return False
+
 		return result
 
 	#
@@ -300,9 +338,20 @@ class CookItemAction(CraftItemAction):
 	#
 	def consumematerial(self, player, arguments, half = 0):
 		result = CraftItemAction.consumematerial(self, player, arguments, half)
+		if not result:
+			return False
+
+		if self.flour:
+			result = False
+			content = player.getbackpack().content
+			for item in content:
+				if item.baseid in ["1045", "1046", "1039", "103a"] and item.hastag('quantity'):
+					if consume(item):
+						result = True
+						break
 
 		# Check if we have enough water in our backpack
-		if result and self.water:
+		if self.water:
 			content = player.getbackpack().content
 			for item in content:
 				if item.hasscript('beverage') and item.gettag('fluid') == 'water' and item.hastag('quantity'):

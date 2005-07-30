@@ -84,7 +84,6 @@ def response( char, args, target ):
 		if char.pos.distance( target.pos ) > 3:
 			char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 			return True
-		char.socket.sysmessage( str(statics))
 		for tile in statics:
 			dispid = tile[0]
 			if dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):

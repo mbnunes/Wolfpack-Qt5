@@ -17,7 +17,7 @@
 	<menu id="COOKING_INGREDIENTS" name="Ingredients">
 		<cook definition="103d" name="Dough">
 			<cooking min="0" max="1000" />
-			<material id="103a;1046;1039;1045" amount="1" name="Flour" />
+			<flour />
 			<water />
 		</cook>
 
@@ -29,13 +29,13 @@
 
 		<cook definition="cake_mix" name="Cake Mix">
 			<cooking min="0" max="1000" />
-			<material id="103a;1046;1039;1045" amount="1" name="Flour" />
+			<flour />
 			<material id="sweet_dough" amount="1" name="Sweet Dough" />
 		</cook>		
 
 		<cook definition="103f" name="Cookie Mix">
 			<cooking min="0" max="1000" />
-			<material id="103a;1046;1039;1045" amount="1" name="Flour" />
+			<flour />
 			<material id="sweet_dough" amount="1" name="Sweet Dough" />
 		</cook>
 	</menu>
@@ -91,7 +91,7 @@
 
 		<cook definition="tribal_paint" name="Savage Kin Paint">
 			<cooking min="800" max="1100" />
-			<material id="103a;1046;1039;1045" amount="1" name="Flour" />
+			<flour />
 			<material id="tribal_berry" amount="1" name="Tribal Berry" />
 			<nomark />
 		</cook>
