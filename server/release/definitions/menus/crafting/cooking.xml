@@ -102,33 +102,33 @@
 		<cook definition="103b" name="Bread Loaf">
 			<cooking min="0" max="1000" />
 			<material id="103d" amount="1" name="Dough" />
-			<needoven />
+			<needheat />
 			<nomark />
 		</cook>
 
 		<cook definition="tribal_paint" name="Pan of Cookies">
 			<cooking min="0" max="1000" />
 			<material id="103f" amount="1" name="Cookie Mix" />
-			<needoven />
+			<needheat />
 		</cook>
 
 		<cook definition="9e9" name="Cake">
 			<cooking min="0" max="1000" />
 			<material id="cake_mix" amount="1" name="Cake Mix" />
-			<needoven />
+			<needheat />
 		</cook>
 
 		<cook definition="9eb" name="Muffins">
 			<cooking min="0" max="1000" />
 			<material id="sweet_dough" amount="1" name="Sweet Dough" />
-			<needoven />
+			<needheat />
 			<nomark />
 		</cook>
 
 		<cook definition="baked_quiche" name="Baked Quiche">
 			<cooking min="0" max="1000" />
 			<material id="unbaked_quiche" amount="1" name="Uncooked Quiche" />
-			<needoven />
+			<needheat />
 		</cook>
 
 		<cook definition="baked_meatpie" name="Baked Meat Pie">
@@ -140,13 +140,13 @@
 		<cook definition="baked_sausagepizza" name="Sausage Pizza">
 			<cooking min="0" max="1000" />
 			<material id="unbaked_sausagepizza" amount="1" name="Uncooked Sausage Pizza" />
-			<needoven />
+			<needheat />
 		</cook>
 
 		<cook definition="baked_cheesepizza" name="Cheese Pizza">
 			<cooking min="0" max="1000" />
 			<material id="unbaked_cheesepizza" amount="1" name="Uncooked Cheese Pizza" />
-			<needoven />
+			<needheat />
 		</cook>
 
 		<cook definition="baked_fruitpie" name="Baked Fruit Pie">
@@ -158,7 +158,7 @@
 		<cook definition="baked_peachcobbler" name="Baked Peach Cobbler">
 			<cooking min="0" max="1000" />
 			<material id="unbaked_peachcobbler" amount="1" name="Unbaked Peach Cobbler" />
-			<needoven />
+			<needheat />
 		</cook>
 
 		<cook definition="baked_applepie" name="Baked Apple Pie">
@@ -182,6 +182,7 @@
 			<material id="unbaked_pumpkinpie" amount="1" name="Raw Bird" />
 			<nomark />
 			<useallres />
+			<needheat />
 		</cook>
 
 		<cook definition="1608" name="Chicken Leg">
@@ -189,6 +190,7 @@
 			<material id="1607" amount="1" name="Raw Chicken Leg" />
 			<nomark />
 			<useallres />
+			<needheat />
 		</cook>
 
 		<cook definition="97b" name="Fish Steak">
@@ -196,6 +198,7 @@
 			<material id="97a" amount="1" name="Fish Steak" />
 			<nomark />
 			<useallres />
+			<needheat />
 		</cook>
 
 		<cook definition="9b6" name="Fried Eggs">
@@ -203,6 +206,7 @@
 			<material id="9b5" amount="1" name="Egg" />
 			<nomark />
 			<useallres />
+			<needheat />
 		</cook>
 
 		<cook definition="160a" name="Leg of Lamb">
@@ -210,6 +214,7 @@
 			<material id="1609" amount="1" name="Raw Leg of Lamb" />
 			<nomark />
 			<useallres />
+			<needheat />
 		</cook>
 
 		<cook definition="9f2" name="Cut of Ribs">
@@ -217,6 +222,7 @@
 			<material id="9f1" amount="1" name="Raw Rib" />
 			<nomark />
 			<useallres />
+			<needheat />
 		</cook>
 
 	</menu>	
