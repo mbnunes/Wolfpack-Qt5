@@ -84,7 +84,7 @@ def response( char, args, target ):
 		if char.pos.distance( target.pos ) > 3:
 			char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 			return True
-
+		char.socket.sysmessage( str(statics))
 		for tile in statics:
 			dispid = tile[0]
 			if dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):
@@ -95,7 +95,7 @@ def response( char, args, target ):
 				return
 
 	# We go onto creating ingots here.
-	if target.item.baseid in FORGEIDS:
+	if target.item and target.item.baseid in FORGEIDS:
 		if item.baseid in DEF_ORES:
 			if char.pos.distance( target.pos ) > 3:
 				char.socket.clilocmessage( 0x7A258 ) # You can't reach...
@@ -105,7 +105,7 @@ def response( char, args, target ):
 				return True
 
 	# This is for merging the ore piles
-	elif target.item.baseid in DEF_ORES:
+	elif target.item and target.item.baseid in DEF_ORES:
 		if targetitem.serial == item.serial:
 			return False
 		if not targetitem.hastag('resname'):
