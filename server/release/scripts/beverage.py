@@ -83,7 +83,7 @@ CONTAINERS = {
 	0x1f9a: [1048128, 5, 0xff7, True, 'liquor'], # liquor 
 	0x1f9b: [1048128, 5, 0xff6, True, 'wine'], # wine
 	0x1f9c: [1048128, 5, 0xff7, True, 'wine'], # wine
-	0x1f9d: [1048128, 5, 0xff5, True, 'water'], # water
+	0x1f9d: [1048128, 5, 0xff6, True, 'water'], # water
 	0x1f9e: [1048128, 5, 0xff7, True, 'water'], # water
 }
 
@@ -387,8 +387,11 @@ def drink(char, item):
 		quantity -= 1
 
 	# Empty
+	char.socket.sysmessage( str(quantity))
+	char.socket.sysmessage( str(cprop[2]))
 	if quantity == 0:
 		if cprop[2] == 0:
+			char.socket.sysmessage( "S" )
 			item.delete()
 		else:
 			item.id = cprop[2]
