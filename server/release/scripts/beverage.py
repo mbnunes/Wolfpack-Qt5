@@ -387,11 +387,8 @@ def drink(char, item):
 		quantity -= 1
 
 	# Empty
-	char.socket.sysmessage( str(quantity))
-	char.socket.sysmessage( str(cprop[2]))
 	if quantity == 0:
 		if cprop[2] == 0:
-			char.socket.sysmessage( "S" )
 			item.delete()
 		else:
 			item.id = cprop[2]
