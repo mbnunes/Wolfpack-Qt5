@@ -135,6 +135,11 @@ Wolfpack 12.9.14 Beta (SVN)
   - Gave GMs the ability to command npcs with "All .." commands.
   - Music instruments do wear out.
   - Added a sysmessage command.
+  - Added Bola.
+  - Added Tribal Paint.
+  - Added Oil Cloth.
+  - Improved edit command for containers (the content is shown in a list).
+  - Implemented Cooking.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
