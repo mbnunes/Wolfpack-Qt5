@@ -23,7 +23,7 @@ def response(player, arguments, response):
 
 	command = (response.button >> 28) & 0xC
 	item = wolfpack.finditem((response.button & 0x3FFFFFFF) | 0x40000000)
-	target = item.container
+	target = arguments[0]
 	
 	# Delete Item
 	if command == 0x04:
@@ -53,10 +53,12 @@ def response(player, arguments, response):
 # Show the edit gump
 #
 def callback(player, arguments, target):
-	if not target.char:
-		return
-		
-	showEditGump(player, target.char)
+	if not (target.item or target.char):
+		return False
+	if target.item and not target.item.content:
+		iteminfo( player.socket, target.item )
+	else:
+		showEditGump(player, target)
 
 #
 # Show the edit gump
@@ -64,12 +66,19 @@ def callback(player, arguments, target):
 def showEditGump(player, target):
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback(response)
+	dialog.setArgs([target])
 
 	items = []
 
-	for layer in range(LAYER_RIGHTHAND, LAYER_TRADING+1):
-		item = target.itemonlayer(layer)
-		if item:
+	if target.char:
+		target = target.char
+		for layer in range(LAYER_RIGHTHAND, LAYER_TRADING+1):
+			item = target.itemonlayer(layer)
+			if item:
+				items.append(item)
+	elif target.item:
+		target = target.item
+		for item in target.content:
 			items.append(item)
 
 	pages = ceil(len(items) / 4.0)
