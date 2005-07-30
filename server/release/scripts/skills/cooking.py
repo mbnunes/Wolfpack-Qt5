@@ -208,9 +208,17 @@ def find( char, object = None ):
 	items = wolfpack.items( char.pos.x, char.pos.y, char.pos.map, 2 )
 	for item in items:
 		if item.id in object:
-			return item
+			return True
 
-	# statics are not possible
+	# Check for static items
+	for x in range(-2, 2):
+		for y in range(-2, 2):
+			statics = wolfpack.statics(char.pos.x + x, char.pos.y + y, char.pos.map, True)
+			for tile in statics:
+				dispid = tile[0]
+				if dispid in object:
+					return True
+
 	return False
 
 #
@@ -258,6 +266,8 @@ class CookItemAction(CraftItemAction):
 	#
 	def checkmaterial(self, player, arguments, silent = 0):
 		result = CraftItemAction.checkmaterial(self, player, arguments, silent)
+		if not result:
+			return False
 
 		if self.needheat and not find( player, fires ):
 				player.socket.clilocmessage(1044487) # You must be near a fire source to cook.
@@ -268,7 +278,7 @@ class CookItemAction(CraftItemAction):
 			return False
 
 		# Check if we have enough water in our backpack
-		if result and self.water:
+		if self.water:
 			found = False # Found at laest one unit of water?
 			backpack = player.getbackpack()
 			for item in backpack.content:
