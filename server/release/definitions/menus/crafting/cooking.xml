@@ -112,7 +112,7 @@
 			<needoven />
 		</cook>
 
-		<cook definition="tribal_paint" name="Cake">
+		<cook definition="9e9" name="Cake">
 			<cooking min="0" max="1000" />
 			<material id="cake_mix" amount="1" name="Cake Mix" />
 			<needoven />
