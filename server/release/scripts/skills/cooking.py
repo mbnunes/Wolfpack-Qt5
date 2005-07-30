@@ -158,7 +158,7 @@ def JarHoney( char, args, target ):
 		return False
 
 	honey.delete()
-	target.item.delete()
+	consume()
 
 def SackFlourOpen( char, args, target ):
 	item = wolfpack.finditem( args[0] ) 
@@ -189,7 +189,7 @@ def SackFlourOpen( char, args, target ):
 		return False
 
 	item.delete()
-	target.item.delete()
+	consume(target.item)
 
 # Table of IDs mapped to handler functions
 actions =	{
