@@ -38,6 +38,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented nodecay flag for regions.
   - Fixed kills (it was not possible to become a murderer).
   - Implemented a method to send a client an url to open in a webbrowser.
+  - Fixed monsters starting to attack players even if there was no line of sight.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

@@ -88,7 +88,7 @@ bool validTarget( P_NPC npc, P_CHAR victim, int dist, bool lineOfSight )
 	}
 
 	if ( lineOfSight && !npc->lineOfSight(victim)) {
-		return true;
+		return false;
 	}
 
 	bool result = true;
