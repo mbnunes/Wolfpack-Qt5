@@ -161,7 +161,7 @@ void cConfig::readData()
 
 	// Game Speed Group
 	objectDelay_ = getNumber( "Game Speed", "ObjectDelay", 1, true );
-	checkNPCTime_ = getDouble( "Game Speed", "NPCs Check Time", 0.8, true );
+	checkNPCTime_ = getDouble( "Game Speed", "NPCs Check Time", 0.2, true );
 	checkTamedTime_ = getDouble( "Game Speed", "Tamed Check Time", 0.6, true );
 	niceLevel_ = getNumber( "Game Speed", "Nice Level", 2, true );
 	skillDelay_ = getNumber( "Game Speed", "SkillDelay", 7, true );
@@ -179,8 +179,6 @@ void cConfig::readData()
 	playerCorpseDecayTime_ = getNumber( "Game Speed", "Player Corpse Decay Time", 1200, true );
 
 	secondsPerUOMinute_ = getNumber( "Game Speed", "Seconds Per UO Minute", 5, true );
-	npcMoveTime_ = getDouble( "Game Speed", "NPC Move Time", 0.8, true );
-	tamedNpcMoveTime_ = getDouble( "Game Speed", "Tamed NPC Move Time", 0.6, true );
 
 	// General Group
 	enableFeluccaSeason_ = getBool( "General", "Enable Felucca Season", true, true );

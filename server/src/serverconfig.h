@@ -145,8 +145,6 @@ protected:
 	QString logPath_;
 	bool logRotate_;
 	bool categoryTagAddMenu_;
-	double npcMoveTime_;
-	double tamedNpcMoveTime_;
 	unsigned int showNpcTitles_;
 	unsigned char maxCharsPerAccount_;
 	bool refreshMaxValues_;
@@ -298,8 +296,6 @@ public:
 	void setMulPath( const QString& data );
 	void setLogPath( const QString& data );
 	bool addMenuByCategoryTag() const;
-	double npcMoveTime() const;
-	double tamedNpcMoveTime() const;
 	unsigned int showNpcTitles() const;
 	bool overwriteDefinitions() const;
 	bool sendAsciiNames() const;
@@ -366,16 +362,6 @@ private:
 };
 
 // inline members
-
-inline double cConfig::npcMoveTime() const
-{
-	return npcMoveTime_;
-}
-
-inline double cConfig::tamedNpcMoveTime() const
-{
-	return tamedNpcMoveTime_;
-}
 
 inline unsigned int cConfig::skillcap() const
 {
