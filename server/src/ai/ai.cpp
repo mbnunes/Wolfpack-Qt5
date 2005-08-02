@@ -700,7 +700,7 @@ void Action_Wander::execute()
 				P_CHAR pTarget = m_npc->wanderFollowTarget();
 				if ( pTarget )
 				{
-					if ( m_npc->dist( pTarget ) < 4 )
+					if ( m_npc->dist( pTarget ) < 18 )
 					{
 						movePath( pTarget->pos() );
 					}
@@ -723,7 +723,7 @@ void Action_Wander::execute()
 
 		case enDestination:
 		{
-			if ( m_npc->pos().distance( m_npc->wanderDestination() ) < 6 )
+			if ( m_npc->pos().distance( m_npc->wanderDestination() ) < 10 )
 			{
 				movePath( m_npc->wanderDestination() );
 			}
@@ -799,18 +799,8 @@ bool Action_Wander::movePath( const Coord& pos, bool run )
 {
 	if ( waitForPathCalculation <= 0 && !m_npc->hasPath() )
 	{
-		Q_UINT8 range = 1;
-		if ( m_npc->rightHandItem() )
-		{
-			unsigned int type = m_npc->rightHandItem()->type();
 
-			if ( type == 1006 || type == 1007 )
-			{
-				range = ARCHERY_RANGE;
-			}
-		}
-
-		m_npc->findPath( pos, range == 1 ? 1.5f : ( float ) range );
+		m_npc->findPath( pos );
 
 		// dont return here!
 	}
@@ -818,6 +808,15 @@ bool Action_Wander::movePath( const Coord& pos, bool run )
 	{
 		waitForPathCalculation--;
 		return moveTo( pos, run );
+	}
+
+	// if our target has moved, we have to calc a new path!
+	if ( m_npc->hasPath() )
+	{
+		if ( m_npc->pathDestination() != pos )
+		{
+			m_npc->findPath( pos );
+		}
 	}
 
 	if ( m_npc->hasPath() )
@@ -987,7 +986,7 @@ void Action_MoveToTarget::execute()
 
 	bool run = m_npc->dist( currentVictim ) > 3;
 
-	if ( Config::instance()->pathfind4Combat() && m_npc->dist( currentVictim ) < 5 )
+	if ( Config::instance()->pathfind4Combat() && m_npc->dist( currentVictim ) <= 18 )
 	{
 		if ( !movePath( currentVictim->pos(), run ) )
 		{

@@ -181,12 +181,9 @@ protected:
 	unsigned char worldCurrentLevel_;
 
 	// Path Finding
-	int pathfindMaxSteps_;
-	int pathfindMaxIterations_;
 	bool pathfind4Follow_;
 	bool pathfind4Combat_;
 	int pathfindFollowRadius_;
-	float pathfindFollowMinCost_;
 	int pathfindFleeRadius_;
 
 public:
@@ -344,12 +341,9 @@ public:
 	bool enableGame() const;
 
 	// Path Finding
-	int pathfindMaxSteps() const;
-	int pathfindMaxIterations() const;
 	bool pathfind4Follow() const;
 	bool pathfind4Combat() const;
 	int pathfindFollowRadius() const;
-	float pathfindFollowMinCost() const;
 	int pathfindFleeRadius() const;
 
 	// AI
@@ -703,10 +697,6 @@ inline bool cConfig::addMenuByCategoryTag() const
 	return categoryTagAddMenu_;
 }
 
-inline int cConfig::pathfindMaxSteps() const
-{
-	return pathfindMaxSteps_;
-}
 
 inline bool cConfig::pathfind4Follow() const
 {
@@ -723,11 +713,6 @@ inline int cConfig::pathfindFollowRadius() const
 	return pathfindFollowRadius_;
 }
 
-inline float cConfig::pathfindFollowMinCost() const
-{
-	return pathfindFollowMinCost_;
-}
-
 inline int cConfig::pathfindFleeRadius() const
 {
 	return pathfindFleeRadius_;
@@ -741,11 +726,6 @@ inline QString cConfig::logPath() const
 inline bool cConfig::logRotate() const
 {
 	return logRotate_;
-}
-
-inline int cConfig::pathfindMaxIterations() const
-{
-	return pathfindMaxIterations_;
 }
 
 inline unsigned int cConfig::guardDispelTime() const

@@ -187,7 +187,7 @@ public:
 	void pushMove( UI16 x, UI16 y, SI08 z );
 	void popMove( void );
 	void clearPath( void );
-	void findPath( const Coord& goal, float sufficient_cost = 0.0f );
+	void findPath( const Coord& goal );
 	// wander type
 	void setWanderType( enWanderTypes data );
 	void setWanderX1( Q_UINT16 data );

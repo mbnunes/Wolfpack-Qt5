@@ -54,6 +54,7 @@
 #include "basics.h"
 #include "basedef.h"
 #include "accounts.h"
+#include "pathfinding.h"
 
 cNPC::cNPC()
 {
@@ -300,6 +301,7 @@ void cNPC::setNextMoveTime( bool changedDirection )
 	}
 
 	// Transform certain standard intervals.
+	/*
 	switch ( interval )
 	{
 		case 200:
@@ -323,12 +325,12 @@ void cNPC::setNextMoveTime( bool changedDirection )
 		default:
 			break;
 	};
-
 	// Wandering creatures are even slower than usual
 	if ( passive )
 	{
 		interval += 200;
 	}
+	*/
 
 	if ( owner() && wanderFollowTarget() == owner() && ai_ && dynamic_cast<Action_Wander*>( ai_->currentAction() ) != 0 )
 	{
@@ -1143,7 +1145,7 @@ float cNPC::pathHeuristic( const Coord& source, const Coord& destination )
 	The algorithm..
 	currently works in x,y,z direction. no idea how to implement map jumping yet.
 */
-void cNPC::findPath( const Coord& goal, float sufficient_cost /* = 0.0f */ )
+void cNPC::findPath( const Coord& goal )
 {
 	if ( path_.size() > 0 )
 		path_.clear();
@@ -1151,146 +1153,22 @@ void cNPC::findPath( const Coord& goal, float sufficient_cost /* = 0.0f */ )
 	if ( pos_.map != goal.map )
 		return;
 
-	/*
-		For A* we use a priority queue to store the unexamined path nodes
-		in a way, that the node with lowest cost lies always at the beginning.
-		I'll use std::vector combined with the stl heap functions for it.
-	*/
-	std::vector<pathnode_cl*> unvisited_nodes;
-	std::vector<pathnode_cl*> visited_nodes;
-	std::make_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
+	QValueVector<unsigned char> path = Pathfinding::instance()->find(this, pos_, goal);
 
-	/*
-		We also need a vector for the calculated list.
-		And a temporary vector of neighbours.
-	*/
-	std::vector<pathnode_cl*> allnodes;
-	std::vector<Coord> neighbours;
-	std::vector<pathnode_cl*>::iterator pit;
-	std::vector<Coord>::iterator nit;
-
-	/*
-		So let's start :)
-		The initial thing we'll have to do is to push the current char position
-		into the priority queue.
-	*/
-	pathnode_cl* baseNode = new pathnode_cl( pos_.x, pos_.y, pos_.z, 0, pathHeuristic( pos_, goal ) );
-	unvisited_nodes.push_back( baseNode );
-	// pushing the heap isnt needed here..
-	allnodes.push_back( baseNode );
-
-	/*
-		Each iteration of the following loop will take the first element
-		out of the priority queue and calculate the neighbour nodes
-		(sourrounding coordinates). The nodes have prev pointers which let
-		us get the whole path in the end.
-		All neighbours that are reachable will be pushed into the priority
-		queue.
-		If no neighbour is reachable we ran into a dead end. Nothing will
-		be done in this iteration, because we'll get a better node out of the
-		priority queue next iteration.
-	*/
-
-	pathnode_cl* currentNode = NULL;
-	pathnode_cl* newNode = NULL;
-	//pathnode_cl* prevNode = NULL;
-	int iterations = 0;
-	while ( !unvisited_nodes.empty() )
+	if ( path.size() < 1 )
 	{
-		// get the first element of the queue
-		bool visited;
-		do
-		{
-			visited = false;
-			currentNode = *unvisited_nodes.begin();
-
-			// remove it from the queue
-			std::pop_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
-			unvisited_nodes.pop_back();
-
-			// dont calculate loops !
-
-			visited = std::binary_search( visited_nodes.begin(), visited_nodes.end(), currentNode, pathnode_coordComparePredicate() );
-
-			// steps > step depth
-		}
-		while ( ( visited || currentNode->step > Config::instance()->pathfindMaxSteps() ) && !unvisited_nodes.empty() );
-
-		if ( iterations > Config::instance()->pathfindMaxIterations() || currentNode->step > Config::instance()->pathfindMaxSteps() )
-		{
-			// lets set the pointer invalid if we have an invalid path
-			currentNode = NULL;
-			break;
-		}
-
-		// we reached the goal
-		if ( currentNode->cost <= sufficient_cost )
-			break;
-
-		// the neighbours can be all surrounding x-y-coordinates
-		neighbours.clear();
-		int i = 0;
-		int j = 0;
-		Coord pos;
-		for ( i = -1; i <= 1; ++i )
-		{
-			for ( j = -1; j <= 1; ++j )
-			{
-				if ( i != 0 || j != 0 )
-					neighbours.push_back( Coord( currentNode->x + i, currentNode->y + j, currentNode->z, pos_.map ) );
-			}
-		}
-
-		// check walkability and set z offsets for neighbours
-		nit = neighbours.begin();
-		while ( nit != neighbours.end() )
-		{
-			pos = *nit;
-			// this should change z coordinates also if there are stairs
-			if ( mayWalk( this, pos ) && !Movement::instance()->CheckForCharacterAtXYZ( this, pos ) )
-			{
-				// push a path node into the priority queue
-				newNode = new pathnode_cl( pos.x, pos.y, pos.z, currentNode->step + 1, pathHeuristic( pos, goal ) );
-				newNode->prev = currentNode;
-				unvisited_nodes.push_back( newNode );
-				allnodes.push_back( newNode );
-				std::push_heap( unvisited_nodes.begin(), unvisited_nodes.end(), pathnode_comparePredicate() );
-			}
-			++nit;
-		}
-
-		visited_nodes.push_back( currentNode );
-		std::sort( visited_nodes.begin(), visited_nodes.end(), pathnode_coordComparePredicate() );
-		++iterations;
+		return;
 	}
 
-	// finally lets set the char's path
-	if ( currentNode )
-	{
-		path_.clear();
-		while ( currentNode->prev )
-		{
-			path_.push_front( Coord( currentNode->x, currentNode->y, currentNode->z, pos_.map ) );
-			currentNode = currentNode->prev;
-		}
-	}
 
-	/* debug...
-	Console::instance()->send( QString( "Pathfinding: %1 iterations\n" ).arg( iterations ) );
-	std::deque< Coord >::const_iterator it = path_.begin();
-	while( it != path_.end() )
-	{
-		Console::instance()->send( QString( "%1,%2\n" ).arg( (*it).x ).arg( (*it).y ) );
-		++it;
-	}
-	*/
+	Coord coord = pos_;
 
-	// lets free the memory assigned to the nodes...
-	pit = allnodes.begin();
-	while ( pit != allnodes.end() )
-	{
-		delete * pit;
-		++pit;
+	for (unsigned int i = 0; i < path.size(); ++i) {
+		unsigned char dir = path[i];
+
+		Coord newcoord = Movement::instance()->calcCoordFromDir(dir, coord);
+		path_.push_back( newcoord );
+		coord = newcoord;
 	}
 }
 
