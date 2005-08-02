@@ -300,38 +300,6 @@ void cNPC::setNextMoveTime( bool changedDirection )
 		interval = actionSpeed();
 	}
 
-	// Transform certain standard intervals.
-	/*
-	switch ( interval )
-	{
-		case 200:
-			interval = 300;
-			break;
-		case 250:
-			interval = 450;
-			break;
-		case 300:
-			interval = 600;
-			break;
-		case 400:
-			interval = 900;
-			break;
-		case 500:
-			interval = 1050;
-			break;
-		case 800:
-			interval = 1500;
-			break;
-		default:
-			break;
-	};
-	// Wandering creatures are even slower than usual
-	if ( passive )
-	{
-		interval += 200;
-	}
-	*/
-
 	if ( owner() && wanderFollowTarget() == owner() && ai_ && dynamic_cast<Action_Wander*>( ai_->currentAction() ) != 0 )
 	{
 		interval >>= 1; // Half the time
@@ -340,12 +308,19 @@ void cNPC::setNextMoveTime( bool changedDirection )
 	// This creature is not player or monster controlled. Thus slower.
 	if ( isTamed() )
 	{
-		// Creatures following their owner are a lot faster than usual
-		interval -= 75; // A little faster
+		// Creatures following their owner are a little faster than usual
+		if ( interval > 75 )
+		{
+			interval -= 75;
+		}
+		else
+		{
+			interval = 0;
+		}
 	}
 	else if ( !summoned() )
 	{
-		interval += 100; // The creature is not summoned nor tamed, make it a little slower
+		interval += 50; // The creature is not summoned nor tamed, make it a little slower
 	}
 
 	// Creatures become slower if hurt
