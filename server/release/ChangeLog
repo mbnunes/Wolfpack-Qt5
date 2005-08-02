@@ -39,6 +39,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed kills (it was not possible to become a murderer).
   - Implemented a method to send a client an url to open in a webbrowser.
   - Fixed monsters starting to attack players even if there was no line of sight.
+  - Activated new pathfinding algorithm.
+  - Cleaned up npc movement speed. ( For fast npcs lower your 'NPCs Check Time' in wolfpack.xml )
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
