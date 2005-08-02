@@ -23,7 +23,7 @@ ovens = ovens1 + ovens2 + ovens3 + ovens4
 
 campfire = range( 0x0de3, 0x0de9 )
 firefield = [ 0x398c, 0x3996 ]
-fires = ovens + campfire, firefield
+fires = ovens + campfire + firefield
 
 def onUse( char, item ):
 	if not item.getoutmostchar() == char:
@@ -229,8 +229,8 @@ def find( char, object = None ):
 			return True
 
 	# Check for static items
-	for x in range(-2, 2):
-		for y in range(-2, 2):
+	for x in range(-2, 3):
+		for y in range(-2, 3):
 			statics = wolfpack.statics(char.pos.x + x, char.pos.y + y, char.pos.map, True)
 			for tile in statics:
 				dispid = tile[0]
