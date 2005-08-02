@@ -179,7 +179,7 @@
 	<menu id="COOKING_BARBECUE" name="Barbecue">
 		<cook definition="9b7" name="Cooked Bird">
 			<cooking min="0" max="1000" />
-			<material id="unbaked_pumpkinpie" amount="1" name="Raw Bird" />
+			<material id="9b9" amount="1" name="Raw Bird" />
 			<nomark />
 			<useallres />
 			<needheat />
