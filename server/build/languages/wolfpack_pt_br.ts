@@ -3,7 +3,7 @@
     <name>@default</name>
     <message>
         <source>Usage: set &lt;key&gt; &lt;value&gt;</source>
-        <translation>Uso: set &lt;chave&gt; &lt;valor&gt;</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Please select a target to &apos;set %1 %2&apos; </source>
@@ -19,11 +19,11 @@
     </message>
     <message>
         <source>Usage: spawnregion &lt;respawn|clear|fill&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Usage: spawnregion respawn &lt;region_name&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Spawnregion %1 does not exist</source>
@@ -31,15 +31,15 @@
     </message>
     <message>
         <source>Usage: spawnregion clear &lt;region_name&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Usage: spawnregion fill &lt;region_name&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Usage: spawnregion info &lt;region_name&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Spawnregion Global Info</source>
@@ -95,7 +95,7 @@
     </message>
     <message>
         <source>You cannot wear that item.</source>
-        <translation>Você não pode vestir este item.</translation>
+        <translation>Voce nao pode desgastar este item.</translation>
     </message>
     <message>
         <source>Enter a description for this item.</source>
@@ -141,7 +141,8 @@
     <message>
         <source>Qt: %1 %2 (Compiled: %3)
 </source>
-        <translation>Qt: %1 %2 (Compilado: %3)\n</translation>
+        <translation>Qt: %1 %2 (Compilado: %3)\n
+</translation>
     </message>
     <message>
         <source>Python: %1 Shared (Compiled: %2)
@@ -151,22 +152,26 @@
     <message>
         <source>Python: %1 Static (Compiled: %2)
 </source>
-        <translation></translation>
+        <translation>Python: %1 Static (Compilado: %2)
+</translation>
     </message>
     <message>
         <source>Compiled with SQLite %1
 </source>
-        <translation></translation>
+        <translation>Compilado com SQLite %1
+</translation>
     </message>
     <message>
         <source>Compiled for MySQL %1 (Using: %2)
 </source>
-        <translation></translation>
+        <translation>Compilado para MySQL %1 (Usuando: %2)
+</translation>
     </message>
     <message>
         <source>MySQL Support: disabled
 </source>
-        <translation></translation>
+        <translation>Suporte MySQL: desativado
+</translation>
     </message>
     <message>
         <source>
@@ -529,7 +534,8 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Compiled with SQLite3 %1
 </source>
-        <translation></translation>
+        <translation>Compilado com SQLite3 %1
+</translation>
     </message>
     <message>
         <source>Using deprecated string as callback identifier [%1]</source>
@@ -852,7 +858,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>a %s spawn</source>
         <comment>C:/wolfpack/server/release/scripts/commands/spawn.py</comment>
-        <translation>um %s spawn</translation>
+        <translation>a %s spawn</translation>
     </message>
     <message>
         <source>Usage: spawn npc radius mintime maxtime</source>
@@ -2745,7 +2751,8 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Saying &apos;%1&apos; (%2, 0x%3).
 </source>
-        <translation>Saying &apos;%1&apos; (%2, 0x%3).</translation>
+        <translation>Saying &apos;%1&apos; (%2, 0x%3).
+</translation>
     </message>
 </context>
 <context>
@@ -2760,11 +2767,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>The total of thy purchase is %1 gold, which has been withdrawn from your bank account.  My thanks for the patronage.</source>
-        <translation>The total of thy purchase is %1 gold, which has been withdrawn from your bank account.(sp)(sp)My thanks for the patronage.</translation>
+        <translation>O total da compra em ouro é de %1, que foi retraído de seu banco.</translation>
     </message>
     <message>
         <source>The total of thy purchase is %1 gold.  My thanks for the patronage.</source>
-        <translation>The total of thy purchase is %1 gold.(sp)(sp)My thanks for the patronage.</translation>
+        <translation>The total of thy purchase is %1 gold.My thanks for the patronage.</translation>
     </message>
     <message>
         <source>Invalid item sold.</source>
@@ -2966,7 +2973,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>the Tailor</source>
-        <translation>O Marinheiro</translation>
+        <translation>O Custureiro</translation>
     </message>
     <message>
         <source>the Tanner</source>
@@ -3336,7 +3343,7 @@ This is very usefull for new shards without account policy
     <message>
         <source>Done
 </source>
-        <translation>Pronto
+        <translation>Feito
 </translation>
     </message>
     <message>
@@ -3631,17 +3638,20 @@ This is very usefull for new shards without account policy
     <message>
         <source>Client connected to login server (%1).
 </source>
-        <translation>Client conecta ao login server (%1).</translation>
+        <translation>Client conecta ao login server (%1).
+</translation>
     </message>
     <message>
         <source>Client connected to game server (%1).
 </source>
-        <translation>Client conectado com o game server (%1).</translation>
+        <translation>Client conectado com o game server (%1).
+</translation>
     </message>
     <message>
         <source>Client disconnected.
 </source>
-        <translation>Client Desconectado.</translation>
+        <translation>Client Desconectado.
+</translation>
     </message>
     <message>
         <source>Disconnecting due to an unhandled exception.
@@ -3855,12 +3865,14 @@ GameServer rodando na porta %1
     <message>
         <source>Compiled for Qt %1 (Using: %2 %3)
 </source>
-        <translation>Compilando para Qt %1 (Using: %2 %3)</translation>
+        <translation>Compilando para Qt %1 (Usando: %2 %3)
+</translation>
     </message>
     <message>
         <source>Compiled for Python %1 %2 (Using: %3)
 </source>
-        <translation></translation>
+        <translation>Compilado para Python %1 %2 (Usando: %3)
+</translation>
     </message>
     <message>
         <source>Compiled for MySQL %1 (Using: %2)
@@ -4533,11 +4545,11 @@ The server has been shut down. You can close this window now.
     </message>
     <message>
         <source>Worldsave Initialized</source>
-        <translation>O Save do Mundo esta sendo inicializado</translation>
+        <translation>O Mundo será salvo</translation>
     </message>
     <message>
         <source>WORLDSAVE IN PROGRESS</source>
-        <translation>Save do mundo em progresso</translation>
+        <translation>Salvando Mundo</translation>
     </message>
     <message>
         <source>Saving %1 items.</source>
