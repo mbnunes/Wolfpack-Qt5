@@ -188,8 +188,8 @@ def SackFlourOpen( char, args, target ):
 	else:
 		return False
 
-	item.delete()
-	consume(target.item)
+	target.item.delete()
+	consume(item)
 
 # Table of IDs mapped to handler functions
 actions =	{
