@@ -9,6 +9,8 @@ from combat.utilities import weaponskill
 from math import ceil
 import system.slayer
 
+auto_refresh_max = wolfpack.settings.getbool("General", "Refresh Characters Maximum Values", True)
+
 #
 # Show certain modifiers stored in tags.
 #
@@ -462,7 +464,7 @@ def onWearItem(player, wearer, item, layer):
 # Grant certain stat or skill boni.
 #
 def onEquip(char, item, layer):
-	changed = 0
+	changed = False
 
 	# Bonus Str
 	bonus = properties.fromitem(item, BONUSSTRENGTH)
@@ -536,24 +538,60 @@ def onEquip(char, item, layer):
 			char.settag(tagname, value)
 		else:
 			item.deltag('real_skillbonus_%u' % i)
-
+			
+	# if maximum values aren't updated automatically
+	# we have to do it manually
+	
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
 	if bonushitpoints != 0:
-		char.hitpointsbonus += bonushitpoints
-		changed = True
-
+		if auto_refresh_max:
+			char.hitpointsbonus += bonushitpoints
+			changed = True
+		else:
+			if char.maxhitpoints + bonushitpoints < 1:
+				bonushitpoints = 1 - char.maxhitpoints
+			if bonushitpoints != 0:
+				char.maxhitpoints += bonushitpoints
+				char.hitpointsbonus += bonushitpoints
+				item.settag('real_hitpoint_bonus', bonushitpoints)
+				changed = True
+			else:
+				item.deltag('real_hitpoint_bonus')
+	    
 	# Bonus Stamina
 	bonusstamina = properties.fromitem(item, BONUSSTAMINA)
 	if bonusstamina != 0:
-		char.staminabonus += bonusstamina
-		changed = True
+		if auto_refresh_max:
+			char.staminabonus += bonusstamina
+			changed = True
+		else:
+			if char.maxstamina + bonusstamina < 1:
+				bonusstamina = 1 - char.maxstamina
+			if bonusstamina != 0:
+				char.maxstamina += bonusstamina
+				char.staminabonus += bonusstamina
+				item.settag('real_stamina_bonus', bonusstamina)
+				changed = True
+			else:
+				item.deltag('real_stamina_bonus')
 
 	# Bonus Mana
 	bonusmana = properties.fromitem(item, BONUSMANA)
 	if bonusmana != 0:
-		char.manabonus += bonusmana
-		changed = True
+		if auto_refresh_max:
+			char.manabonus += bonusmana
+			changed = True
+		else:
+			if char.maxmana + bonusmana < 1:
+				bonusmana = 1 - char.maxmana
+			if bonusmana != 0:
+				char.maxmana += bonusmana
+				char.manabonus += bonusmana
+				item.settag('real_mana_bonus', bonusmana)
+				changed = True
+			else:
+				item.deltag('real_mana_bonus')
 
 	# Add hitpoint regeneration rate bonus
 	regenhitpoints = properties.fromitem(item, REGENHITPOINTS)
@@ -652,23 +690,53 @@ def onUnequip(char, item, layer):
 				item.deltag('real_skillbonus_%u' % i)
 				continue
 
+	# if maximum values aren't updated automatically
+	# we have to do it manually
+	
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
 	if bonushitpoints != 0:
-		char.hitpointsbonus -= bonushitpoints
-		changed = True
-
+		if auto_refresh_max:
+			char.hitpointsbonus -= bonushitpoints
+			changed = True
+		else:
+			if item.hastag('real_hitpoint_bonus'):
+				value = int(item.gettag('real_hitpoint_bonus'))
+				char.maxhitpoints = max(1, char.maxhitpoints - value)
+				char.hitpointsbonus -= value
+				char.hitpoints = min(char.hitpoints, char.maxhitpoints)
+				changed = True
+				item.deltag('real_hitpoint_bonus')
+	    
 	# Bonus Stamina
 	bonusstamina = properties.fromitem(item, BONUSSTAMINA)
 	if bonusstamina != 0:
-		char.staminabonus -= bonusstamina
-		changed = True
+		if auto_refresh_max:
+			char.staminabonus -= bonusstamina
+			changed = True
+		else:
+			if item.hastag('real_stamina_bonus'):
+				value = int(item.gettag('real_stamina_bonus'))
+				char.maxstamina = max(1, char.maxstamina - value)
+				char.staminabonus -= value
+				char.stamina = min(char.stamina, char.maxstamina)
+				changed = True
+				item.deltag('real_stamina_bonus')
 
 	# Bonus Mana
 	bonusmana = properties.fromitem(item, BONUSMANA)
 	if bonusmana != 0:
-		char.manabonus -= bonusmana
-		changed = True
+		if auto_refresh_max:
+			char.manabonus -= bonusmana
+			changed = True
+		else:
+			if item.hastag('real_mana_bonus'):
+				value = int(item.gettag('real_mana_bonus'))
+				char.maxmana = max(1, char.maxmana - value)
+				char.manabonus -= value
+				char.mana = min(char.mana, char.maxmana)
+				changed = True
+				item.deltag('real_mana_bonus')
 
 	# Remove hitpoint regeneration rate bonus
 	regenhitpoints = properties.fromitem(item, REGENHITPOINTS)
