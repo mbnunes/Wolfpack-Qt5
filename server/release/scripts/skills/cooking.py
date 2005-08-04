@@ -6,8 +6,6 @@
 #################################################################
 
 import wolfpack
-import math
-import random
 from wolfpack import console
 from wolfpack.consts import COOKING, LOG_ERROR, WPDT_MENU, WPDT_ITEM
 from wolfpack import tr
