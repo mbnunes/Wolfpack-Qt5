@@ -130,6 +130,25 @@ class TinkerItemAction(CraftItemAction):
 	def playcrafteffect(self, player, arguments):
 		player.soundeffect(0x2a)
 
+#
+# The user has to have Samurai Empire installed
+#
+class SeTinkerItemAction(TinkerItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		TinkerItemAction.__init__(self, parent, title, itemid, definition)
+
+	def visible(self, char, arguments):
+		if char.socket and char.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return TinkerItemAction.visible(self, char, arguments)
+			
+	def checkmaterial(self, player, arguments, silent = 0):
+		if player.socket and player.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return TinkerItemAction.checkmaterial(self, player, arguments, silent)
+
 class TinkeringMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
@@ -208,7 +227,7 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'tinker':
+		elif child.name in ['tinker', 'setinker']:
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
 				console.log(LOG_ERROR, "Tinker action without definition or name in menu %s.\n" % menu.id)
 			else:
@@ -225,7 +244,10 @@ def loadMenu(id, parent = None):
 								itemid = itemchild.value
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-					action = TinkerItemAction(menu, name, int(itemid), itemdef)
+					if child.name == 'setinker':
+						action = SeTinkerItemAction(menu, name, int(itemid), itemdef)
+					else:
+						action = TinkerItemAction(menu, name, int(itemid), itemdef)		
 				except:
 					console.log(LOG_ERROR, "Tinker action with invalid item id in menu %s.\n" % menu.id)
 

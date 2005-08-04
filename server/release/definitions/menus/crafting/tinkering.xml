@@ -44,6 +44,11 @@
 			<tinkering min="0" max="500" />
 			<logs amount="5" />
 		</tinker>
+		<setinker definition="27ae" name="Nunchaku">
+			<tinkering min="700" max="1200" />
+			<logs amount="8" />
+			<ingots amount="3" />
+		</setinker>
 	</menu>
 
 	<menu id="TINKERING_TOOLS" name="Tools">
@@ -174,10 +179,10 @@
 			<ingots amount="2" />
 			<nomark />
 		</tinker>
-		<tinker definition="bola_ball" name="Bola Ball">
+		<setinker definition="bola_ball" name="Bola Ball">
 			<tinkering min="450" max="950" />
 			<ingots amount="10" />
-		</tinker>
+		</setinker>
 	</menu>
 
 	<menu id="TINKERING_UTENSILS" name="Utensils">
@@ -254,6 +259,29 @@
 			<tinkering min="600" max="1100" />
 			<ingots amount="4" />
 		</tinker>
+		<setinker definition="24bb" name="Shoji Lantern">
+			<tinkering min="650" max="1150" />
+			<logs amount="5" />
+			<ingots amount="10" />
+		</setinker>
+		<setinker definition="24bd" name="Paper Lantern">
+			<tinkering min="650" max="1150" />
+			<logs amount="5" />
+			<ingots amount="10" />
+		</setinker>
+		<setinker definition="24c9" name="Round Paper Lantern">
+			<tinkering min="650" max="1150" />
+			<logs amount="5" />
+			<ingots amount="10" />
+		</setinker>
+		<setinker definition="2832" name="Wind Chimes">
+			<tinkering min="800" max="1200" />
+			<ingots amount="15" />
+		</setinker>
+		<setinker definition="2833" name="Fancy Wind Chimes">
+			<tinkering min="800" max="1200" />
+			<ingots amount="15" />
+		</setinker>
 	</menu>
 
 	<menu id="TINKERING_ASSEMBLIES" name="Assemblies">
@@ -279,11 +307,11 @@
 		<tinker definition="1057" name="Sextant">
 			<material id="1059;105a" amount="1" name="Sextant Parts" /> <!-- Sextant Parts -->
 		</tinker>
-		<tinker definition="26ac" name="Bola">
+		<setinker definition="26ac" name="Bola">
 			<tinkering min="600" max="1100" />
 			<material id="leather_cut" amount="3" name="Leather" />
 			<material id="bola_ball" amount="4" name="Bola Balls" />
-		</tinker>
+		</setinker>
 		<tinker definition="potion_keg_empty" name="Potion Keg" itemid="0x1940">
 			<tinkering min="750" max="1000" />
 			<material id="e7f" amount="1" name="Keg" /> <!-- Keg -->

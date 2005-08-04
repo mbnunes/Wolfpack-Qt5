@@ -564,12 +564,14 @@
 		<id>0x24bb</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Latern 01\On</category>
 	</item>
 
 	<item id="24bc">
 		<id>0x24bc</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 01\Off</category>
 	</item>
 
@@ -577,12 +579,14 @@
 		<id>0x24bd</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 02\On</category>
 	</item>
 
 	<item id="24be">
 		<id>0x24be</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 02\Off</category>
 	</item>
 
@@ -590,12 +594,14 @@
 		<id>0x24bf</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Lantern 01\On</category>
 	</item>
 
 	<item id="24c0">
 		<id>0x24c0</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Lantern 01\Off</category>
 	</item>
 
@@ -603,12 +609,14 @@
 		<id>0x24c1</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 03\On</category>
 	</item>
 
 	<item id="24c2">
 		<id>0x24c2</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 03\Off</category>
 	</item>
 
@@ -616,12 +624,14 @@
 		<id>0x24c3</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 04\On</category>
 	</item>
 
 	<item id="24c4">
 		<id>0x24c4</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 04\Off</category>
 	</item>
 
@@ -629,12 +639,14 @@
 		<id>0x24c5</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 05\On</category>
 	</item>
 
 	<item id="24c6">
 		<id>0x24c6</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 05\Off</category>
 	</item>
 
@@ -642,12 +654,14 @@
 		<id>0x24c7</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 06\On</category>
 	</item>
 
 	<item id="24c8">
 		<id>0x24c8</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 06\Off</category>
 	</item>
 
@@ -655,12 +669,14 @@
 		<id>0x24c9</id>
 		<lightsource>0x2</lightsource>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 07\On</category>
 	</item>
 
 	<item id="24ca">
 		<id>0x24ca</id>
 		<nodecay />
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 07\Off</category>
 	</item>
 

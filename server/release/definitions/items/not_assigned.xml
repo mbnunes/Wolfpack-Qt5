@@ -1728,13 +1728,17 @@
 		<id>0x2831</id>
 	</item>
 
+	<!-- WindChimes -->
 	<item id="2832">
-		<id>0x832</id>
+		<id>0x2832</id>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="2833">
 		<id>0x2833</id>
+		<weight>1.0</weight>
 	</item>
+	<!-- WindChimes end -->
 
 	<item id="2834">
 		<id>0x2834</id>
