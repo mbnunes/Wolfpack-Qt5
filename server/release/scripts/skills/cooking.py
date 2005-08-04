@@ -23,6 +23,8 @@ campfire = range( 0x0de3, 0x0de9 )
 firefield = [ 0x398c, 0x3996 ]
 fires = ovens + campfire + firefield
 
+flour = ['1045', '1046', '1039', '103a']
+
 def onUse( char, item ):
 	if not item.getoutmostchar() == char:
 		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
@@ -201,7 +203,7 @@ actions =	{
 			"103a": "SackFlourOpen"
 		}
 
-def consume( item ):
+def consume( item, amount ):
 	quantity = 0
 	if item.hastag('quantity'):
 		quantity = int(item.gettag('quantity'))
@@ -209,15 +211,16 @@ def consume( item ):
 	if quantity <= 0:
 		return False # Couldn't consume
 
-	quantity -= 1
+	quantity_new = quantity - amount
 
 	# Empty
-	if quantity <= 0:
+	if quantity_new <= 0:
+		amount = quantity
 		item.delete()
 	else:
-		item.settag('quantity', int(quantity))
+		item.settag('quantity', int(quantity_new))
 		item.resendtooltip()
-	return True
+	return amount
 
 def find( char, object = None ):
 	# check for dynamic items
@@ -248,6 +251,7 @@ class CookItemAction(CraftItemAction):
 		self.water = False
 		self.useallres = False
 		self.flour = False
+		self.flouramount = 0
 		self.markable = 1 # All cooking items are markable, exceptions handled through <nomark /> tag
 
 	#
@@ -265,7 +269,11 @@ class CookItemAction(CraftItemAction):
 		elif node.name == 'useallres':
 			self.useallres = True
 		elif node.name == 'flour':
+			amount = 1
+			if node.hasattribute('amount'):
+				amount = hex2dec(node.getattribute('amount', '1'))
 			self.flour = True
+			self.flouramount = amount
 
 		else:
 			CraftItemAction.processnode(self, node, menu)
@@ -279,7 +287,7 @@ class CookItemAction(CraftItemAction):
 		if self.water:
 			materialshtml += tr("Water: 1<br>")
 		if self.flour:
-			materialshtml += tr("Flour: 1<br>")
+			materialshtml += tr("Flour: %i<br>" % self.flouramount)
 
 		return materialshtml
 
@@ -294,15 +302,20 @@ class CookItemAction(CraftItemAction):
 		if self.flour:
 			found = False
 			backpack = player.getbackpack()
+			amount = 0
 			for item in backpack.content:
-				if item.baseid in ['1045', '1046', '1039', '103a'] and item.hastag('quantity'):
+				if item.baseid in flour and item.hastag('quantity'):
 					quantity = int(item.gettag('quantity'))
 					if quantity > 0:
+						amount += quantity
 						found = True
-						break
 			if not found:
 				if not silent:
 					player.socket.clilocmessage(1044253) # You don't have the components needed to make that.
+				return False
+
+			if amount < self.flouramount:
+				player.socket.sysmessage(tr("You don't have enough material to make that."))
 				return False
 
 		# Check if we have enough water in our backpack
@@ -342,11 +355,17 @@ class CookItemAction(CraftItemAction):
 		if self.flour:
 			result = False
 			content = player.getbackpack().content
+			flours = []
 			for item in content:
-				if item.baseid in ["1045", "1046", "1039", "103a"] and item.hastag('quantity'):
-					if consume(item):
-						result = True
-						break
+				if item.baseid in flour and item.hastag('quantity'):
+					flours.append(item)
+			toconsume = self.flouramount
+			while toconsume > 0:
+				for flou in flours:
+					amount = consume(flou, toconsume)
+					toconsume -= amount
+					if toconsume == 0:
+						break # break out of for loop
 
 		# Check if we have enough water in our backpack
 		if self.water:
@@ -365,7 +384,6 @@ class CookItemAction(CraftItemAction):
 		if self.useallres:
 			for item in player.getbackpack().content:
 				if item.baseid == self.materials[0][0][0]:
-					player.socket.sysmessage( "2r" )
 					nodelay = True
 					# stop if making fails
 					if not CraftItemAction.make(self, player, arguments, nodelay):
@@ -373,6 +391,26 @@ class CookItemAction(CraftItemAction):
 
 		else:
 			return CraftItemAction.make(self, player, arguments, nodelay)
+
+#
+# The user has to have Samurai Empire installed
+#
+class SeCookItemAction(CookItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		CookItemAction.__init__(self, parent, title, itemid, definition)
+
+	def visible(self, char, arguments):
+		if char.socket and char.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return CookItemAction.visible(self, char, arguments)
+			
+	def checkmaterial(self, player, arguments, silent = 0):
+		if player.socket and player.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return CookItemAction.checkmaterial(self, player, arguments, silent)
+
 #
 # Cooking Menu
 #
@@ -411,7 +449,7 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'cook':
+		elif child.name in ['cook', 'secook']:
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
 				console.log(LOG_ERROR, "Cooking action without definition or name in menu %s.\n" % menu.id)
 			else:
@@ -430,7 +468,10 @@ def loadMenu(id, parent = None):
 							console.log(LOG_ERROR, "Cooking action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-					action = CookItemAction(menu, name, int(itemid), itemdef)
+					if child.name == 'secook':
+						action = SeCookItemAction(menu, name, int(itemid), itemdef)
+					else:
+						action = CookItemAction(menu, name, int(itemid), itemdef)
 				except:
 					console.log(LOG_ERROR, "Cooking action with invalid item id in menu %s.\n" % menu.id)
 

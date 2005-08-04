@@ -88,6 +88,30 @@
 			<material id="103d" amount="1" name="Dough" />
 			<material id="c6a;c6b;c6c" amount="1" name="Pumpkin" />
 		</cook>
+		<!--
+		<secook definition="" name="Green Tea">
+			<cooking min="800" max="1200" />
+			<material id="284c" amount="1" name="Green Tea" />
+			<water />
+		</secook>
+		-->
+		<secook definition="24eb" name="Wasabi Clumps">
+			<cooking min="700" max="1100" />
+			<material id="15fc" amount="3" name="Bowls of Peas" />
+			<water />
+		</secook>
+
+		<secook definition="283e" name="Sushi Rolls">
+			<cooking min="900" max="1200" />
+			<material id="97a" amount="10" name="Raw Fish Steaks" />
+			<water />
+		</secook>
+
+		<secook definition="2840" name="Sushi Platter">
+			<cooking min="900" max="1200" />
+			<material id="97a" amount="10" name="Raw Fish Steaks" />
+			<water />
+		</secook>
 
 		<cook definition="tribal_paint" name="Savage Kin Paint">
 			<cooking min="800" max="1100" />
@@ -95,7 +119,12 @@
 			<material id="tribal_berry" amount="1" name="Tribal Berry" />
 			<nomark />
 		</cook>
-		<!-- Missing: SE items -->
+
+		<secook definition="2809" name="Egg Bomb">
+			<cooking min="900" max="1200" />
+			<material id="9b5" amount="1" name="Egg" />
+			<flour amount="3" />
+		</secook>
 	</menu>
 
 	<menu id="COOKING_BAKING" name="Baking">
@@ -173,7 +202,34 @@
 			<needoven />
 		</cook>
 
-		<!-- Missing: SE items -->
+		<secook definition="284d" name="Miso Soup">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
+		<secook definition="284e" name="White Miso Soup">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
+		<secook definition="284f" name="Red Miso Soup">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
+		<secook definition="2850" name="Awase Miso Soup">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
 	</menu>
 
 	<menu id="COOKING_BARBECUE" name="Barbecue">

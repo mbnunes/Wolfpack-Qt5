@@ -1627,10 +1627,6 @@
 		<id>0x24e9</id>
 	</item>
 
-	<item id="24eb">
-		<id>0x24eb</id>
-	</item>
-
 	<!-- Lattice Works -->
 	<item id="2712">
 		<id>0x2712</id>
@@ -1784,26 +1780,6 @@
 
 	<!-- End Origami -->
 
-	<!-- Begin Sushi -->
-
-	<item id="283e">
-		<id>0x283e</id>
-	</item>
-
-	<item id="283f">
-		<id>0x283f</id>
-	</item>
-
-	<item id="2840">
-		<id>0x2840</id>
-	</item>
-
-	<item id="2841">
-		<id>0x2841</id>
-	</item>
-
-	<!-- End Sushi -->
-
 	<item id="2846">
 		<id>0x2846</id>
 	</item>
@@ -1830,22 +1806,6 @@
 
 	<item id="284c">
 		<id>0x284c</id>
-	</item>
-
-	<item id="284d">
-		<id>0x284d</id>
-	</item>
-
-	<item id="284e">
-		<id>0x284e</id>
-	</item>
-
-	<item id="284f">
-		<id>0x284f</id>
-	</item>
-
-	<item id="2850">
-		<id>0x2850</id>
 	</item>
 
 	<!-- Begin Sword Displays -->

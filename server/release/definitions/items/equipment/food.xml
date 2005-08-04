@@ -1058,4 +1058,70 @@ Food subtypes:
 		<category>Equipment\Food\Baked\Baked Cheese Pizza</category>
 	</item>
 
+	<!-- Wasabi Clumps -->
+	<item id="24eb">
+		<id>0x24eb</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Wasabi Clumps</category>
+	</item>
+
+	<!-- Eggbomb -->
+	<item id="2809">
+		<id>0x2809</id>
+		<weight>2.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Eggbomb</category>
+	</item>
+
+	<!-- Begin Sushi -->
+	<item id="283e">
+		<id>0x283e</id>
+		<weight>3.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Sushi Rolls 1</category>
+	</item>
+
+	<item id="283f" inherit="283e">
+		<id>0x283f</id>
+		<category>Equipment\Food\Sushi Rolls 2</category>
+	</item>
+
+	<item id="2840" inherit="283e">
+		<id>0x2840</id>
+		<category>Equipment\Food\Sushi Platter 1</category>
+	</item>
+
+	<item id="2841" inherit="283e">
+		<id>0x2841</id>
+		<category>Equipment\Food\Sushi Platter 2</category>
+	</item>
+	<!-- End Sushi -->
+
+	<!-- Miso Soup -->
+	<item id="284d">
+		<id>0x284d</id>
+		<weight>3.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Miso Soup</category>
+	</item>
+
+	<!-- White Miso Soup -->
+	<item id="284e" inherit="284d">
+		<id>0x284e</id>
+		<category>Equipment\Food\Baked\White Miso Soup</category>
+	</item>
+
+	<!-- Red Miso Soup -->
+	<item id="284f" inherit="284d">
+		<id>0x284f</id>
+		<category>Equipment\Food\Baked\Red Miso Soup</category>
+	</item>
+
+	<!-- Awase Miso Soup -->
+	<item id="2850" inherit="284d">
+		<id>0x2850</id>
+		<category>Equipment\Food\Baked\Awase Miso Soup</category>
+	</item>
+
 </definitions>
