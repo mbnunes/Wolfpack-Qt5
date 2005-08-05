@@ -41,6 +41,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed monsters starting to attack players even if there was no line of sight.
   - Activated new pathfinding algorithm.
   - Cleaned up npc movement speed. ( For fast npcs lower your 'NPCs Check Time' in wolfpack.xml )
+  - It is possible to dupe the content of containers.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -143,6 +144,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added Oil Cloth.
   - Improved edit command for containers (the content is shown in a list).
   - Implemented Cooking.
+  - dupe command will dupe content of containers, if GMs have the privilege to
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

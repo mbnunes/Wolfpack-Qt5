@@ -41,11 +41,13 @@ def callback(char, args, target):
 	if not target.item:
 		char.socket.sysmessage('You have to target an item.')
 		return False
-
+	
 	#char.log(LOG_MESSAGE, "Duping item 0x%x.\n" % target.item.serial)
 
+	dupeContent = char.account.authorized('Misc', 'May Dupe Containers')	
+
 	for i in range(0, args[0]):
-		created = target.item.dupe()
+		created = target.item.dupe( dupeContent )
 		created.update()
 		
 		char.log(LOG_MESSAGE, "Duping item 0x%x. New serial is 0x%x.\n" % (target.item.serial, created.serial))				

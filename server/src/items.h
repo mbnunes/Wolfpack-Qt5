@@ -104,7 +104,8 @@ public:
 
 	void processContainerNode( const cElement* Tag );
 	virtual void update( cUOSocket* mSock = NULL );
-	P_ITEM dupe();
+	P_ITEM dupe( bool dupeContent = false );
+	void dupeContent( P_ITEM container );
 	void soundEffect( Q_UINT16 sound );
 
 	// Returns Zero if the item shouldn't decay

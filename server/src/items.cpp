@@ -1132,7 +1132,7 @@ void cItem::update( cUOSocket* singlesocket )
 	}
 }
 
-P_ITEM cItem::dupe()
+P_ITEM cItem::dupe( bool dupeContent )
 {
 	P_ITEM nItem = new cItem( *this );
 	nItem->setSerial( World::instance()->findItemSerial() );
@@ -1160,7 +1160,28 @@ P_ITEM cItem::dupe()
 	{
 		nItem->moveTo( pos_ );
 	}
+
+	if ( dupeContent )
+	{
+		this->dupeContent( nItem );
+	}
+
 	return nItem;
+}
+
+void cItem::dupeContent( P_ITEM container )
+{
+
+	for ( ContainerIterator it( this ); !it.atEnd(); ++it )
+	{
+		P_ITEM nItem = new cItem( **it );
+		nItem->setSerial( World::instance()->findItemSerial() );
+		nItem->container_ = 0;
+
+		container->addItem( nItem, false, true, false, false );
+		
+		(*it)->dupeContent( nItem );
+	}
 }
 
 void cItem::soundEffect( Q_UINT16 sound )

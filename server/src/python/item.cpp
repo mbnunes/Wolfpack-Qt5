@@ -824,10 +824,14 @@ static PyObject* wpItem_resendtooltip( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_dupe( wpItem* self, PyObject* args )
 {
-	Q_UNUSED( args );
+	bool dupeContent = false;
+
+	if ( checkArgInt( 0 ) )
+		dupeContent = getArgInt( 0 ) != 0;
+
 	if ( !self->pItem->free )
 	{
-		P_ITEM item = self->pItem->dupe();
+		P_ITEM item = self->pItem->dupe( dupeContent );
 		return item->getPyObject();
 	}
 
