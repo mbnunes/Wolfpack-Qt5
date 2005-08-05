@@ -54,16 +54,13 @@
 			<percentage value="60" />
 			<granite amount="4" />
 		</masonry>
-	</menu>
-<!--
-		<masonry definition="" name="Tower Sculpture">
+		<semasonry definition="241a" name="Tower Sculpture">
 			<percentage value="36" />
 			<granite amount="3" />
-		</masonry>
-		<masonry definition="" name="Small Urn">
+		</semasonry>
+		<semasonry definition="241c" name="Small Urn">
 			<percentage value="36" />
 			<granite amount="3" />
-		</masonry>
+		</semasonry>
 	</menu>
--->
 </definitions>

@@ -77,6 +77,25 @@ class StonecrafterItemAction(CraftItemAction):
 		player.soundeffect(0x2a)
 
 #
+# The user has to have Samurai Empire installed
+#
+class SeStonecrafterItemAction(StonecrafterItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		StonecrafterItemAction.__init__(self, parent, title, itemid, definition)
+
+	def visible(self, char, arguments):
+		if char.socket and char.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return StonecrafterItemAction.visible(self, char, arguments)
+			
+	def checkmaterial(self, player, arguments, silent = 0):
+		if player.socket and player.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return StonecrafterItemAction.checkmaterial(self, player, arguments, silent)
+
+#
 # A masonry menu. The most notable difference is the
 # button for selecting another granite.
 #
@@ -146,7 +165,7 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'masonry':
+		elif child.name in ['masonry', 'semasonry']:
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
 				console.log(LOG_ERROR, "Masonry action without definition or name in menu %s.\n" % menu.id)
 			else:
@@ -163,7 +182,10 @@ def loadMenu(id, parent = None):
 								itemid = itemchild.value
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-					action = StonecrafterItemAction(menu, name, int(itemid), itemdef)
+					if child.name == 'semasonry':
+						action = SeStonecrafterItemAction(menu, name, int(itemid), itemdef)
+					else:
+						action = StonecrafterItemAction(menu, name, int(itemid), itemdef)		
 				except:
 					console.log(LOG_ERROR, "Masonry action with invalid item id in menu %s.\n" % menu.id)
 
