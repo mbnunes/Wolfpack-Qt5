@@ -104,6 +104,62 @@
 		<color>0x8a5</color>
 	</item>
 
+	<!-- Lesser Mana -->
+	<item id="potion_lessermana" inherit="potion_base">
+		<id>0xf0e</id>
+		<color>0x529</color>
+		<name>Lesser Mana</name>
+		<category>Equipment\Potions\Mana (lesser)</category>
+		<intproperty name="potiontype" value="22" />
+		<!-- Pricing information -->
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
+	</item>
+
+	<item id="potion_keg_lessermana" inherit="potion_keg_empty">
+		<name>A keg of Lesser Mana potions</name>
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="22" type="int" />
+		<tag name="kegfill" value="100" type="int" />
+		<color>0x529</color>
+	</item>
+
+	<!-- Mana -->
+	<item id="potion_mana" inherit="potion_base">
+		<id>0xf0e</id>
+		<color>0x529</color>
+		<name>Mana</name>
+		<category>Equipment\Potions\Mana</category>
+		<intproperty name="potiontype" value="23" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_keg_mana" inherit="potion_keg_empty">
+		<name>A keg of Mana potions</name>
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="23" type="int" />
+		<tag name="kegfill" value="100" type="int" />
+		<color>0x529</color>
+	</item>
+
+	<!-- Greater Mana -->
+	<item id="potion_greatermana" inherit="potion_base">
+		<id>0xf0e</id>
+		<color>0x529</color>
+		<name>Greater Mana</name>
+		<category>Equipment\Potions\Mana (greater)</category>
+		<intproperty name="potiontype" value="24" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_keg_greatermana" inherit="potion_keg_empty">
+		<name>A keg of Greater Mana potions</name>
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="24" type="int" />
+		<tag name="kegfill" value="100" type="int" />
+		<color>0x529</color>
+	</item>
+
 	<!-- Lesser Cure -->
 	<item id="potion_lessercure" inherit="potion_base">
 		<id>0xf07</id>

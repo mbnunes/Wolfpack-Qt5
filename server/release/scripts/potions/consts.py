@@ -36,8 +36,8 @@ POTIONS = {
 	18:	[ True, 0, 0, '#1044538', '#1041632', 'potion_refresh' ],
 	19:	[ True, 0, 0, '#1044539', '#1041633', 'potion_totalrefresh' ],
 	# Intelligence
-	20:	[ True, 0, 0, 'Intellegence', 'A keg of Intelligence potions', 'potion_intelligence' ],
-	21:	[ True, 0, 0, 'Greater Intellegence', 'A keg of Greater Intelligence potions', 'potion_greaterintelligence' ],
+	20:	[ True, 0, 0, 'Intelligence', 'A keg of Intelligence potions', 'potion_intelligence' ],
+	21:	[ True, 0, 0, 'Greater Intelligence', 'A keg of Greater Intelligence potions', 'potion_greaterintelligence' ],
 	# Mana
 	22:	[ 1, 0, 0, 'Lesser Mana', 'A keg of Lesser Mana potions', 'potion_lessermana' ],
 	23:	[ 1, 0, 0, 'Mana', 'A keg of Mana potions', 'potion_mana' ],

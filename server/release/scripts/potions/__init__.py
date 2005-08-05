@@ -83,5 +83,8 @@ def onUse( char, item ):
 		# Refresh Potions
 		elif potiontype in [ 18, 19 ]:
 			potions.refresh.potion( char, item, potiontype )
+		# Mana Potions
+		elif potiontype in [ 22, 23, 24 ]:
+			potions.mana.potion( char, item, potiontype )
 
 	return True
