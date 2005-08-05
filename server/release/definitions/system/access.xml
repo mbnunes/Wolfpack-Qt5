@@ -22,6 +22,7 @@
 		<group name="Misc">
 			<action name="Unlimited Tile" permit="true" />
 			<action name="May Block Staff Accounts" permit="true" />
+			<action name="May Dupe Containers" permit="true" />
 			<action name="May Remove Players" permit="true" />
 		</group>
 	</acl>
