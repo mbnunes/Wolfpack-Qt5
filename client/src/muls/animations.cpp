@@ -364,7 +364,7 @@ void cAnimations::loadBodyDef() {
 cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue, bool partialhue) {
 	// Directions can't be translated directly.
 	direction &= 7; // Only the lower 3 bit are valid
-	static const unsigned char directionmap[8] = {4, 3, 2, 1, 0, 1, 2, 3};
+	static const unsigned char directionmap[8] = {3, 2, 1, 0, 1, 2, 3, 4};
 	direction = directionmap[direction];	
 
 	// Calculate the cache id for the given parameters

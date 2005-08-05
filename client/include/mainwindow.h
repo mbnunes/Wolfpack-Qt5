@@ -3,14 +3,25 @@
 #define __MAINWINDOW_H__
 
 #include <qgl.h>
-#include <q3mainwindow.h>
+#include <qmainwindow.h>
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QEvent>
+#include <QDialog>
+#include "dialog_config.h"
 
 class cControl;
 class QMenuBar;
+class QAction;
+
+class cConfigDialog : public QDialog {
+private:
+	Ui::configDialog ui;
+public:
+	cConfigDialog(QWidget *parent);
+	void show();
+};
 
 class cGLWidget : public QGLWidget {
 	Q_OBJECT
@@ -42,7 +53,7 @@ protected:
 	void createScreenshot(const QString &filename);
 };
 
-class MainWindow : public Q3MainWindow {
+class MainWindow : public QMainWindow {
 	Q_OBJECT
 
 	QMenuBar *m_menuBar;
@@ -53,6 +64,22 @@ public:
 	QMenuBar *menuBar() const;
 
 	void resizeGameWindow(unsigned int width, unsigned int height, bool locked = false);
+
+protected:
+	void resizeEvent(QResizeEvent * event);
+
+	cConfigDialog *configDialog;
+
+	QAction *aHideStatics;
+	QAction *aHideMap;
+	QAction *aHideMobiles;
+	QAction *aHideDynamics;
+
+	void showEvent(QShowEvent *event);
+
+public slots:
+	void menuWhere();
+	void menuGameClicked(QAction *action);
 };
 
 extern cGLWidget *GLWidget;

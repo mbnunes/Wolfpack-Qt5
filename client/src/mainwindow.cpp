@@ -73,7 +73,11 @@ static const char * const icon_xpm[] = {
 ":::::::::::::: * :::::::::::::::"
 };
 
+#include "dialog_config.h"
+
 MainWindow::MainWindow() {
+	configDialog = new cConfigDialog(this);
+
 	resize(640, 480); // Default size
 
 	// Window Icon
@@ -87,9 +91,55 @@ MainWindow::MainWindow() {
 	// Create a menu bar at the top of the window
 	m_menuBar = new QMenuBar(this);
 	m_menuBar->insertItem(tr("&File"), file);
+	
+	// Game Menu
+	QMenu *game = m_menuBar->addMenu("&Game");
+	game->addAction("Where", this, SLOT(menuWhere()));
+	game->addSeparator();
+	aHideStatics = game->addAction("Hide Statics");
+	aHideStatics->setCheckable(true);
+	aHideDynamics = game->addAction("Hide Dynamics");
+	aHideDynamics->setCheckable(true);
+	aHideMobiles = game->addAction("Hide Mobiles");
+	aHideMobiles->setCheckable(true);
+	aHideMap = game->addAction("Hide Map");	
+	aHideMap->setCheckable(true);
+
+	aHideMap->setChecked(Config->gameHideMap());
+	aHideStatics->setChecked(Config->gameHideStatics());
+	aHideDynamics->setChecked(Config->gameHideDynamics());
+	aHideMobiles->setChecked(Config->gameHideMobiles());
+
+	connect(game, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
+
+	setMenuBar(m_menuBar);
 
 	GLWidget = new cGLWidget(this);
 	setCentralWidget(GLWidget);
+}
+
+void MainWindow::showEvent(QShowEvent *event) {
+	QMainWindow::showEvent(event);
+}
+
+void MainWindow::menuGameClicked(QAction *action) {
+	if (action == aHideStatics) {
+		Config->setGameHideStatics(action->isChecked());
+	} else if (action == aHideMap) {
+		Config->setGameHideMap(action->isChecked());
+	} else if (action == aHideDynamics) {
+		Config->setGameHideDynamics(action->isChecked());
+	} else if (action == aHideMobiles) {
+		Config->setGameHideMobiles(action->isChecked());
+	}
+}
+
+void MainWindow::menuWhere() {
+	QString message = QString("%1,%2,%3,%4").arg(World->x()).arg(World->y()).arg(World->z()).arg(World->facet());
+
+	// Show a window with the current location
+	QErrorMessage *error = new QErrorMessage(this);
+	error->message(message);
 }
 
 MainWindow::~MainWindow() {
@@ -375,6 +425,27 @@ void MainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool 
 		setMaximumSize(65535, 65535);
 		setMinimumSize(100, 100);
 	}
+}
+
+void MainWindow::resizeEvent(QResizeEvent * event) {
+	// if the game view is visible, change the engine size
+	if (WorldView && WorldView->isVisible()) {
+		Config->setEngineHeight(height());
+		Config->setEngineWidth(width());
+	}	
+
+	QMainWindow::resizeEvent(event);
+}
+
+cConfigDialog::cConfigDialog(QWidget *parent) : QDialog(parent) {
+	ui.setupUi(this);
+}
+
+void cConfigDialog::show() {
+	// Load the current configuration settings into this
+	
+
+	QDialog::show();
 }
 
 cGLWidget *GLWidget = 0;

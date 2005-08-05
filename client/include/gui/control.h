@@ -140,7 +140,7 @@ public:
 	cControl();
 	virtual ~cControl();
 
-	void processDoubleClick(QMouseEvent *e);
+	virtual void processDoubleClick(QMouseEvent *e);
 
 	// The parent of this control has moved
 	virtual void onParentMoved(int oldx, int oldy);

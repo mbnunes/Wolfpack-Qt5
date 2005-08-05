@@ -31,7 +31,8 @@ enum enFacet {
 	ILSHENAR,
 	MALAS,
 	TOKUNO,
-	FACETCOUNT = 5 // important
+	FACETCOUNT = 5, // important
+	INTERNAL = 0xff
 };
 
 // types of entities known to the game

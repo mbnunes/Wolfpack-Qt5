@@ -3,10 +3,13 @@
 #define __MOBILE_H__
 
 #include <qlist.h>
+#include <qvector.h>
 
 #include "enums.h"
 #include "muls/animations.h"
 #include "game/dynamicentity.h"
+
+class cDynamicItem;
 
 class cMobile : public cDynamicEntity {
 protected:
@@ -21,15 +24,8 @@ protected:
 	unsigned int frame;
 	cSequence *sequence_; // Current sequence
 	cSequence *equipmentSequences[LAYER_VISIBLECOUNT]; // For every layer a possible sequence
-
-	// UNFINISHED
-	struct stEquipInfo {
-        unsigned int serial;
-		unsigned short hue;
-		unsigned short id;
-		unsigned char layer;
-	};
-	QList<stEquipInfo> equipment;
+	cDynamicItem *equipment[LAYER_VISIBLECOUNT];
+	QVector<cDynamicItem*> invisibleEquipment;
 
 	void freeSequence();
 	void refreshSequence();
@@ -67,7 +63,9 @@ public:
 
 	void smoothMove(int xoffset, int yoffset, unsigned int duration);
 
-	void addEquipment(unsigned int serial, unsigned short id, unsigned short hue, enLayer layer);
+	// Steals a reference
+	void addEquipment(cDynamicItem *item);
+	void refreshEquipment(enLayer layer);
 };
 
 inline unsigned short cMobile::body() const {

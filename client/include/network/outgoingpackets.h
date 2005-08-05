@@ -38,4 +38,10 @@ public:
 	cPlayMobilePacket(unsigned char id);
 };
 
+// 0x06 Double Click
+class cDoubleClickPacket : public cOutgoingPacket {
+public:
+	cDoubleClickPacket(unsigned int serial);
+};
+
 #endif

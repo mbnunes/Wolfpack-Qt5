@@ -38,6 +38,8 @@ public:
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
 	void onMouseUp(QMouseEvent *e);
 
+	void processDoubleClick(QMouseEvent *e);
+
 	void addSysMessage(const Q3CString &message, unsigned short hue = 0, unsigned char font = 3);
 	void addSysMessage(const QString &message, unsigned short hue = 0x3b2, unsigned char font = 0);
 

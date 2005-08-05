@@ -47,6 +47,7 @@ HEADERS += \
 	
 HEADERS += \
 	include/game/dynamicentity.h \
+	include/game/dynamicitem.h \
 	include/game/entity.h \
 	include/game/groundtile.h \
 	include/game/mobile.h \
@@ -140,6 +141,7 @@ SOURCES += \
 
 SOURCES += \
 	src/game/dynamicentity.cpp \
+	src/game/dynamicitem.cpp \
 	src/game/entity.cpp \
 	src/game/groundtile.cpp \
 	src/game/mobile.cpp \

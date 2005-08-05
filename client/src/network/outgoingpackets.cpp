@@ -30,3 +30,7 @@ cPlayMobilePacket::cPlayMobilePacket(unsigned char id) : cOutgoingPacket(0x5d, 7
 	m_Stream << id;
 	fill(4, 0); // "client-ip" but absolutly unneccesary
 }
+
+cDoubleClickPacket::cDoubleClickPacket(unsigned int serial) : cOutgoingPacket(0x06, 5) {
+	m_Stream << serial;
+}

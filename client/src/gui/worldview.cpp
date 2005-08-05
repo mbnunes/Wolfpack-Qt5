@@ -317,6 +317,10 @@ void cWorldView::onMouseLeave() {
 	}
 }
 
+void cWorldView::processDoubleClick(QMouseEvent *e) {
+	World->onDoubleClick(e);
+}
+
 void cWorldView::getWorldRect(int &x, int &y, int &width, int &height) {
 	x = x_ + left->width();
 	y = y_ + top->height();

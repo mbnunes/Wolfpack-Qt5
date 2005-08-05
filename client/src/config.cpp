@@ -30,6 +30,7 @@
 #include <qtextstream.h>
 #include <qmap.h>
 #include <qstring.h>
+#include <qstringlist.h>
 
 #include "config.h"
 
@@ -50,6 +51,15 @@ public:
 /*****************************************************************************
   cConfig member functions
  *****************************************************************************/
+
+QStringList cConfig::groups() const {
+	QStringList result;
+	QMap<QString, cConfigPrivate::PrefMap>::const_iterator it;
+	for (it = d->groups_.begin(); it != d->groups_.end(); ++it) {
+		result.append(it.key());
+	}
+	return result;
+}
 
 cConfig::cConfig() : d( new cConfigPrivate )
 {
@@ -417,6 +427,12 @@ void cConfig::load() {
 	loginHost_ = getString("Login", "Host", "127.0.0.1");
 	loginPort_ = getNumber("Login", "Port", 2593);
 	lastUsername_ = getString("Login", "Last Username", "");
+
+	// Game
+	gameHideStatics_ = getBool("Game", "Hide Statics", false);
+	gameHideDynamics_ = getBool("Game", "Hide Dynamics", false);
+	gameHideMobiles_ = getBool("Game", "Hide Mobiles", false);
+	gameHideMap_ = getBool("Game", "Hide Map", false);
 }
 
 void cConfig::reload() {

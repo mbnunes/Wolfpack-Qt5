@@ -10,7 +10,7 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 
-class cStaticTile : public cEntity {
+class cStaticTile : virtual public cEntity {
 protected:
 	unsigned short id_;
 	unsigned short hue_;
@@ -22,14 +22,16 @@ protected:
 	cArtAnimation *animation; // Animation context
 	unsigned short frame; // Current frame
 	unsigned int nextFrame; // When this skips to the next frame
+
+	cStaticTile();
 public:
 	cStaticTile(unsigned short x, unsigned short y, signed char z, enFacet facet);
 	virtual ~cStaticTile();
 
 	unsigned short id() const;
-	void setId(unsigned short data);
+	virtual void setId(unsigned short data);
 	unsigned short hue() const;
-	void setHue(unsigned short data);
+	virtual void setHue(unsigned short data);
 	cItemTileInfo *tiledata() const;
 
 	// Override the draw method

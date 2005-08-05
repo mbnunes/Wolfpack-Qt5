@@ -44,7 +44,7 @@ void cWorld::clearEntities() {
 	// Clear entities.
 	Iterator it;
 	for (it = entities.begin(); it != entities.end(); ++it) {
-		Cell &cell = it.data();
+		Cell cell = it.data(); // Copy
 		ConstCellIterator cit = cell.begin();
 		while (cit != cell.end()) {
 			(*cit)->decref();
@@ -280,7 +280,9 @@ void cWorld::smoothMove(int x, int y) {
 	// Move the player
 	if (Player) {
 		Player->smoothMove(drawxoffset, drawyoffset, 370);
-		Player->setDirection(direction);
+		if (direction != Player->direction()) {
+			Player->setDirection(direction);
+		}
 		Player->move(x_, y_, z_);
 		Player->playAction(0, 370); // Play walk for the time of move
 	}
@@ -431,6 +433,14 @@ cEntity *cWorld::getEntity(int x, int y) {
 }
 
 void cWorld::onDoubleClick(QMouseEvent *e) {
+	if (e->button() == Qt::LeftButton) {
+		cEntity *found = getEntity(e->x(), e->y());
+	
+		// Pass the event on to the entity
+		if (found) {
+			found->onDoubleClick(e);
+		}
+	}
 }
 
 void cWorld::onClick(QMouseEvent *e) {
@@ -518,6 +528,26 @@ void cWorld::getGroundInfo(int x, int y, stGroundInfo *info) {
 		}
 	} else {
 		memcpy(info, ground, sizeof(stGroundInfo));
+	}
+}
+
+cDynamicItem *cWorld::findItem(unsigned int serial) const {
+	cDynamicEntity *entity = findDynamic(serial);
+
+	if (entity && entity->type() == ITEM) {
+		return (cDynamicItem*)entity;
+	} else {
+		return 0;
+	}
+}
+
+cMobile *cWorld::findMobile(unsigned int serial) const {
+	cDynamicEntity *entity = findDynamic(serial);
+
+	if (entity && entity->type() == MOBILE) {
+		return (cMobile*)entity;
+	} else {
+		return 0;
 	}
 }
 

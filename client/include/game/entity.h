@@ -34,6 +34,7 @@ protected:
 	*/
 	int cellid_;
 
+	cEntity(); // If you know what you're doing
 public:
 	cEntity(unsigned short x, unsigned short y, signed char z, enFacet facet);
 	virtual ~cEntity();
@@ -69,6 +70,7 @@ public:
 
 	// This entity has been clicked on
 	virtual void onClick(QMouseEvent *e);
+	virtual void onDoubleClick(QMouseEvent *e);
 	virtual void onRightClick(QMouseEvent *e);
 
 	// This method should be supplied by the subclass to update the tile priority

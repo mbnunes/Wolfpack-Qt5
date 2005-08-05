@@ -14,6 +14,9 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 
+class cMobile;
+class cDynamicItem;
+
 // I'm using a class here because of the destructor
 class stGroundInfo {
 public:
@@ -104,6 +107,8 @@ public:
 
 	// Methods for managing dynamics
 	cDynamicEntity *findDynamic(unsigned int serial) const;
+	cDynamicItem *findItem(unsigned int serial) const;
+	cMobile *findMobile(unsigned int serial) const;
 	void registerDynamic(cDynamicEntity *entity);
 	void unregisterDynamic(cDynamicEntity *entity);
 };

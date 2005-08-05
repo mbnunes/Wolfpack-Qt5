@@ -9,6 +9,7 @@
 #include <qgl.h>
 //Added by qt3to4:
 #include <QMouseEvent>
+#include "config.h"
 
 cGroundTile::cGroundTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
 	id_ = 0;
@@ -120,6 +121,10 @@ void cGroundTile::setId(unsigned short data) {
 }
 
 void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip) {
+	if (Config->gameHideMap()) {
+		return;
+	}
+
 	// Since the width is fixed, we can do that check here
 	if (cellx - 22 > rightClip || cellx + 22 < leftClip || celly - 22 > bottomClip) {
 		// Don't bother hit testing
@@ -251,6 +256,10 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 }
 
 bool cGroundTile::hitTest(int x, int y) {
+	if (Config->gameHideMap()) {
+		return false;
+	}
+
 	if (stretched) {
 		/// Do a simple bounding box check first
 		if (x < 0 || y < 0 || x >= width_ || y >= height_) {

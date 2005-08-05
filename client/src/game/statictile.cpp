@@ -1,4 +1,4 @@
-
+	
 #include "game/statictile.h"
 #include "game/world.h"
 #include "muls/art.h"
@@ -6,9 +6,20 @@
 #include "muls/maps.h"
 #include "gui/worldview.h"
 #include "log.h"
+#include "config.h"
 #include <qgl.h>
 //Added by qt3to4:
 #include <QMouseEvent>
+
+cStaticTile::cStaticTile() {
+	id_ = 0;
+	texture = 0;
+	tiledata_ = Tiledata->getItemInfo(0);
+	tiledata_->incref();
+	type_ = STATIC;
+	animated = false;
+	animation = 0;
+}
 
 cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
 	id_ = 0;
@@ -61,6 +72,16 @@ void cStaticTile::setHue(unsigned short data) {
 }
 
 void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip) {
+	if (!isInWorld()) {
+		return;
+	}
+
+	// Check if these tiles are hidden
+	if (Config->gameHideStatics()) {
+		return;
+	}
+
+
 	if (id_ == 2 || id_ == 0x21bc || id_ == 0x21a4) {
 		return; // Nodraw Tile
 	}
@@ -176,6 +197,11 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 }
 
 bool cStaticTile::hitTest(int x, int y) {
+	// Check if these tiles are hidden
+	if (Config->gameHideStatics()) {
+		return false;
+	}
+
 	if (!animated && texture) {
 		return texture->hitTest(x, y);
 	} else if (animated && animation && x >= 0 && y >= 0 && x < width_ && y < height_) {

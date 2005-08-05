@@ -94,8 +94,6 @@ cUoClient::~cUoClient() {
 }
 
 void cUoClient::load() {
-	Config->load(); // Load configuration (has to come first)
-
 	Log->print("-----------------------------------------------------------------------------\n", false);
 	Log->print(tr("Starting Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
 	Log->print("-----------------------------------------------------------------------------\n\n", false);
@@ -171,6 +169,7 @@ void cUoClient::run()
 	qInstallMsgHandler(myMessageOutput); // Install handler
 
 	Config->setFile("config.xml"); // Default Config File
+	Config->load(); // Load configuration (has to come first)
 
 	// INITIALIZE WINDOW - OPENGL INTIAILZATION
 	MainWindow *window = new MainWindow();

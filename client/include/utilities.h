@@ -61,7 +61,7 @@ namespace Utilities {
 		else
 			dir = 8;
 
-		return (dir + 1) % 8;
+		return dir % 8;
 	}
 
 	/*

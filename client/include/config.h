@@ -53,6 +53,11 @@ private:
 	Q3CString loginHost_;
 	unsigned short loginPort_;
 	QString lastUsername_;
+
+	bool gameHideStatics_;
+	bool gameHideDynamics_;
+	bool gameHideMobiles_;
+	bool gameHideMap_;
 public:
 	const QString &uoPath();
 	void setUoPath(const QString &data) { uoPath_ = data; setString("General", "Ultima Online Path", data); }
@@ -96,6 +101,15 @@ public:
 
 	const QString &lastUsername() const { return lastUsername_; }
 	void setLastUsername(const QString &data) { lastUsername_ = data; setString("Login", "Last Username", data); }
+	
+	const bool gameHideStatics() const { return gameHideStatics_; }
+	void setGameHideStatics(bool data) { gameHideStatics_ = data; setBool("Game", "Hide Statics", data); }
+	const bool gameHideDynamics() const { return gameHideDynamics_; }
+	void setGameHideDynamics(bool data) { gameHideDynamics_ = data; setBool("Game", "Hide Dynamics", data); }	
+	const bool gameHideMobiles() const { return gameHideMobiles_; }
+	void setGameHideMobiles(bool data) { gameHideMobiles_ = data; setBool("Game", "Hide Mobiles", data); }
+	const bool gameHideMap() const { return gameHideMap_; }
+	void setGameHideMap(bool data) { gameHideMap_ = data; setBool("Game", "Hide Map", data); }
 
 	// constructor
 	cConfig();
@@ -138,6 +152,8 @@ public:
 	// flush the preferences out to file
 	void flush();
 	virtual void clear();
+
+	QStringList groups() const;
 
 protected:
 	// serialization

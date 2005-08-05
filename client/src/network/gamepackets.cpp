@@ -4,6 +4,7 @@
 #include "dialogs/login.h"
 #include "gui/worldview.h"
 #include "game/mobile.h"
+#include "game/dynamicitem.h"
 #include "game/world.h"
 #include "log.h"
 #include "enums.h"
@@ -184,7 +185,14 @@ public:
 		if (mobile) {
 			QList<stEquipInfo>::const_iterator it;
 			for (it = equipment.begin(); it != equipment.end(); ++it) {
-				mobile->addEquipment(it->serial, it->id, it->hue, (enLayer)it->layer);
+				cDynamicItem *item = World->findItem(it->serial);
+
+				if (!item) {
+					item = new cDynamicItem(mobile, (enLayer)it->layer, it->serial);
+				}
+
+				item->setHue(it->hue);
+				item->setId(it->id);
 			}
 		}
 	}
@@ -196,3 +204,103 @@ public:
 
 
 AUTO_REGISTER_PACKET(0x78, cAddMobile::creator);
+
+class cAddGroundObject : public cDynamicIncomingPacket {
+protected:
+	unsigned int serial;
+	unsigned short id;
+	unsigned short hue;
+	unsigned char flags;
+	unsigned short posx, posy;
+	signed char posz;
+	unsigned char direction;
+	unsigned short amount;
+public:
+	cAddGroundObject(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(size);
+
+        input >> serial >> id;
+		
+		if (serial & 0x80000000) {
+			input >> amount;
+			serial &= ~ 0x80000000; // Clear the flag
+		}
+
+		// Whatever this is for, it's in the docs
+		if (id & 0x8000) {
+			unsigned char counter;
+			input >> counter;
+			id &= ~0x8000;
+			id += counter;
+		}
+
+		input >> posx >> posy;
+
+		if (posx & 0x8000) {
+			input >> direction;
+			posx &= ~ 0x8000; // Clear the flag
+		} else {
+			direction = 0;
+		}
+
+		input >> posz;
+
+		if (posy & 0x8000) {
+			input >> hue;
+			posy &= ~ 0x8000; // Clear the flag
+		} else {
+			hue = 0;
+		}
+
+		if (posy & 0x4000) {
+			input >> flags;
+			posy &= ~ 0x4000; // Clear the flag
+		} else {
+			flags = 0;
+		}
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cDynamicItem *item = World->findItem(serial);
+
+		if (!item) {
+			item = new cDynamicItem(posx, posy, posz, Player->facet(), serial);
+		} else {
+			item->move(posx, posy, posz);
+		}
+
+		item->setHue(hue);
+		item->setId(id);
+
+		// TODO: Flags/Amount
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cAddGroundObject(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x1a, cAddGroundObject::creator);
+
+class cDeleteObject : public cIncomingPacket {
+protected:
+	unsigned int serial;
+public:
+	cDeleteObject(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cDynamicItem *item = World->findItem(serial);
+
+		if (item) {
+			item->decref();
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cDeleteObject(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x1d, cDeleteObject::creator);

@@ -7,14 +7,21 @@ cDynamicEntity::cDynamicEntity(unsigned short x, unsigned short y, signed char z
 	World->registerDynamic(this);
 }
 
+cDynamicEntity::cDynamicEntity(unsigned int serial) : cEntity() {
+	serial_ = serial;
+	World->registerDynamic(this);
+}
+
 cDynamicEntity::~cDynamicEntity() {
 	World->unregisterDynamic(this);	
 }
 
 void cDynamicEntity::move(unsigned short x, unsigned short y, signed char z) {
 	World->removeEntity(this);
-	x_ = x;
-	y_ = y;
-	z_ = z;
-	World->addEntity(this);
+	if (isInWorld()) {
+		x_ = x;
+		y_ = y;
+		z_ = z;
+		World->addEntity(this);
+	}
 }

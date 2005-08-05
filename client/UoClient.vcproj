@@ -243,6 +243,12 @@
 				RelativePath=".\include\game\dynamicentity.h">
 			</File>
 			<File
+				RelativePath=".\src\game\dynamicitem.cpp">
+			</File>
+			<File
+				RelativePath=".\include\game\dynamicitem.h">
+			</File>
+			<File
 				RelativePath=".\src\game\entity.cpp">
 			</File>
 			<File
