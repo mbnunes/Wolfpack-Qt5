@@ -218,6 +218,64 @@ static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 }
 
 /*
+	\method char.awardkarma
+	\description Award the character karma and show the adequate message.
+	\param offset The amount of karma to be awarded is calculated from this and the characters karma.
+	\param showmessage Defaults to True.
+*/
+static PyObject* wpChar_awardkarma( wpChar* self, PyObject* args )
+{
+	if ( !self->pChar || self->pChar->free )
+		Py_RETURN_FALSE;
+
+	if ( PyTuple_Size( args ) < 1 || !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+	Q_INT16 offset = getArgInt( 0 );
+
+	bool showmessage = true;
+	if ( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
+	{
+		showmessage = getArgInt( 1 );
+	}
+
+	self->pChar->awardKarma( NULL, offset, showmessage );
+	
+	Py_RETURN_NONE;
+}
+
+/*
+	\method char.awardfame
+	\description Award the character Fame and show the adequate message.
+	\param offset The amount of Fame to be awarded is calculated from this and the characters Fame.
+	\param showmessage Defaults to True.
+*/
+static PyObject* wpChar_awardfame( wpChar* self, PyObject* args )
+{
+	if ( !self->pChar || self->pChar->free )
+		Py_RETURN_FALSE;
+
+	if ( PyTuple_Size( args ) < 1 || !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+	Q_INT16 offset = getArgInt( 0 );
+
+	bool showmessage = true;
+	if ( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
+	{
+		showmessage = getArgInt( 1 );
+	}
+
+	self->pChar->awardFame( offset, showmessage );
+	
+	Py_RETURN_NONE;
+}
+
+/*
 	\method char.message
 	\description Send an overhead message to a player. This method does nothing for NPCs.
 	\param message The message to be sent.
@@ -2735,6 +2793,8 @@ static PyMethodDef wpCharMethods[] =
 { "iscriminal",		( getattrofunc ) wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
 { "ismurderer",		( getattrofunc ) wpChar_ismurderer,		METH_VARARGS, "Is this character a murderer." },
 { "criminal",		( getattrofunc ) wpChar_criminal,			METH_VARARGS, "Make this character criminal." },
+{ "awardfame",		( getattrofunc ) wpChar_awardfame,			METH_VARARGS, 0 },
+{ "awardkarma",		( getattrofunc ) wpChar_awardkarma,			METH_VARARGS, 0 },
 { "delete",			( getattrofunc ) wpChar_delete,			METH_VARARGS, 0 },
 
 // Is*? Functions

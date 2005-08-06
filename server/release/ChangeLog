@@ -42,6 +42,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Activated new pathfinding algorithm.
   - Cleaned up npc movement speed. ( For fast npcs lower your 'NPCs Check Time' in wolfpack.xml )
   - It is possible to dupe the content of containers.
+  - Added char.awardfame() and char.awardkarma() to the python api.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

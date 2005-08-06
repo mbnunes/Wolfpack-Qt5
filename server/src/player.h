@@ -97,8 +97,8 @@ public:
 	virtual FightStatus fight( P_CHAR enemy );
 	void log( eLogLevel, const QString& string );
 	void log( const QString& string );
-	void awardFame( short amount );
-	void awardKarma( P_CHAR pKilled, short amount );
+	void awardFame( short amount, bool showmessage = true );
+	void awardKarma( P_CHAR pKilled, short amount, bool showmessage = true );
 	bool isOverloaded();
 	unsigned int maxWeight();
 

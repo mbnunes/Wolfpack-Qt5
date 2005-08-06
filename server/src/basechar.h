@@ -314,8 +314,8 @@ public:
 	bool owns( P_ITEM pi ) const;
 	virtual void callGuards();
 	virtual void flagUnchanged();
-	virtual void awardFame( short amount ) = 0;
-	virtual void awardKarma( P_CHAR pKilled, short amount ) = 0;
+	virtual void awardFame( short amount, bool showmessage = true ) = 0;
+	virtual void awardKarma( P_CHAR pKilled, short amount, bool showmessage = true ) = 0;
 
 	// Wrapper events
 	virtual bool onWalk( unsigned char dir, unsigned char sequence ); // Walks in a specific Direction

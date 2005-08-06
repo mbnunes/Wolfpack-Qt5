@@ -116,8 +116,8 @@ public:
 	}
 	void log( eLogLevel, const QString& string );
 	void log( const QString& string );
-	void awardFame( short amount );
-	void awardKarma( P_CHAR pKilled, short amount );
+	void awardFame( short amount, bool showmessage = true );
+	void awardKarma( P_CHAR pKilled, short amount, bool showmessage = true );
 	void vendorBuy( P_PLAYER player );
 	static cNPC* createFromScript( const QString& id, const Coord& pos );
 	void remove();

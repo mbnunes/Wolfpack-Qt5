@@ -1328,7 +1328,7 @@ PyObject* cPlayer::getProperty( const QString& name )
 	return cBaseChar::getProperty( name );
 }
 
-void cPlayer::awardFame( short amount )
+void cPlayer::awardFame( short amount, bool showmessage )
 {
 	int nCurFame, nChange = 0;
 	bool gain = false;
@@ -1358,7 +1358,7 @@ void cPlayer::awardFame( short amount )
 	}
 
 	// Nothing changed or we can't recieve the message
-	if ( !nChange || !socket() )
+	if ( !nChange || !socket() || !showmessage)
 		return;
 
 	uint message = 1019051;
@@ -1395,7 +1395,7 @@ void cPlayer::awardFame( short amount )
 	socket()->clilocMessage( message );
 }
 
-void cPlayer::awardKarma( P_CHAR pKilled, short amount )
+void cPlayer::awardKarma( P_CHAR pKilled, short amount, bool showmessage )
 {
 	if (amount > 0 && karmaLock()) {
 		return; // Don't award karma if the karma is locked
@@ -1431,7 +1431,7 @@ void cPlayer::awardKarma( P_CHAR pKilled, short amount )
 	else if ( karma_ < -10000 )
 		karma_ = -10000;
 
-	if ( !nChange || !socket() )
+	if ( !nChange || !socket() || !showmessage )
 		return;
 
 	Q_UINT32 message = 0xF8CB3;

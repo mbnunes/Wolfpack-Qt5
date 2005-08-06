@@ -1205,8 +1205,10 @@ void cNPC::makeShop()
 	}
 }
 
-void cNPC::awardKarma( P_CHAR pKilled, short amount )
+void cNPC::awardKarma( P_CHAR pKilled, short amount, bool showmessage )
 {
+	Q_UNUSED( showmessage );
+
 	int nCurKarma = 0, nChange = 0, nEffect = 0;
 
 	nCurKarma = karma();
@@ -1238,8 +1240,10 @@ void cNPC::awardKarma( P_CHAR pKilled, short amount )
 		karma_ = -10000;
 }
 
-void cNPC::awardFame( short amount )
+void cNPC::awardFame( short amount, bool showmessage )
 {
+	Q_UNUSED( showmessage );
+
 	int nCurFame, nChange = 0;
 
 	setFame( wpMin<short>( 10000, fame() ) );
