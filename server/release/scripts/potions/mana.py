@@ -55,7 +55,7 @@ def potion( char, potion, manatype ):
 
 	char.mana = min( char.mana + amount, char.maxmana ) # We don't add mana over our maximum mana
 
-	# Resend Manath
+	# Resend Mana
 	char.updatemana()
 
 	char.action( ANIM_FIDGET3 )
