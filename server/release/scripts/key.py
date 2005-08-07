@@ -40,7 +40,7 @@ def gump_response(char, args, response):
 
 def rename_key(char, key):
 # Build the lock gump
-	gump = cGump(x=100, y=100, callback="key.gump_response")
+	gump = cGump(x=100, y=100, callback=gump_response)
 	gump.setArgs([key.serial])
 
 	if not char.gm:
