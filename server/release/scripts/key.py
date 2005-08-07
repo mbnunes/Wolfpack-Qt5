@@ -172,11 +172,12 @@ def onUse(char, key):
 def onShowTooltip(char, item, tooltip):
 	tooltip.reset()
 	tooltip.add(0xF9060 + item.id, '')
-	
+	if item.newbie:
+		tooltip.add( 1038021, "" ) # Blessed
 	# The user defined name
 	if len(item.name) > 0:
 		tooltip.add(1060847, tr("Unlocks: ") + "\t" + item.name)
-	
+
 	# Add the lock id for gms
 	if char.gm:
 		if item.hastag('lock'):

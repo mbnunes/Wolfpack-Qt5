@@ -103,8 +103,8 @@ def poisonit( char, args ):
 
 	char.socket.clilocmessage(1010517)
 
-	# decrease karma / fame
-	char.karma -= 20
+	# decrease karma
+	char.awardkarma( -20 )
 
 	# set poisoning infos as tags
 	item.settag( 'poisoning_char', char.serial )

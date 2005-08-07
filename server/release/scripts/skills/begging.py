@@ -110,7 +110,7 @@ def getmoney( char, args ):
 				coins = wolfpack.additem( GOLD_COIN1 )
 				coins.amount = toConsume
 				if not tobackpack(coins, char):
-					item.update()
+					coins.update()
 				coins.update()
 				sound = 0
 				if toConsume <= 1:
@@ -125,9 +125,7 @@ def getmoney( char, args ):
 
 					if toLose > 40:
 						toLose = 40
-					# we need sth. like char.awardKarma( amount )
-					#char.awardKarma( char, -toLose, true )
-					char.karma -= toLose
+					char.awardkarma( -toLose )
 			else:
 				npc.say( 500407 ) # I have not enough money to give thee any!
 		else: 

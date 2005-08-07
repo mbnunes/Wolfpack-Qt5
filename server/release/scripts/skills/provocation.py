@@ -11,6 +11,7 @@ import wolfpack.utilities
 from wolfpack.consts import PROVOCATION, MUSICIANSHIP, ALLSKILLS, MAGERY, LOG_MESSAGE
 from math import floor
 import skills
+from musicianship import play_instrument
 
 def provocation( char, skill ):
 	socket = char.socket
@@ -66,7 +67,7 @@ def response1( char, args, target ):
 
 		tobardtarget1 = tobard( target.char, "provocation" )
 
-		playinstrument( char, instrument, "success" )
+		play_instrument( char, instrument, True )
 		socket.clilocmessage( 0xF61D5, "", 0x3b2, 3 ) # You play your music and your target becomes angered.  Whom do you wish them to attack?
 		socket.attachtarget( "skills.provocation.response2", [target.char.serial, tobardtarget1, instrument.serial] )
 		return True
@@ -111,12 +112,12 @@ def response2( char, args, target ):
 		return False
 
 	if not char.checkskill( MUSICIANSHIP, 0, 1000 ):
-		playinstrument( char, instrument, "fail" )
+		play_instrument( char, instrument, False )
 		socket.clilocmessage( 0x7A75C, "", 0x3b2, 3 ) # You play rather poorly, and to no effect.
 		return False
 
 	if not char.checkskill( PROVOCATION, minimum, maximum ):
-		playinstrument( char, instrument, "fail" )
+		play_instrument( char, instrument, False )
 		creature1.war = 1
 		creature1.target = char
 		creature1.update()
@@ -138,8 +139,8 @@ def response2( char, args, target ):
 			instrument.delete()
 			socket.clilocmessage(502079) # The instrument played its last tune.
 	
-	
-	playinstrument( char, instrument, "success" )
+
+	play_instrument( char, instrument, True )
 	creature1.war = 1
 	creature1.attacktarget = target.char
 	creature1.fight(target.char)
@@ -149,9 +150,9 @@ def response2( char, args, target ):
 	creature1.update()
 	target.char.update()
 	socket.clilocmessage( 0x7A762, "", 0x3b2, 3 ) # Your music succeeds, as you start a fight.
-	
+
 	char.log(LOG_MESSAGE,"Provocating Fight beetween %s (%s,%d) and %s (%s,%d)" % (creature1.name, creature1.baseid, creature1.serial, target.char.name, target.char.baseid, target.char.serial) )
-	
+
 	return True
 
 def findinstrument( char, args, target ):
@@ -186,26 +187,6 @@ def findinstrument( char, args, target ):
 	socket.attachtarget( "skills.provocation.response1", [target.item.serial] )
 	return True
 
-def playinstrument( char, item, how ):
-	socket = char.socket
-	# Instrument ID: [ Success Sound, Fail Sound ]
-	instruments = {
-		0xE9C:[ 0x38, 0x39 ],# Drum
-		0xE9D:[ 0x52, 0x53 ],# Tambourine
-		0xE9E:[ 0x52, 0x53 ],# Tambourine with tassle
-		0xEB1:[ 0x43, 0x44 ],# Standing Harp
-		0xEB2:[ 0x45, 0x46 ],# Harp
-		0xEB3:[ 0x4C, 0x4D ],# Lute (N/S)
-		0xEB4:[ 0x4C, 0x4D ] # Lute (E/S)
-	}
-
-	if how == "success":
-		char.soundeffect( instruments[ item.id ][ 0 ] )
-		return True
-	else:
-		char.soundeffect( instruments[ item.id ][ 1 ] )
-		return True
-
 def tobard( char, type ):
 	socket = char.socket
 	value = skilltotal( char )
@@ -236,9 +217,7 @@ def tobard( char, type ):
 	return value
 
 def skilltotal( char ):
-
 	total = 0
-
 	for skill in range( 0, ALLSKILLS ):
 		total += char.skill[ skill ]
 
