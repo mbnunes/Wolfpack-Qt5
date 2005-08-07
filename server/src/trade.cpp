@@ -201,7 +201,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		{
 			for ( Q_UINT16 j = 0; j < amount; ++j )
 			{
-				pSold = pItem->dupe();
+				pSold = pItem->dupe(1);
 				pSold->removeTag( "restock" ); // Remove the restock tag;
 				pSold->removeTag( "buy_time" );
 				pSold->setAmount( 1 );
