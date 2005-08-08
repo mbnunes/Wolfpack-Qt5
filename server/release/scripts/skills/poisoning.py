@@ -86,8 +86,7 @@ def poisonit( char, args ):
 
 	skill = char.skill[ POISONING ]
 
-	# poison strength : lesser(0), normal, greater, deadly(3)
-	strength = int( potion.getintproperty( 'potiontype' ) ) - 14
+	strength = getstrength( int( potion.getintproperty( 'potiontype' ) ) )
 
 	# consume the potion / add a blank bottle
 	potions.consumePotion(char, potion, True)
@@ -116,6 +115,10 @@ def poisonit( char, args ):
 		item.settag( 'poisoning_uses', 18 - strength * 2 )
 	return 1
 
+def getstrength( potiontype ):
+	# poison strength : lesser(0), normal, greater, deadly(3)
+	return potiontype - 14
+	
 def hitEffect( char, weapon ):
 	if not char or not weapon:
 		return
