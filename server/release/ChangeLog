@@ -43,6 +43,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Cleaned up npc movement speed. ( For fast npcs lower your 'NPCs Check Time' in wolfpack.xml )
   - It is possible to dupe the content of containers.
   - Added char.awardfame() and char.awardkarma() to the python api.
+  - NPC can be overloaded now.
+  - Items will fall to ground if you are overloaded and want to put it in your backpack.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -64,6 +66,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Support up to client 4.0.11.
   - Added Multis and Multi deeds.
   - Implemented some new npcs (thx to idget).
+  - Implemented SE items for crafting.
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.
@@ -145,7 +148,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added Oil Cloth.
   - Improved edit command for containers (the content is shown in a list).
   - Implemented Cooking.
-  - dupe command will dupe content of containers, if GMs have the privilege to
+  - Dupe command will dupe content of containers, if GMs have the privilege to
+  - Fixed issue with tooltip of runebooks if there was a description.
+  - 
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
