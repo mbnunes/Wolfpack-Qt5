@@ -67,6 +67,9 @@ public:
 
 protected:
 	void resizeEvent(QResizeEvent * event);
+	void moveEvent(QMoveEvent *event);
+	void showEvent(QShowEvent *event);
+	bool event(QEvent *e);
 
 	cConfigDialog *configDialog;
 
@@ -74,8 +77,6 @@ protected:
 	QAction *aHideMap;
 	QAction *aHideMobiles;
 	QAction *aHideDynamics;
-
-	void showEvent(QShowEvent *event);
 
 public slots:
 	void menuWhere();

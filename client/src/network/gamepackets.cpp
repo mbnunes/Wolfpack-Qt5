@@ -304,3 +304,63 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x1d, cDeleteObject::creator);
+
+// Incoming unicode message
+class cUnicodeMessagePacket : public cDynamicIncomingPacket {
+protected:
+	unsigned int serial; // Serial of source object
+	unsigned short model; // Model of source object (whatever thats for..)
+	unsigned char type; // Type of incoming message
+	unsigned short hue;
+	unsigned short font;
+	QString language; // Pretty much unused
+	QString name; // Name of source object
+	QString message; // Message text
+public:
+	cUnicodeMessagePacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(50);
+		input >> serial >> model >> type >> hue >> font;
+
+		// Language
+		char strLang[5];
+		input.readRawBytes(strLang, 4);
+		strLang[4] = 0;
+		language = strLang;
+
+		// Object Name
+		char strName[31];
+		input.readRawBytes(strName, 30);
+		strName[30] = 0;
+		name = strName;
+
+		// Unicode Stuff
+		unsigned int length = ((size - 48) / 2) + 1;
+		ushort *strMessage = new unsigned short[length];
+		
+		// We need to swap the single characters
+		for (int i = 0; i < (length - 1); ++i) {
+			input >> strMessage[i];
+		}
+
+		strMessage[length-1] = 0;
+        
+		message = QString::fromUtf16(strMessage);
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		if (!WorldView || !WorldView->isVisible()) {
+			return; // Only process messages when ingame
+		}
+
+		// System Message
+		if (serial == -1) {
+			WorldView->addSysMessage(message, hue, font);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cUnicodeMessagePacket(input, size);
+	}
+};
+
+//AUTO_REGISTER_PACKET(0xae, cUnicodeMessagePacket::creator);

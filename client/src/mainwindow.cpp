@@ -118,10 +118,6 @@ MainWindow::MainWindow() {
 	setCentralWidget(GLWidget);
 }
 
-void MainWindow::showEvent(QShowEvent *event) {
-	QMainWindow::showEvent(event);
-}
-
 void MainWindow::menuGameClicked(QAction *action) {
 	if (action == aHideStatics) {
 		Config->setGameHideStatics(action->isChecked());
@@ -414,9 +410,8 @@ void MainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool 
 		mheight = 0;
 	}
        
-	resize(width, height + mheight);
-
 	if (locked) {
+		resize(width, height + mheight);
 		layout()->setResizeMode( QLayout::FreeResize );
 		setMaximumSize(size());
 		setMinimumSize(size());
@@ -424,17 +419,66 @@ void MainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool 
 		layout()->setResizeMode( QLayout::FreeResize );
 		setMaximumSize(65535, 65535);
 		setMinimumSize(100, 100);
+		resize(width, height + mheight);
 	}
+}
+
+void MainWindow::moveEvent(QMoveEvent *event) {
+	// if the game view is visible, save the engine position
+	if (WorldView && WorldView->isVisible()) {
+		Config->setEngineWindowX(x());
+		Config->setEngineWindowY(y());
+	}
+
+	QMainWindow::moveEvent(event);
 }
 
 void MainWindow::resizeEvent(QResizeEvent * event) {
 	// if the game view is visible, change the engine size
 	if (WorldView && WorldView->isVisible()) {
-		Config->setEngineHeight(height());
+		int mheight = m_menuBar->height();
+
+		if (m_menuBar->isHidden()) {
+			mheight = 0;
+		}
+
+		Config->setEngineHeight(height() - mheight);
 		Config->setEngineWidth(width());
+
+		if (windowState() == Qt::WindowMaximized) {
+			Config->setEngineMaximized(true);
+		} else {
+			Config->setEngineMaximized(false);
+		}
 	}	
 
 	QMainWindow::resizeEvent(event);
+}
+
+bool MainWindow::event(QEvent *e) {
+	// if the game view is visible, change the engine size
+	if (WorldView && WorldView->isVisible()) {
+		int mheight = m_menuBar->height();
+
+		if (m_menuBar->isHidden()) {
+			mheight = 0;
+		}
+
+		Config->setEngineHeight(height() - mheight);
+		Config->setEngineWidth(width());
+
+		if (windowState() & Qt::WindowMaximized) {
+			Config->setEngineMaximized(true);
+		} else {
+			Config->setEngineMaximized(false);
+		}
+	}
+
+	return QMainWindow::event(e);
+}
+
+void MainWindow::showEvent(QShowEvent *event) {
+	QMainWindow::showEvent(event);
 }
 
 cConfigDialog::cConfigDialog(QWidget *parent) : QDialog(parent) {

@@ -3,6 +3,7 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <Q3CString>
+#include <QDesktopWidget>
 
 #include "config.h"
 #include "dialogs/login.h"
@@ -709,7 +710,26 @@ void cLoginDialog::hide() {
 
 	MainWindow *mainWindow = (MainWindow*)qApp->mainWidget();
 	if (mainWindow) {
+		// Resize the game window to the original size
 		mainWindow->resizeGameWindow(Config->engineWidth(), Config->engineHeight(), false);
+
+		// Is there a configuration setting for the window position?
+		if (Config->engineWindowX() != -1 && Config->engineWindowY() != -1) {
+			/*
+				Check if the main window would still be visible if we use the given coordinates.
+				Example: The config file contains the coordinates x=1024,y=768 for the window.
+				It would be completely invisible at a 1024x768 resolution.
+			*/	
+			QRect geom = qApp->desktop()->screenGeometry(mainWindow);			
+			if (Config->engineWindowX() < geom.width() && Config->engineWindowY() < geom.height()) {
+				mainWindow->move(Config->engineWindowX(), Config->engineWindowY());
+			}
+		}
+
+		// Maximize the game window if neccesary
+		if (Config->engineMaximized()) {
+			mainWindow->showMaximized();
+		}
 	}
 }
 

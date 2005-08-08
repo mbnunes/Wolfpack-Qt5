@@ -42,6 +42,9 @@ private:
 	bool logRotate_;
 	unsigned int engineHeight_;
 	unsigned int engineWidth_;
+	bool engineMaximized_;
+	int engineWindowX_;
+	int engineWindowY_;
 	bool engineWindowed_;
 	QString uoPath_;
 	bool useVerdata_;
@@ -83,6 +86,15 @@ public:
 
 	const bool engineWindowed() { return engineWindowed_; }
 	void setEngineWindowed(bool data) { engineWindowed_ = data; setBool("Engine", "Windowed", data); }
+
+	const bool engineMaximized() { return engineMaximized_; }
+	void setEngineMaximized(bool data) { engineMaximized_ = data; setBool("Engine", "Maximized", data); }
+
+	const int engineWindowX() { return engineWindowX_; }
+	void setEngineWindowX(int data) { engineWindowX_ = data; setNumber("Engine", "Window Pos X", data); }
+	
+	const int engineWindowY() { return engineWindowY_; }
+	void setEngineWindowY(int data) { engineWindowY_ = data; setNumber("Engine", "Window Pos Y", data); }
 
 	const bool encryptionEnableLogin() { return encryptionEnableLogin_; }
 	void setEncryptionEnableLogin(bool data) { encryptionEnableLogin_ = data; setBool("Encryption", "Encrypt Login", data); }

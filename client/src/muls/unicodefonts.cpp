@@ -34,7 +34,7 @@ void cUnicodeFonts::load() {
 		
 		// Read in lookup table
 		for (unsigned int i = 0; i < 0x10000; ++i) {
-			dataStream >> seekOffsets[f][i]; // Read in a seek offset for one of the characters
+			dataStream >> (unsigned int&)seekOffsets[f][i]; // Read in a seek offset for one of the characters
 		}
 
 		Log->print(LOG_MESSAGE, tr("Finished caching the lookup data for unicode font %1.\n").arg(f));
@@ -84,7 +84,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 
 	// Iterate over the string once to get the width of the string	
 	for (i = 0; i < text.length(); ++i) {
-		QChar ch = text.at(i);
+		const QChar ch = text.at(i);
 		if (ch.latin1() == '\n') {
 			lines += 1;
 			if (lineWidth > width) {

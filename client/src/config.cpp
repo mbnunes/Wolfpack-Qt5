@@ -402,8 +402,11 @@ void cConfig::load() {
 	engineWidth_ = getNumber("Engine", "Width", 640);
 	engineHeight_ = getNumber("Engine", "Height", 480);
 	engineWindowed_ = getBool("Engine", "Windowed", true);
+	engineWindowX_ = getNumber("Engine", "Window Pos X", -1);
+	engineWindowY_ = getNumber("Engine", "Window Pos Y", -1);
+	engineMaximized_ = getBool("Engine", "Maximized", false);
 
-	// General
+ 	// General
 	uoPath_ = getString("General", "Ultima Online Path", QString::null);
 	useVerdata_ = getBool("General", "Use Verdata", true);
 
