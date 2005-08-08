@@ -112,10 +112,16 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	}
 
 	if ( pItem->onPickup( pChar ) )
+	{
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
+	}
 
 	if ( pChar->onPickup( pItem ) )
+	{
+		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
+	}
 
 	// Do we really want to let him break his meditation
 	// When he picks up an item ?
