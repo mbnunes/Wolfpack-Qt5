@@ -34,3 +34,7 @@ cPlayMobilePacket::cPlayMobilePacket(unsigned char id) : cOutgoingPacket(0x5d, 7
 cDoubleClickPacket::cDoubleClickPacket(unsigned int serial) : cOutgoingPacket(0x06, 5) {
 	m_Stream << serial;
 }
+
+cResyncPacket::cResyncPacket() : cOutgoingPacket(0x22, 3) {
+	fill(2, 0);
+}

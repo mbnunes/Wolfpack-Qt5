@@ -6,6 +6,7 @@
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
 #include "game/world.h"
+#include "sound.h"
 #include "log.h"
 #include "enums.h"
 
@@ -294,6 +295,7 @@ public:
 		cDynamicItem *item = World->findItem(serial);
 
 		if (item) {
+			item->cleanPosition();
 			item->decref();
 		}
 	}
@@ -363,4 +365,27 @@ public:
 	}
 };
 
-//AUTO_REGISTER_PACKET(0xae, cUnicodeMessagePacket::creator);
+AUTO_REGISTER_PACKET(0xae, cUnicodeMessagePacket::creator);
+
+class cSoundEffectPacket : public cIncomingPacket {
+protected:
+	unsigned short model; // Sound id
+	unsigned short posx, posy; // x,y position of source
+	short posz; // z source
+	unsigned short unknown;
+	unsigned char mode; // Number of repeats?
+public:
+	cSoundEffectPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> mode >> model >> unknown >> posx >> posy >> posz;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+        Sound->playSound(model);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cSoundEffectPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x54, cSoundEffectPacket::creator);

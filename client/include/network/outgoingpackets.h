@@ -44,4 +44,10 @@ public:
 	cDoubleClickPacket(unsigned int serial);
 };
 
+// 0x55 Resync with server
+class cResyncPacket : public cOutgoingPacket {
+public:
+	cResyncPacket();
+};
+
 #endif

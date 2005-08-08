@@ -23,6 +23,7 @@ cWorld::cWorld() : groundCache(2500, 1999) {
 	smoothMoveEnd_ = 0;
 	drawxoffset = 0;
 	drawyoffset = 0;
+	cleaningUp = false;
 }
 
 cWorld::~cWorld() {
@@ -47,7 +48,9 @@ void cWorld::clearEntities() {
 		Cell cell = it.data(); // Copy
 		ConstCellIterator cit = cell.begin();
 		while (cit != cell.end()) {
-			(*cit)->decref();
+			if ((*cit) != Player) {
+				(*cit)->decref();
+			}
 			++cit;
 		}
 	}
@@ -56,6 +59,8 @@ void cWorld::clearEntities() {
 }
 
 void cWorld::cleanupEntities() {
+	cleaningUp = true;
+
 	Q3ValueVector<unsigned int> toremove; // Cells that are now empty
 
 	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
@@ -79,6 +84,8 @@ void cWorld::cleanupEntities() {
 	for (Q3ValueVector<unsigned int>::const_iterator it = toremove.begin(); it != toremove.end(); ++it) {
 		entities.remove(*it);
 	}
+
+	cleaningUp = false;
 }
 
 void cWorld::loadCell(unsigned short x, unsigned short y) {
@@ -197,6 +204,10 @@ inline bool insertBefore(cEntity *entity, cEntity *next) {
 }
 
 void cWorld::addEntity(cEntity *entity) {
+	if (cleaningUp) {
+		return;
+	}
+
 	// Always remove the entity from it's current cell before re-insertion
 	if (entity->cellid() != -1) {
 		Iterator it = entities.find(entity->cellid());
@@ -236,6 +247,10 @@ void cWorld::addEntity(cEntity *entity) {
 }
 
 void cWorld::removeEntity(cEntity *entity) {
+	if (cleaningUp) {
+		return;
+	}
+
 	// Only remove the entity if it's in the grid.
 	if (entity->cellid() != -1) {
 		unsigned int cellid = (unsigned int)entity->cellid();
@@ -309,6 +324,9 @@ void cWorld::draw(int x, int y, int width, int height) {
 			smoothMoveEnd_ = 0;
 			drawxoffset = 0;
 			drawyoffset = 0;
+
+			// The movement finished
+
 		} else {
 			centerx -= (int)(drawxoffset - moveProgress * xOffsetDecrease);
 			centery -= (int)(drawyoffset - moveProgress * yOffsetDecrease);

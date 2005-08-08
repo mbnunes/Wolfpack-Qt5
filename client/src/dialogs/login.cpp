@@ -23,6 +23,7 @@
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
 #include "mainwindow.h"
+#include "version.h"
 
 #include <QMenuBar>
 
@@ -357,11 +358,11 @@ void cLoginDialog::buildAccountLoginGump() {
 		label->setPosition(0xfa, 0x12f);
 		container->addControl(label);
 
-		label = new cAsciiLabel(tr("UO Version 4.0.6a (Patch 3)").latin1(), 9, 0x34f, ALIGN_LEFT, true, true);
+		label = new cAsciiLabel(tr("Wolfpack UO Client Version " CLIENT_VERSION).latin1(), 9, 0x34f, ALIGN_LEFT, true, true);
 		label->setPosition(0xc8, 0x1a3);
 		container->addControl(label);
 
-		label = new cAsciiLabel(tr((char)0xa9 + QString(" 2004 Electronic Arts Inc.  All Rights Reserved.")).latin1(), 6, 0x481, ALIGN_LEFT, true, true);
+		label = new cAsciiLabel(tr((char)0xa9 + QString(" 2005 Wolfpack Development Team")).latin1(), 6, 0x481, ALIGN_LEFT, true, true);
 		label->setPosition(0xc8, 0x1c5);
 		container->addControl(label);
 

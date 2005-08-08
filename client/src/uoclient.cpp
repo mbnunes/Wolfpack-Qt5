@@ -9,6 +9,7 @@
 #include "log.h"
 #include "exceptions.h"
 #include "texture.h"
+#include "sound.h"
 
 #include "gui/cursor.h"
 #include "gui/gui.h"
@@ -26,6 +27,7 @@
 #include "muls/maps.h"
 #include "muls/asciifonts.h"
 #include "muls/unicodefonts.h"
+#include "muls/sounds.h"
 #include "muls/tiledata.h"
 #include "muls/textures.h"
 
@@ -60,6 +62,8 @@ cUoClient::cUoClient() {
 	Tiledata = new cTiledata;
 	Maps = new cMaps;
 	Textures = new cTextures;
+	Sounds = new cSounds;
+	Sound = new cSound;
 
 	World = new cWorld;
 
@@ -88,6 +92,8 @@ cUoClient::~cUoClient() {
 
 	delete Gui;
 	delete Log;
+	delete Sound;
+	delete Sounds;
 	delete Config;
 
 	delete Random;
@@ -119,6 +125,8 @@ void cUoClient::load() {
 	Maps->load();
 	Textures->load();
 	Animations->load();
+	Sounds->load();
+	Sound->load();
 
 	Cursor->load(); // The cursor requires the mulreader classes
 }
@@ -127,6 +135,8 @@ void cUoClient::unload() {
 	Cursor->unload();
 
 	// Unload MulReaders
+	Sound->unload();
+	Sounds->unload();
 	Animations->unload();
 	Textures->unload();
 	Maps->unload();
@@ -205,7 +215,6 @@ void cUoClient::run()
 	while (running()) {
 		qApp->processEvents();
 		UoSocket->poll(); // Poll network connection
-		GLWidget->update();
 
 		// Quit if the main window is hidden
 		if (!window->isShown()) {

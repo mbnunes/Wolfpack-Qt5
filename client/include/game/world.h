@@ -111,6 +111,8 @@ public:
 	cMobile *findMobile(unsigned int serial) const;
 	void registerDynamic(cDynamicEntity *entity);
 	void unregisterDynamic(cDynamicEntity *entity);
+private:
+	bool cleaningUp; // If the World is cleaning up entities, this blocks removeEntity() from doing anything
 };
 
 inline unsigned int cWorld::getCellId(unsigned short x, unsigned short y) const {

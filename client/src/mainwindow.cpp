@@ -5,13 +5,17 @@
 #include "gui/contextmenu.h"
 #include "gui/worldview.h"
 #include "game/world.h"
+#include "network/uosocket.h"
 #include "config.h"
+#include "sound.h"
 #include <qpixmap.h>
 #include <qcursor.h>
 #include <qimage.h>
 #include <qlayout.h>
 #include <qdatetime.h>
 #include <qmenubar.h>
+#include <qthread.h>
+#include <qtimer.h>
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <QKeyEvent>
@@ -104,6 +108,9 @@ MainWindow::MainWindow() {
 	aHideMobiles->setCheckable(true);
 	aHideMap = game->addAction("Hide Map");	
 	aHideMap->setCheckable(true);
+	game->addSeparator();
+	QAction *action = game->addAction("Resync with Server");
+	action->setObjectName("action_resync");
 
 	aHideMap->setChecked(Config->gameHideMap());
 	aHideStatics->setChecked(Config->gameHideStatics());
@@ -127,6 +134,8 @@ void MainWindow::menuGameClicked(QAction *action) {
 		Config->setGameHideDynamics(action->isChecked());
 	} else if (action == aHideMobiles) {
 		Config->setGameHideMobiles(action->isChecked());
+	} else if (action->objectName() == "action_resync") {
+		UoSocket->resync();
 	}
 }
 
@@ -154,6 +163,13 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 	lastMouseMovement = 0; // Control that got the last movement event
 
 	setFocusPolicy(Qt::WheelFocus);
+
+	// Update Timer
+	QTimer *timer = new QTimer(this);
+	timer->setInterval(15); // 10ms redraw interval (max. 100fps)
+	timer->setSingleShot(false);
+	connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+	timer->start();
 }
 
 cGLWidget::~cGLWidget() {
@@ -229,6 +245,8 @@ void cGLWidget::paintGL() {
 
 	Gui->draw(); // Draw the GUI controls
 	Cursor->draw(); // Draw the Cursor Overlay
+
+	QObject::thread()->wait(1);
 }
 
 void cGLWidget::mouseMoveEvent(QMouseEvent *e) {

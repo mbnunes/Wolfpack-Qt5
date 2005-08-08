@@ -7,6 +7,7 @@
 #include "network/decompress.h"
 #include "network/uosocket.h"
 #include "network/outgoingpacket.h"
+#include "network/outgoingpackets.h"
 #include "dialogs/login.h"
 #include "log.h"
 
@@ -296,3 +297,6 @@ void cUoSocket::error(int error) {
 	emit onError(message);
 }
 
+void cUoSocket::resync() {
+	send(cResyncPacket());
+}

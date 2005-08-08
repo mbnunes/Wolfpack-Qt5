@@ -69,6 +69,9 @@ public:
 	bool isGameServer() const;
 
 	// Event handler for errors
+
+	// Game functionality
+	void resync();
 signals:
 	void onError(const QString &error);
 	void onHostFound();
