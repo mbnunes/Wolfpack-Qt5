@@ -251,7 +251,10 @@ def fromchar(char, property):
 	# See if the character is a npc and has the value
 	# Then it overrides any items
 	if char.hastag(info[0]):
-		return int(char.gettag(info[0]))
+		if char.npc:
+			return int(char.gettag(info[0]))
+		else:
+			value = int(char.gettag(info[0]))
 
 	for layer in range(LAYER_RIGHTHAND, LAYER_MOUNT):
 		item = char.itemonlayer(layer)
