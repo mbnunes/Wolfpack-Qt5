@@ -120,6 +120,25 @@ class CarpItemAction(CraftItemAction):
 		player.soundeffect(0x23d)
 
 #
+# The user has to have Samurai Empire installed
+#
+class SeCarpItemAction(CarpItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		CarpItemAction.__init__(self, parent, title, itemid, definition)
+
+	def visible(self, char, arguments):
+		if char.socket and char.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return CarpItemAction.visible(self, char, arguments)
+			
+	def checkmaterial(self, player, arguments, silent = 0):
+		if player.socket and player.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return CarpItemAction.checkmaterial(self, player, arguments, silent)
+
+#
 # A carpentry menu. The most notable difference is the
 # button for selecting another ore.
 #
@@ -180,7 +199,7 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'craft':
+		elif child.name in ['carpenter', 'secarpenter']:
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
 				console.log(LOG_ERROR, "Carpenter action without definition or name in menu %s.\n" % menu.id)
 			else:
@@ -197,7 +216,10 @@ def loadMenu(id, parent = None):
 								itemid = itemchild.value
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-					action = CarpItemAction(menu, name, int(itemid), itemdef)
+					if child.name == 'secarpenter':
+						action = SeCarpItemAction(menu, name, int(itemid), itemdef)
+					else:
+						action = CarpItemAction(menu, name, int(itemid), itemdef)
 				except:
 					console.log(LOG_ERROR, "Carpenter action with invalid item id in menu %s.\n" % menu.id)
 
