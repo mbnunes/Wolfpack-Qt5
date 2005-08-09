@@ -211,7 +211,9 @@
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lantern (Off)</category>
 		<lightsource>29</lightsource>
-		<buyprice>2</buyprice>
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="a22" inherit="a25">
@@ -226,6 +228,8 @@
 		<category>Decoration\Lightsources\Candle 1 (Off)</category>
 		<lightsource>0x2</lightsource>
 		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="a0f">
@@ -551,6 +555,8 @@
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Torch (W/E) (Off)</category>
 		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f6b" inherit="f64">
@@ -568,10 +574,8 @@
 		<category>Decoration\Lightsources\Samurai\Paper Latern 01\On</category>
 	</item>
 
-	<item id="24bc">
+	<item id="24bc" inherit="24bb">
 		<id>0x24bc</id>
-		<nodecay />
-		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 01\Off</category>
 	</item>
 
@@ -583,10 +587,8 @@
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 02\On</category>
 	</item>
 
-	<item id="24be">
+	<item id="24be" inherit="24bd">
 		<id>0x24be</id>
-		<nodecay />
-		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 02\Off</category>
 	</item>
 
@@ -648,6 +650,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Samurai\Paper Lantern 05\Off</category>
+		<weight>10.0</weight>
 	</item>
 
 	<item id="24c7">

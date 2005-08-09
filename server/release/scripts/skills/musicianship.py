@@ -10,6 +10,7 @@ import wolfpack
 import wolfpack.time
 import wolfpack.utilities
 import environment
+import skills
 
 # GGS : skill can be gained every 15 min
 MUSICIANSHIP_GAIN_DELAY = 15 * 60 * 1000
@@ -21,15 +22,34 @@ sounds = {
 		0x0eb1: 0x0045,
 		0x0eb2: 0x0045,
 		0x0eb3: 0x004c,
-		0x0eb4: 0x004c
+		0x0eb4: 0x004c,
+		0x2805: 0x003c
 	}
+
+# reduce the remaining uses
+def wearout( player, item ):
+	# We do not allow "invulnerable" tools.
+	if not item.hastag('remaining_uses'):
+		player.socket.clilocmessage(1044038)
+		item.delete()
+		return False
+
+	uses = int(item.gettag('remaining_uses'))
+	if uses <= 1:
+		player.socket.clilocmessage(1044038)
+		item.delete()
+		return False
+	else:
+		item.settag('remaining_uses', uses - 1)
+		item.resendtooltip()
+	return True
 
 def onUse( char, item ):
 	if not char:
 		return False
 
-	if not isinstrument( item ):
-		return 0
+	if not wolfpack.utilities.isinstrument( item ):
+		return False
 
 	if skills.skilltable[ MUSICIANSHIP ][ skills.UNHIDE ] and char.hidden:
 		char.reveal()
@@ -66,12 +86,12 @@ def play_instrument( char, item, success ):
 	item.settag( 'last_musicianship_use', wolfpack.time.currenttime() )
 	char.socket.settag( 'instrument', item.serial )
 	if success:
-		if environment.wearout( char, item ):
+		if wearout( char, item ):
 			sound = sounds[ item.id ]
 	else:
 		sound = sounds[ item.id ] + 1
 	char.soundeffect( sound )
-	return 1
+	return True
 
 # The base range of all bard abilities is 5 tiles, with each 15 points of skill in the ability being used increasing this range by one tile.
 def bard_range( char ):

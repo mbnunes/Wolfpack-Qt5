@@ -131,7 +131,7 @@ class SeCarpItemAction(CarpItemAction):
 			return False
 		else:
 			return CarpItemAction.visible(self, char, arguments)
-			
+
 	def checkmaterial(self, player, arguments, silent = 0):
 		if player.socket and player.socket.flags & 0x10 == 0:
 			return False
@@ -214,6 +214,8 @@ def loadMenu(id, parent = None):
 							itemchild = item.findchild('id')
 							if itemchild:
 								itemid = itemchild.value
+						else:
+							console.log(LOG_ERROR, "Carpenter action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
 					if child.name == 'secarpenter':
@@ -231,7 +233,7 @@ def loadMenu(id, parent = None):
 					if subchild.name == 'ingots':
 						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
 
-					# Normal Material
+					## Normal Material
 					if subchild.name == 'boards' or subchild.name == 'wood' or subchild.name == 'cloth' or subchild.name == 'material':
 						if not subchild.hasattribute('id'):
 							console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
@@ -264,7 +266,6 @@ def loadMenu(id, parent = None):
 						except:
 							console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
 						action.skills[skill] = [minimum, maximum]
-
 	# Sort the menu. This is important for the makehistory to make.
 	menu.sort()
 

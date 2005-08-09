@@ -5,7 +5,7 @@ import wolfpack
 import wolfpack.time
 import random
 from wolfpack.consts import COTTONPLANTS_REGROW, ANIM_ATTACK5, TINKERING, \
-	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, LOG_MESSAGE, LAYER_RIGHTHAND
+	LAYER_HAIR, LAYER_BEARD, LOG_MESSAGE
 from wolfpack.utilities import tobackpack
 from wolfpack.gumps import cGump
 from math import floor
@@ -33,24 +33,6 @@ def cotton( char, item ):
 	# Set a timer for the cotton plant
 	item.settag( 'lastpick', wolfpack.time.currenttime() )
 	return 1
-
-# reduce the remaining uses
-def wearout( player, item ):
-	# We do not allow "invulnerable" tools.
-	if not item.hastag('remaining_uses'):
-		player.socket.clilocmessage(1044038)
-		item.delete()
-		return False
-
-	uses = int(item.gettag('remaining_uses'))
-	if uses <= 1:
-		player.socket.clilocmessage(1044038)
-		item.delete()
-		return False
-	else:
-		item.settag('remaining_uses', uses - 1)
-		item.resendtooltip()
-	return True
 
 def sextant_parts( char, item ):
 	if not char.checkskill( TINKERING, 0, 500 ):
@@ -86,38 +68,6 @@ def sextant_parts( char, item ):
 
 def sextant( char, item ):
 	char.message( tr("Sorry but this feature is not implemented yet!") )
-	return 1
-
-def drum( char, item ):
-	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		if wearout( char, item ):
-			char.soundeffect(0x38)
-	else:
-		char.soundeffect(0x39)
-	return 1
-
-def tambourine( char, item ):
-	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		if wearout( char, item ):
-			char.soundeffect(0x52)
-	else:
-		char.soundeffect(0x53)
-	return 1
-
-def harp(char, item):
-	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		if wearout( char, item ):
-			char.soundeffect(0x45)
-	else:
-		char.soundeffect(0x46)
-	return 1
-
-def lute(char, item):
-	if char.checkskill(MUSICIANSHIP, 0, 1000):
-		if wearout( char, item ):
-			char.soundeffect(0x4c)
-	else:
-		char.soundeffect(0x4d)
 	return 1
 
 hairdye_groups = 	[
@@ -271,15 +221,6 @@ actions =	{
 			# Sextant Parts
 			0x1059: sextant_parts,
 			0x105a: sextant_parts,
-
-			# Instruments
-			0xe9c: drum,
-			0xe9d: tambourine,
-			0xe9e: tambourine,
-			0xeb1: harp,
-			0xeb2: harp,
-			0xeb3: lute,
-			0xeb4: lute,
 
 			# Hair Dyes
 			0xe27: hairdye,

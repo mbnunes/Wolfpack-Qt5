@@ -450,10 +450,4 @@
 		<category>Professions\Tailorer\Deeds\Brocade square goza (south)</category>
 	</item>
 
-	<item id="trophy_deed" inherit="blank_deed">
-		<name>Brocade Square Goza South Deed</name>
-		<basescripts>deeds.carpentry_deed</basescripts>
-		<tag name="carpentry_type" value="brocade_square_goza_south" />
-		<category>Professions\Tailorer\Deeds\Brocade square goza (south)</category>
-	</item>
 </definitions>

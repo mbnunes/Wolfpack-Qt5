@@ -2137,4 +2137,19 @@
 		<basescripts>furniture</basescripts>
 	</item>
 
+	<item id="2819">
+		<id>0x2819</id>
+		<nodecay />
+		<category>Decoration\Samurai Empire\Elegant Low Table</category>
+		<basescripts>furniture</basescripts>
+		<weight>10.0</weight>
+	</item>
+
+	<item id="281a">
+		<id>0x2819</id>
+		<nodecay />
+		<category>Decoration\Samurai Empire\Plain Low Table</category>
+		<basescripts>furniture</basescripts>
+		<weight>10.0</weight>
+	</item>
 </definitions>

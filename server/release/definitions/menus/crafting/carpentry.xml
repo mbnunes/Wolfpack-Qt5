@@ -27,7 +27,6 @@
 		<menu id="CARPENTRY_TRAINING" />
 		<menu id="CARPENTRY_TAILORING" />
 		<menu id="CARPENTRY_COOKING" />
-
 	</menu>
 
 	<menu id="CARPENTRY_OTHER" name="Other Items">
@@ -56,7 +55,22 @@
 			<carpentry min="618" max="1118" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" name="Boards" />
 		</carpenter>
-		<!-- red/white hanging lantern, shoji screen -->
+		<secarpenter definition="24c2" name="Red Hanging Lantern">
+			<carpentry min="650" max="1150" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" name="Boards" />
+			<material id="ef3" amount="10" name="Scrolls" />
+		</secarpenter>
+		<secarpenter definition="24c6" name="White Hanging Lantern">
+			<carpentry min="650" max="1150" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
+			<material id="ef3" amount="10" name="Scrolls" />
+		</secarpenter>
+		<secarpenter definition="24cb" name="Shoji Screen">
+			<carpentry min="800" max="1200" />
+			<tailoring min="500" max="1000" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="75" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
+		</secarpenter>
 		<carpenter definition="dbf" name="Fishing Pole">
 			<carpentry min="684" max="1284" />
 			<tailoring min="400" max="900" />
@@ -117,8 +131,15 @@
 		<carpenter definition="b7d" name="Yew-Wood Table">
 			<carpentry min="842" max="1342" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="27" name="Boards" />
-		</carpenter>
-		<!-- elegant low table, plain low table -->
+		</carpenter>2819,281a
+		<secarpenter definition="2819" name="Elegant Low Table">
+			<carpentry min="800" max="1300" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="281a" name="Plain Low Table">
+			<carpentry min="800" max="1300" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
+		</secarpenter>
 	</menu>
 
 	<!-- Tinkering in here signals for lockable containers -->
@@ -162,16 +183,56 @@
 			<tinkering min="842" max="842" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
 		</carpenter>
-		<!-- 
-		plain wooden chest, Ornate Wooden Chestm Gilded Wooden Chestm Wooden Footlockerm Finished Wooden Chest
-		Tall Cabinet, Short Cabinet, Red Armoire, Elegant Armoire, Maple Armoire, Cherry Armoire
-		-->
-		<carpenter definition="e7f" name="Keg">
+		<secarpenter definition="280b" name="Plain Wooden Chest">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="30" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="280d" name="Ornate Wooden Chest">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="30" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="280f" name="Gilded Wooden Chest">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="30" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="2811" name="Wooden Footlocker">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="30" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="2813" name="Finished Wooden Chest">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="30" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="2815" name="Tall Cabinet">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="2817" name="Short Cabinet">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="2857" name="Red Armoire">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="40" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="2859" name="Elegant Armoire">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="40" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="285b" name="Maple Armoire">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="40" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="285d" name="Cherry Armoire">
+			<carpentry min="900" max="1200" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="40" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="e7f" name="Keg">
 			<carpentry min="578" max="1078" />
 			<material id="1eb1" amount="3" name="Barrel Staves" /> <!-- Barrel Staves -->
 			<material id="10e1;10e2" amount="1" name="Barrel Hoops" /> <!-- Barrel Hoops -->
 			<material id="1db8" amount="1" name="Barrel Lid" /> <!-- Barrel Lid -->
-		</carpenter>
+		</secarpenter>
 	</menu>
 
 	<menu id="CARPENTRY_WEAPONSNARMOR" name="Weapons and Armor">
@@ -191,7 +252,20 @@
 			<carpentry min="526" max="776" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" name="Boards" />
 		</carpenter>
-		<!-- Bokuto, Fukiya, Tetsubo -->
+		<secarpenter definition="27a8" name="Bokuto">
+			<carpentry min="700" max="900" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="6" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="27aa" name="Fukiya">
+			<carpentry min="600" max="800" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="8" name="Boards" />
+		</secarpenter>
+		<secarpenter definition="27f1" name="Tetsubo">
+			<carpentry min="800" max="1000" />
+			<tinkering min="400" max="600" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="8" name="Boards" />
+			<ingots amount="5" />
+		</secarpenter>
 	</menu>
 
 	<!-- Extra Skill Based Objects -->
@@ -232,7 +306,11 @@
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
 			<cloth id="1765;1766;1767;1768" amount="15" name="Cloth" />
 		</carpenter>
-		<!-- Bamboo Flute -->
+		<secarpenter definition="2805" name="Bamboo Flute">
+			<carpentry min="800" max="1200" />
+			<musicianship min="450" max="950" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
+		</secarpenter>
 	</menu>
 
 	<menu id="CARPENTRY_MISCADDONS" name="Misc. Add-ons">

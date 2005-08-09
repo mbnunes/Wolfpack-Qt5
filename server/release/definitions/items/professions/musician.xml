@@ -83,7 +83,7 @@
 		<sellprice>25</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Drum</category>
-		<basescripts>equipment,environment</basescripts>
+		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -95,7 +95,7 @@
 		<sellprice>12</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Tambourine</category>
-		<basescripts>equipment,environment</basescripts>
+		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -107,7 +107,7 @@
 		<sellprice>30</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Fancy Tambourine</category>
-		<basescripts>equipment,environment</basescripts>
+		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -119,7 +119,7 @@
 		<sellprice>45</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Standing Harp</category>
-		<basescripts>equipment,environment</basescripts>
+		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -131,7 +131,7 @@
 		<sellprice>15</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Harp</category>
-		<basescripts>equipment,environment</basescripts>
+		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -143,7 +143,7 @@
 		<sellprice>12</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Lute (N/S)</category>
-		<basescripts>equipment,environment</basescripts>
+		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -151,6 +151,15 @@
 	<item id="eb4" inherit="eb3">
 		<id>0xeb4</id>
 		<category>Professions\Musician\Instruments\Lute (W/E)</category>
+	</item>
+
+	<!-- Bamboo Flute -->
+	<item id="2805">
+		<id>0x2805</id>
+		<decay/>
+		<category>Professions\Musician\Instruments\Lute (N/S)</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
 </definitions>

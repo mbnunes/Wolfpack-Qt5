@@ -5744,12 +5744,12 @@
 	<item id="24cb">
 		<id>0x24cb</id>
 		<nodecay />
+		<weight>12.0</weight>
 		<category>Buildings\Walls\Samurai\Paper Screen\01</category>
 	</item>
 
-	<item id="24cc">
+	<item id="24cc" inherit="24cb">
 		<id>0x24cc</id>
-		<nodecay />
 		<category>Buildings\Walls\Samurai\Paper Screen\02</category>
 	</item>
 
