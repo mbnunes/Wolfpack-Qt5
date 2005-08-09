@@ -292,15 +292,18 @@ void cMobile::refreshEquipment(enLayer layer) {
 
 	if (tinfo && tinfo->animation()) {
 		unsigned short model = tinfo->animation();
-		bool partialHue = tinfo->isPartialHue();
 
-		cSequence *sequence = equipmentSequences[layer];
-
-		if (!sequence || sequence->body() != model || sequence->action() != currentAction_ || sequence->direction() != direction_ || sequence->hue() != item->hue() || sequence->partialHue() != partialHue) {	
-			equipmentSequences[layer] = Animations->readSequence(model, currentAction_, direction_, item->hue(), partialHue);
-		} else if (sequence) {
-			sequence->decref();
-			equipmentSequences[layer] = 0;
+		if (model < 0x400) {
+			bool partialHue = tinfo->isPartialHue();
+	
+			cSequence *sequence = equipmentSequences[layer];
+	
+			if (!sequence || sequence->body() != model || sequence->action() != currentAction_ || sequence->direction() != direction_ || sequence->hue() != item->hue() || sequence->partialHue() != partialHue) {	
+				equipmentSequences[layer] = Animations->readSequence(model, currentAction_, direction_, item->hue(), partialHue);
+			} else if (sequence) {
+				sequence->decref();
+				equipmentSequences[layer] = 0;
+			}
 		}
 	} else {
 		equipmentSequences[layer] = 0;

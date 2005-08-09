@@ -260,7 +260,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 							*((unsigned int*)ptr) = foreground;
 							if (border) {
 								for (int bordery = -1; bordery < 2; ++bordery) {
-									unsigned char *borderptr = (ptr + bordery * (surface->height() * 4) - 4);
+									unsigned char *borderptr = (ptr + bordery * (surface->width() * 4) - 4);
 									unsigned char *borderendptr = borderptr + 12;
 									while (borderptr != borderendptr) {
 										if (*((unsigned int*)borderptr) != foreground) {
