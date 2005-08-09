@@ -654,6 +654,10 @@ void Action_Wander::execute()
 			if ( RandomNum( 0, 100 ) < 20 )
 				dir = RandomNum( 0, 7 );
 
+			if ( m_npc->direction() != dir )
+			{
+				Movement::instance()->Walking( m_npc, dir, 0xFF );
+			}
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
@@ -665,6 +669,11 @@ void Action_Wander::execute()
 			Q_UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 
 			Q_UINT8 dir = m_npc->pos().direction( Coord( rndx, rndy ) );
+
+			if ( m_npc->direction() != dir )
+			{
+				Movement::instance()->Walking( m_npc, dir, 0xFF );
+			}
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
