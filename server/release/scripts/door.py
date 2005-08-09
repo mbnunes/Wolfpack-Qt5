@@ -275,7 +275,7 @@ def opendoor( char, item ):
 
 			if blocked == 1:
 				char.socket.sysmessage( "There is someone blocking the door!" )
-				return False
+				return True
 			else:
 				pos = item.pos
 				# Change the door id and update the clients around it
