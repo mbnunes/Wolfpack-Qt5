@@ -134,11 +134,16 @@ protected:
 	typedef QMap<unsigned short, stFallback> FallbackMap;
 	FallbackMap fallback;
 
-	typedef QMap<unsigned short, unsigned char> FileMap;
+	struct stFileInfo {
+		unsigned short body;
+		unsigned char file;
+	};
+
+	typedef QMap<unsigned short, stFileInfo> FileMap;
 	FileMap fileMapping;
 
 	// Get the file id for a given body value. -1 means the file id was invalid.
-	signed char getFileId(unsigned short body) const;
+	signed char getFileId(unsigned short &body) const;
 
 	// Try to get a fallback file/body/hue
 	bool getFallback(signed char &file, unsigned short &body, unsigned short &hue) const;

@@ -4,6 +4,9 @@
 #include "log.h"
 #include "surface.h"
 #include <qgl.h>
+#include <qtextstream.h>
+#include <qregexp.h>
+#include <qstring.h>
 
 cSequence::cSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue, bool partialHue) {
 	refcount = 0;
@@ -195,23 +198,24 @@ void cSequence::load(QDataStream &input) {
 	delete [] frameLookup;
 }
 
-signed char cAnimations::getFileId(unsigned short body) const {
+signed char cAnimations::getFileId(unsigned short &body) const {
 	// Is there some sort of override in place?
 	FileMap::const_iterator it = fileMapping.find(body);
 	if (it == fileMapping.end()) {
 		return 0; // No special mapping exists
 	}
     
-	// Only return the file id if it's valid.
-	if (it.data() < ANIMATION_FILES) {
-		signed char result = it.data();
+	stFileInfo info = it.data();
 
+	// Only return the file id if it's valid.
+	if (info.file < ANIMATION_FILES) {
 		// If the file isn't available, return -1
-		if (!indexFile[result].isOpen() || !dataFile[result].isOpen()) {
-			result = -1;
+		if (!indexFile[info.file].isOpen() || !dataFile[info.file].isOpen()) {
+			return -1;
 		}
 
-		return result;
+		body = info.body;
+		return info.file;
 	} else {
 		return -1; // Invalid file id
 	}
@@ -266,7 +270,7 @@ void cAnimations::load() {
 			continue;
 		}
 
-		Log->print(LOG_WARNING, tr("Successfully loaded animation file %1.\n").arg(i+1));
+		Log->print(LOG_NOTICE, tr("Successfully loaded animation file %1.\n").arg(i+1));
 	}
 }
 
@@ -339,7 +343,13 @@ unsigned int cAnimations::getSeekOffset(signed char file, unsigned short body, u
 			break;
 
 		case 3:
-			result = 0;
+			if (body < 200) {
+				result = body * 65;
+			} else if (body < 400) {
+				result = (body - 200) * 110 + 13000;
+			} else {
+				result = (body - 400) * 175 + 35000;
+			}
 			break;
 
 		default:
@@ -356,9 +366,68 @@ void cAnimations::loadMobTypesTxt() {
 }
 
 void cAnimations::loadBodyConvDef() {
+	QFile file(Utilities::getUoFilename("bodyconv.def"));
+
+	if (!file.open(IO_ReadOnly)) {
+		throw Exception(tr("Unable to open body conversion data from %1.").arg(file.name()));
+	}
+
+	// Format is: 
+	// body anim2 anim3 anim4	
+	QTextStream stream(&file);
+	while (!stream.atEnd()) {
+		QString line = stream.readLine().trimmed();
+		
+		if (!line.startsWith("#")) {
+			QStringList parts = QStringList::split(QRegExp("\\s+"), line);
+			
+			// 4 parts required
+			if (parts.size() == 4) {
+				unsigned short body = parts[0].toUShort();
+				stFileInfo info;
+				for (int i = 1; i < 5; ++i) {					
+					int newbody = parts[i].toShort();
+					if (newbody > 0) {
+						info.body = (unsigned short)newbody;
+						info.file = i;
+						fileMapping.insert(body, info);
+						break;
+					}
+				}
+			}
+		}
+	}
 }
 
 void cAnimations::loadBodyDef() {
+	QFile file(Utilities::getUoFilename("body.def"));
+
+	if (!file.open(IO_ReadOnly)) {
+		throw Exception(tr("Unable to open body fallback data from %1.").arg(file.name()));
+	}
+
+	// Format is: 
+	// oldbody {newbody, newbody, newbody} newhue
+	QRegExp pattern("^\\s*(\\d+)\\s+\\{([^\\}]+)\\}\\s+(\\d+)\\s*$");
+	QRegExp splitPattern("\\s*,\\s*");
+
+	QTextStream stream(&file);	
+	while (!stream.atEnd()) {
+		QString line = stream.readLine();
+		
+		if (line.contains(pattern)) {
+			// Log->print(LOG_NOTICE, tr("Found body translation: %1 to %2 with hue %3.\n").arg(pattern.cap(1)).arg(pattern.cap(2)).arg(pattern.cap(3)));
+			// Parse the list of new ids
+			QStringList newIds = QStringList::split(splitPattern, pattern.cap(2));
+			unsigned short oldBody = pattern.cap(1).toUShort();
+			stFallback entry;
+			entry.hue = pattern.cap(3).toUShort();
+			if (newIds.size() > 0) {
+				entry.body = newIds[0].toUShort();
+                fallback.insert(oldBody, entry);		
+			}
+		}
+	}
 }
 
 cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue, bool partialhue) {
@@ -381,6 +450,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 		// Try to use the fallback table if the file couldn't be found
 		if (file == -1) {
 			if (!getFallback(file, body, hue)) {
+				Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence from file %4 (not found). Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction).arg(file));
 				return 0; // Either the fallback was invalid too or there wasn't a fallback
 			}
 		}
@@ -394,6 +464,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 		// If the file doesn't have the requested animation, try to fall back
 		if (offset == -1 || length == 0) {
 			if (!getFallback(file, body, hue)) {
+				Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence. Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction));
 				return 0; // No fallback could be found for this
 			}
 
@@ -404,6 +475,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 			
 			// The lookup failed
 			if (offset == -1 || length == 0) {
+				Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence. Fallback. Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction));
 				return 0; // Invalid animation
 			}
 		}

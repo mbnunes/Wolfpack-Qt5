@@ -25,3 +25,9 @@ void cDynamicEntity::move(unsigned short x, unsigned short y, signed char z) {
 		World->addEntity(this);
 	}
 }
+
+void cDynamicEntity::setFacet(enFacet facet) {
+	World->removeEntity(this);
+	facet_ = facet;
+	World->addEntity(this);
+}

@@ -38,6 +38,11 @@ void cWorld::changeFacet(enFacet facet) {
 		z_ = 0;
 		facet_ = facet;
 		clearGroundCache();
+
+		// The player has to change facets too
+		if (Player) {
+			Player->setFacet(facet);
+		}
 	}
 }
 

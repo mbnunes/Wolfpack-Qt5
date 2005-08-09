@@ -326,12 +326,7 @@ static void STDCALL cmCallback(cContextMenu *menu, int id, cGroundTile *tile) {
 	tile->decref();
 }
 
-void cGroundTile::onRightClick(QMouseEvent *e) {
-	ContextMenu->clear();
-	ContextMenu->addEntry("Delete", 0x3b2, 0); // Delete the ground tile
-	incref();
-	ContextMenu->setCallback((fnContextMenuCallback)cmCallback, this);
-	ContextMenu->show();
+void cGroundTile::onRightClick(QMouseEvent *e) {	
 }
 
 void cGroundTile::onClick(QMouseEvent *e) {

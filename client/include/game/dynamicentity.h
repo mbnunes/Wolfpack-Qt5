@@ -17,6 +17,8 @@ public:
 	
 	// Move the entity to the given coordinates
 	virtual void move(unsigned short x, unsigned short y, signed char z);
+
+	void setFacet(enFacet facet);
 };
 
 inline unsigned int cDynamicEntity::serial() const {
