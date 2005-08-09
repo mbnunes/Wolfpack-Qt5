@@ -155,6 +155,9 @@ void cControl::onKeyDown(QKeyEvent *e) {
 void cControl::onKeyUp(QKeyEvent *e) {
 }
 
+void cControl::onClick(QMouseEvent *e) {
+}
+
 bool cControl::isContainer() const {
 	return false;
 }

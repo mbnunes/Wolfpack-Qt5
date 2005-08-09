@@ -105,12 +105,12 @@ void cWorldView::onMouseUp(QMouseEvent *e) {
 		ismoving = false;
 		Cursor->setCursor(getCursorType());
 	} else {
-		if (!tracking) {
-			World->onClick(e);
-		} else {
-			cWindow::onMouseUp(e);
-		}
+		cWindow::onMouseUp(e);
 	}
+}
+
+void cWorldView::onClick(QMouseEvent *e) {
+	World->onClick(e);
 }
 
 // Start tracking if we're touching the border. Otherwise pass to world.

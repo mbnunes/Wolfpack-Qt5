@@ -5,10 +5,13 @@ Using Microsoft Visual Sutdio .NET
 
 1. You'll need the QT headers and QT library files within your 
 library search path. For information regarding QT, please visit
-http://kde-cygwin.sourceforge.net
+http://www.trolltech.com and look for the QT OpenSource Version.
+Alternatively you can visit http://qtwin.sf.net for a MSVC++ compatible version.
 
 2. Make sure, that the QTDIR environmental variable is set correctly to your
 QT directory.
 
-3. Open the UoClient.sln with the IDE and press compile. It should work
+3. You need OpenAL to compile the client (with sound). Get that at http://www.openal.org.
+
+4. Open the UoClient.sln with the IDE and press compile. It should work
 out of the box.

@@ -27,7 +27,7 @@ protected:
 
 	QByteArray pendingPacket;
 	cStreamEncryption *encryption; // Encryption instance
-	unsigned int seed; // Seed we sent to the server
+	unsigned int seed_; // Seed we sent to the server
 	QString hostname; // The hostname we're connecting to
 	bool gameServer; // Are we connecting to a gameserver?
 	unsigned short hostport; // The port we're connecting to
@@ -52,6 +52,7 @@ public:
 	void connect(const QString &host, unsigned short port, bool gameServer = false);
 	void disconnect();
 	void setSeed(unsigned int seed);
+	unsigned int seed() const;
 
 	// Poll for new packets and other events.
 	void poll();
@@ -104,8 +105,12 @@ inline bool cUoSocket::isGameServer() const {
 	return gameServer;
 }
 
+inline unsigned int cUoSocket::seed() const {
+	return seed_;
+}
+
 inline void cUoSocket::setSeed(unsigned int seed) {
-	this->seed = seed;
+	seed_ = seed;
 }
 
 #define AREGPREFIX fnc

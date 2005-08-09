@@ -31,19 +31,19 @@ cMoveCenterDialog::cMoveCenterDialog() {
 
 	// Add buttons for moving the center of the world
 	cImageButton *up = new cImageButton(50, 10, 0x15e0, 0x15e4);
-	connect(up, SIGNAL(onClick()), this, SLOT(moveUp()));
+	connect(up, SIGNAL(onButtonPress()), this, SLOT(moveUp()));
     addControl(up);	
 
 	cImageButton *left = new cImageButton(10, 40, 0x15e3, 0x15e7);
-	connect(left, SIGNAL(onClick()), this, SLOT(moveLeft()));
+	connect(left, SIGNAL(onButtonPress()), this, SLOT(moveLeft()));
     addControl(left);
 
 	cImageButton *down = new cImageButton(50, 70, 0x15e2, 0x15e6);
-	connect(down, SIGNAL(onClick()), this, SLOT(moveDown()));
+	connect(down, SIGNAL(onButtonPress()), this, SLOT(moveDown()));
     addControl(down);
 
 	cImageButton *right = new cImageButton(90, 40, 0x15e1, 0x15e5);
-	connect(right, SIGNAL(onClick()), this, SLOT(moveRight()));
+	connect(right, SIGNAL(onButtonPress()), this, SLOT(moveRight()));
     addControl(right);
 }
 

@@ -16,13 +16,13 @@ cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) {
 
 	btnUp = new cImageButton(0, 0, 0xFA, 0xFB);
 	setBounds(x, y, btnUp->width(), height); // Set Width before adding another button
-	connect(btnUp, SIGNAL(onClick()), this, SLOT(scrollUp()));
+	connect(btnUp, SIGNAL(onButtonPress()), this, SLOT(scrollUp()));
 	btnUp->setPressRepeatRate(60);
 	addControl(btnUp);
 
 	btnDown = new cImageButton(0, 0, 0xFC, 0xFD);
 	btnDown->setPosition(0, height - btnDown->height());
-	connect(btnDown, SIGNAL(onClick()), this, SLOT(scrollDown()));
+	connect(btnDown, SIGNAL(onButtonPress()), this, SLOT(scrollDown()));
 	btnDown->setPressRepeatRate(60);
 	addControl(btnDown);
 

@@ -408,12 +408,12 @@ void cLoginDialog::buildStatusGump() {
 		statusCancel = new cImageButton(306, 296, 0x47e, 0x480);
 		statusCancel->setStateGump(BS_HOVER, 0x47f);
 		statusDialog->addControl(statusCancel);
-		connect(statusCancel, SIGNAL(onClick(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
+		connect(statusCancel, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
 
 		statusOk = new cImageButton(306, 296, 0x481, 0x483);
 		statusOk->setStateGump(BS_HOVER, 0x482);
 		statusDialog->addControl(statusOk);
-		connect(statusOk, SIGNAL(onClick(cControl*)), this, SLOT(statusOkClicked(cControl*)));
+		connect(statusOk, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusOkClicked(cControl*)));
 	}
 }
 
@@ -450,37 +450,37 @@ void cLoginDialog::show(enMenuPage page) {
 		// Quit Button
 		button = new cImageButton(555, 4, 0x1589, 0x158B);
 		button->setStateGump(BS_HOVER, 0x158A);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(quitClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(quitClicked(cControl*)));
 		container->addControl(button);
 
 		// MyUO Button
 		button = new cImageButton(14, 146, 0x158f, 0x1591);
 		button->setStateGump(BS_HOVER, 0x1590);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(myUoClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(myUoClicked(cControl*)));
 		container->addControl(button);
 
 		// Account Button
 		button = new cImageButton(14, 205, 0x1592, 0x1594);
 		button->setStateGump(BS_HOVER, 0x1593);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(accountClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(accountClicked(cControl*)));
 		container->addControl(button);
 
 		// Movie Button
 		movieButton = new cImageButton(14, 306, 0x1586, 0x1588);
 		movieButton->setStateGump(BS_HOVER, 0x1587);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(movieClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(movieClicked(cControl*)));
 		container->addControl(movieButton);
 
 		// Credits Button
 		button = new cImageButton(14, 330, 0x1583, 0x1585);
 		button->setStateGump(BS_HOVER, 0x1584);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(creditsClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(creditsClicked(cControl*)));
 		container->addControl(button);
 
 		// Help Button
 		button = new cImageButton(14, 354, 0x1595, 0x1597);
 		button->setStateGump(BS_HOVER, 0x1596);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(helpClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(helpClicked(cControl*)));
 		container->addControl(button);
 
 		// Teen Logo (only on english systems)
@@ -520,13 +520,13 @@ void cLoginDialog::show(enMenuPage page) {
 		// Back Button
 		backButton = new cImageButton(586, 445, 0x15a1, 0x15a3);
 		backButton->setStateGump(BS_HOVER, 0x15a2);
-		connect(backButton, SIGNAL(onClick(cControl*)), this, SLOT(backClicked(cControl*)));
+		connect(backButton, SIGNAL(onButtonPress(cControl*)), this, SLOT(backClicked(cControl*)));
 		container->addControl(backButton);
 
 		// Next Button
 		nextButton = new cImageButton(610, 445, 0x15a4, 0x15a6);
 		nextButton->setStateGump(BS_HOVER, 0x15a5);
-		connect(nextButton, SIGNAL(onClick(cControl*)), this, SLOT(nextClicked(cControl*)));
+		connect(nextButton, SIGNAL(onButtonPress(cControl*)), this, SLOT(nextClicked(cControl*)));
 		container->addControl(nextButton);
 	}
 
@@ -636,12 +636,12 @@ void cLoginDialog::buildConfirmDeleteGump() {
 	cImageButton *statusCancel = new cImageButton(356, 225, 0x47e, 0x480);
 	statusCancel->setStateGump(BS_HOVER, 0x47f);
 	confirmDeleteDialog->addControl(statusCancel);
-	connect(statusCancel, SIGNAL(onClick(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
+	connect(statusCancel, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
 
 	cImageButton *statusOk = new cImageButton(256, 225, 0x481, 0x483);
 	statusOk->setStateGump(BS_HOVER, 0x482);
 	confirmDeleteDialog->addControl(statusOk);
-	connect(statusOk, SIGNAL(onClick(cControl*)), this, SLOT(statusOkClicked(cControl*)));
+	connect(statusOk, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusOkClicked(cControl*)));
 }
 
 void cLoginDialog::buildSelectCharGump() {
@@ -664,13 +664,13 @@ void cLoginDialog::buildSelectCharGump() {
 		// New Character
         button = new cImageButton(64, 327, 0x159d, 0x159f);
 		button->setStateGump(BS_HOVER, 0x159e);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(createCharClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(createCharClicked(cControl*)));
 		selectCharDialog->addControl(button);
 
 		// Delete Character
         button = new cImageButton(282, 327, 0x159a, 0x159c);
 		button->setStateGump(BS_HOVER, 0x159b);
-		connect(button, SIGNAL(onClick(cControl*)), this, SLOT(deleteCharClicked(cControl*)));
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(deleteCharClicked(cControl*)));
 		selectCharDialog->addControl(button);
 
 		// add 6 char selection backgrounds
@@ -822,7 +822,7 @@ void cLoginDialog::socketConnect() {
 		cLoginPacket packet(inpAccount->text(), inpPassword->text());
 		UoSocket->send(packet);
 	} else {
-		cGameLoginPacket packet(0xFFFFFFFF, inpAccount->text(), inpPassword->text());
+		cGameLoginPacket packet(UoSocket->seed(), inpAccount->text(), inpPassword->text());
 		UoSocket->send(packet);
 	}
 }

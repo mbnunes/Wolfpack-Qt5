@@ -9,6 +9,7 @@
 #include <QKeyEvent>
 #include <QEvent>
 #include <QDialog>
+#include <QTimer>
 #include "dialog_config.h"
 
 class cControl;
@@ -33,7 +34,14 @@ public:
 	// Do a screenshot the next time the buffer is flipped
 	void screenshot(const QString &filename = QString::null);
 
+public slots:
+	void singleClick();
+
 protected:
+	bool lastDoubleClick;
+	QTimer singleClickTimer;
+	QMouseEvent *singleClickEvent;
+
 	int lastMouseX, lastMouseY;
 
     void initializeGL();

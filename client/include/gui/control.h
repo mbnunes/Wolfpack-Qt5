@@ -155,9 +155,9 @@ public:
 	virtual void onFocus(cControl *oldFocus);
 	virtual void onKeyDown(QKeyEvent *e);
 	virtual void onKeyUp(QKeyEvent *e);
+	virtual void onClick(QMouseEvent *e);
 
-signals:
-	void onClick(cControl *sender);
+signals:	
 	void onRightClick(cControl *sender);
 	void onDoubleClick(cControl *sender);
 };

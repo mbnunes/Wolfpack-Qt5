@@ -66,6 +66,7 @@ public:
 	void onMouseLeave(); // Toggle the mouseOver state
 	void onMouseEnter(); // Toggle the mouseOver state
 	void onMouseDown(QMouseEvent *e);
+	void onClick(QMouseEvent *e);
 	void onMouseUp(QMouseEvent *e);
 	void onKeyDown(QKeyEvent *e);
 	void onKeyUp(QKeyEvent *e);
@@ -76,6 +77,9 @@ public:
 // Slot for the press repeat 
 private slots:
 	void repeatPress();
+
+signals:
+	void onButtonPress(cControl *sender);
 };
 
 #endif

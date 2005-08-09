@@ -87,7 +87,7 @@ void cImageButton::onMouseDown(QMouseEvent *e) {
 		// The button requests to be auto-pressed every x miliseconds
 		if (pressRepeatRate_ != 0) {
 			pressRepeatTimer->start(pressRepeatRate_);
-			emit onClick(this);
+			emit onButtonPress(this);
 		}
 	}
 }
@@ -96,7 +96,7 @@ void cImageButton::repeatPress() {
 	// Send a repeated onClick event if we're above the button
 	// and it's configured to do so
 	if (mouseHolding_ && pressRepeatRate_ && mouseOver_) {
-		emit onClick(this);
+		emit onButtonPress(this);
 	}
 }
 
@@ -109,23 +109,26 @@ void cImageButton::onMouseUp(QMouseEvent *e) {
 		if (pressRepeatTimer->isActive()) {
 			pressRepeatTimer->stop();
 		} else if (mouseOver_) {
-			emit onClick(this);
+			emit onButtonPress(this);
 		}
 	}
 }
 
 void cImageButton::onKeyDown(QKeyEvent *e) {
 	if (e->key() == Qt::Key_Return) {
-		emit onClick(this); // Fire the onClick event if return is pressed
+		emit onButtonPress(this); // Fire the onClick event if return is pressed
 	} else if (e->key() == Qt::Key_Space) {
 		spaceHolding_ = true;
 	}
 }
 
+void cImageButton::onClick(QMouseEvent *e) {
+}
+
 void cImageButton::onKeyUp(QKeyEvent *e) {
 	if (e->key() == Qt::Key_Space) {
 		spaceHolding_ = false;
-		emit onClick(this); // Issue the click event
+		emit onButtonPress(this); // Issue the click event
 	}
 }
 

@@ -86,10 +86,10 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 		return; // The client isn't disconnected yet.
 	}
 
-	seed = Random->randInt(); // Set a new seed
+	seed_ = Random->randInt(); // Set a new seed
 
 	if (gameServer) {
-		seed = 0;
+		seed_ = 0;
 	}
 
 	this->gameServer = gameServer;
@@ -128,15 +128,6 @@ void cUoSocket::poll() {
 	Q3Socket::State state = socket->state();
 
 	switch (state) {
-		case QAbstractSocket::UnconnectedState:
-			break; // Do nothing
-
-		case QAbstractSocket::HostLookupState:
-			break; // Do nothing
-
-		case Q3Socket::Connecting:
-			break; // Do nothing
-
 		// Process incoming and outgoing packets if the socket is connected
 		case Q3Socket::Connected:
 		{
@@ -147,9 +138,6 @@ void cUoSocket::poll() {
 			}
 		}
 		break;
-
-		case Q3Socket::Closing:
-			break; // Do nothing
 
 		default:
 			break; // Do nothing
@@ -179,7 +167,7 @@ void cUoSocket::buildPackets() {
 		if (size == 0xFFFF) {
 			throw Exception(tr("Received unknown packet from server: %1\n").arg(packetId));
 		} else if (size == 0 && incomingBuffer.size() >= 3) {
-            unsigned short dynamicSize = (incomingBuffer[1] << 8) | incomingBuffer[2];
+            unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
 			if (dynamicSize <= incomingBuffer.size()) {				
 				QByteArray packetData(dynamicSize);
 				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
@@ -226,10 +214,10 @@ void cUoSocket::hostFound() {
 void cUoSocket::connected() {
 	// Send the UO header we have to send for every connection type
     QByteArray uoHeader(4);
-	uoHeader[0] = (unsigned char)( (seed >> 24) & 0xff );
-	uoHeader[1] = (unsigned char)( (seed >> 16) & 0xff );
-	uoHeader[2] = (unsigned char)( (seed >> 8) & 0xff );
-	uoHeader[3] = (unsigned char)( seed & 0xff );
+	uoHeader[0] = (unsigned char)( (seed_ >> 24) & 0xff );
+	uoHeader[1] = (unsigned char)( (seed_ >> 16) & 0xff );
+	uoHeader[2] = (unsigned char)( (seed_ >> 8) & 0xff );
+	uoHeader[3] = (unsigned char)( seed_ & 0xff );
 	outgoingQueue.push_back(uoHeader);
 
 	// Trigger the signal

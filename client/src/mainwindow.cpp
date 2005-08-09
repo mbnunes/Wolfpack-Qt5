@@ -86,7 +86,7 @@ MainWindow::MainWindow() {
 
 	// Window Icon
 	QPixmap pixmap((const char**)icon_xpm);
-	setIcon(pixmap);
+		setIcon(pixmap);
 
 	// Create the File menu
 	QMenu *file = new QMenu(this);
@@ -99,16 +99,17 @@ MainWindow::MainWindow() {
 	// Game Menu
 	QMenu *game = m_menuBar->addMenu("&Game");
 	game->addAction("Where", this, SLOT(menuWhere()));
-	game->addSeparator();
-	aHideStatics = game->addAction("Hide Statics");
+	QMenu *hideMenu = game->addMenu("Hide entities");
+	aHideStatics = hideMenu->addAction("Hide Statics");
 	aHideStatics->setCheckable(true);
-	aHideDynamics = game->addAction("Hide Dynamics");
+	aHideDynamics = hideMenu->addAction("Hide Dynamics");
 	aHideDynamics->setCheckable(true);
-	aHideMobiles = game->addAction("Hide Mobiles");
+	aHideMobiles = hideMenu->addAction("Hide Mobiles");
 	aHideMobiles->setCheckable(true);
-	aHideMap = game->addAction("Hide Map");	
+	aHideMap = hideMenu->addAction("Hide Map");	
 	aHideMap->setCheckable(true);
-	game->addSeparator();
+
+
 	QAction *action = game->addAction("Resync with Server");
 	action->setObjectName("action_resync");
 
@@ -170,9 +171,18 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 	timer->setSingleShot(false);
 	connect(timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer->start();
+
+	singleClickTimer.setSingleShot(true);
+	singleClickTimer.setInterval(QApplication::doubleClickInterval() + 20);
+	singleClickTimer.stop();
+	connect(&singleClickTimer, SLOT(timeout()), this, SLOT(singleClick()));
+
+	singleClickEvent = 0;
+	lastDoubleClick = false;
 }
 
 cGLWidget::~cGLWidget() {
+	delete singleClickEvent;
 }
 
 void cGLWidget::initializeGL() {
@@ -350,6 +360,8 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 }
 
 void cGLWidget::mousePressEvent(QMouseEvent *e) {
+	singleClickTimer.stop();
+
 	if (mouseCapture) {
 		mouseCapture->onMouseDown(e);
 	} else {
@@ -386,6 +398,16 @@ void cGLWidget::mousePressEvent(QMouseEvent *e) {
 }
 
 void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
+	if (lastDoubleClick) {
+		lastDoubleClick = false;
+		return;
+	}
+
+	// Save this event and start the timer
+	delete singleClickEvent;
+	singleClickEvent = new QMouseEvent(*e);
+	singleClickTimer.start();
+	
 	cControl *control = mouseCapture;
 	if (!control) {
 		control = Gui->getControl(e->x(), e->y());
@@ -398,12 +420,31 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	QWidget::mouseReleaseEvent(e);
 }
 
+void cGLWidget::singleClick() {
+	if (singleClickEvent) {
+		// Post the event to the gui system
+		cControl *control = mouseCapture;
+		if (!control) {
+			control = Gui->getControl(singleClickEvent->x(), singleClickEvent->y());
+		}
+		if (control) {
+			control->onClick(singleClickEvent);
+			mouseCapture = 0; // Reset mouse capture
+		}
+
+		delete singleClickEvent;
+		singleClickEvent = 0;
+	}
+}
+
 void cGLWidget::mouseDoubleClickEvent(QMouseEvent * e) {
+	lastDoubleClick = true;
+	singleClickTimer.stop();
+
 	cControl *control = control = Gui->getControl(e->x(), e->y());
 	if (control) {
 		control->processDoubleClick(e);
 	}
-	QWidget::mouseDoubleClickEvent(e);
 }
 
 void cGLWidget::createScreenshot(const QString &filename) {
