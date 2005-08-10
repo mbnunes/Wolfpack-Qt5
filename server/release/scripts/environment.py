@@ -12,7 +12,6 @@ from math import floor
 from wolfpack import tr
 
 def cotton( char, item ):
-
 	if item.hastag( 'lastpick' ):
 		lastpick = item.gettag( 'lastpick' )
 
