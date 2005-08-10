@@ -103,7 +103,7 @@ void cTexture::bind() {
 	glBindTexture(GL_TEXTURE_2D, id_);
 }
 
-void cTexture::draw(int x, int y) {
+void cTexture::draw(int x, int y, float alpha) {
 	if (id_ != 0) {
 		bind();
 		glBegin(GL_QUADS);
@@ -111,7 +111,7 @@ void cTexture::draw(int x, int y) {
 		int right = x + width();
 		int bottom = y + height();
 	
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // White. No Alpha.
+		glColor4f(1.0f, 1.0f, 1.0f, alpha); // White. No Alpha.
 		glTexCoord2f(0, 0); glVertex2f(x, y); // Upper left corner
 		glTexCoord2f(1, 0); glVertex2f(right, y); // Upper Right Corner
 		glTexCoord2f(1, 1); glVertex2f(right, bottom); // Lower Right Corner

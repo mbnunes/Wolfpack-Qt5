@@ -397,6 +397,7 @@ void cConfig::load() {
 	logPath_ = getString("Logging", "Path", "./logs/");
 	logMask_ = getNumber("Logging", "Mask", 0);
 	logRotate_ = getNumber("Logging", "Rotate", true);
+	packetLogging_ = getNumber("Logging", "Enable Packet Log", false);
 
 	// Engine
 	engineWidth_ = getNumber("Engine", "Width", 640);

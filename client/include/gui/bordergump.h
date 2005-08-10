@@ -17,11 +17,25 @@ private:
 	cTiledGumpImage *left, *right, *top, *bottom, *center;
 	cGumpImage *uleft, *uright, *lleft, *lright;
 	void alignControls();
+
+	float alpha_;
 public:
 	cBorderGump(unsigned short id, unsigned short hue = 0);
 	virtual ~cBorderGump();
 	void onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight);
 	void setGump(unsigned short id, unsigned short hue, bool forceupdate = false);
+	void draw(int xoffset, int yoffset);
+
+	void setAlpha(float alpha);
+	float alpha() const;
 };
+
+inline void cBorderGump::setAlpha(float alpha) {
+	alpha_ = alpha;
+}
+
+inline float cBorderGump::alpha() const {
+	return alpha_;
+}
 
 #endif

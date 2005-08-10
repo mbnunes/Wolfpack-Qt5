@@ -4,6 +4,8 @@
 
 #include <q3valuelist.h>
 #include <qbytearray.h>
+#include <qfile.h>
+#include <qtextstream.h>
 
 #include "enums.h"
 #include "network/uopacket.h"
@@ -31,12 +33,17 @@ protected:
 	QString hostname; // The hostname we're connecting to
 	bool gameServer; // Are we connecting to a gameserver?
 	unsigned short hostport; // The port we're connecting to
+	unsigned int lastDecodedPacketId_;
 
 	Q3ValueList<QByteArray> outgoingQueue;
 	Q3ValueList<cIncomingPacket*> incomingQueue;
 	QByteArray incomingBuffer;
 
 	void buildPackets();
+	void logPacket(const QByteArray &data);
+	void logPacket(cIncomingPacket *packet);
+	QFile packetLog;
+	QTextStream packetLogStream;
 
 	static fnIncomingPacketConstructor incomingPacketConstructors[256];
 public:

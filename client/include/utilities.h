@@ -77,6 +77,8 @@ namespace Utilities {
 		
 		return uiResult;
 	}
+
+	QString dumpData(const QByteArray &data);
 };
 
 // Please note that this cache does steal reference counts

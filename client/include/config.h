@@ -48,6 +48,7 @@ private:
 	bool engineWindowed_;
 	QString uoPath_;
 	bool useVerdata_;
+	bool packetLogging_;
 
 	bool encryptionEnableLogin_;
 	unsigned int encryptionLoginKey1_;
@@ -67,6 +68,9 @@ public:
 
 	const bool useVerdata() { return useVerdata_; }
 	void setUseVerdata(bool data) { useVerdata_ = data; setBool("General", "Use Verdata", data); }
+
+	const bool packetLogging() { return packetLogging_; }
+	void setPacketLogging(bool data) { packetLogging_ = data; setBool("Logging", "Enable Packet Log", data); }
 
 	// Data Getters/Setters
 	const QString &logPath() { return logPath_; }

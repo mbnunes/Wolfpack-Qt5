@@ -581,4 +581,5 @@ Q3CString cTextField::getSelection() {
 }
 
 void cTextField::onEnter() {
+	emit enterPressed(this);
 }

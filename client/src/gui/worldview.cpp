@@ -3,6 +3,7 @@
 #include "gui/label.h"
 #include "gui/asciilabel.h"
 #include "gui/cursor.h"
+#include "gui/gui.h"
 #include "game/world.h"
 #include "game/mobile.h"
 #include "uoclient.h"
@@ -15,6 +16,14 @@
 #include <Q3CString>
 
 const unsigned int sysMessageDecay = 10000;
+
+class cInputField : public cTextField {
+public:
+	cInputField(int x, int y, int width, int height) : cTextField(x, y, width, height, 3, 0, 0x2486) {
+		// Set background transparency
+		background_->setAlpha(0.5);
+	}
+};
 
 class cSysMessage : public cLabel {
 protected:
@@ -42,7 +51,7 @@ void cWorldView::cleanSysMessages() {
 	Iterator it;
 	for (it = controls.begin(); it != controls.end(); ++it) {
 		cControl *control = *it;
-		if (control != left && control != right && control != top && control != bottom) {
+		if (control != left && control != right && control != top && control != bottom && control != inputField) {
 			cSysMessage *message = (cSysMessage*)(control);
 			if (message->created() + sysMessageDecay < currentTime) {
 				toremove.append(control);
@@ -86,6 +95,11 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 
 	ismoving = false;
 	nextSysmessageCleanup = Utilities::getTicks() + 250;
+
+	inputField = new cInputField(5, height - 30, width - 10, 25);
+	inputField->setVisible(false);
+	addControl(inputField);
+	connect(inputField, SIGNAL(enterPressed(cTextField*)), this, SLOT(textFieldEnter(cTextField*)));
 }
 
 cWorldView::~cWorldView() {
@@ -156,7 +170,7 @@ void cWorldView::moveContent(int yoffset) {
 	cContainer::Iterator it;
 	for (it = controls.begin(); it != controls.end(); ++it) {
 		cControl *control = *it;
-		if (control != left && control != top && control != bottom && control != right) {
+		if (control != left && control != top && control != bottom && control != right && control != inputField){
 			if (control->y() + control->height() + yoffset <= top->height()) {
 				// The control would become invisible. Queue it for deletion.
 				toremove.append(control);
@@ -321,6 +335,18 @@ void cWorldView::processDoubleClick(QMouseEvent *e) {
 	World->onDoubleClick(e);
 }
 
+void cWorldView::textFieldEnter(cTextField *ctrl) {
+	inputField->setVisible(false);
+
+	QString text = inputField->text();
+	inputField->setText("");
+
+	if (!text.isEmpty()) {
+		// Send the text to the server...
+
+	}
+}
+
 void cWorldView::getWorldRect(int &x, int &y, int &width, int &height) {
 	x = x_ + left->width();
 	y = y_ + top->height();
@@ -336,6 +362,11 @@ void cWorldView::draw(int xoffset, int yoffset) {
 	}
 
 	cWindow::draw(xoffset, yoffset);
+}
+
+void cWorldView::showInputLine() {
+	inputField->setVisible(true);
+	Gui->setInputFocus(inputField);
 }
 
 cWorldView *WorldView = 0;

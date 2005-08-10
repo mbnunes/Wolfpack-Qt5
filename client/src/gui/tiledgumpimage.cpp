@@ -19,6 +19,7 @@ cTiledGumpImage::cTiledGumpImage(unsigned short id, unsigned short hue, bool par
 	texture = 0;
 	moveHandle_ = true;
 	update();
+	alpha_ = 1.0f;
 	if (texture) {
 		setSize(texture->realWidth(), texture->realHeight());
 	}
@@ -39,7 +40,7 @@ void cTiledGumpImage::draw(int xoffset, int yoffset) {
 	if (texture) {
 		texture->bind();
 
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // White. No Alpha.
+		glColor4f(1.0f, 1.0f, 1.0f, alpha_); // White. No Alpha.
 
 		int xcount = (width_ + texture->realWidth() - 1) / texture->realWidth();
 		int ycount = (height_  + texture->realHeight() - 1) / texture->realHeight();
@@ -64,7 +65,7 @@ void cTiledGumpImage::draw(int xoffset, int yoffset) {
 			}
 
 			int drawx = xoffset + x_; // Where to draw the texture
-			int right = drawx + texture->width(); // Coordinate of the last visible right pixel.
+			int right = drawx + texture->realWidth(); // Coordinate of the last visible right pixel.
 
 			glBegin(GL_QUAD_STRIP); // Begin a quad strip for this row of the tiled image.
 
@@ -73,9 +74,9 @@ void cTiledGumpImage::draw(int xoffset, int yoffset) {
 				// This clips this row into the clipping rectangle of this control
 				if (right > maxright) {
                     right = maxright;
-					// Modify the texel coordinates
-					texturex = (right - drawx) / (float)tWidth;
 				}
+				// Modify the texel coordinates
+				texturex = (right - drawx) / (float)tWidth;
 
 				glTexCoord2f(0, 0); glVertex2f(drawx, drawy); // Upper left corner
 				glTexCoord2f(0, texturey); glVertex2f(drawx, bottom); // Lower Left Corner

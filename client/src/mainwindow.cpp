@@ -141,11 +141,12 @@ void MainWindow::menuGameClicked(QAction *action) {
 }
 
 void MainWindow::menuWhere() {
-	QString message = QString("%1,%2,%3,%4").arg(World->x()).arg(World->y()).arg(World->z()).arg(World->facet());
+	QString message = QString("You are currently at %1,%2,%3,%4.").arg(World->x()).arg(World->y()).arg(World->z()).arg(World->facet());
 
 	// Show a window with the current location
-	QErrorMessage *error = new QErrorMessage(this);
-	error->message(message);
+	if (WorldView) {
+		WorldView->addSysMessage(message);
+	}
 }
 
 MainWindow::~MainWindow() {
@@ -307,6 +308,7 @@ void cGLWidget::leaveEvent(QEvent *e) {
 }
 
 void cGLWidget::keyPressEvent(QKeyEvent *e) {
+	ignoreReturn = false;
 	Qt::ButtonState state = e->state();
 	int key = e->key();
 
@@ -329,11 +331,13 @@ void cGLWidget::keyPressEvent(QKeyEvent *e) {
 			}
 		} else if (Gui->inputFocus()) {
 			Gui->inputFocus()->onKeyDown(e);
+			ignoreReturn = true;
 		}
 	} else {
 		// Forward it to the control with the input focus. Otherwise go trough all controls.
 		if (Gui->inputFocus()) {
 			Gui->inputFocus()->onKeyDown(e);
+			ignoreReturn = true;
 		}
 	}
 
@@ -344,6 +348,10 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 	// Forward it to the control with the input focus. Otherwise go trough all controls.
 	if (Gui->inputFocus()) {
 		Gui->inputFocus()->onKeyUp(e);
+	} else {
+		if (!ignoreReturn && WorldView && e->key() == Qt::Key_Return) {
+			WorldView->showInputLine();
+		}
 	}
 
 	// Create a screenshot

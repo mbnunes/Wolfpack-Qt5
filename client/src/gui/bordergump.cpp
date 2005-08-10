@@ -7,6 +7,7 @@
 cBorderGump::cBorderGump(unsigned short id, unsigned short hue) {
 	moveHandle_ = true;
 	setGump(id, hue, true);
+	alpha_ = 1.0f;
 }
 
 cBorderGump::~cBorderGump() {
@@ -90,4 +91,27 @@ void cBorderGump::alignControls() {
 	right->setBounds(width_ - uright->width(), uright->height(), uright->width(), height_ - uright->height() - lright->height());
 	bottom->setBounds(lleft->width(), height_ - lleft->height(), width_ - lleft->width() - lright->width(), lleft->height());
 	center->setBounds(uleft->width(), uleft->height(), width_ - uleft->width() - uright->width(), height_ - uleft->height() - lleft->height());
+}
+
+void cBorderGump::draw(int xoffset, int yoffset) {
+	if (left)
+		left->setAlpha(alpha_);
+	if (right)
+		right->setAlpha(alpha_);
+	if (top)
+		top->setAlpha(alpha_);
+	if (bottom)
+		bottom->setAlpha(alpha_);
+	if (center)
+		center->setAlpha(alpha_);
+	if (uleft)
+		uleft->setAlpha(alpha_);
+	if (uright)
+		uright->setAlpha(alpha_);
+	if (lleft)
+		lleft->setAlpha(alpha_);
+	if (lright)
+		lright->setAlpha(alpha_);
+
+	cContainer::draw(xoffset, yoffset);
 }

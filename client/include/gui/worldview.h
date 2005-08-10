@@ -3,6 +3,7 @@
 #define __WORLDVIEW_H__
 
 #include "gui/container.h"
+#include "gui/textfield.h"
 #include "gui/tiledgumpimage.h"
 #include "gui/window.h"
 #include "gui/cursor.h"
@@ -23,6 +24,7 @@ protected:
 	unsigned int nextSysmessageCleanup;
 
 	enCursorType getCursorType();
+	cTextField *inputField;
 public:
 	// Run a sysmessage cleanup check
 	void cleanSysMessages();
@@ -48,7 +50,11 @@ public:
 
 	void draw(int xoffset, int yoffset);
 
+	void showInputLine();
 	void moveTick();
+
+public slots:
+	void textFieldEnter(cTextField *ctrl);
 };
 
 extern cWorldView *WorldView;

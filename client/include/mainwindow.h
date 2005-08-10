@@ -41,6 +41,7 @@ protected:
 	bool lastDoubleClick;
 	QTimer singleClickTimer;
 	QMouseEvent *singleClickEvent;
+	bool ignoreReturn;
 
 	int lastMouseX, lastMouseY;
 

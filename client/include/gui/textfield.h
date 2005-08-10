@@ -122,6 +122,9 @@ public:
 	inline void setText(const Q3CString &data) {
 		if (text_ != data) {
 			text_ = data;
+			selection_ = 0;
+			caret_ = 0;
+			caretXOffset_ = 0;
 			invalidateText();
 		}
 	}
@@ -158,6 +161,9 @@ public:
 
 	// This is called if enter is pressed
 	void onEnter();
+
+signals:
+	void enterPressed(cTextField *textfield);
 };
 
 #endif

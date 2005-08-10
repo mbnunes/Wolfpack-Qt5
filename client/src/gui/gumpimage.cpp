@@ -25,6 +25,7 @@ cGumpImage::cGumpImage(unsigned short id, unsigned short hue, bool partialHue, b
 	autoSize_ = autoSize;
 	texture = 0;	
 	moveHandle_ = true;
+	alpha_ = 1.0f;
 	update();
 }
 
@@ -40,6 +41,6 @@ void cGumpImage::draw(int xoffset, int yoffset) {
 	}
 
 	if (texture) {
-		texture->draw(xoffset + x_, yoffset + y_);
+		texture->draw(xoffset + x_, yoffset + y_, alpha_);
 	}
 }

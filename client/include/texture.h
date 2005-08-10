@@ -49,7 +49,7 @@ public:
 	unsigned int id() const;
 
 	// Draw a quad that exactly resembles this texture at the given x/y coordinates
-	void draw(int x, int y);
+	void draw(int x, int y, float alpha = 1.0f);
 
 	// Check if a given is transparent (alpha < 128) or not
 	bool hitTest(int x, int y);

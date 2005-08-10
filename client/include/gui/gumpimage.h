@@ -9,6 +9,7 @@ class cGumpImage : public cControl {
 Q_OBJECT
 
 protected:
+	float alpha_;
 	bool dirty;
 	cTexture *texture;
 	unsigned short id_;
@@ -20,6 +21,9 @@ public:
 
 	cGumpImage(unsigned short id, unsigned short hue = 0, bool partialHue = false, bool autoSize = true);
 	virtual ~cGumpImage();
+
+	void setAlpha(float alpha);
+	float alpha() const;
 
 	inline bool autoSize() const { return autoSize_; }
 	inline unsigned short id() const { return id_; }
@@ -60,5 +64,13 @@ public:
 		}
 	}
 };
+
+inline void cGumpImage::setAlpha(float alpha) {
+	alpha_ = alpha;
+}
+
+inline float cGumpImage::alpha() const {
+	return alpha_;
+}
 
 #endif

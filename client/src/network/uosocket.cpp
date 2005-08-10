@@ -10,6 +10,7 @@
 #include "network/outgoingpackets.h"
 #include "dialogs/login.h"
 #include "log.h"
+#include "config.h"
 
 // Packet stream decompressor
 static DecompressingCopier decompressor;
@@ -59,6 +60,7 @@ cUoSocket *UoSocket = 0; // Global cUoSocket instance
 
 cUoSocket::cUoSocket() {
 	encryption = 0;
+	lastDecodedPacketId_ = 0;
 	socket = new Q3Socket(this);
 
 	// Connect the QSocket slots to this class
@@ -75,9 +77,15 @@ cUoSocket::cUoSocket() {
 	for (int i = 0; i < 256; ++i) {
 		incomingPacketConstructors[i] = 0;
 	}*/
+
+	packetLog.setName("packet.log");
+	packetLogStream.setDevice(&packetLog);
 }
 
 cUoSocket::~cUoSocket() {
+	if (packetLog.isOpen()) {
+		packetLog.close();
+	}
 	delete socket;
 }
 
@@ -97,7 +105,7 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	this->hostport = port;
 
 	// Connect to the Socket
-	socket->connectToHost(host, port);	
+	socket->connectToHost(host, port);
 }
 
 void cUoSocket::disconnect() {
@@ -133,6 +141,14 @@ void cUoSocket::poll() {
 		{
 			while (socket->isWritable() && !outgoingQueue.isEmpty()) {
 				QByteArray data = outgoingQueue.first();
+
+				// Log if applicable
+				if (Config->packetLogging()) {
+					if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+						packetLog.write(tr("CLIENT -> SERVER\n%1\n\n").arg(Utilities::dumpData(data)).toLocal8Bit());
+					}
+				}
+
 				socket->writeBlock(data.data(), data.size());
 				outgoingQueue.pop_front();
 			}
@@ -158,6 +174,12 @@ void cUoSocket::send(const cOutgoingPacket &packet) {
     sendRaw(packet.data());
 }
 
+void cUoSocket::logPacket(const QByteArray &data) {
+}
+
+void cUoSocket::logPacket(cIncomingPacket *packet) {
+}
+
 void cUoSocket::buildPackets() {
 	// Process the incoming buffer and split it into packets
 	while (incomingBuffer.size() != 0) {
@@ -165,24 +187,39 @@ void cUoSocket::buildPackets() {
 		unsigned short size = packetLengths[packetId];
 
 		if (size == 0xFFFF) {
-			throw Exception(tr("Received unknown packet from server: %1\n").arg(packetId));
+			throw Exception(tr("Received unknown packet from server: %1. Last Packet: 0x%2.\n").arg(packetId).arg(lastDecodedPacketId_));
 		} else if (size == 0 && incomingBuffer.size() >= 3) {
             unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
 			if (dynamicSize <= incomingBuffer.size()) {				
 				QByteArray packetData(dynamicSize);
 				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
-				memcpy(incomingBuffer.data(), incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
-				incomingBuffer.chop(dynamicSize);
+				incomingBuffer = QByteArray(incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
 				
+				// Log if applicable
+				if (Config->packetLogging()) {
+					if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+						packetLog.write(tr("SERVER -> CLIENT\n%1\n\n").arg(Utilities::dumpData(packetData)).toLocal8Bit());
+					}
+				}
+
 				QDataStream inputData(&packetData, QIODevice::ReadOnly);
 				inputData.setByteOrder(QDataStream::BigEndian);
 				if (incomingPacketConstructors[packetId]) {
 					cIncomingPacket *packet = incomingPacketConstructors[packetId](inputData, dynamicSize);
 					if (packet) {
-						incomingQueue.append(packet);
+						incomingQueue.append(packet);						
 					}
 				}
+
+				lastDecodedPacketId_ = packetId;
 				continue; // See if there's another packet
+			} else {
+				// Packet still incomplete
+				if (Config->packetLogging()) {
+					if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+						packetLog.write(tr("SERVER -> CLIENT\nGot only %1 bytes of %2 for packet 0x%3.\n\n").arg(incomingBuffer.size()).arg(dynamicSize).arg(packetId).toLocal8Bit());
+					}
+				}
 			}
 		} else if (size <= incomingBuffer.size()) {
 			// Completed a packet
@@ -191,15 +228,23 @@ void cUoSocket::buildPackets() {
 			memcpy(incomingBuffer.data(), incomingBuffer.data() + size, incomingBuffer.size() - size);
 			incomingBuffer.resize(incomingBuffer.size() - size);
 
+			// Log if applicable
+			if (Config->packetLogging()) {
+				if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+					packetLog.write(tr("SERVER -> CLIENT\n%1\n\n").arg(Utilities::dumpData(packetData)).toLocal8Bit());
+				}
+			}
+
 			QDataStream inputData(&packetData, QIODevice::ReadOnly);
 			inputData.setByteOrder(QDataStream::BigEndian);
 			if (incomingPacketConstructors[packetId]) {
 				cIncomingPacket *packet = incomingPacketConstructors[packetId](inputData, size);
 				if (packet) {
-					incomingQueue.append(packet);
+					incomingQueue.append(packet);					
 				}
 			}
 
+			lastDecodedPacketId_ = packetId;
 			continue; // See if there's another packet waiting
 		}
 
@@ -212,6 +257,8 @@ void cUoSocket::hostFound() {
 }
 
 void cUoSocket::connected() {
+	decompressor.initialise();
+
 	// Send the UO header we have to send for every connection type
     QByteArray uoHeader(4);
 	uoHeader[0] = (unsigned char)( (seed_ >> 24) & 0xff );
@@ -241,7 +288,7 @@ void cUoSocket::readyRead() {
 		static char out[65535]; // This has to work out...
 		int srclen = data.size();
 		int destsize = 65535;
-		decompressor.initialise();
+		//decompressor.initialise();
 		decompressor(out, data.data(), destsize, srclen);
 		data = QByteArray(out, destsize);
 	}
