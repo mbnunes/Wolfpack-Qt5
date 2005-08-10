@@ -126,7 +126,9 @@ void cMulti::removeObject( cUObject* object )
 bool cMulti::inMulti( const Coord& pos )
 {
 	// Seek tiles with same x,y as pos
-	// Seek for tile which z value <= pos.z + 5 && z value >= pos.z - 5
+	// Items on tables are 6 z higher than the ground
+	// Seek for tile which z value <= pos.z + 6 && z value >= pos.z - 6
+	// pos is in multi if it has a tile above and under it
 	MultiDefinition* multi = MultiCache::instance()->getMulti( id_ - 0x4000 );
 
 	if ( !multi )
@@ -134,6 +136,8 @@ bool cMulti::inMulti( const Coord& pos )
 		return false;
 	}
 
+	bool itemunder = false;
+	bool itemabove = false;
 	QValueVector<multiItem_st> items = multi->getEntries();
 	QValueVector<multiItem_st>::iterator it;
 	for ( it = items.begin(); it != items.end(); ++it )
@@ -148,9 +152,19 @@ bool cMulti::inMulti( const Coord& pos )
 			continue;
 		}
 
-		if ( pos_.z + it->z >= pos.z - 5 && pos_.z + it->z <= pos.z + 5 )
+		if ( pos_.z + it->z >= pos.z - 6 && pos_.z + it->z <= pos.z + 6 )
 		{
 			return true;
+		}
+		if ( pos_.z + it->z > pos.z )
+		{
+			if ( itemunder ) return true;
+			itemabove = true;
+		}
+		if ( pos_.z + it->z < pos.z )
+		{
+			if ( itemabove ) return true;
+			itemunder = true;
 		}
 	}
 
