@@ -172,7 +172,6 @@ def onDropOnItem( container, item ):
 	return False
 
 def onDropOnChar( char, item ):
-
 	dropper = item.container
 
 	# Turn off the lightsource

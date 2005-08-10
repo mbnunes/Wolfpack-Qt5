@@ -70,14 +70,14 @@ def response( char, args, target ):
 		return False
 	else:
 		resname = item.gettag( 'resname' )
-	
+
 	if target.item:
 		targetitem = wolfpack.finditem( target.item.serial )
-	
+
 	elif target.char:
 		char.socket.clilocmessage(501973)
 		return
-	
+
 	# Static Forges can be used, too
 	else:
 		statics = wolfpack.statics(target.pos.x, target.pos.y, target.pos.map, True)
@@ -286,7 +286,7 @@ def dosmelt(char, args):
 		if ore.baseid == DEF_ORES[0] and ore.amount <= 1:
 			char.socket.clilocmessage( 501987, '', GRAY )
 			return False
-	
+
 		if not char.checkskill(MINING, minskill, maxskill):
 			success = 0
 		else:

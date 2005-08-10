@@ -67,7 +67,7 @@ def mappackets(socket, packet):
 		#for pin in pinsstrs:
 		#	parts = pin.split(',')
 		#	pins.append(pin)		
-	
+
 	if not item or item.getoutmostchar() != player:
 		socket.clilocmessage(500685)
 	else:
@@ -155,7 +155,7 @@ def sendmap(player, item, maptype):
 	else:
 		player.socket.sysmessage('Unknown map type: %s.' % maptype)
 		return
-	
+
 	# Send a map detail packet
 	details = wolfpack.packet(0x90, 19)
 	details.setint(1, item.serial)
@@ -167,10 +167,10 @@ def sendmap(player, item, maptype):
 	details.setshort(15, width) # Gump Width
 	details.setshort(17, height) # Gump Height
 	details.send(player.socket)
-	
+
 	# Remove all pins
 	sendmapcommand(player.socket, item, 5)
-	
+
 	# Send all pins anew
 	pins = []
 	if item.hastag('pins'):
@@ -179,7 +179,7 @@ def sendmap(player, item, maptype):
 	for pin in pins:
 		(x, y) = pin.split(',')
 		sendmapcommand(player.socket, item, 1, x=int(x), y=int(y))
-	
+
 	protected = item.hastag('protected')
 	editable = item.hastag('editable')
 	sendmapcommand(player.socket, item, 7, not protected and editable)
@@ -192,14 +192,14 @@ def onUse(player, item):
 	if item.getoutmostchar() != player:
 		player.socket.clilocmessage(500685)
 		return 1
-	
+
 	maptype = ''
 	if item.hastag('type'):
 		maptype = unicode(item.gettag('type'))
-		
+
 	if maptype != '':
 		sendmap(player, item, maptype)
 	else:
 		player.socket.clilocmessage(500208)
-	
+
 	return 1

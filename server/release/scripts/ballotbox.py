@@ -43,8 +43,7 @@ def sendgump( char, item ):
 	gump.addXmfHtmlGump(0, 50, 400, 35, 1011002) # <center>Topic</center>
 	lineCount = topic_length(item)
 	gump.addResizeGump(25, 90, 5120, 350, max( 20 * lineCount, 20))
-	
-	# TODO
+
 	offset = 0
 	for i in range( 1, topic_length(item) + 1 ):
 		line = item.gettag( "topic_%s" % i )
@@ -80,7 +79,6 @@ def sendgump( char, item ):
 
 		gump.addButton( 240, 305, 0xFA5, 0xFA7, 4 );
 		gump.addXmfHtmlGump( 275, 308, 300, 100, 1011007 ) # reset votes
-
 
 	gump.send(char)
 	return False

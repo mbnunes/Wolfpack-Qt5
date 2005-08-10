@@ -77,7 +77,7 @@ def onDelete(object):
 def shrink(socket, command, arguments):
 	socket.sysmessage( 'What do you want to shrink?' )
 	socket.attachtarget( 'figurine.shrinktarget', [] )
-	
+
 def shrinktarget( char, args, target ):
 	if not target.char:
 		char.socket.sysmessage(tr('You can only shrink characters.'))
@@ -85,13 +85,13 @@ def shrinktarget( char, args, target ):
 	if target.char.player:
 		char.socket.sysmessage(tr('You cannot shrink other players.'))
 		return
-		
+
 	bodyinfo = wolfpack.bodyinfo(target.char.id)
-		
+
 	if bodyinfo['figurine'] <= 0 or bodyinfo['figurine'] >= 0x4000:
 		char.socket.sysmessage(tr('You cannot shrink that.'))
 		return
-			
+
 	target.char.sound(SND_IDLE)
 
 	# Create a new figurine and make it newbie
@@ -109,7 +109,6 @@ def shrinktarget( char, args, target ):
 	target.char.owner = None
 	target.char.stablemaster = figurine.serial
 	target.char.addscript('figurine') # This is a figurined NPC
-
 
 #
 # Register the shrink command.

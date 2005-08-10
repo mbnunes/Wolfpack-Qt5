@@ -11,7 +11,7 @@ def onUse( char, item ):
 	if not char.canreach(item, 2):
 		char.socket.clilocmessage(500295)
 		return True
-		
+
 	# already healing?
 	if char.socket.hastag( 'bandage_slipped' ):
 		char.socket.sysmessage( 'You are already healing somebody.' )

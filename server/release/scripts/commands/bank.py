@@ -60,20 +60,19 @@ def callback_bankself( char, args, target ):
 	if not target.char:
 		char.socket.sysmessage( 'You have to target a player.' )
 		return
-		
+
 	container = target.char.itemonlayer( args[0] )
-		
+
 	if not container:
 		char.socket.sysmessage( 'The target has no item on layer 0x%02x' % args[0] )
 		return
-		
+
 	if target.char.socket:
 		if args[0] == LAYER_BANKBOX:
 			char.log(LOG_MESSAGE, "Showing bankbox (0x%x) to character 0x%x.\n" % (container.serial, target.char.serial))
 		else:
 			char.log(LOG_MESSAGE, "Showing container (0x%x) on layer %u to character 0x%x.\n" % (container.serial, args[0], target.char.serial))
 		target.char.socket.sendcontainer( container )
-
 
 def onLoad():
 	wolfpack.registercommand( "bank", bank )

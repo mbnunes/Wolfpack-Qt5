@@ -17,7 +17,7 @@ def addnpc(player, arguments, target):
 
 	npc = wolfpack.addnpc(str(arguments[0]), target.pos)
 	npc.update()
-	
+
 	player.log(LOG_MESSAGE, "Adds npc %s (0x%x) at %s.\n" % (str(arguments[0]), npc.serial, str(target.pos)))
 
 #
@@ -52,39 +52,39 @@ def additem(player, arguments, target):
 	if arguments[1]:
 		item.decay = False
 		item.movable = 3
-		
+
 	if target.item:
 		if target.item.type == 1:
 			target.item.additem(item, 1, 1, 0)
-			
+
 			if arguments[1]:
 				player.log(LOG_MESSAGE, "Adds static item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.serial))
 			else:
 				player.log(LOG_MESSAGE, "Adds item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.serial))
 		elif target.item.container:
 			target.item.container.additem(item, 1, 1, 0)
-			
+
 			if arguments[1]:
 				player.log(LOG_MESSAGE, "Adds static item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.container.serial))
 			else:
 				player.log(LOG_MESSAGE, "Adds item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.container.serial))
 		else:
 			item.moveto(target.item.pos)
-			
+
 			if arguments[1]:
 				player.log(LOG_MESSAGE, "Adds static item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.item.pos)))
 			else:
 				player.log(LOG_MESSAGE, "Adds item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.item.pos)))			
 	elif target.char:
 		item.moveto(target.char.pos)
-		
+
 		if arguments[1]:
 			player.log(LOG_MESSAGE, "Adds static item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.char.pos)))
 		else:
 			player.log(LOG_MESSAGE, "Adds item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.char.pos)))
 	else:
 		item.moveto(target.pos)
-		
+
 		if arguments[1]:
 			player.log(LOG_MESSAGE, "Adds static item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.pos)))
 		else:

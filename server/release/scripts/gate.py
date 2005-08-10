@@ -45,7 +45,7 @@ def onCollide(player, item):
 				follower.removefromview()
 				follower.moveto(pos)
 				follower.update(0)
-				
+
 	player.removefromview()
 	player.moveto(pos)
 	player.update(0)

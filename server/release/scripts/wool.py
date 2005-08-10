@@ -23,9 +23,7 @@ def onUse( char, item ):
 	char.socket.attachtarget( "wool.response", [ item.serial ] )
 	return True
 
-
 def response( char, args, target ):
-
 	direction = char.directionto( target.pos )
 	if not char.direction == direction:
 		char.direction = direction

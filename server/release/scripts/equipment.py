@@ -210,13 +210,13 @@ def onShowTooltip(viewer, object, tooltip):
 		leech = properties.fromitem(object, MANALEECH)
 		if leech:
 			tooltip.add(1060427, str(leech))						
-	
+
 		# Splash 
 		for (effect, cliloc) in {SPLASHPHYSICAL: 1060428, SPLASHFIRE: 1060419, SPLASHCOLD: 1060416, SPLASHPOISON: 1060429, SPLASHENERGY: 1060418}.items():
 			effect = properties.fromitem(object, effect)
 			if effect > 0:
 				tooltip.add(cliloc, str(effect))
-	
+
 		# Hit Effects
 		for (effect, cliloc) in {HITMAGICARROW: 1060426, HITHARM: 1060421, HITFIREBALL: 1060420, HITLIGHTNING: 1060423, HITDISPEL: 1060417}.items():
 			effect = properties.fromitem(object, effect)
@@ -389,7 +389,6 @@ def onShowTooltip(viewer, object, tooltip):
 			except:
 				object.deltag('skillbonus_%u' % i)
 				continue
-				
 	return False
 
 #
@@ -406,7 +405,7 @@ def onWearItem(player, wearer, item, layer):
 			else:
 				player.socket.sysmessage(tr('They cannot equip another so soon after being disarmed.'))
 			return True
-	
+
 	lower = properties.fromitem(item, LOWERREQS) / 100.0
 
 	req_str = item.getintproperty( 'req_strength', 0 )
@@ -538,10 +537,10 @@ def onEquip(char, item, layer):
 			char.settag(tagname, value)
 		else:
 			item.deltag('real_skillbonus_%u' % i)
-			
+
 	# if maximum values aren't updated automatically
 	# we have to do it manually
-	
+
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
 	if bonushitpoints != 0:
@@ -558,7 +557,7 @@ def onEquip(char, item, layer):
 				changed = True
 			else:
 				item.deltag('real_hitpoint_bonus')
-	    
+
 	# Bonus Stamina
 	bonusstamina = properties.fromitem(item, BONUSSTAMINA)
 	if bonusstamina != 0:
@@ -707,7 +706,7 @@ def onUnequip(char, item, layer):
 				char.hitpoints = min(char.hitpoints, char.maxhitpoints)
 				changed = True
 				item.deltag('real_hitpoint_bonus')
-	    
+
 	# Bonus Stamina
 	bonusstamina = properties.fromitem(item, BONUSSTAMINA)
 	if bonusstamina != 0:

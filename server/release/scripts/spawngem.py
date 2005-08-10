@@ -28,9 +28,9 @@ def onShowTooltip(sender, target, tooltip):
 		area = target.gettag('area')
 		mininterval = target.gettag('mininterval')
 		maxinterval = target.gettag('maxinterval')
-		
+
 		appendix = 'Radius: %s\nInterval: %s to %s minutes' % (area, mininterval, maxinterval)
-		
+
 		tooltip.add(1060847, "%s\t\n" % appendix)
 
 #

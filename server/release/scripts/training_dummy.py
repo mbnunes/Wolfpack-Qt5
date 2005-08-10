@@ -56,7 +56,7 @@ def onUse( char, item ):
 
 	# We'll get revealed if successfully punching the dummy
 	char.reveal()
-	
+
 	# This increases the users skill
 	char.checkskill( skill, 0, 1000 )
 

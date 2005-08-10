@@ -125,9 +125,9 @@ def handlepage(socket, packet):
 		if item.hastag('protected'):
 			socket.sysmessage('This book is read only.')
 			return 1
-			
+
 		outmost = item.getoutmostchar()
-		
+
 		if outmost and outmost != socket.player:
 			socket.sysmessage('This book is read only.')
 			return 1 # Not writeable
@@ -192,7 +192,7 @@ def updatebook(socket, packet):
 		return 1
 		
 	outmost = item.getoutmostchar()
-	
+
 	if outmost and outmost != socket.player:
 		socket.sysmessage('This book is read only.')
 		return 1 # Not writeable

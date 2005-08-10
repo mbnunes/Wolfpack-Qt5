@@ -62,7 +62,7 @@ def nuke( socket, command, argstring ):
 			baseid = argstring
 	else:
 		baseid = None
-	
+
 	socket.sysmessage("Select the area to remove")
 	getBoundingBox( socket, wipeBoundingBox, baseid )
 	return True
@@ -82,7 +82,7 @@ def nukez( socket, command, arguments ):
 	except:
 		socket.sysmessage('Invalid z value.')
 		return
-	
+
 	socket.sysmessage("Select the area to remove")
 	getBoundingBox( socket, wipeBoundingBox, [z, baseid] )
 	return True
@@ -104,7 +104,7 @@ def wipeAllWorld( player, accept, state ):
 		item = wolfpack.finditem(serial)
 		if item:
 			item.delete()
-		
+
 	player.socket.sysmessage( "%i items have been removed from world" % len(serials) )
 	return
 

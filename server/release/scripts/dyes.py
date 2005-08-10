@@ -83,7 +83,7 @@ def dyeresponse(socket, packet):
 	if color < 2 or color > 0x3e9:
 		socket.sysmessage("You selected an invalid color.")
 		return 1
-		
+
 	# See if the serial is pointing to a valid object.
 	item = wolfpack.finditem(serial)
 	
@@ -91,7 +91,7 @@ def dyeresponse(socket, packet):
 	if not item or item.baseid != 'fab' or item.getoutmostchar() != socket.player:
 		socket.clilocmessage(500857)
 		return 1
-	
+
 	item.color = color
 	item.update()
 	socket.player.soundeffect(0x023e)

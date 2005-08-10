@@ -247,8 +247,8 @@ def cutItem(char, target):
 
 	else:
 		return False
-	    
+
 	# Resend weight
 	char.socket.resendstatus()
-		
+
 	return True
