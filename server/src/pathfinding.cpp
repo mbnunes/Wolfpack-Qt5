@@ -99,16 +99,21 @@ int cPathfinding::getSuccessors(int node, P_CHAR pChar, int *successors) {
 	coord.x = xoffset + nodex;
 	coord.y = yoffset + nodey;
 
+	// characters may not block our path.
+	// But don't check our goal, this IS blocked in combat.
+
 	// Now this is a personalized loop unrolling effort
 	#define CHECK_OFFSET(xoff,yoff) coord.z = nodez; \
 		coord.x += xoff; \
 		coord.y += yoff; \
 		if (coord.x >= 0 && coord.y >= 0 && coord.x < xoffset + areaSize && coord.y < yoffset + areaSize) { \
 			if (mayWalk(pChar, coord)) { \
-				index = getNodeIndex(coord.x, coord.y, coord.z); \
-				if (index >= 0 && index < nodeCount) { \
-					nodes[index].z = coord.z; \
-					successors[count++] = index; \
+				if (goal == coord || !CheckForCharacterAtXYZ(pChar, coord)) { \
+					index = getNodeIndex(coord.x, coord.y, coord.z); \
+					if (index >= 0 && index < nodeCount) { \
+						nodes[index].z = coord.z; \
+						successors[count++] = index; \
+					} \
 				} \
 			} \
 		}

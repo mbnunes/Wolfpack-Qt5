@@ -709,7 +709,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	return true;
 }
 
-bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos )
+bool CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos )
 {
 	MapCharsIterator ri = MapObjects::instance()->listCharsAtCoord( pos );
 	for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )

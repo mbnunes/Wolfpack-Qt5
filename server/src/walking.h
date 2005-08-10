@@ -47,6 +47,7 @@ struct unitile_st
 }/* PACK*/;
 
 bool mayWalk( P_CHAR pChar, Coord& pos );
+bool CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos );
 
 class cMovement
 {
@@ -58,7 +59,6 @@ public:
 	void CombatWalk( P_CHAR pc );
 	void NpcMovement( unsigned int currenttime, P_NPC pc_i );
 	bool canLandMonsterMoveHere( Coord& ) const;
-	bool CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos );
 	Coord calcCoordFromDir( Q_UINT8 dir, const Coord& oldCoords );
 private:
 	bool consumeStamina( P_PLAYER pChar, bool running );

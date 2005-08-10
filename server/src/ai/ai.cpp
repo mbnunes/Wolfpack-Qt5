@@ -861,7 +861,7 @@ bool Action_Wander::movePath( const Coord& pos, bool run )
 	}
 	else
 	{
-		waitForPathCalculation = 3;
+		waitForPathCalculation = 2;
 		return moveTo( pos, run );
 	}
 }
