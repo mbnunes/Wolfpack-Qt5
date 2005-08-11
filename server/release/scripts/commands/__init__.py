@@ -249,6 +249,15 @@ def gobaseid(socket, command, arguments):
 
 		item = items.next
 
+	chars = wolfpack.chariterator()
+
+	char = chars.first
+	while char:
+		if hash(char.baseid.lower()) == baseid:
+			found.append( char )
+
+		char = chars.next
+
 	if socket.hastag( "gobaseid" ):
 		i = socket.gettag( "gobaseid" ) + 1
 		if i >= len(found):
@@ -260,29 +269,43 @@ def gobaseid(socket, command, arguments):
 		i = 0
 
 	if len(found) == 0:
-		socket.sysmessage('An item with the given baseid was not found.')
-	else:
-		item = found[i]
-		container = item.getoutmostitem()
+		socket.sysmessage('An object with the given baseid was not found.')
+		return False
+
+	object = found[i]
+	uid = hex2dec(object.serial)
+	# Item
+	if uid > 0x40000000:
+		container = object.getoutmostitem()
 
 		if container.container:
 			container = container.container
 
-		if item.name != '':
-			socket.sysmessage("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (item.name, item.serial, container.serial))
+		if object.name != '':
+			socket.sysmessage("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (object.name, object.serial, container.serial))
 		else:
-			socket.sysmessage("Going to item [Serial: 0x%x; Top: 0x%x]." % (item.serial, container.serial))
-			
+			socket.sysmessage("Going to item [Serial: 0x%x; Top: 0x%x]." % (object.serial, container.serial))
+
 		pos = container.pos
 		socket.player.removefromview()
 		socket.player.moveto(pos)
 		socket.player.update()
 		socket.resendworld()
 
-		if item.container:
-			socket.sendobject(item.container)
-			if item.container.isitem():
-				socket.sendcontainer(item.container)
+		if object.container:
+			socket.sendobject(object.container)
+			if object.container.isitem():
+				socket.sendcontainer(object.container)
+	# Char
+	elif uid > 0:
+		if object.rank > socket.player.rank:
+			return False
+		socket.sysmessage('Going to char 0x%x.' % (uid))
+		pos = object.pos
+		socket.player.removefromview()
+		socket.player.moveto(pos)
+		socket.player.update()
+		socket.resendworld()
 
 """
 	\command gouid
