@@ -235,7 +235,6 @@ class EnemyOfOne(Spell):
 		char.socket.sysmessage( tr("Not yet implemented.") )
 
 def expire_enemyofone( char, args ):
-	char.socket.sysmessage( "expire" )
 	if char.hastag( "waitingforenemy" ):
 		char.deltag( "waitingforenemy" )
 	if char.hastag( "enemyofonetype" ):
