@@ -232,8 +232,6 @@ class EnemyOfOne(Spell):
 		char.settag( "waitingforenemy", 0 )
 		char.addtimer( delay * 1000 * 60, expire_enemyofone, [] )
 
-		char.socket.sysmessage( tr("Not yet implemented.") )
-
 def expire_enemyofone( char, args ):
 	if char.hastag( "waitingforenemy" ):
 		char.deltag( "waitingforenemy" )
