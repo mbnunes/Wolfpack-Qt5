@@ -126,6 +126,7 @@
 	<script>commands.events</script>
 	<script>commands.export</script>
 	<script>commands.exportstatics</script>
+	<script>commands.findlock</script>
 	<script>commands.fix</script>
 	<script>commands.follow</script>
 	<script>commands.freeze</script>
