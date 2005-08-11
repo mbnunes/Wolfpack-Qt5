@@ -220,7 +220,28 @@ class EnemyOfOne(Spell):
 		char.soundeffect( 0x1ED )
 		char.effect( 0x375A, 1, 30 )
 		char.effect( 0x37B9, 1, 30 )
+
+		char.stamina = char.maxstamina
+		char.updatestamina()
+		delay = ComputePowerValue( char, 1 )/60
+		if delay < 1.5:
+			delay = 1.5
+		elif delay > 3.5:
+			delay = 3.5
+
+		char.settag( "waitingforenemy", 0 )
+		char.addtimer( delay * 1000 * 60, expire_enemyofone, [] )
+
 		char.socket.sysmessage( tr("Not yet implemented.") )
+
+def expire_enemyofone( char, args ):
+	char.socket.sysmessage( "expire" )
+	if char.hastag( "waitingforenemy" ):
+		char.deltag( "waitingforenemy" )
+	if char.hastag( "enemyofonetype" ):
+		char.deltag( "enemyofonetype" )
+	char.soundeffect( 0x1F8 )
+	return
 
 class HolyLight(Spell):
 	def __init__(self):

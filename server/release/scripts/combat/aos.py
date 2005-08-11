@@ -483,7 +483,21 @@ def hit(attacker, defender, weapon, time):
 	# Give the defender a chance to absorb damage
 	damage = absorbdamage(defender, damage)
 	blocked = damage <= 0
-	
+
+	# Enemy of One (chivalry)
+	if attacker.npc:
+		if defender.player:
+			if defender.hastag( "enemyofonetype" ) and defender.gettag( "enemyofonetype" ) != attacker.id:
+				damage *= 2
+	if defender.npc: # only NPC
+		if attacker.player:
+			if attacker.hastag( "waitingforenemy" ):
+				attacker.settag( "enemyofonetype", defender.id )
+				attacker.deltag( "waitingforenemy" )
+			if attacker.hastag( "enemyofonetype" ) and attacker.gettag( "enemyofonetype" ) == defender.id:
+				defender.effect( 0x37B9, 10, 5 )
+				damage += scaledamage(attacker, 50 )
+
 	# If the attack was parried, the ability was wasted
 	#if damage == 0 and ability:
 	#	#ability.use(attacker)
