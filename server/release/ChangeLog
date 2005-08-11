@@ -153,7 +153,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Dupe command will dupe content of containers, if GMs have the privilege to
   - Fixed issue with tooltip of runebooks if there was a description.
   - Added support for regional mining in mining.py (thx to MagnusBr)
-
+  - Remaining tool uses for different skills were not handled
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

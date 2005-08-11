@@ -1002,7 +1002,8 @@
 		<name>#1044168</name>
 		<id>0xfbf</id>
 		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
-		<basescripts>skills.inscription</basescripts>
+		<basescripts>equipment,skills.inscription</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
 		<weight>1.0</weight>
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>

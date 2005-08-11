@@ -87,7 +87,6 @@ class ScribeItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = False # Scrolls aren't markable
-		self.requiretool = True # But Scrolls require a valid tool
 		self.mana = 0
 		self.spellid = 0
 
@@ -165,6 +164,7 @@ class InscriptionMenu(MakeMenu):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = True	
 		self.gumptype = 0xce123456 # This should be unique
+		self.requiretool = True
 
 #
 # Action for Runebooks only
@@ -173,7 +173,6 @@ class CraftRunebook(CraftItemAction):
 	def __init__(self, parent):
 		CraftItemAction.__init__(self, parent, tr('Runebook'), 0x22c5, '22c5')
 		self.markable = True
-		self.requiretool = True
 		self.runes = 8
 		
 		# Add the other requirements
