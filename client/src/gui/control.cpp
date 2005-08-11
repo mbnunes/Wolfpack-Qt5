@@ -34,9 +34,12 @@ bool cControl::isVisibleOnScreen() {
 		return false;
 	} else {
 		if (parent_) {
+			if (parent_ == Gui) {
+				return true; // We are visible here for sure
+			}
 			return parent_->isVisibleOnScreen();
 		} else {
-			return true;
+			return false; // We are not owned by the gui if we reach this control path
 		}
 	}
 }

@@ -11,6 +11,7 @@ protected:
 	QByteArray m_Data; // The underlying data.
 	QDataStream m_Stream; // The underlying stream.
 
+	void writeUtf8Terminated(const QString &text);
 	void writeBigUnicodeTerminated(const QString &text);
 	void writeFixedAscii(const QString &text, unsigned short length);
 	void writeAscii(const QString &text);

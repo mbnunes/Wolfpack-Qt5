@@ -6,6 +6,7 @@
 #include "gui/gui.h"
 #include "game/world.h"
 #include "game/mobile.h"
+#include "game/targetrequest.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
 #include "uoclient.h"
@@ -102,9 +103,31 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 	inputField->setVisible(false);
 	addControl(inputField);
 	connect(inputField, SIGNAL(enterPressed(cTextField*)), this, SLOT(textFieldEnter(cTextField*)));
+
+	currentTarget = 0;
 }
 
 cWorldView::~cWorldView() {
+}
+
+void cWorldView::requestTarget(cTargetRequest *target) {
+	cancelTarget(); // Cancel current target
+
+	if (target) {
+		currentTarget = target;
+	}
+
+	Cursor->setCursor(getCursorType());
+}
+
+void cWorldView::cancelTarget() {
+	if (currentTarget) {
+		currentTarget->cancel();
+		delete currentTarget;
+		currentTarget = 0;
+	}
+
+	Cursor->setCursor(getCursorType());
 }
 
 cControl *cWorldView::getControl(int x, int y) {
@@ -261,6 +284,15 @@ void cWorldView::moveTick() {
 	World->smoothMove(xdiff, ydiff);
 }
 
+void cWorldView::targetResponse(cEntity *entity) {
+	if (currentTarget) {
+		currentTarget->target(entity);
+		delete currentTarget;
+		currentTarget = 0;
+		Cursor->setCursor(getCursorType());
+	}
+}
+
 enCursorType cWorldView::getCursorType() {
 	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
 	int mx = pos.x();
@@ -270,6 +302,11 @@ enCursorType cWorldView::getCursorType() {
 	if (!ismoving && (mx < x_ + left->width() || mx >= x_ + width_ - right->width() ||
 		my < y_ + top->height() || my >= y_ + height_ - bottom->height())) {
 		return CURSOR_NORMAL;
+	}
+
+	// Return the targetting cursor if we have a target
+	if (currentTarget) {
+		return CURSOR_TARGET;
 	}
 
 	// Get center of world

@@ -11,6 +11,11 @@ cOutgoingPacket::cOutgoingPacket(unsigned char packetId) : m_Stream(&m_Data, QIO
 	}
 }
 
+void cOutgoingPacket::writeUtf8Terminated(const QString &text) {
+	QByteArray encoded = text.toUtf8();
+	m_Stream.writeRawData(encoded.data(), encoded.size() + 1);
+}
+
 void cOutgoingPacket::writeBigUnicodeTerminated(const QString &text) {
 	for (unsigned int i = 0; i < text.length(); ++i) {
 		m_Stream << text.at(i).unicode();

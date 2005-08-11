@@ -27,6 +27,7 @@
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
+				RuntimeTypeInfo="TRUE"
 				AssemblerListingLocation="obj\"
 				ObjectFile="obj\"
 				ProgramDataBaseFileName=".\"
@@ -89,6 +90,7 @@
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
+				RuntimeTypeInfo="TRUE"
 				AssemblerListingLocation="Debug\"
 				ObjectFile="Debug\"
 				ProgramDataBaseFileName=".\"
@@ -297,6 +299,28 @@
 				RelativePath=".\include\game\statictile.h">
 			</File>
 			<File
+				RelativePath=".\src\game\targetrequest.cpp">
+			</File>
+			<File
+				RelativePath=".\include\game\targetrequest.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\src\game\world.cpp">
 			</File>
 			<File
@@ -356,6 +380,9 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_sounds.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_targetrequest.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_textfield.cpp">

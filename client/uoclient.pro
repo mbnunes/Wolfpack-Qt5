@@ -52,7 +52,8 @@ HEADERS += \
 	include/game/groundtile.h \
 	include/game/mobile.h \
 	include/game/statictile.h \
-	include/game/world.h
+	include/game/world.h \
+	include/game/targetrequest.h
 
 # GUI INCLUDES
 HEADERS += \
@@ -84,7 +85,8 @@ HEADERS += \
 	include/muls/textures.h \
 	include/muls/tiledata.h \
 	include/muls/unicodefonts.h \
-	include/muls/verdata.h
+	include/muls/verdata.h \
+	include/muls/speech.h
 
 HEADERS += \
 	include/network/encryption.h \
@@ -146,7 +148,8 @@ SOURCES += \
 	src/game/groundtile.cpp \
 	src/game/mobile.cpp \
 	src/game/statictile.cpp \
-	src/game/world.cpp
+	src/game/world.cpp \
+	src/game/targetrequest.cpp
 
 # MUL srcS
 SOURCES += \
@@ -159,7 +162,8 @@ SOURCES += \
 	src/muls/textures.cpp \
 	src/muls/tiledata.cpp \
 	src/muls/unicodefonts.cpp \
-	src/muls/verdata.cpp
+	src/muls/verdata.cpp \
+	src/muls/speech.cpp
 
 INTERFACES =
 

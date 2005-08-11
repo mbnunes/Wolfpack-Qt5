@@ -302,6 +302,10 @@ unsigned int cContainer::getHighestTabIndex() {
 }
 
 cControl *cContainer::getNextFocusControl(cControl *current) {
+	if (!isVisible()) {
+		return 0;
+	}
+
 	// get *all* subcontrols
 	Controls controls;
 	getContainment(controls);

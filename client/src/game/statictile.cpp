@@ -82,7 +82,7 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 	}
 
 
-	if (id_ == 2 || id_ == 0x21bc || id_ == 0x21a4) {
+	if (id_ == 1 || id_ == 0x21bc || id_ == 0x21a4) {
 		return; // Nodraw Tile
 	}
 

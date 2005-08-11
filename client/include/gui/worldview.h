@@ -7,9 +7,13 @@
 #include "gui/tiledgumpimage.h"
 #include "gui/window.h"
 #include "gui/cursor.h"
+
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <Q3CString>
+
+class cTargetRequest;
+class cEntity;
 
 class cWorldView : public cWindow {
 Q_OBJECT
@@ -25,6 +29,7 @@ protected:
 
 	enCursorType getCursorType();
 	cTextField *inputField;
+	cTargetRequest *currentTarget;
 public:
 	// Run a sysmessage cleanup check
 	void cleanSysMessages();
@@ -43,6 +48,11 @@ public:
 
 	void processDoubleClick(QMouseEvent *e);
 
+	cTargetRequest *targetRequest() const;
+    void requestTarget(cTargetRequest *target);
+	void cancelTarget();
+	void targetResponse(cEntity *entity);
+	bool isTargetting() const;
 	void addSysMessage(const Q3CString &message, unsigned short hue = 0, unsigned char font = 3);
 	void addSysMessage(const QString &message, unsigned short hue = 0x3b2, unsigned char font = 0);
 
@@ -56,6 +66,14 @@ public:
 public slots:
 	void textFieldEnter(cTextField *ctrl);
 };
+
+inline bool cWorldView::isTargetting() const {
+	return currentTarget != 0;
+}
+
+inline cTargetRequest *cWorldView::targetRequest() const {
+	return currentTarget;
+}
 
 extern cWorldView *WorldView;
 

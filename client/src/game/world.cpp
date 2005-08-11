@@ -7,9 +7,11 @@
 #include "game/groundtile.h"
 #include "game/statictile.h"
 #include "game/mobile.h"
+#include "game/targetrequest.h"
 #include "gui/gui.h"
 #include "gui/worldview.h"
 #include "muls/maps.h"
+#include "sound.h"
 #include "mainwindow.h"
 #include <qgl.h>
 
@@ -472,6 +474,17 @@ void cWorld::onClick(QMouseEvent *e) {
 	// Pass the event on to the entity
 	if (found) {
 		if (e->button() == Qt::LeftButton) {
+			// Targetting tages precedence...
+			if (WorldView->targetRequest()) {
+				cTargetRequest *request = WorldView->targetRequest();
+				if (request->isValidTarget(found)) {
+					WorldView->targetResponse(found);
+				} else {
+					Sound->playSound(0x3e8);
+				}
+				return;
+			}
+
 			found->onClick(e);
 		} else if (e->button() == Qt::RightButton) {
 			found->onRightClick(e);

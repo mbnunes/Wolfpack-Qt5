@@ -57,4 +57,11 @@ public:
 	cSendUnicodeSpeechPacket(enSpeechType type, const QString &message, unsigned short color, unsigned char font, const QString &language = QString::null);
 };
 
+// 0x6c Targetting Packet
+class cEntity;
+class cTargetResponsePacket : public cOutgoingPacket {
+public:
+	cTargetResponsePacket(uint targetId, uchar targetType, uchar cursorType, cEntity *target);
+};
+
 #endif

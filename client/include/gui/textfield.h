@@ -143,7 +143,7 @@ public:
 		if (maxLength_ != data) {
 			maxLength_ = data;
 
-			if (text_.length() > maxLength_) {
+			if (text_.length() > (int)maxLength_) {
 				int toremove = text_.length() - maxLength_;
 				text_.remove(text_.length() - toremove, toremove);
 				invalidateText();

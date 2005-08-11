@@ -345,6 +345,11 @@ void cGLWidget::keyPressEvent(QKeyEvent *e) {
 }
 
 void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
+	if (WorldView && WorldView->isTargetting() && e->key() == Qt::Key_Escape) {
+		WorldView->cancelTarget();
+		return;
+	}
+
 	// Forward it to the control with the input focus. Otherwise go trough all controls.
 	if (Gui->inputFocus()) {
 		Gui->inputFocus()->onKeyUp(e);
@@ -421,6 +426,12 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 		control = Gui->getControl(e->x(), e->y());
 	}
 	if (control) {
+		if (control == WorldView && WorldView->targetRequest()) {
+			singleClickTimer.stop();
+			WorldView->onClick(e); // Directly translate to a singleclick event although it's not
+			return;
+		}
+
 		control->onMouseUp(e);
 		mouseCapture = 0; // Reset mouse capture
 	}

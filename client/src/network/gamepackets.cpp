@@ -5,6 +5,7 @@
 #include "gui/worldview.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
+#include "game/targetrequest.h"
 #include "game/world.h"
 #include "sound.h"
 #include "log.h"
@@ -340,7 +341,7 @@ public:
 		ushort *strMessage = new unsigned short[length];
 		
 		// We need to swap the single characters
-		for (int i = 0; i < (length - 1); ++i) {
+		for (unsigned int i = 0; i < (length - 1); ++i) {
 			input >> strMessage[i];
 		}
 
@@ -389,3 +390,35 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x54, cSoundEffectPacket::creator);
+
+// Incoming target request
+class cRequestTargetPacket : public cIncomingPacket {
+protected:
+	unsigned int targetId; // Serial for the target command
+	unsigned char targetType; // 0: Select Dynamic, 1: Select ground (allowed, not mandatory)
+	unsigned char cursorType; // Criminal action?
+public:
+	cRequestTargetPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> targetType >> targetId >> cursorType;
+
+		if (targetType > 1) {
+			targetType = 1; // Only supported targettype for now
+		}
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		if (!WorldView || !WorldView->isVisible()) {
+			return; // Only process targets when ingame
+		}
+
+		// System Message
+		Log->print(LOG_TRACE, tr("Received target request from server with serial 0x%1, type %2, cursor %3.\n").arg(targetId).arg(targetType).arg(cursorType));
+		WorldView->requestTarget(new cServerTargetRequest(targetId, targetType, cursorType));
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cRequestTargetPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x6c, cRequestTargetPacket::creator);
