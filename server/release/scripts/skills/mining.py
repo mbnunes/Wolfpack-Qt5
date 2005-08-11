@@ -425,6 +425,8 @@ def successmining(Oretable, char, gem, resname, size):
 			amountofore = 1
 	else:
 		amountofore = random.randint(MAXAMOUNTCANGET/2, MAXAMOUNTCANGET)
+		if amountofore < 1:
+			amountofore = 1
 
 	if amountofore > resourcecount:		# Just checking if its not picking more Ore than Vein Have
 		amountofore = resourcecount
