@@ -139,8 +139,8 @@ def getvein(Oretable, socket, pos):
 
 	gems = wolfpack.items(gem_x, gem_y, pos.map, 0)
 	for gem in gems:
-		if gem.hastag('resource') and gem.gettag('resource') == 'ore' and gem.hastag('resname'):
-			if Oretable.has_key(gem.gettag('resname')):
+		if gem.hastag('resource') and gem.gettag('resource') == 'ore' and gem.hastag('resname') and gem.hastag('resname2'):
+			if Oretable.has_key(gem.gettag('resname')) and Oretable.has_key(gem.gettag('resname2')):
 				return gem
 			else:
 				gem.delete()
@@ -213,7 +213,6 @@ def response( char, args, target ):
 
 	return True
 
-#Sound effect
 def domining(char, args):
 	char.soundeffect( random.choice([0x125, 0x126]) )
 	tool = wolfpack.finditem(args[0])
@@ -252,10 +251,9 @@ def domining(char, args):
 	if resourcecount == 0:
 		socket.sysmessage("There is no ore here to mine.")
 
-		# Picking the next amount
-		nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
-
 		if not veingem.hastag('resource_empty'):
+			# Picking the next amount
+			nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
 			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 			veingem.addtimer( duration, respawnvein, [nextamount], True )
 			veingem.settag('resource_empty', 1)
@@ -300,7 +298,6 @@ def wearout(char, tool):
 			char.socket.clilocmessage(1044038) # You have worn out your tool!
 	return True
 
-#Sound effect
 def dosandmining(char, args):
 	char.soundeffect( random.choice([0x125, 0x126]))
 	tool = wolfpack.finditem(args[0])
@@ -324,14 +321,14 @@ def dosandmining(char, args):
 
 	resourcecount = veingem.gettag('resourcecount')
 
-	# Picking the next amount
-	nextamount = random.randint(MINING_ORE[0], MINING_ORE[1])
 
 	# Refill the resource gem.
 	if resourcecount == 0:
 		char.socket.clilocmessage(1044629)
 
 		if not veingem.hastag('resource_empty'):
+			# Picking the next amount
+			nextamount = random.randint(MINING_ORE[0], MINING_ORE[1])
 			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 			veingem.addtimer( duration, respawnvein, [nextamount], True )
 			veingem.settag('resource_empty', 1)
@@ -356,11 +353,11 @@ def successsandmining(char, gem):
 	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
 	gem.settag('resourcecount', resourcecount - 1)
 
-	# Picking the next amount
-	nextamount = random.randint(MINING_ORE[0], MINING_ORE[1])
 
 	# Start respawning the sand
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
+		# Picking the next amount
+		nextamount = random.randint(MINING_ORE[0], MINING_ORE[1])
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 		gem.addtimer( delay, respawnvein, [nextamount], True )
 		gem.settag( 'resource_empty', 1 )
@@ -378,11 +375,10 @@ def minegranite(Oretable, char, resname, gem):
 	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
 	gem.settag('resourcecount', resourcecount - 1)
 
-	# Picking the next amount
-	nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
-
 	# Start respawning the ore
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
+		# Picking the next amount
+		nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 		gem.addtimer( delay, respawnvein, [nextamount], True )
 		gem.settag( 'resource_empty', 1 )
@@ -448,11 +444,10 @@ def successmining(Oretable, char, gem, resname, size):
 
 	gem.settag('resourcecount', resourcecount - amountofore)
 
-	# Picking the next amount
-	nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
-
 	# Start respawning the ore
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
+		# Picking the next amount
+		nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 		gem.addtimer( delay, respawnvein, [nexamount], True )
 		gem.settag( 'resource_empty', 1 )
