@@ -224,9 +224,13 @@ inline bool checkBlockingTiles( const QValueList<stBlockingItem>& items, const C
 
 		// 0x244 tiles are handled differently. If they're the only
 		// tile at the xy position, they're blocking.
-		if ( item.maptile && item.id == 0x244 && items.count() != 1 )
+		if ( item.maptile && item.id == 0x244  )
 		{
-			continue;
+			if ( items.count() != 1 )
+			{
+				continue;
+			}
+			return true;
 		}
 
 		// Do we intersect the blocking tile?
