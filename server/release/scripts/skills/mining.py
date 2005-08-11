@@ -449,7 +449,7 @@ def successmining(Oretable, char, gem, resname, size):
 		# Picking the next amount
 		nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-		gem.addtimer( delay, respawnvein, [nexamount], True )
+		gem.addtimer( delay, respawnvein, [nextamount], True )
 		gem.settag( 'resource_empty', 1 )
 
 	message = Oretable[resname][SUCCESSMESSAGE]
