@@ -15,10 +15,12 @@ from wolfpack import console
 from wolfpack.utilities import ismountainorcave, issand, tobackpack
 
 
-#mining called from pickaxe.py and shovel.py
+#mining called from pickaxe.py
 
-#in seconds
-miningdelay = 1000
+MININGDELAY = 1000 #ms
+
+# The Max Amount of Ores that Player can get by each use of mining Skill at 100%
+MAXAMOUNTCANGET = 1
 
 # Mining Harvest Table Items
 REQSKILL = 0
@@ -28,20 +30,37 @@ COLORID = 3
 FINDCHANCE = 4
 ORENAME = 5
 INGOTNAME = 6
+MINAMOUNT = 7
+MAXAMOUNT = 8
 
 # resname, reqSkill, minSkill, sucessmessage, color, find rate (will make a percentage of the total amount),
-# name of ore, name of ingot
+# name of ore, name of ingot, minamount, maxamount
+
+# ALL Ores have to be here!
 ORES = {
-	'iron': [0, -250, 1007072, 0x0, 49, '#1042853', '#1042692'],
-	'dullcopper': [650, 325, 1007073, 0x973, 11, '#1042845', '#1042684'],
-	'shadowiron': [700, 350, 1007074, 0x966, 10, '#1042846', '#1042685'],
-	'copper': [750, 375, 1007075, 0x96d, 8, '#1042847', '#1042686'],
-	'bronze': [800, 400, 1007076, 0x972, 7, '#1042848', '#1042687'],
-	'gold': [850, 425, 1007077, 0x8a5, 6, '#1042849', '#1042688'],
-	'agapite': [900, 450, 1007078, 0x979, 4, '#1042850', '#1042689'],
-	'verite': [950, 475, 1007079, 0x89f, 3, '#1042851', '#1042690'],
-	'valorite': [990, 495, 1007080, 0x8ab, 2, '#1042852', '#1042691']
+	'iron': [0, -250, 1007072, 0x0, 500, '#1042853', '#1042692', 11, 34],
+	'dullcopper': [650, 325, 1007073, 0x973, 112, '#1042845', '#1042684', 11, 34],
+	'shadowiron': [700, 350, 1007074, 0x966, 98, '#1042846', '#1042685', 11, 34],
+	'copper': [750, 375, 1007075, 0x96d, 84, '#1042847', '#1042686', 11, 34],
+	'bronze': [800, 400, 1007076, 0x972, 70, '#1042848', '#1042687', 11, 34],
+	'gold': [850, 425, 1007077, 0x8a5, 56, '#1042849', '#1042688', 11, 34],
+	'agapite': [900, 450, 1007078, 0x979, 42, '#1042850', '#1042689', 11, 34],
+	'verite': [950, 475, 1007079, 0x89f, 28, '#1042851', '#1042690', 11, 34],
+	'valorite': [990, 495, 1007080, 0x8ab, 14, '#1042852', '#1042691', 11, 34]
 }
+
+# A collection of ores that is found in a specified region
+ORES_INCAVE = {
+	'iron': ORES['iron'],
+	'shadowiron': ORES['shadowiron']
+}
+
+def FindOreTable(region):
+	if (region.resores == 'insidecave'):
+		return ORES_INCAVE
+	else:
+		# Default
+		return ORES
 
 def canminesand(char):
 	if char.gm or (char.hastag('sandmining') and not char.skill[MINING] < 1000):
@@ -60,44 +79,46 @@ def mining( char, pos, tool, sand = False ):
 		char.addtimer( 1300, dosandmining, [ tool.serial, pos ] )
 	else:
 		char.addtimer( 1300, domining, [ tool.serial, pos ] )
-	char.socket.settag( 'is_mining', ( wolfpack.time.currenttime() + miningdelay ) )
+	char.socket.settag( 'is_mining', ( wolfpack.time.currenttime() + MININGDELAY ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
 	return True
 
-def createoregem(pos):
+def createoregem(Oretable, pos):
 	gem = wolfpack.additem('ore_gem')
-	gem.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore
-	gem.settag('resname', 'iron') # All veins should default to iron ore.
+
+	# Finding the Default Vein (It is the easiest to find ore in list)
+	HigherChance = 0
+	comresname = 'iron'
+	for (resname, ore) in Oretable.items():
+		if (ore[FINDCHANCE] > HigherChance):
+			HigherChance = ore[FINDCHANCE]
+			comresname = resname
+			gem.settag('resourcecount', random.randint(ore[MINAMOUNT], ore[MAXAMOUNT]))
+
+	# Putting the Default Vein
+	gem.settag('resname', comresname)
 
 	# This will give it a chance to be a random ore type, this can change later.
 	totalchance = 0
-	for ore in ORES.values():
+	for ore in Oretable.values():
 		totalchance += ore[FINDCHANCE]
+
 	colorchance = random.randint(0, totalchance - 1)
 	offset = 0
 	maxreqskill = 0
 
-	for (resname, ore) in ORES.items():
+	for (resname, ore) in Oretable.items():
 		if colorchance >= offset and colorchance < offset + ore[FINDCHANCE]:
 			gem.settag('resname2', resname)
 			maxreqskill = ore[REQSKILL]
 			gem.color = ore[COLORID]
+			gem.settag('resourcecount', random.randint(ore[MINAMOUNT], ore[MAXAMOUNT]))
 			break
 		offset += ore[FINDCHANCE]
 
-	# Find the ore which has the maximum req skill less than ours
-	resname = 'iron'
-	reqskill = 0
-
-	#for (oreresname, ore) in ORES.items():
-	#	if ore[REQSKILL] > reqskill and ore[REQSKILL] < maxreqskill:
-	#		reqskill = ore[REQSKILL]
-	#		resname = oreresname
-
-	#gem.settag('resname2', resname)
-
-	gem.name = 'Ore Gem (%s,%s)' % (resname, gem.gettag('resname2'))
+	# Finally, finalizing the Created Ore
+	gem.name = 'Ore Gem (%s,%s)' % (gem.gettag('resname'), gem.gettag('resname2'))
 	gem.moveto(pos)
 	gem.visible = 0
 	gem.update()
@@ -111,7 +132,7 @@ def createsandgem(pos):
 	gem.update()
 	return gem
 
-def getvein(socket, pos):
+def getvein(Oretable, socket, pos):
 	# 8x8 resource grid
 	gem_x = (pos.x / 8) * 8
 	gem_y = (pos.y / 8) * 8
@@ -119,11 +140,15 @@ def getvein(socket, pos):
 	gems = wolfpack.items(gem_x, gem_y, pos.map, 0)
 	for gem in gems:
 		if gem.hastag('resource') and gem.gettag('resource') == 'ore' and gem.hastag('resname'):
-			return gem
+			if Oretable.has_key(gem.gettag('resname')):
+				return gem
+			else:
+				gem.delete()
 
 	pos.x = gem_x
 	pos.y = gem_y
-	return createoregem(pos)
+
+	return createoregem(Oretable, pos)
 
 def getsandvein(socket, pos):
 	# 8x8 resource grid
@@ -204,7 +229,11 @@ def domining(char, args):
 	#	socket.clilocmessage(501867)
 	#	return False
 
-	veingem = getvein(socket, pos)
+	# Finding the Default Ore table for this Region
+	region = char.region
+	Oretable = FindOreTable(region)
+
+	veingem = getvein(Oretable, socket, pos)
 
 	if not veingem or not veingem.hastag('resourcecount'):
 		return False
@@ -217,15 +246,18 @@ def domining(char, args):
 		resname = veingem.gettag('resname')
 
 	resourcecount = veingem.gettag('resourcecount')
-	reqskill = ORES[resname][REQSKILL]
+	reqskill = Oretable[resname][REQSKILL]
 
 	# Refill the resource gem.
 	if resourcecount == 0:
 		socket.sysmessage("There is no ore here to mine.")
 
+		# Picking the next amount
+		nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
+
 		if not veingem.hastag('resource_empty'):
 			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-			veingem.addtimer( duration, respawnvein, [], True )
+			veingem.addtimer( duration, respawnvein, [nextamount], True )
 			veingem.settag('resource_empty', 1)
 		return False
 
@@ -234,7 +266,7 @@ def domining(char, args):
 		socket.clilocmessage(501869)
 		return False
 
-	chance = max(0, char.skill[MINING] - ORES[resname][MINSKILL]) / 1000.0
+	chance = max(0, char.skill[MINING] - Oretable[resname][MINSKILL]) / 1000.0
 	success = 0
 
 	if not skills.checkskill(char, MINING, chance):
@@ -243,15 +275,15 @@ def domining(char, args):
 
 	# Digs up the large ore.
 	if resourcecount >= 5:
-		successmining(char, veingem, resname, 3)
+		successmining(Oretable, char, veingem, resname, 3)
 
 	# Picks one of the smaller ore types
 	elif resourcecount == 3 or resourcecount == 4:
-		successmining(char, veingem, resname, 2)
+		successmining(Oretable, char, veingem, resname, 2)
 
 	# Smallest ore only
 	elif resourcecount == 1 or resourcecount == 2:
-		successmining(char, veingem, resname, 1)
+		successmining(Oretable, char, veingem, resname, 1)
 	wearout(char, tool)
 
 def wearout(char, tool):
@@ -292,13 +324,16 @@ def dosandmining(char, args):
 
 	resourcecount = veingem.gettag('resourcecount')
 
+	# Picking the next amount
+	nextamount = random.randint(MINING_ORE[0], MINING_ORE[1])
+
 	# Refill the resource gem.
 	if resourcecount == 0:
 		char.socket.clilocmessage(1044629)
 
 		if not veingem.hastag('resource_empty'):
 			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-			veingem.addtimer( duration, respawnvein, [], True )
+			veingem.addtimer( duration, respawnvein, [nextamount], True )
 			veingem.settag('resource_empty', 1)
 		return False
 
@@ -321,17 +356,20 @@ def successsandmining(char, gem):
 	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
 	gem.settag('resourcecount', resourcecount - 1)
 
+	# Picking the next amount
+	nextamount = random.randint(MINING_ORE[0], MINING_ORE[1])
+
 	# Start respawning the sand
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-		gem.addtimer( delay, respawnvein, [], True )
+		gem.addtimer( delay, respawnvein, [nextamount], True )
 		gem.settag( 'resource_empty', 1 )
 
 	char.socket.clilocmessage(1044631) # You carefully dig up sand of sufficient quality for glassblowing.
 
-def minegranite(char, resname, gem):
+def minegranite(Oretable, char, resname, gem):
 	granite = wolfpack.additem('%s_granite' % resname)
-	granite.color = ORES[resname][COLORID]
+	granite.color = Oretable[resname][COLORID]
 	if not tobackpack(granite, char):
 		granite.update()
 	# Resend weight
@@ -340,10 +378,13 @@ def minegranite(char, resname, gem):
 	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
 	gem.settag('resourcecount', resourcecount - 1)
 
+	# Picking the next amount
+	nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
+
 	# Start respawning the ore
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-		gem.addtimer( delay, respawnvein, [], True )
+		gem.addtimer( delay, respawnvein, [nextamount], True )
 		gem.settag( 'resource_empty', 1 )
 
 	# You carefully extract some workable stone from the ore vein!
@@ -351,7 +392,7 @@ def minegranite(char, resname, gem):
 
 	return True
 
-def successmining(char, gem, resname, size):
+def successmining(Oretable, char, gem, resname, size):
 	if not char:
 		return False
 
@@ -361,7 +402,7 @@ def successmining(char, gem, resname, size):
 	if canminegranite(char)	and char.hastag( "mining" ) and char.gettag( "mining" ) == "ore,stone":
 		# 50% possibility of mining granite
 		if random.randint(1,100) <= 50:
-			minegranite(char, resname, gem)
+			minegranite(Oretable, char, resname, gem)
 			return True
 			#char.socket.sysmessage("tet")
 
@@ -376,12 +417,28 @@ def successmining(char, gem, resname, size):
 		raise RuntimeException, "Invalid ore size: %u" % size
 
 	item.settag('resname', resname)
-	item.color = ORES[resname][COLORID]
+	item.color = Oretable[resname][COLORID]
 
-	if FELUCIA2XRESGAIN and char.pos.map == 0:
-		item.amount = 2
+	# Getting ResourceCount from Spot
+	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
+
+	# Checking the Amount of Ores
+	if char.skill[MINING] < 1000:
+		amountofore = random.randint(((MAXAMOUNTCANGET * char.skill[MINING])/1000)/2, (MAXAMOUNTCANGET * char.skill[MINING])/1000)
+		if amountofore < 1:
+			amountofore = 1
 	else:
-		item.amount = 1
+		amountofore = random.randint(MAXAMOUNTCANGET/2, MAXAMOUNTCANGET)
+
+	if amountofore > resourcecount:		# Just checking if its not picking more Ore than Vein Have
+		amountofore = resourcecount
+
+	# Holding the Amount of Resources generated
+	# Double resources for Felucia if its defined
+	if FELUCIA2XRESGAIN and char.pos.map == 0:
+		item.amount = 2 * amountofore
+	else:
+		item.amount = amountofore
 
 	if not tobackpack(item, char):
 		item.update()
@@ -389,16 +446,18 @@ def successmining(char, gem, resname, size):
 	# Resend weight
 	char.socket.resendstatus()
 
-	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
-	gem.settag('resourcecount', resourcecount - 1)
+	gem.settag('resourcecount', resourcecount - amountofore)
+
+	# Picking the next amount
+	nextamount = random.randint(Oretable[resname][MINAMOUNT], Oretable[resname][MAXAMOUNT])
 
 	# Start respawning the ore
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-		gem.addtimer( delay, respawnvein, [], True )
+		gem.addtimer( delay, respawnvein, [nexamount], True )
 		gem.settag( 'resource_empty', 1 )
 
-	message = ORES[resname][SUCCESSMESSAGE]
+	message = Oretable[resname][SUCCESSMESSAGE]
 	# You dig some %s and put it in your backpack.
 	if type( message ) == int:
 		char.socket.clilocmessage( message, "", GRAY )
@@ -408,6 +467,7 @@ def successmining(char, gem, resname, size):
 
 def respawnvein( vein, args ):
 	if vein and vein.hastag('resource_empty') and vein.gettag('resourcecount') == 0:
-		vein.settag('resourcecount', random.randint( MINING_ORE[0], MINING_ORE[1] ) )
+		resname = vein.gettag('resname')
+		vein.settag('resourcecount', args[0])
 		vein.deltag('resource_empty')
 	return True

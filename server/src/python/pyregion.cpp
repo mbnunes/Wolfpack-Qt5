@@ -134,6 +134,11 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	else if ( !strcmp( name, "name" ) )
 		return QString2Python( self->pRegion->name() );
 	/*
+		\rproperty region.resores The Definition of Ores of this Region.
+	*/
+	else if ( !strcmp( name, "resores" ) )
+		return QString2Python( self->pRegion->resores() );
+	/*
 		\rproperty region.midilist A list of midi sounds to be played for this region.
 	*/
 	else if ( !strcmp( name, "midilist" ) )

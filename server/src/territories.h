@@ -59,6 +59,10 @@ public:
 	{
 		return name_;
 	}
+	QString resores( void ) const
+	{
+		return resores_;
+	}
 	QString midilist( void ) const
 	{
 		return midilist_;
@@ -253,6 +257,8 @@ private:
 private:
 	QString midilist_; // midilist to play
 
+	QString resores_; // Resources Ores (Mining)
+	
 	Q_UINT16 flags_; // flags like guarded, mark allowed, etc. (see getters)
 
 	QString guardowner_;

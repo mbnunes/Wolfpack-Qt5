@@ -46,6 +46,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - NPC can be overloaded now.
   - Items will fall to ground if you are overloaded and want to put it in your backpack.
   - Fixed items decaying in multis, if they lay on tables.
+  - Added support for regional mining in regions with <RESORES></RESORES>. (thx to MagnusBr)
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -151,7 +152,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented Cooking.
   - Dupe command will dupe content of containers, if GMs have the privilege to
   - Fixed issue with tooltip of runebooks if there was a description.
-  - 
+  - Added support for regional mining in mining.py (thx to MagnusBr)
+
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

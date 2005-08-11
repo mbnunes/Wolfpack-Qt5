@@ -72,6 +72,7 @@ void cTerritory::init( void )
 {
 	cBaseRegion::init();
 	midilist_ = "";
+	resores_ = "";
 	flags_ = 0;
 	guardowner_ = QString();
 	snowchance_ = 50;
@@ -121,6 +122,10 @@ void cTerritory::processNode( const cElement* Tag )
 			this->guardowner_ = "";
 		else
 			this->guardowner_ = Value;
+
+	// <resores>ORES</resores>
+	else if ( TagName == "resores" )
+		this->resores_ = Value;
 
 	// <midilist>MIDI_COMBAT</midilist>
 	else if ( TagName == "midilist" )
