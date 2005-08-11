@@ -23,6 +23,11 @@ def isrune( item ):
 			return False
 
 def onUse( char, item ):
+	# We only can rename marked runes
+	if item.gettag( 'marked' ) != 1:
+		char.socket.sysmessage( "This rune is not marked." )
+		return True
+
 	# We are only handling runes
 	if not isrune( item ):
 		return 0
@@ -30,11 +35,6 @@ def onUse( char, item ):
 	# It needs to be on our body
 	if item.getoutmostchar() != char:
 		char.socket.sysmessage( "The rune needs to be in your posession to rename it." )
-		return True
-
-	# We only can rename marked runes
-	if item.gettag( 'marked' ) != 1:
-		char.socket.sysmessage( "This rune is not marked." )
 		return True
 
 	gump = cGump( 0, 0, 0, 50, 50 )
