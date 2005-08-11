@@ -38,6 +38,8 @@ protected:
 	unsigned int tabIndex_; // The tab index of this control. By defaults it the highest tab index in the parent + 1
 
 public:	
+	bool isVisibleOnScreen();
+
 	inline cContainer *parent() { return parent_; }
 	// NOTE: This function does not add or remove the control from the parents control array
 	virtual void setParent(cContainer *data);

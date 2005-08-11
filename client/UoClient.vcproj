@@ -892,6 +892,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\muls\speech.cpp">
+			</File>
+			<File
+				RelativePath=".\include\muls\speech.h">
+			</File>
+			<File
 				RelativePath=".\src\muls\textures.cpp">
 			</File>
 			<File

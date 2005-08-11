@@ -1,5 +1,7 @@
 
 #include "network/outgoingpackets.h"
+#include "muls/speech.h"
+#include "log.h"
 
 cLoginPacket::cLoginPacket(const QString &username, const QString &password) : cOutgoingPacket(0x80, 62) {
 	writeFixedAscii(username, 30);
@@ -37,4 +39,33 @@ cDoubleClickPacket::cDoubleClickPacket(unsigned int serial) : cOutgoingPacket(0x
 
 cResyncPacket::cResyncPacket() : cOutgoingPacket(0x22, 3) {
 	fill(2, 0);
+}
+
+cSendUnicodeSpeechPacket::cSendUnicodeSpeechPacket(enSpeechType type, const QString &message, unsigned short color, unsigned char font, const QString &language) : cOutgoingPacket(0xad, 14) {
+	QVector<unsigned short> keywords = Speech->match(message); // Speech.mul keywords
+
+	for (int i = 0; i < keywords.size(); ++i) {
+		Log->print(LOG_MESSAGE, QString("Text '%1' contains Keyword %2.\n").arg(message).arg(keywords[i]));
+	}
+
+	// Prepare the language string for the speech.
+	char lang[4] = "enu";
+	if (!language.isEmpty()) {
+		QByteArray qbaLang = language.toLatin1();
+		memcpy(lang, qbaLang.constData(), qMin<size_t>(3, qbaLang.length()));
+	}
+
+	// Two different packet formats
+	if (keywords.size() > 0) {
+		m_Stream << (unsigned char)(type | 0xc0) << color << (unsigned short)font;
+		m_Stream.writeRawBytes(lang, 4);
+	} else {
+		m_Stream << (unsigned char)type << color << (unsigned short)font;
+		m_Stream.writeRawBytes(lang, 4);
+		
+		// Simply dump the unicode string in big endian
+		writeBigUnicodeTerminated(message);		
+	}
+
+	writeDynamicSize();
 }

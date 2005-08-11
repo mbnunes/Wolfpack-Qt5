@@ -86,4 +86,16 @@ enum enLayer {
 		LAYER_COUNT
 };
 
+// Speech Types
+enum enSpeechType {
+	SPEECH_REGULAR = 0,
+	SPEECH_BROADCAST,
+	SPEECH_EMOTE,
+	SPEECH_LABEL = 6,
+	SPEECH_EMPHASIS,
+	SPEECH_WHISPER,
+	SPEECH_YELL,
+	SPEECH_SPELL,
+};
+
 #endif

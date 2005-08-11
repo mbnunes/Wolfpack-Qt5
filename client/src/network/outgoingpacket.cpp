@@ -11,6 +11,13 @@ cOutgoingPacket::cOutgoingPacket(unsigned char packetId) : m_Stream(&m_Data, QIO
 	}
 }
 
+void cOutgoingPacket::writeBigUnicodeTerminated(const QString &text) {
+	for (unsigned int i = 0; i < text.length(); ++i) {
+		m_Stream << text.at(i).unicode();
+	}
+	m_Stream << (unsigned short)0;
+}
+
 cOutgoingPacket::cOutgoingPacket(unsigned char packetId, unsigned short size) : m_Stream(&m_Data, QIODevice::WriteOnly) {
 	m_packetId = packetId;
 	m_Data.fill(0, size);
@@ -20,7 +27,16 @@ cOutgoingPacket::cOutgoingPacket(unsigned char packetId, unsigned short size) : 
 	// Dynamic packet
 	if (isDynamicSize()) {
 		m_Stream << size;
-	}		
+	}
+}
+
+void cOutgoingPacket::writeDynamicSize() {
+    unsigned short size = m_Data.size();
+
+	if (size >= 3) {
+		m_Data[1] = (unsigned char)((size >> 8) & 0xFF);
+		m_Data[2] = (unsigned char)(size & 0xFF);
+	}
 }
 
 bool cOutgoingPacket::isDynamicSize() const {

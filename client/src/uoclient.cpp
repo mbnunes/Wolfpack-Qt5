@@ -28,6 +28,7 @@
 #include "muls/asciifonts.h"
 #include "muls/unicodefonts.h"
 #include "muls/sounds.h"
+#include "muls/speech.h"
 #include "muls/tiledata.h"
 #include "muls/textures.h"
 
@@ -63,9 +64,10 @@ cUoClient::cUoClient() {
 	Maps = new cMaps;
 	Textures = new cTextures;
 	Sounds = new cSounds;
+	Speech = new cSpeech;
 	Sound = new cSound;
 
-	World = new cWorld;
+	World = new cWorld;	
 
 	ContextMenu = new cContextMenu;
 	LoginDialog = new cLoginDialog;
@@ -79,6 +81,7 @@ cUoClient::~cUoClient() {
 	delete LoginDialog;
 	delete Cursor;
 
+	delete Speech;
 	delete Animations;
 	delete Textures;
 	delete Maps;
@@ -126,6 +129,7 @@ void cUoClient::load() {
 	Textures->load();
 	Animations->load();
 	Sounds->load();
+	Speech->load();
 	Sound->load();
 
 	Cursor->load(); // The cursor requires the mulreader classes
@@ -144,6 +148,7 @@ void cUoClient::unload() {
 	UnicodeFonts->unload();
 	AsciiFonts->unload();
 	Art->unload();
+	Speech->unload();
 	Hues->unload();
 	Gumpart->unload();
 	Verdata->unload();

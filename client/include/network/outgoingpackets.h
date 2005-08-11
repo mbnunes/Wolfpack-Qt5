@@ -3,6 +3,7 @@
 #define __OUTGOINGPACKETS_H__
 
 #include "network/outgoingpacket.h"
+#include "enums.h"
 
 /*
 	This file contains class definitions for outgoing packets.
@@ -48,6 +49,12 @@ public:
 class cResyncPacket : public cOutgoingPacket {
 public:
 	cResyncPacket();
+};
+
+// 0xad	Send unicode speech
+class cSendUnicodeSpeechPacket : public cOutgoingPacket {
+public:
+	cSendUnicodeSpeechPacket(enSpeechType type, const QString &message, unsigned short color, unsigned char font, const QString &language = QString::null);
 };
 
 #endif

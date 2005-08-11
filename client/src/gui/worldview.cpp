@@ -6,6 +6,8 @@
 #include "gui/gui.h"
 #include "game/world.h"
 #include "game/mobile.h"
+#include "network/outgoingpackets.h"
+#include "network/uosocket.h"
 #include "uoclient.h"
 #include "mainwindow.h"
 #include <math.h>
@@ -343,7 +345,8 @@ void cWorldView::textFieldEnter(cTextField *ctrl) {
 
 	if (!text.isEmpty()) {
 		// Send the text to the server...
-
+		cSendUnicodeSpeechPacket packet(SPEECH_REGULAR, text, 0x3b2, 0);		
+		UoSocket->send(packet);
 	}
 }
 

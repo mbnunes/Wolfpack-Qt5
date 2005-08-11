@@ -29,6 +29,18 @@ cControl::cControl() {
 cControl::~cControl() {
 }
 
+bool cControl::isVisibleOnScreen() {
+	if (!isVisible()) {
+		return false;
+	} else {
+		if (parent_) {
+			return parent_->isVisibleOnScreen();
+		} else {
+			return true;
+		}
+	}
+}
+
 void cControl::setAlign(enControlAlign align) {
 	enControlAlign oldalign = align_;
 	align_ = align;

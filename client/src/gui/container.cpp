@@ -309,7 +309,7 @@ cControl *cContainer::getNextFocusControl(cControl *current) {
 	cControl *result = 0;
 	unsigned int tabindex = current ? current->tabIndex() : 0;
 	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
-		if ((*it)->isVisible() && (*it)->canHaveFocus() && (*it)->tabIndex() > tabindex) {
+		if ((*it)->isVisibleOnScreen() && (*it)->canHaveFocus() && (*it)->tabIndex() > tabindex) {
 			result = *it;
 			break;
 		}
@@ -335,7 +335,7 @@ cControl *cContainer::getPreviousFocusControl(cControl *current) {
 	unsigned int currentIndex = 0;
 
 	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
-		if ((*it)->isVisible() && (*it)->canHaveFocus()) {
+		if ((*it)->isVisibleOnScreen() && (*it)->canHaveFocus()) {
 			// Highest?
 			if ((*it)->tabIndex() > (lastControl ? lastControl->tabIndex() : 0)) {
 				lastControl = *it;

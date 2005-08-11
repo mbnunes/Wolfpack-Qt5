@@ -11,9 +11,11 @@ protected:
 	QByteArray m_Data; // The underlying data.
 	QDataStream m_Stream; // The underlying stream.
 
+	void writeBigUnicodeTerminated(const QString &text);
 	void writeFixedAscii(const QString &text, unsigned short length);
 	void writeAscii(const QString &text);
 	void fill(unsigned short size, unsigned char value);
+	void writeDynamicSize();
 public:
 	bool isDynamicSize() const;
 
