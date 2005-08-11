@@ -14,7 +14,7 @@ def bulletinboard(socket, packet):
 
 		if not board or not char.canreach(board, 3):
 			char.socket.clilocmessage(1019045)
-			return
+			return True
 
 		# Post a new message
 		if subcommand == 5:
@@ -187,7 +187,6 @@ def bulletinboard(socket, packet):
 					packet.setbyte(offset, linelen)
 					packet.setascii(offset + 1, line.encode('utf-8'))
 					offset += linelen + 1
-
 				packet.send(char.socket)
 
 			else:
@@ -265,6 +264,8 @@ def bulletinboard(socket, packet):
 	except:
 		socket.sysmessage('Invalid bulletin board packet.')
 		raise
+
+	return True
 
 def findMessages(parent, messages):
 	for item in parent.content:
