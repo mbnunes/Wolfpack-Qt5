@@ -203,13 +203,11 @@ class MakeItemAction(MakeAction):
 		gump.addTiledGump(10, 300, 150, 22, 2624)
 		gump.addCheckerTrans(10, 10, 510, 397)
 
-		if type(self.title) == int:
-			gump.addXmfHtmlGump(180, 12, 510, 20, self.title, False, False, enabledcolor)
+		if self.title.isdigit():
+			gump.addXmfHtmlGump(180, 12, 510, 20, int(self.title), False, False, enabledcolor)
 		else:
-			if self.title.isdigit():
-				gump.addXmfHtmlGump(180, 12, 510, 20, int(self.title), False, False, enabledcolor)
-			else:
-				gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
+			gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
+
 		if self.itemid != 0:
 			gump.addTilePic(15, 42, self.itemid)
 		gump.addHtmlGump(10, 132, 150, 20, centerhtml % tr("SKILLS"))
@@ -222,13 +220,10 @@ class MakeItemAction(MakeAction):
 		gump.addText(410, 389, tr("Make Now"), enabledhue)
 
 		# Item Name
-		if type(self.title) == int:
-			gump.addXmfHtmlGump(245, 39, 285, 20, self.title, False, False, enabledcolor)
+		if self.title.isdigit():
+			gump.addXmfHtmlGump(245, 39, 285, 20, int(self.title), False, False, enabledcolor)
 		else:
-			if self.title.isdigit():
-				gump.addXmfHtmlGump(245, 39, 285, 20, int(self.title), False, False, enabledcolor)
-			else:
-				gump.addText(245, 39, self.title, enabledhue)
+			gump.addText(245, 39, self.title, enabledhue)
 
 		# Scrollable Skill List
 		gump.addHtmlGump(170, 132, 345, 76, whitehtml % self.skillshtml, 0, self.skillshtml.count('<br>') > 4)
@@ -941,8 +936,8 @@ class MakeMenu:
 							gump.addButton(480, yoffset, 4011, 4012, 0x08000000 | j)
 
 						# Item Name
-						if type(menu.subactions[action].title) == int:
-							gump.addXmfHtmlGump(255, yoffset + 3, 275, 20, menu.subactions[action].title, False, False, enabledcolor)
+						if menu.subactions[action].title.isdigit():
+							gump.addXmfHtmlGump(255, yoffset + 3, 275, 20, int(menu.subactions[action].title), False, False, enabledcolor)
 						else:
 							gump.addText(255, yoffset + 3, menu.subactions[action].title, enabledhue)
 						yoffset += 20
@@ -1617,7 +1612,11 @@ class MakeMenu:
 		gump.addTiledGump(215, 37, 305, 250, 0xA40)
 		gump.addCheckerTrans(10, 10, 510, 368)
 
-		gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
+		if self.title.isdigit():
+			gump.addXmfHtmlGump(230, 12, 510, 20, int(self.title), 0, 0, enabledcolor)
+		else:
+			gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
+
 		gump.addHtmlGump(10, 39, 200, 20, centerhtml % tr("CATEGORIES"))
 		gump.addHtmlGump(215, 39, 305, 20, centerhtml % tr("SELECTIONS"))
 
@@ -1675,21 +1674,15 @@ class MakeMenu:
 						if self.subactions[menus + j].hasdetails:
 							gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
 
-						if type(self.subactions[menus + j].title) == int:
+						if self.subactions[menus + j].title.isdigit():
 							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0x7FFF)
 						else:
-							if self.subactions[menus + j].title.isdigit():
-								gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0x7FFF)
-							else:
-								gump.addText(255, yoffset+3, self.subactions[menus + j].title, enabledhue)
+							gump.addText(255, yoffset+3, self.subactions[menus + j].title, enabledhue)
 					else:
-						if type(self.subactions[menus + j].title) == int:
+						if self.subactions[menus + j].title.isdigit():
 							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), 0, 0, disabledcolor)
 						else:
-							if self.subactions[menus + j].title.isdigit():
-								gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), 0, 0, disabledcolor)
-							else:
-								gump.addText(255, yoffset+3, self.subactions[menus + j].title, disabledhue)
+							gump.addText(255, yoffset+3, self.subactions[menus + j].title, disabledhue)
 			menus += 9
 
 			# Add a back button
