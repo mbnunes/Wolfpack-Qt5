@@ -1662,7 +1662,10 @@ class MakeMenu:
 				if actions + j < len(self.submenus):
 					yoffset = 80 + 20 * j
 					gump.addButton(15, yoffset, 4005, 4007, 0x01000000 | (actions + j))
-					gump.addText(50, yoffset + 3, self.submenus[actions + j].title, enabledhue)
+					if self.submenus[actions + j].title.isdigit():
+						gump.addXmfHtmlGump(50, yoffset + 3, 150, 20, int(self.submenus[actions + j].title), 0, 0, enabledcolor)
+					else:
+						gump.addText(50, yoffset + 3, self.submenus[actions + j].title, enabledhue)
 			actions += 9
 
 			# Fill the page with subactions
