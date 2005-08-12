@@ -24,6 +24,32 @@ whitehtml = '<basefont color="#FFFFFF">%s'
 grayhtml = '<basefont color="#999999">%s'
 centerhtml = '<basefont color="#FFFFFF"><div align="center">%s</div>'
 
+def generateNamefromDef(itemdef):
+	name = ''
+	item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
+	if not item:
+		return name
+
+	# If items name is given use it
+	itemchild = item.findchild('name')
+	if itemchild:
+		name = itemchild.value
+		if name != '':
+			# Remove leading # of clilocids
+			if name.startswith('#') and len(name) > 1:
+				name = name[1:]
+
+	# We found a name
+	if name != '':
+		return name
+	
+	# Generate the cliloc from items itemid
+	itemchild = item.findchild('id')
+	if itemchild:
+		name = str( 1020000 + int(itemchild.value) )
+	
+	return name
+
 #
 # Response action for a MakeAction Details gump.
 #
@@ -171,9 +197,12 @@ class MakeItemAction(MakeAction):
 		gump.addCheckerTrans(10, 10, 510, 397)
 
 		if type(self.title) == int:
-			gump.addXmfHtmlGump(10, 12, 510, 20, self.title, False, False, 0xFFFFFF)
+			gump.addXmfHtmlGump(180, 12, 510, 20, self.title, False, False, 0xFFFFFF)
 		else:
-			gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
+			if self.title.isdigit():
+				gump.addXmfHtmlGump(180, 12, 510, 20, int(self.title), False, False, 0xFFFFFF)
+			else:
+				gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
 		if self.itemid != 0:
 			gump.addTilePic(15, 42, self.itemid)
 		gump.addHtmlGump(10, 132, 150, 20, centerhtml % tr("SKILLS"))
@@ -189,7 +218,10 @@ class MakeItemAction(MakeAction):
 		if type(self.title) == int:
 			gump.addXmfHtmlGump(245, 39, 285, 20, self.title, False, False, 0xFFFFFF)
 		else:
-			gump.addText(245, 39, self.title, 0x480)
+			if self.title.isdigit():
+				gump.addXmfHtmlGump(245, 39, 285, 20, int(self.title), False, False, 0xFFFFFF)
+			else:
+				gump.addText(245, 39, self.title, 0x480)
 
 		# Scrollable Skill List
 		gump.addHtmlGump(170, 132, 345, 76, whitehtml % self.skillshtml, 0, self.skillshtml.count('<br>') > 4)

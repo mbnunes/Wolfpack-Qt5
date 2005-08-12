@@ -9,7 +9,7 @@ from wolfpack import console, tr
 from wolfpack.consts import *
 import math
 import wolfpack
-from system.makemenus import CraftItemAction, MakeMenu, findmenu
+from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefromDef
 from wolfpack.utilities import hex2dec, tobackpack
 from wolfpack.properties import itemcheck, fromitem
 import random
@@ -315,11 +315,10 @@ def loadMenu(id, parent = None):
 
 		# Craft an item
 		elif child.name in ['tailor', 'setailor']:
-			if not child.hasattribute('definition') or not child.hasattribute('name'):
-				console.log(LOG_ERROR, "Tailor action without definition or name in menu %s.\n" % menu.id)
+			if not child.hasattribute('definition'):
+				console.log(LOG_ERROR, "Tailor action without definition in menu %s.\n" % menu.id)
 			else:
 				itemdef = child.getattribute('definition')
-				name = child.getattribute('name')
 				try:
 					# See if we can find an item id if it's not given
 					if not child.hasattribute('itemid'):
@@ -333,6 +332,10 @@ def loadMenu(id, parent = None):
 							console.log(LOG_ERROR, "Tailor action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
+					if child.hasattribute('name'):
+						name = child.getattribute('name')
+					else:
+						name = generateNamefromDef(itemdef)
 					if child.name == 'setailor':
 						action = SeTailorItemAction(menu, name, int(itemid), itemdef)
 					else:

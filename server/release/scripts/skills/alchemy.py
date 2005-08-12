@@ -5,7 +5,7 @@ import random
 from wolfpack import console
 from wolfpack.consts import ALCHEMY, LOG_ERROR, WPDT_MENU, WPDT_ITEM, skillnamesids
 from wolfpack import properties
-from system.makemenus import CraftItemAction, MakeMenu, findmenu
+from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefromDef
 from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
 
 
@@ -106,11 +106,10 @@ def loadMenu(id, parent = None):
 
 		# Craft an item
 		elif child.name == 'craft':
-			if not child.hasattribute('definition') or not child.hasattribute('name'):
-				console.log(LOG_ERROR, "craft action without definition or name in menu %s.\n" % menu.id)
+			if not child.hasattribute('definition'):
+				console.log(LOG_ERROR, "craft action without definition in menu %s.\n" % menu.id)
 			else:
 				itemdef = child.getattribute('definition')
-				name = child.getattribute('name')
 				try:
 					# See if we can find an item id if it's not given
 					if not child.hasattribute('itemid'):
@@ -125,6 +124,10 @@ def loadMenu(id, parent = None):
 				except Exception, e:
 					console.log(LOG_ERROR, "Craft action with invalid item id in menu %s: %s\n" % (menu.id, str(e)))
 
+				if child.hasattribute('name'):
+					name = child.getattribute('name')
+				else:
+					name = generateNamefromDef(itemdef)
 				action = BrewItemAction(menu, name, int(itemid), itemdef)
 
 				# Process subitems

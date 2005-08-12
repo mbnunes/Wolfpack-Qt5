@@ -9,7 +9,7 @@ import wolfpack
 from wolfpack import console
 from wolfpack.consts import COOKING, LOG_ERROR, WPDT_MENU, WPDT_ITEM
 from wolfpack import tr
-from system.makemenus import CraftItemAction, MakeMenu, findmenu
+from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefromDef
 from wolfpack.utilities import hex2dec, tobackpack
 import beverage
 
@@ -450,11 +450,10 @@ def loadMenu(id, parent = None):
 
 		# Craft an item
 		elif child.name in ['cook', 'secook']:
-			if not child.hasattribute('definition') or not child.hasattribute('name'):
-				console.log(LOG_ERROR, "Cooking action without definition or name in menu %s.\n" % menu.id)
+			if not child.hasattribute('definition'):
+				console.log(LOG_ERROR, "Cooking action without definition in menu %s.\n" % menu.id)
 			else:
 				itemdef = child.getattribute('definition')
-				name = child.getattribute('name')
 				try:
 					# See if we can find an item id if it's not given
 					if not child.hasattribute('itemid'):
@@ -468,6 +467,10 @@ def loadMenu(id, parent = None):
 							console.log(LOG_ERROR, "Cooking action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
+					if child.hasattribute('name'):
+						name = child.getattribute('name')
+					else:
+						name = generateNamefromDef(itemdef)
 					if child.name == 'secook':
 						action = SeCookItemAction(menu, name, int(itemid), itemdef)
 					else:
