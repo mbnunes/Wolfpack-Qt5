@@ -39,7 +39,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/Qt3Support4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/QtSql4.lib $(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/qtmain.lib opengl32.lib glu32.lib OpenAL32.lib Alut.lib"
+				AdditionalDependencies="$(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/Qt3Support4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/qtmain.lib opengl32.lib glu32.lib OpenAL32.lib Alut.lib"
 				OutputFile="release\uoclient.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -308,7 +308,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -316,7 +317,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>

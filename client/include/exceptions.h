@@ -13,4 +13,7 @@ public:
 	const QString &message() const { return message_; };
 };
 
+class SilentException {
+};
+
 #endif

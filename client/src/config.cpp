@@ -410,6 +410,7 @@ void cConfig::load() {
  	// General
 	uoPath_ = getString("General", "Ultima Online Path", QString::null);
 	useVerdata_ = getBool("General", "Use Verdata", true);
+	screenshotsPath_ = getString("General", "Screenshots Path", "./screenshots/", true);
 
 	// Encryption
 	encryptionEnableLogin_ = getBool("Encryption", "Encrypt Login", false, true);

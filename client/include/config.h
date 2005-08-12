@@ -49,6 +49,7 @@ private:
 	QString uoPath_;
 	bool useVerdata_;
 	bool packetLogging_;
+	QString screenshotsPath_;
 
 	bool encryptionEnableLogin_;
 	unsigned int encryptionLoginKey1_;
@@ -68,6 +69,9 @@ public:
 
 	const bool useVerdata() { return useVerdata_; }
 	void setUseVerdata(bool data) { useVerdata_ = data; setBool("General", "Use Verdata", data); }
+
+	const QString &screenshotsPath() const { return screenshotsPath_; };
+	void setScreenshotsPath(const QString &data) { screenshotsPath_ = data; setString("General", "Screenshots Path", data); }	
 
 	const bool packetLogging() { return packetLogging_; }
 	void setPacketLogging(bool data) { packetLogging_ = data; setBool("Logging", "Enable Packet Log", data); }

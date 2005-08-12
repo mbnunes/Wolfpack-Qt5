@@ -17,7 +17,7 @@ namespace Utilities {
 
 	void messageBox(QString message, QString caption, bool error) {
 		//MessageBox(0, message.latin1(), caption.latin1(), MB_OK | (error ? MB_ICONERROR : MB_ICONINFORMATION));
-		QMessageBox box(caption, message, ( error ? QMessageBox::Critical : QMessageBox::Information ), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+		QMessageBox box(caption, message, ( error ? QMessageBox::Critical : QMessageBox::Information ), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton, qApp->mainWidget());
 		box.setModal(true);
 		box.show();
 	}

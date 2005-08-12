@@ -2,6 +2,7 @@
 #include <qdatetime.h>
 #include <qdir.h>
 #include <q3vbox.h>
+#include <qmessagebox.h>
 
 #include "uoclient.h"
 #include "utilities.h"
@@ -111,8 +112,8 @@ void cUoClient::load() {
 
 	// Check UO installation
 	if (Config->uoPath().isEmpty() || !QDir(Config->uoPath()).exists()) {
-		Utilities::messageBox(tr("The client was unable to detect your Ultima Online installation.\nIf you are certain, that Ultima Online is installed on your computer, please check the file config.xml in your clients directory and set the Ultima Online Path value manually."), tr("Ultima Online Installation Is Missing"), true);
-		throw Exception(tr("Unable to find Ultima Online installation."));
+		errorMessage(tr("The client was unable to detect your Ultima Online installation.\nIf you are certain, that Ultima Online is installed on your computer, please check the file config.xml\n in your clients directory and set the Ultima Online Path value manually."), tr("Ultima Online Installation Is Missing"));
+		throw SilentException();
 	}
 
 	Log->print(LOG_MESSAGE, tr("Using Ultima Online at: %1\n").arg(Config->uoPath()));
@@ -196,8 +197,11 @@ void cUoClient::run()
 	try {
 		load();
 	} catch(const Exception &e) {
-		Utilities::messageBox(e.message(), "Error", true);
 		Log->print(LOG_ERROR, e.message() + "\n");
+		errorMessage(e.message());
+		unload();
+		return;
+	} catch(const SilentException &) {
 		unload();
 		return;
 	}
@@ -234,12 +238,14 @@ void cUoClient::run()
 	}
 }
 
-void cUoClient::errorMessage(const QString &message) {
+void cUoClient::errorMessage(const QString &message, const QString &title) {
 	QWidget *mainWindow = (MainWindow*)qApp->mainWidget();
-
-	QErrorMessage *msgWindow = QErrorMessage::qtHandler();
-	msgWindow->setWindowTitle(tr("Error"));
-	msgWindow->message(message);
+	QMessageBox box(title, message, QMessageBox::Critical, QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+	box.setModal(true);
+	box.show();
+	while (box.isVisible()) {
+		qApp->processEvents();
+	}
 }
 
 cUoClient *Client = 0; // Global Client Instance

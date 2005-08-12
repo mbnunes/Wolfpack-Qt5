@@ -112,6 +112,7 @@ public slots:
 	void socketHostFound();
 	void socketConnect();
 	void selectShard(int id);
+	void enterPressed(cTextField *field);
 };
 
 extern cLoginDialog *LoginDialog; // There is only one LoginDialog instance at a time

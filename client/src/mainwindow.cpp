@@ -8,6 +8,7 @@
 #include "network/uosocket.h"
 #include "config.h"
 #include "sound.h"
+#include "log.h"
 #include <qpixmap.h>
 #include <qcursor.h>
 #include <qimage.h>
@@ -21,6 +22,7 @@
 #include <QKeyEvent>
 #include <QEvent>
 #include <QErrorMessage>
+#include <QDir>
 
 /* XPM */
 static const char * const icon_xpm[] = {
@@ -360,13 +362,11 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 	}
 
 	// Create a screenshot
-	if (e->key() == Qt::Key_Print) {
-		e->accept(); // Accept the event
-
+	if (e->key() == Qt::Key_F12) {
 		// Generate a nice filenamd and save the screenshot
 		QDateTime current = QDateTime::currentDateTime();
-		QString screenshotFilename = QString("screenshot-%1.jpg").arg(current.toString( "yyyyMMdd-hhmmss" ));
-		createScreenshot(screenshotFilename);		
+		QString screenshotFilename = QString("screenshot-%1.png").arg(current.toString( "yyyyMMdd-hhmmss" ));
+		createScreenshot(screenshotFilename);
 	}
 
 	QWidget::keyReleaseEvent(e);
@@ -467,16 +467,26 @@ void cGLWidget::mouseDoubleClickEvent(QMouseEvent * e) {
 }
 
 void cGLWidget::createScreenshot(const QString &filename) {
-	QImage image = grabFrameBuffer();
+	QDir dir;
+
+	// Make sure the Screenshots Path exists
+	if (!dir.mkpath(Config->screenshotsPath())) {
+		Log->print(LOG_ERROR, tr("Unable to create the screenshots path at '%1'.\n").arg(Config->screenshotsPath()));
+		return;
+	}
+
+	QString realFilename = QDir(Config->screenshotsPath()).absoluteFilePath(filename);
+
+	QImage image = grabFrameBuffer(false);
 	
-	// Save the image as JPG
-	if (!image.save(filename, "JPEG")) {
+	// Save the image as PNG
+	if (!image.save(realFilename, "PNG")) {
 		if (WorldView) {
-			WorldView->addSysMessage(tr("Unable to save screenshot as %1.").arg(filename));
+			WorldView->addSysMessage(tr("Unable to save screenshot as %1.").arg(realFilename));
 		}
 	} else {
 		if (WorldView) {
-			WorldView->addSysMessage(tr("Screenshot saved as %1.").arg(filename));
+			WorldView->addSysMessage(tr("Screenshot saved as %1.").arg(realFilename));
 		}
 	}
 }

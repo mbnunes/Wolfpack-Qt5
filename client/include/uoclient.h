@@ -24,7 +24,7 @@ public:
 	bool running() { return running_; }
 	void quit() { running_ = false; }
 
-	void errorMessage(const QString &message);
+	void errorMessage(const QString &message, const QString &title = "Error");
 };
 
 inline void cUoClient::lock() {

@@ -363,7 +363,7 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 			clipboard->setText(QString(text), QClipboard::Clipboard);
 			replaceSelection("");
 		}
-	} else if (key == Qt::Key_Return) {
+	} else if (key == Qt::Key_Return || key == Qt::Key_Enter) {
 		onEnter();
 	} else if (key == Qt::Key_Home) {
         int oldCaret = caret_;
@@ -495,7 +495,7 @@ void cTextField::setCaret(unsigned int pos) {
 // Return the offset in the text_ string by using the given x
 // value relative to this control
 unsigned int cTextField::getOffset(int x) {
-	x -= x_ + 7;
+	x -= 7;
 	
 	if (x < 0) {
 		return leftOffset_;

@@ -376,6 +376,7 @@ void cLoginDialog::buildAccountLoginGump() {
 		inpAccount->setMaxLength(16);
 		inpAccount->setText(Config->lastUsername().toLatin1());
 		container->addControl(inpAccount);
+		connect(inpAccount, SIGNAL(enterPressed(cTextField*)), this, SLOT(enterPressed(cTextField*)));
 
 		label = new cAsciiLabel(tr("Password").latin1(), 2, 0x34f);
 		label->setPosition(0xb4, 0x17f);
@@ -387,8 +388,18 @@ void cLoginDialog::buildAccountLoginGump() {
 		inpPassword->setMouseOverHue(0x2b8);
 		inpPassword->setFocusHue(0x23);
 		container->addControl(inpPassword);
+		connect(inpPassword, SIGNAL(enterPressed(cTextField*)), this, SLOT(enterPressed(cTextField*)));
 
 		accountLoginGump = container;
+	}
+}
+
+void cLoginDialog::enterPressed(cTextField *field) {
+	// If we press enter in the account field, set focus to the password field
+	if (field == inpAccount) {
+		Gui->setInputFocus(inpPassword);
+	} else if (field == inpPassword) {
+		nextClicked(nextButton); 
 	}
 }
 
@@ -576,6 +587,15 @@ void cLoginDialog::show(enMenuPage page) {
 			accountLoginGump->setVisible(true);
 			movieButton->setVisible(true);
 			nextButton->setVisible(true);
+
+			// Set Focus to the Account control if empty. Otherwise
+			// to the password control
+			if (inpAccount->text().isEmpty()) {
+				Gui->setInputFocus(inpAccount);
+			} else {
+				Gui->setInputFocus(inpPassword);
+			}
+
 			break;
 		case PAGE_SHARDLIST:
 			shardSelectGump->setVisible(true);
