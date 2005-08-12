@@ -88,7 +88,7 @@ class MakeAction:
 
 		history = [identifier] + history[:9]
 		player.settag(historyname, ';'.join(history))
-		
+
 		# Show ourself to the user again
 		self.parent.send(player, arguments)
 
@@ -133,7 +133,7 @@ class MakeItemAction(MakeAction):
 			else:
 				player.log(LOG_MESSAGE, "Created item %s (0x%x).\n" % (self.definition, item.serial))
 			if not tobackpack(item, player):
-				item.update()			
+				item.update()
 			player.socket.sysmessage(tr('You put the new item into your backpack.'))
 			MakeAction.make(self, player, arguments, nodelay)
 
@@ -201,7 +201,7 @@ class MakeItemAction(MakeAction):
 		gump.addHtmlGump(170, 302, 345, 76, whitehtml % self.otherhtml, 0, 1)
 
 		gump.send(player)
-		
+
 	#
 	# Process a craft node for this item and use its properties to initialize this
 	#
@@ -231,13 +231,13 @@ class CraftItemAction(MakeItemAction):
 		# Define several common names for submaterial1
 		submaterial1names = ['leather', 'ingots', 'granite', 'sand']
 		submaterial2names = ['scales']
-		
+
 		if node.name in submaterial1names:
 			self.submaterial1 = hex2dec(node.getattribute('amount', '0'))
-			
-		elif node.name in submaterial2names:		
+
+		elif node.name in submaterial2names:
 			self.submaterial2 = hex2dec(node.getattribute('amount', '0'))
-				
+
 		# Normal Material
 		elif node.name == 'material':
 			if not node.hasattribute('id'):
@@ -252,7 +252,7 @@ class CraftItemAction(MakeItemAction):
 					console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 					return
 				self.materials.append([ids, amount, materialname])
-		
+
 		# success rate per percent (e.g. for masonry)
 		elif node.name == 'percentage':
 			try:
@@ -261,7 +261,7 @@ class CraftItemAction(MakeItemAction):
 				console.log(LOG_ERROR, "%s element with invalid value in menu %s.\n" % (node.name, menu.id))
 				return
 			self.percentage = maximum
-			
+
 		# Skill requirement
 		elif node.name in skillnamesids:
 			skill = skillnamesids[node.name]
@@ -301,7 +301,7 @@ class CraftItemAction(MakeItemAction):
 		submaterial1amount = 0 # Amount of submaterial 1 left to consume
 		submaterial1baseids = [] # List of baseids that statisfy this submaterial
 		submaterial2amount = 0 # Amount of submaterial 2 left to consume
-		submaterial2baseids = [] # List of baseids that statisfy this submaterial		
+		submaterial2baseids = [] # List of baseids that statisfy this submaterial
 
 		# Do numerous checks to see if the first submaterial can be used
 		if self.submaterial1 > 0:
@@ -350,21 +350,21 @@ class CraftItemAction(MakeItemAction):
 		materials = [] # Local copy of material list
 		for material in self.materials:
 			materials.append(material[:2]) # Last element is the amount left to find
-		
+
 		# This loop checks for all required materials at once.
-		for item in backpack.content:		
+		for item in backpack.content:
 			# Check if the pile is used by the main material
 			if item.baseid in submaterial1baseids:
 				submaterial1amount -= item.amount
 				continue
-			
-			# Check if the pile is used by the secondary material	
+
+			# Check if the pile is used by the secondary material
 			if item.baseid in submaterial2baseids:
 				submaterial2amount -= item.amount
 				continue
-				
+
 			for material in materials:
-				if item.baseid in material[0]:					
+				if item.baseid in material[0]:
 					material[1] -= item.amount
 					break # Break the inner loop
 
@@ -415,7 +415,7 @@ class CraftItemAction(MakeItemAction):
 		submaterial1amount = 0 # Amount of submaterial 1 left to consume
 		submaterial1baseids = [] # List of baseids that statisfy this submaterial
 		submaterial2amount = 0 # Amount of submaterial 2 left to consume
-		submaterial2baseids = [] # List of baseids that statisfy this submaterial		
+		submaterial2baseids = [] # List of baseids that statisfy this submaterial
 
 		# Do numerous checks to see if the first submaterial can be used
 		if self.submaterial1 > 0:
@@ -459,7 +459,7 @@ class CraftItemAction(MakeItemAction):
 					submaterial1amount = 0
 				continue
 
-			# Check if the pile is used by the secondary material	
+			# Check if the pile is used by the secondary material
 			if item.baseid in submaterial2baseids:
 				if item.amount < submaterial2amount: # We have less or equal than we need
 					submaterial2amount -= item.amount
@@ -565,7 +565,7 @@ class CraftItemAction(MakeItemAction):
 			if values[1] >= cmaxv:
 				cskill = skill
 				cmaxv = values[1]
-		return cskill			
+		return cskill
 
 	#
 	# Check if we did an exceptional job.
@@ -669,10 +669,10 @@ class CraftItemAction(MakeItemAction):
 			else:
 				item.decay = 1 # Should always decay
 				item.movable = 1 # Should always be movable
-	
+
 				if self.amount > 0:
-					item.amount = self.amount			
-			
+					item.amount = self.amount
+
 				self.applyproperties(player, arguments, item, exceptional)
 
 				if exceptional:
@@ -685,7 +685,7 @@ class CraftItemAction(MakeItemAction):
 						self.success(player, arguments, item, 1, 0)
 				else:
 					player.log(LOG_MESSAGE, "Crafted item %s (0x%x). Amount: %u.\n" % (self.definition, item.serial, item.amount))
-					self.success(player, arguments, item, 0, 0)					
+					self.success(player, arguments, item, 0, 0)
 
 			if not tobackpack(item, player):
 				item.update()
@@ -773,7 +773,7 @@ class MakeMenu:
 		self.delay = 0 # Delay in ms until item is crafted.
 		self.requiretool = False # Don't check for a craft tool in arguments[0] by default
 		self.checklearned = False # Don't check for special skill (masonry..) learned by default
-		
+
 		self.repairsound = 0 # The soundeffect played for repairing an item
 
 		# Display a repair item button on the makemenu
@@ -989,7 +989,7 @@ class MakeMenu:
 	def repair(self, player, arguments, target):
 		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
 			return
-		
+
 		if not target.item:
 			player.socket.clilocmessage(500426)
 			return
@@ -1010,7 +1010,7 @@ class MakeMenu:
 				return False # Fully repaired
 
 			action = self.topmostmenu().findcraftitem(item.baseid)
-			
+
 			if action:
 				mainskill = action.getmainskill()
 			else:
@@ -1027,7 +1027,7 @@ class MakeMenu:
 			elif skill >= 700:
 				weaken = 2
 			else:
-				weaken = 3				
+				weaken = 3
 
 			# We will either destroy or repair it from here on
 			# So we can play the craft effect.
@@ -1041,7 +1041,7 @@ class MakeMenu:
 			elif player.checkskill(mainskill, 0, 1000):
 				player.socket.clilocmessage(1044279)
 				item.maxhealth -= weaken
-				item.health = item.maxhealth				
+				item.health = item.maxhealth
 				item.resendtooltip()
 				player.log(LOG_MESSAGE, "Repairs item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
 			else:
@@ -1075,28 +1075,28 @@ class MakeMenu:
 	#
 	def enhance(self, player, arguments, target):
 		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
-			return		
-		
+			return
+
 		if not target.item:
 			self.send(player, arguments)
 			return
-		
+
 		if not player.canreach(target.item, -1):
 			player.socket.clilocmessage(1061005)
 			self.send(player, arguments)
 			return
-			
+
 		# Check if we have a special material selected (not the default one)
 		index = self.getsubmaterial1used(player, arguments)
 		if index == 0:
 			player.socket.clilocmessage(1061010)
 			self.send(player, arguments)
 			return
-			
+
 		# Check if we are skilled enough to use the material
 		minvalue = self.submaterials1[index][2]
 		skillid = self.submaterials1[index][1]
-		
+
 		if player.skill[skillid] < minvalue:
 			if self.submaterial1noskill != 0:
 				player.socket.clilocmessage(self.submaterial1noskill)
@@ -1162,16 +1162,16 @@ class MakeMenu:
 		luckBonus = False
 		lowerrequirementsBonus = False
 		damageincreaseBonus = False
-		
+
 		resname = self.submaterials1[index][5] # This resname is for the material used to enhance
-	
+
 		if weapon:
 			failChance = 20
 			durability = item.maxhealth
 			luck = properties.fromitem(item, LUCK)
 			damageincrease = properties.fromitem(item, DAMAGEBONUS)
 			lowerrequirements = properties.fromitem(item, LOWERREQS)
-			
+
 			fireBonus = properties.fromresource(resname, DAMAGE_FIRE, ITEM_WEAPON) > 0
 			coldBonus = properties.fromresource(resname, DAMAGE_COLD, ITEM_WEAPON) > 0
 			energyBonus = properties.fromresource(resname, DAMAGE_ENERGY, ITEM_WEAPON) > 0
@@ -1193,7 +1193,7 @@ class MakeMenu:
 			durability = item.maxhealth
 			luck = properties.fromitem(item, LUCK)
 			lowerrequirements = properties.fromitem(item, LOWERREQS)
-			
+
 			physicalBonus = physical > 0
 			fireBonus = fire > 0
 			coldBonus = cold > 0
@@ -1209,51 +1209,51 @@ class MakeMenu:
 		# Get the primary skill for crafting the item
 		primarySkill = -1
 		primarySkillValue = -1
-		
+
 		for (skill, value) in action.skills.items():
 			if value > primarySkillValue:
 				primarySkill = skill
 				primarySkillValue = value
-				
+
 		if primarySkill != -1:
 			if player.skill[primarySkill] >= 1000:
 				failChance -= (player.skill[primarySkill] - 900) / 100
-		
+
 		# Check for every property the item has.
-		result = 1		
+		result = 1
 		if physicalBonus:
 			result = self.checkenhancement(result, failChance + physical, player)
-			
+
 		if fireBonus:
 			result = self.checkenhancement(result, failChance + fire, player)
-			
+
 		if coldBonus:
 			result = self.checkenhancement(result, failChance + cold, player)
-			
+
 		if poisonBonus:
 			result = self.checkenhancement(result, failChance + poison, player)
-			
+
 		if energyBonus:
 			result = self.checkenhancement(result, failChance + energy, player)
-			
+
 		if durabilityBonus:
 			result = self.checkenhancement(result, failChance + durability / 40, player)
-			
+
 		if luckBonus:
 			result = self.checkenhancement(result, failChance + 10 + luck / 2, player)
-			
+
 		if lowerrequirementsBonus:
 			result = self.checkenhancement(result, failChance + lowerrequirements / 4, player)
-			
+
 		if damageincreaseBonus:
 			result = self.checkenhancement(result, failChance + damageincrease / 5, player)
-	
+
 		# Broken
 		if result == -1:
 			action.consumematerial(player, arguments, True) # Consume half the material
 			item.delete() # Delete the item
 			player.socket.clilocmessage(1061080)
-		
+
 		# Failure
 		elif result == 0:
 			action.consumematerial(player, arguments, True) # Consume half the material
@@ -1263,7 +1263,7 @@ class MakeMenu:
 		else:
 			action.consumematerial(player, arguments, False) # Consume the material
 			player.socket.clilocmessage(1061008)
-			
+
 			# Attach the properties to the item
 			item.settag('resname', resname)
 			# Check for every property if the item had a tag already
@@ -1287,7 +1287,7 @@ class MakeMenu:
 			item.resendtooltip()
 
 		self.send(player, arguments)
-		
+
 	#
 	# Check the enhancement result for a given property
 	# with a given fail chance.
@@ -1295,14 +1295,14 @@ class MakeMenu:
 	def checkenhancement(self, result, chance, player):
 		if result: # Only calculate if we still have a chance to succeed
 			rnd = random.randrange(0, 100)
-			
+
 			if 10 > rnd: # 10% failure chance
 				result = 0
 			elif chance > rnd: # Rest break chance
 				result = -1
 
 		return result
-				
+
 	#
 	# Adds the neccesary buttons to a gump.
 	#
@@ -1400,7 +1400,7 @@ class MakeMenu:
 	def response(self, player, response, arguments):
 		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
 			return
-		
+
 		# Show a gump with the last 10 items the player made.
 		if response.button == 1:
 			self.makehistory(player, arguments)
@@ -1451,7 +1451,7 @@ class MakeMenu:
 			# Check if we have a special material selected (not the default one)
 			index = self.getsubmaterial1used(player, arguments)
 			if index == 0:
-				player.socket.clilocmessage(1061010)				
+				player.socket.clilocmessage(1061010)
 				self.send(player, arguments) # Resend menu
 			else:
 				# Check if we are skilled enough to use the material
@@ -1463,7 +1463,7 @@ class MakeMenu:
 						player.socket.clilocmessage(self.submaterial1noskill)
 					else:
 						player.socket.clilocmessage(1044153)
-						
+
 					self.send(player, arguments) # Resend menu
 				else:
 					player.socket.clilocmessage(1061004)
@@ -1583,7 +1583,7 @@ class MakeMenu:
 		gump.addHtmlGump(215, 39, 305, 20, centerhtml % tr("SELECTIONS"))
 
 		return gump
-	
+
 	def haslearned(self, player, item):
 		pass
 
@@ -1635,9 +1635,9 @@ class MakeMenu:
 						gump.addButton(220, yoffset, 4005, 4007, 0x40000000 | (menus + j))
 						if self.subactions[menus + j].hasdetails:
 							gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
-						
+
 						wolfpack.findchar(3).message(str(type(self.subactions[menus + j].title)))
-							
+
 						if type(self.subactions[menus + j].title) == int:
 							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0xFFFFFF)
 						else:
