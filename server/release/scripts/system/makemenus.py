@@ -1636,8 +1636,6 @@ class MakeMenu:
 						if self.subactions[menus + j].hasdetails:
 							gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
 
-						wolfpack.findchar(3).message(str(type(self.subactions[menus + j].title)))
-
 						if type(self.subactions[menus + j].title) == int:
 							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0xFFFFFF)
 						else:
