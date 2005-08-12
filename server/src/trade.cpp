@@ -154,29 +154,53 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		return;
 	}
 
-	// Get our total gold at once
-	Q_UINT32 bankGold = pChar->countBankGold();
-	Q_UINT32 packGold = pChar->countGold();
-	bool fromBank = false;
+	int fromWhere = 0; // 0 is Default to Pack, 1 is to Bank and 2 for both
 
 	if ( !pChar->isGM() )
 	{
-		if ( packGold >= totalValue )
-		{
-			fromBank = false;
-			pChar->getBackpack()->removeItems( "eed", totalValue );
-			socket->sendStatWindow();
-		}
-		else if ( bankGold >= totalValue )
-		{
-			fromBank = true;
-			pChar->getBankbox()->removeItems( "eed", totalValue );
-			socket->sendStatWindow();
+		if (Config::instance()->payfrompackonly()) {
+
+			// Get our total gold at once
+			Q_UINT32 packGold = pChar->countGold();
+
+			if ( packGold >= totalValue )
+			{
+				pChar->getBackpack()->removeItems( "eed", totalValue );
+			}
+			else
+			{
+				pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+				return;
+			}
 		}
 		else
 		{
-			pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
-			return;
+			// Get our total gold at once
+			Q_UINT32 bankGold = pChar->countBankGold();
+			Q_UINT32 packGold = pChar->countGold();
+
+			if ( packGold >= totalValue )
+			{
+				pChar->getBackpack()->removeItems( "eed", totalValue );
+			}
+			else if ( bankGold >= totalValue )
+			{
+				fromWhere = 1;
+				pChar->getBankbox()->removeItems( "eed", totalValue );
+			}
+			else if ( (bankGold + packGold) >= totalValue )
+			{
+				fromWhere = 2;
+				// From Pack the Max
+				pChar->getBackpack()->removeItems( "eed", packGold );
+				// From Bank the rest
+				pChar->getBankbox()->removeItems( "eed", (totalValue - packGold) );
+			}
+			else
+			{
+				pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+				return;
+			}
 		}
 	}
 
@@ -222,12 +246,16 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		}
 	}
 
+	//resend gold and weight
+	socket->sendStatWindow();
 	socket->send( &clearBuy );
 
-	if ( fromBank )
-		pVendor->talk( tr( "The total of thy purchase is %1 gold, which has been withdrawn from your bank account.  My thanks for the patronage." ).arg( totalValue ), 0xFFFF, 0, false, pChar->socket() );
+	if ( fromWhere == 1 )
+		pVendor->talk( tr( "The total of thy purchase is %1 gold, which has been withdrawn from your bank account. My thanks for the patronage." ).arg( totalValue ), 0xFFFF, 0, false, pChar->socket() );
+	else if ( fromWhere == 0 )
+		pVendor->talk( tr( "The total of thy purchase is %1 gold. My thanks for the patronage." ).arg( totalValue ), 0xFFFF, 0, false, pChar->socket() );
 	else
-		pVendor->talk( tr( "The total of thy purchase is %1 gold.  My thanks for the patronage." ).arg( totalValue ), 0xFFFF, 0, false, pChar->socket() );
+		pVendor->talk( tr( "The total of thy purchase is %1 gold, which has been withdrawn from your bag and from your bank account. My thanks for the patronage." ).arg( totalValue ), 0xFFFF, 0, false, pChar->socket() );
 
 	pChar->socket()->soundEffect( 0x32 );
 }

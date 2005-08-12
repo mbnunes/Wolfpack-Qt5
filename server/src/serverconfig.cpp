@@ -211,6 +211,7 @@ void cConfig::readData()
 	antiSpeedHackDelayMounted_ = getNumber( "General", "Anti Speed Hack Delay Mounted", 75, true );
 	refreshMaxValues_ = getBool( "General", "Refresh Characters Maximum Values", true, true );
 	sendAsciiNames_ = getBool( "General", "Send ASCII Character Names", false, true );
+	payfrompackonly_ = getBool( "General", "Pay From Pack Only", false, true );
 
 	saveInterval_ = getNumber( "General", "Save Interval", 900, true );
 	mulPath_ = QDir::convertSeparators( getString( "General", "MulPath", "./muls/", true ) );

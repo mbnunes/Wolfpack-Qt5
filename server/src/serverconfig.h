@@ -150,6 +150,7 @@ protected:
 	bool refreshMaxValues_;
 	bool newTooltipPackets_;
 	bool sendAsciiNames_;
+	bool payfrompackonly_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -296,6 +297,7 @@ public:
 	unsigned int showNpcTitles() const;
 	bool overwriteDefinitions() const;
 	bool sendAsciiNames() const;
+	bool payfrompackonly() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -771,6 +773,11 @@ inline bool cConfig::newTooltipPackets() const
 inline bool cConfig::sendAsciiNames() const
 {
 	return sendAsciiNames_;
+}
+
+inline bool cConfig::payfrompackonly() const
+{
+	return payfrompackonly_;
 }
 
 inline unsigned int cConfig::maxCharsPerAccount() const
