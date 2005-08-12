@@ -12,51 +12,74 @@
 	</menu>
 
 	<menu id="GLASSBLOWING_BOTTLES" name="Bottles">
-		<glassblowing definition="f0e" name="Empty bottle">
+		<!--Empty bottle-->
+		<glassblowing definition="f0e">
 			<percentage value="95" />
 			<sand amount="1" />
 		</glassblowing>
-		<glassblowing definition="182e" name="Small flask">
+
+		<!--Small flask-->
+		<glassblowing definition="182e">
 			<percentage value="95" />
 			<sand amount="2" />
 		</glassblowing>
-		<glassblowing definition="182a" name="Medium flask">
+
+		<!--Medium flask-->
+		<glassblowing definition="182a">
 			<percentage value="95" />
 			<sand amount="3" />
 		</glassblowing>
-		<glassblowing definition="1832" name="Curved flask">
+
+		<!--Curved flask-->
+		<glassblowing definition="1832">
 			<percentage value="90" />
 			<sand amount="2" />
 		</glassblowing>
-		<glassblowing definition="183b" name="Large flask">
+
+		<!--Large flask-->
+		<glassblowing definition="183b">
 			<percentage value="85" />
 			<sand amount="4" />
 		</glassblowing>
-		<glassblowing definition="1838" name="Large flask">
+
+		<!--Large flask-->
+		<glassblowing definition="1838">
 			<percentage value="80" />
 			<sand amount="5" />
 		</glassblowing>
-		<glassblowing definition="1844" name="Bubbling blue flask">
+
+		<!--Bubbling blue flask-->
+		<glassblowing definition="1844">
 			<percentage value="80" />
 			<sand amount="5" />
 		</glassblowing>
-		<glassblowing definition="1841" name="Bubbling purple flask">
+
+		<!--Bubbling purple flask-->
+		<glassblowing definition="1841">
 			<percentage value="80" />
 			<sand amount="5" />
 		</glassblowing>
-		<glassblowing definition="183e" name="Bubbling red flask">
+
+		<!--Bubbling red flask-->
+		<glassblowing definition="183e">
 			<percentage value="80" />
 			<sand amount="7" />
 		</glassblowing>
-		<glassblowing definition="185b" name="Empty vials">
+
+		<!--Empty vials-->
+		<glassblowing definition="185b">
 			<percentage value="70" />
 			<sand amount="8" />
 		</glassblowing>
-		<glassblowing definition="185d" name="Full vials">
+
+		<!--Full vials-->
+		<glassblowing definition="185d">
 			<percentage value="70" />
 			<sand amount="9" />
 		</glassblowing>
-		<glassblowing definition="1811" name="Spinning hourglass">
+
+		<!--Spinning hourglass-->
+		<glassblowing definition="1811">
 			<percentage value="50" />
 			<sand amount="10" />
 		</glassblowing>

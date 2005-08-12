@@ -23,19 +23,26 @@
 
 	<!-- Ringmail Armor -->
 	<menu id="BLACKSMITHING_RINGMAIL" name="Ringmail">
-		<smith definition="13eb" name="Ringmail Gloves">
+		<!--Ringmail Gloves-->
+		<smith definition="13eb">
 			<blacksmithing min="120" max="520" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="13f0" name="Ringmail Leggings">
+
+		<!--Ringmail Leggings-->
+		<smith definition="13f0">
 			<blacksmithing min="194" max="694" penalty="300" />
 			<ingots amount="16" />
 		</smith>
-		<smith definition="13ee" name="Ringmail Sleeves">
+
+		<!--Ringmail Sleeves-->
+		<smith definition="13ee">
 			<blacksmithing min="169" max="669" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="13ec" name="Ringmail Tunic">
+
+		<!--Ringmail Tunic-->
+		<smith definition="13ec">
 			<blacksmithing min="219" max="719" penalty="300" />
 			<ingots amount="18" />
 		</smith>
@@ -43,15 +50,20 @@
 
 	<!-- Chainmail Armor -->
 	<menu id="BLACKSMITHING_CHAINMAIL" name="Chainmail">
-		<smith definition="13bb" name="Chainmail Coif">
+		<!--Chainmail Coif-->
+		<smith definition="13bb">
 			<blacksmithing min="145" max="645" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="13be" name="Chainmail Leggings">
+
+		<!--Chainmail Leggings-->
+		<smith definition="13be">
 			<blacksmithing min="367" max="867" penalty="300" />
 			<ingots amount="18" />
 		</smith>
-		<smith definition="13bf" name="Chainmail Tunic">
+
+		<!--Chainmail Tunic-->
+		<smith definition="13bf">
 			<blacksmithing min="391" max="891" penalty="300" />
 			<ingots amount="20" />
 		</smith>
@@ -59,53 +71,76 @@
 
 	<!-- Platemail -->
 	<menu id="BLACKSMITHING_PLATEMAIL" name="Platemail">
-		 <smith definition="1410" name="Platemail Arms">
+		<!--Platemail Arms-->
+		<smith definition="1410">
 			<blacksmithing min="663" max="1160" penalty="290" />
 			<ingots amount="18" />
 		</smith>
-		<smith definition="1414" name="Platemail Gloves">
+
+		<!--Platemail Gloves-->
+		<smith definition="1414">
 			<blacksmithing min="589" max="1089" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="1413" name="Platemail Gorget">
+
+		<!--Platemail Gorget-->
+		<smith definition="1413">
 			<blacksmithing min="564" max="1064" penalty="200" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="1411" name="Platemail Legs">
+
+		<!--Platemail Legs-->
+		<smith definition="1411">
 			<blacksmithing min="688" max="1188" penalty="138" />
 			<ingots amount="20" />
 		</smith>
-		<smith definition="1415" name="Platemail Chest">
+
+		<!--Platemail Chest-->
+		<smith definition="1415">
 			<blacksmithing min="750" max="1250" penalty="200" />
 			<ingots amount="25" />
 		</smith>
-		<smith definition="1c04" name="Platemail Chest Female">
+
+		<!--Platemail Chest Female-->
+		<smith definition="1c04">
 			<blacksmithing min="441" max="941" penalty="264" />
 			<ingots amount="20" />
 		</smith>
+
+		<!--Dragon Barding Deed-->
 		<!--
-		<sesmith definition="" name="Dragon Barding Deed">
+		<sesmith definition="">
 			<blacksmithing min="725" max="1225" penalty="264" />
 			<ingots amount="750" />
 		</sesmith>
 		-->
-		<sesmith definition="2779" name="Platemail Mempo">
+
+		<!--Platemail Mempo-->
+		<sesmith definition="2779">
 			<blacksmithing min="800" max="1300" penalty="264" />
 			<ingots amount="18" />
 		</sesmith>
-		<sesmith definition="277d" name="Platemail Do">
+
+		<!--Platemail Do-->
+		<sesmith definition="277d">
 			<blacksmithing min="870" max="1370" penalty="264" />
 			<ingots amount="28" />
 		</sesmith>
-		<sesmith definition="2780" name="Platemail Hiro Sode">
+
+		<!--Platemail Hiro Sode-->
+		<sesmith definition="2780">
 			<blacksmithing min="800" max="1300" penalty="264" />
 			<ingots amount="16" />
 		</sesmith>
-		<sesmith definition="2788" name="Platemail Suneate">
+
+		<!--Platemail Suneate-->
+		<sesmith definition="2788">
 			<blacksmithing min="650" max="1150" penalty="264" />
 			<ingots amount="20" />
 		</sesmith>
-		<sesmith definition="278d" name="Platemail Haidate">
+
+		<!--Platemail Haidate-->
+		<sesmith definition="278d">
 			<blacksmithing min="650" max="1150" penalty="264" />
 			<ingots amount="20" />
 		</sesmith>
@@ -113,59 +148,81 @@
 
 	<!-- Helmets -->
 	<menu id="BLACKSMITHING_HELMETS" name="Helmets">
-		<smith definition="140d" name="Bascinet">
+		<!--Bascinet-->
+		<smith definition="140d">
 			<blacksmithing min="83" max="583" penalty="300" />
 			<ingots amount="15" />
 		</smith>
-		<smith definition="1408" name="Close Helmet">
+
+		<!--Close Helmet-->
+		<smith definition="1408">
 			<blacksmithing min="379" max="879" penalty="300" />
 			<ingots amount="15" />
 		</smith>
-		<smith definition="140b" name="Helmet">
+
+		<!--Helmet-->
+		<smith definition="140b">
 			<blacksmithing min="379" max="879" penalty="300" />
 			<ingots amount="15" />
 		</smith>
-		<smith definition="140f" name="Nose Helmet">
+
+		<!--Nose Helmet-->
+		<smith definition="140f">
 			<blacksmithing min="379" max="879" penalty="300" />
 			<ingots amount="15" />
 		</smith>
-		<smith definition="1412" name="Plate Helmet">
+
+		<!--Plate Helmet-->
+		<smith definition="1412">
 			<blacksmithing min="626" max="1126" penalty="300" />
 			<ingots amount="15" />
 		</smith>
-		<sesmith definition="2774" name="Chainmail Hatsuburi">
+
+		<!--Chainmail Hatsuburi-->
+		<sesmith definition="2774">
 			<blacksmithing min="300" max="800" penalty="300" />
 			<ingots amount="20" />
 		</sesmith>
-		<sesmith definition="2775" name="Platemail Hatsuburi">
-			<blacksmithing min="450" max="950" penalty="300" />
-			<ingots amount="20" />
-		</sesmith>
-		<sesmith definition="2777" name="Heavy Platemail Jingasa">
-			<blacksmithing min="450" max="950" penalty="300" />
-			<ingots amount="20" />
-		</sesmith>
-		<sesmith definition="2781" name="Light Platemail Jingasa">
-			<blacksmithing min="450" max="950" penalty="300" />
-			<ingots amount="20" />
-		</sesmith>
-		<sesmith definition="2784" name="Small Platemail Jingasa">
+
+		<!--Platemail Hatsuburi-->
+		<sesmith definition="2775">
 			<blacksmithing min="450" max="950" penalty="300" />
 			<ingots amount="20" />
 		</sesmith>
 
+		<!--Heavy Platemail Jingasa-->
+		<sesmith definition="2777">
+			<blacksmithing min="450" max="950" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+
+		<!--Light Platemail Jingasa-->
+		<sesmith definition="2781">
+			<blacksmithing min="450" max="950" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+
+		<!--Small Platemail Jingasa-->
+		<sesmith definition="2784">
+			<blacksmithing min="450" max="950" penalty="300" />
+			<ingots amount="20" />
+		</sesmith>
+
+		<!--Decorative Platemail Kabuto-->
+		<!--Platemail Battle Kabuto-->
 		<!--
-		<sesmith definition="" name="Decorative Platemail Kabuto">
+		<sesmith definition="">
 			<blacksmithing min="900" max="1400" penalty="300" />
 			<ingots amount="25" />
 		</sesmith>
-		<sesmith definition="" name="Platemail Battle Kabuto">
+		<sesmith definition="">
 			<blacksmithing min="900" max="1400" penalty="300" />
 			<ingots amount="25" />
 		</sesmith>
 		-->
 
-		<sesmith definition="236d" name="Standard Platemail Kabuto">
+		<!--Standard Platemail Kabuto-->
+		<sesmith definition="236d">
 			<blacksmithing min="900" max="1400" penalty="300" />
 			<ingots amount="25" />
 		</sesmith>
@@ -173,35 +230,50 @@
 
 	<!-- Shields -->
 	<menu id="BLACKSMITHING_SHIELDS" name="Shields">
-		<smith definition="1b73" name="Buckler">
+		<!--Buckler-->
+		<smith definition="1b73">
 			<blacksmithing min="-50" max="495" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="1b72" name="Bronze Shield">
+
+		<!--Bronze Shield-->
+		<smith definition="1b72">
 			<blacksmithing min="-50" max="495" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="1b76" name="Heater Shield">
+
+		<!--Heater Shield-->
+		<smith definition="1b76">
 			<blacksmithing min="243" max="743" penalty="300" />
 			<ingots amount="18" />
 		</smith>
-		<smith definition="1b7b" name="Metal Shield">
+
+		<!--Metal Shield-->
+		<smith definition="1b7b">
 			<blacksmithing min="-50" max="495" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="1b74" name="Metal Kite Shield">
+
+		<!--Metal Kite Shield-->
+		<smith definition="1b74">
 			<blacksmithing min="46" max="546" penalty="300" />
 			<ingots amount="16" />
 		</smith>
-		<smith definition="1b78" name="Wooden Kite Shield">
+
+		<!--Wooden Kite Shield-->
+		<smith definition="1b78">
 			<blacksmithing min="-50" max="495" penalty="300" />
 			<ingots amount="8" />
 		</smith>
-		<smith definition="1bc3" name="Chaos Shield">
+
+		<!--Chaos Shield-->
+		<smith definition="1bc3">
 			<blacksmithing min="850" max="1350" penalty="220" />
 			<ingots amount="25" />
 		</smith>
-		<smith definition="1bc4" name="Order Shield">
+
+		<!--Order Shield-->
+		<smith definition="1bc4">
 			<blacksmithing min="850" max="1350" penalty="220" />
 			<ingots amount="25" />
 		</smith>
@@ -209,81 +281,110 @@
 
 	<!-- Bladed Weapons -->
 	<menu id="BLACKSMITHING_BLADED" name="Blades">
-		<smith definition="26c5" name="Bone Harvester">
+		<!--Bone Harvester-->
+		<smith definition="26c5">
 			<blacksmithing min="330" max="930" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="f5e" name="Broadsword">
+
+		<!--Broadsword-->
+		<smith definition="f5e">
 			<blacksmithing min="354" max="954" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="26cb" name="Crescent Blade">
+
+		<!--Crescent Blade-->
+		<smith definition="26cb">
 			<blacksmithing min="450" max="1050" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="1441" name="Cutlass">
+
+		<!--Cutlass-->
+		<smith definition="1441">
 			<blacksmithing min="243" max="843" penalty="300" />
 			<ingots amount="8" />
 		</smith>
-		<smith definition="f51" name="Dagger">
+
+		<!--Dagger-->
+		<smith definition="f51">
 			<blacksmithing min="-4" max="296" penalty="150" />
 			<ingots amount="3" />
 		</smith>
-		<smith definition="13ff" name="Katana">
+
+		<!--Katana-->
+		<smith definition="13ff">
 			<blacksmithing min="441" max="1041" penalty="300" />
 			<ingots amount="8" />
 		</smith>
-		<smith definition="1401" name="Kryss">
+
+		<!--Kryss-->
+		<smith definition="1401">
 			<blacksmithing min="367" max="967" penalty="300" />
 			<ingots amount="8" />
 		</smith>
-		<smith definition="f61" name="Longsword">
+
+		<!--Longsword-->
+		<smith definition="f61">
 			<blacksmithing min="280" max="880" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="13b6" name="Scimitar">
+
+		<!--Scimitar-->
+		<smith definition="13b6">
 			<blacksmithing min="317" max="917" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="13b9" name="Viking Sword">
+
+		<!--Viking Sword-->
+		<smith definition="13b9">
 			<blacksmithing min="243" max="843" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<sesmith definition="27a2" name="No-Dachi">
+
+		<!--No-Dachi-->
+		<sesmith definition="27a2">
 			<blacksmithing min="750" max="1350" penalty="300" />
 			<ingots amount="18" />
 		</sesmith>
-		<sesmith definition="27a4" name="Wakizashi">
+
+		<!--Wakizashi-->
+		<sesmith definition="27a4">
 			<blacksmithing min="500" max="1100" penalty="300" />
 			<ingots amount="8" />
 		</sesmith>
 
-		<sesmith definition="27a7" name="Lajatang">
+		<!--Lajatang-->
+		<sesmith definition="27a7">
 			<blacksmithing min="800" max="1400" penalty="300" />
 			<ingots amount="25" />
 		</sesmith>
 
-		<sesmith definition="27a9" name="Daisho">
+		<!--Daisho-->
+		<sesmith definition="27a9">
 			<blacksmithing min="600" max="1200" penalty="300" />
 			<ingots amount="15" />
 		</sesmith>
 
-		<sesmith definition="27ab" name="Tekagi">
+		<!--Tekagi-->
+		<sesmith definition="27ab">
 			<blacksmithing min="550" max="1150" penalty="300" />
 			<ingots amount="12" />
 		</sesmith>
 
-		<sesmith definition="27ac" name="Shuriken">
+		<!--Shuriken-->
+		<sesmith definition="27ac">
 			<blacksmithing min="450" max="1050" penalty="300" />
 			<ingots amount="5" />
 		</sesmith>
 
-		<sesmith definition="27ad" name="Kama">
+		<!--Kama-->
+		<sesmith definition="27ad">
 			<blacksmithing min="400" max="1000" penalty="300" />
 			<ingots amount="14" />
 		</sesmith>
 
-		<sesmith definition="27af" name="Sai">
+		<!--Sai-->
+		<sesmith definition="27af">
 			<blacksmithing min="500" max="1100" penalty="300" />
 			<ingots amount="12" />
 		</sesmith>
@@ -291,31 +392,44 @@
 
 	<!-- Axe Weapons -->
 	<menu id="BLACKSMITHING_AXES" name="Axes">
-		<smith definition="f49" name="Axe">
+		<!--Axe-->
+		<smith definition="f49">
 			<blacksmithing min="342" max="942" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="f47" name="Battle Axe">
+
+		<!--Battle Axe-->
+		<smith definition="f47">
 			<blacksmithing min="305" max="905" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="f4b" name="Double Axe">
+
+		<!--Double Axe-->
+		<smith definition="f4b">
 			<blacksmithing min="293" max="893" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="f45" name="Executioners Axe">
+
+		<!--Executioners Axe-->
+		<smith definition="f45">
 			<blacksmithing min="342" max="942" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="13fb" name="Large Battle Axe">
+
+		<!--Large Battle Axe-->
+		<smith definition="13fb">
 			<blacksmithing min="280" max="880" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="1443" name="Two Handed Axe">
+
+		<!--Two Handed Axe-->
+		<smith definition="1443">
 			<blacksmithing min="330" max="930" penalty="300" />
 			<ingots amount="16" />
 		</smith>
-		<smith definition="13b0" name="War Axe">
+
+		<!--War Axe-->
+		<smith definition="13b0">
 			<blacksmithing min="391" max="991" penalty="300" />
 			<ingots amount="16" />
 		</smith>
@@ -323,43 +437,62 @@
 
 	<!-- Polearms -->
 	<menu id="BLACKSMITHING_POLEARMS" name="Polearms">
-		<smith definition="f4d" name="Bardiche">
+		<!--Bardiche-->
+		<smith definition="f4d">
 			<blacksmithing min="317" max="917" penalty="300" />
 			<ingots amount="18" />
 		</smith>
-		<smith definition="26c7" name="Bladed Staff">
+
+		<!--Bladed Staff-->
+		<smith definition="26c7">
 			<blacksmithing min="400" max="1000" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="26c9" name="Double Bladed Staff">
+
+		<!--Double Bladed Staff-->
+		<smith definition="26c9">
 			<blacksmithing min="450" max="1050" penalty="300" />
 			<ingots amount="16" />
 		</smith>
-		<smith definition="143f" name="Halberd">
+
+		<!--Halberd-->
+		<smith definition="143f">
 			<blacksmithing min="391" max="1091" penalty="300" />
 			<ingots amount="20" />
 		</smith>
-		<smith definition="26ca" name="Lance">
+
+		<!--Lance-->
+		<smith definition="26ca">
 			<blacksmithing min="480" max="1080" penalty="300" />
 			<ingots amount="20" />
 		</smith>
-		<smith definition="26be" name="Pike">
+
+		<!--Pike-->
+		<smith definition="26be">
 			<blacksmithing min="470" max="1070" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="1403" name="Short Spear">
+
+		<!--Short Spear-->
+		<smith definition="1403">
 			<blacksmithing min="453" max="1053" penalty="300" />
 			<ingots amount="6" />
 		</smith>
-		<smith definition="26c4" name="Scythe">
+
+		<!--Scythe-->
+		<smith definition="26c4">
 			<blacksmithing min="390" max="990" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="f62" name="Spear">
+
+		<!--Spear-->
+		<smith definition="f62">
 			<blacksmithing min="490" max="1090" penalty="300" />
 			<ingots amount="12" />
 		</smith>
-		<smith definition="1405" name="War Fork">
+
+		<!--War Fork-->
+		<smith definition="1405">
 			<blacksmithing min="429" max="1029" penalty="300" />
 			<ingots amount="12" />
 		</smith>
@@ -367,31 +500,44 @@
 
 	<!-- Bashing Weapons -->
 	<menu id="BLACKSMITHING_BASHING" name="Bashing">
-		<smith definition="143d" name="Hammer Pick">
+		<!--Hammer Pick-->
+		<smith definition="143d">
 			<blacksmithing min="342" max="942" penalty="300" />
 			<ingots amount="16" />
 		</smith>
-		<smith definition="f5c" name="Mace">
+
+		<!--Mace-->
+		<smith definition="f5c">
 			<blacksmithing min="145" max="745" penalty="300" />
 			<ingots amount="6" />
 		</smith>
-		<smith definition="143b" name="Maul">
+
+		<!--Maul-->
+		<smith definition="143b">
 			<blacksmithing min="194" max="794" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="26c6" name="Scepter">
+
+		<!--Scepter-->
+		<smith definition="26c6">
 			<blacksmithing min="214" max="814" penalty="300" />
 			<ingots amount="10" />
 		</smith>
-		<smith definition="1407" name="War Mace">
+
+		<!--War Mace-->
+		<smith definition="1407">
 			<blacksmithing min="280" max="880" penalty="300" />
 			<ingots amount="14" />
 		</smith>
-		<smith definition="1439" name="War Hammer">
+		
+		<!--War Hammer-->
+		<smith definition="1439">
 			<blacksmithing min="342" max="942" penalty="300" />
 			<ingots amount="16" />
 		</smith>
-		<sesmith definition="27a3" name="Tessen">
+
+		<!--Tessen-->
+		<sesmith definition="27a3">
 			<blacksmithing min="850" max="1450" penalty="300" />
 			<tailoring min="500" max="1100" penalty="300" />
 			<ingots amount="16" />
@@ -401,23 +547,32 @@
 
 	<!-- Dragon Scale Armor -->
 	<menu id="BLACKSMITHING_SCALEARMOR" name="Dragon Scale Armor">
-		<smith definition="2643" name="Dragon Gloves">
+		<!--Dragon Gloves-->
+		<smith definition="2643">
 			<blacksmithing min="689" max="1289" penalty="276" />
 			<scales amount="16" />
 		</smith>
-		<smith definition="2645" name="Dragon Helm">
+
+		<!--Dragon Helm-->
+		<smith definition="2645">
 			<blacksmithing min="726" max="1326" penalty="254" />
 			<scales amount="20" />
 		</smith>
-		<smith definition="2647" name="Dragon Leggings">
+
+		<!--Dragon Leggings-->
+		<smith definition="2647">
 			<blacksmithing min="788" max="1388" penalty="250" />
 			<scales amount="28" />
 		</smith>
-		<smith definition="2657" name="Dragon Sleeves">
+
+		<!--Dragon Sleeves-->
+		<smith definition="2657">
 			<blacksmithing min="763" max="1363" penalty="232" />
 			<scales amount="24" />
 		</smith>
-		<smith definition="2641" name="Dragon Breastplate">
+
+		<!--Dragon Breastplate-->
+		<smith definition="2641">
 			<blacksmithing min="850" max="1450" penalty="225" />
 			<scales amount="36" />
 		</smith>

@@ -17,7 +17,8 @@
 		<menu id="ALCHEMY_POISON" />
 		<menu id="ALCHEMY_CURE" />
 		<menu id="ALCHEMY_EXPLOSION" />
-		<craft definition="potion_shrink" name="Shrink Potion">
+		<!--Shrink Potion-->
+		<craft definition="potion_shrink">
 			<alchemy min="800" max="1300" />
 			<material id="f7a" amount="8" name="Black Pearls" />
 			<material id="f86" amount="8" name="Mandrake Root" />
@@ -26,12 +27,15 @@
 	</menu>
 
 	<menu id="ALCHEMY_REFRESH" name="Refresh">
-		<craft definition="potion_refresh" name="Refresh Potion">
+		<!--Refresh Potion-->
+		<craft definition="potion_refresh">
 			<alchemy min="-250" max="250" />
 			<material id="f7a" amount="1" name="Black Pearls" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_totalrefresh" name="Total Refresh Potion">
+
+		<!--Total Refresh Potion-->
+		<craft definition="potion_totalrefresh">
 			<alchemy min="250" max="750" />
 			<material id="f7a" amount="5" name="Black Pearls" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
@@ -39,12 +43,15 @@
 	</menu>
 
 	<menu id="ALCHEMY_AGILITY" name="Agility">
-		<craft definition="potion_agility" name="Agility Potion">
+		<!--Agility Potion-->
+		<craft definition="potion_agility">
 			<alchemy min="150" max="650" />
 			<material id="f7b" amount="1" name="Bloodmoss" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_greateragility" name="Greater Agility Potion">
+
+		<!--Greater Agility Potion-->
+		<craft definition="potion_greateragility">
 			<alchemy min="350" max="850" />
 			<material id="f7b" amount="3" name="Bloodmoss" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
@@ -52,7 +59,8 @@
 	</menu>
 
 	<menu id="ALCHEMY_NIGHTSIGHT" name="Nightsight">
-		<craft definition="potion_nightsight" name="Nightsight Potion">
+		<!--Nightsight Potion-->
+		<craft definition="potion_nightsight">
 			<alchemy min="-250" max="250" />
 			<material id="f8d" amount="1" name="Spider's Silk" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
@@ -60,17 +68,22 @@
 	</menu>
 
 	<menu id="ALCHEMY_HEAL" name="Heal">
-		<craft definition="potion_lesserheal" name="Lesser Heal Potion">
+		<!--Lesser Heal Potion-->
+		<craft definition="potion_lesserheal">
 			<alchemy min="-250" max="250" />
 			<material id="f85" amount="1" name="Ginseng" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_heal" name="Heal Potion">
+
+		<!--Heal Potion-->
+		<craft definition="potion_heal">
 			<alchemy min="150" max="650" />
 			<material id="f85" amount="3" name="Ginseng" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_greaterheal" name="Greater Heal Potion">
+
+		<!--Greater Heal Potion-->
+		<craft definition="potion_greaterheal">
 			<alchemy min="550" max="1050" />
 			<material id="f85" amount="7" name="Ginseng" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
@@ -78,12 +91,15 @@
 	</menu>
 
 	<menu id="ALCHEMY_STRENGTH" name="Strength">
-		<craft definition="potion_strength" name="Strength Potion">
+		<!--Strength Potion-->
+		<craft definition="potion_strength">
 			<alchemy min="250" max="750" />
 			<material id="f86" amount="2" name="Mandrake Root" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_greaterstrength" name="Greater Strength Potion">
+
+		<!--Greater Strength Potion-->
+		<craft definition="potion_greaterstrength">
 			<alchemy min="450" max="950" />
 			<material id="f86" amount="5" name="Mandrake Root" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
@@ -91,22 +107,29 @@
 	</menu>
 
 	<menu id="ALCHEMY_POISON" name="Poison">
-		<craft definition="potion_lesserpoison" name="Lesser Poison Potion">
+		<!--Lesser Poison Potion-->
+		<craft definition="potion_lesserpoison">
 			<alchemy min="-50" max="450" />
 			<material id="f88" amount="1" name="Nightshade" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_poison" name="Poison  Potion">
+
+		<!--Poison Potion-->
+		<craft definition="potion_poison">
 			<alchemy min="150" max="650" />
 			<material id="f88" amount="2" name="Nightshade" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_greaterpoison" name="Greater Poison Potion">
+
+		<!--Greater Poison Potion-->
+		<craft definition="potion_greaterpoison">
 			<alchemy min="550" max="1050" />
 			<material id="f88" amount="4" name="Nightshade" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_deadlypoison" name="Deadly Poison Potion">
+
+		<!--Deadly Poison Potion-->
+		<craft definition="potion_deadlypoison">
 			<alchemy min="900" max="1400" />
 			<material id="f88" amount="8" name="Nightshade" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
@@ -114,17 +137,22 @@
 	</menu>
 
 	<menu id="ALCHEMY_CURE" name="Cure">
-		<craft definition="potion_lessercure" name="Lesser Cure Potion">
+		<!--Lesser Cure Potion-->
+		<craft definition="potion_lessercure">
 			<alchemy min="-100" max="400" />
 			<material id="f84" amount="1" name="Garlic" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_cure" name="Cure Potion">
+
+		<!--Cure Potion-->
+		<craft definition="potion_cure">
 			<alchemy min="250" max="750" />
 			<material id="f84" amount="3" name="Garlic" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_greatercure" name="Greater Cure Potion">
+
+		<!--Greater Cure Potion-->
+		<craft definition="potion_greatercure">
 			<alchemy min="650" max="1150" />
 			<material id="f84" amount="6" name="Garlic" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
@@ -132,17 +160,22 @@
 	</menu>
 
 	<menu id="ALCHEMY_EXPLOSION" name="Explosion">
-		<craft definition="potion_lesserexplosion" name="Lesser Explosion Potion">
+		<!--Lesser Explosion Potion-->
+		<craft definition="potion_lesserexplosion">
 			<alchemy min="50" max="550" />
 			<material id="f8c" amount="3" name="Sulfurous Ash" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_explosion" name="Explosion Potion">
+
+		<!--Explosion Potion-->
+		<craft definition="potion_explosion">
 			<alchemy min="350" max="850" />
 			<material id="f8c" amount="5" name="Sulfurous Ash" />
 			<material id="f0e" amount="1" name="Empty Bottle" />
 		</craft>
-		<craft definition="potion_greaterexplosion" name="Greater Explosion Potion">
+
+		<!--Greater Explosion Potion-->
+		<craft definition="potion_greaterexplosion">
 			<alchemy min="650" max="1150" />
 			<material id="f8c" amount="10" name="Sulfurous Ash" />
 			<material id="f0e" amount="1" name="Empty Bottle" />

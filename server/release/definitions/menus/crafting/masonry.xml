@@ -14,51 +14,70 @@
 	</menu>
 
 	<menu id="MASONRY_VASES" name="Vases">
-		<masonry definition="b46" name="Vase">
+		<!--Vase-->
+		<masonry definition="b46" name="">
 			<percentage value="95" />
 			<granite amount="1" />
 		</masonry>
-		<masonry definition="b45" name="Large Vase">
+
+		<!--Large Vase-->
+		<masonry definition="b45" name="">
 			<percentage value="95" />
 			<granite amount="3" />
 		</masonry>
 	</menu>
 	<menu id="MASONRY_FURNITURE" name="Furniture">
-		<masonry definition="1218" name="Stone Chair">
+		<!--Stone Chair-->
+		<masonry definition="1218" name="">
 			<percentage value="90" />
 			<granite amount="4" />
 		</masonry>
-		<masonry definition="stonetable_medium_s_deed" name="Medium Stone Table">
+
+		<!--Medium Stone Table-->
+		<masonry definition="stonetable_medium_s_deed" name="">
 			<percentage value="70" />
 			<granite amount="6" />
 		</masonry>
-		<masonry definition="stonetable_large_s_deed" name="Large Stone Table">
+
+		<!--Large Stone Table-->
+		<masonry definition="stonetable_large_s_deed" name="">
 			<percentage value="50" />
 			<granite amount="9" />
 		</masonry>
 	</menu>
 	<menu id="MASONRY_STATUES" name="Statues">
-		<masonry definition="139a" name="Small Statue">
+		<!--Small Statue-->
+		<masonry definition="139a" name="">
 			<percentage value="80" />
 			<granite amount="3" />
 		</masonry>
-		<masonry definition="139b" name="Small Statue">
+
+		<!--Small Statue-->
+		<masonry definition="139b" name="">
 			<percentage value="80" />
 			<granite amount="3" />
 		</masonry>
-		<masonry definition="139c" name="Small Statue">
+
+		<!--Small Statue-->
+		<masonry definition="139c" name="">
 			<percentage value="80" />
 			<granite amount="3" />
 		</masonry>
-		<masonry definition="139d" name="Pegasus Statue">
+
+		<!--Pegasus Statue-->
+		<masonry definition="139d" name="">
 			<percentage value="60" />
 			<granite amount="4" />
 		</masonry>
-		<semasonry definition="241a" name="Tower Sculpture">
+
+		<!--Tower Sculpture-->
+		<semasonry definition="241a" name="">
 			<percentage value="36" />
 			<granite amount="3" />
 		</semasonry>
-		<semasonry definition="241c" name="Small Urn">
+
+		<!--Small Urn-->
+		<semasonry definition="241c" name="">
 			<percentage value="36" />
 			<granite amount="3" />
 		</semasonry>

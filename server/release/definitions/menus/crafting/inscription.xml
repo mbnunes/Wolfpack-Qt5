@@ -29,31 +29,31 @@
 
 		<!-- Clumsy -->
 		<action clilocid="1027982" itemid="1f2e">
-				  <inscription min="0" max="100" />
-				  <mana amount="4" />
-				  <scroll id="ef3;e34" amount="1" name="Empty Scroll" />
-				  <reagents id="f7b" amount="1" name="Blood Moss" />
-				  <reagents id="f88" amount="1" name="Nightshade" />
+			<inscription min="0" max="100" />
+			<mana amount="4" />
+			<scroll id="ef3;e34" amount="1" name="Empty Scroll" />
+			<reagents id="f7b" amount="1" name="Blood Moss" />
+			<reagents id="f88" amount="1" name="Nightshade" />
 		</action>
 		<!-- Create Food -->
 		<action clilocid="1027983" itemid="1f2f">
-				  <inscription min="0" max="100" />
-				  <mana amount="4" />
-				  <scroll id="ef3;e34" amount="1" name="Empty Scroll" />
-				  <reagents id="f84" amount="1" name="Garlic" />
-				  <reagents id="f85" amount="1" name="Ginseng" />
-				  <reagents id="f86" amount="1" name="Mandrake Root" />
+			<inscription min="0" max="100" />
+			<mana amount="4" />
+			<scroll id="ef3;e34" amount="1" name="Empty Scroll" />
+			<reagents id="f84" amount="1" name="Garlic" />
+			<reagents id="f85" amount="1" name="Ginseng" />
+			<reagents id="f86" amount="1" name="Mandrake Root" />
 		</action>
 	</menu>
 	<menu id="INSCRIPTION_2nd" clilocid="1015171">
-			  <!-- Agility -->
-			  <action clilocid="1027989" itemid="1f35">
-						 <inscription min="0" max="100" />
-						 <mana amount="6" />
-						 <scroll id="ef3;e34" amount="1" name="Empty Scroll" />
-						 <reagents id="f7b" amount="1" name="Blood Moss" />
-						 <reagents id="f86" amount="1" name="Mandrake Root" />
-			  </action>
+		<!-- Agility -->
+		<action clilocid="1027989" itemid="1f35">
+			<inscription min="0" max="100" />
+			<mana amount="6" />
+			<scroll id="ef3;e34" amount="1" name="Empty Scroll" />
+			<reagents id="f7b" amount="1" name="Blood Moss" />
+			<reagents id="f86" amount="1" name="Mandrake Root" />
+		</action>
 	</menu>
 </definitions>
 
