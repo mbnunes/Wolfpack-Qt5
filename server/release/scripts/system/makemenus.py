@@ -24,6 +24,13 @@ whitehtml = '<basefont color="#FFFFFF">%s'
 grayhtml = '<basefont color="#999999">%s'
 centerhtml = '<basefont color="#FFFFFF"><div align="center">%s</div>'
 
+enabbledhue = 0x480
+disabledhue = 0x3b1
+
+# 15 Bit Highcolour !
+enabledcolor = 0x7FFF
+disabledcolor = 0x6318
+
 def generateNamefromDef(itemdef):
 	name = ''
 	item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
@@ -42,12 +49,12 @@ def generateNamefromDef(itemdef):
 	# We found a name
 	if name != '':
 		return name
-	
+
 	# Generate the cliloc from items itemid
 	itemchild = item.findchild('id')
 	if itemchild:
 		name = str( 1020000 + int(itemchild.value) )
-	
+
 	return name
 
 #
@@ -197,10 +204,10 @@ class MakeItemAction(MakeAction):
 		gump.addCheckerTrans(10, 10, 510, 397)
 
 		if type(self.title) == int:
-			gump.addXmfHtmlGump(180, 12, 510, 20, self.title, False, False, 0xFFFFFF)
+			gump.addXmfHtmlGump(180, 12, 510, 20, self.title, False, False, enabledcolor)
 		else:
 			if self.title.isdigit():
-				gump.addXmfHtmlGump(180, 12, 510, 20, int(self.title), False, False, 0xFFFFFF)
+				gump.addXmfHtmlGump(180, 12, 510, 20, int(self.title), False, False, enabledcolor)
 			else:
 				gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
 		if self.itemid != 0:
@@ -210,18 +217,18 @@ class MakeItemAction(MakeAction):
 		gump.addHtmlGump(10, 302, 150, 20, centerhtml % tr("OTHER"))
 		gump.addHtmlGump(170, 39, 70, 20, whitehtml % tr("ITEM"))
 		gump.addButton(15, 387, 0xFAE, 0xFB0, 0) # Back to the parent menu of this node
-		gump.addText(50, 389, tr("Back"), 0x480)
+		gump.addText(50, 389, tr("Back"), enabbledhue)
 		gump.addButton(375, 387, 4005, 4007, 1) # Make the item
-		gump.addText(410, 389, tr("Make Now"), 0x480)
+		gump.addText(410, 389, tr("Make Now"), enabbledhue)
 
 		# Item Name
 		if type(self.title) == int:
-			gump.addXmfHtmlGump(245, 39, 285, 20, self.title, False, False, 0xFFFFFF)
+			gump.addXmfHtmlGump(245, 39, 285, 20, self.title, False, False, enabledcolor)
 		else:
 			if self.title.isdigit():
-				gump.addXmfHtmlGump(245, 39, 285, 20, int(self.title), False, False, 0xFFFFFF)
+				gump.addXmfHtmlGump(245, 39, 285, 20, int(self.title), False, False, enabledcolor)
 			else:
-				gump.addText(245, 39, self.title, 0x480)
+				gump.addText(245, 39, self.title, enabbledhue)
 
 		# Scrollable Skill List
 		gump.addHtmlGump(170, 132, 345, 76, whitehtml % self.skillshtml, 0, self.skillshtml.count('<br>') > 4)
@@ -935,9 +942,9 @@ class MakeMenu:
 
 						# Item Name
 						if type(menu.subactions[action].title) == int:
-							gump.addXmfHtmlGump(255, yoffset + 3, 275, 20, menu.subactions[action].title, False, False, 0xFFFFFF)
+							gump.addXmfHtmlGump(255, yoffset + 3, 275, 20, menu.subactions[action].title, False, False, enabledcolor)
 						else:
-							gump.addText(255, yoffset + 3, menu.subactions[action].title, 0x480)
+							gump.addText(255, yoffset + 3, menu.subactions[action].title, enabbledhue)
 						yoffset += 20
 				j += 1 # Always increase to keep in sync
 
@@ -967,10 +974,10 @@ class MakeMenu:
 
 			yoffset = 60 + (i % 10) * 20
 			if materials[i][2] != 0 and player.skill[materials[i][1]] < materials[i][2]:
-				gump.addText(xoffset + 35, yoffset + 3, materials[i][0], 0x3b1)
+				gump.addText(xoffset + 35, yoffset + 3, materials[i][0], disabledhue)
 			else:
 				gump.addButton(xoffset, yoffset, 4005, 4007, i | mask)
-				gump.addText(xoffset + 35, yoffset + 3, materials[i][0], 0x480)
+				gump.addText(xoffset + 35, yoffset + 3, materials[i][0], enabbledhue)
 
 		gump.send(player)
 
@@ -1342,40 +1349,40 @@ class MakeMenu:
 		# Allow repairing items.
 		if self.allowrepair:
 			gump.addButton(350, 310, 4005, 4007, 10)
-			gump.addText(385, 313, tr("Repair Item"), 0x480)
+			gump.addText(385, 313, tr("Repair Item"), enabbledhue)
 
 		# Allow enhancement of items
 		if self.allowenhance:
 			gump.addButton(350, 330, 4005, 4007, 11)
-			gump.addText(385, 333, tr("Enhance Item"), 0x480)
+			gump.addText(385, 333, tr("Enhance Item"), enabbledhue)
 
 		# Allow smelting of items
 		if self.allowsmelt:
 			gump.addButton(350, 350, 4005, 4007, 12)
-			gump.addText(385, 353, tr("Smelt Item"), 0x480)
+			gump.addText(385, 353, tr("Smelt Item"), enabbledhue)
 
 		# EXIT button , return value: 0
 		gump.addButton(15, 350, 0xFB1, 0xFB3, 0)
-		gump.addText(50, 353, tr("Exit"), 0x480)
+		gump.addText(50, 353, tr("Exit"), enabbledhue)
 
 		# MAKE LAST button , return value: 2
 		gump.addButton(15, 330, 4005, 4007, 2)
-		gump.addText(50, 333, self.name_makelast, 0x480)
+		gump.addText(50, 333, self.name_makelast, enabbledhue)
 
 		# PREVIOUS MENU button, return value: 3
 		# Or: if we're on one of the subpages for settings
 		# just return to the normal page
 		if submenu:
 			gump.addButton(15, 310, 0xFAE, 0xFB0, 9)
-			gump.addText(50, 313, tr("Back"), 0x480)
+			gump.addText(50, 313, tr("Back"), enabbledhue)
 		elif self.parent:
 			gump.addButton(15, 310, 0xFAE, 0xFB0, 3)
-			gump.addText(50, 313, tr("Previous Menu"), 0x480)
+			gump.addText(50, 313, tr("Previous Menu"), enabbledhue)
 
 		# LAST 10
 		if not submenu:
 			gump.addButton(15, 60, 0xFAB, 0xFAD, 1)
-			gump.addText(50, 63, tr("Last Ten"), 0x480)
+			gump.addText(50, 63, tr("Last Ten"), enabbledhue)
 
 		# MARK ITEM button
 		if self.allowmark:
@@ -1387,19 +1394,19 @@ class MakeMenu:
 				message= tr("Mark Item")
 
 			gump.addButton(165, 350, 4005, 4007, buttonid)
-			gump.addText(200, 353, message, 0x480)
+			gump.addText(200, 353, message, enabbledhue)
 
 		# Button for the primary submaterial
 		if len(self.submaterials1) > 1:
 			gump.addButton(165, 310, 4005, 4007, 7) # Display change res1 type gump
 			index = self.getsubmaterial1used(player, arguments)
-			gump.addText(200, 313, self.submaterials1[index][0], 0x480)
+			gump.addText(200, 313, self.submaterials1[index][0], enabbledhue)
 
 		# Button for the secondary submaterial
 		if len(self.submaterials2) > 1:
 			gump.addButton(165, 330, 4005, 4007, 8) # Display change res2 type gump
 			index = self.getsubmaterial2used(player, arguments)
-			gump.addText(200, 333, self.submaterials2[index][0], 0x480)
+			gump.addText(200, 333, self.submaterials2[index][0], enabbledhue)
 
 	#
 	# Helper function for making the last action
@@ -1656,7 +1663,7 @@ class MakeMenu:
 				if actions + j < len(self.submenus):
 					yoffset = 80 + 20 * j
 					gump.addButton(15, yoffset, 4005, 4007, 0x01000000 | (actions + j))
-					gump.addText(50, yoffset + 3, self.submenus[actions + j].title, 0x480)
+					gump.addText(50, yoffset + 3, self.submenus[actions + j].title, enabbledhue)
 			actions += 9
 
 			# Fill the page with subactions
@@ -1669,31 +1676,31 @@ class MakeMenu:
 							gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
 
 						if type(self.subactions[menus + j].title) == int:
-							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0xFFFFFF)
+							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0x7FFF)
 						else:
 							if self.subactions[menus + j].title.isdigit():
-								gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0xFFFFFF)
+								gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0x7FFF)
 							else:
-								gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x480)
+								gump.addText(255, yoffset+3, self.subactions[menus + j].title, enabbledhue)
 					else:
 						if type(self.subactions[menus + j].title) == int:
-							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0xDDDDDD)
+							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), 0, 0, disabledcolor)
 						else:
 							if self.subactions[menus + j].title.isdigit():
-								gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), False, False, 0xDDDDDD)
+								gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), 0, 0, disabledcolor)
 							else:
-								gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x3b1)
+								gump.addText(255, yoffset+3, self.subactions[menus + j].title, disabledhue)
 			menus += 9
 
 			# Add a back button
 			if i > 0:
 				gump.addPageButton(15, 290, 0xFAE, 0xFB0, i)
-				gump.addText(50, 293, tr("Previous Page"), 0x480)
+				gump.addText(50, 293, tr("Previous Page"), enabbledhue)
 
 			# Add a next button
 			if i+1 < pages:
 				gump.addPageButton(350, 290, 4005, 4007, i + 2)
-				gump.addText(385, 293, tr("Next Page"), 0x480)
+				gump.addText(385, 293, tr("Next Page"), enabbledhue)
 
 		gump.setArgs([self.id] + args)
 		gump.send(player)
