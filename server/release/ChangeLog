@@ -156,6 +156,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added support for regional mining in mining.py (thx to MagnusBr)
   - Remaining tool uses for different skills were not handled
   - Added a findlock command.
+  - Added cliloc support for crafting menues.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
