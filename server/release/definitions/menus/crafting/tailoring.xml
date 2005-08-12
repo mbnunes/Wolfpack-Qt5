@@ -7,7 +7,7 @@
  *=======================================================*/
 -->
 <definitions>
-	<menu id="TAILORING" name="Tailoring">
+	<menu id="TAILORING" name="1044005"> <!-- <CENTER>TAILORING MENU</CENTER> -->
 		<menu id="TAILORING_HATS" />
 		<menu id="TAILORING_SHIRTS" />
 		<menu id="TAILORING_PANTS" />
@@ -19,7 +19,8 @@
 		<menu id="TAILORING_BONEARMOR" />
 	</menu>
 
-	<menu id="TAILORING_HATS" name="Hats">
+	<!-- Hats -->
+	<menu id="TAILORING_HATS" name="1011375">
 		<!--Skull Cap-->
 		<tailor definition="1543">
 			<tailoring min="0" max="250" />
@@ -112,7 +113,8 @@
 		</setailor>
 	</menu>
 
-	<menu id="TAILORING_SHIRTS" name="Shirts">
+	<!-- Shirts -->
+	<menu id="TAILORING_SHIRTS" name="1015269">
 		<!--Doublet-->
 		<tailor definition="1f7b">
 			<tailoring min="0" max="250" />
@@ -229,7 +231,8 @@
 		</setailor>
 	</menu>
 
-	<menu id="TAILORING_PANTS" name="Pants">
+	<!-- Pants -->
+	<menu id="TAILORING_PANTS" name="1015279">
 		<!--Short Pants-->
 		<tailor definition="152e">
 			<tailoring min="248" max="498" />
@@ -273,7 +276,8 @@
 		</setailor>				
 	</menu>
 
-	<menu id="TAILORING_MISC" name="Misc">
+	<!-- Misc -->
+	<menu id="TAILORING_MISC" name="1015283">
 		<!--Body Sash-->
 		<tailor definition="1541">
 			<tailoring min="41" max="291" />
@@ -341,7 +345,8 @@
 		</setailor>
 	</menu>
 
-	<menu id="TAILORING_FOOTWEAR" name="Footwear">
+	<!-- Footwear -->
+	<menu id="TAILORING_FOOTWEAR" name="1015288">
 		<!--Fur Boots-->
 		<tailor definition="2307">
 			<tailoring min="500" max="750" />
@@ -385,7 +390,8 @@
 		</setailor>				
 	</menu>
 
-	<menu id="TAILORING_LEATHERARMOR" name="Leather Armor">
+	<!-- Leather Armor -->
+	<menu id="TAILORING_LEATHERARMOR" name="1015293">
 		<!--Leather Gorget-->
 		<tailor definition="13c7">
 			<tailoring min="539" max="789" />
@@ -483,7 +489,8 @@
 		</setailor>								
 	</menu>
 
-	<menu id="TAILORING_STUDDEDARMOR" name="Studded Armor">
+	<!-- Studded Armor -->
+	<menu id="TAILORING_STUDDEDARMOR" name="1015300">
 		<!--Studded Gorget-->
 		<tailor definition="13d6">
 			<tailoring min="788" max="1038" />
@@ -545,7 +552,8 @@
 		</setailor>								
 	</menu>
 
-	<menu id="TAILORING_FEMALEARMOR" name="Female Armor">
+	<!-- Female Armor -->
+	<menu id="TAILORING_FEMALEARMOR" name="1015306">
 		<!--Leather Shorts-->
 		<tailor definition="1c00">
 			<tailoring min="622" max="872" />
@@ -583,7 +591,8 @@
 		</tailor>
 	</menu>
 
-	<menu id="TAILORING_BONEARMOR" name="Bone Armor">
+	<!-- Bone Armor -->
+	<menu id="TAILORING_BONEARMOR" name="1049149">
 		<!--Bone Helm-->
 		<tailor definition="1451">
 			<tailoring min="850" max="1100" />

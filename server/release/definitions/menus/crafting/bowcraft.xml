@@ -7,9 +7,14 @@
 =================================================================
 -->
 <definitions>
+	<menu id="BOWCRAFT" name="1044006"> <!-- <CENTER>BOWCRAFT AND FLETCHING MENU</CENTER> -->
+		<menu id="BOWCRAFT_MATERIALS" />
+		<menu id="BOWCRAFT_AMMUNITION" />
+		<menu id="BOWCRAFT_WEAPONS" />
+	</menu>
 
-	<menu id="BOWCRAFT">
-		<!-- Consumables -->
+	<!-- Materials -->
+	<menu id="BOWCRAFT_MATERIALS" name="1044457">
 		<!--Kindling-->
 		<fletch definition="de1">
 			<bowcraft min="0" max="0" />
@@ -24,7 +29,10 @@
 			<stackable />
 			<nomark />
 		</fletch>
+	</menu>
 
+	<!-- Ammunition -->
+	<menu id="BOWCRAFT_AMMUNITION" name="1044565">
 		<!--Arrows-->
 		<fletch definition="f3f">
 			<bowcraft min="0" max="400" />
@@ -43,7 +51,11 @@
 			<nomark />
 		</fletch>
 
-		<!-- Weapon -->
+		<!-- TODO: FukitaDart (SE) -->
+	</menu>
+
+	<!-- Weapons -->
+	<menu id="BOWCRAFT_WEAPONS" name="1044566">
 		<!--Bow-->
 		<fletch definition="13b1">
 			<bowcraft min="300" max="700" penalty="80" />
@@ -73,6 +85,8 @@
 			<bowcraft min="900" max="1300" penalty="55" />
 			<material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
 		</fletch>
+
+		<!-- TODO: Yumi (SE) -->
 	</menu>
 
 </definitions>

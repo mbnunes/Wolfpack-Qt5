@@ -15,7 +15,7 @@
 
 <definitions>
 
-	<menu id="CARPENTRY" name="Carpentry">
+	<menu id="CARPENTRY" name="1044004"> <!-- <CENTER>CARPENTRY MENU</CENTER> -->
 		<name>Carpentry</name>
 		<menu id="CARPENTRY_OTHER" />
 		<menu id="CARPENTRY_FURNITURE" />
@@ -29,7 +29,8 @@
 		<menu id="CARPENTRY_COOKING" />
 	</menu>
 
-	<menu id="CARPENTRY_OTHER" name="Other Items">
+	<!-- Other Items -->
+	<menu id="CARPENTRY_OTHER" name="1044294">
 		<!--Board-->
 		<carpenter definition="1bd7">
 			<carpentry min="-250" max="250" />
@@ -98,7 +99,8 @@
 		</carpenter>
 	</menu>
 
-	<menu id="CARPENTRY_FURNITURE" name="Furniture">
+	<!-- Furniture -->
+	<menu id="CARPENTRY_FURNITURE" name="1044291">
 		<!--Foot Stool-->
 		<carpenter definition="b5e">
 			<carpentry min="110" max="610" />
@@ -191,7 +193,8 @@
 	</menu>
 
 	<!-- Tinkering in here signals for lockable containers -->
-	<menu id="CARPENTRY_CONTAINERS" name="Containers">
+	<!-- Containers -->
+	<menu id="CARPENTRY_CONTAINERS" name="1044292">
 		<!--Wooden Box-->
 		<carpenter definition="9aa">
 			<carpentry min="210" max="710" />
@@ -322,7 +325,8 @@
 		</secarpenter>
 	</menu>
 
-	<menu id="CARPENTRY_WEAPONSNARMOR" name="Weapons and Armor">
+	<!-- Weapons and Armor -->
+	<menu id="CARPENTRY_WEAPONSNARMOR" name="1044295">
 		<!--Shepherd's Crook-->
 		<carpenter definition="13f5">
 			<carpentry min="789" max="1289" />
@@ -369,7 +373,8 @@
 	</menu>
 
 	<!-- Extra Skill Based Objects -->
-	<menu id="CARPENTRY_INSTRUMENTS" name="Instruments">
+	<!-- Instruments -->
+	<menu id="CARPENTRY_INSTRUMENTS" name="1044293">
 		<!--Lap Harp-->
 		<carpenter definition="eb2">
 			<carpentry min="631" max="1131" />
@@ -426,7 +431,8 @@
 		</secarpenter>
 	</menu>
 
-	<menu id="CARPENTRY_MISCADDONS" name="Misc. Add-ons">
+	<!-- Misc. Add-ons -->
+	<menu id="CARPENTRY_MISCADDONS" name="1044290">
 		<!--Small Bed South-->
 		<carpenter definition="small_bed_s_deed">
 			<carpentry min="947" max="1100" />
@@ -500,7 +506,8 @@
 		</carpenter>
 	</menu>
 
-	<menu id="CARPENTRY_BLACKSMITHY" name="Blacksmithy">
+	<!-- Blacksmithy -->
+	<menu id="CARPENTRY_BLACKSMITHY" name="1044296">
 		<!--Anvil East-->
 		<carpenter definition="anvil_e_deed">
 			<carpentry min="736" max="1200" />
@@ -542,7 +549,8 @@
 		</carpenter>
 	</menu>
 
-	<menu id="CARPENTRY_TRAINING" name="Training">
+	<!-- Training -->
+	<menu id="CARPENTRY_TRAINING" name="1044297">
 		<!--Training Dummy South-->
 		<carpenter definition="training_dummy_s_deed">
 			<carpentry min="684" max="1184" />
@@ -568,7 +576,8 @@
 		</carpenter>
 	</menu>
 
-	<menu id="CARPENTRY_TAILORING" name="Tailoring">
+	<!-- Tailoring -->
+	<menu id="CARPENTRY_TAILORING" name="1044298">
 		<!--Dressform-->
 		<carpenter definition="ec6">
 			<carpentry min="631" max="1100" />
@@ -610,7 +619,8 @@
 		</carpenter>
 	</menu>
 
-	<menu id="CARPENTRY_COOKING" name="Cooking">
+	<!-- Cooking -->
+	<menu id="CARPENTRY_COOKING" name="1044299">
 		<!--Stone Oven South-->
 		<carpenter definition="stone_oven_s_deed">
 			<carpentry min="684" max="1184" />

@@ -107,14 +107,14 @@
 
 	<!-- anvil deeds -->
 	<item id="anvil_s_deed" inherit="blank_deed">
-		<name>Anvil South Deed</name>
+		<name>#1045121</name> <!-- Anvil (Facing South) Deed -->
 		<basescripts>deeds.carpentry_deed</basescripts>
 		<tag name="carpentry_type" value="anvil_s" />
 		<category>Misc\Deeds\Carpentry\Anvil South Deed</category>
 	</item>
 
 	<item id="anvil_e_deed" inherit="anvil_s_deed">
-		<name>Anvil East Deed</name>
+		<name>#1045120</name> <!-- Anvil (Facing East) Deed -->
 		<tag name="carpentry_type" value="anvil_e" />
 		<category>Misc\Deeds\Carpentry\Anvil East Deed</category>
 	</item>

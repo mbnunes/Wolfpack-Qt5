@@ -1613,7 +1613,10 @@ class MakeMenu:
 		gump.addCheckerTrans(10, 10, 510, 368)
 
 		if self.title.isdigit():
-			gump.addXmfHtmlGump(230, 12, 510, 20, int(self.title), 0, 0, enabledcolor)
+			if not self.parent: # all main menu titles have a <center> tag
+				gump.addXmfHtmlGump(0, 12, 510, 20, int(self.title), 0, 0, enabledcolor)
+			else:
+				gump.addXmfHtmlGump(230, 12, 510, 20, int(self.title), 0, 0, enabledcolor)
 		else:
 			gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
 

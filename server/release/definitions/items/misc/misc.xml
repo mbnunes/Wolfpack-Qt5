@@ -2270,6 +2270,7 @@
 
 	<item id="bola_ball">
 		<id>0xe73</id>
+		<name>#1023699</name>
 		<weight>4.0</weight>
 		<color>0x8ac</color>
 		<decay />

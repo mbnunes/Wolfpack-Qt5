@@ -7,7 +7,7 @@
  *=======================================================*/
 -->
 <definitions>
-	<menu id="TINKERING" name="Tinkering">
+	<menu id="TINKERING" name="1044007"> <!-- <CENTER>TINKERING MENU</CENTER>" -->
 		<menu id="TINKERING_WOODEN" />
 		<menu id="TINKERING_TOOLS" />
 		<menu id="TINKERING_PARTS" />
@@ -17,7 +17,8 @@
 		<menu id="TINKERING_JEWELRY" />
 	</menu>
 
-	<menu id="TINKERING_WOODEN" name="Wooden Items">
+	<!-- Wooden Items -->
+	<menu id="TINKERING_WOODEN" name="1044042">
 		<!--Jointing Plane-->
 		<tinker definition="1030">
 			<tinkering min="0" max="500" />
@@ -64,7 +65,8 @@
 		</setinker>
 	</menu>
 
-	<menu id="TINKERING_TOOLS" name="Tools">
+	<!-- Tools -->
+	<menu id="TINKERING_TOOLS" name="1044046">
 		<!--Scissors-->
 		<tinker definition="f9e">
 			<tinkering min="50" max="550" />
@@ -199,7 +201,8 @@
 		</tinker>
 	</menu>
 
-	<menu id="TINKERING_PARTS" name="Parts">
+	<!-- Parts -->
+	<menu id="TINKERING_PARTS" name="1044047">
 		<!--Gears-->
 		<tinker definition="1054">
 			<tinkering min="5" max="550" />
@@ -256,7 +259,8 @@
 		</setinker>
 	</menu>
 
-	<menu id="TINKERING_UTENSILS" name="Utensils">
+	<!-- Utensils -->
+	<menu id="TINKERING_UTENSILS" name="1044048">
 		<!--Butcher's Knife-->
 		<tinker definition="13f6">
 			<tinkering min="250" max="750" />
@@ -312,7 +316,8 @@
 		</tinker>
 	</menu>
 
-	<menu id="TINKERING_MISC" name="Miscellaneous">
+	<!--Miscellaneous-->
+	<menu id="TINKERING_MISC" name="1044050">
 		<!--Key Ring-->
 		<tinker definition="1011">
 			<tinkering min="100" max="600" />
@@ -397,7 +402,8 @@
 		</setinker>
 	</menu>
 
-	<menu id="TINKERING_ASSEMBLIES" name="Assemblies">
+	<!-- Assemblies -->
+	<menu id="TINKERING_ASSEMBLIES" name="1044051">
 		<!--Axle Gears-->
 		<tinker definition="1051">
 			<material id="105b;105c" amount="1" name="Axle" /> <!-- Axle -->
@@ -438,7 +444,7 @@
 		</setinker>
 
 		<!--Potion Keg-->
-		<tinker definition="potion_keg_empty">
+		<tinker definition="potion_keg_empty" itemid="0x1940">
 			<tinkering min="750" max="1000" />
 			<material id="e7f" amount="1" name="Keg" /> <!-- Keg -->
 			<material id="1004" amount="1" name="Barrel Tap" /> <!-- Barrel Tap -->
@@ -447,7 +453,8 @@
 		</tinker>
 	</menu>
 
-	<menu id="TINKERING_JEWELRY" name="Jewelry">
+	<!-- Jewelry -->
+	<menu id="TINKERING_JEWELRY" name="1011172">
 		<!--Ring-->
 		<tinker definition="1f09">
 			<tinkering min="400" max="900" />

@@ -7,14 +7,15 @@
 =================================================================
 -->
 <definitions>
-	<menu id="COOKING" name="Cooking">
+	<menu id="COOKING" name="1044003"> <!-- <CENTER>COOKING MENU</CENTER> -->
 		<menu id="COOKING_INGREDIENTS" />
 		<menu id="COOKING_PREPARATIONS" />
 		<menu id="COOKING_BAKING" />
 		<menu id="COOKING_BARBECUE" />
 	</menu>
 
-	<menu id="COOKING_INGREDIENTS" name="Ingredients">
+	<!-- Ingredients -->
+	<menu id="COOKING_INGREDIENTS" name="1044495">
 		<!--Dough-->
 		<cook definition="103d">
 			<cooking min="0" max="1000" />
@@ -44,7 +45,8 @@
 		</cook>
 	</menu>
 
-	<menu id="COOKING_PREPARATIONS" name="Preparations">
+	<!-- Preparations -->
+	<menu id="COOKING_PREPARATIONS" name="1044496">
 		<!--Unbaked Quiche-->
 		<cook definition="unbaked_quiche">
 			<cooking min="0" max="1000" />
@@ -146,7 +148,8 @@
 		</secook>
 	</menu>
 
-	<menu id="COOKING_BAKING" name="Baking">
+	<!-- Baking -->
+	<menu id="COOKING_BAKING" name="1044497">
 		<!--Bread Loaf-->
 		<cook definition="103b">
 			<cooking min="0" max="1000" />
@@ -267,7 +270,8 @@
 
 	</menu>
 
-	<menu id="COOKING_BARBECUE" name="Barbecue">
+	<!-- Barbecue -->
+	<menu id="COOKING_BARBECUE" name="1044498">
 		<!--Cooked Bird-->
 		<cook definition="9b7">
 			<cooking min="0" max="1000" />

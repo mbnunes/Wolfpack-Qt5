@@ -7,7 +7,7 @@
 =================================================================
 -->
 <definitions>
-	<menu id="BLACKSMITHING" name="Blacksmithing">
+	<menu id="BLACKSMITHING" name="1044002"> <!-- Blacksmithy Menu -->
 		<name>Blacksmithing</name>
 		<menu id="BLACKSMITHING_RINGMAIL" />
 		<menu id="BLACKSMITHING_CHAINMAIL" />
@@ -22,9 +22,9 @@
 	</menu>
 
 	<!-- Ringmail Armor -->
-	<menu id="BLACKSMITHING_RINGMAIL" name="Ringmail">
+	<menu id="BLACKSMITHING_RINGMAIL" name="1011076">
 		<!--Ringmail Gloves-->
-		<smith definition="13eb">
+		<smith definition="13eb" name="1025099">
 			<blacksmithing min="120" max="520" penalty="300" />
 			<ingots amount="10" />
 		</smith>
@@ -49,7 +49,7 @@
 	</menu>
 
 	<!-- Chainmail Armor -->
-	<menu id="BLACKSMITHING_CHAINMAIL" name="Chainmail">
+	<menu id="BLACKSMITHING_CHAINMAIL" name="1011077">
 		<!--Chainmail Coif-->
 		<smith definition="13bb">
 			<blacksmithing min="145" max="645" penalty="300" />
@@ -70,7 +70,7 @@
 	</menu>
 
 	<!-- Platemail -->
-	<menu id="BLACKSMITHING_PLATEMAIL" name="Platemail">
+	<menu id="BLACKSMITHING_PLATEMAIL" name="1011078">
 		<!--Platemail Arms-->
 		<smith definition="1410">
 			<blacksmithing min="663" max="1160" penalty="290" />
@@ -147,7 +147,7 @@
 	</menu>
 
 	<!-- Helmets -->
-	<menu id="BLACKSMITHING_HELMETS" name="Helmets">
+	<menu id="BLACKSMITHING_HELMETS" name="1011079">
 		<!--Bascinet-->
 		<smith definition="140d">
 			<blacksmithing min="83" max="583" penalty="300" />
@@ -229,7 +229,7 @@
 	</menu>
 
 	<!-- Shields -->
-	<menu id="BLACKSMITHING_SHIELDS" name="Shields">
+	<menu id="BLACKSMITHING_SHIELDS" name="1011080">
 		<!--Buckler-->
 		<smith definition="1b73">
 			<blacksmithing min="-50" max="495" penalty="300" />
@@ -280,7 +280,7 @@
 	</menu>
 
 	<!-- Bladed Weapons -->
-	<menu id="BLACKSMITHING_BLADED" name="Blades">
+	<menu id="BLACKSMITHING_BLADED" name="1011081">
 		<!--Bone Harvester-->
 		<smith definition="26c5">
 			<blacksmithing min="330" max="930" penalty="300" />
@@ -391,7 +391,7 @@
 	</menu>
 
 	<!-- Axe Weapons -->
-	<menu id="BLACKSMITHING_AXES" name="Axes">
+	<menu id="BLACKSMITHING_AXES" name="1011082">
 		<!--Axe-->
 		<smith definition="f49">
 			<blacksmithing min="342" max="942" penalty="300" />
@@ -436,7 +436,7 @@
 	</menu>
 
 	<!-- Polearms -->
-	<menu id="BLACKSMITHING_POLEARMS" name="Polearms">
+	<menu id="BLACKSMITHING_POLEARMS" name="1011083">
 		<!--Bardiche-->
 		<smith definition="f4d">
 			<blacksmithing min="317" max="917" penalty="300" />
@@ -499,7 +499,7 @@
 	</menu>
 
 	<!-- Bashing Weapons -->
-	<menu id="BLACKSMITHING_BASHING" name="Bashing">
+	<menu id="BLACKSMITHING_BASHING" name="1011084">
 		<!--Hammer Pick-->
 		<smith definition="143d">
 			<blacksmithing min="342" max="942" penalty="300" />
@@ -546,7 +546,7 @@
 	</menu>
 
 	<!-- Dragon Scale Armor -->
-	<menu id="BLACKSMITHING_SCALEARMOR" name="Dragon Scale Armor">
+	<menu id="BLACKSMITHING_SCALEARMOR" name="1053114">
 		<!--Dragon Gloves-->
 		<smith definition="2643">
 			<blacksmithing min="689" max="1289" penalty="276" />
