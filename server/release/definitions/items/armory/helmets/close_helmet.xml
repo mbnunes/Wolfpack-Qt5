@@ -12,7 +12,6 @@
 	<!-- Close Helmet North-South -->
 	<item id="1408">
 		<id>0x1408</id>
-		<name>close helmet</name>
 		<decay />
 		<nodye />
 		<durability><random min="45" max="60" /></durability>
