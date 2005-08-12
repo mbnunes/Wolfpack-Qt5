@@ -35,7 +35,7 @@
 	registered in the world in a memory efficient way. A typical iteration could look
 	like this:
 
-	<code>iterator = wolfpack.allitemsiterator()
+	<code>iterator = wolfpack.itemiterator()
 	item = iterator.first
 	while item:
 	&nbsp;&nbsp;# Access item properties here
@@ -107,7 +107,7 @@ PyObject* PyGetItemIterator()
 	registered in the world in a memory efficient way. A typical iteration could look
 	like this:
 
-	<code>iterator = wolfpack.allcharsiterator()
+	<code>iterator = wolfpack.chariterator()
 	char = iterator.first
 	while char:
 	&nbsp;&nbsp;# Access char properties here
