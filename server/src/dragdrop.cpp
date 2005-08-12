@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * Copyright 2001-2005 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -822,38 +822,38 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		}
 
 		// Dropped on another Container/in another Container
-		if ( pCont->corpse() ) 
+		if ( pCont->corpse() )
 		{
 			pChar->soundEffect( 0x42 );
-		} 
-		else 
+		}
+		else
 		{
 			pChar->soundEffect( 0x57 );
 		}
 		pItem->update();
 
 		// If the logmask contains LOG_TRACE, log drops
-		if (outmostCont && outmostCont != pItem) 
+		if (outmostCont && outmostCont != pItem)
 		{
-			if (outmostCont->corpse()) 
+			if (outmostCont->corpse())
 			{
 				cCorpse *corpse = static_cast<cCorpse*>(outmostCont);
 				P_PLAYER owner = dynamic_cast<P_PLAYER>(corpse->owner());
-				if (owner && owner != pChar) 
+				if (owner && owner != pChar)
 				{
 					pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) onto corpse of player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->name() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 				}
 			}
 		}
-		if ( pChar->isGM() && packOwner && packOwner != pChar ) 
+		if ( pChar->isGM() && packOwner && packOwner != pChar )
 		{
 			P_PLAYER owner = dynamic_cast<P_PLAYER>(packOwner);
-			if (owner) 
+			if (owner)
 			{
 				pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) to player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 			}
 		}
-		if ( pChar->isGM() && !packOwner ) 
+		if ( pChar->isGM() && !packOwner )
 		{
 			pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) into container 0x%4 (Outmost: 0x%5)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( pCont->serial(), 0, 16 ).arg( outmostCont->serial(), 0, 16 ));
 		}

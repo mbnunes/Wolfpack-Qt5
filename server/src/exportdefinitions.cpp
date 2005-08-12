@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * Copyright 2001-2005 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -105,7 +105,7 @@ void cDefinitionExporter::generate(const QString &filename) {
 		exportMultis(); // Export the multi definitions
 
 		driver.exec("COMMIT;"); // End the SQL transaction
-		
+
 		reportStatus(tr("Finished exporting definitions.")); // Report that the export has finished
 	} catch ( const QString& e ) {
 		reportError(e); // Report errors to the client or console
@@ -164,7 +164,7 @@ static void processItem(cItemInfo &item, const cElement *node, bool multi = fals
 			item.dispid = child->value().toInt();
 		} else if ( !multi && child->name() == "color" ) {
 			item.color = child->value().toInt();
-		} else if ( !multi && child->name() == "category" ) {			
+		} else if ( !multi && child->name() == "category" ) {
 			// Split into category and description
 			QString category = child->text();
 
@@ -172,7 +172,7 @@ static void processItem(cItemInfo &item, const cElement *node, bool multi = fals
 			if (rearIndex != -1) {
 				item.categoryname = category.left(rearIndex);
 				item.name = category.mid(rearIndex + 1);
-			}			
+			}
 		}
 	}
 }
@@ -184,8 +184,8 @@ struct stCategory {
 };
 
 /*
-	This is a general purpose helper function for 
-	getting ids for categories from a dictionary and 
+	This is a general purpose helper function for
+	getting ids for categories from a dictionary and
 	at the same time ensuring that the entire category
 	is in the dictionary.
 */
@@ -247,7 +247,7 @@ void cDefinitionExporter::exportItems() {
 		// Retrieve the category id for the final item category
 		item.category = getCategoryId(categories, item.categoryname, driver, "categories");
 
-        // Insert the item into the table.				
+        // Insert the item into the table.
 		QString id = (*it)->getAttribute("id");
 		QString sql = QString( "INSERT INTO items VALUES(NULL,'%1',%2,%3,%4,'%5');" )
 		.arg( item.name.replace( "'", "''" ) )
@@ -256,7 +256,7 @@ void cDefinitionExporter::exportItems() {
 		.arg( item.color )
 		.arg( id.replace( "'", "''" ) );
 		driver.exec(sql.utf8());
-	}	
+	}
 }
 
 /*
@@ -280,7 +280,7 @@ void cDefinitionExporter::exportLocations() {
 		if (!category.isEmpty()) {
 			// Split into name and category
 			int offset = category.findRev('\\');
-			if (offset != -1) {				
+			if (offset != -1) {
 				QString name = category.mid(offset + 1);
 				category = category.left(offset);
 
@@ -362,7 +362,7 @@ static void processNpc(cNpcInfo &npc, const cElement *node) {
 			npc.bodyid = child->value().toInt();
 		} else if ( child->name() == "skin" ) {
 			npc.skin = child->value().toInt();
-		} else if ( child->name() == "category" ) {			
+		} else if ( child->name() == "category" ) {
 			// Split into category and description
 			QString category = child->text();
 
@@ -370,7 +370,7 @@ static void processNpc(cNpcInfo &npc, const cElement *node) {
 			if (rearIndex != -1) {
 				npc.categoryname = category.left(rearIndex);
 				npc.name = category.mid(rearIndex + 1);
-			}		
+			}
 		} else if ( child->name() == "equipped" ) {
 			// Process equipment information for the npc
 			for (unsigned int j = 0; j < child->childCount(); ++j) {
@@ -386,7 +386,7 @@ static void processNpc(cNpcInfo &npc, const cElement *node) {
 						continue; // Skip this item
 					}
 				}
-                
+
 				// Retrieve and parse the item definition
 				const cElement *itemNode = Definitions::instance()->getDefinition(WPDT_ITEM, id);
 
@@ -456,7 +456,7 @@ void cDefinitionExporter::exportNpcs() {
 				driver.exec( sql.utf8() );
 			}
 		}
-	}	
+	}
 }
 
 /*
@@ -465,7 +465,7 @@ void cDefinitionExporter::exportNpcs() {
 void cDefinitionExporter::exportMultis() {
 	cDefinitions::Iterator it = Definitions::instance()->begin(WPDT_MULTI);
 	cDefinitions::Iterator end = Definitions::instance()->end(WPDT_MULTI);
-	
+
 	// Iterate over the multi definitions
 	for (; it != end; ++it) {
 		const cElement *element = *it;
@@ -482,7 +482,7 @@ void cDefinitionExporter::exportMultis() {
 			.arg( item.dispid );
 			driver.exec( sql.utf8() );
 		}
-	}	
+	}
 }
 
 /*

@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * Copyright 2001-2005 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -114,7 +114,7 @@ public:
 	{
 		return _password;
 	}
-	
+
 protected:
 	virtual void freeDBResult ( cDBResult& result ) const = 0;
 	virtual bool fetchrow ( cDBResult& result ) const = 0;
@@ -141,7 +141,7 @@ public:
 	bool exec( const QString& query );
 	cDBResult query( const QString& query );
 	int lastInsertId();
-	
+
 protected:
 	void freeDBResult ( cDBResult& result ) const;
 	bool fetchrow ( cDBResult& result ) const;
@@ -167,7 +167,7 @@ public:
 	bool exec( const QString& query );
 	cDBResult query( const QString& query );
 	int lastInsertId();
-	
+
 protected:
 	void freeDBResult ( cDBResult& result ) const;
 	bool fetchrow ( cDBResult& result ) const;
@@ -192,7 +192,7 @@ public:
 	void setActiveConnection( int id );
 	bool exec( const QString& query );
 	cDBResult query( const QString& query );
-	
+
 protected:
 	void freeDBResult ( cDBResult& result ) const;
 	bool fetchrow ( cDBResult& result ) const;
@@ -220,7 +220,7 @@ public:
 	{
 		_driver->freeDBResult (*this);
 	}
-	
+
 	char** data() const; // Get the data for the current row
 	bool fetchrow() // Fetchs a new row, returns false if there is no new row
 	{

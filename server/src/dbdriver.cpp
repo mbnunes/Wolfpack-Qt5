@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * Copyright 2001-2005 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -399,14 +399,14 @@ bool cSQLite3Driver::fetchrow ( cDBResult& result ) const
 		return false;
 
 	bool success = ( sqlite3_step( ( sqlite3_stmt * ) result._result ) == SQLITE_ROW );
-	
+
 	if (success)
 	{
 		int ccount = sqlite3_column_count ( ( sqlite3_stmt * ) result._result );
-		
+
 		if (result._row) delete [] result._row;
 		result._row = new char* [ccount];
-		
+
 		for (int c = 0; c < ccount; c++)
 			((char**) result._row)[c] = (char*) sqlite3_column_text ( ( sqlite3_stmt * ) result._result, c );
 	}
@@ -418,7 +418,7 @@ void cSQLite3Driver::freeDBResult ( cDBResult& result ) const
 	sqlite3_finalize( ( sqlite3_stmt * ) result._result );
 
 	if (result._row) delete [] result._row;
-	
+
 	result._result = 0;
 	result._row = 0;
 	result._connection = 0;
@@ -438,7 +438,7 @@ bool cSQLite3Driver::open( int )
 	if (sqlite3_open( _dbname.utf8(), (sqlite3**) &connection ) != SQLITE_OK)
 	{
 		QString err( sqlite3_errmsg ((sqlite3*) connection) );
-		
+
 		throw err;
 	}
 
@@ -526,7 +526,7 @@ bool cMySQLDriver::fetchrow ( cDBResult& result ) const
 		return false;
 
 	result._row = mysql_fetch_row( ( st_mysql_res * ) result._result );
-	
+
 	return ( result._row != 0 );
 }
 

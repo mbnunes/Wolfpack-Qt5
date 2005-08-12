@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2004 by holders identified in AUTHORS.txt
+ * Copyright 2001-2005 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -2477,7 +2477,7 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 		cDBResult result = PersistentBroker::instance()->query( query );
 
 		PyMem_Free( query );
-	
+
 		return ( new cDBResult( result ) )->getPyObject();
 	}
 	catch ( QString& e )
@@ -2492,7 +2492,7 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 		PyErr_SetString( PyExc_RuntimeError, "An error occured while querying the database." );
 		return 0;
 	}
-	
+
 	// we should never get here
 	return 0;
 }
