@@ -113,6 +113,25 @@ class FletchItemAction(CraftItemAction):
 		player.soundeffect(0x55)
 
 #
+# The user has to have Samurai Empire installed
+#
+class SeFletchItemAction(FletchItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		FletchItemAction.__init__(self, parent, title, itemid, definition)
+
+	def visible(self, char, arguments):
+		if char.socket and char.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return FletchItemAction.visible(self, char, arguments)
+
+	def checkmaterial(self, player, arguments, silent = 0):
+		if player.socket and player.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return FletchItemAction.checkmaterial(self, player, arguments, silent)
+
+#
 # The bowcraft menu.
 #
 class BowcraftMenu(MakeMenu):
@@ -212,27 +231,34 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'fletch':
+		elif child.name in ['fletch', 'sefletch']:
 			if not child.hasattribute('definition'):
 				console.log(LOG_ERROR, "Fletch action without definition in menu %s.\n" % menu.id)
 			else:
 				itemdef = child.getattribute('definition')
-
-				# See if we can find an item id if it's not given
-				if not child.hasattribute('itemid'):
-					item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
-					itemid = 0
-					if item:
-						itemchild = item.findchild('id')
-						if itemchild:
-							itemid = itemchild.value
-				else:
-					itemid = hex2dec(child.getattribute('itemid', '0'))
-				if child.hasattribute('name'):
-					name = child.getattribute('name')
-				else:
-					name = generateNamefromDef(itemdef)
-				action = FletchItemAction(menu, name, int(itemid), itemdef)
+				try:
+					# See if we can find an item id if it's not given
+					if not child.hasattribute('itemid'):
+						item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
+						itemid = 0
+						if item:
+							itemchild = item.findchild('id')
+							if itemchild:
+								itemid = itemchild.value
+						else:
+							console.log(LOG_ERROR, "Fletch action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
+					else:
+						itemid = hex2dec(child.getattribute('itemid', '0'))
+					if child.hasattribute('name'):
+						name = child.getattribute('name')
+					else:
+						name = generateNamefromDef(itemdef)
+					if child.name == 'sefletch':
+						action = SeSmithItemAction(menu, name, int(itemid), itemdef)
+					else:
+						action = SmithItemAction(menu, name, int(itemid), itemdef)
+				except:
+					console.log(LOG_ERROR, "Fletch action with invalid item id in menu %s.\n" % menu.id)
 
 				# Process subitems
 				for j in range(0, child.childcount):

@@ -86,7 +86,11 @@
 			<material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
 		</fletch>
 
-		<!-- TODO: Yumi (SE) -->
+		<!-- Yumi -->
+		<sefletch definition="27a5">
+			<bowcraft min="900" max="1200" />
+			<material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
+		</sefletch>
 	</menu>
 
 </definitions>
