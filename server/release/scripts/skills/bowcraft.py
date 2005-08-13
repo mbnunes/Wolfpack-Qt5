@@ -254,9 +254,9 @@ def loadMenu(id, parent = None):
 					else:
 						name = generateNamefromDef(itemdef)
 					if child.name == 'sefletch':
-						action = SeSmithItemAction(menu, name, int(itemid), itemdef)
+						action = SeFletchItemAction(menu, name, int(itemid), itemdef)
 					else:
-						action = SmithItemAction(menu, name, int(itemid), itemdef)
+						action = FletchItemAction(menu, name, int(itemid), itemdef)
 				except:
 					console.log(LOG_ERROR, "Fletch action with invalid item id in menu %s.\n" % menu.id)
 
