@@ -48,6 +48,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed items decaying in multis, if they lay on tables.
   - Added support for regional mining in regions with <RESORES></RESORES>. (thx to MagnusBr)
   - Added "pay from pack only" option. (thx to MagnusBr)
+  - Fixed uo version not detected on character creation.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

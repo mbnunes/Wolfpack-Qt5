@@ -113,10 +113,12 @@ public:
 	{
 		return this->getAsciiString( 10, 30 );
 	}
-	QCString password( void ) const
+	// Here are 4 unkown bytes
+	ushort flags( void ) const
 	{
-		return this->getAsciiString( 40, 30 );
+		return getShort( 44 );
 	}
+	// Here are 24 unkown bytes
 	uchar gender( void ) const
 	{
 		return ( *this )[70];
@@ -219,10 +221,12 @@ public:
 	{
 		this->setAsciiString( 10, d, 30 );
 	}
-	void setPassword( const QCString& d )
+	// Here are 4 unkown bytes
+	void setFlags( ushort d )
 	{
-		this->setAsciiString( 40, d, 30 );
+		setShort( 44, d );
 	}
+	// Here are 24 unkown bytes
 	void setGender( uchar d )
 	{
 		( *this )[70] = d;

@@ -1186,6 +1186,9 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	log( LOG_MESSAGE, tr( "Created character '%1' (0x%2).\n" ).arg( pChar->name() ).arg( pChar->serial(), 0, 16 ) );
 
+	// Save the flags
+	flags_ = packet->flags();
+
 	// Start the game with the newly created char -- OR RELAY HIM !!
 	playChar( pChar );
 	pChar->onCreate( pChar->baseid() ); // Call onCreate before onLogin
