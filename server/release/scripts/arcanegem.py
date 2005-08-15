@@ -30,7 +30,7 @@ def onUse( char, item ):
 	if not item.getoutmostchar() == char:
 		char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
 		return True
-	char.socket.sysmessage( "What do you wish to use the gem on?" )
+	char.socket.sysmessage( tr("What do you wish to use the gem on?") )
 	char.socket.attachtarget( "arcanegem.response", [item.serial] )
 	return True
 
@@ -57,7 +57,7 @@ def response( char, args, target ):
 	if target.item and target.item.id in possible():
 		if isarcane( target.item ):
 			if CurArcaneCharges( target.item ) >= MaxArcaneCharges( target.item ):
-				char.socket.sysmessage( "That item is already fully charged." )
+				char.socket.sysmessage( tr("That item is already fully charged.") )
 				return False
 			else:
 				if CurArcaneCharges <= 0:
@@ -68,7 +68,7 @@ def response( char, args, target ):
 				else:
 					target.item.settag( "arcane", item.gettag("arcane") + getCharges(char) )
 
-				char.socket.sysmessage( "You recharge the item." )
+				char.socket.sysmessage( tr("You recharge the item.") )
 				item.delete()
 				target.item.resendtooltip()
 
@@ -79,7 +79,7 @@ def response( char, args, target ):
 				target.item.settag( "maxArcaneCharges", charges )
 				target.item.settag( "arcane", charges )
 				target.item.color = DefaultArcaneHue
-				char.socket.sysmessage( "You enhance the item with your gem." )
+				char.socket.sysmessage( tr("You enhance the item with your gem.") )
 				item.delete()
 				# new art look...
 				for equipment in arcaneequip:
@@ -87,11 +87,11 @@ def response( char, args, target ):
 						target.item.id = equipment[1]
 				target.item.update()
 			else:
-				char.socket.sysmessage( "Only exceptional items can be enhanced with the gem." )
+				char.socket.sysmessage( tr("Only exceptional items can be enhanced with the gem.") )
 		else:
-			char.socket.sysmessage( "You do not have enough skill in tailoring to enhance the item." )
+			char.socket.sysmessage( tr("You do not have enough skill in tailoring to enhance the item.") )
 	else:
-		char.socket.sysmessage( "You cannot use the gem on that." )
+		char.socket.sysmessage( tr("You cannot use the gem on that.") )
 	return
 
 def ConsumeCharges( char, amount ):

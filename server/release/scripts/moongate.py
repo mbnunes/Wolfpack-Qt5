@@ -8,11 +8,12 @@
 import wolfpack
 from wolfpack.gumps import cGump
 from wolfpack.utilities import isValidPosition
+from wolfpack import tr
 
 def onUse( char, item ):
 	# check distance
 	if( char.distanceto( item ) > 3):
-		char.socket.sysmessage( "You are too far away to use it." )
+		char.socket.clilocmessage( 500295 ) # You are too far away to do that.
 		return 1
 
 	# send gate gump
@@ -38,11 +39,11 @@ def sendGump( char, item ):
 	# trammel
 	gateGump.startPage( 1 )
 	gateGump.addBackground( 9200, 380, 280 )
-	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addText( 5, 10, tr("Pick your destination:") )
 	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
-	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addText( 45, 210, tr("OKAY"), 0 )
 	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 45, 235, "CANCEL" )
+	gateGump.addText( 45, 235, tr("CANCEL") )
 	# facets
 	gateGump.addText( 35, 35, "Trammel", 61 )
 	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
@@ -74,11 +75,11 @@ def sendGump( char, item ):
 	# felucca
 	gateGump.startPage( 2 )
 	gateGump.addBackground( 9200, 380, 280 )
-	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addText( 5, 10, tr("Pick your destination:") )
 	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
-	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addText( 45, 210, tr("OKAY"), 0 )
 	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 45, 235, "CANCEL" )
+	gateGump.addText( 45, 235, tr("CANCEL") )
 	# facets
 	gateGump.addText( 35, 35, "Trammel" )
 	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
@@ -110,11 +111,11 @@ def sendGump( char, item ):
 	# ilshenar
 	gateGump.startPage( 3 )
 	gateGump.addBackground( 9200, 380, 280 )
-	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addText( 5, 10, tr("Pick your destination:") )
 	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
-	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addText( 45, 210, tr("OKAY"), 0 )
 	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 45, 235, "CANCEL" )
+	gateGump.addText( 45, 235, tr("CANCEL") )
 	# facets
 	gateGump.addText( 35, 35, "Trammel" )
 	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
@@ -148,11 +149,11 @@ def sendGump( char, item ):
 	# Malas
 	gateGump.startPage( 4 )
 	gateGump.addBackground( 9200, 380, 280 )
-	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addText( 5, 10, tr("Pick your destination:") )
 	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
-	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addText( 45, 210, tr("OKAY"), 0 )
 	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 45, 235, "CANCEL" )
+	gateGump.addText( 45, 235, tr("CANCEL") )
 	# facets
 	gateGump.addText( 35, 35, "Trammel" )
 	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
@@ -185,11 +186,11 @@ def sendGump( char, item ):
 	# tokuno islands
 	gateGump.startPage( 5 )
 	gateGump.addBackground( 9200, 380, 280 )
-	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addText( 5, 10, tr("Pick your destination:") )
 	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
-	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addText( 45, 210, tr("OKAY"), 0 )
 	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 45, 235, "CANCEL" )
+	gateGump.addText( 45, 235, tr("CANCEL") )
 	# facets
 	gateGump.addText( 35, 35, "Trammel" )
 	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
@@ -229,11 +230,11 @@ def gateCallback( char, args, target ):
 		char.socket.sysmessage( "script error 2. contact GM." )
 		return 1
 	if not char.gm and ( char.distanceto( item ) > 3):
-		char.socket.sysmessage( "You are too far away to use it." )
+		char.socket.clilocmessage( 500295 ) # You are too far away to do that.
 		return 1
 
 	if( target.button != 1 ):
-		char.socket.sysmessage( "Canceled." )
+		char.socket.sysmessage( tr("Canceled.") )
 		return 1
 	if( len( target.switches ) == 0 ):
 		return 1
@@ -320,7 +321,7 @@ def gateCallback( char, args, target ):
 	char.removefromview()
 	pos = wolfpack.coord( coord[0], coord[1], coord[2], coord[3] )
 	if not isValidPosition( pos ):
-		char.socket.sysmessage( "Destination Invalid!" )
+		char.socket.sysmessage( tr("Destination Invalid!") )
 		return False
 	char.moveto( pos )
 	char.update()

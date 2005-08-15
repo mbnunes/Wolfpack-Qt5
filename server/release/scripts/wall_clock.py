@@ -6,20 +6,21 @@
 #################################################################
 
 import wolfpack.time
+from wolfpack import tr
 
 hourStrings = (
-	"one o'clock",
-	"two o'clock",
-	"three o'clock",
-	"four o'clock",
-	"five o'clock",
-	"six o'clock",
-	"seven o'clock",
-	"eight o'clock",
-	"nine o'clock",
-	"ten o'clock",
-	"eleven o'clock",
-	"twelve o'clock",
+	tr("one o'clock"),
+	tr("two o'clock"),
+	tr("three o'clock"),
+	tr("four o'clock"),
+	tr("five o'clock"),
+	tr("six o'clock"),
+	tr("seven o'clock"),
+	tr("eight o'clock"),
+	tr("nine o'clock"),
+	tr("ten o'clock"),
+	tr("eleven o'clock"),
+	tr("twelve o'clock"),
 )
 
 def onUse( char, item ):
@@ -28,13 +29,13 @@ def onUse( char, item ):
 
 	# Prefix, then time itself
 	if( minute < 15 ):
-		time = "It is "
+		time = tr("It is ")
 	elif( minute >= 15 and minute < 30 ):
-		time = "It is a quarter past "
+		time = tr("It is a quarter past ")
 	elif( minute >= 30 and minute < 45 ):
-		time = "It is halft past "
+		time = tr("It is halft past ")
 	else:
-		time = "It is a quarter till "
+		time = tr("It is a quarter till ")
 		hour += 1
 		if( hour > 24 ):
 			hour = 12
@@ -50,9 +51,9 @@ def onUse( char, item ):
 
 	if( wolfpack.time.hour() == 0 or wolfpack.time.hour() > 12 ):
 		if( hour >= 1 and hour < 6 ):
-			time += " in the afternoon"
+			time += tr(" in the afternoon")
 		else:
-			time += " in the evening"
+			time += tr(" in the evening")
 
 	char.message( time )
 	return True

@@ -11,7 +11,7 @@ import skills
 import random
 from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
 	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN, MINING_SAND
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.utilities import ismountainorcave, issand, tobackpack
 
 
@@ -249,7 +249,7 @@ def domining(char, args):
 
 	# Refill the resource gem.
 	if resourcecount == 0:
-		socket.sysmessage("There is no ore here to mine.")
+		socket.sysmessage( tr("There is no ore here to mine.") )
 
 		if not veingem.hastag('resource_empty'):
 			# Picking the next amount

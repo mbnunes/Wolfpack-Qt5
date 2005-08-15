@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import *
 import math
 import wolfpack
@@ -17,15 +17,15 @@ import random
 # Granites used by masonry
 # The first four values are required by the makemenu system.
 GRANITES = [
-	['Granite',		BLACKSMITHING, 0, ['granite'], 0x0],
-	['Dull Copper Granite', BLACKSMITHING, 0, ['dullcopper_granite'], 0x973],
-	['Shadow Granite', 	BLACKSMITHING, 0, ['shadowiron_granite'], 0x966],
-	['Copper Granite',	BLACKSMITHING, 0, ['copper_granite'], 0x96d],
-	['Bronze Granite',	BLACKSMITHING, 0, ['bronze_granite'], 0x972],
-	['Gold Granite',	BLACKSMITHING, 0, ['gold_granite'], 0x8a5],
-	['Agapite Granite',	BLACKSMITHING, 0, ['agapite_granite'], 0x979],
-	['Verite Granite',	BLACKSMITHING, 0, ['verite_granite'], 0x89f],
-	['Valorite Granite',	BLACKSMITHING, 0, ['valorite_granite'], 0x8ab],
+	[tr('Granite'),		BLACKSMITHING, 0, ['granite'], 0x0],
+	[tr('Dull Copper Granite'), BLACKSMITHING, 0, ['dullcopper_granite'], 0x973],
+	[tr('Shadow Granite'), 	BLACKSMITHING, 0, ['shadowiron_granite'], 0x966],
+	[tr('Copper Granite'),	BLACKSMITHING, 0, ['copper_granite'], 0x96d],
+	[tr('Bronze Granite'),	BLACKSMITHING, 0, ['bronze_granite'], 0x972],
+	[tr('Gold Granite'),	BLACKSMITHING, 0, ['gold_granite'], 0x8a5],
+	[tr('Agapite Granite'),	BLACKSMITHING, 0, ['agapite_granite'], 0x979],
+	[tr('Verite Granite'),	BLACKSMITHING, 0, ['verite_granite'], 0x89f],
+	[tr('Valorite Granite'),	BLACKSMITHING, 0, ['valorite_granite'], 0x8ab],
 ]
 
 #

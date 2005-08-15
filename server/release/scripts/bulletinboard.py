@@ -4,6 +4,7 @@ import time
 from wolfpack.consts import LAYER_NPCRESTOCK
 from struct import unpack
 from math import floor
+from wolfpack import tr
 
 def bulletinboard(socket, packet):
 	char = socket.player
@@ -124,7 +125,7 @@ def bulletinboard(socket, packet):
 					minutes = floor(diff % 1440 / 60)
 
 					if (days != 0):
-						timestr = '%u Days %02u:%02u' % (days, hours, minutes)
+						timestr = tr('%u Days %02u:%02u') % (days, hours, minutes)
 					else:
 						timestr = '%02u:%02u' % (hours, minutes)
 
@@ -190,7 +191,7 @@ def bulletinboard(socket, packet):
 				packet.send(char.socket)
 
 			else:
-				char.socket.sysmessage("You can't read this message.")
+				char.socket.sysmessage( tr("You can't read this message.") )
 
 		# Request message summary
 		elif subcommand == 4:
@@ -201,7 +202,7 @@ def bulletinboard(socket, packet):
 				subjectlen = len(subject)+1
 				poster = ''
 				posterlen = len(poster)+1
-				timestr = 'Unknown'
+				timestr = tr('Unknown')
 				timestrlen = len(timestr)+1
 
 				if message.hastag('subject'):
@@ -231,9 +232,9 @@ def bulletinboard(socket, packet):
 					minutes = floor(diff % 1440 / 60)
 
 					if days == 1:
-						timestr = '%u day %02u:%02u' % (days, hours, minutes)
+						timestr = tr('%u day %02u:%02u') % (days, hours, minutes)
 					elif days > 1:
-						timestr = '%u days %02u:%02u' % (days, hours, minutes)
+						timestr = tr('%u days %02u:%02u') % (days, hours, minutes)
 					else:
 						timestr = '%02u:%02u' % (hours, minutes)
 
@@ -259,10 +260,10 @@ def bulletinboard(socket, packet):
 				packet.send(char.socket)
 
 			else:
-				socket.sysmessage("You can't read this message.")
+				socket.sysmessage( tr("You can't read this message.") )
 
 	except:
-		socket.sysmessage('Invalid bulletin board packet.')
+		socket.sysmessage( tr('Invalid bulletin board packet.') )
 		raise
 
 	return True
@@ -301,7 +302,7 @@ def onUse(char, board):
 
 	# Bulletin Board name in UTF-8 encoding (max. 29 chars)
 	if len(board.name) == 0:
-		name = 'bulletin board'
+		name = tr('bulletin board')
 	else:
 		name = board.name.encode('utf-8')
 

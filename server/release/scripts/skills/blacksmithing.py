@@ -13,32 +13,33 @@ from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefr
 from wolfpack.utilities import hex2dec, tobackpack
 from wolfpack.properties import itemcheck, fromitem
 import random
+from wolfpack import tr
 
 # Metals used by Blacksmithing
 # The first four values are required by the makemenu system.
 # The last value is the resname to use for newly crafted items
 METALS = [
-	['Iron',	BLACKSMITHING, 0, ['iron_ingot'], 0x0, 'iron'],
-	['Dull Copper', BLACKSMITHING, 650, ['dullcopper_ingot'], 0x973, 'dullcopper'],
-	['Shadow Iron', BLACKSMITHING, 700, ['shadowiron_ingot'], 0x966, 'shadowiron'],
-	['Copper',	BLACKSMITHING, 750, ['copper_ingot'], 0x96d, 'copper'],
-	['Bronze',	BLACKSMITHING, 800, ['bronze_ingot'], 0x972, 'bronze'],
-	['Gold',	BLACKSMITHING, 850, ['gold_ingot'], 0x8a5, 'gold'],
-	['Agapite',	BLACKSMITHING, 900, ['agapite_ingot'], 0x979, 'agapite'],
-	['Verite',	BLACKSMITHING, 950, ['verite_ingot'], 0x89f, 'verite'],
-	['Valorite',	BLACKSMITHING, 990, ['valorite_ingot'], 0x8ab, 'valorite'],
+	[tr('Iron'),	BLACKSMITHING, 0, ['iron_ingot'], 0x0, 'iron'],
+	[tr('Dull Copper'), BLACKSMITHING, 650, ['dullcopper_ingot'], 0x973, 'dullcopper'],
+	[tr('Shadow Iron'), BLACKSMITHING, 700, ['shadowiron_ingot'], 0x966, 'shadowiron'],
+	[tr('Copper'),	BLACKSMITHING, 750, ['copper_ingot'], 0x96d, 'copper'],
+	[tr('Bronze'),	BLACKSMITHING, 800, ['bronze_ingot'], 0x972, 'bronze'],
+	[tr('Gold'),	BLACKSMITHING, 850, ['gold_ingot'], 0x8a5, 'gold'],
+	[tr('Agapite'),	BLACKSMITHING, 900, ['agapite_ingot'], 0x979, 'agapite'],
+	[tr('Verite'),	BLACKSMITHING, 950, ['verite_ingot'], 0x89f, 'verite'],
+	[tr('Valorite'),	BLACKSMITHING, 990, ['valorite_ingot'], 0x8ab, 'valorite'],
 ]
 
 #
 # A list of scales used by the blacksmithing menu.
 #
 SCALES = [
-	['Red Scales', 0, 0, ['red_scales'], 0x66D, 'red_scales'],
-	['Yellow Scales', 0, 0, ['yellow_scales'], 0x8A8, 'yellow_scales'],
-	['Black Scales', 0, 0, ['black_scales'], 0x455, 'black_scales'],
-	['Green Scales', 0, 0, ['green_scales'], 0x851, 'green_scales'],
-	['White Scales', 0, 0, ['white_scales'], 0x8FD, 'white_scales'],
-	['Blue Scales', 0, 0, ['blue_scales'], 0x8B0, 'blue_scales'],
+	[tr('Red Scales'), 0, 0, ['red_scales'], 0x66D, 'red_scales'],
+	[tr('Yellow Scales'), 0, 0, ['yellow_scales'], 0x8A8, 'yellow_scales'],
+	[tr('Black Scales'), 0, 0, ['black_scales'], 0x455, 'black_scales'],
+	[tr('Green Scales'), 0, 0, ['green_scales'], 0x851, 'green_scales'],
+	[tr('White Scales'), 0, 0, ['white_scales'], 0x8FD, 'white_scales'],
+	[tr('Blue Scales'), 0, 0, ['blue_scales'], 0x8B0, 'blue_scales'],
 ]
 
 #

@@ -1,10 +1,11 @@
 
 import wolfpack
 from skills import mining
+from wolfpack import tr
 
 # ingot script
 def onShowTooltip(player, object, tooltip):
-	name = 'Unknown Ingot'
+	name = tr('Unknown Ingot')
 
 	if object.hastag('resname'):
 		resname = str(object.gettag('resname'))

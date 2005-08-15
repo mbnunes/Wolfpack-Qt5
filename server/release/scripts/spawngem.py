@@ -1,7 +1,7 @@
 
 import wolfpack
 import wolfpack.gumps
-from wolfpack import console
+from wolfpack import console, tr
 from system import spawns
 
 #
@@ -29,7 +29,7 @@ def onShowTooltip(sender, target, tooltip):
 		mininterval = target.gettag('mininterval')
 		maxinterval = target.gettag('maxinterval')
 
-		appendix = 'Radius: %s\nInterval: %s to %s minutes' % (area, mininterval, maxinterval)
+		appendix = tr('Radius: %s\nInterval: %s to %s minutes') % (area, mininterval, maxinterval)
 
 		tooltip.add(1060847, "%s\t\n" % appendix)
 
@@ -46,7 +46,7 @@ def response(player, arguments, response):
 
 	# Validate parameters
 	if not 0 in response.switches and not 1 in response.switches:
-		player.socket.sysmessage('You have to choose a spawntype.')
+		player.socket.sysmessage( tr('You have to choose a spawntype.') )
 		return
 
 	spawntype = response.switches[0]
@@ -57,7 +57,7 @@ def response(player, arguments, response):
 		mininterval = int(response.text[2])
 		maxinterval = int(response.text[3])
 	except:
-		player.socket.sysmessage('You entered an invalid value.')
+		player.socket.sysmessage( tr('You entered an invalid value.') )
 		return
 
 	item.settag('spawntype', spawntype)
@@ -108,9 +108,9 @@ def onUse(player, item):
 	dialog.addGump(1, 12, 10421, 0)
 	dialog.addGump(30, -1, 10420, 0)
 	dialog.addResizeGump(66, 40, 9200, 405, 65)
-	dialog.addText(173, 52, "Wolfpack Spawn System", 194)
+	dialog.addText(173, 52, tr("Wolfpack Spawn System"), 194)
 	dialog.addResizeGump(65, 112, 9200, 405, 345)
-	dialog.addText(173, 72, "Spawn Gem Properties", 2100)
+	dialog.addText(173, 72, tr("Spawn Gem Properties"), 2100)
 	dialog.addTiledGump(90, 11, 164, 17, 10250, 0)
 	dialog.addGump(474, 12, 10431, 0)
 	dialog.addGump(439, -1, 10430, 0)
@@ -126,7 +126,7 @@ def onUse(player, item):
 	dialog.addTilePic(114, 50, 9653)
 	dialog.addButton(140, 468, 242, 241, 0)
 	dialog.addButton(68, 468, 247, 248, 1)
-	dialog.addText(80, 124, "Spawn Type", 2100)
+	dialog.addText(80, 124, tr("Spawn Type"), 2100)
 	dialog.startGroup(0)
 	if spawntype == 0:
 		dialog.addRadioButton(80, 148, 9721, 9724, 0, 1)
@@ -138,16 +138,16 @@ def onUse(player, item):
 	else:
 		dialog.addRadioButton(164, 148, 9721, 9724, 1, 0)
 	dialog.addText(202, 153, "NPC", 2100)
-	dialog.addText(80, 184, "Item or NPC Definition", 2100)
+	dialog.addText(80, 184, tr("Item or NPC Definition"), 2100)
 	dialog.addResizeGump(80, 208, 9300, 208, 28)
 	dialog.addInputField(84, 211, 200, 20, 2100, 0, unicode(spawndef))
-	dialog.addText(80, 248, "Area or Wander Distance", 2100)
+	dialog.addText(80, 248, tr("Area or Wander Distance"), 2100)
 	dialog.addResizeGump(80, 272, 9300, 75, 28)
 	dialog.addInputField(84, 276, 63, 20, 2100, 1, unicode(area))
-	dialog.addText(80, 312, "Min. Interval in Minutes", 2100)
+	dialog.addText(80, 312, tr("Min. Interval in Minutes"), 2100)
 	dialog.addResizeGump(80, 336, 9300, 75, 28)
 	dialog.addInputField(84, 340, 63, 20, 2100, 2, unicode(mininterval))
-	dialog.addText(80, 376, "Max. Interval in Minutes", 2100)
+	dialog.addText(80, 376, tr("Max. Interval in Minutes"), 2100)
 	dialog.addResizeGump(80, 400, 9300, 75, 28)
 	dialog.addInputField(84, 404, 63, 20, 2100, 3, unicode(maxinterval))
 	dialog.send(player)

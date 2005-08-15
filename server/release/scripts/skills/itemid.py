@@ -9,6 +9,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from wolfpack.time import *
 import wolfpack
+from wolfpack import tr
 import skills
 
 ITEMID_DELAY = 1000
@@ -54,21 +55,21 @@ def response(char, args, target):
 
 		# Identify the item
 		if target.item.hastag('unidentified'):
-			socket.sysmessage('You are able to identify the use of this item!')
+			socket.sysmessage( tr('You are able to identify the use of this item!') )
 			target.item.deltag('unidentified')
 			target.item.resendtooltip()
 
 		# Display the buyprice
 		if target.item.buyprice != 0:
-			socket.sysmessage("You could probably buy this for %u gold." % target.item.buyprice)
+			socket.sysmessage( tr("You could probably buy this for %u gold.") % target.item.buyprice)
 		else:
-			socket.sysmessage("You don't think that anyone would sell this.")
+			socket.sysmessage( tr("You don't think that anyone would sell this.") )
 
 		# Display the sellprice
 		if target.item.sellprice != 0:
-			socket.sysmessage("You could probably sell this for %u gold." % target.item.sellprice)
+			socket.sysmessage( tr("You could probably sell this for %u gold.") % target.item.sellprice)
 		else:
-			socket.sysmessage("You don't think anyone would buy this.")
+			socket.sysmessage( tr("You don't think anyone would buy this.") )
 
 	elif target.char:
 		if not char.canreach(target.char, 4):

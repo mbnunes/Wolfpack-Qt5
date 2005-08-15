@@ -8,6 +8,7 @@
 #===============================================================#
 
 import wolfpack
+from wolfpack import tr
 
 # Sound constants for opening and closing a door
 SOUND_OPENWOOD = 0xEA
@@ -347,10 +348,10 @@ def onUse(char, item, norange=0):
 
 	# In Range?
 	if not char.cansee( item ):
-		char.socket.sysmessage( "You cannot see the door from here." )
+		char.socket.sysmessage( tr("You cannot see the door from here.") )
 		return True
 	elif not norange and not char.canreach(item, 2):
-		char.socket.sysmessage( "You cannot reach the handle from here." )
+		char.socket.sysmessage( tr("You cannot reach the handle from here.") )
 		return True
 
 	# Do we have a linked door, is this door not open?

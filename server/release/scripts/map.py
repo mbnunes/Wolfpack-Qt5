@@ -1,5 +1,6 @@
 
 import wolfpack
+from wolfpack import tr
 
 #
 # Table for preset maps
@@ -116,7 +117,7 @@ def mappackets(socket, packet):
 					item.settag('editable', 1)
 			sendmapcommand(socket, item, 7, plotting = not editable)
 		else:
-			socket.sysmessage('Unknown Map Command %u.' % command)
+			socket.sysmessage( tr('Unknown Map Command %u.') % command)
 
 	return 1
 
@@ -133,7 +134,7 @@ def sendmap(player, item, maptype):
 	if maptype == 'preset' and item.hastag('preset'):
 		preset = item.gettag('preset')
 		if not MAP_PRESETS.has_key(preset):
-			player.socket.sysmessage('Unknown map preset: %s.' % preset)
+			player.socket.sysmessage( tr('Unknown map preset: %s.') % preset)
 			return
 		(width, height, xtop, ytop, xbottom, ybottom) = MAP_PRESETS[preset]
 	elif maptype == 'world':
@@ -153,7 +154,7 @@ def sendmap(player, item, maptype):
 		if item.hastag('ybottom'):
 			ybottom = int(item.gettag('ybottom'))						
 	else:
-		player.socket.sysmessage('Unknown map type: %s.' % maptype)
+		player.socket.sysmessage( tr('Unknown map type: %s.') % maptype)
 		return
 
 	# Send a map detail packet

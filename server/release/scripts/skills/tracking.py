@@ -15,6 +15,7 @@ import skills
 from wolfpack.consts import TRACKING
 from wolfpack.gumps import cGump
 from wolfpack.consts import GRAY
+from wolfpack import tr
 
 #cliloc
 #502989 tracking failed
@@ -83,23 +84,23 @@ def tracking( char, skill ):
 
 def dircard(val): #define cardinal
 	if val ==0:
-		return "is in the North"
+		return tr("is in the North")
 	elif val==1:
-		return "is in the North-East"
+		return tr("is in the North-East")
 	elif val==2:
-		return "is in the East"
+		return tr("is in the East")
 	elif val==3:
-		return "is in the South-East"
+		return tr("is in the South-East")
 	elif val==4:
-		return "is in the South"
+		return tr("is in the South")
 	elif val==5:
-		return "is in the South-West"
+		return tr("is in the South-West")
 	elif val==6:
-		return "is in the West"
+		return tr("is in the West")
 	elif val==7:
-		return "is in the North-West"
+		return tr("is in the North-West")
 	elif val==8:
-		return "is here"
+		return tr("is here")
 
 def trackWhatResponse( char, args, target ):
 	# what the range, hypothesis : skill 100%==radius 50==the small map ingame

@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import *
 import math
 import wolfpack
@@ -17,7 +17,7 @@ import random
 # Sand used by Glassblowing
 # The first four values are required by the makemenu system.
 SAND = [
-	['Sand', ALCHEMY, 0, ['sand'], 0x0]
+	[tr('Sand'), ALCHEMY, 0, ['sand'], 0x0]
 ]
 
 #

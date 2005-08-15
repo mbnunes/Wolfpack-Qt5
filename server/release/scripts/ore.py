@@ -10,6 +10,7 @@ from wolfpack.consts import GRAY, MINING, SOUND_HAMMER_1
 from skills import mining
 from random import randrange, randint
 from system.lootlists import DEF_ORES # Gets BaseIDs
+from wolfpack import tr
 
 FORGEIDS = [ 'fb1', '197a', '197b', '197c', '197d', '197e', '197f', '1980', \
 	'1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', \
@@ -244,22 +245,22 @@ def response( char, args, target ):
 				else:
 					# Merge the ore piles
 					if targetitem.baseid == DEF_ORES[1] or targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
-						char.socket.sysmessage( "You can not create a larger pile from a small pile of ore.", GRAY )
+						char.socket.sysmessage( tr("You can not create a larger pile from a small pile of ore."), GRAY )
 					elif targetitem.baseid == DEF_ORES[0]:
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						char.socket.sysmessage( tr("You combine the two ore piles to create a single pile of ore."), GRAY )
 					return True
 			else:
 				# Merge the ore piles
 				if targetitem.baseid == DEF_ORES[1] or targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
-					char.socket.sysmessage( "You can not create a larger pile from a small pile of ore.", GRAY )
+					char.socket.sysmessage( tr("You can not create a larger pile from a small pile of ore."), GRAY )
 				elif targetitem.baseid == DEF_ORES[0]:
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
-					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					char.socket.sysmessage( tr("You combine the two ore piles to create a single pile of ore."), GRAY )
 				return True
 
 def dosmelt(char, args):
@@ -267,7 +268,7 @@ def dosmelt(char, args):
 	resname = args[1]
 
 	if not mining.ORES.has_key(resname):
-		char.socket.sysmessage('You cannot smelt that kind of ore.')
+		char.socket.sysmessage( tr('You cannot smelt that kind of ore.') )
 		return 0
 
 	success = 0

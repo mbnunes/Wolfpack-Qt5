@@ -3,6 +3,7 @@ import wolfpack
 import leatherdye
 import specialdye
 import runedye
+from wolfpack import tr
 
 #
 # Check the dyes
@@ -81,7 +82,7 @@ def dyeresponse(socket, packet):
 
 	# See if the color is invalid.
 	if color < 2 or color > 0x3e9:
-		socket.sysmessage("You selected an invalid color.")
+		socket.sysmessage( tr("You selected an invalid color.") )
 		return 1
 
 	# See if the serial is pointing to a valid object.

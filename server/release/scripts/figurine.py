@@ -75,7 +75,7 @@ def onDelete(object):
 # targetted npc.
 #
 def shrink(socket, command, arguments):
-	socket.sysmessage( 'What do you want to shrink?' )
+	socket.sysmessage( tr('What do you want to shrink?') )
 	socket.attachtarget( 'figurine.shrinktarget', [] )
 
 def shrinktarget( char, args, target ):

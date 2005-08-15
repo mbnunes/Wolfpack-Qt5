@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import LOG_ERROR
 
 def sendPage(socket, serial, page, lines):
@@ -123,13 +123,13 @@ def handlepage(socket, packet):
 	# The client wants to update the page.
 	else:
 		if item.hastag('protected'):
-			socket.sysmessage('This book is read only.')
+			socket.sysmessage( tr('This book is read only.') )
 			return 1
 
 		outmost = item.getoutmostchar()
 
 		if outmost and outmost != socket.player:
-			socket.sysmessage('This book is read only.')
+			socket.sysmessage( tr('This book is read only.') )
 			return 1 # Not writeable
 
 		if item.hastag('pages'):
@@ -188,13 +188,13 @@ def updatebook(socket, packet):
 	author = unicode(author, 'utf-8')
 
 	if item.hastag('protected'):
-		char.message('This book is read only.')
+		char.message( tr('This book is read only.') )
 		return 1
 		
 	outmost = item.getoutmostchar()
 
 	if outmost and outmost != socket.player:
-		socket.sysmessage('This book is read only.')
+		socket.sysmessage( tr('This book is read only.') )
 		return 1 # Not writeable
 
 	if len(author) == 0:

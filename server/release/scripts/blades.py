@@ -110,7 +110,7 @@ def response( char, args, target ):
 		# Also allows a mace's war axe to be use. 0x13af and 0x13b0
 		if item.type == 1002 or item.id == 0x13af or item.id == 0x13b0:
 			if not item or not item.container == char:
-				char.message( "You must equip this item to use it on this target!" )
+				char.message( 502641, "" ) # You must equip this item to use it.
 				return
 			else:
 				skills.lumberjacking.response( [ target, item, char ] )
@@ -125,7 +125,7 @@ def response( char, args, target ):
 # CARVE CORPSE
 def carve_corpse( char, corpse ):
 	if corpse.container:
-		char.socket.sysmessage( "You can't carve corpses in a container" )
+		char.socket.sysmessage( tr("You can't carve corpses in a container") )
 		return
 
 	if not char.canreach(corpse, 3):
@@ -277,7 +277,7 @@ def carve_corpse( char, corpse ):
 			item.amount = scales
 			if not wolfpack.utilities.tocontainer(item, corpse):
 				item.update()
-		char.socket.sysmessage("You cut away some scales, but they remain on the corpse.")
+		char.socket.sysmessage( tr("You cut away some scales, but they remain on the corpse.") )
 
 # CUT FISH
 def cut_fish( char, item ):

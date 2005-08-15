@@ -126,7 +126,7 @@ def onTradeStart( player1, player2, firstitem ):
 	if player2.hastag('trade_partner'):
 		partner = wolfpack.findchar(int(player2.gettag('trade_partner')))
 		if partner and partner != player1:
-			player1.socket.sysmessage('Your trading partner is currently busy.')
+			player1.socket.sysmessage( tr('Your trading partner is currently busy.') )
 			if not tobackpack(firstitem, player1):
 				firstitem.update()
 			return True
@@ -134,7 +134,7 @@ def onTradeStart( player1, player2, firstitem ):
 	if player1.hastag('trade_partner'):
 		partner = wolfpack.findchar(int(player1.gettag('trade_partner')))
 		if partner and partner != player2:
-			player1.socket.sysmessage('You are trading with someone else right now.')
+			player1.socket.clilocmessage( 1062781 ) # You are already trading with someone else!
 			if not tobackpack(firstitem, player1):
 				firstitem.update()
 			return True
@@ -274,8 +274,8 @@ def pressbutton( player, partner, box1, box2 ):
 
 	#To far away for trading ?
 	if player.distanceto( partner ) > 2:
-		player.socket.sysmessage('You are too far away to do that.')
-		partner.socket.sysmessage('You are too far away to do that.')
+		player.socket.clilocmessage( 500295 ) # You are too far away to do that.
+		partner.socket.clilocmessage( 500295 ) # You are too far away to do that.
 		closetrade( player, partner, box1, box2 )
 		return True
 

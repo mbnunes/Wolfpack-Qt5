@@ -6,8 +6,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from random import randint, random
 import time
-from wolfpack import console
-#import weapons.blades
+from wolfpack import console, tr
 
 woodrespawndelay = randint( LUMBERJACKING_REFILLTIME[0], LUMBERJACKING_REFILLTIME[1] )
 woodspawnamount = randint( LUMBERJACKING_LOGS[0], LUMBERJACKING_LOGS[1] )
@@ -200,7 +199,7 @@ def successlumberjacking( char, args ):
 	# Lets make sure we stayed next to the tree
 	# Player can reach that ?
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
-		socket.sysmessage("You have moved too far away to gather any wood.")
+		socket.sysmessage( tr("You have moved too far away to gather any wood.") )
 		socket.deltag( 'is_lumberjacking' )
 		return False
 

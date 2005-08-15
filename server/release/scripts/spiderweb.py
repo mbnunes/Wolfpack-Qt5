@@ -3,6 +3,7 @@ import wolfpack
 from math import ceil
 from wolfpack.consts import DAMAGE_MAGICAL, DAMAGE_PHYSICAL
 import random
+from wolfpack import tr
 
 #
 # Tie the colliding character to the new until he breaks it.
@@ -14,7 +15,7 @@ def onCollide(char, item):
 
 	char.addscript( 'spiderweb' )
 	if char.socket:
-		char.socket.sysmessage('You are entangled in the spiderweb. You have to break free!')
+		char.socket.sysmessage( tr('You are entangled in the spiderweb. You have to break free!') )
 
 #
 # If we're still in a spiderweb,
@@ -41,7 +42,7 @@ def onWalk(char, dir, sequence):
 		else:
 			if char.socket:
 				if random.random() <= 0.25:
-					char.socket.sysmessage('You damage the spiderweb.')
+					char.socket.sysmessage( tr('You damage the spiderweb.') )
 				packet = wolfpack.packet(0x21, 8)
 				packet.setbyte(1, sequence)
 				packet.setshort(2, char.pos.x)
@@ -54,7 +55,7 @@ def onWalk(char, dir, sequence):
 
 	char.removescript( 'spiderweb' )
 	if char.socket:
-		char.socket.sysmessage('You manage to break free of the spiderweb.')
+		char.socket.sysmessage( tr('You manage to break free of the spiderweb.') )
 	return False
 
 #

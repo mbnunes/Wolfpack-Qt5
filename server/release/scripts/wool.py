@@ -1,7 +1,7 @@
 #################################################################
 #   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
 #  ((    _/{  "-;  # Created by: DarkStorm                      #
-#   )).-' {{ ;'`   # Revised by: Dreoth                          #
+#   )).-' {{ ;'`   # Revised by: Dreoth                         #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
@@ -31,11 +31,11 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
 
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
-		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
+		char.socket.clilocmessage( 502648, '', GRAY) # Target is too far away.
 		return True
 
 	if abs( char.pos.z - target.pos.z ) > 5:
-		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
+		char.socket.clilocmessage( 502648, '', GRAY) # Target is too far away.
 		return True
 
 	# Check target (only item targets valid)

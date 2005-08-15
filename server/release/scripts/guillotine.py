@@ -13,7 +13,7 @@ def onUse( char, item ):
 		return 0
 
 	if( char.distanceto( item ) > 5 ):
-		char.socket.sysmessage( "You are too far away to use this" )
+		char.socket.clilocmessage( 500295 ) # You are too far away to do that.
 		return 1
 
 	if( char.checkskill( ITEMID, 0, 100 ) ):
@@ -24,7 +24,7 @@ def onUse( char, item ):
 		elif( item.id == 0x1245 ):
 			item.id = 0x1230
 		else:
-			char.socket.sysmessage( "Wrong item id" )
+			char.socket.sysmessage( tr("Wrong item id") )
 			return 1
 
 		item.update()

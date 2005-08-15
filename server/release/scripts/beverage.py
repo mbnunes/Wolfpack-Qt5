@@ -6,6 +6,7 @@ from system import poison
 import skills
 from skills.fishing import mapWater, staticWater
 from wolfpack.utilities import tobackpack
+from wolfpack import tr
 
 # Baseid: ClilocBaseId, MaxQuantity, Empty Item Id, Fillable
 CONTAINERS = {
@@ -358,7 +359,7 @@ def drink(char, item):
 		btype = unicode(item.gettag('fluid'))
 
 	if not FLUIDS.has_key(btype):
-		char.socket.sysmessage("You shouldn't drink this strange fluid.")
+		char.socket.sysmessage( tr("You shouldn't drink this strange fluid.") )
 		return True
 
 	if not CONTAINERS.has_key(item.id):

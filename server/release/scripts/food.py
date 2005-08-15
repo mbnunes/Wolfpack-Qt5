@@ -22,13 +22,13 @@ def onDropOnChar(char, item):
 			return 0
 
 		if not player.canreach(char, 2):
-			player.socket.clilocmessage(500312)
+			player.socket.clilocmessage(500312) # You cannot reach that.
 			if not tobackpack( item, player ):
 				item.update()
 			return 1
 
 		if char.hunger >= 6:
-			player.message('They don''t seem to be hungry.')
+			player.message( tr('It doesn''t seem to be hungry.') )
 			if not tobackpack( item, player ):
 				item.update()
 			return 1
@@ -58,12 +58,12 @@ def onDropOnChar(char, item):
 def onUse(player, item):
 	# Has to belong to us.
 	if item.getoutmostchar() != player:
-		player.socket.clilocmessage(500866)
+		player.socket.clilocmessage(500866) # You can't eat that, it belongs to someone else.
 		return 1
 
 	# Can we eat anymore?
 	if player.hunger >= 6:
-		player.socket.clilocmessage(500867)
+		player.socket.clilocmessage(500867) # You are simply too full to eat any more!
 		return 1
 
 	player.socket.clilocmessage(min(500872, 500868 + player.hunger))
@@ -78,7 +78,7 @@ def onUse(player, item):
 	# poisoned food
 	if item.hastag( 'poisoning_char' ):
 		poison.poison( player, item.gettag( 'poisoning_strength' ) )
-		player.socket.clilocmessage( 1010512 )
+		player.socket.clilocmessage( 1010512 ) # You have been poisoned!
 		skills.poisoning.wearoff( item )
 
 	if item.amount > 1:
@@ -94,7 +94,7 @@ def onCollide( char, item ):
 		if char.hasscript( 'food' ):
 			return True
 		char.addscript( 'food' )
-		char.say( "*nibbles*" )
+		char.say( tr("*nibbles*") )
 		item.movable = 3
 		item.update()
 		return True
@@ -114,7 +114,7 @@ def onWalk(char, dir, sequence):
 		if food:
 			food.delete()
 			char.soundeffect( random.choice( [ 0x03a, 0x03b, 0x03c ] ), 1 )
-			char.say( "*munch*" )
+			char.say( tr("*munch*") )
 			if char.hitpoints < char.maxhitpoints:
 				char.hitpoints += 1
 				char.update()

@@ -7,6 +7,7 @@
 
 import wolfpack
 from wolfpack.consts import STEALING
+from wolfpack import tr
 
 # Pickpocket dips
 # Version 1: 0x1EC0 (Animated: 0x1EC0), Facing E/W
@@ -24,7 +25,7 @@ def onUse( char, item ):
 
 	# Distance & Direction checks
 	if( char.distanceto( item ) > 1 ):
-		char.message( 'You must be standing in front of or behind the dummy to use it.' )
+		char.message( tr('You must be standing in front of or behind the dummy to use it.') )
 		return True
 
 	# Calculates the direction we'll have to look
@@ -33,7 +34,7 @@ def onUse( char, item ):
 
 	# We only have E/W facing Pickpocket dips
 	if( direction != 2 and direction != 6 ):
-		char.message( 'You must be standing in front of or behind the dummy to use it.' )
+		char.message( tr('You must be standing in front of or behind the dummy to use it.') )
 		return True
 
 	# Turn to the correct direction if not already
@@ -43,7 +44,7 @@ def onUse( char, item ):
 
 	# Only swing the dip if the check failed
 	if( char.checkskill( STEALING, 0, 1000 ) ):
-		char.message( "You succeed in your try to pickpocket the dip" )
+		char.message( tr("You succeed in your try to pickpocket the dip.") )
 		return True
 
 	if( item.id == 0x1ec0 ):

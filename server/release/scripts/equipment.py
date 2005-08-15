@@ -428,23 +428,23 @@ def onWearItem(player, wearer, item, layer):
 
 	if wearer.strength < req_str:
 		if player != wearer:
-			player.socket.sysmessage('This person can\'t wear that item, seems not strong enough.')
+			player.socket.sysmessage( tr('This person can\'t wear that item, seems not strong enough.') )
 		else:
 			player.socket.clilocmessage(500213)
 		return True
 
 	if wearer.dexterity < req_dex:
 		if player != wearer:
-			player.socket.sysmessage('This person can\'t wear that item, seems not agile enough.')
+			player.socket.sysmessage( tr('This person can\'t wear that item, seems not agile enough.') )
 		else:
 			player.socket.clilocmessage(502077)
 		return True
 
 	if wearer.intelligence < req_int:
 		if player != wearer:
-			player.socket.sysmessage('This person can\'t wear that item, seems not smart enough.')
+			player.socket.sysmessage( tr('This person can\'t wear that item, seems not smart enough.') )
 		else:
-			player.socket.sysmessage('You are not intelligent enough to equip this item.')
+			player.socket.sysmessage( tr('You are not intelligent enough to equip this item.') )
 		return True
 
 	# Reject equipping an item with durability 1 or less
@@ -454,7 +454,7 @@ def onWearItem(player, wearer, item, layer):
 	shield = properties.itemcheck(item, ITEM_SHIELD)
 
 	if (armor or weapon or shield) and item.health < 1:
-		player.socket.sysmessage('You need to repair this before using it again.')
+		player.socket.sysmessage( tr('You need to repair this before using it again.') )
 		return True
 
 	return False

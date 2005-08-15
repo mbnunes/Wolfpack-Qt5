@@ -13,6 +13,7 @@ import wolfpack.utilities
 import wolfpack.console
 from math import floor
 import random
+from wolfpack import tr
 
 # This is the rather complex fishing script
 
@@ -27,8 +28,8 @@ fishingItems = [
 	# You specify M and I plus a minimum skill level here
 	# At the moment only linear graphs are possible
 	# Minimum Skill (0-1000), M, I, List of IDs
-	[ 0, -1, 110, [ '170f', '1710', '1711', '1712', '170b', '170c' ], 'shoes' ], # If the value becomes negative we don't care it's omitted then
-	[ 0,  1, 0, [ '9cc', '9cd', '9ce', '9cf' ], 'a fish' ]
+	[ 0, -1, 110, [ '170f', '1710', '1711', '1712', '170b', '170c' ], tr('shoes') ], # If the value becomes negative we don't care it's omitted then
+	[ 0,  1, 0, [ '9cc', '9cd', '9ce', '9cf' ], tr('a fish') ]
 ]
 
 def checktool(char, item, wearout = False):
@@ -255,7 +256,7 @@ def itemtimer( char, args ):
 	socket = char.socket
 
 	if len( fishingItems ) < 1:
-		socket.sysmessage( 'This script has not been configured correctly.' )
+		socket.sysmessage( tr('This script has not been configured correctly.') )
 		return False
 
 	socket.deltag( 'is_fishing' )
@@ -290,7 +291,7 @@ def itemtimer( char, args ):
 		if not resource:
 			# Create a resource gem
 			resource = wolfpack.additem( "1ea7" )
-			resource.name = 'Resource Item: fish'
+			resource.name = tr('Resource Item: fish')
 			resource.settag( 'resourcecount', int( amount - 1 ) )
 			resource.settag( 'resource', 'fish' )
 			resource.visible = 0 # GM Visible only
@@ -310,7 +311,7 @@ def itemtimer( char, args ):
 
 		# Was there an error?
 		if not item:
-			socket.sysmessage( "Please report to a gamemaster that the item '%s' couldn't be found." % itemid )
+			socket.sysmessage( tr("Please report to a gamemaster that the item '%s' couldn't be found.") % itemid )
 
 		# Otherwise try to stack it
 		elif not wolfpack.utilities.tobackpack( item, char ):

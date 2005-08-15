@@ -6,6 +6,7 @@ import system.bleeding
 import wolfpack.utilities
 from wolfpack.consts import *
 from combat.specialmoves import ismortallywounded
+from wolfpack import tr
 
 def onUse( char, item ):
 	if not char.canreach(item, 2):
@@ -14,7 +15,7 @@ def onUse( char, item ):
 
 	# already healing?
 	if char.socket.hastag( 'bandage_slipped' ):
-		char.socket.sysmessage( 'You are already healing somebody.' )
+		char.socket.sysmessage( tr('You are already healing somebody.') )
 		return True
 
 	char.reveal() # Reveal

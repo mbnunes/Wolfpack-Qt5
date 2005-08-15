@@ -11,21 +11,22 @@ from wolfpack.consts import ARCHERY, LAYER_MOUNT, ANIM_ATTACKBOW, \
 	ANIM_ATTACKXBOX
 from combat.utilities import weaponskill
 from random import choice
+from wolfpack import tr
 
 # failure texts
 failureText = (
-	"shot is well off target.",
-	"shot is wide of the mark.",
-	"shot misses terribly.",
-	"shot nearly misses the archery butte."
+	tr("shot is well off target."),
+	tr("shot is wide of the mark."),
+	tr("shot misses terribly."),
+	tr("shot nearly misses the archery butte.")
 )
 
 # success texts
 successText = (
-	"hit the outer ring.",
-	"hit the middle ring.",
-	"hit the inner ring.",
-	"hit the bullseye!."
+	tr("hit the outer ring."),
+	tr("hit the middle ring."),
+	tr("hit the inner ring."),
+	tr("hit the bullseye!.")
 )
 
 def giveAmmo( char, item ):
@@ -35,7 +36,7 @@ def giveAmmo( char, item ):
 	arrowCount = item.gettag( "arrow_count" )
 
 	if( not boltCount and not arrowCount ):
-		char.message( "The butte is empty." )
+		char.message( tr("The butte is empty.") )
 		return True
 
 	if( arrowCount ):
@@ -157,11 +158,11 @@ def onUse( char, item ):
 	# 10% of destroying the ammo on failure
 	if( ( not char.checkskill( ARCHERY, 0, 1000 ) ) ):
 		if( not random.randrange( 0, 9 ) ):
-			char.emote( "You see " + char.name + "'s poor shot destroys the " + ammoname )
+			char.emote( tr("You see %s's poor shot destroys the %s") % (char.name, ammoname) )
 		else:
-			char.emote( "You see " + char.name + "'s " + random.choice( failureText ) )
+			char.emote( tr("You see %s's %s") % (char.name, random.choice( failureText )) )
 	else:
-		char.emote( "You see " + char.name + "'s " + random.choice( successText ) )
+		char.emote( tr("You see %s's %s") % (char.name, random.choice( successText )) )
 
 		# Increase the ammo we have in the butte
 		if( ammo == 0xf3f ):

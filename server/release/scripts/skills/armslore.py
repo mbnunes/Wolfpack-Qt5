@@ -34,7 +34,6 @@ def armslore( char, skill ):
 	return True
 
 def response( char, args, target ):
-
 	if skills.skilltable[ ARMSLORE ][ skills.UNHIDE ] and char.hidden:
 		char.reveal()
 

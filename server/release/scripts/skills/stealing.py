@@ -155,7 +155,7 @@ def dosteal(char, victim, tosteal):
 		return True
 	
 	if tosteal.weight > maxweight(char):
-		char.socket.sysmessage( "That is too heavy to steal." )
+		char.socket.sysmessage( tr("That is too heavy to steal.") )
 		return True
 	if tosteal.amount > 1:
 		maxAmount = int((char.skill[STEALING] / 10.0) / tosteal.weight)
@@ -202,7 +202,7 @@ def caught_func( char, victim, tosteal ):
 	if victim.notoriety( char ) == 0x01:
 		char.criminal()
 	if victim.player and victim.player.socket:
-		victim.socket.showspeech(tr( victim, "You notice %s trying to steal %s from you." ) % (char.name, tosteal.getname()))
+		victim.socket.showspeech(victim, tr( "You notice %s trying to steal %s from you." ) % (char.name, tosteal.getname()))
 	message = u"You notice %s trying to steal from %s." % (char.name, victim.name)
 	# Everyone within 7 Tiles notices us
 	chars =  wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, 7)

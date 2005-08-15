@@ -2,7 +2,7 @@
 import wolfpack.gumps
 import wolfpack
 from wolfpack.consts import *
-from wolfpack import properties
+from wolfpack import properties, tr
 import magic.runebook
 
 HUES = [
@@ -79,7 +79,7 @@ def pickHue(player, dyetub):
 	dialog.addXmfHtmlGump(55, 400, 200, 25, 1011036)
 
 	dialog.addButton(200, 400, 4005, 4007, 2) # Default
-	dialog.addText(235, 400, "DEFAULT")
+	dialog.addText(235, 400, tr("DEFAULT") )
 
 	# Create the list of hues
 	global HUES

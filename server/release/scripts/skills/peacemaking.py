@@ -7,9 +7,10 @@
 
 import wolfpack
 from wolfpack.consts import *
-from wolfpack.utilities import *
+from wolfpack.utilities import isinstrument
 import wolfpack.time
 import skills
+from wolfpack import tr
 
 PEACE_DELAY = 5000
 
@@ -105,7 +106,7 @@ def response( char, args, target ):
 		if not target.char:
 			return False
 		creature = target.char
-		char.socket.sysmessage( str(peace_range) )
+
 		if not char.canreach( target.char, peace_range ):
 			char.socket.clilocmessage( 500618, "", 0x3b2, 3 )
 		elif creature.npc and creature.hasscript( 'skills.peacemaking' ):
@@ -149,9 +150,9 @@ def selectinstrument( char, args, target ):
 			items.append( target.item )
 			selecttarget( char, items )
 		else:
-			char.socket.sysmessage( "You need an instrument." )
+			char.socket.clilocmessage( 500619 ) # That is not a musical instrument.
 	else:
-		char.socket.sysmessage( "You need an instrument." )
+		char.socket.sysmessage( tr("You need an instrument.") )
 	return True
 
 def release( char, args ):
