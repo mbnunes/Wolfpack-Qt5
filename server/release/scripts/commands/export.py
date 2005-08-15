@@ -100,7 +100,7 @@ def callback( char, args, target ):
 		y1 = min( args[1], target.pos.y )
 		y2 = max( args[1], target.pos.y )
 
-		gump = cGump( x=100, y=100, callback="commands.export.export", args=[ x1, y1, x2, y2 ] )
+		gump = cGump( x=100, y=100, callback=export, args=[ x1, y1, x2, y2 ] )
 
 		gump.addBackground( id=0x2436, width=350, height=300 )
 		#gump.addCheckerTrans( 15, 15, 320, 270 )
