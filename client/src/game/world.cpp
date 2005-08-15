@@ -56,6 +56,7 @@ void cWorld::clearEntities() {
 		ConstCellIterator cit = cell.begin();
 		while (cit != cell.end()) {
 			if ((*cit) != Player) {
+				Gui->removeOverheadText(*cit);
 				(*cit)->decref();
 			}
 			++cit;
@@ -76,6 +77,7 @@ void cWorld::cleanupEntities() {
 		while (cit != cell.end()) {
 			int distance = Utilities::distance((*cit)->x(), (*cit)->y(), x_, y_);
 			if (distance > 18) {
+				Gui->removeOverheadText(*cit);
 				(*cit)->decref();
 				cit = cell.remove(cit);
 			}

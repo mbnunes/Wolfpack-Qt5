@@ -32,6 +32,7 @@
 #include "muls/speech.h"
 #include "muls/tiledata.h"
 #include "muls/textures.h"
+#include "muls/localization.h"
 
 #include "dialogs/login.h"
 
@@ -67,6 +68,7 @@ cUoClient::cUoClient() {
 	Sounds = new cSounds;
 	Speech = new cSpeech;
 	Sound = new cSound;
+	Localization = new cLocalization;
 
 	World = new cWorld;	
 
@@ -82,6 +84,7 @@ cUoClient::~cUoClient() {
 	delete LoginDialog;
 	delete Cursor;
 
+	delete Localization;
 	delete Speech;
 	delete Animations;
 	delete Textures;
@@ -119,6 +122,7 @@ void cUoClient::load() {
 	Log->print(LOG_MESSAGE, tr("Using Ultima Online at: %1\n").arg(Config->uoPath()));
 
 	// Load MulReaders
+	Localization->load();
 	Verdata->load();
 	Gumpart->load();
 	Hues->load();
@@ -153,6 +157,7 @@ void cUoClient::unload() {
 	Hues->unload();
 	Gumpart->unload();
 	Verdata->unload();
+	Localization->unload();
 
 	Config->save(); // Save Configuration
 

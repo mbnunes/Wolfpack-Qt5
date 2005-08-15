@@ -18,6 +18,7 @@ protected:
 	bool movable_;
 	bool closable_;	
 	bool tracking;
+	bool enableStencil_;
 public:
 	cWindow();
 	virtual ~cWindow();
@@ -29,6 +30,10 @@ public:
 	void setClosable(bool data);
 	bool isClosable() const;
 
+	// This enables the stencil buffer tests for all controls of this window
+	bool enableStencil() const;
+	void setEnableStencil(bool data);
+		
 	// Manage the movable property
 	void setMovable(bool data);
 	bool isMovable();
@@ -62,6 +67,14 @@ inline void cWindow::setMovable(bool data) {
 
 inline bool cWindow::isMovable() {
 	return movable_;
+}
+
+inline bool cWindow::enableStencil() const {
+	return enableStencil_;
+}
+
+inline void cWindow::setEnableStencil(bool data) {
+	enableStencil_ = data;
 }
 
 #endif

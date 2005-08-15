@@ -3,6 +3,7 @@
 #include "network/uosocket.h"
 #include "dialogs/login.h"
 #include "gui/worldview.h"
+#include "gui/genericgump.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
 #include "game/targetrequest.h"
@@ -348,6 +349,8 @@ public:
 		strMessage[length-1] = 0;
         
 		message = QString::fromUtf16(strMessage);
+
+		delete [] strMessage;
 	}
 
 	virtual void handle(cUoSocket *socket) {
@@ -422,3 +425,58 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x6c, cRequestTargetPacket::creator);
+
+// Generic Gump Packet
+class cGenericGumpPacket : public cDynamicIncomingPacket {
+protected:
+	unsigned int serial, type;
+	int x, y;
+	QString layout;
+	QStringList strings;
+
+public:
+	cGenericGumpPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(22);
+		unsigned short length;
+		input >> serial >> type >> x >> y >> length;
+        
+		char *strLayout = new char[length+1];
+		input.readRawBytes(strLayout, length);
+		strLayout[length] = 0; // Ensure null termination
+		layout = strLayout; // Save
+
+		unsigned short lineCount;
+		input >> lineCount; // Number of lines
+
+		for (int i = 0; i < lineCount; ++i) {   
+			input >> length;
+			ushort *strMessage = new unsigned short[length + 1];
+			
+			// We need to swap the single characters
+			for (unsigned int j = 0; j < length; ++j) {
+				input >> strMessage[j];
+			}
+
+			strMessage[length] = 0; // Ensure null termination
+			strings.append(QString::fromUtf16(strMessage, length));
+
+			delete [] strMessage;
+		}
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cGenericGump *gump = new cGenericGump(x, y, serial, type);
+		gump->parseLayout(layout, strings);
+
+		// TODO: Test if the gump has any visible controls and delete it
+		// if it has not to prevent generic gumps from polluting the gui system.
+
+		Gui->addControl(gump);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cGenericGumpPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xb0, cGenericGumpPacket::creator);

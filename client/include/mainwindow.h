@@ -34,6 +34,11 @@ public:
 	// Do a screenshot the next time the buffer is flipped
 	void screenshot(const QString &filename = QString::null);
 
+	cControl *mouseCapture() const;
+	cControl *lastMouseMovement() const;
+	void setMouseCapture(cControl *control);
+	void setLastMouseMovement(cControl *control);
+
 public slots:
 	void singleClick();
 
@@ -45,6 +50,7 @@ protected:
 
 	int lastMouseX, lastMouseY;
 
+	void checkInputFocus();
     void initializeGL();
     void resizeGL( int, int );
     void paintGL();
@@ -57,8 +63,8 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *e);
 	void mouseDoubleClickEvent(QMouseEvent * e);
 
-	cControl *mouseCapture; // Control which got the last mousedown event
-	cControl *lastMouseMovement; // Control that got the last movement event
+	cControl *mouseCapture_; // Control which got the last mousedown event
+	cControl *lastMouseMovement_; // Control that got the last movement event
 	void createScreenshot(const QString &filename);
 };
 
@@ -88,7 +94,6 @@ protected:
 	QAction *aHideDynamics;
 
 public slots:
-	void menuWhere();
 	void menuGameClicked(QAction *action);
 };
 
@@ -96,6 +101,22 @@ extern cGLWidget *GLWidget;
 
 inline QMenuBar *MainWindow::menuBar() const {
 	return m_menuBar;
+}
+
+inline cControl *cGLWidget::mouseCapture() const {
+	return mouseCapture_;
+}
+
+inline cControl *cGLWidget::lastMouseMovement() const {
+	return lastMouseMovement_;
+}
+
+inline void cGLWidget::setMouseCapture(cControl *control) {
+	mouseCapture_ = control;
+}
+
+inline void cGLWidget::setLastMouseMovement(cControl *control) {
+	lastMouseMovement_ = control;
 }
 
 #endif

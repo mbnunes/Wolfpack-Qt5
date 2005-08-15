@@ -3,6 +3,7 @@
 #include "config.h"
 #include "uoclient.h"
 #include <math.h>
+#include <qlocale.h>
 #include <qmessagebox.h>
 
 namespace Utilities {
@@ -61,6 +62,28 @@ namespace Utilities {
 			dumped += line;
 		}
 		return dumped;
+	}
+
+	QString localLanguage() {
+		QLocale locale = QLocale::system();
+		
+		// This switch will translate to the correct locale
+		switch (locale.language()) {
+			case QLocale::German:
+				return "deu";
+			case QLocale::French:
+				return "fra";
+			case QLocale::Chinese:
+				return "chs";
+			case QLocale::Spanish:
+				return "spa";
+			case QLocale::Japanese:
+				return "jpn";
+			case QLocale::Korean:
+				return "kor";
+			default:
+				return "enu";
+		}
 	}
 };
 

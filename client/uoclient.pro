@@ -58,6 +58,8 @@ HEADERS += \
 # GUI INCLUDES
 HEADERS += \
 	include/gui/asciilabel.h \
+	include/gui/checkertrans.h \
+	include/gui/genericgump.h \
 	include/gui/bordergump.h \
 	include/gui/container.h \
 	include/gui/contextmenu.h \
@@ -86,6 +88,7 @@ HEADERS += \
 	include/muls/tiledata.h \
 	include/muls/unicodefonts.h \
 	include/muls/verdata.h \
+	include/muls/localization.h \
 	include/muls/speech.h
 
 HEADERS += \
@@ -114,6 +117,8 @@ SOURCES += \
 	src/dialogs/movecenter.cpp 
 
 SOURCES += \
+	src/gui/checkertrans.cpp \
+	src/gui/genericgump.cpp \
 	src/gui/asciilabel.cpp \
 	src/gui/bordergump.cpp \
 	src/gui/container.cpp \
@@ -158,6 +163,7 @@ SOURCES += \
 	src/muls/asciifonts.cpp \
 	src/muls/gumpart.cpp \
 	src/muls/hues.cpp \
+	src/muls/localization.cpp \
 	src/muls/maps.cpp \
 	src/muls/textures.cpp \
 	src/muls/tiledata.cpp \

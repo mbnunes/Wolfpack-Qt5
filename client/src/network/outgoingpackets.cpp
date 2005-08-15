@@ -138,3 +138,21 @@ cTargetResponsePacket::cTargetResponsePacket(uint targetId, uchar targetType, uc
 		}
 	}
 }
+
+cGenericGumpResponsePacket::cGenericGumpResponsePacket(uint serial, uint type, uint button, QVector<uint> switches, QMap<uint, QString> strings) : cOutgoingPacket(0xb1, 23) {
+	m_Stream << serial << type << button << (uint)switches.size();
+
+	for (int i = 0; i < switches.size(); ++i) {
+		m_Stream << switches[i];
+	}
+
+	m_Stream << (unsigned int)strings.size();
+
+	QMap<uint, QString>::const_iterator it;
+	for (it = strings.begin(); it != strings.end(); ++it) {
+		m_Stream << (unsigned short)it.key() << (unsigned short)(it.data().length() + 1);
+		writeBigUnicodeTerminated(it.data());
+	}	
+
+	writeDynamicSize();
+}

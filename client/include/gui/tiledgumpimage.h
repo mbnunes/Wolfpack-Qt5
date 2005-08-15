@@ -9,7 +9,6 @@ class cTiledGumpImage : public cControl {
 Q_OBJECT
 
 protected:
-	float alpha_;
 	cTexture *texture;
 	unsigned short id_;
 	unsigned short hue_;
@@ -20,8 +19,6 @@ public:
 	cTiledGumpImage(unsigned short id, unsigned short hue = 0, bool partialHue = false);
 	virtual ~cTiledGumpImage();
 
-	void setAlpha(float alpha);
-	float alpha() const;
 	inline unsigned short id() const { return id_; }
 	inline unsigned short hue() const { return hue_; }
 	inline bool partialHue() const { return partialHue_; }
@@ -58,13 +55,5 @@ public:
 		}
 	}
 };
-
-inline void cTiledGumpImage::setAlpha(float alpha) {
-	alpha_ = alpha;
-}
-
-inline float cTiledGumpImage::alpha() const {
-	return alpha_;
-}
 
 #endif

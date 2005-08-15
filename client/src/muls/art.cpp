@@ -467,11 +467,11 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 								b = hue->colors[index].b;
 							}
 
-							pixel = surface->color(r, g, b);
+							pixel = surface->color(r, g, b);							
 						} else {
-							pixel = surface->color((color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8);
-							surface->setPixel(x, y, pixel);
+							pixel = surface->color((color >> 7) & 0xF8, (color >> 2) & 0xF8, (color << 3) & 0xF8);							
 						}
+						surface->setPixel(x, y, pixel);
 					}
 				}
 			}

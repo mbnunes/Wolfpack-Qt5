@@ -10,6 +10,7 @@
 #include <QKeyEvent>
 
 class cGui;
+class cWindow;
 
 /*
 	Base class for all gui controls.
@@ -36,9 +37,11 @@ protected:
 	bool canHaveFocus_; // The control may have the input focus. Defaults to false.
 	bool wantTabs_; // This property indicates that the TAB key should not switch focus if this control is active. Defaults to false.
 	unsigned int tabIndex_; // The tab index of this control. By defaults it the highest tab index in the parent + 1
+	float alpha_;
 
 public:	
 	bool isVisibleOnScreen();
+	cWindow *getTopWindow();
 
 	inline cContainer *parent() { return parent_; }
 	// NOTE: This function does not add or remove the control from the parents control array
@@ -46,6 +49,9 @@ public:
 
 	// Get the next movable control above this
 	cControl *getMovableControl();
+
+	void setAlpha(float alpha);
+	float alpha() const;
 
 	// Input focus
 	inline bool canHaveFocus() const { return canHaveFocus_; }
@@ -163,5 +169,13 @@ signals:
 	void onRightClick(cControl *sender);
 	void onDoubleClick(cControl *sender);
 };
+
+inline void cControl::setAlpha(float alpha) {
+	alpha_ = alpha;
+}
+
+inline float cControl::alpha() const {
+	return alpha_;
+}
 
 #endif

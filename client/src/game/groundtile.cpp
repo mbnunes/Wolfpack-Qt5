@@ -151,7 +151,7 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 
 	// Calculate the stretched tile positions
 	if (texture) {
-		bool highlight = World->mouseOver() == this;
+		bool highlight = Config->gameHighlightMap() && World->mouseOver() == this;
 		if (highlight) {
 			glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // White. No Alpha.
 		} else {
@@ -330,6 +330,7 @@ void cGroundTile::onRightClick(QMouseEvent *e) {
 }
 
 void cGroundTile::onClick(QMouseEvent *e) {
+	/*
 	// SHIFT+Click shows contextmenu
 	if ((e->state() & Qt::ShiftButton) != 0) {
 		ContextMenu->clear();
@@ -352,7 +353,7 @@ void cGroundTile::onClick(QMouseEvent *e) {
 	WorldView->addSysMessage(message);
 
 	message = QString("[Id: 0x%1, Z: %2, Stretch: %4,%5,%6]").arg(id_, 0, 16).arg(z_).arg(left).arg(bottom).arg(right);
-	WorldView->addSysMessage(message);
+	WorldView->addSysMessage(message);*/
 }
 
 void cGroundTile::updatePriority() {

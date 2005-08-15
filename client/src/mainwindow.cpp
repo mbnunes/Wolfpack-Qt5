@@ -6,6 +6,7 @@
 #include "gui/worldview.h"
 #include "game/world.h"
 #include "network/uosocket.h"
+#include "muls/localization.h"
 #include "config.h"
 #include "sound.h"
 #include "log.h"
@@ -82,6 +83,7 @@ static const char * const icon_xpm[] = {
 #include "dialog_config.h"
 
 MainWindow::MainWindow() {
+	QAction *action;
 	configDialog = new cConfigDialog(this);
 
 	resize(640, 480); // Default size
@@ -100,7 +102,6 @@ MainWindow::MainWindow() {
 	
 	// Game Menu
 	QMenu *game = m_menuBar->addMenu("&Game");
-	game->addAction("Where", this, SLOT(menuWhere()));
 	QMenu *hideMenu = game->addMenu("Hide entities");
 	aHideStatics = hideMenu->addAction("Hide Statics");
 	aHideStatics->setCheckable(true);
@@ -111,14 +112,31 @@ MainWindow::MainWindow() {
 	aHideMap = hideMenu->addAction("Hide Map");	
 	aHideMap->setCheckable(true);
 
-
-	QAction *action = game->addAction("Resync with Server");
-	action->setObjectName("action_resync");
-
 	aHideMap->setChecked(Config->gameHideMap());
 	aHideStatics->setChecked(Config->gameHideStatics());
 	aHideDynamics->setChecked(Config->gameHideDynamics());
 	aHideMobiles->setChecked(Config->gameHideMobiles());
+
+	// Highlight entities menu
+	QMenu *highlightMenu = game->addMenu("Highlight");
+
+	// Highlight statics toggle
+	action = highlightMenu->addAction("Highlight static tiles");
+	action->setCheckable(true);
+	action->setObjectName("action_highlight_statics");
+
+	// Highlight map tiles toggle
+	action = highlightMenu->addAction("Highlight map tiles");
+	action->setCheckable(true);
+	action->setObjectName("action_highlight_map");
+
+	game->addSeparator();
+
+	action = game->addAction("Show current position");
+	action->setObjectName("action_where");
+	
+    action = game->addAction("Resync with Server");
+	action->setObjectName("action_resync");
 
 	connect(game, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
 
@@ -139,15 +157,17 @@ void MainWindow::menuGameClicked(QAction *action) {
 		Config->setGameHideMobiles(action->isChecked());
 	} else if (action->objectName() == "action_resync") {
 		UoSocket->resync();
-	}
-}
+	} else if (action->objectName() == "action_highlight_statics") {
+		Config->setGameHighlightStatics(action->isChecked());
+	} else if (action->objectName() == "action_highlight_map") {
+		Config->setGameHighlightMap(action->isChecked());
+	} else if (action->objectName() == "action_where") {
+		QString message = QString("You are currently at %1,%2,%3,%4.").arg(World->x()).arg(World->y()).arg(World->z()).arg(World->facet());
 
-void MainWindow::menuWhere() {
-	QString message = QString("You are currently at %1,%2,%3,%4.").arg(World->x()).arg(World->y()).arg(World->z()).arg(World->facet());
-
-	// Show a window with the current location
-	if (WorldView) {
-		WorldView->addSysMessage(message);
+		// Show a window with the current location
+		if (WorldView) {
+			WorldView->addSysMessage(message);
+		}
 	}
 }
 
@@ -163,8 +183,8 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 
 	setMouseTracking(true);
 
-	mouseCapture = 0; // Control which got the last mousedown event
-	lastMouseMovement = 0; // Control that got the last movement event
+	mouseCapture_ = 0; // Control which got the last mousedown event
+	lastMouseMovement_ = 0; // Control that got the last movement event
 
 	setFocusPolicy(Qt::WheelFocus);
 
@@ -191,6 +211,7 @@ cGLWidget::~cGLWidget() {
 void cGLWidget::initializeGL() {
 	// Initialize OpenGL
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Fill the screen with a black color
+	glClearStencil(1);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_DITHER);
 	// TODO: Disable mip mapping
@@ -272,17 +293,17 @@ void cGLWidget::mouseMoveEvent(QMouseEvent *e) {
 	lastMouseY = e->y();
 
 	cControl *motionControl = Gui->getControl(e->x(), e->y());
-	if (motionControl != lastMouseMovement) {
-		if (lastMouseMovement) {
-			lastMouseMovement->onMouseLeave();
+	if (motionControl != lastMouseMovement_) {
+		if (lastMouseMovement_) {
+			lastMouseMovement_->onMouseLeave();
 		}
-		lastMouseMovement = motionControl;
-		if (lastMouseMovement) {
-			lastMouseMovement->onMouseEnter();
+		lastMouseMovement_ = motionControl;
+		if (lastMouseMovement_) {
+			lastMouseMovement_->onMouseEnter();
 		}
 	}
 
-	cControl *control = mouseCapture;
+	cControl *control = mouseCapture_;
 	if (control && control->isMoveHandle()) {
 		cControl *movable = control->getMovableControl();
 		if (movable) {
@@ -309,7 +330,15 @@ void cGLWidget::leaveEvent(QEvent *e) {
 	QGLWidget::leaveEvent(e);
 }
 
+void cGLWidget::checkInputFocus() {
+	if (Gui->inputFocus() && !Gui->inputFocus()->isVisibleOnScreen()) {
+		Gui->setInputFocus(0);
+	}
+}
+
 void cGLWidget::keyPressEvent(QKeyEvent *e) {
+	checkInputFocus();
+
 	ignoreReturn = false;
 	Qt::ButtonState state = e->state();
 	int key = e->key();
@@ -347,6 +376,8 @@ void cGLWidget::keyPressEvent(QKeyEvent *e) {
 }
 
 void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
+	checkInputFocus();
+
 	if (WorldView && WorldView->isTargetting() && e->key() == Qt::Key_Escape) {
 		WorldView->cancelTarget();
 		return;
@@ -375,13 +406,13 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 void cGLWidget::mousePressEvent(QMouseEvent *e) {
 	singleClickTimer.stop();
 
-	if (mouseCapture) {
-		mouseCapture->onMouseDown(e);
+	if (mouseCapture_) {
+		mouseCapture_->onMouseDown(e);
 	} else {
 		cControl *control = Gui->getControl(e->x(), e->y());
 		if (control) {
 			control->onMouseDown(e);
-			mouseCapture = control;
+			mouseCapture_ = control;
 
 			// If the new control wants to have the input focus, it gets it
 			if (control->canHaveFocus()) {
@@ -421,7 +452,7 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	singleClickEvent = new QMouseEvent(*e);
 	singleClickTimer.start();
 	
-	cControl *control = mouseCapture;
+	cControl *control = mouseCapture_;
 	if (!control) {
 		control = Gui->getControl(e->x(), e->y());
 	}
@@ -433,7 +464,7 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 		}
 
 		control->onMouseUp(e);
-		mouseCapture = 0; // Reset mouse capture
+		mouseCapture_ = 0; // Reset mouse capture
 	}
 
 	QWidget::mouseReleaseEvent(e);
@@ -442,13 +473,13 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 void cGLWidget::singleClick() {
 	if (singleClickEvent) {
 		// Post the event to the gui system
-		cControl *control = mouseCapture;
+		cControl *control = mouseCapture_;
 		if (!control) {
 			control = Gui->getControl(singleClickEvent->x(), singleClickEvent->y());
 		}
 		if (control) {
 			control->onClick(singleClickEvent);
-			mouseCapture = 0; // Reset mouse capture
+			mouseCapture_ = 0; // Reset mouse capture
 		}
 
 		delete singleClickEvent;

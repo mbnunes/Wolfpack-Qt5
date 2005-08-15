@@ -3,6 +3,59 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 
+#include "gui/label.h"
+
+/*
+	This private class manages overhead text for Entities.
+	(All entities can have overhead text. Static items when clicked
+	on etc.)
+*/
+class cOverheadText {
+protected:
+	cEntity *entity_;
+public:
+	cEntity *entity() const;
+	void setEntity(cEntity *entity);
+
+	virtual ~cOverheadText();
+};
+
+inline void cOverheadText::setEntity(cEntity *entity) {
+	entity_ = entity;
+}
+
+inline cEntity *cOverheadText::entity() const {
+	return entity_;
+}
+
+cOverheadText::~cOverheadText() {
+}
+
+class cOverheadTextUnicode : public cLabel, public cOverheadText {
+public:
+	cOverheadTextUnicode(QString message, unsigned short color, unsigned char font, cEntity *source);
+};
+
+cOverheadTextUnicode::cOverheadTextUnicode(QString message, unsigned short color, unsigned char font, cEntity *source) : cLabel(message, font, color, true, ALIGN_LEFT, false) {
+	setWidth(240);
+    update();
+	entity_ = source;
+}
+
+void cEntity::removeOverheadText(cControl *overhead) {
+	for (int i = 0; i < overheadTexts.size(); ++i) {
+		if (overheadTexts[i] == overhead) {
+			overheadTexts.remove(i);
+			return;
+		}
+	}
+}
+
+void cEntity::addOverheadText(QString message, unsigned short color, unsigned char font) {
+	cOverheadTextUnicode *obj = new cOverheadTextUnicode(message, color, font, this);
+	overheadTexts.append(obj);
+}
+
 cEntity::cEntity() {
 	refcount = 1;
 	x_ = 0;

@@ -85,8 +85,10 @@ inline bool cMobile::partialHue() const {
 }
 
 inline void cMobile::setBody(unsigned short data) {
-	body_ = data;
-	freeSequence();
+	if (data != body_) {
+		body_ = data;
+		freeSequence();
+	}
 }
 
 inline void cMobile::setHue(unsigned short data) {

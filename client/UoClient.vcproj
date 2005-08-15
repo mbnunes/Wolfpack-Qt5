@@ -351,6 +351,9 @@
 				RelativePath=".\obj\moc_cursor.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_genericgump.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_gui.cpp">
 			</File>
 			<File
@@ -364,6 +367,9 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_label.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_localization.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_login.cpp">
@@ -452,6 +458,12 @@
 "
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\gui\checkertrans.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\checkertrans.h">
 			</File>
 			<File
 				RelativePath=".\src\gui\container.cpp">
@@ -546,6 +558,28 @@
 						Description="moc&apos;ing $(InputFileName)"
 						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
 "
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\gui\genericgump.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\genericgump.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -889,6 +923,30 @@
 			</File>
 			<File
 				RelativePath=".\include\muls\hues.h">
+			</File>
+			<File
+				RelativePath=".\src\muls\localization.cpp">
+			</File>
+			<File
+				RelativePath=".\include\muls\localization.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\muls\maps.cpp">

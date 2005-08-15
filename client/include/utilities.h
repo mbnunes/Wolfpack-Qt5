@@ -78,6 +78,8 @@ namespace Utilities {
 		return uiResult;
 	}
 
+	QString localLanguage();
+
 	QString dumpData(const QByteArray &data);
 };
 

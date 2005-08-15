@@ -6,6 +6,9 @@
 #include <qevent.h>
 //Added by qt3to4:
 #include <QMouseEvent>
+#include <QVector>
+
+class cControl;
 
 /*
 	This is the base class for every world object in the game.
@@ -26,6 +29,7 @@ protected:
 	int width_, height_; // last draw height/width
 	enEntityType type_; // type of this entity
 	int priority_; // sort priority
+	QVector<cControl*> overheadTexts;
 	
 	/*
 		This is the id of the cell this tile is currently sorted in. 
@@ -36,6 +40,9 @@ protected:
 
 	cEntity(); // If you know what you're doing
 public:
+	void removeOverheadText(cControl *overhead);
+	void addOverheadText(QString message, unsigned short color = 0x3b2, unsigned char font = 3);
+
 	cEntity(unsigned short x, unsigned short y, signed char z, enFacet facet);
 	virtual ~cEntity();
 

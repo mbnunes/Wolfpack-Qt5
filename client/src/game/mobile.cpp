@@ -199,17 +199,31 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 			enLayer layer = (enLayer)*order;
 
 			if (layer < LAYER_VISIBLECOUNT && equipmentSequences[layer]) {
-				equipmentSequences[layer]->draw(frame, cellx, celly, flip);
+				// Oh great OSI... Another exception from the rule *sigh*
+				// Don't draw Hair if we're wearing a gm robe
+				if (layer != LAYER_HAIR || !equipmentSequences[LAYER_OUTERTORSO] || equipmentSequences[LAYER_OUTERTORSO]->body() != 0x3db) {					
+					equipmentSequences[layer]->draw(frame, cellx, celly, flip);
+				}				
 			}
 
 			++order; // Next layer
 		}
 	}
+
+	drawx_ = cellx;
+	drawy_ = celly;
 }
 
 bool cMobile::hitTest(int x, int y) {
 	if (Config->gameHideMobiles()) {
 		return false;
+	}
+
+	bool flip = (direction_ >= 0 && direction_ < 4);
+
+	// Check the sequence and all equipment (sucks like hell)
+	if (sequence_ && sequence_->hitTest(frame, x, y, flip)) {
+        return true;
 	}
 
 	return false;

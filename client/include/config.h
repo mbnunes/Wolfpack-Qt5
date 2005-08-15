@@ -63,6 +63,8 @@ private:
 	bool gameHideDynamics_;
 	bool gameHideMobiles_;
 	bool gameHideMap_;
+	bool gameHighlightStatics_;
+	bool gameHighlightMap_;
 public:
 	const QString &uoPath();
 	void setUoPath(const QString &data) { uoPath_ = data; setString("General", "Ultima Online Path", data); }
@@ -130,6 +132,11 @@ public:
 	void setGameHideMobiles(bool data) { gameHideMobiles_ = data; setBool("Game", "Hide Mobiles", data); }
 	const bool gameHideMap() const { return gameHideMap_; }
 	void setGameHideMap(bool data) { gameHideMap_ = data; setBool("Game", "Hide Map", data); }
+
+	const bool gameHighlightStatics() const { return gameHighlightStatics_; }
+	void setGameHighlightStatics(bool data) { gameHighlightStatics_ = data; setBool("Game", "Highlight Statics", data); }
+	const bool gameHighlightMap() const { return gameHighlightMap_; }
+	void setGameHighlightMap(bool data) { gameHighlightMap_ = data; setBool("Game", "Highlight Map", data); }
 
 	// constructor
 	cConfig();

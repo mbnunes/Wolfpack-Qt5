@@ -11,14 +11,16 @@ void cContainer::draw(int xoffset, int yoffset) {
 	xoffset += x_;
 	yoffset += y_;
 
-	// Save the old scissor test flag
-	glPushAttrib(GL_SCISSOR_BIT|GL_SCISSOR_BIT);
-
-	// And enable the scissor box for this container
-	glEnable(GL_SCISSOR_TEST);
+	if (!disableScissorBox_) {
+		// Save the old scissor test flag
+		glPushAttrib(GL_SCISSOR_BIT|GL_SCISSOR_BIT);
 	
-	// Set the scissor box to the coordinates of this container
-	glScissor(xoffset, GLWidget->height() - (yoffset + height_), width_, height_);
+		// And enable the scissor box for this container
+		glEnable(GL_SCISSOR_TEST);
+		
+		// Set the scissor box to the coordinates of this container
+		glScissor(xoffset, GLWidget->height() - (yoffset + height_), width_, height_);
+	}
 
 	Iterator it;
 	for (it = controls.begin(); it != controls.end(); ++it) {
@@ -27,11 +29,14 @@ void cContainer::draw(int xoffset, int yoffset) {
 		}
 	}
 
-	// Pop the old scissor box/test attribs from the gl stack
-	glPopAttrib();
+	if (!disableScissorBox_) {
+		// Pop the old scissor box/test attribs from the gl stack
+		glPopAttrib();
+	}
 }
 
 cContainer::cContainer() {
+	disableScissorBox_ = false;
 }
 
 void cContainer::clear() {
@@ -269,7 +274,7 @@ cControl *cContainer::getControl(int x, int y) {
 	cControl *result = 0; // The control at that position or 0
 
 	// Only bother if the given coordinates are within this control
-	if (visible_ && x >= 0 && y >= 0 && x < width_ && y < height_) {
+	if (visible_ && (disableScissorBox_ || (x >= 0 && y >= 0 && x < width_ && y < height_))) {
 		if (!controls.isEmpty()) {
 			Iterator it = controls.end();
 			do {

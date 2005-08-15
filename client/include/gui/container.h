@@ -16,6 +16,7 @@ public:
 	typedef Controls::iterator Iterator;
 protected:
 	Controls controls;
+	bool disableScissorBox_;
 public:
 	inline Controls getControls() {
 		return controls;
@@ -26,6 +27,9 @@ public:
 
 	// Delete the content of this container
 	void clear();
+
+	bool disableScissorBox() const;
+	void setDisableScissorBox(bool data);
 
 	bool isContainer() const; // Indicates whether this is a container or not
 
@@ -57,5 +61,13 @@ private:
 	void doPositioning(enControlAlign align, cControl *control, QRect &clientRect);
 	bool canAlignBefore(enControlAlign align, cControl *control1, cControl *control2);
 };
+
+inline bool cContainer::disableScissorBox() const {
+	return disableScissorBox_;
+}
+
+inline void cContainer::setDisableScissorBox(bool data) {
+	disableScissorBox_ = data;
+}
 
 #endif

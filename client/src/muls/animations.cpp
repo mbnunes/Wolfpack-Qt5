@@ -24,6 +24,31 @@ cSequence::~cSequence() {
 	}
 }
 
+bool cSequence::hitTest(int frame, int x, int y, bool flip) {
+	if (frame < 0 || frame >= frameCount_) {
+		return false; // Invalid frame id
+	}
+
+	stFrame &info = frames[frame];
+
+	int drawx; // x draw position
+	if (flip) {
+		// If the image is flipped, centerx needs to be flipped too
+		drawx = - (info.width - info.centerx);
+	} else {
+		drawx = - info.centerx;
+	}
+
+	// Don't ask me why this works
+	int drawy = - info.height - info.centery;
+
+	if (x < drawx || y < drawy || x >= drawx + info.width || y >= drawy + info.height) {
+		return false;
+	}
+
+	return true;
+}
+
 void cSequence::draw(int frame, int cellx, int celly, bool flip) {
 	if (frame < 0 || frame >= frameCount_) {
 		return; // Invalid frame id

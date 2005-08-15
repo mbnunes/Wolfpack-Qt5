@@ -43,7 +43,7 @@ void cLabel::draw(int xoffset, int yoffset) {
 
 	if (surface) {
 		// TODO: Clipping if width_/heigh_ < realWidth/realHeight
-		surface->draw(x_ + xoffset, y_ + yoffset);
+		surface->draw(x_ + xoffset, y_ + yoffset, alpha_);
 	}
 }
 

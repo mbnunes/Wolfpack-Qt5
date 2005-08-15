@@ -849,7 +849,7 @@ void cLoginDialog::socketConnect() {
 
 void cLoginDialog::selectShard(int id) {
 	if (id >= 0 && id < (int)shards.size()) {
-		cRequestRelayPacket packet(id);
+		cRequestRelayPacket packet(shards[id].id);
 		UoSocket->send(packet);
 	}
 }

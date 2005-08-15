@@ -4,7 +4,9 @@
 #include "muls/art.h"
 #include "muls/textures.h"
 #include "muls/maps.h"
+#include "muls/localization.h"
 #include "gui/worldview.h"
+#include "gui/gui.h"
 #include "log.h"
 #include "config.h"
 #include <qgl.h>
@@ -81,7 +83,6 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		return;
 	}
 
-
 	if (id_ == 1 || id_ == 0x21bc || id_ == 0x21a4) {
 		return; // Nodraw Tile
 	}
@@ -145,8 +146,8 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		width_ = info.width;
 		height_ = info.height;
 
-		if (World->mouseOver() == this) {
-			glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // White. No Alpha.
+		if (Config->gameHighlightStatics() && World->mouseOver() == this) {
+			glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // Red. No Alpha.
 		} else {
 			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // White. No Alpha.
 		}
@@ -176,7 +177,7 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 			return;
 		}
 
-		if (World->mouseOver() == this) {
+		if (Config->gameHighlightStatics() && World->mouseOver() == this) {
 			glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // White. No Alpha.
 		} else {
 			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // White. No Alpha.
@@ -216,19 +217,18 @@ bool cStaticTile::hitTest(int x, int y) {
 }
 
 void cStaticTile::onClick(QMouseEvent *e) {
-	QString message;
-	if (tiledata_->isArticleA()) {
+	QString message = Localization->get(1020000 + id_);
+
+	/*if (tiledata_->isArticleA()) {
 		message = QString("a %1").arg(tiledata_->name().data());
 	} else if (tiledata_->isArticleAn()) {
 		message = QString("an %1").arg(tiledata_->name().data());
 	} else {
 		message = tiledata_->name();
-	}
+	}*/
 
-	WorldView->addSysMessage(message);
-
-	message = QString("[Id: 0x%1, Z: %2, Height: %3, Priority: %4]").arg(id_, 0, 16).arg(z_).arg(tiledata_->height()).arg(priority_);
-	WorldView->addSysMessage(message);
+	//WorldView->addSysMessage(message);
+	Gui->addOverheadText(e->x() - drawx(), e->y() - drawy(), 3000, message, 0x3b2, 3, this);
 }
 
 void cStaticTile::updatePriority() {

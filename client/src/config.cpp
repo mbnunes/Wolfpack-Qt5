@@ -438,6 +438,8 @@ void cConfig::load() {
 	gameHideDynamics_ = getBool("Game", "Hide Dynamics", false);
 	gameHideMobiles_ = getBool("Game", "Hide Mobiles", false);
 	gameHideMap_ = getBool("Game", "Hide Map", false);
+	gameHighlightStatics_ = getBool("Game", "Highlight Statics", false);
+	gameHighlightMap_ = getBool("Game", "Highlight Map", false);
 }
 
 void cConfig::reload() {

@@ -1,6 +1,7 @@
 
 #include "exceptions.h"
 #include "utilities.h"
+#include "mainwindow.h"
 #include "gui/container.h"
 #include "gui/control.h"
 #include "gui/gui.h"
@@ -24,9 +25,19 @@ cControl::cControl() {
 	canHaveFocus_ = false;
 	wantTabs_ = false;
 	tabIndex_ = 0;
+	alpha_ = 1.0f;
 }
 
 cControl::~cControl() {
+	if (Gui->inputFocus() == this) {
+		Gui->setInputFocus(0);
+	}
+	if (GLWidget->lastMouseMovement() == this) {
+		GLWidget->setLastMouseMovement(0);
+	}
+	if (GLWidget->mouseCapture() == this) {
+		GLWidget->setMouseCapture(0);
+	}
 }
 
 bool cControl::isVisibleOnScreen() {
@@ -198,3 +209,16 @@ QPoint cControl::mapFromGlobal(const QPoint &point) {
 
     return QPoint(point.x() - x, point.y() - y);
 }
+
+cWindow *cControl::getTopWindow() {
+	if (parent_) {
+		if (parent_->isWindow()) {
+			return (cWindow*)parent_;
+		} else if (parent_ != Gui) {
+			return parent_->getTopWindow();
+		}
+	}
+
+	return 0;
+}
+

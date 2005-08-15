@@ -137,6 +137,7 @@ cSurface *cGumpart::readSurface(unsigned short id, unsigned short hueid, bool pa
 }
 
 cTexture *cGumpart::readTexture(unsigned short id, unsigned short hue, bool partialHue) {
+	// unsigned int cacheid = ((id & 0xFFF) << 16) | (hue & 0xFFFF) | (partialHue ? (1 << 31) : 0);
 	cSurface *surface = readSurface(id, hue, partialHue, true);
 	cTexture *texture = new cTexture(surface, true);
 	delete surface;

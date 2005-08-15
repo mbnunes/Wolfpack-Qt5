@@ -1,16 +1,22 @@
 
 #include "gui/window.h"
+#include "gui/gui.h"
 #include "texture.h"
 //Added by qt3to4:
 #include <QMouseEvent>
+#include <qgl.h>
 
 cWindow::cWindow() : cContainer() {
 	tracking = false;
 	movable_ = false;
 	closable_ = false;
+	enableStencil_ = false;
 }
 
 cWindow::~cWindow() {
+	if (Gui->activeWindow() == this) {
+		Gui->setActiveWindow(0);
+	}
 }
 
 bool cWindow::isWindow() const {
@@ -22,10 +28,21 @@ void cWindow::update() {
 
 // Draw this window
 void cWindow::draw(int xoffset, int yoffset) {
+	if (enableStencil_) {
+		glClear(GL_STENCIL_BUFFER_BIT);
+		glEnable(GL_STENCIL_TEST);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		glStencilFunc(GL_NOTEQUAL, 0, 0xff);
+	}
+
 	/*
 		For performance we could generate a display list here.
 	*/
 	cContainer::draw(xoffset, yoffset);
+
+	if (enableStencil_) {
+		glDisable(GL_STENCIL_TEST);
+	}
 }
 
 // This function has to be overriden for dragging the window around to work

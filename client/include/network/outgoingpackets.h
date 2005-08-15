@@ -4,6 +4,8 @@
 
 #include "network/outgoingpacket.h"
 #include "enums.h"
+#include <qmap.h>
+#include <qvector.h>
 
 /*
 	This file contains class definitions for outgoing packets.
@@ -62,6 +64,12 @@ class cEntity;
 class cTargetResponsePacket : public cOutgoingPacket {
 public:
 	cTargetResponsePacket(uint targetId, uchar targetType, uchar cursorType, cEntity *target);
+};
+
+// 0xb1 Generic gump response
+class cGenericGumpResponsePacket : public cOutgoingPacket {
+public:
+	cGenericGumpResponsePacket(uint serial, uint type, uint button, QVector<uint> switches, QMap<uint, QString> strings);
 };
 
 #endif

@@ -55,6 +55,7 @@ public:
 
 	// Draw the given frame at the given base
 	void draw(int frame, int cellx, int celly, bool flip);
+	bool hitTest(int frame, int x, int y, bool flip);
 
 	// Load this sequence from a byte stream
 	void load(QDataStream &stream);
