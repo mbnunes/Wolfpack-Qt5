@@ -222,7 +222,9 @@ class EnemyOfOne(Spell):
 	def cast(self, char, mode, args=[], target=None, item=None):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return False
-
+		if char.hastag( "waitingforenemy" ) or char.hastag( "enemyofonetype" ):
+			char.dispel(None, True, "enemyofone")
+			return
 		char.soundeffect( 0x0F5 )
 		char.soundeffect( 0x1ED )
 		char.effect( 0x375A, 1, 30 )
@@ -237,13 +239,20 @@ class EnemyOfOne(Spell):
 			delay = 3.5
 
 		char.settag( "waitingforenemy", 0 )
-		char.addtimer( delay * 1000 * 60, expire_enemyofone, [] )
+		char.addtimer( delay * 1000 * 60, expire_enemyofone, [], 0, 0, "enemyofone", dispel_enemyofone )
 
-def expire_enemyofone( char, args ):
+def clearchar( char ):
 	if char.hastag( "waitingforenemy" ):
 		char.deltag( "waitingforenemy" )
 	if char.hastag( "enemyofonetype" ):
 		char.deltag( "enemyofonetype" )
+	return True
+
+def dispel_enemyofone(char, args, source, dispelargs):
+	return clearchar( char )
+
+def expire_enemyofone( char, args ):
+	clearchar( char )
 	char.soundeffect( 0x1F8 )
 	return
 
