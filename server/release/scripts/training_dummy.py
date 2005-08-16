@@ -25,7 +25,7 @@ def onUse( char, item ):
 		char.message( 500295, '' ) # You are too far away to do that.
 		return True
 
-	if char.itemonlayer( 21 ):
+	if char.itemonlayer( 25 ):
 		char.socket.clilocmessage( 501829 ) # You can't practice on this while on a mount.
 		return True
 
