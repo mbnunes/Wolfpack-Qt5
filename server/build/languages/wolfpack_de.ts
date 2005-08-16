@@ -753,12 +753,12 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>That item is already fully charged.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Gegenstand ist bereits voll aufgeladen.</translation>
     </message>
     <message>
         <source>You recharge the item.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du lädst den Gegenstand auf.</translation>
     </message>
     <message>
         <source>You enhance the item with your gem.</source>
@@ -783,17 +783,17 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>shot is well off target.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schuss weit danaben geht.</translation>
     </message>
     <message>
         <source>shot is wide of the mark.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schuss weit am Ziel vorbei geht.</translation>
     </message>
     <message>
         <source>shot misses terribly.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schuss das Ziel ziemlich verfehlt.</translation>
     </message>
     <message>
         <source>shot nearly misses the archery butte.</source>
@@ -803,22 +803,22 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>hit the outer ring.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>trifft den äußeren Ring.</translation>
     </message>
     <message>
         <source>hit the middle ring.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>trifft den mittleren Ring.</translation>
     </message>
     <message>
         <source>hit the inner ring.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>trifft den inneren Ring.</translation>
     </message>
     <message>
         <source>hit the bullseye!.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>trifft ins Schwarze.</translation>
     </message>
     <message>
         <source>The butte is empty.</source>
@@ -828,12 +828,12 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>You see %s&apos;s poor shot destroys the %s</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du siehst wie %s&apos;s schlechter Schuss den %s zerstört</translation>
     </message>
     <message>
         <source>You see %s&apos;s %s</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du siehst wie %s&apos;s %s</translation>
     </message>
     <message>
         <source>You are already healing somebody.</source>
@@ -1133,17 +1133,17 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>You selected an invalid color.</source>
         <comment>../release/scripts/dyes.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du hast eine ungültige Farbe gewählt.</translation>
     </message>
     <message>
         <source>You cannot pick cotton here yet.</source>
         <comment>../release/scripts/environment.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst die Baumwolle noch nicht pflücken.</translation>
     </message>
     <message>
         <source>You reach down and pick some cotton.</source>
         <comment>../release/scripts/environment.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du bückst dich und pflückst etwas Baumwolle.</translation>
     </message>
     <message>
         <source> and break the parts.</source>
@@ -1173,7 +1173,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>That is an invalid color.</source>
         <comment>../release/scripts/environment.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Das ist eine ungültige Farbe.</translation>
     </message>
     <message>
         <source>Please select the object you wish to dye.</source>
@@ -1584,7 +1584,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Resign from this guild.</source>
         <comment>../release/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aus dieser Gilde austreten.</translation>
     </message>
     <message>
         <source>Resign from your leadership position.</source>
@@ -1599,7 +1599,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Main Menu</source>
         <comment>../release/scripts/guilds/stone.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hauptmenü</translation>
     </message>
     <message>
         <source>Modify the general properties of this guild.</source>
@@ -2080,7 +2080,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>CANCEL</source>
         <comment>../release/scripts/moongate.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>ABBRECHEN</translation>
     </message>
     <message>
         <source>Canceled.</source>
@@ -2095,7 +2095,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>I regret nothing!</source>
         <comment>../release/scripts/npc/playervendor/__init__.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ich bereue nichts!</translation>
     </message>
     <message>
         <source>The item you tried to buy is no longer available for sale.</source>
@@ -2275,7 +2275,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>DEFAULT</source>
         <comment>../release/scripts/runedye.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>STANDARD</translation>
     </message>
     <message>
         <source>Iron</source>
@@ -2355,12 +2355,12 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Water: 1&lt;br&gt;</source>
         <comment>../release/scripts/skills/cooking.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Wasser: 1&lt;br&gt;</translation>
     </message>
     <message>
         <source>Flour: %i&lt;br&gt;</source>
         <comment>../release/scripts/skills/cooking.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mehl: %1&lt;br&gt;</translation>
     </message>
     <message>
         <source>You don&apos;t have enough material to make that.</source>
@@ -2375,12 +2375,12 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>shoes</source>
         <comment>../release/scripts/skills/fishing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schuhe</translation>
     </message>
     <message>
         <source>a fish</source>
         <comment>../release/scripts/skills/fishing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>ein Fisch</translation>
     </message>
     <message>
         <source>This script has not been configured correctly.</source>
@@ -2400,17 +2400,17 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Black Pearl</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schwarzperle</translation>
     </message>
     <message>
         <source>Blood Moss</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Blutmoos</translation>
     </message>
     <message>
         <source>Garlic</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Knoblauch</translation>
     </message>
     <message>
         <source>Ginseng</source>
@@ -2425,7 +2425,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Nightshade</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nachtschatten</translation>
     </message>
     <message>
         <source>Sulfurous Ash</source>
@@ -2455,12 +2455,12 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Daemon Blood</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dämonenblut</translation>
     </message>
     <message>
         <source>Bone</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Knochen</translation>
     </message>
     <message>
         <source>Brimstone</source>
@@ -2530,7 +2530,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Runebook</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Runenbuch</translation>
     </message>
     <message>
         <source>Gate Travel Scrolls</source>
@@ -2550,7 +2550,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Other</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Anderes</translation>
     </message>
     <message>
         <source>Inscription</source>
@@ -2680,7 +2680,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>There is no ore here to mine.</source>
         <comment>../release/scripts/skills/mining.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hier gibt es kein Erz zum Abbauen.</translation>
     </message>
     <message>
         <source>You need an instrument.</source>
@@ -2956,7 +2956,7 @@ Interval: %s to %s minutes</source>
     <message>
         <source>DEFAULT</source>
         <comment>../release/scripts/specialdye.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>STANDARD</translation>
     </message>
     <message>
         <source>Alas you don&apos;t have any money in your bank.</source>
@@ -2976,27 +2976,27 @@ Interval: %s to %s minutes</source>
     <message>
         <source>You are entangled in the spiderweb. You have to break free!</source>
         <comment>../release/scripts/spiderweb.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du bist in dem Spinnennetz gefangen. Du musst dich losreißen!</translation>
     </message>
     <message>
         <source>You damage the spiderweb.</source>
         <comment>../release/scripts/spiderweb.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du beschädigst dass Spinnennetz.</translation>
     </message>
     <message>
         <source>You manage to break free of the spiderweb.</source>
         <comment>../release/scripts/spiderweb.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Es gelingt dir dich aus dem Spinnennetz zu befreien.</translation>
     </message>
     <message>
         <source>Your stomach growls...</source>
         <comment>../release/scripts/system/hunger.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dein Magen knurrt...</translation>
     </message>
     <message>
         <source>Your stomach hurts from the lack of food...</source>
         <comment>../release/scripts/system/hunger.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dein Magen schmerzt wegen dem fehlenden Essen...</translation>
     </message>
     <message>
         <source>Unexpected input response.</source>
@@ -3091,7 +3091,7 @@ Interval: %s to %s minutes</source>
     <message>
         <source>You didn&apos;t make anything yet.</source>
         <comment>../release/scripts/system/makemenus.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du hast bisher noch nichts hergestellt.</translation>
     </message>
     <message>
         <source>CATEGORIES</source>
@@ -3158,12 +3158,12 @@ Interval: %s to %s minutes</source>
     <message>
         <source>Page Menu</source>
         <comment>../release/scripts/system/pages.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hilfemenü</translation>
     </message>
     <message>
         <source>Category: %s</source>
         <comment>../release/scripts/system/pages.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kategorie: %s</translation>
     </message>
     <message>
         <source>Char name:</source>
@@ -3188,12 +3188,12 @@ Interval: %s to %s minutes</source>
     <message>
         <source>Date/time:</source>
         <comment>../release/scripts/system/pages.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Datum/Zeit:</translation>
     </message>
     <message>
         <source>Message:</source>
         <comment>../release/scripts/system/pages.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nachricht:</translation>
     </message>
     <message>
         <source>Go to char position</source>
@@ -3567,11 +3567,11 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>You can&apos;t equip dead players.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst tote Spieler nicht bekleiden.</translation>
     </message>
     <message>
         <source>You can&apos;t equip other players.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst andere Spieler nicht bekleiden.</translation>
     </message>
     <message>
         <source>This item cannot be equipped.</source>
@@ -4611,12 +4611,14 @@ GameServer läuft auf Port %1
     <message>
         <source>Removed &apos;%1&apos; from the party.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; aus der Party gelöscht.
+</translation>
     </message>
     <message>
         <source>Left the party.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Party verlassen.
+</translation>
     </message>
     <message>
         <source>Told &apos;%1&apos; in party &apos;%2&apos;.
@@ -4631,12 +4633,14 @@ GameServer läuft auf Port %1
     <message>
         <source>Accepted party invitation from &apos;%1&apos;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Partyeinladung von &apos;%1&apos; akzeptiert.
+</translation>
     </message>
     <message>
         <source>Declined party invitation from &apos;%1&apos;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Partyeinladung von &apos;%1&apos; abgelehnt.
+</translation>
     </message>
 </context>
 <context>
@@ -4716,7 +4720,7 @@ GameServer läuft auf Port %1
     </message>
     <message>
         <source>You cannot cast spells while you are in jail.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst nicht zaubern während du im Jail bist.</translation>
     </message>
     <message>
         <source>Started fight with character %1 (0x%2).
@@ -4748,11 +4752,11 @@ GameServer läuft auf Port %1
     </message>
     <message>
         <source>All tags removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Tags gelöscht.</translation>
     </message>
     <message>
         <source>Tag &quot;%1&quot; removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tag &quot;%1&quot; gelöscht.</translation>
     </message>
 </context>
 <context>
@@ -4908,7 +4912,7 @@ The server has been shut down. You can close this window now.
     <name>cSetTarget</name>
     <message>
         <source>Please select a valid character or item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte wähle einen gültigen Char oder Gegenstand</translation>
     </message>
     <message>
         <source>Better do not try that!</source>
@@ -4919,11 +4923,11 @@ The server has been shut down. You can close this window now.
     <name>cShowTarget</name>
     <message>
         <source>You have to target a valid object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst ein gültiges Objekt wählen.</translation>
     </message>
     <message>
         <source>Unknown property: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannte Eigenschaft: &apos;%1&apos;</translation>
     </message>
     <message>
         <source>&apos;%1&apos; is &apos;%2&apos;</source>
@@ -5236,7 +5240,7 @@ The server has been shut down. You can close this window now.
     </message>
     <message>
         <source>You already have more than %1 characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast bereits mehr als %1 Charaktere</translation>
     </message>
     <message>
         <source>Submitted invalid stats during char creation (%1,%2,%3).
