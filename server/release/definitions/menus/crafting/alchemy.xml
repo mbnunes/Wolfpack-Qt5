@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<menu id="ALCHEMY" name="Alchemy">
+	<menu id="ALCHEMY" name="1044001"> <!-- <CENTER>ALCHEMY MENU</CENTER> -->
 		<menu id="ALCHEMY_REFRESH" />
 		<menu id="ALCHEMY_AGILITY" />
 		<menu id="ALCHEMY_NIGHTSIGHT" />
@@ -26,7 +26,8 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_REFRESH" name="Refresh">
+	<!--Refresh Potion-->
+	<menu id="ALCHEMY_REFRESH" name="1044530">
 		<!--Refresh Potion-->
 		<craft definition="potion_refresh">
 			<alchemy min="-250" max="250" />
@@ -42,7 +43,8 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_AGILITY" name="Agility">
+	<!--Agility Potion-->
+	<menu id="ALCHEMY_AGILITY" name="1044531">
 		<!--Agility Potion-->
 		<craft definition="potion_agility">
 			<alchemy min="150" max="650" />
@@ -58,7 +60,8 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_NIGHTSIGHT" name="Nightsight">
+	<!--Nightsight Potion-->
+	<menu id="ALCHEMY_NIGHTSIGHT" name="1044532">
 		<!--Nightsight Potion-->
 		<craft definition="potion_nightsight">
 			<alchemy min="-250" max="250" />
@@ -67,7 +70,8 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_HEAL" name="Heal">
+	<!--Heal Potion-->
+	<menu id="ALCHEMY_HEAL" name="1044533">
 		<!--Lesser Heal Potion-->
 		<craft definition="potion_lesserheal">
 			<alchemy min="-250" max="250" />
@@ -90,7 +94,8 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_STRENGTH" name="Strength">
+	<!--Strength Potion-->
+	<menu id="ALCHEMY_STRENGTH" name="1044534">
 		<!--Strength Potion-->
 		<craft definition="potion_strength">
 			<alchemy min="250" max="750" />
@@ -106,7 +111,7 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_POISON" name="Poison">
+	<menu id="ALCHEMY_POISON" name="1044535">
 		<!--Lesser Poison Potion-->
 		<craft definition="potion_lesserpoison">
 			<alchemy min="-50" max="450" />
@@ -136,7 +141,8 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_CURE" name="Cure">
+	<!--Cure Potion-->
+	<menu id="ALCHEMY_CURE" name="1044536">
 		<!--Lesser Cure Potion-->
 		<craft definition="potion_lessercure">
 			<alchemy min="-100" max="400" />
@@ -159,7 +165,8 @@
 		</craft>
 	</menu>
 
-	<menu id="ALCHEMY_EXPLOSION" name="Explosion">
+	<!--Explosion Potion-->
+	<menu id="ALCHEMY_EXPLOSION" name="1044537">
 		<!--Lesser Explosion Potion-->
 		<craft definition="potion_lesserexplosion">
 			<alchemy min="50" max="550" />
