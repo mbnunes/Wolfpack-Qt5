@@ -904,217 +904,217 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>You cannot use this ability with that weapon.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/combat/specialmoves.py</comment>
+        <comment>../release/scripts/combat/specialmoves.py</comment>
         <translation type="unfinished">Voce não pode usar esta skill com esta arma.</translation>
     </message>
     <message>
         <source>This ability has not been implemented yet.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/combat/specialmoves.py</comment>
+        <comment>../release/scripts/combat/specialmoves.py</comment>
         <translation type="unfinished">Esta skill não foi implementada ainda.</translation>
     </message>
     <message>
         <source>Sorting items, please wait...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/decoration.py</comment>
+        <comment>../release/scripts/commands/decoration.py</comment>
         <translation type="unfinished">Sorteando items. por favor espere...</translation>
     </message>
     <message>
         <source>Writing file...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/decoration.py</comment>
+        <comment>../release/scripts/commands/decoration.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Decorating map %i, please wait...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/decoration.py</comment>
+        <comment>../release/scripts/commands/decoration.py</comment>
         <translation type="unfinished">Decorando mapa %i, por favor espere...</translation>
     </message>
     <message>
         <source>Stopped following 0x%x.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/follow.py</comment>
+        <comment>../release/scripts/commands/follow.py</comment>
         <translation type="unfinished">Parado depois de  0x%x.</translation>
     </message>
     <message>
         <source>You chose an invalid follow target.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/follow.py</comment>
+        <comment>../release/scripts/commands/follow.py</comment>
         <translation type="unfinished">Voce escolheu seguir um alvo invalido.</translation>
     </message>
     <message>
         <source>You better don</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/follow.py</comment>
+        <comment>../release/scripts/commands/follow.py</comment>
         <translation type="unfinished">You better don</translation>
     </message>
     <message>
         <source>Started following 0x%x.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/follow.py</comment>
+        <comment>../release/scripts/commands/follow.py</comment>
         <translation type="unfinished">Começou a seguir 0x%x.</translation>
     </message>
     <message>
         <source>Choose a new character to follow.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/follow.py</comment>
+        <comment>../release/scripts/commands/follow.py</comment>
         <translation type="unfinished">Escolha um novo char para segui-lo.</translation>
     </message>
     <message>
         <source>That player has been released from jail already.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Este jogado já esta liberto da cadeia.</translation>
     </message>
     <message>
         <source>That player is in jail already.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Este jogador esta na cadeia.</translation>
     </message>
     <message>
         <source>The targetted player has been jailed.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Escolha o jogador a ser preso.</translation>
     </message>
     <message>
         <source>The targetted player has been unjailed.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Escolha o jogador que tem que ser libertado.</translation>
     </message>
     <message>
         <source>You have to target a player character.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Você tem que escolher o char do jogador.</translation>
     </message>
     <message>
         <source>You burn your fingers.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Você queimou seus dedos.</translation>
     </message>
     <message>
         <source>Target the player you want to send to jail.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Selecione o jogador que voce queira mandar para a cadeia.</translation>
     </message>
     <message>
         <source>Target the player you want to release from jail.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/jail.py</comment>
+        <comment>../release/scripts/commands/jail.py</comment>
         <translation type="unfinished">Selecione o jogador que voce queira tirar da cadeia.</translation>
     </message>
     <message>
         <source>You have to target a player character.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/mute.py</comment>
+        <comment>../release/scripts/commands/mute.py</comment>
         <translation type="unfinished">Você tem que escolher o char do jogador.</translation>
     </message>
     <message>
         <source>You burn your fingers.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/mute.py</comment>
+        <comment>../release/scripts/commands/mute.py</comment>
         <translation type="unfinished">Você queimou seus dedos.</translation>
     </message>
     <message>
         <source>The targetted player can no longer talk.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/mute.py</comment>
+        <comment>../release/scripts/commands/mute.py</comment>
         <translation type="unfinished">The targetted player can no longer talk.</translation>
     </message>
     <message>
         <source>The targetted player can now talk again.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/mute.py</comment>
+        <comment>../release/scripts/commands/mute.py</comment>
         <translation type="unfinished">O jogador alvo não falam novamente agora.</translation>
     </message>
     <message>
         <source>Target the player you want to mute.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/mute.py</comment>
+        <comment>../release/scripts/commands/mute.py</comment>
         <translation type="unfinished">Escolha o jogador que você o quer mudo.</translation>
     </message>
     <message>
         <source>Target the player you want to unmute.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/mute.py</comment>
+        <comment>../release/scripts/commands/mute.py</comment>
         <translation type="unfinished">Escolha o jogador que você o quer deixar falar novamente.</translation>
     </message>
     <message>
         <source>The position (%s) you targetted is more than 30 tiles away. Are you sure to add a spawn there?</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/spawn.py</comment>
+        <comment>../release/scripts/commands/spawn.py</comment>
         <translation type="unfinished">A posição (%s) que você escolheu é mais de 30 tiles afastado.  Você está certo em adicionar um spawn?</translation>
     </message>
     <message>
         <source>Adding %s spawn at %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/spawn.py</comment>
+        <comment>../release/scripts/commands/spawn.py</comment>
         <translation type="unfinished">Adicionando %s spawn em %s.</translation>
     </message>
     <message>
         <source>a %s spawn</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/spawn.py</comment>
+        <comment>../release/scripts/commands/spawn.py</comment>
         <translation type="unfinished">a %s spawn</translation>
     </message>
     <message>
         <source>Usage: spawn npc radius mintime maxtime</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/spawn.py</comment>
+        <comment>../release/scripts/commands/spawn.py</comment>
         <translation type="unfinished">Uso: Spawn npc raio mintempo maxtempo</translation>
     </message>
     <message>
         <source>Usage: npc spawn radius mintime maxtime</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/spawn.py</comment>
+        <comment>../release/scripts/commands/spawn.py</comment>
         <translation type="unfinished">Uso: npc spawn raio mintempo maxtempo</translation>
     </message>
     <message>
         <source>Where do you want to spawn npc %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/spawn.py</comment>
+        <comment>../release/scripts/commands/spawn.py</comment>
         <translation type="unfinished">Onde você quer spawn do npc %s.</translation>
     </message>
     <message>
         <source>A private message from %s: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/sysmessage.py</comment>
+        <comment>../release/scripts/commands/sysmessage.py</comment>
         <translation type="unfinished">Mensagem privada para %s: %s</translation>
     </message>
     <message>
         <source>The maximum width or height of a pattern is 10. The minimum width or height of a pattern is 1.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/tilepattern.py</comment>
+        <comment>../release/scripts/commands/tilepattern.py</comment>
         <translation type="unfinished">A largura ou a altura máxima de um teste padrão são 10.  A largura ou a altura mínima de um teste padrão são 1.</translation>
     </message>
     <message>
         <source>You have to specify a valid width and height.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/tilepattern.py</comment>
+        <comment>../release/scripts/commands/tilepattern.py</comment>
         <translation type="unfinished">Você tem que especificar uma largura e um altura  válidas.</translation>
     </message>
     <message>
         <source>The tile pattern has been cleared.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/tilepattern.py</comment>
+        <comment>../release/scripts/commands/tilepattern.py</comment>
         <translation type="unfinished">O teste padrão de tile foi limpo.</translation>
     </message>
     <message>
         <source>Who Menu</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/who.py</comment>
+        <comment>../release/scripts/commands/who.py</comment>
         <translation type="unfinished">Who Menu</translation>
     </message>
     <message>
         <source>Close</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/who.py</comment>
+        <comment>../release/scripts/commands/who.py</comment>
         <translation type="unfinished">Fechar</translation>
     </message>
     <message>
         <source>Players: %u</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/who.py</comment>
+        <comment>../release/scripts/commands/who.py</comment>
         <translation type="unfinished">Jogadores: %u</translation>
     </message>
     <message>
         <source>Page %i of %i</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/who.py</comment>
+        <comment>../release/scripts/commands/who.py</comment>
         <translation type="unfinished">Page %i de %</translation>
     </message>
     <message>
         <source>%s [%s]</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/who.py</comment>
+        <comment>../release/scripts/commands/who.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>A private message from %s: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/commands/who.py</comment>
+        <comment>../release/scripts/commands/who.py</comment>
         <translation type="unfinished">Mensagem privada para %s: %s</translation>
     </message>
     <message>
         <source>Here is your bank box, %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/contextmenus/bankermenu.py</comment>
+        <comment>../release/scripts/contextmenus/bankermenu.py</comment>
         <translation type="unfinished">Está aqui sua caixa do banco, %s.</translation>
     </message>
     <message>
         <source>Alas you don&apos;t have any money in your bank.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/contextmenus/bankermenu.py</comment>
+        <comment>../release/scripts/contextmenus/bankermenu.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You have %i gold in your bank.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/contextmenus/bankermenu.py</comment>
+        <comment>../release/scripts/contextmenus/bankermenu.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1255,699 +1255,699 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Your guild permissions have been modified by %s. See your guildstone for details.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Suas permissões do guild foram modificadas por %s.  Veja seu guildstone para detalhes.</translation>
     </message>
     <message>
         <source>You have been granted the title &apos;%s&apos; by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">You have been granted the title &apos;%s&apos; by %s.</translation>
     </message>
     <message>
         <source>Guildstone for %s%s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Guildstone para %s%s</translation>
     </message>
     <message>
         <source>Member Details</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Detalhes dos membros</translation>
     </message>
     <message>
         <source>Member Name: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Nome do membro: %s</translation>
     </message>
     <message>
         <source>General Information</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Informações Geral</translation>
     </message>
     <message>
         <source>Member Since: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Membro desde: %s</translation>
     </message>
     <message>
         <source>Membership Status: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Membro Status: %s</translation>
     </message>
     <message>
         <source>Guild Title:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Titulo da Guilda:</translation>
     </message>
     <message>
         <source>Guild Title: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Titulo da Guilda: %s</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Profile Information:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;%s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Profile Information:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;%s</translation>
     </message>
     <message>
         <source>Permissions</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Permissões</translation>
     </message>
     <message>
         <source>Miscellaneous Actions</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Miscellaneous Actions</translation>
     </message>
     <message>
         <source>May edit the guild properties.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Editar as propriedades da guilda.</translation>
     </message>
     <message>
         <source>May recruit new canidates for the guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Recrutar novos candidatos para a guilda.</translation>
     </message>
     <message>
         <source>May promote canidates to full member status.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Promover candidatos para membros da guilda com status completo.</translation>
     </message>
     <message>
         <source>May act as an diplomat for this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Ativar diplomacia entre as guildas.</translation>
     </message>
     <message>
         <source>May kick members out of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Chutar membros para fora da guilda.</translation>
     </message>
     <message>
         <source>May expel canidates from the guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Pode expelir candatos para a guilda.</translation>
     </message>
     <message>
         <source>May grant guild titles to members of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Mudar o titulo dos membros desta guilda.</translation>
     </message>
     <message>
         <source>May grant permissions to other guild members.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Permissão da consição para outros membros da guilda.</translation>
     </message>
     <message>
         <source>Send this member a private message:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Enviar uma mensagem particular a este membro:</translation>
     </message>
     <message>
         <source>Enter message...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Digite a mensagem...</translation>
     </message>
     <message>
         <source>Kick this member out of the guild:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Kickar o membro para fora da guilda:</translation>
     </message>
     <message>
         <source>Vote for a new leader:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Votar para um novo lider:</translation>
     </message>
     <message>
         <source>You vote for this member.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você vota para este membro.</translation>
     </message>
     <message>
         <source>Member Overview</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Vista geral do membro</translation>
     </message>
     <message>
         <source>Select a member you wish to see details about:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Selecione um membro que você deseja ver detalhes aproximados:</translation>
     </message>
     <message>
         <source>Previous Page</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next Page</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Joined: </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Aceito:</translation>
     </message>
     <message>
         <source>Title: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Titulo: %s</translation>
     </message>
     <message>
         <source>No Title</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Sem Titulo</translation>
     </message>
     <message>
         <source>Canidate Overview</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Visão geral do candidato</translation>
     </message>
     <message>
         <source>Canidates</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Candidatos</translation>
     </message>
     <message>
         <source>A new canidate %s has been recruited into your guild by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O novo candidato %s foi recrutado na sua guilda por %s.</translation>
     </message>
     <message>
         <source>You have been expelled from your guild by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você foi expulso da guilda por %s.</translation>
     </message>
     <message>
         <source>The canidate %s has been expelled from your guild by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O Candidato %s foi expulso da guilda por %s.</translation>
     </message>
     <message>
         <source>You have been promoted to be a full member of your guild by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você foi promovido a membro da guilda por %s.</translation>
     </message>
     <message>
         <source>The canidate %s has been promoted to full member status by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O candidato %s foi promovido a membro status por %s.</translation>
     </message>
     <message>
         <source>Canidate Management</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Controle de Candidatos</translation>
     </message>
     <message>
         <source>Recruit a new canidate for this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Recrutar novo candidato para a guilda.</translation>
     </message>
     <message>
         <source>Recruit a new member for this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Recrutar novo membro para a guilda.</translation>
     </message>
     <message>
         <source>Expel this canidate</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Expulsar este candidato</translation>
     </message>
     <message>
         <source>Accept this canidate</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Aceitar este candidato</translation>
     </message>
     <message>
         <source>The name of your guild has been changed to &apos;%s&apos; by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O nome da sua guilda foi mudado para &apos;%s&apos; por %s.</translation>
     </message>
     <message>
         <source>The abbreviation of your guild has been changed to [%s] by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">A abreviatura da sua gulda foi mudada para [%s] por %s.</translation>
     </message>
     <message>
         <source>The alignment of your guild has been changed to neutral by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O alinhamento da sua guilda foi mudado para neutro por %s.</translation>
     </message>
     <message>
         <source>The alignment of your guild has been changed to good by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O alinhamento da sua guilda foi mudado para boa por %s.</translation>
     </message>
     <message>
         <source>The alignment of your guild has been changed to evil by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O alinhamento da sua guilda foi mudado para má por %s.</translation>
     </message>
     <message>
         <source>The website of your guild has been changed to %s by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O site da sua guilda foi mudada para %s por %s.</translation>
     </message>
     <message>
         <source>The charta of your guild has been changed by %s. Check your guildstone for details.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O Charta da sua guilda foi mudado por %s. Cheque na pedra da sua guilda para detalhes.</translation>
     </message>
     <message>
         <source>General Properties</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Propriedade Gerais</translation>
     </message>
     <message>
         <source>Guildname</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Nome da Guilda</translation>
     </message>
     <message>
         <source>Abbreviation (3 chars max.)</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Abreviatura ( maximo de 3 caracteres. )</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Alinhamento</translation>
     </message>
     <message>
         <source>Good</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Bom</translation>
     </message>
     <message>
         <source>Neutral</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Neutro</translation>
     </message>
     <message>
         <source>Evil</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Maligno</translation>
     </message>
     <message>
         <source>Website</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Site</translation>
     </message>
     <message>
         <source>Charta (HTML allowed)</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Additional Information</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Informação adicional</translation>
     </message>
     <message>
         <source>%s has left your guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">%s deixou sua guilda.</translation>
     </message>
     <message>
         <source>%s has resigned from the leadership position of your guild. You can elect a new leader by voting for a member at your guildstone.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">%s renunciou da posição da liderança de sua guilda.  Você pode eleger um líder novo votando para um membro em sua guildstone.</translation>
     </message>
     <message>
         <source>Membership Options</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Opções da Sociedade</translation>
     </message>
     <message>
         <source>Disable your guildsign.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Desabilitar o sinal da sua guilda.</translation>
     </message>
     <message>
         <source>Enable your guildsign.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Abilitar o sinal da sua guilda.</translation>
     </message>
     <message>
         <source>Resign from this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Sair desta guilda.</translation>
     </message>
     <message>
         <source>Resign from your leadership position.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Se retirar da posição de lider da guilda.</translation>
     </message>
     <message>
         <source>Your guild has been disbanded by %s!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Disbanido da sua guild por %s!</translation>
     </message>
     <message>
         <source>Main Menu</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Menu Principal</translation>
     </message>
     <message>
         <source>Modify the general properties of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Modificar a propriedade geral desta guilda.</translation>
     </message>
     <message>
         <source>View information about this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Ver informação sobre esta guilda.</translation>
     </message>
     <message>
         <source>Manage the members of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Cotnrole de membros da guilda.</translation>
     </message>
     <message>
         <source>View the members of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Ver os membros desta guilda.</translation>
     </message>
     <message>
         <source>Manage the canidates of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Controle de candidatos desta guilda.</translation>
     </message>
     <message>
         <source>View the canidates of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Ver os candidatos desta guilda.</translation>
     </message>
     <message>
         <source>View the diplomatic relations of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Ver as relações diplomaticas desta guilda.</translation>
     </message>
     <message>
         <source>Membership options.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Opções da sociedade.</translation>
     </message>
     <message>
         <source>Disband this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Desfazer essa guilda.</translation>
     </message>
     <message>
         <source>%st
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">%st
 </translation>
     </message>
     <message>
         <source>%s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%s [%s]</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Members: %u</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Membros: %u</translation>
     </message>
     <message>
         <source>Canidates: %u</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Candidatos: %u</translation>
     </message>
     <message>
         <source>Leader: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Lider: %s</translation>
     </message>
     <message>
         <source>Leader: None</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Lider: nenhum</translation>
     </message>
     <message>
         <source>Abandoned</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Abandonado</translation>
     </message>
     <message>
         <source>The guild you try to manage has already been disbanded.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">A guilda que você tenta controlar ja foi desfeita.</translation>
     </message>
     <message>
         <source>The character has already left this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O Char acaba de sair desta guilda.</translation>
     </message>
     <message>
         <source>Original Switches: %x</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Interruptores Originais: %x</translation>
     </message>
     <message>
         <source>The permissions for %s have been modified.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">As permissões para %s foram modificadas.</translation>
     </message>
     <message>
         <source>The guildtitle for %s has been changed.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O titulo da guilda mudou para %s.</translation>
     </message>
     <message>
         <source>Your message to %s has been sent.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Sua menssagem foi enviada %s.</translation>
     </message>
     <message>
         <source>%s: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Your message has been queued up. You may edit your message on the guildstone until the recipient logs in.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Sua mensagem foi enfileirada acima.  Você pode editar sua mensagem no guildstone até que o receptor entre.</translation>
     </message>
     <message>
         <source>You lack the permission to kick members out of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você não tem permissão para expulsar membros para fora desta guilda.</translation>
     </message>
     <message>
         <source>You have been removed from your guild by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você acaba de ser removido da sua guilda por %s.</translation>
     </message>
     <message>
         <source>%s has been removed from your guild by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">%s acaba de ser removido da sua guilda por %s.</translation>
     </message>
     <message>
         <source>%s has withdrawn the vote for your leadership position.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">%s retirou o voto para sua posição da liderança.</translation>
     </message>
     <message>
         <source>You place your vote for %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você coloca seu voto para %s.</translation>
     </message>
     <message>
         <source>%s has voted for your leadership position.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">%s votou para sua posição da liderança.</translation>
     </message>
     <message>
         <source>You place your vote for yourself.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você coloca seu voto para você mesmo.</translation>
     </message>
     <message>
         <source>You withdraw your vote for %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você retira seu voto para %s.</translation>
     </message>
     <message>
         <source>You withdraw your vote for yourself.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você retira seu proprio voto.</translation>
     </message>
     <message>
         <source>%s has been elected as the new leader of your guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">%s foi eleitocomo o líder novo de seu guild.</translation>
     </message>
     <message>
         <source>You have been elected as the new leader of your guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você foi eleito como o líder novo de seu guild.</translation>
     </message>
     <message>
         <source>You have enough votes to become the new leader of your guild. To accept this result, please vote for yourself at your guildstone.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você tem bastante votos a transformar-se o líder novo de sua guilda.  Para aceitar este resultado, vote por favor para você mesmo em seu guildstone.</translation>
     </message>
     <message>
         <source> [%s]</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">[%s]</translation>
     </message>
     <message>
         <source>Member</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Membro</translation>
     </message>
     <message>
         <source>Leader</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Líder</translation>
     </message>
     <message>
         <source>Shows Guildsign: Yes</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Mostrar Sinal da sua guilda: Sim</translation>
     </message>
     <message>
         <source>Shows Guildsign: No</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Mostrar Sinal da sua guilda: Não</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Online:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Online:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>%s&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">&lt;br&gt;</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Offline:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>There are currently no known canidates for a membership in this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Não há atualmente nenhum candidato sábio para uma sociedade neste guilda.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source> (Leader)</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">(Líder)</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Responsible For Recruitment:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Responsavel pelo Recrutamento&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>There is currently no one responsible for recruiting canidates.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Há atualmente ninguém responsáveis para recrutar candidatos.</translation>
     </message>
     <message>
         <source>You are not allowed to recruit canidates for this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Não é permitido você recrutar candidatos para esta guilda.</translation>
     </message>
     <message>
         <source>You can only recruit players for your guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você pode somente recrutar jogadores para seu guilda.</translation>
     </message>
     <message>
         <source>That character is already in a guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Este char já está na sua guilda.</translation>
     </message>
     <message>
         <source>You have been recruited as a canidate for %s by %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você foi recrutado como um candidato para %s por %s.</translation>
     </message>
     <message>
         <source>The selected player is not a canidate of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">O jogador selecionado não é um candidato desta guilda.</translation>
     </message>
     <message>
         <source>You are not allowed to expel canidates in this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Não é permitido você expulsar candidatos nesta guilda.</translation>
     </message>
     <message>
         <source>You are not allowed to promote canidates in this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Não é permitido você promover candidatos nesta guilda.</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Website:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;&lt;a href=&quot;%s&quot;&gt;%s&lt;/a&gt;&lt;br&gt;&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Website:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;This guild has no website.&lt;br&gt;&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;%s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;This guild has not defined a charta yet.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;Esta guilda não definiu um charta ainda.</translation>
     </message>
     <message>
         <source>You decide not to show your guildsign any longer.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você decide-se não mostrar  mais por muito tempo seu sinal da guilda.</translation>
     </message>
     <message>
         <source>You decide to show your guildsign from now on.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você decide mostrar o sinal da sua guilda agora.</translation>
     </message>
     <message>
         <source>You have resigned from your guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você acaba de sair da sua guilda.</translation>
     </message>
     <message>
         <source>You have resigned from your position as the leader of this guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você renunciou de sua posição como o líder desta guilda.</translation>
     </message>
     <message>
         <source>You need to be the leader of this guild or a gamemaster to disband it.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Você necessita ser o líder desta guilda ou o GM irá desfaze-la.</translation>
     </message>
     <message>
         <source>This guildstone is abandoned.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/guilds/stone.py</comment>
+        <comment>../release/scripts/guilds/stone.py</comment>
         <translation type="unfinished">Esta guilda foi abandonada.</translation>
     </message>
     <message>
@@ -1957,7 +1957,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>This deed is broken.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/housing/deed.py</comment>
+        <comment>../release/scripts/housing/deed.py</comment>
         <translation type="unfinished">A deed está quebrada.</translation>
     </message>
     <message>
@@ -2017,47 +2017,47 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Not yet implemented.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/chivalry.py</comment>
+        <comment>../release/scripts/magic/chivalry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>a recall rune for %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/rune.py</comment>
+        <comment>../release/scripts/magic/rune.py</comment>
         <translation type="unfinished">Recalar usando runa para %s</translation>
     </message>
     <message>
         <source>an unmarked recall rune</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/rune.py</comment>
+        <comment>../release/scripts/magic/rune.py</comment>
         <translation type="unfinished">Runa não foi marcada para recalar</translation>
     </message>
     <message>
         <source>Rename Book</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/runebook.py</comment>
+        <comment>../release/scripts/magic/runebook.py</comment>
         <translation type="unfinished">Renomear Livro</translation>
     </message>
     <message>
         <source>Drop rune</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/runebook.py</comment>
+        <comment>../release/scripts/magic/runebook.py</comment>
         <translation type="unfinished">Largar item</translation>
     </message>
     <message>
         <source>The book&apos;s title has been changed.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/runebook.py</comment>
+        <comment>../release/scripts/magic/runebook.py</comment>
         <translation type="unfinished">O livro teve o titulo modificado.</translation>
     </message>
     <message>
         <source>(indescript)</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/runebook.py</comment>
+        <comment>../release/scripts/magic/runebook.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The runebook has to be in your belongings to modify it.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/runebook.py</comment>
+        <comment>../release/scripts/magic/runebook.py</comment>
         <translation type="unfinished">O livro de runas tem que estar em sua bolsa para modificá-lo.</translation>
     </message>
     <message>
         <source>Empty</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/magic/runebook.py</comment>
+        <comment>../release/scripts/magic/runebook.py</comment>
         <translation type="unfinished">Vazio</translation>
     </message>
     <message>
@@ -2102,22 +2102,22 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>I regret nothing!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/npc/playervendor/__init__.py</comment>
+        <comment>../release/scripts/npc/playervendor/__init__.py</comment>
         <translation type="unfinished">Eu não lamento nada!</translation>
     </message>
     <message>
         <source>The item you tried to buy is no longer available for sale.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/npc/playervendor/buygump.py</comment>
+        <comment>../release/scripts/npc/playervendor/buygump.py</comment>
         <translation type="unfinished">O item que você tentou comprar não está disponível mais para a venda.</translation>
     </message>
     <message>
         <source>You cannot set the properties of items in a player vendor not owned by you.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/npc/playervendor/item.py</comment>
+        <comment>../release/scripts/npc/playervendor/item.py</comment>
         <translation type="unfinished">Você não pode ajustar as propriedades dos items em um vendedor do jogador que não seja seu.</translation>
     </message>
     <message>
         <source>My charge per day is:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/npc/playervendor/statusgump.py</comment>
+        <comment>../release/scripts/npc/playervendor/statusgump.py</comment>
         <translation type="unfinished">Minha carga por o dia é:</translation>
     </message>
     <message>
@@ -2147,137 +2147,137 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Empty the bowl?</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/emptybowlgump.py</comment>
+        <comment>../release/scripts/plants/emptybowlgump.py</comment>
         <translation type="unfinished">Esvazíe a bacia?</translation>
     </message>
     <message>
         <source>No solen lairs exist on this facet.  Try again in Trammel or Felucca.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/greenthorns.py</comment>
+        <comment>../release/scripts/plants/greenthorns.py</comment>
         <translation type="unfinished">Nenhum solen lairs existem neste mapa. Tente outra vez no trammel ou no Felucca.</translation>
     </message>
     <message>
         <source>* The ground erupts with chaotic growth! *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/greenthorns.py</comment>
+        <comment>../release/scripts/plants/greenthorns.py</comment>
         <translation type="unfinished">*  A terra esta com um crescimento chaotic!  *</translation>
     </message>
     <message>
         <source>* A magical bunny leaps out of its hole, disturbed by the thorn&apos;s effect! *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/greenthorns.py</comment>
+        <comment>../release/scripts/plants/greenthorns.py</comment>
         <translation type="unfinished">*  Um coelho mágico pula fora de sua toca, perturbado pelo efeito do espinho!  *</translation>
     </message>
     <message>
         <source>* The bunny begins to dig a tunnel back to its underground lair *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/greenthorns.py</comment>
+        <comment>../release/scripts/plants/greenthorns.py</comment>
         <translation type="unfinished">*  O coelho começa a escavar para trás um túnel o seu lar subterrâneo *</translation>
     </message>
     <message>
         <source>* Strange green tendrils rise from the ground, whipping wildly! *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/greenthorns.py</comment>
+        <comment>../release/scripts/plants/greenthorns.py</comment>
         <translation type="unfinished">*  Ascensão verde estranha dos tendrils da terra, chicoteando descontroladamente!  *</translation>
     </message>
     <message>
         <source>* Slithering ice serpents rise to the surface to investigate the disturbance! *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/greenthorns.py</comment>
+        <comment>../release/scripts/plants/greenthorns.py</comment>
         <translation type="unfinished">*  Ascensão das serpentes do gelo de Slithering à superfície para investigar o distúrbio!  *</translation>
     </message>
     <message>
         <source>a mysterious rabbit hole</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/greenthorns.py</comment>
+        <comment>../release/scripts/plants/greenthorns.py</comment>
         <translation type="unfinished">um furo misterioso do coelho</translation>
     </message>
     <message>
         <source>Set plant</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/makedecorativegump.py</comment>
+        <comment>../release/scripts/plants/makedecorativegump.py</comment>
         <translation type="unfinished">Ajuste A Planta</translation>
     </message>
     <message>
         <source>to decorative mode</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/makedecorativegump.py</comment>
+        <comment>../release/scripts/plants/makedecorativegump.py</comment>
         <translation type="unfinished">Modo decorativo</translation>
     </message>
     <message>
         <source>* You feel the effects of your poison resistance wearing off *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/orangepetals.py</comment>
+        <comment>../release/scripts/plants/orangepetals.py</comment>
         <translation type="unfinished">*  Você sente os efeitos de sua resistência do veneno que desgasta fora *</translation>
     </message>
     <message>
         <source>This bowl of dirt already has a plant in it!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/plant.py</comment>
+        <comment>../release/scripts/plants/plant.py</comment>
         <translation type="unfinished">Esta bacia da sujeira tem já uma planta nela!</translation>
     </message>
     <message>
         <source>This bowl of dirt already has a sapling in it!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/plant.py</comment>
+        <comment>../release/scripts/plants/plant.py</comment>
         <translation type="unfinished">Esta bacia da sujeira tem já sapling nela!</translation>
     </message>
     <message>
         <source>This bowl of dirt already has a seed in it!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/plant.py</comment>
+        <comment>../release/scripts/plants/plant.py</comment>
         <translation type="unfinished">Esta bacia da sujeira tem já uma semente nela!</translation>
     </message>
     <message>
         <source>Reproduction</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/plants/reproductiongump.py</comment>
+        <comment>../release/scripts/plants/reproductiongump.py</comment>
         <translation type="unfinished">Reprodução</translation>
     </message>
     <message>
         <source>This potion is out of your reach...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/__init__.py</comment>
+        <comment>../release/scripts/potions/__init__.py</comment>
         <translation type="unfinished">Este poção está fora de seu alcance...</translation>
     </message>
     <message>
         <source>You should throw this now!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/__init__.py</comment>
+        <comment>../release/scripts/potions/__init__.py</comment>
         <translation type="unfinished">Você deve jogar este agora!</translation>
     </message>
     <message>
         <source>You can only throw one potion at a time!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/__init__.py</comment>
+        <comment>../release/scripts/potions/__init__.py</comment>
         <translation type="unfinished">Você pode somente jogar um poção de cada vez!</translation>
     </message>
     <message>
         <source>What do you want to shrink?</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/__init__.py</comment>
+        <comment>../release/scripts/potions/__init__.py</comment>
         <translation type="unfinished">O que você quer encolher?</translation>
     </message>
     <message>
         <source>You are already at full mana.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/mana.py</comment>
+        <comment>../release/scripts/potions/mana.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You must wait a few seconds before using another mana potion.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/mana.py</comment>
+        <comment>../release/scripts/potions/mana.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You don&apos;t own that creature.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/shrink.py</comment>
+        <comment>../release/scripts/potions/shrink.py</comment>
         <translation type="unfinished">Você não possui essa criatura.</translation>
     </message>
     <message>
         <source>The shrink potion has to be in your backpack to use it.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/shrink.py</comment>
+        <comment>../release/scripts/potions/shrink.py</comment>
         <translation type="unfinished">O poção do shrink tem que estar em seu backpack para usá-lo.</translation>
     </message>
     <message>
         <source>You can only shrink pets owned by you.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/shrink.py</comment>
+        <comment>../release/scripts/potions/shrink.py</comment>
         <translation type="unfinished">Você pode somente encolher os animais de estimação possuídos por você.</translation>
     </message>
     <message>
         <source>You cannot shrink other players.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/shrink.py</comment>
+        <comment>../release/scripts/potions/shrink.py</comment>
         <translation type="unfinished">Voce nao pode shrinkar players.</translation>
     </message>
     <message>
         <source>You can only shrink animals and monsters!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/shrink.py</comment>
+        <comment>../release/scripts/potions/shrink.py</comment>
         <translation type="unfinished">Você pode somente encolher animais e monstros!</translation>
     </message>
     <message>
         <source>You cannot shrink that.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/potions/shrink.py</comment>
+        <comment>../release/scripts/potions/shrink.py</comment>
         <translation type="unfinished">Voce não pode shrinkar isto.</translation>
     </message>
     <message>
@@ -2287,572 +2287,572 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Iron</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Dull Copper</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shadow Iron</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Copper</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Bronze</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Gold</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Agapite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Verite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Valorite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Red Scales</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Yellow Scales</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Black Scales</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Green Scales</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>White Scales</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Blue Scales</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/blacksmithing.py</comment>
+        <comment>../release/scripts/skills/blacksmithing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Water: 1&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/cooking.py</comment>
+        <comment>../release/scripts/skills/cooking.py</comment>
         <translation type="unfinished">Água: 1&lt;br&gt;</translation>
     </message>
     <message>
         <source>Flour: %i&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/cooking.py</comment>
+        <comment>../release/scripts/skills/cooking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You don&apos;t have enough material to make that.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/cooking.py</comment>
+        <comment>../release/scripts/skills/cooking.py</comment>
         <translation type="unfinished">Você não tem bastante material para fazer isso.</translation>
     </message>
     <message>
         <source>Please report to a gamemaster that the item &apos;%s&apos; couldn&apos;t be found.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/fishing.py</comment>
+        <comment>../release/scripts/skills/fishing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>shoes</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/fishing.py</comment>
+        <comment>../release/scripts/skills/fishing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>a fish</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/fishing.py</comment>
+        <comment>../release/scripts/skills/fishing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This script has not been configured correctly.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/fishing.py</comment>
+        <comment>../release/scripts/skills/fishing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Resource Item: fish</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/fishing.py</comment>
+        <comment>../release/scripts/skills/fishing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sand</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/glassblowing.py</comment>
+        <comment>../release/scripts/skills/glassblowing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Black Pearl</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Blood Moss</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Garlic</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Ginseng</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mandrake Root</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Nightshade</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sulfurous Ash</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Spider&apos;s Silk</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Batwing</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Blackmoor</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Bloodspawn</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Daemon Blood</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Bone</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Brimstone</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Daemon Bone</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fertile Dirt</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Dragon&apos;s Blood</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Executioner&apos;s Cap</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Eye of Newt</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Obsidian</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pigiron</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pumice</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Nox Crystal</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Grave Dust</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Deadwood</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Wyrm&apos;s Heart</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Runebook</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Livro de Runas</translation>
     </message>
     <message>
         <source>Gate Travel Scrolls</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Recall Scrolls</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unmarked Runes</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Other</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Outros</translation>
     </message>
     <message>
         <source>Inscription</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>First Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Primeiro Ciclo</translation>
     </message>
     <message>
         <source>Second Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Segundo Ciclo</translation>
     </message>
     <message>
         <source>Third Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Terceiro Ciclo</translation>
     </message>
     <message>
         <source>Fourth Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fifth Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sixth Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Sexto Ciclo</translation>
     </message>
     <message>
         <source>Seventh Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Sétimo Ciclo</translation>
     </message>
     <message>
         <source>Eight Circle</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished">Oitavo Ciclo</translation>
     </message>
     <message>
         <source>Blank Scrolls</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/inscription.py</comment>
+        <comment>../release/scripts/skills/inscription.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You could probably buy this for %u gold.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/itemid.py</comment>
+        <comment>../release/scripts/skills/itemid.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You don&apos;t think that anyone would sell this.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/itemid.py</comment>
+        <comment>../release/scripts/skills/itemid.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You could probably sell this for %u gold.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/itemid.py</comment>
+        <comment>../release/scripts/skills/itemid.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You don&apos;t think anyone would buy this.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/itemid.py</comment>
+        <comment>../release/scripts/skills/itemid.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You are able to identify the use of this item!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/itemid.py</comment>
+        <comment>../release/scripts/skills/itemid.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You have moved too far away to gather any wood.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/lumberjacking.py</comment>
+        <comment>../release/scripts/skills/lumberjacking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Dull Copper Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shadow Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Copper Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Bronze Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Gold Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Agapite Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Verite Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Valorite Granite</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/masonry.py</comment>
+        <comment>../release/scripts/skills/masonry.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>There is no ore here to mine.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/mining.py</comment>
+        <comment>../release/scripts/skills/mining.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You need an instrument.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/peacemaking.py</comment>
+        <comment>../release/scripts/skills/peacemaking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Why don&apos;t you simply take it?</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished">Por que você não faz exame simplesmente?</translation>
     </message>
     <message>
         <source>You can&apos;t steal from game masters.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished">Você não pode roubar dos GMs.</translation>
     </message>
     <message>
         <source>You are too far away to steal from that person.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished">Você está distante para roubar dessa pessoa.</translation>
     </message>
     <message>
         <source>Bad luck, your victim doesn&apos;t have a backpack.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished">A má sorte, sua vítima não tem um backpack.</translation>
     </message>
     <message>
         <source>You reach into %s&apos;s backpack and try to steal something...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished">Você alcança no backpack de %s&apos;s e tenta roubar algo...</translation>
     </message>
     <message>
         <source>That is too heavy to steal.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You have been caught!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished">Você foi travado!</translation>
     </message>
     <message>
         <source>Guards! A thief is amoung us!</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished">Protetores!  Um ladrão entre nós!</translation>
     </message>
     <message>
         <source>You notice %s trying to steal %s from you.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/stealing.py</comment>
+        <comment>../release/scripts/skills/stealing.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Leather</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tailoring.py</comment>
+        <comment>../release/scripts/skills/tailoring.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Spined Leather</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tailoring.py</comment>
+        <comment>../release/scripts/skills/tailoring.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Horned Leather</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tailoring.py</comment>
+        <comment>../release/scripts/skills/tailoring.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Barbed Leather</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tailoring.py</comment>
+        <comment>../release/scripts/skills/tailoring.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cloth</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tailoring.py</comment>
+        <comment>../release/scripts/skills/tailoring.py</comment>
         <translation type="unfinished">Pano</translation>
     </message>
     <message>
         <source>Star Sapphire</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Emerald</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sapphire</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Ruby</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Citrine</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Amethyst</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Tourmaline</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Amber</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Diamond</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tinkering.py</comment>
+        <comment>../release/scripts/skills/tinkering.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the North</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the North-East</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the East</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the South-East</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the South</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the South-West</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the West</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is in the North-West</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>is here</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/skills/tracking.py</comment>
+        <comment>../release/scripts/skills/tracking.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2968,17 +2968,17 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>Alas you don&apos;t have any money in your bank.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/speech/banker.py</comment>
+        <comment>../release/scripts/speech/banker.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You have %i gold in your bank.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/speech/banker.py</comment>
+        <comment>../release/scripts/speech/banker.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Here is your bank box, %s.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/speech/banker.py</comment>
+        <comment>../release/scripts/speech/banker.py</comment>
         <translation type="unfinished">Está aqui sua caixa do banco, %s.</translation>
     </message>
     <message>
@@ -2998,276 +2998,276 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>Your stomach growls...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/hunger.py</comment>
+        <comment>../release/scripts/system/hunger.py</comment>
         <translation type="unfinished">Seu estômago rosna...</translation>
     </message>
     <message>
         <source>Your stomach hurts from the lack of food...</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/hunger.py</comment>
+        <comment>../release/scripts/system/hunger.py</comment>
         <translation type="unfinished">Seu estômago fere da falta do alimento...</translation>
     </message>
     <message>
         <source>Unexpected input response.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/input.py</comment>
+        <comment>../release/scripts/system/input.py</comment>
         <translation type="unfinished">Resposta inesperada da entrada.</translation>
     </message>
     <message>
         <source>SKILLS</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MATERIALS</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OTHER</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ITEM</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Back</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Make Now</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Fazer agora</translation>
     </message>
     <message>
         <source>You don&apos;t have enough material to make that.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Você não tem bastante material para fazer isso.</translation>
     </message>
     <message>
         <source>You try to craft with an invalid material.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Você tenta construir com um material inválido.</translation>
     </message>
     <message>
         <source>Make Last</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Fazer ultimo</translation>
     </message>
     <message>
         <source>Repair Item</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Reparar item</translation>
     </message>
     <message>
         <source>Enhance Item</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Realce o item</translation>
     </message>
     <message>
         <source>Smelt Item</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Smeltar item</translation>
     </message>
     <message>
         <source>Exit</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Sair</translation>
     </message>
     <message>
         <source>Previous Menu</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Menu Precedente</translation>
     </message>
     <message>
         <source>Last Ten</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Últimos Dez</translation>
     </message>
     <message>
         <source>Dont Mark Item</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Não marcar este item</translation>
     </message>
     <message>
         <source>Mark Item</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Marcar item</translation>
     </message>
     <message>
         <source>You didn&apos;t make anything yet.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Você não fêz qualquer coisa ainda.</translation>
     </message>
     <message>
         <source>CATEGORIES</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SELECTIONS</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Previous Page</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next Page</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You put the new item into your backpack.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Você pôs o item novo em sua backpack.</translation>
     </message>
     <message>
         <source>Chance to create an exceptional item: %0.02f%%.&lt;br&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Possibilidade criar um item excepcional:   %0.02f%%.&lt;br&gt;</translation>
     </message>
     <message>
         <source>You are not skilled enough to use this material.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Você não é tem skills o bastante para usar este material.</translation>
     </message>
     <message>
         <source>You selected an invalid material.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/makemenus.py</comment>
+        <comment>../release/scripts/system/makemenus.py</comment>
         <translation type="unfinished">Voce escolheu o material inválido.</translation>
     </message>
     <message>
         <source>New %s page from &apos;%s&apos; on account &apos;%s&apos;:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Página nova de %s &apos; de %s&apos; no cliente &apos; %s &apos;:</translation>
     </message>
     <message>
         <source>Updated %s page from &apos;%s&apos; on account &apos;%s&apos;:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Página atualizada de %s &apos; de %s&apos; no cliente &apos; %s &apos;:</translation>
     </message>
     <message>
         <source>%s requeues gm page from %s (%s).
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">%s remete a página do gm de %s (%s).
 </translation>
     </message>
     <message>
         <source>%s assigns gm page from %s (%s) to himself.
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">%s assigns gm page from %s (%s) to himself.
 </translation>
     </message>
     <message>
         <source>Page Menu</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Category: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Char name:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Nome do Char:</translation>
     </message>
     <message>
         <source>Account name:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Nome da conta:</translation>
     </message>
     <message>
         <source>Char position:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Posição do Char:</translation>
     </message>
     <message>
         <source>Page sent from:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Enviar Page para:</translation>
     </message>
     <message>
         <source>Date/time:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Data/tempo:</translation>
     </message>
     <message>
         <source>Message:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Mensagem:</translation>
     </message>
     <message>
         <source>Go to char position</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Enviar char para posição</translation>
     </message>
     <message>
         <source>Bring char</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Trazer o char</translation>
     </message>
     <message>
         <source>Go to page position</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Ir para a posição da page</translation>
     </message>
     <message>
         <source>Send message:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Enviar Mensagem:</translation>
     </message>
     <message>
         <source>&lt;msg&gt;</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">&lt;msg&gt;</translation>
     </message>
     <message>
         <source>Show socket info gump</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Mostre o soquete gump do info</translation>
     </message>
     <message>
         <source>Requeue page</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Remeta a página</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Deletar page</translation>
     </message>
     <message>
         <source>Close</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Fechar</translation>
     </message>
     <message>
         <source>%s sends player %s (%s) a message: %s
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">%s emite ao jogador %s (%s) uma mensagem:  %s
 </translation>
     </message>
     <message>
         <source>%s deletes gm page from %s (%s).
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">%s deletar page para gm %s (%s).</translation>
     </message>
     <message>
         <source>%s (%s) updates his gm page [%s]:
 %s
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">%s (%s) atualiza sua página do gm [%s]:
 %s</translation>
     </message>
@@ -3275,175 +3275,175 @@ Interval: %s to %s minutes</source>
         <source>%s (%s) makes a gm page [%s]:
 %s
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">%s (%s) criar page para o gm [%s]:(new line)
 %s(new line)</translation>
     </message>
     <message>
         <source>%s (%s) deletes his gm page.
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">%s (%s) delete esta page para o gm.</translation>
     </message>
     <message>
         <source>Help menu</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Menu Ajuda</translation>
     </message>
     <message>
         <source>Category:</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Categoria:</translation>
     </message>
     <message>
         <source>Page Queue</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Fila de Page</translation>
     </message>
     <message>
         <source>Char: </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Char:</translation>
     </message>
     <message>
         <source>Account: </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Conta:</translation>
     </message>
     <message>
         <source>Category: </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Categoria:</translation>
     </message>
     <message>
         <source>Time: </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Tempo:</translation>
     </message>
     <message>
         <source>Page %u of %u</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Page %u de %u</translation>
     </message>
     <message>
         <source>BUG</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>STUCK</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>GAMEPLAY</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You requeue your previous page.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Você remete sua página precedente.</translation>
     </message>
     <message>
         <source>You assign the gm page to yourself.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">You assign the gm page to yourself.</translation>
     </message>
     <message>
         <source>This page is already assigned to someone else.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Esta página é atribuída já a alguma outra pessoa.</translation>
     </message>
     <message>
         <source>A message from %s: %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Uma mensagem de %s:  %s</translation>
     </message>
     <message>
         <source>The message has been sent.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">A mensagem foi emitida.</translation>
     </message>
     <message>
         <source>This player is currently offline. The message has not been sent.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Este jogador está atualmente offline.  A mensagem não foi emitida.</translation>
     </message>
     <message>
         <source>This player is currently offline.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">O jogador esta offline.</translation>
     </message>
     <message>
         <source>You requeue the page.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Voce renviou sua page.</translation>
     </message>
     <message>
         <source>Your gm page has been deleted.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Sua page foi deletada pelo gm.</translation>
     </message>
     <message>
         <source>You remove the page.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Voce removou a page.</translation>
     </message>
     <message>
         <source>Your page has been removed.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Sua page foi removida.</translation>
     </message>
     <message>
         <source>You have to enter a message for your page.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished">Você tem que incorporar uma mensagem para sua página.</translation>
     </message>
     <message>
         <source>BUILD</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/pages.py</comment>
+        <comment>../release/scripts/system/pages.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Welcome to %s</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/players.py</comment>
+        <comment>../release/scripts/system/players.py</comment>
         <translation type="unfinished">Bem Vindo a %s</translation>
     </message>
     <message>
         <source>Report Bugs: http://bugs.wpdev.org/</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/players.py</comment>
+        <comment>../release/scripts/system/players.py</comment>
         <translation type="unfinished">Reportar Bugs: http://bugs.wpdev.org/</translation>
     </message>
     <message>
         <source>Reconnecting.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/players.py</comment>
+        <comment>../release/scripts/system/players.py</comment>
         <translation type="unfinished">Recontectando.</translation>
     </message>
     <message>
         <source>You aren&apos;t in a guild.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/players.py</comment>
+        <comment>../release/scripts/system/players.py</comment>
         <translation type="unfinished">Você não está em uma guilda.</translation>
     </message>
     <message>
         <source>* You feel yourself resisting the effects of the poison *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/poison.py</comment>
+        <comment>../release/scripts/system/poison.py</comment>
         <translation type="unfinished">*  Você sente-se resistir aos efeitos do veneno *</translation>
     </message>
     <message>
         <source>* %s seems resistant to the poison *</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/poison.py</comment>
+        <comment>../release/scripts/system/poison.py</comment>
         <translation type="unfinished">* %s parece resistente ao veneno *</translation>
     </message>
     <message>
         <source>Trading item 0x%x (&apos;%s&apos;, %u) to player &apos;%s&apos; (0x%x, %s)
 </source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/trading.py</comment>
+        <comment>../release/scripts/system/trading.py</comment>
         <translation type="unfinished">Negociando item 0x%x (&apos;%s&apos;, %u) ai jogador &apos;%s&apos; (0x%x, %s)</translation>
     </message>
     <message>
         <source>Your trading partner is currently busy.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/system/trading.py</comment>
+        <comment>../release/scripts/system/trading.py</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3543,17 +3543,17 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>You have to install Ultima Online Third Dawn or above to use this gate.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/wolfpack/utilities.py</comment>
+        <comment>../release/scripts/wolfpack/utilities.py</comment>
         <translation type="unfinished">Você tem que instalar Ultima Online Third Dawn  ou versão mais atual para usar este portal.</translation>
     </message>
     <message>
         <source>You have to install Age of Shadows or above to use this gate.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/wolfpack/utilities.py</comment>
+        <comment>../release/scripts/wolfpack/utilities.py</comment>
         <translation type="unfinished">Você tem que instalar Ultima Online Age of Shadows  ou versão mais atual para usar este portal.</translation>
     </message>
     <message>
         <source>You have to install Samurai Empire or above to use this gate.</source>
-        <comment>/home/incanus/wolfpack_source/server/release/scripts/wolfpack/utilities.py</comment>
+        <comment>../release/scripts/wolfpack/utilities.py</comment>
         <translation type="unfinished">Você tem que instalar Ultima Online Samurai Empire ou versão mais atual para usar este portal.</translation>
     </message>
 </context>
