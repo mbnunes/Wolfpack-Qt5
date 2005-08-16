@@ -1,5 +1,6 @@
 import wolfpack
 from wolfpack.consts import *
+from wolfpack import tr
 
 DefaultArcaneHue = 2117
 
