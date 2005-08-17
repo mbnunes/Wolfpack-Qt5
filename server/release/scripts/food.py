@@ -5,6 +5,7 @@ from wolfpack.consts import ANIM_FIDGET3, LAYER_MOUNT
 from wolfpack.utilities import tobackpack
 from system import poison
 import skills
+from wolfpack import tr
 
 farm_food = [  'c7c', 'c70', 'c7b', 'c78', 'c71', 'c64', 'c65' ]
 farm_eaters = [ 'rabbit', 'goat', 'hind', 'pack_horse', 'pack_llama', 'cow', 'bull',
