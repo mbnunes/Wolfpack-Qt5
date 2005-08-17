@@ -1689,7 +1689,7 @@ class MakeMenu:
 							gump.addXmfHtmlGump(255, yoffset+3, 275, 20, int(self.subactions[menus + j].title), 0, 0, disabledcolor)
 						else:
 							gump.addText(255, yoffset+3, self.subactions[menus + j].title, disabledhue)
-			menus += 9
+			menus += 10
 
 			# Add a back button
 			if i > 0:
