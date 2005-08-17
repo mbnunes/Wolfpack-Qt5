@@ -47,7 +47,7 @@ def changeHairHue(vendor, char, item, args):
 	char.socket.closegump(TYPE_BUYGUMP)
 	char.socket.closegump(TYPE_CHANGEHAIR)
 	char.socket.closegump(TYPE_CHANGEHUE)
-	
+
 	price = item[1]
 	if args[0] == 'all':
 		layers = [LAYER_HAIR, LAYER_BEARD]
@@ -55,15 +55,15 @@ def changeHairHue(vendor, char, item, args):
 		layers = [LAYER_HAIR]
 	elif args[0] == 'facial':
 		layers = [LAYER_BEARD]
-		
+
 	if args[1] == 'regular':
 		entries = REGULAR
 	else:
 		entries = BRIGHT
-	
+
 	gump = wolfpack.gumps.cGump()
 	gump.setType(TYPE_CHANGEHUE)
-	
+
 	gump.startPage(0)
 	gump.addResizeGump( 100, 10, 2600, 350, 370 )
 	gump.addResizeGump( 120, 54, 5100, 110, 270 )
@@ -71,41 +71,41 @@ def changeHairHue(vendor, char, item, args):
 
 	gump.addXmfHtmlGump( 150, 330, 220, 35, 1011014, False, False ) # // Dye my hair this color!
 	gump.addButton( 380, 330, 4005, 4007, 1 )
-	
+
 	for i in range(0, len(entries)):
 		gump.addText(130, 59 + i * 22, entries[i][0], entries[i][1] - 1)
 		gump.addPageButton( 207, 60 + i * 22, 5224, 5224, 1 + i )
-		
+
 	for i in range(0, len(entries)):
 		gump.startPage(i + 1)
 
 		for j in range(0, entries[i][2]):
 			gump.addText(278 + (j / 16) * 80, 52 + (j % 16) * 17, entries[i][0], entries[i][1] + j - 1)
 			gump.addRadioButton( 255 + (j / 16) * 80, 52 + (j % 16) * 17, 210, 211, j * len(entries) + i, False )
-	
+
 	gump.setCallback(changehairhue_response)
 	gump.setArgs([vendor.serial, entries, layers, price])
 	gump.send(char)
-	
+
 def changehairhue_response(char, arguments, response):
 	(vendor, entries, layers, price) = arguments
 	vendor = wolfpack.findchar(vendor)
-	
+
 	if not vendor:
 		return
-	
+
 	if response.button == 0 or len(response.switches) == 0:
 		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)		
 		return	
-		
+
 	# Get the hair color
 	index = int(response.switches[0] % len(entries))
 	offset = int(response.switches[0] / len(entries))
-	
+
 	if index >= len(entries):
 		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)		
 		return
-		
+
 	if offset >= entries[index][2]:
 		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)
 		return
@@ -114,11 +114,11 @@ def changehairhue_response(char, arguments, response):
 
 	gold = char.getbackpack().countitems(['eed'])
 	gold += char.getbankbox().countitems(['eed'])
-	
+
 	if price > gold and not char.gm:
 		vendor.say(1042293, "", "", False, vendor.saycolor, char.socket)
 		return
-		
+
 	found = False
 	items = []
 	for layer in layers:
@@ -126,20 +126,20 @@ def changehairhue_response(char, arguments, response):
 		if item:
 			found = True
 			items.append(item)
-			
+
 	if not found:
 		vendor.say(502623, "", "", False, vendor.saycolor, char.socket)
 		return
-		
+
 	if not char.gm:
 		rest = char.getbackpack().removeitems(['eed'], arguments[3])
 		if rest != 0:
 			char.getbankbox().removeitems(['eed'], rest)
-		
+
 	for item in items:
 		item.color = hue
 		item.update()
-		
+
 # Entries
 HAIR = [
 	[ 50700,  70 - 137,  20 -  60, '203b' ],
@@ -153,7 +153,7 @@ HAIR = [
 	[ 60901, 315 - 383, 150 - 190, '2048' ],
 	[ 0, 0, 0, None ],
 ]
-	
+
 BEARDS = [
 	[ 50800, 120 - 187,  30 -  80, '2040' ],
 	[ 50904, 243 - 310,  33 -  80, '204b' ],
@@ -169,16 +169,16 @@ def changeHairStyle(vendor, char, item, args):
 	char.socket.closegump(TYPE_BUYGUMP)
 	char.socket.closegump(TYPE_CHANGEHAIR)
 	char.socket.closegump(TYPE_CHANGEHUE)
-	
+
 	facial = args[0] == 'facial'
-	
+
 	if facial:
 		entries = BEARDS
 		tableWidth = 2
 		tableHeight = int((len(entries) + tableWidth - 1) / tableWidth)
 		offsetWidth = 123
 		offsetHeight = 70
-		
+
 	else:
 		entries = HAIR
 		tableWidth = 3
@@ -188,7 +188,7 @@ def changeHairStyle(vendor, char, item, args):
 
 	gump = wolfpack.gumps.cGump()
 	gump.setType(TYPE_CHANGEHAIR)
-	
+
 	gump.startPage(0)
 	gump.addResizeGump(0, 0, 2600, 81 + tableWidth * offsetWidth, 105 + tableHeight * offsetHeight )
 	gump.addButton( 45, 45 + tableHeight * offsetHeight, 4005, 4007, 1 )
@@ -200,12 +200,11 @@ def changeHairStyle(vendor, char, item, args):
 		gump.addXmfHtmlGump( 55, 15, 200, 20, 1018354, False, False) # New Beard
 	else:
 		gump.addXmfHtmlGump( 50, 15, 350, 20, 1018353, False, False) # New Hairstyle
-		
-		
+
 	for i in range(0, len(entries)):
 		xTable = i % tableWidth
 		yTable = i / tableWidth
-		
+
 		if entries[i][0] != 0:
 			gump.addRadioButton( 40 + xTable * offsetWidth, 70 + yTable * offsetHeight, 208, 209, i, False )
 			gump.addResizeGump( 87 + xTable * offsetWidth, 50 + yTable * offsetHeight, 2620, 50, 50)
@@ -220,25 +219,25 @@ def changeHairStyle(vendor, char, item, args):
 	gump.setCallback(hairstyle_response)
 	gump.setArgs([vendor.serial, entries, facial, item[1]])
 	gump.send(char)
-		
+
 def hairstyle_response(char, arguments, response):
 	vendor = wolfpack.findchar(arguments[0])
 	if not vendor:
 		return
-	
+
 	if response.button == 0 or len(response.switches) == 0 or response.switches[0] >= len(arguments[1]):
 		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)
 		return
-		
+
 	item = arguments[1][response.switches[0]]
 	facial = arguments[2]
-	
+
 	oldcolor = 0
 	if facial:
 		current = char.itemonlayer(LAYER_BEARD)
 	else:
 		current = char.itemonlayer(LAYER_HAIR)
-		
+
 	if current:
 		oldcolor = current.color
 	else:
@@ -248,7 +247,7 @@ def hairstyle_response(char, arguments, response):
 			other = char.itemonlayer(LAYER_BEARD)
 		if other:
 			oldcolor = other.color
-		
+
 	if not current and not item[3] or current and current.baseid == item[3]:
 		return
 
@@ -256,23 +255,23 @@ def hairstyle_response(char, arguments, response):
 	female = char.id == 0x191
 	gold = char.getbackpack().countitems(['eed'])
 	gold += char.getbankbox().countitems(['eed'])
-		
+
 	if female and facial:
 		vendor.say(1010639, "", "", False, vendor.saycolor, char.socket)
 		return
-	
+
 	# Check if we can afford it
 	if arguments[3] > gold and not char.gm:
 		vendor.say(1042293, "", "", False, vendor.saycolor, char.socket)
 		return	
-		
+
 	rest = char.getbackpack().removeitems(['eed'], arguments[3])
 	if rest != 0:
 		char.getbankbox().removeitems(['eed'], rest)
-	
+
 	if item[3]:
 		newhair = wolfpack.additem(item[3])
-		
+
 		if newhair:
 			newhair.color = oldcolor
 			if current:
@@ -302,7 +301,7 @@ def onSpeech( listener, speaker, text, keywords ):
 	# Check if our name is in the beginning of the string
 	if not text.lower().startswith( listener.name.lower() ) and not text.lower().startswith( 'vendor' ):
 		return 0
-		
+
 	if 369 not in keywords and 60 not in keywords:
 		return 0
 
@@ -316,20 +315,20 @@ def onSpeech( listener, speaker, text, keywords ):
 		listener.say("I can't cut your hair!")
 	else:
 		gump(listener, speaker)
-		
+
 	return True
 
 def gump( listener, speaker ):
 	speaker.socket.closegump(TYPE_BUYGUMP)
 	speaker.socket.closegump(TYPE_CHANGEHAIR)
 	speaker.socket.closegump(TYPE_CHANGEHUE)
-	
+
 	female = speaker.id == 0x191
 	gold = speaker.getbackpack().countitems(['eed'])
 	gold += speaker.getbankbox().countitems(['eed'])
-	
+
 	count = 0
-	
+
 	for i in range(0, len(sellList)):
 		item = sellList[i]
 		if speaker.gm or (gold >= item[1] and (not female or not item[2])):
@@ -346,7 +345,7 @@ def gump( listener, speaker ):
 		item = sellList[i]
 		if not speaker.gm and (gold < item[1] or (female and item[2])):
 			continue
-		
+
 		gump.addXmfHtmlGump(140, 75 + offset * 25, 360, 20, item[0], False, False) # Choose your hairstyle change:
 		gump.addButton( 100, 75 + offset * 25, 4005, 4007, 1 + i)
 		
@@ -361,13 +360,13 @@ def gump_response(char, arguments, response):
 	vendor = wolfpack.findchar(arguments[0])
 	if not vendor or vendor.distanceto(char) > 4:
 		return
-	
+
 	if response.button == 0:
 		return
-		
+
 	if response.button > len(sellList):		
 		return
-		
+
 	item = sellList[response.button - 1]
 
 	female = char.id == 0x191	
@@ -378,9 +377,9 @@ def gump_response(char, arguments, response):
 	if female and item[2]:
 		vendor.say(1010639, "", "", False, vendor.saycolor, char.socket)
 		return
-		
+
 	if item[1] > gold and not char.gm:
 		vendor.say(1042293, "", "", False, vendor.saycolor, char.socket)
 		return
-		
+
 	item[3](vendor, char, item, item[4])

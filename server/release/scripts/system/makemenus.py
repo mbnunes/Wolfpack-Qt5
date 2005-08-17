@@ -82,7 +82,7 @@ class MakeAction:
 	def __init__(self, parent, title):
 		assert(parent)
 		self.parent = parent
-		self.title = str(title)
+		self.title = unicode(title)
 		self.parent.subactions.append(self)
 		self.hasdetails = 0
 
@@ -801,7 +801,7 @@ class MakeMenu:
 		self.parent = parent
 		self.submenus = []
 		self.subactions = []
-		self.title = str(title)
+		self.title = unicode(title)
 		self.gumptype = 0
 		self.name_makelast = tr("Make Last")
 		self.delay = 0 # Delay in ms until item is crafted.
