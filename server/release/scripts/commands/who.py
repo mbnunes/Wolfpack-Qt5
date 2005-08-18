@@ -199,6 +199,7 @@ def callbackSocket( char, args, choice ):
 	keys = textentries.keys()
 	# Cancel
 	if choice.button == 0:
+		showWhoGump(char, 0)
 		return False
 	# Resurrect
 	elif choice.button == 10:
