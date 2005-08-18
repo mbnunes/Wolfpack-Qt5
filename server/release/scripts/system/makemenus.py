@@ -1016,6 +1016,18 @@ class MakeMenu:
 
 		return True
 
+	def cancraft( self, player, item ):
+		action = self.topmostmenu().findcraftitem(item.baseid)
+		if action:
+			mainskill = action.getmainskill()
+		else:
+			mainskill = -1
+
+		# We can't craft it, so we can't repair it.
+		if mainskill == -1:
+			player.socket.clilocmessage(1044277)
+		return mainskill
+
 	#
 	# Repair an item.
 	# This is a generic repair function that should work for any subclass.
@@ -1042,18 +1054,10 @@ class MakeMenu:
 			if item.maxhealth <= 0 or item.health >= item.maxhealth:
 				player.socket.clilocmessage(500423)
 				return False # Fully repaired
-
-			action = self.topmostmenu().findcraftitem(item.baseid)
-
-			if action:
-				mainskill = action.getmainskill()
-			else:
-				mainskill = -1
-
-			# We can't craft it, so we can't repair it.
+			
+			mainskill = self.cancraft( player, item )
 			if mainskill == -1:
-				player.socket.clilocmessage(1044277)
-				return False # Can't craft the item
+				return False
 
 			skill = player.skill[mainskill]
 			if skill >= 900:
