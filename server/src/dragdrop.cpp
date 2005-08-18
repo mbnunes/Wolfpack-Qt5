@@ -393,6 +393,12 @@ void DragAndDrop::equipItem( cUOSocket* socket, cUORxWearItem* packet )
 		return;
 	}
 
+	if ( pWearer->onWearItem( pChar, pItem, packet->layer() ) )
+	{
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
+
 	// Males can't wear female armor
 	if ( ( pChar->body() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
 	{

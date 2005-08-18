@@ -286,6 +286,8 @@ no other npc scripts will be called then.
 \condition Triggered when a player tries to equip an item.
 \return Return 1 if the server should reject the equip request and
 should bounce the item back.
+\notes The event is called first for the item and then for the
+character.
 */
 "onWearItem",
 

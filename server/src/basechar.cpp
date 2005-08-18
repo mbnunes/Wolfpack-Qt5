@@ -2641,6 +2641,18 @@ bool cBaseChar::onDropOnChar( P_ITEM pItem )
 	return result;
 }
 
+bool cBaseChar::onWearItem( P_PLAYER pPlayer, P_ITEM pItem, unsigned char layer )
+{
+	bool result = false;
+	if ( canHandleEvent( EVENT_WEARITEM ) )
+	{
+		PyObject* args = Py_BuildValue( "O&O&O&b", PyGetCharObject, pPlayer, PyGetCharObject, this, PyGetItemObject, pItem, layer );
+		result = callEventHandler( EVENT_WEARITEM, args );
+		Py_DECREF( args );
+	}
+	return result;
+}
+
 QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 {
 	// I hate this event by the way (DarkStorm)

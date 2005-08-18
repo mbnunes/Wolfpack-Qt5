@@ -327,6 +327,7 @@ public:
 	virtual bool onDeath( cUObject* source, P_ITEM corpse );
 	virtual bool onResurrect( cUObject* source );
 	virtual bool onDropOnChar( P_ITEM pItem );
+	virtual bool onWearItem( P_PLAYER pPlayer, P_ITEM pItem, unsigned char layer );
 	virtual QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels
