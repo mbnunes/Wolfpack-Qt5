@@ -2780,7 +2780,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Citrine</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation>Citrin</translation>
+        <translation>Zitrin</translation>
     </message>
     <message>
         <source>Amethyst</source>
