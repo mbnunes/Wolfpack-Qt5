@@ -28,12 +28,6 @@ GEMS = [
 		[tr('Tourmaline'), 0, 0, ['f18', 'f1e', 'f20', 'f2d'], 0x0, 'tourmaline', ["#1044182","#1044200","#1044209","#1044227"]],
 		[tr('Amber'), 0, 0, ['f25'], 0x0, 'amber', ["#1044183","#1044201","#1044210","#1044228"]],
 		[tr('Diamond'), 0, 0, ['f26','f27','f28','f29','f30'], 0x0, 'diamond', ["#1044184","#1044202","#1044211","#1044229"]]
-
-		#['Bronze',			0, 0, ['bronze_ingot'], 0x972, 'bronze'],
-		#['Gold',				0, 0, ['gold_ingot'], 0x8a5, 'gold'],
-		#['Agapite',		 	0, 0, ['agapite_ingot'], 0x979, 'agapite'],
-		#['Verite',			0, 0, ['verite_ingot'], 0x89f, 'verite'],
-		#['Valorite',		0, 0, ['valorite_ingot'], 0x8ab, 'valorite'],
 ]
 
 def name_item( item, material ):
@@ -114,7 +108,8 @@ class TinkerItemAction(CraftItemAction):
 		if self.submaterial2 > 0:
 			material = self.parent.getsubmaterial2used(player, arguments)
 			material = self.parent.submaterials2[material]
-			item.color = material[4]
+			# Gems have no color!
+			#item.color = material[4]
 			item.name = name_item( item, material )
 			item.settag('resname2', material[5])
 
@@ -143,7 +138,7 @@ class SeTinkerItemAction(TinkerItemAction):
 			return False
 		else:
 			return TinkerItemAction.visible(self, char, arguments)
-			
+
 	def checkmaterial(self, player, arguments, silent = 0):
 		if player.socket and player.socket.flags & 0x10 == 0:
 			return False
@@ -251,7 +246,7 @@ def loadMenu(id, parent = None):
 					if child.name == 'setinker':
 						action = SeTinkerItemAction(menu, name, int(itemid), itemdef)
 					else:
-						action = TinkerItemAction(menu, name, int(itemid), itemdef)		
+						action = TinkerItemAction(menu, name, int(itemid), itemdef)
 				except:
 					console.log(LOG_ERROR, "Tinker action with invalid item id in menu %s.\n" % menu.id)
 
