@@ -1,4 +1,3 @@
-
 #===============================================================#
 #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
 #  ((    _/{  "-;  | Created by: DarkStorm                      #
@@ -16,6 +15,7 @@ from wolfpack.properties import itemcheck, fromitem
 import random
 from skills import blacksmithing
 from wolfpack import tr
+from copy import deepcopy
 
 # last list: [ring, necklace, earrings, bracelet]
 GEMS = [
@@ -29,6 +29,11 @@ GEMS = [
 		[tr('Amber'), 0, 0, ['f25'], 0x7da, 'amber', ["#1044183","#1044201","#1044210","#1044228"]],
 		[tr('Diamond'), 0, 0, ['f26','f27','f28','f29','f30'], 0x47e, 'diamond', ["#1044184","#1044202","#1044211","#1044229"]]
 ]
+
+# Use metals list from Blacksmithing, but test for tinkering skill
+TINKERINGMETALS = deepcopy(blacksmithing.METALS)
+for metal in TINKERINGMETALS:
+	metal[1] = TINKERING
 
 def name_item( item, material ):
 	# ring
@@ -149,7 +154,7 @@ class TinkeringMenu(MakeMenu):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = True
 		self.allowrepair = True
-		self.submaterials1 = blacksmithing.METALS
+		self.submaterials1 = TINKERINGMETALS
 		self.submaterials2 = GEMS
 		self.submaterial1missing = 1044037
 		self.submaterial1noskill = 1044268

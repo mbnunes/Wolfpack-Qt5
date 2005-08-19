@@ -159,6 +159,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Remaining tool uses for different skills were not handled
   - Added a findlock command.
   - Added cliloc support for crafting menues.
+  - Fixed metals in carpentry menu and tinkering menu requiring blacksmithing skill.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

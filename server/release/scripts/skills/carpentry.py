@@ -7,6 +7,12 @@ from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefr
 from wolfpack.utilities import hex2dec, tobackpack, createlockandkey
 import random
 import skills.blacksmithing
+from copy import deepcopy
+
+# Use metals list from Blacksmithing, but test for carpentry skill
+CARPENTRYMETALS = deepcopy(skills.blacksmithing.METALS)
+for metal in CARPENTRYMETALS:
+	metal[1] = CARPENTRY
 
 #
 # Bring up the carpentry menu
@@ -147,7 +153,7 @@ class CarpentryMenu(MakeMenu):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = True
 		#self.allowrepair = 1
-		self.submaterials1 = skills.blacksmithing.METALS
+		self.submaterials1 = CARPENTRYMETALS
 		self.submaterial1missing = 1042081 # Ingots
 		self.submaterial1noskill = 500586
 		self.gumptype = 0x4f6ba469 # This should be unique
