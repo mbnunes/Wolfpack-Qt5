@@ -156,7 +156,7 @@ def response( char, args, target ):
 	if not blockedspot:
 		for item in staticitems:
 			if ( not item[ 0 ] in staticWater ) and ( item[ 3 ] >= pos.z ) and ( item[ 3 ] <= pos.z + FISHING_BLOCK_RANGE ):
-				tile = wolfpack.tiledata( item.id )
+				tile = wolfpack.tiledata( item[0] )
 
 				if tile[ "blocking" ] or tile[ "floor" ]:
 					blockedspot = 1
