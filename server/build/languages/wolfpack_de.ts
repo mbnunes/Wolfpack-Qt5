@@ -2760,47 +2760,47 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Star Sapphire</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sternsaphir</translation>
     </message>
     <message>
         <source>Emerald</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Smaragd</translation>
     </message>
     <message>
         <source>Sapphire</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Saphir</translation>
     </message>
     <message>
         <source>Ruby</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Rubin</translation>
     </message>
     <message>
         <source>Citrine</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Citrin</translation>
     </message>
     <message>
         <source>Amethyst</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Amethyst</translation>
     </message>
     <message>
         <source>Tourmaline</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Turmalin</translation>
     </message>
     <message>
         <source>Amber</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bernstein</translation>
     </message>
     <message>
         <source>Diamond</source>
         <comment>../release/scripts/skills/tinkering.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Diamant</translation>
     </message>
     <message>
         <source>is in the North</source>
