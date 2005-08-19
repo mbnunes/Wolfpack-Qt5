@@ -876,6 +876,13 @@ def turnitem( socket, command, arguments ):
 	socket.attachtarget( "commands.turnitem.targetitem", [] )
 	return
 
+def canturn( char, item ):
+	if char.gm:
+		return True
+	if ( item.lockeddown ) or ( finditem.movable > 1 ) or ( finditem.movable == 2 and finditem.owner != char ):
+		return False
+	return True
+		
 def targetitem( char, args, target ):
 	socket = char.socket
 
@@ -886,7 +893,7 @@ def targetitem( char, args, target ):
 		if not finditem:
 			socket.sysmessage("You must target an item!")
 			return True
-		if ( finditem.lockeddown ) or ( not char.gm and finditem.movable > 1 ) or ( finditem.movable == 2 and finditem.owner != char ):
+		if not canturn( char, finditem ):
 			socket.sysmessage("This object is not movable by you!")
 			return True
 		# Object Exists
