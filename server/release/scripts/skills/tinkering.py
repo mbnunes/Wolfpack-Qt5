@@ -19,15 +19,15 @@ from wolfpack import tr
 
 # last list: [ring, necklace, earrings, bracelet]
 GEMS = [
-		[tr('Star Sapphire'), 0, 0, ['f0f', 'f1b', 'f21'], 0x0, 'starsapphire', ["#1044176","#1044194","#1044203","#1044221"]],
-		[tr('Emerald'), 0, 0, ['f10', 'f2f'], 0x0, 'emerald', ["#1044177","#1044195","#1044204","#1044222"]],
-		[tr('Sapphire'), 0, 0, ['f11', 'f12', 'f19', 'f1f'], 0x0, 'sapphire', ["#1044178","#1044196","#1044205","#1044223"]],
-		[tr('Ruby'), 0, 0, ['f13', 'f14', 'f1a', 'f1c', 'f1d', 'f2a', 'f2b'], 0x0, 'ruby', ["#1044179","#1044197","#1044206","#1044224"]],
-		[tr('Citrine'), 0, 0, ['f15', 'f23', 'f24', 'f2c'], 0x0, 'citrine', ["#1044180","#1044198","#1044207","#1044225"]],
-		[tr('Amethyst'), 0, 0, ['f16', 'f17', 'f22', 'f2e'], 0x0, 'amethyst', ["#1044181","#1044199","#1044208","#1044226"]],
-		[tr('Tourmaline'), 0, 0, ['f18', 'f1e', 'f20', 'f2d'], 0x0, 'tourmaline', ["#1044182","#1044200","#1044209","#1044227"]],
-		[tr('Amber'), 0, 0, ['f25'], 0x0, 'amber', ["#1044183","#1044201","#1044210","#1044228"]],
-		[tr('Diamond'), 0, 0, ['f26','f27','f28','f29','f30'], 0x0, 'diamond', ["#1044184","#1044202","#1044211","#1044229"]]
+		[tr('Star Sapphire'), 0, 0, ['f0f', 'f1b', 'f21'], 0x4f2, 'starsapphire', ["#1044176","#1044194","#1044203","#1044221"]],
+		[tr('Emerald'), 0, 0, ['f10', 'f2f'], 0xa3, 'emerald', ["#1044177","#1044195","#1044204","#1044222"]],
+		[tr('Sapphire'), 0, 0, ['f11', 'f12', 'f19', 'f1f'], 0xc2, 'sapphire', ["#1044178","#1044196","#1044205","#1044223"]],
+		[tr('Ruby'), 0, 0, ['f13', 'f14', 'f1a', 'f1c', 'f1d', 'f2a', 'f2b'], 0x21, 'ruby', ["#1044179","#1044197","#1044206","#1044224"]],
+		[tr('Citrine'), 0, 0, ['f15', 'f23', 'f24', 'f2c'], 0x30, 'citrine', ["#1044180","#1044198","#1044207","#1044225"]],
+		[tr('Amethyst'), 0, 0, ['f16', 'f17', 'f22', 'f2e'], 0x13, 'amethyst', ["#1044181","#1044199","#1044208","#1044226"]],
+		[tr('Tourmaline'), 0, 0, ['f18', 'f1e', 'f20', 'f2d'], 0x9a, 'tourmaline', ["#1044182","#1044200","#1044209","#1044227"]],
+		[tr('Amber'), 0, 0, ['f25'], 0x7da, 'amber', ["#1044183","#1044201","#1044210","#1044228"]],
+		[tr('Diamond'), 0, 0, ['f26','f27','f28','f29','f30'], 0x47e, 'diamond', ["#1044184","#1044202","#1044211","#1044229"]]
 ]
 
 def name_item( item, material ):
@@ -108,8 +108,7 @@ class TinkerItemAction(CraftItemAction):
 		if self.submaterial2 > 0:
 			material = self.parent.getsubmaterial2used(player, arguments)
 			material = self.parent.submaterials2[material]
-			# Gems have no color!
-			#item.color = material[4]
+			item.color = material[4]
 			item.name = name_item( item, material )
 			item.settag('resname2', material[5])
 
