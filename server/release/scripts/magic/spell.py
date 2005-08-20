@@ -416,8 +416,14 @@ class Spell:
 
 		return True
 
-	# Not implemented yet
+	# Is this all? what about reflecting from players????
 	def checkreflect(self, char, mode, targettype, target, args, item):
+		reflecting = ["copper_elemental", "valorite_elemental"]
+		male_only = ["semidar"]
+		if target.baseid in reflecting:
+			return True
+		elif target.baseid in male_only and not target.char.gender:
+			return True
 		return False
 
 	#
@@ -544,6 +550,7 @@ class CharEffectSpell (Spell):
 
 		if self.reflectable and self.checkreflect(char, mode, targettype, target, args, item):
 			target = char
+			target.effect( 0x37B9, 10, 5 )
 
 		if self.harmful:
 			self.harmchar(char, target)
