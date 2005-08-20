@@ -163,10 +163,10 @@ class CarpentryMenu(MakeMenu):
 	# Get the material used by the character from the tags
 	#
 	def getsubmaterial1used(self, player, arguments):
-		if not player.hastag('blacksmithing_ore'):
+		if not player.hastag('carpentry_ore'):
 			return False
 		else:
-			material = int(player.gettag('blacksmithing_ore'))
+			material = int(player.gettag('carpentry_ore'))
 			if material < len(self.submaterials1):
 				return material
 			else:
@@ -176,7 +176,7 @@ class CarpentryMenu(MakeMenu):
 	# Save the material preferred by the user in a tag
 	#
 	def setsubmaterial1used(self, player, arguments, material):
-		player.settag('blacksmithing_ore', material)
+		player.settag('carpentry_ore', material)
 
 #
 # Load a menu with a given id and

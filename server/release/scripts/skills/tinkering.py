@@ -166,10 +166,10 @@ class TinkeringMenu(MakeMenu):
 	# Get the material used by the character from the tags
 	#
 	def getsubmaterial1used(self, player, arguments):
-		if not player.hastag('blacksmithing_ore'):
+		if not player.hastag('tinkering_ore'):
 			return False
 		else:
-			material = int(player.gettag('blacksmithing_ore'))
+			material = int(player.gettag('tinkering_ore'))
 			if material < len(self.submaterials1):
 				return material
 			else:
@@ -192,7 +192,7 @@ class TinkeringMenu(MakeMenu):
 	# Save the material preferred by the user in a tag
 	#
 	def setsubmaterial1used(self, player, arguments, material):
-		player.settag('blacksmithing_ore', material)
+		player.settag('tinkering_ore', material)
 
 	#
 	# Save the material preferred by the user in a tag
