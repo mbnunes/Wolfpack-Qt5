@@ -19,6 +19,16 @@ def createkey(char, id):
 	key.update()
 	char.socket.sysmessage( tr('A key has been added to your backpack.') )
 
+def generateKeyId():
+	# Create a random key id (several characters are excluded that can be easily mistaken for something else)
+	parts = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9']
+	rkeyid = ''
+
+	for i in range(1,8):
+		rkeyid += random.choice(parts)
+
+	return rkeyid
+
 def gump_response(char, args, response):
 	if len(args) < 1:
 		return
@@ -130,12 +140,7 @@ def lock_response(char, args, target):
 		text = tr('<basefont color="#FECECE"><h3>Add Lock</h3><br><basefont color="#FEFEFE">This dialog will help you to add a lock to this item.Please enter a unique identifier for this lock. The lock has to share the same identifier with any key that is supposed to fit.')
 		gump.addHtmlGump(x=20, y=20, width=390, height=200, html=text)
 
-		# Create a random key id (several characters are excluded that can be easily mistaken for something else)
-		parts = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9']
-		rkeyid = ''
-
-		for i in range(1,8):
-			rkeyid += random.choice(parts)
+		rkeyid = generateKeyId()
 
 		# InputField for the key id
 		gump.addText(x=20, y=105, text=tr('Please enter an id for this lock:'), hue=0x835)
