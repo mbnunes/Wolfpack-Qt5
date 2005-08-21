@@ -25,9 +25,10 @@ def jailPlayer(player, target, tojail = True):
 			player.socket.sysmessage(tr('That player is in jail already.'))
 		return
 
-	target.jailed = tojail
 
 	if tojail:
+		target.jailed = True
+		target.account.jail()
 		target.settag('unjail_pos', str(target.pos))
 
 		target.removefromview()
@@ -36,27 +37,34 @@ def jailPlayer(player, target, tojail = True):
 		if target.socket:
 			target.socket.resendworld()
 
-		player.log(LOG_MESSAGE, 'Jailed player %s (0x%x).\n' % (target.orgname, target.serial))
-		player.socket.sysmessage(tr('The targetted player has been jailed.'))
+		if player != target:
+			player.log(LOG_MESSAGE, 'Jailed player %s (0x%x). Account: %s \n' % (target.orgname, target.serial, target.account.name))
+			player.socket.sysmessage(tr('The targetted player has been jailed.'))
 		target.message(503268) # You've been jailed
 	else:
-		player.log(LOG_MESSAGE,'Unjailed player %s (0x%x).\n' % (target.orgname, target.serial))
+		target.account.forgive()
+		player.log(LOG_MESSAGE,'Unjailed player %s (0x%x). Account: %s \n' % (target.orgname, target.serial, target.account.name))
 		player.socket.sysmessage(tr('The targetted player has been unjailed.'))
 
-		# Send back to original position
-		unjail_pos = target.gettag('unjail_pos')
-		if unjail_pos and unjail_pos.count(',') == 3:
-			(x, y, z, map) = unjail_pos.split(',')
+		for char in target.account.characters:
+			if char.jailed:
+				# Send back to original position
+				unjail_pos = char.gettag('unjail_pos')
+				if unjail_pos and unjail_pos.count(',') == 3:
+					(x, y, z, map) = unjail_pos.split(',')
 
-			if map != 0xFF:
-				target.removefromview()
-				target.moveto(wolfpack.coord(int(x), int(y), int(z), int(map)))
-				target.update()
-				if target.socket:
-					target.socket.resendworld()
+					if map != 0xFF:
+						char.removefromview()
+						char.moveto(wolfpack.coord(int(x), int(y), int(z), int(map)))
+						char.update()
+						if char.socket:
+							char.socket.resendworld()
 
-		target.deltag('unjail_pos')
+				char.jailed = False
+				char.deltag('unjail_pos')
+				
 		target.message(503267) # You've been unjailed
+
 	return
 
 def response(player, arguments, target):

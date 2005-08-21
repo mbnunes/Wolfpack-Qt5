@@ -2,12 +2,18 @@
 import wolfpack
 from wolfpack import tr
 import guilds.stone
+from commands.jail import jailPlayer
 
 def onLogin( player ):
 	socket = player.socket
 	socket.sysmessage( tr("Welcome to %s") % ( wolfpack.serverversion() )  )
 	socket.sysmessage( tr("Report Bugs: http://bugs.wpdev.org/") )
 	player.hidden = False
+
+	# send to jail if account is jailed
+	if player.account.flags & 0x80:
+		if not player.jailed:
+			jailPlayer( player, player )
 	return False
 
 def onConnect( player, reconnecting ):
@@ -17,8 +23,12 @@ def onConnect( player, reconnecting ):
 	player.update()
 	socket.resendplayer()
 
+	# send to jail if account is jailed
+	if player.account.flags & 0x80:
+		if not player.jailed:
+			jailPlayer( player, player )
+
 def onLogout( player ):
-	socket = player.socket
 	player.removefromview()
 	player.hidden = 1
 	player.update()
