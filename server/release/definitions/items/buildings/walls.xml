@@ -5640,7 +5640,7 @@
 	</item>
 
 	<item id="249c">
-		<id>0x49c</id>
+		<id>0x249c</id>
 		<nodecay />
 		<category>Buildings\Walls\Samurai\Wall 03\04</category>
 	</item>
@@ -5739,6 +5739,78 @@
 		<id>0x24ac</id>
 		<nodecay />
 		<category>Buildings\Walls\Samurai\Wall 03\20</category>
+	</item>
+
+	<item id="2a30">
+		<id>0x2a30</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\21</category>
+	</item>
+
+	<item id="2a31">
+		<id>0x2a31</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\22</category>
+	</item>
+
+	<item id="2a32">
+		<id>0x2a32</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\23</category>
+	</item>
+
+	<item id="2a33">
+		<id>0x2a33</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\24</category>
+	</item>
+
+	<item id="2a34">
+		<id>0x2a34</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\25</category>
+	</item>
+
+	<item id="2a35">
+		<id>0x2a35</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\26</category>
+	</item>
+
+	<item id="2a36">
+		<id>0x2a36</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\27</category>
+	</item>
+
+	<item id="2a37">
+		<id>0x2a37</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\28</category>
+	</item>
+
+	<item id="2a38">
+		<id>0x2a38</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\29</category>
+	</item>
+
+	<item id="2a39">
+		<id>0x2a39</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\30</category>
+	</item>
+
+	<item id="2a3a">
+		<id>0x2a3a</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\31</category>
+	</item>
+
+	<item id="2a3b">
+		<id>0x2a3b</id>
+		<nodecay />
+		<category>Buildings\Walls\Samurai\Wall 03\32</category>
 	</item>
 
 	<item id="24cb">
@@ -6036,7 +6108,7 @@
 	</item>
 
 	<item id="28a0">
-		<id>0x8a0</id>
+		<id>0x28a0</id>
 		<nodecay />
 		<category>Buildings\Walls\Samurai\Cloth Wall 03\11</category>
 	</item>
@@ -6048,7 +6120,7 @@
 	</item>
 
 	<item id="28a2">
-		<id>0x8a2</id>
+		<id>0x28a2</id>
 		<nodecay />
 		<category>Buildings\Walls\Samurai\Cloth Wall 03\13</category>
 	</item>
@@ -6311,79 +6383,6 @@
 		<id>0x29fc</id>
 		<nodecay />
 		<category>Buildings\Walls\Samurai\Wall 06\33</category>
-	</item>
-
-	<!-- wall -->
-	<item id="2a30">
-		<id>0x2a30</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\1</category>
-	</item>
-
-	<item id="2a31">
-		<id>0x2a31</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\2</category>
-	</item>
-
-	<item id="2a32">
-		<id>0x2a32</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\3</category>
-	</item>
-
-	<item id="2a33">
-		<id>0x2a33</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\4</category>
-	</item>
-
-	<item id="2a34">
-		<id>0x2a34</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\5</category>
-	</item>
-
-	<item id="2a35">
-		<id>0x2a35</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\6</category>
-	</item>
-
-	<item id="2a36">
-		<id>0x2a36</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\7</category>
-	</item>
-
-	<item id="2a37">
-		<id>0x2a37</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\8</category>
-	</item>
-
-	<item id="2a38">
-		<id>0x2a38</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\9</category>
-	</item>
-
-	<item id="2a39">
-		<id>0x2a39</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\10</category>
-	</item>
-
-	<item id="2a3a">
-		<id>0x2a3a</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\11</category>
-	</item>
-
-	<item id="2a3b">
-		<id>0x2a3b</id>
-		<nodecay />
-		<category>Buildings\Walls\Samurai\Wall 07\12</category>
 	</item>
 
 </definitions>
