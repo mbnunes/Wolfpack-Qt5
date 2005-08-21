@@ -13,6 +13,8 @@ import environment
 import skills
 
 MUSICIANSHIP_DELAY = 1000
+MINSKILL = 0
+MAXSKILL = 1000
 # instrument id : good sound ( poor sound = good sound + 1 )
 sounds = {
 		0x0e9c: 0x0038,
@@ -59,7 +61,7 @@ def onUse( char, item ):
 	if skills.skilltable[ MUSICIANSHIP ][ skills.UNHIDE ] and char.hidden:
 		char.reveal()
 
-	success = char.checkskill( MUSICIANSHIP, 0, 1000 )
+	success = char.checkskill( MUSICIANSHIP, MINSKILL, MAXSKILL )
 
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + MUSICIANSHIP_DELAY ) )
 
