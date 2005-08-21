@@ -6,11 +6,18 @@ from wolfpack.utilities import tobackpack
 from system import poison
 import skills
 from wolfpack import tr
+from math import ceil
 
 farm_food = [  'c7c', 'c70', 'c7b', 'c78', 'c71', 'c64', 'c65' ]
 farm_eaters = [ 'rabbit', 'goat', 'hind', 'pack_horse', 'pack_llama', 'cow', 'bull',
 	'sheep_unsheered', 'sheep_sheered', 'llama', 'horse', 'great_hart',
 	'ostard_desert', 'ostard_forest', 'ostard_frinzied' ]
+
+#
+# TODO: favorite food of animals:
+# FruitsAndVegies | GrainsAndHay | Meat | Eggs | Gold | Fish
+#
+
 #
 # Feed the food
 #
@@ -20,38 +27,42 @@ def onDropOnChar(char, item):
 		player = item.container
 
 		if not char.tamed:
-			return 0
+			return False
 
 		if not player.canreach(char, 2):
 			player.socket.clilocmessage(500312) # You cannot reach that.
 			if not tobackpack( item, player ):
 				item.update()
-			return 1
+			return True
 
-		if char.hunger >= 6:
+		if char.hunger >= 20:
 			player.message( tr('It doesn''t seem to be hungry.') )
 			if not tobackpack( item, player ):
 				item.update()
-			return 1
+			return True
 
-		if item.amount > 6 - char.hunger:
-			item.amount -= 6 - char.hunger
-			char.hunger = 6
+		fillfactor = item.getintproperty('fillfactor', 1)
+
+		complete_fillfactor = fillfactor * item.amount
+
+		if complete_fillfactor > 20 - char.hunger:
+			requireditems = int(ceil((20 - char.hunger) / fillfactor))
+			item.amount -= requireditems
+			char.hunger = 20
 			if not tobackpack(item, player):
 				item.update()
 				item.resendtooltip()
 		else:
-			char.hunger += item.amount
+			char.hunger += complete_fillfactor
 			item.delete()
 
 		# Fidget animation and munch munch sound
 		char.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
 		if not char.itemonlayer( LAYER_MOUNT ):
 			char.action(ANIM_FIDGET3)
-		return 1
+		return True
 
-	#char.say('Dropped item on char')
-	return 0
+	return False
 
 #
 # Eat the food
@@ -60,35 +71,57 @@ def onUse(player, item):
 	# Has to belong to us.
 	if item.getoutmostchar() != player:
 		player.socket.clilocmessage(500866) # You can't eat that, it belongs to someone else.
-		return 1
+		return True
+	Eat( player, item )
+	return True
 
+def Eat(player, item):
+	if FillHunger( player, item ):
+		# Fidget animation and munch munch sound
+		player.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
+		if not player.itemonlayer( LAYER_MOUNT ):
+			player.action(ANIM_FIDGET3)
+
+		# poisoned food
+		if item.hastag( 'poisoning_char' ):
+			poison.poison( player, item.gettag( 'poisoning_strength' ) )
+			player.socket.clilocmessage( 1010512 ) # You have been poisoned!
+			skills.poisoning.wearoff( item )
+
+		if item.amount > 1:
+			item.amount -= 1
+			item.update()
+		else:
+			item.delete()
+
+		return True
+	return False
+
+def FillHunger(player, item):
 	# Can we eat anymore?
-	if player.hunger >= 6:
+	if player.hunger >= 20:
 		player.socket.clilocmessage(500867) # You are simply too full to eat any more!
-		return 1
+		return False
 
-	player.socket.clilocmessage(min(500872, 500868 + player.hunger))
-
-	# Fidget animation and munch munch sound
-	player.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
-	if not player.itemonlayer( LAYER_MOUNT ):
-		player.action(ANIM_FIDGET3)
-
-	player.hunger += 1
-
-	# poisoned food
-	if item.hastag( 'poisoning_char' ):
-		poison.poison( player, item.gettag( 'poisoning_strength' ) )
-		player.socket.clilocmessage( 1010512 ) # You have been poisoned!
-		skills.poisoning.wearoff( item )
-
-	if item.amount > 1:
-		item.amount -= 1
-		item.update()
+	fillfactor = item.getintproperty('fillfactor', 1)
+	iHunger = player.hunger + fillfactor
+	if player.stamina < player.maxstamina:
+		player.stamina += random.randint( 6, 9 ) + fillfactor/5 # restore some stamina
+	if iHunger >= 20:
+		player.hunger = 20
+		player.socket.clilocmessage( 500872 ) # You manage to eat the food, but you are stuffed!
 	else:
-		item.delete()
+		player.hunger = iHunger
 
-	return 1
+		if iHunger < 5:
+			player.socket.clilocmessage( 500868 ) # You eat the food, but are still extremely hungry.
+		elif iHunger < 10:
+			player.socket.clilocmessage( 500869 ) # You eat the food, and begin to feel more satiated.
+		elif iHunger < 15:
+			player.socket.clilocmessage( 500870 ) # After eating the food, you feel much less hungry.
+		else:
+			player.socket.clilocmessage( 500871 ) # You feel quite full after consuming the food.
+	return True
 
 def onCollide( char, item ):
 	if char.npc and item.baseid in farm_food and char.baseid in farm_eaters:

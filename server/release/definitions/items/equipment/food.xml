@@ -33,6 +33,7 @@ Food subtypes:
 		<id>0x970</id>
 		<category>Equipment\Food\Stew</category>
 		<basescripts>food</basescripts> <!-- You can eat stew out of the cauldrons -->
+		<intproperty name="fillfactor" value="4" />
 		<note>Use in conjunction with <ref id="item:974">cauldron n/s</ref> and <ref id="item:975">cauldron w/e</ref></note>
 	</item>
 
@@ -42,6 +43,7 @@ Food subtypes:
 		<category>Equipment\Food\Slab of Bacon (N/S)</category>
 		<basescripts>food</basescripts>
 		<weight>0.2</weight>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<!-- Slab of Bacon w/e -->
@@ -59,6 +61,7 @@ Food subtypes:
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<!-- Slice of Bacon w/e -->
@@ -100,6 +103,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Fish Steak</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<!-- Wedge of Cheese (small) -->
@@ -108,6 +112,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Wedge of Cheese (small)</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<!-- Wedge of Cheese (big) -->
@@ -116,6 +121,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Wedge of Cheese (big)</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<!-- Wheel of Cheese -->
@@ -126,6 +132,7 @@ Food subtypes:
 		<sellprice>12</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Wheel of Cheese</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<!-- French Bread -->
@@ -136,13 +143,16 @@ Food subtypes:
 		<sellprice>3</sellprice>
 		<weight>0.2</weight>
 		<category>Equipment\Food\French Bread</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<!-- Fruit Basket -->
 	<item id="993">
 		<category>Equipment\Food\Fruit Basket</category>
 		<id>0x993</id>
+		<basescripts>food</basescripts>
 		<weight>1.5</weight>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<!-- Pear -->
@@ -154,6 +164,7 @@ Food subtypes:
 		<weight>11</weight>
 		<weight>0.1</weight>
 		<basescripts>food</basescripts>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="172d" inherit="994">
@@ -202,6 +213,7 @@ Food subtypes:
 		<weight>0.5</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Brighly Colored Eggs</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>	
 
 	<!-- Fried Eggs -->
@@ -212,6 +224,7 @@ Food subtypes:
 		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Fried Eggs</category>
+		<intproperty name="fillfactor" value="4" />
 	</item>
 
 	<!-- Cooked bird w/e -->
@@ -222,6 +235,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Cooked Bird (W/E)</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<!-- Cooked bird n/s -->
@@ -255,6 +269,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>4.5</weight>
 		<category>Equipment\Food\Roast Pig (W/E)</category>
+		<intproperty name="fillfactor" value="20" />
 	</item>
 
 	<!-- Roast pig n/s -->
@@ -272,6 +287,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.2</weight>
 		<category>Equipment\Food\Sausage (W/E)</category>
+		<intproperty name="fillfactor" value="4" />
 	</item>
 
 	<!-- Sausage n/s -->
@@ -289,6 +305,7 @@ Food subtypes:
 		<sellprice>10</sellprice>
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<!-- Ham n/s -->
@@ -334,6 +351,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
 		<weight>1.0</weight>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<!-- Grape bunch -->
@@ -344,6 +362,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<!-- Peach 1 -->
@@ -354,6 +373,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<!-- Peach 2 -->
@@ -371,6 +391,7 @@ Food subtypes:
 		<sellprice>5</sellprice>
 		<basescripts>food</basescripts>
 		<weight>1.0</weight>
+		<intproperty name="fillfactor" value="10" />
 	</item>
 
 	<!-- Muffin -->
@@ -381,6 +402,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="4" />
 	</item>
 
 	<!-- Muffins 1 -->
@@ -440,8 +462,8 @@ Food subtypes:
 		<id>0x9f2</id>
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="5" />
 	</item>
-
 
 	<!-- Watermelon -->
 	<item id="c5c">
@@ -451,6 +473,7 @@ Food subtypes:
 		<sellprice>4</sellprice>
 		<basescripts>food</basescripts>
 		<weight>5</weight>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<!-- Watermelon -->
@@ -468,7 +491,7 @@ Food subtypes:
 		<sellprice>3</sellprice>
 		<basescripts>food</basescripts>
 		<weight>1.0</weight>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c62" inherit="c61">
@@ -499,7 +522,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
 		<weight>1.0</weight>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c65" inherit="c64">
@@ -546,7 +569,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<basescripts>food</basescripts>
 		<weight>1.0</weight>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c6e" inherit="c6d">
@@ -560,7 +583,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Head of Lettuce 1</category>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c71" inherit="c70">
@@ -576,7 +599,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<id>0xc72</id>
 		<category>Equipment\Food\Squash 1</category>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c73" inherit="c72">
@@ -592,7 +615,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<id>0xc74</id>
 		<category>Equipment\Food\Honeydew Melon 1</category>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c75" inherit="c74">
@@ -608,7 +631,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<id>0xc77</id>
 		<category>Equipment\Food\Carrots 1</category>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c78" inherit="c77">
@@ -624,7 +647,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<id>0xc79</id>
 		<category>Equipment\Food\Canteloupe 1</category>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c7a" inherit="c79">
@@ -640,7 +663,7 @@ Food subtypes:
 		<weight>0.1</weight>
 		<id>0xc7b</id>
 		<category>Equipment\Food\Head of Cabbage 1</category>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c7c" inherit="c7b">
@@ -656,7 +679,7 @@ Food subtypes:
 		<weight>0.1</weight>
 		<id>0xc7f</id>
 		<category>Equipment\Food\Ear of Corn 1</category>
-
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="c80" inherit="c7f">
@@ -688,6 +711,7 @@ Food subtypes:
 		<weight>0.2</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bread 1</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<item id="103c" inherit="103b">
@@ -702,6 +726,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Pizza</category>
+		<intproperty name="fillfactor" value="6" />
 	</item>
 
 	<item id="1041">
@@ -710,6 +735,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked Pie</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="15f9">
@@ -719,6 +745,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Carrots 1</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="15fe" inherit="15f9">
@@ -733,6 +760,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Corn 1</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="15ff" inherit="15fa">
@@ -747,6 +775,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Lettuce 1</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="1600" inherit="15fb">
@@ -761,6 +790,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Peas 1</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="1601" inherit="15fc">
@@ -775,6 +805,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Potatoes</category>
+		<intproperty name="fillfactor" value="4" />
 	</item>
 
 	<item id="1604">
@@ -784,6 +815,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bowl of Stew</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="1606">
@@ -793,6 +825,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Tomato Soup</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="1608">
@@ -802,6 +835,7 @@ Food subtypes:
 		<weight>0.2</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Chicken Leg</category>
+		<intproperty name="fillfactor" value="4" />
 	</item>
 
 	<item id="160a">
@@ -810,6 +844,7 @@ Food subtypes:
 		<weight>0.2</weight>
 		<category>Equipment\Food\Leg of Lamb</category>
 		<buyprice>8</buyprice>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="160b">
@@ -818,12 +853,14 @@ Food subtypes:
 		<sellprice>3</sellprice>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Pan of Cookies</category>
+		<intproperty name="fillfactor" value="4" />
 	</item>
 
 	<item id="160c">
 		<id>0x160c</id>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Plate of Cookies</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="171d">
@@ -833,6 +870,7 @@ Food subtypes:
 		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Banana 1 (N/S)</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="171e" inherit="171d">
@@ -869,6 +907,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Coconut 1 (W/E)</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="1724" inherit="1723">
@@ -894,6 +933,7 @@ Food subtypes:
 		<weight>0.1</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Bunch of Dates</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="1728">
@@ -903,6 +943,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Lemon</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="1729" inherit="1728">
@@ -918,6 +959,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Lime</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="172b" inherit="172a">
@@ -931,6 +973,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Donuts</category>
+		<intproperty name="fillfactor" value="2" />
 	</item>
 
 	<item id="1e1c">
@@ -938,6 +981,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Cooked Fish 1</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<item id="1e1d" inherit="1e1c">
@@ -957,6 +1001,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Sliced Ham</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<item id="1eb0">
@@ -993,13 +1038,14 @@ Food subtypes:
 		<category>Equipment\Food\Misc\Burned Lamb Leg</category>
 	</item>
 
-	<!-- Unbaked Quiche -->
+	<!-- baked Quiche -->
 	<item id="baked_quiche">
 		<name>#1041345</name>
 		<id>0x1041</id>
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Quiche</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="baked_meatpie">
@@ -1008,6 +1054,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Meat Pie</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="baked_fruitpie">
@@ -1016,6 +1063,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Fruit Pie</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="baked_peachcobbler">
@@ -1024,6 +1072,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Peach Cobbler</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="baked_applepie">
@@ -1032,6 +1081,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Apple Pie</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="baked_pumpkinpie">
@@ -1040,6 +1090,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Pumpkin Pie</category>
+		<intproperty name="fillfactor" value="5" />
 	</item>
 
 	<item id="baked_sausagepizza">
@@ -1048,6 +1099,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Sausage Pizza</category>
+		<intproperty name="fillfactor" value="6" />
 	</item>
 
 	<item id="baked_cheesepizza">
@@ -1056,6 +1108,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Baked Cheese Pizza</category>
+		<intproperty name="fillfactor" value="6" />
 	</item>
 
 	<!-- Wasabi Clumps -->
@@ -1064,6 +1117,7 @@ Food subtypes:
 		<weight>1.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Wasabi Clumps</category>
+		<intproperty name="fillfactor" value="1" />
 	</item>
 
 	<!-- Eggbomb -->
@@ -1080,6 +1134,7 @@ Food subtypes:
 		<weight>3.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Sushi Rolls 1</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<item id="283f" inherit="283e">
@@ -1104,6 +1159,7 @@ Food subtypes:
 		<weight>3.0</weight>
 		<basescripts>food</basescripts>
 		<category>Equipment\Food\Baked\Miso Soup</category>
+		<intproperty name="fillfactor" value="3" />
 	</item>
 
 	<!-- White Miso Soup -->
