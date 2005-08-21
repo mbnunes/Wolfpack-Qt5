@@ -395,7 +395,7 @@ void Human_Guard::selectVictim()
 		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), VISRANGE );
 		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 		{
-			if ( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
+			if ( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() && !pChar->inSafeArea() )
 			{
 				// If its a NPC... special handling
 				P_NPC pNpc = dynamic_cast<P_NPC>( pChar );

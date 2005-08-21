@@ -91,6 +91,10 @@ def target_response( char, args, target ):
 			if char.socket:
 				char.socket.clilocmessage(1061621)
 			return False
+		if target.char.region.safe and spell.harmful:
+			if char.socket:
+				char.socket.clilocmessage(1061621)
+			return False
 		if target.char.dead and not spell.affectdead:
 			if char.socket:
 				char.socket.clilocmessage(501857)

@@ -51,7 +51,7 @@ bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )
 		return true;
 	}
 
-	if ( victim->isInvulnerable() || victim->isDead() )
+	if ( victim->isInvulnerable() || victim->isDead() || victim->inSafeArea() )
 	{
 		return true;
 	}

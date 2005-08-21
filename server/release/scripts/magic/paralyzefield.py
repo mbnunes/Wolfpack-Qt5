@@ -7,7 +7,7 @@ from wolfpack.consts import MAGICRESISTANCE
 # Attach a tag to the character to note that he entered a poisonfield.
 #
 def onCollide(char, item):
-	if char.dead or char.invulnerable:
+	if char.dead or char.invulnerable or char.region.safe:
 		return
 
 	strength = 0

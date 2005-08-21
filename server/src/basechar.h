@@ -303,6 +303,9 @@ public:
 	void Init( bool ser = true );
 	bool isSameAs( P_CHAR pc ) const;
 	bool inGuardedArea();
+	bool inSafeArea();
+	bool inNoCriminalCombatArea();
+	bool inNoKillCountArea();
 	void emote( const QString& emote, UI16 color = 0xFFFF );
 	P_ITEM rightHandItem() const;
 	P_ITEM leftHandItem() const;

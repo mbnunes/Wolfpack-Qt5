@@ -6,7 +6,7 @@ from wolfpack.utilities import energydamage
 # Attach a tag to the character to note that he entered a firefield.
 #
 def onCollide(char, item):
-	if char.dead or char.invulnerable:
+	if char.dead or char.invulnerable or char.region.safe:
 		return
 
 	if not char.hastag( 'in_firefield' ):

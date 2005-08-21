@@ -212,6 +212,7 @@ void cConfig::readData()
 	refreshMaxValues_ = getBool( "General", "Refresh Characters Maximum Values", true, true );
 	sendAsciiNames_ = getBool( "General", "Send ASCII Character Names", false, true );
 	payfrompackonly_ = getBool( "General", "Pay From Pack Only", false, true );
+	instalogoutfromguarded_ = getBool( "General", "Insta Logout from Guarded Regions", true, true );
 
 	saveInterval_ = getNumber( "General", "Save Interval", 900, true );
 	mulPath_ = QDir::convertSeparators( getString( "General", "MulPath", "./muls/", true ) );

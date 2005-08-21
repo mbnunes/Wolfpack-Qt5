@@ -69,63 +69,83 @@ public:
 	}
 	bool isGuarded( void ) const
 	{
-		return flags_ & 0x0001;
+		return flags_ & 0x00000001;
 	}
 	bool isNoMark( void ) const
 	{
-		return flags_ & 0x0002;
+		return flags_ & 0x00000002;
 	}
 	bool isNoGate( void ) const
 	{
-		return flags_ & 0x0004;
+		return flags_ & 0x00000004;
 	}
 	bool isNoRecallOut( void ) const
 	{
-		return flags_ & 0x0008;
+		return flags_ & 0x00000008;
 	}
 	bool isNoRecallIn( void ) const
 	{
-		return flags_ & 0x0010;
+		return flags_ & 0x00000010;
 	}
 	bool isRecallShield( void ) const
 	{
-		return flags_ & 0x0020;
+		return flags_ & 0x00000020;
 	}
 	bool isNoAgressiveMagic( void ) const
 	{
-		return flags_ & 0x0040;
+		return flags_ & 0x00000040;
 	}
 	bool isAntiMagic( void ) const
 	{
-		return flags_ & 0x0080;
+		return flags_ & 0x00000080;
 	}
 	bool isValidEscortRegion( void ) const
 	{
-		return flags_ & 0x0100;
+		return flags_ & 0x00000100;
 	}
 	bool isCave( void ) const
 	{
-		return flags_ & 0x0200;
+		return flags_ & 0x00000200;
 	}
 	bool isNoMusic( void ) const
 	{
-		return flags_ & 0x0400;
+		return flags_ & 0x00000400;
 	}
 	bool isNoGuardMessage( void ) const
 	{
-		return flags_ & 0x0800;
+		return flags_ & 0x00000800;
 	}
 	bool isNoEnterMessage( void ) const
 	{
-		return flags_ & 0x1000;
+		return flags_ & 0x00001000;
 	}
 	bool isNoHousing( void ) const
 	{
-		return flags_ & 0x2000;
+		return flags_ & 0x00002000;
 	}
 	bool isNoDecay( void ) const
 	{
-		return flags_ & 0x4000;
+		return flags_ & 0x00004000;
+	}
+	bool isInstaLogout( void ) const
+	{
+		return flags_ & 0x00008000;
+	}
+	bool isNoTeleport( void ) const
+	{
+		return flags_ & 0x00010000;
+	}
+	bool isSafe( void ) const
+	{
+		return flags_ & 0x00020000;
+	}
+	bool isNoCriminalCombat( void ) const
+	{
+		return flags_ & 0x00040000;
+	}
+	bool isNoKillCount( void ) const
+	{
+		return flags_ & 0x00080000;
 	}
 	QString guardOwner( void ) const
 	{
@@ -148,108 +168,143 @@ private:
 	void setGuarded( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0001;
+			flags_ |= 0x00000001;
 		else
-			flags_ &= ~0x0001;
+			flags_ &= ~0x00000001;
 	}
 
 	void setNoMark( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0002;
+			flags_ |= 0x00000002;
 		else
-			flags_ &= ~0x0002;
+			flags_ &= ~0x00000002;
 	}
 	void setNoGate( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0004;
+			flags_ |= 0x00000004;
 		else
-			flags_ &= ~0x0004;
+			flags_ &= ~0x00000004;
 	}
 	void setNoRecallOut( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0008;
+			flags_ |= 0x00000008;
 		else
-			flags_ &= ~0x0008;
+			flags_ &= ~0x00000008;
 	}
 	void setNoRecallIn( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0010;
+			flags_ |= 0x00000010;
 		else
-			flags_ &= ~0x0010;
+			flags_ &= ~0x00000010;
 	}
 	void setRecallShield( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0020;
+			flags_ |= 0x00000020;
 		else
-			flags_ &= ~0x0020;
+			flags_ &= ~0x00000020;
 	}
 	void setNoAgressiveMagic( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0040;
+			flags_ |= 0x00000040;
 		else
-			flags_ &= ~0x0040;
+			flags_ &= ~0x00000040;
 	}
 	void setAntiMagic( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0080;
+			flags_ |= 0x00000080;
 		else
-			flags_ &= ~0x0080;
+			flags_ &= ~0x00000080;
 	}
 	void setValidEscortRegion( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0100;
+			flags_ |= 0x00000100;
 		else
-			flags_ &= ~0x0100;
+			flags_ &= ~0x00000100;
 	}
 	void setCave( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0200;
+			flags_ |= 0x00000200;
 		else
-			flags_ &= ~0x0200;
+			flags_ &= ~0x00000200;
 	}
 	void setNoMusic( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0400;
+			flags_ |= 0x00000400;
 		else
-			flags_ &= ~0x0400;
+			flags_ &= ~0x00000400;
 	}
 	void setNoGuardMessage( bool data )
 	{
 		if ( data )
-			flags_ |= 0x0800;
+			flags_ |= 0x00000800;
 		else
-			flags_ &= ~0x0800;
+			flags_ &= ~0x00000800;
 	}
 	void setNoEnterMessage( bool data )
 	{
 		if ( data )
-			flags_ |= 0x1000;
+			flags_ |= 0x00001000;
 		else
-			flags_ &= ~0x1000;
+			flags_ &= ~0x00001000;
 	}
 	void setNoHousing( bool data )
 	{
 		if ( data )
-			flags_ |= 0x2000;
+			flags_ |= 0x00002000;
 		else
-			flags_ &= ~0x2000;
+			flags_ &= ~0x00002000;
 	}
 	void setNoDecay( bool data )
 	{
 		if ( data )
-			flags_ |= 0x4000;
+			flags_ |= 0x00004000;
 		else
-			flags_ &= ~0x4000;
+			flags_ &= ~0x00004000;
+	}
+	void setInstaLogout( bool data )
+	{
+		if ( data )
+			flags_ |= 0x00008000;
+		else
+			flags_ &= ~0x00008000;
+	}
+	void setNoTeleport( bool data )
+	{
+		if ( data )
+			flags_ |= 0x00010000;
+		else
+			flags_ &= ~0x00010000;
+	}
+	void setSafe( bool data )
+	{
+		if ( data )
+			flags_ |= 0x00020000;
+		else
+			flags_ &= ~0x00020000;
+	}
+	void setNoCriminalCombat( bool data )
+	{
+		if ( data )
+			flags_ |= 0x00040000;
+		else
+			flags_ &= ~0x00040000;
+	}
+	void setNoKillCount( bool data )
+	{
+		if ( data )
+			flags_ |= 0x00080000;
+		else
+			flags_ &= ~0x00080000;
 	}
 
 	virtual void processNode( const cElement* Tag );
@@ -259,7 +314,7 @@ private:
 
 	QString resores_; // Resources Ores (Mining)
 
-	Q_UINT16 flags_; // flags like guarded, mark allowed, etc. (see getters)
+	Q_UINT32 flags_; // flags like guarded, mark allowed, etc. (see getters)
 
 	QString guardowner_;
 	UI08 snowchance_;

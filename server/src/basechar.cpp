@@ -1084,6 +1084,33 @@ bool cBaseChar::inGuardedArea()
 		return false;
 }
 
+bool cBaseChar::inSafeArea()
+{
+	cTerritory* Region = Territories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
+	if ( Region )
+		return Region->isSafe();
+	else
+		return false;
+}
+
+bool cBaseChar::inNoCriminalCombatArea()
+{
+	cTerritory* Region = Territories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
+	if ( Region )
+		return Region->isNoCriminalCombat();
+	else
+		return false;
+}
+
+bool cBaseChar::inNoKillCountArea()
+{
+	cTerritory* Region = Territories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
+	if ( Region )
+		return Region->isNoKillCount();
+	else
+		return false;
+}
+
 void cBaseChar::emote( const QString& emote, UI16 color )
 {
 	if ( color == 0xFFFF )
@@ -1730,7 +1757,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		SET_INT_PROPERTY( "flag", flag_ )
 
 		/*
-		\property char.propertyflags The bitfield (32 bit) with basechar properties. You can use the
+		\property propertyflags The bitfield (32 bit) with basechar properties. You can use the
 		upper 8 bits for custom properties.
 		*/
 	else
@@ -2297,6 +2324,12 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		return 0;
 	}
 
+	// Safe Area
+	if ( inSafeArea() )
+	{
+		return 0;
+	}
+
 	if ( isFrozen() )
 	{
 		setFrozen( false );
@@ -2801,8 +2834,12 @@ bool cBaseChar::kill( cUObject* source )
 
 			if ( isInnocent() && ( this->body_ == 0x190 || this->body_ == 0x191 ) )
 			{
-				pPlayer->makeCriminal();
-				pPlayer->setKills( pPlayer->kills() + 1 );
+				if (!pPlayer->inNoCriminalCombatArea())
+					pPlayer->makeCriminal();
+
+				if (!inNoKillCountArea())
+					pPlayer->setKills( pPlayer->kills() + 1 );
+
 				if (pPlayer->kills() == Config::instance()->maxkills() + 1) {
 					pPlayer->resend(); // Just became a murderer
 				}
@@ -2811,7 +2848,10 @@ bool cBaseChar::kill( cUObject* source )
 
 				// Report the number of slain people to the player
 				if ( pPlayer->socket() )
-					pPlayer->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pPlayer->kills() ) );
+				{
+					if (!inNoKillCountArea())
+						pPlayer->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pPlayer->kills() ) );
+				}
 
 				// The player became a murderer
 				if ( pPlayer->kills() >= Config::instance()->maxkills() )
@@ -3195,6 +3235,11 @@ cBaseChar::FightStatus cBaseChar::fight( P_CHAR enemy )
 			sysmessage( 1061621 );
 			enemy = 0;
 		}
+		else if ( enemy->inSafeArea() )
+		{
+			sysmessage( "You cannot fight with creatures in Safe Areas.");
+			enemy = 0;
+		}
 		else if (enemy == this)
 		{
 			enemy = 0;
@@ -3306,7 +3351,7 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 			P_CHAR target = attackTarget_;
 
 			// Invulnerable or Dead target. Stop fighting.
-			if ( target == this || isDead() || target->isInvulnerable() || target->isDead() )
+			if ( target == this || isDead() || target->isInvulnerable() || target->isDead() || target->inSafeArea() )
 			{
 				fight( 0 );
 				return;

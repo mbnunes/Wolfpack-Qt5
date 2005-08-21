@@ -853,7 +853,7 @@ class WhirlwindAttack(BaseAbility):
 			if not attacker.canreach(target, 1):
 				continue
 
-			if not target.dead and not target.invulnerable and (not party or party != target.party) and (not guild or target.guild != guild):
+			if not target.dead and not target.invulnerable and not target.region.safe and (not party or party != target.party) and (not guild or target.guild != guild):
 				if attacker.socket:
 					attacker.socket.clilocmessage(1060161) # The whirling attack strikes a target!
 				if defender.socket:

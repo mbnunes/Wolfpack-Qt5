@@ -168,6 +168,16 @@ void cTerritory::processNode( const cElement* Tag )
 				setNoHousing( true );
 			else if ( childNode->name() == "nodecay" )
 				setNoDecay( true );
+			else if ( childNode->name() == "instalogout" )
+				setInstaLogout( true );
+			else if ( childNode->name() == "noteleport" )
+				setNoTeleport( true );
+			else if ( childNode->name() == "safe" )
+				setSafe( true );
+			else if ( childNode->name() == "nocriminalcombat" )
+				setNoCriminalCombat( true );
+			else if ( childNode->name() == "nokillcount" )
+				setNoKillCount( true );
 		}
 	}
 

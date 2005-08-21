@@ -151,6 +151,7 @@ protected:
 	bool newTooltipPackets_;
 	bool sendAsciiNames_;
 	bool payfrompackonly_;
+	bool instalogoutfromguarded_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -298,6 +299,7 @@ public:
 	bool overwriteDefinitions() const;
 	bool sendAsciiNames() const;
 	bool payfrompackonly() const;
+	bool instalogoutfromguarded() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -778,6 +780,11 @@ inline bool cConfig::sendAsciiNames() const
 inline bool cConfig::payfrompackonly() const
 {
 	return payfrompackonly_;
+}
+
+inline bool cConfig::instalogoutfromguarded() const
+{
+	return instalogoutfromguarded_;
 }
 
 inline unsigned int cConfig::maxCharsPerAccount() const

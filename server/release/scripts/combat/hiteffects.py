@@ -24,7 +24,7 @@ def scaledamage(attacker, mindamage, maxdamage, evintscale):
 	return damage
 
 def hitmagicarrow(attacker, defender):
-	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden:
+	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden or defender.region.safe:
 		return
 
 	attacker.soundeffect(0x1e5)
@@ -34,7 +34,7 @@ def hitmagicarrow(attacker, defender):
 	defender.addtimer(1000, damage_callback, [attacker.serial, damage])
 
 def hitharm(attacker, defender):
-	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden:
+	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden or defender.region.safe:
 		return
 
 	damage = scaledamage(attacker, 6, 9, 0.015)
@@ -51,7 +51,7 @@ def hitharm(attacker, defender):
 	energydamage(defender, attacker, damage, 0, 0, 100, 0, 0, 0, DAMAGE_MAGICAL)
 
 def hitfireball(attacker, defender):
-	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden:
+	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden or defender.region.safe:
 		return
 
 	attacker.soundeffect(0x15e)
@@ -62,11 +62,11 @@ def hitfireball(attacker, defender):
 
 def damage_callback(defender, args):
 	(attacker, damage) = (wolfpack.findchar(args[0]), args[1])
-	if attacker and defender and not defender.invulnerable and not defender.dead and not defender.invisible and not defender.hidden:
+	if attacker and defender and not defender.invulnerable and not defender.dead and not defender.invisible and not defender.hidden and not defender.region.safe:
 		energydamage(defender, attacker, damage, 0, 100, 0, 0, 0, 0, DAMAGE_MAGICAL)
 
 def hitlightning(attacker, defender):
-	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden:
+	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden or defender.region.safe:
 		return
 
 	defender.lightning()

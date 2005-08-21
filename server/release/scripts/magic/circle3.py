@@ -97,6 +97,15 @@ class Teleport(Spell):
 				char.socket.clilocmessage(500237)
 			return
 
+		# New Location
+		region = wolfpack.region(target.x, target.y, target.map)
+
+		# NoTeleport Region?
+		if region and region.noteleport:
+			if char.socket:
+				char.socket.sysmessage("Teleport is not allowed in that Region")
+			return
+
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 

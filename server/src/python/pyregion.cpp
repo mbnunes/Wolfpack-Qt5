@@ -210,6 +210,31 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "noentermessage" ) )
 		return PyInt_FromLong( self->pRegion->isNoEnterMessage() ? 1 : 0 );
+	/*
+		\rproperty region.instalogout This boolean flag indicates if Region is a InstaLogout Region or not.
+	*/
+	else if ( !strcmp( name, "instalogout" ) )
+		return PyInt_FromLong( self->pRegion->isInstaLogout() ? 1 : 0 );
+	/*
+		\rproperty region.noteleport This boolean flag indicates that no Teleport Magic is allowed in this place.
+	*/
+	else if ( !strcmp( name, "noteleport" ) )
+		return PyInt_FromLong( self->pRegion->isNoTeleport() ? 1 : 0 );
+	/*
+		\rproperty region.safe This boolean flag indicates the Region is a Safe Region (no one can be harmed here).
+	*/
+	else if ( !strcmp( name, "safe" ) )
+		return PyInt_FromLong( self->pRegion->isSafe() ? 1 : 0 );
+	/*
+		\rproperty region.nocriminalcombat This boolean flag indicates that attacks here against innocent targets, cant make attacker criminal.
+	*/
+	else if ( !strcmp( name, "nocriminalcombat" ) )
+		return PyInt_FromLong( self->pRegion->isNoCriminalCombat() ? 1 : 0 );
+	/*
+		\rproperty region.nokillcount This boolean flag indicates that Kills are not counted on this area.
+	*/
+	else if ( !strcmp( name, "nokillcount" ) )
+		return PyInt_FromLong( self->pRegion->isNoKillCount() ? 1 : 0 );
 
 	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }

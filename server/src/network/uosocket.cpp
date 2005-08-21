@@ -554,15 +554,32 @@ void cUOSocket::disconnect()
 	{
 		_player->removeFromView( true );
 
-		// is the player allowed to logoff instantly?
-		if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) )
-		{
-			_player->onLogout();
+		// Insta Logout from Guarded Regions activated?
+		if (Config::instance()->instalogoutfromguarded()) {
+
+			// is the player allowed to logoff instantly?
+			if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) || ( _player->region() && _player->region()->isInstaLogout() ) )
+			{
+				_player->onLogout();
+			}
+			else
+			{
+				// let the player linger...
+				_player->setLogoutTime( Server::instance()->time() + Config::instance()->quittime() * 1000 );
+			}
 		}
 		else
 		{
-			// let the player linger...
-			_player->setLogoutTime( Server::instance()->time() + Config::instance()->quittime() * 1000 );
+			// is the player allowed to logoff instantly?
+			if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isInstaLogout() ) )
+			{
+				_player->onLogout();
+			}
+			else
+			{
+				// let the player linger...
+				_player->setLogoutTime( Server::instance()->time() + Config::instance()->quittime() * 1000 );
+			}
 		}
 
 		_player->resend( false );
