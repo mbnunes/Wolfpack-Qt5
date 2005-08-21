@@ -206,6 +206,11 @@ bool cAccount::isStaff() const
 	return flags_ & 0x00000020;
 }
 
+bool cAccount::isJailed() const
+{
+	return flags_ & 0x00000080;
+}
+
 void cAccount::setBlocked( bool data )
 {
 	if ( data )
@@ -252,6 +257,14 @@ void cAccount::setStaff( bool data )
 		flags_ |= 0x00000020;
 	else
 		flags_ &= 0xFFFFFFDF;
+}
+
+void cAccount::setJailed( bool data )
+{
+	if ( data )
+		flags_ |= 0x00000080;
+	else
+		flags_ &= 0xFFFFFF7F;
 }
 
 unsigned int cAccount::rank() const
@@ -715,6 +728,7 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 		0x00000010 pagenotify
 		0x00000020 staff - gm mode on/off
 		0x00000040 multigems on/off</code>
+		0x00000080 jailed
 	*/
 	else if ( name == "flags" )
 	{

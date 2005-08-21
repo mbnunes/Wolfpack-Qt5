@@ -813,7 +813,7 @@ protected:
 	// Times the char has died.
 	ushort deaths_;
 
-	// The hunger value of the char. 6 means not hungry, 0 means starving.
+	// The hunger value of the char. 20 means not hungry, 0 means starving.
 	// cOldChar::hunger_
 	unsigned char hunger_;
 

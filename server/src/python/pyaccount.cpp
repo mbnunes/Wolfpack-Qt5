@@ -100,12 +100,11 @@ static PyObject* wpAccount_delete( wpAccount* self, PyObject* args )
 
 /*
 	\method account.block
-	\description Blocks this account.
+	\description Block this account.
 */
 static PyObject* wpAccount_block( wpAccount* self, PyObject* args )
 {
 	Q_UNUSED( args );
-
 	self->account->setBlocked( true );
 	Py_RETURN_TRUE;
 }
@@ -118,6 +117,28 @@ static PyObject* wpAccount_unblock( wpAccount* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	self->account->setBlocked( false );
+	Py_RETURN_TRUE;
+}
+
+/*
+	\method account.jail
+	\description Jail this account.
+*/
+static PyObject* wpAccount_jail( wpAccount* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	self->account->setJailed( true );
+	Py_RETURN_TRUE;
+}
+
+/*
+	\method account.forgive
+	\description Forgive this account.
+*/
+static PyObject* wpAccount_forgive( wpAccount* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	self->account->setJailed( false );
 	Py_RETURN_TRUE;
 }
 
@@ -228,6 +249,8 @@ static PyMethodDef wpAccountMethods[] =
 { "delete", ( getattrofunc ) wpAccount_delete, METH_VARARGS, "Delete this account." },
 { "block", ( getattrofunc ) wpAccount_block, METH_VARARGS, "Shortcut for blocking the account." },
 { "unblock", ( getattrofunc ) wpAccount_unblock, METH_VARARGS, "Shortcut for unblocking the account." },
+{ "jail", ( getattrofunc ) wpAccount_jail, METH_VARARGS, "Shortcut for jailing the account." },
+{ "forgive", ( getattrofunc ) wpAccount_forgive, METH_VARARGS, "Shortcut for forgiving the account." },
 { "addcharacter", ( getattrofunc ) wpAccount_addcharacter, METH_VARARGS, "Adds a character to this account." },
 { "removecharacter", ( getattrofunc ) wpAccount_removecharacter, METH_VARARGS, "Removes a character from this account." },
 { "checkpassword", ( getattrofunc ) wpAccount_checkpassword, METH_VARARGS, "Checks the password and regards md5 hashes." },

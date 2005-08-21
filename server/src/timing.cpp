@@ -325,7 +325,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		// If it's not disabled hunger affects our health regeneration
 		if ( character->hitpoints() < character->maxHitpoints() )
 		{
-			if ( !Config::instance()->hungerRate() || character->hunger() > 3 )
+			if ( !Config::instance()->hungerRate() || character->hunger() > 10 )
 			{
 				character->setHitpoints( character->hitpoints() + 1 );
 				character->updateHealth();
@@ -445,16 +445,16 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 
 			switch ( npc->hunger() )
 			{
-			case 4:
+			case 12:
 				npc->emote( tr( "*%1 looks a little hungry*" ).arg( npc->name() ), 0x26 );
 				break;
-			case 3:
+			case 9:
 				npc->emote( tr( "*%1 looks fairly hungry*" ).arg( npc->name() ), 0x26 );
 				break;
-			case 2:
+			case 6:
 				npc->emote( tr( "*%1 looks extremely hungry*" ).arg( npc->name() ), 0x26 );
 				break;
-			case 1:
+			case 3:
 				npc->emote( tr( "*%1 looks weak from starvation*" ).arg( npc->name() ), 0x26 );
 				break;
 			case 0:

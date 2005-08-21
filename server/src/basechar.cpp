@@ -85,7 +85,7 @@ cBaseChar::cBaseChar()
 	fame_ = 0;
 	kills_ = 0;
 	deaths_ = 0;
-	hunger_ = 6;
+	hunger_ = 20;
 	hungerTime_ = 0;
 	flag_ = 0x02;
 	emoteColor_ = 0x23;
@@ -1732,7 +1732,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	}
 
 	/*
-		\property char.hunger This integer property indicates the food level of the character. 0 is the lowest food level, 6 the highest.
+		\property char.hunger This integer property indicates the food level of the character. 0 is the lowest food level, 20 the highest.
 	*/
 	else
 		SET_INT_PROPERTY( "hunger", hunger_ )

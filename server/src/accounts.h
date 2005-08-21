@@ -67,6 +67,7 @@ private:
 	// 0x00000010 pagenotify
 	// 0x00000020 staff - gm mode on/off
 	// 0x00000040 multigems on/off
+	// 0x00000080 jailed
 	Q_UINT32 flags_;
 	int attempts_;
 	bool inUse_;
@@ -122,6 +123,7 @@ public:
 	bool isPageNotify() const;
 	bool isStaff() const;
 	bool isMultiGems() const;
+	bool isJailed() const;
 
 	void setBlocked( bool data );
 	void setAllMove( bool data );
@@ -130,6 +132,7 @@ public:
 	void setPageNotify( bool data );
 	void setStaff( bool data );
 	void setMultiGems( bool data );
+	void setJailed( bool data );
 
 	// Python Scriptable Interface
 	const char* className() const;
