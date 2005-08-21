@@ -18,8 +18,8 @@ def onTimeChange( player ):
 		
 	if lasthunger + hungerrate < wolfpack.time.minutes():
 		if player.socket and not player.gm:
-			if player.hunger >= 1 and player.hunger <= 6:
-				player.hunger -= 1
+			if player.hunger >= 1 and player.hunger <= 20:
+				player.hunger -= 3
 				player.socket.sysmessage( tr("Your stomach growls...") )
 			elif player.hunger == 0:
 				player.damage( 3, random.randint( 0, hungerdamage ) )
