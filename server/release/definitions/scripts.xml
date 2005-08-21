@@ -125,6 +125,7 @@
 	<script>commands.eval</script>
 	<script>commands.events</script>
 	<script>commands.export</script>
+	<script>commands.exportmissingids</script>
 	<script>commands.exportstatics</script>
 	<script>commands.findlock</script>
 	<script>commands.fix</script>
