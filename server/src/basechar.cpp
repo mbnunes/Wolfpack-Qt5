@@ -1757,7 +1757,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		SET_INT_PROPERTY( "flag", flag_ )
 
 		/*
-		\property propertyflags The bitfield (32 bit) with basechar properties. You can use the
+		\property char.propertyflags The bitfield (32 bit) with basechar properties. You can use the
 		upper 8 bits for custom properties.
 		*/
 	else
