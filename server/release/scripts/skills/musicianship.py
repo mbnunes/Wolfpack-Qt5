@@ -12,8 +12,7 @@ import wolfpack.utilities
 import environment
 import skills
 
-# GGS : skill can be gained every 15 min
-MUSICIANSHIP_GAIN_DELAY = 15 * 60 * 1000
+MUSICIANSHIP_DELAY = 1000
 # instrument id : good sound ( poor sound = good sound + 1 )
 sounds = {
 		0x0e9c: 0x0038,
@@ -23,7 +22,7 @@ sounds = {
 		0x0eb2: 0x0045,
 		0x0eb3: 0x004c,
 		0x0eb4: 0x004c,
-		0x2805: 0x003c
+		0x2805: 0x003d
 	}
 
 # reduce the remaining uses
@@ -45,32 +44,24 @@ def wearout( player, item ):
 	return True
 
 def onUse( char, item ):
-	if not char:
-		return False
-
 	if not wolfpack.utilities.isinstrument( item ):
 		return False
+
+	socket = char.socket
+
+	if socket.hastag( 'skill_delay' ):
+		if wolfpack.time.currenttime() < socket.gettag( 'skill_delay' ):
+			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return True
+		else:
+			socket.deltag( 'skill_delay' )
 
 	if skills.skilltable[ MUSICIANSHIP ][ skills.UNHIDE ] and char.hidden:
 		char.reveal()
 
-	# first introduction of GGS
-	success = 0
-	if not char.socket.hastag( 'musicianship_gain_time' ):
-		success = char.checkskill( MUSICIANSHIP, 0, 300 )
-		if success:
-			char.socket.settag( 'musicianship_gain_time', wolfpack.time.currenttime() )
-	else:
-		success = 0
-		last_gain = char.socket.gettag( 'musicianship_gain_time' )
-		if wolfpack.time.currenttime() - last_gain >= MUSICIANSHIP_GAIN_DELAY:
-			success = char.checkskill( MUSICIANSHIP, 0, 300 )
-			if not success:
-				char.skill[ MUSICIANSHIP ] += 1
-			success = 1
-			char.socket.settag( 'musicianship_gain_time', wolfpack.time.currenttime() )
+	success = char.checkskill( MUSICIANSHIP, 0, 1000 )
 
-	# item wear out - will be added
+	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + MUSICIANSHIP_DELAY ) )
 
 	return play_instrument( char, item, success )
 
