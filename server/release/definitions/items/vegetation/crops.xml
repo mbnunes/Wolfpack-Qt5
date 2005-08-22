@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<definitions>
+
+	<list id="WHEATSPROUTS">
+		<item>0x1ebe</item>
+		<item>0x1ebf</item>
+	</list>
+
+	<!-- wheat sprouts -->
+	<item id="wheat_sprouts">
+		<id><random list="WHEATSPROUTS"/></id>
+		<category>Vegetation\Crops\Wheat Sprouts</category>
+		<scripts>crops.growing</scripts>
+		<immovable />
+		<nodecay />
+	</item>
+
+</definitions>
