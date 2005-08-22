@@ -191,6 +191,12 @@ def onWalk( char, direction, sequence ):
 	if maymove(char, direction, sequence):
 		return False
 
+	direction &= 0x7F
+
+	# Just turning
+	if direction != char.direction:
+		return False
+
 	# Disallow movement for players
 	packet = wolfpack.packet(0x21, 8)
 	packet.setbyte(1, sequence)
@@ -201,16 +207,6 @@ def onWalk( char, direction, sequence ):
 	packet.send(char.socket)
 	char.socket.walksequence = 0
 	return True
-
-	running = direction & 0x80
-	direction &= 0x7F
-
-	# Just turning
-	if direction != char.direction:
-		return
-
-	char.socket.clilocmessage(500641)
-	fizzle(char)
 
 def onWarModeToggle(char, warmode):
 	char.socket.clilocmessage(500641)
