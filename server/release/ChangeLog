@@ -50,6 +50,10 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added "pay from pack only" option. (thx to MagnusBr)
   - Fixed uo version not detected on character creation.
   - OnWearItem is called for the character the item is equiped on too.
+  - Added some new flags for regions:
+    <instalogout />, <noteleport />, <safe />, <nocriminalcombat /> and <nokillcount />
+  - Added "Insta Logout from Guarded Regions" option, to enable or disable the InstaLogout from Guarded Areas
+  - Added "Percent Hits after Ress", "Percent Mana after Ress" and "Percent Stamina after Ress"
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
