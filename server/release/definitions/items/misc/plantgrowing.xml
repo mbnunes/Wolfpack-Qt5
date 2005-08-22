@@ -11,7 +11,7 @@
 		<sellprice>1</sellprice>
 		<movable />
 	</item>
-	
+
 	<!-- A plant -->
 	<item id="plant">
 		<weight>1.0</weight>
@@ -20,7 +20,7 @@
 		<scriptlist>plants.plant</scriptlist> <!-- This HAS TO BE DYNAMIC! onAttach/onDetach require that -->
 		<movable />
 	</item>
-	
+
 	<!-- A seed -->
 	<item id="seed">
 		<name>#1060810</name>
