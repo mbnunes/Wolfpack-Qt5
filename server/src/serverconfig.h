@@ -152,6 +152,9 @@ protected:
 	bool sendAsciiNames_;
 	bool payfrompackonly_;
 	bool instalogoutfromguarded_;
+	unsigned int percentHitsAfterRess_;
+	unsigned int percentManaAfterRess_;
+	unsigned int percentStaminaAfterRess_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -237,6 +240,19 @@ public:
 	unsigned int antiSpeedHackDelayMounted() const
 	{
 		return antiSpeedHackDelayMounted_;
+	}
+	//
+	unsigned int percentHitsAfterRess() const
+	{
+		return percentHitsAfterRess_;
+	}
+	unsigned int percentManaAfterRess() const
+	{
+		return percentManaAfterRess_;
+	}
+	unsigned int percentStaminaAfterRess() const
+	{
+		return percentStaminaAfterRess_;
 	}
 	bool newTooltipPackets() const;
 	int niceLevel() const;

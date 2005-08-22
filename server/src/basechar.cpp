@@ -798,9 +798,9 @@ bool cBaseChar::resurrect( cUObject* source )
 	setBody( orgBody_ );
 	setSkin( orgSkin_ );
 	setDead( false );
-	hitpoints_ = wpMax<short>( 1, static_cast<short>( 0.1 * maxHitpoints_ ) );
-	stamina_ = static_cast<short>( 0.5 * maxStamina_ );
-	mana_ = static_cast<short>( 0.5 * maxMana_ );
+	hitpoints_ = wpMax<short>( 1, static_cast<short>( ((Config::instance()->percentHitsAfterRess()) * maxHitpoints_)/100 ) );
+	stamina_ = wpMax<short>( 1, static_cast<short>( ((Config::instance()->percentStaminaAfterRess()) * maxStamina_)/100 ) );
+	mana_ = wpMax<short>( 1, static_cast<short>( ((Config::instance()->percentManaAfterRess()) * maxMana_)/100 ) );
 	fight( 0 );
 	P_ITEM backpack = getBackpack(); // Make sure he has a backpack
 
