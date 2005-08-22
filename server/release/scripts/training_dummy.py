@@ -8,7 +8,7 @@
 import wolfpack
 import random
 from combat.utilities import weaponskill
-from wolfpack.consts import FENCING, MACEFIGHTING, SWORDSMANSHIP, WRESTLING
+from wolfpack.consts import FENCING, MACEFIGHTING, SWORDSMANSHIP, WRESTLING, MAX_SKILL_FOR_DUMMIE
 from wolfpack import tr
 
 # 0x1070 Facing South/North (Swinging: 0x1071)
@@ -55,7 +55,7 @@ def onUse( char, item ):
 		return True
 
 	# If we've already learned all we can > cancel.
-	if( char.skill[ skill ] >= 300 ):
+	if( char.skill[ skill ] >= MAX_SKILL_FOR_DUMMIE ):
 		char.message( 501828, '' ) # Your skill cannot improve any further by simply practicing with a dummy.
 		return True
 

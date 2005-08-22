@@ -121,6 +121,9 @@ CLUMSY_DURATION = 60000
 # How long does it take Cotton plants to regrow (in seconds)
 COTTONPLANTS_REGROW = 30
 
+# Maximum Skills
+MAX_SKILL_FOR_DUMMIE = 300
+
 # Potion Delays
 HEAL_POT_DELAY = 10.0 # 10 Seconds
 AGILITY_TIME = 120.0  # 2 minutes
