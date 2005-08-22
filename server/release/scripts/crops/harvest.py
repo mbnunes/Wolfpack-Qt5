@@ -21,7 +21,8 @@ def doharvest(char, item):
 	char.turnto(item)
 	char.action(ANIM_BOW)
 
-	harvested_item = wolfpack.additem( stages[item.baseid][-2] )
+	harvested_item = wolfpack.additem( stages[item.baseid][-3] )
+	harvested_item.amount = stages[item.baseid][-2]
 	harvested_item.movable = 1
 	harvested_item.decay = 1
 	# Move into backpack

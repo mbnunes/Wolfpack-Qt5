@@ -1,4 +1,3 @@
-
 import wolfpack
 import random
 import time
@@ -121,7 +120,7 @@ def growCrop(crop):
 	crop.update()
 
 	# if it's ripe, remove it from growth check
-	if len(stages[base][:-3]) == stage:
+	if len(stages[base][:-4]) == stage:
 		unregister(crop)
 		crop.removescript("crops.growing")
 		crop.addscript("crops.harvest")
