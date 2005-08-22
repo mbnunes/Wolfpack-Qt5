@@ -1,0 +1,37 @@
+
+import crops
+import wolfpack.utilities
+from wolfpack.consts import *
+import random
+
+stages = crops.stages
+
+def onUse(char, item):
+	if not char.canreach(item, 2):
+		char.socket.clilocmessage(500312) # You cannot reach that.
+	elif char.itemonlayer(LAYER_MOUNT):
+		char.socket.clilocmessage(1040016) # You cannot use this while riding a mount
+	else:
+		doharvest(char, item)
+	return True
+
+def doharvest(char, item):
+	# Pick the plant
+	char.turnto(item)
+	char.action(ANIM_BOW)
+
+	a = stages[item.baseid][-2]
+	char.socket.sysmessage( a )
+	harvested_item = wolfpack.additem( a )
+	harvested_item.movable = 1
+	harvested_item.decay = 1
+
+	# Change the look of the harvested item
+	item.id = random.choice(stages[item.baseid][-1])
+	item.addscript("crops.growing") # restart growing
+	item.update()
+
+	# Move into backpack
+	if not wolfpack.utilities.tobackpack(harvested_item, char):
+		harvested_item.update()
+	return True

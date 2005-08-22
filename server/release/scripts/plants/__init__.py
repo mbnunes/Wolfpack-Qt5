@@ -61,7 +61,7 @@ def growthCheck(obj, args):
 	# Copy the list of known plant serials and
 	# start the subprocessing function
 	processGrowthCheck(None, ( PLANTS[:], 0, magic ))
-	
+
 #
 # This function is both, a timer callback and a function that can be normally
 # called to process a list of plant serials and check their growth.
@@ -88,11 +88,11 @@ def processGrowthCheck(obj, args):
 			console.log(LOG_ERROR, "An error occured while checking plant 0x%x: %s.\n" % (plant.serial, str(e)))
 
 	i = upperindex
-	
+
 	# We're not finished yet
 	if i < len(PLANTS):
 		wolfpack.addtimer(CHECKDELAY, processGrowthCheck, [plantlist, upperindex, magic], False)
-	
+
 	# We're done, so queue the next check
 	else:
 		wolfpack.addtimer(CHECKINTERVAL, growthCheck, [magic], False)

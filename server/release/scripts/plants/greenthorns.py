@@ -41,10 +41,10 @@ SAND_TILES =	range(0x16, 0x3b) + range(0x44, 0x4c) + range(0x11e, 0x122) + \
 def checkUse(player):
 	if player.gm:
 		return True
-	
+
 	if player.socket and player.socket.hastag('greenthorn_delay'):
 		delay = int(player.socket.gettag('greenthorn_delay'))
-		
+
 		if wolfpack.currenttime() < delay:
 			return False
 
@@ -58,20 +58,20 @@ def onUse(player, item):
 	if not checkUse(player):
 		player.message(1061908) # * You must wait a while before planting another thorn. *
 		return True
-		
+
 	player.socket.clilocmessage(1061906)
 	player.socket.attachtarget('plants.greenthorns.target', [item.serial])
 	return True
-	
+
 def target(player, arguments, target):
 	# Check the green thorn first
 	item = wolfpack.finditem(arguments[0])
-	
+
 	# Check if we have the item in our backpack
 	if not item or item.getoutmostitem() != player.getbackpack():
 		player.socket.clilocmessage(1042038) # You must have the object in your backpack to use it.
 		return
-		
+
 	# Check the green thorn delay
 	if not checkUse(player):
 		player.message(1061908) # * You must wait a while before planting another thorn. *
@@ -81,30 +81,30 @@ def target(player, arguments, target):
 	if player.pos.map not in [0, 1]:
 		player.message(tr("No solen lairs exist on this facet.  Try again in Trammel or Felucca."), 0x2b2)
 		return
-		
+
 	# Can we reach the target location?
 	if not player.canreach(target.pos, 3):
 		player.message(502825) # That location is too far away
 		return
-		
+
 	# Get the land-tile id at the given location
 	landid = wolfpack.map(target.pos.x, target.pos.y, player.pos.map)['id']
-	
+
 	callback = None # Callback for the green thorns effect
-	
+
 	# Check which effect should be used for the landtile type
 	if landid in DIRT_TILES:
 		callback = dirtCallback
-		
+
 	elif landid in FURROWS_TILES:
 		callback = furrowsCallback
-		
+
 	elif landid in SWAMP_TILES:
 		callback = swampCallback
-	
+
 	elif landid in SNOW_TILES:
 		callback = snowCallback
-	
+
 	elif landid in SAND_TILES:
 		callback = sandCallback
 
@@ -116,18 +116,18 @@ def target(player, arguments, target):
 		else:
 			item.amount -= 1
 			item.update()
-			
+
 		# Show a message that we're planting a thorn
 		player.socket.clilocmessage(1061914, "", 0x961, 3, player, "", False, True) # * You push the strange green thorn into the ground *
 		listeners = wolfpack.chars(player.pos.x, player.pos.y, player.pos.map, 18)
-		
+
 		for listener in listeners:
 			if listener != player and listener.socket:
 				listener.socket.clilocmessage(1061915, player.name, 0x961, 3, player, "", False, True) # * ~1_PLAYER_NAME~ pushes a strange green thorn into the ground. *
-		
+
 		# Set the next use delay for this kind of item
 		player.socket.settag('greenthorn_delay', wolfpack.currenttime() + GREENTHORN_DELAY)
-		
+
 		# Start the effect
 		player.addtimer(2500, callback, [target.pos, 0])
 
@@ -136,7 +136,7 @@ def target(player, arguments, target):
 #
 def deleteCallback(obj, args):
 	item = wolfpack.finditem(args[0])
-	
+
 	if item and not item.container:
 		item.delete()
 
@@ -154,12 +154,12 @@ def spawnItem(pos, item):
 			itempos.z = 127
 			if not itempos.validspawnspot():
 				continue
-			
+
 		item.moveto(itempos)
 		return True
-		
+
 	return False
-	
+
 #
 # Move a npc to a safe location at the given spot
 #
@@ -169,15 +169,15 @@ def spawnNpc(pos, npc):
 		x = pos.x + random.randint(-1, 1)
 		y = pos.y + random.randint(-1, 1)
 		npcpos = wolfpack.coord(x, y, pos.z, pos.map)
-		
+
 		if not npcpos.validspawnspot():
 			npcpos.z = 127
 			if not npcpos.validspawnspot():
 				continue
-			
+
 		npc.moveto(npcpos)
 		return True
-		
+
 	return False	
 
 #
@@ -186,7 +186,7 @@ def spawnNpc(pos, npc):
 def spawnReagents(pos):
 	amount = random.randint(10, 25)
 	baseid = random.choice(system.lootlists.DEF_PLAINREGS + ['f81']) # f81 is fertile dirt
-	
+
 	item = wolfpack.additem(baseid)
 	item.amount = amount
 	if not spawnItem(pos, item):
@@ -199,20 +199,20 @@ def spawnReagents(pos):
 #
 def dirtCallback(player, args):
 	(pos, stroke) = args
-	
+
 	if stroke == 0:
 		pos.soundeffect(0x106)
 		pos.effect(0x3735, 1, 182)
 		player.addtimer(4000, dirtCallback, [pos, 1])
-		
+
 	elif stroke == 1:
 		pos.soundeffect(0x222)
 		player.addtimer(4000, dirtCallback, [pos, 2])
-		
+
 	elif stroke == 2:
 		pos.soundeffect(0x21f)
 		player.addtimer(5000, dirtCallback, [pos, 3])
-		
+
 	elif stroke == 3:
 		dummy = wolfpack.additem('1')
 		dummy.name = 'Ground'
@@ -220,54 +220,54 @@ def dirtCallback(player, args):
 		dummy.update()
 		dummy.say(tr("* The ground erupts with chaotic growth! *"))
 		wolfpack.addtimer(20000, deleteCallback, [dummy.serial], True)
-			
+
 		pos.soundeffect(0x12d)
-		
+
 		spawnReagents(pos)
 		spawnReagents(pos)
 		player.addtimer(2000, dirtCallback, [pos, 4])
-		
+
 	elif stroke == 4:
 		pos.soundeffect(0x12d)
-		
+
 		spawnReagents(pos)
 		spawnReagents(pos)
-		
+
 		player.addtimer(2000, dirtCallback, [pos, 5])
-		
+
 	elif stroke == 5:
 		pos.soundeffect(0x12d)
-		
+
 		spawnReagents(pos)
 		spawnReagents(pos)
-		
+
 		player.addtimer(3000, dirtCallback, [pos, 6])
-		
+
 	elif stroke == 6:
 		pos.soundeffect(0x12d)
-		
+
 		spawnReagents(pos)
 		spawnReagents(pos)
-		
+
 #
 # Callback for furrows
 #
 def furrowsCallback(player, args):
 	(pos, stroke) = args
-	
+
 	if stroke == 0:
 		pos.soundeffect(0x106)
 		pos.effect(0x3735, 1, 182)
 		player.addtimer(4000, furrowsCallback, [pos, 1])
-		
+
 	elif stroke == 1:
 		pos.soundeffect(0x222)
 		player.addtimer(4000, furrowsCallback, [pos, 2])
-		
+
 	elif stroke == 2:
 		pos.soundeffect(0x21f)
 		player.addtimer(4000, furrowsCallback, [pos, 3])
-		
+
 	elif stroke == 3:
 		dummy = wolfpack.additem('1')
 		dummy.name = 'Swamp'
@@ -275,14 +275,14 @@ def furrowsCallback(player, args):
 		dummy.update()
 		dummy.say(tr("* A magical bunny leaps out of its hole, disturbed by the thorn's effect! *"))
 		wolfpack.addtimer(20000, deleteCallback, [dummy.serial], True)
-			
+
 		# Spawn one giant ice worm and three ice snakes
 		npc = wolfpack.addnpc('vorpal_bunny', pos)
 		if not spawnNpc(pos, npc):
 			npc.delete()
 		else:
 			npc.update()
-			
+
 			# Start timer to dig away
 			npc.addtimer(3 * 60 * 1000, vorpalbunny_dig, [], True)
 
@@ -292,7 +292,7 @@ def furrowsCallback(player, args):
 def vorpalbunny_dig(npc, args):
 	if npc.pos.map == 0xFF:
 		return
-		
+
 	# Spawn a bunny hole
 	hole = wolfpack.additem('913')
 	hole.decay = True
@@ -302,14 +302,14 @@ def vorpalbunny_dig(npc, args):
 	hole.moveto(npc.pos)
 	hole.update()
 	wolfpack.addtimer(40000, deleteCallback, [hole.serial], True) # Delete after 40 seconds
-		
+
 	npc.say(tr("* The bunny begins to dig a tunnel back to its underground lair *"))
 	npc.frozen = True
 	npc.soundeffect(0x247)
 
 	# Delete in 5 seconds
 	npc.addtimer(5000, deleteNpc, [], True)
-	
+
 #
 # Delete a npc
 #
@@ -321,20 +321,20 @@ def deleteNpc(npc, args):
 #
 def swampCallback(player, args):
 	(pos, stroke) = args
-	
+
 	if stroke == 0:
 		pos.soundeffect(0x106)
 		pos.effect(0x3735, 1, 182)
 		player.addtimer(4000, swampCallback, [pos, 1])
-		
+
 	elif stroke == 1:
 		pos.soundeffect(0x222)
 		player.addtimer(4000, swampCallback, [pos, 2])
-		
+
 	elif stroke == 2:
 		pos.soundeffect(0x21f)
 		player.addtimer(1000, swampCallback, [pos, 3])
-		
+
 	elif stroke == 3:
 		dummy = wolfpack.additem('1')
 		dummy.name = 'Swamp'
@@ -342,35 +342,35 @@ def swampCallback(player, args):
 		dummy.update()
 		dummy.say(tr("* Strange green tendrils rise from the ground, whipping wildly! *"))
 		wolfpack.addtimer(20000, deleteCallback, [dummy.serial], True)
-		
+
 		pos.soundeffect(0x2b0)
-			
+
 		# Spawn one giant ice worm and three ice snakes
 		npc = wolfpack.addnpc('whipping_vine', pos)
 		if not spawnNpc(pos, npc):
 			npc.delete()
 		else:
 			npc.update()
-	
+
 #
 # Callback for snow
 #
 def snowCallback(player, args):
 	(pos, stroke) = args
-	
+
 	if stroke == 0:
 		pos.soundeffect(0x106)
 		pos.effect(0x3735, 1, 182)
 		player.addtimer(4000, snowCallback, [pos, 1])
-		
+
 	elif stroke == 1:
 		pos.soundeffect(0x222)
 		player.addtimer(4000, snowCallback, [pos, 2])
-		
+
 	elif stroke == 2:
 		pos.soundeffect(0x21f)
 		player.addtimer(4000, snowCallback, [pos, 3])
-		
+
 	elif stroke == 3:
 		dummy = wolfpack.additem('1')
 		dummy.name = 'Snow'
@@ -378,29 +378,29 @@ def snowCallback(player, args):
 		dummy.update()
 		dummy.say(tr("* Slithering ice serpents rise to the surface to investigate the disturbance! *"))
 		wolfpack.addtimer(20000, deleteCallback, [dummy.serial], True)
-			
+
 		# Spawn one giant ice worm and three ice snakes
 		npc = wolfpack.addnpc('giant_ice_worm', pos)
 		if not spawnNpc(pos, npc):
 			npc.delete()
 		else:
 			npc.update()
-			
+
 		for i in range(0, 3):
 			npc = wolfpack.addnpc('ice_snake', pos)
 			if not spawnNpc(pos, npc):
 				npc.delete()
 			else:
 				npc.update()			
-	
+
 #
 # Callback for sand
 #
 def sandCallback(player, args):
 	(pos, stroke) = args
-	
+
 	#
 	# TODO: The solen stuff isn't done so i'm leaving this out
 	#
-	
+
 	#player.message('SAND')

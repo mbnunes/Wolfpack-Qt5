@@ -34,27 +34,27 @@ def makePlant(player, bowl, fertile = False):
 	player.socket.clilocmessage(1061895) # You fill the bowl with fresh dirt.
 	bowl.delete()
 	plant = wolfpack.additem(PLANT_BASEID)
-	
+
 	plants.plant.setFertile(plant, fertile) # Set the fertile status
 	plants.plant.updatePlant(plant) # Update the plant
-	
+
 	if not wolfpack.utilities.tobackpack(plant, player):
 		plant.update()	
-		
+
 	return True
 
 def target(player, arguments, target):
 	bowl = wolfpack.finditem(arguments[0]) # Find the bowl that has been used
-	
+
 	# The bowl still has to exist and be a bowl
 	if not bowl or bowl.baseid != BOWL_BASEID:
 		return
-	
+
 	# Still has to be in our backpack
 	if bowl.getoutmostitem() != player.getbackpack():
 		player.socket.clilocmessage(1042664) # You must have the object in your backpack to use it.
 		return
-		
+
 	# Check if we can reach the target (3 tiles)
 	if not player.canreach(target, 3):
 		player.socket.clilocmessage(502825) # That location is too far away
@@ -65,11 +65,11 @@ def target(player, arguments, target):
 		# Has to be in the backpack to use it
 		if target.item.getoutmostitem() != player.getbackpack():
 			player.socket.clilocmessage(1042664) # You must have the object in your backpack to use it.
-			
+
 		# Need at least 40 fertile dirt to fill bowl
 		elif target.item.amount < 40:
 			player.socket.clilocmessage(1061896) # You need more dirt to fill a plant bowl!
-		
+
 		# If we can create the bowl, consume the dirt
 		elif makePlant(player, bowl, True):
 			# Consume 40 dirt
@@ -82,16 +82,16 @@ def target(player, arguments, target):
 	# Check if we targetted a dynamic/static dirt patch
 	elif target.item and target.item.id in STATIC_DIRT and not player.canpickup(target.item):
 		makePlant(player, bowl)
-				
+
 	# Assume the client sent valid data (this is BAD), the core should check if a static target is correct. MUCH faster.
 	# This is a static tile
 	elif not target.item and not target.char and target.model in STATIC_DIRT:
 		makePlant(player, bowl)
-		
+
 	# Otherwise get the map at the given position
 	elif not target.item and wolfpack.map(target.pos.x, target.pos.y, target.pos.map)['id'] in MAP_DIRT:
 		makePlant(player, bowl)
-		
+
 	else:
 		player.socket.clilocmessage(1061893) # You'll want to gather fresh dirt in order to raise a healthy plant!
 

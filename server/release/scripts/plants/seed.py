@@ -71,7 +71,7 @@ def onShowTooltip(viewer, seed, tooltip):
 	hue = getHue(seed)
 	genus = getGenus(seed)
 	showtype = getShowType(seed)
-	
+
 	# Special Title replacing the hue
 	if genus.specialtitle != 0:
 		title = genus.specialtitle
@@ -107,7 +107,7 @@ def onUse(player, seed):
 #
 def plant_target(player, arguments, target):
 	seed = wolfpack.finditem(arguments[0])
-	
+
 	if not seed or seed.getoutmostitem() != player.getbackpack():
 		player.socket.clilocmessage(1042664) # You must have the object in your backpack to use it.
 		return

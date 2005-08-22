@@ -79,7 +79,7 @@ def setAvailableSeeds(plant, value):
 		plant.deltag('availableseeds')
 	else:
 		plant.settag('availableseeds', int(value))
-		
+
 #
 # Set/get the amount of remaining seeds for growth
 #
@@ -147,7 +147,7 @@ def pour_target(player, arguments, target):
 
 	# Always show the plant gump in the end
 	onUse(player, plant)
-	
+
 #
 # Pour something into the plant
 #
@@ -156,11 +156,11 @@ def pour(player, plant, item):
 	
 	if status >= STATUS_DEAD:
 		return
-		
+
 	if status == STATUS_DECORATIVE:
 		plant.say(1053049, '', '', False, 0x3b2, player.socket) # This is a decorative plant, it does not need watering!
 		return
-		
+
 	if not checkAccess(player, plant):
 		plant.say(1061856, '', '', False, 0x3b2, player.socket)
 		return
@@ -177,14 +177,14 @@ def pour(player, plant, item):
 			
 			player.soundeffect(0x4e) # Soundeffect
 			plant.say(1061858, '', '', False, 0x3b2, player.socket) # You soften the dirt with water.			
-			
+
 	# Potion
 	elif item.hasscript('potions'):
 		potiontype = potions.utilities.getPotionType(item)
 		if applyPotion(player, plant, potiontype):			
 			potions.utilities.consumePotion(player, item)
 			player.soundeffect(0x240)
-			
+
 	# Potion Keg
 	elif potionkeg.isPotionkeg(item):
 		# Empty potion kegs won't work
@@ -196,7 +196,7 @@ def pour(player, plant, item):
 				item.settag('kegfill', item.gettag('kegfill') - 1)
 				item.resendtooltip()
 				player.soundeffect(0x240)
-				
+
 	# Something Else
 	else:
 		plant.say(1053069, '', '', False, 0x3b2, player.socket) # You can't use that on a plant!	
@@ -212,7 +212,7 @@ def applyPotion(player, plant, potiontype, simulate = False):
 		if not simulate:
 			plant.say(1053049, '', '', False, 0x3b2, player.socket) # This is a decorative plant, it does not need watering!
 		return False
-	
+
 	# Bowls of Dirt can only be watered
 	if status == STATUS_DIRT:
 		if not simulate:
@@ -220,21 +220,21 @@ def applyPotion(player, plant, potiontype, simulate = False):
 		return False
 
 	full = False
-	
+
 	# Greater Poison or Deadly Poison
 	if potiontype in [16, 17]:
 		if getPoisonPotion(plant) >= 2:
 			full = True
 		elif not simulate:
 			setPoisonPotion(plant, getPoisonPotion(plant) + 1)
-			
+
 	# Greater Cure
 	elif potiontype == 6:
 		if getCurePotion(plant) >= 2:
 			full = True
 		elif not simulate:
 			setCurePotion(plant, getCurePotion(plant) + 1)		
-			
+
 	# Greater Heal
 	elif potiontype == 3:
 		if getHealPotion(plant) >= 2:
@@ -248,19 +248,19 @@ def applyPotion(player, plant, potiontype, simulate = False):
 			full = True
 		elif not simulate:
 			setStrengthPotion(plant, getStrengthPotion(plant) + 1)
-			
+
 	# The lesser variants of the potions
 	elif potiontype in [1, 2, 4, 5, 9, 14, 15]:
 		if not simulate:
 			plant.say(1053068, '', '', False, 0x3b2, player.socket) # This potion is not powerful enough to use on a plant!
 		return False
-		
+
 	# Nothing we could use
 	else:
 		if not simulate:
 			plant.say(1053069, '', '', False, 0x3b2, player.socket) # You can't use that on a plant!
 		return False
-	
+
 	# The potion type was right, but the plant already had enough of it
 	if full:
 		if not simulate:
@@ -276,7 +276,7 @@ def applyPotion(player, plant, potiontype, simulate = False):
 #
 def getStatusCliloc(plant):
 	status = getStatus(plant)
-	
+
 	if status >= STATUS_PLANT:
 		return 1060812
 	elif status >= STATUS_SAPLING:
@@ -294,7 +294,7 @@ def getInfestation(plant):
 		return 0
 def setInfestation(plant, level):
 	plant.settag('infestation', max(0, min(2, level)))
-	
+
 def getFungus(plant):
 	if plant.hastag('fungus'):
 		return int(plant.gettag('fungus'))
@@ -302,7 +302,7 @@ def getFungus(plant):
 		return 0
 def setFungus(plant, level):
 	plant.settag('fungus', max(0, min(2, level)))
-	
+
 def getPoison(plant):
 	if plant.hastag('poison'):
 		return int(plant.gettag('poison'))
@@ -318,7 +318,7 @@ def getPoison(plant):
 		return 0
 def setPoison(plant, level):
 	plant.settag('poison', max(0, min(2, level)))
-	
+
 def getDisease(plant):
 	if plant.hastag('disease'):
 		return int(plant.gettag('disease'))
@@ -334,7 +334,7 @@ def getWater(plant):
 		return 0
 def setWater(plant, level):
 	plant.settag('water', max(0, min(4, level)))
-	
+
 def getPoisonPotion(plant):
 	if plant.hastag('poisonpotion'):
 		return int(plant.gettag('poisonpotion'))
@@ -358,7 +358,7 @@ def getHealPotion(plant):
 		return 0
 def setHealPotion(plant, level):
 	plant.settag('healpotion', max(0, min(2, level)))
-	
+
 def getStrengthPotion(plant):
 	if plant.hastag('strengthpotion'):
 		return int(plant.gettag('strengthpotion'))
@@ -422,7 +422,7 @@ def setGenus(plant, genus):
 		plant.settag('genus', genus)
 	else:
 		plant.settag('genus', genus.index)
-		
+
 #
 # Manage the plant hue
 #
@@ -436,7 +436,7 @@ def setHue(plant, hue):
 		plant.settag('hue', hue)
 	else:
 		plant.settag('hue', hue.id)		
-		
+
 #
 # Manage the seed genus
 #
@@ -450,7 +450,7 @@ def setSeedGenus(plant, genus):
 		plant.settag('seedgenus', genus)
 	else:
 		plant.settag('seedgenus', genus.index)
-		
+
 #
 # Manage the seed hue
 #
@@ -475,14 +475,14 @@ def getStatus(plant):
 		return STATUS_DIRT
 def setStatus(plant, status):
 	oldstatus = getStatus(plant)
-	
+
 	if oldstatus == status or status < STATUS_DIRT or status > STATUS_DEAD:
 		return
-		
+
 	ratio = float(getHealth(plant)) / float(getMaxHealth(plant))
 
 	plant.settag('status', int(status)) # Set the new status
-	
+
 	# When changing to decorative, we should remove all the unneccesary tags
 	if status == STATUS_DECORATIVE:
 		genus = getGenus(plant)
@@ -514,7 +514,7 @@ def getFertile(plant):
 	return plant.gettag('fertile') == 1
 def setFertile(plant, fertile):
 	plant.settag('fertile', int(fertile))
-	
+
 #
 # Shoul the plant type be shown?
 #
@@ -545,11 +545,11 @@ def checkAccess(player, plant):
 	# It either has to be in the backpack
 	if plant.getoutmostitem() == player.getbackpack():
 		return True
-		
+
 	# Or locked down (the multi will do the other check)
 	if plant.multi or plant.lockeddown:
 		return True
-		
+
 	return False
 
 #
@@ -565,7 +565,7 @@ def canGrow(plant):
 def validGrowthLocation(plant):
 	if plant.multi or plant.lockeddown:
 		return GROWTHALLOWMULTI
-		
+
 	cont = plant.getoutmostitem()
 	owner = cont.container
 
@@ -574,7 +574,7 @@ def validGrowthLocation(plant):
 	if owner and owner.player:
 		if cont.layer == LAYER_BACKPACK:
 			return GROWTHALLOWBACKPACK
-			
+
 		if cont.layer == LAYER_BANKBOX:
 			return GROWTHALLOWBANK
 
@@ -593,7 +593,7 @@ def hasMali(plant):
 def applyBoni(plant):
 	poisonpotion = getPoisonPotion(plant)
 	infestation = getInfestation(plant)
-	
+
 	# Poison potions kill off infestations
 	if poisonpotion >= infestation:
 		setPoisonPotion(plant, poisonpotion - infestation)
@@ -604,7 +604,7 @@ def applyBoni(plant):
 
 	curepotion = getCurePotion(plant)
 	fungus = getFungus(plant)
-	
+
 	# cure potions kill off fungus
 	if curepotion >= fungus:
 		setCurePotion(plant, curepotion - fungus)
@@ -612,7 +612,7 @@ def applyBoni(plant):
 	else:
 		setFungus(plant, fungus - curepotion)
 		setCurePotion(plant, 0)
-	
+
 	healpotion = getHealPotion(plant)
 	poison = getPoison(plant)
 	
@@ -623,10 +623,10 @@ def applyBoni(plant):
 	else:
 		setPoison(plant, poison - healpotion)
 		setHealPotion(plant, 0)
-		
+
 	healpotion = getHealPotion(plant)
 	disease = getDisease(plant)
-	
+
 	# heal potions kill off disease
 	if healpotion >= disease:
 		setHealPotion(plant, healpotion - disease)
@@ -634,7 +634,7 @@ def applyBoni(plant):
 	else:
 		setDisease(plant, disease - healpotion)
 		setHealPotion(plant, 0)
-	
+
 	# if there are no malicious effects left, the plant heals
 	if not hasMali(plant):
 		healpotion = getHealPotion(plant)
@@ -643,8 +643,7 @@ def applyBoni(plant):
 			setHealth(plant, health + healpotion * 7)
 		else:
 			setHealth(plant, health + 2)
-			
-	
+
 	# Always reset heal potions after a growth check
 	setHealPotion(plant, 0)
 
@@ -653,22 +652,22 @@ def applyBoni(plant):
 #
 def applyMali(plant):
 	damage = 0 # Amount of damage taken
-	
+
 	# Damage from infestation
 	infestation = getInfestation(plant)
 	if infestation > 0:
 		damage += infestation * random.randint(3, 6)
-		
+
 	# Damage from fungus
 	fungus = getFungus(plant)
 	if fungus > 0:
 		damage += fungus * random.randint(3, 6)
-		
+
 	# Damage from poison
 	poison = getPoison(plant)
 	if poison > 0:
 		damage += poison * random.randint(3, 6)
-		
+
 	# Damage from disease
 	disease = getDisease(plant)
 	if disease > 0:
@@ -697,33 +696,33 @@ def updateMali(plant):
 	water = getWater(plant)
 	genus = getGenus(plant)
 	hue = getHue(plant)
-	
+
 	# Check if the plant gets infected with insects
 	infestationChance = 0.30 - strengthPotion * 0.075 + ( water - 2 ) * 0.10
-	
+
 	# Flowers have a 10% higher chance to become infected
 	if genus.flower:
 		infestationChance += 0.10
-		
+
 	# For plants with a bright color, the chance is another 10% higher
 	if hue.bright:
 		infestationChance += 0.10
-		
+
 	# Check if we get infected
 	if infestationChance >= random.random():
 		setInfestation(plant, getInfestation(plant) + 1)
 
 	# Check if the plant gets infected with fungus
 	fungusChance = 0.15 - strengthPotion * 0.075 + ( water - 2 ) * 0.10
-	
+
 	if fungusChance >= random.random():
 		setFungus(plant, getFungus(plant) + 1)
-		
+
 	# Consume water
 	water = getWater(plant)	
 	if water > 2 or 0.9 >= random.random():
 		setWater(plant, water - 1)
-		
+
 	# Too many poison and cure potions will cause disease and poison
 	poisonPotion = getPoisonPotion(plant)
 	if poisonPotion > 0:
@@ -737,7 +736,7 @@ def updateMali(plant):
 
 	# Consume all strength potions
 	setStrengthPotion(plant, 0)
-	
+
 #
 # Grow the plant
 #
@@ -750,19 +749,19 @@ def growPlant(plant):
 	# Not healthy enough to grow
 	if healthstatus in [HEALTH_DYING, HEALTH_WILTED]:
 		setGrowthIndicator(plant, GROWTH_NOTHEALTHY)
-		
+
 	# If Fertile Dirt was used to fill the bowl, there is 
 	# a 10% chance that the plant will grow twice up until
 	# stage 5
 	if getFertile(plant) and status <= STATUS_STAGE5 and 0.10 >= random.random():
 		setStatus(plant, status + 2)
 		setGrowthIndicator(plant, GROWTH_DOUBLEGROWN)
-		
+
 	# Normal Growth
 	elif status < STATUS_STAGE9:
 		setStatus(plant, status + 1)
 		setGrowthIndicator(plant, GROWTH_GROWN)
-	
+
 	# We've reached the final stage
 	# Now we produce resources and seeds
 	else:
@@ -778,10 +777,10 @@ def growPlant(plant):
 		if remainingResources > 0 and plants.resources.canProduce(genus, hue):
 			setRemainingResources(plant, remainingResources - 1)
 			setAvailableResources(plant, getAvailableResources(plant) + 1)
-			
+
 		# Indicate the Growth but don't change the status anymore
 		setGrowthIndicator(plant, GROWTH_GROWN)
-				
+
 	# From Stage 9 and up, the plant is automatically pollinated by itself
 	if status >= STATUS_STAGE9 and not getPollinated(plant):
 		setPollinated(plant, True)
@@ -795,50 +794,50 @@ def growthCheck(plant):
 	# Check if this plant can grow
 	if not canGrow(plant):
 		return
-	
+
 	# Get the next growth time
 	nextGrowth = getNextGrowth(plant)
-	
+
 	# It's not time yet
 	if nextGrowth > time.time():
 		setGrowthIndicator(plant, GROWTH_DELAY)
 		return
-		
+
 	# Now that we're checking, set the next growth
 	setNextGrowth(plant, time.time() + GROWTHINTERVAL)
-	
+
 	# First check if the location is ok
 	if not validGrowthLocation(plant):
 		setGrowthIndicator(plant, GROWTH_INVALIDLOCATION)
 		return
-	
+
 	status = getStatus(plant)
-		
+
 	# If this is just a bowl of dirt, there is a high chance of
 	# loosing water
 	if status == STATUS_DIRT:
 		water = getWater(plant)
-	
+
 		# 90% chance of loosing water if there is more than 2 water units inside
 		if water > 2 or random.random() < 0.90:
 			setWater(plant, water - 1)
 			plant.resendtooltip()
-		
+
 		return # No further growth checks for dirt
 
 	# Apply beneficial stuff
 	applyBoni(plant)
-	
+
 	# Apply malicious stuff
 	if not applyMali(plant):
 		return # The plant died
 
 	# Grow one stage up
 	growPlant(plant)
-	
+
 	# Set Mali for new growth round
 	updateMali(plant)
-	
+
 	# Finally resend the tooltip (health changes i.e.)
 	plant.resendtooltip()
 
@@ -847,7 +846,7 @@ def growthCheck(plant):
 #
 def resetPlant(plant, resetpotions = False, full = False):
 	plant.deltag('growthindicator')
-	
+
 	if not full:
 		setNextGrowth(plant, time.time() + GROWTHINTERVAL)		
 	else:
@@ -860,13 +859,13 @@ def resetPlant(plant, resetpotions = False, full = False):
 		plant.deltag('seedgenus')
 		plant.deltag('showtype')
 		plant.deltag('status')
-	
+
 	plant.deltag('health')
 	plant.deltag('infestation')
 	plant.deltag('fungus')
 	plant.deltag('poison')
 	plant.deltag('disease')
-	
+
 	if resetpotions:
 		plant.deltag('poisonpotion')
 		plant.deltag('curepotion')
@@ -884,15 +883,15 @@ def resetPlant(plant, resetpotions = False, full = False):
 #
 def plantSeed(player, plant, seed):
 	status = getStatus(plant)
-	
+
 	# FullGrown means that there is no real bowl left
 	if status >= STATUS_FULLGROWN:
 		plant.say(1061919, '', '', False, 0x3b2, player.socket) # You must use a seed on a bowl of dirt!
-		
+
 	# Can we even access the bowl?
 	elif not checkAccess(player, plant):
 		plant.say(1061856, '', '', False, 0x3b2, player.socket) # You must have the item in your backpack or locked down in order to use it.
-		
+
 	# We can only plant a seed into a bowl of dirt
 	elif status != STATUS_DIRT:
 		if status >= STATUS_PLANT:
@@ -901,7 +900,7 @@ def plantSeed(player, plant, seed):
 			player.socket.showspeech(plant, tr("This bowl of dirt already has a sapling in it!"))
 		else:
 			player.socket.showspeech(plant, tr("This bowl of dirt already has a seed in it!"))
-	
+
 	# Not enough water
 	elif getWater(plant) < 2:
 		plant.say(1061920, '', '', False, 0x3b2, player.socket) # The dirt in this bowl needs to be softened first.
@@ -912,12 +911,12 @@ def plantSeed(player, plant, seed):
 		setGenus(plant, plants.seed.getGenus(seed))
 		setHue(plant, plants.seed.getHue(seed))
 		setShowType(plant, plants.seed.getShowType(seed))
-		
+
 		seed.delete() # Remove the seed
-		
+
 		setStatus(plant, STATUS_SEED) # Set to the intial state		
 		resetPlant(plant) # Start a new growth cycle
-		
+
 		plant.say(1061922, '', '', False, 0x3b2, player.socket) # You plant the seed in the bowl of dirt.
 
 #
@@ -928,7 +927,7 @@ def updatePlant(plant):
 	status = getStatus(plant)
 	genus = getGenus(plant)
 	hue = getHue(plant)
-		
+
 	if status >= STATUS_DEAD:
 		plant.name = '#1027069' # twigs
 		plant.id = 0x1b9d
@@ -957,12 +956,12 @@ def updatePlant(plant):
 def onUse(player, plant):
 	if getStatus(plant) >= STATUS_DECORATIVE:
 		return True # Decorative and dead plants don't respond to this
-	
+
 	if not checkAccess(player, plant):
 		plant.say(1061856, '', '', False, 0x3b2, player.socket) # You must have the item in your backpack or locked down in order to use it.
 	else:
 		plants.maingump.send(player, plant)
-	
+
 	return True
 
 #
@@ -974,13 +973,13 @@ def getWaterCliloc(plant):
 		return 1060826
 	else:
 		return 1060827 + water - 2
-	
+
 #
 # Get a cliloc for the plant status
 #	
 def getStatusCliloc(plant):
 	status = getStatus(plant)
-	
+
 	if status >= STATUS_PLANT:
 		return 1060812
 	elif status >= STATUS_SAPLING:
@@ -996,20 +995,20 @@ def onShowTooltip(player, plant, tooltip):
 	genus = getGenus(plant)
 	hue = getHue(plant)
 	showtype = getShowType(plant)
-	
+
 	# Nothing to add for a decorative or dead plant (shouldn't have the event anyway)
 	if status >= STATUS_DECORATIVE:
 		return False
-		
+
 	# Full grown plants get additional info
 	elif status >= STATUS_FULLGROWN:
 		if genus.specialtitle:
 			title = genus.specialtitle
 		else:
 			title = hue.name
-			
+
 		args = "#%u\t#%u\t%s" % (1060822 + getHealthStatus(plant), title, genus.name)
-		
+
 		if genus.plant:
 			if hue.bright:
 				tooltip.add(1061891, args) # a ~1_HEALTH~ bright ~2_COLOR~ ~3_NAME~
@@ -1027,12 +1026,12 @@ def onShowTooltip(player, plant, tooltip):
 			title = genus.specialtitle
 		else:
 			title = hue.name
-			
+
 		args = "#%u\t#%u\t#%u" % (getWaterCliloc(plant), 1060822 + getHealthStatus(plant), title)
-		
+
 		if getShowType(plant):
 			args += "\t" + genus.name
-			
+
 			if genus.plant and status == STATUS_PLANT:
 				if hue.bright:
 					tooltip.add(1060832, args) # a bowl of ~1_val~ dirt with a ~2_val~ bright ~3_val~ ~4_val~
@@ -1040,14 +1039,14 @@ def onShowTooltip(player, plant, tooltip):
 					tooltip.add(1060831, args) # a bowl of ~1_val~ dirt with a ~2_val~ ~3_val~ ~4_val~
 			else:
 				args += "\t#%u" % getStatusCliloc(plant)
-			
+
 				if hue.bright:
 					tooltip.add(1061887, args) # a bowl of ~1_val~ dirt with a ~2_val~ bright ~3_val~ ~4_val~ ~5_val~
 				else:					
 					tooltip.add(1061888, args) # a bowl of ~1_val~ dirt with a ~2_val~ ~3_val~ ~4_val~ ~5_val~
 		else:
 			args += "\t#%u" % getStatusCliloc(plant)
-		
+
 			if hue.bright:
 				tooltip.add(1060832, args) # a bowl of ~1_val~ dirt with a ~2_val~ [bright] ~3_val~ ~4_val~
 			else:					

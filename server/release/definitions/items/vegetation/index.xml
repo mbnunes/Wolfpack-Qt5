@@ -18,4 +18,5 @@
 	<include file="definitions/items/vegetation/plants.xml"/>
 	<include file="definitions/items/vegetation/trees.xml"/>
 	<include file="definitions/items/vegetation/wood.xml"/>
+	<include file="definitions/items/vegetation/crops.xml"/>
 </definitions>

@@ -14,10 +14,10 @@ def onUse(player, item):
 	if player.hastag('orangepetals'):
 		player.message(1061904)
 		return True
-	
+
 	player.message(1061905)
 	player.soundeffect(0x3b)
-	
+
 	if item.amount <= 1:
 		item.delete()
 	else:
@@ -33,7 +33,7 @@ def onUse(player, item):
 def callback(player, args):
 	if not player.hastag('orangepetals'):
 		return
-		
+
 	if player.gettag('orangepetals') != args[0]:
 		return
 

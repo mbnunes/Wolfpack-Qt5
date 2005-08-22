@@ -290,6 +290,10 @@
 	<script>plants.redleaves</script>
 	<script>plants.orangepetals</script>
 
+	<!-- Plants -->
+	<script>crops.growing</script>
+	<script>crops.harvest</script>
+
 	<!-- Playervendors -->
 	<script>npc.playervendor</script>
 	<script>npc.playervendor.item</script>

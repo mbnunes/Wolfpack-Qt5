@@ -29,22 +29,22 @@ class Hue:
 	def __init__(self, id, color, name, gumpcolor=None):
 		if gumpcolor == None:
 			gumpcolor = color
-			
+
 		self.id = id
 		self.color = color
 		self.name = name
 		self.gumpcolor = gumpcolor
 		self.bright = (id & FLAG_BRIGHT) != 0
 		self.crossable = (id & FLAG_CROSSABLE) != 0
-		
+
 		global HUES
 		HUES[id] = self
-		
+
 	# Cross with another hue
 	def cross(self, other):
 		if not self.crossable or not other.crossable:
 			return HUES[COLOR_PLAIN]
-			
+
 		# There's a 10% chance to get black or white
 		if random.random() < 0.01:
 			if random.random() < 0.5:
@@ -60,11 +60,11 @@ class Hue:
 		# Remove the bright flag
 		notBrightSelf = self.id & ~ FLAG_BRIGHT
 		notBrightOther = other.id & ~ FLAG_BRIGHT
-		
+
 		# Crossing with the same color gets us the bright color
 		if notBrightSelf == notBrightOther:
 			return HUES[notBrightSelf | FLAG_BRIGHT]
-			
+
 		# Check Primary Colors
 		selfPrimary = notBrightSelf in [COLOR_RED, COLOR_BLUE, COLOR_YELLOW]
 		otherPrimary = notBrightOther in [COLOR_RED, COLOR_BLUE, COLOR_YELLOW]
@@ -72,11 +72,11 @@ class Hue:
 		# Primary Colors get mixed
 		if selfPrimary and otherPrimary:
 			return HUES[notBrightSelf | notBrightOther]
-			
+
 		# Primaries override non primaries
 		if selfPrimary and not otherPrimary:
 			return HUES[notBrightSelf]
-			
+
 		if otherPrimary and not selfPrimary:
 			return HUES[notBrightOther]
 

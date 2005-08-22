@@ -16,7 +16,7 @@ def getByIndex(index):
 		return GENUSES[0]
 	else:
 		raise RuntimeError, 'Empty GENUSES array.'
-		
+
 #
 # Get a genus by its name
 #
@@ -25,7 +25,7 @@ def getById(id):
 	for genus in GENUSES:
 		if genus.id == id:
 			return genus
-	
+
 	# We didn't find anything by that name
 	if len(GENUSES) > 0:
 		return GENUSES[0]
@@ -53,18 +53,18 @@ class Genus:
 		self.flower = flower
 		self.crossable = crossable
 		self.specialtitle = specialtitle
-				
+
 		# AutoRegister
 		global GENUSES
 		self.index = len(GENUSES)
 		GENUSES.append(self)
-		
+
 	# Cross with another genus
 	def cross(self, other):
 		# Check if both are crossable
 		if not self.crossable or not other.crossable:
 			return getByIndex(0) # Fallback to default
-			
+
 		# Both genuses are in the same kind of genus (stupid expression)
 		if self.index + 1 == other.index or other.index + 1 == self.index:
 			if random.random() < 0.50:
