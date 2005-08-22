@@ -1,5 +1,6 @@
 
 import crops
+import crops.growing
 import wolfpack.utilities
 from wolfpack.consts import *
 import random
@@ -23,13 +24,17 @@ def doharvest(char, item):
 	harvested_item = wolfpack.additem( stages[item.baseid][-2] )
 	harvested_item.movable = 1
 	harvested_item.decay = 1
-
-	# Change the look of the harvested item
-	item.id = random.choice(stages[item.baseid][-1])
-	item.addscript("crops.growing") # restart growing
-	item.update()
-
 	# Move into backpack
 	if not wolfpack.utilities.tobackpack(harvested_item, char):
 		harvested_item.update()
+
+	restore(item)
+
+def restore(item):
+	# Change the look of the harvested item
+	item.id = random.choice(stages[item.baseid][-1])
+	item.removescript("crops.harvest")
+	item.addscript("crops.growing") # restart growing
+	item.update()
+
 	return True
