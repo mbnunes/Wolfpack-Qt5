@@ -20,9 +20,7 @@ def doharvest(char, item):
 	char.turnto(item)
 	char.action(ANIM_BOW)
 
-	a = stages[item.baseid][-2]
-	char.socket.sysmessage( a )
-	harvested_item = wolfpack.additem( a )
+	harvested_item = wolfpack.additem( stages[item.baseid][-2] )
 	harvested_item.movable = 1
 	harvested_item.decay = 1
 
