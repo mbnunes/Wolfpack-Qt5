@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack import utilities
+from wolfpack import utilities, tr
 from wolfpack import properties
 
 TURNABLES = {
@@ -872,14 +872,16 @@ TURNDEEDS = {
 """
 
 def turnitem( socket, command, arguments ):
-	socket.sysmessage( "Target the object you would like to turn." )
+	socket.sysmessage( tr("Target the object you would like to turn.") )
 	socket.attachtarget( "commands.turnitem.targetitem", [] )
 	return
 
 def canturn( char, item ):
 	if char.gm:
 		return True
-	if ( item.lockeddown ) or ( finditem.movable > 1 ) or ( finditem.movable == 2 and finditem.owner != char ):
+	if item.getoutmostchar() == char:
+		return True
+	if ( item.lockeddown ) or ( item.movable > 1 ) or ( item.movable == 2 and item.owner != char ):
 		return False
 	return True
 		
@@ -891,38 +893,37 @@ def targetitem( char, args, target ):
 		finditem = wolfpack.finditem( target.item.serial )
 		# Safety Checks
 		if not finditem:
-			socket.sysmessage("You must target an item!")
+			socket.sysmessage(tr("You must target an item!"))
 			return True
 		if not canturn( char, finditem ):
-			socket.sysmessage("This object is not movable by you!")
+			socket.sysmessage(tr("This object is not movable by you!"))
 			return True
-		# Object Exists
-		if finditem:
-			# Turnable Furniture
-			if finditem.id in TURNABLES:
-				finditem.id = utilities.hex2dec(TURNABLES[finditem.id][0])
+
+		# Turnable Furniture
+		if finditem.id in TURNABLES:
+			finditem.id = utilities.hex2dec(TURNABLES[finditem.id][0])
+			finditem.update()
+			socket.sysmessage(tr("You rotate the object."))
+		# Turnable Deeds
+		elif int(finditem.id) == utilities.hex2dec(0x14ef) and str(finditem.baseid) in TURNDEEDS:
+			if finditem.container != char.getbackpack():
+				socket.sysmessage(tr("This deed needs to be in your backpack to turn it!"))
+				return True
+			else:
+				finditem.settag( 'carpentry_type', str(TURNDEEDS[finditem.baseid][1]) )
+				finditem.name = str(TURNDEEDS[str(finditem.baseid)][2])
+				# Update BaseID Last
+				finditem.baseid = str(TURNDEEDS[finditem.baseid][0])
 				finditem.update()
-				socket.sysmessage("You rotate the object.")
-			# Turnable Deeds
-			elif int(finditem.id) == utilities.hex2dec(0x14ef) and str(finditem.baseid) in TURNDEEDS:
-				if finditem.container != char.getbackpack():
-					socket.sysmessage("This deed needs to be in your backpack to turn it!")
-					return True
-				else:
-					finditem.settag( 'carpentry_type', str(TURNDEEDS[finditem.baseid][1]) )
-					finditem.name = str(TURNDEEDS[str(finditem.baseid)][2])
-					# Update BaseID Last
-					finditem.baseid = str(TURNDEEDS[finditem.baseid][0])
-					finditem.update()
-					socket.sysmessage("You rotate the deed's placement direction.")
+				socket.sysmessage(tr("You rotate the deed's placement direction."))
 			return
 		# Error
 		else:
-			socket.sysmessage("This item is not turnable.")
+			socket.sysmessage(tr("This item is not turnable."))
 			return True
 	# Error
 	else:
-		socket.sysmessage("This item is not turnable.")
+		socket.sysmessage(tr("This item is not turnable."))
 		return True
 
 def onLoad():
