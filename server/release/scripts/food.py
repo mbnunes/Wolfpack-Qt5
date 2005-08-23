@@ -69,7 +69,7 @@ def onDropOnChar(char, item):
 
 def caneat(char, item):
 	if item.baseid in animalsonly:
-		char.socket.sysmessage('You don''t want to eat that.')
+		char.socket.sysmessage(tr('You don''t want to eat that.'))
 		return False
 	return True
 
@@ -81,7 +81,7 @@ def onUse(player, item):
 	if item.getoutmostchar() != player:
 		player.socket.clilocmessage(500866) # You can't eat that, it belongs to someone else.
 		return True
-	elif not caneat(item):
+	elif not caneat(player, item):
 		return True
 	Eat( player, item )
 	return True
