@@ -5,7 +5,6 @@
 		<item>0x1ebe</item>
 		<item>0x1ebf</item>
 	</list>
-
 	<!-- wheat sprouts -->
 	<item id="wheat_sprouts">
 		<id><random list="WHEATSPROUTS"/></id>
@@ -15,4 +14,51 @@
 		<nodecay />
 	</item>
 
+	<list id="HAYS">
+		<item>0x1ebe</item>
+		<item>0x1ebf</item>
+	</list>
+	<!-- hay -->
+	<item id="hay">
+		<id><random list="HAYS"/></id>
+		<category>Vegetation\Crops\Hay</category>
+		<scripts>crops.growing</scripts>
+		<immovable />
+		<nodecay />
+	</item>
+
+	<list id="COTTONS">
+		<item>0xc51</item>
+		<item>0xc52</item>
+	</list>
+	<!-- cotton -->
+	<item id="cotton">
+		<id><random list="COTTONS"/></id>
+		<category>Vegetation\Crops\Cotton</category>
+		<scripts>crops.growing</scripts>
+		<immovable />
+		<nodecay />
+	</item>
+
+	<list id="HOPS">
+		<item>0x1a9f</item>
+		<item>0x1aa1</item>
+	</list>
+	<!-- hops -->
+	<item id="hops">
+		<id><random list="HOPS"/></id>
+		<category>Vegetation\Crops\Hops</category>
+		<scripts>crops.growing</scripts>
+		<immovable />
+		<nodecay />
+	</item>
+
+	<!-- flax -->
+	<item id="flax">
+		<id>0x1a99</id>
+		<category>Vegetation\Crops\Flax</category>
+		<scripts>crops.growing</scripts>
+		<immovable />
+		<nodecay />
+	</item>
 </definitions>
