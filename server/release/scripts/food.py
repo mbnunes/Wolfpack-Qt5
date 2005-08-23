@@ -13,6 +13,9 @@ farm_eaters = [ 'rabbit', 'goat', 'hind', 'pack_horse', 'pack_llama', 'cow', 'bu
 	'sheep_unsheered', 'sheep_sheered', 'llama', 'horse', 'great_hart',
 	'ostard_desert', 'ostard_forest', 'ostard_frinzied' ]
 
+# List of baseids of items only animals can eat
+animalsonly = [ "f36", "100c", "100d" ]
+
 #
 # TODO: favorite food of animals:
 # FruitsAndVegies | GrainsAndHay | Meat | Eggs | Gold | Fish
@@ -64,6 +67,12 @@ def onDropOnChar(char, item):
 
 	return False
 
+def caneat(char, item):
+	if item.baseid in animalsonly:
+		char.socket.sysmessage('You don''t want to eat that.')
+		return False
+	return True
+
 #
 # Eat the food
 #
@@ -71,6 +80,8 @@ def onUse(player, item):
 	# Has to belong to us.
 	if item.getoutmostchar() != player:
 		player.socket.clilocmessage(500866) # You can't eat that, it belongs to someone else.
+		return True
+	elif not caneat(item):
 		return True
 	Eat( player, item )
 	return True

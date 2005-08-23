@@ -67,6 +67,7 @@
 	<item id="f36">
 		<id>0xf36</id>
 		<category>Professions\Stablemaster\Sheaf of Hay 1</category>
+		<basescripts>food</basescripts>
 	</item>
 
 	<item id="f37">
@@ -92,11 +93,13 @@
 	<item id="100c">
 		<id>0x100c</id>
 		<category>Professions\Stablemaster\Sheaf of Hay 2</category>
+		<basescripts>food</basescripts>
 	</item>
 
 	<item id="100d">
 		<id>0x100d</id>
 		<category>Professions\Stablemaster\Sheaf of Hay 3</category>
+		<basescripts>food</basescripts>
 	</item>
 
 	<item id="1370">
