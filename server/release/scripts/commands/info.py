@@ -1239,7 +1239,10 @@ def iteminfo_response( player, args, choice ):
 		#elif key == 6:
 		#	item.weight = float( textentries[ key ] )
 		elif key == 7:
-			item.layer = int( hex2dec( textentries[ key ] ) )
+			try:
+				item.layer = int( hex2dec( textentries[ key ] ) )
+			except:
+				pass
 		#elif key == 8:
 		#	item.type = int( hex2dec( textentries[ key ] ) )
 		elif key == 9:
