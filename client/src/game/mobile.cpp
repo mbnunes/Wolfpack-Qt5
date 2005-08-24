@@ -336,4 +336,20 @@ void cMobile::refreshEquipment(enLayer layer) {
 	}
 }
 
+uint cMobile::getMoveDuration(bool running) const {	
+	if (!running) {
+		return 370;
+	} else {
+		return 370 / 2;
+	}
+}
+
+void cMobile::playMoveAnimation(uint duration, bool running) {
+	uchar action = 0;
+	if (bodyType() == HUMAN && running) {
+		action = 2;
+	}
+	playAction(action, duration);
+}
+
 cMobile *Player = 0;

@@ -10,19 +10,10 @@
 #include <QEvent>
 #include <QDialog>
 #include <QTimer>
-#include "dialog_config.h"
 
 class cControl;
 class QMenuBar;
 class QAction;
-
-class cConfigDialog : public QDialog {
-private:
-	Ui::configDialog ui;
-public:
-	cConfigDialog(QWidget *parent);
-	void show();
-};
 
 class cGLWidget : public QGLWidget {
 	Q_OBJECT
@@ -85,8 +76,6 @@ protected:
 	void moveEvent(QMoveEvent *event);
 	void showEvent(QShowEvent *event);
 	bool event(QEvent *e);
-
-	cConfigDialog *configDialog;
 
 	QAction *aHideStatics;
 	QAction *aHideMap;

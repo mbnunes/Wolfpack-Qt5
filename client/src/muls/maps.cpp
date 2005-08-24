@@ -124,6 +124,42 @@ stMapCell *cFacet::getMapCell(unsigned short x, unsigned short y) {
 	return cells + cellid;
 }
 
+signed char cFacet::getAverageHeight(ushort x, ushort y) {
+	// first thing is to get the map where we are standing
+	stMapCell *map1 = getMapCell(x, y);
+
+	// if this appears to be a valid land id, <= 2 is invalid
+	if (map1->id > 2 && -128 != map1->z) {
+		stMapCell *map2 = getMapCell(x + 1, y);
+		stMapCell *map3 = getMapCell(x, y + 1);
+		stMapCell *map4 = getMapCell(x + 1, y + 1);
+
+		// get three other nearby titles to decide on an average z?
+		signed char map2z = map2 ? map2->z : map1->z;
+		signed char map3z = map3 ? map3->z : map1->z;
+		signed char map4z = map4 ? map4->z : map1->z;
+
+		signed char testz = 0;
+		if ( abs( map1->z - map4z ) <= abs( map2z - map3z ) )
+		{
+			if ( -128 == map4z )
+				testz = map1->z;
+			else // round down.
+				testz = ( signed char ) ( floor( ( map1->z + map4z ) / 2.0 ) );
+		}
+		else
+		{
+			if ( -128 == map2z || -128 == map3z )
+				testz = map1->z;
+			else // round down
+				testz = ( signed char ) ( floor( ( map2z + map3z ) / 2.0 ) );
+		}
+		return testz;
+	}
+
+	return map1->z;
+}
+
 StaticBlock *cFacet::getStaticBlock(unsigned short x, unsigned short y) {
 	if (!enabled_) {
 		return 0;

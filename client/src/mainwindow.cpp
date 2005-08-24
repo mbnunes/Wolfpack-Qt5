@@ -24,6 +24,7 @@
 #include <QEvent>
 #include <QErrorMessage>
 #include <QDir>
+#include <QApplication>
 
 /* XPM */
 static const char * const icon_xpm[] = {
@@ -80,11 +81,8 @@ static const char * const icon_xpm[] = {
 ":::::::::::::: * :::::::::::::::"
 };
 
-#include "dialog_config.h"
-
 MainWindow::MainWindow() {
 	QAction *action;
-	configDialog = new cConfigDialog(this);
 
 	resize(640, 480); // Default size
 
@@ -387,7 +385,7 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 	if (Gui->inputFocus()) {
 		Gui->inputFocus()->onKeyUp(e);
 	} else {
-		if (!ignoreReturn && WorldView && e->key() == Qt::Key_Return) {
+		if (!ignoreReturn && WorldView && WorldView->isVisible() && (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter)) {
 			WorldView->showInputLine();
 		}
 	}
@@ -442,15 +440,17 @@ void cGLWidget::mousePressEvent(QMouseEvent *e) {
 }
 
 void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
-	if (lastDoubleClick) {
+	if (e->button() == Qt::LeftButton && lastDoubleClick) {
 		lastDoubleClick = false;
 		return;
 	}
 
 	// Save this event and start the timer
-	delete singleClickEvent;
-	singleClickEvent = new QMouseEvent(*e);
-	singleClickTimer.start();
+	if (e->button() == Qt::LeftButton) {
+		delete singleClickEvent;
+		singleClickEvent = new QMouseEvent(*e);
+		singleClickTimer.start();
+	}
 	
 	cControl *control = mouseCapture_;
 	if (!control) {
@@ -458,12 +458,19 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	}
 	if (control) {
 		if (control == WorldView && WorldView->targetRequest()) {
-			singleClickTimer.stop();
-			WorldView->onClick(e); // Directly translate to a singleclick event although it's not
+			if (e->button() == Qt::LeftButton) {
+				singleClickTimer.stop();
+				WorldView->onClick(e); // Directly translate to a singleclick event although it's not
+			}
 			return;
 		}
 
 		control->onMouseUp(e);
+
+		if (e->button() != Qt::LeftButton) {
+			control->onClick(e);
+		}
+
 		mouseCapture_ = 0; // Reset mouse capture
 	}
 
@@ -598,17 +605,6 @@ bool MainWindow::event(QEvent *e) {
 
 void MainWindow::showEvent(QShowEvent *event) {
 	QMainWindow::showEvent(event);
-}
-
-cConfigDialog::cConfigDialog(QWidget *parent) : QDialog(parent) {
-	ui.setupUi(this);
-}
-
-void cConfigDialog::show() {
-	// Load the current configuration settings into this
-	
-
-	QDialog::show();
 }
 
 cGLWidget *GLWidget = 0;

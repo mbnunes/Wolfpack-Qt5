@@ -7,10 +7,13 @@
 #include "enums.h"
 #include "vector.h"
 
+#include <qobject.h>
+#include <qtimer.h>
 #include <qmap.h>
 #include <q3valuelist.h>
 #include <q3intcache.h>
 #include <qevent.h>
+#include <qvector.h>
 //Added by qt3to4:
 #include <QMouseEvent>
 
@@ -24,7 +27,41 @@ public:
 	int left, right, bottom, z;
 };
 
-class cWorld {
+// This is an internal data structure representing blocking items
+class cBlockItem {
+public:
+	signed char z;
+	uchar height;
+	bool walkable;
+	bool maptile;
+
+	cBlockItem() : z( -128 ), height( 0 ), walkable( false ), maptile( false ) {}
+
+	bool operator<( const cBlockItem &b ) const
+	{
+		// If the items have the same top, the one with the surface flag has precedence
+		int itemTopA = height + z;
+		int itemTopB = b.height + b.z;
+
+		if ( itemTopA == itemTopB )
+		{
+			if ( height == 0 && walkable )
+			{
+				return true;
+			}
+
+			if ( b.height == 0 && b.walkable )
+			{
+				return false;
+			}
+		}
+
+		return ( itemTopA > itemTopB );
+	}
+};
+
+class cWorld : QObject {
+Q_OBJECT
 protected:
 	// Center of our world
 	unsigned short x_, y_;
@@ -65,6 +102,8 @@ protected:
 	float xOffsetDecrease;
 	float yOffsetDecrease;
 	unsigned int nextSmoothMoveUpdate;
+	int drawCut;
+	QTimer roofTimer;
 public:
 	cWorld();
 	~cWorld();
@@ -87,7 +126,7 @@ public:
 	void moveCenter(unsigned short x, unsigned short y, signed char z, bool fresh = false);
 
 	// Smooth Move the World by the given x/y coordinates
-	void smoothMove(int x, int y);
+	void smoothMove(int x, int y, int zdiff, uint duration);
 
 	// Changing the facet is special
 	void changeFacet(enFacet facet);
@@ -111,8 +150,13 @@ public:
 	cMobile *findMobile(unsigned int serial) const;
 	void registerDynamic(cDynamicEntity *entity);
 	void unregisterDynamic(cDynamicEntity *entity);
+
+	QVector<cBlockItem> getBlockingItems(cMobile *mobile, ushort posx, ushort posy);
+	bool mayWalk(cMobile *mobile, ushort posx, ushort posy, signed char &posz);
 private:
 	bool cleaningUp; // If the World is cleaning up entities, this blocks removeEntity() from doing anything
+public slots:
+	void checkRoofs();
 };
 
 inline unsigned int cWorld::getCellId(unsigned short x, unsigned short y) const {

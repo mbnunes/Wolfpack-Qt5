@@ -32,6 +32,7 @@ public:
 	void parseLayout(QString layout, QStringList strings);
 	cControl *getControl(int x, int y);
 	void sendResponse(uint button);
+	void onClick(QMouseEvent *e);
 
 	static cGenericGump* findByType(uint type);
 	uint gumpType() const;

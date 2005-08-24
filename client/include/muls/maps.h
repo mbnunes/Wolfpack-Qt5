@@ -66,6 +66,7 @@ public:
 
 	// Retrieve a map cell from this block. This is guranteed to return something valid. Even if its crap data.
 	stMapCell *getMapCell(unsigned short x, unsigned short y);
+	signed char getAverageHeight(ushort x, ushort y);
 
 	// If there aren't any static items in the block this returns NULL
 	StaticBlock *getStaticBlock(unsigned short x, unsigned short y);
@@ -132,6 +133,7 @@ public:
 
 	// Retrieve a map cell from this block. This is guranteed to return something valid. Even if its crap data.
 	stMapCell *getMapCell(enFacet facet, unsigned short x, unsigned short y);
+	signed char getAverageHeight(enFacet facet, ushort x, ushort y);
 
 	// If there aren't any static items in the block this returns NULL
 	StaticBlock *getStaticBlock(enFacet facet, unsigned short x, unsigned short y);
@@ -143,6 +145,10 @@ inline unsigned int cMaps::facetWidth(enFacet facet) const {
 
 inline unsigned int cMaps::facetHeight(enFacet facet) const {
 	return facets[facet].height();
+}
+
+inline signed char cMaps::getAverageHeight(enFacet facet, ushort x, ushort y) {
+	return facets[facet].getAverageHeight(x, y);
 }
 
 inline stMapCell *cMaps::getMapCell(enFacet facet, unsigned short x, unsigned short y) {

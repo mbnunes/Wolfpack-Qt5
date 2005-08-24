@@ -91,6 +91,7 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 	else if (command == "resizepic" && tokens.size() >= 5) {		
 		cBorderGump *gump = new cBorderGump(tokens[3].toUInt());
 		gump->setBounds(tokens[1].toInt(), tokens[2].toInt(), tokens[4].toUInt(), tokens[5].toUInt());
+		gump->setMoveHandle(true);
 		addControl(context.page, gump);
 	}
 	// gumppictiled <x> <y> <width> <height> <id> <hue=0>
@@ -98,6 +99,7 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 		unsigned short hue = 0; // TODO: Parse arguments
 		cTiledGumpImage *gump = new cTiledGumpImage(tokens[5].toUInt(), hue, false);
 		gump->setBounds(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toUInt(), tokens[4].toUInt());
+		gump->setMoveHandle(true);
 		addControl(context.page, gump);
 	}
 	// checkertrans <x> <y> <width> <height>
@@ -105,11 +107,13 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 		if (context.page == 0) {
 			cCheckerTrans *gump = new cCheckerTrans(true);
 			gump->setBounds(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toUInt(), tokens[4].toUInt());
+			gump->setMoveHandle(true);
 			enableStencil_ = true;
 			cContainer::addControl(gump, true);
 
 			gump = new cCheckerTrans(false);
 			gump->setBounds(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toUInt(), tokens[4].toUInt());
+			gump->setMoveHandle(true);
 			enableStencil_ = true;
 			cContainer::addControl(gump);
 		}
@@ -129,6 +133,7 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 
         cLabel *gump = new cLabel(text, 1, hue);
 		gump->setPosition(tokens[1].toInt(), tokens[2].toInt());
+		gump->setMoveHandle(true);
 		addControl(context.page, gump);
 	}
 	// button <x> <y> <off> <on> <close> <buttonid> <buttonid>
@@ -176,6 +181,7 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 	else if (command == "gumppic" && tokens.size() >= 4) {
 		cGumpImage *gump = new cGumpImage(tokens[3].toUShort());
 		gump->setPosition(tokens[1].toInt(), tokens[2].toInt());
+		gump->setMoveHandle(true);
 		addControl(context.page, gump);
 	}
 	// any other command
@@ -279,6 +285,11 @@ cControl *cGenericGump::getControl(int x, int y) {
 			} while(it != controls.begin());
 		}
 	}
+	
+	if (result && result != this && isMovable() && result->isMoveHandle()) {
+		return this;
+	}
+
 	return result;
 }
 
@@ -297,5 +308,14 @@ void cGenericGump::setGumpType(uint data) {
 			delete gump;
 		}	
 		instances.insert(gumpType_, this, true);
+	}
+}
+
+void cGenericGump::onClick(QMouseEvent *e) {
+	if (e->button() == Qt::RightButton) {
+		sendResponse(0);
+		Gui->queueDelete(this);
+	} else {
+		cWindow::onClick(e);
 	}
 }

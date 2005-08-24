@@ -48,9 +48,9 @@ cResyncPacket::cResyncPacket() : cOutgoingPacket(0x22, 3) {
 	fill(2, 0);
 }
 
-unsigned int createOneMask(unsigned int count) {
-	unsigned int result = 0;
-	for (int i = 0; i < count; ++i) {
+unsigned int createOneMask(uint count) {
+	uint result = 0;
+	for (uint i = 0; i < count; ++i) {
 		result |= 1 << i;
 	}
 	return result;

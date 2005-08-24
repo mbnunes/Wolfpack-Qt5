@@ -63,6 +63,8 @@ public:
 	void playAction(unsigned char action, unsigned int duration = 0);
 
 	void smoothMove(int xoffset, int yoffset, unsigned int duration);
+	uint getMoveDuration(bool running) const;
+	void playMoveAnimation(uint duration, bool running);
 
 	// Steals a reference
 	void addEquipment(cDynamicItem *item);

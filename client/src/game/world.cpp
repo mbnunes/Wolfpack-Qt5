@@ -7,6 +7,7 @@
 #include "game/groundtile.h"
 #include "game/statictile.h"
 #include "game/mobile.h"
+#include "game/dynamicitem.h"
 #include "game/targetrequest.h"
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
@@ -28,6 +29,8 @@ cWorld::cWorld() : groundCache(2500, 1999) {
 	drawxoffset = 0;
 	drawyoffset = 0;
 	cleaningUp = false;
+	roofTimer.setSingleShot(true);
+	connect(&roofTimer, SIGNAL(timeout()), this, SLOT(checkRoofs()));	
 }
 
 cWorld::~cWorld() {
@@ -275,20 +278,16 @@ void cWorld::removeEntity(cEntity *entity) {
 	}
 }
 
-void cWorld::smoothMove(int x, int y) {
+void cWorld::smoothMove(int x, int y, int z, uint duration) {
 	// Cache old values
 	int oldx = x_;
 	int oldy = y_;
 	int oldz = z_;
 
-	// TODO: Calculate correct new Z coordinate
-	int newz = z_;
-	newz = Maps->getMapCell(facet_, x_ + x, y_ + y)->z;
-
 	// Move center of the world
 	// TODO: Write an optimized loading technique for faster loading
 	// and less distance checks
-	moveCenter(oldx + x, oldy + y, newz);
+	moveCenter(oldx + x, oldy + y, oldz + z);
 
 	// Get old drawing coordinates
 	int diffx = oldx - x_;
@@ -300,12 +299,12 @@ void cWorld::smoothMove(int x, int y) {
 	// Calculate new direction for the player
 	int direction = Utilities::direction(oldx, oldy, x_, y_);
 
-	xOffsetDecrease = drawxoffset / 370.0f;
-	yOffsetDecrease = drawyoffset / 370.0f;
+	xOffsetDecrease = drawxoffset / (float)duration;
+	yOffsetDecrease = drawyoffset / (float)duration;
 
 	// Move the player
 	if (Player) {
-		Player->smoothMove(drawxoffset, drawyoffset, 375);
+		Player->smoothMove(drawxoffset, drawyoffset, duration);
 		if (direction != Player->direction()) {
 			Player->setDirection(direction);
 
@@ -315,11 +314,11 @@ void cWorld::smoothMove(int x, int y) {
 			if (UoSocket->moveSequence() == 255) {
 				UoSocket->setMoveSequence(1);
 			} else {
-			UoSocket->setMoveSequence(UoSocket->moveSequence() + 1);
+				UoSocket->setMoveSequence(UoSocket->moveSequence() + 1);
 			}
 		}
 		Player->move(x_, y_, z_);
-		Player->playAction(0, 370); // Play walk for the time of move
+		Player->playMoveAnimation(duration, duration <= Player->getMoveDuration(true));
 
 		// Send the move request
 		UoSocket->send(cMoveRequestPacket(direction, UoSocket->moveSequence()));
@@ -331,11 +330,61 @@ void cWorld::smoothMove(int x, int y) {
 		}
 	}
 
-	// Set the smooth move timeouts, Take 125 ms
-	smoothMoveTime_ = 370;
+	// Set the smooth move timeouts
+	smoothMoveTime_ = duration;
 	smoothMoveEnd_ = Utilities::getTicks() + smoothMoveTime_;
 	nextSmoothMoveUpdate = 0;
 	currentSmoothMoveFactor = 0.0f;
+
+	// Start the roofcheck timer if we have a player (otherwise this is manual)
+	if (Player) {
+		roofTimer.start(duration, true);
+	}
+}
+
+void cWorld::checkRoofs() {
+	if (!Player) {
+		return;
+	}
+
+	roofCap_ = 1024;
+
+	// Check for Roofs at x+1,y+1
+	uint cellid = getCellId(Player->x() + 1, Player->y() + 1);
+	
+	if (entities.contains(cellid)) {
+		cWorld::Cell cell = *entities.find(cellid);
+
+		for (CellIterator it = cell.begin(); it != cell.end(); ++it) {
+			cStaticTile *staticTile = dynamic_cast<cStaticTile*>(*it);
+
+			if (staticTile && staticTile->z() > Player->z() + 15) {
+				if (staticTile->z() < roofCap_) {
+					if (staticTile->tiledata()->isRoof()) {
+						roofCap_ = Player->z() + 15;
+					}
+				}
+			}
+		}
+	}
+
+	// Check for other items at x,y
+	cellid = getCellId(Player->x(), Player->y());
+	if (entities.contains(cellid)) {
+		cWorld::Cell cell = *entities.find(cellid);
+
+		for (CellIterator it = cell.begin(); it != cell.end(); ++it) {
+			cStaticTile *staticTile = dynamic_cast<cStaticTile*>(*it);
+
+			if (staticTile && staticTile->z() > Player->z() + 15) {
+				if (staticTile->z() < roofCap_) {
+					if (!staticTile->tiledata()->isRoof()) {
+						roofCap_ = staticTile->z();
+					}
+				}
+			}
+		}
+	}
 }
 
 void cWorld::draw(int x, int y, int width, int height) {
@@ -611,6 +660,293 @@ cMobile *cWorld::findMobile(unsigned int serial) const {
 
 void cWorld::clearGroundCache() {
 	groundCache.clear();
+}
+
+// The highest items will be @ the beginning
+// While walking we always will try the highest first.
+QVector<cBlockItem> cWorld::getBlockingItems(cMobile *mobile, ushort posx, ushort posy ) {	
+	QVector<cBlockItem> blockList;
+
+	// Process the map at that position
+	cBlockItem mapBlock;
+	mapBlock.maptile = true;
+	mapBlock.z = Maps->getAverageHeight(mobile->facet(), posx, posy);
+	mapBlock.height = 0;
+
+	stMapCell *mapCell = Maps->getMapCell(mobile->facet(), posx, posy);
+	cLandTileInfo *mapTile = Tiledata->getLandInfo(mapCell->id);
+
+	// If it's not impassable it's automatically walkable
+	if (!mapTile->isImpassable())
+		mapBlock.walkable = true;
+	else
+		mapBlock.walkable = false; // TODO: Additional Checks for Seahorses etc.
+
+	// Nodraw tiles don't count
+	if (mapCell->id != 0x02) {
+		blockList.append(mapBlock);
+	}
+
+	// Now for the static-items
+	StaticBlock *block = Maps->getStaticBlock(mobile->facet(), posx, posy);
+	
+	const uchar cellx = posx % 8;
+	const uchar celly = posy % 8;
+	
+	for (StaticBlock::const_iterator cit = block->begin(); cit != block->end(); ++cit) {
+		// Continue if it's not the tile we want
+		if (cit->xoffset != cellx || cit->yoffset != celly)
+			continue;
+
+		cItemTileInfo *tTile = Tiledata->getItemInfo(cit->id);
+
+		// Here is decided if the tile is needed
+		// It's uninteresting if it's NOT blocking
+		// And NOT a bridge/surface
+		if ( !tTile->isBridge() && !tTile->isImpassable() && !tTile->isSurface() )
+			continue;
+
+		cBlockItem staticBlock;
+		staticBlock.z = cit->z;
+
+		// If we are a surface we can always walk here, otherwise check if
+		// we are special
+		if ( tTile->isSurface() && !tTile->isImpassable() )
+			staticBlock.walkable = true;
+		else
+			staticBlock.walkable = false; // TODO: special walking checks
+
+		// If we are a stair only the half height counts (round up)
+		if ( tTile->isBridge() )
+			staticBlock.height = (uchar)( ( tTile->height() ) / 2 );
+		else
+			staticBlock.height = tTile->height();
+
+		blockList.append(staticBlock);
+	}
+
+	// We are only interested in items at pos
+	// todo: we could impliment blocking for items on the adjacent sides
+	// during a diagonal move here, but this has yet to be decided.
+	uint cellid = getCellId(posx, posy);
+	Container::iterator it = entities.find(cellid);
+
+	if (it != entities.end()) {
+		for (CellIterator cit = it->begin(); cit != it->end(); ++cit) {
+			/*if ( pChar && pChar->isDead() )
+			{
+				// Doors can be passed by ghosts
+				if ( pItem->hasScript( "door" ) )
+				{
+					continue;
+				}
+			}*/
+			cDynamicItem *item = dynamic_cast<cDynamicItem*>(*cit);
+
+			if (!item) {
+				continue;
+			}		
+
+			const cItemTileInfo *tTile = item->tiledata();
+
+			// See above for what the flags mean
+			if ( !tTile->isBridge() && !tTile->isImpassable() && !tTile->isSurface() )
+				continue;
+
+			cBlockItem blockItem;
+			blockItem.height = ( tTile->isBridge() ) ? ( tTile->height() / 2 ) : tTile->height();
+			blockItem.z = item->z();
+
+			// Once again: see above for a description of this part
+			if ( tTile->isSurface() && !tTile->isImpassable() )
+				blockItem.walkable = true;
+			else
+				blockItem.walkable = false; // TODO: special walking checks
+
+			blockList.append(blockItem);
+		}
+	}
+
+
+	// deal with the multis now, or not.
+	// 18 has been tested with castle sides and corners...
+	/*MapMultisIterator iter = MapObjects::instance()->listMultisInCircle( pos, 18 );
+	for ( cMulti*pMulti = iter.first(); pMulti; pMulti = iter.next() )
+	{
+		MultiDefinition* def = MultiCache::instance()->getMulti( pMulti->id() - 0x4000 );
+		if ( !def )
+			continue;
+
+		QValueVector<multiItem_st> multi = def->getEntries();
+
+		for ( unsigned int j = 0; j < multi.size(); ++j )
+		{
+			if ( multi[j].visible && ( pMulti->pos().x + multi[j].x == pos.x ) && ( pMulti->pos().y + multi[j].y == pos.y ) )
+			{
+				const tile_st &tTile = TileCache::instance()->getTile( multi[j].tile );
+				if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+					continue;
+
+				cBlockItem blockItem;
+				blockItem.height = ( tTile.flag2 & 0x04 ) ? ( tTile.height / 2 ) : tTile.height;
+				blockItem.z = pMulti->pos().z + multi[j].z;
+
+				if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+					blockItem.walkable = true;
+				else
+					blockItem.walkable = checkWalkable( pChar, pMulti->id() );
+
+				blockList.push_back( blockItem );
+				push_heap( blockList.begin(), blockList.end(), compareTiles() );
+			}
+		}
+		continue;
+	}*/
+
+	qSort(blockList.begin(), blockList.end());
+
+	return blockList;
+};
+
+#define P_M_MAX_Z_CLIMB		14
+#define P_M_MAX_Z_FALL		20
+#define P_M_MAX_Z_BLOCKS	14
+
+bool cWorld::mayWalk(cMobile *mobile, ushort posx, ushort posy, signed char &posz) {
+	// Go trough the array top-to-bottom and check
+	// If we find a tile to walk on
+	QVector<cBlockItem> blockList = getBlockingItems(mobile, posx, posy);
+	bool found = false;
+	Q_UINT32 i;
+	bool priviledged = false;
+	Q_INT32 oldz = posz;
+
+	priviledged = false; // *cough cough*
+
+	for ( i = 0; i < blockList.size(); ++i )
+	{
+		cBlockItem item = blockList[i];
+		Q_INT32 itemTop = ( item.z + item.height );
+
+		// If we found something to step on and the next tile
+		// below would block us, use the good one instead
+		if ( found && ( itemTop > posz - P_M_MAX_Z_BLOCKS || !item.walkable ) )
+		{
+			break;
+		}
+
+		// If we encounter any object with itemTop <= posz which is NOT walkable
+		// Then we can as well just return false as while falling we would be
+		// blocked by that object
+		if ( !item.walkable && !priviledged && itemTop <= posz )
+			return false;
+
+		if ( item.walkable || priviledged )
+		{
+			// If the top of the item is within our max-climb reach
+			// then the first check passed. in addition we need to
+			// check if the "bottom" of the item is reachable
+			// I would say 2 is a good "reach" value for the bottom
+			// of any item
+			if ( itemTop < posz + P_M_MAX_Z_CLIMB && itemTop >= posz - P_M_MAX_Z_FALL )
+			{
+				// We already found something to step on above.
+				// See if it's easier to step down.
+				if ( found && abs( oldz - posz ) < abs( oldz - itemTop ) )
+				{
+					break;
+				}
+
+				posz = itemTop;
+				found = true;
+
+				if ( item.height > 1 )
+				{
+					break;
+				}
+
+				// break; - We can't break here anymore since we have to check if the ground would be easier
+				// to step on
+				// Climbing maptiles is 5 tiles easier
+			}
+			else if ( item.maptile && itemTop < posz + P_M_MAX_Z_CLIMB + 5 && itemTop >= posz - P_M_MAX_Z_FALL )
+			{
+				// We already found something to step on above.
+				// See if it's easier to step down.
+				if ( found && abs( oldz - posz ) < abs( oldz - itemTop ) )
+				{
+					break;
+				}
+
+				posz = itemTop;
+				found = true;
+				//break;
+			}
+			else if ( itemTop < posz )
+			{
+				// We already found something to step on above.
+				// See if it's easier to step down.
+				if ( found && abs( oldz - posz ) < abs( oldz - itemTop ) )
+				{
+					break;
+				}
+
+				posz = itemTop;
+				found = true;
+				break;
+			}
+		}
+	}
+
+	if ( priviledged )
+	{
+		return true;
+	}
+
+	// If we're still at the same position
+	// We didn't find anything to step on
+	if ( !found )
+		return false;
+
+	// Another loop *IS* needed here (at least that's what i think)
+	for ( i = 0; i < blockList.size(); ++i )
+	{
+		// So we know about the new Z position we are moving to
+		// Lets check if there is enough space ABOVE that position (at least 15 z units)
+		// If there is ANY impassable object between posz and posz + 15 we can't walk here
+		cBlockItem item = blockList[i];
+		Q_INT8 itemTop = ( item.z + item.height );
+
+		// If the item is below what we step on, ignore it
+		if ( itemTop <= posz )
+		{
+			continue;
+		}
+
+		// Does the top of the item looms into our space
+		// Like before 15 is the assumed height of ourself
+		// Use the new position here.
+		if ( ( itemTop > posz ) && ( itemTop < posz + P_M_MAX_Z_BLOCKS ) )
+			return false;
+
+		// Or the bottom ?
+		// note: the following test was commented out.  by putting the code back in,
+		// npcs stop wandering through the walls of multis.  I am curious if this code
+		// has other (negative) affects besides that.
+		if ( ( item.z >= oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+			return false;
+
+		// Or does it spread the whole range ?
+		if ( ( item.z <= oldz ) && ( itemTop >= oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+			return false;
+
+		// Is it at the new position ?
+		if ( ( item.z >= posz ) && ( item.z < posz + P_M_MAX_Z_BLOCKS ) )
+			return false;
+	}
+
+	// All Checks passed
+	return true;
 }
 
 cWorld *World = 0;

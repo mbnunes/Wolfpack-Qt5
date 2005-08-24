@@ -225,6 +225,19 @@ void cWorldView::moveTick() {
 		return;
 	}
 
+	// Check the distance from the center in pixels
+	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+    int diffx = pos.x() - (x_ + width_ / 2);
+	int diffy = pos.y() - (y_ + height_ / 2);
+	int distance = (int)sqrt((float)(diffx * diffx + diffy * diffy));
+	bool running = distance > width_ / 4;
+
+	// Calculate the duration of the movement
+	int duration = 0;
+	if (Player) {
+		duration = Player->getMoveDuration(running);
+	}
+
 	// TEMPORARY HACK UNTIL PLAYER OBJECT + NETWORKING EXISTS
 	static unsigned int nextmove = 0;
 
@@ -232,12 +245,11 @@ void cWorldView::moveTick() {
 		return;
 	}
 
-	nextmove = Utilities::getTicks() + 375;
-
 	// Get the direction the cursor is pointing to
 	enCursorType cursor = getCursorType();
 	int xdiff = 0;
 	int ydiff = 0;
+	int zdiff = 0;
 
 	switch (cursor) {
 		// Up
@@ -285,8 +297,31 @@ void cWorldView::moveTick() {
 			return; // Do nothing
 	};
 
-	// Move the world
-	World->smoothMove(xdiff, ydiff);
+	// Calculate new direction for the player
+	int direction = Utilities::direction(World->x(), World->y(), World->x() + xdiff, World->y() + ydiff);
+
+	// Check if we can even go there
+	if (Player && Player->direction() == direction) {
+		signed char posz = Player->z();
+		if (!World->mayWalk(Player, Player->x() + xdiff, Player->y() + ydiff, posz)) {
+			return;
+		}
+		nextmove = Utilities::getTicks() + duration;		
+		World->smoothMove(xdiff, ydiff, posz - Player->z(), duration);
+	} else if (Player && Player->direction() != direction) {
+        Player->setDirection(direction);
+
+		// Send the move request
+		UoSocket->send(cMoveRequestPacket(direction, UoSocket->moveSequence()));
+		UoSocket->pushSequence(UoSocket->moveSequence());
+		if (UoSocket->moveSequence() == 255) {
+			UoSocket->setMoveSequence(1);
+		} else {
+			UoSocket->setMoveSequence(UoSocket->moveSequence() + 1);
+		}
+	} else {
+		World->smoothMove(xdiff, ydiff, zdiff, duration);
+	}
 }
 
 void cWorldView::targetResponse(cEntity *entity) {

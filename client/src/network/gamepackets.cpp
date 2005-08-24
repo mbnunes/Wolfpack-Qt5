@@ -529,9 +529,12 @@ public:
 				int drawxoffset = (diffx - diffy) * 22;
 				int drawyoffset = (diffx + diffy) * 22 - diffz * 4;
 
-				mobile->smoothMove(drawxoffset, drawyoffset, 375);
+				// Calculate movement duration
+				int duration = mobile->getMoveDuration(false);
+
+				mobile->smoothMove(drawxoffset, drawyoffset, duration);
 				mobile->move(posx, posy, posz);
-				mobile->playAction(0, 375); // Play walk for the time of move
+				mobile->playMoveAnimation(duration, true);
 			}
 		}
 	}
