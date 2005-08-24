@@ -422,6 +422,11 @@ public:
 		enable ? ( *this )[2] |= 0x10 : ( *this )[2] &= ~0x10;
 	}
 
+	void setML( bool enable )
+	{
+		enable ? ( *this )[2] |= 0x80 : ( *this )[2] &= ~0x80;
+	}
+
 	/*!
 		This flag must be present to enable Age of Shadows
 		features or the Sixth Character Slot

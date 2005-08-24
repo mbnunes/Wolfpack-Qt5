@@ -110,7 +110,7 @@ void cUOTxCharTownList::compile( void )
 		offset += 63;
 	}
 
-	unsigned int flags = 0xA8; // Samurai Empire + Context Menus + AOS
+	unsigned int flags = 0x1A8; // Samurai Empire + Context Menus + AOS + Mondain's Legacy
 
 	if (charLimit == 6) {
 		flags |= 0x40;

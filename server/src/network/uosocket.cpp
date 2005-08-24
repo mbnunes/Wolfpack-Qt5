@@ -638,7 +638,7 @@ void cUOSocket::sendCharList()
 	// AoS needs it most likely for account creation
 	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
 	cUOTxClientFeatures clientFeatures;
-	unsigned short flags = 0x3 | 0x40 | 0x801c;
+	unsigned short flags = 0x3 | 0x40 | 0x801c | 0x80;	// Added 0x80 to Enable the ML Features
 	if (maxChars == 6) {
 		flags |= 0x8020;
 		flags &= ~ 0x4;
