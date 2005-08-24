@@ -59,6 +59,7 @@ const Q_UINT16 packetLengths[256] = {
 cUoSocket *UoSocket = 0; // Global cUoSocket instance
 
 cUoSocket::cUoSocket() {
+	moveSequence_ = 0;
 	encryption = 0;
 	lastDecodedPacketId_ = 0;
 	socket = new Q3Socket(this);

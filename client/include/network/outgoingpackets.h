@@ -72,4 +72,10 @@ public:
 	cGenericGumpResponsePacket(uint serial, uint type, uint button, QVector<uint> switches, QMap<uint, QString> strings);
 };
 
+// 0x02 Move Request
+class cMoveRequestPacket : public cOutgoingPacket {
+public:
+	cMoveRequestPacket(uchar direction, uchar sequence, uint fastwalkKey = 0);
+};
+
 #endif

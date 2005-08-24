@@ -220,6 +220,11 @@ void cWorldView::moveTick() {
 		return;
 	}
 
+	// Don't move if 4 movements have been queued already
+	if (UoSocket->sequenceQueueLength() >= 4) {
+		return;
+	}
+
 	// TEMPORARY HACK UNTIL PLAYER OBJECT + NETWORKING EXISTS
 	static unsigned int nextmove = 0;
 
@@ -227,7 +232,7 @@ void cWorldView::moveTick() {
 		return;
 	}
 
-	nextmove = Utilities::getTicks() + 75;
+	nextmove = Utilities::getTicks() + 375;
 
 	// Get the direction the cursor is pointing to
 	enCursorType cursor = getCursorType();

@@ -45,8 +45,9 @@ public:
 	void draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip);
 	bool hitTest(int x, int y);
 	void updatePriority();
-
+	
 	// Getters and Setters
+	enBodyType bodyType() const; // Translate the body into a body type
 	unsigned short body() const;
 	unsigned short hue() const;
 	unsigned char direction() const;
@@ -87,6 +88,7 @@ inline bool cMobile::partialHue() const {
 inline void cMobile::setBody(unsigned short data) {
 	if (data != body_) {
 		body_ = data;
+		currentAction_ = getIdleAction();
 		freeSequence();
 	}
 }

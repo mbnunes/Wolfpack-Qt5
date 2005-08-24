@@ -81,6 +81,71 @@ namespace Utilities {
 	QString localLanguage();
 
 	QString dumpData(const QByteArray &data);
+
+	inline bool isMobileSerial(uint serial) {
+		return serial > 0 && serial < 0x40000000;
+	}
+
+	inline bool isItemSerial(uint serial) {
+		return serial > 0x40000000 && serial < 0x80000000;
+	}
+
+	inline bool isValidSerial(uint serial) {
+		return isItemSerial(serial) || isMobileSerial(serial);
+	}
+
+	inline bool isInvalidSerial(uint serial) {
+		return !(isItemSerial(serial) && isMobileSerial(serial));
+	}
+
+	inline void calcXYFromDirection(unsigned char direction, int &xdiff, int &ydiff) {
+		direction &= 0xf;
+		switch (direction) {
+			// Up
+			case 0:
+				xdiff = -1;
+				ydiff = -1;
+				break;
+			// Up-Right
+			case 1:
+				xdiff = 0;
+				ydiff = -1;
+				break;
+			// Right
+			case 2:
+				xdiff = 1;
+				ydiff = -1;
+				break;
+			// Down-Right
+			case 3:
+				xdiff = 1;
+				ydiff = 0;
+				break;
+			// Down
+			case 4:
+				xdiff = 1;
+				ydiff = 1;
+				break;
+			// Down-Left
+			case 5:
+				xdiff = 0;
+				ydiff = 1;
+				break;
+			// Left
+			case 6:
+				xdiff = -1;
+				ydiff = 1;
+				break;
+			// Up-Left
+			case 7:
+				xdiff = -1;
+				ydiff = 0;
+				break;
+			// Default
+			default:
+				return; // Do nothing
+		};
+	}
 };
 
 // Please note that this cache does steal reference counts

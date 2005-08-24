@@ -1,6 +1,7 @@
 
 #include "network/uopacket.h"
 #include "network/uosocket.h"
+#include "network/outgoingpackets.h"
 #include "dialogs/login.h"
 #include "gui/worldview.h"
 #include "gui/genericgump.h"
@@ -82,6 +83,10 @@ public:
 		if (Player->serial() != serial) {
 			return; // Do nothing if serials dont match
 		}
+
+		// Reset Walking Code
+		UoSocket->clearSequenceQueue();
+		UoSocket->setMoveSequence(0);
 
 		// If the serial matches the player serial, update the player
 		Player->setBody(body);
@@ -167,8 +172,12 @@ public:
 		cDynamicEntity *entity = World->findDynamic(serial);
 		cMobile *mobile = 0;
 
-		if (!entity) {
-			return; // TODO: Object creation
+		if (!entity && Utilities::isMobileSerial(serial)) {
+			mobile = new cMobile(posx, posy, posz, World->facet(), serial);
+			World->addEntity(mobile);
+			entity = mobile;
+		} else if (!entity) {
+			return; // No support for items
 		}
 
 		if (entity->type() == MOBILE) {
@@ -480,3 +489,121 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xb0, cGenericGumpPacket::creator);
+
+
+class cUpdateMobilePacket : public cIncomingPacket {
+protected:
+	unsigned int serial;
+	unsigned short body;
+	unsigned short hue;
+	unsigned char flags;
+	unsigned short posx, posy;
+	signed char posz;
+	unsigned char direction;
+	unsigned char notoriety;
+public:
+	cUpdateMobilePacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> body >> posx >> posy >> posz >> direction >> hue >> flags >> notoriety;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (!mobile) {
+			return;
+		}
+
+		bool sameDirection = mobile->direction() == direction;
+
+		mobile->setHue(hue);
+		mobile->setDirection(direction);
+		mobile->setBody(body);
+
+		if ((posx != mobile->x() || posy != mobile->y() || posz != mobile->z()) && sameDirection) {
+			// Can't move the player with this. Btw. this is _VERY_ "shaky"
+			// using the wrong animation for certain mobiles etc. no running etc. etc.
+			if (Player != mobile) {
+				int diffx = mobile->x() - posx;
+				int diffy = mobile->y() - posy;
+				int diffz = mobile->z() - posz;
+				int drawxoffset = (diffx - diffy) * 22;
+				int drawyoffset = (diffx + diffy) * 22 - diffz * 4;
+
+				mobile->smoothMove(drawxoffset, drawyoffset, 375);
+				mobile->move(posx, posy, posz);
+				mobile->playAction(0, 375); // Play walk for the time of move
+			}
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cUpdateMobilePacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x77, cUpdateMobilePacket::creator);
+
+// Move was rejected
+class cRejectMovePacket : public cIncomingPacket {
+protected:
+	uchar sequence; // The sequence that was rejected
+	ushort posx, posy; // The new x,y coordinates
+	uchar direction; // The new direction
+	signed char posz; // The new z position
+public:
+	cRejectMovePacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> sequence >> posx >> posy >> direction >> posz;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		if (Player) {
+			UoSocket->clearSequenceQueue();
+			UoSocket->setMoveSequence(0);
+			World->moveCenter(posx, posy, posz);
+			Player->move(posx, posy, posz);
+			Player->setDirection(direction);			
+	
+			Log->print(LOG_NOTICE, tr("Server rejected our move and bounced us to %1,%2,%3 direction %4.\n").arg(posx).arg(posy).arg(posz).arg(direction));
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cRejectMovePacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x21, cRejectMovePacket::creator);
+
+// Move was accepted
+class cAcceptMovePacket : public cIncomingPacket {
+protected:
+	uchar sequence; // The sequence that was accepted
+	uchar notoriety; // Notoriety of the player
+public:
+	cAcceptMovePacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> sequence >> notoriety;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		if (!Player) {
+			return;
+		}
+
+		uint currentSequence = socket->popSequence();
+
+		// Sequence mismatch
+		if (currentSequence != sequence) {
+			UoSocket->clearSequenceQueue();
+			UoSocket->setMoveSequence(0);
+		
+			UoSocket->send(cResyncPacket()); // Send a resync request
+			return;
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cAcceptMovePacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x22, cAcceptMovePacket::creator);

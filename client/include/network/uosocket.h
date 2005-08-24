@@ -6,6 +6,7 @@
 #include <qbytearray.h>
 #include <qfile.h>
 #include <qtextstream.h>
+#include <qqueue.h>
 
 #include "enums.h"
 #include "network/uopacket.h"
@@ -34,6 +35,8 @@ protected:
 	bool gameServer; // Are we connecting to a gameserver?
 	unsigned short hostport; // The port we're connecting to
 	unsigned int lastDecodedPacketId_;
+	uint moveSequence_;
+	QQueue<int> moveQueue; // Not directly accessible from the outside
 
 	Q3ValueList<QByteArray> outgoingQueue;
 	Q3ValueList<cIncomingPacket*> incomingQueue;
@@ -60,6 +63,12 @@ public:
 	void disconnect();
 	void setSeed(unsigned int seed);
 	unsigned int seed() const;
+	uint moveSequence() const;
+	void setMoveSequence(uint data);
+	void pushSequence(uint sequence);
+	uint popSequence();
+	void clearSequenceQueue();
+	uint sequenceQueueLength();
 
 	// Poll for new packets and other events.
 	void poll();
@@ -118,6 +127,34 @@ inline unsigned int cUoSocket::seed() const {
 
 inline void cUoSocket::setSeed(unsigned int seed) {
 	seed_ = seed;
+}
+
+inline uint cUoSocket::moveSequence() const {
+	return moveSequence_;
+}
+
+inline void cUoSocket::setMoveSequence(uint data) {
+	moveSequence_ = data;
+}
+
+inline void cUoSocket::pushSequence(uint sequence) {
+	moveQueue.append(sequence);
+}
+
+inline uint cUoSocket::popSequence() {
+	if (!moveQueue.isEmpty()) {
+		return moveQueue.takeFirst();
+	} else {
+		return ~0;
+	}
+}
+
+inline void cUoSocket::clearSequenceQueue() {
+	moveQueue.clear();
+}
+
+inline uint cUoSocket::sequenceQueueLength() {
+	return moveQueue.size();
 }
 
 #define AREGPREFIX fnc

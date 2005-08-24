@@ -24,11 +24,16 @@ protected:
 
 	QMap<cControl*, uint> controlIds;
 	QMap<uint, cContainer*> pages;
+
+	static QMap<unsigned int, cGenericGump*> instances; // Instances of this class
 public:
 	cGenericGump(int x, int y, unsigned int serial, unsigned int gumpType);
+	~cGenericGump();
 	void parseLayout(QString layout, QStringList strings);
 	cControl *getControl(int x, int y);
+	void sendResponse(uint button);
 
+	static cGenericGump* findByType(uint type);
 	uint gumpType() const;
 	uint serial() const;
 	void setGumpType(uint data);
@@ -43,10 +48,6 @@ inline uint cGenericGump::gumpType() const {
 
 inline uint cGenericGump::serial() const {
 	return serial_;
-}
-
-inline void cGenericGump::setGumpType(uint data) {
-	gumpType_ = data;
 }
 
 inline void cGenericGump::setSerial(uint data) {

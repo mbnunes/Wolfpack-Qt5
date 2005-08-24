@@ -8,6 +8,8 @@
 #include "game/statictile.h"
 #include "game/mobile.h"
 #include "game/targetrequest.h"
+#include "network/uosocket.h"
+#include "network/outgoingpackets.h"
 #include "gui/gui.h"
 #include "gui/worldview.h"
 #include "muls/maps.h"
@@ -303,12 +305,30 @@ void cWorld::smoothMove(int x, int y) {
 
 	// Move the player
 	if (Player) {
-		Player->smoothMove(drawxoffset, drawyoffset, 370);
+		Player->smoothMove(drawxoffset, drawyoffset, 375);
 		if (direction != Player->direction()) {
 			Player->setDirection(direction);
+
+			// Send the move request
+			UoSocket->send(cMoveRequestPacket(direction, UoSocket->moveSequence()));
+			UoSocket->pushSequence(UoSocket->moveSequence());
+			if (UoSocket->moveSequence() == 255) {
+				UoSocket->setMoveSequence(1);
+			} else {
+			UoSocket->setMoveSequence(UoSocket->moveSequence() + 1);
+			}
 		}
 		Player->move(x_, y_, z_);
 		Player->playAction(0, 370); // Play walk for the time of move
+
+		// Send the move request
+		UoSocket->send(cMoveRequestPacket(direction, UoSocket->moveSequence()));
+		UoSocket->pushSequence(UoSocket->moveSequence());
+		if (UoSocket->moveSequence() == 255) {
+			UoSocket->setMoveSequence(1);
+		} else {
+			UoSocket->setMoveSequence(UoSocket->moveSequence() + 1);
+		}
 	}
 
 	// Set the smooth move timeouts, Take 125 ms

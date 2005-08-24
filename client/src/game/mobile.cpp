@@ -133,11 +133,24 @@ void cMobile::refreshSequence() {
 }
 
 unsigned int cMobile::getFrameDelay() {
-	return 370;
+	return 100;
+}
+
+enBodyType cMobile::bodyType() const {
+	return Animations->getBodyType(body_);
 }
 
 unsigned char cMobile::getIdleAction() {
-	return 0;
+	switch (bodyType()) {
+		case ANIMAL:
+			return 2; // Animal animation for standing
+		case MONSTER:
+			return 1; // High detail critter animation for standing		
+		case HUMAN:
+		case EQUIPMENT:
+		default:
+			return 4; // Human animation for standing
+	}
 }
 
 void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip) {
@@ -167,14 +180,13 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 			if (moveProgress <= 0) {
 				cellx += drawxoffset;
 				celly += drawyoffset;
-				frame = 0;
 			} else {
 				float factor = 1.0f - (float)moveProgress / (float)smoothMoveTime;
 				cellx += (int)(factor * (float)drawxoffset);
 				celly += (int)(factor * (float)drawyoffset);
-				if (sequence_) {
+				/*if (sequence_) {
 					frame = (int)(sequence_->frameCount() * factor);
-				}
+				}*/
 			}
 		}
 	}
@@ -182,7 +194,7 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 	// Draw
 	if (sequence_) {
 		// Skip to next frame
-		if (smoothMoveEnd == 0 && nextFrame < Utilities::getTicks()) {
+		if (nextFrame < Utilities::getTicks()) {
 			if (++frame >= sequence_->frameCount()) {
 				frame = 0;
 			}

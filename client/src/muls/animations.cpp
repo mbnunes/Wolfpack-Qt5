@@ -249,6 +249,7 @@ signed char cAnimations::getFileId(unsigned short &body) const {
 cAnimations::cAnimations() : cache(100, 109) {
 	// Clear the body types
 	memset(bodyTypes, 0, sizeof(bodyTypes));
+	memset(flags, 0, sizeof(flags));
 
 	for (int i = 0; i < ANIMATION_FILES; ++i) {
 		indexStream[i].setDevice(&indexFile[i]);
@@ -388,6 +389,52 @@ unsigned int cAnimations::getSeekOffset(signed char file, unsigned short body, u
 }
 
 void cAnimations::loadMobTypesTxt() {
+	QFile file(Utilities::getUoFilename("mobtypes.txt"));
+
+	if (!file.open(IO_ReadOnly)) {
+		throw Exception(tr("Unable to open mobile type data from %1.").arg(file.name()));
+	}
+
+	// Format is: 
+	// body type(string) flags
+	QTextStream stream(&file);
+	while (!stream.atEnd()) {
+		QString line = stream.readLine().trimmed();
+		
+		if (!line.startsWith("#")) {
+			QStringList parts = QStringList::split(QRegExp("\\s+"), line);
+			
+			// 3 parts required
+			if (parts.size() == 3) {
+				ushort body = parts[0].toUShort();
+
+				// Check for bogus body value
+				if (body >= 4096) {
+					Log->print(LOG_WARNING, tr("Body value %1 in mobtypes.txt is too high (Maximum is 4095).\n").arg(body));
+					continue;
+				}
+
+				flags[body] = parts[2].toUShort(); // Parse flags
+
+				// Parse the body type
+                enBodyType type;
+				if (parts[1] == "HUMAN") {
+					type = HUMAN;
+				} else if (parts[1] == "ANIMAL") {
+					type = ANIMAL;
+				} else if (parts[1] == "MONSTER") {
+					type = MONSTER;
+				} else if (parts[1] == "EQUIPMENT") {
+					type = EQUIPMENT;
+				} else {
+					Log->print(LOG_WARNING, tr("Unknown body type value in mobtypes.txt for body %1: %2.\n").arg(body).arg(parts[1]));
+					continue;
+				}
+
+                bodyTypes[body] = type;
+			}
+		}
+	}
 }
 
 void cAnimations::loadBodyConvDef() {

@@ -3,6 +3,7 @@
 #include "network/uosocket.h"
 #include "dialogs/login.h"
 #include "gui/worldview.h"
+#include "gui/genericgump.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
 #include "game/world.h"
@@ -40,6 +41,27 @@ public:
 	}
 };
 
+// Close Generic Gump Packet
+class cCloseGenericGumpPacket : public cDynamicIncomingPacket {
+protected:
+	unsigned int type, button;
+public:
+	cCloseGenericGumpPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		unsigned short packetId;
+		input >> packetId >> type >> button;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cGenericGump *gump = cGenericGump::findByType(type);
+
+		if (gump) {
+			Gui->removeControl(gump);
+			gump->sendResponse(button);
+			delete gump;
+		}
+	}
+};
+
 class cMultiPurposePacket {
 public:
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -54,6 +76,8 @@ public:
 		input.device()->at(pos);
 
 		switch (actionid) {
+			case 0x4:
+				return new cCloseGenericGumpPacket(input, size);
 			case 0x8:
 				return new cSwitchFacetPacket(input, size);
 			default:

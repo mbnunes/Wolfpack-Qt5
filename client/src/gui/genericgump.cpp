@@ -14,6 +14,20 @@
 #include <qmap.h>
 #include <qvector.h>
 
+QMap<uint, cGenericGump*> cGenericGump::instances;
+
+cGenericGump::~cGenericGump() {
+	instances.remove(gumpType_);
+}
+
+cGenericGump* cGenericGump::findByType(uint type) {
+	if (instances.contains(type)) {
+		return instances[type];
+	} else {
+		return 0;
+	}
+}
+
 cGenericGump::cGenericGump(int x, int y, unsigned int serial, unsigned int gumpType) {
 	x_ = x;
 	y_ = y;
@@ -21,6 +35,18 @@ cGenericGump::cGenericGump(int x, int y, unsigned int serial, unsigned int gumpT
 	movable_ = true;
 	serial_ = serial;
 	gumpType_ = gumpType;
+
+	// If a gump of the same type already exists, get it's x,y coordinates and kill the old one
+	if (gumpType != 0) {
+		if (instances.contains(gumpType)) {
+			cGenericGump *gump = instances[gumpType];
+			x_ = gump->x();
+			y_ = gump->y();
+			Gui->removeControl(gump);
+			delete gump;
+		}
+		instances.insert(gumpType, this, true);
+	}
 }
 
 void cGenericGump::addControl(unsigned int page, cControl *control, bool back) {
@@ -182,6 +208,26 @@ void cGenericGump::parseLayout(QString layout, QStringList strings) {
 	}
 }
 
+void cGenericGump::sendResponse(uint button) {
+	QVector<uint> switches;
+	QMap<uint, QString> strings;
+
+	// Iterate over the controls in this gump and find all the textfields / switches
+	cContainer::Controls content;
+	getContainment(content);
+
+	cContainer::Controls::iterator it;
+	for (it = content.begin(); it != content.end(); ++it) {
+		cTextField *textField = dynamic_cast<cTextField*>(*it);
+
+		if (textField && controlIds.contains(textField)) {
+			strings.insert(controlIds[textField], textField->text());
+		}
+	}
+
+	UoSocket->send(cGenericGumpResponsePacket(serial_, gumpType_, button, switches, strings));
+}
+
 void cGenericGump::onButtonPress(cControl *sender) {
 	// See if we know what "sender" is
 	QMap<cControl*, uint>::iterator it = controlIds.find(sender);
@@ -207,23 +253,7 @@ void cGenericGump::onButtonPress(cControl *sender) {
 	}
 	// Close the window and send a gump resonse packet
 	else if (sender->objectName() == "closebutton") {
-		QVector<uint> switches;
-		QMap<uint, QString> strings;
-
-		// Iterate over the controls in this gump and find all the textfields / switches
-		cContainer::Controls content;
-		getContainment(content);
-
-		cContainer::Controls::iterator it;
-		for (it = content.begin(); it != content.end(); ++it) {
-			cTextField *textField = dynamic_cast<cTextField*>(*it);
-
-			if (textField && controlIds.contains(textField)) {
-				strings.insert(controlIds[textField], textField->text());
-			}
-		}
-
-		UoSocket->send(cGenericGumpResponsePacket(serial_, gumpType_, controlId, switches, strings));
+		sendResponse(controlId);
 		Gui->queueDelete(this);
 	}
 }
@@ -252,3 +282,20 @@ cControl *cGenericGump::getControl(int x, int y) {
 	return result;
 }
 
+void cGenericGump::setGumpType(uint data) {
+	if (gumpType_ != 0 && instances.contains(gumpType_)) {
+		instances.remove(gumpType_);
+	}
+	gumpType_ = data;
+	// If a gump of the same type already exists, get it's x,y coordinates and kill the old one
+	if (gumpType_ != 0) {
+		if (instances.contains(gumpType_)) {
+			cGenericGump *gump = instances[gumpType_];
+			x_ = gump->x();
+			y_ = gump->y();
+			Gui->removeControl(gump);
+			delete gump;
+		}	
+		instances.insert(gumpType_, this, true);
+	}
+}

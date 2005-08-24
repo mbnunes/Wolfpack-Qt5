@@ -120,6 +120,9 @@ protected:
 class cAnimations {
 friend class cAnimation;
 protected:
+	enBodyType bodyTypes[4096]; // Static lookup table for body types
+	unsigned int flags[4096]; // Static lookup table for flags
+
 	SequenceCache cache;
 
 	// Calculate a cache id for the given values
@@ -158,9 +161,6 @@ protected:
 	QDataStream indexStream[ANIMATION_FILES];
 	QDataStream dataStream[ANIMATION_FILES];
 
-	// Information about body ids.
-	enBodyType bodyTypes[2048];
-
 	// Several private loading functions
 	void loadMobTypesTxt();
 	void loadBodyConvDef();
@@ -172,6 +172,9 @@ public:
 
 	cSequence *readSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue = 0, bool partialhue = false);
 	
+	enBodyType getBodyType(unsigned short body) const;
+	uint getFlags(unsigned short body) const;
+
     // Loading and Unloading
 	void load();
 	void unload();
@@ -187,6 +190,23 @@ inline unsigned int cAnimations::getCacheId(unsigned short body, unsigned char a
 	// Limit hues to 0xFFF (4096 hues) - (12 bit)
 	// Partial hue is a 1 bit flag
 	return 0;
+}
+
+
+inline enBodyType cAnimations::getBodyType(unsigned short body) const {
+	if (body < 4096) {
+		return bodyTypes[body];
+	} else {
+		return HUMAN; // Default
+	}
+}
+
+inline uint cAnimations::getFlags(unsigned short body) const {
+	if (body < 4096) {
+		return flags[body];
+	} else {
+		return 0;
+	}
 }
 
 extern cAnimations *Animations;
