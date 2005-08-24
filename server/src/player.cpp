@@ -499,6 +499,7 @@ bool cPlayer::mount( P_NPC pMount )
 		if ( isGM() )
 		{
 			pMount->setOwner( this );
+			pMount->setTamed( true );
 		}
 
 		// remove it from screen!
