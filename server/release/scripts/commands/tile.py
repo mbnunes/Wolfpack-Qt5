@@ -11,13 +11,14 @@
 import wolfpack
 from wolfpack.consts import *
 import random
+from wolfpack import tr
 
 #
 # Gather another corner if neccesary and start tiling
 #
 def tileResponse(player, arguments, target):
 	if len(arguments) < 3:
-		player.socket.sysmessage('Please select the second corner.')
+		player.socket.sysmessage(tr('Please select the second corner.'))
 		player.socket.attachtarget("commands.tile.tileResponse", list(arguments) + [target.pos])
 		return
 
@@ -33,23 +34,32 @@ def tileResponse(player, arguments, target):
 
 	# Cap at 500 items if not an admin is using it
 	if not unlimited and count > 250:
-		player.socket.sysmessage('You are not allowed to tile more than 250 items at once.')
+		player.socket.sysmessage(tr('You are not allowed to tile more than 250 items at once.'))
 		return
 
-	player.log(LOG_MESSAGE, "Tiling %u items (%s) from %u,%u to %u,%u at z=%d.\n" % (count, ", ".join(ids), x1, y1, x2, y2, z))
-	player.socket.sysmessage('Creating %u items from %u,%u to %u,%u at z=%d.' % (count, x1, y1, x2, y2, z))
 	pos = player.pos
 	pos.z = z
 
+	count = 0
 	for x in range(x1, x2 + 1):
 		for y in range(y1, y2 + 1):
 			pos.x = x
 			pos.y = y
-			item = wolfpack.additem(random.choice(ids))
+			id = random.choice(ids)
+			item = wolfpack.additem(id)
+			# if there's no item created, remove the id from the list and restart the loop
+			if not item:
+				player.socket.sysmessage( tr("No Item definition by the name '%s' found.") %id )
+				ids.remove(id)
+				continue
 			item.moveto(pos)
 			item.decay = 0
 			item.movable = 2 # Not Movable
 			item.update()
+			count += 1
+
+	player.log(LOG_MESSAGE, "Tiling %u items (%s) from %u,%u to %u,%u at z=%d.\n" % (count, ", ".join(ids), x1, y1, x2, y2, z))
+	player.socket.sysmessage('Creating %u items from %u,%u to %u,%u at z=%d.' % (count, x1, y1, x2, y2, z))
 
 	return
 
@@ -71,7 +81,7 @@ def commandTile(socket, command, arguments):
 		socket.sysmessage('Invalid z value.')
 		return
 
-	socket.sysmessage('Please select the first corner.')
+	socket.sysmessage(tr('Please select the first corner.'))
 	socket.attachtarget('commands.tile.tileResponse', [z, ids])
 	return
 
