@@ -85,6 +85,20 @@
 		<item>204d</item>
 	</list>
 
+	<!-- Item IDs for Elf Hairs -->
+	<list id="HAIR_ELF">
+		<item>2fbf</item>
+		<item>2fc0</item>
+		<item>2fc1</item>
+		<item>2fc2</item>
+		<item>2fcc</item>
+		<item>2fcd</item>
+		<item>2fce</item>
+		<item>2fcf</item>
+		<item>2fd0</item>
+		<item>2fd1</item>
+	</list>
+
 	<!-- IDs of Potions -->
 	<list id="POTIONS">
 		<item>f06</item>

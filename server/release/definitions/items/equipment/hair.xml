@@ -97,4 +97,56 @@
 		<category>Equipment\Beards\Vandyke</category>
 	</item>
 
+	<!-- Elf's Hairs -->
+
+	<item id="2fbf">
+		<id>0x2fbf</id>
+		<category>Equipment\Elf Hairs\Mid-Long</category>
+	</item>
+
+	<item id="2fc0">
+		<id>0x2fc0</id>
+		<category>Equipment\Elf Hairs\Long Feather</category>
+	</item>
+
+	<item id="2fc1">
+		<id>0x2fc1</id>
+		<category>Equipment\Elf Hairs\Short</category>
+	</item>
+
+	<item id="2fc2">
+		<id>0x2fc2</id>
+		<category>Equipment\Elf Hairs\Mullet</category>
+	</item>
+
+	<item id="2fcc">
+		<id>0x2fcc</id>
+		<category>Equipment\Elf Hairs\Flower</category>
+	</item>
+
+	<item id="2fcd">
+		<id>0x2fcd</id>
+		<category>Equipment\Elf Hairs\Long-Knob</category>
+	</item>
+
+	<item id="2fce">
+		<id>0x2fce</id>
+		<category>Equipment\Elf Hairs\Long-Big Knob</category>
+	</item>
+
+	<item id="2fcf">
+		<id>0x2fcf</id>
+		<category>Equipment\Elf Hairs\Long-Big Braid</category>
+	</item>
+
+	<item id="2fd0">
+		<id>0x2fd0</id>
+		<category>Equipment\Elf Hairs\Long-Big Bun</category>
+	</item>
+
+	<item id="2fd1">
+		<id>0x2fd1</id>
+		<category>Equipment\Elf Hairs\Spiked</category>
+	</item>
+
 </definitions>
