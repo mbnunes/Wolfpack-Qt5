@@ -20,6 +20,60 @@ import string
 from types import *
 from wolfpack.consts import *
 
+payfrompackonly = wolfpack.settings.getbool( "General", "Pay From Pack Only", False, True )
+
+"""
+	\function wolfpack.utilities.countGold
+	\param char The character whose gold shall be count.
+	\return The amount of gold as an integer.
+	\description Counts the amount of gold the character possess. If 'Pay From Pack Only' option is enabled gold in characters bankbox is ignored.
+"""
+def countGold( char ):
+	if payfrompackonly:
+		return char.countresource( 0xeed )
+	else:
+		return char.countresource( 0xeed ) + char.getbankbox().countresource( 0xeed )
+
+"""
+	\function wolfpack.utilities.consumeGold
+	\param char The character whose gold shall be consumed.
+	\param amount The amount of gold that shall be consumed.
+	\return True if the gold could be consumed, false otherwise.
+	\description Consumes a specified amount of gold from character. If 'Pay From Pack Only' option is enabled gold in characters bankbox is ignored.
+	Always succeeds for GMs.
+"""
+def consumeGold( char, amount ):
+	if char.gm:
+		return True
+
+	if payfrompackonly:
+		# check if we have enough gold
+		if countgold( char ) > amount:
+			char.useresource( amount, 0xeed )
+			return True
+		else:
+			return False
+
+	bankbox = char.getbankbox()
+	bankgold = bankbox.countresource( 0xeed )
+	packgold = char.countresource( 0xeed )
+
+	if packgold >= amount:
+		# gold from pack
+		char.useresource( amount, 0xeed )
+	elif bankgold >= amount:
+		# gold from bank
+		bankbox.useresource( amount, 0xeed )
+	elif bankgold + packgold >= amount:
+		# gold from bank and pack
+		char.useresource( packgold, 0xeed )
+		bankbox.useresource( amount - packgold, 0xeed )
+	else:
+		# we don't have enough gold
+		return False
+
+	return True
+
 """
 	\function wolfpack.utilities.rolldice
 	\param dice This is either the number of dice you want to roll or a string representation of the number of dice, the sides
