@@ -1,0 +1,21 @@
+struct pixel_in {
+	float4 color : COLOR;
+	float3 texcoord : TEXCOORD0;
+};
+
+struct pixel_out {
+	float4 color : COLOR;
+};
+
+pixel_out
+main(pixel_in IN, uniform sampler2D texture : TEXUNIT0) {
+	pixel_out OUT;
+
+	float4 color = tex2D(texture, IN.texcoord);
+	float d = color.x * 0.299 + color.y * 0.587 + color.z * 0.144;
+	OUT.color.r = IN.color.r * d;
+	OUT.color.g = IN.color.r * d;
+	OUT.color.b = IN.color.r * d;
+	OUT.color.a = color.a;	
+	return OUT;
+}
