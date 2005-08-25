@@ -16,10 +16,19 @@
 
 import wolfpack
 
-MAP0_WIDTH = 6144
-MAP0_HEIGHT = 4096
-MAP1_WIDTH = 6144
-MAP1_HEIGHT = 4096
+usesMondaingsLegacyMap = wolfpack.settings.getbool( "General", "Uses Mondains Legacy Map", True, True )
+
+if usesMondaingsLegacyMap:
+	MAP0_WIDTH = 7168
+	MAP0_HEIGHT = 4096
+	MAP1_WIDTH = 7168
+	MAP1_HEIGHT = 4096
+else:
+	MAP0_WIDTH = 6144
+	MAP0_HEIGHT = 4096
+	MAP1_WIDTH = 6144
+	MAP1_HEIGHT = 4096
+
 MAP2_WIDTH = 2304
 MAP2_HEIGHT = 1600
 MAP3_WIDTH = 2560

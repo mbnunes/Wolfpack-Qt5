@@ -31,6 +31,7 @@
 #include "inlines.h"
 #include "uobject.h"
 #include "mapobjects.h"
+#include "../serverconfig.h"
 
 #include "npc.h"
 #include "world.h"
@@ -465,8 +466,16 @@ MapObjects::~MapObjects()
 
 void MapObjects::load()
 {
-	addMap( 0, 6144, 4096 );
-	addMap( 1, 6144, 4096 );
+	if ( Config::instance()->usesMondainsLegacyMap() )
+	{
+		addMap( 0, 7168, 4096 );
+		addMap( 1, 7168, 4096 );
+	}
+	else
+	{
+		addMap( 0, 6144, 4096 );
+		addMap( 1, 6144, 4096 );
+	}
 	addMap( 2, 2304, 1600 );
 	addMap( 3, 2560, 2048 );
 	addMap( 4, 1448, 1448 );

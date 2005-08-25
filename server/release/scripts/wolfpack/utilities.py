@@ -915,17 +915,23 @@ def mayAreaBenefit(player, char, excludeself = False, includeinnocents = False):
 	\return Returns a boolean value if the position is valid.
 	\description Checks to see if a given coord object is a valid map position.
 """
+usesMondaingsLegacyMap = wolfpack.settings.getbool( "General", "Uses Mondains Legacy Map", True, True )
+
 def isValidPosition( pos ):
 	# Check if the map is valid.
 	if wolfpack.hasmap( pos.map ):
 		# Z Checking
-		if pos.z > 127 or pos.z < -127:
+		if pos.z > 127 or pos.z < -128:
 			return False
 		# X & Y Checking
 		# Felucca & Trammel
 		if pos.map == 0 or pos.map == 1:
-			if pos.x >= 7167 or pos.x < 0:
-				return False
+			if usesMondaingsLegacyMap:		
+				if pos.x >= 7168 or pos.x < 0:
+					return False
+			else:
+				if pos.x >= 6144 or pos.x < 0:
+					return False
 			if pos.y >= 4096 or pos.y < 0:
 				return False
 		# Ilshenar

@@ -104,6 +104,7 @@ protected:
 	unsigned int playerCorpseDecayTime_;
 	int niceLevel_;
 	unsigned short loginPort_;
+	bool usesMondainsLegacyMap_;
 	bool enableFeluccaSeason_;
 	bool enableTrammelSeason_;
 	unsigned int logMask_;
@@ -202,6 +203,7 @@ public:
 	std::vector<StartLocation_st>& startLocation();
 
 	// gets
+	bool usesMondainsLegacyMap() const;
 	bool enableFeluccaSeason() const;
 	bool enableTrammelSeason() const;
 	bool hashAccountPasswords() const;
@@ -761,6 +763,11 @@ inline bool cConfig::hashAccountPasswords() const
 inline bool cConfig::convertUnhashedPasswords() const
 {
 	return convertUnhashedPasswords_;
+}
+
+inline bool cConfig::usesMondainsLegacyMap() const
+{
+	return usesMondainsLegacyMap_;
 }
 
 inline bool cConfig::enableFeluccaSeason() const

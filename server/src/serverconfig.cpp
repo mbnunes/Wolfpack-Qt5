@@ -181,6 +181,7 @@ void cConfig::readData()
 	secondsPerUOMinute_ = getNumber( "Game Speed", "Seconds Per UO Minute", 5, true );
 
 	// General Group
+	usesMondainsLegacyMap_ = getBool( "General", "Uses Mondains Legacy Map", true, true );
 	enableFeluccaSeason_ = getBool( "General", "Enable Felucca Season", true, true );
 	enableTrammelSeason_ = getBool( "General", "Enable Trammel Season", true, true );
 	showSkillTitles_ = getBool( "General", "ShowSkillTitles", true, true );
