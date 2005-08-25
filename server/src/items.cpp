@@ -1433,6 +1433,12 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	if ( !pItem )
 		return;
 
+	if ( free )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Rejected putting an item (%1) into a freed container (%2)" ).arg( pItem->serial(), 0, 16 ).arg( serial_, 0, 16 ) );
+		return;
+	}
+
 	if ( pItem == this )
 	{
 		Console::instance()->log( LOG_WARNING, tr( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );

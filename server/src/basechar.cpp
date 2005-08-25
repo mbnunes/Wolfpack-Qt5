@@ -1481,6 +1481,12 @@ void cBaseChar::processNode( const cElement* Tag )
 
 void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
 {
+	if ( free )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Rejected putting an item (%1) into a freed character (%2)" ).arg( pi->serial(), 0, 16 ).arg( serial_, 0, 16 ) );
+		return;
+	}
+
 	if ( pi->multi() )
 	{
 		// Ignore the pseudo-pointer if uninitialized
