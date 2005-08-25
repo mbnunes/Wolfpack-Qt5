@@ -145,7 +145,7 @@ def addspelltarget( char, args, target ):
 	item = target.item
 
 	if not item or not item.hasscript( 'magic.spellbook' ):
-		char.socket.sysmessage( 'You need to target a spellbook.') )
+		char.socket.sysmessage( tr('You need to target a spellbook.') )
 		return
 
 

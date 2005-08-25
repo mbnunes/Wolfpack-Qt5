@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolpack import tr
+from wolfpack import tr
 
 def response(player, args, target):
 	if player.guild:

@@ -333,7 +333,7 @@ def gump_callback( char, args, response ):
 	else:
 		return
 
-def checkpay(char, vendor, count)
+def checkpay(char, vendor, count):
 	if char.countresource( 0xeed, 0 ) < count:
 		vendor.say( tr("You don't have enough gold!"), 5 )
 		return False
