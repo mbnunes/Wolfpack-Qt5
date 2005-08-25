@@ -54,6 +54,7 @@ Wolfpack 12.9.14 Beta (SVN)
     <instalogout />, <noteleport />, <safe />, <nocriminalcombat /> and <nokillcount />
   - Added "Insta Logout from Guarded Regions" option, to enable or disable the InstaLogout from Guarded Areas
   - Added "Percent Hits after Ress", "Percent Mana after Ress" and "Percent Stamina after Ress"
+  - Added Support to Elves as a Playable Race (From UO:Mondain's Legacy)
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

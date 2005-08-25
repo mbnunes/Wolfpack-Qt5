@@ -66,6 +66,7 @@ cBaseChar::cBaseChar()
 	body_ = 0x190;
 	orgBody_ = 0x190;
 	gender_ = 0;
+	race_ = 0;
 	orgSkin_ = 0;
 	propertyFlags_ = 0;
 	weight_ = 0;
@@ -148,6 +149,7 @@ void cBaseChar::buildSqlString( const char* objectid, QStringList& fields, QStri
 	fields.push_back( "characters.poison" );
 	fields.push_back( "characters.murderertime,characters.criminaltime" );
 	fields.push_back( "characters.gender,characters.propertyflags" );
+	fields.push_back( "characters.race" );
 	fields.push_back( "characters.murderer" );
 	fields.push_back( "characters.guarding" );
 	fields.push_back( "characters.hitpointsbonus,characters.staminabonus,characters.manabonus" );
@@ -201,6 +203,7 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 		criminalTime_ += Server::instance()->time();
 	}
 	gender_ = reader.readByte();
+	race_ = reader.readByte();
 	propertyFlags_ = reader.readInt();
 	murdererSerial_ = reader.readInt();
 	guarding_ = reinterpret_cast<P_CHAR>( static_cast<size_t>( reader.readInt() ) ); // PostProcess
@@ -273,6 +276,7 @@ void cBaseChar::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeInt( murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
 	writer.writeInt( criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
 	writer.writeByte( gender_ );
+	writer.writeByte( race_ );
 	writer.writeInt( propertyFlags_ );
 	writer.writeInt( murdererSerial_ );
 	writer.writeInt( guarding_ ? guarding_->serial() : INVALID_SERIAL );
@@ -345,6 +349,7 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 		criminalTime_ += Server::instance()->time();
 	}
 	gender_ = atoi( result[offset++] );
+	race_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
 	murdererSerial_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
@@ -446,6 +451,7 @@ void cBaseChar::save()
 		addField( "murderertime", murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
 		addField( "criminaltime", criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
 		addField( "gender", gender_ );
+		addField( "race", race_ );
 		addField( "propertyflags", propertyFlags_ );
 		addField( "murderer", murdererSerial_ );
 		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
@@ -1938,6 +1944,11 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else
 		SET_INT_PROPERTY( "gender", gender_ )
 		/*
+		\property char.race The race of this character. False means Human, true Elf.
+		*/
+	else
+		SET_INT_PROPERTY( "race", race_ )
+		/*
 		\property char.id The body id of this character.
 		*/
 	else
@@ -2120,6 +2131,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	PY_PROPERTY( "region", region_ )
 	PY_PROPERTY( "skilldelay", skillDelay_ )
 	PY_PROPERTY( "gender", gender_ )
+	PY_PROPERTY( "race", race_ )
 	PY_PROPERTY( "id", body_ )
 	PY_PROPERTY( "invulnerable", isInvulnerable() )
 	PY_PROPERTY( "invisible", isInvisible() )

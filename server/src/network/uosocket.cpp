@@ -1013,6 +1013,22 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 		}
 	}
 
+	// Temporary Gender and Race (Just for initial Checks... but if Race is allowed in char class, it can be a lot more usefull)
+	bool tGender = true;		// Woman by default
+	bool tRace = false;		// Human by Default
+	
+	// The Gender (True to Woman, False to man)
+	if (packet->gender()%2 == 0)
+	{
+		tGender = false;			// Its a Man!
+	}
+
+	// Pickin the Race (True to human, False to Elf)
+	if (packet->gender() > 1)
+	{
+		tRace = true;			// Its an Elf!
+	}
+
 	// Check the stats
 	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
 
@@ -1031,14 +1047,14 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	}
 
 	// Check Hair
-	if ( packet->hairStyle() && ( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) ) )
+	if ( packet->hairStyle() && ( !isHairsByRace( packet->hairStyle(), tRace ) || !isHairsByRaceColor( packet->hairColor(), tRace ) ) )
 	{
 		log( tr( "Submitted wrong hair style (%1) or wrong hair color (%2) during char creation.\n" ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
 		cancelCreate( tr( "Invalid hair" ) )
 	}
 
 	// Check Beard
-	if ( packet->beardStyle() && ( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) ) )
+	if ( packet->beardStyle() && ( !isBeard( packet->beardStyle() ) || !isHairsByRaceColor( packet->beardColor(), tRace ) ) )
 	{
 		log( tr( "Submitted wrong beard style (%1) or wrong beard color (%2) during char creation.\n" ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
 		cancelCreate( tr( "Invalid beard" ) )
@@ -1061,7 +1077,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	}
 
 	// Finally check the skin
-	if ( !isSkinColor( packet->skinColor() ) )
+	if ( !isSkinColor( packet->skinColor(), tRace ) )
 	{
 		log( tr( "Submitted a wrong skin color (%1) during char creation.\n" ).arg( packet->skinColor() ) );
 		cancelCreate( tr( "Invalid skin color" ) )
@@ -1070,10 +1086,19 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	// FINALLY create the char
 	P_PLAYER pChar = new cPlayer;
 	pChar->Init();
-	pChar->setGender( packet->gender() );
 
+	pChar->setGender( packet->gender()%2 );	// It will retrieve just the Gender
+
+	// It will set the Race (0 for Human or 1 for Elf)
+	if (packet->gender() > 1)
+		pChar->setRace ( 1 );
+	else
+		pChar->setRace ( 0 );
+
+
+	// Gender (Instead of be a Human or an Elf)
 	const cElement* playerDefinition = 0;
-	if ( packet->gender() == 1 )
+	if ( tGender )
 	{
 		pChar->setBaseid( "player_female" );
 		playerDefinition = Definitions::instance()->getDefinition( WPDT_NPC, "player_female" );
@@ -1093,7 +1118,15 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	pChar->setSkin( packet->skinColor() );
 	pChar->setOrgSkin( packet->skinColor() );
 
-	pChar->setBody( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
+	// Now... lets check the bodies for Humans and Elfs
+	if ( !tRace )	// Its a Human
+	{
+		pChar->setBody( ( tGender ) ? 0x191 : 0x190 );
+	}
+	else
+	{
+		pChar->setBody( ( tGender ) ? 0x25e : 0x25d );
+	}
 
 	pChar->setOrgBody( pChar->body() );
 
@@ -1126,7 +1159,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	pChar->addItem( cBaseChar::Shirt, pItem );
 
 	// Skirt or Pants
-	pItem = cItem::createFromScript( ( packet->gender() != 0 ) ? "1516" : "152e" );
+	pItem = cItem::createFromScript( ( tGender ) ? "1516" : "152e" );
 	pItem->setColor( packet->pantsColor() );
 	pItem->setNewbie( true );
 	pChar->addItem( cBaseChar::Pants, pItem );

@@ -122,7 +122,7 @@ public:
 	uchar gender( void ) const
 	{
 		return ( *this )[70];
-	} // 0 = male, 1 = female
+	} // 0 = male, 1 = female, 2 = Elf Male, 3 = Elf Female
 	uchar strength( void ) const
 	{
 		return ( *this )[71];

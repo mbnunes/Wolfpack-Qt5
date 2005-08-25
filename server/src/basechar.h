@@ -390,6 +390,7 @@ public:
 	short fame() const;
 	uchar flag() const;
 	bool gender() const;
+	bool race() const;
 	P_CHAR guarding() const;
 	unsigned short hitpoints() const;
 	unsigned char hunger() const;
@@ -472,6 +473,7 @@ public:
 	void setFame( short data );
 	void setFlag( uchar data );
 	void setGender( bool data );
+	void setRace( bool data );
 	void setGuarding( P_CHAR data );
 	void setHitpoints( unsigned short data );
 	void setHunger( unsigned char data );
@@ -718,6 +720,9 @@ protected:
 	// The gender of the character. cOldChar::sex_
 	bool gender_;
 
+	// The Race of the Character
+	bool race_;
+
 	// The original skin color hue of the char. Is needed after applying
 	// magical/temporal effects which change skin color.
 	// cOldChar::xskin_
@@ -942,11 +947,11 @@ inline void cBaseChar::setBody( ushort data )
 {
 	body_ = data;
 
-	if ( data == 0x190 )
+	if ( ( data == 0x190 ) || ( data == 0x25d ) )
 	{
 		gender_ = 0;
 	}
-	else if ( data == 0x191 )
+	else if ( ( data == 0x191 ) || ( data == 0x25e ) )
 	{
 		gender_ = 1;
 	}
@@ -1062,6 +1067,17 @@ inline bool cBaseChar::gender() const
 inline void cBaseChar::setGender( bool data )
 {
 	gender_ = data;
+	changed_ = true;
+}
+
+inline bool cBaseChar::race() const
+{
+	return race_;
+}
+
+inline void cBaseChar::setRace( bool data )
+{
+	race_ = data;
 	changed_ = true;
 }
 
