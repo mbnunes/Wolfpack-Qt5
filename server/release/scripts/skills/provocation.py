@@ -8,7 +8,7 @@
 
 import wolfpack
 import wolfpack.utilities
-from wolfpack.consts import PROVOCATION, MUSICIANSHIP, ALLSKILLS, MAGERY, LOG_MESSAGE
+from wolfpack.consts import PROVOCATION, MUSICIANSHIP, ALLSKILLS, MAGERY, LOG_MESSAGE, PLAYER_BODIES_ALIVE
 from math import floor
 import skills
 from musicianship import play_instrument
@@ -61,7 +61,7 @@ def response1( char, args, target ):
 			socket.clilocmessage( 0x7A755, "", 0x3b2, 3 ) # You can't incite that!
 			return False
 
-		if target.char.id == 0x191 or target.char.id == 0x190:
+		if target.char.id in PLAYER_BODIES_ALIVE:
 			socket.clilocmessage( 0x7A757, "", 0x3b2, 3, target.char )
 			return False
 

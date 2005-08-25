@@ -793,7 +793,7 @@ def onDelete(item):
 def onUse(player, item):
 	if item.container == player:
 		return False
-	if player.id == 0x190 and item.id > 0x1c00 and item.id <= 0x1c0d:
+	if player.id in PLAYER_BODIES_ALIVE_MALE and item.id > 0x1c00 and item.id <= 0x1c0d:
 		player.socket.sysmessage( tr("You cannot wear female armor.") )
 		return True
 	tile = wolfpack.tiledata(item.id)

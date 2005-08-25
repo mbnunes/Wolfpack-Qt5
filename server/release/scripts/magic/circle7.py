@@ -6,6 +6,7 @@ import wolfpack
 from wolfpack.utilities import tobackpack, energydamage, mayAreaHarm
 from math import ceil
 from magic import polymorph
+from wolfpack.consts import PLAYER_BODIES_ALIVE
 
 class ChainLightning (Spell):
 	def __init__(self):
@@ -369,13 +370,13 @@ class Polymorph (Spell):
 		char.orgid = char.id
 		char.id = args[0]
 		char.orgskin = char.skin
-		if char.id == 0x190 or char.id == 0x191:
+		if char.id in PLAYER_BODIES_ALIVE:
 			char.skin = random.randint(1002, 1059)
 		else:
 			char.skin = 0
 			
 		# Remove the beard if morphing into a female
-		if char.id == 0x191:
+		if char.id in PLAYER_BODIES_ALIVE_FEMALE:
 			beard = char.itemonlayer(LAYER_BEARD)
 			if beard:
 				char.settag('polymorph_beard_id', beard.baseid)

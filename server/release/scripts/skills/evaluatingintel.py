@@ -68,9 +68,9 @@ def response( char, args, target ):
 	ManaId = floor( ( target.char.mana * IntRatio ) / 10 )
 	IntId = min( 10, floor( target.char.intelligence / 10 ) )
 
-	if target.char.id == 0x190:
+	if target.char.id in PLAYER_BODIES_ALIVE_MALE:
 		msgId = int( 0xFD759 + IntId )
-	elif target.char.id == 0x191:
+	elif target.char.id in PLAYER_BODIES_ALIVE_FEMALE:
 		msgId = int( 0xFD764 + IntId )
 	else:
 		msgId = int( 0xFD76F + IntId )

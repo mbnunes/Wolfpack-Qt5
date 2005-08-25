@@ -1,6 +1,7 @@
 
 import wolfpack
 from wolfpack import tr
+from wolfpack.consts import PLAYER_BODIES_ALL
 from potions.utilities import *
 from potions.consts import *
 
@@ -33,7 +34,7 @@ def potion( player, arguments, target ):
 		player.socket.sysmessage(tr("You don't own that creature."))
 		return False
 
-	if target.char.id in [0x190, 0x191, 0x192, 0x193, 0x3db]:
+	if target.char.id in PLAYER_BODIES_ALL:
 		player.socket.sysmessage(tr('You can only shrink animals and monsters!'))
 		return False
 

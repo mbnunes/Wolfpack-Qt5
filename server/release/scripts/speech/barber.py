@@ -252,7 +252,7 @@ def hairstyle_response(char, arguments, response):
 		return
 
 	# Gold?
-	female = char.id == 0x191
+	female = ( speaker.id in PLAYER_BODIES_ALIVE_FEMALE )
 	gold = char.getbackpack().countitems(['eed'])
 	gold += char.getbankbox().countitems(['eed'])
 
@@ -311,7 +311,7 @@ def onSpeech( listener, speaker, text, keywords ):
 	if ( abs( speaker.pos.z - listener.pos.z ) > 5 ):
 		return 0
 
-	if speaker.id != 0x190 and speaker.id != 0x191:
+	if not speaker.id in PLAYER_BODIES_ALIVE:
 		listener.say("I can't cut your hair!")
 	else:
 		gump(listener, speaker)
@@ -323,7 +323,8 @@ def gump( listener, speaker ):
 	speaker.socket.closegump(TYPE_CHANGEHAIR)
 	speaker.socket.closegump(TYPE_CHANGEHUE)
 
-	female = speaker.id == 0x191
+	female = ( speaker.id in PLAYER_BODIES_ALIVE_FEMALE )
+
 	gold = speaker.getbackpack().countitems(['eed'])
 	gold += speaker.getbankbox().countitems(['eed'])
 
@@ -369,7 +370,7 @@ def gump_response(char, arguments, response):
 
 	item = sellList[response.button - 1]
 
-	female = char.id == 0x191	
+	female = ( speaker.id in PLAYER_BODIES_ALIVE_FEMALE )
 	gold = char.getbackpack().countitems(['eed'])
 	gold += char.getbankbox().countitems(['eed'])
 		

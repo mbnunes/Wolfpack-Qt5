@@ -125,7 +125,7 @@ class Incognito (Spell):
 		char.skin = random.randint(1002, 1059)
 
 		char.orgid = char.id
-		char.id = random.choice([0x190, 0x191])
+		char.id = random.choice( PLAYER_BODIES_ALIVE )
 
 		char.orgname = char.name
 

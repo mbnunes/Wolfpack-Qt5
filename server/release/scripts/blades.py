@@ -136,7 +136,7 @@ def carve_corpse( char, tool, corpse ):
 		return
 
 	# Human Bodies can always be carved
-	if corpse.bodyid == 0x190 or corpse.bodyid == 0x191:
+	if corpse.bodyid in PLAYER_BODIES_ALIVE:
 		if corpse.hastag('carved') or not corpse.owner:
 			char.socket.clilocmessage(500485) # You see nothing useful to carve from the corpse.
 		else:	

@@ -60,7 +60,7 @@ def response(char, arguments, target):
 			bandage.delete()
 
 def getskills(target):
-	if not target.player and target.id not in [0x190, 0x191, 0x192, 0x193]:
+	if not target.player and target.id not in PLAYER_BODIES_ALL:
 		return (VETERINARY, ANIMALLORE)
 	else:
 		return (HEALING, ANATOMY)
