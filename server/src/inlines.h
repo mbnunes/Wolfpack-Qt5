@@ -104,30 +104,23 @@ inline bool isSkinColor( Q_UINT16 color, bool race )
 	}
 	else	   // Elf's Colors
 	{
-		// Line 1 of Colors
-		if ( ( color == 852 ) || ( color == 906 ) || ( color == 1151 ) || ( color == 2102 ) )
+		// Basic Colors Range
+		if ( ( color >= 0x353 ) && ( color <= 0x3e9 ) )
 			return true;
-		// Line 2 of Colors
-		else if ( ( color == 1247 ) || ( color == 1310 ) || ( color == 1901 ) || ( color == 1902 ) )
+		// Some others
+		else if ( ( color >= 0x24d ) && ( color <= 0x24f ) )
 			return true;
-		// Line 3 of Colors
-		else if ( ( color == 192 ) || ( color == 590 ) || ( color == 591 ) || ( color == 592 ) )
+		// Now, others that is not in ranges
+		// Line 1
+		else if ( ( color == 0x4de ) || ( color == 0x76c ) || ( color == 0x835 ) || ( color == 0x430 ) )
 			return true;
-		// Line 4 of Colors
-		else if ( ( color == 1344 ) || ( color == 1402 ) || ( color == 898 ) || ( color == 899 ) )
+		// Line 2, 3, 4 and 5
+		else if ( ( color == 0xbf ) || ( color == 0x4a7 ) || ( color == 0x903 ) || ( color == 0x76d ) || ( color == 0x579 ) )
 			return true;
-		// Line 5 of Colors
-		else if ( ( color == 900 ) || ( color == 901 ) || ( color == 902 ) || ( color == 998 ) )
+		// Line 7 and 8
+		else if ( ( color == 0x53f ) || ( color == 0x76b ) || ( color == 0x51d ) )
 			return true;
-		// Line 6 of Colors
-		else if ( ( color == 999 ) || ( color == 1000 ) || ( color == 1001 ) || ( color == 326 ) )
-			return true;
-		// Line 7 of Colors
-		else if ( ( color == 1900 ) || ( color == 767 ) || ( color == 866 ) || ( color == 867 ) )
-			return true;
-		// Line 8 of Colors
-		else if ( ( color == 872 ) || ( color == 885 ) || ( color == 886 ) || ( color == 887 ) )
-			return true;
+		// Not in list?
 		else
 			return false;
 	}
