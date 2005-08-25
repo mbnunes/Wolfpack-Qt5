@@ -390,7 +390,6 @@ public:
 	short fame() const;
 	uchar flag() const;
 	bool gender() const;
-	bool race() const;
 	P_CHAR guarding() const;
 	unsigned short hitpoints() const;
 	unsigned char hunger() const;
@@ -441,6 +440,7 @@ public:
 	bool isDead() const;
 	bool isAtWar() const;
 	bool isInvulnerable() const;
+	bool isElf() const;
 	bool isReputationHidden() const;
 	bool isUnderwearDisabled() const;
 	unsigned char direction() const;
@@ -473,7 +473,6 @@ public:
 	void setFame( short data );
 	void setFlag( uchar data );
 	void setGender( bool data );
-	void setRace( bool data );
 	void setGuarding( P_CHAR data );
 	void setHitpoints( unsigned short data );
 	void setHunger( unsigned char data );
@@ -523,6 +522,7 @@ public:
 	void setDead( bool data );
 	void setAtWar( bool data );
 	void setInvulnerable( bool data );
+	void setElf( bool data );
 	void setHitpointsBonus( short data );
 	void setStaminaBonus( short data );
 	void setManaBonus( short data );
@@ -720,9 +720,6 @@ protected:
 	// The gender of the character. cOldChar::sex_
 	bool gender_;
 
-	// The Race of the Character
-	bool race_;
-
 	// The original skin color hue of the char. Is needed after applying
 	// magical/temporal effects which change skin color.
 	// cOldChar::xskin_
@@ -752,6 +749,7 @@ protected:
 	// 21 - Mana Drain (0x100000)
 	// 22 - Disable Fame/Karma Titles (0x200000)
 	// 23 - Disable Underwear (0x400000)
+	// 24 - Elf - is an elf (0x800000)
 	uint propertyFlags_;
 
 	// Weight of the char, including worn items.
@@ -1067,17 +1065,6 @@ inline bool cBaseChar::gender() const
 inline void cBaseChar::setGender( bool data )
 {
 	gender_ = data;
-	changed_ = true;
-}
-
-inline bool cBaseChar::race() const
-{
-	return race_;
-}
-
-inline void cBaseChar::setRace( bool data )
-{
-	race_ = data;
 	changed_ = true;
 }
 
@@ -1482,6 +1469,11 @@ inline bool cBaseChar::isInvulnerable() const
 	return propertyFlags_ & 0x1000;
 }
 
+inline bool cBaseChar::isElf() const
+{
+	return propertyFlags_ & 0x800000;
+}
+
 inline void cBaseChar::setIncognito( bool data )
 {
 	if ( data )
@@ -1587,6 +1579,15 @@ inline void cBaseChar::setInvulnerable( bool data )
 		propertyFlags_ |= 0x1000;
 	else
 		propertyFlags_ &= ~0x1000;
+	changed_ = true;
+}
+
+inline void cBaseChar::setElf( bool data )
+{
+	if ( data )
+		propertyFlags_ |= 0x800000;
+	else
+		propertyFlags_ &= ~0x800000;
 	changed_ = true;
 }
 

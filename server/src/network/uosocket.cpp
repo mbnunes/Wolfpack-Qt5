@@ -1089,12 +1089,9 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	pChar->setGender( packet->gender()%2 );	// It will retrieve just the Gender
 
-	// It will set the Race (0 for Human or 1 for Elf)
+	// It will set the Race for Elves if its an Elf
 	if (packet->gender() > 1)
-		pChar->setRace ( 1 );
-	else
-		pChar->setRace ( 0 );
-
+		pChar->setElf ( 1 );
 
 	// Gender (Instead of be a Human or an Elf)
 	const cElement* playerDefinition = 0;

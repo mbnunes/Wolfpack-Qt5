@@ -170,7 +170,6 @@ poison tinyint(2) NOT NULL default '-1',\
 murderertime unsigned int(10) NOT NULL default '0',\
 criminaltime unsigned int(10) NOT NULL default '0',\
 gender unsigned tinyint(1) NOT NULL default '0',\
-race unsigned tinyint(1) NOT NULL default '0',\
 propertyflags int(11)  NOT NULL default '0',\
 murderer unsigned int(10) NOT NULL default '0',\
 guarding unsigned int(10) NOT NULL default '0',\

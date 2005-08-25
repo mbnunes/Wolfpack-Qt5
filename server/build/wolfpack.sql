@@ -35,7 +35,6 @@ CREATE TABLE `characters` (
 	`murderertime` int(10) unsigned NOT NULL default '0',
 	`criminaltime` int(10) unsigned NOT NULL default '0',
 	`gender` tinyint(1) unsigned NOT NULL default '0',
-	`race` tinyint(1) unsigned NOT NULL default '0',
 	`propertyflags` int(11) NOT NULL default '0',
 	`murderer` int(10) unsigned NOT NULL default '0',
 	`guarding` int(10) unsigned NOT NULL default '0',
