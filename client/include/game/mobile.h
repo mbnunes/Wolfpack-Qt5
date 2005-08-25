@@ -17,6 +17,7 @@ protected:
 	unsigned short hue_;
 	unsigned char direction_;
 	bool partialHue_;
+	bool hidden;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
@@ -59,6 +60,8 @@ public:
 	unsigned int currentActionEnd() const;
 	cSequence *sequence() const;
 	void setSerial(unsigned int serial); // Only use this on the player
+	void setHidden(bool data);
+	bool isHidden() const;
 
 	void playAction(unsigned char action, unsigned int duration = 0);
 
@@ -69,7 +72,17 @@ public:
 	// Steals a reference
 	void addEquipment(cDynamicItem *item);
 	void refreshEquipment(enLayer layer);
+
+	void processFlags(uchar flags);
 };
+
+inline void cMobile::setHidden(bool data) {
+	hidden = data;
+}
+
+inline bool cMobile::isHidden() const {
+	return hidden;
+}
 
 inline unsigned short cMobile::body() const {
 	return body_;

@@ -54,7 +54,7 @@ public:
 	bool partialHue() const;
 
 	// Draw the given frame at the given base
-	void draw(int frame, int cellx, int celly, bool flip);
+	void draw(int frame, int cellx, int celly, bool flip, float alpha = 1.0f);
 	bool hitTest(int frame, int x, int y, bool flip);
 
 	// Load this sequence from a byte stream

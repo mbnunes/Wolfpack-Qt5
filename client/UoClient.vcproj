@@ -25,7 +25,7 @@
 				PreprocessorDefinitions="QT_NO_DEBUG;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB;QT_QT3SUPPORT_LIB;QT3_SUPPORT"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="TRUE"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				BufferSecurityCheck="FALSE"
 				RuntimeTypeInfo="TRUE"
 				AssemblerListingLocation="obj\"
@@ -39,14 +39,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/Qt3Support4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/qtmain.lib opengl32.lib glu32.lib OpenAL32.lib Alut.lib"
+				AdditionalDependencies="$(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/Qt3Support4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/QtSql4.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
 				OutputFile="release\uoclient.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
-				DelayLoadDLLs="comdlg32.dll,oleaut32.dll,winmm.dll,wsock32.dll,winspool.dll"
-				GenerateDebugInformation="FALSE"
+				DelayLoadDLLs="comdlg32.dll;oleaut32.dll;winmm.dll;wsock32.dll;winspool.dll"
+				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=""
+				GenerateMapFile="TRUE"
+				MapExports="TRUE"
+				MapLines="TRUE"
 				SubSystem="2"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -332,7 +335,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -340,7 +344,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>

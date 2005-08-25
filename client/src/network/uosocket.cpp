@@ -94,7 +94,6 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	if (!isIdle()) {		
 		return; // The client isn't disconnected yet.
 	}
-
 	seed_ = Random->randInt(); // Set a new seed
 
 	if (gameServer) {
@@ -222,7 +221,7 @@ void cUoSocket::buildPackets() {
 					}
 				}
 			}
-		} else if (size <= incomingBuffer.size()) {
+		} else if (size != 0 && size <= incomingBuffer.size()) {
 			// Completed a packet
 			QByteArray packetData(size);
 			memcpy(packetData.data(), incomingBuffer.data(), size);

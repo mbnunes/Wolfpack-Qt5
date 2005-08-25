@@ -153,7 +153,7 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 	if (texture) {
 		bool highlight = Config->gameHighlightMap() && World->mouseOver() == this;
 		if (highlight) {
-			glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // White. No Alpha.
+			glColor4f(1.0f, 1.0f, 0.3f, 1.0f); // White. No Alpha.
 		} else {
 			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // White. No Alpha.
 		}

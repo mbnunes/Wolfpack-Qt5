@@ -26,6 +26,76 @@
 #include <QDir>
 #include <QApplication>
 
+// Shader Fun!
+#if defined(Q_OS_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
+#define WIN32_LEAN_AND_MEAN 1
+#include <windows.h>
+#endif
+
+#ifndef APIENTRY
+#define APIENTRY
+#endif
+#ifndef APIENTRYP
+#define APIENTRYP APIENTRY *
+#endif
+#ifndef GLAPI
+#define GLAPI extern
+#endif
+
+#ifndef GL_FRAGMENT_PROGRAM_ARB
+#define GL_FRAGMENT_PROGRAM_ARB		0x8804
+#endif
+#ifndef GL_PROGRAM_FORMAT_ASCII_ARB
+#define GL_PROGRAM_FORMAT_ASCII_ARB	0x8875
+#endif
+
+bool shadersAvailable = false;
+QString grayShader_Program = "!!ARBfp1.0\n\
+#vendor NVIDIA Corporation\n\
+#version 1.0.02\n\
+#profile arbfp1\n\
+#program main\n\
+#semantic main.texture : TEXUNIT0\n\
+#var float4 IN.color : $vin.COLOR : COL0 : 0 : 1\n\
+#var float3 IN.texcoord : $vin.TEXCOORD0 : TEX0 : 0 : 1\n\
+#var sampler2DSHADOW texture : TEXUNIT0 : texunit 0 : 1 : 1\n\
+#var float4 main.color : $vout.COLOR : COL : -1 : 1\n\
+#const c[0] = 0.144 0.299 0.587\n\
+PARAM c[1] = { { 0.14399999, 0.29899999, 0.58700001 } };\n\
+TEMP R0;\n\
+TEX R0, fragment.texcoord[0], texture[0], 2D;\n\
+MUL R0.y, R0, c[0].z;\n\
+MAD R0.x, R0, c[0].y, R0.y;\n\
+MAD R0.x, R0.z, c[0], R0;\n\
+MUL result.color.xyz, fragment.color.primary.x, R0.x;\n\
+MOV result.color.w, R0;\n\
+END\n\
+# 6 instructions, 1 R-regs";
+
+void (APIENTRYP my_glGenProgramsARB)(GLuint, GLuint *) = NULL;
+void (APIENTRYP my_glBindProgramARB)(GLuint, GLuint) = NULL;
+void (APIENTRYP my_glProgramStringARB)(GLuint, GLuint, GLint, const GLbyte *) = NULL;
+
+void cGLWidget::getShaderPointers() {
+	my_glGenProgramsARB = (void (APIENTRYP)(GLuint, GLuint *))context()->getProcAddress("glGenProgramsARB");
+	my_glBindProgramARB = (void (APIENTRYP)(GLuint, GLuint))context()->getProcAddress("glBindProgramARB");
+	my_glProgramStringARB = (void (APIENTRYP)(GLuint, GLuint, GLint, const GLbyte *))context()->getProcAddress("glProgramStringARB");
+
+	if (my_glGenProgramsARB && my_glBindProgramARB && my_glProgramStringARB) {
+		shadersAvailable = true;
+
+		QFile file("gray_shader.fp");
+		if (file.open(QIODevice::ReadOnly)) {
+			grayShader_Program = file.readAll();
+			file.close();
+			Log->print(LOG_NOTICE, tr("Loading custom gray_shader shader program from %1.\n").arg(file.fileName()));
+		}
+	} else {
+		Log->print(LOG_WARNING, tr("This OpenGL implementation doesn't seem to support ARB shaders.\n"));
+		shadersAvailable = false;
+	}
+}
+
 /* XPM */
 static const char * const icon_xpm[] = {
 /* columns rows colors chars-per-pixel */
@@ -237,6 +307,18 @@ void cGLWidget::initializeGL() {
 	GLfloat lmodel_ambient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+
+	getShaderPointers(); // Initialize Pixelshader Pointers
+	
+	// Generate "Gray-Shader"
+	if (shadersAvailable) {
+		glEnable(GL_FRAGMENT_PROGRAM_ARB);		
+		my_glGenProgramsARB(1, &grayShader);
+		my_glBindProgramARB(GL_FRAGMENT_PROGRAM_ARB, grayShader);
+		QByteArray data = grayShader_Program.toLatin1();
+		my_glProgramStringARB(GL_FRAGMENT_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, data.length(), (const GLbyte *)data.data());
+		glDisable(GL_FRAGMENT_PROGRAM_ARB);
+	}
 }
 
 void cGLWidget::resizeGL( int w, int h ) {
@@ -605,6 +687,20 @@ bool MainWindow::event(QEvent *e) {
 
 void MainWindow::showEvent(QShowEvent *event) {
 	QMainWindow::showEvent(event);
+}
+
+void cGLWidget::enableGrayShader() {
+	if (shadersAvailable) {
+		glPushAttrib(GL_ENABLE_BIT);
+		glEnable(GL_FRAGMENT_PROGRAM_ARB);
+	}
+}
+
+void cGLWidget::disableGrayShader() {
+	if (shadersAvailable) {
+		glDisable(GL_FRAGMENT_PROGRAM_ARB);
+		glPopAttrib();
+	}
 }
 
 cGLWidget *GLWidget = 0;

@@ -191,7 +191,9 @@ public:
 					World->moveCenter(posx, posy, posz, false);
 				}
 				mobile->move(posx, posy, posz);
-			}			
+			}
+
+			mobile->processFlags(flags);
 		}
 
 		if (mobile) {
@@ -518,6 +520,7 @@ public:
 		mobile->setHue(hue);
 		mobile->setDirection(direction);
 		mobile->setBody(body);
+		mobile->processFlags(flags);
 
 		if ((posx != mobile->x() || posy != mobile->y() || posz != mobile->z()) && sameDirection) {
 			// Can't move the player with this. Btw. this is _VERY_ "shaky"

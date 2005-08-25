@@ -54,6 +54,8 @@ void cWorld::changeFacet(enFacet facet) {
 }
 
 void cWorld::clearEntities() {
+	cleaningUp = true;
+
 	// Clear entities.
 	Iterator it;
 	for (it = entities.begin(); it != entities.end(); ++it) {
@@ -67,6 +69,8 @@ void cWorld::clearEntities() {
 			++cit;
 		}
 	}
+
+	cleaningUp = false;
 
 	entities.clear();
 }
@@ -388,6 +392,8 @@ void cWorld::checkRoofs() {
 }
 
 void cWorld::draw(int x, int y, int width, int height) {
+	GLWidget->enableGrayShader();
+
 	clearGroundCache(); // Clear unneeded cache items
 
 	int diffx, diffy, diffz;
@@ -479,6 +485,8 @@ void cWorld::draw(int x, int y, int width, int height) {
 
 	// Disable scissor box
 	glDisable(GL_SCISSOR_TEST);
+
+	GLWidget->disableGrayShader();
 }
 
 cEntity *cWorld::getEntity(int x, int y) {
@@ -693,36 +701,38 @@ QVector<cBlockItem> cWorld::getBlockingItems(cMobile *mobile, ushort posx, ushor
 	const uchar cellx = posx % 8;
 	const uchar celly = posy % 8;
 	
-	for (StaticBlock::const_iterator cit = block->begin(); cit != block->end(); ++cit) {
-		// Continue if it's not the tile we want
-		if (cit->xoffset != cellx || cit->yoffset != celly)
-			continue;
+	if (block) {
+		for (StaticBlock::const_iterator cit = block->begin(); cit != block->end(); ++cit) {
+			// Continue if it's not the tile we want
+			if (cit->xoffset != cellx || cit->yoffset != celly)
+				continue;
 
-		cItemTileInfo *tTile = Tiledata->getItemInfo(cit->id);
+			cItemTileInfo *tTile = Tiledata->getItemInfo(cit->id);
 
-		// Here is decided if the tile is needed
-		// It's uninteresting if it's NOT blocking
-		// And NOT a bridge/surface
-		if ( !tTile->isBridge() && !tTile->isImpassable() && !tTile->isSurface() )
-			continue;
+			// Here is decided if the tile is needed
+			// It's uninteresting if it's NOT blocking
+			// And NOT a bridge/surface
+			if ( !tTile->isBridge() && !tTile->isImpassable() && !tTile->isSurface() )
+				continue;
 
-		cBlockItem staticBlock;
-		staticBlock.z = cit->z;
+			cBlockItem staticBlock;
+			staticBlock.z = cit->z;
 
-		// If we are a surface we can always walk here, otherwise check if
-		// we are special
-		if ( tTile->isSurface() && !tTile->isImpassable() )
-			staticBlock.walkable = true;
-		else
-			staticBlock.walkable = false; // TODO: special walking checks
+			// If we are a surface we can always walk here, otherwise check if
+			// we are special
+			if ( tTile->isSurface() && !tTile->isImpassable() )
+				staticBlock.walkable = true;
+			else
+				staticBlock.walkable = false; // TODO: special walking checks
 
-		// If we are a stair only the half height counts (round up)
-		if ( tTile->isBridge() )
-			staticBlock.height = (uchar)( ( tTile->height() ) / 2 );
-		else
-			staticBlock.height = tTile->height();
+			// If we are a stair only the half height counts (round up)
+			if ( tTile->isBridge() )
+				staticBlock.height = (uchar)( ( tTile->height() ) / 2 );
+			else
+				staticBlock.height = tTile->height();
 
-		blockList.append(staticBlock);
+			blockList.append(staticBlock);
+		}
 	}
 
 	// We are only interested in items at pos

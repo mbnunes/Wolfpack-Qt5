@@ -49,7 +49,7 @@ bool cSequence::hitTest(int frame, int x, int y, bool flip) {
 	return true;
 }
 
-void cSequence::draw(int frame, int cellx, int celly, bool flip) {
+void cSequence::draw(int frame, int cellx, int celly, bool flip, float alpha) {
 	if (frame < 0 || frame >= frameCount_) {
 		return; // Invalid frame id
 	}
@@ -69,7 +69,7 @@ void cSequence::draw(int frame, int cellx, int celly, bool flip) {
 
 	texture_->bind();
 	glBegin(GL_QUADS);
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor4f(1.0f, 1.0f, 1.0f, alpha);
 	if (flip) {
 		glTexCoord2f(info.texelRight, info.texelTop); glVertex2i(drawx, drawy);
 		glTexCoord2f(info.texelLeft, info.texelTop); glVertex2i(drawx + info.width, drawy);

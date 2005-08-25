@@ -110,6 +110,13 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		}
 	}
 
+	float alpha = 1.0f;
+
+	// Translucent tiles have 50% alpha
+	if (tiledata_ && tiledata_->isTranslucent()) {
+		alpha = 0.5f;
+	}
+
 	if (animated && animation) {
 		// Check for frame expiry
 		/*if (nextFrame < Utilities::getTicks()) {
@@ -147,9 +154,9 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		height_ = info.height;
 
 		if (Config->gameHighlightStatics() && World->mouseOver() == this) {
-			glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // Red. No Alpha.
+			glColor4f(1.0f, 0.8f, 0.7f, alpha); // Red. No Alpha.
 		} else {
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // White. No Alpha.
+			glColor4f(1.0f, 1.0f, 1.0f, alpha); // White. No Alpha.
 		}
 
 		animation->texture()->bind();
@@ -178,9 +185,9 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		}
 
 		if (Config->gameHighlightStatics() && World->mouseOver() == this) {
-			glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // White. No Alpha.
+			glColor4f(1.0f, 0.8f, 0.7f, alpha); // White. No Alpha.
 		} else {
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // White. No Alpha.
+			glColor4f(1.0f, 1.0f, 1.0f, alpha); // White. No Alpha.
 		}
 
 		// Simply case: unstretched tile

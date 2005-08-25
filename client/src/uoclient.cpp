@@ -107,10 +107,6 @@ cUoClient::~cUoClient() {
 }
 
 void cUoClient::load() {
-	Log->print("-----------------------------------------------------------------------------\n", false);
-	Log->print(tr("Starting Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
-	Log->print("-----------------------------------------------------------------------------\n\n", false);
-
 	Random->seed(); // Initialize Random Number Generator
 
 	// Check UO installation
@@ -191,11 +187,15 @@ void cUoClient::run()
 
 	Config->setFile("config.xml"); // Default Config File
 	Config->load(); // Load configuration (has to come first)
+	
+	Log->print("-----------------------------------------------------------------------------\n", false);
+	Log->print(tr("Starting Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
+	Log->print("-----------------------------------------------------------------------------\n\n", false);
 
 	// INITIALIZE WINDOW - OPENGL INTIAILZATION
 	MainWindow *window = new MainWindow();
 	window->setCaption("Ultima Online");
-	qApp->setMainWidget( window );	
+	qApp->setMainWidget(window);
 	window->show();
 	// END WINDOW INITIALIZATION
 

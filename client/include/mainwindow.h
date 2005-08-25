@@ -30,10 +30,14 @@ public:
 	void setMouseCapture(cControl *control);
 	void setLastMouseMovement(cControl *control);
 
+	void enableGrayShader();
+	void disableGrayShader();
 public slots:
 	void singleClick();
 
 protected:
+	void getShaderPointers();
+	uint grayShader;
 	bool lastDoubleClick;
 	QTimer singleClickTimer;
 	QMouseEvent *singleClickEvent;
