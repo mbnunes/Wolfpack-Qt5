@@ -275,7 +275,7 @@ def opendoor( char, item ):
 						break
 
 			if blocked == 1:
-				char.socket.sysmessage( "There is someone blocking the door!" )
+				char.socket.sysmessage( tr("There is someone blocking the door!") )
 				return True
 			else:
 				pos = item.pos

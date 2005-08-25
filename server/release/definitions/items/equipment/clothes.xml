@@ -445,7 +445,7 @@
 		<baseid>2307</baseid>
 		<category>Clothes\Footwear\Fur Boots (N/S)</category>
 		<id>0x2308</id>
-  </item>
+	</item>
 
 	<!-- Shoes n/s -->
 	<item id="170f">
@@ -659,7 +659,7 @@
 		<newbie />
 	</item>
 
-	 <!-- Dupre -->
+	<!-- Dupre -->
 	<item id="2050">
 		<category>Clothes\Special\Dupre</category>
 		<id>0x2050</id>
@@ -667,7 +667,6 @@
 	</item>
 
 	<!-- Samurai Empire -->
-
 	<!-- Male Kimono -->
 	<item id="2782">
 		<category>Clothes\Samurai\Male Kimono</category>

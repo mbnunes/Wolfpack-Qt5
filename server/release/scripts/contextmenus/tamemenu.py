@@ -4,11 +4,9 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# skill Command 						#
-#===============================================================#
 
 import wolfpack
-from wolfpack.time import *
+from wolfpack.time import servertime
 from skills.animaltaming import dotame
 
 def onContextCheckVisible(char, target, tag):

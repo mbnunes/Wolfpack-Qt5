@@ -43,7 +43,7 @@ def onDamage(char, type, amount, source):
 
 	if socket and amount > slip_amount and socket.hastag('bandage_slipped'):
 		socket.settag('bandage_slipped', int(socket.gettag('bandage_slipped')) + 1)
-		socket.clilocmessage(500961)
+		socket.clilocmessage(500961) # Your fingers slip!
 
 	return amount
 

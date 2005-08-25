@@ -9,6 +9,7 @@
 import wolfpack
 from magic.spellbook import countspells
 from math import floor
+from wolfpack import tr
 
 # spellcount
 def countspells(item):
@@ -53,7 +54,7 @@ def addspell( item, spell ):
 
 def onUse(char, item):
 	if item.getoutmostchar() != char:
-		char.socket.sysmessage('The book has to be in your belongings to be used.')
+		char.socket.sysmessage(tr('The book has to be in your belongings to be used.'))
 		return True
 
 	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook

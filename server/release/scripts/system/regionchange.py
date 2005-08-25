@@ -8,6 +8,7 @@
 import wolfpack
 import string
 import random
+from wolfpack import tr
 
 def playmusic(socket, command, arguments):
 	packet = wolfpack.packet(0x6d, 3)
@@ -159,7 +160,7 @@ def areaEnterMessage( socket, name ):
 	if name == None or len( name ) == 0 or name == "":
 		return True
 	else:
-		socket.sysmessage( "You have entered %s." % name )
+		socket.sysmessage( tr("You have entered %s.") % name )
 		return True
 
 # Region Leave Message
@@ -168,23 +169,23 @@ def areaLeaveMessage( socket, name ):
 	if name == None or len( name ) == 0 or name == "":
 		return True
 	else:
-		socket.sysmessage( "You have left %s." % name )
+		socket.sysmessage( tr("You have left %s.") % name )
 		return True
 
 # Left Guard's Protection Message
 def guardLeaveMessage( socket, owner ):
 	if owner == None or owner == "the town" or len( owner ) == 0:
-		socket.clilocmessage( 500113 )
+		socket.clilocmessage( 500113 ) # You have left the protection of the town guards.
 		return True
 	else:
-		socket.sysmessage( "You have left the protection of %s guards." % owner )
+		socket.sysmessage( tr("You have left the protection of %s guards.") % owner )
 		return True
 
 # Enter Guard's Protection Message
 def guardEnterMessage( socket, owner ):
 	if owner == None or owner == "the town" or len( owner ) == 0:
-		socket.clilocmessage( 500112 )
+		socket.clilocmessage( 500112 ) # You are now under the protection of the town guards.
 		return True
 	else:
-		socket.sysmessage( "You are now under protection by %s guards." % owner )
+		socket.sysmessage( tr("You are now under protection by %s guards.") % owner )
 		return True

@@ -12,7 +12,7 @@ def onContextCheckVisible(char, object, tag):
 	# In Addition Transfer is invisible if the target is untamed
 	if (not char.gm) and (tag == 7) and (object.summoned or not object.tamed):
 		return False
-	
+
 	return (object.owner == char) or char.gm
 
 def onContextEntry(char, target, tag):
@@ -26,7 +26,7 @@ def onContextEntry(char, target, tag):
 	#check if can be controlled
 	if not checkPetControl(target, char, "", ""):
 		return True
-		
+
 	if tag == 1: # Command: Kill
 		attack(char, target, 0)
 	elif tag == 2: # Command: Follow

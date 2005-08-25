@@ -1,6 +1,7 @@
 
 import wolfpack
 import wolfpack.time
+from wolfpack import tr
 
 #
 # Remove the nightsight event and bonus
@@ -46,5 +47,5 @@ def onTimeChange(player):
 	# Nightsight lasts 1440 ingame minutes
 	if nightsight_start + 1440 < wolfpack.time.minutes():
 		if player.socket:
-			player.socket.sysmessage('Your nightsight is wearing out.')
+			player.socket.sysmessage(tr('Your nightsight is wearing out.'))
 		wearout(player)

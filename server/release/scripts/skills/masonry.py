@@ -54,7 +54,6 @@ class StonecrafterItemAction(CraftItemAction):
 		rate = random.randint(0, 100)
 		player.socket.sysmessage(str(check))
 		if check:
-			player.socket.sysmessage("tet")
 			if rate >= percent:
 				success = 0
 		return success

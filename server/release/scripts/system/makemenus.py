@@ -354,7 +354,7 @@ class CraftItemAction(MakeItemAction):
 					if self.parent.submaterial1noskill != 0:
 						player.socket.clilocmessage(self.parent.submaterial1noskill)
 					else:
-						player.socket.clilocmessage(1044153)
+						player.socket.clilocmessage(1044153) # You don't have the required skills to attempt this item.
 				return False
 
 			submaterial1amount = self.submaterial1
@@ -375,7 +375,7 @@ class CraftItemAction(MakeItemAction):
 					if self.parent.submaterial2noskill != 0:
 						player.socket.clilocmessage(self.parent.submaterial2noskill)
 					else:
-						player.socket.clilocmessage(1044153)
+						player.socket.clilocmessage(1044153) # You don't have the required skills to attempt this item.
 				return False
 
 			submaterial2amount = self.submaterial2
@@ -408,7 +408,7 @@ class CraftItemAction(MakeItemAction):
 				if self.parent.submaterial1missing != 0:
 					player.socket.clilocmessage(self.parent.submaterial1missing)
 				else:
-					player.socket.clilocmessage(1053098)
+					player.socket.clilocmessage(1053098) # You do not have the required materials to make that.
 			return False
 
 		# We didn't succeed in finding enough of submaterial1
@@ -423,7 +423,7 @@ class CraftItemAction(MakeItemAction):
 				if self.parent.submaterial2missing != 0:
 					player.socket.clilocmessage(self.parent.submaterial2missing)
 				else:
-					player.socket.clilocmessage(1053098)
+					player.socket.clilocmessage(1053098) # You do not have the required materials to make that.
 			return False
 
 		# We didn't succeed in finding enough of submaterial2
@@ -613,9 +613,9 @@ class CraftItemAction(MakeItemAction):
 	#
 	def fail(self, player, arguments, lostmaterials=0):
 		if lostmaterials:
-			player.socket.clilocmessage(1044043)
+			player.socket.clilocmessage(1044043) # 
 		else:
-			player.socket.clilocmessage(1044157)
+			player.socket.clilocmessage(1044157) # 
 
 	#
 	# Successful crafting of item.
@@ -623,11 +623,11 @@ class CraftItemAction(MakeItemAction):
 	def success(self, player, arguments, item, exceptional=0, marked=0):
 		if exceptional:
 			if marked:
-				player.socket.clilocmessage(1044156)
+				player.socket.clilocmessage(1044156) # You create an exceptional quality item and affix your maker's mark.
 			else:
-				player.socket.clilocmessage(1044155)
+				player.socket.clilocmessage(1044155) # You create an exceptional quality item.
 		else:
-			player.socket.clilocmessage(1044154)
+			player.socket.clilocmessage(1044154) # You create the item.
 
 	#
 	# Try to make the item and consume the resources.
@@ -640,7 +640,7 @@ class CraftItemAction(MakeItemAction):
 
 		# See if we have enough skills to attempt
 		if not self.checkskills(player, arguments):
-			player.socket.clilocmessage(1044153)
+			player.socket.clilocmessage(1044153) # You don't have the required skills to attempt this item.
 			return 0
 
 		# See if we have enough material first
@@ -649,7 +649,7 @@ class CraftItemAction(MakeItemAction):
 			return 0
 
 		if player.socket.hastag('makemenu_crafting'):
-			player.socket.clilocmessage(500119)
+			player.socket.clilocmessage(500119) # You must wait to perform another action.
 			self.parent.send(player, arguments)
 			return 0
 
@@ -989,25 +989,25 @@ class MakeMenu:
 
 		# Has to be in our posession
 		if item.getoutmostchar() != player:
-			player.socket.clilocmessage(500364)
+			player.socket.clilocmessage(500364) # You can't use that, it belongs to someone else.
 			return False
 
 		# We do not allow "invulnerable" tools.
 		if not item.hastag('remaining_uses'):
-			player.socket.clilocmessage(1044038)
+			player.socket.clilocmessage(1044038) # You have worn out your tool!
 			item.delete()
 			return False
 
 		# See if we have another tool equipped
 		equipped = player.itemonlayer(LAYER_RIGHTHAND)
 		if equipped and equipped != item:
-			player.socket.clilocmessage(1048146)
+			player.socket.clilocmessage(1048146) # If you have a tool equipped, you must use that tool.
 			return False
 
 		if wearout:
 			uses = int(item.gettag('remaining_uses'))
 			if uses <= 1:
-				player.socket.clilocmessage(1044038)
+				player.socket.clilocmessage(1044038) # You have worn out your tool!
 				item.delete()
 				return False
 			else:
@@ -1025,7 +1025,7 @@ class MakeMenu:
 
 		# We can't craft it, so we can't repair it.
 		if mainskill == -1:
-			player.socket.clilocmessage(1044277)
+			player.socket.clilocmessage(1044277) # That item cannot be repaired.
 		return mainskill
 
 	#
@@ -1037,11 +1037,11 @@ class MakeMenu:
 			return
 
 		if not target.item:
-			player.socket.clilocmessage(500426)
+			player.socket.clilocmessage(500426) # You can't repair that.
 			return
 
 		if not player.canreach(target.item, -1):
-			player.socket.clilocmessage(1044275)
+			player.socket.clilocmessage(1044275) # The item must be in your backpack to repair it.
 			return
 
 		item = target.item
@@ -1052,7 +1052,7 @@ class MakeMenu:
 		if weapon or armor or shield:
 			# Item in full repair
 			if item.maxhealth <= 0 or item.health >= item.maxhealth:
-				player.socket.clilocmessage(500423)
+				player.socket.clilocmessage(500423) # That is already in full repair.
 				return False # Fully repaired
 			
 			mainskill = self.cancraft( player, item )
@@ -1073,17 +1073,17 @@ class MakeMenu:
 				player.soundeffect(self.repairsound)
 
 			if item.maxhealth <= weaken:
-				player.socket.clilocmessage(500424)
+				player.socket.clilocmessage(500424) # You destroyed the item.
 				player.log(LOG_MESSAGE, "Tries to repair item %s (0x%x) and destroys it.\n" % (item.baseid, item.serial))
 				item.delete()
 			elif player.checkskill(mainskill, 0, 1000):
-				player.socket.clilocmessage(1044279)
+				player.socket.clilocmessage(1044279) # You repair the item.
 				item.maxhealth -= weaken
 				item.health = item.maxhealth
 				item.resendtooltip()
 				player.log(LOG_MESSAGE, "Repairs item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
 			else:
-				player.socket.clilocmessage(1044280)
+				player.socket.clilocmessage(1044280) # You fail to repair the item.
 				item.maxhealth -= weaken
 				item.health = max(0, item.health - weaken)
 				item.resendtooltip()
@@ -1095,11 +1095,11 @@ class MakeMenu:
 
 			# Warn the user if we'll break the item next time
 			if item.maxhealth <= weaken:
-				player.socket.clilocmessage(1044278)
+				player.socket.clilocmessage(1044278) # That item has been repaired many times, and will break if repairs are attempted again.
 
 			return True # Repaired the item
 
-		player.socket.clilocmessage(1044277)
+		player.socket.clilocmessage(1044277) # That item cannot be repaired.
 		return False # Cannot repair this
 
 	#
@@ -1120,14 +1120,14 @@ class MakeMenu:
 			return
 
 		if not player.canreach(target.item, -1):
-			player.socket.clilocmessage(1061005)
+			player.socket.clilocmessage(1061005) # The item must be in your backpack to enhance it.
 			self.send(player, arguments)
 			return
 
 		# Check if we have a special material selected (not the default one)
 		index = self.getsubmaterial1used(player, arguments)
 		if index == 0:
-			player.socket.clilocmessage(1061010)
+			player.socket.clilocmessage(1061010) # You must select a special material in order to enhance an item with its properties.
 			self.send(player, arguments)
 			return
 
@@ -1139,7 +1139,7 @@ class MakeMenu:
 			if self.submaterial1noskill != 0:
 				player.socket.clilocmessage(self.submaterial1noskill)
 			else:
-				player.socket.clilocmessage(1044153)
+				player.socket.clilocmessage(1044153) # You don't have the required skills to attempt this item.
 
 		# Only armors and weapons and shields can be enhanced
 		item = target.item
@@ -1147,7 +1147,7 @@ class MakeMenu:
 		armor = properties.itemcheck(item, ITEM_ARMOR)
 		weapon = properties.itemcheck(item, ITEM_WEAPON)
 		if not shield and not armor and not weapon:
-			player.socket.clilocmessage(1061011)
+			player.socket.clilocmessage(1061011) # 
 			self.send(player, arguments)
 			return
 
@@ -1155,13 +1155,13 @@ class MakeMenu:
 		action = self.topmostmenu().findcraftitem(item.baseid)
 
 		if not action or action.submaterial1 == 0:
-			player.socket.clilocmessage(1061011)
+			player.socket.clilocmessage(1061011) # You cannot enhance this type of item with the properties of the selected special material.
 			self.send(player, arguments)
 			return
 
 		# Do we meet the minimum skill requirements?
 		if not action.checkskills(player, arguments, False):
-			player.socket.clilocmessage(1044153)
+			player.socket.clilocmessage(1044153) # You don't have the required skills to attempt this item.
 			self.send(player, arguments)
 			return
 
@@ -1170,7 +1170,7 @@ class MakeMenu:
 			resname = str(item.gettag('resname'))
 			# Only the first would be allowed
 			if self.submaterials1[0][5] != resname:
-				player.socket.clilocmessage(1061012)
+				player.socket.clilocmessage(1061012) # This item is already enhanced with the properties of a special material.
 				self.send(player, arguments)
 				return
 
@@ -1290,17 +1290,17 @@ class MakeMenu:
 		if result == -1:
 			action.consumematerial(player, arguments, True) # Consume half the material
 			item.delete() # Delete the item
-			player.socket.clilocmessage(1061080)
+			player.socket.clilocmessage(1061080) # You attempt to enhance the item, but fail catastrophically. The item is lost.
 
 		# Failure
 		elif result == 0:
 			action.consumematerial(player, arguments, True) # Consume half the material
-			player.socket.clilocmessage(1061082)
+			player.socket.clilocmessage(1061082) # You attempt to enhance the item, but fail. Some material is lost in the process.
 
 		# Success
 		else:
 			action.consumematerial(player, arguments, False) # Consume the material
-			player.socket.clilocmessage(1061008)
+			player.socket.clilocmessage(1061008) # You enhance the item with the properties of the special material.
 
 			# Attach the properties to the item
 			item.settag('resname', resname)
@@ -1481,7 +1481,7 @@ class MakeMenu:
 
 		# Repair Item
 		elif response.button == 10:
-			player.socket.clilocmessage(1044276)
+			player.socket.clilocmessage(1044276) # Target an item to repair.
 			player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 1] + arguments)
 
 		# Enhance Item
@@ -1489,7 +1489,7 @@ class MakeMenu:
 			# Check if we have a special material selected (not the default one)
 			index = self.getsubmaterial1used(player, arguments)
 			if index == 0:
-				player.socket.clilocmessage(1061010)
+				player.socket.clilocmessage(1061010) # You must select a special material in order to enhance an item with its properties.
 				self.send(player, arguments) # Resend menu
 			else:
 				# Check if we are skilled enough to use the material
@@ -1500,16 +1500,16 @@ class MakeMenu:
 					if self.submaterial1noskill != 0:
 						player.socket.clilocmessage(self.submaterial1noskill)
 					else:
-						player.socket.clilocmessage(1044153)
+						player.socket.clilocmessage(1044153) # You don't have the required skills to attempt this item.
 
 					self.send(player, arguments) # Resend menu
 				else:
-					player.socket.clilocmessage(1061004)
+					player.socket.clilocmessage(1061004) # Target an item to enhance with the properties of your selected material.
 					player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 2] + arguments)
 
 		# Smelt Item
 		elif response.button == 12:
-			player.socket.clilocmessage(1044273)
+			player.socket.clilocmessage(1044273) # Target an item to recycle.
 			player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 3] + arguments)
 
 		# Submenu

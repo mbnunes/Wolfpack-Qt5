@@ -183,7 +183,7 @@ def findinstrument( char, args, target ):
 		return False
 
 	socket.settag( 'instrument', serial )
-	socket.clilocmessage( 0x7A753, "", 0x3b2, 3, )
+	socket.clilocmessage( 0x7A753, "", 0x3b2, 3, ) # Whom do you wish to incite?
 	socket.attachtarget( "skills.provocation.response1", [target.item.serial] )
 	return True
 

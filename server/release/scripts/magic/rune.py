@@ -25,7 +25,7 @@ def isrune( item ):
 def onUse( char, item ):
 	# We only can rename marked runes
 	if item.gettag( 'marked' ) != 1:
-		char.socket.sysmessage( "This rune is not marked." )
+		char.socket.sysmessage( tr("This rune is not marked.") )
 		return True
 
 	# We are only handling runes
@@ -34,17 +34,17 @@ def onUse( char, item ):
 
 	# It needs to be on our body
 	if item.getoutmostchar() != char:
-		char.socket.sysmessage( "The rune needs to be in your posession to rename it." )
+		char.socket.sysmessage( tr("The rune needs to be in your posession to rename it.") )
 		return True
 
 	gump = cGump( 0, 0, 0, 50, 50 )
 	# Header
 	gump.addBackground( 0x24a4, 300, 200 )
 	gump.addTilePic( 80, 33, 0x1F14 )
-	gump.addHtmlGump( 10, 30, 300, 20, '<basefont size="7" color="#336699"><center>Rename rune</center></basefont>' )
+	gump.addHtmlGump( 10, 30, 300, 20, tr('<basefont size="7" color="#336699"><center>Rename rune</center></basefont>') )
 
 	# Rename Field
-	gump.addHtmlGump( 40, 60, 300, 20, 'How do you like to name the rune?' )
+	gump.addHtmlGump( 40, 60, 300, 20, tr('How do you like to name the rune?') )
 	gump.addResizeGump( 40, 80, 0x2486, 206, 26 )
 	gump.addInputField( 43, 83, 200, 20, 0x539, 1, item.name )
 
@@ -65,16 +65,16 @@ def rename_callback( char, args, response ):
 
 	# Check if we still posess the rune
 	if not isrune( item ) or not item.getoutmostchar() == char:
-		char.socket.sysmessage( "You cannot rename this rune." )
+		char.socket.sysmessage( tr("You cannot rename this rune.") )
 		return
 
 	# Ready to rename :)
 	if len( response.text[1] ) < 1:
-		char.socket.sysmessage( "You have to enter a name for this rune." )
+		char.socket.sysmessage( tr("You have to enter a name for this rune.") )
 		return
 
 	if len( response.text[1] ) > 30:
-		char.socket.sysmessage( "The name has to be shorter than 30 characters." )
+		char.socket.sysmessage( tr("The name has to be shorter than 30 characters.") )
 		return
 
 	item.name = response.text[1]
@@ -102,10 +102,10 @@ def onSingleClick( item, char ):
 
 	# Blank rune
 	if item.gettag( 'marked' ) == 0:
-		char.socket.showspeech( item, "a Blank recall rune" )
+		char.socket.showspeech( item, tr("a Blank recall rune") )
 		return True
 	else:
-		char.socket.showspeech( item, "Rune to: " + item.name )
+		char.socket.showspeech( item, tr("Rune to: ") + item.name )
 		return True
 
 	# Override the internal name

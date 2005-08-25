@@ -29,6 +29,7 @@
 
 import wolfpack
 from math import floor,ceil
+from wolfpack import tr
 
 def commandAddSpell( socket, command, arguments ):
 	if arguments != 'all':
@@ -38,16 +39,16 @@ def commandAddSpell( socket, command, arguments ):
 
 			spell = int( arguments )
 		except:
-			socket.sysmessage( 'Usage: addspell <spell> or addspell all' )
+			socket.sysmessage( tr('Usage: addspell <spell> or addspell all') )
 			return
 
 		if spell >= 64:
-			socket.sysmessage( 'Values between 0 and 63 are valid.' )
+			socket.sysmessage( tr('Values between 0 and 63 are valid.') )
 			return
 	else:
 		spell = 'all'
 
-	socket.sysmessage( 'Select the spellbook you want to add the spell to.' )
+	socket.sysmessage( tr('Select the spellbook you want to add the spell to.') )
 	socket.attachtarget( "magic.spellbook.addspelltarget", [ spell ] )
 
 def commandRemoveSpell( socket, command, arguments ):
@@ -58,16 +59,16 @@ def commandRemoveSpell( socket, command, arguments ):
 
 			spell = int( arguments )
 		except:
-			socket.sysmessage( 'Usage: removespell <spell> or removespell all' )
+			socket.sysmessage( tr('Usage: removespell <spell> or removespell all') )
 			return
 
 		if spell >= 64:
-			socket.sysmessage( 'Values between 0 and 63 are valid.' )
+			socket.sysmessage( tr('Values between 0 and 63 are valid.') )
 			return
 	else:
 		spell = 'all'
 
-	socket.sysmessage( 'Select the spellbook you want to add the spell to.' )
+	socket.sysmessage( tr('Select the spellbook you want to add the spell to.') )
 	socket.attachtarget( "magic.spellbook.removespelltarget", [ spell ] )
 
 def onLoad():
@@ -144,7 +145,7 @@ def addspelltarget( char, args, target ):
 	item = target.item
 
 	if not item or not item.hasscript( 'magic.spellbook' ):
-		char.socket.sysmessage( 'You need to target a spellbook.' )
+		char.socket.sysmessage( 'You need to target a spellbook.') )
 		return
 
 
@@ -153,13 +154,13 @@ def addspelltarget( char, args, target ):
 			item.settag( 'circle' + str( i ), 0xFF )
 
 		item.resendtooltip()
-		char.socket.sysmessage( 'Added all spells to the spellbook.' )
+		char.socket.sysmessage( tr('Added all spells to the spellbook.') )
 		return
 
 	addspell( item, spell )
 
 	circle = int( floor( spell / 8 ) ) + 1
-	char.socket.sysmessage( 'Added spell %d of circle %d (Id %d) to the spellbook.' % ( spell % 8 + 1, circle, spell ) )
+	char.socket.sysmessage( tr('Added spell %d of circle %d (Id %d) to the spellbook.') % ( spell % 8 + 1, circle, spell ) )
 
 """
 	Remove a spell from a spellbook
@@ -170,7 +171,7 @@ def removespelltarget( char, args, target ):
 	item = target.item
 
 	if not item or not item.hasscript( 'magic.spellbook' ):
-		char.socket.sysmessage( 'You need to target a spellbook.' )
+		char.socket.sysmessage( tr('You need to target a spellbook.') )
 		return
 
 	if spell == 'all':
@@ -178,20 +179,20 @@ def removespelltarget( char, args, target ):
 			item.deltag( 'circle' + str( i ) )
 		item.resendtooltip()
 
-		char.socket.sysmessage( 'Removed all spells from the spellbook.' )
+		char.socket.sysmessage( tr('Removed all spells from the spellbook.') )
 		return
 
 	removespell( item, spell )
 
 	circle = int( floor( spell / 8 ) ) + 1
-	char.socket.sysmessage( 'Removed spell %d of circle %d (Id %d)from the spellbook.' % ( spell % 8 + 1, circle, spell ) )
+	char.socket.sysmessage( tr('Removed spell %d of circle %d (Id %d)from the spellbook.') % ( spell % 8 + 1, circle, spell ) )
 
 """
 	open up a spellbook
 """
 def onUse( char, item ):
 	if item.getoutmostchar() != char:
-		char.socket.sysmessage('The book has to be in your belongings to be used.')
+		char.socket.sysmessage(tr('The book has to be in your belongings to be used.'))
 		return True
 
 	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook

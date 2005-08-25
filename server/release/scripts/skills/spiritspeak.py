@@ -18,19 +18,19 @@ def spiritspeak(char, skill):
 	socket = char.socket
 
 	if socket.hastag('spiritspeaking'):
-		socket.clilocmessage(500118)
-		return 1
+		socket.clilocmessage(500118) # You must wait a few moments to use another skill.
+		return True
 
 	if socket.hastag('skill_delay'):
 		if wolfpack.time.currenttime() < socket.gettag( 'skill_delay' ):
-			socket.clilocmessage(500118)
-			return 1
+			socket.clilocmessage(500118) # You must wait a few moments to use another skill.
+			return True
 		else:
 			socket.deltag('skill_delay')
 
 	if char.health >= char.maxhitpoints:
-		char.socket.clilocmessage(1061288)
-		return 1
+		char.socket.clilocmessage(1061288) # You do not require healing.
+		return True
 
 	if skills.skilltable[ SPIRITSPEAK ][ skills.UNHIDE ] and char.hidden:
 		char.reveal()
@@ -40,7 +40,7 @@ def spiritspeak(char, skill):
 	char.action(ANIM_CASTAREA)
 	char.addtimer(1000, effect, [skill])
 	socket.settag('spiritspeaking', 1)
-	return 1
+	return True
 
 def effect(char, args):
 	# Delete the spiritspeaking flag and set the
@@ -51,7 +51,7 @@ def effect(char, args):
 
 	# Check for skill usage success
 	if not char.checkskill( SPIRITSPEAK, 0, 1000 ):
-		char.socket.clilocmessage(502443)
+		char.socket.clilocmessage(502443) # You fail your attempt at contacting the netherworld.
 		return
 
 	# Find corpses around the user of this skill
@@ -74,16 +74,16 @@ def effect(char, args):
 		corpse.settag('drained', 1)
 		corpse.update()
 
-		char.socket.clilocmessage(1061287)
+		char.socket.clilocmessage(1061287) # You channel energy from a nearby corpse to heal your wounds.
 	else:
 		if char.mana < 10:
-			char.socket.clilocmessage(1061285)
+			char.socket.clilocmessage(1061285) # You lack the mana required to use this skill.
 			return
 
 		char.mana -= 10
 		char.updatemana()
 
-		char.socket.clilocmessage(1061286)
+		char.socket.clilocmessage(1061286) # You channel your own spiritual energy to heal your wounds.
 
 	# Show a nice effect.
 	char.effect(0x375a, 1, 15)

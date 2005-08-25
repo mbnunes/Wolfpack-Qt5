@@ -32,7 +32,7 @@ def end(player, message = True):
 	player.dispel(None, True, TIMERID)
 	player.deltag('bleeding')
 	if message and player.socket:
-		player.socket.clilocmessage(1060167) # Your wounds have healed...
+		player.socket.clilocmessage(1060167) # The bleeding wounds have healed, you are no longer bleeding!
 
 #
 # A stroke of the bleeding process

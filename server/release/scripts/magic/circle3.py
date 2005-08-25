@@ -7,6 +7,7 @@ import random
 import wolfpack
 from wolfpack.utilities import tobackpack, energydamage, smokepuff
 from system import poison
+from wolfpack import tr
 
 class Bless (CharEffectSpell):
 	def __init__(self):
@@ -103,7 +104,7 @@ class Teleport(Spell):
 		# NoTeleport Region?
 		if region and region.noteleport:
 			if char.socket:
-				char.socket.sysmessage("Teleport is not allowed in that Region")
+				char.socket.sysmessage(tr("Teleport is not allowed in that Region"))
 			return
 
 		if not self.consumerequirements(char, mode, args, target, item):

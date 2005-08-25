@@ -5,7 +5,7 @@ from magic.utilities import *
 import random
 import wolfpack
 from wolfpack.utilities import tobackpack, energydamage
-from wolfpack import time
+from wolfpack import time, tr
 import math
 from combat.specialmoves import ismortallywounded
 
@@ -115,15 +115,15 @@ class NightSight (CharEffectSpell):
 	def affectchar(self, char, mode, target, args=[]):
 		if not target.player:
 			if char.socket:
-				char.socket.sysmessage('This spell only works on players.')
+				char.socket.sysmessage(tr('This spell only works on players.'))
 			return 0
 
 		if target.hasscript( 'magic.nightsight' ):
 			if char.socket:
 				if char == target:
-					char.socket.sysmessage('You already have nightsight.')
+					char.socket.sysmessage(tr('You already have nightsight.'))
 				else:
-					char.socket.sysmessage('They already have nightsight.')
+					char.socket.sysmessage(tr('They already have nightsight.'))
 			return 0
 		return 1
 

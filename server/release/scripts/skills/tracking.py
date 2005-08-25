@@ -44,7 +44,7 @@ def tracking( char, skill ):
 
 	if char.socket.hastag( 'skill_delay' ):
 		if wolfpack.time.currenttime() < socket.gettag( 'skill_delay' ):
-			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			socket.clilocmessage( 500118, "", 0x3b2, 3 ) # You must wait a few moments to use another skill.
 			return True
 		else:
 			socket.deltag( 'skill_delay' )
@@ -131,11 +131,11 @@ def trackWhatResponse( char, args, target ):
 	#Answer to the player
 	if liste==[]: #nothing to find
 		if target.button == 4 or target.button == 3:
-			char.socket.clilocmessage( 502995, '', GRAY )#502995 You see no evidence of people in the area.
+			char.socket.clilocmessage( 502995, '', GRAY ) # You see no evidence of people in the area.
 		elif target.button == 1:
-			char.socket.clilocmessage( 502991, '', GRAY )#502991 You see no evidence of animals in the area.
+			char.socket.clilocmessage( 502991, '', GRAY ) # You see no evidence of animals in the area.
 		else:
-			char.socket.clilocmessage( 502993, '', GRAY )#502993 You see no evidence of creatures in the area.
+			char.socket.clilocmessage( 502993, '', GRAY ) # You see no evidence of creatures in the area.
 	else: #list is not empty
 		for charcible in liste:
 			char.socket.sysmessage("%s %s"%(charcible.name,dircard(char.directionto(charcible))))

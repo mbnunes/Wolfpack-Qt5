@@ -53,7 +53,7 @@ ALLOWED = [ 0x13f6, 0x13f7, 0xec2, 0xec3, 0xf51, 0xf52, 0x26bf, 0x26c9, 0x26be, 
 def selecttarget( char, args, target ):
 	# you cannot use skill while dead
 	if char.dead:
-		socket.clilocmessage( 502796 )
+		char.socket.clilocmessage( 502796 )
 		return
 
 	potion = wolfpack.finditem(args[ 0 ])

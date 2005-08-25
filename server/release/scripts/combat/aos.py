@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import *
-from wolfpack import properties
+from wolfpack import properties, tr
 from wolfpack.utilities import consumeresources, tobackpack, energydamage, mayAreaHarm
 import combat.utilities
 import random
@@ -52,7 +52,7 @@ def fireweapon(attacker, defender, weapon):
 	if len(ammo) != 0:
 		if not consumeresources(attacker.getbackpack(), ammo, 1):
 			if attacker.socket:
-				attacker.socket.sysmessage('You are out of ammo.')
+				attacker.socket.sysmessage(tr('You are out of ammo.'))
 			if attacker.npc:
 				tobackpack(weapon, attacker)
 			return False

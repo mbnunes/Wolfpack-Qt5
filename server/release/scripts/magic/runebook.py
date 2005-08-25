@@ -196,7 +196,7 @@ def onDropOnItem(runebook, item):
 					return True
 
 				else:
-					player.socket.clilocmessage(502401)
+					player.socket.clilocmessage(502401) # This runebook is full.
 			else:
 				player.socket.clilocmessage(502409)
 
@@ -213,21 +213,9 @@ def onDropOnItem(runebook, item):
 					return True # The item has been removed
 				else:
 					item.amount -= consume
-					#item.update()
-					#item.resendtooltip()
 			else:
 				player.socket.clilocmessage(502410)
-
 	return False
-
-	# Bounce Code
-	if char.socket:
-		char.socket.clilocmessage( 502401 )
-	char.getbackpack().additem(item)
-	item.pos = book.pos
-	item.pos.z += 1
-	item.update()
-	return True
 
 def closeGump(char, item):
 	char.socket.closegump(0x87654322, 100000)
@@ -262,8 +250,8 @@ def sendGump(char, item):
 
 	# charge / max charge
 	(charges, maxcharges) = getCharges(item)
-	runebook.addText( 160, 40, "Charges: %i" % charges )
-	runebook.addText( 300, 40, "Max Charges: %i" % maxcharges )
+	runebook.addText( 160, 40, tr("Charges: %i") % charges )
+	runebook.addText( 300, 40, tr("Max Charges: %i") % maxcharges )
 
 	runebook.startPage( 1 )
 

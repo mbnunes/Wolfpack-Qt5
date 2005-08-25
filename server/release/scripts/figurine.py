@@ -8,7 +8,7 @@ from wolfpack.consts import SND_IDLE, ANIM_CASTDIRECTED
 #
 def onUse(player, item):
 	if not item.getoutmostchar() == player:
-		player.socket.sysmessage('The figurine needs to be in your posession to use it.')
+		player.socket.sysmessage(tr('The figurine needs to be in your posession to use it.'))
 		return 1
 
 	if not item.hastag('pet'):

@@ -150,7 +150,7 @@ def onLogin(char):
 
 def poison_target(player, arguments, target):
 	if not target.char:
-		player.socket.sysmessage('You have to target a character.')
+		player.socket.sysmessage(tr('You have to target a character.'))
 		return
 
 	poison(target.char, arguments[0])
@@ -170,12 +170,12 @@ def poison_command(socket, command, arguments):
 	try:
 		level = int(arguments)
 		if level < 0 or level > 4:
-			socket.sysmessage('Allowed levels: 0 to 4.')
+			socket.sysmessage(tr('Allowed levels: 0 to 4.'))
 		else:
-			socket.sysmessage('Select the character you want to poison.')
+			socket.sysmessage(tr('Select the character you want to poison.'))
 			socket.attachtarget("system.poison.poison_target", [level])
 	except:
-		socket.sysmessage('Usage: poison <level>')
+		socket.sysmessage(tr('Usage: poison <level>'))
 
 def onLoad():
 	wolfpack.registercommand('poison', poison_command)

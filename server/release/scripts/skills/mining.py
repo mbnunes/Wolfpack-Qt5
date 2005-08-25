@@ -400,7 +400,6 @@ def successmining(Oretable, char, gem, resname, size):
 		if random.randint(1,100) <= 50:
 			minegranite(Oretable, char, resname, gem)
 			return True
-			#char.socket.sysmessage("tet")
 
 	# Create the ore and put it into the players backpack
 	if size == 1:

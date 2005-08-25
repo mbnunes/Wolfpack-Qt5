@@ -10,6 +10,7 @@
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
 import wolfpack
+from wolfpack import tr
 
 prices_shrinks = 100
 prices = {
@@ -118,12 +119,12 @@ def onSpeech( listener, speaker, text, keywords ):
 	if not text.lower().startswith( "vendor" ) and not text.lower().startswith( listener.name.lower() ):
 		return False
 
-	listener.say("May I help thee?")
+	listener.say(tr("May I help thee?"))
 	gump = cGump( 0, 0, 0, 50, 50 )
 	gump.addBackground( 0x24a4, 425, 400 )
 
 	gump.startPage( 0 )
-	gump.addHtmlGump( 10, 30, 450, 20, '<basefont size="7" color="#336699"><center>Stablemaster shop</center></basefont>' )
+	gump.addHtmlGump( 10, 30, 450, 20, tr('<basefont size="7" color="#336699"><center>Stablemaster shop</center></basefont>') )
 	gump.addTilePic( 140, 31, 0xFB6 )
 
 	addStablePage( speaker, gump, 0x1, 0x2101 )
@@ -251,11 +252,11 @@ def gump_callback( char, args, response ):
 	if not vendor:
 		return
 	if vendor.distanceto( char ) > 5:
-		vendor.say( "I can't sell this from over there!",5 )
-		char.socket.sysmessage( "You can't reach the vendor." )
+		vendor.say( tr("I can't sell this from over there!"), 5 )
+		char.socket.sysmessage( tr("You can't reach the vendor.") )
 		return
 	if response.button == 0:
-		vendor.say( "Bey!",5 )
+		vendor.say( tr("Bye!"), 5 )
 		return
 
 	button = int( response.switches[0] )
@@ -266,7 +267,7 @@ def gump_callback( char, args, response ):
 		return
 
 	if not prices.has_key( id ):
-		vendor.say( "I can't sell this!",5 )
+		vendor.say( "I can't sell this!", 5 )
 		return
 
 	id_npc = idnpc[ id ]
@@ -274,15 +275,13 @@ def gump_callback( char, args, response ):
 
 	if ( button == 0x0000 ):  	#shrink
 		if not shrinks.has_key( id ):
-			vendor.say( "They not SHRINKABLE...",5 )
+			vendor.say( tr("That is not shrinkable..."), 5 )
 			return
 		count = prices[ id ] + prices_shrinks
-		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enough gold!",5 )
-			return
-		char.useresource( count, 0xeed, 0 )
-		char.soundeffect( 0x37, 0 )
-		vendor.say( "That is %i gold." % count,5 )
+
+		if not checkpay(char, vendor, count):
+			return 
+
 		item = wolfpack.additem( "%s" % id_shrink )
 		if not item:
 			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_shrink, vendor) )
@@ -299,16 +298,12 @@ def gump_callback( char, args, response ):
 
 	elif ( button == 0x0001 ):  	#tamed
 		if not tamed.has_key( id ):
-			vendor.say( "They not TAMEABLE...",5 )
+			vendor.say( tr("That is not tamed..."), 5 )
 			return
 
 		count = prices[ id ]
-		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enough gold!",5 )
-			return
-		char.useresource( count, 0xeed, 0 )
-		char.soundeffect( 0x37, 0 )
-		vendor.say( "That is %i gold." % count,5 )
+		if not checkpay(char, vendor, count):
+			return 
 		pos = char.pos
 		npc = wolfpack.addnpc( id_npc, pos )
 		if not npc:
@@ -322,16 +317,12 @@ def gump_callback( char, args, response ):
 
 	elif ( button == 0x0002 ):  	#rideable
 		if ( rideables.has_key( id ) != 1 ):
-			vendor.say( "They not RIDEABLE...",5 )
+			vendor.say( tr("That is not rideable..."), 5 )
 			return
 
 		count = prices[ id ]
-		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enough gold!",5 )
-			return
-		char.useresource( count, 0xeed, 0 )
-		char.soundeffect( 0x37, 0 )
-		vendor.say( "That is %i gold." % count,5 )
+		if not checkpay(char, vendor, count):
+			return 
 		pos = char.pos
 		npcmount = wolfpack.addnpc( id_npc, pos )
 		if not npcmount:
@@ -341,3 +332,12 @@ def gump_callback( char, args, response ):
 		return
 	else:
 		return
+
+def checkpay(char, vendor, count)
+	if char.countresource( 0xeed, 0 ) < count:
+		vendor.say( tr("You don't have enough gold!"), 5 )
+		return False
+	char.useresource( count, 0xeed, 0 )
+	char.soundeffect( 0x37, 0 )
+	vendor.say( tr("That is %i gold.") % count, 5 )
+	return True

@@ -6,17 +6,13 @@
 #################################################################
 
 import wolfpack
-from wolfpack.utilities import isarmor
-from wolfpack.utilities import isclothing
-from wolfpack.utilities import isweapon
+from wolfpack.utilities import isarmor, isclothing, isweapon 
 from wolfpack.consts import *
-import re
 
 def onShowTooltip( sender, target, tooltip ):
 	tooltip.add( 1006018, "" )
 	tooltip.add( 1038021, "" )
 	return True
-
 
 def onUse( char, item ):
 	char.socket.clilocmessage( 0x7A31A, "", 0x3b2, 3 )
@@ -34,8 +30,8 @@ def response( char, args, target ):
 		return False
 
 	if not isarmor( target.item ) or isweapon( target.item ):
-		if not isclothing( target.item ) or ishat( target.item ) or isshield( target.item):
-			char.socket.clilocmessage( 0x7A31E, "", 0x3b2, 3 )
+		if not isclothing( target.item ) or ishat( target.item ) or isshield( target.item ):
+			char.socket.clilocmessage( 0x7A31E, "", 0x3b2, 3 ) # You can't bless this object.
 			return False
 
 	if target.item.hastag( "blessed" ):

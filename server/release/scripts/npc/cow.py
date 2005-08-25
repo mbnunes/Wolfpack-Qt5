@@ -6,4 +6,8 @@ def onShowPaperdoll(char, player):
 		char.soundeffect(120)
 	elif ran < 40:
 		char.soundeffect(121)
+	getMilk(char, player)
 	return
+
+def getMilk(cow, player):
+	return True

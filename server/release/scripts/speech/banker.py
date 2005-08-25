@@ -37,8 +37,8 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Invalid Withdraw Amount
 			if not amount:
-				#Thou must tell me how much thou wishest to withdraw
-				speaker.socket.clilocmessage( 0x7A29B, "", 0x3b2, 3, listener )
+				# Thou must tell me how much thou wishest to withdraw
+				speaker.socket.clilocmessage( 500379, "", 0x3b2, 3, listener )
 				return
 
 			# Withraw
@@ -52,13 +52,13 @@ def onSpeech( listener, speaker, text, keywords ):
 
 				if amount > gold:
 					# Thou dost not have sufficient funds in thy account to withdraw that much.
-					speaker.socket.clilocmessage( 0x7A29E, "", 0x3b2, 3, listener )
+					speaker.socket.clilocmessage( 500382, "", 0x3b2, 3, listener )
 					return
 
 				else:
 					# We have enough money, so let's withdraw it
 					# Thou hast withdrawn gold from thy account.
-					speaker.socket.clilocmessage( 0xF6955, "", 0x3b2, 3, listener )
+					speaker.socket.clilocmessage( 1010005, "", 0x3b2, 3, listener )
 					bank.useresource( amount, 0xEED, 0x0 )
 					backpack = speaker.getbackpack()
 
@@ -111,7 +111,7 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Invalid Withdraw Amount
 			if amount < MIN_CHECK_AMOUNT:
-				speaker.socket.clilocmessage( 0x7A29F, "", 0x3b2, 3, listener )
+				speaker.socket.clilocmessage( 500383, "", 0x3b2, 3, listener ) # Thou must request a minimum of 5000 gold to draw up a check.
 				return
 
 			# Withraw
@@ -124,14 +124,13 @@ def onSpeech( listener, speaker, text, keywords ):
 					gold = bank.countresource( 0xEED, 0x0 )
 
 				if amount > gold:
-					# Ah, art thou trying to fool me? Thou hast not so much gold!
-					speaker.socket.clilocmessage( 0x7A29C, "", 0x3b2, 3, listener )
+					speaker.socket.clilocmessage( 500380, "", 0x3b2, 3, listener ) # Ah, art thou trying to fool me? Thou hast not so much gold!
 					return
 				else:
 					# We have enough money, so let's withdraw it
 					# Into your bank box I have placed a check in the amount of:
 					total = str(amount)
-					speaker.socket.clilocmessage( 0xFE8F1, "", 0x3b2, 3, listener, " %s" %total )
+					speaker.socket.clilocmessage( 1042673, "", 0x3b2, 3, listener, " %s" %total ) # Into your bank box I have placed a check in the amount of:
 					bank.useresource( amount, 0xEED, 0x0 )
 					check = wolfpack.additem( "bank_check" )
 					check.settag( 'value', amount )
@@ -158,6 +157,6 @@ def onDropOnChar( char, item ):
 			item.update()
 		return True
 	else:	
-		char.say( 500388, "", "", False, 0x3b2, player.socket )
+		char.say( 500388, "", "", False, 0x3b2, player.socket ) # I only accept gold coins.
 
 	return 0

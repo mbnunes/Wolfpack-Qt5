@@ -18,7 +18,7 @@ def tasteid(char, skill):
 
 	if socket.hastag('skill_delay'):
 		if wolfpack.time.currenttime() < socket.gettag('skill_delay'):
-			socket.clilocmessage(500118)
+			socket.clilocmessage(500118) # You must wait a few moments to use another skill.
 			return True
 		else:
 			socket.deltag('skill_delay')
