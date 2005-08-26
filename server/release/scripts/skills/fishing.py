@@ -326,9 +326,9 @@ def itemtimer( char, args ):
 
 	# Success!
 	if not spawnmonster:
-		socket.clilocmessage( 0xf61fc, "", 0x3b2, 3, None, str(itemname) ) # You pull out an item :
+		socket.clilocmessage( 0xf61fc, "", 0x3b2, 3, None, unicode(itemname) ) # You pull out an item :
 	else:
-		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, None, str(itemname) ) # You pull out an item along with a monster :
+		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, None, unicode(itemname) ) # You pull out an item along with a monster :
 
 def resourceDecayTimer( resource, args ):
 	resource.delete()
