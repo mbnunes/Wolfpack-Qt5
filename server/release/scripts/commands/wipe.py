@@ -40,6 +40,8 @@ import wolfpack
 import string
 import wolfpack.gumps
 from wolfpack.gumps import WarningGump
+import wolfpack.console
+import wolfpack.consts
 
 def getBoundingBox( socket, callback, args ) :
 	socket.attachtarget( "commands.wipe.getBoundingBoxResponse", [0, callback, None, args] )
@@ -132,6 +134,10 @@ def wipeBoundingBox( socket, target1, target2, argstring ):
 		item = iterator.next
 	socket.sysmessage( "%i items removed" % count )
 
+	if socket.player:
+		socket.player.log(wolfpack.consts.LOG_MESSAGE,"Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s \n" % (x1,y1,x2,y2,count,argstring) )
+	else:
+		wolfpack.log(wolfpack.consts.LOG_MESSAGE,"Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s (Socket-ID: %s)\n" % (x1,y1,x2,y2,count,argstring,socket.id) )
 	return True
 
 def onLoad():
