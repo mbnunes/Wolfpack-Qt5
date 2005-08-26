@@ -45,6 +45,35 @@ def unregister(object):
 OBJECTS = []
 
 #
+# Add the timer for checking the objects
+#
+def onLoad():
+	global magic
+	magic = random.random()
+
+	wolfpack.addtimer(CHECKINTERVAL, gainresObject, [magic], False)
+
+#
+# Reset the magic
+#
+def onUnload():
+	global magic
+	magic = random.random()
+
+#
+# Register the object with the global registry
+#
+def onAttach(obj):
+	register(obj)
+
+#
+# Unregister the object with the global registry
+#
+def onDetach(obj):
+	unregister(obj)
+
+
+#
 # This prevents too many growth checks
 #
 magic = random.random()
@@ -121,9 +150,53 @@ def onUse(player, item):
 		return False
 	# Look if there's something to get
 	if not checkresource(item, player):
-		return False
+		return True
 
 	return actions[ item.baseid ]( player, item )
+
+def appletree(char, item):
+	apple = wolfpack.additem("9d0")
+	if not wolfpack.utilities.tobackpack( apple, char ):
+		apple.update()
+	char.soundeffect(0x57)
+	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	return True
+
+def peachtree(char, item):
+	peach = wolfpack.additem("9d2")
+	if not wolfpack.utilities.tobackpack( peach, char ):
+		peach.update()
+	char.soundeffect(0x57)
+	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	return True
+
+def peartree(char, item):
+	pear = wolfpack.additem("994")
+	if not wolfpack.utilities.tobackpack( pear, char ):
+		pear.update()
+	char.soundeffect(0x57)
+	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	return True
+
+def grapevines(char, item):
+	grape = wolfpack.additem("9d1")
+	if not wolfpack.utilities.tobackpack( grape, char ):
+		grape.update()
+	char.soundeffect(0x57)
+	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	return True
+
+def onShowPaperdoll(char, player):
+	if not actions.has_key( char.baseid ):
+		return False
+	if not player.canreach(char, 2):
+		player.socket.clilocmessage(500295) # You are too far away to do that.
+		return False
+	# Look if there's something to get
+	if not checkresource(char, player):
+		return True
+
+	return actions[ char.baseid ][0]( char, player )
 
 def cow(char, player):
 	# List with id of empty pitcher
@@ -148,29 +221,11 @@ def cow(char, player):
 
 def chicken(char, player):
 	player.socket.sysmessage(tr("You get some eggs"))
+	player.soundeffect(0x57)
 	eggs = wolfpack.additem("9b5")
 	if not wolfpack.utilities.tobackpack( eggs, player ):
 		eggs.update()
 	char.settag( "resourcecount", char.gettag("resourcecount") - 1)
-
-# Table of IDs mapped to handler functions
-actions = {
-		# Baseid: [function, max resource amount]
-		"cow": [cow, 30],
-		"chicken": [chicken, 10]
-	 }
-
-def onShowPaperdoll(char, player):
-	if not actions.has_key( char.baseid ):
-		return False
-	if not player.canreach(char, 2):
-		player.socket.clilocmessage(500295) # You are too far away to do that.
-		return False
-	# Look if there's something to get
-	if not checkresource(char, player):
-		return False
-
-	return actions[ char.baseid ][0]( char, player )
 
 def checkresource(object, player):
 	if not object.hastag('resourcecount') or object.gettag('resourcecount') <= 0:
@@ -178,30 +233,30 @@ def checkresource(object, player):
 		return False
 	return True
 
-#
-# Add the timer for checking the objects
-#
-def onLoad():
-	global magic
-	magic = random.random()
+# Table of IDs mapped to handler functions
+actions = {
+		# Baseid: [function, max resource amount]
+		# NPCs
+		"cow": [cow, 30],
+		"chicken": [chicken, 10],
 
-	wolfpack.addtimer(CHECKINTERVAL, gainresObject, [magic], False)
-
-#
-# Reset the magic
-#
-def onUnload():
-	global magic
-	magic = random.random()
-
-#
-# Register the object with the global registry
-#
-def onAttach(obj):
-	register(obj)
-
-#
-# Unregister the object with the global registry
-#
-def onDetach(obj):
-	unregister(obj)
+		# Items (trees)
+		"d96": [appletree, 40],
+		"d9a": [appletree, 40],
+		"d9e": [peachtree, 40],
+		"da2": [peachtree, 40],
+		"da6": [peartree, 40],
+		"daa": [peartree, 40],
+		"d1b": [grapevines, 10],
+		"d1c": [grapevines, 10],
+		"d1d": [grapevines, 10],
+		"d1e": [grapevines, 10],
+		"d1f": [grapevines, 10],
+		"d20": [grapevines, 10],
+		"d21": [grapevines, 10],
+		"d22": [grapevines, 10],
+		"d23": [grapevines, 10],
+		"d24": [grapevines, 10],
+		"d23": [grapevines, 10],
+		"3d12": [grapevines, 10]
+	 }
