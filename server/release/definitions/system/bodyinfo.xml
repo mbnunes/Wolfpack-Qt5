@@ -329,6 +329,12 @@
 	
 	<body id="573" basesound="0x107" flags="0x04" /> <!-- Energy Vortex -->
 	<body id="574" basesound="0x200" soundmode="4" flags="0x04" type="1" /> <!-- Blade Spirits -->
+
+	<!-- Elves -->	
+	<body id="605" basesound="0x0" figurine="0x210c" type="4" />
+	<body id="606" basesound="0x0" figurine="0x210d" type="4" />
+	<body id="607" basesound="0x0" figurine="0x25f0" type="4" />
+	<body id="608" basesound="0x0" figurine="0x25f1" type="4" />
 	
 	<!-- 2e8 type="4" -->
 	<!-- 2e9 type="4" -->
