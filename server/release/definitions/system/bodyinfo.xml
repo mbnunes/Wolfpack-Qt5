@@ -295,7 +295,38 @@
 	<body id="253" type="1" figurine="0x2773" /> <!-- Yomotsu Priest -->
 	<body id="254" type="3" figurine="0x2764" deathsound="0x4d6" hitsound="0x4d7" idlesound="0x4d8" attacksound="0x4d9" gethitsound="0x4da" /> <!-- Crane -->
 	<body id="255" type="1" figurine="0x2772" /> <!-- Yomotsu Elder -->
-		
+
+	<!-- Mondain's Legacy -->
+	<body id="256" basesound="0x56f" type="1" figurine="0x2d82" /> <!-- Chief Paroxysmus -->
+	<body id="257" type="1" figurine="0x2d83" /> <!-- Dread Horn -->
+	<body id="258" type="1" figurine="0x2d84" /> <!-- Lady M -->
+	<body id="259" basesound="0x57f" type="1" figurine="0x2d85" /> <!-- Monstrous Interred Grizzle -->
+	<body id="260" type="1" figurine="0x2d86" /> <!-- Travesty -->
+	<body id="261" type="1" figurine="0x2d87" /> <!-- Shimmering Effusion -->
+	<body id="262" basesound="0x59d" type="1" figurine="0x2d88" /> <!-- Tormented Minotaur -->
+	<body id="263" type="1" figurine="0x2d89" /> <!-- Minotaur -->
+	<body id="264" type="1" figurine="0x2d8a" /> <!-- Changeling -->
+	<body id="265" type="1" figurine="0x2d8b" /> <!-- Hydra -->
+	<body id="266" type="1" figurine="0x2d8c" /> <!-- Dryad -->
+	<body id="267" basesound="0x59d" type="1" figurine="0x2d8d" /> <!-- Troglodyte -->
+	<body id="269" type="1" figurine="0x2d8e" /> <!-- Thorn bat -->
+	<body id="270" type="1" figurine="0x2d8f" /> <!-- Bulbous Putrification -->
+	<body id="271" basesound="0x585" type="1" figurine="0x2d90" /> <!-- Satyr -->
+	<body id="272" basesound="0x57f" type="1" figurine="0x2d91" /> <!-- Interred Grizzle -->
+	<body id="273" type="1" figurine="0x2d92" /> <!-- Fetid Essence -->
+	<body id="276" type="3" figurine="0x2d95" /> <!-- Chimera -->
+	<body id="277" type="3" figurine="0x2d96" /> <!-- Cu Sidhe -->
+	<body id="278" type="3" figurine="0x2d97" /> <!-- Squirrel -->
+	<body id="279" type="3" figurine="0x2d98" /> <!-- Ferret -->
+	<body id="280" type="1" figurine="0x2d99" /> <!-- Plate Armored Minotaur -->
+	<body id="281" type="1" figurine="0x2d9a" /> <!-- Leather Armored Minotaur -->
+	<body id="282" type="3" figurine="0x2d9b" /> <!-- Parrot -->
+	<body id="283" type="3" figurine="0x20ee" /> <!-- Crow -->
+	<!-- used birds figurine for Crow -->
+	<body id="284" type="3" figurine="0x2d9c" /> <!-- Mondains Steed -->
+	<body id="285" type="1" figurine="0x20fb" /> <!-- Reaper Form -->
+	<!-- used reapers figurine for Reaper Form -->
+
 	<body id="290" basesound="0xc4" figurine="0x2101" type="3" /> <!-- TODO: Unknown -->
 	<body id="291" basesound="168" figurine="0x2126" type="3" /> <!-- Packhorse -->
 	<body id="292" basesound="1011" figurine="0x2127" soundmode="2" type="3" /> <!-- Packllama -->
