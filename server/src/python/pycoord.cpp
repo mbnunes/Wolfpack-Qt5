@@ -166,8 +166,7 @@ static PyObject* wpCoord_validspawnspot( wpCoord* self, PyObject* args )
 	\method coord.lineofsight
 	\param coord Another <object id="coord">coord</object> object.
 	\param debug A boolean value. Defaults to false.
-	\description Returns true if an object at the given coordinate with the given height can be seen from this coordinate.
-	Touch determines whether the target needs to be touched or only be seen.
+	\description Returns true if the given coordinate can be seen from this coordinate.
 */
 static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 {
