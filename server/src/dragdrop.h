@@ -46,12 +46,6 @@ void dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, const Coord& dro
 void dropOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pOtherChar );
 void dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& pos );
 
-// Drop-on-char subfunctions
-void dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar );
-void dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker );
-void dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker );
-void dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer );
-
 void bounceItem( cUOSocket* socket, P_ITEM pi, bool denyMove = false );
 };
 
