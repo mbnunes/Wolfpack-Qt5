@@ -176,6 +176,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Grapevines and fruit trees can be harvested if they have resources.
   - If enhancing an item fails and the item breaks, chars in range of 5 tiles and if in LoS will notice that.
   - Cows will give milk, chicken eggs (on double click).
+  - If you use wheat sheafs near a flour mill, you will get a sack of flour.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

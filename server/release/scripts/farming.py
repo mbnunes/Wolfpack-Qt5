@@ -152,14 +152,14 @@ def onUse(player, item):
 	if not checkresource(item, player):
 		return True
 
-	return actions[ item.baseid ]( player, item )
+	return actions[ item.baseid ][0]( player, item )
 
 def appletree(char, item):
 	apple = wolfpack.additem("9d0")
 	if not wolfpack.utilities.tobackpack( apple, char ):
 		apple.update()
 	char.soundeffect(0x57)
-	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	item.settag( "resourcecount", item.gettag("resourcecount") - 1)
 	return True
 
 def peachtree(char, item):
@@ -167,7 +167,7 @@ def peachtree(char, item):
 	if not wolfpack.utilities.tobackpack( peach, char ):
 		peach.update()
 	char.soundeffect(0x57)
-	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	item.settag( "resourcecount", item.gettag("resourcecount") - 1)
 	return True
 
 def peartree(char, item):
@@ -175,7 +175,7 @@ def peartree(char, item):
 	if not wolfpack.utilities.tobackpack( pear, char ):
 		pear.update()
 	char.soundeffect(0x57)
-	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	item.settag( "resourcecount", item.gettag("resourcecount") - 1)
 	return True
 
 def grapevines(char, item):
@@ -183,7 +183,7 @@ def grapevines(char, item):
 	if not wolfpack.utilities.tobackpack( grape, char ):
 		grape.update()
 	char.soundeffect(0x57)
-	item.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	item.settag( "resourcecount", item.gettag("resourcecount") - 1)
 	return True
 
 def onShowPaperdoll(char, player):

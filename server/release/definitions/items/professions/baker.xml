@@ -272,6 +272,7 @@
 	<item id="1ebd">
 		<id>0x1ebd</id>
 		<category>Professions\Baker\Sheaf of Wheat</category>
+		<basescripts>wheat</basescripts>
 	</item>
 
 </definitions>
