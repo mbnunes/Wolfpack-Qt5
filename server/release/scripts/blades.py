@@ -212,40 +212,40 @@ def carve_corpse( char, tool, corpse ):
 
 	# Feathers
 	if feathers != 0:
-		carve_feathers( char, corpse, tool )
+		carve_feathers( char, corpse, tool, feathers )
 
 	# Wool
 	if wool != 0:
-		carve_wool( char, corpse, tool )
+		carve_wool( char, corpse, tool, wool )
 
 	# Meat
 	if meat != 0:
-		carve_meat( char, corpse, tool, meat_type )
+		carve_meat( char, corpse, tool, meat_type, meat )
 
 	# Hides
 	if hides != 0:
-		carve_hides( char, corpse, tool, hides_type )
+		carve_hides( char, corpse, tool, hides_type, hides )
 
 	# Scales
 	if scales != 0:
-		carve_scales( char, corpse, tool, scales_type )
+		carve_scales( char, corpse, tool, scales_type, scales )
 
 
-def carve_feathers( char, corpse, tool ):
+def carve_feathers( char, corpse, tool, feathers ):
 	item = wolfpack.additem('1bd1')
 	item.amount = feathers
 	if not wolfpack.utilities.tocontainer(item, corpse):
 		item.update()
 	char.socket.clilocmessage( 500479, "", 0x3b2, 3 ) # You pluck the bird. The feathers are now on the corpse.
 
-def carve_wool( char, corpse, tool ):
+def carve_wool( char, corpse, tool, wool ):
 	item = wolfpack.additem('df8')
 	item.amount = wool
 	if not wolfpack.utilities.tocontainer(item, corpse):
 		item.update()
 	char.socket.clilocmessage( 500483, "", 0x3b2, 3 ) # You shear it, and the wool is now on the corpse.
 
-def carve_meat( char, corpse, tool, meat_type ):
+def carve_meat( char, corpse, tool, meat_type, meat ):
 	if meat_type == 'bird':			
 		item = wolfpack.additem('9b9') # Raw Bird
 	elif meat_type == 'lambleg':
@@ -258,7 +258,7 @@ def carve_meat( char, corpse, tool, meat_type ):
 		item.update()
 	char.socket.clilocmessage( 500467, "", 0x3b2, 3 ) # You carve some meat, which remains on the corpse.
 
-def carve_hides( char, corpse, tool, hides_type ):
+def carve_hides( char, corpse, tool, hides_type, hides ):
 	if hides_type == 'spined':
 		item = wolfpack.additem('spined_leather_hides')
 	elif hides_type == 'horned':
@@ -273,7 +273,7 @@ def carve_hides( char, corpse, tool, hides_type ):
 		item.update()
 	char.socket.clilocmessage( 500471, "", 0x3b2, 3 ) # You skin it, and the hides are now in the corpse.
 
-def carve_scales( char, corpse, tool, scales_type ):
+def carve_scales( char, corpse, tool, scales_type, scales ):
 	# Random scales type
 	if ',' in scales_type:
 		scales_type = random.choice(scales_type.split(','))
