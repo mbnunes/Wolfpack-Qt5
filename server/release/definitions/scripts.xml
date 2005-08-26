@@ -41,6 +41,7 @@
 	<script>dyes</script>
 	<script>environment</script>
 	<script>equipment</script>
+	<script>farming</script>
 	<script>figurine</script>
 	<script>furniture</script>
 	<script>food</script>
@@ -198,6 +199,7 @@
 	<script>npc.poison</script>
 	<script>npc.mount</script>
 	<script>npc.cow</script>
+	<script>npc.chicken</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>

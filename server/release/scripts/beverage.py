@@ -141,7 +141,7 @@ def onUse(char, item):
 				return True
 		return False
 	# pitcher filled with water
-	elif item.baseid in ["1f9d", "1f9e"] and CONTAINERS[item.id][4] == 'water':
+	elif item.id in [0xff8, 0xff9, 0x1f9d, 0x1f9e] and CONTAINERS[item.id][4] == 'water':
 		char.socket.attachtarget('beverage.water', [item.serial])
 	else:
 		return drink(char, item)
