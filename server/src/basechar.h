@@ -1603,7 +1603,7 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 
 inline bool cBaseChar::isFemale() const
 {
-	return ( body_ == 0x191 || body_ == 0x193 );
+	return ( body_ == 0x191 || body_ == 0x193 || body_ == 0x25e || body_ == 0x260 );
 }
 
 inline bool cBaseChar::isHuman() const
@@ -1611,6 +1611,11 @@ inline bool cBaseChar::isHuman() const
 	if ( body_ >= 0x190 && body_ <= 0x193 )
 	{
 		return true; // Human female, Human male + ghosts
+	}
+
+	if ( body_ >= 0x25d && body_ <= 0x260 )
+	{
+		return true; // Elven female, Elven male + ghosts
 	}
 
 	if ( body_ == 0x3df || body_ == 0x3db || body_ == 0x3e2 )

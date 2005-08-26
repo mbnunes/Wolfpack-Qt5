@@ -123,15 +123,15 @@ public:
 			{
 				// Animals
 			case 1:
-				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 ); //|| pChar->npcaitype() == 2 );
+				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 || pChar->body() == 0x25d || pChar->body() == 0x25e ); //|| pChar->npcaitype() == 2 );
 				break;
 				// Monsters
 			case 2:
-				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 ); //|| pChar->npcaitype() != 2 );
+				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 || pChar->body() == 0x25d || pChar->body() == 0x25e ); //|| pChar->npcaitype() != 2 );
 				break;
 				// Human
 			case 3:
-				passed = !( pChar->objectType() != enNPC || ( pChar->body() != 0x190 && pChar->body() != 0x191 ) );
+				passed = !( pChar->objectType() != enNPC || ( pChar->body() != 0x190 && pChar->body() != 0x191 && pChar->body() != 0x25d && pChar->body() != 0x25e ) );
 				break;
 			case 4:
 				passed = ( pChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>( pChar )->socket() );

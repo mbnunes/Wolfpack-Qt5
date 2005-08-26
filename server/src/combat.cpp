@@ -38,7 +38,7 @@
 */
 void cCombat::playGetHitSoundEffect( P_CHAR pChar )
 {
-	if ( pChar->body() == 0x191 )
+	if ( pChar->body() == 0x191 || pChar->body() == 0x25e )
 	{
 		UI16 sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
 		if ( sound > 0 )
@@ -46,7 +46,7 @@ void cCombat::playGetHitSoundEffect( P_CHAR pChar )
 		else
 			pChar->soundEffect( 0x14b );
 	}
-	else if ( pChar->body() == 0x190 )
+	else if ( pChar->body() == 0x190 || pChar->body() == 0x25d )
 	{
 		UI16 sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
 		if ( sound > 0 )
