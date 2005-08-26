@@ -160,7 +160,7 @@ def playmisssound(attacker, defender):
 # Play hurt sound
 #
 def playhurtsound(defender):
-	if defender.id == 0x190:
+	if defender.id in PLAYER_BODIES_ALIVE_MALE:
 		# Play a random soundeffect for a human male defender
 		sounds = wolfpack.list('SOUNDS_COMBAT_HIT_HUMAN_MALE')
 
@@ -170,7 +170,7 @@ def playhurtsound(defender):
 		else:
 			defender.soundeffect(0x156)
 
-	elif defender.id == 0x191:
+	elif defender.id == PLAYER_BODIES_ALIVE_FEMALE:
 		# Play a random soundeffect for a human female defender
 		sounds = wolfpack.list('SOUNDS_COMBAT_HIT_HUMAN_FEMALE')
 
