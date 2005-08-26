@@ -1291,7 +1291,11 @@ class MakeMenu:
 			action.consumematerial(player, arguments, True) # Consume half the material
 			item.delete() # Delete the item
 			player.socket.clilocmessage(1061080) # You attempt to enhance the item, but fail catastrophically. The item is lost.
-
+			# Show an information to other chars in order to prevent unfairness
+			chars = wolfpack.chars(player.pos.x, player.pos.y, player.pos.map, 5)
+			for char in chars:
+				if not char == player and wolfpack.utilities.checkLoS(char, player):
+					char.emote(tr("You see %s is breaking the item while trying to enhance it.") % player.name)
 		# Failure
 		elif result == 0:
 			action.consumematerial(player, arguments, True) # Consume half the material
