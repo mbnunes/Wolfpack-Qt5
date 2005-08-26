@@ -3377,4 +3377,293 @@
 		<category>Buildings\Roofs\Samurai\Ceramic Orange\Orange 22</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2b81">
+		<id>0x2b81</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\01</category>
+	</item>
+
+	<item id="2b82">
+		<id>0x2b82</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\02</category>
+	</item>
+
+	<item id="2b83">
+		<id>0x2b83</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\03</category>
+	</item>
+
+	<item id="2b84">
+		<id>0x2b84</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\04</category>
+	</item>
+
+	<item id="2b85">
+		<id>0x2b85</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\05</category>
+	</item>
+
+	<item id="2b86">
+		<id>0x2b86</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\06</category>
+	</item>
+
+	<item id="2b87">
+		<id>0x2b87</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\07</category>
+	</item>
+
+	<item id="2b88">
+		<id>0x2b88</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\08</category>
+	</item>
+
+	<item id="2b89">
+		<id>0x2b89</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\09</category>
+	</item>
+
+	<item id="2b8a">
+		<id>0x2b8a</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\10</category>
+	</item>
+
+	<item id="2b8b">
+		<id>0x2b8b</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\11</category>
+	</item>
+
+	<item id="2b8c">
+		<id>0x2b8c</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\12</category>
+	</item>
+
+	<item id="2b8d">
+		<id>0x2b8d</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\13</category>
+	</item>
+
+	<item id="2b8e">
+		<id>0x2b8e</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\14</category>
+	</item>
+
+	<item id="2b8f">
+		<id>0x2b8f</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\15</category>
+	</item>
+
+	<item id="2b90">
+		<id>0x2b90</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\16</category>
+	</item>
+
+	<item id="2b91">
+		<id>0x2b91</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\17</category>
+	</item>
+
+	<item id="2b92">
+		<id>0x2b92</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\18</category>
+	</item>
+
+	<item id="2b93">
+		<id>0x2b93</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\19</category>
+	</item>
+
+	<item id="2f1f">
+		<id>0x2f1f</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\20</category>
+	</item>
+
+	<item id="2f20">
+		<id>0x2f20</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\21</category>
+	</item>
+
+	<item id="2f21">
+		<id>0x2f21</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\22</category>
+	</item>
+
+	<item id="2f22">
+		<id>0x2f22</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\23</category>
+	</item>
+
+	<item id="2f23">
+		<id>0x2f23</id>
+		<nodecay />
+		<category>Buildings\Roofs\Diamond Roof\24</category>
+	</item>
+
+	<item id="2b94">
+		<id>0x2b94</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\01</category>
+	</item>
+
+	<item id="2b95">
+		<id>0x2b95</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\02</category>
+	</item>
+
+	<item id="2b96">
+		<id>0x2b96</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\03</category>
+	</item>
+
+	<item id="2b97">
+		<id>0x2b97</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\04</category>
+	</item>
+
+	<item id="2b98">
+		<id>0x2b98</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\05</category>
+	</item>
+
+	<item id="2b99">
+		<id>0x2b99</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\06</category>
+	</item>
+
+	<item id="2b9a">
+		<id>0x2b9a</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\07</category>
+	</item>
+
+	<item id="2b9b">
+		<id>0x2b9b</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\08</category>
+	</item>
+
+	<item id="2b9c">
+		<id>0x2b9c</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\09</category>
+	</item>
+
+	<item id="2b9d">
+		<id>0x2b9d</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\10</category>
+	</item>
+
+	<item id="2b9e">
+		<id>0x2b9e</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\11</category>
+	</item>
+
+	<item id="2b9f">
+		<id>0x2b9f</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\12</category>
+	</item>
+
+	<item id="2ba0">
+		<id>0x2ba0</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\13</category>
+	</item>
+
+	<item id="2ba1">
+		<id>0x2ba1</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\14</category>
+	</item>
+
+	<item id="2ba2">
+		<id>0x2ba2</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\15</category>
+	</item>
+
+	<item id="2ba3">
+		<id>0x2ba3</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\16</category>
+	</item>
+
+	<item id="2ba4">
+		<id>0x2ba4</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\17</category>
+	</item>
+
+	<item id="2ba5">
+		<id>0x2ba5</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\18</category>
+	</item>
+
+	<item id="2ba6">
+		<id>0x2ba6</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\19</category>
+	</item>
+
+	<item id="2f24">
+		<id>0x2f24</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\20</category>
+	</item>
+
+	<item id="2f25">
+		<id>0x2f25</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\21</category>
+	</item>
+
+	<item id="2f26">
+		<id>0x2f26</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\22</category>
+	</item>
+
+	<item id="2f27">
+		<id>0x2f27</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\23</category>
+	</item>
+
+	<item id="2f28">
+		<id>0x2f28</id>
+		<nodecay />
+		<category>Buildings\Roofs\Leafed Roof\24</category>
+	</item>
+
 </definitions>

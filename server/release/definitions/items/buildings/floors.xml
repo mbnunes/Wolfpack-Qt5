@@ -1537,4 +1537,102 @@
 		<category>Buildings\Floors\Samurai\Wooden Floor 05\01</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+
+	<item id="2bb5">
+		<id>0x2bb5</id>
+		<nodecay />
+		<category>Buildings\Floors\Ornate Floor\01</category>
+	</item>
+
+	<item id="2bb6">
+		<id>0x2bb6</id>
+		<nodecay />
+		<category>Buildings\Floors\Ornate Floor\02</category>
+	</item>
+
+	<item id="2bb7">
+		<id>0x2bb7</id>
+		<nodecay />
+		<category>Buildings\Floors\Ornate Floor\03</category>
+	</item>
+
+	<item id="2bb8">
+		<id>0x2bb8</id>
+		<nodecay />
+		<category>Buildings\Floors\Ornate Floor\04</category>
+	</item>
+
+	<item id="2bcf">
+		<id>0x2bcf</id>
+		<nodecay />
+		<category>Buildings\Floors\Parka Floor\01</category>
+	</item>
+
+	<item id="2cec">
+		<id>0x2cec</id>
+		<nodecay />
+		<category>Buildings\Floors\Parka Floor\02</category>
+	</item>
+
+	<item id="2ced">
+		<id>0x2ced</id>
+		<nodecay />
+		<category>Buildings\Floors\Parka Floor\03</category>
+	</item>
+
+	<item id="2cee">
+		<id>0x2cee</id>
+		<nodecay />
+		<category>Buildings\Floors\Parka Floor\04</category>
+	</item>
+
+	<item id="2d38">
+		<id>0x2d38</id>
+		<nodecay />
+		<category>Buildings\Floors\Wormwood Floor\01</category>
+	</item>
+
+	<item id="2d39">
+		<id>0x2d39</id>
+		<nodecay />
+		<category>Buildings\Floors\Wormwood Floor\02</category>
+	</item>
+
+	<item id="2d3a">
+		<id>0x2d3a</id>
+		<nodecay />
+		<category>Buildings\Floors\Wormwood Floor\03</category>
+	</item>
+
+	<item id="2d3b">
+		<id>0x2d3b</id>
+		<nodecay />
+		<category>Buildings\Floors\Wormwood Floor\04</category>
+	</item>
+
+	<item id="2dcb">
+		<id>0x2dcb</id>
+		<nodecay />
+		<category>Buildings\Floors\Wooden Floor 1\01</category>
+	</item>
+
+	<item id="2dcc">
+		<id>0x2dcc</id>
+		<nodecay />
+		<category>Buildings\Floors\Wooden Floor 1\02</category>
+	</item>
+
+	<item id="2dcd">
+		<id>0x2dcd</id>
+		<nodecay />
+		<category>Buildings\Floors\Wooden Floor 1\03</category>
+	</item>
+
+	<item id="2dce">
+		<id>0x2dce</id>
+		<nodecay />
+		<category>Buildings\Floors\Wooden Floor 1\04</category>
+	</item>
+
 </definitions>
