@@ -6488,6 +6488,42 @@
 		<category>Buildings\Walls\Plaster Elf Wall 1\17</category>
 	</item>
 
+	<item id="2dbf">
+		<id>0x2dbf</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 1\18</category>
+	</item>
+
+	<item id="2dc0">
+		<id>0x2dc0</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 1\19</category>
+	</item>
+
+	<item id="2dc1">
+		<id>0x2dc1</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 1\20</category>
+	</item>
+
+	<item id="2dc2">
+		<id>0x2dc2</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 1\21</category>
+	</item>
+
+	<item id="2dc9">
+		<id>0x2dc9</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 1\22</category>
+	</item>
+
+	<item id="2dca">
+		<id>0x2dca</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 1\23</category>
+	</item>
+
 	<item id="2bad">
 		<id>0x2bad</id>
 		<nodecay />
@@ -6588,6 +6624,42 @@
 		<id>0x2f1c</id>
 		<nodecay />
 		<category>Buildings\Walls\Plaster Elf Wall 2\17</category>
+	</item>
+
+	<item id="2ba9">
+		<id>0x2ba9</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 2\18</category>
+	</item>
+
+	<item id="2baa">
+		<id>0x2baa</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 2\19</category>
+	</item>
+
+	<item id="2bab">
+		<id>0x2bab</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 2\20</category>
+	</item>
+
+	<item id="2bac">
+		<id>0x2bac</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 2\21</category>
+	</item>
+
+	<item id="2bb3">
+		<id>0x2bb3</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 2\22</category>
+	</item>
+
+	<item id="2bb4">
+		<id>0x2bb4</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 2\23</category>
 	</item>
 
 	<item id="2bc7">
@@ -6692,6 +6764,42 @@
 		<category>Buildings\Walls\Plaster Elf Wall 3\17</category>
 	</item>
 
+	<item id="2bc3">
+		<id>0x2bc3</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 3\18</category>
+	</item>
+
+	<item id="2bc4">
+		<id>0x2bc4</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 3\19</category>
+	</item>
+
+	<item id="2bc5">
+		<id>0x2bc5</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 3\20</category>
+	</item>
+
+	<item id="2bc6">
+		<id>0x2bc6</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 3\21</category>
+	</item>
+
+	<item id="2bcd">
+		<id>0x2bcd</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 3\22</category>
+	</item>
+
+	<item id="2bce">
+		<id>0x2bce</id>
+		<nodecay />
+		<category>Buildings\Walls\Plaster Elf Wall 3\23</category>
+	</item>
+
 	<item id="2d18">
 		<id>0x2d18</id>
 		<nodecay />
@@ -6792,6 +6900,42 @@
 		<id>0x2f1e</id>
 		<nodecay />
 		<category>Buildings\Walls\Carved Wood 1\17</category>
+	</item>
+
+	<item id="2d14">
+		<id>0x2d14</id>
+		<nodecay />
+		<category>Buildings\Walls\Carved Wood 1\18</category>
+	</item>
+
+	<item id="2d15">
+		<id>0x2d15</id>
+		<nodecay />
+		<category>Buildings\Walls\Carved Wood 1\19</category>
+	</item>
+
+	<item id="2d16">
+		<id>0x2d16</id>
+		<nodecay />
+		<category>Buildings\Walls\Carved Wood 1\20</category>
+	</item>
+
+	<item id="2d17">
+		<id>0x2d17</id>
+		<nodecay />
+		<category>Buildings\Walls\Carved Wood 1\21</category>
+	</item>
+
+	<item id="2d36">
+		<id>0x2d36</id>
+		<nodecay />
+		<category>Buildings\Walls\Carved Wood 1\22</category>
+	</item>
+
+	<item id="2d37">
+		<id>0x2d37</id>
+		<nodecay />
+		<category>Buildings\Walls\Carved Wood 1\23</category>
 	</item>
 
 </definitions>
