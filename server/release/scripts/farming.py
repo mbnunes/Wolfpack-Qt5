@@ -8,9 +8,7 @@ from wolfpack import tr
 import wolfpack.utilities
 import beverage
 
-MAXRESOURCECOUNT = 30
-
-# How often should the plant checks be started
+# How often should the object checks be started
 # Default is once every 30 minutes
 CHECKINTERVAL = 30 * 60 * 1000
 
@@ -68,7 +66,7 @@ def gainresObject(obj, args):
 	
 #
 # This function is both, a timer callback and a function that can be normally
-# called to process a list of crop serials and check their growth.
+# called to process a list of object serials and check their growth.
 # The args are:
 # 1. The list or tuple with all object serials
 # 2. The index in that list to start processing at
@@ -81,7 +79,7 @@ def processGainresObject(obj, args):
 	index = args[1]
 	upperindex = min(index + CHECKSPERCYCLE, len(objectlist))
 
-	# Process the list of plants
+	# Process the list of objects
 	for i in range(index, upperindex):
 		try:
 			object = wolfpack.findobject(objectlist[i])
