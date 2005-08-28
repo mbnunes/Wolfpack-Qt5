@@ -11,7 +11,6 @@
 
 	<!-- Cross Bow left -->
 	<item id="f4f">
-		<bindmenu id="item_menu"/>
 		<id>0xf4f</id>
 		<twohanded />
 		<decay />

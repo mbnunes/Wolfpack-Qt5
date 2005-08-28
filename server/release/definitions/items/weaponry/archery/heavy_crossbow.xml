@@ -11,7 +11,6 @@
 
 	<!-- Heavy Cross Bow left -->
 	<item id="13fd">
-		<bindmenu id="item_menu"/>
 		<id>0x13fd</id>
 		<twohanded />
 		<decay />

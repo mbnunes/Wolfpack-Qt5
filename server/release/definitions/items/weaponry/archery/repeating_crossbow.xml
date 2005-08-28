@@ -11,7 +11,6 @@
 
 	<!-- Repeating Crossbow -->
 	<item id="26cd">
-		<bindmenu id="item_menu"/>
 		<id>0x26cd</id>
 		<twohanded />
 		<decay />

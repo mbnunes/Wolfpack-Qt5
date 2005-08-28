@@ -107,11 +107,6 @@
 		<option tag="8" msgid="6118" checkvisible="true" />
 	</contextmenu>
 
-	<contextmenu id="ITEM_MENU">
-		<scripts>daggermenu</scripts>
-		<option tag="5" msgid="5121" />
-	</contextmenu>
-
 	<contextmenu id="stabler_menu">
 		<scripts>contextmenus.stablermenu</scripts>
 		<option tag="200" msgid="6126"/> <!-- Stable -->

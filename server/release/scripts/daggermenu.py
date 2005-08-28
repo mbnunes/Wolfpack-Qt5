@@ -15,11 +15,11 @@ def onContextEntry( char, item, tag  ):
 	if( tag == 4 ):
 		char.message( "'info " + str( item.serial )  )
 	if( tag == 3 ):
-		sureGump( char, item, "daggermenu.sureCallback" )
+		sureGump( char, item, sureCallback )
 	return 1
 
 def sureCallback( char, args, target ):
-	if( target.button == 2 ): char.message( "'remove " + str( args[1].serial ) )
+	if( target.button == 2 ): char.message( ".remove " + str( args[1].serial ) )
 
 def sureGump( char, item, callback ):
 
