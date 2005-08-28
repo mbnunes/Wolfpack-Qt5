@@ -11,6 +11,8 @@ cTexture::cTexture() {
 	height_ = 0;
 	refcount = 1;
 	hitTestArray = 0;
+	identifier_ = 0;
+	cache_ = 0;
 }
 
 cTexture::cTexture(cSurface *surface, bool hittest) {
@@ -21,12 +23,20 @@ cTexture::cTexture(cSurface *surface, bool hittest) {
 	hitTestArray = 0;
 	refcount = 1;
 	setData(surface, hittest);
+	identifier_ = 0;
+	cache_ = 0;
 }
 
 cTexture::~cTexture() {
 	free();
 	if (id_) {
 		glDeleteTextures(1, &id_);
+	}
+	if (cache_) {
+		cache_->unregisterTexture(this);
+	}
+	if (identifier_) {
+		delete identifier_;
 	}
 }
 
@@ -136,4 +146,15 @@ bool cTexture::hitTest(int x, int y) {
 	}
 
 	return false;
+}
+
+void cTexture::setIdentifier(void *data) {
+	if (identifier_ && identifier_ != data) {
+		delete identifier_;
+	}
+	identifier_ = data;
+}
+
+void *cTexture::allocateIdentifier(uint size) {
+	return operator new(size);
 }

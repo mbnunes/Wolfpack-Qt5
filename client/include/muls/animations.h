@@ -7,15 +7,30 @@
 #include <qdatastream.h>
 #include <qfile.h>
 #include <qmap.h>
-#include <q3valuevector.h>
+#include <qvector.h>
 
 #define ANIMATION_FILES 4
+
+// Used to identify sequences in the cache
+struct stSequenceIdent {
+	unsigned short body;
+	unsigned char action;
+	unsigned char direction;
+	unsigned short hue;
+	bool partialhue;
+
+	bool operator < (const stSequenceIdent &b) const {
+		return (body + action + direction + hue + (partialhue ? 1 : 0)) < (b.body + b.action + b.direction + b.hue + (b.partialhue ? 1 : 0));
+	}
+};
 
 /*
 	One character animation action.
 */
 class cSequence {
 protected:
+	stSequenceIdent ident;
+
 	/*
 		One Frame of this Sequence
 	*/
@@ -31,7 +46,7 @@ protected:
 	};
 
 	unsigned short frameCount_;
-	Q3ValueVector<stFrame> frames;
+	QVector<stFrame> frames;
 
     cTexture *texture_;
 	unsigned int refcount;
@@ -43,7 +58,7 @@ protected:
 	bool partialHue_;
 public:
 	cSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue = 0, bool partialHue_ = false);
-	virtual ~cSequence();
+	~cSequence();
 
 	cTexture *texture() const;
 	unsigned short body() const;
@@ -52,6 +67,8 @@ public:
 	unsigned short frameCount() const;
 	unsigned short hue() const;
 	bool partialHue() const;
+
+	void setIdent(const stSequenceIdent &ident);
 
 	// Draw the given frame at the given base
 	void draw(int frame, int cellx, int celly, bool flip, float alpha = 1.0f);
@@ -63,6 +80,10 @@ public:
 	void incref();
 	void decref();
 };
+
+inline void cSequence::setIdent(const stSequenceIdent &ident) {
+	this->ident = ident;
+}
 
 // return the texture object
 inline cTexture *cSequence::texture() const {
@@ -93,40 +114,13 @@ inline unsigned short cSequence::frameCount() const {
 	return frameCount_;
 }
 
-// Decrement the internal reference count
-inline void cSequence::decref() {
-	if (--refcount == 0) {
-		delete this;
-	}
-}
-
-// Increment the internal reference count
-inline void cSequence::incref() {
-	++refcount;
-}
-
-// A cache for reference counted cAnimation objects.
-class SequenceCache : public Q3IntCache< cSequence > {
-public:
-	SequenceCache(int a, int b) : Q3IntCache< cSequence > (a, b) {
-	}
-
-protected:
-	void deleteItem(Item d) {
-		((cSequence*)d)->decref();
-	}
-};
-
 class cAnimations {
-friend class cAnimation;
+friend class cSequence;
 protected:
+	QMap<stSequenceIdent, cSequence*> SequenceCache;
+
 	enBodyType bodyTypes[4096]; // Static lookup table for body types
 	unsigned int flags[4096]; // Static lookup table for flags
-
-	SequenceCache cache;
-
-	// Calculate a cache id for the given values
-	unsigned int getCacheId(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue, bool partialhue);
 
 	// Fallback Body Structure
 	struct stFallback {
@@ -175,23 +169,12 @@ public:
 	enBodyType getBodyType(unsigned short body) const;
 	uint getFlags(unsigned short body) const;
 
+	uint cacheSize() const;
+
     // Loading and Unloading
 	void load();
 	void unload();
 };
-
-/*
-	Calculate a cache id for the given parameters
-*/
-inline unsigned int cAnimations::getCacheId(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue, bool partialhue) {
-	// Only 2048 bodies are possible (11 bit)
-	// Only 175 actions are possible (8 bit)
-	// Only 5 directions are possible (3 bit)
-	// Limit hues to 0xFFF (4096 hues) - (12 bit)
-	// Partial hue is a 1 bit flag
-	return 0;
-}
-
 
 inline enBodyType cAnimations::getBodyType(unsigned short body) const {
 	if (body < 4096) {

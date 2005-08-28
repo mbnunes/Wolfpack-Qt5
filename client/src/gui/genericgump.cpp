@@ -6,6 +6,7 @@
 #include "gui/imagebutton.h"
 #include "gui/gumpimage.h"
 #include "gui/textfield.h"
+#include "gui/itemimage.h"
 #include "gui/label.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
@@ -29,6 +30,7 @@ cGenericGump* cGenericGump::findByType(uint type) {
 }
 
 cGenericGump::cGenericGump(int x, int y, unsigned int serial, unsigned int gumpType) {
+	noclose = false;
 	x_ = x;
 	y_ = y;
 	disableScissorBox_ = true;
@@ -184,6 +186,21 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 		gump->setMoveHandle(true);
 		addControl(context.page, gump);
 	}
+	// tilepic <x> <y> <gump> <hue?>
+	else if (command == "tilepic" && tokens.size() >= 4) {
+		cItemImage *gump = new cItemImage(tokens[3].toUShort(), tokens[4].toUShort());
+		gump->setPosition(tokens[1].toInt(), tokens[2].toInt());
+		gump->setMoveHandle(true);
+		addControl(context.page, gump);
+	}
+	// noclose
+	else if (command == "noclose") {
+		noclose = true;
+	}
+	// nomove
+	else if (command == "nomove") {
+		setMovable(false);
+	}
 	// any other command
 	else {
 		Log->print(LOG_WARNING, tr("Unknown command '%1' in generic gump received from server.\n").arg(line));
@@ -312,7 +329,7 @@ void cGenericGump::setGumpType(uint data) {
 }
 
 void cGenericGump::onClick(QMouseEvent *e) {
-	if (e->button() == Qt::RightButton) {
+	if (!noclose && e->button() == Qt::RightButton) {
 		sendResponse(0);
 		Gui->queueDelete(this);
 	} else {

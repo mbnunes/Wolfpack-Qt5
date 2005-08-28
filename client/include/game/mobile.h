@@ -18,6 +18,7 @@ protected:
 	unsigned char direction_;
 	bool partialHue_;
 	bool hidden;
+	bool dead;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
@@ -62,6 +63,9 @@ public:
 	void setSerial(unsigned int serial); // Only use this on the player
 	void setHidden(bool data);
 	bool isHidden() const;
+	void setDead(bool data);
+	bool isDead() const;
+	bool isMoving() const;
 
 	void playAction(unsigned char action, unsigned int duration = 0);
 
@@ -75,6 +79,14 @@ public:
 
 	void processFlags(uchar flags);
 };
+
+inline void cMobile::setDead(bool data) {
+	dead = data;
+}
+
+inline bool cMobile::isDead() const {
+	return dead;
+}
 
 inline void cMobile::setHidden(bool data) {
 	hidden = data;
@@ -133,6 +145,10 @@ inline unsigned int cMobile::currentActionEnd() const {
 
 inline cSequence *cMobile::sequence() const {
 	return sequence_;
+}
+
+inline bool cMobile::isMoving() const {
+	return smoothMoveEnd > 0;
 }
 
 extern cMobile *Player;

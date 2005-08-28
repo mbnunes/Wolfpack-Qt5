@@ -9,6 +9,7 @@
 #include "gui/cursor.h"
 #include "utilities.h"
 #include "surface.h"
+#include "texture.h"
 
 // Structure for the framedata read from animdata.mul
 struct stArtFrame {
@@ -143,9 +144,18 @@ protected:
 	}
 };
 
-class cArt {
-private:
-	TextureCache *tcache; // Cache for textures (uses same indexing scheme as the normal cache)
+class cArt : public cTextureCache {
+protected:
+	struct stArtIdent {
+		ushort id;
+		ushort hue;
+		bool partialHue;
+
+		bool operator <(const stArtIdent &b) const {
+			return id + hue + (partialHue ? 1 : 0) < b.id + b.hue + (b.partialHue ? 1 : 0);
+		}
+	};
+	
 	ArtAnimationCache *acache;
 	QFile data, index; // Input files
 	QDataStream dataStream, indexStream; // Input streams
@@ -159,6 +169,7 @@ private:
 	};
 
 	QMap<unsigned short, stAnimdata> animdata;
+	QMap<stArtIdent, cTexture*> textureCache;
 public:
 	cArt();
 	~cArt();
@@ -166,6 +177,10 @@ public:
 	void load();
 	void unload();
 	void reload();
+
+	void registerTexture(cTexture *texture);
+	void unregisterTexture(cTexture *texture);
+	uint cacheSize() const;
 
 	// Read an animation into a texture stripe and write the texel coordinates into the given
 	// frame structure. The id is used internally for caching the resulting animation texture.

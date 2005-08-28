@@ -3,6 +3,7 @@
 #include "network/uosocket.h"
 #include "dialogs/login.h"
 #include "log.h"
+#include "config.h"
 #include "enums.h"
 
 #include <q3valuevector.h>
@@ -54,7 +55,13 @@ public:
 			LoginDialog->addShard(*it);
 		}
 
-		LoginDialog->show(PAGE_SHARDLIST);
+		// If there is only one shard there, set Config->lastShardId() and call selectLastShard automatically
+		if (shards.size() == 1) {
+			Config->setLastShardId(shards[0].id);
+			LoginDialog->selectLastShard();
+		} else {
+			LoginDialog->show(PAGE_SHARDLIST);
+		}
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

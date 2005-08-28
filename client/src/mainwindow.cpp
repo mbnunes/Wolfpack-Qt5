@@ -10,6 +10,7 @@
 #include "config.h"
 #include "sound.h"
 #include "log.h"
+#include "dialogs/cachestatistics.h"
 #include <qpixmap.h>
 #include <qcursor.h>
 #include <qimage.h>
@@ -186,15 +187,17 @@ MainWindow::MainWindow() {
 	aHideMobiles->setChecked(Config->gameHideMobiles());
 
 	// Highlight entities menu
-	QMenu *highlightMenu = game->addMenu("Highlight");
+	QMenu *highlightMenu = game->addMenu(tr("Highlight"));
 
 	// Highlight statics toggle
-	action = highlightMenu->addAction("Highlight static tiles");
+	action = highlightMenu->addAction(tr("Highlight static tiles"));
 	action->setCheckable(true);
+	action->setChecked(Config->gameHighlightStatics());
 	action->setObjectName("action_highlight_statics");
 
 	// Highlight map tiles toggle
-	action = highlightMenu->addAction("Highlight map tiles");
+	action = highlightMenu->addAction(tr("Highlight map tiles"));
+	action->setChecked(Config->gameHighlightMap());
 	action->setCheckable(true);
 	action->setObjectName("action_highlight_map");
 
@@ -208,10 +211,20 @@ MainWindow::MainWindow() {
 
 	connect(game, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
 
-	setMenuBar(m_menuBar);
-
 	GLWidget = new cGLWidget(this);
 	setCentralWidget(GLWidget);
+
+	setMenuBar(m_menuBar);
+
+	QMenu *helpMenu = m_menuBar->addMenu(tr("&Help"));
+	action = helpMenu->addAction(tr("Cache Statistics"));
+	action->setName("action_cachestatistics");
+	action = helpMenu->addAction(tr("&About"));
+	action->setName("action_about");
+
+	connect(helpMenu, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));	
+
+	cacheStatistics = new cCacheStatistics(this);
 }
 
 void MainWindow::menuGameClicked(QAction *action) {
@@ -235,6 +248,12 @@ void MainWindow::menuGameClicked(QAction *action) {
 		// Show a window with the current location
 		if (WorldView) {
 			WorldView->addSysMessage(message);
+		}
+	} else if (action->objectName() == "action_about") {
+	} else if (action->objectName() == "action_cachestatistics") {
+		if (cacheStatistics) {
+			cacheStatistics->show();			
+			cacheStatistics->refresh();
 		}
 	}
 }

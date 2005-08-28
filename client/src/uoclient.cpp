@@ -40,7 +40,9 @@
 
 #include <QErrorMessage>
 
-//#include <windows.h>
+#if defined(Q_OS_WIN32)
+#include "windows/gmtoolwnd.h"
+#endif
 
 cUoClient::cUoClient() {
 	running_ = true;
@@ -84,6 +86,8 @@ cUoClient::~cUoClient() {
 	delete LoginDialog;
 	delete Cursor;
 
+	delete Gui;
+
 	delete Localization;
 	delete Speech;
 	delete Animations;
@@ -97,7 +101,6 @@ cUoClient::~cUoClient() {
 	delete Hues;
 	delete Gumpart;
 
-	delete Gui;
 	delete Log;
 	delete Sound;
 	delete Sounds;
@@ -226,6 +229,10 @@ void cUoClient::run()
 	WorldView->setVisible(false);
 	Gui->addControl(WorldView);
 
+#if defined(Q_OS_WIN32)
+	enableGmToolWnd();
+#endif
+
 	while (running()) {
 		qApp->processEvents();
 		UoSocket->poll(); // Poll network connection
@@ -235,6 +242,10 @@ void cUoClient::run()
 			running_ = false;
 		}
 	}
+
+#if defined(Q_OS_WIN32)
+	disableGmToolWnd();
+#endif
 
 	try {
 		unload();

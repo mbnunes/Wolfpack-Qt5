@@ -79,7 +79,7 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 	}
 
 	// Check if these tiles are hidden
-	if (Config->gameHideStatics()) {
+	if (type() == STATIC && Config->gameHideStatics() || type() == ITEM && Config->gameHideDynamics()) {
 		return;
 	}
 

@@ -43,7 +43,8 @@ HEADERS += \
 	
 HEADERS += \
 	include/dialogs/login.h \
-	include/dialogs/movecenter.h
+	include/dialogs/movecenter.h \
+	include/dialogs/cachestatistics.h
 	
 HEADERS += \
 	include/game/dynamicentity.h \
@@ -98,6 +99,9 @@ HEADERS += \
 	include/network/outgoingpacket.h \
 	include/network/outgoingpackets.h
 
+win32:HEADERS += \
+	include/windows/gmtoolwnd.h
+
 # MAIN src
 
 SOURCES += \
@@ -114,7 +118,8 @@ SOURCES += \
 
 SOURCES += \
 	src/dialogs/login.cpp \
-	src/dialogs/movecenter.cpp 
+	src/dialogs/movecenter.cpp \
+	src/dialogs/cachestatistics.cpp
 
 SOURCES += \
 	src/gui/checkertrans.cpp \
@@ -170,6 +175,9 @@ SOURCES += \
 	src/muls/unicodefonts.cpp \
 	src/muls/verdata.cpp \
 	src/muls/speech.cpp
+
+win32:SOURCES += \
+	src/windows/gmtoolwnd.cpp
 
 INTERFACES =
 

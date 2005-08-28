@@ -360,6 +360,9 @@
 				RelativePath=".\obj\moc_bordergump.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_cachestatistics.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_container.cpp">
 			</File>
 			<File
@@ -1039,6 +1042,30 @@
 			Name="dialogs"
 			Filter="">
 			<File
+				RelativePath=".\src\dialogs\cachestatistics.cpp">
+			</File>
+			<File
+				RelativePath=".\include\dialogs\cachestatistics.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\src\dialogs\login.cpp">
 			</File>
 			<File
@@ -1085,6 +1112,16 @@
 "
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="windows"
+			Filter="">
+			<File
+				RelativePath=".\src\windows\gmtoolwnd.cpp">
+			</File>
+			<File
+				RelativePath=".\include\windows\gmtoolwnd.h">
 			</File>
 		</Filter>
 		<File

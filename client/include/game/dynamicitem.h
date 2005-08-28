@@ -28,6 +28,7 @@ public:
 	virtual void move(cDynamicItem *container);
 	void moveToLimbo(); // Remove from current position and move into nirwana
 
+	void onClick(QMouseEvent *e);
 	void onDoubleClick(QMouseEvent *e);
 
 	// Getter

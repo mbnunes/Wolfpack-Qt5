@@ -18,17 +18,26 @@ cArtAnimation::~cArtAnimation() {
 }
 
 cArt::cArt() {
-	tcache = new TextureCache(500, 463);
-	tcache->setAutoDelete(true);
 	acache = new ArtAnimationCache(100, 17);
 	acache->setAutoDelete(true);
 }
 
 cArt::~cArt() {
-	tcache->clear();
-	delete tcache;
 	acache->clear();
 	delete acache;
+}
+
+
+uint cArt::cacheSize() const {
+	return textureCache.size();
+}
+
+void cArt::registerTexture(cTexture *texture) {
+	textureCache.insert(*(stArtIdent*)texture->identifier(), texture);
+}
+
+void cArt::unregisterTexture(cTexture *texture) {
+	textureCache.remove(*(stArtIdent*)texture->identifier());
 }
 
 cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool partialhue) {
@@ -309,7 +318,6 @@ void cArt::load() {
 
 void cArt::unload() {
 	acache->clear();
-	tcache->clear();
 
 	data.close(); // Close the data file
 	index.close(); // Close the index files
@@ -484,47 +492,61 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 }
 
 cTexture *cArt::readLandTexture(unsigned short id) {
-	unsigned int cacheid = getCacheId(id, 0, false);
-	cTexture *result = tcache->find(cacheid);
+	stArtIdent ident;
+	ident.id = id;
+	ident.hue = 0;
+	ident.partialHue = false;
 
-	if (!result) {
+	QMap<stArtIdent, cTexture*>::iterator it = textureCache.find(ident);
+	if (it == textureCache.end()) {
 		// Read a new art tile from the data files
 		cSurface *surface = readLandSurface(id, true);
 
 		if (surface) {
-			result = new cTexture(surface);
+			cTexture *result = new cTexture(surface);
 			delete surface;
-			if (tcache->insert(cacheid, result)) {
-				result->incref();
-			}
+
+			stArtIdent *newIdent = (stArtIdent*)result->allocateIdentifier(sizeof(stArtIdent));
+			memcpy(newIdent, &ident, sizeof(stArtIdent));
+			result->setIdentifier(newIdent);
+			result->setCache(this);
 		}
 	} else {
+		cTexture *result = it.data();
 		result->incref();
+		return result;
 	}
 
-	return result;
+	return 0;
 }
 
 cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool partialhue) {
-	unsigned int cacheid = getCacheId(id + 0x4000, hue, partialhue);
-	cTexture *result = tcache->find(cacheid);
+	stArtIdent ident;
+	ident.id = id + 0x4000;
+	ident.hue = hue;
+	ident.partialHue = partialhue;
 
-	if (!result) {
+	QMap<stArtIdent, cTexture*>::iterator it = textureCache.find(ident);
+	if (it == textureCache.end()) {
 		// Read a new art tile from the data files
 		cSurface *surface = readItemSurface(id, hue, partialhue, true);
 
 		if (surface) {
-			result = new cTexture(surface);
+			cTexture *result = new cTexture(surface);
 			delete surface;
-			if (tcache->insert(cacheid, result)) {
-				result->incref();
-			}
+
+			stArtIdent *newIdent = (stArtIdent*)result->allocateIdentifier(sizeof(stArtIdent));
+			memcpy(newIdent, &ident, sizeof(stArtIdent));
+			result->setIdentifier(newIdent);
+			result->setCache(this);
 		}
 	} else {
+		cTexture *result = it.data();
 		result->incref();
+		return result;
 	}
 
-	return result;
+	return 0;
 }
 
 void cArt::readCursor(stCursor *cursor, unsigned short id, unsigned short hue, bool partialhue) {

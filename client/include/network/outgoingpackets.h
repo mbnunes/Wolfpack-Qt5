@@ -78,4 +78,10 @@ public:
 	cMoveRequestPacket(uchar direction, uchar sequence, uint fastwalkKey = 0);
 };
 
+// 0x09 Single Click Request
+class cSingleClickPacket : public cOutgoingPacket {
+public:
+	cSingleClickPacket(uint serial);
+};
+
 #endif

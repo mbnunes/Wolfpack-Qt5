@@ -32,6 +32,10 @@ cTiledGumpImage::~cTiledGumpImage() {
 }
 
 void cTiledGumpImage::draw(int xoffset, int yoffset) {
+	if (height_ <= 0 || width_ <= 0) {
+		return;
+	}
+
 	if (!texture && id_ != 0) {
 		update();
 	}

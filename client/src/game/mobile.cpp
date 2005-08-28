@@ -24,6 +24,7 @@ cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet face
 	hue_ = 0;
 	direction_ = 0;
 	partialHue_ = false;
+	dead = false;
 	type_ = MOBILE;
 	sequence_ = 0;
 	currentAction_ = getIdleAction();
@@ -180,6 +181,8 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		int moveProgress = smoothMoveTime - (smoothMoveEnd - Utilities::getTicks());
 		if (moveProgress < 0 || moveProgress >= (int)smoothMoveTime) {
 			smoothMoveEnd = 0;
+			World->removeEntity(this);
+			World->addEntity(this);
 		} else {
 			if (moveProgress <= 0) {
 				cellx += drawxoffset;
@@ -214,19 +217,21 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		sequence_->draw(frame, cellx, celly, flip, alpha);
 
 		// Draw the equipment
-		const int *order = drawOrder[direction_ % 8];
-		while (*order != -1) {
-			enLayer layer = (enLayer)*order;
-
-			if (layer < LAYER_VISIBLECOUNT && equipmentSequences[layer]) {
-				// Oh great OSI... Another exception from the rule *sigh*
-				// Don't draw Hair if we're wearing a gm robe
-				if (layer != LAYER_HAIR || !equipmentSequences[LAYER_OUTERTORSO] || equipmentSequences[LAYER_OUTERTORSO]->body() != 0x3db) {					
-					equipmentSequences[layer]->draw(frame, cellx, celly, flip, alpha);
-				}				
+		if (bodyType() == HUMAN || bodyType() == EQUIPMENT) {
+			const int *order = drawOrder[direction_ % 8];
+			while (*order != -1) {
+				enLayer layer = (enLayer)*order;
+	
+				if (layer < LAYER_VISIBLECOUNT && equipmentSequences[layer]) {
+					// Oh great OSI... Another exception from the rule *sigh*
+					// Don't draw Hair if we're wearing a gm robe
+					if (layer != LAYER_HAIR || !equipmentSequences[LAYER_OUTERTORSO] || equipmentSequences[LAYER_OUTERTORSO]->body() != 0x3db) {					
+						equipmentSequences[layer]->draw(frame, cellx, celly, flip, alpha);
+					}				
+				}
+	
+				++order; // Next layer
 			}
-
-			++order; // Next layer
 		}
 	}
 
@@ -294,6 +299,7 @@ void cMobile::addEquipment(cDynamicItem *item) {
 
 		if (equipmentSequences[layer]) {
 			equipmentSequences[layer]->decref();
+			equipmentSequences[layer] = 0;
 		}
 
 		cItemTileInfo *tinfo = Tiledata->getItemInfo(item->id());
@@ -302,9 +308,7 @@ void cMobile::addEquipment(cDynamicItem *item) {
 			unsigned short model = tinfo->animation();
 			bool partialHue = tinfo->isPartialHue();
 			equipmentSequences[layer] = Animations->readSequence(model, currentAction_, direction_, item->hue(), partialHue);
-		} else {
-			equipmentSequences[layer] = 0;
-		}		
+		}	
 	} else {
         invisibleEquipment.append(item);
 	}
@@ -337,6 +341,9 @@ void cMobile::refreshEquipment(enLayer layer) {
 			cSequence *sequence = equipmentSequences[layer];
 	
 			if (!sequence || sequence->body() != model || sequence->action() != currentAction_ || sequence->direction() != direction_ || sequence->hue() != item->hue() || sequence->partialHue() != partialHue) {	
+				if (sequence) {
+				sequence->decref();
+				}
 				equipmentSequences[layer] = Animations->readSequence(model, currentAction_, direction_, item->hue(), partialHue);
 			} else if (sequence) {
 				sequence->decref();
@@ -344,6 +351,9 @@ void cMobile::refreshEquipment(enLayer layer) {
 			}
 		}
 	} else {
+		if (equipmentSequences[layer]) {
+			equipmentSequences[layer]->decref();
+		}
 		equipmentSequences[layer] = 0;
 	}
 }

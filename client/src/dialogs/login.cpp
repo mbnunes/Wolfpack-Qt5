@@ -287,13 +287,14 @@ void cLoginDialog::buildShardSelectGump() {
 		shardSelectGump->addControl(image);
 
 		// Old Shard?
-		cAsciiLabel *alabel = new cAsciiLabel("Ancient Realms", 9, 0x481);
-		alabel->setPosition(243, 415);
-		shardSelectGump->addControl(alabel);
+		lastShardName = new cAsciiLabel("", 9, 0x481);
+		lastShardName->setPosition(243, 415);
+		shardSelectGump->addControl(lastShardName);
 
 		// World Button
 		button = new cImageButton(0xa0, 0x190, 0x15e8, 0x15ea);
 		button->setStateGump(BS_HOVER, 0x15e9);
+		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(selectLastShard()));
 		shardSelectGump->addControl(button);
 
 		cContainer *container = new cContainer(); // The shard selection scrollbox
@@ -311,7 +312,8 @@ void cLoginDialog::buildShardSelectGump() {
 		scrollbar->setScrollCallback(shardlistScrolled);
 		container->addControl(scrollbar);
 
-		label = new cLabel(tr("Sort By:"), 1, 0x3e4, false);
+		// This is unused at the moment, so don't show it
+		/*label = new cLabel(tr("Sort By:"), 1, 0x3e4, false);
 		label->setPosition(3, 278);
 		container->addControl(label);
 
@@ -328,7 +330,7 @@ void cLoginDialog::buildShardSelectGump() {
 		// Ping button
 		button = new cImageButton(0x128, 276, 0x941, 0x942);
 		button->setStateGump(BS_HOVER, 0x943);
-		container->addControl(button);
+		container->addControl(button);*/
 
 		// The shardlist container
 		shardList = new cContainer();
@@ -797,6 +799,16 @@ void cLoginDialog::movieClicked(cControl *sender) {
 	Utilities::messageBox("What should we do here...");
 }
 
+void cLoginDialog::selectLastShard() {
+	for (int i = 0; i < shards.size(); ++i) {
+		if (shards[i].id == Config->lastShardId()) {
+			cRequestRelayPacket packet(shards[i].id);
+			UoSocket->send(packet);
+			break;
+		}
+	}
+}
+
 void cLoginDialog::addShard(const stShardEntry &shard) {
 	// add the shard entry and also add a control for the shard
 	shards.append(shard);
@@ -822,6 +834,10 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 	packetLoss->setSecondary(shardLabel);
 	packetLoss->setTertiary(pingCount);
 	packetLoss->setId(shards.size() - 1);
+
+	if (shard.id == Config->lastShardId()) {
+		lastShardName->setText(shard.name.toLatin1());
+	}
 
 	shardEntryOffset += 25;
 }
@@ -851,6 +867,7 @@ void cLoginDialog::selectShard(int id) {
 	if (id >= 0 && id < (int)shards.size()) {
 		cRequestRelayPacket packet(shards[id].id);
 		UoSocket->send(packet);
+		Config->setLastShardId(shards[id].id);
 	}
 }
 

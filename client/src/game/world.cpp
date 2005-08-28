@@ -245,6 +245,21 @@ void cWorld::addEntity(cEntity *entity) {
 
 	// Calculate the cell id for the entity
 	unsigned int cellid = getCellId(entity->x(), entity->y());
+	
+	cMobile *mobile = dynamic_cast<cMobile*>(entity);
+	if (mobile && mobile->isMoving()) {
+		// When we're leaving our tile to the left, we'll be overlapped
+		if (mobile->direction() == 5) {
+			cellid = getCellId(entity->x() + 1, entity->y() - 1);
+		} else if (mobile->direction() == 6) {
+			cellid = getCellId(entity->x() + 1, entity->y());
+		} else if (mobile->direction() == 7) {
+			cellid = getCellId(entity->x() + 1, entity->y() + 1);
+		} else if (mobile->direction() == 0) {
+			cellid = getCellId(entity->x(), entity->y() + 1);
+		}
+	}	
+
 	entity->setCellid(cellid); // Save the current cellid with the entity
 
 	// Update the tile priority of the new entity first
@@ -392,7 +407,9 @@ void cWorld::checkRoofs() {
 }
 
 void cWorld::draw(int x, int y, int width, int height) {
-	GLWidget->enableGrayShader();
+	if (Player && Player->isDead()) {
+		GLWidget->enableGrayShader();
+	}
 
 	clearGroundCache(); // Clear unneeded cache items
 
@@ -454,7 +471,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 			unsigned int cellid = getCellId(cx, cy);
 			Iterator it = entities.find(cellid);
 			if (it != entities.end()) {
-				Cell &cell = it.data();
+				Cell cell = it.data();
 				for (ConstCellIterator cit = cell.begin(); cit != cell.end(); ++cit) {
 					cEntity *entity = *cit;
 					if (entity->isInWorld() && entity->z() < roofCap_) {
@@ -486,7 +503,9 @@ void cWorld::draw(int x, int y, int width, int height) {
 	// Disable scissor box
 	glDisable(GL_SCISSOR_TEST);
 
-	GLWidget->disableGrayShader();
+	if (Player && Player->isDead()) {
+		GLWidget->disableGrayShader();
+	}
 }
 
 cEntity *cWorld::getEntity(int x, int y) {

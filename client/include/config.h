@@ -58,6 +58,7 @@ private:
 	Q3CString loginHost_;
 	unsigned short loginPort_;
 	QString lastUsername_;
+	uint lastShardId_;
 
 	bool gameHideStatics_;
 	bool gameHideDynamics_;
@@ -114,6 +115,9 @@ public:
 
 	const unsigned int encryptionLoginKey2() { return encryptionLoginKey2_; }
 	void setEncryptionLoginKey2(unsigned int data) { encryptionLoginKey2_ = data; setString("Encryption", "Login Key 2", QString("0x%1").arg(data, 0, 16)); }
+
+	const uint lastShardId() { return lastShardId_; }
+	void setLastShardId(uint data) { lastShardId_ = data; setNumber("Login", "Last Shard Id", data); }
 
 	const Q3CString &loginHost() { return loginHost_; }
 	void setLoginHost(const Q3CString data) { loginHost_ = data; setString("Login", "Host", data); }

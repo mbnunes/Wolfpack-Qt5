@@ -7,12 +7,15 @@
 #include "gui/genericgump.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
+#include "muls/localization.h"
 #include "game/targetrequest.h"
 #include "game/world.h"
 #include "sound.h"
+#include "mainwindow.h"
 #include "log.h"
 #include "enums.h"
 
+#include <qcursor.h>
 #include <qlist.h>
 
 class cLoginConfirmPacket : public cIncomingPacket {
@@ -88,10 +91,18 @@ public:
 		UoSocket->clearSequenceQueue();
 		UoSocket->setMoveSequence(0);
 
+		if (body == 0x192 || body == 0x193) {
+			Player->setDead(true);
+			body -= 2;
+		} else {
+			Player->setDead(false);
+		}
+
 		// If the serial matches the player serial, update the player
 		Player->setBody(body);
 		Player->setHue(hue);
 		Player->setDirection(direction);
+		Player->processFlags(flags);
 			
 		// Update position if applicable
 		if (posx != Player->x() || posy != Player->y() || posz != Player->z()) {
@@ -184,6 +195,14 @@ public:
 			mobile = (cMobile*)entity;
 			mobile->setHue(hue);
 			mobile->setDirection(direction);
+
+			if (body == 0x192 || body == 0x193) {
+				mobile->setDead(true);
+				body -= 2;
+			} else {
+				mobile->setDead(false);
+			}
+
 			mobile->setBody(body);
 
 			if (posx != mobile->x() || posy != mobile->y() || posz != mobile->z()) {
@@ -370,8 +389,10 @@ public:
 		}
 
 		// System Message
-		if (serial == -1) {
+		if (Utilities::isInvalidSerial(serial)) {
 			WorldView->addSysMessage(message, hue, font);
+		} else if (Utilities::isMobileSerial(serial)) {
+			WorldView->addSysMessage(QString("<%1> %2").arg(name).arg(message), hue, font);
 		}
 	}
 
@@ -515,6 +536,15 @@ public:
 			return;
 		}
 
+		if (body == 0x192 || body == 0x193) {
+			mobile->setDead(true);
+			body -= 2;
+		} else {
+			mobile->setDead(false);
+		}
+
+		bool running = (direction & 0x80) != 0; // see if the mobile is running
+		direction &= ~ 0x80; // Clear the flag
 		bool sameDirection = mobile->direction() == direction;
 
 		mobile->setHue(hue);
@@ -533,11 +563,11 @@ public:
 				int drawyoffset = (diffx + diffy) * 22 - diffz * 4;
 
 				// Calculate movement duration
-				int duration = mobile->getMoveDuration(false);
+				int duration = mobile->getMoveDuration(running);
 
 				mobile->smoothMove(drawxoffset, drawyoffset, duration);
 				mobile->move(posx, posy, posz);
-				mobile->playMoveAnimation(duration, true);
+				mobile->playMoveAnimation(duration, running);
 			}
 		}
 	}
@@ -613,3 +643,92 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x22, cAcceptMovePacket::creator);
+
+// Incoming predefined unicode message
+class cPredefinedMessagePacket : public cDynamicIncomingPacket {
+protected:
+	unsigned int serial; // Serial of source object
+	unsigned short model; // Model of source object (whatever thats for..)
+	unsigned char type; // Type of incoming message
+	unsigned short hue;
+	unsigned short font;
+	uint messageNumber; // Number of predefined message
+	QString name; // Name of source object
+	QString message; // Message arguments
+public:
+	cPredefinedMessagePacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(50);
+		input >> serial >> model >> type >> hue >> font >> messageNumber;
+
+		// Object Name
+		char strName[31];
+		input.readRawBytes(strName, 30);
+		strName[30] = 0;
+		name = strName;
+
+		// Unicode Stuff
+		// LITTLE ENDIAN (screw osi...)
+		input.setByteOrder(QDataStream::LittleEndian);
+		unsigned int length = ((size - 48) / 2) + 1;
+		ushort *strMessage = new unsigned short[length];
+		
+		// We need to swap the single characters
+		for (unsigned int i = 0; i < (length - 1); ++i) {
+			input >> strMessage[i];
+		}
+
+		strMessage[length-1] = 0;
+        
+		message = QString::fromUtf16(strMessage);
+
+		delete [] strMessage;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		QString localized = Localization->get(messageNumber);
+
+		// Parse in the ~1_...~ parts
+		QStringList arguments = QStringList::split("\t", message, true);
+
+		QRegExp pattern("~(\\d+)[^~]+~");
+		int pos;
+		while ((pos = pattern.indexIn(localized)) != -1 && !arguments.isEmpty()) {
+			uint index = pattern.cap(1).toUInt();
+			QString replacement;
+
+			if (index < 1 || index > arguments.size()) {
+				replacement = tr("[ERROR:%1]").arg(index);
+			} else {
+				replacement = arguments[index-1];
+			}
+
+			localized.replace(pos, pattern.matchedLength(), replacement);
+		}
+
+		if (Utilities::isItemSerial(serial)) {
+			// "You see:" message
+			if (type == 6) {
+				cDynamicItem *item = World->findItem(serial);
+
+				if (item) {
+					QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+					Gui->addOverheadText(pos.x() - item->drawx(), pos.y() - item->drawy(), 3000, localized, hue, font, item);
+				} else {
+					serial = 0; // Set to invalid so it shows up as a sysmessage
+				}
+			}
+		} else if (Utilities::isMobileSerial(serial)) {
+			WorldView->addSysMessage(QString("<%1> %2").arg(name).arg(localized), hue, font);
+		}
+		
+		if (Utilities::isInvalidSerial(serial)) {
+			WorldView->addSysMessage(localized, hue, font);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cPredefinedMessagePacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xc1, cPredefinedMessagePacket::creator);

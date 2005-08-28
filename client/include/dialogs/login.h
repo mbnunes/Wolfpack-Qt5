@@ -50,6 +50,7 @@ Q_OBJECT
 private:
 	cCharSelection *charSelectWidget;
 	cWindow *container; // The main container
+	cAsciiLabel *lastShardName;
 	cImageButton *movieButton, *nextButton, *backButton;
 	cContainer *accountLoginGump;
 	cContainer *shardSelectGump;
@@ -113,6 +114,7 @@ public slots:
 	void socketConnect();
 	void selectShard(int id);
 	void enterPressed(cTextField *field);
+	void selectLastShard();
 };
 
 extern cLoginDialog *LoginDialog; // There is only one LoginDialog instance at a time

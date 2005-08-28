@@ -432,6 +432,7 @@ void cConfig::load() {
 	loginHost_ = getString("Login", "Host", "127.0.0.1");
 	loginPort_ = getNumber("Login", "Port", 2593);
 	lastUsername_ = getString("Login", "Last Username", "");
+	lastShardId_ = getNumber("Login", "Last Shard Id", 0);
 
 	// Game
 	gameHideStatics_ = getBool("Game", "Hide Statics", false);

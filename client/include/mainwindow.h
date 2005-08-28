@@ -14,6 +14,7 @@
 class cControl;
 class QMenuBar;
 class QAction;
+class cCacheStatistics;
 
 class cGLWidget : public QGLWidget {
 	Q_OBJECT
@@ -85,6 +86,8 @@ protected:
 	QAction *aHideMap;
 	QAction *aHideMobiles;
 	QAction *aHideDynamics;
+
+	cCacheStatistics *cacheStatistics;
 
 public slots:
 	void menuGameClicked(QAction *action);

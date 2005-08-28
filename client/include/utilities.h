@@ -95,7 +95,7 @@ namespace Utilities {
 	}
 
 	inline bool isInvalidSerial(uint serial) {
-		return !(isItemSerial(serial) && isMobileSerial(serial));
+		return !isItemSerial(serial) && !isMobileSerial(serial);
 	}
 
 	inline void calcXYFromDirection(unsigned char direction, int &xdiff, int &ydiff) {

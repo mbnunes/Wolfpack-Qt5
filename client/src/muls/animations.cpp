@@ -9,7 +9,7 @@
 #include <qstring.h>
 
 cSequence::cSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue, bool partialHue) {
-	refcount = 0;
+	refcount = 1;
 	body_ = body;
 	action_ = action;
 	direction_ = direction;
@@ -22,9 +22,30 @@ cSequence::~cSequence() {
 	if (texture_) {
 		texture_->decref();
 	}
+
+	QMap<stSequenceIdent, cSequence*>::iterator it = Animations->SequenceCache.find(ident);
+	if (it != Animations->SequenceCache.end()) {
+		Animations->SequenceCache.erase(it);
+	}
+}
+
+// Decrement the internal reference count
+void cSequence::decref() {
+	if (--refcount == 0) {
+		delete this;
+	}
+}
+
+// Increment the internal reference count
+void cSequence::incref() {
+	++refcount;
 }
 
 bool cSequence::hitTest(int frame, int x, int y, bool flip) {
+	if (!texture_) {
+		return false;
+	}
+
 	if (frame < 0 || frame >= frameCount_) {
 		return false; // Invalid frame id
 	}
@@ -50,6 +71,10 @@ bool cSequence::hitTest(int frame, int x, int y, bool flip) {
 }
 
 void cSequence::draw(int frame, int cellx, int celly, bool flip, float alpha) {
+	if (!texture_) {
+		return;
+	}
+
 	if (frame < 0 || frame >= frameCount_) {
 		return; // Invalid frame id
 	}
@@ -246,7 +271,7 @@ signed char cAnimations::getFileId(unsigned short &body) const {
 	}
 }
 
-cAnimations::cAnimations() : cache(100, 109) {
+cAnimations::cAnimations() {
 	// Clear the body types
 	memset(bodyTypes, 0, sizeof(bodyTypes));
 	memset(flags, 0, sizeof(flags));
@@ -306,7 +331,6 @@ void cAnimations::unload() {
 		indexFile[i].close();
 	}
 
-	cache.clear();
 	fallback.clear();
 	fileMapping.clear();
 }
@@ -508,58 +532,84 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 	static const unsigned char directionmap[8] = {3, 2, 1, 0, 1, 2, 3, 4};
 	direction = directionmap[direction];	
 
-	// Calculate the cache id for the given parameters
-	unsigned int cacheid = getCacheId(body, action, direction, hue, partialhue);
+	stSequenceIdent ident;
+	ident.body = body;
+	ident.action = action;
+	ident.direction = direction;
+	ident.hue = hue;
+	ident.partialhue = partialhue;
 
 	// Try to find the sequence in the cache
-	cSequence *result = 0; //cache.find(cacheid);
+	cSequence *result = 0;
+
+	QMap<stSequenceIdent, cSequence*>::iterator it = SequenceCache.find(ident);
+
+	if (it != SequenceCache.end()) {
+		result = it.data();
+		result->incref();
+		return result;
+	}
 
 	// No cached sequence was found. Create a new one.
 	if (!result) {
 		// Translate the body value to a file first
 		signed char file = getFileId(body);
+		bool load = true;
 
 		// Try to use the fallback table if the file couldn't be found
 		if (file == -1) {
 			if (!getFallback(file, body, hue)) {
 				Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence from file %4 (not found). Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction).arg(file));
-				return 0; // Either the fallback was invalid too or there wasn't a fallback
+				load = false; // Either the fallback was invalid too or there wasn't a fallback
 			}
 		}
 
-		// If we do have a valid file id now, try to find the index record for it
 		int offset, length;
-		QDataStream &index = indexStream[file];
-		index.device()->at(getSeekOffset(file, body, action, direction) * 12);
-		index >> offset >> length;
-
-		// If the file doesn't have the requested animation, try to fall back
-		if (offset == -1 || length == 0) {
-			if (!getFallback(file, body, hue)) {
-				Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence. Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction));
-				return 0; // No fallback could be found for this
-			}
-
-			// Only try the lookup process once again. if it fails, return 0.
+		if (load) {
+			// If we do have a valid file id now, try to find the index record for it			
 			QDataStream &index = indexStream[file];
 			index.device()->at(getSeekOffset(file, body, action, direction) * 12);
 			index >> offset >> length;
-			
-			// The lookup failed
+
+			// If the file doesn't have the requested animation, try to fall back
 			if (offset == -1 || length == 0) {
-				Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence. Fallback. Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction));
-				return 0; // Invalid animation
+				if (!getFallback(file, body, hue)) {
+					//Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence. Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction));
+					return 0;
+				}
+
+				if (load) {
+					// Only try the lookup process once again. if it fails, return 0.
+					QDataStream &index = indexStream[file];
+					index.device()->at(getSeekOffset(file, body, action, direction) * 12);
+					index >> offset >> length;
+					
+					// The lookup failed
+					if (offset == -1 || length == 0) {
+						Log->print(LOG_WARNING, tr("Trying to read invalid animation sequence. Fallback. Body 0x%1, Action 0x%2, Direction 0x%3.\n").arg(body).arg(action).arg(direction));
+						load = false; // Invalid animation
+					}
+				}
 			}
 		}
 
 		// Now that we have the valid offset and length, seek to the data position
 		// and return a new animation
 		result = new cSequence(body, action, direction, hue, partialhue);
-		dataFile[file].at(offset);
-		result->load(dataStream[file]);
+		result->setIdent(ident);
+		if (load) {
+			dataFile[file].at(offset);
+			result->load(dataStream[file]);
+		}
+
+		SequenceCache.insert(ident, result);
 	}
 
 	return result;
+}
+
+uint cAnimations::cacheSize() const {
+	return SequenceCache.size();
 }
 
 cAnimations *Animations = 0;

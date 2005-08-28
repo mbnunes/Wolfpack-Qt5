@@ -136,11 +136,42 @@ cSurface *cGumpart::readSurface(unsigned short id, unsigned short hueid, bool pa
 	return surface;
 }
 
+uint cGumpart::cacheSize() const {
+	return textureCache.size();
+}
+
+void cGumpart::registerTexture(cTexture *texture) {
+	textureCache.insert(*(stGumpIdent*)texture->identifier(), texture);
+}
+
+void cGumpart::unregisterTexture(cTexture *texture) {
+	textureCache.remove(*(stGumpIdent*)texture->identifier());
+}
+
 cTexture *cGumpart::readTexture(unsigned short id, unsigned short hue, bool partialHue) {
+	stGumpIdent ident;
+	ident.id = id;
+	ident.hue = hue;
+	ident.partialHue = partialHue;
+
+	QMap<stGumpIdent, cTexture*>::iterator it = textureCache.find(ident);
+	if (it != textureCache.end()) {
+		cTexture *result = it.data();
+		result->incref();
+		return result;
+	}
+
 	// unsigned int cacheid = ((id & 0xFFF) << 16) | (hue & 0xFFFF) | (partialHue ? (1 << 31) : 0);
 	cSurface *surface = readSurface(id, hue, partialHue, true);
 	cTexture *texture = new cTexture(surface, true);
 	delete surface;
+
+	// Add the surface to the instance list
+	stGumpIdent *newIdent = (stGumpIdent*)texture->allocateIdentifier(sizeof(stGumpIdent));
+	memcpy(newIdent, &ident, sizeof(stGumpIdent));
+	texture->setIdentifier(newIdent);
+	texture->setCache(this);
+
 	return texture;
 }
 

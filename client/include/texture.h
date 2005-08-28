@@ -3,8 +3,19 @@
 #define __TEXTURE_H__
 
 #include "exceptions.h"
+#include <qmap.h>
 
 class cSurface;
+class cTexture;
+
+/*/
+	This is a baseclass for texture caches using custom lookup types.
+*/
+class cTextureCache {
+public:
+	virtual void registerTexture(cTexture *texture) = 0;
+	virtual void unregisterTexture(cTexture *texture) = 0;
+};
 
 /*
 	This class represents an OpenGL texture.
@@ -17,6 +28,8 @@ protected:
 	unsigned int realWidth_, realHeight_;
 	unsigned int *hitTestArray; // Cache for hit testing
 	void generateHitMap(cSurface *surface);
+	cTextureCache *cache_;
+	void *identifier_;
 
 public:
 	cTexture();
@@ -44,6 +57,12 @@ public:
 	unsigned int realHeight() const;
     void setRealWidth(unsigned int data);
 	void setRealHeight(unsigned int data);
+
+	void setCache(cTextureCache *data);
+	cTextureCache *cache() const;
+	void *identifier() const;
+	void setIdentifier(void *data);
+	void *allocateIdentifier(uint size);
 
 	// Return the unique integer texture id
 	unsigned int id() const;
@@ -91,6 +110,24 @@ inline void cTexture::setRealWidth(unsigned int data) {
 
 inline void cTexture::setRealHeight(unsigned int data) {
 	realHeight_ = data;
+}
+
+inline void cTexture::setCache(cTextureCache *data) {
+	if (cache_ && cache_ != data) {
+		cache_->unregisterTexture(this);
+	}
+	cache_ = data;
+	if (cache_) {
+		cache_->registerTexture(this);
+	}
+}
+
+inline void *cTexture::identifier() const {
+	return identifier_;
+}
+
+inline cTextureCache *cTexture::cache() const {
+	return cache_;
 }
 
 #endif

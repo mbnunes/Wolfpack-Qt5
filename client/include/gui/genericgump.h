@@ -13,6 +13,7 @@ Q_OBJECT
 protected:
 	uint serial_;
 	uint gumpType_;
+	bool noclose;
 
 	struct stLayoutContext {
         unsigned int page;

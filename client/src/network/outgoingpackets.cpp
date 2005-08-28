@@ -160,3 +160,7 @@ cGenericGumpResponsePacket::cGenericGumpResponsePacket(uint serial, uint type, u
 cMoveRequestPacket::cMoveRequestPacket(uchar direction, uchar sequence, uint fastwalkKey) : cOutgoingPacket(0x02, 7) {
 	m_Stream << direction << sequence << fastwalkKey;
 }
+
+cSingleClickPacket::cSingleClickPacket(uint serial) : cOutgoingPacket(0x09, 5) {
+	m_Stream << serial;
+}

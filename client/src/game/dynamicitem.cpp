@@ -88,6 +88,10 @@ void cDynamicItem::setHue(unsigned short data) {
 	cStaticTile::setHue(data);
 }
 
+void cDynamicItem::onClick(QMouseEvent *e) {
+	UoSocket->send(cSingleClickPacket(serial_));
+}
+
 void cDynamicItem::onDoubleClick(QMouseEvent *e) {
 	cDoubleClickPacket packet(serial_);
 	UoSocket->send(packet);
