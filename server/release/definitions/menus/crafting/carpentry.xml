@@ -434,7 +434,7 @@
 	<!-- Misc. Add-ons -->
 	<menu id="CARPENTRY_MISCADDONS" name="1044290">
 		<!--Small Bed South-->
-		<carpenter definition="small_bed_s_deed">
+		<carpenter definition="small_bed_s_deed" name="1015123" itemid="0x14ef">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
@@ -442,7 +442,7 @@
 		</carpenter>
 
 		<!--Small Bed East-->
-		<carpenter definition="small_bed_e_deed">
+		<carpenter definition="small_bed_e_deed" name="1015124" itemid="0x14ef">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
@@ -450,7 +450,7 @@
 		</carpenter>
 
 		<!--Large Bed South-->
-		<carpenter definition="large_bed_s_deed">
+		<carpenter definition="large_bed_s_deed" name="1015125" itemid="0x14ef">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
@@ -458,7 +458,7 @@
 		</carpenter>
 
 		<!--Large Bed East-->
-		<carpenter definition="large_bed_e_deed">
+		<carpenter definition="large_bed_e_deed" name="1015126" itemid="0x14ef">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
@@ -466,25 +466,25 @@
 		</carpenter>
 
 		<!--Dart Board South-->
-		<carpenter definition="dart_board_s_deed">
+		<carpenter definition="dart_board_s_deed" name="1015127" itemid="0x14ef">
 			<carpentry min="157" max="657" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</carpenter>
 
 		<!--Dart Board East-->
-		<carpenter definition="dart_board_e_deed">
+		<carpenter definition="dart_board_e_deed" name="1015128" itemid="0x14ef">
 			<carpentry min="157" max="657" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</carpenter>
 
 		<!--Ballot Box-->
-		<carpenter definition="ballot_box_deed">
+		<carpenter definition="ballot_box_deed" name="1015129" itemid="0x14ef">
 			<carpentry min="473" max="973" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</carpenter>
 
 		<!--Pentagram-->
-		<carpenter definition="pentagram_deed">
+		<carpenter definition="pentagram_deed" name="1015130" itemid="0x14ef">
 			<carpentry min="1000" max="1000" />
 			<magery min="750" max="750" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
@@ -492,7 +492,7 @@
 		</carpenter>
 
 		<!--Arbattoir-->
-		<carpenter definition="abattoir_deed">
+		<carpenter definition="abattoir_deed" name="1015131" itemid="0x14ef">
 			<carpentry min="1000" max="1000" />
 			<magery min="500" max="500" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
@@ -500,7 +500,7 @@
 		</carpenter>
 
 		<!--Bulletin Board-->
-		<carpenter definition="bulletin_board_deed">
+		<carpenter definition="bulletin_board_deed" name="1027774" itemid="0x14ef">
 			<carpentry min="850" max="1000" />
 			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="50" name="Logs" />
 		</carpenter>
@@ -509,7 +509,7 @@
 	<!-- Blacksmithy -->
 	<menu id="CARPENTRY_BLACKSMITHY" name="1044296">
 		<!--Anvil East-->
-		<carpenter definition="anvil_e_deed">
+		<carpenter definition="anvil_e_deed" name="1015136" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<blacksmithing min="750" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
@@ -517,7 +517,7 @@
 		</carpenter>
 
 		<!--Anvil South-->
-		<carpenter definition="anvil_s_deed">
+		<carpenter definition="anvil_s_deed" name="1015137" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<blacksmithing min="750" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
@@ -525,7 +525,7 @@
 		</carpenter>
 
 		<!--Small Forge-->
-		<carpenter definition="small_forge_deed">
+		<carpenter definition="small_forge_deed" name="1015133" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<blacksmithing min="750" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
@@ -533,7 +533,7 @@
 		</carpenter>
 
 		<!--Large Forge South-->
-		<carpenter definition="large_forge_s_deed">
+		<carpenter definition="large_forge_s_deed" name="1015135" itemid="0x14ef">
 			<carpentry min="789" max="1200" />
 			<blacksmithing min="800" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
@@ -541,7 +541,7 @@
 		</carpenter>
 
 		<!--Large Forge East-->
-		<carpenter definition="large_forge_e_deed">
+		<carpenter definition="large_forge_e_deed" name="1015134" itemid="0x14ef">
 			<carpentry min="789" max="1200" />
 			<blacksmithing min="800" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
@@ -552,7 +552,7 @@
 	<!-- Training -->
 	<menu id="CARPENTRY_TRAINING" name="1044297">
 		<!--Training Dummy South-->
-		<carpenter definition="training_dummy_s_deed">
+		<carpenter definition="training_dummy_s_deed" name="1015144" itemid="0x14ef">
 			<carpentry min="684" max="1184" />
 			<tailoring min="500" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="55" name="Boards" />
@@ -560,7 +560,7 @@
 		</carpenter>
 
 		<!--Training Dummy East-->
-		<carpenter definition="training_dummy_e_deed">
+		<carpenter definition="training_dummy_e_deed" name="1015143" itemid="0x14ef">
 			<carpentry min="684" max="1184" />
 			<tailoring min="500" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="55" name="Boards" />
@@ -568,7 +568,7 @@
 		</carpenter>
 
 		<!--Pickpockets Dip-->
-		<carpenter definition="pickpocket_dip_e_deed">
+		<carpenter definition="pickpocket_dip_e_deed" name="1015145" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<tailoring min="500" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="65" name="Boards" />
@@ -587,7 +587,7 @@
 		</carpenter>
 
 		<!--Spinning Wheel South-->
-		<carpenter definition="spinning_wheel_s_deed">
+		<carpenter definition="spinning_wheel_s_deed" name="1015140" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<tailoring min="650" max="1150" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="75" name="Boards" />
@@ -595,7 +595,7 @@
 		</carpenter>
 
 		<!--Spinning Wheel East-->
-		<carpenter definition="spinning_wheel_e_deed">
+		<carpenter definition="spinning_wheel_e_deed" name="1015139" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<tailoring min="650" max="1150" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="75" name="Boards" />
@@ -603,7 +603,7 @@
 		</carpenter>
 
 		<!--Loom South-->
-		<carpenter definition="loom_s_deed">
+		<carpenter definition="loom_s_deed" name="1015141" itemid="0x14ef">
 			<carpentry min="842" max="1100" />
 			<tailoring min="650" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
@@ -611,7 +611,7 @@
 		</carpenter>
 
 		<!--Loom East-->
-		<carpenter definition="loom_e_deed">
+		<carpenter definition="loom_e_deed" name="1015142" itemid="0x14ef">
 			<carpentry min="842" max="1100" />
 			<tailoring min="650" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
@@ -622,7 +622,7 @@
 	<!-- Cooking -->
 	<menu id="CARPENTRY_COOKING" name="1044299">
 		<!--Stone Oven South-->
-		<carpenter definition="stone_oven_s_deed">
+		<carpenter definition="stone_oven_s_deed" name="1015149" itemid="0x14ef">
 			<carpentry min="684" max="1184" />
 			<tinkering min="500" max="1000" lock="0" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
@@ -630,7 +630,7 @@
 		</carpenter>
 
 		<!--Stone Oven East-->
-		<carpenter definition="stone_oven_e_deed">
+		<carpenter definition="stone_oven_e_deed" name="1015150" itemid="0x14ef">
 			<carpentry min="684" max="1184" />
 			<tinkering min="500" max="1000" lock="0" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
@@ -638,7 +638,7 @@
 		</carpenter>
 
 		<!--Flour Mill South-->
-		<carpenter definition="flour_mill_s_deed">
+		<carpenter definition="flour_mill_s_deed" name="1015152" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<tinkering min="500" max="1000" lock="0" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" />
@@ -646,7 +646,7 @@
 		</carpenter>
 
 		<!--Flour Mill East-->
-		<carpenter definition="flour_mill_e_deed">
+		<carpenter definition="flour_mill_e_deed" name="1015151" itemid="0x14ef">
 			<carpentry min="736" max="1200" />
 			<tinkering min="500" max="1000" lock="0" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
@@ -654,13 +654,13 @@
 		</carpenter>
 
 		<!--Water Trough South-->
-		<carpenter definition="water_trough_s_deed">
+		<carpenter definition="water_trough_s_deed" name="1015154" itemid="0x14ef">
 			<carpentry min="947" max="1200" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
 		</carpenter>
 
 		<!--Water Trough East-->
-		<carpenter definition="water_trough_e_deed">
+		<carpenter definition="water_trough_e_deed" name="1015153" itemid="0x14ef">
 			<carpentry min="947" max="1200" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
 		</carpenter>
