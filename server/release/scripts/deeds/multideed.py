@@ -4,53 +4,53 @@ from wolfpack.consts import *
 
 #2-Story houses
 ch2story = [
-[ 7, 7, 0x13ec ],
-[ 7, 8, 0x13ed ],
-[ 7, 9, 0x13ee ],
-[ 7, 10, 0x13ef ],
-[ 7, 11, 0x13f0 ],
-[ 7, 12, 0x13f1 ],
-[ 8, 7, 0x13f8 ],
-[ 8, 8, 0x13f9 ],
-[ 8, 9, 0x13fa ],
-[ 8, 10, 0x13fb ],
-[ 8, 11, 0x13fc ],
-[ 8, 12, 0x13fd ],
-[ 8, 13, 0x13fe ],
-[ 9, 7, 0x1404 ],
-[ 9, 8, 0x1405 ],
-[ 9, 9, 0x1406 ],
-[ 9, 10, 0x1407 ],
-[ 9, 11, 0x1408 ],
-[ 9, 12, 0x1409 ],
-[ 9, 13, 0x140a ],
-[ 10, 7, 0x1410 ],
-[ 10, 8, 0x1411 ],
-[ 10, 9, 0x1412 ],
-[ 10, 10, 0x1413 ],
-[ 10, 11, 0x1414 ],
-[ 10, 12, 0x1415 ],
-[ 10, 13, 0x1416 ],
-[ 11, 7, 0x141c ],
-[ 11, 8, 0x141d ],
-[ 11, 9, 0x141e ],
-[ 11, 10, 0x141f ],
-[ 11, 11, 0x1420 ],
-[ 11, 12, 0x1421 ],
-[ 11, 13, 0x1422 ],
-[ 12, 7, 0x1428 ],
-[ 12, 8, 0x1429 ],
-[ 12, 9, 0x142a ],
-[ 12, 10, 0x142b ],
-[ 12, 11, 0x142c ],
-[ 12, 12, 0x142d ],
-[ 12, 13, 0x142e ],
-[ 13, 8, 0x1435 ],
-[ 13, 9, 0x1436 ],
-[ 13, 10, 0x1437 ],
-[ 13, 11, 0x1438 ],
-[ 13, 12, 0x1439 ],
-[ 13, 13, 0x143a ] ]
+[ 7, 7, 0x13ec, "foundation_2_7x7" ],
+[ 7, 8, 0x13ed, "foundation_2_7x8" ],
+[ 7, 9, 0x13ee, "foundation_2_7x9" ],
+[ 7, 10, 0x13ef, "foundation_2_7x10" ],
+[ 7, 11, 0x13f0, "foundation_2_7x11" ],
+[ 7, 12, 0x13f1, "foundation_2_7x12" ],
+[ 8, 7, 0x13f8, "foundation_2_8x7" ],
+[ 8, 8, 0x13f9, "foundation_2_8x8" ],
+[ 8, 9, 0x13fa, "foundation_2_8x9" ],
+[ 8, 10, 0x13fb, "foundation_2_8x10" ],
+[ 8, 11, 0x13fc, "foundation_2_8x11" ],
+[ 8, 12, 0x13fd, "foundation_2_8x12" ],
+[ 8, 13, 0x13fe, "foundation_2_8x13" ],
+[ 9, 7, 0x1404, "foundation_2_9x7" ],
+[ 9, 8, 0x1405, "foundation_2_9x8" ],
+[ 9, 9, 0x1406, "foundation_2_9x9" ],
+[ 9, 10, 0x1407, "foundation_2_9x10" ],
+[ 9, 11, 0x1408, "foundation_2_9x11" ],
+[ 9, 12, 0x1409, "foundation_2_9x12" ],
+[ 9, 13, 0x140a, "foundation_2_9x13" ],
+[ 10, 7, 0x1410, "foundation_2_10x7" ],
+[ 10, 8, 0x1411, "foundation_2_10x8" ],
+[ 10, 9, 0x1412, "foundation_2_10x9" ],
+[ 10, 10, 0x1413, "foundation_2_10x10" ],
+[ 10, 11, 0x1414, "foundation_2_10x11" ],
+[ 10, 12, 0x1415, "foundation_2_10x12" ],
+[ 10, 13, 0x1416, "foundation_2_10x13" ],
+[ 11, 7, 0x141c, "foundation_2_11x7" ],
+[ 11, 8, 0x141d, "foundation_2_11x8" ],
+[ 11, 9, 0x141e, "foundation_2_11x9" ],
+[ 11, 10, 0x141f, "foundation_2_11x10" ],
+[ 11, 11, 0x1420, "foundation_2_11x11" ],
+[ 11, 12, 0x1421, "foundation_2_11x12" ],
+[ 11, 13, 0x1422, "foundation_2_11x13" ],
+[ 12, 7, 0x1428, "foundation_2_12x7" ],
+[ 12, 8, 0x1429, "foundation_2_12x8" ],
+[ 12, 9, 0x142a, "foundation_2_12x9" ],
+[ 12, 10, 0x142b, "foundation_2_12x10" ],
+[ 12, 11, 0x142c, "foundation_2_12x11" ],
+[ 12, 12, 0x142d, "foundation_2_12x12" ],
+[ 12, 13, 0x142e, "foundation_2_12x13" ],
+[ 13, 8, 0x1435, "foundation_2_13x8" ],
+[ 13, 9, 0x1436, "foundation_2_13x9" ],
+[ 13, 10, 0x1437, "foundation_2_13x10" ],
+[ 13, 11, 0x1438, "foundation_2_13x11" ],
+[ 13, 12, 0x1439, "foundation_2_13x12" ],
+[ 13, 13, 0x143a, "foundation_2_13x13" ] ]
 
 #3-Story houses
 ch3story = [
@@ -119,6 +119,7 @@ def onUse( char, item ):
 	return 1
 
 #Selection of custom house type ( 2-story / 3-story )
+# Its the first gump with Classical, 2-story and 3-story selection... accessed when use the dclick
 def gump0callback( char, args, target ):
 	button = target.button
 
@@ -142,19 +143,19 @@ def gump1callback( char, args, target ):
 def gump2callback( char, args, target ):
 	button = target.button
 	if button == 1:
-		foundation( char, args[1], args[0][0], args[0][1], args[0][2] )
+		foundation( char, args[1], args[0][0], args[0][1], args[0][2], args[0][3] )
 
 def response( char, args, target ):
 	gump2( char, gump2callback, args, target )
 	return 1
 
-def foundation( char, target, width, height, multiid ):
-	multi = wolfpack.addmulti( str(multiid) )
+def foundation( char, target, width, height, id, multiid ):
+	multi = wolfpack.addmulti(str(multiid))
 	if not multi:
 		char.socket.sysmessage( "Multi '%s' not yet implemented" % multiid )
 		return True
 	char.socket.sysmessage( str( multi.serial ) )
-	multi.id = multiid + 0x4000
+	multi.id = id + 0x4000
 	multi.decay = False
 	multi.moveto( target.pos )
 
@@ -195,7 +196,7 @@ def foundation( char, target, width, height, multiid ):
 		newpos = wolfpack.coord( x, y, z, map )
 		stairs.moveto( newpos )
 		stairs.movable = 3
-		staris.decay = False
+		stairs.decay = False
 		stairs.update()
 
 		#multi.addchtile( 0x0751, x, bottom+1, 0 )

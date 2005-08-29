@@ -210,6 +210,8 @@
 		<name>Large Brick House</name>
 		<id>0x4074</id>
 		<nodecay />
+		<door x="-3" y="-1" z="7" id="0x6a5" />
+		<door x="3" y="-1" z="7" id="0x6a5" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Large Brick House</category>
@@ -233,7 +235,9 @@
 		<id>0x4076</id>
 		<nodecay />
 		<door x="-3" y="6" z="7" id="0x6a5" /> <!-- Wooden door facing south -->
-		<door x="-2" y="6" z="7" id="0x6a7" /> <!-- Wooden door facing south -->
+		<door x="-2" y="6" z="7" id="0x6a7" />
+		<door x="-2" y="0" z="27" id="0x6a5" />
+		<door x="-3" y="0" z="7" id="0x6a5" />
 		<sign x="1" y="7" z="5" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
@@ -246,10 +250,18 @@
 		<nodecay />
 	</multi>
 
-	<multi id="4078">
+	<multi id="two_story_stone_and_plaster_house">
 		<name>Two Story Stone and Plaster House</name>
-		<id>0x4078</id>
+		<id>0x4076</id>
 		<nodecay />
+		<door x="-3" y="6" z="7" id="0x6a5" /> <!-- Wooden door facing south -->
+		<door x="-2" y="6" z="7" id="0x6a7" /> <!-- Wooden door facing south -->
+		<door x="-2" y="0" z="27" id="0x6a5" />
+		<door x="-3" y="0" z="7" id="0x6a5" />
+		<sign x="1" y="7" z="5" />
+		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Two Story Stone and Plaster House</category>
 	</multi>
 
 	<multi id="4079">
@@ -269,9 +281,12 @@
 		<name>Large Tower</name>
 		<id>0x407a</id>
 		<nodecay />
-		<door x="0" y="6" z="0" id="0x6c5" /> <!-- Iron door facing south -->
-		<door x="1" y="6" z="0" id="0x6c7" /> <!-- Wooden door facing south -->
+		<door x="0" y="6" z="7" id="0x6c5" /> <!-- Iron door facing south -->
+		<door x="1" y="6" z="7" id="0x6c7" /> <!-- Wooden door facing south -->
 		<sign x="4" y="7" z="5" id="0xbd0" />
+		<door x="1" y="4" z="46" id="0x67d" />
+		<door x="1" y="4" z="26" id="0x67d" />
+		<door x="3" y="-2" z="7" id="0x6c5" />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Large Tower</category>
@@ -322,6 +337,8 @@
 		<door x="0" y="15" z="7" id="0x6c5" /> <!-- Iron door facing south -->
 		<door x="1" y="15" z="7" id="0x6c7" /> <!-- Wooden door facing south -->
 		<sign x="4" y="16" z="5" id="0xbd0" />
+		<door x="0" y="5" z="7" id="0x6c5" /> <!-- Iron door facing south -->
+		<door x="1" y="5" z="7" id="0x6c7" /> <!-- Wooden door facing south -->
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Castle</category>
@@ -499,4 +516,336 @@
 		<nodecay />
 		<category>Wandering Bank Camp</category>
 	</multi>
+
+	<!-- Foundations -->
+
+	<multi id="foundation_2_7x7">
+		<name>Small Place</name>
+		<id>0x53ec</id>
+		<nodecay />
+		<category>Foundation 2Story 7x7</category>
+	</multi>
+
+	<multi id="foundation_2_7x8">
+		<name>Small Place</name>
+		<id>0x53ed</id>
+		<nodecay />
+		<category>Foundation 2Story 7x8</category>
+	</multi>
+
+	<multi id="foundation_2_7x9">
+		<name>Small Place</name>
+		<id>0x53ee</id>
+		<nodecay />
+		<category>Foundation 2Story 7x9</category>
+	</multi>
+
+	<multi id="foundation_2_7x10">
+		<name>Small Place</name>
+		<id>0x53ef</id>
+		<nodecay />
+		<category>Foundation 2Story 7x10</category>
+	</multi>
+
+	<multi id="foundation_2_7x11">
+		<name>Small Place</name>
+		<id>0x53f0</id>
+		<nodecay />
+		<category>Foundation 2Story 7x11</category>
+	</multi>
+
+	<multi id="foundation_2_7x12">
+		<name>Small Place</name>
+		<id>0x53f1</id>
+		<nodecay />
+		<category>Foundation 2Story 7x12</category>
+	</multi>
+
+	<multi id="foundation_2_8x7">
+		<name>Small Place</name>
+		<id>0x53f8</id>
+		<nodecay />
+		<category>Foundation 2Story 8x7</category>
+	</multi>
+
+	<multi id="foundation_2_8x8">
+		<name>Small Place</name>
+		<id>0x53f9</id>
+		<nodecay />
+		<category>Foundation 2Story 8x8</category>
+	</multi>
+
+	<multi id="foundation_2_8x9">
+		<name>Small Place</name>
+		<id>0x53fa</id>
+		<nodecay />
+		<category>Foundation 2Story 8x9</category>
+	</multi>
+
+	<multi id="foundation_2_8x10">
+		<name>Small Place</name>
+		<id>0x53fb</id>
+		<nodecay />
+		<category>Foundation 2Story 8x10</category>
+	</multi>
+
+	<multi id="foundation_2_8x11">
+		<name>Small Place</name>
+		<id>0x53fc</id>
+		<nodecay />
+		<category>Foundation 2Story 8x11</category>
+	</multi>
+
+	<multi id="foundation_2_8x12">
+		<name>Small Place</name>
+		<id>0x53fd</id>
+		<nodecay />
+		<category>Foundation 2Story 8x12</category>
+	</multi>
+
+	<multi id="foundation_2_8x13">
+		<name>Small Place</name>
+		<id>0x53fe</id>
+		<nodecay />
+		<category>Foundation 2Story 8x13</category>
+	</multi>
+
+	<multi id="foundation_2_9x7">
+		<name>Small Place</name>
+		<id>0x5404</id>
+		<nodecay />
+		<category>Foundation 2Story 9x7</category>
+	</multi>
+
+	<multi id="foundation_2_9x8">
+		<name>Small Place</name>
+		<id>0x5405</id>
+		<nodecay />
+		<category>Foundation 2Story 9x8</category>
+	</multi>
+
+	<multi id="foundation_2_9x9">
+		<name>Small Place</name>
+		<id>0x5406</id>
+		<nodecay />
+		<category>Foundation 2Story 9x9</category>
+	</multi>
+
+	<multi id="foundation_2_9x10">
+		<name>Small Place</name>
+		<id>0x5407</id>
+		<nodecay />
+		<category>Foundation 2Story 9x10</category>
+	</multi>
+
+	<multi id="foundation_2_9x11">
+		<name>Small Place</name>
+		<id>0x5408</id>
+		<nodecay />
+		<category>Foundation 2Story 9x11</category>
+	</multi>
+
+	<multi id="foundation_2_9x12">
+		<name>Small Place</name>
+		<id>0x5409</id>
+		<nodecay />
+		<category>Foundation 2Story 9x12</category>
+	</multi>
+
+	<multi id="foundation_2_9x13">
+		<name>Small Place</name>
+		<id>0x540a</id>
+		<nodecay />
+		<category>Foundation 2Story 9x13</category>
+	</multi>
+
+	<multi id="foundation_2_10x7">
+		<name>Small Place</name>
+		<id>0x5410</id>
+		<nodecay />
+		<category>Foundation 2Story 10x7</category>
+	</multi>
+
+	<multi id="foundation_2_10x8">
+		<name>Small Place</name>
+		<id>0x5411</id>
+		<nodecay />
+		<category>Foundation 2Story 10x8</category>
+	</multi>
+
+	<multi id="foundation_2_10x9">
+		<name>Small Place</name>
+		<id>0x5412</id>
+		<nodecay />
+		<category>Foundation 2Story 10x9</category>
+	</multi>
+
+	<multi id="foundation_2_10x10">
+		<name>Small Place</name>
+		<id>0x5413</id>
+		<nodecay />
+		<category>Foundation 2Story 10x10</category>
+	</multi>
+
+	<multi id="foundation_2_10x11">
+		<name>Small Place</name>
+		<id>0x5414</id>
+		<nodecay />
+		<category>Foundation 2Story 10x11</category>
+	</multi>
+
+	<multi id="foundation_2_10x12">
+		<name>Small Place</name>
+		<id>0x5415</id>
+		<nodecay />
+		<category>Foundation 2Story 10x12</category>
+	</multi>
+
+	<multi id="foundation_2_10x13">
+		<name>Small Place</name>
+		<id>0x5416</id>
+		<nodecay />
+		<category>Foundation 2Story 10x13</category>
+	</multi>
+
+	<multi id="foundation_2_11x7">
+		<name>Small Place</name>
+		<id>0x541c</id>
+		<nodecay />
+		<category>Foundation 2Story 11x7</category>
+	</multi>
+
+	<multi id="foundation_2_11x8">
+		<name>Small Place</name>
+		<id>0x541d</id>
+		<nodecay />
+		<category>Foundation 2Story 11x8</category>
+	</multi>
+
+	<multi id="foundation_2_11x9">
+		<name>Small Place</name>
+		<id>0x541e</id>
+		<nodecay />
+		<category>Foundation 2Story 11x9</category>
+	</multi>
+
+	<multi id="foundation_2_11x10">
+		<name>Small Place</name>
+		<id>0x541f</id>
+		<nodecay />
+		<category>Foundation 2Story 11x10</category>
+	</multi>
+
+	<multi id="foundation_2_11x11">
+		<name>Small Place</name>
+		<id>0x5420</id>
+		<nodecay />
+		<category>Foundation 2Story 11x11</category>
+	</multi>
+
+	<multi id="foundation_2_11x12">
+		<name>Small Place</name>
+		<id>0x5421</id>
+		<nodecay />
+		<category>Foundation 2Story 11x12</category>
+	</multi>
+
+	<multi id="foundation_2_11x13">
+		<name>Small Place</name>
+		<id>0x5422</id>
+		<nodecay />
+		<category>Foundation 2Story 11x13</category>
+	</multi>
+
+	<multi id="foundation_2_12x7">
+		<name>Small Place</name>
+		<id>0x5428</id>
+		<nodecay />
+		<category>Foundation 2Story 12x7</category>
+	</multi>
+
+	<multi id="foundation_2_12x8">
+		<name>Small Place</name>
+		<id>0x5429</id>
+		<nodecay />
+		<category>Foundation 2Story 12x8</category>
+	</multi>
+
+	<multi id="foundation_2_12x9">
+		<name>Small Place</name>
+		<id>0x542a</id>
+		<nodecay />
+		<category>Foundation 2Story 12x9</category>
+	</multi>
+
+	<multi id="foundation_2_12x10">
+		<name>Small Place</name>
+		<id>0x542b</id>
+		<nodecay />
+		<category>Foundation 2Story 12x10</category>
+	</multi>
+
+	<multi id="foundation_2_12x11">
+		<name>Small Place</name>
+		<id>0x542c</id>
+		<nodecay />
+		<category>Foundation 2Story 12x11</category>
+	</multi>
+
+	<multi id="foundation_2_12x12">
+		<name>Small Place</name>
+		<id>0x542d</id>
+		<nodecay />
+		<category>Foundation 2Story 12x12</category>
+	</multi>
+
+	<multi id="foundation_2_12x13">
+		<name>Small Place</name>
+		<id>0x542e</id>
+		<nodecay />
+		<category>Foundation 2Story 12x13</category>
+	</multi>
+
+	<multi id="foundation_2_13x8">
+		<name>Small Place</name>
+		<id>0x5435</id>
+		<nodecay />
+		<category>Foundation 2Story 13x8</category>
+	</multi>
+
+	<multi id="foundation_2_13x9">
+		<name>Small Place</name>
+		<id>0x5436</id>
+		<nodecay />
+		<category>Foundation 2Story 13x9</category>
+	</multi>
+
+	<multi id="foundation_2_13x10">
+		<name>Small Place</name>
+		<id>0x5437</id>
+		<nodecay />
+		<category>Foundation 2Story 13x10</category>
+	</multi>
+
+	<multi id="foundation_2_13x11">
+		<name>Small Place</name>
+		<id>0x5438</id>
+		<nodecay />
+		<category>Foundation 2Story 13x11</category>
+	</multi>
+
+	<multi id="foundation_2_13x12">
+		<name>Small Place</name>
+		<id>0x5439</id>
+		<nodecay />
+		<category>Foundation 2Story 13x12</category>
+	</multi>
+
+	<multi id="foundation_2_13x13">
+		<name>Small Place</name>
+		<id>0x543a</id>
+		<nodecay />
+		<category>Foundation 2Story 13x13</category>
+	</multi>
+
 </definitions>
