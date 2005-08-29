@@ -1125,6 +1125,9 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\icon.ico">
+		</File>
+		<File
 			RelativePath=".\resource.h">
 		</File>
 		<File
@@ -1132,6 +1135,9 @@
 		</File>
 		<File
 			RelativePath=".\include\version.h">
+		</File>
+		<File
+			RelativePath=".\WindowsXP.manifest">
 		</File>
 	</Files>
 	<Globals>
