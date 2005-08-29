@@ -152,7 +152,15 @@ protected:
 		bool partialHue;
 
 		bool operator <(const stArtIdent &b) const {
-			return id + hue + (partialHue ? 1 : 0) < b.id + b.hue + (b.partialHue ? 1 : 0);
+			if (id != b.id) {
+				return id < b.id;
+			} else if (hue != b.hue) {
+				return hue < b.hue;
+			} else if (partialHue != b.partialHue) {
+				return !partialHue && b.partialHue;
+			} else {
+				return false;
+			}
 		}
 	};
 	

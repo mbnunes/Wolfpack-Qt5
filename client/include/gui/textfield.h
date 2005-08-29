@@ -2,7 +2,6 @@
 #if !defined(__TEXTFIELD_H__)
 #define __TEXTFIELD_H__
 
-#include <q3cstring.h>
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <QKeyEvent>
@@ -25,10 +24,11 @@ protected:
 	bool hueAll_;
 	unsigned char font_;
 	unsigned short hue_;
-	Q3CString text_;
+	QString text_;
 	short mouseOverHue_;
 	short focusHue_;
 	bool password_;
+	bool unicodeMode_;
 
 	cTexture *surfaces[3]; // Three States
 
@@ -43,27 +43,30 @@ protected:
 	int selection_; // The number of characters that are selected in relation to the current caret.
 
 	void drawSelection(cSurface *surface);
-	void replaceSelection(const Q3CString &replacement);
-	Q3CString getSelection();
-	inline char translateChar(char c) {
+	void replaceSelection(const QString &replacement);
+	QString getSelection();
+	inline QChar translateChar(QChar c) {
 		if (password_) {
-			return '*';
+			return QChar('*');
 		} else {
 			return c;
 		}
 	}
+	bool getCharacterWidth(uint i, uchar &charWidth);
 public:
-	cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue = 0, unsigned short background = 0xbb8, bool hueAll = false);
+	cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue = 0, unsigned short background = 0xbb8, bool hueAll = false, bool unicodeMode = false);
 	virtual ~cTextField();
 
 	// Getters
 	inline bool hueAll() const { return hueAll_; }
 	inline unsigned char font() const { return font_; }
 	inline unsigned short hue() const { return hue_; }
-	inline const Q3CString &text() const { return text_; }
+	inline const QString &text() const { return text_; }
 	inline unsigned short background() const { return backgroundId_; }
 	inline unsigned int leftOffset() const { return leftOffset_; }
 	inline bool password() const { return password_; }
+	bool unicodeMode() const;
+	void setUnicodeMode(bool data);
 
 	inline void setPassword(bool data) {
 		password_ = data;
@@ -119,7 +122,7 @@ public:
 		}
 	}
 
-	inline void setText(const Q3CString &data) {
+	inline void setText(const QString &data) {
 		if (text_ != data) {
 			text_ = data;
 			selection_ = 0;
@@ -165,5 +168,14 @@ public:
 signals:
 	void enterPressed(cTextField *textfield);
 };
+
+inline bool cTextField::unicodeMode() const {
+	return unicodeMode_;
+}
+
+inline void cTextField::setUnicodeMode(bool data) {
+	unicodeMode_ = data;
+	invalidateText();
+}
 
 #endif

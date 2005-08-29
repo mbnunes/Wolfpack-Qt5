@@ -121,7 +121,7 @@ void cGroundTile::setId(unsigned short data) {
 }
 
 void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip) {
-	if (Config->gameHideMap()) {
+	if (Config->gameHideMap() || id_ == 2) {
 		return;
 	}
 
@@ -256,7 +256,7 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 }
 
 bool cGroundTile::hitTest(int x, int y) {
-	if (Config->gameHideMap()) {
+	if (Config->gameHideMap() || id_ == 2) {
 		return false;
 	}
 

@@ -361,4 +361,51 @@ SDL_Surface *cUnicodeFonts::getCharacter(unsigned char font, const QChar &ch, un
 	return surface;	
 }*/
 
+stUnicodeCharInfo cUnicodeFonts::getCharacterInfo(uchar font, ushort ch) {
+	font %= 3;
+
+	QDataStream &dataStream = this->dataStream[font];
+
+	stUnicodeCharInfo result;
+	dataStream.device()->at(seekOffsets[font][ch]);
+	dataStream >> result.xoffset >> result.yoffset >> result.width >> result.height;
+	return result;
+}
+
+int cUnicodeFonts::getCharacterWidth(uchar font, const QString &text, uint i, QChar ch) {
+	font %= 3;
+
+	QDataStream &dataStream = this->dataStream[font];
+	int result = 0;
+
+	if (ch.latin1() == '\n') {
+		return 0;
+	} else if (ch.isSpace()) {
+		result += 7; // Space Width
+
+		if (i + 1 < text.length() && (text.at(i+1).latin1() != '\n')) {
+			result += 1;
+		}
+	} else {
+		signed char xoffset, yoffset, width, height;
+		dataStream.device()->at(seekOffsets[font][ch.unicode()]);
+		dataStream >> xoffset >> yoffset >> width >> height;
+
+		// Only process this if it's NOT the first character
+		if (i && width > - xoffset) {
+			width += xoffset; // add to the width (there are also negative xoffsets!!)
+		}
+
+		if (i == 0 || text.at(i-1).latin1() == '\n') {
+			// add another pixel if its the first character IN A LINE and a border should be drawn
+			width += 1;
+		}
+
+		width += 1;
+		result = width;
+	}
+
+	return result;
+}
+
 cUnicodeFonts *UnicodeFonts = 0; // Global cUnicodeFonts instance

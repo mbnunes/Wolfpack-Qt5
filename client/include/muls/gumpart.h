@@ -17,8 +17,16 @@ protected:
 		ushort hue;
 		bool partialHue;
 
-		operator <(const stGumpIdent &b) const {
-			return id + hue + (partialHue ? 1 : 0) < b.id + b.hue + (b.partialHue ? 1 : 0);
+		bool operator <(const stGumpIdent &b) const {
+			if (id != b.id) {
+				return id < b.id;
+			} else if (hue != b.hue) {
+				return hue < b.hue;
+			} else if (partialHue != b.partialHue) {
+				return !partialHue && b.partialHue;
+			} else {
+				return false;
+			}
 		}
 	};
 

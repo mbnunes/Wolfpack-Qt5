@@ -5,15 +5,15 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <QKeyEvent>
-#include <Q3CString>
 
 #include "exceptions.h"
 #include "uoclient.h"
 #include "gui/gui.h"
 #include "gui/textfield.h"
 #include "muls/asciifonts.h"
+#include "muls/unicodefonts.h"
 
-cTextField::cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue, unsigned short background, bool hueAll) {
+cTextField::cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue, unsigned short background, bool hueAll, bool unicodeMode) {
 	font_ = font;
 	hue_ = hue;
 	x_ = x;
@@ -32,6 +32,7 @@ cTextField::cTextField(int x, int y, int width, int height, unsigned char font, 
 	selection_ = 0;
 	password_ = false;
 	dirty = true;
+	unicodeMode_ = unicodeMode;
 	
 	for (int i = 0; i < 3; ++i) {
 		surfaces[i] = 0;
@@ -141,7 +142,7 @@ void cTextField::drawSelection(cSurface *surface) {
 
 void cTextField::update() {
 	// Extract the portion of the string we're going to work on
-	Q3CString substring = text_.right(text_.length() - leftOffset_);
+	QString substring = text_.right(text_.length() - leftOffset_);
 	
 	if (password_) {
 		for (unsigned int i = 0; i < substring.length(); ++i) {
@@ -153,38 +154,27 @@ void cTextField::update() {
 	// Make sure the text is cropped after X pixels
 
 	if (!surfaces[0]) {
-		surfaces[0] = AsciiFonts->buildText(font_, substring, hue_, false, ALIGN_LEFT, hueAll_);
-		/*if (selection_ != 0) {
-			drawSelection(surfaces[0]);
-		}*/
+		if (unicodeMode_) {		
+			surfaces[0] = UnicodeFonts->buildText(font_, substring, hue_, false, true, ALIGN_LEFT);
+		} else {
+			surfaces[0] = AsciiFonts->buildText(font_, substring.toLatin1(), hue_, false, ALIGN_LEFT, hueAll_);
+		}
 	}
 
 	if (!surfaces[1] && mouseOverHue_ != -1) {
-		surfaces[1] = AsciiFonts->buildText(font_, substring, mouseOverHue_, false, ALIGN_LEFT, hueAll_);
-		/*if (selection_ != 0) {
-			drawSelection(surfaces[1]);
-		}*/
-	}
-
-	if (!surfaces[1] && focusHue_ != -1) {
-		surfaces[1] = AsciiFonts->buildText(font_, substring, focusHue_, false, ALIGN_LEFT, hueAll_);
-		/*if (selection_ != 0) {
-			drawSelection(surfaces[2]);
-		}*/
+		if (unicodeMode_) {		
+			surfaces[1] = UnicodeFonts->buildText(font_, substring, mouseOverHue_, false, true, ALIGN_LEFT);
+		} else {
+			surfaces[1] = AsciiFonts->buildText(font_, substring.toLatin1(), mouseOverHue_, false, ALIGN_LEFT, hueAll_);
+		}		
 	}
 
 	if (!surfaces[2] && focusHue_ != -1) {
-		surfaces[2] = AsciiFonts->buildText(font_, substring, focusHue_, false, ALIGN_LEFT, hueAll_);
-		/*if (selection_ != 0) {
-			drawSelection(surfaces[2]);
-		}*/
-	}
-
-	if (!surfaces[2] && mouseOverHue_ != -1) {
-		surfaces[2] = AsciiFonts->buildText(font_, substring, mouseOverHue_, false, ALIGN_LEFT, hueAll_);
-		/*if (selection_ != 0) {
-			drawSelection(surfaces[2]);
-		}*/
+		if (unicodeMode_) {
+			surfaces[2] = UnicodeFonts->buildText(font_, substring, focusHue_, false, true, ALIGN_LEFT);
+		} else {
+			surfaces[2] = AsciiFonts->buildText(font_, substring.toLatin1(), focusHue_, false, ALIGN_LEFT, hueAll_);
+		}
 	}
 
 	dirty = false;
@@ -213,6 +203,61 @@ void cTextField::draw(int xoffset, int yoffset) {
 	// Draw the texture
 	if (texture) {
 		texture->draw(x_ + 7 + xoffset, y_ + yoffset);
+	}
+
+	bool drawSelection = false;
+	int selectionLeft, selectionRight;
+
+	if (selection_ < 0) {
+		int selectionX = caretXOffset_;
+		
+		// Iterate over all characters in the selection and calculate the entire width of the selection
+		for (int i = caret_ - 1; i >= (caret_ + selection_); --i) {
+			uchar charWidth;
+			getCharacterWidth(i, charWidth);
+            selectionX -= charWidth;
+
+			// We're leaving the visible area
+			if (selectionX <= 0) {
+				selectionX = 0;
+				break;
+			}
+		}
+
+		selectionLeft = selectionX;
+		selectionRight = caretXOffset_;
+		drawSelection = true;
+	} else if (selection_ > 0) {
+		int selectionX = caretXOffset_;
+		
+		// Iterate over all characters in the selection and calculate the entire width of the selection
+		for (int i = caret_; i < (caret_ + selection_); ++i) {
+			uchar charWidth;
+			getCharacterWidth(i, charWidth);
+            selectionX += charWidth;
+
+			// We're leaving the visible area
+			if (selectionX >= width_) {
+				selectionX = width_;
+				break;
+			}
+		}
+
+		selectionLeft = caretXOffset_;
+		selectionRight = selectionX;
+		drawSelection = true;
+	}
+
+	if (drawSelection) {
+		glDisable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);
+		glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+		glVertex2i(xoffset + x_ + 7 + selectionLeft, y_ + yoffset + 4);
+		glVertex2i(xoffset + x_ + 7 + selectionRight, y_ + yoffset + 4);
+		glVertex2i(xoffset + x_ + 7 + selectionRight, y_ + yoffset + (height_ - 4));
+		glVertex2i(xoffset + x_ + 7 + selectionLeft, y_ + yoffset + (height_ - 4));		
+		glEnd();
+		glEnable(GL_TEXTURE_2D);
 	}
 
 	// Caret als zwei linien zeichnen
@@ -298,7 +343,7 @@ void cTextField::onMouseEnter() {
 
 void cTextField::onKeyDown(QKeyEvent *e) {
 	int key = e->key();
-	Qt::ButtonState state = e->state();
+	Qt::KeyboardModifiers state = e->modifiers();
 
 	// Handle special chars
 	if (key == Qt::Key_Backspace) {
@@ -306,21 +351,34 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 		if (selection_ != 0) {
 			replaceSelection("");
 		} else if (caret_ > 0) {
-			setCaret(caret_ - 1);
-			text_.remove(caret_, 1);
+			if ((state & Qt::ControlModifier) != 0) {
+				do {
+					text_.remove(caret_ - 1, 1);
+					setCaret(caret_ - 1);
+				} while (caret_ > 0 && QChar(text_.at(caret_ - 1)).isLetterOrNumber());
+			} else {
+				setCaret(caret_ - 1);
+				text_.remove(caret_, 1);
+			}
 			invalidateText();
 		}
 	} else if (key == Qt::Key_Delete) {
 		if (selection_ != 0) {
 			replaceSelection("");
 		} else if (caret_ < text_.length()) {
- 			text_.remove(caret_, 1);
+			if ((state & Qt::ControlModifier) != 0) {
+				do {
+					text_.remove(caret_, 1);
+				} while (caret_ < text_.length() && QChar(text_.at(caret_)).isLetterOrNumber());
+			} else {
+				text_.remove(caret_, 1);
+			}
 			invalidateText();
 		}
 	} else if (key == Qt::Key_Left) {
 		if (caret_ > 0) {
 			setCaret(caret_ - 1);
-			if ((state & Qt::ShiftButton) != 0) {
+			if ((state & Qt::ShiftModifier) != 0) {
 				selection_++;
 				invalidateText();
 			} else {
@@ -333,7 +391,7 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 	} else if (key == Qt::Key_Right) {
 		if (caret_ < text_.length()) {
 			setCaret(caret_ + 1);
-			if ((state & Qt::ShiftButton) != 0) {
+			if ((state & Qt::ShiftModifier) != 0) {
 				selection_--;
 				invalidateText();
 			} else {
@@ -343,24 +401,23 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 				}
 			}
 		}
-	} else if (key == Qt::Key_V && (state & Qt::ControlButton) != 0) {
+	} else if (key == Qt::Key_V && (state & Qt::ControlModifier) != 0) {
 		QClipboard *clipboard = qApp->clipboard();
 		QString text = clipboard->text();
 		if (!text.isEmpty()) {
-			Q3CString ltext = text.latin1();
-			replaceSelection(ltext);
+			replaceSelection(text);
 		}
-	} else if (key == Qt::Key_C && (state & Qt::ControlButton) != 0) {
+	} else if (key == Qt::Key_C && (state & Qt::ControlModifier) != 0) {
 		QClipboard *clipboard = qApp->clipboard();
-		Q3CString text = getSelection();
+		QString text = getSelection();
 		if (!text.isEmpty()) {
-			clipboard->setText(QString(text), QClipboard::Clipboard);
+			clipboard->setText(text, QClipboard::Clipboard);
 		}
-	} else if (key == Qt::Key_X && (state & Qt::ControlButton) != 0) {
+	} else if (key == Qt::Key_X && (state & Qt::ControlModifier) != 0) {
 		QClipboard *clipboard = qApp->clipboard();
-		Q3CString text = getSelection();
+		QString text = getSelection();
 		if (!text.isEmpty()) {
-			clipboard->setText(QString(text), QClipboard::Clipboard);
+			clipboard->setText(text, QClipboard::Clipboard);
 			replaceSelection("");
 		}
 	} else if (key == Qt::Key_Return || key == Qt::Key_Enter) {
@@ -384,14 +441,20 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 		selection_ = 0;		
 		invalidateText();
 	} else if (text_.length() < maxLength_) {	
-		char ch = e->text().at(0).latin1();
+		QChar ch = e->text().at(0);
 
 		// Check if the character is supported by the current font.
-		if (ch != 0) {
-			cSurface *chs = AsciiFonts->getCharacter(font_, ch);
-			if (chs) {
-				Q3CString replacement;
-				replacement.insert(0, ch);
+		if (!ch.isNull()) {
+			bool supported = false;
+
+			if (unicodeMode_) {
+				supported = UnicodeFonts->isCharacterSupported(font_, ch.unicode());
+			} else {
+				supported = AsciiFonts->getCharacter(font_, ch.toLatin1()) != 0;
+			}
+
+			if (supported) {
+				QString replacement(ch);
 				replaceSelection(replacement);
 			}
 		}
@@ -417,13 +480,27 @@ void cTextField::setCaret(unsigned int pos) {
 		int width = 0;
 		int count = 0;
 		for (int i = text_.length() - 1; i >= 0; --i) {
-			cSurface *ch = AsciiFonts->getCharacter(font_, translateChar((char)text_.at(i)));
-			if (ch) {
-				if (width + ch->width() > width_ - 14) {
+			bool found = false;
+			int charWidth = 0;
+
+			if (unicodeMode_) {
+				QChar ch = translateChar(text_.at(i));
+				charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, ch);
+				found = charWidth > 0;
+			} else {
+				cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+				if (ch) {
+					found = true;
+					charWidth = ch->width();
+				}
+			}
+			
+			if (found) {
+				if (width + charWidth > width_ - 14) {
 					break;
 				}
 				++count;
-				width += ch->width();
+				width += charWidth;
 			}
 		}
 		caret_ = text_.length();
@@ -443,38 +520,74 @@ void cTextField::setCaret(unsigned int pos) {
 
 		// Just *change* the xoffset. Don't recalculate.
 		for (unsigned int i = start; i < end; ++i) {
-			cSurface *ch = AsciiFonts->getCharacter(font_, translateChar((char)text_.at(i)));
+			int charWidth = 0;
+			if (unicodeMode_) {
+				QChar ch = translateChar(text_.at(i));
+				charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, ch);
+			} else {
+				cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+				if (ch) {
+					charWidth = ch->width();
+				}
+			}
+
+			cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
 			if (ch) {
-				change += moveLeft ? - ch->width() : ch->width();
+				change += moveLeft ? (- charWidth) : charWidth;
 			}
 		}
 
-		// Modify the change while its too big
+		// Modify the change while its too small
 		if ((int)caretXOffset_ + change < 0) {
 			// Try to get 1/4 of the width_ into view
 			while (leftOffset_ > 0 && (int)caretXOffset_ + change < width_ / 4) {
-				cSurface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(--leftOffset_)));
-				if (chs) {
-					change += chs->width();
+				int charWidth = 0;
+				if (unicodeMode_) {
+					QChar ch = translateChar(text_.at(i));
+					charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, ch);
+				} else {
+					cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+					if (ch) {
+						charWidth = ch->width();
+					}
 				}
+				
+				change += charWidth;
+				leftOffset_--;
 			}
 		}
 
 		// Modify the change while its too big
 		if ((int)caretXOffset_ + change > width_ - 14) {
 			while (leftOffset_ < text_.length() && (int)caretXOffset_ + change > (width_ - 14) - (width_ - 14) / 4) {
-				cSurface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(leftOffset_++)));
-				if (chs) {
-					change -= chs->width();
+				int charWidth = 0;
+				if (unicodeMode_) {
+					QChar ch = translateChar(text_.at(i));
+					charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, ch);
+				} else {
+					cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+					if (ch) {
+						charWidth = ch->width();
+					}
 				}
+
+				change -= charWidth;
+				leftOffset_++;
 
 				// Which one got trough instead?
 				int totalWidth = 0;
 				for (int i = leftOffset_; totalWidth < width_ - 14 && i < (int)text_.length(); ++i) {
-					cSurface *chs = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
-					if (chs) {
-						totalWidth += chs->width();
+					int charWidth = 0;
+					if (unicodeMode_) {
+						QChar ch = translateChar(text_.at(i));
+						charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, ch);
+					} else {
+						cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+						if (ch) {
+							charWidth = ch->width();
+						}
 					}
+					totalWidth += charWidth;
 				}
 
 				if (totalWidth < width_ - 14) {
@@ -504,11 +617,21 @@ unsigned int cTextField::getOffset(int x) {
 	int offset  = 0;
 	int i;
 	for (i = leftOffset_; i < (int)text_.length(); ++i) {
-		cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
-		if (ch) {
+		int charWidth = 0;
+
+		if (unicodeMode_) {
+			charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, translateChar(text_.at(i)));
+		} else {
+            cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+			if (ch) {
+				charWidth = ch->width();
+			}
+		}
+
+		if (charWidth > 0) {
 			// Is it in this character?
-			if (x >= offset && x < offset + ch->width()) {
-				if (x - offset >= (ch->width() / 2)) {
+			if (x >= offset && x < offset + charWidth) {
+				if (x - offset >= (charWidth / 2)) {
 					// Insert caret before
 					return i + 1;
 				} else {
@@ -516,7 +639,7 @@ unsigned int cTextField::getOffset(int x) {
 					return i;
 				}
 			}
-			offset += ch->width();
+			offset += charWidth;
 		}
 	}
 
@@ -548,7 +671,7 @@ void cTextField::onMouseUp(QMouseEvent *e) {
 	cControl::onMouseUp(e);
 }
 
-void cTextField::replaceSelection(const Q3CString &replacement) {
+void cTextField::replaceSelection(const QString &replacement) {
 	// Delete the selection, reposition caret_, then reinsert
 	if (selection_ != 0) {
 		if (selection_ < 0) {
@@ -570,7 +693,7 @@ void cTextField::replaceSelection(const Q3CString &replacement) {
 	setCaret(caret_ + i);
 }
 
-Q3CString cTextField::getSelection() {
+QString cTextField::getSelection() {
 	if (selection_ < 0) {
 		return text_.mid(caret_ + selection_, - selection_);
 	} else if (selection_ > 0) {
@@ -582,4 +705,18 @@ Q3CString cTextField::getSelection() {
 
 void cTextField::onEnter() {
 	emit enterPressed(this);
+}
+
+bool cTextField::getCharacterWidth(uint i, uchar &charWidth) {
+	if (unicodeMode_) {
+		charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, translateChar(text_.at(i)));
+		return true;
+	} else {
+        cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+		if (ch) {
+			charWidth = ch->width();
+			return true;
+		}		
+	}
+	return false;
 }

@@ -22,7 +22,7 @@ const unsigned int sysMessageDecay = 10000;
 
 class cInputField : public cTextField {
 public:
-	cInputField(int x, int y, int width, int height) : cTextField(x, y, width, height, 3, 0, 0x2486) {
+	cInputField(int x, int y, int width, int height) : cTextField(x, y, width, height, 3, 0, 0x2486, false, true) {
 		// Set background transparency
 		background_->setAlpha(0.5);
 	}
@@ -132,6 +132,10 @@ void cWorldView::cancelTarget() {
 
 cControl *cWorldView::getControl(int x, int y) {
 	if (x >= 0 && y >= 0 && x < width_ && y < height_) {
+		cControl *ctrl = cContainer::getControl(x, y);
+		if (ctrl == inputField) {
+			return inputField;
+		}
 		return this;
 	} else {
 		return 0;

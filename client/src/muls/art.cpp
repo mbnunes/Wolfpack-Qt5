@@ -521,7 +521,7 @@ cTexture *cArt::readLandTexture(unsigned short id) {
 }
 
 cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool partialhue) {
-	stArtIdent ident;
+ 	stArtIdent ident;
 	ident.id = id + 0x4000;
 	ident.hue = hue;
 	ident.partialHue = partialhue;
@@ -539,7 +539,8 @@ cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool part
 			memcpy(newIdent, &ident, sizeof(stArtIdent));
 			result->setIdentifier(newIdent);
 			result->setCache(this);
-		}
+			return result;
+		}		
 	} else {
 		cTexture *result = it.data();
 		result->incref();

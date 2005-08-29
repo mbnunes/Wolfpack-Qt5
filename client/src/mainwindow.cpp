@@ -362,6 +362,18 @@ void cGLWidget::resizeGL( int w, int h ) {
 }
 
 void cGLWidget::paintGL() {
+	// Check for current FPS
+	static unsigned int nextMeasurement = 0;
+	static unsigned int framesDrawn = 0;
+
+	if (nextMeasurement < Utilities::getTicks()) {
+		parentWidget()->setWindowTitle(tr("Ultima Online (%1 fps)").arg(framesDrawn));
+		framesDrawn = 0;
+		nextMeasurement = Utilities::getTicks() + 1000;
+	}
+
+	++framesDrawn;
+
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 

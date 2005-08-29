@@ -375,11 +375,11 @@ void cWorld::checkRoofs() {
 		cWorld::Cell cell = *entities.find(cellid);
 
 		for (CellIterator it = cell.begin(); it != cell.end(); ++it) {
-			cStaticTile *staticTile = dynamic_cast<cStaticTile*>(*it);
-
-			if (staticTile && staticTile->z() > Player->z() + 15) {
-				if (staticTile->z() < roofCap_) {
-					if (staticTile->tiledata()->isRoof()) {
+			cEntity *entity = (*it);
+			if (entity->type() == STATIC || entity->type() == ITEM || entity->type() == GROUND) {
+				if (entity->z() > Player->z() + 15 && entity->z() < roofCap_) {
+					cStaticTile *staticTile = dynamic_cast<cStaticTile*>(*it);
+					if (entity->type() == GROUND || staticTile && staticTile->tiledata()->isRoof()) {	
 						roofCap_ = Player->z() + 15;
 					}
 				}

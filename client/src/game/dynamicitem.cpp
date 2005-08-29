@@ -81,7 +81,6 @@ void cDynamicItem::cleanPosition() {
 
 void cDynamicItem::setId(unsigned short data) {
 	cStaticTile::setId(data);
-
 }
 
 void cDynamicItem::setHue(unsigned short data) {

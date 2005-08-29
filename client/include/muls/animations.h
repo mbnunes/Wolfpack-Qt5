@@ -18,11 +18,20 @@ struct stSequenceIdent {
 	unsigned char direction;
 	unsigned short hue;
 	bool partialhue;
-
-	bool operator < (const stSequenceIdent &b) const {
-		return (body + action + direction + hue + (partialhue ? 1 : 0)) < (b.body + b.action + b.direction + b.hue + (b.partialhue ? 1 : 0));
-	}
 };
+
+inline bool operator < (const stSequenceIdent &a, const stSequenceIdent &b) {
+	if (a.body != b.body) {
+		return a.body < b.body;
+	} else if (a.action != b.action) {
+		return a.action < b.action;
+	} else if (a.direction != b.direction) {
+		return a.direction < b.direction;
+	} else if (a.hue != b.hue) {
+		return a.hue < b.hue;
+	}
+	return !a.partialhue && b.partialhue;
+}
 
 /*
 	One character animation action.

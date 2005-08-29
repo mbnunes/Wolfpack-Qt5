@@ -9,6 +9,13 @@
 #include "enums.h"
 #include "utilities.h"
 
+struct stUnicodeCharInfo {
+	uchar width;
+	uchar height;
+	signed char xoffset;
+	signed char yoffset;
+};
+
 class cUnicodeFonts {
 private:
 	// Since the unicode fonts are too big, we'll only cache the indexers into the file
@@ -26,11 +33,21 @@ public:
 	void reload();
 
 	// Build a text string
+	bool isCharacterSupported(uchar font, ushort ch) const;
 	cTexture *buildText(unsigned char font, const QString &text, unsigned short hue = 0, bool shaded = false, bool border = false, enTextAlign align = ALIGN_LEFT);
-	//SDL_Surface *getCharacter(unsigned char font, const QChar &ch, unsigned short hue = 0, bool border = false);
-	//SDL_Surface *buildText(unsigned char font, const QCString &text, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT);
-	//SDL_Surface *buildTextWrapped(unsigned char font, const QCString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT);
+    stUnicodeCharInfo getCharacterInfo(uchar font, ushort ch);
+	int getCharacterWidth(uchar font, const QString &text, uint pos, QChar ch);
 };
+
+inline bool cUnicodeFonts::isCharacterSupported(uchar font, ushort ch) const {
+	font %= 3;
+
+	if (seekOffsets[font][ch] != ~0) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
 extern cUnicodeFonts *UnicodeFonts;
 

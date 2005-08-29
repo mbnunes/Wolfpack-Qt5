@@ -5,6 +5,7 @@
 #include "game/dynamicitem.h"
 #include "muls/tiledata.h"
 #include "mainwindow.h"
+#include "gui/worldview.h"
 
 // Draw order for layers dependant on direction facing
 // -1 terminates
@@ -161,6 +162,12 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		return;
 	}
 
+	// Test for smoother player movement
+	if (this == Player) {
+		cellx = WorldView->x() + WorldView->width() / 2;
+		celly = WorldView->y() + WorldView->height() / 2;
+	}
+
 	// See if the current action expired
 	if (currentActionEnd_ != 0 && currentActionEnd_ < Utilities::getTicks()) {
 		freeSequence(); // Free current surface
@@ -183,7 +190,7 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 			smoothMoveEnd = 0;
 			World->removeEntity(this);
 			World->addEntity(this);
-		} else {
+		} else if (this != Player) {
 			if (moveProgress <= 0) {
 				cellx += drawxoffset;
 				celly += drawyoffset;
