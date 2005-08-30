@@ -25,6 +25,7 @@ private:
 		cControl *control; // The control representing the text
         int centerx, centery; // If no entity is specified these are fixed coordinates
 		cEntity *entity; // If only one text per entity should be allowed, set this to the pointer of the entity.
+		bool itemName; // There will only be one item-name on screen at a time for an item. This is the flag for this.
 	};
 
 	QVector<cControl*> deleteQueue;
@@ -34,6 +35,7 @@ public:
 	virtual ~cGui();
 
 	void queueDelete(cControl *ctrl);
+	void addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0);
 	void addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0);
 	void removeOverheadText(cEntity *source);
 	

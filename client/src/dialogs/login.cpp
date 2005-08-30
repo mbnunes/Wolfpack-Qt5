@@ -926,10 +926,12 @@ void cLoginDialog::statusOkClicked(cControl *sender) {
 
 void cLoginDialog::charSelected(cControl *sender) {
 	int selected = charSelectWidget->selectedCharacter();
-
-	show(PAGE_ENTERING);
-	cPlayMobilePacket packet(selected);
-	UoSocket->send(packet);
+    
+	if (selected != -1) {
+		show(PAGE_ENTERING);
+		cPlayMobilePacket packet(selected);
+		UoSocket->send(packet);
+	}
 }
 
 cLoginDialog *LoginDialog = 0;

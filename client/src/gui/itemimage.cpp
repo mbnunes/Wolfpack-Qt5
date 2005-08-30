@@ -43,7 +43,7 @@ void cItemImage::setItem(unsigned short id, unsigned short hue, bool partialhue,
 			width_ = item->realWidth();
 			height_ = item->realHeight();
 			onChangeBounds(x_, y_, oldwidth, oldheight);
-		}		
+		}
 	}
 }
 

@@ -7,6 +7,7 @@
 #include "utilities.h"
 #include "muls/unicodefonts.h"
 #include "muls/hues.h"
+#include <QStringList>
 
 cUnicodeFonts::cUnicodeFonts() {
 }
@@ -50,6 +51,49 @@ void cUnicodeFonts::unload() {
 void cUnicodeFonts::reload() {
 	unload();
 	load();
+}
+
+cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, bool border, enTextAlign align) {
+	// Insert Newslines if the word would exceed the maxWidth boundary
+	unsigned int lineLength = 0;
+	QString wrapped;
+	unsigned int spaceWidth = 7;
+
+	// Split into words using the spaces
+	QStringList parts = QStringList::split(" ", text);
+	QStringList::const_iterator it;
+	for (it = parts.begin(); it != parts.end(); ++it) {
+		QString word = *it;
+		bool first = (it == parts.begin());
+		unsigned int wordWidth = 0;
+		unsigned int i;
+		bool firstInLine = lineLength == 0;
+		for (i = 0; i < word.length(); ++i) {
+			wordWidth += getCharacterWidth(font, word.at(i), firstInLine);
+		}
+
+		if (!first) {
+			wordWidth += spaceWidth;
+		}
+
+		// Check if the word still fits
+		if (lineLength > 0 && lineLength + wordWidth > maxWidth) {
+			wrapped += "\n";
+			if (!first) {
+				wordWidth -= spaceWidth; // We're not prepending the space anyway
+			}
+			lineLength = wordWidth;
+		} else {
+			if (!first) {
+				wrapped += " ";				
+			}
+			lineLength += wordWidth;
+		}
+
+		wrapped += word;
+	}
+
+	return buildText(font, wrapped, hue, shaded, border, align);
 }
 
 /*
@@ -397,6 +441,38 @@ int cUnicodeFonts::getCharacterWidth(uchar font, const QString &text, uint i, QC
 		}
 
 		if (i == 0 || text.at(i-1).latin1() == '\n') {
+			// add another pixel if its the first character IN A LINE and a border should be drawn
+			width += 1;
+		}
+
+		width += 1;
+		result = width;
+	}
+
+	return result;
+}
+
+int cUnicodeFonts::getCharacterWidth(uchar font, QChar ch, bool first) {
+	font %= 3;
+
+	QDataStream &dataStream = this->dataStream[font];
+	int result = 0;
+
+	if (ch.latin1() == '\n') {
+		return 0;
+	} else if (ch.isSpace()) {
+		result += 8; // Space Width (Including 1 xoffset)
+	} else {
+		signed char xoffset, yoffset, width, height;
+		dataStream.device()->at(seekOffsets[font][ch.unicode()]);
+		dataStream >> xoffset >> yoffset >> width >> height;
+
+		// Only process this if it's NOT the first character
+		if (!first && width > - xoffset) {
+			width += xoffset; // add to the width (there are also negative xoffsets!!)
+		}
+
+		if (first) {
 			// add another pixel if its the first character IN A LINE and a border should be drawn
 			width += 1;
 		}

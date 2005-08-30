@@ -25,8 +25,8 @@ protected:
 	unsigned int nextFrame;
 	unsigned int frame;
 	cSequence *sequence_; // Current sequence
-	cSequence *equipmentSequences[LAYER_VISIBLECOUNT]; // For every layer a possible sequence
-	cDynamicItem *equipment[LAYER_VISIBLECOUNT];
+	cSequence *equipmentSequences[LAYER_COUNT]; // For every layer a possible sequence
+	cDynamicItem *equipment[LAYER_COUNT];
 	QVector<cDynamicItem*> invisibleEquipment;
 
 	void freeSequence();
@@ -39,7 +39,7 @@ protected:
 	int drawxoffset; // Draw x offset from new tile to old tile
 	int drawyoffset; // Draw y offset from new tile to old tile
 	unsigned int smoothMoveTime; // Duration of smooth move effect
-	unsigned int smoothMoveEnd; // End time of the smooth move effect
+	unsigned int smoothMoveEnd; // End time of the smooth move effect	
 public:
 	cMobile(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial);
 	virtual ~cMobile();
@@ -58,6 +58,7 @@ public:
 	void setHue(unsigned short data);
 	void setDirection(unsigned char data);
 	unsigned char currentAction() const;
+	ushort currentMountAction() const;
 	unsigned int currentActionEnd() const;
 	cSequence *sequence() const;
 	void setSerial(unsigned int serial); // Only use this on the player
@@ -78,6 +79,8 @@ public:
 	void refreshEquipment(enLayer layer);
 
 	void processFlags(uchar flags);
+
+	uint getCurrentHeight();
 };
 
 inline void cMobile::setDead(bool data) {

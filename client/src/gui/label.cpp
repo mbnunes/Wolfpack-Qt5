@@ -27,10 +27,21 @@ void cLabel::update() {
 		surface->decref();
 	}
 
-	surface = UnicodeFonts->buildText(font_, text_, hue_, false, border_, align_);
+	if (autoSize_ || width_ == 0) {
+		surface = UnicodeFonts->buildText(font_, text_, hue_, false, border_, align_);
+	} else {
+		surface = UnicodeFonts->buildTextWrapped(font_, text_, width_, hue_, false, border_, align_);
+	}
 
 	if (autoSize_ && surface) {
 		setSize(surface->realWidth(), surface->realHeight());
+	} else if (!autoSize_ && surface) {
+		if (!height_) {
+			setHeight(surface->realHeight());
+		}
+		if (!width_) {
+			setWidth(surface->realWidth());
+		}
 	} else if (!surface) {
 		setSize(0, 0);
 	}

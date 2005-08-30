@@ -23,11 +23,30 @@ cSound::cSound() {
 
 void cSound::load() {
 	// Try to open the preferred device
+#if defined(NO_DIRECTSOUND)
+	device = alcOpenDevice("MMSYSTEM");
+#else
 	device = alcOpenDevice(0);
+#endif
 
 	// Unable to initialize?
 	if (!device) {
 		throw new Exception(tr("Unable to open the preferred OpenAL device."));
+	}
+
+	// Print the used device name to the logfile
+	const char *deviceName = alcGetString(device, ALC_DEVICE_SPECIFIER);
+	if (deviceName) {
+		Log->print(LOG_NOTICE, tr("Using OpenAL device '%1' for sound output.\n").arg(deviceName));
+	} else {
+		Log->print(LOG_NOTICE, tr("Unable to obtain OpenAL device name for sound output.\n"));
+	}
+
+	const char *extensionString = alcGetString(device, ALC_EXTENSIONS);
+	if (extensionString) {
+		Log->print(LOG_NOTICE, tr("Supported OpenAL extensions: %1\n").arg(extensionString));
+	} else {
+		Log->print(LOG_NOTICE, tr("Unable to obtain list of supported OpenAL extensions.\n"));
 	}
 
 	// Try to create a context

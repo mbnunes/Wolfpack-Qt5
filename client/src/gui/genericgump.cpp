@@ -188,7 +188,7 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 	}
 	// tilepic <x> <y> <gump> <hue?>
 	else if (command == "tilepic" && tokens.size() >= 4) {
-		cItemImage *gump = new cItemImage(tokens[3].toUShort(), tokens[4].toUShort());
+		cItemImage *gump = new cItemImage(tokens[3].toUShort());
 		gump->setPosition(tokens[1].toInt(), tokens[2].toInt());
 		gump->setMoveHandle(true);
 		addControl(context.page, gump);

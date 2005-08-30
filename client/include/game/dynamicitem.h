@@ -41,11 +41,17 @@ public:
 	void setHue(unsigned short data);
 
 	void cleanPosition(); // Removes the item from its current position and moves it into the limbo
+
+	int lastClickX() const;
+	int lastClickY() const;
 protected:
 	State positionState_;
 	cDynamicItem *container_; // Container (only valid in Contained state)
 	cMobile *wearer_; // The mobile equipping this item (only valid in Equipped state)
 	enLayer layer_; // The layer this item is equipped on (only valid in Equipped state)
+
+	int lastClickX_;
+	int lastClickY_;
 };
 
 
@@ -63,6 +69,14 @@ inline enLayer cDynamicItem::layer() const {
 
 inline cDynamicItem::State cDynamicItem::positionState() const {
 	return positionState_;
+}
+
+inline int cDynamicItem::lastClickX() const {
+	return lastClickX_;
+}
+
+inline int cDynamicItem::lastClickY() const {
+	return lastClickY_;
 }
 
 #endif

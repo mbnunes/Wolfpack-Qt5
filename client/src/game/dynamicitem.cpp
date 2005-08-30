@@ -11,6 +11,8 @@ cDynamicItem::cDynamicItem(unsigned short x, unsigned short y, signed char z, en
 	container_ = 0;
 	positionState_ = InWorld; // Contrusctor take care of movement
 	World->addEntity(this);
+	lastClickX_ = 0;
+	lastClickY_ = 0;
 }
 
 cDynamicItem::cDynamicItem(cDynamicItem *container, unsigned int serial) : cDynamicEntity(serial) {
@@ -88,6 +90,8 @@ void cDynamicItem::setHue(unsigned short data) {
 }
 
 void cDynamicItem::onClick(QMouseEvent *e) {
+	lastClickX_ = e->x() - drawx_;
+	lastClickY_ = e->y() - drawy_;
 	UoSocket->send(cSingleClickPacket(serial_));
 }
 

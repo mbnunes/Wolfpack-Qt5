@@ -187,6 +187,10 @@ public:
 			mobile = new cMobile(posx, posy, posz, World->facet(), serial);
 			World->addEntity(mobile);
 			entity = mobile;
+
+			// Since the mobile is new, make sure to request it's name
+			// Configure option here?
+			UoSocket->send(cSingleClickPacket(serial));
 		} else if (!entity) {
 			return; // No support for items
 		}
@@ -324,11 +328,20 @@ public:
 	}
 
 	virtual void handle(cUoSocket *socket) {
-		cDynamicItem *item = World->findItem(serial);
+		if (Utilities::isItemSerial(serial)) {
+			cDynamicItem *item = World->findItem(serial);
 
-		if (item) {
-			item->cleanPosition();
-			item->decref();
+			if (item) {
+				item->cleanPosition();
+				item->decref();
+			}
+		} else if (Utilities::isMobileSerial(serial)) {
+			cMobile  *mobile = World->findMobile(serial);
+
+			if (mobile && Player != mobile) {
+				World->removeEntity(mobile);
+				mobile->decref();
+			}
 		}
 	}
 
@@ -388,11 +401,20 @@ public:
 			return; // Only process messages when ingame
 		}
 
+		cMobile *mobile = World->findMobile(serial);
+		cDynamicItem *item = World->findItem(serial);
+
 		// System Message
-		if (Utilities::isInvalidSerial(serial)) {
+		if (!mobile && !item) {
+			if (Utilities::isMobileSerial(serial) && !name.isEmpty()) {
+				message.prepend("<");
+				message.prepend(name);
+				message.prepend("> ");
+			}
+
 			WorldView->addSysMessage(message, hue, font);
-		} else if (Utilities::isMobileSerial(serial)) {
-			WorldView->addSysMessage(QString("<%1> %2").arg(name).arg(message), hue, font);
+		} else if (mobile) {
+			Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile);
 		}
 	}
 
@@ -712,7 +734,7 @@ public:
 
 				if (item) {
 					QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
-					Gui->addOverheadText(pos.x() - item->drawx(), pos.y() - item->drawy(), 3000, localized, hue, font, item);
+					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, localized, hue, font, item);
 				} else {
 					serial = 0; // Set to invalid so it shows up as a sysmessage
 				}
@@ -732,3 +754,73 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xc1, cPredefinedMessagePacket::creator);
+
+
+// Incoming ascii message
+class cAsciiMessagePacket : public cDynamicIncomingPacket {
+protected:
+	unsigned int serial; // Serial of source object
+	unsigned short model; // Model of source object (whatever thats for..)
+	unsigned char type; // Type of incoming message
+	unsigned short hue;
+	unsigned short font;
+	QString name; // Name of source object
+	QString message; // Message content
+public:
+	cAsciiMessagePacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(45);
+		input >> serial >> model >> type >> hue >> font;
+
+		// Object Name
+		char strName[31];
+		input.readRawBytes(strName, 30);
+		strName[30] = 0;
+		name = strName;
+
+		// Null terminated ascii string
+		uint length = size - 44; // this includes the null byte
+		char *strMessage = new char[length];
+		input.readRawBytes(strMessage, length);
+        strMessage[length-1] = 0; // ENSURE null termination
+        
+		message = QString::fromLatin1(strMessage);
+
+		delete [] strMessage;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		if (Utilities::isItemSerial(serial)) {
+			// "You see:" message
+			if (type == 6) {
+				cDynamicItem *item = World->findItem(serial);
+
+				if (item) {
+					QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, message, hue, font, item);
+				} else {
+					serial = 0; // Set to invalid so it shows up as a sysmessage
+				}
+			}
+		} else if (Utilities::isMobileSerial(serial)) {
+			cMobile *mobile = World->findMobile(serial);
+
+			if (mobile) {
+				if (type == 6) {
+					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile);
+				} else {
+					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile);
+				}
+			}
+		}
+		
+		if (Utilities::isInvalidSerial(serial)) {
+			WorldView->addSysMessage(message, hue, font);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cAsciiMessagePacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x1c, cAsciiMessagePacket::creator);

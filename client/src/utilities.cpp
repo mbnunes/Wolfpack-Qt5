@@ -85,6 +85,134 @@ namespace Utilities {
 				return "enu";
 		}
 	}
+
+	ushort getMountBody(ushort id) {
+		switch (id) {
+			case 0x3ea0:
+				return 0xe2;
+
+			case 0x3ea1:
+				return 0xe4;
+
+			case 0x3ea2:
+				return 0xcc;
+
+			case 0x3ea3:
+				return 0xd2;
+
+			case 0x3ea4:
+				return 0xda;
+
+			case 0x3ea5:
+				return 0xdb;
+
+			case 0x3ea6:
+				return 0xdc;
+
+			case 0x3ea7:
+				return 0x74;
+
+			case 0x3ea8:
+				return 0x75;
+
+			case 0x3ea9:
+				return 0x72;
+
+			case 0x3eaa:
+				return 0x73;
+
+			case 0x3eab:
+				return 0xaa;
+
+			case 0x3eac:
+				return 0xab;
+
+			case 0x3ead:
+				return 0x84;
+
+			case 0x3eb4:
+				return 0x7a;
+
+			case 0x3eaf:
+				return 0x78;
+
+			case 0x3eb0:
+				return 0x79;
+
+			case 0x3eb1:
+				return 0x77;
+
+			case 0x3eb2:
+				return 0x76;
+
+			case 0x3eb3:
+				return 0x90;
+
+			case 0x3eb5:
+				return 0xb1;
+
+			case 0x3eb6:
+				return 0xb2;
+
+			case 0x3eb7:
+				return 0xb3;
+
+			case 0x3eb8:
+				return 0xbc;
+
+			case 0x3eba:
+				return 0xbb;
+
+			case 0x3ebb:
+				return 0x319;
+
+			case 0x3ebc:
+				return 0x317;
+
+			case 0x3ebd:
+				return 0x31a;
+
+			case 0x3ebe:
+				return 0x31f;
+
+			case 0x3e9e:
+				return 0xbe;
+
+			case 0x3e9c:
+				return 0xbf;
+
+			case 0x3e9b:
+			case 0x3e9d:
+				return 0xc0;
+
+			case 0x3e9a:
+				return 0xc1;
+
+			case 0x3e98:
+				return 0xc2;
+
+			case 0x3e97:
+				return 0xc3;
+
+			case 0x3e94:
+				return 0xf3;
+
+			case 0x3e95:
+				return 0xa9;
+
+			case 0x3e90:
+				return 0x114;
+
+			case 0x3e91:
+				return 0x115;
+
+			case 0x3e92:
+				return 0x11c;
+
+			default:
+				return 0xc8;
+		}
+	}
 };
 
 MTRand *Random = 0; // global rnd object

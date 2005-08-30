@@ -59,8 +59,7 @@ public:
 	virtual ~cUoSocket();
 
 	// Initiate connection to a remote server
-	void connect(const QString &host, unsigned short port, bool gameServer = false);
-	void disconnect();
+	void connect(const QString &host, unsigned short port, bool gameServer = false);	
 	void setSeed(unsigned int seed);
 	unsigned int seed() const;
 	uint moveSequence() const;
@@ -69,9 +68,6 @@ public:
 	uint popSequence();
 	void clearSequenceQueue();
 	uint sequenceQueueLength();
-
-	// Poll for new packets and other events.
-	void poll();
 
 	// Queue a given byte array for sending it to the server
 	void sendRaw(const QByteArray &data);
@@ -104,6 +100,9 @@ public slots:
 	void readyRead();
 	void bytesWritten(int nbytes);
 	void error(int error);
+	void poll();
+	void disconnect();
+	void sendPing();
 };
 
 // There is only one instance of the UoSocket class

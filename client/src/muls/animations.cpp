@@ -70,6 +70,19 @@ bool cSequence::hitTest(int frame, int x, int y, bool flip) {
 	return true;
 }
 
+int cSequence::getFrameTop(int frame) {
+	if (!texture_) {
+		return 0;
+	}
+
+	if (frame < 0 || frame >= frameCount_) {
+		return 0; // Invalid frame id
+	}
+
+	stFrame &info = frames[frame];
+	return - info.height - info.centery;
+}
+
 void cSequence::draw(int frame, int cellx, int celly, bool flip, float alpha) {
 	if (!texture_) {
 		return;

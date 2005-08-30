@@ -77,9 +77,9 @@ static void pushData(QByteArray &array, unsigned int &byteoffset, unsigned int &
 cSendUnicodeSpeechPacket::cSendUnicodeSpeechPacket(enSpeechType type, const QString &message, unsigned short color, unsigned char font, const QString &language) : cOutgoingPacket(0xad, 14) {
 	QVector<unsigned short> keywords = Speech->match(message); // Speech.mul keywords
 
-	for (int i = 0; i < keywords.size(); ++i) {
+	/*for (int i = 0; i < keywords.size(); ++i) {
 		Log->print(LOG_MESSAGE, QString("Text '%1' contains Keyword %2.\n").arg(message).arg(keywords[i]));
-	}
+	}*/
 
 	// Prepare the language string for the speech.
 	char lang[4] = "enu";
@@ -163,4 +163,8 @@ cMoveRequestPacket::cMoveRequestPacket(uchar direction, uchar sequence, uint fas
 
 cSingleClickPacket::cSingleClickPacket(uint serial) : cOutgoingPacket(0x09, 5) {
 	m_Stream << serial;
+}
+
+cPingPacket::cPingPacket(uchar sequence) : cOutgoingPacket(0x73, 2) {
+	m_Stream << sequence;
 }

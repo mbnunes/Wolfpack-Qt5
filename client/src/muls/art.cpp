@@ -376,7 +376,7 @@ cSurface *cArt::readLandSurface(unsigned short id, bool texture) {
 				unsigned int pixel;
 
 				if (color == 0) {
-					color = 8; // make sure land tiles aren't transparent
+					color = surface->color(8); // make sure land tiles aren't transparent
 				}
 
 				// Process the color only if its not transparent

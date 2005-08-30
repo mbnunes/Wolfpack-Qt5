@@ -69,6 +69,9 @@ public:
 	cSequence(unsigned short body, unsigned char action, unsigned char direction, unsigned short hue = 0, bool partialHue_ = false);
 	~cSequence();
 
+	// Get the top of a frame relative to the bottom of the cell
+	int getFrameTop(int frame);
+
 	cTexture *texture() const;
 	unsigned short body() const;
 	unsigned char action() const;

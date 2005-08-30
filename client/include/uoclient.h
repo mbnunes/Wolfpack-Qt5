@@ -10,8 +10,6 @@ class cUoClient {
 private:
 	void load();
 	void unload();
-	bool running_; // Indicates whether the client is still running
-	QMutex mutex; // Global client mutex (very dirty)
 public:
 	cUoClient();
 	~cUoClient();
@@ -20,20 +18,10 @@ public:
 	void unlock();
 
 	void run();
-
-	bool running() { return running_; }
-	void quit() { running_ = false; }
+	void quit();
 
 	void errorMessage(const QString &message, const QString &title = "Error");
 };
-
-inline void cUoClient::lock() {
-	mutex.lock();
-}
-
-inline void cUoClient::unlock() {
-	mutex.unlock();
-}
 
 extern cUoClient *Client;
 

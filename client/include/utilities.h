@@ -98,6 +98,9 @@ namespace Utilities {
 		return !isItemSerial(serial) && !isMobileSerial(serial);
 	}
 
+	// Translate an equipment item id into a valid body id for a mount
+	ushort getMountBody(ushort id);
+
 	inline void calcXYFromDirection(unsigned char direction, int &xdiff, int &ydiff) {
 		direction &= 0xf;
 		switch (direction) {

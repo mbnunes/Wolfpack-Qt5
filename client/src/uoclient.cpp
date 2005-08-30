@@ -44,15 +44,31 @@
 #include "windows/gmtoolwnd.h"
 #endif
 
+void myMessageOutput( QtMsgType type, const char *msg )
+{
+    switch ( type ) {
+        case QtDebugMsg:
+			// This is crazy...
+			// Log->print(LOG_DEBUG, tr("QT Debug: %1\n").arg(msg));
+            break;
+        case QtWarningMsg:
+			Log->print(LOG_WARNING, tr("QT Warning: %1\n").arg(msg));
+            break;
+        case QtFatalMsg:
+			Log->print(LOG_ERROR, tr("QT Fatal: %1\n").arg(msg));
+			break;
+		default:
+			Log->print(LOG_NOTICE, tr("%1\n").arg(msg));
+			break;
+    }
+}
+
 cUoClient::cUoClient() {
-	running_ = true;
-
-	UoSocket = new cUoSocket();
-
-	Random = new MTRand();
-
 	Config = new cConfig();
 	Log = new cLog();
+
+	UoSocket = new cUoSocket();
+	Random = new MTRand();
 	Gui = new cGui();
 	Cursor = new cCursor();
 
@@ -165,31 +181,15 @@ void cUoClient::unload() {
 	Log->print("-----------------------------------------------------------------------------\n\n", false);
 }
 
-void myMessageOutput( QtMsgType type, const char *msg )
-{
-    switch ( type ) {
-        case QtDebugMsg:
-			// This is crazy...
-			// Log->print(LOG_DEBUG, tr("QT Debug: %1\n").arg(msg));
-            break;
-        case QtWarningMsg:
-			Log->print(LOG_WARNING, tr("QT Warning: %1\n").arg(msg));
-            break;
-        case QtFatalMsg:
-			Log->print(LOG_ERROR, tr("QT Fatal: %1\n").arg(msg));
-			break;
-    }
-}
-
 // Main Widget
 #include "mainwindow.h"
 
 void cUoClient::run()
 {
-	qInstallMsgHandler(myMessageOutput); // Install handler
-
 	Config->setFile("config.xml"); // Default Config File
 	Config->load(); // Load configuration (has to come first)
+
+	qInstallMsgHandler(myMessageOutput); // Install handler
 	
 	Log->print("-----------------------------------------------------------------------------\n", false);
 	Log->print(tr("Starting Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
@@ -233,15 +233,11 @@ void cUoClient::run()
 	enableGmToolWnd();
 #endif
 
-	while (running()) {
-		qApp->processEvents();
-		UoSocket->poll(); // Poll network connection
-
-		// Quit if the main window is hidden
-		if (!window->isShown()) {
-			running_ = false;
-		}
-	}
+	QTimer networkTimer;
+	QObject::connect(&networkTimer, SIGNAL(timeout()), UoSocket, SLOT(poll()));
+	networkTimer.start(10, false); // Poll the network socket every 10 ms
+	qApp->exec(); // Enter the main event loop
+	networkTimer.stop(); // Stop the network timer
 
 #if defined(Q_OS_WIN32)
 	disableGmToolWnd();
@@ -262,6 +258,10 @@ void cUoClient::errorMessage(const QString &message, const QString &title) {
 	while (box.isVisible()) {
 		qApp->processEvents();
 	}
+}
+
+void cUoClient::quit() {
+	qApp->mainWidget()->close();
 }
 
 cUoClient *Client = 0; // Global Client Instance

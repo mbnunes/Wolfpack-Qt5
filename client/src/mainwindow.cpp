@@ -17,7 +17,6 @@
 #include <qlayout.h>
 #include <qdatetime.h>
 #include <qmenubar.h>
-#include <qthread.h>
 #include <qtimer.h>
 //Added by qt3to4:
 #include <QMouseEvent>
@@ -155,11 +154,9 @@ static const char * const icon_xpm[] = {
 MainWindow::MainWindow() {
 	QAction *action;
 
-	resize(640, 480); // Default size
-
 	// Window Icon
 	QPixmap pixmap((const char**)icon_xpm);
-		setIcon(pixmap);
+	setIcon(pixmap);
 
 	// Create the File menu
 	QMenu *file = new QMenu(this);
@@ -225,6 +222,8 @@ MainWindow::MainWindow() {
 	connect(helpMenu, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));	
 
 	cacheStatistics = new cCacheStatistics(this);
+
+	resize(640, 480); // Default size
 }
 
 void MainWindow::menuGameClicked(QAction *action) {
@@ -277,7 +276,7 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 
 	// Update Timer
 	QTimer *timer = new QTimer(this);
-	timer->setInterval(15); // 10ms redraw interval (max. 100fps)
+	timer->setInterval(20); // 15ms redraw interval (max. 100fps)
 	timer->setSingleShot(false);
 	connect(timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer->start();
@@ -390,8 +389,6 @@ void cGLWidget::paintGL() {
 
 	Gui->draw(); // Draw the GUI controls
 	Cursor->draw(); // Draw the Cursor Overlay
-
-	QObject::thread()->wait(1);
 }
 
 void cGLWidget::mouseMoveEvent(QMouseEvent *e) {

@@ -84,4 +84,10 @@ public:
 	cSingleClickPacket(uint serial);
 };
 
+// 0x73 Ping Message
+class cPingPacket : public cOutgoingPacket {
+public:
+	cPingPacket(uchar sequence);
+};
+
 #endif

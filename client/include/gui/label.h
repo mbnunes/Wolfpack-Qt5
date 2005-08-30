@@ -88,7 +88,7 @@ public:
 	inline void setAutoSize(bool autoSize) {
 		if (autoSize != autoSize_) {
 			autoSize_ = autoSize;
-			if (surface && autoSize && (unsigned int)width_ != surface->realWidth() && (unsigned int)height_ != surface->realHeight()) {
+			if (surface && autoSize && ((unsigned int)width_ != surface->realWidth() || (unsigned int)height_ != surface->realHeight())) {
 				setSize(surface->realWidth(), surface->realHeight());
 			}
 		}

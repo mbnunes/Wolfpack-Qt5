@@ -29,6 +29,9 @@ cControl::cControl() {
 }
 
 cControl::~cControl() {
+	if (Gui->activeWindow() == this) {
+		Gui->setActiveWindow(0);
+	}
 	if (Gui->inputFocus() == this) {
 		Gui->setInputFocus(0);
 	}
@@ -131,6 +134,12 @@ void cControl::setVisible(bool data) {
 		}
 		if (Gui->inputFocus() == this) {
 			Gui->setInputFocus(0);
+		}
+		if (GLWidget->lastMouseMovement() == this) {
+			GLWidget->setLastMouseMovement(0);
+		}
+		if (GLWidget->mouseCapture() == this) {
+			GLWidget->setMouseCapture(0);
 		}
 	}
 }

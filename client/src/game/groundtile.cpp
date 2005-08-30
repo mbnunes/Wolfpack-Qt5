@@ -175,7 +175,7 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 
 			glBegin(GL_QUADS);
 			int right = drawx_ + texture->width();
-			int bottom = drawy_ + texture->height();		
+			int bottom = drawy_ + texture->height();
 			glTexCoord2f(0, 0); glVertex2f(drawx_, drawy_); // Upper left corner
 			glTexCoord2f(1, 0); glVertex2f(right, drawy_); // Upper Right Corner
 			glTexCoord2f(1, 1); glVertex2f(right, bottom); // Lower Right Corner

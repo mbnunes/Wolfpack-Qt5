@@ -1,6 +1,7 @@
 
 #include <q3dns.h>
 #include <q3socket.h>
+#include <qtimer.h>
 
 #include "uoclient.h"
 #include "network/encryption.h"
@@ -11,6 +12,8 @@
 #include "dialogs/login.h"
 #include "log.h"
 #include "config.h"
+#include "gui/worldview.h"
+#include "game/world.h"
 
 // Packet stream decompressor
 static DecompressingCopier decompressor;
@@ -58,11 +61,17 @@ const Q_UINT16 packetLengths[256] = {
 
 cUoSocket *UoSocket = 0; // Global cUoSocket instance
 
+void cUoSocket::sendPing() {
+	if (isConnected()) {
+		send(cPingPacket(0));
+	}
+}
+
 cUoSocket::cUoSocket() {
 	moveSequence_ = 0;
 	encryption = 0;
 	lastDecodedPacketId_ = 0;
-	socket = new Q3Socket(this);
+	socket = new Q3Socket;
 
 	// Connect the QSocket slots to this class
 	QObject::connect(socket, SIGNAL(hostFound()), this, SLOT(hostFound()));
@@ -72,6 +81,7 @@ cUoSocket::cUoSocket() {
 	QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 	QObject::connect(socket, SIGNAL(bytesWritten(int)), this, SLOT(bytesWritten(int)));
 	QObject::connect(socket, SIGNAL(error(int)), this, SLOT(error(int)));
+	QObject::connect(socket, SIGNAL(connectionClosed()), SLOT(disconnect()));
 
 	/*
 	Static -> Already Registered
@@ -81,6 +91,10 @@ cUoSocket::cUoSocket() {
 
 	packetLog.setName("packet.log");
 	packetLogStream.setDevice(&packetLog);
+
+	QTimer *timer = new QTimer(this, "ping_timer");
+	QObject::connect(timer, SIGNAL(timeout()), SLOT(sendPing()));
+	timer->start(30000, false);
 }
 
 cUoSocket::~cUoSocket() {
@@ -113,6 +127,14 @@ void cUoSocket::disconnect() {
 	incomingQueue.clear();
 	outgoingQueue.clear();
 	socket->close();
+
+	if (!qApp->closingDown() && WorldView->isVisible()) {
+		World->clearEntities();
+		WorldView->setVisible(false);
+		WorldView->cancelTarget();
+		Cursor->setCursor(CURSOR_NORMAL);
+		LoginDialog->show(PAGE_LOGIN);
+	}
 }
 
 bool cUoSocket::isIdle() {

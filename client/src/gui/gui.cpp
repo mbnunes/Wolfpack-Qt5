@@ -6,6 +6,7 @@
 #include "gui/worldview.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
+#include "game/mobile.h"
 
 cGui *Gui = 0;
 
@@ -68,7 +69,7 @@ void cGui::draw() {
 				if (overheadText[i].entity) {
 					overheadText[i].entity->decref();
 				}
-				overheadText.remove(i);
+				overheadText.remove(i--); // In the next iteration it's the same i again
 				continue;
 			}
 
@@ -82,6 +83,10 @@ void cGui::draw() {
 
 		// Centerx/centery are in relation to drawx/drawy if the entity is present
 		if (overheadText[i].entity) {
+			// We always want the text to be ABOVE the mobile not in the center
+			if (overheadText[i].entity->type() == MOBILE) {
+				yoffset = overheadText[i].centery  - overheadText[i].control->height();
+			}
 			xoffset += overheadText[i].entity->drawx();
 			yoffset += overheadText[i].entity->drawy();
 		}
@@ -108,11 +113,11 @@ void cGui::draw() {
 	}
 }
 
-void cGui::addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue, unsigned char font, cEntity *source) {
+void cGui::addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue, unsigned char font, cEntity *source) {
 	// Search for ovehead text from the same entity
 	if (source) {
 		for (int i = 0; i < overheadText.size(); ++i) {
-			if (overheadText[i].entity == source) {
+			if (overheadText[i].entity == source && overheadText[i].itemName) {
 				delete overheadText[i].control;
 				if (overheadText[i].entity) {
 					overheadText[i].entity->decref();
@@ -128,10 +133,56 @@ void cGui::addOverheadText(int centerx, int centery, unsigned int timeout, QStri
 	info.centerx = centerx;
 	info.centery = centery;
 	info.entity = source;
+	info.itemName = true;
 	info.entity->incref(); // Keep an instance of the entity with this
 	cLabel *label = new cLabel(message, font, hue);
 	label->update();
 	info.control = label;
+	overheadText.append(info);
+}
+
+void cGui::addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue, unsigned char font, cEntity *source) {
+	// Get current height of mobile
+	if (!source) {
+		return;
+	}
+
+	// Recalculate the centery value for mobiles
+	cMobile *mobile = dynamic_cast<cMobile*>(source);
+	if (mobile) {
+		centery = - mobile->getCurrentHeight();
+	}
+
+	cOverheadInfo info;
+	info.timeout = QTime::currentTime().addMSecs(timeout);	
+	info.centerx = centerx;
+	info.centery = centery;
+	info.entity = source;
+	info.itemName = false;
+	info.entity->incref(); // Keep an instance of the entity with this
+	cLabel *label;
+	
+	if (source && source->type() == MOBILE) {
+		label = new cLabel(message, font, hue, true, ALIGN_LEFT, false);
+		label->setWidth(250);
+	} else {
+		label = new cLabel(message, font, hue);
+	}
+	label->update();
+	label->setAutoSize(true); // This makes sure we have the right width/height
+	label->setAutoSize(false);
+	info.control = label;
+
+	// Search trough overhead text for the entity and move it upwards. And increase 
+	// our timeout value by the highest timeout we find
+	QDateTime maxTimeout;
+	for (int i = 0; i < overheadText.size(); ++i) {
+		if (overheadText[i].entity == source && !overheadText[i].itemName) {
+			overheadText[i].centery -= label->height();
+			break;
+		}
+	}
+
 	overheadText.append(info);
 }
 
