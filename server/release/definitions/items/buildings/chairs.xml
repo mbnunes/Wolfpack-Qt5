@@ -460,4 +460,81 @@
 		<category>Decoration\Chairs\Stone Bench\Stone Bench 2 (W/E)</category>
 	</item>
 
+	<!-- Ornate Elven Chair -->
+	<item id="2de3">
+		<id>0x2de3</id>
+		<nodecay />
+		<category>Decoration\Chairs\Ornate Elven Chair\Ornate Elven Chair 1</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="2de4" inherit="2de3">
+		<id>0x2de4</id>
+		<category>Decoration\Chairs\Ornate Elven Chair\Ornate Elven Chair 2</category>
+	</item>
+
+	<item id="2de5" inherit="2de3">
+		<id>0x2de5</id>
+		<category>Decoration\Chairs\Ornate Elven Chair\Ornate Elven Chair 3</category>
+	</item>
+
+	<item id="2de6" inherit="2de3">
+		<id>0x2de6</id>
+		<category>Decoration\Chairs\Ornate Elven Chair\Ornate Elven Chair 4</category>
+	</item>
+
+	<!-- Big Elven Chair -->
+	<item id="2deb">
+		<id>0x2deb</id>
+		<nodecay />
+		<category>Decoration\Chairs\Big Elven Chair\Big Elven Chair 1</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="2dec" inherit="2deb">
+		<id>0x2dec</id>
+		<category>Decoration\Chairs\Big Elven Chair\Big Elven Chair 2</category>
+	</item>
+
+	<item id="2ded" inherit="2deb">
+		<id>0x2ded</id>
+		<category>Decoration\Chairs\Big Elven Chair\Big Elven Chair 3</category>
+	</item>
+
+	<item id="2dee" inherit="2deb">
+		<id>0x2dee</id>
+		<category>Decoration\Chairs\Big Elven Chair\Big Elven Chair 4</category>
+	</item>
+
+	<!-- Elven Loveseat -->
+	<item id="2ddf">
+		<id>0x2ddf</id>
+		<nodecay />
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="2de0" inherit="2ddf">
+		<id>0x2de0</id>
+	</item>
+
+	<item id="3089" inherit="2ddf">
+		<id>0x3089</id>
+		<category>Decoration\Chairs\Elven Loveseat\Elven Loveseat (N/S)(1/2)</category>
+	</item>
+
+	<item id="3088" inherit="2ddf">
+		<id>0x3088</id>
+		<category>Decoration\Chairs\Elven Loveseat\Elven Loveseat (N/S)(2/2)</category>
+	</item>
+
+	<item id="308a" inherit="2ddf">
+		<id>0x308a</id>
+		<category>Decoration\Chairs\Elven Loveseat\Elven Loveseat (W/E)(1/2)</category>
+	</item>
+
+	<item id="308b" inherit="2ddf">
+		<id>0x308b</id>
+		<category>Decoration\Chairs\Elven Loveseat\Elven Loveseat (W/E)(2/2)</category>
+	</item>
+
 </definitions>
