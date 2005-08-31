@@ -18,17 +18,17 @@ def response( char, args, target ):
 		if isweapon( target.item ):
 			if not target.item.getoutmostchar() == char:
 				char.socket.clilocmessage( 1005425 ) # You may only wipe down items you are holding or carrying.
-			elif not item.hastag( 'poisoning_strength' ):
+			elif not target.item.hastag( 'poisoning_strength' ):
 				char.message( 1005422, "" ) # Hmmmm... this does not need to be cleaned.
 			else:
 				uses = 0
-				if item.hastag( 'poisoning_uses' ):
-					uses = item.gettag( 'poisoning_uses' )
+				if target.item.hastag( 'poisoning_uses' ):
+					uses = target.item.gettag( 'poisoning_uses' )
 				if uses <= 2:
 					skills.poisoning.wearoff( target.item )
 					char.socket.clilocmessage( 1010497 ) # You have cleaned the item.
 				else:
-					item.settag( 'poisoning_uses', uses - 2 )
+					target.item.settag( 'poisoning_uses', uses - 2 )
 					char.socket.clilocmessage( 1005423 ) # You have removed some of the caustic substance, but not all.
 		else:
 			char.message( 1005422, "" ) # Hmmmm... this does not need to be cleaned.
