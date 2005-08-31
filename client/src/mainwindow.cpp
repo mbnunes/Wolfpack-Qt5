@@ -276,7 +276,7 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 
 	// Update Timer
 	QTimer *timer = new QTimer(this);
-	timer->setInterval(20); // 15ms redraw interval (max. 100fps)
+	timer->setInterval(10); // 15ms redraw interval (max. 100fps)
 	timer->setSingleShot(false);
 	connect(timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer->start();
@@ -294,7 +294,34 @@ cGLWidget::~cGLWidget() {
 	delete singleClickEvent;
 }
 
+#if defined(Q_OS_WIN32)
+typedef BOOL (CALLBACK *fpWglSwapIntervalEXT)(int interval);
+fpWglSwapIntervalEXT wglSwapIntervalEXT = 0;
+typedef int (CALLBACK *fpWglGetSwapIntervalEXT)(void);
+fpWglGetSwapIntervalEXT wglGetSwapIntervalEXT = 0;
+bool wglSwapIntervalLoaded = false;
+#endif
+
 void cGLWidget::initializeGL() {
+	// Platform dependant crap
+#if defined(Q_OS_WIN32)
+	if (!wglSwapIntervalLoaded) {
+		wglSwapIntervalEXT = (fpWglSwapIntervalEXT)wglGetProcAddress("wglSwapIntervalEXT");
+		wglGetSwapIntervalEXT = (fpWglGetSwapIntervalEXT)wglGetProcAddress("wglGetSwapIntervalEXT");
+		wglSwapIntervalLoaded = true;
+	}
+
+	if (wglSwapIntervalEXT) {
+		if (wglSwapIntervalEXT(4) == FALSE) {
+			Log->print(LOG_ERROR, tr("Unable to set vsync to on.\n"));
+		}
+	}
+
+	if (wglGetSwapIntervalEXT) {
+		Log->print(LOG_NOTICE, tr("wglGetSwapIntervalEXT() returned %1.\n").arg(wglGetSwapIntervalEXT()));
+	}
+#endif
+
 	// Initialize OpenGL
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Fill the screen with a black color
 	glClearStencil(1);

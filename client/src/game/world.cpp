@@ -318,9 +318,6 @@ void cWorld::smoothMove(int x, int y, int z, uint duration) {
 	// Calculate new direction for the player
 	int direction = Utilities::direction(oldx, oldy, x_, y_);
 
-	xOffsetDecrease = drawxoffset / (float)duration;
-	yOffsetDecrease = drawyoffset / (float)duration;
-
 	// Move the player
 	if (Player) {
 		Player->smoothMove(drawxoffset, drawyoffset, duration);
@@ -350,10 +347,8 @@ void cWorld::smoothMove(int x, int y, int z, uint duration) {
 	}
 
 	// Set the smooth move timeouts
-	smoothMoveTime_ = duration;
-	smoothMoveEnd_ = Utilities::getTicks() + smoothMoveTime_;
-	nextSmoothMoveUpdate = 0;
-	currentSmoothMoveFactor = 0.0f;
+	smoothMoveStart_ = Utilities::getTicks();
+	smoothMoveEnd_ = smoothMoveStart_ + duration;
 
 	// Start the roofcheck timer if we have a player (otherwise this is manual)
 	if (Player) {
@@ -420,29 +415,18 @@ void cWorld::draw(int x, int y, int width, int height) {
 
 	// Smooth move handling.
 	if (smoothMoveEnd_ != 0) {
-		int moveProgress = smoothMoveTime_ - (smoothMoveEnd_ - Utilities::getTicks());
-		if (moveProgress < 0 || moveProgress >= (int)smoothMoveTime_) {
+		uint currentTime = Utilities::getTicks();
+		if (currentTime > smoothMoveEnd_) {
 			smoothMoveEnd_ = 0;
 			drawxoffset = 0;
 			drawyoffset = 0;
-
 			// The movement finished
-
 		} else {
-			centerx -= (int)(drawxoffset - moveProgress * xOffsetDecrease);
-			centery -= (int)(drawyoffset - moveProgress * yOffsetDecrease);
-			/*if (moveProgress <= 0.0f) {
-				centerx -= drawxoffset;
-				centery -= drawyoffset;
-			} else {
-				//if (nextSmoothMoveUpdate < Utilities::getTicks()) {
-					currentSmoothMoveFactor = 1.0f - (float)moveProgress / (float)smoothMoveTime_;
-					//nextSmoothMoveUpdate = Utilities::getTicks() + (smoothMoveTime_;
-					// Limit ups for smooth moving??
-				//}
-				centerx -= (int)(currentSmoothMoveFactor * (float)drawxoffset);
-				centery -= (int)(currentSmoothMoveFactor * (float)drawyoffset);
-			}*/
+			uint duration = (smoothMoveEnd_ - smoothMoveStart_);
+			double factor = (double)(smoothMoveEnd_ - currentTime) / (double)duration;
+
+			centerx -= (int)(drawxoffset * factor);
+			centery -= (int)(drawyoffset * factor);
 		}
 	}
 

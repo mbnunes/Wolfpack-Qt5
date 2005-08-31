@@ -97,11 +97,7 @@ protected:
 	// Draw x,y offsets and timeout
 	int drawxoffset, drawyoffset;
 	unsigned int smoothMoveEnd_;
-	unsigned int smoothMoveTime_;
-	float currentSmoothMoveFactor;
-	float xOffsetDecrease;
-	float yOffsetDecrease;
-	unsigned int nextSmoothMoveUpdate;
+	unsigned int smoothMoveStart_;
 	int drawCut;
 	QTimer roofTimer;
 public:
