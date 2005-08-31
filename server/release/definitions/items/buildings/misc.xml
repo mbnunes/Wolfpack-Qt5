@@ -1755,6 +1755,141 @@
 		<category>Decoration\Statues\Statue 6 (3/3)</category>
 	</item>
 
+	<!-- Horse Statue -->
+	<item id="305a">
+		<id>0x305a</id>
+		<nodecay />
+		<category>Decoration\Statues\Horse Statue\Horse Statue (N/S)(2/3)</category>
+	</item>
+
+	<item id="305b" inherit="305a">
+		<id>0x305b</id>
+		<category>Decoration\Statues\Horse Statue\Horse Statue (N/S)(1/3)</category>
+	</item>
+
+	<item id="305c" inherit="305a">
+		<id>0x305c</id>
+		<category>Decoration\Statues\Horse Statue\Horse Statue (N/S)(3/3)</category>
+	</item>
+
+	<item id="305d" inherit="305a">
+		<id>0x305d</id>
+		<category>Decoration\Statues\Horse Statue\Horse Statue (W/E)(2/3)</category>
+	</item>
+
+	<item id="305e" inherit="305a">
+		<id>0x305e</id>
+		<category>Decoration\Statues\Horse Statue\Horse Statue (W/E)(1/3)</category>
+	</item>
+
+	<item id="305f" inherit="305a">
+		<id>0x305f</id>
+		<category>Decoration\Statues\Horse Statue\Horse Statue (W/E)(3/3)</category>
+	</item>
+
+	<!-- Minotaur Statue -->
+	<item id="306c">
+		<id>0x306c</id>
+		<nodecay />
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 1 (S)(2/3)</category>
+	</item>
+
+	<item id="306d" inherit="306c">
+		<id>0x306d</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 1 (S)(1/3)</category>
+	</item>
+
+	<item id="306e" inherit="306c">
+		<id>0x306e</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 1 (S)(3/3)</category>
+	</item>
+
+	<item id="306f" inherit="306c">
+		<id>0x306f</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 2 (E)(2/3)</category>
+	</item>
+
+	<item id="3070" inherit="306c">
+		<id>0x3070</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 2 (E)(1/3)</category>
+	</item>
+
+	<item id="3071" inherit="306c">
+		<id>0x3071</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 2 (E)(3/3)</category>
+	</item>
+
+	<item id="3072" inherit="306c">
+		<id>0x3072</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 3 (S)(1/2)</category>
+	</item>
+
+	<item id="3073" inherit="306c">
+		<id>0x3073</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 3 (S)(2/2)</category>
+	</item>
+
+	<item id="3074" inherit="306c">
+		<id>0x3074</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 4 (E)(2/3)</category>
+	</item>
+
+	<item id="3075" inherit="306c">
+		<id>0x3075</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 4 (E)(1/3)</category>
+	</item>
+
+	<item id="3076" inherit="306c">
+		<id>0x3076</id>
+		<category>Decoration\Statues\Minotaur Statue\Minotaur Statue 4 (E)(3/3)</category>
+	</item>
+
+	<!-- Arcanist Statue -->
+	<item id="2d0e">
+		<id>0x2d0e</id>
+		<nodecay />
+		<category>Decoration\Statues\Small Statues\Arcanist Statue (E)</category>
+	</item>
+
+	<item id="2d0f">
+		<id>0x2d0f</id>
+		<nodecay />
+		<category>Decoration\Statues\Small Statues\Arcanist Statue (S)</category>
+	</item>
+
+	<!-- Squirrel Statue -->
+	<item id="2d10">
+		<id>0x2d10</id>
+		<nodecay />
+		<category>Decoration\Statues\Small Statues\Squirrel Statue (E)</category>
+	</item>
+
+	<item id="2d11">
+		<id>0x2d11</id>
+		<nodecay />
+		<category>Decoration\Statues\Small Statues\Squirrel Statue (S)</category>
+	</item>
+
+	<!-- Warrior Statue -->
+	<item id="2d12">
+		<id>0x2d12</id>
+		<nodecay />
+		<category>Decoration\Statues\Small Statues\Warrior Statue (E)</category>
+	</item>
+
+	<item id="2d13">
+		<id>0x2d13</id>
+		<nodecay />
+		<category>Decoration\Statues\Small Statues\Warrior Statue (S)</category>
+	</item>
+
+	<!-- Contribution Statue -->
+	<item id="2ff6">
+		<id>0x2ff6</id>
+		<nodecay />
+		<category>Decoration\Statues\Small Statues\Contribution statue</category>
+	</item>
+
 	<!-- Decorative Armor -->
 	<item id="1508">
 		<id>0x1508</id>

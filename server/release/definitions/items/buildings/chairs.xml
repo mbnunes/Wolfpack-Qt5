@@ -537,4 +537,17 @@
 		<category>Decoration\Chairs\Elven Loveseat\Elven Loveseat (W/E)(2/2)</category>
 	</item>
 
+	<!-- Elven Reading Chair -->
+	<item id="2df5">
+		<id>0x2df5</id>
+		<nodecay />
+		<category>Decoration\Chairs\Elven Reading Chair\Elven Reading Chair 1</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="2df6" inherit="2df5">
+		<id>0x2df6</id>
+		<category>Decoration\Chairs\Elven Reading Chair\Elven Reading Chair 2</category>
+	</item>
+
 </definitions>
