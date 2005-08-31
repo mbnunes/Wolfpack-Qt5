@@ -1706,6 +1706,119 @@
 		<category>Decoration\Tables\Marble Table\Marble Table (W/E) (2/3)</category>
 	</item>
 
+	<!-- Ornate Elven Table -->
+	<item id="2de1">
+		<id>0x2de1</id>
+		<nodecay />
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="2de2" inherit="2de1">
+		<id>0x2de2</id>
+	</item>
+
+	<item id="308c" inherit="2de1">
+		<id>0x308c</id>
+		<category>Decoration\Tables\Ornate Elven Table\Ornate Elven Table (W/E) (1/3)</category>
+	</item>
+
+	<item id="308d" inherit="2de1">
+		<id>0x308d</id>
+		<category>Decoration\Tables\Ornate Elven Table\Ornate Elven Table (W/E) (2/3)</category>
+	</item>
+
+	<item id="308e" inherit="2de1">
+		<id>0x308e</id>
+		<category>Decoration\Tables\Ornate Elven Table\Ornate Elven Table (W/E) (3/3)</category>
+	</item>
+
+	<item id="308f" inherit="2de1">
+		<id>0x308f</id>
+		<category>Decoration\Tables\Ornate Elven Table\Ornate Elven Table (N/S) (1/3)</category>
+	</item>
+
+	<item id="3090" inherit="2de1">
+		<id>0x3090</id>
+		<category>Decoration\Tables\Ornate Elven Table\Ornate Elven Table (N/S) (2/3)</category>
+	</item>
+
+	<item id="3091" inherit="2de1">
+		<id>0x3091</id>
+		<category>Decoration\Tables\Ornate Elven Table\Ornate Elven Table (N/S) (3/3)</category>
+	</item>
+
+	<!-- Fancy Elven Table -->
+	<item id="2de7">
+		<id>0x2de7</id>
+		<nodecay />
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="2de8" inherit="2de7">
+		<id>0x2de8</id>
+	</item>
+
+	<item id="3092" inherit="2de7">
+		<id>0x3092</id>
+		<category>Decoration\Tables\Fancy Elven Table\Fancy Elven Table (W/E) (1/3)</category>
+	</item>
+
+	<item id="3093" inherit="2de7">
+		<id>0x3093</id>
+		<category>Decoration\Tables\Fancy Elven Table\Fancy Elven Table (W/E) (2/3)</category>
+	</item>
+
+	<item id="3094" inherit="2de7">
+		<id>0x3094</id>
+		<category>Decoration\Tables\Fancy Elven Table\Fancy Elven Table (W/E) (3/3)</category>
+	</item>
+
+	<item id="3095" inherit="2de7">
+		<id>0x3095</id>
+		<category>Decoration\Tables\Fancy Elven Table\Fancy Elven Table (N/S) (1/3)</category>
+	</item>
+
+	<item id="3096" inherit="2de7">
+		<id>0x3096</id>
+		<category>Decoration\Tables\Fancy Elven Table\Fancy Elven Table (N/S) (2/3)</category>
+	</item>
+
+	<item id="3097" inherit="2de7">
+		<id>0x3097</id>
+		<category>Decoration\Tables\Fancy Elven Table\Fancy Elven Table (N/S) (3/3)</category>
+	</item>
+
+	<!-- Elven Chest Table -->
+	<item id="2de9">
+		<id>0x2de9</id>
+		<nodecay />
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="2dea" inherit="2de9">
+		<id>0x2dea</id>
+	</item>
+
+	<item id="3098" inherit="2de9">
+		<id>0x3098</id>
+		<category>Decoration\Tables\Elven Chest Table\Elven Chest Table (W/E) (1/2)</category>
+	</item>
+
+	<item id="3099" inherit="2de9">
+		<id>0x3099</id>
+		<category>Decoration\Tables\Elven Chest Table\Elven Chest Table (W/E) (2/2)</category>
+	</item>
+
+	<item id="309a" inherit="2de9">
+		<id>0x309a</id>
+		<category>Decoration\Tables\Elven Chest Table\Elven Chest Table (N/S) (1/2)</category>
+	</item>
+
+	<item id="309b" inherit="2de9">
+		<id>0x309b</id>
+		<category>Decoration\Tables\Elven Chest Table\Elven Chest Table (N/S) (2/2)</category>
+	</item>
+
 	<!-- Broken Furniture -->
 	<item id="c10">
 		<id>0xc10</id>
