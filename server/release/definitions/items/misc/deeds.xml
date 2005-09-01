@@ -264,8 +264,14 @@
 
 	<!-- Other Deeds -->
 	<!-- house deed -->
-	<item id="house" inherit="blank_deed">
+	<item id="house">
+		<name>House Placement Tool</name>
+		<buyprice>627</buyprice>
+		<sellprice>313</sellprice>
 		<basescripts>deeds.multideed</basescripts>
+		<id>0x14f6</id>
+		<newbie />
+		<weight>1.0</weight>
 		<category>Buildings\House deed (Classic and Custom)</category>
 	</item>
 
@@ -315,6 +321,11 @@
 	<item id="two_story_wood_and_plaster_house_deed" inherit="house_deed">
 		<id>0x14f0</id>
 		<tag name="section" value="two_story_wood_and_plaster_house" />
+	</item>
+
+	<item id="two_story_stone_and_plaster_house_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<tag name="section" value="two_story_stone_and_plaster_house" />
 	</item>
 
 	<item id="large_tower_deed" inherit="house_deed">

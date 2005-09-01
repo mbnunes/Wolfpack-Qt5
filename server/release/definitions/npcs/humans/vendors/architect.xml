@@ -11,7 +11,9 @@
 	<npc id="architect_inventory">
 		<title context="Vendor Female Titles">the Architect</title>
 		<shopkeeper>
-			<restockable/>
+			<restockable>
+				<item id="house"><amount>20</amount></item>
+			</restockable>
 		</shopkeeper>
 	</npc>
 
