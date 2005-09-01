@@ -12,10 +12,8 @@
 #include "uoclient.h"
 #include "mainwindow.h"
 #include <math.h>
-#include <qcursor.h>
-//Added by qt3to4:
+#include <QCursor>
 #include <QMouseEvent>
-#include <Q3ValueList>
 #include <Q3CString>
 
 const unsigned int sysMessageDecay = 10000;
@@ -48,12 +46,10 @@ inline void cSysMessage::setCreated(unsigned int data) {
 }
 
 void cWorldView::cleanSysMessages() {
-	Q3ValueList<cControl*> toremove;
+	QList<cControl*> toremove;
 	unsigned int currentTime = Utilities::getTicks();
 
-	Iterator it;
-	for (it = controls.begin(); it != controls.end(); ++it) {
-		cControl *control = *it;
+	foreach( cControl* control, controls ) {
 		if (control != left && control != right && control != top && control != bottom && control != inputField) {
 			cSysMessage *message = (cSysMessage*)(control);
 			if (message->created() + sysMessageDecay < currentTime) {
@@ -62,10 +58,10 @@ void cWorldView::cleanSysMessages() {
 		}
 	}
 
-	Q3ValueList<cControl*>::iterator it2;
-	for (it2 = toremove.begin(); it2 != toremove.end(); ++it2) {
-		removeControl(*it2);
-		delete *it2;
+	foreach( cControl* control, toremove )
+	{
+		removeControl( control );
+		delete control;
 	}
 }
 
@@ -194,11 +190,10 @@ void cWorldView::addSysMessage(const QString &message, unsigned short hue, unsig
 }
 
 void cWorldView::moveContent(int yoffset) {
-	Q3ValueList<cControl*> toremove;
+	QList<cControl*> toremove;
 
-	cContainer::Iterator it;
-	for (it = controls.begin(); it != controls.end(); ++it) {
-		cControl *control = *it;
+	foreach( cControl* control, controls )
+	{
 		if (control != left && control != top && control != bottom && control != right && control != inputField){
 			if (control->y() + control->height() + yoffset <= top->height()) {
 				// The control would become invisible. Queue it for deletion.
@@ -211,10 +206,10 @@ void cWorldView::moveContent(int yoffset) {
 	}
 
 	// Remove controls that came out of view
-	Q3ValueList<cControl*>::iterator it2;
-	for (it2 = toremove.begin(); it2 != toremove.end(); ++it2) {
-		removeControl(*it2);
-		delete *it2;
+	foreach( cControl* control, toremove )
+	{
+		removeControl(control);
+		delete control;
 	}
 }
 

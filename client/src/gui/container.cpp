@@ -1,5 +1,4 @@
 
-#include <q3valuelist.h>
 #include <qgl.h>
 
 #include "mainwindow.h"
@@ -40,9 +39,9 @@ cContainer::cContainer() {
 }
 
 void cContainer::clear() {
-	Iterator it;
-	for (it = controls.begin(); it != controls.end(); ++it) {
-		delete *it;
+	foreach( cControl* control, controls )
+	{
+		delete control;
 	}
 	controls.clear();
 }
@@ -160,8 +159,8 @@ realign_end:
 }
 
 void cContainer::doAlignment(enControlAlign align, cControl *control, QRect &clientRect) {
-	Q3ValueList<cControl*> alignlist; // List of Controls to be aligned
-	Q3ValueList<cControl*>::iterator lit; // List iterator
+	QList<cControl*> alignlist; // List of Controls to be aligned
+	QList<cControl*>::iterator lit; // List iterator
 
 	/*
 		The to-be-aligned control is included in the list if its non-null and if it

@@ -2,7 +2,7 @@
 #if !defined(__VERDATA_H__)
 #define __VERDATA_H__
 
-#include <qmap.h>
+#include <QMap>
 #include <qfile.h>
 
 enum VerFileIds {

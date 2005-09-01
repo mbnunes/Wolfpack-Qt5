@@ -4,7 +4,7 @@
 
 #include <q3valuelist.h>
 #include <qhostaddress.h>
-#include <qobject.h>
+#include <QObject>
 #include <qstringlist.h>
 //Added by qt3to4:
 #include <qstring.h>

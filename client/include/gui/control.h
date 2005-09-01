@@ -4,8 +4,7 @@
 
 #include "enums.h"
 #include <qevent.h>
-#include <qobject.h>
-//Added by qt3to4:
+#include <QObject>
 #include <QMouseEvent>
 #include <QKeyEvent>
 

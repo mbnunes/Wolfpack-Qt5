@@ -1,5 +1,5 @@
 
-#include <qmap.h>
+#include <QMap>
 #include <qstringlist.h>
 #include <q3valuelist.h>
 //Added by qt3to4:

@@ -3,7 +3,7 @@
 #include "gui/cursor.h"
 #include "muls/art.h"
 #include "mainwindow.h"
-#include <qcursor.h>
+#include <QCursor>
 #include <qgl.h>
 
 cCursor *Cursor = 0;

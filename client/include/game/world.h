@@ -7,9 +7,9 @@
 #include "enums.h"
 #include "vector.h"
 
-#include <qobject.h>
-#include <qtimer.h>
-#include <qmap.h>
+#include <QObject>
+#include <QTimer>
+#include <QMap>
 #include <q3valuelist.h>
 #include <q3intcache.h>
 #include <qevent.h>

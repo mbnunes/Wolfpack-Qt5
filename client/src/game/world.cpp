@@ -1,6 +1,6 @@
 
 #include "uoclient.h"
-#include <qcursor.h>
+#include <QCursor>
 //Added by qt3to4:
 #include <QMouseEvent>
 #include "game/world.h"

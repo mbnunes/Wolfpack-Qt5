@@ -2,9 +2,9 @@
 #if !defined(__LOCALIZATION_H__)
 #define __LOCALIZATION_H__
 
-#include <qmap.h>
+#include <QMap>
 #include <qstring.h>
-#include <qobject.h>
+#include <QObject>
 #include <qstringlist.h>
 
 class cLocalization : public QObject {

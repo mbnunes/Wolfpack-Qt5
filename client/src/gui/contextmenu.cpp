@@ -3,7 +3,7 @@
 #include "gui/gui.h"
 #include "surface.h"
 #include "mainwindow.h"
-#include <qcursor.h>
+#include <QCursor>
 #include <qgl.h>
 
 // Our custom label

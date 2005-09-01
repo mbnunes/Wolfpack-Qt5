@@ -17,7 +17,7 @@
 */
 class cShardListPacket : public cDynamicIncomingPacket {
 protected:
-	Q3ValueList<stShardEntry> shards;
+	QList<stShardEntry> shards;
 	unsigned char listFlag;
 public:
 	cShardListPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
@@ -50,7 +50,7 @@ public:
 	virtual void handle(cUoSocket *socket) {
 		LoginDialog->clearShardList();
 
-		Q3ValueList<stShardEntry>::iterator it;
+		QList<stShardEntry>::iterator it;
 		for (it = shards.begin(); it != shards.end(); ++it) {
 			LoginDialog->addShard(*it);
 		}

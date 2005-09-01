@@ -4,8 +4,7 @@
 #include "control.h"
 #include "gui.h"
 #include "enums.h"
-#include <qtimer.h>
-//Added by qt3to4:
+#include <QTimer>
 #include <QMouseEvent>
 #include <QKeyEvent>
 

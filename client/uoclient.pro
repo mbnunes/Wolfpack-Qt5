@@ -36,6 +36,7 @@ HEADERS += \
 	include/log.h \
 	include/mainwindow.h \
 	include/mersennetwister.h \
+	include/sound.h \
 	include/surface.h \
 	include/texture.h \
 	include/uoclient.h \
@@ -109,6 +110,7 @@ SOURCES += \
 	src/config.cpp \
 	src/log.cpp \
 	src/mainwindow.cpp \
+	src/sound.cpp \
 	src/surface.cpp \
 	src/texture.cpp \
 	src/uoclient.cpp \
@@ -207,5 +209,4 @@ unix:SOURCES += \
 #DISTFILES += \
 #	../release/AUTHORS.txt \
 #	../release/LICENSE.GPL
-#
-#The following line was inserted by qt3to4
+

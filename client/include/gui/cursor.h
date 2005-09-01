@@ -4,7 +4,7 @@
 
 #include "utilities.h"
 #include "texture.h"
-#include <qobject.h>
+#include <QObject>
 
 // This enumeration is only used here. Hence it's not exported to
 // enums.h

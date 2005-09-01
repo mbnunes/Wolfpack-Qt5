@@ -87,7 +87,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200 -EHsc -GX"
 				Optimization="0"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="include,C:/Qt/4.0.0/include/Qt3Support,C:/Qt/4.0.0/include/QtXml,C:/Qt/4.0.0/include/QtNetwork,C:/Qt/4.0.0/include/QtGui,C:/Qt/4.0.0/include/QtCore,C:/Qt/4.0.0/include,C:/Qt/4.0.0/include/QtOpenGL,C:/Python24/include"
 				PreprocessorDefinitions="_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB;QT_QT3SUPPORT_LIB;QT3_SUPPORT"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="TRUE"

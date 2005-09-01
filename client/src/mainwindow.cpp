@@ -12,12 +12,12 @@
 #include "log.h"
 #include "dialogs/cachestatistics.h"
 #include <qpixmap.h>
-#include <qcursor.h>
+#include <QCursor>
 #include <qimage.h>
 #include <qlayout.h>
 #include <qdatetime.h>
 #include <qmenubar.h>
-#include <qtimer.h>
+#include <QTimer>
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <QKeyEvent>

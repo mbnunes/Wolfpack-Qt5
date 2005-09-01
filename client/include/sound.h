@@ -2,7 +2,7 @@
 #if !defined(__SOUND_H__)
 #define __SOUND_H__
 
-#include <qobject.h>
+#include <QObject>
 
 // Forward declarations, other files don't need to know the real type of those
 // pointers

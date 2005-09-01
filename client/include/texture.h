@@ -3,7 +3,7 @@
 #define __TEXTURE_H__
 
 #include "exceptions.h"
-#include <qmap.h>
+#include <QMap>
 
 class cSurface;
 class cTexture;

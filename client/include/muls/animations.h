@@ -6,7 +6,7 @@
 #include "utilities.h"
 #include <qdatastream.h>
 #include <qfile.h>
-#include <qmap.h>
+#include <QMap>
 #include <qvector.h>
 
 #define ANIMATION_FILES 4

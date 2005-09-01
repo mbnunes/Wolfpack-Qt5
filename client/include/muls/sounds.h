@@ -2,7 +2,7 @@
 #if !defined(__SOUNDS_H__)
 #define __SOUNDS_H__
 
-#include <qobject.h>
+#include <QObject>
 #include <qfile.h>
 
 // A single sample

@@ -6,7 +6,7 @@
 #include "gui/label.h"
 #include "gui/window.h"
 
-#include <q3valuevector.h>
+#include <QList>
 
 #if defined(__GNUC__)
 #define __stdcall __attribute__((__stdcall__))
@@ -19,10 +19,11 @@ class cContextMenu;
 typedef void (STDCALL *fnContextMenuCallback)(cContextMenu *menu, int selected, void *customData);
 
 class cContextMenu : public cWindow {
+Q_OBJECT
 friend class cContextMenuEntry;
 
 protected:
-	typedef Q3ValueVector<cContextMenuEntry*> Container;
+	typedef QList<cContextMenuEntry*> Container;
 	typedef Container::iterator Iterator;
 
 	// Define some way of storing the context menu entries

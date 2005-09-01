@@ -4,7 +4,7 @@
 
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qmap.h>
+#include <QMap>
 
 #include "gui/cursor.h"
 #include "utilities.h"

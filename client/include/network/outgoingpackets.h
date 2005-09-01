@@ -4,7 +4,7 @@
 
 #include "network/outgoingpacket.h"
 #include "enums.h"
-#include <qmap.h>
+#include <QMap>
 #include <qvector.h>
 
 /*

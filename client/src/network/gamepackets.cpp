@@ -15,7 +15,7 @@
 #include "log.h"
 #include "enums.h"
 
-#include <qcursor.h>
+#include <QCursor>
 #include <qlist.h>
 
 class cLoginConfirmPacket : public cIncomingPacket {

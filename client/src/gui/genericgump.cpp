@@ -12,7 +12,7 @@
 #include "network/uosocket.h"
 #include "log.h"
 
-#include <qmap.h>
+#include <QMap>
 #include <qvector.h>
 
 QMap<uint, cGenericGump*> cGenericGump::instances;
@@ -76,9 +76,9 @@ void cGenericGump::addControl(unsigned int page, cControl *control, bool back) {
 }
 
 void cGenericGump::processCommand(stLayoutContext &context, QString line, QStringList strings) {
-	QStringList tokens = QStringList::split(" ", line);
+	QStringList tokens = line.split(" ");
 	
-	if (tokens.size() == 0) {
+	if ( tokens.isEmpty() ) {
 		return; // Invalid command
 	}
 
