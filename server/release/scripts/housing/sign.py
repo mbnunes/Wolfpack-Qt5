@@ -1,5 +1,6 @@
 
 import housing.house
+from signpost import gumpcallback, gump0, gump1, gump2, gump3, gump4, switchgump
 
 def escapeHtml(text):
 	text = text.replace('<', '&lt')
@@ -32,3 +33,8 @@ def onShowTooltip(player, sign, tooltip):
 		tooltip.add(1061641, "")
 	else:
 		tooltip.add(1061642, "")
+
+
+def onUse( char, item ):
+	gump0( char, gumpcallback, item )
+	return True

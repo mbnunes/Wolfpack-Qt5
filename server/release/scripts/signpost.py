@@ -211,6 +211,7 @@ def gump2( char, callback, item ):
 	mygump.send( char )
 
 
+# Customization Gump
 def gump3( char, callback, item ):
 	gump_params = [
 	"a house",
@@ -245,8 +246,12 @@ def gump3( char, callback, item ):
 	mygump.addRawLayout( "{button 150 90 4005 4007 1 0 62}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 195 90 200 20 1060672 0 0 32767}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 120 240 20 1060759 0 0 16912}" )
-	mygump.addRawLayout( "{button 10 160 4005 4007 1 0 21}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 160 240 20 1060765 0 0 32767}" )
+	# Customize this House - Just to Custom Houses (Checked by wich script sign has)
+	if item.hasscript( 'signpost' ):
+		mygump.addRawLayout( "{button 10 160 4005 4007 1 0 21}" )
+		mygump.addRawLayout( "{xmfhtmlgumpcolor 45 160 240 20 1060765 0 0 32767}" )
+	else:
+		mygump.addRawLayout( "{xmfhtmlgumpcolor 45 160 240 20 1060765 0 0 16912}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 180 240 20 1060760 0 0 16912}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 210 240 20 1060761 0 0 16912}" )
 	mygump.addRawLayout( "{button 10 230 4005 4007 1 0 66}" )
