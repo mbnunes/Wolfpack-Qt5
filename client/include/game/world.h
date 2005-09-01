@@ -10,7 +10,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QMap>
-#include <q3valuelist.h>
+#include <qlist.h>
 #include <q3intcache.h>
 #include <qevent.h>
 #include <qvector.h>
@@ -75,7 +75,7 @@ protected:
 	unsigned int getCellId(unsigned short x, unsigned short y) const;
 
 	// Typedef for the entity map.
-	typedef Q3ValueList<cEntity*> Cell;
+	typedef QList<cEntity*> Cell;
 	typedef Cell::iterator CellIterator;
 	typedef Cell::const_iterator ConstCellIterator;
 	typedef QMap<unsigned int, Cell> Container;

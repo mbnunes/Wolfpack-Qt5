@@ -45,6 +45,7 @@ public:
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
 	void onMouseUp(QMouseEvent *e);
 	void onClick(QMouseEvent *e);
+	void onKeyDown(QKeyEvent *e);
 
 	void processDoubleClick(QMouseEvent *e);
 

@@ -10,15 +10,18 @@
 class cContainer : public cControl {
 Q_OBJECT
 public:
-	typedef QList<cControl*> Controls;
+	typedef QVector<cControl*> Controls;
 	typedef Controls::iterator Iterator;
 protected:
 	Controls controls;
-	bool disableScissorBox_;
+	Controls tabControls;
+	bool disableScissorBox_;	
 public:
 	inline Controls getControls() {
 		return controls;
 	}
+
+	void sortTabControls();
 
 	cContainer();
 	virtual ~cContainer();

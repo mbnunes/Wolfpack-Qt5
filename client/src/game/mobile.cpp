@@ -26,14 +26,18 @@ cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet face
 	direction_ = 0;
 	partialHue_ = false;
 	dead = false;
+	warmode = false;
 	type_ = MOBILE;
 	sequence_ = 0;
 	currentAction_ = getIdleAction();
 	currentActionEnd_ = 0;
 	nextFrame = 0;
 	frame = 0;
+	nextMountFrame = 0;
+	mountFrame = 0;
 	smoothMoveEnd = 0;
 	hidden = false;
+	deleting = false;
 
 	for (int i = 0; i < LAYER_COUNT; ++i) {
 		equipmentSequences[i] = 0;		
@@ -55,6 +59,7 @@ void cMobile::smoothMove(int xoffset, int yoffset, unsigned int duration) {
 }
 
 cMobile::~cMobile() {
+	deleting = true;
 	freeSequence();
 
 	if (this == Player) {
@@ -77,6 +82,23 @@ cMobile::~cMobile() {
 	for (it = equipmentCopy.begin(); it != equipmentCopy.end(); ++it) {
 		(*it)->moveToLimbo();
 		(*it)->decref();
+	}
+}
+
+void cMobile::removeEquipment(cDynamicItem *item) {
+	if (!deleting) {
+		// Dec-reference Equipment
+		for (int i = 0; i < LAYER_COUNT; ++i) {
+			if (equipment[i] == item) {
+				equipment[i]->moveToLimbo();
+				equipment[i] = 0;
+				if (equipmentSequences[i]) {
+					equipmentSequences[i]->decref();
+					equipmentSequences[i] = 0;
+				}				
+				return;
+			}
+		}
 	}
 }
 
@@ -144,14 +166,35 @@ void cMobile::refreshSequence() {
 	if (equipment[LAYER_MOUNT]) {
 		unsigned short model = Utilities::getMountBody(equipment[LAYER_MOUNT]->id());
 		equipmentSequences[LAYER_MOUNT] = Animations->readSequence(model, currentMountAction(), direction_, equipment[LAYER_MOUNT]->hue(), false);
+
+		if (equipmentSequences[LAYER_MOUNT] && mountFrame >= equipmentSequences[LAYER_MOUNT]->frameCount()) {
+			mountFrame = 0;
+			nextMountFrame = Utilities::getTicks() + getMountFrameDelay();
+		}
 	}
 }
 
 ushort cMobile::currentMountAction() const {
-	return 0;
+	// Try to translate the current action
+	// We assume human bodytype for this
+	if (bodyType() != HUMAN && bodyType() != EQUIPMENT) {
+		return 0;
+	}
+
+	if (currentAction_ == 24) {
+		return 1; // Running horse
+	} else if (currentAction_ == 23) {
+        return 0; // Walking horse
+	} else {
+		return 2; // Standing horse
+	}
 }
 
 unsigned int cMobile::getFrameDelay() {
+	return 100;
+}
+
+unsigned int cMobile::getMountFrameDelay() {
 	return 100;
 }
 
@@ -169,6 +212,12 @@ unsigned char cMobile::getIdleAction() {
 		case EQUIPMENT:
 			if (equipment[LAYER_MOUNT]) {
 				return 25;
+			} else if (warmode) {				
+				if (!equipment[LAYER_RIGHTHAND] && equipment[LAYER_LEFTHAND]) {
+					return 8; // Two handed attack stand
+				} else {
+					return 7; // One handed attack stand
+				}
 			}
 		default:
 			return 4; // Human animation for standing
@@ -216,9 +265,6 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 				float factor = 1.0f - (float)moveProgress / (float)smoothMoveTime;
 				cellx += (int)(factor * (float)drawxoffset);
 				celly += (int)(factor * (float)drawyoffset);
-				/*if (sequence_) {
-					frame = (int)(sequence_->frameCount() * factor);
-				}*/
 			}
 		}
 	}
@@ -242,7 +288,16 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 
 		// Mounts come always first
 		if (equipment[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]) {
-            equipmentSequences[LAYER_MOUNT]->draw(frame, cellx, celly, flip, alpha);            
+			// Skip to next frame
+			if (nextMountFrame < Utilities::getTicks()) {
+				if (++mountFrame >= equipmentSequences[LAYER_MOUNT]->frameCount()) {
+					mountFrame = 0;
+				}
+				nextMountFrame = Utilities::getTicks() + getMountFrameDelay();
+			}
+			
+			mountFrame = frame; // Until something better is found
+            equipmentSequences[LAYER_MOUNT]->draw(mountFrame, cellx, celly, flip, alpha);            
 		}
 
 		sequence_->draw(frame, cellx, celly, flip, alpha);
@@ -283,6 +338,10 @@ bool cMobile::hitTest(int x, int y) {
 
 	// Check the sequence and all equipment (sucks like hell)
 	if (sequence_ && sequence_->hitTest(frame, x, y, flip)) {
+        return true;
+	}
+
+	if (equipmentSequences[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]->hitTest(mountFrame, x, y, flip)) {
         return true;
 	}
 
@@ -432,8 +491,19 @@ uint cMobile::getMoveDuration(bool running) const {
 
 void cMobile::playMoveAnimation(uint duration, bool running) {
 	uchar action = 0;
-	if (bodyType() == HUMAN && running) {
-		action = 2;
+
+	if (bodyType() == HUMAN) {
+		// Armed movement position
+		if (equipment[LAYER_RIGHTHAND]) {
+			action = running ? 3 : 1;
+		} else if (running) {
+			action = 2;
+		}
+
+		// Warmode only got a walking animation
+		if (warmode && !running) {
+			action = 15;
+		}
 	}
 
 	// Mounted movement
@@ -446,6 +516,7 @@ void cMobile::playMoveAnimation(uint duration, bool running) {
 
 void cMobile::processFlags(uchar flags) {
 	hidden = (flags & 0x80) != 0;
+	warmode = (flags & 0x40) != 0;
 }
 
 uint cMobile::getCurrentHeight() {

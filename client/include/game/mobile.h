@@ -13,17 +13,19 @@ class cDynamicItem;
 
 class cMobile : public cDynamicEntity {
 protected:
+	bool deleting;
 	unsigned short body_;
 	unsigned short hue_;
 	unsigned char direction_;
 	bool partialHue_;
 	bool hidden;
 	bool dead;
+	bool warmode;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
-	unsigned int nextFrame;
-	unsigned int frame;
+	unsigned int nextFrame, nextMountFrame;
+	unsigned int frame, mountFrame;
 	cSequence *sequence_; // Current sequence
 	cSequence *equipmentSequences[LAYER_COUNT]; // For every layer a possible sequence
 	cDynamicItem *equipment[LAYER_COUNT];
@@ -32,6 +34,7 @@ protected:
 	void freeSequence();
 	void refreshSequence();
 	unsigned int getFrameDelay();
+	unsigned int getMountFrameDelay();
 	unsigned char getIdleAction();
 
 	// This is used to allow smooth movement between two tiles
@@ -67,6 +70,7 @@ public:
 	void setDead(bool data);
 	bool isDead() const;
 	bool isMoving() const;
+	bool isInWarmode() const;
 
 	void playAction(unsigned char action, unsigned int duration = 0);
 
@@ -76,6 +80,7 @@ public:
 
 	// Steals a reference
 	void addEquipment(cDynamicItem *item);
+	void removeEquipment(cDynamicItem *item);
 	void refreshEquipment(enLayer layer);
 
 	void processFlags(uchar flags);
@@ -153,6 +158,10 @@ inline cSequence *cMobile::sequence() const {
 inline bool cMobile::isMoving() const {
 	return smoothMoveEnd > 0;
 }
+
+inline bool cMobile::isInWarmode() const {
+	return warmode;
+};
 
 extern cMobile *Player;
 

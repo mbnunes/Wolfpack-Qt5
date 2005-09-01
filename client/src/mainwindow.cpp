@@ -475,29 +475,24 @@ void cGLWidget::keyPressEvent(QKeyEvent *e) {
 	checkInputFocus();
 
 	ignoreReturn = false;
-	Qt::ButtonState state = e->state();
+	Qt::KeyboardModifiers state = e->modifiers();
 	int key = e->key();
 
-	if (key == Qt::Key_Return && state & Qt::AltButton) {
+	if (key == Qt::Key_unknown) {
+		return;
+	}
+
+	if (key == Qt::Key_Return && state & Qt::AltModifier) {
 		showMaximized();
 		//Config->setEngineWindowed(!Config->engineWindowed());
 		//Engine->reload();
 		//Gui->invalidate();
-	} else if (key == Qt::Key_Tab && (state & Qt::AltButton) == 0) {
-		if (!Gui->inputFocus() || !Gui->inputFocus()->wantTabs()) {
-			// Switch to the next Control
-			if (Gui->activeWindow()) {
-				cControl *nextControl;
-				if ((state & Qt::ShiftButton) == Qt::ShiftButton) {
-					nextControl = Gui->activeWindow()->getPreviousFocusControl(Gui->inputFocus());
-				} else {
-					nextControl = Gui->activeWindow()->getNextFocusControl(Gui->inputFocus());
-				}
-				Gui->setInputFocus(nextControl);
+	} else if (key == Qt::Key_Tab) {
+		if ((state & Qt::AltModifier) == 0) {
+			if (Gui->inputFocus() && Gui->inputFocus()->wantTabs()) {
+				Gui->inputFocus()->onKeyDown(e);
+				ignoreReturn = true;
 			}
-		} else if (Gui->inputFocus()) {
-			Gui->inputFocus()->onKeyDown(e);
-			ignoreReturn = true;
 		}
 	} else {
 		// Forward it to the control with the input focus. Otherwise go trough all controls.
@@ -756,6 +751,31 @@ void cGLWidget::disableGrayShader() {
 		glDisable(GL_FRAGMENT_PROGRAM_ARB);
 		glPopAttrib();
 	}
+}
+
+bool cGLWidget::focusNextPrevChild(bool next) {
+	if (!Gui->inputFocus() || !Gui->inputFocus()->wantTabs()) {
+		// Switch to the next Control
+		if (Gui->activeWindow()) {
+			cControl *nextControl;
+			if (!next) {
+				nextControl = Gui->activeWindow()->getPreviousFocusControl(Gui->inputFocus());
+			} else {
+				nextControl = Gui->activeWindow()->getNextFocusControl(Gui->inputFocus());
+			}
+			// The search wrapped
+			if (!nextControl) {
+				if (!next) {
+					nextControl = Gui->activeWindow()->getPreviousFocusControl(0);
+				} else {
+					nextControl = Gui->activeWindow()->getNextFocusControl(0);
+				}
+			}
+			Gui->setInputFocus(nextControl);
+		}
+	}
+
+	return true; // Always find a new tab control
 }
 
 cGLWidget *GLWidget = 0;

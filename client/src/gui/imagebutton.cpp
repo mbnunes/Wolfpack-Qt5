@@ -16,16 +16,11 @@ cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down)
 	canHaveFocus_ = true; // Buttons can have the input focus
 	pressRepeatRate_ = 0; // There is no press repeat rate by default (normal push buttons)
 
-	for (int i = 0; i < 4; ++i) {
-		gumphues[i] = 0;
-		gumps[i] = 0;
-		partialhue[i] = false;
-	}
-
 	width_ = 0;
 	height_ = 0;
 
 	gumps[BS_UNPRESSED] = Gumpart->readTexture(up);
+	gumps[BS_HOVER] = 0;
 	gumps[BS_PRESSED] = Gumpart->readTexture(down);
 	
 	if (gumps[BS_UNPRESSED]) {
@@ -38,7 +33,7 @@ cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down)
 }
 
 cImageButton::~cImageButton() {
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		if (gumps[i]) {
 			gumps[i]->decref();
 		}

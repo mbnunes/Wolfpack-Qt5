@@ -91,8 +91,10 @@ void cContainer::addControl(cControl *control, bool back) {
         controls.insert(controls.begin(), control);
 	}
 
-	if (control->canHaveFocus()) {
+	if (control->canHaveFocus() || control->isContainer()) {
 		control->setTabIndex(getHighestTabIndex() + 1); // Only bother for focusable controls
+		tabControls.append(control);
+		sortTabControls();
 	}
 
 	control->setParent(this);
@@ -104,11 +106,14 @@ void cContainer::removeControl(cControl *control) {
 		return;
 	}
 
-	Iterator it;
-	for (it = controls.begin(); it != controls.end(); ++it) {
-		if (*it == control) {
-			controls.erase(it);
-			break;
+	for (int i = 0; i < controls.size(); ++i) {
+		if (controls[i] == control) {
+            controls.remove(i--);
+		}
+	}
+	for (int i = 0; i < tabControls.size(); ++i) {
+		if (tabControls[i] == control) {
+			tabControls.remove(i--);
 		}
 	}
 
@@ -306,61 +311,173 @@ unsigned int cContainer::getHighestTabIndex() {
 }
 
 cControl *cContainer::getNextFocusControl(cControl *current) {
-	if (!isVisible()) {
+	if (!isVisibleOnScreen() || tabControls.isEmpty()) {
 		return 0;
 	}
 
-	// get *all* subcontrols
-	Controls controls;
-	getContainment(controls);
+	// Get the first one
+	if (!current) {
+		int i = 0;
+		while (i < tabControls.size()) {
+			if (tabControls[i]->isVisibleOnScreen()) {
+				if (tabControls[i]->isContainer()) {
+					cContainer *cont = dynamic_cast<cContainer*>(tabControls[i]);
+					if (cont) {
+						cControl *result = cont->getNextFocusControl(0);
+						if (result) {
+							return result;
+						}
+					}
+				} else if (tabControls[i]->canHaveFocus()) {
+					return tabControls[i];
+				}
+			}
+			++i;
+		}
+		return 0; // Nothing found
+	}
 
-	cControl *result = 0;
-	unsigned int tabindex = current ? current->tabIndex() : 0;
-	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
-		if ((*it)->isVisibleOnScreen() && (*it)->canHaveFocus() && (*it)->tabIndex() > tabindex) {
-			result = *it;
-			break;
+	cControl *inThisControl = current;
+
+	while (inThisControl->parent() && inThisControl->parent() != this) {
+		inThisControl = inThisControl->parent();
+	}
+
+	// Not contained in us at all
+	if (!inThisControl->parent()) {
+		return 0;
+	}
+
+	bool found = false;
+
+	// Iterate over the controls and see what to do
+	// NOTE: We do retur 0 when we reach the end. we do NOT wrap.
+	for (int i = 0; i < tabControls.size(); ++i) {
+		cControl *ctrl = tabControls[i];
+
+		if (found && ctrl->isVisibleOnScreen()) {
+			// Get the first control of the next ctrl if it's a container
+			if (ctrl->isContainer()) {
+				cContainer *cont = dynamic_cast<cContainer*>(ctrl);
+				if (cont) {
+					cControl *result = cont->getNextFocusControl(0);
+					if (result) {
+						return result;
+					}
+				}
+			}
+
+			// If that didn't work either, see if the ctrl can have the focus
+			if (ctrl->canHaveFocus()) {
+				return ctrl;
+			}
+
+			// Now simply check the next control until there is nothing left
+		}
+
+		// Check for the next control if neccesary
+		if (ctrl == inThisControl) {
+			found = true;
+
+			// If this control is a container, see if we can continue within the container
+			if (ctrl->isContainer()) {
+				cContainer *cont = dynamic_cast<cContainer*>(ctrl);
+				if (cont) {
+					cControl *result = cont->getNextFocusControl(current);
+					if (result) {
+						return result;
+					}
+				}
+			}
 		}
 	}
 
-	if (!result && current) {
-		return getNextFocusControl(0);
-	}
-
-	return result;
+	return 0;
 }
 
 cControl *cContainer::getPreviousFocusControl(cControl *current) {
-	// get *all* subcontrols
-	Controls controls;
-	getContainment(controls);
+	if (!isVisibleOnScreen() || tabControls.isEmpty()) {
+		return 0;
+	}
 
-	// Try to find the one with the highest id that is smaller than the 
-	// current focus control.
-	cControl *result = 0;
-	cControl *lastControl = current;
-	unsigned int upperLimit = current ? current->tabIndex() : ~(unsigned int)0;	
-	unsigned int currentIndex = 0;
+	// Get the last one
+	if (!current) {
+		int i = tabControls.size() - 1;
+		while (i >= 0) {
+			if (tabControls[i]->isVisibleOnScreen()) {
+				if (tabControls[i]->isContainer()) {
+					cContainer *cont = dynamic_cast<cContainer*>(tabControls[i]);
+					if (cont) {
+						cControl *result = cont->getPreviousFocusControl(0);
+						if (result) {
+							return result;
+						}
+					}
+				} else if (tabControls[i]->canHaveFocus()) {
+					return tabControls[i];
+				}
+			}
+			--i;
+		}
+		return 0; // Nothing found
+	}
 
-	for (Iterator it = controls.begin(); it != controls.end(); ++it) {
-		if ((*it)->isVisibleOnScreen() && (*it)->canHaveFocus()) {
-			// Highest?
-			if ((*it)->tabIndex() > (lastControl ? lastControl->tabIndex() : 0)) {
-				lastControl = *it;
+	cControl *inThisControl = current;
+
+	while (inThisControl->parent() && inThisControl->parent() != this) {
+		inThisControl = inThisControl->parent();
+	}
+
+	// Not contained in us at all
+	if (!inThisControl->parent()) {
+		return 0;
+	}
+
+	bool found = false;
+
+	// Iterate over the controls and see what to do
+	// NOTE: We do retur 0 when we reach the beginning. we do NOT wrap.
+	for (int i = tabControls.size() - 1; i >= 0; --i) {
+		cControl *ctrl = tabControls[i];
+
+		if (found && ctrl->isVisibleOnScreen()) {
+			// Get the first control of the next ctrl if it's a container
+			if (ctrl->isContainer()) {
+				cContainer *cont = dynamic_cast<cContainer*>(ctrl);
+				if (cont) {
+					cControl *result = cont->getPreviousFocusControl(0);
+					if (result) {
+						return result;
+					}
+				}
 			}
 
-			if ((*it)->tabIndex() > currentIndex && (*it)->tabIndex() < upperLimit) {
-				result = *it;
-				currentIndex = result->tabIndex();
+			// If that didn't work either, see if the ctrl can have the focus
+			if (ctrl->canHaveFocus()) {
+				return ctrl;
+			}
+
+			// Now simply check the previous control until there is nothing left
+		}
+
+		// Check for the previous control if neccesary
+		if (ctrl == inThisControl) {
+			found = true;
+
+			// If this control is a container, see if we can continue within the container
+			if (ctrl->isContainer()) {
+				cContainer *cont = dynamic_cast<cContainer*>(ctrl);
+				if (cont) {
+					cControl *result = cont->getPreviousFocusControl(current);
+					if (result) {
+						return result;
+					}
+				}
 			}
 		}
 	}
 
-	if (!result) {
-		result = lastControl;
-	}
-
-	return result;
+	return 0;
 }
 
 bool cContainer::isContainer() const {
@@ -375,4 +492,12 @@ void cContainer::getContainment(Controls &result) {
 			((cContainer*)*it)->getContainment(result);
 		}
 	}
+}
+
+static bool isTabLessThan(cControl *a, cControl *b) {
+	return a->tabIndex() < b->tabIndex();
+}
+
+void cContainer::sortTabControls() {
+	qStableSort(tabControls.begin(), tabControls.end(), isTabLessThan);
 }

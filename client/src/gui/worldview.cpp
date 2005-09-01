@@ -101,6 +101,8 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 	connect(inputField, SIGNAL(enterPressed(cTextField*)), this, SLOT(textFieldEnter(cTextField*)));
 
 	currentTarget = 0;
+	
+	wantTabs_ = true; // Want tabs (warmode changes)
 }
 
 cWorldView::~cWorldView() {
@@ -446,6 +448,13 @@ void cWorldView::draw(int xoffset, int yoffset) {
 void cWorldView::showInputLine() {
 	inputField->setVisible(true);
 	Gui->setInputFocus(inputField);
+}
+
+void cWorldView::onKeyDown(QKeyEvent *e) {
+	if (e->key() == Qt::Key_Tab) {
+	} else {
+		cWindow::onKeyDown(e);
+	}
 }
 
 cWorldView *WorldView = 0;

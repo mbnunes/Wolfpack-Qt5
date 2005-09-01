@@ -69,6 +69,9 @@ void cDynamicItem::cleanPosition() {
 	switch (positionState_) {
 		case OnMobile:
 			if (wearer_) {
+				positionState_ = InLimbo;
+				wearer_->removeEquipment(this);
+				wearer_ = 0;
 			}
 			break;
 		case InContainer:

@@ -128,6 +128,7 @@ public:
 			selection_ = 0;
 			caret_ = 0;
 			caretXOffset_ = 0;
+			setCaret(text_.length());
 			invalidateText();
 		}
 	}

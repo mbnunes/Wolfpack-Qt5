@@ -56,7 +56,7 @@ public:
 	inline bool canHaveFocus() const { return canHaveFocus_; }
 	inline bool wantTabs() const { return wantTabs_; }
 	inline unsigned int tabIndex() const { return tabIndex_; }
-	inline void setTabIndex(unsigned int data) { tabIndex_ = data; }
+	void setTabIndex(unsigned int data);
 
 	// Map a QPoint from the global coordinate space to local
 	QPoint mapFromGlobal(const QPoint &point);

@@ -824,3 +824,48 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x1c, cAsciiMessagePacket::creator);
+
+class cCharacterEquipmentPacket : public cIncomingPacket {
+protected:
+	uint serial; // item serial
+	ushort model;
+	uchar unknown; // ?
+	uint parent; // mobile equipping the item
+	uchar layer; // layer to equip on
+	ushort hue; // item hue
+public:
+	cCharacterEquipmentPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> model >> unknown >> layer >> parent >> hue;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cDynamicItem *equipment = World->findItem(serial);
+		cMobile *mobile = World->findMobile(parent);
+
+		if (mobile) {
+			if (!equipment) {
+				equipment = new cDynamicItem(mobile, layer, serial);
+				equipment->setId(model);
+				equipment->setHue(hue);
+				return;
+			} else {
+				if (model != equipment->id()) {
+					equipment->setId(model);
+				}
+				if (hue != equipment->hue()) {
+					equipment->setHue(hue);
+				}
+
+				equipment->cleanPosition();
+				equipment->move(mobile, layer);
+			}
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cCharacterEquipmentPacket(input, size);
+	}
+};
+
+
+AUTO_REGISTER_PACKET(0x2e, cCharacterEquipmentPacket::creator);

@@ -78,7 +78,7 @@ void cWorld::clearEntities() {
 void cWorld::cleanupEntities() {
 	cleaningUp = true;
 
-	Q3ValueVector<unsigned int> toremove; // Cells that are now empty
+	QVector<uint> toremove; // Cells that are now empty
 
 	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
 		Cell &cell = it.data();
@@ -88,9 +88,10 @@ void cWorld::cleanupEntities() {
 			if (distance > 18) {
 				Gui->removeOverheadText(*cit);
 				(*cit)->decref();
-				cit = cell.remove(cit);
+				cit = cell.erase(cit);
+			} else {
+				++cit;
 			}
-			++cit;
 		}
 
 		if (cell.isEmpty()) {
@@ -99,8 +100,8 @@ void cWorld::cleanupEntities() {
 	}
 
 	// Remove empty cells
-	for (Q3ValueVector<unsigned int>::const_iterator it = toremove.begin(); it != toremove.end(); ++it) {
-		entities.remove(*it);
+	for (int i = 0; i < toremove.size(); ++i) {
+		entities.remove(toremove[i]);
 	}
 
 	cleaningUp = false;

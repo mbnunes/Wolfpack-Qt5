@@ -14,10 +14,6 @@ Q_OBJECT
 private:
 	// There are a lot of different possibilities for the states
 	cTexture *gumps[3]; // For every state one
-	unsigned short gumpids[3]; // For every state one
-	unsigned short gumphues[3]; // One hue per state
-	bool partialhue[3]; // One partial hue value per state
-	//unsigned char hittest[4]; // One hit-test mask for every state - Faster
 	bool mouseOver_; // False by default (is the mouse over this control)
 	bool mouseHolding_; // False by default (is the space key being pressed)
 	bool spaceHolding_; // False by default (is the space key being pressed)

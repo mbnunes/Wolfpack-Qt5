@@ -231,3 +231,9 @@ cWindow *cControl::getTopWindow() {
 	return 0;
 }
 
+void cControl::setTabIndex(unsigned int data) {
+	tabIndex_ = data;
+	if (parent_) {
+		parent_->sortTabControls();
+	}
+}

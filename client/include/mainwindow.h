@@ -58,6 +58,7 @@ protected:
 	void mousePressEvent(QMouseEvent *e);
 	void mouseReleaseEvent(QMouseEvent *e);
 	void mouseDoubleClickEvent(QMouseEvent * e);
+	bool focusNextPrevChild(bool next);
 
 	cControl *mouseCapture_; // Control which got the last mousedown event
 	cControl *lastMouseMovement_; // Control that got the last movement event

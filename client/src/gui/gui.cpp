@@ -7,6 +7,8 @@
 #include "muls/gumpart.h"
 #include "game/entity.h"
 #include "game/mobile.h"
+#include "mainwindow.h"
+#include <qcursor.h>
 
 cGui *Gui = 0;
 
@@ -228,4 +230,7 @@ void cGui::addControl(cControl *control, bool back) {
 	if (!activeWindow_ && control->isContainer()) {
 		activeWindow_ = (cWindow*)control;
 	}
+
+	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+	GLWidget->setLastMouseMovement(getControl(pos.x(), pos.y()));
 }
