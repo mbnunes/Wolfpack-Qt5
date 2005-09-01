@@ -8,7 +8,7 @@
 class cItemImage : public cControl {
 Q_OBJECT
 
-private:
+protected:
 	cTexture *item;
 	unsigned short id;
 	unsigned short hue;

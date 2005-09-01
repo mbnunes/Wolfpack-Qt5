@@ -6,11 +6,16 @@
 #include "game/statictile.h"
 
 class cMobile;
+class cContainerGump;
 
 #pragma warning(disable: 4250)
 
 class cDynamicItem : public cDynamicEntity, public cStaticTile {
+friend class cContainerGump;
+
 public:
+	typedef QVector<cDynamicItem*> Container;
+
 	enum State {
 		InLimbo = 0,
 		OnMobile,
@@ -44,14 +49,33 @@ public:
 
 	int lastClickX() const;
 	int lastClickY() const;
+	void setLastClickX(int data);
+	void setLastClickY(int data);
+	int containerX() const;
+	int containerY() const;
+	void setContainerX(int data);
+	void setContainerY(int data);
+
+	const Container &content() const;
+	cContainerGump *containerGump() const;
+	void showContent(int x, int y, ushort gump);
+	void showContent(ushort gump);
+
+	void setDrawx(int data);
+	void setDrawy(int data);
 protected:
 	State positionState_;
 	cDynamicItem *container_; // Container (only valid in Contained state)
 	cMobile *wearer_; // The mobile equipping this item (only valid in Equipped state)
 	enLayer layer_; // The layer this item is equipped on (only valid in Equipped state)
+	Container content_;
 
 	int lastClickX_;
 	int lastClickY_;
+	int containerX_, containerY_; // position within container
+	bool deleting; // This is being deleted right now
+	void removeItem(cDynamicItem *item);
+	cContainerGump *containerGump_; // The container gump associated with this dynamic item
 };
 
 
@@ -77,6 +101,46 @@ inline int cDynamicItem::lastClickX() const {
 
 inline int cDynamicItem::lastClickY() const {
 	return lastClickY_;
+}
+
+inline const cDynamicItem::Container &cDynamicItem::content() const {
+	return content_;
+}
+
+inline int cDynamicItem::containerX() const {
+	return containerX_;
+}
+
+inline int cDynamicItem::containerY() const {
+	return containerY_;
+}
+
+inline void cDynamicItem::setContainerX(int data) {
+	containerX_ = data;
+}
+
+inline void cDynamicItem::setContainerY(int data) {
+	containerY_ = data;
+}
+
+inline cContainerGump *cDynamicItem::containerGump() const {
+	return containerGump_;
+}
+
+inline void cDynamicItem::setDrawx(int data) {
+	drawx_ = data;
+}
+
+inline void cDynamicItem::setDrawy(int data) {
+	drawy_ = data;
+}
+
+inline void cDynamicItem::setLastClickX(int data) {
+	lastClickX_ = data;
+}
+
+inline void cDynamicItem::setLastClickY(int data) {
+	lastClickY_ = data;
 }
 
 #endif

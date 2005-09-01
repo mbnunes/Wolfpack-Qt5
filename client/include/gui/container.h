@@ -4,6 +4,7 @@
 
 #include <QRect>
 #include <QList>
+#include <QVector>
 
 #include "control.h"
 

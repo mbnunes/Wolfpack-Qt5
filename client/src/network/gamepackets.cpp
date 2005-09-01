@@ -5,6 +5,7 @@
 #include "dialogs/login.h"
 #include "gui/worldview.h"
 #include "gui/genericgump.h"
+#include "gui/containergump.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
 #include "muls/localization.h"
@@ -733,7 +734,6 @@ public:
 				cDynamicItem *item = World->findItem(serial);
 
 				if (item) {
-					QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
 					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, localized, hue, font, item);
 				} else {
 					serial = 0; // Set to invalid so it shows up as a sysmessage
@@ -754,7 +754,6 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xc1, cPredefinedMessagePacket::creator);
-
 
 // Incoming ascii message
 class cAsciiMessagePacket : public cDynamicIncomingPacket {
@@ -867,5 +866,135 @@ public:
 	}
 };
 
-
 AUTO_REGISTER_PACKET(0x2e, cCharacterEquipmentPacket::creator);
+
+class cDrawContainerPacket : public cIncomingPacket {
+protected:
+	uint serial; // item serial
+	ushort gump; // container gump
+public:
+	cDrawContainerPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> gump;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cDynamicItem *container = World->findItem(serial);
+
+		if (container) {
+			container->showContent(gump);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cDrawContainerPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x24, cDrawContainerPacket::creator);
+
+class cAddItemToContainerPacket : public cIncomingPacket {
+protected:
+	uint serial; // item serial
+	ushort id; // item id
+	uchar unknown;
+	ushort amount; // item amount
+	short posx, posy; // position in container
+	uint contserial; // container serial;
+    ushort hue; // item color
+public:
+	cAddItemToContainerPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> id >> unknown >> amount >> posx >> posy >> contserial >> hue;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cDynamicItem *container = World->findItem(contserial);
+
+		if (!container) {
+			return;
+		}
+
+		cDynamicItem *item = World->findItem(serial);
+
+		if (!item) {
+			item = new cDynamicItem(container, serial);
+		} else {
+			item->move(container);
+		}
+		item->setId(id);
+		item->setHue(hue);
+		// TODO: Amount
+		item->setContainerX(posx);
+		item->setContainerY(posy);
+
+		if (container->containerGump()) {
+			container->containerGump()->flagContentChanged();
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cAddItemToContainerPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x25, cAddItemToContainerPacket::creator);
+
+// Container content packet
+class cContainerContentPacket : public cDynamicIncomingPacket {
+protected:
+	struct stItemInfo {
+		uint serial; // item serial
+		ushort id; // item model
+		uchar unknown;
+		ushort amount; // amount of items
+		ushort posx, posy; // position in container
+		uint contserial; // container serial
+		ushort hue; // hue of item
+	};
+	QVector<stItemInfo> items;
+public:
+	cContainerContentPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(5);
+		ushort count; // number of items in packet
+		input >> count;
+		safetyAssertSize(5 + count * 19);
+
+		for (int i = 0; i < count; ++i) {
+			stItemInfo info;
+			input >> info.serial >> info.id >> info.unknown 
+				>> info.amount >> info.posx >> info.posy >> info.contserial >> info.hue;
+			items.append(info);
+		}
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		foreach (stItemInfo info, items) {
+			cDynamicItem *container = World->findItem(info.contserial);
+			if (!container) {
+				continue; // Unknown container
+			}
+
+			cDynamicItem *item = World->findItem(info.serial);
+
+			if (!item) {
+				item = new cDynamicItem(container, info.serial);
+			} else {
+				item->move(container);
+			}
+			item->setId(info.id);
+			item->setHue(info.hue);
+			// TODO: Amount
+			item->setContainerX(info.posx);
+			item->setContainerY(info.posy);
+
+			if (container->containerGump()) {
+				container->containerGump()->flagContentChanged();
+			}
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cContainerContentPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x3c, cContainerContentPacket::creator);

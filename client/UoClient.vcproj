@@ -517,6 +517,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\gui\containergump.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\containergump.h">
+			</File>
+			<File
 				RelativePath=".\src\gui\contextmenu.cpp">
 			</File>
 			<File

@@ -4,6 +4,9 @@
 #include "game/mobile.h"
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
+#include "gui/gui.h"
+#include "gui/containergump.h"
+#include "gui/worldview.h"
 
 cDynamicItem::cDynamicItem(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial) : cEntity(x, y, z, facet), cDynamicEntity(x, y, z, facet, serial) {
 	type_ = ITEM;
@@ -13,6 +16,8 @@ cDynamicItem::cDynamicItem(unsigned short x, unsigned short y, signed char z, en
 	World->addEntity(this);
 	lastClickX_ = 0;
 	lastClickY_ = 0;
+	deleting = false;
+	containerGump_ = 0;
 }
 
 cDynamicItem::cDynamicItem(cDynamicItem *container, unsigned int serial) : cDynamicEntity(serial) {
@@ -21,6 +26,10 @@ cDynamicItem::cDynamicItem(cDynamicItem *container, unsigned int serial) : cDyna
 	container_ = 0;
 	positionState_ = InLimbo;
 	move(container);
+	deleting = false;
+	containerGump_ = 0;
+	lastClickX_ = 0;
+	lastClickY_ = 0;
 }
 
 cDynamicItem::cDynamicItem(cMobile *wearer, unsigned char layer, unsigned int serial) : cDynamicEntity(serial) {
@@ -29,10 +38,23 @@ cDynamicItem::cDynamicItem(cMobile *wearer, unsigned char layer, unsigned int se
 	container_ = 0;
 	positionState_ = InLimbo;
 	move(wearer, layer);
+	deleting = false;
+	containerGump_ = 0;
+	lastClickX_ = 0;
+	lastClickY_ = 0;
 }
 
 cDynamicItem::~cDynamicItem() {
+	deleting = true;
 	cleanPosition();
+	foreach (cDynamicItem *item, content_) {
+		item->decref();
+	}
+
+	if (containerGump_) {
+		containerGump_->setContainer(0); // Make sure the container gump doesn't try to unassign itself from us
+		Gui->queueDelete(containerGump_);
+	}
 }
 
 void cDynamicItem::move(unsigned short x, unsigned short y, signed char z) {
@@ -53,10 +75,10 @@ void cDynamicItem::move(cMobile *wearer, unsigned char layer) {
 void cDynamicItem::move(cDynamicItem *container) {
 	cleanPosition();
 	
-	// Add us to the container
-
+	container->removeItem(this);
+	container->content_.append(this);
+	
 	container_ = container;
-
 	positionState_ = InContainer;
 }
 
@@ -76,6 +98,7 @@ void cDynamicItem::cleanPosition() {
 			break;
 		case InContainer:
 			if (container_) {
+                container_->removeItem(this);
 			}
 			break;
 		case InWorld:
@@ -101,4 +124,45 @@ void cDynamicItem::onClick(QMouseEvent *e) {
 void cDynamicItem::onDoubleClick(QMouseEvent *e) {
 	cDoubleClickPacket packet(serial_);
 	UoSocket->send(packet);
+}
+
+void cDynamicItem::removeItem(cDynamicItem *item) {
+	if (deleting) {
+		return;
+	}
+
+	for (int i = 0; i < content_.size(); ++i) {
+		if (content_[i] == item) {
+			content_.remove(i);
+			return;
+		}
+	}
+}
+
+void cDynamicItem::showContent(int x, int y, ushort gump) {
+	if (containerGump_) {
+		containerGump_->setContainer(0);
+		Gui->queueDelete(containerGump_);		
+	}
+
+	containerGump_ = new cContainerGump(gump, hue_);
+	containerGump_->setContainer(this);
+	Gui->addControl(containerGump_);
+
+	WorldView->addSysMessage(tr("Showing content of container 0x%1.\n").arg(serial_, 0, 16));
+	foreach (cDynamicItem *item, content_) {
+		WorldView->addSysMessage(tr("Item 0x%1.\n").arg(item->serial(), 0, 16));
+	}
+}
+
+void cDynamicItem::showContent(ushort gump) {
+	int x = 50;
+	int y = 50;
+
+	if (containerGump_) {
+		x = containerGump_->x();
+		y = containerGump_->y();
+	}
+
+	showContent(x, y, gump);
 }

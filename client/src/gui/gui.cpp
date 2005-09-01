@@ -6,6 +6,7 @@
 #include "gui/worldview.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
+#include "game/dynamicitem.h"
 #include "game/mobile.h"
 #include "mainwindow.h"
 #include <qcursor.h>
@@ -83,6 +84,8 @@ void cGui::draw() {
 		int xoffset = overheadText[i].centerx  - overheadText[i].control->width() / 2;
 		int yoffset = overheadText[i].centery  - overheadText[i].control->height() / 2;
 
+		bool dontClip = false;
+
 		// Centerx/centery are in relation to drawx/drawy if the entity is present
 		if (overheadText[i].entity) {
 			// We always want the text to be ABOVE the mobile not in the center
@@ -91,9 +94,15 @@ void cGui::draw() {
 			}
 			xoffset += overheadText[i].entity->drawx();
 			yoffset += overheadText[i].entity->drawy();
+
+			// The overlay text for contained items may not be clipped
+			cDynamicItem *item = dynamic_cast<cDynamicItem*>(overheadText[i].entity);
+			if (item && item->container()) {
+				dontClip = true;
+            }
 		}
 
-		if (WorldView) {
+		if (WorldView && !dontClip) {
 			int x, y, width, height;
 			WorldView->getWorldRect(x, y, width, height);
 

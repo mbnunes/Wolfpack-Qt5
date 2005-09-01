@@ -2,19 +2,18 @@
 #if !defined(__UOSOCKET_H__)
 #define __UOSOCKET_H__
 
-#include <q3valuelist.h>
-#include <qbytearray.h>
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qqueue.h>
+#include <QList>
+#include <QByteArray>
+#include <QFile>
+#include <QTextStream>
+#include <QTcpSocket>
+#include <QQueue>
 
 #include "enums.h"
 #include "network/uopacket.h"
 
 class cStreamEncryption;
-class Q3Dns;
 class cOutgoingPacket;
-class Q3Socket;
 
 typedef cIncomingPacket *(*fnIncomingPacketConstructor)(QDataStream &data, unsigned short size);
 
@@ -25,8 +24,7 @@ class cUoSocket : public QObject {
 Q_OBJECT
 
 protected:
-	// TODO: !External event handlers!
-	Q3Socket *socket;
+	QTcpSocket *socket;
 
 	QByteArray pendingPacket;
 	cStreamEncryption *encryption; // Encryption instance
@@ -38,8 +36,8 @@ protected:
 	uint moveSequence_;
 	QQueue<int> moveQueue; // Not directly accessible from the outside
 
-	Q3ValueList<QByteArray> outgoingQueue;
-	Q3ValueList<cIncomingPacket*> incomingQueue;
+	QList<QByteArray> outgoingQueue;
+	QList<cIncomingPacket*> incomingQueue;
 	QByteArray incomingBuffer;
 
 	void buildPackets();
@@ -96,10 +94,9 @@ public slots:
 	void hostFound();
 	void connected();
 	void connectionClosed();
-	void delayedCloseFinished();
 	void readyRead();
 	void bytesWritten(int nbytes);
-	void error(int error);
+	void error(QAbstractSocket::SocketError error);
 	void poll();
 	void disconnect();
 	void sendPing();
