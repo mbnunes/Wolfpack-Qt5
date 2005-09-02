@@ -252,7 +252,7 @@
 
 	<multi id="two_story_stone_and_plaster_house">
 		<name>Two Story Stone and Plaster House</name>
-		<id>0x4076</id>
+		<id>0x4078</id>
 		<nodecay />
 		<door x="-3" y="6" z="7" id="0x6a5" /> <!-- Wooden door facing south -->
 		<door x="-2" y="6" z="7" id="0x6a7" /> <!-- Wooden door facing south -->
@@ -376,7 +376,7 @@
 		<category>Empty\Large Marbel Patio House</category>
 	</multi>
 
-	<multi id="large_marbel_patio_house">
+	<multi id="large_marble_patio_house">
 		<name>Large Marbel Patio House</name>
 		<id>0x4096</id>
 		<nodecay />

@@ -1,6 +1,8 @@
 import wolfpack
+import housing
 from wolfpack.gumps import cGump
 from wolfpack.consts import *
+from housing.deed import getPlacementData
 
 #2-Story houses
 ch2story = [
@@ -110,6 +112,30 @@ ch3story = [
 [ 18, 17, 0x147a ],
 [ 18, 18, 0x147b ]]
 
+#Classical Houses
+#The first two parameters are just garbage.
+classical = [
+[ 1, 1, 0x64, "small_stone_and_plaster_house" ],
+[ 1, 1, 0x66, "small_fieldstone_house" ],
+[ 1, 1, 0x68, "small_brick_house" ],
+[ 1, 1, 0x6a, "small_wood_house" ],
+[ 1, 1, 0x6c, "small_wood_and_plaster_house" ],
+[ 1, 1, 0x6e, "small_thatched_roof_cottage" ],
+[ 1, 1, 0xa0, "small_stone_workshop" ],
+[ 1, 1, 0xa2, "small_marble_workshop" ],
+[ 1, 1, 0x98, "small_tower" ],
+[ 1, 1, 0x9e, "two_story_villa" ],
+[ 1, 1, 0x9c, "sandstone_patio_house" ],
+[ 1, 1, 0x9a, "log_cabin" ],
+[ 1, 1, 0x68, "small_brick_house" ],
+[ 1, 1, 0x76, "two_story_wood_and_plaster_house" ],
+[ 1, 1, 0x78, "two_story_stone_and_plaster_house" ],
+[ 1, 1, 0x8d, "large_patio_house" ],
+[ 1, 1, 0x96, "large_marble_patio_house" ],
+[ 1, 1, 0x7a, "large_tower" ],
+[ 1, 1, 0x7c, "stone_keep" ],
+[ 1, 1, 0x7e, "castle" ]]
+
 #buttons
 button_ok = 1
 button_cancel = 0
@@ -125,7 +151,7 @@ def gump0callback( char, args, target ):
 
 	#Old style houses
 	if button == 1:
-		char.socket.clilocmessage( 1005691 )
+		gump4( char, gump3callback, classical )
 	#2-Story houses
 	if button == 2:
 		gump1( char, gump1callback, ch2story )
@@ -145,10 +171,57 @@ def gump2callback( char, args, target ):
 	if button == 1:
 		foundation( char, args[1], args[0][0], args[0][1], args[0][2], args[0][3] )
 
+#Selection of a Classic House
+def gump3callback( char, args, target ):
+	button = target.button
+	if button > 0:
+		char.socket.attachmultitarget( "deeds.multideed.response2", args[0][button-1][2], args[0][button-1], 0, 0, 0 )
+
+#Classic House placement warning gump callback
+def gump4callback( char, args, target ):
+	button = target.button
+	if button == 1:
+		placement( char, args[1], args[0][3], args[0][2] )
+
+# Response for a Custom House
 def response( char, args, target ):
 	gump2( char, gump2callback, args, target )
 	return 1
 
+# Responde for a Classic House
+def response2( char, args, target ):
+	gump2( char, gump4callback, args, target )
+	return 1
+
+# Making the House
+def placement(player, target, multiid, id):
+
+	# This check is necessary? Maybe later we can remove this
+	if not player.canreach(target.pos, 20):
+		player.socket.sysmessage('You can\'t reach that.')
+		return
+
+	(canplace, moveout) = wolfpack.canplace(target.pos, id, 4)
+
+	# This check is necessary too? Maybe later we can remove this
+	if not canplace:
+		player.socket.sysmessage('CAN\'T PLACE THERE')
+		return
+
+	house = wolfpack.addmulti( multiid )
+	house.owner = player
+	house.moveto(target.pos)
+	house.update()
+	housing.registerHouse(house)
+
+	for obj in moveout:
+		obj.removefromview()
+		obj.moveto(player.pos)
+		obj.update()
+		if obj.ischar() and obj.socket:
+			obj.socket.resendworld()
+
+# Making the Foundation
 def foundation( char, target, width, height, id, multiid ):
 	multi = wolfpack.addmulti(str(multiid))
 	if not multi:
@@ -975,4 +1048,180 @@ def gump2( char, callback, args, target ):
 	mygump.addXmfHtmlGump( 240, 250, 170, 20, 1011012, 0, 0, 32767 )
 	mygump.setCallback( callback )
 	mygump.setArgs( [args, target] )
+	mygump.send( char )
+
+
+def gump4( char, callback, chsizes ):
+	bank = char.getbankbox()
+	if bank:
+		gold = bank.countresource( 0xEED, 0x0 )
+	gump_params = [
+	str( gold ),
+	"489",
+	"244",
+	"37000",
+	"36750",
+	"35250",
+	"50500",
+	"52500",
+	"667",
+	"333",
+	"73500",
+	"1265",
+	"632",
+	"113750",
+	"76500",
+	"81750",
+	"1576",
+	"788",
+	"131500",
+	"162750",
+	"162000",
+	"129250",
+	"160500",
+	"2437",
+	"1218",
+	"366500",
+	"3019",
+	"1509",
+	"572750",
+	"4688",
+	"2344",
+	"865250"]
+
+	mygump = cGump()
+	mygump.addRawLayout( "{page 0}" )
+	mygump.addRawLayout( "{resizepic 0 0 5054 520 420}" )
+	mygump.addRawLayout( "{gumppictiled 10 10 500 20 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 10 500 20}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 10 10 500 20 1060239 0 0 32767}" )
+	mygump.addRawLayout( "{gumppictiled 10 40 500 20 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 40 500 20}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 40 225 20 1060235 0 0 32767}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 275 40 75 20 1060236 0 0 32767}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 350 40 75 20 1060237 0 0 32767}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 425 40 75 20 1060034 0 0 32767}" )
+	mygump.addRawLayout( "{gumppictiled 10 70 500 280 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 70 500 280}" )
+	mygump.addRawLayout( "{gumppictiled 10 360 500 20 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 360 500 20}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 10 360 250 20 1060645 0 0 32767}" )
+	mygump.addRawLayout( "{text 250 360 1152 0}" )
+	mygump.addRawLayout( "{gumppictiled 10 390 500 20 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 390 500 20}" )
+	mygump.addRawLayout( "{button 10 390 4017 4019 1 0 0}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 390 100 20 3000363 0 0 32767}" )
+	mygump.addRawLayout( "{page 1}" )
+	mygump.addRawLayout( "{button 10 70 4005 4007 1 0 1}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 70 225 20 1011303 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 70 1152 1}" )
+	mygump.addRawLayout( "{text 350 70 1152 2}" )
+	mygump.addRawLayout( "{text 425 70 1152 3}" )
+	mygump.addRawLayout( "{button 10 90 4005 4007 1 0 2}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 90 225 20 1011304 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 90 1152 1}" )
+	mygump.addRawLayout( "{text 350 90 1152 2}" )
+	mygump.addRawLayout( "{text 425 90 1152 3}" )
+	mygump.addRawLayout( "{button 10 110 4005 4007 1 0 3}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 110 225 20 1011305 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 110 1152 1}" )
+	mygump.addRawLayout( "{text 350 110 1152 2}" )
+	mygump.addRawLayout( "{text 425 110 1152 4}" )
+	mygump.addRawLayout( "{button 10 130 4005 4007 1 0 4}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 130 225 20 1011306 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 130 1152 1}" )
+	mygump.addRawLayout( "{text 350 130 1152 2}" )
+	mygump.addRawLayout( "{text 425 130 1152 5}" )
+	mygump.addRawLayout( "{button 10 150 4005 4007 1 0 5}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 150 225 20 1011307 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 150 1152 1}" )
+	mygump.addRawLayout( "{text 350 150 1152 2}" )
+	mygump.addRawLayout( "{text 425 150 1152 4}" )
+	mygump.addRawLayout( "{button 10 170 4005 4007 1 0 6}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 170 225 20 1011308 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 170 1152 1}" )
+	mygump.addRawLayout( "{text 350 170 1152 2}" )
+	mygump.addRawLayout( "{text 425 170 1152 4}" )
+	mygump.addRawLayout( "{button 10 190 4005 4007 1 0 7}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 190 225 20 1011321 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 190 1152 1}" )
+	mygump.addRawLayout( "{text 350 190 1152 2}" )
+	mygump.addRawLayout( "{text 425 190 1152 6}" )
+	mygump.addRawLayout( "{button 10 210 4005 4007 1 0 8}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 210 225 20 1011322 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 210 1152 1}" )
+	mygump.addRawLayout( "{text 350 210 1152 2}" )
+	mygump.addRawLayout( "{text 425 210 1152 7}" )
+	mygump.addRawLayout( "{button 10 230 4005 4007 1 0 9}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 230 225 20 1011317 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 230 1152 8}" )
+	mygump.addRawLayout( "{text 350 230 1152 9}" )
+	mygump.addRawLayout( "{text 425 230 1152 10}" )
+	mygump.addRawLayout( "{button 10 250 4005 4007 1 0 10}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 250 225 20 1011319 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 250 1152 11}" )
+	mygump.addRawLayout( "{text 350 250 1152 12}" )
+	mygump.addRawLayout( "{text 425 250 1152 13}" )
+	mygump.addRawLayout( "{button 10 270 4005 4007 1 0 11}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 270 225 20 1011320 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 270 1152 11}" )
+	mygump.addRawLayout( "{text 350 270 1152 12}" )
+	mygump.addRawLayout( "{text 425 270 1152 14}" )
+	mygump.addRawLayout( "{button 10 290 4005 4007 1 0 12}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 290 225 20 1011318 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 290 1152 11}" )
+	mygump.addRawLayout( "{text 350 290 1152 12}" )
+	mygump.addRawLayout( "{text 425 290 1152 15}" )
+	mygump.addRawLayout( "{button 10 310 4005 4007 1 0 13}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 310 225 20 1011309 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 310 1152 16}" )
+	mygump.addRawLayout( "{text 350 310 1152 17}" )
+	mygump.addRawLayout( "{text 425 310 1152 18}" )
+	mygump.addRawLayout( "{button 10 330 4005 4007 1 0 14}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 330 225 20 1011310 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 330 1152 16}" )
+	mygump.addRawLayout( "{text 350 330 1152 17}" )
+	mygump.addRawLayout( "{text 425 330 1152 19}" )
+	mygump.addRawLayout( "{button 450 390 4005 4007 0 2 0}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 400 390 100 20 3000406 0 0 32767}" )
+	mygump.addRawLayout( "{page 2}" )
+	mygump.addRawLayout( "{button 200 390 4014 4016 0 1 0}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 250 390 100 20 3000405 0 0 32767}" )
+	mygump.addRawLayout( "{button 10 70 4005 4007 1 0 15}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 70 225 20 1011311 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 70 1152 16}" )
+	mygump.addRawLayout( "{text 350 70 1152 17}" )
+	mygump.addRawLayout( "{text 425 70 1152 20}" )
+	mygump.addRawLayout( "{button 10 90 4005 4007 1 0 16}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 90 225 20 1011315 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 90 1152 16}" )
+	mygump.addRawLayout( "{text 350 90 1152 17}" )
+	mygump.addRawLayout( "{text 425 90 1152 21}" )
+	mygump.addRawLayout( "{button 10 110 4005 4007 1 0 17}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 110 225 20 1011316 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 110 1152 16}" )
+	mygump.addRawLayout( "{text 350 110 1152 17}" )
+	mygump.addRawLayout( "{text 425 110 1152 22}" )
+	mygump.addRawLayout( "{button 10 130 4005 4007 1 0 18}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 130 225 20 1011312 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 130 1152 23}" )
+	mygump.addRawLayout( "{text 350 130 1152 24}" )
+	mygump.addRawLayout( "{text 425 130 1152 25}" )
+	mygump.addRawLayout( "{button 10 150 4005 4007 1 0 19}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 150 225 20 1011313 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 150 1152 26}" )
+	mygump.addRawLayout( "{text 350 150 1152 27}" )
+	mygump.addRawLayout( "{text 425 150 1152 28}" )
+	mygump.addRawLayout( "{button 10 170 4005 4007 1 0 20}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 50 170 225 20 1011314 0 0 32767}" )
+	mygump.addRawLayout( "{text 275 170 1152 29}" )
+	mygump.addRawLayout( "{text 350 170 1152 30}" )
+	mygump.addRawLayout( "{text 425 170 1152 31}" )
+	
+	#Add params
+	for line in gump_params:
+		mygump.addRawText( line )
+
+	mygump.setArgs( [chsizes] )
+	mygump.setCallback( callback )
 	mygump.send( char )
