@@ -2,9 +2,7 @@
 #if !defined(__ASCIILABEL_H__)
 #define __ASCIILABEL_H__
 
-#include <qstring.h>
-//Added by qt3to4:
-#include <Q3CString>
+#include <QString>
 
 #include "gui/control.h"
 #include "texture.h"
@@ -12,7 +10,7 @@
 class cAsciiLabel : public cControl {
 Q_OBJECT
 private:
-	Q3CString text_;
+	QString text_;
 	unsigned short hue_;
 	unsigned char font_;
 	enTextAlign align_;
@@ -20,12 +18,12 @@ private:
 	bool hueAll_;
 	cTexture *texture;
 public:
-	cAsciiLabel(const Q3CString &text, unsigned short font = 0, unsigned short hue = 0, enTextAlign align = ALIGN_LEFT, bool autoSize = true, bool hueAll = false);
+	cAsciiLabel(const QString &text, unsigned short font = 0, unsigned short hue = 0, enTextAlign align = ALIGN_LEFT, bool autoSize = true, bool hueAll = false);
 	virtual ~cAsciiLabel();
 	void draw(int xoffset, int yoffset);
 
 	// Getters
-	const Q3CString &text() const { return text_; }
+	const QString &text() const { return text_; }
 	unsigned char font() const { return font_; }
 	unsigned short hue() const { return hue_; }
 	enTextAlign align() const { return align_; }
@@ -33,7 +31,7 @@ public:
 	bool hueAll() const { return hueAll_; }
 
 	// Setters
-	inline void setText(const Q3CString &text) {
+	inline void setText(const QString &text) {
 		if (text_ != text) {
 			text_ = text;
 			if (texture) {

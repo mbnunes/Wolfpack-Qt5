@@ -20,7 +20,7 @@ CONFIG(debug, debug|release):OBJECTS_DIR = obj/debug
 MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
-win32:LIBS += advapi32.lib shell32.lib
+win32:LIBS += advapi32.lib shell32.lib openal32.lib
 
 unix:LIBS += -lGL -lGLU
 
@@ -76,7 +76,8 @@ HEADERS += \
 	include/gui/textfield.h \
 	include/gui/tiledgumpimage.h \
 	include/gui/window.h \
-	include/gui/worldview.h 
+	include/gui/worldview.h \
+	include/gui/containergump.h
 
 # MUL INCLUDES
 HEADERS += \
@@ -141,7 +142,8 @@ SOURCES += \
 	src/gui/textfield.cpp \
 	src/gui/tiledgumpimage.cpp \
 	src/gui/window.cpp \
-	src/gui/worldview.cpp 
+	src/gui/worldview.cpp \
+	src/gui/containergump.cpp
 
 SOURCES += \
 	src/network/encryption.cpp \

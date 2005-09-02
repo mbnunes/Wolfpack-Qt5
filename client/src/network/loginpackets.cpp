@@ -6,10 +6,9 @@
 #include "config.h"
 #include "enums.h"
 
-#include <q3valuevector.h>
-#include <qstringlist.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QVector>
+#include <QStringList>
+#include <QList>
 
 /*
 	This packet is sent by the server is the login was accepted. Contains the list of possible
@@ -37,7 +36,7 @@ public:
 			unsigned int pingIp;
 			stShardEntry shard;
 			input >> shard.id;			
-			input.readRawBytes(shardname, 32);
+			input.readRawData(shardname, 32);
 			shard.name = QString::fromLatin1(shardname);
 			input >> shard.percentFull >> shard.timezone >> pingIp;
 			shard.pingAddress.setAddress(pingIp);
@@ -180,7 +179,7 @@ AUTO_REGISTER_PACKET(0xb9, cEnableFeatures::creator);
 class cCharacterListPacket : public cDynamicIncomingPacket {
 protected:
 	QStringList characters;
-	Q3ValueVector<stStartLocation> startLocations;
+	QVector<stStartLocation> startLocations;
 	unsigned int flags;
 public:
 	cCharacterListPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
@@ -201,7 +200,7 @@ public:
 		for (unsigned int i = 0; i < charCount; ++i) {
             char name[61];
 			name[60] = 0;
-			input.readRawBytes(name, 60);
+			input.readRawData(name, 60);
 
 			// Only add if the name is non-null
 			if (name[0]) {
@@ -220,8 +219,8 @@ public:
 			stStartLocation location;
 			
 			input >> location.index;
-			input.readRawBytes(name, 31);
-			input.readRawBytes(exactName, 31);			
+			input.readRawData(name, 31);
+			input.readRawData(exactName, 31);			
 			location.name = name;
 			location.exactName = exactName;
 			
@@ -260,7 +259,7 @@ public:
 
 		for (unsigned int i = 0; i < charCount; ++i) {
             char name[60];
-			input.readRawBytes(name, 60);
+			input.readRawData(name, 60);
 			name[30] = 0; // ENSURE null termination
 
 			// Only add if the name is non-null

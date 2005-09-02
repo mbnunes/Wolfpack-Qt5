@@ -11,10 +11,9 @@
 #include <QTimer>
 #include <QMap>
 #include <qlist.h>
-#include <q3intcache.h>
+#include <QCache>
 #include <qevent.h>
 #include <qvector.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 
 class cMobile;
@@ -69,7 +68,7 @@ protected:
 	int roofCap_; // Only tiles with a z value smaller than this will be drawn
 	enFacet facet_;
 	cEntity *mouseOver_;
-	Q3IntCache<stGroundInfo> groundCache;
+	QCache<int, stGroundInfo> groundCache;
 
 	// Calculate a cell id for the cell map
 	unsigned int getCellId(unsigned short x, unsigned short y) const;

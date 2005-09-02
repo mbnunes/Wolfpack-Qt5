@@ -24,7 +24,7 @@ void cVerdata::load() {
 	}
 
 	// Read the verdata data.
-	data.setName(filename);
+	data.setFileName(filename);
 
 	if (!data.open(QIODevice::ReadOnly)) {
 		Log->print(LOG_DEBUG, tr("Ignoring verdata.mul because it doesn't exist at %1.\n").arg(filename));
@@ -44,7 +44,7 @@ void cVerdata::load() {
 		stVerdataRecord record;
 		dataStream >> fileid >> blockid >> record.offset >> record.length >> record.height >> record.width;
 
-		if (fileid < VERDATA_COUNT && (record.offset < 0 || (QFile::Offset)record.offset < data.size())) {
+		if (fileid < VERDATA_COUNT && (record.offset < 0 || (uint)record.offset < data.size())) {
 			records[fileid].insert(blockid, record); // Save the record
 			Log->print(LOG_DEBUG, tr("Loaded patched block %1 for file 0x%2 with length %3 from verdata.\n").arg(blockid).arg(fileid, 0, 16).arg(record.length));
 			++realCount;

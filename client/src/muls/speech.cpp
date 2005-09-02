@@ -66,8 +66,8 @@ QVector<unsigned short> cSpeech::match(const QString &text) {
 void cSpeech::load() {
 	QFile data(Utilities::getUoFilename("speech.mul"));
 	
-	if (!data.open(IO_ReadOnly)) {
-		throw Exception(tr("Unable to open speech data at %1.").arg(data.name()));
+	if (!data.open(QFile::ReadOnly)) {
+		throw Exception(tr("Unable to open speech data at %1.").arg(data.fileName()));
 	}
 
 	QDataStream stream(&data);
@@ -81,7 +81,7 @@ void cSpeech::load() {
 
 		if (length != 0) {
 			char *strUtf8 = new char[length+1]; // Create temporary string
-			stream.readRawBytes(strUtf8, length);
+			stream.readRawData(strUtf8, length);
 			strUtf8[length] = 0; // Ensure null termination
 	
 			entries.append( cSpeechEntry(QString::fromUtf8(strUtf8), id) );

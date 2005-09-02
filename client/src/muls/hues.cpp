@@ -12,7 +12,7 @@ void cHues::load() {
 
 	// Open files
 	if (!data.open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open hues data at %1.").arg(data.name()));
+		throw Exception(tr("Unable to open hues data at %1.").arg(data.fileName()));
 	}
 
     QDataStream dataStream(&data);
@@ -50,7 +50,7 @@ void cHues::load() {
 			hues[i].end.b = (color << 3) & 0xF8;
 
 			char name[20] = {0, };
-			dataStream.readRawBytes(&name[0], 20);
+			dataStream.readRawData(&name[0], 20);
 
 			++i;
 		}

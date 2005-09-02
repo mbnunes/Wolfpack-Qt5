@@ -2,12 +2,11 @@
 #if !defined(__LOGIN_H__)
 #define __LOGIN_H__
 
-#include <q3valuelist.h>
-#include <qhostaddress.h>
+#include <QList>
+#include <QHostAddress>
 #include <QObject>
-#include <qstringlist.h>
-//Added by qt3to4:
-#include <qstring.h>
+#include <QStringList>
+#include <QString>
 
 #include "gui/control.h"
 #include "gui/window.h"
@@ -26,8 +25,8 @@ struct stShardEntry {
 
 // This is a starting location
 struct stStartLocation {
-    Q3CString name;
-	Q3CString exactName;
+    QString name;
+	QString exactName;
 	unsigned char index;
 };
 
@@ -72,7 +71,7 @@ private:
 	void buildStatusGump();
 	void buildSelectCharGump();
 
-	Q3ValueList<stShardEntry> shards;
+	QList<stShardEntry> shards;
 	unsigned int shardEntryOffset;
 	bool errorStatus;
 public:

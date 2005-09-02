@@ -12,7 +12,7 @@ cCacheStatistics::cCacheStatistics(QWidget *parent) : QFrame(parent, Qt::Window)
 	resize(400, 250);
 	setWindowTitle(tr("Cache Statistics"));
 
-	QBoxLayout *layout = new QVBoxLayout(this, 0, 0);
+	QBoxLayout *layout = new QVBoxLayout(this);
 
 	browser = new QTextBrowser();
 	browser->setAlignment(Qt::AlignCenter);
@@ -21,7 +21,9 @@ cCacheStatistics::cCacheStatistics(QWidget *parent) : QFrame(parent, Qt::Window)
 
 	QTimer *timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
-	timer->start(1000, false);
+	timer->setSingleShot(false);
+	timer->setInterval(1000);
+	timer->start();
 }
 
 
@@ -43,6 +45,5 @@ void cCacheStatistics::refresh() {
 	message += tr("<b>Animation Statistics:</b><br>");
 	message += tr("Sequences currently in use: %1<br>").arg(Animations->cacheSize());
 
-
-	browser->setText(message);
+	browser->setHtml(message);
 }

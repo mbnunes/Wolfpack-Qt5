@@ -11,7 +11,6 @@ class cTextures {
 private:
 	int offsets[4096];
 	bool largeTextures[4096];
-	TextureCache cache;
 
 	QFile data;
 	QDataStream dataStream;

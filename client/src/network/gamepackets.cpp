@@ -371,13 +371,13 @@ public:
 
 		// Language
 		char strLang[5];
-		input.readRawBytes(strLang, 4);
+		input.readRawData(strLang, 4);
 		strLang[4] = 0;
 		language = strLang;
 
 		// Object Name
 		char strName[31];
-		input.readRawBytes(strName, 30);
+		input.readRawData(strName, 30);
 		strName[30] = 0;
 		name = strName;
 
@@ -496,7 +496,7 @@ public:
 		input >> serial >> type >> x >> y >> length;
         
 		char *strLayout = new char[length+1];
-		input.readRawBytes(strLayout, length);
+		input.readRawData(strLayout, length);
 		strLayout[length] = 0; // Ensure null termination
 		layout = strLayout; // Save
 
@@ -685,7 +685,7 @@ public:
 
 		// Object Name
 		char strName[31];
-		input.readRawBytes(strName, 30);
+		input.readRawData(strName, 30);
 		strName[30] = 0;
 		name = strName;
 
@@ -711,7 +711,22 @@ public:
 		QString localized = Localization->get(messageNumber);
 
 		// Parse in the ~1_...~ parts
-		QStringList arguments = QStringList::split("\t", message, true);
+		QStringList arguments = message.split("\t");
+
+		// Replace starting arguments in the form of #\d+
+		for (int i = 0; i < arguments.size(); ++i) {
+			QString argument = arguments[i];
+			if (argument.startsWith(QChar('#'))) {
+				argument = argument.right(argument.length() - 1);
+				bool ok;
+				uint number = argument.toUInt(&ok);
+
+				// Replace it with the localization string if appropiate
+				if (ok) {
+					arguments[i] = Localization->get(number);
+				}
+			}
+		}
 
 		QRegExp pattern("~(\\d+)[^~]+~");
 		int pos;
@@ -772,14 +787,14 @@ public:
 
 		// Object Name
 		char strName[31];
-		input.readRawBytes(strName, 30);
+		input.readRawData(strName, 30);
 		strName[30] = 0;
 		name = strName;
 
 		// Null terminated ascii string
 		uint length = size - 44; // this includes the null byte
 		char *strMessage = new char[length];
-		input.readRawBytes(strMessage, length);
+		input.readRawData(strMessage, length);
         strMessage[length-1] = 0; // ENSURE null termination
         
 		message = QString::fromLatin1(strMessage);
@@ -998,3 +1013,33 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x3c, cContainerContentPacket::creator);
+
+class cCharacterAnimationPacket : public cIncomingPacket {
+protected:
+	uint serial; // char serial
+	ushort action; // the action to perform
+	uchar unknown;
+	uchar direction; // character facing this direction
+	ushort repeatCount; // repeat count
+	uchar backwards; // foward=0, backward=1
+	uchar repeatFlag; // 0 = dont repeat, 1 = repeat
+	uchar frameDelay; // Delay in ??? units
+public:
+	cCharacterAnimationPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> action >> unknown >> direction >> repeatCount >> backwards >> repeatFlag >> frameDelay;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (mobile) {
+			mobile->playAction(action);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cCharacterAnimationPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x6e, cCharacterAnimationPacket::creator);

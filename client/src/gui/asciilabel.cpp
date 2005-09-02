@@ -4,9 +4,9 @@
 #include "gui/asciilabel.h"
 #include "muls/asciifonts.h"
 //Added by qt3to4:
-#include <Q3CString>
+#include <QString>
 
-cAsciiLabel::cAsciiLabel(const Q3CString &text, unsigned short font, unsigned short hue, enTextAlign align, bool autoSize, bool hueAll) {
+cAsciiLabel::cAsciiLabel(const QString &text, unsigned short font, unsigned short hue, enTextAlign align, bool autoSize, bool hueAll) {
 	text_ = text;
 	font_ = font;
 	hue_ = hue;

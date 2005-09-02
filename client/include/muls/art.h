@@ -133,17 +133,6 @@ inline void cArtAnimation::decref() {
 	}
 }
 
-class ArtAnimationCache : public Q3IntCache< cArtAnimation> {
-public:
-	ArtAnimationCache(int a, int b) : Q3IntCache< cArtAnimation > (a, b) {
-	}
-
-protected:
-	void deleteItem(Item d) {
-		((cArtAnimation*)d)->decref();
-	}
-};
-
 class cArt : public cTextureCache {
 protected:
 	struct stArtIdent {
@@ -164,7 +153,6 @@ protected:
 		}
 	};
 	
-	ArtAnimationCache *acache;
 	QFile data, index; // Input files
 	QDataStream dataStream, indexStream; // Input streams
 	

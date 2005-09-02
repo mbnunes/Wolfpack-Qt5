@@ -22,7 +22,7 @@ static DecompressingCopier decompressor;
 fnIncomingPacketConstructor cUoSocket::incomingPacketConstructors[256] = {0, };
 
 // Packet Lengths
-const Q_UINT16 packetLengths[256] = {
+const ushort packetLengths[256] = {
 	0x0068, 0x0005, 0x0007, 0x0000, 0x0002, 0x0005, 0x0005, 0x0007, // 0x00
 	0x000e, 0x0005, 0x000b, 0x010a, 0x0000, 0x0003, 0x0000, 0x003d, // 0x08
 	0x00d7, 0x0000, 0x0000, 0x000a, 0x0006, 0x0009, 0x0001, 0x0000, // 0x10
@@ -85,12 +85,15 @@ cUoSocket::cUoSocket() {
 		incomingPacketConstructors[i] = 0;
 	}*/
 
-	packetLog.setName("packet.log");
+	packetLog.setFileName("packet.log");
 	packetLogStream.setDevice(&packetLog);
 
-	QTimer *timer = new QTimer(this, "ping_timer");
+	QTimer *timer = new QTimer(this);
+	timer->setObjectName("ping_timer");
 	QObject::connect(timer, SIGNAL(timeout()), SLOT(sendPing()));
-	timer->start(30000, false);
+	timer->setInterval(30000);
+	timer->setSingleShot(false);
+	timer->start();
 }
 
 cUoSocket::~cUoSocket() {
@@ -101,7 +104,7 @@ cUoSocket::~cUoSocket() {
 }
 
 void cUoSocket::connect(const QString &host, unsigned short port, bool gameServer) {
-	if (!isIdle()) {		
+	if (!isIdle()) {
 		return; // The client isn't disconnected yet.
 	}
 	seed_ = Random->randInt(); // Set a new seed
@@ -129,6 +132,7 @@ void cUoSocket::disconnect() {
 		WorldView->setVisible(false);
 		WorldView->cancelTarget();
 		Cursor->setCursor(CURSOR_NORMAL);
+		Gui->closeAllGumps();
 		LoginDialog->show(PAGE_LOGIN);
 	}
 }
@@ -162,12 +166,12 @@ void cUoSocket::poll() {
 
 				// Log if applicable
 				if (Config->packetLogging()) {
-					if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+					if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
 						packetLog.write(tr("CLIENT -> SERVER\n%1\n\n").arg(Utilities::dumpData(data)).toLocal8Bit());
 					}
 				}
 
-				socket->writeBlock(data.data(), data.size());
+				socket->write(data);
 				outgoingQueue.pop_front();
 			}
 		}
@@ -209,13 +213,13 @@ void cUoSocket::buildPackets() {
 		} else if (size == 0 && incomingBuffer.size() >= 3) {
             unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
 			if (dynamicSize <= incomingBuffer.size()) {				
-				QByteArray packetData(dynamicSize);
+				QByteArray packetData(dynamicSize, 0);
 				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
 				incomingBuffer = QByteArray(incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
 				
 				// Log if applicable
 				if (Config->packetLogging()) {
-					if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+					if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
 						packetLog.write(tr("SERVER -> CLIENT\n%1\n\n").arg(Utilities::dumpData(packetData)).toLocal8Bit());
 					}
 				}
@@ -234,21 +238,21 @@ void cUoSocket::buildPackets() {
 			} else {
 				// Packet still incomplete
 				if (Config->packetLogging()) {
-					if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+					if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
 						packetLog.write(tr("SERVER -> CLIENT\nGot only %1 bytes of %2 for packet 0x%3.\n\n").arg(incomingBuffer.size()).arg(dynamicSize).arg(packetId).toLocal8Bit());
 					}
 				}
 			}
 		} else if (size != 0 && size <= incomingBuffer.size()) {
 			// Completed a packet
-			QByteArray packetData(size);
+			QByteArray packetData(size, 0);
 			memcpy(packetData.data(), incomingBuffer.data(), size);
 			memcpy(incomingBuffer.data(), incomingBuffer.data() + size, incomingBuffer.size() - size);
 			incomingBuffer.resize(incomingBuffer.size() - size);
 
 			// Log if applicable
 			if (Config->packetLogging()) {
-				if (packetLog.isOpen() || packetLog.open(IO_WriteOnly|IO_Translate)) {
+				if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
 					packetLog.write(tr("SERVER -> CLIENT\n%1\n\n").arg(Utilities::dumpData(packetData)).toLocal8Bit());
 				}
 			}
@@ -278,7 +282,7 @@ void cUoSocket::connected() {
 	decompressor.initialise();
 
 	// Send the UO header we have to send for every connection type
-    QByteArray uoHeader(4);
+    QByteArray uoHeader(4, 0);
 	uoHeader[0] = (unsigned char)( (seed_ >> 24) & 0xff );
 	uoHeader[1] = (unsigned char)( (seed_ >> 16) & 0xff );
 	uoHeader[2] = (unsigned char)( (seed_ >> 8) & 0xff );
@@ -295,7 +299,7 @@ void cUoSocket::connectionClosed() {
 }
 
 void cUoSocket::readyRead() {
-	QByteArray data(socket->bytesAvailable());
+	QByteArray data(socket->bytesAvailable(), 0);
 	socket->read(data.data(), socket->bytesAvailable());
 
 	// Decompress data if neccesary

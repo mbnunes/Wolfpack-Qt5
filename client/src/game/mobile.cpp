@@ -6,6 +6,8 @@
 #include "muls/tiledata.h"
 #include "mainwindow.h"
 #include "gui/worldview.h"
+#include "network/outgoingpackets.h"
+#include "network/uosocket.h"
 
 // Draw order for layers dependant on direction facing
 // -1 terminates
@@ -95,7 +97,12 @@ void cMobile::removeEquipment(cDynamicItem *item) {
 				if (equipmentSequences[i]) {
 					equipmentSequences[i]->decref();
 					equipmentSequences[i] = 0;
-				}				
+				}
+
+				if (i == LAYER_MOUNT) {
+					currentAction_ = getIdleAction();
+				}
+
 				return;
 			}
 		}
@@ -525,6 +532,10 @@ uint cMobile::getCurrentHeight() {
 	} else {
 		return abs(sequence_->getFrameTop(frame));
 	}
+}
+
+void cMobile::onDoubleClick(QMouseEvent *e) {
+	UoSocket->send(cDoubleClickPacket(serial_));
 }
 
 cMobile *Player = 0;

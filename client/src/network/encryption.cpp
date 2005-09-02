@@ -38,10 +38,10 @@ void cLoginEncryption::decryptIncoming( char* buffer, unsigned int length )
 */
 void cLoginEncryption::encryptOutgoing( char* buffer, unsigned int length )
 {
-	register Q_UINT32 eax, ecx, edx, esi;
-	for ( Q_UINT32 i = 0; i < length; ++i )
+	register uint eax, ecx, edx, esi;
+	for ( uint i = 0; i < length; ++i )
 	{
-		buffer[i] = buffer[i] ^ ( Q_UINT8 ) ( table1 & 0xFF );
+		buffer[i] = buffer[i] ^ ( uchar ) ( table1 & 0xFF );
 		edx = table2;
 		esi = table1 << 31;
 		eax = table2 >> 1;

@@ -1,7 +1,6 @@
 
 #include "uoclient.h"
 #include <QCursor>
-//Added by qt3to4:
 #include <QMouseEvent>
 #include "game/world.h"
 #include "game/groundtile.h"
@@ -18,13 +17,12 @@
 #include "mainwindow.h"
 #include <qgl.h>
 
-cWorld::cWorld() : groundCache(2500, 1999) {
+cWorld::cWorld() : groundCache(2500) {
 	x_ = 0;
 	y_ = 0;
 	z_ = 0;
 	facet_ = TRAMMEL;
 	roofCap_ = 1024;
-	groundCache.setAutoDelete(true);
 	smoothMoveEnd_ = 0;
 	drawxoffset = 0;
 	drawyoffset = 0;
@@ -59,7 +57,7 @@ void cWorld::clearEntities() {
 	// Clear entities.
 	Iterator it;
 	for (it = entities.begin(); it != entities.end(); ++it) {
-		Cell cell = it.data(); // Copy
+		Cell cell = it.value(); // Copy
 		ConstCellIterator cit = cell.begin();
 		while (cit != cell.end()) {
 			if ((*cit) != Player) {
@@ -81,7 +79,7 @@ void cWorld::cleanupEntities() {
 	QVector<uint> toremove; // Cells that are now empty
 
 	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
-		Cell &cell = it.data();
+		Cell &cell = it.value();
 		CellIterator cit = cell.begin();
 		while (cit != cell.end()) {
 			int distance = Utilities::distance((*cit)->x(), (*cit)->y(), x_, y_);
@@ -159,8 +157,8 @@ void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool 
 
 	// left, top, right, bottom define a rectangle on the uo map
 	// we're going to use to load new tiles
-	unsigned short left = QMAX(0, (short)x - 18);
-	unsigned short top = QMAX(0, (short)y - 18);
+	unsigned short left = qMax<int>(0, (short)x - 18);
+	unsigned short top = qMax<int>(0, (short)y - 18);
 	unsigned short right = x + 18;
 	unsigned short bottom = y + 18;
 
@@ -231,10 +229,10 @@ void cWorld::addEntity(cEntity *entity) {
 	if (entity->cellid() != -1) {
 		Iterator it = entities.find(entity->cellid());
 		if (it != entities.end()) {
-			Cell &cell = it.data();
-			cell.remove(entity);
+			Cell &cell = it.value();
+			cell.removeAll(entity);
 			if (cell.isEmpty()) {
-				entities.remove(it); // Clear the cell from the qmap if it's empty now
+				entities.erase(it); // Clear the cell from the qmap if it's empty now
 			}
 		}
 		entity->setCellid(-1); // Reset to not-in-world
@@ -290,9 +288,9 @@ void cWorld::removeEntity(cEntity *entity) {
 		unsigned int cellid = (unsigned int)entity->cellid();
 		Iterator it = entities.find(cellid);
 		if (it != entities.end()) {
-			it.data().remove(entity);
-			if (it.data().isEmpty()) {
-				entities.remove(it);
+			it.value().removeAll(entity);
+			if (it.value().isEmpty()) {
+				entities.erase(it);
 			}
 		}
 	}
@@ -353,7 +351,9 @@ void cWorld::smoothMove(int x, int y, int z, uint duration) {
 
 	// Start the roofcheck timer if we have a player (otherwise this is manual)
 	if (Player) {
-		roofTimer.start(duration, true);
+		roofTimer.setInterval(duration);
+		roofTimer.setSingleShot(true);
+		roofTimer.start();
 	}
 }
 
@@ -451,12 +451,12 @@ void cWorld::draw(int x, int y, int width, int height) {
 	bool checkMouse = Gui->getControl(mx, my) == WorldView;
 
 	// Draw all existing entites.
-	for (int cx = QMAX(0, x_ - 18); cx <= x_ + 18; ++cx) {
-		for (int cy = QMAX(0, y_ - 18); cy <= y_ + 18; ++cy) {
+	for (int cx = qMax<int>(0, x_ - 18); cx <= x_ + 18; ++cx) {
+		for (int cy = qMax<int>(0, y_ - 18); cy <= y_ + 18; ++cy) {
 			unsigned int cellid = getCellId(cx, cy);
 			Iterator it = entities.find(cellid);
 			if (it != entities.end()) {
-				Cell cell = it.data();
+				Cell cell = it.value();
 				for (ConstCellIterator cit = cell.begin(); cit != cell.end(); ++cit) {
 					cEntity *entity = *cit;
 					if (entity->isInWorld() && entity->z() < roofCap_) {
@@ -497,12 +497,12 @@ cEntity *cWorld::getEntity(int x, int y) {
 	cEntity *found = 0; // The entity that was clicked on
 
 	// Check reverse
-	for (int cx = x_ + 18; !found && cx >= QMAX(0, x_ - 18); --cx) {
-		for (int cy = y_ + 18; !found && cy >= QMAX(0, y_ - 18); --cy) {
+	for (int cx = x_ + 18; !found && cx >= qMax<int>(0, x_ - 18); --cx) {
+		for (int cy = y_ + 18; !found && cy >= qMax<int>(0, y_ - 18); --cy) {
 			unsigned int cellid = getCellId(cx, cy);
 			Iterator it = entities.find(cellid);
 			if (it != entities.end()) {
-				Cell &cell = it.data();
+				Cell &cell = it.value();
 				if (!cell.isEmpty()) {
 					ConstCellIterator cit = cell.end();
 					do {
@@ -580,7 +580,7 @@ void cWorld::getGroundInfo(int x, int y, stGroundInfo *info) {
 	int cacheid = ((x << 16) & 0xFFFF0000) | (y & 0xFFFF);
 
 	// Try to find the info in the cache
-	stGroundInfo *ground = groundCache.find(cacheid);
+	stGroundInfo *ground = groundCache.object(cacheid);
 
 	// Add in a radius of 5 tiles around the given center
 	if (!ground) {
@@ -831,16 +831,16 @@ bool cWorld::mayWalk(cMobile *mobile, ushort posx, ushort posy, signed char &pos
 	// If we find a tile to walk on
 	QVector<cBlockItem> blockList = getBlockingItems(mobile, posx, posy);
 	bool found = false;
-	Q_UINT32 i;
+	uint i;
 	bool priviledged = false;
-	Q_INT32 oldz = posz;
+	int oldz = posz;
 
 	priviledged = false; // *cough cough*
 
 	for ( i = 0; i < blockList.size(); ++i )
 	{
 		cBlockItem item = blockList[i];
-		Q_INT32 itemTop = ( item.z + item.height );
+		int itemTop = ( item.z + item.height );
 
 		// If we found something to step on and the next tile
 		// below would block us, use the good one instead
@@ -929,7 +929,7 @@ bool cWorld::mayWalk(cMobile *mobile, ushort posx, ushort posy, signed char &pos
 		// Lets check if there is enough space ABOVE that position (at least 15 z units)
 		// If there is ANY impassable object between posz and posz + 15 we can't walk here
 		cBlockItem item = blockList[i];
-		Q_INT8 itemTop = ( item.z + item.height );
+		signed char itemTop = ( item.z + item.height );
 
 		// If the item is below what we step on, ignore it
 		if ( itemTop <= posz )

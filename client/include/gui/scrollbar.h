@@ -57,7 +57,7 @@ public:
 	}
 
 	inline void setPos(unsigned int data) {
-		data = QMIN(max_, QMAX(min_, data));		
+		data = qMin<uint>(max_, qMax<int>(min_, data));		
 		if (data != pos_) {
 			int oldpos = pos_;
 			pos_ = data;

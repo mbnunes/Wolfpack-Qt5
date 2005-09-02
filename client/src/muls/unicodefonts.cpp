@@ -1,6 +1,4 @@
 
-#include <q3valuelist.h>
-
 #include "surface.h"
 #include "log.h"
 #include "exceptions.h"
@@ -24,7 +22,7 @@ void cUnicodeFonts::load() {
 	// Initialize Data Streams
 	unsigned int f;
 	for (f = 0; f < 3; ++f) {
-		data[f].setName(filename[f]); // Try to open the unicode font file
+		data[f].setFileName(filename[f]); // Try to open the unicode font file
 		if (!data[f].open(QIODevice::ReadOnly)) {
 			throw Exception(tr("Unable to open the unicode font %1 at %2.").arg(f).arg(filename[f]));
 		}
@@ -60,7 +58,7 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 	unsigned int spaceWidth = 7;
 
 	// Split into words using the spaces
-	QStringList parts = QStringList::split(" ", text);
+	QStringList parts = text.split(" ");
 	QStringList::const_iterator it;
 	for (it = parts.begin(); it != parts.end(); ++it) {
 		QString word = *it;
@@ -110,15 +108,15 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 	unsigned int lineHeight = 0; // Height of the current line
 	unsigned int lines = 1; // Number of lines
 	unsigned int i;
-	Q3ValueList<unsigned int> lineWidths; // Vector with the lengths of lines
-	Q3ValueList<unsigned int> lineHeights; // List with the heights of every line
+	QList<unsigned int> lineWidths; // Vector with the lengths of lines
+	QList<unsigned int> lineHeights; // List with the heights of every line
 	QDataStream &dataStream = this->dataStream[font];
 
 	/*
 		DEBUGGING: print xoffset values of first 4096 chars if they differ from 0
 		for (unsigned int j = 0; j < 0x1000; ++j) {
 		signed char xoffset, yoffset, width, height;
-		dataStream.device()->at(seekOffsets[font][j]);
+		dataStream.device()->seek(seekOffsets[font][j]);
 		dataStream >> xoffset >> yoffset >> width >> height;
 
 		if (xoffset != 0 && width > 0 && height > 0) {
@@ -129,7 +127,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 	// Iterate over the string once to get the width of the string	
 	for (i = 0; i < text.length(); ++i) {
 		const QChar ch = text.at(i);
-		if (ch.latin1() == '\n') {
+		if (ch.toLatin1() == '\n') {
 			lines += 1;
 			if (lineWidth > width) {
 				width = lineWidth;
@@ -143,12 +141,12 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 		} else if (ch.isSpace()) {
 			lineWidth += 7; // Space Width
 
-			if (i + 1 < text.length() && (text.at(i+1).latin1() != '\n')) {
+			if (i + 1 < text.length() && (text.at(i+1).toLatin1() != '\n')) {
 				lineWidth += 1;
 			}
 		} else {
 			signed char xoffset, yoffset, width, height;
-			dataStream.device()->at(seekOffsets[font][ch.unicode()]);
+			dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
 			dataStream >> xoffset >> yoffset >> width >> height;
 
 			height += abs(yoffset);
@@ -169,7 +167,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 				}
 			}
 
-			if ((i+1 < text.length() && (text.at(i+1).latin1() != '\n')) || border) {
+			if ((i+1 < text.length() && (text.at(i+1).toLatin1() != '\n')) || border) {
 				// add another pixel if its not the last character
 				// if its the last character and we want to draw a border, add one pixel for the border
 				lineWidth += 1;
@@ -239,7 +237,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 
 		for (unsigned int i = 0; i < text.length(); ++i) {
 			QChar ch = text.at(i);			
-			if (ch.latin1() == '\n') {
+			if (ch.toLatin1() == '\n') {
 				if (!lineWidths.isEmpty() && !lineHeights.isEmpty()) {
 					switch (align) {
 						case ALIGN_LEFT:
@@ -268,11 +266,11 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 				}
 			} else {
 				// Seek to the character in question, decode it and blit it
-				dataStream.device()->at(seekOffsets[font][ch.unicode()]);
+				dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
 				signed char pxoffset, pyoffset, pwidth, pheight;
 				dataStream >> pxoffset >> pyoffset >> pwidth >> pheight;
 
-				//Log->print(LOG_MESSAGE, tr("Character '%1' has xoffset %2 and yoffset %3.\n").arg(ch.latin1()).arg(pxoffset).arg(pyoffset));
+				//Log->print(LOG_MESSAGE, tr("Character '%1' has xoffset %2 and yoffset %3.\n").arg(ch.toLatin1()).arg(pxoffset).arg(pyoffset));
 
 				unsigned char scanline[32]; // Maximum length of a line is 32 byte (8 bit, 256 pixels) so we just use a static array
 				unsigned char pslwidth = (pwidth + 7) / 8;
@@ -287,7 +285,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 
 				// Start reading scalines
 				for (signed char y = 0; y < pheight; ++y) {
-					dataStream.readRawBytes((char*)scanline, pslwidth); // Read in the entire scanline at once
+					dataStream.readRawData((char*)scanline, pslwidth); // Read in the entire scanline at once
 					unsigned char *ptr = surface->scanline(baseline + pyoffset + y) + (xoffset + pxoffset) * 4;
 					unsigned char *endptr = ptr + pwidth * 4; // Calculate the end of the row so an easy pointer comparison suffices
 					pslpadding = 0;
@@ -340,7 +338,7 @@ SDL_Surface *cUnicodeFonts::getCharacter(unsigned char font, const QChar &ch, un
 
 	// Seek to the cached offset
 	QDataStream &dataStream = this->dataStream[font];
-	dataStream.device()->at(seekOffsets[font][ch.unicode()]);
+	dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
     
 	if (!dataStream.atEnd()) {		
 		signed char xoffset, yoffset, width, height; // Character properties
@@ -364,7 +362,7 @@ SDL_Surface *cUnicodeFonts::getCharacter(unsigned char font, const QChar &ch, un
 			}
 
 			while(y < height) {
-				dataStream.readRawBytes((char*)scanline, slwidth);
+				dataStream.readRawData((char*)scanline, slwidth);
 				sloffset = 0;
 				padding = 0;
 
@@ -411,7 +409,7 @@ stUnicodeCharInfo cUnicodeFonts::getCharacterInfo(uchar font, ushort ch) {
 	QDataStream &dataStream = this->dataStream[font];
 
 	stUnicodeCharInfo result;
-	dataStream.device()->at(seekOffsets[font][ch]);
+	dataStream.device()->seek(seekOffsets[font][ch]);
 	dataStream >> result.xoffset >> result.yoffset >> result.width >> result.height;
 	return result;
 }
@@ -422,17 +420,17 @@ int cUnicodeFonts::getCharacterWidth(uchar font, const QString &text, uint i, QC
 	QDataStream &dataStream = this->dataStream[font];
 	int result = 0;
 
-	if (ch.latin1() == '\n') {
+	if (ch.toLatin1() == '\n') {
 		return 0;
 	} else if (ch.isSpace()) {
 		result += 7; // Space Width
 
-		if (i + 1 < text.length() && (text.at(i+1).latin1() != '\n')) {
+		if (i + 1 < text.length() && (text.at(i+1).toLatin1() != '\n')) {
 			result += 1;
 		}
 	} else {
 		signed char xoffset, yoffset, width, height;
-		dataStream.device()->at(seekOffsets[font][ch.unicode()]);
+		dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
 		dataStream >> xoffset >> yoffset >> width >> height;
 
 		// Only process this if it's NOT the first character
@@ -440,7 +438,7 @@ int cUnicodeFonts::getCharacterWidth(uchar font, const QString &text, uint i, QC
 			width += xoffset; // add to the width (there are also negative xoffsets!!)
 		}
 
-		if (i == 0 || text.at(i-1).latin1() == '\n') {
+		if (i == 0 || text.at(i-1).toLatin1() == '\n') {
 			// add another pixel if its the first character IN A LINE and a border should be drawn
 			width += 1;
 		}
@@ -458,13 +456,13 @@ int cUnicodeFonts::getCharacterWidth(uchar font, QChar ch, bool first) {
 	QDataStream &dataStream = this->dataStream[font];
 	int result = 0;
 
-	if (ch.latin1() == '\n') {
+	if (ch.toLatin1() == '\n') {
 		return 0;
 	} else if (ch.isSpace()) {
 		result += 8; // Space Width (Including 1 xoffset)
 	} else {
 		signed char xoffset, yoffset, width, height;
-		dataStream.device()->at(seekOffsets[font][ch.unicode()]);
+		dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
 		dataStream >> xoffset >> yoffset >> width >> height;
 
 		// Only process this if it's NOT the first character

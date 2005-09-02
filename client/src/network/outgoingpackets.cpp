@@ -91,22 +91,22 @@ cSendUnicodeSpeechPacket::cSendUnicodeSpeechPacket(enSpeechType type, const QStr
 	// Two different packet formats
 	if (keywords.size() > 0) {
 		m_Stream << (unsigned char)(type | 0xc0) << color << (unsigned short)font;
-		m_Stream.writeRawBytes(lang, 4);
+		m_Stream.writeRawData(lang, 4);
 
 		// Build the encoded packet list
 		unsigned int bitoffset = 0, byteoffset = 0;
-		QByteArray array((12 + 5 * keywords.size() + 7) / 8);
+		QByteArray array((12 + 5 * keywords.size() + 7) / 8, 0);
 		pushData(array, byteoffset, bitoffset, keywords.size(), 12); // Push the keyword count (12 bit)
 		for (int i = 0; i < keywords.size(); ++i) {
 			pushData(array, byteoffset, bitoffset, keywords[i], 12); // 12 bit for each keyword
 		}
 
-		m_Stream.writeRawBytes(array.data(), array.size());
+		m_Stream.writeRawData(array.data(), array.size());
 
 		writeUtf8Terminated(message);
 	} else {
 		m_Stream << (unsigned char)type << color << (unsigned short)font;
-		m_Stream.writeRawBytes(lang, 4);
+		m_Stream.writeRawData(lang, 4);
 		
 		// Simply dump the unicode string in big endian
 		writeBigUnicodeTerminated(message);		
@@ -150,8 +150,8 @@ cGenericGumpResponsePacket::cGenericGumpResponsePacket(uint serial, uint type, u
 
 	QMap<uint, QString>::const_iterator it;
 	for (it = strings.begin(); it != strings.end(); ++it) {
-		m_Stream << (unsigned short)it.key() << (unsigned short)(it.data().length() + 1);
-		writeBigUnicodeTerminated(it.data());
+		m_Stream << (unsigned short)it.key() << (unsigned short)(it.value().length() + 1);
+		writeBigUnicodeTerminated(it.value());
 	}	
 
 	writeDynamicSize();

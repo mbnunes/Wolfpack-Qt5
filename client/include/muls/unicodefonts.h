@@ -2,9 +2,9 @@
 #if !defined(__UNICODEFONTS_H__)
 #define __UNICODEFONTS_H__
 
-#include <qfile.h>
-#include <qdatastream.h>
-#include <q3cstring.h>
+#include <QFile>
+#include <QDataStream>
+#include <QString>
 
 #include "enums.h"
 #include "utilities.h"
@@ -21,7 +21,7 @@ private:
 	// Since the unicode fonts are too big, we'll only cache the indexers into the file
 	// Since we have 0x10000 characters and every indexer is 4 byte, we have about
 	// 256 kb of index data per file. I think that is acceptable.
-	QFile::Offset seekOffsets[3][0x10000];
+	qint32 seekOffsets[3][0x10000];
 	QFile data[3];
 	QDataStream dataStream[3];
 

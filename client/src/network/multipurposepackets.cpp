@@ -69,11 +69,11 @@ public:
 			return 0;
 		}
 
-		QIODevice::Offset pos = input.device()->at();
-		input.device()->at(3);
+		uint pos = input.device()->pos();
+		input.device()->seek(3);
 		unsigned short actionid;
 		input >> actionid;
-		input.device()->at(pos);
+		input.device()->seek(pos);
 
 		switch (actionid) {
 			case 0x4:

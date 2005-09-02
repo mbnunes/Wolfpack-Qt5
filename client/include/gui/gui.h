@@ -2,7 +2,6 @@
 #if !defined(__GUI_H__)
 #define __GUI_H__
 
-#include <q3valuevector.h>
 #include <qdatetime.h>
 
 #include "control.h"
@@ -40,7 +39,7 @@ public:
 	void removeOverheadText(cEntity *source);
 	
 	inline cWindow *activeWindow() { return activeWindow_; }
-	inline void setActiveWindow(cWindow *data) { activeWindow_ = data; }
+	void setActiveWindow(cWindow *data);
 
 	inline cControl *inputFocus() { return inputFocus_; }
 	void setInputFocus(cControl *focus);
@@ -56,6 +55,8 @@ public:
 	// Draw the GUI
 	void draw();
 	cTexture *checkerboard() const;
+
+	void closeAllGumps();
 };
 
 extern cGui *Gui;

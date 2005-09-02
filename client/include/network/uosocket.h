@@ -18,7 +18,7 @@ class cOutgoingPacket;
 typedef cIncomingPacket *(*fnIncomingPacketConstructor)(QDataStream &data, unsigned short size);
 
 // Array with packet lengths.
-extern const Q_UINT16 packetLengths[256];
+extern const ushort packetLengths[256];
 
 class cUoSocket : public QObject {
 Q_OBJECT

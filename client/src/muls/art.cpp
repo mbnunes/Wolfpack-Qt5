@@ -18,13 +18,9 @@ cArtAnimation::~cArtAnimation() {
 }
 
 cArt::cArt() {
-	acache = new ArtAnimationCache(100, 17);
-	acache->setAutoDelete(true);
 }
 
 cArt::~cArt() {
-	acache->clear();
-	delete acache;
 }
 
 
@@ -44,11 +40,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	unsigned int cacheid = getCacheId(id, hueid, partialhue);
 
 	// Cache lookup first
-	cArtAnimation *result = acache->find(cacheid);
-	if (result) {
-		result->incref();
-		return result;
-	}
+	cArtAnimation *result = 0;
 
 	// Cache look up failed, so rebuild it.
 	QMap<unsigned short, stAnimdata>::const_iterator it;
@@ -61,7 +53,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	}
 
 	// Keep a reference to the animdata
-    const stAnimdata &info = it.data();
+    const stAnimdata &info = it.value();
 
 	// Create frame information structure
 	stArtFrame *frames = new stArtFrame[info.count];
@@ -89,13 +81,13 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 			dataStream.setDevice(Verdata->getIoDevice());
 			offsets[i] = patch->offset;
 		} else {
-			indexStream.device()->at(12 * frameid);
+			indexStream.device()->seek(12 * frameid);
 			indexStream >> offsets[i]; // Read index data
 		}
 
 		// Read the width/height
 		if (offsets[i] != -1) {
-			dataStream.device()->at(offsets[i] + 4);
+			dataStream.device()->seek(offsets[i] + 4);
 			dataStream >> width >> height;
 
 			// Calculate the maximum frame height
@@ -156,7 +148,7 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 
 	for (int i = 0; i < info.count; ++i) {
 		unsigned short width, height;
-		dataStream.device()->at(offsets[i] + 4);
+		dataStream.device()->seek(offsets[i] + 4);
 		dataStream >> width >> height; // Read width / height
 
 		// Skip bogus image
@@ -168,10 +160,10 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 			dataStream >> lookupTable[j]; // Read in the offset table for every row
 		}
 
-		int offset = dataStream.device()->at(); // Save offset
+		int offset = dataStream.device()->pos(); // Save offset
 
 		for (unsigned int y = 0; y < height; ++y) {
-			dataStream.device()->at(offset + lookupTable[y] * 2);
+			dataStream.device()->seek(offset + lookupTable[y] * 2);
 			unsigned int x = 0;
 
 			while (x < width) {
@@ -253,26 +245,21 @@ cArtAnimation *cArt::readAnimation(unsigned short id, unsigned short hueid, bool
 	delete [] lookupTable;
 	delete [] offsets;
 
-	// Try to insert it into the cache
-	if (acache->insert(cacheid, result)) {
-		result->incref();
-	}
-
 	return result;
 }
 
 void cArt::load() {
 	// Set filenames
-	data.setName(Utilities::getUoFilename("art.mul"));
-	index.setName(Utilities::getUoFilename("artidx.mul"));
+	data.setFileName(Utilities::getUoFilename("art.mul"));
+	index.setFileName(Utilities::getUoFilename("artidx.mul"));
 
 	// Open files
 	if (!data.open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open art data at %1.").arg(data.name()));
+		throw Exception(tr("Unable to open art data at %1.").arg(data.fileName()));
 	}
 
 	if (!index.open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open the art index at %1.").arg(index.name()));
+		throw Exception(tr("Unable to open the art index at %1.").arg(index.fileName()));
 	}
 
 	// Set the devices for the streams
@@ -285,7 +272,7 @@ void cArt::load() {
 	QFile animdata(Utilities::getUoFilename("animdata.mul"));
 
 	if (!animdata.open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open art animation information at %1.").arg(animdata.name()));
+		throw Exception(tr("Unable to open art animation information at %1.").arg(animdata.fileName()));
 	}
 
 	// Create input stream
@@ -303,7 +290,7 @@ void cArt::load() {
 		// Read 8 tiles
 		for (int j = 0; j < 8; ++j) {
 			// byte order is irrelevant here
-			input.readRawBytes((char*)info.frames, sizeof(info.frames));
+			input.readRawData((char*)info.frames, sizeof(info.frames));
 			input >> unknown >> info.count >> interval >> delay;
 
 			// Only bother with existing information data
@@ -317,8 +304,6 @@ void cArt::load() {
 }
 
 void cArt::unload() {
-	acache->clear();
-
 	data.close(); // Close the data file
 	index.close(); // Close the index files
 }
@@ -343,7 +328,7 @@ cSurface *cArt::readLandSurface(unsigned short id, bool texture) {
 		offset = patch->offset;
 		length = patch->length;
 	} else {
-		indexStream.device()->at(12 * id);
+		indexStream.device()->seek(12 * id);
 		indexStream >> offset >> length; // Read index data
 	}
 
@@ -355,7 +340,7 @@ cSurface *cArt::readLandSurface(unsigned short id, bool texture) {
 		surface = new cSurface(44, 44, texture);
 		surface->clear();
 
-        dataStream.device()->at(offset);
+        dataStream.device()->seek(offset);
 
 		// Start Reading the Landtile
 		unsigned short colors[1024];
@@ -410,7 +395,7 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 		offset = patch->offset;
 		length = patch->length;
 	} else {
-		indexStream.device()->at(12 * id);
+		indexStream.device()->seek(12 * id);
 		indexStream >> offset >> length; // Read index data
 	}
 
@@ -418,7 +403,7 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 
 	// Sanity checks
 	if (offset >= 0 && length > 0) {
-		dataStream.device()->at(offset); //
+		dataStream.device()->seek(offset); //
 
 		unsigned int header;
 		short width, height;
@@ -432,17 +417,17 @@ cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool pa
 				dataStream >> lookupTable[i]; // Read in the offset table for every row
 			}
 
-			offset = dataStream.device()->at(); // Save offset
+			offset = dataStream.device()->pos(); // Save offset
 
 			// Create surface and set color key
 			surface = new cSurface(width, height, texture);
 			surface->clear();
 
 			for (int y = 0; y < height; ++y) {
-				dataStream.device()->at(offset + lookupTable[y] * 2);
+				dataStream.device()->seek(offset + lookupTable[y] * 2);
 				unsigned int x = 0;
 
-				while ((int)dataStream.device()->at() < offset + length) {
+				while ((int)dataStream.device()->pos() < offset + length) {
 					unsigned short xoffset, rlength;
 					dataStream >> xoffset >> rlength;
 
@@ -512,7 +497,7 @@ cTexture *cArt::readLandTexture(unsigned short id) {
 			result->setCache(this);
 		}
 	} else {
-		cTexture *result = it.data();
+		cTexture *result = it.value();
 		result->incref();
 		return result;
 	}
@@ -542,7 +527,7 @@ cTexture *cArt::readItemTexture(unsigned short id, unsigned short hue, bool part
 			return result;
 		}		
 	} else {
-		cTexture *result = it.data();
+		cTexture *result = it.value();
 		result->incref();
 		return result;
 	}

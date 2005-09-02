@@ -181,6 +181,9 @@ void cTextField::update() {
 }
 
 void cTextField::draw(int xoffset, int yoffset) {
+	int backgroundOffset = background_ ? 7 : 0;
+	int backgroundMarginHeight = background_ ? 4 : 0;
+
 	if (dirty) {
 		update();
 	}
@@ -202,7 +205,7 @@ void cTextField::draw(int xoffset, int yoffset) {
 
 	// Draw the texture
 	if (texture) {
-		texture->draw(x_ + 7 + xoffset, y_ + yoffset);
+		texture->draw(x_ + backgroundOffset + xoffset, y_ + yoffset);
 	}
 
 	bool drawSelection = false;
@@ -252,10 +255,10 @@ void cTextField::draw(int xoffset, int yoffset) {
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-		glVertex2i(xoffset + x_ + 7 + selectionLeft, y_ + yoffset + 4);
-		glVertex2i(xoffset + x_ + 7 + selectionRight, y_ + yoffset + 4);
-		glVertex2i(xoffset + x_ + 7 + selectionRight, y_ + yoffset + (height_ - 4));
-		glVertex2i(xoffset + x_ + 7 + selectionLeft, y_ + yoffset + (height_ - 4));		
+		glVertex2i(xoffset + x_ + backgroundOffset + selectionLeft, y_ + yoffset + backgroundMarginHeight);
+		glVertex2i(xoffset + x_ + backgroundOffset + selectionRight, y_ + yoffset + backgroundMarginHeight);
+		glVertex2i(xoffset + x_ + backgroundOffset + selectionRight, y_ + yoffset + (height_ - backgroundMarginHeight));
+		glVertex2i(xoffset + x_ + backgroundOffset + selectionLeft, y_ + yoffset + (height_ - backgroundMarginHeight));		
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 	}
@@ -265,10 +268,10 @@ void cTextField::draw(int xoffset, int yoffset) {
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_LINES);
 		glColor4f(1.0, 1.0, 1.0, 1.0);
-		glVertex2f(xoffset + x_ + 7 + caretXOffset_, y_ + yoffset + 4);
-		glVertex2f(xoffset + x_ + 7 + caretXOffset_, y_ + yoffset + (height_ - 4));
-		glVertex2f(xoffset + x_ + 8 + caretXOffset_, y_ + yoffset + 4);
-		glVertex2f(xoffset + x_ + 8 + caretXOffset_, y_ + yoffset + (height_ - 4));
+		glVertex2f(xoffset + x_ + backgroundOffset + caretXOffset_, y_ + yoffset + backgroundMarginHeight);
+		glVertex2f(xoffset + x_ + backgroundOffset + caretXOffset_, y_ + yoffset + (height_ - backgroundMarginHeight));
+		glVertex2f(xoffset + x_ + backgroundOffset + 1 + caretXOffset_, y_ + yoffset + backgroundMarginHeight);
+		glVertex2f(xoffset + x_ + backgroundOffset + 1 + caretXOffset_, y_ + yoffset + (height_ - backgroundMarginHeight));
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 	}
@@ -439,9 +442,14 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 	} else if (key == Qt::Key_End) {
 		setCaret(text_.length());
 		selection_ = 0;		
-		invalidateText();
+		invalidateText(); 
 	} else if (text_.length() < maxLength_) {	
-		QChar ch = e->text().at(0);
+		QChar ch;
+		if (e->text().length() > 0) {
+			ch = e->text().at(0);
+		} else {
+			return;
+		}
 
 		// Check if the character is supported by the current font.
 		if (!ch.isNull()) {
@@ -468,6 +476,8 @@ void cTextField::onKeyUp(QKeyEvent *e) {
 	This is rather complicated.
 */
 void cTextField::setCaret(unsigned int pos) {
+	int backgroundOffset = background_ ? 7 : 0;
+
 	// Special Cases Sped up
 	if (pos == 0) {
 		leftOffset_ = 0;
@@ -496,7 +506,7 @@ void cTextField::setCaret(unsigned int pos) {
 			}
 			
 			if (found) {
-				if (width + charWidth > width_ - 14) {
+				if (width + charWidth > width_ - backgroundOffset * 2) {
 					break;
 				}
 				++count;
@@ -512,8 +522,8 @@ void cTextField::setCaret(unsigned int pos) {
 	}
 
 	if (caret_ != pos) {
-		unsigned int start = QMIN(pos, caret_);
-		unsigned int end = QMAX(pos, caret_);
+		unsigned int start = qMin<uint>(pos, caret_);
+		unsigned int end = qMax<uint>(pos, caret_);
 		bool moveLeft = start < caret_;
 
 		int change = 0;
@@ -558,8 +568,8 @@ void cTextField::setCaret(unsigned int pos) {
 		}
 
 		// Modify the change while its too big
-		if ((int)caretXOffset_ + change > width_ - 14) {
-			while (leftOffset_ < text_.length() && (int)caretXOffset_ + change > (width_ - 14) - (width_ - 14) / 4) {
+		if ((int)caretXOffset_ + change > width_ - backgroundOffset * 2) {
+			while (leftOffset_ < text_.length() && (int)caretXOffset_ + change > (width_ - backgroundOffset * 2) - (width_ - backgroundOffset * 2) / 4) {
 				int charWidth = 0;
 				if (unicodeMode_) {
 					QChar ch = translateChar(text_.at(i));
@@ -576,7 +586,7 @@ void cTextField::setCaret(unsigned int pos) {
 
 				// Which one got trough instead?
 				int totalWidth = 0;
-				for (int i = leftOffset_; totalWidth < width_ - 14 && i < (int)text_.length(); ++i) {
+				for (int i = leftOffset_; totalWidth < width_ - backgroundOffset * 2 && i < (int)text_.length(); ++i) {
 					int charWidth = 0;
 					if (unicodeMode_) {
 						QChar ch = translateChar(text_.at(i));
@@ -590,7 +600,7 @@ void cTextField::setCaret(unsigned int pos) {
 					totalWidth += charWidth;
 				}
 
-				if (totalWidth < width_ - 14) {
+				if (totalWidth < width_ - backgroundOffset * 2) {
 					break; // Dont display less than possible
 				}
 			}
@@ -608,7 +618,9 @@ void cTextField::setCaret(unsigned int pos) {
 // Return the offset in the text_ string by using the given x
 // value relative to this control
 unsigned int cTextField::getOffset(int x) {
-	x -= 7;
+	if (background_) {
+		x -= 7;
+	}
 	
 	if (x < 0) {
 		return leftOffset_;
@@ -656,7 +668,8 @@ void cTextField::onMouseDown(QMouseEvent *e) {
 	// XXXXXX TODO: Normal windows selection rules with mouse
 
 	// Selection?
-	if ((e->state() & Qt::Key_Shift) != 0) {
+	Qt::KeyboardModifiers state = e->modifiers();
+	if ((state & Qt::ShiftModifier) != 0) {
 		// In which direction do we select?
 		int diff = caret_ - index;
 

@@ -1,9 +1,8 @@
 
 #include <QMap>
-#include <qstringlist.h>
-#include <q3valuelist.h>
-//Added by qt3to4:
-#include <Q3CString>
+#include <QStringList>
+#include <QVector>
+#include <QString>
 
 #include "exceptions.h"
 #include "log.h"
@@ -29,7 +28,7 @@ void cAsciiFonts::load() {
 
 	// Open files
 	if (!data.open(QIODevice::ReadWrite)) {
-		throw Exception(tr("Unable to open ascii font data at %1.").arg(data.name()));
+		throw Exception(tr("Unable to open ascii font data at %1.").arg(data.fileName()));
 	}
 
 	// Set the devices for the streams
@@ -90,10 +89,10 @@ void cAsciiFonts::reload() {
 	load();
 }
 
-cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const Q3CString &text, unsigned short maxWidth, unsigned short hue, bool shaded, enTextAlign align) {
+cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, enTextAlign align) {
 	// Insert Newslines if the word would exceed the maxWidth boundary
 	unsigned int lineLength = 0;
-	Q3CString wrapped;
+	QString wrapped;
 	unsigned int spaceWidth = 0;
 
 	cSurface *sf = getCharacter(font, ' ');
@@ -102,15 +101,15 @@ cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const Q3CString &tex
 	}
 
 	// Split into words using the spaces
-	QStringList parts = QStringList::split(" ", text.data());
+	QStringList parts = text.split(" ");
 	QStringList::const_iterator it;
 	for (it = parts.begin(); it != parts.end(); ++it) {
 		QString word = *it;
 		bool first = (it == parts.begin());
 		unsigned int wordWidth = 0;
-		unsigned int i;
+		int i;
 		for (i = 0; i < word.length(); ++i) {
-			cSurface *sf = getCharacter(font, word.at(i).latin1());
+			cSurface *sf = getCharacter(font, word.at(i).toLatin1());
 			if (sf) {
 				wordWidth += sf->width();
 			}
@@ -134,13 +133,13 @@ cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const Q3CString &tex
 			lineLength += wordWidth;
 		}
 
-		wrapped += word.latin1();
+		wrapped += word;
 	}
 
 	return buildText(font, wrapped, hue, shaded, align);
 }
 
-cTexture *cAsciiFonts::buildText(unsigned char font, const Q3CString &text, unsigned short hueid, bool shaded, enTextAlign align, bool hueAll) {
+cTexture *cAsciiFonts::buildText(unsigned char font, const QString &text, unsigned short hueid, bool shaded, enTextAlign align, bool hueAll) {
 	if (font > 9) {
 		font = 3; // Default back to font 3 if the font is invalid
 	}
@@ -149,10 +148,10 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const Q3CString &text, unsi
 	unsigned int height = this->height[font]; // Total height of the text
 	unsigned int lineWidth = 0; // Length of the current line
 	unsigned int lines = 1; // Number of lines
-	Q3ValueList<unsigned int> lineWidths; // Vector with the lengths of lines
+	QVector<unsigned int> lineWidths; // Vector with the lengths of lines
 	
 	// Iterate over the string once to get the width of the string
-	Q3CString::ConstIterator it;
+	QString::ConstIterator it;
 	for (it = text.begin(); it != text.end(); ++it) {
 		if (*it == '\n') {
 			lines += 1;
@@ -162,7 +161,7 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const Q3CString &text, unsi
 			lineWidths.append(lineWidth);
 			lineWidth = 0;
 		} else {
-			cSurface *ch = getCharacter(font, *it);
+			cSurface *ch = getCharacter(font, (*it).toLatin1());
 	
 			if (ch) {
 				lineWidth += ch->width(); // Increase the width of the text
@@ -221,7 +220,7 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const Q3CString &text, unsi
 				}
 				baseline += this->height[font];
 			} else {
-				cSurface *ch = getCharacter(font, *it);
+				cSurface *ch = getCharacter(font, (*it).toLatin1());
 				if (ch) {
 					desty = baseline - ch->height();
 					// MemCpy Line by Line

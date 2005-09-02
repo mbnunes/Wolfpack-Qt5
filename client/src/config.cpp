@@ -91,7 +91,7 @@ bool cConfig::getBool( const QString& group, const QString& key, bool def, bool 
 			setBool( group, key, def );
 		return def;
 	}
-	if ( buffer_.contains( "true", false ) )
+	if ( buffer_.contains( "true", Qt::CaseSensitive ) )
 		return true;
 	else
 		return false;
@@ -241,7 +241,7 @@ void cConfig::readData()
 	if ( !datafile.open( QIODevice::ReadOnly ) )
 	{
 		// error opening file
-		qWarning( "Error: cannot open preferences file " + d->file_ );
+		qWarning( QString("Error: cannot open preferences file " + d->file_).toLatin1() );
 		datafile.close();
 		d->filestate_ = false;
 		return;
@@ -252,7 +252,7 @@ void cConfig::readData()
 	QDomDocument doc( "preferences" );
 	if ( !doc.setContent( &datafile ) )
 	{
-		qWarning( "Error: " + d->file_ + " is not a proper preferences file" );
+		qWarning( QString("Error: " + d->file_ + " is not a proper preferences file").toLatin1() );
 		datafile.close();
 		d->formatstate_ = false;
 		return;
@@ -265,7 +265,7 @@ void cConfig::readData()
 
 	// iterate through the groups
 	QDomNodeList options;
-	for ( uint n = 0; n < nodes.count(); ++n )
+	for ( int n = 0; n < nodes.count(); ++n )
 	{
 		if ( nodes.item( n ).isElement() && !nodes.item( n ).isComment() )
 		{
@@ -281,7 +281,7 @@ void cConfig::processGroup( const QDomElement& group )
 	QDomNodeList options;
 	QString currentgroup_ = group.attribute( "name", "Default" );
 	options = group.elementsByTagName( "option" );
-	for ( unsigned n = 0; n < options.count(); ++n )
+	for ( int n = 0; n < options.count(); ++n )
 	{
 		if ( options.item( n ).isElement() )
 		{
@@ -337,7 +337,7 @@ void cConfig::writeData()
 
 			option = doc.createElement( "option" );
 			option.setAttribute( "key", pit.key() );
-			option.setAttribute( "value", pit.data() );
+			option.setAttribute( "value", pit.value() );
 			group.appendChild( option );
 		}
 		root.appendChild( group );
@@ -349,7 +349,7 @@ void cConfig::writeData()
 	if ( !datafile.open( QIODevice::WriteOnly ) )
 	{
 		// error opening file
-		qWarning( "Error: Cannot open preferences file " + d->file_ );
+		qWarning( QString("Error: Cannot open preferences file " + d->file_).toLatin1() );
 		d->filestate_ = false;
 		return;
 	}

@@ -20,7 +20,7 @@ void cTiledata::load() {
 
 	// Open files
 	if (!data.open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open tile data at %1.").arg(data.name()));
+		throw Exception(tr("Unable to open tile data at %1.").arg(data.fileName()));
 	}
 
     QDataStream dataStream(&data);
@@ -40,7 +40,7 @@ void cTiledata::load() {
 			dataStream >> info->flags_ >> info->texture_;
 
 			char name[20] = {0, };
-			dataStream.readRawBytes(&name[0], 20);
+			dataStream.readRawData(&name[0], 20);
 			info->name_ = name;
 
             land[i++] = info;
@@ -64,7 +64,7 @@ void cTiledata::load() {
 				>> info->unknown5_ >> info->height_;
 
 			char name[20] = {0, };
-			dataStream.readRawBytes(&name[0], 20);
+			dataStream.readRawData(&name[0], 20);
 			info->name_ = name;
 
             items[i++] = info;

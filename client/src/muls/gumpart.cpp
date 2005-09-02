@@ -15,33 +15,29 @@ cGumpart::cGumpart() {
 	indexStream.setDevice(&index);
 	dataStream.setByteOrder(QDataStream::LittleEndian);
 	indexStream.setByteOrder(QDataStream::LittleEndian);
-
-	tcache = new TextureCache(100, 173);
 }
 
 cGumpart::~cGumpart() {
-	delete tcache;
 }
 
 void cGumpart::load() {
 	// Set filenames
-	data.setName(Utilities::getUoFilename("gumpart.mul"));
-	index.setName(Utilities::getUoFilename("gumpidx.mul"));
+	data.setFileName(Utilities::getUoFilename("gumpart.mul"));
+	index.setFileName(Utilities::getUoFilename("gumpidx.mul"));
 
 	// Open files
 	if (!data.open(QIODevice::ReadWrite)) {
-		throw Exception(tr("Unable to open gump data at %1.").arg(data.name()));
+		throw Exception(tr("Unable to open gump data at %1.").arg(data.fileName()));
 	}
 
 	if (!index.open(QIODevice::ReadWrite)) {
-		throw Exception(tr("Unable to open gump index at %1.").arg(index.name()));
+		throw Exception(tr("Unable to open gump index at %1.").arg(index.fileName()));
 	}
 }
 
 void cGumpart::unload() {
 	data.close();
 	index.close();
-	tcache->clear();
 }
 
 void cGumpart::reload() {
@@ -65,7 +61,7 @@ cSurface *cGumpart::readSurface(unsigned short id, unsigned short hueid, bool pa
 		height = patch->height;
 		width = patch->width;
 	} else {
-		indexStream.device()->at(12 * id);
+		indexStream.device()->seek(12 * id);
 		indexStream >> offset >> length >> height >> width; // Read index data
 	}
 
@@ -74,7 +70,7 @@ cSurface *cGumpart::readSurface(unsigned short id, unsigned short hueid, bool pa
 		surface = new cSurface(width, height);
 		surface->clear();
 
-        dataStream.device()->at(offset);
+        dataStream.device()->seek(offset);
 	
 		// Read the lookup table
 		unsigned int *lookupTable = new unsigned int[height];
@@ -90,7 +86,7 @@ cSurface *cGumpart::readSurface(unsigned short id, unsigned short hueid, bool pa
 		unsigned int xoffset;
 		unsigned int pixel;
 		for (y = 0; y < height; ++y) {
-			dataStream.device()->at(offset + lookupTable[y] * 4);
+			dataStream.device()->seek(offset + lookupTable[y] * 4);
 		
 			x = 0; // Read the RLE chunks
 			while( x < width ) {				
@@ -156,7 +152,7 @@ cTexture *cGumpart::readTexture(unsigned short id, unsigned short hue, bool part
 
 	QMap<stGumpIdent, cTexture*>::iterator it = textureCache.find(ident);
 	if (it != textureCache.end()) {
-		cTexture *result = it.data();
+		cTexture *result = it.value();
 		result->incref();
 		return result;
 	}

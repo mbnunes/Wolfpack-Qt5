@@ -14,7 +14,7 @@ cSounds::cSounds() {
 void cSounds::load() {
 	QFile index(Utilities::getUoFilename("soundidx.mul"));
 
-	if (!index.open(IO_ReadOnly)) {
+	if (!index.open(QFile::ReadOnly)) {
 		throw Exception(tr("Unable to open the sound index data at %2.").arg(index.fileName()));
 	}
 
@@ -28,9 +28,9 @@ void cSounds::load() {
 
 	index.close();
 
-	data.setName(Utilities::getUoFilename("sound.mul"));
+	data.setFileName(Utilities::getUoFilename("sound.mul"));
 
-	if (!data.open(IO_ReadOnly)) {
+	if (!data.open(QFile::ReadOnly)) {
 		throw Exception(tr("Unable to open the sound data at %2.").arg(data.fileName()));
 	}
 }
@@ -47,7 +47,7 @@ cSample *cSounds::readSound(unsigned short id) {
 	cSample *result = new cSample();
 	result->id = id;
 	
-	data.at(offsets[id] + 40);
+	data.seek(offsets[id] + 40);
 	result->data = data.read(lengths[id] - 40);
 
 	return result;

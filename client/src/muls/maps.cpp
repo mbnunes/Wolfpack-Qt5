@@ -13,13 +13,13 @@ cMaps *Maps = 0;
 void cFacet::load() {
 	// This is stupid. Map1 is actually using Map0, but only for certain areas.
 	if (id_ == TRAMMEL) {
-		mapData.setName(Utilities::getUoFilename("map0.mul"));
-		staticData.setName(Utilities::getUoFilename("statics0.mul"));
-		staticIndex.setName(Utilities::getUoFilename("staidx0.mul"));
+		mapData.setFileName(Utilities::getUoFilename("map0.mul"));
+		staticData.setFileName(Utilities::getUoFilename("statics0.mul"));
+		staticIndex.setFileName(Utilities::getUoFilename("staidx0.mul"));
 	} else {
-		mapData.setName(Utilities::getUoFilename(QString("map%1.mul").arg(id_)));
-		staticData.setName(Utilities::getUoFilename(QString("statics%1.mul").arg(id_)));
-		staticIndex.setName(Utilities::getUoFilename(QString("staidx%1.mul").arg(id_)));
+		mapData.setFileName(Utilities::getUoFilename(QString("map%1.mul").arg(id_)));
+		staticData.setFileName(Utilities::getUoFilename(QString("statics%1.mul").arg(id_)));
+		staticIndex.setFileName(Utilities::getUoFilename(QString("staidx%1.mul").arg(id_)));
 	}
 
 	if (!mapData.open(QIODevice::ReadOnly)) {
@@ -27,7 +27,7 @@ void cFacet::load() {
 			enabled_ = false; // Disable the map if it's optional
 			return;
 		} else {
-			throw Exception(tr("Unable to open map data at %1.").arg(mapData.name()));
+			throw Exception(tr("Unable to open map data at %1.").arg(mapData.fileName()));
 		}
 	}
 
@@ -36,7 +36,7 @@ void cFacet::load() {
 			enabled_ = false; // Disable the map if it's optional
 			return;
 		} else {
-			throw Exception(tr("Unable to open static data at %1.").arg(staticData.name()));
+			throw Exception(tr("Unable to open static data at %1.").arg(staticData.fileName()));
 		}
 	}
 
@@ -45,7 +45,7 @@ void cFacet::load() {
 			enabled_ = false; // Disable the map if it's optional
 			return;
 		} else {
-			throw Exception(tr("Unable to open static index at %1.").arg(staticIndex.name()));
+			throw Exception(tr("Unable to open static index at %1.").arg(staticIndex.fileName()));
 		}
 	}
 
@@ -74,7 +74,7 @@ void cFacet::unload() {
 	mapCache.clear();
 }
 
-cFacet::cFacet() : staticCache(100, 97), mapCache(100, 97) {
+cFacet::cFacet() {
 	enabled_ = true;
 	optional_ = false; // Trigger an exception if missing
 	emptyCell.id = 1;
@@ -94,13 +94,13 @@ stMapCell *cFacet::getMapCell(unsigned short x, unsigned short y) {
 	// Calculate the cache offset
 	unsigned int blockid =  (x / 8) * (height_ / 8) + (y / 8);
 
-	stMapCell *cells = mapCache.find(blockid);
+	stMapCell *cells = mapCache.object(blockid);
 	
 	// Load the cell if its not loaded yet
 	if (!cells) {
 		// Every block is 196 bytes in size
 		unsigned int offset = 196 * blockid;
-		mapDataStream.device()->at(offset); // seek to the map block
+		mapDataStream.device()->seek(offset); // seek to the map block
 
 		QDataStream &input = mapDataStream; // This could be used to make reading from verdata easier
 
@@ -172,23 +172,23 @@ StaticBlock *cFacet::getStaticBlock(unsigned short x, unsigned short y) {
 	// Calculate the cache offset
 	unsigned int blockid =  (x / 8) * (height_ / 8) + (y / 8);
 
-	StaticBlock *tiles = staticCache.find(blockid);
+	StaticBlock *tiles = staticCache.object(blockid);
 	
 	// Load the cell if its not loaded yet
 	if (!tiles) {
-		staticIndex.at(blockid * 12); // Seek the block in the index
+		staticIndex.seek(blockid * 12); // Seek the block in the index
 		int offset, length;
 		staticIndexStream >> offset >> length;
 		
 		if (offset != -1) {
-			staticData.at(offset);
+			staticData.seek(offset);
 			
 			// Read in the entire static block
 			int count = length / 7;
 			if (count > 0) {
 				tiles = new StaticBlock(count);
 				for (int i = 0; i < count; ++i) {
-					stStaticItem &item = tiles->at(i);
+					stStaticItem &item = tiles->operator[](i);
 					staticDataStream >> item.id >> item.xoffset >> item.yoffset >> item.z >> item.color;
 				}
 			}

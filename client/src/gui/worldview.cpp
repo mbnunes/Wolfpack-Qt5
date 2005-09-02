@@ -14,7 +14,6 @@
 #include <math.h>
 #include <QCursor>
 #include <QMouseEvent>
-#include <Q3CString>
 
 const unsigned int sysMessageDecay = 10000;
 
@@ -177,9 +176,6 @@ void cWorldView::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 		// pass to world
 		Cursor->setCursor(getCursorType());
 	}
-}
-
-void cWorldView::addSysMessage(const Q3CString &message, unsigned short hue, unsigned char font) {
 }
 
 void cWorldView::addSysMessage(const QString &message, unsigned short hue, unsigned char font) {

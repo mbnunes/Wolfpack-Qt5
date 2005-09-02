@@ -10,7 +10,7 @@
 
 //Added by qt3to4:
 #include <QMouseEvent>
-#include <Q3CString>
+#include <QString>
 
 class cTargetRequest;
 class cEntity;
@@ -54,7 +54,6 @@ public:
 	void cancelTarget();
 	void targetResponse(cEntity *entity);
 	bool isTargetting() const;
-	void addSysMessage(const Q3CString &message, unsigned short hue = 0, unsigned char font = 3);
 	void addSysMessage(const QString &message, unsigned short hue = 0x3b2, unsigned char font = 0);
 
 	void getWorldRect(int &x, int &y, int &width, int &height);

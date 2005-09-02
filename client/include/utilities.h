@@ -3,8 +3,7 @@
 #define __UTILITIES_H__
 
 #include <time.h>
-#include <qstring.h>
-#include <Q3IntCache>
+#include <QString>
 
 #include "exceptions.h"
 #include "mersennetwister.h"
@@ -148,18 +147,6 @@ namespace Utilities {
 			default:
 				return; // Do nothing
 		};
-	}
-};
-
-// Please note that this cache does steal reference counts
-class TextureCache : public Q3IntCache< cTexture > {
-public:
-	TextureCache(int a, int b) : Q3IntCache< cTexture > (a, b) {
-	}
-
-protected:
-	void deleteItem(Item d) {
-		((cTexture*)d)->decref();
 	}
 };
 

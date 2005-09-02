@@ -18,7 +18,7 @@ void cLocalization::loadLanguage(QString language) {
 	unsigned int clilocid;
 	unsigned char unknown;
 	unsigned short length;
-	if (file.open(IO_ReadOnly)) {
+	if (file.open(QFile::ReadOnly)) {
 		QDataStream stream(&file);
 		stream.setByteOrder(QDataStream::LittleEndian);
 
@@ -33,7 +33,7 @@ void cLocalization::loadLanguage(QString language) {
 			while (!stream.atEnd()) {
 				stream >> clilocid >> unknown >> length; // Read the entry data from the file
 				char *utf8Data = new char[length+1]; // Create a new data array
-				stream.readRawBytes(utf8Data, length); // Read the utf-8 data from the stream
+				stream.readRawData(utf8Data, length); // Read the utf-8 data from the stream
 				utf8Data[length] = 0; // Ensure null termination
 				entries.insert(clilocid, QString::fromUtf8(utf8Data)); // Convert and insert data into the map
 				delete [] utf8Data; // Free memory
@@ -84,9 +84,9 @@ QString cLocalization::get(unsigned int id, QString language) {
 	}
 
 	// Try to find a string with the given id
-	StringsMap::iterator sit = it.data().find(id);
-	if (sit != it.data().end()) {
-		return sit.data();
+	StringsMap::iterator sit = it.value().find(id);
+	if (sit != it.value().end()) {
+		return sit.value();
 	}
 
 	// Fall back to ENU

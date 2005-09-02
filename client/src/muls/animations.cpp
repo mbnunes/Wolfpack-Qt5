@@ -161,7 +161,7 @@ void cSequence::load(QDataStream &input) {
 	}
 
 	// Save the seek offset
-	int seekOffset = input.device()->at();
+	uint seekOffset = input.device()->pos();
 
 	// Read frame count
 	int frameCount;
@@ -182,11 +182,11 @@ void cSequence::load(QDataStream &input) {
 	// Measure the maximum height and total width of all frames while we're at it
 	for (int i = 0; i < frameCount_; ++i) {
 		// Seek to the entry in the lookup table
-		input.device()->at(seekOffset + 4 + i * 4);
+		input.device()->seek(seekOffset + 4 + i * 4);
 
 		input >> frameLookup[i]; // Read the seek offset
 		
-		input.device()->at(seekOffset + frameLookup[i]); // Seek to the frame data
+		input.device()->seek(seekOffset + frameLookup[i]); // Seek to the frame data
 
         // Read the frame information header
 		stFrame &frame = frames[i];
@@ -209,7 +209,7 @@ void cSequence::load(QDataStream &input) {
 
 	int drawx = 0, drawy = 0;
 	for (int i = 0; i < frameCount_; ++i) {
-		input.device()->at(seekOffset + frameLookup[i] + 8); // Seek to the frame data
+		input.device()->seek(seekOffset + frameLookup[i] + 8); // Seek to the frame data
         stFrame &frame = frames[i]; // Keep a reference to the frame header
 
 		// Start reading the frame runs
@@ -268,7 +268,7 @@ signed char cAnimations::getFileId(unsigned short &body) const {
 		return 0; // No special mapping exists
 	}
     
-	stFileInfo info = it.data();
+	stFileInfo info = it.value();
 
 	// Only return the file id if it's valid.
 	if (info.file < ANIMATION_FILES) {
@@ -302,15 +302,15 @@ cAnimations::~cAnimations() {
 
 void cAnimations::load() {
 	// Load essential files
-	dataFile[0].setName(Utilities::getUoFilename("anim.mul"));
-	indexFile[0].setName(Utilities::getUoFilename("anim.idx"));
+	dataFile[0].setFileName(Utilities::getUoFilename("anim.mul"));
+	indexFile[0].setFileName(Utilities::getUoFilename("anim.idx"));
 
 	if (!dataFile[0].open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open animation data from %1.").arg(dataFile[0].name()));
+		throw Exception(tr("Unable to open animation data from %1.").arg(dataFile[0].fileName()));
 	}
 
 	if (!indexFile[0].open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open animation index data from %1.").arg(indexFile[0].name()));
+		throw Exception(tr("Unable to open animation index data from %1.").arg(indexFile[0].fileName()));
 	}
 
 	// Load supplemental files
@@ -320,17 +320,17 @@ void cAnimations::load() {
 
 	// Load secondary animation files
 	for (int i = 1; i < ANIMATION_FILES; ++i) {
-		dataFile[i].setName(Utilities::getUoFilename(QString("anim%1.mul").arg(i+1)));
-		indexFile[i].setName(Utilities::getUoFilename(QString("anim%1.idx").arg(i+1)));
+		dataFile[i].setFileName(Utilities::getUoFilename(QString("anim%1.mul").arg(i+1)));
+		indexFile[i].setFileName(Utilities::getUoFilename(QString("anim%1.idx").arg(i+1)));
 
 		if (!dataFile[i].open(QIODevice::ReadOnly)) {
-			Log->print(LOG_WARNING, tr("Unable to find %1. Skipping.\n").arg(dataFile[i].name()));
+			Log->print(LOG_WARNING, tr("Unable to find %1. Skipping.\n").arg(dataFile[i].fileName()));
 			continue;
 		}
 
 		if (!indexFile[i].open(QIODevice::ReadOnly)) {
 			dataFile[i].close();
-			Log->print(LOG_WARNING, tr("Unable to find %1. Skipping.\n").arg(indexFile[i].name()));
+			Log->print(LOG_WARNING, tr("Unable to find %1. Skipping.\n").arg(indexFile[i].fileName()));
 			continue;
 		}
 
@@ -355,9 +355,9 @@ bool cAnimations::getFallback(signed char &file, unsigned short &body, unsigned 
 	if (it == fallback.end()) {
 		return false; // Invalid animation
 	} else {
-		body = it.data().body; // We did find a fallback body value
-		if (it.data().hue != 0) {
-			hue = it.data().hue;
+		body = it.value().body; // We did find a fallback body value
+		if (it.value().hue != 0) {
+			hue = it.value().hue;
 		}
 
 		// Now we have to check if the fallback body value is in a file we have
@@ -428,8 +428,8 @@ unsigned int cAnimations::getSeekOffset(signed char file, unsigned short body, u
 void cAnimations::loadMobTypesTxt() {
 	QFile file(Utilities::getUoFilename("mobtypes.txt"));
 
-	if (!file.open(IO_ReadOnly)) {
-		throw Exception(tr("Unable to open mobile type data from %1.").arg(file.name()));
+	if (!file.open(QFile::ReadOnly)) {
+		throw Exception(tr("Unable to open mobile type data from %1.").arg(file.fileName()));
 	}
 
 	// Format is: 
@@ -439,7 +439,7 @@ void cAnimations::loadMobTypesTxt() {
 		QString line = stream.readLine().trimmed();
 		
 		if (!line.startsWith("#")) {
-			QStringList parts = QStringList::split(QRegExp("\\s+"), line);
+			QStringList parts = line.split(QRegExp("\\s+"));
 			
 			// 3 parts required
 			if (parts.size() == 3) {
@@ -477,8 +477,8 @@ void cAnimations::loadMobTypesTxt() {
 void cAnimations::loadBodyConvDef() {
 	QFile file(Utilities::getUoFilename("bodyconv.def"));
 
-	if (!file.open(IO_ReadOnly)) {
-		throw Exception(tr("Unable to open body conversion data from %1.").arg(file.name()));
+	if (!file.open(QFile::ReadOnly)) {
+		throw Exception(tr("Unable to open body conversion data from %1.").arg(file.fileName()));
 	}
 
 	// Format is: 
@@ -488,7 +488,7 @@ void cAnimations::loadBodyConvDef() {
 		QString line = stream.readLine().trimmed();
 		
 		if (!line.startsWith("#")) {
-			QStringList parts = QStringList::split(QRegExp("\\s+"), line);
+			QStringList parts = line.split(QRegExp("\\s+"));
 			
 			// 4 parts required
 			if (parts.size() == 4) {
@@ -511,8 +511,8 @@ void cAnimations::loadBodyConvDef() {
 void cAnimations::loadBodyDef() {
 	QFile file(Utilities::getUoFilename("body.def"));
 
-	if (!file.open(IO_ReadOnly)) {
-		throw Exception(tr("Unable to open body fallback data from %1.").arg(file.name()));
+	if (!file.open(QFile::ReadOnly)) {
+		throw Exception(tr("Unable to open body fallback data from %1.").arg(file.fileName()));
 	}
 
 	// Format is: 
@@ -527,7 +527,7 @@ void cAnimations::loadBodyDef() {
 		if (line.contains(pattern)) {
 			// Log->print(LOG_NOTICE, tr("Found body translation: %1 to %2 with hue %3.\n").arg(pattern.cap(1)).arg(pattern.cap(2)).arg(pattern.cap(3)));
 			// Parse the list of new ids
-			QStringList newIds = QStringList::split(splitPattern, pattern.cap(2));
+			QStringList newIds = pattern.cap(2).split(splitPattern);
 			unsigned short oldBody = pattern.cap(1).toUShort();
 			stFallback entry;
 			entry.hue = pattern.cap(3).toUShort();
@@ -558,7 +558,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 	QMap<stSequenceIdent, cSequence*>::iterator it = SequenceCache.find(ident);
 
 	if (it != SequenceCache.end()) {
-		result = it.data();
+		result = it.value();
 		result->incref();
 		return result;
 	}
@@ -581,7 +581,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 		if (load) {
 			// If we do have a valid file id now, try to find the index record for it			
 			QDataStream &index = indexStream[file];
-			index.device()->at(getSeekOffset(file, body, action, direction) * 12);
+			index.device()->seek(getSeekOffset(file, body, action, direction) * 12);
 			index >> offset >> length;
 
 			// If the file doesn't have the requested animation, try to fall back
@@ -594,7 +594,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 				if (load) {
 					// Only try the lookup process once again. if it fails, return 0.
 					QDataStream &index = indexStream[file];
-					index.device()->at(getSeekOffset(file, body, action, direction) * 12);
+					index.device()->seek(getSeekOffset(file, body, action, direction) * 12);
 					index >> offset >> length;
 					
 					// The lookup failed
@@ -611,7 +611,7 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 		result = new cSequence(body, action, direction, hue, partialhue);
 		result->setIdent(ident);
 		if (load) {
-			dataFile[file].at(offset);
+			dataFile[file].seek(offset);
 			result->load(dataStream[file]);
 		}
 

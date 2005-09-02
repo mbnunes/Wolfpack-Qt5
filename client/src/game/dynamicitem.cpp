@@ -148,11 +148,6 @@ void cDynamicItem::showContent(int x, int y, ushort gump) {
 	containerGump_ = new cContainerGump(gump, hue_);
 	containerGump_->setContainer(this);
 	Gui->addControl(containerGump_);
-
-	WorldView->addSysMessage(tr("Showing content of container 0x%1.\n").arg(serial_, 0, 16));
-	foreach (cDynamicItem *item, content_) {
-		WorldView->addSysMessage(tr("Item 0x%1.\n").arg(item->serial(), 0, 16));
-	}
 }
 
 void cDynamicItem::showContent(ushort gump) {

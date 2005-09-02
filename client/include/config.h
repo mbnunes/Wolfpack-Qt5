@@ -28,8 +28,7 @@
 #if !defined(__CONFIG_H__)
 #define __CONFIG_H__
 
-#include <q3cstring.h>
-#include <qstring.h>
+#include <QString>
 
 class QDomElement;
 class cConfigPrivate;
@@ -55,7 +54,7 @@ private:
 	unsigned int encryptionLoginKey1_;
 	unsigned int encryptionLoginKey2_;
 
-	Q3CString loginHost_;
+	QString loginHost_;
 	unsigned short loginPort_;
 	QString lastUsername_;
 	uint lastShardId_;
@@ -119,8 +118,8 @@ public:
 	const uint lastShardId() { return lastShardId_; }
 	void setLastShardId(uint data) { lastShardId_ = data; setNumber("Login", "Last Shard Id", data); }
 
-	const Q3CString &loginHost() { return loginHost_; }
-	void setLoginHost(const Q3CString data) { loginHost_ = data; setString("Login", "Host", data); }
+	const QString &loginHost() { return loginHost_; }
+	void setLoginHost(const QString data) { loginHost_ = data; setString("Login", "Host", data); }
 
 	const unsigned short loginPort() { return loginPort_; }
 	void setLoginPort(unsigned short data) { loginPort_ = data; setNumber("Login", "Port", data); }

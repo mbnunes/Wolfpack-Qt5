@@ -4,11 +4,11 @@
 #include <QMouseEvent>
 
 void cVerticalScrollBar::scrollUp(cControl *sender) {
-	setPos(QMAX((int)min(), (int)pos() - 1));
+	setPos(qMax<int>(min(), pos() - 1));
 }
 
 void cVerticalScrollBar::scrollDown(cControl *sender) {
-	setPos(QMIN(max(), pos() + 1));
+	setPos(qMin<int>(max(), pos() + 1));
 }
 
 cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) {
@@ -92,7 +92,7 @@ unsigned int cVerticalScrollBar::getPosFromTrackerY(int y) {
 	} else if (y > height_ - btnDown->height() - handle->height()) {
 		return max_;
 	} else {
-		return QMIN((int)max_, QMAX((int)min_, (int)((y - (int)btnUp->height()) / pixelPerStep)));
+		return qMin<int>(max_, qMax<int>(min_, ((y - (int)btnUp->height()) / pixelPerStep)));
 	}
 }
 

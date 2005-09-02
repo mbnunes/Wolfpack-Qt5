@@ -20,7 +20,7 @@ void CalcBilinearTable() {
           }
 }
 
-cTextures::cTextures() : cache(300, 463) {
+cTextures::cTextures()  {
 	dataStream.setDevice(&data);
 	dataStream.setByteOrder(QDataStream::LittleEndian);
 	voidTexture = 0;
@@ -33,16 +33,16 @@ cTextures::~cTextures() {
 }
 
 void cTextures::load() {
-	data.setName(Utilities::getUoFilename("texmaps.mul"));
+	data.setFileName(Utilities::getUoFilename("texmaps.mul"));
 	QFile index(Utilities::getUoFilename("texidx.mul"));
 
 	// Open files
 	if (!data.open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open texture data at %1.").arg(data.name()));
+		throw Exception(tr("Unable to open texture data at %1.").arg(data.fileName()));
 	}
 
 	if (!index.open(QIODevice::ReadOnly)) {
-		throw Exception(tr("Unable to open texture index at %1.").arg(index.name()));
+		throw Exception(tr("Unable to open texture index at %1.").arg(index.fileName()));
 	}
 
 	// Slurp in the entire index data to make loading textures faster
@@ -58,7 +58,6 @@ void cTextures::load() {
 }
 
 void cTextures::unload() {
-	cache.clear();
 	data.close();
 }
 
@@ -80,14 +79,14 @@ cTexture *cTextures::readTexture(unsigned short id) {
 		voidTexture->incref();
 		return voidTexture;
 	} else {
-		cTexture *result = cache.find(id);
+		cTexture *result = 0;
 
 		if (!result) {
 			int size = largeTextures[id] ? 128 : 64;
 			cSurface *surface = new cSurface(size, size);			
 
 			// Seek to the start of the texture
-			data.at(offsets[id]);
+			data.seek(offsets[id]);
 
 			// Read the texture
 			unsigned short color;
@@ -103,12 +102,6 @@ cTexture *cTextures::readTexture(unsigned short id) {
 			// Create the texture object
 			result = new cTexture(surface, false);
 			delete surface;
-
-			if (cache.insert(id, result)) {
-				result->incref();
-			}
-		} else {
-			result->incref();
 		}
 
 		return result;

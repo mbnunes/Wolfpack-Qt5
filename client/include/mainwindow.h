@@ -65,13 +65,13 @@ protected:
 	void createScreenshot(const QString &filename);
 };
 
-class MainWindow : public QMainWindow {
+class cMainWindow : public QMainWindow {
 	Q_OBJECT
 
 	QMenuBar *m_menuBar;
 public:
-    MainWindow();
-    ~MainWindow();
+    cMainWindow();
+    ~cMainWindow();
 
 	QMenuBar *menuBar() const;
 
@@ -94,9 +94,10 @@ public slots:
 	void menuGameClicked(QAction *action);
 };
 
+extern cMainWindow *MainWindow;
 extern cGLWidget *GLWidget;
 
-inline QMenuBar *MainWindow::menuBar() const {
+inline QMenuBar *cMainWindow::menuBar() const {
 	return m_menuBar;
 }
 

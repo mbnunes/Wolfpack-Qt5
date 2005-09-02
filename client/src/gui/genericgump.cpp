@@ -47,7 +47,7 @@ cGenericGump::cGenericGump(int x, int y, unsigned int serial, unsigned int gumpT
 			Gui->removeControl(gump);
 			delete gump;
 		}
-		instances.insert(gumpType, this, true);
+		instances.insert(gumpType, this);
 	}
 }
 
@@ -70,7 +70,7 @@ void cGenericGump::addControl(unsigned int page, cControl *control, bool back) {
 			
 			cont->addControl(control, back);
 		} else {
-			it.data()->addControl(control, back);
+			it.value()->addControl(control, back);
 		}
 	}
 }
@@ -174,8 +174,9 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 			text = tr("ERR: Index out of Range (%1)").arg(textId);
 		}
 
-		cTextField *gump = new cTextField(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toInt(), tokens[4].toInt(), 3, hue, 0, true);
-		gump->setText(text.local8Bit());
+		//cTextField *gump = new cTextField(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toInt(), tokens[4].toInt(), 3, hue, 0, true);
+		cTextField *gump = new cTextField(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toInt(), tokens[4].toInt(), 1, hue, 0, true, true);
+		gump->setText(text);
 		controlIds.insert(gump, tokens[6].toUInt());
 		addControl(context.page, gump);		
 	}
@@ -259,7 +260,7 @@ void cGenericGump::onButtonPress(cControl *sender) {
 		return;
 	}
 
-	unsigned int controlId = it.data();
+	unsigned int controlId = it.value();
 
 	// Switch to the given page
 	if (sender->objectName() == "pagebutton") {
@@ -267,9 +268,9 @@ void cGenericGump::onButtonPress(cControl *sender) {
 			QMap<uint, cContainer*>::iterator it;
 			for (it = pages.begin(); it != pages.end(); ++it) {
 				if (it.key() == controlId) {
-					it.data()->setVisible(true);
+					it.value()->setVisible(true);
 				} else {
-					it.data()->setVisible(false);
+					it.value()->setVisible(false);
 				}
 			}
 		}		
@@ -324,7 +325,7 @@ void cGenericGump::setGumpType(uint data) {
 			Gui->removeControl(gump);
 			delete gump;
 		}	
-		instances.insert(gumpType_, this, true);
+		instances.insert(gumpType_, this);
 	}
 }
 

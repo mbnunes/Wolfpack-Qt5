@@ -4,6 +4,8 @@
 #include "gui/window.h"
 #include "gui/label.h"
 #include "gui/worldview.h"
+#include "gui/genericgump.h"
+#include "gui/containergump.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
 #include "game/dynamicitem.h"
@@ -236,10 +238,52 @@ void cGui::addControl(cControl *control, bool back) {
 
 	cContainer::addControl(control, back);
 
-	if (!activeWindow_ && control->isContainer()) {
+	if (!activeWindow_) {
 		activeWindow_ = (cWindow*)control;
 	}
 
 	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
-	GLWidget->setLastMouseMovement(getControl(pos.x(), pos.y()));
+	
+	cControl *motionControl = Gui->getControl(pos.x(), pos.y());
+	if (motionControl != GLWidget->lastMouseMovement()) {
+		if (GLWidget->lastMouseMovement()) {
+			GLWidget->lastMouseMovement()->onMouseLeave();
+		}
+		GLWidget->setLastMouseMovement(motionControl);
+		if (GLWidget->lastMouseMovement()) {
+			GLWidget->lastMouseMovement()->onMouseEnter();
+		}
+	}
+}
+
+void cGui::closeAllGumps() {
+	foreach(cControl *control, controls) {
+		// Check for several types that should be closed when disconnected
+		cGenericGump *generic = dynamic_cast<cGenericGump*>(control);
+		if (generic) {
+			queueDelete(generic);
+			continue;
+		}
+		cContainerGump *gump = dynamic_cast<cContainerGump*>(control);
+		if (gump) {
+			queueDelete(gump);
+			continue;
+		}
+	}
+}
+
+void cGui::setActiveWindow(cWindow *data) {
+	// The WorldView is not affected by this
+	if (data && data != WorldView) {
+		for (int i = 0; i < controls.size(); ++i) {
+			if (controls[i] == data) {
+				controls.remove(i);
+				break;
+			}
+		}
+	
+		controls.append(data);
+	}
+
+	activeWindow_ = data;
 }

@@ -2,11 +2,11 @@
 #if !defined(__MAPS_H__)
 #define __MAPS_H__
 
-#include <qfile.h>
-#include <qdatastream.h>
-#include <q3intcache.h>
-#include <qstring.h>
-#include <q3valuevector.h>
+#include <QFile>
+#include <QDataStream>
+#include <QString>
+#include <QVector>
+#include <QCache>
 
 #include "enums.h"
 
@@ -24,14 +24,14 @@ struct stStaticItem {
 	signed char z;
 };
 
-typedef Q3ValueVector<stStaticItem> StaticBlock;
+typedef QVector<stStaticItem> StaticBlock;
 
 class cFacet {
 private:	
 	QFile mapData, staticData, staticIndex; // Input files
 	QDataStream mapDataStream, staticDataStream, staticIndexStream; // Input streams
-	Q3IntCache<stMapCell> mapCache; // This is actually a block cache for 64 cells at once
-	Q3IntCache<StaticBlock> staticCache; // This is actually a block cache for all static items in a block
+	QCache<int, stMapCell> mapCache; // This is actually a block cache for 64 cells at once
+	QCache<int, StaticBlock> staticCache; // This is actually a block cache for all static items in a block
 	stMapCell emptyCell;
 
 protected:

@@ -5,12 +5,15 @@
 #include "gui/contextmenu.h"
 #include "gui/worldview.h"
 #include "game/world.h"
+#include "game/dynamicitem.h"
+#include "game/mobile.h"
 #include "network/uosocket.h"
 #include "muls/localization.h"
 #include "config.h"
 #include "sound.h"
 #include "log.h"
 #include "dialogs/cachestatistics.h"
+#include "network/outgoingpackets.h"
 #include <qpixmap.h>
 #include <QCursor>
 #include <qimage.h>
@@ -151,20 +154,17 @@ static const char * const icon_xpm[] = {
 ":::::::::::::: * :::::::::::::::"
 };
 
-MainWindow::MainWindow() {
+cMainWindow::cMainWindow() {
 	QAction *action;
 
 	// Window Icon
 	QPixmap pixmap((const char**)icon_xpm);
-	setIcon(pixmap);
-
-	// Create the File menu
-	QMenu *file = new QMenu(this);
-	file->addAction("E&xit", this, SLOT(close()));
+	setWindowIcon(pixmap);
 
 	// Create a menu bar at the top of the window
 	m_menuBar = new QMenuBar(this);
-	m_menuBar->insertItem(tr("&File"), file);
+	QMenu *file = m_menuBar->addMenu(tr("&File"));
+	file->addAction("E&xit", this, SLOT(close()));
 	
 	// Game Menu
 	QMenu *game = m_menuBar->addMenu("&Game");
@@ -206,6 +206,9 @@ MainWindow::MainWindow() {
     action = game->addAction("Resync with Server");
 	action->setObjectName("action_resync");
 
+    action = game->addAction("Open Backpack");
+	action->setObjectName("action_openbackpack");
+
 	connect(game, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
 
 	GLWidget = new cGLWidget(this);
@@ -215,9 +218,9 @@ MainWindow::MainWindow() {
 
 	QMenu *helpMenu = m_menuBar->addMenu(tr("&Help"));
 	action = helpMenu->addAction(tr("Cache Statistics"));
-	action->setName("action_cachestatistics");
+	action->setObjectName("action_cachestatistics");
 	action = helpMenu->addAction(tr("&About"));
-	action->setName("action_about");
+	action->setObjectName("action_about");
 
 	connect(helpMenu, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));	
 
@@ -226,7 +229,7 @@ MainWindow::MainWindow() {
 	resize(640, 480); // Default size
 }
 
-void MainWindow::menuGameClicked(QAction *action) {
+void cMainWindow::menuGameClicked(QAction *action) {
 	if (action == aHideStatics) {
 		Config->setGameHideStatics(action->isChecked());
 	} else if (action == aHideMap) {
@@ -254,10 +257,17 @@ void MainWindow::menuGameClicked(QAction *action) {
 			cacheStatistics->show();			
 			cacheStatistics->refresh();
 		}
+	} else if (action->objectName() == "action_openbackpack") {
+		if (Player) {
+			cDynamicItem *backpack = Player->getEquipment(LAYER_BACKPACK);
+			if (backpack) {
+				UoSocket->send(cDoubleClickPacket(backpack->serial()));
+			}
+		}
 	}
 }
 
-MainWindow::~MainWindow() {
+cMainWindow::~cMainWindow() {
 }
 
 cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
@@ -276,7 +286,7 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 
 	// Update Timer
 	QTimer *timer = new QTimer(this);
-	timer->setInterval(10); // 15ms redraw interval (max. 100fps)
+	timer->setInterval(15); // 15ms redraw interval (max. 100fps)
 	timer->setSingleShot(false);
 	connect(timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer->start();
@@ -550,7 +560,7 @@ void cGLWidget::mousePressEvent(QMouseEvent *e) {
 			}
 
 			// Get the next control with the gui as its parent above it
-			cContainer *parent = control->parent();
+			cContainer *parent = control->isContainer() ? (cContainer*)control : control->parent();
 			while (parent && parent->parent() != Gui) {
 				parent = parent->parent();
 			}
@@ -585,6 +595,7 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	}
 	
 	cControl *control = mouseCapture_;
+	mouseCapture_ = 0; // Reset mouse capture
 	if (!control) {
 		control = Gui->getControl(e->x(), e->y());
 	}
@@ -601,9 +612,7 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 
 		if (e->button() != Qt::LeftButton) {
 			control->onClick(e);
-		}
-
-		mouseCapture_ = 0; // Reset mouse capture
+		}		
 	}
 
 	QWidget::mouseReleaseEvent(e);
@@ -661,7 +670,7 @@ void cGLWidget::createScreenshot(const QString &filename) {
 	}
 }
 
-void MainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool locked)  {
+void cMainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool locked)  {
 	int mheight = m_menuBar->height();
 
 	if (m_menuBar->isHidden()) {
@@ -670,18 +679,16 @@ void MainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool 
        
 	if (locked) {
 		resize(width, height + mheight);
-		layout()->setResizeMode( QLayout::FreeResize );
 		setMaximumSize(size());
 		setMinimumSize(size());
 	} else {
-		layout()->setResizeMode( QLayout::FreeResize );
 		setMaximumSize(65535, 65535);
 		setMinimumSize(100, 100);
 		resize(width, height + mheight);
 	}
 }
 
-void MainWindow::moveEvent(QMoveEvent *event) {
+void cMainWindow::moveEvent(QMoveEvent *event) {
 	// if the game view is visible, save the engine position
 	if (WorldView && WorldView->isVisible()) {
 		Config->setEngineWindowX(x());
@@ -691,7 +698,7 @@ void MainWindow::moveEvent(QMoveEvent *event) {
 	QMainWindow::moveEvent(event);
 }
 
-void MainWindow::resizeEvent(QResizeEvent * event) {
+void cMainWindow::resizeEvent(QResizeEvent * event) {
 	// if the game view is visible, change the engine size
 	if (WorldView && WorldView->isVisible()) {
 		int mheight = m_menuBar->height();
@@ -713,7 +720,7 @@ void MainWindow::resizeEvent(QResizeEvent * event) {
 	QMainWindow::resizeEvent(event);
 }
 
-bool MainWindow::event(QEvent *e) {
+bool cMainWindow::event(QEvent *e) {
 	// if the game view is visible, change the engine size
 	if (WorldView && WorldView->isVisible()) {
 		int mheight = m_menuBar->height();
@@ -735,7 +742,7 @@ bool MainWindow::event(QEvent *e) {
 	return QMainWindow::event(e);
 }
 
-void MainWindow::showEvent(QShowEvent *event) {
+void cMainWindow::showEvent(QShowEvent *event) {
 	QMainWindow::showEvent(event);
 }
 
@@ -778,4 +785,5 @@ bool cGLWidget::focusNextPrevChild(bool next) {
 	return true; // Always find a new tab control
 }
 
+cMainWindow *MainWindow = 0;
 cGLWidget *GLWidget = 0;

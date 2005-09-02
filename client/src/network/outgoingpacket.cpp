@@ -52,25 +52,25 @@ void cOutgoingPacket::writeFixedAscii(const QString &text, unsigned short length
 	QByteArray data = text.toLatin1();
 
 	if (data.size() < length) {
-		m_Stream.writeRawBytes(data, data.size());
+		m_Stream.writeRawData(data, data.size());
 		for (int i = data.size(); i < length; ++i) {
 			m_Stream << (unsigned char)0;
 		}
 	} else {
 		// Make sure the null termination is there
 		data[length - 1] = 0;
-		m_Stream.writeRawBytes(data, length);
+		m_Stream.writeRawData(data, length);
 	}
 }
 
 void cOutgoingPacket::writeAscii(const QString &text) {
 	QByteArray data = text.toLatin1();
-	m_Stream.writeRawBytes(data, data.size());
+	m_Stream.writeRawData(data, data.size());
 }
 
 QString cOutgoingPacket::dump() const {
-	Q_INT32 length = m_Data.size();
-	QString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( Q_UINT8 ) m_Data[0], 2, 16 ).arg( m_Data.count() );
+	int length = m_Data.size();
+	QString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( uchar ) m_Data[0], 2, 16 ).arg( m_Data.count() );
 
 	int lines = length / 16;
 	if ( length % 16 ) // always round up.
@@ -85,7 +85,7 @@ QString cOutgoingPacket::dump() const {
 		{
 			if ( actLine * 16 + actRow < length )
 			{
-				QString number = QString::number( static_cast<uint>( static_cast<Q_UINT8>( m_Data[actLine*16 + actRow] ) ), 16 ) + QString( " " );
+				QString number = QString::number( static_cast<uint>( static_cast<uchar>( m_Data[actLine*16 + actRow] ) ), 16 ) + QString( " " );
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );
@@ -100,7 +100,7 @@ QString cOutgoingPacket::dump() const {
 		for ( actRow = 0; actRow < 16; ++actRow )
 		{
 			if ( actLine * 16 + actRow < length )
-				line += ( isprint( static_cast<Q_UINT8>( m_Data[actLine * 16 + actRow] ) ) ) ? m_Data[actLine * 16 + actRow] : '.' ;
+				line += ( isprint( static_cast<uchar>( m_Data[actLine * 16 + actRow] ) ) ) ? m_Data[actLine * 16 + actRow] : '.' ;
 		}
 
 		line += "\n";

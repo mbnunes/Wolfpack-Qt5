@@ -24,7 +24,7 @@ static QString getUOPath()
 			RegCloseKey( tempKey );
 
 			QString path( ( char* ) &exePath );
-			path = path.left( path.findRev( "\\" ) + 1 );
+			path = path.left( path.lastIndexOf( "\\" ) + 1 );
 			return path;
 		}
 		RegCloseKey( tempKey );
@@ -41,7 +41,7 @@ static QString getUOPath()
 			RegCloseKey( tempKey );
 
 			QString path( ( char* ) &exePath );
-			path = path.left( path.findRev( "\\" ) + 1 );
+			path = path.left( path.lastIndexOf( "\\" ) + 1 );
 			return path;
 		}
 		RegCloseKey( tempKey );

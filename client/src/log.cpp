@@ -54,7 +54,7 @@ bool cLog::checkLogFile()
 		else
 			filename = QString( "client.log" );
 
-		logfile->setName( path + filename );
+		logfile->setFileName( path + filename );
 
 		if ( !logfile->open( QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text ) )
 		{
@@ -106,7 +106,7 @@ void cLog::print( eLogLevel loglevel, const QString& string, bool timestamp )
 	output.prepend( prelude );
 	QByteArray utfdata = output.toUtf8();
 
-	logfile->writeBlock( utfdata.data(), utfdata.length() );
+	logfile->write(utfdata);
 	logfile->flush();
 }
 

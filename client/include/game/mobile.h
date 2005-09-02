@@ -72,6 +72,8 @@ public:
 	bool isMoving() const;
 	bool isInWarmode() const;
 
+	void onDoubleClick(QMouseEvent *e);
+
 	void playAction(unsigned char action, unsigned int duration = 0);
 
 	void smoothMove(int xoffset, int yoffset, unsigned int duration);
@@ -82,11 +84,20 @@ public:
 	void addEquipment(cDynamicItem *item);
 	void removeEquipment(cDynamicItem *item);
 	void refreshEquipment(enLayer layer);
+	cDynamicItem *getEquipment(enLayer layer) const;
 
 	void processFlags(uchar flags);
 
 	uint getCurrentHeight();
 };
+
+inline cDynamicItem *cMobile::getEquipment(enLayer layer) const {
+	if (layer < LAYER_COUNT) {
+		return equipment[layer];
+	} else {
+		return 0;
+	}
+}
 
 inline void cMobile::setDead(bool data) {
 	dead = data;

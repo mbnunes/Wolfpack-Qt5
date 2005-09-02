@@ -186,7 +186,7 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 			drawx_ = cellx - 22;
 			drawy_ = celly - 22;
 			width_ = 44;
-			height_ = QMAX(22 + QMAX(left, right), 44 + bottom);
+			height_ = qMax<int>(22 + qMax<int>(left, right), 44 + bottom);
 
 			// Don't draw if we're not visible
 			if (drawy_ + height_ < topClip) {

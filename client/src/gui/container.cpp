@@ -291,9 +291,9 @@ cControl *cContainer::getControl(int x, int y) {
 				}
 			} while(it != controls.begin());
 		}
-		//if (!result) {
-		//	result = this;
-		//}
+		if (!result && isMoveHandle()) {
+			result = this;
+		}
 	}
 	return result;
 }

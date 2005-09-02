@@ -30,7 +30,6 @@ protected:
 		}
 	};
 
-	TextureCache *tcache;
 	QFile index;
 	QFile data;
 	QDataStream indexStream;

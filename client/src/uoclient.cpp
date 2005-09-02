@@ -1,7 +1,6 @@
 
 #include <qdatetime.h>
 #include <qdir.h>
-#include <q3vbox.h>
 #include <qmessagebox.h>
 
 #include "uoclient.h"
@@ -196,10 +195,8 @@ void cUoClient::run()
 	Log->print("-----------------------------------------------------------------------------\n\n", false);
 
 	// INITIALIZE WINDOW - OPENGL INTIAILZATION
-	MainWindow *window = new MainWindow();
-	window->setCaption("Ultima Online");
-	qApp->setMainWidget(window);
-	window->show();
+	MainWindow = new cMainWindow();
+	MainWindow->show();
 	// END WINDOW INITIALIZATION
 
 	try {
@@ -235,7 +232,8 @@ void cUoClient::run()
 
 	QTimer networkTimer;
 	QObject::connect(&networkTimer, SIGNAL(timeout()), UoSocket, SLOT(poll()));
-	networkTimer.start(10, false); // Poll the network socket every 10 ms
+	networkTimer.setSingleShot(false);
+	networkTimer.start(10); // Poll the network socket every 10 ms
 	qApp->exec(); // Enter the main event loop
 	networkTimer.stop(); // Stop the network timer
 
@@ -251,7 +249,6 @@ void cUoClient::run()
 }
 
 void cUoClient::errorMessage(const QString &message, const QString &title) {
-	QWidget *mainWindow = (MainWindow*)qApp->mainWidget();
 	QMessageBox box(title, message, QMessageBox::Critical, QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
 	box.setModal(true);
 	box.show();
@@ -261,7 +258,7 @@ void cUoClient::errorMessage(const QString &message, const QString &title) {
 }
 
 void cUoClient::quit() {
-	qApp->mainWidget()->close();
+	MainWindow->close();
 }
 
 cUoClient *Client = 0; // Global Client Instance

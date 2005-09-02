@@ -2,9 +2,9 @@
 #if !defined(__ASCIFONTS_H__)
 #define __ASCIFONTS_H__
 
-#include <qfile.h>
-#include <qdatastream.h>
-#include <q3cstring.h>
+#include <QString>
+#include <QFile>
+#include <QDataStream>
 
 #include "enums.h"
 #include "utilities.h"
@@ -38,8 +38,8 @@ public:
 	}
 
 	// Build a text string
-	cTexture *buildText(unsigned char font, const Q3CString &text, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT, bool hueAll = false);
-	cTexture *buildTextWrapped(unsigned char font, const Q3CString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT);
+	cTexture *buildText(unsigned char font, const QString &text, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT, bool hueAll = false);
+	cTexture *buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT);
 };
 
 extern cAsciiFonts *AsciiFonts;

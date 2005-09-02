@@ -1,8 +1,6 @@
 
-#include <qapplication.h>
-//Added by qt3to4:
+#include <QApplication>
 #include <QMouseEvent>
-#include <Q3CString>
 #include <QDesktopWidget>
 
 #include "config.h"
@@ -35,7 +33,7 @@ private:
 	int id;
 
 public:
-	cShardLabel(int x, int y, const Q3CString &text) : cTextField(x, y, 350, 25, 5, 0x34f, 0, true) {
+	cShardLabel(int x, int y, const QString &text) : cTextField(x, y, 350, 25, 5, 0x34f, 0, true) {
 		canHaveFocus_ = false; // These are only clickable
 		setMouseOverHue(0x23);
 		setText(text);
@@ -99,7 +97,7 @@ public:
 class cCharSelection : public cContainer {
 protected:
 	QStringList characters;
-	Q3ValueVector<cAsciiLabel*> labels;
+	QVector<cAsciiLabel*> labels;
 	int selectedCharacter_;
 public:
 	cCharSelection();
@@ -253,7 +251,7 @@ void cLoginDialog::onScrollShardList(int oldpos, int newpos) {
 }
 
 void cLoginDialog::setStatusText(const QString &text) {
-	statusLabel->setText(text.latin1());
+	statusLabel->setText(text);
 }
 
 void cLoginDialog::buildShardSelectGump() {
@@ -356,19 +354,19 @@ void cLoginDialog::buildAccountLoginGump() {
 		container->addControl(image);
 
 		cAsciiLabel *label;
-		label = new cAsciiLabel(tr("Log in to Ultima Online").latin1(), 2, 0x34f);
+		label = new cAsciiLabel(tr("Log in to Ultima Online"), 2, 0x34f);
 		label->setPosition(0xfa, 0x12f);
 		container->addControl(label);
 
-		label = new cAsciiLabel(tr("Wolfpack UO Client Version " CLIENT_VERSION).latin1(), 9, 0x34f, ALIGN_LEFT, true, true);
+		label = new cAsciiLabel(tr("Wolfpack UO Client Version " CLIENT_VERSION), 9, 0x34f, ALIGN_LEFT, true, true);
 		label->setPosition(0xc8, 0x1a3);
 		container->addControl(label);
 
-		label = new cAsciiLabel(tr((char)0xa9 + QString(" 2005 Wolfpack Development Team")).latin1(), 6, 0x481, ALIGN_LEFT, true, true);
+		label = new cAsciiLabel(tr("\xa9 2005 Wolfpack Development Team"), 6, 0x481, ALIGN_LEFT, true, true);
 		label->setPosition(0xc8, 0x1c5);
 		container->addControl(label);
 
-		label = new cAsciiLabel(tr("Account Name").latin1(), 2, 0x34f);
+		label = new cAsciiLabel(tr("Account Name"), 2, 0x34f);
 		label->setPosition(0xb4, 0x157);
 		container->addControl(label);
 
@@ -376,11 +374,11 @@ void cLoginDialog::buildAccountLoginGump() {
 		inpAccount->setMouseOverHue(0x2b8);
 		inpAccount->setFocusHue(0x23);
 		inpAccount->setMaxLength(16);
-		inpAccount->setText(Config->lastUsername().toLatin1());
+		inpAccount->setText(Config->lastUsername());
 		container->addControl(inpAccount);
 		connect(inpAccount, SIGNAL(enterPressed(cTextField*)), this, SLOT(enterPressed(cTextField*)));
 
-		label = new cAsciiLabel(tr("Password").latin1(), 2, 0x34f);
+		label = new cAsciiLabel(tr("Password"), 2, 0x34f);
 		label->setPosition(0xb4, 0x17f);
 		container->addControl(label);
 
@@ -433,9 +431,8 @@ void cLoginDialog::buildStatusGump() {
 void cLoginDialog::show(enMenuPage page) {
 	setErrorStatus(false); // Reset error status when changing pages
 
-	MainWindow *mainWindow = (MainWindow*)qApp->mainWidget();
-	if (mainWindow) {
-		mainWindow->resizeGameWindow(640, 480, true);
+	if (MainWindow) {
+		MainWindow->resizeGameWindow(640, 480, true);
 	}
 
 	if (!container) {
@@ -677,7 +674,7 @@ void cLoginDialog::buildSelectCharGump() {
 		selectCharDialog->addControl(border);
 
 		// Top Label
-		cAsciiLabel *topLabel = new cAsciiLabel(tr("Character Selection").latin1(), 2, 0x34f, ALIGN_CENTER, false);
+		cAsciiLabel *topLabel = new cAsciiLabel(tr("Character Selection"), 2, 0x34f, ALIGN_CENTER, false);
 		topLabel->setBounds(0, 40, 408, 200);
 		selectCharDialog->addControl(topLabel);
 
@@ -731,10 +728,9 @@ void cLoginDialog::hide() {
 		Gui->invalidate();
 	}
 
-	MainWindow *mainWindow = (MainWindow*)qApp->mainWidget();
-	if (mainWindow) {
+	if (MainWindow) {
 		// Resize the game window to the original size
-		mainWindow->resizeGameWindow(Config->engineWidth(), Config->engineHeight(), false);
+		MainWindow->resizeGameWindow(Config->engineWidth(), Config->engineHeight(), false);
 
 		// Is there a configuration setting for the window position?
 		if (Config->engineWindowX() != -1 && Config->engineWindowY() != -1) {
@@ -743,15 +739,15 @@ void cLoginDialog::hide() {
 				Example: The config file contains the coordinates x=1024,y=768 for the window.
 				It would be completely invisible at a 1024x768 resolution.
 			*/	
-			QRect geom = qApp->desktop()->screenGeometry(mainWindow);			
+			QRect geom = qApp->desktop()->screenGeometry(MainWindow);			
 			if (Config->engineWindowX() < geom.width() && Config->engineWindowY() < geom.height()) {
-				mainWindow->move(Config->engineWindowX(), Config->engineWindowY());
+				MainWindow->move(Config->engineWindowX(), Config->engineWindowY());
 			}
 		}
 
 		// Maximize the game window if neccesary
 		if (Config->engineMaximized()) {
-			mainWindow->showMaximized();
+			MainWindow->showMaximized();
 		}
 	}
 }
@@ -843,7 +839,7 @@ void cLoginDialog::addShard(const stShardEntry &shard) {
 }
 
 void cLoginDialog::socketError(const QString &error) {
-	statusLabel->setText(error.latin1());
+	statusLabel->setText(error);
 }
 
 void cLoginDialog::socketHostFound() {
