@@ -81,6 +81,13 @@ cTexture *cTextures::readTexture(unsigned short id) {
 	} else {
 		cTexture *result = 0;
 
+		// Check the id in the texture cache
+		QMap<uint, cTexture*>::iterator it = textureCache.find(id);
+		if (it != textureCache.end()) {
+			result = it.value();
+			result->incref();
+		}
+
 		if (!result) {
 			int size = largeTextures[id] ? 128 : 64;
 			cSurface *surface = new cSurface(size, size);			
@@ -88,24 +95,61 @@ cTexture *cTextures::readTexture(unsigned short id) {
 			// Seek to the start of the texture
 			data.seek(offsets[id]);
 
+			ushort *colors, *endPtr;
+			if (size == 128) {
+				colors = new ushort[128 * 128];
+				endPtr = colors + 128 * 128;
+				dataStream.readRawData((char*)colors, 128 * 128 * sizeof(ushort));
+			} else {
+				colors = new ushort[64 * 64];
+				endPtr = colors + 64 * 64;
+				dataStream.readRawData((char*)colors, 64 * 64 * sizeof(ushort));
+			}
+
 			// Read the texture
-			unsigned short color;
 			unsigned int pixel;
-			for (int y = 0; y < size; ++y) {
-				for (int x = 0; x < size; ++x) {
-					dataStream >> color; // Read the pixel color (15bit)
-					pixel = surface->color(color); // Convert the color
-					surface->setPixel(x, y, pixel); // Set the pixel
+			int x = 0, y = 0;
+			ushort *current = colors;
+			while (current != endPtr) {
+				ushort color = *current;
+				current++; // Advance to the next pixel
+
+#if Q_BYTE_ORDER != Q_LITTLE_ENDIAN
+					color = ((color >> 8) & 0xFF) | ((color & 0xFF) << 8);
+#endif
+
+				pixel = cSurface::color(color); // Convert the color
+				surface->setPixel(x, y, pixel); // Set the pixel
+
+				// Advance to the next pixel
+				if (++x == size) {
+					x = 0;
+					++y;
 				}
-			}			
+			}
+			
+			delete [] colors;
 
 			// Create the texture object
 			result = new cTexture(surface, false);
 			delete surface;
+
+			uint *ident = (uint*)result->allocateIdentifier(sizeof(uint));
+			*ident = id;
+			result->setIdentifier(ident);
+			result->setCache(this);
 		}
 
 		return result;
 	}
+}
+
+void cTextures::registerTexture(cTexture *texture) {
+	textureCache.insert(*(uint*)texture->identifier(), texture);
+}
+
+void cTextures::unregisterTexture(cTexture *texture) {
+	textureCache.remove(*(uint*)texture->identifier());
 }
 
 cTextures *Textures = 0;

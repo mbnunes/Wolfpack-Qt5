@@ -2,6 +2,8 @@
 #if !defined(__SURFACE_H__)
 #define __SURFACE_H__
 
+#include <qglobal.h>
+
 /*
 	This class represents an image in memory
 */
@@ -29,7 +31,8 @@ public:
 
 	// Create a color value
 	static unsigned int color(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
-	static unsigned int color(unsigned short pixel, unsigned char a = 255);
+	static unsigned int color(unsigned short pixel, unsigned char a);
+	static unsigned int color(unsigned short pixel);
 
 	// Set a single pixel. Must be locked first.
 	void setPixel(unsigned int x, unsigned int y, unsigned int color);
@@ -51,7 +54,19 @@ public:
 };
 
 inline unsigned int cSurface::color(unsigned short pixel, unsigned char a) {
-	return color((pixel >> 7) & 0xF8, (pixel>> 2) & 0xF8, (pixel << 3) & 0xF8, a);
+	// Color format is ABGR
+	return ((uint)(pixel & 0x7C00) >> 7) | ((uint)(pixel & 0x3E0) << 6) | ((uint)(pixel & 0x1F) << 19) | ((uint)a << 24);
+	
+	// This is for RGBA
+	// return ((uint)(pixel & 0x7C00) << 17) | ((uint)(pixel & 0x3E0) << 14) | ((uint)(pixel & 0x1F) << 11) | (uint)a;
+}
+
+inline unsigned int cSurface::color(unsigned short pixel) {
+	// This is for RGBA
+	// return ((uint)(pixel & 0x7C00) << 17) | ((uint)(pixel & 0x3E0) << 14) | ((uint)(pixel & 0x1F) << 11) | (uint)255;
+
+	// Color format is ABGR
+	return ((uint)(pixel & 0x7C00) >> 7) | ((uint)(pixel & 0x3E0) << 6) | ((uint)(pixel & 0x1F) << 19) | 0xFF000000;
 }
 
 inline unsigned int cSurface::color(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {

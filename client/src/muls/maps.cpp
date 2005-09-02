@@ -74,7 +74,7 @@ void cFacet::unload() {
 	mapCache.clear();
 }
 
-cFacet::cFacet() {
+cFacet::cFacet() : mapCache(256), staticCache(256) {
 	enabled_ = true;
 	optional_ = false; // Trigger an exception if missing
 	emptyCell.id = 1;

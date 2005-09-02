@@ -7,7 +7,7 @@
 #include <qfile.h>
 #include <qdatastream.h>
 
-class cTextures {
+class cTextures : public cTextureCache {
 private:
 	int offsets[4096];
 	bool largeTextures[4096];
@@ -15,6 +15,8 @@ private:
 	QFile data;
 	QDataStream dataStream;
 	cTexture *voidTexture;
+
+	QMap<uint, cTexture*> textureCache;
 public:
 	cTextures();
 	~cTextures();
@@ -23,9 +25,17 @@ public:
 	void unload();
 	void reload();
 
+	void registerTexture(cTexture *texture);
+	void unregisterTexture(cTexture *texture);
+	uint cacheSize() const;
+
 	// NEW REFERENCE
 	cTexture *readTexture(unsigned short id);
 };
+
+inline uint cTextures::cacheSize() const {
+	return textureCache.size();
+}
 
 extern cTextures *Textures;
 

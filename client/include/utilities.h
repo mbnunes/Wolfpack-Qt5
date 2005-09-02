@@ -72,7 +72,7 @@ namespace Utilities {
 		int xdiff = x1 - x2;
 		int ydiff = y1 - y2;
 		float rfResult = sqrt((float)(xdiff * xdiff + ydiff * ydiff));
-		uiResult = (unsigned int)floor(rfResult); // truncate
+		uiResult = (unsigned int)rfResult; // truncate
 		
 		return uiResult;
 	}

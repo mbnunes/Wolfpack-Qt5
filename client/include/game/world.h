@@ -72,6 +72,7 @@ protected:
 
 	// Calculate a cell id for the cell map
 	unsigned int getCellId(unsigned short x, unsigned short y) const;
+	void parseCellId(uint cellid, ushort &x, ushort &y) const;
 
 	// Typedef for the entity map.
 	typedef QList<cEntity*> Cell;
@@ -156,6 +157,11 @@ public slots:
 
 inline unsigned int cWorld::getCellId(unsigned short x, unsigned short y) const {
 	return (x << 16) + y;
+}
+
+inline void cWorld::parseCellId(uint cellid, ushort &x, ushort &y) const {
+	x = (cellid >> 16) & 0xFFFF;
+	y = cellid & 0xFFFF;
 }
 
 inline cDynamicEntity *cWorld::findDynamic(unsigned int serial) const {

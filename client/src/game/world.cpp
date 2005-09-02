@@ -79,20 +79,19 @@ void cWorld::cleanupEntities() {
 	QVector<uint> toremove; // Cells that are now empty
 
 	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
-		Cell &cell = it.value();
-		CellIterator cit = cell.begin();
-		while (cit != cell.end()) {
-			int distance = Utilities::distance((*cit)->x(), (*cit)->y(), x_, y_);
-			if (distance > 18) {
-				Gui->removeOverheadText(*cit);
-				(*cit)->decref();
-				cit = cell.erase(cit);
-			} else {
-				++cit;
-			}
-		}
+		ushort x, y;
+		parseCellId(it.key(), x, y);
+		int distance = Utilities::distance(x, y, x_, y_);
 
-		if (cell.isEmpty()) {
+		if (distance > 18) {
+			const Cell &cell = it.value();
+			Cell::const_iterator cit = cell.begin();
+			for (cit = cell.begin(); cit != cell.end(); ++cit) {
+				if (distance > 18) {
+					Gui->removeOverheadText(*cit);
+					(*cit)->decref();
+				}
+			}
 			toremove.append(it.key());
 		}
 	}
