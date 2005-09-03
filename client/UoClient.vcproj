@@ -17,23 +17,26 @@
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			WholeProgramOptimization="TRUE">
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200 -EHsc -GX"
-				Optimization="3"
+				Optimization="2"
 				GlobalOptimizations="TRUE"
-				InlineFunctionExpansion="2"
+				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="QT_NO_DEBUG;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB"
 				GeneratePreprocessedFile="0"
+				StringPooling="TRUE"
+				MinimalRebuild="FALSE"
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="FALSE"
-				EnableEnhancedInstructionSet="2"
+				EnableFunctionLevelLinking="FALSE"
+				EnableEnhancedInstructionSet="0"
 				RuntimeTypeInfo="TRUE"
 				AssemblerListingLocation="obj\"
 				ObjectFile="obj\"
@@ -57,7 +60,8 @@
 				GenerateMapFile="TRUE"
 				MapExports="TRUE"
 				MapLines="TRUE"
-				SubSystem="2"/>
+				SubSystem="2"
+				OptimizeReferences="0"/>
 			<Tool
 				Name="VCMIDLTool"
 				WarningLevel="0"

@@ -6,6 +6,7 @@
 #include <qlocale.h>
 #include <qmessagebox.h>
 #include "mainwindow.h"
+#include <ctype.h>
 
 namespace Utilities {
 	QString getUoFilename(const QString &filename) {

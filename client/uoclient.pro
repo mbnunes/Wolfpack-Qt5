@@ -3,16 +3,18 @@ TARGET = uoclient
 TEMPLATE = app
 OBJECTS_DIR = obj
 
-QT += core gui network  xml opengl qt3support 
-
-CONFIG += qt thread exceptions release
+QT += core gui network  xml opengl
+CONFIG += qt thread exceptions release flat
 
 win32:CONFIG += windows
 unix:CONFIG += x11 
 unix:INCLUDEPATH += /usr/include/GL /usr/include/X11 /usr/include
+win32:INCLUDEPATH += C:/openal/include
+win32:LIBPATH+= C:/openal/libs
+
 
 # No idea what it does
-# DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
+#DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
 
 RC_FILE = uoclient.rc
 CONFIG(release, debug|release):OBJECTS_DIR = obj/release
@@ -20,7 +22,8 @@ CONFIG(debug, debug|release):OBJECTS_DIR = obj/debug
 MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
-win32:LIBS += advapi32.lib shell32.lib openal32.lib
+#win32:LIBS += advapi32.lib shell32.lib openal32.lib
+win32:LIBS += -ladvapi32 -lshell32 C:/openal/libs/openal32.lib
 
 unix:LIBS += -lGL -lGLU
 
@@ -92,7 +95,8 @@ HEADERS += \
 	include/muls/unicodefonts.h \
 	include/muls/verdata.h \
 	include/muls/localization.h \
-	include/muls/speech.h
+	include/muls/speech.h \
+	include/muls/sounds.h
 
 HEADERS += \
 	include/network/encryption.h \
@@ -114,7 +118,7 @@ SOURCES += \
 	src/sound.cpp \
 	src/surface.cpp \
 	src/texture.cpp \
-	src/uoclient.cpp \
+	src/client.cpp \
 	src/utilities.cpp \
 	src/vector.cpp \
 	src/main.cpp
@@ -178,7 +182,8 @@ SOURCES += \
 	src/muls/tiledata.cpp \
 	src/muls/unicodefonts.cpp \
 	src/muls/verdata.cpp \
-	src/muls/speech.cpp
+	src/muls/speech.cpp \
+	src/muls/sounds.cpp
 
 win32:SOURCES += \
 	src/windows/gmtoolwnd.cpp

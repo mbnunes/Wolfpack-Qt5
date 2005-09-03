@@ -6,6 +6,7 @@
 #include "muls/unicodefonts.h"
 #include "muls/hues.h"
 #include <QStringList>
+#include <stdlib.h>
 
 cUnicodeFonts::cUnicodeFonts() {
 }
@@ -64,7 +65,7 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 		QString word = *it;
 		bool first = (it == parts.begin());
 		unsigned int wordWidth = 0;
-		unsigned int i;
+		int i;
 		bool firstInLine = lineLength == 0;
 		for (i = 0; i < word.length(); ++i) {
 			wordWidth += getCharacterWidth(font, word.at(i), firstInLine);
@@ -107,7 +108,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 	unsigned int lineWidth = 0; // Length of the current line
 	unsigned int lineHeight = 0; // Height of the current line
 	unsigned int lines = 1; // Number of lines
-	unsigned int i;
+	int i;
 	QList<unsigned int> lineWidths; // Vector with the lengths of lines
 	QList<unsigned int> lineHeights; // List with the heights of every line
 	QDataStream &dataStream = this->dataStream[font];

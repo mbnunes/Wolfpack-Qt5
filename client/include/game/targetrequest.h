@@ -4,7 +4,7 @@
 
 #include "game/entity.h"
 
-class cTargetRequest : QObject {
+class cTargetRequest : public QObject {
 Q_OBJECT
 public:
 	virtual bool isValidTarget(cEntity *selected) = 0;
@@ -12,9 +12,21 @@ public:
 	virtual void cancel() = 0;
 };
 
+class cGenericTargetRequest : public cTargetRequest {
+Q_OBJECT
+public:
+	bool isValidTarget(cEntity *selected);
+	void target(cEntity *selected);
+	void cancel();
+signals:
+	void cancelled();
+	void targetted(cEntity*);
+};
+
 // Implementation of the cTargetRequest class for 
 // server sent target requests.
 class cServerTargetRequest : public cTargetRequest {
+Q_OBJECT
 protected:
 	unsigned int serial;
 	unsigned char type;

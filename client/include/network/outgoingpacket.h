@@ -18,6 +18,7 @@ protected:
 	void fill(unsigned short size, unsigned char value);
 	void writeDynamicSize();
 public:
+	cOutgoingPacket(const cOutgoingPacket &outgoing);
 	bool isDynamicSize() const;
 
 	cOutgoingPacket(unsigned char packetId);	

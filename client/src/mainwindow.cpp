@@ -7,6 +7,7 @@
 #include "game/world.h"
 #include "game/dynamicitem.h"
 #include "game/mobile.h"
+#include "game/groundtile.h"
 #include "network/uosocket.h"
 #include "muls/localization.h"
 #include "config.h"
@@ -14,6 +15,7 @@
 #include "log.h"
 #include "dialogs/cachestatistics.h"
 #include "network/outgoingpackets.h"
+#include "game/targetrequest.h"
 #include <qpixmap.h>
 #include <QCursor>
 #include <qimage.h>
@@ -209,6 +211,9 @@ cMainWindow::cMainWindow() {
     action = game->addAction("Open Backpack");
 	action->setObjectName("action_openbackpack");
 
+    action = game->addAction("Show Priority Information");
+	action->setObjectName("action_showpriority");
+
 	connect(game, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
 
 	GLWidget = new cGLWidget(this);
@@ -264,7 +269,29 @@ void cMainWindow::menuGameClicked(QAction *action) {
 				UoSocket->send(cDoubleClickPacket(backpack->serial()));
 			}
 		}
+	} else if (action->objectName() == "action_showpriority") {
+		if (WorldView && WorldView->isVisible()) {
+			WorldView->cancelTarget();
+
+			cGenericTargetRequest *request = new cGenericTargetRequest;
+			connect(request, SIGNAL(targetted(cEntity*)), SLOT(showPriority(cEntity*)));
+            WorldView->requestTarget(request);
+		}
 	}
+}
+
+void cMainWindow::showPriority(cEntity *entity) {
+	if (!WorldView || !WorldView->isVisible()) {
+		return;
+	}
+
+	QString message = tr("The entity has a drawing priority of %1, Z is %2.").arg(entity->priority()).arg(entity->z());
+	cGroundTile *gt = dynamic_cast<cGroundTile*>(entity);
+	if (gt) {
+		message.append(tr("The average z value is %1.").arg(gt->averagez()));
+	}
+
+	WorldView->addSysMessage(message);
 }
 
 cMainWindow::~cMainWindow() {

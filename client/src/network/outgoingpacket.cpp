@@ -1,6 +1,12 @@
 
 #include "network/outgoingpacket.h"
 #include "network/uosocket.h"
+#include <ctype.h>
+
+cOutgoingPacket::cOutgoingPacket(const cOutgoingPacket &outgoing) : m_Stream(&m_Data, QIODevice::WriteOnly) {
+	m_Data = outgoing.m_Data;
+	m_packetId = outgoing.m_packetId;
+}
 
 cOutgoingPacket::cOutgoingPacket(unsigned char packetId) : m_Stream(&m_Data, QIODevice::WriteOnly) {
 	m_packetId = packetId;

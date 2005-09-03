@@ -358,5 +358,5 @@ void cGroundTile::onClick(QMouseEvent *e) {
 
 void cGroundTile::updatePriority() {
 	//priority_ = averagez_;
-	priority_ = z_;
+	priority_ = averagez_;
 }

@@ -34,3 +34,15 @@ void cServerTargetRequest::target(cEntity *selected) {
 void cServerTargetRequest::cancel() {
 	UoSocket->send(cTargetResponsePacket(serial, type, cursor, 0));
 }
+
+bool cGenericTargetRequest::isValidTarget(cEntity *selected) {
+	return true;
+}
+
+void cGenericTargetRequest::target(cEntity *selected) {
+	emit targetted(selected);
+}
+
+void cGenericTargetRequest::cancel() {
+	emit cancelled();
+}

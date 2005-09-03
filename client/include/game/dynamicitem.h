@@ -8,7 +8,9 @@
 class cMobile;
 class cContainerGump;
 
+#if defined(Q_CC_MSVC)
 #pragma warning(disable: 4250)
+#endif
 
 class cDynamicItem : public cDynamicEntity, public cStaticTile {
 friend class cContainerGump;

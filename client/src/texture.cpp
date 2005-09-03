@@ -4,6 +4,9 @@
 #include "utilities.h"
 #include <qgl.h>
 
+cTextureCache::~cTextureCache() {
+}
+
 cTexture::cTexture() {
 	id_ = 0;
 	glGenTextures(1, &id_); // Create texture

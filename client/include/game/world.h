@@ -66,6 +66,7 @@ protected:
 	unsigned short x_, y_;
 	signed char z_;
 	int roofCap_; // Only tiles with a z value smaller than this will be drawn
+	bool belowMap_; // Flagged when we're below the map
 	enFacet facet_;
 	cEntity *mouseOver_;
 	QCache<int, stGroundInfo> groundCache;
@@ -114,6 +115,8 @@ public:
 	enFacet facet() const;
 	cEntity *mouseOver() const;
 	int roofCap() const;
+	bool belowMap() const;
+	void setBelowMap(bool data);
 	void setRoofCap(int data);	
 
 	// This function moves the center of our world to the new
@@ -196,6 +199,14 @@ inline signed char cWorld::z() const {
 
 inline enFacet cWorld::facet() const {
 	return facet_;
+}
+
+inline bool cWorld::belowMap() const {
+	return belowMap_;
+}
+
+inline void cWorld::setBelowMap(bool data) {
+	belowMap_ = data;
 }
 
 inline int cWorld::roofCap() const {

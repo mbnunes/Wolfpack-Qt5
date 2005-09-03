@@ -29,6 +29,7 @@ cWorld::cWorld() : groundCache(2500) {
 	cleaningUp = false;
 	roofTimer.setSingleShot(true);
 	connect(&roofTimer, SIGNAL(timeout()), this, SLOT(checkRoofs()));	
+	belowMap_ = false;
 }
 
 cWorld::~cWorld() {
@@ -362,6 +363,7 @@ void cWorld::checkRoofs() {
 	}
 
 	roofCap_ = 1024;
+	belowMap_ = false;
 
 	// Check for Roofs at x+1,y+1
 	uint cellid = getCellId(Player->x() + 1, Player->y() + 1);
@@ -375,6 +377,9 @@ void cWorld::checkRoofs() {
 				if (entity->z() > Player->z() + 15 && entity->z() < roofCap_) {
 					cStaticTile *staticTile = dynamic_cast<cStaticTile*>(*it);
 					if (entity->type() == GROUND || staticTile && staticTile->tiledata()->isRoof()) {	
+						if (entity->type() == GROUND) {
+							belowMap_ = true;
+						}
 						roofCap_ = Player->z() + 15;
 					}
 				}
@@ -458,7 +463,12 @@ void cWorld::draw(int x, int y, int width, int height) {
 				Cell cell = it.value();
 				for (ConstCellIterator cit = cell.begin(); cit != cell.end(); ++cit) {
 					cEntity *entity = *cit;
-					if (entity->isInWorld() && entity->z() < roofCap_) {
+					
+					if (entity->z() >= roofCap_ && (belowMap_ || entity->type() != GROUND)) {
+						continue;
+					}
+
+					if (entity->isInWorld()) {
 						// Calculate the difference on the x/y axis and get the offset from a 0,0 coordinate
 						diffx = entity->x() - x_;
 						diffy = entity->y() - y_;

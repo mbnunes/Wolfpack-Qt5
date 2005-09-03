@@ -15,6 +15,7 @@ class cControl;
 class QMenuBar;
 class QAction;
 class cCacheStatistics;
+class cEntity;
 
 class cGLWidget : public QGLWidget {
 	Q_OBJECT
@@ -92,6 +93,7 @@ protected:
 
 public slots:
 	void menuGameClicked(QAction *action);
+	void showPriority(cEntity*);
 };
 
 extern cMainWindow *MainWindow;

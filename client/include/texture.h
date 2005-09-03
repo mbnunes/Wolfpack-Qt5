@@ -13,6 +13,8 @@ class cTexture;
 */
 class cTextureCache {
 public:
+	virtual ~cTextureCache();
+
 	virtual void registerTexture(cTexture *texture) = 0;
 	virtual void unregisterTexture(cTexture *texture) = 0;
 };

@@ -145,7 +145,7 @@ void cTextField::update() {
 	QString substring = text_.right(text_.length() - leftOffset_);
 	
 	if (password_) {
-		for (unsigned int i = 0; i < substring.length(); ++i) {
+		for (int i = 0; i < substring.length(); ++i) {
 			substring[i] = '*';
 		}
 	}
@@ -215,10 +215,10 @@ void cTextField::draw(int xoffset, int yoffset) {
 		int selectionX = caretXOffset_;
 		
 		// Iterate over all characters in the selection and calculate the entire width of the selection
-		for (int i = caret_ - 1; i >= (caret_ + selection_); --i) {
+		for (int i = caret_ - 1; i >= (int)(caret_ + selection_); --i) {
 			uchar charWidth;
 			getCharacterWidth(i, charWidth);
-            selectionX -= charWidth;
+            		selectionX -= charWidth;
 
 			// We're leaving the visible area
 			if (selectionX <= 0) {
@@ -234,7 +234,7 @@ void cTextField::draw(int xoffset, int yoffset) {
 		int selectionX = caretXOffset_;
 		
 		// Iterate over all characters in the selection and calculate the entire width of the selection
-		for (int i = caret_; i < (caret_ + selection_); ++i) {
+		for (int i = caret_; i < (int)(caret_ + selection_); ++i) {
 			uchar charWidth;
 			getCharacterWidth(i, charWidth);
             selectionX += charWidth;
@@ -368,11 +368,11 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 	} else if (key == Qt::Key_Delete) {
 		if (selection_ != 0) {
 			replaceSelection("");
-		} else if (caret_ < text_.length()) {
+		} else if ((int)caret_ < text_.length()) {
 			if ((state & Qt::ControlModifier) != 0) {
 				do {
 					text_.remove(caret_, 1);
-				} while (caret_ < text_.length() && QChar(text_.at(caret_)).isLetterOrNumber());
+				} while ((int)caret_ < text_.length() && QChar(text_.at(caret_)).isLetterOrNumber());
 			} else {
 				text_.remove(caret_, 1);
 			}
@@ -392,7 +392,7 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 			}
 		}
 	} else if (key == Qt::Key_Right) {
-		if (caret_ < text_.length()) {
+		if ((int)caret_ < text_.length()) {
 			setCaret(caret_ + 1);
 			if ((state & Qt::ShiftModifier) != 0) {
 				selection_--;
@@ -426,7 +426,6 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 	} else if (key == Qt::Key_Return || key == Qt::Key_Enter) {
 		onEnter();
 	} else if (key == Qt::Key_Home) {
-        int oldCaret = caret_;
 		selection_ = 0;
 		setCaret(0);
 		invalidateText();
@@ -443,7 +442,7 @@ void cTextField::onKeyDown(QKeyEvent *e) {
 		setCaret(text_.length());
 		selection_ = 0;		
 		invalidateText(); 
-	} else if (text_.length() < maxLength_) {	
+	} else if (text_.length() < (int)maxLength_) {	
 		QChar ch;
 		if (e->text().length() > 0) {
 			ch = e->text().at(0);
@@ -485,7 +484,7 @@ void cTextField::setCaret(unsigned int pos) {
 		caret_ = 0;
 		invalidateText();
 		return;
-	} else if (pos == text_.length()) {
+	} else if ((int)pos == text_.length()) {
 		// Measure the string length backwards
 		int width = 0;
 		int count = 0;
@@ -522,14 +521,14 @@ void cTextField::setCaret(unsigned int pos) {
 	}
 
 	if (caret_ != pos) {
-		unsigned int start = qMin<uint>(pos, caret_);
-		unsigned int end = qMax<uint>(pos, caret_);
+		uint start = qMin<uint>(pos, caret_);
+		uint end = qMax<uint>(pos, caret_);
 		bool moveLeft = start < caret_;
 
 		int change = 0;
 
 		// Just *change* the xoffset. Don't recalculate.
-		for (unsigned int i = start; i < end; ++i) {
+		for (uint i = start; i < end; ++i) {
 			int charWidth = 0;
 			if (unicodeMode_) {
 				QChar ch = translateChar(text_.at(i));
@@ -553,10 +552,10 @@ void cTextField::setCaret(unsigned int pos) {
 			while (leftOffset_ > 0 && (int)caretXOffset_ + change < width_ / 4) {
 				int charWidth = 0;
 				if (unicodeMode_) {
-					QChar ch = translateChar(text_.at(i));
-					charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, ch);
+					QChar ch = translateChar(text_.at(leftOffset_));
+					charWidth = UnicodeFonts->getCharacterWidth(font_, text_, leftOffset_, ch);
 				} else {
-					cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+					cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(leftOffset_)).toLatin1());
 					if (ch) {
 						charWidth = ch->width();
 					}
@@ -569,13 +568,13 @@ void cTextField::setCaret(unsigned int pos) {
 
 		// Modify the change while its too big
 		if ((int)caretXOffset_ + change > width_ - backgroundOffset * 2) {
-			while (leftOffset_ < text_.length() && (int)caretXOffset_ + change > (width_ - backgroundOffset * 2) - (width_ - backgroundOffset * 2) / 4) {
+			while ((int)leftOffset_ < text_.length() && (int)caretXOffset_ + change > (width_ - backgroundOffset * 2) - (width_ - backgroundOffset * 2) / 4) {
 				int charWidth = 0;
 				if (unicodeMode_) {
-					QChar ch = translateChar(text_.at(i));
-					charWidth = UnicodeFonts->getCharacterWidth(font_, text_, i, ch);
+					QChar ch = translateChar(text_.at(leftOffset_));
+					charWidth = UnicodeFonts->getCharacterWidth(font_, text_, leftOffset_, ch);
 				} else {
-					cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)).toLatin1());
+					cSurface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(leftOffset_)).toLatin1());
 					if (ch) {
 						charWidth = ch->width();
 					}
@@ -691,7 +690,7 @@ void cTextField::replaceSelection(const QString &replacement) {
 			setCaret(caret_ + selection_); // Place the caret at the start of the selection
 			selection_ = - selection_;
 		}
-		for (int i = 0; i < selection_ && caret_ < text_.length(); ++i) {
+		for (int i = 0; i < selection_ && (int)caret_ < text_.length(); ++i) {
 			text_.remove(caret_, 1);
 		}
 		selection_ = 0;
@@ -700,7 +699,7 @@ void cTextField::replaceSelection(const QString &replacement) {
 
 	// Insert text at the caret
 	int i;
-	for (i = 0; i < (int)replacement.length() && text_.length() + 1 <= maxLength_; ++i) {
+	for (i = 0; i < (int)replacement.length() && text_.length() + 1 <= (int)maxLength_; ++i) {
 		text_.insert(caret_ + i, replacement.at(i));
 	}
 	setCaret(caret_ + i);

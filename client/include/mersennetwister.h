@@ -57,7 +57,9 @@
 #ifndef MERSENNETWISTER_H
 #define MERSENNETWISTER_H
 
+#if defined(Q_CC_MSVC)
 #pragma warning(disable: 4146)
+#endif
 
 // Not thread safe (unless auto-initialization is avoided and each thread has
 // its own MTRand object)

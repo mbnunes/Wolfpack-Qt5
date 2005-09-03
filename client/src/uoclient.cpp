@@ -186,6 +186,20 @@ void cUoClient::unload() {
 void cUoClient::run()
 {
 	Config->setFile("config.xml"); // Default Config File
+
+	// Check for configuration options
+	int argc = QApplication::instance()->argc();
+	char **argv = QApplication::instance()->argv();
+	for (int i = 0; i < argc; ++i) {
+		QString arg = argv[i];
+		if (arg.startsWith("-c")) {
+			if (i + 1 < argc) {
+				Config->setFile(argv[i+1]);
+				++i; // Skip next option
+			}
+		}
+	}
+
 	Config->load(); // Load configuration (has to come first)
 
 	qInstallMsgHandler(myMessageOutput); // Install handler
