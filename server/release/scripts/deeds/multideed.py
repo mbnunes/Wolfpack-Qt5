@@ -56,85 +56,86 @@ ch2story = [
 
 #3-Story houses
 ch3story = [
-[ 9, 14, 0x140b ],
-[ 10, 14, 0x1417 ],
-[ 10, 15, 0x1418 ],
-[ 11, 14, 0x1423 ],
-[ 11, 15, 0x1424 ],
-[ 11, 16, 0x1425 ],
-[ 12, 14, 0x142f ],
-[ 12, 15, 0x1430 ],
-[ 12, 16, 0x1431 ],
-[ 12, 17, 0x1432 ],
-[ 13, 14, 0x143b ],
-[ 13, 15, 0x143c ],
-[ 13, 16, 0x143d ],
-[ 13, 17, 0x143e ],
-[ 13, 18, 0x143f ],
-[ 14, 9, 0x1442 ],
-[ 14, 10, 0x1443 ],
-[ 14, 11, 0x1444 ],
-[ 14, 12, 0x1445 ],
-[ 14, 13, 0x1446 ],
-[ 14, 14, 0x1447 ],
-[ 14, 15, 0x1448 ],
-[ 14, 16, 0x1449 ],
-[ 14, 17, 0x144a ],
-[ 14, 18, 0x144b ],
-[ 15, 10, 0x144f ],
-[ 15, 11, 0x1450 ],
-[ 15, 12, 0x1451 ],
-[ 15, 13, 0x1452 ],
-[ 15, 14, 0x1453 ],
-[ 15, 15, 0x1454 ],
-[ 15, 16, 0x1455 ],
-[ 15, 17, 0x1456 ],
-[ 15, 18, 0x1457 ],
-[ 16, 11, 0x145c ],
-[ 16, 12, 0x145d ],
-[ 16, 13, 0x145e ],
-[ 16, 14, 0x145f ],
-[ 16, 15, 0x1460 ],
-[ 16, 16, 0x1461 ],
-[ 16, 17, 0x1462 ],
-[ 16, 18, 0x1463 ],
-[ 17, 12, 0x1469 ],
-[ 17, 13, 0x146a ],
-[ 17, 14, 0x146b ],
-[ 17, 15, 0x146c ],
-[ 17, 16, 0x146d ],
-[ 17, 17, 0x146e ],
-[ 17, 18, 0x146f ],
-[ 18, 13, 0x1476 ],
-[ 18, 14, 0x1477 ],
-[ 18, 15, 0x1478 ],
-[ 18, 16, 0x1479 ],
-[ 18, 17, 0x147a ],
-[ 18, 18, 0x147b ]]
+[ 9, 14, 0x140b, "foundation_3_9x14" ],
+[ 10, 14, 0x1417, "foundation_3_10x14" ],
+[ 10, 15, 0x1418, "foundation_3_10x15" ],
+[ 11, 14, 0x1423, "foundation_3_11x14" ],
+[ 11, 15, 0x1424, "foundation_3_11x15" ],
+[ 11, 16, 0x1425, "foundation_3_11x16" ],
+[ 12, 14, 0x142f, "foundation_3_12x14" ],
+[ 12, 15, 0x1430, "foundation_3_12x15" ],
+[ 12, 16, 0x1431, "foundation_3_12x16" ],
+[ 12, 17, 0x1432, "foundation_3_12x17" ],
+[ 13, 14, 0x143b, "foundation_3_13x14" ],
+[ 13, 15, 0x143c, "foundation_3_13x15" ],
+[ 13, 16, 0x143d, "foundation_3_13x16" ],
+[ 13, 17, 0x143e, "foundation_3_13x17" ],
+[ 13, 18, 0x143f, "foundation_3_13x18" ],
+[ 14, 9, 0x1442, "foundation_3_14x9" ],
+[ 14, 10, 0x1443, "foundation_3_14x10" ],
+[ 14, 11, 0x1444, "foundation_3_14x11" ],
+[ 14, 12, 0x1445, "foundation_3_14x12" ],
+[ 14, 13, 0x1446, "foundation_3_14x13" ],
+[ 14, 14, 0x1447, "foundation_3_14x14" ],
+[ 14, 15, 0x1448, "foundation_3_14x15" ],
+[ 14, 16, 0x1449, "foundation_3_14x16" ],
+[ 14, 17, 0x144a, "foundation_3_14x17" ],
+[ 14, 18, 0x144b, "foundation_3_14x18" ],
+[ 15, 10, 0x144f, "foundation_3_15x10" ],
+[ 15, 11, 0x1450, "foundation_3_15x11" ],
+[ 15, 12, 0x1451, "foundation_3_15x12" ],
+[ 15, 13, 0x1452, "foundation_3_15x13" ],
+[ 15, 14, 0x1453, "foundation_3_15x14" ],
+[ 15, 15, 0x1454, "foundation_3_15x15" ],
+[ 15, 16, 0x1455, "foundation_3_15x16" ],
+[ 15, 17, 0x1456, "foundation_3_15x17" ],
+[ 15, 18, 0x1457, "foundation_3_15x18" ],
+[ 16, 11, 0x145c, "foundation_3_16x11" ],
+[ 16, 12, 0x145d, "foundation_3_16x12" ],
+[ 16, 13, 0x145e, "foundation_3_16x13" ],
+[ 16, 14, 0x145f, "foundation_3_16x14" ],
+[ 16, 15, 0x1460, "foundation_3_16x15" ],
+[ 16, 16, 0x1461, "foundation_3_16x16" ],
+[ 16, 17, 0x1462, "foundation_3_16x17" ],
+[ 16, 18, 0x1463, "foundation_3_16x18" ],
+[ 17, 12, 0x1469, "foundation_3_17x12" ],
+[ 17, 13, 0x146a, "foundation_3_17x13" ],
+[ 17, 14, 0x146b, "foundation_3_17x14" ],
+[ 17, 15, 0x146c, "foundation_3_17x15" ],
+[ 17, 16, 0x146d, "foundation_3_17x16" ],
+[ 17, 17, 0x146e, "foundation_3_17x17" ],
+[ 17, 18, 0x146f, "foundation_3_17x18" ],
+[ 18, 13, 0x1476, "foundation_3_18x13" ],
+[ 18, 14, 0x1477, "foundation_3_18x14"],
+[ 18, 15, 0x1478, "foundation_3_18x15" ],
+[ 18, 16, 0x1479, "foundation_3_18x16" ],
+[ 18, 17, 0x147a, "foundation_3_18x17" ],
+[ 18, 18, 0x147b, "foundation_3_18x18" ]]
 
 #Classical Houses
-#The first two parameters are just garbage.
+# The first two parameters are just garbage.
+# 3rd Parameter is ID, 4th the ID Definition and 5th is the value of house
 classical = [
-[ 1, 1, 0x64, "small_stone_and_plaster_house" ],
-[ 1, 1, 0x66, "small_fieldstone_house" ],
-[ 1, 1, 0x68, "small_brick_house" ],
-[ 1, 1, 0x6a, "small_wood_house" ],
-[ 1, 1, 0x6c, "small_wood_and_plaster_house" ],
-[ 1, 1, 0x6e, "small_thatched_roof_cottage" ],
-[ 1, 1, 0xa0, "small_stone_workshop" ],
-[ 1, 1, 0xa2, "small_marble_workshop" ],
-[ 1, 1, 0x98, "small_tower" ],
-[ 1, 1, 0x9e, "two_story_villa" ],
-[ 1, 1, 0x9c, "sandstone_patio_house" ],
-[ 1, 1, 0x9a, "log_cabin" ],
-[ 1, 1, 0x68, "small_brick_house" ],
-[ 1, 1, 0x76, "two_story_wood_and_plaster_house" ],
-[ 1, 1, 0x78, "two_story_stone_and_plaster_house" ],
-[ 1, 1, 0x8d, "large_patio_house" ],
-[ 1, 1, 0x96, "large_marble_patio_house" ],
-[ 1, 1, 0x7a, "large_tower" ],
-[ 1, 1, 0x7c, "stone_keep" ],
-[ 1, 1, 0x7e, "castle" ]]
+[ 1, 1, 0x64, "small_stone_and_plaster_house", 37000 ],
+[ 1, 1, 0x66, "small_fieldstone_house", 37000 ],
+[ 1, 1, 0x68, "small_brick_house", 36750 ],
+[ 1, 1, 0x6a, "small_wood_house", 35250 ],
+[ 1, 1, 0x6c, "small_wood_and_plaster_house", 36750 ],
+[ 1, 1, 0x6e, "small_thatched_roof_cottage", 36750 ],
+[ 1, 1, 0xa0, "small_stone_workshop", 50500 ],
+[ 1, 1, 0xa2, "small_marble_workshop", 52500 ],
+[ 1, 1, 0x98, "small_tower", 73500 ],
+[ 1, 1, 0x9e, "two_story_villa", 113750 ],
+[ 1, 1, 0x9c, "sandstone_patio_house", 76500 ],
+[ 1, 1, 0x9a, "log_cabin", 81750 ],
+[ 1, 1, 0x68, "small_brick_house", 131500 ],
+[ 1, 1, 0x76, "two_story_wood_and_plaster_house", 162750 ],
+[ 1, 1, 0x78, "two_story_stone_and_plaster_house", 162000 ],
+[ 1, 1, 0x8d, "large_patio_house", 129250 ],
+[ 1, 1, 0x96, "large_marble_patio_house", 160500 ],
+[ 1, 1, 0x7a, "large_tower", 366500 ],
+[ 1, 1, 0x7c, "stone_keep", 572750 ],
+[ 1, 1, 0x7e, "castle", 865250 ]]
 
 #buttons
 button_ok = 1
@@ -144,7 +145,7 @@ def onUse( char, item ):
 	gump0( char, gump0callback )
 	return 1
 
-#Selection of custom house type ( 2-story / 3-story )
+# Selection of custom house type ( 2-story / 3-story )
 # Its the first gump with Classical, 2-story and 3-story selection... accessed when use the dclick
 def gump0callback( char, args, target ):
 	button = target.button
@@ -165,11 +166,6 @@ def gump1callback( char, args, target ):
 	if button > 0:
 		char.socket.attachmultitarget( "deeds.multideed.response", args[0][button-1][2], args[0][button-1], 0, 0, 0 )
 
-#CH placement warning gump callback
-def gump2callback( char, args, target ):
-	button = target.button
-	if button == 1:
-		foundation( char, args[1], args[0][0], args[0][1], args[0][2], args[0][3] )
 
 #Selection of a Classic House
 def gump3callback( char, args, target ):
@@ -177,33 +173,86 @@ def gump3callback( char, args, target ):
 	if button > 0:
 		char.socket.attachmultitarget( "deeds.multideed.response2", args[0][button-1][2], args[0][button-1], 0, 0, 0 )
 
+
+#Custom House placement warning gump callback
+def gump2callback( char, args, target ):
+	button = target.button
+	if button == 1:
+		foundation( char, args[1], args[0][0], args[0][1], args[0][2], args[0][3] )
+
+
 #Classic House placement warning gump callback
 def gump4callback( char, args, target ):
 	button = target.button
 	if button == 1:
+		# The Amount of Gold in Bank
+		bank = char.getbankbox()
+		if bank:
+			gold = bank.countresource( 0xEED, 0x0 )
+		else:
+			char.socket.sysmessage('You dont have the correct amount in Bank')
+			return
+
+		if (gold < args[0][4]):
+			char.socket.sysmessage('You dont have the correct amount in Bank')
+			return
+
+		# Consuming Gold
+		bank.useresource( args[0][4], 0xEED )
+
+		# Placing the House
 		placement( char, args[1], args[0][3], args[0][2] )
+
 
 # Response for a Custom House
 def response( char, args, target ):
+
+	# Checking if Player Can reach the Destionation
+	if not char.canreach(target.pos, 20):
+		char.socket.sysmessage('You can\'t reach that.')
+		return
+
+	# Checking if Can Place the Multi
+	(canplace, moveout) = wolfpack.canplace(target.pos, args[2], 4)
+
+	if not canplace:
+		char.socket.sysmessage('This is not a Valid Place')
+		return
+
 	gump2( char, gump2callback, args, target )
 	return 1
 
-# Responde for a Classic House
+
+# Response for a Classic House
 def response2( char, args, target ):
+
+	# Checking if Player Can reach the Destionation
+	if not char.canreach(target.pos, 20):
+		char.socket.sysmessage('You can\'t reach that.')
+		return
+
+	# Checking if Can Place the Multi
+	(canplace, moveout) = wolfpack.canplace(target.pos, args[2], 4)
+
+	if not canplace:
+		char.socket.sysmessage('This is not a Valid Place')
+		return
+
 	gump2( char, gump4callback, args, target )
 	return 1
+
 
 # Making the House
 def placement(player, target, multiid, id):
 
-	# This check is necessary? Maybe later we can remove this
+	# Check if Player can Reach the Location
 	if not player.canreach(target.pos, 20):
 		player.socket.sysmessage('You can\'t reach that.')
 		return
 
+	# Check if Player Can Place Multi here
 	(canplace, moveout) = wolfpack.canplace(target.pos, id, 4)
 
-	# This check is necessary too? Maybe later we can remove this
 	if not canplace:
 		player.socket.sysmessage('CAN\'T PLACE THERE')
 		return
