@@ -27,7 +27,7 @@
 		<intproperty name="req_strength" value="50" />
 		<intproperty name="speed" value="49" />
 		<intproperty name="mindamage" value="12" />
-		<intproperty name="maxdamage" value="15" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="26bf" inherit="26c9">

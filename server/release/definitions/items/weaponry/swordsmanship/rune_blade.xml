@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Incanus
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Rune Blade-->
+	<item id="2d26">
+		<id>0x2d26</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<durability><random min="30" max="75" /></durability>
+		<weight>7.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Swordsmanship\Rune Blade (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
+	</item>
+
+	<item id="2d32" inherit="2d26">
+		<id>0x2d32</id>
+		<baseid>2d26</baseid>
+		<category>Base Weapons\Swordsmanship\Rune Blade (E/W)</category>
+	</item>
+
+</definitions>

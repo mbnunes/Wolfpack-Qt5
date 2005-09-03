@@ -13,7 +13,9 @@
 	<include file="definitions/items/weaponry/archery/bow.xml"/>
 	<include file="definitions/items/weaponry/archery/composite_bow.xml"/>
 	<include file="definitions/items/weaponry/archery/crossbow.xml"/>
+	<include file="definitions/items/weaponry/archery/elven_composite_longbow.xml"/>
 	<include file="definitions/items/weaponry/archery/heavy_crossbow.xml"/>
+	<include file="definitions/items/weaponry/archery/magical_shortbow.xml"/>
 	<include file="definitions/items/weaponry/archery/repeating_crossbow.xml"/>
 
 </definitions>

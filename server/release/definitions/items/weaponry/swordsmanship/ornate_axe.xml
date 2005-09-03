@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Incanus
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Ornate Axe -->
+	<item id="2d28">
+		<id>0x2d28</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<durability><random min="30" max="64" /></durability>
+		<weight>12.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Swordsmanship\Axes\Ornate Axe (N/S)</category>
+		<type>1002</type>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="26" />
+		<intproperty name="mindamage" value="21" />
+		<intproperty name="maxdamage" value="23" />
+	</item>
+
+	<item id="2d34" inherit="2d28">
+		<id>0x2d34</id>
+		<baseid>2d28</baseid>
+		<category>Base Weapons\Swordsmanship\Axes\Ornate Axe (E/W)</category>
+	</item>
+
+</definitions>

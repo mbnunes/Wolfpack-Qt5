@@ -21,6 +21,7 @@
 	<include file="definitions/items/weaponry/swordsmanship/crescent_blade.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/cutlass.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/double_axe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/elven_machete.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/executioners_axe.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/halberd.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/hatchet.xml"/>
@@ -28,8 +29,11 @@
 	<include file="definitions/items/weaponry/swordsmanship/large_battle_axe.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/long_sword.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/longsword.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/radiant_scimitar.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/ornate_axe.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/paladin_sword.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/pickaxe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/rune_blade.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/scimitar.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/scythe.xml"/>
 	<include file="definitions/items/weaponry/swordsmanship/skinning_knife.xml"/>

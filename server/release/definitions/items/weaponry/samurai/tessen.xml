@@ -26,9 +26,9 @@
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="10" />
-		<intproperty name="speed" value="50" />
-		<intproperty name="mindamage" value="10" />
-		<intproperty name="maxdamage" value="12" />
+		<intproperty name="speed" value="45" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="14" />
 	</item>
 
 	<item id="27ee" inherit="27a3">

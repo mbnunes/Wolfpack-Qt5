@@ -10,14 +10,18 @@
 <definitions>
 
 	<!-- Fencing -->
+	<include file="definitions/items/weaponry/fencing/assassin_spike.xml"/>
 	<include file="definitions/items/weaponry/fencing/dagger.xml"/>
 	<include file="definitions/items/weaponry/fencing/double_bladed_staff.xml"/>
+	<include file="definitions/items/weaponry/fencing/elven_spellblade.xml"/>
 	<include file="definitions/items/weaponry/fencing/kryss.xml"/>
 	<include file="definitions/items/weaponry/fencing/lance.xml"/>
+	<include file="definitions/items/weaponry/fencing/leafblade.xml"/>
 	<include file="definitions/items/weaponry/fencing/pike.xml"/>
 	<include file="definitions/items/weaponry/fencing/pitchfork.xml"/>
 	<include file="definitions/items/weaponry/fencing/short_spear.xml"/>
 	<include file="definitions/items/weaponry/fencing/spear.xml"/>
+	<include file="definitions/items/weaponry/fencing/war_cleaver.xml"/>
 	<include file="definitions/items/weaponry/fencing/war_fork.xml"/>
 
 </definitions>

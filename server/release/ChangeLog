@@ -82,6 +82,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Growable and harvestable hay, wheat, cotton, flax, hops.
   - Grapevines got the farming script.
   - Misc. id typos fixed.
+  - Added Mondain's Legacy Weapons
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.

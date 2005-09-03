@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Incanus
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Magical Shortbow -->
+	<item id="2d1f">
+		<id>0x2d1f</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<durability><random min="30" max="70" /></durability>
+		<weight>6.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1006</type>
+		<category>Base Weapons\Bows\Magical Shortbow (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="projectile" value="0xf42" />
+		<strproperty name="ammunition" value="f3f" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="38" />
+		<intproperty name="range" value="10" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="16" />
+	</item>
+
+	<item id="2d2b" inherit="0x2d1f">
+		<id>0x2d2b</id>
+		<baseid>0x2d1f</baseid>
+		<category>Base Weapons\Bows\Magical Shortbow (E/W)</category>
+	</item>
+
+ </definitions>

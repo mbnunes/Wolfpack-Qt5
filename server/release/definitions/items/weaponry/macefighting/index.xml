@@ -12,6 +12,7 @@
 	<!-- Macefighting -->
 	<include file="definitions/items/weaponry/macefighting/black_staff.xml"/>
 	<include file="definitions/items/weaponry/macefighting/club.xml"/>
+	<include file="definitions/items/weaponry/macefighting/diamond_mace.xml"/>
 	<include file="definitions/items/weaponry/macefighting/gnarled_staff.xml"/>
 	<include file="definitions/items/weaponry/macefighting/hammer_pick.xml"/>
 	<include file="definitions/items/weaponry/macefighting/mace.xml"/>
@@ -24,5 +25,6 @@
 	<include file="definitions/items/weaponry/macefighting/war_axe.xml"/>
 	<include file="definitions/items/weaponry/macefighting/war_hammer.xml"/>
 	<include file="definitions/items/weaponry/macefighting/war_mace.xml"/>
+	<include file="definitions/items/weaponry/macefighting/wild_staff.xml"/>
 
 </definitions>
