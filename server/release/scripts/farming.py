@@ -29,16 +29,18 @@ CHECKDELAY = 1000
 # This function registers a new object
 #
 def register(object):
-	OBJECTS.append(object.serial)
+	if object.baseid in actions.keys():	
+		OBJECTS.append(object.serial)
 
 #
 # This unregisters an object
 #
 def unregister(object):
 	serial = object.serial
-	if serial in OBJECTS:
+	try:
 		OBJECTS.remove(serial)
-
+	except:
+		pass
 #
 # This is the list with all known object serials
 #
