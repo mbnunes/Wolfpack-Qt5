@@ -2,7 +2,7 @@
 #include <QtCore>
 #include <QPlastiqueStyle>
 
-#include "uoclient.h"
+#include "client.h"
 
 /*!
 	Entry Point.

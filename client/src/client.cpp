@@ -3,7 +3,7 @@
 #include <qdir.h>
 #include <qmessagebox.h>
 
-#include "uoclient.h"
+#include "client.h"
 #include "utilities.h"
 #include "config.h"
 #include "log.h"

@@ -7,7 +7,7 @@
 #include <QKeyEvent>
 
 #include "exceptions.h"
-#include "uoclient.h"
+#include "client.h"
 #include "gui/gui.h"
 #include "gui/textfield.h"
 #include "muls/asciifonts.h"

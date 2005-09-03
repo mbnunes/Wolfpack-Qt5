@@ -1,7 +1,7 @@
 
 #include <QTimer>
 
-#include "uoclient.h"
+#include "client.h"
 #include "network/encryption.h"
 #include "network/decompress.h"
 #include "network/uosocket.h"

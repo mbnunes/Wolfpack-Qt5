@@ -42,7 +42,7 @@ HEADERS += \
 	include/sound.h \
 	include/surface.h \
 	include/texture.h \
-	include/uoclient.h \
+	include/client.h \
 	include/vector.h 
 	
 HEADERS += \

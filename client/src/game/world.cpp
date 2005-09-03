@@ -1,5 +1,5 @@
 
-#include "uoclient.h"
+#include "client.h"
 #include <QCursor>
 #include <QMouseEvent>
 #include "game/world.h"

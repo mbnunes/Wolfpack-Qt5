@@ -1,7 +1,7 @@
 
 #include "utilities.h"
 #include "config.h"
-#include "uoclient.h"
+#include "client.h"
 #include <math.h>
 #include <qlocale.h>
 #include <qmessagebox.h>

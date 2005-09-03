@@ -9,7 +9,7 @@
 #include "game/targetrequest.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
-#include "uoclient.h"
+#include "client.h"
 #include "mainwindow.h"
 #include <math.h>
 #include <QCursor>

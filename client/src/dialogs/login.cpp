@@ -7,7 +7,7 @@
 #include "dialogs/login.h"
 #include "gui/gui.h"
 #include "enums.h"
-#include "uoclient.h"
+#include "client.h"
 #include "utilities.h"
 #include "gui/tiledgumpimage.h"
 #include "gui/gumpimage.h"

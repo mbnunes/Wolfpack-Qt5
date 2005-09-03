@@ -165,6 +165,12 @@
 				RelativePath=".\include\binkw.h">
 			</File>
 			<File
+				RelativePath=".\src\client.cpp">
+			</File>
+			<File
+				RelativePath=".\include\client.h">
+			</File>
+			<File
 				RelativePath=".\src\config.cpp">
 			</File>
 			<File
@@ -250,12 +256,6 @@
 			</File>
 			<File
 				RelativePath=".\include\texture.h">
-			</File>
-			<File
-				RelativePath=".\src\uoclient.cpp">
-			</File>
-			<File
-				RelativePath=".\include\uoclient.h">
 			</File>
 			<File
 				RelativePath=".\src\utilities.cpp">
