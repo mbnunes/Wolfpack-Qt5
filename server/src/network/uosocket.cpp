@@ -226,6 +226,13 @@ void cUOSocket::send( cGump* gump )
 		gumpsize += ( *it ).length() * 2 + 2;
 		++it;
 	}
+	
+	if (gumpsize >= 0x8000) {
+		sysMessage("Gump exceeds maximum packet size.");
+		return;
+	}
+	
+	
 	cUOTxGumpDialog uoPacket( gumpsize );
 
 	uoPacket.setSerial( gump->serial() );
