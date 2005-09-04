@@ -172,16 +172,16 @@ void cDynamicItem::showContent(ushort gump) {
 }
 
 void cDynamicItem::updatePriority() {
-	int bonus = 0;
+	priorityBonus_ = 0;
 
 	if (tiledata_) {
 		if (!tiledata_->isBackground()) {
-			++bonus;
+			++priorityBonus_;
 		}
 		if (tiledata_->height() > 0) {
-			++bonus;
+			++priorityBonus_;
 		}
 	}
 
-	priority_ = z_ + bonus;
+	priority_ = z_ + priorityBonus_;
 }

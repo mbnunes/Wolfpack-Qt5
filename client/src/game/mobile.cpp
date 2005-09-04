@@ -359,7 +359,8 @@ bool cMobile::hitTest(int x, int y) {
 }
 
 void cMobile::updatePriority() {
-	priority_ = z_ + 2;
+	priorityBonus_ = 2;
+	priority_ = z_ + priorityBonus_;
 }
 
 /*void cMobile::addEquipment(unsigned int serial, unsigned short id, unsigned short hue, enLayer layer) {

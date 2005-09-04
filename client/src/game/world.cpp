@@ -208,23 +208,25 @@ inline bool insertBefore(cEntity *entity, cEntity *next) {
 	// Do in-cell sorting
 	int priority = entity->priority() - next->priority();
 
-	if (priority > 0) {
-		return false; // Our priority is higher than the next tile
-	} else if (priority < 0) {
-		return true; // Our priority is smaller, so sort before us.
-	} else {
-		// Ground tiles loose
-		if (entity->type() == GROUND && next->type() != GROUND) {
-			return true;
-		}
-		if (entity->type() == next->type()) {
-			// Use the problem solver priority
-			if (next->prioritySolver() < entity->prioritySolver()) {
-				return true;
-			}
-		}
-		return false; // If the priority is the same, tiles that come later, draw later
+	if (entity->priority() != next->priority()) {
+		return entity->priority() < next->priority();
 	}
+
+	// If the priority is the same we have sorting based on tile type
+	if (next->type() == MOBILE && entity->type() != MOBILE) {
+		return true;
+	}
+	if (next->type() == ITEM && entity->type() != MOBILE && entity->type() != ITEM) {
+		return true;
+	}
+	if (next->type() == STATIC && entity->type() == GROUND) {
+		return true;
+	}
+	if (entity->priorityBonus() != next->priorityBonus()) {
+		return entity->priorityBonus() < next->priorityBonus();
+	}
+
+	return entity->prioritySolver() < next->prioritySolver();
 }
 
 void cWorld::addEntity(cEntity *entity) {

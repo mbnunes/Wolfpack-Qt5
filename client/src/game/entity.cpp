@@ -73,6 +73,7 @@ cEntity::cEntity() {
 	priority_ = 0;
 	cellid_ = -1;
 	prioritySolver_ = 0;
+	priorityBonus_ = 0;
 }
 
 cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet facet) {
@@ -89,6 +90,7 @@ cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet face
 	priority_ = 0;
 	cellid_ = -1;
 	prioritySolver_ = 0;
+	priorityBonus_ = 0;
 }
 
 cEntity::~cEntity() {

@@ -10,6 +10,7 @@
 #include "muls/sounds.h"
 #include "log.h"
 #include "utilities.h"
+#include "config.h"
 
 #include <qfile.h>
 
@@ -22,6 +23,10 @@ cSound::cSound() {
 }
 
 void cSound::load() {
+	if (Config->disableSound()) {
+		return;
+	}
+
 	// Try to open the preferred device
 #if defined(NO_DIRECTSOUND)
 	device = alcOpenDevice("MMSYSTEM");
@@ -88,6 +93,10 @@ void cSound::load() {
 }
 
 void cSound::unload() {
+	if (Config->disableSound()) {
+		return;
+	}
+
 	alSourceStopv(NUM_BUFFERS, sources);
 	alDeleteBuffers(NUM_BUFFERS, buffers);
 	alSourceStopv(NUM_BUFFERS, sources);
@@ -106,6 +115,10 @@ void cSound::unload() {
 }
 
 void cSound::playSound(unsigned short id) {
+	if (Config->disableSound()) {
+		return;
+	}
+
 	int bufferId = -1; // id of buffer with same id
 	int sourceId = -1; // id of free source
 	bool bufferUsed[NUM_BUFFERS];

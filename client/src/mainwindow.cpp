@@ -285,7 +285,7 @@ void cMainWindow::showPriority(cEntity *entity) {
 		return;
 	}
 
-	QString message = tr("The entity has a drawing priority of %1, Z is %2.").arg(entity->priority()).arg(entity->z());
+	QString message = tr("The entity has a drawing priority of %1 (%3), Z is %2.").arg(entity->priority()).arg(entity->z()).arg(entity->prioritySolver());
 	cGroundTile *gt = dynamic_cast<cGroundTile*>(entity);
 	if (gt) {
 		message.append(tr(" The sort z value is %1.").arg(gt->sortz()));

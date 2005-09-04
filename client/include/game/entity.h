@@ -31,6 +31,7 @@ protected:
 	int priority_; // sort priority
 	QVector<cControl*> overheadTexts;
 	int prioritySolver_;
+	int priorityBonus_;
 	
 	/*
 		This is the id of the cell this tile is currently sorted in. 
@@ -65,6 +66,8 @@ public:
 	int priority() const;
 	int prioritySolver() const;
 	void setPrioritySolver(int data);
+	int priorityBonus() const;
+	void setPriorityBonus(int data);
 
 	// Returns true if the object should be drawn.
 	virtual bool isInWorld() const;
@@ -155,6 +158,14 @@ inline int cEntity::prioritySolver() const {
 
 inline void cEntity::setPrioritySolver(int data) {
 	prioritySolver_ = data;
+}
+
+inline int cEntity::priorityBonus() const {
+	return priorityBonus_;
+}
+
+inline void cEntity::setPriorityBonus(int data) {
+	priorityBonus_ = data;
 }
 
 #endif
