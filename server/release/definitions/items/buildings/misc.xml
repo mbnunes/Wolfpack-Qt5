@@ -2183,4 +2183,29 @@
 		<category>Buildings\Samurai\Gate\14</category>
 	</item>
 
+	<!-- Aquarium -->
+	<item id="3060">
+		<id>0x3060</id>
+		<nodecay />
+		<category>Decoration\Aquarium\Aquarium (W/E)(1/2)</category>
+	</item>
+
+	<item id="3061">
+		<id>0x3061</id>
+		<nodecay />
+		<category>Decoration\Aquarium\Aquarium (W/E)(2/2)</category>
+	</item>
+
+	<item id="3062">
+		<id>0x3062</id>
+		<nodecay />
+		<category>Decoration\Aquarium\Aquarium (N/S)(1/2)</category>
+	</item>
+
+	<item id="3063">
+		<id>0x3063</id>
+		<nodecay />
+		<category>Decoration\Aquarium\Aquarium (N/S)(2/2)</category>
+	</item>
+
 </definitions>

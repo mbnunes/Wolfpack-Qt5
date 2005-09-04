@@ -11,13 +11,7 @@ from skills import mining
 from random import randrange, randint
 from system.lootlists import DEF_ORES # Gets BaseIDs
 from wolfpack import tr
-
-FORGEIDS = [ 'fb1', '197a', '197b', '197c', '197d', '197e', '197f', '1980', \
-	'1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', \
-	'198a', '198b', '198c', '198d', '198e', '198f', '1990', '1991', '1992', \
-	'1993', '1994', '1995', '1996', '1997', '1998', '1999', '199a', '199b', \
-	'199c', '199d', '199e', '199f', '19a0', '19a1', '19a2', '19a3', '19a4', \
-	'19a5', '19a6', '19a7', '19a8', '19a9' ]
+from skills.blacksmithing import FORGES
 
 def onShowTooltip(player, object, tooltip):
 	name = 'Unknown Ore'
@@ -87,7 +81,7 @@ def response( char, args, target ):
 			return True
 		for tile in statics:
 			dispid = tile[0]
-			if dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):
+			if dispid in FORGES:
 				dosmelt( char, [ item, resname ] )
 				return True
 			else:
@@ -95,7 +89,7 @@ def response( char, args, target ):
 				return
 
 	# We go onto creating ingots here.
-	if target.item and target.item.baseid in FORGEIDS:
+	if target.item and target.item.id in FORGES:
 		if item.baseid in DEF_ORES:
 			if char.pos.distance( target.pos ) > 3:
 				char.socket.clilocmessage( 0x7A258 ) # You can't reach...

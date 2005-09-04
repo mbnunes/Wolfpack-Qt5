@@ -21,6 +21,23 @@
 		<category>Professions\Blacksmith\Anvil (W/E)</category>
 	</item>
 
+	<!-- Elven Anvil -->
+	<item id="2dd5" inherit="ITEM_NO_DECAY">
+		<id>0x2dd5</id>
+		<category>Professions\Blacksmith\Elven Anvil (N/S)</category>
+	</item>
+
+	<item id="2dd6" inherit="ITEM_NO_DECAY">
+		<id>0x2dd6</id>
+		<category>Professions\Blacksmith\Elven Anvil (W/E)</category>
+	</item>
+
+	<!-- Elven Forge -->
+	<item id="2dd8" inherit="ITEM_NO_DECAY">
+		<id>0x2dd8</id>
+		<category>Professions\Blacksmith\Elven Forge</category>
+	</item>
+
 	<item id="fb1" inherit="ITEM_NO_DECAY">
 		<id>0xfb1</id>
 		<category>Professions\Blacksmith\Small Forge</category>

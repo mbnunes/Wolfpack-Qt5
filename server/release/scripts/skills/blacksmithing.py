@@ -42,6 +42,10 @@ SCALES = [
 	[tr('Blue Scales'), 0, 0, ['blue_scales'], 0x8B0, 'blue_scales'],
 ]
 
+# Lists of forges and anvils.
+FORGES = [ 0xfb1, 0x2dd8 ] + range( 0x197a, 0x19aa )
+ANVILS = [ 0xfaf, 0xfb0, 0x2dd5, 0x2dd6]
+
 #
 # Check for anvil and forge
 #
@@ -50,13 +54,13 @@ def checkanvilandforge(char):
 		return True
 
 	# Check dynamic items.
-	forge = 0
-	anvil = 0
+	forge = False
+	anvil = False
 	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 5)
 	for item in items:
-		if item.id == 0xFAF or item.id == 0xFB0:
+		if item.id in ANVILS:
 			anvil = True
-		elif item.id == 0xFB1 or (item.id >= 0x197A and item.id <= 0x19A9):
+		elif item.id in FORGES:
 			forge = True
 
 		if anvil and forge:
@@ -69,9 +73,9 @@ def checkanvilandforge(char):
 
 			for tile in statics:
 				dispid = tile[0]
-				if dispid == 0xFAF or dispid == 0xFB0:
+				if dispid in ANVILS:
 					anvil = True
-				elif dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):
+				elif dispid in FORGES:
 					forge = True
 
 				if anvil and forge:

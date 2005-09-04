@@ -605,4 +605,39 @@
 		<weight>4.0</weight>
 	</item>
 
+	<!-- Elven Alchemy Table -->
+	<item id="2dd3">
+		<id>0x2dd3</id>
+		<nodecay />
+	</item>
+
+	<item id="2dd4">
+		<id>0x2dd4</id>
+		<nodecay />
+	</item>
+
+	<item id="3077">
+		<id>0x3077</id>
+		<nodecay />
+		<category>Professions\Alchemist\Elven Alchemy Table\Elven Alchemy Table (N/S)(1/2)</category>
+	</item>
+
+	<item id="3078">
+		<id>0x3078</id>
+		<nodecay />
+		<category>Professions\Alchemist\Elven Alchemy Table\Elven Alchemy Table (N/S)(2/2)</category>
+	</item>
+
+	<item id="3079">
+		<id>0x3079</id>
+		<nodecay />
+		<category>Professions\Alchemist\Elven Alchemy Table\Elven Alchemy Table (W/E)(1/2)</category>
+	</item>
+
+	<item id="307a">
+		<id>0x307a</id>
+		<nodecay />
+		<category>Professions\Alchemist\Elven Alchemy Table\Elven Alchemy Table (W/E)(2/2)</category>
+	</item>
+
 </definitions>
