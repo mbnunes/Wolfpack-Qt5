@@ -66,6 +66,9 @@ void cUoSocket::sendPing() {
 }
 
 cUoSocket::cUoSocket() {
+	incomingBytes_ = 0;
+	incomingBytesCompressed_ = 0;
+	outgoingBytes_ = 0;
 	moveSequence_ = 0;
 	encryption = 0;
 	lastDecodedPacketId_ = 0;
@@ -103,7 +106,7 @@ cUoSocket::~cUoSocket() {
 	delete socket;
 }
 
-void cUoSocket::connect(const QString &host, unsigned short port, bool gameServer) {
+void cUoSocket::connect(const QString &host, unsigned short port, bool gameServer) {	
 	if (!isIdle()) {
 		return; // The client isn't disconnected yet.
 	}
@@ -119,6 +122,10 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 
 	// Connect to the Socket
 	socket->connectToHost(host, port);
+
+	incomingBytes_ = 0;
+	incomingBytesCompressed_ = 0;
+	outgoingBytes_ = 0;
 }
 
 void cUoSocket::disconnect() {
@@ -183,6 +190,7 @@ void cUoSocket::poll() {
 }
 
 void cUoSocket::sendRaw(const QByteArray &data) {
+	outgoingBytes_ += data.size();
 	QByteArray data2(data.data(), data.size());
 	
 	if (encryption) {
@@ -299,6 +307,8 @@ void cUoSocket::connectionClosed() {
 }
 
 void cUoSocket::readyRead() {
+	incomingBytesCompressed_ += socket->bytesAvailable();
+
 	QByteArray data(socket->bytesAvailable(), 0);
 	socket->read(data.data(), socket->bytesAvailable());
 
@@ -312,6 +322,8 @@ void cUoSocket::readyRead() {
 		decompressor(out, data.data(), destsize, srclen);
 		data = QByteArray(out, destsize);
 	}
+
+	incomingBytes_ += data.size();
 
 	incomingBuffer.append(data);
 	

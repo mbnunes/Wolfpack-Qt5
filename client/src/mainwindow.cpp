@@ -222,7 +222,7 @@ cMainWindow::cMainWindow() {
 	setMenuBar(m_menuBar);
 
 	QMenu *helpMenu = m_menuBar->addMenu(tr("&Help"));
-	action = helpMenu->addAction(tr("Cache Statistics"));
+	action = helpMenu->addAction(tr("Statistics"));
 	action->setObjectName("action_cachestatistics");
 	action = helpMenu->addAction(tr("&About"));
 	action->setObjectName("action_about");

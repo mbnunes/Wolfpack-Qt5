@@ -27,17 +27,13 @@ public:
 			return;
 		}
 
-		World->changeFacet((enFacet)facet);
-		if (Player) {
-			World->moveCenter(Player->x(), Player->y(), Player->z(), true);
-			Player->move(Player->x(), Player->y(), Player->z());
+		if (facet != World->facet()) {
+			World->changeFacet((enFacet)facet);
+			if (Player) {
+				World->moveCenter(Player->x(), Player->y(), Player->z(), true);
+				Player->move(Player->x(), Player->y(), Player->z());
+			}
 		}
-
-		/*Player->setSerial(serial);		
-		Player->setBody(body);
-		Player->setDirection(direction);
-		World->moveCenter(posx, posy, posz, true);
-		Player->move(posx, posy, posz);*/
 	}
 };
 

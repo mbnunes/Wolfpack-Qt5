@@ -200,6 +200,8 @@ void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool 
 			}
 		}
 	}
+
+	checkRoofs();
 }
 
 // Checks if the given entity should be sorted before the

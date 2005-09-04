@@ -45,6 +45,9 @@ protected:
 	void logPacket(cIncomingPacket *packet);
 	QFile packetLog;
 	QTextStream packetLogStream;
+	uint outgoingBytes_;
+	uint incomingBytes_;
+	uint incomingBytesCompressed_;
 
 	static fnIncomingPacketConstructor incomingPacketConstructors[256];
 public:
@@ -66,6 +69,9 @@ public:
 	uint popSequence();
 	void clearSequenceQueue();
 	uint sequenceQueueLength();
+	uint outgoingBytes();
+	uint incomingBytes();
+	uint incomingBytesCompressed();
 
 	// Queue a given byte array for sending it to the server
 	void sendRaw(const QByteArray &data);
@@ -143,6 +149,18 @@ inline uint cUoSocket::popSequence() {
 	} else {
 		return ~0;
 	}
+}
+
+inline uint cUoSocket::outgoingBytes() {
+	return outgoingBytes_;
+}
+
+inline uint cUoSocket::incomingBytes() {
+	return incomingBytes_;
+}
+
+inline uint cUoSocket::incomingBytesCompressed() {
+	return incomingBytesCompressed_;
 }
 
 inline void cUoSocket::clearSequenceQueue() {

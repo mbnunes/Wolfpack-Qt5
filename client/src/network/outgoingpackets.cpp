@@ -162,7 +162,7 @@ cMoveRequestPacket::cMoveRequestPacket(uchar direction, uchar sequence, uint fas
 }
 
 cSingleClickPacket::cSingleClickPacket(uint serial) : cOutgoingPacket(0x09, 5) {
-			m_Stream << serial;
+	m_Stream << serial;
 }
 
 cPingPacket::cPingPacket(uchar sequence) : cOutgoingPacket(0x73, 2) {
