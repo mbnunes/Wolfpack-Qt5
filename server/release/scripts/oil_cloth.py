@@ -30,6 +30,10 @@ def response( char, args, target ):
 				else:
 					target.item.settag( 'poisoning_uses', uses - 2 )
 					char.socket.clilocmessage( 1005423 ) # You have removed some of the caustic substance, but not all.
+				if item.amount > 1:
+					item.amount -= 1
+				else:
+					item.delete()
 		else:
 			char.message( 1005422, "" ) # Hmmmm... this does not need to be cleaned.
 
@@ -38,6 +42,10 @@ def response( char, args, target ):
 		if target.char.id in [ 183, 184 ]:
 			target.char.dispel(char, True, 'tribal_paint')
 			char.socket.clilocmessage( 1040006 ) # You wipe away all of your body paint.
+			if item.amount > 1:
+				item.amount -= 1
+			else:
+				item.delete()
 		else:
 			char.message( 1005422, "" ) # Hmmmm... this does not need to be cleaned.
 	else:
