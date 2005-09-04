@@ -205,54 +205,56 @@ def refill_target(char, args, target):
 		return
 
 	if target.item:
-		if CONTAINERS.has_key(target.item.id):
-			quantity = 0
-			if target.item.hastag('quantity'):
-				quantity = int(target.item.gettag('quantity'))
-
-			fluid = ''			
-			if target.item.hastag('fluid'):
-				fluid = str(target.item.gettag('fluid'))
-
-			if quantity > 0 and FLUIDS.has_key(fluid):
-				item.settag('fluid', fluid)
-
-				# How much can we refill?
-				if quantity > cprops[1]:
-					quantity -= cprops[1]
-					target.item.settag('quantity', quantity)
-					target.item.resendtooltip()
-					item.settag('quantity', cprops[1])					
-					updateItemIdFromFluid(item, 'water')
-					item.resendtooltip()
-
-				# The source will be depleted
-				else:
-					item.settag('quantity', quantity)
-					item.resendtooltip()
-
-					cprop = CONTAINERS[target.item.id]										
-					if cprop[2] == 0:
-						target.item.delete()
-					else:
-						target.item.id = cprop[2]
-						target.item.update()
-						target.item.deltag('quantity')
-						target.item.deltag('fluid')
-						target.item.resendtooltip()
-
-				return # We refilled
+		fillfromitem( target, item, cprops )
+		return # We refilled
 
 		# A watersource
 		if target.item.watersource:
-			checkwatersource(target, item, cprops)
+			fillfromwatersource(target, item, cprops)
 		return
 
 	# Check map if its a water source
 	elif not target.char:
-		checkmap(target, item, cprops)
+		fillfrommap(target, item, cprops)
 
-def checkwatersource(target, item, cprops):
+def fillfromitem( target, item, cprops ):
+	if CONTAINERS.has_key(target.item.id):
+		quantity = 0
+		if target.item.hastag('quantity'):
+			quantity = int(target.item.gettag('quantity'))
+
+		fluid = ''			
+		if target.item.hastag('fluid'):
+			fluid = str(target.item.gettag('fluid'))
+
+		if quantity > 0 and FLUIDS.has_key(fluid):
+			item.settag('fluid', fluid)
+
+			# How much can we refill?
+			if quantity > cprops[1]:
+				quantity -= cprops[1]
+				target.item.settag('quantity', quantity)
+				target.item.resendtooltip()
+				item.settag('quantity', cprops[1])					
+				updateItemIdFromFluid(item, 'water')
+				item.resendtooltip()
+
+			# The source will be depleted
+			else:
+				item.settag('quantity', quantity)
+				item.resendtooltip()
+
+				cprop = CONTAINERS[target.item.id]										
+				if cprop[2] == 0:
+					target.item.delete()
+				else:
+					target.item.id = cprop[2]
+					target.item.update()
+					target.item.deltag('quantity')
+					target.item.deltag('fluid')
+					target.item.resendtooltip()
+
+def fillfromwatersource(target, item, cprops):
 	# Check if its depletable
 	quantity = cprops[1]
 	if target.item.hastag('quantity'):
@@ -264,7 +266,7 @@ def checkwatersource(target, item, cprops):
 		updateItemIdFromFluid(item, 'water')
 		item.resendtooltip()
 
-def checkmap(target, item, cprops):
+def fillfrommap(target, item, cprops):
 	mapTile = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
 	if target.model in staticWater or mapTile[ "id" ] in mapWater:
 		quantity = cprops[1]
