@@ -198,36 +198,46 @@ def onShowPaperdoll(char, player):
 	if not checkresource(char, player):
 		return True
 
-	return actions[ char.baseid ][0]( char, player )
+	return actions[ char.baseid ][0]( char, player, 1 )
 
-def cow(char, player):
+def cow(char, player, amount):
 	# List with id of empty pitcher
 	pitcher_list = [0x9a7, 0xff6, 0xff7]
-	found = False
+	found = 0
 	for pitcher in pitcher_list:
-		if player.countresource(pitcher):
-			found = True
-			break
+		foundn = player.countresource(pitcher)
+		found += foundn
 	if not found:
 		player.socket.sysmessage(tr("You need something you can fill the milk in."))
 		return False
-	# consume the pitcher and add a full one
 	player.soundeffect(0x30)
-	player.useresource(1, pitcher)
-	milk = wolfpack.additem("9ad")
-	if not wolfpack.utilities.tobackpack( milk, player ):
-		milk.update()
-	char.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	if found < amount:
+		amount = found
+	amount_down = amount
+	for pitcher in pitcher_list:
+		# consume as many pitchers as needed
+		if amount_down > 0:
+			if player.useresource(amount, pitcher):
+				amount_down -= 1
+		else:
+			break
+	# add as many pitchers as consumed (item.amount not possible, because not generic)
+	for i in range(0, amount):
+		milk = wolfpack.additem("9ad")
+		if not wolfpack.utilities.tobackpack( milk, player ):
+			milk.update()
+	char.settag( "resourcecount", char.gettag("resourcecount") - amount)
 	player.socket.sysmessage(tr("You melk the cow and fill the milk in an empty pitcher."))
 	return
 
-def chicken(char, player):
+def chicken(char, player, amount):
 	player.socket.sysmessage(tr("You get some eggs"))
 	player.soundeffect(0x57)
 	eggs = wolfpack.additem("9b5")
 	if not wolfpack.utilities.tobackpack( eggs, player ):
+		eggs.amount = amount
 		eggs.update()
-	char.settag( "resourcecount", char.gettag("resourcecount") - 1)
+	char.settag( "resourcecount", char.gettag("resourcecount") - amount)
 
 def checkresource(object, player):
 	if not object.hastag('resourcecount') or object.gettag('resourcecount') <= 0:

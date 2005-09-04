@@ -245,28 +245,34 @@ def refill_target(char, args, target):
 
 		# A watersource
 		if target.item.watersource:
-			# Check if its depletable
-			quantity = cprops[1]
-			if target.item.hastag('quantity'):
-				quantity = int(item.gettag('quantity'))
-
-			if quantity > 0:
-				item.settag('fluid', 'water')
-				item.settag('quantity', quantity)
-				updateItemIdFromFluid(item, 'water')
-				item.resendtooltip()
+			checkwatersource(target, item, cprops)
 		return
 
 	# Check map if its a water source
 	elif not target.char:
-		mapTile = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
-		if target.model in staticWater or mapTile[ "id" ] in mapWater:
-			quantity = cprops[1]
-			if quantity > 0:
-				item.settag('fluid', 'water')
-				item.settag('quantity', quantity)
-				updateItemIdFromFluid(item, 'water')
-				item.resendtooltip()
+		checkmap(target, item, cprops)
+
+def checkwatersource(target, item, cprops):
+	# Check if its depletable
+	quantity = cprops[1]
+	if target.item.hastag('quantity'):
+		quantity = int(item.gettag('quantity'))
+
+	if quantity > 0:
+		item.settag('fluid', 'water')
+		item.settag('quantity', quantity)
+		updateItemIdFromFluid(item, 'water')
+		item.resendtooltip()
+
+def checkmap(target, item, cprops):
+	mapTile = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
+	if target.model in staticWater or mapTile[ "id" ] in mapWater:
+		quantity = cprops[1]
+		if quantity > 0:
+			item.settag('fluid', 'water')
+			item.settag('quantity', quantity)
+			updateItemIdFromFluid(item, 'water')
+			item.resendtooltip()
 
 #
 # Intoxication
