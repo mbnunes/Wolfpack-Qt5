@@ -9,7 +9,9 @@ cCheckerTrans::cCheckerTrans(bool enabled) {
 }
 
 cCheckerTrans::~cCheckerTrans() {
-	checkerboard->decref();
+	if (checkerboard) {
+		checkerboard->decref();
+	}
 }
 
 void cCheckerTrans::generateCheckerboard() {
@@ -63,4 +65,11 @@ void cCheckerTrans::draw(int xoffset, int yoffset) {
 
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glStencilFunc(GL_NOTEQUAL, 0, 0xff);
+}
+
+void cCheckerTrans::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight) {
+	if (checkerboard && (oldwidth != width_ || oldheight != height_)) {
+		checkerboard->decref();
+		checkerboard = 0;
+	}
 }

@@ -6,8 +6,10 @@
 #include "gui/worldview.h"
 #include "gui/genericgump.h"
 #include "gui/containergump.h"
+#include "gui/tooltip.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
+#include "game/tooltips.h"
 #include "muls/localization.h"
 #include "game/targetrequest.h"
 #include "game/world.h"
@@ -718,35 +720,7 @@ public:
 		// Parse in the ~1_...~ parts
 		QStringList arguments = message.split("\t");
 
-		// Replace starting arguments in the form of #\d+
-		for (int i = 0; i < arguments.size(); ++i) {
-			QString argument = arguments[i];
-			if (argument.startsWith(QChar('#'))) {
-				argument = argument.right(argument.length() - 1);
-				bool ok;
-				uint number = argument.toUInt(&ok);
-
-				// Replace it with the localization string if appropiate
-				if (ok) {
-					arguments[i] = Localization->get(number);
-				}
-			}
-		}
-
-		QRegExp pattern("~(\\d+)[^~]+~");
-		int pos;
-		while ((pos = pattern.indexIn(localized)) != -1 && !arguments.isEmpty()) {
-			uint index = pattern.cap(1).toUInt();
-			QString replacement;
-
-			if (index < 1 || index > arguments.size()) {
-				replacement = tr("[ERROR:%1]").arg(index);
-			} else {
-				replacement = arguments[index-1];
-			}
-
-			localized.replace(pos, pattern.matchedLength(), replacement);
-		}
+		localized = Utilities::parseArguments(localized, arguments);
 
 		if (Utilities::isItemSerial(serial)) {
 			// "You see:" message
@@ -1048,3 +1022,100 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x6e, cCharacterAnimationPacket::creator);
+
+// Container content packet
+class cAttachTooltipPacket : public cIncomingPacket {
+protected:
+	uint serial; // Entity serial
+    uint tooltip; // Tooltip key	
+public:
+	cAttachTooltipPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> tooltip;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cDynamicEntity *entity = World->findDynamic(serial);
+		if (entity) {
+			entity->setTooltipKey(tooltip);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cAttachTooltipPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xdc, cAttachTooltipPacket::creator);
+
+// Tooltip content packet
+class cTooltipPacket : public cDynamicIncomingPacket {
+protected:
+	ushort unknown1;
+	uint serial; // Mobile serial the tooltip is assigned to
+	ushort unknown2;
+	uint tooltip; // Tooltip key
+
+	QVector<cTooltipInfo::Line> lines;
+public:
+	cTooltipPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(19);
+		input >> unknown1 >> serial >> unknown2 >> tooltip;
+
+		cTooltipInfo::Line line;
+		ushort length;
+
+		input >> line.first; // This exists at least once
+
+		while (line.first != 0) {
+			input >> length;
+			length /= 2; // Byte count
+			
+			if (length != 0) {
+				ushort *strMessage = new unsigned short[length+1];
+				
+				input.setByteOrder(QDataStream::LittleEndian);
+
+				// We need to swap the single characters
+				for (int i = 0; i < length; ++i) {				
+					input >> strMessage[i];
+				}
+
+				input.setByteOrder(QDataStream::BigEndian);
+				strMessage[length] = 0;
+		        
+				line.second = QString::fromUtf16(strMessage);
+				delete [] strMessage;
+			}
+
+			lines.append(line);
+
+			input >> line.first;
+		};
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cTooltipInfo *info = new cTooltipInfo(tooltip, lines);
+		Tooltips->add(info);
+
+		// This automatically acts as an attach packet (which sucks btw)
+		cEntity *entity = World->findDynamic(serial);
+
+		if (entity && entity->tooltipKey() != tooltip) {
+			entity->setTooltipKey(tooltip);
+			if (Tooltip->entity() == entity) {
+				Tooltip->setTooltip(tooltip);
+			}
+		}
+
+		// Notify the tooltip about the change
+		if (Tooltip->tooltip() == tooltip) {
+			Tooltip->refreshTooltip();
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cTooltipPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xd6, cTooltipPacket::creator);

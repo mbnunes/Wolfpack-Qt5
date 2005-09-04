@@ -168,3 +168,9 @@ cSingleClickPacket::cSingleClickPacket(uint serial) : cOutgoingPacket(0x09, 5) {
 cPingPacket::cPingPacket(uchar sequence) : cOutgoingPacket(0x73, 2) {
 	m_Stream << sequence;
 }
+
+cRequestMultipleTooltipsPacket::cRequestMultipleTooltipsPacket(QVector<uint> tooltips) : cOutgoingPacket(0xd6, 3 + tooltips.size() * 4) {
+	foreach (uint key, tooltips) {
+		m_Stream << key;
+	}
+}

@@ -12,6 +12,7 @@
 #include "config.h"
 #include "gui/worldview.h"
 #include "game/world.h"
+#include "game/tooltips.h"
 
 // Packet stream decompressor
 static DecompressingCopier decompressor;
@@ -141,6 +142,7 @@ void cUoSocket::disconnect() {
 		Cursor->setCursor(CURSOR_NORMAL);
 		Gui->closeAllGumps();
 		LoginDialog->show(PAGE_LOGIN);
+		Tooltips->clear();
 	}
 }
 
@@ -168,6 +170,8 @@ void cUoSocket::poll() {
 		// Process incoming and outgoing packets if the socket is connected
 		case QAbstractSocket::ConnectedState:
 		{
+			Tooltips->processRequests();
+
 			while (socket->isWritable() && !outgoingQueue.isEmpty()) {
 				QByteArray data = outgoingQueue.first();
 

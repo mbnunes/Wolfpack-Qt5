@@ -6,10 +6,13 @@
 #include "gui/worldview.h"
 #include "gui/genericgump.h"
 #include "gui/containergump.h"
+#include "gui/tooltip.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
 #include "game/dynamicitem.h"
 #include "game/mobile.h"
+#include "game/world.h"
+#include "game/tooltips.h"
 #include "mainwindow.h"
 #include <qcursor.h>
 
@@ -132,6 +135,19 @@ void cGui::draw() {
 		}
 
 		overheadText[i].control->draw(xoffset, yoffset);
+	}
+
+	// Always draw the tooltip last
+	cEntity *mEntity = World->mouseOver();
+	if (mEntity && mEntity->tooltipKey() != 0) {
+		Tooltip->setEntity(mEntity);
+		Tooltip->setTooltip(mEntity->tooltipKey());
+
+		// Only draw if the tooltip is known
+		if (Tooltips->contains(mEntity->tooltipKey())) {			
+			QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+			Tooltip->draw(pos.x(), pos.y());
+		}
 	}
 }
 

@@ -63,6 +63,8 @@ namespace Utilities {
 		return dir % 8;
 	}
 
+	QString parseArguments(QString localized, QStringList arguments);
+
 	/*
 		Calculate the distance between two 2d uo coordinates
 	*/

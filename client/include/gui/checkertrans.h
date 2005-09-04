@@ -15,6 +15,7 @@ public:
 	~cCheckerTrans();
 	void draw(int xoffset, int yoffset);
 
+	void onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight);
 	void setEnabled(bool enabled);
 	bool enabled() const;
 };

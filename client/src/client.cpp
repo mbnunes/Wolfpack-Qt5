@@ -15,9 +15,11 @@
 #include "gui/gui.h"
 #include "gui/worldview.h"
 #include "gui/contextmenu.h"
+#include "gui/tooltip.h"
 
 #include "game/mobile.h"
 #include "game/world.h"
+#include "game/tooltips.h"
 
 #include "muls/animations.h"
 #include "muls/gumpart.h"
@@ -68,6 +70,7 @@ cUoClient::cUoClient() {
 
 	UoSocket = new cUoSocket();
 	Random = new MTRand();
+	Tooltips = new cTooltips;
 	Gui = new cGui();
 	Cursor = new cCursor();
 
@@ -102,6 +105,8 @@ cUoClient::~cUoClient() {
 	delete Cursor;
 
 	delete Gui;
+	delete Tooltip;
+	delete Tooltips;
 
 	delete Localization;
 	delete Speech;
@@ -234,6 +239,9 @@ void cUoClient::run()
 	Player = new cMobile(0, 0, 0, TRAMMEL, 1);
 	Player->incref(); // Always keep one reference
 	World->addEntity(Player);
+
+	// add the tooltip instance
+	Tooltip = new cTooltip;
 
 	// add the world view
 	WorldView = new cWorldView(800, 600);

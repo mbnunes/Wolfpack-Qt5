@@ -7,6 +7,7 @@
 #include <qmessagebox.h>
 #include "mainwindow.h"
 #include <ctype.h>
+#include "muls/localization.h"
 
 namespace Utilities {
 	QString getUoFilename(const QString &filename) {
@@ -214,6 +215,42 @@ namespace Utilities {
 			default:
 				return 0xc8;
 		}
+	}
+
+	QString parseArguments(QString localized, QStringList arguments) {
+		// Parse in the ~1_...~ parts
+
+		// Replace starting arguments in the form of #\d+
+		for (int i = 0; i < arguments.size(); ++i) {
+			QString argument = arguments[i];
+			if (argument.startsWith(QChar('#'))) {
+				argument = argument.right(argument.length() - 1);
+				bool ok;
+				uint number = argument.toUInt(&ok);
+
+				// Replace it with the localization string if appropiate
+				if (ok) {
+					arguments[i] = Localization->get(number);
+				}
+			}
+		}
+
+		QRegExp pattern("~(\\d+)[^~]+~");
+		int pos;
+		while ((pos = pattern.indexIn(localized)) != -1 && !arguments.isEmpty()) {
+			int index = pattern.cap(1).toUInt();
+			QString replacement;
+
+			if (index < 1 || index > arguments.size()) {
+				replacement = tr("[ERROR:%1]").arg(index);
+			} else {
+				replacement = arguments[index-1];
+			}
+
+			localized.replace(pos, pattern.matchedLength(), replacement);
+		}
+
+		return localized;
 	}
 };
 

@@ -90,4 +90,10 @@ public:
 	cPingPacket(uchar sequence);
 };
 
+// 0xd6 Request multiple tooltips
+class cRequestMultipleTooltipsPacket : public cOutgoingPacket {
+public:
+	cRequestMultipleTooltipsPacket(QVector<uint> tooltips);
+};
+
 #endif

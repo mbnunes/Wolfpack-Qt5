@@ -99,7 +99,7 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 	This will be a very very long function but for speeds sake i can't split it up.
 
 */
-cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsigned short hueid, bool shaded, bool border, enTextAlign align) {
+cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned short hueid, bool shaded, bool border, enTextAlign align) {
 	font %= 3; // Wrap the font
 	stHue *hue = Hues->get(hueid); // Cache the hue
 
@@ -127,6 +127,11 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, const QString &text, unsi
 
 	// Iterate over the string once to get the width of the string	
 	for (i = 0; i < text.length(); ++i) {
+		if (lineWidth > 512) {
+			text = text.left(i);
+			break;
+		}
+
 		const QChar ch = text.at(i);
 		if (ch.toLatin1() == '\n') {
 			lines += 1;

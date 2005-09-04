@@ -30,6 +30,7 @@ cWorld::cWorld() : groundCache(2500) {
 	roofTimer.setSingleShot(true);
 	connect(&roofTimer, SIGNAL(timeout()), this, SLOT(checkRoofs()));	
 	belowMap_ = false;
+	mouseOver_ = 0;
 }
 
 cWorld::~cWorld() {
