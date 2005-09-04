@@ -63,6 +63,7 @@ void cWorld::clearEntities() {
 		while (cit != cell.end()) {
 			if ((*cit) != Player) {
 				Gui->removeOverheadText(*cit);
+				(*cit)->setCellid(-1);
 				(*cit)->decref();
 			}
 			++cit;
@@ -90,6 +91,7 @@ void cWorld::cleanupEntities() {
 			for (cit = cell.begin(); cit != cell.end(); ++cit) {
 				if (distance > 18) {
 					Gui->removeOverheadText(*cit);
+					(*cit)->setCellid(-1);
 					(*cit)->decref();
 				}
 			}
@@ -119,8 +121,10 @@ void cWorld::loadCell(unsigned short x, unsigned short y) {
 
 		if (abs(cell->z - bottomz) >= abs(leftz - rightz)) {
 			ground->setAveragez((cell->z + bottomz) / 2);
+			ground->setSortz(qMin<int>(leftz, rightz) + abs(leftz - rightz) / 2);
 		} else {
 			ground->setAveragez((leftz + rightz) / 2);
+			ground->setSortz(qMin<int>(cell->z, bottomz) + abs(cell->z - bottomz) / 2);
 		}
 
 		ground->setId(cell->id);
@@ -128,12 +132,14 @@ void cWorld::loadCell(unsigned short x, unsigned short y) {
 	}
 
 	// Iterate over the statics and add them
+	int prioritySolver = 0;
 	StaticBlock *block = Maps->getStaticBlock(facet_, x, y);
 	if (block) {
 		StaticBlock::iterator it;
 		for (it = block->begin(); it != block->end(); ++it) {
 			if (it->xoffset == x % 8 && it->yoffset == y % 8) {
 				cStaticTile *tile = new cStaticTile(x, y, it->z, facet_);
+				tile->setPrioritySolver(prioritySolver++);
 				tile->setId(it->id);
 				tile->setHue(it->color);
 				addEntity(tile);
@@ -199,14 +205,6 @@ void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool 
 // Checks if the given entity should be sorted before the
 // second entity
 inline bool insertBefore(cEntity *entity, cEntity *next) {
-	// the x,y axis checks are no longer neccesary since it's an in-cell check now
-	/*// y-axis is the strongest sorter
-	if (entity->y() != next->y()) {
-		return entity->y() < next->y();
-	} else if (entity->x() != next->x()) {
-        return entity->x() < next->x();
-
-	} else {*/
 	// Do in-cell sorting
 	int priority = entity->priority() - next->priority();
 
@@ -215,9 +213,18 @@ inline bool insertBefore(cEntity *entity, cEntity *next) {
 	} else if (priority < 0) {
 		return true; // Our priority is smaller, so sort before us.
 	} else {
+		// Ground tiles loose
+		if (entity->type() == GROUND && next->type() != GROUND) {
+			return true;
+		}
+		if (entity->type() == next->type()) {
+			// Use the problem solver priority
+			if (next->prioritySolver() < entity->prioritySolver()) {
+				return true;
+			}
+		}
 		return false; // If the priority is the same, tiles that come later, draw later
 	}
-	//}
 }
 
 void cWorld::addEntity(cEntity *entity) {
@@ -293,6 +300,7 @@ void cWorld::removeEntity(cEntity *entity) {
 				entities.erase(it);
 			}
 		}
+		entity->setCellid(-1);
 	}
 }
 
@@ -603,6 +611,7 @@ void cWorld::getGroundInfo(int x, int y, stGroundInfo *info) {
 		int bottom = Maps->getMapCell(facet_, x + 1, y + 1)->z;
 		int right = Maps->getMapCell(facet_, x + 1, y)->z;
 
+		ground->splitLeftRight = abs(right - left) > abs(cell - bottom);
 		ground->z = cell; // Save the z offset for this tile
 
 		// Water needs a special check

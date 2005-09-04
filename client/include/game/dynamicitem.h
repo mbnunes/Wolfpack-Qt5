@@ -65,6 +65,8 @@ public:
 
 	void setDrawx(int data);
 	void setDrawy(int data);
+
+	void updatePriority();
 protected:
 	State positionState_;
 	cDynamicItem *container_; // Container (only valid in Contained state)

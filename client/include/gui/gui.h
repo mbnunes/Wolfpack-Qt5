@@ -29,6 +29,7 @@ private:
 
 	QVector<cControl*> deleteQueue;
 	QVector<cOverheadInfo> overheadText;
+	bool cleaningUpOverheadText;
 public:
 	cGui();
 	virtual ~cGui();

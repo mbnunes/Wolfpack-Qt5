@@ -228,10 +228,10 @@ void cUoClient::run()
 	LoginDialog->show(PAGE_LOGIN); // Set up the login screen
 
 	//World->changeFacet(ILSHENAR);
-	World->moveCenter(1245, 1758, 0, true);
-	//World->moveCenter(1715, 301, -7, true);
+	World->moveCenter(0, 0, 0, true);
+	//World->moveCenter(0, 301, -7, true);
 	//Player = new cMobile(1715, 301, -7, ILSHENAR, 1);
-	Player = new cMobile(1245, 1758, 0, TRAMMEL, 1);
+	Player = new cMobile(0, 0, 0, TRAMMEL, 1);
 	Player->incref(); // Always keep one reference
 	World->addEntity(Player);
 

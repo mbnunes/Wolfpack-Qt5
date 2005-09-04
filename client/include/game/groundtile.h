@@ -20,7 +20,9 @@ protected:
 	bool stretched;
 	bool updated; // Are the normals calculated?
 	signed char averagez_;
-	
+	signed char sortz_; // Thanks to Krrios for the idea
+	bool splitLeftRight;
+
 	// clockwise, starting at the top
 	cVector normals[4];
 public:
@@ -29,6 +31,8 @@ public:
 
 	void updatePriority();
 
+	signed char sortz() const;
+	void setSortz(signed char data);
 	signed char averagez() const;
 	void setAveragez(signed char data);
 	unsigned short id() const;
@@ -54,6 +58,14 @@ inline void cGroundTile::setAveragez(signed char data) {
 
 inline signed char cGroundTile::averagez() const {
 	return averagez_;
+}
+
+inline void cGroundTile::setSortz(signed char data) {
+	sortz_ = data;
+}
+
+inline signed char cGroundTile::sortz() const {
+	return sortz_;
 }
 
 inline unsigned short cGroundTile::id() const {

@@ -8,6 +8,7 @@
 #include "gui/worldview.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
+#include "log.h"
 
 // Draw order for layers dependant on direction facing
 // -1 terminates
@@ -85,6 +86,8 @@ cMobile::~cMobile() {
 		(*it)->moveToLimbo();
 		(*it)->decref();
 	}
+
+	Log->print(LOG_NOTICE, QString("Freeing mobile @ 0x%1, serial 0x%2.\n").arg((uint)this, 0, 16).arg(serial_, 0, 16));
 }
 
 void cMobile::removeEquipment(cDynamicItem *item) {

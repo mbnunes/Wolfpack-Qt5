@@ -30,6 +30,7 @@ protected:
 	enEntityType type_; // type of this entity
 	int priority_; // sort priority
 	QVector<cControl*> overheadTexts;
+	int prioritySolver_;
 	
 	/*
 		This is the id of the cell this tile is currently sorted in. 
@@ -62,6 +63,8 @@ public:
 
 	// Return the sort priority for this object
 	int priority() const;
+	int prioritySolver() const;
+	void setPrioritySolver(int data);
 
 	// Returns true if the object should be drawn.
 	virtual bool isInWorld() const;
@@ -144,6 +147,14 @@ inline unsigned int cEntity::width() const {
 
 inline unsigned int cEntity::height() const {
 	return height_;
+}
+
+inline int cEntity::prioritySolver() const {
+	return prioritySolver_;
+}
+
+inline void cEntity::setPrioritySolver(int data) {
+	prioritySolver_ = data;
 }
 
 #endif

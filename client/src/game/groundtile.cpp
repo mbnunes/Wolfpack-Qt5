@@ -22,12 +22,15 @@ cGroundTile::cGroundTile(unsigned short x, unsigned short y, signed char z, enFa
 	stretched = false;
 	updated = false;
 	type_ = GROUND;
-	averagez_ = 0;
+	averagez_ = z;
+	splitLeftRight = false;
+	sortz_ = z;
 }
 
 void cGroundTile::updateSurroundings() {
 	stGroundInfo self;
-	World->getGroundInfo(x_, y_, &self);
+	World->getGroundInfo(x_, y_, &self);	
+	splitLeftRight = self.splitLeftRight;
 
 	left = self.left;
 	right = self.right;
@@ -161,7 +164,7 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		if (!stretched) {
 			// Save these values to speed up hit testing
 			drawx_ = cellx - 22;
-			drawy_ = celly - 22;
+			drawy_ = celly - 21;
 			width_ = 44;
 			height_ = 44;
 
@@ -183,8 +186,8 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 			glEnd();
 		} else {
 			// Save these values to speed up hit testing
-			drawx_ = cellx - 22;
-			drawy_ = celly - 22;
+			drawx_ = cellx - 21;
+			drawy_ = celly - 21;
 			width_ = 44;
 			height_ = qMax<int>(22 + qMax<int>(left, right), 44 + bottom);
 
@@ -201,33 +204,39 @@ void cGroundTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 				glEnable(GL_LIGHTING);
 			}
 
-			/*glBegin(GL_QUADS);
-			glNormal3f( normals[2].x, normals[2].y, normals[2].z);
-			glTexCoord2f(1, 1); glVertex2f(cellx, celly + 22 + bottom);
-			glNormal3f( normals[3].x, normals[3].y, normals[3].z);
-			glTexCoord2f(0, 1); glVertex2f(cellx - 22, celly + left);
-			glNormal3f( normals[0].x, normals[0].y, normals[0].z);
-			glTexCoord2f(0, 0); glVertex2f(cellx, celly - 22);
-			glNormal3f( normals[1].x, normals[1].y, normals[1].z);
-			glTexCoord2f(1, 0); glVertex2f(cellx + 22, celly + right);
-			glEnd();*/
-
 			// Try the same thing with triangles
-			glBegin(GL_TRIANGLES);
-			glNormal3f( normals[2].x, normals[2].y, normals[2].z);
-			glTexCoord2f(1, 1); glVertex2f(cellx - 0.25f, celly + 23 + bottom);
-			glNormal3f( normals[3].x, normals[3].y, normals[3].z);
-			glTexCoord2f(0, 1); glVertex2f(cellx - 22.5f, celly + left);
-			glNormal3f( normals[0].x, normals[0].y, normals[0].z);
-			glTexCoord2f(0, 0); glVertex2f(cellx - 0.25f, celly - 22);
+			if (splitLeftRight) {
+				glBegin(GL_TRIANGLES);
+				glNormal3f( normals[2].x, normals[2].y, normals[2].z);
+				glTexCoord2f(1, 1); glVertex2f(cellx, celly + 23 + bottom);
+				glNormal3f( normals[3].x, normals[3].y, normals[3].z);
+				glTexCoord2f(0, 1); glVertex2f(cellx - 22.0f, celly + left);
+				glNormal3f( normals[0].x, normals[0].y, normals[0].z);
+				glTexCoord2f(0, 0); glVertex2f(cellx, celly - 22);
 
-			glNormal3f( normals[0].x, normals[0].y, normals[0].z);
-			glTexCoord2f(0, 0); glVertex2f(cellx + 0.25f, celly - 22);
-			glNormal3f( normals[1].x, normals[1].y, normals[1].z);
-			glTexCoord2f(1, 0); glVertex2f(cellx + 22.5f, celly + right);
-			glNormal3f( normals[2].x, normals[2].y, normals[2].z);
-			glTexCoord2f(1, 1); glVertex2f(cellx + 0.25f, celly + 23 + bottom);
-			glEnd();
+				glNormal3f( normals[0].x, normals[0].y, normals[0].z);
+				glTexCoord2f(0, 0); glVertex2f(cellx, celly - 22);
+				glNormal3f( normals[1].x, normals[1].y, normals[1].z);
+				glTexCoord2f(1, 0); glVertex2f(cellx + 22.0f, celly + right);
+				glNormal3f( normals[2].x, normals[2].y, normals[2].z);
+				glTexCoord2f(1, 1); glVertex2f(cellx, celly + 23 + bottom);
+				glEnd();
+			} else {
+				glBegin(GL_TRIANGLES);
+				glNormal3f( normals[3].x, normals[3].y, normals[3].z);
+				glTexCoord2f(0, 1); glVertex2f(cellx - 22.0f, celly + left); // LEFT (TOP)
+				glNormal3f( normals[0].x, normals[0].y, normals[0].z);
+				glTexCoord2f(0, 0); glVertex2f(cellx, celly - 22.0f);  // TOP (TOP)
+				glNormal3f( normals[1].x, normals[1].y, normals[1].z);
+				glTexCoord2f(1, 0); glVertex2f(cellx + 22.0f, celly + right); // RIGHT (TOP)
+				glNormal3f( normals[1].x, normals[1].y, normals[1].z);
+				glTexCoord2f(1, 0); glVertex2f(cellx + 22.0f, celly + right); // RIGHT (BOTTOM)
+				glNormal3f( normals[2].x, normals[2].y, normals[2].z);
+				glTexCoord2f(1, 1); glVertex2f(cellx, celly + 23 + bottom); // BOTTOM (BOTTOM)
+				glNormal3f( normals[3].x, normals[3].y, normals[3].z);
+				glTexCoord2f(0, 1); glVertex2f(cellx - 22.0f, celly + left); // LEFT (BOTTOM)
+				glEnd();
+			}
 
 			if (!highlight) {
 				glDisable(GL_LIGHTING);
@@ -358,5 +367,5 @@ void cGroundTile::onClick(QMouseEvent *e) {
 
 void cGroundTile::updatePriority() {
 	//priority_ = averagez_;
-	priority_ = averagez_;
+	priority_ = sortz_;
 }

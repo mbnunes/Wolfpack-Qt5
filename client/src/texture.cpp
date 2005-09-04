@@ -4,21 +4,29 @@
 #include "utilities.h"
 #include <qgl.h>
 
+void cTextureCache::beforeTextureRemoval(cTexture*) {
+}
+
+void cTextureCache::afterTextureSizeChange(cTexture*, uint) {
+}
+
 cTextureCache::~cTextureCache() {
 }
 
 cTexture::cTexture() {
+	identifier_ = 0;
+	cache_ = 0;
 	id_ = 0;
 	glGenTextures(1, &id_); // Create texture
 	width_ = 0;
 	height_ = 0;
 	refcount = 1;
 	hitTestArray = 0;
-	identifier_ = 0;
-	cache_ = 0;
 }
 
 cTexture::cTexture(cSurface *surface, bool hittest) {
+	identifier_ = 0;
+	cache_ = 0;
 	id_ = 0;
 	glGenTextures(1, &id_); // Create texture
 	width_ = 0;
@@ -26,8 +34,6 @@ cTexture::cTexture(cSurface *surface, bool hittest) {
 	hitTestArray = 0;
 	refcount = 1;
 	setData(surface, hittest);
-	identifier_ = 0;
-	cache_ = 0;
 }
 
 cTexture::~cTexture() {
@@ -77,9 +83,15 @@ void cTexture::generateHitMap(cSurface *surface) {
 }
 
 void cTexture::setData(cSurface *surface, bool hittest) {
+	uint oldSize = getMemorySize(); // Save the current texture size before we reset it
+
 	free(); // Free the old texture
 
 	if (!surface) {
+		// If only the hittest was deleted, notify the cache anyway
+		if (cache_ && getMemorySize() != oldSize) {
+			cache_->afterTextureSizeChange(this, oldSize);
+		}
 		return;
 	}
 
@@ -110,6 +122,15 @@ void cTexture::setData(cSurface *surface, bool hittest) {
 
 	// Now upload the texture
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->bits());
+
+	// Notify the cache about size changes
+	if (cache_) {
+		uint newSize = getMemorySize(); // Get the new memory size
+        
+		if (oldSize != newSize) {
+			cache_->afterTextureSizeChange(this, oldSize);
+		}
+	}
 }
 
 void cTexture::bind() {

@@ -24,6 +24,7 @@ class stGroundInfo {
 public:
 	cVector normals[4];
 	int left, right, bottom, z;
+	bool splitLeftRight;
 };
 
 // This is an internal data structure representing blocking items

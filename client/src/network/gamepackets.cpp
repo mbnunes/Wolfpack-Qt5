@@ -308,7 +308,12 @@ public:
 		}
 
 		item->setHue(hue);
-		item->setId(id);
+
+		if (id != item->id()) {
+			World->removeEntity(item);
+			item->setId(id);
+			World->addEntity(item); // ID changes also possibly affect the World position
+		}
 
 		// TODO: Flags/Amount
 	}

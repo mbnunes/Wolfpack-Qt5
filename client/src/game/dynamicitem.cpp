@@ -59,8 +59,13 @@ cDynamicItem::~cDynamicItem() {
 
 void cDynamicItem::move(unsigned short x, unsigned short y, signed char z) {
 	cleanPosition();
-	positionState_ = InWorld;
-	cDynamicEntity::move(x, y, z);
+	if (isInWorld()) {
+		x_ = x;
+		y_ = y;
+		z_ = z;
+		World->addEntity(this);
+		positionState_ = InWorld;
+	}
 }
 
 void cDynamicItem::move(cMobile *wearer, unsigned char layer) {
@@ -104,7 +109,11 @@ void cDynamicItem::cleanPosition() {
 		case InWorld:
 			World->removeEntity(this);
 			break;
+		default:
+			break;
 	}
+
+	positionState_ = InLimbo;
 }
 
 void cDynamicItem::setId(unsigned short data) {
@@ -160,4 +169,19 @@ void cDynamicItem::showContent(ushort gump) {
 	}
 
 	showContent(x, y, gump);
+}
+
+void cDynamicItem::updatePriority() {
+	int bonus = 0;
+
+	if (tiledata_) {
+		if (!tiledata_->isBackground()) {
+			++bonus;
+		}
+		if (tiledata_->height() > 0) {
+			++bonus;
+		}
+	}
+
+	priority_ = z_ + bonus;
 }

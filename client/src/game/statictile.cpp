@@ -206,7 +206,7 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 
 bool cStaticTile::hitTest(int x, int y) {
 	// Check if these tiles are hidden
-	if (Config->gameHideStatics()) {
+	if (type() == STATIC && Config->gameHideStatics() || type() == ITEM && Config->gameHideDynamics()) {
 		return false;
 	}
 
@@ -239,5 +239,16 @@ void cStaticTile::onClick(QMouseEvent *e) {
 }
 
 void cStaticTile::updatePriority() {
-	priority_ = z_ + (tiledata_->isBackground() ? 0 : 1) + ((tiledata_->height() != 0) ? 1 : 0);
+	int bonus = 0;
+
+	if (tiledata_) {
+		if (!tiledata_->isBackground()) {
+			++bonus;
+		}
+		if (tiledata_->height() > 0) {
+			++bonus;
+		}
+	}
+
+	priority_ = z_ + bonus;
 }

@@ -44,6 +44,7 @@ void cCacheStatistics::refresh() {
 
 	message += tr("<b>Animation Statistics:</b><br>");
 	message += tr("Sequences currently in use: %1<br>").arg(Animations->cacheSize());
+	message += tr("Memory used (estimated): %1 KiB<br>").arg(Animations->totalSequenceSize() / 1024.0f);
 
 	browser->setHtml(message);
 }

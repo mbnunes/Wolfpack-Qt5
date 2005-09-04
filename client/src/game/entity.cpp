@@ -3,7 +3,10 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 
+#include "log.h"
 #include "gui/label.h"
+#include "gui/gui.h"
+#include "game/world.h"
 
 /*
 	This private class manages overhead text for Entities.
@@ -69,6 +72,7 @@ cEntity::cEntity() {
 	type_ = UNKNOWN;
 	priority_ = 0;
 	cellid_ = -1;
+	prioritySolver_ = 0;
 }
 
 cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet facet) {
@@ -84,9 +88,13 @@ cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet face
 	type_ = UNKNOWN;
 	priority_ = 0;
 	cellid_ = -1;
+	prioritySolver_ = 0;
 }
 
 cEntity::~cEntity() {
+	World->removeEntity(this);
+	Gui->removeOverheadText(this);
+	Log->print(LOG_NOTICE, QString("Freeing entity @ 0x%1, Type: %2.\n").arg((uint)this, 0, 16).arg(type()));
 }
 
 bool cEntity::isInWorld() const {

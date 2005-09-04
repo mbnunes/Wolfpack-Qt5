@@ -288,8 +288,9 @@ void cMainWindow::showPriority(cEntity *entity) {
 	QString message = tr("The entity has a drawing priority of %1, Z is %2.").arg(entity->priority()).arg(entity->z());
 	cGroundTile *gt = dynamic_cast<cGroundTile*>(entity);
 	if (gt) {
-		message.append(tr("The average z value is %1.").arg(gt->averagez()));
+		message.append(tr(" The sort z value is %1.").arg(gt->sortz()));
 	}
+	entity->updatePriority();
 
 	WorldView->addSysMessage(message);
 }

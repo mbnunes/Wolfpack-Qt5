@@ -17,6 +17,8 @@ public:
 
 	virtual void registerTexture(cTexture *texture) = 0;
 	virtual void unregisterTexture(cTexture *texture) = 0;
+	virtual void beforeTextureRemoval(cTexture *texture);
+	virtual void afterTextureSizeChange(cTexture *texture, uint oldSize);
 };
 
 /*
@@ -74,7 +76,20 @@ public:
 
 	// Check if a given is transparent (alpha < 128) or not
 	bool hitTest(int x, int y);
+
+	uint getMemorySize() const; // This is a simple measurement
 };
+
+inline uint cTexture::getMemorySize() const {
+	uint result = sizeof(cTexture); // base size of a texture
+	result += width_ * height_ * sizeof(uint);
+
+	if (hitTestArray) {
+		result += (width_ * height_ + 31) / 32 + 1;
+	}
+
+	return result;
+}
 
 inline void cTexture::incref() {
 	++refcount;
@@ -82,7 +97,14 @@ inline void cTexture::incref() {
 
 inline void cTexture::decref() {
 	if (--refcount == 0) {
-		delete this;
+		// Give the cache a chance to keep a reference to this texture
+		if (cache_) {
+			cache_->beforeTextureRemoval(this);
+		}
+		// If we were increffed again, don't delete
+		if (refcount == 0) {
+			delete this;
+		}
 	}
 }
 

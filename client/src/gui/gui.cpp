@@ -18,6 +18,7 @@ cGui *Gui = 0;
 cGui::cGui() {
 	inputFocus_ = 0;
 	activeWindow_ = 0;
+	cleaningUpOverheadText = false;
 }
 
 cGui::~cGui() {
@@ -30,11 +31,17 @@ void cGui::queueDelete(cControl *ctrl) {
 }
 
 void cGui::removeOverheadText(cEntity *source) {
+	if (cleaningUpOverheadText) {
+		return;
+	}
+
 	for (int i = 0; i < overheadText.size(); ++i) {
 		if (overheadText[i].entity == source) {
 			delete overheadText[i].control;
 			if (overheadText[i].entity) {
+				cleaningUpOverheadText = true;
 				overheadText[i].entity->decref();
+				cleaningUpOverheadText = false;
 			}
 			overheadText.remove(i);
 		}
@@ -72,8 +79,10 @@ void cGui::draw() {
 			if (diff < -500) {
 				delete overheadText[i].control;
 				if (overheadText[i].entity) {
+					cleaningUpOverheadText = true;
 					overheadText[i].entity->decref();
-				}
+					cleaningUpOverheadText = false;
+				}				
 				overheadText.remove(i--); // In the next iteration it's the same i again
 				continue;
 			}

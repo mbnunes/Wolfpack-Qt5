@@ -91,7 +91,19 @@ public:
 
 	void incref();
 	void decref();
+
+	uint getMemorySize() const;
 };
+
+inline uint cSequence::getMemorySize() const {
+	uint result = sizeof(cSequence);
+	if (texture_) {
+		result += texture_->getMemorySize();
+	}
+	
+	result += frameCount_ * sizeof(cSequence::stFrame);
+	return result;
+}
 
 inline void cSequence::setIdent(const stSequenceIdent &ident) {
 	this->ident = ident;
@@ -129,6 +141,10 @@ inline unsigned short cSequence::frameCount() const {
 class cAnimations {
 friend class cSequence;
 protected:
+	void beforeSequenceDeletion(cSequence *sequence);
+
+	QVector<cSequence*> ownedSequences_; // Sequences that are in-memory but currently unused
+	uint totalSequenceSize_; // Total amount of memory consumed by loaded sequences (in bytes, estimate)
 	QMap<stSequenceIdent, cSequence*> SequenceCache;
 
 	enBodyType bodyTypes[4096]; // Static lookup table for body types
@@ -182,6 +198,8 @@ public:
 	uint getFlags(unsigned short body) const;
 
 	uint cacheSize() const;
+	uint totalSequenceSize() const; // Size in bytes, estimated
+	uint maximumSequenceSize() const;
 
     // Loading and Unloading
 	void load();
@@ -202,6 +220,14 @@ inline uint cAnimations::getFlags(unsigned short body) const {
 	} else {
 		return 0;
 	}
+}
+
+inline uint cAnimations::totalSequenceSize() const {
+	return totalSequenceSize_;
+}
+
+inline uint cAnimations::maximumSequenceSize() const {
+	return 32 * 1024 * 1024; // 10 MB of sequences should be reasonable
 }
 
 extern cAnimations *Animations;

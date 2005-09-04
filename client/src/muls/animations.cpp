@@ -19,6 +19,8 @@ cSequence::cSequence(unsigned short body, unsigned char action, unsigned char di
 }
 
 cSequence::~cSequence() {
+	Animations->totalSequenceSize_ -= getMemorySize();
+
 	if (texture_) {
 		texture_->decref();
 	}
@@ -32,7 +34,10 @@ cSequence::~cSequence() {
 // Decrement the internal reference count
 void cSequence::decref() {
 	if (--refcount == 0) {
-		delete this;
+		Animations->beforeSequenceDeletion(this);
+		if (refcount == 0) {
+			delete this;
+		}
 	}
 }
 
@@ -259,6 +264,8 @@ void cSequence::load(QDataStream &input) {
 	delete surface;
 
 	delete [] frameLookup;
+
+	Animations->totalSequenceSize_ += getMemorySize();
 }
 
 signed char cAnimations::getFileId(unsigned short &body) const {
@@ -295,6 +302,8 @@ cAnimations::cAnimations() {
 		dataStream[i].setDevice(&dataFile[i]);
 		dataStream[i].setByteOrder(QDataStream::LittleEndian);
 	}
+
+	totalSequenceSize_ = 0;
 }
 
 cAnimations::~cAnimations() {
@@ -339,6 +348,11 @@ void cAnimations::load() {
 }
 
 void cAnimations::unload() {
+	foreach(cSequence *sequence, ownedSequences_) {
+		sequence->decref();
+	}
+	ownedSequences_.clear();
+
 	for (int i = 0; i < ANIMATION_FILES; ++i) {
 		dataFile[i].close();
 		indexFile[i].close();
@@ -616,6 +630,13 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 		}
 
 		SequenceCache.insert(ident, result);
+
+		// Clean up the cache if neccesary
+		while (totalSequenceSize_ >= maximumSequenceSize() && !ownedSequences_.isEmpty()) {
+			cSequence *sequence = ownedSequences_.front();
+			sequence->decref();
+			ownedSequences_.pop_front();
+		}
 	}
 
 	return result;
@@ -623,6 +644,16 @@ cSequence *cAnimations::readSequence(unsigned short body, unsigned char action, 
 
 uint cAnimations::cacheSize() const {
 	return SequenceCache.size();
+}
+
+void cAnimations::beforeSequenceDeletion(cSequence *sequence) {
+	if (totalSequenceSize_ >= maximumSequenceSize() || ownedSequences_.contains(sequence)) {
+		return; // Let the sequence be deleted
+	}
+
+	// Keep a reference to the sequence
+	sequence->incref();
+	ownedSequences_.append(sequence);
 }
 
 cAnimations *Animations = 0;
