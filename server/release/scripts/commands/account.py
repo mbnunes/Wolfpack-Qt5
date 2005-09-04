@@ -29,16 +29,13 @@
 	<br />
 	In addition to the writeable properties, the following properties can be shown:
 	<br />
-	<i>loginattempts</i>
-	How many failed login attempts have been made since the last successful login.
-	<br />
 	<i>lastlogin</i>
 	When was the last successful login made.
 	<br />
 	<i>chars</i>
 	Prints a list of player characters on this account.
 	<br />
-	Valid values for the block property are either on, off or for how long the account should be blocked.
+	Valid values for the block property are either true or false.
 	<br />
 	If you have enabled MD5 passwords, you can only view the hashed password when showing the password property.
 """
@@ -242,22 +239,32 @@ def accountShow( socket, username, key ):
 			if account.rank >= characcount.rank and account.name != characcount.name:
 				socket.sysmessage( "Error: Your account rank does not permit this!" )
 				return False
+			chars = []
+			for char in account.characters:
+				chars.append(unicode(char.name))
 			if key == 'all':
 				socket.sysmessage( "Account properties for %s:" % account.name  )
 				socket.sysmessage( "  acl: %s" % account.acl )
 				socket.sysmessage( "  email: %s" % account.email )
 				socket.sysmessage( "  rank: %s" % account.rank )
-				socket.sysmessage( "  flags: %s" % account.flags )
+				#socket.sysmessage( "  flags: %s" % account.flags )
+				socket.sysmessage( "  blocked: %s" % unicode(account.flags & 0x00000001) )
+				socket.sysmessage( "  allmove: %s" % unicode(account.flags & 0x00000002) )
+				socket.sysmessage( "  allshow: %s" % unicode(account.flags & 0x00000004) )
+				socket.sysmessage( "  showserials: %s" % unicode(account.flags & 0x00000008) )
+				socket.sysmessage( "  pagenotify: %s" % unicode(account.flags & 0x00000010) )
+				socket.sysmessage( "  staff: %s" % unicode(account.flags & 0x00000020) )
+				socket.sysmessage( "  jailed: %s" % unicode(account.flags & 0x00000080) )
 				socket.sysmessage( "  inuse: %s" % account.inuse )
 				socket.sysmessage( "  lastlogin: %s" % account.lastlogin )
 				socket.sysmessage( "  multigems: %s" % account.multigems )
-				socket.sysmessage( "  characters: %s" % account.characters )
+				socket.sysmessage( "  characters: %s" % chars)
 			elif key == 'acl':
 				socket.sysmessage( "%s.acl = %s" % ( account.name, account.acl ) )
 				char.log( LOG_MESSAGE, "Requested %s.acl.\n" % account.name )
 				return True
 			elif key == 'characters':
-				socket.sysmessage( "%s.characters = %s" % ( account.name, account.characters ) )
+				socket.sysmessage( "%s.characters = %s" % ( account.name, chars ) )
 				char.log( LOG_MESSAGE, "Requested %s.characters.\n" % account.name )
 				return True
 			elif key == 'flags':
@@ -291,6 +298,14 @@ def accountShow( socket, username, key ):
 			elif key == 'email':
 				socket.sysmessage( "%s.email = %i" % ( account.name, account.email ) )
 				char.log( LOG_MESSAGE, "Requested %s.email.\n" % account.name )
+				return True
+			elif key == 'block':
+				socket.sysmessage( "%s.block = %s" % ( account.name, account.flags & 0x00000001 ) )
+				char.log( LOG_MESSAGE, "Requested %s.block.\n" % account.name )
+				return True
+			elif key == 'chars':
+				socket.sysmessage( "%s.chars = %s" % ( account.name, chars ) )
+				char.log( LOG_MESSAGE, "Requested %s.chars.\n" % account.name )
 				return True
 			else:
 				socket.sysmessage( "Error: Unknown account key!" )
@@ -359,7 +374,7 @@ def accountSet( socket, username, key, value ):
 				return True
 			# MultiGems
 			elif key == 'multigems':
-				if value.lower() == "true" or value.lower() == "false" or value in [ 0, 1 ]:
+				if value.lower() == "true" or value.lower() == "false" or int(value) in [ 0, 1 ]:
 					oldvalue = account.multigems
 					socket.sysmessage( "Previous: %s.multigems = %s" % ( account.name, account.multigems ) )
 					account.multigems = value
@@ -369,6 +384,26 @@ def accountSet( socket, username, key, value ):
 				else:
 					socket.sysmessage( "Error: The account.multigems property must be boolean!" )
 					return False
+			elif key == 'block':
+				socket.sysmessage(str(value))
+				if value.lower() == "true" or int(value) == 1:
+					if account.flags & 0x00000001:
+						socket.sysmessage( "Account already blocked!" )
+						return False
+					else:
+						account.flags |= 0x00000001
+						socket.sysmessage( "Account '%s' blocked!" % account.name )
+						char.log( LOG_MESSAGE, "Blocked account '%s'.\n" % account.name  )
+						return True
+				elif value.lower() == "false" or int(value) == 0:
+					socket.sysmessage( "sfsf")
+					if account.flags & 0x00000001:
+						account.flags &= ~ 0x00000001
+						socket.sysmessage( "Unblocked account '%s'!" % account.name )
+						return True
+					else:
+						socket.sysmessage( "Account is not blocked!" )
+						return False
 			# Password
 			elif key == 'password':
 				if len( value ) > 16 or len( value ) == 0:
