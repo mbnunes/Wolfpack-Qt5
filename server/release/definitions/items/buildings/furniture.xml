@@ -835,6 +835,80 @@
 		<category>Decoration\Bedroom\Pillow\Pillow 15</category>
 	</item>
 
+	<!-- Elven Bed -->
+	<item id="304c">
+		<id>0x304c</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Bed\Elven Bed (W/E)(1/2)</category>
+	</item>
+
+	<item id="304d">
+		<id>0x304d</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Bed\Elven Bed (W/E)(2/2)</category>
+	</item>
+
+	<item id="3050">
+		<id>0x3050</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Bed\Elven Bed (N/S)(1/2)</category>
+	</item>
+
+	<item id="3051">
+		<id>0x3051</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Bed\Elven Bed (N/S)(2/2)</category>
+	</item>
+
+	<!-- Elven Double Bed -->
+	<item id="3052">
+		<id>0x3052</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (W/E)(1/4)</category>
+	</item>
+
+	<item id="3053">
+		<id>0x3053</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (W/E)(2/4)</category>
+	</item>
+
+	<item id="3054">
+		<id>0x3054</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (W/E)(3/4)</category>
+	</item>
+
+	<item id="3055">
+		<id>0x3055</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (W/E)(4/4)</category>
+	</item>
+
+	<item id="3056">
+		<id>0x3056</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (N/S)(1/4)</category>
+	</item>
+
+	<item id="3057">
+		<id>0x3057</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (N/S)(2/4)</category>
+	</item>
+
+	<item id="3058">
+		<id>0x3058</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (N/S)(3/4)</category>
+	</item>
+
+	<item id="3059">
+		<id>0x3059</id>
+		<nodecay />
+		<category>Decoration\Bedroom\Elven Double Bed\Elven Double Bed (N/S)(4/4)</category>
+	</item>
+
 	<!-- Misc -->
 	<item id="1914">
 		<id>0x1914</id>
