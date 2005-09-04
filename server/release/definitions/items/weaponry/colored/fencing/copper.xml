@@ -110,4 +110,53 @@
 		<category>Weapons\Copper\Fencing\War Fork 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d21_copper" inherit="2d21">
+		<copper_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Copper\Fencing\Assassin Spike 1</category>
+	</item>
+
+	<item id="2d2d_copper" inherit="2d2d">
+		<copper_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Copper\Fencing\Assassin Spike 2</category>
+	</item>
+
+	<item id="2d20_copper" inherit="2d20">
+		<copper_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Copper\Fencing\Elven Spellblade 1</category>
+	</item>
+
+	<item id="2d2c_copper" inherit="2d2c">
+		<copper_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Copper\Fencing\Elven Spellblade 2</category>
+	</item>
+
+	<item id="2d22_copper" inherit="2d22">
+		<copper_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Copper\Fencing\Leafblade 1</category>
+	</item>
+
+	<item id="2d2e_copper" inherit="2d2e">
+		<copper_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Copper\Fencing\Leafblade 2</category>
+	</item>
+
+	<item id="2d23_copper" inherit="2d23">
+		<copper_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Copper\Fencing\War Cleaver 1</category>
+	</item>
+
+	<item id="2d2f_copper" inherit="2d2f">
+		<copper_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Copper\Fencing\War Cleaver 2</category>
+	</item>
+
 </definitions>

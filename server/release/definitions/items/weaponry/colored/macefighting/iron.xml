@@ -110,4 +110,17 @@
 		<category>Weapons\Iron\Macefighting\War Mace 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d24_iron" inherit="2d24">
+		<iron_weapon />
+		<baseid>2d24</baseid>
+		<category>Weapons\Iron\Macefighting\Diamond Mace 1</category>
+	</item>
+
+	<item id="2d30_iron" inherit="2d30">
+		<iron_weapon />
+		<baseid>2d24</baseid>
+		<category>Weapons\Iron\Macefighting\Diamond Mace 2</category>
+	</item>
+
 </definitions>

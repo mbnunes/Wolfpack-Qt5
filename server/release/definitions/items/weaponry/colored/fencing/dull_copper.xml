@@ -110,4 +110,53 @@
 		<category>Weapons\Dull Copper\Fencing\War Fork 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d21_dull_copper" inherit="2d21">
+		<dull_copper_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Dull Copper\Fencing\Assassin Spike 1</category>
+	</item>
+
+	<item id="2d2d_dull_copper" inherit="2d2d">
+		<dull_copper_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Dull Copper\Fencing\Assassin Spike 2</category>
+	</item>
+
+	<item id="2d20_dull_copper" inherit="2d20">
+		<dull_copper_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Dull Copper\Fencing\Elven Spellblade 1</category>
+	</item>
+
+	<item id="2d2c_dull_copper" inherit="2d2c">
+		<dull_copper_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Dull Copper\Fencing\Elven Spellblade 2</category>
+	</item>
+
+	<item id="2d22_dull_copper" inherit="2d22">
+		<dull_copper_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Dull Copper\Fencing\Leafblade 1</category>
+	</item>
+
+	<item id="2d2e_dull_copper" inherit="2d2e">
+		<dull_copper_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Dull Copper\Fencing\Leafblade 2</category>
+	</item>
+
+	<item id="2d23_dull_copper" inherit="2d23">
+		<dull_copper_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Dull Copper\Fencing\War Cleaver 1</category>
+	</item>
+
+	<item id="2d2f_dull_copper" inherit="2d2f">
+		<dull_copper_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Dull Copper\Fencing\War Cleaver 2</category>
+	</item>
+
 </definitions>

@@ -110,4 +110,53 @@
 		<category>Weapons\Shadow Iron\Fencing\War Fork 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d21_shadow" inherit="2d21">
+		<shadow_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Assassin Spike 1</category>
+	</item>
+
+	<item id="2d2d_shadow" inherit="2d2d">
+		<shadow_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Assassin Spike 2</category>
+	</item>
+
+	<item id="2d20_shadow" inherit="2d20">
+		<shadow_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Elven Spellblade 1</category>
+	</item>
+
+	<item id="2d2c_shadow" inherit="2d2c">
+		<shadow_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Elven Spellblade 2</category>
+	</item>
+
+	<item id="2d22_shadow" inherit="2d22">
+		<shadow_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Leafblade 1</category>
+	</item>
+
+	<item id="2d2e_shadow" inherit="2d2e">
+		<shadow_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Shadow Iron\Fencing\Leafblade 2</category>
+	</item>
+
+	<item id="2d23_shadow" inherit="2d23">
+		<shadow_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Shadow Iron\Fencing\War Cleaver 1</category>
+	</item>
+
+	<item id="2d2f_shadow" inherit="2d2f">
+		<shadow_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Shadow Iron\Fencing\War Cleaver 2</category>
+	</item>
+
 </definitions>

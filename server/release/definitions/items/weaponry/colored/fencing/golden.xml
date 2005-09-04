@@ -110,4 +110,53 @@
 		<category>Weapons\Gold\Fencing\War Fork 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d21_gold" inherit="2d21">
+		<gold_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Gold\Fencing\Assassin Spike 1</category>
+	</item>
+
+	<item id="2d2d_gold" inherit="2d2d">
+		<gold_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Gold\Fencing\Assassin Spike 2</category>
+	</item>
+
+	<item id="2d20_gold" inherit="2d20">
+		<gold_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Gold\Fencing\Elven Spellblade 1</category>
+	</item>
+
+	<item id="2d2c_gold" inherit="2d2c">
+		<gold_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Gold\Fencing\Elven Spellblade 2</category>
+	</item>
+
+	<item id="2d22_gold" inherit="2d22">
+		<gold_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Gold\Fencing\Leafblade 1</category>
+	</item>
+
+	<item id="2d2e_gold" inherit="2d2e">
+		<gold_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Gold\Fencing\Leafblade 2</category>
+	</item>
+
+	<item id="2d23_gold" inherit="2d23">
+		<gold_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Gold\Fencing\War Cleaver 1</category>
+	</item>
+
+	<item id="2d2f_gold" inherit="2d2f">
+		<gold_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Gold\Fencing\War Cleaver 2</category>
+	</item>
+
 </definitions>

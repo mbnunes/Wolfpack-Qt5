@@ -140,7 +140,7 @@
 		<category>Weapons\Dull Copper\Swordsmanship\Longsword 1</category>
 	</item>
 
-	<item id="f60_dull_copper" inherit="f610">
+	<item id="f60_dull_copper" inherit="f60">
 		<dull_copper_weapon />
 		<baseid>f61</baseid>
 		<category>Weapons\Dull Copper\Swordsmanship\Longsword 2</category>
@@ -301,6 +301,55 @@
 		<dull_copper_weapon />
 		<baseid>1443</baseid>
 		<category>Weapons\Dull Copper\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
+
+	<!-- Mondain's Legacy -->
+	<item id="2d29_dull_copper" inherit="2d29">
+		<dull_copper_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Elven Machete 1</category>
+	</item>
+
+	<item id="2d35_dull_copper" inherit="2d35">
+		<dull_copper_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Elven Machete 2</category>
+	</item>
+
+	<item id="2d28_dull_copper" inherit="2d28">
+		<dull_copper_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Axes\Ornate Axe 1</category>
+	</item>
+
+	<item id="2d34_dull_copper" inherit="2d34">
+		<dull_copper_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Axes\Ornate Axe 2</category>
+	</item>
+
+	<item id="2d27_dull_copper" inherit="2d27">
+		<dull_copper_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Radiant Scimitar 1</category>
+	</item>
+
+	<item id="2d33_dull_copper" inherit="2d33">
+		<dull_copper_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Radiant Scimitar 2</category>
+	</item>
+
+	<item id="2d26_dull_copper" inherit="2d26">
+		<dull_copper_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Rune Blade 1</category>
+	</item>
+
+	<item id="2d32_dull_copper" inherit="2d32">
+		<dull_copper_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Dull Copper\Swordsmanship\Rune Blade 2</category>
 	</item>
 
 </definitions>

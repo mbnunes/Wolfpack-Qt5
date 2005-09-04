@@ -140,7 +140,7 @@
 		<category>Weapons\Shadow Iron\Swordsmanship\Longsword 1</category>
 	</item>
 
-	<item id="f60_shadow" inherit="f610">
+	<item id="f60_shadow" inherit="f60">
 		<shadow_weapon />
 		<baseid>f61</baseid>
 		<category>Weapons\Shadow Iron\Swordsmanship\Longsword 2</category>
@@ -301,6 +301,55 @@
 		<shadow_weapon />
 		<baseid>1443</baseid>
 		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
+
+	<!-- Mondain's Legacy -->
+	<item id="2d29_shadow" inherit="2d29">
+		<shadow_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Elven Machete 1</category>
+	</item>
+
+	<item id="2d35_shadow" inherit="2d35">
+		<shadow_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Elven Machete 2</category>
+	</item>
+
+	<item id="2d28_shadow" inherit="2d28">
+		<shadow_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Ornate Axe 1</category>
+	</item>
+
+	<item id="2d34_shadow" inherit="2d34">
+		<shadow_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Ornate Axe 2</category>
+	</item>
+
+	<item id="2d27_shadow" inherit="2d27">
+		<shadow_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Radiant Scimitar 1</category>
+	</item>
+
+	<item id="2d33_shadow" inherit="2d33">
+		<shadow_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Radiant Scimitar 2</category>
+	</item>
+
+	<item id="2d26_shadow" inherit="2d26">
+		<shadow_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Rune Blade 1</category>
+	</item>
+
+	<item id="2d32_shadow" inherit="2d32">
+		<shadow_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Rune Blade 2</category>
 	</item>
 
 </definitions>

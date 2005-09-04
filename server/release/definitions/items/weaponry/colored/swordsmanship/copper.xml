@@ -140,7 +140,7 @@
 		<category>Weapons\Copper\Swordsmanship\Longsword 1</category>
 	</item>
 
-	<item id="f60_copper" inherit="f610">
+	<item id="f60_copper" inherit="f60">
 		<copper_weapon />
 		<baseid>f61</baseid>
 		<category>Weapons\Copper\Swordsmanship\Longsword 2</category>
@@ -301,6 +301,55 @@
 		<copper_weapon />
 		<baseid>1443</baseid>
 		<category>Weapons\Copper\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
+
+	<!-- Mondain's Legacy -->
+	<item id="2d29_copper" inherit="2d29">
+		<copper_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Copper\Swordsmanship\Elven Machete 1</category>
+	</item>
+
+	<item id="2d35_copper" inherit="2d35">
+		<copper_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Copper\Swordsmanship\Elven Machete 2</category>
+	</item>
+
+	<item id="2d28_copper" inherit="2d28">
+		<copper_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Ornate Axe 1</category>
+	</item>
+
+	<item id="2d34_copper" inherit="2d34">
+		<copper_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Ornate Axe 2</category>
+	</item>
+
+	<item id="2d27_copper" inherit="2d27">
+		<copper_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Copper\Swordsmanship\Radiant Scimitar 1</category>
+	</item>
+
+	<item id="2d33_copper" inherit="2d33">
+		<copper_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Copper\Swordsmanship\Radiant Scimitar 2</category>
+	</item>
+
+	<item id="2d26_copper" inherit="2d26">
+		<copper_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Copper\Swordsmanship\Rune Blade 1</category>
+	</item>
+
+	<item id="2d32_copper" inherit="2d32">
+		<copper_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Copper\Swordsmanship\Rune Blade 2</category>
 	</item>
 
 </definitions>

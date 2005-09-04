@@ -110,4 +110,53 @@
 		<category>Weapons\Bronze\Fencing\War Fork 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d21_bronze" inherit="2d21">
+		<bronze_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Bronze\Fencing\Assassin Spike 1</category>
+	</item>
+
+	<item id="2d2d_bronze" inherit="2d2d">
+		<bronze_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Bronze\Fencing\Assassin Spike 2</category>
+	</item>
+
+	<item id="2d20_bronze" inherit="2d20">
+		<bronze_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Bronze\Fencing\Elven Spellblade 1</category>
+	</item>
+
+	<item id="2d2c_bronze" inherit="2d2c">
+		<bronze_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Bronze\Fencing\Elven Spellblade 2</category>
+	</item>
+
+	<item id="2d22_bronze" inherit="2d22">
+		<bronze_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Bronze\Fencing\Leafblade 1</category>
+	</item>
+
+	<item id="2d2e_bronze" inherit="2d2e">
+		<bronze_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Bronze\Fencing\Leafblade 2</category>
+	</item>
+
+	<item id="2d23_bronze" inherit="2d23">
+		<bronze_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Bronze\Fencing\War Cleaver 1</category>
+	</item>
+
+	<item id="2d2f_bronze" inherit="2d2f">
+		<bronze_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Bronze\Fencing\War Cleaver 2</category>
+	</item>
+
 </definitions>

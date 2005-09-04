@@ -140,7 +140,7 @@
 		<category>Weapons\Bronze\Swordsmanship\Longsword 1</category>
 	</item>
 
-	<item id="f60_bronze" inherit="f610">
+	<item id="f60_bronze" inherit="f60">
 		<bronze_weapon />
 		<baseid>f61</baseid>
 		<category>Weapons\Bronze\Swordsmanship\Longsword 2</category>
@@ -301,6 +301,55 @@
 		<bronze_weapon />
 		<baseid>1443</baseid>
 		<category>Weapons\Bronze\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
+
+	<!-- Mondain's Legacy -->
+	<item id="2d29_bronze" inherit="2d29">
+		<bronze_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Elven Machete 1</category>
+	</item>
+
+	<item id="2d35_bronze" inherit="2d35">
+		<bronze_weapon />
+		<baseid>2d29</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Elven Machete 2</category>
+	</item>
+
+	<item id="2d28_bronze" inherit="2d28">
+		<bronze_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Ornate Axe 1</category>
+	</item>
+
+	<item id="2d34_bronze" inherit="2d34">
+		<bronze_weapon />
+		<baseid>2d28</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Ornate Axe 2</category>
+	</item>
+
+	<item id="2d27_bronze" inherit="2d27">
+		<bronze_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Radiant Scimitar 1</category>
+	</item>
+
+	<item id="2d33_bronze" inherit="2d33">
+		<bronze_weapon />
+		<baseid>2d27</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Radiant Scimitar 2</category>
+	</item>
+
+	<item id="2d26_bronze" inherit="2d26">
+		<bronze_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Rune Blade 1</category>
+	</item>
+
+	<item id="2d32_bronze" inherit="2d32">
+		<bronze_weapon />
+		<baseid>2d26</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Rune Blade 2</category>
 	</item>
 
 </definitions>

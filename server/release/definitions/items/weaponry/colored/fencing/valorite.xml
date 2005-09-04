@@ -110,4 +110,53 @@
 		<category>Weapons\Valorite\Fencing\War Fork 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d21_valorite" inherit="2d21">
+		<valorite_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Valorite\Fencing\Assassin Spike 1</category>
+	</item>
+
+	<item id="2d2d_valorite" inherit="2d2d">
+		<valorite_weapon />
+		<baseid>2d21</baseid>
+		<category>Weapons\Valorite\Fencing\Assassin Spike 2</category>
+	</item>
+
+	<item id="2d20_valorite" inherit="2d20">
+		<valorite_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Valorite\Fencing\Elven Spellblade 1</category>
+	</item>
+
+	<item id="2d2c_valorite" inherit="2d2c">
+		<valorite_weapon />
+		<baseid>2d20</baseid>
+		<category>Weapons\Valorite\Fencing\Elven Spellblade 2</category>
+	</item>
+
+	<item id="2d22_valorite" inherit="2d22">
+		<valorite_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Valorite\Fencing\Leafblade 1</category>
+	</item>
+
+	<item id="2d2e_valorite" inherit="2d2e">
+		<valorite_weapon />
+		<baseid>2d22</baseid>
+		<category>Weapons\Valorite\Fencing\Leafblade 2</category>
+	</item>
+
+	<item id="2d23_valorite" inherit="2d23">
+		<valorite_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Valorite\Fencing\War Cleaver 1</category>
+	</item>
+
+	<item id="2d2f_valorite" inherit="2d2f">
+		<valorite_weapon />
+		<baseid>2d23</baseid>
+		<category>Weapons\Valorite\Fencing\War Cleaver 2</category>
+	</item>
+
 </definitions>

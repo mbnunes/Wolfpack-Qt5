@@ -110,4 +110,17 @@
 		<category>Weapons\Copper\Macefighting\War Mace 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d24_copper" inherit="2d24">
+		<copper_weapon />
+		<baseid>2d24</baseid>
+		<category>Weapons\Copper\Macefighting\Diamond Mace 1</category>
+	</item>
+
+	<item id="2d30_copper" inherit="2d30">
+		<copper_weapon />
+		<baseid>2d24</baseid>
+		<category>Weapons\Copper\Macefighting\Diamond Mace 2</category>
+	</item>
+
 </definitions>

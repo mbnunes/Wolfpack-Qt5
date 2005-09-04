@@ -110,4 +110,17 @@
 		<category>Weapons\Bronze\Macefighting\War Mace 2</category>
 	</item>
 
+	<!-- Mondain's Legacy -->
+	<item id="2d24_bronze" inherit="2d24">
+		<bronze_weapon />
+		<baseid>2d24</baseid>
+		<category>Weapons\Bronze\Macefighting\Diamond Mace 1</category>
+	</item>
+
+	<item id="2d30_bronze" inherit="2d30">
+		<bronze_weapon />
+		<baseid>2d24</baseid>
+		<category>Weapons\Bronze\Macefighting\Diamond Mace 2</category>
+	</item>
+
 </definitions>
