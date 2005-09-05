@@ -67,7 +67,7 @@ def response( char, args, target ):
 		resname = item.gettag( 'resname' )
 
 	if target.item:
-		targetitem = wolfpack.finditem( target.item.serial )
+		targetitem = target.item
 
 	elif target.char:
 		char.socket.clilocmessage(501973)
@@ -75,18 +75,20 @@ def response( char, args, target ):
 
 	# Static Forges can be used, too
 	else:
-		statics = wolfpack.statics(target.pos.x, target.pos.y, target.pos.map, True)
 		if char.pos.distance( target.pos ) > 3:
 			char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 			return True
+
+		statics = wolfpack.statics(target.pos.x, target.pos.y, target.pos.map, True)
 		for tile in statics:
 			dispid = tile[0]
 			if dispid in FORGES:
 				dosmelt( char, [ item, resname ] )
 				return True
-			else:
-				char.socket.clilocmessage(501973)
-				return
+
+		# We found no static forge
+		char.socket.clilocmessage(501973)
+		return
 
 	# We go onto creating ingots here.
 	if target.item and target.item.id in FORGES:
