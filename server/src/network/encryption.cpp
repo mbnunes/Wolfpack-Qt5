@@ -131,6 +131,9 @@ void cLoginEncryption::clientDecrypt( char* buffer, unsigned int length )
 */
 void cGameEncryption::init( unsigned int seed )
 {
+	// The seed is actually little endian and needs to be swapped
+	seed = ((seed >> 24) & 0xFF) | ((seed >> 8) & 0xFF00) | ((seed << 8) & 0xFF0000) | ((seed << 24) & 0xFF000000);
+	
 	makeKey( &ki, DIR_DECRYPT, 0x80, NULL );
 	cipherInit( &ci, MODE_ECB, NULL );
 
