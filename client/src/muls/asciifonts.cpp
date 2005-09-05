@@ -256,7 +256,7 @@ cTexture *cAsciiFonts::buildText(unsigned char font, const QString &text, unsign
 					g = surface->green(pixel);
 					if (hueAll || (r == g && g == b)) {
 						color = hue->colors[r >> 3];
-						surface->setPixel(x, y, surface->color(color.r, color.b, color.g));
+						surface->setPixel(x, y, surface->color(color.r, color.g, color.b));
 					}
 				}
 			}

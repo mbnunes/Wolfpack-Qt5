@@ -297,7 +297,7 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		bool flip = (direction_ >= 0 && direction_ < 4);
 
 		// Mounts come always first
-		if (equipment[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]) {
+		if ((bodyType() == HUMAN || bodyType() == EQUIPMENT) && equipment[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]) {
 			// Skip to next frame
 			if (nextMountFrame < Utilities::getTicks()) {
 				if (++mountFrame >= equipmentSequences[LAYER_MOUNT]->frameCount()) {
