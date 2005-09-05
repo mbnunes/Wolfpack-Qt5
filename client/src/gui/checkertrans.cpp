@@ -17,7 +17,7 @@ cCheckerTrans::~cCheckerTrans() {
 void cCheckerTrans::generateCheckerboard() {
 	// Generate the checkerboard texture if not present yet
 	if (!checkerboard) {
-		cSurface *surface = new cSurface(width_, height_, true);		
+		cSurface *surface = new cSurface(width_, height_, true);
 		int black = surface->color(0, 0, 0, 0);
 		int white = surface->color(255, 255, 255, 255);
 		for (int x = 0; x < width_; ++x) {

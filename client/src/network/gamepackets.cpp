@@ -789,7 +789,7 @@ public:
 
 				if (item) {
 					QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
-					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, message, hue, font, item);
+					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, message, hue, font, item, true);
 				} else {
 					serial = 0; // Set to invalid so it shows up as a sysmessage
 				}
@@ -799,9 +799,9 @@ public:
 
 			if (mobile) {
 				if (type == 6) {
-					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile);
+					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile, true);
 				} else {
-					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile);
+					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile, true);
 				}
 			}
 		}

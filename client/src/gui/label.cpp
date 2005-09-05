@@ -14,6 +14,7 @@ cLabel::cLabel(const QString &text, unsigned short font, unsigned short hue, boo
 	align_ = align;
 	autoSize_ = autoSize;
 	exactHitTest_ = false;
+	htmlMode_ = false;
 }
 
 cLabel::~cLabel() {
@@ -28,9 +29,9 @@ void cLabel::update() {
 	}
 
 	if (autoSize_ || width_ == 0) {
-		surface = UnicodeFonts->buildText(font_, text_, hue_, false, border_, align_);
+		surface = UnicodeFonts->buildText(font_, text_, hue_, false, border_, align_, htmlMode_);
 	} else {
-		surface = UnicodeFonts->buildTextWrapped(font_, text_, width_, hue_, false, border_, align_);
+		surface = UnicodeFonts->buildTextWrapped(font_, text_, width_, hue_, false, border_, align_, htmlMode_);
 	}
 
 	if (autoSize_ && surface) {

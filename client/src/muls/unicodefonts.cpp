@@ -52,7 +52,7 @@ void cUnicodeFonts::reload() {
 	load();
 }
 
-cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, bool border, enTextAlign align) {
+cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, bool border, enTextAlign align, bool processHtml) {
 	// Insert Newslines if the word would exceed the maxWidth boundary
 	unsigned int lineLength = 0;
 	QString wrapped;
@@ -92,16 +92,25 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 		wrapped += word;
 	}
 
-	return buildText(font, wrapped, hue, shaded, border, align);
+	return buildText(font, wrapped, hue, shaded, border, align, processHtml);
 }
 
 /*
 	This will be a very very long function but for speeds sake i can't split it up.
 
 */
-cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned short hueid, bool shaded, bool border, enTextAlign align) {
+cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned short hueid, bool shaded, bool border, enTextAlign align, bool processHtml) {
 	font %= 3; // Wrap the font
 	stHue *hue = Hues->get(hueid); // Cache the hue
+
+	unsigned int background = 0; // cache the background color
+	unsigned int foreground; // cache the foreground color
+	if (!hue) {
+		foreground = cSurface::color(0xDD, 0xDD, 0xDD);
+	} else {
+		foreground = cSurface::color(hue->colors[31].r, hue->colors[31].g, hue->colors[31].b);
+	}
+	unsigned int bordercolor = cSurface::color(0, 0, 8); // cache the border color
 
 	unsigned int width = 0; // Total width of the text
 	unsigned int height = 0; // Total height of the text
@@ -111,7 +120,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 	int i;
 	QList<unsigned int> lineWidths; // Vector with the lengths of lines
 	QList<unsigned int> lineHeights; // List with the heights of every line
-	QDataStream &dataStream = this->dataStream[font];
+	QDataStream *dataStream = &this->dataStream[font];
 
 	/*
 		DEBUGGING: print xoffset values of first 4096 chars if they differ from 0
@@ -125,6 +134,9 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 		}
 	}*/
 
+	QString tagBuffer;
+	bool inTag = false;
+
 	// Iterate over the string once to get the width of the string	
 	for (i = 0; i < text.length(); ++i) {
 		if (lineWidth > 512) {
@@ -133,6 +145,37 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 		}
 
 		const QChar ch = text.at(i);
+
+		if (processHtml) {
+			if (ch.toLatin1() == '<') {
+				inTag = true;
+				continue;
+			}
+			if (inTag) {
+				if (ch.toLatin1() == '>') {
+					// Basefont tag
+					if (tagBuffer.startsWith("basefont")) {
+						// Only the size attribute matters here
+						QRegExp sizePattern("Size (\\d)", Qt::CaseInsensitive);
+						if (tagBuffer.contains(sizePattern)) {
+							uint size = sizePattern.cap(1).toUInt();
+							switch (size) {
+								case 7:
+									font = 0;
+									dataStream = &this->dataStream[font];
+									break;
+							}
+						}
+					}
+					inTag = false;
+					continue;
+				} else {
+					tagBuffer.append(ch);
+				}
+				continue;
+			}
+		}
+		
 		if (ch.toLatin1() == '\n') {
 			lines += 1;
 			if (lineWidth > width) {
@@ -152,8 +195,8 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 			}
 		} else {
 			signed char xoffset, yoffset, width, height;
-			dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
-			dataStream >> xoffset >> yoffset >> width >> height;
+			dataStream->device()->seek(seekOffsets[font][ch.unicode()]);
+			*dataStream >> xoffset >> yoffset >> width >> height;
 
 			height += abs(yoffset);
 			// Only process this if it's NOT the first character
@@ -211,16 +254,6 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 		int xoffset; // current offset in line
 
 		surface = new cSurface(width, height);
-
-		unsigned int background = 0; // cache the background color
-		unsigned int foreground; // cache the foreground color
-		if (!hue) {
-			foreground = surface->color(0xDD, 0xDD, 0xDD);
-		} else {
-			foreground = surface->color(hue->colors[31].r, hue->colors[31].g, hue->colors[31].b);
-		}
-		unsigned int bordercolor = surface->color(0, 0, 8); // cache the border color
-
 		surface->clear(); // Make the image transparent first
 
 		// Start copying the characters over
@@ -243,6 +276,44 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 
 		for (unsigned int i = 0; i < text.length(); ++i) {
 			QChar ch = text.at(i);			
+
+			// Process HTML instructions (VERY basic at this point)
+			if (processHtml) {
+				if (ch.toLatin1() == '<') {
+					tagBuffer.clear();
+					inTag = true;
+					continue;
+				}
+				if (inTag) {
+					if (ch.toLatin1() == '>') {
+						// Basefont tag
+						if (tagBuffer.startsWith("basefont")) {
+							// Color Attribute
+							QRegExp colorPattern("color=?\"?#(\\w+)\"?", Qt::CaseInsensitive);
+							if (colorPattern.indexIn(tagBuffer) != -1) {
+								uint color = colorPattern.cap(1).toUInt(0, 16);
+								foreground = cSurface::color((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+							}
+							QRegExp sizePattern("Size (\\d)", Qt::CaseInsensitive);
+							if (tagBuffer.contains(sizePattern)) {
+								uint size = sizePattern.cap(1).toUInt();
+								switch (size) {
+									case 7:
+										font = 0;
+										dataStream = &this->dataStream[font];
+										break;
+								}
+							}
+						}
+						inTag = false;
+						continue;
+					} else {
+						tagBuffer.append(ch);
+					}
+					continue;
+				}
+			}
+
 			if (ch.toLatin1() == '\n') {
 				if (!lineWidths.isEmpty() && !lineHeights.isEmpty()) {
 					switch (align) {
@@ -272,9 +343,9 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 				}
 			} else {
 				// Seek to the character in question, decode it and blit it
-				dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
+				dataStream->device()->seek(seekOffsets[font][ch.unicode()]);
 				signed char pxoffset, pyoffset, pwidth, pheight;
-				dataStream >> pxoffset >> pyoffset >> pwidth >> pheight;
+				*dataStream >> pxoffset >> pyoffset >> pwidth >> pheight;
 
 				//Log->print(LOG_MESSAGE, tr("Character '%1' has xoffset %2 and yoffset %3.\n").arg(ch.toLatin1()).arg(pxoffset).arg(pyoffset));
 
@@ -291,7 +362,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 
 				// Start reading scalines
 				for (signed char y = 0; y < pheight; ++y) {
-					dataStream.readRawData((char*)scanline, pslwidth); // Read in the entire scanline at once
+					dataStream->readRawData((char*)scanline, pslwidth); // Read in the entire scanline at once
 					unsigned char *ptr = surface->scanline(baseline + pyoffset + y) + (xoffset + pxoffset) * 4;
 					unsigned char *endptr = ptr + pwidth * 4; // Calculate the end of the row so an easy pointer comparison suffices
 					pslpadding = 0;
@@ -336,78 +407,6 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 	delete surface;	
 	return result;
 }
-/*
-SDL_Surface *cUnicodeFonts::getCharacter(unsigned char font, const QChar &ch, unsigned short hue, bool border) {
-	SDL_Surface *surface = 0;
-
-	font %= 3; // Wrap the font
-
-	// Seek to the cached offset
-	QDataStream &dataStream = this->dataStream[font];
-	dataStream.device()->seek(seekOffsets[font][ch.unicode()]);
-    
-	if (!dataStream.atEnd()) {		
-		signed char xoffset, yoffset, width, height; // Character properties
-        
-		dataStream >> xoffset >> yoffset >> width >> height;
-
-		if (width > 0 && height > 0) {
-			surface = Engine->createSurface(width, height, true, false, false);
-			SDL_PixelFormat *pf = surface->format;
-
-			unsigned int y = 0;
-			unsigned int sloffset; // Position within the scanline
-			unsigned int padding; // Position within a single byte
-			unsigned int slwidth = (width + 7) / 8; // Count of bytes in scanline
-
-			// Read in entire lines at once
-			unsigned char *scanline = new unsigned char[slwidth];
-
-			if (SDL_MUSTLOCK(surface)) {
-				SDL_LockSurface(surface);
-			}
-
-			while(y < height) {
-				dataStream.readRawData((char*)scanline, slwidth);
-				sloffset = 0;
-				padding = 0;
-
-				while (sloffset < slwidth) {
-					for (int i = 0; i < 8; ++i) {						
-						bool on = (scanline[sloffset] & (0x80 >> padding)) != 0;
-						unsigned int x = (sloffset << 3) + padding;
-						padding = (padding + 1) % 8; // Jump to the next bit
-						if (on && x < width) {
-							unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * pf->BytesPerPixel);
-
-							switch (pf->BytesPerPixel) {
-								case 4:
-									*(unsigned int*)ptr = SDL_MapRGB(pf, 255, 255, 255);
-									break;
-								case 2:
-									*(unsigned short*)ptr = SDL_MapRGB(pf, 255, 255, 255);
-									break;
-								default:
-									throw Exception(tr("Invalid bytes per pixel value: %1").arg(pf->BytesPerPixel));
-							}
-						}
-					}
-
-					sloffset++; // Next byte in scanline
-				}
-				y++;
-			}
-
-			if (SDL_MUSTLOCK(surface)) {
-				SDL_UnlockSurface(surface);
-			}
-
-			delete [] scanline;
-		}
-	}
-
-	return surface;	
-}*/
 
 stUnicodeCharInfo cUnicodeFonts::getCharacterInfo(uchar font, ushort ch) {
 	font %= 3;

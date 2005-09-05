@@ -35,8 +35,8 @@ public:
 	virtual ~cGui();
 
 	void queueDelete(cControl *ctrl);
-	void addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0);
-	void addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0);
+	void addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
+	void addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
 	void removeOverheadText(cEntity *source);
 	
 	inline cWindow *activeWindow() { return activeWindow_; }

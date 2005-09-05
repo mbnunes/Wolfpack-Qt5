@@ -19,6 +19,7 @@ private:
 	enTextAlign align_;
 	bool autoSize_;
 	bool exactHitTest_;
+	bool htmlMode_;
 public:
 	cLabel(const QString &text, unsigned short font = 0, unsigned short hue = 0, bool border = true, enTextAlign align_ = ALIGN_LEFT, bool autoSize = true);
 	virtual ~cLabel();
@@ -34,6 +35,8 @@ public:
 	bool autoSize() const { return align_; }
 	bool exactHitTest() const { return exactHitTest_; }
 	void update();
+	bool htmlMode() const;
+	void setHtmlMode(bool data);
 
 	// Setters
 	inline void setExactHitTest(bool data) {
@@ -96,5 +99,13 @@ public:
 
 	void draw(int xoffset, int yoffset);
 };
+
+inline bool cLabel::htmlMode() const {
+	return htmlMode_;
+}
+
+inline void cLabel::setHtmlMode(bool data) {
+	htmlMode_ = data;
+}
 
 #endif

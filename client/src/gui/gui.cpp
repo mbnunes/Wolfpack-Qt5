@@ -2,6 +2,7 @@
 #include "gui/gui.h"
 #include "gui/control.h"
 #include "gui/window.h"
+#include "gui/asciilabel.h"
 #include "gui/label.h"
 #include "gui/worldview.h"
 #include "gui/genericgump.h"
@@ -151,7 +152,7 @@ void cGui::draw() {
 	}
 }
 
-void cGui::addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue, unsigned char font, cEntity *source) {
+void cGui::addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue, unsigned char font, cEntity *source, bool ascii) {
 	// Search for ovehead text from the same entity
 	if (source) {
 		for (int i = 0; i < overheadText.size(); ++i) {
@@ -173,13 +174,19 @@ void cGui::addItemNameText(int centerx, int centery, unsigned int timeout, QStri
 	info.entity = source;
 	info.itemName = true;
 	info.entity->incref(); // Keep an instance of the entity with this
-	cLabel *label = new cLabel(message, font, hue);
-	label->update();
-	info.control = label;
+	if (!ascii) {
+		cLabel *label = new cLabel(message, font, hue);
+		label->update();
+		info.control = label;
+	} else {
+		cAsciiLabel *label = new cAsciiLabel(message, font, hue, ALIGN_LEFT, true, true);
+		label->update();
+		info.control = label;
+	}
 	overheadText.append(info);
 }
 
-void cGui::addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue, unsigned char font, cEntity *source) {
+void cGui::addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue, unsigned char font, cEntity *source, bool ascii) {
 	// Get current height of mobile
 	if (!source) {
 		return;
@@ -198,25 +205,39 @@ void cGui::addOverheadText(int centerx, int centery, unsigned int timeout, QStri
 	info.entity = source;
 	info.itemName = false;
 	info.entity->incref(); // Keep an instance of the entity with this
-	cLabel *label;
-	
-	if (source && source->type() == MOBILE) {
-		label = new cLabel(message, font, hue, true, ALIGN_LEFT, false);
-		label->setWidth(250);
+
+	if (!ascii) {
+		cLabel *label;	
+		if (source && source->type() == MOBILE) {
+			label = new cLabel(message, font, hue, true, ALIGN_LEFT, false);
+			label->setWidth(250);
+		} else {
+			label = new cLabel(message, font, hue);
+		}
+		label->update();
+		label->setAutoSize(true); // This makes sure we have the right width/height
+		label->setAutoSize(false);
+		info.control = label;
 	} else {
-		label = new cLabel(message, font, hue);
+		cAsciiLabel *label;	
+		if (source && source->type() == MOBILE) {
+			label = new cAsciiLabel(message, font, hue, ALIGN_LEFT, false, true);
+			label->setWidth(250);
+		} else {
+			label = new cAsciiLabel(message, font, hue, ALIGN_LEFT, true, true);
+		}
+		label->update();
+		label->setAutoSize(true); // This makes sure we have the right width/height
+		label->setAutoSize(false);
+		info.control = label;
 	}
-	label->update();
-	label->setAutoSize(true); // This makes sure we have the right width/height
-	label->setAutoSize(false);
-	info.control = label;
 
 	// Search trough overhead text for the entity and move it upwards. And increase 
 	// our timeout value by the highest timeout we find
 	QDateTime maxTimeout;
 	for (int i = 0; i < overheadText.size(); ++i) {
 		if (overheadText[i].entity == source && !overheadText[i].itemName) {
-			overheadText[i].centery -= label->height();
+			overheadText[i].centery -= info.control->height();
 			break;
 		}
 	}
