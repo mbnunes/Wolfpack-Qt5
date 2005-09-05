@@ -3781,7 +3781,7 @@
 		<category>Ground Tiles\Cave Drawings\84</category>
 	</item>
 
-	<!-- acid -->
+	<!-- Acid -->
 	<item id="2e02">
 		<id>0x2e02</id>
 		<nodecay />
@@ -3791,343 +3791,560 @@
 	<item id="2e03">
 		<id>0x2e03</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\02</category>
+		<category>Ground Tiles\Acid\Border\01</category>
 	</item>
 
 	<item id="2e04">
 		<id>0x2e04</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\03</category>
+		<category>Ground Tiles\Acid\Border\02</category>
 	</item>
 
 	<item id="2e05">
 		<id>0x2e05</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\04</category>
+		<category>Ground Tiles\Acid\Border\03</category>
 	</item>
 
 	<item id="2e06">
 		<id>0x2e06</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\05</category>
+		<category>Ground Tiles\Acid\Border\04</category>
 	</item>
 
 	<item id="2e07">
 		<id>0x2e07</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\06</category>
+		<category>Ground Tiles\Acid\Border\05</category>
 	</item>
 
 	<item id="2e08">
 		<id>0x2e08</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\07</category>
+		<category>Ground Tiles\Acid\Border\06</category>
 	</item>
 
 	<item id="2e09">
 		<id>0x2e09</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\08</category>
+		<category>Ground Tiles\Acid\Border\07</category>
 	</item>
 
 	<item id="2e0a">
 		<id>0x2e0a</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\09</category>
+		<category>Ground Tiles\Acid\Border\08</category>
 	</item>
 
 	<item id="2e0b">
 		<id>0x2e0b</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\10</category>
+		<category>Ground Tiles\Acid\Border\09</category>
 	</item>
 
 	<item id="2e0c">
 		<id>0x2e0c</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Corner\11</category>
+		<category>Ground Tiles\Acid\Corner\02</category>
 	</item>
 
 	<item id="2e0d">
 		<id>0x2e0d</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\12</category>
+		<category>Ground Tiles\Acid\Border\10</category>
 	</item>
 
 	<item id="2e0e">
 		<id>0x2e0e</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\13</category>
+		<category>Ground Tiles\Acid\Acid\01</category>
 	</item>
 
 	<item id="2e0f">
 		<id>0x2e0f</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\14</category>
+		<category>Ground Tiles\Acid\Acid\02</category>
 	</item>
 
 	<item id="2e10">
 		<id>0x2e10</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\15</category>
+		<category>Ground Tiles\Acid\Border\11</category>
 	</item>
 
 	<item id="2e11">
 		<id>0x2e11</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Corner\16</category>
+		<category>Ground Tiles\Acid\Corner\03</category>
 	</item>
 
 	<item id="2e12">
 		<id>0x2e12</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\17</category>
+		<category>Ground Tiles\Acid\Border\12</category>
 	</item>
 
 	<item id="2e13">
 		<id>0x2e13</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\18</category>
+		<category>Ground Tiles\Acid\Border\13</category>
 	</item>
 
 	<item id="2e14">
 		<id>0x2e14</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\19</category>
+		<category>Ground Tiles\Acid\Border\14</category>
 	</item>
 
 	<item id="2e15">
 		<id>0x2e15</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\20</category>
+		<category>Ground Tiles\Acid\Border\15</category>
 	</item>
 
 	<item id="2e16">
 		<id>0x2e16</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\21</category>
+		<category>Ground Tiles\Acid\Border\16</category>
 	</item>
 
 	<item id="2e17">
 		<id>0x2e17</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\22</category>
+		<category>Ground Tiles\Acid\Border\17</category>
 	</item>
 
 	<item id="2e18">
 		<id>0x2e18</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\23</category>
+		<category>Ground Tiles\Acid\Border\18</category>
 	</item>
 
 	<item id="2e19">
 		<id>0x2e19</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\24</category>
+		<category>Ground Tiles\Acid\Border\19</category>
 	</item>
 
 	<item id="2e1a">
 		<id>0x2e1a</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\25</category>
+		<category>Ground Tiles\Acid\Border\20</category>
 	</item>
 
 	<item id="2e1b">
 		<id>0x2e1b</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Corner\26</category>
+		<category>Ground Tiles\Acid\Corner\04</category>
 	</item>
 
 	<item id="2e1c">
 		<id>0x2e1c</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\27</category>
+		<category>Ground Tiles\Acid\Border\21</category>
 	</item>
 
 	<item id="2e1d">
 		<id>0x2e1d</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\28</category>
+		<category>Ground Tiles\Acid\Acid\03</category>
 	</item>
 
 	<item id="2e1e">
 		<id>0x2e1e</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\29</category>
+		<category>Ground Tiles\Acid\Acid\04</category>
 	</item>
 
 	<item id="2e1f">
 		<id>0x2e1f</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\30</category>
+		<category>Ground Tiles\Acid\Border\22</category>
 	</item>
 
 	<item id="2e20">
 		<id>0x2e20</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\31</category>
+		<category>Ground Tiles\Acid\Border\23</category>
 	</item>
 
 	<item id="2e21">
 		<id>0x2e21</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\32</category>
+		<category>Ground Tiles\Acid\Border\24</category>
 	</item>
 
 	<item id="2e22">
 		<id>0x2e22</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\33</category>
+		<category>Ground Tiles\Acid\Border\25</category>
 	</item>
 
 	<item id="2e23">
 		<id>0x2e23</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\34</category>
+		<category>Ground Tiles\Acid\Border\26</category>
 	</item>
 
 	<item id="2e24">
 		<id>0x2e24</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\35</category>
+		<category>Ground Tiles\Acid\Border\27</category>
 	</item>
 
 	<item id="2e25">
 		<id>0x2e25</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\36</category>
+		<category>Ground Tiles\Acid\Border\28</category>
 	</item>
 
 	<item id="2e26">
 		<id>0x2e26</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\37</category>
+		<category>Ground Tiles\Acid\Border\29</category>
 	</item>
 
 	<item id="2e27">
 		<id>0x2e27</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\38</category>
+		<category>Ground Tiles\Acid\Border\30</category>
 	</item>
 
 	<item id="2e28">
 		<id>0x2e28</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\39</category>
+		<category>Ground Tiles\Acid\Border\31</category>
 	</item>
 
 	<item id="2e29">
 		<id>0x2e29</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Border\40</category>
+		<category>Ground Tiles\Acid\Border\32</category>
 	</item>
 
 	<item id="2e2a">
 		<id>0x2e2a</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\41</category>
+		<category>Ground Tiles\Acid\Acid\05</category>
 	</item>
 
 	<item id="2e2b">
 		<id>0x2e2b</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\42</category>
+		<category>Ground Tiles\Acid\Acid\06</category>
 	</item>
 
 	<item id="2e2c">
 		<id>0x2e2c</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\43</category>
+		<category>Ground Tiles\Acid\Acid\07</category>
 	</item>
 
 	<item id="2e2d">
 		<id>0x2e2d</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\44</category>
+		<category>Ground Tiles\Acid\Acid\08</category>
 	</item>
 
 	<item id="2e2e">
 		<id>0x2e2e</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\45</category>
+		<category>Ground Tiles\Acid\Acid\09</category>
 	</item>
 
 	<item id="2e2f">
 		<id>0x2e2f</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\46</category>
+		<category>Ground Tiles\Acid\Acid\10</category>
 	</item>
 
 	<item id="2e30">
 		<id>0x2e30</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\47</category>
+		<category>Ground Tiles\Acid\Acid\11</category>
 	</item>
 
 	<item id="2e31">
 		<id>0x2e31</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\48</category>
+		<category>Ground Tiles\Acid\Acid\12</category>
 	</item>
 
 	<item id="2e32">
 		<id>0x2e32</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\49</category>
+		<category>Ground Tiles\Acid\Acid\13</category>
 	</item>
 
 	<item id="2e33">
 		<id>0x2e33</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\50</category>
+		<category>Ground Tiles\Acid\Acid\14</category>
 	</item>
 
 	<item id="2e34">
 		<id>0x2e34</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\51</category>
+		<category>Ground Tiles\Acid\Acid\15</category>
 	</item>
 
 	<item id="2e35">
 		<id>0x2e35</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\52</category>
+		<category>Ground Tiles\Acid\Acid\16</category>
 	</item>
 
 	<item id="2e36">
 		<id>0x2e36</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\53</category>
+		<category>Ground Tiles\Acid\Acid\17</category>
 	</item>
 
 	<item id="2e37">
 		<id>0x2e37</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\54</category>
+		<category>Ground Tiles\Acid\Acid\18</category>
 	</item>
 
 	<item id="2e38">
 		<id>0x2e38</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\55</category>
+		<category>Ground Tiles\Acid\Acid\19</category>
 	</item>
 
 	<item id="2e39">
 		<id>0x2e39</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\56</category>
+		<category>Ground Tiles\Acid\Acid\20</category>
 	</item>
 
 	<item id="2e3a">
 		<id>0x2e3a</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\57</category>
+		<category>Ground Tiles\Acid\Acid\21</category>
 	</item>
 
 	<item id="2e3b">
 		<id>0x2e3b</id>
 		<nodecay />
-		<category>Ground Tiles\Acid\Acid\58</category>
+		<category>Ground Tiles\Acid\Acid\22</category>
+	</item>
+
+	<!-- Sinkhole -->
+	<item id="30e7">
+		<id>0x30e7</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Corner\01</category>
+	</item>
+
+	<item id="30e8">
+		<id>0x30e8</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\01</category>
+	</item>
+
+	<item id="30e9">
+		<id>0x30e9</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\02</category>
+	</item>
+
+	<item id="30ea">
+		<id>0x30ea</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\03</category>
+	</item>
+
+	<item id="30eb">
+		<id>0x30eb</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\04</category>
+	</item>
+
+	<item id="30ec">
+		<id>0x30ec</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Corner\02</category>
+	</item>
+
+	<item id="30ed">
+		<id>0x30ed</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\05</category>
+	</item>
+
+	<item id="30ee">
+		<id>0x30ee</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\01</category>
+	</item>
+
+	<item id="30ef">
+		<id>0x30ef</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\02</category>
+	</item>
+
+	<item id="30f0">
+		<id>0x30f0</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\03</category>
+	</item>
+
+	<item id="30f1">
+		<id>0x30f1</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\04</category>
+	</item>
+
+	<item id="30f2">
+		<id>0x30f2</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\06</category>
+	</item>
+
+	<item id="30f3">
+		<id>0x30f3</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\07</category>
+	</item>
+
+	<item id="30f4">
+		<id>0x30f4</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\05</category>
+	</item>
+
+	<item id="30f5">
+		<id>0x30f5</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\06</category>
+	</item>
+
+	<item id="30f6">
+		<id>0x30f6</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\07</category>
+	</item>
+
+	<item id="30f7">
+		<id>0x30f7</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\08</category>
+	</item>
+
+	<item id="30f8">
+		<id>0x30f8</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\08</category>
+	</item>
+
+	<item id="30f9">
+		<id>0x30f9</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\09</category>
+	</item>
+
+	<item id="30fa">
+		<id>0x30fa</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\09</category>
+	</item>
+
+	<item id="30fb">
+		<id>0x30fb</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\10</category>
+	</item>
+
+	<item id="30fc">
+		<id>0x30fc</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\11</category>
+	</item>
+
+	<item id="30fd">
+		<id>0x30fd</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\12</category>
+	</item>
+
+	<item id="30fe">
+		<id>0x30fe</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\10</category>
+	</item>
+
+	<item id="30ff">
+		<id>0x30ff</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\11</category>
+	</item>
+
+	<item id="3100">
+		<id>0x3100</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\13</category>
+	</item>
+
+	<item id="3101">
+		<id>0x3101</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\14</category>
+	</item>
+
+	<item id="3102">
+		<id>0x3102</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\15</category>
+	</item>
+
+	<item id="3103">
+		<id>0x3103</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Sinkhole\16</category>
+	</item>
+
+	<item id="3104">
+		<id>0x3104</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\12</category>
+	</item>
+
+	<item id="3105">
+		<id>0x3105</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Corner\03</category>
+	</item>
+
+	<item id="3106">
+		<id>0x3106</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\13</category>
+	</item>
+
+	<item id="3107">
+		<id>0x3107</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\14</category>
+	</item>
+
+	<item id="3108">
+		<id>0x3108</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\15</category>
+	</item>
+
+	<item id="3109">
+		<id>0x3109</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Border\16</category>
+	</item>
+
+	<item id="310a">
+		<id>0x310a</id>
+		<nodecay />
+		<category>Ground Tiles\Sinkhole\Corner\04</category>
 	</item>
 
 </definitions>

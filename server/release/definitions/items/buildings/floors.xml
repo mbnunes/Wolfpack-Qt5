@@ -1635,4 +1635,28 @@
 		<category>Buildings\Floors\Wooden Floor 1\04</category>
 	</item>
 
+	<item id="3004">
+		<id>0x3004</id>
+		<nodecay />
+		<category>Buildings\Floors\Stone Floor\01</category>
+	</item>
+
+	<item id="3005">
+		<id>0x3005</id>
+		<nodecay />
+		<category>Buildings\Floors\Stone Floor\01</category>
+	</item>
+
+	<item id="3006">
+		<id>0x3006</id>
+		<nodecay />
+		<category>Buildings\Floors\Stone Floor\01</category>
+	</item>
+
+	<item id="3007">
+		<id>0x3007</id>
+		<nodecay />
+		<category>Buildings\Floors\Stone Floor\01</category>
+	</item>
+
 </definitions>

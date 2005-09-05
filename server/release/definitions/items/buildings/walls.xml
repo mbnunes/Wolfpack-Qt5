@@ -6938,4 +6938,482 @@
 		<category>Buildings\Walls\Carved Wood 1\23</category>
 	</item>
 
+	<!-- Clay Wall 1-->
+	<item id="2938">
+		<id>0x2938</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\01</category>
+	</item>
+
+	<item id="2939">
+		<id>0x2939</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\02</category>
+	</item>
+
+	<item id="293a">
+		<id>0x293a</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\03</category>
+	</item>
+
+	<item id="293b">
+		<id>0x293b</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\04</category>
+	</item>
+
+	<item id="293c">
+		<id>0x293c</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\05</category>
+	</item>
+
+	<item id="293d">
+		<id>0x293d</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\06</category>
+	</item>
+
+	<item id="293e">
+		<id>0x293e</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\07</category>
+	</item>
+
+	<item id="293f">
+		<id>0x293f</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\08</category>
+	</item>
+
+	<item id="2940">
+		<id>0x2940</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\09</category>
+	</item>
+
+	<item id="2941">
+		<id>0x2941</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\10</category>
+	</item>
+
+	<item id="2942">
+		<id>0x2942</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\11</category>
+	</item>
+
+	<item id="2943">
+		<id>0x2943</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 1\12</category>
+	</item>
+
+	<!-- Clay Wall 2-->
+	<item id="2944">
+		<id>0x2944</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\01</category>
+	</item>
+
+	<item id="2945">
+		<id>0x2945</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\02</category>
+	</item>
+
+	<item id="2946">
+		<id>0x2946</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\03</category>
+	</item>
+
+	<item id="2947">
+		<id>0x2947</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\04</category>
+	</item>
+
+	<item id="2948">
+		<id>0x2948</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\05</category>
+	</item>
+
+	<item id="2949">
+		<id>0x2949</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\06</category>
+	</item>
+
+	<item id="294a">
+		<id>0x294a</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\07</category>
+	</item>
+
+	<item id="294b">
+		<id>0x294b</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\08</category>
+	</item>
+
+	<item id="294c">
+		<id>0x294c</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\09</category>
+	</item>
+
+	<item id="294d">
+		<id>0x294d</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\10</category>
+	</item>
+
+	<item id="294e">
+		<id>0x294e</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\11</category>
+	</item>
+
+	<item id="294f">
+		<id>0x294f</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 2\12</category>
+	</item>
+
+	<!-- Clay Wall 3-->
+	<item id="2950">
+		<id>0x2950</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\01</category>
+	</item>
+
+	<item id="2951">
+		<id>0x2951</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\02</category>
+	</item>
+
+	<item id="2952">
+		<id>0x2952</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\03</category>
+	</item>
+
+	<item id="2953">
+		<id>0x2953</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\04</category>
+	</item>
+
+	<item id="2954">
+		<id>0x2954</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\05</category>
+	</item>
+
+	<item id="2955">
+		<id>0x2955</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\06</category>
+	</item>
+
+	<item id="2956">
+		<id>0x2956</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\07</category>
+	</item>
+
+	<item id="2957">
+		<id>0x2957</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\08</category>
+	</item>
+
+	<item id="2958">
+		<id>0x2958</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\09</category>
+	</item>
+
+	<item id="2959">
+		<id>0x2959</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\10</category>
+	</item>
+
+	<item id="295a">
+		<id>0x295a</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\11</category>
+	</item>
+
+	<item id="295b">
+		<id>0x295b</id>
+		<nodecay />
+		<category>Buildings\Walls\Clay Wall 3\12</category>
+	</item>
+
+	<!-- Black Wall -->
+	<item id="2ffb">
+		<id>0x2ffb</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\01</category>
+	</item>
+
+	<item id="2ffc">
+		<id>0x2ffc</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\02</category>
+	</item>
+
+	<item id="2ffd">
+		<id>0x2ffd</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\03</category>
+	</item>
+
+	<item id="2ffe">
+		<id>0x2ffe</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\04</category>
+	</item>
+
+	<item id="3008">
+		<id>0x3008</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\05</category>
+	</item>
+
+	<item id="3009">
+		<id>0x3009</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\06</category>
+	</item>
+
+	<item id="300a">
+		<id>0x300a</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\07</category>
+	</item>
+
+	<item id="300b">
+		<id>0x300b</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\08</category>
+	</item>
+
+	<item id="3010">
+		<id>0x3010</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\09</category>
+	</item>
+
+	<item id="3011">
+		<id>0x3011</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\10</category>
+	</item>
+
+	<item id="3012">
+		<id>0x3012</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\11</category>
+	</item>
+
+	<item id="3013">
+		<id>0x3013</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\12</category>
+	</item>
+
+	<item id="3014">
+		<id>0x3014</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\13</category>
+	</item>
+
+	<item id="3015">
+		<id>0x3015</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\14</category>
+	</item>
+
+	<item id="3016">
+		<id>0x3016</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\15</category>
+	</item>
+
+	<item id="3017">
+		<id>0x3017</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\16</category>
+	</item>
+
+	<item id="3118">
+		<id>0x3118</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\17</category>
+	</item>
+
+	<item id="3119">
+		<id>0x3119</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\18</category>
+	</item>
+
+	<item id="311a">
+		<id>0x311a</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\19</category>
+	</item>
+
+	<item id="311b">
+		<id>0x311b</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\20</category>
+	</item>
+
+	<item id="311c">
+		<id>0x311c</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\21</category>
+	</item>
+
+	<item id="311d">
+		<id>0x311d</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\22</category>
+	</item>
+
+	<item id="311e">
+		<id>0x311e</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\23</category>
+	</item>
+
+	<item id="311f">
+		<id>0x311f</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\24</category>
+	</item>
+
+	<item id="3120">
+		<id>0x3120</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\25</category>
+	</item>
+
+	<item id="3121">
+		<id>0x3121</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 1\26</category>
+	</item>
+
+	<item id="300c">
+		<id>0x300c</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\01</category>
+	</item>
+
+	<item id="300d">
+		<id>0x300d</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\02</category>
+	</item>
+
+	<item id="300e">
+		<id>0x300e</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\03</category>
+	</item>
+
+	<item id="300f">
+		<id>0x300f</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\04</category>
+	</item>
+
+	<item id="310b">
+		<id>0x310b</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\05</category>
+	</item>
+
+	<item id="310c">
+		<id>0x310c</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\06</category>
+	</item>
+
+	<item id="310d">
+		<id>0x310d</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\07</category>
+	</item>
+
+	<item id="310e">
+		<id>0x310e</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\08</category>
+	</item>
+
+	<item id="310f">
+		<id>0x310f</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\09</category>
+	</item>
+
+	<item id="3110">
+		<id>0x3110</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\10</category>
+	</item>
+
+	<item id="3111">
+		<id>0x3111</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\11</category>
+	</item>
+
+	<item id="3112">
+		<id>0x3112</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\12</category>
+	</item>
+
+	<item id="3113">
+		<id>0x3113</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\13</category>
+	</item>
+
+	<item id="3114">
+		<id>0x3114</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\14</category>
+	</item>
+
+	<item id="3115">
+		<id>0x3115</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\15</category>
+	</item>
+
+	<item id="3116">
+		<id>0x3116</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\16</category>
+	</item>
+
+	<item id="3117">
+		<id>0x3117</id>
+		<nodecay />
+		<category>Buildings\Walls\Black Wall 2\17</category>
+	</item>
+
 </definitions>
