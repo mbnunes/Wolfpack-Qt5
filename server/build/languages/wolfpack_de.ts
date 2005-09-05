@@ -1118,7 +1118,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source> and a </source>
         <comment>../release/scripts/dicecup.py</comment>
-        <translation>und </translation>
+        <translation> und </translation>
     </message>
     <message>
         <source>You cannot see the door from here.</source>
