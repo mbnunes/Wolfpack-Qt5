@@ -51,7 +51,7 @@ private:
 	QString screenshotsPath_;
 	bool disableSound_;
 
-	bool encryptionEnableLogin_;
+	bool enableEncryption_;
 	unsigned int encryptionLoginKey1_;
 	unsigned int encryptionLoginKey2_;
 
@@ -110,8 +110,8 @@ public:
 	const int engineWindowY() { return engineWindowY_; }
 	void setEngineWindowY(int data) { engineWindowY_ = data; setNumber("Engine", "Window Pos Y", data); }
 
-	const bool encryptionEnableLogin() { return encryptionEnableLogin_; }
-	void setEncryptionEnableLogin(bool data) { encryptionEnableLogin_ = data; setBool("Encryption", "Encrypt Login", data); }
+	const bool enableEncryption() { return enableEncryption_; }
+	void setEnableEncryption(bool data) { enableEncryption_ = data; setBool("Encryption", "Enable Encryption", data); }
 
 	const unsigned int encryptionLoginKey1() { return encryptionLoginKey1_; }
 	void setEncryptionLoginKey1(unsigned int data) { encryptionLoginKey1_ = data; setString("Encryption", "Login Key 1", QString("0x%1").arg(data, 0, 16)); }

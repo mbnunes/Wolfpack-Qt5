@@ -414,7 +414,7 @@ void cConfig::load() {
 	disableSound_ = getBool("General", "Disable Sound", false, true);
 
 	// Encryption
-	encryptionEnableLogin_ = getBool("Encryption", "Encrypt Login", false, true);
+	enableEncryption_ = getBool("Encryption", "Enable Encryption", false, true);
 	QString temp = getString("Encryption", "Login Key 1", "0", true);
 	if (temp.startsWith("0x")) {
 		encryptionLoginKey1_ = temp.right(temp.length() - 2).toULong(0, 16);

@@ -58,6 +58,7 @@ HEADERS += \
 	include/game/mobile.h \
 	include/game/statictile.h \
 	include/game/world.h \
+	include/game/tooltips.h \
 	include/game/targetrequest.h
 
 # GUI INCLUDES
@@ -79,6 +80,7 @@ HEADERS += \
 	include/gui/textfield.h \
 	include/gui/tiledgumpimage.h \
 	include/gui/window.h \
+	include/gui/tooltip.h \
 	include/gui/worldview.h \
 	include/gui/containergump.h
 
@@ -103,7 +105,8 @@ HEADERS += \
 	include/network/uopacket.h \
 	include/network/uosocket.h \
 	include/network/outgoingpacket.h \
-	include/network/outgoingpackets.h
+	include/network/outgoingpackets.h \
+	include/network/twofish2.h
 
 win32:HEADERS += \
 	include/windows/gmtoolwnd.h
@@ -145,6 +148,7 @@ SOURCES += \
 	src/gui/scrollbar.cpp \
 	src/gui/textfield.cpp \
 	src/gui/tiledgumpimage.cpp \
+	src/gui/tooltip.cpp \
 	src/gui/window.cpp \
 	src/gui/worldview.cpp \
 	src/gui/containergump.cpp
@@ -157,7 +161,8 @@ SOURCES += \
 	src/network/decompress.cpp \
 	src/network/outgoingpacket.cpp \
 	src/network/outgoingpackets.cpp \
-	src/network/gamepackets.cpp
+	src/network/gamepackets.cpp \
+	src/network/twofish2.cpp
 
 SOURCES += \
 	src/game/dynamicentity.cpp \
@@ -167,6 +172,7 @@ SOURCES += \
 	src/game/mobile.cpp \
 	src/game/statictile.cpp \
 	src/game/world.cpp \
+	src/game/tooltips.cpp \
 	src/game/targetrequest.cpp
 
 # MUL srcS

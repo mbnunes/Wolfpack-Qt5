@@ -111,6 +111,7 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	if (!isIdle()) {
 		return; // The client isn't disconnected yet.
 	}
+	
 	seed_ = Random->randInt(); // Set a new seed
 
 	if (gameServer) {
@@ -120,6 +121,19 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	this->gameServer = gameServer;
 	this->hostname = host;
 	this->hostport = port;
+
+	// Remove previous encryption
+	delete encryption;
+	encryption = 0;
+
+	if (Config->enableEncryption()) {
+		
+		if (!gameServer) {			
+			encryption = new cLoginEncryption(seed_);
+		} else {
+			
+		}
+	}
 
 	// Connect to the Socket
 	socket->connectToHost(host, port);
