@@ -3781,25 +3781,30 @@
 
 	<item id="2ffa">
 		<id>0x2ffa</id>
+		<nodecay />
 	</item>
 
 	<item id="3048">
 		<id>0x3048</id>
+		<nodecay />
 		<category>Dungeon\Coffins\Stone\Black\Stone Coffin (N/S)(1/2)</category>
 	</item>
 
 	<item id="3049">
 		<id>0x3049</id>
+		<nodecay />
 		<category>Dungeon\Coffins\Stone\Black\Stone Coffin (N/S)(2/2)</category>
 	</item>
 
 	<item id="304a">
 		<id>0x304a</id>
+		<nodecay />
 		<category>Dungeon\Coffins\Stone\Black\Stone Coffin (W/E)(1/2)</category>
 	</item>
 
 	<item id="304b">
 		<id>0x304b</id>
+		<nodecay />
 		<category>Dungeon\Coffins\Stone\Black\Stone Coffin (W/E)(2/2)</category>
 	</item>
 
