@@ -884,6 +884,18 @@
 		<nodecay/>
 	</item>
 
+	<item id="364">
+		<id>0x364</id>
+		<category>Buildings\Walls\Stone Wall 3\Wall 5</category>
+		<nodecay/>
+	</item>
+
+	<item id="365">
+		<id>0x365</id>
+		<category>Buildings\Walls\Stone Wall 3\Wall 6</category>
+		<nodecay/>
+	</item>
+
 	<!-- Log Wall -->
 	<item id="90">
 		<id>0x90</id>
@@ -3947,12 +3959,6 @@
 	<item id="244">
 		<id>0x244</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 4</category>
-		<nodecay/>
-	</item>
-
-	<item id="315">
-		<id>0x315</id>
-		<category>Buildings\Walls\Dungeon Wall\Wall 5</category>
 		<nodecay/>
 	</item>
 
