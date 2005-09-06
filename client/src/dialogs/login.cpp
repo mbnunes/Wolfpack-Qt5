@@ -196,6 +196,7 @@ cLoginDialog::cLoginDialog() {
 	statusDialog = 0;
 	statusLabel = 0;
 	selectCharDialog = 0;
+	newCharacter1 = 0;
 	page = PAGE_LOGIN;
 
 	// Connect to the UoSocket slots
@@ -209,6 +210,9 @@ cLoginDialog::~cLoginDialog() {
 
 void cLoginDialog::backClicked(cControl *sender) {
 	switch (page) {
+		case PAGE_NEWCHARACTER1:
+			show(PAGE_SELECTCHAR);
+			break;
 		case PAGE_SHARDLIST:
 		case PAGE_SELECTCHAR:
 			UoSocket->disconnect();
@@ -233,6 +237,20 @@ void cLoginDialog::nextClicked(cControl *sender) {
 		case PAGE_SELECTCHAR:
 			if (charSelectWidget->selectedCharacter() != -1) {
 				charSelected(sender);
+			}
+			break;
+
+		case PAGE_NEWCHARACTER1:
+			{
+				cTextField *textfield = dynamic_cast<cTextField*>(newCharacter1->findByName("character_name"));
+				if (textfield) {
+					cCharacterCreationInfo info;
+					info.name = textfield->text();
+					UoSocket->send(cCharacterCreationPacket(info));
+					show(PAGE_ENTERING);
+				} else {
+					show(PAGE_SELECTCHAR);
+				}
 			}
 			break;
 	}
@@ -578,6 +596,12 @@ void cLoginDialog::show(enMenuPage page) {
 		case PAGE_CONFIRMDELETE:
 			confirmDeleteDialog->setVisible(false);
 			break;
+
+		case PAGE_NEWCHARACTER1:
+			newCharacter1->setVisible(false);
+			backButton->setVisible(false);
+			nextButton->setVisible(false);
+			break;
 	}
 
 	// Which one to display?
@@ -634,6 +658,14 @@ void cLoginDialog::show(enMenuPage page) {
 			statusDialog->setVisible(true);
 			statusOk->setVisible(false);
 			statusCancel->setVisible(false);
+			break;
+		case PAGE_NEWCHARACTER1:
+			if (!newCharacter1) {
+				buildNewCharacter1();
+			}
+			newCharacter1->setVisible(true);
+			backButton->setVisible(true);
+			nextButton->setVisible(true);
 			break;
 	}
 
@@ -718,6 +750,9 @@ void cLoginDialog::deleteCharClicked(cControl *sender) {
 }
 
 void cLoginDialog::createCharClicked(cControl *sender) {
+	if (characterNames.size() < 5) {
+		show(PAGE_NEWCHARACTER1);
+	}
 }
 
 void cLoginDialog::hide() {
@@ -927,6 +962,45 @@ void cLoginDialog::charSelected(cControl *sender) {
 		show(PAGE_ENTERING);
 		cPlayMobilePacket packet(selected);
 		UoSocket->send(packet);
+	}
+}
+
+void cLoginDialog::buildNewCharacter1() {
+	if (!newCharacter1) {
+		newCharacter1 = new cContainer();
+		newCharacter1->setVisible(false);
+		newCharacter1->setBounds(0, 0, 640, 480);
+
+		cGumpImage *image;
+		cBorderGump *background;
+		cLabel *label;
+		cTextField *textfield;
+
+		background = new cBorderGump(0xa28);
+		background->setBounds(0x64, 0x50, 0x1d6, 0x174);
+		newCharacter1->addControl(background);
+
+		image = new cGumpImage(0x58b);
+		image->setPosition(0xd5, 0x39);
+        newCharacter1->addControl(image);
+
+		image = new cGumpImage(0x589);
+		image->setPosition(0x122, 0x2c);
+        newCharacter1->addControl(image);
+
+		image = new cGumpImage(0x15aa);
+		image->setPosition(0x12b, 0x35);
+        newCharacter1->addControl(image);
+
+		label = new cLabel(tr("Character name:"), 0);
+		label->setPosition(0x80, 0x100);
+		newCharacter1->addControl(label);
+
+		textfield = new cTextField(0x150, 0x100, 150, 25, 3, 0x3b2, 3000, true, false);
+		textfield->setObjectName("character_name");
+		newCharacter1->addControl(textfield);
+		
+		container->addControl(newCharacter1);
 	}
 }
 

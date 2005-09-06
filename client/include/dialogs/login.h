@@ -39,6 +39,7 @@ enum enMenuPage {
 	PAGE_CONFIRMDELETE,
 	PAGE_DELETING,
 	PAGE_ENTERING,
+	PAGE_NEWCHARACTER1
 };
 
 class cCharSelection;
@@ -64,12 +65,14 @@ private:
 	cImageButton *statusCancel, *statusOk;
 	cBorderGump *selectCharBorder[6];
 	QStringList characterNames;
+	cContainer *newCharacter1;
 
 	void buildConfirmDeleteGump();
 	void buildAccountLoginGump();
 	void buildShardSelectGump();
 	void buildStatusGump();
 	void buildSelectCharGump();
+	void buildNewCharacter1();
 
 	QList<stShardEntry> shards;
 	unsigned int shardEntryOffset;

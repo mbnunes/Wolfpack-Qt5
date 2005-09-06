@@ -6,6 +6,7 @@
 #include <qstring.h>
 
 #include "config.h"
+#include "md5.h"
 #include "network/encryption.h"
 
 /*!
@@ -65,4 +66,78 @@ void cNoEncryption::encryptOutgoing(char*, unsigned int) {
 
 void cNoEncryption::decryptIncoming(char*, unsigned int) {
 	// Do nothing
+}
+
+/*!
+	Initializes the gameserver encryption using the given seed
+*/
+cGameEncryption::cGameEncryption( unsigned int seed )
+{
+	// The seed is transmitted in little-endian byte order
+	// At least that is what sphere thinks
+	seed = ((seed >> 24) & 0xFF) | ((seed >> 8) & 0xFF00) | ((seed << 8) & 0xFF0000) | ((seed << 24) & 0xFF000000);
+
+	makeKey( &ki, DIR_ENCRYPT, 0x80, NULL );
+	cipherInit( &ci, MODE_ECB, NULL );
+
+	ki.key32[0] = ki.key32[1] = ki.key32[2] = ki.key32[3] = seed;
+	reKey( &ki );
+
+	for ( unsigned int i = 0; i < 256; ++i )
+		cipherTable[i] = i;
+
+	sendPos = 0x00;
+	recvPos = 0;
+
+	// We need to fill the table initially to calculate the MD5 hash of it
+	unsigned char tmpBuffer[0x100];
+	blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
+	memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );
+
+	// Create a MD5 hash of the twofish crypt data and use it as a 16-byte xor table
+	// for encrypting the server->client stream.
+	cMd5 md5;
+	md5.update(tmpBuffer, 0x100);
+	md5.finalize();
+	md5.rawDigest(xorData);
+}
+
+/*!
+	Decrypts a single byte sent by the client.
+*/
+void cGameEncryption::encryptByte( uchar& byte )
+{
+	// Recalculate table
+	if ( recvPos >= 0x100 )
+	{
+		unsigned char tmpBuffer[0x100];
+		blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
+		memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );
+		recvPos = 0;
+	}
+
+	// Simple XOR operation
+	byte ^= cipherTable[recvPos++];
+}
+
+/*!
+	Decrypts a buffer sent by the client.
+	Algorithm used is a slightly modified Twofish2 algorithm.
+*/
+void cGameEncryption::encryptOutgoing( char* buffer, unsigned int length )
+{
+	for ( unsigned int i = 0; i < length; ++i )
+		encryptByte( ( unsigned char & ) buffer[i] );
+}
+
+/*!
+	Encrypts a buffer before sending it to the client.
+	Encryption used is a table-based XOR encryption.
+*/
+void cGameEncryption::decryptIncoming( char* buffer, unsigned int length )
+{
+	for ( unsigned int i = 0; i < length; ++i ) {
+		buffer[i] ^= xorData[sendPos++];
+		sendPos &= 0x0F; // Maximum Value is 0xF = 15, then 0xF + 1 = 0 again
+	}
 }

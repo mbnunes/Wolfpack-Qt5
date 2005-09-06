@@ -22,6 +22,7 @@ public:
 		return controls;
 	}
 
+	cControl *findByName(QString name);
 	void sortTabControls();
 
 	cContainer();

@@ -174,3 +174,43 @@ cRequestMultipleTooltipsPacket::cRequestMultipleTooltipsPacket(QVector<uint> too
 		m_Stream << key;
 	}
 }
+
+cCharacterCreationInfo::cCharacterCreationInfo() {
+	female = false;
+	strength = 25;
+	dexterity = 20;
+	intelligence = 20;
+	skill1 = 0;
+	skill2 = 1;
+	skill3 = 2;
+	skill1Value = 50;
+	skill2Value = 50;
+	skill3Value = 0;
+	skinColor = 1002;
+	hairColor = 1102;
+	beardColor = 0;
+	hairStyle = 0x203C; // Long Hair
+	beardStyle = 0;
+	startLocation = 0;
+	characterSlot = 0;
+	shirtHue = 2;
+	pantsHue = 2;
+}
+
+cCharacterCreationPacket::cCharacterCreationPacket(const cCharacterCreationInfo &info) : cOutgoingPacket(0, 104) {
+	uint clientIp = 0;
+
+	m_Stream << (uint)0xedededed << (uint)0xffffffff << (uchar)0;
+	for (int i = 0; i < 30; ++i) {
+		if (i < info.name.length()) {
+			m_Stream << (uchar)info.name.at(i).toLatin1();
+		} else {
+			m_Stream << (uchar)0;
+		}
+	}
+	fill(30, 0); // Password (Now used for profession et al)
+	m_Stream << (uchar)( info.female ? 1 : 0 ) << info.strength << info.dexterity << info.intelligence
+		<< info.skill1 << info.skill1Value << info.skill2 << info.skill2Value << info.skill3 << info.skill3Value
+		<< info.skinColor << info.hairStyle << info.hairColor << info.beardStyle << info.beardColor
+		<< (uchar)0 << info.startLocation << info.characterSlot << clientIp << info.shirtHue << info.pantsHue;
+}

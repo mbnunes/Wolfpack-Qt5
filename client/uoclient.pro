@@ -43,7 +43,8 @@ HEADERS += \
 	include/surface.h \
 	include/texture.h \
 	include/client.h \
-	include/vector.h 
+	include/vector.h \
+	include/md5.h
 	
 HEADERS += \
 	include/dialogs/login.h \
@@ -124,7 +125,8 @@ SOURCES += \
 	src/client.cpp \
 	src/utilities.cpp \
 	src/vector.cpp \
-	src/main.cpp
+	src/main.cpp \
+	src/md5.cpp
 
 SOURCES += \
 	src/dialogs/login.cpp \

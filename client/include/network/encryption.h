@@ -3,7 +3,7 @@
 #define __ENCRYPTION_H__
 
 #include <qstring.h>
-//#include aes.h"
+#include "network/twofish2.h"
 
 class cStreamEncryption {
 public:
@@ -26,6 +26,31 @@ public:
 
 	void decryptIncoming( char* buffer, unsigned int length );
 	void encryptOutgoing( char* buffer, unsigned int length );
+};
+
+// Used for GameServer Encryption
+class cGameEncryption : public cStreamEncryption
+{
+private:
+	unsigned short recvPos; // Position in our CipherTable (Recv)
+	unsigned char sendPos; // Offset in our XOR Table (Send)
+	unsigned char cipherTable[0x100];
+	unsigned char xorData[16]; // This table is used for encrypting the server->client stream
+
+	/*
+		Note: Thanks to Negr0potence for the hint on uo.elitecoder.net.
+		Crypting the initial twofish ciphertable... Man... This is typical...
+	*/
+
+	Twofish2::keyInstance ki;
+	Twofish2::cipherInstance ci;
+
+	void encryptByte( uchar & byte );
+public:
+	cGameEncryption(uint seed);
+
+	void decryptIncoming( char* buffer, uint length );
+	void encryptOutgoing( char* buffer, uint length );
 };
 
 // Used for GameServer Encryption

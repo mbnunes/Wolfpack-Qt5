@@ -247,7 +247,11 @@ void cSequence::load(QDataStream &input) {
 			unsigned char pixel;
 			for (int i = 0; i < length; ++i) {
 				input >> pixel;
-				surface->setPixel(drawx + frame.centerx + xoffset + i, frame.centery + yoffset, palette[pixel]);
+				int px = drawx + frame.centerx + xoffset + i;
+				int py = frame.centery + yoffset;
+				if (px > 0 && px < surface->realWidth() && py > 0 && py < surface->realHeight()) {
+					surface->setPixel(px, py, palette[pixel]);
+				}
 			}
 		} while (true);
 

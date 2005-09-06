@@ -501,3 +501,22 @@ static bool isTabLessThan(cControl *a, cControl *b) {
 void cContainer::sortTabControls() {
 	qStableSort(tabControls.begin(), tabControls.end(), isTabLessThan);
 }
+
+cControl *cContainer::findByName(QString name) {
+	if (this->objectName() == name) {
+		return this;
+	} else {
+		foreach (cControl *control, controls) {
+			if (control->isContainer()) {
+				cControl *result = ((cContainer*)control)->findByName(name);
+				if (result) {
+					return result;
+				}
+			} else if (control->objectName() == name) {
+				return control;
+			}
+		}
+	}
+	return 0;
+}
+

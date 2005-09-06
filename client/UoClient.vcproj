@@ -219,6 +219,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\md5.cpp">
+			</File>
+			<File
+				RelativePath=".\include\md5.h">
+			</File>
+			<File
 				RelativePath=".\include\mersennetwister.h">
 			</File>
 			<File

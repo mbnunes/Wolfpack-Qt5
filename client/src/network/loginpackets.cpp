@@ -137,8 +137,8 @@ public:
 		LoginDialog->setStatusText("Connecting");
 
 		UoSocket->disconnect();
-		UoSocket->connect(QHostAddress(gameServerIp).toString(), gameServerPort, true);
 		UoSocket->setSeed(newCryptKey);
+		UoSocket->connect(QHostAddress(gameServerIp).toString(), gameServerPort, true);		
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -281,3 +281,29 @@ public:
 
 
 AUTO_REGISTER_PACKET(0x86, cCharacterListUpdatePacket::creator);
+
+/*
+	This packet enables "locked" client features.
+*/
+class cIdleWarningPacket : public cIncomingPacket {
+protected:
+	uchar reason;
+public:
+	cIdleWarningPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> reason;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		if (reason == 5) {
+			LoginDialog->show(PAGE_ENTERING);
+			LoginDialog->setErrorStatus(true);
+			LoginDialog->setStatusText("There is already a character logged in.");
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cIdleWarningPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x53, cIdleWarningPacket::creator);

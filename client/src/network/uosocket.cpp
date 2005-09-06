@@ -112,10 +112,8 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 		return; // The client isn't disconnected yet.
 	}
 	
-	seed_ = Random->randInt(); // Set a new seed
-
-	if (gameServer) {
-		seed_ = 0;
+	if (!gameServer) {
+		seed_ = Random->randInt(); // Set a new seed
 	}
 
 	this->gameServer = gameServer;
@@ -126,12 +124,11 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	delete encryption;
 	encryption = 0;
 
-	if (Config->enableEncryption()) {
-		
-		if (!gameServer) {			
+	if (Config->enableEncryption()) {		
+		if (!gameServer) {
 			encryption = new cLoginEncryption(seed_);
 		} else {
-			
+			encryption = new cGameEncryption(seed_);
 		}
 	}
 
@@ -188,14 +185,6 @@ void cUoSocket::poll() {
 
 			while (socket->isWritable() && !outgoingQueue.isEmpty()) {
 				QByteArray data = outgoingQueue.first();
-
-				// Log if applicable
-				if (Config->packetLogging()) {
-					if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
-						packetLog.write(tr("CLIENT -> SERVER\n%1\n\n").arg(Utilities::dumpData(data)).toLocal8Bit());
-					}
-				}
-
 				socket->write(data);
 				outgoingQueue.pop_front();
 			}
@@ -210,6 +199,13 @@ void cUoSocket::poll() {
 void cUoSocket::sendRaw(const QByteArray &data) {
 	outgoingBytes_ += data.size();
 	QByteArray data2(data.data(), data.size());
+
+	// Log if applicable
+	if (Config->packetLogging()) {
+		if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
+			packetLog.write(tr("CLIENT -> SERVER\n%1\n\n").arg(Utilities::dumpData(data)).toLocal8Bit());
+		}
+	}
 	
 	if (encryption) {
 		encryption->encryptOutgoing(data2.data(), data2.size());
@@ -329,6 +325,11 @@ void cUoSocket::readyRead() {
 
 	QByteArray data(socket->bytesAvailable(), 0);
 	socket->read(data.data(), socket->bytesAvailable());
+
+	// Decrypt if neccesary
+	if (encryption) {
+		encryption->decryptIncoming(data.data(), data.size());
+	}
 
 	// Decompress data if neccesary
 	// TODO: Optimize this

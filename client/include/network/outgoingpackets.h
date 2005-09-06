@@ -96,4 +96,26 @@ public:
 	cRequestMultipleTooltipsPacket(QVector<uint> tooltips);
 };
 
+// Character Creation
+class cCharacterCreationInfo {
+public:
+	QString name; // Character Name
+	bool female; // Flag for gender
+	uchar strength, dexterity, intelligence; // Statistics
+	uchar skill1, skill2, skill3; // Ids for the 3 starting skills
+	uchar skill1Value, skill2Value, skill3Value; // Values for the three starting skills
+	ushort skinColor, hairColor, beardColor; // Color values
+	ushort hairStyle, beardStyle; // Item ids for beard/hair. 0 for none.
+	uchar startLocation; // Where to start
+	uint characterSlot; // Which slot to create this one in (rather useless...)
+	ushort shirtHue, pantsHue; // Hue of shirt and pants
+
+	cCharacterCreationInfo();
+};
+
+class cCharacterCreationPacket : public cOutgoingPacket {
+public:
+	cCharacterCreationPacket(const cCharacterCreationInfo &info);
+};
+
 #endif
