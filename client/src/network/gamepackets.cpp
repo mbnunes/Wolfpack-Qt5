@@ -800,7 +800,7 @@ public:
 		name = strName;
 
 		// Null terminated ascii string
-		uint length = size - 44; // this includes the null uchar
+		uint length = size - 44; // this includes the null byte
 		char *strMessage = new char[length];
 		input.readRawData(strMessage, length);
         strMessage[length-1] = 0; // ENSURE null termination
@@ -1097,7 +1097,7 @@ public:
 
 		while (line.first != 0) {
 			input >> length;
-			length /= 2; // uchar count
+			length /= 2; // Byte count
 			
 			if (length != 0) {
 				ushort *strMessage = new unsigned short[length+1];

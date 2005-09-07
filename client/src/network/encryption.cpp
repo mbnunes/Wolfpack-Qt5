@@ -11,8 +11,8 @@
 
 /*!
 	Initializes this "LoginCrypt" object.
-	Seed is the ulong sent by the client in the beginning of each connection.
-	Buffer/Length should be the first 62 uchars received by the client.
+	Seed is the DWORD sent by the client in the beginning of each connection.
+	Buffer/Length should be the first 62 bytes received by the client.
 */
 cLoginEncryption::cLoginEncryption( unsigned int seed ) {
 	table1 = ( ( ( ~seed ) ^ 0x00001357 ) << 16 ) | ( ( seed ^ 0xffffaaaa ) & 0x0000ffff );
@@ -73,7 +73,7 @@ void cNoEncryption::decryptIncoming(char*, unsigned int) {
 */
 cGameEncryption::cGameEncryption( unsigned int seed )
 {
-	// The seed is transmitted in little-endian uchar order
+	// The seed is transmitted in little-endian byte order
 	// At least that is what sphere thinks
 	seed = ((seed >> 24) & 0xFF) | ((seed >> 8) & 0xFF00) | ((seed << 8) & 0xFF0000) | ((seed << 24) & 0xFF000000);
 
@@ -94,7 +94,7 @@ cGameEncryption::cGameEncryption( unsigned int seed )
 	blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
 	memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );
 
-	// Create a MD5 hash of the twofish crypt data and use it as a 16-uchar xor table
+	// Create a MD5 hash of the twofish crypt data and use it as a 16-byte xor table
 	// for encrypting the server->client stream.
 	cMd5 md5;
 	md5.update(tmpBuffer, 0x100);
@@ -103,9 +103,9 @@ cGameEncryption::cGameEncryption( unsigned int seed )
 }
 
 /*!
-	Decrypts a single uchar sent by the client.
+	Decrypts a single byte sent by the client.
 */
-void cGameEncryption::encryptuchar( uchar& uchar )
+void cGameEncryption::encryptByte( uchar& byte )
 {
 	// Recalculate table
 	if ( recvPos >= 0x100 )
@@ -117,7 +117,7 @@ void cGameEncryption::encryptuchar( uchar& uchar )
 	}
 
 	// Simple XOR operation
-	uchar ^= cipherTable[recvPos++];
+	byte ^= cipherTable[recvPos++];
 }
 
 /*!
@@ -127,7 +127,7 @@ void cGameEncryption::encryptuchar( uchar& uchar )
 void cGameEncryption::encryptOutgoing( char* buffer, unsigned int length )
 {
 	for ( unsigned int i = 0; i < length; ++i )
-		encryptuchar( ( unsigned char & ) buffer[i] );
+		encryptByte( ( unsigned char & ) buffer[i] );
 }
 
 /*!

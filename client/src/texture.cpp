@@ -57,8 +57,8 @@ void cTexture::free() {
 }
 
 void cTexture::generateHitMap(cSurface *surface) {
-	unsigned int ucharCount = (width_ * height_ + 31) / 32 + 1;
-	hitTestArray = new unsigned int [ucharCount + 1];
+	unsigned int byteCount = (width_ * height_ + 31) / 32 + 1;
+	hitTestArray = new unsigned int [byteCount + 1];
 	hitTestArray[0] = 0; // Initialize first element
 	unsigned int offset = 0;
 	unsigned int bit = 0;
@@ -162,7 +162,7 @@ bool cTexture::hitTest(int x, int y) {
 		if (hitTestArray) {
 			unsigned int offset = (x * height_ + y); // Pixel index
 			unsigned int mask = 1 << (offset % 32);
-			offset /= 32; // uchar offset
+			offset /= 32; // Byte offset
 			return (hitTestArray[offset] & mask) != 0;
 		} else {
 			return true;

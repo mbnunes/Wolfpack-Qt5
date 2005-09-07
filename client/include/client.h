@@ -2,7 +2,9 @@
 #if !defined(__UOCLIENT_H__)
 #define __UOCLIENT_H__
 
-#include <QString>
+#include <qapplication.h>
+#include <qstringlist.h>
+#include <qmutex.h>
 #include <QObject>
 
 class cUoClient : public QObject {

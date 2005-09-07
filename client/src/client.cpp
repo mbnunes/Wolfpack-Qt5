@@ -1,8 +1,7 @@
 
-#include <QApplication>
-#include <QDateTime>
-#include <QDir>
-#include <QMessageBox>
+#include <qdatetime.h>
+#include <qdir.h>
+#include <qmessagebox.h>
 
 #include "client.h"
 #include "utilities.h"

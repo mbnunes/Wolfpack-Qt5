@@ -20,7 +20,7 @@ protected:
 	unsigned char listFlag;
 public:
 	cShardListPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
-		safetyAssertSize(6); // At least 6 uchar
+		safetyAssertSize(6); // At least 6 byte
 
 		unsigned short count;
 
@@ -28,7 +28,7 @@ public:
 		input >> listFlag >> count;
 
 		// Assert that the packet is large enough
-		safetyAssertSize(6 + count * 40); // 40 uchar per server
+		safetyAssertSize(6 + count * 40); // 40 byte per server
 		char shardname[33];
 		shardname[32] = 0;
 
@@ -78,7 +78,7 @@ protected:
 	unsigned char reason;
 public:
 	cLoginDeniedPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
-		safetyAssertSize(2); // Exactly 2 uchar
+		safetyAssertSize(2); // Exactly 2 byte
 
 		// Get the data from the shardlist
 		input >> reason;
@@ -126,7 +126,7 @@ protected:
 
 public:
 	cRelayToServer(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
-		safetyAssertSize(11); // Exactly 11 uchar
+		safetyAssertSize(11); // Exactly 11 byte
 
 		// Get the data from the shardlist
 		input >> gameServerIp >> gameServerPort >> newCryptKey;
@@ -156,7 +156,7 @@ protected:
 	unsigned short flags;
 public:
 	cEnableFeatures(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
-		safetyAssertSize(3); // Exactly 3 uchar
+		safetyAssertSize(3); // Exactly 3 byte
 		input >> flags;
 	}
 
@@ -184,7 +184,7 @@ protected:
 	unsigned int flags;
 public:
 	cCharacterListPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
-		safetyAssertSize(9); // At least 9 uchar
+		safetyAssertSize(9); // At least 9 byte
 
 		unsigned char charCount, townCount;
 
@@ -196,7 +196,7 @@ public:
 		}
 
 		// Assert that the packet is large enough
-		safetyAssertSize(9 + charCount * 60); // 60 uchar per character
+		safetyAssertSize(9 + charCount * 60); // 60 byte per character
 
 		for (unsigned int i = 0; i < charCount; ++i) {
             char name[61];
@@ -212,7 +212,7 @@ public:
 		// Read the number of towns
 		input >> townCount;
 
-		safetyAssertSize(9 + charCount * 60 + townCount * 63); // 63 uchar per town
+		safetyAssertSize(9 + charCount * 60 + townCount * 63); // 63 byte per town
 
 		for (unsigned int i = 0; i < townCount; ++i) {
             char name[32], exactName[32];
@@ -249,7 +249,7 @@ protected:
 	QStringList characters;
 public:
 	cCharacterListUpdatePacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
-		safetyAssertSize(4); // At least 4 uchar
+		safetyAssertSize(4); // At least 4 byte
 
 		unsigned char charCount;
 
@@ -257,7 +257,7 @@ public:
 		input >> charCount;
 
 		// Assert that the packet is large enough
-		safetyAssertSize(4 + charCount * 60); // 60 uchar per character
+		safetyAssertSize(4 + charCount * 60); // 60 byte per character
 
 		for (unsigned int i = 0; i < charCount; ++i) {
             char name[60];

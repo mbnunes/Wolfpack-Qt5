@@ -114,7 +114,7 @@ cTexture *cTextures::readTexture(unsigned short id) {
 				ushort color = *current;
 				current++; // Advance to the next pixel
 
-#if Q_uchar_ORDER != Q_LITTLE_ENDIAN
+#if Q_BYTE_ORDER != Q_LITTLE_ENDIAN
 					color = ((color >> 8) & 0xFF) | ((color & 0xFF) << 8);
 #endif
 

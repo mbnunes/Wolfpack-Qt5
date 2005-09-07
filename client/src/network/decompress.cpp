@@ -352,7 +352,7 @@ void DecompressingCopier::operator   () (char *dest, const char *src,
 		{
 			if (treepos == -256)  // special flush character
 			{
-				bit_num = 8;    // flush rest of uchar
+				bit_num = 8;    // flush rest of byte
 				treepos = 0;    // start on tree top again
 				continue;
 			}

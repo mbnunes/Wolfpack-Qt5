@@ -98,7 +98,7 @@ stMapCell *cFacet::getMapCell(unsigned short x, unsigned short y) {
 	
 	// Load the cell if its not loaded yet
 	if (!cells) {
-		// Every block is 196 uchars in size
+		// Every block is 196 bytes in size
 		unsigned int offset = 196 * blockid;
 		mapDataStream.device()->seek(offset); // seek to the map block
 

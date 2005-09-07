@@ -2,7 +2,7 @@
 #include <qglobal.h>
 #include <qclipboard.h>
 #include <qgl.h>
-#include <QApplication>
+//Added by qt3to4:
 #include <QMouseEvent>
 #include <QKeyEvent>
 
@@ -82,9 +82,9 @@ void cTextField::drawSelection(cSurface *surface) {
 				// redraw the character (?)
 				for (int x = offset; x < offset + ch->w; ++x) {
 					for (int y = 4; y < surface->h; ++y) {
-						unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->ucharsPerPixel);
+						unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->BytesPerPixel);
 	
-						switch (format->ucharsPerPixel) {
+						switch (format->BytesPerPixel) {
 							case 4:
 								if (*((unsigned int*)ptr) == transparent) {
 									*((unsigned int*)ptr) = selBack;
@@ -99,7 +99,7 @@ void cTextField::drawSelection(cSurface *surface) {
 								//SDL_GetRGB(*((unsigned short*)ptr), format, &r, &g, &b);
 								break;
 							default:
-								throw Exception(tr("Invalid uchars per pixel value: %1").arg(format->ucharsPerPixel));
+								throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
 						}
 					}
 				}
@@ -113,9 +113,9 @@ void cTextField::drawSelection(cSurface *surface) {
 				// redraw the character (?)
 				for (int x = (i == caret_) ? offset + 2 : offset; x < offset + ch->w; ++x) {
 					for (int y = 4; y < surface->h; ++y) {
-						unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->ucharsPerPixel);
+						unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->BytesPerPixel);
 	
-						switch (format->ucharsPerPixel) {
+						switch (format->BytesPerPixel) {
 							case 4:
 								if (*((unsigned int*)ptr) == transparent) {
 									*((unsigned int*)ptr) = selBack;
@@ -130,7 +130,7 @@ void cTextField::drawSelection(cSurface *surface) {
 								//SDL_GetRGB(*((unsigned short*)ptr), format, &r, &g, &b);
 								break;
 							default:
-								throw Exception(tr("Invalid uchars per pixel value: %1").arg(format->ucharsPerPixel));
+								throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
 						}
 					}
 				}

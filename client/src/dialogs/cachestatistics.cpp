@@ -49,13 +49,13 @@ void cCacheStatistics::refresh() {
 	message += "<br>";
 
 	message += tr("<b>Network Statistics:</b><br>");
-	message += tr("Data sent: %1 KiB<br>").arg(UoSocket->outgoinguchars() / 1024.0f);
-	message += tr("Data received (compressed): %1 KiB<br>").arg(UoSocket->incomingucharsCompressed() / 1024.0f);
-	message += tr("Data received: %1 KiB<br>").arg(UoSocket->incominguchars() / 1024.0f);
+	message += tr("Data sent: %1 KiB<br>").arg(UoSocket->outgoingBytes() / 1024.0f);
+	message += tr("Data received (compressed): %1 KiB<br>").arg(UoSocket->incomingBytesCompressed() / 1024.0f);
+	message += tr("Data received: %1 KiB<br>").arg(UoSocket->incomingBytes() / 1024.0f);
 
 	int ratio = 100;
-	if (UoSocket->incominguchars() > 0 && UoSocket->incomingucharsCompressed() > 0) {
-		ratio = (int)(((float)UoSocket->incomingucharsCompressed() / (float)UoSocket->incominguchars()) * 100.0);
+	if (UoSocket->incomingBytes() > 0 && UoSocket->incomingBytesCompressed() > 0) {
+		ratio = (int)(((float)UoSocket->incomingBytesCompressed() / (float)UoSocket->incomingBytes()) * 100.0);
 	}
 	message += tr("Compression ratio: %1%<br>").arg(ratio);
 

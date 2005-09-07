@@ -349,10 +349,10 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 
 				//Log->print(LOG_MESSAGE, tr("Character '%1' has xoffset %2 and yoffset %3.\n").arg(ch.toLatin1()).arg(pxoffset).arg(pyoffset));
 
-				unsigned char scanline[32]; // Maximum length of a line is 32 uchar (8 bit, 256 pixels) so we just use a static array
+				unsigned char scanline[32]; // Maximum length of a line is 32 byte (8 bit, 256 pixels) so we just use a static array
 				unsigned char pslwidth = (pwidth + 7) / 8;
                 unsigned char psloffset = 0; // Offset within the scanline array
-				unsigned char pslpadding = 0; // Offset within a single uchar
+				unsigned char pslpadding = 0; // Offset within a single byte
 				bool drawpixel = false; // The pixel value
 
 				// If it's the first character, ignore the characters xoffset (Doesnt make much sense)

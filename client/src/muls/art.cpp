@@ -289,7 +289,7 @@ void cArt::load() {
 
 		// Read 8 tiles
 		for (int j = 0; j < 8; ++j) {
-			// uchar order is irrelevant here
+			// byte order is irrelevant here
 			input.readRawData((char*)info.frames, sizeof(info.frames));
 			input >> unknown >> info.count >> interval >> delay;
 

@@ -31,7 +31,7 @@ void cTiledata::load() {
 	unsigned int group;
 	for (group = 0; group < 512; ++group) {
 		unsigned int header;
-		dataStream >> header; // Skip 4 uchar header
+		dataStream >> header; // Skip 4 byte header
 
 		// Read 32 tiles
 		for (unsigned int j = 0; j < 32; ++j) {
@@ -52,7 +52,7 @@ void cTiledata::load() {
 	i = 0; // Start over at index 0
 	for (group = 0; group < 512; ++group) {
 		unsigned int header;
-		dataStream >> header; // Skip 4 uchar header
+		dataStream >> header; // Skip 4 byte header
 
 		// Read 32 tiles
 		for (unsigned int j = 0; j < 32; ++j) {

@@ -61,24 +61,26 @@ INCLUDE IMPLEMENTATION SPECIFIC INFORMATION.
 #endif
 
 // Change this to compile on a BigEndian machine
-
+#if !defined(Q_OS_MAC)
+#define LittleEndian 1
+#endif
 #define ALIGN32 1
 
-#if !defined(Q_OS_MAC)
+#if LittleEndian
 #define		Bswap(x)			(x)		/* NOP for little-endian machines */
 #define		ADDR_XOR			0		/* NOP for little-endian machines */
 #else
 #define		Bswap(x)			((ROR(x,8) & 0xFF00FF00) | (ROL(x,8) & 0x00FF00FF))
-#define		ADDR_XOR			3		/* convert uchar address in ulong */
+#define		ADDR_XOR			3		/* convert byte address in dword */
 #endif
 
-/*	Macros for extracting uchars from ulongs (correct for endianness) */
-#define	_b(x,N)	(((uchar *)&x)[((N) & 3) ^ ADDR_XOR]) /* pick uchars out of a ulong */
+/*	Macros for extracting bytes from dwords (correct for endianness) */
+#define	_b(x,N)	(((BYTE *)&x)[((N) & 3) ^ ADDR_XOR]) /* pick bytes out of a dword */
 
-#define		b0(x)			_b(x,0)		/* extract LSB of ulong */
+#define		b0(x)			_b(x,0)		/* extract LSB of DWORD */
 #define		b1(x)			_b(x,1)
 #define		b2(x)			_b(x,2)
-#define		b3(x)			_b(x,3)		/* extract MSB of ulong */
+#define		b3(x)			_b(x,3)		/* extract MSB of DWORD */
 
 /*	Defines:
 		Add any additional defines you need
@@ -108,7 +110,7 @@ namespace Twofish2 {
 /* CHANGE POSSIBLE: inclusion of algorithm specific defines */
 /* TWOFISH specific definitions */
 #define		MAX_KEY_SIZE		64	/* # of ASCII chars needed to represent a key */
-#define		MAX_IV_SIZE			16	/* # of uchars needed to represent an IV */
+#define		MAX_IV_SIZE			16	/* # of bytes needed to represent an IV */
 #define		BAD_INPUT_LEN		-6	/* inputLen not a multiple of block size */
 #define		BAD_PARAMS			-7	/* invalid parameters */
 #define		BAD_IV_MAT			-8	/* invalid IV text */
@@ -137,35 +139,37 @@ namespace Twofish2 {
 	parameters at the bottom of the structs as appropriate.
 */
 
-typedef ulong fullSbox[4][256];
+#define BYTE unsigned char
+#define DWORD unsigned long
+typedef DWORD fullSbox[4][256];
 
 /* The structure for key information */
 typedef struct
 {
-	uchar direction;					/* Key used for encrypting or decrypting? */
+	BYTE direction;					/* Key used for encrypting or decrypting? */
 #if ALIGN32
-	uchar dummyAlign[3];				/* keep 32-bit alignment */
+	BYTE dummyAlign[3];				/* keep 32-bit alignment */
 #endif
 	int keyLen;					/* Length of the key */
 	char keyMaterial[MAX_KEY_SIZE + 4];/* Raw key data in ASCII */
 
 	/* Twofish-specific parameters: */
-	ulong keySig;					/* set to VALID_SIG by makeKey() */
+	DWORD keySig;					/* set to VALID_SIG by makeKey() */
 	int numRounds;				/* number of rounds in cipher */
-	ulong key32[MAX_KEY_BITS / 32];	/* actual key bits, in ulongs */
-	ulong sboxKeys[MAX_KEY_BITS / 64];/* key bits used for S-boxes */
-	ulong subKeys[TOTAL_SUBKEYS];	/* round subkeys, input/output whitening bits */
+	DWORD key32[MAX_KEY_BITS / 32];	/* actual key bits, in dwords */
+	DWORD sboxKeys[MAX_KEY_BITS / 64];/* key bits used for S-boxes */
+	DWORD subKeys[TOTAL_SUBKEYS];	/* round subkeys, input/output whitening bits */
 #if REENTRANT
 	fullSbox sBox8x32;				/* fully expanded S-box */
 #if defined(COMPILE_KEY) && defined(USE_ASM)
 #undef	VALID_SIG
 #define	VALID_SIG	 0x504D4F43		/* 'COMP':  C is compiled with -DCOMPILE_KEY */
-	ulong cSig1;					/* set after first "compile" (zero at "init") */
+	DWORD cSig1;					/* set after first "compile" (zero at "init") */
 	void* encryptFuncPtr;			/* ptr to asm encrypt function */
 	void* decryptFuncPtr;			/* ptr to asm decrypt function */
-	ulong codeSize;					/* size of compiledCode */
-	ulong cSig2;					/* set after first "compile" */
-	uchar compiledCode[5000];		/* make room for the code itself */
+	DWORD codeSize;					/* size of compiledCode */
+	DWORD cSig2;					/* set after first "compile" */
+	BYTE compiledCode[5000];		/* make room for the code itself */
 #endif
 #endif
 } keyInstance;
@@ -173,27 +177,27 @@ typedef struct
 /* The structure for cipher information */
 typedef struct
 {
-	uchar mode;						/* MODE_ECB, MODE_CBC, or MODE_CFB1 */
+	BYTE mode;						/* MODE_ECB, MODE_CBC, or MODE_CFB1 */
 #if ALIGN32
-	uchar dummyAlign[3];				/* keep 32-bit alignment */
+	BYTE dummyAlign[3];				/* keep 32-bit alignment */
 #endif
-	uchar IV[MAX_IV_SIZE];			/* CFB1 iv uchars  (CBC uses iv32) */
+	BYTE IV[MAX_IV_SIZE];			/* CFB1 iv bytes  (CBC uses iv32) */
 
 	/* Twofish-specific parameters: */
-	ulong cipherSig;				/* set to VALID_SIG by cipherInit() */
-	ulong iv32[BLOCK_SIZE / 32];		/* CBC IV uchars arranged as ulongs */
+	DWORD cipherSig;				/* set to VALID_SIG by cipherInit() */
+	DWORD iv32[BLOCK_SIZE / 32];		/* CBC IV bytes arranged as dwords */
 } cipherInstance;
 
 /* Function protoypes */
-int makeKey( keyInstance* key, uchar direction, int keyLen, char* keyMaterial );
+int makeKey( keyInstance* key, BYTE direction, int keyLen, char* keyMaterial );
 
-int cipherInit( cipherInstance* cipher, uchar mode, char* IV );
+int cipherInit( cipherInstance* cipher, BYTE mode, char* IV );
 
-int blockEncrypt( cipherInstance* cipher, keyInstance* key, uchar* input, int inputLen, uchar* outBuffer );
+int blockEncrypt( cipherInstance* cipher, keyInstance* key, BYTE* input, int inputLen, BYTE* outBuffer );
 
-int blockDecrypt( cipherInstance* cipher, keyInstance* key, uchar* input, int inputLen, uchar* outBuffer );
+int blockDecrypt( cipherInstance* cipher, keyInstance* key, BYTE* input, int inputLen, BYTE* outBuffer );
 
-int reKey( keyInstance* key );	/* do key schedule using modified key.keyulongs */
+int reKey( keyInstance* key );	/* do key schedule using modified key.keyDwords */
 
 /* API to check table usage, for use in ECB_TBL KAT */
 #define		TAB_DISABLE			0
@@ -208,7 +212,7 @@ int TableOp( int op );
 #endif
 
 #if BLOCK_SIZE == 128			/* optimize block copies */
-#define		Copy1(d,s,N)	((ulong *)(d))[N] = ((ulong *)(s))[N]
+#define		Copy1(d,s,N)	((DWORD *)(d))[N] = ((DWORD *)(s))[N]
 #define		BlockCopy(d,s)	{ Copy1(d,s,0);Copy1(d,s,1);Copy1(d,s,2);Copy1(d,s,3); }
 #else
 #define		BlockCopy(d,s)	{ memcpy(d,s,BLOCK_SIZE/8); }
@@ -247,9 +251,9 @@ int TableOp( int op );
    where a = primitive root of field generator 0x14D */
 #define	RS_GF_FDBK		0x14D		/* field generator */
 #define	RS_rem(x)		\
-	{ uchar  b  = (uchar) (x >> 24);											 \
-	  ulong g2 = ((b << 1) ^ ((b & 0x80) ? RS_GF_FDBK : 0 )) & 0xFF;		 \
-	  ulong g3 = ((b >> 1) & 0x7F) ^ ((b & 1) ? RS_GF_FDBK >> 1 : 0 ) ^ g2 ; \
+	{ BYTE  b  = (BYTE) (x >> 24);											 \
+	  DWORD g2 = ((b << 1) ^ ((b & 0x80) ? RS_GF_FDBK : 0 )) & 0xFF;		 \
+	  DWORD g3 = ((b >> 1) & 0x7F) ^ ((b & 1) ? RS_GF_FDBK >> 1 : 0 ) ^ g2 ; \
 	  x = (x << 8) ^ (g3 << 24) ^ (g2 << 16) ^ (g3 << 8) ^ b;				 \
 	}
 
@@ -262,7 +266,7 @@ int TableOp( int op );
 *----------------------------------------------------------------
 * More statistical properties of this matrix (from MDS.EXE output):
 *
-* Min Hamming weight (one uchar difference) =  8. Max=26.  Total =  1020.
+* Min Hamming weight (one byte difference) =  8. Max=26.  Total =  1020.
 * Prob[8]:  	7    23    42    20    52    95    88    94   121   128    91
 *   		  102    76    41    24 	8     4 	1     3 	0     0 	0
 * Runs[8]:  	2     4 	5     6 	7     8 	9    11
@@ -271,7 +275,7 @@ int TableOp( int op );
 * HW= 9: 04050707 080A0E0E 10141C1C 20283838 40507070 80A0E0E0 C6432020 07070504
 *   	 0E0E0A08 1C1C1410 38382820 70705040 E0E0A080 202043C6 05070407 0A0E080E
 *   	 141C101C 28382038 50704070 A0E080E0 4320C620 02924B02 089A4508
-* Min Hamming weight (two uchar difference) =  3. Max=28.  Total = 390150.
+* Min Hamming weight (two byte difference) =  3. Max=28.  Total = 390150.
 * Prob[3]:  	7    18    55   149   270   914  2185  5761 11363 20719 32079
 *   		43492 51612 53851 52098 42015 31117 20854 11538  6223  2492  1033
 * MDS OK, ROR:   6+  7+  8+  9+ 10+ 11+ 12+ 13+ 14+ 15+ 16+
@@ -282,9 +286,9 @@ int TableOp( int op );
 #define	LFSR2(x) ( ((x) >> 2)  ^ (((x) & 0x02) ?   MDS_GF_FDBK/2 : 0)  \
 							   ^ (((x) & 0x01) ?   MDS_GF_FDBK/4 : 0))
 
-#define	Mx_1(x) ((ulong)  (x))		/* force result to ulong so << will work */
-#define	Mx_X(x) ((ulong) ((x) ^ 		   LFSR2(x)))	/* 5B */
-#define	Mx_Y(x) ((ulong) ((x) ^ LFSR1(x) ^ LFSR2(x)))	/* EF */
+#define	Mx_1(x) ((DWORD)  (x))		/* force result to dword so << will work */
+#define	Mx_X(x) ((DWORD) ((x) ^ 		   LFSR2(x)))	/* 5B */
+#define	Mx_Y(x) ((DWORD) ((x) ^ LFSR1(x) ^ LFSR2(x)))	/* EF */
 
 #define	M00		Mul_1
 #define	M01		Mul_Y

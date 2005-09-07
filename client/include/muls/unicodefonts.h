@@ -19,7 +19,7 @@ struct stUnicodeCharInfo {
 class cUnicodeFonts {
 private:
 	// Since the unicode fonts are too big, we'll only cache the indexers into the file
-	// Since we have 0x10000 characters and every indexer is 4 uchar, we have about
+	// Since we have 0x10000 characters and every indexer is 4 byte, we have about
 	// 256 kb of index data per file. I think that is acceptable.
 	qint32 seekOffsets[3][0x10000];
 	QFile data[3];

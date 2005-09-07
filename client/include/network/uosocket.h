@@ -91,9 +91,9 @@ public:
 	uint popSequence();
 	void clearSequenceQueue();
 	uint sequenceQueueLength();
-	uint outgoinguchars();
-	uint incominguchars();
-	uint incomingucharsCompressed();
+	uint outgoingBytes();
+	uint incomingBytes();
+	uint incomingBytesCompressed();
 	uint features() const;
 	void setFeatures(uint data);
 	void setCharlistFeatures(uint data);
@@ -138,7 +138,7 @@ public slots:
 	void connected();
 	void connectionClosed();
 	void readyRead();
-	void ucharsWritten(int nuchars);
+	void bytesWritten(int nbytes);
 	void error(QAbstractSocket::SocketError error);
 	void poll();
 	void disconnect();
@@ -189,15 +189,15 @@ inline uint cUoSocket::popSequence() {
 	}
 }
 
-inline uint cUoSocket::outgoinguchars() {
+inline uint cUoSocket::outgoingBytes() {
 	return outgoingBytes_;
 }
 
-inline uint cUoSocket::incominguchars() {
+inline uint cUoSocket::incomingBytes() {
 	return incomingBytes_;
 }
 
-inline uint cUoSocket::incomingucharsCompressed() {
+inline uint cUoSocket::incomingBytesCompressed() {
 	return incomingBytesCompressed_;
 }
 

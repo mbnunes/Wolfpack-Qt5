@@ -10,7 +10,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QMap>
-#include <QList>
+#include <qlist.h>
 #include <QCache>
 #include <QEvent>
 #include <QVector>

@@ -12,7 +12,7 @@ protected:
 	int realWidth_, realHeight_; // Original width and height
 	int width_, height_; // Real texture width and height
 	unsigned char *data; // RGBA pixel data
-	unsigned int pitch; // Length of one scanline in uchar
+	unsigned int pitch; // Length of one scanline in byte
 
 public:
 	/*

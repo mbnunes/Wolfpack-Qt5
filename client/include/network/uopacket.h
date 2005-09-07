@@ -30,7 +30,7 @@ public:
 #if defined(_DEBUG)
 inline void cIncomingPacket::safetyAssertSize(unsigned short size) {
 	if (this->size < size) {
-		throw Exception(tr("Safety assertion for incoming packet 0x%1 size wasn't met.\nExpected: %2 uchar. Received: %3 uchar.").arg(id, 0, 16).arg(size).arg(this->size));
+		throw Exception(tr("Safety assertion for incoming packet 0x%1 size wasn't met.\nExpected: %2 byte. Received: %3 byte.").arg(id, 0, 16).arg(size).arg(this->size));
 	}
 }
 #else

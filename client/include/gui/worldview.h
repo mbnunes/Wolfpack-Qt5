@@ -8,6 +8,7 @@
 #include "gui/window.h"
 #include "gui/cursor.h"
 
+//Added by qt3to4:
 #include <QMouseEvent>
 #include <QString>
 
