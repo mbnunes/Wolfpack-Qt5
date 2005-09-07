@@ -41,6 +41,9 @@ cControl::~cControl() {
 	if (GLWidget->mouseCapture() == this) {
 		GLWidget->setMouseCapture(0);
 	}
+	if (parent_) {
+		parent_->removeControl(this);
+	}
 }
 
 bool cControl::isVisibleOnScreen() {

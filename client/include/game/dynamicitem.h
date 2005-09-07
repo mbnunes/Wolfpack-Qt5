@@ -43,8 +43,10 @@ public:
 	cDynamicItem *container() const;
 	cMobile *wearer() const;
 	enLayer layer() const;
+	ushort amount() const;
+	void setAmount(ushort amount);
 
-	void setId(unsigned short data);
+	virtual void setId(unsigned short data);
 	void setHue(unsigned short data);
 
 	void cleanPosition(); // Removes the item from its current position and moves it into the limbo
@@ -74,6 +76,7 @@ protected:
 	enLayer layer_; // The layer this item is equipped on (only valid in Equipped state)
 	Container content_;
 
+	ushort amount_;
 	int lastClickX_;
 	int lastClickY_;
 	int containerX_, containerY_; // position within container
@@ -145,6 +148,10 @@ inline void cDynamicItem::setLastClickX(int data) {
 
 inline void cDynamicItem::setLastClickY(int data) {
 	lastClickY_ = data;
+}
+
+inline ushort cDynamicItem::amount() const {
+	return amount_;
 }
 
 #endif

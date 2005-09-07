@@ -58,6 +58,10 @@ public:
 	void reload();
 
 	void setCursor(enCursorType cursor);
+	int currentWidth() const;
+	int currentHeight() const;
+	int currentXOffset() const;
+	int currentYOffset() const;
 
 	// Changes the warmode setting for the cursor
 	inline void setWarmode(bool warmode) {
@@ -70,6 +74,22 @@ public:
 
 inline void cCursor::setCursor(enCursorType cursor) {
 	this->cursor = cursor;
+}
+
+inline int cCursor::currentXOffset() const {
+	return cursors[cursor].xoffset;
+}
+
+inline int cCursor::currentYOffset() const {
+	return cursors[cursor].yoffset;
+}
+
+inline int cCursor::currentWidth() const {
+	return cursors[cursor].surface->realWidth();
+}
+
+inline int cCursor::currentHeight() const {
+	return cursors[cursor].surface->realHeight();
 }
 
 extern cCursor *Cursor;

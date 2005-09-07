@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include "game/world.h"
 #include "game/groundtile.h"
+#include "game/multi.h"
 #include "game/statictile.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
@@ -84,17 +85,15 @@ void cWorld::cleanupEntities() {
 	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
 		ushort x, y;
 		parseCellId(it.key(), x, y);
-		int distance = Utilities::distance(x, y, x_, y_);
+		int distance = Utilities::simpleDistance(x, y, x_, y_);
 
 		if (distance > 18) {
 			const Cell &cell = it.value();
 			Cell::const_iterator cit = cell.begin();
 			for (cit = cell.begin(); cit != cell.end(); ++cit) {
-				if (distance > 18) {
-					Gui->removeOverheadText(*cit);
-					(*cit)->setCellid(-1);
-					(*cit)->decref();
-				}
+				Gui->removeOverheadText(*cit);
+				(*cit)->setCellid(-1);
+				(*cit)->decref();
 			}
 			toremove.append(it.key());
 		}
@@ -106,6 +105,14 @@ void cWorld::cleanupEntities() {
 	}
 
 	cleaningUp = false;
+
+	// Check for multis now
+	QVector<cMulti*> multisCopy;
+	foreach (cMulti *multi, multisCopy) {
+		if (Utilities::simpleDistance(multi->x(), multi->y(), x_, y_) > 18) {
+			multi->decref();
+		}
+	}
 }
 
 void cWorld::loadCell(unsigned short x, unsigned short y) {
@@ -147,6 +154,11 @@ void cWorld::loadCell(unsigned short x, unsigned short y) {
 			}
 		}
 	}
+
+	// Go trough the multis and tell all multis to check for new tiles
+	foreach (cMulti *multi, multis_) {
+		multi->refreshTiles(x, y);
+	}
 }
 
 void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool fresh) {
@@ -178,7 +190,7 @@ void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool 
 		for (x = left; x <= right; ++x) {
 			for (y = top; y <= bottom; ++y) {
 				// Only add cells if they're within a 18 tile radius
-				if (Utilities::distance(x_, y_, x, y) <= 18) {
+				if (Utilities::simpleDistance(x_, y_, x, y) <= 18) {
 					loadCell(x, y);
 				}
 			}
@@ -191,8 +203,8 @@ void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool 
 		for (x = left; x <= right; ++x) {
 			for (y = top; y <= bottom; ++y) {
 				// Compute old and new distance from the center to the tile
-				int olddist = Utilities::distance(oldx, oldy, x, y);
-				int newdist = Utilities::distance(x_, y_, x, y);
+				int olddist = Utilities::simpleDistance(oldx, oldy, x, y);
+				int newdist = Utilities::simpleDistance(x_, y_, x, y);
 
 				// load the tile if it has recently come into view
 				if (olddist > 18 && newdist <= 18) {
@@ -234,6 +246,11 @@ inline bool insertBefore(cEntity *entity, cEntity *next) {
 
 void cWorld::addEntity(cEntity *entity) {
 	if (cleaningUp) {
+		return;
+	}
+
+	if (entity->type() == MULTI) {
+		multis_.append(dynamic_cast<cMulti*>(entity));
 		return;
 	}
 
@@ -292,6 +309,16 @@ void cWorld::addEntity(cEntity *entity) {
 
 void cWorld::removeEntity(cEntity *entity) {
 	if (cleaningUp) {
+		return;
+	}
+
+	if (entity->type() == MULTI) {
+		cMulti *multi = dynamic_cast<cMulti*>(entity);
+		for (int i = 0; i < multis_.size(); ++i) {
+			if (multis_[i] == multi) {
+				multis_.remove(i--);
+			}
+		}
 		return;
 	}
 
@@ -723,7 +750,7 @@ QVector<cBlockItem> cWorld::getBlockingItems(cMobile *mobile, ushort posx, ushor
 	}
 
 	// Now for the static-items
-	StaticBlock *block = Maps->getStaticBlock(mobile->facet(), posx, posy);
+	/*StaticBlock *block = Maps->getStaticBlock(mobile->facet(), posx, posy);
 	
 	const uchar cellx = posx % 8;
 	const uchar celly = posy % 8;
@@ -760,7 +787,7 @@ QVector<cBlockItem> cWorld::getBlockingItems(cMobile *mobile, ushort posx, ushor
 
 			blockList.append(staticBlock);
 		}
-	}
+	}*/
 
 	// We are only interested in items at pos
 	// todo: we could impliment blocking for items on the adjacent sides
@@ -778,7 +805,7 @@ QVector<cBlockItem> cWorld::getBlockingItems(cMobile *mobile, ushort posx, ushor
 					continue;
 				}
 			}*/
-			cDynamicItem *item = dynamic_cast<cDynamicItem*>(*cit);
+			cStaticTile *item = dynamic_cast<cStaticTile*>(*cit);
 
 			if (!item) {
 				continue;

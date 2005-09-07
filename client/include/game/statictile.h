@@ -16,6 +16,7 @@ protected:
 	unsigned short hue_;
 	cItemTileInfo *tiledata_;
 	cTexture *texture;
+	bool drawStacked_;
 
 	// For animated static tiles
 	bool animated;
@@ -33,6 +34,9 @@ public:
 	unsigned short hue() const;
 	virtual void setHue(unsigned short data);
 	cItemTileInfo *tiledata() const;
+
+	bool drawStacked() const;
+	void setDrawStacked(bool data);
 
 	// Override the draw method
 	void draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip);
@@ -56,6 +60,14 @@ inline unsigned short cStaticTile::id() const {
 
 inline cItemTileInfo *cStaticTile::tiledata() const {
 	return tiledata_;
+}
+
+inline bool cStaticTile::drawStacked() const {
+	return drawStacked_;
+}
+
+inline void cStaticTile::setDrawStacked(bool data) {
+	drawStacked_ = data;	
 }
 
 #endif

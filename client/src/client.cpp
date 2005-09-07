@@ -11,6 +11,7 @@
 #include "exceptions.h"
 #include "texture.h"
 #include "sound.h"
+#include "scripts.h"
 
 #include "gui/cursor.h"
 #include "gui/gui.h"
@@ -31,6 +32,7 @@
 #include "muls/asciifonts.h"
 #include "muls/unicodefonts.h"
 #include "muls/sounds.h"
+#include "muls/multis.h"
 #include "muls/speech.h"
 #include "muls/tiledata.h"
 #include "muls/textures.h"
@@ -66,6 +68,8 @@ void myMessageOutput( QtMsgType type, const char *msg )
 }
 
 cUoClient::cUoClient() {
+	setObjectName("Client");
+
 	Config = new cConfig();
 	Log = new cLog();
 
@@ -90,14 +94,19 @@ cUoClient::cUoClient() {
 	Speech = new cSpeech;
 	Sound = new cSound;
 	Localization = new cLocalization;
+	Multis = new cMultis;
 
 	World = new cWorld;	
 
 	ContextMenu = new cContextMenu;
 	LoginDialog = new cLoginDialog;
+
+	Scripts = new cScripts;
 }
 
 cUoClient::~cUoClient() {
+	delete Scripts;
+
 	delete UoSocket;
 
 	delete World;
@@ -109,6 +118,7 @@ cUoClient::~cUoClient() {
 	delete Tooltip;
 	delete Tooltips;
 
+	delete Multis;
 	delete Localization;
 	delete Speech;
 	delete Animations;
@@ -156,14 +166,20 @@ void cUoClient::load() {
 	Sounds->load();
 	Speech->load();
 	Sound->load();
+	Multis->load();
 
 	Cursor->load(); // The cursor requires the mulreader classes
+
+	Scripts->load();
 }
 
 void cUoClient::unload() {
+	Scripts->unload();
+
 	Cursor->unload();
 
 	// Unload MulReaders
+	Multis->unload();
 	Sound->unload();
 	Sounds->unload();
 	Animations->unload();

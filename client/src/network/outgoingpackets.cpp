@@ -214,3 +214,11 @@ cCharacterCreationPacket::cCharacterCreationPacket(const cCharacterCreationInfo 
 		<< info.skinColor << info.hairStyle << info.hairColor << info.beardStyle << info.beardColor
 		<< (uchar)0 << info.startLocation << info.characterSlot << clientIp << info.shirtHue << info.pantsHue;
 }
+
+cRequestContextMenu::cRequestContextMenu(uint serial) : cOutgoingPacket(0xbf, 9) {
+	m_Stream << (ushort)0x13 << serial;
+}
+
+cContextMenuResponsePacket::cContextMenuResponsePacket(uint serial, ushort id) : cOutgoingPacket(0xbf, 13) {
+	m_Stream << (ushort)0x15 << serial << id;
+}

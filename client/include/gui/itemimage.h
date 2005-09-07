@@ -14,6 +14,7 @@ protected:
 	unsigned short hue;
 	bool partialhue;
 	bool landtile;
+	bool stacked_;
 public:
 	cItemImage(unsigned short id, unsigned short hue = 0, bool partialhue = false, bool landtile = false);
 	virtual ~cItemImage();

@@ -79,6 +79,18 @@ namespace Utilities {
 		return uiResult;
 	}
 
+	/*
+		Calculate the distance between two 2d uo coordinates the SIMPLE way
+	*/
+	inline unsigned int simpleDistance(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) {
+		unsigned int uiResult = ~0U; // Initialize with *infinite*
+		
+		int xdiff = qAbs<int>(x1 - x2);
+		int ydiff = qAbs<int>(y1 - y2);
+		
+		return qMax<int>(xdiff, ydiff);
+	}
+
 	QString localLanguage();
 
 	QString dumpData(const QByteArray &data);

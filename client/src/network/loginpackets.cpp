@@ -162,7 +162,8 @@ public:
 
 	virtual void handle(cUoSocket *socket) {
 		// Send this to the log for now
-		Log->print(LOG_DEBUG, tr("Server wants to enable client features: 0x%1.\n").arg(flags, 0, 16));
+		Log->print(LOG_NOTICE, tr("Server wants to enable client features: 0x%1.\n").arg(flags, 0, 16));
+		socket->setFeatures(flags);
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -231,6 +232,7 @@ public:
 	}
 
 	virtual void handle(cUoSocket *socket) {
+		socket->setCharlistFeatures(flags);
 		LoginDialog->show(PAGE_SELECTCHAR);
 		LoginDialog->setCharacterList(characters);
 	}

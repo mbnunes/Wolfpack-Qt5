@@ -18,11 +18,31 @@ class cOutgoingPacket;
 typedef cIncomingPacket *(*fnIncomingPacketConstructor)(QDataStream &data, unsigned short size);
 
 // Array with packet lengths.
-extern const ushort packetLengths[256];
+extern ushort packetLengths[256];
+
+// Features enabled trough the Enable Feature packet
+enum enFeatures {
+	// 0xb9 Features
+	FEATURE_T2A = 0x0001 | 0x0004, // T2A complete
+	FEATURE_LBR = 0x0008 | 0x0002, // LBR + Sound
+	FEATURE_AOS = 0x0010, // AOS
+
+	// Characterlist Features
+	FEATURE_CONTEXTMENUS = 0x08,
+	FEATURE_TOOLTIPS = 0x20,
+	FEATURE_AOSPROFESSIONS = 0x20,
+	FEATURE_SEPROFESSIONS = 0x80,
+	FEATURE_SIXTHCHARSLOT = 0x40,
+	FEATURE_ONECHARSLOT = 0x14,
+};
 
 class cUoSocket : public QObject {
 Q_OBJECT
-
+Q_PROPERTY(uint outgoingBytes READ outgoingBytes)
+Q_PROPERTY(uint incomingBytes READ incomingBytes)
+Q_PROPERTY(uint incomingBytesCompressed READ incomingBytesCompressed)
+Q_PROPERTY(uint features READ features)
+Q_PROPERTY(uint charlistFeatures READ charlistFeatures)
 protected:
 	QTcpSocket *socket;
 
@@ -48,6 +68,8 @@ protected:
 	uint outgoingBytes_;
 	uint incomingBytes_;
 	uint incomingBytesCompressed_;
+	uint features_;
+	uint charlistFeatures_;
 
 	static fnIncomingPacketConstructor incomingPacketConstructors[256];
 public:
@@ -72,8 +94,23 @@ public:
 	uint outgoinguchars();
 	uint incominguchars();
 	uint incomingucharsCompressed();
+	uint features() const;
+	void setFeatures(uint data);
+	void setCharlistFeatures(uint data);
+	uint charlistFeatures() const;
 
-	// Queue a given uchar array for sending it to the server
+	// Is-Getters for flags
+	bool isAos() const;
+	bool isT2a() const;
+	bool isLbr() const;
+	bool isContextMenus() const;
+	bool isTooltips() const;
+	bool isAosProfessions() const;
+	bool isSeProfessions();
+	bool isSixthCharslot() const;
+	bool isOneCharslot() const;
+
+	// Queue a given byte array for sending it to the server
 	void sendRaw(const QByteArray &data);
 	void send(const cOutgoingPacket &packet);
 
@@ -106,6 +143,7 @@ public slots:
 	void poll();
 	void disconnect();
 	void sendPing();
+	void setPacketLength(uchar packet, ushort size);
 };
 
 // There is only one instance of the UoSocket class
@@ -169,6 +207,58 @@ inline void cUoSocket::clearSequenceQueue() {
 
 inline uint cUoSocket::sequenceQueueLength() {
 	return moveQueue.size();
+}
+
+inline uint cUoSocket::features() const {
+	return features_;
+}
+
+inline void cUoSocket::setFeatures(uint data) {
+	features_ = data;
+}
+
+inline bool cUoSocket::isAos() const {
+	return (features_ & FEATURE_AOS) != 0;
+}
+
+inline bool cUoSocket::isT2a() const {
+	return (features_ & FEATURE_T2A) != 0;
+}
+
+inline bool cUoSocket::isLbr() const {
+	return (features_ & FEATURE_LBR) != 0;
+}
+
+inline void cUoSocket::setCharlistFeatures(uint data) {
+	charlistFeatures_ = data;
+}
+
+inline uint cUoSocket::charlistFeatures() const {
+	return charlistFeatures_;
+}
+
+inline bool cUoSocket::isContextMenus() const {
+	return (charlistFeatures_ & FEATURE_CONTEXTMENUS) != 0;
+}
+
+inline bool cUoSocket::isTooltips() const {
+	return (charlistFeatures_ & FEATURE_TOOLTIPS) != 0;
+}
+
+inline bool cUoSocket::isAosProfessions() const {
+	return (charlistFeatures_ & FEATURE_AOSPROFESSIONS) != 0;
+}
+
+inline bool cUoSocket::isSeProfessions() {
+	return (charlistFeatures_ & FEATURE_SEPROFESSIONS) != 0;
+}
+
+inline bool cUoSocket::isSixthCharslot() const {
+	return (charlistFeatures_ & FEATURE_SIXTHCHARSLOT) != 0;
+}
+
+inline bool cUoSocket::isOneCharslot() const {
+	return (charlistFeatures_ & FEATURE_ONECHARSLOT) != 0;
 }
 
 #define AREGPREFIX fnc

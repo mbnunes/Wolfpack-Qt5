@@ -9,6 +9,7 @@
 #include "gui/tooltip.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
+#include "game/multi.h"
 #include "game/tooltips.h"
 #include "muls/localization.h"
 #include "game/targetrequest.h"
@@ -264,6 +265,8 @@ public:
 		if (serial & 0x80000000) {
 			input >> amount;
 			serial &= ~ 0x80000000; // Clear the flag
+		} else {
+			amount = 1;
 		}
 
 		// Whatever this is for, it's in the docs
@@ -303,21 +306,47 @@ public:
 	virtual void handle(cUoSocket *socket) {
 		cDynamicItem *item = World->findItem(serial);
 
-		if (!item) {
-			item = new cDynamicItem(posx, posy, posz, Player->facet(), serial);
+		if (id >= 0x4000) {
+			// Clean non-multis
+			if (item && item->type() != MULTI) {
+				World->removeEntity(item);
+				item->decref();
+				item = 0;
+			}
+
+			if (!item) {
+				item = new cMulti(posx, posy, posz, Player->facet(), serial);
+				World->addEntity(item);
+			} else {
+				item->move(posx, posy, posz);
+			}
+
+			// Set id of multi
+			item->setId(id);			
 		} else {
-			item->move(posx, posy, posz);
+			if (item && item->type() == MULTI) {
+				World->removeEntity(item);
+				item->decref();
+				item = 0;
+			}
+
+			if (!item) {
+				item = new cDynamicItem(posx, posy, posz, Player->facet(), serial);
+			} else {
+				item->move(posx, posy, posz);
+			}
+
+			item->setHue(hue);
+
+			if (id != item->id()) {
+				World->removeEntity(item);
+				item->setId(id);
+				World->addEntity(item); // ID changes also possibly affect the World position
+			}
+
+			item->setAmount(amount);
+			// TODO: Flags
 		}
-
-		item->setHue(hue);
-
-		if (id != item->id()) {
-			World->removeEntity(item);
-			item->setId(id);
-			World->addEntity(item); // ID changes also possibly affect the World position
-		}
-
-		// TODO: Flags/Amount
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -916,7 +945,7 @@ public:
 		}
 		item->setId(id);
 		item->setHue(hue);
-		// TODO: Amount
+		item->setAmount(amount);
 		item->setContainerX(posx);
 		item->setContainerY(posy);
 
@@ -976,7 +1005,7 @@ public:
 			}
 			item->setId(info.id);
 			item->setHue(info.hue);
-			// TODO: Amount
+			item->setAmount(info.amount);
 			item->setContainerX(info.posx);
 			item->setContainerY(info.posy);
 

@@ -12,11 +12,13 @@
 #include <QMap>
 #include <QList>
 #include <QCache>
-#include <qvector.h>
+#include <QEvent>
+#include <QVector>
 #include <QMouseEvent>
 
 class cMobile;
 class cDynamicItem;
+class cMulti;
 
 // I'm using a class here because of the destructor
 class stGroundInfo {
@@ -84,6 +86,8 @@ protected:
 	typedef Container::const_iterator ConstIterator;
 	Container entities;
 
+	QVector<cMulti*> multis_;
+
 	// Load a specific cell from the given coordinates
 	void loadCell(unsigned short x, unsigned short y);
 
@@ -118,6 +122,8 @@ public:
 	bool belowMap() const;
 	void setBelowMap(bool data);
 	void setRoofCap(int data);	
+
+	QVector<cMulti*> multis() const;
 
 	// This function moves the center of our world to the new
 	// coordinates and loads the static tiles for the given location.
@@ -219,6 +225,10 @@ inline void cWorld::setRoofCap(int data) {
 
 inline cEntity *cWorld::mouseOver() const {
 	return mouseOver_;
+}
+
+inline QVector<cMulti*> cWorld::multis() const {
+	return multis_;
 }
 
 extern cWorld *World;

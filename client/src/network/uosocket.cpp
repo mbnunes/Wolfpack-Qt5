@@ -24,7 +24,7 @@ static DecompressingCopier decompressor;
 fnIncomingPacketConstructor cUoSocket::incomingPacketConstructors[256] = {0, };
 
 // Packet Lengths
-const ushort packetLengths[256] = {
+ushort packetLengths[256] = {
 	0x0068, 0x0005, 0x0007, 0x0000, 0x0002, 0x0005, 0x0005, 0x0007, // 0x00
 	0x000e, 0x0005, 0x000b, 0x010a, 0x0000, 0x0003, 0x0000, 0x003d, // 0x08
 	0x00d7, 0x0000, 0x0000, 0x000a, 0x0006, 0x0009, 0x0001, 0x0000, // 0x10
@@ -68,6 +68,8 @@ void cUoSocket::sendPing() {
 }
 
 cUoSocket::cUoSocket() {
+	setObjectName("Socket");
+
 	incomingBytes_ = 0;
 	incomingBytesCompressed_ = 0;
 	outgoingBytes_ = 0;
@@ -366,4 +368,8 @@ void cUoSocket::error(QAbstractSocket::SocketError error) {
 
 void cUoSocket::resync() {
 	send(cResyncPacket());
+}
+
+void cUoSocket::setPacketLength(uchar packet, ushort size) {
+	packetLengths[packet] = size;
 }

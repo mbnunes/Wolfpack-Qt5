@@ -10,6 +10,7 @@
 #include "game/groundtile.h"
 #include "network/uosocket.h"
 #include "muls/localization.h"
+#include "scripts.h"
 #include "config.h"
 #include "sound.h"
 #include "log.h"
@@ -157,6 +158,8 @@ static const char * const icon_xpm[] = {
 };
 
 cMainWindow::cMainWindow() {
+	setObjectName("MainWindow");
+
 	QAction *action;
 
 	// Window Icon
@@ -166,7 +169,8 @@ cMainWindow::cMainWindow() {
 	// Create a menu bar at the top of the window
 	m_menuBar = new QMenuBar(this);
 	QMenu *file = m_menuBar->addMenu(tr("&File"));
-	file->addAction("E&xit", this, SLOT(close()));
+	file->addAction("&Edit Scripts", Scripts, SLOT(showWorkbench()));
+	file->addAction("E&xit", this, SLOT(close()));	
 	
 	// Game Menu
 	QMenu *game = m_menuBar->addMenu("&Game");

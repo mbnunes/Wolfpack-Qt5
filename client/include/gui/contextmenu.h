@@ -8,15 +8,9 @@
 
 #include <QList>
 
-#if defined(__GNUC__)
-#define __stdcall __attribute__((__stdcall__))
-#endif
-#define STDCALL __stdcall
-
 class cContextMenuEntry;
 class cContextMenu;
-
-typedef void (STDCALL *fnContextMenuCallback)(cContextMenu *menu, int selected, void *customData);
+class cCheckerTrans;
 
 class cContextMenu : public cWindow {
 Q_OBJECT
@@ -28,11 +22,10 @@ protected:
 
 	// Define some way of storing the context menu entries
 	cBorderGump *border;	
-	cTexture *checkerboard;
+	cCheckerTrans *checkertransOn, *checkertransOff;
 	Container entries;
+	uint serial_; // Serial of object we're showing the contextmenu for
 
-	void *customData_;
-	fnContextMenuCallback callback;
 public:
 	cContextMenu();
 	virtual ~cContextMenu();
@@ -47,13 +40,22 @@ public:
 	void show();
 	void show(int x, int y);
 	void hide();
+	
+	uint serial() const;
+    void setSerial(uint serial);
+public slots:
+	void sendResponse(ushort id);
 
-	void setCallback(fnContextMenuCallback callback, void *customData);
-	void *customData() const;
+signals:
+	void clicked(ushort id);
 };
 
-inline void *cContextMenu::customData() const {
-	return customData_;
+inline uint cContextMenu::serial() const {
+	return serial_;
+}
+
+inline void cContextMenu::setSerial(uint data) {
+	serial_ = data;
 }
 
 extern cContextMenu *ContextMenu; // There can only be one context menu

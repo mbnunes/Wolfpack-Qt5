@@ -21,6 +21,8 @@ cStaticTile::cStaticTile() {
 	type_ = STATIC;
 	animated = false;
 	animation = 0;
+	drawStacked_ = false;
+	hue_ = 0;
 }
 
 cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
@@ -31,6 +33,8 @@ cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFa
 	type_ = STATIC;
 	animated = false;
 	animation = 0;
+	drawStacked_ = false;
+	hue_ = 0;
 }
 
 cStaticTile::~cStaticTile() {
@@ -195,11 +199,18 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 
 		glBegin(GL_QUADS);
 		int right = drawx_ + texture->width();
-		int bottom = drawy_ + texture->height();		
+		int bottom = drawy_ + texture->height();
 		glTexCoord2f(0, 0); glVertex2f(drawx_, drawy_); // Upper left corner
 		glTexCoord2f(1, 0); glVertex2f(right, drawy_); // Upper Right Corner
 		glTexCoord2f(1, 1); glVertex2f(right, bottom); // Lower Right Corner
 		glTexCoord2f(0, 1); glVertex2f(drawx_, bottom); // Lower Right Corner
+
+		if (drawStacked()) {
+			glTexCoord2f(0, 0); glVertex2f(drawx_ + 5, drawy_ + 5); // Upper left corner
+			glTexCoord2f(1, 0); glVertex2f(right + 5, drawy_ + 5); // Upper Right Corner
+			glTexCoord2f(1, 1); glVertex2f(right + 5, bottom + 5); // Lower Right Corner
+			glTexCoord2f(0, 1); glVertex2f(drawx_ + 5, bottom + 5); // Lower Right Corner
+		}
 		glEnd();
 	}
 }

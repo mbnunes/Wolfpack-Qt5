@@ -1,6 +1,9 @@
 
+#include "gui/checkertrans.h"
 #include "gui/contextmenu.h"
 #include "gui/gui.h"
+#include "network/uosocket.h"
+#include "network/outgoingpackets.h"
 #include "surface.h"
 #include "mainwindow.h"
 #include <QCursor>
@@ -16,14 +19,9 @@ public:
 		id_ = id;
 	}
 
-	void onMouseUp(int x, int y, unsigned char button, bool pressed) {
-		if (Gui->getControl(x, y) == this) {
-			if (ContextMenu->callback) {
-				ContextMenu->callback(ContextMenu, id_, ContextMenu->customData_);
-				ContextMenu->callback = 0;
-				ContextMenu->customData_ = 0;
-			}
-			ContextMenu->hide();
+	void onMouseUp(QMouseEvent *e) {
+		if (Gui->getControl(e->x(), e->y()) == this) {
+			emit ContextMenu->clicked(id_);			
 		}
 	}
 
@@ -37,16 +35,14 @@ public:
 };
 
 cContextMenu::cContextMenu() {
+	checkertransOff = 0;
+	checkertransOn = 0;
 	border = 0;
-	checkerboard = 0;
-	callback = 0;
-	customData_ = 0;
+	serial_ = 0;
+	connect(this, SIGNAL(clicked(ushort)), SLOT(sendResponse(ushort)));
 }
 
 cContextMenu::~cContextMenu() {
-	if (checkerboard) {
-		checkerboard->decref();
-	}
 }
 
 void cContextMenu::addEntry(const QString &name, unsigned short hue, int id) {
@@ -64,35 +60,18 @@ void cContextMenu::show() {
 
 void cContextMenu::show(int x, int y) {
 	if (!border) {
+		checkertransOn = new cCheckerTrans(true);
+		checkertransOn->setAlign(CA_CLIENT);
+		addControl(checkertransOn);
+
 		border = new cBorderGump(0xa3c);
 		border->setAlign(CA_CLIENT);
 		border->setMoveHandle(false);
 		addControl(border, true);
-	}
 
-	if (!checkerboard) {
-		cSurface *surface = new cSurface(64, 64, false);		
-		int black = surface->color(0, 0, 0, 0);
-		int white = surface->color(255, 255, 255, 255);
-		for (int x = 0; x < 64; ++x) {
-			for (int y = 0; y < 64; ++y) {
-				if (y % 2 == 0) {
-					if (x % 2 == 0) {
-						surface->setPixel(x, y, white);
-					} else {
-						surface->setPixel(x, y, black);
-					}
-				} else {
-					if (x % 2 == 0) {
-						surface->setPixel(x, y, black);
-					} else {
-						surface->setPixel(x, y, white);
-					}
-				}				
-			}
-		}
-		checkerboard = new cTexture(surface, false);
-		delete surface;
+		checkertransOff = new cCheckerTrans(false);
+		checkertransOff->setAlign(CA_CLIENT);
+		addControl(checkertransOff);
 	}
 
 	if (!parent_) {
@@ -127,13 +106,10 @@ void cContextMenu::clear() {
 		delete *it;
 	}
 	entries.clear();
-
-	setCallback(0, 0); // Reset callback
 }
 
 void cContextMenu::hide() {
 	setVisible(false);
-	setCallback(0, 0);
 }
 
 unsigned char stencils[64*64] = {1, };
@@ -142,37 +118,14 @@ void cContextMenu::draw(int xoffset, int yoffset) {
 	xoffset += x_;
 	yoffset += y_;
 
-	// Enable stencil buffer
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_STENCIL_TEST);
-	glStencilFunc(GL_NEVER, 1, 1);
-	glStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);
-
-	// Simply write to the stencil buffer
-	glDisable(GL_BLEND);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_EQUAL, 1.0f);
-
-	float rightTexCoord = (float)width_ / 64.0f;
-	float downTexCoord = (float)height_ / 64.0f;
-
-	checkerboard->bind();
-	glBegin(GL_QUADS);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(xoffset, yoffset);
-	glTexCoord2f(rightTexCoord, 0.0f); glVertex2i(xoffset + width_, yoffset);
-	glTexCoord2f(rightTexCoord, downTexCoord); glVertex2i(xoffset + width_, yoffset + height_);
-	glTexCoord2f(0.0f, downTexCoord); glVertex2i(xoffset, yoffset + height_);
-	glEnd();
-
-	glDisable(GL_ALPHA_TEST);
-	glEnable(GL_BLEND);
-
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glStencilFunc(GL_NOTEQUAL, 0, 0xff);
-	border->draw(xoffset, yoffset);
 
-	glDisable(GL_STENCIL_TEST);
+	checkertransOn->draw(xoffset, yoffset);
+	border->draw(xoffset, yoffset);
+	checkertransOff->draw(xoffset, yoffset);
 
 	// Get mouse position
 	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
@@ -198,6 +151,8 @@ void cContextMenu::draw(int xoffset, int yoffset) {
 		}
 		(*it)->draw(xoffset, yoffset);
 	}
+
+	glDisable(GL_STENCIL_TEST);
 }
 
 cControl *cContextMenu::getControl(int x, int y) {
@@ -222,13 +177,9 @@ cControl *cContextMenu::getControl(int x, int y) {
 	return result;
 }
 
-void cContextMenu::setCallback(fnContextMenuCallback callback, void *customData) {
-	if (this->callback) {
-		this->callback(this, -1, customData_);
-	}
-
-	this->callback = callback;
-	customData_ = customData;
+void cContextMenu::sendResponse(ushort id) {
+	UoSocket->send(cContextMenuResponsePacket(serial_, id));
+	hide();
 }
 
 cContextMenu *ContextMenu = 0;

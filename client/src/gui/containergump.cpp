@@ -11,13 +11,13 @@
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
 
-cContainerItemImage::cContainerItemImage(cDynamicItem *item) : cItemImage(item->id(), item->hue(), false, false) {
+cContainerItemImage::cContainerItemImage(cDynamicItem *item) : cItemImage(item->id(), item->hue(), item->tiledata() ? item->tiledata()->isPartialHue() : false, false) {
 	originalHue = item->hue();
 	serial_ = item->serial();
 }
 
-void cContainerItemImage::onMouseEnter() {
-	setItem(id, 0x36, false, landtile);
+void cContainerItemImage::onMouseEnter() {	
+	setItem(id, 0x36, partialhue, landtile);
 }
 
 void cContainerItemImage::onMouseDown(QMouseEvent *e) {
@@ -43,9 +43,14 @@ void cContainerItemImage::onClick(QMouseEvent *e) {
 	if (item) {
 		item->setLastClickX(item->drawx() - e->x());
 		item->setLastClickY(item->drawy() - e->y());
-	}
 
-	UoSocket->send(cSingleClickPacket(serial_));
+		if (!UoSocket->isTooltips()) {
+			UoSocket->send(cSingleClickPacket(serial_));
+		}
+		if (UoSocket->isContextMenus()) {
+			UoSocket->send(cRequestContextMenu(serial_));
+		}
+	}
 }
 
 void cContainerItemImage::processDoubleClick(QMouseEvent *e) {
@@ -60,18 +65,30 @@ void cContainerItemImage::processDoubleClick(QMouseEvent *e) {
 }
 
 void cContainerItemImage::draw(int xoffset, int yoffset) {
+	bool stack = false;
+
 	// Let the item know where it has been drawn
-	cDynamicItem *item = World->findItem(serial_);
-	if (item) {
-		item->setDrawx(xoffset + x_ + width_ / 2);
-		item->setDrawy(yoffset + y_ + height_ / 2);
+	cDynamicItem *entity = World->findItem(serial_);
+	if (entity) {
+		// TODO: Check if still in the same container
+		entity->setDrawx(xoffset + x_ + width_ / 2);
+		entity->setDrawy(yoffset + y_ + height_ / 2);
+		stack = entity->drawStacked();
+	} else {
+		deleteLater(); // Entity has been removed
+		return;
 	}
 
-	cItemImage::draw(xoffset, yoffset);
+	if (this->item) {
+		this->item->draw(xoffset + x_, yoffset + y_);
+		if (stack) {
+			this->item->draw(xoffset + x_ + 5, yoffset + y_ + 5);
+		}
+	}
 }
 
 void cContainerItemImage::onMouseLeave() {	
-	setItem(id, originalHue, false, landtile);
+	setItem(id, originalHue, partialhue, landtile);
 }
 
 cContainerGump::cContainerGump(ushort id, ushort hue) {

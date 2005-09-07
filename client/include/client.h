@@ -3,9 +3,10 @@
 #define __UOCLIENT_H__
 
 #include <QString>
+#include <QObject>
 
-class cUoClient
-{
+class cUoClient : public QObject {
+Q_OBJECT
 private:
 	void load();
 	void unload();
@@ -17,9 +18,11 @@ public:
 	void unlock();
 
 	void run();
-	void quit();
 
 	void errorMessage(const QString &message, const QString &title = "Error");
+
+public slots:
+	void quit();
 };
 
 extern cUoClient *Client;

@@ -42,6 +42,7 @@ enum enEntityType {
 	STATIC,
 	MOBILE,
 	ITEM
+	MULTI
 };
 // Body types
 enum enBodyType {

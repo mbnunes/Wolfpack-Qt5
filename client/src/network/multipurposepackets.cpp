@@ -2,11 +2,13 @@
 #include "network/uopacket.h"
 #include "network/uosocket.h"
 #include "dialogs/login.h"
+#include "gui/contextmenu.h"
 #include "gui/worldview.h"
 #include "gui/genericgump.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
 #include "game/world.h"
+#include "muls/localization.h"
 #include "sound.h"
 #include "log.h"
 #include "enums.h"
@@ -58,6 +60,55 @@ public:
 	}
 };
 
+// Show Context Menu Packet
+class cShowContextMenuPacket : public cDynamicIncomingPacket {
+protected:
+	ushort unknown;
+	uint serial; // Object serial for contextmenu
+	
+	struct stEntry {
+		ushort id; // Id that is returned to the server
+		ushort localization; // This is the id of the localization string for this entry (+3000000?)
+		ushort flags;
+		ushort color; // Note that this is a direct 15-bit color value
+	};
+
+	QVector<stEntry> entries;
+public:
+	cShowContextMenuPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		ushort packetId;
+		uchar count;
+		input >> packetId >> unknown >> serial >> count;
+		
+		stEntry entry;
+		for (int i = 0; i < count; ++i) {
+			input >> entry.id >> entry.localization >> entry.flags;
+
+			if (entry.flags & 0x20) {
+				input >> entry.color;
+			} else {
+				entry.color = 0;
+			}
+
+			entries.append(entry);
+		}
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cDynamicEntity *entity = World->findDynamic(serial);
+
+		if (entity) {
+			ContextMenu->clear();
+			foreach (const stEntry &entry, entries) {
+				QString localization = Localization->get(3000000 + entry.localization);
+				ContextMenu->addEntry(localization, 946, entry.id);
+			}
+			ContextMenu->setSerial(serial);
+			ContextMenu->show(entity->drawx(), entity->drawy());
+		}		
+	}
+};
+
 class cMultiPurposePacket {
 public:
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -76,6 +127,8 @@ public:
 				return new cCloseGenericGumpPacket(input, size);
 			case 0x8:
 				return new cSwitchFacetPacket(input, size);
+			case 0x14:
+				return new cShowContextMenuPacket(input, size);
 			default:
 				return 0;
 		};

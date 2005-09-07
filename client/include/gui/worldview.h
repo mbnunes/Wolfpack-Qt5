@@ -23,7 +23,8 @@ protected:
 	// Move all controls except the border by the given y amount (used for moving the sysmessages)
 	void moveContent(int yoffset);
 
-	bool ismoving;
+	bool moving;
+	bool movementBlocked;
 	unsigned int nextSysmessageCleanup;
 
 	enCursorType getCursorType();
@@ -59,6 +60,9 @@ public:
 
 	void draw(int xoffset, int yoffset);
 
+	bool isMoving() const;
+	bool isMovementBlocked() const;
+
 	void showInputLine();
 	void moveTick();
 
@@ -72,6 +76,14 @@ inline bool cWorldView::isTargetting() const {
 
 inline cTargetRequest *cWorldView::targetRequest() const {
 	return currentTarget;
+}
+
+inline bool cWorldView::isMoving() const {
+	return moving;
+}
+
+inline bool cWorldView::isMovementBlocked() const {
+	return movementBlocked;
 }
 
 extern cWorldView *WorldView;

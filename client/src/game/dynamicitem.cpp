@@ -2,6 +2,7 @@
 #include "game/dynamicitem.h"
 #include "game/world.h"
 #include "game/mobile.h"
+#include "game/tooltips.h"
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
 #include "gui/gui.h"
@@ -127,7 +128,16 @@ void cDynamicItem::setHue(unsigned short data) {
 void cDynamicItem::onClick(QMouseEvent *e) {
 	lastClickX_ = e->x() - drawx_;
 	lastClickY_ = e->y() - drawy_;
-	UoSocket->send(cSingleClickPacket(serial_));
+
+	// Only send singleclick packets if tooltips are disabled
+	if (!UoSocket->isTooltips()) {
+		UoSocket->send(cSingleClickPacket(serial_));
+	}
+
+	// If ContextMenus are enabled, send a request packet for that
+	if (UoSocket->isContextMenus()) {
+		UoSocket->send(cRequestContextMenu(serial_));
+	}
 }
 
 void cDynamicItem::onDoubleClick(QMouseEvent *e) {
@@ -184,4 +194,17 @@ void cDynamicItem::updatePriority() {
 	}
 
 	priority_ = z_ + priorityBonus_;
+}
+
+void cDynamicItem::setAmount(ushort amount) {
+	amount_ = qMax<ushort>(1, amount);
+	if (tiledata_ && tiledata_->isGeneric()) {
+		if (amount_ == 1) {
+			setDrawStacked(false);
+		} else {
+			setDrawStacked(true);
+		}
+	} else {
+		setDrawStacked(false);
+	}
 }

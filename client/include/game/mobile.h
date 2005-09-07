@@ -73,6 +73,7 @@ public:
 	bool isInWarmode() const;
 
 	void onDoubleClick(QMouseEvent *e);
+	void onClick(QMouseEvent *e);
 
 	void playAction(unsigned char action, unsigned int duration = 0);
 

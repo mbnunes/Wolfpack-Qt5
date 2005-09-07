@@ -118,4 +118,16 @@ public:
 	cCharacterCreationPacket(const cCharacterCreationInfo &info);
 };
 
+// Request Context Menu for object
+class cRequestContextMenu : public cOutgoingPacket {
+public:
+	cRequestContextMenu(uint serial);
+};
+
+// Send Contextmenu Response
+class cContextMenuResponsePacket : public cOutgoingPacket {
+public:
+	cContextMenuResponsePacket(uint serial, ushort id);
+};
+
 #endif

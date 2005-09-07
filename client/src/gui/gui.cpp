@@ -14,6 +14,7 @@
 #include "game/mobile.h"
 #include "game/world.h"
 #include "game/tooltips.h"
+#include "network/uosocket.h"
 #include "mainwindow.h"
 #include <qcursor.h>
 
@@ -140,14 +141,27 @@ void cGui::draw() {
 
 	// Always draw the tooltip last
 	cEntity *mEntity = World->mouseOver();
-	if (mEntity && mEntity->tooltipKey() != 0) {
-		Tooltip->setEntity(mEntity);
-		Tooltip->setTooltip(mEntity->tooltipKey());
 
-		// Only draw if the tooltip is known
-		if (Tooltips->contains(mEntity->tooltipKey())) {			
-			QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
-			Tooltip->draw(pos.x(), pos.y());
+	// Check for ContainerGump controls if neccesary
+	if (!mEntity && GLWidget->lastMouseMovement()) {
+		cContainerItemImage *itemImg = dynamic_cast<cContainerItemImage*>(GLWidget->lastMouseMovement());
+		if (itemImg) {
+			mEntity = World->findDynamic(itemImg->serial());
+		}
+	}
+
+	if (mEntity && mEntity->tooltipKey() != 0) {
+		if (UoSocket && UoSocket->isTooltips()) {
+			Tooltip->setEntity(mEntity);
+			Tooltip->setTooltip(mEntity->tooltipKey());
+
+			// Only draw if the tooltip is known
+			if (Tooltips->contains(mEntity->tooltipKey())) {			
+				QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+				int xpos = pos.x() + Cursor->currentWidth() - Cursor->currentXOffset();
+				int ypos = pos.y();
+				Tooltip->draw(xpos, ypos);
+			}
 		}
 	}
 }

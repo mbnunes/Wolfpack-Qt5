@@ -27,7 +27,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\Qt&quot;"
 				PreprocessorDefinitions="QT_NO_DEBUG;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB"
 				GeneratePreprocessedFile="0"
 				StringPooling="TRUE"
@@ -49,7 +49,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
+				AdditionalDependencies="$(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/qsa1.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
 				OutputFile="release\uoclient.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -98,7 +98,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200 -EHsc -GX"
 				Optimization="0"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\Qt&quot;"
 				PreprocessorDefinitions="_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="TRUE"
@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/qtmain.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
+				AdditionalDependencies="$(QTDIR)/lib/QtOpenGld4.lib $(QTDIR)/lib/QtCored4.lib $(QTDIR)/lib/QtNetworkd4.lib $(QTDIR)/lib/QtXmld4.lib $(QTDIR)/lib/QtGuid4.lib $(QTDIR)/lib/qtmaind.lib $(QTDIR)/lib/qsad1.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
 				OutputFile="release\uoclient_d.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -169,6 +169,22 @@
 			</File>
 			<File
 				RelativePath=".\include\client.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\config.cpp">
@@ -226,6 +242,28 @@
 			</File>
 			<File
 				RelativePath=".\include\mersennetwister.h">
+			</File>
+			<File
+				RelativePath=".\src\scripts.cpp">
+			</File>
+			<File
+				RelativePath=".\include\scripts.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\sound.cpp">
@@ -311,6 +349,12 @@
 			</File>
 			<File
 				RelativePath=".\include\game\mobile.h">
+			</File>
+			<File
+				RelativePath=".\src\game\multi.cpp">
+			</File>
+			<File
+				RelativePath=".\include\game\multi.h">
 			</File>
 			<File
 				RelativePath=".\src\game\statictile.cpp">
@@ -404,6 +448,9 @@
 				RelativePath=".\obj\moc_cachestatistics.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_client.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_container.cpp">
 			</File>
 			<File
@@ -444,6 +491,12 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_movecenter.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_multis.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_scripts.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_scrollbar.cpp">
@@ -959,12 +1012,44 @@
 			</File>
 			<File
 				RelativePath=".\include\network\outgoingpacket.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\network\outgoingpackets.cpp">
 			</File>
 			<File
 				RelativePath=".\include\network\outgoingpackets.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						Outputs=""/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						Outputs=""/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\network\twofish2.cpp">
@@ -1065,6 +1150,30 @@
 			</File>
 			<File
 				RelativePath=".\include\muls\maps.h">
+			</File>
+			<File
+				RelativePath=".\src\muls\multis.cpp">
+			</File>
+			<File
+				RelativePath=".\include\muls\multis.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\muls\sounds.cpp">

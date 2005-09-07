@@ -91,7 +91,7 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 
 	setBounds(x_, y_, width, height);
 
-	ismoving = false;
+	moving = false;
 	nextSysmessageCleanup = Utilities::getTicks() + 250;
 
 	inputField = new cInputField(5, height - 30, width - 10, 25);
@@ -100,6 +100,7 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 	connect(inputField, SIGNAL(enterPressed(cTextField*)), this, SLOT(textFieldEnter(cTextField*)));
 
 	currentTarget = 0;
+	movementBlocked = false;
 	
 	wantTabs_ = true; // Want tabs (warmode changes)
 }
@@ -141,8 +142,8 @@ cControl *cWorldView::getControl(int x, int y) {
 
 // Stop tracking, otherwise pass to World.
 void cWorldView::onMouseUp(QMouseEvent *e) {
-	if (ismoving) {
-		ismoving = false;
+	if (moving) {
+		moving = false;
 		Cursor->setCursor(getCursorType());
 	} else {
 		cWindow::onMouseUp(e);
@@ -163,7 +164,7 @@ void cWorldView::onMouseDown(QMouseEvent *e) {
 		tracking = true;
 	} else {
 		if (e->button() == Qt::RightButton) {
-			ismoving = true;
+			moving = true;
 		}
 	}
 }
@@ -212,8 +213,13 @@ void cWorldView::moveContent(int yoffset) {
 }
 
 void cWorldView::moveTick() {
+	// TEMPORARY HACK UNTIL PLAYER OBJECT + NETWORKING EXISTS
+	static unsigned int nextmove = 0;
+
+	movementBlocked = false; // Reset this
+
 	// we're no longer moving
-	if (!ismoving) {
+	if (!moving || (Player && Player->isMoving())) {
 		return;
 	}
 
@@ -234,9 +240,6 @@ void cWorldView::moveTick() {
 	if (Player) {
 		duration = Player->getMoveDuration(running);
 	}
-
-	// TEMPORARY HACK UNTIL PLAYER OBJECT + NETWORKING EXISTS
-	static unsigned int nextmove = 0;
 
 	if (nextmove > Utilities::getTicks()) {
 		return;
@@ -291,6 +294,7 @@ void cWorldView::moveTick() {
 			break;
 		// Default
 		default:
+			movementBlocked = true;
 			return; // Do nothing
 	};
 
@@ -301,9 +305,10 @@ void cWorldView::moveTick() {
 	if (Player && Player->direction() == direction) {
 		signed char posz = Player->z();
 		if (!World->mayWalk(Player, Player->x() + xdiff, Player->y() + ydiff, posz)) {
+			movementBlocked = true;
 			return;
 		}
-		nextmove = Utilities::getTicks() + duration;		
+		nextmove = Utilities::getTicks() + duration - 50;		
 		World->smoothMove(xdiff, ydiff, posz - Player->z(), duration);
 	} else if (Player && Player->direction() != direction) {
         Player->setDirection(direction);
@@ -316,6 +321,7 @@ void cWorldView::moveTick() {
 		} else {
 			UoSocket->setMoveSequence(UoSocket->moveSequence() + 1);
 		}
+		nextmove = Utilities::getTicks() + 75;
 	} else {
 		World->smoothMove(xdiff, ydiff, zdiff, duration);
 	}
@@ -336,7 +342,7 @@ enCursorType cWorldView::getCursorType() {
 	int my = pos.y();
 
 	// Return a normal cursor if we're outside the worldview
-	if (!ismoving && (mx < x_ + left->width() || mx >= x_ + width_ - right->width() ||
+	if (!moving && (mx < x_ + left->width() || mx >= x_ + width_ - right->width() ||
 		my < y_ + top->height() || my >= y_ + height_ - bottom->height())) {
 		return CURSOR_NORMAL;
 	}
@@ -402,7 +408,7 @@ void cWorldView::onMouseEnter() {
 
 void cWorldView::onMouseLeave() {
 	// Only rsetore the cursor if we're not tracking the mosue movement
-	if (!ismoving) {
+	if (!moving) {
 		Cursor->setCursor(CURSOR_NORMAL);
 	}
 }

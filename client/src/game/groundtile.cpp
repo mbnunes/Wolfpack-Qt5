@@ -322,19 +322,6 @@ bool cGroundTile::hitTest(int x, int y) {
 	}	
 }
 
-/*
-	Ground tile context menu callback.
-*/
-static void STDCALL cmCallback(cContextMenu *menu, int id, cGroundTile *tile) {
-	switch (id) {
-		case 0:
-			World->removeEntity(tile);
-			tile->decref();
-			break;
-	}	
-	tile->decref();
-}
-
 void cGroundTile::onRightClick(QMouseEvent *e) {	
 }
 

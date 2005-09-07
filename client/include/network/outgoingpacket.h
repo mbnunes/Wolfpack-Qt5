@@ -4,8 +4,10 @@
 
 #include <QByteArray>
 #include <QDataStream>
+#include <QObject>
 
-class cOutgoingPacket {
+class cOutgoingPacket : QObject {
+Q_OBJECT
 protected:
 	unsigned char m_packetId;
 	QByteArray m_Data; // The underlying data.
