@@ -373,7 +373,7 @@
 
 	<!-- Samurai Empire -->
 	<item id="238d">
-		<id>0x23ed</id>
+		<id>0x238d</id>
 		<category>Misc\Spellicons\Samurai\Honorable Execution</category>
 	</item>
 
@@ -383,7 +383,7 @@
 	</item>
 
 	<item id="238f">
-		<id>0x2398f</id>
+		<id>0x238f</id>
 		<category>Misc\Spellicons\Samurai\Evasion</category>
 	</item>
 
@@ -400,36 +400,6 @@
 	<item id="2392">
 		<id>0x2392</id>
 		<category>Misc\Spellicons\Samurai\Momentum Strike</category>
-	</item>
-
-	<item id="2394">
-		<id>0x2394</id>
-		<category>Misc\Spellicons\Samurai\Unlabled 1</category>
-	</item>
-
-	<item id="2395">
-		<id>0x2395</id>
-		<category>Misc\Spellicons\Samurai\Unlabled 2</category>
-	</item>
-
-	<item id="2396">
-		<id>0x2396</id>
-		<category>Misc\Spellicons\Samurai\Unlabled 3</category>
-	</item>
-
-	<item id="2397">
-		<id>0x2397</id>
-		<category>Misc\Spellicons\Samurai\Unlabled 4</category>
-	</item>
-
-	<item id="2398">
-		<id>0x2398</id>
-		<category>Misc\Spellicons\Samurai\Unlabled 5</category>
-	</item>
-
-	<item id="2399">
-		<id>0x2399</id>
-		<category>Misc\Spellicons\Samurai\Unlabled 6</category>
 	</item>
 
 	<item id="23a1">
