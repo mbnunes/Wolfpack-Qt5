@@ -23,7 +23,7 @@ MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
 #win32:LIBS += advapi32.lib shell32.lib openal32.lib
-win32:LIBS += -ladvapi32 -lshell32 C:/openal/libs/openal32.lib
+win32:LIBS += -ladvapi32 -lshell32 -lopenal32
 
 unix:LIBS += -lGL -lGLU
 

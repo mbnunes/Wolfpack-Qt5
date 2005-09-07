@@ -1,5 +1,5 @@
 
-#include <QtCore>
+#include <QApplication>
 #include <QPlastiqueStyle>
 
 #include "client.h"
@@ -12,7 +12,6 @@ int main( int argc, char** argv )
 {    	
 	QApplication app( argc, argv );	
 	QApplication::setStyle(new QPlastiqueStyle);
-	QStyle *style = QApplication::style();
 	
 	Client = new cUoClient; // Initialize UoClient
 	Client->run(); // Run UoClient
@@ -44,7 +43,7 @@ int main( int argc, char** argv )
 
 #include "qt_windows.h"
 
-#include "qbytearray.h"
+#include "QByteArray.h"
 #include "qstring.h"
 #include "qvector.h"
 

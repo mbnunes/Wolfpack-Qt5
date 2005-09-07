@@ -10,9 +10,8 @@
 #include <QObject>
 #include <QTimer>
 #include <QMap>
-#include <qlist.h>
+#include <QList>
 #include <QCache>
-#include <qevent.h>
 #include <qvector.h>
 #include <QMouseEvent>
 

@@ -41,7 +41,7 @@ enum enEntityType {
 	GROUND,
 	STATIC,
 	MOBILE,
-	ITEM,
+	ITEM
 };
 // Body types
 enum enBodyType {
@@ -95,7 +95,7 @@ enum enSpeechType {
 	SPEECH_EMPHASIS,
 	SPEECH_WHISPER,
 	SPEECH_YELL,
-	SPEECH_SPELL,
+	SPEECH_SPELL
 };
 
 #endif

@@ -58,7 +58,7 @@ void cMd5::reset()
 	bits[1] = 0;
 }
 
-inline void byteReverse( unsigned char* buffer, unsigned int longs )
+inline void ucharReverse( unsigned char* buffer, unsigned int longs )
 {
 	unsigned int temp;
 	do
@@ -199,18 +199,18 @@ void cMd5::update( unsigned char* data, unsigned int length )
 
 		// We have enough data to clear our temporary buffer
 		memcpy( ptrInput, data, temp );
-		byteReverse( input, 16 );
+		ucharReverse( input, 16 );
 		update();
 
 		data += temp;
 		length -= temp;
 	}
 
-	// Process the data in 64 byte chunks or save it for further processing
+	// Process the data in 64 uchar chunks or save it for further processing
 	while ( length >= 64 )
 	{
 		memcpy( input, data, 64 );
-		byteReverse( input, 16 );
+		ucharReverse( input, 16 );
 		update();
 		length -= 64;
 		data += 64;
@@ -230,17 +230,17 @@ void cMd5::finalize()
 
 	unsigned char * ptrInput = ( unsigned char * ) input + count;
 
-	// Set the first byte of the padding to 0x80
+	// Set the first uchar of the padding to 0x80
 	*ptrInput++ = 0x80;
 
 	count = 64 - 1 - count;
 
-	// Too few bytes are left in our buffer, pad out the current block and then
+	// Too few uchars are left in our buffer, pad out the current block and then
 	// append another
 	if ( count < 8 )
 	{
 		memset( ptrInput, 0, count );
-		byteReverse( input, 16 );
+		ucharReverse( input, 16 );
 		update();
 
 		// Fill the next block with zeros and leave free space for
@@ -253,8 +253,8 @@ void cMd5::finalize()
 		memset( ptrInput, 0, count - 8 );
 	}
 
-	// Reverse the first 14 dwords
-	byteReverse( input, 14 );
+	// Reverse the first 14 ulongs
+	ucharReverse( input, 14 );
 
 	// Append Length and update
 	( ( unsigned int * ) input )[14] = bits[0];
@@ -263,7 +263,7 @@ void cMd5::finalize()
 	update();
 
 	// Reverse our Digest
-	byteReverse( ( unsigned char * ) buffer, 4 );
+	ucharReverse( ( unsigned char * ) buffer, 4 );
 
 	finalized = true;
 }
@@ -275,7 +275,7 @@ void cMd5::rawDigest( unsigned char* digest )
 
 	unsigned char *buffer = ( unsigned char * )this->buffer;
 
-	// 16 byte a 2 characters
+	// 16 uchar a 2 characters
 	for ( unsigned int i = 0; i < 16; ++i ) {
 		digest[i] = buffer[i];
 	}
@@ -291,7 +291,7 @@ void cMd5::digest( char* digest )
 
 	unsigned char * buffer = ( unsigned char * )this->buffer;
 
-	// 16 byte a 2 characters
+	// 16 uchar a 2 characters
 	for ( unsigned int i = 0; i < 16; ++i )
 	{
 		char temp[3];

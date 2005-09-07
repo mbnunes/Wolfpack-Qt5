@@ -69,11 +69,11 @@ public:
 	uint popSequence();
 	void clearSequenceQueue();
 	uint sequenceQueueLength();
-	uint outgoingBytes();
-	uint incomingBytes();
-	uint incomingBytesCompressed();
+	uint outgoinguchars();
+	uint incominguchars();
+	uint incomingucharsCompressed();
 
-	// Queue a given byte array for sending it to the server
+	// Queue a given uchar array for sending it to the server
 	void sendRaw(const QByteArray &data);
 	void send(const cOutgoingPacket &packet);
 
@@ -101,7 +101,7 @@ public slots:
 	void connected();
 	void connectionClosed();
 	void readyRead();
-	void bytesWritten(int nbytes);
+	void ucharsWritten(int nuchars);
 	void error(QAbstractSocket::SocketError error);
 	void poll();
 	void disconnect();
@@ -151,15 +151,15 @@ inline uint cUoSocket::popSequence() {
 	}
 }
 
-inline uint cUoSocket::outgoingBytes() {
+inline uint cUoSocket::outgoinguchars() {
 	return outgoingBytes_;
 }
 
-inline uint cUoSocket::incomingBytes() {
+inline uint cUoSocket::incominguchars() {
 	return incomingBytes_;
 }
 
-inline uint cUoSocket::incomingBytesCompressed() {
+inline uint cUoSocket::incomingucharsCompressed() {
 	return incomingBytesCompressed_;
 }
 

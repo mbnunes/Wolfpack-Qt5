@@ -56,7 +56,7 @@ unsigned int createOneMask(uint count) {
 	return result;
 }
 
-static void pushData(QByteArray &array, unsigned int &byteoffset, unsigned int &bitoffset, unsigned int data, unsigned char bit) {
+static void pushData(QByteArray &array, unsigned int &ucharoffset, unsigned int &bitoffset, unsigned int data, unsigned char bit) {
     // We can at most save 8 - offset bit or bit bits
 	while (bit > 0) {
 		unsigned int bitCount = qMin<unsigned int>(8 - bitoffset, bit);
@@ -65,11 +65,11 @@ static void pushData(QByteArray &array, unsigned int &byteoffset, unsigned int &
 		data &= ~ (writeMask << (bit - bitCount)); // Clear out the data we write from the original data
 		bit -= bitCount;
 
-		array[byteoffset] = array[byteoffset] | (unsigned char)(writeMask << (8 - bitCount - bitoffset));
+		array[ucharoffset] = array[ucharoffset] | (unsigned char)(writeMask << (8 - bitCount - bitoffset));
 		bitoffset += bitCount;
 		if (bitoffset > 7) {
 			bitoffset = 0;
-			++byteoffset;
+			++ucharoffset;
 		}
 	}
 }
@@ -94,11 +94,11 @@ cSendUnicodeSpeechPacket::cSendUnicodeSpeechPacket(enSpeechType type, const QStr
 		m_Stream.writeRawData(lang, 4);
 
 		// Build the encoded packet list
-		unsigned int bitoffset = 0, byteoffset = 0;
+		unsigned int bitoffset = 0, ucharoffset = 0;
 		QByteArray array((12 + 5 * keywords.size() + 7) / 8, 0);
-		pushData(array, byteoffset, bitoffset, keywords.size(), 12); // Push the keyword count (12 bit)
+		pushData(array, ucharoffset, bitoffset, keywords.size(), 12); // Push the keyword count (12 bit)
 		for (int i = 0; i < keywords.size(); ++i) {
-			pushData(array, byteoffset, bitoffset, keywords[i], 12); // 12 bit for each keyword
+			pushData(array, ucharoffset, bitoffset, keywords[i], 12); // 12 bit for each keyword
 		}
 
 		m_Stream.writeRawData(array.data(), array.size());

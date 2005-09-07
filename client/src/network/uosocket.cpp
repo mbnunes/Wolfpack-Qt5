@@ -1,10 +1,9 @@
-
 #include <QTimer>
+#include <QApplication>
 
 #include "client.h"
-#include "network/encryption.h"
-#include "network/decompress.h"
 #include "network/uosocket.h"
+#include "network/decompress.h"
 #include "network/outgoingpacket.h"
 #include "network/outgoingpackets.h"
 #include "dialogs/login.h"
@@ -13,6 +12,8 @@
 #include "gui/worldview.h"
 #include "game/world.h"
 #include "game/tooltips.h"
+#include "network/encryption.h"
+
 
 // Packet stream decompressor
 static DecompressingCopier decompressor;
@@ -80,7 +81,7 @@ cUoSocket::cUoSocket() {
 	QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
 	QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(connectionClosed()));
 	QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-	QObject::connect(socket, SIGNAL(bytesWritten(int)), this, SLOT(bytesWritten(int)));
+	QObject::connect(socket, SIGNAL(ucharsWritten(int)), this, SLOT(ucharsWritten(int)));
 	QObject::connect(socket, SIGNAL(error(QAbstractSocket::ConnectedState)), this, SLOT(error(QAbstractSocket::ConnectedState)));
 
 	/*
@@ -261,7 +262,7 @@ void cUoSocket::buildPackets() {
 				// Packet still incomplete
 				if (Config->packetLogging()) {
 					if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
-						packetLog.write(tr("SERVER -> CLIENT\nGot only %1 bytes of %2 for packet 0x%3.\n\n").arg(incomingBuffer.size()).arg(dynamicSize).arg(packetId).toLocal8Bit());
+						packetLog.write(tr("SERVER -> CLIENT\nGot only %1 uchars of %2 for packet 0x%3.\n\n").arg(incomingBuffer.size()).arg(dynamicSize).arg(packetId).toLocal8Bit());
 					}
 				}
 			}
@@ -356,35 +357,11 @@ void cUoSocket::readyRead() {
 	}
 }
 
-void cUoSocket::bytesWritten(int nbytes) {
+void cUoSocket::ucharsWritten(int nuchars) {
 }
 
 void cUoSocket::error(QAbstractSocket::SocketError error) {
-	QString message = socket->errorString();
-
-	/*switch (error) {
-		case QAbstractSocket::ConnectionRefusedError:
-			message = tr("Connection Refused");
-			break;
-
-		case 
-			message = tr("Connection Refused");
-			break;
-
-		case QAbstractSocket::ErrHostNotFound:
-			message = tr("Host not found");
-			break;
-
-		case QAbstractSocket::ErrSocketRead:
-			message = tr("Could not read from socket");
-			break;
-
-		default:
-			message = tr("Unknown socket error.");
-			break;
-	};*/
-
-	emit onError(message);
+	emit onError(socket->errorString());
 }
 
 void cUoSocket::resync() {

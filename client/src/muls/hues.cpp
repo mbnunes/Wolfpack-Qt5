@@ -23,7 +23,7 @@ void cHues::load() {
 	unsigned int group;
 	for (group = 0; group < 375; ++group) {
 		unsigned int header;
-		dataStream >> header; // Skip 4 byte header
+		dataStream >> header; // Skip 4 uchar header
 
 		// Read 8 hues
 		for (unsigned int j = 0; j < 8; ++j) {

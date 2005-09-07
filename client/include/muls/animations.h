@@ -86,7 +86,7 @@ public:
 	void draw(int frame, int cellx, int celly, bool flip, float alpha = 1.0f);
 	bool hitTest(int frame, int x, int y, bool flip);
 
-	// Load this sequence from a byte stream
+	// Load this sequence from a uchar stream
 	void load(QDataStream &stream);
 
 	void incref();
@@ -144,7 +144,7 @@ protected:
 	void beforeSequenceDeletion(cSequence *sequence);
 
 	QVector<cSequence*> ownedSequences_; // Sequences that are in-memory but currently unused
-	uint totalSequenceSize_; // Total amount of memory consumed by loaded sequences (in bytes, estimate)
+	uint totalSequenceSize_; // Total amount of memory consumed by loaded sequences (in uchars, estimate)
 	QMap<stSequenceIdent, cSequence*> SequenceCache;
 
 	enBodyType bodyTypes[4096]; // Static lookup table for body types
@@ -198,7 +198,7 @@ public:
 	uint getFlags(unsigned short body) const;
 
 	uint cacheSize() const;
-	uint totalSequenceSize() const; // Size in bytes, estimated
+	uint totalSequenceSize() const; // Size in uchars, estimated
 	uint maximumSequenceSize() const;
 
     // Loading and Unloading

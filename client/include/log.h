@@ -2,7 +2,7 @@
 #if !defined(__LOG_H__)
 #define __LOG_H__
 
-#include <qstring.h>
+#include <QString>
 class QFile;
 
 // Log Levels

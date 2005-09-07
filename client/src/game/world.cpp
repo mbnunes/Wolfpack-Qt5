@@ -854,7 +854,7 @@ bool cWorld::mayWalk(cMobile *mobile, ushort posx, ushort posy, signed char &pos
 	// If we find a tile to walk on
 	QVector<cBlockItem> blockList = getBlockingItems(mobile, posx, posy);
 	bool found = false;
-	uint i;
+	int i;
 	bool priviledged = false;
 	int oldz = posz;
 

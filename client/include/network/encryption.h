@@ -2,7 +2,7 @@
 #if !defined(__ENCRYPTION_H__)
 #define __ENCRYPTION_H__
 
-#include <qstring.h>
+#include <QString>
 #include "network/twofish2.h"
 
 class cStreamEncryption {
@@ -45,7 +45,7 @@ private:
 	Twofish2::keyInstance ki;
 	Twofish2::cipherInstance ci;
 
-	void encryptByte( uchar & byte );
+	void encryptuchar( uchar & uchar );
 public:
 	cGameEncryption(uint seed);
 
@@ -67,7 +67,7 @@ private:
 	keyInstance ki;
 	cipherInstance ci;
 
-	void decryptByte( unsigned char& byte );
+	void decryptuchar( unsigned char& uchar );
 
 public:
 	void init( unsigned int seed ); // Initialize this using the given seed

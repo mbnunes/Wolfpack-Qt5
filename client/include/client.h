@@ -2,11 +2,10 @@
 #if !defined(__UOCLIENT_H__)
 #define __UOCLIENT_H__
 
-#include <qapplication.h>
-#include <qstringlist.h>
-#include <qmutex.h>
+#include <QString>
 
-class cUoClient {
+class cUoClient
+{
 private:
 	void load();
 	void unload();
