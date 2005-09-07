@@ -63,6 +63,7 @@ class TinkerItemAction(CraftItemAction):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 1
 		self.retaincolor = 0
+		self.stackable = 0
 
 	#
 	# Check if we did an exceptional job.
@@ -101,6 +102,25 @@ class TinkerItemAction(CraftItemAction):
 	#
 	def applyproperties(self, player, arguments, item, exceptional):
 		item.decay = 1
+
+		# Use all available resources if the item we make is
+		# flagged as "stackable".
+		if self.stackable:
+			backpack = player.getbackpack()
+			count = -1
+			for (materials, amount, name) in self.materials:
+				items = backpack.countitems(materials)
+				if count == -1:
+					count = items / amount
+				else:
+					count = min(count, items / amount)
+			for (materials, amount, name) in self.materials:
+				backpack.removeitems( materials, count )
+			if count != -1:
+				item.amount += count
+			else:
+				item.amount = 1 + count
+			item.update()
 
 		# See if this item
 		if self.retaincolor and self.submaterial1 > 0:
@@ -270,6 +290,11 @@ def loadMenu(id, parent = None):
 						amount = hex2dec(subchild.getattribute('amount', '0'))
 						materialname = subchild.getattribute('name', 'Unknown')
 						action.materials.append([['1bdd','1bde','1bdf','1be0','1be1','1be2','1bd7','1bd8','1bd9','1bda','1bdb','1bdc'], amount, 'Boards, Logs'])
+
+					# Consume all available materials scaled by the
+					# amount of each submaterial
+					elif subchild.name == 'stackable':
+						action.stackable = 1
 
 					elif subchild.name == 'nomark':
 						action.markable = 0
