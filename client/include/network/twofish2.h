@@ -23,6 +23,7 @@ INCLUDE IMPLEMENTATION SPECIFIC INFORMATION.
 */
 
 #include	<stdio.h>
+#include <qglobal.h>
 
 /***************************************************************************
 	PLATFORM.H	-- Platform-specific defines for TWOFISH code
@@ -44,8 +45,6 @@ INCLUDE IMPLEMENTATION SPECIFIC INFORMATION.
 		*	Tab size is set to 4 characters in this file
 
 ***************************************************************************/
-
-#include <qglobal.h>
 
 /* use intrinsic rotate if possible */
 #define ROL( x, y ) ( ( (x) << (y) ) | ( (x) >> ( 32 - (y) ) ) )
@@ -75,12 +74,12 @@ INCLUDE IMPLEMENTATION SPECIFIC INFORMATION.
 #endif
 
 /*	Macros for extracting bytes from dwords (correct for endianness) */
-#define	_b(x,N)	(((BYTE *)&x)[((N) & 3) ^ ADDR_XOR]) /* pick bytes out of a dword */
+#define	_b(x,N)	(((uchar *)&x)[((N) & 3) ^ ADDR_XOR]) /* pick bytes out of a dword */
 
-#define		b0(x)			_b(x,0)		/* extract LSB of DWORD */
+#define		b0(x)			_b(x,0)		/* extract LSB of uint */
 #define		b1(x)			_b(x,1)
 #define		b2(x)			_b(x,2)
-#define		b3(x)			_b(x,3)		/* extract MSB of DWORD */
+#define		b3(x)			_b(x,3)		/* extract MSB of uint */
 
 /*	Defines:
 		Add any additional defines you need
@@ -139,63 +138,51 @@ namespace Twofish2 {
 	parameters at the bottom of the structs as appropriate.
 */
 
-#define BYTE unsigned char
-#define DWORD unsigned long
-typedef DWORD fullSbox[4][256];
+typedef uint fullSbox[4][256];
 
 /* The structure for key information */
 typedef struct
 {
-	BYTE direction;					/* Key used for encrypting or decrypting? */
+	uchar direction;					/* Key used for encrypting or decrypting? */
 #if ALIGN32
-	BYTE dummyAlign[3];				/* keep 32-bit alignment */
+	uchar dummyAlign[3];				/* keep 32-bit alignment */
 #endif
 	int keyLen;					/* Length of the key */
 	char keyMaterial[MAX_KEY_SIZE + 4];/* Raw key data in ASCII */
 
 	/* Twofish-specific parameters: */
-	DWORD keySig;					/* set to VALID_SIG by makeKey() */
+	uint keySig;					/* set to VALID_SIG by makeKey() */
 	int numRounds;				/* number of rounds in cipher */
-	DWORD key32[MAX_KEY_BITS / 32];	/* actual key bits, in dwords */
-	DWORD sboxKeys[MAX_KEY_BITS / 64];/* key bits used for S-boxes */
-	DWORD subKeys[TOTAL_SUBKEYS];	/* round subkeys, input/output whitening bits */
+	uint key32[MAX_KEY_BITS / 32];	/* actual key bits, in dwords */
+	uint sboxKeys[MAX_KEY_BITS / 64];/* key bits used for S-boxes */
+	uint subKeys[TOTAL_SUBKEYS];	/* round subkeys, input/output whitening bits */
 #if REENTRANT
 	fullSbox sBox8x32;				/* fully expanded S-box */
-#if defined(COMPILE_KEY) && defined(USE_ASM)
-#undef	VALID_SIG
-#define	VALID_SIG	 0x504D4F43		/* 'COMP':  C is compiled with -DCOMPILE_KEY */
-	DWORD cSig1;					/* set after first "compile" (zero at "init") */
-	void* encryptFuncPtr;			/* ptr to asm encrypt function */
-	void* decryptFuncPtr;			/* ptr to asm decrypt function */
-	DWORD codeSize;					/* size of compiledCode */
-	DWORD cSig2;					/* set after first "compile" */
-	BYTE compiledCode[5000];		/* make room for the code itself */
-#endif
 #endif
 } keyInstance;
 
 /* The structure for cipher information */
 typedef struct
 {
-	BYTE mode;						/* MODE_ECB, MODE_CBC, or MODE_CFB1 */
+	uchar mode;						/* MODE_ECB, MODE_CBC, or MODE_CFB1 */
 #if ALIGN32
-	BYTE dummyAlign[3];				/* keep 32-bit alignment */
+	uchar dummyAlign[3];				/* keep 32-bit alignment */
 #endif
-	BYTE IV[MAX_IV_SIZE];			/* CFB1 iv bytes  (CBC uses iv32) */
+	uchar IV[MAX_IV_SIZE];			/* CFB1 iv bytes  (CBC uses iv32) */
 
 	/* Twofish-specific parameters: */
-	DWORD cipherSig;				/* set to VALID_SIG by cipherInit() */
-	DWORD iv32[BLOCK_SIZE / 32];		/* CBC IV bytes arranged as dwords */
+	uint cipherSig;				/* set to VALID_SIG by cipherInit() */
+	uint iv32[BLOCK_SIZE / 32];		/* CBC IV bytes arranged as dwords */
 } cipherInstance;
 
 /* Function protoypes */
-int makeKey( keyInstance* key, BYTE direction, int keyLen, char* keyMaterial );
+int makeKey( keyInstance* key, uchar direction, int keyLen, char* keyMaterial );
 
-int cipherInit( cipherInstance* cipher, BYTE mode, char* IV );
+int cipherInit( cipherInstance* cipher, uchar mode, char* IV );
 
-int blockEncrypt( cipherInstance* cipher, keyInstance* key, BYTE* input, int inputLen, BYTE* outBuffer );
+int blockEncrypt( cipherInstance* cipher, keyInstance* key, uchar* input, int inputLen, uchar* outBuffer );
 
-int blockDecrypt( cipherInstance* cipher, keyInstance* key, BYTE* input, int inputLen, BYTE* outBuffer );
+int blockDecrypt( cipherInstance* cipher, keyInstance* key, uchar* input, int inputLen, uchar* outBuffer );
 
 int reKey( keyInstance* key );	/* do key schedule using modified key.keyDwords */
 
@@ -212,7 +199,7 @@ int TableOp( int op );
 #endif
 
 #if BLOCK_SIZE == 128			/* optimize block copies */
-#define		Copy1(d,s,N)	((DWORD *)(d))[N] = ((DWORD *)(s))[N]
+#define		Copy1(d,s,N)	((uint *)(d))[N] = ((uint *)(s))[N]
 #define		BlockCopy(d,s)	{ Copy1(d,s,0);Copy1(d,s,1);Copy1(d,s,2);Copy1(d,s,3); }
 #else
 #define		BlockCopy(d,s)	{ memcpy(d,s,BLOCK_SIZE/8); }
@@ -251,9 +238,9 @@ int TableOp( int op );
    where a = primitive root of field generator 0x14D */
 #define	RS_GF_FDBK		0x14D		/* field generator */
 #define	RS_rem(x)		\
-	{ BYTE  b  = (BYTE) (x >> 24);											 \
-	  DWORD g2 = ((b << 1) ^ ((b & 0x80) ? RS_GF_FDBK : 0 )) & 0xFF;		 \
-	  DWORD g3 = ((b >> 1) & 0x7F) ^ ((b & 1) ? RS_GF_FDBK >> 1 : 0 ) ^ g2 ; \
+	{ uchar  b  = (uchar) (x >> 24);											 \
+	  uint g2 = ((b << 1) ^ ((b & 0x80) ? RS_GF_FDBK : 0 )) & 0xFF;		 \
+	  uint g3 = ((b >> 1) & 0x7F) ^ ((b & 1) ? RS_GF_FDBK >> 1 : 0 ) ^ g2 ; \
 	  x = (x << 8) ^ (g3 << 24) ^ (g2 << 16) ^ (g3 << 8) ^ b;				 \
 	}
 
@@ -286,9 +273,9 @@ int TableOp( int op );
 #define	LFSR2(x) ( ((x) >> 2)  ^ (((x) & 0x02) ?   MDS_GF_FDBK/2 : 0)  \
 							   ^ (((x) & 0x01) ?   MDS_GF_FDBK/4 : 0))
 
-#define	Mx_1(x) ((DWORD)  (x))		/* force result to dword so << will work */
-#define	Mx_X(x) ((DWORD) ((x) ^ 		   LFSR2(x)))	/* 5B */
-#define	Mx_Y(x) ((DWORD) ((x) ^ LFSR1(x) ^ LFSR2(x)))	/* EF */
+#define	Mx_1(x) ((uint)  (x))		/* force result to dword so << will work */
+#define	Mx_X(x) ((uint) ((x) ^ 		   LFSR2(x)))	/* 5B */
+#define	Mx_Y(x) ((uint) ((x) ^ LFSR1(x) ^ LFSR2(x)))	/* EF */
 
 #define	M00		Mul_1
 #define	M01		Mul_Y
