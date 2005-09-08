@@ -1532,78 +1532,214 @@
 
 	<item id="2763">
 		<id>0x2763</id>
+		<category>Misc\Figurines\SE\Bake Kitsune</category>
 	</item>
 
 	<item id="2764">
 		<id>0x2764</id>
+		<category>Misc\Figurines\SE\Crane</category>
 	</item>
 
 	<item id="2765">
 		<id>0x2765</id>
+		<category>Misc\Figurines\SE\Deathwatch Beetle</category>
 	</item>
 
 	<item id="2766">
 		<id>0x2766</id>
+		<category>Misc\Figurines\SE\Denkou Yajuu</category>
 	</item>
 
 	<item id="2767">
 		<id>0x2767</id>
+		<category>Misc\Figurines\SE\Fan Dancer</category>
 	</item>
 
 	<item id="2768">
 		<id>0x2768</id>
+		<category>Misc\Figurines\SE\Gamam</category>
 	</item>
 
 	<item id="2769">
 		<id>0x2769</id>
+		<category>Misc\Figurines\SE\Gouzen Ha</category>
 	</item>
 
 	<item id="276a">
 		<id>0x276a</id>
+		<category>Misc\Figurines\SE\Hiryu</category>
 	</item>
 
 	<item id="276b">
 		<id>0x276b</id>
+		<category>Misc\Figurines\SE\Kappa</category>
 	</item>
 
 	<item id="276c">
 		<id>0x276c</id>
+		<category>Misc\Figurines\SE\Lady of the Snow</category>
 	</item>
 
 	<item id="276d">
 		<id>0x276d</id>
+		<category>Misc\Figurines\SE\Oni</category>
 	</item>
 
 	<item id="276e">
 		<id>0x276e</id>
+		<category>Misc\Figurines\SE\Revenant Lion</category>
 	</item>
 
 	<item id="276f">
 		<id>0x276f</id>
+		<category>Misc\Figurines\SE\Rune Beetle</category>
 	</item>
 
 	<item id="2770">
 		<id>0x2770</id>
+		<category>Misc\Figurines\SE\Tsuki Wolf</category>
 	</item>
 
 	<item id="2771">
 		<id>0x2771</id>
+		<category>Misc\Figurines\SE\Yamandon</category>
 	</item>
 
 	<item id="2772">
 		<id>0x2772</id>
+		<category>Misc\Figurines\SE\Yomotsu Elder</category>
 	</item>
 
 	<item id="2773">
 		<id>0x2773</id>
+		<category>Misc\Figurines\SE\Yomotsu Priest</category>
 	</item>
 
 	<item id="281b">
 		<id>0x281b</id>
+		<category>Misc\Figurines\SE\Yomotsu Warrior</category>
 	</item>
 
 	<item id="281c">
 		<id>0x281c</id>
+		<category>Misc\Figurines\SE\Fire Beetle</category>
+	</item>
+
+	<!-- Mondain's Legacy -->
+
+	<item id="2d82">
+		<id>0x2d82</id>
+		<category>Misc\Figurines\ML\Chief Paroxysmus</category>
+	</item>
+
+	<item id="2d83">
+		<id>0x2d83</id>
+		<category>Misc\Figurines\ML\Dread Horn</category>
+	</item>
+
+	<item id="2d84">
+		<id>0x2d84</id>
+		<category>Misc\Figurines\ML\Lady Melisande</category>
+	</item>
+
+	<item id="2d85">
+		<id>0x2d85</id>
+		<category>Misc\Figurines\ML\Monstrous Interred</category>
+	</item>
+
+	<item id="2d86">
+		<id>0x2d86</id>
+		<category>Misc\Figurines\ML\Travesty</category>
+	</item>
+
+	<item id="2d87">
+		<id>0x2d87</id>
+		<category>Misc\Figurines\ML\Shimmering Effusion</category>
+	</item>
+
+	<item id="2d88">
+		<id>0x2d88</id>
+		<category>Misc\Figurines\ML\Tormented Minotaur</category>
+	</item>
+
+	<item id="2d89">
+		<id>0x2d89</id>
+		<category>Misc\Figurines\ML\Minotaur</category>
+	</item>
+
+	<item id="2d8a">
+		<id>0x2d8a</id>
+		<category>Misc\Figurines\ML\Changeling</category>
+	</item>
+
+	<item id="2d8b">
+		<id>0x2d8b</id>
+		<category>Misc\Figurines\ML\Hydra</category>
+	</item>
+
+	<item id="2d8c">
+		<id>0x2d8c</id>
+		<category>Misc\Figurines\ML\Dryad</category>
+	</item>
+
+	<item id="2d8d">
+		<id>0x2d8d</id>
+		<category>Misc\Figurines\ML\Troglodyte</category>
+	</item>
+
+	<item id="2d8e">
+		<id>0x2d8e</id>
+		<category>Misc\Figurines\ML\Thorn Bat</category>
+	</item>
+
+	<item id="2d8f">
+		<id>0x2d8f</id>
+		<category>Misc\Figurines\ML\Bulbous Putrificat</category>
+	</item>
+
+	<item id="2d90">
+		<id>0x2d90</id>
+		<category>Misc\Figurines\ML\Satyr</category>
+	</item>
+
+	<item id="2d91">
+		<id>0x2d91</id>
+		<category>Misc\Figurines\ML\Interred Grizzle</category>
+	</item>
+
+	<item id="2d92">
+		<id>0x2d92</id>
+		<category>Misc\Figurines\ML\Fetid Essence</category>
+	</item>
+
+	<item id="2d93">
+		<id>0x2d93</id>
+		<category>Misc\Figurines\ML\Mantra Effervescen</category>
+	</item>
+
+	<item id="2d94">
+		<id>0x2d94</id>
+		<category>Misc\Figurines\ML\Corporeal Brume</category>
+	</item>
+
+	<item id="2d95">
+		<id>0x2d95</id>
+		<category>Misc\Figurines\ML\Chimera</category>
+	</item>
+
+	<item id="2d96">
+		<id>0x2d96</id>
+		<category>Misc\Figurines\ML\Cu Sidhe</category>
+	</item>
+
+	<item id="2d97">
+		<id>0x2d97</id>
+		<category>Misc\Figurines\ML\Squirrel</category>
+	</item>
+
+	<item id="2d98">
+		<id>0x2d98</id>
+		<category>Misc\Figurines\ML\Ferret</category>
 	</item>
 
 </definitions>
