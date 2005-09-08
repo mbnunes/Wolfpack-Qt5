@@ -752,7 +752,7 @@ bool cBaseDef::implements( const QString& name ) const
 
 /*
 	\object basedef
-	\description This object type reprsents the base definitions of items and characters.
+	\description This object type represents the base definitions of items and characters.
 */
 struct wpBasedef
 {
