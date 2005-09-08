@@ -411,6 +411,7 @@
 
 	<item id="3287" inherit="ITEM_NO_DECAY">
 		<id>0x3287</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 2</category>
 	</item>
 
@@ -712,51 +713,61 @@
 	<!-- Lava: Not animated  -->
 	<item id="3296" inherit="ITEM_NO_DECAY">
 		<id>0x3296</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 1</category>
 	</item>
 
 	<item id="3297" inherit="ITEM_NO_DECAY">
 		<id>0x3297</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 2</category>
 	</item>
 
 	<item id="3298" inherit="ITEM_NO_DECAY">
 		<id>0x3298</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 3</category>
 	</item>
 
 	<item id="3299" inherit="ITEM_NO_DECAY">
 		<id>0x3299</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 4</category>
 	</item>
 
 	<item id="3547" inherit="ITEM_NO_DECAY">
 		<id>0x3547</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 5</category>
 	</item>
 
 	<item id="3548" inherit="ITEM_NO_DECAY">
 		<id>0x3548</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 6</category>
 	</item>
 
 	<item id="3549" inherit="ITEM_NO_DECAY">
 		<id>0x3549</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 7</category>
 	</item>
 
 	<item id="354a" inherit="ITEM_NO_DECAY">
 		<id>0x354a</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 8</category>
 	</item>
 
 	<item id="354b" inherit="ITEM_NO_DECAY">
 		<id>0x354b</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 9</category>
 	</item>
 
 	<item id="354c" inherit="ITEM_NO_DECAY">
 		<id>0x354c</id>
+		<lightsource>0x2</lightsource>
 		<category>Ground Tiles\Lava\Not animated\Lava 10</category>
 	</item>
 
