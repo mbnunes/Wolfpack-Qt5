@@ -243,6 +243,31 @@
 					<!-- The character names will be added automatically to the end of this list by the login dialog -->
 				</children>
 			</container>
+			
+			<!-- This is the confirmation dialog for character deletion -->
+			<container name="ConfirmDeleteContainer" visible="false">
+				<bounds x="0" y="0" width="640" height="480" />
+				<children>
+					<!-- Dialog background -->
+					<bordergump gump="0xa28">
+						<bounds x="166" y="96" width="308" height="188" />
+					</bordergump>
+					
+					<asciilabel name="ConfirmationLabel" text="Status" font="2" hue="0x34f" textalign="center" autosize="false">
+						<bounds x="166" y="150" width="308" height="200" />
+					</asciilabel>
+					
+					<!-- Cancel Button -->
+					<imagebutton name="DeleteCancelButton" unpressed="0x47e" pressed="0x480" hover="0x47f">
+						<position x="356" y="225" />
+					</imagebutton>
+					
+					<!-- Ok Button -->
+					<imagebutton name="DeleteOkButton" unpressed="0x481" pressed="0x483" hover="0x482">
+						<position x="256" y="225" />
+					</imagebutton>
+				</children>
+			</container>			
 		</children>
 	</dialog>
 </dialogs>

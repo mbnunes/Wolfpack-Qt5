@@ -365,12 +365,12 @@ void cLoginDialog::show(enMenuPage page) {
 		charSelectWidget->setAlign(CA_CLIENT);
 		selectCharDialog->addControl(charSelectWidget);
 		connect(charSelectWidget, SIGNAL(onDoubleClick(cControl*)), this, SLOT(charSelected(cControl*)));
-		/*
-		if (!confirmDeleteDialog) {
-			buildConfirmDeleteGump();
-			container->addControl(confirmDeleteDialog);
-			confirmDeleteDialog->setVisible(false);
-		}*/
+		
+		// Build delete confirmation dialog
+		confirmDeleteDialog = dynamic_cast<cContainer*>(container->findByName("ConfirmDeleteContainer"));
+		confirmDeleteText = dynamic_cast<cAsciiLabel*>(container->findByName("ConfirmationLabel"));
+		connect(confirmDeleteDialog->findByName("DeleteCancelButton"), SIGNAL(onButtonPress(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
+		connect(confirmDeleteDialog->findByName("DeleteOkButton"), SIGNAL(onButtonPress(cControl*)), this, SLOT(statusOkClicked(cControl*)));
 	}
 
 	if (!container->parent()) {
@@ -495,26 +495,6 @@ void cLoginDialog::show(enMenuPage page) {
 }
 
 void cLoginDialog::buildConfirmDeleteGump() {
-	confirmDeleteDialog = new cContainer();
-	confirmDeleteDialog->setBounds(0, 0, 640, 480);
-
-	cBorderGump *background = new cBorderGump(0xa28);
-	background->setBounds(166, 96, 308, 188);
-	confirmDeleteDialog->addControl(background);
-
-	confirmDeleteText = new cAsciiLabel("Status", 2, 0x34f, ALIGN_CENTER, false);
-	confirmDeleteText->setBounds(116, 150, 408, 200);
-	confirmDeleteDialog->addControl(confirmDeleteText);
-
-	cImageButton *statusCancel = new cImageButton(356, 225, 0x47e, 0x480);
-	statusCancel->setStateGump(BS_HOVER, 0x47f);
-	confirmDeleteDialog->addControl(statusCancel);
-	connect(statusCancel, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
-
-	cImageButton *statusOk = new cImageButton(256, 225, 0x481, 0x483);
-	statusOk->setStateGump(BS_HOVER, 0x482);
-	confirmDeleteDialog->addControl(statusOk);
-	connect(statusOk, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusOkClicked(cControl*)));
 }
 
 void cLoginDialog::buildSelectCharGump() {
