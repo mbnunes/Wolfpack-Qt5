@@ -57,3 +57,35 @@ void cAsciiLabel::draw(int xoffset, int yoffset) {
         texture->draw(xoffset + x, yoffset + y);		
 	}
 }
+
+void cAsciiLabel::processDefinitionAttribute(QString name, QString value) {
+	if (name == "text") {
+		setText(value);
+	} else if (name == "font") {
+		setFont(Utilities::stringToUInt(value));
+	} else if (name == "hue") {
+		setHue(Utilities::stringToUInt(value));
+	} else if (name == "hueall") {
+		setHueAll(Utilities::stringToBool(value));
+	} else if (name == "autosize") {
+		setAutoSize(Utilities::stringToBool(value));
+	} else if (name == "textalign") {
+		if (value == "left") {
+			setAlign(ALIGN_LEFT);
+		} else if (value == "center") {
+			setAlign(ALIGN_CENTER);
+		} else if (value == "right") {
+			setAlign(ALIGN_RIGHT);
+		}
+	} else {
+		cControl::processDefinitionAttribute(name, value);
+	}
+}
+
+void cAsciiLabel::processDefinitionElement(QDomElement element) {
+	if (element.tagName() == "text") {
+		setText(element.text());
+	} else {
+		cControl::processDefinitionElement(element);
+	}
+}

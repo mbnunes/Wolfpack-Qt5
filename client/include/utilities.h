@@ -162,6 +162,32 @@ namespace Utilities {
 				return; // Do nothing
 		};
 	}
+
+	inline uint stringToUInt(QString value) {
+		bool hex = value.startsWith("0x", Qt::CaseInsensitive);
+		if (hex) {
+			return value.right(value.length() - 2).toUInt(0, 16);
+		} else {
+			return value.toUInt(0, 10);
+		}
+	}
+
+	inline int stringToInt(QString value) {
+		bool hex = value.startsWith("0x", Qt::CaseInsensitive);
+		if (hex) {
+			return value.right(value.length() - 2).toInt(0, 16);
+		} else {
+			return value.toInt(0, 10);
+		}
+	}
+
+	inline bool stringToBool(QString value) {
+		if (value == "0" || value.isEmpty() || value == "false") {
+			return false;
+		} else {
+			return true;
+		}                
+	}
 };
 
 // Define the Random object

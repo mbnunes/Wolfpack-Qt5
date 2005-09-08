@@ -2,11 +2,13 @@
 #if !defined(__GUI_H__)
 #define __GUI_H__
 
-#include <qdatetime.h>
 
 #include "control.h"
 #include "container.h"
 #include "window.h"
+
+#include <QDateTime>
+#include <QDomElement>
 
 class cEntity;
 
@@ -30,6 +32,8 @@ private:
 	QVector<cControl*> deleteQueue;
 	QVector<cOverheadInfo> overheadText;
 	bool cleaningUpOverheadText;
+
+	QMap<QString, QDomElement> dialogTemplates; // Map for Dialog Templates
 public:
 	cGui();
 	virtual ~cGui();
@@ -49,8 +53,6 @@ public:
 	// clear pointers
 	void onDeleteControl(cControl *control);
 
-	void invalidate();
-
 	void addControl(cControl *control, bool back = false);
 
 	// Draw the GUI
@@ -58,7 +60,19 @@ public:
 	cTexture *checkerboard() const;
 
 	void closeAllGumps();
+
+	void load();
+	void unload();
+
+	// Check if the given template name exists
+	bool isTemplateAvailable(QString name) const;
+	cWindow *createDialog(QString templateName);
+	cControl *createControl(QDomElement templateNode);
 };
+
+inline bool cGui::isTemplateAvailable(QString name) const {
+	return dialogTemplates.find(name) != dialogTemplates.end();
+}
 
 extern cGui *Gui;
 

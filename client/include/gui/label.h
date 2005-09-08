@@ -22,6 +22,7 @@ private:
 	bool htmlMode_;
 public:
 	cLabel(const QString &text, unsigned short font = 0, unsigned short hue = 0, bool border = true, enTextAlign align_ = ALIGN_LEFT, bool autoSize = true);
+	cLabel();
 	virtual ~cLabel();
 
 	cControl *getControl(int x, int y);
@@ -98,6 +99,9 @@ public:
 	}
 
 	void draw(int xoffset, int yoffset);
+
+	void processDefinitionAttribute(QString name, QString value);
+	void processDefinitionElement(QDomElement element);
 };
 
 inline bool cLabel::htmlMode() const {

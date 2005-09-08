@@ -273,143 +273,9 @@ void cLoginDialog::setStatusText(const QString &text) {
 }
 
 void cLoginDialog::buildShardSelectGump() {
-	if (!shardSelectGump) {
-		shardSelectGump = new cContainer();
-		shardSelectGump->setBounds(0, 0, 640, 480);
-
-		cBorderGump *bordergump;
-		cLabel *label;
-		cImageButton *button;
-		cGumpImage *image;
-
-		// Select which shard to play on
-		label = new cLabel(tr("Select which shard to play on:"), 1, 0x3e4, false);
-		label->setPosition(0x9e, 0x48);
-		shardSelectGump->addControl(label);
-
-		// Latency:
-		label = new cLabel(tr("Latency:"), 1, 0x3e4, false);
-		label->setPosition(0x193, 0x48);
-		shardSelectGump->addControl(label);
-
-		// Packet Loss:
-		label = new cLabel(tr("Packet Loss:"), 1, 0x3e4, false);
-		label->setPosition(0x1d9, 0x48);
-		shardSelectGump->addControl(label);
-
-		// World "Background"
-		image = new cGumpImage(0x589);
-		image->setPosition(0x96, 0x186);
-		shardSelectGump->addControl(image);
-
-		// Old Shard?
-		lastShardName = new cAsciiLabel("", 9, 0x481);
-		lastShardName->setPosition(243, 415);
-		shardSelectGump->addControl(lastShardName);
-
-		// World Button
-		button = new cImageButton(0xa0, 0x190, 0x15e8, 0x15ea);
-		button->setStateGump(BS_HOVER, 0x15e9);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(selectLastShard()));
-		shardSelectGump->addControl(button);
-
-		cContainer *container = new cContainer(); // The shard selection scrollbox
-		container->setBounds(0x96, 0x5a, 0x190, 0x130);
-		shardSelectGump->addControl(container);
-
-		// Background for the shard list
-		bordergump = new cBorderGump(0xdac, 0);
-		bordergump->setBounds(0, 0, 380, 271);
-		container->addControl(bordergump);
-
-		// The Scrollbar for the Shardlist
-		cVerticalScrollBar *scrollbar = new cVerticalScrollBar(380, 1, 270);
-		scrollbar->setRange(0, 9);
-		scrollbar->setScrollCallback(shardlistScrolled);
-		container->addControl(scrollbar);
-
-		// This is unused at the moment, so don't show it
-		/*label = new cLabel(tr("Sort By:"), 1, 0x3e4, false);
-		label->setPosition(3, 278);
-		container->addControl(label);
-
-		// Timezone button
-		button = new cImageButton(0x50, 276, 0x93b, 0x93c);
-		button->setStateGump(BS_HOVER, 0x93d);
-		container->addControl(button);
-
-		// %Full button
-		button = new cImageButton(0xbc, 276, 0x93e, 0x93f);
-		button->setStateGump(BS_HOVER, 0x940);
-		container->addControl(button);
-
-		// Ping button
-		button = new cImageButton(0x128, 276, 0x941, 0x942);
-		button->setStateGump(BS_HOVER, 0x943);
-		container->addControl(button);*/
-
-		// The shardlist container
-		shardList = new cContainer();
-		shardList->setBounds(0, 10, 400, 284);
-		container->addControl(shardList);
-	}
 }
 
 void cLoginDialog::buildAccountLoginGump() {
-	if (!accountLoginGump) {
-		cContainer *container = new cContainer();
-		container->setBounds(0, 0, 640, 480);
-
-		// Account Background Gump
-		cBorderGump *background = new cBorderGump(0x13be);
-		background->setBounds(128, 288, 451, 157);
-		container->addControl(background);
-
-		// Castle Image
-		cGumpImage *image;
-		image = new cGumpImage(0x58a);
-		image->setPosition(286, 45);
-		container->addControl(image);
-
-		cAsciiLabel *label;
-		label = new cAsciiLabel(tr("Log in to Ultima Online"), 2, 0x34f);
-		label->setPosition(0xfa, 0x12f);
-		container->addControl(label);
-
-		label = new cAsciiLabel(tr("Wolfpack UO Client Version " CLIENT_VERSION), 9, 0x34f, ALIGN_LEFT, true, true);
-		label->setPosition(0xc8, 0x1a3);
-		container->addControl(label);
-
-		label = new cAsciiLabel(tr("\xa9 2005 Wolfpack Development Team"), 6, 0x481, ALIGN_LEFT, true, true);
-		label->setPosition(0xc8, 0x1c5);
-		container->addControl(label);
-
-		label = new cAsciiLabel(tr("Account Name"), 2, 0x34f);
-		label->setPosition(0xb4, 0x157);
-		container->addControl(label);
-
-		inpAccount = new cTextField(0x148, 0x157, 0xd2, 0x1e, 5, 0x34f, 3000, true);
-		inpAccount->setMouseOverHue(0x2b8);
-		inpAccount->setFocusHue(0x23);
-		inpAccount->setMaxLength(16);
-		inpAccount->setText(Config->lastUsername());
-		container->addControl(inpAccount);
-		connect(inpAccount, SIGNAL(enterPressed(cTextField*)), this, SLOT(enterPressed(cTextField*)));
-
-		label = new cAsciiLabel(tr("Password"), 2, 0x34f);
-		label->setPosition(0xb4, 0x17f);
-		container->addControl(label);
-
-		inpPassword = new cTextField(0x148, 0x17f, 0xd2, 0x1e, 5, 0x34f, 3000, true);
-		inpPassword->setPassword(true);
-		inpPassword->setMaxLength(16);
-		inpPassword->setMouseOverHue(0x2b8);
-		inpPassword->setFocusHue(0x23);
-		container->addControl(inpPassword);
-		connect(inpPassword, SIGNAL(enterPressed(cTextField*)), this, SLOT(enterPressed(cTextField*)));
-
-		accountLoginGump = container;
-	}
 }
 
 void cLoginDialog::enterPressed(cTextField *field) {
@@ -422,152 +288,106 @@ void cLoginDialog::enterPressed(cTextField *field) {
 }
 
 void cLoginDialog::buildStatusGump() {
-	if (!statusDialog) {
-		statusDialog = new cContainer();
-		statusDialog->setBounds(0, 0, 640, 480);
-
-		cBorderGump *background = new cBorderGump(0xa28);
-		background->setBounds(116, 96, 408, 288);
-		statusDialog->addControl(background);
-
-		statusLabel = new cAsciiLabel("Status", 2, 0x34f, ALIGN_CENTER, false);
-		statusLabel->setBounds(116, 150, 408, 200);
-		statusDialog->addControl(statusLabel);
-
-		statusCancel = new cImageButton(306, 296, 0x47e, 0x480);
-		statusCancel->setStateGump(BS_HOVER, 0x47f);
-		statusDialog->addControl(statusCancel);
-		connect(statusCancel, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
-
-		statusOk = new cImageButton(306, 296, 0x481, 0x483);
-		statusOk->setStateGump(BS_HOVER, 0x482);
-		statusDialog->addControl(statusOk);
-		connect(statusOk, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusOkClicked(cControl*)));
-	}
 }
 
 void cLoginDialog::show(enMenuPage page) {
 	setErrorStatus(false); // Reset error status when changing pages
 
-	if (MainWindow) {
-		MainWindow->resizeGameWindow(640, 480, true);
-	}
-
 	if (!container) {
-		container = new cWindow();
-		container->setClosable(false);
-		container->setMovable(false);
-		container->setAlign(CA_CLIENT);
+		container = Gui->createDialog("LoginDialog");
 
-		cTiledGumpImage *tiledgump = new cTiledGumpImage(0xe14);
-		tiledgump->setAlign(CA_CLIENT);
-		container->addControl(tiledgump);
+		// Connect the buttons on the gump		
+		connect(container->findByName("QuitButton"), SIGNAL(onButtonPress(cControl*)), MainWindow, SLOT(close()));
+		connect(container->findByName("MyUOButton"), SIGNAL(onButtonPress(cControl*)), SLOT(myUoClicked(cControl*)));
+		connect(container->findByName("AccountButton"), SIGNAL(onButtonPress(cControl*)), SLOT(accountClicked(cControl*)));
+		movieButton = dynamic_cast<cImageButton*>(container->findByName("MovieButton"));
+		connect(movieButton, SIGNAL(onButtonPress(cControl*)), SLOT(movieClicked(cControl*)));
+		connect(container->findByName("CreditsButton"), SIGNAL(onButtonPress(cControl*)), SLOT(creditsClicked(cControl*)));
+		connect(container->findByName("HelpButton"), SIGNAL(onButtonPress(cControl*)), SLOT(helpClicked(cControl*)));
+		
+		backButton = dynamic_cast<cImageButton*>(container->findByName("BackButton"));
+		connect(backButton, SIGNAL(onButtonPress(cControl*)), SLOT(backClicked(cControl*)));
+		nextButton = dynamic_cast<cImageButton*>(container->findByName("NextButton"));
+		connect(nextButton, SIGNAL(onButtonPress(cControl*)), SLOT(nextClicked(cControl*)));
+				
+		accountLoginGump = dynamic_cast<cContainer*>(container->findByName("AccountLoginContainer"));
 
-		cGumpImage *image; // Pointer to new gump images
-		cImageButton *button; // Pointer for new buttons
-
-		// BIG BORDER (UPPER LEFT)
-		image = new cGumpImage(0x157c);
-		container->addControl(image);
-
-		// UO BANNER (Upper Left)
-		image = new cGumpImage(0x15a0);
-		image->setPosition(0, 4);
-		container->addControl(image);
-
-		// Quit Button
-		button = new cImageButton(555, 4, 0x1589, 0x158B);
-		button->setStateGump(BS_HOVER, 0x158A);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(quitClicked(cControl*)));
-		container->addControl(button);
-
-		// MyUO Button
-		button = new cImageButton(14, 146, 0x158f, 0x1591);
-		button->setStateGump(BS_HOVER, 0x1590);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(myUoClicked(cControl*)));
-		container->addControl(button);
-
-		// Account Button
-		button = new cImageButton(14, 205, 0x1592, 0x1594);
-		button->setStateGump(BS_HOVER, 0x1593);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(accountClicked(cControl*)));
-		container->addControl(button);
-
-		// Movie Button
-		movieButton = new cImageButton(14, 306, 0x1586, 0x1588);
-		movieButton->setStateGump(BS_HOVER, 0x1587);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(movieClicked(cControl*)));
-		container->addControl(movieButton);
-
-		// Credits Button
-		button = new cImageButton(14, 330, 0x1583, 0x1585);
-		button->setStateGump(BS_HOVER, 0x1584);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(creditsClicked(cControl*)));
-		container->addControl(button);
-
-		// Help Button
-		button = new cImageButton(14, 354, 0x1595, 0x1597);
-		button->setStateGump(BS_HOVER, 0x1596);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(helpClicked(cControl*)));
-		container->addControl(button);
-
-		// Teen Logo (only on english systems)
-		/*image = new cGumpImage(0x2335);
-		image->setPosition(0x32, 0x17f);
-		container->addControl(image);*/
-		if (!accountLoginGump) {
-			buildAccountLoginGump();
-			container->addControl(accountLoginGump);
-			accountLoginGump->setVisible(false);
+		// Show the current client version
+		cAsciiLabel *clientVersion = dynamic_cast<cAsciiLabel*>(accountLoginGump->findByName("ClientVersionLabel"));
+		if (clientVersion) {
+			clientVersion->setText(tr("Wolfpack UO Client Version " CLIENT_VERSION));
 		}
 
-		if (!shardSelectGump) {
-			buildShardSelectGump();
-			container->addControl(shardSelectGump);
-			shardSelectGump->setVisible(false);
-		}
-	
-		if (!statusDialog) {
-			buildStatusGump();
-			container->addControl(statusDialog);
-			statusDialog->setVisible(false);
+		// Set default text for the account input field
+		inpAccount = dynamic_cast<cTextField*>(accountLoginGump->findByName("AccountTextfield"));
+		inpAccount->setText(Config->lastUsername());
+		connect(inpAccount, SIGNAL(enterPressed(cTextField*)), this, SLOT(enterPressed(cTextField*)));		
+
+		// Connect password enter to login button
+		inpPassword = dynamic_cast<cTextField*>(accountLoginGump->findByName("PasswordTextfield"));
+		connect(inpPassword, SIGNAL(enterPressed(cTextField*)), this, SLOT(enterPressed(cTextField*)));
+
+		// Shard selection gump
+		shardSelectGump = dynamic_cast<cContainer*>(container->findByName("ShardSelectionContainer"));
+
+		// Connect the last shard button and store the last shard label
+		lastShardName = dynamic_cast<cAsciiLabel*>(shardSelectGump->findByName("LastShardLabel"));
+		connect(shardSelectGump->findByName("LastShardButton"), SIGNAL(onButtonPress(cControl*)), this, SLOT(selectLastShard()));
+
+		// Get the shardlist and set up the scrollbar
+		cContainer *shardSelectionContainer = dynamic_cast<cContainer*>(shardSelectGump->findByName("ScrollableShardList"));
+		cVerticalScrollBar *scrollbar = new cVerticalScrollBar(380, 1, 270);
+		scrollbar->setRange(0, 9);
+		scrollbar->setScrollCallback(shardlistScrolled);
+		shardSelectionContainer->addControl(scrollbar);
+
+		// Set up the list of shard entries
+		shardList = dynamic_cast<cContainer*>(shardSelectGump->findByName("ShardListContainer"));
+
+		// Set up the Status Dialog
+		statusDialog = dynamic_cast<cContainer*>(container->findByName("StatusDialogContainer"));
+		statusLabel = dynamic_cast<cAsciiLabel*>(statusDialog->findByName("StatusLabel"));
+		statusOk = dynamic_cast<cImageButton*>(statusDialog->findByName("StatusOkButton"));
+		statusCancel = dynamic_cast<cImageButton*>(statusDialog->findByName("StatusCancelButton"));
+		connect(statusCancel, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
+		connect(statusOk, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusOkClicked(cControl*)));
+
+		// Set up the character selection dialog
+		selectCharDialog = dynamic_cast<cContainer*>(container->findByName("CharacterSelectContainer"));
+		connect(selectCharDialog->findByName("NewCharacterButton"), SIGNAL(onButtonPress(cControl*)), this, SLOT(createCharClicked(cControl*)));
+		connect(selectCharDialog->findByName("DeleteCharacterButton"), SIGNAL(onButtonPress(cControl*)), this, SLOT(deleteCharClicked(cControl*)));
+
+		for (int i = 0; i < 6; ++i) {
+			selectCharBorder[i] = container->findByName(QString("CharacterNameBackground%1").arg(i));
 		}
 
-		if (!selectCharDialog) {
-			buildSelectCharGump();
-			container->addControl(selectCharDialog);
-			selectCharDialog->setVisible(false);
-		}
-
+		charSelectWidget = new cCharSelection;
+		charSelectWidget->setAlign(CA_CLIENT);
+		selectCharDialog->addControl(charSelectWidget);
+		connect(charSelectWidget, SIGNAL(onDoubleClick(cControl*)), this, SLOT(charSelected(cControl*)));
+		/*
 		if (!confirmDeleteDialog) {
 			buildConfirmDeleteGump();
 			container->addControl(confirmDeleteDialog);
 			confirmDeleteDialog->setVisible(false);
-		}
-
-		// Back Button
-		backButton = new cImageButton(586, 445, 0x15a1, 0x15a3);
-		backButton->setStateGump(BS_HOVER, 0x15a2);
-		connect(backButton, SIGNAL(onButtonPress(cControl*)), this, SLOT(backClicked(cControl*)));
-		container->addControl(backButton);
-
-		// Next Button
-		nextButton = new cImageButton(610, 445, 0x15a4, 0x15a6);
-		nextButton->setStateGump(BS_HOVER, 0x15a5);
-		connect(nextButton, SIGNAL(onButtonPress(cControl*)), this, SLOT(nextClicked(cControl*)));
-		container->addControl(nextButton);
+		}*/
 	}
 
 	if (!container->parent()) {
 		Gui->addControl(container);
-		Gui->invalidate();
+	}
+
+	if (MainWindow) {
+		MainWindow->resizeGameWindow(container->width(), container->height(), true);
 	}
 
 	// First hide all others
 	switch (this->page) {
 		case PAGE_LOGIN:
 			accountLoginGump->setVisible(false);
-			movieButton->setVisible(false);
+			if (movieButton) {
+				movieButton->setVisible(false);
+			}
 			nextButton->setVisible(false);
 			backButton->setVisible(false);
 			break;
@@ -608,7 +428,9 @@ void cLoginDialog::show(enMenuPage page) {
 	switch (page) {
 		case PAGE_LOGIN:
 			accountLoginGump->setVisible(true);
-			movieButton->setVisible(true);
+			if (movieButton) {
+				movieButton->setVisible(true);
+			}
 			nextButton->setVisible(true);
 
 			// Set Focus to the Account control if empty. Otherwise
@@ -696,47 +518,6 @@ void cLoginDialog::buildConfirmDeleteGump() {
 }
 
 void cLoginDialog::buildSelectCharGump() {
-	if (!selectCharDialog) {
-		selectCharDialog = new cContainer();
-		selectCharDialog->setBounds(160, 70, 408, 388);
-
-		// Background
-		cBorderGump *border = new cBorderGump(0xa28);
-		border->setAlign(CA_CLIENT);
-		selectCharDialog->addControl(border);
-
-		// Top Label
-		cAsciiLabel *topLabel = new cAsciiLabel(tr("Character Selection"), 2, 0x34f, ALIGN_CENTER, false);
-		topLabel->setBounds(0, 40, 408, 200);
-		selectCharDialog->addControl(topLabel);
-
-		cImageButton *button;
-
-		// New Character
-        button = new cImageButton(64, 327, 0x159d, 0x159f);
-		button->setStateGump(BS_HOVER, 0x159e);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(createCharClicked(cControl*)));
-		selectCharDialog->addControl(button);
-
-		// Delete Character
-        button = new cImageButton(282, 327, 0x159a, 0x159c);
-		button->setStateGump(BS_HOVER, 0x159b);
-		connect(button, SIGNAL(onButtonPress(cControl*)), this, SLOT(deleteCharClicked(cControl*)));
-		selectCharDialog->addControl(button);
-
-		// add 6 char selection backgrounds
-		for (int i = 0; i < 6; ++i) {
-			selectCharBorder[i] = new cBorderGump(3000);
-			selectCharBorder[i]->setBounds(64, 80 + 40 * i, 287, 31);
-			selectCharDialog->addControl(selectCharBorder[i]);
-		}
-
-		// LAST: Char select widget
-		charSelectWidget = new cCharSelection;
-		charSelectWidget->setAlign(CA_CLIENT);
-		selectCharDialog->addControl(charSelectWidget);
-		connect(charSelectWidget, SIGNAL(onDoubleClick(cControl*)), this, SLOT(charSelected(cControl*)));
-	}
 }
 
 void cLoginDialog::deleteCharClicked(cControl *sender) {
@@ -760,7 +541,6 @@ void cLoginDialog::hide() {
 
 	if (container->parent() == Gui) {
 		Gui->removeControl(container);
-		Gui->invalidate();
 	}
 
 	if (MainWindow) {

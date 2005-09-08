@@ -59,6 +59,9 @@ public:
 
 	// Fill all non-container controls into the given vector
 	void getContainment(Controls &result);
+
+	void processDefinitionElement(QDomElement element);
+	void processDefinitionAttribute(QString name, QString value);
 private:
 	void doAlignment(enControlAlign align, cControl *control, QRect &clientRect);
 	void doPositioning(enControlAlign align, cControl *control, QRect &clientRect);

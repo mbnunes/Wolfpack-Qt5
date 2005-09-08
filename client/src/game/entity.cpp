@@ -98,7 +98,6 @@ cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet face
 cEntity::~cEntity() {
 	World->removeEntity(this);
 	Gui->removeOverheadText(this);
-	Log->print(LOG_NOTICE, QString("Freeing entity @ 0x%1, Type: %2.\n").arg((uint)this, 0, 16).arg(type()));
 }
 
 bool cEntity::isInWorld() const {

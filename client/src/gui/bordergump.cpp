@@ -4,69 +4,89 @@
 #include "gui/gumpimage.h"
 #include "muls/gumpart.h"
 
-cBorderGump::cBorderGump(unsigned short id, unsigned short hue) {
+cBorderGump::cBorderGump() {
 	moveHandle_ = true;
-	setGump(id, hue, true);
-	alpha_ = 1.0f;
+	id_ = 0;
+	hue_ = 0;
+	partialHue_ = false;
+	dirty = true;
+
+	left = 0;
+	right = 0;
+	top = 0;
+	bottom = 0;
+	center = 0;
+	uleft = 0;
+	uright = 0;
+	lleft = 0;
+	lright = 0;
+}
+
+cBorderGump::cBorderGump(unsigned short id, unsigned short hue, bool partialHue) {
+	moveHandle_ = true;
+	id_ = id;
+	hue_ = hue;
+	partialHue_ = partialHue;
+	dirty = true;
 }
 
 cBorderGump::~cBorderGump() {
 }
 
-void cBorderGump::setGump(unsigned short id, unsigned short hue, bool forceupdate) {
-	if (forceupdate || this->id != id || this->hue != hue) {
-		clear(); // Clear all children
+void cBorderGump::update() {
+	clear(); // Clear all children
 
-		this->id = id;
-		this->hue = hue;
-
-		// Upper Left
-		uleft = new cGumpImage(id, hue);
-		uleft->update();
-		addControl(uleft);
-
-		// Upper Right
-		uright = new cGumpImage(id + 2, hue);
-		uright->update();
-		addControl(uright);
-
-		// Lower Left
-		lleft = new cGumpImage(id + 6, hue);
-		lleft->update();
-		addControl(lleft);
-
-		// Lower Right
-		lright = new cGumpImage(id + 8, hue);
-		lright->update();
-		addControl(lright);
-
-		// Top
-		top = new cTiledGumpImage(id + 1, hue);
-		top->update();
-		addControl(top);
-
-		// Left
-		left = new cTiledGumpImage(id + 3, hue);
-		left->update();
-		addControl(left);
-
-		// Right
-		right = new cTiledGumpImage(id + 5, hue);
-		right->update();
-		addControl(right);
-
-		// Bottom
-		bottom = new cTiledGumpImage(id + 7, hue);
-		bottom->update();
-		addControl(bottom);
-
-		// Center
-		center = new cTiledGumpImage(id + 4, hue);
-		center->update();
-		addControl(center);
-        
-		alignControls(); // Align the controls
+	if (id_ == 0) {
+		return;  // Invalid id
 	}
+
+	// Upper Left
+	uleft = new cGumpImage(id_, hue_);
+	uleft->update();
+	addControl(uleft);
+
+	// Upper Right
+	uright = new cGumpImage(id_ + 2, hue_);
+	uright->update();
+	addControl(uright);
+
+	// Lower Left
+	lleft = new cGumpImage(id_ + 6, hue_);
+	lleft->update();
+	addControl(lleft);
+
+	// Lower Right
+	lright = new cGumpImage(id_ + 8, hue_);
+	lright->update();
+	addControl(lright);
+
+	// Top
+	top = new cTiledGumpImage(id_ + 1, hue_);
+	top->update();
+	addControl(top);
+
+	// Left
+	left = new cTiledGumpImage(id_ + 3, hue_);
+	left->update();
+	addControl(left);
+
+	// Right
+	right = new cTiledGumpImage(id_ + 5, hue_);
+	right->update();
+	addControl(right);
+
+	// Bottom
+	bottom = new cTiledGumpImage(id_ + 7, hue_);
+	bottom->update();
+	addControl(bottom);
+
+	// Center
+	center = new cTiledGumpImage(id_ + 4, hue_);
+	center->update();
+	addControl(center);
+
+	dirty = false; // Flag as updated
+	alignControls(); // Align the controls
 }
 
 /*
@@ -82,7 +102,11 @@ void cBorderGump::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight
 	Align the parts of this bordergump
 */
 void cBorderGump::alignControls() {
-	uleft->setPosition(0, 0);
+	if (dirty) {
+		return;
+	}
+
+	uleft->setPosition(0, 0);		
 	uright->setPosition(width_ - uright->width(), 0);
 	lleft->setPosition(0, height_ - lleft->height());
 	lright->setPosition(width_ - lright->width(), height_ - lright->height());
@@ -94,6 +118,10 @@ void cBorderGump::alignControls() {
 }
 
 void cBorderGump::draw(int xoffset, int yoffset) {
+	if (dirty) {
+		update();
+	}
+
 	if (left)
 		left->setAlpha(alpha_);
 	if (right)
@@ -114,4 +142,16 @@ void cBorderGump::draw(int xoffset, int yoffset) {
 		lright->setAlpha(alpha_);
 
 	cContainer::draw(xoffset, yoffset);
+}
+
+void cBorderGump::processDefinitionAttribute(QString name, QString value) {
+	if (name == "gump") {
+		setId(Utilities::stringToUInt(value));
+	} else if (name == "hue") {
+		setHue(Utilities::stringToUInt(value));
+	} else if (name == "partialhue") {
+		setPartialHue(Utilities::stringToBool(value));
+	} else {
+		return cControl::processDefinitionAttribute(name, value);
+	}
 }

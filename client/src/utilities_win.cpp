@@ -1,5 +1,7 @@
 
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <shellapi.h>
 
 #include "utilities.h"
 //Added by qt3to4:
@@ -7,6 +9,11 @@
 
 namespace Utilities {
 	void launchBrowser(const QString &url) {
-		ShellExecuteA(0, "open", url.toLatin1(), "", "", SW_NORMAL);
+		QString realUrl = url;
+		if (!realUrl.startsWith("http://")) {
+			realUrl.prepend("http://");
+		}
+
+		ShellExecuteA(0, "open", realUrl.toLatin1(), "", "", SW_NORMAL);
 	}
 };

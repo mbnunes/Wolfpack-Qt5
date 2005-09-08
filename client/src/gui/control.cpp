@@ -240,3 +240,95 @@ void cControl::setTabIndex(unsigned int data) {
 		parent_->sortTabControls();
 	}
 }
+
+void cControl::processDefinitionElement(QDomElement element) {
+	if (element.nodeName() == "bounds") {
+		bool ok;
+		int x = element.attribute("x").toInt(&ok);
+		if (!ok) {
+			x = x_;
+		}
+
+		int y = element.attribute("y").toInt(&ok);
+		if (!ok) {
+			y = y_;
+		}
+
+		int width = element.attribute("width").toInt(&ok);
+		if (!ok) {
+			width = width_;
+		}
+
+		int height = element.attribute("height").toInt(&ok);
+		if (!ok) {
+			height = height_;
+		}
+
+		setBounds(x, y, width, height);
+	} else if (element.nodeName() == "size") {
+		bool ok;
+
+		int width = element.attribute("width").toInt(&ok);
+		if (!ok) {
+			width = width_;
+		}
+
+		int height = element.attribute("height").toInt(&ok);
+		if (!ok) {
+			height = height_;
+		}
+
+		setSize(width, height);
+	} else if (element.nodeName() == "position") {
+		bool ok;
+		int x = element.attribute("x").toInt(&ok);
+		if (!ok) {
+			x = x_;
+		}
+
+		int y = element.attribute("y").toInt(&ok);
+		if (!ok) {
+			y = y_;
+		}
+
+		setPosition(x, y);
+	}
+}
+
+void cControl::processDefinitionAttribute(QString name, QString value) {
+	if (name == "visible") {
+		setVisible(Utilities::stringToBool(value));
+	} else if (name == "align") {
+		if (value == "none") {
+			setAlign(CA_NONE);
+		} else if (value == "left") {
+			setAlign(CA_LEFT);
+		} else if (value == "top") {
+			setAlign(CA_TOP);
+		} else if (value == "right") {
+			setAlign(CA_RIGHT);
+		} else if (value == "bottom") {
+			setAlign(CA_BOTTOM);
+		} else if (value == "client") {
+			setAlign(CA_CLIENT);
+		}
+	} else if (name == "bottomanchor") {
+		setBottomAnchor(Utilities::stringToBool(value));
+	} else if (name == "topanchor") {
+		setTopAnchor(Utilities::stringToBool(value));
+	} else if (name == "leftanchor") {		 
+		setLeftAnchor(Utilities::stringToBool(value));
+	} else if (name == "rightanchor") {
+		setRightAnchor(Utilities::stringToBool(value));
+	} else if (name == "movable") {
+		setMovable(Utilities::stringToBool(value));
+	} else if (name == "movehandle") {
+		setMoveHandle(Utilities::stringToBool(value));
+	} else if (name == "tabindex") {
+		setTabIndex(Utilities::stringToUInt(value));
+	} else if (name == "alpha") {
+		setAlpha(value.toFloat());
+	} else if (name == "name") {
+		setObjectName(value);
+	}
+}

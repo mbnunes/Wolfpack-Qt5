@@ -170,9 +170,11 @@ void cUoClient::load() {
 	Cursor->load(); // The cursor requires the mulreader classes
 
 	Scripts->load();
+	Gui->load();
 }
 
 void cUoClient::unload() {
+	Gui->unload();
 	Scripts->unload();
 
 	Cursor->unload();

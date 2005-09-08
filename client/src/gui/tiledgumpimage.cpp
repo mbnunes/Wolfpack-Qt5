@@ -100,3 +100,15 @@ void cTiledGumpImage::draw(int xoffset, int yoffset) {
 		}		
 	}
 }
+
+void cTiledGumpImage::processDefinitionAttribute(QString name, QString value) {
+	if (name == "gump") {
+		setId(Utilities::stringToUInt(value));
+	} else if (name == "hue") {
+		setHue(Utilities::stringToUInt(value));
+	} else if (name == "partialhue") {
+		setPartialHue(Utilities::stringToBool(value));
+	} else {
+		cControl::processDefinitionAttribute(name, value);
+	}
+}

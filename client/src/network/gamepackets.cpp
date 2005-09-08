@@ -1148,3 +1148,28 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xd6, cTooltipPacket::creator);
+
+// Open Browser Window Packet
+class cOpenBrowserPacket : public cDynamicIncomingPacket {
+protected:
+	QString url;
+public:
+	cOpenBrowserPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		safetyAssertSize(4);
+        char *strUrl = new char[size - 2];
+		input.readRawData(strUrl, size - 3);
+		strUrl[size - 3] = 0;
+		url = QString::fromLatin1(strUrl);
+		delete [] strUrl;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		Utilities::launchBrowser(url);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cOpenBrowserPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xa5, cOpenBrowserPacket::creator);

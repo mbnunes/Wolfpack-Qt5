@@ -13,6 +13,31 @@
 #include "muls/asciifonts.h"
 #include "muls/unicodefonts.h"
 
+cTextField::cTextField() {
+	font_ = 0;
+	hue_ = 0x3b2;
+	hueAll_ = false;
+	canHaveFocus_ = true;
+	mouseOver_ = false;
+	mouseOverHue_ = -1;
+	focusHue_ = -1;
+	maxLength_ = 256;
+	caret_ = 0;
+	leftOffset_ = 0;
+	caretXOffset_ = 0;
+	selection_ = 0;
+	password_ = false;
+	dirty = true;
+	unicodeMode_ = true;
+	
+	for (int i = 0; i < 3; ++i) {
+		surfaces[i] = 0;
+	}
+
+	backgroundId_ = 0;
+	background_ = 0;
+}
+
 cTextField::cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue, unsigned short background, bool hueAll, bool unicodeMode) {
 	font_ = font;
 	hue_ = hue;
@@ -59,85 +84,6 @@ cTextField::~cTextField() {
 }
 
 void cTextField::drawSelection(cSurface *surface) {
-	/*if (!surface) {
-		return;
-	}
-
-	SDL_PixelFormat *format = surface->format;
-	unsigned int transparent = SDL_MapRGB(format, 0, 0, 0);
-	unsigned int selBack = SDL_MapRGB(format, 0, 0, 30);
-
-	if (SDL_MUSTLOCK(surface)) {
-		SDL_LockSurface(surface);
-	}
-
-	int offset = caretXOffset_;
-	if (selection_ < 0) {
-		for (int i = caret_ - 1; i >= (int)caret_ + selection_ && i >= (int)leftOffset_; --i) {
-			// Get the width of the character at that position and reduce it
-			SDL_Surface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
-			if (ch) {
-				offset -= ch->w;
-	
-				// redraw the character (?)
-				for (int x = offset; x < offset + ch->w; ++x) {
-					for (int y = 4; y < surface->h; ++y) {
-						unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->BytesPerPixel);
-	
-						switch (format->BytesPerPixel) {
-							case 4:
-								if (*((unsigned int*)ptr) == transparent) {
-									*((unsigned int*)ptr) = selBack;
-								} else {
-									unsigned char r, g, b;
-									SDL_GetRGB(*((unsigned int*)ptr), format, &r, &g, &b);
-									unsigned char c = (r + g + b) / 3;									
-									*((unsigned int*)ptr) = SDL_MapRGB(format, ~c, ~c, ~c);
-								}
-								break;
-							case 2:
-								//SDL_GetRGB(*((unsigned short*)ptr), format, &r, &g, &b);
-								break;
-							default:
-								throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
-						}
-					}
-				}
-			}
-		}
-	} else if (selection_ > 0) {
-		for (int i = caret_; i < (int)caret_ + selection_ && i < (int)text_.length(); ++i) {
-			// Get the width of the character at that position and reduce it
-			SDL_Surface *ch = AsciiFonts->getCharacter(font_, translateChar(text_.at(i)));
-			if (ch) {
-				// redraw the character (?)
-				for (int x = (i == caret_) ? offset + 2 : offset; x < offset + ch->w; ++x) {
-					for (int y = 4; y < surface->h; ++y) {
-						unsigned char *ptr = (unsigned char*)surface->pixels + (surface->pitch * y) + (x * format->BytesPerPixel);
-	
-						switch (format->BytesPerPixel) {
-							case 4:
-								if (*((unsigned int*)ptr) == transparent) {
-									*((unsigned int*)ptr) = selBack;
-								} else {
-									unsigned char r, g, b;
-									SDL_GetRGB(*((unsigned int*)ptr), format, &r, &g, &b);
-									unsigned char c = (r + g + b) / 3;									
-									*((unsigned int*)ptr) = SDL_MapRGB(format, ~c, ~c, ~c);
-								}
-								break;
-							case 2:
-								//SDL_GetRGB(*((unsigned short*)ptr), format, &r, &g, &b);
-								break;
-							default:
-								throw Exception(tr("Invalid bytes per pixel value: %1").arg(format->BytesPerPixel));
-						}
-					}
-				}
-				offset += ch->w;
-			}
-		}
-	}*/
 }
 
 void cTextField::update() {
@@ -276,55 +222,6 @@ void cTextField::draw(int xoffset, int yoffset) {
 		glEnable(GL_TEXTURE_2D);
 	}
 }
-
-/*void cTextField::draw(IPaintable *target, const SDL_Rect *clipping) {
-	if (background_) {
-		background_->draw(target, clipping);
-	}
-
-	SDL_Surface *surface = surfaces[0];
-
-	// Chose the surface that should be drawn based on the current control state
-	if (Gui->inputFocus() == this && surfaces[2]) {
-		surface = surfaces[2];
-	} else {
-		if (mouseOver_ && surfaces[1]) {
-			surface = surfaces[1];
-		}
-	}
-
-	if (surface) {
-		if (clipping) {
-			int x = x_ + 7;
-			int y = y_;
-			int width = QMIN(surface->w, width_ - 14);
-			int height = height_;
-
-			int xdiff = clipping->x - x;
-			int ydiff = clipping->y - y;
-
-			SDL_Rect srcrect;
-			srcrect.x = QMAX(0, xdiff);
-			srcrect.y = QMAX(0, ydiff);
-			srcrect.w = QMIN(clipping->w, QMIN(width - srcrect.x, clipping->w + xdiff));
-			srcrect.h = QMIN(clipping->h, QMIN(height - srcrect.y, clipping->h + ydiff));
-
-			target->drawSurface(x + QMAX(0, xdiff), y + QMAX(0, ydiff), surface, &srcrect);
-		} else {
-			target->drawSurface(x_ + 7, y_, surface);
-		}
-	}
-
-	// Draw the caret if we're focused
-	if (Gui->inputFocus() == this) {
-		for (int i = 4; i < height_ - 4; ++i) {
-			target->invertPixel(x_ + 7 + caretXOffset_, y_ + i);
-		}
-		for (int i = 4; i < height_ - 4; ++i) {
-			target->invertPixel(x_ + 8 + caretXOffset_, y_ + i);
-		}
-	}
-}*/
 
 void cTextField::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight) {
 	if (background_) {
@@ -731,4 +628,44 @@ bool cTextField::getCharacterWidth(uint i, uchar &charWidth) {
 		}		
 	}
 	return false;
+}
+
+void cTextField::processDefinitionAttribute(QString name, QString value) {
+	if (name == "hueall") {
+		setHueAll(Utilities::stringToBool(value));
+	} else if (name == "font") {
+		setFont(Utilities::stringToUInt(value));
+	} else if (name == "hue") {
+		setFont(Utilities::stringToUInt(value));
+	} else if (name == "text") {
+		setText(value);
+	} else if (name == "hoverhue") {
+		setMouseOverHue(Utilities::stringToUInt(value));
+	} else if (name == "focushue") {
+		setFocusHue(Utilities::stringToUInt(value));
+	} else if (name == "password") {
+		setPassword(Utilities::stringToBool(value));
+	} else if (name == "unicode") {
+		setUnicodeMode(Utilities::stringToBool(value));
+	} else if (name == "background") {
+		setBackground(Utilities::stringToUInt(value));
+	} else if (name == "maxlength") {
+		setMaxLength(Utilities::stringToUInt(value));
+	} else {
+		cControl::processDefinitionAttribute(name, value);
+	}
+}
+
+void cTextField::processDefinitionElement(QDomElement element) {
+	cControl::processDefinitionElement(element);
+}
+
+void cTextField::setBackground(ushort data) {
+	if (backgroundId_ != data) {
+		backgroundId_ = data;
+		delete background_;
+		if (data != 0) {
+			background_ = new cBorderGump(data);
+		}
+	}
 }

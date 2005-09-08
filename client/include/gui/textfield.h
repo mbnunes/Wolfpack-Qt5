@@ -55,7 +55,11 @@ protected:
 	bool getCharacterWidth(uint i, uchar &charWidth);
 public:
 	cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue = 0, unsigned short background = 0xbb8, bool hueAll = false, bool unicodeMode = false);
+	cTextField();
 	virtual ~cTextField();
+
+	void processDefinitionAttribute(QString name, QString value);
+	void processDefinitionElement(QDomElement element);
 
 	// Getters
 	inline bool hueAll() const { return hueAll_; }
@@ -133,14 +137,7 @@ public:
 		}
 	}
 
-	inline void setBackground(unsigned short data) {
-		if (backgroundId_ != data) {
-			backgroundId_ = data;
-			delete background_;
-			background_ = 0;
-		}
-	}
-
+	void setBackground(unsigned short data);
 	void setCaret(unsigned int pos);
 
 	inline void setMaxLength(unsigned int data) {

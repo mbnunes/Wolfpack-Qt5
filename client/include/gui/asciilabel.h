@@ -85,6 +85,8 @@ public:
 		}
 	}
 
+	void processDefinitionElement(QDomElement element);
+	void processDefinitionAttribute(QString name, QString value);
 	void update();
 };
 

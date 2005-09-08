@@ -16,7 +16,7 @@ protected:
 public:
 	void update();
 
-	cTiledGumpImage(unsigned short id, unsigned short hue = 0, bool partialHue = false);
+	cTiledGumpImage(unsigned short id = 0, unsigned short hue = 0, bool partialHue = false);
 	virtual ~cTiledGumpImage();
 
 	inline unsigned short id() const { return id_; }
@@ -54,6 +54,8 @@ public:
 			}
 		}
 	}
+
+	void processDefinitionAttribute(QString name, QString value);
 };
 
 #endif

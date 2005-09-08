@@ -1,0 +1,248 @@
+﻿<?xml version="1.1" encoding="UTF-8" ?>
+<dialogs>
+	<!-- Toplevel Login Dialog -->
+	<dialog id="LoginDialog" closable="0" movable="0">
+		<bounds x="0" y="0" width="640" height="480" />
+		<children>
+			<!-- Overall Background -->
+			<tiledgump gump="0xe14">
+				<bounds x="0" y="0" width="640" height="480" />
+			</tiledgump>
+			
+			<!-- Big border -->
+			<gumpimage gump="0x157c">
+				<position x="0" y="0" />
+			</gumpimage>
+			
+			<!-- Uo Banner -->
+			<gumpimage gump="0x15a0">
+				<position x="0" y="4" />
+			</gumpimage>
+			
+			<!-- Quit Button -->
+			<imagebutton name="QuitButton" unpressed="0x1589" pressed="0x158B" hover="0x158A">
+				<position x="555" y="4" />
+			</imagebutton>
+
+			<!-- MyUO Button -->
+			<imagebutton name="MyUOButton" unpressed="0x158f" pressed="0x1591" hover="0x1590">
+				<position x="14" y="146" />
+			</imagebutton>
+
+			<!-- Account Button -->
+			<imagebutton name="AccountButton" unpressed="0x1592" pressed="0x1594" hover="0x1593">
+				<position x="14" y="205" />
+			</imagebutton>
+			
+			<!-- Movie Button -->
+			<imagebutton name="MovieButton" unpressed="0x1586" pressed="0x1588" hover="0x1587">
+				<position x="14" y="306" />
+			</imagebutton>
+			
+			<!-- Credits Button -->
+			<imagebutton name="CreditsButton" unpressed="0x1583" pressed="0x1585" hover="0x1584">
+				<position x="14" y="330" />
+			</imagebutton>
+			
+			<!-- Help Button -->
+			<imagebutton name="HelpButton" unpressed="0x1595" pressed="0x1597" hover="0x1596">
+				<position x="14" y="354" />
+			</imagebutton>
+			
+			<!-- ESBR Teen Logo (Only visible in US versions) -->
+			<gumpimage gump="0x2335" visible="false">
+				<position x="50" y="383" />
+			</gumpimage>				
+
+			<!-- Back Button -->
+			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
+				<position x="586" y="445" />
+			</imagebutton>
+			
+			<!-- Next Button -->
+			<imagebutton name="NextButton" unpressed="0x15a4" pressed="0x15a6" hover="0x15a5">
+				<position x="610" y="445" />
+			</imagebutton>
+			
+			<!--
+				This sub-container is responsible for the account login gump.
+			-->
+			<container name="AccountLoginContainer" visible="false">
+				<bounds x="0" y="0" width="640" height="480" />
+				<children>
+					<!-- Background for account+password input fields and castle -->
+					<bordergump gump="0x13be">
+						<bounds x="128" y="288" width="451" height="157" />
+					</bordergump>					
+					
+					<!-- castle image -->
+					<gumpimage gump="0x58a">
+						<position x="286" y="45" />
+					</gumpimage>
+						
+					<!-- Texts -->
+					<asciilabel font="2" hue="0x34f">
+						<text>Log in to Ultima Online</text>
+						<position x="263" y="305" />
+					</asciilabel>
+
+					<asciilabel name="ClientVersionLabel" font="9" hue="0x34f" hueall="true">
+						<position x="203" y="422" />
+					</asciilabel>		
+					
+					<asciilabel font="6" hue="0x481" hueall="true">
+						<text>© 2005 Wolfpack Development Team</text>
+						<position x="203" y="456" />
+					</asciilabel>
+					
+					<asciilabel font="2" hue="0x34f">
+						<text>Account Name</text>
+						<position x="183" y="345" />
+					</asciilabel>
+										
+					<asciilabel font="2" hue="0x34f">
+						<text>Password</text>
+						<position x="183" y="386" />
+					</asciilabel>
+				
+					<!-- Input fields -->					
+					<textfield name="AccountTextfield" font="5" hue="0x34f" background="3000" hueall="true" hoverhue="0x2b8" focushue="0x23" maxlength="16" unicode="false">
+						<bounds x="328" y="343" width="210" height="30" />
+					</textfield>
+					
+					<textfield name="PasswordTextfield" font="5" hue="0x34f" background="3000" hueall="true" hoverhue="0x2b8" focushue="0x23" maxlength="16" unicode="false" password="true">
+						<bounds x="328" y="383" width="210" height="30" />
+					</textfield>
+				</children>
+			</container>
+			
+			<!--
+				This sub-container is responsible for the shard selection
+			-->
+			<container name="ShardSelectionContainer" visible="false">
+				<bounds x="0" y="0" width="640" height="480" />
+				<children>
+					<label font="1" hue="0x3e4" border="false" text="Select which shard to play on:">
+						<position x="158" y="72" />
+					</label>
+					
+					<label font="1" hue="0x3e4" border="false" text="Latency:">
+						<position x="403" y="72" />
+					</label>
+					
+					<label font="1" hue="0x3e4" border="false" text="Packet Loss:">
+						<position x="473" y="72" />
+					</label>
+					
+					<!-- the backround of the clickable world -->
+					<gumpimage gump="0x589">
+						<position x="150" y="390" />
+					</gumpimage>
+					
+					<!-- This label is filled with the name of the last selected shard -->
+					<asciilabel name="LastShardLabel" font="9" hue="0x481">
+						<position x="243" y="415" />
+					</asciilabel>
+					
+					<!-- This button selects the last shard. It's the form of a globe -->
+					<imagebutton name="LastShardButton" unpressed="0x15e8" pressed="0x15ea" hover="0x15e9">
+						<position x="160" y="400" />
+					</imagebutton>
+					
+					<!-- This container will be the scrollable shard list -->
+					<container name="ScrollableShardList">
+						<bounds x="150" y="90" width="400" height="304" />
+						<children>
+							<!-- This is the background of the scrollable box -->
+							<bordergump gump="0xdac">
+								<size width="380" height="271" />
+							</bordergump>
+
+							<!--
+							 Note: The Scrollbar will automatically be added and set up.
+							-->
+							
+							<!-- This container will be filled with the shard entries -->
+							<container name="ShardListContainer">
+								<bounds x="0" y="10" width="400" height="284" />
+							</container>
+						</children>
+					</container>					
+				</children>
+			</container>
+			
+			<!-- This is the status dialog used by the login gump -->
+			<container name="StatusDialogContainer" visible="false">
+				<bounds x="0" y="0" width="640" height="480" />
+				<children>
+					<!-- Dialog background -->
+					<bordergump gump="0xa28">
+						<bounds x="116" y="96" width="408" height="288" />
+					</bordergump>
+					
+					<asciilabel name="StatusLabel" text="Status" font="2" hue="0x34f" textalign="center" autosize="false">					
+						<bounds x="116" y="150" width="408" height="200" />
+					</asciilabel>
+					
+					<!-- Cancel Button -->
+					<imagebutton name="StatusCancelButton" unpressed="0x47e" pressed="0x480" hover="0x47f">
+						<position x="306" y="296" />
+					</imagebutton>
+					
+					<!-- Ok Button -->
+					<imagebutton name="StatusOkButton" unpressed="0x481" pressed="0x483" hover="0x482">
+						<position x="306" y="296" />
+					</imagebutton>
+				</children>
+			</container>
+
+			<!-- This container contains the character select page -->
+			<container name="CharacterSelectContainer" visible="false">
+				<!-- You have to keep the width/height consistent or else the character name labels will be misplaced -->
+				<bounds x="160" y="70" width="408" height="388" />
+				
+				<children>
+					<!-- Character Select Background -->
+					<bordergump gump="0xa28" align="client" />
+					
+					<!-- Label at the top of the page -->
+					<asciilabel text="Character Selection" hue="0x34f" font="2" textalign="center" autosize="false">
+						<bounds x="0" y="20" width="408" height="200" />
+					</asciilabel>			
+	
+					<!-- New Character Button -->
+					<imagebutton name="NewCharacterButton" unpressed="0x159d" pressed="0x159f" hover="0x159e">
+						<position x="64" y="327" />
+					</imagebutton>
+					
+					<!-- Delete Character Button -->
+					<imagebutton name="DeleteCharacterButton" unpressed="0x159a" pressed="0x159c" hover="0x159b">
+						<position x="282" y="327" />
+					</imagebutton>
+					
+					<!-- Backgrounds for the six character slots -->
+					<bordergump name="CharacterNameBackground0" gump="3000">
+						<bounds x="64" y="80" width="287" height="31" />
+					</bordergump>
+					<bordergump name="CharacterNameBackground1" gump="3000">
+						<bounds x="64" y="120" width="287" height="31" />
+					</bordergump>
+					<bordergump name="CharacterNameBackground2" gump="3000">
+						<bounds x="64" y="160" width="287" height="31" />
+					</bordergump>
+					<bordergump name="CharacterNameBackground3" gump="3000">
+						<bounds x="64" y="200" width="287" height="31" />
+					</bordergump>
+					<bordergump name="CharacterNameBackground4" gump="3000">
+						<bounds x="64" y="240" width="287" height="31" />
+					</bordergump>
+					<bordergump name="CharacterNameBackground5" gump="3000">
+						<bounds x="64" y="280" width="287" height="31" />
+					</bordergump>
+					
+					<!-- The character names will be added automatically to the end of this list by the login dialog -->
+				</children>
+			</container>
+		</children>
+	</dialog>
+</dialogs>

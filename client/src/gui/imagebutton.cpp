@@ -32,6 +32,24 @@ cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down)
 	connect(pressRepeatTimer, SIGNAL(timeout()), this, SLOT(repeatPress())); // Connect the timer to the press repeat slot
 }
 
+cImageButton::cImageButton() {
+	mouseOver_ = false;
+	mouseHolding_ = false;
+	spaceHolding_ = false;
+	canHaveFocus_ = true; // Buttons can have the input focus
+	pressRepeatRate_ = 0; // There is no press repeat rate by default (normal push buttons)
+
+	width_ = 0;
+	height_ = 0;
+
+	gumps[BS_UNPRESSED] = 0;
+	gumps[BS_HOVER] = 0;
+	gumps[BS_PRESSED] = 0;
+	
+	pressRepeatTimer = new QTimer(this); // Should be auto freed
+	connect(pressRepeatTimer, SIGNAL(timeout()), this, SLOT(repeatPress())); // Connect the timer to the press repeat slot
+}
+
 cImageButton::~cImageButton() {
 	for (int i = 0; i < 3; ++i) {
 		if (gumps[i]) {
@@ -131,4 +149,42 @@ void cImageButton::onBlur(cControl *newFocus) {
 		spaceHolding_ = false;
 	}
 	cControl::onBlur(newFocus);
+}
+
+void cImageButton::processDefinitionAttribute(QString name, QString value) {
+	if (name == "unpressed") {
+		setStateGump(BS_UNPRESSED, Utilities::stringToUInt(value));
+	} else if (name == "pressed") {
+		setStateGump(BS_PRESSED, Utilities::stringToUInt(value));
+	} else if (name == "hover") {
+		setStateGump(BS_HOVER, Utilities::stringToUInt(value));
+	} else if (name == "pressrepeatrate") {
+		setPressRepeatRate(Utilities::stringToUInt(value));
+	} else {
+		cControl::processDefinitionAttribute(name, value);
+	}
+}
+
+void cImageButton::processDefinitionElement(QDomElement element) {
+	if (element.nodeName() == "pressed") {
+		// Check for gump/hue/partialhue
+		ushort gump = Utilities::stringToUInt(element.attribute("gump"));
+		ushort hue = Utilities::stringToUInt(element.attribute("hue"));
+		bool partialhue = Utilities::stringToBool(element.attribute("partialhue"));
+		setStateGump(BS_PRESSED, gump, hue, partialhue);
+	} else if (element.nodeName() == "unpressed") {
+		// Check for gump/hue/partialhue
+		ushort gump = Utilities::stringToUInt(element.attribute("gump"));
+		ushort hue = Utilities::stringToUInt(element.attribute("hue"));
+		bool partialhue = Utilities::stringToBool(element.attribute("partialhue"));
+		setStateGump(BS_UNPRESSED, gump, hue, partialhue);
+	} else if (element.nodeName() == "hover") {
+		// Check for gump/hue/partialhue
+		ushort gump = Utilities::stringToUInt(element.attribute("gump"));
+		ushort hue = Utilities::stringToUInt(element.attribute("hue"));
+		bool partialhue = Utilities::stringToBool(element.attribute("partialhue"));
+		setStateGump(BS_HOVER, gump, hue, partialhue);
+	} else {
+        return cControl::processDefinitionElement(element);
+	}
 }

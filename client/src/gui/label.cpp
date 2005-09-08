@@ -5,6 +5,17 @@
 #include "muls/unicodefonts.h"
 #include "muls/asciifonts.h"
 
+cLabel::cLabel() {
+	surface = 0;
+	font_ = 0;
+	hue_ = 0x3b2;
+	border_ = true;
+	align_ = ALIGN_LEFT;
+	autoSize_ = true;
+	exactHitTest_ = false;
+	htmlMode_ = false;
+}
+
 cLabel::cLabel(const QString &text, unsigned short font, unsigned short hue, bool border, enTextAlign align, bool autoSize) {
 	surface = 0;
 	text_ = text;
@@ -73,4 +84,40 @@ cControl *cLabel::getControl(int x, int y) {
 	}
 
 	return result;
+}
+
+void cLabel::processDefinitionAttribute(QString name, QString value) {
+	if (name == "text") {
+		setText(value);
+	} else if (name == "font") {
+		setFont(Utilities::stringToUInt(value));
+	} else if (name == "hue") {
+		setHue(Utilities::stringToUInt(value));
+	} else if (name == "autosize") {
+		setAutoSize(Utilities::stringToBool(value));
+	} else if (name == "exacthittest") {
+		setExactHitTest(Utilities::stringToBool(value));
+	} else if (name == "border") {
+		setBorder(Utilities::stringToBool(value));
+	} else if (name == "htmlmode") {
+		setHtmlMode(Utilities::stringToBool(value));
+	} else if (name == "textalign") {
+		if (value == "left") {
+			setAlign(ALIGN_LEFT);
+		} else if (value == "center") {
+			setAlign(ALIGN_CENTER);
+		} else if (value == "right") {
+			setAlign(ALIGN_RIGHT);
+		}
+	} else {
+		cControl::processDefinitionAttribute(name, value);
+	}
+}
+
+void cLabel::processDefinitionElement(QDomElement element) {
+	if (element.tagName() == "text") {
+		setText(element.text());
+	} else {
+		cControl::processDefinitionElement(element);
+	}
 }

@@ -44,3 +44,17 @@ void cGumpImage::draw(int xoffset, int yoffset) {
 		texture->draw(xoffset + x_, yoffset + y_, alpha_);
 	}
 }
+
+void cGumpImage::processDefinitionAttribute(QString name, QString value) {
+	if (name == "gump") {
+		setId(Utilities::stringToUInt(value));
+	} else if (name == "hue") {
+		setHue(Utilities::stringToUInt(value));
+	} else if (name == "partialhue") {
+		setPartialHue(Utilities::stringToBool(value));
+	} else if (name == "autosize") {
+		setAutoSize(Utilities::stringToBool(value));
+	} else {
+		cControl::processDefinitionAttribute(name, value);
+	}
+}

@@ -40,7 +40,8 @@ private:
 		}
 	}
 public:
-	cImageButton(int x, int y, unsigned short up, unsigned short down);
+	cImageButton(int x, int y, unsigned short up, unsigned short down); // LEGACY
+	cImageButton();
 	virtual ~cImageButton();
 
 	void setStateGump(enButtonStates state, unsigned short id, unsigned short hue = 0, bool partialHue = false);
@@ -68,6 +69,9 @@ public:
 	void onBlur(cControl *newFocus);
 
 	cControl *getControl(int x, int y);
+
+	void processDefinitionAttribute(QString name, QString value);
+	void processDefinitionElement(QDomElement element);
 
 // Slot for the press repeat 
 private slots:

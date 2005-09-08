@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QMouseEvent>
 #include <QKeyEvent>
+#include <QDomElement>
 
 class cGui;
 class cWindow;
@@ -163,6 +164,9 @@ public:
 	virtual void onKeyDown(QKeyEvent *e);
 	virtual void onKeyUp(QKeyEvent *e);
 	virtual void onClick(QMouseEvent *e);
+
+	virtual void processDefinitionElement(QDomElement element);
+	virtual void processDefinitionAttribute(QString name, QString value);
 
 signals:	
 	void onRightClick(cControl *sender);

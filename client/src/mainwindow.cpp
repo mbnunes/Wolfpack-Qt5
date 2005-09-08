@@ -326,7 +326,7 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 	singleClickTimer.setSingleShot(true);
 	singleClickTimer.setInterval(QApplication::doubleClickInterval() + 20);
 	singleClickTimer.stop();
-	connect(&singleClickTimer, SLOT(timeout()), this, SLOT(singleClick()));
+	connect(&singleClickTimer, SIGNAL(timeout()), this, SLOT(singleClick()));
 
 	singleClickEvent = 0;
 	lastDoubleClick = false;

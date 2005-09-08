@@ -63,7 +63,7 @@ private:
 	cAsciiLabel *statusLabel;
 	enMenuPage page;
 	cImageButton *statusCancel, *statusOk;
-	cBorderGump *selectCharBorder[6];
+	cControl *selectCharBorder[6];
 	QStringList characterNames;
 	cContainer *newCharacter1;
 

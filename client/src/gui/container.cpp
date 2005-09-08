@@ -5,6 +5,7 @@
 #include "exceptions.h"
 #include "utilities.h"
 #include "gui/container.h"
+#include "gui/gui.h"
 
 void cContainer::draw(int xoffset, int yoffset) {
 	xoffset += x_;
@@ -520,3 +521,22 @@ cControl *cContainer::findByName(QString name) {
 	return 0;
 }
 
+void cContainer::processDefinitionElement(QDomElement element) {
+	if (element.nodeName() == "children") {
+		// Children controls
+        QDomElement subElement = element.firstChildElement();
+		while (!subElement.isNull()) {
+			cControl *control = Gui->createControl(subElement);
+			if (control) {
+				addControl(control);
+			}
+			subElement = subElement.nextSiblingElement();
+		}
+	} else {
+		cControl::processDefinitionElement(element);
+	}
+}
+
+void cContainer::processDefinitionAttribute(QString name, QString value) {
+	cControl::processDefinitionAttribute(name, value);
+}

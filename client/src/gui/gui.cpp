@@ -5,8 +5,11 @@
 #include "gui/asciilabel.h"
 #include "gui/label.h"
 #include "gui/worldview.h"
+#include "gui/imagebutton.h"
 #include "gui/genericgump.h"
+#include "gui/gumpimage.h"
 #include "gui/containergump.h"
+#include "gui/textfield.h"
 #include "gui/tooltip.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
@@ -16,7 +19,12 @@
 #include "game/tooltips.h"
 #include "network/uosocket.h"
 #include "mainwindow.h"
-#include <qcursor.h>
+#include "log.h"
+
+#include <QFile>
+#include <QDir>
+#include <QCursor>
+#include <QDomDocument>
 
 cGui *Gui = 0;
 
@@ -259,10 +267,6 @@ void cGui::addOverheadText(int centerx, int centery, unsigned int timeout, QStri
 	overheadText.append(info);
 }
 
-void cGui::invalidate() {
-	// Gui cannot be invalidated (doesnt make sense)
-}
-
 void cGui::setInputFocus(cControl *focus) {
 	// If there already is a focused control and that control 
 	// differs from the new one, issue an onBlur() event.
@@ -346,4 +350,134 @@ void cGui::setActiveWindow(cWindow *data) {
 	}
 
 	activeWindow_ = data;
+}
+
+void cGui::load() {
+	QDir dialogsDir = QDir::current().relativeFilePath("dialogs");
+	dialogsDir.setNameFilters(QStringList("*.xml"));	
+
+	QStringList filenames = dialogsDir.entryList(QDir::Files|QDir::Readable, QDir::Name|QDir::IgnoreCase);
+
+	// Iterate over all files in the dialogs/ subdirectory
+	foreach (QString filename, filenames) {
+		Log->print(LOG_NOTICE, tr("Loading dialog template data from %1.\n").arg(filename));
+	
+		// Try to open the xml data input
+        QFile input(dialogsDir.absoluteFilePath(filename));
+		if (!input.open(QIODevice::ReadOnly)) {
+			Log->print(LOG_ERROR, tr("Unable to read dialog template data from %1.\n").arg(input.fileName()));
+			continue;
+		}
+
+		// Try to parse the XML
+		QDomDocument document("dialogs");
+		QString error;
+		int errorLine, errorColumn;
+		if (!document.setContent(&input, false, &error, &errorLine, &errorColumn)) {
+            input.close();
+			Log->print(LOG_ERROR, tr("Unable to parse dialog template data at %1.\n").arg(input.fileName()));
+			Log->print(LOG_ERROR, tr("[Line %1, Column %2]: %3.\n").arg(errorLine).arg(errorColumn).arg(error));
+			continue;
+		}
+
+		// Get the document element
+		QDomElement docElem = document.documentElement();
+
+		// Get all nodes from the document and save them
+		QDomNode n = docElem.firstChild();
+		while(!n.isNull()) {
+			QDomElement e = n.toElement(); // try to convert the node to an element.
+			if(!e.isNull()) {
+				// Check for the dialog name and id attribute
+				if (e.tagName() == "dialog") {
+                    QString dialogId = e.attribute("id");
+					if (!dialogId.isEmpty()) {
+						dialogTemplates.insert(dialogId, e);
+					}
+				}
+			}
+			n = n.nextSibling();
+		}
+	}
+}
+
+void cGui::unload() {
+	dialogTemplates.clear();
+}
+
+cWindow *cGui::createDialog(QString templateName) {
+	QMap<QString, QDomElement>::iterator it = dialogTemplates.find(templateName);
+
+	if (it == dialogTemplates.end()) {
+		return 0;
+	}
+
+	// Create the toplevel window and process the XML instructions
+	cWindow *result = new cWindow();
+	
+	QDomElement topElement = it.value();
+
+	// Process tag attributes
+    QDomNamedNodeMap attributes = topElement.attributes();
+	for (uint i = 0; i < attributes.count(); ++i) {
+		QDomNode attribute = attributes.item(i);
+		result->processDefinitionAttribute(attribute.nodeName(), attribute.nodeValue());
+	}
+
+	// Process subnodes
+	QDomNode n = topElement.firstChild();
+	while(!n.isNull()) {
+		QDomElement e = n.toElement(); // try to convert the node to an element.
+		if(!e.isNull()) {
+			result->processDefinitionElement(e);
+		}
+		n = n.nextSibling();
+	}
+
+	return result;
+}
+
+cControl *cGui::createControl(QDomElement templateNode) {
+	QString className = templateNode.nodeName();
+	cControl *result = 0;
+
+	// Process different types of gumps
+	if (className == "tiledgump") {
+		result = new cTiledGumpImage;
+	} else if (className == "gumpimage") {
+		result = new cGumpImage;
+	} else if (className == "imagebutton") {
+		result = new cImageButton;
+	} else if (className == "container") {
+		result = new cContainer;
+	} else if (className == "bordergump") {
+		result = new cBorderGump;
+	} else if (className == "asciilabel") {
+		result = new cAsciiLabel(QString());
+	} else if (className == "textfield") {
+		result = new cTextField;
+	} else if (className == "label") {
+		result = new cLabel;
+	}
+
+	if (result) {
+		// Process tag attributes
+		QDomNamedNodeMap attributes = templateNode.attributes();
+		for (uint i = 0; i < attributes.count(); ++i) {
+			QDomNode attribute = attributes.item(i);
+			result->processDefinitionAttribute(attribute.nodeName(), attribute.nodeValue());
+		}
+
+		// Process subnodes
+		QDomNode n = templateNode.firstChild();
+		while(!n.isNull()) {
+			QDomElement e = n.toElement(); // try to convert the node to an element.
+			if(!e.isNull()) {
+				result->processDefinitionElement(e);
+			}
+			n = n.nextSibling();
+		}
+	}
+
+	return result;
 }
