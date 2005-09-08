@@ -479,25 +479,29 @@
 		<id>0x1853</id>
 		<nodecay />
 		<basescripts>lightsource</basescripts>
-		<category>Decoration\Lightsources\Skullcandle (W/E) (Off)</category>
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 1 (W/E) (Off)</category>
 	</item>
 
 	<item id="1854">
 		<id>0x1854</id>
 		<nodecay />
 		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Lightsources\Skullcandle 1 (W/E) (On)</category>
 	</item>
 
 	<item id="1855">
 		<id>0x1855</id>
 		<nodecay />
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Lightsources\Skullcandle 2 (W/E) (On)</category>
 	</item>
 
 	<item id="1856">
 		<id>0x1856</id>
 		<nodecay />
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Lightsources\Skullcandle 3 (W/E) (On)</category>
 	</item>
 
@@ -505,6 +509,7 @@
 		<id>0x1857</id>
 		<nodecay />
 		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
 		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (Off)</category>
 	</item>
 
