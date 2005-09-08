@@ -3,11 +3,12 @@
  * injection.sf.net
  */
 
-#include <qstring.h>
+#include <QString>
 
 #include "config.h"
 #include "md5.h"
 #include "network/encryption.h"
+#include "network/twofish2.h"
 
 /*!
 	Initializes this "LoginCrypt" object.
@@ -68,38 +69,55 @@ void cNoEncryption::decryptIncoming(char*, unsigned int) {
 	// Do nothing
 }
 
+class cGameEncryption::cGameEncryptionPrivate
+{
+public:
+	unsigned short recvPos; // Position in our CipherTable (Recv)
+	unsigned char sendPos; // Offset in our XOR Table (Send)
+	unsigned char cipherTable[0x100];
+	unsigned char xorData[16]; // This table is used for encrypting the server->client stream
+
+	/*
+	Note: Thanks to Negr0potence for the hint on uo.elitecoder.net.
+	Crypting the initial twofish ciphertable... Man... This is typical...
+	*/
+
+	Twofish2::keyInstance ki;
+	Twofish2::cipherInstance ci;
+};
+
 /*!
 	Initializes the gameserver encryption using the given seed
 */
-cGameEncryption::cGameEncryption( unsigned int seed )
+cGameEncryption::cGameEncryption( unsigned int seed ) : d( new cGameEncryptionPrivate )
 {
 	// The seed is transmitted in little-endian byte order
 	// At least that is what sphere thinks
 	seed = ((seed >> 24) & 0xFF) | ((seed >> 8) & 0xFF00) | ((seed << 8) & 0xFF0000) | ((seed << 24) & 0xFF000000);
 
-	makeKey( &ki, DIR_ENCRYPT, 0x80, NULL );
-	cipherInit( &ci, MODE_ECB, NULL );
+	makeKey( &d->ki, DIR_ENCRYPT, 0x80, NULL );
+	cipherInit( &d->ci, MODE_ECB, NULL );
 
-	ki.key32[0] = ki.key32[1] = ki.key32[2] = ki.key32[3] = seed;
-	reKey( &ki );
+	d->ki.key32[0] = d->ki.key32[1] = d->ki.key32[2] = d->ki.key32[3] = seed;
+	reKey( &d->ki );
 
 	for ( unsigned int i = 0; i < 256; ++i )
-		cipherTable[i] = i;
+		d->cipherTable[i] = i;
 
-	sendPos = 0x00;
-	recvPos = 0;
+	d->sendPos = 0x00;
+	d->recvPos = 0;
 
 	// We need to fill the table initially to calculate the MD5 hash of it
 	unsigned char tmpBuffer[0x100];
-	blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
-	memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );
+	blockEncrypt( &d->ci, &d->ki, &d->cipherTable[0], 0x800, &tmpBuffer[0] );
+	memcpy( &d->cipherTable[0], &tmpBuffer[0], 0x100 );
 
 	// Create a MD5 hash of the twofish crypt data and use it as a 16-byte xor table
 	// for encrypting the server->client stream.
 	cMd5 md5;
 	md5.update(tmpBuffer, 0x100);
 	md5.finalize();
-	md5.rawDigest(xorData);
+	md5.rawDigest(d->xorData);
 }
 
 /*!
@@ -108,16 +126,16 @@ cGameEncryption::cGameEncryption( unsigned int seed )
 void cGameEncryption::encryptByte( uchar& byte )
 {
 	// Recalculate table
-	if ( recvPos >= 0x100 )
+	if ( d->recvPos >= 0x100 )
 	{
 		unsigned char tmpBuffer[0x100];
-		blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
-		memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );
-		recvPos = 0;
+		blockEncrypt( &d->ci, &d->ki, &d->cipherTable[0], 0x800, &tmpBuffer[0] );
+		memcpy( &d->cipherTable[0], &tmpBuffer[0], 0x100 );
+		d->recvPos = 0;
 	}
 
 	// Simple XOR operation
-	byte ^= cipherTable[recvPos++];
+	byte ^= d->cipherTable[d->recvPos++];
 }
 
 /*!
@@ -137,7 +155,7 @@ void cGameEncryption::encryptOutgoing( char* buffer, unsigned int length )
 void cGameEncryption::decryptIncoming( char* buffer, unsigned int length )
 {
 	for ( unsigned int i = 0; i < length; ++i ) {
-		buffer[i] ^= xorData[sendPos++];
-		sendPos &= 0x0F; // Maximum Value is 0xF = 15, then 0xF + 1 = 0 again
+		buffer[i] ^= d->xorData[d->sendPos++];
+		d->sendPos &= 0x0F; // Maximum Value is 0xF = 15, then 0xF + 1 = 0 again
 	}
 }

@@ -2,8 +2,8 @@
 #if !defined(__ENCRYPTION_H__)
 #define __ENCRYPTION_H__
 
-#include <qstring.h>
-#include "network/twofish2.h"
+#include <QString>
+
 
 class cStreamEncryption {
 public:
@@ -32,18 +32,8 @@ public:
 class cGameEncryption : public cStreamEncryption
 {
 private:
-	unsigned short recvPos; // Position in our CipherTable (Recv)
-	unsigned char sendPos; // Offset in our XOR Table (Send)
-	unsigned char cipherTable[0x100];
-	unsigned char xorData[16]; // This table is used for encrypting the server->client stream
-
-	/*
-		Note: Thanks to Negr0potence for the hint on uo.elitecoder.net.
-		Crypting the initial twofish ciphertable... Man... This is typical...
-	*/
-
-	Twofish2::keyInstance ki;
-	Twofish2::cipherInstance ci;
+	class cGameEncryptionPrivate;
+	cGameEncryptionPrivate* d;
 
 	void encryptByte( uchar & byte );
 public:
