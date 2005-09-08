@@ -23,7 +23,7 @@ MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
 #win32:LIBS += advapi32.lib shell32.lib openal32.lib
-win32:LIBS += -ladvapi32 -lshell32 C:/openal/libs/openal32.lib
+win32:LIBS += -ladvapi32 -lshell32 -lopenal32
 
 unix:LIBS += -lGL -lGLU
 
@@ -207,10 +207,6 @@ INTERFACES =
 #	languages/wolfpack_fr.ts \
 #	languages/wolfpack_ge.ts
 
-#unix:SOURCES  += \
-#	../src/unix/config_unix.cpp \
-#	../src/unix/console_unix.cpp \
-#	../src/unix/getopts_unix.cpp
 
 win32:SOURCES += \
 	src/config_win.cpp \
