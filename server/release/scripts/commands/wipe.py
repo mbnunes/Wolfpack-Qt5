@@ -55,6 +55,7 @@ def getBoundingBoxResponse( char, args, target ):
 	return
 
 def nuke( socket, command, argstring ):
+	argstring = argstring.strip() # Remove trailing and leading whitespaces
 	if len( argstring ) > 0:
 		if argstring.lower() == "all":
 			gump = WarningGump( 1060635, 30720, "Wiping <i>all</i> items in the world.<br>Do you wish to proceed?", 0xFFC000, 420, 400, wipeAllWorld, [] )
@@ -70,6 +71,7 @@ def nuke( socket, command, argstring ):
 	return True
 
 def nukez( socket, command, arguments ):
+	arguments = arguments.strip() # Remove trailing and leading whitespaces
 	if( len(arguments) == 0 or arguments.count(' ') > 1 ):
 		socket.sysmessage('Usage: .nukez z [ baseid ]')
 		return
@@ -78,7 +80,7 @@ def nukez( socket, command, arguments ):
 		(z, baseid) = arguments.split(' ')
 	else:
 		z = arguments
-		baseid =  None
+		baseid = None
 	try:
 		z = int(z)
 	except:
@@ -97,17 +99,14 @@ def wipeAllWorld( player, accept, state ):
 	player.socket.sysmessage( "Removing all items from world, this may take a while" )
 	iterator = wolfpack.itemiterator()
 	item = iterator.first
-	serials = []
+	counter = 0
 	while item:
 		if item.container == None:
-			serials.append(item.serial)
-		item = iterator.next
-	for serial in serials:
-		item = wolfpack.finditem(serial)
-		if item:
 			item.delete()
+			counter += 1
+		item = iterator.next
 
-	player.socket.sysmessage( "%i items have been removed from world" % len(serials) )
+	player.socket.sysmessage( "%i items have been removed from world" % counter )
 	return
 
 def wipeBoundingBox( socket, target1, target2, argstring ):
