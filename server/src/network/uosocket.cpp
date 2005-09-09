@@ -2080,6 +2080,8 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			break;
 
 		case 0x0E7A: // Picknick Basket
+		case 0x24d5: // Basket
+		case 0x24d6: // Basket
 			gump = 0x3F;
 			break;
 
@@ -2116,6 +2118,9 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		case 0x0990: // Round Basket
 		case 0x9AC:
 		case 0x9B1:
+		case 0x24d7: // Basket (SE)
+		case 0x24d8: // Basket (SE)
+		case 0x24dd: // Basket (SE)
 			gump = 0x41;
 			break;
 
@@ -2149,6 +2154,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		case 0xed1: // Bones
 		case 0xed2: // Bones
 		case 0x2006: // Coffin
+		case 0x318c: // Grizzled Bones
 			gump = 0x09;
 			break;
 
@@ -2189,6 +2195,62 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		case 0x0A44: // Dresser
 		case 0x0A35: // Dresser
 			gump = 0x51;
+			break;
+
+		case 0x24d9: // Basket
+		case 0x24da: // Basket
+		case 0x24db: // Basket
+		case 0x24dc: // Basket
+			gump = 0x108;
+			break;
+
+		case 0x280b: // Plain Wooden Chest
+		case 0x280c: // Plain Wooden Chest
+			gump = 0x109;
+			break;
+
+		case 0x280d: // Ornate Wooden Chest
+		case 0x280e: // Ornate Wooden Chest
+		case 0x2811: // Wooden Footlocker
+		case 0x2812: // Wooden Footlocker
+			gump = 0x10b;
+			break;
+
+		case 0x280f: // Gilded Wooden Chest
+		case 0x2810: // Gilded Wooden Chest
+			gump = 0x10a;
+			break;
+
+		case 0x2815: // Tall Cabinet
+		case 0x2816: // Tall Cabinet
+		case 0x2817: // Short Cabinet
+		case 0x2818: // Short Cabinet
+			gump = 0x10c;
+			break;
+
+		case 0x2813: // Finished Wooden Chest
+		case 0x2814: // Finished Wooden Chest
+			gump = 0x10d;
+			break;
+
+		case 0x2857: // Red Armoire
+		case 0x2858: // Red Armoire
+			gump = 0x105;
+			break;
+
+		case 0x2859: // Elegant Armoire
+		case 0x285a: // Elegant Armoire
+			gump = 0x107;
+			break;
+
+		case 0x285b: // Maple Armoire
+		case 0x285c: // Maple Armoire
+			gump = 0x106;
+			break;
+
+		case 0x285d: // Cherry Armoire
+		case 0x285e: // Cherry Armoire
+			gump = 0x10e;
 			break;
 
 		default:
