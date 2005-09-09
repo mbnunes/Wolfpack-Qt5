@@ -2,6 +2,7 @@ import wolfpack
 import housing
 from wolfpack.gumps import cGump
 from wolfpack.consts import *
+from housing.consts import CAN_HAVE_MULTIPLE_HOUSES
 from housing.deed import getPlacementData
 
 #2-Story houses
@@ -185,26 +186,7 @@ def gump2callback( char, args, target ):
 def gump4callback( char, args, target ):
 	button = target.button
 	if button == 1:
-		# The Amount of Gold in Bank
-		bank = char.getbankbox()
-		if bank:
-			gold = bank.countresource( 0xEED, 0x0 )
-		else:
-			if not char.gm:
-				char.socket.sysmessage('You dont have the correct amount in your Bank')
-				return
-
-		if (gold < args[0][4]):
-			if not char.gm:
-				char.socket.sysmessage('You dont have the correct amount in your Bank')
-				return
-
-		# Consuming Gold
-		if not char.gm:
-			bank.useresource( args[0][4], 0xEED )
-
-		# Placing the House
-		placement( char, args[1], args[0][3], args[0][2] )
+		placement( char, args[1], args[0][3], args[0][2], args[0][4] )
 
 
 # Response for a Custom House
@@ -246,7 +228,7 @@ def response2( char, args, target ):
 
 
 # Making the House
-def placement(player, target, multiid, id):
+def placement(player, target, multiid, id, value):
 
 	# Check if Player can Reach the Location
 	if not player.canreach(target.pos, 20):
@@ -260,6 +242,33 @@ def placement(player, target, multiid, id):
 		player.socket.sysmessage('CAN\'T PLACE THERE')
 		return
 
+	# We may only own one house (Same for gamemasters -> registry)
+	if not CAN_HAVE_MULTIPLE_HOUSES:
+		house = housing.findHouse(player)
+		if house:
+			player.socket.clilocmessage(501271)
+			return
+
+	# The Amount of Gold in Bank
+	bank = player.getbankbox()
+	if bank:
+		gold = bank.countresource( 0xEED, 0x0 )
+	else:
+		if not player.gm:
+			player.socket.sysmessage('You dont have the correct amount in your Bank')
+			return
+
+	if (gold < value):
+		if not player.gm:
+			player.socket.sysmessage('You dont have the correct amount in your Bank')
+			return
+
+	# Consuming Gold
+	if not player.gm:
+		bank.useresource( value, 0xEED )
+
+	
+	# Placing the House
 	house = wolfpack.addmulti( multiid )
 	house.owner = player
 	house.moveto(target.pos)

@@ -1,5 +1,7 @@
 
 import wolfpack
+import housing
+from housing.house import *
 from wolfpack.gumps import cGump
 from wolfpack.consts import EVENT_CHLEVELCHANGE
 
@@ -333,6 +335,35 @@ def customize( char, item ):
 
 	return 1
 
+def demolish( char, item ):
+
+	# If Sign has no Multi, then we have problems here
+	if not item.hastag( 'house' ):
+		return
+
+	# Assign the Multi
+	multi = wolfpack.findobject( item.gettag( 'house' ) )
+
+	#Looking for the Region of the Multi
+	#region = wolfpack.region(item.pos.x, item.pos.y, item.pos.map)
+
+	#Coords of the Region
+	#(x1,y1,x2,y2) = (region.rectangles)
+	
+	#Erasing the Items inside the house
+	#iterator = wolfpack.itemregion(x1, y1, x2, y2, item.pos.map)
+	#item2 = iterator.first
+	#while item2:
+		# Delete items here
+		#item2.delete()
+		#item2 = iterator.next
+
+	# Unregistering the House
+	housing.unregisterHouse(multi)
+
+	# Erasing Multi
+	multi.delete()
+
 def switchgump( char, target, args ):
 	item = args[0]
 	gumphandler = {
@@ -342,6 +373,7 @@ def switchgump( char, target, args ):
 	47: gump3,
 	62: gump4 }
 	actionhandler = {
+	7: demolish, 
 	21: customize }
 
 	button = target.button
