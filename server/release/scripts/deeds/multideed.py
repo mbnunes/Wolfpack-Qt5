@@ -190,15 +190,18 @@ def gump4callback( char, args, target ):
 		if bank:
 			gold = bank.countresource( 0xEED, 0x0 )
 		else:
-			char.socket.sysmessage('You dont have the correct amount in Bank')
-			return
+			if not char.gm:
+				char.socket.sysmessage('You dont have the correct amount in your Bank')
+				return
 
 		if (gold < args[0][4]):
-			char.socket.sysmessage('You dont have the correct amount in Bank')
-			return
+			if not char.gm:
+				char.socket.sysmessage('You dont have the correct amount in your Bank')
+				return
 
 		# Consuming Gold
-		bank.useresource( args[0][4], 0xEED )
+		if not char.gm:
+			bank.useresource( args[0][4], 0xEED )
 
 		# Placing the House
 		placement( char, args[1], args[0][3], args[0][2] )
