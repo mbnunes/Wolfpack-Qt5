@@ -177,14 +177,16 @@ class Page:
 		gump.addText( 55, 300, tr("Bring char"), 0x834 )
 		gump.addButton( 20, 320, 0xFA5, 0xFA7, 3 )
 		gump.addText( 55, 320, tr("Go to page position"), 0x834 )
-		gump.addButton( 20, 360, 0xFBD, 0xFBF, 4 )
 
 		if char.socket:
+			gump.addButton( 20, 360, 0xFBD, 0xFBF, 4 )
 			gump.addText( 55, 360, tr("Send message:"), 0x834 )
 			gump.addInputField( 200, 360, 190, 16, 0x834, 1, tr("<msg>") )
 		
 			gump.addButton( 220, 280, 0xFAB, 0xFAD, 5 )
 			gump.addText( 255, 280, tr("Show socket info gump"), 0x834 )
+		else:
+			gump.addGump( 20, 360, 0xFBD )
 
 		gump.addButton( 220, 300, 0xFA5, 0xFA7, 6 )
 		gump.addText( 255, 300, tr("Requeue page"), 0x834 )
