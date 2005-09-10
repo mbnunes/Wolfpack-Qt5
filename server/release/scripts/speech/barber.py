@@ -370,7 +370,7 @@ def gump_response(char, arguments, response):
 
 	item = sellList[response.button - 1]
 
-	female = ( speaker.id in PLAYER_BODIES_ALIVE_FEMALE )
+	female = ( char.id in PLAYER_BODIES_ALIVE_FEMALE )
 	gold = char.getbackpack().countitems(['eed'])
 	gold += char.getbankbox().countitems(['eed'])
 		
