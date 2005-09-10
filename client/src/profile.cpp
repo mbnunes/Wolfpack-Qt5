@@ -93,7 +93,21 @@ QString cProfile::saveToString() {
 	// Set the lastchange attribute of our root node
 	QDomAttr attr = document.createAttribute("lastchange");
 	attr.setValue(lastChange_.toString());
-	root.appendChild(attr);
+	root.setAttributeNode(attr);
+
+	QDomElement element;
+	QDomText text;
+
+	// Save speech hue
+	element = document.createElement("speechhue");
+	text = document.createTextNode(QString::number(speechHue_));
+    element.appendChild(text);
+	root.appendChild(element);
+
+	element = document.createElement("emotehue");
+	text = document.createTextNode(QString::number(emoteHue_));
+    element.appendChild(text);
+	root.appendChild(element);
 
 	return document.toString();
 }
