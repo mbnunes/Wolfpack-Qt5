@@ -769,7 +769,7 @@ def onUnequip(char, item, layer):
 
 	# Add nightsight
 	nightsight = properties.fromitem(item, NIGHTSIGHT)
-	if nightsight and char.player:
+	if nightsight and char.player and char.hastag('nightsight'):
 		bonus = char.gettag('nightsight')
 		char.lightbonus = max(0, char.lightbonus - bonus)
 		char.deltag('nightsight')
