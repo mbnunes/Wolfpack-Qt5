@@ -7,6 +7,7 @@
 cMulti::cMulti(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial) : cEntity(x, y, z, facet), cDynamicItem(x, y, z, facet, serial) {
 	World->removeEntity(this); // cDynamicItem adds us
 	type_ = MULTI;
+	World->registerDynamic(this);
 }
 
 cMulti::~cMulti() {

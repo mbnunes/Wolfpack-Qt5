@@ -55,6 +55,7 @@ protected:
 	unsigned int lastDecodedPacketId_;
 	uint moveSequence_;
 	QQueue<int> moveQueue; // Not directly accessible from the outside
+	QString account_;
 
 	QList<QByteArray> outgoingQueue;
 	QList<cIncomingPacket*> incomingQueue;
@@ -98,6 +99,8 @@ public:
 	void setFeatures(uint data);
 	void setCharlistFeatures(uint data);
 	uint charlistFeatures() const;
+	const QString &account() const;
+	void setAccount(QString account);
 
 	// Is-Getters for flags
 	bool isAos() const;
@@ -144,6 +147,9 @@ public slots:
 	void disconnect();
 	void sendPing();
 	void setPacketLength(uchar packet, ushort size);
+
+	// Several convenience methods
+	void sendUnicodeSpeech(const QString &text, ushort hue = 0x3b2, ushort font = 0, uchar type = SPEECH_REGULAR);
 };
 
 // There is only one instance of the UoSocket class
@@ -259,6 +265,14 @@ inline bool cUoSocket::isSixthCharslot() const {
 
 inline bool cUoSocket::isOneCharslot() const {
 	return (charlistFeatures_ & FEATURE_ONECHARSLOT) != 0;
+}
+
+inline const QString &cUoSocket::account() const {
+	return account_;
+}
+
+inline void cUoSocket::setAccount(QString account) {
+	account_ = account;
 }
 
 #define AREGPREFIX fnc

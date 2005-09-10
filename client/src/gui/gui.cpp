@@ -20,6 +20,7 @@
 #include "network/uosocket.h"
 #include "mainwindow.h"
 #include "log.h"
+#include "scripts.h"
 
 #include <QFile>
 #include <QDir>
@@ -29,6 +30,7 @@
 cGui *Gui = 0;
 
 cGui::cGui() {
+	setObjectName("Gui");
 	inputFocus_ = 0;
 	activeWindow_ = 0;
 	cleaningUpOverheadText = false;
@@ -407,6 +409,7 @@ void cGui::unload() {
 
 cWindow *cGui::createDialog(QString templateName) {
 	QMap<QString, QDomElement>::iterator it = dialogTemplates.find(templateName);
+	QString className;
 
 	if (it == dialogTemplates.end()) {
 		return 0;
@@ -421,7 +424,12 @@ cWindow *cGui::createDialog(QString templateName) {
     QDomNamedNodeMap attributes = topElement.attributes();
 	for (uint i = 0; i < attributes.count(); ++i) {
 		QDomNode attribute = attributes.item(i);
-		result->processDefinitionAttribute(attribute.nodeName(), attribute.nodeValue());
+
+		if (attribute.nodeName() == "class") {
+			className = attribute.nodeValue();
+		} else {
+			result->processDefinitionAttribute(attribute.nodeName(), attribute.nodeValue());
+		}
 	}
 
 	// Process subnodes
@@ -432,6 +440,13 @@ cWindow *cGui::createDialog(QString templateName) {
 			result->processDefinitionElement(e);
 		}
 		n = n.nextSibling();
+	}
+
+	// Call the script if it exists
+	if (Scripts->classExists(className)) {
+		QVariant arg1;
+		arg1.setValue<QObject*>(result);
+		Scripts->callStaticMethod(className, "initialize", QVariantList() << arg1);
 	}
 
 	return result;

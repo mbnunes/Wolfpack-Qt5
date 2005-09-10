@@ -702,12 +702,7 @@ void cWorld::getGroundInfo(int x, int y, stGroundInfo *info) {
 
 cDynamicItem *cWorld::findItem(unsigned int serial) const {
 	cDynamicEntity *entity = findDynamic(serial);
-
-	if (entity && entity->type() == ITEM) {
-		return (cDynamicItem*)entity;
-	} else {
-		return 0;
-	}
+	return dynamic_cast<cDynamicItem*>(entity);
 }
 
 cMobile *cWorld::findMobile(unsigned int serial) const {

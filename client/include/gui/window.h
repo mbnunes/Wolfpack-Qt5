@@ -13,6 +13,9 @@ class cTexture;
 */
 class cWindow : public cContainer {
 Q_OBJECT
+Q_PROPERTY(bool closable READ isClosable WRITE setClosable)
+Q_PROPERTY(bool movable READ isMovable WRITE setMovable)
+Q_PROPERTY(bool enablestencil READ enableStencil WRITE setEnableStencil)
 
 protected:
 	bool movable_;
@@ -52,6 +55,8 @@ public:
 	void onMouseUp(QMouseEvent *e);
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
 };
+
+Q_DECLARE_METATYPE(cWindow*);
 
 inline void cWindow::setClosable(bool data) {
 	closable_ = data;

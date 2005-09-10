@@ -12,6 +12,7 @@ class cGumpImage;
 	Subclass of cItemImage to display items on container gumps.
 */
 class cContainerItemImage : public cItemImage {
+Q_OBJECT
 public:
 	cContainerItemImage(cDynamicItem *item);
 
@@ -33,6 +34,7 @@ inline uint cContainerItemImage::serial() const {
 }
 
 class cContainerGump : public cWindow {
+Q_OBJECT
 public:
 	cContainerGump(ushort id, ushort hue);
 	~cContainerGump();

@@ -381,6 +381,11 @@ cSurface *cArt::readLandSurface(unsigned short id, bool texture) {
 }
 
 cSurface *cArt::readItemSurface(unsigned short id, unsigned short hueid, bool partialhue, bool texture) {
+	// Someone is trying to read the graphic for a multi
+	if (id >= 0x4000) {
+		return readItemSurface(0x22c4, 0, false, texture);
+	}
+
 	int offset = -1; // Default to invalid
 	int length = 0; // Length of data record
 	stHue *hue = Hues->get(hueid); // Retrieve the hue (for hue=0 its null)

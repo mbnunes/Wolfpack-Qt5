@@ -14,7 +14,7 @@ protected:
 	QVector<cMultiItem*> tiles_;
 public:
 	cMulti(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial);
-	~cMulti();
+	virtual ~cMulti();
 
 	QVector<cMultiItem*> tiles() const;
 

@@ -128,6 +128,7 @@ void cControl::onParentResized(int oldwidth, int oldheight) {
 }
 
 void cControl::setVisible(bool data) {
+	
 	visible_ = data;
 	requestAlign();
 

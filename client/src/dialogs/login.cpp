@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <QDesktopWidget>
+#include <QMessageBox>
 
 #include "config.h"
 #include "dialogs/login.h"
@@ -295,6 +296,12 @@ void cLoginDialog::show(enMenuPage page) {
 
 	if (!container) {
 		container = Gui->createDialog("LoginDialog");
+
+		if (!container) {
+			QMessageBox::critical(MainWindow, "Error", "Unable to create login dialog. Check dialogs/login.xml for errors.", QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+			MainWindow->close();
+			return;
+		}
 
 		// Connect the buttons on the gump		
 		connect(container->findByName("QuitButton"), SIGNAL(onButtonPress(cControl*)), MainWindow, SLOT(close()));
@@ -648,9 +655,11 @@ void cLoginDialog::socketConnect() {
 
 		cLoginPacket packet(inpAccount->text(), inpPassword->text());
 		UoSocket->send(packet);
+		UoSocket->setAccount(inpAccount->text());
 	} else {
 		cGameLoginPacket packet(UoSocket->seed(), inpAccount->text(), inpPassword->text());
 		UoSocket->send(packet);
+		UoSocket->setAccount(inpAccount->text());
 	}
 }
 

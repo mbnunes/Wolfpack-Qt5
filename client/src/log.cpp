@@ -11,6 +11,7 @@
 #include "utilities.h"
 
 cLog::cLog() {
+	setObjectName("Log");
 	currentday = 0xFF;
 	logfile = new QFile;
 }

@@ -3,6 +3,7 @@
 #define __LOG_H__
 
 #include <qstring.h>
+#include <QObject>
 class QFile;
 
 // Log Levels
@@ -19,8 +20,9 @@ enum eLogLevel
 	LOG_ALL			= 0xFF
 };
 
-class cLog
+class cLog : public QObject	
 {
+Q_OBJECT
 private:
 	QFile *logfile;
 	bool checkLogFile();
@@ -30,14 +32,12 @@ public:
 	cLog();
 	~cLog();
 
-	/*
-		Print a line.
-	*/
+public slots:
 	void print( const QString &text, bool timestamp = true ) {
 		print(LOG_MESSAGE, text, timestamp);
 	}
 
-	void print( eLogLevel, const QString&, bool timestamp = true );
+	void print(eLogLevel, const QString&, bool timestamp = true);
 };
 
 extern cLog *Log;

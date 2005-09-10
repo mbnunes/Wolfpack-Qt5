@@ -14,6 +14,8 @@ class cEntity;
 
 class cGui : public cContainer {
 Q_OBJECT
+Q_PROPERTY(cControl* inputfocus READ inputFocus WRITE setInputFocus)
+Q_PROPERTY(cWindow* activewindow READ activeWindow WRITE setActiveWindow)
 
 private:
 	cControl *inputFocus_; // Pointer to the control with the input focus
@@ -38,11 +40,6 @@ public:
 	cGui();
 	virtual ~cGui();
 
-	void queueDelete(cControl *ctrl);
-	void addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
-	void addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
-	void removeOverheadText(cEntity *source);
-	
 	inline cWindow *activeWindow() { return activeWindow_; }
 	void setActiveWindow(cWindow *data);
 
@@ -53,21 +50,26 @@ public:
 	// clear pointers
 	void onDeleteControl(cControl *control);
 
-	void addControl(cControl *control, bool back = false);
-
 	// Draw the GUI
 	void draw();
 	cTexture *checkerboard() const;
 
-	void closeAllGumps();
-
 	void load();
 	void unload();
 
+	cControl *createControl(QDomElement templateNode);
+
+public slots:
 	// Check if the given template name exists
 	bool isTemplateAvailable(QString name) const;
 	cWindow *createDialog(QString templateName);
-	cControl *createControl(QDomElement templateNode);
+	void closeAllGumps();
+	void addControl(cControl *control, bool back = false);
+
+	void queueDelete(cControl *ctrl);
+	void addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
+	void addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
+	void removeOverheadText(cEntity *source);
 };
 
 inline bool cGui::isTemplateAvailable(QString name) const {

@@ -412,6 +412,7 @@ void cConfig::load() {
 	useVerdata_ = getBool("General", "Use Verdata", true);
 	screenshotsPath_ = getString("General", "Screenshots Path", "./screenshots/", true);
 	disableSound_ = getBool("General", "Disable Sound", false, true);
+	profilePath_ = getString("General", "Profile Path", "./profiles/", true);
 
 	// Encryption
 	enableEncryption_ = getBool("Encryption", "Enable Encryption", false, true);

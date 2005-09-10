@@ -18,6 +18,8 @@ public:
 
 public slots:
 	void showWorkbench();
+	QVariant callStaticMethod(QString className, QString methodName, QVariantList arguments);
+	bool classExists(QString className);
 };
 
 extern cScripts *Scripts;

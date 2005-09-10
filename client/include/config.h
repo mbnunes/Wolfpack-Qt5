@@ -50,6 +50,7 @@ private:
 	bool packetLogging_;
 	QString screenshotsPath_;
 	bool disableSound_;
+	QString profilePath_;
 
 	bool enableEncryption_;
 	unsigned int encryptionLoginKey1_;
@@ -75,6 +76,9 @@ public:
 
 	const bool disableSound() { return disableSound_; }
 	void setDisableSound(bool data) { disableSound_ = data; setBool("General", "Disable Sound", data); }
+
+	const QString &profilePath() const { return profilePath_; };
+	void setProfilePath(const QString &data) { profilePath_ = data; setString("General", "Profile Path", data); }	
 
 	const QString &screenshotsPath() const { return screenshotsPath_; };
 	void setScreenshotsPath(const QString &data) { screenshotsPath_ = data; setString("General", "Screenshots Path", data); }	

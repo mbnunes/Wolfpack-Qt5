@@ -211,7 +211,7 @@ enBodyType cMobile::bodyType() const {
 }
 
 unsigned char cMobile::getIdleAction() {
-	if (UoSocket && UoSocket->sequenceQueueLength() > 0) {
+	if (this == Player && UoSocket && UoSocket->sequenceQueueLength() > 0) {
 		return currentAction_;
 	}
 
@@ -254,6 +254,8 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 			freeSequence(); // Free current surface
 			currentActionEnd_ = 0; // Reset end time
 			currentAction_ = getIdleAction();
+		} else {
+			__noop;
 		}
 	}
 
@@ -291,7 +293,7 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 	// Draw
 	if (sequence_) {
 		// Only advance to the next frame if we're not beyond the end of this action
-		if (currentActionEnd_ == 0 || currentActionEnd_ >= Utilities::getTicks()) {
+		if (currentActionEnd_ != 0 && currentActionEnd_ >= Utilities::getTicks()) {
 			// Skip to next frame
 			if (nextFrame < Utilities::getTicks()) {
 				if (++frame >= sequence_->frameCount()) {
@@ -307,7 +309,7 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		// Mounts come always first
 		if ((bodyType() == HUMAN || bodyType() == EQUIPMENT) && equipment[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]) {
 			// Only advance to the next frame if we're not beyond the end of this action
-			if (currentActionEnd_ == 0 || currentActionEnd_ >= Utilities::getTicks()) {
+			if (currentActionEnd_ != 0 && currentActionEnd_ >= Utilities::getTicks()) {
 				// Skip to next frame
 				if (nextMountFrame < Utilities::getTicks()) {
 					if (++mountFrame >= equipmentSequences[LAYER_MOUNT]->frameCount()) {
@@ -404,16 +406,18 @@ void cMobile::addEquipment(cDynamicItem *item) {
 	// decide whether it's visible or not
 	if (layer < LAYER_VISIBLECOUNT) {
 		if (equipment[layer]) {
-			equipment[layer]->moveToLimbo();
-			equipment[layer]->decref(); // If this happens it's a double equip...
+			cDynamicItem *old = equipment[layer];
+			equipment[layer]->moveToLimbo(); // Removes itself from the equipment array
+			old->decref(); // If this happens it's a double equip...
 		}
 		equipment[layer] = item;
 
 		refreshEquipment(layer);
 	} else if (layer == LAYER_MOUNT) {
 		if (equipment[layer]) {
+			cDynamicItem *old = equipment[layer];
 			equipment[layer]->moveToLimbo();
-			equipment[layer]->decref(); // If this happens it's a double equip...
+			old->decref(); // If this happens it's a double equip...
 		}
 		equipment[layer] = item;
 

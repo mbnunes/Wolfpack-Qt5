@@ -44,7 +44,8 @@ HEADERS += \
 	include/texture.h \
 	include/client.h \
 	include/vector.h \
-	include/md5.h
+	include/md5.h \
+	include/profile.h
 	
 HEADERS += \
 	include/dialogs/login.h \
@@ -126,7 +127,8 @@ SOURCES += \
 	src/utilities.cpp \
 	src/vector.cpp \
 	src/main.cpp \
-	src/md5.cpp
+	src/md5.cpp \
+	src/profile.cpp
 
 SOURCES += \
 	src/dialogs/login.cpp \

@@ -9,6 +9,13 @@
 
 class cAsciiLabel : public cControl {
 Q_OBJECT
+Q_PROPERTY(QString text READ text WRITE setText)
+Q_PROPERTY(ushort hue READ hue WRITE setHue)
+Q_PROPERTY(uchar font READ font WRITE setFont)
+Q_PROPERTY(bool hueall READ hueAll WRITE setHueAll)
+Q_PROPERTY(bool autosize READ autoSize WRITE setAutoSize)
+Q_PROPERTY(enTextAlign align READ align WRITE setAlign)
+Q_ENUMS(enTextAlign)
 private:
 	QString text_;
 	unsigned short hue_;
@@ -87,7 +94,10 @@ public:
 
 	void processDefinitionElement(QDomElement element);
 	void processDefinitionAttribute(QString name, QString value);
+public slots:
 	void update();
 };
+
+Q_DECLARE_METATYPE(cAsciiLabel*);
 
 #endif

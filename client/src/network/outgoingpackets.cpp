@@ -6,6 +6,7 @@
 #include "game/statictile.h"
 #include "game/groundtile.h"
 #include "game/dynamicitem.h"
+#include "profile.h"
 #include "log.h"
 
 #include <qglobal.h>
@@ -75,6 +76,14 @@ static void pushData(QByteArray &array, unsigned int &byteoffset, unsigned int &
 }
 
 cSendUnicodeSpeechPacket::cSendUnicodeSpeechPacket(enSpeechType type, const QString &message, unsigned short color, unsigned char font, const QString &language) : cOutgoingPacket(0xad, 14) {
+	if (color == 0xFFFF) {
+		if (type == SPEECH_EMOTE) {
+			color = Profile->emoteHue();
+		} else {
+			color = Profile->speechHue();
+		}
+	}
+
 	QVector<unsigned short> keywords = Speech->match(message); // Speech.mul keywords
 
 	/*for (int i = 0; i < keywords.size(); ++i) {

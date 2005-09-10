@@ -9,6 +9,7 @@
 #include "log.h"
 #include "exceptions.h"
 #include "texture.h"
+#include "profile.h"
 #include "sound.h"
 #include "scripts.h"
 
@@ -101,9 +102,11 @@ cUoClient::cUoClient() {
 	LoginDialog = new cLoginDialog;
 
 	Scripts = new cScripts;
+	Profile = new cProfile;
 }
 
 cUoClient::~cUoClient() {
+	delete Profile;
 	delete Scripts;
 
 	delete UoSocket;
@@ -174,6 +177,10 @@ void cUoClient::load() {
 }
 
 void cUoClient::unload() {
+	if (UoSocket->isConnected()) {
+		UoSocket->disconnect();
+	}
+
 	Gui->unload();
 	Scripts->unload();
 

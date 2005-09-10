@@ -16,6 +16,7 @@
 #include "game/world.h"
 #include "sound.h"
 #include "mainwindow.h"
+#include "profile.h"
 #include "log.h"
 #include "enums.h"
 
@@ -42,6 +43,10 @@ public:
 		Player->setDirection(direction);
 		World->moveCenter(posx, posy, posz, true);
 		Player->move(posx, posy, posz);
+
+		// Load the Profile for the player
+		QString filename = QString("profile.%1.%2.xml").arg(socket->account()).arg(Player->serial(), 0, 16);
+		Profile->loadFromFile(filename);
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

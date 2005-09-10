@@ -1,5 +1,6 @@
 
 #include <QTimer>
+#include <QDir>
 
 #include "client.h"
 #include "network/encryption.h"
@@ -10,8 +11,10 @@
 #include "dialogs/login.h"
 #include "log.h"
 #include "config.h"
+#include "profile.h"
 #include "gui/worldview.h"
 #include "game/world.h"
+#include "game/mobile.h"
 #include "game/tooltips.h"
 
 // Packet stream decompressor
@@ -146,7 +149,7 @@ void cUoSocket::disconnect() {
 	// Clear incoming and outgoing queue
 	incomingQueue.clear();
 	outgoingQueue.clear();
-	socket->close();
+	socket->abort();
 
 	if (!qApp->closingDown() && WorldView->isVisible()) {
 		World->clearEntities();
@@ -156,7 +159,13 @@ void cUoSocket::disconnect() {
 		Gui->closeAllGumps();
 		LoginDialog->show(PAGE_LOGIN);
 		Tooltips->clear();
+	}	
+
+	if (gameServer && !account_.isEmpty() && Player) {		
+		Profile->saveToFile();
 	}
+
+	account_.clear();
 }
 
 bool cUoSocket::isIdle() {
@@ -395,4 +404,8 @@ void cUoSocket::resync() {
 
 void cUoSocket::setPacketLength(uchar packet, ushort size) {
 	packetLengths[packet] = size;
+}
+
+void cUoSocket::sendUnicodeSpeech(const QString &text, ushort hue, ushort font, uchar type) {
+	send(cSendUnicodeSpeechPacket((enSpeechType)type, text, hue, font));
 }

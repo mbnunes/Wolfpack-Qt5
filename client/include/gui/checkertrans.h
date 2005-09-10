@@ -6,6 +6,7 @@
 #include "texture.h"
 
 class cCheckerTrans : public cControl {
+Q_OBJECT
 protected:
 	bool enabled_;
 	cTexture *checkerboard;

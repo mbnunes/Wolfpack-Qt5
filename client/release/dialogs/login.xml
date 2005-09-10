@@ -1,7 +1,7 @@
 ﻿<?xml version="1.1" encoding="UTF-8" ?>
 <dialogs>
 	<!-- Toplevel Login Dialog -->
-	<dialog id="LoginDialog" closable="0" movable="0">
+	<dialog id="LoginDialog" name="LoginDialog" closable="0" movable="0" class="LoginDialog">
 		<bounds x="0" y="0" width="640" height="480" />
 		<children>
 			<!-- Overall Background -->
