@@ -2197,6 +2197,11 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			gump = 0x51;
 			break;
 
+		case 0x232a: // Gift Box
+		case 0x232b: // Gift Box
+			gump = 0x102;
+			break;
+
 		case 0x24d9: // Basket
 		case 0x24da: // Basket
 		case 0x24db: // Basket

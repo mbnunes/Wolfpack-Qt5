@@ -45,6 +45,7 @@
 	<item id="232a">
 		<id>0x232a</id>
 		<category>Holiday\Gift Box (N/S)</category>
+		<type>1</type>
 		<weight>1.0</weight>
 	</item>
 
@@ -52,6 +53,7 @@
 	<item id="232b">
 		<id>0x232b</id>
 		<category>Holiday\Gift Box (E/W)</category>
+		<type>1</type>
 		<weight>1.0</weight>
 	</item>
 
