@@ -570,7 +570,8 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	<code>0 - Felucca
 	1 - Trammel
 	2 - Ilshenar
-	3 - Malas</code>
+	3 - Malas
+	4 - Tokuno</code>
 	\return A <object id="region">region</object> object or None if there is no region at the given coordinates.
 	\description Finds a region at the given coordinates.
 */
