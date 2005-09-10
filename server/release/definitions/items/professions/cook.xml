@@ -609,13 +609,12 @@
 	</item>
 
 	<!-- Glass Pitcher -->
-	<item id="ff6">
+	<item id="ff6" inherit="9a7">
 		<id>0xff6</id>
 		<category>Professions\Cook\Decoration\Bar\Glass Pitcher 1</category>
-		<buyprice>7</buyprice>
 	</item>
 
-	<item id="ff7" inherit="ff6">
+	<item id="ff7" inherit="9a7">
 		<id>0xff7</id>
 		<category>Professions\Cook\Decoration\Bar\Glass Pitcher 2</category>
 	</item>
