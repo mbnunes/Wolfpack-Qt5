@@ -331,10 +331,6 @@ SOURCE=..\src\timing.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\tracking.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\trade.cpp
 # End Source File
 # Begin Source File
@@ -632,10 +628,6 @@ SOURCE=..\src\timers.h
 # Begin Source File
 
 SOURCE=..\src\timing.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\tracking.h
 # End Source File
 # Begin Source File
 

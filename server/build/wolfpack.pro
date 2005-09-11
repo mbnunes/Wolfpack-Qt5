@@ -125,7 +125,6 @@ HEADERS += \
 	../src/territories.h \
 	../src/timing.h \
 	../src/timers.h \
-	../src/tracking.h \
 	../src/trade.h \
 	../src/typedefs.h \
 	../src/uobject.h \
@@ -180,7 +179,6 @@ SOURCES += \
 	../src/territories.cpp \
 	../src/timing.cpp \
 	../src/timers.cpp \
-	../src/tracking.cpp \
 	../src/trade.cpp \
 	../src/uobject.cpp \
 	../src/walking.cpp \

@@ -555,12 +555,6 @@
 				RelativePath="..\src\Timing.h">
 			</File>
 			<File
-				RelativePath="..\src\tracking.cpp">
-			</File>
-			<File
-				RelativePath="..\src\tracking.h">
-			</File>
-			<File
 				RelativePath="..\src\Trade.cpp">
 			</File>
 			<File

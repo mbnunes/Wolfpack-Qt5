@@ -27,7 +27,6 @@
 
 #include "definitions.h"
 #include "basics.h"
-#include "tracking.h"
 #include "muls/tilecache.h"
 #include "combat.h"
 #include "targetrequests.h"
