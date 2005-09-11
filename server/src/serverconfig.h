@@ -86,14 +86,10 @@ protected:
 	bool showSkillTitles_;
 	unsigned int statcap_;
 	QString commandPrefix_;
-	unsigned int skillAdvanceModifier_;
-	unsigned int statsAdvanceModifier_;
 	unsigned short objectDelay_;
 	unsigned char mountRange_;
 	bool stealing_;
 	bool guardsActive_;
-	bool saveSpawns_;
-	bool dontStackSpawnedObjects_;
 	bool autoAccountCreate_;
 	QString autoAccountACL_;
 	float checkNPCTime_;
@@ -111,26 +107,16 @@ protected:
 	bool enableLogin_;
 	unsigned short gamePort_;
 	bool enableGame_;
-	bool lootdecayswithcorpse_;
-	float invisTimer_;
 	unsigned short skillDelay_;
-	int skillLevel_;
-	unsigned int poisonTimer_;
-	signed int maxStealthSteps_;
-	unsigned int runningStamSteps_;
 	unsigned int hungerRate_;
 	unsigned int hungerDamageRate_;
 	unsigned char hungerDamage_;
-	float boatSpeed_;
 	unsigned int tamedDisappear_;
-	unsigned int houseInTown_;
 	unsigned int shopRestock_;
 	unsigned int snoopdelay_;
 	unsigned short int quittime_;
-	unsigned long int housedecay_secs_;
 	unsigned int spawnRegionCheckTime_;
 	unsigned int secondsPerUOMinute_;
-	bool cacheMulFiles_;
 	QString databaseDriver_;
 	QString databaseName_;
 	QString databaseUsername_;
@@ -145,7 +131,6 @@ protected:
 	QString mulPath_;
 	QString logPath_;
 	bool logRotate_;
-	bool categoryTagAddMenu_;
 	unsigned int showNpcTitles_;
 	unsigned char maxCharsPerAccount_;
 	bool refreshMaxValues_;
@@ -168,16 +153,12 @@ protected:
 	unsigned int guardDispelTime_;
 
 	// Combat
-	int attackstamina_;
 	unsigned char attack_distance_;
 
 	//Repsys
 	long int murderdecay_;
 	unsigned int maxkills_;
 	int crimtime_;
-
-	// Resources
-	unsigned int resourceitemdecaytime_;
 
 	// Light
 	unsigned char worldBrightLevel_;
@@ -214,14 +195,11 @@ public:
 	unsigned int skillcap() const;
 	unsigned int statcap() const;
 	QString commandPrefix() const;
-	unsigned int skillAdvanceModifier() const;
-	unsigned int statsAdvanceModifier() const;
 	bool stealingEnabled() const;
 	bool guardsActive() const;
 	void guardsActive( bool );
 	unsigned short objectDelay() const;
 	bool autoAccountCreate() const;
-	bool saveSpawns() const;
 	float checkNPCTime() const;
 	float checkAITime() const;
 	unsigned int animalWildFleeRange() const;
@@ -262,22 +240,12 @@ public:
 	unsigned int npcCorpseDecayTime() const;
 	unsigned int playerCorpseDecayTime() const;
 	unsigned char mountRange() const;
-	bool lootdecayswithcorpse() const;
-	float invisTimer() const;
 	unsigned short skillDelay() const;
-	unsigned int poisonTimer() const;
-	signed int maxStealthSteps() const;
-	unsigned int runningStamSteps() const;
 	unsigned int hungerRate() const;
 	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
 	unsigned int tamedDisappear() const;
-	unsigned int houseInTown() const;
-	inline bool dontStackSpawnedObjects() const
-	{
-		return dontStackSpawnedObjects_;
-	}
 
 	inline unsigned int binaryBackups() const
 	{
@@ -297,9 +265,7 @@ public:
 	unsigned int shopRestock() const;
 	unsigned int snoopdelay() const;
 	unsigned short int quittime() const;
-	unsigned long int housedecay_secs() const;
 	unsigned int default_jail_time() const;
-	bool cacheMulFiles() const;
 	unsigned int spawnRegionCheckTime() const;
 	unsigned int secondsPerUOMinute() const;
 	unsigned int logMask() const;
@@ -333,7 +299,6 @@ public:
 	unsigned int maxCharsPerAccount() const;
 
 	// Combat
-	int attackstamina() const;
 	unsigned char attack_distance() const;
 
 	// Repsys
@@ -399,16 +364,6 @@ inline QString cConfig::commandPrefix() const
 	return commandPrefix_;
 }
 
-inline unsigned int cConfig::skillAdvanceModifier() const
-{
-	return skillAdvanceModifier_;
-}
-
-inline unsigned int cConfig::statsAdvanceModifier() const
-{
-	return statsAdvanceModifier_;
-}
-
 inline bool cConfig::stealingEnabled() const
 {
 	return stealing_;
@@ -437,11 +392,6 @@ inline bool cConfig::allowStatRequest() const
 inline bool cConfig::autoAccountCreate() const
 {
 	return autoAccountCreate_;
-}
-
-inline bool cConfig::saveSpawns() const
-{
-	return saveSpawns_;
 }
 
 inline float cConfig::checkNPCTime() const
@@ -489,29 +439,9 @@ inline unsigned int cConfig::npcCorpseDecayTime() const
 	return npcCorpseDecayTime_;
 }
 
-inline bool cConfig::lootdecayswithcorpse() const
-{
-	return lootdecayswithcorpse_;
-}
-
 inline unsigned short cConfig::skillDelay() const
 {
 	return skillDelay_;
-}
-
-inline unsigned int cConfig::poisonTimer() const
-{
-	return poisonTimer_;
-}
-
-inline signed int cConfig::maxStealthSteps() const
-{
-	return maxStealthSteps_;
-}
-
-inline unsigned int cConfig::runningStamSteps() const
-{
-	return runningStamSteps_;
 }
 
 inline unsigned int cConfig::hungerRate() const
@@ -529,29 +459,14 @@ inline unsigned char cConfig::hungerDamage() const
 	return hungerDamage_;
 }
 
-inline float cConfig::boatSpeed() const
-{
-	return boatSpeed_;
-}
-
 inline unsigned int cConfig::tamedDisappear() const
 {
 	return tamedDisappear_;
 }
 
-inline unsigned int cConfig::houseInTown() const
-{
-	return houseInTown_;
-}
-
 inline unsigned int cConfig::shopRestock() const
 {
 	return shopRestock_;
-}
-
-inline int cConfig::attackstamina() const
-{
-	return attackstamina_;
 }
 
 inline unsigned char cConfig::attack_distance() const
@@ -569,11 +484,6 @@ inline unsigned short int cConfig::quittime() const
 	return quittime_;
 }
 
-inline unsigned long int cConfig::housedecay_secs() const
-{
-	return housedecay_secs_;
-}
-
 inline long int cConfig::murderdecay() const
 {
 	return murderdecay_;
@@ -587,16 +497,6 @@ inline unsigned int cConfig::maxkills() const
 inline int cConfig::crimtime() const
 {
 	return crimtime_;
-}
-
-inline unsigned int cConfig::resitemdecaytime() const
-{
-	return resourceitemdecaytime_;
-}
-
-inline bool cConfig::cacheMulFiles() const
-{
-	return cacheMulFiles_;
 }
 
 inline unsigned int cConfig::spawnRegionCheckTime() const
@@ -713,12 +613,6 @@ inline unsigned short cConfig::loginPort() const
 {
 	return loginPort_;
 }
-
-inline bool cConfig::addMenuByCategoryTag() const
-{
-	return categoryTagAddMenu_;
-}
-
 
 inline bool cConfig::pathfind4Follow() const
 {

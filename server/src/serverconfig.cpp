@@ -165,14 +165,9 @@ void cConfig::readData()
 	checkTamedTime_ = getDouble( "Game Speed", "Tamed Check Time", 0.6, true );
 	niceLevel_ = getNumber( "Game Speed", "Nice Level", 2, true );
 	skillDelay_ = getNumber( "Game Speed", "SkillDelay", 7, true );
-	skillLevel_ = getNumber( "Game Speed", "SkillLevel", 3, true );
-	maxStealthSteps_ = getNumber( "Game Speed", "Max Stealth Steps", 10, true );
-	runningStamSteps_ = getNumber( "Game Speed", "Running Stamina Steps", 15, true );
 	hungerRate_ = getNumber( "Game Speed", "Hunger Rate", 120, true );
 	hungerDamageRate_ = getNumber( "Game Speed", "Hunger Damage Rate", 10, true );
-	boatSpeed_ = getDouble( "Game Speed", "Boat Speed", 0.750000, true );
 	snoopdelay_ = getNumber( "Game Speed", "Snoop Delay", 7, true );
-	housedecay_secs_ = getNumber( "Game Speed", "House Decay-Sec.", 604800, true );
 	spawnRegionCheckTime_ = getNumber( "Game Speed", "SpawnRegion Check Time", 5, true );
 	itemDecayTime_ = getNumber( "Game Speed", "Item Decay Time", 300, true );
 	npcCorpseDecayTime_ = getNumber( "Game Speed", "NPC Corpse Decay Time", 600, true );
@@ -188,25 +183,15 @@ void cConfig::readData()
 	skillcap_ = getNumber( "General", "SkillCap", 700, true );
 	statcap_ = getNumber( "General", "StatsCap", 225, true );
 	commandPrefix_ = getString( "General", "Command Prefix", "'", true );
-	skillAdvanceModifier_ = getNumber( "General", "Skill Advance Modifier", 1000, true );
-	statsAdvanceModifier_ = getNumber( "General", "Stats Advance Modifier", 500, true );
 	stealing_ = getBool( "General", "Stealing Enabled", true, true );
 	guardsActive_ = getBool( "General", "Guards Enabled", true, true );
-	saveSpawns_ = getBool( "General", "Save Spawned Regions", true, true );
-	lootdecayswithcorpse_ = getBool( "General", "Loot Decays With Corpse", true, true );
-	invisTimer_ = getDouble( "General", "InvisTimer", 60, true );
-	poisonTimer_ = getNumber( "General", "PoisonTimer", 180, true );
 	hungerDamage_ = getNumber( "General", "Hunger Damage", 0, true );
 	tamedDisappear_ = getNumber( "General", "Tamed Disappear", 0, true );
-	houseInTown_ = getNumber( "General", "House In Town", 0, true );
 	shopRestock_ = getNumber( "General", "Shop Restock", 60, true );
 	quittime_ = getNumber( "General", "Char Time Out", 300, true );
-	cacheMulFiles_ = getBool( "General", "Cache Mul Files", true, true );
-	categoryTagAddMenu_ = getBool( "General", "Build AddMenu by Category Tags", true, true );
 	showNpcTitles_ = getBool( "General", "Show Npc Titles", true, true );
 	logMask_ = getNumber( "General", "Logging Mask", LOG_ALL, true );
 	overwriteDefinitions_ = getBool( "General", "Overwrite Definitions", false, true );
-	dontStackSpawnedObjects_ = getBool( "General", "Don't Stack Spawned Objects", true, true );
 	antiSpeedHack_ = getBool( "General", "Anti Speed Hack", true, true );
 	antiSpeedHackDelay_ = getNumber( "General", "Anti Speed Hack Delay", 175, true );
 	antiSpeedHackDelayMounted_ = getNumber( "General", "Anti Speed Hack Delay Mounted", 75, true );
@@ -234,11 +219,7 @@ void cConfig::readData()
 	allowStatRequest_ = getBool( "Network", "Allow Stat Request", true, true );
 
 	// Combat
-	attackstamina_ = getNumber( "Combat", "Attack Stamina", -2, true );
 	attack_distance_ = getNumber( "Combat", "Attack Distance", 13, true );
-
-	// Resources 60*60*12
-	resourceitemdecaytime_ = getNumber( "Resources", "ResourceItem Decay Time (not empty)", 43200, true );
 
 	// Light
 	worldBrightLevel_ = getNumber( "Light", "World Bright Level", 1, true );
