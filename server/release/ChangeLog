@@ -57,6 +57,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added Support to Elves as a Playable Race (From UO:Mondain's Legacy)
   - Added support for Mondain's Legacy Map. (Map 0 and Map 1 are larger)
     If your server doesn't have the new map disable this in wolfpack.xml.
+  - Removed unused server options in wolfpack.xml.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
