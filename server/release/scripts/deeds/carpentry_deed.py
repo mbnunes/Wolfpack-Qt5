@@ -19,8 +19,8 @@ deeds = {
 	'dart_board_e':[ 1015128, 0, "1e2f" ],
 	'dart_board_s':[ 1015127, 0, "1e2e" ],
 	'ballot_box':[ 1015129, 0, "ballot_box" ],
-	'pentagram':[ 1015130, 0, "fe6", "fe7", "fe8", "fe9", "fea", "feb", "fec", "fed", "fee" ],
-	'abattoir':[ 1015131, 0, "120e", "120f", "1210", "1211", "1212", "1213", "1214", "1215", "1216" ],
+	'pentagram':[ 1015130, 0, "fe7", "fe6", "fe9", "fe8", "fea", "fec", "feb", "fee", "fed" ],
+	'abattoir':[ 1015131, 0, "120e", "1215", "1214", "120f", "1216", "1213", "1210", "1211", "1212" ],
 	'small_forge':[ 1015133, 0, "fb1" ],
 	'large_forge_e':[ 1015134, 2, "197a", "197e", "1982" ],
 	'large_forge_s':[ 1015135, 1, "1986", "198a", "198e" ],
@@ -171,14 +171,15 @@ def check_room( item, pos ):
 	# pentagram
 	elif num_item == 9:
 		ret0 = wolfpack.items( pos.x, pos.y, pos.map, 2 )
-		if not ret0:
+		if ret0:
 			return False
 		return True
 	# no other case : error
 	return False
 
 def check_spot( x, y, map ):
-	#TODO: needs check for z value too
+	#TODO: needs check for z value too, Check for static items
+	# Check for dynamic items
 	if len( wolfpack.items( x, y, map ) ):
 		return False
 	return True
@@ -197,7 +198,6 @@ def setup_item( item, pos ):
 	num_item = len( items )
 	if not num_item:
 		return
-
 	# put items
 	if num_item == 1:
 		put_item( items[ 0 ], pos.x, pos.y, pos.z, pos.map )
@@ -226,8 +226,8 @@ def setup_item( item, pos ):
 				i += 1
 	elif num_item == 9:
 		i = 0
-		for y in range( pos.x - 1, pos.x + 2 ):
-			for x in range( pos.y - 1, pos.y + 2 ):
+		for x in range( pos.x - 1, pos.x + 2 ):
+			for y in range( pos.y - 1, pos.y + 2 ):
 				put_item( items[ i ], x, y, pos.z, pos.map )
 				i += 1
 
