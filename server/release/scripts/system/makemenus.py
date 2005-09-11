@@ -213,7 +213,7 @@ class MakeItemAction(MakeAction):
 		gump.addHtmlGump(10, 132, 150, 20, centerhtml % tr("SKILLS"))
 		gump.addHtmlGump(10, 217, 150, 20, centerhtml % tr("MATERIALS"))
 		gump.addHtmlGump(10, 302, 150, 20, centerhtml % tr("OTHER"))
-		gump.addHtmlGump(170, 39, 70, 20, whitehtml % tr("ITEM"))
+		gump.addHtmlGump(170, 39, 80, 20, whitehtml % tr("ITEM"))
 		gump.addButton(15, 387, 0xFAE, 0xFB0, 0) # Back to the parent menu of this node
 		gump.addText(50, 389, tr("Back"), enabledhue)
 		gump.addButton(375, 387, 4005, 4007, 1) # Make the item
@@ -221,9 +221,9 @@ class MakeItemAction(MakeAction):
 
 		# Item Name
 		if self.title.isdigit():
-			gump.addXmfHtmlGump(245, 39, 285, 20, int(self.title), False, False, enabledcolor)
+			gump.addXmfHtmlGump(260, 39, 285, 20, int(self.title), False, False, enabledcolor)
 		else:
-			gump.addText(245, 39, self.title, enabledhue)
+			gump.addText(260, 39, self.title, enabledhue)
 
 		# Scrollable Skill List
 		gump.addHtmlGump(170, 132, 345, 76, whitehtml % self.skillshtml, 0, self.skillshtml.count('<br>') > 4)
