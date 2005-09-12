@@ -31,7 +31,7 @@ if extended_carpentry:
 	]
 else:
 	WOOD = [
-			[tr('Beech Wood'), BOWCRAFT, 0, ['1bd7', '1bda', '1bdd', '1bde', '1bdf', '1be0', '1be1', '1be2'], 0, 'beech'],
+			[tr('Wood'), BOWCRAFT, 0, ['1bd7', '1bda', '1bdd', '1bde', '1bdf', '1be0', '1be1', '1be2'], 0, 'beech'],
 	]
 
 #
