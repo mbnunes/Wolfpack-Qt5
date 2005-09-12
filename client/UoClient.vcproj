@@ -33,7 +33,7 @@
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
 				ExceptionHandling="TRUE"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
 				EnableEnhancedInstructionSet="0"
@@ -228,6 +228,30 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\macros.cpp">
+			</File>
+			<File
+				RelativePath=".\include\macros.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\src\main.cpp">
 			</File>
 			<File
@@ -273,7 +297,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -281,7 +306,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -540,6 +566,9 @@
 				RelativePath=".\obj\moc_login.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_macros.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_mainwindow.cpp">
 			</File>
 			<File
@@ -568,6 +597,9 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_targetrequest.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_textbutton.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_textfield.cpp">
@@ -954,6 +986,28 @@
 						Description="moc&apos;ing $(InputFileName)"
 						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
 "
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\gui\textbutton.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\textbutton.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>

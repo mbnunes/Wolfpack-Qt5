@@ -130,4 +130,10 @@ public:
 	cContextMenuResponsePacket(uint serial, ushort id);
 };
 
+// Send warmode change request
+class cWarmodeChangeRequest : public cOutgoingPacket {
+public:
+	cWarmodeChangeRequest(bool mode);
+};
+
 #endif

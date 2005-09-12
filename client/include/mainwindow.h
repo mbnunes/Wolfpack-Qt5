@@ -34,6 +34,8 @@ public:
 
 	void enableGrayShader();
 	void disableGrayShader();
+	
+	void createScreenshot(const QString &filename);	
 public slots:
 	void singleClick();
 
@@ -62,8 +64,7 @@ protected:
 	bool focusNextPrevChild(bool next);
 
 	cControl *mouseCapture_; // Control which got the last mousedown event
-	cControl *lastMouseMovement_; // Control that got the last movement event
-	void createScreenshot(const QString &filename);
+	cControl *lastMouseMovement_; // Control that got the last movement event	
 };
 
 class cMainWindow : public QMainWindow {
@@ -83,6 +84,7 @@ protected:
 	void moveEvent(QMoveEvent *event);
 	void showEvent(QShowEvent *event);
 	bool event(QEvent *e);
+	void closeEvent(QCloseEvent *e);
 
 	QAction *aHideStatics;
 	QAction *aHideMap;

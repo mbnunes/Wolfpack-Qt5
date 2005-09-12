@@ -3,9 +3,14 @@
 #define __PROFILE_H__
 
 #include <QObject>
-#include <QMap>
+#include <QVector>
 #include <QDateTime>
 #include <QString>
+#include <QKeySequence>
+#include <QDomElement>
+#include <QDomDocument>
+
+class cBaseAction;
 
 class cProfile : QObject {
 Q_OBJECT
@@ -15,14 +20,18 @@ protected:
 	uchar defaultFont_; // Overrides unicode only
 	QDateTime lastChange_; // Indicates the last change to the profile
 	QString currentFilename_; // Where the current profile has been loaded from
+	QVector<cBaseAction*> keyBindings_; // Key bindings for this profile
+
+	void loadKeyBindings(QDomElement &element);
+	QDomElement saveKeyBindings(QDomDocument &document);
 
 public:
 	cProfile();
 	~cProfile();
 
 	void loadFromString(const QString &data);
-    void loadFromFile(QString filename);
-	void saveToFile(const QString &filename);
+    void loadFromFile(QString filename, bool dontPrependPath = false);
+	void saveToFile(const QString &filename, bool dontPrependPath = false);
 	void saveToFile();
 	QString saveToString();
 
@@ -34,6 +43,10 @@ public:
 	void setDefaultFont(uchar data);
 	QDateTime lastChange();
 	const QString &currentFilename() const;
+
+	bool processShortcut(const QKeySequence &sequence);
+
+	void clearProfile();
 };
 
 inline ushort cProfile::speechHue() const {

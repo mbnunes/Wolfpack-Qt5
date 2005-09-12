@@ -2,7 +2,8 @@
 #include "gui/window.h"
 #include "gui/gui.h"
 #include "texture.h"
-//Added by qt3to4:
+#include "utilities.h"
+
 #include <QMouseEvent>
 #include <qgl.h>
 
@@ -70,5 +71,15 @@ void cWindow::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	if (tracking) {
 		x_ += xrel;
 		y_ += yrel;
+	}
+}
+
+void cWindow::processDefinitionAttribute(QString name, QString value) {
+	if (name == "stencil") {
+		enableStencil_ = Utilities::stringToBool(value);
+	} else if (name == "closable") {
+		closable_ = Utilities::stringToBool(value);
+	} else {
+		cContainer::processDefinitionAttribute(name, value);
 	}
 }

@@ -6,6 +6,7 @@
 #include "log.h"
 #include "gui/label.h"
 #include "gui/gui.h"
+#include "gui/tooltip.h"
 #include "game/world.h"
 
 /*
@@ -98,6 +99,11 @@ cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet face
 cEntity::~cEntity() {
 	World->removeEntity(this);
 	Gui->removeOverheadText(this);
+	if (Tooltip->entity() == this) {
+		Tooltip->setEntity(0);
+		Tooltip->setTooltip(0);
+		Tooltip->setVisible(false);
+	}
 }
 
 bool cEntity::isInWorld() const {

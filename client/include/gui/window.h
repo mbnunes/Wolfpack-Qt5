@@ -54,6 +54,8 @@ public:
 	void onMouseDown(QMouseEvent *e);
 	void onMouseUp(QMouseEvent *e);
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
+
+	void processDefinitionAttribute(QString name, QString value);
 };
 
 Q_DECLARE_METATYPE(cWindow*);

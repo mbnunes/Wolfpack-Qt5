@@ -1,6 +1,7 @@
 
 #include "gui/checkertrans.h"
 #include "surface.h"
+#include "utilities.h"
 #include <qgl.h>
 
 cCheckerTrans::cCheckerTrans(bool enabled) {
@@ -11,6 +12,14 @@ cCheckerTrans::cCheckerTrans(bool enabled) {
 cCheckerTrans::~cCheckerTrans() {
 	if (checkerboard) {
 		checkerboard->decref();
+	}
+}
+
+void cCheckerTrans::processDefinitionAttribute(QString name, QString value) {
+	if (name == "enabled") {
+		enabled_ = Utilities::stringToBool(value);
+	} else {
+		cControl::processDefinitionAttribute(name, value);
 	}
 }
 

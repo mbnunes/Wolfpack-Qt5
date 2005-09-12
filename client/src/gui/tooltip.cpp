@@ -2,6 +2,7 @@
 #include "gui/tooltip.h"
 #include "game/entity.h"
 #include "game/dynamicentity.h"
+#include "game/mobile.h"
 #include "game/tooltips.h"
 #include "muls/localization.h"
 #include "log.h"
@@ -78,7 +79,10 @@ void cTooltip::refreshTooltip() {
 				if (entity_->type() == STATIC || entity_->type() == ITEM) {
 					hue = 0x35; // Yellow color
 				} else if (entity_->type() == MOBILE) {
-					hue = 0x59; // Blue color
+					cMobile *mobile = dynamic_cast<cMobile*>(entity_);
+					if (mobile) {
+						hue = mobile->getNameHue();
+                    }
 				}
 			}
 
@@ -88,20 +92,20 @@ void cTooltip::refreshTooltip() {
 			addControl(label);			
 			lines.append(label);
 			
-			if (label->width() + 4 > newWidth) {
-				newWidth = label->width() + 4;
+			if (label->width() + 3 > newWidth) {
+				newWidth = label->width() + 3;
 			}
 		}
 
 		// calculate the width/height of the entire thing
-		int currentY = 4;
+		int currentY = 1;
 		foreach (cLabel *label, lines) {
 			label->setX(newWidth / 2 - label->width() / 2);
 			label->setY(currentY);
-			currentY += 4 + label->height();
+			currentY += 1 + label->height();
 		}
 
-		setBounds(0, 0, newWidth, currentY);
+		setBounds(0, 0, newWidth, currentY + 2);
 	}
 }
 

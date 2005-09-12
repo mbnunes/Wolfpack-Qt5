@@ -104,7 +104,12 @@ public:
 				ContextMenu->addEntry(localization, 946, entry.id);
 			}
 			ContextMenu->setSerial(serial);
-			ContextMenu->show(entity->drawx(), entity->drawy());
+			cMobile *mobile = dynamic_cast<cMobile*>(entity);
+			if (mobile) {
+				ContextMenu->show(entity->drawx(), entity->drawy() - mobile->getCurrentHeight() / 2);
+			} else {			
+				ContextMenu->show(entity->drawx(), entity->drawy());
+			}
 		}		
 	}
 };

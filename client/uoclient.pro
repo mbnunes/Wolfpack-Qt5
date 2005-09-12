@@ -45,7 +45,8 @@ HEADERS += \
 	include/client.h \
 	include/vector.h \
 	include/md5.h \
-	include/profile.h
+	include/profile.h \
+	include/macros.h
 	
 HEADERS += \
 	include/dialogs/login.h \
@@ -84,7 +85,8 @@ HEADERS += \
 	include/gui/window.h \
 	include/gui/tooltip.h \
 	include/gui/worldview.h \
-	include/gui/containergump.h
+	include/gui/containergump.h \
+	include/gui/textbutton.h
 
 # MUL INCLUDES
 HEADERS += \
@@ -128,7 +130,8 @@ SOURCES += \
 	src/vector.cpp \
 	src/main.cpp \
 	src/md5.cpp \
-	src/profile.cpp
+	src/profile.cpp \
+	src/macros.cpp
 
 SOURCES += \
 	src/dialogs/login.cpp \
@@ -155,7 +158,8 @@ SOURCES += \
 	src/gui/tooltip.cpp \
 	src/gui/window.cpp \
 	src/gui/worldview.cpp \
-	src/gui/containergump.cpp
+	src/gui/containergump.cpp \
+	src/gui/textbutton.cpp
 
 SOURCES += \
 	src/network/encryption.cpp \

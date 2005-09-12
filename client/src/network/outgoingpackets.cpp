@@ -231,3 +231,8 @@ cRequestContextMenu::cRequestContextMenu(uint serial) : cOutgoingPacket(0xbf, 9)
 cContextMenuResponsePacket::cContextMenuResponsePacket(uint serial, ushort id) : cOutgoingPacket(0xbf, 13) {
 	m_Stream << (ushort)0x15 << serial << id;
 }
+
+cWarmodeChangeRequest::cWarmodeChangeRequest(bool mode) : cOutgoingPacket(0x72, 5) {
+	m_Stream << (uchar)(mode ? 1 : 0);
+	fill(3, 0);
+}

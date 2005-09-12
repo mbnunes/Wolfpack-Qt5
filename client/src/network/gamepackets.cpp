@@ -217,7 +217,7 @@ public:
 			}
 
 			mobile->setBody(body);
-
+			
 			if (posx != mobile->x() || posy != mobile->y() || posz != mobile->z()) {
 				if (Player == mobile) {
 					World->moveCenter(posx, posy, posz, false);
@@ -226,6 +226,7 @@ public:
 			}
 
 			mobile->processFlags(flags);
+			mobile->setNotoriety((cMobile::Notoriety)notoriety);
 		}
 
 		if (mobile) {
@@ -449,9 +450,7 @@ public:
 		// System Message
 		if (!mobile && !item) {
 			if (Utilities::isMobileSerial(serial) && !name.isEmpty()) {
-				message.prepend("<");
-				message.prepend(name);
-				message.prepend("> ");
+				message.prepend(QString("<%1> ").arg(name));				
 			}
 
 			WorldView->addSysMessage(message, hue, font);
@@ -615,6 +614,7 @@ public:
 		mobile->setDirection(direction);
 		mobile->setBody(body);
 		mobile->processFlags(flags);
+		mobile->setNotoriety((cMobile::Notoriety)notoriety);
 
 		if ((posx != mobile->x() || posy != mobile->y() || posz != mobile->z()) && sameDirection) {
 			// Can't move the player with this. Btw. this is _VERY_ "shaky"
@@ -688,6 +688,8 @@ public:
 		if (!Player) {
 			return;
 		}
+
+		Player->setNotoriety((cMobile::Notoriety)notoriety);
 
 		uint currentSequence = socket->popSequence();
 
@@ -1178,3 +1180,23 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xa5, cOpenBrowserPacket::creator);
+
+// Set warmode packet
+class cSetWarmode : public cIncomingPacket {
+protected:
+	uchar mode;
+public:
+	cSetWarmode(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> mode; // Ignore the rest (3 bytes)
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		Player->setWarmode(mode);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cSetWarmode(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x72, cSetWarmode::creator);

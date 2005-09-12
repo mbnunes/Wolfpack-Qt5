@@ -6,6 +6,7 @@
 #include "muls/tiledata.h"
 #include "mainwindow.h"
 #include "gui/worldview.h"
+#include "gui/tooltip.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
 #include "log.h"
@@ -21,6 +22,18 @@ static const int drawOrder[8][25] = {
 	{20, 5, 4, 3, 24, 23, 13, 19, 17, 22, 12, 14, 8, 7, 1, 2, 10, 16, 11, 18, 6, 21, -1},
 	{5, 4, 3, 24, 23, 13, 19, 17, 22, 12, 14, 8, 7, 1, 2, 10, 16, 11, 18, 6, 20, 21, -1},
 	{5, 4, 3, 24, 23, 13, 19, 17, 22, 12, 14, 8, 7, 1, 2, 10, 16, 11, 18, 6, 20, 21, -1}
+};
+
+// Name hues for different notorieties
+static const ushort notorietyHues[8] = {
+	0, // Unknown
+	0x59, // Innocent
+	0x3f, // Guild Ally
+	0x3b2, // Critter
+	0x3b2, // Criminal
+	0x90, // Guild Enemy
+	0x22, // Murderer
+	0x35, // Invulnerable
 };
 
 cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial) : cEntity(x, y, z, facet), cDynamicEntity(x, y, z, facet, serial) {
@@ -41,6 +54,7 @@ cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet face
 	smoothMoveEnd = 0;
 	hidden = false;
 	deleting = false;
+	notoriety_ = Innocent;
 
 	for (int i = 0; i < LAYER_COUNT; ++i) {
 		equipmentSequences[i] = 0;		
@@ -540,6 +554,16 @@ void cMobile::playMoveAnimation(uint duration, bool running) {
 	playAction(action, duration);
 }
 
+void cMobile::setWarmode(bool data) {
+	if (data != warmode) {
+		warmode = data;
+		if (currentActionEnd_ == 0) {
+			freeSequence();
+			currentAction_ = getIdleAction();
+		}	
+	}
+}
+
 void cMobile::processFlags(uchar flags) {
 	hidden = (flags & 0x80) != 0;
 	warmode = (flags & 0x40) != 0;
@@ -563,6 +587,18 @@ void cMobile::onClick(QMouseEvent *e) {
 	}
 	if (UoSocket->isContextMenus()) {
 		UoSocket->send(cRequestContextMenu(serial_));
+	}
+}
+
+ushort cMobile::getNameHue() const {
+	return notorietyHues[notoriety_ & 7];
+}
+
+void cMobile::setNotoriety(cMobile::Notoriety data) {
+	ushort oldHue = getNameHue();
+	notoriety_ = data;
+	if (getNameHue() != oldHue && Tooltip->entity() == dynamic_cast<cEntity*>(this)) {
+		Tooltip->refreshTooltip();
 	}
 }
 

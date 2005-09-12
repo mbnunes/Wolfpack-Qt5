@@ -14,6 +14,7 @@
 #include "config.h"
 #include "sound.h"
 #include "log.h"
+#include "profile.h"
 #include "dialogs/cachestatistics.h"
 #include "network/outgoingpackets.h"
 #include "game/targetrequest.h"
@@ -23,14 +24,15 @@
 #include <qlayout.h>
 #include <qdatetime.h>
 #include <qmenubar.h>
+
 #include <QTimer>
-//Added by qt3to4:
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QEvent>
-#include <QErrorMessage>
+#include <QMessageBox>
 #include <QDir>
 #include <QApplication>
+#include <QFileDialog>
 
 // Shader Fun!
 #if defined(Q_OS_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
@@ -170,7 +172,12 @@ cMainWindow::cMainWindow() {
 	m_menuBar = new QMenuBar(this);
 	QMenu *file = m_menuBar->addMenu(tr("&File"));
 	file->addAction("&Edit Scripts", Scripts, SLOT(showWorkbench()));
-	file->addAction("E&xit", this, SLOT(close()));	
+	action = file->addAction(tr("Save profile as..."));	
+	action->setObjectName("action_saveprofile");
+	file->addSeparator();
+	file->addAction("E&xit", this, SLOT(close()));		
+
+	connect(file, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
 	
 	// Game Menu
 	QMenu *game = m_menuBar->addMenu("&Game");
@@ -281,6 +288,17 @@ void cMainWindow::menuGameClicked(QAction *action) {
 			connect(request, SIGNAL(targetted(cEntity*)), SLOT(showPriority(cEntity*)));
             WorldView->requestTarget(request);
 		}
+	} else if (action->objectName() == "action_saveprofile") {
+		if (UoSocket->account().isEmpty() || !WorldView->isVisible()) {
+			QMessageBox::critical(this, tr("Error"), tr("Unable to save profile when you're not logged in."), QMessageBox::Ok, QMessageBox::NoButton);
+			return;
+		}
+
+		QString filename = QFileDialog::getSaveFileName(this, "Save profile as", QDir::current().absolutePath(), tr("XML Files (*.xml)"));
+
+		if (!filename.isEmpty()) {
+			Profile->saveToFile(filename, true);
+		}		
 	}
 }
 
@@ -559,17 +577,24 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 	if (Gui->inputFocus()) {
 		Gui->inputFocus()->onKeyUp(e);
 	} else {
-		if (!ignoreReturn && WorldView && WorldView->isVisible() && (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter)) {
+		if (!ignoreReturn && WorldView && WorldView->isVisible() && e->modifiers() == Qt::NoModifier && (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter)) {
 			WorldView->showInputLine();
+		} else {
+			uint key = e->key();
+			if (e->modifiers() & Qt::AltModifier) {
+				key |= Qt::ALT;
+			}
+			if (e->modifiers() & Qt::ShiftModifier) {
+				key |= Qt::SHIFT;
+			}
+			if (e->modifiers() & Qt::ControlModifier) {
+				key |= Qt::CTRL;
+			}
+			if (e->modifiers() & Qt::MetaModifier) {
+				key |= Qt::META;
+			}
+			Profile->processShortcut(QKeySequence(key));
 		}
-	}
-
-	// Create a screenshot
-	if (e->key() == Qt::Key_F12) {
-		// Generate a nice filenamd and save the screenshot
-		QDateTime current = QDateTime::currentDateTime();
-		QString screenshotFilename = QString("screenshot-%1.png").arg(current.toString( "yyyyMMdd-hhmmss" ));
-		createScreenshot(screenshotFilename);
 	}
 
 	QWidget::keyReleaseEvent(e);
@@ -815,6 +840,11 @@ bool cGLWidget::focusNextPrevChild(bool next) {
 	}
 
 	return true; // Always find a new tab control
+}
+
+void cMainWindow::closeEvent(QCloseEvent *e) {
+	QApplication::instance()->quit();
+	e->accept();
 }
 
 cMainWindow *MainWindow = 0;

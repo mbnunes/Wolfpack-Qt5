@@ -12,6 +12,18 @@
 class cDynamicItem;
 
 class cMobile : public cDynamicEntity {
+public:
+	enum Notoriety {
+		Unknown = 0,
+		Innocent, // 1, Blue
+		GuildAlly, // 2, Green
+		Critter, // 3, Gray
+		Criminal, // 4, Gray
+		GuildEnemy, // 5, Orange
+		Murderer, // 6, Red
+		Invulnerable, // 7, Yellow
+	};
+
 protected:
 	bool deleting;
 	unsigned short body_;
@@ -21,6 +33,7 @@ protected:
 	bool hidden;
 	bool dead;
 	bool warmode;
+	Notoriety notoriety_;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
@@ -44,6 +57,8 @@ protected:
 	unsigned int smoothMoveTime; // Duration of smooth move effect
 	unsigned int smoothMoveEnd; // End time of the smooth move effect	
 public:
+	ushort getNameHue() const;
+
 	cMobile(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial);
 	virtual ~cMobile();
 
@@ -64,6 +79,8 @@ public:
 	ushort currentMountAction() const;
 	unsigned int currentActionEnd() const;
 	cSequence *sequence() const;
+	Notoriety notoriety() const;
+	void setNotoriety(Notoriety data);
 	void setSerial(unsigned int serial); // Only use this on the player
 	void setHidden(bool data);
 	bool isHidden() const;
@@ -71,6 +88,7 @@ public:
 	bool isDead() const;
 	bool isMoving() const;
 	bool isInWarmode() const;
+	void setWarmode(bool warmode);
 
 	void onDoubleClick(QMouseEvent *e);
 	void onClick(QMouseEvent *e);
@@ -174,6 +192,10 @@ inline bool cMobile::isMoving() const {
 inline bool cMobile::isInWarmode() const {
 	return warmode;
 };
+
+inline cMobile::Notoriety cMobile::notoriety() const {
+	return notoriety_;
+}
 
 extern cMobile *Player;
 

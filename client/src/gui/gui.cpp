@@ -11,6 +11,7 @@
 #include "gui/containergump.h"
 #include "gui/textfield.h"
 #include "gui/tooltip.h"
+#include "gui/textbutton.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
 #include "game/dynamicitem.h"
@@ -473,6 +474,10 @@ cControl *cGui::createControl(QDomElement templateNode) {
 		result = new cTextField;
 	} else if (className == "label") {
 		result = new cLabel;
+	} else if (className == "checkertrans") {
+		result = new cCheckerTrans;
+	} else if (className == "textbutton") {
+		result = new cTextButton;
 	}
 
 	if (result) {

@@ -1,6 +1,8 @@
 
 #include "config.h"
 #include "gui/cursor.h"
+#include "game/mobile.h"
+#include "gui/worldview.h"
 #include "muls/art.h"
 #include "mainwindow.h"
 #include <QCursor>
@@ -59,6 +61,10 @@ void cCursor::reload() {
 }
 
 void cCursor::draw() {
+	bool warmode = false;
+	if (Player && WorldView->isVisible()) {
+		warmode = Player->isInWarmode();
+	}
 	stCursor &cursor = warmode ? cursorsWar[this->cursor] : cursors[this->cursor];
 	
 	// Fall back to normal cursor
