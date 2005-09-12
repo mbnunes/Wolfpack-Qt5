@@ -37,61 +37,61 @@
 			<nomark />
 			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="1" name="log" />
 		</carpenter>
-		<carpenter definition="board_apple" name="Apple Board">
+		<carpenter definition="board_apple">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_apple" amount="1" name="Apple Log" />
 		</carpenter>
-		<carpenter definition="board_peach" name="Peach Board">
+		<carpenter definition="board_peach">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_peach" amount="1" name="Peach Log" />
 		</carpenter>
-		<carpenter definition="board_pear" name="Pear Board">
+		<carpenter definition="board_pear">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_pear" amount="1" name="Pear Log" />
 		</carpenter>
-		<carpenter definition="board_cedar" name="Cedar Board">
+		<carpenter definition="board_cedar">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_cedar" amount="1" name="Cedar Log" />
 		</carpenter>
-		<carpenter definition="board_willow" name="Willow Board">
+		<carpenter definition="board_willow">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_willow" amount="1" name="Willow Log" />
 		</carpenter>
-		<carpenter definition="board_cypress" name="Cypress Board">
+		<carpenter definition="board_cypress">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_cypress" amount="1" name="Cypress Log" />
 		</carpenter>
-		<carpenter definition="board_oak" name="Oak Board">
+		<carpenter definition="board_oak">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_oak" amount="1" name="Oak Log" />
 		</carpenter>
-		<carpenter definition="board_walnut" name="Walnut Board">
+		<carpenter definition="board_walnut">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_walnut" amount="1" name="Walnut Log" />
 		</carpenter>
-		<carpenter definition="board_yew" name="Yew Board">
+		<carpenter definition="board_yew">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
 			<wood id="log_yew" amount="1" name="Yew Log" />
 		</carpenter>
-		<carpenter definition="board_tropical" name="Tropical Board">
+		<carpenter definition="board_tropical">
 			<carpentry min="-250" max="250" />
 			<stackable />
 			<nomark />
