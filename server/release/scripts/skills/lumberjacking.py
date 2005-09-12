@@ -35,7 +35,7 @@ if extended_carpentry:
 	}
 else:
 	LOGS = {
-		'wood':	[0,  10, '1bdd'],
+		'plainwood':	[0,  10, '1bdd'],
 	}
 
 # tree id, wood name
@@ -184,7 +184,7 @@ def createwoodgem( target, pos ):
 	if extended_carpentry:
 		gem.settag( 'resname', TREES[target.model] )
 	else:
-		gem.settag( 'resname', 'wood' )
+		gem.settag( 'resname', 'plainwood' )
 	gem.visible = 0
 	gem.decay = True
 	gem.moveto( pos )
@@ -196,8 +196,13 @@ def getvein( socket, pos, target ):
 	gems = wolfpack.items( pos.x, pos.y, pos.map )
 	for gem in gems:
 		if gem.hastag('resource') and gem.gettag('resource') == 'wood' and gem.hastag('resname') and gem.baseid == 'wood_gem':
-			return gem
-			break
+			if gem.gettag('resname') in LOGS:		
+				return gem
+				break
+			else:
+				# delete invalid gems
+				gem.delete()
+
 	gem = createwoodgem(target, pos)
 	return gem
 
@@ -295,7 +300,7 @@ def successlumberjacking( char, args ):
 	# Lets make sure we stayed next to the tree
 	# Player can reach that ?
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
-		socket.sysmessage("Ihr habt Euch zu weit vom Baum entfernt um Holz zu hacken.")
+		socket.sysmessage(  tr("You have moved too far away to gather any wood.") )
 		socket.deltag( 'is_lumberjacking' )
 		return False
 
@@ -310,8 +315,7 @@ def successlumberjacking( char, args ):
 	chance = int( ( char.skill[LUMBERJACKING] - table[resname][MINSKILL] ) / 10 )
 
 	if char.skill[LUMBERJACKING] < reqskill:
-		socket.sysmessage("Du bist noch zu unerfahren, um Holz von diesem Baum zu schlagen.")
-		#char.socket.clilocmessage( 500298 ) # You are not skilled enough...
+		socket.sysmessage( tr("You are not skilled enough to gather wood from this tree.") )
 		return False
 	else:
 		char.checkskill( LUMBERJACKING, reqskill, 1200 )

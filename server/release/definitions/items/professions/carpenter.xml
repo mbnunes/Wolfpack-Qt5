@@ -423,6 +423,7 @@
 		<sellprice>1</sellprice>
 		<category>Professions\Carpenter\Board (N/S)</category>
 		<weight>1.0</weight>
+		<strproperty name="resname" value="beech" />
 	</item>
 
 	<item id="1bd8">
@@ -456,9 +457,9 @@
 
 	<item id="1bdd">
 		<id>0x1bdd</id>
-		<sellprice>1</sellprice>
 		<category>Professions\Carpenter\Log (W/E)</category>
 		<weight>2.0</weight>
+		<strproperty name="resname" value="beech" />
 	</item>
 
 	<item id="1bde">
@@ -499,5 +500,147 @@
 		<basescripts>equipment,taxidermykit</basescripts>
 	</item>
 	-->
+
+	<!-- Logs -->
+	<item id="log_apple" inherit="1bdd">
+		<name>apple log</name>
+		<category>Professions\Carpenter\Wood\Apple Log</category>
+		<color>1748</color>
+		<strproperty name="resname" value="apple" />
+	</item>
+
+	<item id="log_cedar" inherit="1bdd">
+		<name>cedar log</name>
+		<category>Professions\Carpenter\Wood\Cedar Log</category>
+		<color>2107</color>
+		<strproperty name="resname" value="cedar" />
+	</item>
+
+	<item id="log_cypress" inherit="1bdd">
+		<name>cypress log</name>
+		<category>Professions\Carpenter\Wood\Cypress Log</category>
+		<color>2413</color>
+		<strproperty name="resname" value="cypress" />
+	</item>
+
+	<item id="log_oak" inherit="1bdd">
+		<name>Eichenholz</name>
+		<category>Professions\Carpenter\Wood\Eichenholz</category>
+		<color>1049</color>
+		<strproperty name="resname" value="oak" />
+	</item>
+
+	<item id="log_peach" inherit="1bdd">
+		<name>peach log</name>
+		<category>Professions\Carpenter\Wood\Peach Log</category>
+		<color>1856</color>
+		<strproperty name="resname" value="peach" />
+	</item>
+
+	<item id="log_pear" inherit="1bdd">
+		<name>pear log</name>
+		<category>Professions\Carpenter\Wood\Pear Log</category>
+		<color>1002</color>
+		<strproperty name="resname" value="pear" />
+	</item>
+
+	<item id="log_tropical" inherit="1bdd">
+		<name>tropical log</name>
+		<category>Professions\Carpenter\Wood\Tropical Log</category>
+		<color>1889</color>
+		<strproperty name="resname" value="tropical" />
+	</item>
+
+	<item id="log_walnut" inherit="1bdd">
+		<name>walnut log</name>
+		<category>Professions\Carpenter\Wood\Walnut Log</category>
+		<color>1839</color>
+		<strproperty name="resname" value="walnut" />
+	</item>
+
+	<item id="log_willow" inherit="1bdd">
+		<name>willow log</name>
+		<category>Professions\Carpenter\Wood\Willow Log</category>
+		<color>1513</color>
+		<strproperty name="resname" value="willow" />
+	</item>
+
+	<item id="log_yew" inherit="1bdd">
+		<name>yew log</name>
+		<category>Professions\Carpenter\Wood\Yew Log</category>
+		<color>1502</color>
+		<strproperty name="resname" value="yew" />
+	</item>
+
+	<!-- Boards -->
+	<item id="board_apple" inherit="1bd7">
+		<name>apple board</name>
+		<category>Professions\Carpenter\Boards\Apple Board</category>
+		<color>1748</color>
+		<strproperty name="resname" value="apple" />
+	</item>
+
+	<item id="board_cedar" inherit="1bd7">
+		<name>cedar board</name>
+		<category>Professions\Carpenter\Boards\Cedar Board</category>
+		<color>2107</color>
+		<strproperty name="resname" value="cedar" />
+	</item>
+
+	<item id="board_cypress" inherit="1bd7">
+		<name>cypress board</name>
+		<category>Professions\Carpenter\Boards\Cypress Board</category>
+		<color>2413</color>
+		<strproperty name="resname" value="cypress" />
+	</item>
+
+	<item id="board_oak" inherit="1bd7">
+		<name>oak board</name>
+		<category>Professions\Carpenter\Boards\Oak Board</category>
+		<color>1049</color>
+		<strproperty name="resname" value="oak" />
+	</item>
+
+	<item id="board_peach" inherit="1bd7">
+		<name>peach board</name>
+		<category>Professions\Carpenter\Boards\Peach Board</category>
+		<color>1856</color>
+		<strproperty name="resname" value="peach" />
+	</item>
+
+	<item id="board_pear" inherit="1bd7">
+		<name>pear board</name>
+		<category>Professions\Carpenter\Boards\Pear Board</category>
+		<color>1002</color>
+		<strproperty name="resname" value="pear" />
+	</item>
+
+	<item id="board_tropical" inherit="1bd7">
+		<name>tropical board</name>
+		<category>Professions\Carpenter\Boards\Tropical Board</category>
+		<color>1889</color>
+		<strproperty name="resname" value="tropical" />
+	</item>
+
+	<item id="board_walnut" inherit="1bd7">
+		<name>walnut board</name>
+		<category>Professions\Carpenter\Boards\Walnut Board</category>
+		<color>1839</color>
+		<strproperty name="resname" value="walnut" />
+	</item>
+
+	<item id="board_willow" inherit="1bd7">
+		<name>willow board</name>
+		<category>Professions\Carpenter\Boards\Willow Board</category>
+		<color>1513</color>
+		<strproperty name="resname" value="willow" />
+	</item>
+
+	<item id="board_yew" inherit="1bd7">
+		<name>yew board</name>
+		<category>Professions\Carpenter\Boards\Yew Board</category>
+		<color>1502</color>
+		<strproperty name="resname" value="yew" />
+	</item>
 
 </definitions>
