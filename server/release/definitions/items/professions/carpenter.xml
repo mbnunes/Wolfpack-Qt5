@@ -559,7 +559,7 @@
 	</item>
 
 	<item id="log_willow" inherit="1bdd">
-		<name>Willow Log<</name>
+		<name>Willow Log</name>
 		<category>Professions\Carpenter\Wood\Willow Log</category>
 		<color>1513</color>
 		<strproperty name="resname" value="willow" />
