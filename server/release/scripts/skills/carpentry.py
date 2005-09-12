@@ -97,7 +97,7 @@ class CarpItemAction(CraftItemAction):
 			else:
 				item.amount = 1 + count
 			item.update()
-		
+
 		# All carpentry items crafted out of ingots keep a resname
 		if self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
