@@ -1,8 +1,6 @@
 
 from math import floor, sqrt, ceil
 import random
-#from wolfpack import weaponinfo
-#from wolfpack import armorinfo
 import wolfpack.armorinfo
 import wolfpack.weaponinfo
 from wolfpack import console
