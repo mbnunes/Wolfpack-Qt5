@@ -1,6 +1,7 @@
 from wolfpack import console
 from wolfpack.consts import *
 from wolfpack import properties
+from wolfpack.utilities import tr
 import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefromDef
@@ -9,11 +10,32 @@ import random
 import skills.blacksmithing
 from copy import deepcopy
 
+extended_carpentry = int( wolfpack.settings.getbool("General", "Extended Carpentry", False, True) )
+
 # Use metals list from Blacksmithing, but test for carpentry skill
 CARPENTRYMETALS = deepcopy(skills.blacksmithing.METALS)
 for metal in CARPENTRYMETALS:
 	metal[1] = CARPENTRY
 
+if extended_carpentry:
+	WOOD = [
+			[tr('Beech Wood'), CARPENTRY, 0, ['1bd7', '1bda'], 0, 'beech'],
+			[tr('Apple Wood'), CARPENTRY, 300, ['board_apple'], 1748, 'apple'],
+			[tr('Peach Wood'), CARPENTRY, 350, ['board_peach'], 1856, 'peach'],
+			[tr('Pear Wood'), CARPENTRY, 400, ['board_pear'], 1002, 'pear'],
+			[tr('Cedar Wood'), CARPENTRY, 450, ['board_cedar'], 2107, 'cedar'],
+			[tr('Willow Wood'), CARPENTRY, 500, ['board_willow'], 1513, 'willow'],
+			[tr('Cypress Wood'), CARPENTRY, 550, ['board_cypress'], 2413, 'cypress'],
+			[tr('Oak Wood'), CARPENTRY, 600, ['board_oak'], 1049, 'oak'],
+			[tr('Walnut Wood'), CARPENTRY, 650, ['board_walnut'], 1839, 'walnut'],
+			[tr('Yew Wood'), CARPENTRY, 700, ['board_yew'], 1502, 'yew'],
+			[tr('Tropical Wood'), CARPENTRY, 750, ['board_tropical'], 1889, 'tropical']
+	]
+else:
+	WOOD = [
+			[tr('Wood'), CARPENTRY, 0, ['1bd7', '1bda'], 0, 'wood'],
+	]
+	
 #
 # Bring up the carpentry menu
 #
@@ -25,7 +47,6 @@ def onUse(char, item):
 
 #
 # Carp an item.
-# Used for scales + ingots
 #
 class CarpItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
@@ -84,6 +105,20 @@ class CarpItemAction(CraftItemAction):
 			item.color = material[4]
 			item.settag('resname', material[5])
 
+		if self.submaterial2 > 0:
+			material = self.parent.getsubmaterial2used(player, arguments)
+			material = self.parent.submaterials2[material]
+			if not self.submaterial1:
+				item.color = material[4]
+			item.settag('resname2', material[5])
+
+		# Apply one-time boni
+		healthbonus = properties.fromitem(item, DURABILITYBONUS)
+		if healthbonus != 0:
+			bonus = int(math.ceil(item.maxhealth * (healthbonus / 100.0)))
+			item.maxhealth = max(1, item.maxhealth + bonus)
+			item.health = item.maxhealth
+				
 		# Distribute another 6 points randomly between the resistances an armor alread
 		# has. There are no tailored weapons.
 		if exceptional:
@@ -152,22 +187,35 @@ class CarpentryMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
 		self.allowmark = True
-		#self.allowrepair = 1
-		self.submaterials1 = CARPENTRYMETALS
+		self.allowrepair = False
+		self.submaterials1 = WOOD
+		self.submaterials2 = CARPENTRYMETALS
 		self.submaterial1missing = 1042081 # Ingots
-		self.submaterial1noskill = 500586
-		self.gumptype = 0x4f6ba469 # This should be unique
+		self.submaterial1noskill = 500298
+		self.submaterial2missing = 1042081 # Ingots
+		self.submaterial2noskill = 500298
+		self.gumptype = 0x466b5b1a # This should be unique
 		self.requiretool = True
 
 	#
 	# Get the material used by the character from the tags
 	#
 	def getsubmaterial1used(self, player, arguments):
-		if not player.hastag('carpentry_ore'):
+		if not player.hastag('carpentry_wood'):
 			return False
 		else:
-			material = int(player.gettag('carpentry_ore'))
+			material = int(player.gettag('carpentry_wood'))
 			if material < len(self.submaterials1):
+				return material
+			else:
+				return False
+
+	def getsubmaterial2used(self, player, arguments):
+		if not player.hastag('blacksmithing_ore'):
+			return False
+		else:
+			material = int(player.gettag('blacksmithing_ore'))
+			if material < len(self.submaterials2):
 				return material
 			else:
 				return False
@@ -176,7 +224,10 @@ class CarpentryMenu(MakeMenu):
 	# Save the material preferred by the user in a tag
 	#
 	def setsubmaterial1used(self, player, arguments, material):
-		player.settag('carpentry_ore', material)
+		player.settag('carpentry_wood', material)
+
+	def setsubmaterial2used(self, player, arguments, material):
+		player.settag('blacksmithing_ore', material)
 
 #
 # Load a menu with a given id and
@@ -202,7 +253,10 @@ def loadMenu(id, parent = None):
 			if not child.hasattribute('id'):
 				console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)
 			else:
-				loadMenu(child.getattribute('id'), menu)
+				menuid = child.getattribute('id')
+				# Don't show boards menu for simple carpentry
+				if extended_carpentry or menuid != 'CARPENTRY_BOARDS':			
+					loadMenu( menuid, menu )
 
 		# Craft an item
 		elif child.name in ['carpenter', 'secarpenter']:
@@ -239,11 +293,14 @@ def loadMenu(id, parent = None):
 					subchild = child.getchild(j)
 
 					# How much of the primary resource should be consumed
-					if subchild.name == 'ingots':
+					if subchild.name == 'boards':
 						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
+					# How much of the secondary resource should be consumed
+					if subchild.name == 'ingots':
+						action.submaterial2 = hex2dec(subchild.getattribute('amount', '0'))
 
-					## Normal Material
-					if subchild.name == 'boards' or subchild.name == 'wood' or subchild.name == 'cloth' or subchild.name == 'material':
+					# Normal Material
+					if subchild.name == 'wood' or subchild.name == 'cloth' or subchild.name == 'material':
 						if not subchild.hasattribute('id'):
 							console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
 							break
@@ -260,7 +317,10 @@ def loadMenu(id, parent = None):
 					# Consume all available materials scaled by the
 					# amount of each submaterial
 					elif subchild.name == 'stackable':
-						action.stackable = 1
+						action.stackable = True
+
+					elif subchild.name == 'nomark':
+						action.markable = False
 
 					# Skill requirement
 					elif subchild.name in skillnamesids:

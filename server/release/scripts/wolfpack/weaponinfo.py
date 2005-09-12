@@ -79,8 +79,85 @@ WEAPON_RESNAME_BONI = {
 		DAMAGE_POISON: 10,
 		DAMAGE_ENERGY: 20,
 		MATERIALPREFIX: 'Valorite',
+	},
+	# Wood
+	'beech': {
+		MATERIALPREFIX: 'Beech Wood',
+		DAMAGEBONUS: 0,
+		DURABILITYBONUS: 0,
+		SPEEDBONUS: 0,
+		LUCK: 0
+	},
+	'apple': {
+		MATERIALPREFIX: 'Apple Wood',
+		DAMAGEBONUS: 0,
+		DURABILITYBONUS: 20,
+		SPEEDBONUS: -10,
+		LUCK: 0
+	},
+	'peach': {
+		MATERIALPREFIX: 'Peach Wood',
+		DAMAGEBONUS: 5,
+		DURABILITYBONUS: 5,
+		SPEEDBONUS: -10,
+		LUCK: 20
+	},
+	'pear': {
+		MATERIALPREFIX: 'Pear Wood',
+		DAMAGEBONUS: 10,
+		DURABILITYBONUS: -5,
+		SPEEDBONUS: 5,
+		LUCK: 20
+	},
+	'cedar': {
+		MATERIALPREFIX: 'Cedar Wood',
+		DAMAGEBONUS: 10,
+		DURABILITYBONUS: 10,
+		SPEEDBONUS: 10,
+		LUCK: 0
+	},
+	'willow': {
+		MATERIALPREFIX: 'Willow Wood',
+		DAMAGEBONUS: 0,
+		DURABILITYBONUS: 40,
+		SPEEDBONUS: 0,
+		LUCK: 0
+	},
+	'cypress': {
+		MATERIALPREFIX: 'Cypress Wood',
+		DAMAGEBONUS: 15,
+		DURABILITYBONUS: 0,
+		SPEEDBONUS: 0,
+		LUCK: 0
+	},
+	'oak': {
+		MATERIALPREFIX: 'Oak Wood',
+		DAMAGEBONUS: 20,
+		DURABILITYBONUS: 10,
+		SPEEDBONUS: -5,
+		LUCK: 25
+	},
+	'walnut': {
+		MATERIALPREFIX: 'Walnut Wood',
+		DAMAGEBONUS: 15,
+		DURABILITYBONUS: 15,
+		SPEEDBONUS: 15,
+		LUCK: 0
+	},
+	'yew': {
+		MATERIALPREFIX: 'Yew Wood',
+		DAMAGEBONUS: 10,
+		DURABILITYBONUS: 30,
+		SPEEDBONUS: 10,
+		LUCK: 40
+	},
+	'tropical': {
+		MATERIALPREFIX: 'Tropical Wood',
+		DAMAGEBONUS: 25,
+		DURABILITYBONUS: -20,
+		SPEEDBONUS: 10,
+		LUCK: -20
 	}
-
 }
 
 #
