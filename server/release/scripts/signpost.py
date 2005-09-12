@@ -344,19 +344,17 @@ def demolish( char, item ):
 	# Assign the Multi
 	multi = wolfpack.findobject( item.gettag( 'house' ) )
 
-	#Looking for the Region of the Multi
-	#region = wolfpack.region(item.pos.x, item.pos.y, item.pos.map)
+	# Looking for the list of items in the Multi
+	listitems = multi.objects
 
-	#Coords of the Region
-	#(x1,y1,x2,y2) = (region.rectangles)
+	# Now... the Loop to remove all items
+	contador = 0
+	for multiitem in listitems:
+		multiitem.delete()
+		contador += 1
 	
-	#Erasing the Items inside the house
-	#iterator = wolfpack.itemregion(x1, y1, x2, y2, item.pos.map)
-	#item2 = iterator.first
-	#while item2:
-		# Delete items here
-		#item2.delete()
-		#item2 = iterator.next
+	# Message about how many items are deleted in the house
+	char.socket.sysmessage( "Deleted %i items in house!" % contador )
 
 	# Unregistering the House
 	housing.unregisterHouse(multi)
