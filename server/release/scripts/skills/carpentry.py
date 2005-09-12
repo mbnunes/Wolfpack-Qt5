@@ -190,7 +190,7 @@ class CarpentryMenu(MakeMenu):
 		self.allowrepair = False
 		self.submaterials1 = WOOD
 		self.submaterials2 = CARPENTRYMETALS
-		self.submaterial1missing = 1042081 # Ingots
+		self.submaterial1missing = 1042081 # Boards
 		self.submaterial1noskill = 500298
 		self.submaterial2missing = 1042081 # Ingots
 		self.submaterial2noskill = 500298
@@ -211,10 +211,10 @@ class CarpentryMenu(MakeMenu):
 				return False
 
 	def getsubmaterial2used(self, player, arguments):
-		if not player.hastag('blacksmithing_ore'):
+		if not player.hastag('carpentry_ore'):
 			return False
 		else:
-			material = int(player.gettag('blacksmithing_ore'))
+			material = int(player.gettag('carpentry_ore'))
 			if material < len(self.submaterials2):
 				return material
 			else:
@@ -227,7 +227,7 @@ class CarpentryMenu(MakeMenu):
 		player.settag('carpentry_wood', material)
 
 	def setsubmaterial2used(self, player, arguments, material):
-		player.settag('blacksmithing_ore', material)
+		player.settag('carpentry_ore', material)
 
 #
 # Load a menu with a given id and

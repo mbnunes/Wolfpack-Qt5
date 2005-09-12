@@ -6,7 +6,7 @@ extended_carpentry = int( wolfpack.settings.getbool("General", "Extended Carpent
 
 def onShowTooltip( viewer, object, tooltip ):
 	if extended_carpentry:
-		# Reinsert the name if we need an ore prefix
+		# Reinsert the name if we need a wood prefix
 		prefix1 = None
 		if object.hastag('resname'):
 			resname = str(object.gettag('resname'))
