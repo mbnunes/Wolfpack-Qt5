@@ -18,14 +18,14 @@
 		<!--Kindling-->
 		<fletch definition="de1">
 			<bowcraft min="0" max="0" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards &amp; Logs" />
+			<logs amount="1" />
 			<nomark />
 		</fletch>
 
 		<!--Shaft-->
 		<fletch definition="1bd4">
 			<bowcraft min="0" max="400" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="1" name="Boards &amp; Logs" />
+			<logs amount="1" />
 			<stackable />
 			<nomark />
 		</fletch>
@@ -59,37 +59,37 @@
 		<!--Bow-->
 		<fletch definition="13b1">
 			<bowcraft min="300" max="700" penalty="80" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards &amp; Logs" />
+			<logs amount="7" />
 		</fletch>
 
 		<!--Crossbow-->
 		<fletch definition="f4f">
 			<bowcraft min="600" max="1000" penalty="80" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="7" name="Boards &amp; Logs" />
+			<logs amount="7" />
 		</fletch>
 
 		<!--Heavy Crossbow-->
 		<fletch definition="13fd">
 			<bowcraft min="800" max="1200" penalty="80" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
+			<logs amount="10" />
 		</fletch>
 
 		<!--Composite Bow-->
 		<fletch definition="26c2">
 			<bowcraft min="700" max="1100" penalty="80" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
+			<logs amount="10" />
 		</fletch>
 
 		<!--Repeating Crossbow-->
 		<fletch definition="26cd">
 			<bowcraft min="900" max="1300" penalty="55" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
+			<logs amount="10" />
 		</fletch>
 
 		<!-- Yumi -->
 		<sefletch definition="27a5">
 			<bowcraft min="900" max="1200" />
-			<material id="1bdd;1be0;1bd7;1bda" amount="10" name="Boards &amp; Logs" />
+			<logs amount="10" />
 		</sefletch>
 	</menu>
 
