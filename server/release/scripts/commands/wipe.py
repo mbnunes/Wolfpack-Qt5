@@ -62,7 +62,15 @@ def nuke( socket, command, argstring ):
 			gump.send( socket )
 			return
 		else:
-			baseid = argstring
+			if argstring.lower() == "nomulti":
+				socket.sysmessage("You choose to nuke anything except items in multis")
+				baseid = argstring
+			else:
+				if argstring.lower() == "onlymulti":
+					socket.sysmessage("You choose to nuke just items in multis")
+					baseid = argstring
+				else:
+					baseid = argstring
 	else:
 		baseid = None
 
@@ -120,6 +128,7 @@ def wipeBoundingBox( socket, target1, target2, argstring ):
 	iterator = wolfpack.itemregion( x1, y1, x2, y2, target2.pos.map )
 	item = iterator.first
 	count = 0
+
 	if( argstring and (type(argstring) == list or type(argstring) == tuple) ):
 		(z, baseid) = argstring
 	else:
@@ -130,6 +139,17 @@ def wipeBoundingBox( socket, target1, target2, argstring ):
 		if (type(z) != int or z == item.pos.z) and (not baseid or item.baseid == baseid):
 			item.delete()
 			count += 1
+		else:
+			if baseid.lower() == "nomulti":
+				if not item.multi:
+					item.delete()
+					count += 1
+			else:
+				if baseid.lower() == "onlymulti":
+					if item.multi:
+						item.delete()
+						count += 1
+
 		item = iterator.next
 	socket.sysmessage( "%i items removed" % count )
 
