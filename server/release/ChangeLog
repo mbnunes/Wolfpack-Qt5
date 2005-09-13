@@ -179,6 +179,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - If enhancing an item fails and the item breaks, chars in range of 5 tiles and if in LoS will notice that.
   - Cows will give milk, chicken eggs (on double click).
   - If you use wheat sheafs near a flour mill, you will get a sack of flour.
+  - Added an optional extended carpentry system that uses different wood types. This has to be enabled in wolfpack.xml
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
