@@ -12,9 +12,16 @@
 	\description Remove items in a certain area.
 	\usage - <code>nuke</code>
 	- <code>nuke all</code>
+	- <code>nuke nomulti</code>
+	- <code>nuke onlymulti</code>
 	If you don't specify any parameters, you will
 	be able to select a region to nuke. If you
 	use wipe all, the whole world will be nuked.
+	Using nomulti, you will nuke all items in selected 
+	region,	except items that are in some multi.
+	Using onlymulti, you will nuke all items in the
+	selected region that are in any multi, and just
+	these items.
 	\notes There is also <b>WIPE</b> which is an alias for this command.
 """
 """
@@ -22,9 +29,16 @@
 	\description Remove items in a certain area.
 	\usage - <code>wipe</code>
 	- <code>wipe all</code>
+	- <code>wipe nomulti</code>
+	- <code>wipe onlymulti</code>
 	If you don't specify any parameters, you will
-	be able to select a region to wipe. If you
-	use wipe all, the whole world will be wiped.
+	be able to select a region to nuke. If you
+	use wipe all, the whole world will be nuked.
+	Using nomulti, you will nuke all items in selected 
+	region,	except items that are in some multi.
+	Using onlymulti, you will nuke all items in the
+	selected region that are in any multi, and just
+	these items.
 	\notes There is also <b>NUKE</b> which is an alias for this command.
 """
 """
