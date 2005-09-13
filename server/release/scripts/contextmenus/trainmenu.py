@@ -8,6 +8,7 @@
 import wolfpack.settings
 import skills
 from wolfpack.consts import *
+from wolfpack.utilities import tr
 
 MAX_TEACHING = 300
 MIN_TEACHING = 20
@@ -48,8 +49,12 @@ def onContextEntry( char, target, tag  ):
 	if ( pointsToLearn <= 0 ): # Player knows more than me
 		return True
 
-	target.say( 1019077, args = "", affix = " " + str( pointsToLearn*10 ), prepend = 0, socket = char.socket ) # I will teach thee all I know, if paid the amount in full.  The price is:
-	target.say( 1043108, socket = char.socket ) #For less I shall teach thee less.
+	target.say( 1019077, affix = " " + str( pointsToLearn*10 ), prepend = False, socket = char.socket ) # I will teach thee all I know, if paid the amount in full.  The price is:
+
+	# using text instead of cliloc, because cliloc will hide the last message
+	target.say( tr("For less I shall teach thee less.") ) #For less I shall teach thee less.
+	#target.say( 1043108, socket = char.socket ) #For less I shall teach thee less.
+
 	char.settag("npctrainer", str( target.serial ) )
 	char.settag("trainningskill", str( skill ) )
 	return True
