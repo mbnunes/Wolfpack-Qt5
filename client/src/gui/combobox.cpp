@@ -344,7 +344,7 @@ void cCombobox::openSelectionList() {
 
 	selectionList_->addControl(border);
 
-	int overlap = itemHeight_ * items_.size() - selectionList_->height();
+	int overlap = itemHeight_ * items_.size() - (selectionList_->height() - 5);
 
 	// Only show the scrollbar if neccesary
 	if (overlap > 0) {

@@ -1,7 +1,7 @@
 
 #include "gui/scrollbar.h"
-//Added by qt3to4:
 #include <QMouseEvent>
+#include <math.h>
 
 void cVerticalScrollBar::scrollUp(cControl *sender) {
 	setPos(qMax<int>(min(), pos() - 1));
@@ -69,7 +69,7 @@ void cVerticalScrollBar::onMouseUp(QMouseEvent *e) {
 void cVerticalScrollBar::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	if (draggingHandle_) {
 		int y = mapFromGlobal(e->pos()).y(); // Get the y position relative to our control
-
+		y -= mouseDownY;
 		int newpos = getPosFromTrackerY(y);
 		setPos(newpos);
 		//handle->setPosition(handle->x(), newy);
@@ -82,12 +82,13 @@ unsigned int cVerticalScrollBar::getTrackerYFromPos(int pos) {
 	} else if (pos == (int)max_) {
 		return height_ - btnDown->height() - handle->height();
 	} else {
-		return btnUp->height() + (int)(pos * pixelPerStep);
+		return btnUp->height() + getInnerHeight() * ((pos_ - min_) / qMax<float>(1, max_ - min_));
+		//return btnUp->height() + (int)ceil(pos * pixelPerStep);
 	}
 }
 
 unsigned int cVerticalScrollBar::getPosFromTrackerY(int y) {
-	if (y < btnUp->height() + handle->height()) {
+	if (y < btnUp->height()) {
 		return min_;
 	} else if (y > height_ - btnDown->height() - handle->height()) {
 		return max_;
@@ -107,6 +108,7 @@ void cVerticalScrollBar::setHandleId(ushort id) {
 	if (handle) {
 		handle->setId(id);
 		handle->setY(getTrackerYFromPos(pos_));
+		pixelPerStep = qMax<float>(0, (float)getInnerHeight() / (float)getValues());
 	}
 }
 
@@ -126,6 +128,7 @@ void cVerticalScrollBar::setUpButtonIds(ushort unpressed, ushort pressed, ushort
 		// Reposition background
 		background->setBounds(0, btnUp->height(), btnUp->width(), height_ - btnUp->height() - btnDown->height());
 		handle->setY(getTrackerYFromPos(pos_));
+		pixelPerStep = qMax<float>(0, (float)getInnerHeight() / (float)getValues());
 	}
 }
 
@@ -140,6 +143,7 @@ void cVerticalScrollBar::setDownButtonIds(ushort unpressed, ushort pressed, usho
 		// Reposition background
 		background->setBounds(0, btnUp->height(), btnUp->width(), height_ - btnUp->height() - btnDown->height());
 		handle->setY(getTrackerYFromPos(pos_));
+		pixelPerStep = qMax<float>(0, (float)getInnerHeight() / (float)getValues());
 	}
 }
 

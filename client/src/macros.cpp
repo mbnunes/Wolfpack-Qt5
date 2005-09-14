@@ -28,9 +28,9 @@ void cCoreAction::perform() {
 }
 
 void cCoreAction::perform(const QString &action) {
-	if (action_ == "togglewarmode") {
+	if (action == "togglewarmode") {
 		toggleWarmode();
-	} else if (action_ == "screenshot") {
+	} else if (action == "screenshot") {
 		createScreenshot();
 	} else {
 		WorldView->addSysMessage(tr("Unknown macro action: %1.").arg(action));

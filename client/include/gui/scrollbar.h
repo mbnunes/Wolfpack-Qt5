@@ -37,7 +37,7 @@ public:
 
 	// Get the number of possible positions
 	inline unsigned int getValues() {
-		return max_ - min_ + 1;
+		return qMax<int>(1, max_ - min_);
 	}
 
 	// Get the height in pixels between the up/down buttons

@@ -516,10 +516,10 @@ cControl *cGui::createControl(QDomElement templateNode) {
 
 void cGui::setCurrentCombolist(cCombolist *list) {
 	if (list != currentCombolist_) {
-		delete currentCombolist_;
+		if (currentCombolist_) {
+			queueDelete(currentCombolist_);
+		}
 	}
 
 	currentCombolist_ = list;
 }
-
-
