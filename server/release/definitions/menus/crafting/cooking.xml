@@ -159,7 +159,7 @@
 		</cook>
 
 		<!--Pan of Cookies-->
-		<cook definition="tribal_paint">
+		<cook definition="160b">
 			<cooking min="0" max="1000" />
 			<material id="103f" amount="1" name="Cookie Mix" />
 			<needheat />
