@@ -30,7 +30,7 @@
 	</menu>
 
 	<!-- Other Items -->
-	<menu id="CARPENTRY_BOARDS" name="Boards">
+	<menu id="CARPENTRY_BOARDS" name="1027128"> <!-- Boards -->
 		<carpenter definition="1bd7">
 			<carpentry min="-250" max="250" />
 			<stackable />
