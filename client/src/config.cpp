@@ -413,6 +413,7 @@ void cConfig::load() {
 	screenshotsPath_ = getString("General", "Screenshots Path", "./screenshots/", true);
 	disableSound_ = getBool("General", "Disable Sound", false, true);
 	profilePath_ = getString("General", "Profile Path", "./profiles/", true);
+	clientVersion_ = getString("General", "Client Version", "5.0.0b", true);
 
 	// Encryption
 	enableEncryption_ = getBool("Encryption", "Enable Encryption", false, true);

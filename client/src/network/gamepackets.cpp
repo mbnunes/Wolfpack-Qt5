@@ -19,6 +19,7 @@
 #include "profile.h"
 #include "log.h"
 #include "enums.h"
+#include "config.h"
 
 #include <QCursor>
 #include <qlist.h>
@@ -47,6 +48,9 @@ public:
 		// Load the Profile for the player
 		QString filename = QString("profile.%1.%2.xml").arg(socket->account()).arg(Player->serial(), 0, 16);
 		Profile->loadFromFile(filename);
+
+		// Send the client version
+		socket->send(cVersionPacket(Config->clientVersion()));
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -1200,3 +1204,41 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x72, cSetWarmode::creator);
+
+// Request the client version
+class cRequestVersionPacket : public cDynamicIncomingPacket {
+public:
+	cRequestVersionPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		// Simply send the client version to the server
+		socket->send(cVersionPacket(Config->clientVersion()));
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cRequestVersionPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xbd, cRequestVersionPacket::creator);
+
+// The server wants to set the update range
+class cSetUpdateRangePacket : public cDynamicIncomingPacket {
+protected:
+	uchar range;
+public:
+	cSetUpdateRangePacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		input >> range;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		Log->print(LOG_NOTICE, tr("Server is using an update range of %1 tiles.\n").arg(range));
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cSetUpdateRangePacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xc8, cSetUpdateRangePacket::creator);

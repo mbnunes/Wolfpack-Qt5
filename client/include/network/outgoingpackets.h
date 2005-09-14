@@ -136,4 +136,10 @@ public:
 	cWarmodeChangeRequest(bool mode);
 };
 
+// Send the version of this client to the server
+class cVersionPacket : public cOutgoingPacket {
+public:
+	cVersionPacket(const QString &version);
+};
+
 #endif

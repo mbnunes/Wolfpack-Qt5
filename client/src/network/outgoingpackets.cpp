@@ -1,6 +1,7 @@
 
 #include "network/outgoingpackets.h"
 #include "muls/speech.h"
+#include "muls/maps.h"
 #include "game/entity.h"
 #include "game/mobile.h"
 #include "game/statictile.h"
@@ -10,6 +11,24 @@
 #include "log.h"
 
 #include <qglobal.h>
+
+static uint getCapabilities() {
+	uint result = 1; // Rennesaince flag
+
+	if (Maps->facetEnabled(ILSHENAR)) {
+		result |= 0x02 | 0x04; // Third dawn and Lord Blackthornes Revenge flag
+	}
+
+	if (Maps->facetEnabled(MALAS)) {
+		result |= 0x08; // Age of shadows flag
+	}
+
+	if (Maps->facetEnabled(TOKUNO)) {
+		result |= 0x10; // Samurai Empire flag
+	}
+
+	return result;
+}
 
 cLoginPacket::cLoginPacket(const QString &username, const QString &password) : cOutgoingPacket(0x80, 62) {
 	writeFixedAscii(username, 30);
@@ -34,8 +53,11 @@ cDeleteCharacter::cDeleteCharacter(unsigned int id) : cOutgoingPacket(0x83, 39) 
 }
 
 cPlayMobilePacket::cPlayMobilePacket(unsigned char id) : cOutgoingPacket(0x5d, 73) {
-	m_Stream << 0xedededed; // "pattern"
-	fill(60, 0); // name+password are blank since unused
+    m_Stream << 0xedededed; // "pattern"
+	fill(30, 0); // name+password are blank since unused
+	fill(2, 0);
+	m_Stream << getCapabilities(); // Client capabilities
+	fill(24, 0);
 	fill(3, 0); // Unknown. Maybe just the integer slot
 	m_Stream << id;
 	fill(4, 0); // "client-ip" but absolutly unneccesary
@@ -217,7 +239,9 @@ cCharacterCreationPacket::cCharacterCreationPacket(const cCharacterCreationInfo 
 			m_Stream << (uchar)0;
 		}
 	}
-	fill(30, 0); // Password (Now used for profession et al)
+	fill(2, 0); // Password (Now used for profession et al)
+	m_Stream << getCapabilities();
+	fill(24, 0);
 	m_Stream << (uchar)( info.female ? 1 : 0 ) << info.strength << info.dexterity << info.intelligence
 		<< info.skill1 << info.skill1Value << info.skill2 << info.skill2Value << info.skill3 << info.skill3Value
 		<< info.skinColor << info.hairStyle << info.hairColor << info.beardStyle << info.beardColor
@@ -235,4 +259,10 @@ cContextMenuResponsePacket::cContextMenuResponsePacket(uint serial, ushort id) :
 cWarmodeChangeRequest::cWarmodeChangeRequest(bool mode) : cOutgoingPacket(0x72, 5) {
 	m_Stream << (uchar)(mode ? 1 : 0);
 	fill(3, 0);
+}
+
+cVersionPacket::cVersionPacket(const QString &version) : cOutgoingPacket(0xbd, 3) {
+	writeAscii(version);
+	m_Stream << (uchar)0; // Null termination
+	writeDynamicSize();
 }

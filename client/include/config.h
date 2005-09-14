@@ -51,6 +51,7 @@ private:
 	QString screenshotsPath_;
 	bool disableSound_;
 	QString profilePath_;
+	QString clientVersion_;
 
 	bool enableEncryption_;
 	unsigned int encryptionLoginKey1_;
@@ -85,6 +86,9 @@ public:
 
 	const bool packetLogging() { return packetLogging_; }
 	void setPacketLogging(bool data) { packetLogging_ = data; setBool("Logging", "Enable Packet Log", data); }
+
+	const QString &clientVersion() const { return clientVersion_; };
+	void setClientVersion(const QString &data) { clientVersion_ = data; setString("General", "Client Version", data); }	
 
 	// Data Getters/Setters
 	const QString &logPath() { return logPath_; }
