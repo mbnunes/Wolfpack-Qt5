@@ -41,14 +41,16 @@ public:
 	}
 
 	// Get the height in pixels between the up/down buttons
-	inline unsigned int getInnerHeight() {
-		return height_ - btnUp->height() - btnDown->height() - handle->height();
+	inline int getInnerHeight() {
+		return height_ - (btnUp ? btnUp->height() : 0) - (btnDown ? btnDown->height() : 0) - (handle ? handle->height() : 0);
 	}
+
+	void onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight);
 
 	inline void setRange(unsigned int min, unsigned int max) {
 		min_ = min;
 		max_ = max;
-		pixelPerStep = (float)getInnerHeight() / (float)getValues();
+		pixelPerStep = qMax<float>(0, (float)getInnerHeight() / (float)getValues());
 		if (pos_ < min_) {
 			setPos(min_);
 		} else if(pos_ > max_) {
@@ -81,11 +83,19 @@ public:
 	void onMouseUp(QMouseEvent *e);
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
 
+	void setHandleId(ushort id);
+	void setBackgroundId(ushort id);
+	void setUpButtonIds(ushort unpressed, ushort pressed, ushort hover);
+	void setDownButtonIds(ushort unpressed, ushort pressed, ushort hover);
+
 	virtual void onScroll(int oldpos);
 
 public slots:
 	void scrollUp(cControl *sender);
 	void scrollDown(cControl *sender);
+
+signals:
+	void scrolled(int pos);
 };
 
 #endif

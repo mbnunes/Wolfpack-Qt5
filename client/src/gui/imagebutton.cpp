@@ -74,6 +74,11 @@ void cImageButton::setStateGump(enButtonStates state, unsigned short id, unsigne
 	}
 
 	gumps[state] = Gumpart->readTexture(id, hue, partialHue);
+
+	if (gumps[BS_UNPRESSED]) {
+		width_ = gumps[BS_UNPRESSED]->realWidth();
+		height_ = gumps[BS_UNPRESSED]->realHeight();
+	}
 }
 
 cControl *cImageButton::getControl(int x, int y) {

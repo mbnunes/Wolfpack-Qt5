@@ -11,7 +11,7 @@ void cVerticalScrollBar::scrollDown(cControl *sender) {
 	setPos(qMin<int>(max(), pos() + 1));
 }
 
-cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) {
+cVerticalScrollBar::cVerticalScrollBar(int x, int y, unsigned int height) : btnUp(0), btnDown(0), handle(0) {
 	scrollCallback_ = 0;
 
 	btnUp = new cImageButton(0, 0, 0xFA, 0xFB);
@@ -100,4 +100,50 @@ void cVerticalScrollBar::onScroll(int oldpos) {
 	if (scrollCallback_) {
 		scrollCallback_(this, oldpos);
 	}
+	emit scrolled(pos_);
+}
+
+void cVerticalScrollBar::setHandleId(ushort id) {
+	if (handle) {
+		handle->setId(id);
+		handle->setY(getTrackerYFromPos(pos_));
+	}
+}
+
+void cVerticalScrollBar::setBackgroundId(ushort id) {
+	if (background) {
+		background->setId(id);
+	}
+}
+
+void cVerticalScrollBar::setUpButtonIds(ushort unpressed, ushort pressed, ushort hover) {
+	if (btnUp) {
+		btnUp->setStateGump(BS_UNPRESSED, unpressed);
+		btnUp->setStateGump(BS_PRESSED, pressed);
+		btnUp->setStateGump(BS_HOVER, hover);
+		setBounds(x_, y_, btnUp->width(), height_); // Set Width before adding another button
+
+		// Reposition background
+		background->setBounds(0, btnUp->height(), btnUp->width(), height_ - btnUp->height() - btnDown->height());
+		handle->setY(getTrackerYFromPos(pos_));
+	}
+}
+
+void cVerticalScrollBar::setDownButtonIds(ushort unpressed, ushort pressed, ushort hover) {
+	if (btnDown) {
+		btnDown->setStateGump(BS_UNPRESSED, unpressed);
+		btnDown->setStateGump(BS_PRESSED, pressed);
+		btnDown->setStateGump(BS_HOVER, hover);
+		btnDown->setPosition(0, height_ - btnDown->height());
+		setBounds(x_, y_, btnDown->width(), height_); // Set Width before adding another button
+
+		// Reposition background
+		background->setBounds(0, btnUp->height(), btnUp->width(), height_ - btnUp->height() - btnDown->height());
+		handle->setY(getTrackerYFromPos(pos_));
+	}
+}
+
+void cVerticalScrollBar::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight) {
+	pixelPerStep = qMax<float>(0, (float)getInnerHeight() / (float)getValues());
+	cContainer::onChangeBounds(oldx, oldy, oldwidth, oldheight);
 }

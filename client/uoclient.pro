@@ -86,7 +86,9 @@ HEADERS += \
 	include/gui/tooltip.h \
 	include/gui/worldview.h \
 	include/gui/containergump.h \
-	include/gui/textbutton.h
+	include/gui/textbutton.h \
+	include/gui/stripeimage.h \
+	include/gui/combobox.h
 
 # MUL INCLUDES
 HEADERS += \
@@ -159,7 +161,9 @@ SOURCES += \
 	src/gui/window.cpp \
 	src/gui/worldview.cpp \
 	src/gui/containergump.cpp \
-	src/gui/textbutton.cpp
+	src/gui/textbutton.cpp \
+	src/gui/stripeimage.cpp \
+	src/gui/combobox.cpp
 
 SOURCES += \
 	src/network/encryption.cpp \

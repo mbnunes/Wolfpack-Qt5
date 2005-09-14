@@ -19,9 +19,9 @@
 				<position x="0" y="4" />
 			</gumpimage>
 			
-			<textbutton text="Test" style="1">
-				<bounds x="100" y="200" width="100" height="35" />
-			</textbutton>
+			<combobox style="0">
+				<bounds x="100" y="200" width="125" height="60" />
+			</combobox>
 			
 			<!-- Quit Button -->
 			<imagebutton name="QuitButton" unpressed="0x1589" pressed="0x158B" hover="0x158A">

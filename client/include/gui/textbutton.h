@@ -5,6 +5,7 @@
 #include "gui/control.h"
 #include "gui/label.h"
 #include "gui/bordergump.h"
+#include "gui/stripeimage.h"
 #include "gui/gui.h"
 
 #include <QString>
@@ -15,14 +16,18 @@ public:
 	enum Style {
 		Style1 = 0,
 		Style2,
+		Style3,
+		Style4,
 		StyleCount,
 	};
 
 private:
 	bool dirty;
+	bool backgroundStripe;
 
 protected:
 	cBorderGump *backgroundGump_[3];
+	cStripeImage *backgroundStripes_[3];
 	ushort backgroundHue_;
 	cLabel *label_[2];
 	

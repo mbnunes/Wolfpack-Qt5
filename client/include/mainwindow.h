@@ -46,6 +46,7 @@ protected:
 	QTimer singleClickTimer;
 	QMouseEvent *singleClickEvent;
 	bool ignoreReturn;
+	bool ignoreMouseRelease;
 
 	int lastMouseX, lastMouseY;
 

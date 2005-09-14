@@ -6,7 +6,7 @@
 
 cBorderGump::cBorderGump() {
 	moveHandle_ = true;
-	id_ = 0;
+	memset(ids_, 0, sizeof(ids_));
 	hue_ = 0;
 	partialHue_ = false;
 	dirty = true;
@@ -24,7 +24,7 @@ cBorderGump::cBorderGump() {
 
 cBorderGump::cBorderGump(unsigned short id, unsigned short hue, bool partialHue) {
 	moveHandle_ = true;
-	id_ = id;
+	setId(id);
 	hue_ = hue;
 	partialHue_ = partialHue;
 	dirty = true;
@@ -36,52 +36,55 @@ cBorderGump::~cBorderGump() {
 void cBorderGump::update() {
 	clear(); // Clear all children
 
-	if (id_ == 0) {
-		return;  // Invalid id
+	// Check if _any_ of the ids is zero (=> invalid)
+	for (int i = 0; i < 9; ++i) {
+		if (ids_[i] == 0) {
+			return;
+		}
 	}
 
 	// Upper Left
-	uleft = new cGumpImage(id_, hue_);
+	uleft = new cGumpImage(ids_[0], hue_, partialHue_);
 	uleft->update();
 	addControl(uleft);
 
 	// Upper Right
-	uright = new cGumpImage(id_ + 2, hue_);
+	uright = new cGumpImage(ids_[2], hue_, partialHue_);
 	uright->update();
 	addControl(uright);
 
 	// Lower Left
-	lleft = new cGumpImage(id_ + 6, hue_);
+	lleft = new cGumpImage(ids_[6], hue_, partialHue_);
 	lleft->update();
 	addControl(lleft);
 
 	// Lower Right
-	lright = new cGumpImage(id_ + 8, hue_);
+	lright = new cGumpImage(ids_[8], hue_, partialHue_);
 	lright->update();
 	addControl(lright);
 
 	// Top
-	top = new cTiledGumpImage(id_ + 1, hue_);
+	top = new cTiledGumpImage(ids_[1], hue_, partialHue_);
 	top->update();
 	addControl(top);
 
 	// Left
-	left = new cTiledGumpImage(id_ + 3, hue_);
+	left = new cTiledGumpImage(ids_[3], hue_, partialHue_);
 	left->update();
 	addControl(left);
 
 	// Right
-	right = new cTiledGumpImage(id_ + 5, hue_);
+	right = new cTiledGumpImage(ids_[5], hue_, partialHue_);
 	right->update();
 	addControl(right);
 
 	// Bottom
-	bottom = new cTiledGumpImage(id_ + 7, hue_);
+	bottom = new cTiledGumpImage(ids_[7], hue_, partialHue_);
 	bottom->update();
 	addControl(bottom);
 
 	// Center
-	center = new cTiledGumpImage(id_ + 4, hue_);
+	center = new cTiledGumpImage(ids_[4], hue_, partialHue_);
 	center->update();
 	addControl(center);
 

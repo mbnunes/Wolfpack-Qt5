@@ -12,6 +12,8 @@
 
 class cEntity;
 
+class cCombolist;
+
 class cGui : public cContainer {
 Q_OBJECT
 Q_PROPERTY(cControl* inputfocus READ inputFocus WRITE setInputFocus)
@@ -20,6 +22,7 @@ Q_PROPERTY(cWindow* activewindow READ activeWindow WRITE setActiveWindow)
 private:
 	cControl *inputFocus_; // Pointer to the control with the input focus
 	cWindow *activeWindow_; // In principle this is the currently active window
+	cCombolist *currentCombolist_; // Current combolist
 
 	// Private data class for overhead text information
 	class cOverheadInfo {
@@ -45,6 +48,9 @@ public:
 
 	inline cControl *inputFocus() { return inputFocus_; }
 	void setInputFocus(cControl *focus);
+
+	inline cCombolist *currentCombolist() const;
+	void setCurrentCombolist(cCombolist *list);
 
 	// This event should be issued by the cControl destructor to 
 	// clear pointers
@@ -74,6 +80,10 @@ public slots:
 
 inline bool cGui::isTemplateAvailable(QString name) const {
 	return dialogTemplates.find(name) != dialogTemplates.end();
+}
+
+inline cCombolist *cGui::currentCombolist() const {
+	return currentCombolist_;
 }
 
 extern cGui *Gui;

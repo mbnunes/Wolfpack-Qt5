@@ -4,6 +4,7 @@
 #include "gui/cursor.h"
 #include "gui/contextmenu.h"
 #include "gui/worldview.h"
+#include "gui/combobox.h"
 #include "game/world.h"
 #include "game/dynamicitem.h"
 #include "game/mobile.h"
@@ -346,6 +347,7 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 	singleClickTimer.stop();
 	connect(&singleClickTimer, SIGNAL(timeout()), this, SLOT(singleClick()));
 
+	ignoreMouseRelease = false;
 	singleClickEvent = 0;
 	lastDoubleClick = false;
 }
@@ -487,7 +489,13 @@ void cGLWidget::mouseMoveEvent(QMouseEvent *e) {
 	lastMouseX = e->x();
 	lastMouseY = e->y();
 
-	cControl *motionControl = Gui->getControl(e->x(), e->y());
+	cControl *motionControl;
+	if (Gui->currentCombolist()) {
+		motionControl = Gui->currentCombolist()->getControl(e->x() - Gui->currentCombolist()->x(), e->y() - Gui->currentCombolist()->y());
+	} else {
+		motionControl = Gui->getControl(e->x(), e->y());
+	}
+	
 	if (motionControl != lastMouseMovement_) {
 		if (lastMouseMovement_) {
 			lastMouseMovement_->onMouseLeave();
@@ -507,7 +515,11 @@ void cGLWidget::mouseMoveEvent(QMouseEvent *e) {
 	}
 
 	if (!control) {
-		control = Gui->getControl(e->x(), e->y());
+		if (Gui->currentCombolist()) {
+			control = Gui->currentCombolist()->getControl(e->x() - Gui->currentCombolist()->x(), e->y() - Gui->currentCombolist()->y());
+		} else {
+			control = Gui->getControl(e->x(), e->y());
+		}
 	}
 
 	if (control) {
@@ -555,10 +567,19 @@ void cGLWidget::keyPressEvent(QKeyEvent *e) {
 			}
 		}
 	} else {
-		// Forward it to the control with the input focus. Otherwise go trough all controls.
-		if (Gui->inputFocus()) {
-			Gui->inputFocus()->onKeyDown(e);
-			ignoreReturn = true;
+		// The combo list supercedes _all_ other controls
+		if (Gui->currentCombolist()) {
+			if (e->key() == Qt::Key_Escape) {
+				Gui->setCurrentCombolist(0);
+			} else {
+				Gui->currentCombolist()->onKeyDown(e);
+			}
+		} else {
+			// Forward it to the control with the input focus. Otherwise go trough all controls.
+			if (Gui->inputFocus()) {
+				Gui->inputFocus()->onKeyDown(e);
+				ignoreReturn = true;
+			}
 		}
 	}
 
@@ -574,7 +595,13 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 	}
 
 	// Forward it to the control with the input focus. Otherwise go trough all controls.
-	if (Gui->inputFocus()) {
+	if (Gui->currentCombolist()) {
+		if (e->key() == Qt::Key_Escape) {
+			Gui->setCurrentCombolist(0);
+		} else {
+			Gui->currentCombolist()->onKeyUp(e);
+		}
+	} else if (Gui->inputFocus()) {
 		Gui->inputFocus()->onKeyUp(e);
 	} else {
 		if (!ignoreReturn && WorldView && WorldView->isVisible() && e->modifiers() == Qt::NoModifier && (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter)) {
@@ -606,7 +633,21 @@ void cGLWidget::mousePressEvent(QMouseEvent *e) {
 	if (mouseCapture_) {
 		mouseCapture_->onMouseDown(e);
 	} else {
-		cControl *control = Gui->getControl(e->x(), e->y());
+		cControl *control;
+
+		// If a contextmenu is currently visible and we're not clicking on something inside it,
+		// eat the event and close the menu
+		if (Gui->currentCombolist()) {
+			control = Gui->currentCombolist()->getControl(e->x() - Gui->currentCombolist()->x(), e->y() - Gui->currentCombolist()->y());
+			if (!control) {
+				ignoreMouseRelease = true; // Ignore the next mouse release event
+				Gui->setCurrentCombolist(0);
+				return;
+			}
+		} else {
+			control = Gui->getControl(e->x(), e->y());
+		}
+
 		if (control) {
 			control->onMouseDown(e);
 			mouseCapture_ = control;
@@ -639,6 +680,11 @@ void cGLWidget::mousePressEvent(QMouseEvent *e) {
 }
 
 void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
+	if (ignoreMouseRelease) {
+		ignoreMouseRelease = false;
+		return;
+	}
+
 	if (e->button() == Qt::LeftButton && lastDoubleClick) {
 		lastDoubleClick = false;
 		return;
@@ -654,7 +700,13 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	cControl *control = mouseCapture_;
 	mouseCapture_ = 0; // Reset mouse capture
 	if (!control) {
-		control = Gui->getControl(e->x(), e->y());
+		// If a contextmenu is currently visible and we're not clicking on something inside it,
+		// eat the event and close the menu
+		if (Gui->currentCombolist()) {
+			control = Gui->currentCombolist()->getControl(e->x() - Gui->currentCombolist()->x(), e->y() - Gui->currentCombolist()->y());
+		} else {
+			control = Gui->getControl(e->x(), e->y());
+		}
 	}
 	if (control) {
 		if (control == WorldView && WorldView->targetRequest()) {
@@ -680,7 +732,13 @@ void cGLWidget::singleClick() {
 		// Post the event to the gui system
 		cControl *control = mouseCapture_;
 		if (!control) {
-			control = Gui->getControl(singleClickEvent->x(), singleClickEvent->y());
+			// If a contextmenu is currently visible and we're not clicking on something inside it,
+			// eat the event and close the menu
+			if (Gui->currentCombolist()) {
+				control = Gui->currentCombolist()->getControl(singleClickEvent->x() - Gui->currentCombolist()->x(), singleClickEvent->y() - Gui->currentCombolist()->y());
+			} else {
+				control = Gui->getControl(singleClickEvent->x(), singleClickEvent->y());
+			}			
 		}
 		if (control) {
 			control->onClick(singleClickEvent);
@@ -696,7 +754,20 @@ void cGLWidget::mouseDoubleClickEvent(QMouseEvent * e) {
 	lastDoubleClick = true;
 	singleClickTimer.stop();
 
-	cControl *control = control = Gui->getControl(e->x(), e->y());
+	cControl *control;
+
+	// If a contextmenu is currently visible and we're not clicking on something inside it,
+	// eat the event and close the menu
+	if (Gui->currentCombolist()) {
+		control = Gui->currentCombolist()->getControl(e->x() - Gui->currentCombolist()->x(), e->y() - Gui->currentCombolist()->y());
+		if (!control) {
+			Gui->setCurrentCombolist(0);
+			return;
+		}
+	} else {
+		control = Gui->getControl(e->x(), e->y());
+	}
+
 	if (control) {
 		control->processDoubleClick(e);
 	}

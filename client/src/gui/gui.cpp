@@ -4,6 +4,7 @@
 #include "gui/window.h"
 #include "gui/asciilabel.h"
 #include "gui/label.h"
+#include "gui/combobox.h"
 #include "gui/worldview.h"
 #include "gui/imagebutton.h"
 #include "gui/genericgump.h"
@@ -12,6 +13,7 @@
 #include "gui/textfield.h"
 #include "gui/tooltip.h"
 #include "gui/textbutton.h"
+#include "gui/stripeimage.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
 #include "game/dynamicitem.h"
@@ -34,6 +36,7 @@ cGui::cGui() {
 	setObjectName("Gui");
 	inputFocus_ = 0;
 	activeWindow_ = 0;
+	currentCombolist_ = 0;
 	cleaningUpOverheadText = false;
 }
 
@@ -174,6 +177,11 @@ void cGui::draw() {
 				Tooltip->draw(xpos, ypos);
 			}
 		}
+	}
+
+	// Combo lists come last
+	if (currentCombolist_) {
+		currentCombolist_->draw(0, 0);
 	}
 }
 
@@ -478,6 +486,10 @@ cControl *cGui::createControl(QDomElement templateNode) {
 		result = new cCheckerTrans;
 	} else if (className == "textbutton") {
 		result = new cTextButton;
+	} else if (className == "stripeimage") {
+		result = new cStripeImage;
+	} else if (className == "combobox") {
+		result = new cCombobox;
 	}
 
 	if (result) {
@@ -501,3 +513,13 @@ cControl *cGui::createControl(QDomElement templateNode) {
 
 	return result;
 }
+
+void cGui::setCurrentCombolist(cCombolist *list) {
+	if (list != currentCombolist_) {
+		delete currentCombolist_;
+	}
+
+	currentCombolist_ = list;
+}
+
+

@@ -3,9 +3,12 @@
 #include "utilities.h"
 #include <QTimer>
 
-static const ushort styles[cTextButton::StyleCount][3] = {
-	{ 0x24b8, 0x24ea, 0x251c },
-	{ 0x254e, 0x2557, 0x2560 },
+static const ushort styles[cTextButton::StyleCount][4] = {
+	// UNPRESSED, HOVER, PRESSED, Stripe Flag
+	{ 0x24b8, 0x24ea, 0x251c, 0 },
+	{ 0x254e, 0x2557, 0x2560, 0 },
+	{ 0x2904, 0x2907, 0x290a, 1 },
+	{ 0x2936, 0x2939, 0x293c, 1 },
 };
 
 cTextButton::cTextButton() {
@@ -13,6 +16,7 @@ cTextButton::cTextButton() {
 	dirty = true;
 	for (int i = 0; i < 3; ++i) {
 		backgroundGump_[i] = 0;		
+		backgroundStripes_[i] = 0;
 	}
 	label_[0] = 0;
 	label_[1] = 0;
@@ -36,6 +40,7 @@ cTextButton::cTextButton() {
 cTextButton::~cTextButton() {
 	for (int i = 0; i < 3; ++i) {
 		delete backgroundGump_[i];
+		delete backgroundStripes_[i];
 	}
 	delete label_[0];
 	delete label_[1];
@@ -45,14 +50,34 @@ void cTextButton::update() {
 	if (!dirty) {
 		return;
 	}
-	
+
+	// The Background is a stripe if the style is flagged as such
+	backgroundStripe = styles[style_][3] != 0;
+
 	for (int i = 0; i < 3; ++i) {
 		delete backgroundGump_[i];
-		if (styles[style_][i] != 0) {
-			backgroundGump_[i] = new cBorderGump(styles[style_][i], backgroundHue_, true);
-			backgroundGump_[i]->setMoveHandle(false);
-			backgroundGump_[i]->setMovable(false);
-			backgroundGump_[i]->setSize(width_, height_);
+		backgroundGump_[i] = 0;
+		delete backgroundStripes_[i];
+		backgroundStripes_[i] = 0;
+
+		// The Background is a stripe
+		if (backgroundStripe) {
+			if (styles[style_][i] != 0) {
+				backgroundStripes_[i] = new cStripeImage;
+				backgroundStripes_[i]->setId(styles[style_][i]);
+				backgroundStripes_[i]->setHue(backgroundHue_);
+				backgroundStripes_[i]->setPartialHue(true);
+				backgroundStripes_[i]->setMoveHandle(false);
+				backgroundStripes_[i]->setMovable(false);
+				backgroundStripes_[i]->setSize(width_, height_);
+			}
+		} else {
+			if (styles[style_][i] != 0) {
+				backgroundGump_[i] = new cBorderGump(styles[style_][i], backgroundHue_, true);
+				backgroundGump_[i]->setMoveHandle(false);
+				backgroundGump_[i]->setMovable(false);
+				backgroundGump_[i]->setSize(width_, height_);
+			}
 		}
 	}
 
@@ -71,8 +96,14 @@ void cTextButton::draw(int xoffset, int yoffset) {
 
 	enButtonStates state = getState();
 
-	if (backgroundGump_[state]) {
-		backgroundGump_[state]->draw(xoffset + x_, yoffset + y_);
+	if (backgroundStripe) {
+		if (backgroundStripes_[state]) {
+			backgroundStripes_[state]->draw(xoffset + x_, yoffset + y_);
+		}
+	} else {
+		if (backgroundGump_[state]) {
+			backgroundGump_[state]->draw(xoffset + x_, yoffset + y_);
+		}
 	}
 
 	if (state == BS_UNPRESSED) {
@@ -153,7 +184,13 @@ void cTextButton::onBlur(cControl *newFocus) {
 }
 
 cControl *cTextButton::getControl(int x, int y) {
-	cBorderGump *gump = backgroundGump_[getState()];
+	cControl *gump;
+	
+	if (backgroundStripe) {
+		gump = backgroundStripes_[getState()];
+	} else {
+		gump = backgroundGump_[getState()];
+	}
 
 	if (gump && gump->getControl(x, y) != 0) {
 		return this;
