@@ -382,12 +382,19 @@ class CookItemAction(CraftItemAction):
 
 	def make(self, player, arguments, nodelay=0):
 		if self.useallres:
+			found = False
 			for item in player.getbackpack().content:
 				if item.baseid == self.materials[0][0][0]:
+					found = True
 					nodelay = True
 					# stop if making fails
 					if not CraftItemAction.make(self, player, arguments, nodelay):
 						break
+
+			if not found:
+				# we have no material, but call make method do display error message
+				# and reopen the crafting dialog
+				return CraftItemAction.make(self, player, arguments, nodelay)
 
 		else:
 			return CraftItemAction.make(self, player, arguments, nodelay)

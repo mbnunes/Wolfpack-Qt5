@@ -29,6 +29,8 @@ def onContextCheckEnabled( char, target, tag ):
 		return False # disabled
 	if ( char.skill[ skill ] >= char.skillcap[ skill ] ):
 		return False # disabled
+	if ( char.skill[ skill ] >= int( target.skill[ skill ] / ( 1000.0 / MAX_TEACHING ) ) ):
+		return False # disabled
 	else:
 		return True #enabled
 
@@ -37,7 +39,7 @@ def onContextEntry( char, target, tag  ):
 	if ( char.dead or skill < 0 ):
 		return True
 
-	baseToSet = target.skill[ skill ] / ( 1000 / MAX_TEACHING )
+	baseToSet = int( target.skill[ skill ] / ( 1000.0 / MAX_TEACHING ) )
 	if ( baseToSet > MAX_TEACHING ):
 		baseToSet = MAX_TEACHING
 	elif ( baseToSet < MIN_TEACHING ):
@@ -88,7 +90,7 @@ def onDropOnChar( char, item ):
 		if ( sum >= cap ):
 			return False
 
-		baseToSet = char.skill[ skill ] / ( 1000 / MAX_TEACHING )
+		baseToSet = int( char.skill[ skill ] / ( 1000.0 / MAX_TEACHING ) )
 		if ( baseToSet > MAX_TEACHING ):
 			baseToSet = MAX_TEACHING
 		elif ( baseToSet < MIN_TEACHING ):

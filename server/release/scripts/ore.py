@@ -322,6 +322,9 @@ def dosmelt(char, args):
 			char.socket.clilocmessage( 501989, '', GRAY )
 			ore.delete()
 
+	# Resend weight
+	char.socket.resendstatus()
+
 	return True
 
 def successsmelt(char, resname, amount):
