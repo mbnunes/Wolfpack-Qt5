@@ -20,11 +20,14 @@ private:
 	bool autoSize_;
 	bool exactHitTest_;
 	bool htmlMode_;
+	uint borderColor_;
+	bool emboss_;
 public:
 	cLabel(const QString &text, unsigned short font = 0, unsigned short hue = 0, bool border = true, enTextAlign align_ = ALIGN_LEFT, bool autoSize = true);
 	cLabel();
 	virtual ~cLabel();
 
+public slots:
 	cControl *getControl(int x, int y);
 
 	// Getters
@@ -35,9 +38,14 @@ public:
 	enTextAlign align() const { return align_; }
 	bool autoSize() const { return align_; }
 	bool exactHitTest() const { return exactHitTest_; }
+	uint borderColor() const;
+	void setBorderColor(uint color);
 	void update();
 	bool htmlMode() const;
 	void setHtmlMode(bool data);
+	bool emboss() const;
+	void setEmboss(bool data);
+	
 
 	// Setters
 	inline void setExactHitTest(bool data) {
@@ -110,6 +118,23 @@ inline bool cLabel::htmlMode() const {
 
 inline void cLabel::setHtmlMode(bool data) {
 	htmlMode_ = data;
+}
+
+inline bool cLabel::emboss() const {
+	return emboss_;
+}
+
+inline void cLabel::setEmboss(bool data) {
+	emboss_ = data;
+}
+
+
+inline uint cLabel::borderColor() const {
+	return borderColor_;
+}
+
+inline void cLabel::setBorderColor(uint color) {
+	borderColor_ = color;
 }
 
 #endif

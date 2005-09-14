@@ -274,4 +274,58 @@
 			</container>			
 		</children>
 	</dialog>
+	
+	<!-- Character creation subwindow -->
+	<dialog id="CharacterCreation1" name="CharacterCreation1" closable="0" movable="0" class="CharacterCreation" visible="false">
+		<bounds x="0" y="0" width="640" height="480" />
+		<children>
+			<bordergump gump="2600">
+				<bounds x="100" y="80" width="470" height="372" />
+			</bordergump>		
+			
+			<gumpimage gump="1419">
+				<position x="213" y="57" />
+			</gumpimage>
+			
+			<gumpimage gump="1417">
+				<position x="290" y="44" />
+			</gumpimage>
+			
+			<gumpimage gump="5546">
+				<position x="299" y="53" />
+			</gumpimage>
+			
+			<label name="TitleLabel" font="0" localized="3000326" hue="1" bordercolor="0xC0B088" emboss="true">
+				<position x="135" y="125"/>
+			</label>			
+		</children>
+	</dialog>
+	
+<!--#advancedoption
+rect 0 0 195 gh5504+7
+button 10049 R-gw5504 0 5505 5506 5506 0 2
+
+sizablebackground 10 13 R-20 34 3000 3001 3002 3003 3004 3005 3006 3007 3008 1
+
+//Advanced
+text 17 20 R-gw5504 B 0 3000448			 -->	
+	
+	
+	<!-- Template for one of the templates on the template selection screen -->
+	<dialog id="CharacterTemplate" closable="0" movable="0">
+		<size width="195" height="67" />
+		<children>
+			<bordergump gump="3000">
+				<bounds x="10" y="13" width="175" height="34" />
+			</bordergump>	
+			
+			<imagebutton name="TemplateButton" unpressed="5505" pressed="5506" hover="5506">
+				<position x="135" y="0" />
+			</imagebutton>
+			
+			<label name="TemplateLabel" font="1" localized="3000448" hue="1" border="false">
+				<position x="17" y="20"/>
+			</label>			
+		</children>
+	</dialog>
 </dialogs>

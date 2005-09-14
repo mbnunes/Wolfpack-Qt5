@@ -39,10 +39,10 @@ public:
 
 	// Get a single pixel value. Must be locked first.
 	unsigned int getPixel(unsigned int x, unsigned int y) const;
-	unsigned char red(unsigned int color) const;
-	unsigned char blue(unsigned int color) const;
-	unsigned char alpha(unsigned int color) const;
-	unsigned char green(unsigned int color) const;
+	static unsigned char red(unsigned int color);
+	static unsigned char blue(unsigned int color);
+	static unsigned char alpha(unsigned int color);
+	static unsigned char green(unsigned int color);
 
 	// Getters
 	int width() const;
@@ -73,19 +73,19 @@ inline unsigned int cSurface::color(unsigned char r, unsigned char g, unsigned c
 	return ((a << 24) | (b << 16) | (g << 8) | r);
 }
 
-inline unsigned char cSurface::red(unsigned int color) const {
+inline unsigned char cSurface::red(unsigned int color) {
 	return color & 0xFF;
 }
 
-inline unsigned char cSurface::blue(unsigned int color) const {
+inline unsigned char cSurface::blue(unsigned int color) {
 	return (color >> 16) & 0xFF;
 }
 
-inline unsigned char cSurface::alpha(unsigned int color) const {
+inline unsigned char cSurface::alpha(unsigned int color) {
 	return (color >> 24) & 0xFF;
 }
 
-inline unsigned char cSurface::green(unsigned int color) const {
+inline unsigned char cSurface::green(unsigned int color) {
 	return (color >> 8) & 0xFF;
 }
 

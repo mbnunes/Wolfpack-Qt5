@@ -142,4 +142,10 @@ public:
 	cVersionPacket(const QString &version);
 };
 
+// Send the client language to the server
+class cLanguagePacket : public cOutgoingPacket {
+public:
+	cLanguagePacket(const QString &language);
+};
+
 #endif

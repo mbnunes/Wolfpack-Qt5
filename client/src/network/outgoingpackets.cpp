@@ -266,3 +266,10 @@ cVersionPacket::cVersionPacket(const QString &version) : cOutgoingPacket(0xbd, 3
 	m_Stream << (uchar)0; // Null termination
 	writeDynamicSize();
 }
+
+cLanguagePacket::cLanguagePacket(const QString &language) : cOutgoingPacket(0xbf, 9) {
+	m_Stream << (ushort)0x0b; // packet id
+	writeAscii(language.left(3).toUpper()); // Write first 3 characters of the language (everything else is ignored anyway)
+	m_Stream << (uchar)0; // Null termination
+	writeDynamicSize(); // Finalize packet
+}

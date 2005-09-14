@@ -36,8 +36,8 @@ public:
 
 	// Build a text string
 	bool isCharacterSupported(uchar font, ushort ch) const;
-	cTexture *buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, bool border = false, enTextAlign align = ALIGN_LEFT, bool processHtml = false);
-	cTexture *buildText(unsigned char font, QString	text, unsigned short hue = 0, bool shaded = false, bool border = false, enTextAlign align = ALIGN_LEFT, bool processHtml = false);
+	cTexture *buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, bool border = false, enTextAlign align = ALIGN_LEFT, bool processHtml = false, uint borderColor = 0, bool emboss = false);
+	cTexture *buildText(unsigned char font, QString	text, unsigned short hue = 0, bool shaded = false, bool border = false, enTextAlign align = ALIGN_LEFT, bool processHtml = false, uint borderColor = 0, bool emboss = false);
     stUnicodeCharInfo getCharacterInfo(uchar font, ushort ch);
 	int getCharacterWidth(uchar font, const QString &text, uint pos, QChar ch);
 };

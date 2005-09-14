@@ -52,7 +52,7 @@ void cUnicodeFonts::reload() {
 	load();
 }
 
-cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, bool border, enTextAlign align, bool processHtml) {
+cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, bool border, enTextAlign align, bool processHtml, uint borderColor, bool emboss) {
 	// Insert Newslines if the word would exceed the maxWidth boundary
 	unsigned int lineLength = 0;
 	QString wrapped;
@@ -92,14 +92,14 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 		wrapped += word;
 	}
 
-	return buildText(font, wrapped, hue, shaded, border, align, processHtml);
+	return buildText(font, wrapped, hue, shaded, border, align, processHtml, borderColor, emboss);
 }
 
 /*
 	This will be a very very long function but for speeds sake i can't split it up.
 
 */
-cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned short hueid, bool shaded, bool border, enTextAlign align, bool processHtml) {
+cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned short hueid, bool shaded, bool border, enTextAlign align, bool processHtml, uint bordercolor, bool emboss) {
 	font %= 3; // Wrap the font
 	stHue *hue = Hues->get(hueid); // Cache the hue
 
@@ -110,7 +110,17 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 	} else {
 		foreground = cSurface::color(hue->colors[31].r, hue->colors[31].g, hue->colors[31].b);
 	}
-	unsigned int bordercolor = cSurface::color(0, 0, 8); // cache the border color
+
+	if (bordercolor == 0) {
+		bordercolor = cSurface::color(0, 0, 8); // cache the border color
+	}
+
+	uint embossLow, embossMedium;
+	// Only calculate if neccesary
+	if (border && emboss) {
+		embossLow = cSurface::color(cSurface::red(bordercolor) / 2, cSurface::green(bordercolor) / 2, cSurface::blue(bordercolor) / 2);
+		embossMedium = cSurface::color(cSurface::red(bordercolor) * 0.75, cSurface::green(bordercolor) * 0.75, cSurface::blue(bordercolor) * 0.75);
+	}
 
 	unsigned int width = 0; // Total width of the text
 	unsigned int height = 0; // Total height of the text
@@ -378,14 +388,39 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 						if (drawpixel) {
 							*((unsigned int*)ptr) = foreground;
 							if (border) {
-								for (int bordery = -1; bordery < 2; ++bordery) {
-									unsigned char *borderptr = (ptr + bordery * (surface->width() * 4) - 4);
-									unsigned char *borderendptr = borderptr + 12;
-									while (borderptr != borderendptr) {
-										if (*((unsigned int*)borderptr) != foreground) {
-											*((unsigned int*)borderptr) = bordercolor;
+								if (!emboss) {
+									for (int bordery = -1; bordery < 2; ++bordery) {
+										for (int borderx = -1; borderx < 2; ++borderx) {
+											uchar *borderptr = (ptr + bordery * (surface->width() * 4) + borderx * 4);
+											if (*((unsigned int*)borderptr) != foreground) {
+												*((unsigned int*)borderptr) = bordercolor;
+											}
 										}
-										borderptr += 4;
+									}
+								} else {
+									// Check the one pixel radius of our drawn pixel here
+									for (int bordery = -1; bordery < 2; ++bordery) {
+										for (int borderx = -1; borderx < 2; ++borderx) {
+											uchar *borderptr = (ptr + bordery * (surface->width() * 4) + borderx * 4);
+											if (*((unsigned int*)borderptr) != foreground && *((unsigned int*)borderptr) != embossMedium) {
+												// Only draw directly above/left/right/below the current pixel
+												if ((bordery < 0 && borderx == 0) || (borderx > 0 && bordery == 0)) {
+													// If the color at the given point is _high_, we create a mixed color
+													if (*((unsigned int*)borderptr) == bordercolor) {
+														*((unsigned int*)borderptr) = embossMedium;
+													} else {
+														*((unsigned int*)borderptr) = embossLow;
+													}													
+												} else if ((bordery > 0 && borderx == 0) || (borderx < 0 && bordery == 0)) {
+													// If the color at the given pixel is low it means it lies between two "different" shadow forms (=mixed)
+													if (*((unsigned int*)borderptr) == embossLow) {
+														*((unsigned int*)borderptr) = embossMedium;
+													} else {
+														*((unsigned int*)borderptr) = bordercolor;
+													}
+												}
+											}
+										}
 									}
 								}
 							}

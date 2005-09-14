@@ -51,6 +51,7 @@ public:
 
 		// Send the client version
 		socket->send(cVersionPacket(Config->clientVersion()));
+		socket->send(cLanguagePacket(Utilities::localLanguage()));
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

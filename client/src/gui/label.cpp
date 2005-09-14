@@ -4,6 +4,7 @@
 #include "gui/label.h"
 #include "muls/unicodefonts.h"
 #include "muls/asciifonts.h"
+#include "muls/localization.h"
 
 cLabel::cLabel() {
 	surface = 0;
@@ -14,6 +15,8 @@ cLabel::cLabel() {
 	autoSize_ = true;
 	exactHitTest_ = false;
 	htmlMode_ = false;
+	borderColor_ = 0;
+	emboss_ = false;
 }
 
 cLabel::cLabel(const QString &text, unsigned short font, unsigned short hue, bool border, enTextAlign align, bool autoSize) {
@@ -26,6 +29,8 @@ cLabel::cLabel(const QString &text, unsigned short font, unsigned short hue, boo
 	autoSize_ = autoSize;
 	exactHitTest_ = false;
 	htmlMode_ = false;
+	borderColor_ = 0;
+	emboss_ = false;
 }
 
 cLabel::~cLabel() {
@@ -40,9 +45,9 @@ void cLabel::update() {
 	}
 
 	if (autoSize_ || width_ == 0) {
-		surface = UnicodeFonts->buildText(font_, text_, hue_, false, border_, align_, htmlMode_);
+		surface = UnicodeFonts->buildText(font_, text_, hue_, false, border_, align_, htmlMode_, borderColor_, emboss_);
 	} else {
-		surface = UnicodeFonts->buildTextWrapped(font_, text_, width_, hue_, false, border_, align_, htmlMode_);
+		surface = UnicodeFonts->buildTextWrapped(font_, text_, width_, hue_, false, border_, align_, htmlMode_, borderColor_, emboss_);
 	}
 
 	if (autoSize_ && surface) {
@@ -101,6 +106,8 @@ void cLabel::processDefinitionAttribute(QString name, QString value) {
 		setBorder(Utilities::stringToBool(value));
 	} else if (name == "htmlmode") {
 		setHtmlMode(Utilities::stringToBool(value));
+	} else if (name == "emboss") {
+		setEmboss(Utilities::stringToBool(value));
 	} else if (name == "textalign") {
 		if (value == "left") {
 			setAlign(ALIGN_LEFT);
@@ -109,6 +116,15 @@ void cLabel::processDefinitionAttribute(QString name, QString value) {
 		} else if (value == "right") {
 			setAlign(ALIGN_RIGHT);
 		}
+	} else if (name == "bordercolor") {
+		uint color = Utilities::stringToUInt(value);
+		if (color != 0) {
+			borderColor_ = cSurface::color((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+		} else {
+			borderColor_ = 0;
+		}
+	} else if (name == "localized") {
+		setText(Localization->get(Utilities::stringToUInt(value)));
 	} else {
 		cControl::processDefinitionAttribute(name, value);
 	}
