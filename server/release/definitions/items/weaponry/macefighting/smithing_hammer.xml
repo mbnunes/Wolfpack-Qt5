@@ -15,7 +15,7 @@
 		<onehanded />
 		<decay />
 		<nodye />
-		<basescripts>skills.blacksmithing,equipment</basescripts>
+		<basescripts>equipment,skills.blacksmithing</basescripts>
 		<type>1004</type>
 		<category>Base Weapons\Maces\Smith's Hammer (W/E)</category>
 		<sellprice>15</sellprice>

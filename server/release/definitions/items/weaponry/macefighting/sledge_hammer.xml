@@ -20,7 +20,7 @@
 		<buyprice>32</buyprice>
 		<weight>5.0</weight>
 		<durability><random min="30" max="40" /></durability>
-		<basescripts>skills.blacksmithing,equipment</basescripts>
+		<basescripts>equipment,skills.blacksmithing</basescripts>
 		<category>Base Weapons\Maces\Sledge Hammer (W/E)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
