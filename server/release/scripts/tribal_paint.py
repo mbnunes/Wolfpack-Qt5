@@ -24,7 +24,7 @@ def onUse( char, item ):
 		char.update()
 		char.addtimer( duration, paint_expire, [], True, False, 'tribal_paint', dispel_callback  )
 		char.socket.clilocmessage( 1042537 ) # You now bear the markings of the savage tribe.  Your body paint will last about a week or you can remove it with an oil cloth.
-	item.delete()
+		item.delete()
 	return True
 
 def paint_expire( char, args ):
