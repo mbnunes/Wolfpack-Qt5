@@ -1,4 +1,3 @@
-
 import wolfpack
 from wolfpack.utilities import *
 from wolfpack.consts import *
@@ -103,6 +102,22 @@ def modifiers(object, tooltip):
 	selfrepair = properties.fromitem(object, SELFREPAIR)
 	if selfrepair != 0:
 		tooltip.add(1060450, str(selfrepair))
+
+def requirements(object, tooltip):
+	# Tag will override.
+	lower = properties.fromitem(object, LOWERREQS)
+	if lower:
+		tooltip.add(1060435, str(lower))
+	lower /= 100.0
+
+	req_str = object.getintproperty( 'req_strength', 0 )
+	if object.hastag( 'req_strength' ):
+		req_str = int( object.gettag( 'req_strength' ) )
+
+	if lower:
+		req_str = int(ceil(req_str) * (1.0 - lower))
+	if req_str:
+		tooltip.add(1061170, str(req_str))
 
 #
 # Equipment has a lot of additional effects.
@@ -359,20 +374,7 @@ def onShowTooltip(viewer, object, tooltip):
 	if lowerreags:
 		tooltip.add(1060434, str(lowerreags))
 
-	lower = properties.fromitem(object, LOWERREQS)
-	if lower:
-		tooltip.add(1060435, str(lower))
-	lower /= 100.0
-
-	# Tag will override.
-	req_str = object.getintproperty( 'req_strength', 0 )
-	if object.hastag( 'req_strength' ):
-		req_str = int( object.gettag( 'req_strength' ) )
-
-	if lower:
-		req_str = int(ceil(req_str) * (1.0 - lower))
-	if req_str:
-		tooltip.add(1061170, str(req_str))
+	requirements(object, tooltip)
 
 	# Skill Boni (1-5)
 	for i in range(0, 5):
