@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QDomElement>
+#include <QMap>
 
 class cGui;
 class cWindow;
@@ -53,6 +54,7 @@ protected:
 	bool wantTabs_; // This property indicates that the TAB key should not switch focus if this control is active. Defaults to false.
 	unsigned int tabIndex_; // The tab index of this control. By defaults it the highest tab index in the parent + 1
 	float alpha_;
+	QMap<QString, QString> tags; // Custom properties for this control
 
 public slots:
 	bool isVisibleOnScreen();
@@ -81,7 +83,6 @@ public:
 	// This replaces RTTI
 	virtual bool isContainer() const;
 	virtual bool isWindow() const;
-
 
 	virtual void requestAlign(); // Request that this control should be realigned
 	bool isDisableAlign() const { return disableAlign_; }
@@ -152,6 +153,10 @@ public slots:
 	void setTopAnchor(bool data);
 	void setRightAnchor(bool data);
 	void setBottomAnchor(bool data);
+
+	void setTag(const QString &name, const QString &data);
+	QString getTag(const QString &name);
+	bool hasTag(const QString &name);
 
 	// Control Align
 	enControlAlign align() const;

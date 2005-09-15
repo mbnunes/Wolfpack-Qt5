@@ -293,6 +293,11 @@ void cControl::processDefinitionElement(QDomElement element) {
 		}
 
 		setPosition(x, y);
+	} else if (element.nodeName() == "tag") {
+		QString name = element.attribute("name");
+		QString value = element.attribute("value");
+
+		setTag(name, value);
 	}
 }
 
@@ -332,4 +337,21 @@ void cControl::processDefinitionAttribute(QString name, QString value) {
 	} else if (name == "name") {
 		setObjectName(value);
 	}
+}
+
+void cControl::setTag(const QString &name, const QString &data) {
+	tags.insert(name, data);
+}
+
+QString cControl::getTag(const QString &name) {
+	QMap<QString, QString>::iterator it = tags.find(name);
+	if (it != tags.end()) {
+		return it.value();
+	} else {
+		return QString();
+	}
+}
+
+bool cControl::hasTag(const QString &name) {
+	return tags.find(name) != tags.end();
 }

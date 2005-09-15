@@ -281,7 +281,7 @@
 		<children>
 			<bordergump gump="2600">
 				<bounds x="100" y="80" width="470" height="372" />
-			</bordergump>		
+			</bordergump>
 			
 			<gumpimage gump="1419">
 				<position x="213" y="57" />
@@ -297,19 +297,9 @@
 			
 			<label name="TitleLabel" font="0" localized="3000326" hue="1" bordercolor="0xC0B088" emboss="true">
 				<position x="135" y="125"/>
-			</label>			
+			</label>
 		</children>
 	</dialog>
-	
-<!--#advancedoption
-rect 0 0 195 gh5504+7
-button 10049 R-gw5504 0 5505 5506 5506 0 2
-
-sizablebackground 10 13 R-20 34 3000 3001 3002 3003 3004 3005 3006 3007 3008 1
-
-//Advanced
-text 17 20 R-gw5504 B 0 3000448			 -->	
-	
 	
 	<!-- Template for one of the templates on the template selection screen -->
 	<dialog id="CharacterTemplate" closable="0" movable="0">
@@ -328,4 +318,67 @@ text 17 20 R-gw5504 B 0 3000448			 -->
 			</label>			
 		</children>
 	</dialog>
+	
+	<!-- Advanced character profesion setup -->
+	<dialog id="CharacterCreation2" name="CharacterCreation2" closable="0" movable="0" class="CharacterCreation" visible="false">
+		<bounds x="0" y="0" width="640" height="480" />
+		<children>
+			<bordergump gump="2600">
+				<bounds x="100" y="80" width="470" height="372" />
+			</bordergump>
+			
+			<gumpimage gump="1419">
+				<position x="213" y="57" />
+			</gumpimage>
+			
+			<gumpimage gump="1417">
+				<position x="290" y="44" />
+			</gumpimage>
+			
+			<gumpimage gump="5546">
+				<position x="299" y="53" />
+			</gumpimage>
+			
+			<label name="TitleLabel" font="0" localized="3000326" hue="1" bordercolor="0xC0B088" emboss="true">
+				<position x="135" y="125"/>
+			</label>		
+		
+			<container>
+				<bounds x="135" y="147" width="400" height="305" />
+				<children>
+					<bordergump gump="9250" hue="795">
+						<bounds x="0" y="0" width="400" height="255" />
+					</bordergump>
+					
+					<!-- Strength: -->
+					<label localized="3000327" hue="1" border="false">
+						<position x="30" y="30"/>
+					</label>
+					<label name="StrengthLabel" text="0" hue="1" border="false" textalign="right" autosize="0">
+						<bounds x="130" y="30" width="45"/>
+					</label>
+					
+					<!-- Dexterity -->
+					<label localized="3000328" hue="1" border="false">
+						<position x="30" y="95"/>
+					</label>
+					<label name="DexterityLabel" text="0" hue="1" border="false" textalign="right" autosize="0">
+						<bounds x="130" y="95" width="45"/>
+					</label>	
+					
+					<!-- Intelligence -->
+					<label localized="3000329" hue="1" border="false">
+						<position x="30" y="160"/>
+					</label>
+					<label name="IntelligenceLabel" text="0" hue="1" border="false" textalign="right" autosize="0">
+						<bounds x="130" y="160" width="45"/>
+					</label>
+				</children>
+			</container>
+
+			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
+				<position x="586" y="445" />
+			</imagebutton>			
+		</children>
+	</dialog>	
 </dialogs>

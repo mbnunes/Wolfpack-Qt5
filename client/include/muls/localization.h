@@ -18,10 +18,13 @@ protected:
 
 	void loadLanguage(QString language);
 public:
+	cLocalization();
+
 	void load();
 	void unload();
 
-	QString get(unsigned int id, QString language = QString::null);
+public slots:
+	QString get(uint id, QString language = QString::null);
 };
 
 extern cLocalization *Localization;

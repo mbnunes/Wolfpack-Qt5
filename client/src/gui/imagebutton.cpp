@@ -7,7 +7,9 @@
 #include "muls/gumpart.h"
 #include "utilities.h"
 
-
+ButtonStatic::ButtonStatic() {
+	setObjectName("Button");
+}
 
 cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down) {
 	x_ = x;

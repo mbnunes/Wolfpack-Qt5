@@ -4,6 +4,10 @@
 #include "log.h"
 #include <qfile.h>
 
+cLocalization::cLocalization() {
+	setObjectName("Localization");
+}
+
 void cLocalization::loadLanguage(QString language) {
 	// Don't load a language twice
 	if (loadedLanguages.contains(language)) {

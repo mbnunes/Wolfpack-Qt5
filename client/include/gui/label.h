@@ -9,6 +9,7 @@
 
 class cLabel : public cControl {
 Q_OBJECT
+Q_PROPERTY(QString text READ text WRITE setText)
 
 private:
 	cTexture *surface;

@@ -8,9 +8,20 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 
+class ButtonStatic : public QObject {
+Q_OBJECT
+Q_PROPERTY(int Pressed READ Pressed)
+Q_PROPERTY(int Unpressed READ Unpressed)
+Q_PROPERTY(int Hover READ Hover)
+public:
+	ButtonStatic();
+	int Pressed() const { return BS_PRESSED; }
+	int Unpressed() const { return BS_UNPRESSED; }
+	int Hover() const { return BS_HOVER; }
+};
+
 class cImageButton : public cControl {
 Q_OBJECT
-
 private:
 	// There are a lot of different possibilities for the states
 	cTexture *gumps[3]; // For every state one
@@ -43,12 +54,6 @@ public:
 	cImageButton(int x, int y, unsigned short up, unsigned short down); // LEGACY
 	cImageButton();
 	virtual ~cImageButton();
-
-	void setStateGump(enButtonStates state, unsigned short id, unsigned short hue = 0, bool partialHue = false);
-
-	inline bool mouseOver() const { return mouseOver_; } // Returns true if the mouse is over this button
-	inline bool mouseHolding() const { return mouseHolding_; } // Returns true if the mouse button is hold
-	inline bool spaceHolding() const { return spaceHolding_; } // Returns true if the space key is being held
 	
 	// Press Repeat Rate
 	inline unsigned int pressRepeatRate() const { return pressRepeatRate_; }
@@ -77,8 +82,20 @@ public:
 private slots:
 	void repeatPress();
 
+public slots:
+	void setStateGump(enButtonStates state, unsigned short id, unsigned short hue = 0, bool partialHue = false);
+	void setStateGump(int state, unsigned short id, unsigned short hue = 0, bool partialHue = false);
+
+	inline bool mouseOver() const { return mouseOver_; } // Returns true if the mouse is over this button
+	inline bool mouseHolding() const { return mouseHolding_; } // Returns true if the mouse button is hold
+	inline bool spaceHolding() const { return spaceHolding_; } // Returns true if the space key is being held
+
 signals:
 	void onButtonPress(cControl *sender);
 };
+
+inline void cImageButton::setStateGump(int state, unsigned short id, unsigned short hue, bool partialHue) {
+	setStateGump(enButtonStates(state), id, hue, partialHue);
+}
 
 #endif

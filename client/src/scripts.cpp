@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "log.h"
 #include "gui/gui.h"
+#include "muls/localization.h"
 
 #ifndef QSA_NO_IDE
 #include <qsworkbench.h>
@@ -22,28 +23,16 @@ static QSWorkbench *uoclient_ide = 0;
 #include "gui/control.h"
 #include "gui/container.h"
 #include "gui/window.h"
+#include "gui/imagebutton.h"
 
 class cObjectFactory : public QSObjectFactory {
 public:
 	cObjectFactory() {
-		registerClass("cControl", &cControl::staticMetaObject);
-		registerClass("cContainer", &cContainer::staticMetaObject);
-		registerClass("cWindow", &cWindow::staticMetaObject);
-		registerClass("cAsciiLabel", &cAsciiLabel::staticMetaObject);
+		registerClass("Button", 0, new ButtonStatic);
 	}
 
 	virtual QObject *create(const QString &className, const QVariantList &arguments, QObject *context) {
-		if (className == "cContainer") {
-			return new cContainer();
-		} else if (className == "cWindow") {
-			return new cWindow();
-		} else if (className == "cControl") {
-			return new cControl();
-		} else if (className == "cAsciiLabel") {
-			return new cAsciiLabel("");
-		} else {
-			return 0;
-		}
+		return 0;
 	}
 };
 
@@ -77,6 +66,7 @@ void cScripts::load() {
 	project->addObject(UoSocket);
 	project->addObject(Gui);
 	project->addObject(Log);
+	project->addObject(Localization);
 
 	qRegisterMetaType<cWindow*>("cWindow*");
 	qRegisterMetaType<cControl*>("cControl*");
@@ -87,6 +77,7 @@ void cScripts::load() {
 	QSInterpreter::registerMetaObject(&cWindow::staticMetaObject);
 	QSInterpreter::registerMetaObject(&cGui::staticMetaObject);
 	QSInterpreter::registerMetaObject(&cAsciiLabel::staticMetaObject);
+	QSInterpreter::registerMetaObject(&ButtonStatic::staticMetaObject);
 
 	QSInterpreter *ip = project->interpreter();	
     ip->addObjectFactory(new QSInputDialogFactory);
