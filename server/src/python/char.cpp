@@ -634,6 +634,8 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 	\param skill The id of the skill that should be checked.
 	\param min The lower boundary of the difficulty range.
 	\param max The upper boundary of the difficulty range.
+	\param advance Defaults to True.
+	If set to False, the character will not gain for this skillcheck.
 	\return True if the skillcheck succeeded, false otherwise.
 */
 static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
@@ -643,11 +645,20 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 
 	unsigned short skill;
 	int min, max;
+	bool advance = true;
 
-	if ( !PyArg_ParseTuple( args, "hii|char.checkskill( skill, min, max )", &skill, &min, &max ) )
-		return 0;
+	if ( PyTuple_Size( args ) == 3 )
+	{
+		if ( !PyArg_ParseTuple( args, "hii|char.checkskill( skill, min, max )", &skill, &min, &max ) )
+			return 0;
+	}
+	else
+	{
+		if ( !PyArg_ParseTuple( args, "hiii|char.checkskill( skill, min, max, advance )", &skill, &min, &max, &advance ) )
+			return 0;
+	}
 
-	if ( self->pChar->checkSkill( skill, min, max ) )
+	if ( self->pChar->checkSkill( skill, min, max, advance ) )
 		Py_RETURN_TRUE;
 	Py_RETURN_FALSE;
 }
