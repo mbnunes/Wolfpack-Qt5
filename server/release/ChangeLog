@@ -58,6 +58,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added support for Mondain's Legacy Map. (Map 0 and Map 1 are larger)
     If your server doesn't have the new map disable this in wolfpack.xml.
   - Removed unused server options in wolfpack.xml.
+  - Added "advance" parameter to char.skillcheck, that allows skillchecks without the possibility of skillgains.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -180,6 +181,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Cows will give milk, chicken eggs (on double click).
   - If you use wheat sheafs near a flour mill, you will get a sack of flour.
   - Added an optional extended carpentry system that uses different wood types. This has to be enabled in wolfpack.xml
+  - Disabled animal taming gain for creatures a character had already tamed.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
