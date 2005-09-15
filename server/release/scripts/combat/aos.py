@@ -35,7 +35,7 @@ def checkSlaying(weapon, defender):
 def checkskill(char, skill, chance):
 	# Normalize
 	chance = min(1.0, max(0.02, chance))
-	minskill = min(char.skill[skill], (1.0 - chance) * 1200)
+	minskill = min(char.skill[skill], int((1.0 - chance) * 1200) )
 	maxskill = 1200
 	char.checkskill(skill, minskill, maxskill)
 	return chance >= random.random()
