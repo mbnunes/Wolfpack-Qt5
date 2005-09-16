@@ -100,6 +100,7 @@ class SmithItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 1 # All blacksmith items are markable
+		self.retaincolor = 1
 
 	#
 	# Check if we did an exceptional job.
@@ -138,7 +139,7 @@ class SmithItemAction(CraftItemAction):
 		# See if special ingots were used in the creation of
 		# this item. All items crafted by blacksmiths gain the
 		# color!
-		if self.submaterial1 > 0:
+		if self.retaincolor and self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
 			material = self.parent.submaterials1[material]
 			item.color = material[4]
@@ -391,6 +392,8 @@ def loadMenu(id, parent = None):
 				# Process subitems
 				for j in range(0, child.childcount):
 					subchild = child.getchild(j)
+					if subchild.name == 'noretaincolor':
+						action.retaincolor = 0
 					action.processnode(subchild, menu)
 
 	# Sort the menu. This is important for the makehistory to make.

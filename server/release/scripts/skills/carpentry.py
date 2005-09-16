@@ -53,6 +53,7 @@ class CarpItemAction(CraftItemAction):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 1 # All carpentry items are markable
 		self.stackable = 0
+		self.retaincolor = 1
 
 	#
 	# Check if we did an exceptional job.
@@ -99,7 +100,7 @@ class CarpItemAction(CraftItemAction):
 			item.update()
 
 		# All carpentry items crafted out of ingots keep a resname
-		if self.submaterial1 > 0:
+		if self.retaincolor and self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
 			material = self.parent.submaterials1[material]
 			item.color = material[4]
@@ -321,6 +322,9 @@ def loadMenu(id, parent = None):
 
 					elif subchild.name == 'nomark':
 						action.markable = False
+
+					elif subchild.name == 'noretaincolor':
+						action.retaincolor = False
 
 					# Skill requirement
 					elif subchild.name in skillnamesids:
