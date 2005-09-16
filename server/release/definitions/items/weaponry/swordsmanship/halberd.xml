@@ -24,6 +24,7 @@
 		<category>Base Weapons\Swordsmanship\Halberd (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
 		<intproperty name="req_strength" value="95" />
 		<intproperty name="speed" value="25" />
 		<intproperty name="mindamage" value="18" />

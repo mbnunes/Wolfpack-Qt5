@@ -24,6 +24,7 @@
 		<category>Base Weapons\Maces\War Axe (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="33" />
 		<intproperty name="mindamage" value="14" />
