@@ -309,13 +309,13 @@ class MeteorSwarm (Spell):
 def polymorph_expire(char, arguments):
 	# Remove all timers from this char
 	char.dispel(None, True, 'POLYMORPH_EXPIRE')	
-	
+
 	# Hidden beard?
 	if char.hastag('polymorph_beard_id'):
 		current = char.itemonlayer(LAYER_BEARD)
 		if current:
 			current.delete()
-		
+
 		newid = char.gettag('polymorph_beard_id')
 		color = 0
 		if char.hastag('polymorph_beard_color'):
@@ -324,10 +324,10 @@ def polymorph_expire(char, arguments):
 		item.color = color
 		char.additem(LAYER_BEARD, item)
 		item.update()
-		
+
 		char.deltag('polymorph_beard_id')
 		char.deltag('polymorph_beard_color')
-	
+
 	char.id = char.orgid
 	char.skin = char.orgskin
 	char.polymorph = 0
@@ -374,7 +374,7 @@ class Polymorph (Spell):
 			char.skin = random.randint(1002, 1059)
 		else:
 			char.skin = 0
-			
+
 		# Remove the beard if morphing into a female
 		if char.id in PLAYER_BODIES_ALIVE_FEMALE:
 			beard = char.itemonlayer(LAYER_BEARD)
@@ -382,7 +382,7 @@ class Polymorph (Spell):
 				char.settag('polymorph_beard_id', beard.baseid)
 				char.settag('polymorph_beard_color', beard.color)
 				beard.delete()			
-						
+
 		char.polymorph = 1
 		char.update()
 
