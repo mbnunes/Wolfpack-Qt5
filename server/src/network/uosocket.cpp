@@ -565,7 +565,7 @@ void cUOSocket::disconnect()
 		if (Config::instance()->instalogoutfromguarded()) {
 
 			// is the player allowed to logoff instantly?
-			if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) || ( _player->region() && _player->region()->isInstaLogout() ) )
+			if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) || ( _player->region() && _player->region()->isInstaLogout() ) || _player->multi() )
 			{
 				_player->onLogout();
 			}
@@ -578,7 +578,7 @@ void cUOSocket::disconnect()
 		else
 		{
 			// is the player allowed to logoff instantly?
-			if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isInstaLogout() ) )
+			if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isInstaLogout() ) || _player->multi() )
 			{
 				_player->onLogout();
 			}
