@@ -66,7 +66,7 @@ def onUse( char, item ):
 	socket = char.socket
 
 	# Can't fish on horses
-	if char.itemonlayer( LAYER_MOUNT ):
+	if char.ismounted():
 		socket.clilocmessage( 0x7A4EB, "", 0x3b2, 3 ) # You can't fish while riding!
 		return True
 

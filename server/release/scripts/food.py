@@ -1,7 +1,7 @@
 
 import wolfpack
 import random
-from wolfpack.consts import ANIM_FIDGET3, LAYER_MOUNT
+from wolfpack.consts import ANIM_FIDGET3
 from wolfpack.utilities import tobackpack
 from system import poison
 import skills
@@ -61,7 +61,7 @@ def onDropOnChar(char, item):
 
 		# Fidget animation and munch munch sound
 		char.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
-		if not char.itemonlayer( LAYER_MOUNT ):
+		if not char.ismounted():
 			char.action(ANIM_FIDGET3)
 		return True
 
@@ -90,7 +90,7 @@ def Eat(player, item):
 	if FillHunger( player, item ):
 		# Fidget animation and munch munch sound
 		player.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
-		if not player.itemonlayer( LAYER_MOUNT ):
+		if not player.ismounted():
 			player.action(ANIM_FIDGET3)
 
 		# poisoned food

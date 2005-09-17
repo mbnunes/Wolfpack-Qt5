@@ -468,7 +468,7 @@ class Dismount (BaseAbility):
 	def checkuse(self, attacker):
 		result = BaseAbility.checkuse(self, attacker)
 		if result:
-			if attacker.itemonlayer(LAYER_MOUNT):
+			if attacker.ismounted():
 				weapon = attacker.getweapon()
 				if not weapon or not weapon.baseid in ['26c0', '26ca']:
 					if attacker.socket:
@@ -487,7 +487,7 @@ class Dismount (BaseAbility):
 		if defender.dead or defender.pos.map == 0xFF:
 			return # Out of reach		
 
-		if not defender.socket or not defender.itemonlayer(LAYER_MOUNT):
+		if not defender.socket or not defender.ismounted():
 			if attacker.socket:
 				attacker.socket.clilocmessage(1060848)
 			return
@@ -497,7 +497,7 @@ class Dismount (BaseAbility):
 		if attacker.socket:
 			attacker.socket.clilocmessage(1060082)
 
-		mounted = attacker.itemonlayer(LAYER_MOUNT)
+		mounted = attacker.ismounted()
 
 		if mounted:
 			defender.socket.clilocmessage(1062315)

@@ -10,7 +10,7 @@ stages = crops.stages
 def onUse(char, item):
 	if not char.canreach(item, 2):
 		char.socket.clilocmessage(500312) # You cannot reach that.
-	elif char.itemonlayer(LAYER_MOUNT):
+	elif char.ismounted():
 		char.socket.clilocmessage(1040016) # You cannot use this while riding a mount
 	else:
 		doharvest(char, item)

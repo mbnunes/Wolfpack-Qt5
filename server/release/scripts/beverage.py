@@ -289,7 +289,7 @@ def intoxication_func(char, args):
 	# Otherwise no effect
 	if char.socket:	
 		if intoxication >= (char.strength + 9) / 10:
-			if random.randint(0, 3) == 0 and not char.itemonlayer(LAYER_MOUNT):
+			if random.randint(0, 3) == 0 and not char.ismounted():
 				char.direction = random.randint(0, 7)
 				char.update()				
 

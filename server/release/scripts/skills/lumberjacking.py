@@ -113,13 +113,13 @@ def checktool(char, item, wearout = False):
 		return False
 
 	# We do not allow "invulnerable" tools.
-	if not( item.hastag('remaining_uses') ):
+	if not item.hastag('remaining_uses'):
 		item.settag('remaining_uses', 35)
 		item.resendtooltip()
 
-	if( wearout ):
+	if wearout:
 		uses = int(item.gettag('remaining_uses'))
-		if( uses <= 1 ):
+		if uses <= 1:
 			# You broke your axe.
 			char.socket.clilocmessage( 500499 )
 			item.delete()
@@ -153,19 +153,19 @@ def response( args ):
 		return True
 
 	#riding?
-	if( char.itemonlayer( LAYER_MOUNT ) ):
+	if char.ismounted():
 		# You can't use this while on a mount!
 		char.socket.clilocmessage( 1049627 )
 		return False
     
         #polymorphed? 
-	if( char.polymorph ):
+	if char.polymorph:
                 # You can't do that while polymorphed.
 		char.socket.clilocmessage( 1061628 )
 		return False
 
 	#dead ?
-	if( char.dead ):
+	if char.dead:
 		# You cannot use skills while dead.
 		char.socket.clilocmessage( 500012 )
 		return False
@@ -320,7 +320,7 @@ def successlumberjacking( char, args ):
 	else:
 		char.checkskill( LUMBERJACKING, reqskill, 1200 )
 		# Skill Check against LUMBERJACKING
-		if ( chance >= randint(1, 100) ):
+		if chance >= randint(1, 100):
 			char.socket.clilocmessage( 500498 ) # You put some logs into your backpack
 			checktool( char, tool, True )
 			char.socket.deltag( 'is_lumberjacking' )
@@ -330,7 +330,7 @@ def successlumberjacking( char, args ):
 			success = False
 			return False
 
-	if( success ):
+	if success:
 		# Check for a backpack
 		backpack = char.getbackpack()
 		if not backpack:

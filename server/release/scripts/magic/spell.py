@@ -108,7 +108,7 @@ class Spell:
 	# Show the cast action
 	#
 	def docastaction(self, char, mode):
-		if char.bodytype == BODY_HUMAN and not char.itemonlayer( LAYER_MOUNT ):
+		if char.bodytype == BODY_HUMAN and not char.ismounted():
 			char.action(self.castaction)
 
 	#

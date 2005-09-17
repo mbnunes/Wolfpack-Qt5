@@ -10,7 +10,7 @@ import wolfpack.time
 import skills
 import whrandom
 import wolfpack.utilities
-from wolfpack.consts import GRAY, LAYER_MOUNT, MINING
+from wolfpack.consts import GRAY, MINING
 from skills.mining import canminegranite
 
 def onUse( char, tool ):
@@ -21,7 +21,7 @@ def onUse( char, tool ):
 		return True
 
 	# Can't mine on horses
-	if char.itemonlayer( LAYER_MOUNT ):
+	if char.ismounted():
 		# You can't mine while riding.
 		char.socket.clilocmessage( 501864, "", GRAY )
 		return True

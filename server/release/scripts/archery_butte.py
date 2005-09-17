@@ -7,7 +7,7 @@
 
 import wolfpack
 import random
-from wolfpack.consts import ARCHERY, LAYER_MOUNT, ANIM_ATTACKBOW, \
+from wolfpack.consts import ARCHERY, ANIM_ATTACKBOW, \
 	ANIM_ATTACKXBOX
 from combat.utilities import weaponskill
 from random import choice
@@ -35,19 +35,19 @@ def giveAmmo( char, item ):
 	boltCount = item.gettag( "bolt_count" )
 	arrowCount = item.gettag( "arrow_count" )
 
-	if( not boltCount and not arrowCount ):
+	if not boltCount and not arrowCount:
 		char.message( tr("The butte is empty.") )
 		return True
 
-	if( arrowCount ):
-		if( arrowCount > 1 ):
+	if arrowCount:
+		if arrowCount > 1:
 			arrow = wolfpack.additem( "f3f" )
 			arrow.container = char.getbackpack()
 			arrow.amount = arrowCount
 			arrow.update()
 
-	if( boltCount ):
-		if( boltCount > 1 ):
+	if boltCount:
+		if boltCount > 1:
 			bolt = wolfpack.additem( "1bfb" )
 			bolt.container = char.getbackpack()
 			bolt.amount = boltCount
@@ -76,20 +76,20 @@ def onUse( char, item ):
 
 	# Retrieve Arrows + Bolts when standing near
 	# to the butte
-	if( char.distanceto( item ) <= 1 ):
+	if char.distanceto( item ) <= 1:
 		return giveAmmo( char, item )
 
-	if( char.distanceto( item ) > 10):
+	if char.distanceto( item ) > 10:
 		#You are too far away from the archery butte to get an accurate shot.
 		char.socket.clilocmessage(500598)
 		return True
-	elif( char.distanceto( item ) < 5 ):
+	elif char.distanceto( item ) < 5:
 		#You are too close to the target.
 		char.socket.clilocmessage(500599)
 		return True
 
 	#riding?
-	if( char.itemonlayer( LAYER_MOUNT ) ):
+	if char.ismounted():
 		#You can't practice on this while on a mount.
 		char.socket.clilocmessage(501829)
 		return True
@@ -101,7 +101,7 @@ def onUse( char, item ):
 		return True
 
 	#Line of Sight Check
-	if not( char.canreach( item, 10 ) ):
+	if not char.canreach( item, 10 ):
 		#You cannot reach ..
 		char.socket.clilocmessage( 500312 )
 		return True
@@ -113,18 +113,18 @@ def onUse( char, item ):
 	# Only Bows or Crossbows (Check ammo-type too)
 	ammo = ammoType( char )
 
-	if( ( weaponskill(char, char.getweapon()) != ARCHERY ) or ( ammo == -1 ) ):
+	if ( weaponskill(char, char.getweapon()) != ARCHERY ) or ( ammo == -1 ):
 		#You must practice with ranged weapons on this.
 		char.socket.clilocmessage(500593)
 		return True
 
 	# If we've already learned all we can > cancel.
-	if( char.skill[ ARCHERY ] >= 300 ):
+	if char.skill[ ARCHERY ] >= 300:
 		#Your skill cannot improve any further by simply practicing with a dummy.
 		char.socket.clilocmessage(501828)
 		return True
 
-	if( ammo == 0xf3f ):
+	if ammo == 0xf3f:
 		ammoname = "arrow"
 		movingeff = 0xf42
 		if( not char.useresource( 1, ammo ) ):
@@ -135,7 +135,7 @@ def onUse( char, item ):
 		ammoname = "bolt"
 		movingeff = 0x1bfe
 		# Use ammo (if 0 was used = no ammo)
-		if( not char.useresource( 1, ammo ) ):
+		if not char.useresource( 1, ammo ):
 			#You do not have any crossbow bolts with which to practice.
 			char.socket.clilocmessage(500595)
 			return True
@@ -149,15 +149,15 @@ def onUse( char, item ):
 	# (archery shot)
 	# Soundeffect
 	char.soundeffect( random.choice( [0x224, 0x234] ) )
-	if( ammo == 0xf3f ):
+	if ammo == 0xf3f:
 		char.action( ANIM_ATTACKBOW )
 	else:
 		char.action( ANIM_ATTACKXBOX )
 
 	# This increases the users skill
 	# 10% of destroying the ammo on failure
-	if( ( not char.checkskill( ARCHERY, 0, 1000 ) ) ):
-		if( not random.randrange( 0, 9 ) ):
+	if not char.checkskill( ARCHERY, 0, 1000 ):
+		if not random.randrange( 0, 9 ):
 			char.emote( tr("You see %s's poor shot destroys the %s") % (char.name, ammoname) )
 		else:
 			char.emote( tr("You see %s's %s") % (char.name, random.choice( failureText )) )
@@ -165,7 +165,7 @@ def onUse( char, item ):
 		char.emote( tr("You see %s's %s") % (char.name, random.choice( successText )) )
 
 		# Increase the ammo we have in the butte
-		if( ammo == 0xf3f ):
+		if ammo == 0xf3f:
 			item.settag( "arrow_count", item.gettag( "arrow_count" ) + 1 )
 		else:
 			item.settag( "bolt_count", item.gettag( "bolt_count" ) + 1 )
@@ -177,30 +177,30 @@ def ammoType( char ):
 	# Yumi, Composite Bow and Repeating Crossbow on layer 2
 	item = char.getweapon()
 
-	if( item == None ):
+	if item == None:
 		return -1
 	# Bow
-	if( item.id == 0x13B1 or item.id == 0x13B2 ):
+	if item.id in [0x13B1, 0x13B2]:
 		return 0xf3f
 
 	# Composite Bow
-	if( item.id == 0x26cc or item.id == 0x26c2 ):
+	if item.id in [0x26cc, 0x26c2]:
 		return 0xf3f
 
 	# Light Crossbow
-	if( item.id == 0xF4F or item.id == 0xF50 ):
+	if item.id in [0xF4F, 0xF50]:
 		return 0x1bfb
 
 	# Heavy Crossbow
-	if( item.id == 0x13FC or item.id == 0x13FD ):
+	if item.id in [0x13FC, 0x13FD]:
 		return 0x1bfb
 
 	# Repeating Crossbow
-	if( item.id == 0x26c3 or item.id == 0x26cd ):
+	if item.id in [0x26c3, 0x26cd]:
 		return 0x1bfb
 
 	# Yumi
-	if( item.id == 0x27a5 or item.id == 0x27f0 ):
+	if item.id in [0x27a5, 0x27f0]:
 		return 0xf3f
 
 	# Unknown Weapon

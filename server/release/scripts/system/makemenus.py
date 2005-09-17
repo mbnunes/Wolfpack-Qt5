@@ -352,7 +352,10 @@ class CraftItemAction(MakeItemAction):
 			if material[2] and player.skill[material[1]] < material[2]:
 				if not silent:
 					if self.parent.submaterial1noskill != 0:
-						player.socket.clilocmessage(self.parent.submaterial1noskill)
+						if self.parent.submaterial1noskill.isdigit():
+							player.socket.clilocmessage(self.parent.submaterial1noskill)
+						else:
+							player.socket.sysmessage(self.parent.submaterial1noskill)
 					else:
 						player.socket.clilocmessage(1044153) # You don't have the required skills to attempt this item.
 				return False
