@@ -141,7 +141,6 @@ public slots:
 	void connected();
 	void connectionClosed();
 	void readyRead();
-	void bytesWritten(int nbytes);
 	void error(QAbstractSocket::SocketError error);
 	void poll();
 	void disconnect();

@@ -257,15 +257,14 @@ void cLoginDialog::nextClicked(cControl *sender) {
 	}
 }
 
-static void shardlistScrolled(cVerticalScrollBar *scrollbar, int oldpos) {
-	LoginDialog->onScrollShardList(oldpos, scrollbar->pos());
-}
-
-void cLoginDialog::onScrollShardList(int oldpos, int newpos) {
-	int change = (newpos - oldpos) * 5;
-	cContainer::Controls controls = shardList->getControls();
-	for (cContainer::Iterator it = controls.begin(); it != controls.end(); ++it) {
-		(*it)->setPosition((*it)->x(), (*it)->y() - change);
+void cLoginDialog::shardlistScrolled(int oldpos) {
+	cVerticalScrollbar *scrollbar = dynamic_cast<cVerticalScrollbar*>(container->findByName("ShardlistScrollbar"));
+	if (scrollbar) {
+		int change = (scrollbar->pos() - oldpos) * 5;
+		cContainer::Controls controls = shardList->getControls();
+		for (cContainer::Iterator it = controls.begin(); it != controls.end(); ++it) {
+			(*it)->setPosition((*it)->x(), (*it)->y() - change);
+		}
 	}
 }
 
@@ -343,9 +342,10 @@ void cLoginDialog::show(enMenuPage page) {
 
 		// Get the shardlist and set up the scrollbar
 		cContainer *shardSelectionContainer = dynamic_cast<cContainer*>(shardSelectGump->findByName("ScrollableShardList"));
-		cVerticalScrollBar *scrollbar = new cVerticalScrollBar(380, 1, 270);
+		cVerticalScrollbar *scrollbar = new cVerticalScrollbar(380, 1, 270);
+		scrollbar->setObjectName("ShardlistScrollbar");
 		scrollbar->setRange(0, 9);
-		scrollbar->setScrollCallback(shardlistScrolled);
+		connect(scrollbar, SIGNAL(scrolled(int)), SLOT(shardlistScrolled(int)));
 		shardSelectionContainer->addControl(scrollbar);
 
 		// Set up the list of shard entries

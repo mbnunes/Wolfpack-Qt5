@@ -3,8 +3,9 @@
 #include <windows.h>
 #include <shellapi.h>
 
+#include "mainwindow.h"
 #include "utilities.h"
-//Added by qt3to4:
+
 #include <QString>
 
 namespace Utilities {
@@ -14,6 +15,10 @@ namespace Utilities {
 			realUrl.prepend("http://");
 		}
 
-		ShellExecuteA(0, "open", realUrl.toLatin1(), "", "", SW_NORMAL);
+        QT_WA({
+            ShellExecute(MainWindow->winId(), 0, (TCHAR*)realUrl.utf16(), 0, 0, SW_SHOWNORMAL);
+        } , {
+            ShellExecuteA(MainWindow->winId(), 0, realUrl.toLocal8Bit(), 0, 0, SW_SHOWNORMAL);
+        });		
 	}
 };

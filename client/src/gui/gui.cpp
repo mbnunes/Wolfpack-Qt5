@@ -14,6 +14,7 @@
 #include "gui/tooltip.h"
 #include "gui/textbutton.h"
 #include "gui/stripeimage.h"
+#include "gui/scrollbar.h"
 #include "muls/gumpart.h"
 #include "game/entity.h"
 #include "game/dynamicitem.h"
@@ -418,7 +419,7 @@ void cGui::unload() {
 
 cWindow *cGui::createDialog(QString templateName) {
 	QMap<QString, QDomElement>::iterator it = dialogTemplates.find(templateName);
-	QString className;
+	QString moduleName;
 
 	if (it == dialogTemplates.end()) {
 		return 0;
@@ -434,8 +435,8 @@ cWindow *cGui::createDialog(QString templateName) {
 	for (uint i = 0; i < attributes.count(); ++i) {
 		QDomNode attribute = attributes.item(i);
 
-		if (attribute.nodeName() == "class") {
-			className = attribute.nodeValue();
+		if (attribute.nodeName() == "module") {
+			moduleName = attribute.nodeValue();
 		} else {
 			result->processDefinitionAttribute(attribute.nodeName(), attribute.nodeValue());
 		}
@@ -452,10 +453,10 @@ cWindow *cGui::createDialog(QString templateName) {
 	}
 
 	// Call the script if it exists
-	if (Scripts->classExists(className)) {
+	if (!moduleName.isEmpty()) {
 		QVariant arg1;
 		arg1.setValue<QObject*>(result);
-		Scripts->callStaticMethod(className, "initialize", QVariantList() << arg1);
+		Scripts->callFunction(moduleName, "initialize", QVariantList() << arg1);
 	}
 
 	return result;
@@ -490,6 +491,10 @@ cControl *cGui::createControl(QDomElement templateNode) {
 		result = new cStripeImage;
 	} else if (className == "combobox") {
 		result = new cCombobox;
+	} else if (className == "horizontalscrollbar") {
+		result = new cHorizontalScrollbar(0, 0, 0);
+	} else if (className == "verticalscrollbar") {
+		result = new cVerticalScrollbar(0, 0, 0);
 	}
 
 	if (result) {

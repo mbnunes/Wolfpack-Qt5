@@ -1,22 +1,14 @@
 
+#include <Python.h>
+
 #include "scripts.h"
 #include "mainwindow.h"
 #include "log.h"
 #include "gui/gui.h"
 #include "muls/localization.h"
 
-#ifndef QSA_NO_IDE
-#include <qsworkbench.h>
-static QSWorkbench *uoclient_ide = 0;
-#endif
-
-#include <qsinputdialogfactory.h>
-#include <qsinterpreter.h>
-#include <qsobjectfactory.h>
-#include <qswrapperfactory.h>
-#include <QDir>
-
 #include "mainwindow.h"
+#include "skills.h"
 #include "network/uosocket.h"
 
 #include "gui/asciilabel.h"
@@ -25,25 +17,119 @@ static QSWorkbench *uoclient_ide = 0;
 #include "gui/window.h"
 #include "gui/imagebutton.h"
 
-class cObjectFactory : public QSObjectFactory {
-public:
-	cObjectFactory() {
-		registerClass("Button", 0, new ButtonStatic);
-	}
+#include "python/genericwrapper.h"
+#include "python/loginterface.h"
+#include "python/utilities.h"
+#include "python/clientmodule.h"
 
-	virtual QObject *create(const QString &className, const QVariantList &arguments, QObject *context) {
-		return 0;
-	}
-};
+#include <QDir>
+#include <QApplication>
+#include <QThread>
+
+#include <cstdlib>
 
 cScripts::cScripts() {
-	project = new QSProject(this, "qsproject");
-	project->setStorageMode(QSProject::TextFiles);
 }
 
 cScripts::~cScripts() {
 }
 
+/*
+	Setup the search path for python modules
+*/
+void cScripts::initializeSearchPath() {
+	putenv("PYTHONPATH=./scripts/;.");
+}
+
+void cScripts::load() {
+	Log->print(LOG_NOTICE, tr("Starting the Python interpreter (Version: %1).\n").arg(Py_GetVersion()));
+
+	Py_SetProgramName(QApplication::instance()->argv()[0]);
+	Py_OptimizeFlag = 1; // Release only
+	
+	initializeSearchPath();
+
+	Py_Initialize(); // Start the python interpreter
+	PySys_SetArgv( QApplication::instance()->argc(), QApplication::instance()->argv() );
+// Only install this is we're not being built for console (simulated by only enabling it in debug mode)
+#if defined(NDEBUG)
+	initializeLogInterface();
+#endif
+	initializeClientModule();
+}
+
+void cScripts::unload() {
+	Log->print(LOG_NOTICE, tr("Stopping the Python interpreter.\n"));
+	Py_Finalize();
+}
+
+static PyObject *buildArgumentTuple(const QVariantList &arguments) {
+	PyObject *result = PyTuple_New(arguments.count());
+
+	uint index = 0; // Current tuple index
+
+	foreach (QVariant variant, arguments) {
+		PyObject *value;
+
+		switch (variant.type()) {
+			case QVariant::String:
+				value = toPython(variant.toString());
+				break;
+
+			case QMetaType::QObjectStar:				
+				value = generateWrapper(qvariant_cast<QObject*>(variant));
+				break;
+
+			// If there is no possible translation, simply put None into the argument list
+			default:
+				Py_INCREF(Py_None);
+				value = Py_None;
+				break;
+		}
+
+		PyTuple_SET_ITEM(result, index++, value);
+	}
+
+	return result;
+}
+
+QVariant cScripts::callFunction(const QString &moduleName, const QString &functionName, const QVariantList &argumentList) {
+	// Import the given module name
+	PyObject *module = PyImport_ImportModule(moduleName.toLatin1().data());
+
+	if (module) {
+		// Get the function
+		PyObject *function = PyObject_GetAttrString(module, functionName.toLatin1().data());
+
+		// Check if the object with the given name really existed
+		if (function) {
+			// Check if the object is really callable and not a string or else
+			if (PyCallable_Check(function)) {
+				// Create the argument list
+				PyObject *args = buildArgumentTuple(argumentList);
+
+				// Call the function object
+				PyObject *result = PyEval_CallObject(function, args);
+				Py_XDECREF(result);
+
+				Py_DECREF(args);
+			}
+
+			Py_DECREF(function);
+		}
+
+		Py_DECREF(module);
+	}
+
+	// Check for errors
+	if (PyErr_Occurred()) {
+		PyErr_Print();
+	}
+
+	return QVariant();
+}
+
+/*
 void cScripts::load() {
 	// Try to create the directory if it does not exist
 	QDir dir = QDir::current();	
@@ -52,14 +138,6 @@ void cScripts::load() {
 			return;
 		}
 	}
-	
-	dir.cd("dialogs");
-	QDir::setCurrent(dir.absolutePath());
-	project->load("scripts.dat");
-	dir.cdUp();
-	QDir::setCurrent(dir.absolutePath());
-
-	Log->print(LOG_MESSAGE, tr("Loaded %1 scripts from project file.\n").arg(project->scripts().count()));
 
 	// Set up the namespace
 	project->addObject(MainWindow);
@@ -67,6 +145,15 @@ void cScripts::load() {
 	project->addObject(Gui);
 	project->addObject(Log);
 	project->addObject(Localization);
+	project->addObject(Skills);
+
+	dir.cd("dialogs");
+	QDir::setCurrent(dir.absolutePath());
+	project->load("scripts.dat");
+	dir.cdUp();
+	QDir::setCurrent(dir.absolutePath());
+
+	Log->print(LOG_MESSAGE, tr("Loaded %1 scripts from project file.\n").arg(project->scripts().count()));
 
 	qRegisterMetaType<cWindow*>("cWindow*");
 	qRegisterMetaType<cControl*>("cControl*");
@@ -120,6 +207,5 @@ QVariant cScripts::callStaticMethod(QString className, QString methodName, QVari
 bool cScripts::classExists(QString className) {
 	return project->interpreter()->hasClass(className);
 }
-
+*/
 cScripts *Scripts = 0;
-

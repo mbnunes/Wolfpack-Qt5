@@ -60,12 +60,14 @@ private:
 public:
 	enum Style {
 		Style1 = 0,
+		Style2,
 		StyleCount
 	};
 
 	cCombobox();
 	~cCombobox();
 
+	void processDefinitionAttribute(QString name, QString value);
 protected:
 	QStringList items_;
 	int selectionIndex_;
@@ -77,6 +79,8 @@ protected:
 	uint itemHeight_;
 
 public slots:
+	void clearItems();
+	void addItem(QString item);
 	const QStringList &items() const;
 	void setItems(const QStringList &items);
 	QString selection() const;

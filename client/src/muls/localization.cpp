@@ -2,7 +2,10 @@
 #include "muls/localization.h"
 #include "utilities.h"
 #include "log.h"
-#include <qfile.h>
+#include "mainwindow.h"
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 
 cLocalization::cLocalization() {
 	setObjectName("Localization");
@@ -99,6 +102,36 @@ QString cLocalization::get(unsigned int id, QString language) {
 	}
 
 	return tr("ERROR: Unknown Cliloc ID %1").arg(id);
+}
+
+void cLocalization::export(const QString &filename, QString language) {
+	QStringList lines;
+
+	LanguageMap::iterator it = languages.find(language.toLower());
+
+	if (it == languages.end()) {
+		return;
+	}
+
+	StringsMap::iterator sit = it.value().begin();
+	for ( ; sit != it.value().end(); ++sit) {
+		lines << QString("%1 %2").arg(sit.key()).arg(sit.value());
+	}
+
+	lines.sort();
+
+	QFile file(filename);
+	
+	if (file.open(QIODevice::WriteOnly)) {
+		QTextStream output(&file);
+		foreach (QString line, lines) {
+			output << line << "\n";
+		}
+
+		QMessageBox::information(MainWindow, tr("Localization Saved"), tr("The localization has been saved to %1.").arg(file.fileName()), QMessageBox::Ok, QMessageBox::NoButton);
+
+		file.close();
+	}
 }
 
 cLocalization *Localization = 0;

@@ -172,7 +172,6 @@ cMainWindow::cMainWindow() {
 	// Create a menu bar at the top of the window
 	m_menuBar = new QMenuBar(this);
 	QMenu *file = m_menuBar->addMenu(tr("&File"));
-	file->addAction("&Edit Scripts", Scripts, SLOT(showWorkbench()));
 	action = file->addAction(tr("Save profile as..."));	
 	action->setObjectName("action_saveprofile");
 	file->addSeparator();
@@ -225,6 +224,9 @@ cMainWindow::cMainWindow() {
 
     action = game->addAction("Show Priority Information");
 	action->setObjectName("action_showpriority");
+
+	action = game->addAction("Export Localization");
+	action->setObjectName("action_exportlocalization");
 
 	connect(game, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
 
@@ -299,6 +301,12 @@ void cMainWindow::menuGameClicked(QAction *action) {
 
 		if (!filename.isEmpty()) {
 			Profile->saveToFile(filename, true);
+		}		
+	} else if (action->objectName() == "action_exportlocalization") {
+		QString filename = QFileDialog::getSaveFileName(this, "Save localization as", QDir::current().absolutePath(), tr("Text Files (*.txt)"));
+
+		if (!filename.isEmpty()) {
+			Localization->export(filename, "ENU");
 		}		
 	}
 }

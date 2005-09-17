@@ -5,6 +5,7 @@
 #include "gui/stripeimage.h"
 #include "gui/scrollbar.h"
 #include "mainwindow.h"
+#include "utilities.h"
 
 #include <qgl.h>
 #include <QCursor>
@@ -234,15 +235,6 @@ cCombobox::cCombobox() {
 	selectionList_ = 0;
 	maxListHeight_ = 100;
 	itemHeight_ = 18;
-
-	items_.append("Long Hair");
-	items_.append("Bald");
-	items_.append("Short Hair");
-	items_.append("Krishna");
-	items_.append("Long Hair");
-	items_.append("Bald");
-	items_.append("Short Hair");
-	items_.append("Krishna");
 }
 
 cCombobox::~cCombobox() {
@@ -253,6 +245,15 @@ cCombobox::~cCombobox() {
 			delete selectionList_;
 		}
 	}
+}
+
+void cCombobox::clearItems() {
+	items_.clear();
+	selectItem(-1);
+}
+
+void cCombobox::addItem(QString item) {
+	items_.append(item);
 }
 
 void cCombobox::setStyle(cCombobox::Style style) {
@@ -274,28 +275,54 @@ void cCombobox::setStyle(cCombobox::Style style) {
 			bordergump->setSize(width_, height_ - 1);
 			bordergump->setIds(9553, 9554, 9555, 9553, 9554, 9555, 9553, 9554, 9555);
 			break;
+		case Style2:
+			height_ = 26;
+			bordergump->setBounds(0, 0, width_, height_);
+			bordergump->setId(3000);
+			break;
 	}
 
 	addControl(bordergump);
 
 	// Label representing the current selection (none?)
 	selection_ = new cLabel;
-	selection_->setPosition(4, 0);
-	selection_->setFont(1);
-	selection_->setHue(0x8fd);
+	selection_->setFont(1);	
 	selection_->setBorder(false);
 	if (selectionIndex_ != -1 && selectionIndex_ < items_.size()) {
 		selection_->setText(items_[selectionIndex_]);
+	}	
+	switch (style) {
+		default:
+		case Style1:
+			selection_->setPosition(4, 0);
+			selection_->setHue(0x8fd);
+			break;
+		case Style2:
+			selection_->update();
+			selection_->setPosition(4, 4);
+			selection_->setHue(1);
+			break;
 	}
 	addControl(selection_);
 
 	// Toggle Button
 	cImageButton *button = new cImageButton();
 	button->setObjectName("toggle");
-	button->setStateGump(BS_UNPRESSED, 2706);
-	button->setStateGump(BS_PRESSED, 2707);
-	button->draw(0, 0);
-	button->setPosition(width_ - button->width(), 0);
+	switch (style) {
+		default:
+		case Style1:
+			button->setStateGump(BS_UNPRESSED, 2706);
+			button->setStateGump(BS_PRESSED, 2707);
+			button->draw(0, 0);
+			button->setPosition(width_ - button->width(), 0);
+			break;
+		case Style2:
+			button->setStateGump(BS_UNPRESSED, 2706);
+			button->setStateGump(BS_PRESSED, 2707);
+			button->draw(0, 0);
+			button->setPosition(width_ - button->width() - 4, (height_ - button->height()) / 2);
+			break;
+	}
 	addControl(button);
 
 	connect(button, SIGNAL(onButtonPress(cControl*)), SLOT(openSelectionList()));
@@ -316,6 +343,10 @@ void cCombobox::onChangeBounds(int oldx, int oldy, int oldwidth, int oldheight) 
 }
 
 void cCombobox::openSelectionList() {
+	if (items_.isEmpty()) {
+		return;
+	}
+
 	delete selectionList_;
 
 	// Get screen coordinates
@@ -340,6 +371,9 @@ void cCombobox::openSelectionList() {
 		case Style1:
 			border->setIds(9553, 9554, 9555, 9553, 9554, 9555, 9556, 9557, 9558);
 			break;
+		case Style2:
+			border->setId(3000);
+			break;
 	}
 
 	selectionList_->addControl(border);
@@ -351,7 +385,7 @@ void cCombobox::openSelectionList() {
 		border = new cBorderGump(); // Scrollbar background
 		border->setId(9200);
 		
-		cVerticalScrollBar *scrollbar = new cVerticalScrollBar(0, 5, selectionList_->height() - 10);
+		cVerticalScrollbar *scrollbar = new cVerticalScrollbar(0, 5, selectionList_->height() - 10);
 		scrollbar->setObjectName("scrollbar");
 		scrollbar->setHandleId(9026);
 		scrollbar->setBackgroundId(9204);
@@ -382,4 +416,12 @@ void cCombobox::selectItem(int index) {
 	}
 
 	emit selectionChanged();
+}
+
+void cCombobox::processDefinitionAttribute(QString name, QString value) {
+	if (name == "style") {
+		setStyle(Style(Utilities::stringToUInt(value)));
+	} else {
+		return cContainer::processDefinitionAttribute(name, value);
+	}
 }

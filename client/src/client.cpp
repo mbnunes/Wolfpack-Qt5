@@ -12,6 +12,7 @@
 #include "profile.h"
 #include "sound.h"
 #include "scripts.h"
+#include "skills.h"
 
 #include "gui/cursor.h"
 #include "gui/gui.h"
@@ -103,11 +104,13 @@ cUoClient::cUoClient() {
 
 	Scripts = new cScripts;
 	Profile = new cProfile;
+	Skills = new cSkills;
 }
 
-cUoClient::~cUoClient() {
+cUoClient::~cUoClient() {	
 	delete Profile;
 	delete Scripts;
+	delete Skills;
 
 	delete UoSocket;
 
@@ -169,6 +172,7 @@ void cUoClient::load() {
 	Speech->load();
 	Sound->load();
 	Multis->load();
+	Skills->load();
 
 	Cursor->load(); // The cursor requires the mulreader classes
 
@@ -181,6 +185,7 @@ void cUoClient::unload() {
 		UoSocket->disconnect();
 	}
 
+	Skills->unload();
 	Gui->unload();
 	Scripts->unload();
 

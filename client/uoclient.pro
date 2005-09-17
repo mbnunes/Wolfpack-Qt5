@@ -25,14 +25,13 @@ win32:DEFINES -= UNICODE
 #win32:LIBS += advapi32.lib shell32.lib openal32.lib
 win32:LIBS += -ladvapi32 -lshell32 -lopenal32
 
-unix:LIBS += -lGL -lGLU
+unix:LIBS += -lGL -lGLU -lpython24
 
 DEPENDPATH += src
 INCLUDEPATH += include;libs/include
 
 # MAIN INCLUDES
 HEADERS += \
-	include/binkw.h \
 	include/config.h \
 	include/enums.h \
 	include/exceptions.h \
@@ -46,7 +45,9 @@ HEADERS += \
 	include/vector.h \
 	include/md5.h \
 	include/profile.h \
-	include/macros.h
+	include/macros.h \
+	include/skills.h \
+	include/scripts.h
 	
 HEADERS += \
 	include/dialogs/login.h \
@@ -114,13 +115,19 @@ HEADERS += \
 	include/network/outgoingpackets.h \
 	include/network/twofish2.h
 
+# Python includes
+HEADERS += \
+	include/python/utilities.h \
+	include/python/clientmodule.h \
+	include/python/genericwrapper.h \
+	include/python/loginterface.h
+
 win32:HEADERS += \
 	include/windows/gmtoolwnd.h
 
 # MAIN src
 
 SOURCES += \
-	src/binkw.cpp \
 	src/config.cpp \
 	src/log.cpp \
 	src/mainwindow.cpp \
@@ -133,7 +140,9 @@ SOURCES += \
 	src/main.cpp \
 	src/md5.cpp \
 	src/profile.cpp \
-	src/macros.cpp
+	src/macros.cpp \
+	src/skills.cpp \
+	src/scripts.cpp
 
 SOURCES += \
 	src/dialogs/login.cpp \
@@ -186,6 +195,13 @@ SOURCES += \
 	src/game/world.cpp \
 	src/game/tooltips.cpp \
 	src/game/targetrequest.cpp
+	
+# Python includes
+HEADERS += \
+	src/python/utilities.cpp \
+	src/python/clientmodule.cpp \
+	src/python/genericwrapper.cpp \
+	src/python/loginterface.cpp
 
 # MUL srcS
 SOURCES += \

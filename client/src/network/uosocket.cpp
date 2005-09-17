@@ -85,8 +85,7 @@ cUoSocket::cUoSocket() {
 	QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
 	QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(connectionClosed()));
 	QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-	QObject::connect(socket, SIGNAL(bytesWritten(int)), this, SLOT(bytesWritten(int)));
-	QObject::connect(socket, SIGNAL(error(QAbstractSocket::ConnectedState)), this, SLOT(error(QAbstractSocket::ConnectedState)));
+	QObject::connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error(QAbstractSocket::SocketError)));
 
 	/*
 	Static -> Already Registered
@@ -365,9 +364,6 @@ void cUoSocket::readyRead() {
 		packet->handle(this);
 		delete packet;
 	}
-}
-
-void cUoSocket::bytesWritten(int nbytes) {
 }
 
 void cUoSocket::error(QAbstractSocket::SocketError error) {

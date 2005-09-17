@@ -1,7 +1,7 @@
 ﻿<?xml version="1.1" encoding="UTF-8" ?>
 <dialogs>
 	<!-- Toplevel Login Dialog -->
-	<dialog id="LoginDialog" name="LoginDialog" closable="0" movable="0" class="LoginDialog">
+	<dialog id="LoginDialog" name="LoginDialog" closable="0" movable="0" module="dialogs.LoginDialog">
 		<bounds x="0" y="0" width="640" height="480" />
 		<children>
 			<!-- Overall Background -->
@@ -18,11 +18,7 @@
 			<gumpimage gump="0x15a0">
 				<position x="0" y="4" />
 			</gumpimage>
-			
-			<combobox style="0">
-				<bounds x="100" y="200" width="125" height="60" />
-			</combobox>
-			
+						
 			<!-- Quit Button -->
 			<imagebutton name="QuitButton" unpressed="0x1589" pressed="0x158B" hover="0x158A">
 				<position x="555" y="4" />
@@ -276,7 +272,7 @@
 	</dialog>
 	
 	<!-- Character creation subwindow -->
-	<dialog id="CharacterCreation1" name="CharacterCreation1" closable="0" movable="0" class="CharacterCreation" visible="false">
+	<dialog id="CharacterCreation1" name="CharacterCreation1" closable="0" movable="0" module="dialogs.CharacterCreation" visible="false">
 		<bounds x="0" y="0" width="640" height="480" />
 		<children>
 			<bordergump gump="2600">
@@ -320,7 +316,7 @@
 	</dialog>
 	
 	<!-- Advanced character profesion setup -->
-	<dialog id="CharacterCreation2" name="CharacterCreation2" closable="0" movable="0" class="CharacterCreation" visible="false">
+	<dialog id="CharacterCreation2" name="CharacterCreation2" closable="0" movable="0" module="dialogs.CharacterCreation" visible="false">
 		<bounds x="0" y="0" width="640" height="480" />
 		<children>
 			<bordergump gump="2600">
@@ -358,14 +354,34 @@
 						<bounds x="130" y="30" width="45"/>
 					</label>
 					
+					<bordergump gump="9200">
+						<bounds x="30" y="47" width="150" height="22" />
+					</bordergump>					
+					<horizontalscrollbar name="StrengthScroller" background="0" handle="9026">
+						<leftbutton unpressed="9909" pressed="9911" hover="9910" />
+						<rightbutton unpressed="9903" pressed="9905" hover="9904" />
+						<range min="10" max="60" />
+						<bounds x="30" y="48" width="150" />
+					</horizontalscrollbar>
+					
 					<!-- Dexterity -->
 					<label localized="3000328" hue="1" border="false">
 						<position x="30" y="95"/>
 					</label>
 					<label name="DexterityLabel" text="0" hue="1" border="false" textalign="right" autosize="0">
 						<bounds x="130" y="95" width="45"/>
-					</label>	
+					</label>
 					
+					<bordergump gump="9200">
+						<bounds x="30" y="112" width="150" height="22" />
+					</bordergump>					
+					<horizontalscrollbar name="DexterityScroller" background="0" handle="9026">
+						<leftbutton unpressed="9909" pressed="9911" hover="9910" />
+						<rightbutton unpressed="9903" pressed="9905" hover="9904" />
+						<range min="10" max="60" />
+						<bounds x="30" y="113" width="150" />
+					</horizontalscrollbar>					
+
 					<!-- Intelligence -->
 					<label localized="3000329" hue="1" border="false">
 						<position x="30" y="160"/>
@@ -373,6 +389,26 @@
 					<label name="IntelligenceLabel" text="0" hue="1" border="false" textalign="right" autosize="0">
 						<bounds x="130" y="160" width="45"/>
 					</label>
+
+					<bordergump gump="9200">
+						<bounds x="30" y="177" width="150" height="22" />
+					</bordergump>
+					<horizontalscrollbar name="IntelligenceScroller" background="0" handle="9026">
+						<leftbutton unpressed="9909" pressed="9911" hover="9910" />
+						<rightbutton unpressed="9903" pressed="9905" hover="9904" />
+						<range min="10" max="60" />
+						<bounds x="30" y="178" width="150" />
+					</horizontalscrollbar>
+					
+					<!-- Skill 1 -->
+					<combobox style="1" name="SkillBox1">
+						<bounds x="221" y="30" width="150" height="60" />
+					</combobox>
+					
+					<!--
+					combobox 110008 221 30 150 papercombobox papercombolist
+					hscrollbar 120006 221 58 120 16 hscrollbar
+					numerictextarea 120006 321 58 45 20 512-->
 				</children>
 			</container>
 

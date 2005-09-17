@@ -23,8 +23,10 @@ public:
 	void load();
 	void unload();
 
+	void export(const QString &filename, QString language = QString::null);
+
 public slots:
-	QString get(uint id, QString language = QString::null);
+	QString get(uint id, QString language = QString::null);	
 };
 
 extern cLocalization *Localization;

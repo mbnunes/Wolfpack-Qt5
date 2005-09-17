@@ -3,12 +3,12 @@
 #define __SCRIPTS_H__
 
 #include <QObject>
-#include "qsproject.h"
+#include <QVariantList>
 
 class cScripts : public QObject {
 Q_OBJECT
 protected:
-	QSProject *project;
+	void initializeSearchPath();
 public:
 	cScripts();
 	~cScripts();
@@ -16,10 +16,7 @@ public:
 	void load();
 	void unload();
 
-public slots:
-	void showWorkbench();
-	QVariant callStaticMethod(QString className, QString methodName, QVariantList arguments);
-	bool classExists(QString className);
+    QVariant callFunction(const QString &module, const QString &function, const QVariantList &arguments);
 };
 
 extern cScripts *Scripts;

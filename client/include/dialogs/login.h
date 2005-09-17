@@ -78,8 +78,6 @@ private:
 	unsigned int shardEntryOffset;
 	bool errorStatus;
 public:
-	void onScrollShardList(int oldpos, int newpos);
-
 	cLoginDialog();
 	~cLoginDialog();
 
@@ -109,6 +107,7 @@ public slots:
 	void statusCancelClicked(cControl *sender);
 	void statusOkClicked(cControl *sender);
 	void charSelected(cControl *sender);
+	void shardlistScrolled(int oldpos);
 
 	// These are connected to the uoSocket
 	void socketError(const QString &error);

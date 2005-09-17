@@ -1225,11 +1225,11 @@ public:
 AUTO_REGISTER_PACKET(0xbd, cRequestVersionPacket::creator);
 
 // The server wants to set the update range
-class cSetUpdateRangePacket : public cDynamicIncomingPacket {
+class cSetUpdateRangePacket : public cIncomingPacket {
 protected:
 	uchar range;
 public:
-	cSetUpdateRangePacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+	cSetUpdateRangePacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
 		input >> range;
 	}
 

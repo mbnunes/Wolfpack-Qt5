@@ -49,7 +49,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib $(QTDIR)/lib/qsa1.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
+				AdditionalDependencies="$(QTDIR)/lib/QtOpenGl4.lib $(QTDIR)/lib/QtCore4.lib $(QTDIR)/lib/QtNetwork4.lib $(QTDIR)/lib/QtXml4.lib $(QTDIR)/lib/QtGui4.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
 				OutputFile="release\uoclient.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -102,7 +102,7 @@
 				PreprocessorDefinitions="_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="TRUE"
-				RuntimeLibrary="2"
+				RuntimeLibrary="3"
 				BufferSecurityCheck="FALSE"
 				RuntimeTypeInfo="TRUE"
 				AssemblerListingLocation="Debug\"
@@ -117,14 +117,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="$(QTDIR)/lib/QtOpenGld4.lib $(QTDIR)/lib/QtCored4.lib $(QTDIR)/lib/QtNetworkd4.lib $(QTDIR)/lib/QtXmld4.lib $(QTDIR)/lib/QtGuid4.lib $(QTDIR)/lib/qtmaind.lib $(QTDIR)/lib/qsad1.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
+				AdditionalDependencies="$(QTDIR)/lib/QtOpenGld4.lib $(QTDIR)/lib/QtCored4.lib $(QTDIR)/lib/QtNetworkd4.lib $(QTDIR)/lib/QtXmld4.lib $(QTDIR)/lib/QtGuid4.lib wsock32.lib opengl32.lib glu32.lib winmm.lib dxguid.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winspool.lib OpenAL32.lib Alut.lib"
 				OutputFile="release\uoclient_d.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=""
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -158,12 +158,6 @@
 		<Filter
 			Name="src"
 			Filter="">
-			<File
-				RelativePath=".\src\binkw.cpp">
-			</File>
-			<File
-				RelativePath=".\include\binkw.h">
-			</File>
 			<File
 				RelativePath=".\src\client.cpp">
 			</File>
@@ -316,6 +310,30 @@
 			</File>
 			<File
 				RelativePath=".\include\scripts.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\skills.cpp">
+			</File>
+			<File
+				RelativePath=".\include\skills.h">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
@@ -545,6 +563,9 @@
 				RelativePath=".\obj\moc_genericgump.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_genericwrapper.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_gui.cpp">
 			</File>
 			<File
@@ -591,6 +612,9 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_scrollbar.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_skills.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_sound.cpp">
@@ -717,7 +741,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -725,7 +750,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -1519,6 +1545,47 @@
 			</File>
 			<File
 				RelativePath=".\include\windows\gmtoolwnd.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="python"
+			Filter="">
+			<File
+				RelativePath=".\src\python\clientmodule.cpp">
+			</File>
+			<File
+				RelativePath=".\include\python\clientmodule.h">
+			</File>
+			<File
+				RelativePath=".\src\python\genericwrapper.cpp">
+			</File>
+			<File
+				RelativePath=".\include\python\genericwrapper.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\python\loginterface.cpp">
+			</File>
+			<File
+				RelativePath=".\include\python\loginterface.h">
+			</File>
+			<File
+				RelativePath=".\include\python\utilities.h">
 			</File>
 		</Filter>
 		<File
