@@ -1941,6 +1941,20 @@ static PyObject* wpChar_delete( wpChar* self, PyObject* args )
 }
 
 /*
+	\method char.ismounted
+	\description Check if the character is mounted.
+	\return True if the character is mounted, false otherwise.
+*/
+static PyObject* wpChar_ismounted( wpChar* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	if ( !self->pChar || self->pChar->free )
+		Py_RETURN_FALSE;
+
+	return self->pChar->atLayer( cBaseChar::Mount ) ? PyTrue() : PyFalse();
+}
+
+/*
 	\method char.ismurderer
 	\description Check if the character is a murderer.
 	\return True if the character is a murderer, false otherwise.
@@ -2775,6 +2789,7 @@ static PyMethodDef wpCharMethods[] =
 // Mount/Unmount
 { "unmount",		( getattrofunc ) wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
 { "mount",			( getattrofunc ) wpChar_mount,				METH_VARARGS, "Mounts this on a specific mount." },
+{ "ismounted",	( getattrofunc ) wpChar_ismounted,		METH_VARARGS, "Is this char mounted." },
 
 // Effects
 { "movingeffect",	( getattrofunc ) wpChar_movingeffect,		METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
