@@ -519,6 +519,8 @@
 
 	<!-- Foundations -->
 
+	<!-- Foundations 2 Story -->
+
 	<multi id="foundation_2_7x7">
 		<name>Small Place</name>
 		<id>0x53ec</id>
@@ -846,6 +848,393 @@
 		<id>0x543a</id>
 		<nodecay />
 		<category>Foundation 2Story 13x13</category>
+	</multi>
+
+	<!-- Foundations 3 Story -->
+
+	<multi id="foundation_3_9x14">
+		<name>Small Place</name>
+		<id>0x540b</id>
+		<nodecay />
+		<category>Foundation 3Story 9x14</category>
+	</multi>
+
+	<multi id="foundation_3_10x14">
+		<name>Small Place</name>
+		<id>0x5417</id>
+		<nodecay />
+		<category>Foundation 3Story 10x14</category>
+	</multi>
+
+	<multi id="foundation_3_10x15">
+		<name>Small Place</name>
+		<id>0x5418</id>
+		<nodecay />
+		<category>Foundation 3Story 10x15</category>
+	</multi>
+
+	<multi id="foundation_3_11x14">
+		<name>Small Place</name>
+		<id>0x5423</id>
+		<nodecay />
+		<category>Foundation 3Story 11x14</category>
+	</multi>
+
+	<multi id="foundation_3_11x15">
+		<name>Small Place</name>
+		<id>0x5424</id>
+		<nodecay />
+		<category>Foundation 3Story 11x15</category>
+	</multi>
+
+	<multi id="foundation_3_11x16">
+		<name>Small Place</name>
+		<id>0x5425</id>
+		<nodecay />
+		<category>Foundation 3Story 11x16</category>
+	</multi>
+
+	<multi id="foundation_3_12x14">
+		<name>Small Place</name>
+		<id>0x542f</id>
+		<nodecay />
+		<category>Foundation 3Story 12x14</category>
+	</multi>
+
+	<multi id="foundation_3_12x15">
+		<name>Small Place</name>
+		<id>0x5430</id>
+		<nodecay />
+		<category>Foundation 3Story 12x15</category>
+	</multi>
+
+	<multi id="foundation_3_12x16">
+		<name>Small Place</name>
+		<id>0x5431</id>
+		<nodecay />
+		<category>Foundation 3Story 12x16</category>
+	</multi>
+
+	<multi id="foundation_3_12x17">
+		<name>Small Place</name>
+		<id>0x5432</id>
+		<nodecay />
+		<category>Foundation 3Story 12x17</category>
+	</multi>
+
+	<multi id="foundation_3_13x14">
+		<name>Small Place</name>
+		<id>0x543b</id>
+		<nodecay />
+		<category>Foundation 3Story 13x14</category>
+	</multi>
+
+	<multi id="foundation_3_13x15">
+		<name>Small Place</name>
+		<id>0x543c</id>
+		<nodecay />
+		<category>Foundation 3Story 13x15</category>
+	</multi>
+
+	<multi id="foundation_3_13x16">
+		<name>Small Place</name>
+		<id>0x543d</id>
+		<nodecay />
+		<category>Foundation 3Story 13x16</category>
+	</multi>
+
+	<multi id="foundation_3_13x17">
+		<name>Small Place</name>
+		<id>0x543e</id>
+		<nodecay />
+		<category>Foundation 3Story 13x17</category>
+	</multi>
+
+	<multi id="foundation_3_13x18">
+		<name>Small Place</name>
+		<id>0x543f</id>
+		<nodecay />
+		<category>Foundation 3Story 13x18</category>
+	</multi>
+
+	<multi id="foundation_3_14x9">
+		<name>Small Place</name>
+		<id>0x5442</id>
+		<nodecay />
+		<category>Foundation 3Story 14x9</category>
+	</multi>
+
+	<multi id="foundation_3_14x10">
+		<name>Small Place</name>
+		<id>0x5443</id>
+		<nodecay />
+		<category>Foundation 3Story 14x10</category>
+	</multi>
+
+	<multi id="foundation_3_14x11">
+		<name>Small Place</name>
+		<id>0x5444</id>
+		<nodecay />
+		<category>Foundation 3Story 14x11</category>
+	</multi>
+
+	<multi id="foundation_3_14x12">
+		<name>Small Place</name>
+		<id>0x5445</id>
+		<nodecay />
+		<category>Foundation 3Story 14x12</category>
+	</multi>
+
+	<multi id="foundation_3_14x13">
+		<name>Small Place</name>
+		<id>0x5446</id>
+		<nodecay />
+		<category>Foundation 3Story 14x13</category>
+	</multi>
+
+	<multi id="foundation_3_14x14">
+		<name>Small Place</name>
+		<id>0x5447</id>
+		<nodecay />
+		<category>Foundation 3Story 14x14</category>
+	</multi>
+
+	<multi id="foundation_3_14x15">
+		<name>Small Place</name>
+		<id>0x5448</id>
+		<nodecay />
+		<category>Foundation 3Story 14x15</category>
+	</multi>
+
+	<multi id="foundation_3_14x16">
+		<name>Small Place</name>
+		<id>0x5449</id>
+		<nodecay />
+		<category>Foundation 3Story 14x16</category>
+	</multi>
+
+	<multi id="foundation_3_14x17">
+		<name>Small Place</name>
+		<id>0x544a</id>
+		<nodecay />
+		<category>Foundation 3Story 14x17</category>
+	</multi>
+
+	<multi id="foundation_3_14x18">
+		<name>Small Place</name>
+		<id>0x544b</id>
+		<nodecay />
+		<category>Foundation 3Story 14x18</category>
+	</multi>
+
+	<multi id="foundation_3_15x10">
+		<name>Small Place</name>
+		<id>0x544f</id>
+		<nodecay />
+		<category>Foundation 3Story 15x10</category>
+	</multi>
+
+	<multi id="foundation_3_15x11">
+		<name>Small Place</name>
+		<id>0x5450</id>
+		<nodecay />
+		<category>Foundation 3Story 15x11</category>
+	</multi>
+
+	<multi id="foundation_3_15x12">
+		<name>Small Place</name>
+		<id>0x5451</id>
+		<nodecay />
+		<category>Foundation 3Story 15x12</category>
+	</multi>
+
+	<multi id="foundation_3_15x13">
+		<name>Small Place</name>
+		<id>0x5452</id>
+		<nodecay />
+		<category>Foundation 3Story 15x13</category>
+	</multi>
+
+	<multi id="foundation_3_15x14">
+		<name>Small Place</name>
+		<id>0x5453</id>
+		<nodecay />
+		<category>Foundation 3Story 15x14</category>
+	</multi>
+
+	<multi id="foundation_3_15x15">
+		<name>Small Place</name>
+		<id>0x5454</id>
+		<nodecay />
+		<category>Foundation 3Story 15x15</category>
+	</multi>
+
+	<multi id="foundation_3_15x16">
+		<name>Small Place</name>
+		<id>0x5455</id>
+		<nodecay />
+		<category>Foundation 3Story 15x16</category>
+	</multi>
+
+	<multi id="foundation_3_15x17">
+		<name>Small Place</name>
+		<id>0x5456</id>
+		<nodecay />
+		<category>Foundation 3Story 15x17</category>
+	</multi>
+
+	<multi id="foundation_3_15x18">
+		<name>Small Place</name>
+		<id>0x5457</id>
+		<nodecay />
+		<category>Foundation 3Story 15x18</category>
+	</multi>
+
+	<multi id="foundation_3_16x11">
+		<name>Small Place</name>
+		<id>0x545c</id>
+		<nodecay />
+		<category>Foundation 3Story 16x11</category>
+	</multi>
+
+	<multi id="foundation_3_16x12">
+		<name>Small Place</name>
+		<id>0x545d</id>
+		<nodecay />
+		<category>Foundation 3Story 16x12</category>
+	</multi>
+
+	<multi id="foundation_3_16x13">
+		<name>Small Place</name>
+		<id>0x545e</id>
+		<nodecay />
+		<category>Foundation 3Story 16x13</category>
+	</multi>
+
+	<multi id="foundation_3_16x14">
+		<name>Small Place</name>
+		<id>0x545f</id>
+		<nodecay />
+		<category>Foundation 3Story 16x14</category>
+	</multi>
+
+	<multi id="foundation_3_16x15">
+		<name>Small Place</name>
+		<id>0x5460</id>
+		<nodecay />
+		<category>Foundation 3Story 16x15</category>
+	</multi>
+
+	<multi id="foundation_3_16x16">
+		<name>Small Place</name>
+		<id>0x5461</id>
+		<nodecay />
+		<category>Foundation 3Story 16x16</category>
+	</multi>
+
+	<multi id="foundation_3_16x17">
+		<name>Small Place</name>
+		<id>0x5462</id>
+		<nodecay />
+		<category>Foundation 3Story 16x17</category>
+	</multi>
+
+	<multi id="foundation_3_16x18">
+		<name>Small Place</name>
+		<id>0x5463</id>
+		<nodecay />
+		<category>Foundation 3Story 16x18</category>
+	</multi>
+
+	<multi id="foundation_3_17x12">
+		<name>Small Place</name>
+		<id>0x5469</id>
+		<nodecay />
+		<category>Foundation 3Story 17x12</category>
+	</multi>
+
+	<multi id="foundation_3_17x13">
+		<name>Small Place</name>
+		<id>0x546a</id>
+		<nodecay />
+		<category>Foundation 3Story 17x13</category>
+	</multi>
+
+	<multi id="foundation_3_17x14">
+		<name>Small Place</name>
+		<id>0x546b</id>
+		<nodecay />
+		<category>Foundation 3Story 17x14</category>
+	</multi>
+
+	<multi id="foundation_3_17x15">
+		<name>Small Place</name>
+		<id>0x546c</id>
+		<nodecay />
+		<category>Foundation 3Story 17x15</category>
+	</multi>
+
+	<multi id="foundation_3_17x16">
+		<name>Small Place</name>
+		<id>0x546d</id>
+		<nodecay />
+		<category>Foundation 3Story 17x16</category>
+	</multi>
+
+	<multi id="foundation_3_17x17">
+		<name>Small Place</name>
+		<id>0x546e</id>
+		<nodecay />
+		<category>Foundation 3Story 17x17</category>
+	</multi>
+
+	<multi id="foundation_3_17x18">
+		<name>Small Place</name>
+		<id>0x546f</id>
+		<nodecay />
+		<category>Foundation 3Story 17x18</category>
+	</multi>
+
+	<multi id="foundation_3_18x13">
+		<name>Small Place</name>
+		<id>0x5476</id>
+		<nodecay />
+		<category>Foundation 3Story 18x13</category>
+	</multi>
+
+	<multi id="foundation_3_18x14">
+		<name>Small Place</name>
+		<id>0x5477</id>
+		<nodecay />
+		<category>Foundation 3Story 18x14</category>
+	</multi>
+
+	<multi id="foundation_3_18x15">
+		<name>Small Place</name>
+		<id>0x5478</id>
+		<nodecay />
+		<category>Foundation 3Story 18x15</category>
+	</multi>
+
+	<multi id="foundation_3_18x16">
+		<name>Small Place</name>
+		<id>0x5479</id>
+		<nodecay />
+		<category>Foundation 3Story 18x16</category>
+	</multi>
+
+	<multi id="foundation_3_18x17">
+		<name>Small Place</name>
+		<id>0x547a</id>
+		<nodecay />
+		<category>Foundation 3Story 18x17</category>
+	</multi>
+
+	<multi id="foundation_3_18x18">
+		<name>Small Place</name>
+		<id>0x547b</id>
+		<nodecay />
+		<category>Foundation 3Story 18x18</category>
 	</multi>
 
 </definitions>
