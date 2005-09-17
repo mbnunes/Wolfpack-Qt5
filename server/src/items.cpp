@@ -553,7 +553,7 @@ void cItem::Init( bool createSerial )
 	this->amount_ = 1; // Amount of items in pile
 	this->hp_ = 0; //Number of hit points an item has.
 	this->maxhp_ = 0; // Max number of hit points an item can have.
-	this->movable_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
+	this->movable_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Owner movable, 3=Never movable.
 	this->setOwnSerialOnly( -1 );
 	this->visible_ = 0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
@@ -761,9 +761,9 @@ void cItem::processNode( const cElement* Tag )
 	// <immovable />
 	else if ( TagName == "movable" )
 		this->movable_ = 1;
-	else if ( TagName == "immovable" )
-		this->movable_ = 2;
 	else if ( TagName == "ownermovable" )
+		this->movable_ = 2;
+	else if ( TagName == "immovable" )
 		this->movable_ = 3;
 
 	// <decay />

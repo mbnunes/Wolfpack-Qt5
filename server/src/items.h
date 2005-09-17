@@ -390,19 +390,19 @@ public:
 	{
 		return ( movable_ == 1 );
 	}
-	void setGMMovable()
+	void setOwnerMovable()
 	{
 		this->movable_ = 2; flagChanged();
-	} // set it GM movable.
-	bool isGMMovable()
+	} // set it owner movable.
+	bool isOwnerMovable()
 	{
 		return ( movable_ == 2 );
 	}
-	void setOwnerMovable()
+	void setGMMovable()
 	{
 		this->movable_ = 3; flagChanged();
-	} // set it owner movable.
-	bool isOwnerMovable()
+	} // set it GM movable.
+	bool isGMMovable()
 	{
 		return ( movable_ == 3 );
 	}
