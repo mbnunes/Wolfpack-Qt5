@@ -337,7 +337,7 @@
 			
 			<label name="TitleLabel" font="0" localized="3000326" hue="1" bordercolor="0xC0B088" emboss="true">
 				<position x="135" y="125"/>
-			</label>		
+			</label>
 		
 			<container>
 				<bounds x="135" y="147" width="400" height="305" />
@@ -460,7 +460,31 @@
 
 			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
 				<position x="586" y="445" />
+			</imagebutton>
+			<imagebutton name="NextButton" unpressed="5540" pressed="5542" hover="5541">
+				<position x="610" y="445" />
 			</imagebutton>			
 		</children>
-	</dialog>	
+	</dialog>
+	
+	<!-- Advanced character profesion setup -->
+	<dialog id="CharacterCreationError" name="CharacterCreationError" closable="0" movable="true" visible="false">
+		<bounds x="195" y="115" width="250" height="250" />
+		<children>
+			<bordergump gump="9200">
+				<bounds x="0" y="0" width="250" height="250" />
+			</bordergump>
+			<bordergump gump="3500">
+				<bounds x="10" y="10" width="230" height="208" />
+			</bordergump>
+			<label name="MessageLabel" text="" hue="1" border="false" textalign="center" autosize="0">
+				<bounds x="25" y="25" width="180"/>
+			</label>
+			<imagebutton name="OkButton" unpressed="4023" pressed="4025" hover="4024">
+				<position x="110" y="223" />
+			</imagebutton>
+			
+			button 10013 (R-gw4023)/2 (B-gh4023)-5 4023 4025 4024 0 2
+		</children>
+	</dialog>
 </dialogs>

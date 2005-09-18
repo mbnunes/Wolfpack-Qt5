@@ -3,14 +3,14 @@ from client import *
 
 # Character Templates
 CharacterTemplates = (
-	("Samurai", 1062948, 1062950, 5591, Skills.Bushido, 50, Skills.Swordsmanship, 50, Skills.Wrestling, 0, 40, 30, 10 ),
-	("Ninja", 1062949, 1062951, 5589, Skills.Ninjitsu, 50, Skills.Hiding, 50, Skills.Wrestling, 0, 40, 30, 10 ),
-	("Paladin", 1061177, 1061227, 5587, Skills.Chivalry, 50, Skills.Tactics, 50, Skills.Wrestling, 0, 45, 20, 15 ),
-	("Necromancer", 1061178, 1061228, 5557, Skills.Necromancy, 50, Skills.Swordsmanship, 30, Skills.Tactics, 20, 25, 20, 35 ),
-	("Warrior", 1061180, 1061230, 5577, Skills.Tactics, 50, Skills.Healing, 45, Skills.Swordsmanship, 5, 35, 35, 10 ),
-	("Mage", 1061179, 1061229, 5569, Skills.Magery, 50, Skills.Meditation, 50, Skills.Wrestling, 0, 25, 10, 45 ),
-	("Blacksmith", 1061181, 1061231, 5555, Skills.Blacksmithy, 50, Skills.Tinkering, 45, Skills.Mining, 5, 60, 10, 10 ),
-	("Advanced", 3000448, 3000448, 5505, Skills.Alchemy, 0, Skills.Alchemy, 0, Skills.Alchemy, 0, 30, 25, 25),
+	("Samurai", 1062948, 1062950, 5591, Skills.Bushido, 50, Skills.Swordsmanship, 50, Skills.Wrestling, 0, 40, 30, 10),
+	("Ninja", 1062949, 1062951, 5589, Skills.Ninjitsu, 50, Skills.Hiding, 50, Skills.Wrestling, 0, 40, 30, 10),
+	("Paladin", 1061177, 1061227, 5587, Skills.Chivalry, 50, Skills.Tactics, 50, Skills.Wrestling, 0, 45, 20, 15),
+	("Necromancer", 1061178, 1061228, 5557, Skills.Necromancy, 50, Skills.Swordsmanship, 30, Skills.Tactics, 20, 25, 20, 35),
+	("Warrior", 1061180, 1061230, 5577, Skills.Tactics, 50, Skills.Healing, 45, Skills.Swordsmanship, 5, 35, 35, 10),
+	("Mage", 1061179, 1061229, 5569, Skills.Magery, 50, Skills.Meditation, 50, Skills.Wrestling, 0, 25, 10, 45),
+	("Blacksmith", 1061181, 1061231, 5555, Skills.Blacksmithy, 50, Skills.Tinkering, 45, Skills.Mining, 5, 60, 10, 10),
+	("Advanced", 3000448, 3000448, 5505, Skills.Alchemy, 50, Skills.Alchemy, 50, Skills.Alchemy, 0, 30, 25, 25),
 )
 
 CTINDEX_NAME = 0 # Index Constant for the template name
@@ -127,7 +127,55 @@ class Context:
 		Go back
 	"""
 	def characterCreation2Back(self, button):
-		pass
+		# Hide current dialog and show next
+		loginDialog = Gui.findByName("LoginDialog")
+		loginDialog.findByName("CharacterCreation2").visible = False
+		loginDialog.findByName("CharacterCreation1").visible = True
+		
+	"""
+		Close an error dialog and show
+		self.showAfterError instead
+	"""
+	def closeErrorDialog(self, button):
+		loginDialog = Gui.findByName("LoginDialog")
+		
+		errorDialog = loginDialog.findByName("CharacterCreationError")		
+		errorDialog.visible = False
+		errorDialog.deleteLater()
+		
+		dialog = loginDialog.findByName(self.showAfterError)
+		dialog.visible = True
+		
+	"""
+		Check if the skills differ, then next screen
+	"""
+	def characterCreation2Next(self, button):
+		loginDialog = Gui.findByName("LoginDialog")
+		dialog = loginDialog.findByName("CharacterCreation2")
+		self.skill1 = dialog.findByName("SkillBox1").selectionIndex()
+		self.skill2 = dialog.findByName("SkillBox2").selectionIndex()
+		self.skill3 = dialog.findByName("SkillBox3").selectionIndex()
+		
+		if self.skill1 == self.skill2 or self.skill1 == self.skill3 or self.skill2 == self.skill3 or self.skill1 == -1 or self.skill2 == -1 or self.skill3 == -1:			
+			errorDialog = loginDialog.findByName("CharacterCreationError")
+			if not errorDialog:
+				errorDialog = Gui.createDialog("CharacterCreationError")
+				loginDialog.addControl(errorDialog)
+				
+			label = errorDialog.findByName("MessageLabel")
+			label.text = "Please Select Three Different Skills."
+			label.x = 25 + (180 - label.width) / 2
+			
+			self.showAfterError = "CharacterCreation2"
+			connect(errorDialog.findByName("OkButton"), "onButtonPress(cControl*)", self.closeErrorDialog)
+			
+			dialog.visible = False
+			errorDialog.visible = True
+			return
+		
+		# Hide current dialog and show next
+		dialog.visible = False
+		print "CHARCREATION DONE"
 		
 	def strengthScrolled(self, value):
 		loginDialog = Gui.findByName("LoginDialog")
@@ -176,7 +224,9 @@ class Context:
 			label.x = label.x + (400 - label.width) / 2
 	
 		backButton = dialog.findByName("BackButton")
+		nextButton = dialog.findByName("NextButton")
 		connect(backButton, "onButtonPress(cControl*)", self.characterCreation2Back)
+		connect(nextButton, "onButtonPress(cControl*)", self.characterCreation2Next)
 		
 		connect(dialog.findByName("StrengthScroller"), "scrolled(int)", self.strengthScrolled)
 		connect(dialog.findByName("DexterityScroller"), "scrolled(int)", self.dexterityScrolled)
@@ -351,9 +401,6 @@ class Context:
 						dexterity = MIN_STAT
 				else:
 					intelligence -= overflow;
-					if intelligence < MIN_STAT:
-						dexterity -= MIN_STAT - intelligence
-						intelligence = MIN_STAT
 				
 			# Exclude Dexterity		
 			elif excludeStat == 1:
@@ -364,9 +411,6 @@ class Context:
 						strength = MIN_STAT
 				else:
 					intelligence -= overflow
-					if intelligence < MIN_STAT:
-						strength -= MIN_STAT - intelligence
-						intelligence = MIN_STAT
 					
 			# Exclude Intelligence
 			elif excludeStat == 2:
@@ -377,10 +421,7 @@ class Context:
 						strength = MIN_STAT
 				else:
 					dexterity -= overflow
-					if dexterity < MIN_STAT:
-						strength -= MIN_STAT - dexterity
-						dexterity = MIN_STAT
-		
+
 		if strength != self.strength:
 			self.setStrength(strength, True) # Set strength but dont normalize again
 		if dexterity != self.dexterity:
