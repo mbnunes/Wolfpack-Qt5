@@ -21,6 +21,7 @@
 #include "python/loginterface.h"
 #include "python/utilities.h"
 #include "python/clientmodule.h"
+#include "python/universalslot.h"
 
 #include <QDir>
 #include <QApplication>
@@ -42,6 +43,12 @@ void cScripts::initializeSearchPath() {
 }
 
 void cScripts::load() {
+	// Every QObject subclass has to be registered so we know it's a supported type
+	qRegisterMetaType<cWindow*>("cWindow*");
+	qRegisterMetaType<cControl*>("cControl*");
+	qRegisterMetaType<cContainer*>("cContainer*");	
+	qRegisterMetaType<cAsciiLabel*>("cAsciiLabel*");
+
 	Log->print(LOG_NOTICE, tr("Starting the Python interpreter (Version: %1).\n").arg(Py_GetVersion()));
 
 	Py_SetProgramName(QApplication::instance()->argv()[0]);
@@ -60,6 +67,15 @@ void cScripts::load() {
 
 void cScripts::unload() {
 	Log->print(LOG_NOTICE, tr("Stopping the Python interpreter.\n"));
+
+	// Remove pending slots
+	QVector<cUniversalSlot*> slotcopy = slotlist;
+	slotlist.clear();
+
+	foreach (cUniversalSlot *slot, slotcopy) {
+		delete slot;
+	}
+
 	Py_Finalize();
 }
 
@@ -129,6 +145,19 @@ QVariant cScripts::callFunction(const QString &moduleName, const QString &functi
 	return QVariant();
 }
 
+void cScripts::addSlot(cUniversalSlot *slot) {
+	slotlist.append(slot);
+}
+
+void cScripts::removeSlot(cUniversalSlot *slot) {
+	for (int i = 0; i < slotlist.size(); ++i) {
+		if (slotlist[i] == slot) {
+			slotlist.remove(i);
+			return;
+		}
+	}
+}
+
 /*
 void cScripts::load() {
 	// Try to create the directory if it does not exist
@@ -155,10 +184,6 @@ void cScripts::load() {
 
 	Log->print(LOG_MESSAGE, tr("Loaded %1 scripts from project file.\n").arg(project->scripts().count()));
 
-	qRegisterMetaType<cWindow*>("cWindow*");
-	qRegisterMetaType<cControl*>("cControl*");
-	qRegisterMetaType<cContainer*>("cContainer*");	
-	qRegisterMetaType<cAsciiLabel*>("cAsciiLabel*");
 	QSInterpreter::registerMetaObject(&cControl::staticMetaObject);
 	QSInterpreter::registerMetaObject(&cContainer::staticMetaObject);
 	QSInterpreter::registerMetaObject(&cWindow::staticMetaObject);
@@ -209,3 +234,4 @@ bool cScripts::classExists(QString className) {
 }
 */
 cScripts *Scripts = 0;
+

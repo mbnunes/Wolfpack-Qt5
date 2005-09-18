@@ -5,6 +5,8 @@
 #include <Python.h>
 #include <QObject>
 
+extern PyTypeObject pyWrapperType; 
+
 /*
 	This class receives calls from the wrapped QObjects if they're deleted,
 	so it can reset the pointer on it's parent.

@@ -64,7 +64,7 @@ class Context:
 				btn.setStateGump(BS_PRESSED, template[CTINDEX_GUMP] + 1)
 				btn.setStateGump(BS_HOVER, template[CTINDEX_GUMP] + 1)
 				btn.setTag("profession", str(i))
-				#connect(btn, "onButtonPress(cControl*)", "characterCreation1Next")
+				connect(btn, "onButtonPress(cControl*)", self.characterCreation1Next)
 				    		
 				optn.setPosition(xpos, ypos)
 				dialog.addControl(optn)
@@ -76,6 +76,9 @@ class Context:
 					ypos += 70
 		
 		dialog.visible = True
+	
+	def characterCreation1Next(self, button):
+		button.visible = False
 		
 	"""
 	 Initialize the Character creation dialog (page 2)

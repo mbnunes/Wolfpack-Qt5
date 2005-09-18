@@ -206,37 +206,7 @@ static PyObject *methodwrapper_call(pyMethodWrapperObject *obj, PyObject *args, 
 
 		wrapped->qt_metacall(QMetaObject::InvokeMetaMethod, obj->wrappedMethods[i], paramList);
 
-		// check the return value
-		switch (returnValueType) {
-			// All Integer types go into the same function anyway
-			case QMetaType::Int:
-				return toPython(*(int*)paramList[0]);
-			case QMetaType::UInt:
-				return toPython(*(uint*)paramList[0]);
-			case QMetaType::UShort:
-				return toPython(*(ushort*)paramList[0]);
-			case QMetaType::Short:
-				return toPython(*(short*)paramList[0]);
-			case QMetaType::Char:
-				return toPython(*(char*)paramList[0]);
-			case QMetaType::UChar:
-				return toPython(*(uchar*)paramList[0]);
-			case QMetaType::QString:
-				return toPython(*(QString*)paramList[0]);
-			case QMetaType::Bool:
-				return toPython(*(bool*)paramList[0]);
-			case QMetaType::QObjectStar:
-				if (*(QObject**)paramList[0] == 0) {
-					Py_RETURN_NONE;
-				} else {
-					return toPython(*(QObject**)paramList[0]);
-				}
-
-			// Default return type is None
-			default:
-			case QMetaType::Void:
-				Py_RETURN_NONE;
-		}
+		return toPython(paramList[0], returnValueType);
 	}
 
 	PyErr_SetString(PyExc_RuntimeError, "Did not found a suitable overload for calling the method with the given arguments.");

@@ -120,7 +120,8 @@ HEADERS += \
 	include/python/utilities.h \
 	include/python/clientmodule.h \
 	include/python/genericwrapper.h \
-	include/python/loginterface.h
+	include/python/loginterface.h \
+	include/python/universalslot.h
 
 win32:HEADERS += \
 	include/windows/gmtoolwnd.h
@@ -201,7 +202,8 @@ HEADERS += \
 	src/python/utilities.cpp \
 	src/python/clientmodule.cpp \
 	src/python/genericwrapper.cpp \
-	src/python/loginterface.cpp
+	src/python/loginterface.cpp \
+	src/python/universalslot.cpp
 
 # MUL srcS
 SOURCES += \

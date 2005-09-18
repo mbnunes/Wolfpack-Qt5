@@ -8,8 +8,6 @@
 
 #include "python/genericwrapper.h"
 
-// Several Python Utility Functions
-
 /*
 	Convert a python object into a QString.
 */
@@ -73,24 +71,39 @@ inline int fromPythonToUInt(PyObject* object) {
 Check if we can convert the given PyObject to the target type.
 */
 inline bool canConvert(PyObject *from, const QString &to) {
-	if (to == "QString") {
-		return PyString_Check(from) || PyUnicode_Check(from);
-	} else if (to == "int" || to == "uint" || to == "unsigned short" || to == "short" || to == "unsigned char" || to == "char") {
-		return PyInt_Check(from) || PyLong_Check(from) || PyFloat_Check(from);
-	} else if (to == "bool") {
-		return true; // Always convertable
-	} else {
-		// Check if it's a pointer type and see if from is a genericwrapper capable of
-		// casting to the required type
-		if (isGenericWrapper(from)) {
-			QObject *wrapped = getWrappedObject(from);
-			if (wrapped->inherits(to.left(to.length() - 1).toLocal8Bit())) {
-				return true; // We can convert it. yay!
-			}
-		}		
+	QMetaType::Type type = (QMetaType::Type)QMetaType::type(to.toLocal8Bit());
 
-		return false;
+	if (type == QMetaType::QObjectStar || type >= QMetaType::User) {
+			// Check if it's a pointer type and see if from is a genericwrapper capable of
+			// casting to the required type
+			if (isGenericWrapper(from)) {
+				QObject *wrapped = getWrappedObject(from);
+				if (wrapped->inherits(to.left(to.length() - 1).toLocal8Bit())) {
+					return true; // We can convert it. yay!
+				}
+			}
 	}
+
+	switch (type) {
+		case QMetaType::QString:
+			return PyString_Check(from) || PyUnicode_Check(from);
+		case QMetaType::UInt:
+		case QMetaType::Int:
+		case QMetaType::UShort:
+		case QMetaType::Short:
+		case QMetaType::Char:
+		case QMetaType::UChar:
+		case QMetaType::ULong:
+		case QMetaType::Long:
+		case QMetaType::Float:
+		case QMetaType::Double:
+			return PyInt_Check(from) || PyLong_Check(from) || PyFloat_Check(from);
+			break;
+		case QMetaType::Bool:
+			return true;		
+		default:
+			return false;
+	};
 }
 
 /*
@@ -157,6 +170,47 @@ inline PyObject *toPython(const QVariant &variant) {
 			return toPython(qvariant_cast<QObject*>(variant));
 		default:
 			return 0;
+	}
+}
+
+inline PyObject *toPython(void *ptr, QMetaType::Type type) {
+	if (ptr == 0) {
+		Py_RETURN_NONE;
+	}
+
+	if (type >= QMetaType::User) {
+		type = QMetaType::QObjectStar;
+	}
+
+	switch (type) {
+		// All Integer types go into the same function anyway
+		case QMetaType::Int:
+			return toPython(*(int*)ptr);
+		case QMetaType::UInt:
+			return toPython(*(uint*)ptr);
+		case QMetaType::UShort:
+			return toPython(*(ushort*)ptr);
+		case QMetaType::Short:
+			return toPython(*(short*)ptr);
+		case QMetaType::Char:
+			return toPython(*(char*)ptr);
+		case QMetaType::UChar:
+			return toPython(*(uchar*)ptr);
+		case QMetaType::QString:
+			return toPython(*(QString*)ptr);
+		case QMetaType::Bool:
+			return toPython(*(bool*)ptr);
+		case QMetaType::QObjectStar:
+			if (*(QObject**)ptr == 0) {
+				Py_RETURN_NONE;
+			} else {
+				return toPython(*(QObject**)ptr);
+			}
+
+		// Default return type is None
+		default:
+		case QMetaType::Void:
+			Py_RETURN_NONE;
 	}
 }
 
