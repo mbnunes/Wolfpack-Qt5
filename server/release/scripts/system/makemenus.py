@@ -1297,7 +1297,7 @@ class MakeMenu:
 			# Show an information to other chars in order to prevent unfairness
 			chars = wolfpack.chars(player.pos.x, player.pos.y, player.pos.map, 5)
 			for char in chars:
-				if not char == player and wolfpack.utilities.checkLoS(char, player):
+				if not char == player and char.player and wolfpack.utilities.checkLoS(char, player):
 					char.emote(tr("You see %s is breaking the item while trying to enhance it.") % player.name)
 		# Failure
 		elif result == 0:
