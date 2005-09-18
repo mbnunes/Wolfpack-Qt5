@@ -78,6 +78,7 @@ Food subtypes:
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Raw Fish Steak</category>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Dough -->
@@ -252,6 +253,7 @@ Food subtypes:
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>1.0</weight>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Raw bird n/s -->
@@ -454,6 +456,7 @@ Food subtypes:
 		<buyprice>7</buyprice>
 		<sellprice>3</sellprice>
 		<weight>0.2</weight>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Cut of Rips -->

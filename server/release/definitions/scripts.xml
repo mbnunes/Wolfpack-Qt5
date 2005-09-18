@@ -22,19 +22,17 @@
 
 	<script>ankh</script>
 	<script>arcanegem</script>
-	<script>ballotbox</script>
-	<script>bola</script>
-	<script>test</script>
-	<script>leatherdye</script>
-	<script>specialdye</script>
-	<script>runedye</script>
 	<script>archery_butte</script>
+	<script>ballotbox</script>
 	<script>bandages</script>
+	<script>beverage</script>
 	<script>blades</script>
+	<script>bola</script>
 	<script>book</script>
 	<script>bulletinboard</script>
 	<script>check</script>
 	<script>comcrystals</script>
+	<script>cooking</script>
 	<script>dicecup</script>
 	<script>door</script>
 	<script>dyes</script>
@@ -50,24 +48,27 @@
 	<script>key</script>
 	<script>keyring</script>
 	<script>kindling</script>
+	<script>leatherdye</script>
 	<script>lightsource</script>
 	<script>lock</script>
 	<script>lockpick</script>
+	<script>map</script>
 	<script>moongate</script>
 	<script>oil_cloth</script>
 	<script>ore</script>
 	<script>pickaxe</script>
-	<script>beverage</script>
 	<script>pickpocket_dip</script>
 	<script>potionkeg</script>
+	<script>runedye</script>
 	<script>scissors</script>
 	<script>shrine</script>
 	<script>shrink</script>
 	<script>signpost</script>
 	<script>slotmachine</script>
 	<script>spawngem</script>
-	<script>map</script>
+	<script>specialdye</script>
 	<script>spiderweb</script>
+	<script>test</script>
 	<script>training_dummy</script>
 	<script>trashcan</script>
 	<script>tribal_paint</script>

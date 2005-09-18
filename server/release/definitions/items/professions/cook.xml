@@ -474,6 +474,7 @@
 		<id>0x1042</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Unbaked Pie</category>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Unbaked Quiche -->
@@ -537,6 +538,7 @@
 		<id>0x1083</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Unbaked Pizza</category>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<item id="15f8">
@@ -587,6 +589,7 @@
 		<sellprice>2</sellprice>
 		<weight>0.2</weight>
 		<category>Professions\Cook\Supplies\Raw Leg of Lamb</category>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Raw Chicken Leg -->
