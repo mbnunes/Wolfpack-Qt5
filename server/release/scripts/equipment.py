@@ -772,11 +772,20 @@ def onUnequip(char, item, layer):
 	# Add nightsight
 	nightsight = properties.fromitem(item, NIGHTSIGHT)
 	if nightsight and char.player and char.hastag('nightsight'):
-		bonus = char.gettag('nightsight')
-		char.lightbonus = max(0, char.lightbonus - bonus)
-		char.deltag('nightsight')
-		char.socket.updatelightlevel()
-
+		# Check if another nightsight item is equipped
+		found = False
+		for i in range(LAYER_RIGHTHAND, LAYER_LEGS):
+			if char.itemonlayer(i) and char.itemonlayer(i).hastag('nightsight'):
+				found = True
+				break
+		# We have magic spell on char e.g.
+		if char.hasscript('magic.nightsight'):
+			found = True
+		if not found:
+			bonus = char.gettag('nightsight')
+			char.lightbonus = max(0, char.lightbonus - bonus)
+			char.deltag('nightsight')
+			char.socket.updatelightlevel()
 	# Update Stats
 	if changed:
 		char.updatestats()
