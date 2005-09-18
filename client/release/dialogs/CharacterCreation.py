@@ -17,6 +17,12 @@ CTINDEX_NAME = 0 # Index Constant for the template name
 CTINDEX_LOCALIZEDNAME = 1
 CTINDEX_LOCALIZEDDESC = 2
 CTINDEX_GUMP = 3
+CTINDEX_SKILL1 = 4
+CTINDEX_SKILL1VALUE = 5
+CTINDEX_SKILL2 = 6
+CTINDEX_SKILL2VALUE = 7
+CTINDEX_SKILL3 = 8
+CTINDEX_SKILL3VALUE = 9
 CTINDEX_STRENGTH = 10
 CTINDEX_DEXTERITY = 11
 CTINDEX_INTELLIGENCE = 12
@@ -37,7 +43,13 @@ class Context:
 		self.strength = 10
 		self.dexterity = 10
 		self.intelligence = 10
-			
+		self.skill1 = -1
+		self.skill2 = -1
+		self.skill3 = -1
+		self.skill1Value = 50
+		self.skill2Value = 50
+		self.skill3Value = 0
+		self.normalizingSkills = False
 	
 	"""
 	 Select the profession with the given id
@@ -45,9 +57,17 @@ class Context:
 	def selectProfession(self, id):
 		self.profession = id
 		
-		self.setStrength(CharacterTemplates[id][CTINDEX_STRENGTH])
-		self.setDexterity(CharacterTemplates[id][CTINDEX_DEXTERITY])
-		self.setIntelligence(CharacterTemplates[id][CTINDEX_INTELLIGENCE])
+		self.setStrength(CharacterTemplates[id][CTINDEX_STRENGTH], True)
+		self.setDexterity(CharacterTemplates[id][CTINDEX_DEXTERITY], True)
+		self.setIntelligence(CharacterTemplates[id][CTINDEX_INTELLIGENCE], True)
+		
+		self.setSkillValue(1, CharacterTemplates[id][CTINDEX_SKILL1VALUE], True)
+		self.setSkillValue(2, CharacterTemplates[id][CTINDEX_SKILL2VALUE], True)
+		self.setSkillValue(3, CharacterTemplates[id][CTINDEX_SKILL3VALUE], True)
+		dialog = Gui.findByName("CharacterCreation2")
+		dialog.findByName("SkillBox1").selectItem(CharacterTemplates[id][CTINDEX_SKILL1])
+		dialog.findByName("SkillBox2").selectItem(CharacterTemplates[id][CTINDEX_SKILL2])
+		dialog.findByName("SkillBox3").selectItem(CharacterTemplates[id][CTINDEX_SKILL3])
 		
 		# Hide current dialog and show next
 		loginDialog = Gui.findByName("LoginDialog")
@@ -123,6 +143,27 @@ class Context:
 		loginDialog = Gui.findByName("LoginDialog")
 		intelligenceScroller = loginDialog.findByName("IntelligenceScroller")
 		self.setIntelligence(intelligenceScroller.pos)
+		
+	def skill1Scrolled(self, value):
+		if self.normalizingSkills:
+			return
+		loginDialog = Gui.findByName("LoginDialog")
+		scroller = loginDialog.findByName("SkillScroller1")
+		self.setSkillValue(1, scroller.pos)
+		
+	def skill2Scrolled(self, value):
+		if self.normalizingSkills:
+			return		
+		loginDialog = Gui.findByName("LoginDialog")
+		scroller = loginDialog.findByName("SkillScroller2")
+		self.setSkillValue(2, scroller.pos)
+		
+	def skill3Scrolled(self, value):
+		if self.normalizingSkills:
+			return		
+		loginDialog = Gui.findByName("LoginDialog")
+		scroller = loginDialog.findByName("SkillScroller3")
+		self.setSkillValue(3, scroller.pos)				
 
 	"""
 	 Initialize the Character creation dialog (page 2)
@@ -140,11 +181,13 @@ class Context:
 		connect(dialog.findByName("StrengthScroller"), "scrolled(int)", self.strengthScrolled)
 		connect(dialog.findByName("DexterityScroller"), "scrolled(int)", self.dexterityScrolled)
 		connect(dialog.findByName("IntelligenceScroller"), "scrolled(int)", self.intelligenceScrolled)
+		connect(dialog.findByName("SkillScroller1"), "scrolled(int)", self.skill1Scrolled)
+		connect(dialog.findByName("SkillScroller2"), "scrolled(int)", self.skill2Scrolled)
+		connect(dialog.findByName("SkillScroller3"), "scrolled(int)", self.skill3Scrolled)		
 
 		items = []
 		for i in range(0, SKILLCOUNT - 1):
 			items.append(Localization.get(1044060 + i))
-		items.sort();
 
 		# Set up the combo boxes
 		cb1 = dialog.findByName("SkillBox1")
@@ -153,6 +196,35 @@ class Context:
 		cb2.setItems(items)
 		cb3 = dialog.findByName("SkillBox3")
 		cb3.setItems(items)				
+
+	"""
+		Change one of the characters skills (1, 2 or 3)
+	"""
+	def setSkillValue(self, skill, value, dontnormalize = False):
+		if self.normalizingSkills and not dontnormalize:
+			return
+		
+		loginDialog = Gui.findByName("LoginDialog")
+		
+		# Update the scrollbar
+		scroller = loginDialog.findByName("SkillScroller%u" % skill)
+		if scroller.pos != value:
+			scroller.pos = value
+		
+		# Update the label
+		label = loginDialog.findByName("SkillLabel%u" % skill)
+		label.text = str(value)
+		
+		# Save strength
+		if skill == 1:
+			self.skill1 = value
+		elif skill == 2:
+			self.skill2 = value
+		elif skill == 3:
+			self.skill3 = value			
+		
+		if not dontnormalize:
+			self.normalizeSkills(skill)
 
 	"""
 		Change the character strength
@@ -276,7 +348,7 @@ class Context:
 					dexterity -= overflow
 					if dexterity < MIN_STAT:
 						intelligence -= MIN_STAT - dexterity
-						dexterity = MIN_STAT					
+						dexterity = MIN_STAT
 				else:
 					intelligence -= overflow;
 					if intelligence < MIN_STAT:
@@ -315,6 +387,112 @@ class Context:
 			self.setDexterity(dexterity, True) # Set dexterity but dont normalize again
 		if intelligence != self.intelligence:
 			self.setIntelligence(intelligence, True) # Set intelligence but dont normalize again
+			
+	"""
+	 If the skillsum is greater than the maximum allowance, 
+	 reduce several skills.
+	"""
+	def normalizeSkills(self, excludeSkill):
+		if self.normalizingSkills:
+			return
+			
+		self.normalizingSkills = True
+		
+		# Temporary variables for str, dex, int
+		skill1 = self.skill1
+		skill2 = self.skill2
+		skill3 = self.skill3
+		
+		statsum = skill1 + skill2 + skill3
+		overflow = statsum - 100
+
+		if overflow > 0:
+			# Exclude Skill1
+			if excludeSkill == 1:
+				if skill2 < skill3:
+					skill2 -= overflow
+					if skill2 < 0:
+						skill3 -= 0 - skill2
+						skill2 = 0
+				else:
+					skill3 -= overflow;
+					if skill3 < 0:
+						skill2 -= 0 - skill3
+						skill3 = 0
+				
+			# Exclude Skill2		
+			elif excludeSkill == 2:
+				if skill1 < skill3:
+					skill1 -= overflow
+					if skill1 < 0:
+						skill3 -= 0 - skill1
+						skill1 = 0
+				else:
+					skill3 -= overflow
+					if skill3 < 0:
+						skill1 -= 0 - skill3
+						skill3 = 0
+					
+			# Exclude Skill3
+			elif excludeSkill == 3:
+				if skill1 < skill2:
+					skill1 -= overflow
+					if skill1 < 0:
+						skill2 -= 0 - skill1
+						skill1 = 0
+				else:
+					skill2 -= overflow
+					if skill2 < 0:
+						skill1 -= 0 - skill2
+						skill2 = 0
+		elif overflow < 0:
+			# Exclude Skill1
+			if excludeSkill == 1:
+				if skill2 > skill3:
+					skill2 -= overflow
+					if skill2 > 50:
+						skill3 += skill2 - 50
+						skill2 = 50
+				else:
+					skill3 -= overflow;
+					if skill3 > 50:
+						skill2 += skill3 - 50
+						skill3 = 50
+				
+			# Exclude Skill2		
+			elif excludeSkill == 2:
+				if skill1 > skill3:
+					skill1 -= overflow
+					if skill1 > 50:
+						skill3 += skill1 - 50
+						skill1 = 50
+				else:
+					skill3 -= overflow
+					if skill3 > 50:
+						skill1 += skill3 - 50
+						skill3 = 50
+					
+			# Exclude Skill3
+			elif excludeSkill == 3:
+				if skill1 > skill2:
+					skill1 -= overflow
+					if skill1 > 50:
+						skill2 += skill1 - 50
+						skill1 = 50
+				else:
+					skill2 -= overflow
+					if skill2 > 50:
+						skill1 += skill2 - 50
+						skill2 = 50
+		
+		if skill1 != self.skill1:
+			self.setSkillValue(1, skill1, True) # Set skill1 but dont normalize again
+		if skill2 != self.skill1:
+			self.setSkillValue(2, skill2, True) # Set skill2 but dont normalize again
+		if skill3 != self.skill3:
+			self.setSkillValue(3, skill3, True) # Set skill3 but dont normalize again			
+
+		self.normalizingSkills = False
 
 # Create the Character Creation context		
 context = Context()

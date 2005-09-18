@@ -104,7 +104,8 @@ void cVerticalScrollbar::onScroll(int oldpos) {
 void cVerticalScrollbar::setHandleId(ushort id) {
 	if (handle) {
 		handle->setId(id);
-		handle->setY(getTrackerYFromPos(pos_));
+		handle->update();
+		handle->setY(getTrackerYFromPos(pos_));		
 		pixelPerStep = qMax<float>(0, (float)getInnerHeight() / (float)getValues());
 	}
 }
@@ -254,7 +255,7 @@ unsigned int cHorizontalScrollbar::getTrackerXFromPos(int pos) {
 	if (pos == (int)min_) {
 		return btnLeft->width();
 	} else if (pos == (int)max_) {
-		return width_ - btnRight->width() - handle->width();
+		return btnRight->x() - handle->width();
 	} else {
 		return btnLeft->width() + getInnerWidth() * ((pos_ - min_) / qMax<float>(1, max_ - min_));
 	}
@@ -263,20 +264,21 @@ unsigned int cHorizontalScrollbar::getTrackerXFromPos(int pos) {
 unsigned int cHorizontalScrollbar::getPosFromTrackerX(int x) {
 	if (x < btnLeft->width()) {
 		return min_;
-	} else if (x > width_ - btnRight->width() - handle->width()) {
+	} else if (x > btnRight->x() - handle->width()) {
 		return max_;
 	} else {
 		return qMin<int>(max_, qMax<int>(min_, min_ + ((x - (int)btnLeft->width()) / (float)getInnerWidth()) * getValues()));
 	}
 }
 
-void cHorizontalScrollbar::onScroll(int oldpos) {
+void cHorizontalScrollbar::onScroll(int oldpos) {	
 	emit scrolled(pos_);
 }
 
 void cHorizontalScrollbar::setHandleId(ushort id) {
 	if (handle) {
 		handle->setId(id);
+		handle->update();
 		handle->setX(getTrackerXFromPos(pos_));
 		pixelPerStep = qMax<float>(0, (float)getInnerWidth() / (float)getValues());
 	}

@@ -404,16 +404,52 @@
 					<combobox style="1" name="SkillBox1">
 						<bounds x="221" y="30" width="150" height="60" />
 					</combobox>
+					<bordergump gump="9200">
+						<bounds x="221" y="57" width="120" height="22" />
+					</bordergump>
+					<label name="SkillLabel1" text="0" hue="1" border="false" textalign="right" autosize="0">
+						<bounds x="321" y="58" width="45"/>
+					</label>										
+					<horizontalscrollbar name="SkillScroller1" background="0" handle="9026">
+						<leftbutton unpressed="9909" pressed="9911" hover="9910" />
+						<rightbutton unpressed="9903" pressed="9905" hover="9904" />
+						<range min="0" max="50" />
+						<bounds x="221" y="58" width="120" />
+					</horizontalscrollbar>
 					
 					<!-- Skill 2 -->
 					<combobox style="1" name="SkillBox2">
 						<bounds x="221" y="95" width="150" height="60" />
 					</combobox>
+					<bordergump gump="9200">
+						<bounds x="221" y="122" width="120" height="22" />
+					</bordergump>
+					<label name="SkillLabel2" text="0" hue="1" border="false" textalign="right" autosize="0">
+						<bounds x="321" y="123" width="45"/>
+					</label>					
+					<horizontalscrollbar name="SkillScroller2" background="0" handle="9026">
+						<leftbutton unpressed="9909" pressed="9911" hover="9910" />
+						<rightbutton unpressed="9903" pressed="9905" hover="9904" />
+						<range min="0" max="50" />
+						<bounds x="221" y="123" width="120" />
+					</horizontalscrollbar>
 					
 					<!-- Skill 3 -->
 					<combobox style="1" name="SkillBox3">
 						<bounds x="221" y="160" width="150" height="60" />
 					</combobox>										
+					<bordergump gump="9200">
+						<bounds x="221" y="187" width="120" height="22" />
+					</bordergump>
+					<label name="SkillLabel3" text="0" hue="1" border="false" textalign="right" autosize="0">
+						<bounds x="321" y="188" width="45"/>
+					</label>										
+					<horizontalscrollbar name="SkillScroller3" background="0" handle="9026">
+						<leftbutton unpressed="9909" pressed="9911" hover="9910" />
+						<rightbutton unpressed="9903" pressed="9905" hover="9904" />
+						<range min="0" max="50" />
+						<bounds x="221" y="188" width="120" />
+					</horizontalscrollbar>
 					
 					<!--
 					combobox 110008 221 30 150 papercombobox papercombolist
