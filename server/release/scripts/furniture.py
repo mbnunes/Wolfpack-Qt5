@@ -49,6 +49,11 @@ def onShowTooltip( viewer, object, tooltip ):
 		elif not prefix1 and prefix2:
 			tooltip.reset()
 			tooltip.add(1053099, "%s\t%s" % (prefix2, itemname))
+		# For containers (hardcoded type), add count of items and total weight
+		if object.type == 1:
+			tooltip.add(1050044, "%i\t%i" % (object.countitem(), object.totalweight))
+		if object.lockeddown:
+			tooltip.add(501643, "")
 
 	# Exceptional item?
 	if object.hastag('exceptional'):
