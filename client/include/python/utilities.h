@@ -71,6 +71,10 @@ inline int fromPythonToUInt(PyObject* object) {
 Check if we can convert the given PyObject to the target type.
 */
 inline bool canConvert(PyObject *from, const QString &to) {
+	if (to == "QStringList") {
+		return PyTuple_Check(from) || PyList_Check(from);
+	}
+
 	QMetaType::Type type = (QMetaType::Type)QMetaType::type(to.toLocal8Bit());
 
 	if (type == QMetaType::QObjectStar || type >= QMetaType::User) {
@@ -100,7 +104,7 @@ inline bool canConvert(PyObject *from, const QString &to) {
 			return PyInt_Check(from) || PyLong_Check(from) || PyFloat_Check(from);
 			break;
 		case QMetaType::Bool:
-			return true;		
+			return true;
 		default:
 			return false;
 	};

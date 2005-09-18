@@ -405,6 +405,16 @@
 						<bounds x="221" y="30" width="150" height="60" />
 					</combobox>
 					
+					<!-- Skill 2 -->
+					<combobox style="1" name="SkillBox2">
+						<bounds x="221" y="95" width="150" height="60" />
+					</combobox>
+					
+					<!-- Skill 3 -->
+					<combobox style="1" name="SkillBox3">
+						<bounds x="221" y="160" width="150" height="60" />
+					</combobox>										
+					
 					<!--
 					combobox 110008 221 30 150 papercombobox papercombolist
 					hscrollbar 120006 221 58 120 16 hscrollbar

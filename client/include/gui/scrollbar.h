@@ -25,6 +25,7 @@ protected:
 	int mouseDownY;
 	unsigned int min_, max_, pos_;
 	float pixelPerStep;
+	uint smallIncrement_;
 public:
 	cVerticalScrollbar(int x, int y, unsigned int height);
 	virtual ~cVerticalScrollbar();
@@ -45,7 +46,6 @@ public:
 	void onMouseDown(QMouseEvent *e);
 	void onMouseUp(QMouseEvent *e);
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
-
 	virtual void onScroll(int oldpos);
 
 	void processDefinitionAttribute(QString name, QString value);
@@ -57,6 +57,9 @@ public slots:
 
 	void setRange(uint min, uint max);
 	void setPos(uint data);
+
+	void setSmallIncrement(uint data);
+	uint smallIncrement() const;
 
 	uint pos() const;
 	uint min() const;
@@ -70,6 +73,14 @@ public slots:
 signals:
 	void scrolled(int pos);
 };
+
+inline void cVerticalScrollbar::setSmallIncrement(uint data) {
+	smallIncrement_ = data;
+}
+
+inline uint cVerticalScrollbar::smallIncrement() const {
+	return smallIncrement_;
+}
 
 inline uint cVerticalScrollbar::pos() const {
 	return pos_;
@@ -126,6 +137,7 @@ protected:
 	int mouseDownX;
 	unsigned int min_, max_, pos_;
 	float pixelPerStep;
+	uint smallIncrement_;
 public:
 	cHorizontalScrollbar(int x, int y, unsigned int width);
 	virtual ~cHorizontalScrollbar();
@@ -185,6 +197,9 @@ public slots:
 		}
 	}
 
+	void setSmallIncrement(uint data);
+	uint smallIncrement() const;
+
 	inline unsigned int pos() const { return pos_; }
 	inline unsigned int min() const { return min_; }
 	inline unsigned int max() const { return max_; }
@@ -192,5 +207,13 @@ public slots:
 signals:
 	void scrolled(int pos);
 };
+
+inline void cHorizontalScrollbar::setSmallIncrement(uint data) {
+	smallIncrement_ = data;
+}
+
+inline uint cHorizontalScrollbar::smallIncrement() const {
+	return smallIncrement_;
+}
 
 #endif

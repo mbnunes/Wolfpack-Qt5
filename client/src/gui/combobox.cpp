@@ -164,6 +164,12 @@ void cCombolist::draw(int xoffset, int yoffset) {
 	// Set the scissor box to the coordinates of this container
 	glScissor(xoffset, GLWidget->height() - (yoffset + height_), width_, height_);
 
+	int rightMargin = 4;
+
+	if (scrollbar) {
+		rightMargin += scrollbar->width();
+	}
+
 	Iterator it;
 	for (it = controls.begin(); it != controls.end(); ++it) {
 		if ((*it)->isVisible()) {
@@ -174,7 +180,7 @@ void cCombolist::draw(int xoffset, int yoffset) {
 				// The labels are always at the end of the control list, that means once
 				// we reach the first label, we can modify the scissor box to cut the top/bottom of the labels
 				// going in and out of view
-				glScissor(xoffset, GLWidget->height() - (yoffset + height_ - 5), width_, height_ - 10);
+				glScissor(xoffset, GLWidget->height() - (yoffset + height_ - 5), width_ - rightMargin, height_ - 10);
 
 				// Here we check if the control is currently selected and point that out to the user
 				QMap<cLabel*, uint>::iterator idit = labelIds.find(label);
@@ -392,6 +398,7 @@ void cCombobox::openSelectionList() {
 		scrollbar->setUpButtonIds(9900, 9902, 9901);
 		scrollbar->setDownButtonIds(9906, 9908, 9907);
 		scrollbar->setRange(0, overlap);
+		scrollbar->setSmallIncrement(itemHeight_);
 		
 		scrollbar->setPosition(selectionList_->width() - 5 - scrollbar->width(), 5); // Make sure the border is kept
 		border->setBounds(scrollbar->x(), scrollbar->y(), scrollbar->width(), scrollbar->height());

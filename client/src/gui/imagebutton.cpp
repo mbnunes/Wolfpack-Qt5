@@ -2,6 +2,7 @@
 #include <qglobal.h>
 #include <QMouseEvent>
 #include <QKeyEvent>
+#include <QApplication>
 
 #include "gui/imagebutton.h"
 #include "muls/gumpart.h"
@@ -33,6 +34,7 @@ cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down)
 	}
 
 	pressRepeatTimer = new QTimer(this); // Should be auto freed
+	pressRepeatTimer->setSingleShot(true);
 	connect(pressRepeatTimer, SIGNAL(timeout()), this, SLOT(repeatPress())); // Connect the timer to the press repeat slot
 }
 
@@ -107,7 +109,7 @@ void cImageButton::onMouseDown(QMouseEvent *e) {
 
 		// The button requests to be auto-pressed every x miliseconds
 		if (pressRepeatRate_ != 0) {
-			pressRepeatTimer->start(pressRepeatRate_);
+			pressRepeatTimer->start(QApplication::doubleClickInterval());
 			emit onButtonPress(this);
 		}
 	}
@@ -117,6 +119,7 @@ void cImageButton::repeatPress() {
 	// Send a repeated onClick event if we're above the button
 	// and it's configured to do so
 	if (mouseHolding_ && pressRepeatRate_ && mouseOver_) {
+		pressRepeatTimer->start(pressRepeatRate_);
 		emit onButtonPress(this);
 	}
 }

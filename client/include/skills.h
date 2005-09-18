@@ -60,15 +60,15 @@ public:
 		Meditation,
 		Stealth,
 		PreAosSkillCount,
-		Disarming,
+		Disarming = Stealth + 1,
 		Necromancy,
 		Focus,		
 		Chivalry,
 		PreSeSkillCount,
-		Bushido,
+		Bushido = Chivalry + 1,
 		Ninjitsu,
 		PreMlSkillCount,
-		Spellweaving,
+		Spellweaving = Ninjitsu + 1,
 		SkillCount
 	};
 

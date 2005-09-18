@@ -4,6 +4,7 @@
 #include "log.h"
 #include <QMetaProperty>
 #include <QVector>
+#include <QStringList>
 
 /*
 	This object wraps a qobject method.
@@ -37,6 +38,7 @@ static char charArguments[11];
 static QString qstringArguments[11];
 static bool boolArguments[11];
 static void *ptrArguments[11];
+static QStringList stringlistArguments[11];
 
 /*
 	Allocate the argument pointer space used by converted arguments.
@@ -118,6 +120,35 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 		if (type) {
 			*type = QMetaType::Bool;
 		}
+	} else if (qtType == "QStringList") {
+		ptr[index] = &stringlistArguments[index];
+		stringlistArguments[index].clear();
+		if (pyObj) {
+			if (PyTuple_Check(pyObj)) {
+				for (int i = 0; i < PyTuple_GET_SIZE(pyObj); ++i) {
+					PyObject *str = PyObject_Str(PyTuple_GET_ITEM(pyObj, i));
+					if (str) {
+						stringlistArguments[index].append(fromPythonToString(str));
+						Py_DECREF(str);
+					} else {
+						stringlistArguments[index].append(QString::null);
+					}
+				}
+			} else if (PyList_Check(pyObj)) {
+				for (int i = 0; i < PyList_GET_SIZE(pyObj); ++i) {
+					PyObject *str = PyObject_Str(PyList_GET_ITEM(pyObj, i));
+					if (str) {
+						stringlistArguments[index].append(fromPythonToString(str));
+						Py_DECREF(str);
+					} else {
+						stringlistArguments[index].append(QString::null);
+					}
+				}
+			}
+		}
+		if (type) {
+			*type = (QMetaType::Type)QVariant::StringList;
+		}
 	} else if (qtType.endsWith("*")) {
 		if (isGenericWrapper(pyObj)) {
 			// Pointer type, get the genericwrapper for our pyobj and see if we can cast, otherwise zero it out
@@ -135,6 +166,9 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 				*type = QMetaType::QObjectStar;
 			}
 		}
+	} else {
+		// ERROR!?
+		ptr[index] = 0;
 	}
 }
 

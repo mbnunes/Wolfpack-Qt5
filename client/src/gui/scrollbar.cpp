@@ -5,11 +5,11 @@
 #include "utilities.h"
 
 void cVerticalScrollbar::scrollUp(cControl *sender) {
-	setPos(qMax<int>(min(), pos() - 1));
+	setPos(qMax<int>(min(), pos() - smallIncrement_));
 }
 
 void cVerticalScrollbar::scrollDown(cControl *sender) {
-	setPos(qMin<int>(max(), pos() + 1));
+	setPos(qMin<int>(max(), pos() + smallIncrement_));
 }
 
 cVerticalScrollbar::cVerticalScrollbar(int x, int y, unsigned int height) : btnUp(0), btnDown(0), handle(0) {
@@ -37,6 +37,7 @@ cVerticalScrollbar::cVerticalScrollbar(int x, int y, unsigned int height) : btnU
 
 	pos_ = 0;
 	setRange(0, 0);
+	smallIncrement_ = 1;
 }
 
 cVerticalScrollbar::~cVerticalScrollbar() {
@@ -178,11 +179,11 @@ void cVerticalScrollbar::processDefinitionElement(QDomElement element) {
 	}
 }
 void cHorizontalScrollbar::scrollLeft(cControl *sender) {
-	setPos(qMax<int>(min(), pos() - 1));
+	setPos(qMax<int>(min(), pos() - smallIncrement_));
 }
 
 void cHorizontalScrollbar::scrollRight(cControl *sender) {
-	setPos(qMin<int>(max(), pos() + 1));
+	setPos(qMin<int>(max(), pos() + smallIncrement_));
 }
 
 cHorizontalScrollbar::cHorizontalScrollbar(int x, int y, uint width) : btnLeft(0), btnRight(0), handle(0) {
@@ -211,6 +212,7 @@ cHorizontalScrollbar::cHorizontalScrollbar(int x, int y, uint width) : btnLeft(0
 
 	pos_ = 0;
 	setRange(0, 0);
+	smallIncrement_ = 1;
 }
 
 cHorizontalScrollbar::~cHorizontalScrollbar() {
