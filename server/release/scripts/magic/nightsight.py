@@ -51,7 +51,7 @@ def onTimeChange(player):
 		nightsight_start = int(player.gettag('nightsight_start'))
 
 	# Nightsight lasts 1440 ingame minutes
-	if nightsight_start + 2 < wolfpack.time.minutes():
+	if nightsight_start + 1440 < wolfpack.time.minutes():
 		if player.socket:
 			player.socket.sysmessage(tr('Your nightsight is wearing out.'))
 		wearout(player)
