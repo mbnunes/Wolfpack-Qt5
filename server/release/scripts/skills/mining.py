@@ -260,7 +260,7 @@ def domining(char, args):
 		return False
 
 	# You loosen some rocks but fail to find any usable ore.
-	if char.skill < reqskill:
+	if char.skill[MINING] < reqskill:
 		socket.clilocmessage(501869)
 		return False
 
