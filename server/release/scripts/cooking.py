@@ -24,20 +24,20 @@ ids_heat = [ 	0xde3, # Campfire
 # b) the id if cooking fails, empty if item should just be deleted
 ids = {
 	# raw bird : cooked bird
-	0x9b9 : [ "9b7", "1eb0" ],
-	0x9ba : [ "9b8", "1eb0" ],
+	0x9b9 : [ "9b7", "burned_bird" ],
+	0x9ba : [ "9b8", "burned_bird" ],
 
 	# raw fish : cooked fish
-	0x97a : [ "97b", "1eb0" ],
+	0x97a : [ "97b", "burned_fish" ],
 
 	# raw rib : cooked rib
-	0x9f1 : [ "9f2", "1eb0" ],
+	0x9f1 : [ "9f2", "burned_rib" ],
 
 	# raw chickenleg : cooked chickenleg
-	0x1607 : [ "1608", "1eb0" ],
+	0x1607 : [ "1608", "burned_chickenleg" ],
 
 	# raw lamleg : cooked lamleg
-	0x1609 : [ "160a", "1eb0" ],
+	0x1609 : [ "160a", "burned_lambleg" ],
 
 	# unbaked pie : baked pie
 	0x1042 : [ "1041", "" ],
