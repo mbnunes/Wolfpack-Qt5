@@ -66,6 +66,20 @@
 		<lightsource>0xff</lightsource>
 	</item>
 
+	<item id="21ff">
+		<id>0x21ff</id>
+		<category>Buildings\Walls\Stone Wall 2\Skull Window 1</category>
+		<nodecay/>
+		<lightsource>0xff</lightsource>
+	</item>
+
+	<item id="2200">
+		<id>0x2200</id>
+		<category>Buildings\Walls\Stone Wall 2\Skull Window 2</category>
+		<nodecay/>
+		<lightsource>0xff</lightsource>
+	</item>
+
 	<item id="83">
 		<id>0x83</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 1</category>

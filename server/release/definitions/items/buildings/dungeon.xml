@@ -372,6 +372,30 @@
 		<category>Dungeon\Bones\Skeleton 4</category>
 	</item>
 
+	<item id="21fc">
+		<id>0x21fc</id>
+		<nodecay />
+		<category>Dungeon\Bones\Skull Spikes</category>
+	</item>
+
+	<item id="318c">
+		<id>0x318c</id>
+		<nodecay />
+		<category>Dungeon\Bones\Grizzled Bones</category>
+	</item>
+
+	<item id="2203">
+		<id>0x2203</id>
+		<nodecay />
+		<category>Dungeon\Bones\Skull</category>
+	</item>
+
+	<item id="2204">
+		<id>0x2204</id>
+		<nodecay />
+		<category>Dungeon\Bones\Skull Pole</category>
+	</item>
+
 	<!-- Spiderwebs -->
 	<item id="ee3">
 		<id>0xee3</id>

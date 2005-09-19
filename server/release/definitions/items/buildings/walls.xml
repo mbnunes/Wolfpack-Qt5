@@ -643,6 +643,12 @@
 		<nodecay/>
 	</item>
 
+	<item id="21fd">
+		<id>0x21fd</id>
+		<category>Buildings\Walls\Stone Wall 2\Battlement 6</category>
+		<nodecay/>
+	</item>
+
 	<item id="77">
 		<id>0x77</id>
 		<category>Buildings\Walls\Stone Wall 2\Stone Column</category>
@@ -658,6 +664,18 @@
 	<item id="79">
 		<id>0x79</id>
 		<category>Buildings\Walls\Stone Wall 2\Edge 2</category>
+		<nodecay/>
+	</item>
+
+	<item id="2201">
+		<id>0x2201</id>
+		<category>Buildings\Walls\Stone Wall 2\Stone Spike 1</category>
+		<nodecay/>
+	</item>
+
+	<item id="2202">
+		<id>0x2202</id>
+		<category>Buildings\Walls\Stone Wall 2\Stone Spike 2</category>
 		<nodecay/>
 	</item>
 
