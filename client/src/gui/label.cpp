@@ -73,6 +73,8 @@ void cLabel::draw(int xoffset, int yoffset) {
 		// TODO: Clipping if width_/heigh_ < realWidth/realHeight
 		if (align_ == ALIGN_RIGHT) {
             surface->draw(x_ + xoffset + width_ - surface->realWidth(), y_ + yoffset, alpha_);
+		} else if (align_ == ALIGN_CENTER) {
+			surface->draw(x_ + xoffset + (width_ - surface->realWidth()) / 2, y_ + yoffset, alpha_);
 		} else {
 			surface->draw(x_ + xoffset, y_ + yoffset, alpha_);
 		}

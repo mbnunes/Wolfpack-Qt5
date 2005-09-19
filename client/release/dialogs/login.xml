@@ -467,7 +467,98 @@
 		</children>
 	</dialog>
 	
-	<!-- Advanced character profesion setup -->
+	<!-- Character Appeareance Setup -->
+	<dialog id="CharacterCreation3" name="CharacterCreation3" closable="0" movable="0" module="dialogs.CharacterCreation" visible="false">
+		<bounds x="0" y="0" width="640" height="480" />
+		<children>
+			<bordergump gump="2600">
+				<bounds x="80" y="80" width="506" height="366" />
+			</bordergump>
+			<gumpimage gump="1419">
+				<position x="145" y="57" />
+			</gumpimage>
+			<gumpimage gump="1417">
+				<position x="222" y="44" />
+			</gumpimage>
+			<gumpimage gump="5546">
+				<position x="231" y="53" />
+			</gumpimage>
+			<bordergump gump="9270">
+				<bounds x="355" y="110" width="183" height="280" />
+			</bordergump>
+			
+			<label font="0" localized="3000325" hue="1" bordercolor="0xC0B088" emboss="true" textalign="center" autosize="0">
+				<bounds x="80" y="405" width="496" />		
+			</label>
+			
+			// Male/Female
+			//layouttoggle 40004 120 402 224 30 cooltogstate1 cooltogstate1pressed cooltogstate1highlight cooltogstate1 cooltogstate1pressed cooltogstate1highlight 3000118 3000119
+			interfaceradiobutton 40004 40004 0 240 342 105 20 cooltogstate1 cooltogstate1pressed cooltogstate1highlight cooltogstate1 cooltogstate1pressed cooltogstate1highlight 3000118 3000118 
+			interfaceradiobutton 40004 40004 1 240 362 105 20 cooltogstate1 cooltogstate1pressed cooltogstate1highlight cooltogstate1 cooltogstate1pressed cooltogstate1highlight 3000119 3000119
+			
+			// Human/Elf
+			//layouttoggle 40012 120 342 224 30 cooltogstate1 cooltogstate1pressed cooltogstate1highlight cooltogstate1 cooltogstate1pressed cooltogstate1highlight 1072255 1072256
+			interfaceradiobutton 40012 40012 0 120 342 105 20 cooltogstate1 cooltogstate1pressed cooltogstate1highlight cooltogstate1 cooltogstate1pressed cooltogstate1highlight 1072255 1072255
+			interfaceradiobutton 40012 40012 1 120 362 105 20 cooltogstate1 cooltogstate1pressed cooltogstate1highlight cooltogstate1 cooltogstate1pressed cooltogstate1highlight 1072256 1072256
+			
+			<!-- Shirt Color -->
+			<textbutton name="ShirtColorButton" localized="3000440" style="0">
+				<bounds x="120" y="127" width="224" height="30" />
+			</textbutton>
+
+			<!-- Pants Color -->
+			<textbutton name="PantsColorButton" localized="3000441" style="0">
+				<bounds x="120" y="157" width="224" height="30" />
+			</textbutton>
+			
+			<!-- Skin Tone -->
+			<textbutton name="SkinToneButton" localized="3000442" style="0">
+				<bounds x="120" y="187" width="224" height="30" />
+			</textbutton>
+			
+			<!-- Hairstyle -->
+			<combobox style="1" name="HairStyle">
+				<bounds x="120" y="230" width="124" height="60" />
+			</combobox>
+			
+			<!-- Hair Color -->
+			<textbutton name="HairColorButton" localized="3000444" style="0">
+				<bounds x="250" y="227" width="94" height="30" />
+			</textbutton>
+			
+			<!-- Facial Hairstyle -->
+			<combobox style="1" name="FacialHairStyle">
+				<bounds x="120" y="277" width="124" height="60" />
+			</combobox>
+			
+			<!-- Facial Hair Color -->
+			<textbutton name="FacialHairColorButton" localized="3000446" style="0">
+				<bounds x="250" y="274" width="94" height="30" />
+			</textbutton>
+			
+			<!-- Paperdoll Stuff -->
+			<gumpimage name="PaperdollBody" gump="12">
+				<position x="360" y="110" />
+			</gumpimage>
+			<gumpimage name="PaperdollFacialHair" gump="0xc530">
+				<position x="360" y="110" />
+			</gumpimage>			
+			<gumpimage name="PaperdollLegs" gump="0xc4fe">
+				<position x="360" y="110" />
+			</gumpimage>
+			<gumpimage name="PaperdollTorso" gump="0xc502">
+				<position x="360" y="110" />
+			</gumpimage>
+			<gumpimage name="PaperdollHair" gump="0xc60d">
+				<position x="360" y="110" />
+			</gumpimage>
+			<gumpimage name="PaperdollFacialHair" gump="0xc674">
+				<position x="360" y="110" />
+			</gumpimage>
+		</children>		
+	</dialog>
+	
+	<!-- Character Creation Error Dialog -->
 	<dialog id="CharacterCreationError" name="CharacterCreationError" closable="0" movable="true" visible="false">
 		<bounds x="195" y="115" width="250" height="250" />
 		<children>
@@ -483,8 +574,6 @@
 			<imagebutton name="OkButton" unpressed="4023" pressed="4025" hover="4024">
 				<position x="110" y="223" />
 			</imagebutton>
-			
-			button 10013 (R-gw4023)/2 (B-gh4023)-5 4023 4025 4024 0 2
 		</children>
 	</dialog>
 </dialogs>

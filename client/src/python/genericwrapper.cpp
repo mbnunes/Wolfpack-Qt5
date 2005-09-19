@@ -495,22 +495,30 @@ static int wrapper_set(pyWrapperObject* self, char* name, PyObject* value) {
 		// Check if the property is writeable
 		if (property.isWritable()) {
 			QVariant variant;
-			
-			switch (property.type()) {
+		
+			int type = QMetaType::type(property.typeName());
+			if (type == QMetaType::Void) {
+				type = QVariant::nameToType(property.typeName());
+			}
+			switch (type) {
 				case QVariant::String:
 					variant.setValue<QString>(fromPythonToString(value));
 					break;
 				case QVariant::Int:
+				case QMetaType::Short:
+				case QMetaType::Char:
 					variant.setValue<int>(fromPythonToInt(value));
 					break;
 				case QVariant::UInt:
+				case QMetaType::UShort:
+				case QMetaType::UChar:
 					variant.setValue<uint>(fromPythonToUInt(value));
 					break;
 				case QVariant::Bool:
 					variant.setValue<bool>(PyObject_IsTrue(value) != 0);
 					break;				
 				default:
-					PyErr_Format(PyExc_AttributeError, "Unsupported property type: %u (%s)", (int)property.type(), name);
+					PyErr_Format(PyExc_AttributeError, "Unsupported property type: %d (%s)", (int)property.type(), name);
 					return -1;
 			}
 

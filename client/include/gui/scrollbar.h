@@ -188,13 +188,13 @@ public slots:
 	}
 
 	inline void setPos(unsigned int data) {
-	data = qMin<uint>(max_, qMax<int>(min_, data));		
-	if (data != pos_) {
-		int oldpos = pos_;
-		pos_ = data;
-		handle->setX(getTrackerXFromPos(pos_));
-		onScroll(oldpos);
-	}
+		data = qMin<uint>(max_, qMax<int>(min_, data));		
+		if (data != pos_) {
+			int oldpos = pos_;
+			pos_ = data;
+			handle->setX(getTrackerXFromPos(pos_));
+			onScroll(oldpos);
+		}
 	}
 
 	void setSmallIncrement(uint data);

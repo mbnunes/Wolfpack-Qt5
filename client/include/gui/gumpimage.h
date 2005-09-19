@@ -7,6 +7,10 @@
 
 class cGumpImage : public cControl {
 Q_OBJECT
+Q_PROPERTY(ushort id READ id WRITE setId)
+Q_PROPERTY(ushort hue READ hue WRITE setHue)
+Q_PROPERTY(bool partialhue READ partialHue WRITE setPartialHue)
+Q_PROPERTY(bool autosize READ autoSize WRITE setAutoSize)
 
 protected:
 	bool dirty;
@@ -24,6 +28,7 @@ public:
 	void draw(int xoffset, int yoffset);
 	void processDefinitionAttribute(QString name, QString value);
 
+public slots:
 	bool autoSize() const;
 	unsigned short id() const;
 	unsigned short hue() const;

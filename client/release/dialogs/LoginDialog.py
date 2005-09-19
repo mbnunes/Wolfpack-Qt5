@@ -9,3 +9,7 @@ def initialize(dialog):
 	charcreation2 = Gui.createDialog("CharacterCreation2")
 	if charcreation2:
 		dialog.addControl(charcreation2)
+
+	charcreation3 = Gui.createDialog("CharacterCreation3")
+	if charcreation3:
+		dialog.addControl(charcreation3)

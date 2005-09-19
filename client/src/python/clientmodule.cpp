@@ -2,6 +2,7 @@
 #include <Python.h>
 
 #include "skills.h"
+#include "utilities.h"
 #include "gui/gui.h"
 #include "muls/localization.h"
 #include "python/genericwrapper.h"
@@ -48,8 +49,22 @@ static PyObject *connect(PyObject *self, PyObject *args) {
 	Py_RETURN_TRUE;
 }
 
+static PyObject *random(PyObject *self, PyObject *args) {
+	if (PyTuple_Size(args) == 2) {
+		int mi, ma;
+		if (!PyArg_ParseTuple(args, "ii", &mi, &ma)) {
+			return 0;
+		}
+
+		return PyInt_FromLong(mi + Random->randInt(ma - mi));
+	}
+
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef clientMethods[] = {
 	{"connect",	connect, METH_VARARGS, 0},
+	{"random", random, METH_VARARGS, 0},
 	{0, 0, 0, 0}
 };
 

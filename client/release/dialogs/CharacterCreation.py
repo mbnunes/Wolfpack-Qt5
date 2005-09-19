@@ -13,6 +13,9 @@ CharacterTemplates = (
 	("Advanced", 3000448, 3000448, 5505, Skills.Alchemy, 50, Skills.Alchemy, 50, Skills.Alchemy, 0, 30, 25, 25),
 )
 
+HairstyleNames = ("Long Hair", "Short Hair", "Krishna")
+HairstyleGumps = (0xc60d, 0xc60c, 0xc619)
+
 CTINDEX_NAME = 0 # Index Constant for the template name
 CTINDEX_LOCALIZEDNAME = 1
 CTINDEX_LOCALIZEDDESC = 2
@@ -50,7 +53,10 @@ class Context:
 		self.skill2Value = 50
 		self.skill3Value = 0
 		self.normalizingSkills = False
-	
+		self.hairstyle = 0
+		self.pantscolor = random(2, 0x3e9)
+		self.shirtcolor = random(2, 0x3e9)
+
 	"""
 	 Select the profession with the given id
 	"""
@@ -68,11 +74,15 @@ class Context:
 		dialog.findByName("SkillBox1").selectItem(CharacterTemplates[id][CTINDEX_SKILL1])
 		dialog.findByName("SkillBox2").selectItem(CharacterTemplates[id][CTINDEX_SKILL2])
 		dialog.findByName("SkillBox3").selectItem(CharacterTemplates[id][CTINDEX_SKILL3])
-		
+
 		# Hide current dialog and show next
 		loginDialog = Gui.findByName("LoginDialog")
 		loginDialog.findByName("CharacterCreation1").visible = False
-		loginDialog.findByName("CharacterCreation2").visible = True
+		
+		if CharacterTemplates[id][CTINDEX_NAME] == "Advanced":
+			loginDialog.findByName("CharacterCreation2").visible = True
+		else:
+			self.characterCreation2Next(None)
 						
 	"""
 	 Initialize the Character creation dialog (page 1)
@@ -174,8 +184,8 @@ class Context:
 			return
 		
 		# Hide current dialog and show next
-		dialog.visible = False
-		print "CHARCREATION DONE"
+		dialog.visible = False		
+		self.showDialog3()
 		
 	def strengthScrolled(self, value):
 		loginDialog = Gui.findByName("LoginDialog")
@@ -245,7 +255,67 @@ class Context:
 		cb2 = dialog.findByName("SkillBox2")
 		cb2.setItems(items)
 		cb3 = dialog.findByName("SkillBox3")
-		cb3.setItems(items)				
+		cb3.setItems(items)
+		
+	"""
+		Change the shirt color
+	"""
+	def setShirtColor(self, color):
+		dialog = Gui.findByName("LoginDialog")
+		gump = dialog.findByName("PaperdollTorso")
+		gump.hue = color
+		self.shirtcolor = color
+		
+	"""
+		Change the pants color
+	"""
+	def setPantsColor(self, color):
+		dialog = Gui.findByName("LoginDialog")
+		gump = dialog.findByName("PaperdollLegs")
+		gump.hue = color
+		self.pantscolor = color
+		
+	"""
+		The hair style changed
+	"""
+	def hairStyleChanged(self):
+		dialog = Gui.findByName("CharacterCreation3")
+		
+		cb = dialog.findByName("HairStyle")
+		style = cb.selectionIndex()
+		
+		self.hairstyle = style
+		
+		gump = dialog.findByName("PaperdollHair")
+		if style == 0:
+			gump.visible = False			
+		else:
+			gump.visible = True			
+			gump.setId(HairstyleGumps[style-1])
+		
+	"""
+		Show dialog 3
+	"""	
+	def showDialog3(self):
+		self.setShirtColor(self.shirtcolor)
+		self.setPantsColor(self.pantscolor)
+		loginDialog = Gui.findByName("LoginDialog")
+		loginDialog.findByName("CharacterCreation3").visible = True
+	
+	"""
+		Set up the third dialog page
+	"""
+	def setupDialog3(self, dialog):
+		styles = ["No Hair", "Long Hair", "Short Hair", "Krishna", "Some Hair"]
+		
+		cb = dialog.findByName("HairStyle")
+		cb.setItems(HairstyleNames)
+		cb.selectItem(0)
+		connect(cb, "selectionChanged()", self.hairStyleChanged)
+		
+		cb = dialog.findByName("FacialHairStyle")
+		cb.setItems(HairstyleNames)
+		cb.selectItem(0)
 
 	"""
 		Change one of the characters skills (1, 2 or 3)
@@ -544,3 +614,5 @@ def initialize(dialog):
 		context.setupDialog1(dialog)
 	elif dialog.objectName == "CharacterCreation2":
 		context.setupDialog2(dialog)
+	elif dialog.objectName == "CharacterCreation3":
+		context.setupDialog3(dialog)

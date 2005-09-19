@@ -1,5 +1,6 @@
 
 #include "gui/textbutton.h"
+#include "muls/localization.h"
 #include "utilities.h"
 #include <QTimer>
 
@@ -206,6 +207,8 @@ void cTextButton::processDefinitionAttribute(QString name, QString value) {
 		setStyle(Style(Utilities::stringToUInt(value)));
 	} else if (name == "text") {
 		setText(value);
+	} else if (name == "localized") {
+		setText(Localization->get(Utilities::stringToUInt(value)));
 	} else {
 		cControl::processDefinitionAttribute(name, value);
 	}
