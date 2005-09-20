@@ -1,0 +1,13 @@
+Emboss Text is given a color for the border (Should be default implemented) which is a 32-bit color value.
+The implementation then draws the normal border but does the following: 
+
+If left or below the current border pixel is a non-transparent pixel from the text, 
+draw the darkest color.
+If above or right of the current border pixel is a non-transparent pixel from the text,
+draw the brightest color.
+If both of the above conditions are met, draw the medium color.
+
+To the drawing function the color for the brightest color is given.
+The darkest color is composed of the color components of the brightest color
+divided by two.
+The medium color is the average of the color components of the brightest and darkest color.
