@@ -157,7 +157,8 @@
 	<Files>
 		<Filter
 			Name="src"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\client.cpp">
 			</File>
@@ -407,7 +408,8 @@
 		</Filter>
 		<Filter
 			Name="game"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\game\dynamicentity.cpp">
 			</File>
@@ -525,7 +527,8 @@
 		</Filter>
 		<Filter
 			Name="Generated MOC Files"
-			Filter="cpp;c;cxx;moc">
+			Filter="cpp;c;cxx;moc"
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\obj\moc_asciilabel.cpp">
 			</File>
@@ -658,7 +661,8 @@
 		</Filter>
 		<Filter
 			Name="gui"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\gui\asciilabel.cpp">
 			</File>
@@ -1214,7 +1218,8 @@
 		</Filter>
 		<Filter
 			Name="network"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\network\decompress.cpp">
 			</File>
@@ -1321,7 +1326,8 @@
 		</Filter>
 		<Filter
 			Name="muls"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\muls\animations.cpp">
 			</File>
@@ -1463,7 +1469,8 @@
 		</Filter>
 		<Filter
 			Name="dialogs"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\dialogs\cachestatistics.cpp">
 			</File>
@@ -1539,7 +1546,8 @@
 		</Filter>
 		<Filter
 			Name="windows"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\windows\gmtoolwnd.cpp">
 			</File>
@@ -1549,7 +1557,8 @@
 		</Filter>
 		<Filter
 			Name="python"
-			Filter="">
+			Filter=""
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath=".\src\python\clientmodule.cpp">
 			</File>
