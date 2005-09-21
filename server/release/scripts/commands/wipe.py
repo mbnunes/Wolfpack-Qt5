@@ -154,12 +154,12 @@ def wipeBoundingBox( socket, target1, target2, argstring ):
 			item.delete()
 			count += 1
 		else:
-			if baseid.lower() == "nomulti":
+			if baseid and baseid.lower() == "nomulti":
 				if not item.multi:
 					item.delete()
 					count += 1
 			else:
-				if baseid.lower() == "onlymulti":
+				if baseid and baseid.lower() == "onlymulti":
 					if item.multi:
 						item.delete()
 						count += 1
