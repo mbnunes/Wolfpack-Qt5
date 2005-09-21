@@ -13,6 +13,9 @@
 #include "gui/textfield.h"
 #include "gui/tooltip.h"
 #include "gui/textbutton.h"
+#include "gui/checkbox.h"
+#include "gui/radiobutton.h"
+#include "gui/colorpicker.h"
 #include "gui/stripeimage.h"
 #include "gui/scrollbar.h"
 #include "muls/gumpart.h"
@@ -495,6 +498,12 @@ cControl *cGui::createControl(QDomElement templateNode) {
 		result = new cHorizontalScrollbar(0, 0, 0);
 	} else if (className == "verticalscrollbar") {
 		result = new cVerticalScrollbar(0, 0, 0);
+	} else if (className == "checkbox") {
+		result = new cCheckbox();
+	} else if (className == "radiobutton") {
+		result = new cRadioButton();
+	} else if (className == "colorpicker") {
+		result = new cColorPicker();
 	}
 
 	if (result) {

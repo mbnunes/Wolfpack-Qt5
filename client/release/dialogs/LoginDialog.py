@@ -1,7 +1,7 @@
 
 from client import *
 
-def initialize(dialog):	
+def initialize(dialog):
 	charcreation1 = Gui.createDialog("CharacterCreation1")
 	if charcreation1:
 		dialog.addControl(charcreation1)

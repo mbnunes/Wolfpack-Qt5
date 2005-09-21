@@ -64,7 +64,7 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 		if (type) {
 			*type = QMetaType::Int;
 		}
-	} else if (qtType == "uint") {
+	} else if (qtType == "unsigned int" || qtType == "uint") {
 		ptr[index] = &uintArguments[index];
 		if (pyObj) {
 			uintArguments[index] = fromPythonToUInt(pyObj);
@@ -72,7 +72,7 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 		if (type) {
 			*type = QMetaType::UInt;
 		}
-	} else if (qtType == "unsigned short") {
+	} else if (qtType == "unsigned short" || qtType == "ushort") {
 		ptr[index] = &ushortArguments[index];
 		if (pyObj) {
 			ushortArguments[index] = fromPythonToUInt(pyObj);
@@ -88,7 +88,7 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 		if (type) {
 			*type = QMetaType::Short;
 		}
-	} else if (qtType == "unsigned char") {
+	} else if (qtType == "unsigned char" || qtType == "uchar") {
 		ptr[index] = &ucharArguments[index];
 		if (pyObj) {
 			ucharArguments[index] = fromPythonToUInt(pyObj);

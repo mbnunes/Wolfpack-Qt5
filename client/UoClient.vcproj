@@ -389,6 +389,22 @@
 			</File>
 			<File
 				RelativePath=".\include\texture.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\utilities.cpp">
@@ -539,10 +555,16 @@
 				RelativePath=".\obj\moc_cachestatistics.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_checkbox.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_checkertrans.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_client.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_colorpicker.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_combobox.cpp">
@@ -570,6 +592,9 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_gui.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_gumpart.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_gumpimage.cpp">
@@ -611,6 +636,9 @@
 				RelativePath=".\obj\moc_profile.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_radiobutton.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_scripts.cpp">
 			</File>
 			<File
@@ -636,6 +664,12 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_textfield.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_texture.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_tiledata.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_tiledgumpimage.cpp">
@@ -712,6 +746,30 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\gui\checkbox.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\checkbox.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\src\gui\checkertrans.cpp">
 			</File>
 			<File
@@ -732,6 +790,28 @@
 						Description="moc&apos;ing $(InputFileName)"
 						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
 "
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\gui\colorpicker.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\colorpicker.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -1020,6 +1100,28 @@
 						Description="moc&apos;ing $(InputFileName)"
 						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
 "
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\gui\radiobutton.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\radiobutton.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -1351,6 +1453,22 @@
 			</File>
 			<File
 				RelativePath=".\include\muls\gumpart.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\muls\hues.cpp">
@@ -1453,6 +1571,24 @@
 			</File>
 			<File
 				RelativePath=".\include\muls\tiledata.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\muls\unicodefonts.cpp">
@@ -1603,6 +1739,22 @@
 			</File>
 			<File
 				RelativePath=".\include\python\utilities.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="scripts"
+			Filter="">
+			<File
+				RelativePath=".\release\dialogs\__init__.py">
+			</File>
+			<File
+				RelativePath=".\release\dialogs\CharacterCreation.py">
+			</File>
+			<File
+				RelativePath=".\release\dialogs\login.xml">
+			</File>
+			<File
+				RelativePath=".\release\dialogs\LoginDialog.py">
 			</File>
 		</Filter>
 		<File

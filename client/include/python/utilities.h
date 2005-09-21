@@ -166,8 +166,18 @@ inline PyObject *toPython(const QVariant &variant) {
 			return toPython(variant.toString());
 		case QVariant::Int:
 			return toPython(variant.toInt());
+		case QMetaType::Short:
+			return toPython(variant.value<short>());
+		case QMetaType::Char:
+			return toPython(variant.value<char>());
 		case QVariant::UInt:
-			return toPython(variant.toUInt());
+			return toPython(variant.value<uint>());
+		case QMetaType::UShort:
+			return toPython(variant.value<ushort>());
+		case QMetaType::UChar:
+			return toPython(variant.value<uchar>());
+		case QVariant::Bool:
+			return toPython(variant.toBool());
 		case QVariant::ULongLong:
 			return toPython(variant.toULongLong());
 		case QMetaType::QObjectStar:

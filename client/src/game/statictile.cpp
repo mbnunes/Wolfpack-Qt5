@@ -54,7 +54,7 @@ void cStaticTile::setId(unsigned short data) {
 	tiledata_->decref();
 	tiledata_ = Tiledata->getItemInfo(data);
 	tiledata_->incref();
-	animated = tiledata_->isAnimation();
+	animated = tiledata_->isAnimated();
 	if (texture) {
 		texture->decref();
 		texture = 0;

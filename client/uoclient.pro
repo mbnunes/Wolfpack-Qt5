@@ -89,7 +89,10 @@ HEADERS += \
 	include/gui/containergump.h \
 	include/gui/textbutton.h \
 	include/gui/stripeimage.h \
-	include/gui/combobox.h
+	include/gui/combobox.h \
+	include/gui/radiobutton.h \
+	include/gui/checkbox.h \
+	include/gui/colorpicker.h
 
 # MUL INCLUDES
 HEADERS += \
@@ -173,7 +176,10 @@ SOURCES += \
 	src/gui/containergump.cpp \
 	src/gui/textbutton.cpp \
 	src/gui/stripeimage.cpp \
-	src/gui/combobox.cpp
+	src/gui/combobox.cpp \
+	src/gui/radiobutton.h \
+	src/gui/checkbox.h \
+	src/gui/colorpicker.h	
 
 SOURCES += \
 	src/network/encryption.cpp \

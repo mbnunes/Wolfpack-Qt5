@@ -13,8 +13,11 @@ CharacterTemplates = (
 	("Advanced", 3000448, 3000448, 5505, Skills.Alchemy, 50, Skills.Alchemy, 50, Skills.Alchemy, 0, 30, 25, 25),
 )
 
-HairstyleNames = ("Long Hair", "Short Hair", "Krishna")
-HairstyleGumps = (0xc60d, 0xc60c, 0xc619)
+# In this order: None, Short, Long, Ponytail, Mohawk, Pageboy, Topknot, Curly, Receding, Pigtails
+HairstyleIds = (0, 0x203b, 0x203c, 0x203d, 0x2044, 0x2045, 0x204a, 0x2047, 0x2048, 0x2049)
+
+# In this order: None, Goatee, Long Beard, Short Beard, Moustache, Medium Short Beard, Medium Long beard, Vandyke
+FacialHairstyleIds = (0, 0x2040, 0x203e, 0x203f, 0x2041, 0x204b, 0x204c, 0x204d)
 
 CTINDEX_NAME = 0 # Index Constant for the template name
 CTINDEX_LOCALIZEDNAME = 1
@@ -29,6 +32,9 @@ CTINDEX_SKILL3VALUE = 9
 CTINDEX_STRENGTH = 10
 CTINDEX_DEXTERITY = 11
 CTINDEX_INTELLIGENCE = 12
+
+GENDER_MALE = 0
+GENDER_FEMALE = 1
 
 # Note: This won't work with sphere
 MAXIMUM_STATS = 80
@@ -56,6 +62,10 @@ class Context:
 		self.hairstyle = 0
 		self.pantscolor = random(2, 0x3e9)
 		self.shirtcolor = random(2, 0x3e9)
+		self.gender = GENDER_MALE
+		self.haircolor = random(0x44e, 0x47d)
+		self.facialhaircolor = random(0x44e, 0x47d)
+		self.skincolor = random(0x3ea, 0x422)
 
 	"""
 	 Select the profession with the given id
@@ -288,10 +298,43 @@ class Context:
 		
 		gump = dialog.findByName("PaperdollHair")
 		if style == 0:
-			gump.visible = False			
+			gump.visible = False
 		else:
-			gump.visible = True			
-			gump.setId(HairstyleGumps[style-1])
+			# Get the gump id
+			tiledata = Tiledata.getItemInfo(HairstyleIds[style])		
+			
+			gump.visible = True
+			if self.gender == GENDER_FEMALE and Gumpart.exists(60000 + tiledata.animation):
+				gump.setId(60000 + tiledata.animation)
+			else:
+				gump.setId(50000 + tiledata.animation)				
+			
+	"""
+		The facial hair style changed
+	"""
+	def facialHairStyleChanged(self):
+		dialog = Gui.findByName("CharacterCreation3")
+		
+		cb = dialog.findByName("FacialHairStyle")
+		style = cb.selectionIndex()
+		self.facialhairstyle = style
+		
+		gump = dialog.findByName("PaperdollFacialHair")
+		
+		# No beards for females
+		if self.gender == GENDER_FEMALE:		
+			self.facialhairstyle = 0
+			gump.visible = False
+			return
+		
+		if style == 0:
+			gump.visible = False
+		else:
+			# Get the gump id
+			tiledata = Tiledata.getItemInfo(FacialHairstyleIds[style])
+			
+			gump.visible = True
+			gump.setId(50000 + tiledata.animation)
 		
 	"""
 		Show dialog 3
@@ -300,22 +343,249 @@ class Context:
 		self.setShirtColor(self.shirtcolor)
 		self.setPantsColor(self.pantscolor)
 		loginDialog = Gui.findByName("LoginDialog")
-		loginDialog.findByName("CharacterCreation3").visible = True
+		charCreation = loginDialog.findByName("CharacterCreation3")
+		
+		# Select random hairstyle
+		cb = charCreation.findByName("HairStyle")
+		cb.selectItem(random(0, len(HairstyleIds) - 1))
+		
+		charCreation.visible = True		
 	
+	"""
+		Change the color of the skin.
+	"""
+	def setSkinColor(self, color, dialog = None):
+		if not dialog:
+			loginDialog = Gui.findByName("LoginDialog")
+			dialog = loginDialog.findByName("CharacterCreation3")
+		gump = dialog.findByName("PaperdollBody")
+		gump.hue = color
+		self.skincolor = color
+	
+	"""
+		Change the color of the hair.
+	"""
+	def setHairColor(self, color, dialog = None):
+		if not dialog:
+			loginDialog = Gui.findByName("LoginDialog")
+			dialog = loginDialog.findByName("CharacterCreation3")
+		gump = dialog.findByName("PaperdollHair")
+		gump.hue = color
+		self.haircolor = color
+		
+	"""
+		Change the color of the facial hair.
+	"""
+	def setFacialHairColor(self, color, dialog = None):
+		if not dialog:
+			loginDialog = Gui.findByName("LoginDialog")
+			dialog = loginDialog.findByName("CharacterCreation3")
+		gump = dialog.findByName("PaperdollFacialHair")
+		gump.hue = color		
+		self.facialhaircolor = color
+		
+	"""
+		The hair color button has been clicked
+	"""
+	def changeHairColorClicked(self, button):
+		self.setDialog3Visibility(False)
+		
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("HairColorPicker").visible = True
+		self.selectingColor = "hair"
+		
+	"""
+		The facial hair color button has been clicked
+	"""
+	def changeFacialHairColorClicked(self, button):
+		self.setDialog3Visibility(False)
+		
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("HairColorPicker").visible = True
+		self.selectingColor = "facial"
+
+	"""
+		Gender button slots
+	"""
+	def setFemaleGender(self, button):
+		self.setGender(GENDER_FEMALE)
+		
+	def setMaleGender(self, button):
+		self.setGender(GENDER_MALE)
+		
+	"""
+		Change gender
+	"""
+	def setGender(self, gender):
+		if self.gender == gender:
+			return
+			
+		self.gender = gender # Change local gender setting
+		
+		# Change Paperdoll Body
+		loginDialog = Gui.findByName("LoginDialog")
+		dialog = loginDialog.findByName("CharacterCreation3")
+		gump = dialog.findByName("PaperdollBody")
+		if gender == GENDER_FEMALE:
+			gump.id = 0xd
+		else:
+			gump.id = 0xc
+
+		# Refresh the gumps
+		self.hairStyleChanged()
+		self.facialHairStyleChanged()
+		
+		# Shoes
+		gump = dialog.findByName("PaperdollFeet")
+		if gender == GENDER_FEMALE:
+			gump.id = 60480
+		else:
+			gump.id = 50480
+
+		# Legs
+		gump = dialog.findByName("PaperdollLegs")
+		if gender == GENDER_FEMALE:
+			gump.id = 60449
+		else:
+			gump.id = 50430
+
+		# Torso
+		gump = dialog.findByName("PaperdollTorso")
+		if gender == GENDER_FEMALE:
+			gump.id = 60434
+		else:
+			gump.id = 50434
+
+		# Hide or show the facial hairstyle button
+		dialog.findByName("FacialHairStyle").visible = (gender == GENDER_MALE)
+		dialog.findByName("FacialHairColorButton").visible = (gender == GENDER_MALE)
+		
+		# Rename the Skirt/Pants color button accordingly
+		if gender == GENDER_MALE:
+			dialog.findByName("PantsColorButton").text = Localization.get(3000441)
+		else:
+			dialog.findByName("PantsColorButton").text = Localization.get(3000439 )
+		
 	"""
 		Set up the third dialog page
 	"""
 	def setupDialog3(self, dialog):
-		styles = ["No Hair", "Long Hair", "Short Hair", "Krishna", "Some Hair"]
+		styles = []
+		for i in range(0, len(HairstyleIds)):
+			styles.append(Localization.get(3000340 + i))
 		
 		cb = dialog.findByName("HairStyle")
-		cb.setItems(HairstyleNames)
+		cb.setItems(styles)
 		cb.selectItem(0)
 		connect(cb, "selectionChanged()", self.hairStyleChanged)
+		connect(dialog.findByName("HairColorButton"), "onButtonPress(cControl*)", self.changeHairColorClicked)
+		
+		styles = [Localization.get(3000340)]
+		for i in range(0, len(FacialHairstyleIds)-1):
+			styles.append(Localization.get(3000351 + i))
 		
 		cb = dialog.findByName("FacialHairStyle")
-		cb.setItems(HairstyleNames)
+		cb.setItems(styles)
 		cb.selectItem(0)
+		connect(cb, "selectionChanged()", self.facialHairStyleChanged)
+		connect(dialog.findByName("FacialHairColorButton"), "onButtonPress(cControl*)", self.changeFacialHairColorClicked)
+
+		connect(dialog.findByName("FemaleButton"), "onButtonPress(cControl*)", self.setFemaleGender)		
+		connect(dialog.findByName("MaleButton"), "onButtonPress(cControl*)", self.setMaleGender)
+		connect(dialog.findByName("ShirtColorButton"), "onButtonPress(cControl*)", self.selectShirtColor)
+		connect(dialog.findByName("PantsColorButton"), "onButtonPress(cControl*)", self.selectPantsColor)
+		connect(dialog.findByName("ClothColorPicker"), "colorSelected(ushort)", self.clothColorSelected)
+		connect(dialog.findByName("SkinColorPicker"), "colorSelected(ushort)", self.skinToneSelected)
+		connect(dialog.findByName("HairColorPicker"), "colorSelected(ushort)", self.hairColorSelected)
+		connect(dialog.findByName("SkinToneButton"), "onButtonPress(cControl*)", self.selectSkinTone)
+		
+		self.setHairColor(self.haircolor, dialog)
+		self.setFacialHairColor(self.facialhaircolor, dialog)
+		self.setSkinColor(self.skincolor, dialog)
+
+	"""
+		The button for selecting the skin color has been pressed
+	"""
+	def selectSkinTone(self, button):
+		self.setDialog3Visibility(False)
+		
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("SkinColorPicker").visible = True
+
+	"""
+		The button for selecting the shirt color has been pressed
+	"""
+	def selectShirtColor(self, button):
+		self.setDialog3Visibility(False)
+		
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("ClothColorPicker").visible = True
+		self.selectingColor = 'shirt' # Remember what we're picking the color for
+
+	"""
+		The button for selecting the pants color has been pressed
+	"""
+	def selectPantsColor(self, button):
+		self.setDialog3Visibility(False)
+		
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("ClothColorPicker").visible = True
+		self.selectingColor = 'pants' # Remember what we're picking the color for
+
+	"""
+		This gets triggered when a skin color is selected.
+	"""
+	def skinToneSelected(self, color):
+		self.setSkinColor(color)
+		
+		# Hide the skin color picker
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("SkinColorPicker").visible = False
+		
+		# Show all other controls
+		self.setDialog3Visibility(True)
+		
+	"""
+		This gets triggered when a hair color is selected.
+	"""
+	def hairColorSelected(self, color):
+		if self.selectingColor == 'hair':
+			self.setHairColor(color)
+		elif self.selectingColor == 'facial':
+			self.setFacialHairColor(color)
+		
+		# Hide the skin color picker
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("HairColorPicker").visible = False
+		
+		# Show all other controls
+		self.setDialog3Visibility(True)		
+
+	"""
+		This gets triggered when a cloth color is selected.
+	"""
+	def clothColorSelected(self, color):
+		if self.selectingColor == 'shirt':
+			self.setShirtColor(color)
+		elif self.selectingColor == 'pants':
+			self.setPantsColor(color)
+		
+		# Hide the cloth color picker
+		dialog = Gui.findByName("CharacterCreation3")
+		dialog.findByName("ClothColorPicker").visible = False
+		
+		# Show all other controls
+		self.setDialog3Visibility(True)
+	
+	"""
+		Hide or show the contents of dialog 3
+	"""
+	def setDialog3Visibility(self, visibility):
+		dialog = Gui.findByName("CharacterCreation3")
+		ids = ("MaleButton", "FemaleButton", "ShirtColorButton", "PantsColorButton", "SkinToneButton", "HairStyle", "HairColorButton", "FacialHairStyle", "FacialHairColorButton")
+		for id in ids:
+			ctrl = dialog.findByName(id)
+			ctrl.visible = visibility
 
 	"""
 		Change one of the characters skills (1, 2 or 3)

@@ -4,6 +4,7 @@
 
 #include "exceptions.h"
 #include <QMap>
+#include <QObject>
 
 class cSurface;
 class cTexture;
@@ -11,7 +12,8 @@ class cTexture;
 /*/
 	This is a baseclass for texture caches using custom lookup types.
 */
-class cTextureCache {
+class cTextureCache : public QObject {
+Q_OBJECT
 public:
 	virtual ~cTextureCache();
 

@@ -12,6 +12,10 @@
 
 class cTextButton : public cControl {
 Q_OBJECT
+Q_PROPERTY(QString text READ text WRITE setText)
+Q_PROPERTY(Style style READ style WRITE setStyle)
+Q_PROPERTY(ushort backgroundHue READ backgroundHue WRITE setBackgroundHue)
+Q_ENUMS(Style)
 public:
 	enum Style {
 		Style1 = 0,

@@ -5,6 +5,8 @@
 #include "utilities.h"
 #include "gui/gui.h"
 #include "muls/localization.h"
+#include "muls/gumpart.h"
+#include "muls/tiledata.h"
 #include "python/genericwrapper.h"
 #include "python/utilities.h"
 #include "python/universalslot.h"
@@ -118,6 +120,8 @@ void initializeClientModule() {
 	ADD_GLOBAL_OBJ(Gui);
 	ADD_GLOBAL_OBJ(Skills);
 	ADD_GLOBAL_OBJ(Localization);
+	ADD_GLOBAL_OBJ(Tiledata);
+	ADD_GLOBAL_OBJ(Gumpart);
 	
 	// Add Methods to the module
 	addModuleMethods(module);

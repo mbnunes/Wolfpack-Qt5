@@ -171,4 +171,21 @@ cTexture *cGumpart::readTexture(unsigned short id, unsigned short hue, bool part
 	return texture;
 }
 
+bool cGumpart::exists(ushort id) {
+	int offset, length;
+	ushort width, height;
+	stVerdataRecord *patch = Verdata->getPatch(VERDATA_GUMPART, id);
+	if (patch) {
+		offset = patch->offset;
+		length = patch->length;
+		height = patch->height;
+		width = patch->width;
+	} else {
+		indexStream.device()->seek(12 * id);
+		indexStream >> offset >> length >> height >> width; // Read index data
+	}
+
+	return offset != -1 && length > 0;
+}
+
 cGumpart *Gumpart = 0; // Global cGumpart Instance

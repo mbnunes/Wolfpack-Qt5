@@ -2,6 +2,7 @@
 #if !defined(__TILEDATA_H__)
 #define __TILEDATA_H__
 
+#include <QObject>
 #include <QString>
 
 // Utility defines
@@ -11,7 +12,41 @@
 	Base class for both tile info classes.
 	Both classes use the same flag. So this is just a better way of handling it.
 */
-class cTileInfo {
+class cTileInfo : public QObject {
+Q_OBJECT
+Q_PROPERTY(bool background READ isBackground)
+Q_PROPERTY(bool weapon READ isWeapon)
+Q_PROPERTY(bool transparent READ isTransparent)
+Q_PROPERTY(bool translucent READ isTranslucent)
+Q_PROPERTY(bool wall READ isWall)
+Q_PROPERTY(bool damaging READ isDamaging)
+Q_PROPERTY(bool impassable READ isImpassable)
+Q_PROPERTY(bool wet READ isWet)
+//Q_PROPERTY(bool unknown1 READ isUnknown1)
+Q_PROPERTY(bool surface READ isSurface)
+Q_PROPERTY(bool bridge READ isBridge)
+Q_PROPERTY(bool generic READ isGeneric)
+Q_PROPERTY(bool window READ isWindow)
+Q_PROPERTY(bool noshoot READ isNoShoot)
+Q_PROPERTY(bool articlea READ isArticleA)
+Q_PROPERTY(bool articlean READ isArticleAn)
+Q_PROPERTY(bool internal READ isInternal)
+Q_PROPERTY(bool foliage READ isFoliage)
+Q_PROPERTY(bool partialhue READ isPartialHue)
+//Q_PROPERTY(bool unknown2 READ isUnknown2)
+Q_PROPERTY(bool map READ isMap)
+Q_PROPERTY(bool container READ isContainer)
+Q_PROPERTY(bool wearable READ isWearable)
+Q_PROPERTY(bool lightsource READ isLightSource)
+Q_PROPERTY(bool animated READ isAnimated)
+Q_PROPERTY(bool nodiagonal READ isNoDiagonal)
+//Q_PROPERTY(bool unknown3 READ isUnknown3)
+Q_PROPERTY(bool armor READ isArmor)
+Q_PROPERTY(bool roof READ isRoof)
+Q_PROPERTY(bool door READ isDoor)
+Q_PROPERTY(bool stairback READ isStairBack)
+Q_PROPERTY(bool stairright READ isStairRight)
+
 friend class cTiledata;
 
 protected:
@@ -25,9 +60,6 @@ public:
 
 	void incref(); // Increment reference count
 	void decref(); // Decrement reference count (this delete the item if refcount <= 0)
-
-	unsigned int flags() const;
-    const QString &name() const;
 
 	// These are convenient getters for certain properties
 	FLAG_GETTER(0x00000001, isBackground)
@@ -54,7 +86,7 @@ public:
 	FLAG_GETTER(0x00200000, isContainer)
 	FLAG_GETTER(0x00400000, isWearable)
 	FLAG_GETTER(0x00800000, isLightSource)
-	FLAG_GETTER(0x01000000, isAnimation)
+	FLAG_GETTER(0x01000000, isAnimated)
 	FLAG_GETTER(0x02000000, isNoDiagonal)
 	FLAG_GETTER(0x04000000, isUnknown3)
 	FLAG_GETTER(0x08000000, isArmor)
@@ -62,6 +94,10 @@ public:
 	FLAG_GETTER(0x20000000, isDoor)
 	FLAG_GETTER(0x40000000, isStairBack)
 	FLAG_GETTER(0x80000000, isStairRight)
+
+public slots:
+	unsigned int flags() const;
+    const QString &name() const;
 };
 
 inline void cTileInfo::incref() {
@@ -84,11 +120,13 @@ inline const QString &cTileInfo::name() const {
 
 // This class represents tile information for land tiles
 class cLandTileInfo : public cTileInfo {
+Q_OBJECT
+Q_PROPERTY(ushort texture READ texture)
 friend class cTiledata;
 
 protected:
 	unsigned short texture_;
-public:
+public slots:
 	unsigned short texture() const;
 };
 
@@ -98,7 +136,17 @@ inline unsigned short cLandTileInfo::texture() const {
 
 // This class represents tile information for item tiles
 class cItemTileInfo : public cTileInfo {
+Q_OBJECT
 friend class cTiledata;
+Q_PROPERTY(uchar weight READ weight)
+Q_PROPERTY(uchar quality READ quality)
+//Q_PROPERTY(ushort unknown1 READ unknown1)
+Q_PROPERTY(uchar quantity READ quantity)
+Q_PROPERTY(ushort animation READ animation)
+Q_PROPERTY(uchar hue READ hue)
+Q_PROPERTY(uchar height READ height)
+Q_PROPERTY(uchar layer READ layer)
+Q_PROPERTY(ushort lightsourceid READ lightsource)
 
 protected:
 	unsigned char weight_;
@@ -112,7 +160,7 @@ protected:
 	unsigned char unknown4_;
 	unsigned char unknown5_;
 	unsigned char height_;
-public:
+public slots:
 	unsigned char weight() const;
 	unsigned char quality() const;
 	unsigned short unknown1() const;
@@ -183,7 +231,8 @@ inline unsigned char cItemTileInfo::lightsource() const {
 }
 
 // This is the real tiledata reader
-class cTiledata {
+class cTiledata : public QObject {
+Q_OBJECT
 protected:
 	cItemTileInfo *items[0x4000];
 	cLandTileInfo *land[0x4000];
@@ -194,6 +243,7 @@ public:
 	void unload();
 	void reload();
 
+public slots:
 	// This is ensured to return a pointer. If the id is out of range, it returns
 	// an empty item info instead. The pointers are guaranteed to exist.
 	cItemTileInfo *getItemInfo(unsigned short id) const;
