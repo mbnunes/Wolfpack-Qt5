@@ -3,15 +3,19 @@
 Using Microsoft Visual Sutdio .NET
 --------------------------------------------------------------------
 
-1. You'll need the QT headers and QT library files within your 
-library search path. For information regarding QT, please visit
-http://www.trolltech.com and look for the QT OpenSource Version.
-Alternatively you can visit http://qtwin.sf.net for a MSVC++ compatible version.
+1. Please download QT 4.0.1 from http://www.trolltech.com/download/qt/windows.html
+and install it. Then download the patch from http://andy.jgknet.de/misc/msvc-bcc32-Qt-4.0.1patch.zip
+and apply it to your QT installation and compile. (Both Debug and Release binaries). Once you are done with that,
+make sure QTDIR is set to your QT directory and QMAKESPEC is set to win32-msvc.net (Both are environmental
+variables). If you change those variables, you have to restart your IDE.
 
-2. Make sure, that the QTDIR environmental variable is set correctly to your
-QT directory.
+2. You need OpenAL to compile the client (with sound). Get that at http://www.openal.org and put 
+the libs/ and include/ directory into your library and header search path.
 
-3. You need OpenAL to compile the client (with sound). Get that at http://www.openal.org.
+3. Download the Python 2.4.1 source package from http://www.python.org and compile it with Visual Studio.
+(Open PCBuil/python.sln and compile the entire solution in both debug and release mode. Ignore errors for
+certain projects since only pythoncore is important). Once you're done, make sure that Include/ and Pc/
+are included in your header search path and that PCBuild/ is included in your library search path.
 
 4. Open the UoClient.sln with the IDE and press compile. It should work
 out of the box.
