@@ -202,7 +202,8 @@ void cConfig::readData()
 	percentHitsAfterRess_ = getNumber( "General", "Percent Hits after Ress", 10, true );
 	percentManaAfterRess_ = getNumber( "General", "Percent Mana after Ress", 50, true );
 	percentStaminaAfterRess_ = getNumber( "General", "Percent Stamina after Ress", 50, true );
-
+	disableKarma_ = getBool( "General", "Disable Karma", false, true );
+	disableFame_ = getBool( "General", "Disable Fame", false, true );
 	saveInterval_ = getNumber( "General", "Save Interval", 900, true );
 	mulPath_ = QDir::convertSeparators( getString( "General", "MulPath", "./muls/", true ) );
 	logPath_ = QDir::convertSeparators( getString( "General", "LogPath", "./logs/", true ) );

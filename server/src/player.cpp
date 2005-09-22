@@ -1331,6 +1331,9 @@ PyObject* cPlayer::getProperty( const QString& name )
 
 void cPlayer::awardFame( short amount, bool showmessage )
 {
+	if ( Config::instance()->disableFame() )
+		return;
+
 	int nCurFame, nChange = 0;
 	bool gain = false;
 
@@ -1398,6 +1401,9 @@ void cPlayer::awardFame( short amount, bool showmessage )
 
 void cPlayer::awardKarma( P_CHAR pKilled, short amount, bool showmessage )
 {
+	if ( Config::instance()->disableKarma() )
+		return;
+
 	if (amount > 0 && karmaLock()) {
 		return; // Don't award karma if the karma is locked
 	}

@@ -141,6 +141,8 @@ protected:
 	unsigned int percentHitsAfterRess_;
 	unsigned int percentManaAfterRess_;
 	unsigned int percentStaminaAfterRess_;
+	bool disableKarma_;
+	bool disableFame_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -221,7 +223,6 @@ public:
 	{
 		return antiSpeedHackDelayMounted_;
 	}
-	//
 	unsigned int percentHitsAfterRess() const
 	{
 		return percentHitsAfterRess_;
@@ -233,6 +234,14 @@ public:
 	unsigned int percentStaminaAfterRess() const
 	{
 		return percentStaminaAfterRess_;
+	}
+	bool disableKarma() const
+	{
+		return disableKarma_;
+	}
+	bool disableFame() const
+	{
+		return disableFame_;
 	}
 	bool newTooltipPackets() const;
 	int niceLevel() const;

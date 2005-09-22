@@ -156,7 +156,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 
 	// If the top-most container ( thats important ) is a corpse
 	// and looting is a crime, flag the character criminal.
-	if ( !pChar->isGM() && outmostCont && outmostCont->corpse() )
+	if ( !Config::instance()->disableKarma() && !pChar->isGM() && outmostCont && outmostCont->corpse() )
 	{
 		// For each item we take out we loose carma
 		// if the corpse is innocent and not in our guild

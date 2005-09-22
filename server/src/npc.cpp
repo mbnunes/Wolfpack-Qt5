@@ -1209,6 +1209,9 @@ void cNPC::awardKarma( P_CHAR pKilled, short amount, bool showmessage )
 {
 	Q_UNUSED( showmessage );
 
+	if ( Config::instance()->disableKarma() )
+		return;
+
 	int nCurKarma = 0, nChange = 0, nEffect = 0;
 
 	nCurKarma = karma();
@@ -1243,6 +1246,9 @@ void cNPC::awardKarma( P_CHAR pKilled, short amount, bool showmessage )
 void cNPC::awardFame( short amount, bool showmessage )
 {
 	Q_UNUSED( showmessage );
+
+	if ( Config::instance()->disableFame() )
+		return;
 
 	int nCurFame, nChange = 0;
 
