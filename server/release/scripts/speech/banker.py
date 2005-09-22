@@ -25,6 +25,9 @@ MIN_CHECK_AMOUNT = 5000
 amountre = re.compile( '(\d+)' )
 
 def onSpeech( listener, speaker, text, keywords ):
+	if not speaker.canreach(listener, 3):
+		return False
+
 	for keyword in keywords:
 		# withdraw
 		if keyword == 0x0:

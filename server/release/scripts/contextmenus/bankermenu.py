@@ -5,6 +5,9 @@ from wolfpack import tr
 # Answer the banker context menu.
 #
 def onContextEntry(char, target, tag):
+	if not char.canreach(target, 3):
+		return False
+
 	if tag == 1:
 		if char.dead:
 			target.say(500895) # That sounded spooky.
