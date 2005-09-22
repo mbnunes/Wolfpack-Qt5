@@ -3,6 +3,7 @@
 
 #include "skills.h"
 #include "utilities.h"
+#include "dialogs/login.h"
 #include "gui/gui.h"
 #include "muls/localization.h"
 #include "muls/gumpart.h"
@@ -10,6 +11,7 @@
 #include "python/genericwrapper.h"
 #include "python/utilities.h"
 #include "python/universalslot.h"
+#include "network/uosocket.h"
 
 /*
 	Connect a QObject Signal to a QObject Slot
@@ -45,7 +47,12 @@ static PyObject *connect(PyObject *self, PyObject *args) {
 			return 0;
 		}
 
-		new cUniversalSlot(qSender, fromPythonToString(pySignal).toLocal8Bit(), recipient);
+		cUniversalSlot *slot = new cUniversalSlot(qSender, signal.toLocal8Bit(), recipient);
+		if (!slot->isValid()) {
+			delete slot;
+			PyErr_Format(PyExc_RuntimeError, "client.connect(sender, signal, recipient): Trying to connect to unknown signal: %s.", signal.toLocal8Bit().data());
+			return 0;
+		}
 	}
 
 	Py_RETURN_TRUE;
@@ -122,6 +129,8 @@ void initializeClientModule() {
 	ADD_GLOBAL_OBJ(Localization);
 	ADD_GLOBAL_OBJ(Tiledata);
 	ADD_GLOBAL_OBJ(Gumpart);
+	ADD_GLOBAL_OBJ(LoginDialog);
+	ADD_GLOBAL_OBJ(UoSocket);
 	
 	// Add Methods to the module
 	addModuleMethods(module);

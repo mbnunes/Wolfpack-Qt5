@@ -294,6 +294,11 @@
 			<label name="TitleLabel" font="0" localized="3000326" hue="1" bordercolor="0xC0B088" emboss="true">
 				<position x="135" y="125"/>
 			</label>
+			
+			<!-- Back Button -->
+			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
+				<position x="586" y="445" />
+			</imagebutton>
 		</children>
 	</dialog>
 	
@@ -463,7 +468,7 @@
 			</imagebutton>
 			<imagebutton name="NextButton" unpressed="5540" pressed="5542" hover="5541">
 				<position x="610" y="445" />
-			</imagebutton>			
+			</imagebutton>
 		</children>
 	</dialog>
 	
@@ -578,6 +583,16 @@
 			<colorpicker name="HairColorPicker" starthue="0x44e" endhue="0x47d" rows="7" columns="7" visible="false">
 				<bounds x="127" y="130" width="224" height="250" />
 			</colorpicker>
+			
+			<!-- Back Button -->
+			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
+				<position x="586" y="445" />
+			</imagebutton>
+			
+			<!-- Next Button -->
+			<imagebutton name="NextButton" unpressed="0x15a4" pressed="0x15a6" hover="0x15a5">
+				<position x="610" y="445" />
+			</imagebutton>
 		</children>	
 	</dialog>
 	

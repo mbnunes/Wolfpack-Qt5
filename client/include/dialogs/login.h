@@ -23,13 +23,6 @@ struct stShardEntry {
 	unsigned short id;
 };
 
-// This is a starting location
-struct stStartLocation {
-    QString name;
-	QString exactName;
-	unsigned char index;
-};
-
 enum enMenuPage {
 	PAGE_LOGIN = 0,
 	PAGE_CONNECTING,
@@ -39,7 +32,7 @@ enum enMenuPage {
 	PAGE_CONFIRMDELETE,
 	PAGE_DELETING,
 	PAGE_ENTERING,
-	PAGE_NEWCHARACTER1
+	PAGE_NEWCHARACTER
 };
 
 class cCharSelection;
@@ -65,14 +58,12 @@ private:
 	cImageButton *statusCancel, *statusOk;
 	cControl *selectCharBorder[6];
 	QStringList characterNames;
-	cContainer *newCharacter1;
 
 	void buildConfirmDeleteGump();
 	void buildAccountLoginGump();
 	void buildShardSelectGump();
 	void buildStatusGump();
 	void buildSelectCharGump();
-	void buildNewCharacter1();
 
 	QList<stShardEntry> shards;
 	unsigned int shardEntryOffset;
@@ -80,17 +71,6 @@ private:
 public:
 	cLoginDialog();
 	~cLoginDialog();
-
-	void setStatusText(const QString &text);
-	void setErrorStatus(bool error);
-
-	void show(enMenuPage page); // Show the login dialog
-	void hide(); // Hide the login dialog
-
-	// Callback for the ShardList
-	void clearShardList();
-	void addShard(const stShardEntry &shard);
-	void setCharacterList(const QStringList &characters);
 
 public slots:
 	// Button callbacks for this page.
@@ -116,7 +96,27 @@ public slots:
 	void selectShard(int id);
 	void enterPressed(cTextField *field);
 	void selectLastShard();
+
+	void setStatusText(const QString &text);
+	void setErrorStatus(bool error);
+
+	void show(int page);
+	void show(enMenuPage page); // Show the login dialog
+	void hide(); // Hide the login dialog
+
+	// Callback for the ShardList
+	void clearShardList();
+	void addShard(const stShardEntry &shard);
+	void setCharacterList(const QStringList &characters);
+
+signals:
+	void showCharacterCreation();
+	void hideCharacterCreation();
 };
+
+inline void cLoginDialog::show(int page) {
+	show(enMenuPage(page));
+}
 
 extern cLoginDialog *LoginDialog; // There is only one LoginDialog instance at a time
 

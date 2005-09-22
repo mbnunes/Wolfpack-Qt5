@@ -68,6 +68,22 @@ class Context:
 		self.skincolor = random(0x3ea, 0x422)
 
 	"""
+	  Show the first page of the character creation
+	"""
+	def showFirst(self):
+		loginDialog = Gui.findByName("LoginDialog")
+		loginDialog.findByName("CharacterCreation1").visible = True
+		
+	"""
+		Hide all character creation pages
+	"""
+	def hideAll(self):
+		loginDialog = Gui.findByName("LoginDialog")
+		loginDialog.findByName("CharacterCreation1").visible = False
+		loginDialog.findByName("CharacterCreation2").visible = False
+		loginDialog.findByName("CharacterCreation3").visible = False		
+
+	"""
 	 Select the profession with the given id
 	"""
 	def selectProfession(self, id):
@@ -130,8 +146,11 @@ class Context:
 				else:
 					xpos -= 205
 					ypos += 70
-		
-		dialog.visible = True
+					
+		connect(dialog.findByName("BackButton"), "onButtonPress(cControl*)", self.dialog1Back)
+	
+	def dialog1Back(self, button):
+		LoginDialog.show(PAGE_SELECTCHAR)		
 	
 	"""
 	  Select a profession and advance to the next page.
@@ -499,9 +518,30 @@ class Context:
 		connect(dialog.findByName("HairColorPicker"), "colorSelected(ushort)", self.hairColorSelected)
 		connect(dialog.findByName("SkinToneButton"), "onButtonPress(cControl*)", self.selectSkinTone)
 		
+		connect(dialog.findByName("BackButton"), "onButtonPress(cControl*)", self.dialog3Back)
+		connect(dialog.findByName("NextButton"), "onButtonPress(cControl*)", self.dialog3Next)
+		
 		self.setHairColor(self.haircolor, dialog)
 		self.setFacialHairColor(self.facialhaircolor, dialog)
 		self.setSkinColor(self.skincolor, dialog)
+
+
+	"""
+		Back + Next Button
+	"""
+	def dialog3Next(self, dialog):
+		startLocations = UoSocket.startLocations()
+		print repr(startLocations)
+		
+	def dialog3Back(self, dialog):
+		loginDialog = Gui.findByName("LoginDialog")
+		loginDialog.findByName("CharacterCreation3").visible = False
+		
+		# Advanced Profession
+		if self.profession == len(CharacterTemplates) - 1:
+			loginDialog.findByName("CharacterCreation2").visible = True
+		else:
+			loginDialog.findByName("CharacterCreation1").visible = True
 
 	"""
 		The button for selecting the skin color has been pressed
@@ -886,3 +926,6 @@ def initialize(dialog):
 		context.setupDialog2(dialog)
 	elif dialog.objectName == "CharacterCreation3":
 		context.setupDialog3(dialog)
+
+connect(LoginDialog, "showCharacterCreation()", context.showFirst)
+connect(LoginDialog, "hideCharacterCreation()", context.hideAll)

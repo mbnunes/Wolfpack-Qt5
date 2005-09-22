@@ -232,6 +232,7 @@ public:
 	}
 
 	virtual void handle(cUoSocket *socket) {
+		socket->setStartLocations(startLocations);
 		socket->setCharlistFeatures(flags);
 		LoginDialog->show(PAGE_SELECTCHAR);
 		LoginDialog->setCharacterList(characters);

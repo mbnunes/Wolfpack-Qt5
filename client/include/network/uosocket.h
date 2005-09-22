@@ -8,12 +8,16 @@
 #include <QTextStream>
 #include <QTcpSocket>
 #include <QQueue>
+#include <QVector>
 
 #include "enums.h"
 #include "network/uopacket.h"
 
 class cStreamEncryption;
 class cOutgoingPacket;
+
+// Forward declaration for python objects
+typedef struct _object PyObject;
 
 typedef cIncomingPacket *(*fnIncomingPacketConstructor)(QDataStream &data, unsigned short size);
 
@@ -34,6 +38,13 @@ enum enFeatures {
 	FEATURE_SEPROFESSIONS = 0x80,
 	FEATURE_SIXTHCHARSLOT = 0x40,
 	FEATURE_ONECHARSLOT = 0x14,
+};
+
+// This is a starting location
+struct stStartLocation {
+    QString name;
+	QString exactName;
+	unsigned char index;
 };
 
 class cUoSocket : public QObject {
@@ -71,6 +82,7 @@ protected:
 	uint incomingBytesCompressed_;
 	uint features_;
 	uint charlistFeatures_;
+	QVector<stStartLocation> startLocations_;
 
 	static fnIncomingPacketConstructor incomingPacketConstructors[256];
 public:
@@ -101,6 +113,7 @@ public:
 	uint charlistFeatures() const;
 	const QString &account() const;
 	void setAccount(QString account);
+	void setStartLocations(const QVector<stStartLocation> &locations);
 
 	// Is-Getters for flags
 	bool isAos() const;
@@ -146,6 +159,7 @@ public slots:
 	void disconnect();
 	void sendPing();
 	void setPacketLength(uchar packet, ushort size);
+	PyObject *startLocations() const;
 
 	// Several convenience methods
 	void sendUnicodeSpeech(const QString &text, ushort hue = 0x3b2, ushort font = 0, uchar type = SPEECH_REGULAR);
@@ -272,6 +286,10 @@ inline const QString &cUoSocket::account() const {
 
 inline void cUoSocket::setAccount(QString account) {
 	account_ = account;
+}
+
+inline void cUoSocket::setStartLocations(const QVector<stStartLocation> &locations) {
+	startLocations_ = locations;
 }
 
 #define AREGPREFIX fnc

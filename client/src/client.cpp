@@ -285,7 +285,7 @@ void cUoClient::run()
 	QTimer networkTimer;
 	QObject::connect(&networkTimer, SIGNAL(timeout()), UoSocket, SLOT(poll()));
 	networkTimer.setSingleShot(false);
-	networkTimer.start(10); // Poll the network socket every 10 ms
+	networkTimer.start(20); // Poll the network socket every 10 ms
 	qApp->exec(); // Enter the main event loop
 	networkTimer.stop(); // Stop the network timer
 

@@ -150,20 +150,31 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 			*type = (QMetaType::Type)QVariant::StringList;
 		}
 	} else if (qtType.endsWith("*")) {
-		if (isGenericWrapper(pyObj)) {
-			// Pointer type, get the genericwrapper for our pyobj and see if we can cast, otherwise zero it out
+		// Direct python interface calls
+		if (qtType == "PyObject*") {
 			ptr[index] = &ptrArguments[index];
 			if (pyObj) {
-				ptrArguments[index] = getWrappedObject(pyObj);
+				ptrArguments[index] = pyObj;
 			}
 			if (type) {
-				*type = QMetaType::QObjectStar;
+				*type = QMetaType::VoidStar;
 			}
-		} else if (!pyObj) {
-			// Use the void* return type...
-			ptr[index] = &ptrArguments[index];
-			if (type) {
-				*type = QMetaType::QObjectStar;
+		} else {
+			if (isGenericWrapper(pyObj)) {
+				// Pointer type, get the genericwrapper for our pyobj and see if we can cast, otherwise zero it out
+				ptr[index] = &ptrArguments[index];
+				if (pyObj) {
+					ptrArguments[index] = getWrappedObject(pyObj);
+				}
+				if (type) {
+					*type = QMetaType::QObjectStar;
+				}
+			} else if (!pyObj) {
+				// Use the void* return type...
+				ptr[index] = &ptrArguments[index];
+				if (type) {
+					*type = QMetaType::QObjectStar;
+				}
 			}
 		}
 	} else {
@@ -240,7 +251,11 @@ static PyObject *methodwrapper_call(pyMethodWrapperObject *obj, PyObject *args, 
 
 		wrapped->qt_metacall(QMetaObject::InvokeMetaMethod, obj->wrappedMethods[i], paramList);
 
-		return toPython(paramList[0], returnValueType);
+		if (returnType == "PyObject*") {
+			return *(PyObject**)paramList[0];
+		} else {
+			return toPython(paramList[0], returnValueType);
+		}
 	}
 
 	PyErr_SetString(PyExc_RuntimeError, "Did not found a suitable overload for calling the method with the given arguments.");

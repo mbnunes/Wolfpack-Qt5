@@ -202,27 +202,6 @@
 				RelativePath=".\src\log.cpp">
 			</File>
 			<File
-				RelativePath=".\include\log.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\src\macros.cpp">
 			</File>
 			<File
@@ -394,7 +373,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -402,7 +382,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -803,7 +784,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -811,7 +793,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -1113,7 +1096,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1121,7 +1105,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -1348,24 +1333,6 @@
 			</File>
 			<File
 				RelativePath=".\include\network\outgoingpacket.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
-						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\network\outgoingpackets.cpp">
@@ -1458,7 +1425,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1466,7 +1434,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -1759,6 +1728,27 @@
 		</Filter>
 		<File
 			RelativePath=".\icon.ico">
+		</File>
+		<File
+			RelativePath=".\include\log.h">
+			<FileConfiguration
+				Name="Release|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="moc&apos;ing $(InputFileName)"
+					CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+					Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Debug|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="moc&apos;ing $(InputFileName)"
+					CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+					Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\resource.h">

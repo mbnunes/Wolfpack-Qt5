@@ -1,4 +1,7 @@
 
+#include <Python.h>
+#include "python/utilities.h"
+
 #include <QTimer>
 #include <QDir>
 
@@ -404,4 +407,18 @@ void cUoSocket::setPacketLength(uchar packet, ushort size) {
 
 void cUoSocket::sendUnicodeSpeech(const QString &text, ushort hue, ushort font, uchar type) {
 	send(cSendUnicodeSpeechPacket((enSpeechType)type, text, hue, font));
+}
+
+PyObject *cUoSocket::startLocations() const {
+	PyObject *result = PyTuple_New(startLocations_.size());
+
+	for (int i = 0; i < startLocations_.size(); ++i) {
+		PyObject *sublist = PyTuple_New(3);
+		PyTuple_SET_ITEM(sublist, 0, PyInt_FromLong(startLocations_[i].index)); // INDEX
+		PyTuple_SET_ITEM(sublist, 1, toPython(startLocations_[i].name)); // Name
+		PyTuple_SET_ITEM(sublist, 2, toPython(startLocations_[i].exactName)); // Exact Name
+		
+		PyTuple_SET_ITEM(result, i, sublist);
+	}
+	return result;
 }

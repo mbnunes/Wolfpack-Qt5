@@ -21,10 +21,10 @@ protected:
 	void writeDynamicSize();
 public:
 	cOutgoingPacket(const cOutgoingPacket &outgoing);
-	bool isDynamicSize() const;
-
 	cOutgoingPacket(unsigned char packetId);	
 	cOutgoingPacket(unsigned char packetId, unsigned short size);
+public slots:
+	bool isDynamicSize() const;
 
 	unsigned int packetId() const;
 

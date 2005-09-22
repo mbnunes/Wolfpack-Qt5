@@ -99,6 +99,7 @@ cUniversalSlot::cUniversalSlot(QObject *sender, const char *signal, PyObject *re
 	if (offset == -1) {
 		valid = false;
 		this->recipient = 0;
+		Scripts->addSlot(this);
 		return;
 	}
 

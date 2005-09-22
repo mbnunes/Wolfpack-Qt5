@@ -21,10 +21,16 @@ public:
 
 	// The actual code-glue between qt->python
 	void universalslot(void **arguments);
+
+	bool isValid() const;
 protected:
 	PyObject *recipient;
 	QMetaMethod slotSignature;
 	bool valid;
 };
+
+inline bool cUniversalSlot::isValid() const {
+	return valid;
+}
 
 #endif
