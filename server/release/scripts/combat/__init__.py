@@ -25,7 +25,7 @@ def onSwing(attacker, defender, time):
 	if attacker == defender:
 		attacker.attacktarget = None
 		return
-	
+
 	# We won't allow any swings from or against players
 	# who are offline
 	if defender.player and not defender.socket and not defender.logouttime:
@@ -40,7 +40,7 @@ def onSwing(attacker, defender, time):
 	if defender.invisible or defender.hidden:
 		attacker.attacktarget = None
 		return
-		
+
 	# Wait one second until the attacker is unfrozen
 	if attacker.frozen:
 		attacker.nextswing = time + 500
@@ -63,7 +63,7 @@ def onSwing(attacker, defender, time):
 			# Ranged weapons need shooting first
 			if weapon and (weapon.type == 1007 or weapon.type == 1006):
 				ability = getability(attacker)				
-				
+
 				# We have to be standing for >= 500 ms, otherwise try again later
 				if (not ability or not ability.movingshot) and attacker.lastmovement + 500 > wolfpack.time.currenttime():
 					attacker.nextswing = attacker.lastmovement + 500
@@ -73,7 +73,7 @@ def onSwing(attacker, defender, time):
 				# if not, wait until the next normal swing.
 				if combat.aos.fireweapon(attacker, defender, weapon):
 					combat.utilities.sendswing(attacker, defender) # Send Swing
-					
+
 					if combat.aos.checkhit(attacker, defender, time):
 						combat.aos.hit(attacker, defender, weapon, time)
 					else:

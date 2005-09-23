@@ -392,7 +392,7 @@ class NobleSacrifice(Spell):
 
 class RemoveCurse(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 7)
+		CharEffectSpell.__init__(self, 7)
 		self.skill = CHIVALRY
 		self.requiredskill = 50
 		self.damageskill = FOCUS

@@ -11,6 +11,7 @@ import system.slayer
 from combat.specialmoves import getability
 import combat.hiteffects
 import magic.chivalry
+import system.poison
 
 #
 # Check if the given weapon can slay the given
@@ -522,21 +523,45 @@ def hit(attacker, defender, weapon, time):
 				if amount > 0:
 					attacker.hitpoints = min(attacker.maxhitpoints, attacker.hitpoints + amount)
 					attacker.updatehealth()
-				
+
 			leech = properties.fromitem(weapon, STAMINALEECH)
 			if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.stamina:
 				amount = (damagedone * 100) / 100 # Leech 100% Stamina
 				if amount > 0:
 					attacker.stamina = min(attacker.maxstamina, attacker.stamina + amount)
 					attacker.updatehealth()
-	
+
 			leech = properties.fromitem(weapon, MANALEECH)
 			if leech and leech > random.randint(0, 99) and attacker.maxmana > attacker.mana:
 				amount = (damagedone * 40) / 100 # Leech 40% Mana
 				if amount > 0:
 					attacker.mana = min(attacker.maxmana, attacker.mana + amount)
 					attacker.updatemana()
-	
+
+			# Poisoning (50% chance)
+			if weapon.hastag('poisoning_uses'):
+				poisoning_uses = int(weapon.gettag('poisoning_uses'))
+				if poisoning_uses <= 0:
+					weapon.deltag('poisoning_uses')
+				else:
+					poisoning_uses -= 1
+					if poisoning_uses <= 0:
+						weapon.deltag('poisoning_uses')
+					else:
+						weapon.settag('poisoning_uses', poisoning_uses)
+
+					poisoning_strength = 0 # Assume lesser unless the tag tells so otherwise
+					if weapon.hastag('poisoning_strength'):
+						poisoning_strength = int(weapon.gettag('poisoning_strength'))
+					if defender.hasscript("magic.evilomen") and poisoning_strength < 4:
+						poisoning_strength += 1
+					if random.random() >= 0.50:
+						if system.poison.poison(defender, poisoning_strength):
+							if attacker.socket:
+								attacker.socket.clilocmessage(1008096, "", 0x3b2, 3, None, defender.name, False, False)
+							if defender.socket:
+								attacker.socket.clilocmessage(1008097, "", 0x3b2, 3, None, attacker.name, False, True)
+
 			# Splash Damage
 			for effectid in [SPLASHPHYSICAL, SPLASHFIRE, SPLASHCOLD, SPLASHPOISON, SPLASHENERGY]:
 				effect = properties.fromitem(weapon, effectid)

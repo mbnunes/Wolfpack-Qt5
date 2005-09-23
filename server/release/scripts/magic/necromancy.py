@@ -17,22 +17,21 @@ import magic.corpseskin
 
 class AnimateDead(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 4)
 		self.skill = NECROMANCY
 		self.requiredskill = 40
 		self.damageskill = SPIRITSPEAK
 		self.mana = 23
 		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Uus Corp'
+		self.validtarget = TARGET_ITEM
 
 	def precast(self, char, mode, args, target, item):
 		if Spell.precast(self, char, mode, args):
 			char.socket.clilocmessage( 1061083 ) # Animate what corpse?
 
 	def target(self, char, mode, targettype, target, args, item):
-		if not target.item:
-			return
-		if not target.item.corpse:
+		if not target.corpse:
 			char.socket.clilocmessage( 1061084 ) # You cannot animate that.
 			return False
 
@@ -52,7 +51,7 @@ class AnimateDead(Spell):
 
 class BloodOath(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		CharEffectSpell.__init__(self, 4)
 		self.skill = NECROMANCY
 		self.requiredskill = 20
 		self.damageskill = SPIRITSPEAK
@@ -95,7 +94,7 @@ class BloodOath(CharEffectSpell):
 
 class CorpseSkin(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		CharEffectSpell.__init__(self, 4)
 		self.skill = NECROMANCY
 		self.requiredskill = 0
 		self.damageskill = SPIRITSPEAK
@@ -129,7 +128,7 @@ class CorpseSkin(CharEffectSpell):
 
 class CurseWeapon(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.requiredskill = 0
 		self.damageskill = SPIRITSPEAK
@@ -139,7 +138,7 @@ class CurseWeapon(Spell):
 
 class EvilOmen(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		CharEffectSpell.__init__(self, 1)
 		self.skill = NECROMANCY
 		self.requiredskill = 20
 		self.damageskill = SPIRITSPEAK
@@ -147,24 +146,21 @@ class EvilOmen(CharEffectSpell):
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1}
 		self.mantra = 'Pas Tym An Sanct'
 
-	def affectchar(self, char, mode, target, args=[]):
-		if not target.char:
-			char.socket.clilocmessage( 1060508 ) # You can't curse that.
-			return False
-		return True
-
 	def effect(self, char, target, mode, args, item):
 		target.soundeffect( 0xFC )
 		target.effect( 0x3728, 1, 13 )
 		target.effect( 0x3779, 1, 15 )
-		
+
 		target.addscript('magic.evilomen')
+		if target.skill[MAGICRESISTANCE] > 500:
+			target.settag('magicresistance', target.skill[MAGICRESISTANCE])
+			target.skill[MAGICRESISTANCE] = 500
 		duration = ( 3.5 + (3.5 * (char.skill[self.damageskill] / 100.0)) ) * 100
 		target.addtimer( duration, magic.evilomen.expire, [], True, False, 'CORPSESKIN', magic.evilomen.dispel )
 
 class HorrificBeast(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 40
 		self.damageskill = SPIRITSPEAK
@@ -172,9 +168,15 @@ class HorrificBeast(Spell):
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Rel Xen Vas Bal'
 
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.id = 746
+		char.update()
+		char.soundeffect( 0x165 )
+		char.effect( 0x3728, 1, 13 )
+
 class LichForm(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 70
 		self.damageskill = SPIRITSPEAK
@@ -184,7 +186,7 @@ class LichForm(Spell):
 
 class MindRot(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 4)
 		self.skill = NECROMANCY
 		self.requiredskill = 30
 		self.damageskill = SPIRITSPEAK
@@ -194,7 +196,7 @@ class MindRot(Spell):
 
 class PainSpike(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		CharEffectSpell.__init__(self, 2)
 		self.skill = NECROMANCY
 		self.requiredskill = 20
 		self.damageskill = SPIRITSPEAK
@@ -228,7 +230,7 @@ def painspike_expire(char, args):
 
 class PoisonStrike(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 4)
 		self.skill = NECROMANCY
 		self.requiredskill = 50
 		self.damageskill = SPIRITSPEAK
@@ -238,7 +240,7 @@ class PoisonStrike(Spell):
 
 class Strangle(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 65
 		self.damageskill = SPIRITSPEAK
@@ -248,7 +250,7 @@ class Strangle(Spell):
 
 class SummonFamiliar(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 30
 		self.damageskill = SPIRITSPEAK
@@ -258,7 +260,7 @@ class SummonFamiliar(Spell):
 
 class VampiricEmbrace(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 99
 		self.damageskill = SPIRITSPEAK
@@ -268,7 +270,7 @@ class VampiricEmbrace(Spell):
 
 class VengefulSpirit(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 80
 		self.damageskill = SPIRITSPEAK
@@ -278,7 +280,7 @@ class VengefulSpirit(Spell):
 
 class Wither(Spell):
 	def __init__(self):
-		Spell.__init__(self, 1)
+		Spell.__init__(self, 2)
 		self.skill = NECROMANCY
 		self.requiredskill = 60
 		self.damageskill = SPIRITSPEAK
@@ -313,7 +315,7 @@ class Wither(Spell):
 
 class WraithForm(Spell):
 	def __init__(self):
-		Spell.__init__(self, 0)
+		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 20
 		self.damageskill = SPIRITSPEAK
