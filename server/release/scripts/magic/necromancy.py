@@ -92,26 +92,6 @@ class BloodOath(CharEffectSpell):
 		target.settag('bloodoath', char.serial)
 		char.addtimer( duration, magic.bloodoath.expire, [target.serial], True, False, 'BLOODOATH', magic.bloodoath.dispel )
 
-def dispel_bloodoath(char, args, source, dispelargs):
-	expire_bloodoath(char, dispelargs)
-
-def expire_bloodoath(char, args):
-	victim = wolfpack.findchar(args[0])
-	if char:
-		if char.hasscript('magic.bloodoath'):
-			char.removescript('magic.bloodoath')
-		if char.hastag('bloodoath_caster'):
-			char.deltag('bloodoath_caster')	
-		if char.socket:
-			char.socket.clilocmessage( 1061620 ) # Your Blood Oath has been broken.
-	if victim:
-		if victim.hasscript('magic.bloodoath'):
-			victim.removescript('magic.bloodoath')
-		if victim.hastag('bloodoath'):
-			victim.deltag('bloodoath')
-		if victim.socket:
-			victim.socket.clilocmessage( 1061620 ) # Your Blood Oath has been broken.
-	return
 
 class CorpseSkin(CharEffectSpell):
 	def __init__(self):
