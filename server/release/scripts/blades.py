@@ -140,13 +140,20 @@ def carve_corpse( char, tool, corpse ):
 		if corpse.hastag('carved') or not corpse.owner:
 			char.socket.clilocmessage(500485) # You see nothing useful to carve from the corpse.
 		else:	
-			ITEMS = ['122d', '1d9f', '1da4', '1da2', '1da3', '1da1'] # Components of the carved body
+			ITEMS = ['1d9f', '1da4', '1da2', '1da3', '1da1'] # Components of the carved body
 			for item in ITEMS:
 				item = wolfpack.additem(item)
 				item.moveto(corpse.pos)
 				item.decay = True # Make sure they decay
 				item.movable = 1 # Make sure they are movable
 				item.update()
+
+			# Blood should not be movable
+			blood = wolfpack.additem('122d')
+			blood.moveto(corpse.pos)
+			blood.decay = True
+			blood.movable = 3
+			blood.update()
 
 			# Add the head
 			head = wolfpack.additem('1da0')
