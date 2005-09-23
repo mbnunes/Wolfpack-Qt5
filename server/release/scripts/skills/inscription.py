@@ -5,17 +5,14 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack import console, tr
+from wolfpack import tr
 from wolfpack.consts import *
 import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
-from wolfpack.utilities import hex2dec, tobackpack
-from wolfpack.properties import itemcheck, fromitem
 import magic.utilities
 import random
 import magic
-from magic.utilities import *
 import skills
 
 # reagent names

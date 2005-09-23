@@ -30,7 +30,6 @@
 import wolfpack
 from wolfpack.consts import *
 from system.makemenus import MakeMenu, MakeAction, findmenu
-from wolfpack.console import *
 from wolfpack.utilities import isValidPosition
 
 generated = 0

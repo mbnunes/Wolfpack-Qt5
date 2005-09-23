@@ -7,7 +7,6 @@ import commands.who
 import wolfpack.sockets
 import time
 from urllib import quote, unquote
-from wolfpack import console
 
 pages = None
 

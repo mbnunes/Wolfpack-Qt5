@@ -20,7 +20,6 @@
 
 import wolfpack
 from wolfpack.utilities import hex2dec
-from wolfpack import console
 from wolfpack.consts import *
 
 def dupe(socket, command, arguments):

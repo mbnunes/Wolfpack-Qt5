@@ -14,7 +14,6 @@
 
 import wolfpack
 from wolfpack.consts import *
-from wolfpack import console
 
 def addvendor(player, arguments, target):
 	if target.item and target.item.container:

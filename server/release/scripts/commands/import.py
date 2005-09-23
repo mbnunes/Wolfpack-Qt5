@@ -45,7 +45,6 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
 from wolfpack.utilities import hex2dec, isValidPosition
-from wolfpack import console
 from string import lstrip
 import os
 

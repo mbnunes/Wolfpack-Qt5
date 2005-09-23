@@ -137,7 +137,7 @@ class CurseWeapon(Spell):
 		self.reagents = {REAGENT_PIGIRON: 1}
 		self.mantra = 'An Sanct Gra Char'
 
-class EvilOmen(Spell):
+class EvilOmen(CharEffectSpell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NECROMANCY
@@ -146,6 +146,21 @@ class EvilOmen(Spell):
 		self.mana = 11
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1}
 		self.mantra = 'Pas Tym An Sanct'
+
+	def affectchar(self, char, mode, target, args=[]):
+		if not target.char:
+			char.socket.clilocmessage( 1060508 ) # You can't curse that.
+			return False
+		return True
+
+	def effect(self, char, target, mode, args, item):
+		target.soundeffect( 0xFC )
+		target.effect( 0x3728, 1, 13 )
+		target.effect( 0x3779, 1, 15 )
+		
+		target.addscript('magic.evilomen')
+		duration = ( 3.5 + (3.5 * (char.skill[self.damageskill] / 100.0)) ) * 100
+		target.addtimer( duration, magic.evilomen.expire, [], True, False, 'CORPSESKIN', magic.evilomen.dispel )
 
 class HorrificBeast(Spell):
 	def __init__(self):

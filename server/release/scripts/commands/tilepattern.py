@@ -1,7 +1,7 @@
 
 import wolfpack
 import wolfpack.gumps
-from wolfpack import tr, console
+from wolfpack import tr
 from wolfpack.consts import *
 
 def edit_response(player, arguments, response):

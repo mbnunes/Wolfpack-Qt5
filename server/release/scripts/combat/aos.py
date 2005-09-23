@@ -7,7 +7,6 @@ import combat.utilities
 import random
 from math import floor, ceil, sqrt
 from system.debugging import DEBUG_COMBAT_INFO
-from skills import poisoning
 import system.slayer
 from combat.specialmoves import getability
 import combat.hiteffects

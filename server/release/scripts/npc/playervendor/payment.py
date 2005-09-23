@@ -8,7 +8,6 @@
 from threading import Thread, Event, Lock
 import wolfpack
 from wolfpack.consts import *
-from wolfpack import console
 import time
 import npc.playervendor
 

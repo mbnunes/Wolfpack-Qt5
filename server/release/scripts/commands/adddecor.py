@@ -11,7 +11,6 @@ import wolfpack
 import random
 from wolfpack.consts import WPDT_ITEM
 from wolfpack.utilities import hex2dec
-from wolfpack import console
 
 
 """

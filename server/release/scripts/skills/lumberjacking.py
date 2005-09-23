@@ -6,7 +6,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from random import randint, random
 import time
-from wolfpack import console, tr
+from wolfpack import tr
 
 extended_carpentry = int( wolfpack.settings.getbool("General", "Extended Carpentry", False, True) )
 woodrespawndelay = randint( LUMBERJACKING_REFILLTIME[0], LUMBERJACKING_REFILLTIME[1] )

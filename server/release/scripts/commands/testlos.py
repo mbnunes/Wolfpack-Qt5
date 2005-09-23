@@ -13,6 +13,7 @@
 
 import wolfpack
 from wolfpack.consts import LOG_MESSAGE
+import wolfpack.console
 
 def testlos( socket, command, arguments ):
 	wolfpack.console.log( LOG_MESSAGE, "Message" )

@@ -10,7 +10,6 @@
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
 import wolfpack
-import wolfpack.console
 
 # Gump Types
 TYPE_BUYGUMP = 259823146

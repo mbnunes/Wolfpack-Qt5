@@ -10,7 +10,7 @@
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
 import wolfpack
-from wolfpack import tr
+from wolfpack import console, tr
 
 prices_shrinks = 100
 prices = {
@@ -284,7 +284,7 @@ def gump_callback( char, args, response ):
 
 		item = wolfpack.additem( "%s" % id_shrink )
 		if not item:
-			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_shrink, vendor) )
+			console.send( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_shrink, vendor) )
 			return
 		item.settag( "npc_id", "%s" % id_npc )
 		if rideables.has_key( id ):
@@ -307,7 +307,7 @@ def gump_callback( char, args, response ):
 		pos = char.pos
 		npc = wolfpack.addnpc( id_npc, pos )
 		if not npc:
-			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_npc, vendor) )
+			console.send( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_npc, vendor) )
 			return
 		npc.owner = char
 		npc.tamed = 1
@@ -326,7 +326,7 @@ def gump_callback( char, args, response ):
 		pos = char.pos
 		npcmount = wolfpack.addnpc( id_npc, pos )
 		if not npcmount:
-			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_npc, vendor) )
+			console.send( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_npc, vendor) )
 			return
 		char.mount(npcmount)
 		return

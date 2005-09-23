@@ -3,7 +3,6 @@ from math import floor, sqrt, ceil
 import random
 import wolfpack.armorinfo
 import wolfpack.weaponinfo
-from wolfpack import console
 from wolfpack.consts import *
 from system.lootlists import *
 import system.slayer

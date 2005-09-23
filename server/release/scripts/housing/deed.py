@@ -1,5 +1,5 @@
 
-from wolfpack import tr, console
+from wolfpack import tr
 import wolfpack
 from wolfpack.consts import *
 import housing

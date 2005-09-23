@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack.utilities import energydamage
-from wolfpack import console, tr
+from wolfpack import tr
 from wolfpack.consts import *
 
 # The maximum poisonlevel that can be resisted by orange petals

@@ -6,7 +6,7 @@
 #################################################################
 
 import wolfpack
-from wolfpack import console, tr
+from wolfpack import tr
 from wolfpack.consts import *
 from wolfpack.utilities import *
 

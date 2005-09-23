@@ -1,6 +1,5 @@
 
 import wolfpack
-from wolfpack import console
 from wolfpack.consts import *
 from wolfpack.utilities import hex2dec
 import housing

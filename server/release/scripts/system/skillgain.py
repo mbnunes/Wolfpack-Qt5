@@ -1,6 +1,5 @@
 
 import wolfpack
-from wolfpack import console
 from wolfpack.consts import *
 from random import random, randint, choice
 from wolfpack import settings

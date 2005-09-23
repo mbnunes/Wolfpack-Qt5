@@ -12,7 +12,7 @@ import potions.utilities
 import potionkeg
 import time
 from wolfpack.consts import *
-from wolfpack import console, tr
+from wolfpack import tr
 import random
 
 #

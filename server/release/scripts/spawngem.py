@@ -1,7 +1,7 @@
 
 import wolfpack
 import wolfpack.gumps
-from wolfpack import console, tr
+from wolfpack import tr
 from system import spawns
 
 #

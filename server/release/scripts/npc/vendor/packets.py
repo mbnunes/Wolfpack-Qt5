@@ -1,7 +1,6 @@
 
 import wolfpack
 from wolfpack.consts import *
-from wolfpack import console
 import npc.vendor
 
 #

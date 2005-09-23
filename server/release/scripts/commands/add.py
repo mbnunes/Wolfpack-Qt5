@@ -1,7 +1,6 @@
 
 import wolfpack
 from wolfpack.consts import *
-from wolfpack import console
 from system.makemenus import MakeItemAction, MakeMenu, MakeAction, findmenu
 from wolfpack.utilities import hex2dec
 

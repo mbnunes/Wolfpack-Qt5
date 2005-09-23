@@ -197,6 +197,7 @@
 	<script>magic.trap</script>
 	<script>magic.bloodoath</script>
 	<script>magic.corpseskin</script>
+	<script>magic.evilomen</script>
 
 	<!-- NPC -->
 	<script>npc.healer</script>

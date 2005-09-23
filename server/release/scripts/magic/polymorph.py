@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack import console, tr
+from wolfpack import tr
 from system.makemenus import MakeAction, MakeMenu, findmenu
 from magic import castSpell
 

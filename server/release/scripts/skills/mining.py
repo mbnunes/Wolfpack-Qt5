@@ -11,7 +11,7 @@ import skills
 import random
 from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
 	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN, MINING_SAND
-from wolfpack import console, tr
+from wolfpack import tr
 from wolfpack.utilities import ismountainorcave, issand, tobackpack
 
 
