@@ -1,10 +1,9 @@
 import wolfpack
 import random
 import time
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import *
 import crops
-from wolfpack import tr
 
 # How often should the plant checks be started
 # Default is once every 30 minutes
@@ -45,7 +44,7 @@ CROPS = []
 #
 # This prevents too many growth checks
 #
-magic = random.random()
+magic_crops = random.random()
 
 stages = crops.stages
 
@@ -54,7 +53,7 @@ stages = crops.stages
 # all known crops
 #
 def growthCheck(obj, args):
-	if args[0] != magic:
+	if args[0] != magic_crops:
 		return # This is an outdated timer
 
 	# Notify the log that we're running a growth check
@@ -62,7 +61,7 @@ def growthCheck(obj, args):
 
 	# Copy the list of known plant serials and
 	# start the subprocessing function
-	processGrowthCheck(None, ( CROPS[:], 0, magic ))
+	processGrowthCheck(None, ( CROPS[:], 0, magic_crops ))
 	
 #
 # This function is both, a timer callback and a function that can be normally
@@ -72,7 +71,7 @@ def growthCheck(obj, args):
 # 2. The index in that list to start processing at
 #
 def processGrowthCheck(obj, args):
-	if args[2] != magic:
+	if args[2] != magic_crops:
 		return # The scripts have been reloaded
 
 	croplist = args[0] # We keep a reference here to prevent reallocation
@@ -96,11 +95,11 @@ def processGrowthCheck(obj, args):
 
 	# We're not finished yet
 	if i < len(CROPS):
-		wolfpack.addtimer(CHECKDELAY, processGrowthCheck, [croplist, upperindex, magic], False)
+		wolfpack.addtimer(CHECKDELAY, processGrowthCheck, [croplist, upperindex, magic_crops], False)
 
 	# We're done, so queue the next check
 	else:
-		wolfpack.addtimer(CHECKINTERVAL, growthCheck, [magic], False)
+		wolfpack.addtimer(CHECKINTERVAL, growthCheck, [magic_crops], False)
 
 #
 # Grow the crop
@@ -134,17 +133,17 @@ def onUse(char, crop):
 # Add the timer for checking the crops
 #
 def onLoad():
-	global magic
-	magic = random.random()
+	global magic_crops
+	magic_crops = random.random()
 
-	wolfpack.addtimer(CHECKINTERVAL, growthCheck, [magic], False)
+	wolfpack.addtimer(CHECKINTERVAL, growthCheck, [magic_crops], False)
 
 #
-# Reset the magic
+# Reset the magic_crops
 #
 def onUnload():
-	global magic
-	magic = random.random()
+	global magic_crops
+	magic_crops = random.random()
 
 #
 # Register the crop with the global registry

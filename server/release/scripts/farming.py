@@ -1,10 +1,9 @@
 import wolfpack
 import random
 import time
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import *
 import crops
-from wolfpack import tr
 import wolfpack.utilities
 import beverage
 
@@ -50,17 +49,17 @@ OBJECTS = []
 # Add the timer for checking the objects
 #
 def onLoad():
-	global magic
-	magic = random.random()
+	global magic_farming
+	magic_farming = random.random()
 
-	wolfpack.addtimer(CHECKINTERVAL, gainresObject, [magic], False)
+	wolfpack.addtimer(CHECKINTERVAL, gainresObject, [magic_farming], False)
 
 #
-# Reset the magic
+# Reset the magic_farming
 #
 def onUnload():
-	global magic
-	magic = random.random()
+	global magic_farming
+	magic_farming = random.random()
 
 #
 # Register the object with the global registry
@@ -78,14 +77,14 @@ def onDetach(obj):
 #
 # This prevents too many growth checks
 #
-magic = random.random()
+magic_farming = random.random()
 
 #
 # This is the timer callback used to initiate a growth check for 
 # all known objects
 #
 def gainresObject(obj, args):
-	if args[0] != magic:
+	if args[0] != magic_farming:
 		return # This is an outdated timer
 
 	# Notify the log that we're running a growth check
@@ -93,7 +92,7 @@ def gainresObject(obj, args):
 
 	# Copy the list of known object serials and
 	# start the subprocessing function
-	processGainresObject(None, ( OBJECTS[:], 0, magic ))
+	processGainresObject(None, ( OBJECTS[:], 0, magic_farming ))
 	
 #
 # This function is both, a timer callback and a function that can be normally
@@ -103,7 +102,7 @@ def gainresObject(obj, args):
 # 2. The index in that list to start processing at
 #
 def processGainresObject(obj, args):
-	if args[2] != magic:
+	if args[2] != magic_farming:
 		return # The scripts have been reloaded
 
 	objectlist = args[0] # We keep a reference here to prevent reallocation
@@ -126,11 +125,11 @@ def processGainresObject(obj, args):
 
 	# We're not finished yet
 	if i < len(OBJECTS):
-		wolfpack.addtimer(CHECKDELAY, processGainresObject, [objectlist, upperindex, magic], False)
+		wolfpack.addtimer(CHECKDELAY, processGainresObject, [objectlist, upperindex, magic_farming], False)
 
 	# We're done, so queue the next check
 	else:
-		wolfpack.addtimer(CHECKINTERVAL, gainresObject, [magic], False)
+		wolfpack.addtimer(CHECKINTERVAL, gainresObject, [magic_farming], False)
 
 #
 # + 1 to resourcecount of object
