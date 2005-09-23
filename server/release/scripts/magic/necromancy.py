@@ -77,11 +77,11 @@ class BloodOath(CharEffectSpell):
 	def effect(self, char, target, mode, args, item):
 		char.soundeffect( 0x175 )
 
-		char.effect( 0x375A, 1, 17 )
-		char.effect( 0x3728, 1, 13 )
+		char.effect( 0x375A, 1, 17, 33, 7 )
+		char.effect( 0x3728, 1, 13, 33, 7 )
 
-		target.effect( 0x375A, 1, 17 )
-		target.effect( 0x3728, 1, 13 )
+		target.effect( 0x375A, 1, 17, 33, 7 )
+		target.effect( 0x3728, 1, 13, 33, 7 )
 
 		duration = (((char.skill[self.damageskill] - target.skill[MAGICRESISTANCE]) / 8) + 8) * 1000
 
@@ -90,7 +90,6 @@ class BloodOath(CharEffectSpell):
 		char.settag('bloodoath_caster', target.serial)
 		target.settag('bloodoath', char.serial)
 		char.addtimer( duration, magic.bloodoath.expire, [target.serial], True, False, 'BLOODOATH', magic.bloodoath.dispel )
-
 
 class CorpseSkin(CharEffectSpell):
 	def __init__(self):
@@ -107,7 +106,7 @@ class CorpseSkin(CharEffectSpell):
 			target.dispel(char, True, 'CORPSESKIN', [1])
 		elif target.socket:
 			target.socket.clilocmessage( 1061689 ) # Your skin turns dry and corpselike.
-		target.effect( 0x373A, 1, 15 )
+		target.effect( 0x373A, 1, 15, 67, 7 )
 		target.soundeffect( 0x1BB )
 
 		ss = char.skill[self.damageskill]
@@ -117,12 +116,12 @@ class CorpseSkin(CharEffectSpell):
 
 		duration = ( ((ss - mr) / 2.5) + 40.0 ) * 100
 
-		changeResistance( char, 'res_fire', -10 )
-		changeResistance( char, 'res_poison', -10 )
-		changeResistance( char, 'res_cold', 10 )
-		changeResistance( char, 'res_physical', 10 )
+		#changeResistance( char, 'res_fire', -10 )
+		#changeResistance( char, 'res_poison', -10 )
+		#changeResistance( char, 'res_cold', 10 )
+		#changeResistance( char, 'res_physical', 10 )
 		target.addscript('magic.corpseskin')
-		target.updatestats()
+		#target.updatestats()
 
 		target.addtimer( duration, magic.corpseskin.expire, [], True, False, 'CORPSESKIN', magic.corpseskin.dispel )
 
@@ -148,8 +147,8 @@ class EvilOmen(CharEffectSpell):
 
 	def effect(self, char, target, mode, args, item):
 		target.soundeffect( 0xFC )
-		target.effect( 0x3728, 1, 13 )
-		target.effect( 0x3779, 1, 15 )
+		target.effect( 0x3728, 1, 13, 1150, 7 )
+		target.effect( 0x3779, 1, 15, 67, 7 )
 
 		target.addscript('magic.evilomen')
 		if target.skill[MAGICRESISTANCE] > 500:
@@ -169,10 +168,10 @@ class HorrificBeast(Spell):
 		self.mantra = 'Rel Xen Vas Bal'
 
 	def cast(self, char, mode, args=[], target=None, item=None):
-		char.id = 746
-		char.update()
+		#char.id = 746
+		#char.update()
 		char.soundeffect( 0x165 )
-		char.effect( 0x3728, 1, 13 )
+		char.effect( 0x3728, 1, 13, 92, 3 )
 
 class LichForm(Spell):
 	def __init__(self):
@@ -205,8 +204,8 @@ class PainSpike(CharEffectSpell):
 		self.mantra = 'In Sar'
 
 	def effect(self, char, target, mode, args, item):
-		target.effect( 0x37C4, 1, 8 )
-		target.effect( 0x37C4, 1, 8 )
+		target.effect( 0x37C4, 1, 8, 39, 3 )
+		target.effect( 0x37C4, 1, 8, 39, 4 )
 		target.soundeffect( 0x210 )
 
 		damage = ((char.skill[self.damageskill] - target.skill[MAGICRESISTANCE]) / 10) + 30
@@ -228,15 +227,36 @@ def painspike_expire(char, args):
 		char.updatehealth()
 	return
 
-class PoisonStrike(Spell):
+class PoisonStrike(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 4)
+		CharEffectSpell.__init__(self, 4)
 		self.skill = NECROMANCY
 		self.requiredskill = 50
 		self.damageskill = SPIRITSPEAK
 		self.mana = 17
 		self.reagents = {REAGENT_NOXCRYSTAL: 1}
 		self.mantra = 'In Vas Nox'
+
+	def affectchar(self, char, mode, target, args=[]):
+		return True
+
+	def effect(self, char, target, mode, args, item):
+		target.effect( 0x36B0, 1, 14, 63 )
+		target.soundeffect( 0x229 )
+
+		damage = random.randint( 36, 40 ) * ((300 + (char.skill[self.damageskill] * 9)) / 1000)
+
+		chars = wolfpack.chars(target.pos.x, target.pos.y, target.pos.map, 2)
+		for aim in chars:
+			if target.distanceto(aim) == 0:
+				num = 1
+			elif target.distanceto(aim) == 0:
+				num = 1
+			elif target.distanceto(aim) == 0:
+				num = 2
+			else:
+				num = 3
+			energydamage(aim, char, damage/num, 0, 0, 0, 100, 0, 0, DAMAGE_POISON)
 
 class Strangle(Spell):
 	def __init__(self):
@@ -301,7 +321,7 @@ class Wither(Spell):
 
 		char.soundeffect( 0x1FB )
 		char.soundeffect( 0x10B )
-		char.effect( 0x37CC, 1, 40 )
+		char.effect( 0x37CC, 1, 40, 97 )
 
 		for target in targets:
 			if target == char:

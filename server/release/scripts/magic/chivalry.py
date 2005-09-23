@@ -49,10 +49,10 @@ class CleanseByFire(CharEffectSpell):
 			char.socket.clilocmessage(1010060) # You have failed to cure your target!
 	
 		target.soundeffect( 0x1e0 );
-		target.effect(0x373a, 1, 15)
-		target.effect(0x374b, 5, 10) # should move from feet to head...
+		target.effect(0x373a, 1, 15, 3, 2)
+		target.effect(0x374b, 5, 10, 63, 2) # should move from feet to head...
 		char.soundeffect( 0x208 );
-		char.effect(0x3709, 1, 30)
+		char.effect(0x3709, 1, 30, 0, 7)
 
 		damage = 50 - ComputePowerValue( char, 4 )
 
@@ -103,12 +103,12 @@ class CloseWounds(CharEffectSpell):
 			toHeal = 39
 		if (target.hitpoints + toHeal) > target.maxhitpoints:
 			toHeal = target.maxhitpoints - target.hitpoints
-		target.hitpoints += toHeal;
+		target.hitpoints += int(toHeal)
 		if target.socket:
-			target.socket.clilocmessage( 1060203, str(toHeal) ) # You have had ~1_HEALED_AMOUNT~ hit points of damage healed.
+			target.socket.clilocmessage( 1060203, str(int(toHeal)) ) # You have had ~1_HEALED_AMOUNT~ hit points of damage healed.
 		target.soundeffect( 0x202 );
-		target.effect( 0x376A, 1, 62 )
-		target.effect( 0x3779, 1, 46 )
+		target.effect( 0x376A, 1, 62, 3, 3 )
+		target.effect( 0x3779, 1, 46, 5, 3 )
 
 def isConsecrated( item ):
 	if item.hastag( 'consecrated' ):
@@ -161,8 +161,10 @@ class ConsecrateWeapon(Spell):
 
 		weapon.settag( "consecrated", 1 )
 		weapon.addtimer( seconds * 1000, expire_consecrate, [] )
-		char.effect( itemID, 1 )
+		char.soundeffect( 0x20c )
 		weapon.soundeffect( soundID )
+		char.effect( 0x3779, 1, 30, 3, 3 )
+		char.movingeffect(itemID, char, 0, 0, 1, 33, 3)
 
 def expire_consecrate( weapon, args ):
 	if not weapon:
@@ -204,8 +206,8 @@ class DivineFury(Spell):
 		if char.gender:
 			sound = 0x338
 		char.soundeffect( sound  )
-		char.effect( 0x376A, 1, 31 )
-		char.effect( 0x37C4, 1, 31 )
+		char.effect( 0x376A, 1, 31, 1160, 0 )
+		char.effect( 0x37C4, 1, 31, 43, 2 )
 
 		char.socket.sysmessage( tr("Not yet implemented.") )
 
@@ -227,8 +229,8 @@ class EnemyOfOne(Spell):
 			return
 		char.soundeffect( 0x0F5 )
 		char.soundeffect( 0x1ED )
-		char.effect( 0x375A, 1, 30 )
-		char.effect( 0x37B9, 1, 30 )
+		char.effect( 0x375A, 1, 30, 33, 2 )
+		char.effect( 0x37B9, 1, 30, 43, 3 )
 
 		char.stamina = char.maxstamina
 		char.updatestamina()
@@ -322,8 +324,8 @@ class NobleSacrifice(Spell):
 				targets.append(target)
 
 		char.soundeffect( 0x244 )
-		char.effect( 0x3709, 1, 30 )
-		char.effect( 0x376A, 1, 30 )
+		char.effect( 0x3709, 1, 30, 5, 7 )
+		char.effect( 0x376A, 1, 30, 5, 3 )
 
 		# Attempts to Resurrect, Cure and Heal all targets in a radius around the caster.
 		# If any target is successfully assisted, the Paladin's current
@@ -333,14 +335,14 @@ class NobleSacrifice(Spell):
 		sacrifice = False
 
 		# TODO: Is there really a resurrection chance?
-		resChance = 0.1 + (0.9 * (double(char.karma / 10000)))
+		resChance = 0.1 + (0.9 * (char.karma / 10000))
 
 		for target in targets:
 			if char.dead:
 				if char.region and char.region.name == "Khaldun":
 					char.socket.clilocmessage( 1010395 ) # The veil of death in this area is too strong and resists thy efforts to restore life.
 				elif resChance > Utility.RandomDouble():
-					target.effect( 0x375A, 1, 15 )
+					target.effect( 0x375A, 1, 15, 5, 3 )
 					# we need a resurrect gump here...
 					#target.SendGump( new ResurrectGump( m, Caster ) )
 					sacrifice = True
@@ -381,7 +383,7 @@ class NobleSacrifice(Spell):
 				# CorpseSkinSpell
 
 				if sendEffect:
-					target.effect( 0x375A, 1, 15 )
+					target.effect( 0x375A, 1, 15, 5, 3 )
 					sacrifice = True
 		if sacrifice:
 			char.soundeffect( 0x423 );
@@ -418,7 +420,7 @@ class RemoveCurse(CharEffectSpell):
 		if chance > random.randint(1, 101):
 			target.soundeffect( 0xF6 )
 			target.soundeffect( 0x1F7 )
-			target.effect( 0x3709, 1, 30 )
+			target.effect( 0x3709, 1, 30, 13, 3 )
 
 		char.socket.sysmessage( tr("Not yet implemented.") )
 
