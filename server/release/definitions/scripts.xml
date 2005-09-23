@@ -196,6 +196,7 @@
 	<script>magic.spellbook</script>
 	<script>magic.trap</script>
 	<script>magic.bloodoath</script>
+	<script>magic.corpseskin</script>
 
 	<!-- NPC -->
 	<script>npc.healer</script>

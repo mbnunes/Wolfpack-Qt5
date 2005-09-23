@@ -12,6 +12,8 @@
 from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from wolfpack.consts import *
 from magic.utilities import *
+from wolfpack.utilities import changeResistance
+import magic.corpseskin
 
 class AnimateDead(Spell):
 	def __init__(self):
@@ -23,7 +25,17 @@ class AnimateDead(Spell):
 		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Uus Corp'
 
+	def precast(self, char, mode, args, target, item):
+		if Spell.precast(self, char, mode, args):
+			char.socket.clilocmessage( 1061083 ) # Animate what corpse?
+
 	def target(self, char, mode, targettype, target, args, item):
+		if not target.item:
+			return
+		if not target.item.corpse:
+			char.socket.clilocmessage( 1061084 ) # You cannot animate that.
+			return False
+
 		char.turnto(target)
 		if target.id != 0x2006:
 			char.socket.clilocmessage(1042600)
@@ -31,10 +43,6 @@ class AnimateDead(Spell):
 
 		if char.player and char.controlslots >= 5:
 			char.socket.clilocmessage(1049645)
-			return
-
-		if target.owner:
-			char.socket.sysmessage('You may not use this on players!')
 			return
 
 		if not self.consumerequirements(char, mode, args, target, item):
@@ -82,7 +90,7 @@ class BloodOath(CharEffectSpell):
 		target.addscript('magic.bloodoath')
 		char.settag('bloodoath_caster', target.serial)
 		target.settag('bloodoath', char.serial)
-		char.addtimer( duration, expire_bloodoath, [target.serial], True, False, 'BLOODOATH', magic.necromancy.dispel_bloodoath )
+		char.addtimer( duration, magic.bloodoath.expire, [target.serial], True, False, 'BLOODOATH', magic.bloodoath.dispel )
 
 def dispel_bloodoath(char, args, source, dispelargs):
 	expire_bloodoath(char, dispelargs)
@@ -105,7 +113,7 @@ def expire_bloodoath(char, args):
 			victim.socket.clilocmessage( 1061620 ) # Your Blood Oath has been broken.
 	return
 
-class CorpseSkin(Spell):
+class CorpseSkin(CharEffectSpell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NECROMANCY
@@ -114,6 +122,30 @@ class CorpseSkin(Spell):
 		self.mana = 7
 		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_BATWING: 1}
 		self.mantra = 'In Agle Corp Ylem'
+
+	def effect(self, char, target, mode, args, item):
+		if target.hasscript('magic.corpseskin'):
+			target.dispel(char, True, 'CORPSESKIN', [1])
+		elif target.socket:
+			target.socket.clilocmessage( 1061689 ) # Your skin turns dry and corpselike.
+		target.effect( 0x373A, 1, 15 )
+		target.soundeffect( 0x1BB )
+
+		ss = char.skill[self.damageskill]
+		mr = 0
+		if not target == char:
+			mr = target.skill[MAGICRESISTANCE]
+
+		duration = ( ((ss - mr) / 2.5) + 40.0 ) * 100
+
+		changeResistance( char, 'res_fire', -10 )
+		changeResistance( char, 'res_poison', -10 )
+		changeResistance( char, 'res_cold', 10 )
+		changeResistance( char, 'res_physical', 10 )
+		target.addscript('magic.corpseskin')
+		target.updatestats()
+
+		target.addtimer( duration, magic.corpseskin.expire, [], True, False, 'CORPSESKIN', magic.corpseskin.dispel )
 
 class CurseWeapon(Spell):
 	def __init__(self):
