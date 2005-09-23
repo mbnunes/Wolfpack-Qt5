@@ -552,6 +552,11 @@
 			<tiledgump gump="0xc8" hue="1">
 				<bounds x="369" y="124" width="155" height="252" />
 			</tiledgump>
+			
+			<!-- Character Name input -->			
+			<textfield name="NameTextfield" font="1" hue="1" background="3000" maxlength="30" unicode="true">
+				<bounds x="370" y="370" width="155" height="26" />
+			</textfield>			
 																		
 			<!-- Paperdoll Stuff -->			
 			<gumpimage name="PaperdollBody" gump="12" partialhue="true">

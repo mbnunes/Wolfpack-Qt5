@@ -611,7 +611,13 @@
 				RelativePath=".\obj\moc_multis.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_network.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_outgoingpacket.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_outgoingpackets.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_profile.cpp">
@@ -1329,10 +1335,52 @@
 				RelativePath=".\src\network\multipurposepackets.cpp">
 			</File>
 			<File
+				RelativePath=".\src\network\network.cpp">
+			</File>
+			<File
+				RelativePath=".\include\network\network.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\src\network\outgoingpacket.cpp">
 			</File>
 			<File
 				RelativePath=".\include\network\outgoingpacket.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\network\outgoingpackets.cpp">
@@ -1343,17 +1391,19 @@
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description=""
-						CommandLine=""
-						Outputs=""/>
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description=""
-						CommandLine=""
-						Outputs=""/>
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1664,6 +1714,12 @@
 			Name="python"
 			Filter=""
 			SourceControlFiles="FALSE">
+			<File
+				RelativePath=".\src\python\argparser.cpp">
+			</File>
+			<File
+				RelativePath=".\include\python\argparser.h">
+			</File>
 			<File
 				RelativePath=".\src\python\clientmodule.cpp">
 			</File>

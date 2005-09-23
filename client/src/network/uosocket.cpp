@@ -231,6 +231,10 @@ void cUoSocket::send(const cOutgoingPacket &packet) {
     sendRaw(packet.data());
 }
 
+void cUoSocket::send(cOutgoingPacket *packet) {
+	sendRaw(packet->data());
+}
+
 void cUoSocket::logPacket(const QByteArray &data) {
 }
 

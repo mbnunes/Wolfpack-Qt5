@@ -60,12 +60,14 @@ class Context:
 		self.skill3Value = 0
 		self.normalizingSkills = False
 		self.hairstyle = 0
+		self.facialhairstyle = 0
 		self.pantscolor = random(2, 0x3e9)
 		self.shirtcolor = random(2, 0x3e9)
 		self.gender = GENDER_MALE
 		self.haircolor = random(0x44e, 0x47d)
 		self.facialhaircolor = random(0x44e, 0x47d)
 		self.skincolor = random(0x3ea, 0x422)
+		self.name = 'Nobody'
 
 	"""
 	  Show the first page of the character creation
@@ -525,13 +527,38 @@ class Context:
 		self.setFacialHairColor(self.facialhaircolor, dialog)
 		self.setSkinColor(self.skincolor, dialog)
 
+	"""
+		Finalize the character creation
+	"""
+	def finalize(self):
+		# Hide the entire dialog
+		self.hideAll()
+		
+		# Create parameter list
+		params = (self.name, self.gender == GENDER_FEMALE, self.strength, self.dexterity, self.intelligence,
+				  self.skill1, self.skill1Value, self.skill2, self.skill2Value, self.skill3, self.skill3Value, 
+				  self.skincolor, self.haircolor, self.facialhaircolor,
+				  HairstyleIds[self.hairstyle], FacialHairstyleIds[self.facialhairstyle], 
+				  self.startLocation, 0, self.shirtcolor, self.pantscolor)
+		Network.createCharacter(params)
 
 	"""
 		Back + Next Button
 	"""
 	def dialog3Next(self, dialog):
+		loginDialog = Gui.findByName("LoginDialog")
+		dialog = loginDialog.findByName("CharacterCreation3")
+		self.name = dialog.findByName("NameTextfield").text
+		
 		startLocations = UoSocket.startLocations()
-		print repr(startLocations)
+		
+		# If there is only one start location or if we're chosing a template,
+		# jump directly into the game
+		if len(startLocations) == 1 or CharacterTemplates[self.profession][CTINDEX_NAME] != 'Advanced':
+			self.startLocation = random(0, len(startLocations)-1)
+			self.finalize()
+		else:
+			print repr(startLocations)
 		
 	def dialog3Back(self, dialog):
 		loginDialog = Gui.findByName("LoginDialog")

@@ -12,6 +12,7 @@
 #include "python/utilities.h"
 #include "python/universalslot.h"
 #include "network/uosocket.h"
+#include "network/network.h"
 
 /*
 	Connect a QObject Signal to a QObject Slot
@@ -131,6 +132,7 @@ void initializeClientModule() {
 	ADD_GLOBAL_OBJ(Gumpart);
 	ADD_GLOBAL_OBJ(LoginDialog);
 	ADD_GLOBAL_OBJ(UoSocket);
+	ADD_GLOBAL_OBJ(Network);
 	
 	// Add Methods to the module
 	addModuleMethods(module);

@@ -129,6 +129,7 @@ public:
 	// Queue a given byte array for sending it to the server
 	void sendRaw(const QByteArray &data);
 	void send(const cOutgoingPacket &packet);
+	void send(cOutgoingPacket *packet);
 
 	// Checks if the socket is currently connected
 	bool isConnected();

@@ -42,6 +42,7 @@
 #include "dialogs/login.h"
 
 #include "network/uosocket.h"
+#include "network/network.h"
 
 #include <QErrorMessage>
 
@@ -71,6 +72,7 @@ void myMessageOutput( QtMsgType type, const char *msg )
 cUoClient::cUoClient() {
 	setObjectName("Client");
 
+	Network = new cNetwork;
 	Config = new cConfig();
 	Log = new cLog();
 
@@ -104,7 +106,7 @@ cUoClient::cUoClient() {
 
 	Scripts = new cScripts;
 	Profile = new cProfile;
-	Skills = new cSkills;
+	Skills = new cSkills;	
 }
 
 cUoClient::~cUoClient() {	
@@ -141,6 +143,7 @@ cUoClient::~cUoClient() {
 	delete Sound;
 	delete Sounds;
 	delete Config;
+	delete Network;
 
 	delete Random;
 }

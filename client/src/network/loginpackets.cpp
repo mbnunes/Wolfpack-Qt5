@@ -106,6 +106,8 @@ public:
 
 		LoginDialog->setStatusText(errorMessage);
 		LoginDialog->setErrorStatus(true);
+		LoginDialog->show(PAGE_VERIFYING);
+		UoSocket->disconnect();
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

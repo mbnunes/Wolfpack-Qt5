@@ -73,6 +73,8 @@ Check if we can convert the given PyObject to the target type.
 inline bool canConvert(PyObject *from, const QString &to) {
 	if (to == "QStringList") {
 		return PyTuple_Check(from) || PyList_Check(from);
+	} else if (to == "PyObject*") {
+		return true;
 	}
 
 	QMetaType::Type type = (QMetaType::Type)QMetaType::type(to.toLocal8Bit());

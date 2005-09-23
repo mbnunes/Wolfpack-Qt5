@@ -7,6 +7,7 @@
 #include <QVector>
 
 class cUniversalSlot;
+typedef struct _object PyObject;
 
 class cScripts : public QObject {
 Q_OBJECT
@@ -14,6 +15,12 @@ protected:
 	void initializeSearchPath();
 	QVector<cUniversalSlot*> slotlist;
 public:
+	enum Error {
+		RuntimeError,
+		AttributeError,
+		TypeError
+	};
+
 	cScripts();
 	~cScripts();
 
@@ -24,6 +31,15 @@ public:
 	void removeSlot(cUniversalSlot *slot);
 
     QVariant callFunction(const QString &module, const QString &function, const QVariantList &arguments);
+
+	void setError(Error condition, QString message);
+
+	/*
+		Valid format keys and their meaning:
+		Q: QString pointer
+		T: bool pointer
+	*/
+	static bool parseArguments(PyObject *args, const char *format, ...);
 };
 
 extern cScripts *Scripts;

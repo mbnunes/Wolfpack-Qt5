@@ -15,6 +15,9 @@
 */
 class cTextField : public cControl {
 Q_OBJECT
+Q_PROPERTY(QString text READ text WRITE setText)
+Q_PROPERTY(ushort font READ font WRITE setFont)
+Q_PROPERTY(bool password READ password WRITE setPassword)
 
 protected:
 	cBorderGump *background_;
@@ -53,6 +56,7 @@ protected:
 		}
 	}
 	bool getCharacterWidth(uint i, uchar &charWidth);
+
 public:
 	cTextField(int x, int y, int width, int height, unsigned char font, unsigned short hue = 0, unsigned short background = 0xbb8, bool hueAll = false, bool unicodeMode = false);
 	cTextField();
@@ -60,6 +64,8 @@ public:
 
 	void processDefinitionAttribute(QString name, QString value);
 	void processDefinitionElement(QDomElement element);
+
+public slots:
 
 	// Getters
 	inline bool hueAll() const { return hueAll_; }

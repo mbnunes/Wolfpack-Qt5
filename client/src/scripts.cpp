@@ -22,6 +22,7 @@
 #include "python/utilities.h"
 #include "python/clientmodule.h"
 #include "python/universalslot.h"
+#include "python/argparser.h"
 
 #include <QDir>
 #include <QApplication>
@@ -158,80 +159,32 @@ void cScripts::removeSlot(cUniversalSlot *slot) {
 	}
 }
 
-/*
-void cScripts::load() {
-	// Try to create the directory if it does not exist
-	QDir dir = QDir::current();	
-	if (!dir.exists("dialogs")) {
-		if (!dir.mkdir("dialogs")) {
-			return;
-		}
+void cScripts::setError(Error condition, QString message) {
+	PyObject *exception;
+	switch (condition) {
+		default:
+		case RuntimeError:
+			exception = PyExc_RuntimeError;
+			break;
+		case AttributeError:
+			exception = PyExc_AttributeError;
+			break;
+		case TypeError:
+			exception = PyExc_TypeError;
+			break;
 	}
 
-	// Set up the namespace
-	project->addObject(MainWindow);
-	project->addObject(UoSocket);
-	project->addObject(Gui);
-	project->addObject(Log);
-	project->addObject(Localization);
-	project->addObject(Skills);
-
-	dir.cd("dialogs");
-	QDir::setCurrent(dir.absolutePath());
-	project->load("scripts.dat");
-	dir.cdUp();
-	QDir::setCurrent(dir.absolutePath());
-
-	Log->print(LOG_MESSAGE, tr("Loaded %1 scripts from project file.\n").arg(project->scripts().count()));
-
-	QSInterpreter::registerMetaObject(&cControl::staticMetaObject);
-	QSInterpreter::registerMetaObject(&cContainer::staticMetaObject);
-	QSInterpreter::registerMetaObject(&cWindow::staticMetaObject);
-	QSInterpreter::registerMetaObject(&cGui::staticMetaObject);
-	QSInterpreter::registerMetaObject(&cAsciiLabel::staticMetaObject);
-	QSInterpreter::registerMetaObject(&ButtonStatic::staticMetaObject);
-
-	QSInterpreter *ip = project->interpreter();	
-    ip->addObjectFactory(new QSInputDialogFactory);
-	ip->addObjectFactory(new cObjectFactory);
+	PyErr_SetString(exception, message.toLocal8Bit());
 }
 
-void cScripts::unload() {
-	// Try to create the directory if it does not exist
-	QDir dir = QDir::current();	
-	if (!dir.exists("dialogs")) {
-		if (!dir.mkdir("dialogs")) {
-			return;
-		}
-	}
+bool cScripts::parseArguments(PyObject *args, const char *format, ...) {	
+	bool retval;
+	va_list va;
 	
-	dir.cd("dialogs");
-	QDir::setCurrent(dir.absolutePath());
-	project->commitEditorContents();
-	project->save();
-	dir.cdUp();
-	QDir::setCurrent(dir.absolutePath());	
+	va_start(va, format);
+	retval = ::parseArguments(args, format, &va, 0);
+	va_end(va);
+	return retval;
 }
 
-void cScripts::showWorkbench() {
-#ifndef QSA_NO_IDE
-    // open the QSA Workbench
-	if ( !uoclient_ide ) uoclient_ide = new QSWorkbench( project, MainWindow, "qside" );
-    uoclient_ide->open();
-#else
-    QMessageBox::information( this, "Disabled feature",
-			      "QSA Workbench has been disabled. Reconfigure to enable",
-			      QMessageBox::Ok );
-#endif
-}
-
-QVariant cScripts::callStaticMethod(QString className, QString methodName, QVariantList arguments) {
-	return project->interpreter()->call(className + "." + methodName, arguments);
-}
-
-bool cScripts::classExists(QString className) {
-	return project->interpreter()->hasClass(className);
-}
-*/
 cScripts *Scripts = 0;
-

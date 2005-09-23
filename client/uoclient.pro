@@ -116,7 +116,8 @@ HEADERS += \
 	include/network/uosocket.h \
 	include/network/outgoingpacket.h \
 	include/network/outgoingpackets.h \
-	include/network/twofish2.h
+	include/network/twofish2.h \
+	include/network/network.h
 
 # Python includes
 HEADERS += \
@@ -124,7 +125,8 @@ HEADERS += \
 	include/python/clientmodule.h \
 	include/python/genericwrapper.h \
 	include/python/loginterface.h \
-	include/python/universalslot.h
+	include/python/universalslot.h \
+	include/python/argparser.h
 
 win32:HEADERS += \
 	include/windows/gmtoolwnd.h
@@ -190,7 +192,8 @@ SOURCES += \
 	src/network/outgoingpacket.cpp \
 	src/network/outgoingpackets.cpp \
 	src/network/gamepackets.cpp \
-	src/network/twofish2.cpp
+	src/network/twofish2.cpp \
+	src/network/network.cpp
 
 SOURCES += \
 	src/game/dynamicentity.cpp \
@@ -209,7 +212,8 @@ HEADERS += \
 	src/python/clientmodule.cpp \
 	src/python/genericwrapper.cpp \
 	src/python/loginterface.cpp \
-	src/python/universalslot.cpp
+	src/python/universalslot.cpp \
+	src/python/argparser.cpp
 
 # MUL srcS
 SOURCES += \
