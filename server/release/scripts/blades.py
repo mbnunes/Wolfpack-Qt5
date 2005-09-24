@@ -149,11 +149,11 @@ def carve_corpse( char, tool, corpse ):
 				item.update()
 
 			# Blood should not be movable
-			blood = wolfpack.additem('122d')
-			blood.moveto(corpse.pos)
-			blood.decay = True
-			blood.movable = 3
-			blood.update()
+			blooditem = wolfpack.additem('122d')
+			blooditem.moveto(corpse.pos)
+			blooditem.decay = True
+			blooditem.movable = 3
+			blooditem.update()
 
 			# Add the head
 			head = wolfpack.additem('1da0')

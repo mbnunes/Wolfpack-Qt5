@@ -604,6 +604,7 @@ class InfectiousStrike(BaseAbility):
 		poisoning_uses -= 1
 		if poisoning_uses <= 0:
 			weapon.deltag('poisoning_uses')
+			weapon.resendtooltip()
 		else:
 			weapon.settag('poisoning_uses', poisoning_uses)
 
