@@ -163,7 +163,12 @@ inline PyObject *toPython(QObject *obj) {
 Convert a Variant to a python object
 */
 inline PyObject *toPython(const QVariant &variant) {
-	switch (variant.type()) {
+	uint type = variant.type();
+	if (type >= QVariant::UserType) {
+		type = QMetaType::QObjectStar;
+	}
+
+	switch (type) {
 		case QVariant::String:
 			return toPython(variant.toString());
 		case QVariant::Int:
@@ -182,8 +187,8 @@ inline PyObject *toPython(const QVariant &variant) {
 			return toPython(variant.toBool());
 		case QVariant::ULongLong:
 			return toPython(variant.toULongLong());
-		case QMetaType::QObjectStar:
-			return toPython(qvariant_cast<QObject*>(variant));
+		case QMetaType::QObjectStar:			
+			return toPython((QObject*)(variant.constData()));
 		default:
 			return 0;
 	}

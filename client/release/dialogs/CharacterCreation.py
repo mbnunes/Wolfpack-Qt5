@@ -13,6 +13,12 @@ CharacterTemplates = (
 	("Advanced", 3000448, 3000448, 5505, Skills.Alchemy, 50, Skills.Alchemy, 50, Skills.Alchemy, 0, 30, 25, 25),
 )
 
+# City Names
+CityNames = ("Yew", "Minoc", "Britain", "Moonglow", "Trinsic", "Magincia", "Jhelom", "Skara Brae", "Vesper")
+
+# Description of a city displayed in the right html gump
+CityDescriptions = (1075072, 1075073, 1075074, 1075075, 1075076, 1075077, 1075078, 1075079, 1075080)
+
 # In this order: None, Short, Long, Ponytail, Mohawk, Pageboy, Topknot, Curly, Receding, Pigtails
 HairstyleIds = (0, 0x203b, 0x203c, 0x203d, 0x2044, 0x2045, 0x204a, 0x2047, 0x2048, 0x2049)
 
@@ -41,6 +47,29 @@ MAXIMUM_STATS = 80
 MAX_STAT = 60
 MIN_STAT = 10
 SKILLCOUNT = Skills.count()
+
+# List of forbidden name contents
+FORBIDDEN = ("lord", "lady", "gm", "counselor", "seer")
+
+# Return true if character name is valid
+def isValidName(name):
+	name = name.lower()
+	for word in FORBIDDEN:
+		# Contains wrong word
+		if word in name:
+			return False
+			
+	# Also the name may only contain certain characters,
+	# but the first char has to be a letter
+	if ord(name[0]) < ord('a') or ord(name[0]) > ord('z'):
+		return False
+		
+	# Check the rest of the chars
+	for ch in name:
+		if ch != ' ' and ch != '-' and ch != '\'' and ch != '.' and (ord(ch) < ord('a') or ord(ch) > ord('z')):
+			return False
+
+	return True
 
 # This class manages the context of the current character creation
 class Context:
@@ -167,7 +196,7 @@ class Context:
 	"""
 		Go back
 	"""
-	def characterCreation2Back(self, button):
+	def dialog2Back(self, button):
 		# Hide current dialog and show next
 		loginDialog = Gui.findByName("LoginDialog")
 		loginDialog.findByName("CharacterCreation2").visible = False
@@ -190,33 +219,37 @@ class Context:
 	"""
 		Check if the skills differ, then next screen
 	"""
-	def characterCreation2Next(self, button):
+	def dialog2Next(self, button):
 		loginDialog = Gui.findByName("LoginDialog")
 		dialog = loginDialog.findByName("CharacterCreation2")
 		self.skill1 = dialog.findByName("SkillBox1").selectionIndex()
 		self.skill2 = dialog.findByName("SkillBox2").selectionIndex()
 		self.skill3 = dialog.findByName("SkillBox3").selectionIndex()
 		
-		if self.skill1 == self.skill2 or self.skill1 == self.skill3 or self.skill2 == self.skill3 or self.skill1 == -1 or self.skill2 == -1 or self.skill3 == -1:			
-			errorDialog = loginDialog.findByName("CharacterCreationError")
-			if not errorDialog:
-				errorDialog = Gui.createDialog("CharacterCreationError")
-				loginDialog.addControl(errorDialog)
-				
-			label = errorDialog.findByName("MessageLabel")
-			label.text = "Please Select Three Different Skills."
-			label.x = 25 + (180 - label.width) / 2
-			
-			self.showAfterError = "CharacterCreation2"
-			connect(errorDialog.findByName("OkButton"), "onButtonPress(cControl*)", self.closeErrorDialog)
-			
+		# Check if the user has selected three different skillst
+		if self.skill1 == self.skill2 or self.skill1 == self.skill3 or self.skill2 == self.skill3 or self.skill1 == -1 or self.skill2 == -1 or self.skill3 == -1:
 			dialog.visible = False
-			errorDialog.visible = True
+			self.showError("Please Select Three Different Skills.", "CharacterCreation2")
 			return
 		
 		# Hide current dialog and show next
 		dialog.visible = False		
 		self.showDialog3()
+		
+	def showError(self, message, showAfter):
+		loginDialog = Gui.findByName("LoginDialog")
+		errorDialog = loginDialog.findByName("CharacterCreationError")
+		if not errorDialog:
+			errorDialog = Gui.createDialog("CharacterCreationError")
+			loginDialog.addControl(errorDialog)
+			
+		label = errorDialog.findByName("MessageLabel")
+		label.text = message
+		label.x = 25 + (180 - label.width) / 2
+		
+		self.showAfterError = showAfter
+		connect(errorDialog.findByName("OkButton"), "onButtonPress(cControl*)", self.closeErrorDialog)
+		errorDialog.visible = True
 		
 	def strengthScrolled(self, value):
 		loginDialog = Gui.findByName("LoginDialog")
@@ -266,8 +299,8 @@ class Context:
 	
 		backButton = dialog.findByName("BackButton")
 		nextButton = dialog.findByName("NextButton")
-		connect(backButton, "onButtonPress(cControl*)", self.characterCreation2Back)
-		connect(nextButton, "onButtonPress(cControl*)", self.characterCreation2Next)
+		connect(backButton, "onButtonPress(cControl*)", self.dialog2Back)
+		connect(nextButton, "onButtonPress(cControl*)", self.dialog2Next)
 		
 		connect(dialog.findByName("StrengthScroller"), "scrolled(int)", self.strengthScrolled)
 		connect(dialog.findByName("DexterityScroller"), "scrolled(int)", self.dexterityScrolled)
@@ -526,6 +559,92 @@ class Context:
 		self.setHairColor(self.haircolor, dialog)
 		self.setFacialHairColor(self.facialhaircolor, dialog)
 		self.setSkinColor(self.skincolor, dialog)
+		
+	"""
+		Set up the fourth dialog page
+	"""
+	def setupDialog4(self, dialog):
+		connect(dialog.findByName("BackButton"), "onButtonPress(cControl*)", self.dialog4Back)
+		connect(dialog.findByName("NextButton"), "onButtonPress(cControl*)", self.dialog4Next)
+		connect(dialog.findByName("CityInfoScroller"), "scrolled(int)", self.cityScrollerScroll)
+		
+		# Bind the combo box change event	
+		for city in CityNames:
+			connect(dialog.findByName(city), "stateChanged()", self.citySelected)
+			
+	"""
+		City scroller has been used.
+	"""
+	def cityScrollerScroll(self, oldpos):
+		dialog = Gui.findByName("CharacterCreation4")
+		scroller = dialog.findByName("CityInfoScroller")
+		label = dialog.findByName("CityInfo")
+		label.y = - scroller.pos
+			
+	"""
+		The city selection has changed
+	"""
+	def citySelected(self):
+		dialog = Gui.findByName("CharacterCreation4")
+		text = ''
+		
+		# Check which one was selected
+		for i in range(0, len(CityNames)):
+			radio = dialog.findByName(CityNames[i])
+			if radio.checked:
+				text = Localization.get(CityDescriptions[i])
+				break
+		
+		label = dialog.findByName("CityInfo")
+		label.height = 0
+		label.text = text
+		label.update()
+		label.y = 0
+
+		diff = 1 + label.height - label.parent.height
+		
+		if diff <= 0:
+			diff = 1
+		
+		scroller = dialog.findByName("CityInfoScroller")
+		scroller.pos = 0
+		scroller.setRange(0, diff)
+
+	"""
+		Dialog 4 Next/Back
+	"""
+	def dialog4Back(self, button):
+		loginDialog = Gui.findByName("LoginDialog")
+		loginDialog.findByName("CharacterCreation4").visible = False
+		loginDialog.findByName("CharacterCreation3").visible = True
+		
+	def dialog4Next(self, button):
+		loginDialog = Gui.findByName("LoginDialog")
+		dialog = loginDialog.findByName("CharacterCreation4")		
+		selected = None
+		
+		# Make sure a city has been selected
+		for city in CityNames:
+			if dialog.findByName(city).checked:
+				selected = city
+				break
+				
+		# Show error if not
+		if not selected:
+			dialog.visible = False
+			self.showError("Please select a start location.", "CharacterCreation4")
+			return
+						
+		# Look it up in the starting locations array and
+		# submit the given start location id
+		startLocations = UoSocket.startLocations()
+		
+		for location in startLocations:
+			if location[1] == selected or location[2] == selected:
+				self.startLocation = location[0]
+				break
+		
+		self.finalize()
 
 	"""
 		Finalize the character creation
@@ -545,11 +664,23 @@ class Context:
 	"""
 		Back + Next Button
 	"""
-	def dialog3Next(self, dialog):
+	def dialog3Next(self, dialog):		
 		loginDialog = Gui.findByName("LoginDialog")
 		dialog = loginDialog.findByName("CharacterCreation3")
 		self.name = dialog.findByName("NameTextfield").text
 		
+		# Check the name
+		if len(self.name) < 2:
+			dialog.visible = False			 
+			self.showError(Localization.get(3000612), "CharacterCreation3") # Your character name is too short.
+			return
+			
+		# Check if the name is valid
+		if not isValidName(self.name):
+			dialog.visible = False
+			self.showError(Localization.get(3000611), "CharacterCreation3") # Your character name is too short.
+			return
+					
 		startLocations = UoSocket.startLocations()
 		
 		# If there is only one start location or if we're chosing a template,
@@ -558,8 +689,10 @@ class Context:
 			self.startLocation = random(0, len(startLocations)-1)
 			self.finalize()
 		else:
-			print repr(startLocations)
-		
+			loginDialog = Gui.findByName("LoginDialog")
+			loginDialog.findByName("CharacterCreation3").visible = False
+			loginDialog.findByName("CharacterCreation4").visible = True
+
 	def dialog3Back(self, dialog):
 		loginDialog = Gui.findByName("LoginDialog")
 		loginDialog.findByName("CharacterCreation3").visible = False
@@ -953,6 +1086,8 @@ def initialize(dialog):
 		context.setupDialog2(dialog)
 	elif dialog.objectName == "CharacterCreation3":
 		context.setupDialog3(dialog)
+	elif dialog.objectName == "CharacterCreation4":
+		context.setupDialog4(dialog)
 
 connect(LoginDialog, "showCharacterCreation()", context.showFirst)
 connect(LoginDialog, "hideCharacterCreation()", context.hideAll)

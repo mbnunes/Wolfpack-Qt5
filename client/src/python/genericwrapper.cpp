@@ -440,14 +440,24 @@ static PyObject* wrapper_get(pyWrapperObject* self, char* name) {
 		QMetaProperty property = meta->property(propertyIndex);
 		// Check if the property is readable
 		if (property.isReadable()) {
-			// Read the property from our wrapped object
-			QVariant variant = property.read(wrapped);
+			// Don't use QVariant here. The way it handles custom pointers
+			// sucks.
+			QString returnType = property.typeName();
+			if (returnType.startsWith("const ")) {
+				returnType = returnType.mid(6);
+			}
 
-			// Convert variant to PyObject*
-			PyObject *result = toPython(variant);
-			if (result) {
-				return result;
-			}			
+			void *returnValue;
+			QMetaType::Type returnValueType = QMetaType::Void;
+			allocPythonToQt(&returnValue, 0, returnType, 0, &returnValueType); // Create return value
+	
+			wrapped->qt_metacall(QMetaObject::ReadProperty, propertyIndex, &returnValue);
+
+			if (returnType == "PyObject*") {
+				return (PyObject*)returnValue;
+			} else {
+				return toPython(returnValue, returnValueType);
+			}
 		}
 		PyErr_SetString(PyExc_AttributeError, name);
 		return 0;

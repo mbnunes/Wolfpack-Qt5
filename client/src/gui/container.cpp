@@ -503,12 +503,12 @@ void cContainer::sortTabControls() {
 	qStableSort(tabControls.begin(), tabControls.end(), isTabLessThan);
 }
 
-cControl *cContainer::findByName(QString name) {
+cControl *cContainer::findByName(QString name, bool recursive) {
 	if (this->objectName() == name) {
 		return this;
 	} else {
 		foreach (cControl *control, controls) {
-			if (control->isContainer()) {
+			if (recursive && control->isContainer()) {
 				cControl *result = ((cContainer*)control)->findByName(name);
 				if (result) {
 					return result;

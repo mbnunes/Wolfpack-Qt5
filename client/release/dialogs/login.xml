@@ -1,4 +1,4 @@
-﻿<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 <dialogs>
 	<!-- Toplevel Login Dialog -->
 	<dialog id="LoginDialog" name="LoginDialog" closable="0" movable="0" module="dialogs.LoginDialog">
@@ -8,61 +8,16 @@
 			<tiledgump gump="0xe14">
 				<bounds x="0" y="0" width="640" height="480" />
 			</tiledgump>
-			
+
 			<!-- Big border -->
 			<gumpimage gump="0x157c">
 				<position x="0" y="0" />
 			</gumpimage>
-			
+
 			<!-- Uo Banner -->
 			<gumpimage gump="0x15a0">
 				<position x="0" y="4" />
 			</gumpimage>
-						
-			<!-- Quit Button -->
-			<imagebutton name="QuitButton" unpressed="0x1589" pressed="0x158B" hover="0x158A">
-				<position x="555" y="4" />
-			</imagebutton>
-
-			<!-- MyUO Button -->
-			<imagebutton name="MyUOButton" unpressed="0x158f" pressed="0x1591" hover="0x1590">
-				<position x="14" y="146" />
-			</imagebutton>
-
-			<!-- Account Button -->
-			<imagebutton name="AccountButton" unpressed="0x1592" pressed="0x1594" hover="0x1593">
-				<position x="14" y="205" />
-			</imagebutton>
-			
-			<!-- Movie Button -->
-			<imagebutton name="MovieButton" unpressed="0x1586" pressed="0x1588" hover="0x1587">
-				<position x="14" y="306" />
-			</imagebutton>
-			
-			<!-- Credits Button -->
-			<imagebutton name="CreditsButton" unpressed="0x1583" pressed="0x1585" hover="0x1584">
-				<position x="14" y="330" />
-			</imagebutton>
-			
-			<!-- Help Button -->
-			<imagebutton name="HelpButton" unpressed="0x1595" pressed="0x1597" hover="0x1596">
-				<position x="14" y="354" />
-			</imagebutton>
-			
-			<!-- ESBR Teen Logo (Only visible in US versions) -->
-			<gumpimage gump="0x2335" visible="false">
-				<position x="50" y="383" />
-			</gumpimage>				
-
-			<!-- Back Button -->
-			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
-				<position x="586" y="445" />
-			</imagebutton>
-			
-			<!-- Next Button -->
-			<imagebutton name="NextButton" unpressed="0x15a4" pressed="0x15a6" hover="0x15a5">
-				<position x="610" y="445" />
-			</imagebutton>
 			
 			<!--
 				This sub-container is responsible for the account login gump.
@@ -266,8 +221,58 @@
 					<imagebutton name="DeleteOkButton" unpressed="0x481" pressed="0x483" hover="0x482">
 						<position x="256" y="225" />
 					</imagebutton>
-				</children>
+				</children>								
+			</container>
+
+			<!-- This container contains the character creation dialogs -->
+			<container name="CharacterCreationContainer" visible="true">
+				<bounds x="0" y="0" width="640" height="480" />
 			</container>			
+
+			<!-- Quit Button -->
+			<imagebutton name="QuitButton" unpressed="0x1589" pressed="0x158B" hover="0x158A">
+				<position x="555" y="4" />
+			</imagebutton>
+
+			<!-- MyUO Button -->
+			<imagebutton name="MyUOButton" unpressed="0x158f" pressed="0x1591" hover="0x1590">
+				<position x="14" y="146" />
+			</imagebutton>
+
+			<!-- Account Button -->
+			<imagebutton name="AccountButton" unpressed="0x1592" pressed="0x1594" hover="0x1593">
+				<position x="14" y="205" />
+			</imagebutton>
+			
+			<!-- Movie Button -->
+			<imagebutton name="MovieButton" unpressed="0x1586" pressed="0x1588" hover="0x1587">
+				<position x="14" y="306" />
+			</imagebutton>
+			
+			<!-- Credits Button -->
+			<imagebutton name="CreditsButton" unpressed="0x1583" pressed="0x1585" hover="0x1584">
+				<position x="14" y="330" />
+			</imagebutton>
+			
+			<!-- Help Button -->
+			<imagebutton name="HelpButton" unpressed="0x1595" pressed="0x1597" hover="0x1596">
+				<position x="14" y="354" />
+			</imagebutton>
+			
+			<!-- ESBR Teen Logo (Only visible in US versions) -->
+			<gumpimage gump="0x2335" visible="false">
+				<position x="50" y="383" />
+			</gumpimage>				
+
+			<!-- Back Button -->
+			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
+				<position x="586" y="445" />
+			</imagebutton>
+			
+			<!-- Next Button -->
+			<imagebutton name="NextButton" unpressed="0x15a4" pressed="0x15a6" hover="0x15a5">
+				<position x="610" y="445" />
+			</imagebutton>						
 		</children>
 	</dialog>
 	
@@ -600,6 +605,195 @@
 			</imagebutton>
 		</children>	
 	</dialog>
+
+	<!-- Starting Town Selection -->
+	<dialog id="CharacterCreation4" name="CharacterCreation4" closable="0" movable="0" module="dialogs.CharacterCreation" visible="false">
+		<bounds x="0" y="0" width="640" height="480" />
+		<children>
+			<gumpimage gump="5528">
+				<position x="57" y="49" />
+			</gumpimage>
+					
+			<!-- Select your starting city -->
+			<label font="0" localized="3000331" hue="0x835" bordercolor="0xC0B088" emboss="true" textalign="center" autosize="0">
+				<bounds x="220" y="434" width="200" />		
+			</label>
+			
+			<!-- City info box -->
+			<bordergump gump="3000">
+				<bounds x="452" y="60" width="173" height="367" />
+			</bordergump>
+			
+			<container>			
+				<bounds x="456" y="64" width="148" height="360" />
+				<children>				
+					<label name="CityInfo" font="1" hue="1" bordercolor="0xC0B088" emboss="false" border="false" htmlmode="true" autosize="false">
+						<bounds x="0" y="0" width="148" />
+					</label>
+				</children>			
+			</container>
+			<verticalscrollbar name="CityInfoScroller" background="9204" handle="9026">
+				<bounds x="600" y="64" height="360" />
+				<upbutton unpressed="9900" pressed="9902" hover="9901" />
+				<downbutton unpressed="9906" pressed="9908" hover="9907" />
+				<range min="0" max="1" />				
+			</verticalscrollbar>
+			
+			<!-- Yew -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="129" y="145" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Yew"> <!-- Width: 21 -->
+				<position x="111" y="143" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Yew" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="129" y="145" width="67" />
+			</label>
+			
+			<!-- Minoc -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="268" y="95" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Minoc"> <!-- Width: 21 -->
+				<position x="250" y="93" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Minoc" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="268" y="95" width="67" height="17" />
+			</label>
+						
+			<!-- Britain -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="191" y="200" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Britain"> <!-- Width: 21 -->
+				<position x="173" y="198" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Britain" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="191" y="200" width="67" height="17" />
+			</label>			
+			
+			<!-- Moonglow -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="354" y="162" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Moonglow"> <!-- Width: 21 -->
+				<position x="336" y="160" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Moonglow" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="354" y="162" width="67" height="17" />
+			</label>
+
+			<!-- Trinsic -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="223" y="304" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Trinsic"> <!-- Width: 21 -->
+				<position x="205" y="302" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Trinsic" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="223" y="304" width="67" height="17" />
+			</label>						
+			
+			<!-- Magincia -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="358" y="244" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Magincia"> <!-- Width: 21 -->
+				<position x="340" y="242" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Magincia" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="358" y="244" width="67" height="17" />
+			</label>			
+			
+			<!-- Jhelom -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="182" y="393" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Jhelom"> <!-- Width: 21 -->
+				<position x="164" y="391" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Jhelom" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="182" y="393" width="67" height="17" />
+			</label>			
+			
+			<!-- Skara Brae -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="124" y="239" width="97" height="17" />
+			</bordergump>
+			<radiobutton name="Skara Brae"> <!-- Width: 21 -->
+				<position x="106" y="237" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Skara Brae" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="124" y="239" width="97" height="17" />
+			</label>			
+			
+			<!-- Vesper -->
+			<bordergump hue="505" partialhue="true" gump="3000">
+				<bounds x="295" y="130" width="67" height="17" />
+			</bordergump>
+			<radiobutton name="Vesper"> <!-- Width: 21 -->
+				<position x="277" y="128" />
+				<unchecked hue="505" partialhue="true" gump="9909" />
+				<hover hue="505" partialhue="true" gump="9910" />
+				<pressed hue="505" partialhue="true" gump="9911" />
+				<checked hue="55" partialhue="true" gump="9909" />
+				<checkedhover hue="55" partialhue="true" gump="9910" />
+			</radiobutton>
+			<label font="1" text="Vesper" hue="1" textalign="center" autosize="0" border="0">
+				<bounds x="295" y="130" width="67" height="17" />
+			</label>			
+			
+			<!-- Back Button -->
+			<imagebutton name="BackButton" unpressed="0x15a1" pressed="0x15a3" hover="0x15a2">
+				<position x="586" y="445" />
+			</imagebutton>
+			
+			<!-- Next Button -->
+			<imagebutton name="NextButton" unpressed="0x15a4" pressed="0x15a6" hover="0x15a5">
+				<position x="610" y="445" />
+			</imagebutton>
+		</children>	
+	</dialog>	
 	
 	<!-- Character Creation Error Dialog -->
 	<dialog id="CharacterCreationError" name="CharacterCreationError" closable="0" movable="true" visible="false">

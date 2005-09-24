@@ -64,7 +64,7 @@ public slots:
 	// Delete the content of this container
 	void clear();
 
-	cControl *findByName(QString name);
+	cControl *findByName(QString name, bool recursive = true);
 
 private:
 	void doAlignment(enControlAlign align, cControl *control, QRect &clientRect);

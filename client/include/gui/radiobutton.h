@@ -12,6 +12,7 @@
 class cRadioButton : public cControl {
 Q_OBJECT
 Q_ENUMS(State)
+Q_PROPERTY(bool checked READ checked WRITE setChecked)
 public:
 	enum State {
 		Unchecked = 0,

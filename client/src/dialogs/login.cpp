@@ -298,9 +298,9 @@ void cLoginDialog::show(enMenuPage page) {
 		connect(container->findByName("CreditsButton"), SIGNAL(onButtonPress(cControl*)), SLOT(creditsClicked(cControl*)));
 		connect(container->findByName("HelpButton"), SIGNAL(onButtonPress(cControl*)), SLOT(helpClicked(cControl*)));
 		
-		backButton = dynamic_cast<cImageButton*>(container->findByName("BackButton"));
+		backButton = dynamic_cast<cImageButton*>(container->findByName("BackButton", false));
 		connect(backButton, SIGNAL(onButtonPress(cControl*)), SLOT(backClicked(cControl*)));
-		nextButton = dynamic_cast<cImageButton*>(container->findByName("NextButton"));
+		nextButton = dynamic_cast<cImageButton*>(container->findByName("NextButton", false));
 		connect(nextButton, SIGNAL(onButtonPress(cControl*)), SLOT(nextClicked(cControl*)));
 				
 		accountLoginGump = dynamic_cast<cContainer*>(container->findByName("AccountLoginContainer"));

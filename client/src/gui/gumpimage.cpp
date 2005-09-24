@@ -58,3 +58,10 @@ void cGumpImage::processDefinitionAttribute(QString name, QString value) {
 		cControl::processDefinitionAttribute(name, value);
 	}
 }
+
+cControl *cGumpImage::getControl(int x, int y) {
+	if (visible_ && texture && texture->hitTest(x, y)) {
+		return this;
+	}
+	return 0;
+}

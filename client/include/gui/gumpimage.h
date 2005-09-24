@@ -34,6 +34,8 @@ public slots:
 	unsigned short hue() const;
 	bool partialHue() const;
 
+	cControl *getControl(int x, int y);
+
 	void setAutoSize(bool data);
 	void setId(unsigned short id);
 	void setHue(unsigned short hue);

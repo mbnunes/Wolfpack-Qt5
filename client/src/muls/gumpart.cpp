@@ -91,6 +91,10 @@ cSurface *cGumpart::readSurface(unsigned short id, unsigned short hueid, bool pa
 			x = 0; // Read the RLE chunks
 			while( x < width ) {				
 				dataStream >> color >> length;
+
+				if (color == 0 && length == 0) {
+					break;
+				}
 				
 				// Process the color only if its not transparent
 				if( hue && color != 0) {

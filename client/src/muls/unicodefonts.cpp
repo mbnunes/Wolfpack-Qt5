@@ -6,6 +6,7 @@
 #include "muls/unicodefonts.h"
 #include "muls/hues.h"
 #include <QStringList>
+#include <QVector>
 #include <stdlib.h>
 
 cUnicodeFonts::cUnicodeFonts() {
@@ -59,11 +60,80 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 	unsigned int spaceWidth = 7;
 
 	// Split into words using the spaces
-	QStringList parts = text.split(" ");
+	QStringList parts;
+	QString tagBuffer;
+	bool inTag = false;
+	int wordStart = -1;
+
+	// Iterate over the string once to get the width of the string	
+	for (int i = 0; i < text.length(); ++i) {
+		const QChar ch = text.at(i);
+
+		if (processHtml) {
+			if (ch.toLatin1() == '<') {
+				// Flush the word
+				if (wordStart != -1) {
+					if (i - wordStart > 0) {
+						parts.append(text.mid(wordStart, i - wordStart));
+					}
+					wordStart = -1;
+				}
+
+				tagBuffer.clear();
+				inTag = true;
+				continue;
+			}
+			if (inTag) {
+				if (ch.toLatin1() == '>') {
+					if (tagBuffer.startsWith("br")) {
+						parts.append("\n");
+					} else {
+						parts.append(QString("<%1>").arg(tagBuffer));
+					}
+					inTag = false;
+					continue;
+				} else {
+					tagBuffer.append(ch);
+				}
+				continue;
+			}
+		}
+
+		if (ch.toLatin1() == '\n') {
+			parts.append("\n");
+		} else if (ch.isSpace()) {
+			if (wordStart != -1) {
+				if (i - wordStart > 0) {
+					parts.append(text.mid(wordStart, i - wordStart));
+				}
+				wordStart = -1;
+			}
+		} else {
+			if (wordStart == -1) {
+				wordStart = i;
+			}
+		}
+	}
+
+	if (wordStart != -1) {
+		if (text.length() - wordStart > 0) {
+			parts.append(text.mid(wordStart, text.length() - wordStart));
+		}
+	}
+
+	bool firstWord = true;
 	QStringList::const_iterator it;
-	for (it = parts.begin(); it != parts.end(); ++it) {
-		QString word = *it;
-		bool first = (it == parts.begin());
+	for (it = parts.begin(); it != parts.end(); ++it) {		
+		if (*it == "\n") {
+			wrapped += "\n";			
+			lineLength = 0;
+			firstWord = true;
+			continue;
+		} else if ((*it).startsWith("<")) {
+			wrapped += *it;
+			continue;
+		}
+		QString word = *it;		
 		unsigned int wordWidth = 0;
 		int i;
 		bool firstInLine = lineLength == 0;
@@ -71,25 +141,26 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 			wordWidth += getCharacterWidth(font, word.at(i), firstInLine);
 		}
 
-		if (!first) {
+		if (!firstWord) {
 			wordWidth += spaceWidth;
 		}
 
 		// Check if the word still fits
 		if (lineLength > 0 && lineLength + wordWidth > maxWidth) {
 			wrapped += "\n";
-			if (!first) {
+			if (!firstWord) {
 				wordWidth -= spaceWidth; // We're not prepending the space anyway
 			}
 			lineLength = wordWidth;
 		} else {
-			if (!first) {
-				wrapped += " ";				
+			if (!firstWord) {
+				wrapped += " ";
 			}
 			lineLength += wordWidth;
 		}
 
 		wrapped += word;
+		firstWord = false;
 	}
 
 	return buildText(font, wrapped, hue, shaded, border, align, processHtml, borderColor, emboss);
@@ -144,6 +215,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 		}
 	}*/
 
+	QVector<int> fontStack;
 	QString tagBuffer;
 	bool inTag = false;
 
@@ -158,6 +230,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 
 		if (processHtml) {
 			if (ch.toLatin1() == '<') {
+				tagBuffer.clear();
 				inTag = true;
 				continue;
 			}
@@ -171,11 +244,35 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 							uint size = sizePattern.cap(1).toUInt();
 							switch (size) {
 								case 7:
+									fontStack.push_back(font);
 									font = 0;
 									dataStream = &this->dataStream[font];
 									break;
 							}
 						}
+
+					} else if (tagBuffer.startsWith("h2")) {
+						fontStack.push_back(font);
+						font = 0;
+						dataStream = &this->dataStream[font];
+
+					} else if (tagBuffer.startsWith("/h2")) {
+						font = fontStack.back();
+						dataStream = &this->dataStream[font];
+                        
+						fontStack.pop_back();
+					// Line break
+					} else if (tagBuffer.startsWith("br")) {
+						lines += 1;
+						if (lineWidth > width) {
+							width = lineWidth;
+						}
+						lineHeight += 2; // Increase Lineheight if we encounter a linebreak
+						height += lineHeight;
+						lineWidths.append(lineWidth);
+						lineHeights.append(lineHeight);
+						lineHeight = 10;
+						lineWidth = 0;
 					}
 					inTag = false;
 					continue;
@@ -195,7 +292,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 			height += lineHeight;
 			lineWidths.append(lineWidth);
 			lineHeights.append(lineHeight);
-			lineHeight = 0;
+			lineHeight = 10;
 			lineWidth = 0;
 		} else if (ch.isSpace()) {
 			lineWidth += 7; // Space Width
@@ -254,6 +351,12 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 
 	//Log->print(LOG_MESSAGE, tr("String %1 has total height of %2 pixels and total width of %3 pixels.\n").arg(text).arg(height).arg(width));
 
+	if (!fontStack.isEmpty()) {
+		font = fontStack.front();
+		fontStack.clear();
+		dataStream = &this->dataStream[font];
+	}
+
 	//unsigned int baseline = lineHeights.front(); // base of current line
 	//lineHeights.pop_front();
 	unsigned int baseline = border ? 1 : 0;
@@ -284,7 +387,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 			++xoffset; // Increase the xoffset if there is a border to make place for it
 		}
 
-		for (unsigned int i = 0; i < text.length(); ++i) {
+		for (int i = 0; i < text.length(); ++i) {
 			QChar ch = text.at(i);			
 
 			// Process HTML instructions (VERY basic at this point)
@@ -312,6 +415,39 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 										font = 0;
 										dataStream = &this->dataStream[font];
 										break;
+								}
+							}
+
+						} else if (tagBuffer.startsWith("h2")) {
+							fontStack.push_back(font);
+							font = 0;
+							dataStream = &this->dataStream[font];
+
+						} else if (tagBuffer.startsWith("/h2")) {
+							font = fontStack.back();
+							dataStream = &this->dataStream[font];
+	                        
+							fontStack.pop_back();
+
+						} else if (tagBuffer.startsWith("br")) {
+							if (!lineWidths.isEmpty() && !lineHeights.isEmpty()) {
+								switch (align) {
+									case ALIGN_LEFT:
+										xoffset = 0; // Start on the left border
+										break;
+									case ALIGN_CENTER:
+										xoffset = (width - lineWidths.front()) >> 1; // Take whats left of the total width and divide it into two
+										break;
+									case ALIGN_RIGHT:
+										xoffset = (width - lineWidths.front()); // Take the right part and use it as an offset
+										break;
+								}
+								lineWidths.pop_front();
+								baseline += lineHeights.front();
+								lineHeights.pop_front();
+
+								if (border) {
+									++xoffset; // Increase the xoffset if there is a border to make place for it
 								}
 							}
 						}
@@ -465,7 +601,7 @@ int cUnicodeFonts::getCharacterWidth(uchar font, const QString &text, uint i, QC
 	} else if (ch.isSpace()) {
 		result += 7; // Space Width
 
-		if (i + 1 < text.length() && (text.at(i+1).toLatin1() != '\n')) {
+		if ((int)i + 1 < text.length() && (text.at(i+1).toLatin1() != '\n')) {
 			result += 1;
 		}
 	} else {
