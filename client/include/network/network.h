@@ -3,9 +3,11 @@
 #define __NETWORK_H__
 
 #include <QObject>
+#include <QString>
 #include "outgoingpacket.h"
 
 typedef struct _object PyObject;
+class cMobile;
 
 /*
 	This class simplifies packet creation and allows exporting packet classes to Python

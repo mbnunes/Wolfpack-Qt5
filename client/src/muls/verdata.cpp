@@ -46,7 +46,7 @@ void cVerdata::load() {
 
 		if (fileid < VERDATA_COUNT && (record.offset < 0 || (uint)record.offset < data.size())) {
 			records[fileid].insert(blockid, record); // Save the record
-			Log->print(LOG_DEBUG, tr("Loaded patched block %1 for file 0x%2 with length %3 from verdata.\n").arg(blockid).arg(fileid, 0, 16).arg(record.length));
+			//Log->print(LOG_DEBUG, tr("Loaded patched block %1 for file 0x%2 with length %3 from verdata.\n").arg(blockid).arg(fileid, 0, 16).arg(record.length));
 			++realCount;
 		}
 	}

@@ -61,6 +61,7 @@ cSurface *cGumpart::readSurface(unsigned short id, unsigned short hueid, bool pa
 		height = patch->height;
 		width = patch->width;
 	} else {
+		dataStream.setDevice(&data);
 		indexStream.device()->seek(12 * id);
 		indexStream >> offset >> length >> height >> width; // Read index data
 	}

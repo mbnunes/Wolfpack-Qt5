@@ -147,7 +147,7 @@ signals:
 	void onError(const QString &error);
 	void onHostFound();
 	void onConnect();
-	void onDisconnect();
+	void onDisconnect();	
 
 public slots:
 	// These will be connected to the QSocket signals

@@ -10,6 +10,7 @@
 #include <QMouseEvent>
 
 class cGroundTile : public cEntity {
+Q_OBJECT
 protected:
 	unsigned short id_;
 	cLandTileInfo *tiledata_;

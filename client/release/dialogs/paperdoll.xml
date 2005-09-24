@@ -1,0 +1,96 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<dialogs>
+	<!-- Big Paperdoll Dialog -->
+	<dialog id="BigPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
+		<bounds x="0" y="0" width="262" height="324" />
+		<children>			
+			<gumpimage gump="0x7d0" autosize="true" movehandle="true" />
+			
+			<!-- TODO: Insert the paperdoll representation of the entity here -->
+			
+			<!-- This is the unicode version of the name label -->
+			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">
+				<bounds x="40" y="264" width="180" />
+			</label>-->
+			<asciilabel name="NameLabel" font="1" movehandle="true" hue="1">
+				<bounds x="40" y="264" width="180" />
+			</asciilabel>
+			
+			<!-- Status Button -->
+			<imagebutton name="StatusButton" unpressed="2027" hover="2029" pressed="2028">
+				<position x="185" y="233" />
+			</imagebutton>
+			
+			<!-- Peace Button -->
+			<imagebutton name="PeaceButton" unpressed="2021" hover="2023" pressed="2022">
+				<position x="185" y="207" />
+			</imagebutton>
+			
+			<imagebutton name="WarButton" unpressed="2024" hover="2026" pressed="2025">
+				<position x="185" y="207" />
+			</imagebutton>
+			
+			<!-- Quest Button -->
+			<imagebutton name="QuestButton" unpressed="22453" hover="22454" pressed="22455">
+				<position x="185" y="124" />
+			</imagebutton>
+			
+			<!-- Skills Button -->
+			<imagebutton name="QuestButton" unpressed="2015" hover="2017" pressed="2016">
+				<position x="185" y="151" />
+			</imagebutton>
+			
+			<!-- Guild Button -->
+			<imagebutton name="GuildButton" unpressed="22450" hover="22451" pressed="22452">
+				<position x="185" y="179" />
+			</imagebutton>
+			
+			<!-- Options Button -->
+			<imagebutton name="OptionsButton" unpressed="2006" hover="2008" pressed="2007">
+				<position x="185" y="71" />
+			</imagebutton>
+			
+			<!-- Help Button -->
+			<imagebutton name="HelpButton" unpressed="2031" hover="2033" pressed="2032">
+				<position x="185" y="43" />
+			</imagebutton>
+			
+			<!-- Logout Button -->
+			<imagebutton name="LogoutButton" unpressed="2009" hover="2011" pressed="2010">
+				<position x="185" y="99" />
+			</imagebutton>
+			
+			<!-- Pentagram (Virtue) Button -->
+			<!-- TODO: Only activate on dobuleclick -->
+			<imagebutton name="VirtueButton" unpressed="113" hover="113" pressed="113">
+				<position x="80" y="4" />
+			</imagebutton>
+			
+			<!-- Profile Button -->
+			<!-- TODO: Only activate on dobuleclick -->
+			<imagebutton name="ProfileButton" unpressed="2002" hover="2002" pressed="2002">
+				<position x="23" y="196" />
+			</imagebutton>
+			
+			<!-- Party Button -->
+			<!-- TODO: Only activate on dobuleclick -->
+			<imagebutton name="PartyButton" unpressed="2002" hover="2002" pressed="2002">
+				<position x="37" y="196" />
+			</imagebutton>
+			
+			<!-- Weapon Ability Button -->
+			<!-- TODO: Only activate on dobuleclick -->
+			<imagebutton name="AbilityButton" unpressed="11060" hover="11060" pressed="11060">
+				<position x="156" y="198" />
+			</imagebutton>			
+		</children>
+	</dialog>
+	
+	<!-- Small Paperdoll Dialog -->
+	<dialog id="SmallPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
+		<bounds x="0" y="0" width="262" height="324" />
+		<children>
+			<gumpimage gump="0x7d1" />
+		</children>
+	</dialog>
+</dialogs>

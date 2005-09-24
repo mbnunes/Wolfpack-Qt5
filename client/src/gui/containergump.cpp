@@ -101,7 +101,7 @@ cContainerGump::cContainerGump(ushort id, ushort hue) {
 
     setSize(background->width(), background->height());
 	background->setPosition(0, 0);
-	background->setMoveHandle(true);	
+	background->setMoveHandle(true);
 	addControl(background); // Add the background control
 
 	setMovable(true); // Containers are movable

@@ -9,6 +9,7 @@
 class cControl;
 
 class cDynamicEntity : virtual public cEntity {
+Q_OBJECT
 protected:
 	unsigned int serial_;
 

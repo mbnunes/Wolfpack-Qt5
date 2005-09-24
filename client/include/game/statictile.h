@@ -11,6 +11,7 @@
 #include <QMouseEvent>
 
 class cStaticTile : virtual public cEntity {
+Q_OBJECT
 protected:
 	unsigned short id_;
 	unsigned short hue_;

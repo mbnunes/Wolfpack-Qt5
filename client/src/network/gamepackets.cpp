@@ -1,6 +1,7 @@
 
 #include "network/uopacket.h"
 #include "network/uosocket.h"
+#include "network/network.h"
 #include "network/outgoingpackets.h"
 #include "dialogs/login.h"
 #include "gui/worldview.h"
@@ -1243,3 +1244,65 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xc8, cSetUpdateRangePacket::creator);
+
+// A Paperdoll should be shown
+class cShowPaperdollPacket : public cIncomingPacket {
+protected:
+	uint serial;
+	QString text;
+	uchar flags;
+public:
+	cShowPaperdollPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial;
+		
+		char textStr[61];
+		input.readRawData(textStr, 60);
+		textStr[60] = 0; // Ensure null termination
+		text = QString::fromUtf8(textStr);
+
+		input >> flags;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (!mobile) {
+			return; // Invalid mobile serial
+		}
+
+		// Better ignore these. Often bogus.
+        //mobile->processFlags(flags);
+		
+		QString templateName;
+		QString windowName;
+
+		if (mobile == Player) {
+			templateName = "BigPaperdoll";
+			windowName = "PlayerPaperdoll";
+		} else {
+			templateName = "SmallPaperdoll";
+			windowName = QString("Paperdoll-%1").arg(serial);
+		}
+
+		// See if the window is already open
+		cWindow *window = (cWindow*)Gui->findByName(windowName, false);
+
+		// Open a new one if it's not already open
+		if (!window) {
+			window = Gui->createDialog(templateName);
+			window->setVisible(true);
+			window->setObjectName(windowName);
+			Gui->addControl(window);
+		}
+
+		cAsciiLabel *label = (cAsciiLabel*)window->findByName("NameLabel");
+		label->setText(text);
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cShowPaperdollPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x88, cShowPaperdollPacket::creator);
+

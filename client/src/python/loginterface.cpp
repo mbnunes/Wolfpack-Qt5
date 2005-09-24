@@ -56,6 +56,8 @@ static PyTypeObject logInterfaceType = {
 
 // Create an object of our log interface class here
 void initializeLogInterface() {
+	return;
+
 	PyObject *logInterface = PyObject_New(PyObject, &logInterfaceType);
 	PySys_SetObject("stderr", logInterface);
 	PySys_SetObject("stdout", logInterface);

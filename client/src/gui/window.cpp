@@ -50,7 +50,7 @@ void cWindow::draw(int xoffset, int yoffset) {
 cControl *cWindow::getControl(int x, int y) {
 	cControl *control = cContainer::getControl(x, y);
 
-	if (control && control != this && isMovable() && control->isMoveHandle()) {
+	if (control && control != this && (isMovable() || isClosable()) && control->isMoveHandle()) {
 		return this;
 	}
 
@@ -58,7 +58,7 @@ cControl *cWindow::getControl(int x, int y) {
 }
 
 void cWindow::onMouseDown(QMouseEvent *e) {
-	if (isMovable()) {
+	if (isMovable() && e->button() == Qt::LeftButton) {
 		tracking = true;
 	}
 }
@@ -79,7 +79,18 @@ void cWindow::processDefinitionAttribute(QString name, QString value) {
 		enableStencil_ = Utilities::stringToBool(value);
 	} else if (name == "closable") {
 		closable_ = Utilities::stringToBool(value);
+	} else if (name == "movable") {
+		movable_ = Utilities::stringToBool(value);
 	} else {
 		cContainer::processDefinitionAttribute(name, value);
+	}
+}
+
+void cWindow::onClick(QMouseEvent *e) {
+	// Right mouse button closes the container
+	if (isClosable() && e->button() == Qt::RightButton) {
+		Gui->queueDelete(this);
+	} else {
+		cContainer::onClick(e);
 	}
 }

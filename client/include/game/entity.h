@@ -4,9 +4,9 @@
 
 #include "enums.h"
 #include <qevent.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 #include <QVector>
+#include <QObject>
 
 class cControl;
 
@@ -17,7 +17,8 @@ class cControl;
 	counting scheme. The user is responsible for avoiding circular
 	reference.
 */
-class cEntity {
+class cEntity : public QObject {
+Q_OBJECT
 private:
 	unsigned int refcount;
 

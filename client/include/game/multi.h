@@ -10,6 +10,7 @@
 class cMultiItem;
 
 class cMulti : virtual public cDynamicItem {
+Q_OBJECT
 protected:
 	QVector<cMultiItem*> tiles_;
 public:

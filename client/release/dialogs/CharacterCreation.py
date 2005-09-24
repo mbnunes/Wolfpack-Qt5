@@ -139,7 +139,7 @@ class Context:
 		if CharacterTemplates[id][CTINDEX_NAME] == "Advanced":
 			loginDialog.findByName("CharacterCreation2").visible = True
 		else:
-			self.characterCreation2Next(None)
+			self.dialog2Next(None)
 						
 	"""
 	 Initialize the Character creation dialog (page 1)
@@ -1082,12 +1082,11 @@ def initialize(dialog):
 	global context
 	if dialog.objectName == "CharacterCreation1":
 		context.setupDialog1(dialog)
+		connect(LoginDialog, "showCharacterCreation()", context.showFirst)
+		connect(LoginDialog, "hideCharacterCreation()", context.hideAll)
 	elif dialog.objectName == "CharacterCreation2":
 		context.setupDialog2(dialog)
 	elif dialog.objectName == "CharacterCreation3":
 		context.setupDialog3(dialog)
 	elif dialog.objectName == "CharacterCreation4":
 		context.setupDialog4(dialog)
-
-connect(LoginDialog, "showCharacterCreation()", context.showFirst)
-connect(LoginDialog, "hideCharacterCreation()", context.hideAll)

@@ -51,6 +51,7 @@ public:
 	cControl *getControl(int x, int y);
 
 	// These event handlers are mostly for closing and moving the window
+	void onClick(QMouseEvent *e);
 	void onMouseDown(QMouseEvent *e);
 	void onMouseUp(QMouseEvent *e);
 	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);

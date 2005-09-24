@@ -2,6 +2,7 @@
 #include "python/universalslot.h"
 #include "python/utilities.h"
 #include "scripts.h"
+#include "log.h"
 
 #include <QMetaObject>
 
@@ -95,6 +96,7 @@ cUniversalSlot::cUniversalSlot(QObject *sender, const char *signal, PyObject *re
 	QByteArray normalizedSignal = meta->normalizedSignature(signal);
 
 	int offset = meta->indexOfSignal(signal);
+
 	// Signal not found
 	if (offset == -1) {
 		valid = false;
@@ -102,6 +104,7 @@ cUniversalSlot::cUniversalSlot(QObject *sender, const char *signal, PyObject *re
 		Scripts->addSlot(this);
 		return;
 	}
+	valid = true;
 
 	slotSignature = meta->method(offset);
 	this->recipient = recipient;

@@ -13,6 +13,7 @@ class cContainerGump;
 #endif
 
 class cDynamicItem : public cDynamicEntity, public cStaticTile {
+Q_OBJECT
 friend class cContainerGump;
 
 public:

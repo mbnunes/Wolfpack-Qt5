@@ -12,6 +12,7 @@
 class cDynamicItem;
 
 class cMobile : public cDynamicEntity {
+Q_OBJECT
 public:
 	enum Notoriety {
 		Unknown = 0,
