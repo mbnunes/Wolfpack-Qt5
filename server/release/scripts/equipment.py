@@ -318,6 +318,11 @@ def onShowTooltip(viewer, object, tooltip):
 		if energy:
 			tooltip.add(1060407, str(energy))
 
+		if object.hastag('poisoning_uses'):
+			poisoning_uses = int(object.gettag('poisoning_uses'))
+			if poisoning_uses > 0:
+				tooltip.add( 1017383, '' )
+
 	if weapon or shield:
 		# Spell Channeling
 		spellchanneling = properties.fromitem(object, SPELLCHANNELING)

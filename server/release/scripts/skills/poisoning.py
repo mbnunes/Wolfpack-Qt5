@@ -113,6 +113,7 @@ def poisonit( char, args ):
 	# 	number of uses before the poison wears off
 	if item.hasscript( 'blades' ):
 		item.settag( 'poisoning_uses', 18 - strength * 2 )
+	item.resendtooltip()
 	return 1
 
 def getstrength( potiontype ):
