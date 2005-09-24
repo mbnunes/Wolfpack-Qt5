@@ -76,7 +76,7 @@ def onUse(char, item):
 	packet.setshort( 11, item.id ) # Item id
 	packet.setshort( 13, 101 ) # Scroll offset (1 = regular, 101 = necro, 201 = paladin)
 
-	for i in range( 0, 2 ):
+	for i in range( 0, 3 ):
 		if not item.hastag( 'circle' + str( i + 1 ) ):
 			packet.setbyte( 15 + i, 0 )
 		else:

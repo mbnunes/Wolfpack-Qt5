@@ -436,6 +436,16 @@ class WraithForm(Spell):
 		self.reagents = {REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Rel Xen Um'
 
+class Exorzism(Spell):
+	def __init__(self):
+		Spell.__init__(self, 6)
+		self.skill = NECROMANCY
+		self.requiredskill = 80
+		self.damageskill = SPIRITSPEAK
+		self.mana = 40
+		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_NOXCRYSTAL: 1}
+		self.mantra = 'Ort Corp Grav'
+
 def onLoad():
 	AnimateDead().register(101)
 	BloodOath().register(102)
@@ -453,3 +463,4 @@ def onLoad():
 	VengefulSpirit().register(114)
 	Wither().register(115)
 	WraithForm().register(116)
+	Exorzism().register(117)

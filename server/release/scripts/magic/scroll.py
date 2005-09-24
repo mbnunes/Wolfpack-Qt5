@@ -85,7 +85,7 @@ def onDropOnItem( cont, item ):
 				return False
 
 	elif cont.hasscript( 'magic.necrospellbook' ):
-		if spell >= 116:
+		if spell >= 117:
 			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
 		else:
 			if not magic.necrospellbook.hasspell( cont, spell ):
