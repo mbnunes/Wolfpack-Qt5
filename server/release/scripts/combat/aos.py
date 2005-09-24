@@ -21,12 +21,12 @@ def checkSlaying(weapon, defender):
 	slayer = properties.fromitem(weapon, SLAYER)
 	if slayer == '':
 		return False
-				
+
 	slayer = system.slayer.findEntry(slayer)
-	
+
 	if not slayer:
 		return False
-		
+
 	return slayer.slays(defender)
 
 #
@@ -104,7 +104,7 @@ def checkhit(attacker, defender, time):
 	# Retrieve the skill values
 	attackerValue = attacker.skill[attackerSkill] / 10
 	defenderValue = defender.skill[defenderSkill] / 10
-	
+
 	# Calculate the hit chance
 	bonus = 0 # Get the weapon "accuracy" status
 	bonus += properties.fromchar(attacker, HITBONUS) # Get the attackers AttackChance bonus
@@ -154,27 +154,27 @@ def scaledamage(char, damage, checkskills = True, checkability = False):
 	if not char.npc or weapon:
 		# Strength bonus
 		bonus += char.strength * 0.3
-	
+
 		# If strength is above 100, grant an extra 5 percent bonus
 		if char.strength >= 100:
 			bonus += 5
 
 		# Anatomy bonus
 		bonus += char.skill[ANATOMY] * 0.05
-	
+
 		# Grant another 5 percent for anatomy grandmasters
 		if char.skill[ANATOMY] >= 1000:
 			bonus += 5
 
 		# Tactics bonus
 		bonus += char.skill[TACTICS] * 0.0625
-	
+
 		# Add another 6.25 percent for grandmasters
 		if char.skill[TACTICS] >= 1000:
 			bonus += 6.25
 
 	damage = damage + damage * bonus / 100.0
-	
+
 	return max(1, floor(damage))
 
 def consecratedweapon( defender ):
@@ -405,7 +405,7 @@ def absorbdamage(defender, damage):
 #
 def splashdamage(attacker, effect, excludechar = None):
 	(physical, cold, fire, poison, energy) = (0, 0, 0, 0, 0)
-	
+
 	if effect == SPLASHPHYSICAL:
 		sound = 0x10e
 		hue = 50
@@ -428,12 +428,12 @@ def splashdamage(attacker, effect, excludechar = None):
 		energy = 100
 	else:
 		raise RuntimeError, "Invalid effect passed to splashdamage: %s" % effect
-		
+
 	guild = attacker.guild # Cache the guild
 	party = attacker.guild # Cache the party
 	didsound = False # Did we play a soundeffect yet?
 	(mindamage, maxdamage) = properties.getdamage(attacker) # Cache the min+maxdamage
-	
+
 	pos = attacker.pos
 	chariterator = wolfpack.charregion(pos.x - 3, pos.y - 3, pos.x + 3, pos.y + 3, pos.map)
 	target = chariterator.first
@@ -446,7 +446,7 @@ def splashdamage(attacker, effect, excludechar = None):
 			factor = min(1.0, (4 - distance) / 3)
 			if factor > 0.0:
 				damage = int(random.randint(mindamage, maxdamage) * factor)
-				
+
 				if damage > 0:
 					if not didsound:
 						attacker.soundeffect(sound)
@@ -569,7 +569,7 @@ def hit(attacker, defender, weapon, time):
 				effect = properties.fromitem(weapon, effectid)
 				if effect and effect > random.randint(0, 99):
 					splashdamage(attacker, effectid, excludechar = defender)
-					
+
 			# Hit Spell effects
 			for (effectid, callback) in combat.hiteffects.EFFECTS.items():
 				effect = properties.fromitem(weapon, effectid)
@@ -592,7 +592,7 @@ def hit(attacker, defender, weapon, time):
 			weapon.update()
 			if attacker.socket:
 				attacker.socket.clilocmessage(500645)
-	
+
 	# Notify the weapon ability
 	if not blocked and ability:
 		ability.hit(attacker, defender, damage)
