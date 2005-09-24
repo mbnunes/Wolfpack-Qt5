@@ -200,6 +200,7 @@
 	<script>magic.evilomen</script>
 	<script>magic.curseweapon</script>
 	<script>magic.vampiricembrace</script>
+	<script>magic.vengefulspirit</script>
 
 	<!-- NPC -->
 	<script>npc.healer</script>

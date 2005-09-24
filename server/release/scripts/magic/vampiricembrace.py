@@ -1,6 +1,6 @@
 import magic
-from magic.utilities import REAGENT_GARLIC´
-from wolfpack.const import DAMAGE_MAGICAL
+from magic.utilities import REAGENT_GARLIC
+from wolfpack.consts import DAMAGE_MAGICAL
 
 def onDoDamage(char, type, amount, victim):
 	damagedone = amount / 5 # Leech 20% Health
@@ -16,5 +16,5 @@ def onCastSpell(char, spell):
 		char.damage( DAMAGE_MAGICAL, damage, char)
 
 # TODO: silver weapons do +25% damage
-def onDamage(char, type, amount, source):
-	pass
+#def onDamage(char, type, amount, source):
+#	pass

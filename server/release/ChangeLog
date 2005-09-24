@@ -59,6 +59,7 @@ Wolfpack 12.9.14 Beta (SVN)
     If your server doesn't have the new map disable this in wolfpack.xml.
   - Removed unused server options in wolfpack.xml.
   - Added "advance" parameter to char.skillcheck, that allows skillchecks without the possibility of skillgains.
+  - Fixed summontime property. If it's 0, the NPC will never disappear.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

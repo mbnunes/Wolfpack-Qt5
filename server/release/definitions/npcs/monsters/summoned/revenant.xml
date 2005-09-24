@@ -12,7 +12,8 @@
 	<!-- Revenant, Summoned Only? -->
 	<npc id="summoned_revenant">
 		<name>revenant</name>
-		<id>748</id>
+		<id>400</id>
+		<skin>1</skin>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Stats -->
@@ -20,6 +21,15 @@
 		<dex>150</dex>
 		<int>150</int>
 		<maxhitpoints>200</maxhitpoints>
+		<!-- Equipment -->
+		<equipped>
+			<item id="204e"><!-- Death Shroud -->
+				<color>0x455</color>
+			</item>
+			<item id="143f"><!-- Halberd -->
+			</item>
+		</equipped>
+
 		<!-- Skills -->
 		<skill id="magicresistance">1200</skill>
 		<skill id="tactics">1000</skill>
@@ -35,8 +45,6 @@
 		<tag name="res_cold" value="60,70" type="int" />
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="60,70" type="int" />
-		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
 		<controlslots>3</controlslots>
 		<category>Summoned\Revenant</category>

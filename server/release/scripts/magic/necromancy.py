@@ -14,6 +14,7 @@ from wolfpack.consts import *
 from magic.utilities import *
 from wolfpack.utilities import changeResistance
 import magic.corpseskin
+import wolfpack.time
 
 class AnimateDead(Spell):
 	def __init__(self):
@@ -305,29 +306,90 @@ class VampiricEmbrace(Spell):
 		char.pos.effect( 0x373A, 1, 17, 1108, 7 )
 		char.pos.effect( 0x376A, 1, 22, 67, 7)
 		char.pos.soundeffect( 0x4B1 )
+		# reverse the transformation
 		if char.hasscript('magic.vampiricembrace'):
 			char.removescript('magic.vampiricembrace')
 			char.id = char.orgid
 			char.skin = char.orgskin
-			#changeResistance(char, 'res_fire', + 25)
+			# reverse increased stamina regeneration
+			if char.hastag('regenstamina'):
+				if (char.gettag('regenstamina') - 15) <= 0:
+					char.deltag('regenstamina')
+				else:
+					char.settag('regenstamina', char.gettag('regenstamina') - 15)
+			# reverse increased mana regeneration
+			if char.hastag('regenmana'):
+				if (char.gettag('regenmana') - 3) <= 0:
+					char.deltag('regenmana')
+				else:
+					char.settag('regenmana', char.gettag('regenmana') - 3)
+			# reverse decreased fire resistance
+			if char.hastag('vampemb_res_fire'):
+				if char.hastag('res_fire'):
+					fire_res = char.gettag('res_fire')
+					char.settag('res_fire', fire_res + char.gettag('vampemb_res_fire'))
+				else:
+					char.settag('res_fire', char.gettag('vampemb_res_fire'))
+		# do the transformation
 		else:
-			#if char.gender:
-			#	char.id = 745
-			#else:
-			#	char.id = 744
-			#char.skin = 0x847e
-			#changeResistance(char, 'res_fire', - 25)
-			char.addscript('magic.vampiricembrace')
+			if char.gender:
+				char.id = 745
+			else:
+				char.id = 744
+			char.skin = 0x847e
+			# decrease fire resistance
+			if char.hastag('res_fire'):
+				fire_res = char.gettag('res_fire')
+				char.settag('vampemb_res_fire',fire_res)
+				if fire_res - 25 <= 0:
+					char.deltag('res_fire')
+				else:
+					char.settag('res_fire', fire_res - 25)
 
-class VengefulSpirit(Spell):
+			char.addscript('magic.vampiricembrace')
+			# increase stamina regeneration
+			if char.hastag('regenstamina'):
+				char.settag('regenstamina', char.gettag('regenstamina') + 15)
+			else:
+				char.settag('regenstamina', 15)
+			# increase mana regeneration
+			if char.hastag('regenmana'):
+				char.settag('regenmana', char.gettag('regenmana') + 3)
+			else:
+				char.settag('regenmana', 3)
+
+class VengefulSpirit(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 6)
+		CharEffectSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 80
 		self.damageskill = SPIRITSPEAK
 		self.mana = 41
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_GRAVEDUST: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Kal Xen Bal Beh'
+
+	def affectchar(self, char, mode, target, args=[]):
+		if (len(char.followers) + 3) > char.maxcontrolslots:
+			char.socket.clilocmessage(1049645) # You have too many followers to summon that creature.
+			return False
+		elif target == char:
+			char.socket.clilocmessage( 1061832 ) # You cannot exact vengeance on yourself.
+			return False
+		return True
+
+	def effect(self, char, target, mode, args, item):
+		duration = ( ((char.skill[self.damageskill] * 80) / 120) + 10 ) * 100
+
+		revenant = wolfpack.addnpc('summoned_revenant', target.pos)
+		revenant.summoned = True
+		revenant.owner = char
+		revenant.summontime = wolfpack.time.currenttime() + duration
+		revenant.fight(target)
+		revenant.addscript('magic.vengefulspirit')
+		revenant.settag('target', target.serial)
+		revenant.effect( 0x373A, 1, 15 )
+		revenant.addtimer( 2000, magic.vengefulspirit.checktarget, [])
+		return
 
 class Wither(Spell):
 	def __init__(self):
