@@ -63,6 +63,30 @@ def fillPotion( char, keg, potion, givebottle=True ):
 	keg.settag( 'kegfill', kegfill )
 	return consumePotion( char, potion, givebottle=True )
 
+# Fill bottles with potion
+def fillbottle(char, backpack, kegfill, kegtype, potionkeg):
+	backpack.removeitems( [ 'f0e' ], 1 )
+	newpot = wolfpack.additem( POTIONS[ kegtype ][ POT_DEF ] )
+	if not newpot:
+		return False
+	newpot.decay = 1
+	newpot.movable = 1
+	char.socket.clilocmessage( 502242 ) # You pour some of the keg's contents into an empty bottle...
+	char.socket.clilocmessage( 502243 ) # ...and place it into your backpack.
+	if not wolfpack.utilities.tobackpack( newpot, char ):
+		newpot.update()
+	char.soundeffect(0x240)
+	kegfill -= 1
+	potionkeg.settag('kegfill', kegfill )
+	if kegfill == 0:
+		if potionkeg.name != "#1041641":
+			potionkeg.name = '#1041641'
+		potionkeg.deltag( 'potiontype' )
+		#potionkeg.update()
+		char.socket.clilocmessage( 502245 ) # The keg is now empty
+	potionkeg.resendtooltip()
+	return True
+
 # Throw the potion at something
 def targetpotion( char, args, target ):
 	check = 10

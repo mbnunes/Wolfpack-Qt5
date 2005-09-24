@@ -8,7 +8,6 @@ from potions.consts import *
 # Pouring a potion.
 def onUse( char, potionkeg ):
 	kegtype = None
-	socket = char.socket
 	backpack = char.getbackpack()
 
 	if not char or not backpack:
@@ -29,7 +28,7 @@ def onUse( char, potionkeg ):
 		kegtype = int( potionkeg.gettag( 'potiontype' ) )
 
 	if not kegtype and not kegtype == 0:
-		socket.clilocmessage( 502222 )
+		char.socket.clilocmessage( 502222 )
 		return True
 
 	if potionkeg.name != POTIONS[ kegtype ][ KEG_NAME ]:
@@ -39,29 +38,10 @@ def onUse( char, potionkeg ):
 	if kegfill > 0 and kegfill <= 100:
 		count = backpack.countitems( [ 'f0e' ] )
 		if count >= 1:
-			backpack.removeitems( [ 'f0e' ], 1 )
-			newpot = wolfpack.additem( POTIONS[ kegtype ][ POT_DEF ] )
-			if not newpot:
-				return False
-			newpot.decay = 1
-			newpot.movable = 1
-			socket.clilocmessage( 502242 ) # You pour some of the keg's contents into an empty bottle...
-			socket.clilocmessage( 502243 ) # ...and place it into your backpack.
-			if not wolfpack.utilities.tobackpack( newpot, char ):
-				newpot.update()
-			char.soundeffect(0x240)
-			kegfill -= 1
-			potionkeg.settag('kegfill', kegfill )
-			if kegfill == 0:
-				if potionkeg.name != "#1041641":
-					potionkeg.name = '#1041641'
-				potionkeg.deltag( 'potiontype' )
-				potionkeg.update()
-				socket.clilocmessage( 502245 ) # The keg is now empty
-			potionkeg.resendtooltip()
+			potions.utilities.fillbottle(char, backpack, kegfill, kegtype, potionkeg)
 			return True
 		else:
-			socket.clilocmessage( 500315 )
+			char.socket.clilocmessage( 500315 ) # You need an empty bottle to make a potion.
 			return True
 
 	else:
@@ -69,7 +49,7 @@ def onUse( char, potionkeg ):
 			potionkeg.name = '#1041641'
 		if potionkeg.hastag( 'potiontype' ):
 			potionkeg.deltag( 'potiontype' )
-		socket.clilocmessage( 502222 )
+		char.socket.clilocmessage( 502222 ) # The keg is empty.
 		potionkeg.update()
 		return True
 
