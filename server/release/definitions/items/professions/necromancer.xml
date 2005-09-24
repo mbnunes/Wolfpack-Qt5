@@ -74,7 +74,7 @@
 	<item id="2268">
 		<id>0x2268</id>
 		<basescripts>magic.scroll</basescripts>
-		<category>Professions\Necromancer\Scrolls\Pain Strike</category>
+		<category>Professions\Necromancer\Scrolls\Pain Spike</category>
 	</item>
 
 	<item id="2269">
@@ -117,6 +117,12 @@
 		<id>0x226f</id>
 		<basescripts>magic.scroll</basescripts>
 		<category>Professions\Necromancer\Scrolls\Wraith Form</category>
+	</item>
+
+	<item id="2270">
+		<id>0x2270</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Exorzism</category>
 	</item>
 
 </definitions>
