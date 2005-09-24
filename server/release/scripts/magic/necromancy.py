@@ -135,6 +135,19 @@ class CurseWeapon(Spell):
 		self.reagents = {REAGENT_PIGIRON: 1}
 		self.mantra = 'An Sanct Gra Char'
 
+	def cast(self, char, mode, args=[], target=None, item=None):
+		weapon = char.getweapon()
+		if not weapon:
+			char.socket.clilocmessage( 501078 ) # You must be holding a weapon.
+			return False
+
+		char.soundeffect( 0x387 )
+		char.effect( 0x3779, 1, 15, 32, 2 )
+		char.effect( 0x37B9, 1, 14, 32, 5 )
+		duration = ( (char.skill[self.damageskill] / 7.5) + 1.0 ) * 100
+		weapon.addscript('magic.curseweapon')
+		weapon.addtimer( duration, magic.curseweapon.expire, [])
+
 class EvilOmen(CharEffectSpell):
 	def __init__(self):
 		CharEffectSpell.__init__(self, 1)
@@ -287,6 +300,24 @@ class VampiricEmbrace(Spell):
 		self.mana = 23
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Rel Xen An Sanct'
+
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.pos.effect( 0x373A, 1, 17, 1108, 7 )
+		char.pos.effect( 0x376A, 1, 22, 67, 7)
+		char.pos.soundeffect( 0x4B1 )
+		if char.hasscript('magic.vampiricembrace'):
+			char.removescript('magic.vampiricembrace')
+			char.id = char.orgid
+			char.skin = char.orgskin
+			#changeResistance(char, 'res_fire', + 25)
+		else:
+			#if char.gender:
+			#	char.id = 745
+			#else:
+			#	char.id = 744
+			#char.skin = 0x847e
+			#changeResistance(char, 'res_fire', - 25)
+			char.addscript('magic.vampiricembrace')
 
 class VengefulSpirit(Spell):
 	def __init__(self):

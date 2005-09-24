@@ -198,6 +198,8 @@
 	<script>magic.bloodoath</script>
 	<script>magic.corpseskin</script>
 	<script>magic.evilomen</script>
+	<script>magic.curseweapon</script>
+	<script>magic.vampiricembrace</script>
 
 	<!-- NPC -->
 	<script>npc.healer</script>
