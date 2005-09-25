@@ -203,7 +203,7 @@ def callbackSocket( char, args, choice ):
 		return False
 	# Resurrect
 	elif choice.button == 10:
-		player.resurrect()
+		player.resurrect( char )
 		socket.log( LOG_TRACE, "Resurrected '%s' (0x%x)\n" % ( player.name, player.serial ) )
 		return True
 	# Kill
