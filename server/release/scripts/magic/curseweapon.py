@@ -8,6 +8,8 @@ def onUnequip(char, item, layer):
 	char.removescript("magic.curseweapon")
 
 def expire(item, args):
+	if item.hastag('cursed'):
+		item.deltag('cursed')
 	item.removescript("magic.curseweapon")
 	item.getoutmostchar().removescript("magic.curseweapon")
 

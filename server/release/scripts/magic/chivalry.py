@@ -376,11 +376,15 @@ class NobleSacrifice(Spell):
 					target.frozen = False
 					target.resendtooltip()
 
-				# ToDo:
-				# remove from char:
-				# EvilOmenSpell
-				# StrangleSpell
-				# CorpseSkinSpell
+				if target.hasscript('magic.evilomen'):
+					target.dispel(target, True, 'EVILOMEN')
+					sendEffect = True
+				if target.hasscript('magic.strangle'):
+					target.dispel(target, True, 'STRANGLE')
+					sendEffect = True
+				if target.hasscript('magic.corpseskin'):
+					target.dispel(target, True, 'COPRSESKIN')
+					sendEffect = True
 
 				if sendEffect:
 					target.effect( 0x375A, 1, 15, 5, 3 )
@@ -411,7 +415,7 @@ class RemoveCurse(CharEffectSpell):
 		if char.karma < -5000:
 			chance = 0
 		elif char.karma < 0:
-			chance = int( math.sqrt( 20000 + Caster.Karma ) - 122 )
+			chance = int( math.sqrt( 20000 + char.karma ) - 122 )
 		elif char.karma < 5625:
 			chance = int( math.sqrt( char.karma ) + 25 )
 		else:
@@ -422,7 +426,19 @@ class RemoveCurse(CharEffectSpell):
 			target.soundeffect( 0x1F7 )
 			target.effect( 0x3709, 1, 30, 13, 3 )
 
-		char.socket.sysmessage( tr("Not yet implemented.") )
+			target.frozen = False
+
+			if target.hasscript('magic.evilomen'):
+				target.dispel(target, True, 'EVILOMEN')
+			if target.hasscript('magic.strangle'):
+				target.dispel(target, True, 'STRANGLE')
+			if target.hasscript('magic.corpseskin'):
+				target.dispel(target, True, 'COPRSESKIN')
+			# TODO: REMOVE CURSE SPELL
+		else:
+			target.soundeffect( 0x1df )
+
+		char.socket.sysmessage( tr("Not yet fully implemented.") )
 
 class SacredJourney(Spell):
 	def __init__(self):

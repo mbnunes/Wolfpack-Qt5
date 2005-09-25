@@ -147,6 +147,7 @@ class CurseWeapon(Spell):
 		char.effect( 0x37B9, 1, 14, 32, 5 )
 		duration = ( (char.skill[self.damageskill] / 7.5) + 1.0 ) * 100
 		weapon.addscript('magic.curseweapon')
+		weapon.settag('cursed', 1)
 		weapon.addtimer( duration, magic.curseweapon.expire, [])
 
 class EvilOmen(CharEffectSpell):
@@ -269,15 +270,33 @@ class PoisonStrike(CharEffectSpell):
 				num = 3
 			energydamage(aim, char, damage/num, 0, 0, 0, 100, 0, 0, DAMAGE_POISON)
 
-class Strangle(Spell):
+class Strangle(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 6)
+		CharEffectSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 65
 		self.damageskill = SPIRITSPEAK
 		self.mana = 29
 		self.reagents = {REAGENT_NOXCRYSTAL: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'In Bal Nox'
+
+	def effect(self, char, target, mode, args, item):
+		target.soundeffect( 0x22f )
+		target.effect( 0x36CB, 1, 9, 67, 5 )
+		target.effect( 0x374A, 1, 17, 1108, 4 )
+
+		spiritLevel = char.skill[self.damageskill] / 100
+		MinBaseDamage = spiritLevel - 2
+		MaxBaseDamage = spiritLevel + 1
+		HitDelay = 5
+		NextHit = HitDelay * 1000
+		Count = spiritLevel
+		if Count < 4:
+			Count = 4
+		MaxCount = Count
+
+		target.addtimer(100, magic.strangle.dodamage, [spiritLevel, MinBaseDamage, MaxBaseDamage, HitDelay, MaxCount, Count], \
+		True, False, 'STRANGLE', magic.strangle.dispel )
 
 class SummonFamiliar(Spell):
 	def __init__(self):
