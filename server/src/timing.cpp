@@ -412,7 +412,7 @@ void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 void cTiming::checkNpc( P_NPC npc, unsigned int time )
 {
 	// Remove summoned npcs
-	if ( npc->summoned() && npc->summonTime() <= time && !(npc->summonTime() == 0) )
+	if ( npc->summoned() && npc->summonTime() <= time && npc->summonTime() )
 	{
 		// Make pooofff and sheeesh
 		npc->soundEffect( 0x1fe );
