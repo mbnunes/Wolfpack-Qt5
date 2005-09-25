@@ -2140,9 +2140,16 @@ void cItem::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		tooltip.addLine( 1050044, QString( "%1\t%2" ).arg( count ).arg( weight ) );
 	}
 
-	// Newbie Items
+	// Newbie/Blessed Items
 	if ( newbie() )
+	{
 		tooltip.addLine( 1038021, "" );
+	}
+	// Cursed Items
+	else if ( hasTag( "cursed" ) )
+	{
+		tooltip.addLine( 1049643, "" );
+	}
 
 	// Invisible to others
 	if ( player->isGM() && visible() > 0 )
