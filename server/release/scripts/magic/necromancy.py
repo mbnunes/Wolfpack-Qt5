@@ -224,7 +224,6 @@ class LichForm(CharEffectSpell):
 
 			char.addtimer( 2500, magic.lichform.expire, [], True, False, 'LICHFORM', magic.lichform.dispel )
 
-# TODO: increase the mana cost of any spells they cast
 class MindRot(CharEffectSpell):
 	def __init__(self):
 		CharEffectSpell.__init__(self, 4)

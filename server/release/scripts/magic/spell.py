@@ -206,8 +206,17 @@ class Spell:
 		if mode == MODE_SCROLL:
 			mana = (mana + 1) / 2
 
-		percent = properties.fromchar(char, LOWERMANACOST) / 100.0
-		return max(0, mana - int(percent * float(mana)))
+		scalar = 1.0
+		if char.hasscript('magic.mindrot'):
+			scalar = 1.25
+			if char.npc:
+				scalar = 2.0
+
+		# Lower Mana Cost
+		lmc = properties.fromchar(char, LOWERMANACOST) / 100.0
+		scalar -= lmc / 100
+
+		return max(0, int(mana * scalar))
 
 	#
 	# Calculate the time required to cast this spell
