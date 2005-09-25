@@ -727,8 +727,8 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 		0x00000008 showserials
 		0x00000010 pagenotify
 		0x00000020 staff - gm mode on/off
-		0x00000040 multigems on/off</code>
-		0x00000080 jailed
+		0x00000040 multigems on/off
+		0x00000080 jailed</code>
 	*/
 	else if ( name == "flags" )
 	{
