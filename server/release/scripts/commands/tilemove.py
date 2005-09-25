@@ -189,7 +189,7 @@ def commandTileMove(socket, command, arguments):
 		zmod = 0
 		newmap = None
 	if newmap:
-		socket.sysmesage( "Please select the first corner. [Move: %i,%i,%i,%i]" % ( xmod, ymod, zmod, newmap ) )
+		socket.sysmessage( "Please select the first corner. [Move: %i,%i,%i,%i]" % ( xmod, ymod, zmod, newmap ) )
 	else:
 		socket.sysmessage( "Please select the first corner. [Move: %i,%i,%i]" % ( xmod, ymod, zmod ) )
 
