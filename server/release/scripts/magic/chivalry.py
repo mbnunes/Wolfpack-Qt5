@@ -47,7 +47,7 @@ class CleanseByFire(CharEffectSpell):
 				target.socket.clilocmessage( 1010059 ) # You have been cured of all poisons.
 		else:
 			char.socket.clilocmessage(1010060) # You have failed to cure your target!
-	
+
 		target.soundeffect( 0x1e0 );
 		target.effect(0x373a, 1, 15, 3, 2)
 		target.effect(0x374b, 5, 10, 63, 2) # should move from feet to head...
