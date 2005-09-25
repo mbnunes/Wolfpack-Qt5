@@ -251,9 +251,6 @@ class PoisonStrike(CharEffectSpell):
 		self.reagents = {REAGENT_NOXCRYSTAL: 1}
 		self.mantra = 'In Vas Nox'
 
-	def affectchar(self, char, mode, target, args=[]):
-		return True
-
 	def effect(self, char, target, mode, args, item):
 		target.effect( 0x36B0, 1, 14, 63 )
 		target.soundeffect( 0x229 )

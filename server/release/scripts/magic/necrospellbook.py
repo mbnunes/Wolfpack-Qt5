@@ -13,7 +13,7 @@ from wolfpack import tr
 def countspells(item):
 	count = 0
 
-	for i in range( 1, 3 ):
+	for i in range( 1, 4 ):
 		if item.hastag('circle' + str(i)):
 			spells = int(item.gettag('circle' + str(i)))
 			for j in range(0, 9):
