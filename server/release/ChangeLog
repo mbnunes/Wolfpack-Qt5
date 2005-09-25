@@ -183,6 +183,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - If you use wheat sheafs near a flour mill, you will get a sack of flour.
   - Added an optional extended carpentry system that uses different wood types. This has to be enabled in wolfpack.xml
   - Disabled animal taming gain for creatures a character had already tamed.
+  - Fixed gates with invalid positions crashing the server when used.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

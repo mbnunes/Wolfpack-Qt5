@@ -1,4 +1,3 @@
-
 import wolfpack
 from wolfpack.consts import LOG_ERROR
 from wolfpack import console, utilities, tr
@@ -27,15 +26,18 @@ def onCollide(player, item):
 		player.socket.sysmessage( tr('This gate leads nowhere...') )
 		return False
 
-	# Move the player
-	pos = player.pos
-	pos.x = target[0]
-	pos.y = target[1]
-	pos.z = target[2]
-	if len(target) > 3:
-		pos.map = target[3]
+	# Validate the coord
+	try:
+		m = target[3]
+	except:
+		m = player.pos.map
+	pos = wolfpack.coord( target[0], target[1], target[2], m )
 
-	if not utilities.isMapAvailableTo(player, pos.map):
+	if not utilities.isValidPosition( pos ):
+		player.socket.sysmessage( tr('This gate leads nowhere...') )
+		return False
+
+	if not utilities.isMapAvailableTo( player, pos.map ):
 		return False
 
 	# Move his pets if he has any
@@ -44,11 +46,11 @@ def onCollide(player, item):
 			if follower.wandertype == 4 and follower.distanceto(player) < 5:
 				follower.removefromview()
 				follower.moveto(pos)
-				follower.update(0)
+				follower.update()
 
 	player.removefromview()
 	player.moveto(pos)
-	player.update(0)
+	player.update()
 	if player.socket:
 		player.socket.resendworld()
 
