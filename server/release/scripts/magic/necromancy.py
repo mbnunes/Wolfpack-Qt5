@@ -13,7 +13,6 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from wolfpack.consts import *
 from magic.utilities import *
 from wolfpack.utilities import changeResistance
-import magic.corpseskin
 import wolfpack.time
 
 class AnimateDead(Spell):
@@ -169,7 +168,8 @@ class EvilOmen(CharEffectSpell):
 		if target.skill[MAGICRESISTANCE] > 500:
 			target.settag('magicresistance', target.skill[MAGICRESISTANCE])
 			target.skill[MAGICRESISTANCE] = 500
-		duration = ( 3.5 + (3.5 * (char.skill[self.damageskill] / 100.0)) ) * 100
+		duration = ( 3.5 + (3.5 * (char.skill[self.damageskill] / 10.0)) ) * 100
+		char.socket.sysmessage(str(duration))
 		target.addtimer( duration, magic.evilomen.expire, [], True, False, 'CORPSESKIN', magic.evilomen.dispel )
 
 class HorrificBeast(Spell):
@@ -188,9 +188,9 @@ class HorrificBeast(Spell):
 		char.soundeffect( 0x165 )
 		char.effect( 0x3728, 1, 13, 92, 3 )
 
-class LichForm(Spell):
+class LichForm(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 6)
+		CharEffectSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 70
 		self.damageskill = SPIRITSPEAK
@@ -198,15 +198,62 @@ class LichForm(Spell):
 		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1, REAGENT_NOXCRYSTAL: 1}
 		self.mantra = 'Rel Xen Corp Ort'
 
-class MindRot(Spell):
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.soundeffect( 0x19c )
+		char.effect( 0x3709, 1, 30, 1108, 6 )
+		if char.hasscript('magic.lichform'):
+			char.dispel(char, True, 'LICHFORM')
+			char.id = char.orgid
+			# reverse increased mana regeneration
+			if char.hastag('regenmana'):
+				if (char.gettag('regenmana') - 3) <= 0:
+					char.deltag('regenmana')
+				else:
+					char.settag('regenmana', char.gettag('regenmana') - 3)
+
+		else:
+			char.id = 749
+			#changeResistance( char, 'res_fire', -25 )
+			#changeResistance( char, 'res_cold', 10 )
+			#changeResistance( char, 'res_poison', 10 )
+			# increase mana regeneration
+			if char.hastag('regenmana'):
+				char.settag('regenmana', char.gettag('regenmana') + 3)
+			else:
+				char.settag('regenmana', 3)
+
+			char.addtimer( 2500, magic.lichform.expire, [], True, False, 'LICHFORM', magic.lichform.dispel )
+
+# TODO: increase the mana cost of any spells they cast
+class MindRot(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 4)
+		CharEffectSpell.__init__(self, 4)
 		self.skill = NECROMANCY
 		self.requiredskill = 30
 		self.damageskill = SPIRITSPEAK
 		self.mana = 17
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_DAEMONBLOOD: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Wis An Ben'
+
+	def affectchar(self, char, mode, target, args=[]):
+		if target.hasscript('magic.mindrot'):
+			char.socket.clilocmessage( 1005559 ) # This spell is already in effect.
+			return False
+		return True
+
+	def effect(self, char, target, mode, args, item):
+		target.soundeffect( 0x1fb )
+		target.soundeffect( 0x258 );
+		target.effect( 0x373A, 1, 17, 15, 4 )
+
+		char.addscript('magic.mindrot')
+		percent = 25
+		if target.npc:
+			percent = 100
+		if char.hastag(''):
+			char.settag('', char.gettag('') + percent)
+		duration = ( ((char.skill[self.damageskill] - target.skill[MAGICRESISTANCE]) / 5.0) + 20.0 ) * 100
+		target.addtimer( duration, magic.mindrot.expire, [percent], True, False, 'MINDROT', magic.mindrot.dispel )
 
 class PainSpike(CharEffectSpell):
 	def __init__(self):
@@ -308,9 +355,9 @@ class SummonFamiliar(Spell):
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Kal Xen Bal'
 
-class VampiricEmbrace(Spell):
+class VampiricEmbrace(CharEffectSpell):
 	def __init__(self):
-		Spell.__init__(self, 6)
+		CharEffectSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 99
 		self.damageskill = SPIRITSPEAK

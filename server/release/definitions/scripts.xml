@@ -202,6 +202,7 @@
 	<script>magic.vampiricembrace</script>
 	<script>magic.vengefulspirit</script>
 	<script>magic.strangle</script>
+	<script>magic.mindrot</script>
 
 	<!-- NPC -->
 	<script>npc.healer</script>
