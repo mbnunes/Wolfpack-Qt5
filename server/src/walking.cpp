@@ -653,6 +653,16 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	Coord upperLeft = pChar->pos() - Coord( ( VISRANGE + 1 ), ( VISRANGE + 1 ) );
 	Coord lowerRight = pChar->pos() + Coord( ( VISRANGE + 1 ), ( VISRANGE + 1 ) );
 
+	// correct integer overflow at borders of map
+	if ( upperLeft.x > lowerRight.x )
+	{
+		upperLeft.x = 0;
+	}
+	if ( upperLeft.y > lowerRight.y )
+	{
+		upperLeft.y = 0;
+	}
+
 	MapCharsIterator ri = MapObjects::instance()->listCharsInRect( upperLeft, lowerRight );
 	for ( P_CHAR observer = ri.first(); observer; observer = ri.next() )
 	{
