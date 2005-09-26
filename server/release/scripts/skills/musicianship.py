@@ -79,8 +79,7 @@ def play_instrument( char, item, success ):
 	item.settag( 'last_musicianship_use', wolfpack.time.currenttime() )
 	char.socket.settag( 'instrument', item.serial )
 	if success:
-		if wearout( char, item ):
-			sound = sounds[ item.id ]
+		sound = sounds[ item.id ]
 	else:
 		sound = sounds[ item.id ] + 1
 	char.soundeffect( sound )

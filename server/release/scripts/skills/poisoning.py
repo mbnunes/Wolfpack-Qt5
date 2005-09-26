@@ -94,10 +94,12 @@ def poisonit( char, args ):
 	if not char.checkskill( POISONING, MINSKILLS[strength], MAXSKILLS[strength] ):
 		# 5% of chance of getting poisoned if failed
 		if skill < 800 and random.randint(1,20) == 0:
-			char.socket.clilocmessage( 502148 ) # You make a grave mistake while applying the poison.
+			if char.socket:
+				char.socket.clilocmessage( 502148 ) # You make a grave mistake while applying the poison.
 			poison(char, strength)
-		else:				
-			char.socket.clilocmessage( 1010518 )
+		else:
+			if char.socket:
+				char.socket.clilocmessage( 1010518 )
 		return 1
 
 	char.socket.clilocmessage(1010517)

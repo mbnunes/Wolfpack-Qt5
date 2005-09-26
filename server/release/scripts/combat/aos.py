@@ -543,12 +543,12 @@ def hit(attacker, defender, weapon, time):
 				poisoning_uses = int(weapon.gettag('poisoning_uses'))
 				if poisoning_uses <= 0:
 					weapon.deltag('poisoning_uses')
-					item.resendtooltip()
+					weapon.resendtooltip()
 				else:
 					poisoning_uses -= 1
 					if poisoning_uses <= 0:
 						weapon.deltag('poisoning_uses')
-						item.resendtooltip()
+						weapon.resendtooltip()
 					else:
 						weapon.settag('poisoning_uses', poisoning_uses)
 
