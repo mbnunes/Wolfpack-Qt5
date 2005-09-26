@@ -240,6 +240,7 @@
 	
 	<!-- ce type=1 --> <!-- TODO: Unknown -->
 	
+	<body id="206" basesound="0x5a" figurine="0x2131" type="1" /> <!-- Lava Lizard -->
 	<body id="207" basesound="0xd6" figurine="0x20eb" type="3" /> <!-- TODO: Unknown -->
 	<body id="208" basesound="0x6e" figurine="0x20d1" type="3" /> <!-- TODO: Unknown -->
 	<body id="209" basesound="0x99" figurine="0x20e6" type="3" /> <!-- TODO: Unknown -->
