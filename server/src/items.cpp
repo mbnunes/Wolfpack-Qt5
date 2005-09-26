@@ -1091,6 +1091,7 @@ void cItem::update( cUOSocket* singlesocket )
 
 		if ( singlesocket )
 		{
+			singlesocket->removeObject( this );
 			singlesocket->send( &equipItem );
 			sendTooltip( singlesocket );
 		}
@@ -1100,6 +1101,7 @@ void cItem::update( cUOSocket* singlesocket )
 			{
 				if ( socket->canSee( this ) )
 				{
+					socket->removeObject( this );
 					socket->send( &equipItem );
 					sendTooltip( socket );
 				}
