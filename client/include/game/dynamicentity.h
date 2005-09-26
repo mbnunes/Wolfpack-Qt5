@@ -42,4 +42,6 @@ inline unsigned int cDynamicEntity::serial() const {
     return serial_;
 }
 
+Q_DECLARE_METATYPE(cDynamicEntity*);
+
 #endif

@@ -86,6 +86,7 @@ protected:
 	cContainerGump *containerGump_; // The container gump associated with this dynamic item
 };
 
+Q_DECLARE_METATYPE(cDynamicItem*);
 
 inline cDynamicItem *cDynamicItem::container() const {
 	return container_;

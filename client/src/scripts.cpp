@@ -11,6 +11,14 @@
 #include "skills.h"
 #include "network/uosocket.h"
 
+#include "game/dynamicentity.h"
+#include "game/dynamicitem.h"
+#include "game/entity.h"
+#include "game/groundtile.h"
+#include "game/mobile.h"
+#include "game/multi.h"
+#include "game/statictile.h"
+
 #include "gui/asciilabel.h"
 #include "gui/control.h"
 #include "gui/container.h"
@@ -49,6 +57,15 @@ void cScripts::load() {
 	qRegisterMetaType<cControl*>("cControl*");
 	qRegisterMetaType<cContainer*>("cContainer*");	
 	qRegisterMetaType<cAsciiLabel*>("cAsciiLabel*");
+
+	qRegisterMetaType<cDynamicItem*>("cDynamicItem*");
+	qRegisterMetaType<cDynamicEntity*>("cDynamicEntity*");
+	qRegisterMetaType<cEntity*>("cEntity*");
+	qRegisterMetaType<cGroundTile*>("cGroundTile*");
+	qRegisterMetaType<cMobile*>("cMobile*");
+	qRegisterMetaType<cMulti*>("cMulti*");
+	qRegisterMetaType<cMultiItem*>("cMultiItem*");
+	qRegisterMetaType<cStaticTile*>("cStaticTile*");
 
 	Log->print(LOG_NOTICE, tr("Starting the Python interpreter (Version: %1).\n").arg(Py_GetVersion()));
 

@@ -13,6 +13,7 @@
 #include "gui/imagebutton.h"
 #include "gui/textfield.h"
 #include "gui/asciilabel.h"
+#include "gui/label.h"
 
 // Structure used for the shardlist
 struct stShardEntry {
@@ -53,7 +54,7 @@ private:
 	cAsciiLabel *confirmDeleteText;
 	cContainer *statusDialog;
 	cContainer *selectCharDialog;
-	cAsciiLabel *statusLabel;
+	cLabel *statusLabel;
 	enMenuPage page;
 	cImageButton *statusCancel, *statusOk;
 	cControl *selectCharBorder[6];

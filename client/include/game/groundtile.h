@@ -53,6 +53,8 @@ public:
 	void onRightClick(QMouseEvent *e);
 };
 
+Q_DECLARE_METATYPE(cGroundTile*);
+
 inline void cGroundTile::setAveragez(signed char data) {
 	averagez_ = data;
 }

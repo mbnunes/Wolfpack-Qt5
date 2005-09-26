@@ -92,7 +92,8 @@ HEADERS += \
 	include/gui/combobox.h \
 	include/gui/radiobutton.h \
 	include/gui/checkbox.h \
-	include/gui/colorpicker.h
+	include/gui/colorpicker.h \
+	include/gui/paperdoll.h
 
 # MUL INCLUDES
 HEADERS += \
@@ -179,9 +180,10 @@ SOURCES += \
 	src/gui/textbutton.cpp \
 	src/gui/stripeimage.cpp \
 	src/gui/combobox.cpp \
-	src/gui/radiobutton.h \
-	src/gui/checkbox.h \
-	src/gui/colorpicker.h	
+	src/gui/radiobutton.cpp \
+	src/gui/checkbox.cpp \
+	src/gui/colorpicker.cpp \
+	src/gui/paperdoll.cpp
 
 SOURCES += \
 	src/network/encryption.cpp \

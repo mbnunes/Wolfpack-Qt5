@@ -273,3 +273,6 @@ cLanguagePacket::cLanguagePacket(const QString &language) : cOutgoingPacket(0xbf
 	m_Stream << (uchar)0; // Null termination
 	writeDynamicSize(); // Finalize packet
 }
+
+cRequestHelpPacket::cRequestHelpPacket() : cOutgoingPacket(0x9b, 258) {	
+}

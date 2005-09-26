@@ -148,4 +148,10 @@ public:
 	cLanguagePacket(const QString &language);
 };
 
+// Request help
+class cRequestHelpPacket : public cOutgoingPacket {
+public:
+	cRequestHelpPacket();
+};
+
 #endif

@@ -51,6 +51,8 @@ public:
 	void updatePriority();
 };
 
+Q_DECLARE_METATYPE(cStaticTile*);
+
 inline unsigned short cStaticTile::hue() const {
 	return hue_;
 }

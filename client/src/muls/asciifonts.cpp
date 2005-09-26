@@ -89,7 +89,7 @@ void cAsciiFonts::reload() {
 	load();
 }
 
-cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, enTextAlign align) {
+cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue, bool shaded, enTextAlign align, bool hueAll) {
 	// Insert Newslines if the word would exceed the maxWidth boundary
 	unsigned int lineLength = 0;
 	QString wrapped;
@@ -136,7 +136,7 @@ cTexture *cAsciiFonts::buildTextWrapped(unsigned char font, const QString &text,
 		wrapped += word;
 	}
 
-	return buildText(font, wrapped, hue, shaded, align);
+	return buildText(font, wrapped, hue, shaded, align, hueAll);
 }
 
 cTexture *cAsciiFonts::buildText(unsigned char font, const QString &text, unsigned short hueid, bool shaded, enTextAlign align, bool hueAll) {

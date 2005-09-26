@@ -14,6 +14,10 @@ class cMobile;
 */
 class cNetwork : public QObject {
 Q_OBJECT
+public:
+	void emitWarmodeChanged(bool atwar) {
+		emit warmodeChanged(atwar);
+	}
 public slots:
 	/*
 		The argument is a tuple with the following elements:
@@ -24,6 +28,10 @@ public slots:
 		startLocation, characterSlot, shirtHue, pantsHue
 	*/
 	PyObject *createCharacter(PyObject *parameters);
+	void requestHelp();
+	void changeWarmode(bool atwar);
+signals:
+	void warmodeChanged(bool atwar);
 };
 
 extern cNetwork *Network;

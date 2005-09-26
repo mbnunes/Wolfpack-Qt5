@@ -99,6 +99,8 @@ public:
 	void setCellid(int cellid);
 };
 
+Q_DECLARE_METATYPE(cEntity*);
+
 inline int cEntity::cellid() const {
 	return cellid_;
 }

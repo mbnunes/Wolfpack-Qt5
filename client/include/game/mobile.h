@@ -13,6 +13,15 @@ class cDynamicItem;
 
 class cMobile : public cDynamicEntity {
 Q_OBJECT
+Q_PROPERTY(ushort body READ body WRITE setBody)
+Q_PROPERTY(ushort hue READ hue WRITE setHue)
+Q_PROPERTY(uchar direction READ direction WRITE setDirection)
+Q_PROPERTY(bool partialhue READ partialHue)
+Q_PROPERTY(uchar currentaction READ currentAction)
+Q_PROPERTY(uchar currentmountaction READ currentMountAction)
+Q_PROPERTY(Notoriety notoriety READ notoriety WRITE setNotoriety)
+Q_PROPERTY(bool warmode READ isInWarmode WRITE setWarmode)
+Q_ENUMS(Notoriety)
 public:
 	enum Notoriety {
 		Unknown = 0,
@@ -57,13 +66,13 @@ protected:
 	int drawyoffset; // Draw y offset from new tile to old tile
 	unsigned int smoothMoveTime; // Duration of smooth move effect
 	unsigned int smoothMoveEnd; // End time of the smooth move effect	
-public:
-	ushort getNameHue() const;
 
+public:
 	cMobile(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial);
 	virtual ~cMobile();
-
 	void draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip);
+public slots:
+	ushort getNameHue() const;
 	bool hitTest(int x, int y);
 	void updatePriority();
 	
@@ -110,6 +119,8 @@ public:
 
 	uint getCurrentHeight();
 };
+
+Q_DECLARE_METATYPE(cMobile*);
 
 inline cDynamicItem *cMobile::getEquipment(enLayer layer) const {
 	if (layer < LAYER_COUNT) {

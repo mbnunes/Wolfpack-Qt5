@@ -2,6 +2,7 @@
 #include <qdatetime.h>
 #include <qdir.h>
 #include <qmessagebox.h>
+#include <QThread>
 
 #include "client.h"
 #include "utilities.h"
@@ -179,6 +180,14 @@ void cUoClient::load() {
 
 	Cursor->load(); // The cursor requires the mulreader classes
 
+	//World->changeFacet(ILSHENAR);
+	World->moveCenter(0, 0, 0, true);
+	//World->moveCenter(0, 301, -7, true);
+	//Player = new cMobile(1715, 301, -7, ILSHENAR, 1);
+	Player = new cMobile(0, 0, 0, TRAMMEL, 1);
+	Player->incref(); // Always keep one reference
+	World->addEntity(Player);
+
 	Scripts->load();
 	Gui->load();
 }
@@ -265,14 +274,6 @@ void cUoClient::run()
 	
 	LoginDialog->show(PAGE_LOGIN); // Set up the login screen
 
-	//World->changeFacet(ILSHENAR);
-	World->moveCenter(0, 0, 0, true);
-	//World->moveCenter(0, 301, -7, true);
-	//Player = new cMobile(1715, 301, -7, ILSHENAR, 1);
-	Player = new cMobile(0, 0, 0, TRAMMEL, 1);
-	Player->incref(); // Always keep one reference
-	World->addEntity(Player);
-
 	// add the tooltip instance
 	Tooltip = new cTooltip;
 
@@ -285,12 +286,14 @@ void cUoClient::run()
 	enableGmToolWnd();
 #endif
 
-	QTimer networkTimer;
-	QObject::connect(&networkTimer, SIGNAL(timeout()), UoSocket, SLOT(poll()));
-	networkTimer.setSingleShot(false);
-	networkTimer.start(20); // Poll the network socket every 10 ms
-	qApp->exec(); // Enter the main event loop
-	networkTimer.stop(); // Stop the network timer
+	QThread *thread = QThread::currentThread();
+
+	while (MainWindow->isVisible()) {
+		qApp->processEvents();
+		UoSocket->poll();
+		GLWidget->repaint();
+		thread->wait(10);
+	}
 
 #if defined(Q_OS_WIN32)
 	disableGmToolWnd();

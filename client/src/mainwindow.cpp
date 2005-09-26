@@ -344,11 +344,11 @@ cGLWidget::cGLWidget(QWidget *parent) : QGLWidget(parent) {
 	setFocusPolicy(Qt::WheelFocus);
 
 	// Update Timer
-	QTimer *timer = new QTimer(this);
+	/*QTimer *timer = new QTimer(this);
 	timer->setInterval(15); // 15ms redraw interval (max. 100fps)
 	timer->setSingleShot(false);
 	connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-	timer->start();
+	timer->start();*/
 
 	singleClickTimer.setSingleShot(true);
 	singleClickTimer.setInterval(QApplication::doubleClickInterval() + 20);
@@ -382,8 +382,8 @@ void cGLWidget::initializeGL() {
 	}
 
 	if (wglSwapIntervalEXT) {
-		if (wglSwapIntervalEXT(4) == FALSE) {
-			Log->print(LOG_ERROR, tr("Unable to set vsync to on.\n"));
+		if (wglSwapIntervalEXT(0) == FALSE) {
+			Log->print(LOG_ERROR, tr("Unable to set vsync to off.\n"));
 		}
 	}
 
@@ -715,6 +715,8 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 		} else {
 			control = Gui->getControl(e->x(), e->y());
 		}
+
+		return; // Mouse _RELEASE_ events are ONLY processed if there's a capture
 	}
 	if (control) {
 		if (control == WorldView && WorldView->targetRequest()) {

@@ -28,6 +28,8 @@ public:
 	void move(ushort x, ushort y, signed char z);
 };
 
+Q_DECLARE_METATYPE(cMulti*);
+
 class cMultiItem : virtual public cStaticTile {
 protected:
 	cMulti *multi_;
@@ -38,6 +40,8 @@ public:
 	cMulti *multi() const;
 	void setMulti(cMulti *multi);
 };
+
+Q_DECLARE_METATYPE(cMultiItem*);
 
 inline QVector<cMultiItem*> cMulti::tiles() const {
 	return tiles_;

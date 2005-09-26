@@ -2,6 +2,7 @@
 #include "network/uopacket.h"
 #include "network/uosocket.h"
 #include "dialogs/login.h"
+#include "muls/localization.h"
 #include "log.h"
 #include "config.h"
 #include "enums.h"
@@ -88,25 +89,24 @@ public:
 		QString errorMessage;
 		switch (reason) {
 			case 0:
-				errorMessage = tr("Unknown User");
+				errorMessage = Localization->get(3000033);
 				break;
 			case 1:
-				errorMessage = tr("Account Already in Use");
+				errorMessage = Localization->get(3000034);
 				break;
 			case 2:
-				errorMessage = tr("Account disabled");
+				errorMessage = Localization->get(3000035);
 				break;
 			case 3:
-				errorMessage = tr("Bad password");
+				errorMessage = Localization->get(3000033);
 				break;
 			default:
-				errorMessage = tr("Communication error");
+				errorMessage = Localization->get(3000037);
 				break;
 		}
 
 		LoginDialog->setStatusText(errorMessage);
 		LoginDialog->setErrorStatus(true);
-		LoginDialog->show(PAGE_VERIFYING);
 		UoSocket->disconnect();
 	}
 

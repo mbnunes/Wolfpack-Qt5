@@ -764,6 +764,9 @@
 				RelativePath=".\obj\moc_outgoingpackets.cpp">
 			</File>
 			<File
+				RelativePath=".\obj\moc_paperdoll.cpp">
+			</File>
+			<File
 				RelativePath=".\obj\moc_profile.cpp">
 			</File>
 			<File
@@ -1236,6 +1239,28 @@
 						Description="moc&apos;ing $(InputFileName)"
 						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
 "
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\gui\paperdoll.cpp">
+			</File>
+			<File
+				RelativePath=".\include\gui\paperdoll.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -1927,6 +1952,12 @@
 			</File>
 			<File
 				RelativePath=".\release\dialogs\LoginDialog.py">
+			</File>
+			<File
+				RelativePath=".\release\dialogs\LogoutConfirm.py">
+			</File>
+			<File
+				RelativePath=".\release\dialogs\misc.xml">
 			</File>
 			<File
 				RelativePath=".\release\dialogs\Paperdoll.py">

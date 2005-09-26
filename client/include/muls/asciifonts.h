@@ -39,7 +39,7 @@ public:
 
 	// Build a text string
 	cTexture *buildText(unsigned char font, const QString &text, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT, bool hueAll = false);
-	cTexture *buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT);
+	cTexture *buildTextWrapped(unsigned char font, const QString &text, unsigned short maxWidth, unsigned short hue = 0, bool shaded = false, enTextAlign align = ALIGN_LEFT, bool hueAll = false);
 };
 
 extern cAsciiFonts *AsciiFonts;

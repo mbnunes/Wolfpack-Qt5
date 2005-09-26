@@ -21,6 +21,7 @@
 #include "gui/textfield.h"
 #include "gui/scrollbar.h"
 #include "gui/worldview.h"
+#include "muls/localization.h"
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
 #include "mainwindow.h"
@@ -340,7 +341,7 @@ void cLoginDialog::show(enMenuPage page) {
 
 		// Set up the Status Dialog
 		statusDialog = dynamic_cast<cContainer*>(container->findByName("StatusDialogContainer"));
-		statusLabel = dynamic_cast<cAsciiLabel*>(statusDialog->findByName("StatusLabel"));
+		statusLabel = dynamic_cast<cLabel*>(statusDialog->findByName("StatusLabel"));
 		statusOk = dynamic_cast<cImageButton*>(statusDialog->findByName("StatusOkButton"));
 		statusCancel = dynamic_cast<cImageButton*>(statusDialog->findByName("StatusCancelButton"));
 		connect(statusCancel, SIGNAL(onButtonPress(cControl*)), this, SLOT(statusCancelClicked(cControl*)));
@@ -440,13 +441,13 @@ void cLoginDialog::show(enMenuPage page) {
 			backButton->setVisible(true);
 			break;
 		case PAGE_CONNECTING:
-			statusLabel->setText("Connecting...");
+			statusLabel->setText(Localization->get(3000002));
 			statusDialog->setVisible(true);
 			statusOk->setVisible(false);
 			statusCancel->setVisible(true);
 			break;
 		case PAGE_VERIFYING:
-			statusLabel->setText("Verifying Account...");
+			statusLabel->setText(Localization->get(3000003));
 			statusDialog->setVisible(true);
 			statusOk->setVisible(false);
 			statusCancel->setVisible(true);
@@ -462,13 +463,13 @@ void cLoginDialog::show(enMenuPage page) {
 			backButton->setVisible(false);
 			break;
 		case PAGE_DELETING:
-			statusLabel->setText(tr("Deleting character...").toLatin1());
+			statusLabel->setText(tr("Deleting character..."));
 			statusDialog->setVisible(true);
 			statusOk->setVisible(false);
 			statusCancel->setVisible(false);
 			break;
 		case PAGE_ENTERING:
-			statusLabel->setText(tr("Entering Britannia...").toLatin1());
+			statusLabel->setText(Localization->get(3000001));
 			statusDialog->setVisible(true);
 			statusOk->setVisible(false);
 			statusCancel->setVisible(false);

@@ -6,6 +6,9 @@
 #include <QVector>
 #include <QStringList>
 
+#include "game/mobile.h"
+#include "game/dynamicitem.h"
+
 /*
 	This object wraps a qobject method.
 */
@@ -541,10 +544,22 @@ static int wrapper_set(pyWrapperObject* self, char* name, PyObject* value) {
 					break;
 				case QVariant::Bool:
 					variant.setValue<bool>(PyObject_IsTrue(value) != 0);
-					break;				
+					break;
 				default:
-					PyErr_Format(PyExc_AttributeError, "Unsupported property type: %d (%s)", (int)property.type(), name);
-					return -1;
+					if (type >= QMetaType::User) {
+						// This kind of handling sucks!
+						// But there is no other way of handling it other than upcasting to the respective class in this case						
+						if (type == (int)QMetaType::type("cMobile*")) {
+							variant.setValue<cMobile*>(dynamic_cast<cMobile*>(getWrappedObject(value)));
+						} else if (type == (int)QMetaType::type("cDynamicItem*")) {
+							variant.setValue<cDynamicItem*>(dynamic_cast<cDynamicItem*>(getWrappedObject(value)));
+						} else {
+							variant.setValue<QObject*>(getWrappedObject(value));
+						}						
+					} else {
+						PyErr_Format(PyExc_AttributeError, "Unsupported property type: %d (%s)", (int)property.type(), name);
+						return -1;
+					}					
 			}
 
 			// Read the property from our wrapped object

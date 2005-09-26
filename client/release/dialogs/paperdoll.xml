@@ -1,18 +1,21 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 <dialogs>
 	<!-- Big Paperdoll Dialog -->
-	<dialog id="BigPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
+	<dialog id="BigPaperdoll" name="PlayerPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
 		<bounds x="0" y="0" width="262" height="324" />
 		<children>			
 			<gumpimage gump="0x7d0" autosize="true" movehandle="true" />
 			
 			<!-- TODO: Insert the paperdoll representation of the entity here -->
+			<paperdoll name="Paperdoll">
+				<bounds x="8" y="19" width="260" height="237" />
+			</paperdoll>
 			
 			<!-- This is the unicode version of the name label -->
 			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">
 				<bounds x="40" y="264" width="180" />
 			</label>-->
-			<asciilabel name="NameLabel" font="1" movehandle="true" hue="1">
+			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386">
 				<bounds x="40" y="264" width="180" />
 			</asciilabel>
 			
@@ -61,28 +64,24 @@
 			</imagebutton>
 			
 			<!-- Pentagram (Virtue) Button -->
-			<!-- TODO: Only activate on dobuleclick -->
-			<imagebutton name="VirtueButton" unpressed="113" hover="113" pressed="113">
+			<gumpimage name="VirtueButton" gump="113" movehandle="false">
 				<position x="80" y="4" />
-			</imagebutton>
+			</gumpimage>
 			
 			<!-- Profile Button -->
-			<!-- TODO: Only activate on dobuleclick -->
-			<imagebutton name="ProfileButton" unpressed="2002" hover="2002" pressed="2002">
+			<gumpimage name="ProfileButton" gump="2002" movehandle="false">
 				<position x="23" y="196" />
-			</imagebutton>
+			</gumpimage>
 			
 			<!-- Party Button -->
-			<!-- TODO: Only activate on dobuleclick -->
-			<imagebutton name="PartyButton" unpressed="2002" hover="2002" pressed="2002">
+			<gumpimage name="PartyButton" gump="2002" movehandle="false">
 				<position x="37" y="196" />
-			</imagebutton>
+			</gumpimage>
 			
 			<!-- Weapon Ability Button -->
-			<!-- TODO: Only activate on dobuleclick -->
-			<imagebutton name="AbilityButton" unpressed="11060" hover="11060" pressed="11060">
+			<gumpimage name="AbilityButton" gump="11060" movehandle="false">
 				<position x="156" y="198" />
-			</imagebutton>			
+			</gumpimage>
 		</children>
 	</dialog>
 	
@@ -91,6 +90,14 @@
 		<bounds x="0" y="0" width="262" height="324" />
 		<children>
 			<gumpimage gump="0x7d1" />
+			
+			<!-- This is the unicode version of the name label -->
+			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">
+				<bounds x="40" y="264" width="180" />
+			</label>-->
+			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386">
+				<bounds x="40" y="264" width="180" />
+			</asciilabel>			
 		</children>
 	</dialog>
 </dialogs>

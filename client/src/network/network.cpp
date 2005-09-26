@@ -23,4 +23,12 @@ PyObject *cNetwork::createCharacter(PyObject *args) {
 	Py_RETURN_TRUE;
 }
 
+void cNetwork::requestHelp() {
+	UoSocket->send(cRequestHelpPacket());
+}
+
+void cNetwork::changeWarmode(bool atwar) {
+	UoSocket->send(cWarmodeChangeRequest(atwar));
+}
+
 cNetwork *Network = 0;

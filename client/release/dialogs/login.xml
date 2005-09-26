@@ -126,28 +126,25 @@
 				</children>
 			</container>
 			
-			<!-- This is the status dialog used by the login gump -->
-			<container name="StatusDialogContainer" visible="false">
-				<bounds x="0" y="0" width="640" height="480" />
+			<!-- This is the status dialog used by the login gump -->			
+			<container name="StatusDialogContainer" visible="false" movable="true">
+				<bounds x="195" y="115" width="250" height="250" />
 				<children>
-					<!-- Dialog background -->
-					<bordergump gump="0xa28">
-						<bounds x="116" y="96" width="408" height="288" />
+					<bordergump gump="9200">
+						<bounds x="0" y="0" width="250" height="250" />
 					</bordergump>
-					
-					<asciilabel name="StatusLabel" text="Status" font="2" hue="0x34f" textalign="center" autosize="false">					
-						<bounds x="116" y="150" width="408" height="200" />
-					</asciilabel>
-					
-					<!-- Cancel Button -->
-					<imagebutton name="StatusCancelButton" unpressed="0x47e" pressed="0x480" hover="0x47f">
-						<position x="306" y="296" />
+					<bordergump gump="3500">
+						<bounds x="10" y="10" width="230" height="208" />
+					</bordergump>
+					<label name="StatusLabel" text="" hue="1" border="false" textalign="center" autosize="0">
+						<bounds x="25" y="25" width="200"/>
+					</label>
+					<imagebutton name="StatusOkButton" unpressed="4023" pressed="4025" hover="4024">
+						<position x="110" y="223" />
 					</imagebutton>
-					
-					<!-- Ok Button -->
-					<imagebutton name="StatusOkButton" unpressed="0x481" pressed="0x483" hover="0x482">
-						<position x="306" y="296" />
-					</imagebutton>
+					<imagebutton name="StatusCancelButton" unpressed="4017" pressed="4019" hover="4018">
+						<position x="110" y="223" />
+					</imagebutton>					
 				</children>
 			</container>
 
@@ -806,7 +803,7 @@
 				<bounds x="10" y="10" width="230" height="208" />
 			</bordergump>
 			<label name="MessageLabel" text="" hue="1" border="false" textalign="center" autosize="0">
-				<bounds x="25" y="25" width="180"/>
+				<bounds x="25" y="25" width="200"/>
 			</label>
 			<imagebutton name="OkButton" unpressed="4023" pressed="4025" hover="4024">
 				<position x="110" y="223" />

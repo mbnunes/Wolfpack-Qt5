@@ -9,6 +9,7 @@
 #include "gui/tooltip.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
+#include "network/network.h"
 #include "log.h"
 
 // Draw order for layers dependant on direction facing
@@ -560,13 +561,18 @@ void cMobile::setWarmode(bool data) {
 		if (currentActionEnd_ == 0) {
 			freeSequence();
 			currentAction_ = getIdleAction();
-		}	
+		}
+		Network->emitWarmodeChanged(data);
 	}
 }
 
 void cMobile::processFlags(uchar flags) {
 	hidden = (flags & 0x80) != 0;
-	warmode = (flags & 0x40) != 0;
+
+	if (warmode != ((flags & 0x40) != 0)) {
+		warmode = (flags & 0x40) != 0;
+		Network->emitWarmodeChanged(warmode);
+	}	
 }
 
 uint cMobile::getCurrentHeight() {

@@ -10,6 +10,7 @@
 #include "gui/genericgump.h"
 #include "gui/gumpimage.h"
 #include "gui/containergump.h"
+#include "gui/paperdoll.h"
 #include "gui/textfield.h"
 #include "gui/tooltip.h"
 #include "gui/textbutton.h"
@@ -165,6 +166,11 @@ void cGui::draw() {
 		cContainerItemImage *itemImg = dynamic_cast<cContainerItemImage*>(GLWidget->lastMouseMovement());
 		if (itemImg) {
 			mEntity = World->findDynamic(itemImg->serial());
+		}
+		cPaperdoll *paperdoll = dynamic_cast<cPaperdoll*>(GLWidget->lastMouseMovement());
+		if (paperdoll) {
+			QPoint pos = paperdoll->mapFromGlobal(GLWidget->mapFromGlobal(QCursor::pos()));
+			mEntity = dynamic_cast<cEntity*>(paperdoll->itemAtPos(pos.x(), pos.y()));
 		}
 	}
 
@@ -504,6 +510,8 @@ cControl *cGui::createControl(QDomElement templateNode) {
 		result = new cRadioButton();
 	} else if (className == "colorpicker") {
 		result = new cColorPicker();
+	} else if (className == "paperdoll") {
+		result = new cPaperdoll;
 	}
 
 	if (result) {

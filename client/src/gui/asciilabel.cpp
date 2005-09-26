@@ -32,10 +32,14 @@ void cAsciiLabel::update() {
 		texture->decref();
 	}
 
-	texture = AsciiFonts->buildText(font_, text_, hue_, false, align_, hueAll_); // Build in advance because of autosizing		
-
-	if (autoSize_) {
-		setSize(texture->realWidth(), texture->realHeight());
+	if (!autoSize_) {
+		texture = AsciiFonts->buildTextWrapped(font_, text_, width_, hue_, false, align_, hueAll_); // Build in advance because of autosizing
+		setHeight(texture->realHeight());
+	} else {
+		texture = AsciiFonts->buildText(font_, text_, hue_, false, align_, hueAll_); // Build in advance because of autosizing
+		if (autoSize_) {
+			setSize(texture->realWidth(), texture->realHeight());
+		}
 	}
 }
 
