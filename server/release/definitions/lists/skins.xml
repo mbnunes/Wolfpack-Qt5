@@ -285,4 +285,13 @@
 		<item>0x90e</item>
 	</list>
 
+	<list id="SKINS_LAVA">
+		<item>0x647</item>
+		<item>0x650</item>
+		<item>0x659</item>
+		<item>0x662</item>
+		<item>0x66B</item>
+		<item>0x674</item>
+	</list>
+
 </definitions>

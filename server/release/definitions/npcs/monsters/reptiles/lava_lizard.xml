@@ -11,7 +11,8 @@
 	<!-- a lava lizard -->
 	<npc id="lava_lizard" inherit="monster_base">
 		<name>lava lizard</name>
-		<id>207</id>
+		<id>206</id>
+		<skin><random list="SKINS_LAVA" /></skin>
 		<inherit id="KARMA_L2" />
 		<inherit id="FAME_L2" />
 		<!-- Stats -->

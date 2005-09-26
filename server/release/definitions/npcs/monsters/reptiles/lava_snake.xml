@@ -11,7 +11,8 @@
 	<!-- Lava Snake -->
 	<npc id="lava_snake" inherit="monster_base">
 		<name>lava snake</name>
-		<id>838</id>
+		<id>52</id>
+		<skin><random list="SKINS_LAVA" /></skin>
 		<inherit id="KARMA_L2" />
 		<inherit id="FAME_L2" />
 		<!-- Stats -->
