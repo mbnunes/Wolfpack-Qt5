@@ -41,6 +41,9 @@ public:
 	}
 
 	virtual void handle(cUoSocket *socket) {
+		// Clear equipment
+		Player->clearEquipment();
+
 		Player->setSerial(serial);		
 		Player->setBody(body);
 		Player->setDirection(direction);
@@ -457,11 +460,19 @@ public:
 		// System Message
 		if (!mobile && !item) {
 			if (Utilities::isMobileSerial(serial) && !name.isEmpty()) {
+				Profile->addJournalText(tr("%1: %2").arg(name).arg(message), hue, font);
 				message.prepend(QString("<%1> ").arg(name));				
+			} else {				
+				Profile->addJournalText(message, hue, font);
 			}
-
+		
 			WorldView->addSysMessage(message, hue, font);
 		} else if (mobile) {
+			if (type == 6) {
+				Profile->addJournalText(tr("You see: %1").arg(message), hue, font);
+			} else {
+				Profile->addJournalText(tr("%1: %2").arg(name).arg(message), hue, font);
+			}
 			Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile);
 		}
 	}
@@ -770,17 +781,27 @@ public:
 			if (type == 6) {
 				cDynamicItem *item = World->findItem(serial);
 
+				Profile->addJournalText(tr("You see: %1").arg(localized), hue, font);
 				if (item) {
-					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, localized, hue, font, item);
+					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, localized, hue, font, item);					
 				} else {
 					serial = 0; // Set to invalid so it shows up as a sysmessage
 				}
 			}
 		} else if (Utilities::isMobileSerial(serial)) {
-			WorldView->addSysMessage(QString("<%1> %2").arg(name).arg(localized), hue, font);
+			if (type == 6) {
+				Profile->addJournalText(tr("You see: %1").arg(localized), hue, font);
+			} else {
+				Profile->addJournalText(tr("%1: %2").arg(name).arg(localized), hue, font);
+				WorldView->addSysMessage(QString("<%1> %2").arg(name).arg(localized), hue, font);
+			}
 		}
 		
 		if (Utilities::isInvalidSerial(serial)) {
+			// You see message are handled elsewhere
+			if (type != 6) {
+				Profile->addJournalText(localized, hue, font);
+			}
 			WorldView->addSysMessage(localized, hue, font);
 		}
 	}
@@ -830,6 +851,8 @@ public:
 			if (type == 6) {
 				cDynamicItem *item = World->findItem(serial);
 
+				Profile->addJournalText(tr("You see: %1").arg(message), hue, font);
+
 				if (item) {
 					QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
 					Gui->addOverheadText(item->lastClickX(), item->lastClickY(), 3000, message, hue, font, item, true);
@@ -842,14 +865,19 @@ public:
 
 			if (mobile) {
 				if (type == 6) {
+					Profile->addJournalText(tr("You see: %1").arg(message), hue, font);
 					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile, true);
 				} else {
+					Profile->addJournalText(tr("%1: %2").arg(name).arg(message), hue, font);
 					Gui->addOverheadText(0, 0, 3000, message, hue, font, mobile, true);
 				}
 			}
 		}
 		
 		if (Utilities::isInvalidSerial(serial)) {
+			if (type != 6) {
+				Profile->addJournalText(message, hue, font);
+			}
 			WorldView->addSysMessage(message, hue, font);
 		}
 	}

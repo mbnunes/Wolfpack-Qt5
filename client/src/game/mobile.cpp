@@ -84,23 +84,7 @@ cMobile::~cMobile() {
 		Player = 0; // Reset player to null -> important
 	}
 
-	// Dec-reference Equipment
-	for (int i = 0; i < LAYER_COUNT; ++i) {
-		if (equipmentSequences[i]) {
-			equipmentSequences[i]->decref();
-		}
-		if (equipment[i]) {
-			equipment[i]->moveToLimbo();
-			equipment[i]->decref();
-		}
-	}
-	
-	QVector<cDynamicItem*> equipmentCopy = invisibleEquipment;
-	QVector<cDynamicItem*>::iterator it;
-	for (it = equipmentCopy.begin(); it != equipmentCopy.end(); ++it) {
-		(*it)->moveToLimbo();
-		(*it)->decref();
-	}
+	clearEquipment();
 }
 
 void cMobile::removeEquipment(cDynamicItem *item) {
@@ -119,6 +103,7 @@ void cMobile::removeEquipment(cDynamicItem *item) {
 					currentAction_ = getIdleAction();
 				}
 
+				emit equipmentChanged();
 				return;
 			}
 		}
@@ -441,6 +426,8 @@ void cMobile::addEquipment(cDynamicItem *item) {
 	} else {
         invisibleEquipment.append(item);
 	}
+
+	emit equipmentChanged();
 }
 
 void cMobile::refreshEquipment(enLayer layer) {
@@ -481,6 +468,7 @@ void cMobile::refreshEquipment(enLayer layer) {
 			equipmentSequences[layer]->decref();
 			equipmentSequences[layer] = 0;
 		}
+		emit equipmentChanged();
 		return;
 	}
 
@@ -513,6 +501,8 @@ void cMobile::refreshEquipment(enLayer layer) {
 		}
 		equipmentSequences[layer] = 0;
 	}
+
+	emit equipmentChanged();
 }
 
 uint cMobile::getMoveDuration(bool running) const {	
@@ -606,6 +596,30 @@ void cMobile::setNotoriety(cMobile::Notoriety data) {
 	if (getNameHue() != oldHue && Tooltip->entity() == dynamic_cast<cEntity*>(this)) {
 		Tooltip->refreshTooltip();
 	}
+}
+
+void cMobile::clearEquipment() {
+	// Dec-reference Equipment
+	for (int i = 0; i < LAYER_COUNT; ++i) {
+		if (equipmentSequences[i]) {
+			equipmentSequences[i]->decref();
+			equipmentSequences[i] = 0;
+		}
+		if (equipment[i]) {
+			cDynamicItem *old = equipment[i];
+			equipment[i]->moveToLimbo(); // Removes itself from the equipment array
+			old->decref(); // If this happens it's a double equip...
+		}
+	}
+	
+	QVector<cDynamicItem*> equipmentCopy = invisibleEquipment;
+	QVector<cDynamicItem*>::iterator it;
+	for (it = equipmentCopy.begin(); it != equipmentCopy.end(); ++it) {
+		(*it)->moveToLimbo();
+		(*it)->decref();
+	}
+
+	emit equipmentChanged();
 }
 
 cMobile *Player = 0;

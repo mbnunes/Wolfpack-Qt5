@@ -414,6 +414,7 @@ void cConfig::load() {
 	disableSound_ = getBool("General", "Disable Sound", false, true);
 	profilePath_ = getString("General", "Profile Path", "./profiles/", true);
 	clientVersion_ = getString("General", "Client Version", "5.0.0b", true);
+	maxJournalSize_ = getNumber("General", "Maximum Journal Size (Lines)", 1000, true);
 
 	// Encryption
 	enableEncryption_ = getBool("Encryption", "Enable Encryption", false, true);

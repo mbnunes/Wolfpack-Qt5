@@ -27,6 +27,7 @@ void cProfile::clearProfile() {
 		delete action;
 	}
 	keyBindings_.clear();
+	journal_.clear();
 }
 
 void cProfile::loadFromString(const QString &data) {
@@ -59,6 +60,9 @@ void cProfile::loadFromString(const QString &data) {
 		} else if (element.nodeName() == "keybindings") {
 			// Process subnodes of this node as keys
 			loadKeyBindings(element);
+		} else if (element.nodeName() == "journal") {
+			// Process subnodes of this element as journal lines
+			loadJournal(element);
 		}
 
 		element = element.nextSiblingElement();
@@ -156,6 +160,7 @@ QString cProfile::saveToString() {
 	SAVE_TEXT("emotehue", QString::number(emoteHue_));
 
 	root.appendChild(saveKeyBindings(document));
+	root.appendChild(saveJournal(document));
 
 	return document.toString();
 }
@@ -169,6 +174,21 @@ bool cProfile::processShortcut(const QKeySequence &sequence) {
 	}
 
 	return false;
+}
+
+void cProfile::loadJournal(QDomElement &element) {
+	QDomElement child = element.firstChildElement("line");
+	while (!child.isNull()) {
+		cJournalEntry entry;
+		entry.time = QDateTime::fromString(child.attribute("time"), Qt::ISODate);
+		entry.color = Utilities::stringToUInt(child.attribute("color"));
+		entry.font = Utilities::stringToUInt(child.attribute("font"));
+		entry.text = child.text();
+        
+		journal_.append(entry);
+
+		child = child.nextSiblingElement("line");
+	}
 }
 
 void cProfile::loadKeyBindings(QDomElement &element) {
@@ -214,6 +234,21 @@ void cProfile::loadKeyBindings(QDomElement &element) {
 	}
 }
 
+QDomElement cProfile::saveJournal(QDomDocument &document) {
+	QDomElement root = document.createElement("journal");
+
+	foreach (const cJournalEntry &entry, journal_) {
+		QDomElement line = document.createElement("line");
+		line.setAttribute("time", entry.time.toString(Qt::ISODate));
+		line.setAttribute("color", entry.color);
+		line.setAttribute("font", entry.font);
+		line.appendChild(document.createTextNode(entry.text));
+		root.appendChild(line);
+	}
+
+	return root;
+}
+
 QDomElement cProfile::saveKeyBindings(QDomDocument &document) {
 	QDomElement root = document.createElement("keybindings");
 
@@ -247,6 +282,21 @@ QDomElement cProfile::saveKeyBindings(QDomDocument &document) {
 	}
 
 	return root;
+}
+
+void cProfile::addJournalText(const QString &text, ushort color, uchar font) {
+	cJournalEntry entry;
+	entry.color = color;
+	entry.font = font;
+	entry.text = text;
+	entry.time = QDateTime::currentDateTime();
+	journal_.append(entry);
+
+	lastChange_ = entry.time;
+
+	while ((uint)journal_.size() > Config->maxJournalSize()) {
+		journal_.pop_front();
+	}
 }
 
 cProfile *Profile = 0;

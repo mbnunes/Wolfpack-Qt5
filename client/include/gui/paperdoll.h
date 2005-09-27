@@ -49,8 +49,13 @@ public slots:
 	void ownerDeleted();
 	void update();
 	void clear();
-	cDynamicItem *itemAtPos(int x, int y);	
+	cDynamicItem *itemAtPos(int x, int y);
+	void invalidate();
 };
+
+inline void cPaperdoll::invalidate() {
+	dirty = true;
+}
 
 inline cMobile *cPaperdoll::owner() const {
 	return owner_;

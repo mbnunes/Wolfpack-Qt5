@@ -51,6 +51,7 @@ private:
 	QString screenshotsPath_;
 	bool disableSound_;
 	QString profilePath_;
+	ushort maxJournalSize_;
 	QString clientVersion_;
 
 	bool enableEncryption_;
@@ -80,6 +81,9 @@ public:
 
 	const QString &profilePath() const { return profilePath_; };
 	void setProfilePath(const QString &data) { profilePath_ = data; setString("General", "Profile Path", data); }	
+
+	const unsigned int maxJournalSize() { return maxJournalSize_; }
+	void setMaxJournalSize(ushort data) { maxJournalSize_ = data; setNumber("General", "Maximum Journal Size (Lines)", data); }
 
 	const QString &screenshotsPath() const { return screenshotsPath_; };
 	void setScreenshotsPath(const QString &data) { screenshotsPath_ = data; setString("General", "Screenshots Path", data); }	

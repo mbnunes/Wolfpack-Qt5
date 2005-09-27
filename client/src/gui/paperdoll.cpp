@@ -44,6 +44,7 @@ void cPaperdoll::setOwner(cMobile *owner) {
 	// Disconnect from the owner
 	if (owner_) {
 		owner_->disconnect(this, SLOT(ownerDeleted()));
+		owner_->disconnect(this, SLOT(invalidate()));
 		owner_ = 0;
 	}
 
@@ -52,6 +53,8 @@ void cPaperdoll::setOwner(cMobile *owner) {
 	// Disconnect from the owner
 	if (owner_) {
 		connect(owner_, SIGNAL(destroyed(QObject*)), this, SLOT(ownerDeleted()));
+		connect(owner_, SIGNAL(bodyChanged()), this, SLOT(invalidate()));
+		connect(owner_, SIGNAL(equipmentChanged()), this, SLOT(invalidate()));
 	}
 
 	dirty = true;
@@ -109,9 +112,12 @@ void cPaperdoll::update() {
 	// Layer 0 will be the pdoll background
 	switch (owner_->body()) {
 		case 0x190:
+		case 0x3db:
+		case 0x192:
 			background = 0xC;
 			break;
 		case 0x191:
+		case 0x193:
 			background = 0xD;
 			female = true;
 			break;
@@ -124,7 +130,7 @@ void cPaperdoll::update() {
 		return;
 	}
 
-	layers[0] = Gumpart->readTexture(background, owner_->hue(), (owner_->hue() & 0x8000) != 0);
+	layers[0] = Gumpart->readTexture(background, owner_->hue(), owner_->partialHue());
 
 	for (uint i = LAYER_RIGHTHAND; i < LAYER_VISIBLECOUNT+1; ++i) {
 		cDynamicItem *item = owner_->getEquipment(enLayer(i));

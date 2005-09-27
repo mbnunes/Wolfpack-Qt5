@@ -113,11 +113,15 @@ public slots:
 	void addEquipment(cDynamicItem *item);
 	void removeEquipment(cDynamicItem *item);
 	void refreshEquipment(enLayer layer);
+	void clearEquipment();
 	cDynamicItem *getEquipment(enLayer layer) const;
 
 	void processFlags(uchar flags);
 
 	uint getCurrentHeight();
+signals:
+	void equipmentChanged();
+	void bodyChanged();
 };
 
 Q_DECLARE_METATYPE(cMobile*);
@@ -167,6 +171,7 @@ inline void cMobile::setBody(unsigned short data) {
 		body_ = data;
 		currentAction_ = getIdleAction();
 		freeSequence();
+		emit bodyChanged();
 	}
 }
 
@@ -175,9 +180,10 @@ inline void cMobile::setHue(unsigned short data) {
 	if (data & 0x8000) {
 		partialHue_ = true;
 		data &= ~ 0x8000; // Clear the flag
-	}
-	hue_ = data;
+	}	
+	hue_ = data;	
 	freeSequence();
+	emit bodyChanged();
 }
 
 inline void cMobile::setDirection(unsigned char data) {

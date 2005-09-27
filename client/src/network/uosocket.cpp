@@ -147,7 +147,7 @@ void cUoSocket::connect(const QString &host, unsigned short port, bool gameServe
 	outgoingBytes_ = 0;
 }
 
-void cUoSocket::disconnect() {
+void cUoSocket::disconnect() {	
 	// Clear incoming and outgoing queue
 	incomingQueue.clear();
 	outgoingQueue.clear();
@@ -155,6 +155,7 @@ void cUoSocket::disconnect() {
 
 	if (!qApp->closingDown() && WorldView->isVisible()) {
 		World->clearEntities();
+		Player->clearEquipment();
 		WorldView->setVisible(false);
 		WorldView->cancelTarget();
 		Cursor->setCursor(CURSOR_NORMAL);
@@ -166,6 +167,8 @@ void cUoSocket::disconnect() {
 	if (gameServer && !account_.isEmpty() && Player) {		
 		Profile->saveToFile();
 	}
+
+	Profile->clearProfile();
 
 	account_.clear();
 }

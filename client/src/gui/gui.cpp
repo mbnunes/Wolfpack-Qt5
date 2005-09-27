@@ -354,6 +354,11 @@ void cGui::closeAllGumps() {
 			queueDelete(gump);
 			continue;
 		}
+		cWindow *window = dynamic_cast<cWindow*>(control);
+		if (window && window->isClosable()) {
+			queueDelete(window);
+			continue;
+		}
 	}
 }
 

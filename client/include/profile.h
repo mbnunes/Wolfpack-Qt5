@@ -4,6 +4,7 @@
 
 #include <QObject>
 #include <QVector>
+#include <QList>
 #include <QDateTime>
 #include <QString>
 #include <QKeySequence>
@@ -11,6 +12,15 @@
 #include <QDomDocument>
 
 class cBaseAction;
+
+// One line entry in the journal
+class cJournalEntry {
+public:
+	QDateTime time;
+	QString text;
+	ushort color;
+	uchar font;
+};
 
 class cProfile : QObject {
 Q_OBJECT
@@ -21,14 +31,18 @@ protected:
 	QDateTime lastChange_; // Indicates the last change to the profile
 	QString currentFilename_; // Where the current profile has been loaded from
 	QVector<cBaseAction*> keyBindings_; // Key bindings for this profile
+	QList<cJournalEntry> journal_; // Journal
 
 	void loadKeyBindings(QDomElement &element);
 	QDomElement saveKeyBindings(QDomDocument &document);
+	void loadJournal(QDomElement &element);
+	QDomElement saveJournal(QDomDocument &document);
 
 public:
 	cProfile();
 	~cProfile();
 
+public slots:
 	void loadFromString(const QString &data);
     void loadFromFile(QString filename, bool dontPrependPath = false);
 	void saveToFile(const QString &filename, bool dontPrependPath = false);
@@ -41,8 +55,10 @@ public:
 	void setEmoteHue(ushort data);
 	uchar defaultFont() const;
 	void setDefaultFont(uchar data);
-	QDateTime lastChange();
+	const QDateTime &lastChange() const;
 	const QString &currentFilename() const;
+	const QList<cJournalEntry> &journal() const;
+	void addJournalText(const QString &text, ushort color, uchar font);
 
 	bool processShortcut(const QKeySequence &sequence);
 
@@ -78,6 +94,14 @@ inline void cProfile::setDefaultFont(uchar data) {
 
 inline const QString &cProfile::currentFilename() const {
 	return currentFilename_;
+}
+
+inline const QList<cJournalEntry> &cProfile::journal() const {
+	return journal_;
+}
+
+inline const QDateTime &cProfile::lastChange() const {
+	return lastChange_;
 }
 
 extern cProfile *Profile;

@@ -15,7 +15,7 @@
 				<bounds x="40" y="264" width="180" />
 			</label>-->
 			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386">
-				<bounds x="40" y="264" width="180" />
+				<bounds x="39" y="259" width="180" />
 			</asciilabel>
 			
 			<!-- Help Button -->
@@ -33,17 +33,14 @@
 				<position x="185" y="99" />
 			</imagebutton>			
 						
-			<!-- Peace Button -->
-			<imagebutton name="PeaceButton" unpressed="2021" hover="2023" pressed="2022">
-				<position x="185" y="207" />
-			</imagebutton>
-			
-			<imagebutton name="WarButton" unpressed="2024" hover="2026" pressed="2025">
-				<position x="185" y="207" />
-			</imagebutton>
-			
 			<!-- Quest Button -->
-			<imagebutton name="QuestButton" unpressed="22453" hover="22454" pressed="22455">
+			<!-- Screw this -->
+			<!-- <imagebutton name="QuestButton" unpressed="22453" hover="22454" pressed="22455">
+				<position x="185" y="124" />
+			</imagebutton> -->
+			
+			<!-- Journal Button -->
+			<imagebutton name="JournalButton" unpressed="2012" hover="2014" pressed="2013">
 				<position x="185" y="124" />
 			</imagebutton>
 			
@@ -56,6 +53,15 @@
 			<imagebutton name="GuildButton" unpressed="22450" hover="22451" pressed="22452">
 				<position x="185" y="179" />
 			</imagebutton>
+			
+			<!-- Peace Button -->
+			<imagebutton name="PeaceButton" unpressed="2021" hover="2023" pressed="2022">
+				<position x="185" y="207" />
+			</imagebutton>
+			
+			<imagebutton name="WarButton" unpressed="2024" hover="2026" pressed="2025">
+				<position x="185" y="207" />
+			</imagebutton>			
 												
 			<!-- Status Button -->
 			<imagebutton name="StatusButton" unpressed="2027" hover="2029" pressed="2028">
@@ -99,7 +105,7 @@
 				<bounds x="40" y="264" width="180" />
 			</label>-->
 			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386">
-				<bounds x="40" y="264" width="180" />
+				<bounds x="39" y="259" width="180" />
 			</asciilabel>
 			
 			<!-- Status Button -->
