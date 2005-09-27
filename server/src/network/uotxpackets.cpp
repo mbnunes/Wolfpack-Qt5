@@ -419,6 +419,13 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		// -> Shop containers need to be send
 		if ( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
 			continue;
+			
+		// Skip the mount item if we're not sending it to ourself
+		// which we wont do since 0x78 wont be sent to the player 
+		// at least not normally
+		if ( !pChar->isHuman() && pItem->layer() == 0x19 ) {
+			continue;
+		}
 
 		// Only send items once
 		if ( layers[pItem->layer()] )

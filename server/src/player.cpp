@@ -1599,6 +1599,13 @@ bool cPlayer::canSeeItem( P_ITEM item )
 		else
 		{
 			P_CHAR character = dynamic_cast<P_CHAR>( item->container() );
+			
+			// We're equipped by a character. If we're on the mount layer
+			// only the equipping character can see us
+			if (item->layer() == 0x19 && character != this) {
+				return false;
+			}
+			
 			return canSeeChar( character );
 		}
 	}
