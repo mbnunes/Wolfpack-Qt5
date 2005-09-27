@@ -281,7 +281,7 @@ void cUoSocket::buildPackets() {
 				// Packet still incomplete
 				if (Config->packetLogging()) {
 					if (packetLog.isOpen() || packetLog.open(QIODevice::WriteOnly|QIODevice::Text)) {
-						packetLog.write(tr("SERVER -> CLIENT\nGot only %1 bytes of %2 for packet 0x%3.\n\n").arg(incomingBuffer.size()).arg(dynamicSize).arg(packetId).toLocal8Bit());
+						packetLog.write(tr("SERVER -> CLIENT\nGot only %1 bytes of %2 for packet 0x%3.\n\n").arg(incomingBuffer.size()).arg(dynamicSize).arg(packetId, 0, 16).toLocal8Bit());
 					}
 				}
 			}

@@ -657,8 +657,17 @@ void cGLWidget::mousePressEvent(QMouseEvent *e) {
 		}
 
 		if (control) {
-			control->onMouseDown(e);
+			// Check if we can drop on this control
+			if (Gui->isDragging()) {
+				cDynamicItem *item = Gui->draggedItem();
+				if (item && control->acceptsItemDrop(item)) {
+					control->dropItem(item);
+					return;
+				}
+			}
+
 			mouseCapture_ = control;
+			control->onMouseDown(e);			
 
 			// If the new control wants to have the input focus, it gets it
 			if (control->canHaveFocus()) {
@@ -707,7 +716,15 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 	
 	cControl *control = mouseCapture_;
 	mouseCapture_ = 0; // Reset mouse capture
+
 	if (!control) {
+		// If we don't have a mouse capture and aren't dragging anything.
+		// return
+		cDynamicItem *item = Gui->draggedItem();
+		if (!item) {
+			return;
+		}
+
 		// If a contextmenu is currently visible and we're not clicking on something inside it,
 		// eat the event and close the menu
 		if (Gui->currentCombolist()) {
@@ -716,7 +733,11 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 			control = Gui->getControl(e->x(), e->y());
 		}
 
-		return; // Mouse _RELEASE_ events are ONLY processed if there's a capture
+		// Only check for drop events here
+		if (control && control->acceptsItemDrop(item)) {
+			control->dropItem(item);
+		}
+		return;
 	}
 	if (control) {
 		if (control == WorldView && WorldView->targetRequest()) {

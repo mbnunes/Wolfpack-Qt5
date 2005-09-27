@@ -153,6 +153,9 @@ void cDynamicItem::removeItem(cDynamicItem *item) {
 	for (int i = 0; i < content_.size(); ++i) {
 		if (content_[i] == item) {
 			content_.remove(i);
+			if (containerGump_) {
+				containerGump_->refreshContent();
+			}
 			return;
 		}
 	}

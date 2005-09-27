@@ -10,10 +10,15 @@
 #include "game/targetrequest.h"
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
+#include "mainwindow.h"
+#include <QCursor>
 
 cContainerItemImage::cContainerItemImage(cDynamicItem *item) : cItemImage(item->id(), item->hue(), item->tiledata() ? item->tiledata()->isPartialHue() : false, false) {
 	originalHue = item->hue();
 	serial_ = item->serial();
+	tracking = false;
+	pickupTimer.setSingleShot(true);
+	connect(&pickupTimer, SIGNAL(timeout()), SLOT(pickupItem()));
 }
 
 void cContainerItemImage::onMouseEnter() {	
@@ -21,20 +26,83 @@ void cContainerItemImage::onMouseEnter() {
 }
 
 void cContainerItemImage::onMouseDown(QMouseEvent *e) {
-	// Check for target requests
-	if (e->button() == Qt::LeftButton) {		
+	cDynamicItem *item = World->findItem(serial_);
+
+	if (!item) {
+		deleteLater();
+		return;
+	}
+
+	if (e->button() == Qt::LeftButton) {
+		// Check for target requests
 		if (WorldView && WorldView->targetRequest()) {
-            cTargetRequest *request = WorldView->targetRequest();
-			cDynamicItem *item = World->findItem(serial_);
+			cTargetRequest *request = WorldView->targetRequest();
 
 			if (item && request->isValidTarget(item)) {
 				WorldView->targetResponse(item);
 				return;
 			}
 		}
+		
+		// Something was below the mouse otherwise this wouldn't have fired
+		tracking = true;
+		
+		pickupTimer.start(1000);
+		return;
 	}
 
 	return cItemImage::onMouseDown(e);
+}
+
+void cContainerItemImage::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
+	// If we're tracking, that means we'll pickup an item
+	if (tracking) {
+		pickupItem();
+	}
+}
+
+/*
+	Pickup the item below the mouse location stored in mouseDownPos
+*/
+void cContainerItemImage::pickupItem() {	
+	if (Gui->isDragging()) {
+		return;
+	}
+
+	tracking = false;
+	pickupTimer.stop();
+
+	// Pickup the item below the mousedown position
+	cDynamicItem *item = World->findItem(serial_);
+
+	if (item) {
+		Gui->dragItem(item);
+		item->moveToLimbo();
+		item->decref();
+
+		// send a drag-request to the server
+		UoSocket->send(cGrabItemPacket(item->serial()));
+	}
+}
+
+void cContainerItemImage::onMouseUp(QMouseEvent *e) {
+	if (e->button() == Qt::LeftButton) {
+		// Stop the pickup timer when we release the button early enough
+		pickupTimer.stop();
+		tracking = false;
+	} else  if (e->button() == Qt::RightButton) {
+		if (!parent_) {
+			return;
+		}
+
+		// Close the window when we're rightclicking equipment
+		QPoint pos = parent_->mapFromGlobal(e->pos());
+		if (parent_->getControl(pos.x(), pos.y()) == parent_) {
+			if (parent_->isWindow() && ((cWindow*)parent_)->isClosable()) {
+				Gui->queueDelete(parent_);
+			}
+		}
+	}
 }
 
 void cContainerItemImage::onClick(QMouseEvent *e) {
@@ -167,4 +235,15 @@ void cContainerGump::refreshContent() {
 		gump->setPosition(item->containerX(), item->containerY());
 		addControl(gump);
 	}
+}
+
+bool cContainerGump::acceptsItemDrop(cDynamicItem *item) {
+	return true;
+}
+
+void cContainerGump::dropItem(cDynamicItem *item) {
+	QPoint pos = Gui->mapDropPoint(mapFromGlobal(GLWidget->mapFromGlobal(QCursor::pos())));
+
+	UoSocket->send(cDropItemPacket(item->serial(), pos.x(), pos.y(), 127, container_->serial()));
+	Gui->dropItem();
 }

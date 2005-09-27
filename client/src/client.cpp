@@ -111,11 +111,11 @@ cUoClient::cUoClient() {
 }
 
 cUoClient::~cUoClient() {	
-	delete Profile;
 	delete Scripts;
 	delete Skills;
 
 	delete UoSocket;
+	delete Profile;
 
 	delete World;
 
@@ -193,9 +193,7 @@ void cUoClient::load() {
 }
 
 void cUoClient::unload() {
-	if (UoSocket->isConnected()) {
-		UoSocket->disconnect();
-	}
+	UoSocket->disconnect();
 
 	Skills->unload();
 	Gui->unload();

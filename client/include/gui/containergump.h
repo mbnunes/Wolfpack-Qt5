@@ -5,6 +5,7 @@
 #include "gui/window.h"
 #include "gui/itemimage.h"
 #include "game/dynamicitem.h"
+#include <QTimer>
 
 class cGumpImage;
 
@@ -22,11 +23,17 @@ public:
 	void processDoubleClick(QMouseEvent *e);
 	void draw(int xoffset, int yoffset);
 	void onMouseDown(QMouseEvent *e);
+	void onMouseMotion(int xrel, int yrel, QMouseEvent *e);
+	void onMouseUp(QMouseEvent *e);
 
 	uint serial() const;
 protected:
+	bool tracking;
 	uint serial_; // We reference the entity by serial here
 	ushort originalHue;
+	QTimer pickupTimer;
+protected slots:
+	void pickupItem();
 };
 
 inline uint cContainerItemImage::serial() const {
@@ -46,6 +53,9 @@ public:
 
 	void onClick(QMouseEvent *e);
 	void draw(int xoffset, int yoffset);
+
+	bool acceptsItemDrop(cDynamicItem *item);
+	void dropItem(cDynamicItem *item);
 protected:
 	cDynamicItem *container_; // Associated container
 	ushort id_; // Background id

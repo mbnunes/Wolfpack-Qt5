@@ -287,7 +287,18 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 	}
 
 	if (isHidden()) {
-		GLWidget->enableGrayShader();
+		//GLWidget->enableGrayShader();
+		glPushAttrib(GL_ENABLE_BIT);
+
+		glEnable(GL_ALPHA_TEST); // Make sure that transparent pixels wont touch our stencil buffer
+		glAlphaFunc(GL_GREATER, 0.0f);
+
+		glEnable(GL_STENCIL_TEST); // Enable per-pixel stencil testing
+		glStencilFunc(GL_EQUAL, 1, 1); // Draw if stencil buffer is not zero
+		glStencilOp(GL_KEEP, GL_KEEP, GL_ZERO);
+		glClearStencil(1);
+		glClear(GL_STENCIL_BUFFER_BIT);
+		alpha = 0.5f;
 	}
 
 	// Draw
@@ -307,45 +318,90 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		bool flip = (direction_ >= 0 && direction_ < 4);
 
 		// Mounts come always first
-		if ((bodyType() == HUMAN || bodyType() == EQUIPMENT) && equipment[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]) {
-			// Only advance to the next frame if we're not beyond the end of this action
-			if (currentActionEnd_ != 0 && currentActionEnd_ >= Utilities::getTicks()) {
-				// Skip to next frame
-				if (nextMountFrame < Utilities::getTicks()) {
-					if (++mountFrame >= equipmentSequences[LAYER_MOUNT]->frameCount()) {
-						mountFrame = 0;
+		if (!isHidden()) {
+			if ((bodyType() == HUMAN || bodyType() == EQUIPMENT) && equipment[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]) {
+				// Only advance to the next frame if we're not beyond the end of this action
+				if (currentActionEnd_ != 0 && currentActionEnd_ >= Utilities::getTicks()) {
+					// Skip to next frame
+					if (nextMountFrame < Utilities::getTicks()) {
+						if (++mountFrame >= equipmentSequences[LAYER_MOUNT]->frameCount()) {
+							mountFrame = 0;
+						}
+						nextMountFrame = Utilities::getTicks() + getMountFrameDelay();
 					}
-					nextMountFrame = Utilities::getTicks() + getMountFrameDelay();
 				}
+				
+				mountFrame = frame; // Until something better is found
+				equipmentSequences[LAYER_MOUNT]->draw(mountFrame, cellx, celly, flip, alpha);            
 			}
-			
-			mountFrame = frame; // Until something better is found
-            equipmentSequences[LAYER_MOUNT]->draw(mountFrame, cellx, celly, flip, alpha);            
-		}
 
-		sequence_->draw(frame, cellx, celly, flip, alpha);
+			sequence_->draw(frame, cellx, celly, flip, alpha);
+		}
 
 		// Draw the equipment
 		if (bodyType() == HUMAN || bodyType() == EQUIPMENT) {
-			const int *order = drawOrder[direction_ % 8];
-			while (*order != -1) {
-				enLayer layer = (enLayer)*order;
-	
-				if (layer < LAYER_VISIBLECOUNT && equipmentSequences[layer]) {
-					// Oh great OSI... Another exception from the rule *sigh*
-					// Don't draw Hair if we're wearing a gm robe
-					if (layer != LAYER_HAIR || !equipmentSequences[LAYER_OUTERTORSO] || equipmentSequences[LAYER_OUTERTORSO]->body() != 0x3db) {					
-						equipmentSequences[layer]->draw(frame, cellx, celly, flip, alpha);
-					}				
+			// Reverse the draw order if hidden
+			if (isHidden()) {
+				uint count = 0;
+				const int *order = drawOrder[direction_ % 8];
+				while (order[count] != -1) {
+					count++;
 				}
-	
-				++order; // Next layer
+
+				for (int i = count - 1; i >= 0; --i) {
+					enLayer layer = (enLayer)order[i];
+
+					if (layer < LAYER_VISIBLECOUNT && equipmentSequences[layer]) {
+						// Oh great OSI... Another exception from the rule *sigh*
+						// Don't draw Hair if we're wearing a gm robe
+						if (layer != LAYER_HAIR || !equipmentSequences[LAYER_OUTERTORSO] || equipmentSequences[LAYER_OUTERTORSO]->body() != 0x3db) {					
+							equipmentSequences[layer]->draw(frame, cellx, celly, flip, alpha);
+						}
+					}
+				}
+			} else {
+				const int *order = drawOrder[direction_ % 8];
+				while (*order != -1) {
+					enLayer layer = (enLayer)*order;
+		
+					if (layer < LAYER_VISIBLECOUNT && equipmentSequences[layer]) {
+						// Oh great OSI... Another exception from the rule *sigh*
+						// Don't draw Hair if we're wearing a gm robe
+						if (layer != LAYER_HAIR || !equipmentSequences[LAYER_OUTERTORSO] || equipmentSequences[LAYER_OUTERTORSO]->body() != 0x3db) {					
+							equipmentSequences[layer]->draw(frame, cellx, celly, flip, alpha);
+						}				
+					}
+		
+					++order; // Next layer
+				}
+			}
+		}
+
+		// If we're hidden, mount+body come last
+		if (isHidden()) {
+			sequence_->draw(frame, cellx, celly, flip, alpha);
+
+			if ((bodyType() == HUMAN || bodyType() == EQUIPMENT) && equipment[LAYER_MOUNT] && equipmentSequences[LAYER_MOUNT]) {
+				// Only advance to the next frame if we're not beyond the end of this action
+				if (currentActionEnd_ != 0 && currentActionEnd_ >= Utilities::getTicks()) {
+					// Skip to next frame
+					if (nextMountFrame < Utilities::getTicks()) {
+						if (++mountFrame >= equipmentSequences[LAYER_MOUNT]->frameCount()) {
+							mountFrame = 0;
+						}
+						nextMountFrame = Utilities::getTicks() + getMountFrameDelay();
+					}
+				}
+				
+				mountFrame = frame; // Until something better is found
+				equipmentSequences[LAYER_MOUNT]->draw(mountFrame, cellx, celly, flip, alpha);            
 			}
 		}
 	}
 
 	if (isHidden()) {
-		GLWidget->disableGrayShader();
+		glPopAttrib();
+		//GLWidget->disableGrayShader();		
 	}
 
 	drawx_ = cellx;
@@ -574,7 +630,11 @@ uint cMobile::getCurrentHeight() {
 }
 
 void cMobile::onDoubleClick(QMouseEvent *e) {
-	UoSocket->send(cDoubleClickPacket(serial_));
+	if (Player->isInWarmode()) {
+		UoSocket->send(cRequestAttackPacket(serial_));
+	} else {
+		UoSocket->send(cDoubleClickPacket(serial_));
+	}
 }
 
 void cMobile::onClick(QMouseEvent *e) {

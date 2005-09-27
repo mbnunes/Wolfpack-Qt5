@@ -20,6 +20,7 @@
 #include "gui/stripeimage.h"
 #include "gui/scrollbar.h"
 #include "muls/gumpart.h"
+#include "muls/art.h"
 #include "game/entity.h"
 #include "game/dynamicitem.h"
 #include "game/mobile.h"
@@ -43,9 +44,18 @@ cGui::cGui() {
 	activeWindow_ = 0;
 	currentCombolist_ = 0;
 	cleaningUpOverheadText = false;
+
+	dragging = 0;
+	draggingTexture = 0;
 }
 
 cGui::~cGui() {
+	if (dragging) {
+		dragging->decref();
+	}
+	if (draggingTexture) {
+		draggingTexture->decref();
+	}
 }
 
 void cGui::queueDelete(cControl *ctrl) {
@@ -74,6 +84,8 @@ void cGui::removeOverheadText(cEntity *source) {
 
 // Redraw all controls
 void cGui::draw() {
+	QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+
 	// Clear the queue	
 	for (int i = 0; i < deleteQueue.size(); ++i) {
 		removeControl(deleteQueue[i]);
@@ -180,8 +192,7 @@ void cGui::draw() {
 			Tooltip->setTooltip(mEntity->tooltipKey());
 
 			// Only draw if the tooltip is known
-			if (Tooltips->contains(mEntity->tooltipKey())) {			
-				QPoint pos = GLWidget->mapFromGlobal(QCursor::pos());
+			if (Tooltips->contains(mEntity->tooltipKey())) {							
 				int xpos = pos.x() + Cursor->currentWidth() - Cursor->currentXOffset();
 				int ypos = pos.y();
 				Tooltip->draw(xpos, ypos);
@@ -189,9 +200,14 @@ void cGui::draw() {
 		}
 	}
 
-	// Combo lists come last
+	// Combo lists come almost last
 	if (currentCombolist_) {
 		currentCombolist_->draw(0, 0);
+	}
+
+	// Dragged item texture comes last
+	if (draggingTexture) {
+		draggingTexture->draw(pos.x() - draggingTexture->realWidth() / 2, pos.y() - draggingTexture->realHeight() / 2);
 	}
 }
 
@@ -550,3 +566,38 @@ void cGui::setCurrentCombolist(cCombolist *list) {
 
 	currentCombolist_ = list;
 }
+
+cDynamicItem *cGui::draggedItem() const {
+	return dragging;
+}
+
+void cGui::dropItem() {	
+	if (dragging) {
+		dragging->decref(); // Free the reference
+		dragging = 0;
+	}	
+	if (draggingTexture) {
+		draggingTexture->decref();
+		draggingTexture = 0;
+	}
+}
+
+void cGui::dragItem(cDynamicItem *item) {
+	item->incref(); // We intend to keep a reference around
+
+	dropItem();
+	dragging = item;
+	draggingTexture = Art->readItemTexture(item->id(), item->hue(), item->tiledata()->isPartialHue());
+
+	// Reset mouse capture
+	GLWidget->setMouseCapture(0);
+}
+
+QPoint cGui::mapDropPoint(const QPoint &pos) {
+	if (!draggingTexture) {
+		return pos;
+	} else {
+		return QPoint(pos.x() - draggingTexture->realWidth() / 2, pos.y() - draggingTexture->realHeight() / 2);
+	}
+}
+

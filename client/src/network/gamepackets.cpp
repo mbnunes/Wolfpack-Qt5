@@ -384,7 +384,7 @@ public:
 		if (Utilities::isItemSerial(serial)) {
 			cDynamicItem *item = World->findItem(serial);
 
-			if (item) {
+			if (item && item->positionState() != cDynamicItem::InLimbo) {
 				item->cleanPosition();
 				item->decref();
 			}
@@ -593,7 +593,6 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0xb0, cGenericGumpPacket::creator);
-
 
 class cUpdateMobilePacket : public cIncomingPacket {
 protected:
@@ -1340,3 +1339,28 @@ public:
 
 AUTO_REGISTER_PACKET(0x88, cShowPaperdollPacket::creator);
 
+
+// Reject lifting an item
+class cBounceItemPacket : public cIncomingPacket {
+protected:
+	uchar message;
+public:
+	cBounceItemPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> message;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		Gui->dropItem();
+
+		// Show the error message
+		if (message < 5) {
+			WorldView->addSysMessage(Localization->get(3000267 + message));
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cBounceItemPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x27, cBounceItemPacket::creator);

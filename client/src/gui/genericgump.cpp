@@ -225,7 +225,7 @@ void cGenericGump::parseLayout(QString layout, QStringList strings) {
 			inCommand = true;
 		// Command terminator
 		} else if (inCommand && layout[i] == QChar('}')) {
-			QString command = layout.mid(commandStart, i - commandStart);			
+			QString command = layout.mid(commandStart, i - commandStart).trimmed();			
 			inCommand = false; // Until the next { we dont process commands
 			processCommand(context, command, strings); // Process the parsed command
 		}

@@ -674,6 +674,11 @@ void cLoginDialog::setErrorStatus(bool error) {
 				statusOk->setVisible(error);
 			}
 			break;
+		case PAGE_ENTERING:
+			if (statusOk) {
+				statusOk->setVisible(error);
+			}
+			break;
 	}
 }
 
@@ -703,6 +708,10 @@ void cLoginDialog::statusOkClicked(cControl *sender) {
 				cDeleteCharacter delchar(charSelectWidget->selectedCharacter());
 				UoSocket->send(delchar);
 			}
+			break;
+		case PAGE_ENTERING:
+			statusOk->setVisible(false);
+			show(PAGE_SELECTCHAR);
 			break;
 	}	
 }

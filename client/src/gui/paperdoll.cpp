@@ -4,9 +4,15 @@
 #include "gui/gui.h"
 #include "game/mobile.h"
 #include "game/dynamicitem.h"
+#include "gui/worldview.h"
+#include "gui/cursor.h"
 #include "muls/gumpart.h"
 #include "muls/tiledata.h"
 #include "mainwindow.h"
+#include "game/targetrequest.h"
+#include "network/uosocket.h"
+#include "network/outgoingpackets.h"
+#include "utilities.h"
 
 // Draw order for gumps. Zero comes always first though
 static int drawOrder[25] = {20, 5, 4, 3, 24, 23, 13, 19, 17, 22, 12, 14, 8, 7, 1, 2, 10, 16, 11, 18, 6, 21, -1};
@@ -19,9 +25,14 @@ cPaperdoll::cPaperdoll() {
 	changeable_ = false;
 	pickupTimer.setSingleShot(true);
 	connect(&pickupTimer, SIGNAL(timeout()), SLOT(pickupItem()));
+	background = 0;
+	leftMargin_ = 8;
+	topMargin_ = 19;
 }
 
 cPaperdoll::~cPaperdoll() {
+	delete background;
+
 	// Disconnect from the owner
 	if (owner_) {
 		owner_->disconnect(this, SLOT(ownerDeleted()));
@@ -69,6 +80,11 @@ void cPaperdoll::draw(int xoffset, int yoffset) {
 	if (dirty) {
 		update();
 	}
+
+	background->draw(xoffset + x_, yoffset + y_);
+
+	xoffset += leftMargin_;
+	yoffset += topMargin_;
 
 	if (!owner_) {
 		return;
@@ -151,6 +167,14 @@ void cPaperdoll::update() {
 }
 
 cControl *cPaperdoll::getControl(int x, int y) {
+	// Most likely the background will be hit
+	if (background && background->hitTest(x, y)) {
+		return this;
+	}
+
+	x += leftMargin_;
+	y += topMargin_;
+
 	if (x >= 0 && y >= 0 && x < width_ && y < height_) {
 		// Check the layers _above_ the background if they're hit.
 		// otherwise act as transparent
@@ -171,7 +195,7 @@ cDynamicItem *cPaperdoll::itemAtPos(int x, int y) {
 	// Iterate over the reverse draw order and check if we hit something
 	for (int i = drawOrderSize - 1; i >= 0; --i) {
 		int layer = drawOrder[i];
-		if (layers[layer] && layers[layer]->hitTest(x, y)) {
+		if (layers[layer] && layers[layer]->hitTest(x - leftMargin_, y - topMargin_)) {
 			return owner_->getEquipment(enLayer(layer));
 		}
 	}
@@ -199,11 +223,37 @@ void cPaperdoll::processDoubleClick(QMouseEvent *e) {
 void cPaperdoll::onMouseDown(QMouseEvent *e) {
 	if (e->button() == Qt::LeftButton) {
 		mouseDownPos = mapFromGlobal(e->pos());
-	
-		// Something was below the mouse otherwise this wouldn't have fired
-		tracking = true;
-	
-		pickupTimer.start(1000);
+
+		cDynamicItem *item = itemAtPos(mouseDownPos.x(), mouseDownPos.y());
+
+		if (item) {
+			// Check for target requests
+			if (WorldView && WorldView->targetRequest()) {
+				cTargetRequest *request = WorldView->targetRequest();
+
+				if (item && request->isValidTarget(item)) {
+					WorldView->targetResponse(item);
+					return;
+				}
+			}
+
+			// if the item is on the backpack layer, ignore it
+			if (item->layer() == LAYER_BACKPACK) {
+				return;
+			}
+		
+			// Something was below the mouse otherwise this wouldn't have fired
+			tracking = true;
+		
+			pickupTimer.start(1000);
+			return;
+		}
+	}
+
+	// No item was affected
+	if (parent_) {
+		parent_->onMouseDown(e);
+		GLWidget->setMouseCapture(parent_);
 	}
 }
 
@@ -218,6 +268,10 @@ void cPaperdoll::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	Pickup the item below the mouse location stored in mouseDownPos
 */
 void cPaperdoll::pickupItem() {	
+	if (Gui->isDragging()) {
+		return;
+	}
+
 	tracking = false;
 	pickupTimer.stop();
 
@@ -225,8 +279,13 @@ void cPaperdoll::pickupItem() {
 	cDynamicItem *item = itemAtPos(mouseDownPos.x(), mouseDownPos.y());
 
 	if (item) {
-		WorldView->addSysMessage(QString("picking up item 0x%1").arg(item->serial(), 0, 16));
-	}	
+		Gui->dragItem(item);
+		item->moveToLimbo();
+		item->decref();
+
+		// send a drag-request to the server
+		UoSocket->send(cGrabItemPacket(item->serial()));
+	}
 }
 
 void cPaperdoll::onMouseUp(QMouseEvent *e) {
@@ -242,5 +301,44 @@ void cPaperdoll::onMouseUp(QMouseEvent *e) {
 				Gui->queueDelete(parent_);
 			}
 		}
+	}
+}
+
+bool cPaperdoll::acceptsItemDrop(cDynamicItem *item) {
+	return true;
+}
+
+void cPaperdoll::dropItem(cDynamicItem *item) {
+	Gui->dropItem();
+}
+
+void cPaperdoll::onMouseEnter() {
+	if (WorldView->targetRequest()) {
+		Cursor->setCursor(CURSOR_TARGET);
+	} else {
+		Cursor->setCursor(CURSOR_NORMAL);
+	}
+}
+
+void cPaperdoll::onMouseLeave() {
+	Cursor->setCursor(CURSOR_NORMAL);
+}
+
+void cPaperdoll::setBackground(ushort gump, ushort hue, bool partialHue) {
+	delete background;
+	background = Gumpart->readTexture(gump, hue, partialHue);
+	width_ = background->realWidth();
+	height_ = background->realHeight();
+}
+
+void cPaperdoll::processDefinitionAttribute(QString name, QString value) {
+	if (name == "background") {
+		setBackground(Utilities::stringToUInt(value));
+	} else if (name == "leftmargin") {
+		leftMargin_ = Utilities::stringToInt(value);
+	} else if (name == "topmargin") {
+		topMargin_ = Utilities::stringToInt(value);
+	} else {
+		cControl::processDefinitionAttribute(name, value);
 	}
 }

@@ -276,3 +276,19 @@ cLanguagePacket::cLanguagePacket(const QString &language) : cOutgoingPacket(0xbf
 
 cRequestHelpPacket::cRequestHelpPacket() : cOutgoingPacket(0x9b, 258) {	
 }
+
+cRequestAttackPacket::cRequestAttackPacket(uint serial) : cOutgoingPacket(0x05, 5) {
+	m_Stream << serial;
+}
+
+cGrabItemPacket::cGrabItemPacket(uint serial, ushort amount) : cOutgoingPacket(0x7, 7) {
+	m_Stream << serial << amount;
+}
+
+cDropItemPacket::cDropItemPacket(uint item, ushort x, ushort y, signed char z, uint container) : cOutgoingPacket(0x8, 14) {
+	m_Stream << item << x << y << z << container;
+}
+
+cWearItemPacket::cWearItemPacket(uint item, uchar layer, uint mobile) : cOutgoingPacket(0x13, 10) {
+	m_Stream << item << layer << mobile;
+}

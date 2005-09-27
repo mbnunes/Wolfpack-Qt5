@@ -114,15 +114,15 @@ void cSequence::draw(int frame, int cellx, int celly, bool flip, float alpha) {
 	glBegin(GL_QUADS);
 	glColor4f(1.0f, 1.0f, 1.0f, alpha);
 	if (flip) {
-		glTexCoord2f(info.texelRight, info.texelTop); glVertex2i(drawx, drawy);
-		glTexCoord2f(info.texelLeft, info.texelTop); glVertex2i(drawx + info.width, drawy);
-		glTexCoord2f(info.texelLeft, info.texelBottom); glVertex2i(drawx + info.width, drawy + info.height);
-		glTexCoord2f(info.texelRight, info.texelBottom); glVertex2i(drawx, drawy + info.height);
+		glTexCoord2f(info.texelRight, info.texelTop); glVertex3i(drawx, drawy, 0);
+		glTexCoord2f(info.texelLeft, info.texelTop); glVertex3i(drawx + info.width, drawy, 0);
+		glTexCoord2f(info.texelLeft, info.texelBottom); glVertex3i(drawx + info.width, drawy + info.height, 0);
+		glTexCoord2f(info.texelRight, info.texelBottom); glVertex3i(drawx, drawy + info.height, 0);
 	} else {
-		glTexCoord2f(info.texelLeft, info.texelTop); glVertex2i(drawx, drawy);
-		glTexCoord2f(info.texelRight, info.texelTop); glVertex2i(drawx + info.width, drawy);
-		glTexCoord2f(info.texelRight, info.texelBottom); glVertex2i(drawx + info.width, drawy + info.height);
-		glTexCoord2f(info.texelLeft, info.texelBottom); glVertex2i(drawx, drawy + info.height);
+		glTexCoord2f(info.texelLeft, info.texelTop); glVertex3i(drawx, drawy, 0);
+		glTexCoord2f(info.texelRight, info.texelTop); glVertex3i(drawx + info.width, drawy, 0);
+		glTexCoord2f(info.texelRight, info.texelBottom); glVertex3i(drawx + info.width, drawy + info.height, 0);
+		glTexCoord2f(info.texelLeft, info.texelBottom); glVertex3i(drawx, drawy + info.height, 0);
 	}
 	glEnd();
 }

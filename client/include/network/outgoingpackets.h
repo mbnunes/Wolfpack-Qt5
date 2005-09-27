@@ -154,4 +154,28 @@ public:
 	cRequestHelpPacket();
 };
 
+// Attack a target
+class cRequestAttackPacket : public cOutgoingPacket {
+public:
+	cRequestAttackPacket(uint serial);
+};
+
+// Grab an object
+class cGrabItemPacket : public cOutgoingPacket {
+public:
+	cGrabItemPacket(uint serial, ushort amount = 1);
+};
+
+// Drop the object on the ground
+class cDropItemPacket : public cOutgoingPacket {
+public:
+	cDropItemPacket(uint item, ushort x, ushort y, signed char z, uint container);
+};
+
+// Wear an item on the given layer
+class cWearItemPacket : public cOutgoingPacket {
+public:
+	cWearItemPacket(uint item, uchar layer, uint mobile);
+};
+
 #endif

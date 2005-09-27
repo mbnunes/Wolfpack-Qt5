@@ -2,7 +2,6 @@
 #if !defined(__GUI_H__)
 #define __GUI_H__
 
-
 #include "control.h"
 #include "container.h"
 #include "window.h"
@@ -11,7 +10,7 @@
 #include <QDomElement>
 
 class cEntity;
-
+class cDynamicItem;
 class cCombolist;
 
 class cGui : public cContainer {
@@ -39,6 +38,9 @@ private:
 	bool cleaningUpOverheadText;
 
 	QMap<QString, QDomElement> dialogTemplates; // Map for Dialog Templates
+
+	cDynamicItem *dragging; // Serial of dragged item
+	cTexture *draggingTexture;
 public:
 	cGui();
 	virtual ~cGui();
@@ -66,17 +68,27 @@ public:
 	cControl *createControl(QDomElement templateNode);
 
 public slots:
+	void dropItem(); // Clear the currently dragged item
+	void dragItem(cDynamicItem *item);
+	bool isDragging() const;
+	cDynamicItem *draggedItem() const;
+
 	// Check if the given template name exists
 	bool isTemplateAvailable(QString name) const;
 	cWindow *createDialog(QString templateName);
 	void closeAllGumps();
 	void addControl(cControl *control, bool back = false);
+	QPoint mapDropPoint(const QPoint &pos);
 
 	void queueDelete(cControl *ctrl);
 	void addItemNameText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
 	void addOverheadText(int centerx, int centery, unsigned int timeout, QString message, unsigned short hue = 0x3b2, unsigned char font = 3, cEntity *source = 0, bool ascii = false);
 	void removeOverheadText(cEntity *source);
 };
+
+inline bool cGui::isDragging() const {
+	return dragging != 0;
+}
 
 inline bool cGui::isTemplateAvailable(QString name) const {
 	return dialogTemplates.find(name) != dialogTemplates.end();

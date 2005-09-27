@@ -4,11 +4,9 @@
 	<dialog id="BigPaperdoll" name="PlayerPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
 		<bounds x="0" y="0" width="262" height="324" />
 		<children>			
-			<gumpimage gump="0x7d0" autosize="true" movehandle="true" />
+			<!-- <gumpimage gump="0x7d0" autosize="true" movehandle="true" /> -->
 			
-			<paperdoll name="Paperdoll">
-				<bounds x="8" y="19" width="260" height="237" />
-			</paperdoll>
+			<paperdoll name="Paperdoll" background="0x7d0" />
 			
 			<!-- This is the unicode version of the name label -->
 			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">

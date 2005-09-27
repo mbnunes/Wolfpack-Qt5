@@ -10,6 +10,7 @@
 #include <QDomElement>
 #include <QMap>
 
+class cDynamicItem;
 class cGui;
 class cWindow;
 
@@ -114,6 +115,10 @@ public:
 	virtual void processDefinitionAttribute(QString name, QString value);
 
 public slots:
+	// Check if the given item is accepted as a drop
+	virtual bool acceptsItemDrop(cDynamicItem *item);
+	virtual void dropItem(cDynamicItem *item);
+
 	// Positioning and Bounds
 	inline int x() const { return x_; }
 	inline int y() const { return y_; }

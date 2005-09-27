@@ -355,3 +355,10 @@ QString cControl::getTag(const QString &name) {
 bool cControl::hasTag(const QString &name) {
 	return tags.find(name) != tags.end();
 }
+
+bool cControl::acceptsItemDrop(cDynamicItem *item) {
+	return false;
+}
+
+void cControl::dropItem(cDynamicItem *item) {
+}
