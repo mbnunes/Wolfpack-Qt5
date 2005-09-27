@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialogs>
+	<dialog id="LogoutConfirm" name="LogoutConfirm" movable="true" closable="false" module="dialogs.LogoutConfirm">
+		<bounds x="0" y="0" width="178" height="108" />
+		<children>
+			<gumpimage gump="0x816" movehandle="true" />
+			<imagebutton name="Cancel" unpressed="0x817" pressed="0x818" hover="0x819">
+				<position x="37" y="74" />
+			</imagebutton>
+			<imagebutton name="Ok" unpressed="0x81a" pressed="0x81b" hover="0x81c">
+				<position x="100" y="74" />
+			</imagebutton>
+			<asciilabel font="9" hue="0x386" autosize="false" hueall="true" text="Quit Ultima Online?" movehandle="true">
+				<bounds x="33" y="30" width="112" />
+			</asciilabel>
+		</children>
+	</dialog>
+</dialogs>
