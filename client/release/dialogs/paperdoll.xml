@@ -6,7 +6,6 @@
 		<children>			
 			<gumpimage gump="0x7d0" autosize="true" movehandle="true" />
 			
-			<!-- TODO: Insert the paperdoll representation of the entity here -->
 			<paperdoll name="Paperdoll">
 				<bounds x="8" y="19" width="260" height="237" />
 			</paperdoll>
@@ -19,11 +18,21 @@
 				<bounds x="40" y="264" width="180" />
 			</asciilabel>
 			
-			<!-- Status Button -->
-			<imagebutton name="StatusButton" unpressed="2027" hover="2029" pressed="2028">
-				<position x="185" y="233" />
+			<!-- Help Button -->
+			<imagebutton name="HelpButton" unpressed="2031" hover="2033" pressed="2032">
+				<position x="185" y="43" />
+			</imagebutton>			
+			
+			<!-- Options Button -->
+			<imagebutton name="OptionsButton" unpressed="2006" hover="2008" pressed="2007">
+				<position x="185" y="71" />
 			</imagebutton>
 			
+			<!-- Logout Button -->
+			<imagebutton name="LogoutButton" unpressed="2009" hover="2011" pressed="2010">
+				<position x="185" y="99" />
+			</imagebutton>			
+						
 			<!-- Peace Button -->
 			<imagebutton name="PeaceButton" unpressed="2021" hover="2023" pressed="2022">
 				<position x="185" y="207" />
@@ -47,21 +56,11 @@
 			<imagebutton name="GuildButton" unpressed="22450" hover="22451" pressed="22452">
 				<position x="185" y="179" />
 			</imagebutton>
-			
-			<!-- Options Button -->
-			<imagebutton name="OptionsButton" unpressed="2006" hover="2008" pressed="2007">
-				<position x="185" y="71" />
-			</imagebutton>
-			
-			<!-- Help Button -->
-			<imagebutton name="HelpButton" unpressed="2031" hover="2033" pressed="2032">
-				<position x="185" y="43" />
-			</imagebutton>
-			
-			<!-- Logout Button -->
-			<imagebutton name="LogoutButton" unpressed="2009" hover="2011" pressed="2010">
-				<position x="185" y="99" />
-			</imagebutton>
+												
+			<!-- Status Button -->
+			<imagebutton name="StatusButton" unpressed="2027" hover="2029" pressed="2028">
+				<position x="185" y="233" />
+			</imagebutton>			
 			
 			<!-- Pentagram (Virtue) Button -->
 			<gumpimage name="VirtueButton" gump="113" movehandle="false">
@@ -81,7 +80,7 @@
 			<!-- Weapon Ability Button -->
 			<gumpimage name="AbilityButton" gump="11060" movehandle="false">
 				<position x="156" y="198" />
-			</gumpimage>
+			</gumpimage>			
 		</children>
 	</dialog>
 	
@@ -91,13 +90,22 @@
 		<children>
 			<gumpimage gump="0x7d1" />
 			
+			<paperdoll name="Paperdoll">
+				<bounds x="8" y="19" width="260" height="237" />
+			</paperdoll>
+						
 			<!-- This is the unicode version of the name label -->
 			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">
 				<bounds x="40" y="264" width="180" />
 			</label>-->
 			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386">
 				<bounds x="40" y="264" width="180" />
-			</asciilabel>			
+			</asciilabel>
+			
+			<!-- Status Button -->
+			<imagebutton name="StatusButton" unpressed="2027" hover="2029" pressed="2028">
+				<position x="185" y="233" />
+			</imagebutton>
 		</children>
 	</dialog>
 </dialogs>

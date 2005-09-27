@@ -6,6 +6,7 @@
 #include "dialogs/login.h"
 #include "gui/worldview.h"
 #include "gui/genericgump.h"
+#include "gui/paperdoll.h"
 #include "gui/containergump.h"
 #include "gui/tooltip.h"
 #include "game/mobile.h"
@@ -1297,6 +1298,11 @@ public:
 
 		cAsciiLabel *label = (cAsciiLabel*)window->findByName("NameLabel");
 		label->setText(text);
+
+		cPaperdoll *paperdoll = dynamic_cast<cPaperdoll*>(window->findByName("Paperdoll"));
+		if (paperdoll) {
+			paperdoll->setOwner(mobile);
+		}
 	}
 
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {

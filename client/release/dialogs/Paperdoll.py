@@ -54,9 +54,6 @@ def initialize(dialog):
 		connect(dialog.findByName("ProfileButton"), "onDoubleClick(cControl*)", profileButtonClicked)
 		connect(dialog.findByName("PartyButton"), "onDoubleClick(cControl*)", partyButtonClicked)
 		
-		paperdoll = dialog.findByName("Paperdoll")
-		paperdoll.owner = Player
-		
 		warmodeChanged(Player.warmode, dialog)
 
 def warmodeChanged(mode, dialog = None):
