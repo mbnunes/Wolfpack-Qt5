@@ -116,7 +116,7 @@ class FletchItemAction(CraftItemAction):
 				backpack.removeitems( material[3], int(count * self.submaterial1) )
 
 			if count != -1:
-				item.amount += count
+				item.amount += (count * self.amount)
 			else:
 				item.amount = 1 + count
 			item.update()
