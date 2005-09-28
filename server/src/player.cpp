@@ -1602,7 +1602,7 @@ bool cPlayer::canSeeItem( P_ITEM item )
 			
 			// We're equipped by a character. If we're on the mount layer
 			// only the equipping character can see us
-			if (item->layer() == 0x19 && character != this) {
+			if (item->layer() == 0x19 && character != this && !character->isHuman()) {
 				return false;
 			}
 			
