@@ -27,6 +27,9 @@ public:
 	void onMouseUp(QMouseEvent *e);
 
 	uint serial() const;
+
+	bool acceptsItemDrop(cDynamicItem *item);
+	void dropItem(cDynamicItem *item);
 protected:
 	bool tracking;
 	uint serial_; // We reference the entity by serial here

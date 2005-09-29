@@ -159,6 +159,26 @@ void cContainerItemImage::onMouseLeave() {
 	setItem(id, originalHue, partialhue, landtile);
 }
 
+bool cContainerItemImage::acceptsItemDrop(cDynamicItem *item) {
+	return true;
+}
+
+void cContainerItemImage::dropItem(cDynamicItem *item) {
+	// If we reprsent a container, drop it on us.
+	// Otherwise notify the parent if appropiate
+	cDynamicItem *self = World->findItem(serial());
+
+	if (self && self->tiledata()->isContainer()) {
+		UoSocket->send(cDropItemPacket(item->serial(), ~0, ~0, ~0, self->serial()));
+		Gui->dropItem();
+		return;
+	}
+
+	if (parent_ && parent_->acceptsItemDrop(item)) {
+		parent_->dropItem(item);
+	}
+}
+
 cContainerGump::cContainerGump(ushort id, ushort hue) {
 	// TODO: Configuration option
 	hue = 0;

@@ -93,7 +93,7 @@ cTexture *cUnicodeFonts::buildTextWrapped(unsigned char font, const QString &tex
 					inTag = false;
 					continue;
 				} else {
-					tagBuffer.append(ch);
+					tagBuffer.append(ch.toLower());
 				}
 				continue;
 			}
@@ -216,6 +216,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 	}*/
 
 	QVector<int> fontStack;
+	QVector<uint> colorStack;
 	QString tagBuffer;
 	bool inTag = false;
 
@@ -251,16 +252,32 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 							}
 						}
 
+						QRegExp colorPattern("color=(\"')?#?((\\d\\w)+)(\"')?", Qt::CaseInsensitive);
+						if (tagBuffer.contains(colorPattern)) {
+							uint color = colorPattern.cap(1).toUInt(0, 16);
+							// Push the current color into the color-stack and
+							// change the foreground color
+							colorStack.push_back(foreground);
+                            
+							foreground = cSurface::color((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, 0xFF);
+						}
+					} else if (tagBuffer.startsWith("/basefont")) {
+						if (!colorStack.isEmpty()) {
+							foreground = colorStack.front();
+							colorStack.pop_front();
+						}
 					} else if (tagBuffer.startsWith("h2")) {
 						fontStack.push_back(font);
 						font = 0;
 						dataStream = &this->dataStream[font];
 
 					} else if (tagBuffer.startsWith("/h2")) {
-						font = fontStack.back();
-						dataStream = &this->dataStream[font];
-                        
-						fontStack.pop_back();
+						if (!fontStack.isEmpty()) {
+							font = fontStack.back();
+							dataStream = &this->dataStream[font];
+	                        
+							fontStack.pop_back();
+						}
 					// Line break
 					} else if (tagBuffer.startsWith("br")) {
 						lines += 1;
@@ -277,7 +294,7 @@ cTexture *cUnicodeFonts::buildText(unsigned char font, QString text, unsigned sh
 					inTag = false;
 					continue;
 				} else {
-					tagBuffer.append(ch);
+					tagBuffer.append(ch.toLower());
 				}
 				continue;
 			}

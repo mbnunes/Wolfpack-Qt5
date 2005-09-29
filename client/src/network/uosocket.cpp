@@ -154,8 +154,8 @@ void cUoSocket::disconnect() {
 	socket->abort();
 
 	if (!qApp->closingDown() && WorldView->isVisible()) {
-		World->clearEntities();
 		Player->clearEquipment();
+		World->clearEntities();
 		WorldView->setVisible(false);
 		WorldView->cancelTarget();
 		Cursor->setCursor(CURSOR_NORMAL);

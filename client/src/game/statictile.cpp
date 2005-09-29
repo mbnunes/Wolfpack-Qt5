@@ -200,10 +200,37 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		glBegin(GL_QUADS);
 		int right = drawx_ + texture->width();
 		int bottom = drawy_ + texture->height();
-		glTexCoord2f(0, 0); glVertex2f(drawx_, drawy_); // Upper left corner
-		glTexCoord2f(1, 0); glVertex2f(right, drawy_); // Upper Right Corner
-		glTexCoord2f(1, 1); glVertex2f(right, bottom); // Lower Right Corner
-		glTexCoord2f(0, 1); glVertex2f(drawx_, bottom); // Lower Right Corner
+
+		/*if (tiledata_->isFoliage()) {
+			static int topMove = 0;
+			static bool moveDir = true;
+			static uint nextChange = 0;
+			if (Utilities::getTicks() >= nextChange) {
+				if (moveDir) {
+					topMove++;
+				} else {
+					topMove--;
+				}
+				if (topMove > 3) {
+					topMove = 3;
+					moveDir = !moveDir;
+				} else if (topMove < -3) {
+					topMove = -3;
+					moveDir = !moveDir;
+				}
+				nextChange = Utilities::getTicks() + 100;
+			}
+
+			glTexCoord2f(0, 0); glVertex2f(drawx_ - topMove, drawy_); // Upper left corner
+			glTexCoord2f(1, 0); glVertex2f(right - topMove, drawy_); // Upper Right Corner
+			glTexCoord2f(1, 1); glVertex2f(right, bottom); // Lower Right Corner
+			glTexCoord2f(0, 1); glVertex2f(drawx_, bottom); // Lower Right Corner
+		} else {*/
+			glTexCoord2f(0, 0); glVertex2f(drawx_, drawy_); // Upper left corner
+			glTexCoord2f(1, 0); glVertex2f(right, drawy_); // Upper Right Corner
+			glTexCoord2f(1, 1); glVertex2f(right, bottom); // Lower Right Corner
+			glTexCoord2f(0, 1); glVertex2f(drawx_, bottom); // Lower Right Corner
+		//}
 
 		if (drawStacked()) {
 			glTexCoord2f(0, 0); glVertex2f(drawx_ + 5, drawy_ + 5); // Upper left corner

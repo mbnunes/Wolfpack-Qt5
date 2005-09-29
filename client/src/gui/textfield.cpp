@@ -29,6 +29,7 @@ cTextField::cTextField() {
 	password_ = false;
 	dirty = true;
 	unicodeMode_ = true;
+	textBorder_ = true;
 	
 	for (int i = 0; i < 3; ++i) {
 		surfaces[i] = 0;
@@ -101,7 +102,7 @@ void cTextField::update() {
 
 	if (!surfaces[0]) {
 		if (unicodeMode_) {		
-			surfaces[0] = UnicodeFonts->buildText(font_, substring, hue_, false, true, ALIGN_LEFT);
+			surfaces[0] = UnicodeFonts->buildText(font_, substring, hue_, false, textBorder_, ALIGN_LEFT);
 		} else {
 			surfaces[0] = AsciiFonts->buildText(font_, substring.toLatin1(), hue_, false, ALIGN_LEFT, hueAll_);
 		}
@@ -109,7 +110,7 @@ void cTextField::update() {
 
 	if (!surfaces[1] && mouseOverHue_ != -1) {
 		if (unicodeMode_) {		
-			surfaces[1] = UnicodeFonts->buildText(font_, substring, mouseOverHue_, false, true, ALIGN_LEFT);
+			surfaces[1] = UnicodeFonts->buildText(font_, substring, mouseOverHue_, false, textBorder_, ALIGN_LEFT);
 		} else {
 			surfaces[1] = AsciiFonts->buildText(font_, substring.toLatin1(), mouseOverHue_, false, ALIGN_LEFT, hueAll_);
 		}		
@@ -117,7 +118,7 @@ void cTextField::update() {
 
 	if (!surfaces[2] && focusHue_ != -1) {
 		if (unicodeMode_) {
-			surfaces[2] = UnicodeFonts->buildText(font_, substring, focusHue_, false, true, ALIGN_LEFT);
+			surfaces[2] = UnicodeFonts->buildText(font_, substring, focusHue_, false, textBorder_, ALIGN_LEFT);
 		} else {
 			surfaces[2] = AsciiFonts->buildText(font_, substring.toLatin1(), focusHue_, false, ALIGN_LEFT, hueAll_);
 		}

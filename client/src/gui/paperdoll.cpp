@@ -28,6 +28,9 @@ cPaperdoll::cPaperdoll() {
 	background = 0;
 	leftMargin_ = 8;
 	topMargin_ = 19;
+	previewLayer = 0;
+
+	connect(Gui, SIGNAL(itemDropped()), SLOT(checkPreview()));
 }
 
 cPaperdoll::~cPaperdoll() {
@@ -66,6 +69,7 @@ void cPaperdoll::setOwner(cMobile *owner) {
 		connect(owner_, SIGNAL(destroyed(QObject*)), this, SLOT(ownerDeleted()));
 		connect(owner_, SIGNAL(bodyChanged()), this, SLOT(invalidate()));
 		connect(owner_, SIGNAL(equipmentChanged()), this, SLOT(invalidate()));
+		connect(owner_, SIGNAL(equipmentChanged()), this, SLOT(checkPreview()));
 	}
 
 	dirty = true;
@@ -81,7 +85,9 @@ void cPaperdoll::draw(int xoffset, int yoffset) {
 		update();
 	}
 
-	background->draw(xoffset + x_, yoffset + y_);
+	if (background) {
+		background->draw(xoffset + x_, yoffset + y_);
+	}
 
 	xoffset += leftMargin_;
 	yoffset += topMargin_;
@@ -106,9 +112,62 @@ void cPaperdoll::draw(int xoffset, int yoffset) {
 
 		// Draw the layer
 		if (layers[layer]) {
-			layers[layer]->draw(xoffset + x_, yoffset + y_);
+			// Draw the preview layer at 75% alpha
+			if (previewLayer == layer) {
+				layers[layer]->draw(xoffset + x_, yoffset + y_, 0.75f);
+			} else {
+				layers[layer]->draw(xoffset + x_, yoffset + y_);
+			}
 		}
 	}
+}
+
+ushort cPaperdoll::getBackground(bool &female) {
+	ushort background = 0;
+	female = false;
+
+	// Layer 0 will be the pdoll background
+	switch (owner_->body()) {
+		case 123:
+		case 124:
+		case 125:
+		case 126:
+		case 141:
+		case 175:
+		case 183:
+		case 185:
+		case 750:
+		case 764:
+		case 766:
+		case 767:
+		case 768:
+		case 769:
+		case 771:
+		case 777:
+		case 744:
+		case 0x190:
+		case 0x3db:
+		case 0x192:
+			background = 0xC;
+			break;
+		case 184:
+		case 186:
+		case 751:
+		case 765:
+		case 770:
+		case 773:
+		case 774:
+		case 745:
+		case 0x191:
+		case 0x193:
+			background = 0xD;
+			female = true;
+			break;
+		default:
+			background = 0;
+	}
+
+	return background;
 }
 
 void cPaperdoll::update() {
@@ -122,24 +181,8 @@ void cPaperdoll::update() {
 		return;
 	}
 
-	ushort background = 0;
-	bool female = false;
-
-	// Layer 0 will be the pdoll background
-	switch (owner_->body()) {
-		case 0x190:
-		case 0x3db:
-		case 0x192:
-			background = 0xC;
-			break;
-		case 0x191:
-		case 0x193:
-			background = 0xD;
-			female = true;
-			break;
-		default:
-			background = 0;
-	}
+	bool female;
+	ushort background = getBackground(female);
 
 	// No paperdoll for non-humans
 	if (background == 0) {
@@ -305,10 +348,27 @@ void cPaperdoll::onMouseUp(QMouseEvent *e) {
 }
 
 bool cPaperdoll::acceptsItemDrop(cDynamicItem *item) {
+	if (!owner_) {
+		return false;
+	}
 	return true;
 }
 
 void cPaperdoll::dropItem(cDynamicItem *item) {
+	if (!owner_) {
+		return;
+	}
+
+	QPoint pos = mapFromGlobal(GLWidget->mapFromGlobal(QCursor::pos()));
+
+	// If the item was dropped on an equipped container, drop it into that container instead
+	cDynamicItem *cont = itemAtPos(pos.x(), pos.y());
+	
+	if (cont && cont->tiledata()->isContainer()) {
+		UoSocket->send(cDropItemPacket(item->serial(), ~0, ~0, ~0, cont->serial()));
+	} else {
+		UoSocket->send(cWearItemPacket(item->serial(), item->tiledata()->layer(), owner_->serial()));
+	}
 	Gui->dropItem();
 }
 
@@ -318,9 +378,17 @@ void cPaperdoll::onMouseEnter() {
 	} else {
 		Cursor->setCursor(CURSOR_NORMAL);
 	}
+
+	checkPreview();
 }
 
 void cPaperdoll::onMouseLeave() {
+	if (previewLayer != 0 && layers[previewLayer]) {
+		layers[previewLayer]->decref();
+		layers[previewLayer] = 0;
+		previewLayer = 0;
+	}
+
 	Cursor->setCursor(CURSOR_NORMAL);
 }
 
@@ -340,5 +408,40 @@ void cPaperdoll::processDefinitionAttribute(QString name, QString value) {
 		topMargin_ = Utilities::stringToInt(value);
 	} else {
 		cControl::processDefinitionAttribute(name, value);
+	}
+}
+
+void cPaperdoll::checkPreview() {
+	if (!Gui->isDragging() && previewLayer != 0) {
+		layers[previewLayer]->decref();
+		layers[previewLayer] = 0;
+		previewLayer = 0;
+	}
+	if (Gui->isDragging() && previewLayer == 0) {
+		// Only process if the mouse is currently above us
+		if (GLWidget->lastMouseMovement() == this) {
+			// Check if we should show a preview for the dragged item
+			cDynamicItem *dragged = Gui->draggedItem();
+			if (dragged) {
+				enLayer layer = enLayer(dragged->tiledata()->layer());
+				if (layer > 0 && layer < LAYER_VISIBLECOUNT) {
+					update(); // Make sure that the layer is not occupied by an old item
+
+					if (!layers[layer]) {
+						bool female;
+						getBackground(female);
+
+						previewLayer = layer;
+						ushort animation = dragged->tiledata()->animation();
+
+						if (female && Gumpart->exists(animation + 60000)) {
+							layers[previewLayer] = Gumpart->readTexture(animation + 60000, dragged->hue(), dragged->tiledata()->isPartialHue());
+						} else {
+							layers[previewLayer] = Gumpart->readTexture(animation + 50000, dragged->hue(), dragged->tiledata()->isPartialHue());
+						}
+					}
+				}
+			}
+		}
 	}
 }

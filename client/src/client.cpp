@@ -284,13 +284,11 @@ void cUoClient::run()
 	enableGmToolWnd();
 #endif
 
-	QThread *thread = QThread::currentThread();
-
 	while (MainWindow->isVisible()) {
 		qApp->processEvents();
 		UoSocket->poll();
 		GLWidget->repaint();
-		thread->wait(10);
+		msleep(10);
 	}
 
 #if defined(Q_OS_WIN32)

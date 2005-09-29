@@ -101,7 +101,7 @@ public:
 			ContextMenu->clear();
 			foreach (const stEntry &entry, entries) {
 				QString localization = Localization->get(3000000 + entry.localization);
-				ContextMenu->addEntry(localization, 946, entry.id);
+				ContextMenu->addEntry(localization, 0x835, entry.id);
 			}
 			ContextMenu->setSerial(serial);
 			cMobile *mobile = dynamic_cast<cMobile*>(entity);

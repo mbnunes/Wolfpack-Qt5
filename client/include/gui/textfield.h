@@ -32,6 +32,7 @@ protected:
 	short focusHue_;
 	bool password_;
 	bool unicodeMode_;
+	bool textBorder_;
 
 	cTexture *surfaces[3]; // Three States
 
@@ -75,6 +76,8 @@ public slots:
 	inline unsigned short background() const { return backgroundId_; }
 	inline unsigned int leftOffset() const { return leftOffset_; }
 	inline bool password() const { return password_; }
+	bool textBorder() const;
+	void setTextBorder(bool border);
 	bool unicodeMode() const;
 	void setUnicodeMode(bool data);
 
@@ -179,6 +182,15 @@ inline bool cTextField::unicodeMode() const {
 
 inline void cTextField::setUnicodeMode(bool data) {
 	unicodeMode_ = data;
+	invalidateText();
+}
+
+inline bool cTextField::textBorder() const {
+	return textBorder_;
+}
+
+inline void cTextField::setTextBorder(bool border) {
+	textBorder_ = border;
 	invalidateText();
 }
 

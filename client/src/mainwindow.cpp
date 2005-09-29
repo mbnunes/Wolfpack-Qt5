@@ -77,7 +77,8 @@ MUL R0.y, R0, c[0].z;\n\
 MAD R0.x, R0, c[0].y, R0.y;\n\
 MAD R0.x, R0.z, c[0], R0;\n\
 MUL result.color.xyz, fragment.color.primary.x, R0.x;\n\
-MOV result.color.w, R0;\n\
+MUL R0.w, fragment.color.primary.w, R0.w;\n\
+MOV result.color.w, R0.w;\n\
 END\n\
 # 6 instructions, 1 R-regs";
 

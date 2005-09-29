@@ -2,12 +2,12 @@
 #if !defined(__UOCLIENT_H__)
 #define __UOCLIENT_H__
 
-#include <qapplication.h>
-#include <qstringlist.h>
-#include <qmutex.h>
+#include <QApplication>
+#include <QStringList>
+#include <QThread>
 #include <QObject>
 
-class cUoClient : public QObject {
+class cUoClient : public QThread {
 Q_OBJECT
 private:
 	void load();

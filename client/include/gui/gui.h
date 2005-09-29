@@ -11,6 +11,7 @@
 
 class cEntity;
 class cDynamicItem;
+class cMobile;
 class cCombolist;
 
 class cGui : public cContainer {
@@ -41,6 +42,13 @@ private:
 
 	cDynamicItem *dragging; // Serial of dragged item
 	cTexture *draggingTexture;
+	uint bounceCont;
+	ushort bounceX, bounceY;
+	signed char bounceZ;
+	uchar bounceLayer;
+signals:
+	void itemDropped();
+	void itemDragged();
 public:
 	cGui();
 	virtual ~cGui();
@@ -69,6 +77,7 @@ public:
 
 public slots:
 	void dropItem(); // Clear the currently dragged item
+	void bounceItem(); // Bounce the item back to the original position
 	void dragItem(cDynamicItem *item);
 	bool isDragging() const;
 	cDynamicItem *draggedItem() const;

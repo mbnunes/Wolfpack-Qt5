@@ -31,6 +31,8 @@ protected:
 	cTexture *layers[LAYER_VISIBLECOUNT+1];
 	QTimer pickupTimer;	
 	int leftMargin_, topMargin_;
+	uchar previewLayer;
+	ushort getBackground(bool &female);
 public:
 	cPaperdoll();
 	~cPaperdoll();
@@ -50,6 +52,7 @@ public:
 	void processDefinitionAttribute(QString name, QString value);
 protected slots:
 	void pickupItem();
+	void checkPreview();
 public slots:
 	bool acceptsItemDrop(cDynamicItem *item);
 	void dropItem(cDynamicItem *item);

@@ -580,17 +580,61 @@ void cGui::dropItem() {
 		draggingTexture->decref();
 		draggingTexture = 0;
 	}
+	emit itemDropped();
+}
+
+void cGui::bounceItem() {
+	if (!isDragging()) {
+		return;
+	}
+
+	// Put the item where it was
+	if (Utilities::isItemSerial(bounceCont)) {
+		dragging->setContainerX(bounceX);
+		dragging->setContainerY(bounceY);
+		cDynamicItem *cont = World->findItem(bounceCont);
+		dragging->move(cont);
+		dragging->incref();
+	} else if (Utilities::isMobileSerial(bounceCont)) {
+		cMobile *wearer = World->findMobile(bounceCont);
+		dragging->move(wearer, bounceLayer);
+		dragging->incref();
+	} else {
+		dragging->move(bounceX, bounceY, bounceZ);
+		dragging->incref();
+	}
+
+	dropItem();
 }
 
 void cGui::dragItem(cDynamicItem *item) {
 	item->incref(); // We intend to keep a reference around
 
-	dropItem();
+	bounceItem();
 	dragging = item;
 	draggingTexture = Art->readItemTexture(item->id(), item->hue(), item->tiledata()->isPartialHue());
 
 	// Reset mouse capture
 	GLWidget->setMouseCapture(0);
+
+	bounceX = item->x();
+	bounceY = item->y();
+	bounceZ = item->z();
+
+	if (item->positionState() == cDynamicItem::InContainer) {
+		bounceCont = item->container()->serial();
+		bounceX = item->containerX();
+		bounceY = item->containerY();
+	} else if (item->positionState() == cDynamicItem::InWorld) {
+		bounceCont = 0;
+	} else if (item->positionState() == cDynamicItem::OnMobile) {
+		bounceCont = item->wearer()->serial();
+		bounceLayer = item->layer();
+	} else {
+		bounceCont = 0;
+	}
+
+	emit itemDragged();
 }
 
 QPoint cGui::mapDropPoint(const QPoint &pos) {

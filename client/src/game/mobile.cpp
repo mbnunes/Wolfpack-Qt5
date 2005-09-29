@@ -107,6 +107,14 @@ void cMobile::removeEquipment(cDynamicItem *item) {
 				return;
 			}
 		}
+	
+		// Check invisible equipment too
+		for (int i = 0; i < invisibleEquipment.size(); ++i) {
+			if (invisibleEquipment[i] == item) {
+				invisibleEquipment.remove(i);
+				return;
+			}
+		}
 	}
 }
 
@@ -254,8 +262,6 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 			freeSequence(); // Free current surface
 			currentActionEnd_ = 0; // Reset end time
 			currentAction_ = getIdleAction();
-		} else {
-			__noop;
 		}
 	}
 
@@ -286,8 +292,9 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		}
 	}
 
+	static bool inGreyDraw = false;
+
 	if (isHidden()) {
-		//GLWidget->enableGrayShader();
 		glPushAttrib(GL_ENABLE_BIT);
 
 		glEnable(GL_ALPHA_TEST); // Make sure that transparent pixels wont touch our stencil buffer
@@ -299,6 +306,27 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		glClearStencil(1);
 		glClear(GL_STENCIL_BUFFER_BIT);
 		alpha = 0.5f;
+		if (inGreyDraw) {
+			static uint nextPeak = 0;
+			static uint lastPeak = 0;
+			static bool peakDirection = false;
+			uint time = Utilities::getTicks();
+
+			if (time >= nextPeak) {
+				lastPeak = Utilities::getTicks();
+				nextPeak = lastPeak + 1000 + Random->randInt(1000);				
+				peakDirection = !peakDirection;
+			}
+
+			alpha = (nextPeak - Utilities::getTicks()) / (float)(nextPeak - lastPeak);
+			if (peakDirection) {
+				alpha = 1.0f - alpha;
+			}
+		}
+
+		if (inGreyDraw) {
+			GLWidget->enableGrayShader();
+		}
 	}
 
 	// Draw
@@ -401,11 +429,19 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 
 	if (isHidden()) {
 		glPopAttrib();
-		//GLWidget->disableGrayShader();		
+		if (inGreyDraw) {
+			GLWidget->disableGrayShader();
+		}
 	}
 
 	drawx_ = cellx;
 	drawy_ = celly;
+
+	if (!inGreyDraw) {
+		inGreyDraw = true;
+		draw(cellx, celly, leftClip, topClip, rightClip, bottomClip);
+		inGreyDraw = false;
+	}
 }
 
 bool cMobile::hitTest(int x, int y) {

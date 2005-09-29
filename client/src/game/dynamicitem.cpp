@@ -83,6 +83,10 @@ void cDynamicItem::move(cDynamicItem *container) {
 	
 	container->removeItem(this);
 	container->content_.append(this);
+
+	if (container->containerGump()) {
+		container->containerGump()->refreshContent();
+	}
 	
 	container_ = container;
 	positionState_ = InContainer;

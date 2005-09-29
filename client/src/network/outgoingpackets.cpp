@@ -147,6 +147,10 @@ cSendUnicodeSpeechPacket::cSendUnicodeSpeechPacket(enSpeechType type, const QStr
 }
 
 cTargetResponsePacket::cTargetResponsePacket(uint targetId, uchar targetType, uchar cursorType, cEntity *target) : cOutgoingPacket(0x6c, 19) {
+	if (target->type() == MOBILE || target->type() == ITEM || target->type() == STATIC) {
+		targetType = 0;
+	}
+
 	m_Stream << targetType << targetId << cursorType;
 
 	// Target cancelled

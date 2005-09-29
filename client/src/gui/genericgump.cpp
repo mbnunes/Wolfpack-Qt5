@@ -10,6 +10,7 @@
 #include "gui/label.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
+#include "muls/localization.h"
 #include "log.h"
 
 #include <QMap>
@@ -122,7 +123,7 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 	}
 	// text <x> <y> <hue> <id>
 	else if (command == "text" && tokens.size() >= 5) {
-		unsigned int textId = tokens[4].toUInt();
+		int textId = tokens[4].toUInt();
 		unsigned short hue = tokens[3].toUInt() + 1; // 0 = 1 for this one ;)
 
 		// Get the text from the string table
@@ -133,7 +134,27 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 			text = tr("ERR: Index out of Range (%1)").arg(textId);
 		}
 
-        cLabel *gump = new cLabel(text, 1, hue);
+        cLabel *gump = new cLabel(text, 1, hue, hue != 1);
+		gump->setPosition(tokens[1].toInt(), tokens[2].toInt());
+		gump->setMoveHandle(true);
+		addControl(context.page, gump);
+	}
+	// croppedtext <x> <y> <width> <height> <hue> <id>
+	else if (command == "croppedtext" && tokens.size() >= 7) {
+		int textId = tokens[6].toUInt();
+		ushort hue = tokens[5].toUInt() + 1; // 0 = 1 for this one ;)
+		ushort width = tokens[3].toUInt();
+		ushort height = tokens[4].toUInt();
+
+		// Get the text from the string table
+		QString text;
+		if (textId < strings.size()) {
+			text = strings[textId];
+		} else {
+			text = tr("ERR: Index out of Range (%1)").arg(textId);
+		}
+
+        cLabel *gump = new cLabel(text, 1, hue, hue != 1);
 		gump->setPosition(tokens[1].toInt(), tokens[2].toInt());
 		gump->setMoveHandle(true);
 		addControl(context.page, gump);
@@ -167,7 +188,7 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 
 		// Get the text from the string table
 		QString text;
-		unsigned int textId = tokens[7].toUInt();
+		int textId = tokens[7].toUInt();
 		if (textId < strings.size()) {
 			text = strings[textId];
 		} else {
@@ -177,8 +198,65 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 		//cTextField *gump = new cTextField(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toInt(), tokens[4].toInt(), 3, hue, 0, true);
 		cTextField *gump = new cTextField(tokens[1].toInt(), tokens[2].toInt(), tokens[3].toInt(), tokens[4].toInt(), 1, hue, 0, true, true);
 		gump->setText(text);
+		gump->setTextBorder(hue != 1);
 		controlIds.insert(gump, tokens[6].toUInt());
 		addControl(context.page, gump);		
+	}
+	// htmlgump <x> <y> <width> <height> <textid> <hasback> <scrollable>
+	else if (command == "htmlgump" && tokens.size() >= 8) {
+		int textId = tokens[5].toUInt();
+		ushort width = tokens[3].toUInt();
+		ushort height = tokens[4].toUInt();
+		bool hasBackground = tokens[6].toUInt() != 0;
+		bool scrollable = tokens[7].toUInt() != 0;
+
+		// Get the text from the string table
+		QString text;
+		if (textId < strings.size()) {
+			text = strings[textId];
+		} else {
+			text = tr("ERR: Index out of Range (%1)").arg(textId);
+		}
+
+        cLabel *gump = new cLabel(text, 1, 1, false, ALIGN_LEFT, false);
+		gump->setHtmlMode(true);
+		gump->setBounds(tokens[1].toInt(), tokens[2].toInt(), width, height);
+		gump->setMoveHandle(true);
+		addControl(context.page, gump);
+	}
+	// xmfhtmlgump/xmfhtmlgumpcolor <x> <y> <width> <height> <textid> <hasback> <scrollable> [color]
+	else if ((command == "xmfhtmlgump" && tokens.size() >= 8) || (command == "xmfhtmlgumpcolor" && tokens.size() >= 9)) {
+		uint textId = tokens[5].toUInt();
+		int x = tokens[1].toInt();
+		int y = tokens[2].toInt();
+		ushort width = tokens[3].toUInt();
+		ushort height = tokens[4].toUInt();
+		bool hasBackground = tokens[6].toUInt() != 0;
+		bool scrollable = tokens[7].toUInt() != 0;
+
+		// Add the 0xbb8 background with a 4 pixel margin
+		if (hasBackground) {
+			cBorderGump *gump = new cBorderGump(0xbb8);
+			gump->setBounds(x, y, width, height);
+			addControl(context.page, gump);
+			x += 4;
+			y += 4;
+			width -= 8;
+			height -= 8;
+		}
+
+		// Get the text from the string table
+		QString text = Localization->get(textId);		
+
+		if (command == "xmfhtmlgumpcolor") {
+			text.prepend(QString("<basefont color=#%1>").arg(tokens[8].toUInt(), 0, 16));
+		}
+
+        cLabel *gump = new cLabel(text, 1, 1, false, ALIGN_LEFT, false);
+		gump->setHtmlMode(true);
+		gump->setBounds(x, y, width, height);
+		gump->setMoveHandle(true);
+		addControl(context.page, gump);
 	}
 	// gumppic <x> <y> <gump>
 	else if (command == "gumppic" && tokens.size() >= 4) {

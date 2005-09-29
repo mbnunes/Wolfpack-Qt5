@@ -1350,7 +1350,7 @@ public:
 	}
 
 	virtual void handle(cUoSocket *socket) {
-		Gui->dropItem();
+		Gui->bounceItem();
 
 		// Show the error message
 		if (message < 5) {
