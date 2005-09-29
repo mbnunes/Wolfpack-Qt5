@@ -35,7 +35,7 @@ else:
 	WOOD = [
 			[tr('Wood'), CARPENTRY, 0, ['1bd7', '1bda'], 0, 'wood'],
 	]
-	
+
 #
 # Bring up the carpentry menu
 #

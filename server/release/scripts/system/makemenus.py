@@ -1009,7 +1009,10 @@ class MakeMenu:
 
 		if wearout:
 			uses = int(item.gettag('remaining_uses'))
-			if uses <= 1:
+			if (uses - 1) == 0:
+				player.socket.clilocmessage(1044038) # You have worn out your tool!
+				item.delete()
+			elif uses <= 0:
 				player.socket.clilocmessage(1044038) # You have worn out your tool!
 				item.delete()
 				return False
