@@ -58,7 +58,7 @@
 		<sellprice>10</sellprice>
 		<category>Professions\Fletcher\Fletching Tools 1</category>
 		<weight>2.0</weight>
-		<basescripts>skills.bowcraft,equipment</basescripts>
+		<basescripts>equipment,skills.bowcraft</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 

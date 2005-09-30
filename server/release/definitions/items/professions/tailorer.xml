@@ -337,7 +337,7 @@
 		<id>0xf9d</id>
 		<category>Professions\Tailorer\Sewing Kit</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<basescripts>skills.tailoring,equipment</basescripts>
+		<basescripts>equipment,skills.tailoring</basescripts>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>2.0</weight>

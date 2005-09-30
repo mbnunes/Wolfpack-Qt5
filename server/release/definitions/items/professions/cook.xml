@@ -73,7 +73,7 @@
 		<name>#1044567</name>
 		<id>0x97f</id>
 		<category>Professions\Cook\Tools\Skillet</category>
-		<basescripts>skills.cooking,equipment</basescripts>
+		<basescripts>equipment,skills.cooking</basescripts>
 		<tag name="remaining_uses" type="int" value="50" />
 	</item>
 
