@@ -1091,7 +1091,9 @@ void cItem::update( cUOSocket* singlesocket )
 
 		if ( singlesocket )
 		{
-			singlesocket->removeObject( this );
+			// don't remove backpack, because this would close all bags
+			if ( this->layer() != cBaseChar::Backpack )
+				singlesocket->removeObject( this );
 			singlesocket->send( &equipItem );
 			sendTooltip( singlesocket );
 		}
@@ -1101,7 +1103,8 @@ void cItem::update( cUOSocket* singlesocket )
 			{
 				if ( socket->canSee( this ) )
 				{
-					socket->removeObject( this );
+					if ( this->layer() != cBaseChar::Backpack )
+						socket->removeObject( this );
 					socket->send( &equipItem );
 					sendTooltip( socket );
 				}
