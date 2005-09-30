@@ -14,6 +14,11 @@ from wolfpack import tr
 # 0x1070 Facing South/North (Swinging: 0x1071)
 # 0x1074 Facing East/West   (Swinging: 0x1075)
 
+def mounted(char):
+	if char.ismounted():
+		return True
+	return False
+
 def onUse( char, item ):
 	# Either the dummy is swinging or we aren't assigned to a dummy
 	if( item.id != 0x1070 and item.id != 0x1074  ):
@@ -25,7 +30,7 @@ def onUse( char, item ):
 		char.message( 500295, '' ) # You are too far away to do that.
 		return True
 
-	if char.itemonlayer( 25 ):
+	if mounted(char):
 		char.socket.clilocmessage( 501829 ) # You can't practice on this while on a mount.
 		return True
 
