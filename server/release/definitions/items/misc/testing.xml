@@ -28,6 +28,8 @@
 			<item id="sledge_hammer"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Scribe -->
 			<item id="scribes_pen"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Miner -->
 			<item id="mapmakers_pen"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Mapmakers Tool -->
+			<item id="blowpipe"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Blowpipe -->
+			<item id="12b3"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Mallet and Chisel -->
 		</content>		
 		<category>GM Items\Tool Bag</category>
 	</item>
@@ -46,6 +48,11 @@
 			<item id="f88"><amount>5000</amount></item>
 			<item id="f8c"><amount>5000</amount></item>
 			<item id="f8d"><amount>5000</amount></item>
+			<item id="f8f"><amount>5000</amount></item>
+			<item id="f8e"><amount>5000</amount></item>
+			<item id="f8a"><amount>5000</amount></item>
+			<item id="f7d"><amount>5000</amount></item>
+			<item id="f78"><amount>5000</amount></item>
 		</content>
 		<category>GM Items\Reagent Bag (5000)</category>
 	</item>

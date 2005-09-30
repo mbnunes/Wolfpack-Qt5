@@ -10,7 +10,7 @@
 
 	<!-- Reagents -->
 	<item id="f78">
-		<id>0x0f78</id>
+		<id>0xf78</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Batwing</category>
@@ -21,7 +21,7 @@
 	</item>
 
 	<item id="f79">
-		<id>0x0f79</id>
+		<id>0xf79</id>
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<category>Professions\Alchemist\Reagents\Blackmoor</category>
@@ -32,7 +32,7 @@
 	</item>
 
 	<item id="f7a">
-		<id>0x0f7a</id>
+		<id>0xf7a</id>
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Black Pearl</category>
@@ -43,7 +43,7 @@
 	</item>
 
 	<item id="f7b">
-		<id>0x0f7b</id>
+		<id>0xf7b</id>
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Blood Moss</category>
@@ -54,7 +54,7 @@
 	</item>
 
 	<item id="f7c">
-		<id>0x0f7c</id>
+		<id>0xf7c</id>
 		<buyprice>10</buyprice>
 		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Bloodspawn</category>
@@ -65,7 +65,7 @@
 	</item>
 
 	<item id="f7d">
-		<id>0x0f7d</id>
+		<id>0xf7d</id>
 		<buyprice>18</buyprice>
 		<sellprice>7</sellprice>
 		<category>Professions\Alchemist\Reagents\Daemon Blood</category>
@@ -76,7 +76,7 @@
 	</item>
 
 	<item id="f7e">
-		<id>0x0f7e</id>
+		<id>0xf7e</id>
 		<buyprice>5</buyprice>
 		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Bone</category>
@@ -87,7 +87,7 @@
 	</item>
 
 	<item id="f7f">
-		<id>0x0f7f</id>
+		<id>0xf7f</id>
 		<buyprice>13</buyprice>
 		<sellprice>5</sellprice>
 		<category>Professions\Alchemist\Reagents\Brimstone</category>
@@ -98,7 +98,7 @@
 	</item>
 
 	<item id="f80">
-		<id>0x0f80</id>
+		<id>0xf80</id>
 		<buyprice>19</buyprice>
 		<sellprice>6</sellprice>
 		<category>Professions\Alchemist\Reagents\Daemon Bone</category>
@@ -109,7 +109,7 @@
 	</item>
 
 	<item id="f81">
-		<id>0x0f81</id>
+		<id>0xf81</id>
 		<buyprice>5</buyprice>
 		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Fertile Dirt</category>
@@ -120,7 +120,7 @@
 	</item>
 
 	<item id="f82">
-		<id>0x0f82</id>
+		<id>0xf82</id>
 		<buyprice>21</buyprice>
 		<sellprice>9</sellprice>
 		<category>Professions\Alchemist\Reagents\Dragon's Blood</category>
@@ -131,7 +131,7 @@
 	</item>
 
 	<item id="f83">
-		<id>0x0f83</id>
+		<id>0xf83</id>
 		<buyprice>7</buyprice>
 		<sellprice>4</sellprice>
 		<category>Professions\Alchemist\Reagents\Executioner's cap</category>
@@ -142,7 +142,7 @@
 	</item>
 
 	<item id="f84">
-		<id>0x0f84</id>
+		<id>0xf84</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Garlic</category>
@@ -153,7 +153,7 @@
 	</item>
 
 	<item id="f85">
-		<id>0x0f85</id>
+		<id>0xf85</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Ginseng</category>
@@ -164,7 +164,7 @@
 	</item>
 
 	<item id="f86">
-		<id>0x0f86</id>
+		<id>0xf86</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Mandrake Root</category>
@@ -175,7 +175,7 @@
 	</item>
 
 	<item id="f87">
-		<id>0x0f87</id>
+		<id>0xf87</id>
 		<buyprice>8</buyprice>
 		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Eye of Newt</category>
@@ -186,7 +186,7 @@
 	</item>
 
 	<item id="f88">
-		<id>0x0f88</id>
+		<id>0xf88</id>
 		<buyprice>3</buyprice>
 		<sellprice>2</sellprice>
 		<category>Professions\Alchemist\Reagents\Nightshade</category>
@@ -197,7 +197,7 @@
 	</item>	
 
 	<item id="f89">
-		<id>0x0f89</id>
+		<id>0xf89</id>
 		<buyprice>14</buyprice>
 		<sellprice>7</sellprice>
 		<category>Professions\Alchemist\Reagents\Obsidian</category>
@@ -208,7 +208,7 @@
 	</item>
 
 	<item id="f8a">
-		<id>0x0f8a</id>
+		<id>0xf8a</id>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
 		<category>Professions\Alchemist\Reagents\Pig Iron</category>
@@ -219,7 +219,7 @@
 	</item>
 
 	<item id="f8b">
-		<id>0x0f8b</id>
+		<id>0xf8b</id>
 		<buyprice>17</buyprice>
 		<sellprice>7</sellprice>
 		<category>Professions\Alchemist\Reagents\Pumice</category>
@@ -230,7 +230,7 @@
 	</item>
 
 	<item id="f8c">
-		<id>0x0f8c</id>
+		<id>0xf8c</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Sulfurous Ash</category>
@@ -241,7 +241,7 @@
 	</item>
 
 	<item id="f8d">
-		<id>0x0f8d</id>
+		<id>0xf8d</id>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Spider's Silk</category>
@@ -252,7 +252,7 @@
 	</item>
 
 	<item id="f8e">
-		<id>0x0f8e</id>
+		<id>0xf8e</id>
 		<buyprice>16</buyprice>
 		<sellprice>8</sellprice>
 		<category>Professions\Alchemist\Reagents\Nox Crystal</category>
@@ -263,7 +263,7 @@
 	</item>
 
 	<item id="f8f">
-		<id>0x0f8f</id>
+		<id>0xf8f</id>
 		<buyprice>7</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Grave Dust</category>
@@ -274,7 +274,7 @@
 	</item>
 
 	<item id="f90">
-		<id>0x0f90</id>
+		<id>0xf90</id>
 		<buyprice>8</buyprice>
 		<sellprice>3</sellprice>
 		<category>Professions\Alchemist\Reagents\Dead Wood</category>
@@ -285,7 +285,7 @@
 	</item>
 
 	<item id="f91">
-		<id>0x0f91</id>
+		<id>0xf91</id>
 		<buyprice>30</buyprice>
 		<sellprice>15</sellprice>
 		<category>Professions\Alchemist\Reagents\Wyrm's Heart</category>

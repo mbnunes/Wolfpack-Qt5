@@ -124,6 +124,21 @@
 				<item id="f8d">
 					<amount>999</amount>
 				</item>
+				<item id="f8f">
+					<amount>999</amount>
+				</item>
+				<item id="f8e">
+					<amount>999</amount>
+				</item>
+				<item id="f8a">
+					<amount>999</amount>
+				</item>
+				<item id="f7d">
+					<amount>999</amount>
+				</item>
+				<item id="f78">
+					<amount>999</amount>
+				</item>
 				<item id="scribes_pen"><amount>10</amount></item> <!-- Blank Scrolls -->
 				<item id="e34"><amount>20</amount></item> <!-- Blank Scrolls -->
 			</restockable>
@@ -141,6 +156,11 @@
 				<item id="f88"/>
 				<item id="f8c"/>
 				<item id="f8d"/>
+				<item id="f8f"/>
+				<item id="f8e"/>
+				<item id="f8a"/>
+				<item id="f7d"/>
+				<item id="f78"/>
 				<item id="e34"/>
 				<!-- Scrolls -->
 				<item id="1f2d"/>
