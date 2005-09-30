@@ -22,7 +22,10 @@ cContainerItemImage::cContainerItemImage(cDynamicItem *item) : cItemImage(item->
 }
 
 void cContainerItemImage::onMouseEnter() {	
-	setItem(id, 0x36, partialhue, landtile);
+	cDynamicItem *item = World->findItem(serial_);
+	if (item && item->canMove()) {
+		setItem(id, 0x36, partialhue, landtile);
+	}
 }
 
 void cContainerItemImage::onMouseDown(QMouseEvent *e) {
@@ -45,9 +48,10 @@ void cContainerItemImage::onMouseDown(QMouseEvent *e) {
 		}
 		
 		// Something was below the mouse otherwise this wouldn't have fired
-		tracking = true;
-		
-		pickupTimer.start(1000);
+		if (item->canMove()) {
+			tracking = true;			
+			pickupTimer.start(1000);
+		}
 		return;
 	}
 
@@ -76,6 +80,10 @@ void cContainerItemImage::pickupItem() {
 	cDynamicItem *item = World->findItem(serial_);
 
 	if (item) {
+		if (item && !item->canMove()) {
+			return;
+		}
+
 		Gui->dragItem(item);
 		item->moveToLimbo();
 		item->decref();
@@ -97,10 +105,8 @@ void cContainerItemImage::onMouseUp(QMouseEvent *e) {
 
 		// Close the window when we're rightclicking equipment
 		QPoint pos = parent_->mapFromGlobal(e->pos());
-		if (parent_->getControl(pos.x(), pos.y()) == parent_) {
-			if (parent_->isWindow() && ((cWindow*)parent_)->isClosable()) {
-				Gui->queueDelete(parent_);
-			}
+		if (parent_->getControl(pos.x(), pos.y()) == this) {
+			Gui->queueDelete(parent_);
 		}
 	}
 }
@@ -122,14 +128,16 @@ void cContainerItemImage::onClick(QMouseEvent *e) {
 }
 
 void cContainerItemImage::processDoubleClick(QMouseEvent *e) {
-	// Let the item know where it has been drawn
-	cDynamicItem *item = World->findItem(serial_);
-	if (item) {
-		item->setLastClickX(item->drawx() - e->x());
-		item->setLastClickY(item->drawy() - e->y());
-	}
+	if (e->button() == Qt::LeftButton) {
+		// Let the item know where it has been drawn
+		cDynamicItem *item = World->findItem(serial_);
+		if (item) {
+			item->setLastClickX(item->drawx() - e->x());
+			item->setLastClickY(item->drawy() - e->y());
+		}
 
-	UoSocket->send(cDoubleClickPacket(serial_));
+		UoSocket->send(cDoubleClickPacket(serial_));
+	}
 }
 
 void cContainerItemImage::draw(int xoffset, int yoffset) {
@@ -156,7 +164,10 @@ void cContainerItemImage::draw(int xoffset, int yoffset) {
 }
 
 void cContainerItemImage::onMouseLeave() {	
-	setItem(id, originalHue, partialhue, landtile);
+	cDynamicItem *item = World->findItem(serial_);
+	if (item && item->canMove()) {
+		setItem(id, originalHue, partialhue, landtile);
+	}
 }
 
 bool cContainerItemImage::acceptsItemDrop(cDynamicItem *item) {
@@ -168,7 +179,7 @@ void cContainerItemImage::dropItem(cDynamicItem *item) {
 	// Otherwise notify the parent if appropiate
 	cDynamicItem *self = World->findItem(serial());
 
-	if (self && self->tiledata()->isContainer()) {
+	if (self && (self->tiledata()->isContainer() || self->tiledata()->isGeneric())) {
 		UoSocket->send(cDropItemPacket(item->serial(), ~0, ~0, ~0, self->serial()));
 		Gui->dropItem();
 		return;
@@ -192,7 +203,7 @@ cContainerGump::cContainerGump(ushort id, ushort hue) {
 	background->setMoveHandle(true);
 	addControl(background); // Add the background control
 
-	setMovable(true); // Containers are movable
+	setMovable(true); // Containers are movable	
 
 	container_ = 0; // Initialize to 0
 	contentChanged = false;

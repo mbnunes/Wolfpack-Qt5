@@ -20,6 +20,7 @@ cImageButton::cImageButton(int x, int y, unsigned short up, unsigned short down)
 	spaceHolding_ = false;
 	canHaveFocus_ = true; // Buttons can have the input focus
 	pressRepeatRate_ = 0; // There is no press repeat rate by default (normal push buttons)
+	ignoreDoubleClicks_ = true;
 
 	width_ = 0;
 	height_ = 0;
@@ -44,6 +45,7 @@ cImageButton::cImageButton() {
 	spaceHolding_ = false;
 	canHaveFocus_ = true; // Buttons can have the input focus
 	pressRepeatRate_ = 0; // There is no press repeat rate by default (normal push buttons)
+	ignoreDoubleClicks_ = true;
 
 	width_ = 0;
 	height_ = 0;

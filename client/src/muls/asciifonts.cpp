@@ -49,7 +49,8 @@ void cAsciiFonts::load() {
 			dataStream >> width >> height >> unknown;
 			
 			if (width > 0 && height > 0) {
-				if (height > this->height[f]) {
+				// Only bother with the 7-bit ASCII characters
+				if (height > this->height[f] && c < 96) {
 					this->height[f] = height;
 				}
 

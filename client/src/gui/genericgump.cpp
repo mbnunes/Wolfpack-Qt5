@@ -7,6 +7,7 @@
 #include "gui/gumpimage.h"
 #include "gui/textfield.h"
 #include "gui/itemimage.h"
+#include "gui/checkbox.h"
 #include "gui/label.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
@@ -180,6 +181,24 @@ void cGenericGump::processCommand(stLayoutContext &context, QString line, QStrin
 		controlIds.insert(gump, buttonId); // Save control id
 		connect(gump, SIGNAL(onButtonPress(cControl*)), this, SLOT(onButtonPress(cControl*)));
 		
+        addControl(context.page, gump);
+	}
+	// checkbox <x> <y> <off> <on> <checked> <id>
+	else if (command == "checkbox" && tokens.size() >= 7) {
+		unsigned short off = tokens[3].toUShort();
+		unsigned short on = tokens[4].toUShort();
+
+		cCheckbox *gump = new cCheckbox();
+		gump->setPosition(tokens[1].toInt(), tokens[2].toInt());
+		gump->setStateGump(cCheckbox::Unchecked, off);
+		gump->setStateGump(cCheckbox::Hover, off);
+		gump->setStateGump(cCheckbox::Pressed, on);
+		gump->setStateGump(cCheckbox::Checked, on);
+		gump->setStateGump(cCheckbox::CheckedHover, on);
+		gump->setChecked(Utilities::stringToBool(tokens[5]));
+		gump->setObjectName("checkbox");
+			
+		controlIds.insert(gump, tokens[6].toInt()); // Save control id
         addControl(context.page, gump);
 	}
 	// textentry <x> <y> <width> <height> <color> <id> <initialtext>

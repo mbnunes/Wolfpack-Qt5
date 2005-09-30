@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+﻿<?xml version="1.1" encoding="UTF-8" ?>
 <dialogs>
 	<!-- Big Paperdoll Dialog -->
 	<dialog id="BigPaperdoll" name="PlayerPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
@@ -12,8 +12,8 @@
 			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">
 				<bounds x="40" y="264" width="180" />
 			</label>-->
-			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386">
-				<bounds x="39" y="259" width="180" />
+			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386" autosize="false">
+				<bounds x="39" y="267" width="180" />
 			</asciilabel>
 			
 			<!-- Help Button -->
@@ -92,18 +92,16 @@
 	<dialog id="SmallPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
 		<bounds x="0" y="0" width="262" height="324" />
 		<children>
-			<gumpimage gump="0x7d1" />
-			
 			<paperdoll name="Paperdoll">
-				<bounds x="8" y="19" width="260" height="237" />
+				<bounds x="0" y="0" width="262" height="324" />
 			</paperdoll>
 						
 			<!-- This is the unicode version of the name label -->
 			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">
 				<bounds x="40" y="264" width="180" />
 			</label>-->
-			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386">
-				<bounds x="39" y="259" width="180" />
+			<asciilabel name="NameLabel" font="1" movehandle="true" hue="0x386" autosize="false">
+				<bounds x="39" y="267" width="180" />
 			</asciilabel>
 			
 			<!-- Status Button -->

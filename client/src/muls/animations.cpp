@@ -182,7 +182,12 @@ void cSequence::load(QDataStream &input) {
 	// Totalwidth and Maxheight of the resulting texture
 	int maxheight = 0;
 	int totalwidth = 0;
+	int totalheight = 0;
+	int currentwidth = 0;
 
+	// Make sure the texture width doesn't exceed our maximum texture width of 1024
+	const uint maxwidth = 1024;
+	
 	// Read the lookup table for all frames
 	// Measure the maximum height and total width of all frames while we're at it
 	for (int i = 0; i < frameCount_; ++i) {
@@ -198,14 +203,28 @@ void cSequence::load(QDataStream &input) {
 		input >> frame.centerx >> frame.centery >> frame.width >> frame.height;
 
 		// Calculate max height / total width
-		totalwidth += frames[i].width;
-		if (frames[i].height > maxheight) {
-			maxheight = frames[i].height;
+		if (currentwidth + frames[i].width > maxwidth) {
+			totalheight += maxheight;
+			maxheight = frames[i].height; // First frame in row
+			if (currentwidth > totalwidth) {
+				totalwidth = currentwidth;
+			}
+			currentwidth = frames[i].width;
+		} else {
+			currentwidth += frames[i].width;
+			if (frames[i].height > maxheight) {
+				maxheight = frames[i].height;
+			}
 		}
 	}
 
+	if (currentwidth > totalwidth) {
+		totalwidth = currentwidth;
+	}
+	totalheight += maxheight;
+
 	// Create the surface and read the animation
-	cSurface *surface = new cSurface(totalwidth, maxheight);
+	cSurface *surface = new cSurface(totalwidth, totalheight);
 	surface->clear();
 
 	// Used to speed up texel calculation
@@ -213,9 +232,17 @@ void cSequence::load(QDataStream &input) {
 	float theight = (float)surface->height();
 
 	int drawx = 0, drawy = 0;
+	maxheight = 0;
 	for (int i = 0; i < frameCount_; ++i) {
 		input.device()->seek(seekOffset + frameLookup[i] + 8); // Seek to the frame data
         stFrame &frame = frames[i]; // Keep a reference to the frame header
+
+		// Advance to the next row?
+		if (drawx + frame.width > maxwidth) {
+			drawx = 0;
+			drawy += maxheight;
+			maxheight = 0;
+		}
 
 		// Start reading the frame runs
 		int header = 0;
@@ -248,12 +275,17 @@ void cSequence::load(QDataStream &input) {
 			for (int i = 0; i < length; ++i) {
 				input >> pixel;
 				int px = drawx + frame.centerx + xoffset + i;
-				int py = frame.centery + yoffset;
+				int py = drawy + frame.centery + yoffset;
 				if (px > 0 && px < surface->realWidth() && py > 0 && py < surface->realHeight()) {
 					surface->setPixel(px, py, palette[pixel]);
 				}
 			}
 		} while (true);
+
+		// Make sure we now in the next iteration how high this row was
+		if (frame.height > maxheight) {
+			maxheight = frame.height;
+		}
 
 		// Conveniently precalculate the texture coordinates
 		frame.texelTop = drawy / theight;

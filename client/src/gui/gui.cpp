@@ -609,6 +609,10 @@ void cGui::bounceItem() {
 
 void cGui::dragItem(cDynamicItem *item) {
 	item->incref(); // We intend to keep a reference around
+	cDynamicItem::Container content = item->content();
+	foreach (cDynamicItem *item, content) {
+		item->decref();
+	}
 
 	bounceItem();
 	dragging = item;

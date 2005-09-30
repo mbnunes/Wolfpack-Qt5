@@ -361,7 +361,10 @@ public:
 			}
 
 			item->setAmount(amount);
+			
 			// TODO: Flags
+			item->setInvisible((flags & 0x80) != 0);
+			item->setAlwaysMovable((flags & 0x20) != 0);
 		}
 	}
 

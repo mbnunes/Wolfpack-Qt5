@@ -245,6 +245,12 @@ unsigned char cMobile::getIdleAction() {
 }
 
 void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip) {
+	// Save the original cellx, celly for the greyed out stuff
+	int orgCellX = cellx;
+	int orgCellY = celly;
+	static int cellXOffset = 0;
+	static int cellYOffset = 0;
+
 	if (Config->gameHideMobiles()) {
 		return;
 	}
@@ -254,6 +260,9 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		cellx = WorldView->x() + WorldView->width() / 2;
 		celly = WorldView->y() + WorldView->height() / 2;
 	}
+
+	cellx += cellXOffset;
+	celly += cellYOffset;
 
 	// See if the current action expired
 	if (currentActionEnd_ != 0 && currentActionEnd_ < Utilities::getTicks()) {
@@ -293,6 +302,7 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 	}
 
 	static bool inGreyDraw = false;
+	static bool inBlurDraw = false;
 
 	if (isHidden()) {
 		glPushAttrib(GL_ENABLE_BIT);
@@ -303,29 +313,38 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 		glEnable(GL_STENCIL_TEST); // Enable per-pixel stencil testing
 		glStencilFunc(GL_EQUAL, 1, 1); // Draw if stencil buffer is not zero
 		glStencilOp(GL_KEEP, GL_KEEP, GL_ZERO);
-		glClearStencil(1);
-		glClear(GL_STENCIL_BUFFER_BIT);
-		alpha = 0.5f;
-		if (inGreyDraw) {
-			static uint nextPeak = 0;
-			static uint lastPeak = 0;
-			static bool peakDirection = false;
-			uint time = Utilities::getTicks();
 
-			if (time >= nextPeak) {
-				lastPeak = Utilities::getTicks();
-				nextPeak = lastPeak + 1000 + Random->randInt(1000);				
-				peakDirection = !peakDirection;
-			}
-
-			alpha = (nextPeak - Utilities::getTicks()) / (float)(nextPeak - lastPeak);
-			if (peakDirection) {
-				alpha = 1.0f - alpha;
-			}
+		if (!inGreyDraw) {
+			glClearStencil(1);
+			glClear(GL_STENCIL_BUFFER_BIT);
 		}
 
-		if (inGreyDraw) {
+		static uint nextPeak = 0;
+		static uint lastPeak = 0;
+		static bool peakDirection = false;
+
+		uint time = Utilities::getTicks();
+
+		if (time >= nextPeak) {
+			lastPeak = Utilities::getTicks();
+			nextPeak = lastPeak + 1500 + Random->randInt(1000);				
+			peakDirection = !peakDirection;
+		}
+
+		alpha = (nextPeak - Utilities::getTicks()) / (float)(nextPeak - lastPeak);
+		if (peakDirection) {
+			alpha = 1.0f - alpha;
+		}
+
+		if (inGreyDraw) {			
+			if (inBlurDraw) {
+				alpha *= 0.5f;
+			} else {
+				alpha *= 0.8f;
+			}
+		} else {
 			GLWidget->enableGrayShader();
+			alpha = 0.8 * (1.0f - alpha); // Invert alpha value
 		}
 	}
 
@@ -429,7 +448,7 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 
 	if (isHidden()) {
 		glPopAttrib();
-		if (inGreyDraw) {
+		if (!inGreyDraw) {
 			GLWidget->disableGrayShader();
 		}
 	}
@@ -437,9 +456,24 @@ void cMobile::draw(int cellx, int celly, int leftClip, int topClip, int rightCli
 	drawx_ = cellx;
 	drawy_ = celly;
 
-	if (!inGreyDraw) {
-		inGreyDraw = true;
-		draw(cellx, celly, leftClip, topClip, rightClip, bottomClip);
+	if (isHidden() && !inGreyDraw) {
+		glClearStencil(1);
+		glClear(GL_STENCIL_BUFFER_BIT);
+
+		inGreyDraw = true;	
+		inBlurDraw = true;
+		cellXOffset = 1;
+		draw(orgCellX, orgCellY, leftClip, topClip, rightClip, bottomClip);
+		cellXOffset = -1;
+		draw(orgCellX, orgCellY, leftClip, topClip, rightClip, bottomClip);
+		cellXOffset = 0;
+		cellYOffset = 1;
+		draw(orgCellX, orgCellY, leftClip, topClip, rightClip, bottomClip);
+		cellYOffset = -1;
+		draw(orgCellX, orgCellY, leftClip, topClip, rightClip, bottomClip);
+		cellYOffset = 0;
+		inBlurDraw = false;
+		draw(orgCellX, orgCellY, leftClip, topClip, rightClip, bottomClip);
 		inGreyDraw = false;
 	}
 }

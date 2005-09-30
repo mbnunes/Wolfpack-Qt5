@@ -60,6 +60,10 @@ public:
 	int containerY() const;
 	void setContainerX(int data);
 	void setContainerY(int data);
+	bool isAlwaysMovable() const;
+	void setAlwaysMovable(bool data);
+	bool isInvisible() const;
+	void setInvisible(bool data);
 
 	const Container &content() const;
 	cContainerGump *containerGump() const;
@@ -70,6 +74,9 @@ public:
 	void setDrawy(int data);
 
 	void updatePriority();
+	bool canMove() const;
+
+	void draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip);
 protected:
 	State positionState_;
 	cDynamicItem *container_; // Container (only valid in Contained state)
@@ -77,6 +84,8 @@ protected:
 	enLayer layer_; // The layer this item is equipped on (only valid in Equipped state)
 	Container content_;
 
+	bool alwaysMovable;
+	bool invisible;
 	ushort amount_;
 	int lastClickX_;
 	int lastClickY_;
@@ -84,6 +93,7 @@ protected:
 	bool deleting; // This is being deleted right now
 	void removeItem(cDynamicItem *item);
 	cContainerGump *containerGump_; // The container gump associated with this dynamic item
+	float getAlpha() const;
 };
 
 Q_DECLARE_METATYPE(cDynamicItem*);
@@ -154,6 +164,22 @@ inline void cDynamicItem::setLastClickY(int data) {
 
 inline ushort cDynamicItem::amount() const {
 	return amount_;
+}
+
+inline bool cDynamicItem::isAlwaysMovable() const {
+	return alwaysMovable;
+}
+
+inline void cDynamicItem::setAlwaysMovable(bool data) {
+	alwaysMovable = data;
+}
+
+inline bool cDynamicItem::isInvisible() const {
+	return invisible;
+}
+
+inline void cDynamicItem::setInvisible(bool data) {
+	invisible = data;
 }
 
 #endif

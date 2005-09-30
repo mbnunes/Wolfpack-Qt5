@@ -16,6 +16,6 @@ main(pixel_in IN, uniform sampler2D texture : TEXUNIT0) {
 	OUT.color.r = IN.color.r * d;
 	OUT.color.g = IN.color.r * d;
 	OUT.color.b = IN.color.r * d;
-	OUT.color.a = IN.color.a;
+	OUT.color.a = IN.color.a * color.a;
 	return OUT;
 }

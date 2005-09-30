@@ -231,7 +231,27 @@ cMainWindow::cMainWindow() {
 
 	connect(game, SIGNAL(triggered(QAction*)), this, SLOT(menuGameClicked(QAction*)));
 
+	// Initialize the GL Format first
+    QGLFormat fmt;
+    fmt.setDoubleBuffer(true);
+    fmt.setRgba(true);
+	fmt.setStencil(true);
+	fmt.setStencilBufferSize(1);
+	fmt.setDepth(true);
+	fmt.setAlpha(true);
+	fmt.setAlphaBufferSize(8);
+    QGLFormat::setDefaultFormat(fmt);
+
 	GLWidget = new cGLWidget(this);
+
+	// Log which options are supported
+	Log->print(LOG_NOTICE, tr("OpenGL Widget Information:\n"));
+	Log->print(LOG_NOTICE, tr("Stencil Buffer: %1 (%2 Bit)\n").arg(GLWidget->format().stencil() ? "Enabled" : "Disabled").arg(GLWidget->format().stencilBufferSize()));
+	Log->print(LOG_NOTICE, tr("Double Buffering: %1\n").arg(GLWidget->format().doubleBuffer() ? "Enabled" : "Disabled"));
+	Log->print(LOG_NOTICE, tr("Depth Buffer: %1 (%2 Bit)\n").arg(GLWidget->format().depth() ? "Enabled" : "Disabled").arg(GLWidget->format().depthBufferSize()));
+	Log->print(LOG_NOTICE, tr("Alpha Buffer: %1 (%2 Bit)\n").arg(GLWidget->format().alpha() ? "Enabled" : "Disabled").arg(GLWidget->format().alphaBufferSize()));
+
+
 	setCentralWidget(GLWidget);
 
 	setMenuBar(m_menuBar);
@@ -705,7 +725,9 @@ void cGLWidget::mouseReleaseEvent(QMouseEvent *e) {
 
 	if (e->button() == Qt::LeftButton && lastDoubleClick) {
 		lastDoubleClick = false;
-		return;
+		if (!mouseCapture_ || !mouseCapture_->ignoreDoubleClicks()) {
+			return;	
+		}
 	}
 
 	// Save this event and start the timer
@@ -839,8 +861,8 @@ void cMainWindow::resizeGameWindow(unsigned int width, unsigned int height, bool
        
 	if (locked) {
 		resize(width, height + mheight);
-		setMaximumSize(size());
-		setMinimumSize(size());
+		setMaximumSize(QSize(width, height + mheight));
+		setMinimumSize(QSize(width, height + mheight));
 	} else {
 		setMaximumSize(65535, 65535);
 		setMinimumSize(100, 100);

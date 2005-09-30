@@ -8,41 +8,48 @@
 #include "gui/gui.h"
 #include "gui/containergump.h"
 #include "gui/worldview.h"
+#include "mainwindow.h"
 
 cDynamicItem::cDynamicItem(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial) : cEntity(x, y, z, facet), cDynamicEntity(x, y, z, facet, serial) {
+	alwaysMovable = false;
+	invisible = false;
 	type_ = ITEM;
 	wearer_ = 0;
 	container_ = 0;
-	positionState_ = InWorld; // Contrusctor take care of movement
-	World->addEntity(this);
+	positionState_ = InWorld; // Contrusctor take care of movement	
 	lastClickX_ = 0;
 	lastClickY_ = 0;
 	deleting = false;
 	containerGump_ = 0;
+	World->addEntity(this);
 }
 
 cDynamicItem::cDynamicItem(cDynamicItem *container, unsigned int serial) : cDynamicEntity(serial) {
+	alwaysMovable = false;
+	invisible = false;
 	type_ = ITEM;
 	wearer_ = 0;
 	container_ = 0;
-	positionState_ = InLimbo;
-	move(container);
+	positionState_ = InLimbo;	
 	deleting = false;
 	containerGump_ = 0;
 	lastClickX_ = 0;
 	lastClickY_ = 0;
+	move(container);
 }
 
 cDynamicItem::cDynamicItem(cMobile *wearer, unsigned char layer, unsigned int serial) : cDynamicEntity(serial) {
+	alwaysMovable = false;
+	invisible = false;
 	type_ = ITEM;
 	wearer_ = 0;
 	container_ = 0;
 	positionState_ = InLimbo;
-	move(wearer, layer);
 	deleting = false;
 	containerGump_ = 0;
 	lastClickX_ = 0;
 	lastClickY_ = 0;
+	move(wearer, layer);
 }
 
 cDynamicItem::~cDynamicItem() {
@@ -119,6 +126,12 @@ void cDynamicItem::cleanPosition() {
 	}
 
 	positionState_ = InLimbo;
+
+	if (containerGump_) {
+		containerGump_->setContainer(0); // Make sure the container gump doesn't try to unassign itself from us
+		Gui->queueDelete(containerGump_);
+		containerGump_ = 0;
+	}
 }
 
 void cDynamicItem::setId(unsigned short data) {
@@ -213,5 +226,35 @@ void cDynamicItem::setAmount(ushort amount) {
 		}
 	} else {
 		setDrawStacked(false);
+	}
+}
+
+bool cDynamicItem::canMove() const {
+	// If it has weight 255 and not the appropiate flag,
+	// return false
+	if (tiledata_->weight() == 255 && !alwaysMovable) {
+		return false;
+	}
+
+	return true;
+}
+
+float cDynamicItem::getAlpha() const {
+	if (invisible) {
+		return 0.6f;
+	} else {
+		return cStaticTile::getAlpha();
+	}
+}
+
+void cDynamicItem::draw(int cellx, int celly, int leftClip, int topClip, int rightClip, int bottomClip) {
+	if (invisible && !Player->isDead()) {
+		GLWidget->enableGrayShader();
+	}
+	
+	cStaticTile::draw(cellx, celly, leftClip, topClip, rightClip, bottomClip);
+
+	if (invisible && !Player->isDead()) {
+		GLWidget->disableGrayShader();
 	}
 }

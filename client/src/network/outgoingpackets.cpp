@@ -147,7 +147,7 @@ cSendUnicodeSpeechPacket::cSendUnicodeSpeechPacket(enSpeechType type, const QStr
 }
 
 cTargetResponsePacket::cTargetResponsePacket(uint targetId, uchar targetType, uchar cursorType, cEntity *target) : cOutgoingPacket(0x6c, 19) {
-	if (target->type() == MOBILE || target->type() == ITEM || target->type() == STATIC) {
+	if (target && (target->type() == MOBILE || target->type() == ITEM || target->type() == STATIC)) {
 		targetType = 0;
 	}
 

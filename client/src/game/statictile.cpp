@@ -114,12 +114,7 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		}
 	}
 
-	float alpha = 1.0f;
-
-	// Translucent tiles have 50% alpha
-	if (tiledata_ && tiledata_->isTranslucent()) {
-		alpha = 0.5f;
-	}
+	float alpha = getAlpha();
 
 	if (animated && animation) {
 		// Check for frame expiry
@@ -289,4 +284,12 @@ void cStaticTile::updatePriority() {
 	}
 
 	priority_ = z_ + priorityBonus_;
+}
+
+float cStaticTile::getAlpha() const {
+	if (tiledata_ && tiledata_->isTranslucent()) {
+		return 0.5f;
+	} else {
+		return 1.0f;
+	}
 }

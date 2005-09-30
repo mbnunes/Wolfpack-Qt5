@@ -181,6 +181,8 @@ void cWorldView::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 
 void cWorldView::addSysMessage(const QString &message, unsigned short hue, unsigned char font) {
 	cSysMessage *label = new cSysMessage(message, font, hue);
+	label->setAutoSize(false);
+	label->setSize(450, 0);
 	label->update(); // Create the surface so the height is known
 	label->setCreated(Utilities::getTicks());
 	label->setPosition(left->width(), bottom->y() - 50 - label->height());

@@ -18,6 +18,7 @@ protected:
 	cItemTileInfo *tiledata_;
 	cTexture *texture;
 	bool drawStacked_;
+	virtual float getAlpha() const;
 
 	// For animated static tiles
 	bool animated;

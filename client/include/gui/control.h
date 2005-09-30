@@ -55,6 +55,7 @@ protected:
 	bool wantTabs_; // This property indicates that the TAB key should not switch focus if this control is active. Defaults to false.
 	unsigned int tabIndex_; // The tab index of this control. By defaults it the highest tab index in the parent + 1
 	float alpha_;
+	bool ignoreDoubleClicks_;
 	QMap<QString, QString> tags; // Custom properties for this control
 
 public slots:
@@ -90,6 +91,8 @@ public:
 	bool needsRealign() const { return needsRealign_; }
 	void setDisableAlign(bool data) { disableAlign_ = data; }
 	void setNeedsRealign(bool data) { needsRealign_ = data; }
+	void setIgnoreDoubleClicks(bool data);
+	bool ignoreDoubleClicks() const;
 
 	cControl();
 	virtual ~cControl();
@@ -268,6 +271,14 @@ inline float cControl::alpha() const {
 
 inline cContainer *cControl::parent() const {
 	return parent_;
+}
+
+inline void cControl::setIgnoreDoubleClicks(bool data) {
+	ignoreDoubleClicks_ = data;
+}
+
+inline bool cControl::ignoreDoubleClicks() const {
+	return ignoreDoubleClicks_;
 }
 
 #endif

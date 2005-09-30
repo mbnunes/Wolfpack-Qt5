@@ -26,6 +26,7 @@ cControl::cControl() {
 	wantTabs_ = false;
 	tabIndex_ = 0;
 	alpha_ = 1.0f;
+	ignoreDoubleClicks_ = false;
 }
 
 cControl::~cControl() {
