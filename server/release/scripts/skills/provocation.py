@@ -138,7 +138,6 @@ def response2( char, args, target ):
 		else:
 			instrument.delete()
 			socket.clilocmessage(502079) # The instrument played its last tune.
-	
 
 	play_instrument( char, instrument, True )
 	creature1.war = 1

@@ -31,7 +31,7 @@
 		<sellprice>9</sellprice>
 		<value>30</value>
 		<category>Professions\Mage\Spellbook (N/S)</category>
-		<basescripts>equipment,magic.spellbook</basescripts>
+		<basescripts>magic.spellbook</basescripts>
 		<weight>0.0</weight>
 	</item>
 
