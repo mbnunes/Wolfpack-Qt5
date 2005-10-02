@@ -207,6 +207,8 @@ class DispelEvil(Spell):
 					if dispelChance > random.random():
 						target.pos.effect( 0x3728, 8, 20 )
 						target.pos.soundeffect( 0x201 )
+						target.delete()
+						continue
 
 				# We have no "flee" method
 				#evil = not target.owner and target.karma < 0

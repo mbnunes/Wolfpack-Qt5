@@ -261,13 +261,16 @@ class MassDispel (Spell):
 			if not mayAreaHarm(char, target):
 				continue
 
-			if self.checkresist(char, target):
+			dispelChance = 50.0 + (100 * ((char.magery / 10.0 - (target.getintproperty('dispeldifficulty', 0) / 10)) / ((target.getintproperty('dispelfocus', 1) / 10) * 2))) / 100.0
+
+			if dispelChance > random.random():
 				target.effect(0x3779, 10, 20)
+				target.fight(char)
 			else:
 				wolfpack.effect(0x3728, target.pos, 8, 20)
 				target.soundeffect(0x201)
 				target.delete()
-			
+
 		# Field spells
 		for item in items:
 			if item.hastag('dispellable_field'):
