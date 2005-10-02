@@ -18,6 +18,9 @@ def getdelay(attacker, weapon):
 
 	bonus = fromchar(attacker, SPEEDBONUS)
 
+	if attacker.hasscript('divinefury'):
+		bonus += 10
+
 	# Scale value according to bonus
 	value += bonus * value / 100
 

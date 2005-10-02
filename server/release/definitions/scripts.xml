@@ -203,6 +203,9 @@
 	<script>magic.vengefulspirit</script>
 	<script>magic.strangle</script>
 	<script>magic.mindrot</script>
+	<script>magic.horrificbeast</script>
+	<script>magic.divinefury</script>
+	<script>magic.lichform</script>
 
 	<!-- NPC -->
 	<script>npc.healer</script>

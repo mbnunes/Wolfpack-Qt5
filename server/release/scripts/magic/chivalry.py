@@ -10,6 +10,8 @@ import random
 import math
 from wolfpack.utilities import energydamage, mayAreaHarm
 from combat.specialmoves import ismortallywounded
+import magic.circle4
+from magic import necromancy
 
 def ComputePowerValue( char, div ):
 	if not char:
@@ -143,14 +145,14 @@ class ConsecrateWeapon(Spell):
 		# be converted to the target's worst Resistance type.
 		# Duration of the effect is affected by the caster's Karma and lasts for 3 to 11 seconds.
 
-		itemID = 0xF5F
+		itemID = 0xf5f
 		soundID = 0x56
 		
 		if weapon.type in [1003, 1004]:
-			itemID = 0xFB4
+			itemID = 0xfb4
 			soundID = 0x232
 		elif weapon.type in [1006, 1007]:
-			itemID = 0x13B1
+			itemID = 0x13b1
 			soundID = 0x145
 
 		seconds = ComputePowerValue( char, 20 )
@@ -183,9 +185,49 @@ class DispelEvil(Spell):
 		self.mana = 10
 		self.tithingpoints = 10
 		self.mantra = 'Dispiro Malas'
+		self.harmful = 1
 
 	def cast(self, char, mode, args=[], target=None, item=None):
-		char.socket.sysmessage( tr("Not yet implemented.") )
+		char.effect( 0x37c4, 10, 7, 4, 3 )
+		char.soundeffect( 0x299 );
+		char.effect( 0x37c4, 1, 25, 14, 3 )
+
+		dispelSkill = ComputePowerValue( char, 2 )
+
+		chiv = char.skill[self.skill]
+
+		chars = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, 8)
+		for target in chars:
+			if not target == char:
+				dispellable = target.summoned # and not target.IsAnimatedDead
+				if dispellable:
+					dispelChance = (50.0 + ((100 * (chiv - (target.getintproperty('dispeldifficulty', 0) / 10))) / ((target.getintproperty('dispelfocus', 0) / 10)*2))) / 10
+					dispelChance *= dispelSkill / 100.0
+
+					if dispelChance > random.random():
+						target.pos.effect( 0x3728, 8, 20 )
+						target.pos.soundeffect( 0x201 )
+
+				# We have no "flee" method
+				#evil = not target.owner and target.karma < 0
+
+				#if evil:
+				#	# TODO: Is this right?
+				#	fleeChance = (100 - math.sqrt( target.fame / 2 )) * chiv * dispelSkill
+				#	fleeChance /= 1000000
+
+				#	if fleeChance > random.random():
+				#		# guide says 2 seconds, it's longer
+				#		target.BeginFlee( TimeSpan.FromSeconds( 30.0 ) )
+
+			if necromancy.transformed(target):
+				drainChance = 0.5 * (char.skill[self.skill] / max( (target.skill[NECROMANCY]/10), 1 ))
+
+				if drainChance >random.random():
+					drain = (5 * dispelSkill) / 100
+
+					target.stamina -= drain
+					target.mana -= drain
 
 class DivineFury(Spell):
 	def __init__(self):
@@ -208,8 +250,14 @@ class DivineFury(Spell):
 		char.soundeffect( sound  )
 		char.effect( 0x376A, 1, 31, 1160, 0 )
 		char.effect( 0x37C4, 1, 31, 43, 2 )
+		char.stamina = char.maxstamina
+		if char.hasscript('magic.divinefury'):
+			char.dispel(char, True, 'DIVINEFURY')
+			return
 
-		char.socket.sysmessage( tr("Not yet implemented.") )
+		char.addscript('magic.divinefury')
+		duration = random.randint(7000, 24000)
+		char.addtimer(duration, magic.divinefury.expire, [], True, False, 'DIVINEFURY', magic.divinefury.dispel)
 
 class EnemyOfOne(Spell):
 	def __init__(self):
@@ -434,7 +482,8 @@ class RemoveCurse(CharEffectSpell):
 				target.dispel(target, True, 'STRANGLE')
 			if target.hasscript('magic.corpseskin'):
 				target.dispel(target, True, 'COPRSESKIN')
-			# TODO: REMOVE CURSE SPELL
+			# remove curse spell
+			magic.circle4.curse_remove(char, [], True)
 		else:
 			target.soundeffect( 0x1df )
 

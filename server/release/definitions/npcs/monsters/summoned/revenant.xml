@@ -45,6 +45,9 @@
 		<tag name="res_cold" value="60,70" type="int" />
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="60,70" type="int" />
+		<!-- Dispel Difficulty -->
+		<intproperty name="dispeldifficulty" value="800" />
+		<intproperty name="dispelfocus" value="200" />
 		<!-- Misc. -->
 		<controlslots>3</controlslots>
 		<category>Summoned\Revenant</category>

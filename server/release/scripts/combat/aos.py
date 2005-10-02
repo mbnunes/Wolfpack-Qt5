@@ -108,10 +108,16 @@ def checkhit(attacker, defender, time):
 	# Calculate the hit chance
 	bonus = 0 # Get the weapon "accuracy" status
 	bonus += properties.fromchar(attacker, HITBONUS) # Get the attackers AttackChance bonus
+	# attacker gets 10% bonus when they're under divine fury
+	if attacker.hasscript('magic.divinefury'):
+		bonus += 10
 	attackChance = (attackerValue + 20.0) * (100 + bonus)
 
 	# Calculate the defense chance
 	bonus = properties.fromchar(defender, DEFENSEBONUS) # Get the defenders defend chance
+	# defender loses 20% bonus when they're under divine fury
+	if defender.hasscript('magic.divinefury'):
+		bonus -= 20
 	defendChance = (defenderValue + 20.0) * (100 + bonus)
 
 	# Give a minimum chance of 2%
@@ -138,6 +144,12 @@ def scaledamage(char, damage, checkskills = True, checkability = False):
 
 	# Get the total damage bonus this character gets
 	bonus = properties.fromchar(char, DAMAGEBONUS)
+
+	if char.hasscript('magic.horrificbeast'):
+		bonus += 25
+
+	if char.hasscript('magic.divinefury'):
+		bonus += 10
 
 	# For axes a lumberjacking skill check is made to gain
 	# in that skill
@@ -173,7 +185,7 @@ def scaledamage(char, damage, checkskills = True, checkability = False):
 		if char.skill[TACTICS] >= 1000:
 			bonus += 6.25
 
-	damage = damage + damage * bonus / 100.0
+	damage = damage + damage * (bonus / 100.0)
 
 	return max(1, floor(damage))
 

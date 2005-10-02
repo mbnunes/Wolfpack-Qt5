@@ -5,7 +5,7 @@ import random
 import wolfpack
 from wolfpack.utilities import tobackpack, energydamage, mayAreaHarm
 from math import ceil
-from magic import polymorph
+from magic import polymorph, necromancy
 from wolfpack.consts import PLAYER_BODIES_ALIVE
 
 class ChainLightning (Spell):
@@ -348,7 +348,10 @@ class Polymorph (Spell):
 			if char.socket:
 				char.socket.clilocmessage(502167)
 			return 0
-
+		if necromancy.transformed(char):
+			if char.socket:
+				char.socket.clilocmessage(1061633 ) # You cannot polymorph while in that form.
+			return 0
 		if len(args) == 0:
 			polymorph.showmenu(char)
 			return 0

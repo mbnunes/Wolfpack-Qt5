@@ -35,8 +35,9 @@
 		<tag name="res_cold" value="20,30" type="int" />
 		<tag name="res_poison" value="70,80" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
-		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Dispel Difficulty -->
+		<intproperty name="dispeldifficulty" value="1250" />
+		<intproperty name="dispelfocus" value="450" />
 		<!-- Misc. -->
 		<controlslots>5</controlslots>
 		<category>Summoned\Daemon</category>

@@ -18,6 +18,10 @@ def potion( char, potion, curetype ):
 		socket.clilocmessage( 1042000 )
 		return False
 
+	if char.hasscript('magic.vampiricembrace'):
+		char.socket.clilocmessage(1061652 ) # The garlic in the potion would surely kill you.
+		return False
+
 	if curetype == 4:
 		curelevel = 0
 	elif curetype == 5:

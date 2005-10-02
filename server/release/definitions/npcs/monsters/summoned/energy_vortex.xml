@@ -45,8 +45,8 @@
 		<inherit id="speed_veryfast" />
 
 		<!-- Dispel Difficulty -->
-		<intproperty name="dispelfocus" value="20" />
-		<intproperty name="dispeldifficulty" value="80" />
+		<intproperty name="dispelfocus" value="200" />
+		<intproperty name="dispeldifficulty" value="800" />
 
 		<!-- Poison immunity -->
 		<intproperty name="poison_immunity" value="4" />

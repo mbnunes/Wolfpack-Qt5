@@ -93,7 +93,7 @@ def target_response( char, args, target ):
 			return False
 		if (target.char.region and target.char.region.safe) and spell.harmful:
 			if char.socket:
-				char.socket.clilocmessage(1061621)
+				char.socket.clilocmessage(1001018) # You can not perform negative acts on your target.
 			return False
 		if target.char.dead and not spell.affectdead:
 			if char.socket:

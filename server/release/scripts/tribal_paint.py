@@ -1,5 +1,6 @@
 
 from wolfpack.consts import LAYER_HELM
+from magic import necromancy
 
 duration = 1000 * 60 * 60 * 24 * 7 # one week
 
@@ -12,7 +13,8 @@ def onUse( char, item ):
 		char.socket.clilocmessage( 501698 ) # You cannot disguise yourself while incognitoed.
 	elif char.polymorph:
 		char.socket.clilocmessage( 501699 ) # You cannot disguise yourself while polymorphed.
-	# todo: take care of necromancer transformation spell
+	elif necromancy.transformed(char):
+		char.socket.clilocmessage( 501699 ) # You cannot disguise yourself while polymorphed.
 	# wearing an orkish kin mask
 	elif char.itemonlayer(LAYER_HELM) and char.itemonlayer(LAYER_HELM).baseid == '141b':
 		char.socket.clilocmessage( 501605 ) # You are already disguised.

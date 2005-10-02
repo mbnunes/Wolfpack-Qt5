@@ -15,6 +15,12 @@ from magic.utilities import *
 from wolfpack.utilities import changeResistance
 import wolfpack.time
 
+def transformed(char):
+	if target.hasscript('magic.horrificbeast') or target.hasscript('magic.lichform') or target.hasscript('magic.wraithform') \
+	or target.hasscript('magic.vampiricembrace'):
+		return True
+	return False
+
 class AnimateDead(Spell):
 	def __init__(self):
 		Spell.__init__(self, 4)
@@ -183,10 +189,16 @@ class HorrificBeast(Spell):
 		self.mantra = 'Rel Xen Vas Bal'
 
 	def cast(self, char, mode, args=[], target=None, item=None):
-		#char.id = 746
-		#char.update()
 		char.soundeffect( 0x165 )
 		char.effect( 0x3728, 1, 13, 92, 3 )
+		if char.hasscript('magic.horrificbeast'):
+			char.id = char.orgid
+			char.update
+			char.removescript('magic.horrificbeast')
+		else:
+			char.id = 746
+			char.update()
+			char.addscript('magic.horrificbeast')
 
 class LichForm(CharEffectSpell):
 	def __init__(self):
@@ -297,6 +309,7 @@ class PoisonStrike(CharEffectSpell):
 		self.mana = 17
 		self.reagents = {REAGENT_NOXCRYSTAL: 1}
 		self.mantra = 'In Vas Nox'
+		self.harmful = 1
 
 	def effect(self, char, target, mode, args, item):
 		target.effect( 0x36B0, 1, 14, 63 )
@@ -462,6 +475,7 @@ class Wither(Spell):
 		self.mana = 23
 		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Kal Vas An Flam'
+		self.harmful = 1
 
 	def cast(self, char, mode, args=[], target=None, item=None):
 		targets = []
