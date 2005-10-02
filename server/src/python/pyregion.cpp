@@ -181,7 +181,7 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	else if ( !strcmp( name, "noagressivemagic" ) )
 		return PyInt_FromLong( self->pRegion->isNoAgressiveMagic() ? 1 : 0 );
 	/*
-		\rproperty region.noagressivemagic This boolean flag indicates whether magic is forbidden in this region or not.
+		\rproperty region.antimagic This boolean flag indicates whether magic is forbidden in this region or not.
 	*/
 	else if ( !strcmp( name, "antimagic" ) )
 		return PyInt_FromLong( self->pRegion->isAntiMagic() ? 1 : 0 );
