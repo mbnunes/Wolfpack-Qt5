@@ -193,12 +193,11 @@ class HorrificBeast(Spell):
 		char.effect( 0x3728, 1, 13, 92, 3 )
 		if char.hasscript('magic.horrificbeast'):
 			char.id = char.orgid
-			char.update
 			char.removescript('magic.horrificbeast')
 		else:
 			char.id = 746
-			char.update()
 			char.addscript('magic.horrificbeast')
+		char.update()
 
 class LichForm(CharEffectSpell):
 	def __init__(self):
