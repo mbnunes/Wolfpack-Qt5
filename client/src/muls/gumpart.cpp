@@ -26,11 +26,11 @@ void cGumpart::load() {
 	index.setFileName(Utilities::getUoFilename("gumpidx.mul"));
 
 	// Open files
-	if (!data.open(QIODevice::ReadWrite)) {
+	if (!data.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open gump data at %1.").arg(data.fileName()));
 	}
 
-	if (!index.open(QIODevice::ReadWrite)) {
+	if (!index.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open gump index at %1.").arg(index.fileName()));
 	}
 }

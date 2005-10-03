@@ -3,6 +3,7 @@
 
 #include "skills.h"
 #include "utilities.h"
+#include "scripts.h"
 #include "dialogs/login.h"
 #include "gui/gui.h"
 #include "muls/localization.h"
@@ -14,6 +15,7 @@
 #include "network/uosocket.h"
 #include "network/network.h"
 #include "game/mobile.h"
+#include "game/world.h"
 
 /*
 	Connect a QObject Signal to a QObject Slot
@@ -60,6 +62,43 @@ static PyObject *connect(PyObject *self, PyObject *args) {
 	Py_RETURN_TRUE;
 }
 
+/*
+	Disconnect a QObject Signal from a QObject Slot
+	or
+	Disconnect a QObject Signal from a Python Callable
+*/
+static PyObject *disconnect(PyObject *self, PyObject *args) {
+	PyObject *sender, *recipient;
+
+	if (!PyArg_ParseTuple(args, "O!O", &pyWrapperType, &sender, &recipient)) {
+		return 0;
+	}
+
+	// If no slot is specified, reciepient has to be a callable
+	if (!PyCallable_Check(recipient)) {
+		PyErr_SetString(PyExc_TypeError, "client.disconnect(sender, signal, recipient): recipient has to be a callable python object.");
+		return 0;
+	}
+
+	// Connect using the universal connector
+	QObject *qSender = getWrappedObject(sender);
+	if (!qSender) {
+		PyErr_SetString(PyExc_RuntimeError, "client.disconnect(sender, signal, recipient): sender has already been freed.");
+		return 0;
+	}
+
+	// Find the slot connected to the given object
+	QVector<cUniversalSlot*> slotlist = Scripts->getSlotlist();
+
+	foreach (cUniversalSlot *slot, slotlist) {
+		if (slot->recipient() == recipient) {
+			qSender->disconnect(slot);
+			delete slot;
+		}
+	}
+	Py_RETURN_TRUE;
+}
+
 static PyObject *random(PyObject *self, PyObject *args) {
 	if (PyTuple_Size(args) == 2) {
 		int mi, ma;
@@ -73,9 +112,15 @@ static PyObject *random(PyObject *self, PyObject *args) {
 	Py_RETURN_NONE;
 }
 
+static PyObject *sender(PyObject *self, PyObject *args) {
+	return generateWrapper(Scripts->sender());
+}
+
 static PyMethodDef clientMethods[] = {
-	{"connect",	connect, METH_VARARGS, 0},
-	{"random", random, METH_VARARGS, 0},
+	{"connect",		connect,	METH_VARARGS, 0},
+	{"disconnect",	disconnect, METH_VARARGS, 0},
+	{"random",		random,		METH_VARARGS, 0},
+	{"sender",		sender,		METH_VARARGS, 0},
 	{0, 0, 0, 0}
 };
 
@@ -135,6 +180,7 @@ void initializeClientModule() {
 	ADD_GLOBAL_OBJ(UoSocket);
 	ADD_GLOBAL_OBJ(Network);
 	ADD_GLOBAL_OBJ(Player);
+	ADD_GLOBAL_OBJ(World);
 	
 	// Add Methods to the module
 	addModuleMethods(module);

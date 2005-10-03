@@ -1405,7 +1405,7 @@ protected:
 	ushort value, maxValue;
 public:
 	cUpdateHealthPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
-		input >> serial >> value >> maxValue;
+		input >> serial >> maxValue >> value;
 	}
 
 	virtual void handle(cUoSocket *socket) {
@@ -1431,7 +1431,7 @@ protected:
 	ushort value, maxValue;
 public:
 	cUpdateStaminaPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
-		input >> serial >> value >> maxValue;
+		input >> serial >> maxValue >> value;
 	}
 
 	virtual void handle(cUoSocket *socket) {
@@ -1448,7 +1448,7 @@ public:
 	}
 };
 
-AUTO_REGISTER_PACKET(0xa2, cUpdateStaminaPacket::creator);
+AUTO_REGISTER_PACKET(0xa3, cUpdateStaminaPacket::creator);
 
 // Update the mana of a mobile
 class cUpdateManaPacket : public cIncomingPacket {
@@ -1457,7 +1457,7 @@ protected:
 	ushort value, maxValue;
 public:
 	cUpdateManaPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
-		input >> serial >> value >> maxValue;
+		input >> serial >> maxValue >> value;
 	}
 
 	virtual void handle(cUoSocket *socket) {
@@ -1474,7 +1474,7 @@ public:
 	}
 };
 
-AUTO_REGISTER_PACKET(0xa3, cUpdateManaPacket::creator);
+AUTO_REGISTER_PACKET(0xa2, cUpdateManaPacket::creator);
 
 // Mobile Status
 class cMobileStatusPacket : public cDynamicIncomingPacket {
@@ -1543,12 +1543,14 @@ public:
 			mobile->setHealth(health);
 			mobile->setMaxHealth(maxHealth);
 
-       		if (flags >= 1) {
-				mobile->setStamina(stamina);
-				mobile->setMana(mana);
-				mobile->setMaxStamina(maxStamina);
-				mobile->setMaxMana(maxMana);
+       		if (flags <= 1) {
+				stamina = mobile->stamina();
+				maxStamina = mobile->maxStamina();
+				mana = mobile->mana();
+				maxMana = mobile->maxMana();
 			}
+
+			mobile->setStats(health, maxHealth, stamina, maxStamina, mana, maxMana);
 		}
 	}
 

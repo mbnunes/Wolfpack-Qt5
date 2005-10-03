@@ -10,6 +10,7 @@ class cControl;
 
 class cDynamicEntity : virtual public cEntity {
 Q_OBJECT
+Q_PROPERTY(uint serial READ serial);
 protected:
 	unsigned int serial_;
 
@@ -23,13 +24,12 @@ protected:
 
 	// xbase/ybase are the coordinates of the topmost center of the entity (cellx, celly - height in reality)
 	void drawOverheadText(int xbase, int ybase);
-public:
-	void addOverheadText(QString message, unsigned short color = 0x3b2, unsigned char font = 3);
 
+public:
 	cDynamicEntity(unsigned short x, unsigned short y, signed char z, enFacet facet, unsigned int serial);
 	cDynamicEntity(unsigned int serial);
 	virtual ~cDynamicEntity();
-
+public slots:
 	unsigned int serial() const;
 	
 	// Move the entity to the given coordinates

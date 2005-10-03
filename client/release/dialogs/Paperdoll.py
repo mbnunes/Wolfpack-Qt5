@@ -1,5 +1,6 @@
 
 from client import *
+import Status
 
 ### Weapon ability button doubleclicked
 def abilityButtonClicked(button):
@@ -49,6 +50,9 @@ def statusButtonClicked(button):
 	if not dialog:
 		# Todo: Select appropiate status dialog
 		dialog = Gui.createDialog("PlayerStatusAos")
+		
+		Status.initialize(dialog, Player) # Initialize the status dialog with the given mobile
+		
 		# Todo: Position at old coordinates
 		Gui.addControl(dialog)
 	

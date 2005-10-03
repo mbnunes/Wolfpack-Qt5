@@ -61,7 +61,7 @@ public:
 	}
 };
 
-class cWorld : QObject {
+class cWorld : public QObject {
 Q_OBJECT
 protected:
 	// Center of our world
@@ -108,6 +108,7 @@ protected:
 public:
 	cWorld();
 	~cWorld();
+public slots:
 
 	// This automatically uses the same facet as the world
 	void getGroundInfo(int x, int y, stGroundInfo *info);

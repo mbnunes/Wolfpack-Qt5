@@ -357,6 +357,7 @@ static void wrapper_dealloc(pyWrapperObject *obj) {
 
 PyObject* wrapper_get(pyWrapperObject* self, char* name);
 int wrapper_set(pyWrapperObject* self, char* name, PyObject* value);
+int wrapper_compare(PyObject *a, PyObject *b);
 
 /*
 	The type information for our generic wrapper type.
@@ -371,7 +372,7 @@ PyTypeObject pyWrapperType = {
 	0,								/* tp_print */
 	(getattrfunc)wrapper_get,		/* tp_getattr */
 	(setattrfunc)wrapper_set,		/* tp_setattr */
-	0,								/* tp_compare */
+	wrapper_compare,				/* tp_compare */
 	0,								/* tp_repr */
 	0,    							/* tp_as_number */
 	0,								/* tp_as_sequence */
@@ -430,6 +431,21 @@ PyObject *generateWrapper(QObject *object) {
 	wrapper->helper = new cGenericWrapperHelper((PyObject*)wrapper, object);
 	wrapper->wrapped = object;
 	return (PyObject*)wrapper;
+}
+
+/*
+	Compare two wrapped objects.
+*/
+static int wrapper_compare(PyObject *a, PyObject *b) {
+	if (a->ob_type != &pyWrapperType || b->ob_type != &pyWrapperType) {
+		return -1;
+	}
+
+	if (getWrappedObject(a) == getWrappedObject(b)) {
+		return 0;
+	} else {
+		return 1;
+	}
 }
 
 /*

@@ -39,6 +39,7 @@
 #include <cstdlib>
 
 cScripts::cScripts() {
+	sender_ = 0;
 }
 
 cScripts::~cScripts() {

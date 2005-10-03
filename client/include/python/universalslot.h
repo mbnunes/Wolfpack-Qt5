@@ -23,11 +23,17 @@ public:
 	void universalslot(void **arguments);
 
 	bool isValid() const;
+
+	PyObject *recipient() const;
 protected:
-	PyObject *recipient;
+	PyObject *recipient_;
 	QMetaMethod slotSignature;
 	bool valid;
 };
+
+inline PyObject *cUniversalSlot::recipient() const {
+	return recipient_;
+}
 
 inline bool cUniversalSlot::isValid() const {
 	return valid;

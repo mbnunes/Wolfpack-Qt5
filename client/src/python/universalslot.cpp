@@ -45,7 +45,7 @@ void *cUniversalSlot::qt_metacast(const char *_clname)
 }
 
 int cUniversalSlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
-{
+{	
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
@@ -59,10 +59,10 @@ int cUniversalSlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 void cUniversalSlot::universalslot(void **arguments) {
-	if (!recipient) {
+	if (!recipient_) {
 		return;
 	}
-
+	
 	QList<QByteArray> paramTypes = slotSignature.parameterTypes();
 
 	// Generate the argument list (the worst part of it all...)
@@ -77,9 +77,13 @@ void cUniversalSlot::universalslot(void **arguments) {
 		PyTuple_SET_ITEM(args, index++, object);
 	}
 
+	Scripts->setSender(sender());
+
 	// Call the object, decref arguments afterwards and dump the return value
-	PyObject *result = PyEval_CallObject(recipient, args);
+	PyObject *result = PyEval_CallObject(recipient_, args);
 	Py_DECREF(args);
+
+	Scripts->setSender(0);
 
 	if (!result) {
 		if (PyErr_Occurred()) {
@@ -90,7 +94,7 @@ void cUniversalSlot::universalslot(void **arguments) {
 	}
 }
 
-cUniversalSlot::cUniversalSlot(QObject *sender, const char *signal, PyObject *recipient) : QObject(sender) {	
+cUniversalSlot::cUniversalSlot(QObject *sender, const char *signal, PyObject *recipient_) : QObject(sender) {	
 	// Look for the method definition in sender and store it
 	const QMetaObject *meta = sender->metaObject();
 	QByteArray normalizedSignal = meta->normalizedSignature(signal);
@@ -100,15 +104,15 @@ cUniversalSlot::cUniversalSlot(QObject *sender, const char *signal, PyObject *re
 	// Signal not found
 	if (offset == -1) {
 		valid = false;
-		this->recipient = 0;
+		this->recipient_ = 0;
 		Scripts->addSlot(this);
 		return;
 	}
 	valid = true;
 
 	slotSignature = meta->method(offset);
-	this->recipient = recipient;
-	Py_XINCREF(this->recipient);
+	this->recipient_ = recipient_;
+	Py_XINCREF(this->recipient_);
 
 	// Establish the connection
 	QObject::connect(sender, QString("2%1").arg(signal).toLocal8Bit(), SLOT(universalslot()));
@@ -117,5 +121,5 @@ cUniversalSlot::cUniversalSlot(QObject *sender, const char *signal, PyObject *re
 
 cUniversalSlot::~cUniversalSlot() {
 	Scripts->removeSlot(this);
-	Py_XDECREF(recipient);
+	Py_XDECREF(recipient_);
 }

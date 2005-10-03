@@ -32,16 +32,4 @@ void cDynamicEntity::setFacet(enFacet facet) {
 	facet_ = facet;
 	World->addEntity(this);
 }
-
-void cDynamicEntity::addOverheadText(QString message, unsigned short color, unsigned char font) {
-	// Calculate timeout...
-	unsigned int timeout = 12000; // Just say 12 seconds for now
-
-	cOverheadInfo info;
-	info.timeout = QTime::currentTime().addMSecs(timeout);
-	cLabel *label = new cLabel(message, font, color, true, ALIGN_LEFT, false);
-	label->setWidth(240);
-	label->update();
-	info.control = label;
-	overheadText.append(info);
-}
+ 
