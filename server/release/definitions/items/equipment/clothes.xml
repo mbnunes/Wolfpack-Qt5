@@ -657,6 +657,7 @@
 		<category>Clothes\Special\GM Robe</category>
 		<id>0x204f</id>
 		<newbie />
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Dupre -->
@@ -671,6 +672,8 @@
 	<item id="2782">
 		<category>Clothes\Samurai\Male Kimono</category>
 		<id>0x2782</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27cd" inherit="2782">
 		<id>0x27cd</id>
@@ -681,6 +684,8 @@
 	<item id="2783">
 		<category>Clothes\Samurai\Female Kimono</category>
 		<id>0x2783</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27ce" inherit="2783">
 		<id>0x27ce</id>
