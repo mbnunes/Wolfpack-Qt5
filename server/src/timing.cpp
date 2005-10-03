@@ -312,6 +312,9 @@ void cTiming::poll()
 
 void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 {
+	// Var to Regens
+	unsigned int RegTemp;
+
 	// Dead characters dont regenerate
 	if ( character->isDead() )
 	{
@@ -327,9 +330,16 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		{
 			if ( !Config::instance()->hungerRate() || character->hunger() > 10 )
 			{
-				character->setHitpoints( character->hitpoints() + 1 );
-				character->updateHealth();
-				character->setRegenHitpointsTime( ( uint ) ( Server::instance()->time() + floor( character->getHitpointRate() * 1000 ) ) );
+				// Assign the Var
+				RegTemp = character->onRegenHitpoints(( uint ) ( floor( character->getHitpointRate() * 1000 ) ));
+			
+				// Here, the event for Stamina Regen
+				if (RegTemp)
+				{
+					character->setHitpoints( character->hitpoints() + 1 );
+					character->updateHealth();
+					character->setRegenHitpointsTime( Server::instance()->time() + RegTemp );
+				}
 			}
 		}
 	}
@@ -338,13 +348,21 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 	{
 		if ( character->stamina() < character->maxStamina() )
 		{
-			character->setStamina( character->stamina() + 1 );
-			character->setRegenStaminaTime( ( uint ) ( Server::instance()->time() + floor( character->getStaminaRate() * 1000 ) ) );
-
-			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
-			if ( player && player->socket() )
+			// Assign the Var
+			RegTemp = character->onRegenStamina(( uint ) ( floor( character->getStaminaRate() * 1000 ) ));
+			
+			// Here, the event for Stamina Regen
+			if (RegTemp)
 			{
-				player->socket()->updateStamina();
+
+				character->setStamina( character->stamina() + 1 );
+				character->setRegenStaminaTime( Server::instance()->time() + RegTemp );
+
+				P_PLAYER player = dynamic_cast<P_PLAYER>( character );
+				if ( player && player->socket() )
+				{
+					player->socket()->updateStamina();
+				}
 			}
 		}
 	}
@@ -353,12 +371,16 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 	{
 		if ( character->mana() < character->maxMana() )
 		{
-			character->setMana( character->mana() + 1 );
-			character->setRegenManaTime( ( uint ) ( Server::instance()->time() + floor( character->getManaRate() * 1000 ) ) );
-
-			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
-			if ( player )
+			// Assign the Var
+			RegTemp = character->onRegenMana(( uint ) ( floor( character->getManaRate() * 1000 ) ));
+			
+			// Here, the event for Stamina Regen
+			if (RegTemp)
 			{
+				character->setMana( character->mana() + 1 );
+				character->setRegenManaTime( Server::instance()->time() + RegTemp );
+
+				P_PLAYER player = dynamic_cast<P_PLAYER>( character );
 				if ( player->socket() )
 				{
 					player->socket()->updateMana();

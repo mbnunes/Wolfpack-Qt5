@@ -2772,6 +2772,77 @@ bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned s
 	return result;
 }
 
+// Regen Things (OnRegenStamina, OnRegenHitpoints, OnRegenMana)
+
+unsigned int cBaseChar::onRegenHitpoints( unsigned int timer )
+{
+	if ( canHandleEvent( EVENT_REGENHITS ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* result = callEvent( EVENT_REGENHITS, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				timer = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+		else
+			timer = 0;
+
+		Py_DECREF( args );
+	}
+
+	return timer;
+}
+
+unsigned int cBaseChar::onRegenMana( unsigned int timer )
+{
+	if ( canHandleEvent( EVENT_REGENMANA ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* result = callEvent( EVENT_REGENMANA, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				timer = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+		else
+			timer = 0;
+
+		Py_DECREF( args );
+	}
+
+	return timer;
+}
+
+unsigned int cBaseChar::onRegenStamina( unsigned int timer )
+{
+	if ( canHandleEvent( EVENT_REGENSTAMINA ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* result = callEvent( EVENT_REGENSTAMINA, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				timer = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+		else
+			timer = 0;
+
+		Py_DECREF( args );
+	}
+
+	return timer;
+}
+
 bool cBaseChar::kill( cUObject* source )
 {
 	if ( free || isDead() )

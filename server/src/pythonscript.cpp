@@ -648,6 +648,33 @@ container that is being snooped into.
 */
 "onLog",
 
+/*
+\event onRegenHitpoints
+\param char The character who will recover Hitpoints
+\param timer The timer for the next Hitpoints recover.
+\return Return the new timer for next Hitpoints Recover. If 0, Default Regen will be canceled
+\condition Triggered when a character Recover Hitpoints from Regen time.
+*/
+"onRegenHitpoints",
+
+/*
+\event onRegenMana
+\param char The character who will recover Mana
+\param timer The timer for the next Mana recover.
+\return Return the new timer for next Mana Recover. If 0, Default Regen will be canceled
+\condition Triggered when a character Recover Mana from Regen time.
+*/
+"onRegenMana",
+
+/*
+\event onRegenStamina
+\param char The character who will recover Stamina
+\param timer The timer for the next Stamina recover.
+\return Return the new timer for next Stamina Recover. If 0, Default Regen will be canceled
+\condition Triggered when a character Recover Stamina from Regen time.
+*/
+"onRegenStamina",
+
 0
 };
 
