@@ -1,0 +1,124 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<dialogs>
+	<!-- Big Paperdoll Dialog -->
+	<dialog id="PlayerStatusAos" name="PlayerStatus" closable="true" movable="true">
+		<bounds x="0" y="0" width="427" height="184" />
+	
+		<!-- <tag name="Aos" value="1" />  --> <!-- Flag it as the Aos Status -->
+		
+		<children>
+			<!-- Background -->
+			<gumpimage gump="10860" movehandle="true"/>
+			
+			<!-- Statlock Buttons
+			Note on these:
+			The UP button has the ids: 0x983 (normal) 0x984 (hover)
+			The DOWN button has the ids: 0x985 (normal) 0x986 (hover)
+			The LOCK button has the ids: 0x82c (all)			
+			-->
+			<imagebutton name="StrengthLock" unpressed="0x983" pressed="0x984" hover="0x984">
+				<position x="40" y="78" />
+			</imagebutton>
+			
+			<imagebutton name="DexterityLock" unpressed="0x983" pressed="0x984" hover="0x984">
+				<position x="40" y="105" />
+			</imagebutton>
+			
+			<imagebutton name="IntelligenceLock" unpressed="0x983" pressed="0x984" hover="0x984">
+				<position x="40" y="133" />
+			</imagebutton>
+			
+			<!-- There is a clickable area at the following location that should close the current gump
+			and show the small status gump instead 
+			x: 385 y: 146 width: 23 height: 22
+			-->
+			
+			<!-- Strength, Dexterity, Intelligence Labels -->
+			<asciilabel hue="0x386" font="1" text="100" name="StrengthLabel">
+				<position x="88" y="77" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="DexterityLabel">
+				<position x="88" y="105" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="IntelligenceLabel">
+				<position x="88" y="133" />
+			</asciilabel>
+			
+			<!-- Health, Stamina, Mana Labels -->
+			<asciilabel hue="0x386" font="1" text="100" name="HealthLabel">
+				<position x="148" y="70" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="___">
+				<position x="148" y="73" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="MaxHealthLabel">
+				<position x="148" y="83" />
+			</asciilabel>			
+
+			<asciilabel hue="0x386" font="1" text="100" name="StaminaLabel">
+				<position x="148" y="98" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="___">
+				<position x="148" y="101" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="MaxStaminaLabel">
+				<position x="148" y="111" />
+			</asciilabel>
+			
+			<asciilabel hue="0x386" font="1" text="100" name="ManaLabel">
+				<position x="148" y="126" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="___">
+				<position x="148" y="129" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="MaxManaLabel">
+				<position x="148" y="139" />
+			</asciilabel>			
+
+			<!-- Stats Cap, Luck, Weight -->
+			<asciilabel hue="0x386" font="1" text="255" name="StatsCapLabel">
+				<position x="220" y="77" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="LuckLabel">
+				<position x="220" y="105" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="WeightLabel">
+				<position x="220" y="126" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="___">
+				<position x="220" y="129" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="MaxWeightLabel">
+				<position x="220" y="139" />
+			</asciilabel>
+			
+			<!-- Min-Maxdamage, Gold, Followers/MaxFollowers -->
+			<asciilabel hue="0x386" font="1" text="100" name="DamageLabel">
+				<position x="280" y="77" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="GoldLabel">
+				<position x="280" y="105" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="100" name="FollowersLabel">
+				<position x="285" y="133" />
+			</asciilabel>
+			
+			<!-- Resistances -->
+			<asciilabel hue="0x386" font="1" text="70" name="PhysicalResistLabel">
+				<position x="355" y="74" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="70" name="FireResistLabel">
+				<position x="355" y="91" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="70" name="ColdResistLabel">
+				<position x="355" y="106" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="70" name="PoisonResistLabel">
+				<position x="355" y="121" />
+			</asciilabel>
+			<asciilabel hue="0x386" font="1" text="70" name="EnergyResistLabel">
+				<position x="355" y="136" />
+			</asciilabel>												
+		</children>
+	</dialog>
+</dialogs>
