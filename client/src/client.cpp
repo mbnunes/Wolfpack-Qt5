@@ -258,6 +258,9 @@ void cUoClient::run()
 	MainWindow->show();
 	// END WINDOW INITIALIZATION
 
+	// Process the first few events here so the window gets an icon
+	qApp->processEvents();
+
 	try {
 		load();
 	} catch(const Exception &e) {

@@ -168,6 +168,17 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 				ptr[index] = &ptrArguments[index];
 				if (pyObj) {
 					ptrArguments[index] = getWrappedObject(pyObj);
+					
+					// This is special handling for cEntity subclasses because of virtual inheritance
+					if (qtType == "cMobile*") {
+						ptrArguments[index] = dynamic_cast<cMobile*>((QObject*)ptrArguments[index]);
+					} else if (qtType == "cDynamicItem*") {
+						ptrArguments[index] = dynamic_cast<cDynamicItem*>((QObject*)ptrArguments[index]);
+					} else if (qtType == "cEntity*") {
+						ptrArguments[index] = dynamic_cast<cEntity*>((QObject*)ptrArguments[index]);
+					} else if (qtType == "cDynamicEntity*") {
+						ptrArguments[index] = dynamic_cast<cDynamicEntity*>((QObject*)ptrArguments[index]);
+					}
 				}
 				if (type) {
 					*type = QMetaType::QObjectStar;

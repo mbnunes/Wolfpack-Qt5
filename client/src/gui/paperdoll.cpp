@@ -128,6 +128,7 @@ ushort cPaperdoll::getBackground(bool &female) {
 
 	// Layer 0 will be the pdoll background
 	switch (owner_->body()) {
+		default: // Default to male
 		case 123:
 		case 124:
 		case 125:
@@ -163,8 +164,6 @@ ushort cPaperdoll::getBackground(bool &female) {
 			background = 0xD;
 			female = true;
 			break;
-		default:
-			background = 0;
 	}
 
 	return background;

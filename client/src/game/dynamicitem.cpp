@@ -258,3 +258,34 @@ void cDynamicItem::draw(int cellx, int celly, int leftClip, int topClip, int rig
 		GLWidget->disableGrayShader();
 	}
 }
+
+void cDynamicItem::onMouseEnter() {
+	if (canMove() && !highlight) {
+		originalHue_ = hue_;
+		highlight = true;
+		hue_ = 0x36;
+		if (texture) {
+			texture->decref();
+			texture = 0;
+		}
+		if (animation) {
+			animation->decref();
+			animation = 0;
+		}
+	}
+}
+
+void cDynamicItem::onMouseLeave() {
+	if (highlight) {
+		highlight = false;
+		hue_ = originalHue_;
+		if (texture) {
+			texture->decref();
+			texture = 0;
+		}
+		if (animation) {
+			animation->decref();
+			animation = 0;
+		}
+	}
+}

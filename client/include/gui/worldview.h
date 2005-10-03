@@ -11,6 +11,7 @@
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <QString>
+#include <QTimer>
 
 class cTargetRequest;
 class cEntity;
@@ -31,6 +32,11 @@ protected:
 	enCursorType getCursorType();
 	cTextField *inputField;
 	cTargetRequest *currentTarget;
+
+	QTimer pickupTimer;
+	bool itemTracking;
+protected slots:	
+	void pickupItem();
 public:
 	// Run a sysmessage cleanup check
 	void cleanSysMessages();
@@ -67,6 +73,9 @@ public:
 	void showInputLine();
 	void moveTick();
 
+	// Check if the given item is accepted as a drop
+	bool acceptsItemDrop(cDynamicItem *item);
+	void dropItem(cDynamicItem *item);
 public slots:
 	void textFieldEnter(cTextField *ctrl);
 };

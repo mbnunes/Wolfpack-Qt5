@@ -6,6 +6,7 @@
 #include "gui/gui.h"
 #include "game/world.h"
 #include "game/mobile.h"
+#include "game/dynamicitem.h"
 #include "game/targetrequest.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
@@ -103,6 +104,10 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 	movementBlocked = false;
 	
 	wantTabs_ = true; // Want tabs (warmode changes)
+
+	itemTracking = false;
+	pickupTimer.setSingleShot(true);
+	connect(&pickupTimer, SIGNAL(timeout()), SLOT(pickupItem()));
 }
 
 cWorldView::~cWorldView() {
@@ -145,6 +150,9 @@ void cWorldView::onMouseUp(QMouseEvent *e) {
 	if (moving) {
 		moving = false;
 		Cursor->setCursor(getCursorType());
+	} else if (itemTracking) {
+		pickupTimer.stop();
+		itemTracking = false;
 	} else {
 		cWindow::onMouseUp(e);
 	}
@@ -165,6 +173,13 @@ void cWorldView::onMouseDown(QMouseEvent *e) {
 	} else {
 		if (e->button() == Qt::RightButton) {
 			moving = true;
+		} else if (e->button() == Qt::LeftButton) {
+			cDynamicItem *item = dynamic_cast<cDynamicItem*>(World->mouseOver());
+
+			if (item && item->canMove() && Utilities::simpleDistance(item->x(), item->y(), World->x(), World->y()) <= 3) {
+				itemTracking = true;
+				pickupTimer.start(1000);
+			}
 		}
 	}
 }
@@ -173,6 +188,8 @@ void cWorldView::onMouseDown(QMouseEvent *e) {
 void cWorldView::onMouseMotion(int xrel, int yrel, QMouseEvent *e) {
 	if (tracking) {
 		cWindow::onMouseMotion(xrel, yrel, e);
+	} else if (itemTracking) {
+		pickupItem();
 	} else {
 		// pass to world
 		Cursor->setCursor(getCursorType());
@@ -460,5 +477,72 @@ void cWorldView::onKeyDown(QKeyEvent *e) {
 		cWindow::onKeyDown(e);
 	}
 }
+
+bool cWorldView::acceptsItemDrop(cDynamicItem *item) {
+	cEntity *entity = World->mouseOver();
+
+	if (entity && Utilities::simpleDistance(entity->x(), entity->y(), World->x(), World->y()) <= 3) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+void cWorldView::dropItem(cDynamicItem *item) {
+	cEntity *entity = World->mouseOver();
+
+	if (!entity || Utilities::simpleDistance(entity->x(), entity->y(), World->x(), World->y()) > 3) {
+		return;
+	}
+
+	// If the entity is a container or stackable item, drop on it
+	cDynamicItem *dItem = dynamic_cast<cDynamicItem*>(entity);
+	if (dItem && (dItem->tiledata()->isContainer() || dItem->tiledata()->isGeneric())) {
+		UoSocket->send(cDropItemPacket(item->serial(), 0xFFFF, 0xFFFF, 0xFF, dItem->serial()));
+		Gui->dropItem();
+		return;
+	}
+
+	// If the entity is a mobile, same procedure
+	cMobile *mobile = dynamic_cast<cMobile*>(entity);
+	if (mobile) {
+		UoSocket->send(cDropItemPacket(item->serial(), 0xFFFF, 0xFFFF, 0xFF, mobile->serial()));
+		Gui->dropItem();
+		return;
+	}
+
+    // Otherwise just drop it on the ground
+	UoSocket->send(cDropItemPacket(item->serial(), entity->x(), entity->y(), entity->z(), 0xFFFFFFFF));
+	Gui->dropItem();
+}
+
+/*
+	Pickup the item below the mouse location
+*/
+void cWorldView::pickupItem() {	
+	if (Gui->isDragging() || !World->mouseOver()) {
+		return;
+	}
+
+	itemTracking = false;
+	pickupTimer.stop();
+
+	// Pickup the item below the mousedown position
+	cDynamicItem *item = dynamic_cast<cDynamicItem*>(World->mouseOver());
+
+	if (item) {
+		if (item && !item->canMove()) {
+			return;
+		}
+
+		Gui->dragItem(item);
+		item->moveToLimbo();
+		item->decref();
+
+		// send a drag-request to the server
+		UoSocket->send(cGrabItemPacket(item->serial()));
+	}
+}
+
 
 cWorldView *WorldView = 0;

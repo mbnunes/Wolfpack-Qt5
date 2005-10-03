@@ -178,4 +178,16 @@ public:
 	cWearItemPacket(uint item, uchar layer, uint mobile);
 };
 
+// Request the status of the given mobile
+class cRequestStatusPacket : public cOutgoingPacket {
+public:
+	cRequestStatusPacket(uint serial);
+};
+
+// Request the skills of the given mobile
+class cRequestSkillsPacket : public cOutgoingPacket {
+public:
+	cRequestSkillsPacket(uint serial);
+};
+
 #endif

@@ -19,6 +19,8 @@ protected:
 	cTexture *texture;
 	bool drawStacked_;
 	virtual float getAlpha() const;
+	bool highlight;
+	ushort originalHue_;
 
 	// For animated static tiles
 	bool animated;
@@ -55,7 +57,11 @@ public:
 Q_DECLARE_METATYPE(cStaticTile*);
 
 inline unsigned short cStaticTile::hue() const {
-	return hue_;
+	if (highlight) {
+		return originalHue_;
+	} else {
+		return hue_;
+	}
 }
 
 inline unsigned short cStaticTile::id() const {

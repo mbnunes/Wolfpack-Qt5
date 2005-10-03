@@ -35,6 +35,9 @@
 #include <QApplication>
 #include <QFileDialog>
 
+// The icon (within the project directory)
+#include "../icon.xpm"
+
 // Shader Fun!
 #if defined(Q_OS_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
 #define WIN32_LEAN_AND_MEAN 1
@@ -105,61 +108,6 @@ void cGLWidget::getShaderPointers() {
 		shadersAvailable = false;
 	}
 }
-
-/* XPM */
-static const char * const icon_xpm[] = {
-/* columns rows colors chars-per-pixel */
-"32 32 16 1",
-"  c #000000",
-". c #444444",
-"X c #4c4c4c",
-"o c #555555",
-"O c gray50",
-"+ c gray60",
-"@ c #b2b2b2",
-"# c #86b2f8",
-"$ c #95beff",
-"% c #95d2ff",
-"& c #b8cef1",
-"* c #bfd8ff",
-"= c #cbcbcb",
-"- c #d4e5ff",
-"; c white",
-": c None",
-/* pixels */
-"::::::     :::::::::     :::::::",
-"::::: =.--= ::::::: ;--== ::::::",
-":::::: =OX ::::::::: XOO :::::::",
-"::::: .+o ::::::::::: XO- ::::::",
-":::: =oX= ::::::::::: =XX= :::::",
-":::: %$$% ::::::::::: $%$% :::::",
-":::: =XX= ::::::::::: =.X= :::::",
-":::: @;OXO ::::::::: +.+-@ :::::",
-"::::: -=+.O ::::::: +X+-. ::::::",
-":::::: .=O.O  : :  O.+-. :::::::",
-"::::::: ;-=oXO * +XX=-. ::::::::",
-"::::::::  O-XX$=#O..O  :::::::::",
-":::::::::  OX-#X=*XO  ::::::::::",
-":::::::: =OXXX$=%XXX@- :::::::::",
-"::::::: -O.=%$X*X%$#.O- ::::::::",
-":::::: =+.=$   &   $=.+- :::::::",
-":::::: ;X=% ::: ::: $=XO :::::::",
-"::::: -OX% ::::::::: %XO= ::::::",
-"::::: ;X=$ ::::::::: $=X+ ::::::",
-":::: #XX%# ::::::::: #%Xo# :::::",
-"::: %-$$$-# ::::::: #-$$%-% ::::",
-":::: $XX%# ::::::::: #%XX# :::::",
-"::::: =X=% ::::::::: %=X= ::::::",
-"::::: =OX% ::::::::: %XO- ::::::",
-"::::: +OO=# ::: ::: $=.+O ::::::",
-":::::: .O.=$   #   $=.O. :::::::",
-"::::::: .+X=#%#-#%##.+. ::::::::",
-":::::::: .OoX=*$%=..O. :::::::::",
-"::::::::: .=OXX$XXO+. ::::::::::",
-"::::::::::  ;;X$X==  :::::::::::",
-"::::::::::::  $*#  :::::::::::::",
-":::::::::::::: * :::::::::::::::"
-};
 
 cMainWindow::cMainWindow() {
 	setObjectName("MainWindow");
@@ -478,8 +426,34 @@ void cGLWidget::resizeGL( int w, int h ) {
 	Gui->setBounds(0, 0, w, h); // Full size
 }
 
+//static cTexture *iconTexture = 0;
+
 void cGLWidget::paintGL() {
-	// Check for current FPS
+	/*if (!iconTexture) {
+		QImage image = QPixmap(icon_xpm).toImage();
+		cSurface *surface = new cSurface(image.width(), image.height());
+		surface->clear();
+
+		// Copy the pixmap data over
+		for (int x = 0; x < image.width(); ++x) {
+			for (int y = 0; y < image.height(); ++y) {
+				QRgb pixel = image.pixel(x, y);
+				surface->setPixel(x, y, cSurface::color(qRed(pixel), qGreen(pixel), qBlue(pixel), qAlpha(pixel)));
+			}
+		}
+
+		iconTexture = new cTexture(surface, false);
+
+		delete surface;
+	}
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glLoadIdentity();
+
+	iconTexture->draw(100, 100);
+	return;*/
+
+    // Check for current FPS
 	static unsigned int nextMeasurement = 0;
 	static unsigned int framesDrawn = 0;
 

@@ -296,3 +296,11 @@ cDropItemPacket::cDropItemPacket(uint item, ushort x, ushort y, signed char z, u
 cWearItemPacket::cWearItemPacket(uint item, uchar layer, uint mobile) : cOutgoingPacket(0x13, 10) {
 	m_Stream << item << layer << mobile;
 }
+
+cRequestStatusPacket::cRequestStatusPacket(uint serial) : cOutgoingPacket(0x34, 10) {
+	m_Stream << 0xedededed << (uchar)0x04 << serial;
+}
+
+cRequestSkillsPacket::cRequestSkillsPacket(uint serial) : cOutgoingPacket(0x34, 10) {
+	m_Stream << 0xedededed << (uchar)0x05 << serial;
+}

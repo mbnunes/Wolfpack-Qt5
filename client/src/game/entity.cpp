@@ -128,3 +128,9 @@ void cEntity::updatePriority() {
 
 void cEntity::onDoubleClick(QMouseEvent *e) {
 }
+
+void cEntity::onMouseEnter() {
+}
+
+void cEntity::onMouseLeave() {
+}

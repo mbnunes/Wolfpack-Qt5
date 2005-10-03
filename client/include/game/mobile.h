@@ -21,6 +21,14 @@ Q_PROPERTY(uchar currentaction READ currentAction)
 Q_PROPERTY(uchar currentmountaction READ currentMountAction)
 Q_PROPERTY(Notoriety notoriety READ notoriety WRITE setNotoriety)
 Q_PROPERTY(bool warmode READ isInWarmode WRITE setWarmode)
+Q_PROPERTY(ushort health READ health WRITE setHealth)
+Q_PROPERTY(ushort stamina READ stamina WRITE setStamina)
+Q_PROPERTY(ushort mana READ mana WRITE setMana)
+Q_PROPERTY(ushort maxhealth READ maxHealth WRITE setMaxHealth)
+Q_PROPERTY(ushort maxstamina READ maxStamina WRITE setMaxStamina)
+Q_PROPERTY(ushort maxmana READ maxMana WRITE setMaxMana)
+Q_PROPERTY(QString name READ name WRITE setName)
+Q_PROPERTY(bool renameable READ renameable WRITE setRenameable)
 Q_ENUMS(Notoriety)
 public:
 	enum Notoriety {
@@ -44,6 +52,14 @@ protected:
 	bool dead;
 	bool warmode;
 	Notoriety notoriety_;
+	ushort health_;
+	ushort maxHealth_;
+	ushort mana_;
+	ushort maxMana_;
+	ushort stamina_;
+	ushort maxStamina_;
+	QString name_;
+	bool renameable_;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
@@ -119,9 +135,30 @@ public slots:
 	void processFlags(uchar flags);
 
 	uint getCurrentHeight();
+	ushort health() const;
+	ushort maxHealth() const;
+	ushort stamina() const;
+	ushort maxStamina() const;
+	ushort mana() const;
+	ushort maxMana() const;
+	void setStats(ushort health, ushort maxHealth, ushort stamina, ushort maxStamina, ushort mana, ushort maxMana);
+	void setHealth(ushort data);
+	void setStamina(ushort data);
+	void setMana(ushort data);
+	void setMaxHealth(ushort data);
+	void setMaxStamina(ushort data);
+	void setMaxMana(ushort data);
+	ushort healthPercent() const;
+	ushort manaPercent() const;
+	ushort staminaPercent() const;
+	QString name() const;
+	void setName(const QString &name);
+	bool renameable() const;
+	void setRenameable(bool data);
 signals:
 	void equipmentChanged();
 	void bodyChanged();
+	void statsChanged();
 };
 
 Q_DECLARE_METATYPE(cMobile*);
@@ -213,6 +250,110 @@ inline bool cMobile::isInWarmode() const {
 
 inline cMobile::Notoriety cMobile::notoriety() const {
 	return notoriety_;
+}
+
+inline ushort cMobile::health() const {
+	return health_;
+}
+
+inline ushort cMobile::maxHealth() const {
+	return maxHealth_;
+}
+
+inline ushort cMobile::stamina() const {
+	return stamina_;
+}
+
+inline ushort cMobile::maxStamina() const {
+	return maxStamina_;
+}
+
+inline ushort cMobile::mana() const {
+	return mana_;
+}
+
+inline ushort cMobile::maxMana() const {
+	return maxMana_;
+}
+
+inline void cMobile::setHealth(ushort data) {
+	health_ = data;
+	emit statsChanged();
+}
+
+inline void cMobile::setStamina(ushort data) {
+	stamina_ = data;
+	emit statsChanged();
+}
+
+inline void cMobile::setMana(ushort data) {
+	mana_ = data;
+	emit statsChanged();
+}
+
+inline void cMobile::setMaxHealth(ushort data) {
+	maxHealth_ = data;
+	emit statsChanged();
+}
+
+inline void cMobile::setMaxStamina(ushort data) {
+	maxStamina_ = data;
+	emit statsChanged();
+}
+
+inline void cMobile::setMaxMana(ushort data) {
+	maxMana_ = data;
+	emit statsChanged();
+}
+
+inline void cMobile::setStats(ushort health, ushort maxHealth, ushort stamina, ushort maxStamina, ushort mana, ushort maxMana) {
+	health_ = health;
+	stamina_ = stamina;
+	mana_ = mana;
+	maxHealth_ = maxHealth;
+	maxStamina_ = maxStamina;
+	maxMana_ = maxMana;
+	emit statsChanged();
+}
+
+inline ushort cMobile::healthPercent() const {
+	if (maxStamina_) {
+		return qMin<ushort>(100, (health_ / maxHealth_) * 100);
+	} else {
+		return 0;
+	}
+}
+
+inline ushort cMobile::manaPercent() const {
+	if (maxStamina_) {
+		return qMin<ushort>(100, (mana_ / maxMana_) * 100);
+	} else {
+		return 0;
+	}
+}
+
+inline ushort cMobile::staminaPercent() const {
+	if (maxStamina_) {
+		return qMin<ushort>(100, (stamina_ / maxStamina_) * 100);
+	} else {
+		return 0;
+	}
+}
+
+inline QString cMobile::name() const {
+	return name_;
+}
+
+inline void cMobile::setName(const QString &name) {
+	name_ = name;
+}
+
+inline bool cMobile::renameable() const {
+	return renameable_;
+}
+
+inline void cMobile::setRenameable(bool data) {
+	renameable_ = data;
 }
 
 extern cMobile *Player;

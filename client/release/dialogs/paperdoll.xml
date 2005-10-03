@@ -84,7 +84,7 @@
 			<!-- Weapon Ability Button -->
 			<gumpimage name="AbilityButton" gump="11060" movehandle="false">
 				<position x="156" y="198" />
-			</gumpimage>			
+			</gumpimage>
 		</children>
 	</dialog>
 	
@@ -92,9 +92,7 @@
 	<dialog id="SmallPaperdoll" closable="true" movable="true" module="dialogs.Paperdoll">
 		<bounds x="0" y="0" width="262" height="324" />
 		<children>
-			<paperdoll name="Paperdoll">
-				<bounds x="0" y="0" width="262" height="324" />
-			</paperdoll>
+			<paperdoll name="Paperdoll" background="0x7d1" /> 
 						
 			<!-- This is the unicode version of the name label -->
 			<!--<label name="NameLabel" font="0" border="0" hue="1" movehandle="true">

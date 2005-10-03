@@ -23,6 +23,7 @@ cStaticTile::cStaticTile() {
 	animation = 0;
 	drawStacked_ = false;
 	hue_ = 0;
+	highlight = false;
 }
 
 cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
@@ -35,6 +36,7 @@ cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFa
 	animation = 0;
 	drawStacked_ = false;
 	hue_ = 0;
+	highlight = false;
 }
 
 cStaticTile::~cStaticTile() {

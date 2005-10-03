@@ -90,6 +90,8 @@ public:
 	virtual void onClick(QMouseEvent *e);
 	virtual void onDoubleClick(QMouseEvent *e);
 	virtual void onRightClick(QMouseEvent *e);
+	virtual void onMouseEnter();
+	virtual void onMouseLeave();
 
 	// This method should be supplied by the subclass to update the tile priority
 	virtual void updatePriority();

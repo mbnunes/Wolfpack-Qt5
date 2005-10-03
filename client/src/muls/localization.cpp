@@ -36,15 +36,21 @@ void cLocalization::loadLanguage(QString language) {
 		if (version != 2 || subversion != 1) {
 			Log->print(LOG_ERROR, tr("Unable to read cliloc file %1. Unknown version %2.%3.\n").arg(file.fileName()).arg(version).arg(subversion));
 		} else {
+			char *utf8Data = 0;
+			uint utf8Size = 0;
 			// Start slurping in the entries in UTF-8
 			while (!stream.atEnd()) {
 				stream >> clilocid >> unknown >> length; // Read the entry data from the file
-				char *utf8Data = new char[length+1]; // Create a new data array
+				if (length + 1 > utf8Size) {
+					delete [] utf8Data;
+					utf8Data = new char[length+1]; // Create a new data array
+					utf8Size = length+1;
+				}
 				stream.readRawData(utf8Data, length); // Read the utf-8 data from the stream
 				utf8Data[length] = 0; // Ensure null termination
-				entries.insert(clilocid, QString::fromUtf8(utf8Data)); // Convert and insert data into the map
-				delete [] utf8Data; // Free memory
+				entries.insert(clilocid, QString::fromUtf8(utf8Data)); // Convert and insert data into the map				
 			}
+			delete [] utf8Data; // Free memory
 
 			Log->print(LOG_NOTICE, tr("Successfully loaded %1 strings from cliloc.%2.\n").arg(entries.size()).arg(language));
 		}

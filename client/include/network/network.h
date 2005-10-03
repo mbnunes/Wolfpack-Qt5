@@ -30,6 +30,7 @@ public slots:
 	PyObject *createCharacter(PyObject *parameters);
 	void requestHelp();
 	void changeWarmode(bool atwar);
+	void requestStatus(cMobile *mobile);
 signals:
 	void warmodeChanged(bool atwar);
 };

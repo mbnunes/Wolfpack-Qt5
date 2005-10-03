@@ -308,6 +308,10 @@ void cWorld::addEntity(cEntity *entity) {
 }
 
 void cWorld::removeEntity(cEntity *entity) {
+	if (entity == mouseOver_) {
+		mouseOver_ = 0;
+	}
+
 	if (cleaningUp) {
 		return;
 	}
@@ -529,6 +533,15 @@ void cWorld::draw(int x, int y, int width, int height) {
 				}
 			}
 		}
+	}
+
+	// Before changing the mouse over control, notify the ctrl if it looses the mouse focus
+	if (mouseOver_ && mouseOver_ != mouseEntity) {
+		mouseOver_->onMouseLeave();
+	}
+
+	if (mouseEntity && mouseOver_ != mouseEntity) {
+		mouseEntity->onMouseEnter();
 	}
 
 	// Save the mouse over entity

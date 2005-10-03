@@ -49,6 +49,8 @@ public:
 
 	virtual void setId(unsigned short data);
 	void setHue(unsigned short data);
+	void onMouseEnter();
+	void onMouseLeave();
 
 	void cleanPosition(); // Removes the item from its current position and moves it into the limbo
 

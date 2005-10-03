@@ -2,6 +2,7 @@
 #include <Python.h>
 
 #include "scripts.h"
+#include "game/mobile.h"
 #include "network/network.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
@@ -29,6 +30,10 @@ void cNetwork::requestHelp() {
 
 void cNetwork::changeWarmode(bool atwar) {
 	UoSocket->send(cWarmodeChangeRequest(atwar));
+}
+
+void cNetwork::requestStatus(cMobile *mobile) {
+	UoSocket->send(cRequestStatusPacket(mobile->serial()));
 }
 
 cNetwork *Network = 0;

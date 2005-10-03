@@ -61,6 +61,14 @@ cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet face
 		equipmentSequences[i] = 0;		
 		equipment[i] = 0;
 	}
+
+	maxMana_ = 0;
+	maxStamina_ = 0;
+	maxHealth_ = 0;
+	mana_ = 0;
+	health_ = 0;
+	stamina_ = 0;
+	renameable_ = false;
 }
 
 void cMobile::setSerial(unsigned int serial) {

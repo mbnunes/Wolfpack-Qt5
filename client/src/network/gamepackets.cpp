@@ -1367,3 +1367,194 @@ public:
 };
 
 AUTO_REGISTER_PACKET(0x27, cBounceItemPacket::creator);
+
+// Combined statistic information
+class cUpdateMobileStatusPacket : public cIncomingPacket {
+protected:
+	uint serial;
+	ushort health, maxHealth, stamina, maxStamina, mana, maxMana;
+public:
+	cUpdateMobileStatusPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> health >> maxHealth >> stamina >> maxStamina >> mana >> maxMana;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (mobile) {
+			mobile->setHealth(health);
+			mobile->setMaxHealth(maxHealth);
+			mobile->setStamina(stamina);
+			mobile->setMaxStamina(maxStamina);
+			mobile->setMana(mana);
+			mobile->setMaxMana(maxMana);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cUpdateMobileStatusPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x2d, cUpdateMobileStatusPacket::creator);
+
+// Update the health of a mobile
+class cUpdateHealthPacket : public cIncomingPacket {
+protected:
+	uint serial;
+	ushort value, maxValue;
+public:
+	cUpdateHealthPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> value >> maxValue;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (mobile) {
+			mobile->setHealth(value);
+			mobile->setMaxHealth(maxValue);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cUpdateHealthPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xa1, cUpdateHealthPacket::creator);
+
+// Update the stamina of a mobile
+class cUpdateStaminaPacket : public cIncomingPacket {
+protected:
+	uint serial;
+	ushort value, maxValue;
+public:
+	cUpdateStaminaPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> value >> maxValue;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (mobile) {
+			mobile->setStamina(value);
+			mobile->setMaxStamina(maxValue);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cUpdateStaminaPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xa2, cUpdateStaminaPacket::creator);
+
+// Update the mana of a mobile
+class cUpdateManaPacket : public cIncomingPacket {
+protected:
+	uint serial;
+	ushort value, maxValue;
+public:
+	cUpdateManaPacket(QDataStream &input, unsigned short size) : cIncomingPacket(input, size) {
+		input >> serial >> value >> maxValue;
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (mobile) {
+			mobile->setMana(value);
+			mobile->setMaxMana(maxValue);
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cUpdateManaPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0xa3, cUpdateManaPacket::creator);
+
+// Mobile Status
+class cMobileStatusPacket : public cDynamicIncomingPacket {
+protected:
+	unsigned int serial; // Serial of source object
+	QString name;
+	ushort health, maxHealth;
+	bool nameChangeable;
+	bool female;
+	ushort strength, dexterity, intelligence;
+	ushort stamina, maxStamina, mana, maxMana;
+	uint gold;
+	ushort physicalResist;
+	ushort weight;
+	uchar flags;
+    ushort statsCap;
+	uchar pets, maxPets;
+
+	ushort fireResist;
+	ushort coldResist;
+	ushort poisonResist;
+	ushort energyResist;
+	ushort luck;
+	ushort minDamage;
+	ushort maxDamage;
+	uint tithingPoints;
+public:
+	cMobileStatusPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		input >> serial;
+
+		// Read name
+		char strName[31];
+		input.readRawData(strName, 30);
+		strName[30] = 0;
+		name = strName;
+
+		uchar tempByte;
+		input >> health >> maxHealth >> tempByte >> flags;
+
+		// Name changeable?
+		nameChangeable = tempByte != 0;
+
+		// Flags indicate that more data follows
+		if (flags >= 1) {
+			uchar sex;
+			input >> sex >> strength >> dexterity >> intelligence >> stamina >> maxStamina >> mana >> maxMana >> gold >> physicalResist >> weight;
+
+			female = (sex == 1); // Female flag
+		}
+
+		// AOS Status information
+		if (flags >= 3) {
+			input >> statsCap >> pets >> maxPets;
+		}
+		if (flags >= 4) {
+			input >> fireResist >> coldResist >> poisonResist >> energyResist >> luck >> minDamage >> maxDamage >> tithingPoints;
+        }
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (mobile) {
+			mobile->setName(name);
+			mobile->setRenameable(nameChangeable);
+			mobile->setHealth(health);
+			mobile->setMaxHealth(maxHealth);
+
+       		if (flags >= 1) {
+				mobile->setStamina(stamina);
+				mobile->setMana(mana);
+				mobile->setMaxStamina(maxStamina);
+				mobile->setMaxMana(maxMana);
+			}
+		}
+	}
+
+	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
+		return new cMobileStatusPacket(input, size);
+	}
+};
+
+AUTO_REGISTER_PACKET(0x11, cMobileStatusPacket::creator);

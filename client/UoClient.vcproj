@@ -1967,6 +1967,12 @@
 			<File
 				RelativePath=".\release\dialogs\paperdoll.xml">
 			</File>
+			<File
+				RelativePath=".\release\dialogs\Status.py">
+			</File>
+			<File
+				RelativePath=".\release\dialogs\status.xml">
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\icon.ico">

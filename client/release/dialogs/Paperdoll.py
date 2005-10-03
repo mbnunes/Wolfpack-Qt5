@@ -40,6 +40,19 @@ def peaceButtonClicked(button):
 ## War button has been clicked
 def warButtonClicked(button):
 	Network.changeWarmode(False)
+	
+## Status btuton has been clicked
+def statusButtonClicked(button):
+	# TODO: Hide the "small" status window
+	dialog = Gui.findByName("PlayerStatus")
+	
+	if not dialog:
+		# Todo: Select appropiate status dialog
+		dialog = Gui.createDialog("PlayerStatusAos")
+		# Todo: Position at old coordinates
+		Gui.addControl(dialog)
+	
+	Network.requestStatus(Player)
 
 ### Connect the dialog buttons to their handler functions
 def initialize(dialog):
@@ -48,6 +61,7 @@ def initialize(dialog):
 		connect(dialog.findByName("HelpButton"), "onButtonPress(cControl*)", helpButtonClicked)
 		connect(dialog.findByName("WarButton"), "onButtonPress(cControl*)", warButtonClicked)
 		connect(dialog.findByName("PeaceButton"), "onButtonPress(cControl*)", peaceButtonClicked)
+		connect(dialog.findByName("StatusButton"), "onButtonPress(cControl*)", statusButtonClicked)
 		
 		connect(dialog.findByName("AbilityButton"), "onDoubleClick(cControl*)", abilityButtonClicked)
 		connect(dialog.findByName("VirtueButton"), "onDoubleClick(cControl*)", virtueButtonClicked)
