@@ -10,7 +10,7 @@
 
 	<!-- Sheep (sheered) -->
 	<npc id="sheep_sheered" inherit="animal_base">
-		<baseid>sheep</baseid>
+		<baseid>sheep_sheered</baseid>
 		<name>sheep</name>
 		<id>223</id>
 		<ai>Animal_Domestic</ai>

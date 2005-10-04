@@ -73,7 +73,7 @@ def docarve( char, item, target ):
 	elif target.char and target.char.npc:
 		if target.char.baseid == 'sheep_unsheered':
 			target.char.id = 223
-			target.char.baseid = 'sheep'
+			target.char.baseid = 'sheep_sheered'
 			target.char.update()
 
 			# Create Wool
@@ -94,7 +94,7 @@ def docarve( char, item, target ):
 			target.char.dispel(None, 1, "regrow_wool", [])
 			target.char.addtimer(delay, regrow_wool, [], 1, 0, "regrow_wool")
 			return
-		elif target.char.baseid == 'sheep':
+		elif target.char.baseid == 'sheep' or target.char.baseid == 'sheep_sheered':
 			char.socket.clilocmessage( 500449 ) # This sheep is not yet ready to be shorn.
 			return
 		else:
