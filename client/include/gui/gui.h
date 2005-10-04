@@ -74,6 +74,7 @@ public:
 	void unload();
 
 	cControl *createControl(QDomElement templateNode);
+	cControl *createControl(const QString &className);
 
 public slots:
 	void dropItem(); // Clear the currently dragged item

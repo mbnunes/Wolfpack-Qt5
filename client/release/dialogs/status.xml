@@ -1,7 +1,7 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 <dialogs>
 	<!-- Big Paperdoll Dialog -->
-	<dialog id="PlayerStatusAos" name="PlayerStatus" closable="true" movable="true">
+	<dialog class="statuswindow" id="PlayerStatusAos" name="PlayerStatus" closable="true" movable="true">
 		<bounds x="0" y="0" width="427" height="184" />
 	
 		<!-- <tag name="Aos" value="1" />  --> <!-- Flag it as the Aos Status -->
@@ -16,15 +16,15 @@
 			The DOWN button has the ids: 0x985 (normal) 0x986 (hover)
 			The LOCK button has the ids: 0x82c (all)			
 			-->
-			<imagebutton name="StrengthLock" unpressed="0x983" pressed="0x984" hover="0x984">
+			<imagebutton name="StrengthLock" unpressed="0x983" pressed="0x984" hover="0x984" visible="false">
 				<position x="40" y="78" />
 			</imagebutton>
 			
-			<imagebutton name="DexterityLock" unpressed="0x983" pressed="0x984" hover="0x984">
+			<imagebutton name="DexterityLock" unpressed="0x983" pressed="0x984" hover="0x984" visible="false">
 				<position x="40" y="105" />
 			</imagebutton>
 			
-			<imagebutton name="IntelligenceLock" unpressed="0x983" pressed="0x984" hover="0x984">
+			<imagebutton name="IntelligenceLock" unpressed="0x983" pressed="0x984" hover="0x984" visible="false">
 				<position x="40" y="133" />
 			</imagebutton>
 			
@@ -34,91 +34,96 @@
 			-->
 			
 			<!-- Strength, Dexterity, Intelligence Labels -->
-			<asciilabel hue="0x386" font="1" text="100" name="StrengthLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="StrengthLabel">
 				<position x="88" y="77" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="DexterityLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="DexterityLabel">
 				<position x="88" y="105" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="IntelligenceLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="IntelligenceLabel">
 				<position x="88" y="133" />
 			</asciilabel>
 			
 			<!-- Health, Stamina, Mana Labels -->
-			<asciilabel hue="0x386" font="1" text="100" name="HealthLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="HealthLabel" textalign="center">
 				<position x="148" y="70" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="___">
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
 				<position x="148" y="73" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="MaxHealthLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxHealthLabel" textalign="center">
 				<position x="148" y="83" />
 			</asciilabel>			
 
-			<asciilabel hue="0x386" font="1" text="100" name="StaminaLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="StaminaLabel" textalign="center">
 				<position x="148" y="98" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="___">
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
 				<position x="148" y="101" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="MaxStaminaLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxStaminaLabel" textalign="center">
 				<position x="148" y="111" />
 			</asciilabel>
 			
-			<asciilabel hue="0x386" font="1" text="100" name="ManaLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="ManaLabel" textalign="center">
 				<position x="148" y="126" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="___">
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
 				<position x="148" y="129" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="MaxManaLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxManaLabel" textalign="center">
 				<position x="148" y="139" />
 			</asciilabel>			
 
 			<!-- Stats Cap, Luck, Weight -->
-			<asciilabel hue="0x386" font="1" text="255" name="StatsCapLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="StatsCapLabel">
 				<position x="220" y="77" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="LuckLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="LuckLabel">
 				<position x="220" y="105" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="WeightLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="WeightLabel" textalign="center">
 				<position x="220" y="126" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="___">
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
 				<position x="220" y="129" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="MaxWeightLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxWeightLabel" textalign="center">
 				<position x="220" y="139" />
 			</asciilabel>
 			
 			<!-- Min-Maxdamage, Gold, Followers/MaxFollowers -->
-			<asciilabel hue="0x386" font="1" text="100" name="DamageLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="DamageLabel">
 				<position x="280" y="77" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="GoldLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="GoldLabel">
 				<position x="280" y="105" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="100" name="FollowersLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="FollowersLabel">
 				<position x="285" y="133" />
 			</asciilabel>
 			
 			<!-- Resistances -->
-			<asciilabel hue="0x386" font="1" text="70" name="PhysicalResistLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="PhysicalResistLabel">
 				<position x="355" y="74" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="70" name="FireResistLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="FireResistLabel">
 				<position x="355" y="91" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="70" name="ColdResistLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="ColdResistLabel">
 				<position x="355" y="106" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="70" name="PoisonResistLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="PoisonResistLabel">
 				<position x="355" y="121" />
 			</asciilabel>
-			<asciilabel hue="0x386" font="1" text="70" name="EnergyResistLabel">
+			<asciilabel movehandle="true" hue="0x386" font="1" name="EnergyResistLabel">
 				<position x="355" y="136" />
-			</asciilabel>												
+			</asciilabel>											
+			
+			<!-- Player Name -->
+			<asciilabel movehandle="true" hue="0x386" font="1" name="NameLabel" textalign="center" autosize="0">
+				<bounds x="55" y="62" width="353" height="18" />
+			</asciilabel>
 		</children>
 	</dialog>
 </dialogs>

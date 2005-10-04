@@ -210,7 +210,6 @@ SOURCES += \
 	
 # Python includes
 HEADERS += \
-	src/python/utilities.cpp \
 	src/python/clientmodule.cpp \
 	src/python/genericwrapper.cpp \
 	src/python/loginterface.cpp \

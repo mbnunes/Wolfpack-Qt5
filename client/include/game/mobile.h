@@ -11,6 +11,155 @@
 
 class cDynamicItem;
 
+class cExtendedStatus : public QObject {
+Q_OBJECT
+protected:
+	ushort strength_;
+	ushort dexterity_;
+	ushort intelligence_;
+	ushort statsCap_;
+	uint gold_;
+	ushort weight_;
+	ushort luck_;
+	uchar followers_;
+	uchar maxFollowers_;
+	ushort minDamage_;
+	ushort maxDamage_;
+	ushort physicalResist_;
+	ushort fireResist_;
+	ushort coldResist_;
+	ushort poisonResist_;
+	ushort energyResist_;
+	uchar strengthLock_;
+	uchar dexterityLock_;
+	uchar intelligenceLock_;
+public:
+	ushort strength() const {
+		return strength_;
+	}
+	void setStrength(ushort data) {
+		strength_ = data;
+	}
+
+	ushort dexterity() const {
+		return dexterity_;
+	}
+	void setDexterity(ushort data) {
+		dexterity_ = data;
+	}
+
+	ushort intelligence() const {
+		return intelligence_;
+	}
+	void setIntelligence(ushort data) {
+		intelligence_ = data;
+	}
+
+	ushort statsCap() const {
+		return statsCap_;
+	}
+	void setStatsCap(ushort data) {
+		statsCap_ = data;
+	}
+
+	uint gold() const {
+		return gold_;
+	}
+	void setGold(ushort data) {
+		gold_ = data;
+	}
+
+	ushort weight() const {
+		return weight_;
+	}
+	void setWeight(ushort data) {
+		weight_ = data;
+	}
+
+	ushort luck() const {
+		return luck_;
+	}
+	void setLuck(ushort data) {
+		luck_ = data;
+	}
+
+	uchar followers() const {
+		return followers_;
+	}
+	void setFollowers(uchar data) {
+		followers_ = data;
+	}
+	uchar maxFollowers() const {
+		return maxFollowers_;
+	}
+	void setMaxFollowers(uchar data) {
+		maxFollowers_ = data;
+	}
+
+	ushort maxDamage() const {
+		return maxDamage_;
+	}
+	void setMaxDamage(uchar data) {
+		maxDamage_ = data;
+	}
+	ushort minDamage() const {
+		return minDamage_;
+	}
+	void setMinDamage(uchar data) {
+		minDamage_ = data;
+	}
+
+	ushort physicalResist() const {
+		return physicalResist_;
+	}
+	void setPhysicalResist(ushort data) {
+		physicalResist_ = data;
+	}
+	ushort fireResist() const {
+		return fireResist_;
+	}
+	void setFireResist(ushort data) {
+		fireResist_ = data;
+	}
+	ushort coldResist() const {
+		return coldResist_;
+	}
+	void setColdResist(ushort data) {
+		coldResist_ = data;
+	}
+	ushort poisonResist() const {
+		return poisonResist_;
+	}
+	void setPoisonResist(ushort data) {
+		poisonResist_ = data;
+	}
+	ushort energyResist() const {
+		return energyResist_;
+	}
+	void setEnergyResist(ushort data) {
+		energyResist_ = data;
+	}
+
+	uchar strengthLock() const {
+		return strengthLock_;
+	}
+	void setStrengthLock(uchar data) {
+		strengthLock_ = data;
+	}
+	uchar dexterityLock() const {
+		return dexterityLock_;
+	}
+	void setDexterityLock(uchar data) {
+		dexterityLock_ = data;
+	}
+	uchar intelligenceLock() const {
+		return intelligenceLock_;
+	}
+	void setIntelligenceLock(uchar data) {
+		intelligenceLock_ = data;
+	}
+};
+
 class cMobile : public cDynamicEntity {
 Q_OBJECT
 Q_PROPERTY(ushort body READ body WRITE setBody)
@@ -60,6 +209,7 @@ protected:
 	ushort maxStamina_;
 	QString name_;
 	bool renameable_;
+	cExtendedStatus *status_;
 
 	unsigned char currentAction_;
 	unsigned int currentActionEnd_;
@@ -115,6 +265,8 @@ public slots:
 	bool isMoving() const;
 	bool isInWarmode() const;
 	void setWarmode(bool warmode);
+	const cExtendedStatus *status() const;
+	void setStatus(cExtendedStatus *status);
 
 	void onDoubleClick(QMouseEvent *e);
 	void onClick(QMouseEvent *e);
@@ -141,6 +293,7 @@ public slots:
 	ushort maxStamina() const;
 	ushort mana() const;
 	ushort maxMana() const;
+	void setStatLocks(uchar strength, uchar dexterity, uchar intelligence);
 	void setStats(ushort health, ushort maxHealth, ushort stamina, ushort maxStamina, ushort mana, ushort maxMana);
 	void setHealth(ushort data);
 	void setStamina(ushort data);
@@ -159,6 +312,7 @@ signals:
 	void equipmentChanged();
 	void bodyChanged();
 	void statsChanged();
+	void statLocksChanged();
 };
 
 Q_DECLARE_METATYPE(cMobile*);
@@ -354,6 +508,10 @@ inline bool cMobile::renameable() const {
 
 inline void cMobile::setRenameable(bool data) {
 	renameable_ = data;
+}
+
+inline const cExtendedStatus *cMobile::status() const {
+	return status_;
 }
 
 extern cMobile *Player;

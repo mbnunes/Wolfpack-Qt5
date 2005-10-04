@@ -12,6 +12,7 @@
 #include "gui/containergump.h"
 #include "gui/paperdoll.h"
 #include "gui/textfield.h"
+#include "gui/statuswindow.h"
 #include "gui/tooltip.h"
 #include "gui/textbutton.h"
 #include "gui/checkbox.h"
@@ -455,10 +456,25 @@ cWindow *cGui::createDialog(QString templateName) {
 		return 0;
 	}
 
-	// Create the toplevel window and process the XML instructions
-	cWindow *result = new cWindow();
-	
 	QDomElement topElement = it.value();
+
+	// Create the toplevel window and process the XML instructions
+	cWindow *result = 0;
+
+	// Look specifically for a class attribute
+	if (topElement.hasAttribute("class")) {
+		cControl *control = createControl(topElement.attribute("class"));
+		result = dynamic_cast<cWindow*>(control);
+	
+		// Invalid class.
+		if (!result) {
+			delete control;
+			Log->print(LOG_ERROR, tr("Trying to create a dialog with an invalid class: %1.\n").arg(topElement.attribute("class")));
+			return 0;
+		}
+	} else {	
+		result = new cWindow();
+	}
 
 	// Process tag attributes
     QDomNamedNodeMap attributes = topElement.attributes();
@@ -494,46 +510,7 @@ cWindow *cGui::createDialog(QString templateName) {
 
 cControl *cGui::createControl(QDomElement templateNode) {
 	QString className = templateNode.nodeName();
-	cControl *result = 0;
-
-	// Process different types of gumps
-	if (className == "tiledgump") {
-		result = new cTiledGumpImage;
-	} else if (className == "gumpimage") {
-		result = new cGumpImage;
-	} else if (className == "imagebutton") {
-		result = new cImageButton;
-	} else if (className == "container") {
-		result = new cContainer;
-	} else if (className == "bordergump") {
-		result = new cBorderGump;
-	} else if (className == "asciilabel") {
-		result = new cAsciiLabel(QString());
-	} else if (className == "textfield") {
-		result = new cTextField;
-	} else if (className == "label") {
-		result = new cLabel;
-	} else if (className == "checkertrans") {
-		result = new cCheckerTrans;
-	} else if (className == "textbutton") {
-		result = new cTextButton;
-	} else if (className == "stripeimage") {
-		result = new cStripeImage;
-	} else if (className == "combobox") {
-		result = new cCombobox;
-	} else if (className == "horizontalscrollbar") {
-		result = new cHorizontalScrollbar(0, 0, 0);
-	} else if (className == "verticalscrollbar") {
-		result = new cVerticalScrollbar(0, 0, 0);
-	} else if (className == "checkbox") {
-		result = new cCheckbox();
-	} else if (className == "radiobutton") {
-		result = new cRadioButton();
-	} else if (className == "colorpicker") {
-		result = new cColorPicker();
-	} else if (className == "paperdoll") {
-		result = new cPaperdoll;
-	}
+	cControl *result = createControl(className);
 
 	if (result) {
 		// Process tag attributes
@@ -649,3 +626,49 @@ QPoint cGui::mapDropPoint(const QPoint &pos) {
 	}
 }
 
+cControl *cGui::createControl(const QString &className) {
+	cControl *result = 0;
+
+	// Process different types of gumps
+	if (className == "tiledgump") {
+		result = new cTiledGumpImage;
+	} else if (className == "gumpimage") {
+		result = new cGumpImage;
+	} else if (className == "imagebutton") {
+		result = new cImageButton;
+	} else if (className == "container") {
+		result = new cContainer;
+	} else if (className == "bordergump") {
+		result = new cBorderGump;
+	} else if (className == "asciilabel") {
+		result = new cAsciiLabel(QString());
+	} else if (className == "textfield") {
+		result = new cTextField;
+	} else if (className == "label") {
+		result = new cLabel;
+	} else if (className == "checkertrans") {
+		result = new cCheckerTrans;
+	} else if (className == "textbutton") {
+		result = new cTextButton;
+	} else if (className == "stripeimage") {
+		result = new cStripeImage;
+	} else if (className == "combobox") {
+		result = new cCombobox;
+	} else if (className == "horizontalscrollbar") {
+		result = new cHorizontalScrollbar(0, 0, 0);
+	} else if (className == "verticalscrollbar") {
+		result = new cVerticalScrollbar(0, 0, 0);
+	} else if (className == "checkbox") {
+		result = new cCheckbox();
+	} else if (className == "radiobutton") {
+		result = new cRadioButton();
+	} else if (className == "colorpicker") {
+		result = new cColorPicker();
+	} else if (className == "paperdoll") {
+		result = new cPaperdoll;
+	} else if (className == "statuswindow") {
+		result = new cStatusWindow;
+	}
+
+	return result;
+}

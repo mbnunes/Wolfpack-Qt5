@@ -44,19 +44,7 @@ def warButtonClicked(button):
 	
 ## Status btuton has been clicked
 def statusButtonClicked(button):
-	# TODO: Hide the "small" status window
-	dialog = Gui.findByName("PlayerStatus")
-	
-	if not dialog:
-		# Todo: Select appropiate status dialog
-		dialog = Gui.createDialog("PlayerStatusAos")
-		
-		Status.initialize(dialog, Player) # Initialize the status dialog with the given mobile
-		
-		# Todo: Position at old coordinates
-		Gui.addControl(dialog)
-	
-	Network.requestStatus(Player)
+	Network.showLargeStatus()
 
 ### Connect the dialog buttons to their handler functions
 def initialize(dialog):

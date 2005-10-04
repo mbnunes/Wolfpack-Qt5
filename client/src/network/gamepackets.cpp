@@ -1551,6 +1551,31 @@ public:
 			}
 
 			mobile->setStats(health, maxHealth, stamina, maxStamina, mana, maxMana);
+
+			if (flags >= 1) {
+				cExtendedStatus *status = new cExtendedStatus;
+				status->setStrength(strength);
+				status->setDexterity(dexterity);
+				status->setIntelligence(intelligence);
+				status->setGold(gold);
+				status->setWeight(weight);
+
+				if (flags >= 4) {
+					status->setStatsCap(statsCap);
+					status->setLuck(luck);
+					status->setMaxFollowers(maxPets);
+					status->setFollowers(pets);
+					status->setMinDamage(minDamage);
+					status->setMaxDamage(maxDamage);
+					status->setPhysicalResist(physicalResist);
+					status->setFireResist(fireResist);
+					status->setColdResist(coldResist);
+					status->setEnergyResist(energyResist);
+					status->setPoisonResist(poisonResist);
+				}
+
+				mobile->setStatus(status);
+			}
 		}
 	}
 

@@ -114,6 +114,28 @@ public:
 	}
 };
 
+// Set the Statlocks
+class cStatLocksPacket : public cDynamicIncomingPacket {
+protected:
+	uchar unknown1;
+	uint serial;
+	uchar unknown2;
+	uchar locks;
+public:
+	cStatLocksPacket(QDataStream &input, unsigned short size) : cDynamicIncomingPacket(input, size) {
+		ushort packetId;
+		input >> packetId >> unknown1 >> serial >> unknown2 >> locks;		
+	}
+
+	virtual void handle(cUoSocket *socket) {
+		cMobile *mobile = World->findMobile(serial);
+
+		if (mobile) {
+			mobile->setStatLocks((locks >> 4) & 3, (locks >> 2) & 3,locks & 3);
+		}
+	}
+};
+
 class cMultiPurposePacket {
 public:
 	static cIncomingPacket *creator(QDataStream &input, unsigned short size) {
@@ -134,6 +156,8 @@ public:
 				return new cSwitchFacetPacket(input, size);
 			case 0x14:
 				return new cShowContextMenuPacket(input, size);
+			case 0x19:
+				return new cStatLocksPacket(input, size);
 			default:
 				return 0;
 		};

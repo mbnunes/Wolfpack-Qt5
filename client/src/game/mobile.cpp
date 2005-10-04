@@ -69,6 +69,7 @@ cMobile::cMobile(unsigned short x, unsigned short y, signed char z, enFacet face
 	health_ = 0;
 	stamina_ = 0;
 	renameable_ = false;
+	status_ = 0;
 }
 
 void cMobile::setSerial(unsigned int serial) {
@@ -93,6 +94,7 @@ cMobile::~cMobile() {
 	}
 
 	clearEquipment();
+	delete status_;
 }
 
 void cMobile::removeEquipment(cDynamicItem *item) {
@@ -758,6 +760,25 @@ void cMobile::clearEquipment() {
 	}
 
 	emit equipmentChanged();
+}
+
+void cMobile::setStatus(cExtendedStatus *status) {
+	if (status_ && status_ != status) {
+		delete status_;
+	}
+
+	status_ = status;
+	emit statsChanged();
+}
+
+void cMobile::setStatLocks(uchar strength, uchar dexterity, uchar intelligence) {
+	if (!status_) {
+		status_ = new cExtendedStatus();
+	}
+	status_->setStrengthLock(strength);
+	status_->setDexterityLock(dexterity);
+	status_->setIntelligenceLock(intelligence);
+	emit statLocksChanged();
 }
 
 cMobile *Player = 0;

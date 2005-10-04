@@ -31,6 +31,7 @@ public slots:
 	void requestHelp();
 	void changeWarmode(bool atwar);
 	void requestStatus(cMobile *mobile);
+	void showLargeStatus();
 signals:
 	void warmodeChanged(bool atwar);
 };

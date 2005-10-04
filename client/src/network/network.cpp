@@ -1,12 +1,15 @@
 
 #include <Python.h>
 
+#include "log.h"
 #include "scripts.h"
 #include "game/mobile.h"
 #include "network/network.h"
 #include "network/outgoingpackets.h"
 #include "network/uosocket.h"
 #include "python/utilities.h"
+#include "gui/gui.h"
+#include "gui/statuswindow.h"
 
 PyObject *cNetwork::createCharacter(PyObject *args) {
 	cCharacterCreationInfo info;
@@ -34,6 +37,30 @@ void cNetwork::changeWarmode(bool atwar) {
 
 void cNetwork::requestStatus(cMobile *mobile) {
 	UoSocket->send(cRequestStatusPacket(mobile->serial()));
+}
+
+void cNetwork::showLargeStatus() {
+	// This is called "PlayerStatus"
+	cStatusWindow *dialog = dynamic_cast<cStatusWindow*>(Gui->findByName("PlayerStatus"));
+
+	if (!dialog) {
+		if (UoSocket->isAos()) {
+			dialog = dynamic_cast<cStatusWindow*>(Gui->createDialog("PlayerStatusAos"));
+
+			if (!dialog) {
+				Log->print(LOG_ERROR, tr("Unable to create status window from PlayerStatusAos template.\n"));
+				return;
+			}
+		} else {
+			// TODO: Create old status dialog
+			return;
+		}
+		dialog->setObjectName("PlayerStatus");
+		Gui->addControl(dialog);
+	}
+
+	dialog->setMobile(Player);	
+	requestStatus(Player);
 }
 
 cNetwork *Network = 0;
