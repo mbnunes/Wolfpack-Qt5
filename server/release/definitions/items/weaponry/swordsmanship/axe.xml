@@ -15,8 +15,8 @@
 		<twohanded />
 		<decay />
 		<nodye />
-		<sellprice>120</sellprice>
-		<buyprice>40</buyprice>
+		<sellprice>24</sellprice>
+		<buyprice>48</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
 		<basescripts>equipment,blades</basescripts>
